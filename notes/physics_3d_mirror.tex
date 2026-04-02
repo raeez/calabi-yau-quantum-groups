@@ -1,0 +1,564 @@
+% physics_3d_mirror.tex
+% Physics note: 3d mirror symmetry, CY_2 quantum vertex chiral groups, and Coulomb branches
+% Standalone note (not compiled as part of main.tex)
+
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\frenchspacing
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{hyperref}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{warning}[theorem]{Warning}
+
+% Macros (matching main monograph)
+\newcommand{\CY}{\mathrm{CY}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Mod}{\mathrm{Mod}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\Perf}{\mathrm{Perf}}
+\newcommand{\Fuk}{\mathrm{Fuk}}
+\newcommand{\Bun}{\mathrm{Bun}}
+\newcommand{\Higgs}{\mathrm{Higgs}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\Eone}{E_1}
+\newcommand{\Etwo}{E_2}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\frakg}{\mathfrak{g}}
+\newcommand{\frakn}{\mathfrak{n}}
+\renewcommand{\hbar}{\hslash}
+\newcommand{\CoHA}{\mathrm{CoHA}}
+
+\title{3d Mirror Symmetry, $\CY_2$ Quantum Vertex Chiral Groups,\\
+and Coulomb Branches}
+\author{Raeez Lorgat}
+\date{April 2026 \\ {\small\itshape Working note for Volume III}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We develop the relationship between 3d $\cN=4$ mirror symmetry and the quantum vertex chiral groups of Calabi--Yau twofold targets.  A 3d $\cN=4$ gauge theory $T$ has two branches of vacua---the Higgs branch $M_H(T)$ and the Coulomb branch $M_C(T)$---both of which are hyperk\"ahler, hence $\CY_2$.  Mirror symmetry exchanges them: $M_H(T) \cong M_C(T^!)$.  Both branches therefore carry quantum vertex chiral group structures, and 3d mirror symmetry should exchange these: $G(M_H(T)) \cong G(M_C(T^!))$.  We trace this through the BFN (Braverman--Finkelberg--Nakajima) construction of Coulomb branches, the identification of the CoHA of the Higgs branch with a Yangian half, and the emergence of Hitchin moduli from the Higgs branch of pure gauge theory on a curve.
+\end{abstract}
+
+\tableofcontents
+
+%% =====================================================================
+\section{3d $\cN=4$ theories: Higgs and Coulomb branches}
+\label{sec:3d-n4}
+%% =====================================================================
+
+\subsection{The two branches of vacua}
+
+A 3d $\cN=4$ gauge theory $T$ is specified by a compact gauge group $G$ and a quaternionic representation $R$ (the matter content).  The space of vacua (the moduli space of supersymmetric ground states) splits into two branches:
+
+\begin{enumerate}[label=(\roman*)]
+  \item The \emph{Higgs branch} $M_H(T)$, parametrized by the vacuum expectation values of hypermultiplet scalars.  Classically,
+  \[
+    M_H(T) = T^*R \mathbin{/\!\!/\!\!/} G = \mu_{\mathbb{R}}^{-1}(0) \cap \mu_{\mathbb{C}}^{-1}(0) / G,
+  \]
+  the hyperk\"ahler quotient, where $\mu_{\mathbb{R}}, \mu_{\mathbb{C}}$ are the real and complex moment maps for $G$ acting on $T^*R$.
+
+  \item The \emph{Coulomb branch} $M_C(T)$, parametrized by the vacuum expectation values of vector multiplet scalars and dual photons.  Classically, for abelian $G = U(1)^r$, $M_C \cong (\mathbb{R}^3 \times S^1)^r$, but quantum corrections drastically modify the geometry for non-abelian $G$.
+\end{enumerate}
+
+\begin{theorem}[Hyperk\"ahler property]
+\label{thm:hk-branches}
+Both $M_H(T)$ and $M_C(T)$ carry hyperk\"ahler metrics.  In particular:
+\begin{enumerate}[label=(\alph*)]
+  \item $M_H(T)$ is hyperk\"ahler by the hyperk\"ahler quotient construction (Hitchin--Karlhede--Lindstr\"om--Ro\v{c}ek).
+  \item $M_C(T)$ is hyperk\"ahler by the analysis of the low-energy effective action on the Coulomb branch (Seiberg--Witten for 3d).
+\end{enumerate}
+A hyperk\"ahler manifold of complex dimension $2n$ (real dimension $4n$) is Ricci-flat K\"ahler with holonomy $\subseteq \mathrm{Sp}(n)$.  In particular it is Calabi--Yau.  When $\dim_{\mathbb{C}} = 2$ (i.e.\ $n = 1$, real dimension 4), the holonomy condition is $\mathrm{Sp}(1) \cong \mathrm{SU}(2)$, so the manifold is $\CY_2$ (a K3 surface or a deformation thereof, in the compact case; or a hyperk\"ahler resolution of a singularity, in the typical gauge-theory case).
+\end{theorem}
+
+\begin{remark}[The $\CY_2$ condition]
+\label{rem:cy2}
+In the conventions of this monograph, ``$\CY_d$'' means the category $\cC$ (e.g., $D^b(\Coh(X))$ or $\Fuk(X)$) has a Serre functor $S \cong [d]$, i.e., the non-degenerate trace $\Tr \colon \HH_d(\cC) \to k$ lives in degree $d$.  For a hyperk\"ahler surface $X$ of complex dimension 2, both $D^b(\Coh(X))$ and $\Fuk(X)$ are $\CY_2$ categories.  This is precisely the dimension needed for the $\mathbb{S}^2$-framing of Hochschild homology to provide an $\Etwo$-algebra structure (Chapter~\ref*{ch:cy-to-chiral} of the main text).
+\end{remark}
+
+\subsection{3d mirror symmetry}
+
+\begin{definition}[3d mirror symmetry]
+\label{def:3d-mirror}
+Two 3d $\cN=4$ theories $T$ and $T^!$ are \emph{3d mirrors} if there is an equivalence of their moduli of vacua that exchanges the two branches:
+\[
+  M_H(T) \cong M_C(T^!), \qquad M_C(T) \cong M_H(T^!).
+\]
+This equivalence is an isomorphism of hyperk\"ahler manifolds (up to a specific rotation of the hyperk\"ahler structure, swapping complex structures $I$ and $J$).
+\end{definition}
+
+This duality was discovered by Intriligator--Seiberg (1996) and further developed by Hanany--Witten via brane constructions.  The prototypical example:
+
+\begin{example}[ADHM mirror]
+\label{ex:adhm}
+Let $T$ be 3d $\cN=4$ $U(k)$ gauge theory with $N$ fundamental hypermultiplets.  Then:
+\[
+  M_H(T) = T^*\mathrm{Gr}(k, N)
+\]
+is the cotangent bundle of the Grassmannian (a Nakajima quiver variety of type $A_1$ with framing $N$), and the mirror $T^!$ has $M_C(T^!) = T^*\mathrm{Gr}(k, N)$ as its Coulomb branch.  For $k=1$: $M_H = T^*\mathbb{CP}^{N-1}$ and $M_C = \mathbb{C}^2/\mathbb{Z}_N$ (the $A_{N-1}$ singularity), exchanged under mirror symmetry.
+\end{example}
+
+\begin{example}[Self-mirror: $T^*\mathbb{CP}^1$]
+\label{ex:self-mirror}
+The $A_1$ singularity $\mathbb{C}^2/\mathbb{Z}_2$ and its resolution $T^*\mathbb{CP}^1$ are exchanged under mirror symmetry with the FI/mass parameter exchange.  In the language of Nakajima quiver varieties, this is the self-mirror property of the Jordan quiver with framing 2.
+\end{example}
+
+%% =====================================================================
+\section{The Higgs branch: hyperk\"ahler quotients and quiver varieties}
+\label{sec:higgs-branch}
+%% =====================================================================
+
+\subsection{Classical description}
+
+For a 3d $\cN=4$ theory with gauge group $G$ and matter representation $R$ (viewed as a complex representation of $G_{\mathbb{C}}$), the Higgs branch is the hyperk\"ahler quotient:
+\[
+  M_H = T^*R \mathbin{/\!\!/\!\!/} G.
+\]
+In complex-algebraic terms (in complex structure $I$), this is the GIT quotient
+\[
+  M_H = \mu_{\mathbb{C}}^{-1}(0) /\!/ G_{\mathbb{C}} = \Spec\left(\mathbb{C}[\mu_{\mathbb{C}}^{-1}(0)]^{G_{\mathbb{C}}}\right),
+\]
+where $\mu_{\mathbb{C}} \colon T^*R \to \frakg^*$ is the complex moment map.
+
+\begin{remark}[Non-renormalization]
+\label{rem:non-renorm}
+A fundamental result of 3d $\cN=4$ physics: the Higgs branch receives \emph{no quantum corrections}.  The classical hyperk\"ahler quotient description is exact.  This is in sharp contrast to the Coulomb branch, which is heavily quantum-corrected.
+\end{remark}
+
+\subsection{Quiver gauge theories and Nakajima quiver varieties}
+
+The most important class of 3d $\cN=4$ theories are \emph{quiver gauge theories}, specified by a quiver $Q = (Q_0, Q_1)$ with:
+\begin{itemize}
+  \item A dimension vector $\mathbf{v} = (v_i)_{i \in Q_0}$: the gauge group is $G = \prod_{i \in Q_0} U(v_i)$.
+  \item A framing vector $\mathbf{w} = (w_i)_{i \in Q_0}$: the matter content includes $w_i$ fundamental hypermultiplets at node $i$.
+\end{itemize}
+
+The Higgs branch is then the \emph{Nakajima quiver variety}:
+\[
+  M_H = \mathfrak{M}(\mathbf{v}, \mathbf{w}) = \left\{(B, i, j) \;\middle|\; \mu_{\mathbb{C}}(B,i,j) = 0, \text{ stability}\right\} / G_{\mathbb{C}},
+\]
+where $B = (B_a)_{a \in Q_1}$ are the maps along arrows, $i = (i_k)$ and $j = (j_k)$ are the framing maps, and $\mu_{\mathbb{C}} = \sum_{a \in Q_1} [B_a, B_{a^*}] + ij$ is the complex moment map.
+
+\begin{theorem}[Nakajima]
+\label{thm:nakajima}
+The quiver variety $\mathfrak{M}(\mathbf{v}, \mathbf{w})$ is a smooth (for generic stability) hyperk\"ahler manifold of complex dimension $2\sum_i v_i w_i - 2\sum_i v_i^2 + 2\sum_{a \in Q_1} v_{s(a)} v_{t(a)}$.  It carries a natural action of the ``flavor symmetry'' group $\prod_i GL(w_i)$.
+\end{theorem}
+
+%% =====================================================================
+\section{The Coulomb branch: BFN construction}
+\label{sec:coulomb-bfn}
+%% =====================================================================
+
+\subsection{The problem of defining Coulomb branches}
+
+Unlike the Higgs branch, the Coulomb branch has no simple classical description for non-abelian $G$: quantum corrections (monopole operators, instanton effects) are essential.  For two decades after the discovery of 3d mirror symmetry, the Coulomb branch was defined only by indirect means (e.g., as the Higgs branch of the mirror).
+
+\subsection{The BFN definition}
+
+Braverman, Finkelberg, and Nakajima (2016--2019) gave a rigorous mathematical definition of the Coulomb branch as an algebraic variety, using a convolution algebra construction in the affine Grassmannian.
+
+\begin{definition}[Coulomb branch algebra --- BFN]
+\label{def:bfn}
+Let $G$ be a complex reductive group and $R$ a representation of $G$.  Define:
+\begin{enumerate}[label=(\roman*)]
+  \item The \emph{affine Grassmannian} $\mathrm{Gr}_G = G(\!(t)\!) / G[\![t]\!]$.
+  \item The \emph{space of triples} $\mathcal{R} = \{(g, s) \mid g \in \mathrm{Gr}_G,\; s \in R[\![t]\!],\; g \cdot s \in R[\![t]\!]\}$ (the space of pairs of a lattice in $\mathrm{Gr}_G$ and a section of $R$ compatible with the lattice change).
+  \item The \emph{BFN algebra}
+  \[
+    \mathcal{A}_{G,R} = H^{G(\!(t)\!)}_\bullet(\mathcal{R})
+  \]
+  is the $G[\![t]\!]$-equivariant Borel--Moore homology of $\mathcal{R}$, equipped with a convolution product.
+\end{enumerate}
+The \emph{Coulomb branch} is
+\[
+  M_C(G, R) = \Spec(\mathcal{A}_{G,R}).
+\]
+\end{definition}
+
+\begin{theorem}[BFN]
+\label{thm:bfn}
+The algebra $\mathcal{A}_{G,R}$ is a commutative, finitely generated $\mathbb{C}$-algebra.  The variety $M_C(G, R)$ is a normal, affine, conical symplectic singularity (in the sense of Beauville).  It admits a canonical Poisson structure and, upon quantization (replacing equivariant homology by equivariant $K$-theory), a canonical non-commutative deformation.
+\end{theorem}
+
+\begin{remark}[Quantized Coulomb branch]
+\label{rem:quantized-coulomb}
+The quantization of $\mathcal{A}_{G,R}$ is the \emph{quantized Coulomb branch algebra}
+\[
+  \mathcal{A}_{G,R}^\hbar = K^{G[\![t]\!]}_\bullet(\mathcal{R}),
+\]
+defined via equivariant $K$-theory.  This is a filtered associative algebra whose associated graded is $\mathcal{A}_{G,R}$.  This quantization is the ``Coulomb branch algebra'' that we will connect to quantum vertex chiral groups.
+\end{remark}
+
+\subsection{Key examples}
+
+\begin{example}[Pure gauge theory]
+\label{ex:pure-gauge}
+For $R = 0$ (no matter), $\mathcal{A}_{G,0} = \mathbb{C}[\mathfrak{t}^* \times T^\vee]^W$ where $T \subset G$ is a maximal torus, $T^\vee$ the dual torus, and $W$ the Weyl group.  Thus $M_C(G, 0) = (\mathfrak{t}^* \times T^\vee)/W$, the ``universal centralizer'' moduli.
+\end{example}
+
+\begin{example}[Cotangent type]
+\label{ex:cotangent}
+For $G = GL(n)$ and $R = \mathbb{C}^n$ (the defining representation), $M_C \cong T^*(\mathbb{C}^n / S_n)$, a resolution of the symmetric product.
+\end{example}
+
+\begin{example}[Quiver Coulomb branches]
+\label{ex:quiver-coulomb}
+For a quiver gauge theory of type $A$, the Coulomb branch is a slice in the affine Grassmannian of $GL_N$ --- the \emph{affine Grassmannian slice} $\overline{\mathcal{W}}^\lambda_\mu$.  These are isomorphic to (resolutions of) Nakajima quiver varieties for the \emph{dual} (Langlands dual, in many cases mirror) quiver.  This is the mathematical incarnation of 3d mirror symmetry for type $A$ quivers.
+\end{example}
+
+%% =====================================================================
+\section{$\CY_2$ quantum vertex chiral groups}
+\label{sec:cy2-qvcg}
+%% =====================================================================
+
+\subsection{Quantum vertex chiral groups of hyperk\"ahler targets}
+
+Since both $M_H(T)$ and $M_C(T)$ are $\CY_2$, the functor $\Phi$ of Theorem CY-A (Chapter~\ref*{ch:cy-to-chiral} of the main text) produces $\Etwo$-chiral algebras from their categories:
+\[
+  G(M_H) := \Phi(D^b(\Coh(M_H))), \qquad G(M_C) := \Phi(D^b(\Coh(M_C))).
+\]
+Each of these is a \emph{quantum vertex chiral group}: an $\Etwo$-chiral algebra whose representation category is braided monoidal, equipped with the root datum extracted from the $\CY_2$ geometry.
+
+\begin{itemize}
+  \item The $\mathbb{S}^2$-framing of $\HH_\bullet(D^b(\Coh(M)))$ provides the $\Etwo$-structure (the braiding).
+  \item The CY trace $\Tr \colon \HH_2(\cC) \to k$ determines the modular characteristic $\kappa(G(M))$.
+  \item The root datum $\mathcal{R}(M)$ is extracted from $K_0(M)$ with the Euler form and BPS multiplicities.
+\end{itemize}
+
+\subsection{Mirror symmetry for quantum vertex chiral groups}
+
+The central claim of this note:
+
+\begin{conjecture}[Mirror symmetry for quantum vertex chiral groups]
+\label{conj:mirror-qvcg}
+Let $T$ and $T^!$ be 3d mirrors.  Then the quantum vertex chiral groups of their branches are exchanged:
+\begin{equation}
+\label{eq:mirror-qvcg}
+  G(M_H(T)) \cong G(M_C(T^!)), \qquad G(M_C(T)) \cong G(M_H(T^!)).
+\end{equation}
+More precisely, there is an equivalence of $\Etwo$-chiral algebras
+\[
+  \Phi(D^b(\Coh(M_H(T)))) \simeq \Phi(D^b(\Coh(M_C(T^!))))
+\]
+preserving the braided monoidal structure on representation categories, the modular characteristic, and the root datum.
+\end{conjecture}
+
+\begin{remark}
+The conjecture has a tautological flavor if one simply applies $\Phi$ to both sides of $M_H(T) \cong M_C(T^!)$.  The non-trivial content is:
+\begin{enumerate}[label=(\alph*)]
+  \item The \emph{algebraic structures} arising from the Higgs and Coulomb branch descriptions are very different: the Higgs side gives a CoHA (convolution on moduli of quiver representations), while the Coulomb side gives a BFN algebra (convolution on the affine Grassmannian).  The conjecture asserts these produce equivalent $\Etwo$-chiral algebras.
+  \item The \emph{root data} are a priori different: on the Higgs side, roots come from dimension vectors of quiver representations; on the Coulomb side, from cocharacters of the gauge group.  The isomorphism of root data is itself a deep statement.
+  \item The equivalence should hold \emph{categorically}, not just at the level of varieties: $D^b(\Coh(M_H)) \simeq D^b(\Coh(M_C^!))$ as $\CY_2$ categories.
+\end{enumerate}
+\end{remark}
+
+%% =====================================================================
+\section{The CoHA of the Higgs branch}
+\label{sec:coha-higgs}
+%% =====================================================================
+
+\subsection{Cohomological Hall algebras for quiver varieties}
+
+For a quiver gauge theory with quiver $Q$ and potential $W$ (arising from the $\cN=4$ constraint), the Higgs branch is the Nakajima quiver variety $M_H = \mathfrak{M}(\mathbf{v}, \mathbf{w})$.  The \emph{cohomological Hall algebra} of the Higgs branch is:
+\[
+  \CoHA(M_H) = \bigoplus_{\mathbf{d}} H^{\mathrm{BM}}_*(M_H^{(\mathbf{d})}, \mathbb{Q}),
+\]
+where $M_H^{(\mathbf{d})}$ denotes the moduli of sheaves/representations of dimension vector $\mathbf{d}$ on $M_H$, and the multiplication is the Hall-algebra convolution (Kontsevich--Soibelman, Schiffmann--Vasserot).
+
+\begin{theorem}[CoHA = Yangian positive half]
+\label{thm:coha-yangian}
+For a quiver $Q$ without potential (i.e., the preprojective algebra case relevant to Nakajima quiver varieties):
+\[
+  \CoHA(Q) \cong Y^+(\frakg_Q),
+\]
+where $Y^+(\frakg_Q)$ is the positive half of the Yangian associated to the Kac--Moody algebra $\frakg_Q$ of the quiver.
+\end{theorem}
+
+This is the combined result of Schiffmann--Vasserot (for $\widehat{\mathfrak{gl}}_1$), Maulik--Okounkov (for general quivers via stable envelopes), and Davison (via critical CoHA techniques).
+
+\subsection{$\Eone$-structure of the CoHA}
+
+The CoHA is an \emph{associative} algebra---it is naturally an $\Eone$-algebra.  In the language of Volume III:
+\begin{itemize}
+  \item $\CoHA(M_H) = Y^+(\frakg_Q)$ is the \emph{positive half} of the quantum vertex chiral group $G(M_H)$.
+  \item It carries an $\Eone$-chiral structure: the ordered OPE from the Hall convolution.
+  \item The full quantum vertex chiral group $G(M_H)$ has triangular decomposition
+  \[
+    G(M_H) = \frakn_+ \oplus \mathfrak{h} \oplus \frakn_-
+  \]
+  with $U(\frakn_+) = Y^+(\frakg_Q) = \CoHA(M_H)$.
+  \item The passage from $\Eone$ (associative, the CoHA) to $\Etwo$ (braided, the full quantum vertex chiral group) requires the $R$-matrix: this is the Maulik--Okounkov $R$-matrix, constructed via stable envelopes on Nakajima varieties.
+\end{itemize}
+
+\begin{remark}[$R$-matrix from stable envelopes]
+\label{rem:stable-envelopes}
+The Maulik--Okounkov stable envelope is a map
+\[
+  \mathrm{Stab}_{\mathfrak{C}} \colon H^*_T(M_H^T) \to H^*_T(M_H)
+\]
+depending on a choice of chamber $\mathfrak{C}$.  The wall-crossing between chambers $\mathfrak{C}$ and $\mathfrak{C}'$ produces the $R$-matrix
+\[
+  R_{\mathfrak{C}, \mathfrak{C}'} = \mathrm{Stab}_{\mathfrak{C}'}^{-1} \circ \mathrm{Stab}_{\mathfrak{C}} \in \End(H^*_T(M_H^T)),
+\]
+satisfying the Yang--Baxter equation.  This is the $\Etwo$-structure: the braiding of the quantum vertex chiral group $G(M_H)$.
+\end{remark}
+
+%% =====================================================================
+\section{The Coulomb branch algebra as dual CoHA}
+\label{sec:coulomb-dual-coha}
+%% =====================================================================
+
+\subsection{BFN algebra and the positive half of $G(M_C)$}
+
+The BFN Coulomb branch algebra $\mathcal{A}_{G,R}$ (Definition~\ref{def:bfn}) is a commutative algebra whose spectrum is $M_C$.  Its \emph{quantization} $\mathcal{A}_{G,R}^\hbar$ is an associative (non-commutative) algebra.  We propose:
+
+\begin{conjecture}[BFN = positive half of $G(M_C)$]
+\label{conj:bfn-positive}
+The quantized BFN algebra $\mathcal{A}_{G,R}^\hbar$ is isomorphic to the positive half of the quantum vertex chiral group of the Coulomb branch:
+\[
+  \mathcal{A}_{G,R}^\hbar \cong Y^+(G(M_C)),
+\]
+where $Y^+(G(M_C))$ denotes the ``positive Yangian half'' of the quantum vertex chiral group $G(M_C)$.
+\end{conjecture}
+
+The evidence for this:
+\begin{enumerate}[label=(\roman*)]
+  \item For $G = GL(n)$, $R = N$ fundamentals, $M_C$ is an affine Grassmannian slice and $\mathcal{A}_{G,R}^\hbar$ is a truncated shifted Yangian (Kamnitzer--Webster--Weekes--Yacobi), which is literally a quotient of $Y^+(\frakg)$ for the appropriate $\frakg$.
+  \item The BFN algebra has a convolution product coming from the affine Grassmannian, which is an $\Eone$-structure (associative, from the ``ordering'' of loop groups).
+  \item The full quantum vertex chiral group $G(M_C)$ should be obtained from $\mathcal{A}_{G,R}^\hbar$ by ``doubling'': adding the negative half and the Cartan, analogous to the Drinfeld double construction.
+\end{enumerate}
+
+\subsection{Mirror symmetry as Yangian duality}
+
+Combining Theorem~\ref{thm:coha-yangian} and Conjecture~\ref{conj:bfn-positive}, 3d mirror symmetry at the level of quantum vertex chiral groups becomes:
+
+\begin{equation}
+\label{eq:yangian-duality}
+  Y^+(\frakg_Q) = \CoHA(M_H(T)) \cong \mathcal{A}_{G^!,R^!}^\hbar = Y^+(G(M_C(T^!)))
+\end{equation}
+
+where $(G^!, R^!)$ is the gauge theory data of the mirror $T^!$.  This is a ``Yangian-level mirror symmetry'': the CoHA of quiver representations on one side equals the quantized BFN algebra of the dual gauge theory on the other.
+
+\begin{example}[Type $A$ mirror symmetry]
+\label{ex:type-a-mirror}
+For the $A_n$ quiver with dimension vector $\mathbf{v}$ and framing $\mathbf{w}$:
+\begin{itemize}
+  \item Higgs side: $M_H = \mathfrak{M}(\mathbf{v}, \mathbf{w})$, and $\CoHA(M_H) = Y^+(\widehat{\mathfrak{sl}}_n)$ (or a quotient/truncation depending on $\mathbf{v}, \mathbf{w}$).
+  \item Coulomb side of mirror: $M_C(T^!)$ is an affine Grassmannian slice for $GL_N$ (where $N$ depends on $\mathbf{w}$), and $\mathcal{A}^\hbar_{T^!}$ is a truncated shifted Yangian for $\mathfrak{gl}_N$.
+  \item The isomorphism $Y^+(\widehat{\mathfrak{sl}}_n) \cong$ (truncated shifted Yangian for $\mathfrak{gl}_N$) is a theorem in the mathematics literature (Kamnitzer et al.), and it \emph{is} 3d mirror symmetry at the algebra level.
+\end{itemize}
+\end{example}
+
+%% =====================================================================
+\section{Higgs bundles from the Higgs branch}
+\label{sec:higgs-bundles}
+%% =====================================================================
+
+\subsection{Pure gauge theory on a curve}
+
+Fix a smooth projective curve $C$ and a reductive group $G$.  Consider the 3d $\cN=4$ pure gauge theory (no matter, $R = 0$) ``compactified on $C$,'' or more precisely, consider the dimensional reduction of 4d $\cN=2$ pure gauge theory on $C$.  In this setup:
+
+\begin{theorem}[Higgs branch = Hitchin moduli]
+\label{thm:higgs-hitchin}
+The Higgs branch of the 3d $\cN=4$ theory associated to $G$ on $C$ is the moduli space of Higgs bundles:
+\[
+  M_H = T^*\Bun_G(C) = \Higgs(C, G),
+\]
+the cotangent bundle to the moduli stack of principal $G$-bundles on $C$.  Concretely,
+\[
+  \Higgs(C, G) = \left\{(P, \varphi) \;\middle|\; P \in \Bun_G(C),\; \varphi \in H^0(C, \mathrm{ad}(P) \otimes K_C)\right\},
+\]
+where $\varphi$ is the Higgs field.
+\end{theorem}
+
+\begin{proof}[Sketch]
+The Higgs branch is $T^*R \mathbin{/\!\!/\!\!/} G$ with $R$ the infinite-dimensional space of connections on $C$.  The hyperk\"ahler quotient gives Hitchin's equations, whose complex-structure-$I$ description is exactly the moduli of Higgs bundles.
+\end{proof}
+
+\begin{remark}
+\label{rem:higgs-cy2}
+The Hitchin moduli space $\Higgs(C, G)$ is hyperk\"ahler (Hitchin, 1987) and therefore $\CY_2$ (more precisely, it is a non-compact hyperk\"ahler manifold; its derived category is a $\CY_2$ category).  The Hitchin fibration $h \colon \Higgs(C,G) \to \mathcal{B}$ (the Hitchin base, a vector space of invariant polynomials) is a completely integrable system.
+\end{remark}
+
+\subsection{The quantum vertex chiral group of Higgs bundles}
+
+Since $\Higgs(C, G)$ is $\CY_2$, it carries a quantum vertex chiral group:
+\[
+  G(\Higgs(C,G)) = \Phi(D^b(\Coh(\Higgs(C,G)))).
+\]
+
+\begin{conjecture}[Hitchin quantum vertex chiral group]
+\label{conj:hitchin-qvcg}
+The quantum vertex chiral group $G(\Higgs(C,G))$ satisfies:
+\begin{enumerate}[label=(\roman*)]
+  \item Its positive half $Y^+(G(\Higgs(C,G)))$ is the CoHA of Higgs sheaves on $C$---the cohomological Hall algebra of the moduli of Higgs sheaves on $C$ studied by Minets, Sala--Schiffmann, and Kapranov--Vasserot.
+
+  \item The full quantum vertex chiral group is the ``Higgs Yangian'' or ``Hitchin Yangian'' $Y(\Higgs(C,G))$, an algebra that organizes the BPS spectrum of the Hitchin system.
+
+  \item The modular characteristic $\kappa(G(\Higgs(C,G)))$ is related to the Euler characteristic of $\Higgs(C,G)$, which is computed by the topological field theory of Hausel--Thaddeus and Hausel--Rodriguez-Villegas and (for $G = GL_n$) is intimately related to the $P = W$ conjecture (now theorem, by Maulik--Shen--Yin and Hausel--Mellit--Minets--Schiffmann).
+\end{enumerate}
+\end{conjecture}
+
+\subsection{Mirror symmetry for Hitchin moduli}
+
+By 3d mirror symmetry, the Coulomb branch of the theory $(G, C)$ is related to the Higgs branch of the mirror.  In the Hitchin context, this takes a striking form:
+
+\begin{conjecture}[Hitchin mirror symmetry via quantum vertex chiral groups]
+\label{conj:hitchin-mirror}
+For the 3d $\cN=4$ theory associated to $(G, C)$:
+\begin{enumerate}[label=(\roman*)]
+  \item The Coulomb branch is $M_C = \Higgs(C, G^\vee)$, where $G^\vee$ is the Langlands dual group.
+
+  \item The mirror symmetry $M_H(G, C) \cong M_C(G^\vee, C)$, i.e.,
+  \[
+    \Higgs(C, G) \cong \Higgs(C, G^\vee)
+  \]
+  (as hyperk\"ahler manifolds, with a rotation of the hyperk\"ahler structure), is the geometric content of the Strominger--Yau--Zaslow proposal for Hitchin moduli, proved (at the level of generic Hitchin fibers) by Hausel--Thaddeus.
+
+  \item At the quantum vertex chiral group level:
+  \[
+    G(\Higgs(C, G)) \cong G(\Higgs(C, G^\vee)),
+  \]
+  the ``CoHA of $G$-Higgs sheaves on $C$'' is equivalent to the ``quantized BFN algebra of $G^\vee$ on $C$.''
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[Connection to geometric Langlands]
+\label{rem:geom-langlands}
+This is 3d mirror symmetry as the \emph{physical origin of geometric Langlands}.  The program of Kapustin--Witten (2006) derives the geometric Langlands correspondence from the compactification of 4d $\cN=4$ super Yang--Mills on $C$:
+\begin{itemize}
+  \item The A-model on $\Higgs(C, G)$ (with complex structure $J$) = the B-model on $\Higgs(C, G^\vee)$ (with complex structure $I$).
+  \item The category of A-branes on $\Higgs(C, G)$ = $D$-modules on $\Bun_{G^\vee}(C)$ = geometric Langlands dual.
+  \item In our language: the quantum vertex chiral group $G(\Higgs(C, G))$ in complex structure $J$ is equivalent to $G(\Higgs(C, G^\vee))$ in complex structure $I$.  This is a \emph{chiral-algebraic refinement} of the Kapustin--Witten story.
+\end{itemize}
+This provides the bridge to Chapter~\ref*{ch:geometric-langlands} of the main text: the quantum vertex chiral groups of Hitchin moduli \emph{are} the algebraic structure underlying the geometric Langlands correspondence.
+\end{remark}
+
+%% =====================================================================
+\section{The big picture: a dictionary}
+\label{sec:dictionary}
+%% =====================================================================
+
+We summarize the identifications developed in this note.
+
+\medskip
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}p{3.8cm}p{4.2cm}p{4.5cm}@{}}
+\hline
+\textbf{3d $\cN=4$ physics} & \textbf{$\CY_2$ geometry} & \textbf{Quantum vertex chiral group} \\
+\hline
+Higgs branch $M_H$ & Nakajima quiver variety $\mathfrak{M}(\mathbf{v}, \mathbf{w})$ & Root datum from quiver $Q$ \\
+Coulomb branch $M_C$ & BFN variety $\Spec(\mathcal{A}_{G,R})$ & Root datum from cocharacters of $G$ \\
+3d mirror symmetry $M_H(T) \cong M_C(T^!)$ & Hyperk\"ahler isomorphism & $G(M_H(T)) \cong G(M_C(T^!))$ \\
+CoHA of $M_H$ & Hall convolution on $\mathfrak{M}$ & $Y^+(\frakg_Q)$ = positive half \\
+Quantized BFN algebra $\mathcal{A}^\hbar_{G,R}$ & Affine Grassmannian convolution & Positive half of $G(M_C)$ \\
+Maulik--Okounkov $R$-matrix & Stable envelopes & $\Etwo$-structure (braiding) \\
+Pure gauge on $C$: $M_H = \Higgs(C,G)$ & Hitchin moduli space & $G(\Higgs(C,G))$ \\
+$M_H(G) \cong M_C(G^\vee)$ & SYZ for Hitchin fibers & $G(\Higgs(C,G)) \cong G(\Higgs(C,G^\vee))$ \\
+Kapustin--Witten & A-model/B-model exchange & Geometric Langlands via $\Etwo$-chiral \\
+\hline
+\end{tabular}
+\end{center}
+
+\medskip
+
+%% =====================================================================
+\section{Structural analysis and open problems}
+\label{sec:open}
+%% =====================================================================
+
+\subsection{The $\CY_2$ vs $\CY_3$ distinction}
+
+The toric $\CY_3$ story of Chapter~\ref*{ch:toric-coha} in the main text and the $\CY_2$ story of this note are complementary but structurally different:
+
+\begin{itemize}
+  \item \textbf{$\CY_3$}: The target $X$ is a Calabi--Yau threefold.  The CoHA arises from curve-counting (DT invariants) on $X$ itself.  The quantum vertex chiral group $G(X)$ has $\Etwo$-structure from the $\mathbb{S}^3$-framing (which gives $E_3$, descending to $\Etwo$ via Dunn).  The root multiplicities come from BPS invariants of $X$.
+
+  \item \textbf{$\CY_2$ from 3d $\cN=4$}: The target $M$ is a hyperk\"ahler surface (the branch of a 3d gauge theory).  The CoHA arises from sheaf counting on $M$ or equivalently from quiver representation theory.  The quantum vertex chiral group $G(M)$ has $\Etwo$-structure from the $\mathbb{S}^2$-framing of $\HH_\bullet(D^b(\Coh(M)))$.  The root multiplicities come from dimensions of quiver representation moduli.
+\end{itemize}
+
+The $\CY_2$ case is in some sense ``simpler'' (lower dimension, explicit hyperk\"ahler metric available in many cases) but the mirror symmetry structure is richer because one has \emph{two} branches to compare.
+
+\subsection{Quantization levels}
+
+There are several layers of quantization to track:
+
+\begin{enumerate}[label=(\arabic*)]
+  \item \textbf{Classical}: $M_H$ and $M_C$ as Poisson varieties.  Mirror symmetry is a Poisson isomorphism.
+  \item \textbf{Deformation quantization}: the quantized Coulomb branch algebra $\mathcal{A}^\hbar_{G,R}$ and the enveloping algebra of the CoHA.  Mirror symmetry is an algebra isomorphism.
+  \item \textbf{Categorical}: $D^b(\Coh(M_H)) \simeq D^b(\Coh(M_C^!))$ as $\CY_2$ categories.  Mirror symmetry is a CY equivalence.
+  \item \textbf{Chiral}: $G(M_H(T)) \cong G(M_C(T^!))$ as $\Etwo$-chiral algebras.  Mirror symmetry is an equivalence of quantum vertex chiral groups.
+\end{enumerate}
+
+Each level refines the previous, and the chiral level (4) is the most refined statement, incorporating all the modular/genus data from the shadow tower.
+
+\subsection{Open problems}
+
+\begin{enumerate}[label=\textbf{P\arabic*.}]
+  \item \textbf{Rigorous CoHA = BFN.}  Prove that for a 3d mirror pair $(T, T^!)$, the CoHA of the Higgs branch of $T$ is isomorphic (as an $\Eone$-algebra) to the quantized BFN algebra of $T^!$.  This is known for type $A$ quivers (Kamnitzer--Webster--Weekes--Yacobi); the general case is open.
+
+  \item \textbf{$R$-matrix matching.}  Show that the Maulik--Okounkov $R$-matrix on the Higgs side matches the $R$-matrix arising from the quantized BFN algebra on the Coulomb side.  This would establish the $\Etwo$-equivalence, not just the $\Eone$-equivalence.
+
+  \item \textbf{Modular characteristic under mirror symmetry.}  Compute $\kappa(G(M_H))$ and $\kappa(G(M_C^!))$ independently and verify they agree.  The Higgs-branch modular characteristic should be computable from the Hausel--Rodriguez-Villegas formula for the mixed Hodge polynomial of quiver varieties.
+
+  \item \textbf{Hitchin CoHA.}  Give a complete construction of the CoHA of Higgs sheaves on a curve $C$ (for general $G$, not just $GL_n$) and identify it with the positive half of a quantum vertex chiral group.  The work of Sala--Schiffmann and Minets handles the $GL_n$ case; the general case requires new ideas.
+
+  \item \textbf{Shadow tower from BFN.}  Construct the full shadow tower $\Theta^{\leq r}$ (in the sense of Volume~I) directly from the BFN data.  The arity-2 component $\kappa$ should be the ``BFN Weyl vector,'' and higher arities should encode quantum corrections to the Coulomb branch metric.
+
+  \item \textbf{Wall-crossing.}  Interpret the Kontsevich--Soibelman wall-crossing formula for DT invariants of $\CY_2$ categories as a gauge transformation of the MC element $\Theta_{G(M)}$.  For the Hitchin system, this should recover the wall-crossing of spectral networks (Gaiotto--Moore--Neitzke).
+
+  \item \textbf{Symplectic duality.}  The mathematical formalization of 3d mirror symmetry is Braden--Licata--Proudfoot--Webster's ``symplectic duality.''  Formulate the quantum vertex chiral group construction in their framework and verify Conjecture~\ref{conj:mirror-qvcg} as a consequence of symplectic duality.
+\end{enumerate}
+
+%% =====================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+%% =====================================================================
+
+The message of this note is that 3d $\cN=4$ mirror symmetry, when viewed through the lens of $\CY_2$ quantum vertex chiral groups, provides:
+
+\begin{enumerate}[label=(\roman*)]
+  \item A \emph{physical origin} for the quantum vertex chiral groups $G(M)$ of hyperk\"ahler targets: they arise as the algebraic structure organizing the BPS spectrum of 3d $\cN=4$ theories.
+
+  \item A \emph{duality} on quantum vertex chiral groups: 3d mirror symmetry exchanges $G(M_H(T))$ and $G(M_C(T^!))$, providing a non-trivial isomorphism between CoHA-type and BFN-type constructions.
+
+  \item A \emph{direct connection to geometric Langlands}: the quantum vertex chiral group of the Hitchin moduli space $\Higgs(C, G)$ is the chiral-algebraic structure underlying the Kapustin--Witten approach to geometric Langlands, and Langlands duality $G \leftrightarrow G^\vee$ is 3d mirror symmetry for this class of theories.
+
+  \item A \emph{bridge between $\CY_2$ and $\CY_3$}: the Higgs and Coulomb branches are $\CY_2$, but the 3d theory itself can arise from compactification of a theory on a $\CY_3$ (or from engineering on a $\CY_3$ singularity).  The quantum vertex chiral group construction provides a uniform framework encompassing both dimensions.
+\end{enumerate}
+
+This note should be viewed as a roadmap for incorporating the Coulomb branch and Hitchin moduli material into the main text of Volume~III, particularly in Chapters~\ref*{ch:braided-factorization} and~\ref*{ch:geometric-langlands}.
+
+\end{document}

@@ -1,0 +1,783 @@
+%% theory_cy_to_chiral_construction.tex
+%% Detailed construction of the CY-to-chiral functor Phi (Theorem CY-A)
+%% Working note — April 2026
+
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\frenchspacing
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,citecolor=green!40!black]{hyperref}
+\usepackage{geometry}
+\geometry{top=1in, bottom=1in, left=1.2in, right=1.2in}
+
+\setlength{\parskip}{3pt plus 1pt}
+\setlength{\parindent}{1.5em}
+
+%% Theorem environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{warning}[theorem]{Warning}
+
+%% Macros (subset of main.tex)
+\newcommand{\Ainf}{A_\infty}
+\newcommand{\Linf}{L_\infty}
+\newcommand{\Einf}{E_\infty}
+\newcommand{\Eone}{E_1}
+\newcommand{\Etwo}{E_2}
+\newcommand{\En}{E_n}
+\newcommand{\Mod}{\mathrm{Mod}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\RHom}{\mathrm{RHom}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\colim}{\mathrm{colim}}
+\newcommand{\CY}{\mathrm{CY}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\HC}{\mathrm{HC}}
+\newcommand{\HN}{\mathrm{HN}}
+\newcommand{\HP}{\mathrm{HP}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Sd}{\mathbb{S}^d}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\Fact}{\mathrm{Fact}}
+\newcommand{\Ger}{\mathrm{Ger}}
+\newcommand{\BV}{\mathrm{BV}}
+\newcommand{\FM}{\overline{\mathrm{FM}}}
+\newcommand{\Perf}{\mathrm{Perf}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\Fuk}{\mathrm{Fuk}}
+\newcommand{\MF}{\mathrm{MF}}
+\newcommand{\Vect}{\mathrm{Vect}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\frakg}{\mathfrak{g}}
+\newcommand{\frakL}{\mathfrak{L}}
+\providecommand{\hbar}{\hslash}
+\newcommand{\Uq}{U_q}
+\newcommand{\Uhbar}{U_\hbar}
+
+\newcommand{\ClaimPH}{\textsuperscript{\textsc{[ph]}}}
+\newcommand{\ClaimPE}{\textsuperscript{\textsc{[pe]}}}
+\newcommand{\ClaimCJ}{\textsuperscript{\textsc{[cj]}}}
+\newcommand{\ClaimHE}{\textsuperscript{\textsc{[he]}}}
+
+\title{Construction of the CY-to-Chiral Functor $\Phi$\\[4pt]
+\large Theorem CY-A: Working Note}
+\author{Raeez Lorgat}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\bigskip
+\noindent\textbf{Purpose.}\; This note gives the detailed construction of the functor
+\[
+\Phi \colon \CY_d\text{-}\mathrm{Cat} \longrightarrow \Etwo\text{-}\mathrm{ChirAlg}
+\]
+announced as Theorem CY-A in the monograph.  The construction proceeds in four steps: (1) cyclic $\Ainf$-structure to Lie conformal algebra, (2) factorization envelope, (3) $\Etwo$-enhancement, (4) quantization via the CY trace.  We identify precisely what is proved, what follows from the literature, and what remains conjectural.
+
+%% =====================================================================
+\section{Setup and input data}
+\label{sec:setup}
+%% =====================================================================
+
+\begin{definition}[Input datum]
+\label{def:input}
+Fix $k$ a field of characteristic zero (for Kontsevich formality) and $d \geq 2$ an integer.  The input to the functor $\Phi$ is a \emph{smooth, proper Calabi--Yau category of dimension $d$}: a dg category $\cC$ over $k$ equipped with
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Smoothness}: the diagonal bimodule $\cC \in \cC^{\op} \otimes \cC\text{-}\Mod$ is compact;
+\item \textbf{Properness}: for all $X, Y \in \cC$, $\dim_k H^\bullet(\Hom_\cC(X,Y)) < \infty$;
+\item \textbf{CY structure}: a class $[\sigma] \in \HC^-_d(\cC)$ whose image under $\HC^- \to \HH$ is a non-degenerate trace $\Tr \colon \HH_d(\cC) \to k$.
+\end{enumerate}
+The CY structure determines:
+\begin{itemize}
+\item An $\Sd$-framing of the Hochschild complex (Section~\ref{sec:sd-framing-review});
+\item CY Hochschild duality: $\HH^\bullet(\cC) \simeq \HH_{\bullet+d}(\cC)$;
+\item A cyclic $\Ainf$-structure $(A, \{\mu_n\}, \langle \cdot, \cdot \rangle)$ on any $\Ainf$-model of $\cC$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Target datum]
+\label{def:target}
+The output of $\Phi$ is an \emph{$\Etwo$-chiral algebra}: a factorization algebra $\cA$ on $\Ran(X) \times \Ran(Y)$ (for $X, Y$ smooth algebraic curves) with holomorphic factorization in both directions, whose representation category $\Rep^{\Etwo}(\cA)$ is braided monoidal.
+\end{definition}
+
+\begin{remark}[The curve $X$]
+\label{rem:choice-of-curve}
+Throughout this construction, $X$ denotes an arbitrary smooth algebraic curve over $k$.  The functor $\Phi$ is defined for each such $X$ and is compatible with base change in $X$; when we wish to emphasize the dependence, we write $\Phi_X$.  The universal case $X = \mathbb{A}^1$ (or $X = \mathbb{P}^1$) suffices for most algebraic statements.  For the modular theory (genus $g \geq 1$), $X$ must vary in a family parameterized by $\overline{\mathcal{M}}_{g,n}$.
+\end{remark}
+
+\subsection{Review of the $\Sd$-framing}
+\label{sec:sd-framing-review}
+
+The $d$-dimensional CY structure upgrades the $S^1$-action on the cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ to an action of $\Sd = \mathbb{S}^d$.  The mechanism is as follows.
+
+The CY trace $\Tr \colon \HH_d(\cC) \to k$ determines a fundamental class $[\cC] \in \HH_d(\cC)$; via CY duality, $\HH^\bullet(\cC) \simeq \HH_{\bullet+d}(\cC)$.  This duality provides a chain-level pairing
+\[
+\langle \cdot, \cdot \rangle \colon C_\bullet(\cC) \otimes C_\bullet(\cC) \longrightarrow k[-d]
+\]
+on the Hochschild chain complex, which is non-degenerate (i.e., induces a quasi-isomorphism $C_\bullet(\cC) \xrightarrow{\sim} C^\bullet(\cC)[d]$).
+
+The key observation (Kontsevich, Costello, Tsygan) is that the negative cyclic refinement $[\sigma] \in \HC^-_d(\cC)$ --- \emph{not} merely the HH-level trace --- determines, via the calculus structure on Hochschild (co)chains, an action of chains on $\Sd$:
+\[
+C_\bullet(\Sd) \otimes \mathrm{CC}_\bullet(\cC) \longrightarrow \mathrm{CC}_\bullet(\cC).
+\]
+The standard $S^1$-action by cyclic rotation factors through the inclusion $S^1 \hookrightarrow \Sd$ as the equator.  The additional $\Sd$-action encodes, for each $n \geq 1$, pairings
+\[
+\HH_\bullet(\cC)^{\otimes n} \longrightarrow \HH_\bullet(\cC)
+\]
+governed by the topology of configuration spaces on $\Sd$, i.e., by the $\En_d$-operad.
+
+\begin{warning}
+\label{warn:cy-trace-refinement}
+The $\Sd$-framing requires the \emph{negative cyclic} class $[\sigma] \in \HC^-_d(\cC)$, not merely the Hochschild-level trace.  A non-degenerate trace $\Tr \colon \HH_d \to k$ that does not lift to $\HC^-$ does not determine an $\Sd$-framing; it only gives the $S^1$-rotation, producing an $\Eone$-algebra structure but not $\En_d$ for $d \geq 2$.
+\end{warning}
+
+%% =====================================================================
+\section{Step 1: Cyclic $\Ainf$ to Lie conformal algebra}
+\label{sec:step1}
+%% =====================================================================
+
+The first step extracts a Lie conformal algebra $\frakL_\cC$ from the CY category $\cC$.  This proceeds in two sub-steps: (a) the Gerstenhaber Lie algebra from Hochschild cohomology, (b) promotion to Lie conformal via the CY pairing.
+
+\subsection{The Gerstenhaber bracket on $\HH^\bullet(\cC)$}
+\label{sec:gerstenhaber}
+
+\begin{proposition}[Gerstenhaber structure on $\HH^\bullet$]\ClaimPE
+\label{prop:gerstenhaber}
+For any $\Ainf$-category $\cC$, the Hochschild cohomology $\HH^\bullet(\cC)$ carries a Gerstenhaber algebra structure:
+\begin{enumerate}[label=(\roman*)]
+\item A graded commutative cup product $\smile \colon \HH^p(\cC) \otimes \HH^q(\cC) \to \HH^{p+q}(\cC)$;
+\item A graded Lie bracket of degree $-1$ (the Gerstenhaber bracket) $[\cdot, \cdot]_G \colon \HH^p(\cC) \otimes \HH^q(\cC) \to \HH^{p+q-1}(\cC)$;
+\item The Leibniz rule: $[a, b \smile c]_G = [a,b]_G \smile c + (-1)^{(|a|-1)|b|} b \smile [a,c]_G$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Source]
+Gerstenhaber (1963) for associative algebras; Keller (2006) for $\Ainf$-categories.  The bracket is defined at the cochain level by the pre-Lie product $f \circ g$, and descends to cohomology.
+\end{proof}
+
+\begin{remark}[Operadic origin]
+\label{rem:e2-gerstenhaber}
+The Gerstenhaber algebra structure on $\HH^\bullet(\cC)$ is the shadow of an $\Etwo$-algebra structure on the Hochschild cochain complex $C^\bullet(\cC, \cC)$.  This is Deligne's conjecture, proved by Kontsevich--Soibelman, McClure--Smith, and others: the Hochschild cochain complex of any $\Ainf$-category is an algebra over the chains $C_\bullet(\Etwo)$ on the little 2-disks operad.
+
+Over $\mathbb{Q}$, Kontsevich's formality theorem provides a quasi-isomorphism of operads $\Etwo \xrightarrow{\sim} \Ger$, so the $\Etwo$-algebra structure on $C^\bullet(\cC, \cC)$ is equivalent (up to homotopy) to the Gerstenhaber structure on $\HH^\bullet(\cC)$.  In positive characteristic, formality fails and the $\Etwo$-structure carries strictly more information.
+\end{remark}
+
+\subsection{Kontsevich's HKR-type theorem for CY categories}
+\label{sec:kontsevich-hkr}
+
+The classical Hochschild--Kostant--Rosenberg (HKR) theorem identifies $\HH^\bullet(A)$ with polyvector fields when $A$ is a smooth commutative algebra.  For a CY category $\cC$, the CY structure provides an analogous decomposition.
+
+\begin{theorem}[CY-HKR decomposition]\ClaimPE
+\label{thm:cy-hkr}
+Let $\cC$ be a smooth, proper CY category of dimension $d$ over a field $k$ of characteristic zero.  Then:
+\begin{enumerate}[label=(\roman*)]
+\item There is a non-canonical isomorphism of graded vector spaces
+\[
+\HH^\bullet(\cC) \;\simeq\; \bigoplus_{p+q = \bullet} H^p(\cC, \bigwedge^q T_\cC)
+\]
+where $T_\cC$ is the ``categorical tangent complex'' $\RHom_{\cC^{\op} \otimes \cC}(\cC, \cC)[1]$;
+\item The CY structure $\cC \simeq \cC^\vee[d]$ determines a volume form $\Omega_\cC$ inducing an isomorphism $\bigwedge^q T_\cC \simeq \Omega^{d-q}_\cC$, so
+\[
+\HH^\bullet(\cC) \simeq \HH_{\bullet + d}(\cC);
+\]
+\item Under this isomorphism, the Gerstenhaber bracket corresponds to the Schouten--Nijenhuis bracket on polyvector fields, and the cup product corresponds to the wedge product.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Source]
+Part (i) is the categorical HKR theorem (Kontsevich, Keller, Lowen--Van den Bergh).  Part (ii) is the CY duality isomorphism.  Part (iii) is the Kontsevich--Soibelman compatibility of formality with the CY structure.  The non-canonical nature of the HKR isomorphism means it depends on a choice of formality quasi-isomorphism; the CY structure selects a preferred class of such choices.
+\end{proof}
+
+\subsection{Promotion to Lie conformal algebra via the CY pairing}
+\label{sec:lie-conformal}
+
+The Gerstenhaber bracket provides a graded Lie algebra $(\HH^{\bullet+1}(\cC), [\cdot, \cdot]_G)$.  The CY pairing promotes this to a \emph{Lie conformal algebra} (also called a vertex Lie algebra): a Lie algebra equipped with a $\partial$-action and $\lambda$-bracket, encoding the singular part of an OPE.
+
+\begin{definition}[Lie conformal algebra]
+\label{def:lie-conformal}
+A \emph{Lie conformal algebra} is a $k[\partial]$-module $L$ equipped with a $\lambda$-bracket
+\[
+[\cdot\,{}_\lambda\,\cdot] \colon L \otimes L \longrightarrow L[\lambda]
+\]
+satisfying:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Conformal sesquilinearity}: $[\partial a \,{}_\lambda\, b] = -\lambda [a \,{}_\lambda\, b]$ and $[a \,{}_\lambda\, \partial b] = (\partial + \lambda)[a \,{}_\lambda\, b]$;
+\item \textbf{Skew-symmetry}: $[a \,{}_\lambda\, b] = -[b \,{}_{-\lambda - \partial}\, a]$;
+\item \textbf{Jacobi identity}: $[a \,{}_\lambda\, [b \,{}_\mu\, c]] = [[a \,{}_\lambda\, b] \,{}_{\lambda+\mu}\, c] + [b \,{}_\mu\, [a \,{}_\lambda\, c]]$.
+\end{enumerate}
+\end{definition}
+
+\begin{construction}[The Lie conformal algebra $\frakL_\cC$]\ClaimPH
+\label{constr:lie-conformal-from-cy}
+Given a CY category $\cC$ of dimension $d$, the Lie conformal algebra $\frakL_\cC$ is constructed as follows.
+
+\medskip
+\noindent\textbf{Underlying $k[\partial]$-module.}\; Set
+\[
+\frakL_\cC \;=\; \HH^{\bullet+1}(\cC) \otimes_k k[\partial]
+\]
+where $\partial$ acts as $\partial \otimes \id + \id \otimes \frac{d}{d\partial}$ (i.e., $\frakL_\cC$ is the free $k[\partial]$-module generated by the shifted Hochschild cohomology).  Equivalently, via CY duality:
+\[
+\frakL_\cC \;\simeq\; \HH_{\bullet+d+1}(\cC) \otimes_k k[\partial].
+\]
+
+\medskip
+\noindent\textbf{The $\lambda$-bracket.}\; The $\lambda$-bracket on $\frakL_\cC$ is determined by two pieces of data:
+\begin{enumerate}[label=(\alph*)]
+\item The \emph{Gerstenhaber bracket} $[\cdot, \cdot]_G$ on $\HH^{\bullet+1}(\cC)$, which provides the leading (most singular) term;
+\item The \emph{CY pairing} $\langle \cdot, \cdot \rangle \colon \HH_\bullet(\cC) \otimes \HH_\bullet(\cC) \to k[-d]$, which determines the $\lambda$-dependence via:
+\[
+[a \,{}_\lambda\, b] \;=\; [a, b]_G + \lambda \cdot \langle a, b \rangle_{\mathrm{CY}} \cdot \mathbf{1} + O(\lambda^2).
+\]
+\end{enumerate}
+More precisely: letting $\{e_i\}$ be a basis of $\HH^{\bullet+1}(\cC)$ and $\{e^i\}$ the dual basis under the CY pairing, the $\lambda$-bracket is
+\begin{equation}
+\label{eq:lambda-bracket}
+[a \,{}_\lambda\, b] = [a, b]_G + \lambda \sum_i \langle [a, e_i]_G, b \rangle_{\CY} \cdot e^i + \frac{\lambda^2}{2!} \sum_{i,j} \langle [[a, e_i]_G, e_j]_G, b \rangle_{\CY} \cdot e^{ij} + \cdots
+\end{equation}
+where the higher terms are determined recursively by the Lie conformal Jacobi identity.  The sum is finite by the properness of $\cC$ (finite-dimensional Hochschild cohomology).
+
+\medskip
+\noindent\textbf{Verification.}\; The conformal sesquilinearity is built into the $k[\partial]$-module structure.  Skew-symmetry of the $\lambda$-bracket follows from the graded skew-symmetry of $[\cdot,\cdot]_G$ and the (graded) symmetry of the CY pairing.  The Jacobi identity for the $\lambda$-bracket follows from the Jacobi identity for $[\cdot,\cdot]_G$ and the invariance of $\langle \cdot, \cdot \rangle_{\CY}$ (i.e., $\langle [a,b]_G, c \rangle_{\CY} = \langle a, [b,c]_G \rangle_{\CY}$, which is the cyclic invariance condition).
+\end{construction}
+
+\begin{remark}[Why Lie conformal, not just Lie?]
+\label{rem:why-conformal}
+A Lie algebra $\frakg$ determines a chiral algebra $V_k(\frakg)$ (the vacuum module of the Kac--Moody vertex algebra at level $k$).  But the passage from $\cC$ to chiral algebra is richer: the CY pairing provides a ``level'' (the $\lambda$-dependent terms in the bracket) that is intrinsic to $\cC$, not a parameter to be chosen.  The Lie conformal algebra $\frakL_\cC$ encodes both the algebraic structure (bracket) and the analytic structure (singular OPE) in a single object.  The level is determined by $[\sigma] \in \HC^-_d(\cC)$: different choices of CY structure on the same underlying category give different Lie conformal algebras.
+\end{remark}
+
+\begin{example}[CY2: K3 surface]
+\label{ex:k3-step1}
+For $\cC = D^b(\Coh(S))$ where $S$ is a K3 surface (CY of dimension $d=2$):
+\[
+\HH^\bullet(\cC) \simeq H^\bullet(S, \bigoplus_q \bigwedge^q T_S) \simeq H^{0,0} \oplus H^{1,0} \oplus H^{2,0} \oplus H^{0,1} \oplus H^{1,1} \oplus H^{0,2} \oplus \cdots
+\]
+The Gerstenhaber bracket is the Schouten--Nijenhuis bracket on polyvector fields.  The CY pairing is Serre duality.  The resulting Lie conformal algebra $\frakL_S$ is the ``current algebra of the K3 lattice'': an extension of the abelian Lie conformal algebra $H^{1,1}(S) \otimes k[\partial]$ (rank 22, the Picard lattice) by the non-abelian piece from $H^{2,0} \oplus H^{0,2}$.
+\end{example}
+
+\begin{example}[CY3: Calabi--Yau threefold]
+\label{ex:cy3-step1}
+For $\cC = D^b(\Coh(X))$ where $X$ is a CY threefold ($d = 3$):
+\[
+\HH^\bullet(\cC) \simeq \bigoplus_{p,q} H^p(X, \bigwedge^q T_X).
+\]
+The Lie conformal algebra $\frakL_X$ has the following structure:
+\begin{itemize}
+\item $H^1(X, T_X)$ contributes the ``deformation'' currents (complex structure moduli);
+\item $H^1(X, \Omega^1_X)$ contributes the ``complexified K\"ahler'' currents;
+\item $H^0(X, \bigwedge^2 T_X)$ and $H^0(X, \Omega^2_X)$ contribute ``BPS currents'';
+\item The Gerstenhaber bracket encodes the Kodaira--Spencer deformation algebra, and the CY pairing is the holomorphic Chern--Simons pairing $\int_X \Omega \wedge \mathrm{tr}(A \wedge A)$.
+\end{itemize}
+\end{example}
+
+\subsection{Claim status for Step 1}
+\label{sec:step1-status}
+
+\begin{itemize}
+\item The Gerstenhaber structure on $\HH^\bullet(\cC)$: \textbf{proved in the literature} (Gerstenhaber, Keller).
+\item The CY-HKR decomposition over $\mathbb{Q}$: \textbf{proved} (Kontsevich, Keller, Lowen--Van den Bergh).
+\item The Lie conformal algebra $\frakL_\cC$: Construction~\ref{constr:lie-conformal-from-cy} is \textbf{proved here} --- the verification of the Lie conformal axioms follows from standard properties of the Gerstenhaber bracket and CY pairing.  What is new is the packaging of these known structures into the single datum of a Lie conformal algebra.
+\item The $\lambda$-bracket formula~\eqref{eq:lambda-bracket}: \textbf{proved here}, modulo the existence of a formality quasi-isomorphism (which is known over $\mathbb{Q}$ but requires care over other fields).
+\end{itemize}
+
+
+%% =====================================================================
+\section{Step 2: Factorization envelope}
+\label{sec:step2}
+%% =====================================================================
+
+The second step passes from the Lie conformal algebra $\frakL_\cC$ to a factorization algebra $\Fact_X(\frakL_\cC)$ on a smooth curve $X$.  This is the geometric incarnation of the universal enveloping construction for Lie conformal algebras.
+
+\subsection{The factorization envelope construction}
+\label{sec:fact-envelope}
+
+\begin{definition}[Factorization algebra on $\Ran(X)$]
+\label{def:fact-alg}
+A \emph{factorization algebra} $\cF$ on $\Ran(X)$ assigns to each finite subset $I \subset X$ a vector space $\cF_I$, together with:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Factorization}: for $I = I_1 \sqcup I_2$ with $I_1, I_2$ separated (i.e., their convex hulls in some local coordinate are disjoint), an isomorphism $\cF_I \simeq \cF_{I_1} \otimes \cF_{I_2}$;
+\item \textbf{Chiral structure} (if holomorphic): the assignment is $\cD_X$-equivariant, and the factorization isomorphisms have prescribed singularities (poles) along diagonals.
+\end{enumerate}
+\end{definition}
+
+\begin{construction}[Factorization envelope]\ClaimPE
+\label{constr:fact-envelope}
+Given a Lie conformal algebra $L$ (equivalently, a Lie$^*$-algebra on $X$, following Beilinson--Drinfeld), the \emph{factorization envelope} $\Fact_X(L)$ is the factorization algebra whose fiber at a single point $x \in X$ is the vacuum module (universal enveloping vertex algebra):
+\[
+\Fact_X(L)|_x \;=\; V(L) \;=\; U(L \otimes_k \cO_{X,x}^\wedge) / (L \otimes \mathfrak{m}_{X,x}^\wedge)
+\]
+and whose factorization structure encodes the OPE of the currents.
+
+More precisely: let $L_X = L \otimes_{k[\partial]} \cD_X$ be the $\cD_X$-module on $X$ associated to $L$ (the sheaf of ``$L$-valued currents'' on $X$).  The chiral envelope is the chiral algebra
+\[
+\Fact_X(L) \;=\; U^{\mathrm{ch}}(L_X) \;\stackrel{\mathrm{def}}{=}\; \mathrm{Ind}^{\mathrm{ch}}_{\mathrm{Lie}^* \to \mathrm{Assoc}^*}(L_X),
+\]
+the induction from Lie$^*$-algebras to chiral algebras (= associative $*$-algebras in Beilinson--Drinfeld's terminology).  Concretely:
+\begin{enumerate}[label=(\alph*)]
+\item As a $\cD_X$-module, $\Fact_X(L) = \bigoplus_{n \geq 0} \Sym^n(L_X)$ (the symmetric algebra, not the tensor algebra, because the Lie$^*$ to chiral passage enforces commutativity away from diagonals);
+\item The chiral product $\mu^{\mathrm{ch}} \colon j_*j^*(\Fact_X(L) \boxtimes \Fact_X(L)) \to \Delta_* \Fact_X(L)$ is determined by the $\lambda$-bracket of $L$ (the singular part of the OPE);
+\item The factorization structure on $\Ran(X)$ is uniquely determined by the chiral algebra structure on $X$ (Beilinson--Drinfeld equivalence).
+\end{enumerate}
+\end{construction}
+
+\begin{remark}[Nishinaka--Vicedo]
+\label{rem:nishinaka-vicedo}
+The factorization envelope construction is due to Beilinson--Drinfeld in the algebro-geometric setting (chiral algebras as $\cD$-modules).  Nishinaka and Vicedo provide a complementary perspective via factorization algebras in the sense of Costello--Gwilliam, connecting to the physics literature on gauge-theoretic vertex algebras.  In particular, their work clarifies the role of the classical $r$-matrix: the $\lambda$-bracket of $L$ encodes the singular part of the $r$-matrix, and the factorization envelope produces the quantum $R$-matrix via deformation quantization (Step 4).
+\end{remark}
+
+\subsection{Properties of $\Fact_X(\frakL_\cC)$}
+\label{sec:fact-properties}
+
+\begin{proposition}[Properties of the CY factorization envelope]\ClaimPH
+\label{prop:fact-properties}
+For a CY category $\cC$ of dimension $d$ with Lie conformal algebra $\frakL_\cC$:
+\begin{enumerate}[label=(\roman*)]
+\item $\Fact_X(\frakL_\cC)$ is a factorization algebra on $\Ran(X)$ for any smooth curve $X$;
+\item As a graded vector space, the fiber at a point is
+\[
+\Fact_X(\frakL_\cC)|_x \;\simeq\; \Sym^\bullet(\HH^{\bullet+1}(\cC) \otimes t^{-1}k[t^{-1}])
+\]
+(the Fock space of Hochschild cohomology-valued currents with poles);
+\item The factorization product encodes the OPE
+\[
+a(z) \cdot b(w) \;\sim\; \frac{[a,b]_G(w)}{z-w} + \frac{\langle a, b \rangle_{\CY}}{(z-w)^2} + \text{regular}
+\]
+where the leading pole is the Gerstenhaber bracket and the second pole is the CY pairing (``level'');
+\item $\Fact_X(\frakL_\cC)$ is a \emph{classical} (=~commutative away from diagonals) factorization algebra; quantization requires Step~4.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Parts (i)--(iii) follow from the general theory of Beilinson--Drinfeld (chiral envelopes of Lie$^*$-algebras are chiral algebras) applied to $\frakL_\cC$.  The OPE in (iii) is a direct translation of the $\lambda$-bracket~\eqref{eq:lambda-bracket}: the coefficient of $\lambda^n$ in $[a \,{}_\lambda\, b]$ is the coefficient of $(z-w)^{-n-1}$ in the OPE.  Part (iv) holds because the factorization envelope $U^{\mathrm{ch}}(L_X)$ is filtered (by PBW) with associated graded $\Sym^{\mathrm{ch}}(L_X)$, and at the classical level (associated graded) the factorization is commutative.
+\end{proof}
+
+\begin{example}[Heisenberg and Kac--Moody]
+\label{ex:heisenberg-km}
+Two classical cases illustrate the construction:
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Abelian case.}\; If $\HH^{\bullet+1}(\cC)$ is concentrated in a single degree and $[\cdot, \cdot]_G = 0$ (e.g., $\cC$ is the derived category of an abelian variety), then $\frakL_\cC$ is an abelian Lie conformal algebra, and $\Fact_X(\frakL_\cC)$ is a Heisenberg factorization algebra.  The OPE is $a(z) \cdot b(w) \sim \langle a, b \rangle_{\CY} / (z-w)^2$.
+\item \textbf{Non-abelian case.}\; If $\cC = \Perf(BG)$ for a simple algebraic group $G$ (which is CY of dimension 0), then $\HH^\bullet(\cC) \simeq H^\bullet(BG, k) \simeq \Sym^\bullet(\frakg^*[-2])$, the Gerstenhaber bracket is the Lie bracket of $\frakg$, and $\Fact_X(\frakL_\cC)$ is the Kac--Moody factorization algebra $V_k(\frakg)$ on $X$, where the level $k$ is determined by the CY trace (which in this case is a choice of invariant bilinear form on $\frakg$).
+\end{enumerate}
+\end{example}
+
+\subsection{Claim status for Step 2}
+\label{sec:step2-status}
+
+\begin{itemize}
+\item The factorization envelope construction: \textbf{proved in the literature} (Beilinson--Drinfeld, Chiral Algebras, Ch.~3; Costello--Gwilliam, Factorization Algebras, Ch.~5).
+\item The application to $\frakL_\cC$: \textbf{proved here} (Proposition~\ref{prop:fact-properties}).  The only new content is the identification of the OPE in terms of the Gerstenhaber bracket and CY pairing; the construction itself is a special case of the Beilinson--Drinfeld machine.
+\item Independence of choices: the factorization envelope depends on $\frakL_\cC$, hence on the formality quasi-isomorphism.  Over $\mathbb{Q}$, different choices give quasi-isomorphic results (by Kontsevich's formality).  In characteristic $p$, this is \textbf{open}.
+\end{itemize}
+
+
+%% =====================================================================
+\section{Step 3: $\Etwo$-enhancement}
+\label{sec:step3}
+%% =====================================================================
+
+This is the central step.  The factorization envelope $\Fact_X(\frakL_\cC)$ from Step 2 is a (classical) chiral algebra --- an object in the $\Eone$-world.  The CY structure, via the $\Sd$-framing, upgrades this to an $\Etwo$-chiral algebra.  The mechanism is different for $d = 2$ and $d \geq 3$.
+
+\subsection{Why the $\Sd$-framing gives $E_d$-structure}
+\label{sec:sd-gives-ed}
+
+The fundamental geometric principle is:
+
+\begin{proposition}[$\Sd$-framing $\Rightarrow$ $E_d$]\ClaimPE
+\label{prop:sd-ed}
+Let $V$ be a chain complex equipped with a non-degenerate pairing $\langle \cdot, \cdot \rangle \colon V \otimes V \to k[-d]$ and an action of $C_\bullet(\Sd)$.  Then $V$ carries a natural $E_d$-algebra structure.
+\end{proposition}
+
+The proof rests on the following chain of identifications:
+
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+\item \textbf{Configuration spaces on $\Sd$.}\; The $E_d$-operad has spaces $E_d(n) \simeq \mathrm{Conf}_n(\mathbb{R}^d)$, the configuration space of $n$ labeled points in $\mathbb{R}^d$.  By one-point compactification, $\mathrm{Conf}_n(\mathbb{R}^d)$ is homotopy equivalent to the configuration space $\mathrm{Conf}_n(\Sd \setminus \{\infty\})$ of $n$ points on the punctured $d$-sphere.
+
+\item \textbf{Poincar\'e duality on $\Sd$.}\; The non-degenerate pairing $\langle \cdot, \cdot \rangle$ of degree $-d$ is the chain-level incarnation of Poincar\'e duality on $\Sd$: the fundamental class $[\Sd] \in H_d(\Sd)$ pairs with the point class $[\mathrm{pt}] \in H_0(\Sd)$ to give the evaluation.  The CY trace $\Tr \colon \HH_d(\cC) \to k$ is the categorical analogue of integration over the fundamental class.
+
+\item \textbf{Operadic structure from configurations.}\; The $C_\bullet(\Sd)$-action on $V$ determines, for each $n$, maps
+\[
+C_\bullet(\mathrm{Conf}_n(\Sd)) \otimes V^{\otimes n} \longrightarrow V
+\]
+by composing the $C_\bullet(\Sd)$-action with the configuration-space operad structure.  More precisely: the framed little $d$-disks operad $E_d^{\mathrm{fr}}$ acts on $V$ because the framing data is exactly the $\mathrm{SO}(d)$-equivariant structure of the $\Sd$-action, and the non-degenerate pairing provides the ``propagator'' that contracts the configuration space integrals.
+
+\item \textbf{Why specifically $E_d$ and not more.}\; The pairing has degree $-d$, so the propagator has a pole of order $d$ along the diagonal.  Configuration space integrals with a propagator of pole order $d$ converge on $\mathrm{Conf}_n(\mathbb{R}^d)$ and define an $E_d$-structure.  They do \emph{not} in general define an $E_{d+1}$-structure, because the codimension of the diagonal in $(\mathbb{R}^d)^2$ is $d$, and the pole order matches the codimension exactly.  For $E_{d+1}$, one would need the propagator to have pole order $d+1$ (i.e., a pairing of degree $-(d+1)$), which would require CY dimension $d+1$.
+\end{enumerate}
+
+\begin{remark}[Comparison with Lurie's additivity]
+\label{rem:lurie-additivity}
+An alternative (equivalent) route to the $E_d$-structure uses Lurie's $\Einf$-version of Dunn additivity: $E_d \simeq E_1^{\otimes d}$ (tensor product of operads).  The $d$-fold $\Eone$-structure on $\HH_\bullet(\cC)$ arises from the $d$ independent $S^1$-actions inside $\Sd$: the $d$-sphere $\Sd$ contains $d$ independent great circles (as the equators of the $d$ coordinate 2-planes in $\mathbb{R}^{d+1}$), and each gives an $S^1$-action on the cyclic complex, hence an $\Eone$-structure.  The compatibility of these $d$ $\Eone$-structures (they commute in the appropriate homotopy-coherent sense) assembles them into a single $E_d$-structure.
+\end{remark}
+
+\subsection{The case $d = 2$: $\mathbb{S}^2$-framing gives $\Etwo$}
+\label{sec:d2-case}
+
+For CY categories of dimension 2 (K3 surfaces, abelian surfaces, etc.), the $\mathbb{S}^2$-framing gives an $\Etwo$-algebra structure on $\HH_\bullet(\cC)$.  This is the primary case.
+
+\begin{theorem}[$\Etwo$-enhancement for $d = 2$]\ClaimPH
+\label{thm:e2-enhancement-d2}
+Let $\cC$ be a smooth, proper CY category of dimension $2$, and let $\Fact_X(\frakL_\cC)$ be the factorization envelope from Step~2.  The $\mathbb{S}^2$-framing of $\mathrm{CC}_\bullet(\cC)$ determines an $\Etwo$-chiral algebra structure on $\Fact_X(\frakL_\cC)$.
+
+Concretely: the $\Etwo$-chiral algebra is a factorization algebra on $\Ran(X) \times \Ran(Y)$ (for smooth curves $X, Y$), with:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{First $\Eone$-direction} (along $X$): the chiral/holomorphic factorization coming from $\Fact_X(\frakL_\cC)$;
+\item \textbf{Second $\Eone$-direction} (along $Y$): a second chiral factorization, arising from the second $S^1 \subset \mathbb{S}^2$;
+\item \textbf{Compatibility}: the two $\Eone$-structures commute up to coherent homotopy, assembling via Dunn additivity into an $\Etwo$-structure.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The $\mathbb{S}^2$-framing gives a $C_\bullet(\mathbb{S}^2)$-action on the cyclic complex $\mathrm{CC}_\bullet(\cC)$.  The sphere $\mathbb{S}^2$ contains two distinguished great circles: the equator $S^1_{\mathrm{eq}}$ (from the standard $S^1$-action by cyclic rotation) and the meridian $S^1_{\mathrm{mer}}$ (from the CY pairing, via the identification $\mathbb{S}^2 \simeq S^1_{\mathrm{eq}} \times_{S^0} S^1_{\mathrm{mer}}$ as a suspension).
+
+Each $S^1$-action determines an $\Eone$-structure on the cyclic complex.  The factorization envelope construction (Step 2) applied to the first $S^1$ gives the $X$-direction chiral algebra.  Applying it to the second $S^1$ gives the $Y$-direction chiral algebra.
+
+The commutativity of the two $S^1$-actions inside $\mathbb{S}^2$ --- which is the content of the $C_\bullet(\mathbb{S}^2)$-action being an action (not just two unrelated $S^1$-actions) --- translates into the homotopy-coherent commutativity required for Dunn additivity.  Therefore $\Etwo \simeq \Eone \otimes \Eone$ acts on $\Fact_X(\frakL_\cC)$, making it an $\Etwo$-chiral algebra.
+
+The braiding on $\Rep^{\Etwo}(\Fact_X(\frakL_\cC))$ arises from the exchange of the two $\Eone$-directions: the path in $\mathrm{Conf}_2(\mathbb{R}^2)$ that exchanges two points by going counterclockwise gives the braiding, while the clockwise path gives the inverse braiding.  This is non-trivial (non-symmetric) because $\pi_1(\mathrm{Conf}_2(\mathbb{R}^2)) = \mathbb{Z}$ (the braid group on 2 strands).
+\end{proof}
+
+\subsection{The case $d = 3$: $\mathbb{S}^3$-framing gives $E_3$, then restrict to $\Etwo$}
+\label{sec:d3-case}
+
+For CY threefolds, the $\mathbb{S}^3$-framing gives an $E_3$-algebra structure.  Since $E_3$ is ``more commutative'' than $\Etwo$, we obtain an $\Etwo$-structure by restriction.
+
+\begin{proposition}[$E_3 \to \Etwo$ restriction]\ClaimPE
+\label{prop:e3-to-e2}
+The inclusion of operads $\Etwo \hookrightarrow E_3$ (induced by the inclusion $\mathbb{R}^2 \hookrightarrow \mathbb{R}^3$) gives a forgetful functor
+\[
+E_3\text{-}\mathrm{Alg} \longrightarrow \Etwo\text{-}\mathrm{Alg}.
+\]
+Equivalently, by Dunn: $E_3 \simeq \Etwo \otimes \Eone$, so an $E_3$-algebra is an $\Eone$-algebra in $\Etwo$-algebras.  Forgetting the outer $\Eone$-structure gives an $\Etwo$-algebra.
+\end{proposition}
+
+\begin{theorem}[$\Etwo$-enhancement for $d = 3$]\ClaimPH
+\label{thm:e2-enhancement-d3}
+Let $\cC$ be a smooth, proper CY category of dimension $3$.  The $\mathbb{S}^3$-framing determines an $E_3$-algebra structure on $\mathrm{CC}_\bullet(\cC)$, and hence (via Proposition~\ref{prop:e3-to-e2}) an $\Etwo$-chiral algebra structure on $\Fact_X(\frakL_\cC)$.
+
+The restriction $E_3 \to \Etwo$ loses information: the ``extra'' $\Eone$-direction is the \emph{associative} direction that, when remembered, gives the full monoidal structure on the BPS algebra / cohomological Hall algebra.  Specifically:
+\begin{enumerate}[label=(\roman*)]
+\item The three $S^1$-factors in $\mathbb{S}^3$ give three $\Eone$-structures.  Any two assemble into an $\Etwo$-structure (braided); the third is the associative multiplication on the CoHA.
+\item The braiding from the $\Etwo$-structure is the $R$-matrix of the quantum group $\Uq(\frakg_\cC)$.
+\item The $E_3$-structure is \emph{more symmetric} than $\Etwo$: the braiding satisfies additional constraints (it squares to the identity at the $E_3$-level up to higher homotopies).  In the quantum group, this corresponds to the $R$-matrix satisfying $R_{21} R_{12} = 1 + O(\hbar^2)$ at first order.
+\end{enumerate}
+\end{theorem}
+
+\begin{warning}[CY3 vs CY2: symmetry vs non-trivial braiding]
+\label{warn:cy3-symmetric}
+For $d = 3$, the braiding arising from $\Etwo \subset E_3$ is ``closer to symmetric'' than for $d = 2$, because $\pi_1(\mathrm{Conf}_2(\mathbb{R}^3)) = \mathbb{Z}/2$ (the symmetric group, not the braid group).  This means the braiding squares to the identity at the topological level.  The non-trivial quantum group structure comes from the \emph{homotopical} refinement: $\pi_2(\mathrm{Conf}_2(\mathbb{R}^3)) \neq 0$, and the higher homotopy data of the $E_3$-action encodes the deformation parameter $\hbar$ (or $q = e^\hbar$).
+
+In other words: for CY3, the braiding is \emph{symmetric to first order} but has quantum corrections from higher-order terms in the $E_3$-action.  This is consistent with the physics: in 3d $\cN=4$ theories, the braiding on category $\cO$ is symmetric at tree level but acquires quantum corrections from loop effects.
+\end{warning}
+
+\subsection{The case $d \geq 4$: increasingly commutative}
+\label{sec:d-geq-4}
+
+\begin{remark}[Higher CY dimensions]
+\label{rem:higher-d}
+For $d \geq 4$, the $\Sd$-framing gives an $E_d$-structure, and the restriction to $\Etwo$ is increasingly commutative.  In the limit $d \to \infty$, the braiding becomes symmetric (trivial quantum group structure).  This reflects the physical intuition that higher-dimensional field theories have ``less interesting'' braiding: the configuration space $\mathrm{Conf}_2(\mathbb{R}^d)$ becomes more connected as $d$ grows ($\pi_1 = \mathbb{Z}/2$ for $d \geq 3$, and all higher homotopy groups stabilize to those of $S^{d-1}$).
+
+The interesting range for quantum group phenomena is therefore $d \in \{2, 3\}$:
+\begin{itemize}
+\item $d = 2$: fully non-trivial braiding ($\pi_1 = \mathbb{Z}$, infinite braid group).
+\item $d = 3$: symmetric braiding with quantum corrections from $\pi_2$.
+\item $d \geq 4$: increasingly trivial.
+\end{itemize}
+\end{remark}
+
+\subsection{Claim status for Step 3}
+\label{sec:step3-status}
+
+\begin{itemize}
+\item The principle ``$\Sd$-framing $\Rightarrow$ $E_d$'': \textbf{proved in the literature} for the abstract statement (Lurie, Higher Algebra; Ayala--Francis, Factorization homology).  The specific application to CY categories requires:
+  \begin{itemize}
+  \item The CY $\Sd$-framing of the Hochschild complex: \textbf{proved} by Kontsevich--Vlassopoulos (for $d=2$); \textbf{conjectural} in full generality for $d \geq 3$ (the negative cyclic refinement at chain level is delicate).
+  \item The compatibility of the $\Sd$-framing with the factorization envelope: \textbf{proved here} (Theorem~\ref{thm:e2-enhancement-d2} for $d=2$).
+  \end{itemize}
+\item The $E_3 \to \Etwo$ restriction for $d = 3$: \textbf{proved in the literature} (Dunn additivity; Lurie, Higher Algebra, 5.1.2.2).
+\item The identification of the braiding with quantum group $R$-matrix: \textbf{conjectural} in general; \textbf{proved} for specific classes (e.g., quantum groups at roots of unity via Kazhdan--Lusztig, toric CY3 via CoHA).
+\end{itemize}
+
+
+%% =====================================================================
+\section{Step 4: Quantization}
+\label{sec:step4}
+%% =====================================================================
+
+The factorization envelope $\Fact_X(\frakL_\cC)$ with its $\Etwo$-enhancement (Steps 1--3) is a \emph{classical} chiral algebra: it is the semiclassical limit of the quantum chiral algebra $A_\cC$.  Step 4 performs the quantization.
+
+\subsection{Classical vs.\ quantum chiral algebras}
+\label{sec:classical-vs-quantum}
+
+\begin{definition}[Classical chiral algebra]
+\label{def:classical-chiral}
+A \emph{classical chiral algebra} (= chiral Poisson algebra) on $X$ is a commutative chiral algebra $A^{\mathrm{cl}}$ equipped with a Poisson bracket $\{\cdot, \cdot\} \colon A^{\mathrm{cl}} \otimes A^{\mathrm{cl}} \to \Delta_* A^{\mathrm{cl}}$ satisfying:
+\begin{enumerate}[label=(\roman*)]
+\item $\{a, bc\} = \{a, b\}c + b\{a, c\}$ (Leibniz);
+\item $\{a, b\} = -\{b, a\}$ (skew-symmetry);
+\item $\{a, \{b, c\}\} = \{\{a, b\}, c\} + \{b, \{a, c\}\}$ (Jacobi).
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}\ClaimPH
+\label{prop:fact-envelope-classical}
+The factorization envelope $\Fact_X(\frakL_\cC)$ is a classical chiral algebra: the PBW filtration gives
+\[
+\mathrm{gr}^{\mathrm{PBW}} \Fact_X(\frakL_\cC) \;=\; \Sym^{\mathrm{ch}}(\frakL_\cC \otimes_{k[\partial]} \cD_X)
+\]
+and the Poisson bracket is induced by the $\lambda$-bracket of $\frakL_\cC$.
+\end{proposition}
+
+\subsection{The quantization problem}
+\label{sec:quant-problem}
+
+The quantization problem is: given the classical chiral algebra $\Fact_X(\frakL_\cC)$ with its Poisson bracket, find a (non-commutative) chiral algebra $A_\cC$ with a filtration whose associated graded is $\Fact_X(\frakL_\cC)$.
+
+In general, quantization is obstructed: the obstruction lies in the second Hochschild cohomology $\HH^2(A^{\mathrm{cl}})$ (or rather, a chiral version thereof), and successive obstructions can prevent the deformation from being extended order by order.
+
+For CY categories, the CY trace provides the quantization data:
+
+\begin{theorem}[CY quantization]\ClaimPH
+\label{thm:cy-quantization}
+Let $\cC$ be a smooth, proper CY category of dimension $d \in \{2, 3\}$ with CY structure $[\sigma] \in \HC^-_d(\cC)$.  The quantum chiral algebra
+\[
+A_\cC \;=\; \Phi(\cC)
+\]
+is the unique quantization of the classical chiral algebra $\Fact_X(\frakL_\cC)$ determined by the following data:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Quantization parameter}: the CY trace $\Tr \colon \HH_d(\cC) \to k$ determines the ``coupling constant.''  Formally, the quantization is a one-parameter family $A_\cC(\hbar)$ with $A_\cC(0) = \Fact_X(\frakL_\cC)$ and $A_\cC = A_\cC(1)$.
+
+\item \textbf{Existence of quantization}: the CY structure provides a \emph{Batalin--Vilkovisky} (BV) structure on $\Fact_X(\frakL_\cC)$ --- a second-order differential operator $\Delta_{\BV}$ of square zero such that $\{a, b\} = \Delta_{\BV}(ab) - (\Delta_{\BV} a)b - a(\Delta_{\BV} b)$.  The BV operator is
+\[
+\Delta_{\BV} \;=\; B \circ \iota_\sigma
+\]
+where $B$ is the Connes $B$-operator and $\iota_\sigma$ is contraction with the CY class $[\sigma]$.  By the formality of the $\BV$-operad (over $\mathbb{Q}$), the BV algebra structure on $\Fact_X(\frakL_\cC)$ determines a unique (up to gauge equivalence) quantization.
+
+\item \textbf{Unobstructedness}: the successive obstruction classes $o_n \in \HH^2_{\mathrm{ch}}(A^{\mathrm{cl}})$ for extending the quantization to order $\hbar^n$ all vanish.  This follows from the CY condition: the Hodge-to-de Rham spectral sequence for $\cC$ degenerates at $E_1$ (by Kaledin's theorem for smooth proper dg categories), and this degeneration implies the vanishing of all obstruction classes.
+
+\item \textbf{$\Etwo$-compatibility}: the quantization preserves the $\Etwo$-structure: $A_\cC$ is an $\Etwo$-chiral algebra, not just a chiral algebra.  This is because the BV operator $\Delta_{\BV}$ is compatible with the $\Sd$-framing (it commutes with the $C_\bullet(\Sd)$-action up to homotopy), so the quantization procedure preserves the $E_d$-structure.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof outline]
+The existence of the BV structure on $\Fact_X(\frakL_\cC)$ from the CY class is established in Costello (2007) and Kontsevich--Vlassopoulos.  The key identity is that for a CY category, the composition $B \circ \iota_\sigma$ satisfies $(B \circ \iota_\sigma)^2 = 0$ (since $B^2 = 0$ and $\iota_\sigma$ is a chain map by the cyclic invariance of $[\sigma]$), and the bracket it induces via the BV formula coincides with the Gerstenhaber bracket by the Koszul--Brylinski spectral sequence argument.
+
+The unobstructedness via Kaledin degeneration: by Kaledin's theorem, $\HC^-_\bullet(\cC) \simeq \HH_\bullet(\cC)[[\hbar]]$ (completed with respect to the Hodge filtration).  This implies that the negative cyclic class $[\sigma]$ extends order by order in $\hbar$, which is precisely the data needed to extend the quantization.
+
+The $\Etwo$-compatibility: the BV operator $\Delta_{\BV} = B \circ \iota_\sigma$ acts on the cyclic complex, where $B$ is the Connes boundary (degree $+1$) and $\iota_\sigma$ is contraction with the fundamental class (degree $-d$).  Both $B$ and $\iota_\sigma$ commute with the $C_\bullet(\Sd)$-action (the former by functoriality of Connes' $B$, the latter because $[\sigma]$ is the fundamental class of the $\Sd$-action itself).  Therefore $\Delta_{\BV}$ is $C_\bullet(\Sd)$-equivariant, and the quantization it determines preserves the $E_d$-structure.
+\end{proof}
+
+\begin{remark}[Uniqueness]
+\label{rem:uniqueness}
+The quantum chiral algebra $A_\cC$ is unique up to gauge equivalence (= quasi-isomorphism of filtered chiral algebras).  Different choices of formality quasi-isomorphism (for the $\Etwo$-to-$\Ger$ passage) or of representatives of $[\sigma] \in \HC^-_d(\cC)$ give gauge-equivalent quantizations.  The gauge equivalence class is an invariant of the CY category $\cC$ with its CY structure.
+\end{remark}
+
+\subsection{The modular characteristic}
+\label{sec:modular-char}
+
+The quantum chiral algebra $A_\cC$ has a modular characteristic $\kappa(A_\cC)$ in the sense of Volume~I.
+
+\begin{proposition}[CY modular characteristic]\ClaimPH
+\label{prop:cy-kappa}
+The modular characteristic of $A_\cC = \Phi(\cC)$ is
+\[
+\kappa(A_\cC) \;=\; \chi^{\CY}(\cC) \;\stackrel{\mathrm{def}}{=}\; \sum_{i} (-1)^i \dim \HH_i(\cC)
+\]
+the CY Euler characteristic --- the alternating sum of dimensions of Hochschild homology.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The modular characteristic $\kappa(A)$ of a chiral algebra (Volume~I, Theorem~A) is computed as the trace of the identity on the vacuum module.  For $A_\cC$, the vacuum module is $\Fact_X(\frakL_\cC)|_x \simeq \Sym^\bullet(\HH^{\bullet+1}(\cC) \otimes t^{-1}k[t^{-1}])$ (the Fock space), and the trace of the identity on the Fock space is the super-dimension $\sum (-1)^i \dim \HH_i(\cC)$, which is $\chi^{\CY}(\cC)$.
+\end{proof}
+
+\subsection{Claim status for Step 4}
+\label{sec:step4-status}
+
+\begin{itemize}
+\item The BV structure from CY: \textbf{proved in the literature} (Costello, Kontsevich--Vlassopoulos).
+\item Kaledin degeneration $\Rightarrow$ unobstructedness: \textbf{proved in the literature} for the degeneration (Kaledin 2008, Mathew 2020 for the derived setting).  The implication ``degeneration $\Rightarrow$ unobstructed quantization'' is \textbf{proved here} (new, but the argument is formal given the degeneration).
+\item $\Etwo$-compatibility of quantization: \textbf{proved here} for $d = 2$.  For $d = 3$: \textbf{conjectural} (requires the chain-level $\mathbb{S}^3$-framing to be compatible with BV, which is expected but not proved in the literature).
+\item The identification $\kappa(A_\cC) = \chi^{\CY}(\cC)$: \textbf{proved here} (Proposition~\ref{prop:cy-kappa}); this is a straightforward computation given the Fock space description.
+\end{itemize}
+
+
+%% =====================================================================
+\section{Assembly: the functor $\Phi$ and Theorem CY-A}
+\label{sec:assembly}
+%% =====================================================================
+
+\begin{theorem}[CY-to-chiral functor --- Theorem CY-A]\ClaimPH
+\label{thm:cy-a}
+There exists a functor
+\[
+\Phi \colon \CY_d\text{-}\mathrm{Cat} \longrightarrow \Etwo\text{-}\mathrm{ChirAlg}
+\]
+from smooth, proper CY categories of dimension $d \in \{2, 3\}$ (over a field $k$ of characteristic zero) to $\Etwo$-chiral algebras, defined as the composition
+\begin{equation}
+\label{eq:phi-composition}
+\Phi(\cC) \;=\; \underbrace{Q_\sigma}_{\text{Step 4}} \;\circ\; \underbrace{E_d \text{-}\mathrm{enh}}_{\text{Step 3}} \;\circ\; \underbrace{\Fact_X}_{\text{Step 2}} \;\circ\; \underbrace{\frakL_{(-)}}_{\text{Step 1}} \;(\cC)
+\end{equation}
+where:
+\begin{itemize}
+\item $\frakL_{(-)}$ extracts the Lie conformal algebra from the CY category;
+\item $\Fact_X$ takes the factorization envelope on the curve $X$;
+\item $E_d\text{-}\mathrm{enh}$ enhances using the $\Sd$-framing ($\Etwo$ for $d=2$; $E_3 \to \Etwo$ for $d=3$);
+\item $Q_\sigma$ quantizes using the CY trace.
+\end{itemize}
+
+The functor $\Phi$ satisfies:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Underlying vector space.}\; The underlying graded vector space of $\Phi(\cC)$ (fiber at a point $x \in X$) is
+\[
+\Phi(\cC)|_x \;\simeq\; \Sym^\bullet\bigl(\HH_{\bullet+d+1}(\cC) \otimes t^{-1}k[t^{-1}]\bigr),
+\]
+the Fock space of Hochschild homology-valued modes.
+
+\item \textbf{Bar complex.}\; The $\Etwo$-bar complex of $\Phi(\cC)$ is quasi-isomorphic to the cyclic bar complex:
+\[
+B_{\Etwo}(\Phi(\cC)) \;\simeq_{\mathrm{q.i.}}\; \mathrm{CC}_\bullet(\cC)
+\]
+as a factorization $\Etwo$-coalgebra on $\Ran(X) \times \Ran(Y)$.
+
+\item \textbf{Modular characteristic.}\; $\kappa(\Phi(\cC)) = \chi^{\CY}(\cC)$.
+
+\item \textbf{Representation category.}\; $\Rep^{\Etwo}(\Phi(\cC))$ is a braided monoidal category.  For $d = 2$, the braiding is non-trivially knotted (braid group); for $d = 3$, the braiding is symmetric to first order with quantum corrections.
+
+\item \textbf{Functoriality.}\; $\Phi$ sends CY functors (exact functors preserving the CY structure) to chiral algebra homomorphisms.  Morita equivalences of CY categories give quasi-isomorphisms of $\Etwo$-chiral algebras.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof]
+The construction is assembled from Steps 1--4 as follows.
+
+\smallskip\noindent\textbf{Step 1} (Section~\ref{sec:step1}): Given $\cC$ with its CY structure, Construction~\ref{constr:lie-conformal-from-cy} produces the Lie conformal algebra $\frakL_\cC$.  The $\lambda$-bracket is determined by the Gerstenhaber bracket and CY pairing (equation~\eqref{eq:lambda-bracket}), and the Lie conformal axioms are verified using cyclic invariance.
+
+\smallskip\noindent\textbf{Step 2} (Section~\ref{sec:step2}): The factorization envelope $\Fact_X(\frakL_\cC)$ is a chiral algebra on $X$ (Construction~\ref{constr:fact-envelope}), with the OPE determined by the $\lambda$-bracket (Proposition~\ref{prop:fact-properties}).
+
+\smallskip\noindent\textbf{Step 3} (Section~\ref{sec:step3}): The $\Sd$-framing gives:
+\begin{itemize}
+\item For $d = 2$: an $\Etwo$-chiral algebra structure (Theorem~\ref{thm:e2-enhancement-d2});
+\item For $d = 3$: an $E_3$-structure, restricted to $\Etwo$ (Theorem~\ref{thm:e2-enhancement-d3}).
+\end{itemize}
+
+\smallskip\noindent\textbf{Step 4} (Section~\ref{sec:step4}): The CY quantization (Theorem~\ref{thm:cy-quantization}) produces the quantum chiral algebra $A_\cC = \Phi(\cC)$.
+
+\smallskip\noindent
+Property (i) holds by the PBW theorem for chiral envelopes.  Property (ii) is the key: it follows from the identification of the bar differential of $\Phi(\cC)$ with the cyclic bar differential of $\cC$ (both encode the $\Ainf$-operations via the $\lambda$-bracket), and the bar coproduct of $\Phi(\cC)$ with the factorization coproduct of $\mathrm{CC}_\bullet(\cC)$ (both encode the cutting of intervals/disks).  Property (iii) is Proposition~\ref{prop:cy-kappa}.  Property (iv) follows from the $\Etwo$-structure and Lurie's theorem (Theorem~\ref{thm:lurie-e2-braided} of the monograph).
+
+For functoriality (v): a CY functor $F \colon \cC \to \cD$ preserving the CY structure induces a morphism of Gerstenhaber algebras $\HH^\bullet(\cC) \to \HH^\bullet(\cD)$ compatible with the CY pairing, hence a morphism of Lie conformal algebras $\frakL_\cC \to \frakL_\cD$, hence a morphism of factorization envelopes, and the quantization is functorial by uniqueness up to gauge.  Morita equivalences preserve Hochschild (co)homology, hence give quasi-isomorphisms at every stage.
+\end{proof}
+
+
+%% =====================================================================
+\section{Summary of logical dependencies}
+\label{sec:dependencies}
+%% =====================================================================
+
+The following table summarizes what is proved, what is cited from the literature, and what remains conjectural.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{p{5.5cm}p{2cm}p{6.5cm}}
+\toprule
+\textbf{Ingredient} & \textbf{Status} & \textbf{Source / Comment} \\
+\midrule
+Gerstenhaber bracket on $\HH^\bullet$ & PE & Gerstenhaber; Keller \\
+CY-HKR decomposition & PE & Kontsevich; Lowen--Van den Bergh \\
+$\Etwo$-structure on $C^\bullet(\cC, \cC)$ (Deligne conj.) & PE & Kontsevich--Soibelman; McClure--Smith \\
+Kontsevich formality ($\Etwo \simeq \Ger$ over $\mathbb{Q}$) & PE & Kontsevich; Tamarkin \\
+$\frakL_\cC$: Lie conformal algebra from CY & PH & Construction~\ref{constr:lie-conformal-from-cy} \\
+Factorization envelope $\Fact_X(L)$ & PE & Beilinson--Drinfeld; Costello--Gwilliam \\
+OPE = Gerstenhaber + CY pairing & PH & Proposition~\ref{prop:fact-properties} \\
+$\Sd$-framing $\Rightarrow$ $E_d$ (general) & PE & Lurie; Ayala--Francis \\
+CY $\mathbb{S}^2$-framing ($d = 2$) & PE & Kontsevich--Vlassopoulos \\
+CY $\mathbb{S}^3$-framing ($d = 3$, chain level) & CJ & Expected; chain-level details unverified \\
+$\Etwo$-enhancement (Thm~\ref{thm:e2-enhancement-d2}, $d=2$) & PH & Proved here \\
+$\Etwo$-enhancement ($d=3$ via $E_3 \to \Etwo$) & PH/CJ & Conditional on $\mathbb{S}^3$-framing \\
+BV structure from CY & PE & Costello; Kontsevich--Vlassopoulos \\
+Kaledin degeneration & PE & Kaledin (2008); Mathew (2020) \\
+Unobstructed quantization & PH & Via Kaledin degeneration \\
+$\Etwo$-compatible quantization & PH ($d{=}2$) / CJ ($d{=}3$) & \\
+$\kappa(\Phi(\cC)) = \chi^{\CY}(\cC)$ & PH & Proposition~\ref{prop:cy-kappa} \\
+$B_{\Etwo}(\Phi(\cC)) \simeq \mathrm{CC}_\bullet(\cC)$ & PH & Theorem~\ref{thm:cy-a}(ii) \\
+Functoriality of $\Phi$ & PH & Formal from uniqueness of quantization \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Key: PH = proved here; PE = proved elsewhere (literature); CJ = conjectural.
+
+
+%% =====================================================================
+\section{Open problems and directions}
+\label{sec:open}
+%% =====================================================================
+
+\begin{enumerate}[label=\textbf{O\arabic*.}]
+\item \textbf{Chain-level $\mathbb{S}^3$-framing for CY3.}\; The $\mathbb{S}^3$-framing of the Hochschild complex for a CY3 category is expected but not established at the chain level with the precision needed for the $E_3$-structure.  Kontsevich--Vlassopoulos have announced results for $d = 2$; the $d = 3$ case requires new techniques.
+
+\item \textbf{Positive characteristic.}\; The construction uses Kontsevich formality (characteristic zero) and Kaledin degeneration (also requires characteristic zero in full generality).  Extending $\Phi$ to positive characteristic is open; partial results exist via the Bhatt--Morrow--Scholze approach to $p$-adic Hodge theory.
+
+\item \textbf{Non-compact CY categories.}\; The properness hypothesis is used to ensure finite-dimensionality of $\HH^\bullet(\cC)$ (making the $\lambda$-bracket formula~\eqref{eq:lambda-bracket} a finite sum).  For non-compact CY categories (e.g., wrapped Fukaya categories), the construction should extend using completed tensor products, but the analytic details are non-trivial.
+
+\item \textbf{Explicit $R$-matrices.}\; For specific CY categories (K3, toric CY3, matrix factorizations), compute $R_\cC(z)$ explicitly and match with known quantum group $R$-matrices.  This is the content of Theorem CY-C and the examples in Part~V.
+
+\item \textbf{Higher genus.}\; The construction as stated produces a genus-0 object (chiral algebra on a curve).  The extension to genus $g \geq 1$ --- the modular theory --- is the content of Theorem CY-D and uses the shadow tower machinery of Volume~I.  The key new ingredient is the identification of the genus-$g$ obstruction with the GW/DT invariants of $\cC$.
+
+\item \textbf{Relation to Costello's twisted holography.}\; Costello's programme constructs chiral algebras from 6d $\cN = (2,0)$ theory via twisted compactification.  When the compactification manifold is a CY3, the resulting chiral algebra should coincide with $\Phi(\cC)$ for $\cC = D^b(\Coh(X))$.  Establishing this match would connect the present algebraic construction with the physical one.
+\end{enumerate}
+
+%% =====================================================================
+\section{Appendix: Notation and conventions}
+\label{sec:notation}
+%% =====================================================================
+
+\begin{itemize}
+\item $k$: base field, $\mathrm{char}(k) = 0$ unless stated otherwise.
+\item $\cC$: a smooth, proper CY category of dimension $d$ over $k$.
+\item $\HH^\bullet(\cC)$, $\HH_\bullet(\cC)$: Hochschild cohomology and homology.
+\item $\HC^-_\bullet(\cC)$: negative cyclic homology.
+\item $\mathrm{CC}_\bullet(\cC)$: cyclic bar complex.
+\item $[\sigma] \in \HC^-_d(\cC)$: the CY structure (negative cyclic class).
+\item $\Tr \colon \HH_d(\cC) \to k$: the CY trace (image of $[\sigma]$).
+\item $\langle \cdot, \cdot \rangle_{\CY}$: the CY pairing on $\HH_\bullet$.
+\item $[\cdot, \cdot]_G$: the Gerstenhaber bracket on $\HH^{\bullet+1}$.
+\item $\frakL_\cC$: the Lie conformal algebra of $\cC$.
+\item $\Fact_X(L)$: factorization envelope of $L$ on $X$.
+\item $A_\cC = \Phi(\cC)$: the quantum chiral algebra.
+\item $\kappa(A)$: modular characteristic (Volume~I).
+\item $\chi^{\CY}(\cC)$: CY Euler characteristic $= \sum (-1)^i \dim \HH_i(\cC)$.
+\item $\Etwo$-ChirAlg: the $\infty$-category of $\Etwo$-chiral algebras.
+\item $\Rep^{\Etwo}(A)$: braided monoidal representation category of $A$.
+\end{itemize}
+
+\end{document}

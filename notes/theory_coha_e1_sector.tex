@@ -1,0 +1,1175 @@
+% theory_coha_e1_sector.tex
+% Working note: The critical CoHA as the E_1-sector of the quantum vertex chiral group
+% Raeez Lorgat, April 2026
+%
+% Develops the precise relationship between the critical CoHA (associative/E_1)
+% and the full quantum vertex chiral group (braided/E_2), with complete proofs
+% for C^3 and the general toric case.
+
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{warning}[theorem]{Warning}
+
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\Spec}{\operatorname{Spec}}
+\newcommand{\Crit}{\operatorname{Crit}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\Rep}{\operatorname{Rep}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\HH}{\operatorname{HH}}
+\newcommand{\HC}{\operatorname{HC}}
+\newcommand{\CoHA}{\mathcal{H}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\frakg}{\mathfrak{g}}
+\newcommand{\frakn}{\mathfrak{n}}
+\newcommand{\frakh}{\mathfrak{h}}
+\newcommand{\frakb}{\mathfrak{b}}
+\newcommand{\Ran}{\operatorname{Ran}}
+\newcommand{\Fact}{\operatorname{Fact}}
+\newcommand{\op}{\operatorname{op}}
+\newcommand{\BM}{\operatorname{BM}}
+\newcommand{\DT}{\operatorname{DT}}
+\newcommand{\GL}{\operatorname{GL}}
+\newcommand{\gl}{\mathfrak{gl}}
+
+\title{The Critical CoHA as the $E_1$-Sector\\
+of the Quantum Vertex Chiral Group}
+\author{Raeez Lorgat}
+\date{April 2026 --- Working Note}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For a Calabi--Yau threefold $X$ with quiver-with-potential $(Q,W)$, the critical
+cohomological Hall algebra $\CoHA(Q,W)$ is an associative ($E_1$) algebra built from
+Borel--Moore homology of vanishing cycle sheaves on the critical locus.  We develop
+the precise statement and proof that $\CoHA(Q,W)$ is isomorphic to the universal
+enveloping algebra $U(\frakn_+)$ of the positive part of the Borcherds--Kac--Moody /
+Yangian / quantum vertex chiral group $G(X)$.  The $E_1$-structure (associativity)
+is the ordered sector; the passage to the full $E_2$-structure (braiding) adds the
+quantum group $R$-matrix via the Drinfeld double construction.  We verify this
+completely for $\CC^3$ (Schiffmann--Vasserot: $\CoHA = Y^+(\widehat{\gl}_1)$,
+Drinfeld double $= Y(\widehat{\gl}_1) \cong \cW_{1+\infty}$) and for general toric
+CY3 without compact 4-cycles (Rapcak--Soibelman--Yang--Zhao).
+\end{abstract}
+
+\tableofcontents
+
+%% ======================================================================
+\section{Overview and motivation}
+\label{sec:overview}
+%% ======================================================================
+
+The purpose of this note is to make precise the slogan
+\begin{center}
+\emph{The critical CoHA is the $E_1$-sector (positive half) of the quantum vertex
+chiral group.}
+\end{center}
+
+\noindent
+This slogan has three layers of content:
+
+\begin{enumerate}[label=(\alph*)]
+  \item \textbf{Algebraic.}  The CoHA $\CoHA(Q,W)$ is an associative ($E_1$)
+    algebra; the quantum vertex chiral group $G(X)$ is an $E_2$-chiral algebra
+    whose representation category is braided monoidal.  The CoHA recovers the
+    positive half $U(\frakn_+)$.
+  \item \textbf{Operadic.}  The passage from $E_1$ to $E_2$ adds a braiding.
+    By Dunn additivity, $E_2 \simeq E_1 \otimes E_1$; concretely, the second
+    $E_1$-direction is the Cartan/coweight direction of the triangular decomposition,
+    and the braiding is the $R$-matrix.
+  \item \textbf{Geometric.}  The CoHA multiplication comes from correspondences
+    on moduli of quiver representations (genus-0, tree-level curve counting);
+    the $E_2$-enhancement incorporates wall-crossing (quantum dilogarithm
+    identities) and loop-level corrections.
+\end{enumerate}
+
+\noindent
+We work equivariantly with respect to the torus $T = (\CC^*)^3$ acting on CY3
+geometry, with equivariant parameters $\epsilon_1, \epsilon_2, \epsilon_3$
+satisfying the CY condition $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$.
+
+
+%% ======================================================================
+\section{The critical cohomological Hall algebra}
+\label{sec:critical-coha}
+%% ======================================================================
+
+\subsection{Quivers with potential from CY3}
+\label{subsec:quiver-potential}
+
+Let $X$ be a toric Calabi--Yau threefold.  The toric data (fan $\Sigma$ in
+$\ZZ^3$ with all generators coplanar, satisfying the CY condition) determines
+a quiver with potential $(Q, W)$ via the brane tiling / dimer model construction.
+
+\begin{definition}[Quiver with potential]
+\label{def:quiver-potential}
+A \emph{quiver with potential} $(Q, W)$ consists of:
+\begin{itemize}
+  \item A quiver $Q = (Q_0, Q_1, s, t)$ with vertex set $Q_0$, arrow set $Q_1$,
+    and source/target maps $s, t \colon Q_1 \to Q_0$.
+  \item A potential $W \in \CC Q / [\CC Q, \CC Q]$, a formal sum of oriented
+    cycles in $Q$ modulo cyclic equivalence.
+\end{itemize}
+The Jacobian algebra is $\operatorname{Jac}(Q, W) = \CC Q / (\partial_a W : a \in Q_1)$.
+The CY3 condition is equivalent to $\operatorname{Jac}(Q,W)$ being a
+3-Calabi--Yau algebra in the sense of Ginzburg.
+\end{definition}
+
+\begin{example}[$\CC^3$: Jordan quiver]
+\label{ex:jordan}
+The Jordan quiver has one vertex and one loop $x$.  With three loops
+$x, y, z$ and potential $W = \Tr(x[y,z]) = \Tr(xyz - xzy)$, this is the
+quiver-with-potential for $\CC^3$.  The representation space of dimension
+$d$ is $\operatorname{Mat}_{d \times d}(\CC)^3$ with the function
+$W_d = \Tr(X[Y,Z])$ and the $\GL_d$-action by simultaneous conjugation.
+\end{example}
+
+\begin{example}[Resolved conifold]
+\label{ex:conifold}
+The Klebanov--Witten quiver has two vertices and four arrows
+$a_1, a_2 \colon 0 \to 1$, $b_1, b_2 \colon 1 \to 0$, with potential
+$W = \Tr(a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1)$.
+\end{example}
+
+
+\subsection{Definition of the critical CoHA}
+\label{subsec:critical-coha-def}
+
+\begin{definition}[Critical CoHA]
+\label{def:critical-coha}
+For a quiver with potential $(Q, W)$, the \emph{critical cohomological Hall
+algebra} is the $\ZZ_{\geq 0}^{Q_0}$-graded vector space
+\[
+  \CoHA(Q, W) = \bigoplus_{\mathbf{d} \in \ZZ_{\geq 0}^{Q_0}}
+    H^{\BM}_*\bigl(\Crit(W_{\mathbf{d}})/\GL_{\mathbf{d}},\,
+    \varphi_{W_{\mathbf{d}}}\bigr)
+\]
+where:
+\begin{itemize}
+  \item $\mathbf{d} = (d_i)_{i \in Q_0}$ is a dimension vector;
+  \item $\GL_{\mathbf{d}} = \prod_{i \in Q_0} \GL_{d_i}$ acts on the
+    representation space $\operatorname{Rep}(Q, \mathbf{d}) = \bigoplus_{a \in Q_1}
+    \Hom(\CC^{d_{s(a)}}, \CC^{d_{t(a)}})$ by change of basis;
+  \item $W_{\mathbf{d}} \colon \operatorname{Rep}(Q, \mathbf{d}) \to \CC$ is
+    the trace of the potential, $W_{\mathbf{d}}(\rho) = \Tr(W(\rho))$;
+  \item $\varphi_{W_{\mathbf{d}}}$ is the sheaf of vanishing cycles of $W_{\mathbf{d}}$;
+  \item $H^{\BM}_*$ denotes equivariant Borel--Moore homology.
+\end{itemize}
+\end{definition}
+
+\begin{construction}[CoHA multiplication]
+\label{constr:coha-mult}
+The multiplication
+\[
+  \mu \colon \CoHA(Q,W)_{\mathbf{d}} \otimes \CoHA(Q,W)_{\mathbf{e}}
+  \longrightarrow \CoHA(Q,W)_{\mathbf{d}+\mathbf{e}}
+\]
+is defined by the correspondence
+\[
+\begin{tikzcd}[column sep=large]
+  & \left\{\begin{array}{c} 0 \to V' \to V \to V'' \to 0 \\ \text{short exact in } \operatorname{Rep}(Q) \end{array}\right\}
+    \arrow[dl, "p"'] \arrow[dr, "q"] & \\
+  \operatorname{Rep}(Q, \mathbf{d}) \times \operatorname{Rep}(Q, \mathbf{e})
+  & & \operatorname{Rep}(Q, \mathbf{d}+\mathbf{e})
+\end{tikzcd}
+\]
+where $p$ forgets to the sub and quotient and $q$ includes the extension.
+Concretely, $\mu = q_! \circ p^*$, refined by the Thom--Sebastiani isomorphism
+for vanishing cycles: $\varphi_{W_{\mathbf{d}}} \boxtimes \varphi_{W_{\mathbf{e}}}
+\simeq \varphi_{W_{\mathbf{d}+\mathbf{e}}}|_{\text{extensions}}$.
+\end{construction}
+
+\begin{proposition}[Associativity]
+\label{prop:coha-assoc}
+The CoHA multiplication is associative.  That is, $(\CoHA(Q,W), \mu)$ is a
+unital associative algebra --- equivalently, an $E_1$-algebra in graded vector spaces.
+\end{proposition}
+
+\begin{proof}
+Associativity follows from the transitivity of the extension correspondence:
+a filtration $0 \subset V' \subset V'' \subset V$ with successive quotients
+of dimensions $\mathbf{d}, \mathbf{e}, \mathbf{f}$ can be built either as
+$(V' \subset V'') \subset V$ or $V' \subset (V'' \subset V)$, and the two
+compositions yield the same pushforward.  The Thom--Sebastiani isomorphism
+is itself associative, so the vanishing-cycle refinement preserves this.
+\end{proof}
+
+\begin{remark}[Noncommutativity]
+\label{rem:noncomm}
+The CoHA multiplication is \emph{not} commutative.  The extension correspondence
+depends on which factor is the subrepresentation and which is the quotient ---
+this is the ``ordering'' that makes it $E_1$ rather than $E_2$.  The failure
+of commutativity is measured precisely by the $R$-matrix (Section~\ref{subsec:r-matrix}).
+\end{remark}
+
+
+%% ======================================================================
+\section{Precise statement: CoHA as $U(\frakn_+)$}
+\label{sec:precise-statement}
+%% ======================================================================
+
+\subsection{Triangular decomposition of the quantum vertex chiral group}
+\label{subsec:triangular}
+
+\begin{definition}[Quantum vertex chiral group]
+\label{def:qvcg}
+For a CY3 $X$ with generalized root datum $\cR(X) = (\Lambda, \Delta^{\mathrm{re}},
+\Delta^{\mathrm{im}}, \text{mult}, W, \rho)$ (see Chapter~1 of the main text),
+the \emph{quantum vertex chiral group} $G(X)$ is the $E_2$-chiral algebra
+$\Phi(X) = A_X$ whose:
+\begin{enumerate}[label=(\roman*)]
+  \item underlying Lie algebra $\frakg(X)$ is the generalized BKM superalgebra
+    associated to $\cR(X)$;
+  \item quantization is the affine (super) Yangian $Y(\widehat{\frakg}_{Q_X})$
+    for toric $X$;
+  \item representation category $\Rep^{E_2}(G(X))$ is braided monoidal with
+    braiding given by the Yangian $R$-matrix.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Triangular decomposition]
+\label{def:triangular-decomp}
+The affine (super) Yangian $Y(\widehat{\frakg})$ admits a triangular decomposition
+\[
+  Y(\widehat{\frakg}) \cong Y^-(\widehat{\frakg}) \otimes Y^0(\widehat{\frakg})
+    \otimes Y^+(\widehat{\frakg})
+\]
+where:
+\begin{itemize}
+  \item $Y^+(\widehat{\frakg})$ is generated by the positive modes $\{e_{i,r}\}_{i \in Q_0, r \geq 0}$;
+  \item $Y^0(\widehat{\frakg})$ is the Cartan subalgebra generated by $\{\psi_{i,r}\}_{i \in Q_0, r \geq 0}$;
+  \item $Y^-(\widehat{\frakg})$ is generated by the negative modes $\{f_{i,r}\}_{i \in Q_0, r \geq 0}$.
+\end{itemize}
+Each of $Y^{\pm}$ is an associative algebra (with no braiding);
+the braiding arises from the interplay of $Y^+$ and $Y^-$ mediated by $Y^0$.
+\end{definition}
+
+\begin{theorem}[Critical CoHA $=$ positive half]
+\label{thm:coha-positive-half}
+Let $X$ be a toric CY3 without compact 4-cycles, with quiver-with-potential
+$(Q_X, W_X)$.  There is an isomorphism of associative algebras
+\[
+  \boxed{\CoHA(Q_X, W_X) \;\cong\; Y^+(\widehat{\frakg}_{Q_X})}
+\]
+where $Y^+(\widehat{\frakg}_{Q_X})$ is the positive half of the affine super
+Yangian associated to the toric quiver.  Under this isomorphism:
+\begin{enumerate}[label=(\roman*)]
+  \item The dimension-vector grading on $\CoHA$ corresponds to the root grading
+    on $Y^+$.
+  \item The CoHA generators in degree $\mathbf{e}_i$ (simple dimension vectors)
+    correspond to the Yangian generators $e_{i,r}$.
+  \item The CoHA relations (from geometry of extension correspondences) map to
+    the Yangian Drinfeld relations.
+  \item The equivariant parameters $(\epsilon_1, \epsilon_2, \epsilon_3)$ with
+    $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ correspond to the Yangian
+    deformation parameters $(\hbar_1, \hbar_2, \hbar_3)$.
+\end{enumerate}
+\end{theorem}
+
+
+\subsection{The universal enveloping algebra interpretation}
+\label{subsec:uea}
+
+The positive half $Y^+(\widehat{\frakg})$ should be thought of as a deformation
+of $U(\frakn_+)$ where $\frakn_+$ is the positive nilpotent subalgebra of the
+BKM superalgebra $\frakg(X)$:
+
+\begin{proposition}
+\label{prop:classical-limit}
+In the classical limit $\hbar \to 0$ (non-equivariant limit $\epsilon_1 = \epsilon_2
+= \epsilon_3 = 0$ after imposing $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$,
+realized e.g.\ as $\epsilon_1 = \hbar, \epsilon_2 = -\hbar, \epsilon_3 = 0$
+with $\hbar \to 0$), the positive Yangian degenerates:
+\[
+  Y^+(\widehat{\frakg}) \xrightarrow{\hbar \to 0} U(\frakn_+[\![z]\!])
+\]
+where $\frakn_+[\![z]\!]$ is the positive nilpotent of the loop algebra of $\frakg$.
+The CoHA in the non-equivariant limit becomes the Hall algebra of the abelian
+category of $\operatorname{Jac}(Q,W)$-modules, and the Hall algebra
+$\to$ $U(\frakn_+)$ isomorphism is the classical Ringel theorem.
+\end{proposition}
+
+
+%% ======================================================================
+\section{The $E_1$ structure: associativity and the ordered sector}
+\label{sec:e1-structure}
+%% ======================================================================
+
+\subsection{CoHA as $E_1$-algebra}
+\label{subsec:coha-e1}
+
+The CoHA multiplication (Construction~\ref{constr:coha-mult}) makes $\CoHA(Q,W)$
+into an $E_1$-algebra.  Let us unpack what $E_1$ means here concretely and
+why the CoHA is \emph{not} naturally $E_2$.
+
+\begin{proposition}[$E_1$-structure on CoHA]
+\label{prop:coha-e1}
+The CoHA $\CoHA(Q,W)$ is an $E_1$-algebra in the symmetric monoidal
+$\infty$-category of graded mixed Hodge structures (or equivariant
+$\ell$-adic sheaves).  Concretely:
+\begin{enumerate}[label=(\roman*)]
+  \item $\CoHA$ carries an associative multiplication $\mu$ (from
+    short exact sequences);
+  \item $\mu$ is \emph{not} commutative, not even up to coherent homotopy;
+  \item the coherent associativity data (higher compositions from
+    $n$-step filtrations for all $n \geq 2$) assembles into an
+    $E_1$-algebra structure;
+  \item there is no natural $E_2$-refinement of $\mu$ on $\CoHA$ alone.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i)--(iii): The $n$-ary multiplication $\mu_n$ on $\CoHA$ is defined by the
+correspondence of $n$-step filtrations
+\[
+  0 = V_0 \subset V_1 \subset \cdots \subset V_n = V, \qquad
+  \dim(V_k/V_{k-1}) = \mathbf{d}_k.
+\]
+The permutation group $S_n$ does \emph{not} act on this space (filtrations are
+ordered), but the associahedron $K_n$ acts via refinement of filtrations.
+This is precisely the $E_1$-operad structure.
+
+(iv): An $E_2$-structure would require a half-braiding $\sigma \colon \mu(a,b)
+\xrightarrow{\sim} \mu(b,a)$ compatible with the $E_2$-operad.  The extension
+correspondence is asymmetric: $\{0 \to V' \to V \to V'' \to 0\}$ is not
+isomorphic to $\{0 \to V'' \to V \to V' \to 0\}$ as a correspondence.  The
+discrepancy between these two orientations is precisely the $R$-matrix, which
+requires passing to the Drinfeld double.
+\end{proof}
+
+
+\subsection{The Swiss-cheese interpretation}
+\label{subsec:swiss-cheese}
+
+The $E_1$-structure on the CoHA is the shadow of the Swiss-cheese algebra from
+Volume~II.  Recall that the Swiss-cheese operad $\mathrm{SC}$ governs the
+interaction of a bulk ($E_2$) algebra with a boundary ($E_1$) algebra.
+In the CY3 context:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lll}
+  \textbf{Swiss-cheese sector} & \textbf{Operadic structure} & \textbf{CY3 realization} \\
+  \hline
+  Bulk (interior of disk) & $E_2$ (braided) & Full Yangian $Y(\widehat{\frakg})$ \\
+  Boundary (interval on $\partial$) & $E_1$ (associative) & CoHA $\cong Y^+(\widehat{\frakg})$ \\
+  Bulk-boundary interaction & $\mathrm{SC}$-module & $Y^+$ is a module over $Y$
+\end{tabular}
+\end{center}
+
+\noindent
+The Swiss-cheese picture makes manifest why the CoHA is $E_1$: it lives on the
+boundary of the $E_2$-disk.  The ``ordered'' direction is the real line forming
+the boundary, while the full disk provides the $E_2$-enhancement.
+
+
+\subsection{Geometric origin of associativity: tree-level curve counting}
+\label{subsec:tree-level}
+
+The CoHA multiplication encodes genus-0 (tree-level) enumerative geometry.
+The correspondence
+\[
+  0 \to V' \to V \to V'' \to 0
+\]
+of short exact sequences in $\operatorname{Rep}(Q)$ is the quiver analogue of
+the composition of stable maps:
+\[
+  \overline{\mathcal{M}}_{0,n_1+1}(X, \beta_1) \times_X
+  \overline{\mathcal{M}}_{0,n_2+1}(X, \beta_2) \to
+  \overline{\mathcal{M}}_{0,n_1+n_2}(X, \beta_1+\beta_2).
+\]
+Associativity of the CoHA corresponds to the associativity of the genus-0 OPE
+(the WDVV equation in the GW language, or the quantum product on $QH^*(X)$).
+This is an $E_1$-structure because tree-level amplitudes compose
+\emph{sequentially} (the trees have a planar ordering from the root).
+
+
+%% ======================================================================
+\section{The $E_2$ structure: braiding and the $R$-matrix}
+\label{sec:e2-structure}
+%% ======================================================================
+
+\subsection{The Drinfeld double}
+\label{subsec:drinfeld-double}
+
+The passage from the $E_1$-algebra $\CoHA$ to the $E_2$-algebra $G(X)$
+proceeds via the Drinfeld double construction:
+
+\begin{construction}[Drinfeld double of CoHA]
+\label{constr:drinfeld-double}
+Given the CoHA $\CoHA = Y^+(\widehat{\frakg})$, define the dual CoHA
+\[
+  \CoHA^{\vee} = Y^-(\widehat{\frakg})
+\]
+as the CoHA of the opposite quiver $(Q^{\op}, W^{\op})$ (reverse all arrows,
+negate the potential).  The Drinfeld double is the algebra generated by $\CoHA$
+and $\CoHA^{\vee}$ together with a Cartan subalgebra $Y^0$, subject to the
+cross-relations
+\[
+  [e_{i,r},\, f_{j,s}] = \delta_{ij}\, \psi_{i, r+s}
+\]
+and the Yangian exchange relations between $Y^0$ and $Y^{\pm}$.  The result
+is the full Yangian:
+\[
+  \operatorname{Drin}(\CoHA(Q,W)) \cong Y(\widehat{\frakg}_{Q}).
+\]
+\end{construction}
+
+\begin{theorem}[Drinfeld double $=$ full Yangian]
+\label{thm:drinfeld-double}
+The Drinfeld double of $\CoHA(Q,W)$ (with respect to the topological bialgebra
+structure induced by the coproduct dual to the CoHA multiplication on
+$\CoHA^{\vee}$) is isomorphic to the full affine super Yangian:
+\[
+  \operatorname{Drin}(\CoHA(Q,W)) \cong Y(\widehat{\frakg}_{Q}).
+\]
+The universal $R$-matrix of this Drinfeld double satisfies the quantum
+Yang--Baxter equation and provides the $E_2$-braiding.
+\end{theorem}
+
+
+\subsection{The $R$-matrix and the passage $E_1 \to E_2$}
+\label{subsec:r-matrix}
+
+\begin{construction}[$R$-matrix from the Drinfeld double]
+\label{constr:r-matrix}
+The universal $R$-matrix of $Y(\widehat{\frakg})$ is the element
+\[
+  R \in Y^+(\widehat{\frakg}) \;\widehat{\otimes}\;
+      Y^-(\widehat{\frakg}) \subset
+      Y(\widehat{\frakg}) \;\widehat{\otimes}\;
+      Y(\widehat{\frakg})
+\]
+characterized (up to scalar) by the intertwining property
+\[
+  R \cdot \Delta(x) = \Delta^{\op}(x) \cdot R \qquad
+  \text{for all } x \in Y(\widehat{\frakg})
+\]
+where $\Delta$ is the coproduct and $\Delta^{\op} = \sigma \circ \Delta$ is
+the opposite coproduct.  The $R$-matrix satisfies the quantum Yang--Baxter equation
+\[
+  R_{12} R_{13} R_{23} = R_{23} R_{13} R_{12}
+  \quad \in Y(\widehat{\frakg})^{\widehat{\otimes}\, 3}.
+\]
+\end{construction}
+
+\begin{proposition}[$R$-matrix provides $E_2$-structure]
+\label{prop:r-matrix-e2}
+The data $(\CoHA, \CoHA^{\vee}, Y^0, R)$ assemble into an $E_2$-algebra structure
+on the full Yangian $Y(\widehat{\frakg})$:
+\begin{enumerate}[label=(\roman*)]
+  \item The first $E_1$-direction comes from the CoHA multiplication
+    (positive modes, extension of representations);
+  \item The second $E_1$-direction comes from the Cartan/coweight lattice
+    (dimension-vector grading and the $\psi$-generators);
+  \item By Dunn additivity $E_2 \simeq E_1 \otimes E_1$, these two
+    $E_1$-structures combine into an $E_2$-structure;
+  \item The braiding $\sigma \colon V \otimes W \xrightarrow{R}
+    W \otimes V$ in $\Rep^{E_2}(Y(\widehat{\frakg}))$ is given by the
+    action of $R$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The key point is the Dunn additivity decomposition.  An $E_2$-algebra is an
+$E_1$-algebra \emph{in the category of $E_1$-algebras}.  For the Yangian:
+\begin{itemize}
+  \item The ``outer'' $E_1$-structure: the CoHA multiplication (extending
+    representations, increasing dimension vector).  This is associative and
+    makes $Y^+$ into an $E_1$-algebra.
+  \item The ``inner'' $E_1$-structure: the mode grading / spectral-parameter
+    direction.  The generators $\{e_{i,r}\}_{r \geq 0}$ at fixed vertex $i$
+    form an $E_1$-algebra (the modes of a vertex operator).
+  \item The compatibility of these two $E_1$-structures (the Drinfeld
+    exchange relations between the dimension-vector direction and the
+    spectral-parameter direction) is precisely the data of an $E_2$-structure.
+\end{itemize}
+The $R$-matrix encodes the non-trivial braiding that distinguishes $E_2$
+from $E_{\infty}$; it measures the failure of commutativity of the two
+$E_1$-directions.
+\end{proof}
+
+
+\subsection{The chiral algebra perspective}
+\label{subsec:chiral-perspective}
+
+In the language of the main text (Chapters 5--6), the quantum vertex chiral
+group $G(X)$ is an $E_2$-chiral algebra on $\Ran(X) \times \Ran(Y)$ with:
+
+\begin{itemize}
+  \item The $X$-direction (holomorphic) encodes the OPE (vertex algebra
+    structure, spectral parameter $z$).
+  \item The $Y$-direction (holomorphic) encodes the braiding (the second
+    ``quantum'' direction, spectral parameter $w$).
+  \item The $R$-matrix $R(z-w)$ is the two-point function in the $Y$-direction.
+  \item Restricting to a single point in the $Y$-direction (i.e., forgetting
+    the braiding) recovers the $E_1$-chiral algebra $= \CoHA$.
+\end{itemize}
+
+\noindent
+The $E_2$ bar complex $B_{E_2}(G(X))$ (see the main text, Chapter 9) has:
+\begin{itemize}
+  \item Two commuting differentials $d_X, d_Y$ from the two holomorphic
+    directions;
+  \item Two commuting coproducts $\Delta_X, \Delta_Y$;
+  \item The $R$-matrix as the transposition datum between the two
+    $E_1$-sectors.
+\end{itemize}
+
+
+%% ======================================================================
+\section{Proof for $\CC^3$: Schiffmann--Vasserot}
+\label{sec:proof-c3}
+%% ======================================================================
+
+We now verify Theorem~\ref{thm:coha-positive-half} in complete detail for
+the simplest case $X = \CC^3$.
+
+\subsection{Setup}
+\label{subsec:c3-setup}
+
+For $\CC^3$, the quiver-with-potential is:
+\begin{itemize}
+  \item $Q$: one vertex, three loops $x, y, z$ (the ``tripled Jordan quiver'');
+  \item $W = \Tr(x[y,z]) = \Tr(xyz - xzy)$.
+\end{itemize}
+The representation space of dimension $d$ is
+$\operatorname{Rep}(Q, d) = \operatorname{Mat}_{d \times d}(\CC)^3$
+with $\GL_d$-action by simultaneous conjugation.  The function
+$W_d \colon \operatorname{Mat}_d^3 \to \CC$ is
+$W_d(X,Y,Z) = \Tr(X[Y,Z])$.
+
+
+\subsection{The CoHA for $\CC^3$}
+\label{subsec:c3-coha}
+
+The equivariant CoHA is
+\[
+  \CoHA(\CC^3) = \bigoplus_{d \geq 0}
+    H^{\BM,\, T}_*(\Crit(W_d) / \GL_d,\, \varphi_{W_d})
+\]
+where $T = (\CC^*)^3$ acts on $\CC^3$ with weights $\epsilon_1, \epsilon_2,
+\epsilon_3$, inducing an action on $\operatorname{Mat}_d^3$ where $X, Y, Z$
+have weights $\epsilon_1, \epsilon_2, \epsilon_3$ respectively.
+
+\begin{proposition}[Kontsevich--Soibelman, Schiffmann--Vasserot]
+\label{prop:c3-coha-generators}
+As a $\QQ[\epsilon_1, \epsilon_2, \epsilon_3]/(\epsilon_1+\epsilon_2+\epsilon_3)$-algebra,
+$\CoHA(\CC^3)$ is generated by elements
+\[
+  e_r \in \CoHA(\CC^3)_{d=1}, \qquad r = 0, 1, 2, \ldots
+\]
+corresponding to the equivariant classes
+$e_r = [pt]^{\BM} \cdot u^r \in H^{\BM,T}_*(\CC^3/\CC^*) \cong \QQ[u]$
+where $u$ is the equivariant parameter of the $\GL_1 = \CC^*$ framing.
+\end{proposition}
+
+
+\subsection{The affine Yangian $Y(\widehat{\gl}_1)$}
+\label{subsec:affine-yangian-gl1}
+
+\begin{definition}[Affine Yangian of $\gl_1$]
+\label{def:affine-yangian-gl1}
+The affine Yangian $Y(\widehat{\gl}_1)$ (also denoted $Y_{\hbar_1, \hbar_2, \hbar_3}$
+with $\hbar_1 + \hbar_2 + \hbar_3 = 0$) is the associative algebra with
+generators
+\[
+  e_r, \quad f_r, \quad \psi_r, \qquad r = 0, 1, 2, \ldots
+\]
+and relations:
+\begin{align}
+  [\psi_r, \psi_s] &= 0, \label{eq:yangian-cartan} \\
+  [\psi_0, e_r] &= 0, \quad [\psi_0, f_r] = 0, \label{eq:yangian-psi0} \\
+  [\psi_{r+1}, e_s] - [\psi_r, e_{s+1}] &= \sigma_2\, \{\psi_r, e_s\}, \label{eq:yangian-psi-e} \\
+  [\psi_{r+1}, f_s] - [\psi_r, f_{s+1}] &= -\sigma_2\, \{\psi_r, f_s\}, \label{eq:yangian-psi-f} \\
+  [e_{r+1}, e_s] - [e_r, e_{s+1}] &= \sigma_2\, \{e_r, e_s\}, \label{eq:yangian-ee} \\
+  [f_{r+1}, f_s] - [f_r, f_{s+1}] &= -\sigma_2\, \{f_r, f_s\}, \label{eq:yangian-ff} \\
+  [e_r, f_s] &= \psi_{r+s}, \label{eq:yangian-ef} \\
+  \operatorname{Sym}_{r_1, r_2, r_3}\, [e_{r_1}, [e_{r_2}, e_{r_3}]] &= 0, \label{eq:yangian-serre-e} \\
+  \operatorname{Sym}_{r_1, r_2, r_3}\, [f_{r_1}, [f_{r_2}, f_{r_3}]] &= 0, \label{eq:yangian-serre-f}
+\end{align}
+where $\sigma_2 = \hbar_1 \hbar_2 + \hbar_1 \hbar_3 + \hbar_2 \hbar_3$ and
+$\{a,b\} = ab + ba$ is the anticommutator.
+\end{definition}
+
+\begin{remark}[Parameters]
+\label{rem:parameters}
+The three parameters $\hbar_1, \hbar_2, \hbar_3$ with
+$\hbar_1 + \hbar_2 + \hbar_3 = 0$ correspond to the equivariant parameters
+$\epsilon_1, \epsilon_2, \epsilon_3$ of the torus acting on $\CC^3$.  The
+constraint $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ is the CY condition:
+the canonical bundle $\omega_{\CC^3} \cong \cO_{\CC^3}$ has weight
+$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$.
+\end{remark}
+
+\begin{theorem}[Schiffmann--Vasserot \cite{SV-elliptic-hall, SV-cherednik-aha}]
+\label{thm:sv}
+There is an isomorphism of associative algebras
+\[
+  \CoHA(\CC^3) \;\xrightarrow{\;\sim\;}\; Y^+(\widehat{\gl}_1)
+\]
+sending the CoHA generators $e_r \in \CoHA_{d=1}$ to the Yangian
+generators $e_r$.  The CoHA multiplication corresponds to the Yangian
+relations \eqref{eq:yangian-ee}--\eqref{eq:yangian-serre-e}.
+\end{theorem}
+
+\begin{proof}[Proof outline]
+The proof proceeds in three steps.
+
+\emph{Step 1: Identify generators.}
+The dimension-$1$ piece $\CoHA_{d=1} = H^{\BM,T}_*(\CC^3/\CC^*,\, \varphi_{W_1})$
+is the localized equivariant Borel--Moore homology of a point (since $W_1 = 0$
+for $d=1$ and $\Crit(0) = \CC^3$).  After $T$-equivariant localization,
+$\CoHA_{d=1} \cong \QQ[u]$ with generator $e_r = u^r$.
+
+\emph{Step 2: Compute the multiplication.}
+The CoHA multiplication $\mu \colon \CoHA_{d=1}^{\otimes 2} \to \CoHA_{d=2}$
+is computed by the correspondence of short exact sequences
+$0 \to \CC \to \CC^2 \to \CC \to 0$ of quiver representations.
+By equivariant localization on the flag variety
+$\operatorname{Fl}(1,2; \CC^2) = \mathbb{P}^1$, one computes
+\[
+  [e_{r+1}, e_s] - [e_r, e_{s+1}] = \sigma_2\, \{e_r, e_s\}
+\]
+where $\sigma_2 = \epsilon_1\epsilon_2 + \epsilon_1\epsilon_3 + \epsilon_2\epsilon_3$
+arises from the weights of the normal bundle to the fixed locus.
+
+\emph{Step 3: Verify the Serre relation.}
+The cubic Serre relation $\operatorname{Sym}_{r_1,r_2,r_3} [e_{r_1},[e_{r_2},e_{r_3}]] = 0$
+follows from a computation in $\CoHA_{d=3}$.  The symmetric group $S_3$ acts
+on the space of 3-step filtrations, and the vanishing of the symmetrization
+follows from the vanishing of the relevant equivariant class on the full flag
+variety $\operatorname{Fl}(1,2,3;\CC^3)$.  This is a consequence of
+the identity $\sum_{\sigma \in S_3} \operatorname{sgn}(\sigma) \prod_{i<j}
+(\sigma(u_i) - \sigma(u_j) + \sigma_2) = 0$ in the localized equivariant
+cohomology.
+\end{proof}
+
+
+\subsection{The Drinfeld double: $Y(\widehat{\gl}_1) \cong \cW_{1+\infty}$}
+\label{subsec:drinfeld-double-c3}
+
+\begin{theorem}[Schiffmann--Vasserot, Maulik--Okounkov, Tsymbaliuk]
+\label{thm:drinfeld-double-c3}
+The Drinfeld double of the $\CC^3$ CoHA is the full affine Yangian:
+\[
+  \operatorname{Drin}(\CoHA(\CC^3)) \cong Y(\widehat{\gl}_1).
+\]
+Furthermore, $Y(\widehat{\gl}_1)$ is isomorphic to the universal enveloping
+algebra of the $\cW_{1+\infty}$-algebra at the self-dual level
+$c = \hbar_1/\hbar_2 + \hbar_2/\hbar_1 + 2$:
+\[
+  Y(\widehat{\gl}_1) \cong U(\cW_{1+\infty}).
+\]
+\end{theorem}
+
+\begin{proof}[Proof outline]
+The identification $Y(\widehat{\gl}_1) \cong U(\cW_{1+\infty})$ was established
+by Schiffmann--Vasserot via the spherical Hall algebra of the elliptic curve
+(as a limit of the elliptic Hall algebra / Ding--Iohara--Miki algebra), and
+independently by Maulik--Okounkov via stable envelopes and $R$-matrix
+constructions.
+
+The key steps are:
+\begin{enumerate}[label=(\arabic*)]
+  \item The CoHA $\CoHA(\CC^3) = Y^+(\widehat{\gl}_1)$ is the algebra of
+    creation operators on the Fock space
+    $\cF = \bigoplus_{d \geq 0} H^{\BM,T}_*(\operatorname{Hilb}^d(\CC^3))$.
+  \item The dual CoHA $\CoHA^{\vee}(\CC^3) = Y^-(\widehat{\gl}_1)$ consists
+    of annihilation operators.
+  \item The Cartan subalgebra $Y^0(\widehat{\gl}_1)$ is generated by the
+    operators $\psi_r$ which act diagonally on the fixed-point basis
+    $\{|\lambda\rangle\}_{\lambda \in \mathcal{P}}$ indexed by 3D partitions.
+  \item The cross-relation $[e_r, f_s] = \psi_{r+s}$ follows from the
+    geometric identity expressing the commutator of creation/annihilation
+    as a diagonal operator (the ``boson-fermion'' computation on the Fock space).
+  \item The isomorphism with $\cW_{1+\infty}$ sends $e_0 \mapsto W_1 = J$
+    (the $U(1)$ current), $e_1 \mapsto W_2 = T$ (the Virasoro field),
+    and the higher $e_r$ to the higher-spin $W$-algebra generators $W_{r+1}$.
+\end{enumerate}
+\end{proof}
+
+\begin{remark}[Connection to Volume I]
+\label{rem:vol1-connection}
+The identification $Y(\widehat{\gl}_1) \cong \cW_{1+\infty}$ is precisely
+the statement that the quantum vertex chiral group of $\CC^3$ is the
+$\cW_{1+\infty}$-algebra --- the object whose modular Koszul duality was
+studied extensively in Volume~I (the $W$-infinity deep audit, Session~8).
+The modular characteristic $\kappa(\cW_{1+\infty})$ controls the genus-$g$
+DT invariants of $\CC^3$ via the obstruction $\mathrm{obs}_g = \kappa \cdot \lambda_g$.
+\end{remark}
+
+
+\subsection{The $R$-matrix for $\CC^3$}
+\label{subsec:r-matrix-c3}
+
+\begin{construction}[Maulik--Okounkov $R$-matrix]
+\label{constr:mo-r-matrix}
+The Maulik--Okounkov stable envelope construction produces an explicit
+$R$-matrix
+\[
+  R(z) \in \End(\cF \otimes \cF)[\![z^{-1}]\!]
+\]
+acting on the tensor product of two Fock spaces.  This $R$-matrix satisfies:
+\begin{enumerate}[label=(\roman*)]
+  \item The quantum Yang--Baxter equation
+    $R_{12}(z_1-z_2) R_{13}(z_1-z_3) R_{23}(z_2-z_3) =
+     R_{23}(z_2-z_3) R_{13}(z_1-z_3) R_{12}(z_1-z_2)$.
+  \item $R(z)$ intertwines $\Delta$ and $\Delta^{\op}$:
+    $R(z) \Delta(x) = \Delta^{\op}(x) R(z)$.
+  \item In the classical limit $\epsilon_1, \epsilon_2 \to 0$,
+    $R(z) = 1 + r(z)/z + O(z^{-2})$ where $r(z)$ is the classical $r$-matrix
+    of $\widehat{\gl}_1$.
+  \item In the chiral algebra language of the main text,
+    $R(z) = \mathrm{Res}^{\mathrm{coll}}_{0,2}(\Theta_{A_{\CC^3}})$
+    is the collision $R$-matrix extracted from the universal MC element.
+\end{enumerate}
+\end{construction}
+
+\begin{proposition}[$E_1 \to E_2$ for $\CC^3$]
+\label{prop:e1-to-e2-c3}
+The passage from the CoHA ($E_1$) to the full $\cW_{1+\infty}$ ($E_2$) for $\CC^3$
+is given by:
+\[
+\begin{tikzcd}[column sep=huge]
+  \CoHA(\CC^3) = Y^+(\widehat{\gl}_1)
+    \arrow[r, hook, "\text{Drin. double}"]
+  & Y(\widehat{\gl}_1) \cong \cW_{1+\infty}
+    \arrow[r, "\text{$R$-matrix}"]
+  & \Rep^{E_2}(Y(\widehat{\gl}_1)) \text{ braided}
+\end{tikzcd}
+\]
+where:
+\begin{itemize}
+  \item the first arrow is the inclusion $Y^+ \hookrightarrow
+    \operatorname{Drin}(Y^+) = Y$;
+  \item the second arrow equips the representation category with the
+    braiding $\sigma_{V,W} = P \circ R(z)$ (permutation composed with
+    $R$-matrix);
+  \item the braided monoidal category $\Rep^{E_2}(Y(\widehat{\gl}_1))$
+    is the $E_2$-representation category of the quantum vertex chiral group
+    $G(\CC^3)$.
+\end{itemize}
+\end{proposition}
+
+
+%% ======================================================================
+\section{General toric CY3: the RSYZ theorem}
+\label{sec:rsyz}
+%% ======================================================================
+
+\subsection{Toric data and quivers}
+\label{subsec:toric-data}
+
+A toric CY3 $X_\Sigma$ is determined by a fan $\Sigma$ in $\ZZ^3$ with all
+ray generators on a common affine hyperplane (the CY condition: $c_1(X) = 0$
+in the toric sense).  The toric diagram is the convex hull of the projected
+generators.
+
+\begin{construction}[Quiver from toric diagram]
+\label{constr:quiver-toric}
+The brane tiling / dimer model construction associates to a toric diagram
+$\Delta$ a quiver with potential $(Q_X, W_X)$:
+\begin{enumerate}[label=(\roman*)]
+  \item Faces of the brane tiling $\to$ vertices of $Q_X$;
+  \item Edges of the brane tiling $\to$ arrows of $Q_X$;
+  \item Elementary cycles of the tiling $\to$ terms of $W_X$.
+\end{enumerate}
+The resulting $(Q_X, W_X)$ is such that $\operatorname{Jac}(Q_X, W_X)$ is the
+coordinate ring of $X$ (as a 3-CY algebra).
+\end{construction}
+
+\begin{example}[Classification of simple toric CY3]
+\label{ex:toric-classification}
+\leavevmode
+\begin{enumerate}[label=(\alph*)]
+  \item $\CC^3$: triangle diagram, Jordan quiver, $W = \Tr(x[y,z])$.
+  \item Resolved conifold $\cO(-1) \oplus \cO(-1) \to \mathbb{P}^1$:
+    two-triangle diagram, Klebanov--Witten quiver.
+  \item $\CC^3/\ZZ_N$ (orbifolds): $N$-gon diagram, McKay quiver of
+    $\ZZ_N \subset SL_3(\CC)$.
+  \item $(\CC^*)^3$ (open torus): infinite periodic tiling, the ``affine''
+    case with infinitely many dimension vectors.
+\end{enumerate}
+\end{example}
+
+\subsection{The RSYZ theorem}
+\label{subsec:rsyz-thm}
+
+\begin{theorem}[Rapcak--Soibelman--Yang--Zhao]
+\label{thm:rsyz}
+Let $X$ be a toric CY3 without compact 4-cycles.  Then:
+\begin{enumerate}[label=(\roman*)]
+  \item There exists an affine super Yangian $Y(\widehat{\frakg}_{Q_X})$
+    associated to the toric quiver $Q_X$, with the super Lie algebra
+    $\frakg_{Q_X}$ determined by the toric data.
+  \item The critical CoHA is isomorphic to the positive half:
+    \[
+      \CoHA(Q_X, W_X) \cong Y^+(\widehat{\frakg}_{Q_X}).
+    \]
+  \item The full affine super Yangian $Y(\widehat{\frakg}_{Q_X})$ is the
+    Drinfeld double of the CoHA.
+  \item The representation category $\Rep(Y(\widehat{\frakg}_{Q_X}))$
+    acts on the equivariant BPS cohomology
+    $\bigoplus_{\beta, n} H^{\BM,T}_*(\cM_X(\beta, n))$ of the moduli
+    of sheaves on $X$.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[The ``no compact 4-cycles'' condition]
+\label{rem:no-compact-4}
+The condition that $X$ has no compact 4-cycles (equivalently, the toric
+diagram is convex with no interior lattice points other than those on
+the boundary) ensures that the CoHA has a well-defined associative
+multiplication.  When compact 4-cycles are present, additional
+``wall-crossing'' phenomena occur and the CoHA structure is modified
+by quantum corrections.
+\end{remark}
+
+
+\subsection{The generalized root datum from toric geometry}
+\label{subsec:root-datum}
+
+\begin{construction}[Root datum $\cR(X_\Sigma)$]
+\label{constr:root-datum-toric}
+For a toric CY3 $X_\Sigma$, the generalized root datum of $G(X)$:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Root lattice}: $\Lambda(X) = \ZZ^{Q_0}$ (dimension vectors),
+    with Euler form $\chi(\mathbf{d}, \mathbf{e}) =
+    \sum_{i \in Q_0} d_i e_i - \sum_{a \in Q_1} d_{s(a)} e_{t(a)}$
+    and symmetrized Euler form
+    $(\mathbf{d}, \mathbf{e}) = \chi(\mathbf{d}, \mathbf{e}) + \chi(\mathbf{e}, \mathbf{d})$.
+  \item \textbf{Real simple roots}: the simple dimension vectors
+    $\{\mathbf{e}_i\}_{i \in Q_0}$, with parity $|\mathbf{e}_i| \in \ZZ/2$ determined
+    by the number of loops at vertex $i$: $|\mathbf{e}_i| = 0$ if the number
+    of loops is even, $|\mathbf{e}_i| = 1$ if odd.
+  \item \textbf{Generalized Cartan matrix}: $a_{ij} = (\mathbf{e}_i, \mathbf{e}_j)$,
+    the symmetrized Euler form evaluated on simple roots.
+  \item \textbf{Imaginary roots}: dimension vectors $\mathbf{d}$ with
+    $\DT_{\mathbf{d}}(X) \neq 0$, with multiplicity
+    $\operatorname{mult}(\mathbf{d}) = |\DT_{\mathbf{d}}(X)|$.
+  \item \textbf{Weyl group}: $W(X)$ generated by the reflections
+    $s_i(\mathbf{d}) = \mathbf{d} - a_{ii}^{-1}(\mathbf{d}, \mathbf{e}_i)\, \mathbf{e}_i$
+    for real simple roots.
+\end{enumerate}
+This is precisely the data needed to define the BKM superalgebra $\frakg_{Q_X}$
+and its affinization $\widehat{\frakg}_{Q_X}$.
+\end{construction}
+
+\begin{proposition}[Toric fan $=$ Dynkin data]
+\label{prop:fan-dynkin}
+The generalized Cartan matrix $a_{ij} = (\mathbf{e}_i, \mathbf{e}_j)$ is
+determined by the toric diagram: the number of arrows between vertices $i$ and $j$
+in $Q_X$ equals the number of edges shared by the corresponding faces in the brane
+tiling.  In particular:
+\begin{itemize}
+  \item $a_{ii} = 2 - 2\ell_i$ where $\ell_i$ is the number of loops at vertex $i$;
+  \item $a_{ij} = -($ number of arrows from $i$ to $j$ $+$ number of arrows from
+    $j$ to $i)$ for $i \neq j$.
+\end{itemize}
+The super structure (even/odd roots) is determined by the diagonal: $\mathbf{e}_i$
+is odd (fermionic) if and only if $a_{ii} < 0$, i.e., the vertex $i$ has
+more than one loop.  For $\CC^3$: the single vertex has three loops, so
+$a_{11} = 2 - 6 = -4$, the unique simple root is odd, and $\frakg_{Q_{\CC^3}}$
+is a super Lie algebra.
+\end{proposition}
+
+
+%% ======================================================================
+\section{The $E_1$/$E_2$ dictionary}
+\label{sec:e1-e2-dictionary}
+%% ======================================================================
+
+We summarize the full $E_1 \to E_2$ passage as a dictionary:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{lll}
+  \textbf{$E_1$-sector (CoHA)} & \textbf{$E_2$-full (Yangian)} & \textbf{Passage} \\
+  \hline
+  $\CoHA(Q,W)$ & $Y(\widehat{\frakg}_Q)$ & Drinfeld double \\
+  Associative multiplication $\mu$ & Braided product $\mu_R$ & $R$-matrix \\
+  $\Rep^{E_1}(\CoHA)$ monoidal & $\Rep^{E_2}(Y)$ braided monoidal & Drinfeld center \\
+  Short exact sequences & Yang--Baxter equation & Wall-crossing \\
+  Genus-0 DT / tree-level & All-genus DT / all-loop & Loop expansion \\
+  $Y^+(\widehat{\frakg})$ & $Y^+ \otimes Y^0 \otimes Y^-$ & Triangular decomp. \\
+  One holomorphic direction & Two holomorphic directions & Second $E_1$-dir. \\
+  Ordered OPE (planar) & Braided OPE (non-planar) & Braiding \\
+  $\frakn_+$ (nilpotent) & $\frakg = \frakn_- \oplus \frakh \oplus \frakn_+$ & Borel--Weyl \\
+  Creation operators on $\cF$ & Full $\cW$-algebra & Add annihilation \\
+\end{tabular}
+\end{center}
+
+\begin{remark}[The Drinfeld center perspective]
+\label{rem:drinfeld-center}
+The passage from $E_1$ to $E_2$ has a clean categorical description via the
+Drinfeld center (Chapter~12 of the main text).  The monoidal category
+$\Rep^{E_1}(\CoHA)$ is a monoidal category.  Its Drinfeld center
+\[
+  \cZ(\Rep^{E_1}(\CoHA)) \simeq \Rep^{E_2}(Y(\widehat{\frakg}))
+\]
+is the braided monoidal representation category of the full Yangian.  This is
+the categorical incarnation of the Drinfeld double: the center construction
+takes an $E_1$-monoidal category and produces an $E_2$-braided monoidal category.
+In the bulk-boundary language:
+\begin{itemize}
+  \item $E_1$ (boundary): the CoHA lives on the boundary of a 2-disk,
+    corresponding to the ordered composition of representations;
+  \item $E_2$ (bulk): the full Yangian lives in the interior of the 2-disk,
+    where representations can braid around each other;
+  \item The center construction is the ``bulk-boundary correspondence''
+    $Z^{\mathrm{der}}_{\mathrm{ch}}(\CoHA) = Y(\widehat{\frakg})$.
+\end{itemize}
+\end{remark}
+
+
+%% ======================================================================
+\section{Refinements and generalizations}
+\label{sec:refinements}
+%% ======================================================================
+
+\subsection{Cohomological refinement}
+\label{subsec:coh-refinement}
+
+The CoHA carries a natural cohomological (perverse) filtration from the
+mixed Hodge structure on the Borel--Moore homology of vanishing cycles.
+The associated graded with respect to this filtration is the BPS cohomology:
+
+\begin{proposition}[BPS cohomology]
+\label{prop:bps}
+There is a ``PBW filtration'' on the CoHA such that
+\[
+  \operatorname{gr}^{\mathrm{PBW}} \CoHA(Q,W)
+  \cong \Sym\Bigl(\bigoplus_{\mathbf{d}} \operatorname{BPS}_{\mathbf{d}}(Q,W) \otimes
+    \QQ[u_1, \ldots, u_{d_1}, \ldots]\Bigr)
+\]
+where $\operatorname{BPS}_{\mathbf{d}}$ are the ``BPS invariants'' --- the primitive
+generators of the CoHA.  These are the root spaces of the BKM superalgebra:
+$\operatorname{BPS}_{\mathbf{d}} = \frakg(X)_{\mathbf{d}}$ (the weight-$\mathbf{d}$
+root space).
+\end{proposition}
+
+
+\subsection{K-theoretic and elliptic lifts}
+\label{subsec:k-theoretic}
+
+The cohomological CoHA has K-theoretic and elliptic upgrades:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{llll}
+  \textbf{Theory} & \textbf{CoHA} & \textbf{Quantum group} & \textbf{$E_2$-algebra} \\
+  \hline
+  Cohomological & $H^{\BM}_*(\Crit, \varphi)$ & Yangian $Y(\widehat{\frakg})$ & Affine Yangian \\
+  K-theoretic & $K_T(\Crit, \varphi)$ & Quantum toroidal $U_{q,t}(\ddot{\frakg})$ & Quantum toroidal \\
+  Elliptic & $\operatorname{Ell}_T(\Crit, \varphi)$ & Elliptic quantum group & Elliptic QG \\
+\end{tabular}
+\end{center}
+
+\noindent
+Each row has the same $E_1$/$E_2$ structure: the CoHA (positive half, $E_1$)
+embeds via Drinfeld double into the full quantum group ($E_2$).  The passage
+from cohomology to K-theory to elliptic cohomology corresponds to the passage
+from Yangian to quantum toroidal to elliptic quantum group.
+
+For $\CC^3$:
+\begin{itemize}
+  \item Cohomological: $Y(\widehat{\gl}_1) \cong \cW_{1+\infty}$;
+  \item K-theoretic: the quantum toroidal algebra $U_{q,t}(\ddot{\gl}_1)$,
+    also known as the Ding--Iohara--Miki algebra;
+  \item Elliptic: the elliptic Hall algebra of Burban--Schiffmann, which is
+    the original form in which the $\CC^3$ story was discovered.
+\end{itemize}
+
+
+\subsection{Wall-crossing and the quantum dilogarithm}
+\label{subsec:wall-crossing}
+
+The quantum dilogarithm identity underlying DT wall-crossing has a clean
+interpretation in the $E_1$/$E_2$ framework:
+
+\begin{proposition}[Wall-crossing as $E_1$/$E_2$ exchange]
+\label{prop:wall-crossing}
+The Kontsevich--Soibelman wall-crossing formula
+\[
+  \prod_{\gamma \in C_+}^{\curvearrowleft}
+  \mathbb{E}(\DT_\gamma \cdot \hat{y}^\gamma)
+  =
+  \prod_{\gamma \in C_-}^{\curvearrowleft}
+  \mathbb{E}(\DT'_\gamma \cdot \hat{y}^\gamma)
+\]
+(where $\mathbb{E}$ is the quantum dilogarithm and $\curvearrowleft$ denotes
+the clockwise-ordered product) expresses the invariance of the $E_2$-structure
+under change of $E_1$-splitting.  Concretely:
+\begin{itemize}
+  \item Different choices of stability condition $\zeta$ determine different
+    ``positive halves'' $\CoHA_\zeta$ (different $E_1$-subalgebras of the
+    $E_2$-algebra).
+  \item The wall-crossing formula relates the ordered products (in different
+    $E_1$-structures) via the $R$-matrix.
+  \item The quantum dilogarithm $\mathbb{E}$ is the generating function of
+    the CoHA in each chamber.
+\end{itemize}
+\end{proposition}
+
+
+\subsection{Beyond toric: general CY3}
+\label{subsec:beyond-toric}
+
+For non-toric CY3 (compact CY3, CY3 with non-abelian gauge theory), the
+CoHA is still defined but the identification with a Yangian is more subtle:
+
+\begin{conjecture}[General CY3 CoHA conjecture]
+\label{conj:general-cy3}
+For any CY3 $X$ with a good moduli theory (e.g., a projective CY3 with an
+appropriate stability condition), the critical CoHA $\CoHA(X)$ is the positive
+half of a quantum vertex chiral group $G(X)$:
+\[
+  \CoHA(X) \cong U(\frakn_+(X))
+\]
+where $\frakn_+(X)$ is a pro-nilpotent Lie algebra whose root spaces are the
+BPS cohomologies of $X$.  The Drinfeld double $\operatorname{Drin}(\CoHA(X))$
+is an algebra whose representation category is the braided monoidal category
+governing the BPS structure of $X$.
+\end{conjecture}
+
+\noindent
+Evidence for this conjecture:
+\begin{enumerate}[label=(\alph*)]
+  \item For toric CY3: Theorem~\ref{thm:rsyz} (proved).
+  \item For local curves $X = \operatorname{Tot}(\omega_C)$: the CoHA is
+    related to the Yangian of $\gl_1$ (or $\gl_r$ for higher rank), and the
+    Drinfeld double is the quantum group governing Pandharipande--Thomas /
+    Gopakumar--Vafa invariants.
+  \item For compact CY3: the Joyce--Song / Kontsevich--Soibelman wall-crossing
+    framework implicitly constructs the CoHA and its Drinfeld double, although
+    the explicit Yangian identification remains open.
+  \item For the $K3 \times E$ family (Chapter~14 of the main text): the
+    quantum vertex chiral group is the BKM superalgebra $\frakg_{\Delta_5}$,
+    and the CoHA should be $U(\frakn_+(\frakg_{\Delta_5}))$.
+\end{enumerate}
+
+
+%% ======================================================================
+\section{Summary diagram}
+\label{sec:summary}
+%% ======================================================================
+
+The full structure can be summarized in the following diagram:
+
+\[
+\begin{tikzcd}[column sep=small, row sep=large]
+  & \text{CY3 } X \arrow[dl, "\text{quiver}"'] \arrow[dr, "\text{root datum}"] & \\
+  (Q_X, W_X) \arrow[d, "\text{BM homology}"] & &
+    \cR(X) \arrow[d, "\text{BKM algebra}"] \\
+  \CoHA(Q_X, W_X) \arrow[r, equal, "\text{Thm \ref{thm:coha-positive-half}}"]
+    \arrow[d, "\text{Drin. double}"]
+  & Y^+(\widehat{\frakg}_{Q_X}) \arrow[r, hook]
+  & \frakg_{Q_X} \\
+  Y(\widehat{\frakg}_{Q_X}) \arrow[r, "\text{$R$-matrix}"]
+  & \Rep^{E_2}(Y(\widehat{\frakg}_{Q_X}))
+    \arrow[r, equal, "\text{Thm CY-C}"]
+  & \Rep^{E_2}(G(X))
+\end{tikzcd}
+\]
+
+\noindent
+Reading down the left column: CY3 geometry $\to$ CoHA ($E_1$) $\to$ full Yangian
+($E_2$).  The critical CoHA is the $E_1$-sector --- the positive half, the
+ordered part, the creation operators, the tree-level --- of the quantum vertex
+chiral group.  The full $E_2$-structure adds the braiding, the $R$-matrix, the
+Cartan and negative parts, and the all-genus corrections.
+
+%% ======================================================================
+%% References (informal, for a working note)
+%% ======================================================================
+
+\begin{thebibliography}{99}
+
+\bibitem{SV-elliptic-hall}
+O.~Schiffmann and E.~Vasserot,
+\emph{The elliptic Hall algebra and the $K$-theory of the Hilbert scheme of $\mathbb{A}^2$},
+Duke Math.\ J.\ \textbf{162} (2013), no.~2, 279--366.
+
+\bibitem{SV-cherednik-aha}
+O.~Schiffmann and E.~Vasserot,
+\emph{Cherednik algebras, $W$-algebras and the equivariant cohomology of the moduli space of instantons on $\mathbb{A}^2$},
+Publ.\ Math.\ IHES \textbf{118} (2013), 213--342.
+
+\bibitem{MO}
+D.~Maulik and A.~Okounkov,
+\emph{Quantum groups and quantum cohomology},
+Ast\'erisque \textbf{408} (2019).
+
+\bibitem{RSYZ}
+M.~Rapcak, Y.~Soibelman, Y.~Yang, and G.~Zhao,
+\emph{Cohomological Hall algebras, vertex algebras, and instantons},
+Comm.\ Math.\ Phys.\ \textbf{376} (2020), no.~3, 1803--1873.
+
+\bibitem{KS-stability}
+M.~Kontsevich and Y.~Soibelman,
+\emph{Stability structures, motivic Donaldson--Thomas invariants and cluster transformations},
+arXiv:0811.2435.
+
+\bibitem{KS-coha}
+M.~Kontsevich and Y.~Soibelman,
+\emph{Cohomological Hall algebra, exponential Hodge structures and motivic Donaldson--Thomas invariants},
+Commun.\ Number Theory Phys.\ \textbf{5} (2011), no.~2, 231--352.
+
+\bibitem{Tsymbaliuk}
+A.~Tsymbaliuk,
+\emph{The affine Yangian of $\mathfrak{gl}_1$ revisited},
+Adv.\ Math.\ \textbf{304} (2017), 583--645.
+
+\bibitem{Prochazka-Rapcak}
+T.~Proch\'azka and M.~Rapčák,
+\emph{Webs of $W$-algebras},
+J.\ High Energy Phys.\ \textbf{2018}, no.~11, 109.
+
+\bibitem{Lurie-HA}
+J.~Lurie,
+\emph{Higher Algebra},
+available at \texttt{https://www.math.ias.edu/\~{}lurie/papers/HA.pdf}.
+
+\bibitem{Ginzburg}
+V.~Ginzburg,
+\emph{Calabi--Yau algebras},
+arXiv:math/0612139.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,344 @@
+% ============================================================
+%
+%   WORKING NOTES ON CALABI-YAU QUANTUM GROUPS
+%
+%   Raeez Lorgat, 2026
+%
+%   Compile standalone: pdflatex working_notes.tex (x2)
+%   Or: make working-notes
+%
+% ============================================================
+
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\frenchspacing
+
+\usepackage[cmintegrals,cmbraces,noamssymbols]{newtxmath}
+\usepackage{ebgaramond}
+
+\usepackage[
+  activate={true,nocompatibility}, final,
+  tracking=true, kerning=true, spacing=true,
+  factor=1100, stretch=10, shrink=10
+]{microtype}
+
+\usepackage{mleftright}\mleftright
+
+\let\Bbbk\undefined \let\openbox\undefined
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[margin=1.15in]{geometry}
+\usepackage[unicode]{hyperref}
+\usepackage{tikz-cd}
+\usepackage{longtable}
+\usepackage{booktabs}
+
+\setlength{\emergencystretch}{3em}
+\raggedbottom
+
+% --- Environments ---
+\usepackage{thmtools}
+\declaretheoremstyle[
+  spaceabove=\topsep, spacebelow=\topsep,
+  headfont=\normalfont\scshape,
+  notefont=\normalfont\itshape,
+  bodyfont=\normalfont,
+  postheadspace=0.5em, headpunct={.}
+]{notesthm}
+\declaretheoremstyle[
+  spaceabove=\topsep, spacebelow=\topsep,
+  headfont=\normalfont\itshape,
+  notefont=\normalfont\itshape,
+  bodyfont=\normalfont,
+  postheadspace=0.5em, headpunct={.}
+]{notesdef}
+
+\declaretheorem[style=notesthm, name=Theorem, numberwithin=section]{theorem}
+\declaretheorem[style=notesthm, name=Lemma, sibling=theorem]{lemma}
+\declaretheorem[style=notesthm, name=Proposition, sibling=theorem]{proposition}
+\declaretheorem[style=notesthm, name=Corollary, sibling=theorem]{corollary}
+\declaretheorem[style=notesdef, name=Definition, sibling=theorem]{definition}
+\declaretheorem[style=notesdef, name=Remark, sibling=theorem]{remark}
+\declaretheorem[style=notesdef, name=Observation, sibling=theorem]{observation}
+\declaretheorem[style=notesdef, name=Warning, sibling=theorem]{warning}
+\declaretheorem[style=notesdef, name=Example, sibling=theorem]{example}
+\declaretheorem[style=notesdef, name=Conjecture, sibling=theorem]{conjecture}
+\declaretheorem[style=notesdef, name=Question, sibling=theorem]{question}
+\declaretheorem[style=notesthm, name=Claim, sibling=theorem]{claim}
+
+% --- Macros (matching main.tex) ---
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cP}{\mathcal{P}}
+
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\fh}{\mathfrak{h}}
+\newcommand{\fn}{\mathfrak{n}}
+\newcommand{\fsl}{\mathfrak{sl}}
+\newcommand{\fgl}{\mathfrak{gl}}
+
+\newcommand{\barB}{\overline{B}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bH}{\mathbb{H}}
+\newcommand{\bS}{\mathbb{S}}
+
+\newcommand{\Eone}{\mathsf{E}_1}
+\newcommand{\Etwo}{\mathsf{E}_2}
+\newcommand{\En}{\mathsf{E}_n}
+\newcommand{\Einf}{\mathsf{E}_{\infty}}
+\newcommand{\Linf}{\mathsf{L}_{\infty}}
+\newcommand{\Ainf}{\mathsf{A}_{\infty}}
+
+\newcommand{\Ran}{\operatorname{Ran}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\FM}{\mathrm{FM}}
+\newcommand{\MC}{\mathrm{MC}}
+\newcommand{\CE}{\mathrm{CE}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\HC}{\mathrm{HC}}
+\newcommand{\CY}{\mathrm{CY}}
+\newcommand{\DT}{\mathrm{DT}}
+\newcommand{\GW}{\mathrm{GW}}
+\newcommand{\BPS}{\mathrm{BPS}}
+\newcommand{\CoHA}{\mathrm{CoHA}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Hom}{\operatorname{Hom}}
+\newcommand{\RHom}{\operatorname{RHom}}
+\newcommand{\Ext}{\operatorname{Ext}}
+\newcommand{\End}{\operatorname{End}}
+\newcommand{\Sym}{\operatorname{Sym}}
+\newcommand{\Fuk}{\mathrm{Fuk}}
+\newcommand{\MF}{\mathrm{MF}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\Perf}{\mathrm{Perf}}
+\newcommand{\Uq}{U_q}
+\newcommand{\Yg}{Y(\widehat{\fg})}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\mult}{\mathrm{mult}}
+\newcommand{\ad}{\operatorname{ad}}
+
+% ============================================================
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\scshape Working Notes on Calabi--Yau Quantum Groups}
+
+  \bigskip
+
+  {\large Raeez Lorgat}
+
+  \medskip
+
+  {\normalsize Draft --- \today}
+\end{center}
+
+\tableofcontents
+
+% ============================================================
+\section{Overview and programme}
+% ============================================================
+
+These working notes record the development of Volume~III (Calabi--Yau Quantum Groups) of the modular Koszul duality programme.  The central thesis: \emph{the combinatorics of a CY3 threefold $X$ constitute the generalized root datum of a quantum vertex chiral group $G(X)$}.  The automorphic correction of the underlying BKM superalgebra is the shadow Postnikov tower $\Theta_A$ from Volume~I.
+
+\subsection{The four target theorems}
+
+\begin{itemize}
+  \item \textbf{CY-A} (CY-to-chiral functor): $\Phi \colon \CY_d\text{-}\mathrm{Cat} \to \Etwo\text{-}\mathrm{ChirAlg}$.
+  \item \textbf{CY-B} ($\Etwo$-chiral Koszul duality): Automorphic correction = shadow tower; denominator identity = bar Euler product.
+  \item \textbf{CY-C} (Quantum group realization): $\Rep^{\Etwo}(G(X))$ is braided monoidal; for toric CY3, this gives the affine super Yangian.
+  \item \textbf{CY-D} (Modular CY characteristic): $\kappa(G(X))$ = weight of the automorphic form.
+\end{itemize}
+
+\subsection{Current status of the programme}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Component} & \textbf{Status} & \textbf{Notes file} \\
+  \midrule
+  Generalized root datum axioms & Draft (CY1--CY7) & theory\_generalized\_root\_datum \\
+  $\Etwo$-chiral algebra formalism & Draft (1243 lines) & theory\_e2\_chiral\_formalism \\
+  Automorphic = shadow tower & Draft (Thm + proof) & theory\_automorphic\_shadow \\
+  CY-to-chiral functor & Draft (4-step construction) & theory\_cy\_to\_chiral\_construction \\
+  $\CY_2 \to \CY_3$ fibration & Draft (Borcherds lift) & theory\_cy2\_cy3\_fibration \\
+  Denominator = bar Euler product & Draft (3-stage proof) & theory\_denominator\_bar\_euler \\
+  QVCG Koszul duality & Draft (Langlands conj) & theory\_qvcg\_koszul \\
+  Drinfeld = chiral center & Draft (factorization proof) & theory\_drinfeld\_chiral\_center \\
+  CoHA = $\Eone$-sector & Draft (Drinfeld double) & theory\_coha\_e1\_sector \\
+  KL in $\Etwo$-chiral framework & Draft (CY category conj) & theory\_kl\_e2\_chiral \\
+  Higgs sheaves as $\CY_2$ QVCGs & Draft (genus filtration) & theory\_higgs\_cy2\_qvcg \\
+  \midrule
+  BPS = root multiplicities & Draft & physics\_bps\_root\_multiplicities \\
+  Topological strings \& root data & Draft (BCOV = MC) & physics\_topological\_strings \\
+  M-theory branes / holography & Draft & physics\_mtheory\_branes \\
+  4d $\mathcal{N}=2$ / Hitchin & Draft ($Z_{\mathrm{Nek}}$ conj) & physics\_4d\_n2\_hitchin \\
+  Wall-crossing = MC gauge equiv & Draft & physics\_wall\_crossing\_mc \\
+  S-duality = Langlands = Koszul & Draft & physics\_sduality\_langlands \\
+  Anomaly cancellation / $\kappa$ & Draft ($\kappa \neq \chi/12$) & physics\_anomaly\_cancellation \\
+  BV-BRST for CY categories & Draft (QME = MC) & physics\_bv\_brst\_cy \\
+  3d mirror symmetry / $\CY_2$ & Draft & physics\_3d\_mirror \\
+  Celestial holography / CY QG & Draft ($\cW_{1+\infty} = G(\C^3)$) & physics\_celestial\_cy \\
+  Hitchin / geometric Langlands & Draft & physics\_hitchin\_langlands \\
+  \midrule
+  $\phi_{0,1}$ Fourier coefficients & Computed (51 tests) & compute/lib/phi01\_fourier \\
+  $\C^3$ DT / MacMahon & Computed (57 tests) & compute/lib/c3\_dt\_partition \\
+  Lattice data (8 dd-forms) & Computed (65 tests) & compute/lib/dd\_modular\_lattices \\
+  Topological vertex & Computed & compute/lib/topological\_vertex \\
+  Igusa product formula & Computed & compute/lib/igusa\_product\_formula \\
+  Affine Yangian $Y(\widehat{\fgl}_1)$ & Computed (81 tests) & compute/lib/affine\_yangian\_gl1 \\
+  BKM shadow tower & Computed (67 tests) & compute/lib/bkm\_shadow\_tower \\
+  Elliptic Hall algebra & Computed (78 tests) & compute/lib/elliptic\_hall \\
+  CY Euler characteristics & Computed (85 tests) & compute/lib/cy\_euler \\
+  WKB denominator & Computed & compute/lib/wkb\_denominator \\
+  Higgs CoHA on $\bP^1$ & Computed (84 tests) & compute/lib/higgs\_p1\_coha \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+% ============================================================
+\section{Key identifications}
+% ============================================================
+
+\subsection{The master dictionary}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{CY3 geometry} & \textbf{BKM / Yangian} & \textbf{Vol~I bar-cobar} \\
+  \midrule
+  Lattice $\Lambda(X)$ & Root lattice & Cyclic deformation complex \\
+  BPS invariants $\DT_\alpha$ & Root multiplicities $\mult(\alpha)$ & Shadow tower components \\
+  Toric diagram & Dynkin diagram / Gram matrix & Collision $r$-matrix $r(z)$ \\
+  Automorphic correction & Imaginary roots added to $\fg$ & Higher-arity shadows \\
+  Denominator identity & WKB character formula & Bar Euler product \\
+  $\mathrm{Sp}_4(\Z)$ / Weyl group & Symmetry group & $\Etwo$ braiding \\
+  $\phi_{0,1}$ (K3 elliptic genus) & Root multiplicity function & Shadow depth classification \\
+  $\CoHA$ (positive half) & $U(\fn_+)$ & $\Eone$-chiral sector \\
+  Full Yangian / BKM & Full algebra $\fg_X$ & $\Etwo$-chiral algebra $A(X)$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{The central identification}
+
+\begin{theorem}[Automorphic correction = shadow tower]
+The shadow Postnikov tower $\Theta^{\leq r}_{A_X}$ of the quantum vertex chiral group $G(X)$ captures exactly the roots of complexity $\leq r$ in the BKM root system:
+\begin{enumerate}[label=(\alph*)]
+  \item Arity~2 = real roots + Weyl vector (modular characteristic $\kappa$).
+  \item Arity~3 = first layer of imaginary roots (cubic shadow $C$).
+  \item Arity~$r$ = roots up to depth $r-2$ in the positive cone.
+  \item The denominator identity of $\fg_X$ equals the bar-complex Euler product of $B(A_X)$.
+\end{enumerate}
+\end{theorem}
+
+\subsection{Computationally verified}
+
+For $K3 \times E$ with $\fg_{\Delta_5}$:
+\begin{itemize}
+  \item Arity~2: 21 real roots (norm~2), all multiplicity~2. $\kappa = 5$.
+  \item Arity~3: 2 lightlike imaginary roots at $(1,0,0)$ and $(0,0,1)$, multiplicity~20.
+  \item Arity~4: 7 roots including the timelike root $(1,0,1)$ with multiplicity $-252$.
+  \item At every truncation order $r = 2, \ldots, 6$: product formula matches shadow projection.
+\end{itemize}
+
+% ============================================================
+\section{The $K3 \times E$ example}
+% ============================================================
+
+\subsection{The geometry}
+
+$X = (S \times E)/(\Z/N\Z)$, $S$ = K3, $E$ = elliptic curve.  DT partition function $Z^X = C/(\Delta_5)^2$.
+
+\subsection{The lattice}
+
+$\Lambda^{3,2} \simeq \Lambda^{1,1} \oplus \Lambda^{1,1} \oplus [2]$, signature $(3,2)$.  Hyperbolic sublattice $\Lambda^{2,1}_{II}$ with Gram matrix
+\[
+  (\delta_i, \delta_j) = \begin{pmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2 \end{pmatrix}.
+\]
+Weyl vector $\rho = \tfrac{1}{2}(\delta_1 + \delta_2 + \delta_3)$, $(\rho, \delta_i) = -1$.  $\mathrm{Aut}(\cP_{II}) \simeq S_3$.
+
+\subsection{The modular characteristic}
+
+$\kappa(G(K3 \times E)) = 5 = \mathrm{weight}(\Delta_5) = h^{1,1}(K3)/4 = (\chi(K3) - 4)/4$.
+
+This is NOT $\chi(X)/12$ (which gives $0$, since $\chi(K3 \times E) = 0$).  The modular characteristic counts the worldsheet anomaly (full BPS spectrum), not the target-space anomaly (massless modes).
+
+% ============================================================
+\section{The toric CY3 / CoHA example}
+% ============================================================
+
+For $\C^3$: $\CoHA = Y^+(\widehat{\fgl}_1) \simeq \cW_{1+\infty}$ at the self-dual level.  $\dim Y^+_n = p(n)$ (plane partitions).  The MacMahon function $M(q) = \prod_{n \geq 1} (1-q^n)^{-n}$ is the denominator identity.  The affine Yangian structure function $g(z) = (z - h_1)(z - h_2)(z - h_3)/((z + h_1)(z + h_2)(z + h_3))$ with $h_1 + h_2 + h_3 = 0$.  Even $\phi$-coefficients vanish: $\phi_2 = \phi_4 = 0$ because $\log g$ has only odd powers.
+
+% ============================================================
+\section{Higgs sheaves and the $\CY_2$ escape}
+% ============================================================
+
+The most natural escape from CY3: $\mathrm{Higgs}(C) = \Coh(T^*C)$ is CY2.  The $\bS^2$-framing gives $\Etwo$-structure directly.
+
+\begin{itemize}
+  \item \textbf{Genus~0} ($C = \bP^1$): Yangian $Y(\fgl_2)$. Rational $R$-matrix.
+  \item \textbf{Genus~1} ($C = E$): Elliptic Hall algebra $E_{q,t}$ = spherical DAHA.  Elliptic $R$-matrix.
+  \item \textbf{Genus~$\geq 2$}: New ``Hitchin Hall algebras.''  $R$-matrices on $C \times C$.
+\end{itemize}
+
+Key principle: $\CY_3 = \CY_2 + \text{automorphic correction}$ (Borcherds lift).
+
+% ============================================================
+\section{The Langlands connection}
+% ============================================================
+
+\begin{conjecture}[Langlands = Koszul]
+For a curve $C$ and reductive group $G$, the quantum vertex chiral group of the Hitchin system satisfies
+\[
+  G(C, G)^! \;=\; G(C, {}^L G).
+\]
+Langlands duality is Koszul duality of quantum vertex chiral groups.
+\end{conjecture}
+
+Evidence: Feigin--Frenkel center at critical level, root/coroot exchange, SYZ mirror symmetry of $\cM_H(C,G)$ and $\cM_H(C, {}^L G)$, Kapustin--Witten.
+
+% ============================================================
+\section{Open questions}
+% ============================================================
+
+\begin{enumerate}
+  \item What is the generalized root datum of the quintic?  (Non-toric, no quiver.)
+  \item Is the chain-level $\bS^3$-framing for CY3 categories constructible?  (Gap in CY-A for $d=3$.)
+  \item What is the explicit automorphic form (denominator identity) for Hitchin systems with $G = \mathrm{SL}_3$ or $E_8$?
+  \item How does Kontsevich--Soibelman wall-crossing manifest as gauge equivalence of MC elements?  (Conjectured, not proved.)
+  \item Is the formula $\kappa = h^{1,1}/4$ universal for K3-fibered CY3, or specific to $K3 \times E$?
+  \item For toric CY3 with compact 4-cycles, what replaces the RSYZ theorem?
+  \item The eight diagonal divisor Siegel modular forms: are they all denominator identities?
+  \item How does the shadow depth classification (G/L/C/M) manifest for quantum vertex chiral groups?
+  \item Explicit construction of the $\Etwo$-bar complex $B_{\Etwo}(A)$ for $A = V_k(\fg)$.
+  \item Quantum geometric Langlands as $\Etwo$-chiral Koszul duality: $G(C, \fg, k)^! = G(C, {}^L\fg, k^L)$.
+\end{enumerate}
+
+% ============================================================
+%  Future sections will be added as the programme develops.
+% ============================================================
+
+\end{document}

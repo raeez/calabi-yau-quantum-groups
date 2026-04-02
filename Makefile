@@ -48,7 +48,7 @@ AUX_EXTS  := aux log out toc synctex.gz fdb_latexmk fls bbl blg \
 #  Targets
 # ============================================================================
 
-.PHONY: all fast clean veryclean count check test publish help
+.PHONY: all fast clean veryclean count check test publish help release working-notes dist
 
 ## all: Full converging build
 all: $(STAMP) publish
@@ -134,6 +134,71 @@ count:
 	fi
 	@echo ""
 
+# Working notes
+WN_TEX    := working_notes.tex
+WN_PDF    := working_notes.pdf
+OUT_WN    := $(OUT_DIR)/working_notes.pdf
+
+## working-notes: Build the working notes (standalone document).
+working-notes: $(OUT_WN)
+
+$(OUT_WN): $(WN_TEX)
+	@echo "  -- Building working notes --"
+	@mkdir -p $(OUT_DIR) $(LOG_DIR)
+	@$(TEX) $(TEXFLAGS) $(WN_TEX) >$(LOG_DIR)/working-notes.log 2>&1 || true
+	@$(TEX) $(TEXFLAGS) $(WN_TEX) >$(LOG_DIR)/working-notes.log 2>&1 || true
+	@if [ -f $(WN_PDF) ]; then \
+		cp $(WN_PDF) $(OUT_WN); \
+		echo "  $(OUT_WN)"; \
+	else \
+		echo "  Working notes build failed. See $(LOG_DIR)/working-notes.log"; \
+		exit 1; \
+	fi
+
+## release: Full rebuild of everything -- manuscript + working notes -> out/
+release:
+	@rm -f $(STAMP) $(PDF) $(WN_PDF)
+	@rm -rf $(OUT_DIR)
+	@mkdir -p $(LOG_DIR) $(OUT_DIR)
+	@echo ""
+	@echo "  ============================================"
+	@echo "  -- RELEASE BUILD --"
+	@echo "  ============================================"
+	@echo ""
+	@echo "  [1/3] Main manuscript"
+	@$(BUILD_SCRIPT) $(PASSES)
+	@if [ -f $(PDF) ]; then \
+		cp $(PDF) $(OUT_PDF); \
+		echo "  $(OUT_PDF)"; \
+	else \
+		echo "  Manuscript build failed."; \
+	fi
+	@echo ""
+	@echo "  [2/3] Working notes"
+	@$(MAKE) --no-print-directory working-notes
+	@echo ""
+	@echo "  [3/3] Compute tests"
+	@$(MAKE) --no-print-directory test
+	@echo ""
+	@echo "  ============================================"
+	@echo "  Release complete. Output in out/:"
+	@ls -1 $(OUT_DIR)/*.pdf 2>/dev/null | sed 's/^/    /'
+	@echo "  ============================================"
+
+## dist: Create archive for distribution.
+dist: release
+	@echo "  -- Creating archive --"
+	@rm -f $(OUT_DIR)/CalabiYauQuantumGroups.zip
+	@zip -r $(OUT_DIR)/CalabiYauQuantumGroups.zip \
+		main.tex working_notes.tex chapters/ appendices/ notes/ compute/ \
+		Makefile CLAUDE.md scripts/ \
+		$(OUT_DIR)/calabi_yau_quantum_groups.pdf \
+		$(OUT_DIR)/working_notes.pdf \
+		-x '.*' -x '**/.*' -x '**/__pycache__/*' -x '**/*.pyc' \
+		-x 'compute/.venv/*' \
+		>$(LOG_DIR)/dist.log 2>&1
+	@echo "  $(OUT_DIR)/CalabiYauQuantumGroups.zip ($$(du -h $(OUT_DIR)/CalabiYauQuantumGroups.zip | cut -f1))"
+
 ## help: Show available targets
 help:
 	@echo ""
@@ -142,6 +207,9 @@ help:
 	@echo ""
 	@echo "  make               Full converging build"
 	@echo "  make fast          Quick build (up to $(FAST_PASSES) passes)"
+	@echo "  make release       Full release: manuscript + working notes + tests -> out/"
+	@echo "  make working-notes Build working notes -> out/working_notes.pdf"
+	@echo "  make dist          Create CalabiYauQuantumGroups.zip in out/"
 	@echo "  make check         Halt-on-error validation"
 	@echo "  make test          Run compute tests"
 	@echo "  make clean         Remove build debris"

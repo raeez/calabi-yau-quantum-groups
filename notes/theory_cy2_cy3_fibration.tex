@@ -1,0 +1,961 @@
+% theory_cy2_cy3_fibration.tex
+% Research note: The CY_2 -> CY_3 fibration and the Borcherds lift
+% Raeez Lorgat, 2 April 2026
+
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\frenchspacing
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{geometry}
+\geometry{margin=1.2in}
+\usepackage[unicode]{hyperref}
+
+% Theorem environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{warning}[theorem]{Warning}
+
+% Macros (matching main monograph)
+\newcommand{\CY}{\mathrm{CY}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\HC}{\mathrm{HC}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\Fuk}{\mathrm{Fuk}}
+\newcommand{\Mod}{\mathrm{Mod}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\Eone}{E_1}
+\newcommand{\Etwo}{E_2}
+\newcommand{\Einf}{E_\infty}
+\newcommand{\frakg}{\mathfrak{g}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cR}{\mathcal{R}}
+
+\title{The $\CY_2 \to \CY_3$ Fibration and the Borcherds Lift\\[6pt]
+\large\itshape From Jacobi Forms to Siegel Modular Forms\\
+via Elliptic Fibration of Quantum Vertex Chiral Groups}
+\author{Raeez Lorgat}
+\date{2 April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We develop the theory of the $\CY_2 \to \CY_3$ fibration: given a $\CY_2$
+category $\cC$ (e.g.\ $D^b(\Coh(S))$ for $S$ a K3 surface) and an elliptic
+curve $E$, we construct a $\CY_3$ category $\cC_E$ and study the passage from
+the quantum vertex chiral group $G_2(\cC)$ to $G_3(\cC_E)$.  The central
+mechanism is the \emph{Borcherds multiplicative lift}: the denominator identity
+of $G_2(\cC)$ (a weak Jacobi form) lifts to the denominator identity of
+$G_3(\cC_E)$ (a Siegel modular form).  We give: (1) the algebraic construction
+of the fibered root datum $\cR_3 = \cR_2 \times_E$; (2) the Borcherds lift as
+shadow tower completion; (3) the root multiplicity transfer formula; (4) the
+$\Etwo$-structure enhancement from the modular parameter of the elliptic fiber.
+The prototypical example is $K3 \times E$, where $\phi_{0,1}$ (the K3 elliptic
+genus) lifts to $\Delta_5$ (the Igusa cusp form) via the Borcherds product.
+\end{abstract}
+
+\tableofcontents
+
+%% ========================================================================
+\section{Introduction and overview}
+\label{sec:fib-intro}
+%% ========================================================================
+
+The starting observation is geometric: a K3 surface $S$ is a $\CY_2$ manifold;
+an elliptic curve $E$ is a $\CY_1$ manifold; and the product $X = S \times E$
+is a $\CY_3$ manifold.  More generally, for an order-$N$ quotient
+$X_N = (S \times E)/(\mathbb{Z}/N\mathbb{Z})$, the threefold $X_N$ remains
+Calabi--Yau.  The key question:
+
+\medskip
+\noindent\textit{How does the quantum vertex chiral group $G_3(X)$ of the $\CY_3$
+relate to the quantum vertex chiral group $G_2(S)$ of the $\CY_2$, and what
+role does the elliptic curve $E$ play in the passage?}
+\medskip
+
+The answer involves three interlocking structures:
+
+\begin{enumerate}[label=(\alph*)]
+\item \textbf{Algebraic.}  The generalized root datum $\cR_3(X)$ of the $\CY_3$
+  is obtained from the root datum $\cR_2(S)$ of the $\CY_2$ by fibering over
+  $E$: one adjoins a new lattice direction (the elliptic fiber class) and
+  extends the root system by the data of a Jacobi index.
+
+\item \textbf{Automorphic.}  The denominator identity of $G_2(S)$ is controlled
+  by a weak Jacobi form $\phi_{0,m}$ (for K3, $\phi_{0,1}$).  The Borcherds
+  multiplicative lift $\mathrm{Borch}(\phi_{0,m})$ produces an automorphic form
+  on a larger domain --- a Siegel modular form for $\mathrm{Sp}_4(\mathbb{Z})$
+  --- which is the denominator identity of $G_3(X)$.
+
+\item \textbf{Operadic.}  The $\CY_2$ category already carries an
+  $\Etwo$-structure (from $S^2$-framing of cyclic homology).  Fibering over $E$
+  does not increase the operad level but introduces a \emph{modular parameter}
+  $\tau \in \mathbb{H}$ (the complex structure of $E$) into the $\Etwo$-algebra.
+  The resulting object is an $\Etwo$-chiral algebra with an additional
+  $\mathrm{SL}_2(\mathbb{Z})$-equivariance from the elliptic fiber.
+\end{enumerate}
+
+The passage $G_2 \leadsto G_3$ is thus a categorification of the Borcherds lift:
+the analytic fact that Jacobi forms lift to Siegel modular forms is the shadow,
+at the level of partition functions, of an algebraic construction at the level of
+quantum vertex chiral groups.
+
+%% ========================================================================
+\section{The algebraic construction: fibered root data}
+\label{sec:fib-algebraic}
+%% ========================================================================
+
+\subsection{The $\CY_2$ root datum}
+\label{subsec:cy2-root-datum}
+
+Let $\cC$ be a $\CY_2$ category --- for concreteness, $\cC = D^b(\Coh(S))$ for
+a K3 surface $S$.  The generalized root datum $\cR_2 = \cR_2(\cC)$ consists of:
+
+\begin{definition}[$\CY_2$ root datum]
+\label{def:cy2-root-datum}
+The $\CY_2$ root datum $\cR_2 = (\Lambda_2, \Delta_2, W_2, \rho_2, \mathrm{mult}_2)$ has:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Lattice.}  $\Lambda_2 = H^*(S, \mathbb{Z})$ with the Mukai
+  pairing $\langle \cdot, \cdot \rangle_{\mathrm{Muk}}$.  For K3,
+  $\Lambda_2 \simeq U^3 \oplus E_8(-1)^2$, the K3 lattice of signature
+  $(4, 20)$.
+
+\item \textbf{Root system.}  $\Delta_2 \subset \Lambda_2$ consists of classes
+  $\delta$ with $\langle \delta, \delta \rangle = -2$ (the $(-2)$-curves in
+  $S$, i.e.\ the real roots).
+
+\item \textbf{Weyl group.}  $W_2 = W(\Lambda_2)$, generated by reflections in
+  the $(-2)$-vectors.
+
+\item \textbf{BPS spectrum.}  For each class $\beta \in \Lambda_2$, the BPS
+  count $\mathrm{mult}_2(\beta)$ is determined by the generating function
+  \begin{equation}\label{eq:cy2-partition}
+    Z_2(\tau, z) = \sum_{\beta} \mathrm{mult}_2(\beta) \, q^{n(\beta)} y^{l(\beta)}
+  \end{equation}
+  which is a weak Jacobi form of weight $0$ and some index $m$ depending on the
+  polarization.  For K3 with the standard polarization, $Z_2 = \phi_{0,1}$.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[The K3 elliptic genus as partition function]
+\label{rmk:k3-ell-genus}
+The weak Jacobi form $\phi_{0,1}(\tau, z)$ of weight $0$ and index $1$ is the
+elliptic genus of K3:
+\[
+  \phi_{0,1}(\tau, z)
+  = 2y + 20 + 2y^{-1} + q(20y^2 - 128y + 216 - 128y^{-1} + 20y^{-2}) + \cdots
+\]
+where $q = e^{2\pi i \tau}$, $y = e^{2\pi i z}$.  Its Fourier coefficients
+$f(n, l)$ defined by $\phi_{0,1} = \sum_{n,l} f(n,l) \, q^n y^l$ give the BPS
+degeneracies of the K3 sigma model.  This is the ``$\CY_2$ partition function''
+that will serve as input to the Borcherds lift.
+\end{remark}
+
+\subsection{The elliptic fiber data}
+\label{subsec:elliptic-fiber}
+
+Let $(E, \tau_E)$ be an elliptic curve with modular parameter
+$\tau_E \in \mathbb{H}$.  The elliptic curve contributes:
+
+\begin{enumerate}[label=(\roman*)]
+\item A rank-$2$ lattice $\Lambda_E = H^1(E, \mathbb{Z}) \simeq \mathbb{Z}^2$
+  with the symplectic pairing $\langle \alpha, \beta \rangle_E = \alpha \wedge \beta$.
+
+\item The ``fiber direction'' in homology: the class $[E] \in H_2(S \times E)$.
+
+\item The modular parameter $\tau_E$, which promotes the lattice variable $z$
+  from the Jacobi form $\phi_{0,m}(\tau, z)$ to a full modular variable.
+\end{enumerate}
+
+\subsection{The fibered root datum $\cR_3 = \cR_2 \times_E$}
+\label{subsec:fibered-root-datum}
+
+\begin{construction}[Fibered root datum]
+\label{constr:fibered-root-datum}
+Given a $\CY_2$ root datum
+$\cR_2 = (\Lambda_2, \Delta_2, W_2, \rho_2, \mathrm{mult}_2)$
+and an elliptic curve $E$, the \emph{fibered root datum}
+$\cR_3 = \cR_2 \times_E$ is defined as follows.
+
+\medskip
+\noindent\textbf{Step 1: Lattice extension.}  Set
+\begin{equation}\label{eq:lattice-extension}
+  \Lambda_3 = \Lambda_{\mathrm{hyp}} \oplus \Lambda_E^\vee
+\end{equation}
+where $\Lambda_{\mathrm{hyp}} \subset \Lambda_2$ is a chosen hyperbolic sublattice
+of signature $(2,1)$ and $\Lambda_E^\vee$ contributes one additional direction.
+For $K3 \times E$, the relevant sublattice is $\Lambda^{2,1}_{II}$ and the total
+lattice is $\Lambda^{3,2}$ of signature $(3,2)$.
+
+Concretely, introduce coordinates $(z_1, z_2, z_3)$ on $\Lambda_3 \otimes \mathbb{C}$
+where:
+\begin{itemize}
+\item $z_1 = \tau$ (the modular parameter, from the ``base'' of the K3 elliptic
+  fibration or equivalently from the $\CY_2$ moduli),
+\item $z_2 = z$ (the elliptic variable, from the Jacobi form),
+\item $z_3 = \sigma$ (the new variable from the elliptic curve $E$).
+\end{itemize}
+The Siegel upper half-space $\mathbb{H}_2$ is parameterized by the $2 \times 2$
+period matrix
+\[
+  Z = \begin{pmatrix} \tau & z \\ z & \sigma \end{pmatrix}
+  = \begin{pmatrix} z_1 & z_2 \\ z_2 & z_3 \end{pmatrix} \in \mathbb{H}_2.
+\]
+
+\medskip
+\noindent\textbf{Step 2: Root extension.}  The real roots $\Delta_3^{\mathrm{re}}$
+are the primitive elements of the fundamental polyhedron $\mathcal{P}$ in the
+positive cone of $\Lambda_3$.  For $K3 \times E$, these are the three real simple
+roots $\delta_1, \delta_2, \delta_3$ of the type II sublattice $\Lambda^{2,1}_{II}$
+with Gram matrix
+\[
+  (\delta_i, \delta_j) = \begin{pmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2 \end{pmatrix}.
+\]
+
+The imaginary roots $\Delta_3^{\mathrm{im}}$ are indexed by triples $(n, l, m)$
+in the positive cone $\{(n, l, m) : (n, l, m) > 0\}$ (with the lexicographic
+ordering: $n > 0$, or $n = 0$ and $l > 0$, or $n = l = 0$ and $m > 0$).
+Their multiplicities are:
+\begin{equation}\label{eq:mult3-from-cy2}
+  \mathrm{mult}_3(n, l, m) = f(nm, l)
+\end{equation}
+where $f(nm, l)$ are the Fourier coefficients of the $\CY_2$ partition function
+$\phi_{0,1}$.  This is the \emph{root multiplicity transfer formula}.
+
+\medskip
+\noindent\textbf{Step 3: Weyl group extension.}  The Weyl group of $\cR_3$ is
+the $2$-reflection group $W_3 = W^{(2)}(\Lambda^{2,1}_{II})$, acting on the
+hyperbolic sublattice.  Its structure is
+\[
+  \mathrm{O}(\Lambda^{2,1})_+ \simeq W^{(2)}(\Lambda^{2,1}_{II}) \rtimes S_3.
+\]
+
+\medskip
+\noindent\textbf{Step 4: Weyl vector.}  The Weyl vector $\rho_3$ satisfies
+$(\rho_3, \delta_i) = -1$ for all real simple roots.  For $K3 \times E$:
+\[
+  \rho_3 = f_2 - \tfrac{1}{2} f_3 + f_{-2}.
+\]
+\end{construction}
+
+\begin{remark}[Interpretation: ``Higgs on K3 fibered over $E$'']
+\label{rmk:higgs-on-k3}
+The construction $\cR_3 = \cR_2 \times_E$ has the following geometric
+interpretation.  The $\CY_2$ datum $\cR_2$ is the ``Higgs branch'' data:
+the root system of the K3 (or more generally, $\CY_2$) surface, encoding
+the singularity structure, the $(-2)$-curves, and the BPS spectrum of the
+K3 sigma model.  Fibering over $E$ means promoting each BPS state of charge
+$\beta \in \Lambda_2$ and spin $l$ to a family of states parameterized by the
+winding number $m$ around $E$.  The combined charge $(n, l, m)$ in $\Lambda_3$
+records: $n$ = instanton number (base), $l$ = spin/charge (fiber of K3 elliptic
+fibration), $m$ = winding around $E$.
+
+Categorically, this is:
+\[
+  \cC_E := D^b(\Coh(S \times E)) \simeq \Coh(S) \boxtimes \Coh(E).
+\]
+The Hochschild homology decomposes as
+\[
+  \HH_*(\cC_E) \simeq \HH_*(S) \otimes \HH_*(E)
+\]
+and the $\CY_3$ trace on $\cC_E$ is the product of the $\CY_2$ trace on $S$ and
+the $\CY_1$ trace on $E$.  The elliptic fiber contributes the ``winding mode''
+quantum number $m$, which, together with the instanton number $n$ from the base,
+creates the full two-dimensional lattice indexing the Fourier expansion of a
+Siegel modular form.
+\end{remark}
+
+\subsection{The fibered root datum in coordinates}
+\label{subsec:fibered-coordinates}
+
+To make the construction fully explicit, we spell out how the $\CY_2$ Jacobi
+form data embeds into the $\CY_3$ Siegel modular form data.
+
+A weak Jacobi form $\phi_{k,m}(\tau, z)$ of weight $k$ and index $m$ has a
+Fourier expansion
+\[
+  \phi_{k,m}(\tau, z) = \sum_{\substack{n \geq 0 \\ l \in \mathbb{Z} \\ 4nm - l^2 \geq -m^2}} f(n, l) \, q^n y^l,
+  \qquad q = e^{2\pi i \tau}, \; y = e^{2\pi i z}.
+\]
+A Siegel modular form $F(Z)$ on $\mathbb{H}_2$ has the Fourier--Jacobi expansion
+\begin{equation}\label{eq:fourier-jacobi}
+  F(Z) = F\!\begin{pmatrix} \tau & z \\ z & \sigma \end{pmatrix}
+  = \sum_{m \geq 0} \phi_m(\tau, z) \, p^m,
+  \qquad p = e^{2\pi i \sigma},
+\end{equation}
+where each $\phi_m(\tau, z)$ is a Jacobi form of index $m$.
+
+The fibered root datum construction amounts to the following dictionary:
+
+\begin{center}
+\begin{tabular}{lll}
+\textbf{$\CY_2$ datum} & \textbf{Fibered over $E$} & \textbf{$\CY_3$ datum} \\
+\hline
+Lattice $\Lambda_2^{\mathrm{hyp}}$ & $\oplus \; \Lambda_E^\vee$ & $\Lambda_3$ \\
+Jacobi form $\phi_{0,m}(\tau, z)$ & Fourier--Jacobi coeff.\ of & Siegel form $F(Z)$ \\
+Fourier coeff.\ $f(n, l)$ & $\times$ winding $m$ & mult$_3(n,l,m) = f(nm,l)$ \\
+Modular group $\mathrm{SL}_2(\mathbb{Z})$ & $\times$ fiber $\mathrm{SL}_2(\mathbb{Z})$ & Siegel modular group $\mathrm{Sp}_4(\mathbb{Z})$ \\
+$\tau \in \mathbb{H}$ & $\times \; \sigma \in \mathbb{H}$ & $Z \in \mathbb{H}_2$
+\end{tabular}
+\end{center}
+
+%% ========================================================================
+\section{The Borcherds lift as shadow tower completion}
+\label{sec:fib-borcherds}
+%% ========================================================================
+
+\subsection{The Borcherds multiplicative lift}
+\label{subsec:borcherds-lift}
+
+We recall the Borcherds multiplicative (automorphic) lift and then interpret it
+in terms of the shadow tower from Volume~I.
+
+\begin{theorem}[Borcherds]
+\label{thm:borcherds-lift}
+Let $\phi(\tau, z) = \sum_{n, l} f(n, l) \, q^n y^l$ be a weak Jacobi form of
+weight $0$ and index $1$ for $\mathrm{SL}_2(\mathbb{Z})$ with
+$f(n, l) \in \mathbb{Z}$ and $f(n, l)$ depending only on $4n - l^2$ and $l \bmod 2$.
+The Borcherds lift $\mathrm{Borch}(\phi)$ is the meromorphic Siegel modular form
+of weight $f(0,0)/2$ defined by
+\begin{equation}\label{eq:borcherds-product}
+  \mathrm{Borch}(\phi)(Z)
+  = q^A y^B p^C \prod_{\substack{(n,l,m) \in \mathbb{Z}^3 \\ (n,l,m) > 0}}
+  \bigl(1 - q^n y^l p^m\bigr)^{f(nm, l)}
+\end{equation}
+where $q = e^{2\pi i \tau}$, $y = e^{2\pi i z}$, $p = e^{2\pi i \sigma}$,
+$Z = \bigl(\begin{smallmatrix} \tau & z \\ z & \sigma \end{smallmatrix}\bigr)$,
+and $A, B, C$ are determined by the Weyl vector $\rho_3$.
+
+The product converges on an appropriate domain and extends to an automorphic form
+for a subgroup of $\mathrm{Sp}_4(\mathbb{Z})$ (the full group if $\phi$ has
+level $1$).
+\end{theorem}
+
+\begin{example}[The Igusa cusp form $\Delta_5$]
+\label{ex:igusa-from-borcherds}
+The K3 elliptic genus $\phi_{0,1}$ has $f(0, 0) = 20$, so the Borcherds lift
+has weight $20/2 = 10$.  After the rescaling $Z \mapsto 2Z$ and the prefactor
+$1/64$, one obtains the Igusa cusp form of weight $5$:
+\begin{align}\label{eq:delta5-product}
+  \frac{1}{64} \Delta_5(2Z)
+  &= e^{-2\pi i \langle \rho_3, z \rangle}
+  \prod_{\substack{(n,l,m) > 0}} \bigl(1 - e^{2\pi i(n\tau + lz + m\sigma)}\bigr)^{f(nm, l)} \\
+  &= \mathrm{Borch}(\phi_{0,1})(2Z) / 64. \notag
+\end{align}
+This is precisely the denominator identity of the BKM superalgebra
+$\mathfrak{g}_{\Delta_5}$.
+\end{example}
+
+\subsection{Shadow tower interpretation}
+\label{subsec:shadow-tower-interp}
+
+The Borcherds lift admits the following interpretation in terms of the shadow
+tower of Volume~I.
+
+\begin{construction}[Shadow tower from $\CY_2$ to $\CY_3$]
+\label{constr:shadow-tower-cy2-cy3}
+Let $A_2 = \Phi(\cC)$ be the quantum chiral algebra of the $\CY_2$ category
+$\cC$, with shadow tower $\Theta_{A_2} = \sum_{r \geq 2} \Theta^{(r)}_{A_2}$.
+The $\CY_3$ shadow tower $\Theta_{A_3}$ of $A_3 = \Phi(\cC_E)$ is the
+\emph{shadow tower completion} of $\Theta_{A_2}$ along the elliptic fiber:
+
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Arity 2 (the bilinear shadow, $\kappa$).}  The leading term
+  $\Theta^{(2)}_{A_3}$ is the modular characteristic $\kappa(A_3)$, which equals
+  the weight of $\Delta_5$:
+  \[
+    \kappa(A_3) = 5.
+  \]
+  This arises from $\kappa(A_2)$ (the $\CY_2$ modular characteristic) via
+  the relation
+  \[
+    \kappa(A_3) = \frac{f(0,0)}{2} \cdot \frac{1}{2} = \frac{20}{4} = 5
+  \]
+  where $f(0,0) = 20$ is the constant term of $\phi_{0,1}$ and the factor
+  $1/2$ accounts for the rescaling $Z \mapsto 2Z$.
+
+\item \textbf{Arity 3 (the cubic shadow, $C$).}  The first correction to the
+  Kac--Moody approximation adds the simplest imaginary roots.  In the Borcherds
+  product, these are the factors with $nm = 0$ (i.e., either $n = 0$ or $m = 0$):
+  \[
+    \Theta^{(3)}_{A_3} \;\longleftrightarrow\; \prod_{\substack{(n,l,m) > 0 \\ nm = 0}}
+    (1 - q^n y^l p^m)^{f(0, l)}.
+  \]
+  Since $f(0, l)$ for $\phi_{0,1}$ gives $f(0, 0) = 20$, $f(0, \pm 1) = 2$,
+  this is the contribution of the purely ``fiber'' or purely ``base'' imaginary
+  roots --- those that do not mix the $\tau$ and $\sigma$ directions.
+
+\item \textbf{Arity $r$ (the higher shadows).}  The arity-$r$ shadow
+  $\Theta^{(r)}_{A_3}$ adds imaginary roots with $nm \leq r - 2$ (charge mixing
+  up to level $r - 2$).  In the limit $r \to \infty$, the full Borcherds product
+  is recovered:
+  \[
+    \Theta_{A_3} = \lim_{r \to \infty} \Theta^{(\leq r)}_{A_3}
+    \quad \longleftrightarrow \quad
+    \text{full infinite product in \eqref{eq:borcherds-product}}.
+  \]
+\end{enumerate}
+
+The convergence of the Borcherds product (in a suitable domain of $\mathbb{H}_2$)
+is thus the analytic manifestation of the algebraic completeness of the shadow
+tower.
+\end{construction}
+
+\begin{remark}[The denominator identity as bar complex Euler product]
+\label{rmk:denom-bar-euler}
+In the framework of Volume~I, the denominator identity of a BKM superalgebra is
+the Euler characteristic of the bar complex $B(A)$ of the chiral algebra $A$.
+The Borcherds product formula
+\[
+  \Phi(z) = e^{-2\pi i \langle \rho, z \rangle}
+  \prod_{\alpha \in \Delta_+} (1 - e^{-2\pi i \langle \alpha, z \rangle})^{\mathrm{mult}\, \alpha}
+\]
+is literally the ``$q$-graded Euler product'' of the bar complex: each factor
+$(1 - e^{-2\pi i \langle \alpha, z \rangle})$ corresponds to a generator of
+$B(A)$ in root degree $\alpha$, raised to the power $\mathrm{mult}\, \alpha$
+(the number of independent generators in that degree).
+
+The Borcherds lift therefore says: the bar complex Euler product of the $\CY_3$
+algebra $A_3$ is determined by the Fourier coefficients of the bar complex Euler
+product of the $\CY_2$ algebra $A_2$.  This is the \emph{fibered bar complex}
+structure.
+\end{remark}
+
+\subsection{The Borcherds lift in four steps}
+\label{subsec:borcherds-four-steps}
+
+We now present the Borcherds lift as a four-step algebraic procedure, making its
+shadow-tower nature manifest.
+
+\begin{construction}[Borcherds lift as algebraic procedure]
+\label{constr:borcherds-algebraic}
+\
+
+\medskip
+\noindent\textbf{Step 1: Extract the $\CY_2$ input.}
+Start with the $\CY_2$ partition function $\phi = \phi_{0,1}(\tau, z)$, a weak
+Jacobi form.  Its Fourier coefficients $\{f(n, l)\}_{n \geq 0, l \in \mathbb{Z}}$
+are the $\CY_2$ root multiplicities.
+
+\medskip
+\noindent\textbf{Step 2: Construct the $\CY_3$ root multiplicities.}
+For each triple $(n, l, m)$ in the positive cone, define
+\[
+  \mathrm{mult}_3(n, l, m) := f(nm, l).
+\]
+This is the root multiplicity transfer formula.  The ``mixing'' of $n$ and $m$
+via the product $nm$ is the essential feature: the $\CY_2$ Fourier coefficient
+at discriminant $D = 4nm - l^2$ controls the $\CY_3$ root multiplicity at
+charge $(n, l, m)$.
+
+\medskip
+\noindent\textbf{Step 3: Form the automorphic product.}
+Construct the infinite product
+\[
+  \Phi_3(Z) = e^{-2\pi i \langle \rho_3, z \rangle}
+  \prod_{(n,l,m) > 0} (1 - q^n y^l p^m)^{\mathrm{mult}_3(n,l,m)}.
+\]
+The Borcherds theorem guarantees this converges (in a suitable domain) and
+defines an automorphic form for $\mathrm{Sp}_4(\mathbb{Z})$.
+
+\medskip
+\noindent\textbf{Step 4: Verify the denominator identity.}
+The BKM superalgebra $\mathfrak{g}_3$ with root multiplicities $\mathrm{mult}_3$
+has the Weyl--Kac--Borcherds denominator identity
+\[
+  \sum_{w \in W_3} \det(w) \, e^{-\pi i \langle w(\rho_3), z \rangle}
+  = e^{-2\pi i \langle \rho_3, z \rangle}
+  \prod_{\alpha \in \Delta_{3,+}} (1 - e^{-2\pi i \langle \alpha, z \rangle})^{\mathrm{mult}_3(\alpha)}.
+\]
+The left side is a sum over the Weyl group $W_3$; the right side is the
+Borcherds product.  Both sides equal $\frac{1}{64} \Delta_5(2Z)$.
+\end{construction}
+
+%% ========================================================================
+\section{Root multiplicity transfer}
+\label{sec:fib-root-mult}
+%% ========================================================================
+
+\subsection{The transfer formula}
+\label{subsec:transfer-formula}
+
+The root multiplicity transfer is the heart of the $\CY_2 \to \CY_3$ passage.
+
+\begin{proposition}[Root multiplicity transfer]
+\label{prop:root-mult-transfer}
+Let $\cC$ be a $\CY_2$ category with partition function
+$\phi_{0,m}(\tau, z) = \sum f(n, l) \, q^n y^l$, and let $\cC_E$ be the
+fibered $\CY_3$ category.  The root multiplicities of the $\CY_3$ algebra
+$\mathfrak{g}_3 = \mathfrak{g}(\cC_E)$ are:
+\begin{equation}\label{eq:root-mult-transfer}
+  \mathrm{mult}_3(\alpha) = f\bigl(\langle \alpha, \alpha \rangle_{\tau\sigma}, \;
+  \langle \alpha, \alpha \rangle_z\bigr)
+\end{equation}
+where, in the coordinates $\alpha = (n, l, m)$:
+\begin{itemize}
+\item $\langle \alpha, \alpha \rangle_{\tau\sigma} = nm$ (the product of the
+  $\tau$- and $\sigma$-components),
+\item $\langle \alpha, \alpha \rangle_z = l$ (the $z$-component).
+\end{itemize}
+More explicitly: $\mathrm{mult}_3(n, l, m) = f(nm, l)$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+This follows from the Borcherds product formula.  The product side of the
+denominator identity of $\mathfrak{g}_3$ is
+\[
+  \prod_{(n,l,m) > 0} (1 - q^n y^l p^m)^{c(n,l,m)}
+\]
+where $c(n, l, m) = \mathrm{mult}_3(n, l, m)$.  Comparing with the Borcherds
+lift of $\phi$, which has exponents $f(nm, l)$, gives
+$c(n, l, m) = f(nm, l)$.
+\end{proof}
+
+\subsection{Consequences of the transfer formula}
+\label{subsec:transfer-consequences}
+
+\begin{corollary}[Discriminant dependence]
+\label{cor:discriminant-dependence}
+The root multiplicity $\mathrm{mult}_3(n, l, m)$ depends on $n$ and $m$ only
+through the product $nm$.  Equivalently, $\mathrm{mult}_3$ depends on the
+``discriminant'' $D = 4nm - l^2$ and the parity of $l$.  This is because
+$f(nm, l)$, for $\phi_{0,1}$, depends on $nm$ and $l$ only through
+$4(nm) - l^2$ and $l \bmod 2$.
+\end{corollary}
+
+\begin{proof}
+This is a standard property of Jacobi forms of index $1$: the Fourier
+coefficient $f(n, l)$ depends only on $4n - l^2$ and $l \bmod 2$.  The
+substitution $n \mapsto nm$ gives the result.
+\end{proof}
+
+\begin{corollary}[Real root multiplicities]
+\label{cor:real-root-mult}
+The real roots of $\mathfrak{g}_3$ (those $\alpha$ with $(\alpha, \alpha) = 2$)
+all have multiplicity $1$.  This corresponds to $f(nm, l)$ at $4nm - l^2 = -1$,
+which gives $f = 1$ for $\phi_{0,1}$.
+\end{corollary}
+
+\begin{corollary}[Lightlike root multiplicities]
+\label{cor:lightlike-mult}
+The lightlike (isotropic) roots with $(\alpha, \alpha) = 0$ have multiplicity
+$f(0, 0) = 20$ when $l$ is even, and $f(0, 1) = 2$ when $l$ is odd.  These are
+the ``threshold'' imaginary roots.  For K3, the multiplicity 20 corresponds to
+the 20 directions in $H^{1,1}(S)$ transverse to the K\"ahler class.
+\end{corollary}
+
+\subsection{The multiplicity table}
+\label{subsec:mult-table}
+
+For the K3 case ($\phi_{0,1}$), the first few root multiplicities are:
+
+\begin{center}
+\begin{tabular}{c|ccccc}
+$nm \;\backslash\; l$ & $0$ & $\pm 1$ & $\pm 2$ & $\pm 3$ & $\pm 4$ \\
+\hline
+$0$ & $20$ & $2$ & $0$ & $0$ & $0$ \\
+$1$ & $-128$ & $20$ & $2$ & $0$ & $0$ \\
+$2$ & $216$ & $-128$ & $20$ & $2$ & $0$ \\
+$3$ & $1024$ & $216$ & $-128$ & $20$ & $2$ \\
+$4$ & $-4554$ & $1024$ & $216$ & $-128$ & $20$
+\end{tabular}
+\end{center}
+
+Negative multiplicities correspond to fermionic (odd) generators:
+$\mathrm{mult}_3 < 0$ means $|\mathrm{mult}_3|$ fermionic generators in the
+corresponding root space.  This is the super-structure of the BKM superalgebra.
+
+\begin{remark}[Physical interpretation]
+\label{rmk:physical-interp}
+The multiplicity table encodes the BPS spectrum of the type IIA string on
+$K3 \times E$:
+\begin{itemize}
+\item $nm$ = D0-D2 charge (instanton number times D2 wrapping),
+\item $l$ = D2 charge along the elliptic fiber of K3,
+\item $f(nm, l) > 0$: bosonic BPS states,
+\item $f(nm, l) < 0$: fermionic BPS states.
+\end{itemize}
+The root multiplicity transfer formula says that the $\CY_3$ BPS spectrum is
+entirely determined by the $\CY_2$ BPS spectrum (the K3 elliptic genus),
+``fibered'' over the additional winding modes from $E$.
+\end{remark}
+
+%% ========================================================================
+\section{The $\Etwo$-structure and the modular parameter}
+\label{sec:fib-e2}
+%% ========================================================================
+
+\subsection{$\Etwo$ from $\CY_2$}
+\label{subsec:e2-from-cy2}
+
+A $\CY_2$ category $\cC$ carries a natural $\Etwo$-structure.  The origin is
+the $S^2$-framing of the cyclic homology:
+
+\begin{proposition}[$\CY_2$ gives $\Etwo$]
+\label{prop:cy2-e2}
+Let $\cC$ be a smooth proper $\CY_2$ category.  The Hochschild cohomology
+$\HH^*(\cC)$ carries an $\Etwo$-algebra structure (equivalently, a
+Gerstenhaber algebra structure via Kontsevich formality).  The associated
+quantum chiral algebra $A_2 = \Phi(\cC)$ is an $\Etwo$-chiral algebra, and
+$\Rep^{\Etwo}(A_2)$ is a braided monoidal category.
+\end{proposition}
+
+This $\Etwo$-structure is the ``seed'' for the quantum group structure.  At the
+level of the root datum $\cR_2$, it manifests as:
+\begin{itemize}
+\item The modular transformation $\tau \mapsto -1/\tau$ is the braiding
+  (the $S$-matrix of the modular tensor category),
+\item The $T$-transformation $\tau \mapsto \tau + 1$ is the twist.
+\end{itemize}
+The modular group $\mathrm{SL}_2(\mathbb{Z})$ acting on $\tau \in \mathbb{H}$
+is the ``$\CY_2$-level'' manifestation of the $\Etwo$-braiding.
+
+\subsection{Enhancement by the elliptic fiber}
+\label{subsec:e2-enhancement}
+
+Fibering over $E$ introduces a second modular parameter $\sigma$.  The full
+modular group upgrades from $\mathrm{SL}_2(\mathbb{Z})$ to
+$\mathrm{Sp}_4(\mathbb{Z})$, acting on $Z \in \mathbb{H}_2$.
+
+\begin{proposition}[$\Etwo$ with modular parameter]
+\label{prop:e2-modular}
+The $\CY_3$ quantum chiral algebra $A_3 = \Phi(\cC_E)$ is an $\Etwo$-chiral
+algebra whose $\Etwo$-structure is enhanced by a modular parameter: the braided
+monoidal category $\Rep^{\Etwo}(A_3)$ carries a compatible
+$\mathrm{Sp}_4(\mathbb{Z})$-action.
+
+More precisely, the data organizing the passage from $\Etwo$ over
+$\mathrm{SL}_2(\mathbb{Z})$ to $\Etwo$ over $\mathrm{Sp}_4(\mathbb{Z})$ is:
+\begin{enumerate}[label=(\roman*)]
+\item The Jacobi group $\mathrm{SL}_2(\mathbb{Z}) \ltimes \mathbb{Z}^2$ acts on
+  $(\tau, z)$ and controls the Jacobi form $\phi_{0,1}(\tau, z)$.  This is the
+  ``$\CY_2$ modular structure.''
+
+\item The Siegel modular group $\mathrm{Sp}_4(\mathbb{Z})$ acts on
+  $Z = \bigl(\begin{smallmatrix} \tau & z \\ z & \sigma \end{smallmatrix}\bigr)$
+  and controls the Siegel form $\Delta_5(Z)$.  This is the ``$\CY_3$ modular
+  structure.''
+
+\item The Jacobi group embeds into $\mathrm{Sp}_4(\mathbb{Z})$ via the
+  ``Fourier--Jacobi parabolic'' --- the stabilizer of the cusp
+  $\sigma \to i\infty$.  The Fourier--Jacobi expansion
+  \[
+    \Delta_5(Z) = \sum_{m \geq 1} \phi_m(\tau, z) \, p^m
+  \]
+  is the decomposition of the $\mathrm{Sp}_4(\mathbb{Z})$-representation
+  into Jacobi group representations.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[The modular parameter is \emph{not} an extra $\Eone$]
+\label{rmk:not-extra-e1}
+One might expect that the passage $\CY_2 \to \CY_3$ upgrades $\Etwo$ to
+$E_3$ (by Dunn: $E_3 \simeq \Etwo \otimes \Eone$).  This is \emph{not} what
+happens.  The $\CY_3$ manifold $S \times E$ has trivial canonical bundle of
+dimension $3$, giving an $S^3$-framing, and $E_3$ does appear at the topological
+level.  But the \emph{chiral} (holomorphic) structure only sees $\Etwo$ --- by
+the Dunn decomposition $E_3 \to \Etwo$, one $\Eone$-factor is ``used up'' by
+the holomorphic structure of $E$.  What remains is an $\Etwo$-chiral algebra
+with an additional $\mathrm{SL}_2(\mathbb{Z})$-equivariance parametrized by
+$\sigma$.
+
+Alternatively: the ``third direction'' from $E$ does not add an independent
+operadic degree of freedom, but rather introduces a \emph{spectral} parameter
+$\sigma$ into the existing $\Etwo$-structure.  The $\Etwo$-braiding $R(z)$ of
+the $\CY_2$ algebra becomes a family $R(z; \sigma)$ of braidings parametrized
+by $\sigma \in \mathbb{H}$.  This family is controlled by the Fourier--Jacobi
+expansion.
+\end{remark}
+
+\subsection{The Sp$_4$ action as $\Etwo$ braiding}
+\label{subsec:sp4-e2}
+
+The $\mathrm{Sp}_4(\mathbb{Z})$-action on $\mathbb{H}_2$ decomposes into
+generators:
+
+\begin{align}
+  S &\colon Z \longmapsto -Z^{-1}
+  &&\text{(braiding / $S$-matrix)}, \label{eq:sp4-S} \\
+  T &\colon Z \longmapsto Z + \bigl(\begin{smallmatrix} 1 & 0 \\ 0 & 0 \end{smallmatrix}\bigr)
+  &&\text{(twist in $\tau$-direction)}, \label{eq:sp4-T} \\
+  U &\colon Z \longmapsto Z + \bigl(\begin{smallmatrix} 0 & 0 \\ 0 & 1 \end{smallmatrix}\bigr)
+  &&\text{(twist in $\sigma$-direction)}, \label{eq:sp4-U} \\
+  V &\colon Z \longmapsto Z + \bigl(\begin{smallmatrix} 0 & 1 \\ 1 & 0 \end{smallmatrix}\bigr)
+  &&\text{(mixed twist)}. \label{eq:sp4-V}
+\end{align}
+
+The generators $T$ and $U$ are the two ``$\Eone$-twists'' (one from the $\CY_2$
+base, one from the elliptic fiber).  The generator $S$ is the $\Etwo$-braiding.
+The generator $V$ is the \emph{mixing} of the two $\Eone$-structures, which is
+the genuinely new datum of the fibered construction.
+
+\begin{proposition}[Jacobi form as $\Etwo$-character]
+\label{prop:jacobi-e2-char}
+The weak Jacobi form $\phi_{0,1}(\tau, z)$ is the character (graded trace) of
+the $\CY_2$ quantum chiral algebra $A_2$:
+\[
+  \phi_{0,1}(\tau, z) = \Tr_{A_2}\bigl(q^{L_0} y^{J_0}\bigr)
+\]
+where $L_0$ is the Virasoro zero-mode (Hamiltonian) and $J_0$ is the
+$\mathrm{U}(1)$-charge (the Jacobi index variable).
+
+The Siegel modular form $\Delta_5(Z)$ is the denominator of the $\CY_3$
+algebra $A_3$:
+\[
+  \Delta_5(Z) \;\sim\; \det\nolimits_{\frakg_3}\bigl(1 - e^{2\pi i Z}\bigr)
+  := \prod_{\alpha > 0} (1 - e^{2\pi i \langle \alpha, Z \rangle})^{\mathrm{mult}_3(\alpha)}.
+\]
+The Borcherds lift is the passage from the character of $A_2$ to the
+denominator of $A_3$.
+\end{proposition}
+
+%% ========================================================================
+\section{Generalization and structural theorems}
+\label{sec:fib-general}
+%% ========================================================================
+
+\subsection{General $\CY_2$ categories}
+\label{subsec:general-cy2}
+
+The construction of Section~\ref{sec:fib-algebraic} generalizes beyond
+$D^b(\Coh(S))$ for K3 surfaces.
+
+\begin{conjecture}[General $\CY_2 \to \CY_3$ fibration]
+\label{conj:general-fibration}
+Let $\cC$ be any smooth proper $\CY_2$ category with partition function
+$\phi_\cC(\tau, z)$ (a weak Jacobi form of weight $0$ and some index $m$).
+Then:
+\begin{enumerate}[label=(\roman*)]
+\item The fibered category $\cC_E = \cC \boxtimes D^b(\Coh(E))$ is a $\CY_3$
+  category.
+
+\item The root datum $\cR_3(\cC_E)$ is the fibered root datum
+  $\cR_2(\cC) \times_E$ of Construction~\ref{constr:fibered-root-datum}.
+
+\item The denominator identity of the quantum vertex chiral group
+  $G_3(\cC_E)$ is the Borcherds lift $\mathrm{Borch}(\phi_\cC)$.
+
+\item The root multiplicities are given by
+  $\mathrm{mult}_3(n, l, m) = f_\cC(nm, l)$.
+
+\item The $\Etwo$-braiding of $G_3(\cC_E)$ is the
+  $\mathrm{Sp}_4(\mathbb{Z})$-equivariant enhancement of the
+  $\mathrm{SL}_2(\mathbb{Z})$-braiding of $G_2(\cC)$.
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}
+\label{rmk:index-m-general}
+For a general $\CY_2$ category, the partition function may be a Jacobi form of
+index $m > 1$.  The Borcherds lift of a Jacobi form of index $m$ produces a
+Siegel modular form for the paramodular group $\Gamma_m \subset \mathrm{Sp}_4(\mathbb{Q})$
+rather than the full $\mathrm{Sp}_4(\mathbb{Z})$.  This reflects the fact that the
+elliptic fibration structure of $\cC_E$ may have non-trivial monodromy of
+order related to $m$.
+\end{remark}
+
+\subsection{The fibration as functor}
+\label{subsec:fibration-functor}
+
+\begin{construction}[The fibration functor $(-) \times_E$]
+\label{constr:fibration-functor}
+The fibration over $E$ defines a functor
+\[
+  (-) \times_E \;\colon\; \CY_2\text{-}\mathrm{QChirAlg}
+  \longrightarrow \CY_3\text{-}\mathrm{QChirAlg}
+\]
+from the category of $\CY_2$ quantum chiral algebras to $\CY_3$ quantum chiral
+algebras.  On objects, it sends $G_2(\cC)$ to $G_3(\cC_E)$.  On morphisms (i.e.,
+on homomorphisms of quantum vertex chiral groups), it acts by:
+\begin{enumerate}[label=(\roman*)]
+\item Extending the root lattice by the fiber direction,
+\item Lifting the partition function via Borcherds,
+\item Enhancing the modular group from $\mathrm{SL}_2$ to $\mathrm{Sp}_4$.
+\end{enumerate}
+
+At the level of shadow towers:
+\[
+  \Theta_{G_3} = \mathrm{Borch}\bigl(\exp(\Theta_{G_2})\bigr)
+\]
+where $\exp(\Theta_{G_2})$ denotes the ``exponentiated shadow tower'' (the
+passage from the Lie-algebraic MC element to the group-like denominator
+product) and $\mathrm{Borch}$ is the Borcherds multiplicative lift.
+\end{construction}
+
+\subsection{Compatibility with the main theorems}
+\label{subsec:compatibility-main}
+
+The fibration functor is compatible with the four target theorems CY-A through
+CY-D:
+
+\begin{center}
+\begin{tabular}{lll}
+\textbf{Theorem} & \textbf{$\CY_2$ version} & \textbf{$\CY_3 = \CY_2 \times_E$ version} \\
+\hline
+CY-A & $\Phi(\cC) = G_2(\cC)$ & $\Phi(\cC_E) = G_3(\cC_E) = G_2 \times_E$ \\
+CY-B & Bar-cobar for $G_2$ & Fibered bar-cobar for $G_3$ \\
+CY-C & $\Rep^{\Etwo}(G_2)$ braided & $\Rep^{\Etwo}(G_3)$ braided, $\mathrm{Sp}_4$-equiv.\ \\
+CY-D & $\kappa(G_2) = \chi^{\CY}(\cC)$ & $\kappa(G_3) = \mathrm{wt}(\mathrm{Borch}(\phi_\cC))$
+\end{tabular}
+\end{center}
+
+%% ========================================================================
+\section{The eight diagonal divisor forms}
+\label{sec:fib-eight}
+%% ========================================================================
+
+The $K3 \times E$ construction admits $\mathbb{Z}/N\mathbb{Z}$ quotients.  The
+eight diagonal divisor (dd) Siegel modular forms arise as Borcherds lifts of
+the eight twisted-twined K3 elliptic genera.
+
+\begin{conjecture}[Eight fibrations]
+\label{conj:eight-fibrations}
+For each $N \in \{1, 2, 3, 4, 5, 6, 7, 8\}$ (or more precisely, for each
+conjugacy class in $M_{24}$ yielding a distinct dd-form), the $\CY_3$
+$X_N = (S \times E)/(\mathbb{Z}/N\mathbb{Z})$ satisfies:
+\begin{enumerate}[label=(\roman*)]
+\item The $\CY_2$ input is the $g_N$-twisted K3 elliptic genus
+  $\phi_{g_N}(\tau, z)$.
+
+\item The Borcherds lift $\mathrm{Borch}(\phi_{g_N})$ is the dd-modular form
+  $\Delta_{5,N}$.
+
+\item The quantum vertex chiral group $G_3(X_N)$ has denominator identity
+  $\Delta_{5,N}$.
+
+\item The root multiplicities of $G_3(X_N)$ are the Fourier coefficients of
+  $\phi_{g_N}$.
+\end{enumerate}
+The eight quantum vertex chiral groups $\{G_3(X_N)\}$ form a family related by
+Galois conjugation on the $N$-torsion of $E$.
+\end{conjecture}
+
+%% ========================================================================
+\section{Iterated fibration and higher CY}
+\label{sec:fib-iterated}
+%% ========================================================================
+
+\begin{remark}[Iterated fibration]
+\label{rmk:iterated}
+The construction naturally iterates.  Starting from a $\CY_1$ category (i.e., an
+elliptic curve $E_0$), fibering over $E_1$ gives a $\CY_2$ category (an abelian
+surface $E_0 \times E_1$), and fibering again over $E_2$ gives a $\CY_3$
+category ($E_0 \times E_1 \times E_2$, an abelian threefold).
+
+At each stage:
+\begin{itemize}
+\item $\CY_1$: the partition function is a modular form (a function on $\mathbb{H}$),
+\item $\CY_2$: the partition function is a Jacobi form (a function on $\mathbb{H} \times \mathbb{C}$),
+\item $\CY_3$: the partition function is a Siegel modular form (a function on $\mathbb{H}_2$).
+\end{itemize}
+The pattern suggests that $\CY_d$ partition functions should be Siegel modular
+forms of degree $\lfloor d/2 \rfloor$, and the $\CY_d \to \CY_{d+1}$ fibration
+should be a generalized Borcherds lift from degree-$\lfloor d/2 \rfloor$ to
+degree-$\lfloor (d+1)/2 \rfloor$ forms.  For $d = 3 \to 4$, one expects
+Siegel modular forms of degree $2$ lifting to automorphic forms on an
+orthogonal group of higher rank.
+\end{remark}
+
+\begin{conjecture}[Borcherds tower]
+\label{conj:borcherds-tower}
+There exists a sequence of ``Borcherds lift'' functors
+\[
+  \CY_1\text{-}\mathrm{QChirAlg}
+  \xrightarrow{\;(-) \times_{E_1}\;}
+  \CY_2\text{-}\mathrm{QChirAlg}
+  \xrightarrow{\;(-) \times_{E_2}\;}
+  \CY_3\text{-}\mathrm{QChirAlg}
+  \xrightarrow{\;(-) \times_{E_3}\;}
+  \cdots
+\]
+such that the passage from level $d$ to level $d+1$ is controlled by a
+generalized Borcherds lift.  At each level, the denominator identity of the
+quantum vertex chiral group is an automorphic form of the appropriate type.
+\end{conjecture}
+
+%% ========================================================================
+\section{Open questions}
+\label{sec:fib-open}
+%% ========================================================================
+
+\begin{enumerate}[label=\arabic*.]
+\item \textbf{Non-product CY$_3$s.}  The fibration $\cC_E = \cC \boxtimes
+  \Coh(E)$ is a product.  What about $\CY_3$ manifolds that are non-trivially
+  fibered over a curve?  For example, an elliptic fibration $X \to B$ where
+  $B$ is a rational or higher-genus surface.  The Borcherds lift should
+  generalize, but the input may no longer be a standard Jacobi form.
+
+\item \textbf{The inverse problem.}  Given a $\CY_3$ quantum vertex chiral group
+  $G_3$, when does it ``defibrate'' --- i.e., when is there a $\CY_2$ category
+  $\cC$ and an elliptic curve $E$ such that $G_3 = G_2(\cC) \times_E$?  This
+  is the question of when a Siegel modular form is a Borcherds lift.  The answer
+  involves the ``singular theta correspondence'' of Borcherds--Harvey--Moore.
+
+\item \textbf{Wall-crossing.}  The root multiplicities $f(nm, l)$ are the
+  ``indexed'' BPS counts.  How does wall-crossing on the $\CY_3$ side
+  (Kontsevich--Soibelman) relate to wall-crossing on the $\CY_2$ side?  The
+  fibration should intertwine the two wall-crossing structures.
+
+\item \textbf{Koszul duality of the fibration.}  Is the Koszul dual of
+  $G_3(\cC_E)$ related to $G_2(\cC^!)_E$, where $\cC^!$ is the Koszul dual
+  $\CY_2$ category?
+
+\item \textbf{Categorical Borcherds lift.}  Can the Borcherds multiplicative
+  lift be categorified to a functor between appropriate derived categories?
+  I.e., is there a categorical lift
+  $\mathrm{Borch} \colon D^b(\Rep^{\Etwo}(G_2)) \to D^b(\Rep^{\Etwo}(G_3))$?
+
+\item \textbf{Connection to Mathieu moonshine.}  The eight twisted K3 elliptic
+  genera and the role of $M_{24}$ in the K3 elliptic genus suggest a connection
+  between the fibration theory and Mathieu moonshine.  Can the quantum vertex
+  chiral group framework illuminate why $M_{24}$ appears?
+\end{enumerate}
+
+%% ========================================================================
+\section{Summary: the fibration dictionary}
+\label{sec:fib-summary}
+%% ========================================================================
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+\textbf{$\CY_2$ side} & \textbf{Fibration} & \textbf{$\CY_3$ side} \\
+\hline
+Category $\cC$ & $\boxtimes \Coh(E)$ & Category $\cC_E$ \\
+Root datum $\cR_2$ & $\times_E$ & Root datum $\cR_3$ \\
+Lattice $\Lambda_2^{\mathrm{hyp}}$ & $\oplus \, \Lambda_E^\vee$ & Lattice $\Lambda_3$ \\
+Jacobi form $\phi_{0,m}$ & Borcherds lift & Siegel form $\Delta_k$ \\
+$f(n, l)$ & $(n,l) \mapsto (nm, l)$ & $\mathrm{mult}_3(n,l,m) = f(nm, l)$ \\
+$\mathrm{SL}_2(\mathbb{Z})$ & Fourier--Jacobi embed.\ & $\mathrm{Sp}_4(\mathbb{Z})$ \\
+$\tau \in \mathbb{H}$ & $\times \, \sigma$ & $Z \in \mathbb{H}_2$ \\
+$\Etwo$-braiding $R(z)$ & param.\ by $\sigma$ & $\Etwo$-braiding $R(z; \sigma)$ \\
+Shadow tower $\Theta_{G_2}$ & $\mathrm{Borch}(\exp(-))$ & Shadow tower $\Theta_{G_3}$ \\
+$\kappa(G_2) = \chi^{\CY}(\cC)$ & $\times \frac{1}{2} f(0,0)$ & $\kappa(G_3) = \mathrm{wt}(\Delta_k)$ \\
+Bar complex $B(A_2)$ & Fibered bar complex & Bar complex $B(A_3)$ \\
+$\Eone$-sector (CoHA) & $\times_E$ & $\Eone$-sector (CoHA of $\cC_E$) \\
+\end{tabular}
+\end{center}
+
+\end{document}

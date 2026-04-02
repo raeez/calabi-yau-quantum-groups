@@ -1,0 +1,907 @@
+% physics_4d_n2_hitchin.tex
+% Physics note: 4d N=2 theories, Hitchin systems, and quantum vertex chiral groups
+% Raeez Lorgat, April 2026
+
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\frenchspacing
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usetikzlibrary{positioning,arrows.meta,calc}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{hyperref}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{warning}[theorem]{Warning}
+
+% Macros (matching Volume III)
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\frakg}{\mathfrak{g}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\Fuk}{\mathrm{Fuk}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\Perf}{\mathrm{Perf}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\Ainf}{A_\infty}
+\newcommand{\Uq}{U_q}
+\newcommand{\Uhbar}{U_\hbar}
+\newcommand{\Yg}{Y(\frakg)}
+\newcommand{\CY}{\mathrm{CY}}
+\newcommand{\SW}{\mathrm{SW}}
+\newcommand{\BPS}{\mathrm{BPS}}
+\newcommand{\DT}{\mathrm{DT}}
+\newcommand{\GW}{\mathrm{GW}}
+\newcommand{\Nek}{\mathrm{Nek}}
+\newcommand{\NS}{\mathrm{NS}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SU}{\mathrm{SU}}
+\newcommand{\Sp}{\mathrm{Sp}}
+\newcommand{\Bun}{\mathrm{Bun}}
+\newcommand{\Higgs}{\mathrm{Higgs}}
+\newcommand{\Hitchin}{\mathrm{Hitchin}}
+\newcommand{\Coulomb}{\mathrm{Coulomb}}
+
+\title{%
+  \textsc{4d $\cN=2$ Theories from CY3 Compactification,\\
+  Hitchin Systems, and Quantum Vertex Chiral Groups}\\[6pt]
+  \normalsize Physics note for Volume~III
+}
+\author{Raeez Lorgat}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\bigskip
+
+\noindent
+This note develops the physics of 4d $\cN=2$ theories from CY3 compactification through four
+layers of increasing structural depth, and connects the resulting picture to the quantum vertex
+chiral group framework of Volume~III.  The four layers are: (1) Type~IIB on a CY3 $X$ and the
+structure of the Coulomb branch; (2) the Hitchin system for local CY3 geometries and Seiberg--Witten
+theory; (3) the Kontsevich--Soibelman wall-crossing formula and its interpretation as gauge
+equivalence of Maurer--Cartan elements; (4) the Nekrasov partition function, its NS limit, quantum
+curves, and the character of the quantum vertex chiral group $G(X)$.
+
+\section{Type IIB on CY3: the 4d $\cN=2$ theory}
+\label{sec:iib-cy3}
+
+\subsection{The compactification}
+\label{subsec:compactification}
+
+Let $X$ be a compact Calabi--Yau threefold, i.e.\ a compact K\"ahler manifold of complex dimension~3
+with $c_1(X) = 0$ and $h^{1,0}(X) = h^{2,0}(X) = 0$.  The holonomy is $\SU(3) \subset \mathrm{SO}(6)$,
+and $X$ carries a unique (up to scale) holomorphic $(3,0)$-form $\Omega \in H^0(X, \Omega_X^3)$
+and a Ricci-flat K\"ahler metric in each K\"ahler class.
+
+Type~IIB string theory compactified on $X$ yields a 4d $\cN=2$ supergravity theory.  The massless
+spectrum in four dimensions is determined by the Hodge numbers of $X$:
+\begin{itemize}[nosep]
+  \item The gravity multiplet (always present);
+  \item $h^{2,1}(X)$ vector multiplets, parametrized by complex structure deformations of $X$;
+  \item $h^{1,1}(X)$ hypermultiplets, parametrized by complexified K\"ahler deformations of $X$;
+  \item One universal hypermultiplet (the dilaton-axion).
+\end{itemize}
+The $\cN=2$ moduli space factorizes (at tree level) as
+\begin{equation}
+  \label{eq:moduli-factorization}
+  \cM = \cM_V \times \cM_H,
+\end{equation}
+where $\cM_V$ is a special K\"ahler manifold of complex dimension $h^{2,1}(X)$ (the vector multiplet
+moduli space) and $\cM_H$ is a quaternionic K\"ahler manifold of real dimension $4(h^{1,1}(X)+1)$ (the
+hypermultiplet moduli space).  This factorization is protected by $\cN=2$ supersymmetry: the
+prepotential $\cF$ governing $\cM_V$ receives no perturbative corrections from hypermultiplet scalars,
+and vice versa.
+
+\subsection{The Coulomb branch as complex structure moduli}
+\label{subsec:coulomb-branch}
+
+The vector multiplet moduli space $\cM_V$ is identified with the Coulomb branch of the 4d theory.
+For Type~IIB on $X$, this is the complex structure moduli space:
+\begin{equation}
+  \label{eq:coulomb-cx-structure}
+  \cM_{\Coulomb} = \cM_{\mathrm{cx}}(X).
+\end{equation}
+A point $u \in \cM_{\Coulomb}$ specifies a complex structure on $X$, hence a specific $\Omega_u \in
+H^{3,0}(X_u)$.  The special K\"ahler geometry on $\cM_V$ is determined by the \emph{periods} of
+$\Omega_u$: choose a symplectic basis $\{A^I, B_J\}$ of $H_3(X, \mathbb{Z})$ (with $A^I \cdot B_J
+= \delta^I_J$, $I,J = 0, \ldots, h^{2,1}$), and define
+\begin{equation}
+  \label{eq:periods}
+  z^I(u) = \oint_{A^I} \Omega_u, \qquad \cF_J(u) = \oint_{B_J} \Omega_u.
+\end{equation}
+The $z^I$ serve as special coordinates on $\cM_V$, and $\cF_J = \partial \cF / \partial z^J$ for a
+holomorphic prepotential $\cF(z)$ (homogeneous of degree~2 in the $z^I$).
+
+\begin{remark}[Mirror symmetry interchange]
+  \label{rem:mirror-interchange}
+  Under mirror symmetry $X \leftrightarrow X^\vee$, the roles of complex structure and K\"ahler
+  moduli are exchanged.  For Type~IIA on $X^\vee$, the Coulomb branch is $\cM_{\mathrm{K\"ah}}(X^\vee)$,
+  and the prepotential is computed by genus-0 Gromov--Witten invariants.  The physical equivalence
+  IIB$/X \cong$ IIA$/X^\vee$ is the origin of mirror symmetry at the level of effective 4d theories.
+\end{remark}
+
+\subsection{The BPS spectrum: D3-branes on special Lagrangians}
+\label{subsec:bps-spectrum}
+
+The BPS states of the 4d $\cN=2$ theory arise from D3-branes wrapping special Lagrangian
+3-cycles in $X$.  A special Lagrangian $L \subset X$ is a 3-dimensional submanifold satisfying:
+\begin{enumerate}[label=(\roman*),nosep]
+  \item $\omega|_L = 0$ (Lagrangian condition: $L$ is isotropic for the K\"ahler form);
+  \item $\mathrm{Im}(e^{-i\theta}\Omega)|_L = 0$ for some phase $\theta$ (special condition: calibrated
+  by the real part of a rotated $\Omega$).
+\end{enumerate}
+The mass of the BPS state associated to a class $\gamma \in H_3(X, \mathbb{Z})$ is
+\begin{equation}
+  \label{eq:bps-mass}
+  M_\gamma(u) = |Z_\gamma(u)| = \left| \oint_\gamma \Omega_u \right|,
+\end{equation}
+where $Z_\gamma(u)$ is the central charge of the $\cN=2$ algebra.  This is a function on the
+Coulomb branch: as $u$ varies, the central charges rotate, and BPS bound states can form or decay.
+
+The BPS index (second helicity supertrace) is
+\begin{equation}
+  \label{eq:bps-index}
+  \Omega(\gamma; u) = \Tr_{\cA_\gamma} (-1)^{2J_3} (2J_3)^2,
+\end{equation}
+where $\cA_\gamma$ is the Hilbert space of one-particle states of charge $\gamma$.  This index is
+piecewise constant in $u$ but jumps across real-codimension-1 walls in $\cM_{\Coulomb}$ --- the
+\emph{walls of marginal stability}.
+
+\begin{remark}[Charge lattice]
+  \label{rem:charge-lattice}
+  The charge lattice $\Gamma = H_3(X, \mathbb{Z})$ carries the symplectic intersection form
+  $\langle \gamma_1, \gamma_2 \rangle = \gamma_1 \cdot \gamma_2$.  In the Volume~III language,
+  $\Gamma$ is the lattice $\Lambda(X)$ of the generalized root datum $\mathcal{R}(X)$, and the
+  BPS indices $\Omega(\gamma; u)$ are the root multiplicities $\mathrm{mult}(\gamma)$.
+\end{remark}
+
+\subsection{The derived category perspective}
+\label{subsec:derived-category}
+
+From the categorical perspective, the BPS states are objects of the derived category
+$D^b(\Coh(X))$ (B-branes) or equivalently the Fukaya category $\Fuk(X)$ (A-branes, via HMS).
+The stability condition $\sigma_u$ on $D^b(\Coh(X))$ corresponding to a point $u \in \cM_{\Coulomb}$
+determines which objects are $\sigma_u$-stable --- these are the BPS states.  The central charge
+$Z_\gamma(u) = \oint_\gamma \Omega_u$ is exactly the central charge function of the Bridgeland
+stability condition.
+
+In the quantum vertex chiral group framework: the CY-to-chiral functor
+$\Phi \colon \CY_3\text{-}\mathrm{Cat} \to E_2\text{-}\mathrm{ChirAlg}$ applied to $D^b(\Coh(X))$
+or $\Fuk(X)$ produces the quantum chiral algebra $A_X = \Phi(\cC_X)$.  The BPS spectrum is encoded
+in the root multiplicities of $G(X)$.
+
+
+\section{The Hitchin system and Seiberg--Witten theory}
+\label{sec:hitchin-sw}
+
+\subsection{Local CY3 geometries and gauge theory engineering}
+\label{subsec:local-cy3}
+
+For local (noncompact) CY3 geometries, one engineers pure $\cN=2$ gauge theories in four dimensions.
+The prototypical construction: let $C$ be a compact Riemann surface and $G$ a reductive group.
+The local CY3 is the total space of the cotangent bundle $T^*\Sigma$ (or more generally, a
+conic bundle over $C$ determined by a Hitchin spectral curve).
+
+\begin{example}[Pure $\SU(N)$ gauge theory]
+  \label{ex:pure-su-n}
+  Consider the local CY3 geometry
+  \begin{equation}
+    \label{eq:local-cy3-sun}
+    X_{G,C} = T^*C \times \mathbb{C} \quad \text{(fibered appropriately)},
+  \end{equation}
+  where $C$ is a curve of appropriate genus.  The compactification of Type~IIB on $X_{G,C}$
+  engineers a 4d $\cN=2$ gauge theory with gauge group $G$ and coupling constant determined
+  by the complex structure of $C$.
+\end{example}
+
+More precisely, the local CY3 is constructed via a system of D5-branes wrapping $C$ (in the
+IIB picture) or M5-branes wrapping $C$ (in the M-theory picture).  The 6d $(2,0)$ theory of type
+$\frakg = \mathrm{Lie}(G)$ on $\mathbb{R}^{3,1} \times C$ produces, upon compactification on $C$,
+the 4d $\cN=2$ theory of class $\mathcal{S}[G, C, \mathcal{D}]$, where $\mathcal{D}$ denotes
+the defect data (punctures on $C$, with prescribed boundary conditions labeled by nilpotent orbits
+in $\frakg$).
+
+\subsection{The Hitchin system}
+\label{subsec:hitchin-system}
+
+The Coulomb branch of the class $\mathcal{S}$ theory is governed by the Hitchin system.
+Let $C$ be a smooth projective curve of genus $g_C$, and let $G$ be a complex reductive group
+with Lie algebra $\frakg$.
+
+\begin{definition}[Hitchin moduli space]
+  \label{def:hitchin-moduli}
+  The \emph{Hitchin moduli space} $\cM_H(C, G)$ is the moduli space of solutions to Hitchin's
+  equations on $C$: pairs $(E, \varphi)$ where $E$ is a principal $G$-bundle on $C$ and
+  $\varphi \in H^0(C, \mathrm{ad}(E) \otimes K_C)$ is a Higgs field (a holomorphic section of the
+  adjoint bundle twisted by the canonical bundle).  Equivalently, $\cM_H(C, G)$ parametrizes
+  $S$-equivalence classes of semistable $G$-Higgs bundles on $C$.
+\end{definition}
+
+The Hitchin moduli space is a hyperk\"ahler manifold of complex dimension
+$2 \dim G \cdot (g_C - 1)$ (for $g_C \geq 2$).  It admits three complex structures $I, J, K$:
+\begin{itemize}[nosep]
+  \item In complex structure $I$: $\cM_H$ parametrizes Higgs bundles $(E, \varphi)$;
+  \item In complex structure $J$: $\cM_H$ parametrizes flat $G_\mathbb{C}$-connections (the
+  de Rham moduli space $\cM_{\mathrm{dR}}(C, G)$), via the nonabelian Hodge correspondence
+  $(E, \varphi) \mapsto \nabla = D_E + \varphi + \varphi^*$;
+  \item In complex structure $K$: $\cM_H$ parametrizes flat connections with a different reality
+  condition.
+\end{itemize}
+
+\begin{definition}[Hitchin fibration]
+  \label{def:hitchin-fibration}
+  The \emph{Hitchin fibration} is the map
+  \begin{equation}
+    \label{eq:hitchin-fibration}
+    \pi \colon \cM_H(C, G) \longrightarrow \cA_H = \bigoplus_{i=1}^{\mathrm{rk}(G)} H^0(C, K_C^{\otimes d_i}),
+  \end{equation}
+  where $d_1, \ldots, d_{\mathrm{rk}(G)}$ are the degrees of the fundamental $G$-invariant
+  polynomials on $\frakg$.  The map sends $(E, \varphi) \mapsto (\Tr(\varphi^{d_1}), \ldots,
+  \Tr(\varphi^{d_{\mathrm{rk}(G)}}))$.  The base $\cA_H$ is called the \emph{Hitchin base}.
+\end{definition}
+
+The Hitchin fibration is a completely integrable system: the generic fiber $\pi^{-1}(a)$ is an
+abelian variety (a Prym variety of the spectral curve $\Sigma_a$), the dimension of $\cA_H$ equals
+half the dimension of $\cM_H$, and the Hitchin Hamiltonians Poisson-commute.
+
+\subsection{The spectral curve as Seiberg--Witten curve}
+\label{subsec:spectral-sw}
+
+The fundamental identification linking the Hitchin system to 4d $\cN=2$ gauge theory:
+
+\begin{theorem}[Donagi--Witten, Martinec--Warner, Gorsky--Krichever--Marshakov--Mironov--Morozov]
+  \label{thm:sw-hitchin}
+  The Seiberg--Witten curve $\Sigma_{\SW}$ of the 4d $\cN=2$ gauge theory of class $\mathcal{S}[G, C]$
+  is the spectral curve of the Hitchin system on $(C, G)$.  Specifically:
+  \begin{enumerate}[label=(\roman*),nosep]
+    \item The SW curve is
+    \begin{equation}
+      \label{eq:spectral-curve}
+      \Sigma_a = \left\{ (x, p) \in T^*C \;\Big|\; \det(p \cdot \id - \varphi(x)) = 0 \right\}
+      \subset T^*C,
+    \end{equation}
+    a branched cover $\Sigma_a \to C$ of degree $\mathrm{rk}(G)$, determined by the point
+    $a \in \cA_H$ (the Hitchin base coordinates = the Coulomb branch parameters);
+    \item The SW differential is $\lambda_{\SW} = p \, dx$, the tautological $1$-form on $T^*C$
+    restricted to $\Sigma_a$;
+    \item The periods of $\lambda_{\SW}$ over the cycles of $\Sigma_a$ give the special coordinates
+    and their duals:
+    \begin{equation}
+      \label{eq:sw-periods}
+      a_I = \oint_{\alpha_I} \lambda_{\SW}, \qquad a_{D,J} = \oint_{\beta_J} \lambda_{\SW} = \frac{\partial \cF}{\partial a_J};
+    \end{equation}
+    \item The Hitchin base $\cA_H$ is the Coulomb branch $\cM_{\Coulomb}$, and the Hitchin
+    fibration $\pi$ parametrizes the family of SW curves.
+  \end{enumerate}
+\end{theorem}
+
+\begin{example}[Pure $\SU(2)$]
+  \label{ex:pure-su2}
+  Take $G = \SU(2)$, $C = \mathbb{P}^1$.  The Hitchin base is $\cA_H = H^0(\mathbb{P}^1, K^{\otimes 2})
+  \cong \mathbb{C}$ (one Coulomb branch parameter $u$).  The spectral curve in $T^*\mathbb{P}^1$ is
+  \begin{equation}
+    \label{eq:sw-curve-su2}
+    \Sigma_u \colon \quad p^2 = u + \Lambda^2 x + \Lambda^{-2} x^{-1}
+  \end{equation}
+  (in appropriate coordinates), recovering the Seiberg--Witten curve.  The discriminant locus
+  $\{u : \Sigma_u \text{ is singular}\}$ gives the positions of the monopole and dyon singularities
+  in the Coulomb branch, where BPS states become massless.
+\end{example}
+
+\begin{example}[$\SU(N)$ with fundamental matter]
+  \label{ex:su-n-fund}
+  For $G = \SU(N)$ with $N_f$ fundamental hypermultiplets, the curve $C = \mathbb{P}^1$ carries
+  $N_f$ punctures.  The spectral curve is an $N$-fold cover of $\mathbb{P}^1$:
+  \begin{equation}
+    \label{eq:sw-curve-sun}
+    \det(p \cdot \id_N - \varphi(x)) = p^N + u_2(x) p^{N-2} + \cdots + u_N(x) = 0,
+  \end{equation}
+  where the $u_k(x)$ are meromorphic $k$-differentials on $\mathbb{P}^1$ with poles at the punctures
+  (of orders determined by the matter content).
+\end{example}
+
+\subsection{The Hitchin system in the CY framework}
+\label{subsec:hitchin-cy}
+
+The Hitchin moduli space $\cM_H(C, G)$ is itself a (noncompact) hyperk\"ahler manifold, hence
+in particular a (noncompact) holomorphic symplectic manifold.  The total space of the spectral
+cover $\Sigma_a \to C$ inside $T^*C$ is a local CY: $T^*C$ has trivial canonical bundle (the
+holomorphic symplectic form $\omega = dp \wedge dx$ trivializes it).
+
+In the framework of Volume~III, the Hitchin system provides the following data for the quantum
+vertex chiral group:
+\begin{itemize}[nosep]
+  \item The lattice $\Lambda(X)$ is the homology $H_1(\Sigma_a, \mathbb{Z})$ of the spectral curve
+  (the charge lattice of the 4d theory);
+  \item The Hitchin base $\cA_H$ parametrizes the complex structure deformations (the Coulomb branch);
+  \item The Hitchin fibers are the abelian varieties on which the BPS states live;
+  \item The BPS indices $\Omega(\gamma; a)$ determine the root multiplicities of $G(X)$.
+\end{itemize}
+
+
+\section{Wall-crossing and the Kontsevich--Soibelman formula}
+\label{sec:wall-crossing}
+
+\subsection{Walls of marginal stability}
+\label{subsec:walls}
+
+Fix a charge lattice $\Gamma$ with antisymmetric pairing $\langle -, - \rangle$ and a central
+charge function $Z \colon \Gamma \to \mathbb{C}$ (varying holomorphically over $\cM_{\Coulomb}$).
+A \emph{wall of marginal stability} for charges $\gamma_1, \gamma_2 \in \Gamma$ is the locus
+\begin{equation}
+  \label{eq:wall}
+  \cW(\gamma_1, \gamma_2) = \left\{ u \in \cM_{\Coulomb} \;\Big|\; \frac{Z_{\gamma_1}(u)}{Z_{\gamma_2}(u)} \in \mathbb{R}_{>0} \right\},
+\end{equation}
+i.e.\ the set of points where $Z_{\gamma_1}$ and $Z_{\gamma_2}$ are aligned in the complex plane.
+Across such a wall, BPS bound states of charge $\gamma = \gamma_1 + \gamma_2$ can form or decay,
+and the BPS index $\Omega(\gamma; u)$ jumps.
+
+\subsection{The Kontsevich--Soibelman wall-crossing formula}
+\label{subsec:ks-formula}
+
+Kontsevich and Soibelman formulated a universal wall-crossing formula governing the jumps.
+
+\begin{definition}[BPS automorphisms]
+  \label{def:bps-auto}
+  For each $\gamma \in \Gamma$ with $\Omega(\gamma) \neq 0$, define the automorphism
+  $\mathcal{K}_\gamma$ of the quantum torus algebra $\mathbb{C}[\Gamma]$ (with generators
+  $X_\gamma$ satisfying $X_{\gamma_1} X_{\gamma_2} = (-1)^{\langle \gamma_1, \gamma_2 \rangle}
+  X_{\gamma_1 + \gamma_2}$) by:
+  \begin{equation}
+    \label{eq:ks-automorphism}
+    \mathcal{K}_\gamma = \prod_{n \geq 1} \left(1 - (-1)^n X_{n\gamma}\right)^{n \, \Omega(n\gamma)}.
+  \end{equation}
+  For the primitive case $\Omega(\gamma) = 1$ (a single hypermultiplet), this reduces to the
+  Kontsevich--Soibelman symplectomorphism
+  $\mathcal{K}_\gamma(X_{\gamma'}) = X_{\gamma'} (1 + X_\gamma)^{\langle \gamma, \gamma' \rangle}$.
+\end{definition}
+
+\begin{theorem}[Kontsevich--Soibelman]
+  \label{thm:ks-wcf}
+  The ordered product
+  \begin{equation}
+    \label{eq:ks-product}
+    \mathcal{A}(u) = \prod_{\gamma : \arg Z_\gamma(u) \downarrow}^{\curvearrowleft} \mathcal{K}_\gamma^{\Omega(\gamma; u)}
+  \end{equation}
+  taken over all BPS charges $\gamma$ in decreasing order of the phase $\arg Z_\gamma(u)$, is
+  \emph{invariant} under continuous deformation of $u$ across walls of marginal stability.
+  That is, although the individual $\Omega(\gamma; u)$ jump and the ordering of phases changes,
+  the total product $\mathcal{A}(u)$ remains constant.
+\end{theorem}
+
+\begin{remark}[Categorification]
+  \label{rem:ks-categorification}
+  The KS formula has a categorical interpretation via the theory of Bridgeland stability conditions
+  on $D^b(\Coh(X))$ (or $\Fuk(X)$).  As the stability condition varies, the set of stable objects
+  changes, but the Stokes factors of the associated Riemann--Hilbert problem remain constant
+  as a product.  This is the Stokes phenomenon for the differential equation governing the
+  ``tt*-geometry'' of the Coulomb branch.
+\end{remark}
+
+\subsection{Wall-crossing as gauge equivalence of MC elements}
+\label{subsec:wc-mc}
+
+In the framework of Volumes~I--III, the KS wall-crossing formula admits a natural interpretation
+as gauge equivalence of Maurer--Cartan elements.
+
+\begin{construction}[MC interpretation of wall-crossing]
+  \label{constr:mc-wall-crossing}
+  The key identifications:
+  \begin{enumerate}[label=(\roman*)]
+    \item The $L_\infty$-algebra controlling the deformation problem is the \emph{scattering diagram
+    $L_\infty$-algebra} $\mathfrak{L}_\Gamma$, built from the charge lattice $\Gamma$ with its
+    antisymmetric form.  Its Maurer--Cartan equation governs consistent scattering diagrams on
+    $\mathbb{R}^2 \cong \mathbb{C}$ (the $Z$-plane).
+    \item A BPS spectrum $\{\Omega(\gamma; u)\}_{\gamma \in \Gamma}$ at a point $u \in
+    \cM_{\Coulomb}$ determines a Maurer--Cartan element
+    \begin{equation}
+      \label{eq:theta-bps}
+      \Theta_u = \sum_{\gamma \in \Gamma} \Omega(\gamma; u) \cdot e_\gamma \in \mathfrak{L}_\Gamma,
+    \end{equation}
+    where $e_\gamma$ are the generators associated to charges $\gamma$.
+    \item Crossing a wall $\cW(\gamma_1, \gamma_2)$ corresponds to a \emph{gauge transformation}
+    $\Theta_u \mapsto \Theta_{u'} = g \cdot \Theta_u$ in the $L_\infty$-algebra, where $g$ is
+    determined by the KS symplectomorphism $\mathcal{K}_\gamma$.
+    \item The KS invariant $\mathcal{A}(u)$ is the \emph{gauge equivalence class}
+    $[\Theta_u] \in \mathrm{MC}(\mathfrak{L}_\Gamma) / \mathrm{gauge}$.
+  \end{enumerate}
+\end{construction}
+
+This is the precise connection to the universal MC element $\Theta_A$ of Volume~I.  The quantum
+vertex chiral group $G(X)$ has a MC element $\Theta_{A_X}$ encoding the BPS spectrum, and variation
+of the Coulomb branch parameter $u$ (= the complex structure of $X$) produces gauge-equivalent MC
+elements.  The shadow tower
+\begin{equation}
+  \label{eq:shadow-tower-bps}
+  \Theta_{A_X}^{\leq r} = \sum_{\substack{\gamma \in \Gamma \\ \text{arity} \leq r}} \Omega(\gamma) \cdot e_\gamma
+\end{equation}
+at successive arities recovers the BPS spectrum at successive levels of complexity: arity 2 gives
+the leading central charge (the ``Weyl vector'' contribution $\kappa$), arity 3 gives the first
+bound-state corrections, and the full tower gives the complete BPS generating function --- the
+automorphic form.
+
+\begin{proposition}[Wall-crossing = shadow tower gauge equivalence]
+  \label{prop:wc-shadow}
+  The KS wall-crossing formula for the 4d $\cN=2$ theory from CY3 $X$ is equivalent to the
+  statement that the MC elements $\Theta_u$, as $u$ varies over $\cM_{\Coulomb} = \cM_{\mathrm{cx}}(X)$,
+  are gauge-equivalent in $\mathfrak{L}_{\Gamma(X)}$.  In particular:
+  \begin{enumerate}[label=(\roman*),nosep]
+    \item The gauge equivalence class $[\Theta_u]$ is a topological invariant of the 4d theory;
+    \item The individual $\Omega(\gamma; u)$ are the ``coordinates'' of $\Theta_u$ in a particular
+    gauge (= a choice of ``chamber'' in the Coulomb branch);
+    \item Wall-crossing is a change of gauge; the KS product $\mathcal{A}(u)$ is the gauge-invariant
+    content.
+  \end{enumerate}
+\end{proposition}
+
+\begin{remark}[Scattering diagrams and tropical geometry]
+  \label{rem:scattering-diagrams}
+  The scattering diagram technology of Gross--Siebert and Kontsevich--Soibelman provides the
+  combinatorial framework for encoding the MC element.  A scattering diagram $\mathfrak{D}$ on
+  $\mathbb{R}^2$ consists of rays (walls) emanating from the origin, decorated with automorphisms
+  of the quantum torus.  The consistency condition (trivial monodromy around the origin) is exactly
+  the MC equation for $\Theta$.  This has been made precise by Bridgeland in terms of Stokes data
+  and by Gaiotto--Moore--Neitzke in terms of the ``spectral network'' formalism.
+\end{remark}
+
+\subsection{The motivic DT invariants and the Hall algebra}
+\label{subsec:motivic-dt}
+
+The BPS indices $\Omega(\gamma; u)$ are the numerical shadows of a richer structure: the
+\emph{motivic Donaldson--Thomas invariants}.  Kontsevich and Soibelman introduced motivic DT
+invariants $\Omega^{\mathrm{mot}}(\gamma; u) \in K_0(\mathrm{Var}/\mathbb{C})[\mathbb{L}^{-1/2}]$
+(classes in the motivic ring) lifting the numerical $\Omega(\gamma; u)$.
+
+The motivic Hall algebra $H(\cC)$ of a CY3 category $\cC$ (in the sense of Joyce, Kontsevich--Soibelman,
+or Bridgeland) provides the natural home for the motivic wall-crossing formula.  The multiplication
+in $H(\cC)$ encodes extensions of objects, and the integration map (motivic measure)
+$H(\cC) \to \mathrm{quantum torus}$ descends to the KS symplectomorphisms.
+
+In the Volume~III language: the motivic Hall algebra is the chain-level refinement of the quantum
+vertex chiral group.  The critical CoHA (``Toric CY3 and Critical CoHAs'' chapter of Volume~III) is the
+cohomological shadow of this motivic structure, and the passage
+\begin{equation}
+  \label{eq:coha-chain}
+  H^{\mathrm{mot}}(\cC) \xrightarrow{\text{cohomological}} \mathcal{H}(\cC) = \mathrm{CoHA} \xrightarrow{\text{positive half}} G^+(X)
+\end{equation}
+recovers the $E_1$-sector (positive half) of $G(X)$.
+
+
+\section{The Nekrasov partition function and quantum curves}
+\label{sec:nekrasov}
+
+\subsection{The $\Omega$-background}
+\label{subsec:omega-background}
+
+Nekrasov's partition function computes the exact prepotential of the 4d $\cN=2$ theory by
+introducing the \emph{$\Omega$-background}: a deformation of $\mathbb{R}^4$ that localizes the
+path integral to fixed points of a torus action.
+
+Let $T = U(1)_{\epsilon_1} \times U(1)_{\epsilon_2}$ act on $\mathbb{R}^4 \cong \mathbb{C}^2$
+by $(z_1, z_2) \mapsto (e^{i\epsilon_1} z_1, e^{i\epsilon_2} z_2)$.  The \emph{Nekrasov partition
+function} for a 4d $\cN=2$ gauge theory with gauge group $G$ and Coulomb branch parameters
+$\vec{a} = (a_1, \ldots, a_{\mathrm{rk}(G)})$ is
+\begin{equation}
+  \label{eq:nekrasov-pf}
+  Z_{\Nek}(\epsilon_1, \epsilon_2, \vec{a}; \mathfrak{q}) = \sum_{\vec{\lambda}} \mathfrak{q}^{|\vec{\lambda}|} \, z_{\vec{\lambda}}(\epsilon_1, \epsilon_2, \vec{a}),
+\end{equation}
+where the sum is over tuples $\vec{\lambda} = (\lambda^{(1)}, \ldots, \lambda^{(\mathrm{rk}(G))})$
+of Young diagrams (= fixed points of the $T$-action on the instanton moduli space
+$\cM_{\mathrm{inst}}(G, k) = \cM(k, \mathrm{rk}(G))$, parametrized by $\mathrm{rk}(G)$-tuples
+of partitions of total size $k$), $\mathfrak{q} = e^{2\pi i \tau}$ is the instanton counting
+parameter, and $z_{\vec{\lambda}}$ are the equivariant weights computed by the Atiyah--Bott
+localization formula.
+
+\begin{theorem}[Nekrasov]
+  \label{thm:nekrasov}
+  The Seiberg--Witten prepotential is recovered in the classical limit:
+  \begin{equation}
+    \label{eq:nekrasov-limit}
+    \cF(\vec{a}) = \lim_{\epsilon_1, \epsilon_2 \to 0} \epsilon_1 \epsilon_2 \log Z_{\Nek}(\epsilon_1, \epsilon_2, \vec{a}; \mathfrak{q}).
+  \end{equation}
+\end{theorem}
+
+\subsection{Nekrasov partition function as refined CY3 partition function}
+\label{subsec:nekrasov-cy3}
+
+The Nekrasov partition function is a \emph{refinement} of the CY3 topological string partition
+function.  For the local CY3 $X_{G,C}$ engineering the gauge theory:
+\begin{enumerate}[label=(\roman*)]
+  \item The topological string partition function $Z_{\mathrm{top}}(g_s, t)$ (where $g_s$ is the
+  string coupling and $t$ are K\"ahler moduli) satisfies
+  \begin{equation}
+    \label{eq:ztop-nekrasov}
+    Z_{\mathrm{top}}(g_s, t) = Z_{\Nek}(\epsilon_1 = g_s, \epsilon_2 = -g_s, \vec{a}(t)),
+  \end{equation}
+  i.e.\ the unrefined ($\epsilon_1 = -\epsilon_2$) Nekrasov partition function equals the
+  topological string partition function.
+  \item The \emph{refined} topological string partition function (Iqbal--Kozcaz--Vafa,
+  Hollowood--Iqbal--Vafa) is
+  \begin{equation}
+    \label{eq:ztop-refined}
+    Z_{\mathrm{top}}^{\mathrm{ref}}(\epsilon_1, \epsilon_2, t) = Z_{\Nek}(\epsilon_1, \epsilon_2, \vec{a}(t)),
+  \end{equation}
+  the full two-parameter Nekrasov partition function.  The refinement breaks the symmetry
+  $\epsilon_1 \leftrightarrow \epsilon_2$ and corresponds to a ``motivic'' lift of the DT/GW
+  invariants.
+  \item The genus expansion of the topological string is
+  \begin{equation}
+    \label{eq:genus-expansion}
+    \log Z_{\mathrm{top}} = \sum_{g \geq 0} g_s^{2g-2} \, \cF_g(t),
+  \end{equation}
+  where $\cF_0$ is the prepotential, $\cF_1$ is the genus-1 free energy (related to $\kappa$ and
+  the Ray--Singer torsion), and $\cF_g$ for $g \geq 2$ are the higher-genus Gromov--Witten/DT
+  invariants.  In the Volume~I language: $\cF_g$ is the genus-$g$ obstruction
+  $\mathrm{obs}_g = \kappa \cdot \lambda_g$ evaluated on the Coulomb branch.
+\end{enumerate}
+
+\begin{remark}[Refined vs.\ unrefined in Volume III]
+  \label{rem:refined-unrefined}
+  The unrefined limit $\epsilon_1 = -\epsilon_2 = g_s$ corresponds to the topological string,
+  where the genus expansion is controlled by a single parameter $g_s$ (= $\hbar$ in the
+  conventions of Volume~I, up to the reconciliation $\hbar_{\text{Feynman}} = \hbar_{\text{here}}^2$).
+  The full two-parameter refinement $(\epsilon_1, \epsilon_2)$ is a finer invariant: it
+  distinguishes the two $U(1)$ factors of the Cartan of $\mathrm{SO}(4) = \SU(2)_L \times \SU(2)_R$,
+  and the ``motivic'' DT invariants of Kontsevich--Soibelman are the natural home for this data.
+\end{remark}
+
+\subsection{The NS limit and quantum curves}
+\label{subsec:ns-limit}
+
+The Nekrasov--Shatashvili (NS) limit is the half-$\Omega$-background:
+\begin{equation}
+  \label{eq:ns-limit}
+  \epsilon_2 \to 0, \qquad \epsilon_1 = \hbar \text{ fixed}.
+\end{equation}
+In this limit, the partition function develops an essential singularity:
+\begin{equation}
+  \label{eq:ns-free-energy}
+  \log Z_{\Nek}(\hbar, \epsilon_2, \vec{a}) \xrightarrow{\epsilon_2 \to 0} \frac{1}{\epsilon_2} \cW(\hbar, \vec{a}) + O(1),
+\end{equation}
+where $\cW(\hbar, \vec{a})$ is the \emph{twisted effective superpotential} (or ``NS free energy'').
+
+\begin{theorem}[Nekrasov--Shatashvili]
+  \label{thm:ns-quantization}
+  In the NS limit:
+  \begin{enumerate}[label=(\roman*)]
+    \item The saddle-point equation
+    \begin{equation}
+      \label{eq:ns-saddle}
+      \exp\left(\frac{\partial \cW}{\partial a_I}\right) = 1
+    \end{equation}
+    determines the ``quantum'' Coulomb branch parameters $a_I(\hbar)$ as functions of $\hbar$;
+    \item The Seiberg--Witten curve $\Sigma_{\SW}$ is \emph{quantized}: the classical equation
+    \begin{equation}
+      \label{eq:classical-curve}
+      \det(p \cdot \id - \varphi(x)) = 0
+    \end{equation}
+    is promoted to a \emph{quantum curve} --- a differential equation
+    \begin{equation}
+      \label{eq:quantum-curve}
+      \widehat{\Sigma}_\hbar \colon \qquad \det\!\left(\hbar \frac{d}{dx} \cdot \id - \varphi(x)\right) \psi(x) = 0,
+    \end{equation}
+    obtained by the canonical quantization $p \mapsto \hbar \, d/dx$ of the cotangent bundle
+    $T^*C$;
+    \item The NS partition function $\psi(x) = Z_{\Nek}^{\NS}(\hbar, x)$ (with $x$ a position
+    variable on $C$) is a solution of the quantum curve equation \eqref{eq:quantum-curve}.
+  \end{enumerate}
+\end{theorem}
+
+\begin{example}[Quantum $\SU(2)$ curve]
+  \label{ex:quantum-su2}
+  For pure $\SU(2)$, the classical SW curve is $p^2 = u + \Lambda^2 x + \Lambda^{-2} x^{-1}$.
+  The quantum curve is the second-order ODE
+  \begin{equation}
+    \label{eq:quantum-su2}
+    \left[\hbar^2 \frac{d^2}{dx^2} - u - \Lambda^2 x - \Lambda^{-2} x^{-1}\right] \psi(x) = 0.
+  \end{equation}
+  This is a confluent Heun equation (degenerate Mathieu equation), whose monodromy data encodes
+  the exact spectrum.
+\end{example}
+
+\begin{example}[Quantum $\SU(N)$ curve and $\cW$-algebra]
+  \label{ex:quantum-sun-walgebra}
+  For $\SU(N)$, the quantum spectral curve is an $N$-th order ODE
+  \begin{equation}
+    \label{eq:quantum-sun}
+    \left[\left(\hbar \frac{d}{dx}\right)^N + u_2(x) \left(\hbar \frac{d}{dx}\right)^{N-2} + \cdots + u_N(x) \right] \psi(x) = 0.
+  \end{equation}
+  This is the \emph{oper} equation: the quantization of the Hitchin spectral curve produces an
+  ${}^L G$-oper on $C$ (where ${}^L G$ is the Langlands dual group).  The quantum curve is
+  the null vector equation of the $\cW_N$-algebra at level $k = -N + \hbar^{-1}$ (the critical
+  level is $k = -h^\vee = -N$; the NS parameter $\hbar$ provides the shift from critical).
+\end{example}
+
+\subsection{Connection to quantum vertex chiral groups}
+\label{subsec:nekrasov-qvcg}
+
+The Nekrasov partition function connects to the quantum vertex chiral group $G(X)$ through
+the following chain of identifications:
+
+\begin{construction}[Nekrasov partition function as character of $G(X)$]
+  \label{constr:nekrasov-character}
+  Let $X$ be a (local) CY3 engineering a 4d $\cN=2$ theory with gauge group $G$.
+  \begin{enumerate}[label=(\roman*)]
+    \item The quantum vertex chiral group $G(X)$ acts on a Fock space $\cF_{\vec{a}}$ parametrized
+    by the Coulomb branch parameters $\vec{a}$.
+    \item The Nekrasov partition function is a character:
+    \begin{equation}
+      \label{eq:nekrasov-character}
+      Z_{\Nek}(\epsilon_1, \epsilon_2, \vec{a}; \mathfrak{q}) = \Tr_{\cF_{\vec{a}}} \, \mathfrak{q}^{L_0} \, q_1^{J_1} \, q_2^{J_2},
+    \end{equation}
+    where $q_i = e^{i\epsilon_i}$ are the equivariant fugacities and $J_1, J_2$ are the generators
+    of the $U(1)^2$ action.  This is the graded character of the vacuum module of $G(X)$.
+    \item For toric CY3: $G(X)$ is the affine super Yangian $Y(\widehat{\frakg}_{Q_X})$, and the
+    Nekrasov partition function is a character of the Yangian.  For $X = \mathbb{C}^3$:
+    $G(X) = Y(\widehat{\mathfrak{gl}}_1) \cong \cW_{1+\infty}$, and $Z_{\Nek}$ is the MacMahon
+    function $M(q) = \prod_{n \geq 1} (1-q^n)^{-n}$, the generating function for 3d partitions.
+    \item For the $K3 \times E$ tower: $G(X)$ is the BKM superalgebra $\frakg_{\Delta_5}$, and
+    the partition function involves the Igusa cusp form $\Delta_5$.  The Nekrasov partition function
+    (= the refined topological vertex computation) should be a character of $\frakg_{\Delta_5}$.
+  \end{enumerate}
+\end{construction}
+
+\begin{conjecture}[Nekrasov partition function as character]
+  \label{conj:nekrasov-character}
+  For any CY3 $X$ engineering a 4d $\cN=2$ theory, the Nekrasov partition function
+  $Z_{\Nek}(\epsilon_1, \epsilon_2, \vec{a}; \mathfrak{q})$ is the graded character of the
+  vacuum module of the quantum vertex chiral group $G(X)$:
+  \begin{equation}
+    \label{eq:nekrasov-character-conjecture}
+    Z_{\Nek}(\epsilon_1, \epsilon_2, \vec{a}; \mathfrak{q}) = \chi_{G(X)}(\cF_{\vec{a}}; q_1, q_2, \mathfrak{q}).
+  \end{equation}
+  In the unrefined limit $\epsilon_1 = -\epsilon_2 = g_s$, this reduces to the topological string
+  partition function, which is the denominator identity of $G(X)$.
+\end{conjecture}
+
+\begin{remark}[Evidence]
+  \label{rem:nekrasov-evidence}
+  The evidence for Conjecture~\ref{conj:nekrasov-character}:
+  \begin{enumerate}[label=(\arabic*),nosep]
+    \item For $X = \mathbb{C}^3$: the Nekrasov partition function is $M(q) = \prod (1-q^n)^{-n}$,
+    which IS the character of the MacMahon module of $\cW_{1+\infty} = Y(\widehat{\mathfrak{gl}}_1)$.
+    This is proved (Schiffmann--Vasserot, Maulik--Okounkov).
+    \item For the resolved conifold: $Z_{\Nek}$ factors as a product of MacMahon functions times
+    a quantum dilogarithm, matching the character of $Y(\widehat{\mathfrak{gl}}_{1|1})$.
+    \item For $K3 \times E$: the topological string partition function involves $\Delta_5^{-1}$
+    (the inverse Igusa cusp form), which is the character of the BKM superalgebra denominator
+    formula inverted --- i.e.\ the Fock space character.
+    \item The AGT correspondence (Alday--Gaiotto--Tachikawa) identifies $Z_{\Nek}$ for
+    $\SU(2)$ gauge theories with conformal blocks of the Virasoro algebra at $c = 1 + 6(\sqrt{\beta}
+    - 1/\sqrt{\beta})^2$ where $\beta = \epsilon_1/\epsilon_2$.  The Virasoro algebra is a subalgebra
+    of $\cW_{1+\infty}$, hence of $G(\mathbb{C}^3)$.  The AGT correspondence IS the statement
+    that $Z_{\Nek}$ is a character of a vertex algebra (a component of $G(X)$).
+  \end{enumerate}
+\end{remark}
+
+\subsection{The AGT correspondence and $\cW$-algebras}
+\label{subsec:agt}
+
+The Alday--Gaiotto--Tachikawa correspondence provides the most direct link between Nekrasov
+partition functions and vertex algebras (components of quantum vertex chiral groups).
+
+\begin{theorem}[AGT correspondence]
+  \label{thm:agt}
+  For the 4d $\cN=2$ $\SU(N)$ gauge theory of class $\mathcal{S}[\SU(N), C_{g,n}]$ on a
+  Riemann surface $C_{g,n}$ of genus $g$ with $n$ punctures:
+  \begin{equation}
+    \label{eq:agt}
+    Z_{\Nek}^{\SU(N)}(\epsilon_1, \epsilon_2, \vec{a}, \vec{m}; \mathfrak{q}) = \left\langle \prod_{i=1}^n V_{\alpha_i}(z_i) \right\rangle_{\cW_N,\, c(\epsilon_1,\epsilon_2)},
+  \end{equation}
+  where the right side is a conformal block of the $\cW_N$-algebra at central charge $c =
+  (N-1)\left(1 + N(N+1)\left(\frac{\epsilon_1}{\epsilon_2} + \frac{\epsilon_2}{\epsilon_1} + 2\right)\right)$,
+  vertex operators $V_{\alpha_i}$ are determined by the puncture data, and $\vec{m}$ are the mass
+  parameters.
+\end{theorem}
+
+In the Volume~III framework, the AGT correspondence is the statement that the Nekrasov
+partition function is a genus-$g$ $n$-point function of the quantum chiral algebra $A_X$
+($\cW_N$ sector of $G(X)$).  The genus expansion of $Z_{\Nek}$ is the shadow tower:
+\begin{itemize}[nosep]
+  \item Genus 0, no punctures: the prepotential $\cF_0$ = arity-2 shadow ($\kappa$);
+  \item Genus 0, $n$ punctures: the $n$-point tree-level amplitude = arity-$n$ shadow;
+  \item Genus $g$: the genus-$g$ free energy $\cF_g$ = $\mathrm{obs}_g = \kappa \cdot \lambda_g$.
+\end{itemize}
+
+
+\section{Synthesis: the four-layer dictionary}
+\label{sec:synthesis}
+
+We now assemble the complete dictionary linking the four layers.
+
+\subsection{The master dictionary}
+\label{subsec:master-dictionary}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\small
+\begin{tabular}{@{}p{3.7cm}p{3.3cm}p{3.1cm}p{3.5cm}@{}}
+  \hline
+  \textbf{4d $\cN=2$ physics} & \textbf{Hitchin system} & \textbf{KS wall-crossing} & \textbf{Quantum vertex chiral group $G(X)$} \\
+  \hline
+  CY3 $X$ & Curve $C$, group $G$ & CY3 category $\cC_X$ & Root datum $\mathcal{R}(X)$ \\
+  Coulomb branch $\cM_{\Coulomb}$ & Hitchin base $\cA_H$ & Stability conditions $\mathrm{Stab}(\cC_X)$ & Complex structure moduli \\
+  BPS state of charge $\gamma$ & Point on Hitchin fiber & Stable object of class $\gamma$ & Root vector $e_\gamma$ \\
+  BPS index $\Omega(\gamma; u)$ & DT invariant & Numerical DT & Root multiplicity $\mathrm{mult}(\gamma)$ \\
+  Central charge $Z_\gamma(u)$ & Period of $\lambda_{\SW}$ & Stability function & Central charge of $\Theta_{A_X}$ \\
+  Wall of marginal stability & Discriminant locus & Wall in $\mathrm{Stab}(\cC_X)$ & Gauge transformation locus \\
+  Wall-crossing formula & Monodromy of periods & KS product invariance & Gauge equiv.\ of MC elements \\
+  SW curve $\Sigma$ & Spectral curve & Heart of t-structure & Classical limit of $G(X)$ \\
+  SW differential $\lambda_{\SW}$ & Tautological 1-form & Central charge map & Tree-level $R$-matrix data \\
+  Prepotential $\cF(\vec{a})$ & Abel--Jacobi map & Numerical DT generating fn & Arity-2 shadow ($\kappa$) \\
+  $Z_{\Nek}(\epsilon_1,\epsilon_2,\vec{a})$ & Refined counting & Motivic DT & Character of $G(X)$ \\
+  NS limit $\epsilon_2 \to 0$ & Quantization of spectral curve & Quantum DT & Quantum curve = oper \\
+  AGT conformal block & Hitchin--$\cW_N$ & Categorical Hall algebra & $n$-point function of $A_X$ \\
+  \hline
+\end{tabular}
+\end{center}
+
+\subsection{The structural pipeline}
+\label{subsec:pipeline}
+
+For a CY3 $X$ (compact or local), the complete pipeline is:
+
+\begin{equation}
+  \label{eq:pipeline}
+  \boxed{
+  \begin{aligned}
+  &X \text{ (CY3)} \\
+  &\quad \xrightarrow{\text{categorical}} \cC_X = D^b(\Coh(X)) \text{ or } \Fuk(X) \\
+  &\quad \xrightarrow{\Phi} A_X = \Phi(\cC_X) \text{ (quantum chiral algebra)} \\
+  &\quad \xrightarrow{\text{root datum}} G(X) \text{ (quantum vertex chiral group)} \\
+  &\quad \xrightarrow{\text{character}} Z_{\Nek}(\epsilon_1, \epsilon_2, \vec{a}) = \chi_{G(X)}(\cF_{\vec{a}})
+  \end{aligned}
+  }
+\end{equation}
+
+Each arrow is a theorem or conjecture of this programme:
+\begin{enumerate}[label=(\arabic*)]
+  \item $X \to \cC_X$: the derived/Fukaya category of a CY3 is a CY category of dimension~3
+  (standard, proved by Kontsevich, Costello, and others);
+  \item $\cC_X \to A_X$: the CY-to-chiral functor $\Phi$ (Theorem CY-A of Volume~III);
+  \item $A_X \to G(X)$: extraction of the root datum $\mathcal{R}(X)$ from the quantum chiral
+  algebra, identifying the BKM/Yangian structure (Theorem CY-C);
+  \item $G(X) \to Z_{\Nek}$: the character map (Conjecture~\ref{conj:nekrasov-character},
+  proved for toric CY3 via AGT + Schiffmann--Vasserot).
+\end{enumerate}
+
+\subsection{Geometric Langlands and opers}
+\label{subsec:langlands-opers}
+
+The NS limit $\epsilon_2 \to 0$ connects to the geometric Langlands programme.
+The quantum spectral curve \eqref{eq:quantum-curve} is a ${}^L G$-oper on $C$: a flat
+${}^L G$-connection with a specific reduction to a Borel subgroup.
+
+\begin{itemize}[nosep]
+  \item The Hitchin fibration $\pi \colon \cM_H(C, G) \to \cA_H$ on the A-side (Higgs bundles)
+  corresponds to the space of opers on the B-side (flat connections with the Langlands dual group
+  ${}^L G$).
+  \item The quantum curve at $\hbar = \epsilon_1$ is an oper with ``quantum parameter'' $\hbar$.
+  At $\hbar = 0$ one recovers the classical spectral curve; at $\hbar \neq 0$ one obtains a
+  $D$-module on $C$.
+  \item The Feigin--Frenkel center $\mathfrak{z}(\widehat{\frakg})$ at the critical level
+  $k = -h^\vee$ parametrizes ${}^L G$-opers.  The NS partition function is a section of the
+  line bundle on the space of opers determined by the $\cW$-algebra.
+  \item In the Volume~III framework: the passage from the spectral curve (classical) to the oper
+  (quantum) is the passage from the tree-level $R$-matrix $r(z)$ to the full quantum $R$-matrix
+  $R(z, \hbar)$ of $G(X)$.  The parameter $\hbar = \epsilon_1$ controls the ``quantum depth''
+  in the $E_2$-chiral hierarchy.
+\end{itemize}
+
+\begin{conjecture}[Quantum vertex chiral Langlands]
+  \label{conj:qvcg-langlands}
+  The geometric Langlands correspondence for a curve $C$ and gauge group $G$, in the ``quantum''
+  ($\hbar \neq 0$) regime, is the equivalence of representation categories of quantum vertex
+  chiral groups:
+  \begin{equation}
+    \label{eq:qvcg-langlands}
+    \Rep^{E_2}(G(X_{G,C})) \simeq D\text{-}\mathrm{mod}(\Bun_{{}^L G}(C))
+  \end{equation}
+  where $X_{G,C}$ is the local CY3 engineering the class $\mathcal{S}$ theory, and
+  $D\text{-}\mathrm{mod}(\Bun_{{}^L G}(C))$ is the category of $D$-modules on the moduli
+  of ${}^L G$-bundles on $C$ (with the quantum parameter $\hbar$ playing the role of the
+  ``level'' of the $D$-module category).
+\end{conjecture}
+
+\begin{remark}
+  \label{rem:langlands-levels}
+  The three limits of $(\epsilon_1, \epsilon_2)$ correspond to three regimes of the Langlands
+  programme:
+  \begin{itemize}[nosep]
+    \item $\epsilon_1 = \epsilon_2 = 0$: classical geometric Langlands (Beilinson--Drinfeld);
+    \item $\epsilon_2 = 0$, $\epsilon_1 = \hbar \neq 0$: quantum geometric Langlands (the NS
+    limit, opers, $\cW$-algebra representations);
+    \item $\epsilon_1, \epsilon_2$ both nonzero: the ``doubly quantum'' regime (the full
+    $\Omega$-background, motivic DT, $K$-theoretic Langlands of Aganagic--Frenkel--Okounkov).
+  \end{itemize}
+  Volume~III operates primarily in the second and third regimes; the first is the
+  ``classical limit'' where the quantum vertex chiral group degenerates to the classical one.
+\end{remark}
+
+
+\section{Summary and open problems}
+\label{sec:summary}
+
+\subsection{What has been established}
+
+\begin{enumerate}[label=(\arabic*)]
+  \item Type~IIB on a CY3 $X$ produces a 4d $\cN=2$ theory whose Coulomb branch is $\cM_{\mathrm{cx}}(X)$
+  and whose BPS spectrum comes from D3-branes on special Lagrangians (Section~\ref{sec:iib-cy3}).
+  \item For local CY3 geometries (class $\mathcal{S}$ theories), the SW curve is the spectral
+  curve of the Hitchin system, and the Hitchin fibration parametrizes the family of SW curves
+  over the Coulomb branch (Section~\ref{sec:hitchin-sw}).
+  \item The KS wall-crossing formula governs BPS spectra across walls.  In our framework this is
+  gauge equivalence of MC elements $\Theta_u$ in the scattering diagram $L_\infty$-algebra, and
+  the KS product $\mathcal{A}(u)$ is the gauge-invariant shadow tower (Section~\ref{sec:wall-crossing}).
+  \item The Nekrasov partition function is a refinement of the CY3 partition function.  The NS
+  limit gives the quantum curve (quantization of the spectral curve).  $Z_{\Nek}$ should be
+  the character of the quantum vertex chiral group $G(X)$ (Section~\ref{sec:nekrasov}).
+\end{enumerate}
+
+\subsection{Open problems}
+\label{subsec:open-problems}
+
+\begin{enumerate}[label=\textbf{OP\arabic*.}]
+  \item \textbf{Non-toric CY3.}  For CY3s that are neither toric nor of the form $K3 \times E$
+  (e.g.\ the quintic, complete intersections in toric varieties), the quantum vertex chiral group
+  $G(X)$ is not yet identified.  What is the ``root datum'' of the quintic?  Is there still a
+  BKM/Yangian structure?
+  \item \textbf{Compact CY3.}  The present framework is most developed for local (noncompact) CY3
+  geometries.  For compact CY3, the graviphoton and the universal hypermultiplet introduce
+  additional structure.  How does $G(X)$ incorporate gravitational corrections?
+  \item \textbf{Wall-crossing and the full MC element.}  The identification of KS wall-crossing
+  with gauge equivalence of $\Theta_u$ (Proposition~\ref{prop:wc-shadow}) needs a rigorous
+  proof at the chain level, beyond the motivic/numerical shadow.  This requires the full
+  $L_\infty$-structure of the scattering diagram algebra.
+  \item \textbf{The refined topological vertex and motivic DT.}  The refined topological vertex
+  computes $Z_{\Nek}$ combinatorially for toric CY3.  The motivic DT invariants of KS should
+  provide the ``motivic character'' of $G(X)$.  Making this precise requires the motivic Hall
+  algebra to be identified with the chain-level quantum vertex chiral group.
+  \item \textbf{Geometric Langlands at the quantum level.}  Conjecture~\ref{conj:qvcg-langlands}
+  connects $G(X)$ to the quantum geometric Langlands programme.  The $\epsilon_1$-dependence of
+  the NS partition function should match the ``level'' of the quantum $D$-module category.
+  The full two-parameter case ($\epsilon_1, \epsilon_2 \neq 0$) should correspond to the
+  $K$-theoretic Langlands correspondence.
+  \item \textbf{Physical unitarity and the BPS Hilbert space.}  The Fock space $\cF_{\vec{a}}$
+  on which $G(X)$ acts should carry a positive-definite inner product (from the physical Hilbert
+  space).  This imposes constraints on $G(X)$ (unitarity bounds, signature conditions on the root
+  lattice).  What are the unitarity conditions on quantum vertex chiral groups?
+\end{enumerate}
+
+\end{document}

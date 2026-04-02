@@ -1,0 +1,829 @@
+% theory_higgs_cy2_qvcg.tex
+% Higgs Sheaves as CY_2 Quantum Vertex Chiral Groups
+% Research note — Raeez Lorgat
+% April 2026
+
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\frenchspacing
+
+\usepackage[
+  cmintegrals,
+  cmbraces,
+  noamssymbols
+]{newtxmath}
+\usepackage{ebgaramond}
+\usepackage[
+  activate={true,nocompatibility},
+  final,
+  tracking=true,
+  kerning=true,
+  spacing=true,
+  factor=1100,
+  stretch=10,
+  shrink=10
+]{microtype}
+
+\let\Bbbk\undefined
+\let\openbox\undefined
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{tikz-cd}
+\usepackage{enumitem}
+\usepackage[unicode]{hyperref}
+\usepackage{geometry}
+\geometry{top=1.2in, bottom=1.2in, left=1.25in, right=1.25in}
+
+% Theorem environments
+\newtheoremstyle{garamondthm}{\topsep}{\topsep}{\normalfont}{}{\scshape}{.}{0.5em}{}
+\newtheoremstyle{garamonddef}{\topsep}{\topsep}{\normalfont}{}{\itshape}{.}{0.5em}{}
+\newtheoremstyle{garamondrem}{\topsep}{\topsep}{\small\normalfont}{}{\itshape}{.}{0.5em}{}
+
+\theoremstyle{garamondthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{garamonddef}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+
+\theoremstyle{garamondrem}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{warning}[theorem]{Warning}
+
+% Macros (matching main volume)
+\newcommand{\Cat}{\mathbf{Cat}}
+\newcommand{\DGCat}{\mathbf{dgCat}}
+\newcommand{\Ainf}{A_\infty}
+\newcommand{\Linf}{L_\infty}
+\newcommand{\Einf}{E_\infty}
+\newcommand{\Mod}{\mathrm{Mod}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Perf}{\mathrm{Perf}}
+\newcommand{\Ind}{\mathrm{Ind}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\Fuk}{\mathrm{Fuk}}
+\newcommand{\MF}{\mathrm{MF}}
+\newcommand{\Vect}{\mathrm{Vect}}
+\newcommand{\CY}{\mathrm{CY}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\HC}{\mathrm{HC}}
+\newcommand{\HN}{\mathrm{HN}}
+\newcommand{\HP}{\mathrm{HP}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Sd}{\mathbb{S}^d}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\Fact}{\mathrm{Fact}}
+\newcommand{\Uq}{U_q}
+\newcommand{\Uhbar}{U_\hbar}
+\newcommand{\Yg}{Y(\mathfrak{g})}
+\newcommand{\Eone}{E_1}
+\newcommand{\Etwo}{E_2}
+\newcommand{\En}{E_n}
+\newcommand{\Ger}{\mathrm{Ger}}
+\newcommand{\BV}{\mathrm{BV}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\RHom}{\mathrm{RHom}}
+\newcommand{\Ext}{\mathrm{Ext}}
+\newcommand{\Tor}{\mathrm{Tor}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\colim}{\mathrm{colim}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\frakg}{\mathfrak{g}}
+\newcommand{\frakn}{\mathfrak{n}}
+\newcommand{\frakh}{\mathfrak{h}}
+\renewcommand{\hbar}{\hslash}
+\newcommand{\Higgs}{\mathrm{Higgs}}
+\newcommand{\CoHA}{\mathrm{CoHA}}
+\newcommand{\Bun}{\mathrm{Bun}}
+\newcommand{\Loc}{\mathrm{Loc}}
+\newcommand{\Hit}{\mathrm{Hit}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Tot}{\mathrm{Tot}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\PGL}{\mathrm{PGL}}
+\newcommand{\DAHA}{\mathrm{DAHA}}
+\newcommand{\rank}{\mathrm{rank}}
+\renewcommand{\deg}{\mathrm{deg}}
+\newcommand{\ch}{\mathrm{ch}}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\td}{td}
+
+\title{\textsc{Higgs Sheaves as $\CY_2$ Quantum Vertex Chiral Groups}\\[6pt]
+\large The Most Important Escape from $\CY_3$}
+\author{Raeez Lorgat}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We develop the theory of Higgs sheaves on smooth curves as a source of $\CY_2$ quantum vertex chiral groups.  A Higgs sheaf on a smooth curve $C$ is a pair $(E, \varphi)$ with $E$ a vector bundle and $\varphi \colon E \to E \otimes K_C$ a Higgs field; the category $\Higgs(C) = \Coh(T^*C)$ is Calabi--Yau of dimension~$2$.  The $\mathbb{S}^2$-framing gives an $\Etwo$-algebra structure \emph{directly}, with no need for the $\CY_3$ intermediary that dominates the standard landscape.  We show that the genus of $C$ controls the type of quantum group that emerges: Yangians for $C = \mathbb{P}^1$ (genus~$0$), the elliptic Hall algebra $\cE_{q,t}$ and spherical DAHA for $C$ an elliptic curve (genus~$1$), and new ``Hitchin Hall algebras'' for $C$ of genus $g \geq 2$.  The surface case $\Higgs(S) = \Coh(T^*S)$ connects to Kapranov--Vasserot's $2$d CoHA; for $S = K3$ this feeds back into the $K3 \times E$ tower of Chapter~\ref{ch:k3-times-e}.
+\end{abstract}
+
+\tableofcontents
+
+
+%% ======================================================================
+%% Section 1: The CY_2 Structure
+%% ======================================================================
+
+\section{The $\CY_2$ structure of $T^*C$}
+\label{sec:cy2-structure}
+
+\subsection{$T^*C$ as a symplectic surface}
+\label{ssec:symplectic-surface}
+
+Let $C$ be a smooth algebraic curve over $\mathbb{C}$ (not necessarily compact).  The cotangent bundle $\pi \colon T^*C \to C$ is a smooth surface carrying a canonical symplectic form.
+
+\begin{definition}[Liouville form and symplectic structure]
+\label{def:liouville}
+The \emph{Liouville $1$-form} $\lambda \in \Omega^1(T^*C)$ is defined at a point $(x, \xi) \in T^*C$ (where $x \in C$ and $\xi \in T^*_x C$) by
+\[
+  \lambda_{(x,\xi)} = \xi \circ d\pi_{(x,\xi)}.
+\]
+The \emph{canonical symplectic form} is $\omega = -d\lambda$.  In local coordinates: if $z$ is a local coordinate on $C$ and $w$ the conjugate fiber coordinate (so $\xi = w\,dz$), then
+\[
+  \lambda = w\,dz, \qquad \omega = dz \wedge dw.
+\]
+\end{definition}
+
+\begin{proposition}[$T^*C$ is a non-compact $\CY_2$]
+\label{prop:cotangent-cy2}
+The surface $T^*C$ is a non-compact Calabi--Yau $2$-fold:
+\begin{enumerate}[label=(\roman*)]
+  \item $\omega^{2,0} = dz \wedge dw$ is a nowhere-vanishing holomorphic $2$-form, so $K_{T^*C} \simeq \cO_{T^*C}$ and $T^*C$ has trivial canonical bundle.
+  \item The derived category $D^b(\Coh(T^*C))$ is smooth (cotangent bundles of smooth varieties are smooth).
+  \item The Serre functor on $D^b(\Coh(T^*C))$ is $S = (\cdot) \otimes K_{T^*C}[\dim T^*C] = [2]$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The canonical bundle of $T^*C$ is $K_{T^*C} \simeq \pi^*(K_C \otimes K_C^{-1}) = \cO_{T^*C}$; explicitly, the holomorphic volume form $\omega^{2,0} = dz \wedge dw$ is globally defined and non-vanishing.  The Serre functor on a smooth variety $X$ of dimension $n$ with trivial canonical bundle acts as $S(F) = F[n]$, giving $S = [2]$ for $n = 2$.
+\end{proof}
+
+\begin{remark}[Non-compactness and $\CY_2$ vs.\ compact $\CY_2$]
+\label{rem:noncompact-cy2}
+A compact $\CY_2$ surface is a K3 surface or an abelian surface.  The cotangent bundle $T^*C$ is non-compact, so we must work with appropriate versions of coherent sheaves: compactly supported, or ind-coherent, or use the Higgs moduli stack (which is an Artin stack with proper good moduli space).  The $\CY_2$ structure is ``exact'' in the sense that $\omega = -d\lambda$ is exact --- the Liouville form provides a primitive.  This exactness is crucial: it means the $\CY_2$ trace factors through the Liouville $1$-form, giving a \emph{canonical} (not merely existential) cyclic structure.
+\end{remark}
+
+\subsection{The $\CY_2$ trace from the Liouville form}
+\label{ssec:cy2-trace}
+
+\begin{proposition}[The $\CY_2$ cyclic structure]
+\label{prop:cy2-cyclic}
+The category $\cC = \Coh(T^*C)$ carries a $2$-dimensional $\CY$ structure: a class
+\[
+  [\sigma] \in \HC^-_2(\cC)
+\]
+whose image in $\HH_2(\cC)$ is the non-degenerate trace
+\[
+  \Tr \colon \HH_2(\Coh(T^*C)) \longrightarrow \mathbb{C}
+\]
+induced by integrating the holomorphic volume form $\omega^{2,0}$.  The negative cyclic refinement encodes the Liouville primitive: $\lambda$ lifts $\omega$ to a class in $\HC^-$.
+\end{proposition}
+
+\begin{remark}
+\label{rem:cy2-trace-canonical}
+For general $\CY_d$ categories, the cyclic structure $[\sigma] \in \HC^-_d(\cC)$ is additional data (a choice).  For $T^*C$, the Liouville form provides a \emph{canonical} such choice.  This canonicality is the key advantage of cotangent geometries: the $\CY$ structure is not a datum to be specified but a consequence of the symplectic geometry.
+\end{remark}
+
+\subsection{Higgs sheaves as coherent sheaves on $T^*C$}
+\label{ssec:higgs-coh}
+
+\begin{definition}[Higgs sheaf]
+\label{def:higgs-sheaf}
+A \emph{Higgs sheaf} on $C$ is a pair $(E, \varphi)$ where $E$ is a coherent sheaf on $C$ and
+\[
+  \varphi \colon E \longrightarrow E \otimes K_C
+\]
+is an $\cO_C$-linear map (the \emph{Higgs field}).  The condition $\varphi \wedge \varphi = 0$ is automatic since $K_C^{\otimes 2}$ is a line bundle ($\bigwedge^2 K_C = 0$ in rank $1$).
+\end{definition}
+
+\begin{proposition}[Higgs = coherent on $T^*C$]
+\label{prop:higgs-coh-equiv}
+There is an equivalence of abelian categories
+\[
+  \Higgs(C) \;\simeq\; \Coh(T^*C)
+\]
+given by $(E, \varphi) \mapsto \widetilde{E}$, where $\widetilde{E}$ is the $\Sym^\bullet(T_C)$-module on $E$ with the $T_C$-action induced by $\varphi$ via the identification $T^*C = \Spec(\Sym^\bullet(T_C))$.  The Higgs field $\varphi$ determines (and is determined by) the $\cO_{T^*C}$-module structure.
+\end{proposition}
+
+\begin{proof}
+A coherent sheaf on $T^*C = \Spec_C(\Sym^\bullet(T_C))$ is, by the relative Spec adjunction, the same as a quasi-coherent $\Sym^\bullet(T_C)$-module on $C$ that is coherent as an $\cO_C$-module.  A $\Sym^\bullet(T_C)$-module structure on $E$ is equivalent to an $\cO_C$-linear map $T_C \to \End(E)$, i.e., a map $E \to E \otimes T_C^\vee = E \otimes K_C$.  Coherence on $T^*C$ corresponds to finite generation over $\Sym^\bullet(T_C)$, which for coherent $E$ on $C$ is automatic.
+\end{proof}
+
+\begin{remark}[The Hitchin fibration]
+\label{rem:hitchin-fibration}
+The moduli stack $\cM_{\Higgs}(C, r) = \{(E, \varphi) : \rk(E) = r\}$ admits the Hitchin fibration
+\[
+  h \colon \cM_{\Higgs}(C, r) \longrightarrow \cB = \bigoplus_{i=1}^r H^0(C, K_C^{\otimes i}), \qquad (E, \varphi) \longmapsto \mathrm{char}(\varphi),
+\]
+where $\mathrm{char}(\varphi) = (\mathrm{tr}(\varphi), \mathrm{tr}(\bigwedge^2 \varphi), \ldots, \det(\varphi))$.  The generic fiber is an abelian variety --- the Jacobian of the spectral curve $\widetilde{C}_b \subset T^*C$ defined by $\det(\varphi - \xi \cdot \id) = 0$.  The Hitchin system is completely integrable: $\dim \cB = \dim \cM_{\Higgs}/2$.
+\end{remark}
+
+
+%% ======================================================================
+%% Section 2: The E_2 Structure from S^2-Framing
+%% ======================================================================
+
+\section{$\mathbb{S}^2$-framing and the $\Etwo$ structure}
+\label{sec:e2-from-s2}
+
+\subsection{The $\mathbb{S}^d$-framing mechanism}
+\label{ssec:sd-framing}
+
+Recall the general principle (Chapter~\ref{ch:cyclic-ainf} of the main text): a $\CY_d$ category $\cC$ has cyclic homology $\HC_\bullet(\cC)$ equipped with an $\mathbb{S}^d$-framing, meaning an action of $C_*(\mathbb{S}^d)$ (chains on the $d$-sphere) on $\HC_\bullet(\cC)$.  By Dunn--Lurie additivity, this produces an $\En$-algebra structure on the Hochschild complex:
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+$d$ & Framing & Algebraic structure & Monoidal type \\ \hline
+$1$ & $\mathbb{S}^1$ & $\Eone$-algebra & monoidal \\
+$2$ & $\mathbb{S}^2$ & $\Etwo$-algebra & braided monoidal \\
+$3$ & $\mathbb{S}^3$ & $E_3$-algebra & symmetric monoidal (up to $\Einf$-obstructions)
+\end{tabular}
+\end{center}
+
+\begin{theorem}[The $\Etwo$ structure from $\CY_2$]
+\label{thm:cy2-e2}
+Let $\cC$ be a $\CY_2$ category.  The Hochschild cochain complex $\HH^\bullet(\cC)$ carries a natural $\Etwo$-algebra structure.  Equivalently, the Hochschild chain complex $\HH_\bullet(\cC)$ is an $\Etwo$-coalgebra, and the Gerstenhaber bracket $[\cdot, \cdot] \colon \HH^\bullet \otimes \HH^\bullet \to \HH^\bullet[-1]$ together with the cup product gives a Gerstenhaber algebra structure, which by Kontsevich formality lifts to a genuine $\Etwo$-algebra.
+\end{theorem}
+
+\begin{remark}[No $\CY_3$ intermediary needed]
+\label{rem:no-cy3}
+This is the crucial structural point: for a $\CY_2$ category, the $\Etwo$-algebra structure arises \emph{directly} from the $\mathbb{S}^2$-framing.  There is no need to embed $\cC$ into a $\CY_3$ category and extract the $\Etwo$-structure as a sub-structure of an $E_3$-structure.  The standard landscape of the main text (Chapters~\ref{ch:k3-times-e}--\ref{ch:toric-coha}) obtains quantum groups from $\CY_3$ geometry; the Higgs/$\CY_2$ route is a genuine alternative producing quantum groups with potentially different (and sometimes richer) braiding.
+\end{remark}
+
+\subsection{The $\Etwo$ structure on the Higgs CoHA}
+\label{ssec:e2-higgs-coha}
+
+\begin{definition}[CoHA of Higgs sheaves]
+\label{def:higgs-coha}
+Fix a smooth projective curve $C$ of genus $g$ and an integer $r \geq 1$.  The \emph{cohomological Hall algebra of Higgs sheaves} on $C$ is
+\[
+  \cH(C) = \bigoplus_{(r,d) \in \mathbb{Z}_{\geq 0} \times \mathbb{Z}} H^{\mathrm{BM}}_*\!\big(\cM_{\Higgs}(C, r, d)\big)
+\]
+where $\cM_{\Higgs}(C, r, d)$ is the moduli stack of Higgs sheaves of rank $r$ and degree $d$.  The multiplication
+\[
+  m \colon \cH(C) \otimes \cH(C) \longrightarrow \cH(C)
+\]
+is defined via correspondences: for Higgs sheaves $(E_1, \varphi_1)$ and $(E_2, \varphi_2)$, the correspondence is the stack of short exact sequences
+\[
+  0 \to (E_1, \varphi_1) \to (E, \varphi) \to (E_2, \varphi_2) \to 0
+\]
+and $m$ is the pushforward along the projection to the ``total'' moduli.
+\end{definition}
+
+\begin{proposition}[$\Etwo$-structure on the Higgs CoHA]
+\label{prop:higgs-coha-e2}
+The Higgs CoHA $\cH(C)$ carries a natural $\Etwo$-algebra structure.  The $\Eone$-structure is the associative Hall multiplication.  The second $\Eone$-structure (giving $\Etwo \simeq \Eone \otimes \Eone$ via Dunn additivity) comes from the $\CY_2$ cyclic pairing on $\Coh(T^*C)$:
+\begin{enumerate}[label=(\roman*)]
+  \item The Serre functor $S = [2]$ on $D^b(\Coh(T^*C))$ gives Serre duality
+  \[
+    \Ext^i(F, G) \simeq \Ext^{2-i}(G, F)^\vee
+  \]
+  for compactly supported coherent sheaves $F, G$ on $T^*C$.
+  \item This duality, combined with the Hall multiplication, yields a second associative structure that commutes with the first up to coherent homotopy.
+  \item The resulting $\Etwo$-structure determines a braiding on $\Rep^{\Etwo}(\cH(C))$.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[The lattice]
+\label{rem:lattice}
+The natural grading lattice for $\cH(C)$ is $\Lambda = \mathbb{Z}^2$ with coordinates $(\rk, \deg)$ (rank and degree of the underlying bundle $E$).  The Euler form on $\Coh(C)$ is
+\[
+  \chi((r_1, d_1), (r_2, d_2)) = r_1 d_2 - r_2 d_1 + r_1 r_2 (1 - g)
+\]
+where $g = g(C)$ is the genus.  This antisymmetric-plus-symmetric decomposition controls the braiding: the antisymmetric part $r_1 d_2 - r_2 d_1$ gives the braiding phase, and the symmetric part $r_1 r_2(1-g)$ contributes to the quantum parameter.
+\end{remark}
+
+
+%% ======================================================================
+%% Section 3: Genus 0 — The Yangian
+%% ======================================================================
+
+\section{Genus $0$: $C = \mathbb{P}^1$ and the Yangian}
+\label{sec:genus-0}
+
+\subsection{The Higgs moduli for $\mathbb{P}^1$}
+\label{ssec:higgs-p1}
+
+For $C = \mathbb{P}^1$, the canonical bundle is $K_{\mathbb{P}^1} = \cO(-2)$.  A Higgs field on a bundle $E$ of rank $r$ is a map $\varphi \colon E \to E(-2)$.  By the Birkhoff--Grothendieck theorem, $E \simeq \bigoplus_{i=1}^r \cO(a_i)$, so $\varphi$ is a matrix of maps $\cO(a_i) \to \cO(a_j - 2)$, i.e., sections of $\cO(a_j - a_i - 2)$.  Since $H^0(\mathbb{P}^1, \cO(n)) = 0$ for $n < 0$, the only nonzero entries have $a_j - a_i \geq 2$.
+
+\begin{proposition}[Rigidity of Higgs bundles on $\mathbb{P}^1$]
+\label{prop:higgs-p1-rigid}
+Let $(E, \varphi)$ be a semistable Higgs bundle on $\mathbb{P}^1$ of rank $r$ and degree $d$.
+\begin{enumerate}[label=(\roman*)]
+  \item If $E$ is semistable as a bundle (all $a_i$ equal), then $\varphi = 0$ for $r \leq 1$, and for $r \geq 2$ the Higgs field is nilpotent.
+  \item The Hitchin base is $\cB = \bigoplus_{i=1}^r H^0(\mathbb{P}^1, \cO(-2i))$.  For $i \geq 2$, $H^0(\mathbb{P}^1, \cO(-2i)) = 0$.  So $\cB$ is concentrated in the $\mathrm{tr}(\varphi) = 0$ component if $r = 1$, and is trivial in higher rank for trace-free Higgs fields.
+  \item The Higgs moduli is stratified by nilpotent orbits (Jordan type of $\varphi$).
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}
+\label{rem:p1-euler-form}
+For $g = 0$, the Euler form is $\chi((r_1,d_1),(r_2,d_2)) = r_1 d_2 - r_2 d_1 + r_1 r_2$.  The symmetric part $r_1 r_2$ is positive, reflecting the fact that $\mathbb{P}^1$ has positive Euler characteristic $\chi(\cO_{\mathbb{P}^1}) = 1$.
+\end{remark}
+
+\subsection{The CoHA of $T^*\mathbb{P}^1$ and the Yangian}
+\label{ssec:coha-p1-yangian}
+
+\begin{theorem}[Schiffmann--Vasserot 2013, Sala--Schiffmann 2020]
+\label{thm:coha-p1-yangian}
+The cohomological Hall algebra of Higgs sheaves on $\mathbb{P}^1$ is related to the Yangian of $\mathfrak{gl}_2$ (and its degenerations):
+\begin{enumerate}[label=(\roman*)]
+  \item For rank $r = 1$: $\cH(\mathbb{P}^1)_{r=1} \simeq Y^+(\widehat{\mathfrak{gl}}_1)$ localizes to the same positive Yangian as $\mathbb{C}^3$ but with a different stability condition (corresponding to the different torus action).
+  \item For general rank: the spherical subalgebra
+  \[
+    \cH(\mathbb{P}^1)^{\mathrm{sph}} \hookrightarrow Y(\mathfrak{gl}_2)
+  \]
+  embeds into the Yangian of $\mathfrak{gl}_2$ (finite-type root system $A_1$).  The root datum is:
+  \begin{itemize}
+    \item Lattice: $\Lambda = \mathbb{Z}^2$ with coordinates $(\rk, \deg)$.
+    \item Simple roots: $\alpha_0 = (1, 0)$, $\alpha_1 = (0, 1)$ (or refinements depending on the stability condition).
+    \item Cartan matrix: determined by the Euler form on $\Coh(\mathbb{P}^1)$.
+  \end{itemize}
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[Finite-type root system from genus $0$]
+\label{rem:finite-type-genus0}
+The key feature of genus $0$ is that the root system is \emph{finite-type}.  The Higgs moduli on $\mathbb{P}^1$ is rigid enough (due to the negativity of $K_{\mathbb{P}^1}$) that the CoHA produces a Yangian of a finite-dimensional Lie algebra, not an affine or toroidal one.  This is the ``rational'' case: the braiding on $\Rep^{\Etwo}(\cH(\mathbb{P}^1))$ is controlled by the \emph{rational $R$-matrix}
+\[
+  R(u) = 1 + \frac{\hbar}{u} \, \Omega + O(u^{-2})
+\]
+where $u$ is the spectral parameter and $\Omega$ is the Casimir of $\mathfrak{gl}_2$.
+\end{remark}
+
+\begin{remark}[Comparison with $\CY_3$]
+\label{rem:cy3-comparison-p1}
+The toric $\CY_3$ route to the Yangian goes through $\Tot(K_{\mathbb{P}^1} \oplus \cO) \to \mathbb{P}^1$ or the resolved conifold $\Tot(\cO(-1)^{\oplus 2}) \to \mathbb{P}^1$.  The $\CY_2$ route via $T^*\mathbb{P}^1$ is more economical: it produces the Yangian directly from the $2$-dimensional geometry, without the auxiliary third direction.  The price is that the $\CY_3$ route naturally gives the \emph{affine} Yangian (with the loop parameter from the third direction), while the $\CY_2$ route gives the \emph{finite} Yangian.  This is a genuine structural difference, not merely a technical convenience.
+\end{remark}
+
+
+%% ======================================================================
+%% Section 4: Genus 1 — The Elliptic Hall Algebra
+%% ======================================================================
+
+\section{Genus $1$: $C = E$ (elliptic curve) and the elliptic Hall algebra}
+\label{sec:genus-1}
+
+\subsection{Higgs sheaves on an elliptic curve}
+\label{ssec:higgs-elliptic}
+
+Let $E$ be a smooth elliptic curve over $\mathbb{C}$.  Since $K_E \simeq \cO_E$, a Higgs field on a bundle $F$ is simply an endomorphism $\varphi \colon F \to F$.  Thus
+\[
+  \Higgs(E) = \Coh(T^*E) = \Coh(E \times \mathbb{A}^1)
+\]
+where the last identification uses $T^*E \simeq E \times \mathbb{A}^1$ (trivial cotangent bundle of an abelian variety).
+
+\begin{remark}
+\label{rem:elliptic-trivial-cotangent}
+This triviality $T^*E \simeq E \times \mathbb{A}^1$ is special to genus $1$.  For $g \neq 1$, $T^*C$ is non-trivial as a fibration over $C$.  The triviality for $g = 1$ is what connects the Higgs CoHA to the representation theory of the \emph{elliptic curve itself} (coherent sheaves on $E$), rather than to spectral curve geometry.
+\end{remark}
+
+\begin{proposition}[Euler form for genus $1$]
+\label{prop:euler-form-g1}
+For $g = 1$, the Euler form degenerates to the purely antisymmetric form:
+\[
+  \chi((r_1, d_1), (r_2, d_2)) = r_1 d_2 - r_2 d_1.
+\]
+The symmetric part vanishes since $\chi(\cO_E) = 1 - g = 0$.  This antisymmetry is the algebraic incarnation of the $\SL_2(\mathbb{Z})$ symmetry acting on the lattice $\Lambda = \mathbb{Z}^2$ by $\bigl(\begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\bigr) \cdot (r, d) = (ar + cd, br + dd)$.
+\end{proposition}
+
+\subsection{The Schiffmann--Vasserot theorem}
+\label{ssec:sv-theorem}
+
+\begin{theorem}[Schiffmann--Vasserot 2009, 2012]
+\label{thm:sv-elliptic}
+Let $E$ be an elliptic curve over a finite field $\mathbb{F}_q$ and $\sigma = q^{-1/2}$.  The Hall algebra of coherent sheaves on $E$, after localization and completion, is isomorphic to the \emph{elliptic Hall algebra} $\cE_{q,t}$:
+\[
+  \cH^{\mathrm{sph}}(E) \;\simeq\; \cE_{q,t}
+\]
+where:
+\begin{enumerate}[label=(\roman*)]
+  \item $\cE_{q,t}$ is the $\mathbb{C}(q,t)$-algebra generated by $u_{r,d}$ for $(r,d) \in \mathbb{Z}^2 \setminus \{0\}$, with relations encoding the structure of coherent sheaves on $E$ (Hecke correspondences).
+  \item $\cE_{q,t}$ is isomorphic to the \emph{spherical subalgebra} of the \emph{double affine Hecke algebra} (DAHA) of type $\GL$:
+  \[
+    \cE_{q,t} \;\simeq\; e \, \ddot{H}(\GL) \, e
+  \]
+  where $e$ is the spherical idempotent.
+  \item $\cE_{q,t}$ acts on the equivariant $K$-theory of Hilbert schemes of points on the minimal resolution $\widetilde{\mathbb{C}^2/\mathbb{Z}_n}$, recovering the Schiffmann--Vasserot action and Nakajima's construction.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[From Hall algebra to CoHA]
+\label{rem:hall-to-coha}
+Theorem~\ref{thm:sv-elliptic} is stated for the classical (abelian) Hall algebra over a finite field.  The passage to the CoHA (Borel--Moore homology of the Higgs moduli stack) over $\mathbb{C}$ requires the motivic Hall algebra framework (Kontsevich--Soibelman, Bridgeland) or the critical CoHA formalism.  For elliptic curves, Schiffmann--Vasserot (2012) established the CoHA version: the CoHA of $\Coh(T^*E)$ over $\mathbb{C}$, equipped with the Higgs correspondence multiplication, recovers $\cE_{q,t}$ with parameters $(q,t)$ replaced by equivariant parameters.
+\end{remark}
+
+\subsection{The elliptic braiding}
+\label{ssec:elliptic-braiding}
+
+\begin{proposition}[Elliptic $R$-matrix]
+\label{prop:elliptic-r-matrix}
+The braiding on $\Rep^{\Etwo}(\cH^{\mathrm{sph}}(E))$ is controlled by the \emph{elliptic $R$-matrix}:
+\[
+  R(u, \tau) = \frac{\theta_1(u + \hbar \, \Omega \,|\, \tau)}{\theta_1(u \,|\, \tau)}
+\]
+where $\theta_1(u \,|\, \tau)$ is the Jacobi theta function, $\tau$ is the modular parameter of $E$, and $\Omega$ is the Casimir.  The key features:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Elliptic}: $R(u, \tau)$ is doubly periodic in $u$ (with periods $1$ and $\tau$), unlike the rational $R$-matrix of genus $0$.
+  \item \textbf{$\SL_2(\mathbb{Z})$-equivariant}: The modular group acts on $\tau$ and simultaneously on the representation category, reflecting the $\SL_2(\mathbb{Z})$ symmetry of the Euler form.
+  \item \textbf{Degeneration}: As $\tau \to i\infty$ (degeneration of $E$ to a nodal rational curve), $\theta_1(u|\tau) \to \sin(\pi u)$, and $R(u, \tau)$ degenerates to the \emph{trigonometric $R$-matrix} (quantum affine algebra regime).  A further degeneration (rescaling) gives the rational $R$-matrix of genus $0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[The degeneration hierarchy]
+\label{rem:degeneration}
+The genus of $C$ controls the type of $R$-matrix, giving a complete hierarchy:
+\begin{center}
+\begin{tabular}{c|c|c|c}
+Genus & Curve & $R$-matrix type & Quantum group \\ \hline
+$0$ & $\mathbb{P}^1$ & rational & Yangian $Y(\frakg)$ \\
+$1$ & elliptic $E$ & elliptic & elliptic quantum group / spherical DAHA \\
+$\geq 2$ & higher genus $C$ & Hitchin-type (new) & Hitchin Hall algebra (new)
+\end{tabular}
+\end{center}
+This matches the classical hierarchy of integrable systems: rational Calogero--Moser (genus $0$), elliptic Calogero--Moser (genus $1$), Hitchin system (genus $\geq 2$).
+\end{remark}
+
+\subsection{The root datum from the elliptic curve lattice}
+\label{ssec:elliptic-root-datum}
+
+\begin{construction}[Elliptic root datum]
+\label{constr:elliptic-root-datum}
+The generalized root datum $\mathcal{R}(E)$ of the Higgs CoHA on an elliptic curve $E$ with modular parameter $\tau$:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Lattice}: $\Lambda = \mathbb{Z}^2 = \mathbb{Z} \cdot \alpha \oplus \mathbb{Z} \cdot \delta$, where $\alpha = (1, 0)$ (rank direction) and $\delta = (0, 1)$ (degree direction).  This is the $K$-theory lattice $K_0(\Coh(E)) \simeq \mathbb{Z}^2$.
+  \item \textbf{Euler form}: $\chi(\alpha, \delta) = 1$, $\chi(\delta, \alpha) = -1$, $\chi(\alpha, \alpha) = \chi(\delta, \delta) = 0$.  (Purely antisymmetric for $g = 1$.)
+  \item \textbf{Root system}: all $(r, d) \in \mathbb{Z}^2 \setminus \{0\}$ with $\gcd(r, d) = 1$ are ``primitive roots.''  The root multiplicity is
+  \[
+    \mathrm{mult}(n \cdot (r, d)) = p(n)
+  \]
+  where $p(n)$ is the partition function (the number of coherent sheaves on $E$ of a given class grows as partitions).
+  \item \textbf{Symmetry}: $\SL_2(\mathbb{Z})$ acts on $\Lambda$ preserving the Euler form.  This is the automorphism group of the root datum.
+  \item \textbf{Elliptic parameter}: $\tau \in \mathbb{H}$ parametrizes the family of root data as the elliptic curve varies in moduli.  The root datum is ``constant'' (the lattice and Euler form do not depend on $\tau$), but the $R$-matrix (the braiding) does.
+\end{enumerate}
+\end{construction}
+
+\begin{remark}[Comparison with the $K3 \times E$ tower]
+\label{rem:comparison-k3e}
+For the $K3 \times E$ tower (Chapter~\ref{ch:k3-times-e}), the root multiplicities come from the K3 elliptic genus $\phi_{0,1}$.  For the Higgs CoHA on $E$, the root multiplicities come from the partition function.  Both are controlled by (weak) Jacobi forms, but of different weight and index:
+\begin{itemize}
+  \item $K3 \times E$: $\phi_{0,1}(\tau, z) = $ K3 elliptic genus, weight $0$, index $1$.
+  \item $\Higgs(E)$: $1/\eta(\tau)^2 = \sum p(n) q^n$ (essentially), weight $-1$, index $0$.
+\end{itemize}
+The $K3 \times E$ tower is $\CY_3$ and produces a BKM superalgebra; the Higgs CoHA on $E$ is $\CY_2$ and produces the elliptic Hall algebra.  The connection: $T^*E$ is the ``$\CY_2$ shadow'' of $K3 \times E$ obtained by forgetting the K3 fiber direction.
+\end{remark}
+
+
+%% ======================================================================
+%% Section 5: Genus >= 2 — Hitchin Hall Algebras
+%% ======================================================================
+
+\section{Genus $g \geq 2$: Hitchin Hall algebras}
+\label{sec:genus-geq-2}
+
+\subsection{The Higgs moduli stack for higher genus}
+\label{ssec:higgs-higher-genus}
+
+For $C$ a smooth projective curve of genus $g \geq 2$, the Hitchin moduli space acquires its richest structure.  The canonical bundle $K_C$ has degree $2g - 2 > 0$, so the Higgs field $\varphi \colon E \to E \otimes K_C$ is a ``twisted endomorphism'' with ample twist.
+
+\begin{proposition}[Dimension counts for genus $g \geq 2$]
+\label{prop:higgs-dim-higher-genus}
+The moduli stack $\cM_{\Higgs}(C, r, d)$ of rank-$r$, degree-$d$ Higgs sheaves on $C$ has:
+\begin{enumerate}[label=(\roman*)]
+  \item Virtual dimension $\dim \cM_{\Higgs}(C, r, d) = 2r^2(g-1) + 2$ (for $\SL_r$-Higgs bundles: $2(r^2-1)(g-1)$).
+  \item The Hitchin base $\cB = \bigoplus_{i=1}^r H^0(C, K_C^{\otimes i})$ has dimension $\dim \cB = r^2(g-1) + 1$.
+  \item The generic Hitchin fiber is the Jacobian $\Jac(\widetilde{C}_b)$ of the spectral curve $\widetilde{C}_b \to C$, an abelian variety of dimension $r^2(g-1)+1$.
+  \item The global nilpotent cone $\cN = h^{-1}(0)$ (the fiber over $0 \in \cB$) has $\dim \cN = r^2(g-1)+1 = \frac{1}{2}\dim \cM_{\Higgs}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}
+\label{rem:euler-form-higher-genus}
+For $g \geq 2$, the Euler form has a \emph{negative} symmetric part:
+\[
+  \chi((r_1, d_1), (r_2, d_2)) = r_1 d_2 - r_2 d_1 + r_1 r_2(1 - g), \qquad 1 - g < 0.
+\]
+The negativity of the symmetric part means that $\Ext^1$ dominates $\Hom$ for generic bundles.  Algebraically, this produces a ``negatively curved'' quantum group, in sharp contrast with the ``flat'' ($g = 1$) and ``positively curved'' ($g = 0$) cases.
+\end{remark}
+
+\subsection{The CoHA for higher genus: Hitchin Hall algebras}
+\label{ssec:hitchin-hall}
+
+\begin{definition}[Hitchin Hall algebra]
+\label{def:hitchin-hall}
+For $C$ of genus $g \geq 2$, the \emph{Hitchin Hall algebra} is the CoHA
+\[
+  \cH^{\Hit}(C) = \bigoplus_{(r,d)} H^{\mathrm{BM}}_*(\cM_{\Higgs}(C, r, d))
+\]
+with the Hall multiplication from extensions of Higgs sheaves.  This is an $\Etwo$-algebra by the $\CY_2$ structure of $T^*C$.
+\end{definition}
+
+\begin{conjecture}[Structure of Hitchin Hall algebras]
+\label{conj:hitchin-hall-structure}
+For a curve $C$ of genus $g \geq 2$:
+\begin{enumerate}[label=(\roman*)]
+  \item The Hitchin Hall algebra $\cH^{\Hit}(C)$ is a ``genus-$g$ quantum group'': a new algebraic object whose representation theory is controlled by the Hitchin system on $C$.
+  \item The braiding on $\Rep^{\Etwo}(\cH^{\Hit}(C))$ is determined by a ``Hitchin $R$-matrix'' $R^{\Hit}(u; C)$ that depends on the full complex structure of $C$ (not just the modular parameter $\tau$ as in genus $1$).
+  \item The Hitchin $R$-matrix satisfies a generalized Yang--Baxter equation, with the spectral data living on the Hitchin base $\cB(C)$ rather than on $\mathbb{A}^1$ (rational case) or $E$ (elliptic case).
+  \item The degeneration $C \leadsto C_0$ (stable curve with a node) induces a degeneration $R^{\Hit}(u; C) \leadsto R^{\Hit}(u; C_0)$ that, when $C_0$ has genus-$1$ and genus-$(g-1)$ components, factors as a convolution of elliptic and lower-genus $R$-matrices.
+\end{enumerate}
+\end{conjecture}
+
+\subsection{The spectral data and the root datum}
+\label{ssec:spectral-root-datum}
+
+\begin{construction}[Hitchin root datum]
+\label{constr:hitchin-root-datum}
+The generalized root datum $\mathcal{R}^{\Hit}(C)$ for $C$ of genus $g \geq 2$:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Lattice}: $\Lambda = K_0(\Coh(C)) \simeq \mathbb{Z}^2$ (rank and degree), same as all genera.
+  \item \textbf{Euler form}: $\chi = (r_1 d_2 - r_2 d_1) + r_1 r_2(1-g)$.  The symmetric part $B((r_1,d_1),(r_2,d_2)) = r_1 r_2(1-g)$ is negative definite on the rank direction.
+  \item \textbf{Root multiplicities}: for a ``root'' $(r,d)$ with $r > 0$ and $\gcd(r,d) = 1$, the multiplicity is
+  \[
+    \mathrm{mult}(r, d) = \dim H^{\mathrm{BM}}_*(\cM^{\mathrm{ss}}_{\Higgs}(C, r, d))
+  \]
+  i.e., the Borel--Moore homology of the semistable locus.  For $r = 1$: $\mathrm{mult}(1, d) = 2^{2g}$ (the Betti numbers of $T^*\Jac(C)$ at degree $d$, which is $H^{\mathrm{BM}}_*(\mathbb{A}^{g}) \otimes H^*(\Jac(C))$).
+  \item \textbf{Spectral enhancement}: beyond the crude lattice, the root datum is enriched by the \emph{Hitchin spectral data}: for each point $b \in \cB$, the spectral curve $\widetilde{C}_b$ and its Jacobian $\Jac(\widetilde{C}_b)$ contribute to the root space.  The ``imaginary roots'' correspond to the singular spectral curves (where $\widetilde{C}_b$ is reducible or non-reduced).
+  \item \textbf{Symmetry}: the mapping class group $\mathrm{Mod}(C)$ acts on the root datum, and the Torelli group acts trivially on $\Lambda$ but nontrivially on the spectral data.
+\end{enumerate}
+\end{construction}
+
+\begin{remark}[Nonabelian Hodge theory and the Hitchin Hall algebra]
+\label{rem:naht}
+The nonabelian Hodge correspondence provides a diffeomorphism (but not an algebraic isomorphism)
+\[
+  \cM_{\Higgs}(C, r) \;\simeq_{\mathrm{diffeo}}\; \cM_{\Loc}(C, \GL_r)
+\]
+between the Higgs moduli and the moduli of local systems (the de Rham / Betti side).  This suggests that the Hitchin Hall algebra should have a ``dual'' description in terms of the CoHA of local systems, which would be an $\Etwo$-algebra governed by the \emph{character variety}.  The relation between these two $\Etwo$-structures is a deep question connected to the $P = W$ conjecture (now a theorem of Maulik--Shen--Yin, Hausel--Mellit--Minets--Schiffmann).
+
+In the language of the main text: this is a form of \emph{Koszul duality} in the $\CY_2$ setting --- the Higgs side (Dolbeault) and the local systems side (de Rham/Betti) are Koszul dual $\Etwo$-chiral algebras.
+\end{remark}
+
+\begin{remark}[The WKB/oper limit]
+\label{rem:wkb}
+The Hitchin Hall algebra should have a ``classical limit'' governed by the WKB approximation to the Hitchin system.  In this limit, the spectral curves become the classical phase space, and the Hitchin Hall algebra degenerates to the Poisson algebra of functions on the Hitchin moduli space (which is hyperk\"ahler, hence carries three algebraic Poisson structures).  The quantization parameter is the $\CY_2$ trace --- the Liouville form on $T^*C$.
+\end{remark}
+
+
+%% ======================================================================
+%% Section 6: Surfaces — The 2d CoHA
+%% ======================================================================
+
+\section{Surfaces: $\Higgs(S) = \Coh(T^*S)$ and the $2$d CoHA}
+\label{sec:surfaces}
+
+\subsection{The higher-dimensional generalization}
+\label{ssec:higher-dim}
+
+For a smooth surface $S$, the cotangent bundle $T^*S$ is a $4$-dimensional symplectic variety ($\CY_2$ in the non-compact sense: $K_{T^*S} = \cO$ and the Serre functor on compactly supported coherent sheaves is $S = [4]$, but as a \emph{symplectic variety} it is $\CY_2$ in the sense that $\omega^{2,0}$ is a symplectic, not a Calabi--Yau, $2$-form).
+
+\begin{warning}[Dimension conventions]
+\label{warn:dim-conventions}
+The notation ``$\CY_2$'' for $\Coh(T^*S)$ when $\dim S = 2$ requires care.  The surface $T^*S$ has complex dimension $4$, so $D^b(\Coh(T^*S))$ has Serre functor $[4]$ and is $\CY_4$ in the categorical sense.  However, as a \emph{symplectic} manifold, $T^*S$ is a cotangent bundle with a canonical symplectic form, and the relevant ``Calabi--Yau dimension'' for the CoHA construction is $2$ --- the symplectic dimension, not the complex dimension.  This is because the CoHA uses the \emph{critical} structure (the symplectic form provides the potential $W = 0$ in the BV sense), and the critical CoHA of a $d$-dimensional symplectic manifold behaves like a $\CY_d$ CoHA.
+\end{warning}
+
+\begin{definition}[$2$d CoHA, after Kapranov--Vasserot and Porta--Sala]
+\label{def:2d-coha}
+For a smooth projective surface $S$, the \emph{$2$d cohomological Hall algebra} is
+\[
+  \cH_{2d}(S) = \bigoplus_{\gamma \in K_0(S)} H^{\mathrm{BM}}_*(\cM_{\Coh}(S, \gamma))
+\]
+where $\cM_{\Coh}(S, \gamma)$ is the moduli stack of coherent sheaves on $S$ with $K$-theory class $\gamma$.  The multiplication uses the convolution from short exact sequences of sheaves on $S$.
+\end{definition}
+
+\begin{theorem}[Kapranov--Vasserot 2019, Porta--Sala 2023]
+\label{thm:kv-ps}
+Let $S$ be a smooth projective surface.
+\begin{enumerate}[label=(\roman*)]
+  \item The $2$d CoHA $\cH_{2d}(S)$ carries a natural $\Etwo$-algebra structure when $S$ has trivial canonical bundle ($K_S \simeq \cO_S$), i.e., when $S$ is a K3 surface or abelian surface.
+  \item More generally, for arbitrary $S$, the CoHA of $\Coh(T^*S)$ (with the cotangent potential) carries an $\Etwo$-structure from the $\CY_2$ symplectic structure.
+  \item The lattice is $\Lambda = K_0(S)$ with the Euler form $\chi(\gamma_1, \gamma_2) = \sum (-1)^i \dim \Ext^i(\gamma_1, \gamma_2)$.
+\end{enumerate}
+\end{theorem}
+
+\subsection{The K3 case: reconnection with the $K3 \times E$ tower}
+\label{ssec:k3-reconnection}
+
+\begin{proposition}[K3 surface and the CY$_2$--CY$_3$ bridge]
+\label{prop:k3-bridge}
+Let $S$ be a K3 surface.  Then:
+\begin{enumerate}[label=(\roman*)]
+  \item $T^*S$ is a (non-compact) $\CY_2$ $4$-fold.  The CoHA $\cH_{2d}(S)$ is an $\Etwo$-algebra.
+  \item The lattice is $\Lambda = K_0(S)$ with $\rk(K_0(S)) = 24$ (the Mukai lattice of signature $(4, 20)$).
+  \item The product $S \times E$ (with $E$ an elliptic curve) is a $\CY_3$ threefold.  The $\CY_3$ CoHA $\cH(S \times E)$ is an $\Eone$-algebra whose Drinfeld center recovers the $\Etwo$-structure.
+  \item The ``forgetful'' map $S \times E \to S$ (projection) induces a map of CoHAs
+  \[
+    \cH(S \times E) \longrightarrow \cH_{2d}(S)
+  \]
+  that is the ``dimensional reduction'' from $\CY_3$ to $\CY_2$: the elliptic fiber is ``integrated out,'' and the BKM superalgebra $\frakg_{\Delta_5}$ projects to the $\Etwo$-algebra of the K3 surface.
+  \item The root multiplicities of $\frakg_{\Delta_5}$ (controlled by $\phi_{0,1}$, the K3 elliptic genus) are the ``$\CY_3$ lift'' of the K3 $\Etwo$-algebra structure.  The $\CY_2$ data (the K3 Mukai lattice and its Hodge structure) is the ``base,'' and the $\CY_3$ data (the BKM roots from $\phi_{0,1}$) is the ``fiber.''
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[The escape from $\CY_3$]
+\label{rem:escape-cy3}
+The K3 example makes precise the sense in which $\CY_2$ is an ``escape'' from $\CY_3$.  The $K3 \times E$ tower of the main text (Chapter~\ref{ch:k3-times-e}) constructs the quantum vertex chiral group $G(K3 \times E) = \frakg_{\Delta_5}$ using $\CY_3$ geometry.  The $\CY_2$ approach via $\Coh(T^*S)$ constructs a \emph{different} object --- the $2$d CoHA $\cH_{2d}(S)$ --- that captures the ``base'' of the $\CY_3$ tower.
+
+Concretely:
+\begin{itemize}
+  \item $\CY_3$ produces the full BKM superalgebra $\frakg_{\Delta_5}$ (with imaginary roots from the elliptic fiber).
+  \item $\CY_2$ produces the $\Etwo$-algebra $\cH_{2d}(S)$ (the ``real'' root datum from the Mukai lattice).
+  \item The passage $\CY_2 \to \CY_3$ (by tensoring with $E$) is the automorphic correction: $\cH_{2d}(S) \hookrightarrow \frakg_{\Delta_5}$ as the ``real root subalgebra,'' and the imaginary roots are added by the elliptic fiber.
+\end{itemize}
+
+This is a clean instance of the general principle: $\CY_3 = \CY_2 + \text{automorphic correction}$.
+\end{remark}
+
+\subsection{Abelian surfaces}
+\label{ssec:abelian-surfaces}
+
+\begin{example}[Abelian surface $A = E_1 \times E_2$]
+\label{ex:abelian-surface}
+For $A$ an abelian surface (e.g., $A = E_1 \times E_2$ a product of elliptic curves), the $2$d CoHA $\cH_{2d}(A)$ is an $\Etwo$-algebra with lattice $\Lambda = K_0(A) \simeq \mathbb{Z}^6$ (Mukai lattice of signature $(3,3)$).  The Euler form is
+\[
+  \chi(F, G) = \int_A \ch(F)^\vee \cdot \ch(G) \cdot \td(A) = (\rk(F)\deg(G) - \deg(F)\rk(G)) + \ldots
+\]
+For the product $A = E_1 \times E_2$, the CoHA has a tensor product structure
+\[
+  \cH_{2d}(E_1 \times E_2) \;\supseteq\; \cH^{\mathrm{sph}}(E_1) \otimes \cH^{\mathrm{sph}}(E_2) \simeq \cE_{q_1, t_1} \otimes \cE_{q_2, t_2}
+\]
+(as a subalgebra), connecting the surface CoHA to a tensor product of elliptic Hall algebras.  This is a $2$d analogue of Dunn additivity at the level of CoHAs.
+\end{example}
+
+
+%% ======================================================================
+%% Section 7: The Quantum Vertex Chiral Group Structure
+%% ======================================================================
+
+\section{The quantum vertex chiral group $G^{\CY_2}(C)$}
+\label{sec:qvcg-cy2}
+
+\subsection{Summary: from $C$ to $G^{\CY_2}(C)$}
+\label{ssec:summary-pipeline}
+
+We summarize the pipeline from a smooth curve $C$ to its $\CY_2$ quantum vertex chiral group.
+
+\begin{construction}[The $\CY_2$ quantum vertex chiral group]
+\label{constr:cy2-qvcg}
+Given a smooth projective curve $C$ of genus $g$, the $\CY_2$ quantum vertex chiral group $G^{\CY_2}(C)$ is constructed as follows:
+\begin{enumerate}[label=\textbf{Step \arabic*.}]
+  \item \textbf{Symplectic surface}: $T^*C$ is a non-compact $\CY_2$ surface with Liouville form $\lambda$ and symplectic form $\omega = -d\lambda$.
+  \item \textbf{Category}: $\cC = \Coh(T^*C) \simeq \Higgs(C)$, the abelian category of Higgs sheaves.
+  \item \textbf{$\CY_2$ structure}: Serre functor $S = [2]$, CY trace from the Liouville form, negative cyclic class $[\sigma] \in \HC^-_2(\cC)$.
+  \item \textbf{CoHA}: $\cH(C) = \bigoplus_{(r,d)} H^{\mathrm{BM}}_*(\cM_{\Higgs}(C,r,d))$ with Hall multiplication.
+  \item \textbf{$\Etwo$-structure}: from the $\mathbb{S}^2$-framing, giving a braiding on $\Rep^{\Etwo}(\cH(C))$.
+  \item \textbf{CY-to-chiral functor}: applying $\Phi$ (Theorem CY-A) to $\cC$ gives a chiral algebra $A_C = \Phi(\Coh(T^*C))$ on any auxiliary curve $X$.
+  \item \textbf{Quantum vertex chiral group}: $G^{\CY_2}(C) = (A_C, R_C, \Lambda_C)$ where $R_C$ is the braiding datum (the $R$-matrix) and $\Lambda_C$ is the root datum.
+\end{enumerate}
+\end{construction}
+
+\subsection{The genus filtration}
+\label{ssec:genus-filtration}
+
+The genus $g$ of the input curve $C$ controls the complexity of $G^{\CY_2}(C)$:
+
+\begin{proposition}[Genus filtration]
+\label{prop:genus-filtration}
+The family $\{G^{\CY_2}(C)\}_{C}$ is organized by genus:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Genus $0$} ($C = \mathbb{P}^1$): $G^{\CY_2}(\mathbb{P}^1)$ is a Yangian (rational quantum group).  The root datum is finite-type.  The $R$-matrix is rational.  The modular characteristic is $\kappa = 0$ (the Euler characteristic $\chi(\cO_{T^*\mathbb{P}^1})$ vanishes).
+  \item \textbf{Genus $1$} ($C = E$): $G^{\CY_2}(E)$ is the elliptic Hall algebra $\cE_{q,t}$ (spherical DAHA).  The root datum involves the $\SL_2(\mathbb{Z})$-symmetric lattice.  The $R$-matrix is elliptic.  The modular characteristic is $\kappa = 0$ ($\chi(\cO_{T^*E}) = 0$ since $\chi(\cO_E) = 0$).
+  \item \textbf{Genus $g \geq 2$} ($C$ general): $G^{\CY_2}(C)$ is a Hitchin Hall algebra.  The root datum involves the Hitchin spectral data.  The $R$-matrix is ``Hitchin-type.''  The modular characteristic is $\kappa \sim (g-1)$ (reflecting $\chi(\cO_C) = 1 - g$).
+\end{enumerate}
+\end{proposition}
+
+\subsection{Relationship to the main CY$_3$ theory}
+\label{ssec:cy2-cy3}
+
+\begin{proposition}[CY$_2$--CY$_3$ interplay]
+\label{prop:cy2-cy3-interplay}
+The $\CY_2$ quantum vertex chiral groups relate to the $\CY_3$ theory of the main text via:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Dimensional oxidation}: for any $\CY_2$ category $\cC$ and an elliptic curve $E$, the product category $\cC \boxtimes D^b(\Coh(E))$ is $\CY_3$.  The $\CY_3$ quantum vertex chiral group $G^{\CY_3}(\cC \boxtimes D^b(E))$ is the ``automorphic correction'' of $G^{\CY_2}(\cC)$:
+  \[
+    G^{\CY_3} = G^{\CY_2} + \text{imaginary roots from } E.
+  \]
+  \item \textbf{Dimensional reduction}: conversely, for a $\CY_3$ with an elliptic fibration $X \to B$, the ``base'' $\CY_2$ quantum group $G^{\CY_2}(B)$ is the ``real root subalgebra'' of $G^{\CY_3}(X)$.
+  \item \textbf{The $\Etwo$ structures}: the $\CY_2$ $\Etwo$-structure is \emph{intrinsic} (from $\mathbb{S}^2$-framing).  The $\CY_3$ $\Etwo$-structure arises by restriction from $E_3$ (the $\mathbb{S}^3$-framing gives $E_3$; restricting to $\Etwo$ via $E_3 \to \Etwo$ loses the ``symmetric'' part, retaining only the braiding).  The two $\Etwo$-structures agree when $G^{\CY_3}$ is the automorphic correction of $G^{\CY_2}$.
+\end{enumerate}
+\end{proposition}
+
+
+%% ======================================================================
+%% Section 8: The Dictionary
+%% ======================================================================
+
+\section{The dictionary}
+\label{sec:dictionary}
+
+We collect the main identifications in tabular form.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{3cm}|p{3cm}|p{3cm}|p{3cm}}
+\textbf{$\CY_2$ geometry} & \textbf{$g = 0$ (Yangian)} & \textbf{$g = 1$ (ell.\ Hall)} & \textbf{$g \geq 2$ (Hitchin)} \\ \hline
+Curve $C$ & $\mathbb{P}^1$ & elliptic $E$ & general $C$ \\
+$K_C$ & $\cO(-2)$ & $\cO$ & ample \\
+$T^*C$ & $\Tot(\cO(2))$ & $E \times \mathbb{A}^1$ & non-trivial \\
+Euler form sym.\ part & $+r_1 r_2$ & $0$ & $-(g{-}1)r_1 r_2$ \\
+$R$-matrix type & rational & elliptic & Hitchin \\
+Quantum group & $Y(\mathfrak{gl}_2)$ & $\cE_{q,t} \simeq e\ddot{H}e$ & $\cH^{\Hit}(C)$ (new) \\
+Hitchin base & trivial & $\mathbb{A}^1$ & $\bigoplus H^0(K_C^i)$ \\
+Spectral curves & points & lines in $E \times \mathbb{A}^1$ & curves in $T^*C$ \\
+$\CY_3$ lift & resolved conifold & $K3 \times E$ & $X \to C$ fibered
+\end{tabular}
+\end{center}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{p{4.5cm}|p{4.5cm}|p{4.5cm}}
+\textbf{$\CY_2$ language} & \textbf{$\CY_3$ language} & \textbf{Vol.~III language} \\ \hline
+Higgs moduli $\cM_{\Higgs}$ & CY moduli $\cM_{\mathrm{CY}}$ & moduli of MC elements \\
+$\mathbb{S}^2$-framing & $\mathbb{S}^3$-framing $\to$ $\Etwo$ & $\Etwo$-chiral structure \\
+Liouville form $\lambda$ & CY $3$-form $\Omega$ & cyclic structure $[\sigma]$ \\
+Hall multiplication & DT multiplication & $\Eone$-chiral product \\
+braiding from Euler form & $R$-matrix from $\Omega$ & $\Etwo$-braiding \\
+Hitchin fibration & Hitchin system / SYZ & shadow tower projection \\
+spectral curve & BPS state & root of $\frakg_X$
+\end{tabular}
+\end{center}
+
+
+%% ======================================================================
+%% Section 9: Open Questions
+%% ======================================================================
+
+\section{Open questions and programme}
+\label{sec:open}
+
+\begin{enumerate}[label=\textbf{Q\arabic*.}]
+
+\item \textbf{Explicit presentation of Hitchin Hall algebras.}  For $g \geq 2$, find generators and relations for $\cH^{\Hit}(C)$.  Is there a ``Hitchin--Drinfeld'' presentation analogous to the Drinfeld presentation of Yangians or the Schiffmann--Vasserot presentation of $\cE_{q,t}$?  The generators should be indexed by the Hitchin spectral data.
+
+\item \textbf{The Hitchin $R$-matrix.}  Construct the $R$-matrix $R^{\Hit}(u; C)$ explicitly.  It should be a meromorphic function on $C \times C$ (the ``spectral parameter'' lives on the curve itself, not on $\mathbb{A}^1$ or $E$).  Verify the Yang--Baxter equation.  Understand the degeneration as $C$ degenerates to a nodal curve.
+
+\item \textbf{Koszul duality: Higgs vs.\ local systems.}  The nonabelian Hodge correspondence suggests a Koszul duality between $\cH^{\Hit}_{\mathrm{Dol}}(C)$ (Higgs/Dolbeault CoHA) and $\cH^{\Hit}_{\mathrm{dR}}(C)$ (de Rham CoHA of $\nabla$-modules).  Make this precise in the $\Etwo$-chiral Koszul duality framework (Conjecture~\ref{conj:e2-koszul} of the main text).  The $P = W$ theorem should appear as a grading compatibility condition.
+
+\item \textbf{Geometric Langlands and Hitchin Hall algebras.}  The geometric Langlands conjecture (Arinkin--Gaitsgory, Fargues--Scholze) concerns the Hitchin moduli space.  Does the Hitchin Hall algebra $\cH^{\Hit}(C)$ act on the categories appearing in geometric Langlands?  Specifically, is there an action of $\cH^{\Hit}(C)$ on $D\text{-}\Mod(\Bun_G(C))$ compatible with Hecke operators?
+
+\item \textbf{The modular characteristic $\kappa(G^{\CY_2}(C))$.}  Compute $\kappa$ for all genera.  For $g = 0, 1$: $\kappa = 0$ (the CY Euler characteristic vanishes).  For $g \geq 2$: $\kappa$ should be proportional to $g - 1$ and should recover a known invariant of the Hitchin system.  What is the automorphic form?
+
+\item \textbf{Wall-crossing.}  The Higgs moduli carries a wall-crossing structure (Kontsevich--Soibelman) as the stability condition varies.  How does this manifest in the Hitchin Hall algebra?  Is the wall-crossing formula a gauge equivalence of MC elements in the bar complex $B(A_C)$?
+
+\item \textbf{Higher-dimensional Higgs.}  For a surface $S$, $\Higgs(S) = \Coh(T^*S)$ gives a $\CY_2$ category (in the symplectic sense).  The $2$d CoHA $\cH_{2d}(S)$ is an $\Etwo$-algebra.  For $S = K3$: relate $\cH_{2d}(S)$ to the $\frakg_{\Delta_5}$ BKM superalgebra explicitly, via the dimensional reduction $K3 \times E \to K3$.  For general surfaces: classify the $\Etwo$-algebras $\cH_{2d}(S)$ by the Kodaira classification of $S$.
+
+\item \textbf{The oper limit.}  The WKB/oper limit of the Hitchin system gives a classical integrable system.  In the Hitchin Hall algebra, this should correspond to the ``classical limit'' $\hbar \to 0$, where $\cH^{\Hit}(C)$ degenerates to a Poisson algebra.  Identify this Poisson algebra explicitly (it should be related to Hitchin's integrable system on $T^*\Bun_G(C)$).
+
+\item \textbf{Families over $\cM_g$.}  As $C$ varies in the moduli space $\cM_g$ of curves, the Hitchin Hall algebra $\cH^{\Hit}(C)$ forms a ``local system of $\Etwo$-algebras'' over $\cM_g$.  What is the monodromy of this local system?  Does the mapping class group $\mathrm{Mod}(C) = \pi_1(\cM_g)$ act by $\Etwo$-algebra automorphisms?
+
+\item \textbf{Relation to Maulik--Okounkov $R$-matrix.}  Maulik--Okounkov construct stable envelope $R$-matrices from Nakajima quiver varieties.  For the Higgs moduli of genus-$1$ curves, this should recover the elliptic $R$-matrix.  Extend this to $g \geq 2$ and compare with the conjectural Hitchin $R$-matrix.
+
+\end{enumerate}
+
+
+%% ======================================================================
+%% Section 10: Concluding Remarks
+%% ======================================================================
+
+\section{Concluding remarks}
+\label{sec:conclusion}
+
+The $\CY_2$ quantum vertex chiral groups $G^{\CY_2}(C)$ provide a genuine alternative to the $\CY_3$-dominated landscape of the main text.  The advantages of the $\CY_2$ route:
+
+\begin{enumerate}[label=(\arabic*)]
+  \item \textbf{Directness}: the $\Etwo$-structure comes from the $\mathbb{S}^2$-framing, without passage through $\CY_3$.
+  \item \textbf{Canonicality}: the Liouville form on $T^*C$ provides a \emph{canonical} CY structure, unlike the $\CY_3$ case where the CY form is an additional datum.
+  \item \textbf{Richness}: the genus parameter $g$ provides a continuous family of quantum groups, from Yangians ($g = 0$) through elliptic algebras ($g = 1$) to the new Hitchin Hall algebras ($g \geq 2$).
+  \item \textbf{Geometric Langlands connection}: the Hitchin moduli space is the central object of geometric Langlands; the Hitchin Hall algebra should interact with Langlands duality.
+\end{enumerate}
+
+The principal remaining challenge is to make the Hitchin Hall algebras for $g \geq 2$ as explicit as the Yangians and elliptic Hall algebras are for $g \leq 1$.  The Hitchin spectral data, the nonabelian Hodge correspondence, and the $P = W$ theorem provide the necessary geometric tools; the $\CY_2$ quantum vertex chiral group framework provides the algebraic target.
+
+\end{document}

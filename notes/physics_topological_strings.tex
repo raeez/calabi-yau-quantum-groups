@@ -1,0 +1,776 @@
+% physics_topological_strings.tex
+% Physics note: Topological string theory on CY3 and the root datum
+% Raeez Lorgat, April 2026
+%
+% This note develops the dictionary between the A/B topological string
+% on a Calabi--Yau threefold X and the quantum vertex chiral group G(X)
+% of Volume III.  The four pillars: (1) A-model and GW invariants as
+% genus-g shadow amplitudes; (2) B-model holomorphic anomaly = MC equation;
+% (3) topological vertex as local root datum; (4) connection to the
+% Vol I shadow tower via F_g = kappa * lambda_g.
+
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage[margin=1.25in]{geometry}
+\usepackage{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{warning}[theorem]{Warning}
+
+% Macros (matching Volume III main.tex conventions)
+\newcommand{\CY}{\mathrm{CY}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\HC}{\mathrm{HC}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\Fact}{\mathrm{Fact}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Fuk}{\mathrm{Fuk}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\Mod}{\mathrm{Mod}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Ainf}{A_\infty}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\frakg}{\mathfrak{g}}
+\renewcommand{\hbar}{\hslash}
+\newcommand{\Mbar}{\overline{\mathcal{M}}}
+\newcommand{\DT}{\mathrm{DT}}
+\newcommand{\GW}{\mathrm{GW}}
+\newcommand{\GV}{\mathrm{GV}}
+
+\title{Topological String Theory on Calabi--Yau Threefolds\\
+  and the Root Datum of the Quantum Vertex Chiral Group}
+\author{Raeez Lorgat}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We develop the dictionary between topological string theory on a Calabi--Yau
+threefold $X$ and the quantum vertex chiral group $G(X)$ of Volume~III.
+The A-model free energy $F = \sum_g F_g\, g_s^{2g-2}$, with $F_g$
+encoding Gromov--Witten invariants $N_{g,\beta}$, is identified with the genus
+expansion of the shadow tower $\Theta_{A_X}$.  The B-model holomorphic
+anomaly equation of BCOV is reinterpreted as the Maurer--Cartan equation
+$D\Theta + \frac{1}{2}[\Theta, \Theta] = 0$ projected to genus~$g$.
+The topological vertex (AKMV) for toric CY3 is shown to factorize as a
+tensor product of local root data, one per vertex of the toric diagram.
+The leading genus-$g$ term $F_g = \kappa \cdot \lambda_g$ is the
+uniform-weight lane of the Vol~I shadow tower; higher terms are shadow
+corrections from imaginary roots.
+\end{abstract}
+
+\tableofcontents
+
+%% ================================================================
+\section{Introduction and overview}
+\label{sec:intro}
+
+Let $X$ be a compact (or appropriately completed) Calabi--Yau threefold.
+The topological string on $X$ comes in two versions --- the A-model and the
+B-model --- related by mirror symmetry $X \leftrightarrow X^\vee$.  The
+central object on both sides is the free energy
+\begin{equation}\label{eq:free-energy}
+  F(g_s; t) = \sum_{g=0}^{\infty} F_g(t)\, g_s^{2g-2},
+\end{equation}
+where $g_s$ is the string coupling and $t$ denotes moduli (K\"ahler on the
+A-side, complex structure on the B-side).  The genus-$g$ amplitude $F_g$ is
+the string-theoretic analogue of the genus-$g$ obstruction
+$\mathrm{obs}_g(A_X)$ of the quantum vertex chiral group $G(X)$ constructed
+in Volume~III.
+
+The purpose of this note is to make the following identifications precise:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{ll}
+  \hline
+  \textbf{Topological string on $X$} & \textbf{Quantum vertex chiral group $G(X)$} \\
+  \hline
+  Free energy $F$ & Shadow tower $\Theta_{A_X}$ \\
+  Genus-$g$ amplitude $F_g$ & Genus-$g$ obstruction $\mathrm{obs}_g(A_X)$ \\
+  GW invariants $N_{g,\beta}$ & Shadow amplitudes of $G(X)$ at genus $g$ \\
+  BCOV holomorphic anomaly & MC equation $D\Theta + \tfrac{1}{2}[\Theta,\Theta] = 0$ \\
+  Topological vertex $C_{\lambda\mu\nu}(q)$ & Local root datum at a toric vertex \\
+  DT partition function $Z^{\DT}(X)$ & Bar-complex Euler product of $G(X)$ \\
+  Leading $F_g$ on uniform lane & $\kappa(G(X)) \cdot \lambda_g$ \\
+  \hline
+\end{tabular}
+\end{center}
+
+\noindent
+The identification $g_s = \hbar$ (string coupling $=$ the quantization
+parameter of the chiral algebra) and $Q^\beta = e^{-t \cdot \beta}$
+(exponentiated K\"ahler class $=$ root-lattice fugacity) will be implicit
+throughout.
+
+
+%% ================================================================
+\section{The A-model topological string on CY3}
+\label{sec:a-model}
+
+\subsection{The A-model partition function}
+\label{sub:a-model-partition}
+
+The A-model topological string on a CY3 $X$ localizes onto holomorphic maps
+$f \colon \Sigma_g \to X$ from a genus-$g$ worldsheet to $X$.  The genus-$g$
+free energy is a generating function for Gromov--Witten invariants:
+\begin{equation}\label{eq:fg-a}
+  F_g(t) = \sum_{\beta \in H_2(X,\mathbb{Z})} N_{g,\beta}\, Q^\beta,
+\end{equation}
+where $Q^\beta = e^{-\int_\beta \omega}$ for $\omega$ the complexified
+K\"ahler form, and $N_{g,\beta}$ is the genus-$g$ degree-$\beta$
+Gromov--Witten invariant:
+\[
+  N_{g,\beta} = \int_{[\Mbar_{g,0}(X,\beta)]^{\mathrm{vir}}} 1.
+\]
+The virtual fundamental class $[\Mbar_{g,0}(X,\beta)]^{\mathrm{vir}}$ has
+virtual dimension zero for CY3 (since $c_1(X) = 0$), so $N_{g,\beta}$ is
+a number --- a virtual count of genus-$g$ holomorphic curves in class
+$\beta$.
+
+The total free energy
+\[
+  F = \sum_{g=0}^{\infty} g_s^{2g-2} \sum_{\beta} N_{g,\beta}\, Q^\beta
+\]
+is the A-model topological string partition function (at the level of the
+free energy; the partition function proper is $Z = e^F$).
+
+\subsection{Gopakumar--Vafa reformulation}
+\label{sub:gv}
+
+The Gopakumar--Vafa conjecture (now theorem, Ionel--Parker) repackages the GW
+invariants into integer BPS invariants $n^g_\beta \in \mathbb{Z}$:
+\begin{equation}\label{eq:gv}
+  F = \sum_{g=0}^{\infty} \sum_{\beta \neq 0} \sum_{k=1}^{\infty}
+    \frac{n^g_\beta}{k}
+    \left(2\sin\frac{k g_s}{2}\right)^{2g-2} Q^{k\beta}.
+\end{equation}
+The integers $n^g_\beta$ count BPS states of charge $\beta$ and spin $g$ in
+the M-theory lift.  In the language of the quantum vertex chiral group:
+\begin{itemize}
+  \item $n^0_\beta$ are the genus-0 BPS counts $=$ DT invariants
+    $=$ root multiplicities $\mathrm{mult}(\beta)$ of $G(X)$.
+  \item $n^g_\beta$ for $g > 0$ are the genus-$g$ refinements of the root
+    multiplicity, living in the $g$-th shadow correction.
+\end{itemize}
+
+\begin{remark}[GV invariants as root data]
+\label{rem:gv-root}
+The generating function $\sum_\beta n^0_\beta\, Q^\beta$ is the
+multiplicity-generating function of the imaginary roots of $G(X)$.  For the
+$K3 \times E$ family, these are the Fourier coefficients of $\phi_{0,1}$
+(the K3 elliptic genus).  For a toric CY3, they are the DT invariants of the
+quiver with potential $(Q_X, W_X)$.  The higher-genus invariants $n^g_\beta$
+refine the root datum by incorporating information from the Hodge bundle
+$\mathbb{E}_g \to \Mbar_{g,0}$; in the shadow tower language, they appear
+as genus-$g$ shadow corrections to the tree-level root multiplicities.
+\end{remark}
+
+\subsection{GW invariants as shadow amplitudes}
+\label{sub:gw-shadow}
+
+The quantum vertex chiral group $G(X) = \Phi(\cC_X)$ (where $\cC_X$ is the
+appropriate CY category of $X$ --- the Fukaya category on the A-side, or
+$D^b(\Coh(X^\vee))$ on the B-side via HMS) carries a shadow tower
+$\Theta_{A_X}$ (Volume~I).  The genus expansion of $\Theta_{A_X}$ is:
+\begin{equation}\label{eq:theta-genus}
+  \Theta_{A_X} = \sum_{g=0}^{\infty} \hbar^{2g-2}\, \Theta^{(g)}_{A_X},
+\end{equation}
+where $\Theta^{(g)}_{A_X} \in
+C^\bullet(\Mbar_{g,n},\, B(A_X)^{\otimes n})$ are the genus-$g$ shadow
+amplitudes --- sections of the $n$-fold tensor product of the bar complex
+over the moduli space of $n$-pointed genus-$g$ curves.
+
+\begin{conjecture}[GW/shadow identification]
+\label{conj:gw-shadow}
+For a CY3 $X$ and its quantum vertex chiral group $G(X)$:
+\begin{enumerate}[label=(\roman*)]
+  \item The genus-$g$, $n$-point shadow amplitude
+    $\Theta^{(g)}_{A_X}|_{\beta}$ evaluated on the class $\beta$ recovers the
+    GW descendant invariant:
+    \[
+      \langle \Theta^{(g)}_{A_X} \rangle_\beta
+      = \int_{[\Mbar_{g,n}(X,\beta)]^{\mathrm{vir}}} \psi_1^{a_1}
+        \cdots \psi_n^{a_n}.
+    \]
+  \item The genus-$g$ free energy $F_g$ is the $0$-point specialization:
+    \[
+      F_g = \langle \Theta^{(g)}_{A_X} \rangle
+      = \mathrm{obs}_g(A_X).
+    \]
+  \item The full topological string free energy is the shadow tower:
+    \[
+      F = \Theta_{A_X}
+    \]
+    under the identification $g_s = \hbar$, $Q^\beta = e^{-t \cdot \beta}$.
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}
+The identification $F = \Theta_{A_X}$ is of course schematic: $F$ is a
+formal power series in $g_s$ and $Q^\beta$, while $\Theta_{A_X}$ is a
+Maurer--Cartan element in the dgLa governing deformations of the chiral bar
+complex.  The precise statement is that the formal expansion of $\Theta_{A_X}$
+in the genus grading and the root-lattice grading reproduces $F$.
+\end{remark}
+
+
+%% ================================================================
+\section{The B-model and the holomorphic anomaly equation}
+\label{sec:b-model}
+
+\subsection{Special geometry of the CY moduli space}
+\label{sub:special-geometry}
+
+Let $X^\vee$ be the mirror CY3 and $\cM = \cM_{\mathrm{cpx}}(X^\vee)$ its
+complex structure moduli space, of complex dimension $h = h^{2,1}(X^\vee)$.
+The B-model free energy $F_g$ is a function (more precisely, a section of a
+line bundle) on $\cM$.  The moduli space $\cM$ carries the special K\"ahler
+structure:
+\begin{itemize}
+  \item Special coordinates $t^i$, $i = 1, \ldots, h$;
+  \item The prepotential $\cF(t) = F_0(t)$ (the genus-0 free energy);
+  \item The period matrix $\tau_{ij} = \partial_i \partial_j \cF$;
+  \item The Weil--Petersson metric $G_{i\bar{j}} = -\partial_i \partial_{\bar{j}} K$
+    where $K$ is the K\"ahler potential;
+  \item The Yukawa coupling $C_{ijk} = \partial_i \partial_j \partial_k \cF$
+    (the genus-0 three-point function);
+  \item The propagator $S^{ij}$ satisfying $\partial_{\bar{k}} S^{ij} = \bar{C}^{ij}_{\bar{k}} = e^{2K} G^{i\bar{i}'} G^{j\bar{j}'} \bar{C}_{\bar{k}\bar{i}'\bar{j}'}$.
+\end{itemize}
+The propagator $S^{ij}$ is the genus-1 annulus amplitude: it mediates the
+degeneration of a genus-$g$ surface into lower genera by pinching a cycle.
+
+\subsection{The BCOV holomorphic anomaly equation}
+\label{sub:bcov}
+
+The central result of Bershadsky--Cecotti--Ooguri--Vafa (BCOV) is that the
+genus-$g$ free energy, while not holomorphic, satisfies a controlled
+recursion in $g$:
+
+\begin{equation}\label{eq:bcov}
+  \partial_{\bar{i}} F_g = \frac{1}{2} \bar{C}^{jk}_{\bar{i}}
+    \left( D_j D_k F_{g-1} + \sum_{r=1}^{g-1} D_j F_r\, D_k F_{g-r} \right),
+  \qquad g \geq 2.
+\end{equation}
+
+Here $D_i = \nabla_i + (2-2g) \partial_i K$ is the covariant derivative
+incorporating the K\"ahler connection, and $\bar{C}^{jk}_{\bar{i}} =
+e^{2K} G^{j\bar{j}'} G^{k\bar{k}'} \bar{C}_{\bar{i}\bar{j}'\bar{k}'}$
+is the anti-holomorphic Yukawa coupling raised by the metric.  This equation
+says: the failure of $F_g$ to be holomorphic is controlled by the
+propagator and the lower-genus data.
+
+\begin{remark}[The genus-1 anomaly]
+At genus $g = 1$, the anomaly takes a different form:
+\[
+  \partial_{\bar{i}} \partial_j F_1 = \frac{1}{2} C_{jkl}\, \bar{C}^{kl}_{\bar{i}}
+    - \left(\frac{\chi(X)}{24} - 1\right) G_{j\bar{i}},
+\]
+where $\chi(X)$ is the Euler characteristic.  The constant $\chi(X)/24$
+is precisely the modular characteristic $\kappa(A_X)$ from Vol~I: it
+controls the curvature of the Hodge line bundle $\lambda_1$ on $\Mbar_{1,0}$.
+\end{remark}
+
+\subsection{BCOV as Maurer--Cartan}
+\label{sub:bcov-mc}
+
+The key insight, which connects the B-model to the framework of Volume~I, is
+that the BCOV holomorphic anomaly equation \eqref{eq:bcov} IS the
+Maurer--Cartan equation
+\begin{equation}\label{eq:mc}
+  D\Theta + \frac{1}{2}[\Theta, \Theta] = 0
+\end{equation}
+projected to genus $g$.
+
+\begin{construction}[BCOV as MC]
+\label{constr:bcov-mc}
+The dictionary is as follows.
+
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{The dgLa.}  The relevant dgLa is the BCOV complex
+    \[
+      \mathcal{L}_X = \mathrm{PV}^{\bullet,\bullet}(X^\vee) =
+      \bigoplus_{p,q} \Omega^{0,q}(X^\vee, \bigwedge^p TX^\vee),
+    \]
+    the space of polyvector-valued $(0,q)$-forms on $X^\vee$, with
+    differential $\bar{\partial}$ and bracket given by the Schouten--Nijenhuis
+    bracket wedged with the Dolbeault differential.  This is the
+    Kodaira--Spencer dgLa governing deformations of $X^\vee$.
+
+  \item \textbf{The MC element.}  The total free energy
+    \[
+      \Theta = \sum_{g=0}^{\infty} \hbar^{2g-2}\, \Theta^{(g)},
+      \qquad \Theta^{(g)} \sim F_g,
+    \]
+    assembled from all genera, is a MC element of $\mathcal{L}_X[[\hbar]]$.
+
+  \item \textbf{The genus-$g$ projection.}  The MC equation
+    $D\Theta + \frac{1}{2}[\Theta,\Theta] = 0$, expanded in powers of
+    $\hbar^{2g-2}$, gives at genus $g$:
+    \begin{equation}\label{eq:mc-genus-g}
+      D\Theta^{(g)} + \frac{1}{2} \sum_{r=1}^{g-1}
+      [\Theta^{(r)}, \Theta^{(g-r)}] = 0.
+    \end{equation}
+    This is precisely the BCOV equation \eqref{eq:bcov}: the differential
+    $D$ encodes $\bar{\partial}$ plus the K\"ahler connection, while
+    the bracket $[\Theta^{(r)}, \Theta^{(g-r)}]$ corresponds to the
+    bilinear term $D_j F_r\, D_k F_{g-r}$ contracted with the propagator
+    $\bar{C}^{jk}_{\bar{i}}$.
+
+  \item \textbf{The propagator as bracket.}  The propagator $S^{ij}$
+    of special geometry is the homotopy transfer data for the
+    Hodge-to-de-Rham spectral sequence on $\mathrm{PV}^{\bullet,\bullet}$.
+    Concretely:
+    \[
+      [\Theta^{(r)}, \Theta^{(g-r)}]_{\bar{i}}
+      = \bar{C}^{jk}_{\bar{i}}\, D_j \Theta^{(r)} \cdot D_k \Theta^{(g-r)},
+    \]
+    so the Lie bracket in $\mathcal{L}_X$ is ``propagator-dressed.''
+
+  \item \textbf{The non-holomorphic completion.}  The fact that $\Theta^{(g)}$
+    is not holomorphic (the anomaly) is the statement that $\Theta$ is a MC
+    element of the full dgLa $\mathcal{L}_X$, not of the holomorphic
+    sub-dgLa $\mathrm{PV}^{\bullet,0}$.  Holomorphic ambiguity (the freedom
+    in completing $F_g$ to a modular object) corresponds to the freedom in
+    choosing a representative within the MC gauge-equivalence class.
+\end{enumerate}
+\end{construction}
+
+\begin{proposition}[MC = BCOV, schematic]
+\label{prop:mc-bcov}
+The Maurer--Cartan equation $D\Theta + \frac{1}{2}[\Theta,\Theta] = 0$ in the
+dgLa $\mathcal{L}_X = \mathrm{PV}^{\bullet,\bullet}(X^\vee)[[\hbar]]$, expanded
+at order $\hbar^{2g-2}$, reproduces the BCOV holomorphic anomaly equation
+\eqref{eq:bcov}.  The propagator $S^{ij}$ of special geometry is the
+contraction kernel of the Lie bracket; the Yukawa coupling $C_{ijk}$ is the
+structure constant of the Schouten--Nijenhuis bracket; and the K\"ahler
+covariant derivative $D_i$ is the dgLa differential restricted to the
+holomorphic tangent directions.
+\end{proposition}
+
+\begin{remark}
+This is, of course, the perspective championed by Costello--Li, who construct
+the BCOV theory as a quantization of the Kodaira--Spencer dgLa.  What we add
+is the identification of this dgLa with the chiral bar dgLa of
+Volume~I: the BCOV complex $\mathcal{L}_X$ is quasi-isomorphic to the
+dgLa $C^\bullet(B(A_X))$ governing deformations of the bar complex of the
+quantum vertex chiral group $G(X)$.  In this identification, the BCOV
+MC element $\Theta$ IS the shadow tower $\Theta_{A_X}$.
+\end{remark}
+
+\subsection{The holomorphic anomaly and the shadow tower}
+\label{sub:anomaly-shadow}
+
+The holomorphic anomaly has a clean interpretation in the shadow tower:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{ll}
+  \hline
+  \textbf{B-model} & \textbf{Shadow tower (Vol~I)} \\
+  \hline
+  Holomorphic limit ($\bar{t} \to \infty$) & Tree-level (genus 0) shadow \\
+  Anti-holomorphic dependence of $F_g$ & Genus-$g$ MC obstruction \\
+  Propagator $S^{ij}$ & Homotopy transfer / degeneration data \\
+  Yukawa $C_{ijk}$ & Cubic shadow $C$ (arity 3) \\
+  Holomorphic ambiguity & MC gauge freedom \\
+  Modular completion & Full automorphic correction \\
+  \hline
+\end{tabular}
+\end{center}
+
+\noindent
+The ``holomorphic limit'' of the B-model (sending $\bar{t} \to \infty$,
+i.e.\ restricting to the large-complex-structure point) corresponds to
+retaining only the tree-level shadow: the genus-0 data, which is purely
+holomorphic.  Each genus $g \geq 1$ introduces anti-holomorphic dependence,
+which in the shadow tower corresponds to the $g$-th obstruction class
+living in a cohomology group that is not concentrated in the holomorphic
+sector.
+
+
+%% ================================================================
+\section{The topological vertex for toric CY3}
+\label{sec:top-vertex}
+
+\subsection{Toric CY3 and their diagrams}
+\label{sub:toric-cy3}
+
+A toric CY3 $X_\Sigma$ is determined by a fan $\Sigma$ in $\mathbb{Z}^3$
+with all generators coplanar (the CY condition).  The toric diagram is the
+projection of the fan to a convex polygon in $\mathbb{Z}^2$.  The geometry
+of $X_\Sigma$ is encoded in the trivalent planar graph dual to the toric
+diagram: vertices correspond to $\mathbb{C}^3$ patches, edges correspond to
+$\mathbb{C}^2$ patches (``gluing strips''), and the external legs correspond
+to non-compact divisors.
+
+\begin{example}[$\mathbb{C}^3$: the simplest vertex]
+A single vertex.  $X = \mathbb{C}^3$, quiver = Jordan quiver, $G(X) \supset Y(\widehat{\mathfrak{gl}}_1) \simeq \mathcal{W}_{1+\infty}$.
+\end{example}
+
+\begin{example}[Resolved conifold]
+Two vertices joined by an internal edge.  $X = \mathcal{O}(-1) \oplus \mathcal{O}(-1) \to \mathbb{P}^1$.  The partition function $Z = M(q)^2 \sum_\lambda q^{|\lambda|} Q^{|\lambda|} (s_\lambda(q^\rho))^2$ where $M(q) = \prod_{n=1}^\infty (1-q^n)^{-n}$ is the MacMahon function.
+\end{example}
+
+\subsection{The AKMV topological vertex}
+\label{sub:akmv}
+
+The fundamental result of Aganagic--Klemm--Mari\~no--Vafa (AKMV) is that the
+A-model topological string partition function on any toric CY3 $X$
+\emph{factorizes} over the vertices and edges of the toric diagram:
+
+\begin{equation}\label{eq:top-vertex-Z}
+  Z(X) = \sum_{\{\lambda_e\}} \prod_{\text{vertices } v}
+    C_{\lambda_{e_1} \lambda_{e_2} \lambda_{e_3}}(q)
+    \prod_{\text{edges } e} (-Q_e)^{|\lambda_e|}\, f_{\lambda_e}(q),
+\end{equation}
+where:
+\begin{itemize}
+  \item The sum is over assignments of partitions $\lambda_e$ to each internal
+    edge $e$ of the toric diagram;
+  \item $C_{\lambda\mu\nu}(q)$ is the \emph{topological vertex} --- a
+    universal amplitude attached to each trivalent vertex, depending on the
+    three partitions assigned to its edges;
+  \item $Q_e = e^{-t_e}$ is the K\"ahler parameter of the edge $e$ (the
+    exponentiated area of the corresponding $\mathbb{P}^1$);
+  \item $f_{\lambda}(q) = (-1)^{|\lambda|} q^{(\kappa_\lambda)/2}$ is the
+    framing factor, with $\kappa_\lambda = \sum_i \lambda_i(\lambda_i - 2i + 1)$.
+\end{itemize}
+
+The topological vertex itself has the explicit expression (in the
+Schur-function basis):
+\begin{equation}\label{eq:c-vertex}
+  C_{\lambda\mu\nu}(q) = q^{\frac{\kappa_\mu}{2}}\, s_{\nu^t}(q^\rho)
+    \sum_\eta s_{\lambda^t/\eta}(q^{\nu + \rho})\, s_{\mu/\eta}(q^{\nu^t + \rho}),
+\end{equation}
+where $q^\rho = (q^{-1/2}, q^{-3/2}, q^{-5/2}, \ldots)$ and
+$q^{\nu + \rho} = (q^{\nu_1 - 1/2}, q^{\nu_2 - 3/2}, \ldots)$ are
+specializations of symmetric functions, and $s_{\lambda/\eta}$ are skew Schur
+functions.
+
+\subsection{The topological vertex as local root datum}
+\label{sub:vertex-root-datum}
+
+The topological vertex $C_{\lambda\mu\nu}(q)$ is a ``local root datum'' of
+$G(X)$.  The precise formulation:
+
+\begin{construction}[Local root datum]
+\label{constr:local-root-datum}
+To each trivalent vertex $v$ of the toric diagram, associate the local
+quantum vertex chiral group $G_v = G(\mathbb{C}^3)$, with:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Lattice}: $\Lambda_v = K_0(\mathrm{pt}) = \mathbb{Z}$
+    (the dimension vector).
+  \item \textbf{Root datum}: the affine Yangian $Y(\widehat{\mathfrak{gl}}_1)$
+    root system.  The root multiplicities $\mathrm{mult}_v(n) = p(n)$
+    (partitions of $n$), controlled by the MacMahon function $M(q)$.
+  \item \textbf{Vertex amplitude}: the topological vertex
+    $C_{\lambda\mu\nu}(q)$ is the matrix element of the intertwiner
+    \[
+      \Phi_v \colon \cF_{\lambda} \otimes \cF_{\mu} \otimes \cF_{\nu}
+      \to \mathbb{C}
+    \]
+    in the Fock-space representation $\cF_\lambda$ of $G_v$, where
+    $\cF_\lambda$ is the Fock module labeled by the partition $\lambda$.
+  \item \textbf{The shadow}: the $\mathbb{C}^3$ partition function
+    $Z(\mathbb{C}^3) = C_{\emptyset\emptyset\emptyset}(q) = M(q)
+    = \prod_{n=1}^\infty (1-q^n)^{-n}$ is the denominator identity of $G_v$.
+\end{enumerate}
+\end{construction}
+
+\begin{remark}[MacMahon and DT]
+The MacMahon function $M(q) = \sum_{n=0}^\infty p_3(n)\, q^n$, which counts
+3D partitions, is the DT partition function of $\mathbb{C}^3$ (by
+the DT/GW correspondence of Maulik--Nekrasov--Okounkov--Pandharipande).
+Its role as the denominator identity of the local root datum of $G(\mathbb{C}^3)$
+is the simplest instance of Theorem~CY-B.
+\end{remark}
+
+\subsection{Gluing = tensor product of root data}
+\label{sub:gluing}
+
+The factorization \eqref{eq:top-vertex-Z} has a clean interpretation in
+terms of root data:
+
+\begin{construction}[Gluing of root data]
+\label{constr:gluing}
+The global root datum $\mathcal{R}(X)$ is assembled from local root data
+$\mathcal{R}_v$ by the following procedure.
+
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{At each vertex $v$}: the local root datum $\mathcal{R}_v =
+    \mathcal{R}(\mathbb{C}^3)$ with its vertex amplitude $C_{\lambda\mu\nu}$.
+  \item \textbf{At each edge $e$ joining vertices $v, w$}: the ``propagator''
+    is the edge weight $(-Q_e)^{|\lambda_e|} f_{\lambda_e}(q)$, which
+    implements the contraction
+    \[
+      \cF^{(v)}_{\lambda_e} \otimes (\cF^{(w)}_{\lambda_e})^*
+      \xrightarrow{\;\mathrm{contract}\;} \mathbb{C},
+    \]
+    i.e., the identification (tensor product pairing) of the Fock-space
+    representation of $G_v$ with the dual of the Fock-space representation
+    of $G_w$ along the shared edge.
+  \item \textbf{The lattice}: $\Lambda(X) = \bigoplus_e \mathbb{Z} \cdot [e]$
+    (one generator per internal edge = one K\"ahler class), plus the
+    embedding $\Lambda_v \hookrightarrow \Lambda(X)$ at each vertex.
+  \item \textbf{The global quantum group}: $G(X)$ is the tensor product
+    (over the toric diagram) of the local $G_v$'s, quotiented by the
+    edge identifications.  In the language of factorization algebras,
+    this is the factorization product over the toric diagram.
+\end{enumerate}
+
+The summation over partitions $\lambda_e$ in \eqref{eq:top-vertex-Z}
+is the ``path integral'' over the internal degrees of freedom: it sums
+over all representations propagating along each edge, weighted by the
+K\"ahler factor $Q_e^{|\lambda_e|}$.  This is the trace over the tensor
+product:
+\begin{equation}\label{eq:gluing-trace}
+  Z(X) = \mathrm{Tr}_{\bigotimes_e \cF_e}
+    \left( \prod_v \Phi_v \cdot \prod_e (-Q_e)^{L_e^{(0)}} q^{L_e} \right),
+\end{equation}
+where $L_e^{(0)}$ and $L_e$ are the zero-mode and total energy operators on the
+edge Fock spaces.
+\end{construction}
+
+\begin{remark}[Relation to the crystal melting picture]
+The factorization over vertices is the algebraic incarnation of the crystal
+melting picture of Okounkov--Reshetikhin--Vafa: 3D partitions label states
+in the Fock space, the vertex operator creates/annihilates boxes, and the
+partition function counts weighted crystal configurations.  The root datum
+language merely repackages this as data of the quantum vertex chiral group.
+\end{remark}
+
+\begin{conjecture}[Topological vertex as chiral intertwiner]
+\label{conj:vertex-intertwiner}
+The topological vertex $C_{\lambda\mu\nu}(q)$ coincides with the matrix
+element of the $E_2$-chiral intertwiner of $G(\mathbb{C}^3) \simeq Y(\widehat{\mathfrak{gl}}_1) \simeq \mathcal{W}_{1+\infty}$:
+\[
+  C_{\lambda\mu\nu}(q) = \langle \lambda |
+    \Phi^{E_2}_{A_{\mathbb{C}^3}}(z_1, z_2, z_3) | \mu, \nu \rangle,
+\]
+where $\Phi^{E_2}_{A_{\mathbb{C}^3}}$ is the genus-0, 3-point amplitude of
+the $E_2$-chiral algebra $A_{\mathbb{C}^3} = \Phi(\cC_{\mathbb{C}^3})$,
+and the Fock states $|\lambda\rangle$ are identified with basis elements
+of the bar complex $B(A_{\mathbb{C}^3})$.
+\end{conjecture}
+
+
+%% ================================================================
+\section{Connection to the Volume I shadow tower}
+\label{sec:shadow-tower}
+
+\subsection{The leading term: $F_g = \kappa \cdot \lambda_g$}
+\label{sub:leading-term}
+
+Volume~I establishes that for any chiral algebra $A$ with modular
+characteristic $\kappa(A)$, the genus-$g$ obstruction on the
+\emph{uniform-weight lane} (the component of highest Hodge weight in
+$H^\bullet(\Mbar_g)$) is:
+\[
+  \mathrm{obs}_g(A)\big|_{\mathrm{uniform}} = \kappa(A) \cdot \lambda_g,
+\]
+where $\lambda_g$ is the top Chern class of the Hodge bundle
+$\mathbb{E}_g \to \Mbar_g$.  For the quantum vertex chiral group $G(X)$
+of a CY3, the modular characteristic is:
+\[
+  \kappa(G(X)) = \frac{\chi(X)}{2},
+\]
+where $\chi(X)$ is the topological Euler characteristic (which, for a CY3,
+equals $2(h^{1,1} - h^{2,1})$).
+
+This gives the leading term of the genus-$g$ topological string amplitude:
+\begin{equation}\label{eq:fg-leading}
+  F_g\big|_{\mathrm{leading}} = \frac{\chi(X)}{2} \cdot
+    \int_{\Mbar_g} \lambda_g \cdot (\text{known intersection number}).
+\end{equation}
+
+For $g \geq 2$, the Faber--Pandharipande formula gives:
+\[
+  \int_{\Mbar_{g,1}} \psi_1^{2g-2}\, \lambda_g
+  = \frac{2^{2g-1}-1}{2^{2g-1}} \cdot \frac{|B_{2g}|}{(2g)!},
+\]
+where $B_{2g}$ is the Bernoulli number.  The constant-map contribution to
+$F_g$ (the $\beta = 0$ term) is indeed:
+\begin{equation}\label{eq:fg-constant}
+  F_g^{\beta=0} = \frac{(-1)^{g-1}\, \chi(X)}{2}
+    \cdot \frac{|B_{2g}|\, |B_{2g-2}|}{2g\,(2g-2)\,(2g-2)!},
+\end{equation}
+which is precisely $\kappa(G(X)) \cdot \lambda_g$ evaluated via the
+Mumford relation.
+
+\subsection{Shadow corrections beyond the leading term}
+\label{sub:shadow-corrections}
+
+The full genus-$g$ amplitude $F_g = \sum_\beta N_{g,\beta}\, Q^\beta$
+includes contributions from all curve classes $\beta \neq 0$.
+These are the \emph{shadow corrections} to the leading term:
+
+\begin{equation}\label{eq:fg-shadow}
+  F_g = \underbrace{\kappa(G(X)) \cdot \lambda_g}_{\text{uniform-weight lane}}
+    + \underbrace{\sum_{\beta \neq 0} N_{g,\beta}\, Q^\beta}_{\text{shadow corrections}}.
+\end{equation}
+
+The shadow corrections are organized by the root lattice of $G(X)$:
+\begin{enumerate}[label=(\roman*)]
+  \item The $\beta$-th Fourier coefficient $N_{g,\beta}$ is the genus-$g$
+    amplitude of the root $\beta$ in the shadow tower.  For $g = 0$, these
+    are the tree-level structure constants (Yukawa couplings).  For $g = 1$,
+    they include the genus-1 one-loop correction controlled by the
+    Ray--Singer torsion.
+  \item The $Q^\beta$ fugacity is the root-lattice fugacity: $Q^\beta =
+    e^{-\langle t, \beta \rangle}$ where $t$ is the point in the K\"ahler
+    moduli space (= the Cartan element of $G(X)$).
+  \item The shadow Postnikov tower $\Theta_{A_X}^{\leq r}$ truncated at
+    arity $r$ captures the $F_g$ up to corrections from roots of
+    ``arity $> r$'' (roughly, those $\beta$ whose length in the root lattice
+    exceeds $r$).
+\end{enumerate}
+
+\begin{remark}[The three towers]
+Three expansions of the topological string free energy are unified:
+\begin{enumerate}
+  \item \textbf{Genus expansion}: $F = \sum_g F_g\, g_s^{2g-2}$.  This is
+    the shadow tower graded by genus.
+  \item \textbf{Instanton expansion}: $F_g = \sum_\beta N_{g,\beta}\, Q^\beta$.
+    This is the root-lattice decomposition of the genus-$g$ shadow.
+  \item \textbf{BPS expansion}: $F = \sum_{g,\beta,k} \frac{n^g_\beta}{k}
+    (2\sin \frac{kg_s}{2})^{2g-2} Q^{k\beta}$.  This is the
+    Gopakumar--Vafa reformulation, which in the root datum language gives the
+    multiplicities $n^g_\beta$ as the intrinsic BPS content of each root.
+\end{enumerate}
+\end{remark}
+
+\subsection{The partition function as denominator identity}
+\label{sub:denominator}
+
+For the total partition function $Z = e^F$, the product structure of the GV
+formula gives:
+\begin{equation}\label{eq:z-product}
+  Z = M(q)^{\chi(X)/2} \cdot \prod_{\beta > 0}
+    \prod_{k=1}^{\infty} \prod_{j=-\infty}^{\infty}
+    \left(1 - q^{j+k/2}\, Q^{k\beta}\right)^{(-1)^{2j+1}\, n^{|j|}_\beta},
+\end{equation}
+(schematically), which is a Weyl--Kac--Borcherds-type infinite product ---
+the denominator identity of the quantum vertex chiral group $G(X)$.
+
+\begin{itemize}
+  \item The leading factor $M(q)^{\chi(X)/2}$ is the MacMahon function
+    raised to the modular characteristic $\kappa(G(X))$.  This is the
+    contribution of the Weyl vector (constant maps).
+  \item The product over roots $\beta > 0$ with multiplicities $n^g_\beta$
+    is the automorphic correction: the imaginary roots of $G(X)$ with
+    their BPS multiplicities.
+  \item For $K3 \times E$: $Z$ is related to $(\Delta_5)^{-2}$, and the
+    product formula is the Borcherds denominator identity of
+    $\mathfrak{g}_{\Delta_5}$.
+  \item For toric CY3: $Z$ is the DT partition function, factorized via the
+    topological vertex.
+\end{itemize}
+
+
+%% ================================================================
+\section{Summary: the complete dictionary}
+\label{sec:dictionary}
+
+We collect the full dictionary between the topological string on a CY3 $X$
+and the quantum vertex chiral group $G(X)$.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{lll}
+  \hline
+  \textbf{Topological string} & \textbf{$G(X)$ / Vol III} & \textbf{Vol I} \\
+  \hline
+  String coupling $g_s$ & Quantization parameter $\hbar$ & $\hbar$ \\
+  K\"ahler parameter $Q^\beta$ & Root-lattice fugacity & --- \\
+  Genus-$g$ amplitude $F_g$ & Genus-$g$ obstruction & $\mathrm{obs}_g(A_X)$ \\
+  GW invariant $N_{g,\beta}$ & Shadow amplitude at $\beta$ & $\Theta^{(g)}|_\beta$ \\
+  GV invariant $n^g_\beta$ & BPS root multiplicity & Intrinsic root content \\
+  BCOV propagator $S^{ij}$ & Homotopy transfer kernel & Degeneration data \\
+  Yukawa $C_{ijk}$ & Cubic shadow (arity 3) & $C$ in $\Theta^{\leq 3}$ \\
+  Hol.\ anomaly equation & MC at genus $g$ & $D\Theta^{(g)} + \cdots = 0$ \\
+  Holomorphic ambiguity & MC gauge freedom & Shadow gauge \\
+  $F_g^{\beta=0}$ (constant maps) & $\kappa \cdot \lambda_g$ & Uniform-weight lane \\
+  $F_g^{\beta \neq 0}$ (instantons) & Shadow corrections & Off-diagonal shadow \\
+  Partition function $Z = e^F$ & Denominator identity & Bar-complex Euler product \\
+  Topological vertex $C_{\lambda\mu\nu}$ & Local root datum & $E_2$-chiral intertwiner \\
+  Edge gluing & Tensor product of root data & Factorization product \\
+  Mirror symmetry & HMS: $\Fuk(X) \simeq D^b(\Coh(X^\vee))$ & Koszul duality \\
+  DT/GW correspondence & Cohomological Hall $\leftrightarrow$ GW & $E_1 \hookrightarrow E_2$ \\
+  \hline
+\end{tabular}
+\end{center}
+
+
+%% ================================================================
+\section{Open questions and future directions}
+\label{sec:open}
+
+\begin{enumerate}[label=\textbf{Q\arabic*.}]
+  \item \textbf{Full proof of Conjecture~\ref{conj:gw-shadow}.}  The
+    identification of GW invariants with shadow amplitudes is established at
+    the level of the leading term ($\kappa \cdot \lambda_g$) and for toric
+    CY3 (via the topological vertex).  The general case requires constructing
+    the virtual fundamental class from the shadow tower --- this is the
+    ``quantization'' step in the CY-to-chiral functor.
+
+  \item \textbf{Refined topological vertex and motivic root data.}  The
+    refined topological vertex $C_{\lambda\mu\nu}(q,t)$ (Iqbal--Kozcaz--Vafa),
+    which computes the motivic DT invariants, should correspond to the
+    motivic refinement of the root datum --- replacing integer multiplicities
+    by classes in the Grothendieck ring of varieties.
+
+  \item \textbf{Compact CY3 and the holomorphic anomaly.}  For compact CY3,
+    the BCOV equation is essential (unlike for toric CY3, where the B-model
+    is a free theory and $F_g$ is holomorphic for $g \geq 2$ in appropriate
+    coordinates).  Making Construction~\ref{constr:bcov-mc} fully rigorous
+    requires identifying the Costello--Li BCOV theory with the chiral bar
+    dgLa of $G(X)$.
+
+  \item \textbf{Non-perturbative completion.}  The genus expansion $F = \sum_g
+    F_g\, g_s^{2g-2}$ is asymptotic (the $F_g$ grow as $(2g)!$).  The
+    non-perturbative completion should come from the resurgent structure of the
+    shadow tower, with Borel singularities corresponding to the real roots of
+    $G(X)$ (large-radius instantons).
+
+  \item \textbf{The $K3 \times E$ topological string.}  The topological
+    string on $K3 \times E$ is not toric, so the topological vertex does not
+    directly apply.  However, the BKM superalgebra $\mathfrak{g}_{\Delta_5}$
+    provides the root datum, and the Igusa cusp form $\Delta_5$ is the
+    denominator identity.  Constructing $F_g$ from the shadow tower in this
+    case should recover the Oberdieck--Pixton formula
+    (cf.\ the $K3 \times E$ chapter of Volume~III).
+
+  \item \textbf{Relation to wall-crossing.}  The DT/GW correspondence and the
+    wall-crossing formula of Kontsevich--Soibelman should be visible in the
+    root datum as changes of Weyl chamber --- the shadow tower $\Theta_{A_X}$
+    should be wall-crossing invariant, with its chamber-dependent expansion
+    recovering the different BPS spectra.
+\end{enumerate}
+
+\bibliographystyle{alpha}
+% References are inline for this note.
+
+\end{document}

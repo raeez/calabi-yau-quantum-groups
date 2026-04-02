@@ -1,0 +1,884 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{geometry}
+\geometry{margin=1.2in}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\RHom}{\mathrm{RHom}}
+\newcommand{\Ext}{\mathrm{Ext}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\HC}{\mathrm{HC}}
+\newcommand{\CE}{\mathrm{CE}}
+\newcommand{\Ainf}{A_\infty}
+\newcommand{\Linf}{L_\infty}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\Fuk}{\mathrm{Fuk}}
+\newcommand{\Perf}{\mathrm{Perf}}
+\newcommand{\CoHA}{\mathrm{CoHA}}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\Fact}{\mathrm{Fact}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\frakg}{\mathfrak{g}}
+\newcommand{\frakgl}{\mathfrak{gl}}
+
+\title{M-Theory on Calabi--Yau Threefolds, Brane Algebras, \\
+  and Koszul Duality \\[8pt]
+  \large Physics Notes for Volume III}
+\author{Raeez Lorgat}
+\date{April 2026}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\bigskip
+
+\noindent
+These notes spell out the physical picture behind the quantum vertex chiral
+group $G(X)$ of a Calabi--Yau threefold $X$.  The four ingredients ---
+M-theory holography, open string field theory from CY categories, closed
+strings from cyclic homology, and the packaging of both into a single algebraic
+object via Koszul duality --- are developed in turn.  Throughout, we connect to
+the rigorous constructions of the monograph: the CY-to-chiral functor $\Phi$
+(Theorem CY-A), the bar-cobar machine of Volume~I, and the $E_1/E_2$ chiral
+hierarchy of the present Volume~III.
+
+
+%% ====================================================================
+\section{M-theory setup and the two algebras}
+\label{sec:mtheory-setup}
+%% ====================================================================
+
+\subsection{The geometry}
+
+Fix a compact (or suitably non-compact) Calabi--Yau threefold $X$.  Consider
+M-theory on the eleven-dimensional background
+\[
+  \mathbb{R}_t \times X \times \mathbb{R}^4,
+\]
+where $\mathbb{R}_t$ is the ``time'' direction along which operator products
+will be taken.  Place a stack of $N$ M2-branes supported on
+\[
+  \mathbb{R}_t \times \{p\} \subset \mathbb{R}_t \times X,
+\]
+where $p \in X$ is a point.  The M2-branes are thus (1+0)-dimensional objects
+(quantum-mechanical from the brane worldvolume perspective) wrapping the time
+direction and localized at a point in $X$.
+
+\begin{remark}
+The choice of $\mathbb{R}^4$ as the transverse factor is dictated by the
+requirement that the M2-brane worldvolume theory be topological along $X$ and
+that the bulk gravitational theory reduce to a tractable form after
+compactification on $X$.  In the topological string setting, one replaces
+$\mathbb{R}^4$ by $\mathbb{C}^{0|2}$ (the odd cotangent directions of the
+Calabi--Yau).  This replacement is the AKSZ origin of the BV formalism on the
+brane.
+\end{remark}
+
+\subsection{The brane algebra $\cA_N$}
+
+The stack of $N$ M2-branes supported on $\mathbb{R}_t \times \{p\}$ carries a
+worldvolume theory.  The algebra of local operators of this quantum-mechanical
+system is the \emph{brane algebra}
+\[
+  \cA_N = \text{algebra of operators on the $N$-brane stack at $p \in X$}.
+\]
+The operator product expansion (OPE) in the $\mathbb{R}_t$ direction equips
+$\cA_N$ with the structure of an associative algebra.  More precisely, $\cA_N$
+is a differential graded (dg) algebra in the BV formalism, with $Q$-cohomology
+the physical operator algebra.
+
+\begin{remark}[Explicit form for $X = \mathbb{C}^3$]
+\label{rem:c3-explicit}
+When $X = \mathbb{C}^3$ (or more generally a toric CY3), the brane worldvolume
+theory is a matrix quantum mechanics.  In the BV formalism, the fields are
+\[
+  \alpha \in \Omega^*(\mathbb{R}_t)[\varepsilon_1, \varepsilon_2, \varepsilon_3]
+    \otimes \frakgl_N[1],
+\]
+where the $\varepsilon_i$ are odd variables representing the three normal
+directions in $X$ (the Ext algebra $\Ext^*_{\cO_X}(\cO_p, \cO_p) =
+\bigwedge(\varepsilon_1, \varepsilon_2, \varepsilon_3)$ for a point $p \in
+\mathbb{C}^3$).  The action is
+\[
+  S(\alpha) = \int_{\mathbb{R}_t \times \mathbb{C}^{0|3}}
+    \left( \frac{1}{2} \Tr(\alpha \, d\alpha)
+    + \frac{1}{3} \Tr(\alpha^3) \right),
+\]
+where the integral over $\mathbb{C}^{0|3}$ is the Berezin integral over the
+odd fiber.  De-BV-fying (extracting the ghost-number-zero fields), one obtains
+a gauge field $A \in \Omega^1(\mathbb{R}_t) \otimes \frakgl_N$ and three
+$\frakgl_N$-valued scalars $\phi_1, \phi_2, \phi_3$ with action
+\[
+  S = \int_{\mathbb{R}_t} \Tr\bigl(
+    \phi_1 \, d_A \phi_2
+    + \phi_3 [\phi_1, \phi_2]
+  \bigr).
+\]
+This is the dimensional reduction of holomorphic Chern--Simons theory on
+$\mathbb{C}^3$ to $\mathbb{R}_t$, i.e., a matrix model with cubic potential
+$W = \Tr(XYZ - XZY)$.
+\end{remark}
+
+\subsection{The gravitational algebra $\cB$}
+
+The \emph{gravitational algebra} $\cB$ is the algebra of local operators of the
+topological/holomorphic gravitational theory on the full spacetime
+$\mathbb{R}_t \times X$.  Concretely, after compactification on $X$, this is
+the BCOV-type theory whose fields are polyvector fields on $X$ (subject to
+the $\partial$-closedness condition), and whose OPE in $\mathbb{R}_t$ provides
+the associative product.
+
+For $X = \mathbb{C}^3$ (or a neighborhood thereof), the gravitational theory is
+the Kodaira--Spencer theory:
+\begin{align}
+  \text{Fields:} \quad
+  &\alpha \in \Omega^*(\mathbb{R}_t) \,\hat{\otimes}\,
+    \Omega^{0,*}(X)[1], \notag \\
+  &\beta \in \Omega^*(\mathbb{R}_t) \,\hat{\otimes}\,
+    \Omega^{0,*}(X)[2], \notag \\[4pt]
+  \text{Action:} \quad
+  &S = \int_{\mathbb{R}_t \times X}
+    \beta \, \bar{\partial} \alpha \, \Omega
+    + \beta \, \partial\alpha \wedge \partial\alpha, \label{eq:ks-action}
+\end{align}
+where $\Omega$ is the holomorphic volume form.  The second term encodes the
+Poisson bracket on Hamiltonian vector fields: $\partial\alpha \wedge
+\partial\alpha = \{\alpha, \alpha\} \, \Omega$.
+
+The ring of classical local operators is
+\[
+  \cB^{\mathrm{cl}} = C^*\bigl(
+    \mathbb{C}[z_1, z_2, z_3] \ltimes \mathbb{C}[z_1, z_2, z_3][1]
+  \bigr),
+\]
+the Chevalley--Eilenberg cochains of the semi-direct product of the polynomial
+ring (viewed as a Lie algebra via the Poisson bracket $\{-,-\}$ from $\Omega$)
+with itself shifted, viewed as the adjoint module.
+
+\subsection{Holography as Koszul duality}
+\label{sec:holography-koszul}
+
+The holographic duality between the brane theory and the gravitational theory
+admits a sharp algebraic formulation:
+
+\begin{conjecture}[Holographic Koszul duality]
+\label{conj:holographic-kd}
+In the large-$N$ limit, the brane algebra and the gravitational algebra are
+related by Koszul duality:
+\[
+  \lim_{N \to \infty} \cA_N \;=\; \cB^{!},
+\]
+where $\cB^!$ denotes the Koszul dual of $\cB$.
+\end{conjecture}
+
+\begin{remark}[Evidence in the $\mathbb{C}^2$ example]
+The original notes verify this for $X = \mathbb{C}^2$ (mixed A-B model on
+$\mathbb{R}^2_A \times \mathbb{C}^2_B$).  There, the gauge theory operators
+are $\Sym^*(\mathbb{C}[z_1, z_2] \oplus \mathbb{C}[z_1, z_2][1])$ and the
+gravity operators are $C^*(\mathbb{C}[z_1, z_2] \ltimes \mathbb{C}[z_1,
+z_2][1])$.  The Koszul dual of the latter is $\mathbf{U}(\Hom(\mathbb{C}^2)
+\oplus \Hom(\mathbb{C}^2)[1])$, whose commutative (classical, large-$N$) limit
+is the former.  Koszul duality thus interchanges:
+\begin{center}
+\begin{tabular}{rcl}
+  Classical free gravity & $\longleftrightarrow$ & Classical gauge theory \\
+  Poisson bracket (interactions) & $\longleftrightarrow$ &
+    First quantum correction ($\hbar^1$) \\
+  Genus-$g$ string amplitude & $\longleftrightarrow$ &
+    $\hbar^g$ correction (ribbon graphs)
+\end{tabular}
+\end{center}
+The $A_\infty$-operations in the gravitational Chevalley--Eilenberg complex
+(Feynman diagrams with $m_2, m_3, \ldots$) are matched by multi-trace
+operators and their OPE on the gauge theory side.
+\end{remark}
+
+\begin{remark}[Nature of the limit]
+The ``$\lim_{N \to \infty}$'' should be understood as follows.  For each
+finite $N$, the brane algebra $\cA_N$ involves $\frakgl_N$-valued fields.
+Invariant theory provides the algebra of gauge-invariant operators
+\[
+  \cA_N^{\mathrm{inv}} = \bigl\{
+    \Tr(P(\phi_1, \ldots, \phi_d)) : P \text{ non-commutative polynomial}
+  \bigr\} / \text{trace relations at rank } N.
+\]
+As $N \to \infty$ the trace relations disappear and the generators become free:
+$\cA_\infty^{\mathrm{inv}}$ is the free algebra on single-trace generators.
+This free algebra is Koszul dual to the Chevalley--Eilenberg cochains of the
+gravitational Lie algebra.
+\end{remark}
+
+
+%% ====================================================================
+\section{Open strings from CY categories}
+\label{sec:open-strings}
+%% ====================================================================
+
+\subsection{The CY category as the category of branes}
+
+The data of M-theory on $\mathbb{R}_t \times X$ includes a category of branes:
+\begin{itemize}
+  \item In the B-model, branes are coherent sheaves on $X$:
+    $\cC = D^b(\Coh(X))$.
+  \item In the A-model, branes are Lagrangians:
+    $\cC = \Fuk(X)$.
+  \item In mixed models (e.g., $X = \mathbb{R}^2_A \times \mathbb{C}^2_B$),
+    branes are products $L \times Z$ of Lagrangians and coherent sheaves.
+\end{itemize}
+In every case, $\cC$ is a \emph{Calabi--Yau category of dimension $d = \dim_\mathbb{C} X$}: it carries a cyclic $\Ainf$-structure induced by the holomorphic volume form $\Omega \in H^0(X, K_X)$.
+
+\subsection{Open string fields as $\RHom$}
+
+Fix a brane $\cF \in \cC$ (for instance, the skyscraper sheaf $\cO_p$ for M2-branes at a point $p$, or a Lagrangian $L$ for an A-brane).  The space of \emph{open string fields} is
+\[
+  \boxed{\;
+    \text{Open string fields} = \RHom_\cC(\cF, \cF)[1].
+  \;}
+\]
+The shift $[1]$ is the BV shift: it places the connection (gauge field) in
+ghost number zero and the matter fields (normal deformations of the brane) in
+appropriate ghost numbers.
+
+\begin{example}[Point brane on $\mathbb{C}^3$]
+For $\cF = \cO_p$ with $p \in \mathbb{C}^3$, the self-Ext algebra is
+\[
+  \Ext^*_{\cO_{\mathbb{C}^3}}(\cO_p, \cO_p)
+    = \bigwedge(\varepsilon_1, \varepsilon_2, \varepsilon_3),
+\]
+an exterior algebra on three generators of degree $1$ (one per normal
+direction).  After the BV shift and tensoring with $\frakgl_N$ for $N$ branes,
+this gives the field content of Remark~\ref{rem:c3-explicit}.
+\end{example}
+
+\begin{example}[Point brane on $\mathbb{C}^2$]
+For the mixed A-B model on $\mathbb{R}^2 \times \mathbb{C}^2$, the brane
+$\cF = \mathbb{R} \times \{p\}$ has open string fields
+\[
+  \Omega^*(\mathbb{R})
+    \otimes \Ext^*_{\cO_{\mathbb{C}^2}}(\cO_p, \cO_p)
+    \otimes \frakgl_N[1]
+  = \Omega^*(\mathbb{R})[\varepsilon_1, \varepsilon_2]
+    \otimes \frakgl_N[1],
+\]
+the Floer--Ext tensor product.
+\end{example}
+
+\subsection{The open string field theory action from $\Ainf$-structure}
+\label{sec:osft-action}
+
+The CY category $\cC$ carries an $\Ainf$-structure: higher composition maps
+$\mu_n \colon \Hom(X_0, X_1) \otimes \cdots \otimes \Hom(X_{n-1}, X_n)
+\to \Hom(X_0, X_n)[2-n]$.  For the endomorphism algebra $A = \End_\cC(\cF)$
+of a single brane, the $\Ainf$-operations $\mu_1, \mu_2, \mu_3, \ldots$
+determine the open string field theory action by the Witten--Gaberdiel--Zwiebach
+prescription:
+\[
+  S(\alpha) = \sum_{n \geq 1} \frac{1}{n+1}
+    \langle \alpha, \mu_n(\alpha, \ldots, \alpha) \rangle,
+\]
+where $\langle \cdot, \cdot \rangle \colon A \otimes A \to k[-d]$ is the CY
+pairing and $\alpha \in A[1]$ is the string field.
+
+\begin{remark}[Relation to Theorem CY-A]
+\label{rem:osft-theorem-cya}
+The passage
+\[
+  \text{cyclic } \Ainf\text{-algebra } (A, \langle \cdot, \cdot \rangle)
+  \;\longmapsto\;
+  \text{chiral algebra } \Phi(\cC)
+\]
+of Theorem CY-A is \emph{precisely} the open string field theory construction
+in categorical language.  The cyclic $\Ainf$-structure on $A = \End_\cC(\cF)$
+is the chain-level datum encoding the full tree-level open string field theory.
+The CY-to-chiral functor $\Phi$ promotes this to a factorization algebra on a
+curve $C$ by:
+\begin{enumerate}[label=(\roman*)]
+  \item Extracting the Lie conformal algebra $\mathfrak{L}_\cC$ from the
+    Gerstenhaber bracket on $\HH^*(\cC)$;
+  \item Taking the factorization envelope $\Fact_C(\mathfrak{L}_\cC)$;
+  \item Enhancing to $E_2$ via the $\mathbb{S}^d$-framing (for $d = 3$, the
+    $\mathbb{S}^3$-framing gives $E_3$, which restricts to $E_2$ via Dunn
+    additivity);
+  \item Quantizing using the CY trace.
+\end{enumerate}
+The upshot: the chiral algebra $\Phi(\cC)$ is the open string field theory
+\emph{organized as a factorization algebra}.
+\end{remark}
+
+\subsection{$N$ branes and matrix enlargement}
+
+For a stack of $N$ branes, one replaces the endomorphism algebra by its matrix
+enlargement:
+\[
+  A_N = \End_\cC(\cF^{\oplus N}) \simeq \End_\cC(\cF) \otimes \frakgl_N.
+\]
+The $\Ainf$-structure extends by the Leibniz rule on the $\frakgl_N$ factor.
+The brane algebra $\cA_N$ is the $Q$-cohomology of the resulting dg algebra
+of gauge-invariant operators:
+\[
+  \cA_N = H^*\Bigl(
+    \bigl(\Sym^*(A_N[1])\bigr)^{\frakgl_N}, \, Q_{\mathrm{BV}}
+  \Bigr).
+\]
+Concretely, generators are single-trace operators $\Tr(P(\phi_1, \ldots,
+\phi_d))$ with $P$ a non-commutative polynomial in the matter fields (and
+ghosts/anti-fields at other ghost numbers).  As $N \to \infty$, the trace
+relations vanish and $\cA_\infty$ is freely generated by single traces.
+
+
+%% ====================================================================
+\section{Closed strings from cyclic homology}
+\label{sec:closed-strings}
+%% ====================================================================
+
+\subsection{The theorem of Loday--Quillen--Tsygan}
+
+The passage from open strings to closed strings is controlled by a classical
+theorem in non-commutative geometry:
+
+\begin{theorem}[Loday--Quillen--Tsygan]
+\label{thm:lqt}
+For a unital associative algebra $A$, the Chevalley--Eilenberg homology of the
+Lie algebra of infinite matrices over $A$ is an exterior algebra generated by
+the cyclic homology of $A$:
+\[
+  H_*^{\CE}(\frakgl_\infty(A)) \;\simeq\; \bigwedge \HC_*(A).
+\]
+\end{theorem}
+
+\subsection{Physical interpretation}
+\label{sec:lqt-physics}
+
+The physical content of Loday--Quillen--Tsygan is as follows:
+
+\begin{enumerate}[label=(\arabic*)]
+  \item \textbf{The open string algebra} is $A = \End_\cC(\cF)$, the
+    endomorphism algebra of a brane.
+
+  \item \textbf{Matrix enlargement and the large-$N$ limit.}  The Lie algebra
+    $\frakgl_N(A) = \frakgl_N \otimes A$ is the open string algebra for $N$
+    branes.  Taking $N \to \infty$ yields $\frakgl_\infty(A)$.
+
+  \item \textbf{Chevalley--Eilenberg homology = gauge-invariant operators.}
+    The CE chain complex $C_*^{\CE}(\frakgl_\infty(A))$ computes the homology
+    of gauge-invariant observables in the large-$N$ matrix model.  This is the
+    space of \emph{closed string states}: the gauge-invariant sector of the
+    open string theory IS the closed string theory.
+
+  \item \textbf{Single-trace generators = single-string states.}  The exterior
+    algebra generators $\HC_*(A)$ correspond to single-trace operators
+    $\Tr(\phi_{i_1} \cdots \phi_{i_k})$.  These are the \emph{single-string
+    states}: each cyclic homology class is one closed string mode.
+
+  \item \textbf{Multi-trace operators = multi-string states.}  The exterior
+    power $\bigwedge^k \HC_*(A)$ corresponds to $k$-trace operators, i.e.,
+    $k$-string states.  The exterior algebra structure encodes the statistics
+    (closed strings are bosonic/fermionic depending on degree).
+
+  \item \textbf{OPE = string scattering.}  The OPE of single-trace operators
+    on the gauge theory side matches the tree-level closed string scattering
+    amplitudes.  Multi-trace OPE (with trace-splitting and trace-joining)
+    matches higher-genus string amplitudes.
+\end{enumerate}
+
+\subsection{The closed string algebra as chiral derived center}
+\label{sec:derived-center}
+
+In the language of the monograph:
+
+\begin{proposition}[Closed strings = derived center]
+\label{prop:closed-derived-center}
+The closed string algebra produced by Loday--Quillen--Tsygan is the
+\emph{chiral derived center} $Z^{\mathrm{der}}_{\mathrm{ch}}(\Phi(\cC))$ of
+the chiral algebra associated to the CY category:
+\[
+  \text{Closed string algebra}
+  = H_*^{\CE}(\frakgl_\infty(A))
+  \simeq \bigwedge \HC_*(A)
+  = Z^{\mathrm{der}}_{\mathrm{ch}}(\Phi(\cC)).
+\]
+\end{proposition}
+
+The identifications proceed as follows:
+\begin{itemize}
+  \item $\HC_*(A)$ is the cyclic homology of the open string algebra ---
+    equivalently, the Hochschild homology of $\cC$ with its $S^1$-action.
+  \item $\HC_*(A)$ is simultaneously the space of deformations of the closed
+    string background (via the Kontsevich--Soibelman map $\HC_*(A) \to$
+    deformations of the $\Ainf$-structure).
+  \item The chiral derived center $Z^{\mathrm{der}}_{\mathrm{ch}}(\Phi(\cC))$
+    is the $E_2$-center of the chiral algebra --- exactly the algebra of bulk
+    (gravitational) local operators.
+\end{itemize}
+
+\begin{remark}
+The identification of the derived center with the gravitational algebra is the
+categorical incarnation of the Drinfeld center construction:
+\[
+  \cZ(\Rep^{E_1}(\Phi(\cC)))
+  \simeq \Rep^{E_2}(Z^{\mathrm{der}}_{\mathrm{ch}}(\Phi(\cC))).
+\]
+The monoidal ($E_1$) representation category of the boundary (brane) theory
+determines a braided monoidal ($E_2$) category via the center construction.
+This is the bulk-boundary correspondence at the categorical level.
+\end{remark}
+
+
+%% ====================================================================
+\section{The gravitational algebra from polyvector fields}
+\label{sec:grav-algebra}
+%% ====================================================================
+
+\subsection{BCOV theory on $X$}
+\label{sec:bcov}
+
+The gravitational (closed string field) theory on $\mathbb{R}_t \times X$ is
+the Kodaira--Spencer / BCOV theory.  Following the analysis in the earlier
+notes, and extending from $\mathbb{C}^2$ to a general CY threefold $X$:
+
+The space of closed string states (before interaction) is
+\[
+  \ker \partial \subset \mathbf{PV}^{*,*}(X) \simeq
+  \bigoplus_{p,q} \Omega^{0,q}(X, \bigwedge^p TX),
+\]
+where $\partial \colon \mathbf{PV}^{p,q} \to \mathbf{PV}^{p-1,q}$ is the
+divergence operator (contraction with $\Omega$).  The components:
+\begin{itemize}
+  \item $\mathbf{PV}^{0,*}(X) \subset \ker \partial$: functions (automatic).
+  \item $\mathbf{PV}^{1,*}(X) \cap \ker \partial$: divergence-free vector
+    fields, i.e., Hamiltonian vector fields (via $\Omega$, these are identified
+    with closed holomorphic $(d-1)$-forms).
+  \item $\mathbf{PV}^{2,*}(X) \cap \ker \partial$: $\partial$-closed
+    bi-vector fields.  For $X = \mathbb{C}^3$, these give deformations of the
+    holomorphic symplectic structure.
+  \item $\mathbf{PV}^{3,*}(X) \cap \ker \partial$: the ``top'' polyvector
+    fields, corresponding to deformations of $\Omega$ itself.
+\end{itemize}
+
+\subsection{The gravitational algebra as Chevalley--Eilenberg cochains}
+\label{sec:grav-ce}
+
+After the reduction to physical operators (passing to $Q$-cohomology), the
+ring of classical local operators of the gravitational theory at a point
+$x \in X$ is
+\[
+  \cB^{\mathrm{cl}}
+  = C^*\bigl(\frakgl_\Omega(X) \ltimes \frakgl_\Omega(X)[1]\bigr),
+\]
+where $\frakgl_\Omega(X) = \{f \in \cO(X) : \{f, -\} \text{ preserves }
+\Omega\}$ is the Lie algebra of Hamiltonian functions with Poisson bracket
+$\{-,-\}$ determined by $\Omega$.  The semi-direct product structure reflects
+the BF-type nature of the theory: $\alpha$-fields (Hamiltonian vector fields)
+act on $\beta$-fields (adjoint-valued functions) via the Poisson bracket, while
+$\beta$ commutes with $\beta$.
+
+For computations at a formal neighborhood of $p \in X \simeq \mathbb{C}^3$:
+\begin{align*}
+  \text{Ghost \#1 operators:} &\quad
+    \cO_i^{(1)} = \partial_{z_1}^{a} \partial_{z_2}^{b} \partial_{z_3}^{c}
+    \alpha \quad (a, b, c \geq 0), \\
+  \text{Ghost \#2 operators:} &\quad
+    \cO_i^{(2)} = \partial_{z_1}^{a} \partial_{z_2}^{b} \partial_{z_3}^{c}
+    \beta \quad (a, b, c \geq 0).
+\end{align*}
+These transform \emph{contravariantly} to the gauge theory operators: the
+gravitational operators carry polynomial derivatives (jet space), while the
+gauge theory operators carry polynomial values (formal functions).  This
+contravariance is the fingerprint of Koszul duality.
+
+
+%% ====================================================================
+\section{The Koszul duality dictionary}
+\label{sec:koszul-dictionary}
+%% ====================================================================
+
+\subsection{Classical Koszul duality}
+
+At the classical level, the Koszul duality between gauge theory and gravity
+takes the form:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|c|c|c|}
+\hline
+& \textbf{Gauge theory (brane)} & \textbf{Gravity (bulk)} \\
+\hline
+\textbf{Algebra} & $\cA_\infty = \Sym^*\bigl(V \oplus V[1]\bigr)$ &
+  $\cB = C^*(V \ltimes V[1])$ \\
+\hline
+\textbf{Type} & Commutative (symmetric) & Lie (CE cochains) \\
+\hline
+\textbf{Generators} & $\Tr(\phi^I)$ (polynomial values) &
+  $\partial^I \alpha, \, \partial^I \beta$ (jets) \\
+\hline
+\textbf{Product} & Commutative product & Chevalley--Eilenberg cup product \\
+\hline
+\end{tabular}
+\end{center}
+
+\noindent
+where $V = \mathbb{C}[z_1, \ldots, z_d]$ (polynomial functions on the
+transverse CY directions).  The Koszul dual of $C^*(V \ltimes V[1])$ is
+$\mathbf{U}(V \oplus V[1])$ --- the universal enveloping algebra --- whose
+commutative limit (setting $\hbar \to 0$, equivalently $N \to \infty$ with
+classical scaling) is $\Sym^*(V \oplus V[1])$.
+
+\subsection{Quantum corrections: order by order in $\hbar$}
+\label{sec:quantum-corrections}
+
+Moving beyond the classical limit, Koszul duality becomes a precise matching
+between quantum corrections:
+
+\begin{enumerate}[label=\textbf{Order $\hbar^{\arabic*}$:}]
+  \item[{$\hbar^0$:}]
+    Classical free gravity $\longleftrightarrow$ Classical gauge theory
+    (commutative limit).
+
+  \item[{$\hbar^1$:}]
+    The Poisson bracket $\{z_1^k z_2^l, z_1^m z_2^n\}$ on the gravity side
+    matches the commutator $[\Tr(\phi_1^k \phi_2^l), \Tr(\phi_1^m \phi_2^n)]$
+    on the gauge theory side.  Diagrammatically, this is a single propagator
+    connecting two single-trace sub-diagrams.
+
+  \item[{$\hbar^2$:}]
+    By the even quantization symmetry ($\hbar \mapsto -\hbar$ with reversal of
+    product), there are no corrections at order $\hbar^2$.
+
+  \item[{$\hbar^3$:}]
+    The non-trivial $A_\infty$-operations appear.  On the gauge theory side,
+    ribbon graphs with $k$ boundaries contribute $k$-trace operators.  A cubic
+    ribbon graph (three boundaries) gives an $m_3$ operation; a quadratic one
+    gives a corrected $m_2$.  On the gravity side, these match Feynman diagrams
+    computing the $A_\infty$-structure on $C^*(\frakg_\Omega)$.
+\end{enumerate}
+
+\begin{remark}[Genus expansion]
+The $\hbar$ expansion is simultaneously a genus expansion.  At order $\hbar^g$,
+the diagrams on the gauge theory side are ribbon graphs of genus $\leq g$; on
+the gravity side, they are genus-$g$ string worldsheets.  The precise statement
+is:
+\begin{itemize}
+  \item $\hbar^0$: tree level (genus 0, planar diagrams)
+  \item $\hbar^1$: one-loop (torus diagrams, first non-planar correction)
+  \item $\hbar^g$: genus-$g$ worldsheets $\longleftrightarrow$ ribbon graphs
+    with $g$ handles
+\end{itemize}
+In the Volume~I language, this is the shadow tower: genus-$g$ contributions are
+captured by the arity-$(g+1)$ component of the MC element $\Theta_A$.
+\end{remark}
+
+
+%% ====================================================================
+\section{The quantum vertex chiral group $G(X)$}
+\label{sec:qvcg}
+%% ====================================================================
+
+\subsection{Packaging the two algebras}
+
+The quantum vertex chiral group $G(X)$ associated to a CY3 $X$ is a single
+algebraic object that packages both the brane algebra and the gravitational
+algebra, with Koszul duality as the internal organizing principle:
+
+\begin{definition}[Quantum vertex chiral group --- physics summary]
+\label{def:gx-physics}
+The quantum vertex chiral group $G(X)$ is the $E_2$-chiral algebra
+$\Phi(\cC)$, where $\cC$ is the CY category of $X$ (either $D^b(\Coh(X))$ or
+$\Fuk(X)$), equipped with the following structure:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Positive half (brane algebra).}  The $E_1$-sector of $G(X)$ is
+    the CoHA: $G(X)^+ = \CoHA(\cC) \simeq \cA_\infty$.  For toric $X$, this
+    is $Y^+(\widehat{\frakg}_{Q_X})$ (the positive half of the affine super
+    Yangian).
+
+  \item \textbf{Derived center (gravitational algebra).}  The chiral derived
+    center $Z^{\mathrm{der}}_{\mathrm{ch}}(G(X)) = \cB$ is the gravitational
+    algebra.  It is generated as an exterior algebra by $\HC_*(\cC)$
+    (Loday--Quillen--Tsygan).
+
+  \item \textbf{Koszul duality = holography.}  The positive half and the
+    derived center are related by Koszul duality:
+    \[
+      G(X)^+ \simeq \bigl(Z^{\mathrm{der}}_{\mathrm{ch}}(G(X))\bigr)^!.
+    \]
+    This is the algebraic incarnation of holographic duality.
+
+  \item \textbf{$E_2$-structure (braiding = $R$-matrix).}  The $E_2$-chiral
+    enhancement provides the braiding on $\Rep^{E_2}(G(X))$.  The universal
+    $R$-matrix $R(z) = \mathrm{Res}^{\mathrm{coll}}_{0,2}(\Theta_{G(X)})$
+    satisfies the quantum Yang--Baxter equation and encodes the quantum group
+    structure.
+\end{enumerate}
+\end{definition}
+
+\subsection{The triangular decomposition}
+
+As a super Lie algebra (or BKM superalgebra in the K3 $\times$ E setting),
+$G(X)$ admits a triangular decomposition:
+\[
+  G(X) = \mathfrak{n}_- \oplus \mathfrak{h} \oplus \mathfrak{n}_+,
+\]
+where:
+\begin{itemize}
+  \item $\mathfrak{n}_+ = $ positive half $=$ CoHA $=$ brane algebra
+    $\cA_\infty$.
+  \item $\mathfrak{h} = $ Cartan subalgebra $=$ lattice $\Lambda(X) \otimes
+    \mathbb{R}$ extracted from $K$-theory of $X$.
+  \item $\mathfrak{n}_- = $ negative half $=$ co-brane algebra (Koszul dual
+    generators).
+\end{itemize}
+The root space decomposition
+\[
+  \mathfrak{n}_+ = \bigoplus_{\alpha \in \Delta_+}
+    \mathfrak{n}_\alpha, \qquad
+  \dim \mathfrak{n}_\alpha = \mathrm{mult}(\alpha)
+\]
+is controlled by the BPS spectrum: $\mathrm{mult}(\alpha) = \mathrm{DT}_\alpha(X)$
+(Donaldson--Thomas invariant of class $\alpha$).  The real roots correspond to
+rigid BPS states; the imaginary roots to families.
+
+\subsection{The automorphic correction and the shadow tower}
+\label{sec:automorphic-shadow}
+
+The passage from the ``tree-level'' root datum (real roots + leading imaginary
+roots) to the full BKM superalgebra is the \emph{automorphic correction}.  In
+the language of Volume~I:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{BKM / physics} & \textbf{Volume I bar-cobar} \\
+\hline
+Tree-level $r$-matrix & Collision $r$-matrix
+  $r(z) = \mathrm{Res}^{\mathrm{coll}}_{0,2}(\Theta_A)$ \\
+\hline
+Imaginary root corrections & Higher-arity shadows
+  ($C$, $Q$, \ldots) \\
+\hline
+Full automorphic correction & Full MC element $\Theta_A$ \\
+\hline
+Denominator identity $\Phi(z)$ & Bar-complex Euler product \\
+\hline
+Automorphic form (e.g., $\Delta_5$) & Genus-$g$ obstruction $\mathrm{obs}_g$ \\
+\hline
+\end{tabular}
+\end{center}
+
+The key identification:
+\begin{center}
+\emph{Automorphic correction = Shadow tower.}
+\end{center}
+The shadow Postnikov tower $\Theta_A^{\leq r}$ of Volume~I, projected at
+successive arities, recovers the successive imaginary root corrections to the
+BKM superalgebra.
+
+\subsection{The two main examples}
+\label{sec:two-examples}
+
+\subsubsection{Example 1: $X = \mathbb{C}^3$ (affine Yangian)}
+
+\begin{itemize}
+  \item Quiver: Jordan quiver (one vertex, one loop with cubic potential
+    $W = \Tr(XYZ - XZY)$).
+  \item $\cA_\infty = \CoHA(\mathbb{C}^3) \simeq Y^+(\widehat{\frakgl}_1)$
+    (Schiffmann--Vasserot).
+  \item $G(\mathbb{C}^3) = Y(\widehat{\frakgl}_1)$, the full affine Yangian
+    of $\frakgl_1$.
+  \item This is isomorphic to $\mathcal{W}_{1+\infty}$ at the self-dual level
+    --- already a central object in Volume~I, where MC4 is solved by weight
+    stabilization.
+  \item $\cB = $ Kodaira--Spencer theory on $\mathbb{C}^3$ = the chiral
+    derived center.
+  \item The Yangian $R$-matrix is the DK-0 shadow.
+\end{itemize}
+
+\subsubsection{Example 2: $X = (\text{K3} \times E) / (\mathbb{Z}/N\mathbb{Z})$
+  (BKM superalgebras)}
+
+\begin{itemize}
+  \item Lattice: $\Lambda^{3,2}$ of signature $(3,2)$ from $H^*(X)$.
+  \item Real roots: three simple roots $\delta_1, \delta_2, \delta_3$ with Gram
+    matrix
+    $\bigl(\begin{smallmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2
+    \end{smallmatrix}\bigr)$.
+  \item Root multiplicities: $\mathrm{mult}(\alpha) = f(nm, l)$, where
+    $f(n, l)$ are Fourier coefficients of the K3 elliptic genus
+    $\varphi_{0,1}$.
+  \item $G(X) = \frakg_{\Delta_5}$, the BKM superalgebra whose denominator
+    identity is (up to normalization) the Igusa cusp form $\Delta_5$, a Siegel
+    modular form of weight 5 for $\mathrm{Sp}_4(\mathbb{Z})$.
+  \item The $E_2$-structure is the $\mathrm{Sp}_4(\mathbb{Z})$ action on the
+    genus-2 Siegel upper half-space $\mathbb{H}_2$.
+  \item The shadow tower captures the automorphic correction: arity 2 is the
+    Weyl vector contribution, higher arities add imaginary roots.
+\end{itemize}
+
+
+%% ====================================================================
+\section{The full picture: open/closed/holography}
+\label{sec:full-picture}
+%% ====================================================================
+
+We can now assemble the complete dictionary:
+
+\[
+\boxed{
+\begin{array}{ccccc}
+  \textbf{Open strings} & \xrightarrow{\text{LQT}} &
+  \textbf{Closed strings} & \xleftrightarrow{\text{KD}} &
+  \textbf{Branes} \\[6pt]
+  \RHom(\cF, \cF)[1] & &
+  \bigwedge \HC_*(\End(\cF)) & &
+  \cA_N \\[6pt]
+  \Ainf\text{-structure} & &
+  Z^{\mathrm{der}}_{\mathrm{ch}} & &
+  \text{CoHA} \\[6pt]
+  E_1\text{-sector} & &
+  E_2\text{-bulk} & &
+  E_1\text{-boundary}
+\end{array}
+}
+\]
+
+Reading left to right:
+
+\begin{enumerate}[label=\textbf{(\arabic*)}]
+  \item \textbf{Open strings.}  The CY category $\cC$ provides the space of
+    open string fields $\RHom(\cF, \cF)[1]$ with action from the $\Ainf$-structure.  This is Theorem CY-A: the cyclic $\Ainf$-structure is promoted to a chiral algebra $\Phi(\cC)$.
+
+  \item \textbf{Closed strings.}  Loday--Quillen--Tsygan extracts the closed
+    string algebra as $\bigwedge \HC_*(\End(\cF))$ --- the exterior algebra
+    on cyclic homology.  This is the chiral derived center
+    $Z^{\mathrm{der}}_{\mathrm{ch}}(\Phi(\cC))$ and equals the gravitational
+    algebra $\cB$.
+
+  \item \textbf{Holography.}  The brane algebra $\cA_\infty$ (single-trace
+    operators, the CoHA, the positive half of $G(X)$) is Koszul dual to $\cB$.
+    The Drinfeld center construction
+    $\cZ(\Rep^{E_1}(\cA)) \simeq \Rep^{E_2}(\cB)$
+    provides the categorical bulk-boundary correspondence.
+
+  \item \textbf{The quantum vertex chiral group.}  $G(X)$ packages all three:
+    $G(X)^+ = \cA_\infty$ (brane algebra / CoHA),
+    $Z^{\mathrm{der}}_{\mathrm{ch}}(G(X)) = \cB$ (gravitational algebra),
+    and Koszul duality between them is holography.  The $E_2$-structure
+    (braiding / $R$-matrix) encodes the quantum group structure, and the full
+    MC element $\Theta_{G(X)}$ (the automorphic correction) is the shadow tower
+    capturing all genera.
+\end{enumerate}
+
+\subsection{Summary of identifications}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Physics} & \textbf{Algebra} & \textbf{Vol I/III} \\
+\hline
+M2-brane operators & $\cA_N$ (gauge-invariant operators) & CoHA, $G(X)^+$ \\
+\hline
+Gravitational operators & $\cB$ (CE cochains) &
+  $Z^{\mathrm{der}}_{\mathrm{ch}}(G(X))$ \\
+\hline
+Open string fields & $\RHom(\cF, \cF)[1]$ & Cyclic $\Ainf$ \\
+\hline
+Open string action & $\sum \frac{1}{n+1} \langle \alpha, \mu_n(\alpha^n)
+  \rangle$ & CY trace + $\Ainf$ \\
+\hline
+Closed string states & $\HC_*(\End(\cF))$ & Cyclic homology \\
+\hline
+Multi-string Fock space & $\bigwedge \HC_*(\End(\cF))$ & LQT theorem \\
+\hline
+Holographic duality & $\cA_\infty = \cB^!$ & Koszul duality \\
+\hline
+Bulk-boundary & $\cZ(\Rep^{E_1}(\cA)) \simeq \Rep^{E_2}(\cB)$ &
+  Drinfeld center \\
+\hline
+$R$-matrix & QYB solution & $\mathrm{Res}^{\mathrm{coll}}_{0,2}(\Theta)$ \\
+\hline
+BPS spectrum & DT invariants & Root multiplicities \\
+\hline
+String scattering & OPE of traces & $\Ainf$-operations via KD \\
+\hline
+Genus-$g$ amplitude & Ribbon graph, $\hbar^g$ & Shadow tower arity $g+1$ \\
+\hline
+\end{tabular}
+\end{center}
+
+
+%% ====================================================================
+\section{Closing remarks and open directions}
+\label{sec:open-directions}
+%% ====================================================================
+
+\begin{enumerate}[label=(\arabic*)]
+  \item \textbf{Wall-crossing.}  The BPS spectrum of $X$ is subject to
+    wall-crossing (Kontsevich--Soibelman).  In the $G(X)$ language,
+    wall-crossing should correspond to gauge equivalence of the MC element
+    $\Theta_{G(X)}$: different stability conditions give gauge-equivalent
+    $\Ainf$-structures, hence isomorphic quantum vertex chiral groups.  This
+    is the content of the $\Ainf$-wall-crossing formula.
+
+  \item \textbf{Beyond CY3.}  For CY $d$-folds with $d \neq 3$, the story
+    changes:
+    \begin{itemize}
+      \item $d = 2$ (K3 surfaces): the $\mathbb{S}^2$-framing gives an
+        $E_2$-algebra directly.  No M-theory lift needed; the story is purely
+        about 2d string theory.
+      \item $d = 4$ (CY 4-folds): the brane is an M5-brane (or the
+        topological twist thereof), and the brane algebra is 3-dimensional.
+        The relevant algebraic structure is an $E_3$-algebra (via the
+        $\mathbb{S}^4$-framing and Dunn).
+    \end{itemize}
+
+  \item \textbf{Non-toric CY3.}  For non-toric CY3 (e.g., the quintic), the
+    CoHA construction is more subtle: one lacks a quiver presentation, and the
+    root datum must be extracted from the full derived category or Fukaya
+    category.  The conjecture is that $G(X)$ still exists (as a quantum vertex
+    chiral group) but may not admit a BKM or Yangian presentation.
+
+  \item \textbf{Closed string field theory.}  The gravitational algebra $\cB$
+    is the \emph{classical} closed string field theory.  The full quantum
+    closed string field theory is controlled by the genus expansion, i.e., by
+    the full shadow tower $\Theta_{G(X)}$.  The quantum master equation
+    $d\Theta + \frac{1}{2}[\Theta, \Theta] = 0$ is the BV master equation of
+    the closed string field theory.
+
+  \item \textbf{Multiple brane types.}  With multiple branes $\cF_1, \ldots,
+    \cF_k$, the open string algebra is enriched to the full $\Ainf$-category
+    $\cC$ (not just an endomorphism algebra).  The brane algebra becomes a
+    factorization algebra on the configuration space of brane types.  For $k$
+    brane types with $E_2$ directions, one expects $E_2$-Koszul duality in the
+    sense of the braided factorization theory of Part~IV.
+\end{enumerate}
+
+\end{document}

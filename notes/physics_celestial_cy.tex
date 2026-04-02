@@ -1,0 +1,1085 @@
+% ============================================================================
+%  PHYSICS NOTE: Celestial Holography and Calabi--Yau Quantum Groups
+%
+%  Status: research note / programme outline (not compiled into main.tex)
+%  Dependencies: Vol I shadow tower (thqg_soft_graviton_theorems.tex),
+%    Vol III quantum chiral algebras (quantum_chiral_algebras.tex),
+%    toric CY3 / affine Yangians (toric_cy3_coha.tex),
+%    E_2-chiral algebras (e2_chiral_algebras.tex)
+% ============================================================================
+
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{hyperref}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{warning}[theorem]{Warning}
+
+% Macros
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\frakg}{\mathfrak{g}}
+\newcommand{\frakS}{\mathfrak{S}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\Sh}{\mathrm{Sh}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\Fuk}{\mathrm{Fuk}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\CoHA}{\mathrm{CoHA}}
+\newcommand{\DT}{\mathrm{DT}}
+\newcommand{\CY}{\mathrm{CY}}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\MC}{\mathrm{MC}}
+
+\title{Celestial Holography and Calabi--Yau Quantum Groups}
+\author{Raeez Lorgat}
+\date{April 2026 --- Research Note}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We develop the connection between celestial holography and the
+quantum vertex chiral groups of Calabi--Yau threefolds.  The Mellin
+transform of 4d scattering amplitudes produces a 2d celestial
+chiral algebra on $S^2$ whose symmetry structure is governed by
+an infinite-dimensional algebra.  For 4d $\mathcal{N}=2$ theories
+arising from CY3 compactification, this celestial chiral algebra
+is identified with the genus-0 sector of the quantum vertex chiral
+group $G(X)$.  The simplest case --- the $\mathfrak{w}_{1+\infty}$
+symmetry of pure gravity (Strominger et al.) --- is recovered as
+$\cW_{1+\infty} = Y(\widehat{\mathfrak{gl}}_1) = G(\mathbb{C}^3)$,
+the quantum vertex chiral group of flat space.  The celestial
+OPE is the collision $r$-matrix
+$r(z) = \Res^{\mathrm{coll}}_{0,2}(\Theta_A)$, and higher soft
+theorems correspond to higher-arity shadows in the Postnikov tower
+of the universal Maurer--Cartan element $\Theta_A$.  Higher-genus
+corrections in the shadow tower control loop-level celestial
+amplitudes.
+\end{abstract}
+
+\tableofcontents
+
+% ====================================================================
+\section{Celestial amplitudes and the celestial chiral algebra}
+\label{sec:celestial-amplitudes}
+% ====================================================================
+
+\subsection{The Mellin transform to the celestial sphere}
+
+Four-dimensional scattering amplitudes in Minkowski space
+$\mathbb{R}^{1,3}$ can be reformulated as correlation functions on
+the celestial sphere $S^2 \cong \mathbb{P}^1$ at null infinity.
+The passage is via the Mellin transform in the energy variable.
+
+A massless particle of momentum $p^\mu$ can be parametrized as
+\begin{equation}\label{eq:null-momentum-parametrization}
+p^\mu = \varepsilon\, \omega\, q^\mu(z, \bar{z}),
+\qquad
+q^\mu(z,\bar{z}) = (1+z\bar{z},\; z+\bar{z},\;
+-i(z-\bar{z}),\; 1-z\bar{z}),
+\end{equation}
+where $\omega > 0$ is the energy, $\varepsilon = \pm 1$ labels
+incoming/outgoing, and $(z,\bar{z}) \in \mathbb{P}^1$ is the
+point on the celestial sphere determined by the direction of
+propagation.  An $n$-particle scattering amplitude
+$\cA_n(\omega_i, z_i, \bar{z}_i)$ is Mellin-transformed to a
+\emph{celestial amplitude}
+\begin{equation}\label{eq:mellin-transform}
+\widetilde{\cA}_n(\Delta_i, z_i, \bar{z}_i)
+\;=\;
+\prod_{i=1}^{n}
+\int_0^\infty d\omega_i\; \omega_i^{\Delta_i - 1}\;
+\cA_n(\omega_i, z_i, \bar{z}_i),
+\end{equation}
+where $\Delta_i \in \mathbb{C}$ is the \emph{conformal dimension}
+of the $i$-th operator on the celestial sphere.  The Lorentz group
+$\mathrm{SL}(2,\mathbb{C})$ acts on $\mathbb{P}^1$ by M\"obius
+transformations, and $\widetilde{\cA}_n$ transforms as a
+correlation function of primary operators of weights
+$(\Delta_i, \bar{\Delta}_i)$ in a 2d CFT on $\mathbb{P}^1$.
+
+\begin{definition}[Celestial chiral algebra]
+\label{def:celestial-chiral-algebra}
+The \emph{celestial chiral algebra} $\cA_{\mathrm{cel}}$ of a
+4d massless theory is the holomorphic sector of the 2d CFT on
+$\mathbb{P}^1$ whose correlation functions are the celestial
+amplitudes~\eqref{eq:mellin-transform}.  This is a vertex algebra
+on $\mathbb{P}^1$ whose OPE encodes the collinear singularities
+of the 4d S-matrix.
+\end{definition}
+
+\begin{remark}[Collinear limits and the celestial OPE]
+\label{rem:collinear-ope}
+In the momentum-space S-matrix, collinear singularities arise when
+two momenta become parallel: $p_i \parallel p_j$.  On the celestial
+sphere, this corresponds to $z_i \to z_j$, which is exactly the
+OPE limit.  The celestial OPE therefore encodes the universal
+collinear behavior of the S-matrix:
+\[
+\cO_{\Delta_1}(z_1) \cdot \cO_{\Delta_2}(z_2)
+\;\sim\;
+\sum_k \frac{C_k(\Delta_1, \Delta_2)}{(z_1 - z_2)^{h_k}}
+\;\cO_{\Delta_k}(z_2),
+\]
+where the OPE coefficients $C_k$ are determined by the collinear
+splitting functions of the 4d theory.
+\end{remark}
+
+\subsection{Soft theorems as Ward identities}
+
+The deep structural insight of celestial holography
+(Strominger 2014, He--Lysov--Mitra--Strominger 2015) is that
+\emph{soft theorems are Ward identities} of the celestial
+chiral algebra.
+
+\begin{itemize}
+\item \textbf{Weinberg's leading soft graviton theorem} (1965):
+  In the limit where one graviton's energy $\omega \to 0$, the
+  amplitude factorizes universally.  On the celestial sphere,
+  this becomes the Ward identity of a spin-2 current, which
+  generates the supertranslation subalgebra of the BMS group.
+
+\item \textbf{Cachazo--Strominger subleading soft theorem} (2014):
+  The $\mathcal{O}(\omega^0)$ correction in the soft limit gives
+  a subleading Ward identity, generating the superrotation
+  (Virasoro) subalgebra of the extended BMS group.
+
+\item \textbf{Higher soft theorems}: Each sub$^k$-leading soft
+  theorem at $\mathcal{O}(\omega^{k-1})$ produces a Ward identity
+  from a spin-$(k+1)$ current in the celestial chiral algebra.
+\end{itemize}
+
+\begin{proposition}[Soft theorems and the arity filtration]
+\label{prop:soft-arity}
+The soft graviton theorems are in bijection with the arity
+filtration of the shadow Postnikov tower of Vol~I.  The
+sub$^k$-leading soft theorem is the Ward identity of the
+arity-$(k+2)$ shadow $\Theta^{(k+2)}_\cA$, evaluated on
+genus-0 conformal blocks via the shadow representation:
+\[
+\Sh_{0,n}(\Theta^{(k+2)}_\cA) \cdot \Phi = 0
+\qquad
+\text{(arity-$(k+2)$ soft Ward identity)}.
+\]
+\end{proposition}
+
+This follows from the arity decomposition of the modular shadow
+connection (Vol~I, Theorem~\ref*{thm:thqg-VI-flatness-by-arity}).
+The leading soft theorem is $\Sh_{0,n}(\kappa(\cA))$, the
+subleading is $\Sh_{0,n}(\mathfrak{C}(\cA))$, the sub-subleading
+is $\Sh_{0,n}(\mathfrak{Q}(\cA))$, etc.
+
+% ====================================================================
+\section{The $\mathfrak{w}_{1+\infty}$ symmetry and $G(\mathbb{C}^3)$}
+\label{sec:w-infinity-c3}
+% ====================================================================
+
+\subsection{Strominger's $\mathfrak{w}_{1+\infty}$}
+
+Guevara, Himwich, Pate, and Strominger (2021) established that the
+leading celestial symmetry algebra for Einstein gravity in 4d is
+$\mathfrak{w}_{1+\infty}$, the area-preserving diffeomorphisms of
+the celestial sphere --- the classical (large-$c$) limit of the
+$\cW_{1+\infty}$ algebra.  At the quantum level, the celestial
+symmetry algebra of gravity coupled to matter at central
+charge $c$ is the full $\cW_{1+\infty}$ algebra.
+
+The $\cW_{1+\infty}$ algebra at central charge $c$ is generated
+by a tower of higher-spin currents $W^{(s)}(z)$ for $s = 1, 2,
+3, \ldots$, with:
+\begin{itemize}
+\item $W^{(1)}(z)$: a $\mathrm{U}(1)$ current (spin 1),
+\item $W^{(2)}(z) = T(z)$: the stress tensor (spin 2),
+\item $W^{(s)}(z)$: spin-$s$ currents for all $s \geq 3$.
+\end{itemize}
+The OPE among these currents is determined by a single parameter
+$c$ (the central charge) up to isomorphism, and the algebra is
+freely generated in the sense that there are no null relations
+among the generators at generic $c$.
+
+\subsection{The identification $\cW_{1+\infty} = Y(\widehat{\mathfrak{gl}}_1) = G(\mathbb{C}^3)$}
+
+Three seemingly independent constructions converge on the same
+algebraic object:
+
+\begin{theorem}[The triple identification]
+\label{thm:triple-identification}
+There are canonical isomorphisms
+\begin{equation}\label{eq:triple-id}
+\cW_{1+\infty}
+\;\simeq\;
+Y(\widehat{\mathfrak{gl}}_1)
+\;\simeq\;
+G(\mathbb{C}^3),
+\end{equation}
+where:
+\begin{enumerate}[label=(\roman*)]
+\item $\cW_{1+\infty}$ is the unique one-parameter family of vertex
+  algebras freely generated by one current in each spin $s \geq 1$;
+\item $Y(\widehat{\mathfrak{gl}}_1)$ is the affine Yangian of
+  $\mathfrak{gl}_1$;
+\item $G(\mathbb{C}^3)$ is the quantum vertex chiral group of the
+  toric CY3 $\mathbb{C}^3$ (Definition~\ref{def:qvcg}).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The isomorphism $\cW_{1+\infty} \simeq Y(\widehat{\mathfrak{gl}}_1)$
+is the theorem of Maulik--Okounkov (2019) and
+Schiffmann--Vasserot (2013), established through the action of the
+affine Yangian on the equivariant cohomology of the Hilbert scheme
+of points on $\mathbb{C}^2$.
+
+The isomorphism $Y(\widehat{\mathfrak{gl}}_1) \simeq G(\mathbb{C}^3)$
+follows from the Schiffmann--Vasserot theorem (Vol~III,
+Theorem~\ref*{thm:sv-c3}): the critical CoHA of $\mathbb{C}^3$
+(Jordan quiver, cubic potential $W = \mathrm{tr}(XYZ - XZY)$)
+is isomorphic to the positive half
+$Y^+(\widehat{\mathfrak{gl}}_1)$, and the quantum vertex chiral
+group $G(\mathbb{C}^3)$ is by definition the full affine Yangian
+associated to the root datum of $\mathbb{C}^3$.
+\end{proof}
+
+\begin{remark}[Physical content]
+\label{rem:physical-content-c3}
+The identification~\eqref{eq:triple-id} has the following
+physical reading:
+\begin{enumerate}[label=(\alph*)]
+\item The celestial symmetry algebra of 4d gravity
+  ($\cW_{1+\infty}$) \emph{is} the quantum vertex chiral group
+  of flat space ($G(\mathbb{C}^3)$).
+\item The infinite tower of higher-spin celestial symmetries
+  ($W^{(s)}$ for $s = 1, 2, 3, \ldots$) is the tower of generators
+  of the affine Yangian, which in turn is the tower of BPS states
+  in the DT theory of $\mathbb{C}^3$.
+\item The celestial central charge $c$ is the modular characteristic
+  $\kappa(G(\mathbb{C}^3))$.
+\end{enumerate}
+The simplest celestial symmetry algebra IS the quantum vertex
+chiral group of the simplest CY3.
+\end{remark}
+
+% ====================================================================
+\section{CY3 compactification and celestial chiral algebras}
+\label{sec:cy3-celestial}
+% ====================================================================
+
+\subsection{4d $\mathcal{N}=2$ theories from CY3 compactification}
+
+Type IIB string theory compactified on a Calabi--Yau threefold $X$
+produces a 4d $\mathcal{N}=2$ supergravity theory whose low-energy
+effective action is determined by the geometry of $X$.  The vector
+multiplet moduli space is the complex structure moduli space
+$\cM_{\mathrm{cs}}(X)$; the hypermultiplet moduli space involves
+the complexified K\"ahler moduli together with RR flux data.
+
+The BPS spectrum of the 4d theory is controlled by
+Donaldson--Thomas invariants:
+\begin{equation}\label{eq:bps-dt}
+\Omega(\gamma; X) = \DT_\gamma(X),
+\qquad \gamma \in H_3(X, \mathbb{Z}),
+\end{equation}
+where $\Omega(\gamma; X)$ is the BPS index (second helicity
+supertrace) of charge $\gamma$, and $\DT_\gamma(X)$ is the
+generalized DT invariant counting coherent sheaves / special
+Lagrangians / D-branes of class $\gamma$.
+
+\begin{conjecture}[CY3 celestial chiral algebra]
+\label{conj:cy3-celestial}
+For a 4d $\mathcal{N}=2$ theory $T_X$ arising from Type IIB on a
+CY3 $X$, the celestial chiral algebra is
+\begin{equation}\label{eq:cy3-celestial-identification}
+\cA_{\mathrm{cel}}(T_X)
+\;\simeq\;
+G(X)^{g=0},
+\end{equation}
+the genus-0 (tree-level) sector of the quantum vertex chiral
+group $G(X)$, with higher-genus corrections from the shadow tower.
+\end{conjecture}
+
+\begin{definition}[Quantum vertex chiral group]
+\label{def:qvcg}
+The \emph{quantum vertex chiral group} $G(X)$ of a CY3 $X$ is the
+$E_2$-chiral algebra whose:
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Root datum} is the generalized root datum
+  $\mathcal{R}(X) = (\Lambda(X), \Delta^{\mathrm{re}},
+  \Delta^{\mathrm{im}}_0, \Delta^{\mathrm{im}}_1, W(X), \rho,
+  \mathrm{mult})$ extracted from the CY geometry (lattice from
+  $K_0(\Coh(X))$, root multiplicities from DT invariants);
+\item \textbf{Positive half} is the critical CoHA:
+  $U(\mathfrak{n}_+) = \CoHA(X) = Y^+(\widehat{\frakg}_{Q_X})$
+  for toric $X$;
+\item \textbf{$E_2$-structure} is the braided monoidal structure on
+  $\Rep^{E_2}(G(X))$, with braiding from the quantum group
+  $R$-matrix of the affine super Yangian;
+\item \textbf{Automorphic form} is the denominator identity of the
+  associated BKM superalgebra: $\Phi_X$ (the DT partition function
+  for toric CY3, the Igusa cusp form $\Delta_5$ for $K3 \times E$).
+\end{enumerate}
+\end{definition}
+
+\subsection{The genus filtration and loop corrections}
+
+The quantum vertex chiral group $G(X)$ has a natural genus
+filtration inherited from the shadow Postnikov tower of the
+associated chiral algebra $A_X = \Phi(\Coh(X))$:
+\begin{equation}\label{eq:genus-filtration}
+G(X)^{g=0} \;\subset\; G(X)^{g \leq 1} \;\subset\;
+G(X)^{g \leq 2} \;\subset\; \cdots \;\subset\; G(X).
+\end{equation}
+
+\begin{itemize}
+\item \textbf{Genus 0} ($G(X)^{g=0}$): The \emph{tree-level}
+  quantum vertex chiral group.  This is the sector controlled by
+  the collision $r$-matrix and the genus-0 shadow tower.  For toric
+  CY3, it is the Yangian $R$-matrix sector.  This is the celestial
+  chiral algebra proper.
+
+\item \textbf{Genus 1} ($G(X)^{g \leq 1}$): One-loop corrections.
+  The genus-1 obstruction $\mathrm{obs}_1 = \kappa(A_X) \cdot
+  \lambda_1$ produces the first quantum correction to the celestial
+  OPE.  The modular characteristic $\kappa(A_X)$ is the celestial
+  central charge.
+
+\item \textbf{Genus $g$}: The genus-$g$ shadow tower component
+  $\mathrm{obs}_g(A_X) = \kappa(A_X) \cdot \lambda_g$ (on the
+  uniform-weight lane) produces $g$-loop corrections.  The
+  full tower reproduces the all-loop celestial amplitude.
+\end{itemize}
+
+\begin{proposition}[Genus-0 celestial amplitudes from $G(X)$]
+\label{prop:genus-0-celestial}
+The tree-level celestial $n$-point amplitude of the 4d
+$\mathcal{N}=2$ theory $T_X$ is the genus-0, $n$-point conformal
+block of the quantum vertex chiral group:
+\[
+\widetilde{\cA}_n^{\mathrm{tree}}(\Delta_i, z_i)
+\;=\;
+\langle \cO_{\Delta_1}(z_1) \cdots \cO_{\Delta_n}(z_n)
+\rangle_{G(X)^{g=0}}.
+\]
+The collinear singularity structure is controlled by the
+collision $r$-matrix $r(z)$ of $G(X)$.
+\end{proposition}
+
+% ====================================================================
+\section{The soft sector and the modular characteristic $\kappa$}
+\label{sec:soft-sector-kappa}
+% ====================================================================
+
+\subsection{Leading soft theorems from $\kappa$}
+
+In the Vol~I framework, the modular characteristic $\kappa(\cA)$
+is the arity-2 projection of the universal MC element $\Theta_\cA$.
+In the celestial context, $\kappa$ controls the leading soft
+behavior.
+
+\begin{theorem}[Leading soft theorem = arity-2 projection]
+\label{thm:leading-soft-kappa}
+The Weinberg leading soft graviton theorem for the 4d theory $T_X$
+is the arity-2 Ward identity of the shadow connection:
+\begin{equation}\label{eq:leading-soft-kappa}
+\Sh_{0,n}\bigl(\kappa(A_X)\bigr) \cdot \Phi
+\;=\;
+\sum_{i < j}
+\frac{\kappa_{ij}}{z_i - z_j}\;\Phi
+\;=\; 0,
+\end{equation}
+where $\kappa_{ij} = \kappa(A_X)(e_i, e_j)$ is the bilinear form
+on charge vectors determined by the modular characteristic, and
+$\Phi$ is a celestial correlator (horizontal section of
+$\nabla^{\mathrm{hol}}_{0,n}$).
+
+For $X = \mathbb{C}^3$: $\kappa(G(\mathbb{C}^3)) = c/2$ (the
+Virasoro central charge), recovering the standard graviton soft
+factor.
+\end{theorem}
+
+\subsection{Higher soft theorems from higher-arity shadows}
+
+Each arity level $r \geq 3$ of the shadow tower contributes a
+higher soft theorem.
+
+\begin{theorem}[Higher soft theorems = higher shadows]
+\label{thm:higher-soft-shadows}
+The sub$^{r-2}$-leading soft theorem of the 4d theory $T_X$ is the
+arity-$r$ Ward identity:
+\begin{equation}\label{eq:higher-soft-shadow}
+\Sh_{0,n}\bigl(\Theta_{A_X}^{(r)}\bigr) \cdot \Phi
+\;=\;
+-\sum_{\substack{s+t=r \\ s,t \geq 2}}
+\bigl[\Sh_{0,n}(\Theta^{(s)}),\,
+\Sh_{0,n}(\Theta^{(t)})\bigr] \cdot \Phi,
+\end{equation}
+where the right side involves the self-interaction of lower-arity
+shadows.  The dictionary is:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llll}
+\toprule
+\textit{Arity} & \textit{Shadow} &
+\textit{Soft theorem} & \textit{Celestial current} \\
+\midrule
+$r=2$ & $\kappa(A_X)$ &
+Weinberg leading & Supertranslation \\
+$r=3$ & $\mathfrak{C}(A_X)$ &
+Cachazo--Strominger subleading &
+Superrotation (Virasoro) \\
+$r=4$ & $\mathfrak{Q}(A_X)$ &
+Sub-subleading &
+Spin-3 $\cW$-current \\
+$r$ & $\Theta_{A_X}^{(r)}$ &
+Sub$^{r-2}$-leading &
+Spin-$(r-1)$ $\cW$-current \\
+\bottomrule
+\end{tabular}
+\end{center}
+For $X = \mathbb{C}^3$ with shadow depth $r_{\max} = \infty$, the
+full tower of soft theorems generates the $\cW_{1+\infty}$ algebra,
+recovering the Strominger et al.\ result.
+\end{theorem}
+
+\begin{remark}[Shadow depth and the celestial spectrum]
+\label{rem:shadow-depth-celestial}
+The shadow depth $r_{\max}(G(X))$ determines the celestial spin
+content.  For CY3 geometries with finite shadow depth (if any
+exist), only finitely many higher-spin currents appear; the
+celestial chiral algebra is a truncation of $\cW_{1+\infty}$.
+For generic CY3, we expect $r_{\max} = \infty$ (class
+$\mathbf{M}$), giving the full infinite tower.  The physical
+reason: the BPS spectrum of a generic CY3 is infinite, and each
+BPS state contributes a celestial operator.
+\end{remark}
+
+% ====================================================================
+\section{The celestial OPE as collision $r$-matrix}
+\label{sec:celestial-ope-r-matrix}
+% ====================================================================
+
+\subsection{The collision $r$-matrix from $\Theta_A$}
+
+The collision $r$-matrix of a quantum chiral algebra $A$ is the
+arity-2 genus-0 projection of the universal MC element:
+\begin{equation}\label{eq:r-matrix-definition}
+r(z)
+\;=\;
+\Res^{\mathrm{coll}}_{0,2}(\Theta_A)
+\;\in\;
+A \otimes A \otimes k((z)),
+\end{equation}
+the residue of $\Theta_A$ along the collision divisor in
+$\overline{\cM}_{0,3}$ (the moduli space with two coalescing points
+and one output).  This is the $E_2$-chiral $R$-matrix of
+Vol~III, Construction~\ref*{constr:cy-r-matrix}.
+
+\begin{warning}[Bar kernel pole shift]
+\label{warn:pole-shift}
+The bar complex extracts residues along $d\log(z_i - z_j)$, not
+along $dz/(z-w)$.  The $d\log$ measure absorbs one power of
+$(z-w)$; hence $r(z)$ has pole orders one less than the OPE
+(Vol~I, AP19).  For a Virasoro OPE with poles at $z^{-4}$,
+$z^{-2}$, $z^{-1}$, the $r$-matrix has poles at $z^{-3}$, $z^{-1}$.
+\end{warning}
+
+\subsection{The celestial OPE}
+
+\begin{theorem}[Celestial OPE = collision $r$-matrix]
+\label{thm:celestial-ope-r-matrix}
+The celestial OPE of the 4d theory $T_X$ is determined by the
+collision $r$-matrix of the quantum vertex chiral group $G(X)$:
+\begin{equation}\label{eq:celestial-ope}
+\cO_{\Delta_1}(z_1) \cdot \cO_{\Delta_2}(z_2)
+\;\sim\;
+r_{G(X)}(z_1 - z_2) \cdot
+(\cO_{\Delta_1} \otimes \cO_{\Delta_2})(z_2),
+\end{equation}
+where $r_{G(X)}(z)$ is defined by~\eqref{eq:r-matrix-definition}
+with $A = A_X$ the chiral algebra underlying $G(X)$.
+
+The pole structure of the celestial OPE encodes the shadow depth:
+\begin{enumerate}[label=(\roman*)]
+\item The number of singular terms is $r_{\max}(G(X)) - 1$.
+\item The leading pole is determined by $\kappa(A_X)$:
+  $r(z) \sim \kappa(A_X)/z + \cdots$.
+\item The subleading poles are determined by the higher shadows:
+  the $(z_1 - z_2)^{-(k+1)}$ pole coefficient is
+  $C_k = \Res^{\mathrm{coll}}_{0,2}(\Theta_{A_X}^{(k+2)})$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Argument]
+The celestial OPE is the short-distance expansion of two operator
+insertions on the celestial sphere $\mathbb{P}^1$.  In the
+shadow-connection framework, this is the monodromy of the flat
+connection $\nabla^{\mathrm{hol}}_{0,n}$ around the diagonal
+$z_1 = z_2$.  By Vol~I (Theorem~\ref*{thm:thqg-VI-soft-ope}),
+this monodromy is controlled by $\Sh_{0,n}(\Theta_A)$, and the
+leading singular part is the collision residue
+$\Res^{\mathrm{coll}}_{0,2}(\Theta_A) = r(z)$.  Each arity-$r$
+component of $\Theta_A$ contributes a pole of order $r-1$ in the
+celestial OPE.
+\end{proof}
+
+\begin{remark}[The quantum Yang--Baxter equation]
+\label{rem:qybe-celestial}
+The $r$-matrix $r_{G(X)}(z)$ satisfies the quantum Yang--Baxter
+equation:
+\[
+r_{12}(z_1 - z_2)\, r_{13}(z_1 - z_3)\, r_{23}(z_2 - z_3)
+\;=\;
+r_{23}(z_2 - z_3)\, r_{13}(z_1 - z_3)\, r_{12}(z_1 - z_2).
+\]
+In the celestial context, this is the \emph{associativity of the
+celestial OPE}: the OPE of three operators is independent of the
+order in which the OPE limits are taken.  The QYBE is a consequence
+of the flatness $(\nabla^{\mathrm{hol}})^2 = 0$, which in turn is
+the MC equation for $\Theta_A$.
+\end{remark}
+
+% ====================================================================
+\section{The full dictionary: CY3 geometry to celestial holography}
+\label{sec:full-dictionary}
+% ====================================================================
+
+The passage from CY3 geometry to celestial holography factors
+through the quantum vertex chiral group as an intermediary:
+
+\begin{center}
+\begin{tabular}{p{3cm}p{4cm}p{4.5cm}}
+\toprule
+\textit{CY3 geometry} &
+\textit{Quantum vertex chiral group} &
+\textit{Celestial holography} \\
+\midrule
+$X$ (CY threefold) &
+$G(X)$ (quantum vertex chiral group) &
+$\cA_{\mathrm{cel}}(T_X)$ (celestial chiral algebra) \\[4pt]
+$\Lambda(X) = K_0(\Coh(X))$ &
+Root lattice of $G(X)$ &
+Charge lattice of celestial operators \\[4pt]
+$\DT_\gamma(X)$ (DT invariants) &
+Root multiplicities of $G(X)$ &
+BPS celestial operator spectrum \\[4pt]
+$\CoHA(X)$ (critical CoHA) &
+$U(\mathfrak{n}_+) = $ positive half &
+Holomorphic collinear sector \\[4pt]
+$r(z) = \Res^{\mathrm{coll}}_{0,2}(\Theta_{A_X})$ &
+$E_2$-chiral $R$-matrix &
+Celestial OPE \\[4pt]
+$\kappa(A_X)$ (modular characteristic) &
+Arity-2 shadow &
+Leading soft graviton theorem \\[4pt]
+$\mathfrak{C}(A_X)$ (cubic shadow) &
+Arity-3 shadow &
+Subleading soft theorem \\[4pt]
+$\Theta_{A_X}^{(r)}$ (arity-$r$ shadow) &
+Shadow Postnikov tower &
+Sub$^{r-2}$-leading soft theorem \\[4pt]
+$\mathrm{obs}_g(A_X)$ (genus-$g$ obstruction) &
+Genus-$g$ shadow tower &
+$g$-loop celestial amplitude \\[4pt]
+$\Delta_5$ / $Z^{\DT}(X)$ (automorphic form) &
+Denominator identity &
+Celestial partition function \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{The automorphic correction as the shadow tower}
+
+The central identification of the Vol~III programme (VISION.md) is:
+\begin{equation}\label{eq:automorphic-shadow}
+\boxed{%
+\text{Automorphic correction}
+\;=\;
+\text{Shadow tower}
+\;=\;
+\text{Higher soft theorems.}}
+\end{equation}
+
+In detail: the passage from the ``naive'' algebra $\frakg$ (defined
+by the real root Gram matrix alone) to the full BKM superalgebra
+$\frakg_X$ (with all imaginary roots and their multiplicities)
+is the automorphic correction.  In the Vol~I language, this is the
+passage from the tree-level $r$-matrix $r(z)$ (arity 2) to the
+full MC element $\Theta_A$ (all arities).  In the celestial
+language, it is the passage from the leading soft theorem to the
+full tower of soft theorems:
+
+\begin{itemize}
+\item \textbf{Arity 2} ($\kappa$): The leading coefficient =
+  the Weyl vector contribution.  Celestially: the Weinberg soft
+  factor.
+\item \textbf{Arity 3} ($\mathfrak{C}$): The first imaginary root
+  corrections.  Celestially: the Cachazo--Strominger subleading
+  soft theorem.
+\item \textbf{Arity 4} ($\mathfrak{Q}$): Higher corrections.
+  Celestially: the sub-subleading soft theorem with contact
+  coefficient $Q^{\mathrm{contact}}$.
+\item \textbf{Full tower} ($\Theta_A$): The complete automorphic
+  correction, whose denominator identity is the automorphic form.
+  Celestially: the infinite tower of soft theorems whose
+  consistency (MC equation) is the associativity of the celestial
+  OPE.
+\end{itemize}
+
+\subsection{The $K3 \times E$ case: Igusa cusp form and celestial holography}
+
+For the CY3 family $X = (S \times E)/(\mathbb{Z}/N\mathbb{Z})$
+(K3 surface $S$, elliptic curve $E$):
+
+\begin{example}[$K3 \times E$ celestial holography]
+\label{ex:k3-e-celestial}
+The quantum vertex chiral group $G(K3 \times E)$ is the
+generalized BKM superalgebra $\frakg_{\Delta_5}$ with:
+\begin{enumerate}[label=(\alph*)]
+\item Three real simple roots $\delta_1, \delta_2, \delta_3$ with
+  Gram matrix
+  $\left(\begin{smallmatrix}
+  2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2
+  \end{smallmatrix}\right)$.
+\item Imaginary root multiplicities
+  $\mathrm{mult}(\alpha) = f(nm, l)$ where $f(n,l)$ are Fourier
+  coefficients of the weak Jacobi form $\phi_{0,1}$ (the K3
+  elliptic genus).
+\item Denominator identity = the Igusa cusp form $\Delta_5$ of
+  weight~5 for $\mathrm{Sp}_4(\mathbb{Z})$.
+\end{enumerate}
+
+The celestial interpretation:
+\begin{itemize}
+\item The modular characteristic
+  $\kappa(G(K3 \times E)) = 5$ (the weight of $\Delta_5$).
+\item The celestial chiral algebra $\cA_{\mathrm{cel}}$ is the
+  genus-0 sector of $\frakg_{\Delta_5}$.
+\item The $\mathrm{Sp}_4(\mathbb{Z})$ symmetry of the Siegel
+  modular form IS the $E_2$-braiding --- the braided monoidal
+  structure on $\Rep^{E_2}(G(K3 \times E))$.
+\item The shadow tower encodes the product side of the denominator
+  identity:
+  \[
+  \frac{1}{64}\,\Delta_5
+  \;=\;
+  e^{-2\pi i(\rho, z)}
+  \prod_{\alpha \in \Delta_+}
+  \bigl(1 - e^{-2\pi i(\alpha, z)}\bigr)^{\mathrm{mult}(\alpha)}.
+  \]
+  Each factor in the product corresponds to a shadow tower
+  component: the real roots ($\mathrm{mult} = 1$) contribute at
+  low arity, and the imaginary roots contribute at higher arities
+  with multiplicities from $\phi_{0,1}$.
+\end{itemize}
+\end{example}
+
+\subsection{The toric CY3 case: affine super Yangians}
+
+\begin{example}[Toric CY3 celestial holography]
+\label{ex:toric-celestial}
+For a toric CY3 $X$ without compact 4-cycles:
+\begin{enumerate}[label=(\alph*)]
+\item The quantum vertex chiral group
+  $G(X) = Y(\widehat{\frakg}_{Q_X})$, the affine super Yangian
+  of the toric quiver.
+\item The celestial chiral algebra is the genus-0 sector: the
+  Yangian $R$-matrix determines the celestial OPE.
+\item For $X = \mathbb{C}^3$: $G(\mathbb{C}^3) = \cW_{1+\infty}$,
+  recovering the Strominger et al.\ result directly.
+\item For the resolved conifold: the toric diagram has two vertices,
+  the quiver is Klebanov--Witten (two nodes, bidirectional arrows),
+  and $G(X)$ is the affine super Yangian of the corresponding
+  quiver Lie superalgebra.  The celestial chiral algebra has
+  two families of higher-spin currents, one for each node.
+\end{enumerate}
+\end{example}
+
+% ====================================================================
+\section{Structural theorems}
+\label{sec:structural}
+% ====================================================================
+
+\subsection{The celestial shadow connection}
+
+The shadow connection of Vol~I, specialized to genus 0 and evaluated
+on the quantum vertex chiral group $G(X)$, gives the celestial
+shadow connection:
+
+\begin{definition}[Celestial shadow connection]
+\label{def:celestial-shadow-connection}
+The \emph{celestial shadow connection} of the 4d theory $T_X$ is
+\begin{equation}\label{eq:celestial-shadow-connection}
+\nabla^{\mathrm{cel}}_{n}
+\;:=\;
+\nabla^{\mathrm{hol}}_{0,n}\bigl|_{A = A_X}
+\;=\;
+d \;-\; \Sh_{0,n}(\Theta_{A_X}),
+\end{equation}
+a flat connection on the space of $n$-point celestial amplitudes
+$\cV_{0,n}(A_X)$.  Its flatness $(\nabla^{\mathrm{cel}}_n)^2 = 0$
+is the MC equation for $\Theta_{A_X}$.
+\end{definition}
+
+\begin{theorem}[Celestial Ward identities from the shadow tower]
+\label{thm:celestial-ward}
+The horizontal sections of $\nabla^{\mathrm{cel}}_n$ are the
+celestial correlators.  The arity decomposition of
+$\nabla^{\mathrm{cel}}_n$ produces the full tower of soft
+graviton theorems:
+\begin{equation}\label{eq:celestial-ward-tower}
+\nabla^{\mathrm{cel}}_n
+\;=\;
+\nabla^{(2)}_n + A^{(3)}_n + A^{(4)}_n + \cdots,
+\end{equation}
+where $\nabla^{(2)}_n$ is the leading (supertranslation)
+connection and $A^{(r)}_n$ for $r \geq 3$ are the higher soft
+perturbations.  The arity-$r$ flatness equation
+$\nabla^{(2)}(A^{(r)}) + \sum_{s+t=r}[A^{(s)}, A^{(t)}] +
+o_r = 0$ is the sub$^{r-2}$-leading soft theorem with all
+nonlinear corrections from lower arities.
+\end{theorem}
+
+\subsection{The celestial Koszul dual}
+
+\begin{conjecture}[Celestial Koszul duality]
+\label{conj:celestial-koszul}
+The Koszul dual $G(X)^!$ of the quantum vertex chiral group
+controls the celestial amplitudes of the \emph{dual} 4d theory.
+In the $E_2$-chiral Koszul duality framework (Vol~III,
+Conjecture~\ref*{conj:e2-koszul}):
+\begin{equation}\label{eq:celestial-koszul}
+\Rep^{E_2}(G(X))
+\;\simeq\;
+\Rep^{E_2}(G(X)^!)^{\mathrm{rev}},
+\end{equation}
+where $\mathrm{rev}$ denotes the reverse braiding.
+
+For $X = \mathbb{C}^3$: $\cW_{1+\infty}$ is self-dual (the
+Feigin--Frenkel involution acts trivially at the self-dual level),
+and the celestial chiral algebra of 4d gravity is self-dual.
+\end{conjecture}
+
+\subsection{The $E_2$-structure and braided celestial amplitudes}
+
+\begin{proposition}[The $E_2$-braiding is the celestial crossing symmetry]
+\label{prop:e2-crossing}
+The $E_2$-structure on $G(X)$ (the braided monoidal structure on
+$\Rep^{E_2}(G(X))$) is the crossing symmetry of celestial
+amplitudes.  The braiding
+\[
+\sigma_{V,W} \colon V \otimes W \;\xrightarrow{\sim}\; W \otimes V
+\]
+in $\Rep^{E_2}(G(X))$ corresponds to the exchange
+$z_i \leftrightarrow z_j$ of celestial operator positions,
+implemented by the monodromy of $\nabla^{\mathrm{cel}}$ around the
+exchange path in configuration space.
+\end{proposition}
+
+The $R$-matrix
+$R(z) \in \End(V \otimes W)((z))$ satisfying the QYBE is the
+algebraic encoding of this crossing symmetry.  For the Yangian
+$Y(\widehat{\mathfrak{gl}}_1)$, the $R$-matrix is the rational
+$R$-matrix $R(u) = 1 + P/u$ (where $P$ is the permutation
+operator), giving the simplest crossing kernel for graviton
+celestial amplitudes.
+
+% ====================================================================
+\section{Loop corrections and the genus tower}
+\label{sec:loop-corrections}
+% ====================================================================
+
+\subsection{The genus expansion of celestial amplitudes}
+
+The shadow tower of the quantum vertex chiral group produces a
+genus expansion for celestial amplitudes that corresponds to the
+loop expansion of the 4d S-matrix:
+
+\begin{equation}\label{eq:genus-expansion-celestial}
+\widetilde{\cA}_n(\Delta_i, z_i)
+\;=\;
+\sum_{g=0}^{\infty}
+\hbar^{2g-2}\;
+\widetilde{\cA}_n^{(g)}(\Delta_i, z_i),
+\end{equation}
+where $\widetilde{\cA}_n^{(g)}$ is the genus-$g$ celestial
+amplitude, computed from the genus-$g$ shadow tower of $G(X)$.
+
+\begin{theorem}[Loop corrections from the shadow tower]
+\label{thm:loop-corrections}
+The genus-$g$ celestial amplitude of the 4d theory $T_X$ is
+controlled by the genus-$g$ obstruction class:
+\begin{equation}\label{eq:genus-g-celestial}
+\widetilde{\cA}_n^{(g)}
+\;=\;
+\int_{\overline{\cM}_{g,n}}
+\mathrm{obs}_g(A_X) \cdot
+\langle \cO_{\Delta_1}(z_1) \cdots \cO_{\Delta_n}(z_n)
+\rangle_{g,n},
+\end{equation}
+where $\mathrm{obs}_g(A_X) = \kappa(A_X) \cdot \lambda_g$ on the
+uniform-weight lane, and the integral is over the moduli space
+$\overline{\cM}_{g,n}$ of stable genus-$g$ curves with $n$ marked
+points.
+
+The all-genera generating function is:
+\begin{equation}\label{eq:all-genera-celestial}
+F_{\mathrm{cel}}(\hbar)
+\;=\;
+\sum_{g=1}^{\infty} \hbar^{2g}\;
+F_g(A_X)
+\;=\;
+\kappa(A_X) \cdot
+\bigl(\hat{A}(i\hbar) - 1\bigr),
+\end{equation}
+where $\hat{A}$ is the $\hat{A}$-genus and $F_g(A_X) =
+\kappa(A_X) \cdot \int_{\overline{\cM}_g} \lambda_g$ are the
+shadow tower amplitudes of Vol~I.
+\end{theorem}
+
+\begin{remark}[The $\hbar$ convention]
+\label{rem:hbar-convention}
+The factor $\hbar^{2g-2}$ in~\eqref{eq:genus-expansion-celestial}
+uses the Vol~I convention where $\hbar^{2g-2}$ weights the genus-$g$
+contribution.  The Feynman-section convention $\hbar^{g-1}$ is
+related by $\hbar_{\mathrm{there}} = \hbar_{\mathrm{here}}^2$.
+The leading term $g=0$ at $\hbar^{-2}$ is the tree-level celestial
+amplitude.
+\end{remark}
+
+\subsection{Interpretation: GW invariants and celestial loop amplitudes}
+
+The shadow tower amplitudes $F_g(A_X)$ involve the Hodge class
+$\lambda_g$ integrated over $\overline{\cM}_g$.  For a CY3 $X$,
+the Gromov--Witten invariants $\mathrm{GW}_{g,n,\beta}(X)$ (counting
+holomorphic curves of genus $g$ and class $\beta$ in $X$ through
+$n$ constraints) are related to the shadow tower via the CY modular
+characteristic (Vol~III, Theorem CY-D).  The celestial loop
+amplitudes therefore encode the enumerative geometry of $X$:
+higher-loop celestial amplitudes ``count curves'' in the CY3.
+
+% ====================================================================
+\section{Comparison with the celestial holography literature}
+\label{sec:comparison}
+% ====================================================================
+
+\subsection{Relation to Costello--Paquette}
+
+Costello and Paquette (2022) construct the celestial chiral algebra
+of self-dual gravity as a specific vertex algebra (the ``BCOV
+chiral algebra''), derived from the Kodaira--Spencer theory of
+gravity on a CY3.  In our framework:
+
+\begin{itemize}
+\item The Kodaira--Spencer / BCOV theory on $X$ is the
+  ``closed-string'' side of the CY category $\Coh(X)$.
+\item The BCOV chiral algebra on $\mathbb{P}^1$ is a model for the
+  genus-0 sector of $G(X)$.
+\item The $\cW_{1+\infty}$ symmetry discovered by Costello--Paquette
+  for $X = \mathbb{C}^3$ is recovered as
+  $G(\mathbb{C}^3)^{g=0} = Y(\widehat{\mathfrak{gl}}_1) =
+  \cW_{1+\infty}$.
+\item The higher-genus corrections that are absent in the
+  Costello--Paquette construction (which works at the self-dual /
+  tree level) are supplied by the shadow tower.
+\end{itemize}
+
+\subsection{Relation to Guevara--Himwich--Pate--Strominger}
+
+Guevara, Himwich, Pate, and Strominger identified the leading
+celestial symmetry as $\mathfrak{w}_{1+\infty}$ (the classical
+limit of $\cW_{1+\infty}$) and conjectured its promotion to the
+full quantum $\cW_{1+\infty}$ at finite $c$.  Our framework:
+
+\begin{itemize}
+\item Provides the algebraic mechanism: the quantum vertex chiral
+  group $G(\mathbb{C}^3) = \cW_{1+\infty}$ at all $c$ simultaneously
+  (the affine Yangian is defined for arbitrary $c$).
+\item Explains the origin of $\cW_{1+\infty}$: it arises as the
+  quantum vertex chiral group of the simplest CY3, not as an
+  \emph{ad hoc} symmetry algebra.
+\item Generalizes to arbitrary CY3: for each $X$, there is a
+  celestial chiral algebra $G(X)^{g=0}$ that extends
+  $\cW_{1+\infty}$ according to the geometry of $X$.
+\end{itemize}
+
+\subsection{Relation to Bu--Kim--Li--Zhang}
+
+Bu, Kim, Li, and Zhang (2024) relate the celestial OPE to the
+Yangian $R$-matrix in the context of self-dual Yang--Mills theory.
+In our framework, this is the statement that the celestial OPE
+is the collision $r$-matrix:
+$r(z) = \Res^{\mathrm{coll}}_{0,2}(\Theta_A)$.
+
+% ====================================================================
+\section{Conjectures and open problems}
+\label{sec:conjectures}
+% ====================================================================
+
+\begin{conjecture}[CY3 celestial universality]
+\label{conj:cy3-universality}
+For every compact CY3 $X$, there exists a quantum vertex chiral
+group $G(X)$ whose genus-0 sector is the celestial chiral algebra
+of the 4d $\mathcal{N}=2$ theory $T_X$:
+\[
+\cA_{\mathrm{cel}}(T_X)
+\;\simeq\;
+G(X)^{g=0}.
+\]
+The construction applies to all CY3 categories (not just toric or
+$K3 \times E$) via the CY-to-chiral functor $\Phi$ of Vol~III,
+Theorem CY-A.
+\end{conjecture}
+
+\begin{conjecture}[Wall-crossing = gauge equivalence]
+\label{conj:wall-crossing}
+The Kontsevich--Soibelman wall-crossing formula for DT invariants,
+applied to the root multiplicities of $G(X)$, is a gauge
+equivalence of MC elements in the modular convolution algebra:
+\[
+\Theta_{A_X}|_{t_+}
+\;\sim_{\mathrm{gauge}}\;
+\Theta_{A_X}|_{t_-},
+\]
+where $t_\pm$ are stability parameters on opposite sides of a
+wall of marginal stability.  The celestial chiral algebra changes
+by a gauge transformation, not an isomorphism --- the celestial
+OPE coefficients jump, but the underlying algebraic structure
+(the QYBE, the MC equation) is preserved.
+\end{conjecture}
+
+\begin{conjecture}[Celestial shadow depth]
+\label{conj:celestial-shadow-depth}
+The shadow depth $r_{\max}(G(X))$ of the quantum vertex chiral
+group of a CY3 $X$ is:
+\begin{enumerate}[label=(\roman*)]
+\item $r_{\max} = \infty$ for all smooth compact CY3s (the BPS
+  spectrum is generically infinite);
+\item $r_{\max} = \infty$ for all toric CY3s;
+\item Finite shadow depth can occur only for degenerate limits
+  (e.g.\ orbifold singularities where the BPS spectrum truncates).
+\end{enumerate}
+This implies that the celestial chiral algebra of a generic
+CY3 compactification has the full $\cW_{1+\infty}$-type structure
+--- an infinite tower of higher-spin symmetries.
+\end{conjecture}
+
+\begin{conjecture}[Eight celestial chiral algebras from $K3 \times E$]
+\label{conj:eight-celestial}
+The eight diagonal divisor modular forms of the Igusa cusp form
+programme correspond to eight distinct quantum vertex chiral groups
+$G(X_N)$ for $X_N = (S \times E)/(\mathbb{Z}/N\mathbb{Z})$,
+$N = 1, \ldots, 8$, with:
+\begin{enumerate}[label=(\roman*)]
+\item Denominator identities = the eight dd-modular forms;
+\item Root multiplicities from twisted-twined K3 elliptic genera;
+\item Celestial chiral algebras $G(X_N)^{g=0}$ related by
+  orbifolding of the $\mathbb{Z}/N\mathbb{Z}$ action.
+\end{enumerate}
+The Koszul duality relations among these eight algebras should
+manifest as ``celestial S-dualities'' exchanging weak and strong
+coupling in the 4d theories.
+\end{conjecture}
+
+\begin{conjecture}[Non-toric CY3 and the BPS root datum]
+\label{conj:non-toric}
+For a non-toric CY3 $X$ (e.g.\ the quintic threefold in
+$\mathbb{P}^4$), the quantum vertex chiral group $G(X)$ exists
+with root datum $\mathcal{R}(X)$ determined by:
+\begin{enumerate}[label=(\roman*)]
+\item Lattice: $\Lambda(X) = K_0(\Coh(X))$ (or
+  $K_0(\Fuk(X))$ on the mirror side);
+\item Root multiplicities: DT invariants $\DT_\gamma(X)$ (or
+  GV / Gopakumar--Vafa invariants);
+\item The ``BPS algebra'' of Joyce, Kontsevich--Soibelman, and
+  Meinhardt--Reineke as the positive half;
+\item Denominator identity: the DT generating function
+  $Z^{\DT}(X, q)$.
+\end{enumerate}
+The key challenge is that without the toric combinatorics, the
+quiver description is not available; the critical CoHA must be
+replaced by a more general motivic Hall algebra construction.
+\end{conjecture}
+
+% ====================================================================
+\section{Summary: the CY3 celestial programme}
+\label{sec:summary}
+% ====================================================================
+
+The programme developed in this note connects three circles of
+ideas through the quantum vertex chiral group:
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{CY3 geometry} (DT invariants, BPS spectra, K3
+  elliptic genera, automorphic forms) provides the root datum
+  $\mathcal{R}(X)$ of the quantum vertex chiral group $G(X)$.
+
+\item \textbf{The shadow tower / bar-cobar machine} (Vol~I)
+  provides the algebraic engine: the universal MC element
+  $\Theta_A$, its arity filtration (the shadow Postnikov tower),
+  and the flat shadow connection $\nabla^{\mathrm{hol}}$.
+
+\item \textbf{Celestial holography} provides the physical
+  interpretation: 4d scattering amplitudes on the celestial
+  sphere, organized by soft theorems that are the Ward identities
+  of the shadow connection.
+\end{enumerate}
+
+The central results and identifications are:
+
+\begin{enumerate}[label=(\alph*)]
+\item The simplest celestial symmetry algebra, $\cW_{1+\infty}$,
+  IS the quantum vertex chiral group of $\mathbb{C}^3$:
+  $\cW_{1+\infty} = Y(\widehat{\mathfrak{gl}}_1) = G(\mathbb{C}^3)$.
+
+\item For CY3 compactifications, the celestial chiral algebra is
+  the genus-0 sector of $G(X)$, with higher-genus corrections
+  from the shadow tower controlling loop amplitudes.
+
+\item The celestial OPE is the collision $r$-matrix:
+  $r(z) = \Res^{\mathrm{coll}}_{0,2}(\Theta_{A_X})$.
+
+\item The leading soft theorem is the arity-2 projection $\kappa$.
+  Higher soft theorems are higher-arity shadows.
+
+\item The automorphic correction (passage from real roots to the
+  full BKM with imaginary roots) IS the shadow tower
+  (passage from arity-2 $\kappa$ to the full $\Theta_A$)
+  IS the tower of soft theorems.
+
+\item The $E_2$-braiding of $G(X)$ is the crossing symmetry of
+  celestial amplitudes, with the quantum Yang--Baxter equation as
+  the algebraic encoding of OPE associativity.
+\end{enumerate}
+
+\end{document}

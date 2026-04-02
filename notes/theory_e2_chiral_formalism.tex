@@ -1,0 +1,1243 @@
+% theory_e2_chiral_formalism.tex
+% Detailed mathematical note: The formal theory of E_2-chiral algebras
+% Companion to chapters/theory/e2_chiral_algebras.tex
+%
+% This note develops the full formalism in five sections:
+%   1. Definition via factorization algebras on Ran(X) x Ran(Y)
+%   2. The E_2 bar complex
+%   3. E_2-chiral Koszul duality
+%   4. Relation to Kontsevich formality
+%   5. Key examples: Hochschild cohomology
+
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\Fact}{\mathrm{Fact}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Mod}{\mathrm{Mod}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\RHom}{\mathrm{RHom}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\HC}{\mathrm{HC}}
+\providecommand{\FM}{\overline{\mathrm{FM}}}
+\providecommand{\Ger}{\mathrm{Ger}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\En}{E_n}
+\providecommand{\Einf}{E_\infty}
+\providecommand{\Ainf}{A_\infty}
+\providecommand{\Linf}{L_\infty}
+\providecommand{\SC}{\mathrm{SC}}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\Uq}{U_q}
+\providecommand{\Uhbar}{U_\hbar}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\op}{\mathrm{op}}
+\providecommand{\colim}{\mathrm{colim}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Fuk}{\mathrm{Fuk}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\barB}{\overline{B}}
+\providecommand{\Omegach}{\Omega^{\mathrm{ch}}}
+\providecommand{\hbar}{\hslash}
+\providecommand{\Vect}{\mathrm{Vect}}
+\providecommand{\DGCat}{\mathbf{dgCat}}
+\providecommand{\RTT}{\mathrm{RTT}}
+
+\providecommand{\ClaimStatusProvedHere}{\textsuperscript{\textsc{[ph]}}}
+\providecommand{\ClaimStatusProvedElsewhere}{\textsuperscript{\textsc{[pe]}}}
+\providecommand{\ClaimStatusConjectured}{\textsuperscript{\textsc{[cj]}}}
+\providecommand{\ClaimStatusHeuristic}{\textsuperscript{\textsc{[he]}}}
+\providecommand{\ClaimStatusOpen}{\textsuperscript{\textsc{[op]}}}
+
+
+%% =====================================================================
+%%  SECTION 1: E_2-CHIRAL ALGEBRAS --- DEFINITION
+%% =====================================================================
+
+\section*{1.\ \ $\Etwo$-chiral algebras: definition via factorization on
+  $\Ran(X) \times \Ran(Y)$}
+\label{note:sec:e2-def}
+
+\subsection*{1.1.\ \ Recollections on the Ran space and chiral factorization}
+
+Let $X$ be a smooth algebraic curve over a field $k$ of characteristic zero.
+The \emph{Ran space} $\Ran(X)$ is the moduli of non-empty finite subsets
+$S \subset X$.  It is a topological (or algebro-geometric) space whose
+topology encodes the collision of points: a sequence of subsets $S_n$
+converges to $S$ if elements of $S_n$ merge into $S$.
+
+A \emph{factorization algebra} on $\Ran(X)$ is a rule $\cA$ that assigns to
+each finite subset $S \subset X$ a vector space (or chain complex)
+$\cA_S$, together with \emph{factorization isomorphisms}: whenever
+$S = S_1 \sqcup S_2$ with $S_1, S_2$ mutually disjoint (in the formal
+neighborhood sense), there is a canonical isomorphism
+\[
+  \cA_S \;\simeq\; \cA_{S_1} \otimes \cA_{S_2}.
+\]
+These isomorphisms are required to be associative and unital.
+A factorization algebra is \emph{chiral} (or \emph{holomorphic}) if the
+factorization structure extends meromorphically across the diagonals
+$\Delta_{ij} = \{x_i = x_j\}$ with controlled singularities.  Concretely,
+the factorization isomorphism for the insertion of two nearby points
+$x_1, x_2 \in X$ takes the form
+\[
+  \mu(a_1, a_2) \;=\; \sum_{n \geq -N} c_n(a_1, a_2)\,(x_1 - x_2)^n,
+\]
+a Laurent expansion in the local coordinate $z = x_1 - x_2$, with
+$c_{-N} \neq 0$ the leading OPE pole.  The residue $c_{-1}$ defines the
+\emph{chiral bracket} (the Lie bracket of the associated vertex algebra).
+
+\subsection*{1.2.\ \ Two-variable factorization:
+  $\Ran(X) \times \Ran(Y)$}
+
+Now let $X$ and $Y$ be two smooth algebraic curves (possibly equal, but
+conceptually distinct).  The product $\Ran(X) \times \Ran(Y)$ parametrizes
+pairs of finite subsets $(S_X, S_Y)$ with $S_X \subset X$ and
+$S_Y \subset Y$.  A factorization algebra on
+$\Ran(X) \times \Ran(Y)$ is a rule
+\[
+  \cA\colon (S_X, S_Y) \;\longmapsto\; \cA_{S_X, S_Y}
+\]
+with factorization isomorphisms in both the $X$- and $Y$-directions
+separately:
+\begin{align}
+  \label{eq:fact-X}
+  \cA_{S_X^1 \sqcup S_X^2,\, S_Y}
+    &\;\simeq\;
+    \cA_{S_X^1,\, S_Y} \otimes \cA_{S_X^2,\, S_Y}
+    \qquad\text{($X$-factorization)}, \\
+  \label{eq:fact-Y}
+  \cA_{S_X,\, S_Y^1 \sqcup S_Y^2}
+    &\;\simeq\;
+    \cA_{S_X,\, S_Y^1} \otimes \cA_{S_X,\, S_Y^2}
+    \qquad\text{($Y$-factorization)},
+\end{align}
+subject to a compatibility condition: the two factorization structures
+commute, i.e., the following square commutes for any decomposition
+$S_X = S_X^1 \sqcup S_X^2$, $S_Y = S_Y^1 \sqcup S_Y^2$:
+\[
+\begin{tikzcd}[column sep=3em]
+  \cA_{S_X^1 \sqcup S_X^2,\, S_Y^1 \sqcup S_Y^2}
+    \ar[r, "\sim"] \ar[d, "\sim"']
+  & \cA_{S_X^1,\, S_Y^1 \sqcup S_Y^2}
+      \otimes \cA_{S_X^2,\, S_Y^1 \sqcup S_Y^2}
+    \ar[d, "\sim"] \\
+  \cA_{S_X^1 \sqcup S_X^2,\, S_Y^1}
+      \otimes \cA_{S_X^1 \sqcup S_X^2,\, S_Y^2}
+    \ar[r, "\sim"']
+  & \displaystyle\bigotimes_{i,j} \cA_{S_X^i,\, S_Y^j}
+\end{tikzcd}
+\]
+This commuting-square condition is the factorization-algebraic incarnation of
+the Dunn additivity equivalence $\Etwo \simeq \Eone \otimes \Eone$.
+
+\subsection*{1.3.\ \ The chiral condition in both directions}
+
+The passage from a general factorization algebra on
+$\Ran(X) \times \Ran(Y)$ to an $\Etwo$-chiral algebra imposes two
+independent chirality conditions:
+
+\medskip
+\noindent\textbf{($\chi_X$) $X$-chirality.}
+For each fixed $S_Y$, the factorization algebra
+$S_X \mapsto \cA_{S_X, S_Y}$ on $\Ran(X)$ is chiral: the $X$-direction
+factorization extends meromorphically across the $X$-diagonals
+$\{x_i = x_j\}$ with poles of finite order.
+
+\medskip
+\noindent\textbf{($\chi_Y$) $Y$-chirality.}
+For each fixed $S_X$, the factorization algebra
+$S_Y \mapsto \cA_{S_X, S_Y}$ on $\Ran(Y)$ is chiral: the $Y$-direction
+factorization extends meromorphically across the $Y$-diagonals
+$\{y_i = y_j\}$ with poles of finite order.
+
+\medskip
+Each chirality condition independently produces a chiral bracket.
+Let $z = x_1 - x_2$ and $w = y_1 - y_2$ be local coordinates.
+The full OPE of two local sections $a_1, a_2 \in \cA_{\{p\}, \{q\}}$
+(for generic points $p \in X$, $q \in Y$) takes the form
+\begin{equation}\label{eq:double-ope}
+  a_1(x_1, y_1) \cdot a_2(x_2, y_2)
+  \;=\;
+  \sum_{m \geq -M}\; \sum_{n \geq -N}
+    c_{m,n}(a_1, a_2)\, z^m\, w^n.
+\end{equation}
+The leading $X$-residue $c_{-1, \bullet}$ defines a chiral bracket
+$\mu_X$; the leading $Y$-residue $c_{\bullet, -1}$ defines a chiral
+bracket $\mu_Y$.  The \emph{mixed residue}
+$c_{-1,-1}(a_1, a_2) = \mathrm{Res}_{z=0}\, \mathrm{Res}_{w=0}\,
+[\text{OPE}]$ encodes the compatibility between the two brackets.
+
+\subsection*{1.4.\ \ The Fulton--MacPherson model and the $\Etwo$ operad}
+
+The compatibility condition ($\Etwo$-structure) has a clean operadic
+formulation via the Fulton--MacPherson compactification.
+
+Let $\FM_n(\mathbb{C})$ denote the Fulton--MacPherson compactification of
+$\mathrm{Conf}_n(\mathbb{C})$, the configuration space of $n$ distinct
+labeled points in $\mathbb{C}$.  The spaces $\{\FM_n(\mathbb{C})\}_{n \geq
+0}$ form an operad (the \emph{FM operad}) that is a model for the
+$\Etwo$ operad:
+\begin{equation}\label{eq:fm-e2}
+  \FM_n(\mathbb{C}) \;\simeq\; \Etwo(n).
+\end{equation}
+This equivalence is an equivalence of $\Sigma_n$-equivariant spaces.
+The key point: the boundary strata of $\FM_n(\mathbb{C})$ encode the
+different orders in which points can collide, and the \emph{two real
+dimensions} of $\mathbb{C}$ give rise to the two independent $\Eone$
+structures.
+
+More precisely, the FM operad decomposes along strata.  A point in
+$\partial \FM_n(\mathbb{C})$ corresponds to a \emph{screen}: a cluster
+of points that have collided, with a record of the relative directions
+and rates.  The identification $\mathbb{C} \simeq \mathbb{R}^2$ gives:
+\begin{itemize}
+  \item Collisions along the first real axis $\to$ $\Eone$ structure
+    (the ``$X$-direction'');
+  \item Collisions along the second real axis $\to$ $\Eone$ structure
+    (the ``$Y$-direction'');
+  \item The full $\FM$ structure $\to$ $\Etwo \simeq \Eone \otimes \Eone$
+    by Dunn additivity.
+\end{itemize}
+
+In the algebro-geometric setting, $\mathbb{C}$ is replaced by the formal
+neighborhood of a point in the surface $X \times Y$, and the two real axes
+are replaced by the two holomorphic directions.  The local coordinate
+$(z, w) \in \mathbb{C}^2$ on $X \times Y$ gives the two independent
+Laurent expansions in~\eqref{eq:double-ope}.
+
+\subsection*{1.5.\ \ Formal definition}
+
+We now give the formal definition, consolidating the preceding discussion.
+
+\medskip
+\noindent\textbf{Definition} ($\Etwo$-chiral algebra)\textbf{.}\ClaimStatusProvedHere\;
+Let $X, Y$ be smooth algebraic curves over $k$.  An \emph{$\Etwo$-chiral
+algebra} on $X \times Y$ is a tuple $(\cA, \mu_X, \mu_Y, \phi)$
+consisting of:
+\begin{enumerate}[label=(\roman*)]
+  \item A \emph{factorization algebra}
+    $\cA\colon \Ran(X) \times \Ran(Y) \to \Vect$
+    with factorization isomorphisms~\eqref{eq:fact-X}
+    and~\eqref{eq:fact-Y} satisfying the commuting-square compatibility.
+
+  \item An \emph{$X$-chiral structure} $\mu_X$: for each $S_Y$, the
+    factorization algebra $S_X \mapsto \cA_{S_X, S_Y}$ on $\Ran(X)$
+    is chiral, with OPE poles along $\{x_i = x_j\}$ of finite order
+    and chiral bracket
+    $\mu_X \colon j_*j^*(\cA \boxtimes \cA) \to
+    \Delta_*^X \cA$ (where $j\colon U_X \hookrightarrow X^2$ is the
+    complement of the diagonal and $\Delta^X\colon X \hookrightarrow X^2$).
+
+  \item A \emph{$Y$-chiral structure} $\mu_Y$: the analogous holomorphic
+    factorization in the $Y$-direction.
+
+  \item An \emph{$\Etwo$-compatibility datum} $\phi$: an action of the
+    FM operad $\{\FM_n(\mathbb{C})\}$ on the local sections of $\cA$,
+    such that:
+    \begin{itemize}
+      \item The restriction of $\phi$ to the first $\Eone$-factor
+        (collisions along $\mathrm{Re}(z)$) recovers $\mu_X$;
+      \item The restriction of $\phi$ to the second $\Eone$-factor
+        (collisions along $\mathrm{Im}(z)$, i.e., the $w$-direction)
+        recovers $\mu_Y$;
+      \item The full $\phi$ is compatible with the factorization
+        isomorphisms in the sense that the following diagram commutes
+        for all $n$:
+        \[
+        \begin{tikzcd}
+          \FM_n(\mathbb{C}) \times \cA^{\otimes n}
+            \ar[r, "\phi_n"] \ar[d]
+          & \cA \ar[d, "\mathrm{fact}"] \\
+          \FM_n(\mathbb{C}) \times
+            \displaystyle\bigotimes_{S \in \pi} \cA_{|S|}
+            \ar[r]
+          & \displaystyle\bigotimes_{S \in \pi} \cA
+        \end{tikzcd}
+        \]
+        for every partition $\pi$ of $\{1, \ldots, n\}$
+        corresponding to a boundary stratum of $\FM_n(\mathbb{C})$.
+    \end{itemize}
+\end{enumerate}
+
+\medskip
+\noindent\textbf{Theorem} (representation category is braided monoidal)\textbf{.}\ClaimStatusProvedElsewhere\;
+Let $\cA$ be an $\Etwo$-chiral algebra on $X \times Y$.  The category
+$\Rep^{\Etwo}(\cA)$ of chiral $\cA$-modules that are compatible with the
+$\Etwo$-structure is a braided monoidal category.  The tensor product is
+given by the fusion product in the $X$-direction, and the braiding is
+given by the monodromy in the $Y$-direction (equivalently, by the
+transposition of the two $\Eone$-structures).
+
+\begin{proof}[Proof sketch]
+By Lurie's theorem (Theorem~5.1.2.2 of \emph{Higher Algebra}), the
+$\infty$-category of $\Etwo$-algebras in a symmetric monoidal
+$\infty$-category $\cC$ is equivalent to the $\infty$-category of
+braided monoidal objects in $\cC$.  The $\Etwo$-chiral algebra $\cA$
+determines an $\Etwo$-algebra object in the symmetric monoidal
+$\infty$-category of factorization coalgebras on $\Ran(X)$
+(with Day convolution monoidal structure from $\Ran(Y)$).
+Passing to modules, the two $\Eone$-multiplications become:
+\begin{itemize}
+  \item The \emph{tensor product functor}
+    $\otimes \colon \Rep(\cA) \times \Rep(\cA) \to \Rep(\cA)$,
+    from the $X$-direction $\Eone$-structure;
+  \item The \emph{braiding}
+    $\beta_{M,N}\colon M \otimes N \xrightarrow{\sim} N \otimes M$,
+    from the $Y$-direction $\Eone$-structure.
+\end{itemize}
+Dunn additivity guarantees that these two structures together constitute
+a braided monoidal structure (neither more nor less).  The hexagon
+axioms follow from the coherence of the $\Etwo$-operad action: the
+associativity of each $\Eone$ and the interchange law between them.
+\end{proof}
+
+\medskip
+\noindent\textbf{Remark} ($\Etwo$ vs.\ $\Einf$)\textbf{.}
+An $\Etwo$-chiral algebra is \emph{not} commutative in general: the
+braiding $\beta_{M,N}$ need not satisfy $\beta_{N,M} \circ \beta_{M,N}
+= \id$.  This is the source of the quantum group structure.  Upgrading
+from $\Etwo$ to $\Einf$ would force symmetry and kill the $R$-matrix;
+cf.\ anti-pattern AP-CY3.
+
+
+%% =====================================================================
+%%  SECTION 2: THE E_2 BAR COMPLEX
+%% =====================================================================
+
+\section*{2.\ \ The $\Etwo$ bar complex $B_{\Etwo}(\cA)$}
+\label{note:sec:e2-bar}
+
+\subsection*{2.1.\ \ Review: the $\Eone$ bar complex}
+
+For an $\Eone$-chiral algebra $\cA$ on $X \times \mathbb{R}$ (as in
+Volume~II, Part~VII), the bar complex $B_{\Eone}(\cA)$ is a factorization
+coalgebra on $\Ran(X) \times \Ran(\mathbb{R})$ defined by:
+\[
+  B_{\Eone}(\cA)
+  \;=\;
+  \bigoplus_{n \geq 1} \cA^{\otimes n}[-n]
+\]
+with:
+\begin{itemize}
+  \item A \emph{differential} $d_X$ of degree $+1$, encoding the
+    $X$-direction OPE residues (the chiral bracket $\mu_X$);
+  \item A \emph{coproduct} $\Delta_X$ encoding the ordered
+    deconcatenation of tensor factors:
+    \[
+      \Delta_X(a_1 | \cdots | a_n)
+      \;=\;
+      \sum_{i=1}^{n-1}
+        (a_1 | \cdots | a_i) \otimes (a_{i+1} | \cdots | a_n).
+    \]
+\end{itemize}
+Here $a_1 | \cdots | a_n$ denotes the bar element
+$[a_1, \ldots, a_n] \in \cA^{\otimes n}[-n]$.
+The bar differential satisfies $d_X^2 = 0$ (from the Jacobi identity
+for $\mu_X$), $\Delta_X$ is coassociative, and $d_X$ is a coderivation
+with respect to $\Delta_X$.
+
+\subsection*{2.2.\ \ Construction of $B_{\Etwo}(\cA)$}
+
+For an $\Etwo$-chiral algebra $\cA$ on $X \times Y$, the $\Etwo$ bar
+complex is defined by applying the bar construction in \emph{both}
+chiral directions simultaneously.
+
+\medskip
+\noindent\textbf{Construction} ($\Etwo$ bar complex)\textbf{.}\ClaimStatusProvedHere\;
+Let $\cA$ be an $\Etwo$-chiral algebra on $X \times Y$.  The
+\emph{$\Etwo$ bar complex} $B_{\Etwo}(\cA)$ is a factorization
+coalgebra on $\Ran(X) \times \Ran(Y)$ defined as follows.
+
+\medskip
+\noindent\textit{Underlying graded object.}
+The underlying bigraded chain complex is
+\begin{equation}\label{eq:be2-underlying}
+  B_{\Etwo}(\cA)
+  \;=\;
+  \bigoplus_{p \geq 1}\; \bigoplus_{q \geq 1}
+    \cA^{\otimes pq}\,[-p]_X\,[-q]_Y
+\end{equation}
+where $[-p]_X$ and $[-q]_Y$ denote the bar degree shifts in the $X$-
+and $Y$-directions respectively.  More precisely, we take the
+\emph{double bar construction}: first form the $X$-bar complex
+$B_X(\cA) = \bigoplus_p \cA^{\otimes p}[-p]$, then apply the
+$Y$-bar construction to $B_X(\cA)$ viewed as an $\Eone$-algebra
+in the $Y$-direction:
+\begin{equation}\label{eq:be2-iterated}
+  B_{\Etwo}(\cA)
+  \;=\;
+  B_Y(B_X(\cA))
+  \;\simeq\;
+  B_X(B_Y(\cA)).
+\end{equation}
+The second equivalence is a consequence of the Dunn additivity
+$\Etwo \simeq \Eone \otimes \Eone$: the two iterated bar constructions
+are canonically equivalent.
+
+\medskip
+\noindent\textit{Differentials.}
+The $\Etwo$ bar complex carries \emph{two commuting differentials}:
+\begin{align}
+  d_X &\colon B_{\Etwo}(\cA)^{p,q} \;\to\;
+    B_{\Etwo}(\cA)^{p-1,\,q}, \label{eq:dX}\\
+  d_Y &\colon B_{\Etwo}(\cA)^{p,q} \;\to\;
+    B_{\Etwo}(\cA)^{p,\,q-1}. \label{eq:dY}
+\end{align}
+Here $d_X$ is the bar differential for the $X$-chiral structure
+$\mu_X$: it acts by inserting $X$-direction OPE residues between
+adjacent $X$-bar factors.  Explicitly, on a double bar element
+$[a_1 | \cdots | a_p]_X \otimes [b_1 | \cdots | b_q]_Y$:
+\begin{equation}\label{eq:dX-explicit}
+  d_X\bigl([a_1 | \cdots | a_p]_X\bigr)
+  \;=\;
+  \sum_{i=1}^{p-1} (-1)^{\epsilon_i}\;
+    [a_1 | \cdots | \mu_X(a_i, a_{i+1}) | \cdots | a_p]_X
+\end{equation}
+where $\epsilon_i$ is the Koszul sign.  The differential $d_Y$ is
+defined identically using $\mu_Y$.
+
+The \emph{commutativity} $d_X \circ d_Y = d_Y \circ d_X$ follows from the
+$\Etwo$-compatibility: $\mu_X$ and $\mu_Y$ are the two $\Eone$-brackets,
+and the interchange law of the $\Etwo$ operad guarantees that the
+Jacobi identities of $\mu_X$ and $\mu_Y$ are compatible.  In equations:
+\[
+  [d_X, d_Y] \;=\; 0.
+\]
+
+The total differential is $d = d_X + d_Y$, satisfying $d^2 = d_X^2 +
+[d_X, d_Y] + d_Y^2 = 0$.  This makes $B_{\Etwo}(\cA)$ a \emph{bicomplex},
+and the total complex computes the $\Etwo$-bar homology.
+
+\medskip
+\noindent\textit{Coproducts.}
+The $\Etwo$ bar complex carries \emph{two commuting coproducts}:
+\begin{align}
+  \Delta_X &\colon B_{\Etwo}(\cA) \;\to\;
+    B_{\Etwo}(\cA) \otimes B_{\Etwo}(\cA), \label{eq:DeltaX}\\
+  \Delta_Y &\colon B_{\Etwo}(\cA) \;\to\;
+    B_{\Etwo}(\cA) \otimes B_{\Etwo}(\cA). \label{eq:DeltaY}
+\end{align}
+Each coproduct is the deconcatenation coproduct in the corresponding
+bar direction.  Explicitly:
+\begin{equation}\label{eq:DeltaX-explicit}
+  \Delta_X\bigl([a_1 | \cdots | a_p]_X\bigr)
+  \;=\;
+  \sum_{i=1}^{p-1}
+    [a_1 | \cdots | a_i]_X \;\otimes\;
+    [a_{i+1} | \cdots | a_p]_X
+\end{equation}
+and similarly for $\Delta_Y$.  Each coproduct is coassociative, and
+each differential is a coderivation with respect to its corresponding
+coproduct:
+\begin{equation}\label{eq:coderivation}
+  \Delta_X \circ d_X
+  \;=\;
+  (d_X \otimes \id + \id \otimes d_X) \circ \Delta_X,
+  \qquad
+  \Delta_Y \circ d_Y
+  \;=\;
+  (d_Y \otimes \id + \id \otimes d_Y) \circ \Delta_Y.
+\end{equation}
+
+The two coproducts commute in the sense that
+$(\id \otimes \tau \otimes \id) \circ
+(\Delta_X \otimes \Delta_X) \circ \Delta_Y
+= (\Delta_Y \otimes \Delta_Y) \circ \Delta_X$,
+where $\tau$ is the graded transposition.
+
+\medskip
+\noindent\textbf{Proposition} (bicomplex structure)\textbf{.}\ClaimStatusProvedHere\;
+The data $(B_{\Etwo}(\cA), d_X, d_Y, \Delta_X, \Delta_Y)$ forms a
+\emph{bi-dg-coalgebra}: a bicomplex that is simultaneously a coalgebra
+in two commuting directions.
+
+\begin{proof}
+The identities $d_X^2 = 0$, $d_Y^2 = 0$, $[d_X, d_Y] = 0$ make
+$B_{\Etwo}(\cA)$ a bicomplex.  The coassociativity of $\Delta_X$ and
+$\Delta_Y$ and the coderivation properties~\eqref{eq:coderivation}
+are inherited from the two $\Eone$-bar constructions.  The commutativity
+of $\Delta_X$ and $\Delta_Y$ follows from the iterated bar
+equivalence~\eqref{eq:be2-iterated}: since $B_{\Etwo} \simeq
+B_Y(B_X(\cA)) \simeq B_X(B_Y(\cA))$, the two coproducts are
+manifestly independent.
+\end{proof}
+
+\subsection*{2.3.\ \ The braiding and the $R$-matrix}
+
+The most important new feature of the $\Etwo$ bar complex, absent in
+the $\Eone$ theory, is the \emph{braiding}.
+
+\medskip
+\noindent\textbf{Construction} (braiding from transposition of $\Eone$ structures)\textbf{.}\ClaimStatusProvedHere\;
+The $\Etwo$ operad has an involution $\sigma\colon \Etwo \to \Etwo$
+that transposes the two $\Eone$-factors under the Dunn equivalence
+$\Etwo \simeq \Eone \otimes \Eone$.  On the Fulton--MacPherson model,
+$\sigma$ acts on $\FM_n(\mathbb{C})$ by complex conjugation
+$z \mapsto \bar{z}$ (equivalently, reflection in the real axis, which
+swaps the two real directions).
+
+Applied to the $\Etwo$ bar complex, $\sigma$ interchanges:
+\[
+  \sigma\colon (d_X, d_Y, \Delta_X, \Delta_Y)
+  \;\longmapsto\;
+  (d_Y, d_X, \Delta_Y, \Delta_X).
+\]
+The \emph{braiding} on $B_{\Etwo}(\cA)$ is the natural transformation
+\begin{equation}\label{eq:braiding}
+  \beta \;=\; \sigma \circ \tau
+  \;\colon\;
+  B_{\Etwo}(\cA) \otimes B_{\Etwo}(\cA)
+  \;\xrightarrow{\;\sim\;}\;
+  B_{\Etwo}(\cA) \otimes B_{\Etwo}(\cA)
+\end{equation}
+where $\tau$ is the graded swap.
+
+\medskip
+\noindent\textbf{Proposition} ($R$-matrix from the braiding)\textbf{.}\ClaimStatusProvedHere\;
+The braiding~\eqref{eq:braiding}, evaluated on the chiral
+envelope (i.e., localized at a pair of points $(p_1, p_2) \in X^2$
+with local coordinate $z = p_1 - p_2$), takes the form of a
+\emph{universal $R$-matrix}:
+\begin{equation}\label{eq:R-matrix}
+  R(z, w) \;\in\;
+  \End\bigl(B_{\Etwo}(\cA) \otimes B_{\Etwo}(\cA)\bigr)
+  \otimes k((z))((w))
+\end{equation}
+where $z$ and $w$ are the local coordinates in the $X$- and
+$Y$-directions.
+
+The $R$-matrix satisfies the \emph{quantum Yang--Baxter equation}:
+\begin{equation}\label{eq:qybe}
+  R_{12}(z_1 - z_2,\, w_1 - w_2)\;
+  R_{13}(z_1 - z_3,\, w_1 - w_3)\;
+  R_{23}(z_2 - z_3,\, w_2 - w_3)
+  \;=\;
+  R_{23}\; R_{13}\; R_{12}
+\end{equation}
+in $\End(\cA^{\otimes 3}) \otimes k((z_1, z_2, z_3))((w_1, w_2, w_3))$.
+This is a direct consequence of the coherence of the $\Etwo$ operad
+action: the QYBE is the $n = 3$ associahedron relation for
+$\FM_3(\mathbb{C})$.
+
+\begin{proof}[Proof sketch]
+The key geometric input: $\FM_3(\mathbb{C})$ has fundamental group
+isomorphic to the pure braid group $P_3$ on three strands.
+The monodromy representation of $P_3$ on $\cA^{\otimes 3}$ is
+determined by three generators $\sigma_{12}$, $\sigma_{13}$,
+$\sigma_{23}$ (corresponding to the three pairs of colliding points)
+satisfying the braid relation
+$\sigma_{12}\,\sigma_{23}\,\sigma_{12}
+= \sigma_{23}\,\sigma_{12}\,\sigma_{23}$.
+The $R$-matrix~\eqref{eq:R-matrix} is the monodromy of
+$\sigma_{12}$, and the braid relation translates to the QYBE.
+\end{proof}
+
+\subsection*{2.4.\ \ The two spectral sequences}
+
+The bicomplex structure on $B_{\Etwo}(\cA)$ gives rise to two spectral
+sequences:
+
+\medskip
+\noindent\textbf{$X$-first spectral sequence.}
+Filter by $Y$-bar degree $q$:
+\[
+  E_1^{p,q} \;=\; H^p(B_{\Etwo}(\cA)^{\bullet, q},\, d_X)
+  \quad\Longrightarrow\quad
+  H^{p+q}(B_{\Etwo}(\cA),\, d_X + d_Y).
+\]
+The $E_1$ page computes the $X$-direction bar homology at each fixed
+$Y$-bar level; the $d_1$ differential is the residual $d_Y$ action.
+
+\medskip
+\noindent\textbf{$Y$-first spectral sequence.}
+Filter by $X$-bar degree $p$:
+\[
+  E_1^{p,q} \;=\; H^q(B_{\Etwo}(\cA)^{p, \bullet},\, d_Y)
+  \quad\Longrightarrow\quad
+  H^{p+q}(B_{\Etwo}(\cA),\, d_X + d_Y).
+\]
+
+The two spectral sequences converge to the same total homology, but
+their $E_1$ pages carry different algebraic structures: the first
+has a residual $\Delta_Y$-coalgebra structure, the second a residual
+$\Delta_X$-coalgebra structure.  The $\Etwo$-formality question
+(Section~4) asks when these spectral sequences collapse at $E_1$
+or $E_2$.
+
+\subsection*{2.5.\ \ Comparison with the $\Eone$ bar complex}
+
+There is a forgetful map from the $\Etwo$-theory to the
+$\Eone$-theory, obtained by ``forgetting'' one of the two chiral
+directions.
+
+\medskip
+\noindent\textbf{Proposition} (forgetful functors)\textbf{.}\ClaimStatusProvedHere\;
+Let $\cA$ be an $\Etwo$-chiral algebra on $X \times Y$.
+\begin{enumerate}[label=(\roman*)]
+  \item Forgetting the $Y$-structure gives an $\Eone$-chiral algebra
+    $\cA|_X$ on $X \times Y_{\mathrm{triv}}$, with bar complex
+    $B_{\Eone}(\cA|_X) \simeq (B_{\Etwo}(\cA),\, d_X,\, \Delta_X)$.
+  \item Forgetting the $X$-structure gives an $\Eone$-chiral algebra
+    $\cA|_Y$ on $X_{\mathrm{triv}} \times Y$, with bar complex
+    $B_{\Eone}(\cA|_Y) \simeq (B_{\Etwo}(\cA),\, d_Y,\, \Delta_Y)$.
+  \item The braiding $\beta$ on $\Rep^{\Etwo}(\cA)$ forgets to the
+    identity (i.e., $\Rep^{\Eone}(\cA|_X)$ is monoidal but not braided).
+\end{enumerate}
+
+The passage from $\Eone$ to $\Etwo$ --- from monoidal to braided monoidal
+--- is precisely the passage from one differential-coproduct pair $(d_X,
+\Delta_X)$ to two commuting pairs $(d_X, \Delta_X)$ and
+$(d_Y, \Delta_Y)$ with the braiding arising from their transposition.
+This is the bar-complex incarnation of the Drinfeld center construction
+(cf.\ Chapter~\ref{ch:drinfeld-center}).
+
+
+%% =====================================================================
+%%  SECTION 3: E_2-CHIRAL KOSZUL DUALITY
+%% =====================================================================
+
+\section*{3.\ \ $\Etwo$-chiral Koszul duality}
+\label{note:sec:e2-koszul}
+
+\subsection*{3.1.\ \ The $\Etwo$ bar-cobar adjunction}
+
+We now extend the bar-cobar adjunction of Volume~I from the chiral
+($\Eone$) setting to the $\Etwo$ setting.
+
+\medskip
+\noindent\textbf{Construction} ($\Etwo$-cobar complex)\textbf{.}\ClaimStatusProvedHere\;
+Let $\cB = (B, d_X^B, d_Y^B, \Delta_X^B, \Delta_Y^B)$ be an
+$\Etwo$-factorization coalgebra on $\Ran(X) \times \Ran(Y)$.  The
+\emph{$\Etwo$-cobar complex} $\Omega_{\Etwo}(\cB)$ is the
+$\Etwo$-chiral algebra defined by:
+\begin{equation}\label{eq:cobar-e2}
+  \Omega_{\Etwo}(\cB)
+  \;=\;
+  \Omega_Y(\Omega_X(\cB))
+  \;\simeq\;
+  \Omega_X(\Omega_Y(\cB))
+\end{equation}
+where $\Omega_X$ (resp.\ $\Omega_Y$) denotes the $\Eone$-cobar
+construction applied in the $X$- (resp.\ $Y$-) direction.  Concretely,
+the underlying object is the cofree algebra on the desuspension of
+$\cB$, with:
+\begin{itemize}
+  \item Multiplication $\mu_X$ reconstructed from $\Delta_X^B$ via
+    the cobar prescription;
+  \item Multiplication $\mu_Y$ reconstructed from $\Delta_Y^B$;
+  \item $\Etwo$-compatibility inherited from the commutativity of
+    $\Delta_X^B$ and $\Delta_Y^B$.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Theorem} ($\Etwo$ bar-cobar adjunction)\textbf{.}\ClaimStatusProvedHere\;
+The bar and cobar constructions form an adjoint pair
+\[
+  B_{\Etwo}
+  \;\colon\;
+  \Etwo\text{-}\mathrm{ChirAlg}
+  \;\rightleftarrows\;
+  \Etwo\text{-}\mathrm{ChirCoalg}
+  \;\cocolon\;
+  \Omega_{\Etwo}
+\]
+with the following properties:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Adjunction.} The bar functor $B_{\Etwo}$ is left
+    adjoint to the cobar functor $\Omega_{\Etwo}$:
+    \[
+      \Hom_{\Etwo\text{-}\mathrm{ChirCoalg}}
+        (B_{\Etwo}(\cA),\, \cB)
+      \;\simeq\;
+      \Hom_{\Etwo\text{-}\mathrm{ChirAlg}}
+        (\cA,\, \Omega_{\Etwo}(\cB)).
+    \]
+
+  \item \textbf{Cobar-bar inversion (Koszul locus).}
+    On the full subcategory of Koszul $\Etwo$-chiral algebras
+    (those for which the canonical map
+    $\cA \to \Omega_{\Etwo}(B_{\Etwo}(\cA))$ is a quasi-isomorphism),
+    the adjunction restricts to an equivalence:
+    \[
+      \Omega_{\Etwo} \circ B_{\Etwo}
+      \;\simeq\; \id
+      \qquad\text{on $\Etwo$-$\mathrm{ChirAlg}^{\mathrm{Koszul}}$}.
+    \]
+
+  \item \textbf{$\Etwo$-equivariance.}
+    Both $B_{\Etwo}$ and $\Omega_{\Etwo}$ are $\Etwo$-equivariant:
+    they intertwine the $\Etwo$-operad actions on algebras and
+    coalgebras.  In particular, the braiding on the algebra side
+    corresponds to the transposition of coproducts on the coalgebra
+    side.
+\end{enumerate}
+
+\begin{proof}[Proof sketch]
+The adjunction follows from the standard bar-cobar adjunction for
+operadic algebras, applied to the operad $\Etwo$.  The key input is
+that $\Etwo$ is \emph{Koszul} as an operad: the Koszul dual cooperad
+$\Etwo^{\scriptstyle\text{!`}}$ is equivalent (up to suspension) to
+$\Etwo$ itself, by the self-duality of the $\Etwo$ operad
+(a theorem of Getzler--Jones and Fresse).
+
+More precisely, the Koszul dual of $\Etwo$ is the shifted cooperad
+$\Etwo^{\scriptstyle\text{!`}} \simeq \Etwo\{-2\}$ (a desuspension
+by the operadic arity).  The bar construction
+$B_{\Etwo}(\cA) = \Etwo^{\scriptstyle\text{!`}} \circ \cA$ is the
+cofree $\Etwo^{\scriptstyle\text{!`}}$-coalgebra on $\cA$ with the
+unique coderivation extending the structure maps.  The cobar
+construction is the dual: $\Omega_{\Etwo}(\cB) = \Etwo \circ \cB$
+with the unique derivation extending the costructure maps.
+
+The cobar-bar inversion on the Koszul locus is a consequence of the
+operadic Koszul resolution: the composition
+$\Etwo \circ_\tau \Etwo^{\scriptstyle\text{!`}}$ is acyclic
+(the twisting morphism $\tau$ being the Koszul twisting morphism),
+which gives
+$\Omega_{\Etwo}(B_{\Etwo}(\cA)) \simeq
+(\Etwo \circ_\tau \Etwo^{\scriptstyle\text{!`}}) \circ \cA
+\simeq \cA$.
+\end{proof}
+
+\subsection*{3.2.\ \ The $\Etwo$-chiral Koszul dual}
+
+\medskip
+\noindent\textbf{Definition} ($\Etwo$-Koszul dual)\textbf{.}\ClaimStatusProvedHere\;
+For an $\Etwo$-chiral algebra $\cA$, the \emph{$\Etwo$-Koszul dual} is
+\[
+  \cA^{!_{\Etwo}}
+  \;=\;
+  \Omega_{\Etwo}(B_{\Etwo}(\cA)^\vee)
+\]
+where $(-)^\vee$ is the linear dual of the coalgebra (i.e., the
+graded dual $B_{\Etwo}(\cA)^* = \Hom(B_{\Etwo}(\cA), k)$, viewed
+as an $\Etwo$-algebra via dualization of the coproducts into products).
+
+The Koszul dual $\cA^{!_{\Etwo}}$ is again an $\Etwo$-chiral algebra.
+Its two chiral brackets $\mu_X^!$ and $\mu_Y^!$ are obtained by
+dualizing $\Delta_X$ and $\Delta_Y$ of $B_{\Etwo}(\cA)$ and then
+applying the cobar construction.
+
+\medskip
+\noindent\textbf{Remark} (relation to the $\Eone$ Koszul dual)\textbf{.}
+Forgetting the $Y$-structure, the $\Etwo$-Koszul dual restricts to
+the $\Eone$-Koszul dual of Volume~I:
+$\cA^{!_{\Etwo}}\big|_X \simeq \cA^{!_{\Eone}}$.
+The additional datum is the \emph{dual braiding}: the $Y$-direction
+Koszul duality reverses the braiding.
+
+\subsection*{3.3.\ \ The $\Etwo$-Koszul duality conjecture on
+  representation categories}
+
+\medskip
+\noindent\textbf{Conjecture} ($\Etwo$-chiral Koszul duality)\textbf{.}\ClaimStatusConjectured\;
+Let $\cA$ be a Koszul $\Etwo$-chiral algebra.  Then there is a braided
+monoidal equivalence
+\begin{equation}\label{eq:e2-koszul-rep}
+  \Rep^{\Etwo}(\cA)
+  \;\simeq\;
+  \Rep^{\Etwo}(\cA^{!_{\Etwo}})^{\mathrm{rev}}
+\end{equation}
+where $\mathrm{rev}$ denotes the \emph{reverse braiding}: if $\cC$
+is braided monoidal with braiding $\beta$, then $\cC^{\mathrm{rev}}$
+has the same underlying monoidal category but with braiding
+$\beta^{\mathrm{rev}}_{M,N} = \beta_{N,M}^{-1}$.
+
+\medskip
+\noindent\textbf{Evidence and partial results.}
+
+\begin{enumerate}[label=(\arabic*)]
+  \item \textbf{$\Eone$ case (Volume~I).}
+    The conjecture reduces to the known monoidal equivalence
+    $\Rep^{\Eone}(A) \simeq \Rep^{\Eone}(A^!)^{\mathrm{rev}}$ of
+    Theorem~\ref{thm:e1-koszul} when the $Y$-structure is trivialized.
+
+  \item \textbf{Quantum group case.}
+    For $\cA$ the chiral algebra associated to $\hat{\frakg}_k$
+    (affine Kac--Moody at level $k$) with its canonical
+    $\Etwo$-enhancement from the Drinfeld center, the conjecture
+    predicts
+    \[
+      \Rep^{\Etwo}(\hat{\frakg}_k)
+      \;\simeq\;
+      \Rep^{\Etwo}(\hat{\frakg}_{-k-2h^\vee})^{\mathrm{rev}}
+    \]
+    which is a form of the quantum Langlands / level-rank duality.
+    At the level of braided monoidal categories, this is closely
+    related to the Kazhdan--Lusztig equivalence
+    $\mathrm{KL}_k(\frakg) \simeq \Rep_q(\frakg)$ with
+    $q = e^{\pi i/(k + h^\vee)}$.
+
+  \item \textbf{Braiding reversal.}
+    The appearance of $\mathrm{rev}$ has a clean operadic explanation:
+    the Koszul duality functor on the $\Etwo$ operad involves a
+    desuspension by $2$ that acts on the $\Eone \otimes \Eone$
+    decomposition by exchanging the two factors (up to a sign).
+    This exchange transposes the braiding, hence reverses it.
+
+  \item \textbf{CY categories.}
+    For $\cA = \Phi(\cC)$ with $\cC$ a CY$_2$ category (via the
+    CY-to-chiral functor of Chapter~\ref{ch:cy-to-chiral}), the
+    conjecture predicts that the braided category of $\cC$-modules
+    is self-dual up to braiding reversal --- a form of CY mirror
+    symmetry at the categorical level.
+\end{enumerate}
+
+\subsection*{3.4.\ \ The CY trace as curvature}
+
+In the presence of a CY structure (as in the main programme of this
+volume), the bar-cobar adjunction acquires curvature at higher genus.
+
+\medskip
+\noindent\textbf{Proposition} (genus-$g$ obstruction)\textbf{.}\ClaimStatusConjectured\;
+Let $\cA = \Phi(\cC)$ for a CY$_d$ category $\cC$.  Then the
+$\Etwo$ bar-cobar failure at genus $g \geq 1$ takes the form
+\[
+  d_{\mathrm{tot}}^2
+  \;\sim\;
+  \kappa(\cA) \cdot \omega_g
+\]
+where $\kappa(\cA)$ is the modular characteristic of Volume~I and
+$\omega_g$ is the genus-$g$ Mumford class.  The $\Etwo$-enhancement
+refines this: the curvature splits into $X$- and $Y$-components,
+$d_X^2 = 0$, $d_Y^2 = 0$, but
+\[
+  [d_X, d_Y]
+  \;=\;
+  \kappa(\cA) \cdot \omega_g
+  \qquad\text{at genus $g \geq 1$}.
+\]
+That is, the two differentials \emph{fail to commute} precisely by the
+modular obstruction.  At genus $0$ the commutator vanishes and the
+bicomplex structure is exact.
+
+
+%% =====================================================================
+%%  SECTION 4: KONTSEVICH FORMALITY AND THE GERSTENHABER STRUCTURE
+%% =====================================================================
+
+\section*{4.\ \ Kontsevich formality and the $\Etwo$-Gerstenhaber structure}
+\label{note:sec:kontsevich}
+
+\subsection*{4.1.\ \ The Gerstenhaber operad}
+
+The \emph{Gerstenhaber operad} $\Ger$ is the operad governing
+Gerstenhaber algebras: graded-commutative algebras equipped with a
+Lie bracket of degree $-1$ satisfying the Leibniz rule with respect
+to the commutative product.  Concretely, a Gerstenhaber algebra is
+a graded vector space $V$ with:
+\begin{itemize}
+  \item A commutative product $\cup\colon V \otimes V \to V$ of
+    degree $0$;
+  \item A Lie bracket $[\cdot, \cdot]\colon V \otimes V \to V[-1]$
+    of degree $-1$ (i.e., $|[a,b]| = |a| + |b| - 1$);
+  \item The Leibniz rule:
+    $[a, b \cup c] = [a,b] \cup c + (-1)^{(|a|-1)|b|} b \cup [a,c]$.
+\end{itemize}
+
+The Gerstenhaber operad is the homology of the $\Etwo$ operad:
+\[
+  H_\bullet(\Etwo) \;\simeq\; \Ger.
+\]
+This is a classical result of Fred Cohen (1976): the homology of
+the configuration spaces $\mathrm{Conf}_n(\mathbb{R}^2)$ is generated
+by the commutative product (from the $\Einf$-structure on
+$H_\bullet$) and the bracket (from the fundamental class of
+$S^1 \simeq \mathrm{Conf}_2(\mathbb{R}^2)/\mathbb{R}^+$).
+
+\subsection*{4.2.\ \ Kontsevich formality}
+
+Kontsevich's formality theorem, in its operadic form (proved by
+Tamarkin, with contributions of Kontsevich, and later established
+in full generality by Fresse and Willwacher), states:
+
+\medskip
+\noindent\textbf{Theorem} (Kontsevich--Tamarkin formality)\textbf{.}\ClaimStatusProvedElsewhere\;
+Over a field $k$ of characteristic zero, there is a quasi-isomorphism
+of operads
+\begin{equation}\label{eq:formality}
+  C_\bullet(\Etwo;\, k)
+  \;\xleftarrow{\;\sim\;}\;
+  \Ger
+\end{equation}
+where $C_\bullet(\Etwo;\, k)$ denotes the chain operad of $\Etwo$.
+Equivalently, every $\Etwo$-algebra in chain complexes over $k$ is
+equivalent, as an $\Etwo$-algebra, to a Gerstenhaber algebra (its
+homology with the induced $\Ger$-structure).
+
+\medskip
+\noindent\textbf{Remark} (characteristic zero is essential)\textbf{.}
+The formality theorem fails in positive characteristic: the higher
+operations (Dyer--Lashof operations) on $H_\bullet(\Etwo)$ are
+non-trivial over $\mathbb{F}_p$.  All results in this section
+require $\mathrm{char}(k) = 0$.
+
+\medskip
+\noindent\textbf{Remark} (Drinfeld associators)\textbf{.}
+The formality quasi-isomorphism~\eqref{eq:formality} is \emph{not}
+canonical: it depends on the choice of a Drinfeld associator
+$\Phi \in \exp(\hat{\mathfrak{f}}_2)$ (where $\hat{\mathfrak{f}}_2$
+is the degree-completed free Lie algebra on two generators).
+The space of choices is a torsor for the Grothendieck--Teichm\"uller
+group $\mathrm{GRT}_1$.  The Knizhnik--Zamolodchikov associator
+$\Phi_{\mathrm{KZ}}$ provides a canonical (but transcendental) choice
+over $\mathbb{C}$; a rational choice exists by Alekseev--Torossian
+but is non-explicit.
+
+\subsection*{4.3.\ \ Application to $\Etwo$-chiral algebras}
+
+The Kontsevich formality theorem translates directly to the
+$\Etwo$-chiral setting:
+
+\medskip
+\noindent\textbf{Corollary} (Gerstenhaber description of $\Etwo$-chiral
+algebras)\textbf{.}\ClaimStatusProvedHere\;
+Over $k$ of characteristic zero, the $\infty$-category of
+$\Etwo$-chiral algebras (on a fixed pair of curves $X, Y$) is
+equivalent to the $\infty$-category of \emph{chiral Gerstenhaber
+algebras}: factorization algebras on $\Ran(X) \times \Ran(Y)$ whose
+fiber at each pair of points carries a Gerstenhaber algebra structure,
+varying holomorphically.
+
+Under this equivalence:
+\begin{itemize}
+  \item The commutative product $\cup$ corresponds to the
+    $X$-direction OPE at leading order (the ``classical'' product
+    on $\cA/\cA \cdot \cA$);
+  \item The Lie bracket $[\cdot, \cdot]$ of degree $-1$ corresponds to
+    the braiding monodromy (the first-order deviation of
+    $\beta_{M,N}$ from the identity);
+  \item The Leibniz rule encodes the compatibility between the
+    $X$-factorization and the braiding.
+\end{itemize}
+
+\medskip
+\noindent\textbf{Corollary} ($\Etwo$ bar complex as Chevalley--Eilenberg
+complex)\textbf{.}\ClaimStatusProvedHere\;
+Under the formality equivalence, the $\Etwo$ bar complex
+$B_{\Etwo}(\cA)$ decomposes as a Chevalley--Eilenberg complex for the
+Lie bracket, tensored with the bar complex for the commutative product:
+\begin{equation}\label{eq:be2-ce}
+  B_{\Etwo}(\cA)
+  \;\simeq\;
+  B_{\mathrm{comm}}(\cA) \otimes C_{\mathrm{CE}}(\cA[-1])
+\end{equation}
+where:
+\begin{itemize}
+  \item $B_{\mathrm{comm}}(\cA) = (\Sym^{\geq 1}(\cA[1]), d_\cup)$
+    is the bar complex of the commutative product (the Harrison complex);
+  \item $C_{\mathrm{CE}}(\cA[-1])
+    = (\Sym(\cA^*), d_{[\cdot,\cdot]})$ is the Chevalley--Eilenberg
+    complex of the Lie bracket on $\cA[-1]$.
+\end{itemize}
+The two commuting differentials $d_X$ and $d_Y$ of Section~2 correspond
+(after formality) to $d_\cup$ and $d_{[\cdot,\cdot]}$ respectively.
+
+\subsection*{4.4.\ \ Deformation quantization and the $R$-matrix}
+
+The Kontsevich formality viewpoint clarifies the deformation-theoretic
+origin of the $R$-matrix.
+
+An $\Etwo$-chiral algebra $\cA$ may be viewed as a \emph{deformation
+quantization} of its classical limit $\cA_{\mathrm{cl}}$, a
+chiral Gerstenhaber algebra.  The deformation parameter is the
+``quantum'' direction: the Lie bracket $[\cdot, \cdot]$ of the
+Gerstenhaber structure, which measures the non-commutativity of the
+braiding.
+
+In the formal deformation picture, write $\cA = \cA_{\mathrm{cl}}[[\hbar]]$
+with $\hbar$ the formal deformation parameter (morally, the coupling
+constant or $1/(k + h^\vee)$ for affine Kac--Moody).  Then:
+\begin{itemize}
+  \item At $\hbar = 0$: the braiding is trivial,
+    $R(z,w) = \id + O(\hbar)$, and the representation category is
+    symmetric monoidal.
+  \item At first order in $\hbar$: the $R$-matrix is
+    $R(z,w) = \id + \hbar\, r(z,w) + O(\hbar^2)$, where
+    $r(z,w) \in \cA \otimes \cA \otimes k((z))((w))$ is the
+    \emph{classical $r$-matrix}, which satisfies the classical
+    Yang--Baxter equation (CYBE).  This $r$-matrix is precisely the
+    Lie bracket of the Gerstenhaber structure, evaluated at the
+    pair $(z,w)$.
+  \item At higher orders: the full $R$-matrix is a quantization of
+    $r(z,w)$, and the QYBE~\eqref{eq:qybe} is a quantization of the
+    CYBE.
+\end{itemize}
+
+The Kontsevich formality theorem guarantees that this quantization
+exists and is essentially unique (up to gauge equivalence controlled
+by $\mathrm{GRT}_1$) --- but constructing it explicitly requires
+the choice of a Drinfeld associator.
+
+
+%% =====================================================================
+%%  SECTION 5: KEY EXAMPLES
+%% =====================================================================
+
+\section*{5.\ \ Key examples}
+\label{note:sec:examples}
+
+\subsection*{5.1.\ \ Hochschild cohomology of a chiral algebra}
+
+The foundational example of an $\Etwo$-algebra in the chiral setting
+is the Hochschild cohomology $\HH^\bullet(A)$ of a chiral algebra $A$.
+
+\medskip
+\noindent\textbf{Theorem} (Hochschild cohomology is $\Etwo$)\textbf{.}\ClaimStatusProvedElsewhere\;
+Let $A$ be a chiral algebra on $X$.  The Hochschild cohomology
+$\HH^\bullet(A) = \RHom_{A\text{-}\mathrm{bimod}}(A, A)$ carries a
+natural $\Etwo$-algebra structure.  Under the Kontsevich formality
+equivalence, this is equivalent to the Gerstenhaber algebra structure
+on $\HH^\bullet(A)$ with:
+\begin{itemize}
+  \item The \emph{cup product} $\cup\colon \HH^p(A) \otimes
+    \HH^q(A) \to \HH^{p+q}(A)$, the Yoneda product of bimodule
+    extensions;
+  \item The \emph{Gerstenhaber bracket}
+    $[\cdot, \cdot]\colon \HH^p(A) \otimes \HH^q(A) \to
+    \HH^{p+q-1}(A)$, the commutator of bimodule derivations.
+\end{itemize}
+
+\begin{proof}[Proof sketch]
+The $\Etwo$-structure on $\HH^\bullet(A)$ arises from the
+\emph{Deligne conjecture} (proved by multiple groups: Kontsevich--Soibelman,
+McClure--Smith, Tamarkin, Voronov, and others): for any associative
+algebra $A$, the Hochschild cochain complex $C^\bullet(A, A)$ carries
+an action of the chain operad of $\Etwo$.
+
+In the chiral setting, $A$ is a chiral algebra (an associative algebra
+object in the category of D-modules on $X$), and the Hochschild complex
+is the chiral Hochschild complex $\mathrm{CHoch}^\bullet(A, A)$.  The
+Deligne conjecture generalizes: the $\Etwo$-action on
+$\mathrm{CHoch}^\bullet(A, A)$ is compatible with the D-module structure,
+giving an $\Etwo$-chiral algebra structure on $\HH^\bullet(A)$ viewed
+as a factorization algebra on $\Ran(X) \times \Ran(X)$ (where both
+curves are the same $X$, reflecting the bimodule structure).
+\end{proof}
+
+\medskip
+\noindent\textbf{Remark} (the diagonal case $X = Y$)\textbf{.}
+When both curves are the same, $X = Y$, the $\Etwo$-chiral algebra
+$\HH^\bullet(A)$ on $\Ran(X) \times \Ran(X)$ has the
+\emph{same curve} in both chiral directions.  This is the natural
+setting for the Deligne conjecture.  The braiding on
+$\Rep^{\Etwo}(\HH^\bullet(A))$ is then the monodromy of the OPE of
+Hochschild cochains around each other on $X$.
+
+\subsection*{5.2.\ \ Affine Kac--Moody algebras and quantum groups}
+
+Let $\frakg$ be a finite-dimensional simple Lie algebra and $\hat{\frakg}_k$
+the affine Kac--Moody algebra at level $k$.  The category
+$\hat{\frakg}_k\text{-mod}$ of smooth modules at level $k$ is a chiral
+category --- indeed, it is the representation category of the chiral
+algebra $V_k(\frakg)$ (the universal affine vertex algebra at level $k$).
+
+\medskip
+\noindent\textbf{Proposition}\textbf{.}\ClaimStatusProvedElsewhere\;
+The chiral algebra $V_k(\frakg)$ admits a canonical $\Etwo$-enhancement.
+The braided monoidal structure on $\Rep^{\Etwo}(V_k(\frakg))$ is the
+Kazhdan--Lusztig braided tensor category structure.  At generic level
+$k$ (away from the critical level $k = -h^\vee$), the braiding is
+controlled by the KZ connection:
+\[
+  \nabla_{\mathrm{KZ}}
+  \;=\;
+  d - \frac{\Omega}{k + h^\vee} \cdot \frac{dz}{z}
+\]
+where $\Omega = \sum_a t^a \otimes t_a \in \frakg \otimes \frakg$ is the
+Casimir element and $z$ is the relative coordinate on $X$.
+
+The monodromy of $\nabla_{\mathrm{KZ}}$ gives the $R$-matrix
+$R = q^{\Omega/2}$ of the quantum group $\Uq(\frakg)$ with
+$q = e^{\pi i/(k + h^\vee)}$.  This recovers the
+Kazhdan--Lusztig equivalence:
+\[
+  \Rep^{\Etwo}(V_k(\frakg))
+  \;\simeq\;
+  \Rep_q(\frakg)
+  \qquad\text{(as braided monoidal categories)}
+\]
+for $k$ a positive integer (where the LHS is the category of
+integrable $\hat{\frakg}_k$-modules and the RHS is the semisimplified
+category of $\Uq(\frakg)$-modules at $q = e^{\pi i/(k+h^\vee)}$).
+
+\medskip
+\noindent\textbf{Remark} (Koszul dual in the KM setting)\textbf{.}
+The $\Etwo$-Koszul dual of $V_k(\frakg)$ is related to
+$V_{-k-2h^\vee}(\frakg)$ (the level shifted by $-2h^\vee$, i.e., the
+``dual level'' under $k \mapsto -k - 2h^\vee$).  The conjecture
+\eqref{eq:e2-koszul-rep} predicts
+\[
+  \Rep_q(\frakg)
+  \;\simeq\;
+  \Rep_{q^{-1}}(\frakg)^{\mathrm{rev}}
+\]
+which is the well-known equivalence between quantum group representations
+at $q$ and $q^{-1}$ with reversed braiding.
+
+\subsection*{5.3.\ \ CY categories of dimension 2}
+
+For a CY$_2$ category $\cC$ (e.g., $\Fuk(T^*\Sigma_g)$ for a
+Riemann surface $\Sigma_g$, or $D^b(\mathrm{Coh}(S))$ for a K3
+surface $S$), the programme of this volume constructs a quantum chiral
+algebra $\cA_\cC = \Phi(\cC)$.
+
+\medskip
+\noindent\textbf{Proposition}\textbf{.}\ClaimStatusConjectured\;
+For a CY$_2$ category $\cC$, the chiral algebra $\cA_\cC$ carries a
+natural $\Etwo$-structure.  The $\Etwo$-structure arises from the
+$S^2$-framing of the Hochschild homology: the CY$_2$ condition gives a
+non-degenerate pairing $\HH_\bullet(\cC) \otimes \HH_\bullet(\cC) \to
+k[-2]$, and the $S^2 \simeq \mathbb{CP}^1$ framing provides two
+independent rotational symmetries that supply the two $\Eone$ actions.
+
+The $\Etwo$ bar complex $B_{\Etwo}(\cA_\cC)$ encodes:
+\begin{itemize}
+  \item $d_X$: the $\Ainf$-structure maps $\{m_n\}$ of $\cC$
+    (the curved bar differential);
+  \item $d_Y$: the cyclic structure (the Connes $B$-operator of
+    $\HH_\bullet(\cC)$);
+  \item $\Delta_X$: the deconcatenation coproduct of the bar complex;
+  \item $\Delta_Y$: the dual of the cyclic cup product on
+    $\HH^\bullet(\cC)$.
+\end{itemize}
+The $R$-matrix of $\cA_\cC$ is determined by the Mukai pairing on
+$\HH_\bullet(\cC)$.
+
+\subsection*{5.4.\ \ The CoHA as an $\Etwo$-algebra}
+
+The \emph{cohomological Hall algebra} (CoHA) of Kontsevich--Soibelman
+provides a family of $\Etwo$-algebras from geometry.
+
+\medskip
+\noindent\textbf{Example}\textbf{.}\ClaimStatusProvedElsewhere\;
+Let $Q$ be a quiver and $W$ a potential.  The CoHA
+$\mathcal{H}(Q, W) = \bigoplus_{d} H^\bullet(\mathcal{M}_d(Q, W))$
+(cohomology of the moduli stack of representations of dimension
+vector $d$) carries an associative multiplication from the
+correspondence
+\[
+  \mathcal{M}_{d_1} \times \mathcal{M}_{d_2}
+  \;\xleftarrow{\;p\;}\;
+  \mathcal{M}_{d_1, d_2}^{\mathrm{ext}}
+  \;\xrightarrow{\;q\;}\;
+  \mathcal{M}_{d_1 + d_2}
+\]
+where $\mathcal{M}^{\mathrm{ext}}$ parametrizes short exact sequences.
+
+When $(Q, W)$ arises from a CY$_3$ geometry (e.g., $Q$ is the
+McKay quiver of a CY$_3$ singularity and $W$ is the superpotential),
+the CoHA $\mathcal{H}(Q,W)$ carries an $\Etwo$-algebra structure
+coming from the factorization structure on the moduli of sheaves on
+the CY$_3$.  The two $\Eone$ structures are:
+\begin{itemize}
+  \item The associative Hall product (from extensions of sheaves);
+  \item The Lie bracket on Borel--Moore homology (from the dimensional
+    reduction of the CY$_3$-structure to $S^2$).
+\end{itemize}
+This $\Etwo$-structure on the CoHA was established by
+Schiffmann--Vasserot (for Hilbert schemes on surfaces) and
+Kapranov--Vasserot (in full generality for CY$_3$ categories).
+
+\medskip
+In the framework of this volume, the CoHA $\Etwo$-structure is the
+shadow of the $\Etwo$-chiral algebra $\Phi(\mathrm{Coh}(Y))$ for
+a CY$_3$ variety $Y$: the CoHA is the global sections
+(factorization homology) of the $\Etwo$-chiral algebra on the
+formal disk.
+
+\subsection*{5.5.\ \ The Drinfeld center as an $\Etwo$-chiral algebra}
+
+\medskip
+\noindent\textbf{Proposition}\textbf{.}\ClaimStatusProvedElsewhere\;
+Let $A$ be an $\Eone$-chiral algebra on $X \times \mathbb{R}$ with
+monoidal representation category
+$\cC = \Rep^{\Eone}(A)$.  The \emph{chiral derived center}
+$Z_{\mathrm{ch}}^{\mathrm{der}}(A)$ (defined in Volume~II) is
+an $\Etwo$-chiral algebra on $X \times X$, and
+\begin{equation}\label{eq:center-e2}
+  \cZ(\cC) \;=\; \cZ(\Rep^{\Eone}(A))
+  \;\simeq\;
+  \Rep^{\Etwo}(Z_{\mathrm{ch}}^{\mathrm{der}}(A))
+\end{equation}
+as braided monoidal categories, where $\cZ(\cC)$ is the Drinfeld
+center.
+
+This is the \emph{bulk-boundary correspondence} in the language of
+$\Etwo$-chiral algebras: the $\Eone$ boundary theory determines a
+canonical $\Etwo$ bulk theory, and the bulk braiding is the one
+provided by the Drinfeld center.
+
+The $\Etwo$ bar complex of the center decomposes as:
+\begin{equation}\label{eq:center-bar}
+  B_{\Etwo}(Z_{\mathrm{ch}}^{\mathrm{der}}(A))
+  \;\simeq\;
+  B_{\Eone}(A) \otimes_{B_{\Eone}(A)^e} B_{\Eone}(A)
+\end{equation}
+where $B_{\Eone}(A)^e = B_{\Eone}(A) \otimes B_{\Eone}(A)^{\op}$
+is the enveloping coalgebra, and the tensor product over $B_{\Eone}(A)^e$
+is the derived cotensor product.  The two differentials $d_X$ and $d_Y$
+on the RHS arise from the left and right $B_{\Eone}(A)$-coactions
+respectively.
+
+
+%% =====================================================================
+%%  OUTLOOK: CONNECTION TO THE MAIN PROGRAMME
+%% =====================================================================
+
+\section*{6.\ \ Connection to the main programme}
+\label{note:sec:outlook}
+
+The $\Etwo$-chiral formalism developed in this note is the algebraic
+backbone of the CY-to-quantum-group bridge.  We summarize the
+structural dependencies:
+
+\begin{enumerate}[label=(\arabic*)]
+  \item \textbf{Theorem CY-A} (CY-to-chiral functor) constructs
+    $\Phi\colon \CY_d\text{-}\Cat \to \Etwo\text{-}\mathrm{ChirAlg}$.
+    The target category $\Etwo$-$\mathrm{ChirAlg}$ is defined in
+    Section~1.  The functor passes through the cyclic bar complex
+    (Part~I), Lie conformal algebra (factorization envelope), and
+    $\Etwo$-enhancement (from the $S^d$-framing).
+
+  \item \textbf{Theorem CY-B} ($\Etwo$-chiral Koszul duality) is the
+    content of Section~3, applied to $\cA = \Phi(\cC)$.  The bar-cobar
+    adjunction of Section~3.1 is the $\Etwo$ extension of the Volume~I
+    machine.  The genus-$g$ curvature (Section~3.4) recovers the
+    modular characteristic $\kappa(\cA_\cC)$.
+
+  \item \textbf{Theorem CY-C} (quantum group realization) asserts
+    that $\Rep^{\Etwo}(\Phi(\cC)) \simeq \cC$ as braided monoidal
+    categories when $\cC$ arises from a quantum group.  The braided
+    structure is the one from Section~1.5; the identification uses
+    the Kazhdan--Lusztig equivalence (Section~5.2) and the CoHA
+    (Section~5.4).
+
+  \item \textbf{Theorem CY-D} (modular CY characteristic) asserts
+    $\kappa(\Phi(\cC)) = \chi^{\CY}(\cC)$.  The genus-$g$ modular
+    obstruction is the commutator $[d_X, d_Y]$ at genus $g \geq 1$
+    (Section~3.4), which computes Gromov--Witten / Hochschild
+    invariants of $\cC$.
+\end{enumerate}
+
+The Kontsevich formality theorem (Section~4) provides the bridge
+between the homotopy-theoretic ($\Etwo$-operadic) and the algebraic
+(Gerstenhaber) descriptions.  In practice, computations are performed
+in the Gerstenhaber model (which has explicit chain-level formulas),
+and the $\Etwo$-operadic language provides the structural guarantees
+(functoriality, homotopy invariance, braided monoidal structure on
+$\Rep$).
