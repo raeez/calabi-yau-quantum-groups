@@ -292,17 +292,20 @@ def phi01_by_discriminant(max_n: int) -> Dict[int, int]:
 
 def verify_bkm_identity(max_t: int) -> bool:
     r"""
-    Verify the identity
+    Check whether the eta^9 identity holds for phi_{0,1} coefficients.
+
+    The identity
 
         1 + (1/64) * sum_{t >= 0} f(1 + 2t, 1) * q^t  =  prod_{k >= 1} (1 - q^k)^9
 
-    up to q^{max_t}.
+    is FALSE for phi_{0,1} Fourier coefficients (it fails at q^0).
+    The correct eta^9 identity involves the Fourier-Jacobi coefficients of the
+    Igusa cusp form Delta_5, NOT those of phi_{0,1}.  See igusa_product_formula.py
+    for a verified numerical version using Delta_5 FJ coefficients.
 
-    This identity relates the l=1, odd-n Fourier coefficients of phi_{0,1} to the
-    ninth power of the Dedekind eta function (up to the q^{3/8} prefactor).
-
-    Note: the identity as stated requires a specific normalization convention.
-    This function checks whether the two sides agree coefficient-by-coefficient.
+    This function returns False (documenting the failure), and is retained
+    for regression testing to confirm that the identity is indeed false for
+    phi_{0,1}.
     """
     max_n_needed = 1 + 2 * max_t
     table = phi01_table(max_n_needed)

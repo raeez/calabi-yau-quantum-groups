@@ -150,12 +150,12 @@ class TestPhi01Coefficients:
     """Verify the K3 elliptic genus phi_{0,1}."""
 
     def test_leading_term(self):
-        """f(0, 1) = 2: the coefficient of y in phi_{0,1}."""
-        assert bkm.get_f(0, 1) == 2
+        """f(0, 1) = 1: the coefficient of y in phi_{0,1} (EZ normalization)."""
+        assert bkm.get_f(0, 1) == 1
 
     def test_constant_term(self):
-        """f(0, 0) = 20: the constant term."""
-        assert bkm.get_f(0, 0) == 20
+        """f(0, 0) = 10: the constant term (EZ normalization)."""
+        assert bkm.get_f(0, 0) == 10
 
     def test_symmetry(self):
         """f(n, l) = f(n, -l) by z -> -z symmetry."""
@@ -165,30 +165,28 @@ class TestPhi01Coefficients:
             assert bkm.get_f(n, l, data) == val
 
     def test_q1_coefficients(self):
-        """Known coefficients at q^1.
+        """Known coefficients at q^1 (EZ normalization).
 
-        phi_{0,1} at q^1: -2y^2 - 128y - 252 - 128/y - 2/y^2
+        phi_{0,1} at q^1: 10*r^{-2} - 64*r^{-1} + 108 - 64*r + 10*r^2
         """
-        assert bkm.get_f(1, 0) == -252
-        assert bkm.get_f(1, 1) == -128
-        assert bkm.get_f(1, 2) == -2
+        assert bkm.get_f(1, 0) == 108
+        assert bkm.get_f(1, 1) == -64
+        assert bkm.get_f(1, 2) == 10
 
     def test_q2_coefficients(self):
-        """Known coefficients at q^2."""
-        assert bkm.get_f(2, 0) == 4096
-        assert bkm.get_f(2, 1) == 3038
-        assert bkm.get_f(2, 2) == 216
-        assert bkm.get_f(2, 3) == 2
+        """Known coefficients at q^2 (EZ normalization)."""
+        assert bkm.get_f(2, 0) == 808
+        assert bkm.get_f(2, 1) == -513
+        assert bkm.get_f(2, 2) == 108
+        assert bkm.get_f(2, 3) == 1
 
     def test_euler_characteristic(self):
-        """The Euler characteristic of K3 is 24.
+        """phi_{0,1}(tau, 0) = 12 (EZ normalization).
 
-        chi(K3) = f(0, 0) + 2*f(0, 1) = 20 + 2*2 = 24.
-        This is phi_{0,1}(tau, 0) integrated over the torus
-        (or equivalently the q^0 coefficient at y=1).
+        Row sum at n=0: f(0,0) + 2*f(0,1) = 10 + 2*1 = 12.
         """
         chi = bkm.get_f(0, 0) + 2 * bkm.get_f(0, 1)
-        assert chi == 24
+        assert chi == 12
 
     def test_zero_for_absent_coefficients(self):
         """Coefficients outside the tabulated range return 0."""
@@ -231,12 +229,12 @@ class TestRootClassification:
         assert bkm.classify_root(0, 1, 1) == 'real'
 
     def test_real_root_multiplicity(self):
-        """Real roots have multiplicity f(nm, l) = c(-1) = 2."""
-        # All real roots (D = -1) have mult = f(nm, l) = c(-1) = 2
-        # (0, 1, 0): f(0, 1) = 2. Check.
-        assert bkm.root_multiplicity(0, 1, 0) == 2
-        # (1, 1, 0): f(0, 1) = 2. Check.
-        assert bkm.root_multiplicity(1, 1, 0) == 2
+        """Real roots have multiplicity f(nm, l) = c(-1) = 1 (EZ normalization)."""
+        # All real roots (D = -1) have mult = f(nm, l) = c(-1) = 1
+        # (0, 1, 0): f(0*0, 1) = f(0, 1) = 1. Check.
+        assert bkm.root_multiplicity(0, 1, 0) == 1
+        # (1, 1, 0): f(1*0, 1) = f(0, 1) = 1. Check.
+        assert bkm.root_multiplicity(1, 1, 0) == 1
 
     def test_lightlike_exists(self):
         """Lightlike imaginary roots have D = 0, norm = 0.
@@ -395,11 +393,18 @@ class TestShadowTowerProjections:
 
 
 # =========================================================================
-# 6. TRUNCATION AGREEMENT
+# 6. TRUNCATION AGREEMENT (structural consistency check)
 # =========================================================================
 
 class TestTruncationAgreement:
-    """Verify truncated product = truncated shadow tower at each order."""
+    """Verify truncated product = truncated shadow tower at each order.
+
+    NOTE: verify_truncation_agreement() is a STRUCTURAL consistency check
+    that both code paths (product_log_coefficient and shadow_tower_projection)
+    compute the same thing from the same root data. It does NOT independently
+    verify mathematical correctness -- that is the job of the cross-validation
+    tests below (TestCrossValidation).
+    """
 
     def test_agreement_order_2(self):
         """Phi^{<=2} matches Theta^{<=2}."""
@@ -421,6 +426,65 @@ class TestTruncationAgreement:
         results = bkm.verify_truncation_agreement(max_order=5, max_coord=3)
         for r, ok in results.items():
             assert ok, f"Truncation mismatch at order {r}"
+
+
+# =========================================================================
+# 6b. CROSS-VALIDATION against phi01_fourier.py
+# =========================================================================
+
+# Load phi01_fourier for cross-validation
+_phi01_spec = importlib.util.spec_from_file_location(
+    'phi01_fourier',
+    os.path.join(_lib_dir, 'phi01_fourier.py')
+)
+phi01 = importlib.util.module_from_spec(_phi01_spec)
+_phi01_spec.loader.exec_module(phi01)
+
+
+class TestCrossValidation:
+    """Cross-validate bkm_shadow_tower against phi01_fourier.py.
+
+    The phi01_fourier module computes phi_{0,1} Fourier coefficients
+    using exact rational arithmetic via theta-function lattice sums.
+    This test ensures bkm_shadow_tower.get_f(n,l) agrees with
+    phi01_fourier.phi01_coefficient(n,l) for all tabulated values.
+    """
+
+    @pytest.mark.parametrize("n", range(6))
+    def test_row_n(self, n):
+        """bkm.get_f(n,l) matches phi01_fourier for all l at each n."""
+        max_l = int((4 * n + 1) ** 0.5) + 1
+        for l in range(-max_l, max_l + 1):
+            bkm_val = bkm.get_f(n, l)
+            exact_val = phi01.phi01_coefficient(n, abs(l))
+            assert bkm_val == exact_val, (
+                f"f({n},{l}): bkm={bkm_val}, phi01_fourier={exact_val}"
+            )
+
+    def test_discriminant_dependence(self):
+        """Verify f(n,l) from bkm depends only on D = 4n - l^2."""
+        by_disc = {}
+        data = bkm.phi01_coefficients()
+        for (n, l_abs), val in data.items():
+            D = 4 * n - l_abs * l_abs
+            if D in by_disc:
+                assert by_disc[D] == val, (
+                    f"bkm violates disc. dep.: c({D})={by_disc[D]} vs {val} from ({n},{l_abs})"
+                )
+            else:
+                by_disc[D] = val
+
+    def test_row_sum_zero_for_n_ge_1(self):
+        """sum_l f(n,l) = 0 for n >= 1 (phi_{0,1}(tau,0) = constant)."""
+        for n in range(1, 6):
+            max_l = int((4 * n + 1) ** 0.5) + 1
+            row_sum = sum(bkm.get_f(n, l) for l in range(-max_l, max_l + 1))
+            assert row_sum == 0, f"Row sum at n={n}: {row_sum} != 0"
+
+    def test_row_sum_12_at_n_0(self):
+        """sum_l f(0,l) = 12 (phi_{0,1}(tau,0) = 12 in EZ normalization)."""
+        row_sum = sum(bkm.get_f(0, l) for l in range(-5, 6))
+        assert row_sum == 12, f"Row sum at n=0: {row_sum} != 12"
 
 
 # =========================================================================
@@ -584,19 +648,19 @@ class TestRootEnumeration:
         assert (1, 0, 1) in root_vecs
 
     def test_root_multiplicities(self):
-        """Root multiplicities match phi_{0,1} coefficients.
+        """Root multiplicities match phi_{0,1} coefficients (EZ normalization).
 
         mult(n, l, m) = f(nm, l):
-            (1, 0, 0): f(0, 0) = 20
-            (0, 1, 0): f(0, 1) = 2
-            (1, 0, 1): f(1, 0) = -252
-            (1, 1, 1): f(1, 1) = -128
+            (1, 0, 0): f(0, 0) = 10
+            (0, 1, 0): f(0, 1) = 1
+            (1, 0, 1): f(1, 0) = 108
+            (1, 1, 1): f(1, 1) = -64
         """
         data = bkm.phi01_coefficients()
-        assert bkm.root_multiplicity(1, 0, 0, data) == 20   # f(0, 0)
-        assert bkm.root_multiplicity(0, 1, 0, data) == 2    # f(0, 1)
-        assert bkm.root_multiplicity(1, 0, 1, data) == -252  # f(1, 0)
-        assert bkm.root_multiplicity(1, 1, 1, data) == -128  # f(1, 1)
+        assert bkm.root_multiplicity(1, 0, 0, data) == 10   # f(0, 0)
+        assert bkm.root_multiplicity(0, 1, 0, data) == 1    # f(0, 1)
+        assert bkm.root_multiplicity(1, 0, 1, data) == 108  # f(1, 0)
+        assert bkm.root_multiplicity(1, 1, 1, data) == -64  # f(1, 1)
 
     def test_root_layers(self):
         """roots_by_layer returns non-empty real layer."""
@@ -692,40 +756,26 @@ class TestCrossChecks:
     """Cross-consistency checks between different computations."""
 
     def test_phi01_sum_rule(self):
-        """phi_{0,1}(tau, 0) = 24 (Euler characteristic of K3).
+        """phi_{0,1}(tau, 0) = 12 (EZ normalization).
 
         At z=0 (y=1), sum_l f(n, l) for each n:
-            n=0: 20 + 2 + 2 = 24
-            n=1: -252 - 128 - 128 - 2 - 2 = -512... wait
-            Actually -252 + 2*(-128) + 2*(-2) = -252 - 256 - 4 = -512
+            n=0: 10 + 1 + 1 = 12
+            n>=1: sum_l f(n, l) = 0 (modular constant)
 
-        These should be the coefficients of the weight-0 modular form
-        phi_{0,1}(tau, 0) = 24*[1 + ...], the constant function 24
-        (since weight-0 index-0 is just a constant for SL_2).
-
-        Wait: phi_{0,1}(tau, 0) IS the elliptic genus evaluated at z=0.
-        For K3: phi_{0,1}(tau, 0) = chi(K3) = 24 as a CONSTANT.
-        So sum_l f(n, l) = 24 if n=0 and 0 if n > 0.
+        Since we now import exact values from phi01_fourier, the complete
+        row sums are available and must vanish for n >= 1.
         """
         data = bkm.phi01_coefficients()
 
         # n = 0 sum
         n0_sum = bkm.get_f(0, 0, data) + 2 * bkm.get_f(0, 1, data)
-        assert n0_sum == 24, f"n=0 sum = {n0_sum}, expected 24"
+        assert n0_sum == 12, f"n=0 sum = {n0_sum}, expected 12"
 
-        # n = 1 sum: should be 0
+        # n = 1 sum: must be 0 (exact coefficients from phi01_fourier)
         n1_sum = (bkm.get_f(1, 0, data)
                   + 2 * bkm.get_f(1, 1, data)
                   + 2 * bkm.get_f(1, 2, data))
-        assert n1_sum == -512, (
-            f"n=1 sum = {n1_sum} -- note: this is NOT zero because "
-            "phi_{0,1}(tau, 0) = 24 requires all q^n>0 coefficients to "
-            "vanish, but our table may not have all l values"
-        )
-        # Actually phi_{0,1}(tau, 0) = 2*EG_K3(tau, 0) = 24 as a constant.
-        # The vanishing of n>=1 terms requires summing over ALL l in Z,
-        # not just the ones in our finite table. The theta-function completion
-        # ensures cancellation. With our truncated table, partial sums need not vanish.
+        assert n1_sum == 0, f"n=1 sum = {n1_sum}, expected 0"
 
     def test_real_root_norm_consistency(self):
         """All roots classified as 'real' have norm 2."""

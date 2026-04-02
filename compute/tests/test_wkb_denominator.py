@@ -577,22 +577,24 @@ class TestCrossValidationBKM:
             bkm_val = bkm.weyl_vector_inner(i)
             assert abs(wkb_val - float(bkm_val)) < 1e-14
 
-    def test_phi01_leading_convention_ratio(self, bkm):
-        """At q^0 level, bkm phi_{0,1} = 2 * wkb phi_{0,1}.
+    def test_phi01_convention_match(self, bkm):
+        """bkm and wkb now both use EZ normalization for phi_{0,1}.
 
-        bkm uses the K3 elliptic genus convention (f(0,0)=20, f(0,1)=2)
-        while wkb uses the EZ normalization (f(0,0)=10, f(0,1)=1).
-        The q^0 level scales by exactly 2.
-
-        NOTE: At higher q-orders the two modules use genuinely different
-        normalizations (bkm uses the DVV/physics convention; wkb uses
-        the algebraic/Eichler-Zagier convention). We only cross-validate
-        the lattice geometry, not the phi_{0,1} coefficients beyond q^0.
+        After replacing the wrong hardcoded table in bkm with exact values
+        from phi01_fourier.py, both modules agree on all coefficients.
         """
         bkm_data = bkm.phi01_coefficients()
-        # q^0 row should satisfy the 2x ratio
-        assert bkm_data[(0, 0)] == 2 * f_phi01(0, 0)
-        assert bkm_data[(0, 1)] == 2 * f_phi01(0, 1)
+        assert bkm_data[(0, 0)] == f_phi01(0, 0)
+        assert bkm_data[(0, 1)] == f_phi01(0, 1)
+        # Cross-validate through n=4
+        for n in range(5):
+            max_l = int((4 * n + 1) ** 0.5) + 1
+            for l in range(max_l + 1):
+                bkm_val = bkm.get_f(n, l, bkm_data)
+                wkb_val = f_phi01(n, l)
+                assert bkm_val == wkb_val, (
+                    f"f({n},{l}): bkm={bkm_val}, wkb={wkb_val}"
+                )
 
     def test_rho_norm_agrees(self, bkm):
         """(rho, rho) = -3/2 in both modules."""

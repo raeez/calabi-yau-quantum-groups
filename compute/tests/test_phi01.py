@@ -195,27 +195,27 @@ class TestEdgeCases:
 
 class TestBKMIdentity:
     """
-    Test the BKM denominator identity relating phi_{0,1} to eta^9:
+    The eta^9 identity
 
         1 + (1/64) * sum_{t >= 0} f(1 + 2t, 1) * q^t  =  prod_{k >= 1} (1 - q^k)^9
 
-    This identity encodes the relation between root multiplicities of the
-    BKM superalgebra g_{Delta_5} and the Dedekind eta function.
+    is FALSE for phi_{0,1} Fourier coefficients.  The correct identity
+    involves Fourier-Jacobi coefficients of the Igusa cusp form Delta_5,
+    not those of phi_{0,1}.  See igusa_product_formula.py for the valid test.
 
-    NOTE: This identity as stated involves a specific normalization convention.
-    The test documents the claimed relation and checks it computationally.
+    These tests document the FAILURE, confirming the identity is false.
     """
 
-    def test_bkm_identity_q0(self):
-        """Check the constant term: 1 + f(1,1)/64 = 1 + (-64)/64 = 0."""
-        # The constant term of the LHS is 1 + f(1,1)/64 = 0,
-        # while prod(1-q^k)^9 has constant term 1.
-        # This shows the identity as literally stated has an off-by-one or
-        # sign issue in the convention for the sum vs product side.
+    def test_bkm_identity_is_false(self):
+        """The identity is false for phi_{0,1}: verify_bkm_identity returns False."""
+        assert verify_bkm_identity(10) is False
+
+    def test_bkm_identity_fails_at_q0(self):
+        """The identity fails at q^0: LHS = 0 but RHS = 1."""
         f11 = phi01_coefficient(1, 1)
         assert f11 == -64
         lhs_q0 = 1 + f11 / 64
-        assert lhs_q0 == 0  # documents the actual value
+        assert lhs_q0 == 0  # LHS is 0, but RHS is 1 => identity is false
 
     def test_f_odd_n_l1_divisible_by_64(self):
         """f(2t+1, 1) is divisible by 64 for all t >= 0 (BKM structure)."""

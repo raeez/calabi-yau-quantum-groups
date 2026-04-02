@@ -45,6 +45,24 @@ from fractions import Fraction
 from functools import lru_cache
 from typing import Dict, List, Optional, Tuple
 
+import importlib as _importlib, os as _os, sys as _sys
+
+def _import_phi01():
+    """Import phi01_fourier from the same directory, handling both package and standalone use."""
+    try:
+        return _importlib.import_module('compute.lib.phi01_fourier')
+    except (ImportError, ModuleNotFoundError):
+        # Fallback: add the lib directory to sys.path
+        _lib_dir = _os.path.dirname(_os.path.abspath(__file__))
+        if _lib_dir not in _sys.path:
+            _sys.path.insert(0, _lib_dir)
+        return _importlib.import_module('phi01_fourier')
+
+_phi01_mod = _import_phi01()
+# Exact phi_{0,1} coefficients from the verified phi01_fourier module.
+_phi01_exact_table = _phi01_mod.phi01_table
+_phi01_exact_coeff = _phi01_mod.phi01_coefficient
+
 
 # =========================================================================
 # 1. THE LATTICE AND GRAM MATRIX
@@ -156,113 +174,27 @@ def _theta_jacobi_coeffs(max_n: int, max_l: int) -> Dict[Tuple[int, int], int]:
 
 
 @lru_cache(maxsize=32)
-def phi01_coefficients(max_D: int = 40) -> Dict[int, int]:
-    r"""Fourier coefficients c(D) of phi_{0,1} where f(n,l) = c(4n - l^2).
+def phi01_coefficients(max_D: int = 40) -> Dict[Tuple[int, int], int]:
+    r"""Fourier coefficients f(n, l) of the weak Jacobi form phi_{0,1}.
 
-    The weak Jacobi form phi_{0,1} of weight 0 and index 1 is the
-    K3 elliptic genus. Its Fourier expansion is:
+    Uses exact values computed from the theta-function representation in
+    phi01_fourier.py (Eichler-Zagier normalization: phi_{0,1}(tau, 0) = 12).
 
-        phi_{0,1}(tau, z) = sum_{n >= 0, l in Z} f(n,l) q^n y^l
+    The coefficient f(n, l) depends only on the discriminant D = 4n - l^2
+    and satisfies f(n, l) = f(n, -l).
 
-    where f(n,l) depends only on the discriminant D = 4n - l^2.
-    Write f(n,l) = c(4n - l^2).
-
-    Standard values (from Eichler-Zagier, or any Jacobi forms reference):
-        c(-1) = 2     (the leading term: 2y + 2y^{-1} at q^0)
-        c(0)  = 20    (constant term at q^0; note: sum over l with 4*0 - l^2 = 0
-                        gives l=0, and f(0,0) = 20)
-        c(3)  = -128  (from q^1 y^{+/-1} terms: f(1,1) = c(3) = -128)
-        c(4)  = 216   -- wait, let me be precise.
-
-    Precise computation from phi_{0,1} = 2*phi_{0,1}:
-        The unique (up to scale) weak Jacobi form of weight 0, index 1 is
-        phi_{0,1} = (theta_2^2(z)/theta_2^2(0)
-                   + theta_3^2(z)/theta_3^2(0)
-                   + theta_4^2(z)/theta_4^2(0)) * (8/3)
-
-    Actually the canonical normalization has:
-        phi_{0,1} = 2y + 20 + 2/y + q(-2y^2 - 128y - 252 - 128/y - 2/y^2) + ...
-
-    So the coefficients are:
-        f(0, 1) = 2,  f(0, -1) = 2,  f(0, 0) = 20
-        f(1, 2) = -2, f(1, -2) = -2
-        f(1, 1) = -128, f(1, -1) = -128
-        f(1, 0) = -252
-
-    Discriminant D = 4n - l^2:
-        (n=0, l=1): D = -1, c(-1) = 2
-        (n=0, l=0): D = 0,  c(0)  = 20
-        (n=1, l=2): D = 0,  but c(0) should give f(1,2)=-2? No:
-            D = 4*1 - 4 = 0, so f(1,2) = c(0) = 20? That contradicts -2.
-
-    The issue: f(n,l) does NOT depend only on 4n - l^2 for ALL (n,l).
-    The dependence on D alone holds for the INDEXED FOURIER COEFFICIENTS
-    of the theta decomposition, but not for the raw q^n y^l coefficients
-    when n < l^2/4 (the "polar" region).
-
-    For the PRODUCT FORMULA, what matters is f(nm, l) where (n,l,m) > 0
-    means n > 0, or n = 0 and m > 0, or n = m = 0 and l > 0.
-
-    Let me just tabulate phi_{0,1} directly to sufficient order.
-
-    Returns: dict mapping (n, l) -> f(n, l) for n >= 0.
-    The function f(n,l) = f(n,-l) by the Z_2 symmetry z -> -z.
+    Returns: dict mapping (n, l) -> f(n, l) for n >= 0, l >= 0.
+    Negative-l values are obtained by symmetry in get_f().
     """
-    # We compute phi_{0,1} from its expression as a ratio of theta functions.
-    # phi_{0,1}(tau, z) has the q-expansion:
-    #
-    # n=0: 2y + 20 + 2y^{-1}
-    # n=1: -2y^2 - 128y - 252 - 128y^{-1} - 2y^{-2}
-    # n=2: 2y^3 + 216y^2 + 3038y + 4096 + 3038y^{-1} + 216y^{-2} + 2y^{-3}
-    # n=3: -2y^4 - 252y^3 - 7684y^2 - 44800y - 57510 + ...
-    # etc.
-    #
-    # These are the standard tabulated values from Eichler-Zagier
-    # (Jacobi forms, Chapter I) and Gritsenko.
+    # Compute exact table from phi01_fourier (uses rational arithmetic).
+    max_n = max(6, max_D // 4 + 2)
+    exact = _phi01_exact_table(max_n)
 
-    # Store as dict: (n, l) -> coefficient
-    # By symmetry f(n, l) = f(n, -l), so we store l >= 0 and reconstruct.
+    # Store only l >= 0 (our get_f() uses abs(l) for lookup).
     data: Dict[Tuple[int, int], int] = {}
-
-    # n = 0
-    data[(0, 0)] = 20
-    data[(0, 1)] = 2
-
-    # n = 1
-    data[(1, 0)] = -252
-    data[(1, 1)] = -128
-    data[(1, 2)] = -2
-
-    # n = 2
-    data[(2, 0)] = 4096
-    data[(2, 1)] = 3038
-    data[(2, 2)] = 216
-    data[(2, 3)] = 2
-
-    # n = 3
-    data[(3, 0)] = -57510
-    data[(3, 1)] = -44800
-    data[(3, 2)] = -7684
-    data[(3, 3)] = -252
-    data[(3, 4)] = -2
-
-    # n = 4
-    data[(4, 0)] = 623360
-    data[(4, 1)] = 498888
-    data[(4, 2)] = 105984
-    data[(4, 3)] = 4096
-    data[(4, 4)] = 20
-    data[(4, 5)] = 2
-
-    # n = 5
-    data[(5, 0)] = -5765760
-    data[(5, 1)] = -4694016
-    data[(5, 2)] = -1136898
-    data[(5, 3)] = -57510
-    data[(5, 4)] = -252
-    data[(5, 5)] = -128
-    data[(5, 6)] = -2
-
+    for (n, l), val in exact.items():
+        if l >= 0:
+            data[(n, l)] = val
     return data
 
 
