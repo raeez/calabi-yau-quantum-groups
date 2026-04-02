@@ -1,4 +1,4 @@
-"""
+r"""
 Numerical verification of the Borcherds product formula for the Igusa
 cusp form Delta_5 of weight 5 on the Siegel upper half-space H_2.
 
@@ -6,22 +6,31 @@ Reference: Lorgat, "A Borcherds lift of the weak Jacobi form phi_{0,1},
 generalized Borcherds-Kac-Moody superalgebras and the Igusa cusp form
 Delta_5" (2020), Theorem 4.
 
-The identity verified is:
+THE CORRECT IDENTITY (verified to 25-58 digits, see
+compute/scripts/verify_igusa_high_precision.py):
 
-    (1/64) * Delta_5(Z) = exp(pi*i*(z1+z2+z3))
+    (1/64) * Delta_5(Z) = -exp(pi*i*(z1+z2+z3))
         * prod_{(n,l,m)>0} (1 - exp(2*pi*i*(n*z1 + l*z2 + m*z3)))^{f(nm,l)}
+
+or equivalently, in sign-free form:
+
+    (1/64) * Delta_5(Z) = exp(pi*i*(z1 - z2 + z3))
+        * (1 - exp(2*pi*i*z2))
+        * prod_{(n,l,m)>0, (n,l,m)!=(0,-1,0)}
+            (1 - exp(2*pi*i*(n*z1 + l*z2 + m*z3)))^{f(nm,l)}
 
 where Z = [[z1, z2], [z2, z3]] in H_2, f(n,l) are Fourier coefficients
 of the weak Jacobi form phi_{0,1} = phi_{12,1} / delta_{12}, and
 (n,l,m) > 0 means: n >= 0, m >= 0, l arbitrary if n > 0 or m > 0,
 and l < 0 if n = m = 0.
 
-Note on sign: With the standard principal-branch convention for
-log(1-X), the product picks up a factor of (-1) relative to the
-theta-constant computation of Delta_5. This is a well-known
-subtlety of Borcherds products for GKM superalgebras, arising from
-the branch of log at the (n=0,l=-1,m=0) factor when Im(z2) > 0.
-The numerical verification confirms |ratio| = 1 to 13+ digits.
+SIGN EXPLANATION: The factor of -1 is NOT a branch-cut artifact.
+It arises from the (n=0, l=-1, m=0) root, the unique root with
+discriminant D = -1. For r = exp(2*pi*i*z2) with |r| < 1, this
+factor is (1 - r^{-1})^1 = -(1/r)(1-r), contributing an explicit -1.
+This corresponds to the odd simple root delta_3 = f_3 in the BKM
+superalgebra. The paper's Theorem 4 as literally written is missing
+this sign.
 
 Also verified is the key identity (from Section 2 of the paper):
 
