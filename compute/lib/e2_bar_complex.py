@@ -262,11 +262,11 @@ class HeisenbergOPE:
 
     @property
     def kappa(self) -> object:
-        """Modular characteristic kappa(H_k) = k/2.
+        """Modular characteristic kappa(H_k) = k.
 
-        From Volume I: for the Heisenberg at level k, kappa = k/2.
+        From Volume I (authoritative): for the Heisenberg at level k, kappa = k.
         """
-        return self.k / 2
+        return self.k
 
 
 @dataclass
@@ -786,7 +786,7 @@ def compute_e2_bar_heisenberg(
         'd_Y_vanishes': bool (should be True)
         'braiding_symmetric': bool (should be True)
         'r_matrix': 0 (trivial)
-        'kappa': k/2 (modular characteristic)
+        'kappa': k (modular characteristic, Vol I authoritative)
         'generators_by_bidegree': dict mapping (p,q) to list of bar elements
         'dimensions_by_bidegree': dict mapping (p,q) to dimension
     """
@@ -1275,7 +1275,7 @@ def comparison_table() -> str:
         ("R-matrix", "id (trivial)", "q^{Omega/2}, q = e^{pi*i/(k+2)}"),
         ("Braiding", "symmetric (E_infty)", "non-symmetric (E_2)"),
         ("Gerstenhaber [,]", "0", "[e,f]=h/(k+2), etc."),
-        ("kappa", "k/2", "3(k+2)/4"),
+        ("kappa", "k", "3(k+2)/4"),
         ("[d_X, d_Y]", "0 (all genera)", "0 (genus 0), kappa*omega_g (genus g>=1)"),
         ("Spectral seq", "collapses at E_1", "non-trivial d_1"),
         ("Koszul dual", "Sym^ch(V*) (itself)", "V_{-k-4}(sl_2)"),
@@ -1626,7 +1626,7 @@ def heisenberg_e2_euler_characteristic(max_total: int = 10) -> Rational:
 
     The renormalized Euler characteristic (from the regularized sums)
     is chi_ren = 1/4. This matches the modular characteristic:
-        kappa(H_k) = k/2 and the Euler char is "kappa/k * 1/2 = 1/4".
+        kappa(H_k) = k and the renormalized Euler char is 1/4.
 
     Returns
     -------

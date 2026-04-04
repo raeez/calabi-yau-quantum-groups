@@ -97,10 +97,10 @@ class TestHeisenbergOPE:
         assert ope.r_matrix_classical() == 0
 
     def test_kappa_heisenberg(self):
-        """kappa(H_k) = k/2, from Volume I."""
+        """kappa(H_k) = k, from Volume I (authoritative)."""
         k = Symbol("k")
         ope = HeisenbergOPE(k=k)
-        assert ope.kappa == k / 2
+        assert ope.kappa == k
 
 
 # ================================================================
@@ -799,7 +799,7 @@ class TestEdgeCases:
         result = compute_e2_bar_heisenberg(k=Rational(1), max_x=3, max_y=3)
         assert result["d_X_vanishes"]
         assert result["d_Y_vanishes"]
-        assert result["kappa"] == Rational(1, 2)
+        assert result["kappa"] == Rational(1)  # kappa(H_k) = k, not k/2
 
     def test_sl2_numeric_k(self):
         """Computation works with numeric k for sl_2."""
@@ -1124,6 +1124,6 @@ class TestDocumentation:
         """Comparison table has all expected rows."""
         table = comparison_table()
         assert "kappa" in table
-        assert "k/2" in table
+        assert "k" in table  # kappa(H_k) = k (corrected from k/2)
         assert "3(k+2)/4" in table
         assert "deconcatenation" in table
