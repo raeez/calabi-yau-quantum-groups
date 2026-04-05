@@ -110,6 +110,14 @@ All anti-patterns AP1-AP43 from Vol I CLAUDE.md apply here. The following are th
 - **AP-CY4**: Drinfeld center ≠ derived center in general.
 - **AP-CY5**: Kazhdan-Lusztig requires q root of unity (or specific rationality).
 
+**AP44-AP49 (from the 139-fix three-volume rectification swarm, April 2026):**
+- **AP44**: OPE mode ≠ λ-bracket coefficient (divided-power 1/n! factor). T_{(3)}T=c/2 → {T_λ T}=(c/12)λ³.
+- **AP45**: Desuspension LOWERS degree: |s⁻¹v| = |v|-1, not |v|+1.
+- **AP46**: η(q) = q^{1/24}∏(1-qⁿ). The q^{1/24} is NOT optional.
+- **AP47**: MC3 proved on evaluation-generated core. DK-4/5 is downstream, not part of MC3.
+- **AP48**: κ depends on the full algebra, not the Virasoro subalgebra. κ=c/2 only for Virasoro. Lattice: κ=rank. General VOAs: compute from bar complex.
+- **AP49**: Cross-volume formula paste without convention conversion. Vol I=OPE modes, Vol II=λ-brackets, Vol III=motivic/categorical.
+
 **Additional Vol III-specific pitfalls from the audit:**
 - **AP-CY6**: A_X does NOT exist for CY3. The chiral algebra of a Calabi-Yau threefold is the single load-bearing gap. CY-A is proved for d=2; for d=3, A_X is conditional on chain-level S³-framing construction. NEVER write "A_X for CY3" as if it were a defined object.
 - **AP-CY7**: CoHA ≠ E₁-chiral algebra. The critical CoHA (Schiffmann-Vasserot, RSYZ) is an associative algebra; calling it "the E₁-sector of G(X)" assumes G(X) exists and has a CoHA inside it. The correct statement: "the CoHA is the target that the E₁-sector of G(X) should match, IF G(X) exists."
