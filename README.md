@@ -17,8 +17,8 @@
 
 <br>
 
-![Tests](https://img.shields.io/badge/tests-~4500-58a6ff?style=for-the-badge&labelColor=0d1117)
-![Compute Modules](https://img.shields.io/badge/compute%20modules-182-a371f7?style=for-the-badge&labelColor=0d1117)
+![Tests](https://img.shields.io/badge/tests-~8200-58a6ff?style=for-the-badge&labelColor=0d1117)
+![Compute Modules](https://img.shields.io/badge/compute%20modules-219-a371f7?style=for-the-badge&labelColor=0d1117)
 ![Chapters](https://img.shields.io/badge/chapters-22-3fb950?style=for-the-badge&labelColor=0d1117)
 ![Notes](https://img.shields.io/badge/notes-22-d29922?style=for-the-badge&labelColor=0d1117)
 
@@ -127,8 +127,8 @@ CY categories as quantum chiral algebras via E<sub>1</sub>/E<sub>2</sub> factori
 | Theory chapters | 13 files, ~600 lines |
 | Example chapters | 6 files, ~324 lines |
 | Connection chapters | 3 files, ~41 lines |
-| Compute modules | 93 lib + 89 test files |
-| Compute tests | ~4,500 |
+| Compute modules | 130 lib + 126 test files |
+| Compute tests | ~8,200 |
 | Theory notes | 11 files, ~11K lines |
 | Physics notes | 11 files, ~9K lines |
 | Research notes | 10 `.md` files |
@@ -489,7 +489,7 @@ chi/24 = -25/3  (not integer: obstruction to naive BKM structure)
 
 ## Compute
 
-93 modules, 89 test suites, **~4,500 tests**.
+130 modules, 126 test suites, **~8,200 tests** (including 37 new modules and 3,497 tests from the quiver-chart gluing campaign).
 
 | Module | What it computes | Tests |
 |--------|-----------------|:-----:|
@@ -563,8 +563,8 @@ calabi-yau-quantum-groups/
     audit_*.md                9 adversarial audit reports
 
   compute/
-    lib/                      20 Python modules (~19K lines)
-    tests/                    22 test suites (~15K lines)
+    lib/                      130 Python modules (~95K lines)
+    tests/                    126 test suites (~75K lines)
     scripts/                  Verification scripts
 ```
 
@@ -621,7 +621,7 @@ calabi-yau-quantum-groups/
 </details>
 
 <details>
-<summary><b>Compute Modules</b> &ensp; <code>compute/lib/</code> &ensp; (20 modules, ~19K lines)</summary>
+<summary><b>Compute Modules</b> &ensp; <code>compute/lib/</code> &ensp; (130 modules, ~95K lines)</summary>
 
 &nbsp;
 
@@ -752,6 +752,6 @@ Requires: pdflatex with memoir/ebgaramond/newtxmath, Python 3.10+ with numpy/pyt
 
 <div align="center">
 
-<sub>22 chapters &ensp;&middot;&ensp; 22 theory + physics notes &ensp;&middot;&ensp; 75 compute modules &ensp;&middot;&ensp; ~1,600 tests &ensp;&middot;&ensp; 9 adversarial audit reports &ensp;&middot;&ensp; 3 volumes</sub>
+<sub>22 chapters &ensp;&middot;&ensp; 22 theory + physics notes &ensp;&middot;&ensp; 130 compute modules &ensp;&middot;&ensp; ~8,200 tests &ensp;&middot;&ensp; 9 adversarial audit reports &ensp;&middot;&ensp; 3 volumes</sub>
 
 </div>

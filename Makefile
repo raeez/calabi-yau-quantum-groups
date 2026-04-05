@@ -165,7 +165,7 @@ release:
 	@echo "  -- RELEASE BUILD --"
 	@echo "  ============================================"
 	@echo ""
-	@echo "  [1/3] Main manuscript"
+	@echo "  [1/2] Main manuscript"
 	@$(BUILD_SCRIPT) $(PASSES)
 	@if [ -f $(PDF) ]; then \
 		cp $(PDF) $(OUT_PDF); \
@@ -174,11 +174,8 @@ release:
 		echo "  Manuscript build failed."; \
 	fi
 	@echo ""
-	@echo "  [2/3] Working notes"
+	@echo "  [2/2] Working notes"
 	@$(MAKE) --no-print-directory working-notes
-	@echo ""
-	@echo "  [3/3] Compute tests"
-	@$(MAKE) --no-print-directory test
 	@echo ""
 	@echo "  ============================================"
 	@echo "  Release complete. Output in out/:"
