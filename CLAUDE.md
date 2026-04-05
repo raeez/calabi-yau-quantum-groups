@@ -76,6 +76,10 @@ The Drinfeld center Z(Rep^{E_1}(A)) ~ Rep^{E_2}(Z^der_ch(A)) provides the catego
 | I (Modular Koszul Duality) | Bar-cobar machine, Theta_A, kappa(A), five theorems (A-D+H) | CY bar complex, modular trace, shadow obstruction tower |
 | II (3D HT QFT) | SC^{ch,top}, PVA descent, DK bridge, E_1 sector | E_1 chiral theory, braided structure, bulk-boundary |
 
+## The Multi-Path Verification Mandate
+
+Inherited from Vol I. **Every computational result must be supported by multiple independent computations that all point to the same result.** Minimum: 3 genuinely independent verification paths per numerical claim. See Vol I CLAUDE.md for the full verification path taxonomy (8 methods). The compute/ layer is the verification engine; every formula needs corresponding multi-method tests. Cross-volume propagation (AP49) is especially critical: Vol III uses motivic/categorical conventions that differ from both Vol I (OPE modes) and Vol II (λ-brackets). NEVER paste a formula between volumes without explicit convention conversion and independent numerical verification.
+
 ## The Beilinson Principle
 
 Inherited from Vol I. Every claim is false until independently verified. The six hostile examiners (Beilinson, Witten, Costello, Gaiotto, Drinfeld, Kontsevich) apply. All anti-patterns AP1-AP34 from Vol I carry over.
