@@ -159,15 +159,20 @@
 \section{Overview and programme}
 % ============================================================
 
-These working notes record the development of Volume~III (Calabi--Yau Quantum Groups) of the modular Koszul duality programme.  The central thesis: \emph{the combinatorics of a CY3 threefold $X$ constitute the generalized root datum of a quantum vertex chiral group $G(X)$}.  The automorphic correction of the underlying BKM superalgebra is the shadow Postnikov tower $\Theta_A$ from Volume~I.
+These working notes record the development of Volume~III (Calabi--Yau Quantum Groups) of the modular Koszul duality programme.  The central thesis: \emph{the BPS spectrum of a CY3 threefold $X$ should constitute the generalized root datum of a quantum group $G(X)$ realized as an $\Etwo$-chiral algebra}.  More precisely, the automorphic correction of the underlying Borcherds--Kac--Moody (BKM) superalgebra attached to~$X$ should be identified with the shadow Postnikov tower $\Theta_A$ from Volume~I: the universal Maurer--Cartan element of the modular convolution algebra of a chiral algebra $A = A_X$ associated to~$X$, whose finite-order projections $\Theta_A^{\leq r}$ encode roots of increasing complexity.
+
+\begin{warning}[The central object $G(X)$ is not yet constructed]
+\label{warn:gx-not-constructed}
+The ``quantum vertex chiral group'' $G(X)$ is the \emph{target} of this programme, not a defined object.  For $\CY_2$ categories (Higgs sheaves on a curve), the construction of an $\Etwo$-chiral algebra via the factorization envelope is available (CY-A for $d=2$).  For CY3 threefolds, the chain-level $\bS^3$-framing needed for CY-A at $d = 3$ has not been constructed, and $G(X)$ is used as shorthand for the conjectural output.  Every statement involving $G(X)$ for a CY3 is a conjecture unless otherwise noted.
+\end{warning}
 
 \subsection{The four target theorems}
 
 \begin{itemize}
   \item \textbf{CY-A} (CY-to-chiral functor): $\Phi \colon \CY_d\text{-}\mathrm{Cat} \to \Etwo\text{-}\mathrm{ChirAlg}$.
-  \item \textbf{CY-B} ($\Etwo$-chiral Koszul duality): Automorphic correction = shadow tower; denominator identity = bar Euler product.
+  \item \textbf{CY-B} ($\Etwo$-chiral Koszul duality): Automorphic correction = shadow tower; denominator identity = bar Euler product (at the level of motivic Hall algebra generating series; naive series-level equality requires CY-A).
   \item \textbf{CY-C} (Quantum group realization): $\Rep^{\Etwo}(G(X))$ is braided monoidal; for toric CY3, this gives the affine super Yangian.
-  \item \textbf{CY-D} (Modular CY characteristic): $\kappa(G(X))$ = weight of the automorphic form.
+  \item \textbf{CY-D} (Modular CY characteristic): $\kappa(G(X))$ = weight of the denominator automorphic form (e.g., $\mathrm{weight}(\Delta_5) = 5$ for $K3 \times E$).
 \end{itemize}
 
 \subsection{Current status of the programme}
@@ -235,7 +240,7 @@ These working notes record the development of Volume~III (Calabi--Yau Quantum Gr
   Automorphic correction & Imaginary roots added to $\fg$ & Higher-arity shadows \\
   Denominator identity & WKB character formula & Bar Euler product \\
   $\mathrm{Sp}_4(\Z)$ / Weyl group & Symmetry group & $\Etwo$ braiding \\
-  $\phi_{0,1}$ (K3 elliptic genus) & Root multiplicity function & Shadow depth classification \\
+  $\phi_{0,1}$ (K3 elliptic genus) & Root multiplicity generating function & Shadow tower input data \\
   $\CoHA$ (positive half) & $U(\fn_+)$ & $\Eone$-chiral sector \\
   Full Yangian / BKM & Full algebra $\fg_X$ & $\Etwo$-chiral algebra $A(X)$ \\
   \bottomrule
@@ -244,15 +249,26 @@ These working notes record the development of Volume~III (Calabi--Yau Quantum Gr
 
 \subsection{The central identification}
 
-\begin{theorem}[Automorphic correction = shadow tower]
-The shadow Postnikov tower $\Theta^{\leq r}_{A_X}$ of the quantum vertex chiral group $G(X)$ captures exactly the roots of complexity $\leq r$ in the BKM root system:
-\begin{enumerate}[label=(\alph*)]
-  \item Arity~2 = real roots + Weyl vector (modular characteristic $\kappa$).
-  \item Arity~3 = first layer of imaginary roots (cubic shadow $C$).
-  \item Arity~$r$ = roots up to depth $r-2$ in the positive cone.
+% RECTIFICATION-FLAG: F2/F5 — AP40, AP-CY6, AP42.
+% Parts (a)-(b) are computationally verified for K3 x E (sec. 3).
+% Parts (c)-(d) are conjectural: (c) lacks a proof beyond arity 6;
+% (d) requires A_X to exist (CY-A at d=3 is open).
+% Environment changed from theorem to conjecture per AP40.
+\begin{conjecture}[Automorphic correction = shadow tower]
+\label{conj:automorphic-shadow-tower}
+Let $X$ be a CY3 threefold admitting a BKM root system $\fg_X$,
+and suppose the CY-to-chiral functor $\Phi$ of CY-A produces
+an $\Etwo$-chiral algebra $A_X$ for~$X$.
+Then the shadow Postnikov tower $\Theta^{\leq r}_{A_X}$
+captures the roots of complexity $\leq r$ in the BKM root system:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item Arity~$2$ = real roots + Weyl vector (modular characteristic $\kappa$).
+  \item Arity~$3$ = first layer of imaginary roots (cubic shadow $C$).
+  \item Arity~$r$ = roots up to height $r-2$ in the positive cone (height measured by the minimal number of simple root additions needed to reach~$\alpha$ from norm-$2$ real roots).
   \item The denominator identity of $\fg_X$ equals the bar-complex Euler product of $B(A_X)$.
 \end{enumerate}
-\end{theorem}
+Evidence for \textup{(a)--(b)}: computationally verified for $K3 \times E$ at arities $2$--$6$ (Section~\ref{sec:k3e-example}).  Part~\textup{(d)} requires CY-A at $d = 3$, which is open (Warning~\ref{warn:gx-not-constructed}).
+\end{conjecture}
 
 \subsection{Computationally verified}
 
@@ -266,31 +282,55 @@ For $K3 \times E$ with $\fg_{\Delta_5}$:
 
 % ============================================================
 \section{The $K3 \times E$ example}
+\label{sec:k3e-example}
 % ============================================================
 
 \subsection{The geometry}
 
-$X = (S \times E)/(\Z/N\Z)$, $S$ = K3, $E$ = elliptic curve.  DT partition function $Z^X = C/(\Delta_5)^2$.
+$X = S \times E$, where $S$ is a K3 surface and $E$ is an elliptic curve.
+The DT partition function is $Z^X = C/(\Delta_5)^2$,
+where $\Delta_5$ is the Igusa cusp form of weight~$5$
+on $\Sp_4(\Z)$ (the degree-$2$ Siegel modular group).
 
 \subsection{The lattice}
 
-$\Lambda^{3,2} \simeq \Lambda^{1,1} \oplus \Lambda^{1,1} \oplus [2]$, signature $(3,2)$.  Hyperbolic sublattice $\Lambda^{2,1}_{II}$ with Gram matrix
+The BKM root lattice is $\Lambda^{3,2} \simeq \Lambda^{1,1} \oplus \Lambda^{1,1} \oplus [2]$, of signature $(3,2)$.  The hyperbolic sublattice $\Lambda^{2,1}_{II}$ has three real simple roots $\delta_1, \delta_2, \delta_3$ with Gram matrix
 \[
   (\delta_i, \delta_j) = \begin{pmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2 \end{pmatrix}.
 \]
-Weyl vector $\rho = \tfrac{1}{2}(\delta_1 + \delta_2 + \delta_3)$, $(\rho, \delta_i) = -1$.  $\mathrm{Aut}(\cP_{II}) \simeq S_3$.
+Weyl vector $\rho = \tfrac{1}{2}(\delta_1 + \delta_2 + \delta_3)$, satisfying $(\rho, \delta_i) = -1$ for each~$i$ (verified: $(\rho, \delta_1) = \tfrac{1}{2}(2 - 2 - 2) = -1$).  The Coxeter group is $\mathrm{Aut}(\cP_{II}) \simeq S_3$.
 
 \subsection{The modular characteristic}
 
-$\kappa(G(K3 \times E)) = 5 = \mathrm{weight}(\Delta_5) = h^{1,1}(K3)/4 = (\chi(K3) - 4)/4$.
+The conjectural modular characteristic (CY-D) is
+$\kappa(G(K3 \times E)) = 5$.  This equals the weight
+of the Igusa cusp form: $\mathrm{weight}(\Delta_5) = 5$.
+Numerically, $5 = h^{1,1}(K3)/4 = 20/4$
+and $5 = (\chi(K3) - 4)/4 = (24-4)/4$,
+but these expressions are observed coincidences for
+$K3 \times E$, not proved formulas for general CY3 (see Question~5
+in Section~\ref{sec:open-questions}).
 
-This is NOT $\chi(X)/12$ (which gives $0$, since $\chi(K3 \times E) = 0$).  The modular characteristic counts the worldsheet anomaly (full BPS spectrum), not the target-space anomaly (massless modes).
+This is \emph{not} $\chi(X)/12$, which gives $0$ since $\chi(K3 \times E) = 0$.  The modular characteristic counts the worldsheet anomaly (full BPS spectrum), not the target-space anomaly (massless modes).
 
 % ============================================================
 \section{The toric CY3 / CoHA example}
 % ============================================================
 
-For $\C^3$: $\CoHA = Y^+(\widehat{\fgl}_1) \simeq \cW_{1+\infty}$ at the self-dual level.  $\dim Y^+_n = p(n)$ (plane partitions).  The MacMahon function $M(q) = \prod_{n \geq 1} (1-q^n)^{-n}$ is the denominator identity.  The affine Yangian structure function $g(z) = (z - h_1)(z - h_2)(z - h_3)/((z + h_1)(z + h_2)(z + h_3))$ with $h_1 + h_2 + h_3 = 0$.  Even $\phi$-coefficients vanish: $\phi_2 = \phi_4 = 0$ because $\log g$ has only odd powers.
+For $\C^3$, the critical CoHA (Schiffmann--Vasserot, Rapcak--Soibelman--Yang--Zhao) is
+$\CoHA(\C^3) \simeq Y^+(\widehat{\fgl}_1)$,
+the positive half of the affine Yangian of $\fgl_1$.
+The graded dimension is $\dim Y^+_n = p(n)$
+(the number of plane partitions of~$n$), and the MacMahon function
+$M(q) = \prod_{n \geq 1} (1-q^n)^{-n}$ serves as the generating function.
+If the CY-to-chiral functor exists for $\C^3$ (CY-A at $d=3$, open),
+the CoHA should be the $\Eone$-sector of the conjectural $\Etwo$-chiral
+algebra $A_{\C^3}$, and $M(q)$ should match the bar Euler product.
+At the self-dual level ($h_1 + h_2 + h_3 = 0$),
+$Y^+(\widehat{\fgl}_1) \simeq \cW_{1+\infty}$.
+The affine Yangian structure function is
+$g(z) = (z - h_1)(z - h_2)(z - h_3)/((z + h_1)(z + h_2)(z + h_3))$;
+even $\phi$-coefficients vanish ($\phi_2 = \phi_4 = 0$) because $\log g$ has only odd powers.
 
 % ============================================================
 \section{Higgs sheaves and the $\CY_2$ escape}
@@ -336,6 +376,141 @@ Evidence: Feigin--Frenkel center at critical level, root/coroot exchange, SYZ mi
   \item Explicit construction of the $\Etwo$-bar complex $B_{\Etwo}(A)$ for $A = V_k(\fg)$.
   \item Quantum geometric Langlands as $\Etwo$-chiral Koszul duality: $G(C, \fg, k)^! = G(C, {}^L\fg, k^L)$.
 \end{enumerate}
+
+% ============================================================
+\section{Arithmetic shadows and number theory}
+\label{sec:arithmetic-shadows}
+% ============================================================
+
+The shadow tower of a chiral algebra carries arithmetic content
+that connects to classical number theory through three channels:
+modular forms at genus~1, Siegel modular forms at genus~2, and
+multiple zeta values at genus~0.
+
+\subsection{MZV periods from the genus-0 bar complex}
+
+The genus-0 bar amplitudes on $\cM_{0,n}$ produce MZV periods
+via iterated integrals of the bar propagator $d\log(z_i - z_j)$.
+The shadow depth classification controls which MZV weights appear.
+
+\begin{theorem}[Shadow--MZV dictionary {\normalfont (proved in Vol~I)}]
+\label{thm:wn-shadow-mzv}
+For a chirally Koszul algebra $\cA$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\kappa(\cA)$ controls the coefficient of
+  $\zeta(2)$ in genus-0 four-point amplitudes.
+\item The cubic shadow $S_3(\cA)$ controls the coefficient of
+  $\zeta(3)$ in five-point amplitudes.
+\item The quartic shadow $S_4(\cA)$ and contact class
+  $Q^{\mathrm{contact}}$ control weight-4 MZV content.
+\item At general weight~$r$: the arity-$r$ shadow $S_r$
+  contributes to the MZV space of dimension
+  $d_r = d_{r-2} + d_{r-3}$ (Brown 2012).
+\end{enumerate}
+Class~$\mathbf{G}$ algebras see only $\zeta(2)$;
+class~$\mathbf{L}$ see $\zeta(2), \zeta(3)$;
+class~$\mathbf{C}$ see $\zeta(2), \zeta(3), \zeta(4)$
+% RECTIFICATION-FLAG: class C ($\beta\gamma$) has $\kappa = 0$ on the
+% charged stratum but $S_3 \neq 0$ on the scalar line.  The claim
+% ``$S_3 = 0$ for class C'' was wrong --- corrected to include $\zeta(3)$.
+\textup{(}stratum separation at arity~$4$\textup{)};
+class~$\mathbf{M}$ see MZVs at all weights.
+\end{theorem}
+
+For quantum vertex chiral groups, this dictionary extends to
+the genus-0 bar complex on a curve $C$:
+the MZV periods are replaced by periods of $\cM_{0,n}(C)$,
+which include elliptic MZVs (for $C = E$ an elliptic curve)
+and higher-genus analogues.
+
+\begin{conjecture}[CY MZV dictionary]
+For the quantum vertex chiral group $G(C, \fg)$,
+the genus-0 bar amplitudes on $\cM_{0,n}(C)$ produce
+periods of the motivic cohomology of~$C$.
+The shadow depth of $G(C, \fg)$ controls the
+motivic weight filtration level of these periods.
+\end{conjecture}
+
+\subsection{The Drinfeld associator as bar transport}
+
+The Drinfeld associator $\Phi(A, B)$ is the parallel transport
+of the KZ connection on $\cM_{0,4}$, identified with the
+genus-0 arity-2 shadow connection.  Its MZV coefficients are:
+\begin{align*}
+\log \Phi &= \zeta(2)\,[A,B]
++ \zeta(3)\,([A,[A,B]] - [B,[A,B]]) \\
+&\quad + \tfrac{\zeta(4)}{4}\,([A,[A,[A,B]]] + [B,[B,[A,B]]])
++ \cdots
+\end{align*}
+For quantum vertex chiral groups: the Drinfeld associator governs
+the genus-0 transport between different trivializations of the
+bar complex, and the associator's MZV coefficients are the
+perturbative data of the quantum group structure.
+
+\subsection{Siegel modular forms from genus-2 amplitudes}
+
+At genus~2, the shadow tower's scalar projection
+determines the universal part of the genus-$2$ amplitude,
+but the full genus-$2$ partition function carries
+arithmetic content \emph{beyond} the shadow tower.
+For lattice VOAs of rank~$d$, the genus-2 partition function is
+the Siegel theta series $\Theta_\Lambda^{(2)}(\Omega) \in
+M_{d/2}(\Sp(4,\bZ))$; the shadow tower fixes
+$F_2 = \kappa \cdot \lambda_2^{\mathrm{FP}}$ but not the
+Siegel cusp component (Vol~I, lattice chapter).
+
+For the quantum vertex chiral group programme:
+the genus-2 amplitude of $G(C, \fg)$ should produce a Siegel
+modular form on $\Sp(4,\bZ)$ whose Fourier coefficients encode
+the BPS spectrum.  The B\"ocherer factorization converts these
+Fourier coefficients to central $L$-values, providing algebraic
+access to the critical line $\Re(s) = 1/2$.
+
+\begin{conjecture}[Genus-2 BPS = B\"ocherer]
+For the quantum vertex chiral group $G(K3 \times E, \fg)$
+at the lattice VOA point:
+the genus-2 MC equation determines the Siegel theta series,
+and the B\"ocherer coefficient extracts the central $L$-value
+$L(1/2, \pi_f \times \chi_D)$ from the MC data.
+\end{conjecture}
+
+\subsection{Moonshine and Niemeier atlas}
+
+The 24 Niemeier lattices (even unimodular in dimension~24) all
+have $\kappa = 24$ ($ = d$ for $d = 24$ free bosons at level
+$k = 1$), class~$\mathbf{G}$, shadow depth~2.
+The shadow tower is blind to their root systems:
+all 24 produce identical shadow data.  Distinguishing them
+requires the full theta series
+$\Theta_\Lambda = E_{12} + c_\Delta \cdot \Delta$ where
+$c_\Delta = (691 |R| - 65520)/691$.
+
+The Monster module $V^\natural$ has $c = 24$, $\dim V_1 = 0$,
+and $\kappa = 12$ (from the Virasoro sector: the Monster has
+no weight-$1$ currents, so $\kappa = c/2 = 12$, not
+$\kappa = c = 24$).  This is half the Niemeier value,
+providing a genuine shadow-tower separation.
+% RECTIFICATION-FLAG: The Monster/Niemeier kappa discrepancy
+% depends on normalization.  In the Vol~I working notes
+% (k=1/2 per boson), Niemeier has kappa=12 and so does
+% Monster, giving NO separation.  In the main chapter
+% convention (k=1 per boson), Niemeier has kappa=24 while
+% Monster has kappa=12 (since it is NOT a lattice VOA: it
+% has no weight-1 currents, so its kappa comes from
+% the Virasoro sector alone: kappa(Vir_24) = 24/2 = 12).
+% Verify against compute/lib/moonshine_shadow_atlas.py which
+% uses kappa=24 for Niemeier and kappa=12 for Monster.
+The Monster module is conjecturally class~$\mathbf{M}$
+(infinite shadow depth), reflecting the nonlinear Griess
+algebra structure.
+
+For the CY quantum group programme:
+the K3 quantum vertex chiral group should encode the
+Mathieu moonshine (umbral moonshine for $\Lambda = 24A_1$,
+$G = M_{24}$) through the genus-1 shadow tower.
+The mock modular forms of umbral moonshine may arise
+as the quasi-modular shadow content
+(through the $E_2^*$ propagator dependence).
 
 % ============================================================
 %  Future sections will be added as the programme develops.

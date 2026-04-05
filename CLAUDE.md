@@ -87,6 +87,34 @@ Inherited from Vol I. Every claim is false until independently verified. The six
 - **AP-CY4**: Drinfeld center != derived center in general. Z(C) (Drinfeld center of a monoidal category) and Z^der_ch(A) (chiral derived center) agree under specific hypotheses. State which center you mean.
 - **AP-CY5**: Kazhdan-Lusztig equivalence requires q a root of unity (or specific rationality conditions on k). At generic q, Rep_q(g) is semisimple and the story simplifies; the interesting structure is at roots of unity.
 
+## Anti-Patterns (inherited from Vols I-II + Vol III-specific)
+
+All anti-patterns AP1-AP43 from Vol I CLAUDE.md apply here. The following are the most frequently triggered in this volume:
+
+**AP38 — Literature normalization convention in hardcoded values.** The BKM shadow tower engine hardcoded phi_{0,1} Fourier coefficients in the DVV convention (f(0,0)=20, f(1,0)=-252) instead of the Eichler-Zagier convention (f(0,0)=10, f(1,0)=108). The BKM identity was documented as FALSE for phi_{0,1}. **Rule: when hardcoding values from the literature, ALWAYS record the source paper and normalization convention.**
+
+**AP42 — Correct at sophisticated level, false at naive level.** "Scattering diagram = shadow tower" holds at the motivic Hall algebra level, but naive BCH pair-commutator does NOT reproduce phi_{0,1} multiplicities (commit 72ba062). The gap measures higher BPS bound-state contributions. **Rule: state the level of validity explicitly.**
+
+**AP43 — Central object defined by aspiration, not by axioms.** G(X) ("quantum vertex chiral group") used in ~20 locations without formal definition. "Quantum chiral algebra" defined as "equivalent to quantum group representation category" — a prayer, not a definition. **Rule: MUST formally define before use. The central object of a volume MUST have a \\begin{definition}.**
+
+**AP35 — Accidentally correct theorem.** The [d_X, d_Y] = 0 identity was stated for all genera but qualified to genus 0 (commit a0ff317). Check whether genus-extension claims rest on genus-0 proofs. **Rule: verify proof steps independently of the conclusion.**
+
+**AP36 — Biconditional overclaim.** CY-C was stated as "Theorem" but is a conjecture — the CY category C(g,q) is not constructed in general. CY-A was stated for all d but only d=2 is proved. **Rule: before writing "Theorem," verify the proof exists in THIS manuscript.**
+
+**AP40 — LaTeX environment contradicts claim status.** CY-C was in a theorem environment despite being conjectural. Each claim in k3_times_e.tex was relabeled Theorem/Conjecture/Observation (commit a0ff317). **Rule: environment MUST match status.**
+
+**Vol III-specific pitfalls** (from Vol III CLAUDE.md AP-CY1 through AP-CY5):
+- **AP-CY1**: CY dimension d ≠ complex dimension n.
+- **AP-CY2**: CY trace is HC^-_d(C), NOT just HH_d → k.
+- **AP-CY3**: E₂ ≠ commutative. E₂ has braiding, NOT symmetric.
+- **AP-CY4**: Drinfeld center ≠ derived center in general.
+- **AP-CY5**: Kazhdan-Lusztig requires q root of unity (or specific rationality).
+
+**Additional Vol III-specific pitfalls from the audit:**
+- **AP-CY6**: A_X does NOT exist for CY3. The chiral algebra of a Calabi-Yau threefold is the single load-bearing gap. CY-A is proved for d=2; for d=3, A_X is conditional on chain-level S³-framing construction. NEVER write "A_X for CY3" as if it were a defined object.
+- **AP-CY7**: CoHA ≠ E₁-chiral algebra. The critical CoHA (Schiffmann-Vasserot, RSYZ) is an associative algebra; calling it "the E₁-sector of G(X)" assumes G(X) exists and has a CoHA inside it. The correct statement: "the CoHA is the target that the E₁-sector of G(X) should match, IF G(X) exists."
+- **AP-CY8**: Borcherds denominator identity ≠ bar Euler product. The identification requires the CY-to-chiral functor to exist in the relevant dimension. For K3 × E (d=3), Δ₅ is computed from the lattice, not from a chiral algebra (which doesn't exist yet). The "bar Euler product" interpretation is an OBSERVATION about the product formula, not a theorem derived from the bar complex.
+
 ## Build
 
 ```
