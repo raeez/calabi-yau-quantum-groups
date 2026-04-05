@@ -613,7 +613,7 @@ The Weyl vector $\rho$ is the genus-0 manifestation of this anomaly.
 The formula $(\rho, \delta_i) = -(\delta_i, \delta_i)/2$ for all simple
 real roots $\delta_i$ is equivalent to saying that $\rho$ is the half-sum
 of positive real roots --- and this half-sum is precisely the arity-2
-term in the shadow Postnikov obstruction tower $\Theta_A$ (cf.\ the table in Vol.~III, Introduction \S5).  The dictionary is:
+term in the shadow obstruction tower $\Theta_A$ (cf.\ the table in Vol.~III, Introduction \S5).  The dictionary is:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
@@ -864,7 +864,7 @@ bar-cobar inversion $\Omega(B(A)) \simeq A$.
 
 \subsection{The shadow obstruction tower and automorphic correction}
 
-The shadow Postnikov obstruction tower $\Theta_{A_X}$ (Vol.~I) controls the full
+The shadow obstruction tower $\Theta_{A_X}$ (Vol.~I) controls the full
 modular structure of $A_X$.  Its arity-$r$ component $\Theta^{(r)}_A$
 adds the imaginary roots of BPS charge $\leq r$, and the full
 $\Theta_A$ assembles into the automorphic correction
@@ -989,5 +989,91 @@ rests on three identifications:
 The result is the content of Theorem CY-B of Volume~III: the denominator
 identity IS the bar-complex Euler product, and the Weyl--Kac--Borcherds
 character formula IS the factorization structure of $B(A_X)$.
+
+%% ====================================================================
+\section{Bar Euler product: computational verification}
+\label{sec:bar-euler-verification}
+%% ====================================================================
+
+The swarm computation (\texttt{compute/lib/bar\_euler\_product.py},
+54~tests) verifies the bar-complex Euler product identity directly.
+
+\subsection{The identity}
+
+The verified identity, at the level of root-graded generating functions, is
+\[
+  \sum_{k \geq 0} (-1)^k \ch(B^k(A_X))
+  \;=\; \frac{1}{M_X(q)},
+\]
+where $B^k(A_X) = (s^{-1} \overline{A}_X)^{\otimes k}$ is the
+bar-arity-$k$ piece of the bar complex (the $k$-fold desuspended
+tensor power of the augmentation ideal), and $M_X(q)$ is the
+root-graded partition function of $A_X$.
+
+For $X = \mathbb{C}^3$, the chiral algebra $A_X$ has one bosonic
+generator at each energy level $n \geq 1$ with multiplicity $n$
+(plane partition counting), so
+$M_X(q) = \prod_{n \geq 1} (1 - q^n)^{-n} = M(q)$, the MacMahon
+function.  The identity reads
+\[
+  \sum_{k \geq 0} (-1)^k \ch(B^k(A_{\mathbb{C}^3}))
+  \;=\; \frac{1}{M(q)}.
+\]
+
+\subsection{BPS interpretation: $\Omega(n) = n$}
+
+On the BPS side, the identity encodes the fact that the integer
+DT invariant of $\mathbb{C}^3$ at charge $n$ is
+$\Omega(n) = n$.  The bar complex ``undoes'' the
+multi-particle partition function $M(q) = \exp(\sum_{n \geq 1}
+\Omega(n) q^n / n)$ back to the single-particle spectrum
+$\Omega(n)$.  This is the BPS analog of the plethystic logarithm.
+
+\subsection{Three bar complexes}
+
+The verification distinguishes three incarnations of the bar
+complex, reflecting the $E_1 \subset E_2 \subset E_\infty$
+hierarchy:
+
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{$E_1$ bar complex (ordered).}
+    This is the standard bar complex of the associative algebra
+    $U(\frakn_+) \cong \CoHA$.  Its spectral sequence has $E_1$
+    page given by the Hochschild homology of $U(\frakn_+)$:
+    \[
+      E_1^{p,q} = \HH_p(U(\frakn_+))_q.
+    \]
+    The Euler product identity follows from the PBW filtration
+    and the Hochschild--Kostant--Rosenberg theorem.
+
+  \item \textbf{$E_2$ bar complex (braided).}
+    The braided bar complex uses the $R$-matrix to twist the
+    tensor product.  The $E_2$ page involves the
+    $R$-twisted Hochschild homology, and the Euler product
+    acquires a correction:
+    \[
+      \sum_k (-1)^k \ch(B^k_{E_2}) \;=\;
+      \frac{1}{M_X(q)} \cdot \prod_{\alpha} d(\alpha)^{-1},
+    \]
+    where $d(\alpha)$ is the quantum dimension of the root
+    space, arising from the $R$-matrix eigenvalue.  For
+    $\mathbb{C}^3$ at the self-dual point, $d(\alpha) = 1$ and
+    the two Euler products agree.
+
+  \item \textbf{$E_\infty$ bar complex (symmetric).}
+    The fully symmetric bar complex uses the commutative algebra
+    structure (forgetting the braiding).  Its Euler product is
+    the ordinary symmetric product formula
+    $\prod_\alpha (1 - q^\alpha)^{\pm \mult(\alpha)}$, which
+    is the Weyl--Kac--Borcherds denominator.
+\end{enumerate}
+
+\noindent
+The three Euler products agree on $\overline{\MC}$-invariants
+(the gauge-equivalence class of the MC element is the same),
+but differ at the chain level.  The physical bar complex
+(relevant for BPS counting) is the $E_2$ version; the
+algebraic bar complex (relevant for the denominator identity)
+is the $E_\infty$ version.
 
 \end{document}

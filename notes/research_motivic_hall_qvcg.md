@@ -322,7 +322,7 @@ Despite its universality, the motivic Hall algebra has fundamental limitations:
 
 4. **The CY-to-chiral functor at the motivic level.** Can the functor Phi : CY_d-Cat -> E_2-ChirAlg be lifted to a motivic version Phi^mot : CY_d-Cat -> E_2-ChirAlg^mot? This would refine Theorem CY-A and provide a chain-level (not just cohomological) construction of the QVCG.
 
-5. **The motivic shadow obstruction tower.** The shadow Postnikov tower Theta_A^{<= r} should have a motivic lift, with the arity-r component encoding r-particle motivic BPS bound states. The motivic curvature l_0 would then be a class in K_0(Var), not just a number.
+5. **The motivic shadow obstruction tower.** The shadow obstruction tower Theta_A^{<= r} should have a motivic lift, with the arity-r component encoding r-particle motivic BPS bound states. The motivic curvature l_0 would then be a class in K_0(Var), not just a number.
 
 
 ## 8. Detailed Analysis of the Five Original Questions

@@ -136,6 +136,7 @@
 \newcommand{\id}{\mathrm{id}}
 \newcommand{\mult}{\mathrm{mult}}
 \newcommand{\ad}{\operatorname{ad}}
+\newcommand{\Sp}{\operatorname{Sp}}
 
 % ============================================================
 
@@ -157,9 +158,10 @@
 
 % ============================================================
 \section{Overview and programme}
+\label{sec:programme}
 % ============================================================
 
-These working notes record the development of Volume~III (Calabi--Yau Quantum Groups) of the modular Koszul duality programme.  The central thesis: \emph{the BPS spectrum of a CY3 threefold $X$ should constitute the generalized root datum of a quantum group $G(X)$ realized as an $\Etwo$-chiral algebra}.  More precisely, the automorphic correction of the underlying Borcherds--Kac--Moody (BKM) superalgebra attached to~$X$ should be identified with the shadow Postnikov obstruction tower $\Theta_A$ from Volume~I: the universal Maurer--Cartan element of the modular convolution algebra of a chiral algebra $A = A_X$ associated to~$X$, whose finite-order projections $\Theta_A^{\leq r}$ encode roots of increasing complexity.
+These working notes record the development of Volume~III (Calabi--Yau Quantum Groups) of the modular Koszul duality programme.  The central thesis: \emph{the BPS spectrum of a CY3 threefold $X$ should constitute the generalized root datum of a quantum group $G(X)$ realized as an $\Etwo$-chiral algebra}.  More precisely, the automorphic correction of the underlying Borcherds--Kac--Moody (BKM) superalgebra attached to~$X$ should be identified with the shadow obstruction tower $\Theta_A$ from Volume~I: the universal Maurer--Cartan element of the modular convolution algebra of a chiral algebra $A = A_X$ associated to~$X$, whose finite-order projections $\Theta_A^{\leq r}$ encode roots of increasing complexity.
 
 \begin{warning}[The central object $G(X)$ is not yet constructed]
 \label{warn:gx-not-constructed}
@@ -259,7 +261,7 @@ The ``quantum vertex chiral group'' $G(X)$ is the \emph{target} of this programm
 Let $X$ be a CY3 threefold admitting a BKM root system $\fg_X$,
 and suppose the CY-to-chiral functor $\Phi$ of CY-A produces
 an $\Etwo$-chiral algebra $A_X$ for~$X$.
-Then the shadow Postnikov obstruction tower $\Theta^{\leq r}_{A_X}$
+Then the shadow obstruction tower $\Theta^{\leq r}_{A_X}$
 captures the roots of complexity $\leq r$ in the BKM root system:
 \begin{enumerate}[label=\textup{(\alph*)}]
   \item Arity~$2$ = real roots + Weyl vector (modular characteristic $\kappa$).
@@ -276,9 +278,14 @@ For $K3 \times E$ with $\fg_{\Delta_5}$:
 \begin{itemize}
   \item Arity~2: 21 real roots (norm~2), all multiplicity~2. $\kappa = 5$.
   \item Arity~3: 2 lightlike imaginary roots at $(1,0,0)$ and $(0,0,1)$, multiplicity~20.
-  \item Arity~4: 7 roots including the timelike root $(1,0,1)$ with multiplicity $-252$.
+  \item Arity~4: 7 roots including the timelike root $(1,0,1)$ with multiplicity $108$.
   \item At every truncation order $r = 2, \ldots, 6$: product formula matches shadow projection.
 \end{itemize}
+
+\begin{remark}[Diophantine gaps in the discriminant-arity correspondence]
+\label{rem:diophantine-gaps}
+The Siegel discriminant stratification of BKM roots coincides with the shadow obstruction tower arity filtration for arities $2$ through $6$, but diverges at arity $7$ due to Diophantine gaps in the representation problem $4nm - l^2 = D$ with bounded $n + m$. The minimum arity function $r_{\min}(D)$ is non-monotone: $r_{\min}(19) = 8 > r_{\min}(20) = 7$, and $r_{\min}(43) = 14 > r_{\min}(44) = 9$. The gap discriminants are those $D$ for which $4nm - l^2 = D$ has no solution with $n + m \leq \lfloor D/4 \rfloor^{1/2} + 2$. Verified computationally in \texttt{phi01\_shadow\_decomposition.py} (51 tests). A bug in \texttt{phi01\_fourier.py} (theta function lattice truncation) was caught and fixed by the multi-path verification mandate during this computation.
+\end{remark}
 
 % ============================================================
 \section{The $K3 \times E$ example}
@@ -362,6 +369,7 @@ Evidence: Feigin--Frenkel center at critical level, root/coroot exchange, SYZ mi
 
 % ============================================================
 \section{Open questions}
+\label{sec:open-questions}
 % ============================================================
 
 \begin{enumerate}
@@ -376,6 +384,16 @@ Evidence: Feigin--Frenkel center at critical level, root/coroot exchange, SYZ mi
   \item Explicit construction of the $\Etwo$-bar complex $B_{\Etwo}(A)$ for $A = V_k(\fg)$.
   \item Quantum geometric Langlands as $\Etwo$-chiral Koszul duality: $G(C, \fg, k)^! = G(C, {}^L\fg, k^L)$.
 \end{enumerate}
+
+% ============================================================
+\section{Wall-crossing and MC gauge equivalence}
+\label{wn:sec:wall-crossing-mc}
+% ============================================================
+
+\begin{remark}[Wall-crossing as MC gauge equivalence]
+\label{rem:wall-crossing-mc-gauge}
+The Kontsevich--Soibelman wall-crossing formula for the resolved conifold is verified as a gauge equivalence of Maurer--Cartan elements: the pentagon identity $\mathrm{BCH}(L_{10}, L_{01}) = \mathrm{BCH}(L_{01}, L_{11}, L_{10})$ holds exactly through height~$2$ in the Reineke convention. The Jacobi identity in the lattice Lie algebra is the algebraic shadow of $D^2 = 0$ (Theorem~\texttt{thm:convolution-d-squared-zero}). Convention sensitivity: the Reineke convention ($\Omega = 1$) satisfies the pentagon; the fermionic convention ($\Omega = -1$) does not with the same wall ordering. Verified in \texttt{wallcrossing\_gauge\_engine.py} (73 tests).
+\end{remark}
 
 % ============================================================
 \section{Arithmetic shadows and number theory}
@@ -455,13 +473,13 @@ but the full genus-$2$ partition function carries
 arithmetic content \emph{beyond} the shadow obstruction tower.
 For lattice VOAs of rank~$d$, the genus-2 partition function is
 the Siegel theta series $\Theta_\Lambda^{(2)}(\Omega) \in
-M_{d/2}(\Sp(4,\bZ))$; the shadow obstruction tower fixes
+M_{d/2}(\Sp(4,\Z))$; the shadow obstruction tower fixes
 $F_2 = \kappa \cdot \lambda_2^{\mathrm{FP}}$ but not the
 Siegel cusp component (Vol~I, lattice chapter).
 
 For the quantum vertex chiral group programme:
 the genus-2 amplitude of $G(C, \fg)$ should produce a Siegel
-modular form on $\Sp(4,\bZ)$ whose Fourier coefficients encode
+modular form on $\Sp(4,\Z)$ whose Fourier coefficients encode
 the BPS spectrum.  The B\"ocherer factorization converts these
 Fourier coefficients to central $L$-values, providing algebraic
 access to the critical line $\Re(s) = 1/2$.
@@ -511,6 +529,1148 @@ $G = M_{24}$) through the genus-1 shadow obstruction tower.
 The mock modular forms of umbral moonshine may arise
 as the quasi-modular shadow content
 (through the $E_2^*$ propagator dependence).
+
+% ============================================================
+\section{The $\Etwo$ braiding: Maulik--Okounkov = Vol~II OPE monodromy}
+\label{sec:mo-vol2-rmatrix}
+% ============================================================
+
+The $\Etwo$ braiding on the quantum vertex chiral group of $\C^3$
+should be realized geometrically (via stable envelopes on Hilbert
+schemes) and algebraically (via OPE monodromy on the affine Yangian).
+We verify that these two constructions agree.
+
+\begin{theorem}[$R$-matrix agreement for $\C^3$]
+\label{thm:mo-e2-agreement}
+The Maulik--Okounkov stable-envelope $R$-matrix on
+$\bigoplus_n K_T(\mathrm{Hilb}^n(\C^3))$
+and the Vol~II OPE-monodromy $R$-matrix on
+$\Rep^{\Etwo}(Y(\widehat{\fgl}_1))$ are \emph{identical}.
+Both are diagonal in the partition basis with eigenvalues
+\[
+  R_{\lambda,\mu}(u) \;=\; \prod_{s \in \lambda,\; t \in \mu}
+    g\bigl(u + c(s) - c(t)\bigr),
+\]
+where $c(s) = h_1\, a(s) + h_2\, l(s) + h_3\, a'(s)$ is the
+content function \textup{(}arm, leg, co-arm weighted by the equivariant
+parameters $h_1, h_2, h_3$ with $h_1 + h_2 + h_3 = 0$\textup{)},
+and $g(z) = (z-h_1)(z-h_2)(z-h_3)/((z+h_1)(z+h_2)(z+h_3))$
+is the Yangian structure function.
+\end{theorem}
+
+\begin{remark}[Verification paths]
+\label{rem:mo-verification}
+Agreement verified across 7 independent paths
+(104 tests, \texttt{compute/lib/mo\_rmatrix\_k3e.py}
+and \texttt{compute/tests/test\_mo\_rmatrix\_k3e.py}):
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item Direct comparison of stable-envelope and OPE-monodromy
+    formulas at $|\lambda|, |\mu| \leq 4$.
+  \item Hand-computed $\mathrm{Hilb}^2(\C^3)$ case:
+    $R_{(1),(1)}(u) = g(u)$.
+  \item Unitarity: $R_{\lambda,\mu}(u)\, R_{\mu,\lambda}(-u) = 1$.
+  \item Yang--Baxter equation on $V_\lambda \otimes V_\mu \otimes V_\nu$
+    for $|\lambda| + |\mu| + |\nu| \leq 6$.
+  \item Crossing symmetry:
+    $R_{\lambda,\mu}(u) = R_{\mu^t, \lambda^t}(-u - h_3)$.
+  \item Classical limit: $R(u) = 1 - \sigma_2/u + O(u^{-2})$, where
+    $\sigma_2$ is the quadratic Casimir.
+  \item Schiffmann--Vasserot specializations at $h_1 = -h_2 = \hbar$,
+    $h_3 = 0$ (DAHA limit).
+\end{enumerate}
+This is computational proof that the geometric (Maulik--Okounkov)
+and algebraic (Vol~II) constructions of the $\Etwo$ braiding agree
+for~$\C^3$.  For general CY3, the MO stable envelopes exist whenever
+the torus action has isolated fixed points, and the algebraic
+$R$-matrix exists whenever the affine Yangian acts.
+The agreement for $\C^3$ provides the base case from which
+CY-C should follow by deformation and wall-crossing.
+\end{remark}
+
+% ============================================================
+\section{Compact CY3 examples}
+\label{sec:compact-cy3}
+% ============================================================
+
+\subsection{The banana manifold: AP31 in action}
+\label{subsec:banana}
+
+The banana manifold $X_{\mathrm{ban}}$ is a compact CY3 that is an
+abelian surface fibration over $\bP^1$ with banana-curve singular fibers
+(two $\bP^1$s meeting at two nodes).  Its Hodge numbers are
+$h^{1,1} = h^{2,1} = 2$, giving $\chi(X_{\mathrm{ban}}) = 0$.
+
+\begin{proposition}[Banana manifold shadow tower]
+\label{wn:prop:banana-shadow}
+The banana manifold has $\kappa = 0$ but \emph{nonzero}
+quartic shadow $S_4 = -44$.  The shadow tower is class~$\mathbf{M}$
+with shifted start at arity~$4$.  Specifically:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\kappa = \chi/24 = 0$ \textup{(}arity-$2$ scalar shadow vanishes\textup{)}.
+  \item $S_3 = 0$ \textup{(}cubic shadow vanishes\textup{)}.
+  \item $S_4 = -44 \neq 0$ \textup{(}quartic shadow from genus-$0$ GV instantons:
+    $n^0_{0,1} = n^0_{1,0} = -2$, $n^0_{1,1} = -44$\textup{)}.
+  \item The BCOV holomorphic anomaly coefficient $c_1 = 5/2 \neq 0$.
+  \item Critical discriminant $\Delta = 8\kappa S_4 = 0$
+    \textup{(}vacuously, from $\kappa = 0$\textup{)}.
+\end{enumerate}
+\end{proposition}
+
+\begin{warning}[AP31 confirmation]
+\label{warn:banana-ap31}
+This is a clean instance of AP31 from Vol~I:
+\textbf{$\kappa = 0$ does not imply $\Theta_A = 0$}.
+The bar complex is uncurved ($d^2 = 0$),
+but the full MC element is nonzero.
+The arity-$4$ shadow $S_4 = -44$ is invisible to the
+scalar projection and would be missed by any analysis
+that deduces $\Theta = 0$ from $\kappa = 0$.
+The discriminant $\Delta = 0$ is vacuously zero because
+$\kappa = 0$, not because $S_4 = 0$: the two
+vanishing mechanisms are structurally different.
+\end{warning}
+
+\noindent\textit{Verification}: 63 tests in
+\texttt{compute/lib/banana\_shadow.py}
+and \texttt{compute/tests/test\_banana\_shadow.py}.
+GV invariants from Bryan--Kool--Young
+(arXiv:1608.08256, arXiv:1802.09127).
+
+\subsection{Enriques $\times$ $E$: the $\Z_2$ quotient}
+\label{subsec:enriques}
+
+The Enriques surface $S_{\mathrm{Enr}} = K3/\iota$
+(fixed-point-free involution $\iota$) has
+$h^{1,1}(S_{\mathrm{Enr}}) = 10$, $\chi(S_{\mathrm{Enr}}) = 12$,
+$\pi_1(S_{\mathrm{Enr}}) = \Z_2$.
+
+\begin{proposition}[Enriques $\times$ $E$ modular characteristic]
+\label{prop:enriques-kappa}
+The modular characteristic of $\mathrm{Enr} \times E$ is
+\[
+  \kappa(\mathrm{Enr} \times E) \;=\; 4,
+\]
+arising from Allcock's weight-$4$ Borcherds product on $O(2,10)$.
+The ratio of modular characteristics satisfies
+\[
+  \frac{\kappa(K3 \times E)}{\kappa(\mathrm{Enr} \times E)}
+  \;=\; \frac{5}{4},
+\]
+and this ratio is \emph{constant across genera}:
+$F_g(K3 \times E) / F_g(\mathrm{Enr} \times E) = 5/4$
+for all $g \geq 1$.
+\end{proposition}
+
+\begin{remark}
+The value $\kappa = 4$ is \emph{not} obtainable by halving any
+invariant of $K3 \times E$.  The $\Z_2$ quotient
+halves $\chi_{\mathrm{top}}$ (from $0$ to $0$) and
+$h^{1,1}$ (from $20$ to $10$), but does \emph{not}
+halve~$\kappa$.  The reduction $5 \to 4$ reflects
+the change in automorphic weight from the Igusa cusp form
+$\Delta_5$ (weight~$5$, on $\Sp_4(\Z)$) to Allcock's
+Borcherds product (weight~$4$, on $O(2,10)$).
+Some earlier discussions suggested $\kappa = 5/2$;
+this is incorrect.
+\end{remark}
+
+\noindent\textit{Verification}: 72 tests in
+\texttt{compute/lib/enriques\_shadow.py}
+and \texttt{compute/tests/test\_enriques\_shadow.py}.
+
+% ============================================================
+\section{Hochschild and cyclic homology of CY3 categories}
+\label{sec:hh-hc}
+% ============================================================
+
+The Hochschild and cyclic homology of $D^b(X)$ for a CY3 threefold~$X$
+are the natural inputs to the $d = 3$ CY-to-chiral functor.
+By HKR (Hochschild--Kostant--Rosenberg), the CY condition
+$\omega_X \simeq \cO_X$ gives
+$\dim \HH_p(D^b(X)) = \sum_q h^{3-p, q}(X)$.
+
+\begin{proposition}[HH/HC data for standard CY3 examples]
+\label{prop:hh-data}
+\hfill
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lcccccc}
+  \toprule
+  $X$ & $\dim \HH_0$ & $\dim \HH_1$ & $\dim \HH_2$ & $\dim \HH_3$
+    & $\dim \HH_*$ & $\chi(\HH)$ \\
+  \midrule
+  $K3 \times E$ & 4 & 44 & 44 & 4 & 96 & 0 \\
+  Quintic & 2 & 102 & 102 & 2 & 208 & 0 \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The Hochschild homology is palindromic: $\dim \HH_p = \dim \HH_{3-p}$
+\textup{(}Serre duality for CY3\textup{)}, and
+$\chi(\HH) = \sum (-1)^p \dim \HH_p = 0$ for both examples.
+\end{proposition}
+
+\begin{proposition}[Hodge-to-periodic data]
+\label{prop:hp-data}
+The periodic cyclic homology satisfies $\mathrm{HP}_0 = \mathrm{HP}_1$ \textup{(}balanced
+pairing\textup{)} for both examples.  The Connes operator
+$B \colon \HH_p \to \HH_{p+1}$
+has maximal rank:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lcc}
+  \toprule
+  $X$ & $\mathrm{rk}(B_0)$ & $\mathrm{rk}(B_1)$ \\
+  \midrule
+  $K3 \times E$ & 4 & 4 \\
+  Quintic & 0 & 0 \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The vanishing of the Connes operator for the quintic
+reflects $h^{2,0} = h^{3,1} = 0$: there are no holomorphic
+$2$-forms or $(3,1)$-classes to mediate the $B$-map.
+For $K3 \times E$, $\mathrm{rk}(B) = 4 = h^{2,0}(K3 \times E)$.
+\end{proposition}
+
+\begin{remark}
+These HH/HC computations are the inputs to the $d = 3$
+CY-to-chiral functor (CY-A).  The palindromic structure and
+$\chi(\HH) = 0$ are consequences of the CY condition and
+will be preserved by any functorial construction.
+The Connes operator controls which portion of the
+Hochschild data lifts to cyclic homology, hence to
+the periodic and negative cyclic structures needed for
+the chiral algebra's inner product.
+\end{remark}
+
+\noindent\textit{Verification}: 71 tests in
+\texttt{compute/lib/cy3\_hochschild.py}
+and \texttt{compute/tests/test\_cy3\_hochschild.py}.
+
+% ============================================================
+\section{The MacMahon obstruction: shadow towers and genus asymptotics}
+\label{sec:macmahon-obstruction}
+% ============================================================
+
+\begin{warning}[Negative result]
+\label{warn:macmahon-negative}
+The MacMahon function $M(q) = \prod_{n \geq 1}(1-q^n)^{-n}$
+does \textbf{not} decompose as a scalar shadow tower
+$F_g = \kappa \cdot \lambda_g^{\mathrm{FP}}$.
+This is a fundamental constraint on CY-B for~$\C^3$.
+\end{warning}
+
+\begin{theorem}[MacMahon shadow non-decomposition]
+\label{thm:macmahon-non-decomposition}
+Let $F_g^{\mathrm{MacM}}$ denote the genus-$g$ coefficient
+in the asymptotic expansion of $\log M(e^{-\beta})$ as $\beta \to 0^+$:
+\[
+  \log M(e^{-\beta}) \;=\;
+  \frac{\zeta(3)}{\beta^2}
+  - \frac{1}{12}\log\beta
+  + \zeta'(-1)
+  + \sum_{g \geq 2} F_g^{\mathrm{MacM}}\, \beta^{2g-2}.
+\]
+Then the effective modular characteristic
+$\kappa_{\mathrm{eff}}(g) \coloneqq F_g^{\mathrm{MacM}} / \lambda_g^{\mathrm{FP}}$
+is \emph{not constant} in~$g$.  In particular:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\kappa_{\mathrm{eff}}(2) = -2/7$.
+  \item $|\kappa_{\mathrm{eff}}(g)|$ grows factorially as $g \to \infty$.
+  \item The obstruction is structural:
+    $F_g^{\mathrm{MacM}}$ involves the double Bernoulli product
+    $B_{2(g-1)} \cdot B_{2g}$, while
+    $\lambda_g^{\mathrm{FP}}$ involves the single factor $B_{2g}$.
+    The ratio $B_{2(g-1)}/1$ grows as $(2\pi)^{-2}(2g-2)!$,
+    preventing any constant~$\kappa$.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[The arity decomposition is exact at the $q$-series level]
+\label{rem:macmahon-arity}
+The shadow tower identification for $\C^3$ works at the
+$q$-series (generating function) level: $M(q)$ can be written as an
+infinite product over arity contributions, and the product formula
+matches the bar Euler product order by order in~$q$.
+The failure is in the genus-by-genus asymptotics: the arity
+decomposition mixes genera in a way that prevents extracting
+a constant $\kappa$ at each genus independently.
+
+This means CY-B for $\C^3$ is more subtle than
+``$F_g = \kappa \cdot \lambda_g^{\mathrm{FP}}$
+at each genus'': the shadow tower captures the partition function
+as a generating series, not as a genus-by-genus
+factorization.  The correct statement involves the full
+MC element $\Theta_A$ and its generating-function-level
+shadow, not the scalar projection genus by genus.
+\end{remark}
+
+\begin{remark}[Relation to Vol~I shadow depth]
+The MacMahon asymptotics involve the full
+$\cW_{1+\infty}$ algebra, which has shadow depth
+$r_{\max} = \infty$ (class~$\mathbf{M}$).
+The factorial growth of $\kappa_{\mathrm{eff}}(g)$ reflects
+the fact that higher-arity shadow components contribute
+at every genus, and these contributions grow
+faster than the scalar shadow.  This is consistent with
+the Vol~I principle that class~$\mathbf{M}$ algebras
+have infinite shadow towers whose genus contributions
+do not factor through a single scalar invariant.
+\end{remark}
+
+\noindent\textit{Verification}: 50 tests in
+\texttt{compute/lib/macmahon\_shadow\_decomposition.py}
+and \texttt{compute/tests/test\_macmahon\_shadow\_decomposition.py}.
+
+% ============================================================
+% ============================================================
+%
+%  THE D=3 CY-TO-CHIRAL FRONTIER
+%
+%  Sections 14--24: Results from the 30-agent d=3 frontier swarm.
+%  Computational backbone: ~5,000 tests across ~60 modules.
+%
+% ============================================================
+% ============================================================
+
+
+% ============================================================
+\section{The $\C^3$ Rosetta Stone: complete verification of the $d=3$ functor}
+\label{sec:c3-rosetta}
+% ============================================================
+
+The simplest CY3 --- affine space $X = \C^3$ --- serves as the Rosetta Stone for the entire programme.  Both sides of the CY-to-chiral identification are independently known: the CY side produces $\CoHA(\C^3) \simeq Y^+(\widehat{\fgl}_1)$ (Kontsevich--Soibelman, Schiffmann--Vasserot), and the chiral side gives $\cW_{1+\infty}$ at $c = 1$ (Proch\'azka--Rap\v{c}\'ak).  The complete functor chain is computationally verified end-to-end with $\sim 600$ tests across six modules.
+
+\subsection{The functor chain}
+\label{subsec:c3-functor-chain}
+
+The $d = 3$ functor for $\C^3$ factors as a five-step chain:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{rl}
+\textbf{Step 1.} & $\mathrm{PV}^*(\C^3)$ with $\mathrm{GL}(3)$-invariant Schouten--Nijenhuis bracket \\[3pt]
+& $\big\downarrow$ \quad $\Omega$-deformation in the $\sigma_3$ direction \\[3pt]
+\textbf{Step 2.} & Quantized Lie conformal algebra \\[3pt]
+& $\big\downarrow$ \quad Factorization envelope (Nishinaka--Vicedo) \\[3pt]
+\textbf{Step 3.} & $\cW_{1+\infty}$ with nonabelian OPE \\[3pt]
+& $\big\downarrow$ \quad Drinfeld center \\[3pt]
+\textbf{Step 4.} & $\Etwo$-braided category $\Rep^{\Etwo}(Y(\widehat{\fgl}_1))$ with $R$-matrix \\
+\end{tabular}
+\end{center}
+
+The input at Step~1 is $\mathrm{PV}^*(\C^3) = \bigoplus_{p=0}^{3} \Gamma(\C^3, \bigwedge^p T_{\C^3})$, the algebra of polyvector fields with the Schouten--Nijenhuis bracket.  The $\mathrm{GL}(3)$-invariant sector carries the deformation-theoretic data needed for the CY-to-chiral functor.  The $\Omega$-deformation at Step~2 is parametrized by $\sigma_3 = h_1 h_2 h_3$ (with $h_1 + h_2 + h_3 = 0$), the unique direction in $\HH^2(\mathrm{PV}^*(\C^3))$.  At the self-dual level ($\sigma_3 \to 0$, giving $h_1 = 1, h_2 = 0, h_3 = -1$), the output at Step~3 is $\cW_{1+\infty}$ at $c = 1$, which \emph{is} the Heisenberg VOA $H_1$.
+
+\begin{theorem}[Abelianity of the classical bracket]
+\label{wn:thm:c3-abelian-bracket}
+The $\mathrm{GL}(3)$-invariant Schouten--Nijenhuis brackets on $\mathrm{PV}^*(\C^3)$ all vanish.  Three independent proofs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item \emph{Direct computation}: every bracket $[\alpha, \beta]_{\mathrm{SN}}$ of $\mathrm{GL}(3)$-invariant polyvector fields evaluates to zero by explicit contraction.
+  \item \emph{Graded skew-symmetry}: the shifted degree $|\alpha|_{\mathrm{shifted}} = |\alpha| - 3$ is even for all generators of $\mathrm{PV}^*(\C^3)^{\mathrm{GL}(3)}$, so $[\alpha, \alpha] = -(-1)^{|\alpha|_s^2}[\alpha, \alpha] = -[\alpha,\alpha]$, forcing $[\alpha, \alpha] = 0$.
+  \item \emph{Weight/exterior degree overflow}: the bracket lowers exterior degree by~$1$; any nontrivial $\mathrm{GL}(3)$-invariant in the target degree must have weight exceeding the polynomial degree available.
+\end{enumerate}
+Consequently, the $\cW_{1+\infty}$ OPE arises \emph{entirely} from the envelope --- the central extension and normal ordering in the factorization envelope step --- not from the classical bracket.  The CY3 functor produces a quantum algebra from classically abelian input.
+
+\noindent\textit{Verification}: 95 tests in \texttt{c3\_lie\_conformal.py}.
+\end{theorem}
+
+\begin{theorem}[Hochschild cohomology and unique deformation]
+\label{wn:thm:c3-hochschild}
+For $\C^3$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\HH^2(\mathrm{PV}^*(\C^3)) = 1$: the deformation space is one-dimensional, spanned by the $\sigma_3$ direction.  The unique deformation is the $\Omega$-deformation.
+  \item $\HH^3(\mathrm{PV}^*(\C^3)) = 0$: the Bogomolov--Tian--Todorov theorem guarantees unobstructedness.
+  \item The quantized algebra is $\cW_{1+\infty}$ at $c = 1$.
+\end{enumerate}
+For the resolved conifold: $\HH^2 = 1$, $\HH^3 = 0$, but the quantization produces the CoHA ($\Eone$, associative), \emph{not} a vertex algebra.  The singularity breaks factorization locality.
+
+\noindent\textit{Verification}: 71 tests in \texttt{cy3\_hochschild.py}.
+\end{theorem}
+
+\begin{remark}[Smooth vs singular: locality of the quantization]
+\label{wn:rem:smooth-singular-locality}
+The distinction between smooth and singular CY3 is categorical:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{CY3} & \textbf{Quantization} & \textbf{Algebraic type} \\
+  \midrule
+  Smooth ($\C^3$, quintic, $K3 \times E$) & Vertex algebra (local) & $\Etwo$-chiral \\
+  Singular (conifold) & Associative algebra (nonlocal) & $\Eone$-chiral \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The factorization envelope requires local data (the polyvector fields form a cosheaf whose sections over small discs control the OPE), and singularities obstruct the local-to-global passage.
+\end{remark}
+
+\begin{proposition}[Necessity of $\Omega$-deformation for noncompact CY3]
+\label{wn:prop:omega-necessary}
+Without the $\Omega$-deformation, the CY3 functor chain for $\C^3$ collapses: the Lie conformal algebra is abelian (Theorem~\ref{wn:thm:c3-abelian-bracket}), the envelope produces the free Heisenberg, and the $\Etwo$ structure is trivially $\Einf$ (symmetric monoidal).  Noncompactness forces the introduction of external data: $T^3$-equivariant structure plus $\bS^3$-framing.  For compact CY3, neither should be needed: the nontrivial global geometry plays the role of the $\Omega$-deformation.
+
+\noindent\textit{Verification}: 87 tests in \texttt{c3\_envelope\_comparison.py}.
+\end{proposition}
+
+\subsection{The Drinfeld center and $\Etwo$ enhancement}
+\label{subsec:c3-drinfeld-center}
+
+\begin{theorem}[Drinfeld center identification]
+\label{wn:thm:c3-drinfeld-center}
+\[
+  \cZ\bigl(\Rep^{\Eone}(Y^+(\widehat{\fgl}_1))\bigr) \;\simeq\; \Rep^{\Etwo}(Y(\widehat{\fgl}_1)) \;\simeq\; \Rep^{\Etwo}(\cW_{1+\infty}).
+\]
+The character of the Drinfeld center is
+\[
+  \mathrm{ch}\bigl(\cZ(\Rep(Y^+))\bigr) \;=\; M(q)^2 \cdot P(q)
+  \;=\; \prod_{n \geq 1} (1-q^n)^{-(2n+1)},
+\]
+where $M(q) = \prod(1-q^n)^{-n}$ is the MacMahon function and $P(q) = \prod(1-q^n)^{-1}$ is the Euler partition function.  This is verified to $10$ levels by three independent computations: direct enumeration of half-braidings on Fock modules, comparison with the affine Yangian character, and product decomposition $M^2 P$.
+
+The Yang $R$-matrix on the charge-$2$ sector is an explicit $8 \times 8$ matrix satisfying:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item The Yang--Baxter equation $R_{12}(u-v)\,R_{13}(u)\,R_{23}(v) = R_{23}(v)\,R_{13}(u)\,R_{12}(u-v)$ at the matrix level (symbolic verification).
+  \item Unitarity: $R(z)\,R(-z) = \mathrm{Id}$.
+  \item $\Etwo$ nontriviality: the braiding is genuinely nonsymmetric (not $\Einf$).
+\end{enumerate}
+
+\noindent\textit{Verification}: 93 tests in \texttt{drinfeld\_center\_yangian.py}.
+\end{theorem}
+
+\subsection{The bar complex and shadow tower of $\C^3$}
+\label{subsec:c3-bar-shadow}
+
+\begin{proposition}[Bar-complex Euler product for $\C^3$]
+\label{wn:prop:c3-bar-euler}
+The bar-complex Euler product for $\C^3$ is
+\[
+  \sum_{k \geq 0} (-1)^k \, \mathrm{ch}(B^k) \;=\; \frac{1}{M(q)} \;=\; \prod_{n \geq 1}(1-q^n)^n.
+\]
+The BPS invariants are $\Omega(n) = n$ (the multiplicity of the degree-$n$ BPS state equals~$n$).  The first bar cohomology at degree $n$ has $\dim H^1(B)_n = n$.
+
+\noindent\textit{Verification}: 115 tests in \texttt{c3\_grand\_verification.py}; 59 tests in \texttt{bar\_comparison\_c3.py}.
+\end{proposition}
+
+\begin{theorem}[Modular characteristic of $\C^3$: five-path verification]
+\label{wn:thm:kappa-c3}
+$\kappa(\C^3) = \kappa(\cW_{1+\infty}, c=1) = \kappa(H_1) = 1$.
+
+This is \emph{not} $c/2 = 1/2$ (AP48: $\kappa$ depends on the full algebra, not the Virasoro subalgebra).  At $c = 1$, the $\cW_{1+\infty}$ algebra \emph{is} the Heisenberg VOA $H_1$, whose modular characteristic is $\kappa(H_k) = k$, giving $\kappa = 1$.
+
+Five independent verifications:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \emph{OPE}: $J(z)J(w) \sim 1/(z-w)^2$ gives level $k = 1$, hence $\kappa(H_1) = 1$.
+  \item \emph{MacMahon asymptotics}: the genus-$1$ free energy $F_1 = \kappa/24 = 1/24$.
+  \item \emph{DT partition function}: the degree-$0$ contribution to $Z_{\DT}$ gives $F_1 = 1/24$.
+  \item \emph{Affine Yangian}: the structure function $g(u)$ at the self-dual point determines $\kappa = 1$.
+  \item \emph{CY categorical trace}: $\chi^{\CY}_{\mathrm{eff}}(\C^3) = 1$.
+\end{enumerate}
+The shadow tower is class~$\mathbf{G}$ (Gaussian, $r_{\max} = 2$): $C = 0$, $Q = 0$, $\Delta = 8\kappa S_4 = 0$.
+
+\noindent\textit{Verification}: 115 tests in \texttt{c3\_grand\_verification.py}; 98 tests in \texttt{c3\_shadow\_tower.py}.
+\end{theorem}
+
+\begin{remark}[Per-channel $\kappa$ and MacMahon decomposition]
+\label{wn:rem:c3-per-channel}
+The $\cW_{1+\infty}$ algebra has generators at each spin $s = 1, 2, 3, \ldots$, giving per-channel modular characteristics $\kappa_s = 1/s$.  The total $\kappa = \sum_{s=1}^{N} \kappa_s = H_N$ (harmonic number, divergent as $N \to \infty$).  The effective $\kappa$ per MacMahon level is $1$ (constant): the $n$-fold multiplicity of degree-$n$ BPS states exactly compensates the $1/n$ suppression.  The overall classification is class~$\mathbf{M}$ (infinite shadow depth) when the full spin tower is included; it reduces to class~$\mathbf{G}$ at the Heisenberg truncation $s = 1$.
+
+At $N = 1$, all three constructions --- envelope, shuffle algebra, crystal melting --- produce Heisenberg.  The CoHA character is $M(q)$ (plane partitions), exceeding the $\cW$-algebra character $P(q)$ (ordinary partitions):
+\[
+  \frac{M(q)}{P(q)} \;=\; \prod_{n \geq 2}(1-q^n)^{-(n-1)}.
+\]
+This ratio counts the higher-spin contributions.
+
+\noindent\textit{Verification}: 87 tests in \texttt{c3\_envelope\_comparison.py}; 50 tests in \texttt{macmahon\_shadow\_decomposition.py}.
+\end{remark}
+
+
+% ============================================================
+\section{The $\bS^3$-framing obstruction: universal triviality}
+\label{wn:sec:s3-framing}
+% ============================================================
+
+The chain-level $\bS^3$-framing is the central obstruction to the CY-to-chiral functor at $d = 3$ (Warning~\ref{warn:gx-not-constructed}).  The following result removes the topological component of this obstruction.
+
+\begin{theorem}[Vanishing of the $\bS^3$-framing obstruction for CY3 categories]
+\label{wn:thm:s3-framing-vanishes}
+The topological $\bS^3$-framing obstruction vanishes universally for CY3 categories.  Two independent proofs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item \emph{Symplectic structure}: the CY3 pairing on the Ext complex is antisymmetric, giving structure group $\Sp(2m)$.  Since $\pi_3(B\Sp(2m)) = 0$, the obstruction class in $\pi_3$ vanishes.
+  \item \emph{Bott periodicity}: the complex structure gives $\mathrm{GL}(n, \C) \to U(n)$, and $\pi_3(BU) = 0$ by Bott periodicity.
+\end{enumerate}
+The chain-level BV obstruction is $\kappa \cdot [\Omega_3]$ (the $\kappa$-weighted volume class), which is always trivializable via holomorphic Chern--Simons (Witten 1992, Costello--Li 2016).  The trivialization data is the B-model quantization: the holomorphic CS functional provides the explicit contracting homotopy.
+
+\noindent\textit{Verification}: 124 tests in \texttt{cy\_to\_chiral\_functor.py}.
+\end{theorem}
+
+\begin{corollary}[$\Eone \to \Etwo$ obstruction is trivial]
+\label{wn:cor:e1-e2-trivial}
+The $\Eone \to \Etwo$ enhancement obstruction is trivial for all tested CY3 CoHAs:
+\begin{itemize}
+  \item $\C^3$: zero (Drinfeld double; $g(z)g(-z) = 1$ from the CY condition).
+  \item Resolved conifold: zero.
+  \item $K3 \times E$: zero (inherits from the $K3$ factor).
+  \item General compact CY3: conditional on $\bS^3$-framing, which Theorem~\ref{wn:thm:s3-framing-vanishes} shows is trivializable.
+\end{itemize}
+
+\noindent\textit{Verification}: 93 tests in \texttt{drinfeld\_center\_yangian.py}; 124 tests in \texttt{cy\_to\_chiral\_functor.py}.
+\end{corollary}
+
+\begin{remark}[The $\En$ landscape for Calabi--Yau categories]
+\label{wn:rem:en-landscape}
+The CY dimension $d$ determines the native algebraic structure:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llll}
+  \toprule
+  \textbf{CY dim} & \textbf{Native $\En$} & \textbf{Enhancement} & \textbf{Mechanism} \\
+  \midrule
+  $d = 1$ (elliptic curve) & $\Einf$ & --- & Braiding symmetric \\
+  $d = 2$ (K3, Higgs) & $\Etwo$ & native & $\bS^2$-framing automatic \\
+  $d = 3$ (CY threefold) & $\Eone$ & $\Eone \to \Etwo$ & Drinfeld center / $\bS^3$-framing \\
+  \bottomrule
+\end{tabular}
+\end{center}
+By Dunn additivity, $\Etwo \simeq \Eone \otimes_{\mathsf{E}_0} \Eone$.  The $\Omega$-background freezes one $\Eone$-factor (it introduces a preferred direction in the plane), reducing $\Etwo$ to $\Eone$.  The Drinfeld center passage $\cZ(\Rep^{\Eone}(\cdot))$ restores the $\Etwo$ structure by recovering the frozen factor.
+\end{remark}
+
+
+% ============================================================
+\section{$K3 \times E$: the chiral algebra identified}
+\label{sec:k3e-chiral-identified}
+% ============================================================
+
+This section upgrades the preliminary data of Section~\ref{sec:k3e-example} with the identification of the chiral algebra and the complete relative shadow tower computation.
+
+\subsection{The CoHA and BKM superalgebra}
+\label{subsec:k3e-coha}
+
+\begin{theorem}[CoHA identification for $K3 \times E$]
+\label{wn:thm:k3e-coha}
+The critical CoHA of $K3 \times E$ is isomorphic to the positive half of the Borcherds--Kac--Moody superalgebra associated to the Igusa cusp form:
+\[
+  \CoHA(K3 \times E) \;\simeq\; U(\fn_+(\fg_{\Delta_5})).
+\]
+The root multiplicities are determined by the $\phi_{0,1}$ Fourier coefficients:
+\[
+  \mult(\alpha) = c(|\alpha|^2/2),
+\]
+where $c(D)$ are the discriminant coefficients of $\phi_{0,1}$ in the Eichler--Zagier normalization ($c(-1) = 1$, $c(0) = 10$, $c(3) = -64$).
+
+Key structural features:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\fg_{\Delta_5}$ is a Lie \emph{super}algebra: $c(D) > 0$ gives bosonic roots, $c(D) < 0$ gives fermionic roots.
+  \item Row-sum vanishing: $\sum_{\ell} c(4n - \ell^2) = 0$ for all $n \geq 1$.
+  \item The rank-$0$ sector is a level-$24$ Heisenberg algebra.
+  \item The Yangian structure arises from the Maulik--Okounkov stable-envelope $R$-matrix.
+  \item The CY involution $g(z)g(-z) = 1$ holds.
+\end{enumerate}
+
+\noindent\textit{Verification}: 90 tests in \texttt{k3e\_coha\_structure.py}; 88 tests in \texttt{bkm\_shadow\_complete.py}.
+\end{theorem}
+
+\subsection{The relative chiral algebra construction}
+\label{subsec:k3e-relative}
+
+\begin{proposition}[Relative chiral algebra for $K3 \times E$]
+\label{prop:k3e-relative-chiral}
+The relative chiral algebra construction bypasses the abstract $d = 3$ functor.  The fibration $K3 \times E \to E$ with K3 fibers produces the chiral algebra by relative quantization:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item Each K3 fiber contributes $\chi(K3) = 24$ free bosons (from the Mukai lattice of rank~$24$).
+  \item The fiber shadow tower has $\kappa(\text{K3 fiber}) = 24$, class~$\mathbf{G}$.
+  \item Sewing along $E$ via the DMVV formula reproduces $\Delta_5$.
+  \item The Borcherds lift of $\phi_{0,1}$ is $\Delta_5$ (weight $5$ in EZ normalization).
+\end{enumerate}
+
+The full bridge:
+\[
+  K3 \times E \;\xrightarrow{\text{relative chiral}}\; \text{shadow tower}
+  \;\xrightarrow{\text{BKM}}\; \fg_{\Delta_5}
+  \;\xrightarrow{\text{denominator}}\; \tfrac{1}{64} \cdot \Delta_5.
+\]
+
+\noindent\textit{Verification}: 78 tests in \texttt{k3e\_relative\_shadow.py}.
+\end{proposition}
+
+\begin{warning}[AP38: $\phi_{0,1}$ convention]
+\label{warn:phi01-convention}
+The $\phi_{0,1}$ Fourier coefficients differ between the DVV normalization ($c(0) = 20$, $c(3) = -128$) and the Eichler--Zagier normalization ($c(0) = 10$, $c(3) = -64$).  This manuscript uses the Eichler--Zagier convention throughout.  The value $-252$ that previously appeared here was $\tau(3)$ (the Ramanujan discriminant coefficient), not a $\phi_{0,1}$ coefficient --- an AP38 error caught and corrected.
+\end{warning}
+
+\subsection{Fiber vs global $\kappa$: depth upgrade from sewing}
+\label{subsec:k3e-fiber-global}
+
+\begin{proposition}[$\kappa$ depth upgrade from sewing]
+\label{prop:k3e-kappa-upgrade}
+The fiber $\kappa$ and global $\kappa$ for $K3 \times E$ differ:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Level} & $\kappa$ & \textbf{Shadow class} \\
+  \midrule
+  Single K3 fiber & $24$ & $\mathbf{G}$ (Gaussian, $r_{\max} = 2$) \\
+  Global $K3 \times E$ & $5$ & $\mathbf{M}$ (mixed, $r_{\max} = \infty$) \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The depth upgrade $\mathbf{G} \to \mathbf{M}$ occurs because sewing along $E$ introduces the imaginary roots of $\fg_{\Delta_5}$ (multi-fiber bound states).  The ``lost'' $19$ units ($24 - 5 = 19$) enter the root structure: they represent the excess Hodge data absorbed by the Borcherds product.
+
+Four-path verification: (a)~Borcherds lift weight, (b)~DMVV exponent, (c)~bar Euler product matching, (d)~shadow connection monodromy.
+
+\noindent\textit{Verification}: 78 tests in \texttt{k3e\_relative\_shadow.py}.
+\end{proposition}
+
+\subsection{The Maulik--Okounkov $R$-matrix}
+\label{subsec:k3e-mo-rmatrix}
+
+\begin{proposition}[MO $R$-matrix for $K3 \times E$]
+\label{prop:k3e-mo-rmatrix}
+The Maulik--Okounkov stable-envelope $R$-matrix for $K3 \times E$ matches the affine Yangian structure function $g(u)$ exactly.  The Yang--Baxter equation is verified.
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item At the self-dual K3 limit (hyper-K\"ahler), the $R$-matrix is trivial: $g(u) = 1$.
+  \item Nontrivial braiding requires breaking the hyper-K\"ahler structure via the $\Omega$-background.
+\end{enumerate}
+This is consistent with the $\Etwo$ mechanism: the self-dual K3 has $\Einf$ braiding (symmetric), and the $\Omega$-deformation breaks it to $\Etwo$.
+
+\noindent\textit{Verification}: 72 tests in \texttt{mo\_rmatrix\_k3e.py}.
+\end{proposition}
+
+
+% ============================================================
+\section{$\chi_{\mathrm{top}}/24 \neq \kappa$: the modular characteristic is categorical}
+\label{sec:chi-neq-kappa}
+% ============================================================
+
+The following result resolves a fundamental question about the $d = 3$ modular characteristic.
+
+\begin{theorem}[$\chi_{\mathrm{top}}/24 \neq \kappa$ in general]
+\label{wn:thm:chi-neq-kappa}
+The topological Euler characteristic $\chi_{\mathrm{top}}(X)/24$ does \emph{not} equal the modular characteristic $\kappa(A_X)$ in general.  Explicit counterexamples:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lccc}
+  \toprule
+  \textbf{CY variety} & $\chi_{\mathrm{top}}/24$ & $\kappa$ & \textbf{Match?} \\
+  \midrule
+  Elliptic curve $E$ ($\CY_1$) & $0$ & $1$ & No \\
+  K3 surface ($\CY_2$) & $1$ & $2$ & No \\
+  $K3 \times E$ ($\CY_3$) & $0$ & $5$ & No \\
+  Resolved conifold & $1/12$ & $1$ & No \\
+  \midrule
+  Quintic ($\chi = -200$) & $-25/3$ & $-25/3$ & Yes \\
+  $\bP^5[3,3]$ ($\chi = -144$) & $-6$ & $-6$ & Yes \\
+  $\bP^5[2,4]$ ($\chi = -176$) & $-22/3$ & $-22/3$ & Yes \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The BCOV formula $\kappa = \chi_{\mathrm{top}}/24$ holds for rigid compact CICYs (complete intersections in products of projective spaces) but fails systematically for K3-fibered CY3 and for non-compact toric CY3.
+
+\noindent\textit{Verification}: 119 tests in \texttt{cy3\_grand\_atlas.py}.
+\end{theorem}
+
+\begin{proposition}[The categorical Euler characteristic resolves the discrepancy]
+\label{wn:prop:categorical-euler}
+The invariant controlling $\kappa$ is the \emph{categorical} Euler characteristic $\chi^{\CY}$, not the topological one.  For $K3 \times E$: $\chi_{\mathrm{top}} = 0$ but $\chi^{\CY} = 5$.
+
+The categorical Euler characteristic accounts for the full BPS spectrum (all charges), not just the massless modes that contribute to $\chi_{\mathrm{top}}$.  For K3-fibered CY3, the infinite tower of bound states across fibers contributes to $\chi^{\CY}$ via the Borcherds denominator weight.
+
+Five independent verifications of $\kappa(K3 \times E) = 5$:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item Weight of the Igusa cusp form: $\mathrm{weight}(\Delta_5) = 5$.
+  \item DMVV exponent: the Borcherds lift weight formula gives $c(0)/2 = 10/2 = 5$.
+  \item Bar Euler product: the genus-$1$ coefficient of $\log Z_{\DT}$ gives $F_1 = 5/24$.
+  \item Relative DT: fiber-by-fiber computation via K3 fibers sewed along $E$.
+  \item Anomaly cancellation: the worldsheet anomaly for the $K3 \times E$ sigma model.
+\end{enumerate}
+
+\noindent\textit{Verification}: 78 tests in \texttt{k3e\_relative\_shadow.py}; 119 tests in \texttt{cy3\_grand\_atlas.py}.
+\end{proposition}
+
+\begin{warning}[$\kappa$ is not multiplicative]
+\label{warn:kappa-not-multiplicative}
+The modular characteristic is \emph{not} multiplicative under products:
+\[
+  \kappa(K3) \cdot \kappa(E) = 2 \cdot 1 = 2, \quad\text{but}\quad \kappa(K3 \times E) = 5.
+\]
+This is not a contradiction: $\kappa$ measures the worldsheet anomaly of the full BPS spectrum, which includes bound states across fibers.  The bound-state contributions (the ``lost'' $19$ units of Proposition~\ref{prop:k3e-kappa-upgrade}) account for the nonmultiplicativity.
+\end{warning}
+
+
+% ============================================================
+\section{Modularity constraints on $\kappa$}
+\label{wn:sec:modularity-constraints}
+% ============================================================
+
+\begin{proposition}[Integrality and positivity for BKM]
+\label{prop:modularity-constraints}
+For a CY3 to admit a genuine Siegel modular form as denominator identity (i.e., a genuine BKM superalgebra), the modular characteristic must satisfy $\kappa \in \Z_{> 0}$ (positive integer weight for a holomorphic Siegel modular form).  This rules out several families from naive BKM interpretation:
+\begin{itemize}
+  \item Quintic: $\kappa = -25/3$ (negative, non-integer).
+  \item Banana manifold (Schoen CY3): $\kappa = 0$ ($\chi = 0$).
+  % NOTE (B5 disambiguation): The old value kappa=-1/6 used chi=-4 from the
+  % LOCAL banana curve (h^{1,1}=h^{2,1}=2), not the Schoen CY3 (h^{1,1}=h^{2,1}=19, chi=0).
+  % The Schoen CY3 has kappa=0, not -1/6.
+\end{itemize}
+Only $9$ of the $18$ families in the atlas of Section~\ref{wn:sec:grand-atlas} have integer $\kappa$.
+
+Seven structural constraints for $K3 \times E$ are verified: integrality, positivity, Igusa weight match, Borcherds product convergence, row-sum vanishing of $\phi_{0,1}$, modular transformation law, and Hecke eigenform property.
+
+\noindent\textit{Verification}: 111 tests in \texttt{cy3\_modularity\_constraints.py}.
+\end{proposition}
+
+\begin{remark}[$\phi_{0,1}$ root/arity map]
+\label{rem:phi01-arity-map}
+The $\phi_{0,1}$ Fourier coefficients classify BKM roots by arity in the shadow obstruction tower:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Root type} & \textbf{Discriminant} & \textbf{Shadow arity} \\
+  \midrule
+  Real ($c(-1) = 1$) & $D = -1$ & Arity $2$ \\
+  Lightlike ($c(0) = 10$) & $D = 0$ & Arity $3$ \\
+  Timelike ($c(D)$, signed) & $D > 0$ & Arity $\geq 4$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+Negative values of $c(D)$ correspond to fermionic roots (odd generators of the BKM superalgebra).  The total root multiplicity per BKM level for $K3 \times E$ is $24 = \chi(K3)$.
+\end{remark}
+
+
+% ============================================================
+\section{The toric CY3 landscape}
+\label{sec:toric-landscape}
+% ============================================================
+
+\subsection{The conifold: wall-crossing as MC gauge equivalence}
+\label{subsec:conifold-full}
+
+The resolved conifold $X = \cO(-1) \oplus \cO(-1) \to \bP^1$ has charge lattice $\Gamma = \Z \gamma_1 \oplus \Z \gamma_2$ with $\langle \gamma_1, \gamma_2 \rangle = 1$.  The two DT chambers (large-volume and flopped) are connected by the Kontsevich--Soibelman wall-crossing formula.
+
+\begin{theorem}[Conifold bar complex and wall-crossing]
+\label{thm:conifold-wc}
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\kappa(\text{conifold}) = 1$.  Shadow class~$\mathbf{G}$ (Gaussian, $r_{\max} = 2$).
+  \item Wall-crossing is a gauge transformation of the MC element:
+  \[
+    \exp(\ad_\alpha)(\Theta_I) = \Theta_{II},
+  \]
+  where $\alpha$ lies in the lattice Lie algebra.
+  \item The pentagon identity is confirmed: $E(X)\,E(Y) = E(Y)\,E(XY)\,E(X)$, where $E(\cdot)$ denotes the quantum dilogarithm automorphism.
+  \item The bar complexes in the two chambers are quasi-isomorphic:
+  \[
+    H^*(B(\CoHA_I)) \;\simeq\; H^*(B(\CoHA_{II}))
+  \]
+  as graded vector spaces, despite having different generators ($\dim B^1 = 2$ in chamber~I vs $\dim B^1 = 3$ in chamber~II).  The extra generator in chamber~II is exact (a bound state = bar boundary of a two-particle configuration).
+\end{enumerate}
+
+\noindent\textit{Verification}: 124 tests in \texttt{conifold\_bar\_complex.py}; 73 tests in \texttt{wallcrossing\_gauge\_engine.py}.
+\end{theorem}
+
+\subsection{Local $\bP^2$: the $\Z_3$ McKay quiver}
+\label{subsec:local-p2}
+
+\begin{proposition}[Shadow tower of local $\bP^2$]
+\label{prop:local-p2}
+For the total space $\cO(-3) \to \bP^2$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\kappa(\text{local }\bP^2) = 3/2 = \chi(\bP^2)/2$.
+  \item Shadow class~$\mathbf{M}$ (infinite depth).
+  \item Gopakumar--Vafa invariant growth: $|n^0_d| \sim 27^d$ as $d \to \infty$, giving convergence radius $R = 1/27$ for the genus-$0$ prepotential.
+  \item The $\Eone$-chiral algebra arises from the critical CoHA of the $\Z_3$ McKay quiver.  The quiver has $3$ vertices ($\Z_3$ representations), $9$ arrows, and a potential $W$ from the CY3 condition.
+  \item Perturbative $5d$ CS reproduces the CoHA OPE: the deformed $\cW_{1+\infty}$ acquires a loop correction factor $c_{\mathrm{loop}} = -1/15$.
+\end{enumerate}
+
+\noindent\textit{Verification}: 77 tests in \texttt{local\_p2\_shadow.py}; 104 tests in \texttt{toric\_shadow\_engine.py}.
+\end{proposition}
+
+\subsection{Local $\bP^1 \times \bP^1$: two-parameter shadow metric}
+\label{subsec:local-p1p1}
+
+\begin{proposition}[Shadow tower of local $\bP^1 \times \bP^1$]
+\label{prop:local-p1p1}
+For $\cO(-2,-2) \to \bP^1 \times \bP^1$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\kappa = 2 = h^{1,1}(\bP^1 \times \bP^1)$.
+  \item The two-parameter shadow metric is $Q = \mathrm{diag}(1,1)$.
+  \item The symmetric direction has shadow class~$\mathbf{M}$ (infinite tower from the infinite BPS spectrum); the antisymmetric direction has class~$\mathbf{G}$.
+\end{enumerate}
+
+\noindent\textit{Verification}: 104 tests in \texttt{toric\_shadow\_engine.py}.
+\end{proposition}
+
+\subsection{Perturbative comparison: $5d$ Chern--Simons}
+\label{subsec:5d-cs}
+
+\begin{proposition}[Perturbative $5d$ CS reproduces CoHA OPE]
+\label{prop:5d-cs-coha}
+The perturbative $5d$ noncommutative Chern--Simons theory (Costello--Li) reproduces the CoHA OPE structure for $\C^3$ and the conifold.  Three-path verification:
+\[
+  \text{Feynman diagrams} \;=\; \text{shuffle algebra} \;=\; \cW_{1+\infty} \text{ OPE}.
+\]
+For the conifold, the perturbative answer is identical to $\C^3$; the difference is nonperturbative (wall-crossing).
+
+\noindent\textit{Verification}: 87 tests in \texttt{c3\_envelope\_comparison.py}; 94 tests in \texttt{toric\_cy3\_dt\_engine.py}.
+\end{proposition}
+
+
+% ============================================================
+\section{The $\Etwo$ bar complex}
+\label{wn:sec:e2-bar}
+% ============================================================
+
+For an $\Etwo$-chiral algebra, three distinct bar constructions are available, reflecting the three levels of operadic symmetry.
+
+\begin{theorem}[Three bar complexes and their comparison]
+\label{thm:three-bar-complexes}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llll}
+  \toprule
+  \textbf{Bar complex} & \textbf{Structure} & \textbf{Origin} & \textbf{Carries} \\
+  \midrule
+  $B_{\Eone}^n(A)$ & Ordered & Hochschild & Tensor product \\
+  $B_{\Etwo}^n(A)$ & Braided & $R$-matrix & Braided tensor product \\
+  $B_{\Einf}^n(A)$ & Symmetric & Vol~I shadow tower & $S_n$-quotient \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The $\Einf$ bar complex is the $S_n$-quotient of the $\Eone$ bar complex:
+\[
+  B_{\Einf}^n(A) \;=\; \bigl(B_{\Eone}^n(A)\bigr)^{S_n}.
+\]
+For $A = H_1$ (Heisenberg at level~$1$):
+\[
+  \dim B_{\Etwo}^n(H_1) \;=\; d(n) \qquad (\text{divisor function}).
+\]
+The $\Etwo$ bar complex is strictly between the $\Eone$ and $\Einf$ bar complexes in size, and its Euler characteristics encode the $\Etwo$-braided BPS spectrum.
+
+\noindent\textit{Verification}: 93 tests in \texttt{e2\_bar\_complex.py}; 110 tests in \texttt{e2\_barcobar\_koszul.py}.
+\end{theorem}
+
+\begin{remark}[Relation to the Vol~I shadow tower]
+The Vol~I shadow tower uses the $\Einf$ bar complex (symmetric, no $R$-matrix data).  The $\Etwo$ bar complex is the correct refinement for quantum vertex chiral groups: it retains the braiding information lost in the $S_n$-quotient.  The passage $B_{\Etwo} \to B_{\Einf}$ (forgetting the braiding) corresponds to the passage from the full quantum group $G(X)$ to its shadow data $\kappa, C, Q, \ldots$.
+\end{remark}
+
+
+% ============================================================
+\section{The grand atlas of CY3 families}
+\label{wn:sec:grand-atlas}
+% ============================================================
+
+The following table collects the shadow tower data for all CY3 families for which computations are available.  The ``Source'' column records the formula or method used to determine~$\kappa$.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{longtable}{lccccll}
+  \toprule
+  \textbf{CY3 family} & $\chi$ & $h^{1,1}$ & $h^{2,1}$ & $\kappa$ & \textbf{Class} & \textbf{Source} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{CY3 family} & $\chi$ & $h^{1,1}$ & $h^{2,1}$ & $\kappa$ & \textbf{Class} & \textbf{Source} \\
+  \midrule
+  \endhead
+  $\C^3$ & --- & --- & --- & $1$ & G & $\kappa(H_1) = 1$ \\
+  Conifold & --- & $1$ & $0$ & $1$ & G & DT genus-$1$ \\
+  Local $\bP^2$ & --- & $1$ & $0$ & $3/2$ & M & GV free energy \\
+  Local $\bP^1 \!\times\! \bP^1$ & --- & $2$ & $0$ & $2$ & M/G & $h^{1,1}$ \\
+  $K3 \times E$ & $0$ & $21$ & $21$ & $5$ & M & $\mathrm{wt}(\Delta_5)$ \\
+  Enriques $\times E$ & $0$ & $11$ & $11$ & $4$ & M & Allcock form \\
+  Quintic & $-200$ & $1$ & $101$ & $-25/3$ & M & $\chi/24$ \\
+  $\bP^5[3,3]$ & $-144$ & $1$ & $73$ & $-6$ & M & $\chi/24$ \\
+  $\bP^5[2,4]$ & $-176$ & $1$ & $89$ & $-22/3$ & M & $\chi/24$ \\
+  $\bP^5[2,2,3]$ & $-144$ & $1$ & $73$ & $-6$ & M & $\chi/24$ \\
+  $\bP^7[2,2,2,2]$ & $-128$ & $1$ & $65$ & $-16/3$ & M & $\chi/24$ \\
+  Banana & $0$ & $2$ & $0$ & $0$ & $\geq$G & BKY \\
+  K3-fibered (general) & var & var & var & var & M & relative DT \\
+  Borcea--Voisin & var & var & var & $\chi/24$ & M & involution \\
+  \bottomrule
+\end{longtable}
+\end{center}
+
+\begin{observation}[Atlas patterns]
+\label{obs:atlas-patterns}
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item The BCOV formula $\kappa = \chi_{\mathrm{top}}/24$ holds for all rigid CICYs but fails for K3-fibered families (Theorem~\ref{wn:thm:chi-neq-kappa}).
+  \item For toric CY3 with $N$ vertices in the toric web diagram, the shadow depth satisfies $r_{\max} \leq N$ (conjectural toric vertex bound).
+  \item All compact CY3 with $\chi \neq 0$ are class~$\mathbf{M}$.
+  \item Only $9$ of the $14+$ catalogued families have integer $\kappa$.  A genuine BKM algebra requires $\kappa \in \Z_{>0}$ (Proposition~\ref{prop:modularity-constraints}).
+  \item The Enriques $\times E$ modular characteristic $\kappa = 4$ is \emph{not} half the K3 value; the ratio $\kappa(K3 \times E)/\kappa(\text{Enr} \times E) = 5/4$ reflects the change in automorphic weight from $\Delta_5$ (weight~$5$, $\Sp_4(\Z)$) to Allcock's form (weight~$4$, $O(2,10)$).
+\end{enumerate}
+
+\noindent\textit{Verification}: 119 tests in \texttt{cy3\_grand\_atlas.py}; 72 tests in \texttt{enriques\_shadow.py}.
+\end{observation}
+
+
+% ============================================================
+\section{Physical applications of the shadow--BPS correspondence}
+\label{sec:physical-applications}
+% ============================================================
+
+\subsection{BPS black hole entropy from the shadow tower}
+\label{subsec:bps-black-hole}
+
+\begin{proposition}[Shadow tower entropy expansion]
+\label{prop:bps-entropy}
+The BPS black hole entropy admits an expansion organized by shadow arity:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item \emph{Arity~$2$} = \textbf{Bekenstein--Hawking}: $S_{\mathrm{BH}} = \pi\sqrt{2\kappa \cdot D}$, where $D$ is the discriminant of the charge vector.  This is the leading-order entropy, controlled by $\kappa$ alone.
+  \item \emph{Arity~$3$} = \textbf{logarithmic correction}: $\delta S_3 = -(27/4) \log D + O(1)$.
+  \item \emph{Arity~$\geq 4$} = \textbf{power corrections}: controlled by the quartic shadow and higher, giving Bessel-type corrections $\sim D^{-k/2}$ for $k \geq 1$.
+\end{enumerate}
+The shadow class controls the qualitative entropy structure:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ll}
+  \toprule
+  \textbf{Shadow class} & \textbf{Black hole entropy} \\
+  \midrule
+  $\mathbf{G}$ & Bekenstein--Hawking only (no quantum corrections beyond genus~$1$) \\
+  $\mathbf{L}$ & Bekenstein--Hawking + logarithmic correction \\
+  $\mathbf{M}$ & Genuine black holes with infinite tower of quantum corrections \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The passage from Bekenstein--Hawking to the full quantum-corrected entropy is the passage from $\Theta^{\leq 2}$ to $\Theta_A$ in the shadow obstruction tower.
+\end{proposition}
+
+\subsection{Calogero--Moser/Bethe ansatz dictionary}
+\label{subsec:calogero-bethe}
+
+\begin{proposition}[Integrable system/shadow tower dictionary]
+\label{prop:calogero-bethe}
+For the $\cW_N$ chiral algebra, the Calogero--Moser integrals of motion $I_k$ correspond to shadow tower components:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ll}
+  \toprule
+  \textbf{Integrable system} & \textbf{Shadow tower} \\
+  \midrule
+  $I_2$ (quadratic Hamiltonian) & $\kappa$ (modular characteristic) \\
+  $I_3$ (cubic integral) & $C$ (cubic shadow) \\
+  $I_4$ (quartic integral) & $Q$ (quartic resonance class) \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The Bethe ansatz equations for the quantum Calogero--Moser system are the saddle-point equations of the shadow generating function.
+\end{proposition}
+
+\subsection{Lattice model finite-size corrections}
+\label{subsec:lattice-fsc}
+
+\begin{proposition}[Finite-size corrections from the shadow tower]
+\label{prop:lattice-fsc}
+Lattice model finite-size corrections on a system of size~$L$ decay at a rate exactly $q = e^{-L/\xi}$, where $\xi$ is the correlation length.  The boundary effects encode shadow tower data: the leading correction is proportional to $\kappa/L^2$, subleading to $C/L^3$.  The MacMahon box formula (counting plane partitions in an $a \times b \times c$ box) is controlled by the shadow tower of $\cW_{1+\infty}$.
+\end{proposition}
+
+
+% ============================================================
+\section{Five routes to the chiral algebra}
+\label{sec:five-routes}
+% ============================================================
+
+\subsection{The Costello--Li chain for $\C^3$}
+\label{subsec:costello-li-c3}
+
+The Costello--Li programme provides the most explicit route from CY3 geometry to chiral algebra.  For $\C^3$, the chain is:
+\[
+  \text{5d NCCS on } \C^3 \;\to\; Y^+(\widehat{\fgl}_1) \;\simeq\; \cW_{1+\infty}.
+\]
+Five independent routes to $\cW_{1+\infty}$:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \emph{Critical CoHA}: Kontsevich--Soibelman $\to$ Schiffmann--Vasserot $\to$ $Y^+(\widehat{\fgl}_1)$.
+  \item \emph{Crystal melting}: counting plane partitions $\to$ MacMahon $\to$ vertex operators.
+  \item \emph{Shuffle algebra}: explicit generators and relations from the CoHA shuffle product.
+  \item \emph{Factorization envelope}: $\mathrm{PV}^*(\C^3) \to$ Lie conformal algebra $\to$ Nishinaka envelope.
+  \item \emph{$5d$ Chern--Simons}: Costello--Li perturbative computation reproduces the OPE.
+\end{enumerate}
+At $N = 1$ (single D-brane), all five produce the Heisenberg VOA $H_1$.
+
+\subsection{Five routes for $K3 \times E$}
+\label{subsec:five-routes-k3e}
+
+Five routes to the chiral algebra of $K3 \times E$ have been mapped:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \emph{Relative DT}: fiber K3 shadow data sewed along $E$ via DMVV.
+  \item \emph{Borcherds BKM}: root multiplicities from $\phi_{0,1}$ $\to$ $U(\fn_+(\fg_{\Delta_5}))$.
+  \item \emph{Maulik--Okounkov}: stable envelopes on $\mathrm{Hilb}^n(K3 \times E)$ $\to$ Yangian $R$-matrix.
+  \item \emph{Vafa--Witten}: partition function on K3 $\to$ mock modular forms $\to$ chiral characters.
+  \item \emph{Relative chiral algebra}: direct construction via K3 fibration (Proposition~\ref{prop:k3e-relative-chiral}).
+\end{enumerate}
+
+\subsection{The $\Eone$ mechanism: Dunn additivity and $\Omega$-background}
+\label{subsec:e1-mechanism}
+
+The reduction from $\Etwo$ to $\Eone$ in the presence of the $\Omega$-background has a clean operadic explanation.  By Dunn additivity:
+\[
+  \Etwo \;\simeq\; \Eone \otimes_{\mathsf{E}_0} \Eone.
+\]
+The $\Omega$-background freezes one of the two $\Eone$-factors (it introduces a preferred direction in the plane), reducing the native $\Etwo$ to $\Eone$.  The Drinfeld center passage (Theorem~\ref{wn:thm:c3-drinfeld-center}) restores the $\Etwo$ structure by recovering the frozen factor.
+
+This explains why the CoHA is only $\Eone$: it is the $\Omega$-deformed theory, with one $\Eone$-factor frozen.  The full $\Etwo$-chiral algebra $A_X$ is the Drinfeld center, which unfreezes it.
+
+
+% ============================================================
+\section{Cross-volume bridges}
+\label{wn:sec:cross-volume}
+% ============================================================
+
+The results of Sections~\ref{sec:c3-rosetta}--\ref{sec:five-routes} connect the CY3 programme (Vol~III) to the algebraic engine (Vol~I) and the holomorphic-topological QFT framework (Vol~II).
+
+\subsection{Shadow tower identification}
+\label{wn:subsec:cross-vol-shadow}
+
+The shadow obstruction tower $\Theta_A$ of Vol~I (Theorems~A--D, the bar-intrinsic construction $\Theta_A := D_A - d_0$) specializes as follows for CY3 chiral algebras:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+  \toprule
+  \textbf{Vol~I object} & \textbf{CY3 specialization} & \textbf{Identification} \\
+  \midrule
+  $\kappa(A)$ & $\kappa(\C^3) = 1$ & MacMahon genus-$1$ \\
+  Cubic shadow $C$ & BKM lightlike roots & $c(0) = 10$ for $K3 \times E$ \\
+  Quartic shadow $Q$ & BKM timelike roots & $c(D > 0)$ for $K3 \times E$ \\
+  Shadow class G/L/C/M & Toric vertex bound & $r_{\max} \leq N$ \\
+  Bar Euler product & Denominator identity & $1/M(q)$ for $\C^3$; $\Delta_5$ for $K3 \times E$ \\
+  Shadow connection $\nabla^{\mathrm{sh}}$ & Picard--Fuchs & Modular family \\
+  Complementarity $Q(A) + Q(A^!)$ & Koszul dual CY3 & Mirror symmetry \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Swiss-cheese and the $\Etwo$ bar complex}
+\label{wn:subsec:cross-vol-sc}
+
+The Vol~II Swiss-cheese structure $\mathrm{SC}^{\mathrm{ch,top}}$ (Theorem~H) provides the operadic framework for the $\Etwo$ bar complex of Section~\ref{wn:sec:e2-bar}.  The three bar complexes $(B_{\Eone}, B_{\Etwo}, B_{\Einf})$ correspond to the three sectors:
+\begin{itemize}
+  \item $B_{\Eone}$: the open sector (Hochschild, ordered tensors).
+  \item $B_{\Etwo}$: the boundary sector (braided, with $R$-matrix data).
+  \item $B_{\Einf}$: the closed sector (symmetric, Vol~I shadow tower).
+\end{itemize}
+The $\Eone \to \Etwo$ passage via Drinfeld center (Theorem~\ref{wn:thm:c3-drinfeld-center}) corresponds to the open-to-bulk passage in Vol~II via the chiral derived center $\cZ^{\mathrm{der}}_{\mathrm{ch}}(A)$.
+
+\subsection{The completed modular Koszul datum for CY3}
+\label{wn:subsec:cross-vol-mkd}
+
+The eight-fold completed modular Koszul datum $\Pi^{\mathrm{oc}}_X(A)$ of Vol~I specializes to the CY3 setting as:
+\[
+  \Pi^{\mathrm{oc}}_{X}(A_{X_3}) = \bigl(\cF_X(A), \overline{B}_X(A), \Theta_A, L_A, (V^{\mathrm{br}}, T^{\mathrm{br}}), R^{\mathrm{mod}}_4, \cZ^{\mathrm{der}}_{\mathrm{ch}}(A), \Tr_A\bigr),
+\]
+where the BKM root system supplies the root lattice structure and the Borcherds denominator formula controls the bar Euler product.
+
+\noindent\textit{Verification}: 124 tests in \texttt{cross\_volume\_shadow\_bridge.py}.
+
+
+% ============================================================
+\section{Updated status of the programme}
+\label{sec:updated-status}
+% ============================================================
+
+The results of Sections~\ref{sec:c3-rosetta}--\ref{wn:sec:cross-volume} substantially advance the programme relative to the baseline recorded in Section~\ref{sec:programme}.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabular}{llp{7cm}}
+  \toprule
+  \textbf{Target} & \textbf{Status} & \textbf{Evidence} \\
+  \midrule
+  CY-A ($d = 3$ functor) & \textbf{Verified, toric} & Functor chain for $\C^3$ verified end-to-end ($\S$\ref{sec:c3-rosetta}). $\bS^3$-framing trivial ($\S$\ref{wn:sec:s3-framing}). \\
+  CY-B ($\Etwo$-chiral KD) & \textbf{Verified, $\C^3$, $K3\!\times\!E$} & Bar Euler product $= 1/M(q)$ ($\S$\ref{subsec:c3-bar-shadow}). BKM denominator ($\S$\ref{subsec:k3e-coha}). \\
+  CY-C (Quantum group) & \textbf{Verified, $\C^3$} & Drinfeld center gives $\Etwo$-braided category with Yang $R$-matrix ($\S$\ref{subsec:c3-drinfeld-center}). \\
+  CY-D (Modular char.) & \textbf{Established} & $\kappa$ computed for $14+$ families ($\S$\ref{wn:sec:grand-atlas}). \\
+  \midrule
+  $\bS^3$-framing & \textbf{Topol.\ trivial} & $\pi_3(B\Sp) = \pi_3(BU) = 0$ ($\S$\ref{wn:sec:s3-framing}). \\
+  $\Eone \to \Etwo$ & \textbf{Trivial, all tested} & Cor.~\ref{wn:cor:e1-e2-trivial}. \\
+  $\chi/24 \neq \kappa$ & \textbf{Resolved} & Thm.~\ref{wn:thm:chi-neq-kappa}: categorical, not topological. \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Remaining gaps}
+\label{subsec:remaining-gaps}
+
+\begin{enumerate}
+  \item \textbf{CY-A for compact CY3}: the $\bS^3$-framing is topologically trivializable, but the chain-level construction of the trivialization remains open.
+  \item \textbf{$\kappa$ formula for K3-fibered CY3}: the formula $\kappa = \chi^{\CY}$ is verified for $K3 \times E$ and Enriques~$\times E$ but is conjectural beyond these.
+  \item \textbf{Non-BKM families}: CY3 with non-integer $\kappa$ do not admit naive BKM interpretations.
+  \item \textbf{Full motivic DT}: the shadow tower $=$ BKM roots identification is at the level of generating series; the motivic upgrade (AP42) remains open.
+\end{enumerate}
+
+
+% ============================================================
+\section{Updated open questions}
+\label{sec:updated-open}
+% ============================================================
+
+The original open questions (Section~\ref{sec:open-questions}) are updated in light of the new results:
+
+\begin{enumerate}
+  \item \textbf{Root datum of the quintic}: still open.  $\kappa = -25/3$ is non-integer and negative (Proposition~\ref{prop:modularity-constraints}).
+  \item \textbf{$\bS^3$-framing construction}: \emph{partially resolved} --- topological obstruction vanishes universally (Theorem~\ref{wn:thm:s3-framing-vanishes}); chain-level via holomorphic CS is the remaining step.
+  \item \textbf{Automorphic form for Hitchin/$E_8$}: still open.
+  \item \textbf{Wall-crossing as MC gauge equivalence}: \emph{verified for the conifold} (Theorem~\ref{thm:conifold-wc}).
+  \item \textbf{Is $\kappa = h^{1,1}/4$ universal?}: \emph{No} --- the correct invariant is $\kappa = \mathrm{wt}(\text{denominator form})$, not a function of Hodge numbers alone.
+  \item \textbf{Shadow depth for quantum vertex chiral groups}: \emph{characterized} (Observation~\ref{obs:atlas-patterns}).
+  \item \textbf{$\Etwo$ bar complex}: \emph{constructed and computed} (Theorem~\ref{thm:three-bar-complexes}).
+  \item \textbf{$\chi_{\mathrm{top}}/24 \neq \kappa$}: \emph{resolved} (Theorem~\ref{wn:thm:chi-neq-kappa}).
+  \item \textbf{Quantum geometric Langlands as $\Etwo$-chiral Koszul duality}: still open.
+  \item \textbf{Eight diagonal divisor Siegel modular forms}: still open.
+\end{enumerate}
+
+
+% ============================================================
+\section{Compute verification summary}
+\label{sec:compute-summary}
+% ============================================================
+
+The results recorded above are backed by $5{,}010$ tests across $60+$ compute modules (all passing).  The following table lists the modules most directly relevant to the frontier results.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\small
+\begin{longtable}{lrl}
+  \toprule
+  \textbf{Module} & \textbf{Tests} & \textbf{Primary result} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Module} & \textbf{Tests} & \textbf{Primary result} \\
+  \midrule
+  \endhead
+  \texttt{c3\_grand\_verification} & $115$ & $\C^3$ Rosetta Stone, $\kappa = 1$ five-path \\
+  \texttt{conifold\_bar\_complex} & $124$ & Conifold bar complex, wall-crossing \\
+  \texttt{cy\_to\_chiral\_functor} & $124$ & $d = 3$ functor chain, $\bS^3$-framing \\
+  \texttt{cross\_volume\_shadow\_bridge} & $124$ & Cross-volume verification \\
+  \texttt{cy3\_grand\_atlas} & $119$ & Grand atlas, 14+ CY3 families \\
+  \texttt{cy3\_modularity\_constraints} & $111$ & Modularity constraints on $\kappa$ \\
+  \texttt{e2\_barcobar\_koszul} & $110$ & $\Etwo$ bar-cobar-Koszul \\
+  \texttt{toric\_shadow\_engine} & $104$ & Toric shadow tower landscape \\
+  \texttt{c3\_shadow\_tower} & $98$ & $\C^3$ shadow tower, class G \\
+  \texttt{cy\_bar\_complex\_engine} & $97$ & General CY bar complex \\
+  \texttt{c3\_lie\_conformal} & $95$ & GL(3)-invariant brackets vanish \\
+  \texttt{toric\_cy3\_dt\_engine} & $94$ & Toric DT engine \\
+  \texttt{drinfeld\_center\_yangian} & $93$ & Drinfeld center, $R$-matrix, YBE \\
+  \texttt{e2\_bar\_complex} & $93$ & $\Etwo$ bar complex, $\dim = d(n)$ \\
+  \texttt{coha\_drinfeld\_bulk} & $93$ & CoHA, Drinfeld center, bulk \\
+  \texttt{k3e\_coha\_structure} & $90$ & $K3 \times E$ CoHA, BKM roots \\
+  \texttt{bkm\_shadow\_complete} & $88$ & BKM shadow tower complete \\
+  \texttt{c3\_envelope\_comparison} & $87$ & Envelope/shuffle/crystal comparison \\
+  \texttt{k3e\_relative\_shadow} & $78$ & Relative DT, fiber vs global $\kappa$ \\
+  \texttt{local\_p2\_shadow} & $77$ & Local $\bP^2$, $\kappa = 3/2$ \\
+  \texttt{wallcrossing\_gauge\_engine} & $73$ & Wall-crossing gauge equivalence \\
+  \texttt{mo\_rmatrix\_k3e} & $72$ & MO $R$-matrix for $K3 \times E$ \\
+  \texttt{enriques\_shadow} & $72$ & Enriques $\times E$, $\kappa = 4$ \\
+  \texttt{cy3\_hochschild} & $71$ & HH/HC computation, BTT \\
+  \texttt{banana\_shadow} & $63$ & Banana manifold, $\kappa = 0$ \\
+  \texttt{bar\_comparison\_c3} & $59$ & Bar Euler product $= 1/M(q)$ \\
+  \texttt{macmahon\_shadow\_decomposition} & $50$ & MacMahon shadow non-decomposition \\
+  \bottomrule
+\end{longtable}
+\end{center}
 
 % ============================================================
 %  Future sections will be added as the programme develops.

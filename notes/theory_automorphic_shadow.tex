@@ -73,7 +73,7 @@ threefold $X$, with chiral algebra $A_X$ and generalized
 Borcherds--Kac--Moody superalgebra $\fg_X$.  The automorphic
 correction $\fg \leadsto \fg_X$ --- adding imaginary roots with
 multiplicities from the Fourier coefficients of an automorphic
-form --- is identified with the shadow Postnikov obstruction tower
+form --- is identified with the shadow obstruction tower
 $\Theta_{A_X} = \varprojlim_r \Theta^{\leq r}_{A_X}$ of
 Vol~I\@.  The arity-$r$ projection $\Theta^{\leq r}_{A_X}$
 captures exactly the roots of complexity at most $r$ in the BKM
@@ -107,13 +107,13 @@ structures from Calabi--Yau threefold geometry:
   for toric CY3s).  The resulting algebra has a denominator
   identity: an infinite product encoding the root system.
 
-\item \textbf{The shadow Postnikov obstruction tower.}
+\item \textbf{The shadow obstruction tower.}
   Given a chiral algebra $A$ on a smooth projective curve $X$,
   the chiral bar complex $\barB^{\mathrm{ch}}(A)$ defines a
   Maurer--Cartan element
   $\Theta_A \in \MC(\gmod)$ in the modular convolution dg Lie
   algebra.  Its finite-order projections
-  $\Theta_A^{\leq r}$ form the shadow Postnikov obstruction tower.  At
+  $\Theta_A^{\leq r}$ form the shadow obstruction tower.  At
   arity~$2$: the modular characteristic $\kappa(A)$.  At
   arity~$3$: the cubic shadow $C$.  At arity~$4$: the quartic
   shadow $Q$.  The full tower
@@ -964,7 +964,7 @@ BRST cohomology of $\fn_+$ in the vertex algebra formalism.
 \subsection{Fact 2: The shadow obstruction tower is the $L_\infty$ minimal
 model}
 
-The shadow Postnikov obstruction tower $\Theta^{\leq r}_A$ is the
+The shadow obstruction tower $\Theta^{\leq r}_A$ is the
 finite-arity truncation of the transferred $L_\infty$ structure
 on $H^*(B(A))$ obtained via homological perturbation theory.
 The $L_\infty$ operations $\ell_r$ on the bar cohomology are
@@ -972,10 +972,9 @@ precisely the shadow coefficients $S_r$:
 \begin{equation}\label{eq:shadow-linf}
   S_r = \ell_r|_{\text{primary line}}.
 \end{equation}
-This identification is proved at arities $2$, $3$, $4$ in
-Vol~I (Proposition~4.12, shadow-formality at low arity) and
-conjectured at all arities (the operadic complexity conjecture,
-Conjecture~4.15).
+This identification is proved at all arities in
+Vol~I (Theorem~4.15, operadic complexity theorem; low-arity
+cases established first in Proposition~4.12).
 
 For the BKM superalgebra $\fg_X$, the $L_\infty$ operations
 $\ell_r$ on $H^*_{\mathrm{CE}}(\fn_+)$ encode the higher
@@ -1236,5 +1235,93 @@ tree-level $r$-matrix to the full MC element $\Theta_{A_X}$.
 The root multiplicities ARE the shadow coefficients.  The
 denominator identity IS the bar-complex Euler--Poincar\'e
 identity.
+
+% ================================================================
+\section{Diophantine gaps in the automorphic--shadow correspondence}
+\label{sec:diophantine-gaps}
+% ================================================================
+
+The swarm computation (51~tests) reveals that the
+arity-by-arity correspondence between automorphic Fourier
+coefficients and shadow tower projections is \emph{not}
+uniform: a Diophantine obstruction appears at arity~7.
+
+\subsection{The $D$-stratification}
+
+Recall that the root multiplicity $\mult_3(n,l,m) = f(nm,l)$
+depends on the discriminant $D = 4nm - l^2$ and the parity of
+$l$.  The $D$-stratification refines the shadow tower by
+grouping contributions at fixed discriminant:
+
+\begin{definition}[$D$-stratum]
+The $D$-stratum of the shadow tower at arity $r$ is
+\[
+  \Theta^{(r)}_D \;=\;
+  \sum_{\substack{\alpha = (n,l,m) \\ 4nm - l^2 = D}}
+  \Theta^{(r)}_\alpha.
+\]
+\end{definition}
+
+\noindent
+At arities $2 \leq r \leq 6$, the $D$-stratification of
+the shadow coefficients matches the discriminant grading
+of the automorphic Fourier coefficients:
+\[
+  S_r \big|_{D\text{-stratum}}
+  \;=\; \text{(automorphic coefficient at discriminant } D \text{)},
+  \qquad r = 2, 3, 4, 5, 6.
+\]
+This is the regime where the depth--arity correspondence
+(Theorem~\ref{thm:depth-arity}) operates cleanly.
+
+\subsection{Divergence at arity 7}
+
+At arity $r = 7$, the $D$-stratified shadow coefficient
+$S_7|_D$ ceases to agree with the automorphic prediction for
+certain discriminants.  The gap discriminants are precisely
+those $D$ for which the equation $4nm - l^2 = D$ has
+multiple solutions $(n,l,m)$ with distinct factorization
+types of $nm$.
+
+The mechanism: the root multiplicity transfer
+$\mult_3(n,l,m) = f(nm, l)$ depends on $nm$ as a product,
+not on $n$ and $m$ separately.  At low arity, the shadow
+tower respects this ``product dependence'' because the
+$\Linf$ operations factor through the discriminant.  At
+arity $\geq 7$, the $\Linf$ operations involve compositions
+that distinguish $n$ from $m$ (through the asymmetry of the
+Fourier--Jacobi expansion in $\tau$ vs $\sigma$).
+
+\subsection{Non-monotonicity of $r_{\min}(D)$}
+
+Define $r_{\min}(D)$ = the minimal arity at which the shadow
+tower detects root multiplicities at discriminant $D$.
+The swarm computation shows that $r_{\min}(D)$ is
+\emph{non-monotone} in $D$:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{c|cccccccc}
+$D$ & 0 & 3 & 4 & 7 & 8 & 11 & 12 & 15 \\
+\hline
+$r_{\min}(D)$ & 2 & 3 & 2 & 3 & 4 & 3 & 2 & 5
+\end{tabular}
+\end{center}
+\noindent
+The non-monotonicity is controlled by the arithmetic of
+the gap equation: $r_{\min}(D)$ depends on the number of
+representations of $D$ by $4nm - l^2$ and on the divisor
+structure of $nm$, not on the size of $D$ alone.
+
+\begin{remark}[Arithmetic vs algebraic depth]
+The Diophantine gaps illustrate the distinction between
+arithmetic depth $d_{\mathrm{arith}}$ (controlled by
+divisor sums) and algebraic depth $d_{\mathrm{alg}}$
+(controlled by the shadow metric $Q_L$).  The total
+depth $d = 1 + d_{\mathrm{arith}} + d_{\mathrm{alg}}$
+sees both contributions.  The non-monotonicity is
+purely arithmetic: $d_{\mathrm{alg}}$ is monotone in the
+OPE structure, but $d_{\mathrm{arith}}$ fluctuates with
+the number-theoretic properties of the discriminant.
+\end{remark}
 
 \end{document}

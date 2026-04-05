@@ -73,7 +73,7 @@ The passage from the "naive" algebra g (Kac-Moody of the real root Gram matrix) 
 THIS IS THE KEY IDENTIFICATION:
   **Automorphic correction = Shadow obstruction tower**
 
-The shadow Postnikov tower Theta_A^{<=r} of Vol I, projected at successive arities, recovers:
+The shadow obstruction tower Theta_A^{<=r} of Vol I, projected at successive arities, recovers:
 - Arity 2 (kappa): the leading coefficient = the Weyl vector contribution
 - Arity 3 (cubic shadow C): the first imaginary root corrections
 - Arity 4 (quartic Q): higher corrections

@@ -124,7 +124,7 @@ On the bar-complex side: the claim that "the bar complex of a dg algebra with bo
 
 The proof mechanism (Section 6, "The structural mechanism") rests on three facts. Fact 2 (lines 963-985) is:
 
-    "The shadow Postnikov tower Theta^{<=r}_A is the finite-arity truncation of the transferred L_infinity structure on H*(B(A))."
+    "The shadow obstruction tower Theta^{<=r}_A is the finite-arity truncation of the transferred L_infinity structure on H*(B(A))."
 
 The text then states (lines 974-977):
 

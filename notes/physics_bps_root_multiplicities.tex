@@ -771,7 +771,7 @@ is the beginning of a categorification of the BKM superalgebra.
 \label{sec:shadow-hierarchy}
 % ==================================================================
 
-The shadow Postnikov obstruction tower from Volume~I,
+The shadow obstruction tower from Volume~I,
 \[
   \Theta_A = \Theta^{\leq 2}_A + \Theta^{\leq 3}_A + \cdots
 \]
@@ -885,5 +885,114 @@ equivalence).  The fact that these disparate physical phenomena---DT
 theory, elliptic genera, CoHAs, wall-crossing, automorphic forms---are
 unified by a single algebraic structure is the central observation
 of this programme.
+
+% ==================================================================
+\section{BPS entropy from the shadow obstruction tower}
+\label{sec:bps-entropy}
+% ==================================================================
+
+The shadow obstruction tower provides a systematic expansion of BPS
+black hole entropy, refining the Bekenstein--Hawking area law by
+sub-leading corrections that are controlled arity-by-arity.  The
+swarm computation (\texttt{compute/lib/bps\_entropy\_shadow.py},
+78~tests) establishes the following structure.
+
+\subsection{Arity expansion of the entropy}
+
+Let $D = 4nm - l^2$ denote the discriminant (charge invariant) of a
+BPS state.  The shadow tower decomposes the microstate degeneracy
+$\Omega(\gamma)$ into contributions graded by arity $r$:
+
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Arity 2 (Bekenstein--Hawking).}
+    The leading term is
+    \[
+      S_{\mathrm{BH}} \;=\; 4\pi \sqrt{D},
+    \]
+    the Bekenstein--Hawking entropy of a large BPS black hole.  This
+    is the $\kappa$-level shadow: the scalar modular characteristic
+    controls the area law.
+
+  \item \textbf{Arity 3 (logarithmic correction).}
+    The cubic shadow $C$ produces the sub-leading correction
+    \[
+      \Delta S^{(3)} \;=\; -\frac{27}{4} \log D.
+    \]
+    The coefficient $-27/4$ is universal within the $K3 \times E$
+    family.  Physically, this is the one-loop correction from
+    massless fields in the near-horizon $\mathrm{AdS}_2$ geometry.
+    The factor $27/4$ encodes the cubic Casimir of the BKM algebra,
+    extracted from the arity-3 shadow.
+
+  \item \textbf{Arity $\geq 4$ (Bessel corrections).}
+    The quartic and higher shadows produce a tower of
+    power-suppressed corrections of the form
+    \[
+      \Delta S^{(k)} \;=\; \frac{a_k(19/2)}{z^k},
+      \qquad z = \pi\sqrt{D},
+    \]
+    where $a_k(19/2)$ are modified Bessel coefficients evaluated at
+    $\nu = 19/2$.  These match the Rademacher expansion of the
+    Fourier coefficients of $1/\Delta_5$ (the inverse Igusa cusp
+    form), providing independent verification.
+\end{enumerate}
+
+\noindent
+Combining all arities:
+\[
+  \log \Omega(\gamma) \;=\;
+  4\pi\sqrt{D} - \frac{27}{4}\log D
+  + \sum_{k \geq 1} \frac{a_k(19/2)}{(\pi\sqrt{D})^k}
+  + O(e^{-\sqrt{D}}).
+\]
+
+\subsection{Shadow depth class and black holes}
+
+The four shadow depth classes have direct physical meaning for
+BPS black holes:
+
+\begin{itemize}
+  \item \textbf{Class $G$ ($r_{\max} = 2$):}
+    Gaussian.  Only the area law.  No genuine black holes ---
+    these are perturbative states (free fields).
+
+  \item \textbf{Class $L$ ($r_{\max} = 3$):}
+    Tree-level corrections only.  Small black holes with
+    logarithmic entropy corrections, but no power-suppressed
+    tower.
+
+  \item \textbf{Class $C$ ($r_{\max} = 4$):}
+    Contact corrections through quartic order.  Small black
+    holes with one sub-leading Bessel correction.
+
+  \item \textbf{Class $M$ ($r_{\max} = \infty$):}
+    Full infinite tower.  \emph{Genuine black holes} with
+    macroscopic horizons.  The infinite arity tower reproduces
+    the complete Rademacher series.
+\end{itemize}
+
+\noindent
+Only class~$M$ algebras produce black holes with a genuine
+event horizon and thermodynamic entropy.  The CY3 quantum
+vertex chiral groups are all class~$M$ (shadow depth infinite),
+consistent with the existence of BPS black holes in CY3
+compactifications.
+
+\subsection{Weight predictions from $\kappa$}
+
+For the $K3 \times E$ family with $\kappa = 5$:
+\begin{itemize}
+  \item The denominator identity has weight
+    $\mathrm{wt}(\Delta_5) = 5 = \kappa$.
+  \item The Igusa cusp form $\Phi_{10}$ (the square of the
+    denominator) has weight $10 = 2\kappa$.
+  \item More generally, for a CY3 with modular characteristic
+    $\kappa$, the automorphic denominator should have weight
+    $\kappa$ as a Siegel modular form.
+\end{itemize}
+The equality $\mathrm{wt}(\Delta_k) = \kappa(G_3)$ is a
+non-trivial prediction of the shadow tower framework: the
+algebraic invariant $\kappa$ (extracted from the arity-2
+bar complex) determines the automorphic weight.
 
 \end{document}

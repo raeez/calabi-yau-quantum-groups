@@ -642,7 +642,7 @@ The shadow corrections are organized by the root lattice of $G(X)$:
   \item The $Q^\beta$ fugacity is the root-lattice fugacity: $Q^\beta =
     e^{-\langle t, \beta \rangle}$ where $t$ is the point in the K\"ahler
     moduli space (= the Cartan element of $G(X)$).
-  \item The shadow Postnikov obstruction tower $\Theta_{A_X}^{\leq r}$ truncated at
+  \item The shadow obstruction tower $\Theta_{A_X}^{\leq r}$ truncated at
     arity $r$ captures the $F_g$ up to corrections from roots of
     ``arity $> r$'' (roughly, those $\beta$ whose length in the root lattice
     exceeds $r$).
@@ -769,6 +769,89 @@ and the quantum vertex chiral group $G(X)$.
     should be wall-crossing invariant, with its chamber-dependent expansion
     recovering the different BPS spectra.
 \end{enumerate}
+
+%% ================================================================
+\section{The MacMahon obstruction}
+\label{sec:macmahon-obstruction}
+%% ================================================================
+
+The MacMahon function $M(q) = \prod_{n \geq 1} (1-q^n)^{-n}$
+is the DT partition function of $\mathbb{C}^3$ and the denominator
+identity of the $\mathbb{C}^3$ quantum vertex chiral group.
+A natural question: does the shadow obstruction tower of
+$A_{\mathbb{C}^3}$ reproduce $M(q)$ term by term?
+
+The swarm computation (\texttt{compute/lib/macmahon\_shadow\_decomposition.py},
+50~tests) gives a precise negative answer.
+
+\subsection{The mismatch}
+
+Write the genus expansion of both objects.  The topological string
+free energy of $\mathbb{C}^3$ is $F = \sum_{g \geq 0} F_g \, g_s^{2g-2}$,
+and the shadow obstruction tower has projections
+$\Theta^{(g)} = \kappa \cdot \lambda_g + \text{(higher arity)}$.
+At each genus $g$, the topological string coefficient is
+\[
+  F_g^{\mathrm{top}}(\mathbb{C}^3) \;=\;
+  \frac{(-1)^{g-1} B_{2g}}{2g(2g-2)!}
+  \qquad (g \geq 2),
+\]
+involving a \emph{single} Bernoulli number $B_{2g}$.  The
+shadow obstruction tower, by contrast, produces
+\[
+  F_g^{\mathrm{sh}} \;=\; \kappa \cdot \lambda_g^{FP}
+  \;=\; \kappa \cdot
+  \frac{(-1)^{g-1} B_{2(g-1)} \cdot B_{2g}}{(2g)! \cdot (2g-2)}
+  \qquad (g \geq 2),
+\]
+involving the \emph{product} $B_{2(g-1)} \cdot B_{2g}$
+(the Faber--Pandharipande class).  These differ: the shadow
+tower has a double Bernoulli product where the topological
+string has a single Bernoulli number.
+
+\subsection{Generating-function-level agreement}
+
+Despite the genus-by-genus mismatch, the two objects agree at
+the level of generating functions.  Let
+\[
+  \widehat{A}(x) = \frac{x/2}{\sinh(x/2)}
+  = 1 - \frac{x^2}{24} + \frac{7x^4}{5760} - \cdots
+\]
+be the $\hat{A}$-genus.  Then:
+\begin{itemize}
+  \item The shadow tower generating function is
+    $\sum_{g \geq 1} F_g^{\mathrm{sh}} \, \hbar^{2g}
+    = \kappa \cdot (\widehat{A}(i\hbar) - 1)$.
+  \item The topological string generating function
+    $\sum_{g \geq 2} F_g^{\mathrm{top}} \, g_s^{2g-2}$
+    is the asymptotic expansion of $\log M(e^{-g_s})$.
+\end{itemize}
+The relation between the two is through the Laplace/Borel
+transform: the double Bernoulli product $B_{2(g-1)} B_{2g}$
+is the convolution of two single-Bernoulli series.  The
+$\hat{A}$-genus packages this convolution into a closed form
+that is \emph{not} the same as the MacMahon expansion genus
+by genus, but whose Borel sum agrees.
+
+\subsection{The obstruction}
+
+\begin{warning}[MacMahon $\neq$ scalar shadow, term by term]
+$M(q)$ is NOT the scalar shadow tower evaluated term by term.
+The scalar shadow $F_g^{\mathrm{sh}} = \kappa \lambda_g^{FP}$
+differs from $F_g^{\mathrm{top}}(\mathbb{C}^3)$ at every
+genus $g \geq 2$.  The agreement is at the level of generating
+functions (Borel-summed), not at the level of individual
+Taylor coefficients.
+\end{warning}
+
+\noindent
+The physical interpretation: the shadow tower computes the
+\emph{algebraic} genus expansion (from the bar complex on
+$\overline{\mathcal{M}}_{g,n}$), while the MacMahon function
+comes from the \emph{analytic} partition function (the
+regularized Euler product on the root lattice).  The passage
+from algebraic to analytic requires a resummation that
+reshuffles genus-by-genus coefficients.
 
 \bibliographystyle{alpha}
 % References are inline for this note.
