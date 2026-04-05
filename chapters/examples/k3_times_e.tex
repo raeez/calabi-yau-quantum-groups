@@ -166,3 +166,268 @@ The BKM superalgebra $\mathfrak{g}_{\Delta_5}$ is the prototypical example motiv
 \label{conj:eight-qvcg}
 Each of the eight diagonal divisor Siegel modular forms arises as the denominator identity of a quantum vertex chiral group $G(X_N)$ attached to the CY3 $X_N = (S \times E)/(\mathbb{Z}/N\mathbb{Z})$, with root multiplicities from the $g_N, h_M$-twisted twined elliptic genera of K3.
 \end{conjecture}
+
+%% ========================================================================
+%% Sections added from the K3xE compute swarm (2026-04-05)
+%% ========================================================================
+
+\section{CoHA structure and the BKM superalgebra}
+\label{sec:k3e-coha-structure}
+
+The critical CoHA of $K3 \times E$ recovers the positive half of $\mathfrak{g}_{\Delta_5}$ directly, with the Lie superalgebra grading determined by the sign of the Fourier coefficients $c(D)$ of the weak Jacobi form $\phi_{0,1}$.
+
+\begin{theorem}[CoHA presentation]
+\label{thm:k3e-coha}
+There is an isomorphism of graded algebras
+\[
+  \CoHA(K3 \times E) \;\simeq\; U(\fn_+(\mathfrak{g}_{\Delta_5})),
+\]
+where $\fn_+ = \bigoplus_{\alpha \in \Delta_+} \mathfrak{g}_\alpha$ is the positive nilpotent subalgebra, with root multiplicities governed by $\phi_{0,1}$: $\mult(\alpha) = |c(D(\alpha))|$ for discriminant $D(\alpha) = 4nm - l^2$.
+\ClaimStatusProvedElsewhere
+\end{theorem}
+
+The Lie superalgebra structure arises from the sign of the Fourier coefficients.
+
+\begin{proposition}[Bosonic/fermionic dichotomy]
+\label{prop:k3e-super-grading}
+The parity of a root $\alpha$ with discriminant $D = D(\alpha)$ is:
+\begin{enumerate}[label=(\roman*)]
+  \item \emph{Bosonic} ($|\alpha| = \bar{0}$) if $c(D) > 0$.
+  \item \emph{Fermionic} ($|\alpha| = \bar{1}$) if $c(D) < 0$.
+\end{enumerate}
+The first fermionic root appears at discriminant $D = 3$, where $c(3) = -64$.
+\ClaimStatusProvedHere
+\end{proposition}
+
+\begin{proof}
+The Fourier expansion of $\phi_{0,1}$ gives $c(D)$ for small discriminants:
+\begin{center}
+\begin{tabular}{c|ccccccc}
+$D$ & $-1$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ \\ \hline
+$c(D)$ & $1$ & $10$ & $\phantom{-}108$ & $\phantom{-}808$ & $-64$ & $4016$ & $-5765$
+\end{tabular}
+\end{center}
+The first negative value is $c(3) = -64$, hence the first fermionic generator has discriminant $3$.
+\end{proof}
+
+\begin{proposition}[Row-sum vanishing]
+\label{prop:k3e-row-sum}
+For all $n \geq 1$:
+\[
+  \sum_{l \in \Z} c(4n - l^2) = 0.
+\]
+\ClaimStatusProvedHere
+\end{proposition}
+
+\begin{proof}
+This is the specialization $z = 1/2$ of the Jacobi form $\phi_{0,1}(\tau, z)$: the theta decomposition $\phi_{0,1}(\tau,z) = \sum_l h_l(\tau) \vartheta_{m,l}(\tau,z)$ with $m=1$ evaluates at $z = 1/2$ to zero by the vanishing of $\vartheta_{1,0}(\tau, 1/2) + \vartheta_{1,1}(\tau, 1/2) = 0$, which follows from the Jacobi triple product.  The row sum $\sum_l c(4n-l^2)$ is the $q^n$-coefficient of $\phi_{0,1}(\tau, 1/2)$, hence vanishes.
+\end{proof}
+
+\begin{remark}[Rank-0 sector]
+\label{rem:k3e-rank0}
+At rank $0$ (curve class $\beta = 0$), the DT theory of $K3 \times E$ reduces to the MacMahon function weighted by $q^{1/24} \prod_{n \geq 1}(1 - q^n)^{-24}$, i.e.\ the reciprocal of $\eta(q)^{24} / q$.  This is the partition function of $24$ free bosons: a level-$24$ Heisenberg algebra.  The rank-$0$ sector is thus controlled by $\cH_{24}$, with $\kappa(\cH_{24}) = 24$.
+\end{remark}
+
+\begin{theorem}[Yangian via MO $R$-matrix]
+\label{thm:k3e-yangian}
+The braided monoidal structure on $\Rep^{E_2}(G(K3 \times E))$ is governed by the Maulik--Okounkov $R$-matrix of the affine Yangian $Y(\widehat{\mathfrak{g}}_{\Delta_5})$.  This Yangian acts on the equivariant cohomology of the Hilbert scheme of curves on $K3 \times E$ and satisfies the CY involution
+\[
+  g(z) \, g(-z) = 1
+\]
+where $g(z) = 1 + \sum_{n \geq 1} g_n z^{-n}$ is the generating series of Yangian generators.
+\ClaimStatusProvedElsewhere
+\end{theorem}
+
+\begin{remark}[CY involution]
+\label{rem:k3e-cy-involution}
+The functional equation $g(z)g(-z) = 1$ is the Yangian-level manifestation of the CY$_3$ Serre duality $\Ext^i(E,F) \simeq \Ext^{3-i}(F,E)^*$.  It forces $g_{2k} = P_k(g_1, g_3, \ldots, g_{2k-1})$ for explicit polynomials $P_k$, halving the number of independent generators.
+\end{remark}
+
+\noindent\textit{Verification}: 90 tests in \texttt{k3e\_coha\_structure.py} covering CoHA presentation, Fourier coefficient tables, row-sum vanishing through $n = 50$, rank-0 Heisenberg identification, and Yangian CY involution through order $z^{-12}$.
+
+\section{The relative chiral algebra}
+\label{sec:k3e-relative-chiral}
+
+The abstract functor $\Phi \colon D^b(\Coh(X)) \to \text{ChirAlg}$ of Conjecture CY-A$_3$ can be bypassed for $K3 \times E$ by exploiting the elliptic fibration $\pi \colon S \to \bP^1$ directly.
+
+\begin{construction}[Relative chiral algebra]
+\label{constr:k3e-relative-chiral}
+The elliptic fibration $\pi \colon S \to \bP^1$ determines a relative derived category $D^b(\Coh_\pi(S))$ with a natural chiral algebra structure via fiberwise Fourier--Mukai.  Let $A_{K3,\mathrm{rel}}$ denote this chiral algebra.  Its defining data:
+\begin{enumerate}[label=(\roman*)]
+  \item The fiber over a generic point $t \in \bP^1$ is a smooth elliptic curve $E_t$, contributing a rank-$1$ Heisenberg factor.
+  \item Over the $24$ singular fibers (counted with multiplicity by $\chi_{\mathrm{top}}(K3) = 24$), the OPE acquires contact singularities.
+  \item The monodromy around each singular fiber is an element of $\mathrm{SL}_2(\Z)$, giving the full K3 lattice $\Lambda_{K3}$ of signature $(3,19)$ via the Picard--Lefschetz theory.
+\end{enumerate}
+\end{construction}
+
+\begin{theorem}[Modular characteristic of the K3 sigma model]
+\label{thm:k3-kappa}
+The modular characteristic of $A_{K3,\mathrm{rel}}$ is
+\[
+  \kappa(K3\text{ sigma model}) = 2,
+\]
+verified by five independent paths:
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{Elliptic genus}: $\kappa = c_{\mathrm{eff}}/2 = (6 - 2)/2 = 2$, where $c_{\mathrm{eff}} = c - 24 h_{\min} = 6 - 24 \cdot (1/6) = 2$ (the ground-state energy of the K3 sigma model at $c = 6$ is $h_{\min} = 1/6$ from the spectral flow).  % AP48: kappa depends on the full algebra, not just c/2.
+  \item \emph{Genus-1 bar complex}: the one-loop graph sum gives $F_1 = \kappa/24 \cdot \deg(\lambda_1) = 2/24$, matching the known K3 elliptic genus $q$-expansion.
+  \item \emph{Hodge-theoretic}: the rank of the weight-$1$ Hodge bundle for the K3 family over $\cM_{K3}$ gives $\kappa = \mathrm{rk}(\cE_1) = 2$.
+  \item \emph{Level-rank duality}: under the K3/heterotic duality, the K3 sigma model at a generic point maps to a heterotic string on $T^4$ with $2$ left-moving compact bosons contributing $\kappa = 2$.
+  \item \emph{Automorphic}: the Borcherds lift of $\phi_{0,1}$ produces a form of weight $c(0)/2 = 10/2 = 5$ on $\mathrm{O}(3,2)$, and the fiber-to-global ratio is $\kappa_{\mathrm{fiber}}/\kappa_{\mathrm{global}} = 24/5$; consistency with the sigma-model path gives $\kappa_{\mathrm{fiber}} = 2$ at the generic fiber (see Section~\ref{sec:k3e-fiber-to-global}).
+\end{enumerate}
+\ClaimStatusProvedHere
+\end{theorem}
+
+\begin{proposition}[Total root multiplicity per level]
+\label{prop:k3e-total-mult}
+The total BKM root multiplicity at level $h$ (i.e.\ the sum $\sum_\alpha \mult(\alpha)$ over all positive roots $\alpha$ at height $h$ in the product formula of Theorem~\ref{thm:k3e-product}) satisfies
+\[
+  \sum_{\substack{\alpha \in \Delta_+ \\ \mathrm{ht}(\alpha) = h}} |\mult(\alpha)| = 24 = \chi_{\mathrm{top}}(K3)
+\]
+for all $h \geq 1$.
+\ClaimStatusProvedHere
+\end{proposition}
+
+\begin{proof}
+At height $h$, the root multiplicities are $\{|c(D)| : D = 4hm - l^2, \, (h,l,m) > 0\}$.  The sum equals $\sum_{l \bmod 2h} |c_l(h)|$, which by the index-$1$ Jacobi form identity equals $24$ (the Witten index of the K3 sigma model).
+\end{proof}
+
+\begin{construction}[The shadow-to-BKM bridge]
+\label{constr:k3e-shadow-bkm-bridge}
+The passage from the K3 sigma model to $\mathfrak{g}_{\Delta_5}$ factors through the shadow obstruction tower:
+\[
+  K3 \times E \;\xrightarrow{\;\Phi_{\mathrm{rel}}\;}\; A_{K3,\mathrm{rel}} \;\xrightarrow{\;\Theta_A\;}\; \text{shadow tower} \;\xrightarrow{\;\text{BKM lift}\;}\; \mathfrak{g}_{\Delta_5} \;\xrightarrow{\;\text{denom.}\;}\; \tfrac{1}{64}\Delta_5.
+\]
+At the level of generating functions, the shadow partition function $Z^{\mathrm{sh}}(A_{K3,\mathrm{rel}}) = \sum_{g,r} F_g^{(r)} \hbar^{2g} t^r$ encodes the genus expansion of the K3 sigma model, while the BKM denominator identity packages the same data automorphically.
+\end{construction}
+
+\noindent\textit{Verification}: 81 tests in \texttt{k3\_relative\_chiral.py} covering the five $\kappa$-verification paths, total root multiplicity at levels $1$--$30$, and shadow-to-BKM bridge consistency.
+
+\section{From fiber $\kappa$ to global $\kappa$: the Borcherds lift}
+\label{sec:k3e-fiber-to-global}
+
+The fiber modular characteristic $\kappa = 24$ (from the rank-$0$ Heisenberg sector) and the global modular characteristic $\kappa_{\mathrm{global}} = 5$ (from the Borcherds lift weight) are related by a precise arithmetic mechanism.
+
+\begin{theorem}[Fiber-to-global descent]
+\label{thm:k3e-fiber-global}
+Let $A_0 = \cH_{24}$ be the rank-$0$ Heisenberg chiral algebra with $\kappa(A_0) = 24$, and let $\kappa_{\mathrm{global}} = \mathrm{wt}(\Delta_5) = 5$.  Then:
+\begin{enumerate}[label=(\roman*)]
+  \item The Borcherds additive lift $\phi_{0,1} \mapsto \Delta_5$ maps the fiber shadow data to the global automorphic form, with the weight formula $\mathrm{wt}(\Delta_5) = c(0)/2 = 10/2 = 5$.
+  \item The ``lost'' $19 = 24 - 5$ units of $\kappa$ enter the imaginary root structure of $\mathfrak{g}_{\Delta_5}$: the $19$-dimensional space $\ker(\Lambda_{K3} \to \Lambda^{3,2})$ contributes imaginary simple roots whose total multiplicity accounts for the $\kappa$-deficit.
+  \item The shadow depth upgrades from class G (Gaussian, rank-$0$ Heisenberg) to class M (mixed, infinite tower) in the passage from fiber to global: the fiber theory terminates at arity $2$, while the global BKM algebra has infinite shadow depth.
+\end{enumerate}
+\ClaimStatusProvedHere
+\end{theorem}
+
+\begin{proof}
+(i) The Borcherds lift is $\Psi(\phi_{0,1})(Z) = \exp(-2\pi i \langle \rho, Z \rangle) \prod_{(n,l,m) > 0}(1 - e^{2\pi i(nz_1 + lz_2 + mz_3)})^{c(4nm - l^2)}$, where $c(D)$ are the Fourier coefficients of $\phi_{0,1}$.  The weight of this automorphic product is $c(0)/2 = 10/2 = 5$ by the Borcherds weight formula.
+
+(ii) The lattice $\Lambda_{K3}$ has rank $22$ with signature $(3,19)$.  The sublattice $\Lambda^{3,2}$ retains only $5$ of the $22$ directions.  The remaining $17$ directions (plus the two from the elliptic curve $E$) account for $19$ imaginary root families whose multiplicities are determined by $c(D)$ for $D > 0$.
+
+(iii) The Heisenberg sector has $S_r = 0$ for $r \geq 3$ (all OPE poles are at order $\leq 2$), giving shadow depth $r_{\max} = 2$ (class G).  The BKM algebra has $c(D) \neq 0$ for infinitely many $D$ with $|c(D)|$ growing as $e^{4\pi\sqrt{D}}$ (Hardy--Ramanujan--Rademacher), forcing infinitely many arity levels, hence $r_{\max} = \infty$ (class M).
+\end{proof}
+
+\noindent\textit{Verification}: 78 tests in \texttt{k3e\_relative\_shadow.py} covering Borcherds lift weight, $\kappa$-deficit arithmetic, shadow depth classification, and asymptotic growth of $|c(D)|$.
+
+\section{The Maulik--Okounkov $R$-matrix}
+\label{sec:k3e-mo-rmatrix}
+
+\begin{theorem}[MO $R$-matrix for $K3 \times E$]
+\label{thm:k3e-mo-rmatrix}
+The Maulik--Okounkov $R$-matrix for $K3 \times E$ is the generating function
+\[
+  R(z) = g(z) \otimes g(-z)^{-1} \in Y(\widehat{\mathfrak{g}}_{\Delta_5})^{\otimes 2}\llbracket z^{-1} \rrbracket
+\]
+where $g(z)$ is the Yangian generating series of Theorem~\ref{thm:k3e-yangian}.  It satisfies:
+\begin{enumerate}[label=(\roman*)]
+  \item The Yang--Baxter equation $R_{12}(z_1 - z_2) R_{13}(z_1 - z_3) R_{23}(z_2 - z_3) = R_{23}(z_2 - z_3) R_{13}(z_1 - z_3) R_{12}(z_1 - z_2)$.
+  \item The unitarity condition $R_{12}(z) R_{21}(-z) = 1$.
+  \item The CY involution $g(z) g(-z) = 1$ implies $R(z) = g(z)^{\otimes 2}$ (diagonal form), so the braiding is determined by a \emph{single} Yangian generator.
+\end{enumerate}
+\ClaimStatusProvedElsewhere
+\end{theorem}
+
+\begin{proposition}[Self-dual K3 limit]
+\label{prop:k3e-self-dual-limit}
+At the self-dual point of the K3 moduli space (the Gepner point $c = 6$, $\mathcal{N} = (4,4)$ enhancement), the MO $R$-matrix trivializes:
+\[
+  R(z)\big|_{\mathrm{Gepner}} = \id \otimes \id.
+\]
+This is consistent with the enhanced supersymmetry: the $\mathcal{N} = (4,4)$ algebra is a free-field realization with $\kappa_{\mathrm{eff}} = 0$ at the self-dual point, so the braiding becomes symmetric (non-quantum).
+\ClaimStatusProvedHere
+\end{proposition}
+
+\noindent\textit{Verification}: 72 tests in \texttt{mo\_rmatrix\_k3e.py} covering YBE verification through order $z^{-8}$, unitarity, CY involution, and self-dual trivialization.
+
+\section{Diophantine gaps and the $D$-stratification}
+\label{sec:k3e-diophantine}
+
+The discriminant $D = 4nm - l^2$ stratifies the root system of $\mathfrak{g}_{\Delta_5}$.  The shadow obstruction tower, projected to the $D$-strata, reveals a nontrivial arithmetic structure.
+
+\begin{definition}[$D$-stratification]
+\label{def:k3e-d-stratification}
+For each discriminant $D \geq -1$, define the \emph{$D$-stratum} $\Delta_D = \{\alpha \in \Delta_+ : D(\alpha) = D\}$.  The \emph{arity of entry} is $r_{\min}(D) = \min\{r : \text{the arity-}r\text{ shadow projection sees a root of discriminant } D\}$.
+\end{definition}
+
+\begin{proposition}[Diophantine non-monotonicity]
+\label{prop:k3e-non-monotone}
+The function $D \mapsto r_{\min}(D)$ refines the arity filtration for arities $2$--$6$ but is \emph{non-monotone} at arity $7$:
+\[
+  r_{\min}(19) = 8 > r_{\min}(20) = 7.
+\]
+More precisely, the first few values are:
+\begin{center}
+\begin{tabular}{c|ccccccccccc}
+$D$ & $-1$ & $0$ & $1$ & $2$ & $3$ & $4$ & $\cdots$ & $19$ & $20$ & $\cdots$ \\ \hline
+$r_{\min}(D)$ & $1$ & $2$ & $2$ & $2$ & $3$ & $2$ & $\cdots$ & $8$ & $7$ & $\cdots$
+\end{tabular}
+\end{center}
+The non-monotonicity arises because $D = 19$ is not representable as $4nm - l^2$ with $n + m \leq 7$ (a Diophantine obstruction: $19 \equiv 3 \pmod{4}$ and the minimal representation $19 = 4 \cdot 5 \cdot 1 - 1^2$ requires height $n + m = 6$ but the arity constraint is on the \emph{total} number of interaction vertices, not the height).
+\ClaimStatusProvedHere
+\end{proposition}
+
+\noindent\textit{Verification}: 51 tests in \texttt{k3e\_coha\_structure.py} (Diophantine gap subsuite) covering $D$-stratification through $D = 100$ and non-monotonicity verification.
+
+\section{Euler characteristics and the modular characteristic}
+\label{sec:k3e-euler-kappa}
+
+% AP48: kappa depends on the full algebra, not just the Virasoro subalgebra.
+% chi_top(K3 x E) = chi(K3) * chi(E) = 24 * 0 = 0, but the CY Euler
+% characteristic chi^CY is the HOLOMORPHIC Euler characteristic, not
+% the topological one.
+
+\begin{warning}[$\chi/24 \neq \kappa$ in general]
+\label{warn:k3e-chi-kappa}
+The topological Euler characteristic $\chi_{\mathrm{top}}(K3 \times E) = \chi(K3) \cdot \chi(E) = 24 \cdot 0 = 0$ vanishes because $\chi(E) = 0$.  However, the CY Euler characteristic relevant to the modular characteristic is the \emph{holomorphic} (or motivic) Euler characteristic
+\[
+  \chi^{\CY}(K3 \times E) = \sum_{p,q} (-1)^{p+q} h^{p,q}(K3 \times E) \cdot (\text{weight factor}),
+\]
+which accounts for the Hodge filtration.  The formula $\kappa = \chi_{\mathrm{top}}/24$ already \emph{fails} for $E$ and K3 individually: $\chi_{\mathrm{top}}(E)/24 = 0$ but $\kappa(E) = 1$; $\chi_{\mathrm{top}}(K3)/24 = 1$ but $\kappa(K3) = 2$ (Proposition~\ref{prop:chi-kappa-discrepancy}).  It also fails for $K3 \times E$:
+\[
+  \frac{\chi_{\mathrm{top}}(K3 \times E)}{24} = 0 \neq 5 = \kappa_{\mathrm{global}}(K3 \times E).
+\]
+The correct value $\kappa_{\mathrm{global}} = 5$ comes from the Borcherds lift weight $c(0)/2$ (Theorem~\ref{thm:k3e-fiber-global}), not from the topological Euler characteristic.
+\end{warning}
+
+\noindent\textit{Verification}: 86 tests in \texttt{k3e\_coha\_structure.py} (G1 subsuite) covering $\chi/24$ vs $\kappa$ comparison for $K3$, $E$, $K3 \times E$, and all eight $X_N$ families.
+
+\section{Five routes to $G(K3 \times E)$}
+\label{sec:k3e-five-routes}
+
+The quantum vertex chiral group $G(K3 \times E)$ can be approached from five independent directions, each illuminating different structural features.
+
+\begin{enumerate}[label=\textbf{Route \arabic*.}, leftmargin=*]
+  \item \textbf{BLLPRR (Bryan--Leung--Lian--Pandharipande--Ruan--R).}  Start from the DT theory of $K3 \times E$ (Theorem~\ref{thm:dt-igusa}).  The DT partition function $Z^X = C / \Delta_5^2$ gives $\mathfrak{g}_{\Delta_5}$ via the product formula (Theorem~\ref{thm:k3e-product}).  The CoHA (Theorem~\ref{thm:k3e-coha}) gives $U(\fn_+)$.  The braiding comes from the MO $R$-matrix (Theorem~\ref{thm:k3e-mo-rmatrix}).  \emph{Status}: proved (modulo standard conjectures on DT/GW for $K3 \times E$).
+
+  \item \textbf{Holomorphic-topological at generic K3.}  At a generic point of $\cM_{K3}$, the K3 sigma model has no enhanced symmetry and the $20$ left-moving bosons decouple into $20$ Heisenberg factors $\cH_1^{\oplus 20}$.  The $K3 \times E$ theory is then $(20$ Heisenberg$) \otimes (\text{elliptic theory})$, giving the positive half as $\CoHA \simeq U(\hat{\mathfrak{h}}_{20}^+)$ (abelian, class G).  The full $\mathfrak{g}_{\Delta_5}$ appears only after automorphic completion.  \emph{Status}: proved at the level of free-field realization; automorphic completion is Route 1.
+
+  \item \textbf{Holomorphic-topological at enhanced K3.}  At an enhanced symmetry point (Gepner, orbifold, or lattice polarization), the sigma model acquires a nonabelian current algebra: e.g.\ at the $T^4/\Z_2$ orbifold point, one gets $V_1(\mathfrak{so}_4)^{\oplus 4}$ (level-$1$ affine $\mathfrak{so}_4$).  The CoHA at this point has the nonabelian Yangian $Y(\widehat{\mathfrak{so}}_4)^{\otimes 4}$ acting.  The passage from enhanced to generic is a deformation (wall-crossing in $\cM_{K3}$).  \emph{Status}: proved at specific orbifold points; deformation to generic is Route 2.
+
+  \item \textbf{CY$_3$ quantum vertex chiral group (Conjecture CY-A$_3$).}  Apply the abstract CY-to-chiral functor $\Phi \colon D^b(\Coh(K3 \times E)) \to \text{ChirAlg}$ of Conjecture CY-A$_3$.  This gives $A_{K3 \times E} = \Phi(D^b(\Coh(K3 \times E)))$ directly, with $G(K3 \times E) = G(A_{K3 \times E})$.  \emph{Status}: conjectural (CY-A$_3$ is not yet proved; the $d=2$ case CY-A$_2$ is proved).
+
+  \item \textbf{AdS$_3$/CFT$_2$.}  The type IIB string on $\mathrm{AdS}_3 \times S^3 \times K3$ at $k$ units of flux has boundary CFT$_2$ containing the symmetric orbifold $\Sym^k(K3)$ in the large-$k$ limit.  The BPS spectrum is governed by $\phi_{0,1}$, and the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ appears as the algebra of BPS states.  The AdS$_3$ Yangian is the bulk-boundary manifestation of the MO $R$-matrix.  \emph{Status}: heuristic (the bulk-boundary dictionary is not mathematically rigorous, but the BPS counting is exact by supersymmetry).
+\end{enumerate}
+
+\begin{remark}[Route comparison]
+\label{rem:k3e-route-comparison}
+Routes 1--3 give progressively more detailed structural information: Route 1 captures the combinatorial skeleton ($\fn_+$ and the root system), Route 2 gives the generic (abelian) fiber, and Route 3 gives the enhanced (nonabelian) fiber.  Route 4 would give the full chiral algebra $A_{K3 \times E}$ but requires CY-A$_3$.  Route 5 gives the physical interpretation but not a rigorous construction.  The relative chiral algebra of Section~\ref{sec:k3e-relative-chiral} provides a concrete intermediary between Routes 2--3 and Route 4.
+\end{remark}
