@@ -26,7 +26,7 @@
 
 ![Proved](https://img.shields.io/badge/proved-CY--A₂%20%2B%20lattice%20%2B%20CoHA%20%2B%20Drinfeld%20center-3fb950?style=flat-square&labelColor=0d1117)
 ![Conjectural](https://img.shields.io/badge/conjectural-CY--A₃%20%2B%20CY--C%20%2B%20Langlands%3DKoszul-d29922?style=flat-square&labelColor=0d1117)
-![Verified](https://img.shields.io/badge/computationally%20verified-arities%202--6%20%7C%201600%2B%20tests-58a6ff?style=flat-square&labelColor=0d1117)
+![Verified](https://img.shields.io/badge/BKM%20side%20verified-Borcherds%20product%20%2B%20root%20multiplicities%20%7C%20271%20tests-58a6ff?style=flat-square&labelColor=0d1117)
 
 <br>
 
@@ -293,7 +293,7 @@ The identification requires a **chiral algebra** A<sub>X</sub> as input. For CY<
 
 $$\Phi_X(z) \;=\; e^{-2\pi i\langle\rho,z\rangle} \prod_{\alpha \in \Delta_+} \bigl(1 - e^{-2\pi i\langle\alpha,z\rangle}\bigr)^{\mathrm{mult}(\alpha)}$$
 
-For K3 &times; E, this is the **Igusa cusp form &Delta;<sub>5</sub>** with root multiplicities from the K3 elliptic genus &phi;<sub>0,1</sub>. The arity-by-arity matching has been computationally verified at arities 2&ndash;6 (271 dedicated BKM tests), but the identification is an **observation about matching formulas**, not a theorem derived from the bar complex of a specific chiral algebra (which does not yet exist for K3 &times; E).
+For K3 &times; E, this is the **Igusa cusp form &Delta;<sub>5</sub>** with root multiplicities from the K3 elliptic genus &phi;<sub>0,1</sub>. The BKM side is computationally verified (271 tests: Borcherds product, root multiplicities from &phi;<sub>0,1</sub>, DMVV formula, lattice geometry). The shadow tower side **cannot be verified** because the chiral algebra A<sub>K3&times;E</sub> does not exist&hairsp;&mdash;&hairsp;without it, there is no bar complex and hence no shadow obstruction tower. The "arity decomposition" refers to the Siegel discriminant stratification of BKM roots, which is structurally analogous to the Vol&nbsp;I arity filtration, but this analogy lives entirely on the BKM side.
 
 <br>
 
@@ -356,7 +356,7 @@ The volume has a clear two-stratum structure: a proved core concentrated at CY d
 | **CoHA = E<sub>1</sub>-sector** | For toric CY3 (Schiffmann-Vasserot, Rapcak-Soibelman-Yang-Zhao) | Literature |
 | **Drinfeld center** | Z(Rep<sup>E<sub>1</sub></sup>(A)) &simeq; Rep<sup>E<sub>2</sub></sup>(Z<sup>der</sup><sub>ch</sub>(A)) | Ben-Zvi-Francis-Nadler, Lurie |
 | **Lattice &amp; BKM for K3 &times; E** | Full &Lambda;<sup>3,2</sup> construction, Weyl vector, root multiplicities | Gritsenko-Nikulin |
-| **Shadow obstruction tower verification** | Arity decomposition computationally verified arities 2&ndash;6, 1,600+ tests | This volume (compute) |
+| **BKM root structure** | Discriminant stratification of root multiplicities verified; structural analogy with Vol&nbsp;I arity filtration observed (but shadow tower itself requires A<sub>X</sub>, which does not exist for CY<sub>3</sub>) | This volume (compute) |
 | **Kazhdan-Lusztig** | E<sub>2</sub>-chiral interpretation of KL equivalence at level 1 | This volume |
 | **Borcherds product** | &Delta;<sub>5</sub> via theta constants, verified to 58 decimal digits | This volume (compute) |
 | **Scattering diagram** | KS consistency, GPS tropical vertex, wall structure | This volume (compute) |
@@ -499,7 +499,7 @@ chi/24 = -25/3  (not integer: obstruction to naive BKM structure)
 | `topological_vertex` | AKMV vertex, Schur functions, local P<sup>2</sup> | 151 |
 | `igusa_product_formula` | &Delta;<sub>5</sub> via theta constants, Borcherds product (25&ndash;58 digit precision) | 79 |
 | `affine_yangian_gl1` | Structure function g(z), mode algebra, crystal melting | 81 |
-| `bkm_shadow_tower` | Shadow obstruction tower projections, arity decomposition (verified arities 2&ndash;6) | 67 |
+| `bkm_shadow_tower` | BKM root discriminant stratification (structural analogy with Vol&nbsp;I arity filtration) | 67 |
 | `elliptic_hall` | E<sub>q,t</sub> Drinfeld presentation, Macdonald representation | 78 |
 | `cy_euler` | Hodge diamonds, CY Euler characteristics, &kappa; identification | 85 |
 | `wkb_denominator` | Weyl-Kac-Borcherds denominator identity (sum/product agreement) | 54 |
@@ -518,7 +518,7 @@ chi/24 = -25/3  (not integer: obstruction to naive BKM structure)
 
 ## Key Computational Results
 
-**The closed loop** (computationally verified &mdash; note: the final identification with the shadow obstruction tower is a pattern match, not a derivation from a chiral algebra):
+**The closed loop** (the BKM side is fully verified; the final line is a structural analogy, not a computation&hairsp;&mdash;&hairsp;no shadow tower exists without A<sub>K3&times;E</sub>):
 
 ```
 K3 geometry  -->  VW invariants  -->  DMVV formula  -->  phi_{0,1} coefficients
@@ -527,7 +527,12 @@ K3 geometry  -->  VW invariants  -->  DMVV formula  -->  phi_{0,1} coefficients
      +--  DT partition function  <--  Delta_5  <--  Borcherds product
                                         |
                                         v
-                                  BKM root multiplicities  ≅?  shadow obstruction tower
+                                  BKM root multiplicities
+                                        |
+                                   (structural analogy, not computation)
+                                        |
+                                        v
+                                  shadow obstruction tower  (requires A_{K3xE})
 ```
 
 **The Borcherds product sign**: resolved to 58 decimal digits. The ratio is exactly &minus;1, traced to the unique odd simple root &delta;<sub>3</sub> = f<sub>3</sub> (the fermionic root with discriminant D = &minus;1).
