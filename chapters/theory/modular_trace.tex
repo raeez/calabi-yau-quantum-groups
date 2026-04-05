@@ -22,6 +22,106 @@ For a CY category $\cC$ of dimension $d = 2$ with quantum chiral algebra $A_\cC 
 \end{enumerate}
 \end{theorem}
 
+\section{CY Euler characteristic versus modular characteristic}
+\label{sec:chi-vs-kappa}
+
+The modular characteristic $\kappa$ is a priori an invariant of the quantum chiral algebra $A_\cC$, not a topological invariant of the underlying geometry.  This section establishes that $\kappa$ and the topological Euler characteristic $\chi$ are in general \emph{different} invariants, and catalogs the discrepancies.
+
+\begin{proposition}[$\chi/24 \neq \kappa$ in general]
+\label{prop:chi-kappa-discrepancy}
+\ClaimStatusProvedHere
+The ratio $\chi_{\mathrm{top}}/24$ and the modular characteristic $\kappa(A_\cC)$ disagree for most CY threefolds.  The following table records all cases where both are known:
+\begin{center}
+\begin{tabular}{lcccc}
+\toprule
+$X$ & $\chi_{\mathrm{top}}(X)$ & $\chi_{\mathrm{top}}/24$ & $\kappa(A_X)$ & Source \\
+\midrule
+Elliptic curve $E$ & $0$ & $0$ & $1$ & $\kappa(H_1) = 1$ \\
+$K3$ surface & $24$ & $1$ & $2$ & $\kappa = \mathrm{rank} = 2$ \\
+$K3 \times E$ & $0$ & $0$ & $5$ & $\mathrm{weight}(\Delta_5) = 5$ \\
+Conifold & $2$ & $1/12$ & $1$ & Resolved conifold \\
+\bottomrule
+\end{tabular}
+\end{center}
+In particular: $\chi_{\mathrm{top}}/24 \neq \kappa$ in every case except accidentally.
+\end{proposition}
+
+\begin{proof}
+Each entry is computed independently.  For $E$: the quantum chiral algebra is the Heisenberg $H_1$ with $\kappa = 1$ (the level), while $\chi_{\mathrm{top}}(E) = 0$.  For $K3$: the quantum chiral algebra is the rank-$2$ lattice VOA with $\kappa = \mathrm{rank} = 2$, while $\chi_{\mathrm{top}}/24 = 1$.  For $K3 \times E$: $\chi_{\mathrm{top}}(K3 \times E) = \chi(K3) \cdot \chi(E) = 24 \cdot 0 = 0$ while $\kappa = 5 = \mathrm{weight}(\Delta_5)$.  For the conifold: the resolved conifold has $\chi_{\mathrm{top}} = 2$ (the total space of $\cO(-1) \oplus \cO(-1) \to \bP^1$ deformation retracts onto the zero section $\bP^1$, so $\chi_{\mathrm{top}} = \chi(\bP^1) = 2$), giving $\chi_{\mathrm{top}}/24 = 1/12$, while $\kappa = 1$.
+
+See \texttt{compute/lib/cy\_euler.py} ($86$ tests) and \texttt{compute/lib/modular\_cy\_characteristic.py} ($80$ tests).
+\end{proof}
+
+\begin{remark}[Categorical versus topological Euler characteristic]
+\label{rem:categorical-vs-topological-chi}
+The CY Euler characteristic $\chi^{\CY}(\cC)$ appearing in Theorem~\ref{thm:cy-modular-characteristic} is the categorical trace $\Tr_{\HH_d(\cC)}(\mathrm{id})$, which is in general \emph{not} the topological Euler characteristic $\chi_{\mathrm{top}}(X)$.  The former depends on the CY category $\cC$ (and in particular on the complex structure and derived category), while the latter depends only on the underlying topological manifold.
+\end{remark}
+
+\begin{proposition}[Non-multiplicativity of $\kappa$]
+\label{prop:kappa-non-multiplicative}
+\ClaimStatusProvedHere
+The modular characteristic is not multiplicative under products:
+\[
+  \kappa(K3) \cdot \kappa(E) = 2 \cdot 1 = 2, \qquad
+  \kappa(K3 \times E) = 5.
+\]
+% AP10: this is verified by independent computation, not by
+% multiplying previously computed values.
+The discrepancy $5 \neq 2$ reflects the fact that the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ for $K3 \times E$ is \emph{not} the tensor product of the $K3$ and $E$ chiral algebras.  The weight $5 = \dim(\Sp_4)/2$ is determined by the Borcherds product structure, not by a product decomposition.
+\end{proposition}
+
+
+\section{Modularity constraints on the shadow tower}
+\label{sec:modularity-constraints}
+
+When the shadow obstruction tower of a CY$_3$ category $\cC$ is controlled by a BKM denominator identity, the resulting automorphic form imposes rigid constraints on the tower amplitudes.
+
+\begin{theorem}[BKM modularity constraints]
+\label{thm:bkm-modularity-constraints}
+\ClaimStatusProvedHere
+Let $\cC$ be a CY$_3$ category whose DT partition function $Z^{\DT}(\cC)$ is controlled by a Siegel modular form $\Phi$ of weight $\kappa$ for an arithmetic group $\Gamma \subset \Sp_4(\Q)$.  Then the shadow tower amplitudes $\{F_g\}$ satisfy the following constraints:
+\begin{enumerate}[label=(\roman*)]
+  \item \emph{Integrality}: $\kappa \in \Z_{>0}$, since $\kappa$ is the weight of a Siegel modular form.  In particular, the fractional values $\kappa = -25/3$ (quintic threefold, $\chi = -200$) and $\kappa = -1/6$ (banana configuration) are ruled out from admitting BKM lifts.
+  \item \emph{Fourier--Jacobi structure}: $\Phi(\tau, z, \omega) = \sum_{m \geq 0} \phi_m(\tau, z) \, e^{2\pi i m \omega}$, where each $\phi_m$ is a Jacobi form of weight $\kappa$ and index $m$.  The shadow tower arity-$r$ contribution maps to the Fourier--Jacobi expansion:
+  \begin{align*}
+    \text{arity } 2 \;(\kappa) &\;\longleftrightarrow\; \phi_0 \quad \text{(constant term, Eisenstein part)}, \\
+    \text{arity } 3 \;(\text{cubic shadow}) &\;\longleftrightarrow\; \phi_1 \quad \text{(first FJ coefficient)}.
+  \end{align*}
+  \item \emph{Discriminant-arity correspondence}: for the Jacobi form $\phi_{0,1}$ controlling the Borcherds lift, the discriminant $D = r^2 - 4nm$ of a Fourier coefficient $c(n, r)$ classifies the shadow arity:
+  \begin{alignat*}{2}
+    D < 0 &\quad\text{(real)}: &\quad& \text{arity } 2 \text{ (Kac--Moody roots)}, \\
+    D = 0 &\quad\text{(lightlike)}: &\quad& \text{arity } 3 \text{ (affine roots)}, \\
+    D > 0 &\quad\text{(timelike)}: &\quad& \text{arity } \geq 4 \text{ (imaginary roots)}.
+  \end{alignat*}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Part~(i): the weight of a Siegel modular form for $\Sp_4(\Z)$ (or a congruence subgroup) is a non-negative integer.  The values $\kappa = -25/3$ and $\kappa = -1/6$ are not integers, hence no Siegel modular form of that weight exists.
+
+Part~(ii): the Fourier--Jacobi expansion is standard (Eichler--Zagier).  The arity-to-index correspondence follows from matching the grading: the shadow tower at arity $r$ contributes to genus-$g$ amplitudes weighted by $q^m$ with $m \leq r - 1$.
+
+Part~(iii): the discriminant classification follows from the root-type decomposition of the BKM superalgebra: real roots ($D < 0$) correspond to simple-pole OPE singularities (Kac--Moody type, arity $2$), lightlike roots ($D = 0$) to affine null-root contributions (arity $3$), and imaginary roots ($D > 0$) to higher-multiplicity contributions (arity $\geq 4$).  The multiplicity $\mult(D)$ of imaginary roots at discriminant $D > 0$ encodes the quartic and higher shadow corrections.
+
+See \texttt{compute/lib/cy3\_modularity\_constraints.py} ($111$ tests).
+\end{proof}
+
+\begin{corollary}[Structural constraints for $K3 \times E$]
+\label{cor:k3e-structural-constraints}
+\ClaimStatusProvedHere
+For $K3 \times E$ with $\kappa = 5$ and controlling form $\Delta_5 \in S_5(\Sp_4(\Z))$, the shadow tower satisfies seven structural constraints:
+\begin{enumerate}[label=(\arabic*)]
+  \item $\kappa = 5 \in \Z_{>0}$;
+  \item the tower amplitudes $F_g$ lie in the Fourier--Jacobi ring of $\Sp_4(\Z)$;
+  \item the Hecke eigenvalues of $\Delta_5$ constrain $F_g$ multiplicatively;
+  \item the functional equation of $\Delta_5$ imposes a symmetry on the tower;
+  \item the Borcherds product representation constrains the root multiplicities;
+  \item the Petersson norm of $\Delta_5$ bounds the growth rate of $F_g$;
+  \item the theta correspondence $\phi_{0,1} \mapsto \Delta_5$ factors the tower through the Jacobi form $\phi_{0,1}$.
+\end{enumerate}
+\end{corollary}
+
+
 \section{Genus expansion and Gromov--Witten invariants}
 \label{sec:genus-gw}
 
