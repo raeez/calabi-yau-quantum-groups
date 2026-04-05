@@ -111,7 +111,7 @@ C^4:  HH_0 = H*(C^4, O) = C (1-dim)
       Total dim HH = 16 = 2^4.
 
 K3 x K3:  CY4 with h^{p,q} from Kunneth.
-      h^{0,0} = 1, h^{1,1} = 44, h^{2,0} = 2, h^{0,2} = 2, h^{2,2} = 442, etc.
+      h^{0,0} = 1, h^{1,1} = 40, h^{2,0} = 2, h^{0,2} = 2, h^{2,2} = 404, etc.
       chi(K3 x K3) = chi(K3)^2 = 24^2 = 576.
 
 Sextic in P^5: Complete intersection CY4.

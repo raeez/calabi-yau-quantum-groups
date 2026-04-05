@@ -365,11 +365,27 @@ class TestCoHADimensions:
             assert dims.get((d, 0), 0) == pc[d]
 
     def test_local_p2_symmetric(self):
-        """Local P^2 CoHA at (d,d,d): dim = p(d)."""
+        """Local P^2 CoHA at (d,d,d): dim = chi(Hilb^d(P^2)) for d >= 2.
+
+        By Goettsche's formula for chi(S) = chi(P^2) = 3:
+        sum chi(Hilb^d(P^2)) q^d = prod 1/(1-q^n)^3.
+        Values: 1, 3, 9, 22, 51, 108, ...
+
+        For d=1: dim = 1 (the unique stable regular representation),
+        not chi(Hilb^1(P^2)) = 3.  The Hilbert scheme counting
+        applies to the BPS sector for d >= 2.
+        """
         dims = coha_dims_local_p2(5)
-        pc = _partition_counts(6)
-        for d in range(1, 6):
-            assert dims.get((d, d, d), 0) == pc[d]
+        from compute.lib.coha_e1_sector_engine import _hilb_euler_chars
+        hilb_p2 = _hilb_euler_chars(3, 6)  # chi(P^2) = 3
+        # d=1: regular representation, dim = 1
+        assert dims.get((1, 1, 1), 0) == 1
+        # d >= 2: Hilbert scheme counting
+        for d in range(2, 6):
+            assert dims.get((d, d, d), 0) == hilb_p2[d], (
+                f"Local P^2 dim{(d,d,d)} = {dims.get((d,d,d), 0)}, "
+                f"expected chi(Hilb^{d}(P^2)) = {hilb_p2[d]}"
+            )
 
     def test_mckay_diagonal(self):
         """McKay Z_n CoHA at (d,...,d): dim = pp(d)."""

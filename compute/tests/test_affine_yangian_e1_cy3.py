@@ -139,7 +139,7 @@ class TestRMatrixMultipleParametrizations:
         (Fraction(1), Fraction(-2), Fraction(-2)),
         (Fraction(1), Fraction(-3), Fraction(-6)),
         (Fraction(2), Fraction(3), Fraction(-30)),
-        (Fraction(1, 2), Fraction(1, 3), Fraction(5, 36)),
+        (Fraction(1, 2), Fraction(1, 3), Fraction(-5, 36)),
     ])
     def test_phi_3_across_params(self, h1, h2, expected_sigma3):
         """phi_3 = -2*sigma_3 for various (h1, h2)."""

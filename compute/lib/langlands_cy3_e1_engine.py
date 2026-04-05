@@ -1,6 +1,16 @@
 r"""CY3/Langlands bridge via E₁ Koszul duality.
 
-THESIS: Geometric Langlands = E₁ Koszul duality of CY3 chiral algebras.
+# AP42 WARNING: The identification "Geometric Langlands = E₁ Koszul duality"
+# is a CONJECTURAL THESIS, not a proved theorem. It holds at the level of
+# matching algebraic structures (FF duality = self-duality at critical level,
+# CoHA = Yangian, oper = Hitchin) but the full categorical equivalence
+# D-mod(Bun_G) ≃ QCoh(LocSys_{G^∨}) via E₁ bar complexes is NOT proved.
+# The numerical checks in this module verify NECESSARY CONDITIONS for the
+# conjecture (κ vanishing, FF fixed point, R-matrix structure), not the
+# conjecture itself. See AP42: correct at sophisticated level, false at naive
+# level.
+
+CONJECTURAL THESIS: Geometric Langlands = E₁ Koszul duality of CY3 chiral algebras.
 
 For a reductive group G and its Langlands dual G^∨, the geometric Langlands
 correspondence is an equivalence
@@ -36,7 +46,7 @@ MAIN CONSTRUCTION
 4. E₁ Koszul dual: A^{!,E₁}_{CY3(G)} = A_{CY3(G^∨)}
    - For GL(N): self-dual, so A^{!,E₁} = ĝl_N at the DUAL critical level
    - The Feigin-Frenkel involution k ↦ -k - 2h^∨ maps critical to critical
-   - LANGLANDS DUALITY = E₁ KOSZUL DUALITY in the CY3 setting
+   - LANGLANDS DUALITY = E₁ KOSZUL DUALITY in the CY3 setting (CONJECTURAL)
 
 5. For GL(2): CY3 = T*P¹ = RESOLVED CONIFOLD
    - A_{conifold} = ĝl₂ at k = -2 (critical level)
@@ -503,7 +513,7 @@ class KoszulDualData(NamedTuple):
 def e1_koszul_dual_gln(N: int, k: Optional[Fraction] = None) -> KoszulDualData:
     r"""E₁ Koszul dual of A_{CY3(GL(N))} = Langlands dual algebra.
 
-    THE MAIN THEOREM:
+    CONJECTURAL IDENTIFICATION:
         A_{CY3(G)}^{!,E₁} = A_{CY3(G^∨)}
 
     For G = GL(N): G^∨ = GL(N) (self-dual). The Koszul dual of
@@ -544,7 +554,7 @@ def e1_koszul_dual_gln(N: int, k: Optional[Fraction] = None) -> KoszulDualData:
         f"At the critical level k = {critical_level_gln(N)}, "
         f"the E₁ Koszul dual equals the original algebra "
         f"(FF duality fixed point). "
-        f"Geometric Langlands = E₁ Koszul duality of CY3 chiral algebras."
+        f"Geometric Langlands = E₁ Koszul duality of CY3 chiral algebras (conjectural)."
     )
 
     return KoszulDualData(
@@ -1440,8 +1450,8 @@ def cy3_langlands_bridge(N: int) -> Dict[str, Any]:
       8. Hitchin system
       9. Categorical Langlands
 
-    The bridge asserts:
-        GEOMETRIC LANGLANDS = E₁ KOSZUL DUALITY OF CY3 CHIRAL ALGEBRAS
+    The bridge tests necessary conditions for the conjectural identification:
+        GEOMETRIC LANGLANDS = E₁ KOSZUL DUALITY OF CY3 CHIRAL ALGEBRAS (CONJECTURAL)
 
     Concretely for GL(N):
       - CY3 = T*[P^{N-1}]

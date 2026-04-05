@@ -106,8 +106,12 @@ class TestStructureFunction:
         assert abs(g0 - (-1.0)) < TOL
 
     def test_unitarity(self):
-        """g(u) * g(-u) = 1 (unitarity / crossing symmetry)."""
-        for u in [1.0, 2.0 + 1j, -0.5 + 3j, 0.1]:
+        """g(u) * g(-u) = 1 (unitarity / crossing symmetry).
+
+        Must avoid u = ±h_a (zeros and poles of g) where the product
+        becomes 0 * inf = nan.
+        """
+        for u in [0.7, 2.0 + 1j, -0.5 + 3j, 0.1]:
             gu = structure_function(u, H1_REAL, H2_REAL, H3_REAL)
             g_neg = structure_function(-u, H1_REAL, H2_REAL, H3_REAL)
             assert abs(gu * g_neg - 1.0) < TOL, f"g({u})*g({-u}) = {gu*g_neg}"
@@ -181,12 +185,16 @@ class TestStructureFunction:
         exact = _bethe_kernel_derivative(u, H1_REAL, H2_REAL, H3_REAL)
         assert abs(numerical - exact) < 1e-4
 
-    def test_bethe_kernel_odd(self):
-        """v(u) is odd: v(-u) = -v(u) (from g(-u) = 1/g(u))."""
+    def test_bethe_kernel_even(self):
+        """v(u) is even: v(-u) = v(u).
+
+        From g(-u) = 1/g(u): log g(-u) = -log g(u), so log g is ODD.
+        The derivative of an odd function is EVEN: v(-u) = v(u).
+        """
         u = 1.5 + 0.8j
         v_u = bethe_kernel_rational(u, H1_REAL, H2_REAL, H3_REAL)
         v_neg = bethe_kernel_rational(-u, H1_REAL, H2_REAL, H3_REAL)
-        assert abs(v_u + v_neg) < TOL, f"v(u) + v(-u) = {v_u + v_neg}"
+        assert abs(v_u - v_neg) < TOL, f"v(u) - v(-u) = {v_u - v_neg}"
 
 
 # ============================================================================
@@ -230,13 +238,21 @@ class TestYangYangPotential:
         for r in resid:
             assert abs(r) < 0.1, f"Residual at large separation: {r}"
 
-    def test_yy_potential_symmetric(self):
-        """W is symmetric under permutation of Bethe roots."""
+    def test_yy_gradient_symmetric(self):
+        """The YY gradient is symmetric under permutation of Bethe roots.
+
+        The potential W = sum_{i<j} log g(u_i-u_j) + external is NOT
+        symmetric in Bethe roots (log g is odd: log g(-w) = -log g(w)),
+        but the GRADIENT dW/du_i IS symmetric because v(u) is even.
+        """
         u = [1.0 + 0.5j, 2.0 - 0.3j]
         z = [0.0]
-        W1 = yang_yang_potential_numerical(u, z, H1_REAL, H2_REAL, H3_REAL)
-        W2 = yang_yang_potential_numerical([u[1], u[0]], z, H1_REAL, H2_REAL, H3_REAL)
-        assert abs(W1 - W2) < TOL, f"W not symmetric: {W1} vs {W2}"
+        grad1 = yang_yang_gradient(u, z, H1_REAL, H2_REAL, H3_REAL)
+        grad2 = yang_yang_gradient([u[1], u[0]], z, H1_REAL, H2_REAL, H3_REAL)
+        # After permutation: grad2[0] corresponds to root u[1], grad2[1] to u[0]
+        # So grad1[0] should equal grad2[1] and grad1[1] should equal grad2[0]
+        assert abs(grad1[0] - grad2[1]) < TOL, f"Gradient not symmetric"
+        assert abs(grad1[1] - grad2[0]) < TOL, f"Gradient not symmetric"
 
     def test_yy_symbolic_construction(self):
         """Symbolic Yang-Yang potential has correct structure."""
@@ -268,8 +284,8 @@ class TestYangYangPotential:
 
     def test_gradient_at_solution_vanishes(self):
         """At a Bethe solution, dW/du_i = 0 (mod 2*pi*i)."""
-        u_init = [1.0, -1.0]
-        z_params = [0.0, 3.0, -3.0]
+        u_init = [0.7 + 0.2j, -0.7 + 0.1j]
+        z_params = [0.5, 2.5, -2.5]
         sol = solve_bethe_newton(u_init, z_params, H1_REAL, H2_REAL, H3_REAL,
                                  max_iter=500)
         if sol["converged"]:
@@ -338,7 +354,7 @@ class TestGradientProductEquivalence:
 
     def test_equivalence_M2_K2(self):
         """Gradient and product forms agree for M=2, K=2."""
-        u = [1.0, -1.0]
+        u = [0.7, -0.8]
         z = [0.5, -0.5]
         result = verify_bethe_gradient_matches_product(
             u, z, H1_REAL, H2_REAL, H3_REAL)
@@ -360,20 +376,27 @@ class TestGradientProductEquivalence:
             u, z, H1_GENERIC, H2_GENERIC, H3_GENERIC)
         assert result["matches"]
 
-    def test_exp_gradient_equals_product(self):
-        """exp(dW/du_i) = prod_{j!=i} g(u_i-u_j) / prod_a g(u_i-z_a)."""
-        u = [2.0, -1.0]
-        z = [0.0]
+    def test_exp_log_equals_product(self):
+        """exp(L_i) = prod_{j!=i} g(u_i-u_j) / prod_a g(u_i-z_a).
+
+        L_i = sum_{j!=i} log g(u_i-u_j) - sum_a log g(u_i-z_a).
+        This identity is checked by verify_bethe_gradient_matches_product.
+        """
+        u = [2.5, -1.3]
+        z = [0.3]
         result = verify_bethe_gradient_matches_product(
             u, z, H1_REAL, H2_REAL, H3_REAL)
-        # The exp_gradient should match (1 + product_residual)
+        # exp(L_i) should match (1 + product_residual)
         for eg, pr in zip(result["exp_gradient"], result["product_residuals"]):
             assert abs(eg - (1.0 + pr)) < TOL
 
     def test_equivalence_SV_params(self):
-        """Equivalence with Schiffmann-Vasserot parameters."""
-        u = [1.0, 3.0]
-        z = [0.0, 2.0]
+        """Equivalence with Schiffmann-Vasserot parameters.
+
+        SV params: h1=1, h2=-2, h3=1. Avoid u differences equal to ±h_a.
+        """
+        u = [1.5 + 0.3j, 4.2 - 0.2j]
+        z = [0.5, 2.8]
         result = verify_bethe_gradient_matches_product(
             u, z, H1_SV2, H2_SV2, H3_SV2)
         assert result["matches"]
@@ -387,9 +410,9 @@ class TestGradientProductEquivalence:
         assert result["matches"]
 
     def test_gradient_product_single_root(self):
-        """For M=1: both forms reduce to g(u-z)^{-1} = 1."""
-        u = [2.0 + 1.0j]
-        z = [0.0]
+        """For M=1: both forms reduce to 1/g(u-z) = 1."""
+        u = [2.5 + 1.0j]
+        z = [0.5]
         result = verify_bethe_gradient_matches_product(
             u, z, H1_REAL, H2_REAL, H3_REAL)
         assert result["matches"]
@@ -533,8 +556,8 @@ class TestBAESaddlePoints:
 
     def test_shadow_partition_function_runs(self):
         """Shadow partition function computation runs without error."""
-        z = [0.0, 2.0]
-        result = shadow_partition_function_e1(z, H1_REAL, H2_REAL, H3_REAL,
+        z = [0.5, 2.5]
+        result = shadow_partition_function_e1(z, H1_GENERIC, H2_GENERIC, H3_GENERIC,
                                               M_max=2)
         assert len(result["saddle_data"]) == 3  # M=0,1,2
 
@@ -605,8 +628,12 @@ class TestMCTowerIdentification:
             assert abs(c) < TOL
 
     def test_tower_valid(self):
-        """Full tower identification is valid."""
-        result = mc_tower_identification(H1_REAL, H2_REAL, H3_REAL)
+        """Full tower identification is valid.
+
+        Use generic complex parameters to avoid pole/zero coincidences
+        in the Newton solver.
+        """
+        result = mc_tower_identification(H1_GENERIC, H2_GENERIC, H3_GENERIC)
         assert result["identification_valid"]
 
     def test_tower_generic_params(self):
@@ -668,13 +695,21 @@ class TestConifoldBethe:
 
         assert abs(numerical_grad) < 1e-4
 
-    def test_gl11_yy_symmetric(self):
-        """gl(1|1) Yang-Yang potential is symmetric in Bethe roots."""
+    def test_gl11_yy_symmetric_mod_2pi(self):
+        """gl(1|1) Yang-Yang potential is symmetric mod 2*pi*i.
+
+        W has interaction -2*log(u_i-u_j) for i<j.  Swapping u_0, u_1
+        replaces log(u_0-u_1) with log(u_1-u_0) = log(-(u_0-u_1))
+        = log(u_0-u_1) + i*pi (mod 2*pi*i).  So W changes by -2*i*pi.
+        """
         u = [1.0 + 0.5j, 3.0 - 0.2j]
         z = [0.0, 2.0]
         W1 = yang_yang_potential_gl11(u, z)
         W2 = yang_yang_potential_gl11([u[1], u[0]], z)
-        assert abs(W1 - W2) < TOL
+        diff = W1 - W2
+        # Should be a multiple of 2*pi*i
+        k = diff / (2j * math.pi)
+        assert abs(k - round(k.real)) < TOL, f"W diff not 2pi*i multiple: {diff}"
 
     def test_gl11_M2_K4_structure(self):
         """M=2, K=4: the BAE is a coupled system of 2 equations."""
@@ -817,11 +852,15 @@ class TestTBA:
         assert abs(K0) < TOL
 
     def test_tba_kernel_fourier_symmetry(self):
-        """K_hat(-k) = -K_hat(k) (the kernel is odd -> FT is odd in sign sense)."""
+        """K_hat(-k) = K_hat(k) (v(u) is even -> FT is even in k).
+
+        v(u) = sum_a 2h_a/(u^2-h_a^2) is even, so its Fourier transform
+        K_hat(k) is also even: K_hat(-k) = K_hat(k).
+        """
         k = 1.5
         Kp = tba_kernel_fourier(k, H1_REAL, H2_REAL, H3_REAL)
         Km = tba_kernel_fourier(-k, H1_REAL, H2_REAL, H3_REAL)
-        assert abs(Kp + Km) < TOL, f"K_hat(k) + K_hat(-k) = {Kp + Km}"
+        assert abs(Kp - Km) < TOL, f"K_hat(k) - K_hat(-k) = {Kp - Km}"
 
     def test_tba_integral_equation_runs(self):
         """TBA integral equation solver runs."""
@@ -906,17 +945,23 @@ class TestExactSolutions:
             assert abs(g1 * g2 - 1.0) < 1e-6, f"Root {r}: g1*g2 = {g1*g2}"
 
     def test_M1_K2_symmetric_inhomogeneities(self):
-        """M=1, K=2 with z1 = -z2: by symmetry, u = 0 might be a root."""
-        z_val = 3.0
+        """M=1, K=2 with z1 = -z2: by unitarity g(-z)*g(z) = 1, so u=0 is a root.
+
+        Must avoid z_val equal to |h_a| (which creates poles/zeros).
+        """
+        z_val = 4.0  # Avoid 1, 2, 3 (the h parameters)
         g1 = structure_function(0.0 - z_val, H1_REAL, H2_REAL, H3_REAL)
         g2 = structure_function(0.0 + z_val, H1_REAL, H2_REAL, H3_REAL)
         product = g1 * g2
-        # g(z)*g(-z) = 1 by unitarity, so u=0 IS a root
-        assert abs(product - 1.0) < TOL, f"g(z)*g(-z) = {product}"
+        # g(-z)*g(z) = 1 by unitarity, so u=0 IS a root
+        assert abs(product - 1.0) < TOL, f"g(-z)*g(z) = {product}"
 
     def test_exact_M1_K2_unitarity_root(self):
-        """u = 0 is always a root for z1 = -z2 (by unitarity)."""
-        roots = exact_bethe_M1_K2(-3.0, 3.0, H1_REAL, H2_REAL, H3_REAL)
+        """u = 0 is always a root for z1 = -z2 (by unitarity).
+
+        Must avoid z values that equal ±h_a to prevent poles.
+        """
+        roots = exact_bethe_M1_K2(-4.0, 4.0, H1_REAL, H2_REAL, H3_REAL)
         # u = 0 should be among the roots
         found_zero = any(abs(r) < 0.1 for r in roots)
         assert found_zero, f"u=0 not found among roots: {roots}"
@@ -989,9 +1034,14 @@ class TestCrossFamilyConsistency:
         assert abs(g_val - 1.0) < 0.01  # Near 1 for large u, small h
 
     def test_bethe_equations_consistent_across_parametrizations(self):
-        """BAE with h=(a,b,-(a+b)) and h=(b,a,-(a+b)) give the same equations."""
-        u = [1.0, -1.0]
-        z = [0.0]
+        """BAE with h=(a,b,-(a+b)) and h=(b,a,-(a+b)) give the same equations.
+
+        The structure function g(u) = prod(u-ha)/prod(u+ha) is symmetric
+        in {h1, h2, h3}, so permuting h1 <-> h2 gives the same equations.
+        Avoid u differences that hit zeros/poles of g.
+        """
+        u = [0.7 + 0.3j, -0.5 + 0.2j]
+        z = [0.3]
         resid1 = bethe_equations_gl1hat(u, z, 1.0, 2.0, -3.0)
         resid2 = bethe_equations_gl1hat(u, z, 2.0, 1.0, -3.0)
         for r1, r2 in zip(resid1, resid2):

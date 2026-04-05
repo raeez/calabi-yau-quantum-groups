@@ -890,7 +890,8 @@ def genus_g_obstruction_scalar(kappa: Fraction, g: int) -> Fraction:
       lambda_2 = 7/5760
       lambda_3 = 31/967680
 
-    General formula: lambda_g = |B_{2g}| / (2g * (2g)!)
+    General formula (A-hat coefficient):
+      lambda_g = (2^{2g-1} - 1) |B_{2g}| / (2^{2g-1} * (2g)!)
     where B_{2g} are Bernoulli numbers.
 
     F_g(A) = kappa(A) * lambda_g^{FP} for uniform-weight modular Koszul algebras.
@@ -898,9 +899,10 @@ def genus_g_obstruction_scalar(kappa: Fraction, g: int) -> Fraction:
     if g <= 0:
         raise ValueError(f"Genus must be >= 1, got {g}")
 
-    # lambda_g^{FP} = |B_{2g}| / (2g * (2g)!)
+    # lambda_g^{FP} = (2^{2g-1} - 1) |B_{2g}| / (2^{2g-1} * (2g)!)
     B2g = bernoulli_number(2 * g)
-    lambda_g = abs(B2g) / (2 * g * factorial(2 * g))
+    abs_B2g = abs(B2g)
+    lambda_g = (2 ** (2 * g - 1) - 1) * abs_B2g / (Fraction(2 ** (2 * g - 1)) * factorial(2 * g))
     return kappa * lambda_g
 
 

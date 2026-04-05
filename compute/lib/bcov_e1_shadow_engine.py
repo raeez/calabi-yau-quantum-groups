@@ -1,10 +1,42 @@
 r"""
-bcov_e1_shadow_engine.py -- BCOV theory = E_1 shadow obstruction tower.
+bcov_e1_shadow_engine.py -- BCOV theory and E_1 shadow obstruction tower.
+
+WARNING (SCOPE OF IDENTIFICATION)
+==================================
+The identification BCOV = shadow is STRUCTURAL (HAE = MC equation;
+Costello-Li 2015). The QUANTITATIVE formula F_g = kappa * lambda_g^{FP}
+holds for toric/non-compact CY3 (where the only contribution is the
+shadow lane), but FAILS for compact CY3 at g >= 2. The constant-map
+formula for compact CY3 involves B_{2g} * B_{2g-2} (product of two
+Bernoulli numbers), while the shadow lane formula involves B_{2g} alone.
+No single value of kappa can make these agree at all genera.
+
+Concretely, for the quintic (chi = -200) at genus 2:
+  F_2^{const}  = chi/2 * |B_4 * B_2| / (4 * 2 * 2!) = -200/2 * 1/180 = 1/9 (approx)
+  F_2^{shadow} = kappa * lambda_2^{FP} = (-25/3) * 7/5760 = -175/17280
+
+These are structurally different: the constant-map formula has the product
+|B_{2g} * B_{2g-2}| in the numerator, while the FP intersection number
+lambda_g^{FP} = (2^{2g-1}-1)|B_{2g}|/(2^{2g-1}(2g)!) involves B_{2g} alone.
+The ratio F_g^{const}/F_g^{shadow} is genus-dependent for g >= 2.
+
+The identification is CORRECT at the dgLa/MC level: the BCOV complex
+PV^{**}(X^v) IS the bar dgLa of A_X (Costello 2007). The HAE IS the
+MC equation. But the scalar-lane projection F_g = kappa * lambda_g^{FP}
+captures only the shadow lane (E_1 bar complex contribution), which for
+compact CY3 is NOT the full constant-map amplitude.
+
+For toric/non-compact CY3 (C^3, conifold, local P^2), the shadow lane
+IS the full answer and the identification is quantitatively exact.
+
 
 THESIS: The BCOV (Bershadsky-Cecotti-Ooguri-Vafa) genus-g free energy
-F_g^{B}(X) of the topological B-model on a CY3 X IS the genus-g shadow
-obstruction F_g^{E_1}(A_X) of the E_1 chiral algebra A_X associated to X
-by the CY-to-chiral functor.
+F_g^{B}(X) of the topological B-model on a CY3 X is controlled by the
+MC equation in the bar dgLa of the E_1 chiral algebra A_X associated
+to X by the CY-to-chiral functor. The quantitative identification
+F_g^{B} = kappa(A_X) * lambda_g^{FP} holds on the scalar lane, which
+is exact for non-compact/toric CY3 but captures only one sector of the
+full amplitude for compact CY3.
 
 MATHEMATICAL CONTENT
 ====================
@@ -40,13 +72,15 @@ MATHEMATICAL CONTENT
    Verified for C^3 and the conifold at g = 0, 1, 2.
 
 5. CONSTANT MAP CONTRIBUTIONS
-   For ANY CY3 X, the constant map contribution to F_g (g >= 2) is:
-     F_g^{const}(X) = (-1)^g * (chi(X)/2) * integral_{M_g} lambda_{g-1}^3
-   By the Faber-Pandharipande theorem:
-     integral_{M_g} lambda_g = |B_{2g}| * |B_{2g-2}| / (2g(2g-2)(2g-2)!)
-   The genus-g shadow on the scalar lane is:
-     F_g^{E_1} = kappa(A_X) * lambda_g^{FP}
+   For compact CY3 X, the constant-map contribution to GW F_g (g >= 2) is:
+     F_g^{const}(X) = (-1)^g * (chi(X)/2) * |B_{2g} B_{2g-2}| / (2g(2g-2)(2g-2)!)
+   This formula involves the PRODUCT B_{2g} * B_{2g-2}.
+   The shadow lane gives:
+     F_g^{shadow} = kappa(A_X) * lambda_g^{FP}
    where lambda_g^{FP} = (2^{2g-1} - 1)|B_{2g}| / (2^{2g-1} (2g)!).
+   This involves B_{2g} ALONE.
+   These are structurally different formulas that DISAGREE for compact CY3 at g >= 2.
+   For non-compact/toric CY3, only the shadow lane contributes and they agree.
 
 6. THE HOLOMORPHIC LIMIT
    In the holomorphic limit (tbar -> infinity), the BCOV free energy reduces
@@ -258,13 +292,17 @@ def local_p2_data() -> CY3Data:
     """Local P^2 = O(-3) -> P^2.
 
     Non-compact toric CY3 with one compact divisor.
-    kappa = 3 (Euler characteristic of P^2).
+    kappa = chi(P^2)/2 = 3/2.
+
+    Cross-check: the bar_hocolim_commutation engine computes
+    kappa(local P^2) = 3 * (1/2) - 3 * 0 + 0 = 3/2 via
+    inclusion-exclusion on the 3-chart toric cover.
     """
     return CY3Data(
         name="local P^2",
         h11=1, h21=0, chi=0,
-        kappa=Fraction(3),
-        kappa_source="chi(P^2) = 3 = weight of modular form",
+        kappa=Fraction(3, 2),
+        kappa_source="chi(P^2)/2 = 3/2 (cross-checked with bar_hocolim IE)",
         is_compact=False,
         is_toric=True,
     )
@@ -353,7 +391,7 @@ def bcov_fg_c3(g: int) -> Fraction:
       F_2 = 7/5760
       F_3 = 31/967680
       F_4 = 127/154828800
-      F_5 = 511/20437401600
+      F_5 = 73/3503554560
     """
     if g < 1:
         raise ValueError(f"Genus must be >= 1, got {g}")
@@ -434,14 +472,23 @@ class BCOVShadowComparison(NamedTuple):
 
 
 def compare_bcov_e1(cy3: CY3Data, max_genus: int = 5) -> List[BCOVShadowComparison]:
-    """Compare BCOV and E_1 shadow free energies for a CY3.
+    """Compare BCOV and E_1 shadow free energies for a CY3 ON THE SCALAR LANE.
 
-    On the scalar lane, BOTH should give F_g = kappa * lambda_g^{FP}.
-    The comparison is tautological on the scalar lane (by construction),
-    but becomes non-trivial when:
-    (a) kappa is identified from BCOV data independently of shadow theory
-    (b) higher-arity corrections (non-scalar) are included
-    (c) worldsheet instanton corrections are compared
+    WARNING: This comparison is TAUTOLOGICAL. Both sides compute
+    kappa * lambda_g^{FP} by construction. The ratio is always 1.
+    This verifies internal consistency, NOT the identification with
+    the actual BCOV constant-map formula for compact CY3.
+
+    For compact CY3 at g >= 2, the actual BCOV constant-map formula
+    involves B_{2g} * B_{2g-2} (product of two Bernoulli numbers),
+    which DISAGREES with kappa * lambda_g^{FP} (which has B_{2g} alone).
+    Use constant_map_bcov_vs_shadow() for the honest comparison.
+
+    The non-tautological content of the BCOV = shadow identification is:
+    (a) the dgLa identification PV^{**}(X^v) ~ bar(A_X) (Costello 2007)
+    (b) the HAE = MC equation (structural, not numerical)
+    (c) kappa identified from BCOV data independently of shadow theory
+    (d) worldsheet instanton corrections matching GV/DT invariants
     """
     results = []
     for g in range(1, max_genus + 1):
@@ -1415,38 +1462,79 @@ def ahat_generating_function_coefficients(max_order: int = 20) -> List[Fraction]
 # 17. CONSTANT MAP CONTRIBUTION (Faber-Pandharipande, rigorous)
 # ===========================================================================
 
-def constant_map_fg(chi_x: int, g: int) -> Fraction:
-    r"""Constant map contribution to F_g for a compact CY3 X.
+def constant_map_fg_bcov(chi_x: int, g: int) -> Fraction:
+    r"""CORRECT constant-map contribution to F_g for a compact CY3 X.
 
-    The constant map contribution is:
-      F_g^{const}(X) = (-1)^g * chi(X) / 2 * int_{M_g} c_{g-1}(E) lambda_{g-1}
+    For g >= 2, the constant-map contribution to the GW free energy is:
 
-    By the Mumford relation (for CY3, d=3):
-      int_{M_g} c_{g-1}(E) lambda_{g-1} = |B_{2g} B_{2g-2}| / (2g(2g-2)(2g-2)!)
+      F_g^{const}(X) = (-1)^g * chi(X)/2
+                        * |B_{2g}| * |B_{2g-2}| / (2g * (2g-2) * (2g-2)!)
 
-    Actually, the exact formula for CY3 (d=3) constant map genus-g GW:
-      F_g^{const} = (-1)^g chi(X) |B_{2g} B_{2g-2}| / (4g (2g-2) (2g-2)!)
+    This is the Faber-Pandharipande formula for int_{M_g} lambda_{g-1}^3
+    applied to the CY3 constant-map sector.
 
-    For g = 1: F_1^{const} = -chi(X) * int_{M_{1,1}} lambda_1
-             = -chi(X)/2 * 1/24  ... conventions.
+    CRITICAL: the numerator has the PRODUCT |B_{2g} * B_{2g-2}| of two
+    distinct Bernoulli numbers. This is structurally different from the
+    shadow lane formula kappa * lambda_g^{FP}, whose numerator has
+    |B_{2g}| alone (with no B_{2g-2} factor).
 
-    On the scalar lane: F_g = kappa * lambda_g^{FP} where kappa = chi(X)/24
-    (for compact CY3 with chi/24 = kappa, CONJECTURAL).
+    For g = 1: F_1^{const} = -chi(X)/24 (from int_{M_{1,1}} lambda_1 = 1/24).
 
-    Let us use the scalar lane formula: F_g = (chi/24) * lambda_g^{FP}.
+    References:
+      Faber-Pandharipande, Duke Math. J. 120 (2003), formula (1)
+      Zinger, "The reduced genus-one GW invariants of CY hypersurfaces" (2009)
     """
+    if g < 1:
+        raise ValueError(f"Genus must be >= 1, got {g}")
+    if g == 1:
+        # F_1^{const} = -chi/24 (standard convention)
+        return Fraction(-chi_x, 24)
+    # g >= 2: the constant-map formula with B_{2g} * B_{2g-2}
+    B_2g = bernoulli_number(2 * g)
+    B_2g_minus_2 = bernoulli_number(2 * g - 2)
+    abs_product = abs(B_2g * B_2g_minus_2)
+    sign = (-1) ** g
+    # F_g^{const} = (-1)^g * chi/2 * |B_{2g} B_{2g-2}| / (2g (2g-2) (2g-2)!)
+    numerator = Fraction(sign * chi_x, 2) * abs_product
+    denominator = Fraction(2 * g) * Fraction(2 * g - 2) * Fraction(_factorial(2 * g - 2))
+    return numerator / denominator
+
+
+def constant_map_fg(chi_x: int, g: int) -> Fraction:
+    r"""Shadow-lane prediction for constant-map F_g (uses kappa = chi/24).
+
+    WARNING: This computes kappa * lambda_g^{FP} with kappa = chi/24,
+    which is the shadow-lane formula. For compact CY3 at g >= 2, this
+    DISAGREES with the actual BCOV constant-map formula constant_map_fg_bcov(),
+    which involves B_{2g} * B_{2g-2} (product), not B_{2g} alone.
+
+    The agreement at g = 1 is exact (both give chi/24 * 1/24 = chi/576).
+    The disagreement at g >= 2 is structural: no single kappa can reconcile
+    the B_{2g}-only shadow with the B_{2g} * B_{2g-2} constant-map formula.
+
+    For non-compact/toric CY3, use the shadow formula directly (it is exact).
+    For compact CY3, use constant_map_fg_bcov() for the correct constant-map
+    contribution, and compare with the shadow via constant_map_bcov_vs_shadow().
+    """
+    if g < 1:
+        raise ValueError(f"Genus must be >= 1, got {g}")
     kappa = Fraction(chi_x, 24)
     return kappa * lambda_fp(g)
 
 
 def constant_map_comparison(cy3: CY3Data, max_genus: int = 5) -> Dict[int, Dict[str, Fraction]]:
-    """Compare constant map and scalar lane predictions.
+    """Compare shadow-lane (kappa = chi/24) and E_1 shadow predictions.
+
+    WARNING: This comparison is between TWO shadow-lane formulas with
+    different kappa values. It does NOT compare against the actual BCOV
+    constant-map formula (which involves B_{2g} * B_{2g-2}).
+    For the structurally honest comparison, use constant_map_bcov_vs_shadow().
 
     For compact CY3 with chi = 2(h11 - h21):
-      constant map: F_g^{const} = (chi/24) * lambda_g^{FP}  (CONJECTURAL kappa = chi/24)
-      scalar lane:  F_g^{E_1}  = kappa(A_X) * lambda_g^{FP}
+      shadow w/ kappa=chi/24: F_g = (chi/24) * lambda_g^{FP}
+      shadow w/ kappa(A_X):   F_g = kappa(A_X) * lambda_g^{FP}
 
-    If kappa = chi/24, these agree by construction.
+    If kappa = chi/24, these agree by construction (tautological).
     If kappa != chi/24 (e.g., K3 x E: kappa = 5, chi/24 = 0), they DISAGREE.
     """
     results = {}
@@ -1459,6 +1547,42 @@ def constant_map_comparison(cy3: CY3Data, max_genus: int = 5) -> Dict[int, Dict[
             "f_e1_shadow": f_e1,
             "agree": f_const == f_e1,
             "discrepancy": f_e1 - f_const,
+        }
+    return results
+
+
+def constant_map_bcov_vs_shadow(chi_x: int, kappa: Fraction,
+                                 max_genus: int = 5) -> Dict[int, Dict[str, Any]]:
+    r"""Compare the ACTUAL BCOV constant-map formula against the shadow lane.
+
+    This is the structurally honest comparison. For g >= 2:
+
+      BCOV constant map: F_g^{const} = (-1)^g * chi/2
+                          * |B_{2g} B_{2g-2}| / (2g(2g-2)(2g-2)!)
+      Shadow lane:       F_g^{shadow} = kappa * lambda_g^{FP}
+                          = kappa * (2^{2g-1}-1)|B_{2g}| / (2^{2g-1}(2g)!)
+
+    The BCOV formula has B_{2g} * B_{2g-2} (product of two Bernoulli numbers).
+    The shadow formula has B_{2g} alone.
+    No single kappa makes these agree at all genera g >= 2.
+
+    For toric/non-compact CY3, this comparison is moot (shadow is the full answer).
+    For compact CY3, the ratio F_g^{const}/F_g^{shadow} is genus-dependent.
+    """
+    results: Dict[int, Dict[str, Any]] = {}
+    for g in range(1, max_genus + 1):
+        f_bcov = constant_map_fg_bcov(chi_x, g)
+        f_shadow = kappa * lambda_fp(g)
+        if f_shadow != 0:
+            ratio = f_bcov / f_shadow
+        else:
+            ratio = None
+        results[g] = {
+            "f_bcov_constant_map": f_bcov,
+            "f_shadow_lane": f_shadow,
+            "agree": f_bcov == f_shadow,
+            "ratio": ratio,
+            "ratio_float": float(ratio) if ratio is not None else None,
         }
     return results
 
@@ -1572,10 +1696,14 @@ def main_results() -> Dict[str, Any]:
     """Summary of all main results from the BCOV = E_1 shadow engine."""
     return {
         "thesis": (
-            "The BCOV genus-g free energy F_g^B(X) of the topological B-model "
-            "on a CY3 X is the genus-g shadow F_g^{E_1}(A_X) of the E_1 "
-            "chiral algebra A_X: F_g^B(X) = kappa(A_X) * lambda_g^{FP} "
-            "on the scalar lane."
+            "The BCOV holomorphic anomaly equation IS the MC equation in "
+            "the bar dgLa of the E_1 chiral algebra A_X (Costello 2007, "
+            "Costello-Li 2015). The quantitative formula "
+            "F_g = kappa(A_X) * lambda_g^{FP} holds on the scalar lane, "
+            "which is exact for toric/non-compact CY3 but captures only "
+            "one sector of the full amplitude for compact CY3 at g >= 2 "
+            "(where the constant-map formula involves B_{2g}*B_{2g-2}, "
+            "not B_{2g} alone)."
         ),
         "identification_dgla": (
             "The BCOV complex PV^{**}(X^v) is quasi-isomorphic to the bar "

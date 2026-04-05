@@ -485,15 +485,15 @@ class E1ChiralAlgebra:
         return {-n: dim for n, dim in self.hh_dims.items() if dim > 0}
 
     def verify_mirror_exchange(self, mirror_hh: Dict[int, int]) -> Dict[str, Any]:
-        """Verify that Koszul dual generators match the mirror HH^*.
+        """Verify that Koszul dual generators match the mirror at the total level.
 
-        The prediction: the E_1 Koszul dual A_X^{!,E_1} should have generators
-        matching HH^*(X-check) (the mirror CY3's Hochschild cohomology).
+        The E_1 Koszul dual A_X^{!,E_1} should have the SAME total number
+        of generators as A_{X-check} (the mirror CY3's chiral algebra).
+        The degree-by-degree match does not hold in general.
         """
         kd_gens = self.koszul_dual_generators()
-        # The Koszul dual generators are indexed by -n;
-        # the mirror's generators are indexed by n.
-        # We need to check that dim(kd_gens at degree m) = dim(mirror_hh at degree m).
+        total_kd = sum(kd_gens.values())
+        total_mirror = sum(v for v in mirror_hh.values())
         match = {}
         for n in range(-3, 4):
             kd_dim = kd_gens.get(n, 0)
@@ -503,9 +503,9 @@ class E1ChiralAlgebra:
             'koszul_dual_gens': kd_gens,
             'mirror_hh': mirror_hh,
             'degree_match': match,
-            'all_match': all(match.values()),
-            'total_dim_kd': sum(kd_gens.values()),
-            'total_dim_mirror': sum(v for v in mirror_hh.values()),
+            'all_match': total_kd == total_mirror,  # total dimension match
+            'total_dim_kd': total_kd,
+            'total_dim_mirror': total_mirror,
         }
 
 
@@ -928,38 +928,26 @@ def verify_complementarity_cy3(X: CY3HodgeData) -> Dict[str, Any]:
 
 
 def verify_generator_exchange_cy3(X: CY3HodgeData) -> Dict[str, Any]:
-    """Verify that the E_1 Koszul dual generators match the mirror.
+    """Verify E_1 Koszul dual vs mirror exchange at the level of total generators.
 
-    The prediction: the HH^* of the Koszul dual A_X^{!,E_1} should
-    match HH^*(X-check) under the mirror identification.
+    The E_1 Koszul dual of A_X has generators reflected in degree.
+    The total generator count (= total dim HH*) is preserved:
+    dim HH*(X) = dim HH*(X-check) for a CY3 mirror pair.
 
-    Technical point: the E_1 Koszul dual of T(V) = T(V*[-1]) has
-    generators in reflected degrees. The CY Serre duality
-    HH^n(X)* = HH^{-n}(X) (by the CY pairing) converts the degree
-    reflection to a Hodge exchange.
+    The degree-by-degree exchange dim HH^{-n}(X) = dim HH^n(X-check)
+    does NOT hold in general. The correct check is total dimensions.
     """
     A_X = E1ChiralAlgebra(hodge_data=X)
     X_mirror = X.mirror
     mirror_hh = hochschild_cohomology_cy3(X_mirror)
-
-    # Koszul dual: degrees reflected
-    kd_gens = A_X.koszul_dual_generators()
-
-    # The mirror HH^n should match kd_gens at degree n.
-    # But the Koszul dual has generators at degree -n from HH^n(X),
-    # and we need to compare with HH^m(X-check).
-    # Via CY Serre duality: HH^{-n}(X) = HH^n(X)* = HH^n(X) (self-dual dimension).
-    # For CY3: HH^n and HH^{-n} have the SAME dimension (Serre duality).
-    # And HH^n(X) should equal HH^n(X-check) after the mirror exchange.
-
-    # The actual check: are the total dimensions the same at each degree?
-    # HH^n(X) with generators reflected to degree -n, then checked against HH^n(X-check).
     hh_X = hochschild_cohomology_cy3(X)
 
-    # The degree-wise comparison:
+    total_X = sum(hh_X.values())
+    total_mirror = sum(mirror_hh.values())
+
+    # Degree-wise data (for information, not for matching)
     degree_match = {}
     for n in range(-3, 4):
-        # Koszul dual at degree n corresponds to HH^{-n}(X)
         kd_dim = hh_X.get(-n, 0)
         mirror_dim = mirror_hh.get(n, 0)
         degree_match[n] = {
@@ -968,15 +956,13 @@ def verify_generator_exchange_cy3(X: CY3HodgeData) -> Dict[str, Any]:
             'match': kd_dim == mirror_dim,
         }
 
-    all_match = all(d['match'] for d in degree_match.values())
-
     return {
         'hh_X': hh_X,
         'hh_mirror': mirror_hh,
         'degree_match': degree_match,
-        'all_match': all_match,
-        'total_dim_X': sum(hh_X.values()),
-        'total_dim_mirror': sum(mirror_hh.values()),
+        'all_match': total_X == total_mirror,  # total dimension match
+        'total_dim_X': total_X,
+        'total_dim_mirror': total_mirror,
     }
 
 
@@ -1111,41 +1097,46 @@ def hh_exchange_theorem_cy3(X: CY3HodgeData) -> Dict[str, Any]:
     r"""The HH-dimension exchange theorem for CY3 mirror pairs.
 
     THEOREM: For a CY3 mirror pair (X, X-check):
-      dim HH^n(X) = dim HH^{-n}(X-check)   for all n.
+      (1) Total dim HH^*(X) = Total dim HH^*(X-check).
+      (2) Euler(HH^*(X)) + Euler(HH^*(X-check)) = 0.
+      (3) kappa(X) + kappa(X-check) = 0 (complementarity).
 
-    PROOF: By HKR, HH^n(X) = sum_{q-p=n} h^{3-p,q}(X).
-    For the mirror: h^{a,b}(X-check) = h^{3-a, 3-b}(X) (for the NON-TRIVIAL
-    Hodge numbers; the trivial ones h^{0,0}=h^{3,3}=1 are unchanged).
+    The degree-by-degree exchange dim HH^n(X) = dim HH^{-n}(X-check)
+    does NOT hold in general (it fails at degree 0 when h11 != h21).
+    The correct statement is about total dimensions and kappas.
 
-    Actually the precise mirror exchange is: h^{1,1} <-> h^{2,1} and
-    h^{p,q}(X-check) is obtained from h^{p,q}(X) by the Hodge diamond flip.
-
-    For a CY3: h^{p,q}(X-check) = h^{3-p,q}(X) (up to the trivial rows).
-
-    Then: HH^{-n}(X-check) = sum_{q-p=-n} h^{3-p,q}(X-check)
-          = sum_{q-p=-n} h^{3-(3-p), q}(X) [by mirror]
-          = sum_{q-p=-n} h^{p, q}(X)
-          ... this needs more care.
-
-    The simplest verification: COMPUTE both sides for each standard example.
+    By HKR for CY3: HH^n(X) = sum_{q-p=n} h^{3-p,q}(X), where n in [-3, 3].
+    The mirror exchanges h^{1,1} <-> h^{2,1}, which changes the degree
+    distribution but preserves the total:
+      sum dim HH^n(X) = 2 + 2h^{1,1} + 2h^{2,1} + 2
+      sum dim HH^n(X-check) = 2 + 2h^{2,1} + 2h^{1,1} + 2  (same total).
     """
     hh_X = hochschild_cohomology_cy3(X)
     hh_mirror = hochschild_cohomology_cy3(X.mirror)
 
-    exchange_holds = {}
+    total_X = sum(hh_X.values())
+    total_mirror = sum(hh_mirror.values())
+
+    euler_X = sum((-1)**n * dim for n, dim in hh_X.items())
+    euler_mirror = sum((-1)**n * dim for n, dim in hh_mirror.items())
+
+    exchange_data = {}
     for n in range(-3, 4):
-        dim_X_n = hh_X.get(n, 0)
-        dim_mirror_neg_n = hh_mirror.get(-n, 0)
-        exchange_holds[n] = {
-            'HH^n(X)': dim_X_n,
-            'HH^{-n}(X-check)': dim_mirror_neg_n,
-            'equal': dim_X_n == dim_mirror_neg_n,
+        exchange_data[n] = {
+            'HH^n(X)': hh_X.get(n, 0),
+            'HH^n(X-check)': hh_mirror.get(n, 0),
         }
 
     return {
         'X': X.name,
-        'exchange_data': exchange_holds,
-        'theorem_holds': all(d['equal'] for d in exchange_holds.values()),
+        'exchange_data': exchange_data,
+        'total_dim_match': total_X == total_mirror,
+        'euler_complementarity': euler_X + euler_mirror == 0,
+        'theorem_holds': (total_X == total_mirror and euler_X + euler_mirror == 0),
+        'total_X': total_X,
+        'total_mirror': total_mirror,
+        'euler_X': euler_X,
+        'euler_mirror': euler_mirror,
     }
 
 

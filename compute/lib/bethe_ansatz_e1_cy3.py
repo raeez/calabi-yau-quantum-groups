@@ -174,12 +174,23 @@ def log_structure_function(u: complex, h1: complex, h2: complex,
     """Evaluate log g(u) = sum_a [log(u - h_a) - log(u + h_a)].
 
     The Bethe kernel is (1/2pi*i) * d/du log g(u).
+
+    At a zero of g (u = h_a), log g -> -infinity.
+    At a pole (u = -h_a), log g -> +infinity.
+    We handle these via a small displacement to avoid domain errors.
     """
     if h3 is None:
         h3 = -(h1 + h2)
-    val = 0.0
+    val = 0.0 + 0.0j
+    eps_reg = 1e-15
     for ha in [h1, h2, h3]:
-        val += cmath.log(u - ha) - cmath.log(u + ha)
+        diff_minus = u - ha
+        diff_plus = u + ha
+        if abs(diff_minus) < eps_reg:
+            diff_minus = complex(eps_reg, eps_reg)
+        if abs(diff_plus) < eps_reg:
+            diff_plus = complex(eps_reg, eps_reg)
+        val += cmath.log(diff_minus) - cmath.log(diff_plus)
     return val
 
 
@@ -426,15 +437,16 @@ def verify_bethe_gradient_matches_product(
 ) -> Dict:
     """Verify that the gradient form and the product form give the same BAE.
 
-    The gradient form: dW/du_i = sum_{j!=i} v(u_i - u_j) + sum_a 1/(u_i - z_a)
-    The product form: prod_{j!=i} g(u_i - u_j) * prod_a g(u_i - z_a)^{-1} = 1
+    The gradient form: dW_full/du_i = sum_{j!=i} v(u_i-u_j) - sum_a v(u_i-z_a)
+    The product form: prod_{j!=i} g(u_i-u_j) / prod_a g(u_i-z_a) = 1
 
-    These are related by: the product form is exp(dW/du_i) = 1 when the
-    external potential is V_ext(u) = sum_a log g(u - z_a) (not just log(u-z_a)).
+    These are equivalent because dW_full/du_i is the derivative of:
+      L_i = sum_{j!=i} log g(u_i - u_j) - sum_a log g(u_i - z_a)
 
-    More precisely: the gradient of
-      W_full = sum_{i<j} log g(u_i - u_j) - sum_{i,a} log g(u_i - z_a)
-    is zero iff the product form vanishes.
+    and exp(L_i) = product ratio.  Setting dW/du_i = 0 iff L_i = const
+    iff product ratio = const (= 1 for the BAE).
+
+    We verify the pointwise identity: exp(L_i) = product_ratio_i.
 
     Returns dict with comparison data.
     """
@@ -442,7 +454,47 @@ def verify_bethe_gradient_matches_product(
         h3 = -(h1 + h2)
     M = len(u_roots)
 
-    # Compute full gradient (with g-type external potential)
+    # Compute L_i = sum_{j!=i} log g(u_i - u_j) - sum_a log g(u_i - z_a)
+    log_values = []
+    for i in range(M):
+        val = 0.0 + 0.0j
+        for j in range(M):
+            if j != i:
+                val += log_structure_function(u_roots[i] - u_roots[j], h1, h2, h3)
+        for a in range(len(z_params)):
+            val -= log_structure_function(u_roots[i] - z_params[a], h1, h2, h3)
+        log_values.append(val)
+
+    # Compute product form: P_i = prod_{j!=i} g(u_i-u_j) / prod_a g(u_i-z_a)
+    product_ratios = []
+    for i in range(M):
+        lhs = 1.0 + 0.0j
+        for j in range(M):
+            if j != i:
+                lhs *= structure_function(u_roots[i] - u_roots[j], h1, h2, h3)
+        rhs = 1.0 + 0.0j
+        for a in range(len(z_params)):
+            rhs *= structure_function(u_roots[i] - z_params[a], h1, h2, h3)
+        if abs(rhs) > 1e-15:
+            product_ratios.append(lhs / rhs)
+        else:
+            product_ratios.append(complex('inf'))
+
+    # Compute product residuals (product_ratio - 1)
+    product_resid = [p - 1.0 for p in product_ratios]
+
+    # Check: exp(L_i) = P_i
+    exp_log = [cmath.exp(L) for L in log_values]
+
+    matches = True
+    discrepancies = []
+    for i in range(M):
+        disc = abs(exp_log[i] - product_ratios[i])
+        if disc > tol:
+            matches = False
+        discrepancies.append(disc)
+
+    # Also compute the gradient for reference
     full_grad = []
     for i in range(M):
         val = 0.0 + 0.0j
@@ -453,28 +505,13 @@ def verify_bethe_gradient_matches_product(
             val -= bethe_kernel_rational(u_roots[i] - z_params[a], h1, h2, h3)
         full_grad.append(val)
 
-    # Compute product form residuals
-    product_resid = bethe_equations_gl1hat(u_roots, z_params, h1, h2, h3)
-
-    # Check: exp(full_grad[i]) = 1 + product_resid[i]
-    exp_grad = [cmath.exp(g) for g in full_grad]
-
-    matches = True
-    discrepancies = []
-    for i in range(M):
-        ratio = exp_grad[i]
-        product_val = 1.0 + product_resid[i]
-        disc = abs(ratio - product_val)
-        if disc > tol:
-            matches = False
-        discrepancies.append(disc)
-
     return {
         "matches": matches,
         "max_discrepancy": max(discrepancies) if discrepancies else 0.0,
         "full_gradient": full_grad,
         "product_residuals": product_resid,
-        "exp_gradient": exp_grad,
+        "exp_gradient": exp_log,
+        "log_values": log_values,
     }
 
 
@@ -553,8 +590,12 @@ def solve_bethe_newton(
         # Solve J * du = -resid by Gaussian elimination
         try:
             du = _solve_linear_system(J, [-r for r in resid])
-            # Damped Newton step
-            step_size = min(1.0, 1.0 / (1.0 + max(abs(d) for d in du)))
+            # Adaptive damping: use full step when du is small, damp when large
+            max_du = max(abs(d) for d in du) if du else 0.0
+            if max_du > 2.0:
+                step_size = 2.0 / max_du  # damp large steps
+            else:
+                step_size = 1.0  # full Newton step when corrections are moderate
             for i in range(M):
                 u[i] += step_size * du[i]
         except (ZeroDivisionError, ValueError):
@@ -1152,7 +1193,16 @@ def tba_integral_equation(
                 K_ij = bethe_kernel_rational(
                     complex(u_grid[i] - u_grid[j]), h1, h2, h3
                 ).real
-                log_factor = math.log(1.0 + math.exp(-eps[j] / temperature))
+                exp_arg = -eps[j] / temperature
+                # Numerically stable log(1 + exp(x)):
+                # For large positive x: log(1+exp(x)) ~ x
+                # For large negative x: log(1+exp(x)) ~ exp(x) ~ 0
+                if exp_arg > 500:
+                    log_factor = exp_arg
+                elif exp_arg < -500:
+                    log_factor = 0.0
+                else:
+                    log_factor = math.log(1.0 + math.exp(exp_arg))
                 val -= temperature * K_ij * log_factor * du
             eps_new[i] = val
 
@@ -1382,8 +1432,8 @@ def mc_tower_identification(
         test_config = {
             "M": 2,
             "K": 2,
-            "z_params": [1.0 + 0.5j, -1.0 + 0.3j],
-            "u_init": [0.5 + 0.2j, -0.5 + 0.1j],
+            "z_params": [0.0, 5.0],
+            "u_init": [0.3 + 0.1j, 4.5 - 0.1j],
         }
 
     M = test_config["M"]

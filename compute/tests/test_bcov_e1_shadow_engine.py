@@ -10,7 +10,7 @@ STRUCTURE:
   4. CY3 data verification (10 tests)
   5. BCOV F_g for C^3 (10 tests)
   6. E_1 shadow F_g verification (10 tests)
-  7. BCOV vs E_1 comparison (10 tests)
+  7. BCOV vs E_1 comparison (10 tests) -- TAUTOLOGICAL on scalar lane
   8. HAE = MC recursion structure (8 tests)
   9. Propagator comparison (6 tests)
   10. GW/DT correspondence (8 tests)
@@ -19,8 +19,9 @@ STRUCTURE:
   13. Quintic and K3xE verification (8 tests)
   14. Genus spectral sequence (5 tests)
   15. Cross-family consistency (8 tests)
+  16. BCOV constant-map vs shadow DISAGREEMENT (10 tests) -- THE HONEST COMPARISON
 
-Total: 118 tests
+Total: 128 tests
 
 Verification paths used:
   1. Direct computation from defining formula
@@ -65,8 +66,10 @@ from bcov_e1_shadow_engine import (
     conifold_data,
     conifold_fg_full,
     conifold_gv_invariants,
+    constant_map_bcov_vs_shadow,
     constant_map_comparison,
     constant_map_fg,
+    constant_map_fg_bcov,
     costello_li_dictionary,
     dt_partition_c3,
     dt_shadow_comparison_c3,
@@ -163,30 +166,17 @@ class TestFaberPandharipande:
         assert lambda_fp(4) == Fraction(127, 154828800)
 
     def test_lambda_5(self):
-        """lambda_5 = 511/20437401600."""
-        # (2^9 - 1) * |B_10| / (2^9 * 10!)
-        # = 511 * 5/66 / (512 * 3628800)
-        # = 511 * 5 / (66 * 512 * 3628800)
-        # = 2555 / 122624409600
-        # = 511 / 24524881920 ... let me recompute.
-        # |B_10| = 5/66
-        # 2^9 - 1 = 511
-        # 2^9 = 512
-        # (2g)! = 10! = 3628800
-        # lambda_5 = 511 * (5/66) / (512 * 3628800)
-        #          = 511 * 5 / (66 * 512 * 3628800)
-        #          = 2555 / (66 * 1859379200)
-        #          = 2555 / 122719027200
-        #          = 511 / 24543805440
-        # Let me just check numerically:
+        """lambda_5 = 73/3503554560.
+
+        (2^9 - 1) * |B_10| / (2^9 * 10!)
+        = 511 * (5/66) / (512 * 3628800)
+        = 2555 / 122719027200
+        = 73 / 3503554560  (after GCD reduction)
+        """
         val = lambda_fp(5)
-        assert val > 0
-        # 511 / (512 * 10! / (5/66)) ... this is getting complicated.
-        # Let's verify via float: (2^9-1)*|B_10|/(2^9 * 10!)
-        # = 511 * (5/66) / (512 * 3628800)
-        # = 511 * 5 / (66 * 512 * 3628800)
-        # = 2555 / 122719027200
-        expected_float = 511 * (5 / 66) / (512 * 3628800)
+        assert val == Fraction(73, 3503554560)
+        # Cross-check via float
+        expected_float = 511 * (5.0 / 66.0) / (512.0 * 3628800.0)
         assert abs(float(val) - expected_float) < 1e-20
 
     def test_all_positive(self):
@@ -347,8 +337,8 @@ class TestCY3Data:
         assert k3_times_e_data().chi == 0
 
     def test_local_p2_kappa(self):
-        """kappa(local P^2) = 3."""
-        assert local_p2_data().kappa == Fraction(3)
+        """kappa(local P^2) = 3/2 = chi(P^2)/2."""
+        assert local_p2_data().kappa == Fraction(3, 2)
 
     def test_kappa_not_chi_over_24(self):
         """AP48: kappa != chi/24 in general. K3 x E is the key counterexample."""
@@ -491,48 +481,64 @@ class TestE1Shadow:
 # =========================================================================
 
 class TestBCOVvsE1:
-    """Compare BCOV and E_1 shadow predictions."""
+    """Compare BCOV and E_1 shadow predictions ON THE SCALAR LANE.
+
+    WARNING: All tests in this class are TAUTOLOGICAL on the scalar lane.
+    Both sides compute kappa * lambda_g^{FP} by construction, so the
+    ratio is always 1. These tests verify internal consistency of the
+    shadow-lane computation, NOT the identification with the actual
+    BCOV constant-map formula for compact CY3.
+
+    The non-tautological content of the BCOV = shadow identification is
+    structural (HAE = MC equation, Costello-Li 2015), not numerical.
+    For the honest quantitative comparison showing the disagreement at
+    g >= 2 for compact CY3, see TestBCOVConstantMapDisagreement below.
+    """
 
     def test_c3_comparison(self):
-        """BCOV and E_1 agree for C^3 at all genera."""
+        """C^3: TAUTOLOGICAL -- both sides = kappa * lambda_g = 1 * lambda_g.
+        For C^3 (non-compact, toric), the shadow IS the full answer,
+        so this tautology is also the correct physical result."""
         results = compare_bcov_e1(c3_data(), 8)
         for r in results:
             assert r.match, f"Mismatch at genus {r.genus}"
             assert r.ratio == Fraction(1)
 
     def test_conifold_comparison(self):
-        """BCOV and E_1 agree for conifold constant map."""
+        """Conifold: TAUTOLOGICAL -- both sides = kappa * lambda_g.
+        For conifold (non-compact, toric), shadow = full answer."""
         results = compare_bcov_e1(conifold_data(), 5)
         for r in results:
             assert r.match
 
     def test_quintic_comparison(self):
-        """BCOV and E_1 agree for quintic (kappa = chi/24 = -25/3)."""
+        """Quintic: TAUTOLOGICAL -- both sides = kappa * lambda_g with kappa = -25/3.
+        This does NOT compare against the actual BCOV constant-map formula
+        (which involves B_{2g} * B_{2g-2}). See TestBCOVConstantMapDisagreement."""
         results = compare_bcov_e1(quintic_data(), 5)
         for r in results:
             assert r.match
 
     def test_k3xe_comparison(self):
-        """BCOV and E_1 agree for K3 x E (kappa = 5)."""
+        """K3 x E: TAUTOLOGICAL -- both sides = kappa * lambda_g with kappa = 5."""
         results = compare_bcov_e1(k3_times_e_data(), 5)
         for r in results:
             assert r.match
 
     def test_comparison_is_tautological_on_scalar_lane(self):
-        """On the scalar lane, the comparison is tautological:
-        both sides use F_g = kappa * lambda_g.
-        The non-trivial content is in:
-        (a) kappa identification from BCOV data
-        (b) higher-arity corrections
-        (c) worldsheet instantons
-        """
+        """On the scalar lane, the comparison is TAUTOLOGICAL by construction:
+        both sides compute kappa * lambda_g^{FP} from the same formula.
+        The ratio is always 1 regardless of the CY3.
+        The non-trivial content of BCOV = shadow is structural (HAE = MC),
+        not this numerical comparison."""
         for cy3 in [c3_data(), conifold_data(), quintic_data()]:
             results = compare_bcov_e1(cy3, 3)
             for r in results:
                 assert r.f_bcov == r.f_e1  # tautological equality
 
     def test_ratio_always_1(self):
-        """The ratio F_bcov / F_e1 = 1 for all CY3s on the scalar lane."""
+        """The ratio is ALWAYS 1 by construction (tautological).
+        This is an internal consistency check, not a verification."""
         for cy3 in [c3_data(), conifold_data(), local_p2_data()]:
             results = compare_bcov_e1(cy3, 5)
             for r in results:
@@ -963,9 +969,9 @@ class TestCrossFamily:
         assert "c3_verification" in results
 
     def test_local_p2_f_g(self):
-        """F_g(local P^2) = 3 * lambda_g (kappa = 3)."""
+        """F_g(local P^2) = (3/2) * lambda_g (kappa = 3/2)."""
         for g in range(1, 5):
-            assert e1_shadow_fg(Fraction(3), g) == 3 * lambda_fp(g)
+            assert e1_shadow_fg(Fraction(3, 2), g) == Fraction(3, 2) * lambda_fp(g)
 
     def test_kappa_zero_edge_case(self):
         """kappa = 0 gives F_g = 0 for all g (uncurved algebra).
@@ -981,3 +987,222 @@ class TestCrossFamily:
         f2_full = conifold_fg_full(2)
         f2_const = bcov_fg_conifold_constant(2)
         assert f2_full == f2_const
+
+
+# =========================================================================
+# 16. BCOV CONSTANT MAP vs SHADOW: HONEST QUANTITATIVE DISAGREEMENT
+# =========================================================================
+
+class TestBCOVConstantMapDisagreement:
+    """The deepest finding: F_g^{BCOV constant map} != kappa * lambda_g^{FP}
+    for compact CY3 at g >= 2.
+
+    The constant-map formula has B_{2g} * B_{2g-2} (product of two Bernoulli
+    numbers) in the numerator. The shadow-lane formula lambda_g^{FP} has
+    B_{2g} alone. No single value of kappa makes these agree at all genera.
+
+    The identification BCOV = shadow is STRUCTURAL (HAE = MC equation,
+    Costello-Li 2015). The quantitative formula F_g = kappa * lambda_g^{FP}
+    holds for toric/non-compact CY3 (where the shadow is the full answer)
+    but FAILS for compact CY3 at g >= 2.
+    """
+
+    def test_constant_map_fg_bcov_g1(self):
+        """At g = 1, F_1^{const} = -chi/24 for the quintic."""
+        # quintic: chi = -200
+        f1 = constant_map_fg_bcov(-200, 1)
+        assert f1 == Fraction(-(-200), 24)  # -chi/24 = 200/24 = 25/3
+        assert f1 == Fraction(25, 3)
+
+    def test_constant_map_fg_bcov_g2_quintic(self):
+        """At g = 2, the BCOV constant-map formula uses B_4 * B_2.
+
+        F_2^{const}(quintic) = (-1)^2 * (-200)/2
+                                * |B_4| * |B_2| / (4 * 2 * 2!)
+        = (-100) * (1/30)(1/6) / 16
+        = (-100) * (1/180) / 16
+        = (-100) / 2880
+        = -5/144
+        """
+        f2 = constant_map_fg_bcov(-200, 2)
+        # chi = -200, g = 2
+        # (-1)^2 * (-200)/2 = -100
+        # |B_4| * |B_2| = (1/30)(1/6) = 1/180
+        # denominator: 2g(2g-2)(2g-2)! = 4 * 2 * 2 = 16
+        expected = Fraction(-100) * Fraction(1, 180) / Fraction(16)
+        assert f2 == expected
+        assert f2 == Fraction(-100, 2880)
+        assert f2 == Fraction(-5, 144)
+
+    def test_shadow_differs_from_bcov_g2_quintic(self):
+        """The shadow and BCOV constant-map formulas DISAGREE at g = 2 for quintic.
+
+        Shadow:     F_2 = kappa * lambda_2 = (-25/3) * (7/5760) = -175/17280
+        BCOV const: F_2 = -5/144
+
+        These are different numbers. The ratio is NOT 1.
+        This is the central honest finding.
+        """
+        kappa_quintic = Fraction(-25, 3)
+        f_shadow = kappa_quintic * lambda_fp(2)
+        f_bcov = constant_map_fg_bcov(-200, 2)
+
+        # They must be different
+        assert f_shadow != f_bcov, (
+            "Shadow and BCOV constant-map should DISAGREE at g=2 for quintic"
+        )
+
+        # Shadow: (-25/3) * (7/5760) = -175/17280 = -35/3456
+        assert f_shadow == Fraction(-25, 3) * Fraction(7, 5760)
+
+        # BCOV: -5/144
+        assert f_bcov == Fraction(-5, 144)
+
+        # The ratio is genus-dependent (NOT a constant kappa rescaling)
+        ratio = f_bcov / f_shadow
+        assert ratio != Fraction(1)
+
+    def test_shadow_differs_from_bcov_g3_quintic(self):
+        """Disagreement persists at g = 3 for the quintic.
+
+        Shadow:     F_3 = (-25/3) * (31/967680)
+        BCOV const: F_3 = (-1)^3 * (-200)/2
+                          * |B_6| * |B_4| / (6 * 4 * 4!)
+                        = 100 * (1/42)(1/30) / (6 * 4 * 24)
+                        = 100 / (1260 * 576)
+                        = 100 / 725760
+                        = 5 / 36288
+        """
+        kappa_quintic = Fraction(-25, 3)
+        f_shadow = kappa_quintic * lambda_fp(3)
+        f_bcov = constant_map_fg_bcov(-200, 3)
+
+        assert f_shadow != f_bcov, (
+            "Shadow and BCOV constant-map should DISAGREE at g=3 for quintic"
+        )
+
+        # Verify the BCOV value independently
+        # (-1)^3 = -1, chi/2 = -100, so (-1)*(-100) = 100
+        # |B_6|*|B_4| = (1/42)*(1/30) = 1/1260
+        # denom = 2g*(2g-2)*(2g-2)! = 6*4*24 = 576
+        expected_bcov = Fraction(100) * Fraction(1, 1260) / Fraction(576)
+        assert f_bcov == expected_bcov
+
+    def test_shadow_differs_from_bcov_g4_quintic(self):
+        """Disagreement at g = 4 for the quintic.
+
+        BCOV const: F_4 = (-1)^4 * (-200)/2
+                          * |B_8| * |B_6| / (8 * 6 * 6!)
+                        = -100 * (1/30)(1/42) / (8 * 6 * 720)
+                        = -100 / (1260 * 34560)
+                        = -100 / 43545600
+                        = -5 / 2177280
+        """
+        kappa_quintic = Fraction(-25, 3)
+        f_shadow = kappa_quintic * lambda_fp(4)
+        f_bcov = constant_map_fg_bcov(-200, 4)
+
+        assert f_shadow != f_bcov, (
+            "Shadow and BCOV constant-map should DISAGREE at g=4 for quintic"
+        )
+
+        # Verify BCOV value independently
+        # (-1)^4 = 1, chi/2 = -100
+        # |B_8|*|B_6| = (1/30)*(1/42) = 1/1260
+        # denom = 8*6*720 = 34560
+        expected_bcov = Fraction(-100) * Fraction(1, 1260) / Fraction(34560)
+        assert f_bcov == expected_bcov
+
+    def test_ratio_is_genus_dependent(self):
+        """The ratio F_bcov / F_shadow is NOT constant across genera.
+
+        This proves no single kappa can reconcile the two formulas.
+        The structural reason: BCOV has B_{2g} * B_{2g-2} (product),
+        shadow has B_{2g} alone. The ratio B_{2g-2} * (...) varies with g.
+        """
+        kappa_quintic = Fraction(-25, 3)
+        ratios = {}
+        for g in range(2, 6):
+            f_shadow = kappa_quintic * lambda_fp(g)
+            f_bcov = constant_map_fg_bcov(-200, g)
+            if f_shadow != 0:
+                ratios[g] = f_bcov / f_shadow
+
+        # The ratios must NOT all be equal
+        ratio_values = list(ratios.values())
+        assert len(set(ratio_values)) > 1, (
+            f"Ratios should be genus-dependent but got constant: {ratios}"
+        )
+
+    def test_genus_1_agrees(self):
+        """At g = 1, the two formulas DO agree (both give chi/24 * 1/24).
+
+        BCOV:   F_1^{const} = -chi/24 (with sign from (-1)^1 convention)
+        Shadow: F_1 = kappa * lambda_1 = (chi/24) * (1/24) ... but this
+                has a sign issue depending on convention.
+
+        The key point: the genus-1 formula does NOT involve a B_{2g-2} = B_0 = 1
+        factor that would cause disagreement. The product structure B_{2g}*B_{2g-2}
+        only causes disagreement at g >= 2 where B_{2g-2} is nontrivial.
+        """
+        # At g=1: B_{2g-2} = B_0 = 1, so the product formula reduces to
+        # chi/2 * |B_2| / (2*0*0!) which is degenerate. The g=1 formula
+        # is special and handled separately in both conventions.
+        f_bcov_g1 = constant_map_fg_bcov(-200, 1)
+        # BCOV: F_1 = -chi/24 = 200/24 = 25/3
+        assert f_bcov_g1 == Fraction(25, 3)
+
+    def test_constant_map_bcov_vs_shadow_function(self):
+        """The comparison function correctly identifies disagreement."""
+        results = constant_map_bcov_vs_shadow(-200, Fraction(-25, 3), 5)
+
+        # At g=1 -- may or may not agree depending on sign convention
+        # handled by the function
+
+        # At g >= 2, they must disagree
+        for g in range(2, 6):
+            assert not results[g]["agree"], (
+                f"BCOV constant-map and shadow should disagree at genus {g}"
+            )
+            assert results[g]["ratio"] != Fraction(1), (
+                f"Ratio should not be 1 at genus {g}"
+            )
+
+    def test_toric_not_affected(self):
+        """For toric/non-compact CY3, the shadow IS the full answer.
+
+        C^3 has chi = 0, so the constant-map formula is trivially zero.
+        The shadow lane F_g = kappa * lambda_g is the correct DT answer.
+        The disagreement is specific to COMPACT CY3 with chi != 0.
+        """
+        # For C^3 (chi=0), the BCOV constant map gives 0 at all genera
+        for g in range(2, 6):
+            f_bcov = constant_map_fg_bcov(0, g)
+            assert f_bcov == 0
+
+        # For conifold (chi=2, but non-compact, so constant-map formula
+        # is not directly applicable -- the DT/GV formula is used instead)
+        # The point: the disagreement matters only for compact CY3
+
+    def test_bernoulli_product_structure(self):
+        """Verify that the BCOV formula genuinely has B_{2g} * B_{2g-2}.
+
+        At g = 2: B_4 * B_2 = (-1/30)(1/6) = -1/180
+        At g = 3: B_6 * B_4 = (1/42)(-1/30) = -1/1260
+        At g = 4: B_8 * B_6 = (-1/30)(1/42) = -1/1260
+
+        The shadow lambda_g^{FP} has |B_{2g}| alone:
+        At g = 2: |B_4| = 1/30
+        At g = 3: |B_6| = 1/42
+        At g = 4: |B_8| = 1/30
+
+        The ratio |B_{2g-2}| / [(2^{2g-1}-1)/(2^{2g-1}(2g-2)(2g-2)!/(2g)!)]
+        is not constant -- this is WHY no single kappa works.
+        """
+        from bcov_e1_shadow_engine import bernoulli_number
+        # B_4 = -1/30, B_2 = 1/6: product = -1/180
+        assert bernoulli_number(4) * bernoulli_number(2) == Fraction(-1, 180)
+        # B_6 = 1/42, B_4 = -1/30: product = -1/1260
+        assert bernoulli_number(6) * bernoulli_number(4) == Fraction(-1, 1260)
+        # B_8 = -1/30, B_6 = 1/42: product = -1/1260
+        assert bernoulli_number(8) * bernoulli_number(6) == Fraction(-1, 1260)

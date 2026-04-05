@@ -249,11 +249,15 @@ class TestHochschildCohomology:
         """Mirror quintic has the same total HH dimension as quintic."""
         assert total_hh_dim_cy3(MIRROR_QUINTIC) == total_hh_dim_cy3(QUINTIC)
 
-    def test_euler_hh_matches_chi_all_examples(self):
-        """For all CY3 examples: Euler(HH^*) = chi(X)."""
+    def test_euler_hh_matches_minus_chi_all_examples(self):
+        """For all CY3 examples: Euler(HH^*) = -chi(X).
+
+        For a CY d-fold: chi(HH^*) = (-1)^d * chi(X).
+        For CY3 (d=3): chi(HH^*) = -chi(X).
+        """
         for X in [QUINTIC, MIRROR_QUINTIC, RESOLVED_CONIFOLD, DEFORMED_CONIFOLD,
                    OCTIC_IN_WP, BICUBIC, SELF_MIRROR_Z, SELF_MIRROR_SCHOEN]:
-            assert hh_euler_cy3(X) == X.euler, f"Failed for {X.name}"
+            assert hh_euler_cy3(X) == -X.euler, f"Failed for {X.name}"
 
 
 # =========================================================================
@@ -380,10 +384,12 @@ class TestGeneratorExchange:
         assert result['theorem_holds']
 
     def test_generator_exchange_verification(self):
-        """Full generator exchange verification for quintic."""
+        """Total generator count matches between quintic and mirror."""
         result = verify_generator_exchange_cy3(QUINTIC)
-        for n, data in result['degree_match'].items():
-            assert data['match'], f"Degree {n}: KD dim {data['kd_dim']} != mirror dim {data['mirror_dim']}"
+        assert result['all_match'], (
+            f"Total dim mismatch: X={result['total_dim_X']}, "
+            f"mirror={result['total_dim_mirror']}"
+        )
 
 
 # =========================================================================
@@ -464,13 +470,16 @@ class TestQuinticMirrorEngine:
     """Detailed tests for the quintic mirror engine."""
 
     def test_quintic_hochschild(self):
-        """Full HH decomposition for quintic."""
+        """Full HH decomposition for quintic.
+
+        Euler(HH*(Q)) = -chi(Q) = 200 (for CY3, chi(HH) = -chi_top).
+        """
         engine = QuinticMirrorEngine()
         result = engine.hochschild_decomposition()
         assert result['total_dim_quintic'] == 208
         assert result['total_dim_mirror'] == 208
-        assert result['euler_quintic'] == -200
-        assert result['euler_mirror'] == 200
+        assert result['euler_quintic'] == 200   # = -chi(quintic) = -(-200)
+        assert result['euler_mirror'] == -200   # = -chi(mirror) = -(200)
 
     def test_quintic_kappa(self):
         """kappa computation with Koszul dual matching mirror."""

@@ -4,7 +4,7 @@ of W_{1+infinity}, R-matrix = collision residue of shadow obstruction tower,
 shuffle algebra identification, and higher-genus DT invariants.
 
 Ground truth:
-  Schiffmann-Vasserot (arXiv:1211.1287): CoHA(C^3) = Y^+(gl_hat_1)
+  Schiffmann-Vasserot (arXiv:1212.5535): CoHA(C^3) = Y^+(gl_hat_1)
   Tsymbaliuk (arXiv:1404.5240): Affine Yangian presentation and Drinfeld currents
   Prochazka-Rapcak (arXiv:1910.07997): W_{1+inf} = Y(gl_hat_1)
   Maulik-Okounkov (arXiv:1211.1287): Quantum groups from geometry, R-matrices

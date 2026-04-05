@@ -189,7 +189,7 @@ def _import_local(name: str):
 #   lambda_2 = 7/5760
 #   lambda_3 = 31/967680
 # These come from the Bernoulli numbers through the A-hat genus:
-#   lambda_g = |B_{2g}| / (2g * (2g)!) for g >= 1
+#   lambda_g = (2^{2g-1} - 1) |B_{2g}| / (2^{2g-1} * (2g)!) for g >= 1
 # where B_{2g} is the 2g-th Bernoulli number.
 
 FABER_PANDHARIPANDE = {
@@ -213,7 +213,7 @@ def faber_pandharipande_lambda(g: int) -> Fraction:
 
     For g = 1,2,3: return the exact values from Vol I.
     For g >= 4: compute from the Bernoulli-number formula
-        lambda_g^FP = |B_{2g}| / (2g * (2g)!)
+        lambda_g^FP = (2^{2g-1} - 1) |B_{2g}| / (2^{2g-1} * (2g)!)
 
     CAUTION: This is the SCALAR contribution only. Higher-arity shadow
     components contribute additional terms at genus g >= 2 (AP31).
@@ -224,12 +224,13 @@ def faber_pandharipande_lambda(g: int) -> Fraction:
     if g in FABER_PANDHARIPANDE:
         return FABER_PANDHARIPANDE[g]
 
-    # Compute from Bernoulli numbers.
-    # |B_{2g}| / (2g * (2g)!)
-    # Using the formula from Vol I (verified at g=1,2,3).
+    # Compute from A-hat coefficients via Bernoulli numbers.
+    # lambda_g^FP = (2^{2g-1} - 1) |B_{2g}| / (2^{2g-1} * (2g)!)
+    # Verified at g=1,2,3 against hardcoded values.
     # B_2 = 1/6, B_4 = -1/30, B_6 = 1/42, B_8 = -1/30, B_10 = 5/66, B_12 = -691/2730
     b2g = _bernoulli_number(2 * g)
-    return Fraction(abs(b2g.numerator), abs(b2g.denominator)) / (2 * g * _factorial(2 * g))
+    abs_b2g = Fraction(abs(b2g.numerator), abs(b2g.denominator))
+    return (2 ** (2 * g - 1) - 1) * abs_b2g / (2 ** (2 * g - 1) * _factorial(2 * g))
 
 
 def _bernoulli_number(n: int) -> Fraction:
@@ -1242,12 +1243,9 @@ def bcov_instanton_correction(chi: int, h11: int) -> Fraction:
 def verify_faber_pandharipande():
     """Verify the Faber-Pandharipande lambda_g values by Bernoulli numbers.
 
-    lambda_g^{FP} = |B_{2g}| / (2g * (2g)!)
+    lambda_g^{FP} = (2^{2g-1} - 1) |B_{2g}| / (2^{2g-1} * (2g)!)
 
-    B_2 = 1/6: lambda_1 = (1/6)/(2*2) = 1/24. Check.
-    B_4 = -1/30: lambda_2 = (1/30)/(4*24) = 1/2880... wait, that's not 7/5760.
-
-    Hmm. The actual formula from Vol I is more subtle. Let me recompute.
+    These are the coefficients of (x/2)/sin(x/2) - 1 (the A-hat genus after i-rotation).
 
     The A-hat genus: A-hat(x) = (x/2)/sinh(x/2) = 1 - x^2/24 + 7x^4/5760 - ...
     So the coefficient of x^{2g} in A-hat(ix) - 1 gives lambda_g^FP:

@@ -58,7 +58,11 @@ MOTIVIC vs NAIVE BCH (AP42).
 The identification holds at the level of the MOTIVIC Hall algebra (MHA).
 At the naive BCH level (pair-commutator only), quantitative discrepancies
 appear. This module computes both:
-    - Full KS wall logs (log series): EXACT pentagon identity
+    - Full KS wall logs (log series): pentagon identity holds in the
+      QUANTUM TORUS (see conifold_wall_crossing.pentagon_identity_quantum_torus),
+      but NOT in the Lie algebra BCH approximation, which converges at
+      heights 1-2 and FAILS at height 3+ (this is fundamental, not a
+      truncation artifact)
     - Naive BCH (leading commutator): captures qualitative structure but
       misses higher BPS bound-state corrections
 
@@ -515,20 +519,21 @@ def conifold_ks_gauge_equivalence(max_height: int = 12,
         Theta_I = L_{10} + L_{01} + [correction from BCH]
         Theta_II = L_{01} + L_{11} + L_{10} + [correction from BCH]
 
-    The BCH products of wall logs are equal:
-        BCH(L_{10}, L_{01}) = BCH(L_{01}, L_{11}, L_{10})
+    The EXACT pentagon identity holds in the QUANTUM TORUS (where the
+    KS automorphisms K_gamma = prod(1 + q^n x_gamma)^{Omega} compose
+    exactly). In the Lie algebra BCH approximation used here, the
+    identity converges at heights 1-2 but FAILS at height 3+ due to
+    finite BCH depth — this is a fundamental limitation of the BCH
+    formulation, not a truncation artifact.
 
-    This IS the statement that the two MC elements, despite being
-    constructed from different spectra, are gauge-equivalent.
-
-    The gauge transformation is implicit: changing the ordering of walls
-    and adding new walls (the bound state at (1,1)) is the gauge transformation.
+    The MC equation, however, holds in BOTH formulations (BCH-independent):
+    each chamber's Theta satisfies D.Theta + 1/2[Theta, Theta] = 0.
 
     We verify:
     (a) Both Theta_I and Theta_II satisfy the MC equation
-    (b) The pentagon identity holds (BCH products equal)
+    (b) The BCH pentagon approximation (convergent at low heights only)
     (c) The ordered products are equal (gauge invariance)
-    (d) The discrepancy at each height is zero
+    (d) The discrepancy pattern at each height
     """
     omega = 1  # Reineke convention
 
@@ -807,10 +812,13 @@ def motivic_vs_naive_bch(max_height: int = 8,
     log series that the naive commutator misses. These corrections are
     the "higher BPS bound-state contributions" that AP42 warns about.
 
-    For the conifold (A_1 quiver): the full approach is EXACT (the pentagon
-    identity holds). The naive approach captures the qualitative structure
-    (existence of a wall at (1,1)) but gets the multiplicity wrong at
-    higher heights.
+    For the conifold (A_1 quiver): the EXACT pentagon identity holds in the
+    quantum torus (conifold_wall_crossing.pentagon_identity_quantum_torus).
+    The BCH approximation in the Lie algebra converges at heights 1-2 but
+    fails at height 3+ (fundamental, not truncation). The MC equation holds
+    independently of the pentagon. The naive approach captures qualitative
+    structure (existence of a wall at (1,1)) but gets multiplicities wrong
+    at higher heights.
     """
     rank = 2 if quiver in ('A1', 'conifold') else (3 if quiver == 'A2' else 4)
 
@@ -1754,11 +1762,15 @@ def ks_wall_log_properties(max_height: int = 12) -> Dict[str, Any]:
 
 def pentagon_convergence(heights: Optional[List[int]] = None,
                          bch_depth: int = 8) -> Dict[str, Any]:
-    r"""Test pentagon identity convergence as max_height increases.
+    r"""Test pentagon identity convergence in BCH as max_height increases.
 
-    The pentagon identity should hold EXACTLY in the completed algebra.
-    At finite truncation, it should hold at all heights up to the
-    truncation limit (modulo BCH depth limitations).
+    The EXACT pentagon holds in the QUANTUM TORUS (see
+    conifold_wall_crossing.pentagon_identity_quantum_torus), not in the
+    Lie algebra BCH formulation. BCH converges at heights 1-2 but fails
+    at height 3+ — this is fundamental, not a truncation artifact. This
+    function tracks the BCH discrepancy pattern across truncation heights.
+    The MC equation holds independently in both chambers regardless of
+    BCH pentagon convergence.
     """
     if heights is None:
         heights = [4, 6, 8, 10, 12, 14]

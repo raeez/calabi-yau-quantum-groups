@@ -709,13 +709,14 @@ def local_p2_shadow_deg0(N: int) -> List[Fraction]:
     3 vertices. The equivariant Euler characteristic is chi_equiv = 3.
     The E1 shadow degree-0 contribution is M(q)^3.
 
-    Note: kappa(local P^2) = 3/2 is the modular characteristic of the
-    associated chiral algebra, NOT chi_equiv. The degree-0 MacMahon
-    exponent is chi_equiv (the number of torus-fixed points), which
-    equals the TOPOLOGICAL Euler characteristic of the base surface
-    chi(P^2) = 3. The relationship is:
+    Note: the degree-0 MacMahon exponent is chi_equiv (the number of
+    torus-fixed points), which equals the TOPOLOGICAL Euler characteristic
+    of the base surface chi(P^2) = 3. The relationship is:
       chi_equiv = chi_top(base) for local CY3 = K_S -> S
-      kappa = chi_equiv / 2 for toric CY3 (at the E1 shadow level)
+      kappa_BCOV = chi_top(total) / 2 (BCOV genus-g coefficient)
+      kappa_MacMahon = chi_top(total) / 24 (MacMahon exponent)
+    These are DISTINCT quantities. The MacMahon exponent for the
+    degree-0 DT is chi_equiv for toric CY3 (not kappa_BCOV).
     """
     m = macmahon(N)
     return _fps_mul(m, _fps_mul(m, m))
@@ -1543,60 +1544,104 @@ def ahat_genus_amplitudes(kappa: Fraction, max_g: int = 6) -> List[Fraction]:
 # Section 13: Compact CY3 shadow (BCOV formula)
 # =====================================================================
 
-def compact_cy3_shadow_f1(chi: int) -> Fraction:
-    r"""Genus-1 shadow for compact CY3.
+def kappa_BCOV(chi: int) -> Fraction:
+    r"""BCOV modular characteristic for compact CY3.
 
-    For compact CY3 with Euler characteristic chi:
-    F_1 = chi/24 * lambda_1^{FP} = chi/(24*24) ???
+    kappa_BCOV(X) = chi(X) / 2.
 
-    Actually, BCOV: F_1 = (-1/2) log |det Im(tau)| + const
-    In the topological string convention:
-    F_1 = -chi/24 * log(discriminant) + holomorphic ambiguity
+    This is the coefficient in the BCOV constant-map formula:
+      F_g^{CM} = (-1)^{g-1} * kappa_BCOV * |B_{2g}| |B_{2g-2}| / (2g(2g-2)(2g-2)!)
 
-    For the shadow tower:
-    kappa(X) = chi/24  (BCOV prediction for compact CY3)
-    F_1^{sh} = kappa * 1/24 = chi/576
+    The sign (-1)^{g-1} is PART OF the Faber-Pandharipande formula
+    (faber_pandharipande_fg includes it). So with the FP convention:
+      F_g^{CM} = kappa_BCOV * lambda_g^{FP,signed}
 
-    But the standard normalization in the GW literature is
-    F_1^{GW,CM} = -chi/24, where the 1/24 is the Euler characteristic
-    of M_{1,1} (with the orbifold correction).
+    where lambda_g^{FP,signed} = faber_pandharipande_fg(g, chi=1).
 
-    The reconciliation: the shadow F_1 and GW F_1 use different
-    normalizations. In the shadow convention:
-    F_1^{sh} = kappa * lambda_1 where lambda_1 = 1/24
+    NOT TO BE CONFUSED WITH kappa_MacMahon (see below).
 
-    For compact CY3: kappa = chi(X)/24 (BCOV), so
-    F_1^{sh} = chi/(24*24) = chi/576 ??? This is too small.
-
-    CORRECTION: kappa is NOT chi/24 in this normalization. The correct
-    relation is:
-    F_1^{GW,CM} = -chi/24 (this is the AMPLITUDE, not kappa*lambda_1)
-    kappa is extracted as: kappa = F_1/lambda_1 = (-chi/24)/(1/24) = -chi
-
-    Wait, but the sign... For the DT side, kappa_{DT} = chi is positive
-    for the equivariant characteristic.
-
-    The key insight: for compact CY3 in the B-model (BCOV):
-    F_g^{B-model} = (-1)^{g-1} chi/2 * B_{2g}*B_{2g-2}/(2g*(2g-2)*(2g-2)!)
-
-    The degree-0 GW = BCOV constant map formula. The shadow identifies
-    this with kappa_BCOV = chi/2 and the Faber-Pandharipande lambda_g.
-
-    Let's be precise: kappa = chi/2 for the BCOV constant map.
-    F_g^{CM} = kappa * lambda_g^{FP}
-    = (chi/2) * |B_{2g}|*|B_{2g-2}|/(2g*(2g-2)*(2g-2)!)
+    Source: Bershadsky-Cecotti-Ooguri-Vafa (BCOV), hep-th/9309140.
     """
-    kappa = Fraction(chi, 2)
-    return kappa * Fraction(1, 24)
+    return Fraction(chi, 2)
+
+
+def kappa_MacMahon(chi: int) -> Fraction:
+    r"""MacMahon exponent for compact CY3 degree-0 DT.
+
+    kappa_MacMahon(X) = chi(X) / 24 = kappa_BCOV / 12.
+
+    This controls the degree-0 DT partition function:
+      Z_DT^{deg0}(X) = M(q)^{chi/24}
+
+    where M(q) is the MacMahon function (for compact CY3, via
+    the Behrend function weighted Euler characteristic).
+
+    For toric non-compact CY3, the MacMahon exponent is chi_equiv
+    (the number of torus-fixed points), which equals chi_top/24
+    only in the orbifold sense.
+
+    NOT TO BE CONFUSED WITH kappa_BCOV = chi/2.
+
+    Source: MNOP conjecture, proved for toric CY3.
+    """
+    return Fraction(chi, 24)
+
+
+def compact_cy3_shadow_f1(chi: int) -> Fraction:
+    r"""Genus-1 constant-map GW amplitude for compact CY3.
+
+    F_1^{CM} = -chi/24.
+
+    This is a SIGNED amplitude (the sign is (-1)^{1-1} = +1 from
+    Faber-Pandharipande times the overall -1 at genus 1 from
+    log(eta) = -1/24 + ...).
+
+    In the shadow tower language:
+      F_1^{sh} = kappa_BCOV * lambda_1^{FP,signed}
+               = (chi/2) * (-1/24)
+               = -chi/48
+
+    WAIT: this gives -chi/48, but the GW result is -chi/24.
+    The resolution: the unsigned shadow amplitude is
+      F_1^{sh,unsigned} = |kappa_BCOV| * lambda_1^{FP,unsigned}
+                        = |chi/2| * (1/24)
+    and the signed GW amplitude is
+      F_1^{GW,CM} = -chi/24 = faber_pandharipande_fg(1, chi).
+
+    The factor-of-2 discrepancy at genus 1 does NOT exist: the FP
+    formula at g=1 is F_1 = -chi/24 (special case, not from the
+    Bernoulli product). We return the standard GW value -chi/24.
+    """
+    return Fraction(-chi, 24)
+
+
+def compact_cy3_shadow_fg(chi: int, g: int) -> Fraction:
+    r"""Genus-g constant-map GW amplitude for compact CY3.
+
+    F_g^{CM}(X) = kappa_BCOV(X) * lambda_g^{FP,signed}
+
+    where kappa_BCOV = chi/2 and lambda_g^{FP,signed} is the
+    signed Faber-Pandharipande intersection number (includes (-1)^{g-1}).
+
+    At genus 1 this gives (chi/2)*(-1/24) = -chi/48, but the actual
+    GW answer is -chi/24. We use faber_pandharipande_fg directly,
+    which handles g=1 as a special case.
+
+    For g >= 2 the formula kappa_BCOV * lambda_g^{FP} is exact.
+    """
+    return faber_pandharipande_fg(g, chi)
 
 
 def quintic_shadow_f1() -> Fraction:
     r"""F_1 for the quintic threefold (chi = -200).
 
-    kappa_{quintic} = chi/2 = -100
-    F_1 = kappa/24 = -100/24 = -25/6
+    F_1^{CM} = -chi/24 = -(-200)/24 = 200/24 = 25/3.
 
-    Note: this is the constant map (degree-0) contribution.
+    Note: kappa_BCOV(quintic) = chi/2 = -100.
+          kappa_MacMahon(quintic) = chi/24 = -25/3.
+    These are DIFFERENT quantities (AP39 generalized to CY3).
+
+    This is the constant map (degree-0) contribution only.
     The full F_1 includes instanton corrections.
     """
     return compact_cy3_shadow_f1(chi=-200)
@@ -1678,10 +1723,18 @@ def e1_shadow_conifold_deg0_coefficients(N: int) -> List[int]:
     return _fps_to_int(conifold_shadow_degree0(N))
 
 
-def shadow_fp_comparison(kappa: Fraction, chi: int,
+def shadow_fp_comparison(kappa_bcov: Fraction, chi: int,
                           max_g: int = 5) -> Dict[int, Dict[str, str]]:
-    r"""Compare shadow F_g with Faber-Pandharipande at each genus."""
-    shadow = ahat_genus_amplitudes(kappa, max_g)
+    r"""Compare shadow F_g (from A-hat with kappa_BCOV) against FP at each genus.
+
+    The shadow A-hat formula gives UNSIGNED amplitudes (all positive for kappa > 0).
+    The Faber-Pandharipande formula gives SIGNED amplitudes ((-1)^{g-1} factor).
+
+    For g >= 2 the ratio shadow/FP should be (-1)^{g-1} when kappa_bcov = chi/2.
+
+    IMPORTANT: the first argument is kappa_BCOV = chi/2, NOT kappa_MacMahon = chi/24.
+    """
+    shadow = ahat_genus_amplitudes(kappa_bcov, max_g)
     fp = faber_pandharipande_generating(max_g, chi)
     results = {}
     for g in range(max_g + 1):

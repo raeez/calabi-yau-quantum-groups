@@ -1,7 +1,11 @@
 r"""Tests for the CY3/Langlands bridge via E₁ Koszul duality.
 
-THESIS UNDER TEST:
+CONJECTURAL THESIS UNDER TEST:
     Geometric Langlands = E₁ Koszul duality of CY3 chiral algebras.
+
+NOTE (AP42): This identification is CONJECTURAL. The tests below verify
+necessary conditions (κ vanishing, FF duality, R-matrix structure) that
+are CONSISTENT with the conjecture, not sufficient to prove it.
 
 For GL(N): CY3 = T*[P^{N-1}], E₁ chiral algebra = ĝl_N at critical level,
 Koszul dual = Langlands dual algebra. Self-duality at critical level

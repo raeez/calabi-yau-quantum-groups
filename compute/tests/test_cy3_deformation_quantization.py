@@ -384,14 +384,19 @@ class TestK3TimesEDeformation:
     # -- HH^3 decomposition --
 
     def test_hh3_dim(self):
-        """dim HH^3(K3 x E) = 45."""
-        assert self.data.hh3_dim == 45
+        """dim HH^3(K3 x E) = 44.
+
+        HH^3 = h^{3,3} + h^{2,2} + h^{1,1} + h^{0,0} = 1 + 21 + 21 + 1 = 44.
+        h^{2,2}(K3xE) = h^{1,1}(K3xE) = 21 by Kunneth (not 22).
+        """
+        assert self.data.hh3_dim == 44
 
     def test_hh3_h03(self):
         assert self.data.hh3.h03 == 1
 
     def test_hh3_h22(self):
-        assert self.data.hh3.h22 == 22
+        """h^{2,2}(K3xE) = 21 by Kunneth product (not 22)."""
+        assert self.data.hh3.h22 == 21
 
     def test_hh3_h11(self):
         assert self.data.hh3.h11 == 21
@@ -798,10 +803,14 @@ class TestFullHHCohomology:
     """Full Hochschild cohomology HH^n for n = 0..6."""
 
     def test_quintic_hh0(self):
-        """dim HH^0(quintic) = sum h^{3,q} = 1+0+0+1 = 2."""
+        """dim HH^0(quintic) = h^{3,0} = 1.
+
+        In the p+q=n convention: HH^0 has only (p,q)=(0,0),
+        giving h^{3,0} = 1.
+        """
         data = quintic_deformation_data()
         full = compute_full_hh_cohomology(data)
-        assert full[0]["dim"] == 2
+        assert full[0]["dim"] == 1
 
     def test_quintic_hh1(self):
         """dim HH^1(quintic) = h^{2,0}+h^{3,1} = 0+0 = 0.

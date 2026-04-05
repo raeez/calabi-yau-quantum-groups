@@ -867,8 +867,8 @@ class CoHAE1Sector:
         F_g = (-1)^{g-1} chi(X) * B_{2g} / (2g * (2g-2)!)
         where B_{2g} is the Bernoulli number.
 
-        Cross-check: lambda_g = |B_{2g}| / (2g * (2g-2)!) for g >= 1.
-        lambda_1 = |B_2|/(2*0!) = (1/6)/2 = 1/12... WAIT.
+        Cross-check: lambda_g = (2^{2g-1}-1)|B_{2g}| / (2^{2g-1} * (2g)!) for g >= 1.
+        lambda_1 = 1*|B_2|/(1*2!) = (1/6)/2 = 1/12... WAIT.
 
         Let me recompute. B_2 = 1/6. lambda_1 = B_2/(2*1*(2*1-2)!) = 1/6 / (2*0!)
         But 0! = 1, so lambda_1 = 1/12? No, the standard formula is:
@@ -904,7 +904,7 @@ class CoHAE1Sector:
 
 
 def _faber_pandharipande(g: int) -> Fraction:
-    """lambda_g^{FP} = |B_{2g}| / (2g * (2g)!) where B_{2g} is the Bernoulli number.
+    """lambda_g^{FP} = (2^{2g-1}-1)|B_{2g}| / (2^{2g-1} * (2g)!) (A-hat coefficient).
 
     Wait, let me get this right from the A-hat expansion.
 

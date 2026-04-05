@@ -38,9 +38,25 @@ The Bekenstein-Hawking entropy:
 where M is the BTZ mass (we use c_eff = 2 kappa for the dual CFT central
 charge in the Cardy formula: S = 2 pi sqrt(c_eff M / 6) = 2 pi sqrt(kappa M/3)).
 
-CAUTION: The relation c_eff = 2 kappa holds for Virasoro (kappa = c/2).
-For general CY3 chiral algebras, the Cardy formula uses the E_1 modular
-characteristic directly.  See the _effective_central_charge function below.
+WARNING (AP48, AP39, AP20): c_eff = 2*kappa is a SHADOW INVARIANT specific
+to this framework.  It equals the standard CFT c_eff only for the Virasoro
+algebra (where kappa = c/2, so c_eff(shadow) = 2*(c/2) = c = c_eff(standard)).
+For other algebras they DIVERGE:
+
+  K3 x E:  kappa = 5, c_eff(shadow) = 10, c_eff(standard) = c = 24.
+  Conifold: kappa = 1, c_eff(shadow) = 2,  c_eff(standard) = c = 2.
+
+The shadow Cardy formula S = 2*pi*sqrt(kappa*M/3) does NOT reproduce
+Strominger-Vafa entropy for K3 x E.  Strominger-Vafa gives S = 4*pi*sqrt(D)
+using c = 24, while the shadow formula gives S = 2*pi*sqrt(5*D/3).  At D = 3
+(the Strominger-Vafa value for the simplest state):
+  S_SV     = 4*pi*sqrt(3) ~ 21.77
+  S_shadow = 2*pi*sqrt(5)  ~ 14.05
+These differ by a factor of sqrt(24/5) * sqrt(3) / sqrt(1) ~ 1.549.
+
+Use standard_cardy_entropy(c, M) for the STANDARD Cardy formula with the
+actual CFT central charge c, and bekenstein_hawking_entropy(kappa, M) for
+the shadow formula.  See also the _effective_central_charge function below.
 
 Quantum corrections from the shadow CohFT:
   S_g = F_g(A_X) * (2 pi / S_BH)^{2g-2}    (g >= 2)
@@ -115,7 +131,11 @@ CONVENTIONS
 ===========
 
   - kappa = modular characteristic of the E_1 chiral algebra (AP1, AP48)
-  - c_eff = 2 * kappa  (the effective central charge for Cardy; AP20)
+  - c_eff = 2 * kappa  (the SHADOW effective central charge; AP20)
+    WARNING: c_eff(shadow) != c_eff(standard) in general.
+    c_eff(shadow) = 2*kappa = c only for Virasoro.  For K3xE:
+    c_eff(shadow) = 10 but c_eff(standard) = c = 24.  Shadow Cardy
+    does NOT reproduce Strominger-Vafa.  See standard_cardy_entropy().
   - beta = inverse temperature (beta > 0)
   - q = e^{-beta}  (|q| < 1)
   - M(q) = MacMahon function = prod_{n>=1} (1-q^n)^{-n}
@@ -407,6 +427,107 @@ def hawking_temperature(kappa, M_mass: float) -> float:
     if beta <= 0 or math.isinf(beta):
         return 0.0
     return 1.0 / beta
+
+
+def standard_cardy_entropy(c, M_mass: float) -> float:
+    r"""Standard Cardy entropy using the actual CFT central charge c.
+
+    S = 2 pi sqrt(c * M / 6)
+
+    This is the STANDARD Cardy formula (Cardy 1986) for a 2d CFT with
+    central charge c and conformal dimension Delta = M_mass above the vacuum.
+
+    CONTRAST WITH bekenstein_hawking_entropy(kappa, M):
+      bekenstein_hawking_entropy uses the SHADOW invariant kappa via
+      S = 2 pi sqrt(kappa M / 3) = 2 pi sqrt(c_eff(shadow) M / 6)
+      where c_eff(shadow) = 2 kappa.
+
+    For Virasoro (kappa = c/2):
+      standard_cardy_entropy(c, M) = bekenstein_hawking_entropy(c/2, M)
+      [AGREE]
+
+    For K3 x E (kappa = 5, c = 24):
+      standard_cardy_entropy(24, M) = 2 pi sqrt(24 M / 6) = 2 pi sqrt(4 M)
+      bekenstein_hawking_entropy(5, M) = 2 pi sqrt(5 M / 3)
+      Ratio: sqrt(4 M) / sqrt(5 M / 3) = sqrt(12/5) ~ 1.549
+      [DISAGREE by factor sqrt(12/5)]
+
+    Strominger-Vafa (1996) uses the STANDARD formula with c = 24 for
+    K3 x E, giving S = 4 pi sqrt(D) for a state with D = n_1 n_5 n_p.
+    The shadow formula with kappa = 5 gives a DIFFERENT (smaller) answer.
+
+    Parameters
+    ----------
+    c : central charge of the 2d CFT (the actual c, not c_eff(shadow))
+    M_mass : conformal dimension / BTZ mass (> 0)
+    """
+    c_f = float(c)
+    M_f = float(M_mass)
+    if c_f * M_f <= 0:
+        return 0.0
+    return TWO_PI * math.sqrt(c_f * M_f / 6.0)
+
+
+def shadow_vs_standard_cardy(kappa, c, M_mass: float) -> Dict[str, Any]:
+    r"""Compare shadow Cardy entropy with standard Cardy entropy.
+
+    The shadow formula uses kappa (modular characteristic of the E_1 algebra):
+      S_shadow = 2 pi sqrt(kappa M / 3)
+
+    The standard formula uses the actual CFT central charge c:
+      S_standard = 2 pi sqrt(c M / 6)
+
+    These agree when kappa = c/2 (Virasoro) and disagree otherwise.
+
+    For K3 x E: kappa = 5, c = 24.
+      S_shadow   = 2 pi sqrt(5 M / 3)
+      S_standard = 2 pi sqrt(4 M)
+      Ratio = sqrt(12/5) ~ 1.549
+
+    Strominger-Vafa entropy for K3 x E at D = n_1 n_5 n_p:
+      S_SV = 2 pi sqrt(4 D) = 4 pi sqrt(D)
+    uses c = 24 (standard), NOT c_eff(shadow) = 10.
+
+    Parameters
+    ----------
+    kappa : modular characteristic (shadow invariant)
+    c : actual CFT central charge
+    M_mass : BTZ mass / conformal dimension
+    """
+    kappa_f = float(kappa)
+    c_f = float(c)
+    M_f = float(M_mass)
+
+    S_shadow = bekenstein_hawking_entropy(kappa, M_mass)
+    S_standard = standard_cardy_entropy(c, M_mass)
+
+    # Theoretical ratio: sqrt(c / (2 kappa)) when both positive
+    if kappa_f > 0 and c_f > 0:
+        theoretical_ratio = math.sqrt(c_f / (2.0 * kappa_f))
+    else:
+        theoretical_ratio = float('nan')
+
+    actual_ratio = S_standard / S_shadow if S_shadow > 0 else float('nan')
+
+    # Check if they agree (kappa = c/2)
+    agrees = abs(kappa_f - c_f / 2.0) < 1e-10 * max(abs(kappa_f), abs(c_f), 1.0)
+
+    return {
+        'kappa': kappa_f,
+        'c': c_f,
+        'c_eff_shadow': 2.0 * kappa_f,
+        'M_mass': M_f,
+        'S_shadow': S_shadow,
+        'S_standard': S_standard,
+        'ratio_standard_over_shadow': actual_ratio,
+        'theoretical_ratio': theoretical_ratio,
+        'agrees': agrees,
+        'notes': (
+            'Shadow and standard Cardy agree only when kappa = c/2 (Virasoro). '
+            'For K3 x E: kappa = 5, c = 24, ratio = sqrt(12/5) ~ 1.549. '
+            'Strominger-Vafa uses c = 24 (standard), not c_eff(shadow) = 10.'
+        ),
+    }
 
 
 # =========================================================================
@@ -866,11 +987,11 @@ def hagedorn_temperature_c3() -> Dict[str, Any]:
     is a dense set of essential singularities, not a simple pole.
     """
     # Wright asymptotic coefficient
-    # log p(n) ~ alpha * n^{2/3} where alpha = (2/3) * (3 * zeta(3))^{1/3}
-    alpha = (2.0 / 3.0) * (3.0 * ZETA_3) ** (1.0 / 3.0)
+    # log p(n) ~ C * n^{2/3} where C = 3 * (zeta(3)/4)^{1/3} ~ 2.009
+    wright_C = 3.0 * (ZETA_3 / 4.0) ** (1.0 / 3.0)
     return {
         'growth_exponent': Fraction(2, 3),
-        'wright_coefficient': alpha,
+        'wright_coefficient': wright_C,
         'convergence_radius': 1.0,
         'has_hagedorn': False,
         'natural_boundary': True,
@@ -1014,33 +1135,35 @@ def microcanonical_entropy_c3(n: int) -> float:
 
 
 def wright_asymptotic_entropy(n: int) -> float:
-    r"""Leading Wright asymptotic: S ~ (2/3)(3 zeta(3))^{1/3} n^{2/3}.
+    r"""Leading Wright asymptotic: S ~ C n^{2/3} where C = 3(zeta(3)/4)^{1/3}.
 
     This is the LEADING term only.  For comparison with exact values.
+    The Wright constant C = 3*(zeta(3)/4)^{1/3} ~ 2.009 (NOT (2/3)*(3*zeta(3))^{1/3}).
+    Cross-validated against microstate_e1_bar_engine.py WRIGHT_C.
     """
     if n <= 0:
         return 0.0
-    alpha = (2.0 / 3.0) * (3.0 * ZETA_3) ** (1.0 / 3.0)
-    return alpha * (n ** (2.0 / 3.0))
+    C = 3.0 * (ZETA_3 / 4.0) ** (1.0 / 3.0)
+    return C * (n ** (2.0 / 3.0))
 
 
 def wright_full_asymptotic(n: int) -> Dict[str, float]:
     r"""Full Wright asymptotic expansion of log p(n).
 
-    log p(n) = alpha n^{2/3} - (3/4) log(alpha n^{2/3}) + C + O(n^{-1/3})
+    log p(n) = C n^{2/3} - (3/4) log(C n^{2/3}) + const + O(n^{-1/3})
 
-    where alpha = (2/3)(3 zeta(3))^{1/3} and C is a constant.
+    where C = 3(zeta(3)/4)^{1/3} is the Wright constant.
     """
     if n <= 0:
         return {'n': n, 'leading': 0.0, 'subleading': 0.0, 'total': 0.0}
 
-    alpha = (2.0 / 3.0) * (3.0 * ZETA_3) ** (1.0 / 3.0)
-    leading = alpha * (n ** (2.0 / 3.0))
+    C = 3.0 * (ZETA_3 / 4.0) ** (1.0 / 3.0)
+    leading = C * (n ** (2.0 / 3.0))
     subleading = -(3.0 / 4.0) * math.log(leading) if leading > 0 else 0.0
 
     return {
         'n': n,
-        'alpha': alpha,
+        'wright_C': C,
         'leading': leading,
         'subleading': subleading,
         'total': leading + subleading,
@@ -1051,10 +1174,9 @@ def wright_full_asymptotic(n: int) -> Dict[str, float]:
 def cardy_vs_wright_comparison(n_values: Sequence[int]) -> List[Dict[str, float]]:
     r"""Compare exact entropy with Wright asymptotic for plane partitions.
 
-    The key check: the Wright asymptotic S ~ alpha n^{2/3} should match
-    the exact log p(n) at large n.
+    The key check: the Wright asymptotic S ~ C n^{2/3} where
+    C = 3(zeta(3)/4)^{1/3} should match the exact log p(n) at large n.
     """
-    alpha = (2.0 / 3.0) * (3.0 * ZETA_3) ** (1.0 / 3.0)
     results = []
     for n in n_values:
         exact = microcanonical_entropy_c3(n)

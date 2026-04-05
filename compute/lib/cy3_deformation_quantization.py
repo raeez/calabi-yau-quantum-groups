@@ -1594,28 +1594,21 @@ def cy_compatible_slice_analysis(data: CY3DeformationData) -> Dict[str, Any]:
 # ===========================================================================
 
 def verify_hh2_palindrome(data: CY3DeformationData) -> bool:
-    """Verify Serre duality: HH^n(X) = HH^{d-n}(X)^* for CY d-fold.
+    r"""Verify Serre duality palindrome: dim HH^n = dim HH^{2d-n} for CY d-fold.
 
-    For CY3: dim HH^n = dim HH^{3-n}.
+    For a CY d-fold, the HKR decomposition gives HH^n = sum_{p+q=n} h^{d-p,q},
+    where n ranges from 0 to 2d.  Serre duality (h^{p,q} = h^{d-p,d-q}) implies
+    the palindrome:
+        dim HH^n = dim HH^{2d-n}.
 
-    In particular: dim HH^0 = dim HH^3, dim HH^1 = dim HH^2.
-
-    This is because HH^n = sum_{p+q=n} h^{3-p,q}
-    and HH^{3-n} = sum_{p'+q'=3-n} h^{3-p',q'}.
-    Setting p' = 3-q, q' = 3-p-n+q... let me verify directly.
-
-    For CY3: h^{p,q} = h^{3-p,3-q} (Serre duality for CY).
-    HH^n = sum_{p+q=n} h^{3-p,q}.
-    HH^{3-n} = sum_{p'+q'=3-n} h^{3-p',q'}.
-    Set p' = q, q' = 3-p-q+... this is getting complicated.
-
-    Let me just compute directly.
+    For CY3 (d=3): dim HH^n = dim HH^{6-n} for n = 0, ..., 6.
+    In particular: dim HH^0 = dim HH^6, dim HH^1 = dim HH^5, dim HH^2 = dim HH^4.
     """
     if not data.compact:
         return True  # Trivially (can't check non-compact)
 
     hh_dims = {}
-    for n in range(4):
+    for n in range(7):  # n = 0, ..., 6
         total = 0
         for p in range(4):
             q = n - p
@@ -1624,37 +1617,32 @@ def verify_hh2_palindrome(data: CY3DeformationData) -> bool:
             total += data.h(3 - p, q)
         hh_dims[n] = total
 
-    # Check palindrome: dim HH^n = dim HH^{3-n}
-    return all(hh_dims[n] == hh_dims[3 - n] for n in range(4))
+    # Check palindrome: dim HH^n = dim HH^{6-n}
+    return all(hh_dims[n] == hh_dims[6 - n] for n in range(7))
 
 
 def verify_euler_consistency(data: CY3DeformationData) -> Dict[str, Any]:
-    """Verify chi(HH^*) = chi_top(X) (Euler characteristic identity).
+    r"""Verify chi(HH^*) = -chi_top(X) for CY3 (Euler characteristic identity).
 
-    For CY3:
-        chi(HH^*) = sum_n (-1)^n dim HH^n
+    For a CY d-fold, the HKR decomposition gives HH^n = sum_{p+q=n} h^{d-p,q}
+    with n ranging from 0 to 2d.  The Euler characteristic of HH is:
 
-    where HH^n = sum_{p+q=n} h^{3-p,q}.
+        chi(HH^*) = sum_{n=0}^{2d} (-1)^n dim HH^n
+                  = sum_{p,q} (-1)^{p+q} h^{d-p,q}
+                  = sum_{a,b} (-1)^{d-a+b} h^{a,b}     (setting a=d-p, b=q)
+                  = (-1)^d sum_{a,b} (-1)^{a+b} h^{a,b} * (-1)^{-2a}
+                  = (-1)^d * chi_top(X).
 
-    chi(HH^*) = sum_n (-1)^n sum_{p+q=n} h^{3-p,q}
-              = sum_{p,q} (-1)^{p+q} h^{3-p,q}
-              = sum_{a,q} (-1)^{3-a+q} h^{a,q}    (setting a=3-p)
-              = (-1)^3 sum_{a,q} (-1)^{a+q} h^{a,q} * (-1)^{2q}
-              = -sum_{a,q} (-1)^{a+q} h^{a,q}     (since (-1)^{2q}=1)
+    For d=3: chi(HH^*) = -chi_top(X).
 
-    Wait: sum_{p,q with p+q=n} (-1)^n h^{3-p,q}
-        = sum_p sum_q [p+q=n] (-1)^{p+q} h^{3-p,q}
-        = sum_p (-1)^p sum_q (-1)^q [q=n-p] h^{3-p,n-p}
-        ... this is hard to simplify in general.
-
-    Let me just compute both sides directly.
+    The sum MUST run from n=0 to n=2d=6, not n=0 to n=d=3.
     """
     if not data.compact:
         return {"compact": False, "note": "Euler identity not applicable for non-compact"}
 
-    # Compute chi(HH^*) = sum_n (-1)^n dim HH^n
+    # Compute chi(HH^*) = sum_{n=0}^{6} (-1)^n dim HH^n
     hh_dims = {}
-    for n in range(4):
+    for n in range(7):  # n = 0, ..., 6
         total = 0
         for p in range(4):
             q = n - p
@@ -1663,12 +1651,8 @@ def verify_euler_consistency(data: CY3DeformationData) -> Dict[str, Any]:
             total += data.h(3 - p, q)
         hh_dims[n] = total
 
-    chi_hh = sum((-1) ** n * hh_dims[n] for n in range(4))
+    chi_hh = sum((-1) ** n * hh_dims[n] for n in range(7))
     chi_top = data.euler_characteristic
-
-    # The correct identity: for a CY d-fold,
-    # chi(HH^*) = (-1)^d * chi_top (Serre duality + HKR)
-    # For d=3: chi(HH^*) = -chi_top
 
     return {
         "chi_hh": chi_hh,

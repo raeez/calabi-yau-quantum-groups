@@ -38,6 +38,7 @@ from btz_cy3_e1_engine import (
     # Entropy
     bekenstein_hawking_entropy, bekenstein_hawking_rotating,
     inverse_hawking_temperature, hawking_temperature,
+    standard_cardy_entropy, shadow_vs_standard_cardy,
     # Free energies
     F_g_scalar, free_energy_table, F1_from_kappa,
     # Quantum corrections
@@ -663,10 +664,15 @@ class TestMicrocanonicalEntropy:
         assert abs(ratios[-1] - 1.0) < 0.5
 
     def test_wright_coefficient(self):
-        """VP1: alpha = (2/3)(3 zeta(3))^{1/3}."""
-        alpha_computed = (2.0 / 3.0) * (3.0 * ZETA_3) ** (1.0 / 3.0)
-        # alpha ~ 1.04 (approximately)
-        assert 1.0 < alpha_computed < 1.1
+        """VP1: C = 3(zeta(3)/4)^{1/3} ~ 2.009 (Wright constant).
+
+        Cross-validated against microstate_e1_bar_engine.py WRIGHT_C.
+        The WRONG constant (2/3)(3 zeta(3))^{1/3} ~ 1.022 was a known error.
+        """
+        C_correct = 3.0 * (ZETA_3 / 4.0) ** (1.0 / 3.0)
+        assert 2.0 < C_correct < 2.1
+        # Also verify it matches the function output at n=1
+        assert abs(wright_asymptotic_entropy(1) - C_correct) < 1e-12
 
     def test_wright_full_has_fields(self):
         """VP1: Full Wright asymptotic returns all fields."""
@@ -675,6 +681,7 @@ class TestMicrocanonicalEntropy:
         assert 'subleading' in result
         assert 'exact' in result
         assert result['n'] == 10
+        assert 'wright_C' in result
 
 
 # =========================================================================
@@ -1026,3 +1033,153 @@ class TestIntegration:
                 if name != "K3 x E":
                     assert entropies["K3 x E"] >= S, \
                         f"K3 x E should have largest entropy, but {name} has {S}"
+
+
+# =========================================================================
+# Section 17: Shadow vs Standard Cardy discrepancy (12 tests)
+#
+# WARNING: c_eff(shadow) = 2*kappa is a SHADOW INVARIANT that does NOT
+# equal the standard CFT c_eff in general.  For K3 x E: kappa = 5,
+# c_eff(shadow) = 10, but c(standard) = 24.  The shadow Cardy formula
+# does NOT reproduce Strominger-Vafa.  These tests document and verify
+# the discrepancy.
+# =========================================================================
+
+class TestShadowVsStandardCardy:
+    """Verify and document the discrepancy between shadow Cardy and
+    standard Cardy entropy formulas.
+
+    The shadow formula S = 2*pi*sqrt(kappa*M/3) uses the modular
+    characteristic kappa, while the standard Cardy formula
+    S = 2*pi*sqrt(c*M/6) uses the actual CFT central charge c.
+
+    These agree when kappa = c/2 (Virasoro) and DISAGREE otherwise.
+    For K3 x E: kappa = 5, c = 24, so shadow gives sqrt(10*D/3)
+    while Strominger-Vafa gives 4*pi*sqrt(D) using c = 24.
+    """
+
+    def test_standard_cardy_formula(self):
+        """VP1: S = 2*pi*sqrt(c*M/6) from the defining formula."""
+        c, M = 24, 3
+        S = standard_cardy_entropy(c, M)
+        expected = 2.0 * PI * math.sqrt(24.0 * 3.0 / 6.0)
+        assert abs(S - expected) < 1e-12
+
+    def test_standard_cardy_strominger_vafa(self):
+        """VP5: For K3xE at D=3: S_SV = 4*pi*sqrt(3) (Strominger-Vafa 1996).
+
+        Strominger-Vafa use the Cardy formula with c = 6*n_1*n_5 = 6*1*4 = 24
+        (for n_1 = 1 five-brane and n_5 = 4 one-branes wrapping K3),
+        giving S = 2*pi*sqrt(c*D/6) = 2*pi*sqrt(24*D/6) = 4*pi*sqrt(D).
+        At D = n_p = 3: S = 4*pi*sqrt(3) ~ 21.77.
+        """
+        c_k3e = 24
+        D = 3  # simplest Strominger-Vafa state
+        S_standard = standard_cardy_entropy(c_k3e, D)
+        S_SV = 4.0 * PI * math.sqrt(float(D))
+        assert abs(S_standard - S_SV) < 1e-12
+
+    def test_shadow_cardy_k3e_disagrees(self):
+        """VP1+VP4: Shadow formula gives DIFFERENT answer for K3 x E.
+
+        Shadow: S = 2*pi*sqrt(5*D/3) with kappa = 5.
+        Standard: S = 4*pi*sqrt(D) with c = 24.
+        These differ by factor sqrt(12/5) ~ 1.549.
+        """
+        kappa_k3e = 5
+        c_k3e = 24
+        D = 3
+
+        S_shadow = bekenstein_hawking_entropy(kappa_k3e, D)
+        S_standard = standard_cardy_entropy(c_k3e, D)
+
+        # They should NOT be equal
+        assert abs(S_shadow - S_standard) > 1.0, \
+            "Shadow and standard Cardy should DISAGREE for K3 x E"
+
+        # The ratio should be sqrt(c / (2*kappa)) = sqrt(24/10) = sqrt(12/5)
+        expected_ratio = math.sqrt(12.0 / 5.0)
+        actual_ratio = S_standard / S_shadow
+        assert abs(actual_ratio - expected_ratio) < 1e-10
+
+    def test_shadow_standard_agree_virasoro(self):
+        """VP1: Shadow and standard agree for Virasoro (kappa = c/2).
+
+        For the Virasoro algebra with central charge c:
+          kappa(Vir_c) = c/2  (AP1, AP48)
+          S_shadow   = 2*pi*sqrt((c/2)*M/3) = 2*pi*sqrt(c*M/6)
+          S_standard = 2*pi*sqrt(c*M/6)
+        These are IDENTICAL.
+        """
+        for c in [1.0, 6.0, 12.0, 24.0, 26.0]:
+            kappa = c / 2.0
+            M = 10.0
+            S_shadow = bekenstein_hawking_entropy(kappa, M)
+            S_standard = standard_cardy_entropy(c, M)
+            assert abs(S_shadow - S_standard) < 1e-10, \
+                f"Should agree for Virasoro at c={c}"
+
+    def test_shadow_vs_standard_comparison_k3e(self):
+        """VP4: shadow_vs_standard_cardy returns correct structure for K3 x E."""
+        result = shadow_vs_standard_cardy(5, 24, 10.0)
+
+        assert result['kappa'] == 5.0
+        assert result['c'] == 24.0
+        assert result['c_eff_shadow'] == 10.0
+        assert result['agrees'] is False
+
+        # Ratio should be sqrt(24/10) = sqrt(12/5)
+        expected_ratio = math.sqrt(12.0 / 5.0)
+        assert abs(result['ratio_standard_over_shadow'] - expected_ratio) < 1e-10
+
+    def test_shadow_vs_standard_comparison_virasoro(self):
+        """VP4: shadow_vs_standard_cardy reports agreement for Virasoro."""
+        result = shadow_vs_standard_cardy(13, 26, 10.0)
+        assert result['agrees'] is True
+        assert abs(result['ratio_standard_over_shadow'] - 1.0) < 1e-10
+
+    def test_standard_cardy_zero_c(self):
+        """VP3: S = 0 for c = 0 (trivial CFT)."""
+        assert standard_cardy_entropy(0, 10) == 0.0
+
+    def test_standard_cardy_zero_M(self):
+        """VP3: S = 0 for M = 0 (vacuum)."""
+        assert standard_cardy_entropy(24, 0) == 0.0
+
+    def test_standard_cardy_negative_c(self):
+        """VP3: S = 0 for c < 0 (unphysical)."""
+        assert standard_cardy_entropy(-5, 10) == 0.0
+
+    def test_standard_cardy_scaling(self):
+        """VP2: S scales as sqrt(c) at fixed M."""
+        M = 10.0
+        S1 = standard_cardy_entropy(6, M)
+        S24 = standard_cardy_entropy(24, M)
+        ratio = S24 / S1
+        assert abs(ratio - 2.0) < 1e-10  # sqrt(24/6) = sqrt(4) = 2
+
+    def test_k3e_discrepancy_quantitative(self):
+        """VP6: Quantify the K3 x E discrepancy at multiple mass values.
+
+        The ratio S_standard / S_shadow = sqrt(12/5) ~ 1.549 is
+        INDEPENDENT of M (both scale as sqrt(M)).  This documents that
+        the shadow Cardy systematically UNDERESTIMATES entropy relative
+        to Strominger-Vafa by a factor of sqrt(12/5) for K3 x E.
+        """
+        expected_ratio = math.sqrt(12.0 / 5.0)
+        for M in [1.0, 3.0, 10.0, 100.0, 1000.0]:
+            S_shadow = bekenstein_hawking_entropy(5, M)
+            S_standard = standard_cardy_entropy(24, M)
+            ratio = S_standard / S_shadow
+            assert abs(ratio - expected_ratio) < 1e-10, \
+                f"Ratio should be sqrt(12/5) at M={M}, got {ratio}"
+
+    def test_conifold_shadow_standard_agree(self):
+        """VP4: For the resolved conifold, kappa = 1 and c = 2.
+
+        kappa = 1, c = 2, so kappa = c/2.  Shadow and standard AGREE
+        (the conifold chiral algebra is Heisenberg, which is Virasoro-like).
+        """
+        result = shadow_vs_standard_cardy(1, 2, 10.0)
+        assert result['agrees'] is True
+        assert abs(result['ratio_standard_over_shadow'] - 1.0) < 1e-10
