@@ -107,27 +107,25 @@ def _phi01_via_theta(max_n: int) -> Dict[Tuple[int, int], Fraction]:
     for n1 in range(-n_range, n_range + 1):
         for n2 in range(-n_range, n_range + 1):
             ss = n1 * n1 + n2 * n2
-            if ss > max_u:
-                continue
             l = n1 + n2
 
-            # --- theta_3^2 ---
-            key = (ss, l)
-            t3sq[key] = t3sq.get(key, Fraction(0)) + ONE
-            t3sq0[ss] = t3sq0.get(ss, Fraction(0)) + ONE
+            # --- theta_3^2 and theta_4^2 use u-power ss ---
+            if ss <= max_u:
+                key = (ss, l)
+                t3sq[key] = t3sq.get(key, Fraction(0)) + ONE
+                t3sq0[ss] = t3sq0.get(ss, Fraction(0)) + ONE
 
-            # --- theta_4^2 ---
-            sign4 = ONE if (n1 + n2) % 2 == 0 else -ONE
-            t4sq[key] = t4sq.get(key, Fraction(0)) + sign4
-            t4sq0[ss] = t4sq0.get(ss, Fraction(0)) + sign4
+                sign4 = ONE if (n1 + n2) % 2 == 0 else -ONE
+                t4sq[key] = t4sq.get(key, Fraction(0)) + sign4
+                t4sq0[ss] = t4sq0.get(ss, Fraction(0)) + sign4
 
-            # --- theta_2^2 ---
-            ss2 = ss + n1 + n2
-            if ss2 < 0 or ss2 > max_u:
-                continue
-            key2 = (ss2, l + 1)
-            t2sq[key2] = t2sq.get(key2, Fraction(0)) + ONE
-            t2sq0[ss2] = t2sq0.get(ss2, Fraction(0)) + ONE
+            # --- theta_2^2 uses u-power ss2 = ss + l, which can be <= max_u
+            #     even when ss > max_u (when l < 0) ---
+            ss2 = ss + l
+            if 0 <= ss2 <= max_u:
+                key2 = (ss2, l + 1)
+                t2sq[key2] = t2sq.get(key2, Fraction(0)) + ONE
+                t2sq0[ss2] = t2sq0.get(ss2, Fraction(0)) + ONE
 
     # Invert the z = 0 specializations
     inv_t3sq0 = _invert_q_series(t3sq0, max_u)
