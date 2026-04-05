@@ -1,7 +1,7 @@
 r"""
 Clean from-scratch verification of the BKM shadow obstruction tower identification:
 
-    automorphic correction of g_{Delta_5} = shadow Postnikov tower
+    automorphic correction of g_{Delta_5} = shadow obstruction tower
 
 This script imports ONLY from phi01_fourier.py (the verified theta-function
 computation of phi_{0,1} Fourier coefficients) and recomputes everything

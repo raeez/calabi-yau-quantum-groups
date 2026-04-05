@@ -457,15 +457,15 @@ class TestBulkBoundary:
         assert result["shadow_depth"] == 2
 
     def test_kappa_heisenberg(self):
-        """kappa(H_k) = k/2 for Heisenberg at level k."""
+        """kappa(H_k) = k for Heisenberg at level k (NOT k/2, see AP39/AP48)."""
         bb = BulkBoundaryHeisenberg(k=1, N=5)
         result = bb.verify_correspondence()
-        assert result["kappa"] == Fraction(1, 2)
+        assert result["kappa"] == Fraction(1)
 
     def test_kappa_level2(self):
         bb = BulkBoundaryHeisenberg(k=2, N=5)
         result = bb.verify_correspondence()
-        assert result["kappa"] == Fraction(1)  # 2/2 = 1
+        assert result["kappa"] == Fraction(2)  # kappa(H_2) = 2
 
 
 # ================================================================

@@ -1,5 +1,5 @@
 r"""
-Tests for the BKM shadow obstruction tower: g_{Delta_5} automorphic correction = shadow Postnikov tower.
+Tests for the BKM shadow obstruction tower: g_{Delta_5} automorphic correction = shadow obstruction tower.
 
 Verifies:
     1. Lattice geometry: Gram matrix, Weyl vector, inner products

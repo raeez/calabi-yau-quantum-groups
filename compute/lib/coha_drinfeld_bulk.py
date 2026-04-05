@@ -771,7 +771,7 @@ class BulkBoundaryHeisenberg:
             "heisenberg_dims": self.heisenberg_dimensions()[:8],
             "derived_center_dims": der[:8],
             "module_center_dims": mod[:8],
-            "kappa": Fraction(self.k, 2) if isinstance(self.k, int) else self.k / 2,
+            "kappa": Fraction(self.k) if isinstance(self.k, int) else self.k,  # kappa(H_k) = k, NOT k/2
             "shadow_depth": 2,  # Heisenberg is class G
         }
 

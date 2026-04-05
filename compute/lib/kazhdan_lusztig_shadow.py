@@ -119,7 +119,7 @@ def kappa_sl3(k) -> Fraction:
 def shadow_tower_sl2(k, max_arity: int = 4) -> Dict[str, Any]:
     r"""Compute the shadow obstruction tower invariants for ŝl₂_k.
 
-    The shadow Postnikov tower Θ_A^{≤r} projects the universal MC element:
+    The shadow obstruction tower Θ_A^{≤r} projects the universal MC element:
       r=2: κ (modular characteristic)
       r=3: C (cubic shadow) — for affine KM, C encodes the
            structure constants of the Lie algebra via the tree-level

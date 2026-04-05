@@ -941,7 +941,7 @@ def shadow_invariants_from_multiplicities(
 
     The shadow obstruction tower interpretation: S_r is the r-th Taylor coefficient
     of the generating function sum_{n>=1} c(n) * e^{nt}, and the
-    shadow Postnikov tower truncates this at order r.
+    shadow obstruction tower truncates this at order r.
     """
     results = {}
     N = max(c_table.keys()) if c_table else 0

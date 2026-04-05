@@ -449,8 +449,8 @@ def vol1_kappa(family: str, **params) -> Optional[Fraction]:
 def vol3_kappa_heisenberg(k) -> Optional[Any]:
     r"""Import kappa from Vol III's e2_bar_complex.py for Heisenberg.
 
-    WARNING: Vol III e2_bar_complex.py has kappa(H_k) = k/2 which is WRONG.
-    The authoritative value is kappa(H_k) = k.
+    Vol III e2_bar_complex.py now correctly has kappa(H_k) = k
+    (fixed from the old k/2 convention).
     This function returns whatever Vol III computes, for comparison.
     """
     try:

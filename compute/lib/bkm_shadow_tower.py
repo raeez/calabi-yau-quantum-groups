@@ -1,8 +1,8 @@
 r"""
-BKM shadow obstruction tower for g_{Delta_5}: automorphic correction = shadow Postnikov tower.
+BKM shadow obstruction tower for g_{Delta_5}: automorphic correction = shadow obstruction tower.
 
 Central identification (Volume III):
-    automorphic correction of a BKM superalgebra = shadow Postnikov tower from Volume I.
+    automorphic correction of a BKM superalgebra = shadow obstruction tower from Volume I.
 
 For the generalized BKM superalgebra g_{Delta_5} attached to (K3 x E):
 
