@@ -530,13 +530,17 @@ class TestDrinfeldCenterK3E:
         """CoHA character at y=1 is prod 1/(1-q^n)^{24} (Goettsche)."""
         char = dc_k3e.drinfeld_center_character(8)
         # First few terms of prod 1/(1-q^n)^{24}:
-        # n=0: 1, n=1: 24, n=2: 24*25/2 = 300, ...
-        # Actually: prod 1/(1-q^n)^{24} gives the Ramanujan tau-related numbers
-        # Let me compute: it's sum of 24-colored partitions.
-        # p(1,24) = 24, p(2,24) = 24 + C(24,2) = 24 + 276 = 300
+        # Coefficient of q^0: 1
+        # Coefficient of q^1: 24 (one box in 24 colors)
+        # Coefficient of q^2: 24 (two boxes, one color) + C(24,2) (two boxes, two colors)
+        #                   = 24 + 276 = 300 from single partition (2),
+        #                   plus 24 choices of (1,1) = C(24+1,2) = 300...
+        # Actually: 1/(1-x)^24 at x=q gives C(24+n-1, n) for coeff of q^n
+        # and 1/(1-q^2)^24 gives C(24+m-1,m) for coeff of q^{2m}.
+        # Full product: coeff of q^2 = C(25,2) + 24 = 300 + 24 = 324.
         assert char["coha_dims"][0] == 1
         assert char["coha_dims"][1] == 24
-        assert char["coha_dims"][2] == 300
+        assert char["coha_dims"][2] == 324
 
     def test_cartan_dimension(self, dc_k3e):
         """BKM Cartan dimension = 26."""

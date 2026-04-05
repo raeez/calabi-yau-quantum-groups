@@ -600,7 +600,7 @@ class TestCYInvolution:
     def test_g2_relation(self):
         """g_2 = g_1^2 / 2."""
         inv = cy_involution_constraints()
-        assert '2' in inv['relations']
+        assert 2 in inv['relations']
         assert 'g_1' in inv['relations'][2]
 
     def test_equal_counts(self):

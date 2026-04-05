@@ -586,7 +586,10 @@ class DrinfeldCenterConifold:
         # This is EVEN in z: R(z)*R(-z) = R(-z)*R(z) (commutativity of scalars)
         h1, h2, h3 = self.h1, self.h2, self.h3
         a, b, c = -h3, -h1, h2
-        expected_product = cancel((a**2 - z**2) * (b**2 - z**2) / (z**2 * (c**2 - z**2)))
+        # The product R(z)*R(-z) has an overall sign from (-z) in the denominator
+        # of R(-z). The correct formula is -(a^2-z^2)(b^2-z^2)/(z^2*(c^2-z^2))
+        # or equivalently (z^2-a^2)(z^2-b^2)/(z^2*(z^2-c^2)).
+        expected_product = cancel((z**2 - a**2) * (z**2 - b**2) / (z**2 * (z**2 - c**2)))
         product_matches = cancel(product - expected_product) == 0
 
         # R(z) is even in z iff R(z) = R(-z), which is FALSE for the conifold.
