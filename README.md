@@ -17,7 +17,7 @@
 <br>
 
 ![Tests](https://img.shields.io/badge/tests-~1600-58a6ff?style=for-the-badge&labelColor=0d1117)
-![Compute Modules](https://img.shields.io/badge/compute%20modules-20-a371f7?style=for-the-badge&labelColor=0d1117)
+![Compute Modules](https://img.shields.io/badge/compute%20modules-75-a371f7?style=for-the-badge&labelColor=0d1117)
 ![Chapters](https://img.shields.io/badge/chapters-22-3fb950?style=for-the-badge&labelColor=0d1117)
 ![Notes](https://img.shields.io/badge/notes-22-d29922?style=for-the-badge&labelColor=0d1117)
 
@@ -739,6 +739,6 @@ Requires: pdflatex with memoir/ebgaramond/newtxmath, Python 3.10+ with numpy/pyt
 
 <div align="center">
 
-<sub>22 chapters &ensp;&middot;&ensp; 22 theory + physics notes &ensp;&middot;&ensp; 20 compute modules &ensp;&middot;&ensp; ~1,600 tests &ensp;&middot;&ensp; 9 adversarial audit reports &ensp;&middot;&ensp; 3 volumes</sub>
+<sub>22 chapters &ensp;&middot;&ensp; 22 theory + physics notes &ensp;&middot;&ensp; 75 compute modules &ensp;&middot;&ensp; ~1,600 tests &ensp;&middot;&ensp; 9 adversarial audit reports &ensp;&middot;&ensp; 3 volumes</sub>
 
 </div>
