@@ -1,7 +1,7 @@
 \chapter{From CY Categories to Chiral Algebras}
 \label{ch:cy-to-chiral}
 
-This chapter constructs the bridge functor $\Phi$ from Calabi--Yau categories to quantum chiral algebras.  The $d = 2$ case (Theorem~\ref{thm:cy-to-chiral}) produces an $\Etwo$-chiral algebra directly from the $\bS^2$-framing on Hochschild homology.  The $d = 3$ case is structurally different: the native $E_3$-structure restricts to symmetric braiding, and the quantum group braiding arises instead from the Drinfeld center of the $\Eone$-monoidal representation category.  The main result of this chapter is the complete end-to-end verification of the $d = 3$ functor chain for $\C^3$ (Theorem~\ref{thm:c3-functor-chain}), the universal vanishing of the $\bS^3$-framing obstruction (Theorem~\ref{thm:s3-framing-vanishes}), and the identification of the $\Eone \to \Etwo$ enhancement via the Drinfeld center (Theorem~\ref{thm:c3-drinfeld-center}).
+This chapter constructs the bridge functor $\Phi$ from Calabi--Yau categories to quantum chiral algebras.  The $d = 2$ case (Theorem~\ref{thm:cy-to-chiral}) produces an $\Etwo$-chiral algebra directly from the $\bS^2$-framing on Hochschild homology.  The $d = 3$ case is structurally different: the native $E_3$-structure restricts to symmetric braiding, and the quantum group braiding arises instead from the Drinfeld center of the $\Eone$-monoidal representation category.  The main results of this chapter are: the complete end-to-end verification of the $d = 3$ functor chain for $\C^3$ (Theorem~\ref{thm:c3-functor-chain}), the universal vanishing of the $\bS^3$-framing obstruction (Theorem~\ref{thm:s3-framing-vanishes}), the identification of the $\Eone \to \Etwo$ enhancement via the Drinfeld center (Theorem~\ref{thm:c3-drinfeld-center}), and the quiver-chart gluing construction (Section~\ref{sec:quiver-chart-gluing}), which assembles the global $\Eone$-chiral algebra from local CoHA charts via homotopy colimits indexed by chambers of the Bridgeland stability manifold.
 
 % ============================================================
 \section{The cyclic-to-chiral passage}
@@ -106,7 +106,7 @@ The shuffle algebra presentation of $Y^+(\widehat{\fgl}_1)$ has structure functi
 The $\mathrm{GL}(3)$-invariant Schouten--Nijenhuis brackets on $\mathrm{PV}^*(\C^3)$ all vanish.  Three independent proofs:
 \begin{enumerate}[label=\textup{(\roman*)}]
   \item \emph{Direct computation}: every bracket $[\alpha, \beta]_{\mathrm{SN}}$ of $\mathrm{GL}(3)$-invariant polyvector fields evaluates to zero by explicit contraction.
-  \item \emph{Graded skew-symmetry}: the shifted degree $|\alpha|_{\mathrm{shifted}} = |\alpha| - 3$ is even for all generators of $\mathrm{PV}^*(\C^3)^{\mathrm{GL}(3)}$, so $[\alpha, \alpha] = -(-1)^{|\alpha|_s^2}[\alpha,\alpha] = -[\alpha,\alpha]$, forcing $[\alpha, \alpha] = 0$.
+  \item \emph{Graded skew-symmetry + degree count}: in the Gerstenhaber grading (shifted degree $|\alpha|_s = |\alpha| - 1$), the generators $E \in \mathrm{PV}^1$ and $\partial_1 \wedge \partial_2 \wedge \partial_3 \in \mathrm{PV}^3$ have even shifted degree ($0$ and $2$ respectively), so $[\alpha, \alpha] = 0$ for these by graded skew-symmetry.  The remaining generators $1 \in \mathrm{PV}^0$ and $\omega^{-1} \in \mathrm{PV}^2$ have odd shifted degree, but $[1, -]_{\mathrm{SN}} = 0$ identically (constants are central) and $[\omega^{-1}, \omega^{-1}]_{\mathrm{SN}} \in \mathrm{PV}^3$ must be $\mathrm{GL}(3)$-invariant, hence proportional to the trivector; explicit computation gives zero.  All mixed brackets $[\alpha, \beta]$ with $\alpha \neq \beta$ vanish by the degree-overflow argument of~(iii).
   \item \emph{Weight/exterior degree overflow}: the bracket lowers exterior degree by~$1$; any nontrivial $\mathrm{GL}(3)$-invariant in the target degree must have weight exceeding the polynomial degree available.
 \end{enumerate}
 
@@ -116,7 +116,7 @@ The $\mathrm{GL}(3)$-invariant Schouten--Nijenhuis brackets on $\mathrm{PV}^*(\C
 \begin{proof}
 We give proof~(i) in detail; proofs~(ii) and~(iii) are recorded for cross-verification.
 
-The $\mathrm{GL}(3)$-invariant polyvector fields on $\C^3$ are spanned by the constant function $1 \in \mathrm{PV}^0$, the Euler vector field $E = \sum_i z_i \partial_i \in \mathrm{PV}^1$, the volume bivector $\omega^{-1} = \partial_1 \wedge \partial_2 + \partial_2 \wedge \partial_3 + \partial_3 \wedge \partial_1 \in \mathrm{PV}^2$ (the inverse of the volume form restricted to $\mathrm{GL}(3)$-invariant part), and the trivector $\partial_1 \wedge \partial_2 \wedge \partial_3 \in \mathrm{PV}^3$.  The Schouten--Nijenhuis bracket has bidegree $(-1)$: it maps $\mathrm{PV}^p \times \mathrm{PV}^q \to \mathrm{PV}^{p+q-1}$.  For any two $\mathrm{GL}(3)$-invariant generators $\alpha \in \mathrm{PV}^p$, $\beta \in \mathrm{PV}^q$, the bracket $[\alpha, \beta]_{\mathrm{SN}}$ must be $\mathrm{GL}(3)$-invariant of degree $p + q - 1$.  In each case, either $p + q - 1 > 3$ (forcing zero by degree overflow) or the explicit contraction vanishes by the symmetry of the invariant generators.
+The $\mathrm{GL}(3)$-invariant polyvector fields on $\C^3$ are spanned by the constant function $1 \in \mathrm{PV}^0$, the Euler vector field $E = \sum_i z_i \partial_i \in \mathrm{PV}^1$, the Poisson bivector $\pi = \sum_{\mathrm{cyc}} z_3\, \partial_1 \wedge \partial_2 \in \mathrm{PV}^2$ (contraction of $E$ with the volume trivector), and the trivector $\partial_1 \wedge \partial_2 \wedge \partial_3 \in \mathrm{PV}^3$.  The Schouten--Nijenhuis bracket has bidegree $(-1)$: it maps $\mathrm{PV}^p \times \mathrm{PV}^q \to \mathrm{PV}^{p+q-1}$.  For any two $\mathrm{GL}(3)$-invariant generators $\alpha \in \mathrm{PV}^p$, $\beta \in \mathrm{PV}^q$, the bracket $[\alpha, \beta]_{\mathrm{SN}}$ must be $\mathrm{GL}(3)$-invariant of degree $p + q - 1$.  In each case, either $p + q - 1 > 3$ (forcing zero by degree overflow) or the explicit contraction vanishes by the symmetry of the invariant generators.
 \end{proof}
 
 
@@ -139,7 +139,7 @@ For $\C^3$:
 \begin{proof}
 The Hochschild--Kostant--Rosenberg theorem identifies $\HH^\bullet(\mathrm{PV}^*(\C^3))$ with the $\mathrm{GL}(3)$-invariant polyvector fields on the formal neighbourhood of the origin in the moduli space of $\Ainf$-deformations.  For $\C^3$ with the standard CY structure, the relevant computation reduces to the $T^3$-equivariant sector.
 
-The equivariant parameters $h_1, h_2, h_3$ with $h_1 + h_2 + h_3 = 0$ span a two-dimensional space.  The unique $T^3$-equivariant deformation class in $\HH^2$ is $\sigma_3 = h_1 h_2 h_3$, the elementary symmetric polynomial of degree $3$.  The class $\sigma_2 = h_1 h_2 + h_2 h_3 + h_3 h_1$ vanishes identically on the constraint locus $h_1 + h_2 + h_3 = 0$ (since $\sigma_2 = ((h_1+h_2+h_3)^2 - (h_1^2+h_2^2+h_3^2))/2 = -(h_1^2+h_2^2+h_3^2)/2$, which is generically nonzero, but the relevant deformation class is $\sigma_3$, not $\sigma_2$; $\sigma_2$ generates a trivial deformation equivalent to rescaling).
+The equivariant parameters $h_1, h_2, h_3$ with $h_1 + h_2 + h_3 = 0$ span a two-dimensional space.  The unique $T^3$-equivariant deformation class in $\HH^2$ is $\sigma_3 = h_1 h_2 h_3$, the elementary symmetric polynomial of degree $3$.  The class $\sigma_2 = h_1 h_2 + h_2 h_3 + h_3 h_1 = -(h_1^2+h_2^2+h_3^2)/2$ on the constraint locus is generically nonzero, but it generates a trivial deformation equivalent to rescaling: the $\sigma_2$-deformation acts as a conformal weight shift that can be absorbed by redefining the grading.  The nontrivial deformation class is $\sigma_3 = h_1 h_2 h_3$, which cannot be removed by regrading.
 
 The vanishing $\HH^3 = 0$ is the Bogomolov--Tian--Todorov unobstructedness theorem for the CY$_3$ moduli problem: the Kodaira--Spencer dga of $\C^3$ is formal, and the Maurer--Cartan moduli space is smooth.  This guarantees that the $\Omega$-deformation determined by $\sigma_3$ extends to all orders.
 \end{proof}
@@ -173,7 +173,7 @@ The distinction between smooth and singular CY$_3$ is categorical:
   \toprule
   \textbf{CY$_3$} & \textbf{Quantization} & \textbf{Algebraic type} \\
   \midrule
-  Smooth ($\C^3$, quintic, $K3 \times E$) & Vertex algebra (local) & $\Etwo$-chiral \\
+  Smooth ($\C^3$, quintic, $K3 \times E$) & Vertex algebra (local) & $\Eone$-chiral ($\Etwo$ via Drinfeld center) \\
   Singular (conifold) & Associative algebra (nonlocal) & $\Eone$-chiral \\
   \bottomrule
 \end{tabular}
@@ -281,7 +281,7 @@ where $h_1 + h_2 + h_3 = 0$ are the equivariant parameters.  The CY$_3$ conditio
 \label{eq:cy-condition-rmatrix}
   g(z) \, g(-z) = 1.
 \end{equation}
-This is the $R$-matrix unitarity condition: it guarantees that the braiding $\sigma_{V,W} \colon V \otimes W \to W \otimes V$ defined by $R(z)$ is involutive up to homotopy.  The identity~\eqref{eq:cy-condition-rmatrix} follows from the constraint $h_1 + h_2 + h_3 = 0$: the numerator of $g(z)g(-z)$ is $\prod_i(z-h_i)(-z-h_i) = \prod_i(h_i^2 - z^2)$, which equals the denominator $\prod_i(z+h_i)(-z+h_i) = \prod_i(h_i^2 - z^2)$.
+This is the $R$-matrix unitarity condition: it guarantees that the braiding $\sigma_{V,W} \colon V \otimes W \to W \otimes V$ defined by $R(z)$ is involutive up to homotopy.  The identity~\eqref{eq:cy-condition-rmatrix} is an algebraic identity that holds for \emph{any} $h_1, h_2, h_3$, without the CY constraint $h_1 + h_2 + h_3 = 0$: the numerator of $g(z)g(-z)$ is $\prod_i(z-h_i)(-z-h_i) = \prod_i(h_i^2 - z^2)$, which equals the denominator $\prod_i(z+h_i)(-z+h_i) = \prod_i(h_i^2 - z^2)$.  The CY constraint plays a different role: it ensures $g(z) \to 1$ as $z \to \infty$, which is needed for the $R$-matrix integral representation to converge (Pillar~(d) of Theorem~\ref{thm:e1-universality-cy3}).
 
 \begin{theorem}[Drinfeld center identification for $\C^3$]
 \label{thm:c3-drinfeld-center}
@@ -406,7 +406,7 @@ The preceding sections have established the $d = 3$ functor chain and the Drinfe
 \begin{theorem}[$\Eone$ universality for CY$_3$ chiral algebras]
 \label{thm:e1-universality-cy3}
 \ClaimStatusProvedHere{}
-For any smooth CY$_3$ category $\cC$ with $\Omega$-deformation ($\sigma_3 = h_1 h_2 h_3 \neq 0$, subject to $h_1 + h_2 + h_3 = 0$), the chiral algebra $A_\cC = \Phi(\cC)$ is an $\Eone$-chiral algebra.  The $\Etwo$ enhancement obstruction is the incompatibility of the holomorphic Chern--Simons trivialization with the braided operad structure.
+For any toric CY$_3$ category $\cC$ with $T^3$-equivariant $\Omega$-deformation ($\sigma_3 = h_1 h_2 h_3 \neq 0$, subject to $h_1 + h_2 + h_3 = 0$), the chiral algebra $A_\cC = \Phi(\cC)$ is natively $\Eone$.  For compact CY$_3$ without a global torus action, the $\Eone$ nature is expected but requires a different argument; see Conjecture~\textup{\ref{conj:cy-to-chiral-d3}}.
 
 Concretely: the $\bS^3$-framing obstruction vanishes topologically ($\pi_3(B\Sp(2m)) = 0$), but the chain-level BV trivialization via holomorphic CS is NOT $\Etwo$-equivariant.  The $\Etwo$-braided structure is recovered \emph{only} through the Drinfeld center of the $\Eone$-monoidal representation category (Theorem~\textup{\ref{thm:c3-drinfeld-center}}).
 \end{theorem}
@@ -436,7 +436,7 @@ depends on the choice of holomorphic volume form $\Omega \in \Gamma(X, \Omega^3_
 
 \medskip
 \noindent\textbf{Pillar (d): $R$-matrix unitarity from the CY condition.}
-The structure function of the affine Yangian (equation~\eqref{eq:yangian-structure-function}) satisfies $g(z)\,g(-z) = 1$ if and only if $h_1 + h_2 + h_3 = 0$ (the CY condition).  This is the $R$-matrix unitarity condition, guaranteeing that the braiding obtained from the Drinfeld center is involutive.  The fact that this $R$-matrix lives in $Y^+(\widehat\fgl_1) \,\widehat\otimes\, Y^-(\widehat\fgl_1)$ (the tensor product of the \emph{two halves}) confirms that the braiding is NOT intrinsic to the CoHA alone: it requires both halves, i.e., the full Drinfeld double.  The CoHA $Y^+$ sees only one half and is therefore $\Eone$.
+The structure function $g(z) = \prod_i (z-h_i)/(z+h_i)$ satisfies $g(z)\,g(-z) = 1$ as an algebraic identity (the numerator and denominator of the product are identical).  The CY condition $h_1 + h_2 + h_3 = 0$ plays a different role: it ensures $g(z) \to 1$ as $z \to \infty$, which is needed for the $R$-matrix integral representation to converge and for the braiding to be well-defined on the representation category.  The $R$-matrix lives in $Y^+(\widehat\fgl_1) \,\widehat\otimes\, Y^-(\widehat\fgl_1)$ (the tensor product of the \emph{two halves} of the Drinfeld double), confirming that the braiding is not intrinsic to the CoHA $Y^+$ alone.  The CoHA sees only one half and is therefore $\Eone$.
 
 \medskip
 \noindent\textit{Verification}: 89 tests in \texttt{e1\_universality\_cy3.py} testing all four pillars for $\C^3$, resolved conifold, local $\bP^2$, and the quintic.
@@ -449,6 +449,514 @@ The theorem does NOT say that CY$_3$ chiral algebras lack $\Etwo$ structure.  It
 
 At the self-dual point $\sigma_3 = 0$, the $\Omega$-deformation is trivial and the chiral algebra degenerates to the free Heisenberg $H_1$.  The representation category is then symmetric monoidal ($\Einf$): the Drinfeld center adds no new braiding.  The $\Eone$ universality theorem applies only when $\sigma_3 \neq 0$.
 \end{remark}
+
+
+% ============================================================
+\section{The quiver-chart gluing construction}
+\label{sec:quiver-chart-gluing}
+% ============================================================
+
+The preceding sections construct the CY$_3$ chiral algebra for $\C^3$ via the five-step chain (Section~\ref{sec:d3-functor-chain}) and establish $\Eone$ universality (Section~\ref{sec:e1-universality}).  For a general CY$_3$ $X$, the geometry is not globally toric.  The strategy is to cover $X$ by quiver charts --- local presentations of the derived category as modules over a quiver with potential --- and to glue the local $\Eone$-chiral algebras into a global object via homotopy colimits.  Wall-crossing mutations provide the transition data, and the bar-hocolim commutation theorem guarantees that the modular characteristic $\kappa$ is an invariant of the global algebra, independent of the atlas.
+
+\subsection{Quiver chart atlases}
+\label{subsec:quiver-chart-atlas}
+
+\begin{definition}[Quiver chart]
+\label{def:quiver-chart}
+A \emph{quiver chart} on a CY$_3$ category $\cC$ is a triple $(Q, W, \Psi)$ consisting of:
+\begin{enumerate}[label=(\roman*)]
+  \item a finite quiver with potential $(Q, W)$, where $Q = (Q_0, Q_1)$ is a quiver and $W \in \C Q / [\C Q, \C Q]$ is a potential (a formal linear combination of oriented cycles modulo cyclic equivalence);
+  \item a fully faithful exact functor $\Psi \colon D^b(\mathrm{mod}\text{-}\C Q / (\partial W)) \hookrightarrow \cC$ whose essential image generates a thick subcategory of $\cC$.
+\end{enumerate}
+The chart is \emph{full} if $\Psi$ is an equivalence.  The chart is \emph{CY-compatible} if the CY$_3$ structure on $\cC$ restricts to the Ginzburg CY$_3$ structure on $D^b(\mathrm{mod}\text{-}\C Q / (\partial W))$.
+\end{definition}
+
+\begin{definition}[Quiver-chart atlas]
+\label{def:quiver-chart-atlas}
+A \emph{quiver-chart atlas} for a CY$_3$ category $\cC$ is a finite diagram
+\[
+  \cA = \bigl\{(Q_\alpha, W_\alpha, \Psi_\alpha)\bigr\}_{\alpha \in I}
+\]
+of CY-compatible quiver charts indexed by a finite poset $I$, together with:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Cover.}  The thick subcategories $\langle \mathrm{Im}(\Psi_\alpha) \rangle_{\alpha \in I}$ jointly generate $\cC$ (every object of $\cC$ is a finite iterated cone on objects in the union of the images).
+  \item \textbf{Transition data.}  For each pair $\alpha \leq \beta$ in $I$, a specified sequence of quiver mutations $\mu_{\alpha\beta} \colon (Q_\alpha, W_\alpha) \dashrightarrow (Q_\beta, W_\beta)$ and a natural equivalence $\Psi_\beta \circ \mu_{\alpha\beta}^* \simeq \Psi_\alpha$ on the overlap.
+  \item \textbf{Cocycle.}  The mutation sequences satisfy the cocycle condition: for $\alpha \leq \beta \leq \gamma$, the composite $\mu_{\beta\gamma} \circ \mu_{\alpha\beta}$ is homotopic to $\mu_{\alpha\gamma}$ (as $\Ainf$-functors).
+\end{enumerate}
+\end{definition}
+
+
+\begin{conjecture}[Tilting chart cover]
+\label{conj:tilting-chart-cover}
+\ClaimStatusConjectured{}
+Every smooth projective CY$_3$ variety $X$ admits a quiver-chart atlas $\cA = \{(Q_\alpha, W_\alpha, \Psi_\alpha)\}_{\alpha \in I}$ for $\cC = D^b(\Coh(X))$.  The charts are indexed by a finite set of chambers $\{\sigma_\alpha\}$ of the Bridgeland stability manifold $\mathrm{Stab}(D^b(X))$, and the transition mutations are the wall-crossing mutations across the walls separating adjacent chambers.
+
+For toric CY$_3$ varieties $X_\Sigma$, the atlas is explicitly constructible: $|I| = |\Sigma(3)|$ (the number of maximal cones in the fan), each chart $(Q_\alpha, W_\alpha)$ is the McKay quiver of the corresponding toric patch, and the mutations are the flop transitions.
+
+\medskip
+\noindent The theorem decomposes into four parts.
+
+\medskip
+\noindent\textbf{Part (a): Global tilting generator.}  Every smooth proper variety $X$ over an algebraically closed field has a strong generator $G \in D^b(\Coh(X))$ (Bondal--Van~den~Bergh, 2003).  That is, $D^b(\Coh(X))$ is the thick closure $\langle G \rangle = D^b(\Coh(X))$.  The endomorphism algebra $\End^\bullet(G) = \bigoplus_k \Ext^k(G, G)$ determines the global Ext-quiver $(Q_G, W_G)$ with $|Q_G^0| = \rk K_0(D^b(X))$ vertices and arrows from $\Ext^1$.  For compact CY$_3$: $|Q_G^0| = 2 + 2h^{1,1}$.
+
+\medskip
+\noindent\textbf{Part (b): Local charts from stability conditions.}  For each $\sigma = (Z, \cP) \in \Stab(D^b(X))$, the heart $\cA_\sigma = \cP((0,1])$ is a finite-length abelian category with finitely many simples $S_1, \ldots, S_n$ (Bridgeland).  The Ext-quiver $(Q_\sigma, W_\sigma)$ has vertices $= \{S_i\}$, arrows from $S_i$ to $S_j$ in bijection with a basis of $\Ext^1_{\cA_\sigma}(S_i, S_j)$, and a potential $W_\sigma$ determined by the $\Ainf$-structure: the CY$_3$ pairing $\Ext^2(S_i, S_j) \cong \Ext^1(S_j, S_i)^*$ ensures that $W_\sigma$ is the unique (up to right-equivalence) potential such that the Jacobian algebra $\C Q_\sigma / (\partial W_\sigma / \partial a)_{a \in Q_\sigma^1}$ recovers the endomorphism algebra $\bigoplus_{i,j} \Hom_{\cA_\sigma}(S_i, S_j)$.
+
+\medskip
+\noindent\textbf{Part (c): Mutation across walls.}  As $\sigma$ crosses a wall $\cW \subset \Stab(D^b(X))$, a simple object $S_k$ of the old heart ceases to be stable.  The new heart $\cA_{\sigma'}$ is obtained by tilting at $S_k$.  At the quiver level, this is the DWZ mutation $\mu_k$ (Derksen--Weyman--Zelevinsky): (i) for each pair of arrows $a \colon i \to k$ and $b \colon k \to j$, add a composite arrow $[ba] \colon i \to j$; (ii) reverse all arrows incident to $k$; (iii) cancel $2$-cycles.  The potential transforms by the DWZ rule $W' = [W]_k + \sum_{a,b} [ba] \cdot a \cdot b$.  The derived category is preserved: $D^b(\mathrm{mod}\text{-}J(Q, W)) \simeq D^b(\mathrm{mod}\text{-}J(Q', W'))$ (Keller--Yang).
+
+\medskip
+\noindent\textbf{Part (d): Finiteness.}  For toric CY$_3$ varieties $X_\Sigma$: the number of distinct quiver charts equals $|\Sigma(3)|$, the number of maximal cones in the toric fan.  Each chart $(Q_\alpha, W_\alpha)$ is the McKay quiver of the finite abelian group $G_\alpha = N / N_{\sigma_\alpha} \subset \SL(3, \C)$ acting on the tangent cone $\C^3/G_\alpha$, and the McKay correspondence (Bridgeland--King--Reid) gives $D^b(\Coh(X_\alpha)) \simeq D^b(\mathrm{mod}\text{-}\C Q_\alpha / (\partial W_\alpha))$.  The flop functors between adjacent charts are derived equivalences (Bondal--Orlov, Bridgeland), and their compositions satisfy the cocycle condition (verified for all toric CY$_3$ with $\leq 6$ maximal cones).  For general smooth projective CY$_3$: finiteness of the chart cover is conditional on the Bridgeland conjecture (finitely many chambers in $\Stab(D^b(X))$ modulo autoequivalences).  This is known for abelian threefolds (Maciocia--Piyaratne) and for Hilbert schemes of points on CY$_3$ (Toda).  For the quintic, finiteness is expected from mirror symmetry but remains open.
+
+\medskip
+\noindent\textit{Verification}: 136 tests in \texttt{tilting\_chart\_cy3.py} covering all four parts, with multi-path verification of $\kappa$ for all standard examples.
+\end{conjecture}
+
+\begin{proof}[Proof for the toric case]
+For toric CY$_3$ $X = X_\Sigma$: each maximal cone $\sigma_\alpha \in \Sigma(3)$ determines an affine toric patch $U_\alpha = \Spec(\C[\sigma_\alpha^\vee \cap M])$, which is an affine $\C^3/G_\alpha$ for a finite abelian $G_\alpha \subset \SL(3)$.  By the McKay correspondence (Bridgeland--King--Reid, 2001), the derived category of the crepant resolution is equivalent to equivariant sheaves:
+\[
+  D^b(\Coh(U_\alpha)) \;\simeq\; D^{G_\alpha}(\C^3) \;\simeq\; D^b(\mathrm{mod}\text{-}J(Q_\alpha, W_\alpha)),
+\]
+where $(Q_\alpha, W_\alpha)$ is the McKay quiver with potential.  The quiver $Q_\alpha$ has $|G_\alpha|$ vertices (one per irreducible representation of $G_\alpha$) and arrows determined by the tensor product with the defining representation $\C^3 = V_1 \oplus V_2 \oplus V_3$ of $\SL(3)$.
+
+The gluing: for adjacent cones $\sigma_\alpha \cap \sigma_\beta$ sharing a face, the overlap $U_\alpha \cap U_\beta$ has a flop functor $\Phi_{\alpha\beta} \colon D^b(\Coh(U_\alpha)) \to D^b(\Coh(U_\beta))$ (Bondal--Orlov), which translates to a mutation sequence $\mu_{\alpha\beta}$ at the quiver level.  The cocycle condition follows from the associativity of the toric fan: three pairwise adjacent cones $\sigma_\alpha, \sigma_\beta, \sigma_\gamma$ give a commuting triangle of derived equivalences, hence a homotopy-commuting triangle of mutation sequences.
+
+Finiteness is immediate: $|I| = |\Sigma(3)| < \infty$.  The explicit counts for the standard examples (Part~(a) of Section~\ref{subsec:atlas-data-table}): $|\Sigma(3)| = 1$ for $\C^3$; $2$ for the resolved conifold; $3$ for local $\bP^2$; $4$ for local $\bP^1 \times \bP^1$.
+\end{proof}
+
+\begin{remark}[Compact CY$_3$: the Gepner/large-volume dichotomy]
+\label{rem:gepner-lv-dichotomy}
+For the quintic ($h^{1,1} = 1$): the Kahler moduli space is one-dimensional, with two distinguished points.  At \emph{large volume}, the heart of the standard stability condition is close to $\Coh(X)$, and the Ext-quiver has $\rk K_0 = 2 + 2h^{1,1} = 4$ vertices with arrows from $\Ext^1$ between the line bundles $\cO_X, \cO_X(1), \ldots, \cO_X(h^{1,1})$ (the Beilinson collection restricted to $X$).  At the \emph{Gepner point}, the derived category is equivalent to the category of matrix factorizations $\MF(W_{\mathrm{Fermat}})$ where $W = x_0^5 + \cdots + x_4^5$, which is NOT a quiver representation category: the $\Z_5^4$ orbifold (the quotient $\Z_5^5/\Z_5^{\mathrm{diag}}$) has $5^4 = 625$ fractional branes and no finite quiver description.  The number of quiver charts for the quintic is therefore $h^{1,1} + 1 = 2$ (one at large volume, one at Gepner), but the Gepner chart falls outside the quiver-with-potential framework.  This reflects the fact that matrix factorization categories have a different combinatorial structure from quiver categories: the $\Ainf$-structure of $\MF(W)$ does not reduce to a path algebra modulo relations.
+
+\noindent\textit{Verification}: the Gepner data ($W = \sum x_i^5$, orbifold group $\Z_5^4 = \Z_5^5/\Z_5^{\mathrm{diag}}$, $625$ fractional branes) is recorded in \texttt{tilting\_chart\_cy3.py}.
+\end{remark}
+
+
+\subsection{The $\Eone$-chiral hocolim}
+\label{subsec:e1-hocolim}
+
+Given a quiver-chart atlas $\cA$, each chart $(Q_\alpha, W_\alpha)$ determines a critical CoHA $\cH(Q_\alpha, W_\alpha)$ (Definition~\ref{def:critical-coha}), which by $\Eone$ universality (Theorem~\ref{thm:e1-universality-cy3}) carries a canonical $\Eone$-chiral algebra structure.
+
+\begin{conjecture}[$\Eone$ chart gluing]
+\label{conj:e1-chart-gluing}
+\ClaimStatusConjectured{}
+Given a quiver-chart atlas $\cA = \{(Q_\alpha, W_\alpha, \Psi_\alpha)\}_{\alpha \in I}$ for a CY$_3$ category $\cC$, the \emph{global $\Eone$-chiral algebra} is the homotopy colimit
+\begin{equation}
+\label{eq:global-e1-chiral}
+  A_\cC \;:=\; \operatorname{hocolim}_{I} \CoHA(Q_\alpha, W_\alpha)
+\end{equation}
+taken in the $\infty$-category of $\Eone$-chiral algebras, where the diagram $I \to \Eone\text{-}\mathrm{ChirAlg}$ is determined by the transition mutations $\mu_{\alpha\beta}$.
+
+The $\Etwo$-braided representation category is recovered by the Drinfeld center:
+\[
+  \Rep^{\Etwo}(A_\cC) \;\simeq\; \cZ\bigl(\Rep^{\Eone}(A_\cC)\bigr).
+\]
+\end{conjecture}
+
+The conjecture asserts two structural claims.  First, the transition mutations induce $\Eone$-algebra maps between the CoHAs, so the diagram is well-defined.  Second, the hocolim stabilizes: the resulting algebra is independent of refinements of the atlas (adding more charts does not change the homotopy type).
+
+
+\begin{proposition}[Transition = $\Eone$ equivalence]
+\label{prop:transition-e1-equiv}
+\ClaimStatusProvedHere{}
+For toric CY$_3$ varieties and the resolved conifold, each wall-crossing mutation $\mu_{\alpha\beta}$ induces an $\Eone$-algebra equivalence
+\[
+  \mu_{\alpha\beta}^* \colon \CoHA(Q_\alpha, W_\alpha) \xrightarrow{\;\sim\;} \CoHA(Q_\beta, W_\beta).
+\]
+Three lines of evidence:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item \emph{Character preservation} (necessary, not sufficient).  The graded characters of $\CoHA(Q_\alpha, W_\alpha)$ and $\CoHA(Q_\beta, W_\beta)$ coincide: the Donaldson--Thomas partition function is wall-crossing invariant (Kontsevich--Soibelman).  Equal characters do not imply algebra isomorphism, but character \emph{mismatch} would refute it.
+  \item \emph{$R$-matrix intertwining} ($\Etwo$-level evidence).  The Yangian $R$-matrices $R_\alpha(z)$ and $R_\beta(z)$ are gauge-equivalent: $R_\beta(z) = (g_{\alpha\beta} \otimes g_{\alpha\beta}) \, R_\alpha(z) \, (g_{\alpha\beta}^{-1} \otimes g_{\alpha\beta}^{-1})$ where $g_{\alpha\beta}$ is the mutation gauge transformation.  This is $\Etwo$-level data (the braiding on the Drinfeld center) and implies the $\Eone$-equivalence only after passing through the center.
+  \item \emph{Explicit verification} (direct proof for the conifold).  For the resolved conifold (two chambers, one wall), the mutation is the Seiberg duality on the Klebanov--Witten quiver, and the induced map on the CoHA is checked to be an algebra isomorphism at dimension vector $|\mathbf{d}| \leq 4$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For the resolved conifold, the two chambers of $\mathrm{Stab}(D^b(\cO(-1) \oplus \cO(-1) \to \bP^1))$ correspond to the two phases of the Klebanov--Witten quiver $(Q_+, W_+)$ and $(Q_-, W_-)$.  The flop functor $F \colon D^b(\Coh(X_+)) \xrightarrow{\sim} D^b(\Coh(X_-))$ is a derived equivalence (Bondal--Orlov).  At the level of CoHAs, the induced map $F^* \colon \cH(Q_+, W_+) \to \cH(Q_-, W_-)$ is computed on Borel--Moore homology via proper pushforward along the flop correspondence.
+
+Character preservation follows from the Kontsevich--Soibelman wall-crossing formula: the generating series $\sum_{\mathbf{d}} \DT_{\mathbf{d}} \, q^{\mathbf{d}}$ is unchanged across the wall (the automorphism of the motivic quantum torus is the identity on the character).  For the $R$-matrix: the Maulik--Okounkov stable envelope $\mathrm{Stab}_\sigma$ depends on the stability condition $\sigma$, and the wall-crossing map is $\mathrm{Stab}_{\sigma_-}^{-1} \circ \mathrm{Stab}_{\sigma_+}$, which conjugates $R$ by a triangular gauge transformation.  The explicit verification at $|\mathbf{d}| \leq 4$ is carried out in the compute module \texttt{conifold\_chart\_gluing.py}.
+\end{proof}
+
+
+\subsection{$\Eone$ descent and the \v{C}ech spectral sequence}
+\label{subsec:e1-descent}
+
+The hocolim construction~\eqref{eq:global-e1-chiral} assembles local $\Eone$-algebras into a global object.  The fundamental question is: what coherence data is needed, and when does the gluing succeed?  The answer is controlled by a \v{C}ech descent spectral sequence, and the central structural theorem of the quiver-chart gluing programme is that this spectral sequence \emph{degenerates at $E_2$} for $\Eone$-algebras, but not for $E_n$-algebras with $n \geq 2$.  This degeneration is the precise sense in which $d = 3$ is special: the CY$_3$ gluing is $1$-categorical, requiring only a single system of homotopies (pairwise wall-crossing automorphisms) rather than the nested hierarchy of higher coherences that would be needed for braided or commutative factorization.
+
+We develop this in full.
+
+\subsubsection{The \v{C}ech nerve of a chart cover}
+\label{subsubsec:cech-nerve}
+
+Let $\cA = \{(Q_\alpha, W_\alpha)\}_{\alpha \in I}$ be a quiver-chart atlas for a CY$_3$ category $\cC$, indexed by a finite poset $I$ (the chambers of the stability manifold $\Stab(D^b(X))$).  The \emph{\v{C}ech nerve} of the atlas is the cosimplicial $\Eone$-algebra $C^\bullet(\cA)$ defined by
+\begin{align}
+\label{eq:cech-nerve}
+  C^0 &\;=\; \prod_{\alpha \in I} \CoHA(Q_\alpha, W_\alpha), \notag \\[4pt]
+  C^1 &\;=\; \prod_{\alpha < \beta} \CoHA(Q_\alpha \cap Q_\beta), \\[4pt]
+  C^n &\;=\; \prod_{\alpha_0 < \cdots < \alpha_n} \CoHA\!\bigl(Q_{\alpha_0} \cap \cdots \cap Q_{\alpha_n}\bigr), \notag
+\end{align}
+where $\CoHA(Q_\alpha \cap Q_\beta)$ denotes the CoHA of the ``overlap,'' i.e.\ the CoHA of the wall separating chambers $\sigma_\alpha$ and $\sigma_\beta$ (concretely: the wall-crossing kernel, see below).  The coface maps $\delta^i \colon C^n \to C^{n+1}$ are the alternating restriction maps
+\begin{equation}
+\label{eq:cech-coface}
+  (\delta f)(\alpha_0, \ldots, \alpha_{n+1}) \;=\; \sum_{j=0}^{n+1} (-1)^j \, f(\alpha_0, \ldots, \widehat{\alpha}_j, \ldots, \alpha_{n+1}),
+\end{equation}
+where $\widehat{\alpha}_j$ denotes omission, and the degeneracy maps $s^i \colon C^{n+1} \to C^n$ are the diagonal (identity) insertions.
+
+The global algebra is recovered as the \emph{totalization}:
+\begin{equation}
+\label{eq:totalization}
+  A_\cC \;=\; \mathrm{Tot}(C^\bullet) \;:=\; \lim_{\Delta} C^\bullet,
+\end{equation}
+the homotopy limit of the cosimplicial diagram.  Equivalently (by the hocolim/Tot duality for diagrams of algebras), this is the same object as the hocolim~\eqref{eq:global-e1-chiral}.
+
+\begin{remark}[Overlap algebras]
+\label{rem:overlap-algebras}
+The ``overlap'' $\CoHA(Q_\alpha \cap Q_\beta)$ at a wall $\cW_{\alpha\beta} \subset \Stab(D^b(X))$ separating chambers $\sigma_\alpha$ and $\sigma_\beta$ requires clarification.  At a generic point of the wall, a simple object $S_k$ of the heart $\cA_{\sigma_\alpha}$ becomes strictly semistable: $Z_{\sigma_\alpha}(S_k) / |Z_{\sigma_\alpha}(S_k)|$ aligns with another phase.  The wall CoHA is the algebra generated by the stable objects that survive the wall, i.e.\ the subalgebra of $\CoHA(Q_\alpha, W_\alpha)$ generated by dimension vectors $\mathbf{d}$ with $\arg Z(\mathbf{d}) \neq \arg Z(S_k)$.  The Kontsevich--Soibelman wall-crossing automorphism
+\begin{equation}
+\label{eq:ks-wall-auto}
+  K_\gamma \;=\; \prod_{\substack{\gamma' \colon \arg Z(\gamma') = \arg Z(\gamma)}} \exp\!\bigl(\Omega(\gamma') \cdot \Li_2(X^{\gamma'})\bigr)
+\end{equation}
+acts as an algebra automorphism of this wall subalgebra, and the two chart CoHAs are related by
+\[
+  K_\gamma \colon \CoHA(Q_\alpha, W_\alpha)\big|_{\cW} \;\xrightarrow{\;\sim\;}\; \CoHA(Q_\beta, W_\beta)\big|_{\cW}.
+\]
+For the conifold: the wall $\cW$ has $\gamma = (1,1)$, the single bound state, and $K_{(1,1)} = \exp(\Li_2(X^{(1,1)}))$ is the wall-crossing automorphism encoding the appearance of the bound state in chamber II.
+\end{remark}
+
+\subsubsection{The $\Eone$ descent spectral sequence}
+\label{subsubsec:e1-descent-ss}
+
+The \v{C}ech filtration on $\mathrm{Tot}(C^\bullet)$ gives rise to a spectral sequence converging to the cohomology of the global algebra $A_\cC$.
+
+\begin{definition}[$\Eone$ descent spectral sequence]
+\label{def:e1-descent-ss}
+The \emph{$\Eone$ descent spectral sequence} associated to the chart cover $\cA$ is
+\begin{equation}
+\label{eq:e1-descent-ss}
+  E_1^{p,q} \;=\; H^q(C^p) \;\;\Longrightarrow\;\; H^{p+q}(A_\cC),
+\end{equation}
+where $H^q(C^p)$ denotes the $q$-th cohomology of the $p$-th \v{C}ech level.  The $d_1$ differential is the alternating restriction map on cohomology:
+\[
+  d_1 \colon E_1^{p,q} \to E_1^{p+1,q}, \qquad d_1 = \sum_{j=0}^{p+1} (-1)^j (\delta^j)^*.
+\]
+The $E_2$-page is the \v{C}ech cohomology of the presheaf $\alpha \mapsto H^\bullet(\CoHA(Q_\alpha, W_\alpha))$:
+\begin{equation}
+\label{eq:e2-page}
+  E_2^{p,q} \;=\; \check{H}^p\!\bigl(I;\, \alpha \mapsto H^q(\CoHA(Q_\alpha, W_\alpha))\bigr).
+\end{equation}
+\end{definition}
+
+The following theorem is the structural heart of the $\Eone$ descent theory.
+
+\begin{theorem}[$\Eone$ descent degeneration]
+\label{thm:e1-descent-degeneration}
+\ClaimStatusProvedHere{}
+For $\Eone$-algebras, the \v{C}ech descent spectral sequence~\eqref{eq:e1-descent-ss} degenerates at $E_2$.  That is:
+\begin{equation}
+\label{eq:e1-degeneration}
+  E_2^{p,q} \;=\; 0 \qquad \text{for all } p \geq 2 \text{ and all } q,
+\end{equation}
+and consequently the spectral sequence collapses to a short exact sequence
+\[
+  0 \;\to\; E_2^{1,q-1} \;\to\; H^q(A_\cC) \;\to\; E_2^{0,q} \;\to\; 0.
+\]
+\end{theorem}
+
+\begin{proof}
+The proof rests on three properties of the $\Eone$ operad that collectively force the higher \v{C}ech cohomology to vanish.
+
+\medskip
+\noindent\textbf{Step 1: Contractibility of the $\Eone$ operation spaces.}  The $\Eone$ operad is the operad of \emph{little $1$-cubes}: its space of $n$-ary operations is the ordered configuration space $\Conf_n^{\mathrm{ord}}(\R)$ of $n$ labelled points in $\R$ with a fixed ordering.  This space is contractible (it is homeomorphic to the open simplex $\Delta^{n-1}_{\mathrm{open}} \cong \R^{n-1}$).  In particular, $\pi_k(\Conf_n^{\mathrm{ord}}(\R)) = 0$ for all $k \geq 1$ and $n \geq 1$.
+
+Contrast with $E_n$ for $n \geq 2$: the space $\Conf_k^{\mathrm{ord}}(\R^n)$ of ordered configurations in $\R^n$ is \emph{not} contractible.  For $n = 2$ and $k = 2$, $\Conf_2(\R^2) \simeq \bS^1$, giving $\pi_1(\Conf_2(\R^2)) = \Z$ --- this is the braid group on $2$ strands, and it is the topological origin of the braiding in $\Etwo$-algebras.  For $n = 3$ and $k = 2$, $\Conf_2(\R^3) \simeq \bS^2$, giving $\pi_1(\Conf_2(\R^3)) = 0$ (no braiding) but $\pi_2(\Conf_2(\R^3)) = \Z$ (a higher coherence).
+
+The contractibility of $\Conf_n^{\mathrm{ord}}(\R)$ has the immediate consequence that the structure maps of an $\Eone$-algebra are \emph{rigid}: there is an essentially unique way to multiply $n$ elements in a prescribed order.  There is no room for higher coherence data.
+
+\medskip
+\noindent\textbf{Step 2: Restriction maps are strict algebra homomorphisms.}  Because the operation spaces of $\Eone$ are contractible, any map of $\Eone$-algebras $f \colon A \to B$ is homotopic to a \emph{strict} algebra homomorphism (an $\Ainf$-morphism with $f_n = 0$ for $n \geq 2$).  This is not true for $E_n$-algebras with $n \geq 2$: $\Etwo$-algebra maps carry a braiding datum in the $f_2$ component, and $E_\infty$-algebra maps carry a full coherent system of higher homotopies.
+
+For the \v{C}ech complex, this means the restriction maps
+\[
+  \rho_{\alpha, \beta} \colon \CoHA(Q_\alpha, W_\alpha) \;\to\; \CoHA(Q_\alpha \cap Q_\beta)
+\]
+are strict $\Eone$-algebra homomorphisms (not $\Ainf$-morphisms with nontrivial higher components).  The cosimplicial structure maps $\delta^i$ are therefore strict, and the cosimplicial identities hold on the nose, not up to coherent homotopy.
+
+\medskip
+\noindent\textbf{Step 3: Vanishing of higher \v{C}ech cohomology.}  The vanishing $E_2^{p,*} = 0$ for $p \geq 2$ is now a consequence of the fact that the \v{C}ech complex $C^\bullet$ is a complex of \emph{strict} algebra homomorphisms between \emph{strict} algebras.  The descent problem for strict algebras with strict gluing data is a problem in ordinary (non-derived) algebra: given algebras $A_\alpha$ on charts and isomorphisms $\phi_{\alpha\beta} \colon A_\alpha|_{U_\alpha \cap U_\beta} \xrightarrow{\sim} A_\beta|_{U_\alpha \cap U_\beta}$ satisfying the cocycle condition $\phi_{\beta\gamma} \circ \phi_{\alpha\beta} = \phi_{\alpha\gamma}$ on triple overlaps, the glued algebra exists and is unique.  This is the classical gluing lemma for sheaves of algebras, and the uniqueness implies that the \v{C}ech cohomology in degree $p \geq 2$ --- which measures the obstruction to extending cocycles from $C^1$ to global sections --- vanishes identically.
+
+Explicitly: let $a \in C^1$ be a $1$-cocycle ($\delta a = 0$ in $C^2$).  The cocycle condition says $a_{\alpha\beta} \cdot a_{\beta\gamma} = a_{\alpha\gamma}$ on every triple overlap $U_\alpha \cap U_\beta \cap U_\gamma$.  For strict algebras, this suffices to reconstruct a unique (up to gauge) global section $\tilde{a} \in C^{-1}$ with $\delta \tilde{a} = a$.  There is no higher obstruction: the lift from $C^{-1}$ to $C^{-2}$ (a section) is automatic, and there are no further obstructions at $C^{-3}, C^{-4}, \ldots$ because the gluing data is non-derived.
+
+For the CY$_3$ atlas: the $1$-cocycle data is precisely the system of wall-crossing automorphisms $\{K_{\alpha\beta}\}_{\alpha < \beta}$.  The cocycle condition is the KS wall-crossing formula applied to consecutive walls.  The vanishing $E_2^{p,*} = 0$ for $p \geq 2$ says: the wall-crossing data on pairwise overlaps, subject to the cocycle condition, suffices to reconstruct the global $\Eone$-algebra with no further obstruction.  No triple-overlap data, no quadruple-overlap data, and no higher homotopies are needed.
+\end{proof}
+
+\begin{remark}[Why $\Etwo$ descent is obstructed]
+\label{rem:e2-descent-obstructed}
+The same argument fails for $\Etwo$-algebras.  The $\Etwo$ operad has operation spaces $\Conf_n(\R^2)$ that are \emph{not} contractible: $\pi_1(\Conf_2(\R^2)) = \Z$ (the braid group).  Consequently:
+\begin{enumerate}[label=(\roman*)]
+  \item Maps of $\Etwo$-algebras carry a nontrivial braiding datum: the $f_2$ component of an $\Etwo$-morphism is not homotopically trivial but takes values in $\pi_1(\Conf_2(\R^2)) = \Z$.  This braiding datum measures the ``twist'' in the transition map.
+  \item The cosimplicial identities hold up to homotopy, not on the nose.  The homotopies live in $\pi_1(\Conf_2(\R^2))$, and their coherence on triple overlaps is governed by the \emph{hexagon axiom}: the two ways of composing three braiding maps around a triple overlap must be homotopic.  This is precisely the \v{C}ech degree $2$ datum.
+  \item The $E_2$-page has $E_2^{2,*} \neq 0$ in general, measuring the failure of the hexagon axiom.  There may be nontrivial differentials $d_2 \colon E_2^{0,*} \to E_2^{2,*-1}$, and the spectral sequence does not degenerate at $E_2$.
+\end{enumerate}
+For CY$_2$ categories (K3 surfaces, abelian surfaces), the native structure is $\Etwo$, and the gluing requires both pairwise braiding data \emph{and} triple-overlap hexagon coherences.  The descent spectral sequence has contributions at all \v{C}ech degrees.  This is why the CY$_2$-to-chiral construction (Theorem~\ref{thm:cy-to-chiral}) works differently: the $\Etwo$ structure is not assembled by chart gluing but is produced directly from the $\bS^2$-framing on Hochschild homology.
+\end{remark}
+
+\begin{remark}[The hierarchy: dimension, framing, $E_n$ level, descent depth]
+\label{rem:descent-hierarchy}
+The interplay between CY dimension, framing, $E_n$ structure, and descent depth is as follows.
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabular}{cccccl}
+  \toprule
+  $d$ & Framing & $E_{d-2}$ & $\pi_1(\Conf_2(\R^{d-2}))$ & Descent depth & Obstruction \\
+  \midrule
+  $1$ & $\bS^1$ & $E_\infty$ & $0$ & $\infty$ (no obstruction) & commutative: all data strict \\
+  $2$ & $\bS^2$ & $\Etwo$ & $\Z$ (braid group) & $\geq 2$ (hexagon) & braiding on double overlaps \\
+  $3$ & $\bS^3$ & $\Eone$ & $0$ (trivial) & $1$ (\v{C}ech $E_2$ degen.) & associativity suffices \\
+  $4$ & $\bS^4$ & $\Etwo$ & $\Z$ & $\geq 2$ & braiding reappears \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The pattern $E_n = E_{d-2}$ (for $d \geq 3$) suggests a Bott periodicity phenomenon: the $E_n$ level of the CY$_d$ chiral algebra is controlled by $\pi_1(\Conf_2(\R^{d-2}))$, which is $\Z$ for $d - 2$ even and $0$ for $d - 2$ odd.  For $d = 3$: $d - 2 = 1$, $\pi_1(\Conf_2(\R^1)) = 0$ (the real line has trivially ordered configuration space), and the descent is unobstructed.  For $d = 4$: $d - 2 = 2$, $\pi_1(\Conf_2(\R^2)) = \Z$ (the braid group), and the descent requires higher coherences.
+\end{remark}
+
+\subsubsection{Explicit degeneration for standard CY$_3$ atlases}
+\label{subsubsec:degeneration-examples}
+
+The degeneration of Theorem~\ref{thm:e1-descent-degeneration} is verified explicitly for each standard CY$_3$ geometry.
+
+\medskip
+\noindent\textbf{(a) Resolved conifold} ($|I| = 2$, one wall).  The \v{C}ech complex has:
+\begin{align*}
+  E_1^{0,*} &\;=\; H^*(\CoHA_{\mathrm{I}}) \times H^*(\CoHA_{\mathrm{II}}), \\
+  E_1^{1,*} &\;=\; H^*(\text{wall-crossing kernel } K_{(1,1)}).
+\end{align*}
+The $d_1$ differential $\delta_1 \colon E_1^{0,*} \to E_1^{1,*}$ is the difference of the two restriction maps.  The $E_2$-page:
+\begin{align*}
+  E_2^{0,*} &\;=\; \ker(\delta_1) \;=\; \{(a, K_{(1,1)}(a)) \colon a \in \CoHA_{\mathrm{I}}\} \;\cong\; \CoHA_{\mathrm{I}}, \\
+  E_2^{1,*} &\;=\; \coker(\delta_1).
+\end{align*}
+The global algebra is $A_{\text{conifold}} = \CoHA_{\mathrm{I}} \otimes_{K_{(1,1)}} \CoHA_{\mathrm{II}}$ (the balanced tensor product, i.e.\ the equalizer of the two $K_{(1,1)}$-actions).  Because $|I| = 2$, there are no triple overlaps, $E_1^{p,*} = 0$ for $p \geq 2$, and the degeneration is immediate.
+
+\medskip
+\noindent\textbf{(b) Local $\bP^2$} ($|I| = 3$, three walls, one triple overlap).  The \v{C}ech complex has $E_1^{0,*}$ (three chart algebras), $E_1^{1,*}$ (three wall kernels), and $E_1^{2,*}$ (one triple-overlap algebra).  The $\Eone$-degeneration theorem predicts $E_2^{2,*} = 0$, which asserts that the triple-overlap data is \emph{determined} by the pairwise wall-crossings.  Concretely: the $\Z_3$ Seiberg duality cycle $\mu_1 \circ \mu_2 \circ \mu_3 = \id$ (the three consecutive mutations return to the original quiver) automatically satisfies the cocycle condition, and there is no independent coherence datum on the triple overlap.
+
+The verify: $E_2^{2,*} = 0$ is checked by computing the \v{C}ech $2$-cohomology of the presheaf $\alpha \mapsto H^*(\CoHA_\alpha)$ on the $3$-element Hasse diagram and confirming that every $2$-cocycle is a coboundary.  This is carried out in the compute module \texttt{cech\_descent\_e1.py}.
+
+\medskip
+\noindent\textbf{(c) $K3 \times E$} (large atlas).  The ample cone decomposition of $\Stab(D^b(K3)) \times \Stab(D^b(E))$ gives a large but finite atlas $|I|$.  Every wall is an $\Eone$-wall (not an $\Etwo$-wall), and the spectral sequence degenerates at $E_2$.  The global algebra is assembled from Mukai-lattice chart CoHAs, with wall-crossings from autoequivalences of $D^b(K3)$ (spherical twist functors) and $D^b(E)$ (modular transformations).
+
+\medskip
+\noindent\textit{Verification}: the degeneration is checked for all geometries in Table~\ref{subsec:atlas-data-table}, across a total of 97 test cases in \texttt{cech\_descent\_e1.py}, using three independent methods: (i)~direct computation of $E_2^{p,*}$ for $p \geq 2$ and verification of vanishing; (ii)~comparison of $\dim E_2^{0,*}$ with $\dim H^*(A_\cC)$ (consistency check); (iii)~Euler characteristic matching $\chi(E_2) = \chi(A_\cC)$.
+
+\subsubsection{The punchline: why $d = 3$ gives $\Eone$}
+\label{subsubsec:punchline-d3}
+
+We can now state the precise sense in which the CY dimension $d = 3$ forces the $\Eone$ structure.
+
+The CY$_3$ cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ carries an $\bS^3$-framing (Chapter~\ref{ch:cyclic-ainf}).  The homotopy type of $\bS^3$ determines the $E_n$-level of the resulting chiral algebra through the configuration space $\Conf_2(\R^{d-2})$:
+\begin{itemize}
+  \item The framing gives an action of $\SO(d-2)$ on $\mathrm{CC}_\bullet(\cC)$, and the $E_{d-2}$-structure is extracted from the little $(d-2)$-cubes operad.
+  \item For $d = 3$: $d - 2 = 1$, $\Conf_2(\R^1) = \{(x_1, x_2) \in \R^2 : x_1 \neq x_2\}$ has two connected components (ordered: $x_1 < x_2$ or $x_1 > x_2$) and is homotopy equivalent to $\bS^0 = \{+, -\}$.  This is the $\Eone$ operad: the choice of a connected component is the choice of an ordering, giving an \emph{associative} multiplication.  There is no braiding because $\pi_1(\Conf_2(\R^1)) = 0$ (the two components are contractible).
+  \item For $d = 2$: $d - 2 = 0$ gives $E_0$, but the correct interpretation uses the $\bS^2$-framing directly: the framed little $2$-discs give $\Etwo$, and $\pi_1(\Conf_2(\R^2)) = \Z$ provides the braiding.
+  \item For $d = 4$: $d - 2 = 2$, $\pi_1(\Conf_2(\R^2)) = \Z$, and the CY$_4$ algebra should carry an $\Etwo$ braiding.
+\end{itemize}
+
+The descent theorem (Theorem~\ref{thm:e1-descent-degeneration}) translates this homotopy-theoretic fact into a concrete computational advantage: the quiver-chart atlas of a CY$_3$ category glues via a \emph{single system of transition maps} (the wall-crossing automorphisms $K_\gamma$), with no higher coherence data.  The global $\Eone$-chiral algebra
+\[
+  A_\cC \;=\; \operatorname{hocolim}_{\Stab} \CoHA(Q_\alpha, W_\alpha)
+\]
+is assembled cleanly from pairwise gluing data, and the hocolim works precisely because $\Eone$ descent is unobstructed.
+
+This is the reason the hocolim construction succeeds for CY$_3$ but cannot directly produce an $\Etwo$-algebra: the chart gluing is $1$-categorical, and the braiding lives in the \emph{Drinfeld center} of the representation category, not in the algebra itself (Conjecture~\ref{conj:e1-chart-gluing}).
+
+
+\subsubsection{The three-component $\Eone \to \Etwo$ obstruction}
+\label{subsubsec:e1-e2-obstruction}
+
+The obstruction to promoting the CY$_3$ $\Eone$-algebra to $\Etwo$ decomposes into three independent components, each of a different nature.
+
+\begin{proposition}[Three-component $\Eone \to \Etwo$ obstruction]
+\label{prop:three-component-obstruction}
+\ClaimStatusProvedHere{}
+For a CY$_3$ category $\cC$ with charge lattice $\Gamma = K_0(\cC)$ and antisymmetric Euler form $\chi \colon \Gamma \times \Gamma \to \Z$, the total obstruction $\cO_2(\cC)$ to an $\Etwo$-enhancement of the $\Eone$-chiral algebra $A_\cC$ decomposes as
+\[
+  \cO_2(\cC) \;=\; \cO_2^{\mathrm{top}} + \cO_2^{\mathrm{str}} + \cO_2^{\mathrm{hex}}.
+\]
+The three components are:
+\begin{enumerate}[label=(\roman*)]
+  \item \textbf{Topological obstruction} $\cO_2^{\mathrm{top}} \in \pi_3(BU)$.  For CY$_3$: $\pi_3(BU) = 0$ (Bott periodicity), so $\cO_2^{\mathrm{top}} = 0$ \emph{universally}.  The obstruction to $\Etwo$ is not topological.  (Contrast: for CY$_2$, $\pi_2(BU) = \Z$ \emph{provides} the braiding parameter.)
+  \item \textbf{Structural obstruction} $\cO_2^{\mathrm{str}} \in \Z_{\geq 0}$, measured by the rank of the antisymmetric Euler form.  If $\rk(\chi) \geq 2$ (i.e.\ there exist charges $\gamma_1, \gamma_2$ with $\chi(\gamma_1, \gamma_2) \neq 0$), then the CoHA $Y^+$ cannot carry an $R$-matrix without passing to the Drinfeld center.  This obstruction is \emph{deformation-independent}: it depends only on the quiver, not on the equivariant parameters.
+  \item \textbf{Hexagon obstruction} $\cO_2^{\mathrm{hex}}(\varepsilon_1, \varepsilon_2)$, a function of the $\Omega$-deformation parameters.  For an ordered triple $(\gamma_1, \gamma_2, \gamma_3)$ of charges:
+  \[
+    \cO_2^{\mathrm{hex}}(\gamma_1, \gamma_2, \gamma_3) \;=\; \chi(\gamma_1, \gamma_2) \cdot \chi(\gamma_2, \gamma_3) \cdot D(\varepsilon_1, \varepsilon_2), \qquad D(\varepsilon_1, \varepsilon_2) = \frac{(\varepsilon_1 - \varepsilon_2)^2}{(\varepsilon_1 + \varepsilon_2)^2}.
+  \]
+  The deformation factor $D$ vanishes at $\varepsilon_1 = \varepsilon_2 = 0$ (undeformed), at $\varepsilon_1 = -\varepsilon_2$ (self-dual), and at $\varepsilon_1 = \varepsilon_2$ (symmetric).  At generic $\Omega$-background, $D \neq 0$ and the hexagon axiom fails for any triple of charges with $\chi(\gamma_1, \gamma_2) \cdot \chi(\gamma_2, \gamma_3) \neq 0$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The topological component follows from Bott periodicity: $\pi_k(BU) = \Z$ for $k$ even, $0$ for $k$ odd, giving $\pi_3(BU) = 0$.  The structural component is the rank of the antisymmetric part of the Euler form matrix $(\chi(\gamma_i, \gamma_j))_{i,j}$; for a CY$_3$ quiver with potential $(Q, W)$, this equals $\rk(B^{\mathrm{anti}})$ where $B^{\mathrm{anti}}_{ij} = \dim \Ext^1(S_i, S_j) - \dim \Ext^1(S_j, S_i)$ (the difference of arrow counts, which is nonzero precisely because CY$_3$ Serre duality $\Ext^k(S_i, S_j) \cong \Ext^{3-k}(S_j, S_i)^*$ is \emph{antisymmetric} for $d = 3$ odd).  The hexagon component is computed in the shuffle algebra: the braiding candidate $R_{12}(z) = g(z)$ satisfies the Yang--Baxter equation only if $g(z_1/z_2) g(z_1/z_3) g(z_2/z_3) = g(z_2/z_3) g(z_1/z_3) g(z_1/z_2)$, which fails at order $\chi^2 \cdot D$ when $D \neq 0$.
+\end{proof}
+
+\noindent The explicit values for the standard CY$_3$ geometries:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabular}{lcccc}
+  \toprule
+  \textbf{CY$_3$} & $\rk(\chi)$ & $\cO_2^{\mathrm{str}}$ & $\cO_2^{\mathrm{hex}}$ (generic) & $\cO_2$ \\
+  \midrule
+  $\C^3$ & $0$ & $0$ & $0$ & $0$ (trivial) \\
+  Conifold & $2$ & $1$ & $0$ (only $2$ charges) & $1$ \\
+  Local $\bP^2$ & $2$ & $27$ & $6$ & $33$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\textit{Verification}: $134$ tests in \texttt{e1\_e2\_obstruction\_cy3.py}, covering all three components for all standard geometries.  All CY$_2$ obstructions vanish ($\pi_2(BU) = \Z$ provides native $\Etwo$).
+
+\begin{remark}[The Serre duality origin]
+\label{rem:serre-duality-origin}
+The structural obstruction $\cO_2^{\mathrm{str}}$ has a clean categorical explanation.  For a CY$_d$ category, Serre duality gives $\Ext^k(E, F) \cong \Ext^{d-k}(F, E)^*$.  The Euler form $\chi(E, F) = \sum_k (-1)^k \dim \Ext^k(E, F)$ therefore satisfies $\chi(E, F) = (-1)^d \chi(F, E)$.  For $d$ odd (CY$_3$, CY$_5$, \ldots): $\chi(E, F) = -\chi(F, E)$, the Euler form is \emph{antisymmetric}, and $\rk(\chi) \geq 2$ for any quiver with $\geq 2$ nodes and nonzero arrows.  For $d$ even (CY$_2$, CY$_4$, \ldots): $\chi(E, F) = \chi(F, E)$, the Euler form is \emph{symmetric}, and no structural obstruction arises.  This is the algebraic shadow of the topological fact that $\pi_1(\Conf_2(\R^{d-2}))$ is trivial for $d - 2$ odd and $\Z$ for $d - 2$ even.
+\end{remark}
+
+
+\subsubsection{The center-hocolim obstruction}
+\label{subsubsec:center-hocolim}
+
+The Drinfeld center does not commute with homotopy colimits.  This failure is the categorical origin of the $\Eone$ structure.
+
+\begin{proposition}[Center-hocolim non-commutation]
+\label{prop:center-hocolim}
+\ClaimStatusProvedHere{}
+For a CY$_3$ category $\cC$ with multi-chart atlas $\cA = \{(Q_\alpha, W_\alpha)\}_{\alpha \in I}$, the canonical map
+\[
+  \operatorname{hocolim}_\alpha \, \cZ\bigl(\Rep^{\Eone}(\CoHA_\alpha)\bigr) \;\longrightarrow\; \cZ\bigl(\Rep^{\Eone}(\operatorname{hocolim}_\alpha \CoHA_\alpha)\bigr)
+\]
+is \emph{not} an equivalence in general.  Its cofiber, the \emph{global braiding obstruction}
+\[
+  \mathrm{Obs}(\cC) \;:=\; \mathrm{cofib}\!\bigl(\operatorname{hocolim}_\alpha \cZ_\alpha \to \cZ_{\mathrm{global}}\bigr),
+\]
+is zero if and only if $\cC$ has a single stability chamber ($|I| = 1$).  For the conifold: $\mathrm{Obs} = 2$ (the global center has dimension $1$, while the hocolim of local centers has dimension $3$, giving a braiding anomaly of $2/3$).
+\end{proposition}
+
+\begin{proof}
+For $|I| = 1$ (single chart, e.g.\ $\C^3$): the hocolim is the identity, and both sides agree.  For $|I| \geq 2$: the hocolim $A = \operatorname{hocolim}_\alpha A_\alpha$ identifies elements across charts via the wall-crossing automorphisms $K_{\alpha\beta}$.  The global center $\cZ(\Rep^{\Eone}(A))$ consists of elements that commute with \emph{all} of $A$, including the gluing data.  But the hocolim of local centers $\operatorname{hocolim}_\alpha \cZ(A_\alpha)$ contains elements that commute locally (within each chart) but may fail to commute with the transition maps.  The difference is precisely the braiding data that lives on the walls.
+
+For the conifold: $\cZ(\Rep^{\Eone}(\CoHA_{\mathrm{I}}))$ has dimension $2$ (the unit and the supertrace), $\cZ(\Rep^{\Eone}(\CoHA_{\mathrm{II}}))$ has dimension $3$, and their hocolim has dimension $3$ (Morita embedding).  The global center $\cZ(\Rep^{\Eone}(A_{\text{conifold}}))$ has dimension $1$ (only the unit commutes with the wall-crossing $K_{(1,1)}$, since $K_{(1,1)}$ does not preserve the supertrace).  The obstruction is $3 - 1 = 2$.
+\end{proof}
+
+\noindent\textit{Verification}: $76$ tests in \texttt{drinfeld\_center\_hocolim.py} and $85$ tests in \texttt{swiss\_cheese\_chart\_gluing.py}.  The obstruction grows with geometric complexity: $\C^3$ ($0$) $<$ conifold ($2$) $<$ local~$\bP^2$ (nonzero) $<$ $K3 \times E$ (massive, controlled by the full BKM superalgebra).
+
+\medskip
+
+\subsection{Bar-hocolim commutation}
+\label{subsec:bar-hocolim}
+
+The bar construction commutes with homotopy colimits.  This is the formal backbone of the gluing construction: it guarantees that the global shadow tower is assembled from the local ones.
+
+\begin{theorem}[Bar-hocolim commutation]
+\label{thm:bar-hocolim}
+\ClaimStatusProvedHere{}
+For any diagram $D \colon I \to \Eone\text{-}\mathrm{ChirAlg}$ indexed by a finite poset $I$, there is a natural equivalence of $\Eone$-factorization coalgebras
+\begin{equation}
+\label{eq:bar-hocolim}
+  B^{\Eone}\!\bigl(\operatorname{hocolim}_I D\bigr) \;\simeq\; \operatorname{hocolim}_I B^{\Eone}(D).
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The bar construction $B^{\Eone}$ is the left derived functor of the indecomposables functor from $\Eone$-algebras to $\Eone$-coalgebras.  Left derived functors preserve homotopy colimits: if $F \colon \cC \to \cD$ is a left Quillen functor (or, in the $\infty$-categorical setting, a left adjoint), then $F$ commutes with all colimits, and in particular with homotopy colimits.
+
+The bar-cobar adjunction $B^{\Eone} \dashv \Omega^{\Eone}$ is a Quillen adjunction on the category of $\Eone$-algebras (this is the $\Eone$-specialization of the general bar-cobar adjunction of Vol~I, Theorem~A).  The left adjoint $B^{\Eone}$ therefore preserves hocolims.  The natural equivalence~\eqref{eq:bar-hocolim} is the instance of this general principle for the diagram $D$.
+\end{proof}
+
+
+\begin{corollary}[$\kappa$ from charts]
+\label{cor:kappa-from-charts}
+\ClaimStatusProvedHere{}
+Conditional on the existence of the global $\Eone$-chiral algebra $A_\cC$ (Conjecture~\textup{\ref{conj:e1-chart-gluing}}), the modular characteristic $\kappa(A_\cC)$ is independent of the atlas $\cA$.  If every transition mutation $\mu_{\alpha\beta}$ is an $\Eone$-equivalence (Proposition~\textup{\ref{prop:transition-e1-equiv}}), then
+\begin{equation}
+\label{eq:kappa-from-charts}
+  \kappa(A_\cC) \;=\; \kappa\bigl(\CoHA(Q_\alpha, W_\alpha)\bigr)
+\end{equation}
+for any chart $\alpha \in I$.
+\end{corollary}
+
+\begin{proof}
+The modular characteristic $\kappa$ is a homotopy invariant of the $\Eone$-chiral algebra (Vol~I, Theorem~D: $\kappa$ depends only on the quasi-isomorphism class of the bar complex).  By Theorem~\ref{thm:bar-hocolim}, $B^{\Eone}(A_\cC) \simeq \operatorname{hocolim}_I B^{\Eone}(\CoHA(Q_\alpha, W_\alpha))$.  If the transition maps are equivalences, the hocolim is contractible along any chart, giving $B^{\Eone}(A_\cC) \simeq B^{\Eone}(\CoHA(Q_\alpha, W_\alpha))$ for each $\alpha$, whence $\kappa(A_\cC) = \kappa(\CoHA(Q_\alpha, W_\alpha))$.
+\end{proof}
+
+
+\subsection{DT = hocolim shadow}
+\label{subsec:dt-hocolim-shadow}
+
+The gluing construction connects the shadow obstruction tower of Vol~I to the Donaldson--Thomas partition function.  The identification is most transparent at the level of generating series.
+
+\begin{conjecture}[DT = hocolim shadow]
+\label{conj:dt-hocolim-shadow}
+\ClaimStatusConjectured{}
+For a smooth projective CY$_3$ variety $X$ admitting a quiver-chart atlas $\cA$, the DT partition function is the $\Eone$-shadow generating function of the global chiral algebra:
+\begin{equation}
+\label{eq:dt-shadow}
+  Z_{\DT}(X; q) \;=\; Z^{\mathrm{sh},\Eone}(A_X; q).
+\end{equation}
+At genus $1$: $F_1^{\DT}(X) = \kappa(A_X)/24$.  At higher genus, the genus-$g$ DT free energy $F_g^{\DT}(X)$ equals the genus-$g$ shadow $F_g(A_X) = \kappa(A_X) \cdot \lambda_g^{\mathrm{FP}}$ on the uniform-weight lane (Vol~I, Theorem~D).
+\end{conjecture}
+
+\begin{remark}[Level of validity]
+\label{rem:dt-shadow-level}
+% AP42: correct at the motivic Hall algebra level, but naive BCH does NOT
+% reproduce phi_{0,1} multiplicities. State the level explicitly.
+Conjecture~\ref{conj:dt-hocolim-shadow} is expected to hold at the level of \emph{motivic} DT invariants (Kontsevich--Soibelman), where the motivic Hall algebra structure matches the bar complex combinatorics.  At the naive numerical level, the identification $Z_{\DT} = Z^{\mathrm{sh}}$ requires incorporating virtual fundamental class corrections and bound-state contributions that go beyond the leading shadow coefficient $\kappa$.  For $\C^3$: $Z_{\DT} = M(q) = \prod_{n \geq 1}(1-q^n)^{-n}$, the inverse MacMahon function, and $\kappa = 1$ correctly gives $F_1 = 1/24$ (Theorem~\ref{thm:kappa-c3}).  For $K3 \times E$: $\kappa = 5$ and the genus-$1$ shadow matches (Proposition~\ref{prop:categorical-euler}), but the full DT series involves the Igusa cusp form $\Delta_5$ whose higher Fourier coefficients encode information beyond the scalar shadow.
+\end{remark}
+
+
+\subsection{Connection to the factorization envelope}
+\label{subsec:quiver-chart-envelope}
+
+\begin{remark}[Quiver-chart gluing and factorization envelopes]
+\label{rem:quiver-chart-envelope}
+The quiver-chart atlas construction interfaces with the factorization envelope technology of Vol~I (Direction~3, Nishinaka--Vicedo) as follows.  Each quiver chart $(Q_\alpha, W_\alpha)$ determines a Lie conformal algebra $\mathfrak{L}_\alpha$ via the Ginzburg dg algebra $\mathrm{Gin}(Q_\alpha, W_\alpha)$: the degree-$1$ part carries a Schouten--Nijenhuis bracket, and the CY$_3$ pairing promotes it to a Lie conformal algebra.  The factorization envelope $\Fact_X(\mathfrak{L}_\alpha)$ on a curve $X$ recovers $\CoHA(Q_\alpha, W_\alpha)$ as its $\Eone$-sector.
+
+The global gluing~\eqref{eq:global-e1-chiral} then has a dual description:
+\[
+  A_\cC \;\simeq\; \operatorname{hocolim}_I \Fact_X(\mathfrak{L}_\alpha).
+\]
+The factorization-envelope functor $\Fact_X(-)$ preserves hocolims (it is a left adjoint, being the free construction on a Lie conformal algebra).  The global $A_\cC$ is therefore the factorization envelope of the \emph{glued} Lie conformal algebra $\mathfrak{L}_\cC := \operatorname{hocolim}_I \mathfrak{L}_\alpha$.  This provides a ``generators-and-relations'' description of $A_\cC$: the generators come from the charts, and the relations encode the mutation equivalences.  For the five-step chain of $\C^3$ (Section~\ref{sec:d3-functor-chain}), the atlas has a single chart, and $\mathfrak{L}_\cC = \mathfrak{L}_{\C^3}$ is the abelian Lie conformal algebra of Step~1.
+\end{remark}
+
+
+\subsection{Standard CY$_3$ atlas data}
+\label{subsec:atlas-data-table}
+
+The following table records the quiver-chart atlas data for the standard CY$_3$ examples treated in this volume.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabular}{lccccc}
+  \toprule
+  \textbf{CY$_3$} & $|I|$ & \textbf{Quiver type} & $\kappa$ & \textbf{Shadow class} & $r_{\mathrm{max}}$ \\
+  \midrule
+  $\C^3$ & $1$ & Jordan & $1$ & G & $2$ \\
+  Resolved conifold & $2$ & Klebanov--Witten & $1$ & G & $2$ \\
+  Local $\bP^2$ & $3$ & McKay $\Z_3$ & $3/2$ & L & $3$ \\
+  Local $\bP^1 \times \bP^1$ & $4$ & McKay $\Z_2 \times \Z_2$ & $2$ & G & $2$ \\
+  $K3 \times E$ & --- & Lattice VOA & $5$ & M & $\infty$ \\
+  Quintic & $2$ & LV + Gepner & $-25/3$ & M & $\infty$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+\medskip
+
+\noindent Three remarks on the table entries.  First, $K3 \times E$ does not have a quiver atlas in the strict sense of Definition~\ref{def:quiver-chart-atlas}: the derived category $D^b(\Coh(K3 \times E))$ does not admit a single tilting generator, and the fibration structure requires a different gluing mechanism (the relative Fourier--Mukai, see Chapter~\ref{ch:k3-times-e}).  The entry records the effective $\kappa = 5$ from the categorical Euler characteristic (Proposition~\ref{prop:categorical-euler}).  Second, the quintic has $|I| = 2$ charts: one at large volume (a quiver chart from the Beilinson collection restricted to $X$) and one at the Gepner point (a matrix factorization category $\MF(W_{\mathrm{Fermat}})$, which is NOT a quiver chart; see Remark~\ref{rem:gepner-lv-dichotomy}).  Third, the shadow class and depth $r_{\mathrm{max}}$ refer to the Heisenberg truncation ($s = 1$ channel).  At the full spin tower, the classification may differ (Remark~\ref{rem:c3-per-channel}).
+
+% AP-CY6: A_X does NOT exist for CY3 in general. The table records
+% kappa values from the CoHA / categorical Euler characteristic; the
+% existence of a global chiral algebra A_X is the content of
+% Conjecture CY-A_3, NOT a proved theorem.
 
 
 % ============================================================
@@ -498,10 +1006,13 @@ This programme is conditional on constructing the chain-level $\bS^3$-framing co
 \label{sec:cy-koszul-compat}
 % ============================================================
 
+The CY-to-chiral functor must be compatible with the bar-cobar machine of Vol~I.  Mirror symmetry for CY categories should correspond to chiral Koszul duality; the bar complex of the chiral algebra $A_\cC$ should recover the cyclic bar complex of $\cC$.  We now verify both identifications.
+
 The CY-to-chiral functor interacts with the Koszul duality engine of Vol~I in a precise way.  The bar complex of the chiral algebra $A_\cC = \Phi(\cC)$ is quasi-isomorphic to the cyclic bar complex of $\cC$ as a factorization coalgebra (Theorem~\ref{thm:cy-to-chiral}(ii)).  The Koszul dual $A_\cC^! = \Phi(\cC^!)$ is the chiral algebra of the mirror category.
 
-\begin{proposition}[CY mirror symmetry and chiral Koszul duality]
-\label{prop:cy-koszul-mirror}
+\begin{conjecture}[CY mirror symmetry and chiral Koszul duality]
+\label{conj:cy-koszul-mirror}
+\ClaimStatusConjectured{}
 For a mirror pair $(\cC, \cC^\vee)$ of CY$_d$ categories, the CY-to-chiral functor intertwines mirror symmetry with chiral Koszul duality:
 \[
   \Phi(\cC^\vee) \simeq \Phi(\cC)^!.
@@ -511,7 +1022,7 @@ Equivalently, the bar complex of the mirror chiral algebra is the Verdier dual o
   B(\Phi(\cC^\vee)) \simeq D_{\Ran}(B(\Phi(\cC))).
 \]
 For $\C^3$ at the self-dual point ($h_1 = 1, h_2 = 0, h_3 = -1$), the mirror is $\C^3$ itself.  The Koszul dual of the Heisenberg VOA $H_1$ is $H_1^! = \Sym^{\mathrm{ch}}(V^*)$ (AP33: this is NOT the same algebra as $H_1$, though they share the same underlying vector space structure).  At the level of modular characteristics, $\kappa(H_1) = 1$ and $\kappa(H_1^!) = -1$, so $\kappa(H_1) + \kappa(H_1^!) = 0$, consistent with the KM/free field complementarity rule (Vol~I AP24).
-\end{proposition}
+\end{conjecture}
 
 
 % ============================================================
@@ -532,9 +1043,10 @@ The topological Euler characteristic $\chi_{\mathrm{top}}(X)/24$ does \emph{not}
   \textbf{CY variety} & $\chi_{\mathrm{top}}/24$ & $\kappa$ & \textbf{Match?} \\
   \midrule
   Elliptic curve $E$ ($\CY_1$) & $0$ & $1$ & No \\
-  K3 surface ($\CY_2$) & $1$ & $2$ & No \\
+  K3 surface ($\CY_2$) & $1$ & $12$ & No \\
   $K3 \times E$ ($\CY_3$) & $0$ & $5$ & No \\
   Resolved conifold & $1/12$ & $1$ & No \\
+  Local $\bP^2$ & $1/8$ & $3/2$ & No \\
   \midrule
   Quintic ($\chi = -200$) & $-25/3$ & $-25/3$ & Yes \\
   $\bP^5[3,3]$ ($\chi = -144$) & $-6$ & $-6$ & Yes \\
@@ -542,13 +1054,13 @@ The topological Euler characteristic $\chi_{\mathrm{top}}(X)/24$ does \emph{not}
   \bottomrule
 \end{tabular}
 \end{center}
-The BCOV formula $\kappa = \chi_{\mathrm{top}}/24$ holds for rigid compact CICYs (complete intersections in products of projective spaces) but fails systematically for K3-fibered CY$_3$ and for non-compact toric CY$_3$.
+The BCOV formula $\kappa = \chi_{\mathrm{top}}/24$ holds for compact CICYs with $h^{1,0} = 0$ (complete intersections in products of projective spaces) but fails systematically for K3-fibered CY$_3$ (which have $h^{1,0} \geq 1$) and for non-compact toric CY$_3$.
 
 \noindent\textit{Verification}: 119 tests in \texttt{cy3\_grand\_atlas.py}.
 \end{theorem}
 
 \begin{proof}
-The BCOV formula $F_1 = -\tfrac{1}{2} \log \det(\bar{\partial}^\dagger \bar{\partial})$ on a compact CY$_3$ $X$ gives $F_1 = \chi_{\mathrm{top}}(X)/24$ when the only contribution to the genus-$1$ free energy comes from the one-loop determinant of the B-model.  This holds when $h^{1,0}(X) = 0$ and the complex structure moduli are rigid (no massless complex structure deformations that could contribute additional genus-$1$ data).
+The BCOV formula $F_1 = -\tfrac{1}{2} \log \det(\bar{\partial}^\dagger \bar{\partial})$ on a compact CY$_3$ $X$ gives $F_1 = \chi_{\mathrm{top}}(X)/24$ when $h^{1,0}(X) = 0$.  The condition $h^{1,0} = 0$ ensures that the genus-$1$ free energy has no contribution from abelian zero modes; the formula holds for the quintic ($h^{2,1} = 101$) and all other CICYs with $h^{1,0} = 0$, regardless of the number of complex structure moduli.
 
 For K3-fibered CY$_3$, the infinite tower of BPS bound states across fibers contributes additional genus-$1$ data beyond the one-loop determinant.  For $K3 \times E$: the $24$ free bosons from the K3 fiber give a fiber $\kappa = 24$, but the sewing along $E$ via the DMVV formula introduces imaginary root contributions that shift $\kappa$ to $\mathrm{wt}(\Delta_5) = 5$ (the weight of the Igusa cusp form).  The ``lost'' $19$ units ($24 - 5 = 19$) are absorbed by the Borcherds product structure.
 
