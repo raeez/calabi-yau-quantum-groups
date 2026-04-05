@@ -17,8 +17,8 @@
 
 <br>
 
-![Tests](https://img.shields.io/badge/tests-~1600-58a6ff?style=for-the-badge&labelColor=0d1117)
-![Compute Modules](https://img.shields.io/badge/compute%20modules-75-a371f7?style=for-the-badge&labelColor=0d1117)
+![Tests](https://img.shields.io/badge/tests-~4500-58a6ff?style=for-the-badge&labelColor=0d1117)
+![Compute Modules](https://img.shields.io/badge/compute%20modules-182-a371f7?style=for-the-badge&labelColor=0d1117)
 ![Chapters](https://img.shields.io/badge/chapters-22-3fb950?style=for-the-badge&labelColor=0d1117)
 ![Notes](https://img.shields.io/badge/notes-22-d29922?style=for-the-badge&labelColor=0d1117)
 
@@ -88,7 +88,7 @@ graph LR
 
 &nbsp;
 
-The algebraic engine. Constructs bar-cobar duality for chiral algebras via configuration space integrals on Fulton&ndash;MacPherson compactifications. Five main theorems (A&ndash;D, H) form the proved core. The universal Maurer&ndash;Cartan element &Theta;<sub>A</sub> and its finite-order projections (the shadow Postnikov tower) organize the full modular structure.
+The algebraic engine. Constructs bar-cobar duality for chiral algebras via configuration space integrals on Fulton&ndash;MacPherson compactifications. Five main theorems (A&ndash;D, H) form the proved core. The universal Maurer&ndash;Cartan element &Theta;<sub>A</sub> and its finite-order projections (the shadow obstruction tower) organize the full modular structure.
 
 | Metric | Value |
 |--------|------:|
@@ -127,8 +127,8 @@ CY categories as quantum chiral algebras via E<sub>1</sub>/E<sub>2</sub> factori
 | Theory chapters | 13 files, ~600 lines |
 | Example chapters | 6 files, ~324 lines |
 | Connection chapters | 3 files, ~41 lines |
-| Compute modules | 20 lib + 22 test files |
-| Compute tests | ~1,600 |
+| Compute modules | 93 lib + 89 test files |
+| Compute tests | ~4,500 |
 | Theory notes | 11 files, ~11K lines |
 | Physics notes | 11 files, ~9K lines |
 | Research notes | 10 `.md` files |
@@ -280,7 +280,7 @@ graph LR
 
 ## The Central Conjecture
 
-The **shadow Postnikov tower** from Volume I is **conjecturally identified** with the **automorphic correction** of the BKM superalgebra:
+The **shadow obstruction tower** from Volume I is **conjecturally identified** with the **automorphic correction** of the BKM superalgebra:
 
 | Arity | Shadow obstruction tower (Vol I) | BKM algebra (Vol III) | BPS physics |
 |:-----:|:------------|:-----------|:-----------|
@@ -489,7 +489,7 @@ chi/24 = -25/3  (not integer: obstruction to naive BKM structure)
 
 ## Compute
 
-20 modules, 22 test suites, **~1,600 tests**.
+93 modules, 89 test suites, **~4,500 tests**.
 
 | Module | What it computes | Tests |
 |--------|-----------------|:-----:|
