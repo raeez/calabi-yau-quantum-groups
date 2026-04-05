@@ -9,10 +9,11 @@
 <br>
 
 *The combinatorial skeleton of a Calabi-Yau threefold &mdash; its lattice, BPS spectrum, and symmetries &mdash;*
-*is the root datum of a quantum vertex chiral group G(X), an infinite-dimensional algebraic object*
+*should be the root datum of a quantum vertex chiral group G(X), an infinite-dimensional algebraic object*
 *that simultaneously generalizes Kac-Moody algebras, Borcherds superalgebras, affine Yangians, and vertex algebras.*
-*The bar complex of the associated chiral algebra is simultaneously a factorization coalgebra,*
-*a BKM superalgebra, a BPS spectrum, and an automorphic form.*
+*The central conjecture: for CY3 categories, the bar-complex Euler product of the (conjectural) chiral algebra*
+*recovers the BKM denominator identity, and the shadow obstruction tower organizes the BPS root multiplicities.*
+*This is proved for CY<sub>2</sub> categories and computationally verified at arities 2&ndash;6 for K3 &times; E.*
 
 <br>
 
@@ -46,7 +47,7 @@
 
 ## The Three-Volume Programme
 
-This is the third and final volume of the modular Koszul duality programme. The volumes are logically ordered: Volume I builds the algebraic engine, Volume II reads its output in three dimensions, and Volume III identifies the engine's shadow obstruction tower with the automorphic correction of BKM superalgebras arising from Calabi-Yau categories.
+This is the third and final volume of the modular Koszul duality programme. The volumes are logically ordered: Volume I builds the algebraic engine, Volume II reads its output in three dimensions, and Volume III proposes a conjectural identification of the engine's shadow obstruction tower with the automorphic correction of BKM superalgebras arising from Calabi-Yau categories. The identification is proved for CY<sub>2</sub> categories; for CY<sub>3</sub> (including K3 &times; E), it is a precisely scoped conjecture whose central obstruction is the nonexistence of the CY-to-chiral functor at d = 3.
 
 | &ensp; | Volume | Title | Scope |
 |:---:|:------:|-------|-------|
@@ -68,11 +69,11 @@ graph LR
     end
 
     subgraph V3["Volume III --- CY Quantum Groups"]
-        T3["E1/E2 factorization<br>Quantum vertex chiral groups G(X)<br>BKM = shadow obstruction tower"]
+        T3["E1/E2 factorization<br>Quantum vertex chiral groups G(X)<br>BKM ≅? shadow obstruction tower"]
     end
 
     V1 -->|"bar complex<br>+ kappa(A)"| V2
-    V1 -->|"Theta_A = automorphic<br>correction"| V3
+    V1 -->|"Theta_A ≅? automorphic<br>correction"| V3
     V2 -->|"E1 sector<br>+ braiding"| V3
 
     style T1 fill:#052e16,stroke:#3fb950,color:#aff5b4
@@ -119,7 +120,7 @@ The three-dimensional interpretation. The bar differential is &Copf;-direction f
 
 &nbsp;
 
-CY categories as quantum chiral algebras via E<sub>1</sub>/E<sub>2</sub> factorization. The combinatorial skeleton of a CY threefold &mdash; its lattice, BPS spectrum, and symmetries &mdash; is the root datum of a quantum vertex chiral group G(X). The bar-complex Euler product is the BKM denominator identity. CY3 combinatorics are generalized root data.
+CY categories as quantum chiral algebras via E<sub>1</sub>/E<sub>2</sub> factorization. The programme: the combinatorial skeleton of a CY threefold should be the root datum of a quantum vertex chiral group G(X), with the bar-complex Euler product recovering the BKM denominator identity. Proved for d = 2; conjectural for d = 3 (the chiral algebra A<sub>X</sub> does not yet exist for CY threefolds).
 
 | Metric | Value |
 |--------|------:|
@@ -258,7 +259,7 @@ graph LR
 
     BC -.->|"arity decomp"| S1
     S1 -.-> S2 -.-> S3 -.-> S4
-    S4 -.->|"= automorphic correction"| BKM
+    S4 -.->|"≅? automorphic correction"| BKM
 
     style CY fill:#1e1b4b,stroke:#a371f7,color:#e2d9f3
     style CA fill:#1e1b4b,stroke:#a371f7,color:#e2d9f3
@@ -277,40 +278,42 @@ graph LR
 
 <br>
 
-## The Central Identification
+## The Central Conjecture
 
-The **shadow Postnikov tower** from Volume I **is** the **automorphic correction** of the BKM superalgebra:
+The **shadow Postnikov tower** from Volume I is **conjecturally identified** with the **automorphic correction** of the BKM superalgebra:
 
-| Arity | Shadow obstruction tower | BKM algebra | BPS physics |
+| Arity | Shadow obstruction tower (Vol I) | BKM algebra (Vol III) | BPS physics |
 |:-----:|:------------|:-----------|:-----------|
 | 2 | &kappa; (modular characteristic) | Real roots + Weyl vector | Perturbative spectrum |
 | 3 | Cubic shadow *C* | First imaginary roots | 3-body bound states |
 | 4 | Quartic shadow *Q* | Deeper imaginary roots | 4-body bound states |
 | &infin; | Full &Theta;<sub>A</sub> | Complete BKM g<sub>X</sub> | Full non-perturbative BPS |
 
-The **denominator identity** of the BKM superalgebra **is** the **bar-complex Euler product**:
+The identification requires a **chiral algebra** A<sub>X</sub> as input. For CY<sub>2</sub> categories this exists (Theorem CY-A<sub>2</sub>). For CY<sub>3</sub> categories, A<sub>X</sub> is the central open problem (Conjecture CY-A<sub>3</sub>). Nevertheless, the **denominator identity** of the BKM superalgebra has the same algebraic structure as the **bar-complex Euler product**:
 
 $$\Phi_X(z) \;=\; e^{-2\pi i\langle\rho,z\rangle} \prod_{\alpha \in \Delta_+} \bigl(1 - e^{-2\pi i\langle\alpha,z\rangle}\bigr)^{\mathrm{mult}(\alpha)}$$
 
-For K3 &times; E, this is the **Igusa cusp form &Delta;<sub>5</sub>** with root multiplicities from the K3 elliptic genus &phi;<sub>0,1</sub>.
+For K3 &times; E, this is the **Igusa cusp form &Delta;<sub>5</sub>** with root multiplicities from the K3 elliptic genus &phi;<sub>0,1</sub>. The arity-by-arity matching has been computationally verified at arities 2&ndash;6 (271 dedicated BKM tests), but the identification is an **observation about matching formulas**, not a theorem derived from the bar complex of a specific chiral algebra (which does not yet exist for K3 &times; E).
 
 <br>
 
-## The Dualities are All the Same Duality
+## The Dualities are All the Same Duality (Conjectural)
 
-| Face | Statement |
-|------|-----------|
-| Koszul duality | G(X)<sup>!</sup> exchanges roots and coroots |
-| Langlands duality | G(C, G)<sup>!</sup> = G(C, <sup>L</sup>G) |
-| S-duality | Electric (W-bosons) &harr; magnetic (monopoles) |
-| Mirror symmetry | G(X)<sup>!</sup> = G(X<sup>&vee;</sup>) |
-| Holography | CoHA (brane) is Koszul dual to derived center (bulk) |
+The following identifications are programme-level conjectures. The Koszul duality column is proved (Vol I Theorem A); the geometric identifications require CY-A<sub>3</sub>.
+
+| Face | Statement | Status |
+|------|-----------|--------|
+| Koszul duality | G(X)<sup>!</sup> exchanges roots and coroots | Proved (Vol I) |
+| Langlands duality | G(C, G)<sup>!</sup> = G(C, <sup>L</sup>G) | Programme |
+| S-duality | Electric (W-bosons) &harr; magnetic (monopoles) | Programme |
+| Mirror symmetry | G(X)<sup>!</sup> = G(X<sup>&vee;</sup>) | Programme |
+| Holography | CoHA (brane) is Koszul dual to derived center (bulk) | Proved for d = 2 |
 
 <br>
 
 ## The Core Combinatorial Datum
 
-**D = (&Gamma;, S, &Phi;, E<sub>2</sub>)**: a consistent scattering diagram on the tropical skeleton of a CY degeneration, enriched with local vertex algebra data. The KS (Kontsevich-Soibelman) completion algorithm **is** the shadow obstruction tower from Volume I.
+**D = (&Gamma;, S, &Phi;, E<sub>2</sub>)**: a consistent scattering diagram on the tropical skeleton of a CY degeneration, enriched with local vertex algebra data. The KS (Kontsevich-Soibelman) completion algorithm is conjecturally identified with the shadow obstruction tower from Volume I (the identification holds at the motivic level; naive BCH pair-commutator does not reproduce &phi;<sub>0,1</sub> multiplicities).
 
 The four-level hierarchy:
 
@@ -382,17 +385,17 @@ Every construction in this volume depends on the algebraic engine of Volume I an
 | **(A)** Bar-cobar adjunction | The bar complex B(A) exists as a factorization coalgebra &mdash; the CY bar complex |
 | **(B)** Koszul inversion | Bar-cobar equivalence: &Omega;(B(A)) &simeq; A on the Koszul locus |
 | **(C)** Complementarity | Genus-g obstructions decompose as complementary Lagrangians; controls BKM root system structure |
-| **(D)** Leading coefficient | Curvature &kappa;(A) &middot; &omega;<sub>g</sub>; the CY modular characteristic &kappa;(A<sub>X</sub>) = &chi;<sup>CY</sup>(X) |
+| **(D)** Leading coefficient | Curvature &kappa;(A) &middot; &omega;<sub>g</sub>; conjecturally &kappa;(A<sub>X</sub>) = &chi;<sup>CY</sup>(X) (requires CY-A<sub>3</sub>) |
 | **(H)** Hochschild ring | Hochschild = bulk observables; the derived center Z<sup>der</sup><sub>ch</sub>(A) recovers the quantum group |
 
-| Volume I concept | Volume III incarnation |
-|-----------------|----------------------|
-| Shadow Postnikov tower &Theta;<sub>A</sub> | Automorphic correction of BKM superalgebra |
-| Modular characteristic &kappa; | Weight of the automorphic form (&kappa; = 5 for K3 &times; E) |
-| Bar-complex Euler product | BKM denominator identity |
-| Cubic shadow *C* | First imaginary root multiplicities |
-| Quartic shadow *Q* | Higher imaginary root multiplicities |
-| Koszul dual A<sup>!</sup> | Langlands dual quantum group G(C, <sup>L</sup>G) |
+| Volume I concept | Volume III incarnation | Status |
+|-----------------|----------------------|--------|
+| Shadow Postnikov tower &Theta;<sub>A</sub> | Automorphic correction of BKM superalgebra | Conjectural (requires CY-A<sub>3</sub>) |
+| Modular characteristic &kappa; | Weight of the automorphic form (conjecturally &kappa; = 5 for K3 &times; E) | Conjectural (A<sub>K3&times;E</sub> undefined) |
+| Bar-complex Euler product | BKM denominator identity | Computationally matched (not derived from bar complex) |
+| Cubic shadow *C* | First imaginary root multiplicities | Computationally matched |
+| Quartic shadow *Q* | Higher imaginary root multiplicities | Computationally matched |
+| Koszul dual A<sup>!</sup> | Langlands dual quantum group G(C, <sup>L</sup>G) | Programme |
 
 ### From Volume II
 
@@ -446,8 +449,13 @@ Lattice:       Lambda^{3,2} = Lambda^{1,1} + Lambda^{1,1} + [2],  signature (3,2
 Gram matrix:   ((2,-2,-2), (-2,2,-2), (-2,-2,2))
 Weyl vector:   rho = (1/2)(delta_1 + delta_2 + delta_3),  (rho, delta_i) = -1
 Root mults:    f(nm, l) from phi_{0,1}  (K3 elliptic genus)
-kappa:         5 = weight(Delta_5) = h^{1,1}(K3)/4
+kappa:         undefined (A_{K3xE} does not exist; weight(Delta_5) = 5 is suggestive)
 ```
+
+> **Note**: The BKM superalgebra g<sub>&Delta;<sub>5</sub></sub> and its lattice data are
+> established mathematics (Gritsenko-Nikulin). The &kappa; value requires a chiral algebra
+> A<sub>K3&times;E</sub> as input to the Vol I machine, which does not yet exist (Conjecture CY-A<sub>3</sub>).
+> The weight 5 of &Delta;<sub>5</sub> is the *predicted* value of &kappa;, not a computed one.
 
 ### Toric CY3 &ensp;|&ensp; The Tree Level
 
@@ -510,7 +518,7 @@ chi/24 = -25/3  (not integer: obstruction to naive BKM structure)
 
 ## Key Computational Results
 
-**The closed loop** (computationally verified):
+**The closed loop** (computationally verified &mdash; note: the final identification with the shadow obstruction tower is a pattern match, not a derivation from a chiral algebra):
 
 ```
 K3 geometry  -->  VW invariants  -->  DMVV formula  -->  phi_{0,1} coefficients
@@ -519,7 +527,7 @@ K3 geometry  -->  VW invariants  -->  DMVV formula  -->  phi_{0,1} coefficients
      +--  DT partition function  <--  Delta_5  <--  Borcherds product
                                         |
                                         v
-                                  BKM root multiplicities  =  shadow obstruction tower
+                                  BKM root multiplicities  ≅?  shadow obstruction tower
 ```
 
 **The Borcherds product sign**: resolved to 58 decimal digits. The ratio is exactly &minus;1, traced to the unique odd simple root &delta;<sub>3</sub> = f<sub>3</sub> (the fermionic root with discriminant D = &minus;1).
@@ -601,7 +609,7 @@ calabi-yau-quantum-groups/
 
 | File | Subject |
 |------|---------|
-| `bar_cobar_bridge.tex` | Bar-cobar bridge to Volume I: shadow obstruction tower = automorphic correction |
+| `bar_cobar_bridge.tex` | Bar-cobar bridge to Volume I: shadow obstruction tower &cong;? automorphic correction |
 | `modular_koszul_bridge.tex` | Modular Koszul duality and CY geometry |
 | `geometric_langlands.tex` | Geometric Langlands and CY quantum groups: Langlands = Koszul conjecture |
 
