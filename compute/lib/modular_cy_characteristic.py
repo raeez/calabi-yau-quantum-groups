@@ -425,7 +425,7 @@ def shadow_class_cy(name: str) -> CYShadowClass:
         "point": CYShadowClass("point", "G", 2,
             "Trivial category, Gaussian"),
         "elliptic curve": CYShadowClass("elliptic curve", "G", 2,
-            "Heisenberg: shadow tower terminates at arity 2"),
+            "Heisenberg: shadow obstruction tower terminates at arity 2"),
         "K3": CYShadowClass("K3", "L", 3,
             "N=4 SCA: Lie-type structure from K3 lattice"),
         "K3 x E": CYShadowClass("K3 x E", "M", -1,
@@ -490,7 +490,7 @@ def shadow_amplitude_genus3(kappa: Fraction) -> Fraction:
 
 
 def shadow_tower_scalar(kappa: Fraction, max_genus: int = 5) -> Dict[int, Fraction]:
-    r"""Scalar shadow tower F_g for g = 1, ..., max_genus.
+    r"""Scalar shadow obstruction tower F_g for g = 1, ..., max_genus.
 
     Uses the A-hat generating function (Vol I, Theorem D).
     """
@@ -662,7 +662,7 @@ def quintic_genus0_gw_data() -> Dict[str, Any]:
     F_0 encodes n_0(d) via:
       F_0 = (1/6) * kappa_0^3 + sum_{d>=1} n_0(d) * q^d / d^3
 
-    The shadow tower gives the CONSTANT MAP contribution only;
+    The shadow obstruction tower gives the CONSTANT MAP contribution only;
     instanton numbers require mirror symmetry.
     """
     return {
@@ -774,7 +774,7 @@ def verify_all_cy_characteristics() -> Dict[str, bool]:
         data = func()
         results[f"match_{name}"] = data.match
 
-    # Shadow tower positivity for positive kappa
+    # Shadow obstruction tower positivity for positive kappa
     tower_k3xe = shadow_tower_scalar(Fraction(5), 5)
     results["shadow_k3xe_all_positive"] = all(f > 0 for f in tower_k3xe.values())
 

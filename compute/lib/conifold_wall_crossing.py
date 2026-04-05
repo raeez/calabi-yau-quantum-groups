@@ -559,7 +559,7 @@ def mc_equation_check(theta: Dict[Tuple[int, int], int],
 
     The BPS spectrum at a generic point does NOT satisfy [Theta, Theta] = 0
     in the naive Lie algebra -- the obstruction is resolved by the L_infinity
-    higher brackets (shadow tower).
+    higher brackets (shadow obstruction tower).
     """
     bracket_sq = {}
     for g1, o1 in theta.items():
@@ -587,7 +587,7 @@ def gauge_transformation_conifold(max_order: int = 5) -> Dict[str, object]:
     Theta_II = -e_{(1,0)} - e_{(0,1)} - e_{(1,1)}
 
     alpha = e_{(1,0)} produces [e_{(1,0)}, Theta_I] = -e_{(1,1)} at first order.
-    Higher orders generate shadow tower corrections.
+    Higher orders generate shadow obstruction tower corrections.
     """
     theta_I = {(1, 0): Fraction(-1), (0, 1): Fraction(-1)}
     theta_II = {(1, 0): Fraction(-1), (0, 1): Fraction(-1), (1, 1): Fraction(-1)}

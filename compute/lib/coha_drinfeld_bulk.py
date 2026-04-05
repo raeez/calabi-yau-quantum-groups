@@ -35,7 +35,7 @@ EIGHT COMPUTATION SECTORS:
    C_{lambda,mu,nu}(q) for small partitions.
    Local shadow amplitudes from vertex factors.
 
-8. SCATTERING DIAGRAMS from shadow tower:
+8. SCATTERING DIAGRAMS from shadow obstruction tower:
    KS scattering diagram for the conifold.
    MC structure producing the scattering diagram.
 
@@ -1224,7 +1224,7 @@ def scattering_pentagon_check() -> Dict:
 
 
 def shadow_scattering_connection(max_height: int = 4) -> Dict:
-    r"""Connect the shadow tower to the scattering diagram.
+    r"""Connect the shadow obstruction tower to the scattering diagram.
 
     The MC element Theta_A in the modular convolution algebra produces,
     via its finite-order projections, a scattering diagram:
@@ -1264,7 +1264,7 @@ def shadow_scattering_connection(max_height: int = 4) -> Dict:
         "arity_to_height": arity_to_height,
         "height_walls": height_walls,
         "principle": (
-            "Shadow tower arity r <-> scattering walls at height r. "
+            "Shadow obstruction tower arity r <-> scattering walls at height r. "
             "kappa (arity 2) determines seed wall multiplicities. "
             "Cubic C (arity 3) determines BCH-forced walls. "
             "Quartic Q (arity 4) determines resonance corrections."
@@ -1305,15 +1305,15 @@ def cross_volume_dt_bar(N: int = 10) -> Dict:
 
 
 def cross_volume_shadow_coha(N: int = 10) -> Dict:
-    r"""Shadow tower / CoHA correspondence.
+    r"""Shadow obstruction tower / CoHA correspondence.
 
-    Vol I: The shadow tower Theta_A^{<=r} encodes the finite-order
+    Vol I: The shadow obstruction tower Theta_A^{<=r} encodes the finite-order
     projections of the MC element in the modular convolution algebra.
 
     Vol III: The CoHA encodes the same BPS data through a different
     algebraic structure (associative multiplication instead of L-infinity).
 
-    The bridge: the CoHA product is the E_1 structure; the shadow tower
+    The bridge: the CoHA product is the E_1 structure; the shadow obstruction tower
     is the deformation/MC structure. They are related by:
         CoHA = Ext_{CY3}(ICsheaves)  (E_1 algebra)
         Shadow = MC(ConvAlg)          (L_infinity structure)
@@ -1324,7 +1324,7 @@ def cross_volume_shadow_coha(N: int = 10) -> Dict:
         ch(shadow at arity r) encodes order-r BPS bound state data
 
     The FULL connection: the Drinfeld center of Rep(CoHA) recovers
-    the braided (E_2) structure, which is the shadow tower's
+    the braided (E_2) structure, which is the shadow obstruction tower's
     MC/L-infinity structure lifted to the representation category.
     """
     pp = plane_partition_counts(N)

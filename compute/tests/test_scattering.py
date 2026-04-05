@@ -17,7 +17,7 @@ consistency and the full motivic wall-crossing.
 
 Ground truth:
     phi_{0,1} coefficients: compute/lib/phi01_fourier.py
-    BKM shadow tower: compute/lib/bkm_shadow_tower.py
+    BKM shadow obstruction tower: compute/lib/bkm_shadow_tower.py
     GPS tropical vertex: Gross-Pandharipande-Siebert (2010), Thm 1.4
 """
 
@@ -491,7 +491,7 @@ class TestPhi01Comparison:
 
     def test_qualitative_walls_at_all_heights(self):
         """Walls ARE forced at all heights 1 through max_height.
-        This is qualitative agreement with the shadow tower."""
+        This is qualitative agreement with the shadow obstruction tower."""
         sd = sd_mod.ScatteringDiagram(6, 1, 'symmetric')
         sd.compute()
         counts = sd.wall_count_by_height()

@@ -1,5 +1,5 @@
 r"""
-Shadow tower of Fukaya categories: Lagrangian Floer theory meets modular Koszul duality.
+Shadow obstruction tower of Fukaya categories: Lagrangian Floer theory meets modular Koszul duality.
 
 For a symplectic manifold (M, omega), the Fukaya category Fuk(M) is a
 Calabi-Yau A-infinity category whose objects are Lagrangian submanifolds,
@@ -7,7 +7,7 @@ morphisms are Lagrangian Floer cochain complexes, and the A-infinity
 structure maps m_k count pseudo-holomorphic polygons.
 
 The CY-to-chiral functor applied to Fuk(M) produces a chiral algebra A_{Fuk(M)}
-whose shadow tower encodes Gromov-Witten invariants via the open/closed map.
+whose shadow obstruction tower encodes Gromov-Witten invariants via the open/closed map.
 
 EXAMPLES COMPUTED
 =================
@@ -27,8 +27,8 @@ EXAMPLES COMPUTED
    kappa = rank = 22.
 
 4. Fuk(Q) for the quintic threefold Q:
-   The genus-0 GW potential F_0 = sum_d n_0(d) q^d encodes the shadow tower
-   at genus 0.  The shadow tower at genus g encodes F_g.
+   The genus-0 GW potential F_0 = sum_d n_0(d) q^d encodes the shadow obstruction tower
+   at genus 0.  The shadow obstruction tower at genus g encodes F_g.
    kappa is read from the genus-1 free energy via F_1 = kappa * lambda_1^FP
    where lambda_1^FP = 1/24.
 
@@ -53,7 +53,7 @@ CONVENTIONS
   For a lattice VOA of rank r: kappa = r/2.
   For Heisenberg H_k: kappa = k.
   For betagamma: kappa = 1.
-- The shadow tower: Theta_A^{<=r} for r = 2, 3, 4, ...
+- The shadow obstruction tower: Theta_A^{<=r} for r = 2, 3, 4, ...
   kappa = arity-2 projection.
   C = cubic shadow (arity 3).
   Q = quartic shadow (arity 4).
@@ -189,7 +189,7 @@ def shadow_F_g(kappa: Fraction, g: int) -> Fraction:
 
     F_g(A) = kappa(A) * lambda_g^FP.
 
-    This is the arity-0, genus-g projection of the shadow tower,
+    This is the arity-0, genus-g projection of the shadow obstruction tower,
     proved for all uniform-weight modular Koszul algebras.
     """
     if g < 1:
@@ -198,7 +198,7 @@ def shadow_F_g(kappa: Fraction, g: int) -> Fraction:
 
 
 def shadow_tower_arity2(kappa: Fraction) -> Dict[str, Any]:
-    """Arity-2 shadow tower projection = the modular characteristic kappa."""
+    """Arity-2 shadow obstruction tower projection = the modular characteristic kappa."""
     return {
         'kappa': kappa,
         'F_1': kappa * Fraction(1, 24),
@@ -314,7 +314,7 @@ class FukayaEllipticCurve:
 
     @staticmethod
     def shadow_invariants() -> Dict[str, Fraction]:
-        r"""All shadow tower invariants of A_{Fuk(E)} = H_1.
+        r"""All shadow obstruction tower invariants of A_{Fuk(E)} = H_1.
 
         Heisenberg is class G (Gaussian): shadow depth r_max = 2.
         kappa = 1, all higher shadows vanish.
@@ -495,7 +495,7 @@ class FukayaK3:
     of the K3 sigma model has c_L = 6 (from dim_C = 2, each complex
     dim contributes c = 3 via the betagamma + bc system).
 
-    For the shadow tower, the relevant quantity is kappa of the chiral
+    For the shadow obstruction tower, the relevant quantity is kappa of the chiral
     algebra that HMS identifies.  For a lattice VOA V_Lambda of rank r:
         kappa(V_Lambda) = r/2.
 
@@ -543,7 +543,7 @@ class FukayaK3:
 
     @classmethod
     def shadow_invariants(cls, picard_number: int = 0) -> Dict[str, Any]:
-        r"""Shadow tower invariants of A_{Fuk(K3)}.
+        r"""Shadow obstruction tower invariants of A_{Fuk(K3)}.
 
         For a lattice VOA of rank r: class G (Gaussian), depth 2.
         kappa = r (Vol I formula), all higher shadows vanish.
@@ -633,9 +633,9 @@ class FukayaQuintic:
     The genus-g Gromov-Witten potential:
         F_g^GW(q) = sum_{d>=1} N_{g,d} q^d
 
-    The genus-0 GW invariants encode the shadow tower at genus 0.
+    The genus-0 GW invariants encode the shadow obstruction tower at genus 0.
 
-    The shadow tower of A_{Fuk(Q)} should encode GW invariants via:
+    The shadow obstruction tower of A_{Fuk(Q)} should encode GW invariants via:
         - F_0^GW = prepotential (classical + instanton corrections)
         - F_1^GW = genus-1 free energy
         - F_g^GW for g >= 2: higher genus
@@ -659,7 +659,7 @@ class FukayaQuintic:
     For the TOPOLOGICAL string, the genus-g free energy is:
         F_g^{top} = integral_{M_{g}} c_{g-1}(E) (for the B-model)
 
-    The shadow tower approach uses:
+    The shadow obstruction tower approach uses:
         kappa = chi(Q)/24 * ... NO.
 
     From the BCOV result: F_1 = (3+h^{1,1}-chi(Q)/12)/24 * ... NO.
@@ -676,7 +676,7 @@ class FukayaQuintic:
 
     For genus 1: F_1^{const} = -chi(Q)/24 = 200/24 = 25/3.
 
-    IMPORTANT: The shadow tower's F_g = kappa * lambda_g^FP is for the
+    IMPORTANT: The shadow obstruction tower's F_g = kappa * lambda_g^FP is for the
     CHIRAL ALGEBRA, not directly for the GW potential.  The relation
     between the two involves the CY-to-chiral functor, which is
     non-trivial for CY3 manifolds.
@@ -684,7 +684,7 @@ class FukayaQuintic:
     We compute:
     1. The GW potential F_0(q) from known invariants.
     2. The genus-1 constant map contribution.
-    3. The shadow tower with kappa = chi(Q)/24 (constant-map normalization).
+    3. The shadow obstruction tower with kappa = chi(Q)/24 (constant-map normalization).
     """
 
     # Hodge data
@@ -780,7 +780,7 @@ class FukayaQuintic:
 
     @classmethod
     def shadow_from_constant_maps(cls) -> Dict[str, Any]:
-        r"""Shadow tower from constant-map contributions.
+        r"""Shadow obstruction tower from constant-map contributions.
 
         Using kappa = -chi(Q) = 200 (from genus-1 constant maps):
             F_1^{const} = 200/24 = 25/3
@@ -922,7 +922,7 @@ class FukayaResolvedConifold:
 
         Conifold (as topological string):
             kappa_eff = 1 (from the single wrapped brane)
-            The shadow tower structure is DIFFERENT from betagamma
+            The shadow obstruction tower structure is DIFFERENT from betagamma
             because the A-infinity structure of Fuk(conifold) differs
             from the chiral betagamma OPE.
 
@@ -1061,7 +1061,7 @@ class HMSShadowComparison:
 
     1. The Floer-theoretic A-infinity structure on Fuk(E) matches
        the algebraic A-infinity structure on D^b(E_hat).
-    2. The shadow tower, being derived from the A-infinity structure,
+    2. The shadow obstruction tower, being derived from the A-infinity structure,
        is automatically preserved by the equivalence.
     """
 
@@ -1214,7 +1214,7 @@ class CYToChiral:
         n = 2: A_C lives on a surface (K3 case).
         n = 3: A_C is three-dimensional (CY3 case, connects to HT QFT).
 
-    The shadow tower of A_C captures:
+    The shadow obstruction tower of A_C captures:
         - At genus 0: the prepotential / GW potential.
         - At genus 1: the genus-1 free energy F_1 and kappa.
         - At genus g: the genus-g free energy F_g (on the scalar lane).
@@ -1606,7 +1606,7 @@ class MukaiLattice:
 # =========================================================================
 
 class QuinticPrepotential:
-    r"""The genus-0 prepotential F_0 of the quintic as a shadow tower datum.
+    r"""The genus-0 prepotential F_0 of the quintic as a shadow obstruction tower datum.
 
     The genus-0 prepotential of the A-model topological string on the quintic:
 

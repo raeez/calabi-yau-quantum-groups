@@ -1216,11 +1216,11 @@ local_p2_bps_invariants = local_p2_bps_known
 
 
 def heisenberg_shadow_log_macmahon(order: int = 10) -> FPS:
-    """Shadow tower of Heisenberg at kappa=1 reproduces log M(q).
+    """Shadow obstruction tower of Heisenberg at kappa=1 reproduces log M(q).
 
     The Heisenberg algebra at level k=1 has kappa=1. Its shadow
     partition function in the scalar lane is log M(q), connecting
-    the DT theory of C^3 to the shadow tower of Vol I.
+    the DT theory of C^3 to the shadow obstruction tower of Vol I.
     """
     return c3_log_partition(order)
 
@@ -1229,7 +1229,7 @@ def conifold_betagamma_connection(max_q: int = 8,
                                   max_Q: int = 2) -> Dict[str, object]:
     """Connection between conifold DT and beta-gamma shadow.
 
-    The beta-gamma system has kappa = -1/2, and its shadow tower
+    The beta-gamma system has kappa = -1/2, and its shadow obstruction tower
     connects to the conifold partition function via the DT/GW
     correspondence.
     """

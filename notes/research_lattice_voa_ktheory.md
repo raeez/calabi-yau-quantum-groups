@@ -91,14 +91,14 @@ nontrivial nonlinear OPE.
 current $J(z)$). The full QVCG is obtained by adding **all higher-spin generators**
 $W_2, W_3, W_4, \ldots$
 
-In shadow tower language (from `theory_automorphic_shadow.tex`):
+In shadow obstruction tower language (from `theory_automorphic_shadow.tex`):
 - $\Theta^{\leq 2}$: $\kappa(\mathcal{W}_{1+\infty})$ and the Heisenberg OPE.
   **This is the lattice part.**
 - $\Theta^{\leq 3}$: adds the $W_3$ correction (first higher-spin current).
 - $\Theta^{\leq r}$: adds $W_r$ truncation -- spin-$r$ generators.
 - $\Theta_{\mathcal{W}_{1+\infty}}$: the full algebra.
 
-The lattice VOA is literally the arity-2 truncation of the shadow tower. Every subsequent
+The lattice VOA is literally the arity-2 truncation of the shadow obstruction tower. Every subsequent
 arity adds a new higher-spin generator that cannot be expressed in terms of the lattice data.
 
 
@@ -127,7 +127,7 @@ imaginary roots (with DT invariants as multiplicities) provide the automorphic c
 
 The evidence from all three cases points to the same structural answer:
 
-> **$V_{K_0(X)}$ is the arity-2 truncation of the shadow tower of $G(X)$.**
+> **$V_{K_0(X)}$ is the arity-2 truncation of the shadow obstruction tower of $G(X)$.**
 
 More precisely, the relationship is:
 
@@ -157,11 +157,11 @@ $$\mathfrak{g}_A \leadsto \mathfrak{g}_X$$
 This adds imaginary root generators with multiplicities from BPS counting / DT invariants /
 Fourier coefficients of the automorphic form.
 
-In the shadow tower language:
+In the shadow obstruction tower language:
 $$G(X) = \varprojlim_r \Theta^{\leq r}_{A_X}$$
 
 The passage Tier 1 -> Tier 2 -> Tier 3 is:
-$$\underbrace{\text{Heisenberg/Cartan}}_{\Theta^{\leq 2}} \subset \underbrace{\text{Kac-Moody}}_{\text{real roots}} \subset \underbrace{\text{BKM superalgebra}}_{\text{full shadow tower}}$$
+$$\underbrace{\text{Heisenberg/Cartan}}_{\Theta^{\leq 2}} \subset \underbrace{\text{Kac-Moody}}_{\text{real roots}} \subset \underbrace{\text{BKM superalgebra}}_{\text{full shadow obstruction tower}}$$
 
 
 ---
@@ -173,7 +173,7 @@ The lattice VOA $V_L$ has no imaginary roots. Every root of a lattice VOA is
 "real" in the sense that its vertex operator $e^\alpha$ generates a Heisenberg
 module. The imaginary roots of $G(X)$ -- the BPS states wrapping holomorphic cycles --
 cannot be captured by a lattice construction alone. They require the automorphic
-correction, which in the bar-cobar language is the higher-arity shadow tower.
+correction, which in the bar-cobar language is the higher-arity shadow obstruction tower.
 
 ### Obstruction 2: Nonlinearity (W-algebra structure)
 For toric CY3s, the QVCG is a W-algebra ($\mathcal{W}_{1+\infty}$ for $\mathbb{C}^3$).
@@ -195,7 +195,7 @@ beyond the lattice.
 
 ## 4. When *Is* $G(X) = V_L$? The Gaussian Locus
 
-The shadow tower terminates at arity 2 (i.e., $G(X) = V_L$ or its Kac-Moody
+The shadow obstruction tower terminates at arity 2 (i.e., $G(X) = V_L$ or its Kac-Moody
 subalgebra, with no imaginary root corrections) if and only if the discriminant
 $\Delta = 8\kappa S_4 = 0$ (Gaussian class in the taxonomy of Vol I).
 
@@ -209,7 +209,7 @@ The remark in `theory_automorphic_shadow.tex` (rem:uncorrected-km) states this
 explicitly:
 > The arity-2 truncation $\Theta^{\leq 2}_{A_X}$ recovers the "uncorrected"
 > Kac-Moody algebra $\mathfrak{g}$ (before the automorphic correction adds
-> imaginary roots). The shadow tower terminates at arity 2 if and only if
+> imaginary roots). The shadow obstruction tower terminates at arity 2 if and only if
 > $\mathfrak{g}_X = \mathfrak{g}$ has no imaginary roots, which happens if and
 > only if $\mathfrak{g}$ is a finite-dimensional semisimple Lie algebra.
 
@@ -232,7 +232,7 @@ Layer 1: Lattice VOA V_L (central charge = rank(L))
          v
 Layer 2: Kac-Moody subalgebra g_A  [= arity-2 shadow]
          |
-         | Automorphic correction = shadow tower completion
+         | Automorphic correction = shadow obstruction tower completion
          | (imaginary roots from DT invariants / Fourier coefficients)
          v
 Layer 3: Full QVCG G(X) = g_X (BKM superalgebra)
@@ -271,7 +271,7 @@ is the Layer-3 product $\prod_{n \geq 1} (1-q^n)^{-n} = M(q)^{-1}$ (inverse MacM
 
 From the bar-cobar theory of Volume I, the three layers have clean interpretations:
 
-| Layer | Bar-complex interpretation | Shadow tower |
+| Layer | Bar-complex interpretation | Shadow obstruction tower |
 |-------|--------------------------|--------------|
 | 0 | Grading lattice of $B(A_X)$ | -- |
 | 1 | Internal differential $d_1$ on $B(A_X)$ | $\Theta^{(1)}$ |
@@ -324,8 +324,8 @@ layers. Starting from the CY2 data:
 
 The Borcherds lift is thus the automorphic-form-level shadow of the functor that
 takes the lattice VOA (Layer 1 of the CY2) and produces the full QVCG (Layer 3
-of the CY3). In the shadow tower language of `theory_cy2_cy3_fibration.tex`:
-the Borcherds lift **is** the shadow tower completion, applied fiber-by-fiber
+of the CY3). In the shadow obstruction tower language of `theory_cy2_cy3_fibration.tex`:
+the Borcherds lift **is** the shadow obstruction tower completion, applied fiber-by-fiber
 over the elliptic curve $E$.
 
 
@@ -340,10 +340,10 @@ $$G(X) = V_{K_0(X)} + \text{(Kac-Moody extension)} + \text{(automorphic correcti
 where:
 - $V_{K_0(X)}$ provides the Cartan/Heisenberg subalgebra (arity-2 skeleton);
 - The Kac-Moody extension adds real root generators from the lattice geometry;
-- The automorphic correction (= shadow tower, arities $\geq 3$) adds imaginary root
+- The automorphic correction (= shadow obstruction tower, arities $\geq 3$) adds imaginary root
   generators with multiplicities from DT invariants / BPS counting / automorphic forms.
 
-The relationship is captured exactly by the shadow tower decomposition of Vol I:
+The relationship is captured exactly by the shadow obstruction tower decomposition of Vol I:
 the lattice VOA is $\Theta^{\leq 2}$, and the full QVCG is $\Theta = \varprojlim_r \Theta^{\leq r}$.
 
 **The lattice is the skeleton; the QVCG is the skeleton plus all its flesh.**
@@ -362,7 +362,7 @@ This is consistent across all examples in the monograph:
 - `chapters/examples/k3_times_e.tex`: Full development of the K3 x E example,
   root system, Gram matrix, denominator identity.
 - `notes/theory_automorphic_shadow.tex`: The central identification
-  "automorphic correction = shadow tower", with the arity-by-arity decomposition.
+  "automorphic correction = shadow obstruction tower", with the arity-by-arity decomposition.
 - `notes/theory_generalized_root_datum.tex`: Axiomatics of CY3 root data,
   lattice structure (CY1), the fibration construction, and Open Problem P5.
 - `notes/theory_denominator_bar_euler.tex`: Proof that denominator identity =

@@ -9,7 +9,7 @@ Date: 2026-04-02
 
 ## FINDING 1 (CRITICAL): bkm_shadow_tower.py hardcoded phi_{0,1} table is WRONG
 
-**Severity: HIGH. The entire shadow tower quantitative computation uses wrong data.**
+**Severity: HIGH. The entire shadow obstruction tower quantitative computation uses wrong data.**
 
 The function `phi01_coefficients()` in `bkm_shadow_tower.py` returns a hardcoded
 table that is NOT the Fourier coefficients of the weak Jacobi form phi_{0,1}.
@@ -43,9 +43,9 @@ Nonzero row sums for n >= 1 are IMPOSSIBLE for phi_{0,1}.
 Fourier-Jacobi coefficients mixed with phi_{0,1} values. The n=0 row matches
 2 * phi_{0,1}^{EZ} (the K3 elliptic genus at the chi=24 normalization).
 
-**Impact on the shadow tower**:
+**Impact on the shadow obstruction tower**:
 - `root_multiplicity(n, l, m)` returns `get_f(n*m, l)` using the wrong table
-- All shadow tower projections (arity 2/3/4) use wrong root multiplicities
+- All shadow obstruction tower projections (arity 2/3/4) use wrong root multiplicities
 - `denominator_product_numerical` and `denominator_product_truncated` give wrong results
 - The QUALITATIVE structure (real vs imaginary classification) is unaffected
   since it depends only on 4nm - l^2, not on the actual coefficient values
@@ -128,7 +128,7 @@ Fix the test to not silently document a mathematical failure as expected behavio
 
 ---
 
-## FINDING 4 (LOW): Shadow tower truncation test is TAUTOLOGICAL
+## FINDING 4 (LOW): Shadow obstruction tower truncation test is TAUTOLOGICAL
 
 **Severity: LOW. Tests provide false confidence.**
 
@@ -141,7 +141,7 @@ Since both sides call the same function with the same arguments, the test is
 comparing A == A. It ALWAYS passes regardless of whether the mathematical content
 is correct. All four truncation agreement tests (order 2-5) are vacuous.
 
-**Fix**: The shadow tower projection should be computed independently -- either
+**Fix**: The shadow obstruction tower projection should be computed independently -- either
 analytically from the Weyl orbit sum structure, or by constructing the tower from
 a different mathematical characterization (e.g., the recursive structure of the
 correction terms S_im from the Borcherds denominator formula).

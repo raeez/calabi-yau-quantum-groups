@@ -1,5 +1,5 @@
 r"""
-BKM shadow tower for g_{Delta_5}: automorphic correction = shadow Postnikov tower.
+BKM shadow obstruction tower for g_{Delta_5}: automorphic correction = shadow Postnikov tower.
 
 Central identification (Volume III):
     automorphic correction of a BKM superalgebra = shadow Postnikov tower from Volume I.
@@ -14,7 +14,7 @@ The product formula for (1/64) Delta_5 is:
 
     Phi = exp(-2*pi*i*<rho,z>) * prod_{alpha in Delta_+} (1 - e^{-2*pi*i*<alpha,z>})^{mult(alpha)}
 
-The shadow tower projections:
+The shadow obstruction tower projections:
     Theta^{<=2} = kappa (arity 2): Weyl vector contribution, captures real roots
     Theta^{<=3} = kappa + C (arity 3): adds first imaginary root corrections
     Theta^{<=4} = kappa + C + Q (arity 4): adds higher imaginary roots
@@ -23,9 +23,9 @@ The shadow tower projections:
 This module computes:
     (1) phi_{0,1} Fourier coefficients f(n,l) via Jacobi theta/eta functions
     (2) Root space decomposition into real / imaginary layers by norm
-    (3) Shadow tower projections at each arity
+    (3) Shadow obstruction tower projections at each arity
     (4) Truncated product formula at each order
-    (5) Verification: truncated product matches truncated shadow tower
+    (5) Verification: truncated product matches truncated shadow obstruction tower
 
 Manuscript references:
     Chapter: k3_times_e.tex (ch:k3-times-e)
@@ -34,7 +34,7 @@ Manuscript references:
     BKM superalgebra: constr:k3e-roots
     Denominator identity: thm:k3e-denominator, thm:k3e-product
     phi_{0,1}: sec:k3e-phi01
-    Shadow tower identification: sec:automorphic-shadow (introduction.tex)
+    Shadow obstruction tower identification: sec:automorphic-shadow (introduction.tex)
 """
 
 from __future__ import annotations
@@ -363,13 +363,13 @@ def roots_by_layer(max_coord: int = 5,
 def root_complexity(n: int, l: int, m: int) -> int:
     """Complexity measure for a root (n, l, m).
 
-    The shadow tower at arity r captures roots with complexity <= r.
+    The shadow obstruction tower at arity r captures roots with complexity <= r.
     The complexity is defined as:
         - Real roots (Weyl orbit of delta_i): complexity 2 (arity 2)
         - First layer imaginary: complexity 3 (arity 3)
         - Second layer imaginary: complexity 4 (arity 4)
 
-    A natural choice matching the shadow tower structure:
+    A natural choice matching the shadow obstruction tower structure:
         complexity = max(2, n + m + 1) for the product formula indices.
 
     But the correct BKM/shadow identification from the introduction says:
@@ -419,7 +419,7 @@ def roots_up_to_complexity(r: int, max_coord: int = 5,
 # =========================================================================
 
 def kappa_projection() -> Fraction:
-    """Arity-2 shadow tower projection: kappa = modular characteristic.
+    """Arity-2 shadow obstruction tower projection: kappa = modular characteristic.
 
     For g_{Delta_5}, kappa(A_{K3xE}) = 5 (the weight of Delta_5).
     This is the leading Hodge class coefficient.
@@ -466,7 +466,7 @@ def real_root_product_contribution(max_coord: int = 5,
     but their multiplicities in the product formula are the FULL f(nm,l)
     values, not just 1.
 
-    For the shadow tower truncation, we take the product formula factors
+    For the shadow obstruction tower truncation, we take the product formula factors
     grouped by complexity.
     """
     if data is None:
@@ -550,7 +550,7 @@ def truncated_product_coefficients(
     complexity <= r. Returns the exponentiated Fourier coefficients
     (i.e., the actual q-expansion coefficients up to max_terms).
 
-    For comparison with the shadow tower, we work with the LOG of
+    For comparison with the shadow obstruction tower, we work with the LOG of
     the product, which linearizes the contributions.
     """
     return product_log_coefficient(max_order, max_coord, data)
@@ -563,7 +563,7 @@ def truncated_product_coefficients(
 def shadow_tower_projection(r: int, max_coord: int = 5,
                             data: Optional[Dict] = None
                             ) -> Dict[str, object]:
-    """Compute the shadow tower projection Theta^{<=r}.
+    """Compute the shadow obstruction tower projection Theta^{<=r}.
 
     Returns a dictionary with:
         'order': r
@@ -625,14 +625,14 @@ def verify_truncation_agreement(max_order: int = 4,
     """Verify that Phi^{<=r} matches Theta^{<=r} at each order.
 
     The central identification: the truncated product formula (including
-    only roots of complexity <= r) equals the shadow tower projection
+    only roots of complexity <= r) equals the shadow obstruction tower projection
     Theta^{<=r}. Both are computed from the same root data, so this
     is a consistency check that:
 
     1. The complexity assignment correctly stratifies roots
     2. The log-linearized product formula at order r uses exactly the
        roots at complexity <= r
-    3. The shadow tower projection at order r captures exactly the
+    3. The shadow obstruction tower projection at order r captures exactly the
        same data
 
     Returns dict: order -> agreement boolean.
@@ -645,7 +645,7 @@ def verify_truncation_agreement(max_order: int = 4,
         # Truncated product log coefficients
         prod_coeffs = product_log_coefficient(r, max_coord, data)
 
-        # Shadow tower: log coefficients from roots up to complexity r
+        # Shadow obstruction tower: log coefficients from roots up to complexity r
         # These should be identical by construction
         shadow_proj = shadow_tower_projection(r, max_coord, data)
         shadow_coeffs = shadow_proj['log_coefficients']
@@ -839,7 +839,7 @@ def _cexp(z_arg: complex) -> complex:
 # =========================================================================
 
 def shadow_tower_summary(max_order: int = 5, max_coord: int = 4) -> str:
-    """Generate a human-readable summary of the shadow tower."""
+    """Generate a human-readable summary of the shadow obstruction tower."""
     data = phi01_coefficients()
     lines = []
     lines.append("=" * 72)
@@ -874,7 +874,7 @@ def shadow_tower_summary(max_order: int = 5, max_coord: int = 4) -> str:
 
     # Truncation agreement
     agreement = verify_truncation_agreement(max_order, max_coord, data)
-    lines.append("Truncation agreement (product = shadow tower):")
+    lines.append("Truncation agreement (product = shadow obstruction tower):")
     for r, ok in sorted(agreement.items()):
         lines.append(f"  Order {r}: {'PASS' if ok else 'FAIL'}")
 

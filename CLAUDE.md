@@ -51,7 +51,7 @@ The Drinfeld center Z(Rep^{E_1}(A)) ~ Rep^{E_2}(Z^der_ch(A)) provides the catego
 **Part III — The Bridge: CY Categories as Quantum Chiral Algebras**
 - CY-to-chiral functor (cyclic -> Lie conformal -> factorization envelope -> E_2 enhancement -> quantization)
 - Quantum chiral algebras (R-matrix, quantum YBE, shadow depth)
-- The modular trace (CY characteristic, genus expansion, shadow tower)
+- The modular trace (CY characteristic, genus expansion, shadow obstruction tower)
 
 **Part IV — Quantum Groups and Braided Monoidal Structure**
 - Quantum groups foundations (U_q, R-matrix, YBE)
@@ -73,7 +73,7 @@ The Drinfeld center Z(Rep^{E_1}(A)) ~ Rep^{E_2}(Z^der_ch(A)) provides the catego
 
 | Volume | Provides | Used here |
 |--------|----------|-----------|
-| I (Modular Koszul Duality) | Bar-cobar machine, Theta_A, kappa(A), five theorems (A-D+H) | CY bar complex, modular trace, shadow tower |
+| I (Modular Koszul Duality) | Bar-cobar machine, Theta_A, kappa(A), five theorems (A-D+H) | CY bar complex, modular trace, shadow obstruction tower |
 | II (3D HT QFT) | SC^{ch,top}, PVA descent, DK bridge, E_1 sector | E_1 chiral theory, braided structure, bulk-boundary |
 
 ## The Beilinson Principle
@@ -91,9 +91,9 @@ Inherited from Vol I. Every claim is false until independently verified. The six
 
 All anti-patterns AP1-AP43 from Vol I CLAUDE.md apply here. The following are the most frequently triggered in this volume:
 
-**AP38 — Literature normalization convention in hardcoded values.** The BKM shadow tower engine hardcoded phi_{0,1} Fourier coefficients in the DVV convention (f(0,0)=20, f(1,0)=-252) instead of the Eichler-Zagier convention (f(0,0)=10, f(1,0)=108). The BKM identity was documented as FALSE for phi_{0,1}. **Rule: when hardcoding values from the literature, ALWAYS record the source paper and normalization convention.**
+**AP38 — Literature normalization convention in hardcoded values.** The BKM shadow obstruction tower engine hardcoded phi_{0,1} Fourier coefficients in the DVV convention (f(0,0)=20, f(1,0)=-252) instead of the Eichler-Zagier convention (f(0,0)=10, f(1,0)=108). The BKM identity was documented as FALSE for phi_{0,1}. **Rule: when hardcoding values from the literature, ALWAYS record the source paper and normalization convention.**
 
-**AP42 — Correct at sophisticated level, false at naive level.** "Scattering diagram = shadow tower" holds at the motivic Hall algebra level, but naive BCH pair-commutator does NOT reproduce phi_{0,1} multiplicities (commit 72ba062). The gap measures higher BPS bound-state contributions. **Rule: state the level of validity explicitly.**
+**AP42 — Correct at sophisticated level, false at naive level.** "Scattering diagram = shadow obstruction tower" holds at the motivic Hall algebra level, but naive BCH pair-commutator does NOT reproduce phi_{0,1} multiplicities (commit 72ba062). The gap measures higher BPS bound-state contributions. **Rule: state the level of validity explicitly.**
 
 **AP43 — Central object defined by aspiration, not by axioms.** G(X) ("quantum vertex chiral group") used in ~20 locations without formal definition. "Quantum chiral algebra" defined as "equivalent to quantum group representation category" — a prayer, not a definition. **Rule: MUST formally define before use. The central object of a volume MUST have a \\begin{definition}.**
 

@@ -1,5 +1,5 @@
 r"""
-Tests for Vafa-Witten invariants from the shadow tower.
+Tests for Vafa-Witten invariants from the shadow obstruction tower.
 
 Verifies:
     1. Z_VW on K3 for SU(2): eta^{-24}, Hilbert scheme chi, kappa, F_1
@@ -20,7 +20,7 @@ Ground truth:
     - Gottsche-Kool (2020): virtual refinements
 
 Manuscript references:
-    Vol I: higher_genus_modular_koszul.tex (shadow tower, kappa, F_g)
+    Vol I: higher_genus_modular_koszul.tex (shadow obstruction tower, kappa, F_g)
     Vol III: k3_times_e.tex (K3 BKM, DMVV)
 """
 
@@ -578,7 +578,7 @@ class TestWallCrossingP2:
 # =========================================================================
 
 class TestShadowGenusAmplitudes:
-    """F_g = kappa * lambda_g^{FP} from the shadow tower."""
+    """F_g = kappa * lambda_g^{FP} from the shadow obstruction tower."""
 
     def test_F1_k3(self):
         """F_1(K3) = 12/24 = 1/2 for kappa = 12."""

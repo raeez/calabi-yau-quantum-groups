@@ -1,7 +1,7 @@
 r"""Cross-volume shadow bridge tests: 70+ tests verifying consistency across three volumes.
 
 The three volumes attack the same mathematical objects from different angles:
-  Vol I:   bar-cobar machine, shadow tower, modular characteristic kappa
+  Vol I:   bar-cobar machine, shadow obstruction tower, modular characteristic kappa
   Vol II:  Swiss-cheese, PVA descent, open/closed, 3D HT QFT
   Vol III: CY categories, E_2 enhancement, quantum groups, CoHA
 

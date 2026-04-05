@@ -121,7 +121,7 @@ Modules using kappa = -1/2 are applying the symplectic-weight value without spec
 
 **Root cause:** Two different "kappa" for CY3:
 1. kappa_BCOV = chi/24 = -25/3 (BCOV coefficient in holomorphic anomaly equation)
-2. kappa_shadow = 24 * F_1 = 200 (modular characteristic from shadow tower)
+2. kappa_shadow = 24 * F_1 = 200 (modular characteristic from shadow obstruction tower)
 
 These differ by a factor of -24.
 

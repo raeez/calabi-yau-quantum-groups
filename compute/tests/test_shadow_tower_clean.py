@@ -1,10 +1,10 @@
 r"""
-Clean tests for the BKM shadow tower identification.
+Clean tests for the BKM shadow obstruction tower identification.
 
 These tests import ONLY from phi01_fourier.py and recompute everything
 from scratch, verifying the central claim:
 
-    The shadow tower at arity r captures exactly the roots of
+    The shadow obstruction tower at arity r captures exactly the roots of
     complexity <= r in the BKM product formula for (1/64) Delta_5.
 
 This is an independently auditable test suite that does NOT depend on
@@ -271,7 +271,7 @@ class TestRootClassification:
 # ==========================================================================
 
 class TestTruncationConsistency:
-    """THE CENTRAL TEST: shadow tower at arity r = roots of complexity <= r."""
+    """THE CENTRAL TEST: shadow obstruction tower at arity r = roots of complexity <= r."""
 
     @pytest.mark.parametrize("arity", [2, 3, 4, 5, 6])
     def test_truncation_agreement(self, arity, phi01_table):

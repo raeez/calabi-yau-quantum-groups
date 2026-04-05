@@ -123,7 +123,7 @@ CROSS-VOLUME BRIDGE
 ====================
 
 The modular characteristic kappa(A_C) from the CY functor must match
-the kappa from Vol I's shadow tower:
+the kappa from Vol I's shadow obstruction tower:
   - Elliptic curve: kappa = 1   (Heisenberg H_1)
   - K3: kappa = 12              (lattice VOA, Mukai lattice rank 24)
   - Quintic: kappa = -25/3      (BCOV coefficient)
@@ -154,7 +154,7 @@ CONVENTIONS
 - CY trace: Tr: HH_d(C) -> k is the integral of the top holomorphic form.
 - Lie conformal algebra: R with lambda-bracket [a_lambda b].
 - Factorization envelope: Fact(R) is the chiral algebra on X associated to R.
-- Modular characteristic: kappa(A) from Vol I's shadow tower framework.
+- Modular characteristic: kappa(A) from Vol I's shadow obstruction tower framework.
 - Cohomological grading: |d| = +1.
 """
 

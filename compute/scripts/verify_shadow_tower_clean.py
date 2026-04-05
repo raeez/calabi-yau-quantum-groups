@@ -1,5 +1,5 @@
 r"""
-Clean from-scratch verification of the BKM shadow tower identification:
+Clean from-scratch verification of the BKM shadow obstruction tower identification:
 
     automorphic correction of g_{Delta_5} = shadow Postnikov tower
 
@@ -8,11 +8,11 @@ computation of phi_{0,1} Fourier coefficients) and recomputes everything
 from first principles.  It does NOT import bkm_shadow_tower.py.
 
 The central claim (Volume III, sec:automorphic-shadow):
-    The shadow tower at arity r captures exactly the roots of complexity <= r
+    The shadow obstruction tower at arity r captures exactly the roots of complexity <= r
     in the BKM product formula for (1/64) Delta_5.
 
 More precisely, the log of the truncated product formula (including only roots
-at complexity <= r) equals the shadow tower projection Theta^{<=r}, and the
+at complexity <= r) equals the shadow obstruction tower projection Theta^{<=r}, and the
 full product converges to the automorphic form.
 
 Verification strategy:
@@ -245,7 +245,7 @@ def verify_truncation_consistency(
     """Verify that log(Phi^{<=r}) - log(Phi^{<=r-1}) is accounted for
     exactly by the roots at complexity r.
 
-    This is the core test: the shadow tower at arity r adds exactly the
+    This is the core test: the shadow obstruction tower at arity r adds exactly the
     roots at complexity r, and the log-product increment matches.
     """
     results = {}
@@ -542,7 +542,7 @@ def verify_product_factorization_numerical(
 # ==========================================================================
 
 def run_full_verification(max_arity: int = 6, max_coord: int = 5) -> bool:
-    """Run the complete shadow tower verification from scratch.
+    """Run the complete shadow obstruction tower verification from scratch.
 
     Returns True if all checks pass, False otherwise.
     """
@@ -613,7 +613,7 @@ def run_full_verification(max_arity: int = 6, max_coord: int = 5) -> bool:
 
     # 5. THE CENTRAL TEST: truncation consistency
     print("--- 5. CENTRAL TEST: truncation consistency ---")
-    print("  (shadow tower at arity r captures exactly complexity-r roots)")
+    print("  (shadow obstruction tower at arity r captures exactly complexity-r roots)")
     trunc_results = verify_truncation_consistency(max_arity, max_coord, table)
     for r in sorted(trunc_results):
         res = trunc_results[r]
@@ -678,7 +678,7 @@ def run_full_verification(max_arity: int = 6, max_coord: int = 5) -> bool:
         print("RESULT: ALL CHECKS PASS")
         print()
         print("The central identification SURVIVES with correct phi_{0,1} data.")
-        print("The shadow tower at arity r captures exactly the roots of")
+        print("The shadow obstruction tower at arity r captures exactly the roots of")
         print("complexity <= r, with the CORRECT multiplicities from the")
         print("Eichler-Zagier theta-function computation of phi_{0,1}.")
         print()

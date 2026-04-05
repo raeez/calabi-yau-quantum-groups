@@ -1,4 +1,4 @@
-r"""Geometric Langlands programme from shadow towers.
+r"""Geometric Langlands programme from shadow obstruction towers.
 
 The geometric Langlands correspondence relates:
   - D-modules on Bun_G(X) (moduli of G-bundles on a curve X)
@@ -332,7 +332,7 @@ class LanglandsShadowComparison(NamedTuple):
 
 def langlands_shadow_comparison(type_: str, rank: int,
                                 k: Fraction) -> LanglandsShadowComparison:
-    """Compare shadow tower data for G_k and G^v_{k^v}.
+    """Compare shadow obstruction tower data for G_k and G^v_{k^v}.
 
     For simply-laced types (ADE), G = G^v and k^v = k, so the comparison
     is trivial (ratio = 1).
@@ -422,7 +422,7 @@ def shadow_metric_affine(type_: str, rank: int, k: Fraction,
     """Shadow metric Q_L(t) for affine KM at level k.
 
     For affine KM (class L, shadow depth 3, cubic shadow nonzero, quartic = 0),
-    the shadow tower terminates at arity 3. The shadow metric on the primary
+    the shadow obstruction tower terminates at arity 3. The shadow metric on the primary
     line L is:
 
         Q_L(t) = (2*kappa + 3*alpha*t)^2 + 2*Delta*t^2
@@ -776,17 +776,17 @@ def oper_count_genus0(type_: str, rank: int) -> str:
 def critical_level_shadow_tower(type_: str, rank: int,
                                 epsilon_values: Optional[List[float]] = None
                                 ) -> Dict[str, Any]:
-    """Shadow tower near the critical level k = -h^v + epsilon.
+    """Shadow obstruction tower near the critical level k = -h^v + epsilon.
 
     As epsilon -> 0:
       kappa(epsilon) = dim(g) * epsilon / (2 * h^v) -> 0
       c(epsilon) = dim(g) * (-h^v + epsilon) / epsilon -> -infinity (pole)
 
-    The shadow tower projections:
+    The shadow obstruction tower projections:
       F_1 = kappa/24 -> 0 (genus-1 amplitude vanishes)
       F_g = kappa * lambda_g^FP -> 0 (all-genera vanishing)
 
-    The entire shadow tower COLLAPSES at the critical level.
+    The entire shadow obstruction tower COLLAPSES at the critical level.
     This is the shadow-tower manifestation of the uncurved bar complex.
     The bar cohomology is concentrated in degree 0, and the Feigin-Frenkel
     center Z(g_hat_{-h^v}) is the resulting large commutative algebra.
@@ -867,7 +867,7 @@ def shadow_amplitude_genus2(type_: str, rank: int, k: int) -> Fraction:
 def shadow_generating_function_coefficients(
     type_: str, rank: int, k: int, max_genus: int = 5
 ) -> Dict[int, Fraction]:
-    """Shadow tower generating function coefficients F_g for g = 1, ..., max_genus.
+    """Shadow obstruction tower generating function coefficients F_g for g = 1, ..., max_genus.
 
     F_g = kappa * lambda_g^FP where lambda_g^FP are the Faber-Pandharipande
     Hodge integrals:
@@ -1106,7 +1106,7 @@ def oper_connection_sl2(q: float) -> np.ndarray:
 
     where q(z) is a projective connection (quadratic differential).
 
-    This arises from the shadow tower degeneration at the critical level:
+    This arises from the shadow obstruction tower degeneration at the critical level:
     as kappa -> 0, the shadow metric Q_L degenerates and the shadow
     connection nabla^sh = d - Q'/(2Q) dt develops a regular singular
     point. The surviving connection data, projected to the principal
@@ -1157,7 +1157,7 @@ def oper_from_shadow_degeneration(type_: str, rank: int,
     c_val = d.dim * (-d.h_dual + epsilon) / epsilon if abs(epsilon) > 1e-30 else float('-inf')
 
     # For SL_2: the projective connection parameter in the oper
-    # In the shadow tower limit, q ~ (residue of c) / 12 at leading order
+    # In the shadow obstruction tower limit, q ~ (residue of c) / 12 at leading order
     # from the Virasoro embedding L_n = (1/2(k+h^v)) sum J^a_m J^a_{n-m}
     # which diverges as 1/epsilon, with the projective connection piece
     # surviving as the oper.
@@ -1239,7 +1239,7 @@ def so5_sp4_shadow_comparison(levels: Optional[List[Fraction]] = None
     C_2 = sp_4: dim 10, h^v = 3.
 
     NOTABLE: B_2 and C_2 have the SAME h^v = 3 (a coincidence at rank 2).
-    Therefore kappa(B_2, k) = kappa(C_2, k) for ALL k. The shadow towers
+    Therefore kappa(B_2, k) = kappa(C_2, k) for ALL k. The shadow obstruction towers
     are IDENTICAL at the kappa level.
 
     This coincidence breaks for n >= 3:
@@ -1300,11 +1300,11 @@ def hitchin_hamiltonians_sl2_genus2() -> Dict[str, Any]:
       - The Hitchin map pi: M_H -> A_H is a completely integrable system
       - The 3 Hitchin Hamiltonians generate A_H
 
-    The bridge to the shadow tower:
-      - At epsilon = k + 2 > 0, the shadow tower has kappa = 3*epsilon/4
+    The bridge to the shadow obstruction tower:
+      - At epsilon = k + 2 > 0, the shadow obstruction tower has kappa = 3*epsilon/4
       - The genus-1 shadow F_1 = kappa/24 = epsilon/32
       - As epsilon -> 0, all shadows collapse: the integrable system
-        structure (Hitchin Hamiltonians) replaces the shadow tower
+        structure (Hitchin Hamiltonians) replaces the shadow obstruction tower
       - The Hitchin Hamiltonians are the CLASSICAL LIMIT of the
         quantum shadow observables (Gaudin model at critical level)
     """
@@ -1313,7 +1313,7 @@ def hitchin_hamiltonians_sl2_genus2() -> Dict[str, Any]:
     graded = hitchin_base_graded_dimension('A', 1, 2)
     oper_data = oper_structure('A', 1, 2)
 
-    # Shadow tower collapse rate
+    # Shadow obstruction tower collapse rate
     slope = kappa_slope_at_critical('A', 1)  # 3/4
 
     return {
@@ -1350,11 +1350,11 @@ def automorphic_shadow_P1(type_: str, rank: int, k: int) -> Dict[str, Any]:
       F_0 = kappa * lambda_0^FP
 
     But lambda_0 does not exist in the usual Hodge sense (M_{0,0} is empty,
-    M_{0,3} is a point). The genus-0 contribution to the shadow tower is
+    M_{0,3} is a point). The genus-0 contribution to the shadow obstruction tower is
     the classical r-matrix data, not a Hodge integral.
 
     What IS well-defined:
-      - The shadow tower at genus 0, arity n >= 3: the tree-level
+      - The shadow obstruction tower at genus 0, arity n >= 3: the tree-level
         Borcherds products / sphere OPE data.
       - For n = 3: the OPE structure constants (conformal blocks on P^1
         with 3 marked points = the 3-point function).
@@ -1426,7 +1426,7 @@ def kapustin_witten_A_model(type_: str, rank: int) -> KWLimitData:
     At k = 0:
       - Psi = k/(k + h^v) = 0
       - kappa(g_hat_0) = dim(g) * h^v / (2 * h^v) = dim(g) / 2
-      - The shadow tower is NONZERO (kappa != 0)
+      - The shadow obstruction tower is NONZERO (kappa != 0)
       - This is the "geometric" side: Hitchin moduli space M_H(X, G)
 
     Physical interpretation (Kapustin-Witten):
@@ -1446,7 +1446,7 @@ def kapustin_witten_A_model(type_: str, rank: int) -> KWLimitData:
         kappa=kap,
         shadow_description=(
             f'kappa = {kap} = dim({type_}{rank})/2 = {d.dim}/2. '
-            f'Shadow tower is ACTIVE (nonzero curvature). '
+            f'Shadow obstruction tower is ACTIVE (nonzero curvature). '
             f'F_1 = {kap}/24 = {kap / 24}.'
         ),
         geometric_description=(
@@ -1464,7 +1464,7 @@ def kapustin_witten_B_model(type_: str, rank: int,
     As k -> infinity:
       - Psi = k/(k + h^v) -> 1
       - kappa(g_hat_k) = dim(g) * (k + h^v) / (2 * h^v) ~ dim(g)*k/(2*h^v) -> infinity
-      - The shadow tower grows without bound
+      - The shadow obstruction tower grows without bound
       - This is the "spectral" side: flat G^v-connections on C
 
     Physical interpretation (Kapustin-Witten):
@@ -1485,7 +1485,7 @@ def kapustin_witten_B_model(type_: str, rank: int,
         kappa=kap,
         shadow_description=(
             f'kappa = {kap} -> infinity. '
-            f'Shadow tower diverges. '
+            f'Shadow obstruction tower diverges. '
             f'Psi = {psi} approaches 1.'
         ),
         geometric_description=(
@@ -1503,10 +1503,10 @@ def kapustin_witten_full_analysis(type_: str, rank: int) -> Dict[str, Any]:
       2. k = -h^v (Psi = undefined): critical level, kappa = 0, oper limit
       3. k -> infty (Psi -> 1): B-model, spectral side, kappa -> infty
 
-    The shadow tower interpolates between these regimes:
-      - At k = 0: full shadow tower active, curvature = dim(g)/2
-      - At k = -h^v: shadow tower collapses, uncurved bar complex, Feigin-Frenkel center
-      - At k -> infty: shadow tower unbounded, curvature diverges
+    The shadow obstruction tower interpolates between these regimes:
+      - At k = 0: full shadow obstruction tower active, curvature = dim(g)/2
+      - At k = -h^v: shadow obstruction tower collapses, uncurved bar complex, Feigin-Frenkel center
+      - At k -> infty: shadow obstruction tower unbounded, curvature diverges
 
     The quantum geometric Langlands duality relates k and -k - h^v:
       Psi(k) * Psi(-k-h^v) = 1.

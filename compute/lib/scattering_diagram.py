@@ -13,7 +13,7 @@ RESULT SUMMARY (the main finding of this module):
 
     What we DO establish:
     (a) The seed walls at simple roots force walls at ALL composite roots
-        in the positive cone -- qualitative agreement with the shadow tower.
+        in the positive cone -- qualitative agreement with the shadow obstruction tower.
     (b) The forced walls respect the S_3 permutation symmetry of the Gram matrix.
     (c) The GPS tropical vertex in 2d reproduces the known A_2 pentagon identity.
     (d) The precise RATIO between commutator-forced multiplicities and phi_{0,1}

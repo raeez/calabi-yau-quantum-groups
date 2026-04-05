@@ -639,7 +639,7 @@ given by the SU(N)-twisted K3 elliptic genus.
 | `ch:toric-coha` | Toric CY_3 CoHA = second quantization of VW on the toric base surface |
 | `theory_higgs_cy2_qvcg.tex` | Higgs sheaves on curves = the 1d analogue of VW on surfaces; the genus hierarchy (rational/elliptic/Hitchin) should lift to a surface hierarchy |
 | `theory_cy2_cy3_fibration.tex` | VW on S <-> DT on Tot(K_S) via the CY_2/CY_3 fibration |
-| `theory_automorphic_shadow.tex` | Borcherds lift = second quantization = automorphic correction = shadow tower |
+| `theory_automorphic_shadow.tex` | Borcherds lift = second quantization = automorphic correction = shadow obstruction tower |
 | `physics_wall_crossing_mc.tex` | VW wall-crossing = KS wall-crossing = MC gauge equivalence |
 | `physics_sduality_langlands.tex` | VW modularity is a manifestation of S-duality = Langlands = Koszul |
 | `physics_topological_strings.tex` | The topological vertex for CY_3 should have a 4d VW analogue for surfaces |

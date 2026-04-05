@@ -68,10 +68,10 @@ The positive part n_+ of g_X, or more precisely its enveloping algebra U(n_+), i
 ### The full algebra = BKM superalgebra with automorphic correction
 The passage from the "naive" algebra g (Kac-Moody of the real root Gram matrix) to the "corrected" algebra g_X (the full BKM with imaginary roots) is the AUTOMORPHIC CORRECTION:
 - **In the igusa-cusp-form paper**: g has Gram matrix ((2,-2,-2),(-2,2,-2),(-2,-2,2)). The automorphic correction g_{Delta_5} adds all the imaginary roots with multiplicities from phi_{0,1}.
-- **In the Vol I language**: this is the passage from the tree-level r-matrix r(z) to the full MC element Theta_A. The imaginary roots ARE the higher-arity shadow tower components.
+- **In the Vol I language**: this is the passage from the tree-level r-matrix r(z) to the full MC element Theta_A. The imaginary roots ARE the higher-arity shadow obstruction tower components.
 
 THIS IS THE KEY IDENTIFICATION:
-  **Automorphic correction = Shadow tower**
+  **Automorphic correction = Shadow obstruction tower**
 
 The shadow Postnikov tower Theta_A^{<=r} of Vol I, projected at successive arities, recovers:
 - Arity 2 (kappa): the leading coefficient = the Weyl vector contribution
@@ -97,7 +97,7 @@ The shadow Postnikov tower Theta_A^{<=r} of Vol I, projected at successive ariti
 ### The genus tower
 - Genus 0: the tree-level root datum (real roots + first imaginary roots)
 - Genus 1: the automorphic correction at one loop = kappa * lambda_1
-- Genus g: the full shadow tower obs_g = kappa * lambda_g
+- Genus g: the full shadow obstruction tower obs_g = kappa * lambda_g
 - The Siegel modular form Delta_5 lives on H_2 (genus-2 Siegel upper half-space) — it IS a genus-2 object. The eight diagonal divisor modular forms correspond to the eight CY3 geometries X = (S x E)/(Z/NZ) for different N.
 
 ## The Two Main Examples in Detail
@@ -115,7 +115,7 @@ Pipeline:
 
 The quantum vertex chiral group G(K3 x E):
 - Chiral algebra A_{K3 x E} whose bar complex B(A) has bar differential encoding the OPE on Lambda^{2,1}
-- Shadow tower: Theta_A is the automorphic correction, Theta_{<=2} = kappa (Weyl vector contribution), higher arities add imaginary roots
+- Shadow obstruction tower: Theta_A is the automorphic correction, Theta_{<=2} = kappa (Weyl vector contribution), higher arities add imaginary roots
 - Modular characteristic: kappa(A_{K3 x E}) = weight 5 (the weight of Delta_5)
 - E_2 structure: the Sp_4(Z) action on H_2 = the braided monoidal structure
 
@@ -152,7 +152,7 @@ The quantum vertex chiral group G(X) of a CY3 X is defined by the following data
 2. **Quantum vertex chiral algebra** A(X) = the chiral algebra on a curve C whose:
    - Bar complex B(A(X)) encodes the CY cyclic homology CC_*(Coh(X)) or CC_*(Fuk(X))
    - MC element Theta_{A(X)} is the automorphic correction
-   - Shadow tower Theta^{<=r} gives the finite-arity projections
+   - Shadow obstruction tower Theta^{<=r} gives the finite-arity projections
    - Denominator identity of the BKM superalgebra = the bar-complex Euler characteristic
 
 3. **E_2-chiral enhancement**: The braided monoidal structure on Rep(A(X)) comes from:
@@ -162,7 +162,7 @@ The quantum vertex chiral group G(X) of a CY3 X is defined by the following data
 
 4. **The four target theorems become**:
    - CY-A: G(X) = Phi(Coh(X)) (or Fuk(X)) — the CY-to-chiral functor produces a quantum vertex chiral group
-   - CY-B: Bar-cobar for G(X) is the BKM bar-cobar — automorphic correction = shadow tower
+   - CY-B: Bar-cobar for G(X) is the BKM bar-cobar — automorphic correction = shadow obstruction tower
    - CY-C: Rep^{E_2}(G(X)) = the braided monoidal category of representations (quantum group reps for toric CY3, Sp_4-module category for K3 x E)
    - CY-D: kappa(G(X)) = weight of the automorphic form = CY Euler characteristic
 
@@ -171,7 +171,7 @@ The quantum vertex chiral group G(X) of a CY3 X is defined by the following data
 | CY3 geometry | BKM / Yangian | Vol I bar-cobar | Vol III quantum vertex chiral group |
 |---|---|---|---|
 | Lattice Lambda(X) | Root lattice | Modular cyclic deformation complex | Generalized root datum |
-| BPS invariants DT_alpha | Root multiplicities mult(alpha) | Shadow tower components | Generator spectrum |
+| BPS invariants DT_alpha | Root multiplicities mult(alpha) | Shadow obstruction tower components | Generator spectrum |
 | Toric diagram / K3 geometry | Dynkin diagram / Gram matrix | Collision r-matrix r(z) | Tree-level data |
 | Automorphic correction | Imaginary roots added to g | Higher-arity shadows (C, Q, ...) | Full MC element Theta |
 | Denominator identity Delta_5 | Weyl-Kac-Borcherds formula | Bar complex Euler product | Partition function of G(X) |

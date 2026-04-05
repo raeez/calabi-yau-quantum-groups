@@ -159,7 +159,7 @@
 \section{Overview and programme}
 % ============================================================
 
-These working notes record the development of Volume~III (Calabi--Yau Quantum Groups) of the modular Koszul duality programme.  The central thesis: \emph{the BPS spectrum of a CY3 threefold $X$ should constitute the generalized root datum of a quantum group $G(X)$ realized as an $\Etwo$-chiral algebra}.  More precisely, the automorphic correction of the underlying Borcherds--Kac--Moody (BKM) superalgebra attached to~$X$ should be identified with the shadow Postnikov tower $\Theta_A$ from Volume~I: the universal Maurer--Cartan element of the modular convolution algebra of a chiral algebra $A = A_X$ associated to~$X$, whose finite-order projections $\Theta_A^{\leq r}$ encode roots of increasing complexity.
+These working notes record the development of Volume~III (Calabi--Yau Quantum Groups) of the modular Koszul duality programme.  The central thesis: \emph{the BPS spectrum of a CY3 threefold $X$ should constitute the generalized root datum of a quantum group $G(X)$ realized as an $\Etwo$-chiral algebra}.  More precisely, the automorphic correction of the underlying Borcherds--Kac--Moody (BKM) superalgebra attached to~$X$ should be identified with the shadow Postnikov obstruction tower $\Theta_A$ from Volume~I: the universal Maurer--Cartan element of the modular convolution algebra of a chiral algebra $A = A_X$ associated to~$X$, whose finite-order projections $\Theta_A^{\leq r}$ encode roots of increasing complexity.
 
 \begin{warning}[The central object $G(X)$ is not yet constructed]
 \label{warn:gx-not-constructed}
@@ -170,7 +170,7 @@ The ``quantum vertex chiral group'' $G(X)$ is the \emph{target} of this programm
 
 \begin{itemize}
   \item \textbf{CY-A} (CY-to-chiral functor): $\Phi \colon \CY_d\text{-}\mathrm{Cat} \to \Etwo\text{-}\mathrm{ChirAlg}$.
-  \item \textbf{CY-B} ($\Etwo$-chiral Koszul duality): Automorphic correction = shadow tower; denominator identity = bar Euler product (at the level of motivic Hall algebra generating series; naive series-level equality requires CY-A).
+  \item \textbf{CY-B} ($\Etwo$-chiral Koszul duality): Automorphic correction = shadow obstruction tower; denominator identity = bar Euler product (at the level of motivic Hall algebra generating series; naive series-level equality requires CY-A).
   \item \textbf{CY-C} (Quantum group realization): $\Rep^{\Etwo}(G(X))$ is braided monoidal; for toric CY3, this gives the affine super Yangian.
   \item \textbf{CY-D} (Modular CY characteristic): $\kappa(G(X))$ = weight of the denominator automorphic form (e.g., $\mathrm{weight}(\Delta_5) = 5$ for $K3 \times E$).
 \end{itemize}
@@ -185,7 +185,7 @@ The ``quantum vertex chiral group'' $G(X)$ is the \emph{target} of this programm
   \midrule
   Generalized root datum axioms & Draft (CY1--CY7) & theory\_generalized\_root\_datum \\
   $\Etwo$-chiral algebra formalism & Draft (1243 lines) & theory\_e2\_chiral\_formalism \\
-  Automorphic = shadow tower & Draft (Thm + proof) & theory\_automorphic\_shadow \\
+  Automorphic = shadow obstruction tower & Draft (Thm + proof) & theory\_automorphic\_shadow \\
   CY-to-chiral functor & Draft (4-step construction) & theory\_cy\_to\_chiral\_construction \\
   $\CY_2 \to \CY_3$ fibration & Draft (Borcherds lift) & theory\_cy2\_cy3\_fibration \\
   Denominator = bar Euler product & Draft (3-stage proof) & theory\_denominator\_bar\_euler \\
@@ -213,7 +213,7 @@ The ``quantum vertex chiral group'' $G(X)$ is the \emph{target} of this programm
   Topological vertex & Computed & compute/lib/topological\_vertex \\
   Igusa product formula & Computed & compute/lib/igusa\_product\_formula \\
   Affine Yangian $Y(\widehat{\fgl}_1)$ & Computed (81 tests) & compute/lib/affine\_yangian\_gl1 \\
-  BKM shadow tower & Computed (67 tests) & compute/lib/bkm\_shadow\_tower \\
+  BKM shadow obstruction tower & Computed (67 tests) & compute/lib/bkm\_shadow\_tower \\
   Elliptic Hall algebra & Computed (78 tests) & compute/lib/elliptic\_hall \\
   CY Euler characteristics & Computed (85 tests) & compute/lib/cy\_euler \\
   WKB denominator & Computed & compute/lib/wkb\_denominator \\
@@ -235,12 +235,12 @@ The ``quantum vertex chiral group'' $G(X)$ is the \emph{target} of this programm
   \textbf{CY3 geometry} & \textbf{BKM / Yangian} & \textbf{Vol~I bar-cobar} \\
   \midrule
   Lattice $\Lambda(X)$ & Root lattice & Cyclic deformation complex \\
-  BPS invariants $\DT_\alpha$ & Root multiplicities $\mult(\alpha)$ & Shadow tower components \\
+  BPS invariants $\DT_\alpha$ & Root multiplicities $\mult(\alpha)$ & Shadow obstruction tower components \\
   Toric diagram & Dynkin diagram / Gram matrix & Collision $r$-matrix $r(z)$ \\
   Automorphic correction & Imaginary roots added to $\fg$ & Higher-arity shadows \\
   Denominator identity & WKB character formula & Bar Euler product \\
   $\mathrm{Sp}_4(\Z)$ / Weyl group & Symmetry group & $\Etwo$ braiding \\
-  $\phi_{0,1}$ (K3 elliptic genus) & Root multiplicity generating function & Shadow tower input data \\
+  $\phi_{0,1}$ (K3 elliptic genus) & Root multiplicity generating function & Shadow obstruction tower input data \\
   $\CoHA$ (positive half) & $U(\fn_+)$ & $\Eone$-chiral sector \\
   Full Yangian / BKM & Full algebra $\fg_X$ & $\Etwo$-chiral algebra $A(X)$ \\
   \bottomrule
@@ -254,12 +254,12 @@ The ``quantum vertex chiral group'' $G(X)$ is the \emph{target} of this programm
 % Parts (c)-(d) are conjectural: (c) lacks a proof beyond arity 6;
 % (d) requires A_X to exist (CY-A at d=3 is open).
 % Environment changed from theorem to conjecture per AP40.
-\begin{conjecture}[Automorphic correction = shadow tower]
+\begin{conjecture}[Automorphic correction = shadow obstruction tower]
 \label{conj:automorphic-shadow-tower}
 Let $X$ be a CY3 threefold admitting a BKM root system $\fg_X$,
 and suppose the CY-to-chiral functor $\Phi$ of CY-A produces
 an $\Etwo$-chiral algebra $A_X$ for~$X$.
-Then the shadow Postnikov tower $\Theta^{\leq r}_{A_X}$
+Then the shadow Postnikov obstruction tower $\Theta^{\leq r}_{A_X}$
 captures the roots of complexity $\leq r$ in the BKM root system:
 \begin{enumerate}[label=\textup{(\alph*)}]
   \item Arity~$2$ = real roots + Weyl vector (modular characteristic $\kappa$).
@@ -382,7 +382,7 @@ Evidence: Feigin--Frenkel center at critical level, root/coroot exchange, SYZ mi
 \label{sec:arithmetic-shadows}
 % ============================================================
 
-The shadow tower of a chiral algebra carries arithmetic content
+The shadow obstruction tower of a chiral algebra carries arithmetic content
 that connects to classical number theory through three channels:
 modular forms at genus~1, Siegel modular forms at genus~2, and
 multiple zeta values at genus~0.
@@ -449,13 +449,13 @@ perturbative data of the quantum group structure.
 
 \subsection{Siegel modular forms from genus-2 amplitudes}
 
-At genus~2, the shadow tower's scalar projection
+At genus~2, the shadow obstruction tower's scalar projection
 determines the universal part of the genus-$2$ amplitude,
 but the full genus-$2$ partition function carries
-arithmetic content \emph{beyond} the shadow tower.
+arithmetic content \emph{beyond} the shadow obstruction tower.
 For lattice VOAs of rank~$d$, the genus-2 partition function is
 the Siegel theta series $\Theta_\Lambda^{(2)}(\Omega) \in
-M_{d/2}(\Sp(4,\bZ))$; the shadow tower fixes
+M_{d/2}(\Sp(4,\bZ))$; the shadow obstruction tower fixes
 $F_2 = \kappa \cdot \lambda_2^{\mathrm{FP}}$ but not the
 Siegel cusp component (Vol~I, lattice chapter).
 
@@ -479,7 +479,7 @@ $L(1/2, \pi_f \times \chi_D)$ from the MC data.
 The 24 Niemeier lattices (even unimodular in dimension~24) all
 have $\kappa = 24$ ($ = d$ for $d = 24$ free bosons at level
 $k = 1$), class~$\mathbf{G}$, shadow depth~2.
-The shadow tower is blind to their root systems:
+The shadow obstruction tower is blind to their root systems:
 all 24 produce identical shadow data.  Distinguishing them
 requires the full theta series
 $\Theta_\Lambda = E_{12} + c_\Delta \cdot \Delta$ where
@@ -507,7 +507,7 @@ algebra structure.
 For the CY quantum group programme:
 the K3 quantum vertex chiral group should encode the
 Mathieu moonshine (umbral moonshine for $\Lambda = 24A_1$,
-$G = M_{24}$) through the genus-1 shadow tower.
+$G = M_{24}$) through the genus-1 shadow obstruction tower.
 The mock modular forms of umbral moonshine may arise
 as the quasi-modular shadow content
 (through the $E_2^*$ propagator dependence).

@@ -1,5 +1,5 @@
 r"""
-Complete BKM shadow tower computation: Monster, Fake Monster, Borcherds products,
+Complete BKM shadow obstruction tower computation: Monster, Fake Monster, Borcherds products,
 CY BPS algebras, generalized denominators, Igusa cusp form, Enriques surface.
 
 This module extends bkm_shadow_tower.py (which handles the g_{Delta_5} BKM
@@ -30,7 +30,7 @@ CONTENTS
    - BKM denominator product and identification with MacMahon function
 
 5. Generalized denominator from shadow
-   - Z^sh(BKM) produces BKM denominator via shadow tower
+   - Z^sh(BKM) produces BKM denominator via shadow obstruction tower
    - log(denominator) = sum_g F_g where F_g = g-th Hecke operator on multiplicities
 
 6. Igusa cusp form chi_10
@@ -609,7 +609,7 @@ def hecke_operator_on_multiplicities(
     where the sum runs over positive divisors d of gcd(g, n) such that
     gn/d^2 is a positive integer.
 
-    This appears in the shadow tower: the genus-g shadow F_g is computed
+    This appears in the shadow obstruction tower: the genus-g shadow F_g is computed
     from the multiplicities via the g-th Hecke operator:
         F_g = (1/g) * T_g applied to the log of the denominator.
 
@@ -651,7 +651,7 @@ def shadow_genus_decomposition(
         F_g(q) = -(1/g) * sum_{n>0} c(n) q^{gn}
                = -(1/g) * sum_{m>0} c(m/g) q^m  [for m divisible by g]
 
-    The shadow tower interpretation: F_g is the genus-g amplitude,
+    The shadow obstruction tower interpretation: F_g is the genus-g amplitude,
     computed from the BKM root multiplicities via the g-th Hecke operator.
 
     Returns dict: genus -> {power -> coefficient}.
@@ -939,7 +939,7 @@ def shadow_invariants_from_multiplicities(
     We compute the TRUNCATED shadow invariants:
         S_r^{trunc} = (1/r!) * sum_{n=1}^{N} n^{r-1} * c(n)
 
-    The shadow tower interpretation: S_r is the r-th Taylor coefficient
+    The shadow obstruction tower interpretation: S_r is the r-th Taylor coefficient
     of the generating function sum_{n>=1} c(n) * e^{nt}, and the
     shadow Postnikov tower truncates this at order r.
     """
@@ -1182,7 +1182,7 @@ def verify_p24_values() -> Dict[int, Dict[str, object]]:
 
 
 # =========================================================================
-# 11. BORCHERDS-KOSZUL BRIDGE (connection to Vol I shadow tower)
+# 11. BORCHERDS-KOSZUL BRIDGE (connection to Vol I shadow obstruction tower)
 # =========================================================================
 
 def bkm_shadow_kappa_from_weight(weight: int) -> int:

@@ -46,7 +46,7 @@
 
 ## The Three-Volume Programme
 
-This is the third and final volume of the modular Koszul duality programme. The volumes are logically ordered: Volume I builds the algebraic engine, Volume II reads its output in three dimensions, and Volume III identifies the engine's shadow tower with the automorphic correction of BKM superalgebras arising from Calabi-Yau categories.
+This is the third and final volume of the modular Koszul duality programme. The volumes are logically ordered: Volume I builds the algebraic engine, Volume II reads its output in three dimensions, and Volume III identifies the engine's shadow obstruction tower with the automorphic correction of BKM superalgebras arising from Calabi-Yau categories.
 
 | &ensp; | Volume | Title | Scope |
 |:---:|:------:|-------|-------|
@@ -68,7 +68,7 @@ graph LR
     end
 
     subgraph V3["Volume III --- CY Quantum Groups"]
-        T3["E1/E2 factorization<br>Quantum vertex chiral groups G(X)<br>BKM = shadow tower"]
+        T3["E1/E2 factorization<br>Quantum vertex chiral groups G(X)<br>BKM = shadow obstruction tower"]
     end
 
     V1 -->|"bar complex<br>+ kappa(A)"| V2
@@ -281,7 +281,7 @@ graph LR
 
 The **shadow Postnikov tower** from Volume I **is** the **automorphic correction** of the BKM superalgebra:
 
-| Arity | Shadow tower | BKM algebra | BPS physics |
+| Arity | Shadow obstruction tower | BKM algebra | BPS physics |
 |:-----:|:------------|:-----------|:-----------|
 | 2 | &kappa; (modular characteristic) | Real roots + Weyl vector | Perturbative spectrum |
 | 3 | Cubic shadow *C* | First imaginary roots | 3-body bound states |
@@ -310,7 +310,7 @@ For K3 &times; E, this is the **Igusa cusp form &Delta;<sub>5</sub>** with root 
 
 ## The Core Combinatorial Datum
 
-**D = (&Gamma;, S, &Phi;, E<sub>2</sub>)**: a consistent scattering diagram on the tropical skeleton of a CY degeneration, enriched with local vertex algebra data. The KS (Kontsevich-Soibelman) completion algorithm **is** the shadow tower from Volume I.
+**D = (&Gamma;, S, &Phi;, E<sub>2</sub>)**: a consistent scattering diagram on the tropical skeleton of a CY degeneration, enriched with local vertex algebra data. The KS (Kontsevich-Soibelman) completion algorithm **is** the shadow obstruction tower from Volume I.
 
 The four-level hierarchy:
 
@@ -353,7 +353,7 @@ The volume has a clear two-stratum structure: a proved core concentrated at CY d
 | **CoHA = E<sub>1</sub>-sector** | For toric CY3 (Schiffmann-Vasserot, Rapcak-Soibelman-Yang-Zhao) | Literature |
 | **Drinfeld center** | Z(Rep<sup>E<sub>1</sub></sup>(A)) &simeq; Rep<sup>E<sub>2</sub></sup>(Z<sup>der</sup><sub>ch</sub>(A)) | Ben-Zvi-Francis-Nadler, Lurie |
 | **Lattice &amp; BKM for K3 &times; E** | Full &Lambda;<sup>3,2</sup> construction, Weyl vector, root multiplicities | Gritsenko-Nikulin |
-| **Shadow tower verification** | Arity decomposition computationally verified arities 2&ndash;6, 1,600+ tests | This volume (compute) |
+| **Shadow obstruction tower verification** | Arity decomposition computationally verified arities 2&ndash;6, 1,600+ tests | This volume (compute) |
 | **Kazhdan-Lusztig** | E<sub>2</sub>-chiral interpretation of KL equivalence at level 1 | This volume |
 | **Borcherds product** | &Delta;<sub>5</sub> via theta constants, verified to 58 decimal digits | This volume (compute) |
 | **Scattering diagram** | KS consistency, GPS tropical vertex, wall structure | This volume (compute) |
@@ -491,7 +491,7 @@ chi/24 = -25/3  (not integer: obstruction to naive BKM structure)
 | `topological_vertex` | AKMV vertex, Schur functions, local P<sup>2</sup> | 151 |
 | `igusa_product_formula` | &Delta;<sub>5</sub> via theta constants, Borcherds product (25&ndash;58 digit precision) | 79 |
 | `affine_yangian_gl1` | Structure function g(z), mode algebra, crystal melting | 81 |
-| `bkm_shadow_tower` | Shadow tower projections, arity decomposition (verified arities 2&ndash;6) | 67 |
+| `bkm_shadow_tower` | Shadow obstruction tower projections, arity decomposition (verified arities 2&ndash;6) | 67 |
 | `elliptic_hall` | E<sub>q,t</sub> Drinfeld presentation, Macdonald representation | 78 |
 | `cy_euler` | Hodge diamonds, CY Euler characteristics, &kappa; identification | 85 |
 | `wkb_denominator` | Weyl-Kac-Borcherds denominator identity (sum/product agreement) | 54 |
@@ -519,7 +519,7 @@ K3 geometry  -->  VW invariants  -->  DMVV formula  -->  phi_{0,1} coefficients
      +--  DT partition function  <--  Delta_5  <--  Borcherds product
                                         |
                                         v
-                                  BKM root multiplicities  =  shadow tower
+                                  BKM root multiplicities  =  shadow obstruction tower
 ```
 
 **The Borcherds product sign**: resolved to 58 decimal digits. The ratio is exactly &minus;1, traced to the unique odd simple root &delta;<sub>3</sub> = f<sub>3</sub> (the fermionic root with discriminant D = &minus;1).
@@ -601,7 +601,7 @@ calabi-yau-quantum-groups/
 
 | File | Subject |
 |------|---------|
-| `bar_cobar_bridge.tex` | Bar-cobar bridge to Volume I: shadow tower = automorphic correction |
+| `bar_cobar_bridge.tex` | Bar-cobar bridge to Volume I: shadow obstruction tower = automorphic correction |
 | `modular_koszul_bridge.tex` | Modular Koszul duality and CY geometry |
 | `geometric_langlands.tex` | Geometric Langlands and CY quantum groups: Langlands = Koszul conjecture |
 
@@ -620,7 +620,7 @@ calabi-yau-quantum-groups/
 | `topological_vertex.py` | ~1200 | AKMV topological vertex, Schur functions, GV extraction |
 | `igusa_product_formula.py` | ~1100 | &Delta;<sub>5</sub> via theta constants, Borcherds product (high precision) |
 | `affine_yangian_gl1.py` | ~900 | Y(gl-hat<sub>1</sub>), structure function g(z), crystal melting |
-| `bkm_shadow_tower.py` | ~1000 | Shadow tower projections, arity decomposition |
+| `bkm_shadow_tower.py` | ~1000 | Shadow obstruction tower projections, arity decomposition |
 | `elliptic_hall.py` | ~800 | E<sub>q,t</sub> algebra, Drinfeld presentation, Macdonald polynomials |
 | `cy_euler.py` | ~700 | Hodge diamonds, CY Euler characteristics |
 | `wkb_denominator.py` | ~600 | Weyl-Kac-Borcherds denominator identity |
@@ -644,7 +644,7 @@ calabi-yau-quantum-groups/
 
 | File | Subject |
 |------|---------|
-| `theory_automorphic_shadow.tex` | Shadow tower = automorphic correction identification |
+| `theory_automorphic_shadow.tex` | Shadow obstruction tower = automorphic correction identification |
 | `theory_coha_e1_sector.tex` | CoHA as E<sub>1</sub>-sector of quantum vertex chiral group |
 | `theory_cy_to_chiral_construction.tex` | Detailed CY-to-chiral functor construction |
 | `theory_cy2_cy3_fibration.tex` | CY<sub>2</sub>/CY<sub>3</sub> fibration and dimensional reduction |
@@ -707,7 +707,7 @@ calabi-yau-quantum-groups/
 | File | Subject |
 |------|---------|
 | `audit_cg_quality.md` | Chriss-Ginzburg quality assessment |
-| `audit_red1_automorphic_shadow.md` | RED agent 1: automorphic shadow tower |
+| `audit_red1_automorphic_shadow.md` | RED agent 1: automorphic shadow obstruction tower |
 | `audit_red2_e2_chiral.md` | RED agent 2: E<sub>2</sub>-chiral formalism |
 | `audit_red3_cy_to_chiral.md` | RED agent 3: CY-to-chiral functor (d=3 gap identified) |
 | `audit_red4_langlands_koszul.md` | RED agent 4: Langlands = Koszul programme |

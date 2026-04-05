@@ -16,7 +16,7 @@ The project has two faces that are drastically different in quality:
 
 The distance between the two is the central problem. The book has a skeleton and it has organs, but they are not yet in the same body.
 
-**Overall verdict**: The programme is genuine and mathematically serious. The central insight (automorphic correction = shadow tower, denominator identity = bar Euler product) is compelling and computationally verified. But the monograph as written is an extended abstract, not a text. Approximately 15-20% of the programme is proved, 40-50% is a rigorous proof sketch that could be completed, and 30-40% is conjectural or aspirational.
+**Overall verdict**: The programme is genuine and mathematically serious. The central insight (automorphic correction = shadow obstruction tower, denominator identity = bar Euler product) is compelling and computationally verified. But the monograph as written is an extended abstract, not a text. Approximately 15-20% of the programme is proved, 40-50% is a rigorous proof sketch that could be completed, and 30-40% is conjectural or aspirational.
 
 ---
 
@@ -176,7 +176,7 @@ The status table lists everything as "Draft." Here is the real status:
 ### Rigorous proof sketch, completable with serious effort
 | Component | Real status |
 |-----------|------------|
-| Automorphic = shadow tower | **Strong sketch** (1239 lines, parts (a)-(c) argued, part (d) computational) |
+| Automorphic = shadow obstruction tower | **Strong sketch** (1239 lines, parts (a)-(c) argued, part (d) computational) |
 | Denominator = bar Euler product | **Proof sketch** (993 lines), relies on CY-A which is only done for d=2 |
 | CY2 -> CY3 fibration | **Sketch** (961 lines), Borcherds lift machinery known |
 | E2-chiral Koszul duality | **Conjecture** with evidence from E1 case |
@@ -256,7 +256,7 @@ The status table lists everything as "Draft." Here is the real status:
 
 **quantum_chiral_algebras.tex** (31 lines): Definition-by-aspiration problem noted above. The R-matrix construction (lines 18-25) uses Theta_A correctly. **Recommendation**: Define "quantum chiral algebra" = "E2-chiral algebra with finite-dimensional weight spaces and an R-matrix satisfying QYBE," dropping the quantum-group-equivalence aspiration from the definition.
 
-**modular_trace.tex** (26 lines): States CY-D. Three of four sections empty. **Recommendation**: Import genus expansion and shadow tower material from the notes.
+**modular_trace.tex** (26 lines): States CY-D. Three of four sections empty. **Recommendation**: Import genus expansion and shadow obstruction tower material from the notes.
 
 ### Part IV: Quantum Groups and Braided Monoidal Structure
 
@@ -308,11 +308,11 @@ The status table lists everything as "Draft." Here is the real status:
 
 ## IX. THE COMPUTATIONAL FOUNDATION
 
-The computational side is strong: 827 tests pass across 11 modules covering phi_{0,1} Fourier coefficients, C^3 DT partitions, modular lattice data, topological vertex, Igusa product formula, affine Yangian gl_1, BKM shadow tower, elliptic Hall algebra, CY Euler characteristics, WKB denominator, and Higgs P^1 CoHA.
+The computational side is strong: 827 tests pass across 11 modules covering phi_{0,1} Fourier coefficients, C^3 DT partitions, modular lattice data, topological vertex, Igusa product formula, affine Yangian gl_1, BKM shadow obstruction tower, elliptic Hall algebra, CY Euler characteristics, WKB denominator, and Higgs P^1 CoHA.
 
-This is the project's best asset and should be leveraged more aggressively. The arity-2 through arity-6 verification for K3xE (matching shadow tower projections with BKM root data) is the most convincing evidence for the programme's correctness.
+This is the project's best asset and should be leveraged more aggressively. The arity-2 through arity-6 verification for K3xE (matching shadow obstruction tower projections with BKM root data) is the most convincing evidence for the programme's correctness.
 
-**Recommendation**: The monograph should include explicit numerical tables from these computations. Show the reader the first 20 root multiplicities of g_{Delta_5}, the matching shadow tower components, and the numerical verification. This is what Kac would do.
+**Recommendation**: The monograph should include explicit numerical tables from these computations. Show the reader the first 20 root multiplicities of g_{Delta_5}, the matching shadow obstruction tower components, and the numerical verification. This is what Kac would do.
 
 ---
 

@@ -1,6 +1,6 @@
 r"""
 Homological mirror symmetry at the shadow level: mirror CY categories
-have identical shadow towers.
+have identical shadow obstruction towers.
 
 HMS CONJECTURE (Kontsevich 1994):
     For a Calabi-Yau manifold X with mirror X^v:
@@ -8,7 +8,7 @@ HMS CONJECTURE (Kontsevich 1994):
         D^b(Coh(X)) ~= D^bFuk(X^v)
 
 SHADOW-LEVEL PREDICTION:
-    If the equivalence holds, the shadow towers must agree:
+    If the equivalence holds, the shadow obstruction towers must agree:
         shadow(A_{Fuk(X)}) = shadow(A_{D^b(X^v)})
 
 This module computes shadow invariants on BOTH sides of mirror symmetry
@@ -22,10 +22,10 @@ EXAMPLES COMPUTED:
     5. T^2 x C (self-mirror): kappa=1
     6. SYZ fibration: shadow connection on the base
     7. Period integrals: Picard-Fuchs from shadow connection
-    8. Genus-1 mirror: BCOV from shadow tower
+    8. Genus-1 mirror: BCOV from shadow obstruction tower
 
 CONVENTIONS:
-    - Shadow tower from Vol I: Theta_A = sum Theta^{<=r} with projections
+    - Shadow obstruction tower from Vol I: Theta_A = sum Theta^{<=r} with projections
       kappa (arity 2), alpha (arity 3), S4 (arity 4), ...
     - Shadow metric Q_L(t) = (2*kappa + 3*alpha*t)^2 + 2*Delta*t^2
       with Delta = 8*kappa*S4
@@ -88,9 +88,9 @@ class ShadowData:
         return lin * lin + 2 * self.discriminant * t * t
 
     def shadow_tower(self, max_arity: int = 8) -> Dict[int, Fraction]:
-        """Compute the shadow tower S_r for r = 2, ..., max_arity.
+        """Compute the shadow obstruction tower S_r for r = 2, ..., max_arity.
 
-        The shadow tower arises from the Taylor expansion of the
+        The shadow obstruction tower arises from the Taylor expansion of the
         algebraic function H(t) = 2*kappa*t^2 * sqrt(Q_L(t)/Q_L(0)).
 
         For class G (alpha=0, S4=0): S_r = 0 for r >= 3.
@@ -129,7 +129,7 @@ class ShadowData:
         # phi^2 = f(t) = Q_L(t)/Q_L(0) = 1 + c1*t + c2*t^2
         # where c1 = 12*k*a/(4*k^2) = 3*a/k, c2 = (9*a^2 + 2*Delta)/(4*k^2).
         #
-        # The shadow tower coefficients S_r for r >= 5 are determined by
+        # The shadow obstruction tower coefficients S_r for r >= 5 are determined by
         # the recursion from the master equation:
         #   S_r = (kappa / (r-2)) * [higher-order correction from phi]
         #
@@ -145,12 +145,12 @@ class ShadowData:
         #
         # But S_3 is DEFINED as alpha = a, not 3a/2. The normalization
         # difference comes from the generating function convention:
-        # the CANONICAL shadow tower uses a different normalization
+        # the CANONICAL shadow obstruction tower uses a different normalization
         # where S_r = (r-1)! weighted coefficients. For our purposes,
         # we use the DIRECT definition: S_2 = kappa, S_3 = alpha, S_4 = S4,
         # and for r >= 5 we use the recursion from the MC equation.
         #
-        # The MC recursion for the shadow tower on a single primary line:
+        # The MC recursion for the shadow obstruction tower on a single primary line:
         #   S_{r+1} is determined by the arity-(r+1) component of the MC
         #   equation D*Theta + (1/2)[Theta, Theta] = 0.
         #
@@ -170,12 +170,12 @@ class ShadowData:
         #   t^5: 2*S_2*S_3 = kappa^2 * c1 => S_3 = kappa*c1/2 = 3a/2
         #   ... but S_3 = alpha != 3a/2 in general.
         #
-        # The DEFINITION discrepancy: in the manuscript, the shadow tower
+        # The DEFINITION discrepancy: in the manuscript, the shadow obstruction tower
         # coefficients have a normalization factor. The generating function
         # is NOT simply H(t) = sum S_r t^r but involves factorial weights.
         #
         # For this module, we use the SIMPLEST consistent convention:
-        # S_r are the shadow tower invariants where:
+        # S_r are the shadow obstruction tower invariants where:
         #   S_2 = kappa, S_3 = alpha, S_4 = S4 (given as input).
         # For r >= 5, the recursion from the MC equation on the single
         # primary line gives S_r = 0 when Delta = 0 (class G or L, where
@@ -233,7 +233,7 @@ class ShadowData:
         # Rather than deriving the full recursion, we use the PRAGMATIC
         # approach: compute the phi expansion and rescale.
         #
-        # The relation between phi and the shadow tower is:
+        # The relation between phi and the shadow obstruction tower is:
         #   phi_0 = 1 -> S_2 = kappa * 1 = kappa  [matches]
         #   phi_1 = 3a/(2k) -> S_3 = alpha         [need factor 2k/(3)]
         #   phi_2 -> S_4 = S4                       [need corresponding factor]
@@ -379,7 +379,7 @@ def _lambda_fp(g: int) -> Fraction:
     # But A-hat(it) = sum g_coeffs[n] * (it)^{2n} = sum g_coeffs[n] * (-1)^n * t^{2n}
     # Wait: u = x^2. A-hat(x) = sum g_coeffs[n] * x^{2n}.
     # A-hat(it) = sum g_coeffs[n] * (it)^{2n} = sum g_coeffs[n] * (-1)^n * t^{2n}.
-    # For the shadow tower: lambda_g = coefficient of t^{2g} in A-hat(it) - 1.
+    # For the shadow obstruction tower: lambda_g = coefficient of t^{2g} in A-hat(it) - 1.
     # A-hat(it) = sum g_coeffs[n] * i^{2n} * t^{2n} = sum g_coeffs[n]*(-1)^n*t^{2n}.
     # lambda_g = g_coeffs[g] * (-1)^g.
 
@@ -414,7 +414,7 @@ class EllipticCurveHMS:
             lattice VOA for the rank-1 lattice Z with pairing 1.
 
     Both give kappa = 1 (Heisenberg at level 1).
-    Shadow tower: class G, terminates at arity 2.
+    Shadow obstruction tower: class G, terminates at arity 2.
 
     Reference: Polishchuk-Zaslow, Adv. Theor. Math. Phys. 2 (1998) 443.
     """
@@ -470,7 +470,7 @@ class EllipticCurveHMS:
         )
 
     def verify_hms_shadow(self, max_arity: int = 5) -> Dict[str, Any]:
-        """Verify that A-model and B-model shadow towers agree."""
+        """Verify that A-model and B-model shadow obstruction towers agree."""
         a = self.a_model_shadow()
         b = self.b_model_shadow()
 
@@ -550,7 +550,7 @@ class QuarticK3HMS:
     The modular characteristic of the K3 sigma model is kappa = c/2 = 3
     (NOT kappa = chi/24 = 1, and NOT kappa = rank = 22).
 
-    ACTUALLY: for the purposes of the shadow tower, what matters is the
+    ACTUALLY: for the purposes of the shadow obstruction tower, what matters is the
     chiral algebra associated to D^b(Coh(K3)). This is NOT the K3 sigma
     model (which is a full CFT, not just a chiral algebra).
 
@@ -563,7 +563,7 @@ class QuarticK3HMS:
     - D^b(Coh(K3)) is an honest triangulated category
     - Both have Hochschild cohomology HH*(K3) = H*(K3, C) by HKR
 
-    The relevant chiral algebra for the shadow tower is the one
+    The relevant chiral algebra for the shadow obstruction tower is the one
     associated to the Hochschild cohomology. For K3:
         HH*(K3) has dim = 24 = chi(K3)
         The Mukai pairing gives a lattice of rank 24
@@ -583,7 +583,7 @@ class QuarticK3HMS:
     b_0 + b_2 + b_4 = 1 + 22 + 1 = 24. But the relevant object for
     D^b is the K-theory lattice K_0(K3), which has the SAME rank.
 
-    For the shadow tower computation: both sides of HMS give the SAME
+    For the shadow obstruction tower computation: both sides of HMS give the SAME
     shadow data because the equivalence preserves Hochschild (co)homology.
 
     The lattice VOA of rank 24 (Mukai lattice) has kappa = 24.
@@ -646,7 +646,7 @@ class QuarticK3HMS:
         )
 
     def verify_hms_shadow(self, max_arity: int = 5) -> Dict[str, Any]:
-        """Verify shadow tower agreement for K3."""
+        """Verify shadow obstruction tower agreement for K3."""
         a = self.a_model_shadow()
         b = self.b_model_shadow()
 
@@ -715,7 +715,7 @@ class QuinticHMS:
             q/psi = 1 - 770*psi - 171525*psi^2 + ...
 
     SHADOW INTERPRETATION:
-        The shadow tower of the B-model chiral algebra should reproduce
+        The shadow obstruction tower of the B-model chiral algebra should reproduce
         the mirror map coefficients via the shadow connection.
 
         The shadow connection nabla^sh restricted to the complex structure
@@ -737,7 +737,7 @@ class QuinticHMS:
             kappa_quintic = 25/6 (from the Todd class integral:
             integral_Q td_2 = c_2(Q)/12 integrated = 10*H^2/12 * 5 = 25/6).
 
-        WAIT: kappa in the shadow tower sense is the modular characteristic
+        WAIT: kappa in the shadow obstruction tower sense is the modular characteristic
         of the CHIRAL ALGEBRA, not a topological invariant of the manifold.
 
         For HMS purposes, the relevant chiral algebra is the one associated
@@ -762,7 +762,7 @@ class QuinticHMS:
 
         This gives kappa = 56/3 ... but that's the BCOV coefficient, not kappa.
 
-        For the shadow tower framework applied to CY manifolds:
+        For the shadow obstruction tower framework applied to CY manifolds:
             F_1 = kappa/24
             kappa = 24 * F_1
 
@@ -798,7 +798,7 @@ class QuinticHMS:
         where at large complex structure the leading term also gives
         the same F_1 = -25/3 via the mirror map.
 
-        The shadow tower agreement is:
+        The shadow obstruction tower agreement is:
             A-model: kappa = chi(Q) = -200
             B-model: kappa = chi(Q^v) via mirror exchange... but
             chi(Q^v) = chi(Q) = -200 (mirror manifolds have the SAME chi
@@ -835,7 +835,7 @@ class QuinticHMS:
         are determined by the SAME underlying CY geometry).
 
         The shadow class for the quintic: the B-model has a 1-parameter
-        family, so there are instanton corrections. The shadow tower
+        family, so there are instanton corrections. The shadow obstruction tower
         does NOT terminate: class M (mixed/infinite).
     """
 
@@ -895,7 +895,7 @@ class QuinticHMS:
         genus-1 GW invariants is:
             F_1^{const} = -chi(Q)/24 = 200/24 = 25/3 > 0.
 
-        In the shadow tower framework (Vol I):
+        In the shadow obstruction tower framework (Vol I):
             F_1 = kappa/24
             kappa > 0 for "standard" algebras
             F_1 > 0 by positivity
@@ -905,8 +905,8 @@ class QuinticHMS:
         For the MIRROR quintic Q^v: chi(Q^v) = +200, so
         kappa_{mirror} = -chi(Q^v) = -200.
 
-        HMS identifies Fuk(Q) with D^b(Coh(Q^v)). The shadow tower
-        of Fuk(Q) has kappa = -chi(Q) = 200. The shadow tower of
+        HMS identifies Fuk(Q) with D^b(Coh(Q^v)). The shadow obstruction tower
+        of Fuk(Q) has kappa = -chi(Q) = 200. The shadow obstruction tower of
         D^b(Coh(Q^v)) also gives kappa = -chi(Q^v)... which is -200.
 
         THIS IS THE SIGN ISSUE. Resolution:
@@ -920,11 +920,11 @@ class QuinticHMS:
         And kappa(Fuk(Q)) = -chi(Q) = 200.
 
         These DIFFER BY SIGN. The resolution is that HMS relates
-        Fuk(Q) to D^b(Coh(Q^v)) and the identification of shadow towers
+        Fuk(Q) to D^b(Coh(Q^v)) and the identification of shadow obstruction towers
         involves a DUALITY that negates kappa:
 
         The Koszul dual of the A-model chiral algebra has kappa -> -kappa,
-        and HMS is a KOSZUL DUALITY, not a direct equivalence of shadow towers.
+        and HMS is a KOSZUL DUALITY, not a direct equivalence of shadow obstruction towers.
 
         So the correct prediction is:
             kappa(Fuk(Q)) = -kappa(D^b(Coh(Q^v)))  [Koszul sign]
@@ -1238,7 +1238,7 @@ class ConifoldHMS:
     that the TOPOLOGICAL B-model F_1 and the CHIRAL ALGEBRA F_1
     are different objects.
 
-    For the shadow tower comparison, we use the chiral algebra kappa.
+    For the shadow obstruction tower comparison, we use the chiral algebra kappa.
     The conifold B-model chiral algebra has:
         kappa = -1/2 (from the single compact cycle, with the fermionic
         sign from the odd-dimensional base P^1).
@@ -1272,7 +1272,7 @@ class ConifoldHMS:
         # Q^contact = (10)/(c*(5c+22)) with c=-1 ... no.
         #
         # The conifold shadow is simpler: since there is only ONE compact
-        # curve, the shadow tower has kappa = -1/2 and terminates at
+        # curve, the shadow obstruction tower has kappa = -1/2 and terminates at
         # arity 2 (class G) for the SCALAR shadow. The betagamma non-formality
         # would appear in the Swiss-cheese structure, not the scalar shadow.
         #
@@ -1332,7 +1332,7 @@ class ConifoldHMS:
                      = -sum_{n>=1} n * sum_{k>=1} (Q*q^n)^k / k
                      = -sum_{n>=1} sum_{k>=1} n * Q^k * q^{nk} / k
 
-        For the shadow tower, the relevant data is at Q = q^0
+        For the shadow obstruction tower, the relevant data is at Q = q^0
         (the topological limit), where the GV invariant n^0_1 = -1 enters.
 
         Returns: first N coefficients of log(Z_DT/M(q)) at Q=1.
@@ -1676,7 +1676,7 @@ class PicardFuchsShadow:
 # =========================================================================
 
 class Genus1Mirror:
-    """Genus-1 free energy from shadow tower and BCOV.
+    """Genus-1 free energy from shadow obstruction tower and BCOV.
 
     The BCOV holomorphic anomaly equation at genus 1:
         del_bar F_1 = (1/2) * C^{ij}_bar * (C_{ijk} * G^{kk'} * e^{2K} * C^bar_{k'j'}
@@ -1691,7 +1691,7 @@ class Genus1Mirror:
         3 + h^{1,1} - chi/12 = 3 + 1 + 200/12 = 4 + 50/3 = 62/3
         disc(psi) = 1 - (5*psi)^5 = 1 - 3125*psi^5
 
-    Shadow tower prediction:
+    Shadow obstruction tower prediction:
         F_1 = kappa/24 = 200/24 = 25/3 (at the large-volume point).
 
     Comparison:
@@ -1722,7 +1722,7 @@ class Genus1Mirror:
         }
 
     def shadow_f1_prediction(self, kappa: Fraction) -> Fraction:
-        """Shadow tower prediction for F_1 = kappa/24."""
+        """Shadow obstruction tower prediction for F_1 = kappa/24."""
         return kappa / 24
 
     def verify_bcov_shadow_match(self) -> Dict[str, Any]:

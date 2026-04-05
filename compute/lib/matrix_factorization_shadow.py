@@ -525,13 +525,13 @@ def kappa_affine_from_mf(singularity: ADESingularity, level: int) -> Rational:
 
 
 # ============================================================================
-# 5. Shadow tower data from MF
+# 5. Shadow obstruction tower data from MF
 # ============================================================================
 
 def shadow_tower_rank(singularity: ADESingularity) -> int:
-    """The rank of the shadow tower = Milnor number mu(W).
+    """The rank of the shadow obstruction tower = Milnor number mu(W).
 
-    The shadow tower has mu independent channels, one for each
+    The shadow obstruction tower has mu independent channels, one for each
     basis element of the Jacobian ring.
     """
     return singularity.milnor_number

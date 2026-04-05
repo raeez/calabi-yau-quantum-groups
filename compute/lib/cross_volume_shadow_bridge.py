@@ -1,7 +1,7 @@
 r"""Cross-volume shadow bridge: consistency verification across three volumes.
 
 The three volumes attack the same mathematical objects from different angles:
-  Vol I  (~/chiral-bar-cobar):      bar-cobar machine, shadow tower Theta_A, kappa
+  Vol I  (~/chiral-bar-cobar):      bar-cobar machine, shadow obstruction tower Theta_A, kappa
   Vol II (~/chiral-bar-cobar-vol2): Swiss-cheese, PVA descent, open/closed, 3D HT QFT
   Vol III (~/calabi-yau-quantum-groups): CY categories, E_2 enhancement, quantum groups, CoHA
 

@@ -59,7 +59,7 @@ The entire theorem is vacuous unless the CY-to-chiral functor Phi produces an ac
 
 The central theorem is stated for CY THREEFOLDS (d=3). At d=3, both the E_2-enhancement (Step 3) and the quantization (Step 4) are conjectural. The S^3-framing gap is explicitly acknowledged.
 
-The status table in theory_cy_to_chiral_construction.tex (line 725) marks the d=3 E_2-enhancement as "PH/CJ" (proved here / conjectural), conditional on the S^3-framing. This means A_X DOES NOT EXIST as a fully constructed object for CY3s. The theorem asserts properties of A_X (its bar complex computes CE cohomology, its shadow tower matches the BKM root system) without A_X being defined.
+The status table in theory_cy_to_chiral_construction.tex (line 725) marks the d=3 E_2-enhancement as "PH/CJ" (proved here / conjectural), conditional on the S^3-framing. This means A_X DOES NOT EXIST as a fully constructed object for CY3s. The theorem asserts properties of A_X (its bar complex computes CE cohomology, its shadow obstruction tower matches the BKM root system) without A_X being defined.
 
 This is not a gap that can be papered over. If A_X does not exist, then B(A_X) does not exist, kappa(A_X) is undefined, Theta_{A_X} is undefined, and every claim in parts (a)-(d) of the theorem is literally meaningless.
 
@@ -246,6 +246,6 @@ The theorem as stated is **not proved**. It has two CRITICAL issues:
 
 Even setting aside these critical issues, the inductive proof of part (c) has logical gaps (Findings 3, 5), the CE cohomology is misstated (Finding 4), and the generalization of Feigin-Frenkel to BKM superalgebras is unproved (Finding 6).
 
-**What IS established**: For CY2 (d=2), where A_X exists via the S^2-framing (Kontsevich-Vlassopoulos), parts (a) and (b) are plausible (modulo fixing the kappa formula). The denominator identity for the specific case of Kac-Moody algebras (not BKM) follows from the classical Feigin-Frenkel theorem. The dictionary between shadow tower and automorphic correction is a compelling organizational framework.
+**What IS established**: For CY2 (d=2), where A_X exists via the S^2-framing (Kontsevich-Vlassopoulos), parts (a) and (b) are plausible (modulo fixing the kappa formula). The denominator identity for the specific case of Kac-Moody algebras (not BKM) follows from the classical Feigin-Frenkel theorem. The dictionary between shadow obstruction tower and automorphic correction is a compelling organizational framework.
 
 **What is NOT established**: The theorem for CY3, which is the case of actual interest (K3 x E, toric CY3, etc.). The conditional nature of the result should be made explicit in the theorem statement.

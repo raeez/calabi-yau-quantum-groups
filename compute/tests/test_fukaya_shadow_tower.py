@@ -1,5 +1,5 @@
 r"""
-Tests for the Fukaya shadow tower module.
+Tests for the Fukaya shadow obstruction tower module.
 
 Tests organized by example:
     1. Fuk(elliptic curve): HMS = Heisenberg, kappa = 1
@@ -324,7 +324,7 @@ class TestFukayaQuintic:
         assert FukayaQuintic.kappa_constant_map() == Fraction(200)
 
     def test_shadow_from_constant_maps(self):
-        """Shadow tower from constant maps is consistent."""
+        """Shadow obstruction tower from constant maps is consistent."""
         data = FukayaQuintic.shadow_from_constant_maps()
         assert data['kappa'] == Fraction(200)
         assert data['F_1_const'] == Fraction(200) * Fraction(1, 24)
@@ -628,7 +628,7 @@ class TestCYToChiral:
 # =========================================================================
 
 class TestShadowTower:
-    """Shadow tower structural tests."""
+    """Shadow obstruction tower structural tests."""
 
     def test_shadow_F_g_genus1(self):
         """F_1 = kappa/24."""

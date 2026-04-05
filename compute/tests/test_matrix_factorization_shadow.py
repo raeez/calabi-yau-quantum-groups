@@ -175,7 +175,7 @@ class TestMilnorNumbers:
             assert milnor_number('E', n) == n
 
     def test_shadow_rank_equals_milnor(self):
-        """Shadow tower rank = Milnor number for all ADE."""
+        """Shadow obstruction tower rank = Milnor number for all ADE."""
         for s in all_ade_singularities(8):
             assert shadow_tower_rank(s) == s.milnor_number
 

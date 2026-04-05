@@ -1,5 +1,5 @@
 r"""
-vafa_witten_shadow.py -- Vafa-Witten invariants from the shadow tower.
+vafa_witten_shadow.py -- Vafa-Witten invariants from the shadow obstruction tower.
 
 OVERVIEW
 ========
@@ -10,7 +10,7 @@ with G = SU(N), the partition function is a modular form of weight
 -chi(S)/2 (when the theory is well-defined), and S-duality acts as
 tau -> -1/tau.
 
-This module connects VW invariants to the shadow tower of modular Koszul
+This module connects VW invariants to the shadow obstruction tower of modular Koszul
 duality (Vol I) through the identification:
 
     kappa(VW system) = chi(S)
@@ -46,7 +46,7 @@ WHAT THIS MODULE COMPUTES
 4. P^2: chi = 3, w = -3/2 (half-integer).
    Half-integer weight => mock modular form (Vafa-Witten 1994).
    The mock modular completion involves the "shadow" (in the mock modular sense),
-   which we compute from the shadow tower.
+   which we compute from the shadow obstruction tower.
 
 5. Higher rank SU(N) on K3: the DMVV formula and Yoshioka-Kool-Thomas results.
    Z_VW(K3, SU(N)) involves 1/eta^{N*chi(K3)} ... NO, that's wrong.
@@ -79,10 +79,10 @@ REFERENCES
 - Tanaka-Thomas, "VW invariants for projective surfaces I,II", Pure Appl. Math. Q. (2017,2020)
 - Manschot, "The Betti numbers of the moduli space of stable sheaves of rank 3 on P^2"
 - Gottsche-Kool, "Virtual refinements of the VW formula", Math. Proc. Cambridge (2020)
-- Lorgat, research notes: Vafa-Witten shadow tower (April 2026)
+- Lorgat, research notes: Vafa-Witten shadow obstruction tower (April 2026)
 
 Manuscript references:
-    Vol I: chapters/frame/higher_genus_modular_koszul.tex (shadow tower)
+    Vol I: chapters/frame/higher_genus_modular_koszul.tex (shadow obstruction tower)
     Vol III: chapters/examples/k3_times_e.tex (K3 x E)
 """
 
@@ -219,7 +219,7 @@ def vw_modular_weight(surface_chi: int) -> Fraction:
 
 def vw_kappa_from_chi(surface_chi: int) -> Fraction:
     r"""
-    The shadow tower kappa for a VW system on surface S.
+    The shadow obstruction tower kappa for a VW system on surface S.
 
     kappa = chi(S)
 
@@ -392,7 +392,7 @@ P2_WEIGHT = Fraction(-3, 2)  # weight = -3/2 (half-integer!)
 # Z_VW(P^2, SU(2)) = 3 q^{-3/8} (1 + ...) (Manschot's computation)
 # But the precise form depends on the stability condition.
 
-# We compute the shadow from the shadow tower:
+# We compute the shadow from the shadow obstruction tower:
 # For P^2, kappa = chi(P^2) = 3.
 # F_1 = kappa/24 = 3/24 = 1/8.
 # The half-integer weight (-3/2) forces mock modularity.
@@ -418,7 +418,7 @@ def p2_vw_data() -> Dict:
 
     The partition function is a mock modular form, and its completion
     involves a non-holomorphic piece determined by the "shadow" (mock
-    modular shadow, not the Koszul shadow tower -- but the two concepts
+    modular shadow, not the Koszul shadow obstruction tower -- but the two concepts
     are related through the completion procedure).
     """
     chi = P2_CHI
@@ -635,7 +635,7 @@ def instanton_euler_su2_k3(max_k: int) -> Dict[int, int]:
 
 def instanton_shadow_amplitude(kappa: Fraction, k: int) -> Fraction:
     r"""
-    The shadow amplitude at level k from the shadow tower.
+    The shadow amplitude at level k from the shadow obstruction tower.
 
     For a VW system with modular characteristic kappa, the shadow amplitude
     at instanton number k is the coefficient of q^k in the generating
@@ -909,7 +909,7 @@ def verify_wall_crossing_pattern(max_k: int = 5) -> Dict:
 
 def shadow_vw_bridge_k3() -> Dict:
     r"""
-    The complete shadow tower <-> VW bridge for K3.
+    The complete shadow obstruction tower <-> VW bridge for K3.
 
     Maps:
         kappa = chi(K3) = 24
@@ -918,7 +918,7 @@ def shadow_vw_bridge_k3() -> Dict:
         weight = -kappa/2 = -12
         S-duality: SU(2) <-> SO(3) = Koszul duality A <-> A!
 
-    The shadow tower controls:
+    The shadow obstruction tower controls:
         - Genus-1 amplitude: F_1 = kappa/24
         - Higher genus: F_g = kappa * Bernoulli_{2g} / (2g * (2g-2))
     """
@@ -937,7 +937,7 @@ def shadow_vw_bridge_k3() -> Dict:
 
 def shadow_vw_bridge_p2() -> Dict:
     r"""
-    The shadow tower <-> VW bridge for P^2 (mock modular case).
+    The shadow obstruction tower <-> VW bridge for P^2 (mock modular case).
     """
     kappa = vw_kappa_from_chi(P2_CHI)
     return {
@@ -1100,7 +1100,7 @@ def su_n_vw_kappa_k3(N: int) -> Dict:
 
 if __name__ == '__main__':
     print("=" * 70)
-    print("Vafa-Witten invariants from the shadow tower")
+    print("Vafa-Witten invariants from the shadow obstruction tower")
     print("=" * 70)
 
     print("\n--- 1. VW on K3, SU(2) ---")

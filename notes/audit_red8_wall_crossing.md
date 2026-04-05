@@ -146,7 +146,7 @@ Proposition 6.1 proves that the truncation $\Theta^{\leq r}_A(t)$ is discontinuo
 
 **The full MC element $\Theta_A$ is the only gauge-invariant object, and it cannot be computed.**
 
-The shadow tower is the computational handle on $\Theta_A$ -- one computes $\Theta^{\leq r}_A$ order-by-order and hopes the tower converges. But Proposition 6.1 says that every finite truncation is discontinuous at walls. This means:
+The shadow obstruction tower is the computational handle on $\Theta_A$ -- one computes $\Theta^{\leq r}_A$ order-by-order and hopes the tower converges. But Proposition 6.1 says that every finite truncation is discontinuous at walls. This means:
 
 (a) Any finite-order computation of the MC element *depends on the chamber* -- you must choose a stability condition before computing. The result is not intrinsic.
 
@@ -209,7 +209,7 @@ Example 6.3 (the resolved conifold) claims that $\Theta^{\leq 2}_A$ jumps at the
 
 But $\Theta^{\leq 2}_A$ is the *arity-2* truncation, identified with the modular characteristic $\kappa$ in Section 6.1. The charge $\gamma_1 + \gamma_2$ is a *composite* charge with two constituents -- this is an arity-2 datum (it takes two BPS particles to form it). So the jump of $\Omega(\gamma_1 + \gamma_2)$ *is* a jump at arity 2, and $\Theta^{\leq 2}_A$ should indeed see it.
 
-The confusion is that the example seems to equate "arity" with "number of constituents in a bound state," but the shadow tower arity decomposition (eq. 6.1) is indexed by the moduli space $\overline{\mathcal{M}}_{g,n}$ -- arity $r$ means $n = r$ marked points. The relationship between "number of BPS constituents" and "number of marked points on a curve" is not explained in the note. If a 2-center bound state corresponds to arity 2, then yes, $\Theta^{\leq 2}_A$ jumps. But the claim in Section 6.1 is that $\Theta^{\leq 2}_A = \kappa$, the modular characteristic -- which is a tree-level (genus-zero) datum that should NOT depend on bound state formation.
+The confusion is that the example seems to equate "arity" with "number of constituents in a bound state," but the shadow obstruction tower arity decomposition (eq. 6.1) is indexed by the moduli space $\overline{\mathcal{M}}_{g,n}$ -- arity $r$ means $n = r$ marked points. The relationship between "number of BPS constituents" and "number of marked points on a curve" is not explained in the note. If a 2-center bound state corresponds to arity 2, then yes, $\Theta^{\leq 2}_A$ jumps. But the claim in Section 6.1 is that $\Theta^{\leq 2}_A = \kappa$, the modular characteristic -- which is a tree-level (genus-zero) datum that should NOT depend on bound state formation.
 
 Either the identification $\Theta^{\leq 2}_A = \kappa$ is wrong, or the example is wrong. They are inconsistent.
 

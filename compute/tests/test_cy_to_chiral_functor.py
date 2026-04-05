@@ -6,7 +6,7 @@ Verifies:
   3. Lie conformal algebra construction (Heisenberg, lattice, general)
   4. Factorization envelope (chiral algebra identification)
   5. E_2 enhancement (braiding type)
-  6. Cross-volume bridge: kappa(A_C) matches Vol I's shadow tower
+  6. Cross-volume bridge: kappa(A_C) matches Vol I's shadow obstruction tower
 
 Ground truth:
   - Vol I: heisenberg_bar.py (kappa(H_k) = k)

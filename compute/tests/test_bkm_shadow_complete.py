@@ -1,5 +1,5 @@
 r"""
-Tests for bkm_shadow_complete.py: comprehensive BKM shadow tower computation.
+Tests for bkm_shadow_complete.py: comprehensive BKM shadow obstruction tower computation.
 
 Covers all 8 computation targets:
 1. Monster Lie algebra: denominator formula, first 5 coefficients

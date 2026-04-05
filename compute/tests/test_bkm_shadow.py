@@ -1,12 +1,12 @@
 r"""
-Tests for the BKM shadow tower: g_{Delta_5} automorphic correction = shadow Postnikov tower.
+Tests for the BKM shadow obstruction tower: g_{Delta_5} automorphic correction = shadow Postnikov tower.
 
 Verifies:
     1. Lattice geometry: Gram matrix, Weyl vector, inner products
     2. phi_{0,1} Fourier coefficients (K3 elliptic genus)
     3. Root classification: real vs imaginary, norms
-    4. Shadow tower projections: arity 2 (kappa), 3 (cubic), 4 (quartic)
-    5. Truncated product formula matches shadow tower at each order
+    4. Shadow obstruction tower projections: arity 2 (kappa), 3 (cubic), 4 (quartic)
+    5. Truncated product formula matches shadow obstruction tower at each order
     6. Layer decomposition: arity 2 = real roots, arity 3 = first imaginary, etc.
     7. Weyl group action and orbit structure
     8. Numerical consistency of the denominator product
@@ -343,7 +343,7 @@ class TestComplexity:
 # =========================================================================
 
 class TestShadowTowerProjections:
-    """Verify the shadow tower at each arity."""
+    """Verify the shadow obstruction tower at each arity."""
 
     def test_kappa_projection(self):
         """kappa(A_{K3xE}) = 5 (weight of Delta_5)."""
@@ -397,7 +397,7 @@ class TestShadowTowerProjections:
 # =========================================================================
 
 class TestTruncationAgreement:
-    """Verify truncated product = truncated shadow tower at each order.
+    """Verify truncated product = truncated shadow obstruction tower at each order.
 
     NOTE: verify_truncation_agreement() is a STRUCTURAL consistency check
     that both code paths (product_log_coefficient and shadow_tower_projection)

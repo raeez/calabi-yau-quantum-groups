@@ -3,7 +3,7 @@
 Ground truth:
   chapters/theory/modular_trace.tex (Theorem CY-D),
   chapters/examples/k3_times_e.tex (K3 x E tower, Delta_5),
-  ~/chiral-bar-cobar/chapters/frame/higher_genus_modular_koszul.tex (shadow tower),
+  ~/chiral-bar-cobar/chapters/frame/higher_genus_modular_koszul.tex (shadow obstruction tower),
   Bershadsky-Cecotti-Ooguri-Vafa (BCOV, 1993),
   Gritsenko-Nikulin (BKM superalgebras and Siegel forms).
 
@@ -407,7 +407,7 @@ class TestShadowDepth:
 
 
 # ======================================================================
-# 6. Shadow tower amplitudes
+# 6. Shadow obstruction tower amplitudes
 # ======================================================================
 
 class TestShadowTower:
@@ -632,7 +632,7 @@ class TestStringComparison:
         assert result["all_F_g_positive"] is True
 
     def test_tower_values(self):
-        """Shadow tower values are correct for kappa = 5."""
+        """Shadow obstruction tower values are correct for kappa = 5."""
         result = topological_string_comparison(Fraction(5))
         assert abs(result["shadow_tower"][1] - 5 / 24) < 1e-15
         assert abs(result["shadow_tower"][2] - 7 * 5 / 5760) < 1e-15
@@ -662,7 +662,7 @@ class TestResolvedConifold:
         assert data.kappa == 1
 
     def test_conifold_shadow_tower(self):
-        """Shadow tower for conifold matches rank-1 Heisenberg."""
+        """Shadow obstruction tower for conifold matches rank-1 Heisenberg."""
         tower = shadow_tower_scalar(Fraction(1), 3)
         assert tower[1] == Fraction(1, 24)
         assert tower[2] == Fraction(7, 5760)
@@ -935,7 +935,7 @@ class TestDirectSumAdditivity:
 # ======================================================================
 
 class TestAHatCoefficients:
-    """Verify the A-hat genus coefficients used in the shadow tower."""
+    """Verify the A-hat genus coefficients used in the shadow obstruction tower."""
 
     def test_a1_exact(self):
         assert A_HAT_COEFFICIENTS[1] == Fraction(1, 24)

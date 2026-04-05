@@ -603,7 +603,7 @@ corrections:
   contributes an "automorphic correction" of genus g(D) to the
   scattering diagram consistency.
 
-- In the shadow tower language: the genus-g correction obs_g(A_X)
+- In the shadow obstruction tower language: the genus-g correction obs_g(A_X)
   receives contributions from compact divisors of genus <= g.
 
 This is the geometric origin of the imaginary root multiplicities
@@ -735,7 +735,7 @@ and EXTENDS the existing framework in the following ways:
   diagram, rather than being postulated.
 
 - `theory_automorphic_shadow.tex`: the automorphic correction =
-  shadow tower identification is the analytic incarnation of the
+  shadow obstruction tower identification is the analytic incarnation of the
   iterative consistency algorithm for the scattering diagram.
 
 - `theory_cy2_cy3_fibration.tex`: the CY_2 -> CY_3 fibration via

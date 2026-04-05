@@ -1,7 +1,7 @@
 r"""Tests for compute.lib.geometric_langlands_shadow.
 
 Comprehensive verification of the geometric Langlands programme
-from the shadow tower perspective:
+from the shadow obstruction tower perspective:
   - Critical level kappa vanishing for all simple types
   - Feigin-Frenkel duality and kappa anti-symmetry
   - Langlands dual shadow comparison (self-dual and non-self-dual)
@@ -618,7 +618,7 @@ class TestOperStructure:
 # =====================================================================
 
 class TestCriticalLevelShadowTower:
-    """Shadow tower collapse at the critical level."""
+    """Shadow obstruction tower collapse at the critical level."""
 
     def test_shadow_tower_sl2_kappa_sequence(self):
         """kappa -> 0 as epsilon -> 0 for sl_2."""

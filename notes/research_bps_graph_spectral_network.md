@@ -441,9 +441,9 @@ is the *tropical limit* of the spectral network generating function.
 The local root data R_v at each vertex is the data of the spectral
 network restricted to a neighborhood of the corresponding branch point.
 
-### 4.5. The shadow tower (physics_bps_root_multiplicities.tex, Sec. 5)
+### 4.5. The shadow obstruction tower (physics_bps_root_multiplicities.tex, Sec. 5)
 
-The shadow tower has a spectral network interpretation:
+The shadow obstruction tower has a spectral network interpretation:
 - Arity 2 (kappa): the "skeleton" of the spectral network (the walls
   originating from branch points, before any interactions)
 - Arity 3: the first joints (where two walls collide, creating a new wall)

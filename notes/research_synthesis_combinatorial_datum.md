@@ -93,12 +93,12 @@ the tree-level data: the r-matrix poles.
 which are exactly the imaginary root contributions. The completed scattering
 diagram IS the automorphic correction. Each new wall corresponds to an imaginary
 root, and its attached automorphism encodes mult(alpha). The completion
-algorithm IS the shadow tower: the n-th step of the completion adds walls
+algorithm IS the shadow obstruction tower: the n-th step of the completion adds walls
 corresponding to arity-n roots.
 
 **Computable?** YES -- the KS completion algorithm is iterative and
 termination is guaranteed order-by-order. Already have the WKB denominator
-module (compute/lib/wkb_denominator.py) and the BKM shadow tower module
+module (compute/lib/wkb_denominator.py) and the BKM shadow obstruction tower module
 (compute/lib/bkm_shadow_tower.py), which are essentially computing scattering
 diagram completions.
 
@@ -107,7 +107,7 @@ diagram completions.
 
 **Verdict:** The strongest single candidate. Carries both tree-level and
 loop-level data. Specializes to all three test geometries. The completion
-algorithm = shadow tower. But: it is a Level 1+2 object (lattice + scattering
+algorithm = shadow obstruction tower. But: it is a Level 1+2 object (lattice + scattering
 walls + corrections), not the full modular/genus data.
 
 ---
@@ -363,7 +363,7 @@ correlation functions).
 **Presentable?** YES -- the Frenkel-Kac-Segal construction is clean.
 
 **Verdict:** The lattice VOA is Level 0 data (the lattice and form). It needs
-the Borcherds automorphic correction (= shadow tower = scattering diagram
+the Borcherds automorphic correction (= shadow obstruction tower = scattering diagram
 completion) to become the full quantum vertex chiral group. This is exactly
 the "CY1 axiom" part of the CY root datum: the starting data before the
 BPS spectrum is included.
@@ -412,7 +412,7 @@ requires care with compactifications.
 **Verdict:** VW theory provides the PHYSICAL origin of the Level 2 data
 (automorphic forms). It is not a combinatorial datum per se, but rather the
 physical theory that produces the automorphic correction. For K3 x E, VW on K3
-= Borcherds lift = shadow tower completion.
+= Borcherds lift = shadow obstruction tower completion.
 
 ---
 
@@ -475,10 +475,10 @@ of phi.
 (automorphic denominator identity), CY6 (Serre relations).
 
 **Algebraic incarnation:** The full BKM superalgebra g_R (after adding
-imaginary roots). The completed shadow tower Theta_A = sum_{r >= 2} Theta^{(r)}.
+imaginary roots). The completed shadow obstruction tower Theta_A = sum_{r >= 2} Theta^{(r)}.
 The denominator identity Phi_R.
 
-**Connection to shadow tower:** Arity r of the shadow tower captures roots
+**Connection to shadow obstruction tower:** Arity r of the shadow obstruction tower captures roots
 up to complexity r. Arity 2 = Weyl vector (kappa). Arity 3 = first imaginary
 roots. The completion algorithm (adding walls until consistency) IS the shadow
 tower construction (solving the MC equation order by order in arity).
@@ -604,7 +604,7 @@ the fibered CY_3 combinatorial datum D_3 = Fib(D_2, E) has:
   upper half-space H_2 (which parametrizes genus-2 curves) provides the
   braiding.
 
-This fibration identifies the "shadow tower as Borcherds lift" at every level:
+This fibration identifies the "shadow obstruction tower as Borcherds lift" at every level:
 - Level 0: Lambda_3 = Lambda^{hyp} + Lambda^{1,1} (lattice extension).
 - Level 1: real roots of R_3 = real roots of the hyperbolic KM of Lambda^{hyp}.
 - Level 2: imaginary roots of R_3 = Fourier coefficients of phi_S =
@@ -690,7 +690,7 @@ datum D(X) determines a quantum vertex chiral group G(X) whose:
 - Root datum is R(X);
 - BKM superalgebra is g_{R(X)};
 - Chiral algebra A_X has bar complex B(A_X) graded by Lambda(X);
-- Shadow tower Theta_{A_X} encodes the automorphic correction (Level 2);
+- Shadow obstruction tower Theta_{A_X} encodes the automorphic correction (Level 2);
 - Denominator identity equals the automorphic form Phi(X);
 - Representation category Rep^{E_2}(G(X)) is the braided monoidal category
   determined by E_2(X);
@@ -711,12 +711,12 @@ computable:
 
 ---
 
-## 7. Relationship to the shadow tower
+## 7. Relationship to the shadow obstruction tower
 
-The shadow tower of Volume I is the algebraic engine that builds the CY
+The shadow obstruction tower of Volume I is the algebraic engine that builds the CY
 combinatorial datum level by level:
 
-| Shadow tower component | CY combinatorial level | Mathematical content |
+| Shadow obstruction tower component | CY combinatorial level | Mathematical content |
 |---|---|---|
 | Theta^{(2)} = kappa | Level 1 -> Level 2 transition | Weyl vector, modular characteristic |
 | Theta^{(3)} = C (cubic shadow) | First imaginary roots | First layer of Borcherds correction |
@@ -725,11 +725,11 @@ combinatorial datum level by level:
 | MC equation dTheta + (1/2)[Theta, Theta] = 0 | Consistency of S | Scattering diagram consistency |
 | Gauge equivalence of MC | Wall-crossing | KS wall-crossing formula |
 
-The scattering diagram completion algorithm and the shadow tower Postnikov
+The scattering diagram completion algorithm and the shadow obstruction tower Postnikov
 filtration are THE SAME COMPUTATION carried out in different languages:
 - Scattering diagram: add walls until the composition around every loop is
   trivial (geometric consistency).
-- Shadow tower: solve the MC equation order by order in arity (algebraic
+- Shadow obstruction tower: solve the MC equation order by order in arity (algebraic
   consistency).
 
 ---
@@ -757,7 +757,7 @@ The scattering diagram is the UNIFYING framework because:
 1. It naturally lives on the lattice Lambda (Level 0).
 2. Its initial walls are the real roots (Level 1).
 3. Its completion is the automorphic correction (Level 2).
-4. The consistency condition = MC equation = shadow tower.
+4. The consistency condition = MC equation = shadow obstruction tower.
 5. It specializes correctly to all three test geometries.
 6. The Gross-Siebert programme provides the geometric foundation.
 7. The KS framework provides the algebraic foundation.
@@ -776,7 +776,7 @@ To make this concrete, the following new compute modules should be developed:
 1. **compute/lib/scattering_diagram.py**: Implement the KS scattering diagram
    completion algorithm for a lattice with Gram matrix and initial walls.
    Input: Gram matrix A, initial walls (real simple roots). Output: walls up
-   to a given depth (= arity of the shadow tower), with attached automorphisms.
+   to a given depth (= arity of the shadow obstruction tower), with attached automorphisms.
    Verify against bkm_shadow_tower.py for the K3 x E case.
 
 2. **compute/lib/tropical_cy.py**: Implement the tropical CY base manifold
@@ -804,7 +804,7 @@ HIERARCHY of increasingly rich structures:
 - Level 2: a scattering diagram on Lambda -- the automorphic correction.
 - Level 3: an E_2-chiral structure -- the quantum group data.
 
-Each level enriches the previous one, and the shadow tower is the tower of
+Each level enriches the previous one, and the shadow obstruction tower is the tower of
 these enrichments. The CY root datum (CY1)-(CY7) captures Levels 0-2. The full
 quantum vertex chiral group G(X) captures all four levels.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 r"""
-kazhdan_lusztig_shadow.py -- KL equivalence from the shadow tower perspective.
+kazhdan_lusztig_shadow.py -- KL equivalence from the shadow obstruction tower perspective.
 
 The Kazhdan-Lusztig equivalence (1993-94) states:
 
@@ -12,11 +12,11 @@ highest-weight modules of the affine Lie algebra ĝ_k.
 The CY-C target: Rep^{E_2}(A_C) should recover C for CY categories.
 For quantum groups: Rep^{E_2}(A_{U_q(g)}) ≅ Rep_q(g).
 
-This module computes the KL equivalence data FROM the shadow tower
+This module computes the KL equivalence data FROM the shadow obstruction tower
 of the affine algebra ĝ_k, verifying that:
 
   (1) Shadow invariant κ(ĝ_k) = dim(g) · k / (2(k + h∨))
-  (2) The shadow tower controls the genus expansion of the KL functor
+  (2) The shadow obstruction tower controls the genus expansion of the KL functor
   (3) Braiding from the E_2-shadow matches the quantum R-matrix
   (4) Modular S-matrix from both sides agrees
   (5) The CY-to-chiral functor preserves κ
@@ -30,7 +30,7 @@ Mathematical sources:
   Bakalov-Kirillov, AMS (2001)
 
 Monograph references:
-  Vol I: higher_genus_modular_koszul.tex (shadow tower)
+  Vol I: higher_genus_modular_koszul.tex (shadow obstruction tower)
   Vol I: kac_moody.tex (affine algebras, κ computation)
   Vol III: chapters/examples/quantum_group_reps.tex (CY-C)
 """
@@ -69,7 +69,7 @@ from compute.lib.kl_sl2_level1 import (
 
 
 # =========================================================================
-# 1. Shadow tower for affine Lie algebras
+# 1. Shadow obstruction tower for affine Lie algebras
 # =========================================================================
 
 def kappa_affine(dim_g: int, h_dual: int, k) -> Fraction:
@@ -117,7 +117,7 @@ def kappa_sl3(k) -> Fraction:
 
 
 def shadow_tower_sl2(k, max_arity: int = 4) -> Dict[str, Any]:
-    r"""Compute the shadow tower invariants for ŝl₂_k.
+    r"""Compute the shadow obstruction tower invariants for ŝl₂_k.
 
     The shadow Postnikov tower Θ_A^{≤r} projects the universal MC element:
       r=2: κ (modular characteristic)
@@ -160,7 +160,7 @@ def shadow_tower_sl2(k, max_arity: int = 4) -> Dict[str, Any]:
 
     Returns
     -------
-    Dict with shadow tower data.
+    Dict with shadow obstruction tower data.
     """
     k_val = Fraction(k)
     kap = kappa_sl2(k_val)
@@ -175,7 +175,7 @@ def shadow_tower_sl2(k, max_arity: int = 4) -> Dict[str, Any]:
 
     # Critical discriminant Δ = 8κS_4 for the shadow metric.
     # For class L (affine KM), S_4 = 0, so Δ = 0.
-    # This means the shadow tower terminates at arity 3.
+    # This means the shadow obstruction tower terminates at arity 3.
     S_4 = Fraction(0)
     Delta = 8 * kap * S_4  # = 0
 
@@ -209,7 +209,7 @@ def shadow_tower_sl2(k, max_arity: int = 4) -> Dict[str, Any]:
 
 
 def shadow_tower_sl3(k, max_arity: int = 4) -> Dict[str, Any]:
-    r"""Compute the shadow tower invariants for ŝl₃_k.
+    r"""Compute the shadow obstruction tower invariants for ŝl₃_k.
 
     sl_3: dim = 8, h∨ = 3.
     Same class L structure as sl_2 (affine KM is always class L).
@@ -290,7 +290,7 @@ def kl_shadow_data_sl2(k: int) -> KLShadowData:
     S = modular_s_matrix(k)
     T = modular_t_matrix(k)
 
-    # Shadow tower
+    # Shadow obstruction tower
     shadow = shadow_tower_sl2(k)
 
     # Verifications
@@ -319,21 +319,21 @@ def kl_shadow_data_sl2(k: int) -> KLShadowData:
 
 
 # =========================================================================
-# 3. Braiding from shadow tower (E_2-structure)
+# 3. Braiding from shadow obstruction tower (E_2-structure)
 # =========================================================================
 
 def braiding_from_shadow(i: int, j: int, m: int, k: int,
                           h_dual: int = 2) -> complex:
-    r"""Compute the braiding eigenvalue from the shadow tower perspective.
+    r"""Compute the braiding eigenvalue from the shadow obstruction tower perspective.
 
-    The E_2-shadow tower of ĝ_k produces braiding via the Drinfeld-Kohno
+    The E_2-shadow obstruction tower of ĝ_k produces braiding via the Drinfeld-Kohno
     mechanism.  The KZ connection on the space of conformal blocks is:
 
       ∇_KZ = d - (1/(k + h∨)) Σ_{a<b} Ω_{ab} d log(z_a - z_b)
 
     where Ω_{ab} = Σ_A t^A_a ⊗ t^A_b is the Casimir in the a,b slots.
 
-    The shadow tower perspective: the genus-0 binary shadow Θ^{≤2}_{0,2}
+    The shadow obstruction tower perspective: the genus-0 binary shadow Θ^{≤2}_{0,2}
     evaluated at two marked points z_1, z_2 gives the KZ connection.
     The r-matrix r(z) = Res^{coll}_{0,2}(Θ_A) is the collision residue
     (AP19: one pole order below the OPE).
@@ -346,7 +346,7 @@ def braiding_from_shadow(i: int, j: int, m: int, k: int,
     where δ = (m(m+2) - i(i+2) - j(j+2)) / 4  and  q = exp(πi/(k+h∨)).
 
     This is IDENTICAL to the quantum R-matrix eigenvalue by Drinfeld-Kohno.
-    The shadow tower provides the E_2-structure that makes this work.
+    The shadow obstruction tower provides the E_2-structure that makes this work.
 
     Parameters
     ----------
@@ -376,7 +376,7 @@ def braiding_comparison(k: int, h_dual: int = 2) -> Dict[str, Any]:
     r"""Compare braiding from shadow vs quantum R-matrix for all channels.
 
     For each fusion channel V_m ⊂ V_i ⊗ V_j at level k:
-      - shadow_braiding: from the E_2-shadow tower (KZ monodromy)
+      - shadow_braiding: from the E_2-shadow obstruction tower (KZ monodromy)
       - qg_braiding: from the quantum group R-matrix
       - These must be IDENTICAL (Drinfeld-Kohno theorem).
 
@@ -421,17 +421,17 @@ def braiding_comparison(k: int, h_dual: int = 2) -> Dict[str, Any]:
 
 
 # =========================================================================
-# 4. Modular S-matrix from shadow tower
+# 4. Modular S-matrix from shadow obstruction tower
 # =========================================================================
 
 def s_matrix_from_shadow(k: int, h_dual: int = 2) -> np.ndarray:
-    r"""Compute the modular S-matrix using shadow tower data.
+    r"""Compute the modular S-matrix using shadow obstruction tower data.
 
     The modular S-matrix for ĝ_k is:
 
       S_{jl} = √(2/(k+h∨)) · sin(π(j+1)(l+1)/(k+h∨))
 
-    This can be derived from the shadow tower as follows:
+    This can be derived from the shadow obstruction tower as follows:
     The genus-1 shadow κ · λ₁ determines the central charge c and conformal
     weights h_j via the T-matrix.  The S-matrix is then fixed by modular
     invariance (SL(2,Z) relations) plus the Verlinde formula.
@@ -442,7 +442,7 @@ def s_matrix_from_shadow(k: int, h_dual: int = 2) -> np.ndarray:
       h_j = c_2(j) / (2(k+h∨))  where c_2(j) = j(j+2)/2 for sl_2
 
     The S-matrix formula follows from representation theory of the
-    affine Weyl group, which the shadow tower encodes via the
+    affine Weyl group, which the shadow obstruction tower encodes via the
     modular convolution algebra.
 
     Parameters
@@ -470,7 +470,7 @@ def s_matrix_from_shadow(k: int, h_dual: int = 2) -> np.ndarray:
 def s_matrix_comparison(k: int) -> Dict[str, Any]:
     """Compare S-matrix from shadow vs standard formula for sl_2 at level k.
 
-    These should be identical -- the shadow tower computes the same modular
+    These should be identical -- the shadow obstruction tower computes the same modular
     data as the standard construction.
 
     Returns
@@ -572,7 +572,7 @@ def cy_kappa_match(k: int, h_dual: int = 2) -> Dict[str, Any]:
 # =========================================================================
 
 def quantum_dims_from_shadow(k: int, h_dual: int = 2) -> Dict[str, Any]:
-    r"""Extract quantum dimensions from the shadow tower.
+    r"""Extract quantum dimensions from the shadow obstruction tower.
 
     Quantum dimension of V_j in Rep_q(sl_2):
       d_j = [j+1]_q = sin((j+1)π/(k+h∨)) / sin(π/(k+h∨))
@@ -796,7 +796,7 @@ def nonsemisimple_detector(k_max: int = 5) -> Dict[str, Any]:
     At generic q: Rep_q(sl_2) is semisimple with infinitely many simples.
     At q = root of unity: the category truncates and becomes nonsemisimple.
 
-    The shadow tower detects this transition through:
+    The shadow obstruction tower detects this transition through:
       1. κ(ĝ_k) → 0 as k → 0 (the critical level)
       2. Quantum dimensions [n]_q → 0 for n ≥ k+2 (truncation)
       3. Total quantum dimension D² → ∞ as k → ∞ (semisimple limit)
@@ -927,13 +927,13 @@ def approaching_root_of_unity(k: int, n_points: int = 20) -> Dict[str, Any]:
 
 
 # =========================================================================
-# 9. Genus expansion from shadow tower
+# 9. Genus expansion from shadow obstruction tower
 # =========================================================================
 
 def genus_expansion_from_shadow(k: int, g_max: int = 3) -> Dict[str, Any]:
-    r"""Compute the genus expansion of KL invariants from the shadow tower.
+    r"""Compute the genus expansion of KL invariants from the shadow obstruction tower.
 
-    The shadow tower controls the genus-g contribution to the KL functor:
+    The shadow obstruction tower controls the genus-g contribution to the KL functor:
       F_g(ĝ_k) = κ(ĝ_k) · λ_g^{FP}
 
     where λ_g^{FP} is the Faltings-Poincaré class on M̄_g.

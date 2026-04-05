@@ -1,11 +1,11 @@
-"""Tests for kazhdan_lusztig_shadow: KL equivalence from the shadow tower.
+"""Tests for kazhdan_lusztig_shadow: KL equivalence from the shadow obstruction tower.
 
 Verifies the Kazhdan-Lusztig equivalence Rep_q(g) ≅ KL_k(g) from the
-shadow tower perspective, cross-checking Vol I (shadow invariants) with
+shadow obstruction tower perspective, cross-checking Vol I (shadow invariants) with
 Vol III (quantum group data).
 
 Ground truth:
-  Vol I: higher_genus_modular_koszul.tex (shadow tower, κ formula)
+  Vol I: higher_genus_modular_koszul.tex (shadow obstruction tower, κ formula)
   Vol I: kac_moody.tex (affine algebras)
   Vol III: chapters/examples/quantum_group_reps.tex (CY-C)
   Kazhdan-Lusztig, JAMS 6-7 (1993-94)
@@ -16,7 +16,7 @@ MATHEMATICAL VERIFICATION NOTES (Beilinson principle — AP1, AP10):
   κ(ŝl₂_k) = 3(k+2)/4: this is dim(sl_2)·(k+h∨)/(2·h∨) with dim=3, h∨=2.
   κ(ŝl₃_k) = 4(k+3)/3: dim=8, h∨=3.
   Cross-family consistency (AP10): κ values checked against three independent
-  sources (formula, shadow tower, quantum dimensions).
+  sources (formula, shadow obstruction tower, quantum dimensions).
 """
 
 import cmath
@@ -64,7 +64,7 @@ from compute.lib.kl_sl2_level1 import (
 
 
 # ======================================================================
-# 1. Shadow tower κ for affine algebras
+# 1. Shadow obstruction tower κ for affine algebras
 # ======================================================================
 
 class TestKappaAffine:
@@ -132,14 +132,14 @@ class TestKappaAffine:
 
 
 # ======================================================================
-# 2. Shadow tower structure
+# 2. Shadow obstruction tower structure
 # ======================================================================
 
 class TestShadowTowerStructure:
-    """Test the shadow tower invariants for affine KM algebras.
+    """Test the shadow obstruction tower invariants for affine KM algebras.
 
     Affine KM algebras are class L (Lie/tree): shadow depth r_max = 3.
-    The shadow tower terminates: quartic and all higher shadows vanish.
+    The shadow obstruction tower terminates: quartic and all higher shadows vanish.
     """
 
     def test_shadow_class_L(self):
@@ -184,7 +184,7 @@ class TestShadowTowerStructure:
         assert shadow["r_max"] == 3
 
     def test_sl3_kappa_k1(self):
-        """κ(ŝl₃₁) = 16/3 from shadow tower."""
+        """κ(ŝl₃₁) = 16/3 from shadow obstruction tower."""
         shadow = shadow_tower_sl3(1)
         assert shadow["kappa"] == Fraction(16, 3)
 
@@ -285,11 +285,11 @@ class TestKLShadowLevel2:
 
 
 # ======================================================================
-# 5. Braiding from shadow tower
+# 5. Braiding from shadow obstruction tower
 # ======================================================================
 
 class TestBraidingFromShadow:
-    """Test that the E_2-shadow tower reproduces the quantum R-matrix braiding."""
+    """Test that the E_2-shadow obstruction tower reproduces the quantum R-matrix braiding."""
 
     def test_braiding_k1_trivial(self):
         """Braiding on vacuum channel is 1."""
@@ -360,7 +360,7 @@ class TestBraidingFromShadow:
 # ======================================================================
 
 class TestSMatrixFromShadow:
-    """Test S-matrix computation from the shadow tower."""
+    """Test S-matrix computation from the shadow obstruction tower."""
 
     def test_s_matrix_match_k1(self):
         """Shadow S-matrix = standard S-matrix at k=1."""
@@ -451,7 +451,7 @@ class TestCYKappaMatch:
 # ======================================================================
 
 class TestQuantumDimsFromShadow:
-    """Test extraction of quantum dimensions from the shadow tower."""
+    """Test extraction of quantum dimensions from the shadow obstruction tower."""
 
     def test_three_methods_agree_k1(self):
         """Formula, S-matrix, and trig all agree at k=1."""
@@ -590,7 +590,7 @@ class TestSL3Level1:
                     assert v_int == expected, f"Verlinde failed at ({i},{j},{m})"
 
     def test_sl3_shadow_tower(self):
-        """Shadow tower for sl_3 at k=1: class L, r_max=3."""
+        """Shadow obstruction tower for sl_3 at k=1: class L, r_max=3."""
         shadow = shadow_tower_sl3(1)
         assert shadow["shadow_class"] == "L"
         assert shadow["r_max"] == 3
@@ -644,7 +644,7 @@ class TestNonsemisimpleTransition:
 # ======================================================================
 
 class TestGenusExpansion:
-    """Test the genus expansion of KL invariants from the shadow tower."""
+    """Test the genus expansion of KL invariants from the shadow obstruction tower."""
 
     def test_genus1_k1(self):
         """F_1(ŝl₂₁) = κ/24 = (9/4)/24 = 9/96 = 3/32."""

@@ -9,7 +9,7 @@ complex) of dimension at most 3, where:
 - **0-cells (vertices)** carry local vertex algebras (intertwiners)
 - **1-cells (edges)** carry spectral parameters / gluings (tensor products of root data)
 - **2-cells (faces)** carry "automorphic corrections" (Borcherds lifts, genus contributions)
-- **3-cells** carry "modular data" (higher-genus amplitudes, the full shadow tower)
+- **3-cells** carry "modular data" (higher-genus amplitudes, the full shadow obstruction tower)
 
 The proposal further specifies:
 
@@ -92,7 +92,7 @@ addition of the 2-skeleton. The Borcherds lift takes:
 - Output: Delta_5 (Igusa cusp form, a Siegel modular form)
 
 The 2-cells carry the imaginary root multiplicities mult_3(n,l,m) = f(nm,l).
-In the shadow tower language (`notes/theory_automorphic_shadow.tex`), this is:
+In the shadow obstruction tower language (`notes/theory_automorphic_shadow.tex`), this is:
 - Arity 2 captures the real roots (0-skeleton + 1-skeleton)
 - Arity 3 captures depth-1 imaginary roots (first layer of 2-cells)
 - Arity r captures depth <= r-2 roots (progressive filling of 2-cells)
@@ -105,7 +105,7 @@ in H^{1,1}(S) after fixing the Kahler class) confirm this numerology.
 
 ### 2.3. The Shadow Tower Provides a Natural Filtration By Skeleton
 
-The identification "automorphic correction = shadow tower"
+The identification "automorphic correction = shadow obstruction tower"
 (`notes/theory_automorphic_shadow.tex`, Theorem 1.1) provides a natural
 stratification that aligns with the CW-complex skeletal filtration:
 
@@ -139,7 +139,7 @@ complexes). Specifically:
 This directly connects the proposal's "CW-complex = dual intersection complex
 of a degeneration" to the existing framework. The Gross-Siebert reconstruction
 theorem says the CY3 is determined by tropical data (the CW-complex +
-decorations), and the MC equation of the shadow tower is precisely the
+decorations), and the MC equation of the shadow obstruction tower is precisely the
 consistency condition for these tropical data.
 
 ---
@@ -168,7 +168,7 @@ Examining the codebase structures:
 (`notes/physics_topological_strings.tex`) contains data beyond the root
 multiplicities. The GV invariants n^g_beta for g > 0 are the "genus-g
 refinements of the root multiplicity" (Remark 2.5 of that note). These
-are not captured by any finite arity of the shadow tower -- they require
+are not captured by any finite arity of the shadow obstruction tower -- they require
 the full modular structure. The BCOV holomorphic anomaly equation
 (Section 3.2) shows that F_g for g >= 1 involves anti-holomorphic data
 from the B-model complex structure moduli, which are controlled by
@@ -203,7 +203,7 @@ The evidence supports the following precise identification:
 More specifically:
 
 1. The **0-skeleton** is the tree-level data at genus 0: local vertex algebras,
-   the collision r-matrix, the Weyl vector. This is the arity-2 shadow tower.
+   the collision r-matrix, the Weyl vector. This is the arity-2 shadow obstruction tower.
 
 2. The **1-skeleton** is the gluing data: Kahler parameters, edge propagators,
    tensor product pairings. This is still arity-2 but encodes the combinatorial
@@ -211,17 +211,17 @@ More specifically:
 
 3. The **2-skeleton** is the automorphic correction: imaginary root
    multiplicities from the Borcherds lift (for K3 x E) or DT invariants (for
-   toric CY3). This is the arity >= 3 part of the shadow tower at genus 0.
+   toric CY3). This is the arity >= 3 part of the shadow obstruction tower at genus 0.
    For a toric CY3 with no compact 3-cycles, this is the full story.
 
 4. The **3-skeleton** is the higher-genus data: the genus-g free energies F_g
    for g >= 1, the BCOV propagator, the modular completion. This corresponds to:
-   - The genus expansion of the shadow tower Theta_{A_X} = sum_g hbar^{2g-2} Theta^(g)
+   - The genus expansion of the shadow obstruction tower Theta_{A_X} = sum_g hbar^{2g-2} Theta^(g)
    - The B-model complex structure moduli (periods of 3-forms)
    - The non-holomorphic completion required by the holomorphic anomaly
 
-**The genus-0 shadow tower (all arities, genus 0) gives the 2-skeleton.
-The genus >= 1 shadow tower gives the 3-skeleton.**
+**The genus-0 shadow obstruction tower (all arities, genus 0) gives the 2-skeleton.
+The genus >= 1 shadow obstruction tower gives the 3-skeleton.**
 
 ### 3.4. Why Toric CY3 Has No 3-Cells
 
@@ -232,7 +232,7 @@ For a toric CY3 without compact 4-cycles:
 - The BCOV equation degenerates: F_g for g >= 1 are determined entirely
   by genus-0 data via the propagator, which is algebraic (no non-holomorphic
   completion needed)
-- The shadow tower at higher genus reduces to kappa * lambda_g (the
+- The shadow obstruction tower at higher genus reduces to kappa * lambda_g (the
   uniform-weight lane), which is determined by kappa = chi(X)/2 alone
 
 This is consistent with the proposal: toric CY3s are 2-complexes because
@@ -292,7 +292,7 @@ condition for scattering diagrams is the MC equation. This means:
   is the underlying CW-complex.
 - The **affine structure** on B encodes the lattice Lambda(X) and the
   Kahler/complex structure moduli.
-- The **scattering diagram** on B is the shadow tower Theta_A: its walls
+- The **scattering diagram** on B is the shadow obstruction tower Theta_A: its walls
   are codimension-1 strata decorated by BPS multiplicities (root data),
   and its consistency is the MC equation.
 
@@ -368,7 +368,7 @@ vertex chiral group G_v = G(C^3) with:
 - The genus-g free energies F_g for g >= 1, encoding higher-genus
   amplitudes
 - The BCOV propagator S^{ij} and its modular completion
-- The full shadow tower Theta_{A_X} beyond genus 0
+- The full shadow obstruction tower Theta_{A_X} beyond genus 0
 
 ### 5.2. Recovery of the Root Datum
 
@@ -394,7 +394,7 @@ recovered from D(X) as follows:
 
 ### 5.3. Recovery of the Shadow Tower
 
-The shadow tower Theta_{A_X} is recovered from D(X) by progressive
+The shadow obstruction tower Theta_{A_X} is recovered from D(X) by progressive
 assembly:
 
 - **Arity 2** (0-skeleton + 1-skeleton): the collision r-matrix and kappa.
@@ -423,11 +423,11 @@ assembly:
 
 3. **Scattering diagram = MC equation** is already established in the
    codebase. This connects the Gross-Siebert programme directly to the
-   shadow tower framework.
+   shadow obstruction tower framework.
 
 4. **The dimensional numerology works.** A CW-complex of dimension <= 3
    matches the dimension of CY3; the skeletal filtration matches the
-   shadow tower arity filtration at genus 0 and extends to genus >= 1
+   shadow obstruction tower arity filtration at genus 0 and extends to genus >= 1
    via 3-cells.
 
 ### 6.2. What Needs Work
@@ -441,7 +441,7 @@ assembly:
 2. **The Gross-Siebert reconstruction theorem** gives the CY3 from
    tropical data on a 3-manifold B, but the precise relationship between
    the scattering diagram consistency (MC equation on the tropical
-   L-infinity algebra) and the shadow tower MC equation (on the modular
+   L-infinity algebra) and the shadow obstruction tower MC equation (on the modular
    convolution algebra) needs rigorous development. The codebase identifies
    these at the motivational level but flags this as needing "a rigorous
    proof at the chain level" (`notes/physics_4d_n2_hitchin.tex`, line 890).
@@ -472,7 +472,7 @@ Based on the analysis, I propose the following refinement:
 
 **Conjecture (Skeletal Shadow Correspondence).** Let X be a CY3 with dual
 intersection complex B = B(X_0) from a maximal degeneration. Let
-Theta_{A_X} = sum_{g,r} Theta^{(g,r)} be the bi-graded shadow tower
+Theta_{A_X} = sum_{g,r} Theta^{(g,r)} be the bi-graded shadow obstruction tower
 (by genus g and arity r). Then:
 
 (a) The genus-0, arity-2 component Theta^{(0,2)} is determined by
@@ -557,7 +557,7 @@ is well-supported by the existing codebase, with the following caveats:
    portion of the complex structure moduli space.
 
 3. **The Gross-Siebert dual intersection complex** is the correct general
-   framework, and the connection to the shadow tower MC equation (via
+   framework, and the connection to the shadow obstruction tower MC equation (via
    tropicalization of the modular convolution algebra) is already
    anticipated in the codebase.
 
@@ -572,7 +572,7 @@ is well-supported by the existing codebase, with the following caveats:
 > The tree-level topological vertex gives the 0- and 1-skeleton. The Borcherds
 > lift adds the 2-skeleton. What adds the 3-skeleton?
 
-**The 3-skeleton is added by the genus >= 1 shadow tower -- the BCOV
+**The 3-skeleton is added by the genus >= 1 shadow obstruction tower -- the BCOV
 holomorphic anomaly / modular completion data.** Concretely:
 - The BCOV propagator S^{ij} (genus-1 data) provides the basic 3-cell
   gluing.

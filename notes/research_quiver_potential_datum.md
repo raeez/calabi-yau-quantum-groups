@@ -77,7 +77,7 @@ The full quantum vertex chiral group is obtained by the **Drinfeld double**:
 
 The R-matrix of the double provides the E_2-braiding.
 
-### 2d. The tree-level shadow tower data
+### 2d. The tree-level shadow obstruction tower data
 
 In the language of theory_automorphic_shadow.tex, the quiver data corresponds
 to the **arity-2 shadow** Theta^{<=2}:
@@ -124,7 +124,7 @@ The quiver encodes the Gram matrix (the real roots), but it does not encode:
    and elliptic parts.
 
 **Assessment**: This is a **genuine gap**. The quiver datum lives at tree-level
-(arity 2); the automorphic content is the full shadow tower (all arities).
+(arity 2); the automorphic content is the full shadow obstruction tower (all arities).
 The passage from (Q, W) to the automorphic form requires either:
 - Computing all DT invariants (extracting them from geometry), or
 - Supplying the Jacobi form as additional data.
@@ -212,7 +212,7 @@ approach is intrinsically tied to toric/non-compact geometry.
 where W_k is a "potential of arity k" (a formal sum of length-k cycles,
 or more precisely, an element of the cyclic bar complex at arity k).
 
-**Connection to the shadow tower**: This is precisely the shadow tower!
+**Connection to the shadow obstruction tower**: This is precisely the shadow obstruction tower!
 The arity-r shadow Theta^{<=r} captures roots of depth <= r-2.
 - W_2 = the usual potential = tree-level data (real roots + Weyl vector)
 - W_3 = cubic correction = first imaginary roots (depth 1)
@@ -372,7 +372,7 @@ This is a **complete recovery**: (Lambda, Q, W, phi) determines R(X) entirely.
 
 ## 7. The higher-potential perspective (Proposal 1 revisited)
 
-The shadow tower identification (theory_automorphic_shadow.tex, Theorem 1.1)
+The shadow obstruction tower identification (theory_automorphic_shadow.tex, Theorem 1.1)
 says:
 
 > Automorphic correction = Shadow Postnikov tower
@@ -468,7 +468,7 @@ data goes beyond the quiver.
    group is obtained by the Drinfeld double. The root datum R(X) is in
    principle recoverable from (Q, W) via DT invariant computation.
 
-2. **The tree-level shadow (arity 2)**: in the shadow tower, (Q, W) captures
+2. **The tree-level shadow (arity 2)**: in the shadow obstruction tower, (Q, W) captures
    the real root Gram matrix and the Weyl vector -- the arity-2 projection
    Theta^{<=2}. The higher arities (imaginary roots, modular structure) are
    the "automorphic correction" beyond the quiver.
@@ -494,13 +494,13 @@ For toric CY3: phi is derivable from (Q, W), so (Lambda, Q, W) suffices.
 For fibered CY3: phi = elliptic genus of the CY2 surface, supplied as input.
 For compact CY3: both the quiver description and the nature of phi are open.
 
-### Relation to the shadow tower:
+### Relation to the shadow obstruction tower:
 
 The enriched datum (Lambda, Q, W, phi) is equivalent to specifying:
 - The arity-2 shadow Theta^{<=2} (from Q, W)
 - The "generating function" of all higher shadows (from phi)
 
-The shadow tower is then determined: Theta^{<=r} for each r >= 2 is computed
+The shadow obstruction tower is then determined: Theta^{<=r} for each r >= 2 is computed
 from (Lambda, Q, W, phi) by the Borcherds lift (for the fibered case) or by
 DT computation (for the toric case). The full MC element Theta_A is the
 inverse limit.
@@ -521,7 +521,7 @@ its Dynkin diagram = quiver). It is a **Borcherds algebra**, which requires
 additional data: the imaginary simple roots and their multiplicities. This
 additional data is the Jacobi form phi -- the modular datum.
 
-The programme's central identification "automorphic correction = shadow tower"
+The programme's central identification "automorphic correction = shadow obstruction tower"
 (theory_automorphic_shadow.tex) makes this precise: the quiver is the base
 of the tower, and the modular datum generates the infinite tower of
 corrections that complete it to the full automorphic form.

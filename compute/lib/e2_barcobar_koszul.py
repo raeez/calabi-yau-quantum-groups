@@ -677,7 +677,7 @@ def r_matrix_q_inverse_check(k_val: int) -> Dict[str, Any]:
 
 
 # =========================================================================
-#  6. E_2 shadow tower and modular characteristic
+#  6. E_2 shadow obstruction tower and modular characteristic
 # =========================================================================
 
 def kappa_e1(algebra: str, k_val: object = Symbol("k")) -> object:
@@ -774,7 +774,7 @@ def kappa_e2_classical_limit(algebra: str) -> object:
 def e2_shadow_tower_comparison(
     k_numeric: int,
 ) -> Dict[str, Any]:
-    """Compare E_2 and E_1 shadow tower data at a specific level.
+    """Compare E_2 and E_1 shadow obstruction tower data at a specific level.
 
     At level k (a specific integer), compute and compare:
       - kappa_{E_1}(V_k(sl_2)) vs kappa_{E_2}(V_k(sl_2))
@@ -1154,7 +1154,7 @@ def e2_koszul_duality_summary() -> str:
         ("Sym(V)^!", "Λ(V*[-1])", "Sym(V*[-2])"),
         ("U_q(sl_2)^!", "N/A (no braiding)", "U_{q^{-1}}(sl_2)"),
         ("R-matrix", "Absent", "From E_2 braiding on bar"),
-        ("Shadow tower", "κ_{E_1}", "κ_{E_2} = κ_{E_1} + δ_braiding"),
+        ("Shadow obstruction tower", "κ_{E_1}", "κ_{E_2} = κ_{E_1} + δ_braiding"),
         ("Complementarity", "κ + κ^! = 0 (KM)", "Same (braiding correction cancels)"),
     ]
 

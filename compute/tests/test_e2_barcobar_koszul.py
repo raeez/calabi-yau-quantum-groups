@@ -5,7 +5,7 @@ Verifies:
   2. E_2 Koszul dual computation for Sym(V), T(V), U_q(sl_2)
   3. Quantum group R-matrix from E_2 bar complex braiding
   4. E_2 bar-cobar inversion (Theorem CY-B)
-  5. E_2 shadow tower and modular characteristic
+  5. E_2 shadow obstruction tower and modular characteristic
   6. Cross-volume compatibility with Vol I
 
 Manuscript references:
@@ -352,7 +352,7 @@ class TestE2BarCobarInversion:
 # ================================================================
 
 class TestE2ShadowTower:
-    """Test the E_2 shadow tower and kappa_{E_2}."""
+    """Test the E_2 shadow obstruction tower and kappa_{E_2}."""
 
     def test_kappa_e1_heisenberg(self):
         """kappa_{E_1}(H_k) = k (Vol I authoritative: kappa = level)."""

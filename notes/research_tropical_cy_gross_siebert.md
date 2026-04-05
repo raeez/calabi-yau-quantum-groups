@@ -102,7 +102,7 @@ A broken line in the Gross-Siebert framework is a piecewise-linear path in B tha
 
 The count of broken lines with given initial and final data computes the structure coefficients of the canonical algebra --- which are genus-0 GW invariants (or equivalently, genus-0 DT invariants). In the QVCG framework, these are the tree-level OPE coefficients, i.e., the structure constants of the E_1-sector (the CoHA).
 
-The higher-genus corrections (beyond genus 0) are not captured by the classical Gross-Siebert scattering diagram. They require "punctured log GW invariants" (Gross-Siebert 2021). In the QVCG language, the genus-g corrections are the arity-(2g+2) shadow tower components Theta^{(2g+2)}_A. The full MC element Theta_A requires the "quantum" scattering diagram, which incorporates all genera.
+The higher-genus corrections (beyond genus 0) are not captured by the classical Gross-Siebert scattering diagram. They require "punctured log GW invariants" (Gross-Siebert 2021). In the QVCG language, the genus-g corrections are the arity-(2g+2) shadow obstruction tower components Theta^{(2g+2)}_A. The full MC element Theta_A requires the "quantum" scattering diagram, which incorporates all genera.
 
 ### 3c. Consistency = MC equation
 
@@ -185,7 +185,7 @@ This is the vertex algebra enrichment of the Gross-Siebert framework. The scatte
 
 ### 5b. What is missing
 
-1. **Higher genus**: The classical Gross-Siebert scattering diagram captures genus-0 data only. The full QVCG requires all genera. The "quantum scattering diagram" (incorporating punctured log GW invariants at all genera) is needed. This is the tropical version of the full shadow tower Theta_A, not just Theta^{<=2}_A.
+1. **Higher genus**: The classical Gross-Siebert scattering diagram captures genus-0 data only. The full QVCG requires all genera. The "quantum scattering diagram" (incorporating punctured log GW invariants at all genera) is needed. This is the tropical version of the full shadow obstruction tower Theta_A, not just Theta^{<=2}_A.
 
 2. **The superalgebra structure**: The Gross-Siebert framework works with commutative algebras (the canonical ring). The superalgebra structure of the BKM (fermionic roots from negative BPS indices) is not directly visible tropically. One would need a "super" or "derived" tropical geometry to capture the Z/2-grading.
 
@@ -230,7 +230,7 @@ This conjecture, if true, would provide an effective algorithm for computing the
 
 4. **Develop the fibration story tropically** in theory_cy2_cy3_fibration.tex: the Borcherds lift phi_{0,1} -> Delta_5 should be reinterpreted as the passage from D_{B_S} to D_{B_S x B_E}.
 
-5. **Connect the "quantum scattering diagram"** (incorporating all genera via punctured log GW invariants) to the full shadow tower Theta_A. This is the tropical version of the shadow tower completion.
+5. **Connect the "quantum scattering diagram"** (incorporating all genera via punctured log GW invariants) to the full shadow obstruction tower Theta_A. This is the tropical version of the shadow obstruction tower completion.
 
 6. **The vertex algebra enrichment** (Section 4c) should be developed as a new research direction: the Gross-Siebert framework provides the skeleton, and the QVCG programme adds the vertex algebra flesh. This is the natural meeting point of the two programmes.
 

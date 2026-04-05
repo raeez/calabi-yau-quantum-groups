@@ -8,7 +8,7 @@ Covers all eight computation sectors:
   5. Elliptic Hall algebra limits
   6. Affine Yangian Y(gl_hat_1)
   7. Topological vertex at low partitions
-  8. Scattering diagrams from shadow tower
+  8. Scattering diagrams from shadow obstruction tower
 
 Ground truth references:
   - Plane partitions (OEIS A000219): 1, 1, 3, 6, 13, 24, 48, 86, 160, 282, 500
@@ -627,7 +627,7 @@ class TestTopologicalVertex:
 # ================================================================
 
 class TestScatteringDiagrams:
-    """Tests for scattering diagram / shadow tower connection."""
+    """Tests for scattering diagram / shadow obstruction tower connection."""
 
     def test_conifold_seed_walls(self):
         """Seed walls: Omega(e_1) = Omega(e_2) = (-1)^{1-1} = 1."""
@@ -688,7 +688,7 @@ class TestCrossVolume:
         assert result["dt_is_M_neg_q"] is True
 
     def test_shadow_coha_bridge(self):
-        """Shadow tower connects to CoHA via Drinfeld center."""
+        """Shadow obstruction tower connects to CoHA via Drinfeld center."""
         result = cross_volume_shadow_coha(10)
         assert result["E1_to_E2_via_center"] is True
 

@@ -1,5 +1,5 @@
 r"""
-Tests for HMS shadow equivalence: mirror CY categories have identical shadow towers.
+Tests for HMS shadow equivalence: mirror CY categories have identical shadow obstruction towers.
 
 Ground truth:
     - Polishchuk-Zaslow 1998: HMS for elliptic curves (PROVED)
@@ -187,7 +187,7 @@ class TestEllipticCurveHMS:
         assert result['class_match']
 
     def test_full_tower_agreement_arity5(self):
-        """Shadow towers agree to arity 5."""
+        """Shadow obstruction towers agree to arity 5."""
         ec = EllipticCurveHMS()
         result = ec.verify_hms_shadow(max_arity=5)
         assert result['all_agree']
