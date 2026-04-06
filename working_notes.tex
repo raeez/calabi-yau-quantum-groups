@@ -2268,6 +2268,38 @@ every genus --- genus $0$ included.  The formal framework connecting the proved 
 to the categorical structure is the single largest gap in the programme.
 
 
+% ------------------------------------------------------------
+\subsection{Gravitational identifications: heuristic programme}
+\label{subsec:gravitational-heuristic}
+% ------------------------------------------------------------
+
+The following identifications are \emph{heuristic} (AP42).
+
+\medskip
+\noindent\textbf{BPS entropy from $\kappa$.}
+$S_{\mathrm{BH}}(\gamma) = \pi\sqrt{|\mathcal{I}_4(\gamma)|}$;
+shadow $F_1 = \kappa/24$ gives the one-loop correction.
+OSV $Z_{\mathrm{BH}} = |Z^{\mathrm{sh}}|^2$ is a double conjecture.
+For the conifold: $\kappa = 1$, $\Omega(\gamma) = 1$, attractor at $t = 0$.
+(92 tests, \texttt{bps\_black\_hole\_e1\_engine.py}.)
+
+\medskip
+\noindent\textbf{Crystal melting $=$ BTZ microstates.}
+$Z_{\DT}(\C^3) = M(q)$; each $3$D partition is a BTZ microstate.
+$S \sim 2.009 \cdot n^{2/3}$ (Wright), a different universality class from Cardy ($n^{1/2}$).
+Shadow Cardy uses $c_{\mathrm{eff}} = 2\kappa \neq c$; for $K3 \times E$
+the ratio is $\sqrt{12/5} \approx 1.549$.
+(122 tests, \texttt{btz\_cy3\_e1\_engine.py}.)
+
+\medskip
+\noindent\textbf{Geometric Langlands $=$ $\Eone$ Koszul duality (conjectural).}
+$\mathrm{GL}(N)$ at critical $k = -N$: $\kappa(\widehat{\mathfrak{sl}}_{N,-N}) = 0$,
+FF center $= \mathrm{Fun}(\mathrm{Op}_{\mathrm{PGL}_N})$.
+The engine verifies necessary conditions (FF duality, YBE, self-duality), not the
+Langlands correspondence itself.
+(108 tests, \texttt{langlands\_cy3\_e1\_engine.py}.)
+
+
 % ============================================================
 %  Engine census: CY$_3$ $\Eone$ functor campaign (April 2026)
 % ============================================================
@@ -2950,6 +2982,115 @@ Several natural expectations were falsified by computation:
   \item \emph{Naive BCH does NOT reproduce $\phi_{0,1}$ multiplicities.}  The scattering diagram / shadow tower identification holds at the motivic Hall algebra level (AP42), but instantiating it at the naive BCH pair-commutator level gives quantitative mismatches by non-uniform ratios.  Verified in \texttt{cy\_wallcrossing\_engine.py}.
 
   \item \emph{Beilinson collection on $\bP^n$ does NOT give upper-triangular Ext.}  For $\bP^n$ with $n \geq 2$, the full Ext algebra $\mathrm{Ext}^*(\bigoplus \cO(i), \bigoplus \cO(j))$ has nonzero entries above the diagonal from Serre duality.  The Beilinson quiver is the minimal presentation, not the full Ext.  Verified in \texttt{cy\_constructive\_gluing\_engine.py}.
+\end{enumerate}
+
+
+% ============================================================
+\section{Frontier notes from the 30-agent swarm (2026-04-06)}
+\label{sec:swarm-frontier-notes}
+% ============================================================
+
+The following notes record insights from the systematic 30-agent
+computational investigation of the four Vol~I open problems
+(multi-generator universality, D-module purity converse, CohFT
+string equation, graph complex differential).
+
+\subsection{Cross-channel corrections for CY quantum groups}
+
+If the CY quantum group $G(X)$ is multi-weight---generators of
+different conformal weights from different Hodge components---then
+the genus expansion receives cross-channel corrections.  The formula
+$\delta F_2(\cW_3) = (c + 204)/(16c)$ is specific to $\cW_3$; for
+general CY quantum groups the correction depends on the OPE structure
+constants $\{C^k_{ij}\}$ and the propagator ratios
+$r_{ij} = \eta^{jj}/\eta^{ii}$.
+
+For $K3 \times E$ with $\kappa = 3$:
+\begin{itemize}
+  \item The Hodge decomposition $H^{1,1}(K3) \oplus H^{1,0}(E) \oplus
+    H^{0,1}(E)$ gives generators of mixed conformal weight.
+  \item If the generators have weights $(1, 1, 1)$ (all from
+    the Heisenberg lattice sector), the algebra is uniform-weight and
+    $\delta F_g^{\mathrm{cross}} = 0$.
+  \item If generators have distinct weights (e.g., from the
+    non-linear sigma model with $\alpha'$ corrections), the
+    cross-channel correction is nonzero.
+  \item The propagator ratio $r_{ij}$ for $K3$ generators is
+    determined by the Zamolodchikov metric of the $\cN = (4,4)$
+    superconformal algebra.
+\end{itemize}
+
+\begin{question}
+Compute $\delta F_2$ for the chiral algebra of $K3 \times E$.
+Does the cross-channel correction have an enumerative interpretation
+in terms of BPS state counts?  Connection to Gopakumar--Vafa
+integrality at genus~$2$?
+\end{question}
+
+\subsection{Graph complex and CY deformations}
+
+The Kontsevich graph complex $\mathrm{GC}_2$ controls formality
+obstructions for $E_2$-algebras.  For CY quantum groups, the
+relevant complex may be $\mathrm{GC}_3$ (3-dimensional CY).  The
+quartic formality obstruction $Q$ controls whether the deformation
+quantization of the CY category has higher-order corrections:
+\begin{itemize}
+  \item $Q = 0$ (class G/L): the CY deformation is governed by
+    its quadratic/cubic data alone.
+  \item $Q \neq 0$ (class C/M): the CY deformation has genuine
+    quartic (and possibly higher) corrections.
+  \item For $K3 \times E$: the shadow class should be L or C
+    (depending on whether the cubic shadow $\alpha$ vanishes).
+\end{itemize}
+
+\subsection{D-module purity for CY categories}
+
+The factorization homology $\mathrm{FH}_X(\cA_{CY})$ of a CY
+chiral algebra on a curve $X$ is a D-module on $\mathrm{Ran}(X)$.
+Purity of this D-module corresponds to ``regularity'' of the CY
+category.  The dual-gap structure from Vol~I applies:
+\begin{itemize}
+  \item Gap~1: the PBW filtration on the bar complex equals the
+    Saito weight filtration from mixed Hodge module theory.
+  \item Gap~2: weight filtration strictness implies PBW spectral
+    sequence degeneration.
+\end{itemize}
+For CY quantum groups arising from Chern--Simons theory on the CY,
+Gap~1 is expected to be resolved by chiral localization
+(Frenkel--Gaitsgory).  For CY quantum groups arising from
+topological string theory, the status is open.
+
+\subsection{The barbell graph as a CY amplitude}
+
+In the CY sigma model context, the barbell graph (two genus-$0$
+vertices with self-loops, connected by a bridge) corresponds to a
+specific 2-loop Feynman diagram: two boundary self-energy
+insertions (the self-loops) connected by a single bulk propagator
+(the bridge).  Its contribution to the genus-$2$ free energy is
+computable from the CY OPE.
+
+The $c$-independent lollipop piece $1/16$ (which persists at
+$c \to \infty$) has a potential interpretation as a topological
+intersection number on $\overline{\cM}_{2,0}$.  The specific value
+$1/16 = 1/(2 \cdot |\mathrm{Aut}_{\mathrm{lollipop}}| \cdot 4)$
+encodes the automorphism structure of the lollipop and the
+conformal Ward identity cancellation $C_{TWW} \cdot \eta^{TT} = 2$.
+
+\subsection{Research programme}
+
+\begin{enumerate}
+  \item Compute $\delta F_2$ for the CY quantum group of $K3 \times E$.
+  \item Determine the propagator ratios $r_{ij}$ for $K3$ generators
+    from the $\cN = (4,4)$ superconformal OPE.
+  \item Investigate connection to Gopakumar--Vafa integrality: does
+    the cross-channel correction have an integer expansion in BPS
+    multiplicities?
+  \item Determine whether the barbell graph contribution to
+    $\delta F_2$ has a wall-crossing interpretation in the derived
+    category $D^b(\mathrm{Coh}(K3 \times E))$.
+  \item Extend the D-module purity analysis to the CY factorization
+    homology: does purity $\Leftrightarrow$ Koszulness hold for CY
+    chiral algebras?
 \end{enumerate}
 
 
