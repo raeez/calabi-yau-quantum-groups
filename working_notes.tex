@@ -773,7 +773,7 @@ The banana manifold has $\kappa = 0$ but \emph{nonzero}
 quartic shadow $S_4 = -44$.  The shadow tower is class~$\mathbf{M}$
 with shifted start at arity~$4$.  Specifically:
 \begin{enumerate}[label=\textup{(\roman*)}]
-  \item $\kappa = \chi/24 = 0$ \textup{(}arity-$2$ scalar shadow vanishes\textup{)}.
+  \item $\kappa = 0$ \textup{(}arity-$2$ scalar shadow vanishes; $\chi = 0$ as well, but $\kappa = 0$ is an independent fact from the GV data, not from $\chi/24$\textup{)}.
   \item $S_3 = 0$ \textup{(}cubic shadow vanishes\textup{)}.
   \item $S_4 = -44 \neq 0$ \textup{(}quartic shadow from genus-$0$ GV instantons:
     $n^0_{0,1} = n^0_{1,0} = -2$, $n^0_{1,1} = -44$\textup{)}.
@@ -1357,7 +1357,7 @@ Five independent verifications of $\kappa(K3 \times E) = 5$:
 \label{warn:kappa-not-multiplicative}
 The modular characteristic is \emph{not} multiplicative under products.  For K3 fibers in the relative construction, $\kappa_{\mathrm{fiber}}(K3) = 24$ (the Mukai lattice rank; see Proposition~\ref{prop:k3e-relative-chiral}), but
 \[
-  \kappa_{\mathrm{fiber}}(K3) \cdot \kappa(E) = 24 \cdot 1 = 24, \quad\text{while}\quad \kappa(K3 \times E) = 5.
+  \kappa_{\mathrm{fiber}}(K3) \cdot \kappa(E) = 24 \cdot 1 = 24, \quad\text{while}\quad \kappa_{\mathrm{BPS}}(K3 \times E) = 5.
 \]
 The discrepancy $24 - 5 = 19$ (the ``lost'' units of Proposition~\ref{prop:k3e-kappa-upgrade}) is absorbed by inter-fiber bound states in the Borcherds product.  Note: the CY$_2$ categorical formula gives $\kappa_{\mathrm{cat}}(K3) = 12 = \chi_{\mathrm{top}}/2$ (see \S\ref{subsec:false-ideas-dismissed}, F2), which is yet a third value and illustrates the $\kappa$-polysemy flagged in F7.
 \end{warning}
@@ -1982,7 +1982,7 @@ $\sim\!20$ new compute engines and $\sim\!3{,}000$ tests.  The architecture:
 \item KS wall-crossing $=$ hocolim transition $=$ $\Eone$ MC gauge transformation (three-way equivalence,
   verified for conifold via quantum torus pentagon).
 \item Flop $=$ $\Eone$ Koszul duality at the chart level (conifold: flop exchanges charts,
-  $\kappa + \kappa^! = 0$).
+  $\kappa + \kappa^! = 0$ for the conifold, which is free-field type; AP24: this sum is NOT universally zero).
 \end{itemize}
 
 % ------------------------------------------------------------
@@ -2300,6 +2300,63 @@ Langlands correspondence itself.
 (108 tests, \texttt{langlands\_cy3\_e1\_engine.py}.)
 
 
+% ------------------------------------------------------------
+\subsection{Content heatmap: Vol~III sources in the three-volume programme}
+\label{subsec:content-heatmap}
+% ------------------------------------------------------------
+
+The following table maps each Vol~III chapter to its upstream dependencies
+in Vols~I and~II, the compute engines that verify its claims, and the
+current proof status.  Convention: \textsc{P} = proved, \textsc{C} = conjectural,
+\textsc{H} = heuristic (AP42).
+
+\medskip
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}l@{\;\;}l@{\;\;}l@{\;\;}c@{}}
+  \toprule
+  \textbf{Vol~III chapter} & \textbf{Vol~I/II source} & \textbf{Compute engine(s)} & \textbf{Status} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Vol~III chapter} & \textbf{Vol~I/II source} & \textbf{Compute engine(s)} & \textbf{Status} \\
+  \midrule
+  \endhead
+  %
+  \texttt{cy\_to\_chiral} & Thms A--B (I), SC$^{\mathrm{ch,top}}$ (II) & \texttt{e1\_universality\_cy3} & P/$d{=}2$, C/$d{=}3$ \\
+  \texttt{cy\_categories} & Koszul prog.\ (I \S8) & \texttt{cy\_shadow\_engine} & C \\
+  \texttt{e1\_chiral\_algebras} & Bar complex (I \S3--4) & \texttt{e1\_universality\_*} & P/toric \\
+  \texttt{e2\_chiral\_algebras} & Swiss-cheese (II \S2--3) & \texttt{higher\_cy\_en\_tower} & P/$d{=}2$ \\
+  \texttt{en\_factorization} & Thm H (I), PVA (II) & \texttt{higher\_cy\_en\_tower} & P \\
+  \texttt{hochschild\_calculus} & ChirHoch (I \S9) & \texttt{hochschild\_cy3\_engine} & C \\
+  \texttt{braided\_factorization} & Spec.\ braiding (II \S12) & --- & C \\
+  \texttt{drinfeld\_center} & Derived center (I \S11) & \texttt{drinfeld\_center\_cy3} & P/$d{=}2$ \\
+  \texttt{modular\_trace} & Annulus trace (I \S11.4) & \texttt{modular\_trace\_cy3} & C \\
+  \texttt{cyclic\_ainf} & $A_\infty$ formality (I \S8) & --- & C \\
+  \texttt{bar\_cobar\_bridge} & Thms A--D (I) & \texttt{bar\_cobar\_cy3\_*} & P/$d{=}2$ \\
+  \texttt{modular\_koszul\_bridge} & $\Theta_A$ (I \S7) & --- & C \\
+  \texttt{geometric\_langlands} & DK bridge (I \S14) & \texttt{langlands\_cy3\_e1} & H \\
+  \texttt{k3\_times\_e} & Shadow tower (I \S7) & \texttt{cy\_shadow\_*}, \texttt{bkm\_*} & P/genus 1 \\
+  \texttt{toric\_cy3\_coha} & CoHA (I App.~C) & \texttt{coha\_e1\_*} & P \\
+  \texttt{toroidal\_elliptic} & Eis.\ (I \S17), Arith.\ (I \S18) & \texttt{toroidal\_*}, \texttt{cy\_siegel\_*} & P/partial \\
+  \bottomrule
+\end{longtable}
+\end{center}
+
+\medskip
+\noindent\textbf{Dependency summary.}
+The CY-to-chiral functor (\texttt{cy\_to\_chiral}) is the single bottleneck:
+every chapter except the pure-lattice examples depends on it.
+At $d = 2$ (K3 surfaces), the functor is the lattice VOA construction
+(proved).  At $d = 3$, the functor requires chain-level $S^3$-framing
+of the CoHA (conjectural; see \S\ref{sec:outlook}).
+The $\Eone$ universality theorem (proved for toric CY$_3$, conjectural
+for compact) controls the passage from derived categories to chiral algebras.
+The $\Etwo$ braiding (proved for $d = 2$ via Maulik--Okounkov $R$-matrix)
+controls the passage from associative to commutative factorization.
+
+
 % ============================================================
 %  Engine census: CY$_3$ $\Eone$ functor campaign (April 2026)
 % ============================================================
@@ -2328,7 +2385,7 @@ The following engines were created during the CY$_3$ and non-CY campaigns:
   \texttt{quintic\_chart\_gluing} & $130$ & Mixed toric/MF, Orlov equivalence \\
   \texttt{ks\_hocolim\_equivalence} & $117$ & KS $=$ hocolim $=$ MC (3-way) \\
   \texttt{mutation\_e1\_equivalence} & $151$ & Mutation, cluster, exchange graph \\
-  \texttt{flop\_koszul\_duality} & $134$ & Flop $=$ $\Eone$ Koszul, $\kappa + \kappa^! = 0$ \\
+  \texttt{flop\_koszul\_duality} & $134$ & Flop $=$ $\Eone$ Koszul, $\kappa + \kappa^! = 0$ (conifold) \\
   \texttt{kappa\_chart\_gluing} & $127$ & Global $\kappa$ from nerve formula \\
   \texttt{shadow\_tower\_chart\_gluing} & $163$ & Local-to-global shadow tower \\
   \texttt{dt\_chart\_gluing\_verification} & $135$ & DT $=$ hocolim shadow verification \\
@@ -2462,6 +2519,18 @@ The pattern $\mathrm{CY}_d \to E_{d-2}$ predicts CY$_4 \to \Etwo$.  The swarm co
   \item \textbf{Operadic formality.}  $\Eone = \mathrm{Ass}$ is Koszul self-dual (unique among $E_n$ operads).  Both $\mathbf{C}^3$ and conifold hocolim algebras are \emph{formal} ($m_3 = 0$), verified by four paths: HPL termination, Massey vanishing, $\mathrm{HH}^2 = 0$ (hereditary), and Koszul implies formal.  ($95$ tests in \texttt{operadic\_koszul\_e1\_hocolim.py}.)
 
   \item \textbf{Quantum toroidal from $3$-chart hocolim.}  $U_{q,t}(\widehat{\widehat{\mathfrak{gl}}}_1)$ is constructed from the local~$\mathbf{P}^2$ $3$-chart hocolim.  The Seiberg duality cycle does \emph{not} compose as sequential mutations (exchange matrix entries grow exponentially); the correct atlas uses independent mutations of the \emph{original} quiver, related by conjugation.  The Miki automorphism satisfies $S^3 = \mathrm{id}$.  ($124$ tests in \texttt{quantum\_toroidal\_from\_3chart.py}.)
+
+  \emph{Formal statement.}  The three quiver charts of local~$\bP^2$ (related by the Seiberg duality orbit $Q_0 \xrightarrow{\mu_0} Q_1 \xrightarrow{\mu_1} Q_2 \xrightarrow{\mu_2} Q_0$) determine a cyclic diagram in $\Eone$-$\mathrm{ChirAlg}$, and the $\Eone$-chiral hocolim
+  \[
+    U_{q,t}(\widehat{\widehat{\mathfrak{gl}}}_1)
+    \;=\;
+    \operatorname{hocolim}\bigl(\CoHA(Q_0,W_0)
+    \rightrightarrows
+    \CoHA(Q_1,W_1)
+    \rightrightarrows
+    \CoHA(Q_2,W_2)\bigr)
+  \]
+  reproduces the quantum toroidal algebra through total degree~$6$.  The $\Z_3$ symmetry of the atlas is the Miki automorphism; the bar-hocolim commutation (Theorem~\ref{thm:bar-hocolim}) gives $B^{\Eone}(U_{q,t}) \simeq \operatorname{hocolim} B^{\Eone}(\CoHA_i)$, so the shadow tower of $U_{q,t}$ is assembled from the three local shadow towers.
 
   \item \textbf{Elliptic Hall algebra from $K3 \times E$.}  $E_{q,t}$ is realized as a hocolim over $\mathrm{Stab}(K3 \times E)$ with $6$ charts.  The SL$_2(\mathbf{Z})$ action (S and T transformations) consists of $\Eone$ automorphisms, not $\Etwo$.  Specializations: $q \to 0$ gives $Y^+(\widehat{\mathfrak{gl}}_1)$; $t \to 1$ gives $\mathcal{W}_{1+\infty}$; $q, t \to 1$ gives $\mathfrak{gl}_\infty$.  ($81$ tests in \texttt{elliptic\_hall\_hocolim.py}.)
 \end{enumerate}
@@ -2781,13 +2850,33 @@ For K3, the bar complex of the associated chiral algebra has rank-$16$ different
 
 The bar complex is the ``moral geometry'' of a chiral algebra in the following precise sense.  For a smooth projective variety $X$, the derived category $D^b(X)$ remembers the geometry of $X$ (Bondal--Orlov reconstruction theorem for varieties with ample or anti-ample canonical bundle).  The chiral algebra $A_X$ associated to $X$ (via CY-to-chiral or chiral de Rham) encodes the same information differently: through OPE coefficients instead of coherent sheaves.  The bar complex $B(A_X)$ then extracts the geometric content of $A_X$: it converts OPE data back into cohomological data, recovering (pieces of) $H^*(X)$, $\chi(X)$, and the deformation theory of $X$.
 
-\begin{observation}[The bar complex as a mirror]
-For a mirror pair $(X, X^\vee)$, HMS gives $D^b(X) \simeq D^b\mathrm{Fuk}(X^\vee)$.  The shadow-level consequence (from \texttt{hms\_shadow\_equivalence.py}):
+\begin{conjecture}[HMS shadow equivalence]
+\label{conj:hms-shadow-equivalence}
+\ClaimStatusConjectured{}
+\index{homological mirror symmetry!shadow equivalence}
+For a mirror pair $(X, X^\vee)$ where HMS gives
+$D^b(X) \simeq D^b\mathrm{Fuk}(X^\vee)$, the shadow obstruction
+towers agree:
 \[
-  \mathrm{shadow}(A_{D^b(X)}) = \mathrm{shadow}(A_{\mathrm{Fuk}(X^\vee)}).
+  \mathrm{shadow}(A_{D^b(X)}) \;=\; \mathrm{shadow}(A_{\mathrm{Fuk}(X^\vee)}).
 \]
-The bar complex of the A-model chiral algebra and the bar complex of the B-model chiral algebra produce identical shadow invariants.  The bar complex ``reflects'' the algebra into its mirror.
-\end{observation}
+In particular: $\kappa(A_{D^b(X)}) = \kappa(A_{\mathrm{Fuk}(X^\vee)})$,
+and the shadow depth classes coincide.
+The bar complex reflects the algebra into its mirror.
+\end{conjecture}
+
+\noindent\textit{Evidence.}  Verified for: (1)~elliptic curves
+(Polishchuk--Zaslow: both sides Heisenberg $H_1$, $\kappa = 1$);
+(2)~K3 quartic surface (Seidel, Sheridan: lattice VOA of rank~$22$);
+(3)~the resolved conifold ($\kappa = 1$ on both sides).
+See \texttt{hms\_shadow\_equivalence.py} ($87$ tests).
+The conjecture follows formally from HMS
+($D^b(X) \simeq D^b\mathrm{Fuk}(X^\vee)$ implies
+$\mathrm{CC}_\bullet(D^b(X)) \simeq \mathrm{CC}_\bullet(D^b\mathrm{Fuk}(X^\vee))$,
+and CY-A(ii) gives $B(A) \simeq \mathrm{CC}_\bullet$), but the
+chain of identifications $\mathrm{Fuk}(X^\vee) \to A_{\mathrm{Fuk}}
+\to B(A_{\mathrm{Fuk}})$ requires the $A$-model CY-to-chiral functor,
+which is not yet established in full generality.
 
 
 % ============================================================
@@ -2888,9 +2977,15 @@ More modestly: does $\mathrm{Spec}_\kappa$ distinguish K3-fibered CY3s from rigi
 \label{sec:leech-near-miss}
 % ============================================================
 
-The free-field character $1/\eta(\tau)^{24} = q^{-1}(1 + 24q + 324q^2 + 3200q^3 + \cdots)$ matches the Leech lattice VOA $V_\Lambda$ through order~$q^0$ (both give $1$ at $q^{-1}$, both give $24$ at $q^0$) but diverges at order~$q^1$: $324 \neq 196884$.  The difference at each order encodes the interacting structure of the Leech lattice VOA beyond free fields.
+% RECTIFICATION (AP9 conflation: V_Lambda vs V^natural):
+% The earlier Leech whisper section (sec:motivic-leech) correctly identifies
+% V_Lambda = Theta_Lambda/eta^{24}, which AGREES with 1/eta^{24} through q^1.
+% The number 196884 is the Monster module V^natural (j - 744), NOT V_Lambda.
+% The divergence 1/eta^{24} vs V_Lambda occurs at q^2, not q^1 (see table above).
+% The divergence 1/eta^{24} vs V^natural occurs at q^1: 324 vs 196884.
+The free-field character $1/\eta(\tau)^{24} = q^{-1}(1 + 24q + 324q^2 + 3200q^3 + \cdots)$ matches the Leech lattice VOA $V_\Lambda$ through order~$q^1$ (see Section~\ref{sec:motivic-leech}) but diverges at order~$q^2$: $3200 \neq 199760$.  In contrast, the \emph{Monster module} $V^\natural$ (with character $j - 744 = q^{-1} + 196884\,q + \cdots$) diverges from $1/\eta^{24}$ already at order~$q^1$: $324 \neq 196884$.  The difference encodes the interacting structure beyond free fields.
 
-At order~$q^1$: $196884 - 324 = 196560 = |\Lambda_4|/2$, where $\Lambda_4$ is the set of norm-$4$ vectors in the Leech lattice ($|\Lambda_4| = 2 \cdot 196560$).  The factor of $1/2$ comes from the $\Z_2$ identification $v \sim -v$ in the Leech lattice vertex operator construction.
+At order~$q^1$ (Monster vs free field): $196884 - 324 = 196560 = |\Lambda_4|/2$, where $\Lambda_4$ is the set of norm-$4$ vectors in the Leech lattice ($|\Lambda_4| = 2 \cdot 196560$).  The factor of $1/2$ comes from the $\Z_2$ identification $v \sim -v$ in the Leech lattice vertex operator construction.  At order~$q^2$ (Leech VOA vs free field): $199760 - 3200 = 196560 = |\Lambda_4|/2$ (the same lattice correction).
 
 \begin{question}
 Is there a formula for the difference $d_n = \dim(V_\Lambda)_{n+1} - p_{24}(n+1)$ at each order, where $p_{24}(m)$ is the coefficient of $q^m$ in $1/\eta^{24}$?  The first few values suggest $d_n$ counts lattice-theoretic data (norm vectors, kissing numbers, deep holes), but a closed-form expression is not known.  Is there a shadow tower interpretation: do the $d_n$ arise from higher-arity shadow corrections to the free-field Fock space?
@@ -2971,11 +3066,11 @@ Is there a shadow tower interpretation of $J$?  Since $J$ vanishes on $\cJ_4$, i
 Several natural expectations were falsified by computation:
 
 \begin{enumerate}
-  \item \emph{Shadow tower does NOT produce $\Phi_{10}$.}  The shadow obstruction tower of $K3 \times E$ lives on $\overline{\cM}_g$ (tautological classes), while $\Phi_{10}$ is a Siegel modular form on $\cA_2$.  These are categorically different objects.  The shadow tower detects $\kappa = 3$ at genus~$1$ and $F_2 = 7/1920$ at genus~$2$, but these are tautological intersection numbers, not Fourier coefficients of $\Phi_{10}$.  Proved in \texttt{cy\_shadow\_siegel\_bridge\_engine.py} and \texttt{cy\_siegel\_shadow\_engine.py}.
+  \item \emph{Shadow tower does NOT produce $\Phi_{10}$.}  The shadow obstruction tower of $K3 \times E$ lives on $\overline{\cM}_g$ (tautological classes), while $\Phi_{10}$ is a Siegel modular form on $\cA_2$.  These are categorically different objects.  The shadow tower detects $\kappa_{\mathrm{ch}} = 3$ (the chiral de Rham modular characteristic; AP9: this is NOT $\kappa_{\mathrm{BPS}} = 5$) at genus~$1$ and $F_2 = 7/1920$ at genus~$2$, but these are tautological intersection numbers, not Fourier coefficients of $\Phi_{10}$.  Proved in \texttt{cy\_shadow\_siegel\_bridge\_engine.py} and \texttt{cy\_siegel\_shadow\_engine.py}.
 
   \item \emph{$\kappa = 0$ does NOT imply $\Theta = 0$ (AP31).}  For the chiral de Rham complex ($c = 0$, $\kappa = 0$), the scalar curvature vanishes, but higher-arity shadow components can be nonzero.  This is the content of AP31 and was verified for CDR on K3 in \texttt{cy\_chiral\_derham\_k3\_engine.py}.
 
-  \item \emph{Vanishing elliptic genus does NOT imply $\kappa = 0$.}  $Z_{K3 \times E}(\tau,z) = 0$ (because $Z_E = 0$), but $\kappa(K3 \times E) = 3 \neq 0$.  The elliptic genus is a refined trace that can cancel; $\kappa$ measures the bar complex curvature, which is insensitive to such cancellations.  Verified in \texttt{cy\_elliptic\_genus\_k3e\_engine.py}.
+  \item \emph{Vanishing elliptic genus does NOT imply $\kappa = 0$.}  $Z_{K3 \times E}(\tau,z) = 0$ (because $Z_E = 0$), but $\kappa_{\mathrm{BPS}}(K3 \times E) = 5 \neq 0$.  The elliptic genus is a refined trace that can cancel; $\kappa$ measures the bar complex curvature, which is insensitive to such cancellations.  Verified in \texttt{cy\_elliptic\_genus\_k3e\_engine.py}.
 
   \item \emph{Bar complex dimensions do NOT match $M_{24}$ irrep dimensions.}  $\dim B^k(\cA_{K3}) = 8^k$, which never equals any $M_{24}$ irrep dimension ($45, 231, 770, \ldots$).  The $M_{24}$ symmetry acts on the full Hilbert space, not on the bar complex.  Negative result from \texttt{cy\_m24\_bar\_bridge\_engine.py}.
 
@@ -3005,7 +3100,7 @@ general CY quantum groups the correction depends on the OPE structure
 constants $\{C^k_{ij}\}$ and the propagator ratios
 $r_{ij} = \eta^{jj}/\eta^{ii}$.
 
-For $K3 \times E$ with $\kappa = 3$:
+For $K3 \times E$ with $\kappa_{\mathrm{ch}} = 3$ (chiral de Rham; $\kappa_{\mathrm{BPS}} = 5$, see Remark~\ref{rem:kappa-polysemy}):
 \begin{itemize}
   \item The Hodge decomposition $H^{1,1}(K3) \oplus H^{1,0}(E) \oplus
     H^{0,1}(E)$ gives generators of mixed conformal weight.

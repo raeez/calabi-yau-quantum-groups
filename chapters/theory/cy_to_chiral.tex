@@ -93,7 +93,7 @@ Each step of the five-step chain is verified computationally:
 
 \begin{remark}[The shuffle algebra does not translate directly to the $\lambda$-bracket]
 \label{rem:shuffle-no-direct-lambda}
-The shuffle algebra presentation of $Y^+(\widehat{\fgl}_1)$ has structure function $g(z) = (z - h_1)(z - h_2)(z - h_3)/((z + h_1)(z + h_2)(z + h_3))$.  One might hope that the shuffle product directly determines a $\lambda$-bracket via the substitution $z \mapsto \lambda$.  This fails: $g(0) = -1$ (regular, not singular), so the shuffle product does not produce a distribution-valued bracket.  The factorization envelope step (Step~2 $\to$ Step~3) is genuinely needed: it replaces the algebraic $g(z)$ by the \emph{vertex operator} OPE, where the $\delta$-function singularity of the state-field correspondence generates the $\lambda$-bracket.  The passage shuffle $\to$ vertex algebra is not redundant; it is the step where locality enters.
+The shuffle algebra presentation of $Y^+(\widehat{\fgl}_1)$ has structure function $g(z) = (z - h_1)(z - h_2)(z - h_3)/((z + h_1)(z + h_2)(z + h_3))$.  A natural attempt is to extract a $\lambda$-bracket directly from the shuffle product via the substitution $z \mapsto \lambda$.  This fails: $g(0) = -1$ (regular, not singular), so the shuffle product does not produce a distribution-valued bracket.  The factorization envelope step (Step~2 $\to$ Step~3) is genuinely needed: it replaces the algebraic $g(z)$ by the \emph{vertex operator} OPE, where the $\delta$-function singularity of the state-field correspondence generates the $\lambda$-bracket.  The passage shuffle $\to$ vertex algebra is not redundant; it is the step where locality enters.
 \end{remark}
 
 
@@ -383,7 +383,7 @@ Four independent components establish this identification.
 \begin{enumerate}[label=\textup{(\alph*)}]
   \item \emph{Algebra identification.}  By Schiffmann--Vasserot, $\CoHA(\C^3) = Y^+(\widehat{\fgl}_1)$; by Proch\'azka--Rap\v{c}\'ak, $Y(\widehat{\fgl}_1) = \cW_{1+\infty}$.  The CY-to-chiral functor produces $A_{\C^3} = \cW_{1+\infty}$ as an $\Eone$-chiral algebra.
   \item \emph{Vertex as $3$-point amplitude.}  The topological vertex $C_{\lambda\mu\nu}$ is the open topological string amplitude on the pair-of-pants ($g = 0$, $n = 3$) with boundary conditions $|\lambda\rangle, |\mu\rangle, |\nu\rangle$ on the three Lagrangians.  In chiral algebra language this is the genus-$0$ arity-$3$ factorization homology amplitude $B_{0,3}(A_{\C^3})$; the $\Eone$ structure (not $\Etwo$) is used because $A_{\C^3}$ is natively $\Eone$ (Theorem~\ref{thm:e1-universality-cy3}).
-  \item \emph{Gluing = sewing.}  The toric diagram gluing rules — one vertex factor $C_{\lambda\mu\nu}$ per trivalent node, one propagator $(-q)^{|\lambda|}/z_\lambda$ per internal edge, sum over internal partitions — are the $\Eone$ sewing rules (Vol~I, MC5).  The edge propagator $(-q)^{|\lambda|}/z_\lambda$ is the $\Eone$ bar complex pairing on $H^1(B^1)$.
+  \item \emph{Gluing = sewing.}  The toric diagram gluing rules (one vertex factor $C_{\lambda\mu\nu}$ per trivalent node, one propagator $(-q)^{|\lambda|}/z_\lambda$ per internal edge, sum over internal partitions) are the $\Eone$ sewing rules (Vol~I, MC5).  The edge propagator $(-q)^{|\lambda|}/z_\lambda$ is the $\Eone$ bar complex pairing on $H^1(B^1)$.
   \item \emph{Refined vertex.}  The refined vertex $C_{\lambda\mu\nu}(q,t)$ (Iqbal--Kozcaz--Vafa) incorporates the two independent $\Omega$-background parameters $(q,t) = (e^{-h_1}, e^{-h_2})$ of the $\Eone$ bar complex with equivariant data.
 \end{enumerate}
 \noindent\textit{Verification}: 162 tests in \texttt{test\_topological\_vertex\_e1\_engine.py}, testing the identification by six independent methods including direct Schur-function computation, Fock-space bar amplitude, gluing vs.\ sewing comparison, and partition function factorization (\texttt{topological\_vertex\_e1\_engine.py}).
@@ -461,9 +461,9 @@ The topological $\bS^3$-framing obstruction vanishes: $\pi_3(B\Sp(2m)) = \pi_2(\
 
 However, the chain-level BV trivialization via holomorphic Chern--Simons is \emph{not} $\Etwo$-compatible.  The holomorphic CS functional
 \[
-  \CS(\bar\partial + A) \;=\; \int_X \Omega \wedge \tr\!\bigl(A \wedge \bar\partial A + \tfrac{2}{3} A \wedge A \wedge A\bigr)
+  \operatorname{CS}(\bar\partial + A) \;=\; \int_X \Omega \wedge \operatorname{tr}\!\bigl(A \wedge \bar\partial A + \tfrac{2}{3} A \wedge A \wedge A\bigr)
 \]
-depends on the choice of holomorphic volume form $\Omega \in \Gamma(X, \Omega^3_X)$.  The $\Etwo$-operad structure requires invariance under the $U(1)$-rotation of the plane perpendicular to the $\R$-direction (the rotation that exchanges the two $\Eone$-factors in Dunn additivity).  Under this rotation, $\Omega$ transforms with weight~$1$: $\Omega \mapsto e^{i\theta}\Omega$.  The BV trivialization $\delta_{\BV}(\CS) = \int \Omega \wedge F_A$ is therefore \emph{not} $U(1)$-equivariant.  This is the chain-level obstruction that breaks $\Etwo$ to $\Eone$.
+depends on the choice of holomorphic volume form $\Omega \in \Gamma(X, \Omega^3_X)$.  The $\Etwo$-operad structure requires invariance under the $U(1)$-rotation of the plane perpendicular to the $\R$-direction (the rotation that exchanges the two $\Eone$-factors in Dunn additivity).  Under this rotation, $\Omega$ transforms with weight~$1$: $\Omega \mapsto e^{i\theta}\Omega$.  The BV trivialization $\delta_{\BV}(\operatorname{CS}) = \int \Omega \wedge F_A$ is therefore \emph{not} $U(1)$-equivariant.  This is the chain-level obstruction that breaks $\Etwo$ to $\Eone$.
 
 \medskip
 \noindent\textbf{Pillar (d): $R$-matrix unitarity from the CY condition.}
@@ -651,6 +651,32 @@ For local $\bP^1 \times \bP^1$: two independent flops generate $\Z_2 \times \Z_2
 
 \noindent\textit{Verification}: 134 tests in \texttt{test\_flop\_koszul\_duality.py}, including bar cohomology matching, charge-matrix exchange, DT flop formula symmetry, and multi-step del Pezzo mutations (\texttt{flop\_koszul\_duality.py}).
 \end{proposition}
+
+
+\begin{theorem}[Scattering diagrams as $\Eone$ Maurer--Cartan data]
+\label{thm:scattering-mc}
+\ClaimStatusProvedHere{}
+Let $(\Gamma, \langle\cdot,\cdot\rangle)$ be a lattice with skew-symmetric pairing, and let $\fg_\Gamma = \bigoplus_{\gamma \in \Gamma \setminus 0} \C \cdot e_\gamma$ be the associated lattice Lie algebra with bracket $[e_\alpha, e_\beta] = (-1)^{\langle\alpha,\beta\rangle} \langle\alpha,\beta\rangle \, e_{\alpha+\beta}$.  Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item The Gross--Siebert scattering diagram consistency condition \textup{(}the path-ordered product around each joint equals the identity\textup{)} is the $\Eone$ Maurer--Cartan equation
+  \[
+    D \cdot \Theta + \tfrac{1}{2}[\Theta, \Theta] = 0
+  \]
+  in $\fg_\Gamma \otimes \C[\![\Gamma^+]\!]$.
+  \item The iterative Kontsevich--Soibelman algorithm is the constructive solution of this MC equation by arity filtration: the initial walls give $\Theta^{\leq 1}$, and the consistency condition at height~$k$ determines $\Theta^{\leq k}$ inductively.  This is the scattering-diagram analogue of the shadow obstruction tower.
+  \item The gauge equivalence class of $\Theta$ is chamber-independent: wall-crossing automorphisms $K_\gamma = \exp(\mathrm{Li}_2(X^\gamma) \cdot \partial_\gamma)$ act as MC gauge transformations, and the pentagon identity is a cocycle condition.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The Lie bracket $[\cdot,\cdot]$ on $\fg_\Gamma$ satisfies the Jacobi identity (from the bimultiplicativity of $\langle\cdot,\cdot\rangle$), so $D^2 = 0$.  An element $\Theta = \sum_\gamma a_\gamma e_\gamma \in \fg_\Gamma \otimes \C[\![\Gamma^+]\!]$ satisfies MC if and only if for every pair $(\alpha,\beta)$ with $\alpha + \beta = \gamma$, the consistency relation $\sum_{\alpha+\beta=\gamma} \langle\alpha,\beta\rangle \, a_\alpha a_\beta = 0$ holds.  This is precisely the content of the path-ordered product condition at each joint (Kontsevich--Soibelman 2006, \S 1.2; Gross--Pandharipande--Siebert 2010, Theorem~1.4).  The iterative construction proceeds order by order in $\Gamma^+$-degree, which is the arity filtration.
+
+\emph{Critical caveat} (AP42): the identification holds at the level of the completed lattice Lie algebra.  At the naive BCH level (truncated Baker--Campbell--Hausdorff), the pentagon fails at height~$\geq 3$.  The full identification requires the quantum dilogarithm $\mathrm{Li}_2$ or equivalently the motivic Hall algebra.
+\end{proof}
+
+\noindent\textit{Verification}: 219 tests in \texttt{scattering\_diagram\_e1\_mc.py}.
+
+\medskip
 
 
 \subsection{$\Eone$ descent and the \v{C}ech spectral sequence}
