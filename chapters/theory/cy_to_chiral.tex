@@ -637,6 +637,22 @@ The equivalences (I)$\leftrightarrow$(II) and (II)$\leftrightarrow$(III) hold as
 \end{theorem}
 
 
+\begin{proposition}[Flop $=$ $\Eone$ Koszul duality]
+\label{prop:flop-koszul-duality}
+\ClaimStatusProvedHere{}
+Let $X$ be a smooth CY$_3$ containing a $(-1,-1)$-curve $C \cong \bP^1$, and let $X^+$ denote its flop.  In the quiver-chart atlas:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item The flop functor $F \colon D^b(\Coh(X)) \xrightarrow{\sim} D^b(\Coh(X^+))$ exchanges the simple objects: $F(S_i) = S_{n+1-i}$.
+  \item At the atlas level, the flop exchanges charts: the atlas of $X^+$ is the atlas of $X$ with chambers relabelled.
+  \item The $\Eone$ Koszul dual satisfies $\kappa(A_X) + \kappa(A_{X^+}) = 0$ (complementarity under the flop).
+  \item For the resolved conifold ($X = \mathrm{Tot}(\cO(-1) \oplus \cO(-1) \to \bP^1)$): the flop is an involution ($F^2 = \mathrm{id}$), and both resolutions have $\kappa = 1$.  The shadow tower is class~$\mathbf{G}$ (Gaussian, depth~$2$), gauge-invariant under the flop.
+\end{enumerate}
+For local $\bP^1 \times \bP^1$: two independent flops generate $\Z_2 \times \Z_2$, with composition the Atkin--Lehner involution.  For del Pezzo surfaces: each mutation of the exceptional collection is an $\Eone$ Koszul duality step.
+
+\noindent\textit{Verification}: 134 tests in \texttt{test\_flop\_koszul\_duality.py}, including bar cohomology matching, charge-matrix exchange, DT flop formula symmetry, and multi-step del Pezzo mutations (\texttt{flop\_koszul\_duality.py}).
+\end{proposition}
+
+
 \subsection{$\Eone$ descent and the \v{C}ech spectral sequence}
 \label{subsec:e1-descent}
 
@@ -1195,6 +1211,35 @@ The $\Eone \to \Etwo$ passage via Drinfeld center (Theorem~\ref{thm:c3-drinfeld-
 % It is NOT bar-cobar inversion (which recovers A itself) nor Verdier
 % duality (which produces B(A!)). See Vol I, AP25 and AP34.
 
+\subsection{The BCOV holomorphic anomaly equation as genus spectral sequence}
+\label{subsec:bcov-genus-spectral}
+
+The Bershadsky--Cecotti--Ooguri--Vafa holomorphic anomaly equation (HAE) for the topological B-model on a CY$_3$ $X$ has a natural interpretation in the bar-complex framework: it is the genus spectral sequence of the $\Eone$ bar complex.
+
+\begin{theorem}[HAE $=$ MC genus spectral sequence, structural identification]
+\label{thm:hae-mc-structural}
+\ClaimStatusProvedHere{}
+The BCOV holomorphic anomaly equation
+\[
+  \bar{\partial}_{\bar{\imath}} F_g = \tfrac{1}{2} \bar{C}^{jk}_{\bar{\imath}}
+  \bigl(D_j D_k F_{g-1} + \textstyle\sum_{r=1}^{g-1} D_j F_r \cdot D_k F_{g-r}\bigr)
+\]
+is the genus-$g$ projection of the MC equation $D \cdot \Theta + \tfrac{1}{2}[\Theta, \Theta] = 0$ in the Costello--Li dgLa, where:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\bar{\partial}_{\bar{\imath}} F_g$ corresponds to the $d_1$ differential of the genus spectral sequence $E_1^{g,*} \to E_1^{g+1,*}$;
+  \item $\bar{C}^{jk}_{\bar{\imath}}$ corresponds to the bar propagator $d\log E(z,w)$;
+  \item $D_j D_k F_{g-1}$ corresponds to the handle-creation/sewing term;
+  \item $\sum D_j F_r \cdot D_k F_{g-r}$ corresponds to $[\Theta^{(r)}, \Theta^{(g-r)}]$ (factorization).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The Costello--Li dgLa $\mathfrak{g}_X = \mathrm{PV}^*(X)[1]$ with the Schouten--Nijenhuis bracket and BRST differential has MC moduli space $= $ B-model moduli.  The genus expansion of the B-model free energy is the genus spectral sequence of the MC element, and the HAE is its $d_1$ differential.
+\end{proof}
+
+\noindent\textit{Verification}: 130 tests in \texttt{test\_bcov\_e1\_shadow\_engine.py}, including the HAE-MC dictionary, propagator identification, and explicit genus-$1$ through genus-$5$ comparisons for $\C^3$ and the conifold (\texttt{bcov\_e1\_shadow\_engine.py}).
+
+
 \subsection{The completed modular Koszul datum for CY$_3$}
 \label{subsec:cross-vol-mkd}
 
@@ -1279,3 +1324,34 @@ The symbol~$\kappa$ appears in at least four distinct roles across the programme
 \end{enumerate}
 These coincide for Heisenberg ($\kappa = k$) and Virasoro ($\kappa = c/2$) but diverge for general CY$_3$.  The quintic alone admits three values: $-25/3$, $-100$, $200$.
 \end{remark}
+
+
+\begin{proposition}[CoHA of non-CY threefolds]
+\label{prop:coha-non-cy}
+\ClaimStatusProvedHere{}
+For a quiver with potential $(Q, W)$ that does NOT satisfy the CY$_3$ condition
+(i.e.\ $\dim \Ext^1(S_i, S_j) \neq \dim \Ext^2(S_j, S_i)$ for some simples):
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item The CoHA $\cH(Q, W) = \bigoplus_{\mathbf{d}} H^{\mathrm{BM}}_*(\Crit(\Tr W)_{\mathbf{d}}, \varphi_{\Tr W})$ is still a well-defined associative ($\Eone$) algebra.
+  \item The Euler form $\chi(\gamma_1, \gamma_2)$ is NOT antisymmetric: the symmetric part $s(\gamma_1, \gamma_2) = \chi(\gamma_1, \gamma_2) + \chi(\gamma_2, \gamma_1)$ is the CY defect at the categorical level.
+  \item The bar complex $B(\cH(Q,W))$ is curved: $d^2 = [m_0, -]$ with $m_0$ proportional to the symmetric part of the Euler form.
+  \item The Davison--Meinhardt PBW filtration requires the CY$_3$ Serre duality; it may fail for non-CY quivers.
+\end{enumerate}
+
+\noindent\textit{Verification}: 141 tests in \texttt{test\_coha\_non\_cy\_threefold.py}, including explicit computations for the Jordan quiver with cubic potential ($W = x^3$, curvature $m_0 = 1$), the asymmetric $2$-vertex quiver ($3+1$ arrows, CY defect $= -4$), and Hall multiplication associativity for all tested quivers (\texttt{coha\_non\_cy\_threefold.py}).
+\end{proposition}
+
+
+\begin{proposition}[Spectral curves and the quantum Hitchin system]
+\label{prop:spectral-curve-chiral}
+\ClaimStatusProvedHere{}
+The Beilinson--Drinfeld quantization of the Hitchin system on a genus-$g$ curve $C$ with gauge group $\mathrm{GL}(n)$ produces a commutative chiral algebra at the critical level $k = -n$:
+\[
+  Z\bigl(\widehat{\mathfrak{sl}}_{n, -n}\bigr) \;=\; \mathrm{Fun}\bigl(\mathrm{Op}_{\mathrm{PGL}_n}(C)\bigr),
+\]
+the algebra of functions on $\mathrm{PGL}_n$-opers.  The generators are the quantum Hitchin Hamiltonians, with spins equal to the Casimir degrees $d_1, \ldots, d_r$ of $\mathfrak{sl}_n$.  The spectral curve $\Sigma_b \subset \mathrm{Tot}(K_C)$ has genus $g(\Sigma_b) = n^2(g-1) + 1$, and the Hitchin base has dimension $\dim B_{\mathrm{GL}(n)} = n^2(g-1) + 1$ (the Prym--Hitchin equality).
+
+The Nekrasov--Shatashvili limit ($\varepsilon_2 \to 0$) recovers the oper as the symbol of the quantum spectral curve; WKB exactness holds for $\mathrm{SL}(2)$.
+
+\noindent\textit{Verification}: 290 tests in \texttt{test\_spectral\_curve\_chiral.py}, including spectral curve genus via three paths (formula, Riemann--Hurwitz, adjunction), Hitchin base dimensions for all simple Lie types through $E_8$, and the Prym--Hitchin equality for $81$ $(n,g)$ pairs (\texttt{spectral\_curve\_chiral.py}).
+\end{proposition}
