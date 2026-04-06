@@ -17,10 +17,10 @@
 
 <br>
 
-![Tests](https://img.shields.io/badge/tests-~8200-58a6ff?style=for-the-badge&labelColor=0d1117)
-![Compute Modules](https://img.shields.io/badge/compute%20modules-219-a371f7?style=for-the-badge&labelColor=0d1117)
-![Chapters](https://img.shields.io/badge/chapters-22-3fb950?style=for-the-badge&labelColor=0d1117)
-![Notes](https://img.shields.io/badge/notes-22-d29922?style=for-the-badge&labelColor=0d1117)
+![Tests](https://img.shields.io/badge/tests-16935-58a6ff?style=for-the-badge&labelColor=0d1117)
+![Compute Modules](https://img.shields.io/badge/compute%20modules-321-a371f7?style=for-the-badge&labelColor=0d1117)
+![Chapters](https://img.shields.io/badge/chapters-23-3fb950?style=for-the-badge&labelColor=0d1117)
+![Notes](https://img.shields.io/badge/notes-42-d29922?style=for-the-badge&labelColor=0d1117)
 
 <br>
 
@@ -92,11 +92,11 @@ The algebraic engine. Constructs bar-cobar duality for chiral algebras via confi
 
 | Metric | Value |
 |--------|------:|
-| Pages | ~2,350 |
-| Tagged claims | ~3,300 |
-| Compute tests | ~39,000 |
-| Source files | 109 `.tex`, 272K lines |
-| Compute modules | 486 lib + 540 test files |
+| Pages | 2,434 |
+| Tagged claims | 3,379 |
+| Compute tests | 87,812 |
+| Source files | 111 `.tex`, 298K lines |
+| Compute modules | 909 lib + 961 test files |
 
 </details>
 
@@ -109,9 +109,9 @@ The three-dimensional interpretation. The bar differential is &Copf;-direction f
 
 | Metric | Value |
 |--------|------:|
-| Pages | ~1,340 |
-| Tagged claims | ~2,260 |
-| Source files | 99 `.tex`, 167K lines |
+| Pages | 1,511 |
+| Tagged claims | 2,376 |
+| Source files | 99 `.tex`, 183K lines |
 
 </details>
 
@@ -124,11 +124,12 @@ CY categories as quantum chiral algebras via E<sub>1</sub>/E<sub>2</sub> factori
 
 | Metric | Value |
 |--------|------:|
-| Theory chapters | 13 files, ~600 lines |
-| Example chapters | 6 files, ~324 lines |
-| Connection chapters | 3 files, ~41 lines |
-| Compute modules | 130 lib + 126 test files |
-| Compute tests | ~8,200 |
+| Theory chapters | 13 files |
+| Example chapters | 7 files |
+| Connection chapters | 3 files |
+| Source lines | 9,505 |
+| Compute modules | 162 lib + 159 test files |
+| Compute tests | 16,935 |
 | Theory notes | 11 files, ~11K lines |
 | Physics notes | 11 files, ~9K lines |
 | Research notes | 10 `.md` files |
@@ -489,7 +490,7 @@ chi/24 = -25/3  (not integer: obstruction to naive BKM structure)
 
 ## Compute
 
-130 modules, 126 test suites, **~8,200 tests** (including 37 new modules and 3,497 tests from the quiver-chart gluing campaign).
+162 modules, 159 test suites, **16,935 tests**.
 
 | Module | What it computes | Tests |
 |--------|-----------------|:-----:|
@@ -752,6 +753,6 @@ Requires: pdflatex with memoir/ebgaramond/newtxmath, Python 3.10+ with numpy/pyt
 
 <div align="center">
 
-<sub>22 chapters &ensp;&middot;&ensp; 22 theory + physics notes &ensp;&middot;&ensp; 130 compute modules &ensp;&middot;&ensp; ~8,200 tests &ensp;&middot;&ensp; 9 adversarial audit reports &ensp;&middot;&ensp; 3 volumes</sub>
+<sub>23 chapters &ensp;&middot;&ensp; 42 notes &ensp;&middot;&ensp; 321 compute modules &ensp;&middot;&ensp; 16,935 tests &ensp;&middot;&ensp; 9 adversarial audit reports &ensp;&middot;&ensp; 3 volumes</sub>
 
 </div>
