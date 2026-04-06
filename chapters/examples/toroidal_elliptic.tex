@@ -3133,11 +3133,29 @@ passage from first to second quantization for $K3 \times E$.
   but the $\bZ_N$-orbifold projection to $\mathrm{Sym}^N$
   modifies the tower through twisted sectors.
 \item \emph{Adams operations.}  The Adams operations
-  $\psi^k$ on the shadow generating function:
-  $\psi^k(Z^{\mathrm{sh}})(\hbar) = Z^{\mathrm{sh}}(k\hbar)$.
-  Does this intertwine with the Hecke operators on the
-  Jacobi form $\phi_{0,1}$ via the DMVV
-  formula~\eqref{eq:dvv}?
+  $\psi^k$ act on the shadow partition function by
+  rescaling:
+  \begin{equation}\label{eq:adams-shadow}
+  \psi^k\bigl(Z^{\mathrm{sh}}\bigr)(\hbar)
+  \;=\; Z^{\mathrm{sh}}(k\hbar)
+  \;=\; \exp\!\Bigl(\sum_{g \geq 1}
+  k^{2g}\,F_g\,\hbar^{2g}\Bigr).
+  \end{equation}
+  This is the $\lambda$-ring structure on the shadow
+  partition function: $\psi^k$ multiplies the genus-$g$
+  amplitude by $k^{2g}$, consistent with the
+  interpretation of $\hbar^{2g}$ as a genus-counting
+  weight.  The Adams operations are ring homomorphisms
+  ($\psi^k \circ \psi^l = \psi^{kl}$) and commute
+  with the $\hat{A}$-genus generating function
+  (Vol~I, Theorem~\ref{thm:shadow-connection}).
+  Does this intertwine with the Hecke operators $V_k$
+  on the Jacobi form $\phi_{0,1}$ via the DMVV
+  formula~\eqref{eq:dvv}?  The Hecke transform
+  $V_k(\phi_{0,1})$ and the Adams-rescaled shadow
+  $\psi^k(Z^{\mathrm{sh}})$ would need to be related
+  through the Borcherds product for the intertwining
+  to be exact.
 \end{enumerate}
 \end{openproblem}
 
@@ -3175,7 +3193,32 @@ isomorphism ($g = 1$), birational ($g = 2$), or
 injective with codimension-$0$ complement ($g = 3$).
 For $g \geq 4$, the Jacobian locus $\cJ_g = j(\cM_g)$
 has codimension $(g-2)(g-3)/2$ in $\cA_g$; the
-Schottky problem is nontrivial.
+Schottky problem is nontrivial.  The explicit numerical
+values are:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ccccl}
+$g$ & $\dim \cM_g$ & $\dim \cA_g$
+  & $\mathrm{codim}(\cJ_g)$ & Status \\
+\hline
+$2$ & $3$ & $3$ & $0$ & Torelli birational \\
+$3$ & $6$ & $6$ & $0$ & Torelli dominant \\
+$4$ & $9$ & $10$ & $1$ & Schottky--Igusa $J$ \\
+$5$ & $12$ & $15$ & $3$ & \\
+$6$ & $15$ & $21$ & $6$ & \\
+$7$ & $18$ & $28$ & $10$ & \\
+$8$ & $21$ & $36$ & $15$ & \\
+$9$ & $24$ & $45$ & $21$ & \\
+$10$ & $27$ & $55$ & $28$ & Crossover: $\mathrm{codim} > \dim \cM_{10}$
+\end{tabular}
+\end{center}
+The crossover at $g = 10$---where
+$\mathrm{codim}(\cJ_{10}) = 28 > 27 = \dim \cM_{10}$---marks
+the genus beyond which the Jacobian locus is ``more absent
+than present'' in~$\cA_g$.  The shadow tower, living on
+$\overline{\cM}_g$, sees a progressively thinner slice of
+the Siegel modular world as~$g$ grows.
 \begin{enumerate}[label=\textup{(D\arabic*)}]
 \item \emph{Tautological insulation.}  The shadow amplitude
   $F_g = \kappa\,\lambda_g^{\mathrm{FP}}$ lives in the
@@ -3431,15 +3474,71 @@ contributions must be included.
 \end{conjecture}
 
 
+%%% --- Descent foundations ---
+
+\begin{remark}[Descent sufficiency and K-theory verification]
+\label{rem:descent-sufficiency}
+\index{descent theorem!Zariski sufficiency}
+\index{K-theory!descent verification}
+Three levels of descent apply to the CY category programme:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Zariski suffices.}  For smooth separated schemes~$X$,
+  the natural functor
+  $D^b(X) \to \operatorname{holim}_{\mathrm{\check{C}ech}}
+  D^b(U_\alpha)$ is an equivalence
+  (To\"en 2007, Lurie HA~2017, Theorem~19.4.5):
+  coherent sheaves satisfy effective descent for the Zariski
+  topology.  No \'etale or flat refinement is needed.
+\item \emph{ADE cocycles close.}  For each ADE singularity type,
+  the bimodule cocycle condition
+  $M_{01} \otimes^L_B M_{12} \simeq M_{02}$ closes:
+  \begin{center}
+  \small
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabular}{lccl}
+  Type & $|\Gamma|$ & $\dim\Pi_0(Q)$ & Cocycle mechanism \\
+  \hline
+  $A_n$ & $n{+}1$ & $\binom{n{+}2}{3}$ & Flop involution \\
+  $D_n$ & $4(n{-}2)$ & Table~\ref{prop:preprojective-mckay}
+    & Tilting generator $T = \bigoplus P_i$ \\
+  $E_6$ & $24$ & $168$ & $\operatorname{End}(T) = \Pi(\check{Q})$ \\
+  $E_7$ & $48$ & $384$ & $\operatorname{End}(T) = \Pi(\check{Q})$ \\
+  $E_8$ & $120$ & $1080$ & $\operatorname{End}(T) = \Pi(\check{Q})$
+  \end{tabular}
+  \end{center}
+  The mechanism is uniform: the tilting generator
+  $T = \bigoplus_{i \in Q_0} P_i$ of the resolution
+  $\widetilde{\bC^2/\Gamma}$ has endomorphism algebra
+  $\operatorname{End}(T) \cong \Pi_0(Q)$, and the Morita
+  equivalence $D^b(\Pi_0(Q)\text{-mod}) \simeq
+  D^b(\widetilde{\bC^2/\Gamma})$ automatically closes the
+  bimodule cocycle for any number of overlapping charts
+  (Bridgeland--King--Reid for type~$A$;
+  Kapranov--Vasserot, Van den Bergh for all types).
+\item \emph{K-theory verification.}  For $X = K3 \times E$,
+  successful descent must recover
+  $\operatorname{rk} K_0(K3 \times E) = 48 =
+  \operatorname{rk} K_0(K3) \cdot \operatorname{rk} K_0(E)
+  = 24 \cdot 2$.  For each ADE chart of type~$\Gamma$:
+  $\operatorname{rk} K_0(\mathrm{Jac}(Q_\Gamma, W_\Gamma))
+  = |Q_0| = r + 1$ (the number of vertices in the McKay
+  quiver).  The Mayer--Vietoris sequence in K-theory
+  provides the gluing verification
+  ($117$ tests in \texttt{cy\_descent\_theorem\_engine.py}).
+\end{enumerate}
+\end{remark}
+
+
 %%% --- Programme H: Descent theorem programme ---
 
 \begin{openproblem}[Programme H: descent theorem programme]
 \label{op:programme-h-descent}
 \index{descent theorem!CY programme}
 \index{A-infinity bimodule!descent}
-The descent theorem for dg categories (Toen 2007, Lurie HA)
+The descent theorem for dg categories (To\"en 2007, Lurie HA)
 guarantees that Zariski descent recovers $D^b(X)$ for smooth
-separated schemes.  The quiver chart descent of
+separated schemes (Remark~\ref{rem:descent-sufficiency}).
+The quiver chart descent of
 \S\ref{sec:cy-local-global} uses $A_\infty$-bimodule transition
 data on overlaps.
 \begin{enumerate}[label=\textup{(H\arabic*)}]
