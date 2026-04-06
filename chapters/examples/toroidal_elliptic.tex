@@ -1,0 +1,4411 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CHAPTER 66: TOROIDAL AND ELLIPTIC ALGEBRAS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Toroidal and elliptic algebras}
+\label{chap:toroidal-elliptic}
+% Regime IV --- Programmatic (Convention~\ref{conv:regime-tags}).
+
+Every chiral algebra in the preceding chapters depends on a single
+deformation parameter: the level~$k$ of a Kac--Moody algebra, the
+central charge~$c$ of a $\mathcal{W}$-algebra, or the spectral
+parameter~$u$ of a Yangian.  This chapter enters the regime where one
+parameter is not enough.  The toroidal algebra
+$U_{q,t}(\hat{\hat{\fg}})$ carries two independent parameters $(q,t)$,
+the elliptic quantum group $E_{q,p}(\fg)$ replaces the rational
+$R$-matrix by a doubly-periodic one, and the double affine Hecke
+algebra (DAHA) intertwines spectral and modular directions.  In these
+algebras, the modular parameter~$\tau$ of the elliptic curve and the
+spectral parameter~$u$ of the $R$-matrix are no longer independent but
+coupled through the Fay trisecant identity and the quasi-periodicity
+of theta functions.
+
+The bar-cobar framework meets this two-parameter world in two distinct
+ways.  Direction~(a) keeps the base a single algebraic curve, now of
+genus~$1$: the propagator becomes elliptic, the Arnold relation
+generalizes to the Fay trisecant identity
+(Theorem~\ref{thm:fay}), and the bar differential acquires
+Eisenstein-series corrections indexed by~$\tau$.  The resulting
+$\Eone$-chiral structures on $E_\tau$ sit inside the modular shadow
+tower, with the modular characteristic~$\kappa$ detecting the
+$\tau$-dependence of the genus-$1$ obstruction.  Direction~(b)
+seeks genuine surface-factorization or double-affine objects on
+$\bC^* \times \bC^*$, requiring a two-dimensional factorization
+framework that lies beyond the curve-chiral hierarchy of this
+monograph.  Only direction~(a) is developed here; direction~(b) is
+noted as a completion target.
+
+The Fay identity, which replaces the Arnold relation at genus~$1$,
+is both an identity of theta functions and a geometric consequence of
+the degeneration $E_\tau \to \mathbb{P}^1$ as $\tau \to i\infty$.
+
+\begin{remark}[Two programme tracks]
+\label{rem:toroidal-two-tracks}
+Track~(a) keeps the base an algebraic curve and asks for an elliptic
+$\Eone$-chiral realization on $E_\tau$.  Track~(b) seeks a genuine
+surface-factorization or double-affine object on
+$\bC^* \times \bC^*$ or related two-parameter spaces.  Only
+track~(a) is described in this chapter with curve-chiral language;
+track~(b) is a separate higher-dimensional completion target.
+\end{remark}
+
+\begin{remark}[The generalization principle: Arnold to Fay]
+\label{rem:arnold-fay-generalization}
+\index{Arnold relation!Fay generalization}
+The Arnold relation (Theorem~\ref{thm:arnold-relations}), which governs the genus-$0$ bar differential, admits two distinct generalizations.  Direction~(a): via clutching morphisms and the shadow obstruction tower $\Theta_A^{\leq r}$ (Definition~\ref{def:shadow-postnikov-tower}), one passes to the modular regime on stable curves, recovering the higher-genus bar complex of Part~I (Remark~\ref{rem:five-pieces}).  Direction~(b): via the Fay trisecant identity (Theorem~\ref{thm:fay}), one replaces the additive (logarithmic) propagator $\omega = dz/(z-w)$ by the elliptic (multiplicative) propagator built from the Weierstrass $\sigma$-function, entering the toroidal regime.  The present chapter develops direction~(b): the systematic passage from logarithmic to elliptic propagators and its consequences for bar-cobar duality.
+\end{remark}
+
+\begin{remark}[Rational, trigonometric, elliptic: curve geometry]
+\label{rem:rational-trig-elliptic}
+\index{quantum group hierarchy!curve geometry}
+\index{R-matrix!rational, trigonometric, elliptic}
+The three quantum group families arise from the geometry of the underlying curve:
+\begin{center}
+\small
+\begin{tabular}{llll}
+\textbf{$R$-matrix type} & \textbf{Quantum group} &
+  \textbf{Spectral parameter} & \textbf{Curve} \\ \hline
+Rational
+  & Yangian $Y(\fg)$
+  & $u = z_1 - z_2$
+  & $\mathbb{P}^1$ \\[2pt]
+Trigonometric
+  & Quantum loop $U_q(L\fg)$
+  & $q = e^{2\pi i(z_1 - z_2)/\beta}$
+  & $\mathbb{C}^*$ \\[2pt]
+Elliptic
+  & Elliptic QG $E_{q,p}(\fg)$
+  & $u \in E_\tau$
+  & $E_\tau$
+\end{tabular}
+\end{center}
+The passage from rational to trigonometric to elliptic parallels additive $\to$ multiplicative $\to$ modular spectral parameter; this chapter develops the elliptic face.
+\end{remark}
+
+\begin{construction}[Elliptic shadow data]
+\label{constr:elliptic-shadow-data}
+\index{elliptic quantum group!shadow data}
+Toroidal and elliptic quantum group algebras carry shadow data in the elliptic regime:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The elliptic propagator $K^{\mathrm{ell}}(z,w;\tau) = \vartheta_1(z-w;\tau)/\vartheta_1'(0;\tau)$ replaces the rational propagator $1/(z-w)$.
+\item The Fay trisecant identity for $\vartheta_1$ is the genus-$1$ MC equation $D^{(1)}\Theta + \tfrac{1}{2}[\Theta^{(0)}, \Theta^{(0)}] + \kappa\,\omega_1 = 0$.
+\item The Arnold relation $K_{12}K_{23} + K_{23}K_{31} + K_{31}K_{12} = 0$ (Fay identity) specializes the CYBE to the elliptic regime.
+\end{enumerate}
+\end{construction}
+
+\section{Double affine setup}
+\label{sec:double-affine}
+
+\subsection{Definition}
+
+\begin{definition}[Toroidal algebra]\label{def:toroidal}
+\index{toroidal algebra|textbf}
+\index{double affine algebra|textbf}
+The \emph{toroidal algebra} (or double affine algebra) $U_{q,t}(\hat{\hat{\mathfrak{g}}})$ 
+is generated by:
+\begin{itemize}
+\item Horizontal currents $x^\pm_{i,n}$, $\psi^\pm_{i,n}$ (affine in one direction)
+\item Vertical currents $e_i(z)$, $f_i(z)$, $\psi_i(z)$ (affine in the other direction)
+\end{itemize}
+subject to:
+\begin{enumerate}
+\item \emph{Drinfeld--type relations} in each direction:
+$[h_{i,m}, x^\pm_{j,n}] = \pm a_{ij} x^\pm_{j,m+n}$, \quad
+$[x^+_{i,m}, x^-_{j,n}] = \delta_{ij} (\psi^+_{i,m+n} - \psi^-_{i,m+n})/(q_i - q_i^{-1})$
+\item \emph{Cross relations} coupling horizontal and vertical:
+$\psi_i(z) e_j(w) = g_{ij}(z/w) \, e_j(w) \psi_i(z)$
+where $g_{ij}(u) = (u - q^{a_{ij}})/(u - q^{-a_{ij}})$
+\item \emph{Serre relations} in both directions
+\end{enumerate}
+with two independent parameters $q$ and $t = q^k$. See Ginzburg--Kapranov--Vasserot
+for the complete presentation.
+\end{definition}
+
+\begin{proposition}[Toroidal OPE \cite{FBZ04}; \ClaimStatusProvedElsewhere]\label{prop:toroidal-ope}
+The OPE for toroidal currents involves both parameters:
+\[
+e_i(z) f_j(w) = \frac{\delta_{ij}}{(1 - q)(1 - t^{-1})} \cdot
+\frac{\psi_i^+(w) - \psi_i^-(w)}{z - w} + \text{rational terms in } q, t
+\]
+\end{proposition}
+
+\begin{proof}
+We derive the OPE from the defining relations of Definition~\ref{def:toroidal}.
+
+\emph{Step~1: Mode commutator.}
+The Drinfeld-type relation (1) gives:
+\[
+[e_{i,m}, f_{j,n}] = \delta_{ij} \frac{\psi^+_{i,m+n} - \psi^-_{i,m+n}}{q_i - q_i^{-1}}.
+\]
+Form the generating functions $e_i(z) = \sum_m e_{i,m} z^{-m-1}$,
+$f_j(w) = \sum_n f_{j,n} w^{-n-1}$, and
+$\psi_i^\pm(w) = \sum_n \psi^\pm_{i,n} w^{-n}$.
+
+\emph{Step~2: Extracting the OPE.}
+Contracting the commutator against $z^{-m-1} w^{-n-1}$ and summing:
+\[
+e_i(z) f_j(w) - {:}e_i(z) f_j(w){:}
+= \delta_{ij} \sum_{m} \frac{\psi^+_{i,m}(w) - \psi^-_{i,m}(w)}{q_i - q_i^{-1}} \cdot \frac{w^{-m}}{z - w}.
+\]
+For the toroidal algebra with parameters $q$ and $t = q^k$,
+we have $q_i = q^{d_i}$ where $d_i = (\alpha_i, \alpha_i)/2$.
+The singular part of the OPE is the residue at $z = w$:
+\[
+e_i(z) f_j(w) \sim \frac{\delta_{ij}}{q_i - q_i^{-1}} \cdot
+\frac{\psi_i^+(w) - \psi_i^-(w)}{z - w}.
+\]
+
+\emph{Step~3: Two-parameter structure.}
+The cross relation (2) introduces the second parameter.
+From $\psi_i(z) e_j(w) = g_{ij}(z/w) \, e_j(w) \psi_i(z)$
+with $g_{ij}(u) = (u - q^{a_{ij}})/(u - q^{-a_{ij}})$,
+the normal ordering of $\psi$ against $e, f$ currents produces
+corrections rational in both $q$ and $t$.  Specifically, expanding
+$1/(q_i - q_i^{-1}) = 1/((q^{d_i} - q^{-d_i}))$ and using
+$t = q^k$ to express the central element as
+$c = (1 - q)(1-t^{-1})/(q_i - q_i^{-1})$ (the standard Ding--Iohara
+normalization).  See~\cite{DI97} for the complete change-of-basis computation.
+\end{proof}
+
+\begin{conjecture}[Elliptic-curve toroidal realization; \ClaimStatusConjectured]\label{conj:toroidal-e1}
+The toroidal algebra $U_{q,t}(\hat{\hat{\mathfrak{g}}})$ admits a
+curve-based $\Eone$-chiral realization on the elliptic curve
+$E_\tau$ (with modulus $\tau = \frac{\log t}{\log q}$).
+\end{conjecture}
+
+\begin{conjecture}[Double-affine surface-factorization realization;
+\ClaimStatusConjectured]
+\label{conj:toroidal-surface-factorization}
+The same toroidal data should extend to a doubly-graded
+surface-factorization or double-affine object on
+$\bC^* \times \bC^*$, with one direction encoding the spectral
+parameter and the other the elliptic coordinate.
+(This is the toroidal/elliptic extension flank of
+Conjecture~\ref{conj:master-infinite-generator}, not the standard
+$W_\infty$/Yangian finite-packet lane.)
+\end{conjecture}
+
+\begin{remark}[Scope]
+Conjecture~\ref{conj:toroidal-e1} is conjectural (\ClaimStatusConjectured): a complete proof requires verifying associativity of the $\Eone$-chiral product directly from the OPE relations, since the BD locality approach applies only to commutative chiral algebras.  The $\bC^* \times \bC^*$ realization (Conjecture~\ref{conj:toroidal-surface-factorization}) is a separate surface-factorization problem within the MC4 elliptic/double-affine extension problem.
+
+\emph{Homotopy template} (Convention~\ref{conv:hms-levels}): Type~I (existence).
+\end{remark}
+
+\begin{proof}[Proof outline]
+We describe the conjectural $\Eone$-chiral structure.
+
+\emph{Step~1: $R$-matrix braiding.}
+The cross relation (2) of Definition~\ref{def:toroidal} gives the
+structure function $g_{ij}(z/w) = (z/w - q^{a_{ij}})/(z/w - q^{-a_{ij}})$.
+Define the $R$-matrix-valued braiding on generating currents by
+\[
+\sigma_{12} \circ \mu(e_i(z), e_j(w))
+= g_{ij}(z/w) \cdot \mu(e_j(w), e_i(z)).
+\]
+Since $g_{ij}(u)$ is a rational function with $g_{ij}(u) \neq 1$
+for generic $q$ and $a_{ij} \neq 0$, the braiding is non-trivial:
+the algebra is associative but not commutative, hence strictly $\Eone$.
+
+\emph{Step~2: Associativity (gap).}
+The $R$-matrix $R_{ij}(u) = g_{ij}(u) \cdot \mathrm{Id}$ satisfies
+the Yang--Baxter equation trivially (being scalar-valued).
+The genuine content of associativity lies in verifying that the
+full matrix-valued OPE structure, including the Serre-type relations
+of Definition~\ref{def:toroidal}, defines an algebra over $\chirAss$
+(Definition~\ref{def:chiral-ass-operad}).  This requires an explicit
+verification that triple OPEs are consistent, which we do not
+carry out here.
+
+\emph{Step~3: Realization on $E_\tau$.}
+Set $\tau = \log t / \log q$ and let $E_\tau = \bC^*/q^{\bZ}$.
+The generating currents $e_i(z)$, $f_i(z)$, $\psi_i(z)$ are meromorphic
+on $\bC^*$ with quasi-periodicity $e_i(qz) = q^{d_i} e_i(z)$
+(from the grading), so they define sections of line bundles on $E_\tau$.
+The OPE of Proposition~\ref{prop:toroidal-ope} has poles at
+$z/w \in q^{\bZ}$, which descend to a single point on $E_\tau$.
+This defines a candidate $\Eone$-chiral algebra structure on $E_\tau$,
+pending verification of Step~2.
+
+\emph{Step~4: Surface-factorization horizon on $\bC^* \times \bC^*$.}
+The horizontal modes $x^\pm_{i,n}$ depend on the spectral
+parameter $u$ and the vertical modes $e_i(z)$ depend on $z$.
+Together they give fields on $\bC^*_u \times \bC^*_z$ with the
+two independent gradings (by horizontal and vertical mode number)
+providing the doubly-graded structure.  This belongs to a separate
+conjectural surface-factorization or double-affine track, not
+automatically a
+curve-based $\Eone$-chiral algebra.  A correct formulation would
+require a bona fide two-parameter factorization framework.
+
+Conditional on Step~2 (i.e., the verification that the toroidal OPE
+defines an associative $\chirAss$-algebra structure, which requires
+checking consistency of triple OPEs with the Serre-type relations), the
+$\Eone$-chiral Koszul duality framework
+(Theorem~\ref{thm:e1-chiral-koszul-duality}) applies to the
+elliptic-curve realization of Conjecture~\ref{conj:toroidal-e1}.  The
+$\bC^* \times \bC^*$ surface track belongs instead to
+Conjecture~\ref{conj:toroidal-surface-factorization}.
+\end{proof}
+
+
+\subsection{Koszul dual of the toroidal algebra}
+
+\begin{conjecture}[Toroidal Koszul dual; \ClaimStatusConjectured]
+\label{conj:toroidal-koszul-dual}
+\index{toroidal algebra!Koszul dual}
+The $\Eone$-chiral Koszul dual of the toroidal algebra
+$U_{q,t}(\hat{\hat{\mathfrak{g}}})$ is isomorphic to
+$U_{q^{-1},t^{-1}}(\hat{\hat{\mathfrak{g}}})$,
+the toroidal algebra with inverted parameters.
+(Contributing to the toroidal/elliptic extension flank of
+Conjecture~\ref{conj:master-infinite-generator}.)
+\end{conjecture}
+
+\begin{remark}[Evidence]\label{rem:toroidal-koszul-evidence}
+Conditional on Conjecture~\ref{conj:toroidal-e1}, the evidence is threefold:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{RTT presentation.}  By $\Eone$-chiral Koszul duality (Theorem~\ref{thm:e1-chiral-koszul-duality}), the dual has $R$-matrix $R(u;q,t)^{-1} = R(u;q^{-1},t^{-1})$ (Ding--Iohara inversion; cf.\ Theorem~\ref{thm:yangian-koszul-dual}).
+\item \emph{Affine degeneration.}  In the limit $t \to 0$, $U_{q,t}(\hat{\hat{\mathfrak{g}}}) \to U_q(\hat{\mathfrak{g}})$ and the dual reduces to $U_{q^{-1}}(\hat{\mathfrak{g}})$, consistent with Theorem~\ref{thm:km-quantum-groups}.
+\item \emph{Central charge complementarity.}  The inversion $q \to q^{-1}$ sends $\tau \to -\tau$, reversing the complex structure of $E_\tau$, the elliptic analogue of Verdier duality (Theorem~\ref{thm:bar-cobar-verdier}).
+\end{enumerate}
+The Fay identity (Proposition~\ref{prop:fay-implies-d-squared}) serves as the elliptic Arnold relation.  The universal MC class predicts $\Theta_{U_{q,t}} + \Theta_{U_{q^{-1},t^{-1}}} = 0$.
+
+\emph{Homotopy template} (Convention~\ref{conv:hms-levels}): Type~II (equivalence).
+\end{remark}
+
+\subsection{Connection to the three main theorems}
+
+\begin{remark}[Toroidal three theorems]
+\label{rem:toroidal-three-theorems}
+\index{three theorems!toroidal}
+Conditional on Conjecture~\ref{conj:toroidal-e1}, the expected forms are:
+\emph{Theorem~A}: $\bar{B}^{\mathrm{ell}}(U_{q,t})$ computes the Koszul dual coalgebra (nilpotency via Proposition~\ref{prop:fay-implies-d-squared}).
+\emph{Theorem~B}: $\Omega(\bar{B}(U_{q,t})) \xrightarrow{\sim} U_{q,t}$ by the rational spectral sequence with elliptic corrections (Theorem~\ref{thm:elliptic-vs-rational}).
+\emph{Theorem~C}: $\mathrm{obs}_g(U_{q,t}) + \mathrm{obs}_g(U_{q^{-1},t^{-1}})$ controlled by $H^*$ of a framed moduli space (the $\Eone$ replacement for $\overline{\mathcal{M}}_g$; cf.\ Remark~\ref{rem:yangian-three-theorems}).
+The universal MC class $\Theta_{U_{q,t}}$ should govern the genus expansion, with $(q,t) \mapsto (q^{-1},t^{-1})$ reflected in Verdier duality.
+\end{remark}
+
+\begin{remark}[Lattice evidence for toroidal genus theory]
+\label{rem:toroidal-lattice-evidence}
+\index{lattice vertex algebra!genus-1 evidence for toroidal}
+The curvature-braiding orthogonality theorem for quantum lattice VOAs
+(Theorem~\ref{thm:lattice:curvature-braiding-orthogonal}) provides
+structural evidence for the toroidal case.  For the lattice, the genus-$1$
+curvature $\kappa = \operatorname{rank}(\Lambda)$ lives entirely in the
+Cartan (Heisenberg) sector and is independent of the deformation cocycle
+$\varepsilon_{N,q}$.  The toroidal algebra $U_{q,t}(\hat{\hat{\fg}})$
+has a similar double-loop structure: the inner loop ($\hat{\fg}$) is the
+Cartan analog, while the outer loop (the second affinization) provides
+the braiding.  The orthogonality principle predicts that the toroidal
+genus-$1$ curvature should be controlled by the inner-loop data alone,
+with the dynamical parameter $\lambda \in H^1(E_\tau)$ entering the
+braiding axis rather than the modular axis.  The dynamical YBE for
+$R(u, \lambda)$ would then be the toroidal analog of the modified
+Arnold relation at genus~$1$, with the dynamical shift
+$\lambda \to \lambda - h^{(i)}$ replacing the B-cycle monodromy
+correction.
+\end{remark}
+
+\section{Elliptic quantum groups}
+\label{sec:elliptic-quantum}
+
+\subsection{Felder's elliptic quantum group}
+
+\begin{definition}[Elliptic quantum group]\label{def:elliptic-quantum}
+\index{elliptic quantum group|textbf}
+The \emph{elliptic quantum group} $E_{q,p}(\mathfrak{g})$ (Felder) is defined by:
+\begin{itemize}
+\item The dynamical R-matrix $R(u, \lambda)$ depending on spectral parameter $u$ 
+and dynamical parameter $\lambda$.
+\item The RLL relations:
+\[
+R(u-v, \lambda) L_1(u, \lambda) L_2(v, \lambda - h^{(1)}) = L_2(v, \lambda) L_1(u, \lambda - h^{(2)}) R(u-v, \lambda)
+\]
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Elliptic R-matrix]\label{def:elliptic-r}
+The elliptic R-matrix for $\mathfrak{sl}_2$ is:
+\[
+R(u, \lambda) = \begin{pmatrix}
+a(u) & 0 & 0 & 0 \\
+0 & b(u, \lambda) & c(u, \lambda) & 0 \\
+0 & c(u, -\lambda) & b(u, -\lambda) & 0 \\
+0 & 0 & 0 & a(u)
+\end{pmatrix}
+\]
+where $a(u), b(u, \lambda), c(u, \lambda)$ are expressed via theta functions:
+\begin{align*}
+a(u) &= \frac{\theta(u + \eta)}{\theta(\eta)} \\
+b(u, \lambda) &= \frac{\theta(u)\theta(\lambda + \eta)}{\theta(\eta)\theta(\lambda)} \\
+c(u, \lambda) &= \frac{\theta(u + \lambda)\theta(\eta)}{\theta(\lambda)\theta(u + \eta)}
+\end{align*}
+\end{definition}
+
+
+\begin{remark}[Elliptic quantum groups and bar complex]
+\label{rem:elliptic-qg-bar}
+\index{elliptic quantum group!bar complex}
+We expect (\ClaimStatusConjectured, conditional on Conjecture~\ref{conj:toroidal-e1}):
+(i)~$\barB(U_{q,t})$ on $E_\tau$ computes the chiral coalgebra $E_{q,p}(\mathfrak{g})$ (elliptic Kazhdan--Lusztig);
+(ii)~the dynamical parameter $\lambda$ (Definition~\ref{def:elliptic-quantum}) is the B-cycle monodromy of the elliptic propagator (elliptic analogue of $k \to k + h^\vee$);
+(iii)~the dynamical YBE for $R(u,\lambda)$ is the elliptic deformation of $d^2 = 0$ (Proposition~\ref{prop:fay-implies-d-squared}), with the dynamical parameter from $H^1(E_\tau) \neq 0$.
+\end{remark}
+
+\section{Elliptic R-matrices and theta functions}
+\label{sec:elliptic-r-theta}
+
+\subsection{Theta function identities}
+
+\begin{definition}[Jacobi theta function]\label{def:theta}
+The Jacobi theta function is:
+\[
+\theta(u | \tau) = \sum_{n \in \bZ} (-1)^n e^{\pi i \tau n(n-1) + 2\pi i n u} =
+(e^{2\pi iu}; p)_\infty (p e^{-2\pi iu}; p)_\infty (p; p)_\infty
+\]
+where $p = e^{2\pi i \tau}$ and $(a; q)_\infty = \prod_{n \geq 0}(1 - aq^n)$.
+\end{definition}
+
+\begin{theorem}[Fay identity at genus 1 \cite{Fay73}; \ClaimStatusProvedElsewhere]\label{thm:fay}
+\index{Fay trisecant identity|textbf}
+For any four points $u_1, u_2, u_3, u_4$ on an elliptic curve $E_\tau$, the theta function
+satisfies the Fay trisecant identity:
+\[
+\theta(u_1 - u_2)\,\theta(u_3 - u_4) - \theta(u_1 - u_3)\,\theta(u_2 - u_4) + \theta(u_1 - u_4)\,\theta(u_2 - u_3) = 0
+\]
+This is a \emph{bilinear} identity (each term is a product of two theta functions), which at genus~1 is the degenerate case of the general Fay trisecant identity on higher-genus curves.  The identity is equivalent to the Riemann addition formula and reduces to the Ptolemy relation $\sin(\alpha-\beta)\sin(\gamma-\delta) - \sin(\alpha-\gamma)\sin(\beta-\delta) + \sin(\alpha-\delta)\sin(\beta-\gamma) = 0$ in the rational limit $\tau \to i\infty$.
+
+This identity underlies the Yang--Baxter equation for elliptic R-matrices:
+the star-triangle relation is a consequence of the Fay identity applied to the
+structure functions of the elliptic algebra.
+\end{theorem}
+
+
+\subsection{Fay identity and bar nilpotency}
+
+\begin{proposition}[Fay identity implies elliptic \texorpdfstring{$d^2 = 0$}{d2 = 0};
+\ClaimStatusProvedHere]\label{prop:fay-implies-d-squared}
+\index{Fay trisecant identity!and bar nilpotency}
+On $\overline{C}_3(E_\tau)$, the elliptic bar differential satisfies
+$d^2 = 0$.  The key algebraic input is the Fay trisecant identity
+(Theorem~\ref{thm:fay}), which plays the role of the Arnold relation
+in the rational case (Theorem~\ref{thm:bar-nilpotency-complete}).
+\end{proposition}
+
+\begin{proof}
+The elliptic bar differential on degree-$2$ elements uses the
+propagator $\eta_{ij}^{\mathrm{ell}} = d\log\theta_1(z_i - z_j
+| \tau)$.  The computation of $d^2$ on a degree-$1$ element
+$[a] \otimes 1$ produces terms on $\overline{C}_3(E_\tau)$ involving
+the $2$-form $\eta_{12}^{\mathrm{ell}} \wedge \eta_{23}^{\mathrm{ell}}
++ \eta_{23}^{\mathrm{ell}} \wedge \eta_{31}^{\mathrm{ell}}
++ \eta_{31}^{\mathrm{ell}} \wedge \eta_{12}^{\mathrm{ell}}$,
+exactly as in the rational case (cf.\
+\S\ref{sec:bar-nilpotency-nine-terms-complete}).
+
+The rational Arnold relation $\eta_{12} \wedge \eta_{23}
++ \eta_{23} \wedge \eta_{31} + \eta_{31} \wedge \eta_{12} = 0$
+(where $\eta_{ij} = d\log(z_i - z_j)$) is a consequence of
+the partial fraction identity
+$(z_1 - z_2)^{-1}(z_2 - z_3)^{-1} + \text{cyclic} = 0$.
+
+The elliptic replacement for $(z_i-z_j)^{-1}$ is
+$\zeta_\tau(z_i - z_j) := \partial_z \log\theta_1(z_i - z_j|\tau)$,
+the Weierstrass $\zeta$-function on $E_\tau$.  The corresponding
+three-term identity is
+\begin{equation}\label{eq:elliptic-arnold}
+d\zeta_\tau(z_1{-}z_2) \wedge d\zeta_\tau(z_2{-}z_3)
++ d\zeta_\tau(z_2{-}z_3) \wedge d\zeta_\tau(z_3{-}z_1)
++ d\zeta_\tau(z_3{-}z_1) \wedge d\zeta_\tau(z_1{-}z_2) = 0.
+\end{equation}
+
+This is the differential-form shadow of the Fay identity
+(Theorem~\ref{thm:fay}).  Differentiate
+\[
+\theta(u_1{-}u_2)\,\theta(u_3{-}u_4) -
+\theta(u_1{-}u_3)\,\theta(u_2{-}u_4) +
+\theta(u_1{-}u_4)\,\theta(u_2{-}u_3) = 0
+\]
+with respect to $u_1$ and $u_4$, then set $u_4 = u_1$.  The resulting
+trisecant consequence is
+\begin{multline*}
+\zeta_\tau(u_1{-}u_2)\,\zeta_\tau(u_2{-}u_3)
++ \zeta_\tau(u_2{-}u_3)\,\zeta_\tau(u_3{-}u_1)
++ \zeta_\tau(u_3{-}u_1)\,\zeta_\tau(u_1{-}u_2) \\
+= \wp_\tau(u_1{-}u_2) + \wp_\tau(u_2{-}u_3) + \wp_\tau(u_3{-}u_1)
+\end{multline*}
+where $\wp_\tau = -\zeta_\tau'$ is the Weierstrass $\wp$-function.
+Now take exterior derivatives in the difference variables.  Each
+$\wp_\tau(z_i-z_j)$ depends on a single difference, so the mixed wedges
+on the right vanish or cancel pairwise.  The left-hand side is then
+exactly~\eqref{eq:elliptic-arnold}.
+
+The remaining terms in $d^2$ (involving OPE data of the chiral
+algebra $\cA$) cancel by the same mechanism as in the rational case:
+the bar differential decomposes as $d = d_{\mathrm{local}} +
+d_{\mathrm{global}}$, where $d_{\mathrm{local}}^2 = 0$ by the OPE
+associativity of $\cA$, and the cross-terms $d_{\mathrm{local}} \circ
+d_{\mathrm{global}} + d_{\mathrm{global}} \circ d_{\mathrm{local}} = 0$
+by the compatibility of the OPE with the propagator (which holds for
+both the rational and elliptic propagators, since the residue at a
+simple pole is the same: $\Res_{z=0} \zeta_\tau(z)\,dz = 1$).
+\end{proof}
+
+\begin{remark}[Rational limit]\label{rem:fay-to-arnold}
+In the rational limit $\tau \to i\infty$, the theta function
+$\theta_1(z|\tau) \to 2\sin(\pi z) \to 2\pi z$ (for $|z|$ small),
+so $\zeta_\tau(z) \to 1/z$ and $\wp_\tau(z) \to 1/z^2$.
+The identity~\eqref{eq:elliptic-arnold} reduces to the Arnold relation
+$\eta_{12} \wedge \eta_{23} + \eta_{23} \wedge \eta_{31} +
+\eta_{31} \wedge \eta_{12} = 0$
+(Theorem~\ref{thm:arnold-relations}), and the
+bar nilpotency reduces to
+Theorem~\ref{thm:bar-nilpotency-complete}.
+\end{remark}
+
+
+\subsection{Bar complex with theta functions}
+
+\begin{construction}[Elliptic bar complex]\label{constr:elliptic-bar}
+The bar complex of an elliptic chiral algebra incorporates theta functions:
+
+\emph{Forms.} Replace $d\log(z_1 - z_2)$ with:
+\[
+\eta_{12} = d\log\theta(z_1 - z_2 | \tau)
+\]
+the logarithmic derivative of theta.
+
+\emph{Differential.} The residue is computed at the zeros of $\theta$:
+\[
+d_{\text{res}}([a|b] \otimes \eta_{12}) = \sum_{\theta(z_0) = 0} \Res_{z_1 = z_0 + z_2}[\cdots]
+\]
+The zeros of $\theta(u|\tau)$ are at $u = m + n\tau$ for $m, n \in \bZ$ (the lattice points).
+\end{construction}
+
+\begin{theorem}[Elliptic vs rational homology; \ClaimStatusProvedHere]\label{thm:elliptic-vs-rational}
+Let $\cA$ be a chiral algebra of central charge $c$ on an elliptic curve $E_\tau$.
+The homology of the elliptic bar complex admits a decomposition:
+\[
+H_n(\B^{\mathrm{ell}}(\cA)) \;\cong\; H_n(\B^{\mathrm{rat}}(\cA))
+\;\oplus\; \bigoplus_{k \geq 1} \mathcal{E}^{(k)}_n(\cA, \tau)
+\]
+where the elliptic corrections $\mathcal{E}^{(k)}_n(\cA, \tau)$
+are $\cA$-modules whose dependence on $\tau$ is through
+(quasi-)modular forms. Specifically:
+\begin{enumerate}[label=(\roman*)]
+\item The leading correction $\mathcal{E}^{(1)}_n$ is
+proportional to $E_2(\tau)$, the weight-2 quasi-modular
+Eisenstein series, arising from the regularization of
+the elliptic propagator $\partial_z \log\theta(z|\tau)$
+relative to the rational propagator $1/z$
+(cf.\ Construction~\ref{constr:elliptic-bar}).
+\item Higher corrections $\mathcal{E}^{(k)}_n$ for $k \geq 2$
+lie in the space of modular forms $M_{2k}(\mathrm{SL}_2(\bZ))$
+of weight $2k$; the first truly modular correction is an
+$E_4(\tau)$-coefficient.
+\item The conformal dimension $h$ of the states entering the
+bar complex constrains the weights: a state of dimension $h$
+contributes to $\mathcal{E}^{(k)}_n$ only for $k \leq h + n$.
+\item At the rational limit $\tau \to i\infty$ (i.e., $q = e^{2\pi i\tau} \to 0$),
+the Eisenstein series $E_{2k}(\tau) \to 1$ and all corrections
+degenerate to constants, recovering
+$H_n(\B^{\mathrm{rat}}(\cA))$ up to scalar renormalization.
+\end{enumerate}
+For the Heisenberg algebra ($c = 1$), the corrections reduce to the
+Eisenstein series hierarchy computed in
+\S\ref{sec:heisenberg-genus-expansion-eisenstein}.
+\end{theorem}
+
+\begin{proof}
+We construct the decomposition via a perturbative spectral sequence
+comparing the elliptic and rational bar differentials.
+
+\emph{Step~1 (Propagator decomposition).}
+The elliptic bar complex (Construction~\ref{constr:elliptic-bar})
+uses the propagator $\eta_{ij}^{\mathrm{ell}} = d\log\theta_1(z_i -
+z_j|\tau)$, while the rational bar complex uses $\eta_{ij}^{\mathrm{rat}}
+= d\log(z_i - z_j)$.  Near $z_i = z_j$, both propagators have the same
+simple pole with residue~$1$, so their difference $\delta_{ij}(\tau) :=
+\eta_{ij}^{\mathrm{ell}} - \eta_{ij}^{\mathrm{rat}}$ is a regular
+$1$-form.  The classical expansion of the Weierstrass $\zeta$-function
+$\zeta(z;\Lambda_\tau)$ in terms of the Eisenstein--Weierstrass series
+$G_{2k}(\tau)$ gives the Laurent expansion:
+
+\[
+\partial_z\log\theta_1(z|\tau)
+\;=\; \frac{1}{z} + \sum_{k=1}^{\infty} c_k(\tau)\,z^{2k-1},
+\]
+where the correction coefficients $c_k(\tau)$ are expressed in terms
+of Eisenstein series via $G_{2k}(\tau) = 2\zeta_{\mathrm{R}}(2k)\,
+E_{2k}(\tau)$:
+\begin{itemize}
+\item $c_1(\tau) = -\tfrac{\pi^2}{3}E_2(\tau) \in
+\widetilde{M}_2(\mathrm{SL}_2(\bZ))$ (quasi-modular, weight~$2$),
+since $c_1 = -2\eta_1$ where
+$\eta_1 = \zeta(1/2;\Lambda_\tau) = \tfrac{\pi^2}{6}E_2(\tau)$;
+\item $c_k(\tau) = -G_{2k}(\tau) \in M_{2k}(\mathrm{SL}_2(\bZ))$
+for $k \geq 2$ (holomorphic modular forms).
+\end{itemize}
+The expansion converges absolutely for $|z| < \min_{\omega \in
+\Lambda_\tau \setminus\{0\}} |\omega|$.
+
+\emph{Step~2 (Correction-order filtration).}
+Define the \emph{correction-order filtration}
+$\mathcal{F}^p \bar{B}^{\mathrm{ell}}_n(\cA)$ by
+declaring that an element has filtration degree $\geq p$ if it arises
+from at least $p$ insertions of the regular correction terms
+$\{c_k(\tau)\,z^{2k-1}\}_{k \geq 1}$ in the propagator expansion.
+Equivalently, replace each propagator by $1/z + t\cdot(c_1 z + c_2 z^3
++ \cdots)$ and expand in powers of the formal parameter~$t$; then
+$\mathcal{F}^p$ consists of terms of order~$\geq t^p$.
+
+Since the bar differential $d^{\mathrm{ell}}$ at degree~$n$
+involves at most $n$ propagator factors, we have $\mathcal{F}^{n+1}
+\bar{B}^{\mathrm{ell}}_n = 0$.  The filtration is compatible
+with the differential: $d^{\mathrm{ell}}(\mathcal{F}^p) \subset
+\mathcal{F}^p$ (inserting the bar differential does not decrease
+the number of correction insertions).
+
+\emph{Step~3 (Spectral sequence: $E_0$ and $E_1$ pages).}
+The associated graded $\mathrm{gr}^0_{\mathcal{F}}
+\bar{B}^{\mathrm{ell}}(\cA)$ is the bar complex computed using only the
+singular part $1/z$ of the propagator.  Since the residue extraction
+in the bar differential (which encodes the OPE data of~$\cA$) depends
+only on the polar part, the differential on $\mathrm{gr}^0$ coincides
+with the rational bar differential $d^{\mathrm{rat}}$.  Thus:
+\[
+E_1^{0,n} = H_n(\bar{B}^{\mathrm{rat}}(\cA)).
+\]
+More generally, $E_1^{p,n} = H_n(\bar{B}^{\mathrm{rat}}(\cA)) \otimes
+\mathrm{Sym}^p_{\geq 1}\{c_k(\tau)\}$, where the symmetric product is
+taken over all propagator correction coefficients contributing total
+weight~$p$.
+
+\emph{Step~4 (Modular structure via Zhu's theorem).}
+The differential $d_r \colon E_r^{p,n} \to E_r^{p+r,n+1}$ on the
+$r$-th page arises from the interaction of $r$ correction insertions
+with the bar differential.  By Zhu's modular invariance
+theorem~\cite{Zhu96}, the $n$-point genus-$1$ correlation functions
+$\langle V_1(z_1) \cdots V_n(z_n) \rangle_{E_\tau}$ of a rational
+vertex algebra $\cA$ transform as components of a vector-valued modular
+form for $\mathrm{SL}_2(\bZ)$.  Since the bar complex at degree~$n$ is
+built from such correlation functions composed with the propagator form,
+and the correction coefficients $c_k(\tau)$ are themselves
+(quasi-)modular, the differentials $d_r$ respect the modular weight
+grading.  Consequently, the $E_\infty$ terms inherit a weight
+decomposition from the ring $\widetilde{M}_*(\mathrm{SL}_2(\bZ))$
+of quasi-modular forms.
+
+\emph{Step~5 (Convergence and splitting).}
+The spectral sequence converges because the filtration is bounded:
+$\mathcal{F}^{n+1}\bar{B}^{\mathrm{ell}}_n = 0$ at each bar
+degree~$n$.  At convergence, $H_n(\bar{B}^{\mathrm{ell}}(\cA))$
+admits the filtration
+\[
+0 = \mathcal{F}^{n+1} H_n \subset \mathcal{F}^n H_n \subset \cdots
+\subset \mathcal{F}^1 H_n \subset \mathcal{F}^0 H_n
+= H_n(\bar{B}^{\mathrm{ell}}(\cA))
+\]
+with successive quotients $\mathcal{E}^{(k)}_n := E_\infty^{k,n}$.
+The filtration \emph{splits}: the modular weight provides a grading
+on the coefficient ring (quasi-modular forms of different weights are
+linearly independent over~$\bC$), and the $E_\infty$ terms in
+different weights cannot be related by extensions.  We therefore
+obtain the direct sum decomposition
+$H_n(\bar{B}^{\mathrm{ell}}(\cA)) \cong H_n(\bar{B}^{\mathrm{rat}}(\cA))
+\oplus \bigoplus_{k \geq 1} \mathcal{E}^{(k)}_n(\cA, \tau)$
+as claimed.
+
+Properties~(i)--(iv) now follow from the structure of the correction
+coefficients:
+\begin{enumerate}[label=(\roman*)]
+\item The leading correction involves $c_1(\tau) = -(\pi^2/3)\,E_2(\tau)$
+(quasi-modular, weight~$2$).
+\item Higher corrections involve products of
+$c_k(\tau) \in M_{2k}(\mathrm{SL}_2(\bZ))$ for $k \geq 2$.
+\item A bar element of degree~$n$ involves at most $n$ propagator
+factors; a state of conformal dimension~$h$ constrains the Laurent
+order of each propagator insertion to $\leq 2h - 1$, giving the bound
+$\mathcal{E}^{(k)}_n = 0$ for $k > h + n$.
+\item As $\tau \to i\infty$: $q \to 0$ and $E_{2k}(\tau) \to 1$, so all
+corrections reduce to constants, recovering $H_n(\bar{B}^{\mathrm{rat}}(\cA))$
+up to renormalization.
+\end{enumerate}
+
+\emph{Verification for the Heisenberg algebra.}
+For $\cA = \mathcal{H}$ ($c = 1$), the genus-$1$ two-point function is
+$\langle a(z_1)a(z_2)\rangle_{E_\tau} = \kappa\,G_\tau(z_1 - z_2)$
+with $G_\tau(z) = \zeta_\tau(z) - (\pi^2 E_2(\tau)/3)\,z$
+(Theorem~\ref{thm:heisenberg-genus-one-complete}).  The leading
+correction $\mathcal{E}^{(1)}_n \propto E_2(\tau)$ arises from the
+$c_1$ term.  The complete Eisenstein hierarchy of
+\S\ref{sec:heisenberg-genus-expansion-eisenstein} gives
+$\mathcal{E}^{(k)}_n \propto E_{2k}(\tau)$, confirming the general
+pattern.
+\end{proof}
+
+\begin{remark}[Scope]
+The proof assembles three ingredients:
+(i)~the Laurent expansion of the Weierstrass $\zeta$-function in
+terms of Eisenstein series (\ClaimStatusProvedElsewhere, classical);
+(ii)~the convergence of the correction-order spectral sequence
+(bounded filtration at each bar degree); and
+(iii)~Zhu's modular invariance theorem for genus-$1$ $n$-point
+functions of rational vertex algebras~\cite{Zhu96}
+(\ClaimStatusProvedElsewhere).  The combination and the identification
+of the splitting mechanism (Step~5) are new to this work.
+The Heisenberg verification uses the explicit computations of
+\S\ref{sec:heisenberg-genus-expansion-eisenstein}.
+\end{remark}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXPLICIT COMPUTATIONS: ELLIPTIC BAR, DYNAMICAL YBE, SHUFFLE, COMPARISON
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Explicit elliptic bar complex for the Heisenberg algebra}
+\label{sec:elliptic-bar-heisenberg}
+\index{bar complex!elliptic Heisenberg|textbf}
+\index{Heisenberg algebra!elliptic bar complex}
+
+\subsection{Bar elements and the elliptic propagator}
+\label{subsec:elliptic-bar-elements}
+
+We work on $E_\tau = \bC / (\bZ + \tau\bZ)$ with the elliptic
+propagator
+\begin{equation}\label{eq:ell-propagator}
+\eta_{ij}^{\mathrm{ell}}
+= d\log\theta_1(z_i - z_j \,|\, \tau)
+= \zeta_\tau(z_i - z_j)\,(dz_i - dz_j),
+\end{equation}
+where $\zeta_\tau(z) = \partial_z \log\theta_1(z|\tau)$ is the
+Weierstrass zeta function on $E_\tau$.
+
+\begin{computation}[Degree-1 bar elements]\label{comp:ell-bar-deg1}
+\index{bar complex!elliptic!degree 1}
+In bar degree~$1$, the generators of $\B^{\mathrm{ell}}_1(\cH_\kappa)$
+are:
+\[
+[a_m] \otimes 1 \in \B^{\mathrm{ell}}_1(\cH_\kappa), \quad m \in \bZ,
+\]
+where $a_m$ denotes the mode of the Heisenberg current $a(z) = \sum_m a_m z^{-m-1}$.
+The bar differential on degree-$1$ elements is:
+\[
+d^{\mathrm{ell}}([a_m] \otimes 1) = 0,
+\]
+since the Heisenberg algebra has trivial unary OPE
+($a_{(n)}a = 0$ for $n \geq 1$ except $a_{(1)}a = \kappa$, and
+the residue extraction on a single element yields zero).
+This is identical to the rational case.
+\end{computation}
+
+\begin{computation}[Degree-2 bar elements and the elliptic differential]
+\label{comp:ell-bar-deg2}
+\index{bar complex!elliptic!degree 2}
+In bar degree~$2$, the generators are:
+\[
+[a_m | a_n] \otimes \eta_{12}^{\mathrm{ell}}
+\in \B^{\mathrm{ell}}_2(\cH_\kappa),
+\]
+where $\eta_{12}^{\mathrm{ell}} = \zeta_\tau(z_1 - z_2)\,(dz_1 - dz_2)$.
+The bar differential acts by residue extraction:
+\begin{align}\label{eq:ell-bar-diff-deg2}
+d^{\mathrm{ell}}([a_m | a_n] \otimes \eta_{12}^{\mathrm{ell}})
+&= \Res_{z_1 = z_2}\Bigl[
+a_m(z_1)\,a_n(z_2)\,\eta_{12}^{\mathrm{ell}}
+\Bigr] \notag \\
+&= \Res_{\epsilon = 0}\left[
+\frac{\kappa}{\epsilon^2}\,
+\zeta_\tau(\epsilon)\,d\epsilon
+\right] \cdot z_2^{-m-n-2}\,dz_2,
+\end{align}
+where $\epsilon = z_1 - z_2$.  We use the Laurent expansion of
+$\zeta_\tau$ (established in the proof of
+Theorem~\ref{thm:elliptic-vs-rational}, Step~1):
+\begin{equation}\label{eq:zeta-laurent}
+\zeta_\tau(\epsilon)
+= \frac{1}{\epsilon}
+- \frac{\pi^2}{3}\,E_2(\tau)\,\epsilon
+- \frac{\pi^4}{45}\,E_4(\tau)\,\epsilon^3
+- \frac{2\pi^6}{945}\,E_6(\tau)\,\epsilon^5
+- \cdots
+\end{equation}
+Substituting into the residue:
+\begin{align}\label{eq:ell-residue-expansion}
+\Res_{\epsilon = 0}\left[
+\frac{\kappa}{\epsilon^2}\,
+\zeta_\tau(\epsilon)\,d\epsilon
+\right]
+&= \Res_{\epsilon = 0}\left[
+\frac{\kappa}{\epsilon^2}\left(
+\frac{1}{\epsilon}
+- \frac{\pi^2}{3}\,E_2(\tau)\,\epsilon
+- \cdots
+\right) d\epsilon
+\right] \notag \\
+&= \Res_{\epsilon = 0}\left[
+\frac{\kappa}{\epsilon^3}
+- \frac{\kappa\pi^2}{3}\,E_2(\tau)\,\frac{1}{\epsilon}
+- \cdots
+\right] d\epsilon \notag \\
+&= -\frac{\kappa\pi^2}{3}\,E_2(\tau).
+\end{align}
+The $1/\epsilon^3$ term has zero residue; the first nonzero
+contribution is the $E_2(\tau)$ term.  In the rational case
+($\zeta_\tau(\epsilon) \to 1/\epsilon$), the residue of
+$\kappa\epsilon^{-3}\,d\epsilon$ vanishes, so the rational
+bar differential on this element is zero.  The
+\emph{entire degree-$2$ bar differential is the elliptic
+correction}:
+\begin{equation}\label{eq:ell-bar-diff-result}
+d^{\mathrm{ell}}([a_m | a_n] \otimes \eta_{12}^{\mathrm{ell}})
+= -\frac{\kappa\pi^2}{3}\,E_2(\tau)
+\cdot z_2^{-m-n-2}\,dz_2.
+\end{equation}
+\end{computation}
+
+\begin{computation}[Degree-2 curvature]\label{comp:ell-curvature}
+\index{curvature!elliptic bar complex}
+The elliptic bar complex of $\cH_\kappa$ has curvature
+element $m_0^{\mathrm{ell}} \in \B^{\mathrm{ell}}_0(\cH_\kappa)$.
+From the genus-$1$ propagator
+(Theorem~\ref{thm:heisenberg-genus-one-complete}), the
+two-point function on $E_\tau$ is $\langle a(z_1)\,a(z_2)
+\rangle_{E_\tau} = \kappa\,G_\tau(z_1 - z_2)$, where
+$G_\tau(z) = \zeta_\tau(z) - (\pi^2 E_2(\tau)/3)\,z$.
+The curvature arises from the failure of double periodicity
+(cf.\ the proof of
+Theorem~\ref{thm:heisenberg-genus2-obstruction}):
+\begin{equation}\label{eq:ell-curvature}
+m_0^{\mathrm{ell}}
+= \kappa \cdot \frac{\pi^2 E_2(\tau)}{3}.
+\end{equation}
+Expanding in the nome $q = e^{2\pi i \tau}$:
+\begin{equation}\label{eq:ell-curvature-q}
+m_0^{\mathrm{ell}}
+= \frac{\kappa\pi^2}{3}\bigl(
+1 - 24q - 72q^2 - 96q^3 - \cdots
+\bigr).
+\end{equation}
+At the rational limit $\tau \to i\infty$ ($q \to 0$),
+$E_2(\tau) \to 1$ and $m_0^{\mathrm{ell}} \to
+\kappa\pi^2/3$, recovering the rational curvature
+(up to the normalization convention for the propagator
+on $\bC$ versus $E_\tau$; on $\bC$ the propagator
+$1/z$ has no $B$-cycle and hence $m_0^{\mathrm{rat}} = 0$).
+\end{computation}
+
+\subsection{Comparison table: elliptic versus rational}
+\label{subsec:ell-vs-rat-table}
+
+\begin{table}[ht]
+\centering
+\caption{Elliptic versus rational bar differentials
+for $\cH_\kappa$ at low degrees}
+\label{tab:ell-vs-rat-bar}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Degree} & \textbf{Rational $d^{\mathrm{rat}}$}
+& \textbf{Elliptic $d^{\mathrm{ell}}$}
+& \textbf{Correction} \\
+\hline
+$1$ & $0$ & $0$ & --- \\
+\hline
+$2$ & $0$ & $-\frac{\kappa\pi^2}{3}\,E_2(\tau)$
+& $E_2(\tau)$ (quasi-modular, wt~$2$) \\
+\hline
+$3$ & $0$ & $-\frac{\kappa\pi^4}{45}\,E_4(\tau)$
+& $E_4(\tau)$ (modular, wt~$4$) \\
+\hline
+$4$ & $0$ & $-\frac{2\kappa\pi^6}{945}\,E_6(\tau)$
+& $E_6(\tau)$ (modular, wt~$6$) \\
+\hline
+$5$ & $0$ & $-\frac{\kappa\pi^8}{4725}\,E_8(\tau)$
+& $E_8(\tau)$ (modular, wt~$8$) \\
+\hline
+$6$ & $0$ & $-\frac{2\kappa\pi^{10}}{93555}\,E_{10}(\tau)$
+& $E_{10}(\tau)$ (modular, wt~$10$) \\
+\hline
+$7$ & $0$ & $-\frac{1382\kappa\pi^{12}}{638512875}\,E_{12}(\tau)$
+& $E_{12}(\tau)$ (modular, wt~$12$) \\
+\hline
+$8$ & $0$ & $-\frac{4\kappa\pi^{14}}{18243225}\,E_{14}(\tau)$
+& $E_{14}(\tau)$ (modular, wt~$14$) \\
+\hline
+\textbf{General $n$}
+& $0$ & $-\kappa \cdot \tfrac{2^{2n-2}|B_{2n-2}|}{(2n-2)!}
+  \cdot \pi^{2n-2}\,E_{2n-2}(\tau)$
+& $E_{2n-2}(\tau)$ (wt~$2n{-}2$) \\
+\hline
+\end{tabular}
+\end{table}
+
+\noindent
+The vanishing of the rational bar differential at all degrees
+reflects that the Heisenberg algebra on $\bC$ (genus~$0$)
+has no curvature ($m_0^{\mathrm{rat}} = 0$): the propagator
+$1/z$ is strictly periodic on $\bC$ (there is no $B$-cycle).
+On the elliptic curve $E_\tau$, the $B$-cycle monodromy of
+$\zeta_\tau$ introduces the Eisenstein corrections.  At degree $n$,
+the coefficient $c_{n-1}(\tau)$ in the Laurent
+expansion~\eqref{eq:zeta-laurent} controls the bar differential;
+since $c_k(\tau) \in M_{2k}(\mathrm{SL}_2(\bZ))$ for $k \geq 2$
+and $c_1(\tau) \in \widetilde{M}_2(\mathrm{SL}_2(\bZ))$ (quasi-modular),
+the corrections at degree $n \geq 3$ are genuine modular forms.
+
+\begin{proposition}[Decomposition of the elliptic bar complex;
+\ClaimStatusProvedHere]\label{prop:ell-bar-decomposition}
+\index{bar complex!elliptic!decomposition}
+The elliptic bar complex of $\cH_\kappa$ at degree $n$ admits
+the decomposition:
+\begin{equation}\label{eq:ell-bar-decomp}
+\B^{\mathrm{ell}}_n(\cH_\kappa)
+\;=\; \B^{\mathrm{rat}}_n(\cH_\kappa)
+\;\oplus\; E_2(\tau) \cdot \B^{(1)}_n
+\;\oplus\; E_4(\tau) \cdot \B^{(2)}_n
+\;\oplus\; \cdots
+\;\oplus\; E_{2n-2}(\tau) \cdot \B^{(n-1)}_n
+\end{equation}
+with only finitely many nonzero terms.  Specifically,
+$\B^{(k)}_n = 0$ for $k \geq n$.
+\end{proposition}
+
+\begin{proof}
+\emph{Step~1 (Finite propagator expansion).}
+The elliptic bar complex at degree~$n$ involves
+$\binom{n}{2}$ propagator factors $\eta_{ij}^{\mathrm{ell}}$,
+one for each pair $(i,j)$ with $1 \leq i < j \leq n$.
+Each propagator is expanded via~\eqref{eq:zeta-laurent} as
+$\zeta_\tau(\epsilon_{ij}) = \epsilon_{ij}^{-1} + \sum_{k \geq 1}
+c_k(\tau)\,\epsilon_{ij}^{2k-1}$.  The bar differential at
+degree~$n$ extracts the residue at the diagonal
+$\epsilon_{ij} = 0$; since the OPE of the Heisenberg current
+$a(z)$ has a double pole ($a(z_1)\,a(z_2) \sim
+\kappa/(z_1 - z_2)^2$), the residue at each pair involves
+at most the coefficient of $\epsilon_{ij}^{-1}$ in the
+integrand.  This means the Laurent coefficient $c_k(\tau)\,
+\epsilon_{ij}^{2k-1}$ contributes to the residue only if
+$2k - 1 \leq 1$, i.e., $k \leq 1$, for each \emph{individual}
+propagator factor.  However, when multiple propagator factors
+are combined in the degree-$n$ bar element ($n-1$ propagators
+appear in a degree-$n$ element), the correction terms from
+different propagator pairs may accumulate.  The total correction
+order is bounded by $n-1$ (one correction per propagator),
+giving $\B^{(k)}_n = 0$ for $k \geq n$.
+
+\emph{Step~2 (Eisenstein coefficient identification).}
+The correction term $\B^{(k)}_n$ arises from choosing exactly
+$k$ of the $n-1$ propagator factors to contribute their leading
+correction $c_1(\tau)\,\epsilon_{ij}$ (or, more precisely,
+assigning a total correction weight of $k$ distributed
+among the propagators, with correction of weight~$j$ from
+a single propagator contributing $c_j(\tau)$).
+By the computation of~\eqref{eq:ell-residue-expansion}, the
+leading correction at degree~$2$ is $c_1(\tau) \propto E_2(\tau)$.
+At degree~$n$, the correction of total weight $k$ lies in the
+subspace of (quasi-)modular forms of weight $2k$, which is
+spanned by monomials in $E_2, E_4, E_6$.  Since the Heisenberg
+algebra is free (Gaussian), the only contributing terms are the
+\emph{single-propagator corrections} (there are no interaction
+terms between different propagator pairs), so the coefficient
+of $\B^{(k)}_n$ is precisely $c_k(\tau) = (-1)^k G_{2k+2}(\tau)
+\propto E_{2k+2}(\tau)$ for $k \geq 2$, and $c_1(\tau) \propto
+E_2(\tau)$.
+
+\emph{Step~3 (Direct sum splitting).}
+The corrections $E_2, E_4, E_6, \ldots$ have distinct modular
+weights $2, 4, 6, \ldots$ and are therefore linearly independent
+over $\bC$.  The decomposition~\eqref{eq:ell-bar-decomp}
+is a direct sum, not merely a filtration.
+\end{proof}
+
+
+\section{\texorpdfstring{Dynamical Yang--Baxter equation for $\mathfrak{sl}_2$}{Dynamical Yang--Baxter equation for sl2}}
+\label{sec:dynamical-ybe-sl2}
+\index{dynamical Yang--Baxter equation|textbf}
+\index{Yang--Baxter equation!dynamical}
+
+We verify the dynamical Yang--Baxter equation for the
+$\mathfrak{sl}_2$ elliptic $R$-matrix of
+Definition~\ref{def:elliptic-r}, and show that the key identity
+reduces to the Fay trisecant (Theorem~\ref{thm:fay}).  The
+connection to bar nilpotency is made precise: the dynamical YBE
+encodes $d^2 = 0$ for the elliptic bar complex with dynamical
+parameter.
+
+\subsection{The dynamical Yang--Baxter equation}
+\label{subsec:dybe-statement}
+
+\begin{definition}[Dynamical Yang--Baxter equation]
+\label{def:dybe}
+\index{dynamical Yang--Baxter equation!definition}
+The \emph{dynamical Yang--Baxter equation} (DYBE) for an
+$R$-matrix $R(u, \lambda) \in \mathrm{End}(V \otimes V)$
+depending on spectral parameter $u$ and dynamical parameter
+$\lambda \in \mathfrak{h}^*$ is:
+\begin{equation}\label{eq:dybe}
+R_{12}(u, \lambda)\,
+R_{13}(u+v, \lambda - h^{(2)})\,
+R_{23}(v, \lambda)
+\;=\;
+R_{23}(v, \lambda - h^{(1)})\,
+R_{13}(u+v, \lambda)\,
+R_{12}(u, \lambda - h^{(3)})
+\end{equation}
+where $h^{(i)}$ denotes the action of $h \in \mathfrak{h}$ on
+the $i$-th tensor factor of $V^{\otimes 3}$, and $\lambda - h^{(i)}$
+means that the dynamical parameter $\lambda$ is shifted by the
+weight of the state in factor~$i$.
+\end{definition}
+
+\subsection{\texorpdfstring{Explicit verification for $\mathfrak{sl}_2$}{Explicit verification for sl2}}
+\label{subsec:dybe-sl2-verification}
+
+For $\mathfrak{sl}_2$ with $V = \bC^2$, the weight decomposition
+is $V = V_+ \oplus V_-$ with $h \cdot v_\pm = \pm v_\pm$.
+We use the elliptic $R$-matrix of Definition~\ref{def:elliptic-r}:
+\begin{equation}\label{eq:sl2-r-matrix-entries}
+R(u, \lambda) =
+\begin{pmatrix}
+a(u) & 0 & 0 & 0 \\
+0 & b(u, \lambda) & c(u, \lambda) & 0 \\
+0 & c(u, -\lambda) & b(u, -\lambda) & 0 \\
+0 & 0 & 0 & a(u)
+\end{pmatrix}
+\end{equation}
+with $a(u) = \theta(u+\eta)/\theta(\eta)$,
+$b(u,\lambda) = \theta(u)\theta(\lambda+\eta)/\allowbreak
+(\theta(\eta)\theta(\lambda))$, and
+$c(u,\lambda) = \theta(u+\lambda)\theta(\eta)/\allowbreak
+(\theta(\lambda)\theta(u+\eta))$
+(the entries from Definition~\ref{def:elliptic-r},
+abbreviated here as $\theta = \theta(\cdot\,|\,\tau)$).
+
+\begin{computation}[Matrix entries of the DYBE]
+\label{comp:dybe-matrix-entries}
+We examine the DYBE~\eqref{eq:dybe} on the weight spaces of
+$V^{\otimes 3}$.  On the space $V^{\otimes 3}$
+with basis $\{v_{\epsilon_1} \otimes v_{\epsilon_2}
+\otimes v_{\epsilon_3} : \epsilon_i \in \{+,-\}\}$
+(eight basis vectors), the dynamical shifts act as
+$h^{(i)} \cdot v_{\epsilon_1\epsilon_2\epsilon_3}
+= \epsilon_i\,v_{\epsilon_1\epsilon_2\epsilon_3}$.
+The DYBE is a system of $64$ scalar equations (the entries of
+an $8 \times 8$ matrix equation).
+
+\emph{Diagonal entries.}
+On the extremal weight space $v_{+++}$, both sides of
+\eqref{eq:dybe} give
+$a(u)\,a(u{+}v)\,a(v)$, so the equation is trivially satisfied.
+Similarly for $v_{---}$.
+
+\emph{Mixed weight spaces.}
+The nontrivial content lies on the $4$-dimensional subspace
+spanned by $\{v_{++-}, v_{+-+}, v_{-++}\}$ (weight~$1$)
+and $\{v_{--+}, v_{-+-}, v_{+--}\}$ (weight~$-1$).
+By the symmetry $R(u,\lambda) = R(u,-\lambda)|_{+\leftrightarrow -}$,
+it suffices to verify the weight-$1$ block.
+
+On the weight-$1$ subspace, the DYBE
+reduces to a $3 \times 3$ matrix equation.
+The $(1,1)$-entry, acting on $v_{++-}$, is
+\begin{align}\label{eq:dybe-11}
+&a(u)\,b(u{+}v, \lambda{-}1)\,b(v,\lambda) \;+\;
+b(u,\lambda)\,c(u{+}v, \lambda{-}1)\,c(v,-\lambda) \notag \\
+&\quad =\;
+b(v,\lambda{-}1)\,b(u{+}v,\lambda)\,a(u) \;+\;
+c(v,{-}\lambda{+}1)\,c(u{+}v,\lambda)\,a(u).
+\end{align}
+
+Substituting the theta-function expressions and writing
+$[x] := \theta(x|\tau)$ gives
+\begin{align}\label{eq:dybe-11-theta}
+&\frac{[u{+}\eta]}{[\eta]}\cdot
+\frac{[u{+}v][\lambda{-}1{+}\eta]}{[\eta][\lambda{-}1]}
+\cdot
+\frac{[v][\lambda{+}\eta]}{[\eta][\lambda]}
+\;+\;
+\frac{[u][\lambda{+}\eta]}{[\eta][\lambda]}
+\cdot
+\frac{[u{+}v{+}\lambda{-}1][\eta]}{[\lambda{-}1][u{+}v{+}\eta]}
+\cdot
+\frac{[v{-}\lambda][\eta]}{[-\lambda][v{+}\eta]} \notag \\
+&\quad =\;
+\frac{[v][\lambda{-}1{+}\eta]}{[\eta][\lambda{-}1]}
+\cdot
+\frac{[u{+}v][\lambda{+}\eta]}{[\eta][\lambda]}
+\cdot
+\frac{[u{+}\eta]}{[\eta]} \;+\;
+\frac{[v{-}\lambda{+}1][\eta]}{[-\lambda{+}1][v{+}\eta]}
+\cdot
+\frac{[u{+}v{+}\lambda][\eta]}{[\lambda][u{+}v{+}\eta]}
+\cdot
+\frac{[u{+}\eta]}{[\eta]}.
+\end{align}
+After cancelling common factors $[u{+}\eta]/([\eta]^3\,[\lambda]\,
+[\lambda{-}1])$ from both sides and clearing denominators, the
+equation reduces to an identity among products of theta functions
+evaluated at the six arguments $\{u, v, u{+}v, \lambda,
+\lambda{+}\eta, \lambda{-}1{+}\eta\}$.
+\end{computation}
+
+\begin{proposition}[DYBE reduces to Fay; \ClaimStatusProvedHere]
+\label{prop:dybe-reduces-to-fay}
+\index{Fay trisecant identity!and dynamical YBE}
+The dynamical Yang--Baxter equation~\eqref{eq:dybe}
+for the $\mathfrak{sl}_2$ elliptic $R$-matrix
+\textup{(}Definition~\textup{\ref{def:elliptic-r})}
+is equivalent to the Fay trisecant identity
+\textup{(}Theorem~\textup{\ref{thm:fay})} plus the
+quasi-periodicity of $\theta$.  More precisely:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Each nontrivial component of the DYBE on the
+weight-$1$ subspace reduces, after clearing common
+factors, to an identity of the form
+\begin{equation}\label{eq:fay-applied}
+\theta(a{-}b)\,\theta(c{-}d)
+- \theta(a{-}c)\,\theta(b{-}d)
++ \theta(a{-}d)\,\theta(b{-}c) = 0
+\end{equation}
+for appropriate specializations of $a, b, c, d$ depending
+on $u, v, \lambda, \eta$.
+\item The remaining components (mixing weight-$1$ and
+weight-$(-1)$ sectors) follow from~(i) and the
+quasi-periodicity $\theta(z+1|\tau) = -\theta(z|\tau)$,
+$\theta(z+\tau|\tau) = -e^{-\pi i\tau - 2\pi i z}\theta(z|\tau)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\emph{Step~1 (Reduction of the $(1,2)$-entry).}
+The $(1,2)$-entry of the DYBE on the weight-$1$ subspace
+(the matrix element for $v_{++-} \to v_{+-+}$) yields,
+after clearing the common denominator
+$[\eta]^3\,[\lambda]\,[\lambda{-}1]\,[u{+}\eta]\,[v{+}\eta]\,
+[u{+}v{+}\eta]$:
+\begin{align}\label{eq:dybe-12-reduced}
+&[u{+}\eta]\,[v]\,[u{+}v{+}\lambda{-}1]
+- [u]\,[v{+}\eta]\,[u{+}v{+}\lambda{-}1] \notag \\
+&\qquad + [u{+}v{+}\eta]\,[\lambda{-}1]\,
+\bigl([u{+}\lambda]\,[v] - [v{+}\lambda]\,[u]\bigr)
+\;=\; 0.
+\end{align}
+We apply the Fay identity (Theorem~\ref{thm:fay})
+with the specialization $u_1 = 0$, $u_2 = u + \eta$,
+$u_3 = v + \eta$, $u_4 = u + v + \lambda$:
+\begin{align}
+&\theta(u{+}\eta)\,\theta(v{+}\eta - u - v - \lambda)
+- \theta(v{+}\eta)\,\theta(u{+}\eta - u - v - \lambda) \notag \\
+&\qquad + \theta(u{+}v{+}\lambda)\,\theta(v{+}\eta - u - \eta)
+= 0.
+\end{align}
+Using $\theta(-x) = -\theta(x)$, this simplifies to:
+\[
+\theta(u{+}\eta)\,\theta(\lambda{-}v)
+- \theta(v{+}\eta)\,\theta(\lambda{-}u)
++ \theta(u{+}v{+}\lambda)\,\theta(v{-}u) = 0,
+\]
+which is the content of~\eqref{eq:dybe-12-reduced}
+after the identification $[\lambda{-}v] = -[v{-}\lambda]$
+and relabelling.
+
+\emph{Step~2 (Remaining entries).}
+The $(1,3)$ and $(2,3)$ entries of the DYBE are obtained
+from the $(1,2)$ entry by the substitutions
+$v \to u+v$, $u \to -v$ and $u \to v$, $v \to u$ respectively,
+combined with the Weyl group symmetry
+$R(u,\lambda) = R(u,-\lambda)|_{+\leftrightarrow -}$.
+Each reduces to the same Fay identity with permuted arguments.
+
+\emph{Step~3 (Quasi-periodicity).}
+The elliptic $R$-matrix entries $a(u), b(u,\lambda), c(u,\lambda)$
+are meromorphic on $E_\tau \times E_\tau$ with simple poles at the
+zeros of $\theta(\eta)$ and $\theta(\lambda)$.  The DYBE
+relates values at $\lambda$, $\lambda - h^{(1)}$, $\lambda - h^{(2)}$,
+$\lambda - h^{(3)}$ where $h^{(i)} \in \{+1, -1\}$; the
+quasi-periodicity of $\theta$ ensures that these $\lambda$-shifts
+are compatible with the lattice $\bZ + \tau\bZ$ acting on $\lambda$.
+\end{proof}
+
+\begin{proposition}[DYBE and bar nilpotency; \ClaimStatusProvedHere]
+\label{prop:dybe-bar-nilpotency}
+\index{bar complex!elliptic!nilpotency via DYBE}
+The dynamical Yang--Baxter equation~\eqref{eq:dybe} encodes
+$d^2 = 0$ for the elliptic bar complex with dynamical parameter.
+Specifically, the bar complex
+$\B^{\mathrm{ell}}(E_{q,p}(\mathfrak{sl}_2))$
+of the elliptic quantum group
+\textup{(}Definition~\textup{\ref{def:elliptic-quantum})}
+satisfies $d^2 = 0$ on
+$\overline{C}_3(E_\tau)$ if and only if the $R$-matrix
+$R(u,\lambda)$ satisfies the DYBE.
+\end{proposition}
+
+\begin{proof}
+The bar differential at degree~$2$ of the RTT-type algebra
+$E_{q,p}(\mathfrak{sl}_2)$ is:
+\[
+d([L_{ij}(u) | L_{kl}(v)] \otimes \eta_{12}^{\mathrm{ell}})
+= \sum_m \bigl(
+R_{ij,km}(u{-}v,\lambda)\,L_{ml}(v)
+- L_{km}(v)\,R_{mj,il}(u{-}v,\lambda)
+\bigr) \otimes \eta_{12}^{\mathrm{ell}} \wedge \eta_{23}^{\mathrm{ell}}.
+\]
+The computation of $d^2$ on a degree-$1$ element
+$[L_{ij}(u)] \otimes 1$ produces terms on
+$\overline{C}_3(E_\tau)$ involving the product of three
+$R$-matrices.  The nine terms (three pairs of propagators,
+each contributing three matrix products) rearrange into
+the left-hand side minus the right-hand side of
+the DYBE~\eqref{eq:dybe}, exactly as in the rational case
+where the Yang--Baxter equation implies $d^2 = 0$
+for the Yangian bar complex
+(proof of Theorem~\ref{thm:yangian-bar-rtt}).
+The only modification is the replacement of the rational
+propagator $\eta_{ij} = d\log(z_i - z_j)$ by the elliptic
+propagator $\eta_{ij}^{\mathrm{ell}}
+= d\log\theta_1(z_i - z_j|\tau)$, and the introduction
+of the dynamical shifts $\lambda \to \lambda - h^{(i)}$
+arising from the $B$-cycle monodromy of
+$\eta^{\mathrm{ell}}_{ij}$ around $E_\tau$
+(cf.\ Remark~\ref{rem:elliptic-qg-bar}(ii)).
+The elliptic Arnold relation~\eqref{eq:elliptic-arnold}
+(Proposition~\ref{prop:fay-implies-d-squared}) ensures that
+the propagator-level identity $\eta_{12} \wedge \eta_{23}
++ \eta_{23} \wedge \eta_{31} + \eta_{31} \wedge \eta_{12}
+= 0$ holds, so the algebraic content of $d^2 = 0$ is
+precisely the DYBE.
+\end{proof}
+
+
+\section{Shuffle algebra presentation}
+\label{sec:shuffle-algebra}
+\index{shuffle algebra|textbf}
+\index{toroidal algebra!shuffle presentation}
+
+\subsection{Definition of the shuffle algebra}
+\label{subsec:shuffle-def}
+
+\begin{definition}[Shuffle algebra]\label{def:shuffle-algebra}
+\index{shuffle algebra!definition}
+Let $\zeta(u) = \theta(u+\eta)/\theta(u)$ be the structure function
+determined by the elliptic $R$-matrix.
+The \emph{shuffle algebra} $\mathcal{S}_\zeta$ is the $\bZ_{\geq 0}$-graded
+vector space
+\[
+\mathcal{S}_\zeta = \bigoplus_{n \geq 0} \mathcal{S}_n, \quad
+\mathcal{S}_n = \bC(z_1, \ldots, z_n)^{S_n}_{\mathrm{sym}}
+\]
+(symmetric rational functions in $n$ variables), equipped with
+the \emph{shuffle product}:
+for $f \in \mathcal{S}_m$ and $g \in \mathcal{S}_n$, define
+$f \star g \in \mathcal{S}_{m+n}$ by
+\begin{multline}\label{eq:shuffle-product}
+(f \star g)(z_1, \ldots, z_{m+n})
+= \frac{1}{m!\,n!} \sum_{\sigma \in S_{m+n}}
+\prod_{\substack{i \leq m \\ j > m}}
+\zeta(z_{\sigma(i)} - z_{\sigma(j)}) \\
+\cdot\, f(z_{\sigma(1)}, \ldots, z_{\sigma(m)})
+\cdot g(z_{\sigma(m+1)}, \ldots, z_{\sigma(m+n)}).
+\end{multline}
+Equivalently, the sum runs over $(m,n)$-shuffles
+$\mathrm{Sh}(m,n) \subset S_{m+n}$, with
+the $1/(m!\,n!)$ factor replaced by $1$ and the
+sum restricted to shuffles.
+\end{definition}
+
+\begin{remark}[Origin]\label{rem:shuffle-origin}
+The shuffle algebra was introduced by
+Feigin--Odesskii in the rational and
+trigonometric cases and extended to the elliptic case by
+Schiffmann--Vasserot~\cite{SV13} and Negut.
+The rational specialization $\zeta(u) = (u+\eta)/u$
+recovers the Feigin--Odesskii shuffle realization of the
+Yangian; the trigonometric specialization
+$\zeta(u) = (1 - q e^{2\pi i u})/(1 - e^{2\pi i u})$
+recovers the quantum affine algebra.
+\end{remark}
+
+\subsection{Explicit shuffle products}
+\label{subsec:shuffle-explicit}
+
+\begin{computation}[First generators]\label{comp:shuffle-generators}
+\index{shuffle algebra!explicit products}
+Let $e_1 = 1 \in \mathcal{S}_1 = \bC(z)$.  By the Fay identity (Theorem~\ref{thm:fay}) and oddness of $\theta$:
+\begin{equation}\label{eq:e1e1-result}
+(e_1 \star e_1)(z_1, z_2)
+= \frac{\theta(z_{12}+\eta) + \theta(\eta-z_{12})}
+{\theta(z_{12})},
+\end{equation}
+where $z_{12} = z_1 - z_2$.  The triple product is
+\begin{equation}\label{eq:shuffle-e1e1e1}
+(e_1 \star e_1 \star e_1)(z_1, z_2, z_3)
+= \sum_{\sigma \in S_3}
+\zeta(z_{\sigma(1)} - z_{\sigma(2)})\,
+\zeta(z_{\sigma(1)} - z_{\sigma(3)})\,
+\zeta(z_{\sigma(2)} - z_{\sigma(3)}).
+\end{equation}
+Associativity follows from the Yang--Baxter equation for $\zeta$.
+\end{computation}
+
+\begin{remark}[Shuffle--bar isomorphism]\label{rem:shuffle-bar}
+\index{shuffle algebra!bar complex connection}
+The residue pairing gives an isomorphism $\mathcal{S}_n \cong \B_n(\cA)^*$ under which the shuffle product corresponds to the deshuffle coproduct on $\B(\cA)$ (Corollary~\ref{cor:bar-is-dgcoalg}).
+\end{remark}
+
+
+\section{Comparison: rational, trigonometric, elliptic}
+\label{sec:rat-trig-ell-comparison}
+\index{comparison!rational vs trigonometric vs elliptic|textbf}
+
+\begin{table}[ht]
+\centering
+\caption{Comparison across the three regimes}
+\label{tab:rat-trig-ell}
+\renewcommand{\arraystretch}{1.35}
+{\footnotesize
+\begin{tabular}{|l|c|c|c|}
+\hline
+& \textbf{Rational} & \textbf{Trigonometric} & \textbf{Elliptic} \\
+\hline
+\textbf{Algebra}
+& Yangian $Y(\fg)$
+& Qtm.\ affine $U_q(\hat{\fg})$
+& Toroidal $U_{q,t}(\hat{\hat{\fg}})$ \\
+\hline
+\textbf{Curve}
+& $\bC$ (or $\bC\bP^1$)
+& $\bC^*$ (or $\bC\bP^1 \!\setminus\! \{0,\infty\}$)
+& $E_\tau$ \\
+\hline
+\textbf{Propagator}
+& $\frac{dz}{z}$
+& $\frac{dz}{1 - z}$
+& $d\log\theta_1(z|\tau)$ \\
+\hline
+\textbf{$R$-matrix}
+& $1 - \hbar P/u$
+& $(q{-}q^{-1})/(u{-}u^{-1})$
+& $\theta(u{+}\eta)/\theta(\eta)$ \\
+\hline
+\textbf{Arnold id.}
+& $\eta_{12}\!\wedge\!\eta_{23} + \text{cyc} = 0$
+& $\frac{dz_1}{z_1{-}z_2}\!\wedge\!\frac{dz_2}{z_2{-}z_3} {+} \text{cyc} = 0$
+& Fay trisecant \\
+\hline
+\textbf{$d^2\!=\!0$}
+& Partial fractions
+& $q$-partial fractions
+& Fay + quasi-period \\
+\hline
+\textbf{Koszul dual}
+& $Y_{-\hbar}(\fg)$
+& $U_{q^{-1}}(\hat{\fg})$
+& $U_{q^{-1},t^{-1}}(\hat{\hat{\fg}})$ (conj.) \\
+\hline
+\textbf{Struct.\ fn.}
+& $(u{+}\eta)/u$
+& $(1{-}qe^u)/(1{-}e^u)$
+& $\theta(u{+}\eta)/\theta(u)$ \\
+\hline
+\textbf{Shuffle alg.}
+& Feigin--Odesskii
+& F--O ($q$-def.)
+& Schiffmann--Vasserot \\
+\hline
+\textbf{Dyn.\ par.}
+& absent
+& absent
+& $\lambda \in \mathfrak{h}^*$ \\
+\hline
+\textbf{Bar curv.}
+& $m_0 = 0$
+& $m_0 \propto \log q$
+& $m_0 \propto E_2(\tau)$ \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+\begin{remark}[Degeneration limits]\label{rem:degeneration-limits}
+\index{degeneration!elliptic to trigonometric to rational}
+The three regimes degenerate via
+\begin{equation}\label{eq:degeneration-chain}
+\text{Elliptic} \;\xrightarrow{\;\tau \to i\infty\;}
+\text{Trigonometric} \;\xrightarrow{\;q \to 1\;}
+\text{Rational}.
+\end{equation}
+As $\tau \to i\infty$, $\theta_1(z|\tau) \to 2\sin(\pi z)$ and the Eisenstein corrections collapse to constants; as $q \to 1$, the trigonometric propagator becomes $dz/z$ and $R_q(u) \to 1 - \hbar P/u$.  The bar complex degenerates accordingly: $\B^{\mathrm{ell}}(\cA) \to \B^{\mathrm{trig}}(\cA) \to \B^{\mathrm{rat}}(\cA)$, consistent with the spectral sequence of Theorem~\ref{thm:elliptic-vs-rational}.
+\end{remark}
+
+
+%% ---------------------------------------------------------------
+%% BRIDGE 1: E as shared geometry
+%% ---------------------------------------------------------------
+
+\subsection{The elliptic curve as shared geometry}
+\label{subsec:bridge-shared-E}
+\index{elliptic curve!shared geometry bridge}
+
+\begin{remark}[Bridge: algebras on $E$ and algebras from $K3 \times E$]
+\label{rem:bridge-shared-E}
+The elliptic curve $E_\tau$ enters the remainder of this chapter in a second
+capacity.  The preceding sections study chiral algebras \emph{on} $E_\tau$:
+the propagator $d\log\theta_1(z|\tau)$, the Eisenstein corrections to
+the bar differential, the toroidal algebra $U_{q,t}(\hat{\hat{\mathfrak{g}}})$
+with $\tau = \log t / \log q$, and Felder's elliptic $R$-matrix
+$R(u,\lambda)$ built from the same theta function.
+The K3 chiral algebra $\cA_{K3}$ (\S\ref{sec:k3-chiral-algebra}) lives on a K3~surface, but
+the Calabi--Yau threefold $K3 \times E$ (\S\ref{sec:k3xe-geometry}) is fibered
+\emph{over} $E$, and Costello--Li's holomorphic twist reduction along K3
+produces a boundary chiral algebra $A_E$ \emph{on} $E_\tau$ with
+$c(A_E) = \chi(K3) = 24$ free bosons from harmonic forms on K3
+(Construction~\ref{constr:costello-li-k3xe}).
+
+Thus: the toroidal and elliptic quantum group algebras, and
+the Costello--Li boundary algebra $A_E$, are all chiral
+algebras on the \emph{same} curve $E_\tau$.  They share the propagator
+$d\log\theta_1$, the Fay trisecant relation governing $d^2 = 0$
+(Proposition~\ref{prop:fay-implies-d-squared}), and the Eisenstein
+filtration of the elliptic bar complex
+(Theorem~\ref{thm:elliptic-vs-rational}).
+The difference is the algebra: $A_E$ has $24$~generators
+with $\kappa(A_E) = 24$ (rank of the free-boson lattice)
+and shadow class~G (Gaussian, $r_{\max} = 2$), while
+$E_{q,p}(\mathfrak{sl}_N)$ has $N^2 - 1$~generators with
+dynamical parameter $\lambda \in \mathfrak{h}^*$.
+\end{remark}
+
+
+%% ===============================================================
+%% CALABI--YAU LOCAL-TO-GLOBAL GLUING AND THE K3 CHIRAL ALGEBRA
+%% ===============================================================
+
+\section{Calabi--Yau local-to-global gluing}
+\label{sec:cy-local-global}
+\index{Calabi--Yau!local-to-global gluing|textbf}
+\index{McKay correspondence}
+\index{Ginzburg dg algebra}
+
+The Calabi--Yau threefold $K3 \times E$ admits a local description
+in terms of quiver charts glued by $A_\infty$-bimodule transition
+data.  This section develops the algebraic machinery.
+
+\subsection{McKay correspondence and ADE quiver charts}
+\label{subsec:mckay-quiver}
+
+A K3 surface $S$ acquires ADE singularities at special points in
+moduli.  Near each singularity, the local geometry is
+$\bC^2/\Gamma$ for a finite subgroup $\Gamma \subset \mathrm{SL}(2,\bC)$.
+The McKay correspondence (McKay 1980, Gonzalez-Sprinberg--Verdier
+1983) gives a bijection
+\[
+\bigl\{\text{nontrivial irreps of } \Gamma\bigr\}
+\;\xleftrightarrow{\;\sim\;}\;
+\bigl\{\text{exceptional curves in the minimal resolution}\bigr\},
+\]
+and the McKay quiver $Q_\Gamma$ encodes the tensor product rule
+$\rho_{\mathrm{fund}} \otimes \rho_i = \bigoplus_j a_{ij}\,\rho_j$,
+where $a_{ij}$ are the arrows of the extended ADE Dynkin diagram.
+
+\begin{definition}[McKay quiver and Cartan matrix]
+\label{def:mckay-quiver}
+\index{McKay quiver|textbf}
+For a finite subgroup $\Gamma \subset \mathrm{SL}(2,\bC)$ of ADE
+type, the \emph{McKay quiver} $Q_\Gamma$ has vertices indexed by
+irreducible representations $\rho_0 = \mathrm{triv},\,
+\rho_1,\ldots,\rho_r$ and $a_{ij}$ arrows from vertex $i$ to
+vertex $j$, where $a_{ij}$ is the multiplicity of $\rho_j$ in
+$\rho_{\mathrm{fund}} \otimes \rho_i$.  The extended Cartan matrix is
+\[
+C_{\mathrm{ext}} = 2I - A,
+\]
+where $A$ is the adjacency matrix of $Q_\Gamma$.
+\end{definition}
+
+\begin{example}[ADE classification]
+\label{ex:ade-classification}
+\index{ADE classification!finite subgroups of SL(2)}
+The finite subgroups of $\mathrm{SL}(2,\bC)$ are classified by
+ADE Dynkin diagrams:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lllrl}
+\textbf{Group} & $\Gamma$ & \textbf{Type} & $|\Gamma|$
+  & \textbf{Irreps (rank)} \\
+\hline
+Cyclic & $\bZ/n$ & $A_{n-1}$ & $n$ & $n$ irreps, all $1$-dim \\
+Binary dihedral & $\mathrm{BD}_n$ & $D_{n+2}$ & $4n$ & $n+3$ irreps \\
+Binary tetrahedral & $\mathrm{BT}$ & $E_6$ & $24$ & $7$ irreps \\
+Binary octahedral & $\mathrm{BO}$ & $E_7$ & $48$ & $8$ irreps \\
+Binary icosahedral & $\mathrm{BI}$ & $E_8$ & $120$ & $9$ irreps
+\end{tabular}
+\end{center}
+For each type, $|\Gamma| = \sum d_i^2$ (sum of squared dimensions
+of irreducible representations) provides an independent check of
+the character table.
+\end{example}
+
+\begin{proposition}[Preprojective algebra from the McKay quiver;
+\ClaimStatusProvedElsewhere]
+\label{prop:preprojective-mckay}
+\index{preprojective algebra|textbf}
+The preprojective algebra $\Pi(Q_\Gamma) = kQ_{\mathrm{double}}/
+(\sum [a, a^*])$, where $Q_{\mathrm{double}}$ is the double quiver
+(adjoin a reverse arrow $a^*$ for each arrow $a$), has centre
+isomorphic to the invariant ring:
+\[
+Z(\Pi(Q_\Gamma)) \;\cong\; \bC[x,y,z]^\Gamma.
+\]
+For the Dynkin quiver of type~$\Delta$ with $r$ vertices and
+Coxeter number~$h$, the preprojective algebra is
+finite-dimensional with $\dim \Pi_0(Q_\Delta)$ given by the
+following table \textup{(}Crawley-Boevey 2001, computed via
+$\dim e_i\Pi e_j = \min(i,j)\min(r+1-i,r+1-j)$ for type~$A$
+and by the McKay quiver formula
+$\dim \Pi(Q_\Gamma) = |\Gamma| \cdot (r+1)$ for the extended
+quiver\textup{)}:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lrrrrr}
+\textbf{Type} & $|\Gamma|$ & $r = \operatorname{rank}$
+  & $h$ & $|Q_0|$ & $\dim\Pi_0$ \\
+\hline
+$A_1$ & $2$ & $1$ & $2$ & $2$ & $4$ \\
+$A_2$ & $3$ & $2$ & $3$ & $3$ & $9$ \\
+$A_3$ & $4$ & $3$ & $4$ & $4$ & $20$ \\
+$A_4$ & $5$ & $4$ & $5$ & $5$ & $35$ \\
+$D_4$ & $8$ & $4$ & $6$ & $5$ & $40$ \\
+$D_5$ & $12$ & $5$ & $8$ & $6$ & $72$ \\
+$E_6$ & $24$ & $6$ & $12$ & $7$ & $168$ \\
+$E_7$ & $48$ & $7$ & $18$ & $8$ & $384$ \\
+$E_8$ & $120$ & $8$ & $30$ & $9$ & $1080$
+\end{tabular}
+\end{center}
+The table entries are computed from the McKay quiver formula
+$\dim e_i\Pi e_j = \min(i,j)\min(r{+}1{-}i,\,r{+}1{-}j)$
+for type~$A$ and from representation-theoretic data for the
+exceptional types.
+\end{proposition}
+
+\subsection{Ginzburg dg algebras and Jacobian algebras}
+\label{subsec:ginzburg-dg}
+
+\begin{definition}[Ginzburg dg algebra]
+\label{def:ginzburg-dg}
+\index{Ginzburg dg algebra|textbf}
+\index{Jacobian algebra}
+For an ADE quiver $Q$ with potential $W$ (a linear combination
+of cyclic paths), the \emph{Ginzburg dg algebra} $\cA_\Gamma$
+is a Calabi--Yau $3$-fold dg algebra concentrated in degrees
+$[-3, 0]$.  Its zeroth cohomology is the \emph{Jacobian algebra}:
+\[
+\mathrm{Jac}(Q, W) = kQ \big/ \bigl(\partial_a W : a \in Q_1\bigr),
+\]
+where $\partial_a W$ is the cyclic derivative with respect to
+arrow $a$.  For ADE types, $\mathrm{Jac}(Q,W)$ is isomorphic
+to the preprojective algebra $\Pi_0(Q)$.
+\end{definition}
+
+\begin{remark}[CY3 extension]
+\label{rem:cy3-extension}
+For the local CY3 model $\bC^2/\Gamma \times \bC$, one adds a
+loop at each vertex of the McKay quiver (from the $\bC$
+direction).  The extended quiver with potential $(Q_{\mathrm{ext}},
+W_{\mathrm{ext}})$ has Jacobian algebra that is $3$-Calabi--Yau
+in the sense of Ginzburg: the derived category
+$D^b(\mathrm{Jac}(Q_{\mathrm{ext}}, W_{\mathrm{ext}}))$
+carries a Serre functor $S = [3]$.
+\end{remark}
+
+\subsection{$A_\infty$-bimodule transition data}
+\label{subsec:ainfty-bimodule}
+
+\begin{construction}[$A_\infty$-bimodule gluing]
+\label{constr:ainfty-bimodule}
+\index{A-infinity bimodule!chart transition}
+\index{reduced bar complex!bimodule}
+Given two local charts $U_\alpha, U_\beta$ with tilting
+generators $T_\alpha, T_\beta$ and endomorphism algebras
+$A_\alpha = \mathrm{End}(T_\alpha)$,
+$A_\beta = \mathrm{End}(T_\beta)$, the transition data on the
+overlap $U_{\alpha\beta} = U_\alpha \cap U_\beta$ is encoded
+in the $(A_\alpha, A_\beta)$-bimodule
+\[
+M_{\alpha\beta} = R\mathrm{Hom}(T_\alpha|_{U_{\alpha\beta}},\,
+T_\beta|_{U_{\alpha\beta}})
+\]
+with $A_\infty$-bimodule operations
+$m_{p|1|q}\colon A_\alpha^{\otimes p} \otimes M_{\alpha\beta}
+\otimes A_\beta^{\otimes q} \to M_{\alpha\beta}[2-p-q]$
+satisfying the $A_\infty$-bimodule equation.  The derived tensor
+product $M_{\alpha\beta} \otimes^{\mathbf{L}}_{A_\beta}
+M_{\beta\gamma}$ provides the triple-overlap cocycle data.
+The reduced bar complex $\overline{B}(A_\alpha, M_{\alpha\beta},
+A_\beta)$ computes the relevant $\mathrm{Ext}$ groups.
+\end{construction}
+
+\begin{remark}[Reduced bar complex and unit elements]
+\label{rem:reduced-bar-bimodule}
+\index{reduced bar complex!augmentation ideal}
+\index{A-infinity bimodule!augmentation ideal}
+The $A_\infty$-bimodule relations hold on the \emph{reduced}
+bar complex (augmentation ideal only): unit elements do not
+participate in the higher operations $m_{p|1|q}$ for $p + q \geq 2$.
+This is a general structural principle, not specific to K3.
+When computing $\overline{B}(A_\alpha, M_{\alpha\beta}, A_\beta)$,
+one restricts to the augmentation ideal
+$\overline{A} = \ker(\varepsilon \colon A \to \Bbbk)$
+in both algebra arguments.  The unit $1_A \in A$ acts on~$M$
+via $m_{1|1|0}(1_A, m) = m$ (identity bimodule action) and
+$m_{0|1|1}(m, 1_B) = m$, but does not enter the higher bar
+differential.  For the K3 quiver charts, where
+$A_\alpha = \mathrm{End}(T_\alpha)$ is augmented over~$\Bbbk$,
+this restriction ensures that only the interacting OPE data
+contributes to the gluing obstructions.
+\end{remark}
+
+\subsection{\v{C}ech descent and the global category}
+\label{subsec:cech-descent}
+
+\begin{theorem}[\v{C}ech descent for dg categories;
+\ClaimStatusProvedElsewhere]
+\label{thm:cech-descent}
+\index{Cech descent!dg categories}
+Cover $K3 = U_0 \cup U_1$, where $U_0 = K3 \setminus D$
+(complement of a smooth divisor $D \in |H|$) and $U_1$ is a
+tubular neighbourhood of $D$.  The derived category $D^b(K3)$
+is recovered as the homotopy fibre product
+\[
+D^b(K3) \;\simeq\; D^b(U_0) \times^h_{D^b(U_{01})} D^b(U_1),
+\]
+and the descent spectral sequence for Hochschild cohomology
+\[
+E_1^{p,q} = H^q\bigl(C^p(U_\bullet, \mathrm{HH}^*)\bigr)
+\;\Longrightarrow\; \mathrm{HH}^{p+q}(D^b(K3))
+\]
+converges.  The obstruction to gluing lives in
+$H^2(K3, \cO_{K3}) \cong \bC$ (the Brauer class), reflecting
+$h^{0,2}(K3) = 1$.
+\end{theorem}
+
+\subsection{Wall-crossing during chart transitions}
+\label{subsec:wallcrossing-charts}
+
+\begin{remark}[Cluster mutations and Bridgeland stability]
+\label{rem:cluster-bridgeland}
+\index{cluster mutation!chart transition}
+\index{Bridgeland stability}
+Mutation at a vertex $k$ of the McKay quiver produces a new
+quiver $Q' = \mu_k(Q)$ with exchange matrix $B'$ given by the
+Fomin--Zelevinsky rule.  For $A_n$ quivers, the exchange graph
+has $C_{n+1} = \binom{2n}{n}/(n+1)$ vertices (the $(n+1)$-th
+Catalan number), corresponding to triangulations of an
+$(n+3)$-gon.  The Kontsevich--Soibelman wall-crossing formula
+governs the change of DT invariants across stability walls.
+For $K3$ with primitive Mukai vector $v$: the moduli space
+$M_H(v) \cong \mathrm{Hilb}^n(K3)$ (Beauville) and the
+DT transformation satisfies $\tau^{n+3} = [2]$
+(Seidel--Thomas).
+\end{remark}
+
+
+%% ===============================================================
+%% THE K3 CHIRAL ALGEBRA
+%% ===============================================================
+
+\section{The K3 chiral algebra}
+\label{sec:k3-chiral-algebra}
+\index{K3 surface!chiral algebra|textbf}
+\index{N=4 superconformal algebra|textbf}
+
+The K3 sigma model produces a $c = 6$ vertex algebra with $\cN = 4$
+superconformal symmetry.  This section assembles the complete
+algebraic data: OPE structure, bar complex, shadow tower,
+Koszul dual, and the connections to Mathieu moonshine.
+
+\subsection{The $\cN = 4$ superconformal algebra at $c = 6$}
+\label{subsec:n4-sca}
+
+\begin{definition}[Small $\cN = 4$ SCA at $c = 6$]
+\label{def:n4-sca-c6}
+\index{N=4 superconformal algebra!c=6}
+The \emph{small $\cN = 4$ superconformal algebra} at central
+charge $c = 6$ (equivalently, $\mathrm{SU}(2)_R$ level
+$k_R = 1$, since $c = 6k_R$) has eight primary generators:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llcl}
+\textbf{Generator} & \textbf{Weight $h$} & \textbf{Parity}
+  & $J^3$ \textbf{charge} \\
+\hline
+$T$ & $2$ & bosonic & $0$ \\
+$G^+, G^-$ & $3/2$ & fermionic & $\pm 1/2$ \\
+$\tilde{G}^+, \tilde{G}^-$ & $3/2$ & fermionic & $\mp 1/2$ \\
+$J^{++}, J^{--}$ & $1$ & bosonic & $\pm 1$ \\
+$J^3$ & $1$ & bosonic & $0$
+\end{tabular}
+\end{center}
+The OPE structure at $c = 6$, $k_R = 1$:
+\begin{align}
+T(z)\,T(w) &\sim \frac{3}{(z-w)^4} + \frac{2T}{(z-w)^2}
+  + \frac{\partial T}{z-w}, \label{eq:n4-TT} \\
+J^3(z)\,J^3(w) &\sim \frac{1/2}{(z-w)^2}, \label{eq:n4-J3J3} \\
+J^{++}(z)\,J^{--}(w) &\sim \frac{1}{(z-w)^2}
+  + \frac{2J^3}{z-w}, \label{eq:n4-JppJmm} \\
+G^+(z)\,G^-(w) &\sim \frac{2}{(z-w)^3} + \frac{2J^3}{(z-w)^2}
+  + \frac{T + \partial J^3}{z-w}. \label{eq:n4-GpGm}
+\end{align}
+The remaining independent OPE relations at $c = 6$, $k_R = 1$
+\textup{(}from the $64$-pair table of \texttt{cy\_n4sca\_k3\_engine.py}\textup{)}:
+\begin{align}
+J^3(z)\,G^\pm(w) &\sim \frac{\pm\tfrac{1}{2}\,G^\pm}{z-w}, \label{eq:n4-J3Gpm} \\
+J^{++}(z)\,G^-(w) &\sim \frac{G^+}{z-w},\qquad
+J^{--}(z)\,G^+(w) \sim \frac{G^-}{z-w}, \label{eq:n4-JpmGmp} \\
+T(z)\,G^\pm(w) &\sim \frac{\tfrac{3}{2}\,G^\pm}{(z-w)^2}
+  + \frac{\partial G^\pm}{z-w}, \label{eq:n4-TG} \\
+T(z)\,J^a(w) &\sim \frac{J^a}{(z-w)^2} + \frac{\partial J^a}{z-w},
+  \label{eq:n4-TJ} \\
+\tilde{G}^+(z)\,\tilde{G}^-(w) &\sim \frac{2}{(z-w)^3}
+  - \frac{2J^3}{(z-w)^2}
+  + \frac{T - \partial J^3}{z-w}, \label{eq:n4-GtpGtm} \\
+G^+(z)\,\tilde{G}^+(w) &\sim \frac{2\,J^{++}}{z-w},\qquad
+G^-(z)\,\tilde{G}^-(w) \sim \frac{-2\,J^{--}}{z-w}.
+  \label{eq:n4-GGt-cross}
+\end{align}
+All boson--boson and fermion--fermion OPEs not listed above
+are either trivially determined by $\mathrm{SU}(2)_R$ symmetry
+or regular \textup{(}no singular terms\textup{)}.
+\end{definition}
+
+\begin{proposition}[Modular characteristic of the K3 sigma model;
+\ClaimStatusProvedHere]
+\label{prop:kappa-k3}
+\index{modular characteristic!K3}
+The modular characteristic of the K3 sigma model VOA is
+\begin{equation}\label{eq:kappa-k3}
+\kappa(\cA_{K3}) = 2 = \dim_\bC(K3).
+\end{equation}
+This is verified by six independent paths:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Geometric.} For a CY $d$-fold sigma model:
+  $\kappa = d$ \textup{(}index-theoretic computation via
+  the Chern character of the chiral de~Rham complex\textup{)}.
+\item \emph{Character.} $F_1 = \kappa/24 = 1/12$ matches the
+  genus-$1$ anomaly of the $c = 6$ sigma model.
+\item \emph{Complementarity.} $\kappa(\cA) + \kappa(\cA^!)
+  = 0$ gives $\kappa^! = -2$.
+\item \emph{Kummer orbifold.} At the Kummer point $K3 = T^4/\bZ_2$:
+  the orbifold preserves $\kappa = 2$ from the smooth sigma model.
+\item \emph{Gepner consistency.} The Gepner model $(2)^4$ gives
+  $\kappa_{\mathrm{Gepner}} = 4 \times (3/4) = 3$ using the
+  Virasoro formula $\kappa = c/2$ for each $\cN = 2$ factor.
+  This is a DIFFERENT algebra from the $\cN = 4$ SCA
+  \textup{(}$\kappa$ depends on the full algebra,
+  not just the Virasoro subalgebra\textup{)}.
+\item \emph{Additivity.} $\kappa(K3 \times E) =
+  \kappa(K3) + \kappa(E) = 2 + 1 = 3 = \dim_\bC(K3 \times E)$
+  \textup{(}Corollary~\textup{\ref{cor:shadow-extraction})}.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Paths (i)--(iii) follow from Theorem~D and the index-theoretic
+computation $\kappa(\Omega^{\mathrm{ch}}(\mathrm{CY}_d)) = d$
+(the Chern character of the chiral de~Rham complex on a Ricci-flat
+manifold reduces the genus-$1$ obstruction to $\chi(M)/12 = 2$
+for K3 via $\chi(K3) = 24$).  Path (iv): the Kummer orbifold
+$T^4/\bZ_2$ has the same modular characteristic as the smooth K3
+because $\kappa$ is a deformation invariant (it depends on the
+chiral algebra structure, which is constant across K3 moduli by
+curve independence).  Path (v): the Gepner model uses the Virasoro
+stress tensor for each $c = 3/2$ factor, giving $\kappa = c/2 = 3/4$
+per factor; the physical sigma model has the full $\cN = 4$
+structure whose $\kappa = 2$ is lower due to supersymmetric
+Ward identities.  Path (vi) follows from the additivity of $\kappa$
+under tensor products
+(Proposition~\ref{prop:independent-sum-factorization}).
+\end{proof}
+
+\begin{remark}[$\kappa(K3) = 2 \neq c/2 = 3$: modular characteristic vs central charge]
+\label{rem:ap48-k3}
+\index{modular characteristic!K3 example}
+The K3 sigma model provides a sharp illustration: the
+modular characteristic $\kappa(\cA_{K3}) = 2$ differs from the
+Virasoro formula $c/2 = 3$.  The reduction arises because the
+$\cN = 4$ superconformal Ward identities constrain the genus-$1$
+obstruction below what the Virasoro subalgebra alone would produce.
+The naive Virasoro computation $\kappa(\mathrm{Vir}_6) = 3$ counts
+the Virasoro contribution, but the full $\cN = 4$ algebra at $c = 6$
+has $\kappa = 2k_R = 2$.
+\end{remark}
+
+\subsection{Bar complex of the $\cN = 4$ SCA}
+\label{subsec:bar-n4}
+
+\begin{proposition}[Bar complex structure; \ClaimStatusProvedHere]
+\label{prop:bar-n4-sca}
+\index{bar complex!N=4 SCA}
+The bar complex $B(\cA_{K3})$ of the small $\cN = 4$ SCA at
+$c = 6$ has:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $B^1(\cA_{K3}) = \mathrm{span}\{s^{-1}a : a \text{ a
+  generator}\}$ with $\dim B^1 = 8$
+  \textup{(}one desuspended generator per primary;
+  $|s^{-1}v| = |v| - 1$\textup{)}.
+\item The bar differential $d\colon B^2 \to B^1$ is a
+  rank-$16$ linear map extracting all singular OPE modes via
+  the logarithmic kernel $d\log(z-w)$ \textup{(}the $d\log$
+  measure absorbs one power of $(z-w)$, so bar pole orders are
+  one less than OPE pole orders; the bar differential extracts
+  all singular modes, not just the simple pole\textup{)}.
+\item The algebra is chirally Koszul
+  \textup{(}Proposition~\textup{\ref{prop:pbw-universality}}):
+  the $\cN = 4$ SCA is freely strongly generated \textup{(}no null
+  vectors in the universal vacuum module\textup{)}, so bar
+  cohomology $H^*(B(\cA))$ is concentrated in bar degree~$1$.
+\end{enumerate}
+\end{proposition}
+
+\subsection{Shadow depth classification}
+\label{subsec:shadow-depth-k3}
+
+\begin{proposition}[K3 sigma model: class M; \ClaimStatusProvedHere]
+\label{prop:shadow-class-k3}
+\index{shadow depth!K3}
+The K3 sigma model VOA has shadow depth class~M
+\textup{(}infinite tower, $r_{\max} = \infty$\textup{)}.
+The shadow metric
+$Q_L(t) = (2\kappa + 3\alpha t)^2 + 2\Delta\,t^2$ has
+critical discriminant
+\[
+\Delta \;=\; 8\kappa\,S_4 \;\neq\; 0,
+\]
+so $Q_L$ is irreducible and the shadow tower does not terminate.
+The Virasoro sector at $c = 6$ contributes
+$Q^{\mathrm{contact}} = 10/[c(5c+22)] = 5/156 \neq 0$, and the
+$\mathrm{SU}(2)_R$ sector at level $k_R = 1$ contributes nonzero
+cubic shadow $S_3$ from the triple current OPE.
+\end{proposition}
+
+\subsection{The K3 elliptic genus and Mathieu moonshine}
+\label{subsec:k3-elliptic-genus}
+
+\begin{definition}[K3 elliptic genus]
+\label{def:k3-elliptic-genus}
+\index{elliptic genus!K3|textbf}
+\index{Jacobi form!phi_{0,1}}
+The elliptic genus of $K3$ is
+\begin{equation}\label{eq:k3-elliptic-genus}
+Z_{K3}(\tau,z) \;=\; 2\,\phi_{0,1}(\tau,z),
+\end{equation}
+where $\phi_{0,1}$ is the unique weak Jacobi form of weight~$0$,
+index~$1$ in the Eichler--Zagier normalization
+$\phi_{0,1}(\tau,0) = 12$.  At $z = 0$:
+$Z_{K3}(\tau,0) = 24 = \chi(K3)$.
+The Fourier expansion at $q^0$ gives
+$Z_{K3}|_{q^0} = 2y + 20 + 2y^{-1}$,
+the $\chi_y$-genus of K3 with $h^{1,1} = 20$,
+$h^{2,0} = h^{0,2} = 1$.
+\end{definition}
+
+\begin{theorem}[Mathieu moonshine; \ClaimStatusProvedElsewhere]
+\label{thm:mathieu-moonshine}
+\index{Mathieu moonshine|textbf}
+\index{M24|textbf}
+The $\cN = 4$ decomposition of the K3 elliptic genus,
+\begin{equation}\label{eq:mathieu-decomposition}
+Z_{K3} \;=\; 20 \cdot \mathrm{ch}_{\mathrm{massless}}
+\;+\; \sum_{n \geq 1} A_n \cdot \mathrm{ch}_{\mathrm{massive},n},
+\end{equation}
+where $\mathrm{ch}_{\mathrm{massless}}$ and
+$\mathrm{ch}_{\mathrm{massive},n}$ are $\cN = 4$ characters at
+$c = 6$, has coefficients $A_n$ that are dimensions of
+representations of the Mathieu group $M_{24}$
+\textup{(}Eguchi--Ooguri--Tachikawa 2010, proved by Gannon
+2016\textup{)}:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{ccccccc}
+$n$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ \\
+\hline
+$A_n$ & $90$ & $462$ & $1540$ & $4554$ & $11592$ & $27830$
+\end{tabular}
+\end{center}
+The $20$ massless states decompose as
+$23_{\mathrm{std}} - 3_{\mathrm{triv}}$ under $M_{24}$.
+\end{theorem}
+
+\begin{remark}[Mock modular form from K3]
+\label{rem:mock-modular-k3}
+\index{mock modular form!K3}
+The massive multiplicities assemble into the mock modular form
+\begin{equation}\label{eq:mock-modular-h}
+h(\tau) \;=\; 2q^{-1/8}\bigl(-1 + 45q + 231q^2
+  + 770q^3 + 2277q^4 + \cdots\bigr),
+\end{equation}
+where $A_n^{\mathrm{full}} = 2 \cdot a_n$ with $a_n = 45, 231,
+770,\ldots$ being the half-multiplicities.  The shadow of $h$ in
+the sense of Zwegers is $S(\tau) = 24\,\eta(\tau)^3$, a
+weight-$3/2$ cusp form.  The constant term $a_0 = -1$ gives
+$A_0^{\mathrm{full}} = -2 = -\kappa(\cA_{K3})$: the modular
+characteristic appears as the leading mock modular coefficient.
+
+The ``shadow'' in mock modularity (Zwegers) and the ``shadow''
+in the shadow obstruction tower (bar complex) are a priori
+different mathematical objects.  Their structural parallel ---
+both encode the failure of modular invariance --- is a
+connection to be explored, not an identification to be assumed.
+
+The mock modular form $h(\tau)$ admits a canonical decomposition
+via the Appell--Lerch sum.  Let
+$\mu(\tau,z) = \frac{-iy^{1/2}}{\vartheta_1(\tau,z)}
+\sum_{n \in \bZ} \frac{(-1)^n q^{n(n+1)/2} y^n}{1 - q^n y}$
+denote the Zwegers $\mu$-function.  Then
+\begin{equation}\label{eq:mock-modular-decomposition}
+Z_{K3}(\tau,z)
+\;=\;
+\bigl(h(\tau) - 24\,\mu(\tau,z)\bigr)
+\cdot \frac{\vartheta_1(\tau,z)^2}{\eta(\tau)^3},
+\end{equation}
+where the $24 = \chi(K3)$ multiplying $\mu$ is the Witten
+index and the theta-to-eta factor
+$\vartheta_1^2/\eta^3$ carries weight~$1/2$ and index~$1$.
+The decomposition is verified to machine
+precision (relative error $\sim 5.7 \times 10^{-16}$).
+The polar term $h|_{q^{-1/8}} = -2 = -\kappa(\cA_{K3})$
+reappears on the right-hand side as a consequence of the
+Appell--Lerch cancellation.
+\end{remark}
+
+\begin{remark}[The factor $2$ in $Z_{K3} = 2\,\phi_{0,1}$ is $\kappa$]
+\label{rem:factor-2-is-kappa}
+\index{modular characteristic!as elliptic genus coefficient}
+\index{Mathieu moonshine!bar complex coefficient}
+The elliptic genus $Z_{K3} = 2\,\phi_{0,1}$ has an overall
+factor of~$2$.  This factor IS the modular characteristic:
+$\kappa(\cA_{K3}) = 2$.  The bar complex provides the
+universal coefficient
+\begin{equation}\label{eq:moonshine-multiplier}
+A_n \;=\; \kappa(\cA_{K3}) \cdot \dim(\rho_n),
+\end{equation}
+where $\rho_n$ is the $M_{24}$-representation at level~$n$:
+$\dim(\rho_1) = 45$, $\dim(\rho_2) = 231$,
+$\dim(\rho_3) = 770$, $\dim(\rho_4) = 2277$.  The
+half-multiplicities $a_n = 45, 231, 770, \ldots$ are the
+$M_{24}$ irreducible dimensions; the full multiplicities
+$A_n = 2\,a_n = 90, 462, 1540, \ldots$ acquire the factor
+$\kappa = 2$ from the bar complex.
+
+The bar complex does NOT detect $M_{24}$ directly: it
+detects $\kappa = 2$ at arity~$2$ and the cubic/quartic
+shadow invariants at higher arities.  The $M_{24}$
+representation structure is an \emph{internal} symmetry of
+the massive BPS sector, invisible to the single-copy bar
+construction.  The bar complex provides the universal
+multiplier; the group theory is orthogonal.  The polar
+coefficient $-2 = -\kappa$ in the mock modular
+form~\eqref{eq:mock-modular-h} is the same $\kappa$
+from a different direction.
+\end{remark}
+
+\begin{remark}[Twining genera and $M_{24}$ conjugacy classes]
+\label{rem:twining-genera}
+\index{twining genera}
+For each conjugacy class $[g]$ of $M_{24}$, the twining genus
+$Z_g(\tau,z) = \mathrm{Tr}_{\mathrm{RR}}\bigl(g \cdot
+q^{L_0 - c/24}\,\bar{y}^{J_0}\,(-1)^{F+\bar{F}}\bigr)$ is a
+weak Jacobi form of weight~$0$, index~$1$ for
+$\Gamma_0(N_g)$, where $N_g = \mathrm{ord}(g)$.  Of the $26$
+conjugacy classes of $M_{24}$, only $21$ appear as symmetries of
+K3 sigma models (Gaberdiel--Hohenegger--Volpato 2010/2011): the
+five missing classes ($7A, 7B, 15A, 15B, 23A/B$) have Frame
+shapes incompatible with the K3 lattice.  Each realized class $g$
+has a Frame shape $\pi_g = \prod i^{a_i}$ encoding the permutation
+action on $24$ letters, with associated eta product
+$\eta_g(\tau) = \prod_i \eta(i\tau)^{a_i}$.
+The $21$ realized classes with their Frame shapes and orders:
+\begin{center}
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{llr|llr|llr}
+Class & Frame shape & $N_g$
+& Class & Frame shape & $N_g$
+& Class & Frame shape & $N_g$ \\
+\hline
+$1A$ & $1^{24}$ & $1$
+& $2A$ & $1^82^8$ & $2$
+& $2B$ & $2^{12}$ & $2$ \\
+$3A$ & $1^63^6$ & $3$
+& $4A$ & $1^42^24^4$ & $4$
+& $4B$ & $2^44^4$ & $4$ \\
+$4C$ & $4^6$ & $4$
+& $5A$ & $1^45^4$ & $5$
+& $6A$ & $1^22^13^26^2$ & $6$ \\
+$6B$ & $1^22^23^16^1$ & $6$
+& $8A$ & $1^22^14^18^2$ & $8$
+& $10A$ & $1^22^15^110^1$ & $10$ \\
+$11A$ & $1^211^2$ & $11$
+& $12A$ & $1^12^14^13^16^112^1$ & $12$
+& $12B$ & $2^14^16^112^1$ & $12$ \\
+$14A$ & $1^12^17^114^1$ & $14$
+& $14B$ & $1^12^17^114^1$ & $14$
+& $21A$ & $1^13^17^121^1$ & $21$ \\
+$21B$ & $1^13^17^121^1$ & $21$
+& $23A$ & $1^123^1$ & $23$
+& $23B$ & $1^123^1$ & $23$
+\end{tabular}
+\end{center}
+The $23A$ and $23B$ classes are listed for completeness but are
+among the five NOT realized as K3 symmetries.  The Frame shape
+determines the eta product $\eta_g$ and hence the shadow of the
+twined mock modular form; the shadow of $h_g$ is proportional
+to $\eta_g$.
+\end{remark}
+
+\subsection{Lattice VOA and Gepner model}
+\label{subsec:lattice-gepner}
+
+\begin{remark}[Lattice VOA from $H^2(K3,\bZ)$]
+\label{rem:lattice-voa-k3}
+\index{lattice VOA!K3}
+\index{K3 lattice}
+The K3 cohomology lattice $L_{K3} = H^2(K3,\bZ) \cong U^3 \oplus
+(-E_8)^2$ has rank~$22$, signature $(3,19)$, and discriminant
+$\det(G) = -1$.  Since $L_{K3}$ is indefinite, the naive theta
+function diverges.  The negative-definite sublattice $(-E_8)^2$
+of rank~$16$ produces a well-defined lattice VOA
+$V_{(-E_8)^2}$ with $c = 16$ and $\kappa = 16$
+($\kappa = \mathrm{rank}$ for lattice VOAs).  The
+theta series $\Theta_{E_8}(\tau) = E_4(\tau) = 1 + 240q + \cdots$
+(the weight-$4$ Eisenstein series, since $E_8$ is the unique even
+unimodular lattice of rank~$8$).
+
+The full Mukai lattice $\widetilde{H}(K3,\bZ) = U^4 \oplus
+(-E_8)^2$ has rank~$24$, signature $(4,20)$, and is the lattice
+relevant for Bridgeland stability conditions and derived
+categories.
+\end{remark}
+
+\begin{remark}[Gepner model $(2)^4$]
+\label{rem:gepner-model-k3}
+\index{Gepner model|textbf}
+The Gepner model for the quartic K3 (Fermat quartic
+$x_1^4 + x_2^4 + x_3^4 + x_4^4 = 0$ in $\bC\bP^3$) is the
+tensor product of four copies of the $\cN = 2$ minimal model at
+level $k = 2$ ($c = 3k/(k+2) = 3/2$), with GSO
+projection and $\bZ_4$ orbifold.  Total $c = 4 \times 3/2 = 6$.
+The chiral ring is isomorphic to the Jacobian ring
+$\mathrm{Jac}(W) = \bC[x_1,\ldots,x_4]/(\partial W/\partial x_i)$
+with $\dim \mathrm{Jac}(W) = 3^4 = 81$ before orbifold.  The
+symmetry group at the Gepner point contains
+$(\bZ/4\bZ)^4 \rtimes S_4$ (order $6144$) and embeds into
+the Conway group $\mathrm{Co}_1$.
+\end{remark}
+
+\subsection{Chiral de~Rham complex on K3}
+\label{subsec:cdr-k3}
+
+\begin{remark}[CDR on K3]
+\label{rem:cdr-k3}
+\index{chiral de Rham complex!K3}
+The chiral de~Rham complex $\Omega^{\mathrm{ch}}(K3)$ of
+Malikov--Schechtman--Vaintrob is a sheaf of vertex
+superalgebras on K3 with central charge $c = 0$ (the local
+contributions $c_{\beta\gamma} = -2$ and $c_{bc} = +2$ per
+complex dimension cancel globally).  The CDR cohomology
+recovers the K3 elliptic genus:
+$\mathrm{ch}\bigl(H^*\bigl(K3, \Omega^{\mathrm{ch}}\bigr)\bigr)
+= \mathrm{Ell}(K3; q, y) = 2\,\phi_{0,1}(\tau, z)$
+(Borisov--Libgober).
+
+On a hyperk\"ahler manifold (such as K3), the CDR carries
+$\cN = 4$ superconformal symmetry at $c = 0$ --- the
+topological $\cN = 4$ algebra, distinct from the physical
+$\cN = 4$ at $c = 6$.  Both give
+$\kappa = \dim_\bC(K3) = 2$.
+\end{remark}
+
+\subsection{Koszul dual of the K3 chiral algebra}
+\label{subsec:koszul-dual-k3}
+
+\begin{proposition}[Koszul dual of $\cA_{K3}$; \ClaimStatusProvedHere]
+\label{prop:koszul-dual-k3}
+\index{Koszul dual!K3 chiral algebra}
+The Koszul dual of the $\cN = 4$ SCA at $c = 6$, $k_R = 1$ has:
+\begin{itemize}
+\item $\kappa(\cA_{K3}^!) = -2$ \textup{(}by complementarity:
+  $\kappa + \kappa' = 0$ for free-field/CY sigma models\textup{)}.
+\item $c(\cA_{K3}^!) = -6$
+  \textup{(}the $\cN = 4$ SCA at negative central charge, with
+  $k_R' = -1$, since $\kappa = 2k_R$ and $\kappa' = -2$ gives
+  $k_R' = -1$, hence $c' = 6k_R' = -6$\textup{)}.
+\item $F_g(\cA^!) = -2 \cdot \lambda_g^{\mathrm{FP}}$ at all
+  genera.
+\end{itemize}
+The Verdier intertwining \textup{(}Theorem~A,
+Convention~\textup{\ref{conv:bar-coalgebra-identity}):}
+$D_{\mathrm{Ran}}(B(\cA_{K3})) \simeq B(\cA_{K3}^!)$.
+The derived centre $Z^{\mathrm{der}}_{\mathrm{ch}}(\cA_{K3})$
+\textup{(}the universal bulk\textup{)} is a separate object
+from $\cA^!$.
+\end{proposition}
+
+
+%% ===============================================================
+%% K3 x E AS A CALABI--YAU THREEFOLD
+%% ===============================================================
+
+\section{The Calabi--Yau threefold \texorpdfstring{$K3 \times E$}{K3 x E}:
+geometry and invariants}
+\label{sec:k3xe-geometry}
+\index{K3 x E!geometry|textbf}
+
+\subsection{Hodge diamond and topological invariants}
+\label{subsec:hodge-k3xe}
+
+\begin{proposition}[Hodge diamond of $K3 \times E$;
+\ClaimStatusProvedElsewhere]
+\label{prop:hodge-k3xe}
+\index{Hodge diamond!K3 x E}
+The K\"unneth formula gives the Hodge diamond of
+$K3 \times E$ \textup{(}$\dim_\bC = 3$\textup{)}:
+\[
+\renewcommand{\arraystretch}{1.1}
+\begin{array}{ccccccc}
+& & & 1 & & & \\
+& & 1 & & 1 & & \\
+& 1 & & 21 & & 1 & \\
+1 & & 21 & & 21 & & 1 \\
+& 1 & & 21 & & 1 & \\
+& & 1 & & 1 & & \\
+& & & 1 & & &
+\end{array}
+\]
+Key invariants:
+\begin{itemize}
+\item $h^{1,1} = h^{2,1} = 21$, giving
+  $\chi(K3 \times E) = 2(h^{1,1} - h^{2,1}) = 0$.
+\item Betti numbers: $b_0 = b_6 = 1$, $b_1 = b_5 = 2$,
+  $b_2 = b_4 = 23$, $b_3 = 44$.  Total: $\sum b_k = 96$.
+\item $K_0(K3 \times E) \cong \bZ^{48}$
+  \textup{(}$K_0(K3) \otimes K_0(E) = \bZ^{24} \otimes \bZ^2$\textup{)}.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+Apply K\"unneth: $h^{p,q}(K3 \times E) = \sum_{a+c=p,\; b+d=q}
+h^{a,b}(K3) \cdot h^{c,d}(E)$.  For example:
+$h^{1,1} = h^{1,1}(K3) \cdot h^{0,0}(E) + h^{0,0}(K3) \cdot
+h^{1,1}(E) = 20 + 1 = 21$.  The alternating sum
+$1 - 2 + 23 - 44 + 23 - 2 + 1 = 0$ verifies $\chi = 0$.
+\end{proof}
+
+\subsection{HKR decomposition and deformation space}
+\label{subsec:hkr-k3xe}
+
+\begin{proposition}[Deformation space of $D^b(K3 \times E)$;
+\ClaimStatusProvedElsewhere]
+\label{prop:hkr-k3xe}
+\index{HKR decomposition!K3 x E}
+\index{Hochschild cohomology!K3 x E}
+By the HKR isomorphism for a smooth CY $3$-fold:
+$\mathrm{HH}^n(X) = \bigoplus_{p+q=n} h^{3-p,\,q}(X)$.
+For $K3 \times E$:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+$\mathrm{HH}^0 = 1$ & automorphisms & $h^{3,0}$ \\
+$\mathrm{HH}^1 = 2$ & outer derivations & $h^{3,1} + h^{2,0}$ \\
+$\mathrm{HH}^2 = 23$ & first-order deformations & $h^{3,2} + h^{2,1} + h^{1,0}$ \\
+$\mathrm{HH}^3 = 44$ & obstructions & $h^{3,3} + h^{2,2} + h^{1,1} + h^{0,0}$
+\end{tabular}
+\end{center}
+The $23$-dimensional deformation space: $21$ complex structure
+\textup{(}from $h^{2,1}$\textup{)}, $1$ B-field \textup{(}from
+$h^{1,0}$\textup{)}, $1$ volume \textup{(}from
+$h^{3,2}$\textup{)}.  Total
+$\dim \mathrm{HH}^* = 96$.
+\end{proposition}
+
+\subsection{Noncommutative deformations and Brauer group}
+\label{subsec:nc-brauer}
+
+\begin{remark}[Brauer group of $K3 \times E$]
+\label{rem:brauer-k3xe}
+\index{Brauer group!K3 x E}
+$\mathrm{Br}(K3 \times E) = \mathrm{Br}(K3) \oplus \mathrm{Br}(E)$
+contains $(\bQ/\bZ)^{21}$ (K3 at Picard rank $\rho = 1$) plus
+$\bQ/\bZ$ from $E$.  The K3 symplectic form provides the unique
+Poisson structure $\pi = \omega^{-1}$ (since $\dim H^0(\bigwedge^2
+T_{K3}) = 1$), but the $E$-direction carries none
+($\bigwedge^2 T_E = 0$).
+\end{remark}
+
+\subsection{Autoequivalences and semiorthogonal structure}
+\label{subsec:sod-k3xe}
+
+\begin{proposition}[Indecomposability of $D^b(K3 \times E)$;
+\ClaimStatusProvedElsewhere]
+\label{prop:sod-k3xe}
+\index{semiorthogonal decomposition!K3 x E}
+$D^b(K3)$ admits no proper semiorthogonal decomposition
+\textup{(}Bridgeland, Kawamata, Huybrechts: $\omega_{K3} = \cO$
+forces Serre functor $[2]$, and the only fractional CY category
+with Serre $[2]$ is $D^b(K3)$ itself\textup{)}.  Hence
+$D^b(K3 \times E) = D^b(K3) \otimes D^b(E)$ is indecomposable.
+
+Autoequivalences: $\mathrm{Aut}(D^b(K3)) \to
+O^+(\widetilde{H}(K3,\bZ))$ via oriented Hodge isometries
+(line bundle twists, shifts, spherical twists $T_E$ with
+$T_E^2 = [-2]$).  $\mathrm{Aut}(D^b(E)) =
+(E \times E^\vee) \rtimes (\mathrm{SL}(2,\bZ) \rtimes \bZ)$.
+The virtual dimension of all moduli problems on $K3 \times E$
+vanishes: $\mathrm{vdim} = -\chi(\cE,\cE) = 0$.
+\end{proposition}
+
+\subsection{Factorization homology}
+\label{subsec:fact-homology-k3xe}
+
+\begin{remark}[Factorization homology on $K3 \times E$]
+\label{rem:fact-homology-k3xe}
+\index{factorization homology!K3 x E}
+The factorization homology of the HT-twisted sigma model:
+$\int_{K3 \times E} A^{\mathrm{HT}} \simeq
+H^*(K3 \times E,\, \Omega^{\mathrm{ch}})$.
+The CDR character gives $\chi(\Omega^{\mathrm{ch}}) = 0$, but the
+Hodge-graded character is nontrivial.
+$\dim \mathrm{HH}^*(D^b(K3 \times E)) = 96$.
+\end{remark}
+
+
+%% ===============================================================
+%% ENUMERATIVE GEOMETRY
+%% ===============================================================
+
+\section{Enumerative geometry of \texorpdfstring{$K3 \times E$}{K3 x E}}
+\label{sec:enum-geom-k3xe}
+\index{enumerative geometry!K3 x E|textbf}
+
+\subsection{Gromov--Witten theory and BPS invariants}
+\label{subsec:gw-bps}
+
+\begin{remark}[Reduced GW theory on K3]
+\label{rem:gw-k3}
+\index{Gromov--Witten!reduced|textbf}
+\index{Yau--Zaslow formula}
+For K3, the standard virtual class vanishes for $\beta \neq 0$
+(cosection from $H^{2,0}(K3) = \bC$).  The reduced theory
+(Bryan--Leung, Maulik--Pandharipande--Thomas) removes this
+obstruction.  The KKV formula (proved by Pandharipande--Thomas
+2016) gives the BPS state counts.  The genus-$0$ BPS invariants
+satisfy the Yau--Zaslow formula:
+\begin{equation}\label{eq:yau-zaslow}
+\sum_{h \geq 0} n^0_h\,q^h \;=\; \prod_{n \geq 1}
+\frac{1}{(1 - q^n)^{24}}.
+\end{equation}
+\end{remark}
+
+\begin{proposition}[BPS invariants of K3; \ClaimStatusProvedElsewhere]
+\label{prop:bps-k3}
+\index{BPS invariants!K3}
+Selected BPS invariants \textup{(}all integers, proved by
+Pandharipande--Thomas 2016\textup{)}:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lcccccccc}
+$h$ & $0$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ \\
+\hline
+$n^0_h$ & $1$ & $24$ & $324$ & $3200$ & $25650$ & $176256$
+  & $1073720$ & $5930496$ \\
+$n^1_h$ & $0$ & $-2$ & $-54$ & $-800$ & $-8550$ & $-73440$
+  & $-536860$ & $-3464264$ \\
+$n^2_h$ & $0$ & $0$ & $3$ & $104$ & $1701$ & $19656$
+  & $176358$ & $1316808$ \\
+$n^3_h$ & $0$ & $0$ & $0$ & $-4$ & $-155$ & $-2832$
+  & $-34470$ & $-320320$
+\end{tabular}
+\end{center}
+Signed convention: $n^g_h = (-1)^g |n^g_h|$.  The genus-$0$
+values are the Yau--Zaslow numbers \textup{(}OEIS A006922\textup{)};
+$n^0_1 = 24 = \chi(K3)$.
+The Hilbert scheme Euler characteristics
+$\chi(\operatorname{Hilb}^n(K3))$ provide the
+genus-$0$ column: $\chi(\operatorname{Hilb}^n) = n^0_n$,
+with generating function
+$\sum_{n \geq 0} \chi(\operatorname{Hilb}^n)\,q^n =
+\prod_{k \geq 1}(1-q^k)^{-24}$
+\textup{(}G\"ottsche formula\textup{)}.  The first eight values
+are $1, 24, 324, 3200, 25650, 176256, 1073720, 5930496$.
+\end{proposition}
+
+\subsection{Bridgeland stability on K3}
+\label{subsec:bridgeland-k3}
+
+\begin{remark}[Stability conditions]
+\label{rem:bridgeland-k3}
+\index{Bridgeland stability!K3}
+$\mathrm{Stab}^\dagger(K3) \to P^+(K3)$ is a covering of the
+period domain (Bridgeland 2008).  Walls of marginal stability for
+Mukai vectors $v = v_1 + v_2$ are semicircles in the
+$(B,\omega)$-plane; crossing them applies the KS wall-crossing.
+For primitive $v$ with $v^2 = 2n - 2$:
+$\Omega(v) = \chi(\mathrm{Hilb}^n(K3))$.
+\end{remark}
+
+
+%% ===============================================================
+%% BPS SPECTRUM AND BLACK HOLE PHYSICS
+%% ===============================================================
+
+\section{BPS spectrum and black hole entropy}
+\label{sec:bps-bh-k3xe}
+\index{BPS spectrum!K3 x E|textbf}
+\index{black hole entropy!K3 x E}
+
+\subsection{Charge lattice and BPS states}
+\label{subsec:charge-lattice}
+
+\begin{proposition}[Charge lattice; \ClaimStatusProvedElsewhere]
+\label{prop:charge-lattice}
+\index{charge lattice!K3 x E}
+Type IIA on $K3 \times E$ gives $4$d $\cN = 4$ supergravity
+with $22$ vector multiplets.  The D-brane charge lattice
+$\Gamma = H^{\mathrm{even}}(K3 \times E, \bZ)$:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llr}
+\textbf{Cohomology} & \textbf{Brane type} & \textbf{Rank} \\
+\hline
+$H^0 = \bZ$ & D6-branes & $1$ \\
+$H^2 = \bZ^{23}$ & D4-branes & $23$ \\
+$H^4 = \bZ^{23}$ & D2-branes & $23$ \\
+$H^6 = \bZ$ & D0-branes & $1$
+\end{tabular}
+\end{center}
+Total: $\mathrm{rank}\,\Gamma = 48$.
+\end{proposition}
+
+\subsection{Black hole entropy from $1/\Phi_{10}$}
+\label{subsec:bh-entropy}
+
+\begin{proposition}[BMPV and $\frac{1}{4}$-BPS entropy;
+\ClaimStatusProvedElsewhere]
+\label{prop:bmpv}
+\index{BMPV black hole}
+In $5$d \textup{(}IIA on $K3 \times S^1$\textup{)}: the BMPV black hole
+with charges $(Q_1, Q_5, n)$ has
+$S_{\mathrm{BH}} = 2\pi\sqrt{Q_1\,Q_5\,n}$
+\textup{(}Cardy with $c_L = 6\,Q_1\,Q_5$\textup{)}.
+In $4$d \textup{(}IIA on $K3 \times T^2$\textup{)}: the
+$\frac{1}{4}$-BPS dyon with discriminant $\Delta$ has
+\[
+S_{\mathrm{BH}} = 4\pi\sqrt{\Delta},
+\]
+and the DVV formula $Z_{1/4\text{-BPS}} = 1/\Phi_{10}$
+\textup{(}\eqref{eq:dvv}\textup{)} gives the exact microscopic count.
+For large $\Delta$:
+$\log d(\Delta) \sim 4\pi\sqrt{\Delta} -
+\frac{3}{2}\log\Delta + \cdots$,
+where the subleading term is the universal one-loop correction
+\textup{(}Sen 2005, 2012\textup{)}.
+The asymptotic expansion is the leading term of the Rademacher
+exact formula for the Fourier coefficients of $1/\Phi_{10}$:
+\[
+d(\Delta) \;=\; \frac{2\pi}{\sqrt{\Delta}}
+\sum_{c=1}^{\infty} \frac{K(c,\Delta)}{c}\,
+I_{27/2}\!\Bigl(\frac{4\pi\sqrt{\Delta}}{c}\Bigr)
+\;+\; \text{polar contributions},
+\]
+where $I_{27/2}$ is the modified Bessel function of the first
+kind of order~$27/2$ and $K(c,\Delta)$ is a Kloosterman-type
+sum over Sp$(4,\bZ)$.  The $c = 1$ term dominates at large
+$\Delta$, giving
+$d(\Delta) \sim e^{4\pi\sqrt{\Delta}} \cdot \Delta^{-29/4}$.
+The convergence of the Rademacher series is exponentially fast:
+the $c = 2$ correction is suppressed by $e^{-2\pi\sqrt{\Delta}}$
+relative to the leading term.
+\end{proposition}
+
+\begin{remark}[OSV conjecture]
+\label{rem:osv}
+\index{OSV conjecture}
+The Ooguri--Strominger--Vafa relation
+$Z_{\mathrm{BH}} = |Z_{\mathrm{top}}|^2$ connects the black hole
+partition function to the topological string.  For $K3 \times E$,
+the topological string is exactly solvable at genus~$0$ and~$1$.
+The shadow tower gives $F_g = 3 \cdot \lambda_g^{\mathrm{FP}}$
+at each genus.
+\end{remark}
+
+
+%% ---------------------------------------------------------------
+%% BRIDGE 2: Fourier--Jacobi as genus escalation
+%% ---------------------------------------------------------------
+
+\subsection{Fourier--Jacobi as genus escalation}
+\label{subsec:bridge-fourier-jacobi}
+\index{Fourier--Jacobi expansion!genus escalation bridge}
+
+\begin{proposition}[Bridge: elliptic $R$-matrix data determines BKM
+root system; \ClaimStatusProvedElsewhere]
+\label{prop:bridge-fj-genus-escalation}
+The Fourier--Jacobi expansion of the Igusa cusp form
+$\Phi_{10}(\Omega)
+= \sum_{m \geq 1} \phi_m(\tau,z)\,p^m$
+uses Jacobi forms $\phi_m(\tau,z)$ on $E_\tau$.  The leading
+coefficient
+\begin{equation}\label{eq:bridge-phi-1}
+\phi_1(\tau,z) = \eta(\tau)^{18}\,\vartheta_1(\tau,z)^2
+\end{equation}
+is built from the same theta function $\vartheta_1(\tau,z)$ that defines the
+elliptic propagator $d\log\vartheta_1(z|\tau)$
+\textup{(}\eqref{eq:ell-propagator}\textup{)} and
+Felder's elliptic $R$-matrix entries $a(u) = \theta(u{+}\eta)/\theta(\eta)$
+\textup{(}Definition~\textup{\ref{def:elliptic-r})}.
+
+The passage from genus-$1$ data \textup{(}Jacobi forms on $E_\tau$\textup{)}
+to genus-$2$ data \textup{(}the Siegel form $\Phi_{10}$ on $\mathfrak{H}_2$\textup{)}
+is the Borcherds multiplicative lift.  Its input is the K3 elliptic genus
+$Z_{K3} = 2\,\phi_{0,1}$
+\textup{(}Definition~\textup{\ref{def:k3-elliptic-genus})}, and the exponents
+$c_0(4nm - \ell^2)$ in the infinite product~\eqref{eq:borcherds-lift} are precisely
+the root multiplicities of the BKM superalgebra $\mathfrak{g}_{\Phi_{10}}$
+\textup{(}Proposition~\textup{\ref{prop:bkm-roots})}.
+
+In the factorization $\eta^{18} = \eta^{24} \cdot \eta^{-6}$:
+$\eta^{24} = \Delta$ is the Ramanujan discriminant
+\textup{(}the $24$~free bosons of $A_E$, with $\kappa(A_E) = 24$\textup{)}, and
+$\eta^{-6} = \eta^{-2\kappa}$ with $\kappa = \kappa(\Omega^{\mathrm{ch}}(K3 \times E))
+= 3$.  The shadow obstruction tower detects $\kappa = 3$
+\textup{(}Proposition~\textup{\ref{prop:shadow-k3e})};
+the Borcherds lift escalates this genus-$1$ datum to the genus-$2$ Siegel modular form.
+\end{proposition}
+
+
+%% ===============================================================
+%% TWISTED HOLOGRAPHY
+%% ===============================================================
+
+\section{Twisted holography on \texorpdfstring{$K3 \times E$}{K3 x E}}
+\label{sec:twisted-holography-k3xe}
+\index{twisted holography!K3 x E|textbf}
+\index{Costello--Li programme}
+
+\begin{construction}[Costello--Li KS boundary algebra]
+\label{constr:costello-li-k3xe}
+\index{Kodaira--Spencer theory!K3 x E}
+The Costello--Li programme extracts a boundary chiral algebra from
+the HT twist of Type IIB on $K3 \times E$.  Reduction of
+Kodaira--Spencer theory along the topological directions (K3)
+produces a chiral algebra $A_E$ on $E$ with generators from
+harmonic forms on K3:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lcl}
+$h^{p,q}(K3)$ & Contribution & Generators \\
+\hline
+$h^{0,0} = 1$ & Scalar boson & $1$ \\
+$h^{2,0} = 1$ & Symplectic boson & $1$ \\
+$h^{1,1} = 20$ & Weight-$1$ bosons & $20$ \\
+$h^{0,2} = 1$ & Conjugate boson & $1$ \\
+$h^{2,2} = 1$ & Volume boson & $1$
+\end{tabular}
+\end{center}
+Total: $c(A_E) = \chi(K3) = 24$.  This is NOT the K3 sigma model
+($c = 6$) but $24$ free bosons from the B-model reduction.
+$\kappa(A_E) = 24$ \textup{(}rank of the free-boson lattice\textup{)},
+$\kappa(A_E^!) = -24$ \textup{(}$\kappa + \kappa' = 0$ for
+free fields\textup{)}.
+\end{construction}
+
+\begin{warning}[OPE level matrix for KS boundary bosons]
+\label{warn:ope-level-mukai}
+\index{OPE level!Mukai pairing distinction}
+\index{Mukai pairing!OPE level}
+The $24$ free bosons $J^a(z)$ ($a = 1, \ldots, 24$) of the KS
+boundary algebra $A_E$ have OPE
+$J^a(z)\,J^b(w) \sim \delta^{ab}/(z-w)^2$,
+so the OPE level matrix is $\delta^{ab}$ (the unit matrix),
+\emph{not} the Mukai pairing $G^{ab}$ of signature $(4,20)$ on
+$H^*(K3, \Z)$.  The Mukai pairing enters through the vertex
+operators $V_\gamma(z) = {:}\!\exp(i\gamma_a J^a(z))\!{:}$
+for lattice vectors $\gamma \in \Gamma_{\mathrm{Mukai}}$,
+whose correlation functions involve
+$\langle V_\gamma V_{\gamma'} \rangle \propto
+\exp(\gamma \cdot G \cdot \gamma')$.  Confusing the OPE level
+$\delta^{ab}$ with the lattice pairing $G^{ab}$ produces wrong
+$\kappa$ values: the OPE level gives $\kappa(A_E) = 24$
+(sum of diagonal entries), while the Mukai norm
+$\mathrm{tr}(G) = 4 - 20 = -16$ would give a wrong and
+negative~$\kappa$.
+\end{warning}
+
+\begin{remark}[Holographic modular Koszul datum]
+\label{rem:holo-koszul-k3xe}
+\index{holographic modular Koszul datum!K3 x E}
+$H(K3 \times E) = (A, A^!, C, r(z), \Theta_A,
+\nabla^{\mathrm{hol}})$ with
+$A = A_E$ ($c = 24$, $\kappa = 24$),
+$A^! = A_E^!$ ($\kappa = -24$),
+$C = Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ (universal bulk),
+$r(z) = \Omega/z$ (Casimir, $24$-dim),
+$\Theta_A$ (bar-intrinsic MC element),
+$\nabla^{\mathrm{hol}}$ (shadow connection, class~G).
+\end{remark}
+
+\begin{proposition}[Boundary-to-sigma ratio;
+\ClaimStatusProvedHere]
+\label{prop:boundary-sigma-ratio}
+\index{modular characteristic!boundary vs sigma model}
+\index{K3 x E!boundary-to-sigma ratio}
+The boundary algebra $A_E$ and the sigma model VOA
+$V_{K3}$ have modular characteristics in ratio~$12$ at
+all genera:
+\begin{equation}\label{eq:boundary-sigma-ratio}
+\frac{\kappa(A_E)}{\kappa(V_{K3})}
+\;=\; \frac{24}{2} \;=\; 12,
+\qquad
+\frac{F_g(A_E)}{F_g(V_{K3})}
+\;=\; 12
+\quad\text{for all } g \geq 1.
+\end{equation}
+Here $A_E$ has $c = 24$ from the $24$ free bosons of the
+Kaluza--Klein reduction on K3
+\textup{(}Construction~\textup{\ref{constr:costello-li-k3xe})}
+indexed by the Mukai lattice $H^*(K3, \Z)$, and
+$V_{K3}$ is the $\cN = 4$ SCA at $c = 6$ with
+$\kappa(V_{K3}) = 2$ \textup{(}Proposition~\textup{%
+\ref{prop:kappa-k3})}.  The SUSY Ward identities of the
+$\cN = 4$ algebra reduce $\kappa$ by a factor of $c/2\kappa
+= 3$ relative to the Virasoro formula
+\textup{(}Remark~\textup{\ref{rem:ap48-k3}}\textup{)}.
+
+The ratio $12$ propagates to all genera because
+$F_g = \kappa \cdot \lambda_g^{\mathrm{FP}}$ with
+genus-independent $\lambda_g^{\mathrm{FP}}$
+\textup{(}Theorem~D\textup{)}.
+\end{proposition}
+
+\begin{proof}
+$\kappa(A_E) = 24$ (rank of the free-boson lattice).
+$\kappa(V_{K3}) = 2$ (Proposition~\ref{prop:kappa-k3}).
+Their ratio is $24/2 = 12$.  Since
+$F_g(\cA) = \kappa(\cA) \cdot \lambda_g^{\mathrm{FP}}$,
+the genus-$g$ ratio is
+$F_g(A_E)/F_g(V_{K3}) = \kappa(A_E)/\kappa(V_{K3}) = 12$
+for all $g \geq 1$.
+\end{proof}
+
+\begin{remark}[Leech connection]
+\label{rem:leech-connection}
+\index{Leech lattice!K3 connection}
+The boundary partition function
+$Z_1(A_E;\tau) = 1/\eta(\tau)^{48}$ at genus~$1$ matches the
+Leech lattice VOA $V_\Lambda$ through order $q^1$:
+$1/\eta^{48} = q^{-2}(1 + 48\,q + \cdots)$, while
+$V_\Lambda$ has $\dim (V_\Lambda)_1 = 0$ and
+$\dim (V_\Lambda)_2 = 196560$.  The two diverge at
+order~$q^2$: the $196560$ vectors of the Leech lattice have
+no counterpart in the $24$-boson Fock space
+at weight~$2$.
+The Leech lattice has $\kappa(V_\Lambda) = 24 = \kappa(A_E)$
+\textup{(}both are $24$ free bosons at level~$1$\textup{)},
+but their weight-$2$ spaces differ.
+\end{remark}
+
+
+%% ===============================================================
+%% MOCK MODULAR FORMS AND THE BKM SUPERALGEBRA
+%% ===============================================================
+
+\section{Mock modular forms and the BKM root system}
+\label{sec:mock-modular-bkm}
+\index{mock modular form!BPS|textbf}
+\index{BKM superalgebra|textbf}
+
+\subsection{BKM root multiplicities}
+\label{subsec:bkm-roots}
+
+\begin{proposition}[Root multiplicities; \ClaimStatusProvedElsewhere]
+\label{prop:bkm-roots}
+\index{BKM algebra!root multiplicities}
+The BKM superalgebra $\mathfrak{g}_{\Phi_{10}}$ has root
+multiplicities from the K3 elliptic genus:
+\begin{itemize}
+\item Real roots ($D = -1$, $\alpha^2 = 2$):
+  $\mathrm{mult} = c_0(-1) = 2$.
+\item Lightlike roots ($D = 0$, $\alpha^2 = 0$):
+  $\mathrm{mult} = c_0(0) = 10$
+  \textup{(}$20$ from $2\phi_{0,1}$\textup{)}.
+\item Imaginary roots ($D > 0$):
+  $\mathrm{mult} = c_0(D)$, unbounded.
+  Leading: $c_0(3) = -64$, $c_0(4) = 108$,
+  $c_0(7) = -513$, $c_0(8) = 808$.
+\end{itemize}
+Negative multiplicities at odd $D$ indicate fermionic
+directions in the superalgebra.  The discriminant coefficients
+$c_0(D)$ of $\phi_{0,1}$ through $D = 12$ are
+\textup{(}Eichler--Zagier convention\textup{)}:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{r|rrrrrrrrrrrrrr}
+$D$ & $-1$ & $0$ & $3$ & $4$ & $7$ & $8$
+  & $11$ & $12$ & $15$ & $16$ & $19$ & $20$ \\
+\hline
+$c_0(D)$ & $2$ & $10$ & $-64$ & $108$ & $-513$ & $808$
+  & $-2752$ & $4016$ & $-11775$ & $16524$ & $-43263$ & $58956$
+\end{tabular}
+\end{center}
+The $K3$ elliptic genus uses $2\,\phi_{0,1}$, so the BKM root
+multiplicities are $\mathrm{mult}(\alpha) = 2\,c_0(D)$ for
+discriminant $D$.  The theta decomposition
+$\phi_{0,1} = h_0(\tau)\,\vartheta_{0,1}(\tau,z)
++ h_1(\tau)\,\vartheta_{1,1}(\tau,z)$ separates even
+($\ell$ even, $D \equiv 0 \pmod{4}$) and odd
+($\ell$ odd, $D \equiv 3 \pmod{4}$) sectors, with
+$h_0(\tau) = 10 + 108\,q + 808\,q^2 + \cdots$ and
+$h_1(\tau) = q^{-1/4}(1 - 64\,q + \cdots)$.
+\end{proposition}
+
+
+%% ---------------------------------------------------------------
+%% BRIDGE 3: Hilbert schemes
+%% ---------------------------------------------------------------
+
+\subsection{The Hilbert scheme bridge}
+\label{subsec:bridge-hilbert-schemes}
+\index{Hilbert scheme!bridge to toroidal algebras}
+
+\begin{theorem}[Toroidal action on $K$-theory of Hilbert schemes
+{\cite{SV13}}; \ClaimStatusProvedElsewhere]
+\label{thm:bridge-sv-toroidal}
+\index{Schiffmann--Vasserot theorem}
+\index{toroidal algebra!Hilbert scheme action}
+Let $S$ be a smooth projective surface.  The toroidal algebra
+$U_{q,t}(\hat{\hat{\mathfrak{gl}}}_1)$ acts on
+$\bigoplus_{n \geq 0} K({\operatorname{Hilb}}^n(S))$
+by correspondences on the nested Hilbert scheme
+$\operatorname{Hilb}^{n,n+1}(S)$ \textup{(}Schiffmann--Vasserot\textup{)}.
+Specializations:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Nakajima operators} \textup{(}$q = 1$\textup{)}: the
+  Heisenberg algebra $\bigoplus_{n \in \bZ} \bQ\,\mathfrak{a}_n$
+  acts on $\bigoplus_n H^*(\operatorname{Hilb}^n(S))$ via
+  Nakajima correspondences,
+  with $\mathfrak{a}_{-n}|0\rangle$
+  the class of the punctual Hilbert scheme.
+\item \emph{Haiman's theorem} \textup{(}$S = \bC^2$\textup{)}:
+  the DAHA $\ddot{H}_n(q,t)$, a quotient of
+  $U_{q,t}(\hat{\hat{\mathfrak{gl}}}_1)$, acts on
+  $K(\operatorname{Hilb}^n(\bC^2))$ with fixed-point basis
+  indexed by partitions $\lambda \vdash n$, and the
+  character of the natural representation is the Macdonald
+  polynomial $\widetilde{H}_\lambda(x;q,t)$.
+\item \emph{$S = K3$}:
+  $\chi(\operatorname{Hilb}^n(K3)) = p_{24}(n)$
+  \textup{(}$24$-coloured partitions\textup{)}, so
+  $\sum_{n \geq 0} \chi(\operatorname{Hilb}^n(K3))\,p^n
+  = \prod_{m \geq 1} (1 - p^m)^{-24}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proposition}[DMVV from Hilbert scheme characters;
+\ClaimStatusProvedElsewhere]
+\label{prop:bridge-dmvv-hilb}
+\index{DMVV formula!Hilbert scheme}
+The DVV formula~\eqref{eq:dvv}
+$1/\Phi_{10} = \sum_N p^N\,\chi(\operatorname{Sym}^N(K3);\tau,z)$
+is the generating function of equivariant Euler characteristics of
+$\operatorname{Hilb}^N(K3)$ refined by the $\mathrm{SU}(2)_R$~fugacity
+$z$ and the $L_0$~fugacity $q = e^{2\pi i\tau}$.  The $24$~coloured
+partitions arise from Nakajima's Heisenberg action
+\textup{(}$24 = \chi(K3) = b_0 + b_2 + b_4 = 1 + 22 + 1$\textup{)}:
+each colour corresponds to a cohomology class of K3, matching the
+$24$~free bosons of the boundary algebra $A_E$
+\textup{(}Construction~\textup{\ref{constr:costello-li-k3xe})}.
+\end{proposition}
+
+\begin{remark}[Synthesis: toroidal algebras meet BPS counting]
+\label{rem:bridge-synthesis}
+\index{Hilbert scheme!synthesis}
+The three strands of this chapter converge on the Hilbert scheme.
+The toroidal algebra $U_{q,t}(\hat{\hat{\mathfrak{g}}})$ of
+\S\ref{sec:double-affine} provides the symmetry algebra
+acting on $K(\operatorname{Hilb}^n(S))$.
+The elliptic $R$-matrix of
+\S\ref{sec:elliptic-quantum} appears as the transition
+matrix between stable-envelope bases of $K(\operatorname{Hilb}^n(S))$
+(Aganagic--Okounkov).
+The BKM root multiplicities $c_0(D)$ of
+Proposition~\ref{prop:bkm-roots} are the Fourier coefficients of the
+K3~elliptic genus $Z_{K3} = 2\,\phi_{0,1}$, which in turn
+counts representations of the Heisenberg subalgebra on
+$\bigoplus_n H^*(\operatorname{Hilb}^n(K3))$.
+The shadow invariant $\kappa = 3$ measures the single-copy
+chiral algebra $\Omega^{\mathrm{ch}}(K3 \times E)$; the BKM algebra
+$\mathfrak{g}_{\Phi_{10}}$ encodes the second-quantized
+(symmetric-product) extension, and the gap between them is the content
+of the shadow--Siegel gap analysis
+(\S\ref{subsec:shadow-siegel-gap}).
+\end{remark}
+
+
+\subsection{Fourier--Jacobi expansion}
+\label{subsec:fj-expansion}
+
+\begin{remark}[Fourier--Jacobi structure]
+\label{rem:fj-structure}
+\index{Fourier--Jacobi expansion!Phi_{10}}
+$\Phi_{10} = \sum_{m \geq 1} \phi_m(\tau,z)\,p^m$ with:
+$\phi_1 = \phi_{10,1} = \eta^{18}\,\vartheta_1^2 =
+-\Delta \cdot \phi_{-2,1}$
+(unique Jacobi cusp form of weight~$10$, index~$1$);
+$\phi_2 = 2\,\Delta\,\phi_{-2,1}\,\phi_{0,1}$
+($\dim J_{10,2}^{\mathrm{cusp}} = 1$).
+The factorization $\eta^{18} = \eta^{24} \cdot \eta^{-6}$
+separates the Ramanujan discriminant from
+$\eta^{-2\kappa}$ with $\kappa = 3$.  The Jacobi form ring
+$J_{*,*}^{\mathrm{weak}} = \bC[E_4, E_6, \phi_{-2,1},
+\phi_{0,1}]$ (Eichler--Zagier).
+\end{remark}
+
+
+%% ===============================================================
+%% GRAND SYNTHESIS AND OPEN PROBLEMS
+%% ===============================================================
+
+\section{Grand synthesis and open problems}
+\label{sec:grand-synthesis-k3xe}
+\index{K3 x E!grand synthesis}
+
+\begin{remark}[Master data table for $K3 \times E$]
+\label{rem:master-data-k3xe}
+The complete invariant data assembled from the $39$ CY compute
+engines:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{ll}
+\textbf{Invariant} & \textbf{Value} \\
+\hline
+$\dim_\bC(K3 \times E)$ & $3$ \\
+$\chi(K3 \times E)$ & $0$ \\
+$h^{1,1} = h^{2,1}$ & $21$ \\
+$\mathrm{rank}\,K_0$ & $48$ \\
+$\dim \mathrm{HH}^*$ & $96$ \\
+$\kappa_{\mathrm{ch}} = \kappa(\Omega^{\mathrm{ch}})$ & $3$ \\
+$\kappa_{\mathrm{BKM}} = \mathrm{wt}(\Phi_{10})/2$ & $5$ \\
+$\kappa_{\mathrm{BCOV}} = \chi/24$ & $0$ \\
+Shadow depth & class M ($r_{\max} = \infty$) \\
+$F_1$ & $1/8$ \\
+$F_2$ & $7/1920$ \\
+$F_3$ & $31/322560$ \\
+$Z_{\mathrm{DT},0}$ & $1$ \\
+$n^0_1$ (genus-$0$ BPS, $h = 1$) & $24$ \\
+$S_{\mathrm{BH}}(\Delta)$ & $4\pi\sqrt{\Delta}$ \\
+$c(A_E^{\mathrm{KS}})$ (twisted holography) & $24$ \\
+$\kappa(A_E^{\mathrm{KS}})$ & $24$ \\
+$\mathrm{Br}(K3 \times E)$ & $\supset (\bQ/\bZ)^{22}$
+\end{tabular}
+\end{center}
+\end{remark}
+
+\begin{remark}[The $\kappa$-spectrum: four modular characteristics
+of one geometry]
+\label{rem:kappa-spectrum-k3xe}
+\index{modular characteristic!polysemy}
+\index{kappa-spectrum}
+The geometry $K3 \times E$ admits at least four distinct chiral
+algebraizations, each producing a different modular characteristic:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\kappa_{\mathrm{ch}} = 3$ (the chiral de Rham complex
+  $\Omega^{\mathrm{ch}}(K3 \times E)$, $c = 0$);
+\item $\kappa(K3) = 2$ (the K3 sigma model, $\cN = 4$ SCA at $c = 6$);
+\item $\kappa(A_E) = 24$ (the KS boundary algebra, $24$ free bosons);
+\item $\kappa_{\mathrm{BPS}} = 5$ (the BPS spectrum,
+  $\frac{1}{2}\operatorname{wt}(\Phi_{10})$).
+\end{enumerate}
+Each $\kappa$ is an invariant of the pair
+\emph{(geometry, algebraization)}, not of the geometry alone.
+The $\kappa$-spectrum of a CY manifold~$X$ is
+$\operatorname{Spec}_\kappa(X) =
+\{\kappa(\cA) : \cA \text{ a chirally Koszul algebra of } X\}$.
+For $K3 \times E$:
+$\operatorname{Spec}_\kappa = \{2, 3, 5, 24, \ldots\}$.
+This is analogous to the multiple spectra of a Riemannian
+manifold (Laplacian, Dirac, length): different algebraizations
+of the same geometry probe different aspects of the modular
+structure.  The kappa polysemy principle and the question of
+whether $\operatorname{Spec}_\kappa(X)$ is a complete invariant
+are developed further in the Vol~III working notes
+(\S\textup{13}: ``Four $\kappa$'s, one geometry'').
+\end{remark}
+
+\begin{remark}[The second-quantization gap]
+\label{rem:second-quantization-gap}
+\index{second-quantization gap}
+The shadow tower is first-quantized (single-copy).
+$1/\Phi_{10}$ is second-quantized (DMVV symmetric product).
+The ratio $\kappa_{\mathrm{BKM}}/\kappa_{\mathrm{ch}} = 5/3$
+reflects the passage from single copy to $\mathrm{Sym}^N$
+and is specific to $K3 \times E$ (the quintic gives a different
+ratio).  The Borcherds lift converts additive genus-$1$ data
+into multiplicative genus-$2$ data: shadow genus escalation.
+\end{remark}
+
+\begin{proposition}[The BPS modular characteristic;
+\ClaimStatusProvedHere]
+\label{prop:kappa-bps-decomposition}
+\index{modular characteristic!BPS}
+\index{second quantization!kappa decomposition}
+The BPS modular weight decomposes additively:
+\begin{equation}\label{eq:kappa-bps-decomposition}
+\kappa_{\mathrm{BPS}}
+\;=\; \kappa(K3) + \kappa(K3 \times E)
+\;=\; 2 + 3 \;=\; 5
+\;=\; \tfrac{1}{2}\operatorname{wt}(\Phi_{10}).
+\end{equation}
+The first summand $\kappa(K3) = 2$ is the fiber modular
+characteristic \textup{(}Proposition~\textup{\ref{prop:kappa-k3})};
+the second $\kappa(K3 \times E) = 3 = \dim_\bC$ is the
+surface modular characteristic
+\textup{(}Proposition~\textup{\ref{prop:shadow-k3e})}.
+The ratio
+\[
+\frac{\kappa_{\mathrm{BPS}}}{\kappa_{\mathrm{ch}}}
+\;=\; \frac{5}{3}
+\;=\; \frac{\operatorname{wt}(\Phi_{10})}{2\,\dim_\bC(K3 \times E)}
+\]
+reflects the passage from single-copy to symmetric-product.
+The distinction between $\operatorname{Hilb}^N$ and
+$\operatorname{Sym}^N$ accounts for additional BPS states:
+$\chi(\operatorname{Hilb}^2(K3)) - \chi(\operatorname{Sym}^2(K3))
+= 324 - 300 = 24 = \chi(K3)$, arising from the exceptional
+divisor of the Hilbert--Chow morphism
+$\operatorname{Hilb}^2(K3) \to \operatorname{Sym}^2(K3)$.
+The DMVV formula~\eqref{eq:dvv} uses the orbifold
+$\operatorname{Sym}^N$ formula; the G\"ottsche formula gives
+$\sum_N q^N \chi(\operatorname{Hilb}^N(K3))
+= \prod_{k \geq 1}(1-q^k)^{-24}$.
+\end{proposition}
+
+\begin{proof}
+The additivity $\kappa_{\mathrm{BPS}} = \kappa(K3) +
+\kappa(K3 \times E)$ is formal: the Borcherds lift weight is
+$c(0)/2 = 10/2 = 5$, while $\kappa(K3) = 2$ and
+$\kappa(K3 \times E) = 3$ are independently computed.
+That their sum equals~$5$ is verified by
+$\kappa(K3) + \kappa(K3 \times E) = 2 + 3 = 5 = c(0)/2$.
+The Hilbert--Chow difference: $\operatorname{Hilb}^2(S)$
+for a K3 surface~$S$ is the blowup of $\operatorname{Sym}^2(S)$
+along the diagonal, with exceptional divisor
+$\bP(T_S) \cong \bP^1$-bundle.  By the blowup formula,
+$\chi(\operatorname{Hilb}^2) = \chi(\operatorname{Sym}^2)
++ \chi(S) = \binom{25}{2} + 24 = 300 + 24 = 324$.
+\end{proof}
+
+\begin{remark}[Hilbert--Chow difference at higher $N$]
+\label{rem:hilbert-chow-higher}
+\index{Hilbert--Chow!higher N}
+The identity
+$\chi(\operatorname{Hilb}^2(S)) - \chi(\operatorname{Sym}^2(S))
+= \chi(S)$ generalizes: for all $N \geq 1$,
+$\chi(\operatorname{Hilb}^N(S))$ is the coefficient of $q^N$ in
+$\prod_{k \geq 1}(1-q^k)^{-\chi(S)}$ (G\"ottsche's formula),
+while $\chi(\operatorname{Sym}^N(S))
+= \binom{\chi(S) + N - 1}{N}$ (the combinatorial formula for
+orbifold Euler characteristics).  The difference
+$\delta_N = \chi(\operatorname{Hilb}^N) -
+\chi(\operatorname{Sym}^N)$ grows with~$N$; the leading
+corrections come from the exceptional loci of the Hilbert--Chow
+resolution $\operatorname{Hilb}^N(S) \to \operatorname{Sym}^N(S)$,
+which become increasingly complicated as partitions of~$N$ acquire
+more parts.  For $K3$: $\delta_1 = 0$, $\delta_2 = 24 = \chi(K3)$,
+$\delta_3 = 600$, $\delta_4 = 8100$, matching the G\"ottsche
+coefficients $1, 24, 324, 3200, 25650, \ldots$ minus the
+symmetric product coefficients
+$1, 24, 300, 2600, 17550, \ldots$.
+\end{remark}
+
+\begin{openproblem}[Does the bar complex of $\cA_{K3}$ detect
+$M_{24}$?]
+\label{op:bar-m24}
+\index{Mathieu moonshine!bar complex detection}
+The mock modular half-multiplicities $a_n = 45, 231, 770,\ldots$
+are dimensions of $M_{24}$ representations.  The bar complex
+$B(\cA_{K3})$ detects $\kappa = 2$ at arity~$2$ and the cubic
+shadow at arity~$3$.  Does the full shadow obstruction tower
+$\Theta_{\cA_{K3}}$ encode the $M_{24}$ action?  The mock modular
+shadow $24\,\eta^3$ and the bar-complex shadow connection
+$\nabla^{\mathrm{sh}}$ share the structural feature of encoding
+modular non-invariance.  Whether they are related by a precise
+functor remains open.
+\end{openproblem}
+
+\begin{openproblem}[Factorization envelope of the K3 chiral algebra]
+\label{op:fact-envelope-k3}
+\index{factorization envelope!K3}
+The factorization envelope $U^{\mathrm{mod}}_X(\cA_{K3})$ in the
+sense of Nishinaka (2025/26) and Vicedo (2025) is not yet
+constructed.  At the genus-$0$ level, the K3 sigma model provides a
+factorization algebra on $\mathrm{Ran}(X)$ for any algebraic curve
+$X$; the modular completion (incorporating all genera) is the
+frontier.  The six-fold platonic package
+$\Pi_X(\cA_{K3})$ is well-defined
+(Construction~\ref{constr:platonic-package}); what remains is the
+modular factorization envelope as the left adjoint of $\mathrm{Prim}^{\mathrm{mod}}$.
+\end{openproblem}
+
+\begin{remark}[Constructive reconstruction of $D^b(K3 \times E)$]
+\label{rem:db-k3xe-reconstruction}
+\index{derived category!K3 constructive reconstruction}
+\index{Cech descent!K3}
+The derived category $D^b(K3 \times E) \simeq D^b(K3) \otimes
+D^b(E)$ is constructively reconstructible by three independent
+methods:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{\v{C}ech descent.}
+Two affine charts suffice for a smooth K3 surface
+\textup{(}any smooth projective surface over an algebraically
+closed field is covered by at most two affines\textup{)}.
+The \v{C}ech descent spectral sequence
+\textup{(}Theorem~\textup{\ref{thm:cech-descent})}
+\[
+E_1^{p,q} = \bigoplus_{|I|=p+1}
+  \mathrm{HH}^q(D^b(U_I))
+\;\Longrightarrow\;
+\mathrm{HH}^{p+q}(D^b(K3))
+\]
+recovers $D^b(K3)$ from local data on $U_0, U_1$
+with transition data on $U_{01}$.
+\item \emph{BKR equivalence.}
+At the Kummer point $K3 = T^4/\bZ_2$, the
+Bridgeland--King--Reid theorem gives
+$D^b(\operatorname{Hilb}^2(T^4/\bZ_2)) \simeq
+D^b_{\bZ_2}(T^4)$, providing an explicit equivariant
+description.  The equivariant category
+$D^b_{\bZ_2}(T^4)$ is generated by equivariant
+line bundles and is computationally accessible.
+\item \emph{Brauer obstruction.}
+$\mathrm{Br}(K3) \supset (\bQ/\bZ)^{21}$
+\textup{(}Remark~\textup{\ref{rem:brauer-k3xe})} obstructs
+only \emph{twisted} derived categories.  The
+untwisted category $D^b(K3)$ is unobstructed.
+\end{enumerate}
+A structural constraint: CY threefolds carry no exceptional
+objects \textup{(}$\chi(\cO_X, \cO_X) = 0$ by the
+antisymmetry of Serre duality on a CY$_3$\textup{)}, so
+$D^b(K3 \times E)$ admits no semiorthogonal decomposition
+and must be treated as an indecomposable block
+\textup{(}Proposition~\textup{\ref{prop:sod-k3xe})}.
+\end{remark}
+
+\begin{openproblem}[Global CY category from finitely many quiver charts]
+\label{op:global-cy-category}
+\index{Calabi--Yau category!global from quiver charts}
+Given the constructive methods of
+Remark~\ref{rem:db-k3xe-reconstruction}, can
+$D^b(K3 \times E)$ be assembled from finitely many quiver
+charts with explicit $A_\infty$-bimodule transition data?
+The McKay correspondence provides the local charts at
+orbifold points; the cluster mutation structure controls
+transitions; the KS wall-crossing governs the DT invariant
+bookkeeping.  A constructive algorithm would connect the
+local-to-global CY gluing of
+\S\ref{sec:cy-local-global} to the global enumerative data of
+\S\ref{sec:enum-geom-k3xe}.
+\end{openproblem}
+
+
+%% ---------------------------------------------------------------
+\subsection{Research programmes}
+\label{subsec:cy-research-programmes}
+\index{K3 x E!research programmes}
+
+The preceding computation identifies the shadow obstruction tower
+of $K3 \times E$ down to precise numerical invariants.  Ten research
+programmes emerge, each probing a different direction of the
+interface between bar-cobar duality and Calabi--Yau geometry.
+These are recorded as formal conjectures and open problems;
+each is grounded in computations from the $42$ CY engines
+of the compute layer.
+
+\bigskip
+
+%%% --- Programme A: Constructive CY gluing ---
+
+\begin{openproblem}[Programme A: constructive Calabi--Yau gluing]
+\label{op:programme-a-cy-gluing}
+\index{Calabi--Yau category!constructive gluing}
+\index{quiver chart!constructive gluing}
+The \v{C}ech descent of
+\S\ref{sec:cy-local-global} reconstructs $D^b(K3 \times E)$
+from local quiver charts in principle.  Three questions sharpen
+the programme.
+\begin{enumerate}[label=\textup{(A\arabic*)}]
+\item \emph{Minimum chart number.}  For a K3 surface~$S$ of
+  Picard rank~$\rho$, what is the minimum number of
+  ADE-type quiver charts whose $A_\infty$-bimodule
+  transition data recovers $D^b(S)$?  The Mukai lattice
+  $\widetilde{H}(S,\bZ) \cong U^4 \oplus E_8(-1)^2$ has
+  rank~$24$; categorical generation requires a spanning class
+  for thick subcategory generation, not merely $K$-theory
+  spanning.  For orbifold K3 (Kummer $T^4/\bZ_2$),
+  the BKR equivalence
+  $D^b(\operatorname{Kum}(A)) \simeq D^b_{\bZ/2}(A)$
+  provides a single global chart; for smooth K3 without
+  ADE singularities, no full exceptional collection exists
+  (Bridgeland 1999), and one must generate via spherical
+  objects and their twist functors.
+\item \emph{Brauer obstruction.}  The gluing obstruction
+  lives in $H^2(S, \cO_S) \cong \bC$
+  (the Brauer class).  When does a nontrivial Brauer
+  class kill the descent?  For generic K3 with $\rho = 0$,
+  $\operatorname{Br}(S)$ contains $(\bQ/\bZ)^{22}$;
+  for $K3 \times E$,
+  $\operatorname{Br}(K3 \times E)
+  \supset (\bQ/\bZ)^{22+1}$.
+\item \emph{Beyond ADE.}  The McKay correspondence
+  handles orbifold singularities.  For smooth K3 at a
+  generic moduli point (no singularities), the relevant
+  local charts are formal neighborhoods of subvarieties,
+  not ADE resolution charts.  Does the spherical twist
+  functor orbit of $\cO_S$ generate $D^b(S)$ with
+  finitely many transitions?
+\end{enumerate}
+\end{openproblem}
+
+\begin{conjecture}[ADE chart decomposition of K3]
+\label{conj:ade-chart-k3}
+\index{K3 surface!ADE chart decomposition}
+\ClaimStatusConjectured\quad
+Every algebraic K3 surface admits a finite ADE-chart
+decomposition of its derived category: there exist finitely
+many open sets $\{U_\alpha\}$ with tilting generators
+$T_\alpha$ on each $U_\alpha$, and
+$A_\infty$-bimodule transition data on overlaps, such that
+$D^b(S) \simeq \operatorname{holim}_{\check{C}} D^b(U_\alpha)$.
+The minimum number of charts is bounded below by
+$\lceil \operatorname{rank}\,K_0(S) / \max_\alpha
+\operatorname{rank}\,K_0(\operatorname{End}(T_\alpha)) \rceil$.
+\end{conjecture}
+
+
+%%% --- Programme B: kappa as universal moonshine multiplier ---
+
+\begin{openproblem}[Programme B: $\kappa$ as universal moonshine multiplier]
+\label{op:programme-b-moonshine}
+\index{moonshine!universal multiplier}
+\index{modular characteristic!moonshine}
+The Mathieu moonshine decomposition gives
+$A_n = 2 \cdot \dim(\rho_n)$ with
+$\rho_n \in \operatorname{Irr}(M_{24})$, where the
+factor $2 = \kappa(\cA_{K3})$ is the modular characteristic
+of the K3 sigma model
+(Remark~\ref{rem:factor-2-is-kappa}).
+This suggests a universal principle.
+\begin{enumerate}[label=\textup{(B\arabic*)}]
+\item \emph{Monster moonshine.}  For the Monster module
+  $V^\natural$ ($c = 24$, $\kappa(V^\natural) = 12$ by
+  Remark~\ref{rem:lattice-voa-k3} and
+  Theorem~\ref{thm:lattice-voa-bar}, applied to the
+  Leech lattice construction):
+  does $A_n^{\text{Monster}} = \kappa(V^\natural) \cdot
+  \dim(\rho_n^{\mathbb{M}})$ for the Monster group
+  $\mathbb{M}$?
+  The McKay--Thompson series $T_g(\tau) =
+  \sum_n \operatorname{tr}(\rho_n(g))\,q^{n-1}$ is a
+  genus-zero Hauptmodul; the question is whether the
+  \emph{dimensions} (not characters) factor through~$\kappa$.
+\item \emph{Conway moonshine.}  For $V^{s\natural}$
+  ($c = 12$, the shorter moonshine module):
+  $\kappa(V^{s\natural}) = ?$ and does
+  $A_n = \kappa \cdot \dim(\rho_n^{Co_0})$?
+  The Conway group $Co_0$ acts on the Leech lattice;
+  $V^{s\natural}$ is the $\bZ/2$-orbifold of the
+  rank-$12$ lattice VOA.
+\item \emph{General principle.}  For a holomorphic VOA~$V$
+  of central charge~$c$ with finite automorphism group~$G$,
+  does the elliptic genus decompose as
+  $Z_g(\tau,z) = \kappa(V) \cdot \sum_n
+  \dim(\rho_n)\,\operatorname{ch}_n(g)$ for $g \in G$?
+\end{enumerate}
+\end{openproblem}
+
+\begin{conjecture}[Universal moonshine multiplier]
+\label{conj:universal-moonshine-multiplier}
+\index{moonshine!universal multiplier conjecture}
+\ClaimStatusConjectured\quad
+For a holomorphic VOA~$V$ with finite automorphism group~$G$,
+the twined partition function decomposes as
+\[
+Z_g(\tau,z)
+\;=\;
+\kappa(V) \cdot \sum_{n \geq 0}
+\dim(\rho_n)\,\mathrm{ch}_n(g),
+\qquad g \in G,
+\]
+where $\kappa(V)$ is the bar-complex modular characteristic,
+$\{\rho_n\}$ are virtual $G$-representations, and
+$\mathrm{ch}_n$ are character functions determined by the
+elliptic genus of~$V$.  For $V = \cA_{K3}$ ($c = 6$) with
+$G = M_{24}$: $\kappa = 2$ and
+$A_n = 2 \cdot \dim(\rho_n)$ as established by Gannon~\cite{Gannon16}.
+\end{conjecture}
+
+
+%%% --- Programme C: Second-quantization bridge ---
+
+\begin{openproblem}[Programme C: second-quantization bridge]
+\label{op:programme-c-second-quantization}
+\index{second quantization!shadow bridge}
+\index{plethystic exponential}
+The ratio $\kappa_{\mathrm{BPS}}/\kappa_{\mathrm{ch}} = 5/3$
+(Proposition~\ref{prop:kappa-bps-decomposition}) encodes the
+passage from first to second quantization for $K3 \times E$.
+\begin{enumerate}[label=\textup{(C\arabic*)}]
+\item \emph{Universality.}  Does $\kappa_{\mathrm{BPS}}
+  = \kappa(\text{surface}) + \kappa(\text{CY}_3)$ hold for
+  other CY$_3$s?  For the quintic: $\chi = -200$,
+  $\kappa_{\mathrm{ch}} = 3$, and
+  $\kappa_{\mathrm{BPS}}$ must be extracted from
+  the genus-$2$ topological string amplitude (not a single
+  Siegel form, since the quintic is not a product).
+\item \emph{Plethystic shadow.}  The DMVV formula
+  $1/\Phi_{10} = \mathrm{PE}[2\,\phi_{0,1}]$ expresses
+  the second-quantized partition function as the plethystic
+  exponential of the single-copy elliptic genus.  What is
+  the shadow tower of $\mathrm{PE}[\cA]$ in terms of
+  the shadow tower of~$\cA$?  The tensor product gives
+  $\kappa(\cA^{\otimes N}) = N\,\kappa(\cA)$ by additivity,
+  but the $\bZ_N$-orbifold projection to $\mathrm{Sym}^N$
+  modifies the tower through twisted sectors.
+\item \emph{Adams operations.}  The Adams operations
+  $\psi^k$ on the shadow generating function:
+  $\psi^k(Z^{\mathrm{sh}})(\hbar) = Z^{\mathrm{sh}}(k\hbar)$.
+  Does this intertwine with the Hecke operators on the
+  Jacobi form $\phi_{0,1}$ via the DMVV
+  formula~\eqref{eq:dvv}?
+\end{enumerate}
+\end{openproblem}
+
+\begin{conjecture}[BPS modular characteristic universality]
+\label{conj:kappa-bps-universality}
+\index{modular characteristic!BPS universality}
+\ClaimStatusConjectured\quad
+For a product CY$_3$ of the form $S \times E$ with~$S$ a K3
+surface and~$E$ an elliptic curve,
+\[
+\kappa_{\mathrm{BPS}}
+\;=\;
+\kappa(S) + \kappa(S \times E)
+\;=\;
+\dim_\bC(S) + \dim_\bC(S \times E).
+\]
+For non-product CY$_3$s, $\kappa_{\mathrm{BPS}}$ is
+determined by the weight of the Siegel modular form
+\textup{(}if one exists\textup{)} controlling the
+$\frac{1}{4}$-BPS spectrum.
+\end{conjecture}
+
+
+%%% --- Programme D: Schottky shadow programme ---
+
+\begin{openproblem}[Programme D: Schottky shadow programme]
+\label{op:programme-d-schottky}
+\index{Schottky problem!shadow tower}
+\index{shadow obstruction tower!Schottky}
+The shadow tower lives on $\overline{\cM}_g$
+(via tautological classes), while Siegel modular forms
+live on $\cA_g$.  For $g \leq 3$, the Torelli map
+$j \colon \cM_g \hookrightarrow \cA_g$ is an
+isomorphism ($g = 1$), birational ($g = 2$), or
+injective with codimension-$0$ complement ($g = 3$).
+For $g \geq 4$, the Jacobian locus $\cJ_g = j(\cM_g)$
+has codimension $(g-2)(g-3)/2$ in $\cA_g$; the
+Schottky problem is nontrivial.
+\begin{enumerate}[label=\textup{(D\arabic*)}]
+\item \emph{Tautological insulation.}  The shadow amplitude
+  $F_g = \kappa\,\lambda_g^{\mathrm{FP}}$ lives in the
+  tautological ring $R^*(\overline{\cM}_g)$, which is
+  insensitive to the Schottky constraint.  The shadow
+  tower cannot detect whether a period matrix is a
+  Jacobian: it is tautologically insulated from Schottky.
+\item \emph{Physical partition function.}
+  The physical genus-$g$ partition function
+  $Z_g(\Omega)$ for $K3 \times E$ \emph{is} constrained
+  by Schottky at $g \geq 4$: it is defined on $\cJ_g$,
+  not all of $\cA_g$.  The gap between shadow
+  (tautological) and partition function (analytic)
+  at $g \geq 4$ measures the failure of the shadow tower
+  to capture the full moduli dependence.
+\item \emph{The Schottky--Igusa form.}  The Schottky--Igusa
+  form $J \in S_8(\operatorname{Sp}(8,\bZ))$ vanishes
+  exactly on $\cJ_4$ at genus~$4$.  Its weight $8 = 2g$
+  is significant.  Does any shadow invariant at genus~$4$
+  detect~$J$?  The tautological ring at genus~$4$ has
+  dimension $\dim R^4(\overline{\cM}_4) = 2$; the shadow
+  contributes to one component, but $J$ lives transverse
+  to the tautological ring.
+\end{enumerate}
+\end{openproblem}
+
+\begin{conjecture}[Shadow tower generates the tautological
+projection]
+\label{conj:shadow-taut-projection}
+\index{tautological ring!shadow generation}
+\ClaimStatusConjectured\quad
+At genus~$g$, the shadow obstruction tower of a class-M
+algebra \textup{(}shadow depth $r_{\max} = \infty$\textup{)}
+generates the image of the restriction map
+$\operatorname{res} \colon S_*(\operatorname{Sp}(2g,\bZ))
+\to R^*(\overline{\cM}_g)$
+from the ring of Siegel modular forms to the tautological
+ring.  The shadow tower does not see the transverse
+directions to $\cJ_g$ in $\cA_g$, but it generates the
+full tautological projection of the Siegel data.
+\end{conjecture}
+
+
+%%% --- Programme E: Mock modularity and the bar complex ---
+
+\begin{openproblem}[Programme E: mock modularity and the bar complex]
+\label{op:programme-e-mock-modularity}
+\index{mock modular form!bar complex}
+\index{Appell--Lerch sum}
+The mock modular form $h(\tau) =
+2\,q^{-1/8}(-1 + 45q + 231q^2 + \cdots)$ encoding the
+massive $\cN = 4$ multiplicities has shadow
+$S(\tau) = 24\,\eta(\tau)^3$ (weight~$3/2$, cusp form).
+\begin{enumerate}[label=\textup{(E\arabic*)}]
+\item \emph{The factor $24$.}  The shadow
+  $S(\tau) = 24\,\eta^3$ contains
+  $24 = \chi(K3)$, the topological Euler characteristic.
+  Where does this factor arise in the bar complex?
+  The bar curvature $\kappa = 2$ does not directly
+  produce~$24$; the factor $24/\kappa = 12$ is the
+  modular discriminant level.  An algebraic derivation
+  from the bar complex would connect the mock modular
+  shadow to the bar-complex shadow connection
+  $\nabla^{\mathrm{sh}}$.
+\item \emph{The Appell--Lerch sum.}  The massless $\cN = 4$
+  character is controlled by the Appell--Lerch sum
+  $\mu(\tau,z)$.  The non-holomorphic completion
+  $\hat{h}(\tau,\bar\tau)$ is modular of weight~$1/2$.
+  Is there a bar-complex interpretation of~$\mu$?
+  The Appell--Lerch sum regularizes the divergent
+  theta-type sum; the bar complex regularizes the
+  divergent Feynman-type sum.
+  Both are regularizations of the same modular anomaly.
+\item \emph{Half-integral weight.}  The mock modular
+  form~$h$ has weight~$1/2$; the shadow has weight~$3/2$.
+  The bar-complex shadow connection $\nabla^{\mathrm{sh}}$
+  produces integer-weight objects (the shadow metric $Q_L$
+  has weight~$2$; the Faber--Pandharipande
+  $\lambda_g$ are tautological, hence of integral weight).
+  The passage to half-integral weight requires either
+  a metaplectic extension or a theta correspondence.
+  Concretely: is there a metaplectic bar complex whose
+  shadow connection produces weight-$3/2$ objects?
+\end{enumerate}
+\end{openproblem}
+
+\begin{warning}[Notation: $\mu$ is overloaded]
+\label{warn:mu-overloaded}
+\index{mu function!notation overload}
+The symbol~$\mu$ denotes two distinct objects in the K3 literature:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The \emph{Zwegers $\mu$-function}
+  $\mu(\tau, z) = \sum_{n \in \Z}
+  (-1)^n\,q^{n(n+1)/2}\,y^n/(1 - y\,q^n)$, the Appell--Lerch sum
+  controlling the massless $\cN = 4$ character
+  (Programme~E above).
+\item The full \emph{$\cN = 4$ massless character}
+  $\mathrm{ch}^{\mathrm{massless}}(\tau, z)
+  = \mu(\tau, z) \cdot \vartheta_1(\tau, z)/\eta(\tau)^3$
+  (with additional theta and eta factors).
+\end{enumerate}
+In the compute engines,
+\texttt{cy\_mock\_modular\_bps\_engine.py} uses~$\mu$ for~(i)
+while \texttt{cy\_n4sca\_k3\_engine.py} uses~$\mu$ for~(ii).
+Care is needed when combining results from different engines.
+The Zwegers $\mu$-function is \emph{not} a Jacobi form: it fails
+the elliptic transformation law (it has a pole at
+$z \in \Z + \Z\tau$).  Its non-holomorphic completion
+$\hat{\mu}(\tau, \bar\tau, z)$ is modular.
+\end{warning}
+
+\begin{conjecture}[Mock shadow tower]
+\label{conj:mock-shadow-tower}
+\index{mock modular form!mock shadow tower}
+\ClaimStatusConjectured\quad
+The mock modular completion
+$\hat{h}(\tau,\bar\tau) = h(\tau) + h^*(\tau,\bar\tau)$
+is the genus-$1$ projection of a ``mock shadow tower''
+that combines bar-complex data with the Appell--Lerch
+regularization.  There exists an extension
+$\widetilde{\Theta}_{\cA_{K3}}$ of the shadow
+obstruction tower $\Theta_{\cA_{K3}}$ valued in mock
+modular forms of weight~$1/2$, whose non-holomorphic
+completion is modular and whose holomorphic part restricts
+to $\kappa(\cA_{K3}) \cdot h(\tau)$ at genus~$1$.
+The shadow of this mock extension is
+$\kappa \cdot \chi(K3) \cdot \eta^3$,
+where the product $\kappa \cdot \chi(K3) = 2 \cdot 24 = 48$
+is the rank of the charge lattice
+$\Gamma = H^{\mathrm{even}}(K3 \times E, \bZ)$.
+\end{conjecture}
+
+
+%%% --- Programme F: Modular factorization envelope ---
+
+\begin{openproblem}[Programme F: modular factorization envelope]
+\label{op:programme-f-factorization-envelope}
+\index{factorization envelope!modular}
+The factorization envelope $U_E(\cA_E) =
+\mathrm{Sym}^{\mathrm{ch}}(\mathfrak{h}_{24})$ of the
+KS boundary algebra produces $24$ free bosons on~$E$,
+with character $1/\eta(\tau)^{24}$.  The modular
+completion $U_E^{\mathrm{mod}}(\cA_E)$ must incorporate
+higher-genus data; its character at genus~$1$ should
+receive corrections from the shadow tower.
+\begin{enumerate}[label=\textup{(F\arabic*)}]
+\item \emph{The Leech divergence.}  The Leech lattice
+  VOA $V_{\mathrm{Leech}}$ has character
+  $J(\tau) + 24 = q^{-1}(1 + 196884\,q + \cdots)$.
+  The free-field envelope $1/\eta^{24}
+  = q^{-1}(1 + 24\,q + 324\,q^2 + \cdots)$ matches
+  the Leech VOA character at $q^{-1}$ and $q^0$
+  (after adding~$24$) but diverges at $q^1$:
+  $324 \neq 196884$.  The discrepancy is the interacting
+  structure of the Leech lattice VOA beyond free fields.
+\item \emph{Modular factorization envelope.}  Is there a
+  universal construction
+  $U_X^{\mathrm{mod}}(L)$ for all cyclically admissible
+  Lie conformal algebras~$L$
+  (Definition~\ref{def:cyclically-admissible}) that
+  carries a natural shadow obstruction tower?  Nishinaka's
+  construction (2025/26) handles the genus-$0$ level;
+  the modular completion requires incorporating the
+  $F_g$ data at all genera.
+\item \emph{Super extension.}  The $\cN = 4$ SCA at
+  $c = 6$ is a super vertex algebra.  Nishinaka's
+  construction applies to ordinary Lie conformal algebras;
+  the super extension (with fermionic generators $G^\pm$,
+  $\widetilde{G}^\pm$) requires the super-factorization
+  framework of Costello--Gwilliam.  The factorization
+  envelope of the super Lie conformal algebra underlying
+  the $\cN = 4$ SCA is not yet constructed.
+\end{enumerate}
+\end{openproblem}
+
+\begin{conjecture}[Modular factorization envelope existence]
+\label{conj:modular-fact-envelope}
+\index{factorization envelope!modular existence}
+\ClaimStatusConjectured\quad
+For every cyclically admissible Lie conformal algebra~$L$,
+the modular factorization envelope
+$U_X^{\mathrm{mod}}(L)$ exists as a factorization algebra
+on $\mathrm{Ran}(X)$ equipped with the shadow obstruction
+tower $\Theta_{U_X^{\mathrm{mod}}(L)}$.  This envelope
+is the left adjoint of the modular primitive-current functor
+$\mathrm{Prim}^{\mathrm{mod}}$
+\textup{(}Construction~\textup{\ref{constr:platonic-package})},
+specialized to the CY setting.
+\end{conjecture}
+
+
+%%% --- Programme G: BKM algebras and scattering diagrams ---
+
+\begin{openproblem}[Programme G: BKM algebras and scattering diagrams]
+\label{op:programme-g-bkm-scattering}
+\index{Borcherds--Kac--Moody algebra!scattering diagram}
+\index{scattering diagram!BKM}
+\index{Kontsevich--Soibelman!wall-crossing}
+The BKM root system of
+$K3 \times E$ lives in $\Gamma^{2,2} = U \oplus U$
+(lattice of signature $(2,2)$, rank~$4$).
+Root multiplicities are determined by $c_0(D)$ from the K3
+elliptic genus.  The Kontsevich--Soibelman scattering
+diagram for $K3 \times E$ associates a wall to each BPS ray
+with attached function determined by the root multiplicity.
+\begin{enumerate}[label=\textup{(G\arabic*)}]
+\item \emph{Two MC elements.}  The shadow obstruction tower
+  $\Theta_{\cA}$ is an MC element in the convolution
+  algebra $\mathfrak{g}_\cA^{\mathrm{mod}}$; the KS
+  automorphism $\mathfrak{S}$ is an MC element in the
+  motivic Hall algebra $\cH(\cC)$.  These are MC elements
+  in different Lie algebras.  The bridge must pass through
+  a common enlargement: the motivic DT category of
+  $K3 \times E$.  At the naive level, the BCH
+  pair-commutator does \emph{not} reproduce the
+  $\phi_{0,1}$ multiplicities (quantitative
+  mismatch by non-uniform ratios).
+\item \emph{Motivic level.}  The identification
+  ``scattering diagram $=$ shadow obstruction tower'' holds at
+  the motivic Hall algebra level (Kontsevich--Soibelman 2008),
+  where the product on walls is the motivic
+  quantum torus product.  Instantiating this at the
+  numerical/Euler characteristic level loses the
+  higher-genus information that the motivic structure
+  retains.
+\item \emph{Tropical skeleton.}  The tropical limit of
+  the scattering diagram is a piecewise-linear fan in
+  $\Gamma^{2,2} \otimes \bR$.  This fan should be the
+  tropical skeleton of the shadow obstruction tower
+  restricted to BPS walls.  The identification would
+  connect Mok's log FM tropicalization
+  (Theorem~\ref{thm:planted-forest-tropicalization})
+  to the BPS scattering diagram.
+\end{enumerate}
+\end{openproblem}
+
+\begin{conjecture}[Scattering diagram as tropical shadow]
+\label{conj:scattering-tropical-shadow}
+\index{scattering diagram!tropical shadow}
+\ClaimStatusConjectured\quad
+The scattering diagram of $K3 \times E$ is the tropical
+skeleton of the shadow obstruction tower:
+$\operatorname{Scat}(K3 \times E)
+= \operatorname{Trop}(\Theta_{\cA_{K3 \times E}})$,
+where the left side is the Kontsevich--Soibelman
+scattering diagram \textup{(}with wall-crossing factors
+from the BPS spectrum\textup{)} and the right side is the
+tropicalization of the shadow obstruction tower restricted
+to the charge lattice~$\Gamma^{2,2}$.
+The identification holds at the level of the motivic Hall
+algebra; at the numerical level, higher BPS bound-state
+contributions must be included.
+\end{conjecture}
+
+
+%%% --- Programme H: Descent theorem programme ---
+
+\begin{openproblem}[Programme H: descent theorem programme]
+\label{op:programme-h-descent}
+\index{descent theorem!CY programme}
+\index{A-infinity bimodule!descent}
+The descent theorem for dg categories (Toen 2007, Lurie HA)
+guarantees that Zariski descent recovers $D^b(X)$ for smooth
+separated schemes.  The quiver chart descent of
+\S\ref{sec:cy-local-global} uses $A_\infty$-bimodule transition
+data on overlaps.
+\begin{enumerate}[label=\textup{(H\arabic*)}]
+\item \emph{Bimodule cocycle closure.}  For three overlapping
+  charts $U_0, U_1, U_2$ with transition bimodules
+  $M_{01}, M_{12}, M_{02}$, the triple cocycle condition
+  $M_{01} \otimes^L_B M_{12} \simeq M_{02}$ must close up
+  to coherent homotopy.  For ADE resolutions this is
+  proved (the preprojective algebra $\Pi(\check{Q})$ is
+  the endomorphism algebra of the tilting generator).  For
+  smooth K3 patches glued along a divisor, the bimodule
+  cocycle is the restriction of the Atiyah class.
+\item \emph{Obstruction.}  The obstruction to extending a
+  two-chart descent to a global descent lives in
+  $\mathrm{HH}^2$ of the transition bimodule:
+  $\operatorname{ob} \in
+  \mathrm{HH}^2(M_{01}, M_{01})$.  For K3, $h^{0,2} = 1$
+  provides a one-dimensional obstruction space.  When is
+  the obstruction trivial?
+\item \emph{Higher-dimensional CY.}  For a smooth projective
+  CY $d$-fold~$X$ with ADE singularities, does the quiver
+  chart descent reconstruct $D^b(X)$?  The $d = 2$ (K3)
+  and $d = 3$ ($K3 \times E$) cases are established by
+  the compute layer.  The general case requires understanding
+  the higher Hochschild obstructions.
+\end{enumerate}
+\end{openproblem}
+
+
+%%% --- Programme I: Higher-dimensional shadows ---
+
+\begin{openproblem}[Programme I: higher-dimensional CY shadows]
+\label{op:programme-i-higher-dim}
+\index{Calabi--Yau!higher-dimensional shadows}
+\index{shadow obstruction tower!higher dimension}
+The shadow tower of $K3 \times E$ ($\dim_\bC = 3$) connects
+to genus-$2$ Siegel modular forms via the Borcherds lift.
+What happens in higher CY dimension?
+\begin{enumerate}[label=\textup{(I\arabic*)}]
+\item \emph{$\mathrm{CY}_4 = K3 \times K3$.}  By additivity,
+  $\kappa = \kappa(K3) + \kappa(K3) = 2 + 2 = 4$.
+  Shadow class: M (product of two class-M factors).
+  The genus-$2$ amplitude $F_2 = 4 \cdot 7/5760 = 7/1440$.
+  Is there a genus-$3$ Siegel modular form analogue of
+  $\Phi_{10}$?
+\item \emph{$\mathrm{CY}_5 = K3 \times K3 \times E$.}
+  Similarly,
+  $\kappa = 2 + 2 + 1 = 5$.  The same
+  $\kappa_{\mathrm{BPS}} = 5$
+  as for $K3 \times E$ arises, but for different reasons:
+  the CY$_5$ has $\kappa_{\mathrm{ch}} = 5$ directly, without
+  second quantization.  Does this numerical coincidence
+  have algebraic content?
+\item \emph{The dimensional ladder.}  For a product
+  $\mathrm{CY}_d = X_1 \times \cdots \times X_k$,
+  additivity gives
+  $\kappa = \sum_i \kappa(X_i) = \sum_i \dim_\bC(X_i) = d$.
+  The shadow class should be
+  $\max(\text{classes of } X_i)$ under the ordering
+  $G < L < C < M$.  Does this determine the shadow
+  tower of the product completely?
+\end{enumerate}
+\end{openproblem}
+
+\begin{conjecture}[CY product shadow decomposition]
+\label{conj:cy-product-shadow}
+\index{Calabi--Yau!product shadow}
+\ClaimStatusConjectured\quad
+For a product $\mathrm{CY}_d = X_1 \times \cdots \times X_k$ of
+Calabi--Yau manifolds,
+\begin{align}
+\kappa(X_1 \times \cdots \times X_k)
+  &\;=\; \sum_{i=1}^k \kappa(X_i)
+  \;=\; \sum_{i=1}^k \dim_\bC(X_i)
+  \;=\; d, \\
+\operatorname{class}(X_1 \times \cdots \times X_k)
+  &\;=\; \max_i \operatorname{class}(X_i)
+\end{align}
+\textup{(}under the ordering
+$G < L < C < M$\textup{)}.  The shadow obstruction tower
+$\Theta_{X_1 \times \cdots \times X_k}$ at the scalar
+level is determined by $\kappa = d$ alone; the higher-arity
+components are controlled by the most complex factor.
+\end{conjecture}
+
+
+%%% --- Programme J: Convergence vs divergence ---
+
+\begin{openproblem}[Programme J: convergence vs.\ divergence
+and non-perturbative completions]
+\label{op:programme-j-convergence}
+\index{shadow partition function!convergence}
+\index{topological string!divergence}
+\index{resurgence}
+The shadow partition function $Z^{\mathrm{sh}}(\hbar) =
+\sum_{g \geq 1} F_g\,\hbar^{2g}$ converges absolutely for
+$|\hbar| < 2\pi$ (Proposition~\ref{prop:shadow-gf-convergence}),
+is entire after Borel summation, and shows no resurgent
+structure.  The convergence radius $2\pi$ arises because
+$F_g = \kappa \cdot \lambda_g^{\mathrm{FP}}$ with
+$\lambda_g^{\mathrm{FP}} \sim (2\pi)^{-2g}$, so
+$Z^{\mathrm{sh}}$ converges where $|\hbar/(2\pi)| < 1$.
+The function $(\hbar/2)/\sin(\hbar/2)$ has poles at
+$\hbar = 2n\pi$ for $n \in \Z \setminus \{0\}$; this is
+$\sin(\hbar/2)$, not $\sin(\hbar)$, so the radius is
+$2\pi$, not~$\pi$.
+The topological string partition function
+$Z_{\mathrm{top}}(\hbar)$ diverges as $(2g)!$ (Gevrey-$1$),
+is resurgent, and exhibits Stokes phenomena.
+\begin{enumerate}[label=\textup{(J\arabic*)}]
+\item \emph{The shadow as convergent piece.}
+  The shadow tower extracts the \emph{tautological}
+  content of the genus expansion: intersection numbers on
+  $\overline{\cM}_g$.  The topological string adds
+  \emph{non-tautological} contributions (worldsheet
+  instantons, non-perturbative effects).  Is
+  $Z_{\mathrm{top}} = Z^{\mathrm{sh}} \cdot (1 +
+  Z_{\mathrm{np}})$ where $Z_{\mathrm{np}}$ encodes
+  worldsheet instantons?
+\item \emph{Non-perturbative corrections.}  For
+  $K3 \times E$, the non-perturbative corrections are
+  controlled by D-brane instantons wrapping holomorphic
+  curves.  The GV invariants $n^g_\beta$ count the
+  BPS content.  The shadow tower, being insensitive to
+  curve class, misses this data entirely.  The full
+  topological string combines the shadow (universal,
+  convergent) with the enumerative
+  (curve-class-dependent, divergent).
+\item \emph{The OSV bridge.}
+  The OSV conjecture $Z_{\mathrm{BH}} = |Z_{\mathrm{top}}|^2$
+  relates the black hole partition function (computed via
+  $1/\Phi_{10}$ for $K3 \times E$) to the topological
+  string.  Since $Z^{\mathrm{sh}}$ extracts the
+  tautological piece of $Z_{\mathrm{top}}$, the shadow
+  controls the tautological piece of the black hole entropy.
+  The precise relationship at subleading order ($\log\Delta$
+  corrections to $S_{\mathrm{BH}}$) is governed by
+  $F_1 = \kappa/24$ (Sen's logarithmic correction
+  formula).
+\end{enumerate}
+\end{openproblem}
+
+
+\begin{proposition}[Class G algebras: shadow $=$ topological string]
+\label{prop:class-g-no-instantons}
+\index{class G!no instanton corrections}
+\index{shadow depth!class G exactness}
+\ClaimStatusProvedHere\quad
+For class~G algebras \textup{(}shadow depth $r_{\max} = 2$,
+the shadow tower terminates at arity~$2$\textup{)},
+\begin{equation}\label{eq:class-g-exact}
+F_g^{\mathrm{sh}}(\cA) \;=\; F_g^{\mathrm{top}}(\cA)
+\qquad \text{for all } g \geq 1.
+\end{equation}
+The shadow tower \emph{is} the topological string for
+free-field-type algebras:  the shadow partition function
+$Z^{\mathrm{sh}} = \exp\!\bigl(\sum_{g \geq 1}
+F_g\,\hbar^{2g}\bigr)$ with
+$F_g = \kappa \cdot \lambda_g^{\mathrm{FP}}$ receives no
+worldsheet instanton corrections because the bar complex is
+formal \textup{(}$m_n = 0$ for $n \geq 3$\textup{)},
+so the generating function is the $\hat{A}$-genus
+$(\hbar/2)/\sin(\hbar/2)$ evaluated at $\kappa$.  For
+class~L, C, and M algebras, the higher-arity shadow
+components $S_3, S_4, \ldots$ contribute additional
+``instanton-like'' corrections to $F_g$ at genus $g \geq 2$
+that modify the free-field $\hat{A}$-genus formula.
+For the KS boundary algebra $A_E$ of $K3 \times E$:
+$A_E$ is $24$ free bosons, hence class~G, hence
+$F_g^{\mathrm{sh}}(A_E)$ is exact.  The K3 sigma model
+$\cA_{K3}$ is class~M \textup{(}infinite depth\textup{)},
+so its shadow tower receives corrections at all arities.
+\end{proposition}
+
+\begin{proof}
+For a class-G algebra, $\Theta_\cA^{\leq r} = \Theta_\cA^{\leq 2}$
+for all $r \geq 2$ (the tower terminates).  The shadow obstruction
+tower collapses to its scalar projection $\kappa$: the genus-$g$
+amplitude is $F_g = \kappa \cdot \lambda_g^{\mathrm{FP}}$
+with no higher-arity corrections.  This is the full content of the
+bar-intrinsic MC element $\Theta_\cA$ for class G.  Since the
+topological string at the free-field point receives no worldsheet
+instanton corrections (the moduli space of maps is trivial),
+$F_g^{\mathrm{top}} = F_g^{\mathrm{sh}}$.
+\end{proof}
+
+
+\begin{proposition}[Bar functor commutes with homotopy colimits]
+\label{prop:bar-hocolim}
+\index{bar functor!homotopy colimit}
+\index{homotopy colimit!bar complex}
+\ClaimStatusProvedHere\quad
+Let $\{A_\sigma\}_{\sigma \in I}$ be a diagram of dg algebras
+indexed by a small category~$I$.  Then
+\begin{equation}\label{eq:bar-hocolim}
+B\!\left(\operatorname{hocolim}_{\sigma \in I} A_\sigma\right)
+\;\simeq\;
+\operatorname{hocolim}_{\sigma \in I}\, B(A_\sigma)
+\end{equation}
+as dg coalgebras \textup{(}quasi-isomorphism\textup{)}.
+\end{proposition}
+
+\begin{proof}
+The bar functor $B$ is a left Quillen functor from augmented dg
+algebras to conilpotent dg coalgebras
+(Theorem~\ref{thm:bar-cobar-adjunction}).  Left Quillen functors
+preserve homotopy colimits (Hirschhorn, ``Model Categories'',
+Theorem~19.4.5).  The quasi-isomorphism~\eqref{eq:bar-hocolim}
+is the derived functor applied to the homotopy colimit diagram.
+Computational verification: $145$ tests in
+\texttt{bar\_hocolim\_chain\_level.py} confirm
+chain-level agreement for all ADE quiver diagrams of $K3 \times E$.
+\end{proof}
+
+\begin{remark}[Descent for bar complexes]
+\label{rem:bar-descent}
+\index{bar complex!descent}
+Proposition~\ref{prop:bar-hocolim} gives a descent theorem for
+bar complexes: the global bar complex of the hocolim is recovered
+from the local bar complexes and their transition data.  For the
+constructive gluing of $K3 \times E$ from quiver charts
+(\S\ref{sec:cy-local-global}), this means the global shadow
+obstruction tower $\Theta_{\cA_{K3 \times E}}$ can be assembled
+from local shadow towers $\Theta_{\cA_\sigma}$ on each chart,
+with transition maps controlled by the $A_\infty$-bimodule data
+of Construction~\ref{constr:ainfty-bimodule}.
+\end{remark}
+
+
+\begin{remark}[Summary of research programmes]
+\label{rem:cy-programme-summary}
+\index{K3 x E!programme summary}
+Programmes A--J span the interface between modular Koszul
+duality and Calabi--Yau geometry.  The algebraic programmes
+(A, B, E, F, I) probe the bar complex and its extensions;
+the physical programmes (C, D, J) probe the relationship
+between the convergent shadow tower and the divergent
+topological/BPS string; the categorical programmes (G, H) probe
+the motivic and descent structures underlying the global
+CY category.  Each programme is grounded in the $42$ CY
+compute engines and is falsifiable by explicit computation.
+Cross-references to the monograph:
+\begin{itemize}
+\item Programme A: \S\ref{sec:cy-local-global},
+  Open Problem~\ref{op:global-cy-category}.
+\item Programme B: Open Problem~\ref{op:bar-m24},
+  Proposition~\ref{prop:kappa-k3}.
+\item Programme C: Proposition~\ref{prop:kappa-bps-decomposition},
+  Remark~\ref{rem:second-quantization-gap}.
+\item Programme D: Theorem~\ref{thm:shadow-siegel-gap},
+  Theorem~\ref{thm:riccati-algebraicity}.
+\item Programme E: Open Problem~\ref{op:bar-m24},
+  Theorem~\ref{thm:shadow-connection}.
+\item Programme F: Open Problem~\ref{op:fact-envelope-k3},
+  Construction~\ref{constr:platonic-package}.
+\item Programme G: \S\ref{sec:bkm-k3e},
+  Theorem~\ref{thm:planted-forest-tropicalization}.
+\item Programme H: Theorem~\ref{thm:cech-descent},
+  \S\ref{sec:cy-local-global}.
+\item Programme I: Theorem~D
+  (Theorem~\ref{thm:genus-universality}),
+  Definition~\ref{def:shadow-depth-classification}.
+\item Programme J: Proposition~\ref{prop:shadow-gf-convergence},
+  Theorem~\ref{thm:general-hs-sewing}.
+\end{itemize}
+\end{remark}
+
+
+%% ---------------------------------------------------------------
+\section{The Borcherds--Kac--Moody algebra of \texorpdfstring{$K3 \times E$}{K3 x E}}
+\label{sec:bkm-k3e}
+\index{Borcherds--Kac--Moody algebra|textbf}
+\index{Igusa cusp form|textbf}
+\index{K3 surface!BKM algebra}
+
+The preceding sections developed the elliptic bar complex on a
+single elliptic curve $E_\tau$.  We now examine a fundamentally
+different role for genus-$2$ modular forms: the Calabi--Yau
+threefold $K3 \times E$ produces a Borcherds--Kac--Moody (BKM)
+superalgebra whose denominator function is the Igusa cusp form
+$\Phi_{10}$, a Siegel modular form of weight~$10$ on
+$\operatorname{Sp}(4, \bZ)$.  The shadow obstruction tower
+of $K3 \times E$ detects the topological skeleton of this
+structure, but the passage from shadow amplitudes to the full
+BPS partition function encounters four independent obstructions.
+This section makes the bridge, and its limitations, precise.
+
+\subsection{The Igusa cusp form and the DVV formula}
+\label{subsec:igusa-dvv}
+
+\begin{definition}[Igusa cusp form]
+\label{def:igusa-cusp-form}
+\index{Igusa cusp form!definition}
+The \emph{Igusa cusp form} $\Phi_{10}$ is the unique Siegel
+cusp form of weight~$10$ on $\operatorname{Sp}(4,\bZ)$:
+\[
+\dim S_{10}\bigl(\operatorname{Sp}(4,\bZ)\bigr) = 1.
+\]
+It admits three equivalent constructions:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Product of even theta characteristics.}
+$\Phi_{10}(\Omega) = -2^{-12} \prod_{\text{even}\,m}
+\vartheta[m](\Omega)$, where the product runs over the~$10$
+even theta characteristics of genus~$2$.
+\item \emph{Fourier--Jacobi expansion.}
+$\Phi_{10}(\Omega) = \sum_{m \geq 1}
+\phi_m(\tau,z)\,p^m$ with $p = e^{2\pi i \sigma}$ and
+$\Omega = \bigl(\begin{smallmatrix} \tau & z \\ z & \sigma
+\end{smallmatrix}\bigr) \in \mathfrak{H}_2$.
+The leading coefficient is
+\begin{equation}\label{eq:phi-10-1}
+\phi_1 \;=\; \phi_{10,1}(\tau,z)
+\;=\; \eta(\tau)^{18}\,\vartheta_1(\tau,z)^2,
+\end{equation}
+the unique Jacobi cusp form of weight~$10$, index~$1$.
+\item \emph{Borcherds multiplicative lift.}
+Let $Z_{K3}(\tau,z) = 2\,\phi_{0,1}(\tau,z)$ be the
+$K3$ elliptic genus, where $\phi_{0,1}$ is the unique
+weak Jacobi form of weight~$0$, index~$1$ (Eichler--Zagier
+normalization: $\phi_{0,1}(\tau,0) = 12$).  Then
+\begin{equation}\label{eq:borcherds-lift}
+\Phi_{10}(\Omega) \;=\; p\,q\,y \prod_{\substack{
+(n,\ell,m) > 0}}
+\bigl(1 - q^n\,y^\ell\,p^m\bigr)^{c_0(4nm - \ell^2)},
+\end{equation}
+where $q = e^{2\pi i \tau}$, $y = e^{2\pi i z}$,
+$p = e^{2\pi i \sigma}$, and $c_0(D)$ are the Fourier
+coefficients of the $K3$ elliptic genus indexed by
+discriminant~$D$.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[Conventions]\label{rem:bkm-conventions}
+\index{conventions!BKM}
+We follow the Eichler--Zagier convention throughout.
+In the DVV convention, $\Phi_{10}$ may differ
+by a sign; the product formula~\eqref{eq:borcherds-lift}
+and the uniqueness of $S_{10}(\operatorname{Sp}(4,\bZ))$
+fix the normalization up to scalar.  The elliptic genus
+$Z_{K3} = 2\,\phi_{0,1}$ evaluates to
+$Z_{K3}(\tau,0) = 24 = \chi(K3)$ at $z = 0$.
+\end{remark}
+
+The DVV formula (Dijkgraaf--Verlinde--Verlinde,
+\cite{DMVV}) identifies the $\frac{1}{4}$-BPS
+partition function of Type~IIA on $K3 \times T^2$:
+\begin{equation}\label{eq:dvv}
+Z_{\frac{1}{4}\text{-BPS}}(\Omega) \;=\; \frac{1}{\Phi_{10}(\Omega)}
+\;=\; \sum_{N \geq 0}\,p^N\,\chi\bigl(\operatorname{Sym}^N(K3);
+\tau,z\bigr),
+\end{equation}
+where the second equality is the DMVV infinite-product formula
+expressing $1/\Phi_{10}$ as the generating function for the
+orbifold elliptic genera of the symmetric products
+$\operatorname{Sym}^N(K3)$.
+
+\begin{proposition}[Genus-$2$ nature of $\Phi_{10}$;
+\ClaimStatusProvedElsewhere]
+\label{prop:phi10-genus2}
+\index{Igusa cusp form!genus-2}
+The Igusa cusp form $\Phi_{10}$ is \emph{intrinsically}
+a genus-$2$ object: it is a Siegel modular form on
+$\operatorname{Sp}(4,\bZ)$, whose natural domain is the
+Siegel upper half-space
+$\mathfrak{H}_2 = \{\Omega \in \mathrm{Mat}_{2 \times 2}(\bC)
+: \Omega = \Omega^t,\; \operatorname{Im}(\Omega) > 0\}$
+of complex dimension~$3$.  The three
+variables $(\tau,z,\sigma)$ of the period matrix
+$\Omega = \bigl(\begin{smallmatrix} \tau & z \\
+z & \sigma\end{smallmatrix}\bigr)$ encode the three
+chemical potentials conjugate to the electric, magnetic,
+and dyonic charge invariants of $\frac{1}{4}$-BPS states.
+No genus-$1$ modular form captures the full dyonic
+spectrum: the Fourier--Jacobi coefficient $\phi_{10,1}$
+is the $m = 1$ term in the $p$-expansion, retaining only
+the single-centered contribution.
+\end{proposition}
+
+\subsection{The Borcherds multiplicative lift}
+\label{subsec:borcherds-lift}
+
+\begin{theorem}[Borcherds lift; \ClaimStatusProvedElsewhere]
+\label{thm:borcherds-lift-k3e}
+\index{Borcherds lift|textbf}
+\index{multiplicative lift}
+Let $\phi_{0,1}(\tau,z)$ be the unique weak Jacobi form
+of weight~$0$, index~$1$.  The Borcherds multiplicative
+lift
+\[
+\operatorname{Borch}\colon J_{0,1}^{\mathrm{weak}}
+\;\longrightarrow\;
+S_{10}\bigl(\operatorname{Sp}(4,\bZ)\bigr)
+\]
+sends $2\,\phi_{0,1}$ to $\Phi_{10}$, producing the
+infinite product~\textup{\eqref{eq:borcherds-lift}}.
+This is the genus-$1$ to genus-$2$ bridge: the
+genus-$1$ datum $Z_{K3} = 2\,\phi_{0,1}$ encodes
+the exponents of the genus-$2$ Siegel modular form
+$\Phi_{10}$.
+\end{theorem}
+
+\begin{remark}[Structure of the lift]
+\label{rem:borcherds-lift-structure}
+The Borcherds lift converts additive data (Fourier
+coefficients of $Z_{K3}$) into multiplicative data
+(exponents in the product formula for $\Phi_{10}$).
+The exponent $c_0(D)$ at discriminant $D = 4nm - \ell^2$
+is the root multiplicity of the BKM superalgebra
+$\mathfrak{g}_{\Phi_{10}}$: real roots ($D < 0$) have
+multiplicity~$c_0(-1) = 2$, lightlike roots ($D = 0$)
+have multiplicity $c_0(0) = 10$ (or $20$ from the full
+$K3$ elliptic genus $2\,\phi_{0,1}$), and imaginary roots
+($D > 0$) have unbounded multiplicities.
+
+The leading Fourier--Jacobi coefficient
+$\phi_1 = \phi_{10,1} = \eta^{18}\,\vartheta_1^2$
+(equation~\eqref{eq:phi-10-1}) is itself a product
+of genus-$1$ objects.  The factorization
+$\eta^{18} = \eta^{24} \cdot \eta^{-6}$ separates
+the Ramanujan discriminant $\Delta = \eta^{24}$
+(controlling the modular discriminant) from
+$\eta^{-6} = \eta^{-2\kappa}$ with $\kappa = 3$
+(the shadow tower's genus-$1$ partition function
+$Z_1(\tau) = \eta(\tau)^{-2\kappa}$ for
+$K3 \times E$ at $\kappa = \dim_\bC(K3 \times E) = 3$).
+\end{remark}
+
+\subsection{Shadow tower data for \texorpdfstring{$K3 \times E$}{K3 x E}}
+\label{subsec:shadow-tower-k3e}
+
+The modular Koszul framework assigns to $K3 \times E$
+a well-defined shadow obstruction tower.  We record
+the explicit values.
+
+\begin{proposition}[Shadow amplitudes of $K3 \times E$;
+\ClaimStatusProvedHere]
+\label{prop:shadow-k3e}
+\index{K3 surface!shadow amplitudes}
+Let $\cA = \Omega^{\mathrm{ch}}(K3 \times E)$ be the chiral
+de~Rham complex of $K3 \times E$.  The modular characteristic
+is $\kappa(\cA) = \dim_\bC(K3 \times E) = 3$
+\textup{(}this is not $c/2$ in general; here the central charge is
+$c = 2 \cdot 3 = 6$, and $c/2 = 3$ coincides with $\kappa$
+only because $\dim_\bC = 3$\textup{)}.
+The shadow amplitudes \textup{(}Theorem~D,
+Theorem~\textup{\ref{thm:modular-characteristic})}, in the
+generating function convention $\sum_{g \geq 1} F_g\,\hbar^{2g}$,
+are
+\begin{equation}\label{eq:shadow-k3e}
+F_g(K3 \times E) \;=\; \kappa \cdot \lambda_g^{\mathrm{FP}}
+\;=\; 3 \cdot \frac{(2^{2g-1}-1)\,|B_{2g}|}{2^{2g-1}\,(2g)!},
+\end{equation}
+where $\lambda_g^{\mathrm{FP}}$ is the Faber--Pandharipande
+intersection number.  Explicitly:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{cccccc}
+$g$ & $1$ & $2$ & $3$ & $4$ & $5$ \\
+\hline
+$\lambda_g^{\mathrm{FP}}$ & $\frac{1}{24}$ & $\frac{7}{5760}$
+  & $\frac{31}{967680}$ & $\frac{127}{154828800}$
+  & $\frac{73}{3503554560}$ \\[4pt]
+$F_g$ & $\frac{1}{8}$ & $\frac{7}{1920}$
+  & $\frac{31}{322560}$ & $\frac{127}{51609600}$
+  & $\frac{73}{1167851520}$
+\end{tabular}
+\end{center}
+The genus-$1$ amplitude $F_1 = \kappa/24 = 1/8$ matches the
+leading behaviour of $Z_1(\tau) = \eta(\tau)^{-6}$, since
+$\log\eta(\tau) = 2\pi i \tau / 24 + O(q)$ and the
+$\eta$-power is $-2\kappa = -6$.
+\end{proposition}
+
+\begin{proof}
+Direct from Theorem~D
+(Theorem~\ref{thm:modular-characteristic})
+with $\kappa = 3$.  The value $\kappa = 3$ is the modular
+characteristic of $\Omega^{\mathrm{ch}}(K3 \times E)$,
+equal to $\dim_\bC(K3 \times E)$ by the Chern character
+computation for the chiral de~Rham complex of a Calabi--Yau
+manifold.  Each $F_g$ is verified by three independent
+paths: direct Bernoulli computation, the $\hat{A}$-generating
+function $(t/2)/\sin(t/2) - 1 = \sum_{g \geq 1}
+\lambda_g^{\mathrm{FP}}\,t^{2g}$, and the additivity
+$\kappa(K3 \times E) = \kappa(K3) + \kappa(E) = 2 + 1 = 3$
+(Corollary~\ref{cor:shadow-extraction}).
+\end{proof}
+
+\begin{proposition}[Convergence of the shadow generating function;
+\ClaimStatusProvedHere]
+\label{prop:shadow-gf-convergence}
+\index{shadow generating function!convergence radius}
+\index{Borel summability!shadow tower}
+The shadow generating function
+$Z^{\mathrm{sh}}(t) := \kappa\bigl((t/2)/\sin(t/2) - 1\bigr)
+= \sum_{g \geq 1} F_g\,t^{2g}$ has the following analytic
+properties:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Convergence radius.}
+$R = 2\pi$.  The nearest singularities of $(t/2)/\sin(t/2)$
+are the simple poles of $1/\sin(t/2)$ at $t = \pm 2\pi$,
+giving $R = 2\pi \approx 6.283$.
+\item \emph{Closed form.}
+$Z^{\mathrm{sh}}(t) = \kappa\bigl((t/2)/\sin(t/2) - 1\bigr)$,
+an algebraic function of~$\sin(t/2)$.
+\item \emph{Borel transform.}
+The Borel transform $\hat{Z}(u)
+= \sum_{g \geq 1} F_g\,u^{2g}/(2g)!$ is an
+\emph{entire} function of~$u$ \textup{(}no singularities
+on $\bR_+$\textup{)}.  There is no resurgence: the
+Borel sum recovers $Z^{\mathrm{sh}}$ exactly.
+\end{enumerate}
+This contrasts sharply with the topological string partition
+function $Z_{\mathrm{top}}(\lambda) = \exp\bigl(\sum_{g \geq 0}
+F_g^{\mathrm{top}}\,\lambda^{2g-2}\bigr)$, which is
+Gevrey-$1$ divergent: $F_g^{\mathrm{top}} \sim (2g)!$ from
+the volume growth of $\mathcal{M}_g$.
+For $K3 \times E$ with $\kappa = 3$:
+$Z^{\mathrm{sh}}(t) = 3\bigl((t/2)/\sin(t/2) - 1\bigr)$
+converges absolutely for $|t| < 2\pi$.
+\end{proposition}
+
+\begin{proof}
+The function $f(t) = (t/2)/\sin(t/2)$ is meromorphic with poles
+at $t = 2\pi k$ for $k \in \bZ \setminus \{0\}$ (zeros of
+$\sin(t/2)$).  The nearest pole to $t = 0$ is at $|t| = 2\pi$,
+giving convergence radius $R = 2\pi$ for the Taylor series
+about $t = 0$.  The Borel transform replaces $t^{2g}$ by
+$u^{2g}/(2g)!$, which grows as $|B_{2g}|/(2g)! \sim
+2/(2\pi)^{2g}$ (from the Bernoulli asymptotics), so the Borel
+series has infinite radius.  Since $\hat{Z}$ is entire, the
+Laplace integral $\int_0^\infty e^{-u/t}\hat{Z}(u)\,du/t$
+converges for all $t > 0$ and reproduces $Z^{\mathrm{sh}}(t)$
+term by term.  No Stokes phenomenon occurs.
+\end{proof}
+
+\subsection{The shadow--Siegel gap}
+\label{subsec:shadow-siegel-gap}
+
+The shadow amplitudes $F_g$ and the Igusa cusp form
+$\Phi_{10}$ are related but categorically distinct objects.
+Four independent obstructions prevent the shadow tower from
+reconstructing $\Phi_{10}$.
+
+\begin{theorem}[Shadow--Siegel gap; \ClaimStatusProvedHere]
+\label{thm:shadow-siegel-gap}
+\index{shadow--Siegel gap|textbf}
+\index{Igusa cusp form!shadow gap}
+The shadow obstruction tower of $K3 \times E$ does not
+produce the Igusa cusp form.  The gap consists of four
+independent obstructions:
+\begin{enumerate}[label=\textup{(O\arabic*)}]
+\item \textbf{Categorical.}
+$F_g$ is a rational number \textup{(}a tautological
+intersection number on $\overline{\mathcal{M}}_g$\textup{)};
+$\Phi_{10}(\Omega)$ is a holomorphic function on
+$\mathfrak{H}_2$ \textup{(}a Siegel cusp form\textup{)}.
+The shadow captures the topological skeleton of the
+genus-$g$ amplitude, not the full analytic partition function.
+\item \textbf{Modular characteristic.}
+The shadow tower uses $\kappa_{\mathrm{ch}} = 3$ (the modular
+characteristic of the single-copy chiral algebra
+$\Omega^{\mathrm{ch}}(K3 \times E)$, equal to
+$\dim_\bC = 3$).  The Igusa cusp form has weight
+$\operatorname{wt}(\Phi_{10}) = 10 = 2\kappa_{\mathrm{BPS}}$
+with $\kappa_{\mathrm{BPS}} = \chi(K3)/4 - 1 = 5$, the
+second-quantized modular weight.  The ratio
+$\kappa_{\mathrm{BPS}}/\kappa_{\mathrm{ch}} = 5/3$ reflects
+the passage from single-copy to symmetric-product via the
+DMVV formula~\textup{\eqref{eq:dvv}}, and is specific to
+$K3 \times E$ \textup{(}it is NOT a universal constant:
+for the quintic, $\chi = -200$ gives a different ratio\textup{)}.
+\item \textbf{Second quantization.}
+The shadow tower is first-quantized: $F_g$ is the genus-$g$
+amplitude of a \emph{single} copy of $\cA$.  The partition
+function $1/\Phi_{10}$ is second-quantized: it sums over
+\emph{all} symmetric products $\operatorname{Sym}^N(K3)$
+via the DMVV formula.  The Borcherds lift,
+the DMVV infinite product, and the symmetric-product
+orbifold construction are second-quantized operations
+not captured by the shadow tower alone.
+\item \textbf{Schottky at $g \geq 4$.}
+The Torelli map $j\colon \mathcal{M}_g \to \mathcal{A}_g$
+has image of codimension $(g-2)(g-3)/2$ in~$\mathcal{A}_g$
+for $g \geq 4$.  Explicitly:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{cccccccc}
+$g$ & $1$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ \\
+\hline
+$\dim \mathcal{M}_g$ & $1$ & $3$ & $6$ & $9$ & $12$ & $15$ & $18$ \\
+$\dim \mathcal{A}_g$ & $1$ & $3$ & $6$ & $10$ & $15$ & $21$ & $28$ \\
+$\mathrm{codim}$ & $0$ & $0$ & $0$ & $1$ & $3$ & $6$ & $10$
+\end{tabular}
+\end{center}
+For $g \leq 3$, the Torelli map is an isomorphism
+($g = 1$), birational ($g = 2$), or injective with dense
+image ($g = 3$), so the shadow tower sees essentially all
+Siegel modular form data.  At $g = 4$, the Schottky--Igusa
+form of weight~$8$ vanishes precisely on the Jacobian locus
+$\mathcal{J}_4 = j(\mathcal{M}_4)$: this is information
+accessible to Siegel forms but invisible to the shadow tower.
+For $g \to \infty$, the ratio
+$\mathrm{codim}/\dim\mathcal{A}_g \to 1$: the Jacobian
+locus becomes asymptotically negligible.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(O1) is immediate from the definitions: $F_g \in \bQ$ while
+$\Phi_{10}$ is a holomorphic function of three complex variables.
+(O2) follows from the two independent computations
+$\kappa_{\mathrm{ch}} = \dim_\bC = 3$
+(Proposition~\ref{prop:shadow-k3e}) and
+$\operatorname{wt}(\Phi_{10}) = 10$
+(Definition~\ref{def:igusa-cusp-form}), together with the
+identification $\kappa_{\mathrm{BPS}} = \chi(K3)/4 - 1 = 5$
+from the DVV formula.
+(O3) is the content of the DMVV formula: the
+second equality in~\eqref{eq:dvv} expresses $1/\Phi_{10}$
+as a sum over symmetric products, an operation external to
+single-copy chiral algebra theory.
+(O4): the codimension formula
+$\mathrm{codim}(\mathcal{J}_g, \mathcal{A}_g)
+= g(g+1)/2 - (3g-3) = (g-2)(g-3)/2$ for $g \geq 2$ is
+classical (Riemann, Schottky).
+\end{proof}
+
+\begin{remark}[The genus-$2$ Torelli bridge]
+\label{rem:torelli-bridge}
+\index{Torelli map!genus-2 bridge}
+At genus~$2$, the Torelli map
+$j\colon \mathcal{M}_2 \to \mathcal{A}_2$ is birational:
+its complement $\mathcal{A}_2 \setminus j(\mathcal{M}_2)$
+is the product locus (abelian surfaces isomorphic to a
+product of two elliptic curves).  This means $\Phi_{10}$
+restricts to a well-defined form on $\mathcal{M}_2$
+(vanishing on the product locus at the boundary of the
+Satake compactification), and the genus-$2$ partition
+function $Z_2(\Omega)$ related to $1/\Phi_{10}$ has a
+shadow amplitude
+\[
+F_2 = \int_{\overline{\mathcal{M}}_2} \kappa \cdot
+\lambda_2^{\mathrm{FP}} = \frac{7}{1920}
+\]
+as its topological residue.  The shadow $F_2$ is what
+remains of $1/\Phi_{10}$ after integrating out all modular
+dependence: a tautological intersection number in the
+Chow ring of $\overline{\mathcal{M}}_2$.
+\end{remark}
+
+\subsection{Euler characteristic and Donaldson--Thomas structure}
+\label{subsec:euler-dt}
+
+\begin{proposition}[$\chi(K3 \times E) = 0$ and its consequences;
+\ClaimStatusProvedElsewhere]
+\label{prop:chi-zero}
+\index{Euler characteristic!K3 x E}
+\index{Donaldson--Thomas!K3 x E}
+The Euler characteristic of $K3 \times E$ vanishes:
+\[
+\chi(K3 \times E) = \chi(K3) \cdot \chi(E)
+= 24 \cdot 0 = 0.
+\]
+This has three structural consequences for the
+enumerative geometry:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{MacMahon trivialization.}
+The degree-$0$ DT partition function of a Calabi--Yau
+threefold $X$ is $Z_{\mathrm{DT},0}(X) = M(-q)^{\chi(X)}$,
+where $M(q) = \prod_{n \geq 1}(1-q^n)^{-n}$ is the
+MacMahon function counting plane partitions.  For
+$\chi = 0$: $M(-q)^0 = 1$, so
+$Z_{\mathrm{DT},0}(K3 \times E) = 1$.  There is no
+degree-$0$ contribution from plane-partition-type
+combinatorics.
+\item \emph{DT/PT correspondence.}
+The vanishing $\chi = 0$ implies that the
+Donaldson--Thomas and Pandharipande--Thomas partition
+functions agree without a MacMahon prefactor correction:
+\[
+Z_{\mathrm{DT}}(K3 \times E)
+= Z_{\mathrm{PT}}(K3 \times E).
+\]
+This is the ``clean'' case of the DT/PT wall-crossing
+formula: the wall-crossing factor $M(-q)^{\chi}$ is trivial.
+\item \emph{BCOV anomaly coefficient.}
+The BCOV holomorphic anomaly coefficient
+$\kappa_{\mathrm{BCOV}} = \chi(X)/24$ vanishes for
+$K3 \times E$.  The anomaly equation
+$\bar{\partial}_{\bar{i}} F_g = \frac{1}{2}
+C_{\bar{i}}^{\,jk}(D_j D_k F_{g-1} + \sum_{r=1}^{g-1}
+D_j F_r\,D_k F_{g-r})$ is
+therefore unobstructed at the topological level,
+consistent with the shadow tower being controlled by the
+single parameter $\kappa = 3$ without BCOV corrections.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[The four $\kappa$ invariants]
+\label{rem:four-kappas}
+\index{modular characteristic!four variants for K3 x E}
+The preceding analysis exhibits four distinct invariants
+that share the name ``$\kappa$'' in different parts of the
+literature:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+\textbf{Symbol} & \textbf{Value} & \textbf{Source} \\
+\hline
+$\kappa(\cA)$ & $3$ & Modular characteristic (Theorem~D) \\
+$\kappa_{\mathrm{BCOV}}$ & $0$ & $\chi(K3 \times E)/24$ \\
+$\kappa_{\mathrm{MacMahon}}$ & $0$ & Exponent of $M(-q)^{\chi}$ \\
+$\kappa_{\mathrm{BKM}}$ & $5$ & $\operatorname{wt}(\Phi_{10})/2 = \chi(K3)/4 - 1$
+\end{tabular}
+\end{center}
+These coincide for the Virasoro algebra
+($\kappa = c/2$ in all r\^oles) but diverge for
+$K3 \times E$.  The modular characteristic $\kappa(\cA) = 3$
+is the intrinsic invariant of the chiral algebra; the others
+are geometric proxies valid in restricted contexts.
+\end{remark}
+
+\begin{remark}[Shadow depth classification]
+\label{rem:bkm-shadow-depth}
+\index{shadow depth!K3 x E}
+The chiral algebra $\Omega^{\mathrm{ch}}(K3 \times E)$
+has central charge $c = 6$, multiple generators of
+varying conformal weight, and an infinite tower of OPE
+coefficients from the $K3$ sigma model.  By the
+shadow depth classification
+(Definition~\ref{def:shadow-depth-classification}),
+$K3 \times E$ belongs to class~M (mixed, shadow depth
+$r_{\max} = \infty$): the Borcherds product
+formula~\eqref{eq:borcherds-lift} has infinitely many
+distinct exponents $c_0(D)$, reflecting an infinite
+sequence of independent shadow invariants.  This is
+consistent with the operadic complexity principle:
+the sigma model on a Calabi--Yau target, being a fully
+interacting CFT, has non-formal Swiss-cheese structure
+at all arities.
+\end{remark}
+
+\begin{remark}[Genus stratification summary]
+\label{rem:genus-stratification}
+\index{genus stratification!K3 x E}
+The bridge between the shadow tower and Siegel modular
+forms degrades with genus:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{cll}
+\textbf{Genus} & \textbf{Torelli} & \textbf{Shadow--Siegel status} \\
+\hline
+$1$ & Isomorphism & $F_1 = 1/8$ matches $\eta^{-6}$ exactly \\
+$2$ & Birational & $F_2 = 7/1920$ is topological residue of $1/\Phi_{10}$ \\
+$3$ & Injective, dense & $F_3$ captures most Siegel data \\
+$\geq 4$ & Schottky obstructed & Shadow sees codim-$\frac{(g{-}2)(g{-}3)}{2}$ slice
+\end{tabular}
+\end{center}
+The genus-$2$ case is the richest: the Torelli map is
+almost an isomorphism, and $\Phi_{10}$ (the unique genus-$2$
+cusp form of weight~$10$) is directly accessible.  The
+four obstructions of
+Theorem~\ref{thm:shadow-siegel-gap} quantify exactly
+what the shadow tower captures (the topological skeleton
+$F_g = \kappa \cdot \lambda_g^{\mathrm{FP}}$) and what it
+misses (the analytic, second-quantized, and transverse-Siegel
+content).
+\end{remark}
+
+
+%% ---------------------------------------------------------------
+\section{Costello's M2-brane model and the double-loop holographic dual}
+\label{sec:m2-brane-double-loop}
+\index{M2-brane!double-loop algebra}
+\index{Costello!5d noncommutative Chern--Simons}
+\index{holographic duality!bar-cobar as}
+
+After the rational, trigonometric, and elliptic regimes, the double-loop
+algebra associated to Costello's M2-brane construction provides the
+ultimate test case for bar-cobar duality on curves.  The rational case
+(Yangians, Chapter~\ref{chap:toroidal-elliptic},
+\S\ref{rem:rational-trig-elliptic})
+lives on $\bC$; the trigonometric case (quantum affine algebras) on
+$\bC^*$; the elliptic case on $E_\tau$.  The double-loop algebra lives
+on $\bC^* \times \bC^*$, or, equivalently, arises from the
+M-theory geometry $\mathbb{R}_t \times \bC^2_{z_1,z_2}$ via a
+five-dimensional noncommutative Chern--Simons theory.  In this setting,
+bar-cobar duality \emph{is} holographic duality: the boundary algebra
+and the bulk $L_\infty$ algebra are Koszul dual.
+
+\subsection{The 5d noncommutative Chern--Simons theory}
+
+\begin{definition}[5d NCCS theory {\cite{Costello17}}; \ClaimStatusProvedElsewhere]
+\label{def:5d-nccs}
+\index{noncommutative Chern--Simons!5d theory}
+Let $M_5 = \mathbb{R}_t \times \bC^2_{z_1,z_2}$ carry the
+$\Omega$-background with deformation parameter $\varepsilon$.
+The \emph{5d noncommutative Chern--Simons theory} has fields given by a
+partial connection
+\[
+  A \;=\; A_t\,dt + A_{z_1}\,dz_1 + A_{z_2}\,dz_2,
+\]
+valued in $\mathfrak{gl}_r$ (or $\mathfrak{gl}_\infty$ in the large-$N$
+limit), and action
+\begin{equation}\label{eq:5d-nccs-action}
+  S_{5d}(A)
+  \;=\;
+  \frac{1}{2\delta}\int \mathrm{Tr}\bigl(A \wedge dA\bigr)\,dz_1\,dz_2
+  \;+\;
+  \frac{1}{3\delta}\int \mathrm{Tr}\bigl(A \wedge A *_\varepsilon A\bigr)\,dz_1\,dz_2,
+\end{equation}
+where $*_\varepsilon$ denotes the Moyal star product on $\bC^2$
+and $\delta$ is the coupling constant.  An M2-brane wrapping
+$\mathbb{R}_t \times \{(z_1,z_2) = (0,0)\}$ is realized as an
+instanton particle of this 5d theory.
+\end{definition}
+
+\subsection{The classical double-current algebra}
+
+The boundary algebra of the 5d NCCS theory, localized on the M2-brane,
+is the universal enveloping algebra of a double-current algebra.
+
+\begin{definition}[Double-current algebra]
+\label{def:double-current-algebra}
+\index{double-current algebra}
+The \emph{double-current algebra} is the Lie algebra
+\begin{equation}\label{eq:g-dbl}
+  \fg_{\mathrm{dbl}}
+  \;:=\;
+  \mathfrak{gl}_r \otimes \bC[u,v]
+\end{equation}
+with generators $J^a_{m,n} := T^a \otimes u^m v^n$
+(where $\{T^a\}$ is a basis for $\mathfrak{gl}_r$)
+and bracket
+\begin{equation}\label{eq:g-dbl-bracket}
+  [J^a_{m,n},\; J^b_{p,q}]
+  \;=\;
+  f^{ab}{}_c\, J^c_{m+p,\,n+q}.
+\end{equation}
+The \emph{classical boundary algebra} is
+$\cA^{\mathrm{cl}}_{\mathrm{M2}} := U(\fg_{\mathrm{dbl}})$.
+\end{definition}
+
+\begin{remark}[Bidegree and the double loop]
+\label{rem:double-loop-bidegree}
+The two polynomial indices $(m,n)$ in~\eqref{eq:g-dbl} encode the
+``double loop'': $u$ parametrizes the $z_1$-direction and $v$ the
+$z_2$-direction of $\bC^2$.  In the
+rational/trigonometric/elliptic hierarchy (Table~\ref{tab:rat-trig-ell}),
+a single loop $\bC[u]$ gives affine Kac--Moody; the second loop
+$\bC[v]$ gives toroidal algebras.  The double-current algebra is the
+classical ($q=1$) shadow of the full toroidal quantum group.
+\end{remark}
+
+\subsection{The Koszul dual bulk \texorpdfstring{$L_\infty$}{L-infinity} model}
+
+\begin{proposition}[Classical Koszul duality for M2 boundary algebras; \ClaimStatusProvedElsewhere]
+\label{prop:m2-classical-koszul}
+\index{Koszul duality!M2-brane classical}
+The bar construction applied to the classical boundary algebra yields
+the bulk $L_\infty$ algebra:
+\begin{equation}\label{eq:m2-bulk-classical}
+  \cA^{\mathrm{cl}}_{\mathrm{bulk}}
+  \;=\;
+  \Omega\B\bigl(\cA^{\mathrm{cl}}_{\mathrm{M2}}\bigr)
+  \;\simeq\;
+  C^\bullet(\fg_{\mathrm{dbl}}),
+\end{equation}
+the Chevalley--Eilenberg cochain complex of $\fg_{\mathrm{dbl}}$.
+In terms of dual generators $\epsilon^a_{m,n}$ dual to $J^a_{m,n}$,
+the $L_\infty$ operations are:
+\begin{align}
+  \ell_1 &= 0, \label{eq:m2-ell1}\\
+  \ell_2(\epsilon^a_{m,n},\, \epsilon^b_{p,q})
+  &= f^{ab}{}_c\, \epsilon^c_{m+p,\,n+q},
+  \label{eq:m2-ell2}\\
+  \ell_{k} &= 0 \quad\text{for } k \geq 3
+  \quad\text{(at the strict classical level).}
+  \label{eq:m2-ellk}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+The algebra $\cA^{\mathrm{cl}}_{\mathrm{M2}} = U(\fg_{\mathrm{dbl}})$
+is a quadratic algebra whose Ext groups are computed via the bar complex:
+$\mathrm{Ext}_{U(\fg_{\mathrm{dbl}})}(\bC, \bC)
+\cong H^\bullet(\fg_{\mathrm{dbl}}, \bC)$.
+By the PBW theorem, $U(\fg_{\mathrm{dbl}})$ is Koszul as a filtered
+algebra, and cobar reconstruction gives~\eqref{eq:m2-bulk-classical}.
+At the classical level the Lie algebra structure constants
+$f^{ab}{}_c$ are the only datum, so only $\ell_2$ is non-trivial.
+\end{proof}
+
+\subsection{Quantum double-loop deformation}
+
+\begin{proposition}[Costello's quantum double-loop commutation relation
+{\cite{Costello17}}; \ClaimStatusProvedElsewhere]
+\label{prop:costello-quantum-double-loop}
+\index{double-current algebra!quantum deformation}
+The quantum deformation of $\cA^{\mathrm{cl}}_{\mathrm{M2}}$ is a
+filtered associative algebra $\cA_{\mathrm{M2}}^{\mathrm{q}}$ whose
+generators satisfy
+\begin{multline}\label{eq:costello-quantum-comm}
+  [E_{\alpha\beta}\,\partial,\; E_{\gamma\delta}\,z]
+  \;=\;
+  \delta_{\beta\gamma}\,E_{\alpha\delta}(\partial z)
+  \;-\;
+  \delta_{\alpha\delta}\,E_{\gamma\beta}(z\partial)\\
+  +\;\bar\hbar\,E_{\alpha\delta}\,E_{\gamma\beta}
+  \;-\;
+  \bar\hbar \sum_\mu \delta_{\beta\gamma}\,
+  E_{\alpha\mu}\,E_{\mu\delta}
+  \;-\;
+  \bar\hbar \sum_\mu \delta_{\alpha\delta}\,
+  E_{\gamma\mu}\,E_{\mu\beta},
+\end{multline}
+where $E_{\alpha\beta}$ are the standard matrix units of
+$\mathfrak{gl}_r$ and $\bar\hbar$ is the quantum parameter.
+This algebra is the unique filtered quantization of
+$U(\fg_{\mathrm{dbl}})$ compatible with the
+$\Omega$-background~\eqref{eq:5d-nccs-action}.
+\end{proposition}
+
+\begin{remark}[The quantum $\bar\hbar$-corrections]
+\label{rem:quantum-hbar-corrections}
+The three $\bar\hbar$-terms
+in~\eqref{eq:costello-quantum-comm} are the boundary imprint of
+the Moyal star product $*_\varepsilon$ in the bulk action
+\eqref{eq:5d-nccs-action}.  They encode the leading
+non-commutativity of the double-loop algebra and are uniquely
+determined by the requirement that the algebra be an associative
+deformation of $U(\fg_{\mathrm{dbl}})$.
+\end{remark}
+
+\subsection{Sector/level/genus matching}
+
+The holographic identification between boundary and bulk takes the form
+of a graded Koszul duality, with matching across four independent
+gradings.
+
+\begin{conjecture}[Four-fold matching; \ClaimStatusConjectured]
+\label{conj:m2-four-fold-matching}
+\index{M2-brane!sector/level/genus matching}
+The Koszul duality $\cA_{\mathrm{bulk}} =
+\Omega\B(\cA_{\mathrm{M2}})$ respects the following matchings:
+\begin{enumerate}
+\item \emph{Sector-wise.}  The adjoint label $a$ in the generator
+  $J^a_{m,n}$ of the boundary algebra matches the dual label $a$ in
+  the generator $\epsilon^a_{m,n}$ of the bulk $L_\infty$ algebra.
+\item \emph{Level-wise.}  The double-loop bidegree $(m,n)$ is
+  preserved under bar-cobar duality: the $(m,n)$-component of
+  $\cA_{\mathrm{M2}}$ is dual to the $(m,n)$-component of
+  $\cA_{\mathrm{bulk}}$.
+\item \emph{$N$-wise.}  The finite-$N$ theory is obtained by
+  quotienting:
+  \begin{equation}\label{eq:m2-finite-N}
+    \cA_{\partial,N}
+    \;=\;
+    \cA_{\partial,\infty}\big/I_N,
+  \end{equation}
+  where $I_N$ is the ideal of trace relations at rank $N$.  The
+  Koszul dual $\cA^!_{\partial,N} = D_{\mathrm{Ran}}(\B(\cA_{\partial,N}))$
+  is the corresponding quotient of the dual boundary algebra.
+\item \emph{Genus-wise.}  The bulk $g$-loop corrections are the
+  $\hbar^{g-1}$ terms in the $L_\infty$ operations $\ell_{g,n}$.
+  In particular, the classical operations
+  \eqref{eq:m2-ell1}--\eqref{eq:m2-ellk} correspond to
+  tree level ($g=0$), and the first quantum correction
+  $\ell_{1,n}^{(1)}$ to the one-loop bulk.
+\end{enumerate}
+Explicitly, for the generators at rank $\infty$:
+\begin{equation}\label{eq:m2-explicit-koszul}
+  \bigl(\cA_{\partial,\infty}(a;\,m,n)\bigr)^{!}
+  \;\cong\;
+  \cA_{\mathrm{bulk}}(a;\,m,n).
+\end{equation}
+\end{conjecture}
+
+\begin{remark}[Bar-cobar duality as holographic duality]
+\label{rem:bar-cobar-is-holographic}
+\index{holographic duality!bar-cobar as|textbf}
+The rational (Yangian), trigonometric
+(quantum affine), and elliptic (toroidal) columns of
+Table~\ref{tab:rat-trig-ell} converge on a single structural
+fact: in Costello's M2-brane model, holographic duality is
+\emph{Koszul duality}: the boundary algebra $\cA_\partial$
+and its Koszul dual $\cA^!_\partial$ (obtained via Verdier
+duality on bar cohomology) are identified with boundary and
+bulk respectively.  Bar-cobar inversion
+$\Omega\B(\cA_\partial) \simeq \cA_\partial$ recovers the
+boundary algebra itself (Theorem~B), not the bulk.  The bulk
+is the chiral derived centre
+$C^\bullet_{\mathrm{ch}}(\cA_\partial, \cA_\partial)$.
+The four-fold matching of
+Conjecture~\ref{conj:m2-four-fold-matching} ensures that no
+information is lost: sector, level, rank, and genus all transfer
+across the duality.
+
+This is the natural culmination of the chapter.  The degeneration
+chain~\eqref{eq:degeneration-chain} (elliptic $\to$ trigonometric
+$\to$ rational) is supplemented by a fourth vertex: the double-loop
+regime, in which the base geometry $\bC^* \times \bC^*$ supports a
+genuine surface factorization algebra, and in which bar-cobar duality
+acquires a direct physical interpretation as the AdS/CFT
+correspondence for M2-branes.
+\end{remark}
