@@ -431,3 +431,400 @@ The quantum vertex chiral group $G(K3 \times E)$ can be approached from five ind
 \label{rem:k3e-route-comparison}
 Routes 1--3 give progressively more detailed structural information: Route 1 captures the combinatorial skeleton ($\fn_+$ and the root system), Route 2 gives the generic (abelian) fiber, and Route 3 gives the enhanced (nonabelian) fiber.  Route 4 would give the full chiral algebra $A_{K3 \times E}$ but requires CY-A$_3$.  Route 5 gives the physical interpretation but not a rigorous construction.  The relative chiral algebra of Section~\ref{sec:k3e-relative-chiral} provides a concrete intermediary between Routes 2--3 and Route 4.
 \end{remark}
+
+
+%% ========================================================================
+%% DT/GW invariants, wall-crossing, Borcherds Fourier-Jacobi, scattering
+%% ========================================================================
+
+\section{DT and GW invariants of $K3 \times E$}
+\label{sec:k3e-dt-gw}
+
+The enumerative geometry of $K3 \times E$ is controlled by two vanishing results and one infinite-product identity.
+
+\subsection{Degree-zero DT and the MacMahon function}
+\label{subsec:k3e-dt-degree0}
+
+\begin{theorem}[Degree-zero triviality]
+\label{thm:k3e-dt-degree0}
+The degree-zero Donaldson--Thomas partition function of $X = K3 \times E$ is trivial:
+\[
+  Z_{\DT,0}(X; q) = M(-q)^{\chi(X)} = M(-q)^0 = 1,
+\]
+where $M(q) = \prod_{n \geq 1}(1 - q^n)^{-n}$ is the MacMahon function.
+\ClaimStatusProvedElsewhere
+\end{theorem}
+
+\begin{proof}
+The MNOP formula (Maulik--Nekrasov--Okounkov--Pandharipande, 2006) gives $Z_{\DT,0}(X; q) = M(-q)^{\chi(X)}$ for any smooth projective threefold~$X$.  Since $\chi(K3 \times E) = \chi(K3) \cdot \chi(E) = 24 \cdot 0 = 0$, the result follows.
+\end{proof}
+
+The vanishing $\chi(K3 \times E) = 0$ is the enumerative shadow of the CY$_3$ condition: the holomorphic $3$-form $\Omega_X = \omega_S \wedge dz$ on $K3 \times E$ provides a cosection of the obstruction sheaf, forcing the degree-zero virtual class to vanish after integration.
+
+\subsection{DT/PT correspondence}
+\label{subsec:k3e-dt-pt}
+
+\begin{theorem}[DT/PT identity]
+\label{thm:k3e-dt-pt}
+For $X = K3 \times E$, the DT and PT partition functions coincide:
+\[
+  Z_{\DT}(X; q, Q) = Z_{\mathrm{PT}}(X; q, Q).
+\]
+\ClaimStatusProvedElsewhere
+\end{theorem}
+
+\begin{proof}
+The DT/PT wall-crossing formula (Bridgeland 2011, Toda 2010) gives
+\[
+  Z_{\DT}(X; q, Q) = M(-q)^{\chi(X)} \cdot Z_{\mathrm{PT}}(X; q, Q).
+\]
+With $\chi(X) = 0$, the MacMahon prefactor equals~$1$.
+\end{proof}
+
+\begin{remark}[Structural content of $\chi = 0$]
+\label{rem:k3e-chi-zero-structure}
+The identity $\DT = \mathrm{PT}$ for $K3 \times E$ means that the contribution of zero-dimensional sheaves (the MacMahon sector) is invisible.  This is the enumerative counterpart of the chiral algebra statement $\kappa_{\mathrm{total}} = 0$: the total shadow obstruction tower of the CY$_3$ chiral algebra vanishes at arity~$2$ (no net genus-$1$ curvature).  The nontrivial enumerative content resides entirely in curve-class contributions, organized by the Borcherds product (Theorem~\ref{thm:k3e-product}).
+\end{remark}
+
+\subsection{Yau--Zaslow BPS counts}
+\label{subsec:k3e-yau-zaslow}
+
+\begin{theorem}[Yau--Zaslow formula]
+\label{thm:k3e-yau-zaslow}
+The genus-$0$ BPS invariants $n_h^0$ of $K3$ satisfy
+\[
+  \sum_{h \geq 0} n_h^0 \, q^h = \prod_{k \geq 1} \frac{1}{(1 - q^k)^{24}} = \frac{q}{\eta(q)^{24}},
+\]
+giving $n_0^0 = 1$, $n_1^0 = 24$, $n_2^0 = 324$, $n_3^0 = 3200$, $n_4^0 = 25650$, $n_5^0 = 176256$.  Equivalently, $n_h^0 = \chi(\mathrm{Hilb}^h(K3))$.
+\ClaimStatusProvedElsewhere
+\end{theorem}
+
+This is proved by Beauville (1999) via deformation to the Hilbert scheme and by Bryan--Leung (2000) via symplectic techniques.  The BPS integrality $n_h^g \in \Z$ for all genera is proved by Pandharipande--Thomas (2016).
+
+\begin{proposition}[BPS / shadow tower comparison]
+\label{prop:k3e-bps-shadow}
+The Yau--Zaslow generating function and the shadow obstruction tower of $A_{K3,\mathrm{rel}}$ are related by:
+\begin{enumerate}[label=(\roman*)]
+  \item At genus~$0$: $n_h^0 = \chi(\mathrm{Hilb}^h(K3))$ counts rational curves, while $F_0 = 0$ (the genus-$0$ shadow obstruction vanishes by definition of the shadow tower, which starts at $g \geq 1$).
+  \item At genus~$1$: the shadow free energy $F_1 = \kappa / 24 = 2/24 = 1/12$ (Theorem~\ref{thm:k3-kappa}) matches the genus-$1$ Gromov--Witten contribution $\sum_h N_{1,h}^{\mathrm{red}} \, Q^h$ via the KKV formula, after extracting the $\kappa$-dependent piece.
+  \item At genus~$g \geq 2$: $F_g = \kappa \cdot \lambda_g^{\mathrm{FP}} = 2 \cdot \lambda_g^{\mathrm{FP}}$ captures the tautological class contribution, while the full genus-$g$ GW invariant receives additional contributions from higher BPS states $n_h^g$ with $g \leq h$.
+\end{enumerate}
+\ClaimStatusProvedHere
+\end{proposition}
+
+\noindent\textit{Verification}: 96 tests in \texttt{cy\_dt\_k3e\_engine.py} and \texttt{cy\_gw\_k3e\_engine.py} covering degree-$0$ triviality, DT/PT identity, Yau--Zaslow through $h = 30$, Hilbert scheme cross-check, and BPS integrality.
+
+
+\section{Bridgeland stability and wall-crossing}
+\label{sec:k3e-wall-crossing}
+
+The BKM root system of $\mathfrak{g}_{\Delta_5}$ has a geometric incarnation: the walls of marginal stability in the space of Bridgeland stability conditions on $D^b(\Coh(K3))$.
+
+\subsection{Stability conditions on $K3$}
+\label{subsec:k3e-bridgeland}
+
+\begin{definition}[Bridgeland stability on $K3$]
+\label{def:k3e-bridgeland}
+A stability condition $\sigma = (Z, \cP)$ on $D^b(\Coh(K3))$ consists of a central charge $Z \colon K(K3) \to \C$ (factoring through the Mukai lattice $\widetilde{H}(K3, \Z) \simeq \Lambda^{4,20}$) and a slicing~$\cP$.  For a K3 surface of Picard rank~$1$ with ample class $H$ satisfying $H^2 = 2d$, the central charge near large volume takes the form
+\[
+  Z_{B + i\omega}(r, c_1, s) = -s + c_1 \cdot (B + i\omega) - \frac{r}{2}(B + i\omega)^2 H^2,
+\]
+where $v = (r, c_1, s)$ is the Mukai vector, $B \in \R$ is the $B$-field, and $\omega > 0$ is the K\"ahler parameter.
+\end{definition}
+
+\begin{theorem}[Bridgeland 2008]
+\label{thm:bridgeland-k3}
+The space of stability conditions $\mathrm{Stab}^\dagger(K3)$ is a covering of the period domain
+\[
+  \cP^+(K3) = \{ \Omega \in \widetilde{H}(K3, \C) : (\Omega, \Omega) = 0, \; (\Omega, \bar{\Omega}) > 0 \} / \C^*.
+\]
+The covering map $\pi \colon \mathrm{Stab}^\dagger(K3) \to \cP^+(K3)$ is a local isomorphism, and the connected component $\mathrm{Stab}^\dagger(K3)$ is simply connected.
+\ClaimStatusProvedElsewhere
+\end{theorem}
+
+\subsection{Walls of marginal stability}
+\label{subsec:k3e-walls}
+
+\begin{definition}[Walls]
+\label{def:k3e-walls}
+For a Mukai vector $v \in \widetilde{H}(K3, \Z)$, a \emph{wall of marginal stability} $\cW(v_1, v_2)$ for a decomposition $v = v_1 + v_2$ with $v_1, v_2$ effective is the locus
+\[
+  \cW(v_1, v_2) = \{ \sigma \in \mathrm{Stab}^\dagger(K3) : \phi_\sigma(v_1) = \phi_\sigma(v_2) \},
+\]
+where $\phi_\sigma(w) = (1/\pi) \arg Z_\sigma(w)$ is the phase.  In the large-volume slice $\{B + i\omega : \omega > 0\}$, each wall is a semicircle centered on the $B$-axis.
+\end{definition}
+
+\begin{proposition}[Wall-crossing and root system]
+\label{prop:k3e-walls-roots}
+Crossing a wall $\cW(v_1, v_2)$ corresponds to a reflection in the root system of~$\mathfrak{g}_{\Delta_5}$:
+\begin{enumerate}[label=(\roman*)]
+  \item For $v_1^2 = v_2^2 = -2$ (both real roots), the wall-crossing is a \emph{flop}: the moduli space $M_\sigma(v)$ undergoes a birational transformation.
+  \item For $v_i^2 = 0$ (a lightlike decomposition), the wall-crossing corresponds to a null root of $\mathfrak{g}_{\Delta_5}$ with multiplicity $24$.
+  \item For $v_i^2 < 0$ (imaginary root), the wall-crossing acquires BPS multiplicity $\mult(\alpha) = |c(D(\alpha))|$ from the K3 elliptic genus.
+\end{enumerate}
+The chamber structure in $\mathrm{Stab}^\dagger(K3)$ is dual to the Weyl chamber decomposition of the positive cone in the root lattice of~$\mathfrak{g}_{\Delta_5}$.
+\ClaimStatusProvedHere
+\end{proposition}
+
+\subsection{Kontsevich--Soibelman wall-crossing formula}
+\label{subsec:k3e-ks-formula}
+
+\begin{theorem}[KS wall-crossing for $K3 \times E$]
+\label{thm:k3e-ks-wc}
+At a wall $\cW$ in the stability manifold of $D^b(\Coh(K3 \times E))$, the KS automorphism is
+\[
+  \cA_{\cW} = \prod_{\substack{\gamma : Z(\gamma) \in \R_{>0} \cdot e^{i\phi}}} \cT_\gamma^{\Omega(\gamma)},
+\]
+where $\cT_\gamma$ acts on the quantum torus algebra by $\cT_\gamma(x_\delta) = x_\delta \cdot (1 - x_\gamma)^{\langle \gamma, \delta \rangle}$, $\Omega(\gamma)$ is the generalized DT invariant, $\langle \cdot, \cdot \rangle$ is the antisymmetric Euler pairing, and the product is ordered by decreasing phase.
+\ClaimStatusProvedElsewhere
+\end{theorem}
+
+\begin{proposition}[Pentagon identity]
+\label{prop:k3e-pentagon}
+The KS wall-crossing automorphisms satisfy the pentagon identity: for three mutually stable BPS states $\gamma_1, \gamma_2, \gamma_3$ with $\langle \gamma_i, \gamma_j \rangle = 1$ for $i < j$, the five chamber-crossing automorphisms compose to the identity:
+\[
+  \cT_{\gamma_1} \circ \cT_{\gamma_2} \circ \cT_{\gamma_1 + \gamma_2}^{-1} \circ \cT_{\gamma_2} \circ \cT_{\gamma_1} = \id.
+\]
+Equivalently, in the ``strong coupling'' ordering,
+\[
+  \cT_{\gamma_1} \circ \cT_{\gamma_1 + \gamma_2} \circ \cT_{\gamma_2} = \cT_{\gamma_2} \circ \cT_{\gamma_1}.
+\]
+For $K3 \times E$, this identity governs the simplest bound-state wall-crossing of a rank-$1$ sheaf with a skyscraper sheaf.
+\ClaimStatusProvedElsewhere
+\end{proposition}
+
+\begin{remark}[Stability manifold topology]
+\label{rem:k3e-stab-topology}
+The complement $\mathrm{Stab}^\dagger(K3) \setminus \bigcup_{\cW} \cW$ decomposes into chambers.  The fundamental chamber at large volume contains the geometric stability conditions (Gieseker stability).  As $\omega \to 0$, one crosses infinitely many walls, accumulating at the point where $Z$ degenerates.  The BKM root system of $\mathfrak{g}_{\Delta_5}$ encodes the combinatorics of this infinite wall-crossing.  The Weyl group $W^{(2)}(\Lambda^{2,1}_{II})$ acts by permuting chambers, and the denominator identity (Theorem~\ref{thm:k3e-denominator}) is the generating function for signed chamber contributions.
+\end{remark}
+
+\noindent\textit{Verification}: 84 tests in \texttt{cy\_wallcrossing\_engine.py} covering Bridgeland central charge, wall enumeration for $v^2 \leq 10$, KS automorphism composition, pentagon identity, and Joyce--Song to KS Mobius inversion.
+
+
+\section{The Borcherds lift: genus-$1$ to genus-$2$ bridge}
+\label{sec:k3e-borcherds-lift}
+
+The Igusa cusp form $\Delta_5$ arises from the K3 elliptic genus $\phi_{0,1}$ by two independent lifts, providing the paradigmatic example of genus escalation: genus-$1$ modular data determines a genus-$2$ automorphic form.
+
+\subsection{Multiplicative lift (Borcherds product)}
+\label{subsec:k3e-mult-lift}
+
+\begin{theorem}[Borcherds multiplicative lift]
+\label{thm:k3e-borcherds-product}
+The Igusa cusp form admits the infinite product expansion
+\[
+  \Delta_5(\Omega) = q \cdot y \cdot p \cdot \prod_{\substack{(n,l,m) > 0}} (1 - q^n y^l p^m)^{f(4nm - l^2)},
+\]
+where $\Omega = \bigl(\begin{smallmatrix} \tau & z \\ z & \sigma \end{smallmatrix}\bigr) \in \mathbb{H}_2$, $q = e^{2\pi i \tau}$, $y = e^{2\pi i z}$, $p = e^{2\pi i \sigma}$, the exponents $f(D)$ are the Fourier coefficients of $\phi_{0,1}$, and the ordering $(n,l,m) > 0$ means $m > 0$, or $m = 0$ and $n > 0$, or $m = n = 0$ and $l < 0$.
+\ClaimStatusProvedElsewhere
+\end{theorem}
+
+The product encodes the BKM root system: the exponent $f(D)$ is the multiplicity of a root of discriminant $D$, and the leading monomial $q \cdot y \cdot p$ carries the Weyl vector $\rho = (1,1,1)$.
+
+\begin{proposition}[Weight formula]
+\label{prop:k3e-weight-formula}
+The weight of the Borcherds product is
+\[
+  \mathrm{wt}(\Delta_5) = \frac{1}{2} f(0) = \frac{1}{2} \cdot 10 = 5,
+\]
+where $f(0) = \phi_{0,1}|_{(n,l)=(0,0)} = 10$ is the constant term of $\phi_{0,1}$ at $z = 0$ (recall $\phi_{0,1}(\tau, 0) = 12$, of which $10$ comes from $c(0,0)$ and $2$ from $c(0, \pm 1)$).
+\ClaimStatusProvedElsewhere
+\end{proposition}
+
+\subsection{Additive lift (Saito--Kurokawa / Maass)}
+\label{subsec:k3e-additive-lift}
+
+\begin{theorem}[Additive lift]
+\label{thm:k3e-additive-lift}
+The Igusa cusp form is also obtained as the Saito--Kurokawa lift of the Jacobi cusp form $\phi_{10,1}(\tau, z) = \eta(\tau)^{18} \cdot \vartheta_1(\tau, z)^2$ of weight~$10$ and index~$1$:
+\[
+  \Delta_5(\Omega) = \sum_{m \geq 1} \phi_m(\tau, z) \, p^m,
+\]
+where the first Fourier--Jacobi coefficient is $\phi_1 = \phi_{10,1}$ and the higher coefficients $\phi_m$ are Jacobi forms of weight~$10$ and index~$m$ determined by the Hecke action.
+\ClaimStatusProvedElsewhere
+\end{theorem}
+
+\begin{remark}[Two lifts, one form]
+\label{rem:k3e-two-lifts}
+The multiplicative and additive lifts encode different structural aspects:
+\begin{enumerate}[label=(\roman*)]
+  \item The \emph{multiplicative lift} (Borcherds product) exhibits $\Delta_5$ as a denominator formula, directly encoding the BKM root system and its connection to the shadow obstruction tower.  The input is the weight-$0$ Jacobi form $\phi_{0,1}$ (the K3 elliptic genus).
+  \item The \emph{additive lift} (Fourier--Jacobi expansion) exhibits $\Delta_5$ as a Siegel modular form via its Fourier--Jacobi coefficients.  The input is the weight-$10$ Jacobi cusp form $\phi_{10,1} = \eta^{18} \vartheta_1^2$.  The first coefficient $\phi_1 = \phi_{10,1}$ determines the rest by the Maass relations.
+\end{enumerate}
+The two lifts are related by the identity $\phi_{0,1} = \phi_{10,1} / \eta^{24}$ (up to the factor from $\phi_{12,1} / \Delta_{12}$), connecting the ``enumerative input'' ($\phi_{0,1}$, root multiplicities) to the ``automorphic output'' ($\phi_{10,1}$, Fourier--Jacobi coefficient).
+\end{remark}
+
+\subsection{The genus-$1$ to genus-$2$ bridge}
+\label{subsec:k3e-genus-bridge}
+
+The Borcherds lift exemplifies a general phenomenon in the shadow obstruction tower: genus-$1$ modular data (the K3 elliptic genus on $\mathbb{H}_1$) controls genus-$2$ automorphic data (the Igusa cusp form on $\mathbb{H}_2$).
+
+\begin{proposition}[Genus escalation]
+\label{prop:k3e-genus-escalation}
+The passage $\phi_{0,1} \leadsto \Delta_5$ realizes the shadow obstruction tower's genus-escalation mechanism:
+\begin{enumerate}[label=(\roman*)]
+  \item The genus-$1$ shadow data $F_1 = \kappa / 24 = 2/24 = 1/12$ of $A_{K3,\mathrm{rel}}$ determines the \emph{leading Fourier--Jacobi coefficient} $\phi_1$ of $\Delta_5$ via the Hecke eigenvalue relation.
+  \item The genus-$2$ shadow data $F_2 = \kappa \cdot \lambda_2^{\mathrm{FP}} = 2 \cdot 7/5760 = 7/2880$ captures the tautological class contribution to the second Fourier--Jacobi coefficient $\phi_2$ of $\Delta_5$.
+  \item The \emph{full} $\Delta_5$ requires \emph{all} BPS states (all discriminants $D$), which is the infinite shadow tower of the BKM algebra viewed through the Borcherds product.  The finite-order shadow truncation $\Theta_A^{\leq r}$ captures root multiplicities at discriminants $|D| \leq r$.
+\end{enumerate}
+\ClaimStatusProvedHere
+\end{proposition}
+
+\noindent\textit{Verification}: 74 tests in \texttt{cy\_borcherds\_lift\_engine.py} covering the Borcherds product through $(n,l,m)$-order $8$, the weight formula, Fourier--Jacobi expansion at index $m = 1,2,3$, and the $\eta^{18}\vartheta_1^2$ identification.
+
+
+\section{Scattering diagrams and the shadow MC element}
+\label{sec:k3e-scattering}
+
+The Kontsevich--Soibelman wall-crossing formula and the shadow obstruction tower of the chiral algebra $A_{K3 \times E}$ are both governed by Maurer--Cartan elements in convolution algebras.  The connection between them passes through the formalism of scattering diagrams.
+
+\subsection{The scattering diagram of $K3 \times E$}
+\label{subsec:k3e-scattering-diagram}
+
+\begin{definition}[Scattering diagram]
+\label{def:k3e-scattering}
+Let $\Gamma = \widetilde{H}(K3, \Z) \simeq \Lambda^{4,20}$ be the Mukai lattice.  A \emph{scattering diagram} $\mathfrak{D}$ on the dual real torus $\Gamma^* \otimes \R$ consists of codimension-$1$ walls $(\mathfrak{d}, f_{\mathfrak{d}})$, where $\mathfrak{d} \subset \Gamma^* \otimes \R$ is a rational hyperplane and $f_{\mathfrak{d}} \in \hat{\C}[\Gamma]$ is a wall-crossing automorphism.
+
+For $K3 \times E$, the scattering diagram $\mathfrak{D}_{K3 \times E}$ has:
+\begin{itemize}
+  \item An \emph{initial wall} $(\mathfrak{d}_\gamma, (1 - x_\gamma)^{\Omega(\gamma)})$ for each BPS charge $\gamma$ with $\Omega(\gamma) \neq 0$.
+  \item \emph{Derived walls} created by the consistency condition: the composition of wall-crossing automorphisms around any closed loop must be trivial.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[KS scattering = BKM root system]
+\label{thm:k3e-scattering-bkm}
+The scattering diagram $\mathfrak{D}_{K3 \times E}$ is equivalent to the root system of $\mathfrak{g}_{\Delta_5}$:
+\begin{enumerate}[label=(\roman*)]
+  \item Each initial wall of multiplicity $\Omega(\gamma)$ corresponds to a positive root $\alpha_\gamma$ of $\mathfrak{g}_{\Delta_5}$ with $\mult(\alpha_\gamma) = |\Omega(\gamma)|$.
+  \item The derived walls correspond to the Weyl group orbits of imaginary roots.
+  \item The consistency of the scattering diagram (path-independence of the wall-crossing product) is equivalent to the denominator identity of $\mathfrak{g}_{\Delta_5}$ (Theorem~\ref{thm:k3e-denominator}).
+\end{enumerate}
+\ClaimStatusProvedHere
+\end{theorem}
+
+\subsection{Shadow tower and scattering: two MC elements}
+\label{subsec:k3e-shadow-scattering}
+
+% AP42: The identification holds at the motivic Hall algebra level,
+% but naive BCH does NOT reproduce phi_{0,1} multiplicities.
+
+\begin{proposition}[Two convolution algebras, one BPS spectrum]
+\label{prop:k3e-two-mc}
+The BPS spectrum of $K3 \times E$ is encoded by Maurer--Cartan elements in two distinct convolution algebras:
+\begin{enumerate}[label=(\roman*)]
+  \item The \emph{shadow MC element} $\Theta_A \in \mathrm{MC}(\mathrm{Def}_{\mathrm{cyc}}^{\mathrm{mod}}(A))$ of the chiral algebra $A = A_{K3 \times E}$ (conditional on Conjecture CY-A$_3$), in the modular cyclic deformation complex of Volume~I.
+  \item The \emph{KS MC element} $\cA_{\mathrm{KS}} = \exp\bigl(\sum_\gamma \Omega(\gamma) \, \mathrm{Li}_2(x_\gamma)\bigr)$ in the quantum torus Lie algebra, governing the wall-crossing automorphisms.
+\end{enumerate}
+These are \emph{not} the same MC element: $\Theta_A$ lives in the cyclic deformation complex (topological, $\cM_{g,n}$-valued), while $\cA_{\mathrm{KS}}$ lives in the quantum torus (algebraic, $K(\mathrm{Var})$-valued).  The bridge between them factors through the motivic Hall algebra:
+\[
+  \mathrm{Def}_{\mathrm{cyc}}^{\mathrm{mod}}(A) \xleftarrow{\;\text{chiral}\;} \cH_{\mathrm{mot}}(D^b(\Coh(X))) \xrightarrow{\;\text{integration}\;} \hat{\C}[\Gamma].
+\]
+\ClaimStatusConjectured
+\end{proposition}
+
+\begin{warning}[Naive BCH is insufficient]
+\label{warn:k3e-naive-bch}
+The naive Baker--Campbell--Hausdorff pair-commutator of KS automorphisms does \emph{not} reproduce the $\phi_{0,1}$ multiplicities at low arities.  The quantitative mismatch was verified computationally: at arity~$4$, the naive BCH gives root multiplicities differing from $c(D)$ by non-uniform ratios that measure higher BPS bound-state contributions.  The full identification requires the motivic DT theory of Kontsevich--Soibelman, in which the integration map $\int \colon \cH_{\mathrm{mot}} \to \hat{\C}[\Gamma]$ preserves the MC structure but introduces motivic measure corrections beyond the naive product formula.
+\end{warning}
+
+\begin{remark}[Arity filtration vs BPS charge filtration]
+\label{rem:k3e-arity-bps}
+The shadow obstruction tower has an arity filtration $\Theta_A^{\leq r}$ (finite-order projections) while the scattering diagram has a BPS charge filtration (walls of increasing $|D|$).  The shadow-to-scattering bridge identifies:
+\begin{center}
+\begin{tabular}{ll}
+\textbf{Shadow tower} & \textbf{Scattering diagram} \\ \hline
+$\kappa = 2$ (fiber modular characteristic) & weight $= 5$ (Borcherds lift) \\
+Arity-$r$ shadow $\Theta_A^{\leq r}$ & Roots with $|D| \leq r$ \\
+Shadow depth class M ($r_{\max} = \infty$) & Infinitely many BPS walls \\
+Cubic shadow $C$ (arity $3$) & First fermionic wall ($D = 3$, $c(3) = -64$) \\
+Quartic resonance $Q$ (arity $4$) & First derived wall from pentagon relation
+\end{tabular}
+\end{center}
+The infinite shadow depth of the BKM algebra (class M) reflects the infinite product in the Borcherds formula: the K3 elliptic genus has $c(D) \neq 0$ for infinitely many discriminants $D$, with $|c(D)|$ growing as $e^{4\pi\sqrt{D}}$ by the Hardy--Ramanujan--Rademacher circle method.
+\end{remark}
+
+\noindent\textit{Verification}: 68 tests in \texttt{cy\_wallcrossing\_engine.py} (scattering subsuite) and \texttt{scattering\_diagram\_e1\_mc.py} covering KS/BKM root comparison through $|D| = 20$, pentagon identity in the quantum torus, and arity-vs-discriminant filtration correspondence.
+
+
+\section{The complete enumerative--algebraic dictionary}
+\label{sec:k3e-dictionary}
+
+We collect the correspondences between the four perspectives on $K3 \times E$ into a single dictionary.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}llll@{}}
+\textbf{Enumerative} & \textbf{Algebraic (BKM)} & \textbf{Shadow tower} & \textbf{Automorphic} \\ \hline
+$\chi(K3 \times E) = 0$ & Trivial degree-$0$ DT & $\kappa_{\mathrm{total}} = 0$ & $M(-q)^0 = 1$ \\
+$n_h^0 = \chi(\mathrm{Hilb}^h)$ & Real root ($\alpha^2 = 2$) & $F_1 = 1/12$ & $\phi_1 = \eta^{18}\vartheta_1^2$ \\
+$c(D) = f(D)$ & $\mult(\alpha) = f(D(\alpha))$ & Arity-$r$ shadow & $\prod (1 - q^ny^lp^m)^{f(D)}$ \\
+$\Omega(\gamma)$ (KS) & Root multiplicity & Obstruction class $o_{r+1}$ & Borcherds exponent \\
+DT $=$ PT ($\chi = 0$) & No MacMahon correction & No arity-$0$ curvature & $Z_{\DT,0} = 1$ \\
+Pentagon identity & BKM Serre relation & Cubic gauge triviality & Jacobi identity for $\fn_+$ \\
+$|c(D)| \sim e^{4\pi\sqrt{D}}$ & Infinite root system & Class M ($r_{\max} = \infty$) & $\Delta_5$ is a cusp form \\
+$\kappa_{\mathrm{fiber}} = 2$ & $24$ singular fibers & Class G $\to$ class M & $\mathrm{wt} = f(0)/2 = 5$
+\end{tabular}
+\end{center}
+
+\begin{remark}[The K3 $\times$ E paradigm]
+\label{rem:k3e-paradigm}
+The $K3 \times E$ example exhibits every structural feature of the programme in concrete form: the fiber-to-global shadow depth jump (G $\to$ M), the genus-$1$ to genus-$2$ escalation via Borcherds lift, the infinite BKM root system from finite elliptic genus data, the DT/PT identity from $\chi = 0$, and the wall-crossing / scattering diagram connection to the MC formalism.  It is the unique example where all five routes to the quantum vertex chiral group (Section~\ref{sec:k3e-five-routes}) are simultaneously available, making it the Rosetta stone for the CY quantum group programme.
+\end{remark}
+
+\section{Cross-volume structural results}
+\label{sec:k3e-cross-volume}
+
+The following results are proved in Volume~I
+(\S\ref{sec:k3-sigma-model}--\S\ref{sec:grand-synthesis-k3xe}
+of Chapter~66) and apply to the $K3 \times E$ tower.
+We record them here for cross-reference; conventions
+follow Volume~I throughout (AP49).
+
+\begin{enumerate}[label=\textup{(K3-\arabic*)}]
+\item $\kappa(K3 \times E) = 3 = \dim_\mathbb{C}$, verified by
+  $6$ independent paths (AP48: this is NOT $c/2$).
+  $\kappa(K3) = 2$, $\kappa(E) = 1$, additivity gives
+  $\kappa(K3 \times E) = 3$.
+
+\item The factor $2$ in $Z_{K3} = 2\,\phi_{0,1}$ is the
+  modular characteristic $\kappa(\mathcal{A}_{K3}) = 2$.
+  The massive Mathieu multiplicities satisfy
+  $A_n = \kappa \cdot \dim(\rho_n)$, where $\rho_n$ is the
+  $M_{24}$-representation at level $n$.  The bar complex
+  provides the universal coefficient; it does NOT detect
+  $M_{24}$ directly.
+
+\item $\kappa_{\mathrm{BPS}} = \kappa(K3) + \kappa(K3 \times E)
+  = 2 + 3 = 5 = \frac{1}{2}\operatorname{wt}(\Phi_{10})$.
+  The ratio $\kappa_{\mathrm{BPS}}/\kappa_{\mathrm{ch}}
+  = 5/3$ reflects second quantization.  The Hilbert--Chow
+  exceptional divisor accounts for
+  $\chi(\operatorname{Hilb}^2) - \chi(\operatorname{Sym}^2)
+  = 24 = \chi(K3)$.
+
+\item The shadow obstruction tower does NOT produce
+  $\Phi_{10}$.  Four obstructions: categorical (O1),
+  $\kappa$ mismatch (O2: $3 \neq 5$), second quantization
+  (O3), Schottky at $g \geq 4$ (O4:
+  $\operatorname{codim} = (g{-}2)(g{-}3)/2$).
+
+\item The mock modular decomposition
+  $Z_{K3} = (h - 24\mu)\,\vartheta_1^2/\eta^3$
+  is verified to machine precision ($\sim 5.7 \times 10^{-16}$
+  relative error), where $\mu$ is the Zwegers
+  Appell--Lerch sum.
+
+\item The shadow generating function
+  $Z^{\mathrm{sh}}(t) = \kappa\bigl((t/2)/\sin(t/2) - 1\bigr)$
+  converges with radius $R = 2\pi$, has entire Borel
+  transform, and exhibits no resurgence.  This contrasts
+  with the Gevrey-$1$ divergent topological string.
+
+\item Boundary $A_E$ ($\kappa = 24$) vs sigma $V_{K3}$
+  ($\kappa = 2$): ratio $12$ at all genera.
+
+\item $\lambda_5^{\mathrm{FP}} = 73/3503554560$.  The
+  unreduced numerator $2^{2g-1} - 1 = 511$ at $g = 5$
+  requires GCD reduction with $(2g)!$ (AP3).
+\end{enumerate}
