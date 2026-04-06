@@ -485,6 +485,7 @@ Fourier coefficients to central $L$-values, providing algebraic
 access to the critical line $\Re(s) = 1/2$.
 
 \begin{conjecture}[Genus-2 BPS = B\"ocherer]
+\label{conj:genus2-bps-bocherer}
 For the quantum vertex chiral group $G(K3 \times E, \fg)$
 at the lattice VOA point:
 the genus-2 MC equation determines the Siegel theta series,
@@ -667,21 +668,21 @@ requires the full theta series
 $\Theta_\Lambda = E_{12} + c_\Delta \cdot \Delta$ where
 $c_\Delta = (691 |R| - 65520)/691$.
 
-The Monster module $V^\natural$ has $c = 24$, $\dim V_1 = 0$,
-and $\kappa = 12$ (from the Virasoro sector: the Monster has
-no weight-$1$ currents, so $\kappa = c/2 = 12$, not
-$\kappa = c = 24$).  This is half the Niemeier value,
-providing a genuine shadow-tower separation.
-% RECTIFICATION-FLAG: The Monster/Niemeier kappa discrepancy
-% depends on normalization.  In the Vol~I working notes
-% (k=1/2 per boson), Niemeier has kappa=12 and so does
-% Monster, giving NO separation.  In the main chapter
-% convention (k=1 per boson), Niemeier has kappa=24 while
-% Monster has kappa=12 (since it is NOT a lattice VOA: it
-% has no weight-1 currents, so its kappa comes from
-% the Virasoro sector alone: kappa(Vir_24) = 24/2 = 12).
-% Verify against compute/lib/moonshine_shadow_atlas.py which
-% uses kappa=24 for Niemeier and kappa=12 for Monster.
+The Monster module $V^\natural$ has $c = 24$, $\dim V_1 = 0$.
+Its modular characteristic $\kappa(V^\natural)$ is \emph{open}
+(AP48): the formula $\kappa = c/2$ applies to the Virasoro
+algebra itself, not to general VOAs, and $V^\natural$ has
+a $196883$-dimensional Griess algebra at weight~$2$ whose
+contribution to the genus-$1$ bar complex is not determined
+by $c$ alone.  The orbifold argument gives
+$\kappa(V^\natural) \approx 12$ (Leech has $\kappa = 24$;
+the $\bZ/2\bZ$ orbifold halves $\kappa$ by killing weight-$1$
+currents), while $\kappa(V_\Lambda) = 24$ for Niemeier lattice VOAs,
+potentially providing shadow-tower separation.
+% RECTIFICATION-FLAG (AP48): kappa(V^natural) is open.
+% The value 12 is the orbifold estimate, not a computation
+% from the bar complex.  The formula kappa=c/2=12 was removed
+% per AP48.  Verify against compute/lib/moonshine_shadow_atlas.py.
 The Monster module is conjecturally class~$\mathbf{M}$
 (infinite shadow depth), reflecting the nonlinear Griess
 algebra structure.
@@ -2379,5 +2380,360 @@ The pattern $\mathrm{CY}_d \to E_{d-2}$ predicts CY$_4 \to \Etwo$.  The swarm co
 \end{center}
 
 \noindent Total from the quiver-chart campaign: $3{,}497$ new tests, $37$ modules, $35$ test suites.  Combined with the $4{,}714$ tests from the prior $\Eone$ campaign: \textbf{$8{,}211$ tests} across $72$ compute modules, zero failures.
+
+
+% ============================================================
+% ============================================================
+%
+%  MOTIVIC THREADS AND THEMATIC OBSERVATIONS
+%
+%  Sections below record cross-cutting insights, poetic threads,
+%  and falsifiable hunches arising from the full 150+ engine
+%  computation landscape.  These are the things that do not yet
+%  have theorem-level formality but carry deep mathematical
+%  intuition---the connective tissue that will crystallize into
+%  formal statements in subsequent work.
+%
+%  Standard: Gelfand seminar---hunches stated precisely enough
+%  to be falsifiable.
+%
+% ============================================================
+% ============================================================
+
+
+% ============================================================
+\section{The elliptic curve as universal bridge}
+\label{sec:motivic-elliptic-bridge}
+% ============================================================
+
+The same elliptic curve $E$ appears in at least six distinct roles across the three volumes, and these roles are not independent.  This polymorphism deserves an accounting.
+
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Base curve for chiral algebras} (Vol~I).  The factorization algebra $\cF_X(A)$ lives on $\Ran(X)$; when $X = E$, the genus-1 bar amplitudes are governed by the propagator $d \log E(z,w)$ on $E \times E$.
+
+\item \emph{Sewing parameter space} (Vol~I, MC5).  The modular parameter $\tau$ of $E$ is the sewing parameter for the genus-1 Hilbert-Schmidt kernel.  The genus-1 amplitude $F_1(A) = \kappa(A) \cdot \lambda_1^{\mathrm{FP}}$ is a function on $\cM_{1,1} = \cH/\mathrm{SL}_2(\Z)$ via $q = e^{2\pi i \tau}$.
+
+\item \emph{Fiber in $K3 \times E$} (Vol~III, \S\ref{sec:k3e-example}).  The DT partition function of $K3 \times E$ decomposes as a sewing of K3 fiber contributions along~$E$.  The $q$-variable in the Borcherds product is $q = e^{2\pi i \tau_E}$ where $\tau_E$ parametrizes~$E$.
+
+\item \emph{Jacobi form parameter space}.  The Fourier coefficients of $\phi_{0,1}(\tau, z)$ live on $E_\tau \times \C$; the $z$-variable is the elliptic genus fugacity.  The same coefficients $c(D)$ serve as root multiplicities for $\fg_{\Delta_5}$, shadow tower inputs, and BPS degeneracies.
+
+\item \emph{Siegel modular form period}.  The Igusa cusp form $\Delta_5$ lives on $\cH_2 = \Sp_4(\Z) \backslash \bH_2$, where $\bH_2$ parametrizes pairs of elliptic curves with a coupling.  The off-diagonal entry $z$ in $Z = \bigl(\begin{smallmatrix} \tau & z \\ z & \omega \end{smallmatrix}\bigr)$ is an inter-fiber coupling parameter.
+
+\item \emph{Elliptic Hall algebra carrier} (\S\ref{sec:mo-vol2-rmatrix}).  The CY$_2$ quantum vertex chiral group $G(\mathrm{Higgs}(E)) = E_{q,t}$ is carried on $\Coh(E)$.  Its $R$-matrix is Felder's dynamical elliptic $R$-matrix on $E \times E$.
+\end{enumerate}
+
+The recurrence is not ornamental.  Every time the elliptic curve appears, it brings the same structural package: a modular parameter $\tau$, an $\mathrm{SL}_2(\Z)$ symmetry, a $q$-expansion, and a sewing/product/lift functor that converts genus-0 data into genus-1 data.  The deeper observation is that $E$ serves as the \emph{modular clock} of the theory: it converts algebraic data (OPE coefficients, shadow invariants, root multiplicities) into analytic data (partition functions, automorphic forms, $L$-values) via the sewing mechanism of MC5.
+
+\begin{question}
+Is there a categorical formulation of the ``universal bridge'' role of $E$?  Specifically: is the category of factorization algebras on $\Ran(E)$ a universal recipient for modular lifts in the sense that every Borcherds product, every Jacobi form, and every Siegel modular form arising in the CY3 programme can be constructed functorially from sewing on $E$?
+\end{question}
+
+
+% ============================================================
+\section{$\kappa$ as the soul of an algebra}
+\label{sec:motivic-kappa-soul}
+% ============================================================
+
+The modular characteristic $\kappa(A)$ is the single most condensed invariant of a chirally Koszul algebra.  It is a rational number.  It controls:
+\begin{itemize}
+\item the genus-$1$ obstruction class: $F_1(A) = \kappa/24$;
+\item the shadow class ($\kappa = 0$ implies uncurved bar complex but does \emph{not} imply $\Theta_A = 0$, per AP31);
+\item the complementarity sum (Theorem~C): $\kappa(A) + \kappa(A!) = 0$ for KM/free fields, $= 13$ for Virasoro, $= \rho \cdot K$ in general;
+\item the Faber--Pandharipande genus expansion: $F_g = \kappa \cdot \lambda_g^{\mathrm{FP}}$ (Theorem~D, on the uniform-weight lane);
+\item the shadow connection residue: $\nabla^{\mathrm{sh}} = d - Q'_L/(2Q_L)\, dt$ has monodromy $-1$ (the Koszul sign), with $\kappa$ controlling the leading coefficient of $Q_L$;
+\item the Borcherds product weight: for $K3 \times E$, $\kappa = 5 = \mathrm{weight}(\Delta_5)$; for $\mathrm{Enr} \times E$, $\kappa = 4$ (Proposition~\ref{prop:enriques-kappa}).
+\end{itemize}
+
+Each of these six roles reveals a different aspect of what $\kappa$ ``is.''  But the deepest interpretation is this: \emph{$\kappa$ is the genus-$1$ anomaly of the bar complex, the single scalar that measures how far the algebra is from being uncurved.}  For K3, $\kappa_{\mathrm{cat}} = 2 = \chi(\cO_{K3})$, the arithmetic genus---a number that is ``deeper than $c$, deeper than $\chi_{\mathrm{top}}$'' in the sense that it detects the algebraic structure invisible to topology.  For $K3 \times E$, $\kappa = 5$ detects the weight of the automorphic form governing the BPS spectrum, while $\chi_{\mathrm{top}} = 0$ detects nothing.
+
+\begin{remark}[$\kappa$-polysemy as a feature]
+\label{rem:kappa-polysemy}
+The fact that a single K3-fibered CY3 gives rise to multiple $\kappa$-values---$\kappa_{\mathrm{ch}} = 3$ (chiral de Rham complex), $\kappa_{\mathrm{cat}}(K3) = 2$ (the sigma model on K3), $\kappa_{\mathrm{fiber}} = 24$ (the boundary algebra / lattice VOA), $\kappa_{\mathrm{BPS}} = 5$ (the Igusa weight)---is not a failure of the invariant but a reflection of the \emph{multiple algebraic structures} naturally associated to a single geometry.  Each $\kappa$ sees a different chiral algebra built from the same underlying data:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+  \toprule
+  $\kappa$ value & Algebra & What it sees \\
+  \midrule
+  $3$ & CDR sheaf $\Omega^{\mathrm{ch}}_{K3}$ & holomorphic differential forms \\
+  $2$ & categorical $A_{D^b(K3)}$ & derived category / HKR \\
+  $24$ & lattice VOA $V_{\mathrm{Mukai}}$ & Mukai lattice of K3 \\
+  $5$ & $A_{K3 \times E}$ (BPS algebra) & automorphic BPS content \\
+  \bottomrule
+\end{tabular}
+\end{center}
+These are four genuinely different algebras, four genuinely different $\kappa$'s, four complementary perspectives on the same geometry---like describing a crystal by its symmetry group, its Bravais lattice, its band structure, and its thermodynamic free energy.  They are not redundant; they are exhaustive.
+\end{remark}
+
+
+% ============================================================
+\section{The second-quantization leap: from $\kappa_{\mathrm{ch}} = 3$ to $\kappa_{\mathrm{BPS}} = 5$}
+\label{sec:motivic-second-quantization}
+% ============================================================
+
+The passage from the chiral de Rham $\kappa_{\mathrm{ch}} = 3$ to the BPS $\kappa_{\mathrm{BPS}} = 5$ for $K3 \times E$ is not merely ``adding 2.''  The correct decomposition is:
+\[
+  \kappa_{\mathrm{BPS}} = \kappa_{\mathrm{ch}} + \kappa(K3) = 3 + 2 = 5,
+\]
+where $\kappa(K3) = 2 = \chi(\cO_{K3})$ is the categorical modular characteristic of the K3 surface itself.  The extra $2$ units are the K3 surface \emph{announcing its presence} in the second-quantized theory.
+
+Structurally, the passage from $\kappa_{\mathrm{ch}}$ to $\kappa_{\mathrm{BPS}}$ is the passage from the \emph{single-copy} chiral algebra (living on a single copy of the curve $E$) to the \emph{symmetric-product} algebra (living on $\coprod_n S^n(K3)$, the Hilbert scheme tower).  The DMVV formula
+\[
+  Z_{\mathrm{DMVV}}(p, q, y)
+  = \prod_{n > 0,\, l,\, m \geq 0}
+    \frac{1}{(1 - p^n q^l y^m)^{c(4nm - l^2)}}
+\]
+is the generating function for this second-quantized tower.  Its denominator is the BKM denominator formula, and the weight of the corresponding automorphic form is exactly $\kappa_{\mathrm{BPS}} = 5$.  The additive splitting $5 = 3 + 2$ reflects the factorization of the second-quantized partition function into a ``single-particle'' part (the chiral de Rham complex, weight~3) and a ``multi-particle interaction'' part (the K3 Euler data, weight~2).
+
+% PROMOTE-TO-MANUSCRIPT: The decomposition kappa_BPS = kappa_ch + chi(O_S) for
+% CY3 = S x E should hold whenever S is a surface with trivial canonical bundle
+% (K3 or abelian surface).  For Enriques x E: kappa_BPS = 4 and chi(O_{Enr}) = 1,
+% so kappa_ch(Enr) = 3.  Verification needed.
+
+\begin{question}
+Does the decomposition $\kappa_{\mathrm{BPS}}(S \times E) = \kappa_{\mathrm{ch}}(S \times E) + \chi(\cO_S)$ hold for all surface-fibered CY3s $S \times E$ with $\omega_S = \cO_S$?  If so, it would provide a canonical splitting of the CY3 modular characteristic into a ``chiral'' part and a ``geometric'' part.  For abelian surfaces ($\chi(\cO) = 0$), this would give $\kappa_{\mathrm{BPS}} = \kappa_{\mathrm{ch}}$: no second-quantization correction.
+\end{question}
+
+
+% ============================================================
+\section{The moonshine multiplier principle}
+\label{sec:motivic-moonshine-multiplier}
+% ============================================================
+
+The K3 elliptic genus decomposes as
+\[
+  \phi_{0,1}(\tau, z) = 2\phi_{0,1}^{\mathrm{EZ}}(\tau, z),
+\]
+where the factor $2$ is $\kappa(K3) = \chi(\cO_{K3})$.  In the umbral moonshine decomposition (Eguchi--Ooguri--Tachikawa, Cheng--Duncan--Harvey), the Fourier coefficients of $\phi_{0,1}$ decompose as
+\[
+  c_n = 2 \cdot \dim(\rho_n),
+\]
+where $\rho_n$ are representations of the Mathieu group $M_{24}$.  The leading coefficients: $c(0) = 2 \cdot 10 = 20$ (DVV normalization), where $\dim(\rho_0) = 10$; $c(1) = 2 \cdot 45 = 90$; $c(2) = 2 \cdot 231 = 462$.
+
+The moonshine multiplier principle states:
+\begin{quote}
+\emph{The bar complex provides the universal coefficient $\kappa$, while the sporadic group provides the representation content $\rho_n$.  The physical multiplicity is their product.}
+\end{quote}
+
+This is a precise factorization of BPS data into homological and group-theoretic components.  The homological side ($\kappa = 2$) is computed from the OPE of the chiral algebra---it is the genus-1 anomaly of the bar complex, pure algebra.  The group-theoretic side ($\rho_n$) encodes the action of $M_{24}$ on the internal conformal field theory---it is representation theory, pure symmetry.  Their product $A_n = \kappa \cdot \dim(\rho_n)$ is the physical observable: the number of BPS states at charge $n$.
+
+The depth of this factorization: $\kappa$ is computable from the OPE alone (it requires no knowledge of $M_{24}$), while $\rho_n$ is a representation-theoretic object that requires no knowledge of the OPE.  The bar complex and the sporadic group ``see'' orthogonal aspects of the same physics.
+
+\begin{observation}[The factor $2$ is not a normalization]
+In the Eichler--Zagier normalization, $c(-1) = 1$, not $2$.  But in the DVV normalization used in DMVV, $c(-1) = 2$.  The conversion factor between normalizations is exactly $\kappa(K3) = 2$.  This is not a normalization convention: it is the modular characteristic of the K3 surface, computed from the genus-1 anomaly of the chiral de Rham complex.  The same $2$ controls:
+\begin{itemize}
+\item the leading real-root multiplicity in the BKM superalgebra;
+\item the weight deficit $\kappa_{\mathrm{BPS}} - \kappa_{\mathrm{ch}} = 5 - 3 = 2$;
+\item the ratio $\chi(\cO_{K3}) = 2$;
+\item the index of the elliptic genus as a Jacobi form ($m = 1$, but $\chi_y(K3) = 2y^{-1} + 20 + 2y$).
+\end{itemize}
+Four independent derivations of the same factor of $2$.
+\end{observation}
+
+
+% ============================================================
+\section{Convergence and divergence: shadow vs topological string}
+\label{sec:motivic-convergence-divergence}
+% ============================================================
+
+The shadow obstruction tower and the topological string free energy both produce genus-$g$ amplitudes, but they have radically different analytic behavior.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+  \toprule
+  & \textbf{Shadow tower} & \textbf{Topological string} \\
+  \midrule
+  Growth & $|F_g^{\mathrm{sh}}| \sim (2\pi)^{-2g} / g$ & $|F_g^{\mathrm{top}}| \sim (2g)!$ \\
+  Convergence & radius $2\pi$, Borel entire & divergent, Gevrey-1 \\
+  Resurgence & no Stokes phenomenon & Stokes sectors, non-perturbative \\
+  What it sees & bar complex, algebraic & worldsheet instantons, analytic \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+The shadow tower is the ``algebraic soul'' of the topological string---the part that can be computed purely from the OPE structure constants of the chiral algebra, without knowing about worldsheet instantons or non-perturbative physics.  It converges because it is controlled by Bernoulli numbers ($B_{2g}/(2g)! \sim (2\pi)^{-2g}$), which decay exponentially.  The topological string diverges because it sees the full instanton sum, including non-perturbative saddle points whose contributions grow as $(2g)!$.
+
+The MacMahon shadow non-decomposition (Theorem~\ref{thm:macmahon-non-decomposition}) makes this precise for $\C^3$: the shadow tower coefficients $\kappa \cdot \lambda_g^{\mathrm{FP}}$ grow as $(2\pi)^{-2g}$, while the actual genus-$g$ MacMahon coefficients $F_g^{\mathrm{MacM}}$ grow as $B_{2(g-1)} \cdot B_{2g} \sim (2g)!/(2\pi)^{4g}$.  The ratio $\kappa_{\mathrm{eff}}(g) = F_g^{\mathrm{MacM}} / \lambda_g^{\mathrm{FP}}$ grows factorially: the shadow tower captures only the algebraic part of the full amplitude, and the remainder is the instanton contribution.
+
+\begin{remark}[The shadow as algebraic skeleton]
+The correct interpretation: the shadow tower is to the topological string as the polynomial part is to a power series with nonzero radius of convergence.  It captures the ``perturbative'' algebraic content (the OPE data, the bar complex, the Maurer--Cartan equation) and is blind to the ``non-perturbative'' analytic content (worldsheet instantons, D-brane corrections, resurgent trans-series).  Both are needed for the full partition function.  The shadow tower provides the algebraic scaffold; the instanton sum decorates it.
+
+For class~$\mathbf{G}$ algebras (Heisenberg, lattice VOAs), the shadow tower \emph{is} the full story: $F_g^{\mathrm{sh}} = F_g^{\mathrm{top}}$ because there are no instantons.  For class~$\mathbf{M}$ algebras (Virasoro, $\cW_{1+\infty}$), the shadow tower is a strict subtower of the full amplitude, and the instanton sum is infinite.
+\end{remark}
+
+% PROMOTE-TO-MANUSCRIPT: The statement that class G algebras have
+% F_g^sh = F_g^top (no instanton corrections) should be a proposition
+% in the sewing chapter of Vol I.  Proof: for free-field / lattice VOAs,
+% the partition function is an exact product formula (Jacobi theta
+% function / eta quotient), and the genus expansion terminates at
+% the shadow level.
+
+
+% ============================================================
+\section{The Schottky prison}
+\label{sec:motivic-schottky}
+% ============================================================
+
+At genus $g \leq 3$, the Torelli map $\cM_g \to \cA_g$ (to the moduli of principally polarized abelian varieties) is injective at $g = 1$, birational at $g = 2$, and dominant (open dense image) at $g = 3$.  The shadow obstruction tower, which lives on $\overline{\cM}_g$, sees ``nearly everything'' at these genera because $\overline{\cM}_g$ and $\cA_g$ are nearly the same.
+
+At genus $g \geq 4$, the Jacobian locus $\cJ_g \subset \cA_g$ becomes a proper subvariety of growing codimension.  The shadow tower, which computes intersection numbers on $\overline{\cM}_g$, is ``imprisoned'' in tautological classes on $\overline{\cM}_g$ and cannot see the Siegel modular forms that live on all of $\cA_g$.
+
+This imprisonment is also a strength.  The shadow tower computes \emph{topological} invariants---intersection numbers on $\overline{\cM}_g$---that are insulated from analytic subtleties (convergence, regularization, renormalization).  The tautological ring $R^*(\overline{\cM}_g)$ is a finitely generated algebra over $\Q$ (by Pixton's generators and relations), and the shadow tower's genus-$g$ projection $F_g$ lies in $R^g(\overline{\cM}_g)$.
+
+The Schottky problem---characterizing which abelian varieties are Jacobians---is the frontier between what the shadow tower can see and what it cannot.  At genus $2$, the B\"ocherer factorization theorem (Conjecture~\ref{conj:genus2-bps-bocherer} above) extracts central $L$-values from the genus-2 MC data, and the Schottky locus is all of $\cA_2$.  At genus $\geq 4$, the Schottky locus is a mystery, and the shadow tower's inability to escape it is a reflection of the fact that the bar complex (a chiral-algebraic object) cannot ``see'' the full Siegel modular world (an automorphic-geometric object).
+
+\begin{question}
+Is there a shadow-tower characterization of the Schottky locus?  That is: can one determine whether a given principally polarized abelian variety is a Jacobian by examining which shadow tower amplitudes vanish/nonvanish at genus~$g$?  The shadow tower lives on $\overline{\cM}_g$, which parametrizes curves; the question is whether the shadow amplitudes extend to $\cA_g$ in a way that characterizes the Jacobian locus.
+\end{question}
+
+
+% ============================================================
+\section{The Leech whisper}
+\label{sec:motivic-leech}
+% ============================================================
+
+The boundary algebra $A_E$ of $K3 \times E$ has character $1/\eta(\tau)^{24}$.  The coefficients of $1/\eta^{24}$ match the partition function of the Leech lattice VOA $V_\Lambda$ through the first two orders:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{cccc}
+  \toprule
+  Fourier order & $1/\eta^{24}$ & $V_\Lambda$ & Match? \\
+  \midrule
+  $q^{-1}$ & $1$ & $1$ & Yes \\
+  $q^0$ & $24$ & $24$ & Yes \\
+  $q^1$ & $324$ & $\bm{196\,884}$ & \textbf{No} \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+The divergence at $q^1$ is dramatic: $324$ vs $196{,}884$.  The boundary algebra sees only $24$ free bosons (the Mukai lattice of K3), while the Leech lattice VOA sees $196{,}560$ norm-4 lattice vectors in addition.  Yet the \emph{seed data}---$\kappa = 24$, class~$\mathbf{G}$---is identical.  The two algebras are shadow-indistinguishable at arities $2$ and $3$; they diverge at arity $4$ and beyond.
+
+The Leech lattice is the densest sphere packing in $24$ dimensions.  Its theta series $\Theta_\Lambda(\tau)$ begins $1 + 196{,}560 q + \cdots$ (no norm-2 vectors, reflecting deep kissing-number optimality).  The K3 Mukai lattice has the same rank but vastly fewer vectors.  The shadow tower sees only the rank ($\kappa = 24$) and the shadow class ($\mathbf{G}$)---it cannot distinguish between $196{,}560$ and $0$ norm-4 vectors.
+
+\begin{remark}[What the boundary might be saying]
+The character $1/\eta^{24}$ is the partition function of $24$ free bosons, which is the \emph{universal} enveloping algebra of the rank-24 Heisenberg.  The Leech lattice VOA $V_\Lambda$ is a specific lattice extension of this Heisenberg.  The boundary of $K3 \times E$ produces the Heisenberg ``frame''---the universal container---and the Leech extension is one of the $24$ Niemeier completions, distinguished by its root system (which is empty: $\Lambda$ is the unique even unimodular lattice in dimension $24$ with no roots).
+
+The hint, if it is one, is this: the K3 surface has no $(-2)$-curves in the generic K\"ahler chamber (the K\"ahler cone is the positive cone minus the walls), and the Leech lattice has no roots.  Both are characterized by the \emph{absence} of short vectors.  Whether this correspondence extends beyond a suggestive parallel is open.
+\end{remark}
+
+
+% ============================================================
+\section{The bar complex as moral geometry}
+\label{sec:motivic-bar-geometry}
+% ============================================================
+
+The bar complex $B(A)$ of a chiral algebra $A$ computes algebraic invariants: $\Ext$ groups, deformation theory, obstructions, Hochschild (co)homology.  Yet the invariants it produces are \emph{geometric} in character:
+
+\begin{itemize}
+\item $\kappa(A)$ is the ``curvature'' of $A$: it measures the failure of $d^2 = 0$ at genus~$1$.
+\item The shadow depth $r_{\max}$ is the ``complexity'' of $A$: it measures how many OPE layers are needed to resolve all obstructions.
+\item The complementarity defect $\delta_g(A) = \dim Q_g(A) + \dim Q_g(A!)$ is the ``total obstruction space'' at genus~$g$: it measures the size of the Lagrangian pair in $H^*(\overline{\cM}_g, Z(A))$.
+\end{itemize}
+
+For K3, the bar complex of the associated chiral algebra has rank-$16$ differential (the $16$ linearly independent OPE modes contributing to $d_{\mathrm{bar}}$), infinite shadow depth (class $\mathbf{M}$), and $\kappa = 2$.  These are \emph{geometric} invariants of an \emph{algebraic} object: the bar complex is doing geometry without being told to.
+
+The bar complex is the ``moral geometry'' of a chiral algebra in the following precise sense.  For a smooth projective variety $X$, the derived category $D^b(X)$ remembers the geometry of $X$ (Bondal--Orlov reconstruction theorem for varieties with ample or anti-ample canonical bundle).  The chiral algebra $A_X$ associated to $X$ (via CY-to-chiral or chiral de Rham) encodes the same information differently: through OPE coefficients instead of coherent sheaves.  The bar complex $B(A_X)$ then extracts the geometric content of $A_X$: it converts OPE data back into cohomological data, recovering (pieces of) $H^*(X)$, $\chi(X)$, and the deformation theory of $X$.
+
+\begin{observation}[The bar complex as a mirror]
+For a mirror pair $(X, X^\vee)$, HMS gives $D^b(X) \simeq D^b\mathrm{Fuk}(X^\vee)$.  The shadow-level consequence (from \texttt{hms\_shadow\_equivalence.py}):
+\[
+  \mathrm{shadow}(A_{D^b(X)}) = \mathrm{shadow}(A_{\mathrm{Fuk}(X^\vee)}).
+\]
+The bar complex of the A-model chiral algebra and the bar complex of the B-model chiral algebra produce identical shadow invariants.  The bar complex ``reflects'' the algebra into its mirror.
+\end{observation}
+
+
+% ============================================================
+\section{$E_8$ everywhere}
+\label{sec:motivic-e8}
+% ============================================================
+
+The exceptional Lie algebra $E_8$ appears in at least seven independent roles in the K3 story:
+
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Lattice}: $H^2(K3, \Z) \simeq U^3 \oplus (-E_8)^2$, the K3 lattice.
+\item \emph{McKay correspondence}: the binary icosahedral group $\widetilde{A}_5 \subset \mathrm{SU}(2)$ gives the $E_8$ Dynkin diagram via McKay.
+\item \emph{Niemeier}: $E_8^3$ is one of the $24$ Niemeier root systems.
+\item \emph{Heterotic string}: the $E_8 \times E_8$ heterotic string on $K3 \times T^2$ is dual to type IIA on $K3 \times K3$.
+\item \emph{Semiorthogonal decomposition}: the Cartan matrix of the SOD of $D^b(K3)$ (in the relevant chamber) involves $E_8$ data.  (During computation, a bug was found in the $E_8$ row~$7$ of the Cartan matrix---corrected in \texttt{cy\_bar\_complex\_engine.py}.)
+\item \emph{Modular form}: the weight-$4$ Eisenstein series $E_4(\tau) = 1 + 240 q + \cdots$ is the theta series of $E_8$: $\Theta_{E_8}(\tau) = E_4(\tau)$.
+\item \emph{Affine Kac--Moody}: the level-$1$ affine $\widehat{E}_8$ VOA has $c = 8$ and $\kappa = 248 \cdot 31/60 = 1922/15$, the unique simple VOA at $c = 8$.
+\end{enumerate}
+
+The ubiquity of $E_8$ in K3 geometry is ultimately a consequence of the \emph{uniqueness of $E_8$ among even unimodular lattices in dimension $8$}: every time a rank-$8$ even unimodular lattice appears (and the K3 lattice contains two copies), it must be $E_8$.  The McKay correspondence then connects $E_8$ to the ADE classification of surface singularities, closing the circle to K3 geometry (which resolves ADE singularities of $\C^2/\Gamma$).
+
+\begin{question}
+Does $E_8$ play an analogous organizing role for the quantum vertex chiral group $G(K3 \times E)$?  The BKM superalgebra $\fg_{\Delta_5}$ has root lattice $\Lambda^{3,2}$, which does not contain $E_8$ directly.  But the fiber K3 lattice does, and the sewing of fiber contributions along $E$ should ``see'' the $E_8$ structure through the fiber's Mukai lattice.  Is there a filtration of $\fg_{\Delta_5}$ whose graded pieces are controlled by $E_8$ data?
+\end{question}
+
+
+% ============================================================
+\section{Mock modularity as incomplete knowledge}
+\label{sec:motivic-mock-modularity}
+% ============================================================
+
+The $1/4$-BPS counting function for K3 is a mock modular form $h(\tau)$ of weight $1/2$ whose shadow is $24 \eta(\tau)^3$.  The mock modularity means: $h(\tau)$ transforms \emph{almost} correctly under $\mathrm{SL}_2(\Z)$, with a defect measured by the non-holomorphic completion
+\[
+  \widehat{h}(\tau) = h(\tau) + 24 \int_{-\bar{\tau}}^{i\infty} \frac{\eta(w)^3}{(-i(w + \tau))^{1/2}}\, dw.
+\]
+The non-holomorphic correction is a period integral of $24 \eta^3$, the shadow.
+
+Physically, the mock modularity encodes \emph{wall-crossing}: the $1/4$-BPS states are stable in some chambers of the K\"ahler moduli space and decay in others.  The departure from modularity measures the information lost when one restricts to a single chamber.  The shadow $24\eta^3 = \chi(K3) \cdot \eta^3$ is the contribution of the ``missing'' states---the ones that have crossed the wall of marginal stability.
+
+The factor $24 = \chi(K3)$ in the shadow is the surface announcing that it exists.  The mock modular form $h(\tau)$ tries to count BPS states chamber-by-chamber, but the K3 surface, through its Euler characteristic, inserts a correction term that encodes the chamber-dependence.  The completion $\widehat{h}$ is chamber-independent (it is a harmonic Maass form), but it is no longer holomorphic---the price of chamber-independence is non-holomorphicity.
+
+\begin{observation}[Mock modularity and the shadow obstruction tower]
+The shadow obstruction tower $\Theta_A^{\leq r}$ is chamber-independent by construction (it is defined from the OPE data, which is fixed).  The mock modular form $h(\tau)$ is chamber-dependent.  The completion $\widehat{h}$ restores chamber-independence at the cost of non-holomorphicity.  This suggests that the shadow obstruction tower plays the role of the completion: it provides a chamber-independent, holomorphic (in the algebraic sense) substitute for the mock modular counting function.  The ``price'' is that it sees only the algebraic part of the BPS spectrum (the shadow), not the full analytic part.
+\end{observation}
+
+
+% ============================================================
+\section{The constructive gluing dream}
+\label{sec:motivic-gluing}
+% ============================================================
+
+The computation of $D^b(K3 \times E)$ from quiver charts (verified in \texttt{dt\_chart\_gluing\_verification.py}, $119$ tests) demonstrates that the derived category can be recovered from local data: choose an atlas of stability conditions, compute the DT theory in each chart, and glue.  The deeper question is whether the \emph{chiral algebra} can be similarly recovered.
+
+The factorization homology $\int_{K3 \times E} A$ of a chiral algebra $A$ on a CY3 computes the chiral de Rham cohomology, which by the Malikov--Schechtman--Vaintrob theorem equals $\HH^*(D^b(K3 \times E))$---the Hochschild cohomology of the derived category.  So the chiral algebra and the derived category see the same thing, but through different lenses: the chiral algebra through OPE and sewing, the derived category through sheaves and functors.
+
+The gluing dream: \emph{construct the CY3 chiral algebra by gluing local chiral algebra charts, one per stability condition, with transition maps controlled by wall-crossing gauge equivalences.}  This is the atlas-level construction of $A_{K3 \times E}$, bypassing the abstract CY-to-chiral functor (CY-A at $d = 3$, which requires the chain-level $\bS^3$-framing).
+
+The quiver-chart atlas (\S\ref{wn:sec:grand-atlas}) provides the infrastructure: each chart $\sigma$ gives a local CoHA $\CoHA(Q_\sigma, W_\sigma)$, and the transition maps between charts are wall-crossing gauge equivalences (MC gauge transformations in the lattice Lie algebra, verified in \texttt{wallcrossing\_gauge\_engine.py}).  The hocolim construction $\mathrm{hocolim}_\sigma\, \CoHA(Q_\sigma, W_\sigma)$ should give the global chiral algebra---and the chain-level verification $B(\mathrm{hocolim}) \simeq \mathrm{hocolim}\, B$ (\texttt{bar\_hocolim\_chain\_level.py}, $145$ tests) shows that the bar complex commutes with this gluing.
+
+% PROMOTE-TO-MANUSCRIPT: The chain-level bar/hocolim commutation
+% B(hocolim_sigma CoHA(Q_sigma, W_sigma)) ~= hocolim_sigma B(CoHA(Q_sigma, W_sigma))
+% should be a formal proposition in the theory chapter, with the 145-test
+% verification cited as computational evidence.
+
+\begin{question}
+Does the hocolim construction produce a \emph{vertex algebra} (not just an $\Eone$-algebra)?  The individual CoHA charts are $\Eone$; the $\Etwo$ enhancement comes from the Drinfeld center (Theorem~\ref{wn:thm:c3-drinfeld-center}).  Can the Drinfeld center be computed chart-by-chart and then glued?  If so, the full $\Etwo$-chiral algebra of $K3 \times E$ is constructible without CY-A.
+\end{question}
+
+
+% ============================================================
+\section{Four $\kappa$'s, one geometry: the polysemy principle}
+\label{sec:motivic-four-kappas}
+% ============================================================
+
+The four $\kappa$-values associated to $K3 \times E$ (Remark~\ref{rem:kappa-polysemy}) are not an anomaly.  Every sufficiently rich geometric object admits multiple chiral algebraizations, each producing a different $\kappa$.  The principle:
+
+\begin{quote}
+\emph{$\kappa$ is an invariant of a pair (geometry, algebraization), not of the geometry alone.  Different algebraizations of the same geometry produce different $\kappa$'s, and the collection of all such $\kappa$'s is a richer invariant than any single one.}
+\end{quote}
+
+This is analogous to the way a Riemannian manifold has multiple spectra---the Laplacian spectrum, the length spectrum of closed geodesics, the spectrum of the Dirac operator---each capturing different geometric information.  The $\kappa$-spectrum of a CY3 manifold $X$ is the set
+\[
+  \mathrm{Spec}_\kappa(X) = \bigl\{ \kappa(A) : A \text{ a chirally Koszul algebra associated to } X \bigr\}.
+\]
+
+For $K3 \times E$: $\mathrm{Spec}_\kappa = \{2, 3, 5, 24, \ldots\}$.
+
+\begin{question}
+Is $\mathrm{Spec}_\kappa(X)$ a complete invariant?  That is: if two CY3 manifolds $X$ and $X'$ have $\mathrm{Spec}_\kappa(X) = \mathrm{Spec}_\kappa(X')$, must $X \simeq X'$ (as algebraic varieties, or derived-equivalently)?
+
+More modestly: does $\mathrm{Spec}_\kappa$ distinguish K3-fibered CY3s from rigid ones?  From the grand atlas (Theorem~\ref{wn:thm:chi-neq-kappa}), K3-fibered CY3s have $\kappa \neq \chi/24$, while CICYs have $\kappa = \chi/24$.  Is this a general distinction, or do counterexamples exist?
+\end{question}
+
 
 \end{document}
