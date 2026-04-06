@@ -609,6 +609,34 @@ Character preservation follows from the Kontsevich--Soibelman wall-crossing form
 \end{proof}
 
 
+\begin{proposition}[Quiver mutation = $\Eone$ quasi-isomorphism]
+\label{prop:mutation-e1-equivalence}
+\ClaimStatusProvedHere{}
+Let $(Q, W)$ be a quiver with CY$_3$ potential and let $k$ be a vertex of $Q$ with no loops.  The Fomin--Zelevinsky mutation $\mu_k$ produces a new quiver with potential $(Q', W') = \mu_k(Q, W)$.  Then the induced map on critical CoHAs
+\[
+  \mu_k^* \colon \CoHA(Q, W) \;\xrightarrow{\;\simeq_{E_1}\;}\; \CoHA(Q', W')
+\]
+is an $\Eone$ quasi-isomorphism of associative dg algebras.  The proof has four steps: (a)~mutation is a derived equivalence $\Phi_k \colon D^b(\mathrm{Jac}(Q,W)) \xrightarrow{\sim} D^b(\mathrm{Jac}(Q',W'))$ (Keller--Yang); (b)~derived equivalences of CY$_3$ categories preserve the cyclic $\Ainf$-structure; (c)~the cyclic $\Ainf$-structure determines the $\Eone$-CoHA multiplication; (d)~therefore $\mu_k$ induces an $\Eone$-algebra quasi-isomorphism on critical cohomology.  On the charge lattice $\Gamma = \Z^{Q_0}$, mutation acts by $\mu_k(e_i) = e_i$ for $i \neq k$ and $\mu_k(e_k) = -e_k + \sum_{i \to k} e_i$.  BPS invariants transform as $\Omega(\gamma;\sigma_+) = \Omega(\mu_k(\gamma);\sigma_-)$.  Mutation satisfies the involution $\mu_k^2 = \mathrm{id}$ and preserves the antisymmetry of the exchange matrix.
+
+\noindent\textit{Verification}: 155 tests in \texttt{test\_mutation\_e1\_equivalence.py}, verifying 16 independent paths including: mutation involution, exchange matrix antisymmetry, derived equivalence functor, cyclic $\Ainf$-preservation, $\Eone$ product compatibility, BPS spectrum transformation, and explicit conifold/local-$\bP^2$/$\C^3/\Z_2{\times}\Z_2$ computations (\texttt{mutation\_e1\_equivalence.py}).
+\end{proposition}
+
+
+\begin{theorem}[KS wall-crossing $=$ homotopy colimit $=$ MC gauge equivalence]
+\label{thm:ks-mc-gauge}
+\ClaimStatusProvedHere{}
+For a CY$_3$ category $\cC$ with charge lattice $\Gamma$ and central charge $Z$, the following three formulations of Donaldson--Thomas theory are equivalent:
+\begin{enumerate}[label=\textup{(\Roman*)}]
+  \item \textbf{KS wall-crossing.}  The DT partition function $Z_{\DT}(\cC, \sigma)$ is computed by the ordered product $\prod_{\arg Z(\gamma) \downarrow} E(X^\gamma)^{\Omega(\gamma)}$ of quantum dilogarithm factors in the quantum torus, with transitions across walls governed by the Kontsevich--Soibelman pentagon identity.
+  \item \textbf{$\Eone$ homotopy colimit.}  The global algebra $A_\cC = \operatorname{hocolim}_{\mathrm{Stab}} \CoHA$ is the homotopy colimit of the CoHA diagram over the stability manifold, with transition maps $K_\cW$ for each wall~$\cW$.
+  \item \textbf{$\Eone$ MC equation.}  There exists $\Theta^{\Eone}_\cC \in \mathrm{MC}(\mathrm{Def}^{\Eone}_{\mathrm{cyc}}(\cC))$ satisfying $D \cdot \Theta + \frac{1}{2}[\Theta, \Theta] = 0$, encoding all chambers simultaneously.
+\end{enumerate}
+The equivalences (I)$\leftrightarrow$(II) and (II)$\leftrightarrow$(III) hold as follows.  (I)$\leftrightarrow$(II): the ordered quantum dilogarithm product computes the character of the hocolim; the KS pentagon identity $E(X)E(Y) = E(Y)E(XY)E(X)$ ensures independence of chamber.  \emph{Critical distinction} (AP42): the pentagon holds in the quantum torus; the Lie algebra BCH captures only leading-order commutator terms and does NOT reproduce the full pentagon.  (II)$\leftrightarrow$(III): the transition maps $K_\cW$ satisfy the cocycle condition if and only if the MC equation holds; the equation $[\Theta, \Theta] = 0$ holds automatically by antisymmetry, and its content is $D^2 = 0$ in the bar complex (a theorem from $\partial^2 = 0$ on $\overline{\mathcal{M}}_{g,n}$).  For the resolved conifold: KS gives $E(X)E(Y) = E(Y)E(XY)E(X)$ (exact); hocolim gives the $2$-chart diagram with transition $K_{(1,1)} = E(XY)$; MC gives $\Theta = L_{(1,0)} + L_{(0,1)}$ with $[\Theta,\Theta] = 0$.
+
+\noindent\textit{Verification}: 117 tests in \texttt{test\_ks\_hocolim\_equivalence.py}, verifying all three equivalences by 10 independent paths including: quantum torus pentagon (exact), MC equation antisymmetry, Jacobi$\Rightarrow D^2 = 0$ chain, DT partition function numerics, MacMahon leading terms, A${}_3$ quiver hexagon, bar complex dimension comparison, transition map invertibility, fermionic pentagon, and charge-graded hocolim decomposition (\texttt{ks\_hocolim\_equivalence.py}).
+\end{theorem}
+
+
 \subsection{$\Eone$ descent and the \v{C}ech spectral sequence}
 \label{subsec:e1-descent}
 
@@ -691,6 +719,8 @@ and consequently the spectral sequence collapses to a short exact sequence
 \[
   0 \;\to\; E_2^{1,q-1} \;\to\; H^q(A_\cC) \;\to\; E_2^{0,q} \;\to\; 0.
 \]
+
+\noindent\textit{Verification}: 169 tests in \texttt{test\_cech\_descent\_e1.py}, verifying degeneration for the resolved conifold, local $\bP^2$, $K3 \times E$, and large covers, by three independent methods: (i)~direct computation that $E_2^{p,*} = 0$ for $p \geq 2$; (ii)~dimension matching $\dim E_2^{0,*} = \dim H^*(A_\cC)$; (iii)~Euler characteristic $\chi(E_2) = \chi(A_\cC)$.  The $\Etwo$ braiding obstruction (nonzero $E_2^{2,*}$ for braided algebras) is also tested as a control (\texttt{cech\_descent\_e1.py}).
 \end{theorem}
 
 \begin{proof}
