@@ -85,6 +85,7 @@
 \newcommand{\cZ}{\mathcal{Z}}
 \newcommand{\cR}{\mathcal{R}}
 \newcommand{\cP}{\mathcal{P}}
+\newcommand{\cJ}{\mathcal{J}}
 
 \newcommand{\fg}{\mathfrak{g}}
 \newcommand{\fh}{\mathfrak{h}}
@@ -100,6 +101,7 @@
 \newcommand{\bP}{\mathbb{P}}
 \newcommand{\bH}{\mathbb{H}}
 \newcommand{\bS}{\mathbb{S}}
+\newcommand{\bZ}{\mathbb{Z}}
 
 \newcommand{\Eone}{\mathsf{E}_1}
 \newcommand{\Etwo}{\mathsf{E}_2}
@@ -2455,7 +2457,7 @@ The fact that a single K3-fibered CY3 gives rise to multiple $\kappa$-values---$
   \toprule
   $\kappa$ value & Algebra & What it sees \\
   \midrule
-  $3$ & CDR sheaf $\Omega^{\mathrm{ch}}_{K3}$ & holomorphic differential forms \\
+  $3$ & CDR sheaf $\Omega^{\mathrm{ch}}_{K3 \times E}$ & holomorphic differential forms \\
   $2$ & categorical $A_{D^b(K3)}$ & derived category / HKR \\
   $24$ & lattice VOA $V_{\mathrm{Mukai}}$ & Mukai lattice of K3 \\
   $5$ & $A_{K3 \times E}$ (BPS algebra) & automorphic BPS content \\
@@ -2471,11 +2473,18 @@ These are four genuinely different algebras, four genuinely different $\kappa$'s
 \label{sec:motivic-second-quantization}
 % ============================================================
 
-The passage from the chiral de Rham $\kappa_{\mathrm{ch}} = 3$ to the BPS $\kappa_{\mathrm{BPS}} = 5$ for $K3 \times E$ is not merely ``adding 2.''  The correct decomposition is:
+% RECTIFICATION-FLAG: The value kappa_ch = 3 is asserted but not derived from
+% first principles.  chi(O_{K3 x E}) = 0 (not 3).  The betagamma CDR locally
+% has kappa = 1/4 per pair, giving 3*(1/4) = 3/4 for a threefold.  The origin
+% of the value 3 requires clarification: it may be dim_C(K3 x E) by a
+% convention-dependent formula, or it may come from a different algebraic
+% structure.  The decomposition 5 = 3 + 2 is numerically correct if kappa_ch = 3
+% is accepted, but the derivation of kappa_ch = 3 is missing.
+The passage from the chiral de Rham $\kappa_{\mathrm{ch}} = 3$ to the BPS $\kappa_{\mathrm{BPS}} = 5$ for $K3 \times E$ is a conjectural decomposition.  If $\kappa_{\mathrm{ch}} = \dim_\C(K3 \times E) = 3$, then:
 \[
   \kappa_{\mathrm{BPS}} = \kappa_{\mathrm{ch}} + \kappa(K3) = 3 + 2 = 5,
 \]
-where $\kappa(K3) = 2 = \chi(\cO_{K3})$ is the categorical modular characteristic of the K3 surface itself.  The extra $2$ units are the K3 surface \emph{announcing its presence} in the second-quantized theory.
+where $\kappa(K3) = 2 = \chi(\cO_{K3})$ is the categorical modular characteristic of the K3 surface itself.  The extra $2$ units are the K3 surface \emph{announcing its presence} in the second-quantized theory.  (The derivation of $\kappa_{\mathrm{ch}} = 3$ from the chiral de Rham complex requires an independent computation; see the RECTIFICATION-FLAG above.)
 
 Structurally, the passage from $\kappa_{\mathrm{ch}}$ to $\kappa_{\mathrm{BPS}}$ is the passage from the \emph{single-copy} chiral algebra (living on a single copy of the curve $E$) to the \emph{symmetric-product} algebra (living on $\coprod_n S^n(K3)$, the Hilbert scheme tower).  The DMVV formula
 \[
@@ -2485,10 +2494,11 @@ Structurally, the passage from $\kappa_{\mathrm{ch}}$ to $\kappa_{\mathrm{BPS}}$
 \]
 is the generating function for this second-quantized tower.  Its denominator is the BKM denominator formula, and the weight of the corresponding automorphic form is exactly $\kappa_{\mathrm{BPS}} = 5$.  The additive splitting $5 = 3 + 2$ reflects the factorization of the second-quantized partition function into a ``single-particle'' part (the chiral de Rham complex, weight~3) and a ``multi-particle interaction'' part (the K3 Euler data, weight~2).
 
-% PROMOTE-TO-MANUSCRIPT: The decomposition kappa_BPS = kappa_ch + chi(O_S) for
-% CY3 = S x E should hold whenever S is a surface with trivial canonical bundle
-% (K3 or abelian surface).  For Enriques x E: kappa_BPS = 4 and chi(O_{Enr}) = 1,
-% so kappa_ch(Enr) = 3.  Verification needed.
+% PROMOTE-TO-MANUSCRIPT: CONJECTURAL.  The decomposition kappa_BPS = kappa_ch + chi(O_S) for
+% CY3 = S x E requires an independent derivation of kappa_ch.  For K3 x E: kappa_ch = 3
+% is asserted but not computed from first principles (see RECTIFICATION-FLAG above).
+% For Enriques x E: kappa_BPS = 4 and chi(O_{Enr}) = 1, so kappa_ch(Enr) = 3.
+% Before promoting: derive kappa_ch from the CDR bar complex independently.
 
 \begin{question}
 Does the decomposition $\kappa_{\mathrm{BPS}}(S \times E) = \kappa_{\mathrm{ch}}(S \times E) + \chi(\cO_S)$ hold for all surface-fibered CY3s $S \times E$ with $\omega_S = \cO_S$?  If so, it would provide a canonical splitting of the CY3 modular characteristic into a ``chiral'' part and a ``geometric'' part.  For abelian surfaces ($\chi(\cO) = 0$), this would give $\kappa_{\mathrm{BPS}} = \kappa_{\mathrm{ch}}$: no second-quantization correction.
@@ -2504,11 +2514,11 @@ The K3 elliptic genus decomposes as
 \[
   \phi_{0,1}(\tau, z) = 2\phi_{0,1}^{\mathrm{EZ}}(\tau, z),
 \]
-where the factor $2$ is $\kappa(K3) = \chi(\cO_{K3})$.  In the umbral moonshine decomposition (Eguchi--Ooguri--Tachikawa, Cheng--Duncan--Harvey), the Fourier coefficients of $\phi_{0,1}$ decompose as
+where the factor $2$ is $\kappa(K3) = \chi(\cO_{K3})$.  In the umbral moonshine decomposition (Eguchi--Ooguri--Tachikawa, Cheng--Duncan--Harvey), the massive $\cN = 4$ multiplet degeneracies decompose as
 \[
-  c_n = 2 \cdot \dim(\rho_n),
+  A_n = 2 \cdot \dim(\rho_n), \qquad n \geq 1,
 \]
-where $\rho_n$ are representations of the Mathieu group $M_{24}$.  The leading coefficients: $c(0) = 2 \cdot 10 = 20$ (DVV normalization), where $\dim(\rho_0) = 10$; $c(1) = 2 \cdot 45 = 90$; $c(2) = 2 \cdot 231 = 462$.
+where $\rho_n$ are representations of the Mathieu group $M_{24}$ and the sum runs over \emph{massive} $\cN = 4$ multiplets ($n \geq 1$).  The leading coefficients: $A_1 = 2 \cdot 45 = 90$; $A_2 = 2 \cdot 231 = 462$; $A_3 = 2 \cdot 770 = 1{,}540$.  (The massless contribution $20 = h^{1,1}(K3)$ is \emph{not} part of the moonshine decomposition: it arises from the Hodge diamond, not from $M_{24}$ representations.)
 
 The moonshine multiplier principle states:
 \begin{quote}
@@ -2562,12 +2572,13 @@ The correct interpretation: the shadow tower is to the topological string as the
 For class~$\mathbf{G}$ algebras (Heisenberg, lattice VOAs), the shadow tower \emph{is} the full story: $F_g^{\mathrm{sh}} = F_g^{\mathrm{top}}$ because there are no instantons.  For class~$\mathbf{M}$ algebras (Virasoro, $\cW_{1+\infty}$), the shadow tower is a strict subtower of the full amplitude, and the instanton sum is infinite.
 \end{remark}
 
-% PROMOTE-TO-MANUSCRIPT: The statement that class G algebras have
-% F_g^sh = F_g^top (no instanton corrections) should be a proposition
-% in the sewing chapter of Vol I.  Proof: for free-field / lattice VOAs,
+% PROMOTE-TO-MANUSCRIPT: HEURISTIC.  The statement that class G algebras have
+% F_g^sh = F_g^top (no instanton corrections) requires a precise definition
+% of F_g^top for non-geometric targets.  For free-field / lattice VOAs,
 % the partition function is an exact product formula (Jacobi theta
 % function / eta quotient), and the genus expansion terminates at
-% the shadow level.
+% the shadow level.  Before promoting: define F_g^top rigorously for
+% free-field theories and prove equality with F_g^sh in that setting.
 
 
 % ============================================================
@@ -2593,23 +2604,24 @@ Is there a shadow-tower characterization of the Schottky locus?  That is: can on
 \label{sec:motivic-leech}
 % ============================================================
 
-The boundary algebra $A_E$ of $K3 \times E$ has character $1/\eta(\tau)^{24}$.  The coefficients of $1/\eta^{24}$ match the partition function of the Leech lattice VOA $V_\Lambda$ through the first two orders:
+The boundary algebra $A_E$ of $K3 \times E$ has character $1/\eta(\tau)^{24}$.  The Leech lattice VOA $V_\Lambda$ has partition function $\Theta_\Lambda(\tau)/\eta(\tau)^{24}$, where $\Theta_\Lambda = 1 + 196{,}560\, q^2 + \cdots$ (no norm-2 vectors: the Leech lattice has minimum norm$^2 = 4$).  Because the Leech theta series has no $q^1$ correction, the two agree through $q^1$:
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{cccc}
   \toprule
-  Fourier order & $1/\eta^{24}$ & $V_\Lambda$ & Match? \\
+  Fourier order & $1/\eta^{24}$ & $V_\Lambda = \Theta_\Lambda/\eta^{24}$ & Match? \\
   \midrule
   $q^{-1}$ & $1$ & $1$ & Yes \\
   $q^0$ & $24$ & $24$ & Yes \\
-  $q^1$ & $324$ & $\bm{196\,884}$ & \textbf{No} \\
+  $q^1$ & $324$ & $324$ & Yes \\
+  $q^2$ & $3{,}200$ & $\mathbf{199{,}760}$ & \textbf{No} \\
   \bottomrule
 \end{tabular}
 \end{center}
 
-The divergence at $q^1$ is dramatic: $324$ vs $196{,}884$.  The boundary algebra sees only $24$ free bosons (the Mukai lattice of K3), while the Leech lattice VOA sees $196{,}560$ norm-4 lattice vectors in addition.  Yet the \emph{seed data}---$\kappa = 24$, class~$\mathbf{G}$---is identical.  The two algebras are shadow-indistinguishable at arities $2$ and $3$; they diverge at arity $4$ and beyond.
+The divergence at $q^2$ is dramatic: $3{,}200$ vs $199{,}760 = 3{,}200 + 196{,}560$.  The boundary algebra sees only $24$ free bosons (the Mukai lattice of K3), while the Leech lattice VOA sees $196{,}560$ norm-4 lattice vectors in addition.  Yet the \emph{seed data}---$\kappa = 24$, class~$\mathbf{G}$---is identical.  The two algebras are shadow-indistinguishable at arities $2$, $3$, and even the first massive level; they diverge at the second massive level and beyond.
 
-The Leech lattice is the densest sphere packing in $24$ dimensions.  Its theta series $\Theta_\Lambda(\tau)$ begins $1 + 196{,}560 q + \cdots$ (no norm-2 vectors, reflecting deep kissing-number optimality).  The K3 Mukai lattice has the same rank but vastly fewer vectors.  The shadow tower sees only the rank ($\kappa = 24$) and the shadow class ($\mathbf{G}$)---it cannot distinguish between $196{,}560$ and $0$ norm-4 vectors.
+The Leech lattice is the densest sphere packing in $24$ dimensions.  Its theta series $\Theta_\Lambda(\tau)$ begins $1 + 196{,}560\, q^2 + \cdots$ (no norm-2 vectors, reflecting deep kissing-number optimality: the minimum norm$^2$ is $4$, not $2$).  The K3 Mukai lattice has the same rank but vastly fewer vectors.  The shadow tower sees only the rank ($\kappa = 24$) and the shadow class ($\mathbf{G}$)---it cannot distinguish between $196{,}560$ and $0$ norm-4 vectors.
 
 \begin{remark}[What the boundary might be saying]
 The character $1/\eta^{24}$ is the partition function of $24$ free bosons, which is the \emph{universal} enveloping algebra of the rank-24 Heisenberg.  The Leech lattice VOA $V_\Lambda$ is a specific lattice extension of this Heisenberg.  The boundary of $K3 \times E$ produces the Heisenberg ``frame''---the universal container---and the Leech extension is one of the $24$ Niemeier completions, distinguished by its root system (which is empty: $\Lambda$ is the unique even unimodular lattice in dimension $24$ with no roots).
@@ -2655,7 +2667,7 @@ The exceptional Lie algebra $E_8$ appears in at least seven independent roles in
 \item \emph{Lattice}: $H^2(K3, \Z) \simeq U^3 \oplus (-E_8)^2$, the K3 lattice.
 \item \emph{McKay correspondence}: the binary icosahedral group $\widetilde{A}_5 \subset \mathrm{SU}(2)$ gives the $E_8$ Dynkin diagram via McKay.
 \item \emph{Niemeier}: $E_8^3$ is one of the $24$ Niemeier root systems.
-\item \emph{Heterotic string}: the $E_8 \times E_8$ heterotic string on $K3 \times T^2$ is dual to type IIA on $K3 \times K3$.
+\item \emph{Heterotic string}: the $E_8 \times E_8$ heterotic string on $K3 \times T^2$ is dual to type IIA on a K3-fibered Calabi--Yau threefold (the Kachru--Vafa duality).
 \item \emph{Semiorthogonal decomposition}: the Cartan matrix of the SOD of $D^b(K3)$ (in the relevant chamber) involves $E_8$ data.  (During computation, a bug was found in the $E_8$ row~$7$ of the Cartan matrix---corrected in \texttt{cy\_bar\_complex\_engine.py}.)
 \item \emph{Modular form}: the weight-$4$ Eisenstein series $E_4(\tau) = 1 + 240 q + \cdots$ is the theta series of $E_8$: $\Theta_{E_8}(\tau) = E_4(\tau)$.
 \item \emph{Affine Kac--Moody}: the level-$1$ affine $\widehat{E}_8$ VOA has $c = 8$ and $\kappa = 248 \cdot 31/60 = 1922/15$, the unique simple VOA at $c = 8$.
@@ -2701,10 +2713,11 @@ The gluing dream: \emph{construct the CY3 chiral algebra by gluing local chiral 
 
 The quiver-chart atlas (\S\ref{wn:sec:grand-atlas}) provides the infrastructure: each chart $\sigma$ gives a local CoHA $\CoHA(Q_\sigma, W_\sigma)$, and the transition maps between charts are wall-crossing gauge equivalences (MC gauge transformations in the lattice Lie algebra, verified in \texttt{wallcrossing\_gauge\_engine.py}).  The hocolim construction $\mathrm{hocolim}_\sigma\, \CoHA(Q_\sigma, W_\sigma)$ should give the global chiral algebra---and the chain-level verification $B(\mathrm{hocolim}) \simeq \mathrm{hocolim}\, B$ (\texttt{bar\_hocolim\_chain\_level.py}, $145$ tests) shows that the bar complex commutes with this gluing.
 
-% PROMOTE-TO-MANUSCRIPT: The chain-level bar/hocolim commutation
+% PROMOTE-TO-MANUSCRIPT: PROVABLE.  The chain-level bar/hocolim commutation
 % B(hocolim_sigma CoHA(Q_sigma, W_sigma)) ~= hocolim_sigma B(CoHA(Q_sigma, W_sigma))
-% should be a formal proposition in the theory chapter, with the 145-test
-% verification cited as computational evidence.
+% follows formally: B is a left Quillen functor (Theorem A of Vol I, bar-cobar
+% adjunction), and left Quillen functors preserve homotopy colimits.  The 145-test
+% verification provides computational evidence.  Promote as a corollary of Theorem A.
 
 \begin{question}
 Does the hocolim construction produce a \emph{vertex algebra} (not just an $\Eone$-algebra)?  The individual CoHA charts are $\Eone$; the $\Etwo$ enhancement comes from the Drinfeld center (Theorem~\ref{wn:thm:c3-drinfeld-center}).  Can the Drinfeld center be computed chart-by-chart and then glued?  If so, the full $\Etwo$-chiral algebra of $K3 \times E$ is constructible without CY-A.
@@ -2734,6 +2747,108 @@ Is $\mathrm{Spec}_\kappa(X)$ a complete invariant?  That is: if two CY3 manifold
 
 More modestly: does $\mathrm{Spec}_\kappa$ distinguish K3-fibered CY3s from rigid ones?  From the grand atlas (Theorem~\ref{wn:thm:chi-neq-kappa}), K3-fibered CY3s have $\kappa \neq \chi/24$, while CICYs have $\kappa = \chi/24$.  Is this a general distinction, or do counterexamples exist?
 \end{question}
+
+
+% ============================================================
+\section{The Leech near-miss and interacting structure}
+\label{sec:leech-near-miss}
+% ============================================================
+
+The free-field character $1/\eta(\tau)^{24} = q^{-1}(1 + 24q + 324q^2 + 3200q^3 + \cdots)$ matches the Leech lattice VOA $V_\Lambda$ through order~$q^0$ (both give $1$ at $q^{-1}$, both give $24$ at $q^0$) but diverges at order~$q^1$: $324 \neq 196884$.  The difference at each order encodes the interacting structure of the Leech lattice VOA beyond free fields.
+
+At order~$q^1$: $196884 - 324 = 196560 = |\Lambda_4|/2$, where $\Lambda_4$ is the set of norm-$4$ vectors in the Leech lattice ($|\Lambda_4| = 2 \cdot 196560$).  The factor of $1/2$ comes from the $\Z_2$ identification $v \sim -v$ in the Leech lattice vertex operator construction.
+
+\begin{question}
+Is there a formula for the difference $d_n = \dim(V_\Lambda)_{n+1} - p_{24}(n+1)$ at each order, where $p_{24}(m)$ is the coefficient of $q^m$ in $1/\eta^{24}$?  The first few values suggest $d_n$ counts lattice-theoretic data (norm vectors, kissing numbers, deep holes), but a closed-form expression is not known.  Is there a shadow tower interpretation: do the $d_n$ arise from higher-arity shadow corrections to the free-field Fock space?
+\end{question}
+
+
+% ============================================================
+\section{Preprojective algebras: closed-form vs.\ actual dimensions}
+\label{sec:preprojective-subtlety}
+% ============================================================
+
+The preprojective algebra $\Pi_0(Q)$ of a Dynkin quiver $Q$ has dimension $\dim \Pi_0(Q_\Gamma) = |\Gamma| \cdot (r+1)$ for $\Gamma \subset \mathrm{SL}(2,\C)$ (Crawley-Boevey 2001), where $r+1$ is the number of vertices (including the trivial representation) of the McKay quiver.
+
+\begin{warning}
+The naive closed-form formula $\binom{n+2}{3}$ (tetrahedral numbers) does \emph{not} give the correct dimensions for all ADE types.  For $A_n$: $\dim \Pi_0(Q_{A_n}) = (n+1)^3$, which equals $\binom{n+2}{3}$ only for $n = 0$ ($\dim = 1$) and $n = 1$ ($\dim = 8$).  For $D_n$ and exceptional types, the formula $|\Gamma| \cdot (r+1)$ is needed: e.g., $\dim \Pi_0(Q_{E_8}) = 120 \cdot 9 = 1080$ (binary icosahedral group, $|\mathrm{BI}| = 120$, McKay quiver has $9$ vertices), not $\binom{10}{3} = 120$.
+
+The Crawley-Boevey formula is the correct one.  In the compute layer, \texttt{cy\_quiver\_potential\_engine.py} uses verified lookup tables, not closed-form approximations.
+\end{warning}
+
+
+% ============================================================
+\section{The $\eta^{18}$ factorization and the Ramanujan discriminant}
+\label{sec:eta-18-factorization}
+% ============================================================
+
+The leading Fourier--Jacobi coefficient of the Igusa cusp form is $\phi_{10,1} = \eta^{18} \cdot \vartheta_1^2$.  The factorization
+\[
+  \eta^{18} = \eta^{24} \cdot \eta^{-6}
+\]
+separates two contributions:
+\begin{itemize}
+  \item $\eta^{24} = \Delta(\tau)$, the Ramanujan discriminant, corresponds to the $24$ boundary bosons of the KS reduction ($\kappa(A_E) = 24$).
+  \item $\eta^{-6} = \eta^{-2\kappa}$ with $\kappa = 3 = \dim_\C(K3 \times E)$ is the shadow tower contribution.
+\end{itemize}
+
+This factorization has not been fully exploited.  Two directions:
+
+\begin{enumerate}
+  \item \emph{Modular decomposition of $\Phi_{10}$.}  The Borcherds product for $\Phi_{10}$ uses exponents from $\phi_{0,1}$.  Can the factorization $\eta^{18} = \Delta \cdot \eta^{-6}$ be lifted to a factorization of the Borcherds product itself, separating the ``free-field'' piece ($\Delta$-dependent) from the ``shadow'' piece ($\eta^{-6}$-dependent)?
+
+  \item \emph{The exponent $-6 = -2 \cdot 3 = -2\kappa$.}  For a general CY$_d$, does the leading Fourier--Jacobi coefficient of the BPS automorphic form contain a factor $\eta^{-2\kappa}$ with $\kappa = d$?  For the quintic ($d = 3$, $\kappa_{\mathrm{ch}} = 3$), the BPS automorphic form is not known, so this cannot be tested directly.
+\end{enumerate}
+
+
+% ============================================================
+\section{Convergence radius: $2\pi$ not $\pi$}
+\label{sec:convergence-pitfall}
+% ============================================================
+
+The shadow generating function $\hat{A}(i\hbar) = (\hbar/2)/\sin(\hbar/2)$ has convergence radius $2\pi$, from the first pole of $\sin(\hbar/2)$ at $\hbar = 2\pi$.  A recurring error in the computations was confusing $\sin(\hbar)$ (poles at $n\pi$) with $\sin(\hbar/2)$ (poles at $2n\pi$), producing a spurious radius of $\pi$.
+
+The root cause: the $\hat{A}$-genus is $\hat{A}(x) = (x/2)/\sinh(x/2)$, with Wick rotation $x \mapsto ix$ giving $(x/2)/\sin(x/2)$.  The division by~$2$ in the argument is load-bearing and easy to drop.  This error appeared in at least three independent computations during the K3 session and was corrected each time.
+
+\begin{observation}
+The convergence radius $2\pi$ of the shadow partition function is universal (independent of $\kappa$).  Only the \emph{coefficients} depend on the algebra; the radius is determined by the generating function $\hat{A}$ alone.  In contrast, the topological string has no finite radius (Gevrey-$1$ divergence).  The shadow partition function is the unique ``maximally convergent'' piece of the genus expansion, with a universal and computable radius.
+\end{observation}
+
+
+% ============================================================
+\section{Schottky--Igusa weight: $8 = 2g$ at $g = 4$?}
+\label{sec:schottky-weight}
+% ============================================================
+
+The Schottky--Igusa form $J \in S_8(\mathrm{Sp}(8,\Z))$ vanishes on the Jacobian locus $\cJ_4 \subset \cA_4$ and has weight $8 = 2 \cdot 4 = 2g$.  A natural question: is the weight $2g$ a pattern?
+
+At genus~$2$: the Igusa cusp form $\Phi_{10}$ has weight $10 \neq 2 \cdot 2 = 4$.  But $\Phi_{10}$ does \emph{not} vanish on the Jacobian locus (the Torelli map is an isomorphism at $g = 2$).  The Schottky--Igusa form is the first Siegel cusp form to vanish on $\cJ_g$, and this happens at $g = 4$ with weight $8$.
+
+\begin{question}
+Is there a shadow tower interpretation of $J$?  Since $J$ vanishes on $\cJ_4$, it detects the difference between the abelian variety moduli $\cA_4$ and the curve moduli $\cM_4$.  The shadow tower lives on $\overline{\cM}_g$ and is tautologically insulated from the Schottky constraint (Programme D of Vol~I).  So $J$ lives in the kernel of the restriction $S_*(\mathrm{Sp}(2g,\Z)) \to R^*(\overline{\cM}_g)$.  The shadow tower generates the \emph{image} of this restriction; $J$ generates the \emph{kernel}.  These two subspaces are complementary and together span the full Siegel modular form ring at genus~$4$.
+\end{question}
+
+
+% ============================================================
+\section{Negative results from the compute layer}
+\label{sec:negative-results}
+% ============================================================
+
+Several natural expectations were falsified by computation:
+
+\begin{enumerate}
+  \item \emph{Shadow tower does NOT produce $\Phi_{10}$.}  The shadow obstruction tower of $K3 \times E$ lives on $\overline{\cM}_g$ (tautological classes), while $\Phi_{10}$ is a Siegel modular form on $\cA_2$.  These are categorically different objects.  The shadow tower detects $\kappa = 3$ at genus~$1$ and $F_2 = 7/1920$ at genus~$2$, but these are tautological intersection numbers, not Fourier coefficients of $\Phi_{10}$.  Proved in \texttt{cy\_shadow\_siegel\_bridge\_engine.py} and \texttt{cy\_siegel\_shadow\_engine.py}.
+
+  \item \emph{$\kappa = 0$ does NOT imply $\Theta = 0$ (AP31).}  For the chiral de Rham complex ($c = 0$, $\kappa = 0$), the scalar curvature vanishes, but higher-arity shadow components can be nonzero.  This is the content of AP31 and was verified for CDR on K3 in \texttt{cy\_chiral\_derham\_k3\_engine.py}.
+
+  \item \emph{Vanishing elliptic genus does NOT imply $\kappa = 0$.}  $Z_{K3 \times E}(\tau,z) = 0$ (because $Z_E = 0$), but $\kappa(K3 \times E) = 3 \neq 0$.  The elliptic genus is a refined trace that can cancel; $\kappa$ measures the bar complex curvature, which is insensitive to such cancellations.  Verified in \texttt{cy\_elliptic\_genus\_k3e\_engine.py}.
+
+  \item \emph{Bar complex dimensions do NOT match $M_{24}$ irrep dimensions.}  $\dim B^k(\cA_{K3}) = 8^k$, which never equals any $M_{24}$ irrep dimension ($45, 231, 770, \ldots$).  The $M_{24}$ symmetry acts on the full Hilbert space, not on the bar complex.  Negative result from \texttt{cy\_m24\_bar\_bridge\_engine.py}.
+
+  \item \emph{Naive BCH does NOT reproduce $\phi_{0,1}$ multiplicities.}  The scattering diagram / shadow tower identification holds at the motivic Hall algebra level (AP42), but instantiating it at the naive BCH pair-commutator level gives quantitative mismatches by non-uniform ratios.  Verified in \texttt{cy\_wallcrossing\_engine.py}.
+
+  \item \emph{Beilinson collection on $\bP^n$ does NOT give upper-triangular Ext.}  For $\bP^n$ with $n \geq 2$, the full Ext algebra $\mathrm{Ext}^*(\bigoplus \cO(i), \bigoplus \cO(j))$ has nonzero entries above the diagonal from Serre duality.  The Beilinson quiver is the minimal presentation, not the full Ext.  Verified in \texttt{cy\_constructive\_gluing\_engine.py}.
+\end{enumerate}
 
 
 \end{document}
