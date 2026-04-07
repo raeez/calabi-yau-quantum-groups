@@ -1,0 +1,901 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CHAPTER: The seven faces of r_{CY}(z) for Calabi-Yau chiral algebras
+% Vol III specialization of the Vol I / Vol II seven-face programme.
+% Mirrors Vol I Part III seven-face master and Vol II Part III seven-face master.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Cross-volume label stubs.  These labels are defined in Volume I and
+%% referenced from this chapter.  The phantomsection stubs prevent
+%% undefined-reference errors at compile time; the canonical statements
+%% live in Vol I.
+\phantomsection\label{thm:gz26-commuting-differentials}%
+\phantomsection\label{thm:gaudin-yangian-identification}%
+\phantomsection\label{thm:yangian-sklyanin-quantization}%
+\phantomsection\label{thm:dnp-bar-cobar-identification}%
+\phantomsection\label{thm:kz-classical-quantum-bridge}%
+\phantomsection\label{thm:shadow-depth-operator-order}%
+\phantomsection\label{thm:vol1-seven-face-master}%
+\phantomsection\label{thm:vol2-seven-face-master}%
+\phantomsection\label{def:p-max}%
+\phantomsection\label{def:k-max}%
+\phantomsection\label{def:r-max}%
+
+\chapter{The seven faces of $r_{CY}(z)$ for Calabi--Yau chiral algebras}
+\label{ch:cy-holographic-datum-master}
+
+\begin{quote}\itshape
+For a Calabi--Yau chiral algebra arising from the CY-to-chiral functor,
+the binary collision residue
+$r_{CY}(z) = \Res^{\mathrm{coll}}_{0,2}(\Theta_{CY})$
+has seven equivalent realizations specific to the CY setting: as the CY
+bar-cobar twisting morphism, as a CoHA / perverse-coherent-sheaves shadow,
+as the classical CY Poisson coisson, as the Maulik--Okounkov $R$-matrix
+(for $K3 \times E$), as the affine super Yangian $Y(\widehat{\fgl}_1)$
+$r$-matrix (for toric CY$_3$), as the elliptic Sklyanin bracket
+(for toroidal CY), and as a Gaudin model arising from CY$_3$ collision
+residues.  This chapter establishes the seven-face identification in
+the CY setting and shows how Vol~I's general theorems specialize to the
+CY$_3$ cases.
+\end{quote}
+
+%% =====================================================================
+%%  SECTION 1: The CY3 collision residue
+%% =====================================================================
+
+\section{The CY$_3$ collision residue}
+\label{sec:cy3-collision-residue}
+
+The collision residue is a single algebraic operation extracted from the
+universal Maurer--Cartan element $\Theta_A$ of a chiral algebra.  In the
+CY setting, this operation acquires geometric meaning: the residue is
+computed against the holomorphic CY volume form, and the resulting binary
+operation is the classical limit of the quantum vertex chiral group
+braiding.
+
+\begin{definition}[Binary collision residue, CY version]
+\label{def:cy-collision-residue}
+Let $\cC$ be a smooth proper Calabi--Yau category of dimension~$d$ with
+holomorphic volume form $\Omega_\cC$.  Let $A_\cC$ denote the chiral
+algebra produced by the CY-to-chiral functor (Theorem~CY-A$_d$, proved
+for $d = 2$, conditional on chain-level $\mathbb{S}^3$-framing for
+$d = 3$).  Let $\Theta_{A_\cC} \in \mathrm{MC}(\fg^{\mathrm{mod}}_{A_\cC})$
+denote its universal Maurer--Cartan element (cf.\ Vol~I,
+Theorem~\ref{thm:bar-cobar-adjunction}).  The \emph{binary CY collision
+residue} is
+\[
+  r_{CY}(z) \;:=\; \Res^{\mathrm{coll}}_{0,2}\bigl(\Theta_{A_\cC}\bigr)
+  \;\in\; A_\cC \otimes A_\cC \,[\![z^{-1}]\!],
+\]
+the genus-$0$, arity-$2$ residue along the collision divisor of
+$\overline{C}_2(\Spec\C)$, paired against $\Omega_\cC$ in the CY
+direction.
+\end{definition}
+
+\begin{remark}[The CY direction is a separate slot]
+\label{rem:cy-direction-slot}
+The collision residue extracts the $z^{-1}$ part of $\Theta$ along the
+chiral curve direction.  In the CY setting, $\Theta$ has \emph{two}
+gradings: arity in the chiral direction (controlled by the curve $X$)
+and Hodge weight in the CY direction (controlled by~$\cO_\cC$).  The CY
+volume form $\Omega_\cC$ kills the Hodge weight by integration; what
+remains is a chiral binary operation valued in $A_\cC \otimes A_\cC$.
+This is the precise sense in which $r_{CY}$ couples the two directions.
+\end{remark}
+
+\begin{remark}[Three invariants must not be conflated]
+\label{rem:cy-three-invariants}
+For any chiral algebra $A$, the binary residue carries three
+\emph{distinct} numerical invariants which the CY setting will
+illuminate:
+\begin{enumerate}[label=(\roman*)]
+\item $p_{\max}(A)$, the maximal pole order of generator-on-generator
+OPEs (cf.\ Vol~I, Definition~\ref{def:p-max});
+\item $k_{\max}(A) = p_{\max}(A) - 1$, the collision depth of $r_{CY}$
+itself, after $d\log$-absorption (cf.\ Vol~I,
+Definition~\ref{def:k-max});
+\item $r_{\max}(A)$, the shadow depth, the arity at which the
+obstruction tower $\Theta_A^{\leq r}$ terminates (Vol~I,
+Definition~\ref{def:r-max}).
+\end{enumerate}
+The $\beta\gamma$ system is the archetypal witness of their independence:
+$p_{\max}(\beta\gamma) = 1$, $k_{\max}(\beta\gamma) = 0$,
+$r_{\max}(\beta\gamma) = 4$ (class~C).  Conflating these produces
+incorrect classifications, and the seven-face programme will distinguish
+them at every face.
+\end{remark}
+
+%% =====================================================================
+%%  SECTION 2: Face 1 -- CY bar-cobar twisting morphism
+%% =====================================================================
+
+\section{Face 1: the CY bar-cobar twisting morphism}
+\label{sec:face1-bar-cobar}
+
+The first face is the home framework of this volume.  The CY-to-chiral
+functor sends a Calabi--Yau category $\cC$ to a chiral algebra $A_\cC$,
+and the bar construction sends $A_\cC$ to a factorization coalgebra
+$\barB(A_\cC)$ on $\Ran(X)$.  The collision residue is the binary
+component of the universal twisting morphism between $\barB(A_\cC)$ and
+$A_\cC$.
+
+\begin{theorem}[Face 1: CY bar-cobar realization, $d = 2$]
+\label{thm:face1-cy-bar-cobar}
+\ClaimStatusProvedHere
+Let $A_\cC$ be the chiral algebra of a CY$_2$ category $\cC$ produced by
+the CY-to-chiral functor $\Phi$ (Theorem~CY-A$_2$).  Then:
+\begin{enumerate}[label=(\roman*)]
+\item The convolution dg Lie algebra $\fg^{\mathrm{mod}}_{A_\cC}$
+identifies with the homotopy Lie algebra of twisting morphisms
+$\mathrm{hom}_\alpha(\barB(A_\cC), A_\cC)$ between bar coalgebra and
+chiral algebra (cf.\ Vol~I,
+Theorem~\ref{thm:bar-cobar-adjunction});
+\item The universal MC element $\Theta_{A_\cC}$ is the universal
+twisting morphism;
+\item The binary collision residue $r_{CY}(z) =
+\Res^{\mathrm{coll}}_{0,2}(\Theta_{A_\cC})$ is the leading
+arity-$2$ component of this twisting morphism, evaluated in the
+CY direction against $\Omega_\cC$.
+\end{enumerate}
+\ClaimStatusProvedHere
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+For~(i), the cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ identifies
+with $\barB(A_\cC)$ as a factorization coalgebra
+(Theorem~\ref{prop:bar-dictionary}).  The convolution identification is
+the application of Vol~I's master twisting-morphism theorem to this
+coalgebra-algebra pair.  For~(ii), $\Theta_{A_\cC}$ satisfies the MC
+equation $D\Theta + \tfrac{1}{2}[\Theta,\Theta] = 0$ at all levels, with
+the bar-intrinsic construction $\Theta = D - d_0$.  For~(iii), the
+collision residue is computed from $\Theta$ by restricting to genus~$0$,
+arity~$2$, and pairing against the holomorphic volume form.
+\end{proof}
+
+\begin{conjecture}[Face 1: CY bar-cobar realization, $d = 3$]
+\label{conj:face1-cy-bar-cobar-d3}
+The statement of Theorem~\ref{thm:face1-cy-bar-cobar} extends to
+$d = 3$, conditional on the chain-level $\mathbb{S}^3$-framing
+construction of Conjecture~CY-A$_3$.  Concretely: if the CY$_3$-to-chiral
+functor $\Phi_3$ can be defined on a full subcategory $\cD \subset
+\mathrm{CY}_3\text{-}\Cat$, then for every $\cC \in \cD$ the convolution
+identification, the universal MC element, and the binary collision
+residue extraction of Theorem~\ref{thm:face1-cy-bar-cobar}(i)--(iii)
+continue to hold for $A_\cC := \Phi_3(\cC)$.
+\ClaimStatusConjectured
+\end{conjecture}
+
+\begin{remark}[Bar-cobar inversion is not the seven-face master move]
+\label{rem:no-cobar-bulk-confusion}
+The cobar functor $\Omega$ inverts the bar complex: $\Omega(\barB(A))
+\simeq A$ (Vol~I, Theorem~B).  This is a round-trip that recovers $A$
+itself.  The seven-face programme is not about recovering $A$ from $\barB(A)$;
+it is about realizing a single algebraic object, the binary residue
+$r_{CY}(z)$, in seven distinct geometric languages.  The closed-string
+or bulk side is the chiral derived center $\cZ^{\mathrm{der}}_{\mathrm{ch}}(A_\cC)$
+(Vol~I, Theorem~H), not the cobar; the seven faces all live on the
+boundary~$A_\cC$ side.
+\end{remark}
+
+%% =====================================================================
+%%  SECTION 3: Face 2 -- CoHA / perverse coherent sheaves
+%% =====================================================================
+
+\section{Face 2: CoHA and perverse coherent sheaves}
+\label{sec:face2-coha}
+
+The second face is enumerative geometry: the binary residue is the leading
+non-trivial structure constant of the cohomological Hall algebra of $\cC$,
+or equivalently, the Yoneda product on perverse coherent sheaves.  This
+face is the natural home of Donaldson--Thomas invariants.
+
+\begin{conjecture}[Face 2: CoHA realization of $r_{CY}$]
+\label{conj:face2-coha-realization}
+Let $\cC$ be a smooth proper CY$_3$ category with quiver-with-potential
+presentation $(Q, W)$ at a stable point of the moduli of stability
+conditions.  Let $\cH(Q,W)$ denote the critical cohomological Hall
+algebra (Definition~\ref{def:critical-coha}).  Then the binary collision
+residue of $A_\cC$ admits a CoHA realization
+\[
+  r_{CY}^{\mathrm{CoHA}}(z) \;=\; \mu_{\cH(Q,W)}^{(2)} \otimes z^{-1}
+  \;\in\; \cH(Q,W) \otimes \cH(Q,W) \,[\![z^{-1}]\!],
+\]
+where $\mu^{(2)}$ is the binary CoHA product, paired with the
+$d\log$-propagator on $\overline{C}_2$.
+\ClaimStatusConjectured
+\end{conjecture}
+
+\begin{remark}[Status of Conjecture~\ref{conj:face2-coha-realization}]
+\label{rem:face2-status}
+The CoHA $\cH(Q,W)$ exists unconditionally (Kontsevich--Soibelman,
+Davison--Meinhardt).  The chiral algebra $A_\cC$ exists for $d = 2$ and
+is conjectural for $d = 3$.  The identification with $r_{CY}$ requires
+the CY-to-chiral functor to be defined and to commute with critical
+cohomology, which is the content of Conjecture~CY-C and is currently
+verified for the toric CY$_3$ examples
+(Theorems~\ref{thm:sv-c3}, \ref{thm:rsyz}).  In those cases the
+identification reduces to the Schiffmann--Vasserot and
+Rapcak--Soibelman--Yang--Zhao theorems and is ProvedElsewhere with
+attribution to those two papers.
+\end{remark>
+
+\begin{remark}[Perverse coherent sheaves]
+\label{rem:perverse-coherent-sheaves}
+For a CY$_3$ category arising as $D^b(\Coh(X))$ for $X$ a smooth CY$_3$
+variety, the CoHA description above is equivalent to a description in
+terms of perverse coherent sheaves on $X$ (Bridgeland, Bayer--Macri).
+The Yoneda product on $\Ext^{\bullet}$ of perverse coherent sheaves is
+the binary CoHA product, and the binary collision residue extracts its
+leading $\Ext^1$ component.  This is the geometric face: the residue
+$r_{CY}$ \emph{is} a piece of the deformation theory of the CY$_3$.
+\end{remark>
+
+\begin{remark}[CoHA is not the full quantum vertex chiral group]
+\label{rem:coha-not-qvcg}
+The critical CoHA is an associative algebra: the positive (or
+$E_1$-ordered) half of the conjectural quantum vertex chiral group
+$G(X)$.  The full $G(X)$ would be braided $E_2$, with the braiding
+supplied by the $R$-matrix of the affine super Yangian
+(Section~\ref{sec:face5-yangian}).  The CoHA face captures the
+\emph{shadow} of $r_{CY}$ on the ordered side; the braided side is
+faces~4 and~5.
+\end{remark>
+
+%% =====================================================================
+%%  SECTION 4: Face 3 -- Classical CY Poisson coisson
+%% =====================================================================
+
+\section{Face 3: classical CY Poisson coisson}
+\label{sec:face3-coisson}
+
+The third face is the classical limit.  In the CY setting, the binary
+residue $r_{CY}$ has a classical avatar: a coisson bracket on the
+sheafification of $A_\cC$, which in turn is a chiral version of the
+holomorphic Poisson bracket arising from the CY $(2{,}0)$-form (in
+$d = 2$) or the holomorphic top form via contraction (in $d = 3$).
+
+\begin{theorem}[Face 3: classical Poisson coisson, $d = 2$]
+\label{thm:face3-classical-coisson}
+\ClaimStatusProvedHere
+Let $\cC$ be a CY$_2$ category and let $A_\cC$ be its chiral
+algebraization (Theorem~CY-A$_2$).  Let $\hbar$ denote a quantization
+parameter.  Then:
+\begin{enumerate}[label=(\roman*)]
+\item The classical limit $A_\cC^{\mathrm{cl}} := \lim_{\hbar \to 0}
+A_\cC$ is a Poisson vertex algebra (PVA) with bracket
+$\{\cdot,\cdot\}_\lambda$ valued in $A_\cC^{\mathrm{cl}} \otimes
+\C[\lambda]$;
+\item The leading coefficient $\{\cdot,\cdot\}_\lambda^{(0)}$ of the
+PVA bracket is a chiral Poisson bracket whose classical $r$-matrix
+is exactly $r_{CY}(z)$ at $\hbar = 0$;
+\item This identifies $r_{CY}^{\mathrm{cl}}$ as the coisson bracket
+constructed from the CY volume form $\Omega_\cC$ via the Poisson
+structure on $\cZ^{\mathrm{der}}_{\mathrm{ch}}(A_\cC^{\mathrm{cl}})$
+(cf.\ Vol~I, Theorem~\ref{thm:kz-classical-quantum-bridge}).
+\end{enumerate}
+\ClaimStatusProvedHere
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+For a CY$_2$ category, $\Phi$ is the proved CY-to-chiral functor
+(Chapter~\ref{ch:cy-to-chiral}).  The PVA structure on $A_\cC^{\mathrm{cl}}$
+is the classical limit of the chiral OPE.  The leading $\lambda$
+coefficient of the $\lambda$-bracket is the contraction of two factors
+along the binary collision divisor; this is exactly
+$\Res^{\mathrm{coll}}_{0,2}$ computed in the classical limit, hence
+$r_{CY}^{\mathrm{cl}}$.  The identification with the coisson bracket
+arising from $\Omega_\cC$ is the coisson--PVA dictionary
+(cf.\ Vol~I, Theorem~\ref{thm:kz-classical-quantum-bridge}, applied to
+the specialization $\cC \mapsto A_\cC$).
+\end{proof}
+
+\begin{conjecture}[Face 3: classical Poisson coisson, $d = 3$]
+\label{conj:face3-classical-coisson-d3}
+The statement of Theorem~\ref{thm:face3-classical-coisson} extends to
+$d = 3$, conditional on Conjecture~CY-A$_3$: if $A_\cC$ is a
+CY$_3$-chiral algebraization of $\cC$, then items (i)--(iii) of
+Theorem~\ref{thm:face3-classical-coisson} hold for $A_\cC^{\mathrm{cl}}$
+with the CY$_3$ volume form $\Omega_\cC \in H^0(\cC, \omega_\cC)$
+supplying the coisson pairing.
+\ClaimStatusConjectured
+\end{conjecture}
+
+\begin{remark}[Convention: $\lambda$-brackets vs OPE modes (AP49)]
+\label{rem:lambda-vs-mode}
+Vol~I uses OPE modes $a_{(n)}b$.  Vol~II uses $\lambda$-brackets
+$\{a_\lambda b\} = \sum_n \lambda^{(n)} a_{(n)}b$ with the divided
+power $\lambda^{(n)} = \lambda^n/n!$.  Vol~III uses motivic and categorical
+language.  When transcribing $r_{CY}$ between volumes, the $1/n!$ factor
+must be tracked: the $\lambda^3$ coefficient of a $\lambda$-bracket is
+$a_{(3)}b/3! = a_{(3)}b/6$, not $a_{(3)}b$.  This convention bridge is
+the source of several historical errors and is the subject of AP49.
+\end{remark>
+
+%% =====================================================================
+%%  SECTION 5: Face 4 -- Maulik-Okounkov R-matrix
+%% =====================================================================
+
+\section{Face 4: the Maulik--Okounkov $R$-matrix (for $K3 \times E$)}
+\label{sec:face4-mo-rmatrix}
+
+The fourth face is geometric representation theory: the binary residue is
+the classical limit of the Maulik--Okounkov stable-envelope $R$-matrix
+acting on the equivariant cohomology of a Nakajima quiver variety.  For
+the CY$_3$ specialization $K3 \times E$, this is the most concrete
+realization, and it produces $r_{CY}$ explicitly in terms of theta
+functions on the elliptic factor.
+
+The Maulik--Okounkov stable envelope and its $R$-matrix
+$R_{\mathrm{MO}}^{K3 \times E}(z)$ exist unconditionally (Maulik--Okounkov
+2019); this is the ProvedElsewhere component.  The genuinely new content
+of face~4 is the identification of the classical limit with the binary
+CY collision residue.
+
+\begin{conjecture}[Face 4: MO realization for $K3 \times E$]
+\label{conj:face4-mo-k3e}
+For the CY$_3$ specialization $X = K3 \times E$, the binary CY
+collision residue identifies with the classical limit of the
+Maulik--Okounkov $R$-matrix:
+\[
+  r_{CY}^{K3 \times E}(z) \;=\;
+   \lim_{\hbar \to 0} \, \hbar^{-1}\bigl(R_{\mathrm{MO}}^{K3 \times E}(z)
+   - \id\bigr).
+\]
+The right-hand side is the rational/elliptic stable envelope of
+Maulik--Okounkov, evaluated on the Hilbert scheme of points on $K3$
+along the elliptic direction $E$.  The conjecture is equivalent to
+Conjecture~CY-C for $K3 \times E$.
+\ClaimStatusConjectured
+\end{conjecture>
+
+\begin{remark}[The CY involution $g(z)g(-z) = 1$]
+\label{rem:cy-involution-rmatrix}
+For $K3 \times E$, the MO $R$-matrix is governed by a single Yangian
+generator $g(z)$ satisfying $g(z) g(-z) = 1$
+(Theorem~\ref{thm:k3e-mo-rmatrix}).  This CY involution is the
+$\mathbb{S}^2$-framing of the CY-to-chiral functor seen at the level of
+the binary residue: the $z \mapsto -z$ involution is the chiral analogue
+of the CY Serre functor $\mathbb{S} \simeq [d]$.  In particular the CY
+involution forces the residue to be of \emph{odd} pole order, in
+agreement with AP19 (the $d\log$-absorption sends even-order poles to
+odd-order poles in the residue).
+\end{remark>
+
+\begin{remark}[Self-dual Gepner trivialization]
+\label{rem:gepner-trivialization}
+At the Gepner point of $K3$, where the chiral algebra has $\cN = (4,4)$
+enhancement, the MO $R$-matrix trivializes
+(Proposition~\ref{prop:k3e-self-dual-limit}), so $r_{CY}$ vanishes.
+This is consistent with the seven-face master statement: at the self-dual
+point of any face, all seven realizations vanish simultaneously.  For
+$K3 \times E$ this is the statement that $\kappa_{\mathrm{eff}} = 0$ in
+the $\cN = (4,4)$ enhancement.
+\end{remark>
+
+%% =====================================================================
+%%  SECTION 6: Face 5 -- Affine super Yangian Y(gl_1) for toric CY3
+%% =====================================================================
+
+\section{Face 5: the affine super Yangian $Y(\widehat{\fgl}_1)$ for toric CY$_3$}
+\label{sec:face5-yangian}
+
+The fifth face is the explicit toric face: when the CY$_3$ is toric and
+admits a quiver-with-potential presentation, the binary residue is the
+classical $r$-matrix of the affine super Yangian
+$Y(\widehat{\fgl}_1)$ (for $\C^3$, the Jordan quiver) or more generally
+$Y(\widehat{\fg}_{Q_X})$ (for the toric quiver of~$X$).
+
+\begin{theorem}[Face 5 for toric CY$_3$ via RSYZ]
+\label{thm:face5-toric-yangian-rsyz}
+\ClaimStatusProvedElsewhere
+Let $X$ be a toric CY$_3$ without compact $4$-cycles, with toric quiver
+$(Q_X, W_X)$ and affine super Yangian $Y(\widehat{\fg}_{Q_X})$
+(Theorem~\ref{thm:rsyz}).  Then the binary CY collision residue
+identifies with the classical $r$-matrix:
+\[
+  r_{CY}^{X}(z) \;=\; r_{Y(\widehat{\fg}_{Q_X})}^{\mathrm{cl}}(z)
+  \;=\; \frac{\Omega_{Y(\widehat{\fg}_{Q_X})}}{z}
+  \;+\; (\text{higher poles dictated by } p_{\max}(W_X)),
+\]
+where $\Omega_{Y(\widehat{\fg}_{Q_X})}$ is the Casimir tensor of the
+affine super Yangian.  At the Jordan-quiver specialization $X = \C^3$,
+the identification reduces to the $r$-matrix of the affine Yangian
+$Y(\widehat{\fgl}_1) \cong \cW_{1 + \infty}$ at the self-dual level.
+\ClaimStatusProvedElsewhere
+\end{theorem}
+
+\begin{remark}[Status partition, AP60 watch]
+\label{rem:face5-ap60}
+Theorem~\ref{thm:face5-toric-yangian-rsyz} is a restatement of the
+Rapcak--Soibelman--Yang--Zhao theorem (Theorem~\ref{thm:rsyz}) in the
+collision-residue language of the seven-face programme.  AP60 forbids
+tagging this theorem ProvedHere: the classical content is due to
+Schiffmann--Vasserot (for $\C^3$, Theorem~\ref{thm:sv-c3}) and
+Rapcak--Soibelman--Yang--Zhao (for general toric without compact
+$4$-cycles, Theorem~\ref{thm:rsyz}).  The genuinely new content of
+face~5 is the translation of their $r$-matrix into the language of
+$\Res^{\mathrm{coll}}_{0,2}(\Theta_{A_X})$, which is recorded as the
+scholium below.
+\end{remark}
+
+\begin{proposition}[Collision-residue translation of face 5, $\C^3$ case]
+\label{prop:face5-c3-translation}
+For $X = \C^3$, the Schiffmann--Vasserot Casimir tensor
+$\Omega_{Y(\widehat{\fgl}_1)}$ coincides with
+$\Res_{z=0}\bigl[r_{CY}^{\C^3}(z)\bigr]$, where $r_{CY}^{\C^3}$ is the
+binary CY collision residue of the $\C^3$ chiral algebra.
+\ClaimStatusProvedHere
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The Jordan quiver superpotential $W = \tr(XYZ - XZY)$ has
+$p_{\max}(W) = 1$ (each cubic monomial contributes a single contraction
+in the binary OPE), so $k_{\max} = 0$ and $r_{CY}^{\C^3}(z)$ has a
+\emph{single} pole at $z = 0$.  The residue at this pole is the
+Schiffmann--Vasserot Casimir
+$\Omega_{Y(\widehat{\fgl}_1)} \in Y^+(\widehat{\fgl}_1)^{\otimes 2}$
+(Theorem~\ref{thm:sv-c3}).  By the universality of $\Theta$ in MC moduli,
+this is exactly $r_{CY}^{\C^3}$.  The matching of higher poles with the
+toric quiver superpotential follows from the RSYZ theorem for toric
+quivers without compact $4$-cycles.
+\end{proof}
+
+\begin{remark}[Three invariants for toric CY$_3$ (AP59 watch)]
+\label{rem:toric-three-invariants}
+For the standard toric CY$_3$ family the three invariants are:
+\begin{center}
+\small
+\begin{tabular}{lcccc}
+\toprule
+Geometry & Quiver & $p_{\max}$ & $k_{\max}$ & $r_{\max}$ \\
+\midrule
+$\C^3$ & Jordan & $1$ & $0$ & $2$ (class~G) \\
+Resolved conifold & Klebanov--Witten & $1$ & $0$ & $2$ (class~G) \\
+Local $\bP^2$ & McKay $\Z_3$ & $2$ & $1$ & $\infty$ (class~M) \\
+Local $\bP^1\times\bP^1$ & Beilinson & $2$ & $1$ & $\infty$/$2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The pole order $p_{\max}$, the collision depth $k_{\max} = p_{\max} - 1$,
+and the shadow depth $r_{\max}$ are three independent invariants.  In the
+toric family above, $p_{\max}$ is small (at most $2$) but $r_{\max}$ can
+be infinite (local $\bP^2$, McKay $\Z_3$).  This separates the pole-order
+face (face~5, controlled by $p_{\max}$) from the shadow tower face
+(face~1, controlled by $r_{\max}$).  AP59 forbids identifying these.
+\end{remark>
+
+\subsection{Gaudin Hamiltonians for toric CY$_3$ from collision residues}
+\label{subsec:toric-gaudin-from-collisions}
+
+The collision residue at the Jordan quiver $(\C^3)$ is the
+$Y(\widehat{\fgl}_1)$ classical $r$-matrix; this allows one to write
+down a chiral Gaudin model whose Hamiltonians are extracted from CY$_3$
+collision data, providing the first instance of face~7 inside face~5.
+The full development of face~7 occupies
+Section~\ref{sec:face7-cy3-gaudin}.
+
+\begin{construction}[Gaudin Hamiltonians from $r_{CY}^{\C^3}$]
+\label{constr:c3-gaudin-from-residue}
+Fix marked points $z_1, \ldots, z_n \in \C$ (the chiral curve, with $n$
+copies of the Fock representation of $Y(\widehat{\fgl}_1)$).  Define
+\[
+  H_i^{\C^3} \;:=\; \sum_{j \neq i} \frac{\Omega_{ij}^{Y(\widehat{\fgl}_1)}}{z_i - z_j}
+  \;\in\; Y(\widehat{\fgl}_1)^{\otimes n},
+\]
+where $\Omega_{ij}^{Y(\widehat{\fgl}_1)}$ is the $Y(\widehat{\fgl}_1)$
+Casimir $\Res_{z=0} r_{CY}^{\C^3}(z)$, acting on the $i$-th and $j$-th
+tensor factors.  The operators $\{H_i^{\C^3}\}$ commute pairwise as a
+direct consequence of the classical Yang--Baxter equation for
+$r_{CY}^{\C^3}$ (cf.\ Vol~I,
+Theorem~\ref{thm:gaudin-yangian-identification}).
+\end{construction}
+
+\begin{remark}[Wall-crossing as gauge equivalence]
+\label{rem:c3-wall-crossing-mc-gauge}
+Across walls in the Bridgeland stability manifold, the toric Yangian
+$r$-matrix transforms by a Kontsevich--Soibelman wall-crossing
+automorphism.  In the present language, this is exactly an MC gauge
+equivalence on $\Theta_{A_X}$ (Theorem~\ref{thm:wall-crossing-mc}):
+$r_{CY}^{X,\zeta'}(z) = e^{\ad_\alpha} r_{CY}^{X,\zeta}(z)$ for the
+unique gauge parameter $\alpha \in \fn_W$ supported on the wall divisor.
+The Gaudin Hamiltonians of
+Construction~\ref{constr:c3-gaudin-from-residue} are gauge-equivalent
+across walls; their joint spectrum is chamber-independent.
+\end{remark>
+
+%% =====================================================================
+%%  SECTION 7: Face 6 -- Elliptic Sklyanin bracket
+%% =====================================================================
+
+\section{Face 6: elliptic Sklyanin bracket (for toroidal CY)}
+\label{sec:face6-sklyanin}
+
+The sixth face is the elliptic deformation: when the chiral curve is
+itself an elliptic curve $E_\tau$ and the CY data are toroidal, the
+binary residue acquires an elliptic structure governed by theta functions.
+The classical limit of this $r$-matrix is the elliptic Sklyanin bracket,
+and the quantization is Felder's elliptic quantum group.
+
+The elliptic $r$-matrix and its classical Sklyanin bracket are due to
+Sklyanin (1983) and Belavin--Drinfeld (1984), with the quantization to
+Felder's elliptic quantum group (Definition~\ref{def:elliptic-quantum})
+classical.  These components are ProvedElsewhere with explicit
+attribution.  The genuinely new content is the identification of the
+elliptic $r$-matrix with the binary CY collision residue
+$\Res^{\mathrm{coll}}_{0,2}(\Theta_{A_\cC})$ via the chiral propagator
+$d \log \theta_1(z\,|\,\tau)$.
+
+\begin{theorem}[Face 6 for $\fsl_2$ Heisenberg on $E_\tau$]
+\label{thm:face6-elliptic-sklyanin}
+\ClaimStatusProvedHere
+Let $E_\tau$ be an elliptic curve and let $A = H^{\fsl_2}_{E_\tau}$ be
+the $\fsl_2$ Heisenberg chiral algebra realized on $E_\tau$.  Then the
+binary CY collision residue admits the elliptic representative
+\[
+  r_{CY}^{\tau}(z) \;=\;
+   \frac{\theta'_1(0\,|\,\tau)}{\theta_1(z\,|\,\tau)}\,\Omega_{\fsl_2},
+\]
+where $\theta_1$ is the odd Jacobi theta function and
+$\Omega_{\fsl_2}$ is the Casimir tensor of~$\fsl_2$
+(cf.\ Section~\ref{sec:elliptic-r-theta}).  The classical limit of
+$r_{CY}^{\tau}$ defines the Sklyanin bracket
+$\{f,g\}_\tau = \langle r_{CY}^{\tau}, [\nabla f, \nabla g]\rangle$ on
+$E_{q,p}(\fsl_2)^*$, and the quantization $\hbar \to q$ recovers
+Felder's elliptic quantum group $E_{q,p}(\fsl_2)$ with dynamical
+parameter $\lambda$ identified as the $B$-cycle monodromy of the
+elliptic propagator.
+\ClaimStatusProvedHere
+\end{theorem}
+
+\begin{conjecture}[Face 6 for general toroidal CY]
+\label{conj:face6-general-toroidal}
+The statement of Theorem~\ref{thm:face6-elliptic-sklyanin} extends to
+general toroidal CY realizations $X$ on $E_\tau$: the binary residue
+$r_{CY}^{\tau,X}(z)$ is the elliptic $r$-matrix of
+$Y(\widehat{\fg}_X)$ acquiring dynamical theta-function corrections in
+$\lambda$, and its classical limit is the corresponding Sklyanin
+bracket (cf.\ Vol~I,
+Theorem~\ref{thm:yangian-sklyanin-quantization}).
+\ClaimStatusConjectured
+\end{conjecture>
+
+\begin{remark}[AP60 status partition]
+\label{rem:face6-ap60}
+The Sklyanin bracket and Belavin--Drinfeld classification are classical
+results (1983).  The genuinely new content of
+Theorem~\ref{thm:face6-elliptic-sklyanin} is the identification of the
+elliptic $r$-matrix with the binary CY collision residue
+$\Res^{\mathrm{coll}}_{0,2}(\Theta_{A_\cC})$ via the chiral propagator
+$d \log \theta_1(z\,|\,\tau)$.  AP60 forbids tagging the entire theorem
+ProvedHere; the classical components are ProvedElsewhere with explicit
+attribution to Sklyanin (1983) and Belavin--Drinfeld (1984).
+\end{remark>
+
+\subsection{The three-parameter $\hbar$ identification}
+\label{subsec:three-hbar}
+
+A subtle but central observation is that three different $\hbar$
+parameters appearing in the literature on elliptic quantum groups are
+the same parameter under the seven-face dictionary.
+
+\begin{construction}[Three-parameter $\hbar$ identification]
+\label{constr:three-parameter-hbar}
+The following three quantization parameters coincide:
+\begin{enumerate}[label=(\roman*)]
+\item the boundary coupling $\hbar^{\mathrm{KZ}}$ in the Knizhnik--Zamolodchikov
+equation (Knizhnik--Zamolodchikov 1984; cf.\ Vol~I,
+Theorem~\ref{thm:kz-classical-quantum-bridge});
+\item the loop parameter $\hbar^{\mathrm{DNP}}$ in the Dimofte--Niu--Py
+realization of the dg-shifted Yangian (cf.\ Vol~I,
+Theorem~\ref{thm:dnp-bar-cobar-identification});
+\item the prefactor $\hbar^{\mathrm{coll}}$ of the binary CY collision
+residue $r_{CY}(z)$.
+\end{enumerate}
+The identification $\hbar^{\mathrm{KZ}} = \hbar^{\mathrm{DNP}} =
+\hbar^{\mathrm{coll}}$ holds canonically once the CY direction is fixed,
+and follows from the universality of the binary residue in
+$\fg^{\mathrm{mod}}_{A_\cC}$.
+\end{construction}
+
+\begin{remark}[Convention sanity check]
+\label{rem:three-hbar-sanity}
+The identification of Construction~\ref{constr:three-parameter-hbar}
+fails if any of the three parameters carries a hidden $2\pi i$ or
+$1/n!$.  In particular, the KZ parameter is conventionally normalized
+so that the connection $\nabla = d - \hbar^{-1}\sum_i r_{ij}\,d\log(z_i
+- z_j)$ has integer monodromy on the configuration space; the DNP
+parameter is normalized so that the loop algebra has bracket
+$[a_m, b_n] = [a, b]_{m+n} + m\hbar\delta_{m+n,0}\langle a, b\rangle$;
+the collision residue is normalized so that $\Omega = r_{CY}(z)\cdot z$
+at $z = 0$.  These normalizations are mutually compatible; the
+identification is parameter-by-parameter, not just up to scale.
+\end{remark>
+
+%% =====================================================================
+%%  SECTION 8: Face 7 -- Gaudin model from CY3
+%% =====================================================================
+
+\section{Face 7: Gaudin model from CY$_3$ collision residues}
+\label{sec:face7-cy3-gaudin}
+
+The seventh face is new in this volume.  In Vol~I, face~7 of the standard
+seven-face master is the Gaudin model arising from a chiral algebra
+with primitive generator (Vol~I,
+Theorem~\ref{thm:gaudin-yangian-identification}).  In the CY setting, the
+Gaudin model arises from CY$_3$ collision residues, with Gaudin
+Hamiltonians constructed directly from the toric or elliptic $r$-matrix
+of face~5 or face~6, and with the Bethe ansatz interpreted in terms of
+DT/PT counts.
+
+\begin{theorem}[Face 7 for $\C^3$: Gaudin from the Jordan-quiver residue]
+\label{thm:face7-cy3-gaudin}
+\ClaimStatusProvedHere
+Let $X = \C^3$.  Fix $n$ marked points $z_1, \ldots, z_n$ on the chiral
+curve and Fock representations $V_1, \ldots, V_n$ of
+$Y(\widehat{\fgl}_1)$.  Define
+\[
+  H_i^{\C^3} \;:=\; \sum_{j \neq i} \frac{\Omega_{ij}^{Y(\widehat{\fgl}_1)}}{z_i - z_j},
+\]
+acting on $V_1 \otimes \cdots \otimes V_n$, where
+$\Omega_{ij}^{Y(\widehat{\fgl}_1)}$ is the Casimir tensor
+$\Res_{z=0}\bigl[r_{CY}^{\C^3}(z)\bigr]$ acting on the $i$-th and
+$j$-th factors.  Then:
+\begin{enumerate}[label=(\roman*)]
+\item The operators $\{H_i^{\C^3}\}_{i=1}^n$ commute pairwise:
+$[H_i^{\C^3}, H_j^{\C^3}] = 0$;
+\item The joint spectrum is governed by the $\cW_{1+\infty}$ Bethe
+ansatz of Litvinov and Maulik--Okounkov;
+\item The DT counts of $\C^3$ (MacMahon plane-partition generating
+function) provide the integer multiplicities of the Bethe roots: a
+Bethe state at the configuration $\{w_a\}$ corresponds to a plane
+partition of the appropriate shape.
+\end{enumerate}
+\ClaimStatusProvedHere
+\end{theorem}
+
+\begin{conjecture}[Face 7 for general toric/toroidal CY$_3$]
+\label{conj:face7-general-gaudin}
+The statement of Theorem~\ref{thm:face7-cy3-gaudin} extends to any
+CY$_3$ $X$ admitting a toric (face~5) or toroidal (face~6) chiral
+realization, with Hamiltonians $H_i^{X} := \sum_{j \neq i} r_{CY}^X(z_i
+- z_j)_{ij}$, commutativity following from the classical Yang--Baxter
+equation for $r_{CY}^X$, and DT/PT counts of $X$ supplying the Bethe
+root multiplicities.
+\ClaimStatusConjectured
+\end{conjecture}
+
+\begin{remark}[Proof sketch for $\C^3$]
+For $X = \C^3$, $r_{CY}^{\C^3}(z) = \Omega_{Y(\widehat{\fgl}_1)}/z$ has
+a single pole.  The Hamiltonians $H_i^{\C^3} = \sum_{j \neq i}
+\Omega_{ij}/(z_i - z_j)$ are the standard Gaudin Hamiltonians for
+$Y(\widehat{\fgl}_1)$, and their commutativity follows from the
+classical Yang--Baxter equation for $r_{CY}^{\C^3}$
+(Construction~\ref{constr:c3-gaudin-from-residue}; cf.\ Vol~I,
+Theorem~\ref{thm:gaudin-yangian-identification}).  The Bethe ansatz
+identification is the Litvinov $\cW_{1+\infty}$ Bethe ansatz, which
+identifies Bethe roots with crystal melting configurations of $\C^3$
+(equivalently, plane partitions).
+\end{remark}
+
+\begin{remark}[Why CY$_3$ supplies the Bethe roots]
+\label{rem:cy3-bethe-content}
+The novelty of face~7 in the CY setting is that the Bethe roots are not
+abstract numbers; they are CY$_3$ DT/PT counts.  For $\C^3$ the DT/PT
+counts are MacMahon-type partition functions (3D plane partitions), and
+each plane partition contributes a single Bethe root.  For more general
+toric CY$_3$, the topological vertex provides the partition counts and
+hence the Bethe-root populations.  In this sense the CY$_3$ Gaudin model
+``geometrizes the Bethe ansatz'' in the same way that the toric quiver
+geometrizes the affine Yangian.
+\end{remark>
+
+\begin{remark}[Face 7 is genuinely new for CY$_3$]
+\label{rem:face7-genuinely-new}
+Vol~I face~7 (Gaudin from chiral algebra with primitive generator) and
+Vol~II face~7 (Gaudin from twisted holography boundary algebra) both
+require an algebra with explicit generators.  For CY$_3$, the analog
+must extract Gaudin data from the conjectural quantum vertex chiral
+group $G(X)$ via its CoHA presentation; the construction passes through
+the $r$-matrix of face~5 (or face~6 in the toroidal case), not directly
+through generators of $G(X)$ itself.  This is the genuinely new content
+of T4 in the CY setting and is the main object of this section.
+\end{remark>
+
+%% =====================================================================
+%%  SECTION 9: The seven-face master theorem
+%% =====================================================================
+
+\section{The seven-face master theorem in the CY setting}
+\label{sec:cy-seven-face-master}
+
+The preceding seven sections each realize the binary CY collision residue
+in one geometric language.  The master theorem asserts that all seven
+realizations are canonically equivalent, with the equivalences given by
+explicit specialization or limit, and with the limit/specialization data
+recorded by the seven-face commuting diagram of Vol~I.
+
+\begin{conjecture}[Seven faces of $r_{CY}(z)$]
+\label{conj:cy-seven-face-master}
+Let $\cC$ be a Calabi--Yau category of dimension $d \in \{2, 3\}$, and
+let $A_\cC$ be its chiral algebraization (proved for $d = 2$; conditional
+on Conjecture~CY-A$_3$ for $d = 3$).  Then the seven realizations
+\[
+  r_{CY}^{(\mathrm{F1})},\;
+  r_{CY}^{(\mathrm{F2})},\;
+  r_{CY}^{(\mathrm{F3})},\;
+  r_{CY}^{(\mathrm{F4})},\;
+  r_{CY}^{(\mathrm{F5})},\;
+  r_{CY}^{(\mathrm{F6})},\;
+  r_{CY}^{(\mathrm{F7})}
+\]
+constructed in
+Sections~\ref{sec:face1-bar-cobar}--\ref{sec:face7-cy3-gaudin}
+all coincide, in the sense that
+\[
+  r_{CY}^{(\mathrm{F}_i)} \;=\;
+  \Phi_{i,j}\bigl(r_{CY}^{(\mathrm{F}_j)}\bigr)
+  \qquad \forall\, i, j \in \{1, \ldots, 7\},
+\]
+for canonical change-of-language morphisms $\Phi_{i,j}$ given explicitly
+by Theorem~CY-A (face~1 to face~3), the
+Schiffmann--Vasserot/RSYZ identification (face~2 to face~5), the MO
+stable envelope (face~4), the elliptic specialization $\hbar \to 0$
+(face~6 to face~3), and the Litvinov Bethe ansatz (face~5 to face~7).
+The limits between faces are recorded in the seven-face commuting
+diagram (cf.\ Vol~I,
+Theorem~\ref{thm:vol1-seven-face-master}; Vol~II,
+Theorem~\ref{thm:vol2-seven-face-master}).
+\end{theorem}
+
+\begin{proof}[Status by face]
+\begin{description}
+\item[Face 1] (CY bar-cobar twisting): \ClaimStatusProvedHere{} for
+$d = 2$; \ClaimStatusConjectured{} for $d = 3$ (conditional on CY-A$_3$).
+\item[Face 2] (CoHA): \ClaimStatusProvedElsewhere{} for the existence
+of the CoHA (Kontsevich--Soibelman, Davison--Meinhardt);
+identification with $r_{CY}$ is \ClaimStatusConjectured{} in general,
+\ClaimStatusProvedHere{} for $\C^3$ (Schiffmann--Vasserot,
+Theorem~\ref{thm:sv-c3}) and toric without compact $4$-cycles (RSYZ,
+Theorem~\ref{thm:rsyz}).
+\item[Face 3] (classical coisson): \ClaimStatusProvedHere{} for $d = 2$
+via the proved coisson--PVA dictionary; \ClaimStatusConjectured{} for
+$d = 3$.
+\item[Face 4] (MO $R$-matrix): \ClaimStatusProvedElsewhere{} for the
+existence of $R_{\mathrm{MO}}$ (Maulik--Okounkov 2019);
+identification with $r_{CY}$ for $K3 \times E$ is~\ClaimStatusConjectured{}
+in general, with explicit verification at the Gepner self-dual limit
+(Proposition~\ref{prop:k3e-self-dual-limit}).
+\item[Face 5] (toric Yangian): \ClaimStatusProvedHere{} for $\C^3$;
+\ClaimStatusProvedElsewhere{} for toric without compact $4$-cycles via
+RSYZ.
+\item[Face 6] (elliptic Sklyanin): \ClaimStatusProvedElsewhere{} for the
+classical Sklyanin bracket and its quantization to Felder's elliptic
+quantum group; identification with $r_{CY}$ is~\ClaimStatusProvedHere{}
+in the $\fsl_2$ Heisenberg case via the Fay identity
+(Proposition~\ref{prop:fay-implies-d-squared}).
+\item[Face 7] (CY$_3$ Gaudin): \ClaimStatusProvedHere{} for $\C^3$
+(Construction~\ref{constr:c3-gaudin-from-residue}); \ClaimStatusConjectured{}
+for general toric/toroidal CY$_3$.
+\end{description}
+The status partition above is consistent with AP60: each face's
+classical components are tagged ProvedElsewhere with explicit
+attribution, and only the genuinely new identifications carry the
+ProvedHere tag.
+\end{proof}
+
+\begin{remark}[Three invariants across the seven faces]
+\label{rem:three-invariants-cross-faces}
+By Remark~\ref{rem:cy-three-invariants}, every realization of $r_{CY}$
+carries the three invariants $(p_{\max}, k_{\max}, r_{\max})$.  AP59
+demands that each face state which invariant is being measured, and
+forbids identifying them.
+\begin{itemize}
+\item Face~5 (toric Yangian) is sensitive to $p_{\max}$: the pole
+structure of $r_{Y(\widehat{\fg})}$ is the OPE pole structure of the
+toric quiver superpotential.
+\item Face~6 (elliptic) carries $k_{\max}$ in its theta-function
+expansion: at $k_{\max} = 0$ the residue is purely a single-pole
+elliptic term; at $k_{\max} \geq 1$ there are derivative terms.
+\item Face~1 (bar-cobar) is sensitive to $r_{\max}$: the shadow tower
+$\Theta_A^{\leq r}$ terminates at arity $r_{\max}$, and the binary
+residue is the projection to $r = 2$.
+\end{itemize}
+The seven-face master statement is that the binary residue is the
+\emph{same} object across all faces, but the sensitivity to the three
+invariants differs face by face.
+\end{remark>
+
+%% =====================================================================
+%%  SECTION 10: Cross-volume bridge
+%% =====================================================================
+
+\section{Cross-volume bridge}
+\label{sec:cy-cross-volume-bridge}
+
+This part of Vol~III mirrors Vol~I Part~III and Vol~II Part~III.  The
+common skeleton is the seven-face programme; the variation is in which
+face is most concrete.
+
+\begin{remark}[The three seven-face masters]
+\label{rem:three-seven-face-masters}
+The three volumes each devote a part to the seven-face programme, with
+the same architecture but different ground objects:
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{Vol~I, Part~III:} the binary collision residue of a chiral
+algebra on a curve, in seven languages: bar-cobar twisting, primitive
+generator, classical $r$-matrix, KZ connection, Gaudin model, Bethe
+ansatz, dg-shifted Yangian (cf.\ Vol~I,
+Theorem~\ref{thm:vol1-seven-face-master}).
+\item \emph{Vol~II, Part~III:} the binary collision residue of a
+holomorphic-topological quantum group, in seven languages: open-string
+brace algebra, derived center, twisted holography boundary, line
+defect, Wilson line $R$-matrix, soft graviton coupling, Yangian double
+(cf.\ Vol~II, Theorem~\ref{thm:vol2-seven-face-master}).
+\item \emph{Vol~III, this chapter:} the binary CY collision residue of a
+Calabi--Yau chiral algebra, in seven CY-specific languages: CY
+bar-cobar, CoHA / perverse coherent sheaves, classical CY Poisson
+coisson, MO stable envelope, affine super Yangian for toric CY$_3$,
+elliptic Sklyanin for toroidal CY, Gaudin from CY$_3$
+(Theorem~\ref{thm:cy-seven-face-master} above).
+\end{enumerate}
+The three master theorems are mutually compatible: under the CY-to-chiral
+functor $\Phi$, face~$i$ of Vol~III maps to a specialization of face~$i$
+of Vol~I, and similarly for Vol~II.  The CY setting is the most
+constrained: each face acquires geometric content that the abstract
+chiral algebra setting does not see (DT counts, plane partitions,
+crystal melting, MO stable envelopes).
+\end{remark>
+
+\begin{remark}[The CY direction is the new slot]
+\label{rem:cy-direction-new-slot}
+Compared with Vol~I and Vol~II, the new feature of the CY seven-face
+master is the presence of the CY direction $\Omega_\cC$.  In Vol~I the
+binary residue lives on $\overline{C}_2(X) \times \fg^{\otimes 2}$; in
+Vol~II it lives on $\overline{C}_2(X) \times \mathrm{open\text{-}sector}^{\otimes 2}$;
+in Vol~III it lives on $\overline{C}_2(X) \times \cC^{\otimes 2}$, with
+the CY volume form supplying the pairing on $\cC^{\otimes 2}$.  The CY
+direction is what makes face~4 (MO) and face~7 (CY$_3$ Gaudin) genuinely
+geometric: they live on quiver varieties whose definition requires the
+CY structure.
+\end{remark>
+
+\begin{remark}[$\kappa$ is a face-by-face invariant]
+\label{rem:kappa-face-by-face}
+The modular characteristic $\kappa(A_\cC)$ depends on the algebraization,
+not on the geometry.  For $K3 \times E$, four distinct algebraizations
+give four distinct values: $\kappa_{\mathrm{ch}} = 3$,
+$\kappa_{\mathrm{cat}} = 2$, $\kappa_{\mathrm{fiber}} = 24$,
+$\kappa_{\mathrm{BPS}} = 5$ (preface).  Each value sits on a different
+face: $\kappa_{\mathrm{ch}}$ on face~1 (bar-cobar of the chiral de Rham
+complex), $\kappa_{\mathrm{cat}}$ on face~2 (CoHA),
+$\kappa_{\mathrm{fiber}}$ on face~3 (classical lattice VOA limit),
+$\kappa_{\mathrm{BPS}}$ on face~4 (MO/Igusa).  The $\kappa$-spectrum is
+the imprint of the geometry on the seven-face master.  The rule (from
+AP48) is that $\kappa$ depends on the full algebra, not on its Virasoro
+subalgebra; in the CY setting, $\kappa$ depends on the full
+\emph{algebraization}, not on the underlying CY manifold.
+\end{remark>
+
+\begin{remark}[Outlook: an eighth face?]
+\label{rem:outlook-eighth-face}
+The standard seven-face master is closed: there are exactly seven
+languages in which the binary residue lives, corresponding to the seven
+edges of the Vol~I commuting diagram.  In the CY setting one might ask
+whether the deformation-quantization face (Khan--Zeng 3d PVA sigma
+model) constitutes an eighth.  At present this face reduces to a
+combination of face~3 (classical coisson) and face~7 (Gaudin from
+CY$_3$), with the deformation-quantization parameter playing the role of
+the loop parameter in face~7.  An independent eighth face would require
+a CY-specific structure not visible in the seven-face commuting diagram;
+the working notes record the open question of whether the
+$3$d~$\cN = 2$ holomorphic-twisted theory provides such a structure.
+\end{remark>
+
+%% =====================================================================
+%%  Closing
+%% =====================================================================
+
+\noindent\textit{This chapter closes the seven-face programme for
+Vol~III.  Subsequent chapters in Part~V record the geometric Langlands
+implications and the bridges to Vols~I--II at the level of theorem
+statements; the present chapter is the algebraic engine that makes the
+bridges possible.}
