@@ -127,6 +127,10 @@ All anti-patterns AP1-AP43 from Vol I CLAUDE.md apply here. The following are th
 - **AP-CY7**: CoHA ≠ E₁-chiral algebra. The critical CoHA (Schiffmann-Vasserot, RSYZ) is an associative algebra; calling it "the E₁-sector of G(X)" assumes G(X) exists and has a CoHA inside it. The correct statement: "the CoHA is the target that the E₁-sector of G(X) should match, IF G(X) exists."
 - **AP-CY8**: Borcherds denominator identity ≠ bar Euler product. The identification requires the CY-to-chiral functor to exist in the relevant dimension. For K3 × E (d=3), Δ₅ is computed from the lattice, not from a chiral algebra (which doesn't exist yet). The "bar Euler product" interpretation is an OBSERVATION about the product formula, not a theorem derived from the bar complex.
 
+## Agent Anti-Patterns (AAP1-AAP8)
+
+Cross-volume agent workflow anti-patterns from 300-commit archaeology. See Vol I CLAUDE.md for full descriptions. Summary: AAP1 (tool-markup leak), AAP2 (fragmented renames), AAP3 (formula duplication in compute), AAP4 (proof after conjecture), AAP5 (artifact commit noise), AAP6 (status oscillation), AAP7 (intra-file inconsistency), AAP8 (README drift).
+
 ## Build
 
 ```
