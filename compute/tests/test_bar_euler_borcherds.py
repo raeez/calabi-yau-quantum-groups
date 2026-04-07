@@ -658,10 +658,12 @@ class TestMultiPathCrossChecks:
         inv = eta_power_coefficients(-8, N)
         pl = plethystic_logarithm(inv, N)
         path_c_ok = all(pl.get(n, 0) == 8 for n in range(1, N + 1))
-        # Path (d): E_4 * eta^8 at q^1 should give 248 + E_4[1] = 240+8 = 248
-        # (since eta^8 starts 1-8q+..., E_4 starts 1+240q+...)
+        # Path (d): E_4 / eta^8 at q^1 should give dim(E_8) = 248.
+        # ch(V_{E_8}) = E_4(q) / eta(q)^8 = E_4 * (1/prod(1-q^n)^8).
+        # At q^1: E_4[0]*inv[1] + E_4[1]*inv[0] = 1*8 + 240*1 = 248.
         e4 = e4_coefficients(N)
-        char_1 = sum(e4.get(k, 0) * path_b.get(1 - k, 0) for k in range(2))
+        inv8 = eta_power_coefficients(-8, N)
+        char_1 = sum(e4.get(k, 0) * inv8.get(1 - k, 0) for k in range(2))
         path_d_ok = (char_1 == 248)
 
         # All paths must agree
