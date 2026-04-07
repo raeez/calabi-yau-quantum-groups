@@ -193,48 +193,41 @@ def plethystic_logarithm(char_coeffs: Dict[int, int], max_degree: int) -> Dict[i
     if char_coeffs.get(0, 0) != 1:
         raise ValueError("Plethystic log requires f(0) = 1")
 
-    # Method: if f = prod (1-q^n)^{-mu_n}, then
-    # -q d/dq log f = sum_n mu_n * n * q^n / (1 - q^n)
-    # So log f = -sum_n mu_n * sum_{k>=1} q^{nk}/k
+    # Derivation: f = prod (1-q^n)^{-mu_n}, so
+    # log f = -sum_n mu_n * log(1-q^n) = sum_n mu_n * sum_{k>=1} q^{nk}/k
+    # (the two minus signs cancel: -mu_n * (-1/k) = +mu_n/k).
+    #
+    # Hence: b[m] = (coeff of q^m in log f) = sum_{n|m} mu_n / (m/n).
 
-    # Compute log f coefficients: log_coeffs[n] = log(f)_n via recursion
-    # f = 1 + a_1 q + a_2 q^2 + ...
-    # log f = b_1 q + b_2 q^2 + ...
-    # n * b_n = n * a_n - sum_{k=1}^{n-1} k * b_k * a_{n-k}
+    # Compute log f coefficients via the standard recursion.
+    # If f = 1 + a_1 q + a_2 q^2 + ... and log f = b_1 q + b_2 q^2 + ...,
+    # then f' = b' * f gives the recursion:
+    #   n * a_n = sum_{k=1}^{n} k * b_k * a_{n-k}    (with a_0 = 1)
+    # Solving for b_n:
+    #   n * b_n = n * a_n - sum_{k=1}^{n-1} k * b_k * a_{n-k}
     a = {n: char_coeffs.get(n, 0) for n in range(max_degree + 1)}
     b: Dict[int, Fraction] = {}
 
     for n in range(1, max_degree + 1):
-        s = Fraction(a.get(n, 0))
+        s = Fraction(n) * Fraction(a.get(n, 0))
         for k in range(1, n):
             s -= Fraction(k) * b.get(k, Fraction(0)) * Fraction(a.get(n - k, 0))
         b[n] = s / Fraction(n)
 
-    # Now extract mu_n from: b[n] = -sum_{d|n, d<n} mu_{n/d} * (1/d)  ... no.
-    # Actually: log f = -sum_n mu_n * sum_{k>=1} q^{nk}/k
-    # So b[m] = -sum_{n|m} mu_n * (1/(m/n)) = -sum_{n|m} mu_n * n/m
-    # Hence: m * b[m] = -sum_{n|m} mu_n * n
-    # Mobius inversion: mu_n * n = -sum_{d|n} mobius(n/d) * d * b[d]
-    # So mu_n = -(1/n) sum_{d|n} mobius(n/d) * d * b[d]
-
-    # Simpler: iterative extraction
+    # Extract mu_n iteratively from: b[m] = sum_{n|m} mu_n / (m/n).
+    # At each step, remaining_b[n] has had the contributions from all
+    # mu[d] with d < n already subtracted. The residual equals mu[n]/1
+    # (the k=1 term in the sum over k for the n-th factor).
     mu: Dict[int, int] = {}
     remaining_b = {n: b.get(n, Fraction(0)) for n in range(1, max_degree + 1)}
 
     for n in range(1, max_degree + 1):
-        # remaining_b[n] should equal -mu[n] * 1/1 - mu[n/2] * 1/2 - ...
-        # But we've already subtracted contributions from mu[d] for d < n.
-        # So remaining_b[n] = -mu[n] / 1 (the k=1 term in the sum)
-        # Actually: remaining_b[m] accounts for -mu[n] * 1/(m/n) for n|m.
-        # At this point, all mu[d] for d < n have been determined and
-        # their contributions subtracted.
         val = remaining_b.get(n, Fraction(0))
-        mu_n = -val  # from the k=1 contribution of mu[n]
+        mu_n = val  # remaining_b[n] = mu[n] (after prior subtractions)
 
-        # mu_n should be an integer
+        # mu_n should be an integer for lattice VOA / BKM multiplicities
         mu_n_int = int(round(float(mu_n)))
         if abs(float(mu_n) - mu_n_int) > 1e-10:
-            # For safety, keep as-is if not close to integer
             mu_n_int = int(mu_n)
         mu[n] = mu_n_int
 
@@ -242,7 +235,7 @@ def plethystic_logarithm(char_coeffs: Dict[int, int], max_degree: int) -> Dict[i
         for k in range(2, max_degree // n + 1):
             nk = n * k
             if nk <= max_degree:
-                remaining_b[nk] = remaining_b.get(nk, Fraction(0)) + Fraction(mu_n_int, k)
+                remaining_b[nk] = remaining_b.get(nk, Fraction(0)) - Fraction(mu_n_int, k)
 
     return mu
 

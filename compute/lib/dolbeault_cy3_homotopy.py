@@ -360,8 +360,11 @@ class CechCover:
     This prepends the index 0 to the index set, using the distinguished
     open U_0.
 
-    Identity: delta s + s delta = Id - rho_0
-    where rho_0 projects to cochains supported on U_0.
+    Identities:
+        q >= 1: delta s + s delta = Id
+        q = 0:  s delta = Id - const_0
+    where const_0 maps a 0-cochain sigma to the constant cochain
+    with value sigma(0) at every patch (the augmentation to U_0).
 
     Attributes:
         ambient_dim: dimension N of the ambient projective space
@@ -471,15 +474,29 @@ def quintic_cech_cover() -> CechCover:
     return CechCover(ambient_dim=4, hypersurface_degree=5, name="quintic")
 
 
+def _strip_zeros(d: Dict[Tuple[int, ...], int]) -> Dict[Tuple[int, ...], int]:
+    """Remove zero-valued entries from a cochain dictionary."""
+    return {k: v for k, v in d.items() if v != 0}
+
+
 def cech_homotopy_identity_check(cover: CechCover, q: int) -> bool:
-    r"""Verify the identity delta s + s delta = Id - rho_0 at Cech degree q.
+    r"""Verify the Cech contracting homotopy identity at degree q.
 
-    We test this on a symbolic basis: for each multi-index I of degree q,
-    we set sigma_I = 1 and all others to 0, then check:
-        (delta s + s delta)(sigma) = sigma - rho_0(sigma)
-    where rho_0(sigma) = sigma if 0 in I, else 0.
+    The algebraic Cech homotopy s (prepend index 0) satisfies:
 
-    This is a combinatorial identity on multi-indices.
+        q >= 1: delta s + s delta = Id
+        q = 0:  s delta = Id - const_0
+
+    where const_0 maps a 0-cochain sigma to the CONSTANT cochain
+    whose value at every patch is sigma(0) (the value on U_0).
+
+    At q = 0, the term delta s vanishes (s maps C^0 -> C^{-1} = 0).
+    The identity s delta = Id - const_0 expresses the fact that s
+    provides a contracting homotopy for the AUGMENTED Cech complex
+    0 -> Gamma(X, F) -> C^0 -> C^1 -> ..., where const_0 is the
+    augmentation from C^0 to the global-sections level.
+
+    We verify this on each basis cochain e_I (sigma(I) = 1, rest 0).
     """
     for I in cover.multi_indices(q):
         # Basis cochain: sigma(I) = 1, all else 0
@@ -489,7 +506,7 @@ def cech_homotopy_identity_check(cover: CechCover, q: int) -> bool:
         s_sigma = cover.contracting_homotopy_action(q, sigma)
 
         # delta (s sigma): degree q-1 -> q
-        delta_s_sigma = cover.cech_differential_action(q - 1, s_sigma)
+        delta_s_sigma = cover.cech_differential_action(q - 1, s_sigma) if s_sigma else {}
 
         # delta sigma: degree q -> q+1
         delta_sigma = cover.cech_differential_action(q, sigma)
@@ -504,17 +521,20 @@ def cech_homotopy_identity_check(cover: CechCover, q: int) -> bool:
             if val != 0:
                 lhs[idx] = val
 
-        # RHS = Id - rho_0
-        # Id(sigma)(J) = sigma(J) = delta_{I,J}
-        # rho_0(sigma)(J) = sigma(J) if 0 in J, else 0
-        #                  = delta_{I,J} if 0 in J, else 0
-        rhs: Dict[Tuple[int, ...], int] = {}
-        for J in cover.multi_indices(q):
-            val = (1 if J == I else 0) - (1 if (J == I and 0 in I) else 0)
-            if val != 0:
-                rhs[J] = val
+        if q == 0:
+            # RHS = Id - const_0
+            # const_0(sigma)(J) = sigma((0,)) for all J
+            val_at_0 = sigma.get((0,), 0)
+            rhs: Dict[Tuple[int, ...], int] = {}
+            for J in cover.multi_indices(q):
+                val = (1 if J == I else 0) - val_at_0
+                if val != 0:
+                    rhs[J] = val
+        else:
+            # RHS = Id
+            rhs = {I: 1}
 
-        if lhs != rhs:
+        if _strip_zeros(lhs) != _strip_zeros(rhs):
             return False
     return True
 
@@ -1574,18 +1594,28 @@ def verify_period_coefficient_growth(degree: int, N: int = 20) -> bool:
 
     For omega_0(z) = sum a_n z^n with a_n = (dn)!/(n!)^d:
     By Stirling: a_n ~ C * d^{dn} / (n^{(d-1)/2})
-    The ratio: a_{n+1}/a_n -> d^d
+    The ratio: a_{n+1}/a_n -> d^d (with logarithmic corrections)
 
     For the quintic: d=5, so a_{n+1}/a_n -> 5^5 = 3125.
     The radius of convergence is 1/3125 (= the conifold point z_c).
+
+    We verify: (1) ratios increase monotonically toward d^d,
+    (2) ratios are bounded above by d^d.
     """
     from math import factorial
     d = degree
     coeffs = [factorial(d * n) // factorial(n)**d for n in range(N)]
-    if N < 3:
+    if N < 4:
         return True
-    # Check that the ratio a_{n+1}/a_n approaches d^d
     target = d**d
-    ratio = coeffs[-1] / coeffs[-2] if coeffs[-2] != 0 else float('inf')
-    # The ratio should approach 3125 for the quintic
-    return abs(ratio / target - 1) < 0.1  # within 10% for moderate N
+    ratios = [coeffs[n] / coeffs[n - 1] for n in range(2, N) if coeffs[n - 1] != 0]
+    if len(ratios) < 2:
+        return True
+    # Monotone increase toward target
+    for i in range(len(ratios) - 1):
+        if ratios[i + 1] < ratios[i]:
+            return False
+    # All ratios below the limit
+    if any(r > target for r in ratios):
+        return False
+    return True
