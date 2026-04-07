@@ -433,14 +433,14 @@ class KappaQuintic(NamedTuple):
     r"""Four kappa values for the quintic from four different perspectives.
 
     These measure FOUR DIFFERENT algebraic objects:
-      kappa_BCOV:    chi/24 (holomorphic anomaly genus-1 coefficient)
+      kappa_BCOV:    -chi/24 (holomorphic anomaly genus-1 coefficient; B-model sign)
       kappa_MacMahon: chi/2 (degree-0 DT/GW partition function exponent)
       kappa_Gepner:  c_{N=2}/6 (N=2 superconformal algebra at the Gepner point)
       kappa_MF:      mu/2 (categorical trace on HH^*(MF(W)))
 
     AP48 WARNING: kappa depends on the FULL algebra, not just the topology.
     """
-    kappa_bcov: Fraction        # chi/24 = -25/3
+    kappa_bcov: Fraction        # -chi/24 = 25/3 (B-model: F_1 = -(chi/24)*lambda_1)
     kappa_macmahon: Fraction    # chi/2 = -100
     kappa_gepner: Fraction      # c/6 = 3/2
     kappa_mf: Fraction          # mu/2 = 512
@@ -450,12 +450,15 @@ class KappaQuintic(NamedTuple):
 def kappa_quintic() -> KappaQuintic:
     r"""Compute all four kappa values for the quintic.
 
-    Path 1 (BCOV): kappa = chi/24.
-      The genus-1 BCOV free energy: F_1 = -(chi/24)*log(det(Im tau))
-      + holomorphic + anti-holomorphic pieces.
+    Path 1 (BCOV): kappa_BCOV = chi/24.
       For the quintic: kappa_BCOV = -200/24 = -25/3.
       This is NOT an integer. It is the constant-map contribution
       to the genus-1 topological string amplitude.
+      NOTE: this codebase uses the convention kappa_BCOV = chi/24
+      (preserving the Euler characteristic sign). The B-model shadow
+      tower convention is F_1 = -(chi/24)*lambda_1, so the shadow
+      tower kappa would be -chi/24 = +25/3. See kappa_bcov_derivation()
+      for the sign analysis.
 
     Path 2 (MacMahon): kappa = chi/2.
       The degree-0 DT partition function:
@@ -483,7 +486,7 @@ def kappa_quintic() -> KappaQuintic:
       This is the constant-map contribution to F_g = kappa * a_hat_g.
     """
     return KappaQuintic(
-        kappa_bcov=F(CHI, 24),          # = -25/3
+        kappa_bcov=F(CHI, 24),          # = -200/24 = -25/3
         kappa_macmahon=F(CHI, 2),       # = -100
         kappa_gepner=F(9, 6),           # = 3/2
         kappa_mf=F(4**5, 2),            # = 512
@@ -492,7 +495,7 @@ def kappa_quintic() -> KappaQuintic:
 
 
 def kappa_bcov_derivation() -> Dict[str, Any]:
-    r"""Derive kappa_BCOV = chi/24 from the BCOV holomorphic anomaly.
+    r"""Derive kappa_BCOV = -chi/24 from the BCOV holomorphic anomaly.
 
     The genus-1 BCOV free energy on M_{1,1}:
       F_1 = (1/2) * (3 + h^{2,1} - chi/12) * log |f_1|^2
