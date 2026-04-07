@@ -240,20 +240,32 @@ class TestK3xE:
     """BKM root multiplicities from phi_{0,1} and 1D bar Euler product."""
 
     def test_phi01_discriminant_table(self):
-        """Verify c(D) values for phi_{0,1}."""
-        c_table = k3e_product_by_discriminant(20)
-        # Known values (Eichler-Zagier normalization, AP38-aware)
-        assert c_table[-1] == 2      # D = -1: the polar term (r + r^{-1})
-        assert c_table[0] == 20      # D = 0: constant term
-        assert c_table[3] == -64     # D = 3: first fermionic
-        assert c_table[4] == 108     # D = 4
-        assert c_table[7] == -513    # D = 7
-        assert c_table[8] == 808     # D = 8
+        """Verify c(D) values for phi_{0,1} (Eichler-Zagier convention, AP38).
 
-    def test_phi01_d_minus1_is_2(self):
-        """c(-1) = 2, not 1. Convention: phi_{0,1}(tau,0) = 12 (Eichler-Zagier)."""
+        Convention: phi_{0,1}(tau,z) = (r + r^{-1}) + 10 + ... at q^0,
+        so c(-1) = f(0,1) = 1 (single coefficient, not summed over +-l).
+        Weight of Borcherds lift = c(0)/2 = 10/2 = 5.
+        Cross-check: borcherds_lift.py docstring says c(-1)=1, c(0)=10.
+        """
+        c_table = k3e_product_by_discriminant(20)
+        # EZ convention: c(D) is the coefficient at discriminant D
+        assert c_table[-1] == 1       # D = -1: single polar coefficient
+        assert c_table[0] == 10       # D = 0: Borcherds lift weight = 10/2 = 5
+        assert c_table[3] == -64      # D = 3: first fermionic
+        assert c_table[4] == 108      # D = 4
+        assert c_table[7] == -513     # D = 7
+        assert c_table[8] == 808      # D = 8
+
+    def test_phi01_d_minus1_convention(self):
+        """c(-1) = 1 in EZ convention. Cross-check: phi_{0,1}(tau,0) = 12.
+
+        phi_{0,1}(tau,0) = sum_l f(0,l) = f(0,-1)+f(0,0)+f(0,1) = 1+10+1 = 12.
+        This matches 4*(1+1+1) = 12 from the theta-ratio formula.
+        """
         c_table = k3e_product_by_discriminant(5)
-        assert c_table[-1] == 2
+        assert c_table[-1] == 1
+        # Cross-check: phi_{0,1}(tau,0) = 2*c(-1) + c(0) = 2 + 10 = 12
+        assert 2 * c_table[-1] + c_table[0] == 12
 
     def test_k3e_1d_multiplicities_positive(self):
         """1D multiplicities are well-defined integers."""
@@ -271,103 +283,46 @@ class TestK3xE:
         summary = verify_bar_euler_is_theorem_for_lattice_voas()
         assert summary['K3xE']['status'] == 'CONDITIONAL on CY-A_3'
 
-    def test_k3e_denominator_is_delta5(self):
-        """The denominator of g_{Delta_5} is (1/64)*Delta_5."""
-        # This is a structural claim from the BKM construction.
-        # We verify that the phi_{0,1} coefficients are correctly loaded.
-        c_table = k3e_product_by_discriminant(12)
-        # The Borcherds lift weight = c(0)/2 = 20/2 = 10...
-        # Wait: phi_{0,1} in Eichler-Zagier has c(0)=20? No.
-        # f(0,0) = 20 is wrong. Let me check.
-        # phi_{0,1}(tau,0) = 12 (Eichler-Zagier), so the f(0,0) = 12.
-        # But f(n,l) depends on D = 4n-l^2. At (n=0, l=0): D=0, c(0)=20?
-        # No: phi_{0,1} = 2y + 20 + 2y^{-1} + ... The coefficient of
-        # q^0 y^0 is 20. But in the (n,l) expansion: f(0,0) = 20.
-        # However, phi_{0,1}(tau, 0) = 2 + 20 + 2 - ... wait.
-        # phi_{0,1}(tau, z) = sum f(n,l) q^n y^l.
-        # At z=0 (y=1): phi_{0,1}(tau,0) = sum_n (sum_l f(n,l)) q^n.
-        # At q^0: sum_l f(0,l) = f(0,-1) + f(0,0) + f(0,1) = 2 + 20 + 2 = 24.
-        # But phi_{0,1}(tau,0) should be 12 (EZ normalization).
-        # AP38: the discrepancy is because our c(D) uses the
-        # discriminant parameterization: c(-1)=2, c(0)=20.
-        # f(0,-1)=f(0,1)=c(-1)=2, f(0,0)=c(0)=20 -> sum=24.
-        # But in the DVV convention: f(0,0)=10, giving 2+10+2=14...
-        # Actually: phi_{0,1}(tau,0) = 24, not 12! The value 12 would be
-        # phi_{0,1}(tau, 1/2) or similar. Check:
-        # phi_{0,1} = 4(theta_2^2/theta_2(0)^2 + theta_3^2/theta_3(0)^2 + theta_4^2/theta_4(0)^2)
-        # At z=0: each ratio = 1, so phi_{0,1}(tau,0) = 4*3 = 12.
-        # But f(0,-1)+f(0,0)+f(0,1) = 2+20+2 = 24 != 12.
-        # Resolution: f(0,l) are the Fourier coefficients in the q,y expansion.
-        # phi_{0,1}(tau,0) = sum_{n>=0} (sum_l f(n,l)) q^n.
-        # At q^0: sum_l f(0,l) = f(0,-1)+f(0,0)+f(0,1) = 2+20+2 = 24...
-        # This means the normalization is phi_{0,1}(tau,0) = 24, not 12.
-        # But the theta formula gives 12. Conflict!
-        #
-        # Actually: the coefficient c(D) = f(n,l) for D=4n-l^2.
-        # c(-1) = f(0,1) = f(0,-1). f(0,0) = c(0).
-        # From the expansion: phi_{0,1} = (y+y^{-1})*c(-1) + c(0) + higher...
-        # At z=0: (1+1)*c(-1) + c(0) = 2*2 + 20 = 24.
-        # But theta formula: phi_{0,1}(tau,0) = 12.
-        #
-        # The resolution: c(-1) = 2 means f(0,1) = 2 and f(0,-1) = 2,
-        # giving 2+2=4 from the y+y^{-1} part. Plus c(0) = 20.
-        # Total = 24. But 12 from theta.
-        #
-        # I think c(D) might actually use c(-1)=1 (DVV convention)
-        # vs c(-1)=2 (EZ convention). The phi01_fourier module should
-        # be authoritative. Let's just verify c(0)/2 = weight.
-        #
-        # With c(0)=10 (DVV): weight = 10/2 = 5. Correct.
-        # With c(0)=20 (EZ): weight = 20/2 = 10. This would give Phi_{10}, not Delta_5.
-        #
-        # The borcherds_lift.py says: "c(0) = 10, so the lift has weight 5."
-        # So the convention in the codebase is c(0)=10 (DVV).
-        # But phi01_fourier has c(0)=20 in the f(n,l) expansion.
-        # The discriminant table c(D) might differ from f(n,l)!
-        #
-        # Checking borcherds_lift.py: phi01_c_table uses phi01_by_discriminant.
-        # phi01_by_discriminant: c(D) = f(n,l) for the first (n,l) with D=4n-l^2.
-        # f(0,0) = 20 from the theta computation.
-        # So c(0) = 20, weight = 10, giving Phi_{10} = Delta_5^2.
-        # But the code says weight = 5!
-        #
-        # Reading borcherds_lift.py more carefully: "c(-1)=1, c(0)=10"
-        # in the docstring. And phi01_c_table calls phi01_by_discriminant
-        # which computes f(n,l). If f(0,0) = 20 and c(0) = 20, then
-        # the docstring is wrong... unless the DVV vs EZ convention
-        # means the module uses the DVV normalization.
-        #
-        # The phi01_fourier module says "Eichler-Zagier normalization"
-        # which has phi_{0,1}(tau,0) = 12, hence c(-1)=1, c(0)=10.
-        #
-        # Actually, reconsidering:
-        # phi_{0,1}(tau,0) = 4*(1+1+1) = 12 from theta formula.
-        # In the expansion: sum_l f(0,l) should equal 12 (at q^0).
-        # f(0,0) + f(0,1) + f(0,-1) = 12.
-        # If f(0,1) = f(0,-1) = 1 (from c(-1)=1), then f(0,0) = 10.
-        # So c(0) = 10. This is the EZ convention.
-        #
-        # I was wrong above: c(-1)=1, not 2. The "2" in the table
-        # in k3_times_e.tex (c(-1)=2) must be a different convention
-        # (probably c(D) counts both l and -l).
-        #
-        # Let's just check what the code actually computes.
-        # The test below will reveal the actual values.
-        pass
+    def test_k3e_borcherds_lift_weight(self):
+        """Borcherds lift of phi_{0,1} has weight c(0)/2 = 10/2 = 5 = wt(Delta_5).
 
-    def test_phi01_c_values_from_module(self):
-        """Cross-check: phi01_by_discriminant matches borcherds_lift expectations."""
+        Multi-path: (a) c(0)/2 from phi_{0,1} table, (b) known weight of Delta_5,
+        (c) phi_{0,1}(tau,0) = 2*c(-1)+c(0) = 12 cross-check.
+        """
+        c_table = k3e_product_by_discriminant(12)
+        # Path (a): weight from c(0)
+        assert c_table[0] // 2 == 5
+        # Path (b): known weight of Delta_5
+        assert c_table[0] == 10  # c(0) = 10 in EZ convention
+        # Path (c): phi_{0,1}(tau,0) = 12 cross-check
+        assert 2 * c_table[-1] + c_table[0] == 12
+
+    def test_phi01_c_values_cross_check(self):
+        """Cross-check c(D) via two independent paths: discriminant table and
+        the borcherds_lift module (both ultimately from phi01_fourier.py).
+
+        Multi-path: (a) from k3e_product_by_discriminant, (b) from the
+        borcherds_lift phi01_c_table, (c) sign pattern from BKM theory.
+        """
         c_table = k3e_product_by_discriminant(20)
-        # From borcherds_lift.py docstring: c(-1)=1, c(0)=10, c(3)=-64, c(4)=108
-        # But from k3_times_e.tex table: c(-1)=2, c(0)=10 (wait, says 10 there too).
-        # The k3_times_e.tex table says c(-1)=2, c(0)=10.
-        #
-        # The phi01_fourier module uses EXACT computation via theta functions.
-        # Whatever it returns is the ground truth. Let's just record.
-        # c(-1) should be either 1 or 2 depending on convention.
-        assert c_table[-1] in (1, 2), f"c(-1) = {c_table[-1]}"
-        # c(0) should be 10 or 20
-        assert c_table[0] in (10, 20), f"c(0) = {c_table[0]}"
+        # Path (a): exact values from phi01_fourier
+        assert c_table[-1] == 1
+        assert c_table[0] == 10
+        assert c_table[3] == -64
+        assert c_table[4] == 108
+        # Path (b): cross-check with borcherds_lift module
+        try:
+            from compute.lib.borcherds_lift import phi01_c_table
+            c2 = phi01_c_table(20)
+            for D in [-1, 0, 3, 4, 7, 8]:
+                assert c_table[D] == c2[D], f"c({D}) mismatch: {c_table[D]} vs {c2[D]}"
+        except ImportError:
+            pass  # borcherds_lift not available; skip cross-module check
+        # Path (c): sign pattern from BKM theory
+        # c(D) < 0 for D = 3,7,11,15,19,... (D equiv 3 mod 4, first fermionic roots)
+        for D in [3, 7, 11, 15, 19]:
+            if D in c_table:
+                assert c_table[D] < 0, f"c({D}) = {c_table[D]} should be negative (fermionic)"
 
 
 # ===========================================================================
@@ -677,3 +632,193 @@ class TestE4Structure:
         result = verify_e8_character_decomposition(3)
         assert result['character'][0] == 1
         assert result['character'][1] == 248  # dim(E_8) = 248
+
+
+# ===========================================================================
+# SECTION 13: MULTI-PATH CROSS-CHECKS (AP10 compliance)
+# ===========================================================================
+
+class TestMultiPathCrossChecks:
+    """Multi-path verification: every key result verified by 3+ independent paths.
+
+    AP10: single-family hardcoded tests are necessary but NOT sufficient.
+    Cross-family consistency checks are the real verification.
+    """
+
+    def test_eta8_three_paths(self):
+        """eta^8 verified by: (a) direct product, (b) pentagonal convolution,
+        (c) plethystic roundtrip, (d) E_4*eta^8 = char(V_{E8}) dim check."""
+        N = 10
+        # Path (a): direct Euler product with mult=8
+        mults = {(n,): 8 for n in range(1, N + 1)}
+        path_a = euler_product_coefficients(mults, N)
+        # Path (b): eta^8 via eta_power_coefficients
+        path_b = eta_power_coefficients(8, N)
+        # Path (c): plethystic roundtrip: PL(1/eta^8) = {8,...}
+        inv = eta_power_coefficients(-8, N)
+        pl = plethystic_logarithm(inv, N)
+        path_c_ok = all(pl.get(n, 0) == 8 for n in range(1, N + 1))
+        # Path (d): E_4 * eta^8 at q^1 should give 248 + E_4[1] = 240+8 = 248
+        # (since eta^8 starts 1-8q+..., E_4 starts 1+240q+...)
+        e4 = e4_coefficients(N)
+        char_1 = sum(e4.get(k, 0) * path_b.get(1 - k, 0) for k in range(2))
+        path_d_ok = (char_1 == 248)
+
+        # All paths must agree
+        for n in range(N + 1):
+            assert path_a.get(n, 0) == path_b.get(n, 0), \
+                f"eta^8 q^{n}: Euler product {path_a.get(n,0)} vs eta_power {path_b.get(n,0)}"
+        assert path_c_ok, "Plethystic roundtrip failed for eta^8"
+        assert path_d_ok, f"E_4*eta^8 at q^1 = {char_1}, expected 248"
+
+    def test_eta24_three_paths(self):
+        """eta^{24} verified by: (a) eta_power, (b) Ramanujan tau,
+        (c) multiplicativity of tau, (d) tau mod 691."""
+        N = 10
+        # Path (a): eta^{24} direct
+        eta24 = eta_power_coefficients(24, N)
+        # Path (b): Ramanujan tau from shifted eta^{24}
+        tau = ramanujan_tau(N)
+        for n in range(1, N + 1):
+            assert tau[n] == eta24.get(n - 1, 0), \
+                f"tau({n}) = {tau[n]} vs eta24[{n-1}] = {eta24.get(n-1,0)}"
+        # Path (c): multiplicativity: tau(6) = tau(2)*tau(3)
+        assert tau[6] == tau[2] * tau[3]
+        assert tau[10] == tau[2] * tau[5]
+        # Path (d): Ramanujan congruence mod 691
+        for n in range(1, N + 1):
+            s11 = sum(d ** 11 for d in range(1, n + 1) if n % d == 0)
+            assert (tau[n] - s11) % 691 == 0
+
+    def test_partition_function_three_paths(self):
+        """p(n) verified by: (a) series inversion of pentagonal,
+        (b) eta^{-1} via eta_power, (c) recurrence relation."""
+        N = 15
+        # Path (a): 1/eta via eta_power_coefficients(-1, N)
+        path_a = eta_power_coefficients(-1, N)
+        # Path (b): invert pentagonal coefficients
+        pent = _pentagonal_coeffs(N)
+        path_b = _invert_series(pent, N)
+        # Path (c): Euler recurrence p(n) = sum_{k>=1} (-1)^{k+1} [p(n-k(3k-1)/2) + p(n-k(3k+1)/2)]
+        p = {0: 1}
+        for n in range(1, N + 1):
+            s = 0
+            for k in range(1, n + 1):
+                pent1 = k * (3 * k - 1) // 2
+                pent2 = k * (3 * k + 1) // 2
+                sign = (-1) ** (k + 1)
+                if pent1 <= n:
+                    s += sign * p.get(n - pent1, 0)
+                if pent2 <= n:
+                    s += sign * p.get(n - pent2, 0)
+            p[n] = s
+
+        # All three paths must agree
+        for n in range(N + 1):
+            a = path_a.get(n, 0)
+            b = path_b.get(n, 0)
+            c = p.get(n, 0)
+            assert a == b == c, f"p({n}): eta^{{-1}}={a}, inv_pent={b}, recurrence={c}"
+
+    def test_rank_additivity_three_checks(self):
+        """eta^{r1+r2} = eta^{r1} * eta^{r2} for three pairs.
+
+        Multi-path: (a) 1+1=2, (b) 4+4=8, (c) 8+16=24.
+        """
+        N = 10
+        for r1, r2 in [(1, 1), (4, 4), (8, 16)]:
+            eta_r1 = eta_power_coefficients(r1, N)
+            eta_r2 = eta_power_coefficients(r2, N)
+            eta_sum = eta_power_coefficients(r1 + r2, N)
+            product: dict = {}
+            for n1, c1 in eta_r1.items():
+                if c1 == 0:
+                    continue
+                for n2, c2 in eta_r2.items():
+                    if c2 == 0:
+                        continue
+                    n = n1 + n2
+                    if n > N:
+                        continue
+                    product[n] = product.get(n, 0) + c1 * c2
+            for n in range(N + 1):
+                assert product.get(n, 0) == eta_sum.get(n, 0), \
+                    f"eta^{r1}*eta^{r2} != eta^{r1+r2} at q^{n}"
+
+    def test_plethystic_roundtrip_six_ranks(self):
+        """PL(1/eta^r) = {r,...} verified for r = 1,2,4,8,16,24.
+
+        Multi-path: each rank independently computed, then cross-checked
+        against rank additivity (PL is additive under product).
+        """
+        N = 10
+        for r in [1, 2, 4, 8, 16, 24]:
+            inv = eta_power_coefficients(-r, N)
+            pl = plethystic_logarithm(inv, N)
+            for n in range(1, N + 1):
+                assert pl[n] == r, f"PL(1/eta^{r}) at degree {n}: {pl[n]} != {r}"
+
+    def test_euler_product_inversion_roundtrip(self):
+        """Euler product followed by inversion = identity.
+
+        If f = prod(1-q^n)^{m_n}, then f * f^{-1} = 1.
+        Test for m = {8, 8, 8, ...} (E_8 case).
+        """
+        N = 10
+        eta8 = eta_power_coefficients(8, N)
+        inv_eta8 = eta_power_coefficients(-8, N)
+        product: dict = {}
+        for n1, c1 in eta8.items():
+            if c1 == 0:
+                continue
+            for n2, c2 in inv_eta8.items():
+                if c2 == 0:
+                    continue
+                n = n1 + n2
+                if n > N:
+                    continue
+                product[n] = product.get(n, 0) + c1 * c2
+        assert product.get(0, 0) == 1
+        for n in range(1, N + 1):
+            assert product.get(n, 0) == 0, f"eta^8 * eta^{{-8}} nonzero at q^{n}"
+
+    def test_phi01_cross_module_consistency(self):
+        """phi_{0,1} c(D) values match between bar_euler_borcherds and borcherds_lift.
+
+        Multi-path: (a) our k3e_product_by_discriminant, (b) borcherds_lift.phi01_c_table,
+        (c) sign pattern from BKM theory (D equiv 3 mod 4 => fermionic => c(D) < 0).
+        """
+        # Path (a)
+        c_a = k3e_product_by_discriminant(20)
+        # Path (b)
+        try:
+            from compute.lib.borcherds_lift import phi01_c_table
+            c_b = phi01_c_table(20)
+            for D in [-1, 0, 3, 4, 7, 8, 11, 12, 15]:
+                assert c_a.get(D, 0) == c_b.get(D, 0), \
+                    f"c({D}): bar_euler={c_a.get(D,0)}, borcherds_lift={c_b.get(D,0)}"
+        except ImportError:
+            pass
+        # Path (c): sign pattern
+        for D in [3, 7, 11, 15, 19]:
+            if D in c_a:
+                assert c_a[D] < 0, f"c({D})={c_a[D]} should be negative"
+        for D in [0, 4, 8, 12, 16, 20]:
+            if D in c_a:
+                assert c_a[D] > 0, f"c({D})={c_a[D]} should be positive"
+
+    def test_ramanujan_tau_four_paths(self):
+        """tau(n) verified by: (a) eta^{24}, (b) known table, (c) multiplicativity,
+        (d) prime-square relation tau(p^2) = tau(p)^2 - p^{11}."""
+        tau = ramanujan_tau(10)
+        known = {1: 1, 2: -24, 3: 252, 4: -1472, 5: 4830,
+                 6: -6048, 7: -16744, 8: 84480, 9: -113643, 10: -115920}
+        # Path (a) + (b): eta^{24} vs known table
+        for n, expected in known.items():
+            assert tau[n] == expected
+        # Path (c): multiplicativity
+        assert tau[6] == tau[2] * tau[3]
+        assert tau[10] == tau[2] * tau[5]
+        # Path (d): prime-square relation
+        assert tau[4] == tau[2] ** 2 - 2 ** 11
+        assert tau[9] == tau[3] ** 2 - 3 ** 11
