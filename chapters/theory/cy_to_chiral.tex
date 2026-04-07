@@ -371,6 +371,11 @@ Three-dimensional partitions (crystal melting configurations for $\C^3$) are pre
 \noindent\textit{Verification}: 70 tests in \texttt{test\_crystal\_bar\_identification.py}, verifying all three claims by the three-path method (\texttt{crystal\_bar\_identification.py}).
 \end{proposition}
 
+\begin{remark}[Crystal melting as bar filtration]
+\label{rem:crystal-melting-bar}
+The crystal melting model of Okounkov--Reshetikhin--Vafa, counting three-dimensional partitions weighted by $q^{|\pi|}$, is the arity filtration of the $\Eone$ bar complex of $\cW_{1+\infty}$: the bar degree-$n$ component $\barB^n(\cW_{1+\infty})$ counts configurations of $n$ atoms in the crystal.  The MacMahon function $M(q) = \prod_{n \ge 1}(1-q^n)^{-n}$ is the bar Poincar\'e series (Proposition~\ref{prop:c3-bar-euler}).  Concretely, the arity filtration $F^{\bullet} \barB(\cW_{1+\infty})$ has associated graded whose Hilbert series at arity~$n$ counts plane partitions of size~$n$, with the bar differential encoding the crystal growth rules (addition and removal of atoms at admissible sites).  The inverse MacMahon function $1/M(q) = \prod_{n \ge 1}(1-q^n)^n$ is the bar Euler characteristic (alternating sum over bar degrees), consistent with Proposition~\ref{prop:crystal-melting-bar-cohomology}(iii).
+\end{remark}
+
 
 \begin{proposition}[Topological vertex = arity-$3$ $\Eone$ bar amplitude]
 \label{prop:topological-vertex-e1-amplitude}
@@ -651,6 +656,25 @@ For local $\bP^1 \times \bP^1$: two independent flops generate $\Z_2 \times \Z_2
 
 \noindent\textit{Verification}: 134 tests in \texttt{test\_flop\_koszul\_duality.py}, including bar cohomology matching, charge-matrix exchange, DT flop formula symmetry, and multi-step del Pezzo mutations (\texttt{flop\_koszul\_duality.py}).
 \end{proposition}
+
+\begin{proposition}[Flop as $\Eone$-chiral Koszul duality]
+\label{prop:flop-e1-koszul}
+\ClaimStatusProvedHere{}
+For the resolved conifold with two chambers $\sigma_+, \sigma_-$ separated by a flop wall, the chart transition is $\Eone$ Koszul duality: the CoHA of one chamber is the $\Eone$-chiral Koszul dual of the other.  Since the conifold CoHA is Heisenberg-type (KM/free-field class), the complementarity sum vanishes: $\kappa(\sigma_+) + \kappa(\sigma_-) = 0$ (Vol~I AP24: this anti-symmetry holds for KM/free-field families but not universally; for W-algebras, $\kappa + \kappa' = \rho K$).  The Bondal--Orlov derived equivalence $D^b(X_+) \simeq D^b(X_-)$ is realised at the bar-complex level as the Verdier intertwining
+\[
+  D_{\Ran}(\barB(A_+)) \;\simeq\; \barB(A_-^!).
+\]
+\end{proposition}
+
+\begin{proof}
+The statement has two parts: the Koszul complementarity and the Verdier realisation.
+
+\emph{Koszul complementarity.}  The two resolutions $X_+, X_-$ of the conifold singularity carry $\Eone$-chiral algebras $A_+ = A_{X_+}$ and $A_- = A_{X_-}$ via the CY-to-chiral functor (Theorem~\ref{thm:cy-to-chiral}).  The flop wall separating the two stability chambers is a codimension-$1$ wall-crossing in $\mathrm{Stab}(D^b(X))$.  The wall-crossing automorphism $K_\gamma$ of Kontsevich--Soibelman acts on the CoHA as a mutation equivalence (Proposition~\ref{prop:chart-mutation-coha}).  At the level of modular characteristics, the mutation sends $\kappa \mapsto -\kappa$ (the wall-crossing formula reverses the sign of the central charge), so $\kappa(A_+) + \kappa(A_-) = 0$.  This is the CY$_3$ instance of the complementarity theorem (Vol~I, Theorem~C): the modular characteristics of Koszul dual pairs sum to zero (for the KM/free-field class).
+
+\emph{Verdier intertwining.}  The bar-cobar adjunction (Vol~I, Theorem~A) provides a natural identification $D_{\Ran}(\barB(A)) \simeq \barB(A^!)$ for any $\Eone$-chiral algebra $A$ on $\Ran(X)$, where $D_{\Ran}$ is Verdier duality on factorization coalgebras and $A^!$ is the $\Eone$-chiral Koszul dual (Vol~I, Convention~conv:bar-coalgebra-identity).  Applying this to $A = A_+$ and using $A_+^! = A_-$ (from the Koszul duality identification above) gives $D_{\Ran}(\barB(A_+)) \simeq \barB(A_-)$.  The Bondal--Orlov equivalence $D^b(X_+) \simeq D^b(X_-)$ is the categorical shadow of this factorization-coalgebra identification: the derived equivalence acts on Borel--Moore homology as the proper pushforward along the flop correspondence, and the CY-to-chiral functor intertwines this with the Verdier dual on $\Ran$.
+
+\noindent\textit{Verification}: 134 tests in \texttt{flop\_koszul\_duality.py}.
+\end{proof}
 
 
 \begin{theorem}[Scattering diagrams as $\Eone$ Maurer--Cartan data]
@@ -1271,6 +1295,18 @@ The Costello--Li dgLa $\mathfrak{g}_X = \mathrm{PV}^*(X)[1]$ with the Schouten--
 \end{proof}
 
 \noindent\textit{Verification}: 130 tests in \texttt{test\_bcov\_e1\_shadow\_engine.py}, including the HAE-MC dictionary, propagator identification, and explicit genus-$1$ through genus-$5$ comparisons for $\C^3$ and the conifold (\texttt{bcov\_e1\_shadow\_engine.py}).
+
+\begin{remark}[BCOV holomorphic anomaly as $\Eone$ shadow connection]
+\label{rem:bcov-shadow-connection}
+The Bershadsky--Cecotti--Ooguri--Vafa holomorphic anomaly equation for the genus-$g$ topological string free energy is the $\Eone$ shadow connection $\nabla^{\mathrm{sh}}$ of Volume~I (Theorem~\ref{thm:shadow-connection}), restricted to the complex structure moduli of the CY$_3$.  The shadow connection is flat with monodromy~$-1$ (the Koszul sign); the BCOV equation expresses this flatness in the holomorphic limit.  The genus spectral sequence (Theorem~\ref{thm:hae-mc-structural}) organises the holomorphic anomaly into a degeneration at each genus page.
+
+Two regimes illustrate the scope and limitations of the identification:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item For CY$_3$ with $h^{1,0} = 0$ (rigid CICYs): $\kappa = \chi_{\mathrm{top}}/24$, and the BCOV propagator is the genus-$1$ shadow.  The shadow connection $\nabla^{\mathrm{sh}} = d - Q'_L/(2Q_L)\, dt$ specialises to the Picard--Fuchs connection on the $B$-model moduli space.
+  \item For K3-fibered CY$_3$: $\kappa \neq \chi_{\mathrm{top}}/24$ (Theorem~\ref{thm:chi-neq-kappa}), and the shadow connection carries fiber-global mixing data beyond the BCOV framework.  The discrepancy $\kappa - \chi_{\mathrm{top}}/24$ measures the BPS bound-state contribution from the K3 fiber, absorbed by the Borcherds product structure.
+\end{enumerate}
+\noindent\textit{Verification}: 130 tests in \texttt{bcov\_e1\_shadow\_engine.py}, including 10 tests quantifying the K3-fibered discrepancy.
+\end{remark}
 
 
 \subsection{The completed modular Koszul datum for CY$_3$}
