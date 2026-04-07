@@ -283,8 +283,12 @@ physical reading:
   ($W^{(s)}$ for $s = 1, 2, 3, \ldots$) is the tower of generators
   of the affine Yangian, which in turn is the tower of BPS states
   in the DT theory of $\mathbb{C}^3$.
-\item The celestial central charge $c$ is the modular characteristic
-  $\kappa(G(\mathbb{C}^3))$.
+\item The celestial central charge $c$ is \emph{not} the modular
+  characteristic $\kappa(G(\mathbb{C}^3))$ in general: $\kappa$ depends
+  on the subalgebra (Heisenberg: $\kappa = c$; Virasoro: $\kappa = c/2$;
+  full $\cW_{1+\infty}$: divergent).  The DT genus-1 amplitude is
+  controlled by the Heisenberg $\kappa = c$; see the anomaly cancellation
+  note for the distinction.
 \end{enumerate}
 The simplest celestial symmetry algebra IS the quantum vertex
 chiral group of the simplest CY3.
@@ -370,8 +374,9 @@ G(X)^{g \leq 2} \;\subset\; \cdots \;\subset\; G(X).
 \item \textbf{Genus 1} ($G(X)^{g \leq 1}$): One-loop corrections.
   The genus-1 obstruction $\mathrm{obs}_1 = \kappa(A_X) \cdot
   \lambda_1$ produces the first quantum correction to the celestial
-  OPE.  The modular characteristic $\kappa(A_X)$ is the celestial
-  central charge.
+  OPE.  The modular characteristic $\kappa(A_X)$ controls the leading
+  soft graviton factor (not to be confused with the celestial central
+  charge $c$, which is a distinct quantity; see Remark~\ref{rem:physical-content-c3}).
 
 \item \textbf{Genus $g$}: The genus-$g$ shadow obstruction tower component
   $\mathrm{obs}_g(A_X) = \kappa(A_X) \cdot \lambda_g$ (on the
@@ -406,8 +411,10 @@ is the arity-2 projection of the universal MC element $\Theta_\cA$.
 In the celestial context, $\kappa$ controls the leading soft
 behavior.
 
-\begin{theorem}[Leading soft theorem = arity-2 projection]
-\label{thm:leading-soft-kappa}
+% AP40: G(X) is conjectural for general CY3 (Conjecture CY-A_3);
+% the claim below depends on its existence. Use conjecture environment.
+\begin{conjecture}[Leading soft theorem = arity-2 projection]
+\label{conj:leading-soft-kappa}
 The Weinberg leading soft graviton theorem for the 4d theory $T_X$
 is the arity-2 Ward identity of the shadow connection:
 \begin{equation}\label{eq:leading-soft-kappa}
@@ -425,15 +432,16 @@ $\nabla^{\mathrm{hol}}_{0,n}$).
 For $X = \mathbb{C}^3$: $\kappa(G(\mathbb{C}^3)) = \kappa(H_1) = 1$ (the
 Heisenberg level, not $c/2 = 1/2$; see AP48), recovering the standard graviton soft
 factor.
-\end{theorem}
+\end{conjecture}
 
 \subsection{Higher soft theorems from higher-arity shadows}
 
 Each arity level $r \geq 3$ of the shadow obstruction tower contributes a
 higher soft theorem.
 
-\begin{theorem}[Higher soft theorems = higher shadows]
-\label{thm:higher-soft-shadows}
+% AP40: Depends on conjectural G(X) for general CY3.
+\begin{conjecture}[Higher soft theorems = higher shadows]
+\label{conj:higher-soft-shadows}
 The sub$^{r-2}$-leading soft theorem of the 4d theory $T_X$ is the
 arity-$r$ Ward identity:
 \begin{equation}\label{eq:higher-soft-shadow}
@@ -470,7 +478,7 @@ Spin-$(r-1)$ $\cW$-current \\
 For $X = \mathbb{C}^3$ with shadow depth $r_{\max} = \infty$, the
 full tower of soft theorems generates the $\cW_{1+\infty}$ algebra,
 recovering the Strominger et al.\ result.
-\end{theorem}
+\end{conjecture}
 
 \begin{remark}[Shadow depth and the celestial spectrum]
 \label{rem:shadow-depth-celestial}
@@ -516,8 +524,9 @@ $z^{-2}$, $z^{-1}$, the $r$-matrix has poles at $z^{-3}$, $z^{-1}$.
 
 \subsection{The celestial OPE}
 
-\begin{theorem}[Celestial OPE = collision $r$-matrix]
-\label{thm:celestial-ope-r-matrix}
+% AP40: Depends on conjectural G(X) for general CY3.
+\begin{conjecture}[Celestial OPE = collision $r$-matrix]
+\label{conj:celestial-ope-r-matrix}
 The celestial OPE of the 4d theory $T_X$ is determined by the
 collision $r$-matrix of the quantum vertex chiral group $G(X)$:
 \begin{equation}\label{eq:celestial-ope}
@@ -532,15 +541,21 @@ with $A = A_X$ the chiral algebra underlying $G(X)$.
 The pole structure of the celestial OPE encodes the shadow depth:
 \begin{enumerate}[label=(\roman*)]
 \item The number of singular terms is $r_{\max}(G(X)) - 1$.
-\item The leading pole is determined by $\kappa(A_X)$:
-  $r(z) \sim \kappa(A_X)/z + \cdots$.
+\item The leading \emph{simple} pole is determined by $\kappa(A_X)$:
+  the $1/z$ coefficient of $r(z)$ is proportional to $\kappa(A_X)$.
+  % AP19: For algebras with higher-order OPE poles (e.g.\ Virasoro),
+  % r(z) has HIGHER poles as well (z^{-3} for Vir), not just z^{-1}.
+  % The d-log kernel absorbs one power, so OPE pole z^{-n} becomes
+  % r-matrix pole z^{-(n-1)}.  The statement r(z) ~ kappa/z + ...
+  % is correct only for quadratic OPE (Heisenberg/KM).  For Virasoro:
+  % r(z) = (c/2)/z^3 + 2T/z (AP19).
 \item The subleading poles are determined by the higher shadows:
   the $(z_1 - z_2)^{-(k+1)}$ pole coefficient is
   $C_k = \Res^{\mathrm{coll}}_{0,2}(\Theta_{A_X}^{(k+2)})$.
 \end{enumerate}
-\end{theorem}
+\end{conjecture}
 
-\begin{proof}[Argument]
+\begin{proof}[Argument sketch]
 The celestial OPE is the short-distance expansion of two operator
 insertions on the celestial sphere $\mathbb{P}^1$.  In the
 shadow-connection framework, this is the monodromy of the flat

@@ -102,7 +102,7 @@ A broken line in the Gross-Siebert framework is a piecewise-linear path in B tha
 
 The count of broken lines with given initial and final data computes the structure coefficients of the canonical algebra --- which are genus-0 GW invariants (or equivalently, genus-0 DT invariants). In the QVCG framework, these are the tree-level OPE coefficients, i.e., the structure constants of the E_1-sector (the CoHA).
 
-The higher-genus corrections (beyond genus 0) are not captured by the classical Gross-Siebert scattering diagram. They require "punctured log GW invariants" (Gross-Siebert 2021). In the QVCG language, the genus-g corrections are the arity-(2g+2) shadow obstruction tower components Theta^{(2g+2)}_A. The full MC element Theta_A requires the "quantum" scattering diagram, which incorporates all genera.
+The higher-genus corrections (beyond genus 0) are not captured by the classical Gross-Siebert scattering diagram. They require "punctured log GW invariants" (Gross-Siebert 2021). In the QVCG language, the genus-g obstruction obs_g receives contributions from all arities (the genus grading and the arity filtration are independent; the leading term on the uniform-weight lane is kappa * lambda_g). The full MC element Theta_A requires the "quantum" scattering diagram, which incorporates all genera.
 
 ### 3c. Consistency = MC equation
 
