@@ -55,11 +55,12 @@ COMPLEMENTARITY (Theorem C, AP24):
   kappa(A) + kappa(A!) = 250/3     for W_3 (5c/6 + 5(100-c)/6)
 
 SWISS-CHEESE FORMALITY (Vol II, AP14):
-  SC-formal (m_k^{SC} = 0 for k >= 3): Heisenberg, affine KM, lattice (classes G, L)
-  SC-non-formal (m_k^{SC} != 0):        beta-gamma (class C), Virasoro/W_N (class M)
+  SC-formal (m_k^{SC} = 0 for k >= 3): Heisenberg, lattice (class G only)
+  SC-non-formal: affine KM (class L, m_3^{SC} != 0), beta-gamma (class C, m_4^{SC} != 0),
+                 Virasoro/W_N (class M, m_k^{SC} != 0 for all k >= 3)
 
   CRITICAL: SC-formality is DIFFERENT from chirally Koszul.
-  ALL standard families are chirally Koszul.  Only classes G and L are SC-formal.
+  ALL standard families are chirally Koszul.  Only class G is SC-formal.
 
 References:
   Vol I: theorem_c_complementarity.py, quartic_arithmetic_closure.py,
@@ -287,30 +288,33 @@ def shadow_depth_class(family: str) -> Tuple[str, int]:
 def sc_formal(family: str) -> bool:
     r"""Whether the family is Swiss-cheese formal.
 
-    SC-formal means m_k^{SC} = 0 for k >= 3.  This is equivalent to
-    shadow depth <= 3 (classes G and L).
+    SC-formal means m_k^{SC} = 0 for k >= 3.  Only class G (Heisenberg)
+    is SC-formal.  Class L has m_3^{SC} != 0, class C has m_4^{SC} != 0,
+    class M has m_k^{SC} != 0 for all k >= 3.
 
     CRITICAL (AP14): SC-formality is DIFFERENT from chirally Koszul.
-    ALL standard families are chirally Koszul.  Only G and L are SC-formal.
+    ALL standard families are chirally Koszul.  Only class G is SC-formal.
     """
     cls, r_max = shadow_depth_class(family)
-    return cls in ("G", "L")
+    return cls == "G"
 
 
 def sc_depth(family: str) -> int:
     r"""Minimum arity at which SC non-formality appears.
 
-    For SC-formal families: returns float('inf') (no non-formality).
+    For SC-formal families (class G only): returns float('inf').
+    For class L: returns 3 (m_3^{SC} != 0 from Lie bracket).
     For class C: returns 4 (first non-formal at quartic).
     For class M: returns 3 (non-formal starting at cubic SC operations).
 
     Note: "SC non-formality" means the higher SC operations m_k^{SC}
-    for k >= 3 are nonzero.  For Virasoro/W_N, the A_infinity operations
-    are nonzero at all arities >= 3.
+    for k >= 3 are nonzero.  Only class G is SC-formal.
     """
     cls, r_max = shadow_depth_class(family)
-    if cls in ("G", "L"):
+    if cls == "G":
         return float("inf")  # SC-formal
+    elif cls == "L":
+        return 3  # m_3^{SC} != 0 (Lie bracket)
     elif cls == "C":
         return 4
     else:  # class M

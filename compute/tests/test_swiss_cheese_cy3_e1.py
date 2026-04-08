@@ -316,10 +316,10 @@ class TestCY3ShadowData:
         d = cy3_shadow_data_local_p2()
         assert d.kappa == Fraction(3, 2)
 
-    def test_local_p2_sc_formal(self):
-        """Local P^2: SC formal (class L)."""
+    def test_local_p2_sc_nonformal(self):
+        """Local P^2: class L, NOT SC-formal (m_3^{SC} != 0)."""
         d = cy3_shadow_data_local_p2()
-        assert d.sc_formal is True
+        assert d.sc_formal is False
 
     # --- Quintic ---
 
@@ -737,10 +737,10 @@ class TestSCFormality:
         assert f.sc_formal is True
         assert f.formality_depth == -1
 
-    def test_local_p2_formal(self):
-        """Local P^2 is SC formal (class L)."""
+    def test_local_p2_nonformal(self):
+        """Local P^2 is NOT SC-formal (class L: m_3^{SC} != 0)."""
         f = sc_formality_cy3("local P^2")
-        assert f.sc_formal is True
+        assert f.sc_formal is False
 
     def test_c3_nonformal(self):
         """C^3 / W_{1+inf} is SC non-formal."""
@@ -754,13 +754,13 @@ class TestSCFormality:
         assert f.sc_formal is False
 
     def test_formality_matches_shadow_class(self):
-        """SC formal iff shadow class in {G, L}."""
+        """SC formal iff shadow class is G only. L, C, M are non-formal."""
         for name, d in all_cy3_shadow_data().items():
             f = sc_formality_cy3(name)
-            if d.shadow_class in ('G', 'L'):
-                assert f.sc_formal is True, f"{name} should be formal"
-            elif d.shadow_class == 'M':
-                assert f.sc_formal is False, f"{name} should be non-formal"
+            if d.shadow_class == 'G':
+                assert f.sc_formal is True, f"{name} should be SC-formal (class G)"
+            else:
+                assert f.sc_formal is False, f"{name} should be SC-non-formal (class {d.shadow_class})"
 
 
 # =========================================================================
@@ -783,14 +783,14 @@ class TestLandscapeCensus:
         assert c.class_counts.get('M', 0) == 3
 
     def test_census_formal_count(self):
-        """2 SC-formal CY3s (conifold, local P^2)."""
+        """1 SC-formal CY3 (conifold only; local P^2 is class L, NOT SC-formal)."""
         c = cy3_landscape_census()
-        assert c.formal_count == 2
+        assert c.formal_count == 1
 
     def test_census_nonformal_count(self):
-        """3 SC-non-formal CY3s (C^3, quintic, K3xE)."""
+        """4 SC-non-formal CY3s (C^3, local P^2, quintic, K3xE)."""
         c = cy3_landscape_census()
-        assert c.nonformal_count == 3
+        assert c.nonformal_count == 4
 
 
 # =========================================================================

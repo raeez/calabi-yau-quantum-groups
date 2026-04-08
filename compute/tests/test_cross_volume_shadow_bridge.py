@@ -382,8 +382,8 @@ class TestSCFormality:
     def test_heisenberg_sc_formal(self):
         assert sc_formal("heisenberg") is True
 
-    def test_affine_sc_formal(self):
-        assert sc_formal("affine_sl2") is True
+    def test_affine_not_sc_formal(self):
+        assert sc_formal("affine_sl2") is False  # class L: m_3^{SC} != 0
 
     def test_lattice_sc_formal(self):
         assert sc_formal("lattice") is True

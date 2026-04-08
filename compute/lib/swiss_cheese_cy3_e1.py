@@ -459,7 +459,7 @@ def cy3_shadow_data_local_p2() -> CY3ShadowData:
         kappa=Fraction(3, 2),  # 3 generators, each kappa = 1/2
         shadow_class="L",
         r_max=3,
-        sc_formal=True,
+        sc_formal=False,  # class L has m_3^{SC} != 0 (NOT SC-formal)
         euler_chi=3,  # chi(P^2) = 3, non-compact total space
         h11=1,
         h21=0,
@@ -989,11 +989,19 @@ def sc_formality_cy3(name: str) -> SCFormalityData:
             obstruction_source="Contact class: quartic shadow terminates the tower.",
         )
 
+    if d.shadow_class == 'L':
+        return SCFormalityData(
+            name=d.name,
+            sc_formal=False,
+            formality_depth=3,
+            obstruction_source="Class L: m_3^{SC} != 0 (Lie bracket, NOT SC-formal).",
+        )
+
     return SCFormalityData(
         name=d.name,
         sc_formal=True,
         formality_depth=-1,
-        obstruction_source="formal (G or L class)",
+        obstruction_source="formal (class G only)",
     )
 
 

@@ -676,23 +676,23 @@ $\Theta_\Lambda = E_{12} + c_\Delta \cdot \Delta$ where
 $c_\Delta = (691 |R| - 65520)/691$.
 
 The Monster module $V^\natural$ has $c = 24$, $\dim V_1 = 0$.
-Its modular characteristic $\kappa(V^\natural)$ is \emph{open}
-(AP48): the formula $\kappa = c/2$ applies to the Virasoro
-algebra itself, not to general VOAs, and $V^\natural$ has
-a $196883$-dimensional Griess algebra at weight~$2$ whose
-contribution to the genus-$1$ bar complex is not determined
-by $c$ alone.  The orbifold argument gives
-$\kappa(V^\natural) \approx 12$ (Leech has $\kappa = 24$;
-the $\bZ/2\bZ$ orbifold halves $\kappa$ by killing weight-$1$
-currents), while $\kappa(V_\Lambda) = 24$ for Niemeier lattice VOAs,
-potentially providing shadow-tower separation.
-% RECTIFICATION-FLAG (AP48): kappa(V^natural) is open.
-% The value 12 is the orbifold estimate, not a computation
-% from the bar complex.  The formula kappa=c/2=12 was removed
-% per AP48.  Verify against compute/lib/moonshine_shadow_atlas.py.
-The Monster module is conjecturally class~$\mathbf{M}$
-(infinite shadow depth), reflecting the nonlinear Griess
-algebra structure.
+Its modular characteristic is $\kappa(V^\natural) = 12$:
+since $\dim V_1^\natural = 0$, there are no weight-$1$
+generators, and the Virasoro sector alone determines the
+genus-$1$ bar obstruction, giving $\kappa = c/2 = 12$
+(AP48; five independent verification paths in
+\texttt{compute/lib/moonshine\_shadow\_depth.py};
+Vol~I, Remark~rem:lattice:monster-shadow).
+The weight-$2$ Griess algebra ($\dim V_2^\natural = 196884$)
+contributes to higher-arity shadow components but not to~$\kappa$.
+This gives genuine shadow-tower separation:
+$\kappa(V^\natural) = 12 \neq 24 = \kappa(V_\Lambda)$
+for all twenty-four Niemeier lattice VOAs.
+The Monster module is class~$\mathbf{M}$
+(infinite shadow depth): the critical discriminant
+$\Delta = 8\kappa S_4 = 20/71 \neq 0$
+forces the single-line dichotomy
+(Vol~I, Theorem~thm:single-line-dichotomy).
 
 For the CY quantum group programme:
 the K3 quantum vertex chiral group should encode the
@@ -3502,5 +3502,330 @@ surject onto the Cartan off-diagonal directions, absorbing
 the null-induced cocycles.  At denominator $q \geq 3$ the
 mechanism fails (multi-generator null structure).
 
+
+% ============================================================
+% ============================================================
+%
+%  THE ABELIAN (2,0) PUSHFORWARD ON K3 x E
+%
+%  Foundational analysis of what Raghavendran's derived-stack
+%  technology gives when applied to the K3 x E tower.
+%  Computational backbone: centcom/scripts/research/
+%    k3e_pushforward_shadow_computation.py
+%
+% ============================================================
+% ============================================================
+
+
+% ============================================================
+\section{The abelian $(2,0)$ pushforward on $K3 \times E$}
+\label{sec:abelian-20-pushforward}
+% ============================================================
+
+The abelian $(2,0)$ theory in six dimensions --- the free theory of a self-dual $2$-form gauge field on a $6$-manifold --- belongs to a class of field theories whose global derived stack of solutions is an abelian group stack and therefore admits efficient dg models: the pushforward along any proper fibration is computable by standard derived-algebraic methods.  This section develops the consequences for $K3 \times E$ systematically, identifying what this construction produces, what it misses, and where it meets the shadow obstruction tower programme.
+
+The strategy follows Costello--Li for the holomorphic twist, Beilinson--Drinfeld for the factorization algebra structure on $\Ran(E)$, and Costello--Gwilliam for the pushforward of quantum observables along proper maps.  The computational results come from exact rational arithmetic (MC recursion engine of Vol~I, \texttt{shadow\_tower\_ope\_recursion.py}).
+
+\subsection{The derived stack of the abelian $(2,0)$ theory}
+\label{subsec:20-derived-stack}
+
+Let $X$ be a compact Calabi--Yau threefold.  The holomorphic twist of the abelian $(2,0)$ tensor multiplet on $X$ (Costello--Li, Elliott--Safronov) produces a free holomorphic BV theory with field content
+\[
+  \beta \;\in\; \Omega^{0,*}(X,\, \Omega^2_{X,\mathrm{cl}}),
+  \qquad \bar\partial\,\beta = 0,
+  \qquad \beta \sim \beta + \bar\partial\,\lambda,
+\]
+where $\Omega^2_{X,\mathrm{cl}} = \ker(d \colon \Omega^2_X \to \Omega^3_X)$ is the sheaf of closed holomorphic $2$-forms.  The derived stack of classical solutions is
+\[
+  \mathrm{Sol}(X) \;=\; R\Gamma(X,\, \Omega^2_{X,\mathrm{cl}}),
+\]
+the derived global sections of $\Omega^2_{X,\mathrm{cl}}$.  Since $\Omega^2_{X,\mathrm{cl}}$ is a complex of coherent sheaves with additive structure, $\mathrm{Sol}(X)$ is an \emph{abelian group stack}: the dg model is a cochain complex of vector spaces, and pushforward reduces to derived-algebraic computation.
+
+\begin{remark}[Self-duality and signature]
+\label{rem:self-duality-signature}
+On a Euclidean $6$-manifold, $\ast_6^2 = (-1)^{3 \cdot 3} = -1$ on $\Omega^3$, so the Hodge star has eigenvalues $\pm i$ and there are no real self-dual $3$-forms.  The holomorphic twist replaces the real self-duality condition $H = \ast_6 H$ with the holomorphic condition $\bar\partial\,\beta = 0$, which is well-defined on any complex $3$-fold.  This is the cleanest framework for derived pushforward: the Dolbeault resolution of $\Omega^2_{X,\mathrm{cl}}$ is the dg model, and its fiber cohomology is computed by standard Hodge theory.
+\end{remark}
+
+\subsection{Pushforward along $K3$}
+\label{subsec:pushforward-k3}
+
+For $X = S \times E$ with $S$ a K3 surface and $E$ an elliptic curve, consider the projection $\pi \colon S \times E \to E$.  The derived pushforward
+\[
+  R\pi_*(\Omega^2_{X,\mathrm{cl}})
+\]
+is a perfect complex on $E$.  Since $\dim_\C S = 2$, every holomorphic $2$-form on $S$ is automatically closed: $\Omega^3_S = 0$ implies $\Omega^2_{S,\mathrm{cl}} = \Omega^2_S$.  The exact sequence
+\[
+  0 \;\longrightarrow\; \Omega^2_{X,\mathrm{cl}} \;\longrightarrow\; \Omega^2_X \;\xrightarrow{\;d\;}\; \Omega^3_X \;\longrightarrow\; 0
+\]
+decomposes on $S \times E$ via K\"unneth into three components.  The fiber cohomology contributing to $R\pi_*$ involves:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llc}
+  \toprule
+  \textbf{Hodge group of $S$} & \textbf{Sheaf on $E$} & \textbf{Dimension} \\
+  \midrule
+  $H^0(S, \Omega^2_S) = \C\langle\sigma\rangle$ & $\cO_E$ & 1 \\
+  $H^2(S, \Omega^2_S) = \C$ (Serre dual) & $\cO_E$ & 1 \\
+  $H^1(S, \Omega^1_S) = \C^{20}$ & $\Omega^1_E$ & 20 \\
+  $H^0(S, \cO_S) = \C$ & $\Omega^2_E \simeq \cO_E$ & 1 \\
+  $H^2(S, \cO_S) = \C$ & $\Omega^2_E \simeq \cO_E$ & 1 \\
+  \midrule
+  \multicolumn{2}{l}{Total generating fields on $E$} & 24 \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Here $\sigma \in H^{2,0}(S)$ is the holomorphic symplectic form, and the $20$-dimensional contribution from $H^{1,1}(S)$ coupled with $\Omega^1_E$ produces weight-$1$ currents on $E$.  The closure condition on $\Omega^2_X$ couples these components, but the dominant structure is determined by the fiber cohomology.
+
+\begin{definition}[The pushforward chiral algebra]
+\label{def:pushforward-chiral-algebra}
+The \emph{abelian $(2,0)$ pushforward chiral algebra} on $E$ is
+\[
+  \cA_{\mathrm{free}} \;=\; \pi_*\bigl(\mathrm{Obs}^q(\mathcal{T}_{(2,0)}|_{S \times E})\bigr),
+\]
+the pushforward of the quantum observables of the holomorphically twisted abelian $(2,0)$ theory along $\pi \colon S \times E \to E$.  By the Costello--Gwilliam theorem, this is a factorization algebra on $\Ran(E)$, hence a chiral algebra on~$E$.
+\end{definition}
+
+\begin{proposition}[OPE structure of $\cA_{\mathrm{free}}$]
+\label{prop:pushforward-ope}
+The chiral algebra $\cA_{\mathrm{free}}$ is of Heisenberg/lattice type.  Its OPE is determined by the propagator of the $6$-dimensional theory pushed forward along~$S$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item The $20$ currents $J_a(z)$ from $H^{1,1}(S) \otimes \Omega^1_E$ have double-pole OPE:
+  \[
+    J_a(z)\, J_b(w) \;\sim\; \frac{\eta_{ab}}{(z-w)^2},
+  \]
+  where $\eta_{ab} = \int_S \omega_a \wedge \omega_b$ is the intersection form on $H^{1,1}(S)$, of signature $(1,19)$.
+  \item The remaining $4$ generators (from $H^{2,0}$, $H^{0,2}$, $H^0(\cO_S)$, $H^2(\cO_S)$) have at most double-pole OPE.
+  \item No poles of order $\geq 3$ appear: the $6$-dimensional theory is free with at most quadratic action.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[Costello--Gwilliam: pushforward preserves factorization]
+\label{rem:cg-pushforward}
+The key theorem: for $\pi \colon M \to N$ a proper map of complex manifolds and $\cF$ a factorization algebra on $M$, the pushforward $\pi_*(\cF)$ is a factorization algebra on $N$ (Costello--Gwilliam, \emph{Factorization algebras in quantum field theory}, Chapter~6).  For the abelian $(2,0)$ theory, the factorization algebra is the symmetric monoidal one (free fields), and the pushforward inherits this structure.  The chiral algebra $\cA_{\mathrm{free}}$ therefore carries a well-defined factorization structure on $\Ran(E)$ --- it is an honest chiral algebra in the Beilinson--Drinfeld sense, not merely a complex of sheaves.
+\end{remark}
+
+\subsection{Shadow tower of the pushforward: class $\mathbf{G}$}
+\label{subsec:pushforward-shadow}
+
+By Proposition~\ref{prop:pushforward-ope}, $\cA_{\mathrm{free}}$ is a lattice vertex algebra $V_\Lambda$ where $\Lambda \subset H^2(S, \Z)$ with the intersection form.  The Vol~I lattice curvature theorem (Theorem~\texttt{thm:lattice:curvature-braiding-orthogonal}) gives:
+
+\begin{claim}[Shadow data of the pushforward]
+\label{claim:pushforward-shadow}
+\hfill
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\kappa(\cA_{\mathrm{free}}) = \mathrm{rank}(\Lambda)$, independent of lattice geometry.
+  \item $S_3(\cA_{\mathrm{free}}) = 0$: no cubic shadow (no simple poles in the OPE).
+  \item $S_4(\cA_{\mathrm{free}}) = 0$: no quartic shadow.
+  \item Shadow class: $\mathbf{G}$ (Gaussian), depth $r_{\max} = 2$.
+  \item The shadow obstruction tower terminates: $\Theta_{\cA_{\mathrm{free}}} = \kappa \cdot \omega_g$ at all genera.
+\end{enumerate}
+The rank of $\Lambda$ from the pushforward is either $22$ (if only $H^2(S)$ contributes) or $24$ (if $H^0 \oplus H^4$ contribute independent generators).  The precise answer depends on the coupling structure of the closure condition in the K\"unneth decomposition.
+\end{claim}
+
+\subsection{The sigma model VOA: class $\mathbf{M}$}
+\label{subsec:sigma-model-shadow}
+
+The K3 sigma model VOA $\cA_\sigma$ at a generic point in the K3 moduli space is a $c = 6$ $\cN = (4,4)$ SCVA.  It is a different object from $\cA_{\mathrm{free}}$: the sigma model includes the full non-linear target geometry, with the small $\cN = 4$ SCA providing additional generators beyond the free fields.
+
+\begin{proposition}[Shadow data of the K3 sigma model]
+\label{prop:sigma-shadow}
+\hfill
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\kappa(\cA_\sigma) = 2 = \dim_\C(K3)$.
+  \item $S_3(\cA_\sigma) = 2$ (cubic shadow from the Virasoro self-coupling on the $T$-line and $\mathrm{SU}(2)_R$ Lie bracket).
+  \item $S_4(\cA_\sigma) = \frac{5}{156}$ (quartic shadow from the Virasoro contact term at $c = 6$: $Q^{\mathrm{contact}} = \frac{10}{c(5c+22)}\big|_{c=6} = \frac{10}{312} = \frac{5}{156}$).
+  \item Critical discriminant: $\Delta = 8\kappa S_4 = \frac{20}{39} \neq 0$.
+  \item Shadow class: $\mathbf{M}$ (mixed), depth $r_{\max} = \infty$.
+\end{enumerate}
+
+\noindent\textit{Verification}: \texttt{cy\_n4sca\_k3\_engine.py}, \texttt{cy\_bar\_n4sca\_engine.py}.
+\end{proposition}
+
+\noindent The MC recursion (Vol~I, \texttt{shadow\_tower\_ope\_recursion.py}, Theorem \texttt{thm:obstruction-recursion}) with initial data $(\kappa, S_3, S_4) = (2, 2, \frac{5}{156})$ produces the full shadow tower:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{rcl}
+  \toprule
+  $r$ & $S_r(\cA_\sigma)$ & Sign \\
+  \midrule
+  2 & $2$ & $+$ \\
+  3 & $2$ & $+$ \\
+  4 & $5/156$ & $+$ \\
+  5 & $-1/26$ & $-$ \\
+  6 & $3485/73008$ & $+$ \\
+  7 & $-1145/18928$ & $-$ \\
+  8 & $1179485/15185664$ & $+$ \\
+  9 & $-1144885/11389248$ & $-$ \\
+  10 & $309513983/2368963584$ & $+$ \\
+  11 & $-1477140565/8686199808$ & $-$ \\
+  12 & $490338857615/2217349914624$ & $+$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Sign alternation begins at $r = 5$; magnitudes are bounded and slowly decaying.  Every value is an exact rational (Python \texttt{Fraction}), verified to satisfy the MC equation $D_{\cA}(\Theta) + \tfrac{1}{2}[\Theta, \Theta] = 0$ at each arity.
+
+\subsection{The $\kappa$-collapse}
+\label{subsec:kappa-collapse}
+
+\begin{observation}[$\kappa$-collapse: rank $\to$ $\dim_\C$]
+\label{obs:kappa-collapse}
+The passage from the abelian $(2,0)$ pushforward to the K3 sigma model exhibits a \emph{non-perturbative collapse of the modular characteristic}:
+\[
+  \kappa(\cA_{\mathrm{free}}) \;=\; \mathrm{rank}(\Lambda) \;\in\; \{22, 24\},
+  \qquad
+  \kappa(\cA_\sigma) \;=\; 2 \;=\; \dim_\C(K3).
+\]
+The ratio $\mathrm{rank}/\dim_\C \in \{11, 12\}$ is not a small correction.  The sigma model is not a perturbative deformation of the free field: it is a different point in the moduli space of $c = 6$ $\cN = (4,4)$ SCFTs.  The $\cN = 4$ supersymmetry constrains the genus-$1$ curvature to equal the complex dimension of the target, regardless of the free-field rank (AP48).
+\end{observation}
+
+\begin{warning}[The gap is structural, not perturbative]
+\label{warn:structural-gap}
+No deformation of $\cA_{\mathrm{free}}$ within the class of lattice vertex algebras can produce $\kappa = 2$: the Vol~I theorem gives $\kappa(V_\Lambda) = \mathrm{rank}(\Lambda)$ for \emph{all} lattice VAs, independent of deformation parameters.  To reach $\kappa = 2$ from the free-field data, one must pass to a genuinely different algebraic structure --- the non-linear sigma model with its $\cN = 4$ SCA.  This is not a wall-crossing: there is no wall, no stability condition, no KS-type formula relating the two sides.  The free-field pushforward is not a degeneration of the sigma model within a shared moduli space --- it is a different algebraic object (lattice VA vs non-linear SCFT) that happens to carry the same topological data.
+\end{warning}
+
+\subsection{BKM root multiplicities: the constancy theorem}
+\label{subsec:bkm-constancy}
+
+The BKM superalgebra $\fg_{\Delta_5}$ has positive roots $\alpha = (n, l, m) \in \Z^3$ with multiplicity $\mult(\alpha) = c(4nm - l^2)$, where $c(D)$ denotes the discriminant-indexed Fourier coefficients of $\phi_{0,1}$.  We define the \emph{level} of a root as $\ell(\alpha) = n + m$.
+
+\begin{theorem}[Root multiplicity constancy]
+\label{thm:root-mult-constancy}
+For all levels $\ell \geq 1$:
+\[
+  \sum_{\substack{\alpha \in \Delta_+ \\ \ell(\alpha) = \ell}} \mult(\alpha) \;=\; 24 \;=\; \chi(K3).
+\]
+\end{theorem}
+
+\begin{proof}
+At each level $\ell$, the positive roots decompose into \emph{boundary roots} (those with $n = 0$ or $m = 0$) and \emph{interior roots} (those with $n, m > 0$, so $\ell = n + m$ with $n, m \geq 1$).
+
+\medskip\noindent\textbf{Boundary contribution.}  Roots with $m = 0$: $(n, l, 0)$ for $n = \ell$, varying $l$.  The multiplicity is $c(-l^2)$, which is nonzero only for $l = 0$ (giving $c(0) = 10$) and $l = \pm 1$ (giving $c(-1) = 1$ each).  Total: $10 + 1 + 1 = 12$.  Similarly for $n = 0$: total $12$.  Boundary total: $24$.
+
+\medskip\noindent\textbf{Interior cancellation.}  For each pair $(n, m)$ with $n + m = \ell$ and $n, m \geq 1$:
+\[
+  \sum_{l \in \Z} c(4nm - l^2) \;=\; 0.
+\]
+This is exactly the modular constancy of $\phi_{0,1}$ at $z = 0$: $\sum_l c(4N - l^2) = 0$ for all $N \geq 1$ (Eichler--Zagier, consequence of $\phi_{0,1}(\tau, 0) = 12$ being a constant independent of $\tau$).
+
+\medskip\noindent The boundary gives $24$, the interior gives $0$, so $\sum_{\ell(\alpha) = \ell} \mult(\alpha) = 24$ at every level.
+\end{proof}
+
+\begin{remark}[The cancellation at level $2$]
+\label{rem:level-2-cancellation}
+The interior at level $2$ consists of roots $(1, l, 1)$ with $\mult = c(4 - l^2)$:
+\begin{itemize}
+  \item $l = 0$: $c(4) = 108$.
+  \item $l = \pm 1$: $c(3) = -64$ each.
+  \item $l = \pm 2$: $c(0) = 10$ each.
+\end{itemize}
+Sum: $108 - 2 \cdot 64 + 2 \cdot 10 = 108 - 128 + 20 = 0$.  The cancellation is exact and non-trivial, arising from the modular properties of $\phi_{0,1}$.  Computationally verified through level~$6$ in \texttt{centcom/scripts/research/k3e\_pushforward\_shadow\_computation.py}.
+\end{remark}
+
+\begin{remark}[Relation to the shadow tower]
+\label{rem:constancy-shadow}
+The constancy $\sum_\ell \mult(\alpha) = 24 = \chi(K3)$ reflects the topological datum $\chi(K3)$ persisting through the BKM construction.  This is precisely the datum that the abelian $(2,0)$ pushforward \emph{does} capture: the Euler characteristic of the fiber enters through the lattice rank and the partition function of the free-field theory.  The pushforward gives the correct topological backbone ($\chi = 24$) even though it gives the wrong shadow class and the wrong $\kappa$.
+\end{remark}
+
+\subsection{Three levels of structure}
+\label{subsec:three-levels}
+
+The analysis isolates three distinct $\kappa$ values.  Conflating them is a category error (AP48).
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llcll}
+  \toprule
+  \textbf{Object} & \textbf{Symbol} & $\kappa$ & \textbf{Class} & \textbf{Depth} \\
+  \midrule
+  Abelian $(2,0)$ pushforward & $\cA_{\mathrm{free}}$ & $\mathrm{rank}(\Lambda) \in \{22, 24\}$ & $\mathbf{G}$ & $2$ \\
+  K3 sigma model VOA & $\cA_\sigma$ & $2$ & $\mathbf{M}$ & $\infty$ \\
+  BKM global ($\kappa_\BPS$, K3-3) & $G(K3 \times E)$ & $5$ & $\mathbf{M}$ & $\infty$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\noindent The chain $\mathrm{rank}(\Lambda) \to 2 \to 5$ reflects:
+\begin{itemize}
+  \item \textbf{Free fields $\to$ sigma model}: the $\cN = 4$ SCA constrains $\kappa$ from $\mathrm{rank}$ to $\dim_\C$, introducing $S_3 \neq 0$ and $S_4 \neq 0$ and upgrading the shadow class from $\mathbf{G}$ to $\mathbf{M}$.
+  \item \textbf{Sigma model $\to$ BKM global}: the passage from the single-copy chiral algebra ($\kappa_{\mathrm{ch}} = 3 = \kappa(K3) + \kappa(E) = 2 + 1$, by additivity) to the second-quantized BKM modular characteristic ($\kappa_\BPS = 5 = \kappa(K3) + \kappa_{\mathrm{ch}}(K3 \times E) = 2 + 3$).  The ratio $\kappa_\BPS / \kappa_{\mathrm{ch}} = 5/3$ is the second-quantization factor.
+\end{itemize}
+
+\subsection{The $T^4/\Z_2$ orbifold point}
+\label{subsec:t4z2}
+
+At the orbifold limit $S = T^4/\Z_2$ (Kummer surface), the K3 sigma model degenerates to an orbifold of the free-field theory.  This is the unique point in the K3 moduli space where the pushforward and the sigma model can be directly compared.
+
+\begin{conjecture}[Orbifold point agreement]
+\label{conj:orbifold-agreement}
+At $S = T^4/\Z_2$:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item The abelian $(2,0)$ pushforward on $T^4/\Z_2 \times E$ produces a chiral algebra $\cA_{\mathrm{free}}^{\mathrm{orb}}$ whose $\Z_2$-orbifold twisted sectors produce additional generators.
+  \item The orbifold chiral algebra $\cA_{\mathrm{free}}^{\mathrm{orb}}$ has $\kappa = 2$ (the $\Z_2$-orbifold kills half the weight-$1$ currents and the twisted sectors introduce new constraints, collapsing $\kappa$ from $\mathrm{rank}$ to $\dim_\C$).
+  \item The shadow tower of $\cA_{\mathrm{free}}^{\mathrm{orb}}$ is class $\mathbf{M}$ with the same initial data $(\kappa, S_3, S_4) = (2, 2, \frac{5}{156})$ as the generic K3 sigma model.
+  \item The deformation theory away from $T^4/\Z_2$ (resolving the orbifold singularities) preserves the shadow class and the modular characteristic, consistent with $\kappa = \dim_\C$ being independent of the K3 moduli.
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[The orbifold as meeting ground]
+\label{rem:orbifold-meeting}
+Conjecture~\ref{conj:orbifold-agreement} identifies the $T^4/\Z_2$ point as the natural meeting ground between the derived-stack approach (providing the chain-level free-field data) and the shadow-tower approach (providing the infinite-depth structure).  If the conjecture holds, the $\cN = 4$ SCA structure responsible for $S_3, S_4 \neq 0$ arises \emph{from the orbifold twisted sectors}: the free-field OPE has only double poles ($S_3 = S_4 = 0$), but the twist-field OPE introduces new pole structures that create the cubic and quartic shadows.
+
+This would complete the pipeline:
+\[
+  \text{Abelian $(2,0)$} \;\xrightarrow[\text{derived pushforward}]{}\; \cA_{\mathrm{free}} \;\xrightarrow[\Z_2\text{-orbifold}]{}\; \cA_{\mathrm{free}}^{\mathrm{orb}} \;\xleftarrow[\text{orbifold limit}]{}\; \cA_\sigma
+\]
+The left arrow is computable from derived algebraic geometry (chain-level dg model); the right arrow is the orbifold limit in the K3 moduli space.  The meeting point $\cA_{\mathrm{free}}^{\mathrm{orb}}$ is where the two approaches agree.
+\end{remark}
+
+\subsection{What the pushforward does and does not provide}
+\label{subsec:pushforward-verdict}
+
+\begin{observation}[The pushforward captures the topological backbone]
+\label{obs:topological-backbone}
+The abelian $(2,0)$ pushforward on $K3 \times E$ provides:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item The lattice $\Lambda_{K3} = U^3 \oplus E_8(-1)^2$ with its intersection form --- the input to the BKM root lattice.
+  \item The Euler characteristic $\chi(K3) = 24$ --- the constant in the root-multiplicity constancy theorem (Theorem~\ref{thm:root-mult-constancy}).
+  \item The K3 elliptic genus $\phi_{0,1}$ --- computable from the free-field partition function and the orbifold formula.
+  \item The chain-level dg model for the derived stack --- the input to deformation theory.
+\end{enumerate}
+It does \emph{not} provide:
+\begin{enumerate}[label=\textup{(\roman*)}, resume]
+  \item The correct modular characteristic ($\kappa = 2$, not $\mathrm{rank}$).
+  \item The non-trivial shadow tower ($S_3, S_4 \neq 0$).
+  \item The infinite shadow depth (class $\mathbf{M}$).
+  \item The BKM root multiplicities directly (these require the full MC element).
+\end{enumerate}
+The pushforward gives the correct \emph{what} (lattice, $\chi$, elliptic genus) but the wrong \emph{how} (shadow class, $\kappa$, depth).  The transition from the correct topological data to the correct algebraic structure requires the non-linear sigma model --- equivalently, the $\cN = 4$ SCA.
+\end{observation}
+
+\begin{remark}[Witten's perspective: M5-brane on $K3$]
+\label{rem:witten-m5}
+In the M-theory picture, the abelian $(2,0)$ theory is the worldvolume theory of a single M5-brane.  The pushforward along $K3$ gives the effective theory of the M5-brane wrapping $K3$: a $2$-dimensional theory on $E$ with content determined by the $K3$ zero modes (harmonic forms).  The sigma model VOA arises only at the level of the \emph{string worldsheet} --- the non-perturbative type~IIA / heterotic duality relates the M5-brane picture to the string sigma model on $K3$.  The $\kappa$-collapse from $\mathrm{rank}$ to $\dim_\C$ is the algebraic shadow of this duality: the M5-brane sees $\mathrm{rank}(H^2)$ zero modes, while the string worldsheet sees $\dim_\C(K3)$ as the effective target dimension.
+\end{remark}
+
+\begin{remark}[Gaiotto's perspective: class of theories]
+\label{rem:gaiotto-class}
+The class of field theories whose global derived stacks are abelian group stacks --- the class identified above --- is the $6$-dimensional analogue of Gaiotto's class~$\cS$: a family of theories parametrized by compactification data, with the algebraic structure of the lower-dimensional theory determined by the geometry of the compactification.  For class~$\cS$ (the non-abelian $(2,0)$ on $\Sigma$), the $4$-dimensional theory is an $\cN = 2$ gauge theory determined by the pants decomposition of $\Sigma$.  For the abelian $(2,0)$ on $M^4$, the $2$-dimensional theory is a free-field chiral algebra determined by $H^*(M^4)$.  The shadow tower classification ($\mathbf{G}$/$\mathbf{L}$/$\mathbf{C}$/$\mathbf{M}$) provides a finer invariant than the class~$\cS$ data: it detects whether the compactification produces a free theory ($\mathbf{G}$), an affine-current theory ($\mathbf{L}$), a beta-gamma system ($\mathbf{C}$), or an interacting theory ($\mathbf{M}$).
+\end{remark}
+
+\subsection{Connections to open questions}
+\label{subsec:pushforward-open}
+
+The pushforward analysis bears on several open questions from Section~\ref{sec:open-questions}:
+
+\begin{itemize}
+  \item \textbf{Question 2} (chain-level $\bS^3$-framing for CY3): the abelian $(2,0)$ pushforward provides the \emph{abelian} (free-field) part of the chain-level data.  The non-abelian part --- the $\cN = 4$ SCA structure --- is what carries the $\bS^3$-framing.  If Conjecture~\ref{conj:orbifold-agreement} holds, the framing arises from the orbifold twisted sectors.
+
+  \item \textbf{Question 5} ($\kappa = h^{1,1}/4$ universality): the $\kappa$-collapse shows that the relevant quantity is $\dim_\C$, not $h^{1,1}$ or $\mathrm{rank}$.  For $K3$: $\dim_\C = 2$, $h^{1,1}/4 = 5$, and neither equals $\mathrm{rank}/12 \approx 1.83$.  The question should be reframed: what determines $\kappa_\BPS$ (the BKM weight) in terms of Hodge data, and how does the second-quantization factor $\kappa_\BPS / \kappa_{\mathrm{ch}}$ depend on the geometry?
+
+  \item \textbf{Question 8} (shadow depth of QVCGs): the pushforward analysis shows that the shadow depth of the input chiral algebra is $\mathbf{G}$ (free fields), but the QVCG should have shadow depth $\mathbf{M}$ (the BKM root system has infinite depth).  The depth upgrade from $\mathbf{G}$ to $\mathbf{M}$ must come from the non-perturbative structure (sigma model, orbifold, or envelope).
+\end{itemize}
+
+\noindent\textit{Verification}: full computation in \texttt{centcom/scripts/research/k3e\_pushforward\_shadow\_computation.py}, importing Vol~I MC recursion engine.  All shadow tower values are exact rational, verified against the MC equation at each arity.
 
 \end{document}

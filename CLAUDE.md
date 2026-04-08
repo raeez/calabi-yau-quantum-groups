@@ -22,7 +22,7 @@ A chiral algebra A carries a bar complex B(A), a factorization coalgebra on Ran(
 
 The key structural ingredient, extending the E_1 theory from Vol II:
 
-- **E_1-chiral algebras** (Vol II, Part VII): associative factorization on C x R. Representation categories are monoidal.
+- **E_1-chiral algebras** (Vol II, Part III): associative factorization on C x R. Representation categories are monoidal.
 - **E_2-chiral algebras** (this work): braided factorization on C x C. Representation categories are braided monoidal — the natural habitat of quantum groups.
 - **The E_1 -> E_2 passage** via Dunn additivity: E_2 ~ E_1 tensor E_1.
 - **The CY connection**: for d=2, the S^2-framing of HH_*(C) provides an E_2-algebra structure on cyclic homology — the braiding.
@@ -42,37 +42,39 @@ The Drinfeld center Z(Rep^{E_1}(A)) ~ Rep^{E_2}(Z^der_ch(A)) provides the catego
 - **CY-C** (Quantum group realization): Rep^{E_2}(A_C) is braided monoidal equivalent to C itself, when C arises from a quantum group (generalizing Kazhdan-Lusztig)
 - **CY-D** (Modular CY characteristic): kappa(A_C) = chi^CY(C), genus-g obstruction recovers GW/Hochschild invariants
 
-## Architecture
+## Architecture (Five Parts)
 
-**Part I — CY Categories and Cyclic Structures**
+**Part I — The CY Engine** (part:cy-categories)
+- Introduction
 - CY categories (smooth, proper, CY condition, trace)
 - Cyclic A-infinity structures (cyclic bar complex, S^d-framing)
 - Hochschild calculus (HH duality, categorical Hodge theory)
-
-**Part II — E_1 and E_2 Chiral Theories**
 - E_1-chiral algebras (review from Vol II)
 - E_2-chiral algebras (central innovation: braided factorization)
 - E_n-factorization and higher chiral structure
 
-**Part III — The Bridge: CY Categories as Quantum Chiral Algebras**
+**Part II — The CY Characteristic Datum** (part:bridge)
 - CY-to-chiral functor (cyclic -> Lie conformal -> factorization envelope -> E_2 enhancement -> quantization)
 - Quantum chiral algebras (R-matrix, quantum YBE, shadow depth)
 - The modular trace (CY characteristic, genus expansion, shadow obstruction tower)
-
-**Part IV — Quantum Groups and Braided Monoidal Structure**
 - Quantum groups foundations (U_q, R-matrix, YBE)
 - Braided factorization (E_2 bar-cobar, braided Koszul duality)
 - Drinfeld center and bulk algebras
 
-**Part V — The Standard Landscape**
+**Part III — The CY Landscape** (part:examples)
+- Toroidal and elliptic examples (includes K3 x E)
+- Toric CY3 CoHA
 - Fukaya categories (elliptic, K3, CY 3-folds, wrapped)
 - Derived categories of CY manifolds (HMS, exceptional collections, stability)
 - Matrix factorizations (LG models, ADE singularities, W-algebras)
 - Quantum group representations (Rep_q(g), Kazhdan-Lusztig, Yangian/RTT)
 
-**Part VI — Connections and Frontier**
+**Part IV — The Seven Faces of r_CY(z)** (part:connections)
 - Bar-cobar bridge to Volume I
-- Modular Koszul duality and CY geometry
+- CY holographic datum
+- Modular Koszul bridge
+
+**Part V — The CY Frontier** (part:frontier)
 - Geometric Langlands and CY quantum groups
 
 ## Dependencies on Volumes I and II
@@ -202,6 +204,49 @@ pkill -9 -f pdflatex 2>/dev/null || true; sleep 2; make fast
 ```
 
 Same engine as Volumes I-II: memoir, EB Garamond, newtxmath, thmtools, microtype.
+
+## The Symphonic Standard (PERMANENT)
+
+**The monograph must move like the greatest symphony the world has ever known.** Every sentence carries mathematical weight. Every construction is inevitable. Every theorem earns its place by solving a problem the reader already feels. This standard applies to ALL writing: manuscript, standalone papers, working notes, concordance, preface, introduction, appendices. No exceptions.
+
+### The Voices and What They Demand
+
+**Gelfand** (functorial inevitability): Every definition is a theorem in disguise. The right level of generality is natural, not maximal. Constructions have a "could not be otherwise" quality.
+
+**Beilinson** (falsification and depth): No false ideas survive. Sparse, surgical prose. The epistemic hierarchy is always visible.
+
+**Drinfeld** (deformation-theoretic soul): Quantum groups emerge from geometry. The R-matrix is a shadow of the MC element. Every construction has a deformation-theoretic origin.
+
+**Kazhdan** (D-modules as language): The correct categorical framework is substance, not decoration. No shortcuts in geometric arguments.
+
+**Etingof** (crystal clarity): Every fact earns its keep through computation. A graduate student can follow the argument on first reading.
+
+**Nekrasov** (partition functions as algebra): The generating function IS the mathematical object. No gap between physics and mathematics.
+
+**Polyakov** (the functional integral is real): The OPE is a consequence of locality. Physical reasoning is the deepest layer.
+
+**Kapranov** (higher categories as substance): Operads have geometric content. Categorical structures solve problems, never invoked for their own sake.
+
+**Ginzburg** (the Chriss-Ginzburg standard): Every object solves a problem. Every paragraph forces the next. No dead weight. The architecture of text mirrors mathematics.
+
+**Costello** (factorization algebras as rigorous physics): Perturbative QFT is a theorem. The physical story comes first, then framework, then results.
+
+**Gaiotto** (dualities as tools): Dualities compute invariants. Worked examples are where the theory proves itself.
+
+**Witten** (physical insight precedes proof): The deep structure is geometric. The introduction states what is true in three pages, not thirty. No hedging.
+
+### Prose Laws (apply to ALL writing in the programme)
+
+1. **No AI slop.** Zero tolerance for: "notably", "crucially", "remarkably", "it is worth noting", "interestingly", "this is particularly significant." Delete them.
+2. **No hedging where the mathematics is clear.** Proved → state it. Open → state it. No "we believe that" when the status is known.
+3. **No em dashes for subordinate clauses.** Use colons, semicolons, or separate sentences.
+4. **No passive voice hedging.** "It can be shown that" → state the theorem.
+5. **Every paragraph forces the next.** Momentum from mathematical necessity.
+6. **State once, prove once, use everywhere.** No duplication.
+7. **Every chapter opens with the problem it solves.** Not "In this chapter we study..."
+8. **Scope is always explicit.** "For all" specifies the universe. "Proved" specifies hypotheses.
+9. **The physical and mathematical are unified.** Not separate sections but woven together.
+10. **Comparison with prior work is surgical.** One sentence per paper.
 
 ## LaTeX Rules
 
