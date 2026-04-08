@@ -31,24 +31,32 @@ The modular characteristic $\kappa$ is an invariant of the quantum chiral algebr
 \begin{proposition}[$\chi/24 \neq \kappa$ in general]
 \label{prop:chi-kappa-discrepancy}
 \ClaimStatusProvedHere
-The ratio $\chi_{\mathrm{top}}/24$ and the modular characteristic $\kappa(A_\cC)$ disagree for most CY threefolds.  The following table records all cases where both are known:
+The ratio $\chi_{\mathrm{top}}/24$ and the modular characteristic $\kappa$ disagree for most CY threefolds.  The following table records all cases where both are known.
+% AP9/AP48: The column ``$\kappa$'' records the PROVED modular
+% characteristic of the CONSTRUCTED chiral algebra for E, K3, and
+% conifold; for K3 x E, A_{K3xE} is NOT constructed (AP43), so
+% two values appear: kappa_ch = 3 (chiral de Rham, proved) and
+% kappa_BKM = 5 (Borcherds weight, conjectural as a modular
+% characteristic).  See Remark rem:cy3-kappa-polysemy.
 \begin{center}
-\begin{tabular}{lcccc}
+\begin{tabular}{lcccl}
 \toprule
-$X$ & $\chi_{\mathrm{top}}(X)$ & $\chi_{\mathrm{top}}/24$ & $\kappa(A_X)$ & Source \\
+$X$ & $\chi_{\mathrm{top}}(X)$ & $\chi_{\mathrm{top}}/24$ & $\kappa$ & Source \\
 \midrule
 Elliptic curve $E$ & $0$ & $0$ & $1$ & $\kappa(H_1) = 1$ \\
-$K3$ surface & $24$ & $1$ & $2$ & $\kappa = \mathrm{rank} = 2$ \\
-$K3 \times E$ & $0$ & $0$ & $5$ & $\mathrm{weight}(\Delta_5) = 5$ \\
+$K3$ surface & $24$ & $1$ & $2$ & $\kappa(\cA_{K3}) = 2$ (Prop.~\ref{prop:kappa-k3}) \\
+$K3 \times E$ & $0$ & $0$ & $3$ / $5^*$ & $\kappa_{\mathrm{ch}} = 3$ (proved); $\kappa_{\mathrm{BKM}} = 5$ (conj.) \\
 Conifold & $2$ & $1/12$ & $1$ & Resolved conifold \\
 \bottomrule
 \end{tabular}
 \end{center}
-In particular: $\chi_{\mathrm{top}}/24 \neq \kappa$ in every case except accidentally.
+\noindent{}${}^*$For $K3 \times E$, the chiral de Rham complex gives $\kappa_{\mathrm{ch}} = 3 = \dim_\C$; the Borcherds lift weight gives $\kappa_{\mathrm{BKM}} = 5 = \mathrm{wt}(\Delta_5)$.  These are modular characteristics of \emph{different} algebras (AP9, Remark~\ref{rem:cy3-kappa-polysemy}).  The chiral algebra $A_{K3 \times E}$ is not constructed (AP43); the identification $\kappa_{\mathrm{BKM}} = 5$ as a Vol~I modular characteristic is an observation, not a theorem.
+
+\smallskip\noindent In particular: $\chi_{\mathrm{top}}/24 \neq \kappa$ in every case.
 \end{proposition}
 
 \begin{proof}
-Each entry is computed independently.  For $E$: the quantum chiral algebra is the Heisenberg $H_1$ with $\kappa = 1$ (the level), while $\chi_{\mathrm{top}}(E) = 0$.  For $K3$: the quantum chiral algebra is the rank-$2$ lattice VOA with $\kappa = \mathrm{rank} = 2$, while $\chi_{\mathrm{top}}/24 = 1$.  For $K3 \times E$: $\chi_{\mathrm{top}}(K3 \times E) = \chi(K3) \cdot \chi(E) = 24 \cdot 0 = 0$ while $\kappa = 5 = \mathrm{weight}(\Delta_5)$.  For the conifold: the resolved conifold has $\chi_{\mathrm{top}} = 2$ (the total space of $\cO(-1) \oplus \cO(-1) \to \bP^1$ deformation retracts onto the zero section $\bP^1$, so $\chi_{\mathrm{top}} = \chi(\bP^1) = 2$), giving $\chi_{\mathrm{top}}/24 = 1/12$, while $\kappa = 1$.
+Each entry is computed independently.  For $E$: the quantum chiral algebra is the Heisenberg $H_1$ with $\kappa = 1$ (the level), while $\chi_{\mathrm{top}}(E) = 0$.  For $K3$: the quantum chiral algebra is the $\cN = 4$ SCA with $\kappa = 2 = \dim_\C(K3)$, while $\chi_{\mathrm{top}}/24 = 1$.  For $K3 \times E$: $\chi_{\mathrm{top}}(K3 \times E) = \chi(K3) \cdot \chi(E) = 24 \cdot 0 = 0$; the chiral de Rham complex has $\kappa_{\mathrm{ch}} = \kappa(K3) + \kappa(E) = 2 + 1 = 3$ (proved by additivity); the BKM automorphic weight is the distinct quantity $\kappa_{\mathrm{BKM}} = \mathrm{wt}(\Delta_5) = 5$ (see the $\kappa$-spectrum, Example~\ref{ex:kappa-spectrum-k3xe}).  For the conifold: the resolved conifold has $\chi_{\mathrm{top}} = 2$ (the total space of $\cO(-1) \oplus \cO(-1) \to \bP^1$ deformation retracts onto the zero section $\bP^1$, so $\chi_{\mathrm{top}} = \chi(\bP^1) = 2$), giving $\chi_{\mathrm{top}}/24 = 1/12$, while $\kappa = 1$.
 
 See \texttt{compute/lib/cy\_euler.py} ($86$ tests) and \texttt{compute/lib/modular\_cy\_characteristic.py} ($80$ tests).
 \end{proof}
@@ -58,17 +66,19 @@ See \texttt{compute/lib/cy\_euler.py} ($86$ tests) and \texttt{compute/lib/modul
 The CY Euler characteristic $\chi^{\CY}(\cC)$ appearing in Theorem~\ref{thm:cy-modular-characteristic} is the categorical trace $\Tr_{\HH_d(\cC)}(\mathrm{id})$, which is in general \emph{not} the topological Euler characteristic $\chi_{\mathrm{top}}(X)$.  The former depends on the CY category $\cC$ (and in particular on the complex structure and derived category), while the latter depends only on the underlying topological manifold.
 \end{remark}
 
-\begin{proposition}[Non-multiplicativity of $\kappa$]
+\begin{proposition}[Non-multiplicativity of $\kappa_{\mathrm{BKM}}$]
 \label{prop:kappa-non-multiplicative}
 \ClaimStatusProvedHere
-The modular characteristic is not multiplicative under products:
+The BKM modular weight $\kappa_{\mathrm{BKM}}$ is not multiplicative under products:
 \[
   \kappa(K3) \cdot \kappa(E) = 2 \cdot 1 = 2, \qquad
-  \kappa(K3 \times E) = 5.
+  \kappa_{\mathrm{BKM}}(K3 \times E) = 5.
 \]
 % AP10: this is verified by independent computation, not by
 % multiplying previously computed values.
-The discrepancy $5 \neq 2$ reflects the fact that the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ for $K3 \times E$ is \emph{not} the tensor product of the $K3$ and $E$ chiral algebras.  The weight $5 = \dim(\Sp_4)/2$ is determined by the Borcherds product structure, not by a product decomposition.
+% AP9: kappa_ch(K3 x E) = 3 IS additive (= kappa(K3) + kappa(E) = 2 + 1);
+% the non-multiplicativity is specific to kappa_BKM.
+The discrepancy $5 \neq 2$ reflects the fact that the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ for $K3 \times E$ is \emph{not} the tensor product of the $K3$ and $E$ chiral algebras.  The weight $5 = \dim(\Sp_4)/2$ is determined by the Borcherds product structure, not by a product decomposition.  By contrast, the chiral de Rham modular characteristic $\kappa_{\mathrm{ch}}(K3 \times E) = \kappa(K3) + \kappa(E) = 2 + 1 = 3$ \emph{is} additive (Proposition~\ref{prop:kappa-k3}).
 \end{proposition}
 
 
@@ -110,9 +120,9 @@ See \texttt{compute/lib/cy3\_modularity\_constraints.py} ($111$ tests).
 \begin{corollary}[Structural constraints for $K3 \times E$]
 \label{cor:k3e-structural-constraints}
 \ClaimStatusProvedHere
-For $K3 \times E$ with $\kappa = 5$ and controlling form $\Delta_5 \in S_5(\Sp_4(\Z))$, the shadow tower satisfies seven structural constraints:
+For $K3 \times E$ with $\kappa_{\mathrm{BKM}} = 5$ and controlling form $\Delta_5 \in S_5(\Sp_4(\Z))$, the BKM shadow tower satisfies seven structural constraints:
 \begin{enumerate}[label=(\arabic*)]
-  \item $\kappa = 5 \in \Z_{>0}$;
+  \item $\kappa_{\mathrm{BKM}} = 5 \in \Z_{>0}$;
   \item the tower amplitudes $F_g$ lie in the Fourier--Jacobi ring of $\Sp_4(\Z)$;
   \item the Hecke eigenvalues of $\Delta_5$ constrain $F_g$ multiplicatively;
   \item the functional equation of $\Delta_5$ imposes a symmetry on the tower;

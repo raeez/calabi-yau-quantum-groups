@@ -1822,6 +1822,48 @@ $\mathrm{SU}(2)_R$ sector at level $k_R = 1$ contributes nonzero
 cubic shadow $S_3$ from the triple current OPE.
 \end{proposition}
 
+\begin{computation}[Shadow tower of the K3 sigma model through arity~$12$;
+\ClaimStatusProvedHere]
+\label{comp:shadow-tower-k3}
+\index{shadow tower!K3 sigma model}
+The MC recursion (Vol~I, Theorem~\textup{\ref{thm:riccati-algebraicity}})
+with initial data $(\kappa, S_3, S_4) = (2, 2, 5/156)$ produces the
+full shadow tower.  Every value is an exact rational, verified to
+satisfy the MC equation
+$D_{\cA}(\Theta) + \tfrac{1}{2}[\Theta, \Theta] = 0$
+at each arity.
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{rcl}
+  \toprule
+  $r$ & $S_r(\cA_\sigma)$ & Sign \\
+  \midrule
+  2 & $2$ & $+$ \\
+  3 & $2$ & $+$ \\
+  4 & $5/156$ & $+$ \\
+  5 & $-1/26$ & $-$ \\
+  6 & $3485/73008$ & $+$ \\
+  7 & $-1145/18928$ & $-$ \\
+  8 & $1179485/15185664$ & $+$ \\
+  9 & $-1144885/11389248$ & $-$ \\
+  10 & $309513983/2368963584$ & $+$ \\
+  11 & $-1477140565/8686199808$ & $-$ \\
+  12 & $490338857615/2217349914624$ & $+$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+Sign alternation begins at arity~$5$; magnitudes are bounded and
+slowly decaying.  The critical discriminant
+$\Delta = 8\kappa S_4 = 20/39 \neq 0$ forces all $S_r \neq 0$ for
+$r \geq 5$ by the single-line dichotomy theorem
+(Vol~I, Theorem~\textup{\ref{thm:riccati-algebraicity}}),
+confirming class~M with $r_{\max} = \infty$.
+
+\smallskip\noindent\textit{Verification}:
+\texttt{cy\_n4sca\_k3\_engine.py},
+\texttt{cy\_bar\_n4sca\_engine.py}.
+\end{computation}
+
 \subsection{The K3 elliptic genus and Mathieu moonshine}
 \label{subsec:k3-elliptic-genus}
 
@@ -2085,6 +2127,148 @@ The derived centre $Z^{\mathrm{der}}_{\mathrm{ch}}(\cA_{K3})$
 \textup{(}the universal bulk\textup{)} is a separate object
 from $\cA^!$.
 \end{proposition}
+
+
+%% ===============================================================
+%% ABELIAN (2,0) PUSHFORWARD AND THE KAPPA-COLLAPSE
+%% ===============================================================
+
+\subsection{The abelian $(2,0)$ pushforward}
+\label{subsec:pushforward-k3}
+\index{pushforward chiral algebra!K3}
+
+For $X = S \times E$ with $S$ a K3 surface and $E$ an elliptic
+curve, the derived pushforward $R\pi_*(\Omega^2_{X,\mathrm{cl}})$
+along $\pi \colon S \times E \to E$ produces a chiral algebra on~$E$.
+
+\begin{construction}[The pushforward chiral algebra]
+\label{constr:pushforward-chiral-algebra}
+\index{abelian (2,0) theory!pushforward}
+The \emph{abelian $(2,0)$ pushforward chiral algebra} on $E$ is
+\[
+  \cA_{\mathrm{free}} \;=\; \pi_*\bigl(
+    \mathrm{Obs}^q(\mathcal{T}_{(2,0)}|_{S \times E})\bigr),
+\]
+the pushforward of the quantum observables of the holomorphically
+twisted abelian $(2,0)$ theory along $\pi \colon S \times E \to E$.
+By the Costello--Gwilliam theorem (proper pushforward preserves
+factorization), this is a factorization algebra on $\mathrm{Ran}(E)$,
+hence a chiral algebra on~$E$.
+
+The fiber cohomology $R\pi_*(\Omega^2_X)$ decomposes via
+K\"unneth into contributions from $H^*(S)$:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llc}
+  \toprule
+  \textbf{Hodge group of $S$} & \textbf{Sheaf on $E$}
+    & \textbf{Dimension} \\
+  \midrule
+  $H^0(S, \Omega^2_S) = \bC\langle\sigma\rangle$
+    & $\cO_E$ & $1$ \\
+  $H^2(S, \Omega^2_S) = \bC$ (Serre dual)
+    & $\cO_E$ & $1$ \\
+  $H^1(S, \Omega^1_S) = \bC^{20}$
+    & $\Omega^1_E$ & $20$ \\
+  $H^0(S, \cO_S) = \bC$ & $\Omega^2_E \simeq \cO_E$ & $1$ \\
+  $H^2(S, \cO_S) = \bC$ & $\Omega^2_E \simeq \cO_E$ & $1$ \\
+  \midrule
+  \multicolumn{2}{l}{Total before closure constraint} & $24$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The closure condition modifies this count: a section
+$\sigma \otimes f(z)$ of the $H^{2,0}(S) \otimes \cO_E$
+summand is closed only when $d_E(f) = 0$, i.e.\ $f$ is constant.
+The naive total of~$24$ is therefore an upper bound for the rank
+of the pushforward of closed $2$-forms.  The $H^{1,1}(S)$ sector
+(contributing $20$ weight-$1$ currents) survives the closure
+condition, as its members are closed along $S$ and the
+$\Omega^1_E$ factor prevents a $d_E$-constraint.
+\end{construction}
+
+\begin{proposition}[OPE structure of the pushforward;
+\ClaimStatusProvedHere]
+\label{prop:pushforward-ope}
+\index{pushforward chiral algebra!OPE}
+The chiral algebra $\cA_{\mathrm{free}}$ is of Heisenberg/lattice
+type.  Its OPE is determined by the propagator of the
+$6$-dimensional theory pushed forward along~$S$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item The $20$ currents $J_a(z)$ from
+    $H^{1,1}(S) \otimes \Omega^1_E$ have double-pole OPE:
+    \[
+      J_a(z)\, J_b(w) \;\sim\; \frac{\eta_{ab}}{(z-w)^2},
+    \]
+    where $\eta_{ab} = \int_S \omega_a \wedge \omega_b$ is the
+    intersection form restricted to $H^{1,1}(S)$, of signature
+    $(1,19)$.
+  \item The remaining generators \textup{(}from $H^{2,0}$,
+    $H^{0,2}$, $H^0(\cO_S)$, $H^2(\cO_S)$\textup{)} have at most
+    double-pole OPE.
+  \item No poles of order $\geq 3$ appear: the $6$-dimensional
+    theory is free with at most quadratic action.
+\end{enumerate}
+In particular, $\cA_{\mathrm{free}}$ is a lattice vertex algebra
+$V_\Lambda$ with $\Lambda$ determined by the fiber cohomology
+surviving the closure constraint.  By the Vol~I lattice curvature
+theorem, $\kappa(V_\Lambda) = \mathrm{rank}(\Lambda)$ for any
+lattice VA, shadow class~$\mathbf{G}$
+\textup{(}Gaussian, $r_{\max} = 2$\textup{)}, and the shadow
+obstruction tower terminates:
+$\Theta_{\cA_{\mathrm{free}}} = \kappa \cdot \omega_g$ at all genera.
+\end{proposition}
+
+\begin{remark}[The $\kappa$-collapse: rank $\to$ $\dim_\bC$]
+\label{rem:kappa-collapse}
+\index{kappa-collapse@$\kappa$-collapse}
+The passage from the abelian $(2,0)$ pushforward to the K3 sigma
+model exhibits a non-perturbative collapse of the modular
+characteristic:
+\[
+  \kappa(\cA_{\mathrm{free}}) \;=\; \mathrm{rank}(\Lambda)
+    \;\in\; \{22, 24\},
+  \qquad
+  \kappa(\cA_\sigma) \;=\; 2 \;=\; \dim_\bC(K3).
+\]
+This is not a small correction.  No deformation of
+$\cA_{\mathrm{free}}$ within the class of lattice vertex algebras
+can produce $\kappa = 2$: the Vol~I lattice curvature theorem gives
+$\kappa(V_\Lambda) = \mathrm{rank}(\Lambda)$ for all lattice VAs
+independent of deformation parameters.
+The $\cN = 4$ supersymmetry constrains the genus-$1$ curvature to
+equal the complex dimension of the target, regardless of the
+free-field rank (AP48).
+
+\medskip
+The three levels of structure are:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llcll}
+  \toprule
+  \textbf{Object} & \textbf{Symbol} & $\kappa$ & \textbf{Class}
+    & \textbf{Depth} \\
+  \midrule
+  Abelian $(2,0)$ pushforward & $\cA_{\mathrm{free}}$
+    & $\mathrm{rank}(\Lambda) \in \{22, 24\}$
+    & $\mathbf{G}$ & $2$ \\
+  K3 sigma model VOA & $\cA_\sigma$
+    & $2$ & $\mathbf{M}$ & $\infty$ \\
+  BKM global & $G(K3 \times E)$
+    & $5$ & $\mathbf{M}$ & $\infty$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+The chain $\mathrm{rank}(\Lambda) \to 2 \to 5$ reflects: (i)~the
+$\cN = 4$ SCA constraining $\kappa$ from $\mathrm{rank}$ to
+$\dim_\bC$ (introducing $S_3, S_4 \neq 0$ and upgrading the
+shadow class from~$\mathbf{G}$ to~$\mathbf{M}$); (ii)~the passage
+from the single-copy chiral algebra
+($\kappa_{\mathrm{ch}} = 3 = \kappa(K3) + \kappa(E) = 2 + 1$,
+by additivity) to the second-quantized BKM modular characteristic
+($\kappa_{\mathrm{BPS}} = 5$).
+\end{remark}
 
 
 %% ===============================================================
@@ -2615,6 +2799,79 @@ $\phi_{0,1} = h_0(\tau)\,\vartheta_{0,1}(\tau,z)
 $h_0(\tau) = 10 + 108\,q + 808\,q^2 + \cdots$ and
 $h_1(\tau) = q^{-1/4}(1 - 64\,q + \cdots)$.
 \end{proposition}
+
+\begin{proposition}[Root multiplicity constancy; \ClaimStatusProvedHere]
+\label{prop:root-mult-constancy}
+\index{BKM algebra!root multiplicity constancy}
+Define the \emph{level} of a positive root $\alpha = (n, l, m)$ as
+$\ell(\alpha) = n + m$.  For all levels $\ell \geq 1$:
+\[
+  \sum_{\substack{\alpha \in \Delta_+ \\ \ell(\alpha) = \ell}}
+    \mathrm{mult}(\alpha) \;=\; 24 \;=\; \chi(K3).
+\]
+\end{proposition}
+
+\begin{proof}
+At each level~$\ell$, the positive roots decompose into boundary
+roots (those with $n = 0$ or $m = 0$) and interior roots (those
+with $n, m \geq 1$).
+
+\medskip\noindent\textbf{Boundary contribution.}
+Roots with $m = 0$: $(n, l, 0)$ for $n = \ell$, varying~$l$.
+The multiplicity is $c_0(-l^2)$, which is nonzero only for
+$l = 0$ (giving $c_0(0) = 10$) and $l = \pm 1$ (giving
+$c_0(-1) = 1$ each).  Total: $10 + 1 + 1 = 12$.
+Similarly for $n = 0$: total~$12$.  Boundary total:~$24$.
+
+\medskip\noindent\textbf{Interior cancellation.}
+For each pair $(n, m)$ with $n + m = \ell$ and $n, m \geq 1$:
+\[
+  \sum_{l \in \bZ} c_0(4nm - l^2) \;=\; 0.
+\]
+This is the modular constancy of $\phi_{0,1}$ at $z = 0$.
+The weak Jacobi form $\phi_{0,1}(\tau, z)$ has weight~$0$ and
+index~$1$; evaluating at $z = 0$ gives a modular form of
+weight~$0$ on $\mathrm{SL}_2(\bZ)$, which is necessarily constant
+(the space $M_0(\mathrm{SL}_2(\bZ))$ is one-dimensional, spanned
+by~$1$).  The value is $\phi_{0,1}(\tau, 0) = 12$
+(Eichler--Zagier, \emph{The Theory of Jacobi Forms}, 1985, p.~108).
+At the level of Fourier coefficients:
+$\sum_l c_0(4N - l^2) = 0$ for all $N \geq 1$, since the $q^N$
+coefficient of the constant function~$12$ vanishes for $N \geq 1$.
+The boundary gives~$24$, the interior gives~$0$, so the total at
+every level is~$24$.
+\end{proof}
+
+\begin{remark}[The interior cancellation at level~$2$]
+\label{rem:level-2-cancellation}
+\index{BKM algebra!interior cancellation}
+The interior at level~$2$ consists of roots $(1, l, 1)$ with
+$\mathrm{mult} = c_0(4 - l^2)$.  From the Eichler--Zagier table:
+$l = 0$: $D = 4$, $c_0(4) = 108$;
+$l = \pm 1$: $D = 3$, $c_0(3) = -64$ each;
+$l = \pm 2$: $D = 0$, $c_0(0) = 10$ each.
+Sum: $108 - 2 \cdot 64 + 2 \cdot 10 = 108 - 128 + 20 = 0$.
+The cancellation is a direct consequence of
+$\sum_l c_0(4 - l^2) = 0$ (the $q^1$ coefficient of
+$\phi_{0,1}(\tau, 0) = 12$).
+\end{remark}
+
+\begin{remark}[Root multiplicity constancy and the shadow tower]
+\label{rem:constancy-shadow}
+\index{root multiplicity!shadow tower connection}
+The constancy $\sum_{\ell(\alpha) = \ell} \mathrm{mult}(\alpha)
+= 24 = \chi(K3)$ reflects the topological datum $\chi(K3)$
+persisting through the BKM construction.  This is precisely the
+datum that the abelian $(2,0)$ pushforward
+(Construction~\ref{constr:pushforward-chiral-algebra}) captures:
+the Euler characteristic of the fiber enters through the lattice
+rank and the partition function of the free-field theory.  The
+pushforward gives the correct topological backbone
+($\chi = 24$) even though it gives the wrong shadow class
+(class~$\mathbf{G}$ instead of class~$\mathbf{M}$) and the wrong
+$\kappa$ ($\mathrm{rank}(\Lambda)$ instead of
+$\dim_\bC(K3) = 2$).
+\end{remark}
 
 
 %% ---------------------------------------------------------------

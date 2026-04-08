@@ -3557,7 +3557,14 @@ is a perfect complex on $E$.  Since $\dim_\C S = 2$, every holomorphic $2$-form 
 \[
   0 \;\longrightarrow\; \Omega^2_{X,\mathrm{cl}} \;\longrightarrow\; \Omega^2_X \;\xrightarrow{\;d\;}\; \Omega^3_X \;\longrightarrow\; 0
 \]
-decomposes on $S \times E$ via K\"unneth into three components.  The fiber cohomology contributing to $R\pi_*$ involves:
+decomposes on $S \times E$ via K\"unneth into three components.
+
+\begin{warning}[Closure condition modifies the naive count]
+\label{warn:closure-condition}
+The table below lists the fiber cohomology of $\Omega^2_X$, \emph{not} of $\Omega^2_{X,\mathrm{cl}}$.  The long exact sequence from $0 \to \Omega^2_{X,\mathrm{cl}} \to \Omega^2_X \to \Omega^3_X \to 0$ modifies $R\pi_*$ by the connecting homomorphism.  In particular, the $H^0(S, \Omega^2_S) \otimes \cO_E$ summand is cut down: a section $\sigma \otimes f(z)$ is closed only when $d_E(f) = 0$, i.e.\ $f$ is constant.  The naive count of $24$ generators for $\Omega^2_X$ is therefore an \emph{upper bound} for $\Omega^2_{X,\mathrm{cl}}$.  The qualitative conclusion (free-field, class~$\mathbf{G}$) is unaffected, but the precise rank of the pushforward requires computing the full long exact sequence.
+\end{warning}
+
+\noindent The fiber cohomology of $R\pi_*(\Omega^2_X)$ (before the closure constraint):
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
@@ -3571,12 +3578,12 @@ decomposes on $S \times E$ via K\"unneth into three components.  The fiber cohom
   $H^0(S, \cO_S) = \C$ & $\Omega^2_E \simeq \cO_E$ & 1 \\
   $H^2(S, \cO_S) = \C$ & $\Omega^2_E \simeq \cO_E$ & 1 \\
   \midrule
-  \multicolumn{2}{l}{Total generating fields on $E$} & 24 \\
+  \multicolumn{2}{l}{Total before closure constraint} & 24 \\
   \bottomrule
 \end{tabular}
 \end{center}
 
-\noindent Here $\sigma \in H^{2,0}(S)$ is the holomorphic symplectic form, and the $20$-dimensional contribution from $H^{1,1}(S)$ coupled with $\Omega^1_E$ produces weight-$1$ currents on $E$.  The closure condition on $\Omega^2_X$ couples these components, but the dominant structure is determined by the fiber cohomology.
+\noindent Here $\sigma \in H^{2,0}(S)$ is the holomorphic symplectic form, and the $20$-dimensional contribution from $H^{1,1}(S)$ coupled with $\Omega^1_E$ produces weight-$1$ currents on $E$.  The $H^{1,1}$ sector survives the closure condition (its members are closed along $S$, and the $\Omega^1_E$ factor prevents a $d_E$-constraint).  The precise rank of $R\pi_*(\Omega^2_{X,\mathrm{cl}})$ depends on the connecting homomorphism $\delta \colon R^0\pi_*(\Omega^3_X) \to R^1\pi_*(\Omega^2_{X,\mathrm{cl}})$ and is not computed here.
 
 \begin{definition}[The pushforward chiral algebra]
 \label{def:pushforward-chiral-algebra}
@@ -3595,7 +3602,7 @@ The chiral algebra $\cA_{\mathrm{free}}$ is of Heisenberg/lattice type.  Its OPE
   \[
     J_a(z)\, J_b(w) \;\sim\; \frac{\eta_{ab}}{(z-w)^2},
   \]
-  where $\eta_{ab} = \int_S \omega_a \wedge \omega_b$ is the intersection form on $H^{1,1}(S)$, of signature $(1,19)$.
+  where $\eta_{ab} = \int_S \omega_a \wedge \omega_b$ is the intersection form restricted to $H^{1,1}(S)$, of signature $(1,19)$ (the full $H^2(S,\R)$ has signature $(3,19)$, with $(2,0)$ from $H^{2,0} \oplus H^{0,2}$).
   \item The remaining $4$ generators (from $H^{2,0}$, $H^{0,2}$, $H^0(\cO_S)$, $H^2(\cO_S)$) have at most double-pole OPE.
   \item No poles of order $\geq 3$ appear: the $6$-dimensional theory is free with at most quadratic action.
 \end{enumerate}
@@ -3609,25 +3616,25 @@ The key theorem: for $\pi \colon M \to N$ a proper map of complex manifolds and 
 \subsection{Shadow tower of the pushforward: class $\mathbf{G}$}
 \label{subsec:pushforward-shadow}
 
-By Proposition~\ref{prop:pushforward-ope}, $\cA_{\mathrm{free}}$ is a lattice vertex algebra $V_\Lambda$ where $\Lambda \subset H^2(S, \Z)$ with the intersection form.  The Vol~I lattice curvature theorem (Theorem~\texttt{thm:lattice:curvature-braiding-orthogonal}) gives:
+By Proposition~\ref{prop:pushforward-ope}, $\cA_{\mathrm{free}}$ is a lattice vertex algebra $V_\Lambda$ where $\Lambda$ is determined by the fiber cohomology surviving the closure constraint.  The Vol~I lattice curvature theorem (proved in \texttt{chapters/examples/lattice\_foundations.tex}, Theorem~4.1; verified in \texttt{compute/lib/lattice\_voa\_shadows.py}) gives $\kappa(V_\Lambda) = \mathrm{rank}(\Lambda)$ for \emph{any} lattice VA, regardless of signature or deformation parameters.
 
 \begin{claim}[Shadow data of the pushforward]
 \label{claim:pushforward-shadow}
 \hfill
 \begin{enumerate}[label=\textup{(\roman*)}]
-  \item $\kappa(\cA_{\mathrm{free}}) = \mathrm{rank}(\Lambda)$, independent of lattice geometry.
+  \item $\kappa(\cA_{\mathrm{free}}) = \mathrm{rank}(\Lambda)$, where $\Lambda$ is the lattice from the pushforward (see Warning~\ref{warn:closure-condition}).
   \item $S_3(\cA_{\mathrm{free}}) = 0$: no cubic shadow (no simple poles in the OPE).
   \item $S_4(\cA_{\mathrm{free}}) = 0$: no quartic shadow.
   \item Shadow class: $\mathbf{G}$ (Gaussian), depth $r_{\max} = 2$.
   \item The shadow obstruction tower terminates: $\Theta_{\cA_{\mathrm{free}}} = \kappa \cdot \omega_g$ at all genera.
 \end{enumerate}
-The rank of $\Lambda$ from the pushforward is either $22$ (if only $H^2(S)$ contributes) or $24$ (if $H^0 \oplus H^4$ contribute independent generators).  The precise answer depends on the coupling structure of the closure condition in the K\"unneth decomposition.
+The rank of $\Lambda$ is \emph{not yet computed}: it requires evaluating the connecting homomorphism in the long exact sequence from the closure constraint (Warning~\ref{warn:closure-condition}).  The naive upper bound is $24$ (from the $\Omega^2_X$ table); the $H^{1,1}(S)$ sector contributes at least $20$.  The qualitative conclusion ($\mathbf{G}$, depth~$2$) holds for any rank.
 \end{claim}
 
 \subsection{The sigma model VOA: class $\mathbf{M}$}
 \label{subsec:sigma-model-shadow}
 
-The K3 sigma model VOA $\cA_\sigma$ at a generic point in the K3 moduli space is a $c = 6$ $\cN = (4,4)$ SCVA.  It is a different object from $\cA_{\mathrm{free}}$: the sigma model includes the full non-linear target geometry, with the small $\cN = 4$ SCA providing additional generators beyond the free fields.
+The K3 sigma model VOA $\cA_\sigma$ at a generic point in the K3 moduli space is a $c = 6$ $\cN = (4,4)$ superconformal vertex algebra.  It is \emph{not} a lattice VA: it is the non-linear sigma model into $K3$, with the small $\cN = 4$ superconformal algebra (generators $T$, $G^{\pm,a}$, $J^a$) providing structure beyond free fields.  In particular, the $\mathrm{SU}(2)_R$ affine currents $J^a$ at level $k = 1$ introduce simple-pole OPEs (Lie bracket), absent in any lattice VA.
 
 \begin{proposition}[Shadow data of the K3 sigma model]
 \label{prop:sigma-shadow}
@@ -3635,9 +3642,9 @@ The K3 sigma model VOA $\cA_\sigma$ at a generic point in the K3 moduli space is
 \begin{enumerate}[label=\textup{(\roman*)}]
   \item $\kappa(\cA_\sigma) = 2 = \dim_\C(K3)$.
   \item $S_3(\cA_\sigma) = 2$ (cubic shadow from the Virasoro self-coupling on the $T$-line and $\mathrm{SU}(2)_R$ Lie bracket).
-  \item $S_4(\cA_\sigma) = \frac{5}{156}$ (quartic shadow from the Virasoro contact term at $c = 6$: $Q^{\mathrm{contact}} = \frac{10}{c(5c+22)}\big|_{c=6} = \frac{10}{312} = \frac{5}{156}$).
+  \item $S_4(\cA_\sigma) = \frac{5}{156}$ (quartic shadow from the Virasoro contact term at $c = 6$; the formula $Q^{\mathrm{contact}} = \frac{10}{c(5c+22)}$ is the arity-$4$ shadow of the Virasoro OPE on the $T$-primary line, derived in Vol~I \texttt{chapters/examples/virasoro\_shadow\_tower.tex}).
   \item Critical discriminant: $\Delta = 8\kappa S_4 = \frac{20}{39} \neq 0$.
-  \item Shadow class: $\mathbf{M}$ (mixed), depth $r_{\max} = \infty$.
+  \item Shadow class: $\mathbf{M}$ (mixed), depth $r_{\max} = \infty$.  Infinite depth follows from $\Delta \neq 0$: by the Vol~I single-line dichotomy theorem, $\Delta \neq 0$ forces all $S_r \neq 0$ for $r \geq 5$ via the MC recursion.
 \end{enumerate}
 
 \noindent\textit{Verification}: \texttt{cy\_n4sca\_k3\_engine.py}, \texttt{cy\_bar\_n4sca\_engine.py}.
@@ -3709,20 +3716,20 @@ At each level $\ell$, the positive roots decompose into \emph{boundary roots} (t
 \[
   \sum_{l \in \Z} c(4nm - l^2) \;=\; 0.
 \]
-This is exactly the modular constancy of $\phi_{0,1}$ at $z = 0$: $\sum_l c(4N - l^2) = 0$ for all $N \geq 1$ (Eichler--Zagier, consequence of $\phi_{0,1}(\tau, 0) = 12$ being a constant independent of $\tau$).
+This is exactly the modular constancy of $\phi_{0,1}$ at $z = 0$.  The weak Jacobi form $\phi_{0,1}(\tau, z)$ has weight~$0$ and index~$1$; evaluating at $z = 0$ gives a modular form of weight~$0$ on $\mathrm{SL}_2(\Z)$, which is necessarily constant (the space $M_0(\mathrm{SL}_2(\Z))$ is one-dimensional, spanned by~$1$).  The value is $\phi_{0,1}(\tau, 0) = 12$ (Eichler--Zagier, \emph{The Theory of Jacobi Forms}, 1985, p.~108).  At the level of Fourier coefficients: $\sum_l c(4N - l^2) = 0$ for all $N \geq 1$, since the $q^N$ coefficient of the constant function $12$ vanishes for $N \geq 1$.
 
 \medskip\noindent The boundary gives $24$, the interior gives $0$, so $\sum_{\ell(\alpha) = \ell} \mult(\alpha) = 24$ at every level.
 \end{proof}
 
 \begin{remark}[The cancellation at level $2$]
 \label{rem:level-2-cancellation}
-The interior at level $2$ consists of roots $(1, l, 1)$ with $\mult = c(4 - l^2)$:
+The interior at level $2$ consists of roots $(1, l, 1)$ with $\mult = c(4 - l^2)$.  The discriminant-indexed coefficients are from the Eichler--Zagier table (1985, p.~108):
 \begin{itemize}
-  \item $l = 0$: $c(4) = 108$.
-  \item $l = \pm 1$: $c(3) = -64$ each.
-  \item $l = \pm 2$: $c(0) = 10$ each.
+  \item $l = 0$: $D = 4$, $c(4) = 108$.
+  \item $l = \pm 1$: $D = 3$, $c(3) = -64$ each.
+  \item $l = \pm 2$: $D = 0$, $c(0) = 10$ each.
 \end{itemize}
-Sum: $108 - 2 \cdot 64 + 2 \cdot 10 = 108 - 128 + 20 = 0$.  The cancellation is exact and non-trivial, arising from the modular properties of $\phi_{0,1}$.  Computationally verified through level~$6$ in \texttt{centcom/scripts/research/k3e\_pushforward\_shadow\_computation.py}.
+Sum: $108 - 2 \cdot 64 + 2 \cdot 10 = 108 - 128 + 20 = 0$.  The cancellation is a direct consequence of $\sum_l c(4 - l^2) = 0$ (the $q^1$ coefficient of $\phi_{0,1}(\tau, 0) = 12$).  Computationally verified through level~$6$ in \texttt{centcom/scripts/research/k3e\_pushforward\_shadow\_computation.py}.
 \end{remark}
 
 \begin{remark}[Relation to the shadow tower]
@@ -3800,7 +3807,7 @@ It does \emph{not} provide:
   \item The infinite shadow depth (class $\mathbf{M}$).
   \item The BKM root multiplicities directly (these require the full MC element).
 \end{enumerate}
-The pushforward gives the correct \emph{what} (lattice, $\chi$, elliptic genus) but the wrong \emph{how} (shadow class, $\kappa$, depth).  The transition from the correct topological data to the correct algebraic structure requires the non-linear sigma model --- equivalently, the $\cN = 4$ SCA.
+The pushforward captures the topological data (lattice, $\chi$, elliptic genus) but not the algebraic structure (shadow class, $\kappa$, depth).  The transition from the correct topological data to the correct algebraic structure requires the non-linear sigma model --- equivalently, the $\cN = 4$ SCA.
 \end{observation}
 
 \begin{remark}[Witten's perspective: M5-brane on $K3$]
@@ -3810,7 +3817,7 @@ In the M-theory picture, the abelian $(2,0)$ theory is the worldvolume theory of
 
 \begin{remark}[Gaiotto's perspective: class of theories]
 \label{rem:gaiotto-class}
-The class of field theories whose global derived stacks are abelian group stacks --- the class identified above --- is the $6$-dimensional analogue of Gaiotto's class~$\cS$: a family of theories parametrized by compactification data, with the algebraic structure of the lower-dimensional theory determined by the geometry of the compactification.  For class~$\cS$ (the non-abelian $(2,0)$ on $\Sigma$), the $4$-dimensional theory is an $\cN = 2$ gauge theory determined by the pants decomposition of $\Sigma$.  For the abelian $(2,0)$ on $M^4$, the $2$-dimensional theory is a free-field chiral algebra determined by $H^*(M^4)$.  The shadow tower classification ($\mathbf{G}$/$\mathbf{L}$/$\mathbf{C}$/$\mathbf{M}$) provides a finer invariant than the class~$\cS$ data: it detects whether the compactification produces a free theory ($\mathbf{G}$), an affine-current theory ($\mathbf{L}$), a beta-gamma system ($\mathbf{C}$), or an interacting theory ($\mathbf{M}$).
+The class of field theories whose global derived stacks are abelian group stacks can be viewed as a $6$-dimensional analogue of Gaiotto's class~$\cS$, in the limited sense that both are families parametrized by compactification data.  The analogy is imperfect: class~$\cS$ (the \emph{non-abelian} $(2,0)$ on $\Sigma$) produces interacting $\cN = 2$ gauge theories, while the abelian $(2,0)$ on $M^4$ produces free-field chiral algebras determined by $H^*(M^4)$.  The non-abelian $(2,0)$ theory --- which has no Lagrangian and no known derived-stack description --- would be the true $6$-dimensional class~$\cS$.  The shadow tower classification ($\mathbf{G}$/$\mathbf{L}$/$\mathbf{C}$/$\mathbf{M}$) would provide a finer invariant in that setting, detecting the algebraic type of the compactified theory.
 \end{remark}
 
 \subsection{Connections to open questions}
