@@ -29,6 +29,12 @@ The key structural ingredient, extending the E_1 theory from Vol II:
 
 The Drinfeld center Z(Rep^{E_1}(A)) ~ Rep^{E_2}(Z^der_ch(A)) provides the categorical incarnation of the bulk-boundary correspondence: E_1 boundary -> E_2 bulk via the center construction.
 
+## E₁/Ordered as Primitive (PERMANENT, 2026-04-08)
+
+**The E₁/ordered story is the natural primitive across all three volumes.** In Vol III, this has a specific incarnation: the E₁-chiral algebra (boundary) is the primitive object; the E₂-chiral algebra (bulk) is obtained from it by the Drinfeld center construction; quantum groups (Rep_q(𝔤)) are the natural categorification of E₁ data. The averaging map av: g^{E₁} → g^mod from Vol I becomes the center construction Z: E₁-Cat → E₂-Cat in Vol III. The passage from E₁ to E₂ is the higher-categorical analogue of Σ_n-coinvariance.
+
+**Consequence for Vol III architecture:** Quantum groups, Yangians, and braided tensor categories are NATIVELY E₁ objects. The E₂/braided structure arises via the Drinfeld center, which is the categorified averaging map. The CY-to-chiral functor Φ should be understood as lifting E₁ data (the boundary A∞-algebra from the CY category) to E₂ data (the bulk chiral algebra) — this is the center construction in the factorization setting. See Vol I `princ:e1-primacy` for the full architectural thesis.
+
 ## Main Theorems (Targets)
 
 - **CY-A** (CY-to-chiral functor): Construction of Phi: CY_d-Cat -> E_2-ChirAlg via E_2-factorization envelope
@@ -122,14 +128,72 @@ All anti-patterns AP1-AP43 from Vol I CLAUDE.md apply here. The following are th
 - **AP48**: κ depends on the full algebra, not the Virasoro subalgebra. κ=c/2 only for Virasoro. Lattice: κ=rank. General VOAs: compute from bar complex.
 - **AP49**: Cross-volume formula paste without convention conversion. Vol I=OPE modes, Vol II=λ-brackets, Vol III=motivic/categorical.
 
+**AP59-AP61 (from the seven-faces swarm, April 7 2026):**
+- **AP59**: Three distinct invariants must never be conflated: p_max(A) (generator OPE pole order) ≠ k_max(A) (collision depth = p_max - 1) ≠ r_max(A) (shadow depth, arity at which the obstruction tower terminates). The βγ system is the archetypal witness: p_max(βγ) = 1, k_max(βγ) = 0, r_max(βγ) = 4 (class C). Conflation produces wrong classifications. Found in T6 first draft (CRITICAL F16/F17, 2026-04-07). **Rule: when discussing "depth", always specify which invariant. Formal definitions in Vol I chapters/theory/three_invariants.tex.**
+- **AP60**: Status inflation when combining new and known content. When a theorem combines a new identification with classical results (Drinfeld 1985, STS 1983, FFR 1994), do NOT tag the entire theorem ProvedHere. Restrict the ProvedHere claim to genuinely new content; classical components are ProvedElsewhere with attribution. Found in T5 (Sklyanin theorem) first draft (SERIOUS F12, 2026-04-07).
+- **AP61**: Hardcoded values from CLAUDE.md descriptions inherit conflations. Compute engines copying values from CLAUDE.md "shadow archetypes" can inherit semantic conflations. The βγ p_max=2 hardcoded value came from interpreting "betagamma=contact/quartic/terminates@4" as p_max=2 instead of r_max=4. **Rule: never copy a numerical invariant from a CLAUDE.md description without verifying against (1) the OPE table, (2) landscape_census.tex, (3) at least one cross-engine comparison.**
+
 **Additional Vol III-specific pitfalls from the audit:**
 - **AP-CY6**: A_X does NOT exist for CY3. The chiral algebra of a Calabi-Yau threefold is the single load-bearing gap. CY-A is proved for d=2; for d=3, A_X is conditional on chain-level S³-framing construction. NEVER write "A_X for CY3" as if it were a defined object.
 - **AP-CY7**: CoHA ≠ E₁-chiral algebra. The critical CoHA (Schiffmann-Vasserot, RSYZ) is an associative algebra; calling it "the E₁-sector of G(X)" assumes G(X) exists and has a CoHA inside it. The correct statement: "the CoHA is the target that the E₁-sector of G(X) should match, IF G(X) exists."
 - **AP-CY8**: Borcherds denominator identity ≠ bar Euler product. The identification requires the CY-to-chiral functor to exist in the relevant dimension. For K3 × E (d=3), Δ₅ is computed from the lattice, not from a chiral algebra (which doesn't exist yet). The "bar Euler product" interpretation is an OBSERVATION about the product formula, not a theorem derived from the bar complex.
 
-## Agent Anti-Patterns (AAP1-AAP8)
+## Anti-Patterns from the 2026-04-07 Frontier Research Swarm (AP62-AP80)
 
-Cross-volume agent workflow anti-patterns from 300-commit archaeology. See Vol I CLAUDE.md for full descriptions. Summary: AAP1 (tool-markup leak), AAP2 (fragmented renames), AAP3 (formula duplication in compute), AAP4 (proof after conjecture), AAP5 (artifact commit noise), AAP6 (status oscillation), AAP7 (intra-file inconsistency), AAP8 (README drift).
+From the 125-agent session. See Vol I CLAUDE.md for FULL descriptions with examples and derivations. Summary:
+- **AP62**: Bar cohomology "depends only on dim(g)" TRUE for Euler char, FALSE for individual dims
+- **AP63**: CE(g_-) ≠ chiral bar for multi-generator algebras (Orlik-Solomon correction)
+- **AP64**: Same cohomology, different gradings → different sequences (CE weight vs PBW degree)
+- **AP65**: ORDERED (E1) bar is PRIMITIVE; unordered is derived quotient losing quantum group data
+- **AP66**: Partition-type GFs (free fields) are NOT D-finite; interacting algebras ARE
+- **AP67**: Strong generation ≠ FREE strong generation (W(p) Koszulness OPEN)
+- **AP68**: PVA slab ghost c ≠ chiral algebra κ (SVir κ = (3c-2)/4, NOT (c+11)/2)
+- **AP69**: τ_shadow satisfies κ-DEFORMED KdV, NOT standard KdV. Obstruction κ(κ-1)
+- **AP70**: Shadow L^sh(s) has POLES at s=1,2; negative integers are trivial zeros
+- **AP71**: Shadow κ ≠ Dyson β ≠ Painlevé parameter
+- **AP72**: W-algebra NOP bar does NOT have d²=0; needs full singular OPE + Orlik-Solomon
+- **AP73**: BV=bar chain-level: PROVED G/L, CONDITIONAL C/M
+- **AP74**: Shadow Eisenstein proof cites FALSE Bernoulli-Dirichlet identity
+- **AP75**: Koszulness ≠ H^k=0 in conformal weight grading (only PBW degree)
+- **AP76**: Y_{1,1,1} has c=0 (NOT 3); κ=Ψ from Heisenberg channel
+- **AP77**: Stokes ratio tests on convergent series give spurious instanton actions
+- **AP78**: Hardy-Ramanujan 1729 "coincidence" in δF₂ is illusory
+- **AP79**: W(p) has 4 strong generators, not 2
+- **AP80**: Agents can produce engine without test file
+
+## Anti-Patterns from the 2026-04-08 Bar/SC/E_1 Primacy Research (AP81-AP104)
+
+From the 22-agent bar construction / Swiss-cheese / E_1 primacy investigation. See Vol I CLAUDE.md for FULL descriptions with proofs and derivations. These arise at the OPERADIC LAYER.
+- **AP81**: Operadic bar of P-algebra ≠ operadic bar of operad P. Use B_P(A) vs BP.
+- **AP82**: Three coalgebra structures on bar: Lie^c (Harrison/coLie), Sym^c (coshuffle/cocommutative), T^c (deconcatenation/coassociative). NEVER conflate.
+- **AP83**: Coshuffle (2^n terms) ≠ deconcatenation (n+1 terms). Found at bar_construction.tex line 1563.
+- **AP84**: B_{Com}(A) is cofree coLie, NOT cocommutative. CE complex is cocommutative; operadic bar is coLie.
+- **AP85**: Factorization coproduct (Vol I, Sym^c) ≠ deconcatenation coproduct (Vol II, T^c). Different objects, different geometries.
+- **AP86**: FM_n(X) connected; only boundary strata factor as FM_{|S|} × FM_{n-|S|+1}.
+- **AP87**: SC^{ch,top,!} mixed-sector dim = (k-1)!·C(k+m,m), NOT (k-1)!·m!.
+- **AP88**: Cooperad P¡ vs operad P^! notation collision. P¡ = cooperad; P^! = (P¡)^∨.
+- **AP89**: B_{SC}(A) for one-coloured A is ill-formed. SC requires two-coloured (V_c, V_o).
+- **AP90**: Promotion functor A ↦ (A,A): self-action gives SC input. Closed = B_{Com}(A), open = B_{Ass}(A).
+- **AP91**: Curved d² = κ·ω_g NOT a coderivation at g ≥ 1. Factor-2 cross-term discrepancy. Period-corrected D^{(g)} required.
+- **AP92**: Algebra-level μ_0 (genus 0, strict) vs fiberwise d_fib² = κ·ω_g (genus ≥ 1, Hodge). Different scales.
+- **AP93**: δF_g^cross in CLOSED sector, NOT mixed sector. "Mixed channels" ≠ "mixed sector."
+- **AP94**: Polynomial Hilbert series ≠ polynomial RING. ChirHoch^*(Vir_c) total dim ≤ 4. NEVER write ℂ[Θ].
+- **AP95**: ChirHoch ≠ Gel'fand-Fuchs of Diff(S¹). Unrelated invariants at different categorical levels.
+- **AP96**: Shadow algebra A^sh is bigraded LIE ALGEBRA, NOT ring. Bracket of degree 0, arity map -2.
+- **AP97**: Averaging av: g^{E_1} → g^mod is LOSSY. av(r(z)) = κ; R-matrix strictly richer.
+- **AP98**: κ Eulerian weight parity-dependent. Even desuspension → symmetric weight 2. Odd → Harrison weight 1.
+- **AP99**: K11 Lagrangian criterion CONDITIONAL on perfectness + bar-cobar normal-complex identification.
+- **AP100**: Theorem C: eigenspace (C1) unconditional; scalar F_g = κ·λ_g (C2) uniform-weight only.
+- **AP101**: "qi, not merely iso on cohomology" is tautological. Use "qi of A∞-algebras" vs "chain qi."
+- **AP102**: Theorems MUST specify which bar: B^ord, B^Σ, or B^Lie.
+- **AP103**: Cotriple bar (monadic, always defined) ≠ operadic bar (P¡-coalgebra, Koszul locus).
+- **AP104**: E_1/ordered is PRIMITIVE; modular/symmetric is av-image. NEVER present ordered as "auxiliary." (Particularly relevant for Vol III CY/DT structures where the CoHA is naturally E_1.)
+
+**Meta^5-rule (from AP81-AP104):** the same error can recur at the OPERADIC-ARCHITECTURAL level. AP81-AP104 catch errors in the categorical level at which bar-cobar operates — confusing which operad, cooperad, coalgebra structure, and colour an operation lives in.
+
+## Agent Anti-Patterns (AAP1-AAP18)
+
+Cross-volume agent workflow anti-patterns. See Vol I CLAUDE.md for full descriptions. Summary: AAP1 (tool-markup leak), AAP2 (fragmented renames), AAP3 (formula duplication), AAP4 (proof after conjecture), AAP5 (artifact noise), AAP6 (status oscillation), AAP7 (intra-file inconsistency), AAP8 (README drift), AAP9 (premature relaunch → cascading rate limits), AAP10 (engine without test file), AAP11 (test expectations encode AP10), AAP12 (asymptotic tolerance too tight), AAP13 (silent model downgrade without testing), AAP14 (worktree branch collisions), AAP15 (parallel pdflatex SIGKILL races), AAP16 (git stash FORBIDDEN), AAP17 (truncated agent reports — verify via diff), AAP18 (confabulating operadic theory — compute or cite).
 
 ## Build
 

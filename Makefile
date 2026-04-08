@@ -22,6 +22,9 @@ TEXFLAGS  := -interaction=nonstopmode -file-line-error -synctex=0
 BUILD_SCRIPT := ./scripts/build.sh
 LOG_DIR   := .build_logs
 
+# iCloud destination for release PDFs
+ICLOUD_DIR := /Users/raeez/Library/Mobile Documents/com~apple~CloudDocs/research
+
 PASSES    := 6
 FAST_PASSES := 4
 
@@ -155,32 +158,46 @@ $(OUT_WN): $(WN_TEX)
 		exit 1; \
 	fi
 
-## release: Full rebuild of everything -- manuscript + working notes -> out/
+## release: Full rebuild — manuscript + working notes → out/ + root + iCloud
 release:
 	@rm -f $(STAMP) $(PDF) $(WN_PDF)
 	@rm -rf $(OUT_DIR)
 	@mkdir -p $(LOG_DIR) $(OUT_DIR)
 	@echo ""
-	@echo "  ============================================"
-	@echo "  -- RELEASE BUILD --"
-	@echo "  ============================================"
+	@echo "  ══════════════════════════════════════════"
+	@echo "  ── RELEASE BUILD (Vol III) ──"
+	@echo "  ══════════════════════════════════════════"
 	@echo ""
 	@echo "  [1/2] Main manuscript"
 	@$(BUILD_SCRIPT) $(PASSES)
 	@if [ -f $(PDF) ]; then \
 		cp $(PDF) $(OUT_PDF); \
-		echo "  $(OUT_PDF)"; \
+		cp $(PDF) calabi_yau_quantum_groups.pdf; \
+		echo "  ✓  out/calabi_yau_quantum_groups.pdf"; \
+		echo "  ✓  calabi_yau_quantum_groups.pdf (root)"; \
 	else \
-		echo "  Manuscript build failed."; \
+		echo "  ✗  Manuscript build failed."; \
 	fi
 	@echo ""
 	@echo "  [2/2] Working notes"
 	@$(MAKE) --no-print-directory working-notes
+	@if [ -f $(OUT_WN) ]; then cp $(OUT_WN) working_notes.pdf; echo "  ✓  working_notes.pdf (root)"; fi
 	@echo ""
-	@echo "  ============================================"
+	@echo "  ── Copying to iCloud ──"
+	@mkdir -p "$(ICLOUD_DIR)"
+	@if [ -f $(OUT_PDF) ]; then \
+		cp $(OUT_PDF) "$(ICLOUD_DIR)/calabi_yau_quantum_groups.pdf"; \
+		echo "    ✓  calabi_yau_quantum_groups.pdf"; \
+	fi
+	@if [ -f $(OUT_WN) ]; then \
+		cp $(OUT_WN) "$(ICLOUD_DIR)/working_notes_vol3.pdf"; \
+		echo "    ✓  working_notes_vol3.pdf"; \
+	fi
+	@echo ""
+	@echo "  ══════════════════════════════════════════"
 	@echo "  Release complete. Output in out/:"
 	@ls -1 $(OUT_DIR)/*.pdf 2>/dev/null | sed 's/^/    /'
-	@echo "  ============================================"
+	@echo "  ══════════════════════════════════════════"
 
 ## dist: Create archive for distribution.
 dist: release
