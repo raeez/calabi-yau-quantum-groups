@@ -92,11 +92,11 @@ The algebraic engine. Constructs bar-cobar duality for chiral algebras via confi
 
 | Metric | Value |
 |--------|------:|
-| Pages | 2,434 |
-| Tagged claims | 3,379 |
-| Compute tests | 87,812 |
+| Pages | 2,541 |
+| Tagged claims | 3,463 |
+| Compute tests | 118,823 |
 | Source files | 111 `.tex`, 298K lines |
-| Compute modules | 909 lib + 961 test files |
+| Compute modules | 1,255 lib + 1,315 test files |
 
 </details>
 
