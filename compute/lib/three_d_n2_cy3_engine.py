@@ -518,15 +518,13 @@ def ht_algebra_C3() -> HTChiralAlgebra:
     Shadow depth: class C (contact, r_max = 4) for the beta-gamma at (1,0).
     The beta-gamma has a quartic contact term from the self-OPE structure.
 
-    Wait -- from Vol I: beta-gamma at (1,0) is class G (Gaussian, r_max = 2).
+    From Vol I: beta-gamma at (1,0) is class C (Contact, r_max = 4).
     The beta-gamma has a SIMPLE pole OPE: beta * gamma ~ 1/(z-w).
     No self-OPE for beta-beta or gamma-gamma (they commute/anticommute
-    freely). The shadow depth is 2 (Gaussian, like Heisenberg).
-
-    Actually, the beta-gamma system is isomorphic to the Heisenberg VOA
-    at level 1 as a conformal field theory: H_1 = beta-gamma_{1,0}.
-    They have the same representation theory and the same shadow invariants.
-    kappa(betagamma) = kappa(H_1) = 1. Shadow depth class: G.
+    freely). The shadow depth is 4 (Contact), not 2 (Gaussian).
+    The composite-field OPE reaches pole order 3, producing a quartic
+    contact invariant; rank-one abelian rigidity terminates the tower
+    at r_max = 4. kappa(betagamma) = 1.
     """
     theory = theory_from_C3()
     return HTChiralAlgebra(
