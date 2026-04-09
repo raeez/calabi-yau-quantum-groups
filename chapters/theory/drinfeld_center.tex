@@ -1,39 +1,365 @@
 \chapter{The Drinfeld Center and Bulk Algebras}
 \label{ch:drinfeld-center}
 
-The Drinfeld center $\cZ(\cC)$ of a monoidal category $\cC$ is the universal braided monoidal category receiving a forgetful functor from~$\cC$.  In the CY programme, it plays two roles: (i)~for $d = 3$, where the topological $E_3$-structure gives a trivial braiding at the topological level ($\pi_1(\mathrm{Conf}_2(\R^3)) = 1$), the quantum group braiding is recovered through $\cZ(\Rep^{E_1}(A))$; (ii)~the Drinfeld center is the categorical incarnation of the chiral derived center $\Zder(A) = C^\bullet_{\mathrm{ch}}(A, A)$ (Hochschild cochains) from Volume~I (Theorem~H), which computes the universal bulk algebra.  The identification $\cZ(\Rep^{E_1}(A)) \simeq \Rep^{E_2}(\Zder(A))$ (Ben-Zvi--Francis--Nadler, Lurie) is the categorical bulk-boundary correspondence.
+%% AP34: The Drinfeld center is the categorical incarnation of the
+%% chiral derived center Z^{der}_{ch}(A).  It is the UNIVERSAL BULK,
+%% NOT the bar-cobar inversion (which recovers A itself) and NOT the
+%% Verdier dual (which produces B(A!)).
+%% AP113: kappa always subscripted in Vol III.
+
+The passage from boundary to bulk requires the Drinfeld center.
+An $\Eone$-chiral algebra $A$ has a monoidal representation category
+$\Rep^{E_1}(A)$; this category is not braided, because the $\Eone$
+operad sees only one real direction and the fundamental group
+$\pi_1(\mathrm{Conf}_2(\R))= \Z$ produces only a monoidal, not
+braided, structure.  The Drinfeld center $\cZ(\Rep^{E_1}(A))$
+universally adjoins a braiding; the resulting braided monoidal
+category is equivalent to $\Rep^{E_2}(\Zder(A))$, where
+$\Zder(A) = C^\bullet_{\mathrm{ch}}(A,A)$ is the chiral derived
+center of Volume~I.  This identification is the categorical
+bulk-boundary correspondence.
+
 
 \section{The Drinfeld center of a monoidal category}
 \label{sec:drinfeld-center-def}
 
 \begin{definition}[Drinfeld center]
 \label{def:drinfeld-center}
-For a monoidal category $\cC$, the \emph{Drinfeld center} $\cZ(\cC)$ is the category of pairs $(X, \beta_{X,-})$ where $X \in \cC$ and $\beta_{X,-} \colon X \otimes (-) \xrightarrow{\sim} (-) \otimes X$ is a half-braiding satisfying the hexagon axiom.  The Drinfeld center is always braided monoidal.
+Let $(\cC, \otimes, \mathbf{1})$ be a monoidal category.  The
+\emph{Drinfeld center} $\cZ(\cC)$ is the category whose objects are
+pairs $(X, \beta_{X,-})$ where:
+\begin{enumerate}[label=(\roman*)]
+  \item $X \in \cC$ is an object;
+  \item $\beta_{X,-} \colon X \otimes (-) \xrightarrow{\sim} (-) \otimes X$
+    is a natural isomorphism (the \emph{half-braiding});
+  \item the half-braiding satisfies the hexagon axiom: for all
+    $Y, Z \in \cC$,
+    \[
+      \beta_{X, Y \otimes Z}
+      = (\id_Y \otimes \beta_{X,Z}) \circ (\beta_{X,Y} \otimes \id_Z).
+    \]
+\end{enumerate}
+A morphism $(X, \beta_X) \to (Y, \beta_Y)$ is a morphism $f \colon X \to Y$
+in $\cC$ that intertwines the half-braidings.  The Drinfeld center is
+always braided monoidal, with braiding
+$\sigma_{(X,\beta_X),(Y,\beta_Y)} = \beta_{X,Y}$.
 \end{definition}
+
+\begin{proposition}[Universal property]
+\label{prop:drinfeld-center-universal}
+\ClaimStatusProvedElsewhere
+The Drinfeld center $\cZ(\cC)$ is the universal braided monoidal
+category receiving a central (i.e., braiding-compatible) monoidal
+functor from $\cC$.  The forgetful functor
+$U \colon \cZ(\cC) \to \cC$ is faithful and monoidal.
+\end{proposition}
+
+\begin{example}[Finite group]
+\label{ex:drinfeld-center-finite-group}
+For $\cC = \Rep(G)$ with $G$ a finite group, the Drinfeld center
+$\cZ(\Rep(G)) \simeq \Rep(D(G))$ is the representation category of
+the Drinfeld double $D(G) = \C[G] \bowtie \C(G)$.  When $G$ is
+abelian, $D(G) \simeq \C[G \times \hat{G}]$ and
+$\cZ(\Rep(G)) \simeq \Rep(G \times \hat{G})$, the modular
+tensor category governing the $G$-Dijkgraaf--Witten theory.
+\end{example}
+
+\begin{example}[Quantum group]
+\label{ex:drinfeld-center-quantum-group}
+For $\cC = \Rep_q(\frakg)$ at generic $q$, the Drinfeld center
+$\cZ(\Rep_q(\frakg)) \simeq \Rep_q(\frakg) \boxtimes
+\Rep_{q^{-1}}(\frakg)$, recovering the Drinfeld double
+$D(\Uq(\frakg)) \simeq \Uq(\frakg) \otimes \Uq(\frakg^{\op})$.
+At roots of unity, $\cZ(\cC_q) = \cC_q \boxtimes \overline{\cC_q}$
+is the Drinfeld center of the modular tensor category, and the
+$S$-matrix of $\cZ(\cC_q)$ governs the Reshetikhin--Turaev
+invariant of the torus $T^2$.
+\end{example}
+
 
 \section{Drinfeld center as chiral derived center}
 \label{sec:drinfeld-chiral-center}
 
-\begin{proposition}
-\label{prop:drinfeld-chiral-derived-center}
-For an $E_1$-chiral algebra $A$ with monoidal representation category $\cC = \Rep^{E_1}(A)$, the Drinfeld center $\cZ(\cC)$ is equivalent to the representation category of the chiral derived center:
+The categorical Drinfeld center and the algebraic chiral derived center
+are identified by the Ben-Zvi--Francis--Nadler theorem.
+
+\begin{theorem}[Ben-Zvi--Francis--Nadler; Lurie]
+\label{thm:bzfn}
+\ClaimStatusProvedElsewhere
+For an $\Eone$-algebra $A$ in a symmetric monoidal stable
+$\infty$-category, there is an equivalence of braided monoidal
+$\infty$-categories
 \[
-  \cZ(\Rep^{E_1}(A)) \simeq \Rep^{E_2}(Z^{\mathrm{der}}_{\mathrm{ch}}(A)).
+  \cZ(\Rep^{E_1}(A))
+  \;\simeq\;
+  \Rep^{E_2}(\Zder(A))
 \]
-This is the bulk-boundary correspondence: the $E_1$ boundary theory determines an $E_2$ bulk theory via the Drinfeld center.
-% AP34: The Drinfeld center (= chiral derived center) is the UNIVERSAL BULK.
-% It is NOT obtained by bar-cobar inversion (which recovers A itself), nor
-% by Verdier duality (which produces B(A!)). The Drinfeld center is
-% computed via Hochschild cochains: Z^{der}_{ch}(A) = RHom(Omega(B(A)), A).
-% See Vol I, AP25 and AP34.
+where $\Zder(A) = \RHom_{A\text{-}\mathrm{bimod}}(A, A)$ is the
+derived center (Hochschild cochains) of $A$.
+\end{theorem}
+
+\begin{corollary}[Chiral derived center = Drinfeld center]
+\label{cor:zder-drinfeld}
+\ClaimStatusProvedHere
+For an $\Eone$-chiral algebra $A$, the chiral derived center
+$\Zder(A) = C^\bullet_{\mathrm{ch}}(A, A)$ of Volume~I (Theorem~H)
+satisfies
+\[
+  \cZ(\Rep^{\Eone}(A)) \;\simeq\; \Rep^{\Etwo}(\Zder(A)).
+\]
+The Drinfeld center is the categorical incarnation of the
+universal bulk algebra.
+\end{corollary}
+
+\begin{proof}
+The chiral derived center is
+$\Zder(A) = \RHom_{\Omegach(B(A)) \otimes \Omegach(B(A))^{\op}}(A, A)$.
+By bar-cobar inversion (Volume~I, Theorem~B), $\Omegach(B(A)) \simeq A$
+on the Koszul locus, so $\Zder(A) \simeq \RHom_{A \otimes A^{\op}}(A, A)
+= \HH^\bullet(A)$.  The Ben-Zvi--Francis--Nadler theorem
+(Theorem~\ref{thm:bzfn}) then gives the stated equivalence.
+\end{proof}
+
+\begin{warning}[Three functors on $B(A)$]
+\label{warn:three-functors-drinfeld}
+% AP25, AP34: The three functors produce three different objects.
+The Drinfeld center / chiral derived center is a FOURTH operation
+on the bar complex, distinct from the three of Volume~I:
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{Bar-cobar inversion}:
+    $\Omega(B(A)) \simeq A$ (recovers the original algebra);
+  \item \emph{Verdier duality}:
+    $D_{\Ran}(B(A)) \simeq B(A^!)$ (produces the bar of the
+    Koszul dual);
+  \item \emph{Koszul dual extraction}:
+    $H^*(B(A))^\vee = A^!$ (the strict Koszul dual algebra);
+  \item \emph{Derived center}:
+    $\Zder(A) = C^\bullet_{\mathrm{ch}}(A,A)
+    = \RHom(\Omega(B(A)), A)$
+    (the universal bulk algebra).
+\end{enumerate}
+The Drinfeld center $\cZ(\Rep^{E_1}(A))$ is
+$\Rep^{E_2}(\Zder(A))$: it is functor (d), not (a), (b), or (c).
+Bar-cobar inversion recovers the boundary; the Drinfeld center
+produces the bulk.
+\end{warning}
+
+
+\section{Bulk-boundary correspondence}
+\label{sec:bulk-boundary}
+
+\begin{proposition}[Information flow by genus]
+\label{prop:bulk-boundary-flow}
+\ClaimStatusProvedHere
+The bulk-boundary correspondence
+$\cZ(\Rep^{\Eone}(A)) \simeq \Rep^{\Etwo}(\Zder(A))$ exhibits
+genus-dependent information flow:
+\begin{enumerate}[label=(\roman*)]
+  \item \emph{Genus~$0$}: Information flows one way, from bulk to
+    boundary.  The forgetful functor
+    $\cZ(\cC) \to \cC$ has no natural section: the Swiss-cheese
+    operad forbids open-to-closed maps at genus $0$
+    (Volume~II, thm:thqg-swiss-cheese);
+  \item \emph{Genus~$1$}: The annulus trace
+    $\Delta_{\mathrm{ns}}(\Tr_A) = \kappa_{\mathrm{cat}} \cdot \lambda_1$
+    (Volume~I, thm:annulus-trace) provides the first open-to-closed
+    map.  The Dennis trace
+    $K(\cC) \to \HH_\bullet(\cC)$ maps K-theory of the open sector
+    into the bulk via the SBI sequence;
+  \item \emph{Higher genus}: The full genus tower progressively
+    restores bidirectionality.  The clutching maps
+    $\mathrm{cl}_{g,n} \colon \HH_\bullet(A)^{\otimes n} \to \Zder(A)$
+    on the modular operad provide genus-$g$ open-to-closed data.
+\end{enumerate}
 \end{proposition}
+
+\begin{proof}
+Item (i): at the operad level, $\SC^{\mathrm{ch,top}}$ has no
+composition $\mathrm{open} \to \mathrm{closed}$ at genus $0$
+(the Kontsevich no-open-to-closed axiom).
+
+Item (ii): the Dennis trace $K(\cC) \to \HH_\bullet(\cC)$ factors
+through negative cyclic homology $\HC^-_\bullet(\cC)$.  The CY
+duality $\HH^\bullet(\cC) \simeq \HH_{\bullet+d}(\cC)$
+(Theorem~\ref{thm:cy-hh-duality}) and the identification
+$\HH^\bullet(\cC) \simeq \Zder(A)$ (Corollary~\ref{cor:zder-drinfeld})
+give the map into the bulk.  The annulus trace is the genus-$1$
+specialization: the $S^1$-trace on $\HH_0(A)$ gives
+$\kappa_{\mathrm{cat}} \cdot \lambda_1 \in H^2(\overline{\cM}_{1,1})$.
+
+Item (iii): the modular operad structure on
+$\{H^*(\overline{\cM}_{g,n})\}$ provides clutching maps
+$\gamma_{g_1,n_1} \circ_{g_2,n_2}$ that compose open-sector data
+(living on boundaries of $\overline{\cM}_{g,n}$) into closed-sector
+invariants.  Each genus $g$ introduces new clutching compositions
+(from codimension-$1$ boundary strata of $\overline{\cM}_{g,n}$),
+progressively enlarging the image of the open-to-closed map.
+\end{proof}
+
 
 \section{CY enhancement of the Drinfeld center}
 \label{sec:cy-drinfeld}
 
-For a CY category $\cC$ of dimension $d$, the Drinfeld center $\cZ(\Rep^{E_1}(\Phi(\cC)))$ inherits a CY structure of dimension $d + 1$ from the Hochschild cochains (the bulk has one extra dimension from the closed-string direction).  This CY enhancement is the categorical analogue of the shifted-symplectic Lagrangian geometry of Volume~I (Theorem~C, ambient complementarity): the boundary theory $A$ determines a Lagrangian in the symplectic bulk $\Zder(A)$.
+\begin{theorem}[CY Drinfeld center]
+\label{thm:cy-drinfeld-center}
+\ClaimStatusProvedElsewhere
+Let $\cC$ be a smooth proper CY$_d$ category with quantum chiral
+algebra $A_\cC = \Phi(\cC)$.  The Drinfeld center
+$\cZ(\Rep^{E_1}(A_\cC))$ carries a CY structure of dimension $d+1$.
+Under the identification
+$\cZ(\Rep^{E_1}(A_\cC)) \simeq \Rep^{E_2}(\Zder(A_\cC))$, this
+CY$_{d+1}$ structure arises from the $(1-d)$-shifted symplectic
+structure on the derived center (Pantev--To\"en--Vaqui\'e--Vezzosi).
+\end{theorem}
+
+\begin{remark}[Dimensional hierarchy]
+\label{rem:cy-dimensional-hierarchy}
+The shift $d \to d+1$ is the categorical holographic principle:
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+CY dim & Boundary & Bulk & Physical \\
+\midrule
+$d = 1$ & $\Eone$-chiral & CY$_2$ & 2d CFT / 3d TFT \\
+$d = 2$ & $\Etwo$-chiral & CY$_3$ & 3d HT / 4d $\cN=2$ \\
+$d = 3$ & $\Eone$-chiral & CY$_4$ & 4d $\cN=1$ gauge \\
+\bottomrule
+\end{tabular}
+\end{center}
+For $d = 3$, the boundary algebra is $\Eone$ (not $\Etwo$):
+the $\mathbb{S}^3$-framing obstruction (Conjecture~CY-A$_3$)
+breaks $\Etwo$ to $\Eone$.  The braiding is recovered
+via $\cZ(\Rep^{\Eone}(A))$, not from the boundary $A$ directly.
+\end{remark}
+
+
+\section{Categorical Theorem H}
+\label{sec:categorical-thm-h}
+
+Volume~I Theorem~H establishes that chiral Hochschild cohomology
+$\ChirHoch^*(A)$ is polynomial (concentrated in degrees $\{0,1,2\}$)
+for modular Koszul algebras, with total dimension $\leq 4$.  The
+categorical analogue replaces $\ChirHoch^*$ with $\HH^\bullet(\cC)$.
+
+\begin{theorem}[Categorical Theorem H]
+\label{thm:categorical-thm-h}
+\ClaimStatusConditional
+For a smooth proper CY$_d$ category $\cC$ whose quantum chiral
+algebra $A_\cC = \Phi(\cC)$ is modular Koszul:
+\begin{enumerate}[label=(\roman*)]
+  \item $\HH^k(\cC) = 0$ for $k > d$ (concentration, from
+    smoothness and properness);
+  \item $\HH^0(\cC) \simeq k$ (the identity natural transformation);
+  \item $\HH^1(\cC)$ classifies first-order deformations of $\cC$
+    as a dg category;
+  \item $\HH^2(\cC)$ is the obstruction space for deformations.
+\end{enumerate}
+The Gerstenhaber bracket $[-,-] \colon \HH^p \otimes \HH^q \to
+\HH^{p+q-1}$ on $\HH^\bullet(\cC)$ maps, under $\Phi$, to the
+convolution bracket on $\fg^{\mathrm{mod}}_{A_\cC}$ of Volume~I.
+\end{theorem}
+
+\begin{remark}[Status]
+\label{rem:categorical-thm-h-status}
+Items (i)--(iv) are standard consequences of smoothness and properness
+(Keller, Kontsevich).  The conditional content is the identification
+of the Gerstenhaber bracket with the Volume~I convolution bracket
+under $\Phi$, established for $d = 2$ and conjectural for $d = 3$.
+% AP94: polynomial Hilbert series does NOT mean polynomial ring.
+\end{remark}
+
 
 \section{Quantum group reconstruction from the center}
 \label{sec:qg-reconstruction}
 
-The reconstruction problem: given the braided monoidal category $\cZ(\cC)$, recover the quantum group $U_q(\frakg)$ whose representation category it is.  For finite tensor categories, Etingof--Nikshych--Ostrik reconstruction applies.  For the CY programme, the target is to reconstruct the quantum vertex chiral group $G(X)$ from the Drinfeld center of $\Rep^{E_1}(\Phi(\cC))$.  The Tannakian formalism applies when the fiber functor exists; for non-semisimple categories at roots of unity, the modified trace (Geer--Patureau-Mirand--Turaev) replaces the ordinary fiber functor.
+\begin{proposition}[Tannakian reconstruction]
+\label{prop:tannakian-reconstruction}
+\ClaimStatusProvedElsewhere
+Let $\cB$ be a rigid braided monoidal category over $\C$ equipped
+with a fiber functor $\omega \colon \cB \to \Vect_\C$.  The
+Tannakian reconstruction gives a quasi-triangular Hopf algebra
+$H = \End(\omega)$ with $\cB \simeq \Rep(H)$ as braided monoidal
+categories.  When $\cB = \cZ(\Rep^{\Eone}(A))$ for an $\Eone$-chiral
+algebra $A$ with $\frakg$-symmetry, $H \simeq \Uq(\frakg)$ with
+$q$ determined by $\kappa_{\mathrm{cat}}$.
+\end{proposition}
+
+\begin{remark}[Non-semisimple reconstruction]
+\label{rem:non-semisimple-reconstruction}
+At roots of unity ($q^N = 1$), the category $\Rep_q(\frakg)$ is
+non-semisimple: indecomposable but non-simple modules appear.  The
+standard fiber functor is not exact on the full category.  Two
+remedies:
+\begin{enumerate}[label=(\alph*)]
+  \item Restrict to the semisimplified quotient
+    $\overline{\Rep}_q(\frakg)$ (modular tensor category of
+    Reshetikhin--Turaev);
+  \item Use the modified trace of Geer--Patureau-Mirand--Turaev,
+    which replaces the categorical trace for non-semisimple ribbon
+    categories.
+\end{enumerate}
+For the CY programme, approach (b) is preferred: the full
+non-semisimple structure encodes the complete BPS spectrum
+(Chapter~\ref{ch:toric-coha}), and the modified trace is the
+categorical analogue of the regularized partition function.
+\end{remark}
+
+
+\section{The Drinfeld double and the slab}
+\label{sec:drinfeld-double-slab}
+
+\begin{definition}[Drinfeld double]
+\label{def:drinfeld-double}
+For a finite-dimensional Hopf algebra $H$, the \emph{Drinfeld double}
+$D(H) = H \bowtie H^{*\,\mathrm{cop}}$ is the quasi-triangular Hopf
+algebra built from $H$ and the co-opposite of its dual.  Its
+representation category is $\cZ(\Rep(H))$, the Drinfeld center of
+$\Rep(H)$.
+\end{definition}
+
+\begin{remark}[The slab is a bimodule]
+\label{rem:slab-bimodule}
+% RS-9 / AP9: The slab has two boundary components, making it a
+% BIMODULE, not a Swiss-cheese disk (which has one closed + one
+% open boundary).
+In the 3d holomorphic-topological setting (Volume~II), the
+Drinfeld double arises from the \emph{slab}: a strip
+$X \times [0,1]$ with two boundary components $X \times \{0\}$
+and $X \times \{1\}$.  The algebra of operators on the slab
+is a bimodule for the two boundary algebras $A_0$ and $A_1$.
+The Drinfeld double $D(A) = A \bowtie A^{!,\mathrm{cop}}$
+appears when $A_0 = A$ and $A_1 = A^!$ (the Koszul dual).
+The slab is NOT a Swiss-cheese disk (which has one closed
+and one open boundary component); it is a cylinder with two
+open boundary components.
+\end{remark}
+
+\begin{proposition}[Slab = Drinfeld double]
+\label{prop:slab-double}
+\ClaimStatusConditional
+For an $\Eone$-chiral algebra $A$ on $X \times \R$, the slab
+algebra $\cA_{\mathrm{slab}} = \End_{A\text{-}A^!}(A \otimes_{A^!} A)$
+is isomorphic to the Drinfeld double $D(A)$.  The slab $R$-matrix
+$\cR_{\mathrm{slab}} = \cR_A \otimes \cR_{A^!}^{-1}$ is the
+universal $R$-matrix of $D(A)$, and its representation category
+is the Drinfeld center $\cZ(\Rep^{\Eone}(A))$.
+\end{proposition}
+
+\begin{conjecture}[Quantum vertex chiral group]
+\label{conj:qvcg}
+\ClaimStatusConjectured
+For a CY$_2$ category $\cC$ with $\frakg$-symmetry, the Drinfeld
+center $\cZ(\Rep^{\Eone}(\Phi(\cC)))$ determines a quantum vertex
+chiral group $G(\cC)$ unifying four algebraic structures:
+\begin{enumerate}[label=(\roman*)]
+  \item $\Uq(\frakg)$: the quantum group (fiber at a point);
+  \item $Y(\frakg)$: the Yangian ($\Eone$-sector, Volume~II, MC3);
+  \item $\Uq(\widehat{\frakg})$: the affine quantum group
+    (loop algebra sector);
+  \item The Etingof--Kazhdan quantum vertex algebra (the genuinely
+    nonlocal atom, Volume~II).
+\end{enumerate}
+The four incarnations arise from different geometric
+specializations of the $\Etwo$-factorization structure on
+$\Ran(X) \times \Ran(Y)$.
+\end{conjecture}

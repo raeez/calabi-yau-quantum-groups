@@ -1,32 +1,560 @@
 \chapter{Fukaya Categories}
 \label{ch:fukaya}
 
-The CY-to-chiral functor $\Phi$ (Theorem~CY-A$_2$) takes as input a CY category with cyclic $\Ainf$-structure (Chapter~\ref{ch:cyclic-ainf}).  The Fukaya category $\Fuk(X)$ of a symplectic manifold $X$ is the prototypical source: its $\Ainf$-structure encodes counts of pseudoholomorphic polygons, and the CY pairing is Poincar\'{e} duality on Lagrangian intersections.  For CY surfaces ($d = 2$), $\Phi(\Fuk(X))$ is an $\Etwo$-chiral algebra with $\kappa = \chi^{\CY}$.  This chapter computes $\Fuk(X)$ and the resulting chiral algebra for elliptic curves, K3 surfaces, abelian surfaces, and CY threefolds.
+%% AP113: kappa always subscripted in Vol III.
+%% AP32: genus-1 unconditional != all-genera unconditional.
+%% AP104: E_1/ordered is primitive.
 
-\section{The Fukaya category of a CY manifold}
-\label{sec:fukaya-cy-manifold}
+The CY-to-chiral functor $\Phi$ (Theorem~CY-A$_2$) takes as input a
+CY category with cyclic $\Ainf$-structure
+(Chapter~\ref{ch:cyclic-ainf}).  Algebraic geometry provides
+$\Perf(X)$ and $D^b(\Coh(X))$; symplectic geometry provides the
+Fukaya category $\Fuk(X)$.  For a compact symplectic manifold
+$(X, \omega)$, the Fukaya category has Lagrangian submanifolds as
+objects, Floer cochain complexes as morphism spaces, and counts of
+pseudoholomorphic polygons as higher composition maps $\mu_k$.  The
+CY pairing is Poincar\'{e} duality on Lagrangian intersections.  When
+$X$ is Calabi--Yau, $\Fuk(X)$ is a CY$_d$ category in the sense of
+Definition~\ref{def:cy-category}, and $\Phi(\Fuk(X))$ produces a
+chiral algebra whose modular characteristic $\kappa_{\mathrm{cat}}$
+encodes the symplectic geometry of $X$.
+
+
+\section{The Fukaya category: definition and $\Ainf$-structure}
+\label{sec:fukaya-def}
+
+\begin{definition}[Fukaya category]
+\label{def:fukaya-category}
+Let $(X^{2n}, \omega)$ be a compact symplectic manifold.  The
+\emph{Fukaya category} $\Fuk(X)$ is the $\Ainf$-category whose:
+\begin{enumerate}[label=(\roman*)]
+  \item \emph{Objects} are compact, oriented, graded Lagrangian
+    submanifolds $L \subset X$ equipped with a flat $U(1)$-connection
+    (a local system);
+  \item \emph{Morphism spaces} are Floer cochain complexes:
+    for transverse $L_0, L_1$,
+    \[
+      \Hom_{\Fuk(X)}(L_0, L_1) = \mathrm{CF}^\bullet(L_0, L_1)
+      = \bigoplus_{p \in L_0 \cap L_1} \Lambda_{\mathrm{nov}} \cdot p,
+    \]
+    where $\Lambda_{\mathrm{nov}} = \C[[T]][T^{-1}]$ is the Novikov
+    field and the grading on $p$ is the Maslov index;
+  \item \emph{Higher compositions} are
+    $\mu_k \colon \mathrm{CF}^\bullet(L_0, L_1) \otimes \cdots
+      \otimes \mathrm{CF}^\bullet(L_{k-1}, L_k)
+      \to \mathrm{CF}^\bullet(L_0, L_k)[2-k]$,
+    defined by counting pseudoholomorphic $(k+1)$-gons:
+    \[
+      \mu_k(p_1, \ldots, p_k)
+      = \sum_{\substack{u \colon D^2 \to X \\ \bar\partial_J u = 0}}
+        T^{\int u^*\omega} \cdot q(u)
+    \]
+    where $q(u)$ is the output intersection point and the sum
+    is over $J$-holomorphic disks $u$ with boundary on
+    $L_0 \cup \cdots \cup L_k$ and corners at
+    $p_1, \ldots, p_k$.
+\end{enumerate}
+The $\Ainf$-relations $\sum_{i,j} \pm\, \mu_{k-j+1}(\ldots,
+\mu_j(\ldots), \ldots) = 0$ follow from the compactification of
+moduli spaces of pseudoholomorphic polygons (Fukaya--Oh--Ohta--Ono).
+\end{definition}
+
+\begin{remark}[Analytic foundations]
+\label{rem:fukaya-analytic}
+The rigorous construction of $\Fuk(X)$ requires virtual perturbation
+techniques (Kuranishi structures, polyfolds, or algebraic approaches)
+to handle transversality for the moduli spaces of holomorphic
+polygons.  The foundational references are Fukaya--Oh--Ohta--Ono for
+Kuranishi structures, Hofer--Wysocki--Zehnder for polyfolds, and
+Pardon for the algebraic virtual fundamental class.  For this volume,
+the $\Ainf$-structure on $\Fuk(X)$ is assumed constructed; the
+CY-to-chiral functor $\Phi$ takes this structure as input.
+\end{remark}
+
+\begin{proposition}[CY structure on the Fukaya category]
+\label{prop:fukaya-cy}
+\ClaimStatusProvedElsewhere
+For a compact CY manifold $(X^{2n}, \omega, \Omega)$ of complex
+dimension $n$, the Fukaya category $\Fuk(X)$ is CY of dimension $n$:
+\begin{enumerate}[label=(\roman*)]
+  \item The CY pairing
+    $\langle \cdot, \cdot \rangle \colon
+      \mathrm{CF}^\bullet(L_0, L_1) \otimes
+      \mathrm{CF}^\bullet(L_1, L_0)
+      \to \Lambda_{\mathrm{nov}}[-n]$
+    is the Poincar\'{e} duality pairing on Lagrangian intersections;
+  \item The cyclic invariance of $\mu_k$ with respect to this pairing
+    follows from the boundary of a pseudoholomorphic polygon being a
+    cycle on $L_0 \cup \cdots \cup L_k$;
+  \item Non-degeneracy follows from Poincar\'{e} duality on compact
+    oriented manifolds.
+\end{enumerate}
+\end{proposition}
+
+
+\section{CY $1$-folds: elliptic curves}
+\label{sec:fukaya-cy1}
 
 \begin{example}[Elliptic curve]
 \label{ex:fukaya-elliptic}
-For an elliptic curve $E_\tau$, $\Fuk(E_\tau)$ is CY of dimension $1$.  The Hochschild homology $\HH_\bullet(\Fuk(E_\tau))$ recovers the de Rham cohomology of $E_\tau$, and the cyclic structure encodes the symplectic pairing.  The associated chiral algebra is the Heisenberg vertex algebra $H_k$ at level $k = \mathrm{vol}(E_\tau)$.
+For an elliptic curve $E_\tau = \C / (\Z + \tau\Z)$ with the
+standard K\"ahler form $\omega = \frac{i}{2} dz \wedge d\bar{z}$:
+\begin{enumerate}[label=(\roman*)]
+  \item $\Fuk(E_\tau)$ is generated by the Lagrangian circles
+    $L_\alpha = \{z \in E_\tau : \Im(e^{-i\alpha} z) = c\}$;
+  \item $\Fuk(E_\tau)$ is CY of dimension $1$;
+  \item The Hochschild homology
+    $\HH_\bullet(\Fuk(E_\tau)) \simeq
+      H^*_{\mathrm{dR}}(E_\tau)$ recovers the de Rham
+    cohomology (Abouzaid);
+  \item The CY-to-chiral functor produces the Heisenberg
+    vertex algebra $H_k$ at level $k = \mathrm{vol}(E_\tau)$;
+  \item The modular characteristic is
+    $\kappa_{\mathrm{cat}}(\Phi(\Fuk(E_\tau))) = k$
+    (the level, by the Heisenberg formula).
+\end{enumerate}
 \end{example}
 
-\section{CY 2-folds: K3 and abelian surfaces}
+\begin{remark}[Homological mirror symmetry for $E_\tau$]
+\label{rem:hms-elliptic}
+Polishchuk--Zaslow proved $\Fuk(E_\tau) \simeq D^b(\Coh(E_{\tau'}))$
+where $\tau' = -1/\tau$ (mirror elliptic curve).  Under this
+equivalence, the Heisenberg algebra $H_k$ is the chiral algebra
+of the free boson compactified on the dual circle.  The modular
+characteristic is preserved:
+$\kappa_{\mathrm{cat}}(\Phi(\Fuk(E_\tau)))
+ = \kappa_{\mathrm{cat}}(\Phi(D^b(\Coh(E_{\tau'}))))
+ = k$.
+\end{remark}
+
+
+\section{CY $2$-folds: K3 and abelian surfaces}
 \label{sec:fukaya-cy2}
 
-For a K3 surface $S$, the Fukaya category $\Fuk(S)$ is CY of dimension $2$.  The functor $\Phi$ (Theorem~CY-A$_2$) produces an $E_2$-chiral algebra $A_{\Fuk(S)}$ with $\kappa = \chi(\cO_S) = 2$.  Under homological mirror symmetry, this should agree with $A_{D^b(\Coh(S^\vee))}$.  The $K3 \times E$ programme (Chapter~\ref{ch:toroidal-elliptic}) uses $\Fuk(S)$ as the fiber category, with the shadow obstruction tower controlling the passage from fiber to total space.
+\begin{proposition}[K3 surface]
+\label{prop:fukaya-k3}
+\ClaimStatusProvedHere
+For a K3 surface $S$ with the Ricci-flat K\"ahler metric:
+\begin{enumerate}[label=(\roman*)]
+  \item $\Fuk(S)$ is CY of dimension $2$;
+  \item The functor $\Phi$ (Theorem~CY-A$_2$) produces an
+    $\Etwo$-chiral algebra $A_{\Fuk(S)}$;
+  \item The modular characteristic is
+    $\kappa_{\mathrm{cat}}(\Phi(\Fuk(S))) = \chi(\cO_S) = 2$;
+  \item The Hochschild homology
+    $\HH_\bullet(\Fuk(S)) \simeq
+      H^{*+2}(S, \C) \simeq \C^{24}$ (by HKR and CY duality);
+  \item The $R$-matrix
+    $\cR_{\Fuk(S)}(z) = 1 + \Omega/z + O(z^{-2})$
+    encodes the Mukai pairing $\Omega$ on $H^*(S, \Z)$.
+\end{enumerate}
+\end{proposition}
 
-\section{CY 3-folds}
+\begin{proof}
+Item (i): $S$ is a compact K\"ahler manifold with $c_1(S) = 0$ and
+$\dim_\C S = 2$, so $\Fuk(S)$ is CY$_2$
+(Proposition~\ref{prop:fukaya-cy}).
+
+Item (ii): Theorem~CY-A$_2$ applies since $d = 2$ and the
+$\mathbb{S}^2$-framing is unconditional.
+
+Item (iii): the CY Euler characteristic is
+$\chi^{\CY}(\Fuk(S)) = \chi(\cO_S) = 1 - 0 + 1 = 2$ (using
+$h^{0,0} = 1$, $h^{1,0} = 0$, $h^{2,0} = 1$ for K3).  By
+Theorem~CY-D (Theorem~\ref{thm:cy-modular-characteristic}),
+$\kappa_{\mathrm{cat}} = \chi^{\CY} = 2$.
+
+Item (iv): HKR gives
+$\HH_k(\Perf(S)) \simeq \bigoplus_{p-q=k} H^q(S, \Omega^p)$.
+The Hodge diamond of K3 has $h^{p,q}(S) = 1, 0, 1, 0, 20, 0, 1, 0, 1$
+(reading $p+q = 0, 1, \ldots, 4$), giving total
+$\dim \HH_\bullet = 24$.  CY duality
+$\HH^\bullet \simeq \HH_{\bullet+2}$ shifts by $d = 2$.
+
+Item (v): the $R$-matrix at arity $(1,1)$ of $B^{\mathrm{ord}}(A)$
+has leading term $\Omega/z$ where $\Omega \in \End(V \otimes V)$ is
+the Casimir of the Mukai lattice $\Lambda_{K3} = U^3 \oplus E_8(-1)^2$.
+The subleading terms encode higher-order OPE data.
+\end{proof}
+
+\begin{example}[Abelian surface]
+\label{ex:fukaya-abelian-surface}
+For an abelian surface $A = E_1 \times E_2$ (product of two
+elliptic curves):
+\begin{enumerate}[label=(\roman*)]
+  \item $\Fuk(A)$ is CY of dimension $2$;
+  \item $\kappa_{\mathrm{cat}}(\Phi(\Fuk(A)))
+    = \chi(\cO_A) = 0$ (since $h^{1,0}(A) = 2$,
+    $h^{2,0}(A) = 1$, giving $\chi = 1 - 2 + 1 = 0$);
+  \item The modular characteristic vanishes:
+    $\kappa_{\mathrm{cat}} = 0$, so the bar complex is uncurved
+    at all genera ($d^2 = 0$ strictly).
+\end{enumerate}
+The abelian surface is the CY$_2$ analogue of the critical point
+$c = 26$ for Virasoro: the vanishing of $\kappa_{\mathrm{cat}}$
+makes the genus tower trivial at the scalar level.
+The full shadow obstruction tower may still be nontrivial at
+higher arities (AP31: $\kappa_{\mathrm{cat}} = 0$ does not imply
+$\Theta_A = 0$).
+\end{example}
+
+
+\section{CY $3$-folds}
 \label{sec:fukaya-cy3}
 
-For a compact CY threefold $X$, the Fukaya category $\Fuk(X)$ is CY of dimension $3$.  The functor $\Phi$ is conditional on the chain-level $\mathbb{S}^3$-framing (Conjecture~CY-A$_3$).  When $X$ is the quintic threefold, the algebraic \v{C}ech resolution (Theorem~\ref{thm:cech-contracting-homotopy}) closes the analytic gap, and $\kappa_{\mathrm{MacMahon}} = \chi/2 = -100$ is the predicted modular characteristic.  The open-string sector ($\Fuk(X)$ with Lagrangian boundary conditions) connects to the Volume~II Swiss-cheese structure.
+For $d = 3$, the CY-to-chiral functor $\Phi$ is conditional on the
+chain-level $\mathbb{S}^3$-framing (Conjecture~CY-A$_3$).  When $\Phi$
+exists, the chiral algebra is $\Eone$ (not $\Etwo$): the
+$\mathbb{S}^3$-framing obstruction, valued in
+$\pi_3(BU) \simeq \Z$, is generically nontrivial.
+
+\begin{conjecture}[CY$_3$ Fukaya chiral algebra]
+\label{conj:fukaya-cy3}
+\ClaimStatusConjectured
+For a compact CY threefold $X$ with Fukaya category $\Fuk(X)$:
+\begin{enumerate}[label=(\roman*)]
+  \item The CY-to-chiral functor $\Phi(\Fuk(X))$ produces an
+    $\Eone$-chiral algebra $A_{\Fuk(X)}$, conditional on
+    the chain-level $\mathbb{S}^3$-framing;
+  \item The modular characteristic satisfies
+    $\kappa_{\mathrm{cat}}(\Phi(\Fuk(X))) = \chi(\cO_X)$;
+  \item The braided monoidal category
+    $\cZ(\Rep^{\Eone}(A_{\Fuk(X)}))$ (recovered via the Drinfeld
+    center, Chapter~\ref{ch:drinfeld-center}) encodes the
+    DT/GW invariants of $X$;
+  \item The open-string sector ($\Fuk(X)$ with Lagrangian boundary
+    conditions) connects to the Swiss-cheese structure of Volume~II.
+\end{enumerate}
+\end{conjecture}
+
+\begin{example}[Quintic threefold]
+\label{ex:fukaya-quintic}
+For the quintic threefold $X_5 \subset \bP^4$ defined by a
+generic degree-$5$ polynomial:
+\begin{enumerate}[label=(\roman*)]
+  \item $\chi(X_5) = -200$ (topological Euler characteristic);
+  \item $\chi(\cO_{X_5}) = 0$ (since $h^{0,0} = 1$,
+    $h^{1,0} = 0$, $h^{2,0} = 0$, $h^{3,0} = 1$, giving
+    $\chi = 1 - 0 + 0 - 1 = 0$);
+  \item The predicted modular characteristic is
+    $\kappa_{\mathrm{cat}} = \chi(\cO_{X_5}) = 0$.
+\end{enumerate}
+The vanishing $\kappa_{\mathrm{cat}} = 0$ for the quintic is the
+CY$_3$ analogue of the abelian surface ($\kappa_{\mathrm{cat}} = 0$
+for CY$_2$).  The genus tower is trivial at the scalar level; the
+full shadow obstruction tower may be nontrivial if higher-arity
+shadows are nonzero (AP31: $\kappa_{\mathrm{cat}} = 0$ does NOT
+imply $\Theta_A = 0$).
+\end{example}
+
+\begin{example}[Resolved conifold]
+\label{ex:fukaya-conifold}
+The resolved conifold $\cO(-1) \oplus \cO(-1) \to \bP^1$ is
+non-compact with $\chi_{\mathrm{top}} = 2$.  The wrapped Fukaya
+category $\cW(\text{conifold})$ is generated by a single Lagrangian
+$S^3$-cycle.  The chiral algebra has
+$\kappa_{\mathrm{cat}} = 1$, and the CoHA of the conifold
+(Chapter~\ref{ch:toric-coha}) recovers the affine Yangian
+$Y(\widehat{\fgl}_1)$ at level $1$.
+\end{example}
+
 
 \section{Wrapped Fukaya categories}
 \label{sec:wrapped-fukaya}
 
-The wrapped Fukaya category $\cW(X)$ of a Liouville manifold $X$ is the non-compact analogue of $\Fuk(X)$, with Reeb dynamics at infinity providing the wrapping.  For cotangent bundles $T^*M$, $\cW(T^*M) \simeq \mathrm{Mod}(C_*(\Omega M))$ (Abouzaid), reducing the CY-to-chiral functor to the based loop space.  The wrapped category is smooth but not proper; the CY structure requires a non-compact version of the trace, connecting to the analytic sewing programme (Volume~I, MC5).
+\begin{definition}[Wrapped Fukaya category]
+\label{def:wrapped-fukaya}
+For a Liouville manifold $(X, \lambda)$ (an exact symplectic
+manifold with a convex end), the \emph{wrapped Fukaya category}
+$\cW(X)$ modifies $\Fuk(X)$ by allowing wrapping at infinity:
+the Floer differential and higher compositions include
+Hamiltonian orbits of arbitrarily large period along the
+contact boundary $\partial X$.  The morphism space is the direct
+limit
+\[
+  \Hom_{\cW(X)}(L_0, L_1)
+  = \varinjlim_{H \to \infty} \mathrm{CF}^\bullet(L_0, \phi_H(L_1))
+\]
+where $\phi_H$ is the time-$1$ flow of a Hamiltonian $H$
+that is linear with increasing slope at infinity.
+\end{definition}
+
+\begin{theorem}[Abouzaid: cotangent bundles]
+\label{thm:abouzaid-cotangent}
+\ClaimStatusProvedElsewhere
+For a closed oriented manifold $M$, the wrapped Fukaya category of
+the cotangent bundle satisfies
+\[
+  \cW(T^*M) \;\simeq\; \Mod_{C_*(\Omega M)},
+\]
+where $C_*(\Omega M)$ is the chain algebra of the based loop
+space.  Under this equivalence:
+\begin{enumerate}[label=(\roman*)]
+  \item The zero section $M \hookrightarrow T^*M$ corresponds to
+    the trivial module $\C$ over $C_*(\Omega M)$;
+  \item The wrapping corresponds to the bar differential on
+    $B(C_*(\Omega M))$;
+  \item The CY pairing (when $M$ is orientable of dimension $n$)
+    comes from Poincar\'{e} duality on $M$.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[Wrapped categories and the CY-to-chiral functor]
+\label{rem:wrapped-cy-chiral}
+The wrapped Fukaya category is smooth but typically not proper
+(morphism spaces are infinite-dimensional).  The CY-to-chiral
+functor $\Phi$ requires a cyclic $\Ainf$-structure with a
+non-degenerate pairing; for non-compact targets, this requires
+either:
+\begin{enumerate}[label=(\alph*)]
+  \item A compactly-supported variant (using the compact Fukaya
+    category $\Fuk_{\mathrm{cpt}}(X)$ as a subquotient of
+    $\cW(X)$);
+  \item An analytic completion (the sewing envelope of Volume~I,
+    MC5) to handle the non-compact directions.
+\end{enumerate}
+For cotangent bundles $T^*M$ with $M$ compact, approach (a)
+suffices: $\Fuk_{\mathrm{cpt}}(T^*M)$ is proper, and $\Phi$
+produces the chiral algebra of the $\sigma$-model on $M$.
+\end{remark}
+
+
+\section{Homological mirror symmetry and the CY-to-chiral functor}
+\label{sec:hms-chiral}
+
+\begin{proposition}[HMS compatibility with $\Phi$]
+\label{prop:hms-compatibility}
+\ClaimStatusConditional
+Let $X$ and $X^\vee$ be mirror CY manifolds related by homological
+mirror symmetry $\Fuk(X) \simeq D^b(\Coh(X^\vee))$.  Then the
+CY-to-chiral functor is compatible with HMS:
+\[
+  \Phi(\Fuk(X)) \;\simeq\; \Phi(D^b(\Coh(X^\vee)))
+\]
+as $\Etwo$-chiral algebras (for $d = 2$) or $\Eone$-chiral algebras
+(for $d = 3$, conditional on $\mathbb{S}^3$-framing for both sides).
+In particular, the modular characteristics agree:
+$\kappa_{\mathrm{cat}}(\Phi(\Fuk(X)))
+ = \kappa_{\mathrm{cat}}(\Phi(D^b(\Coh(X^\vee))))$.
+\end{proposition}
+
+\begin{remark}[Status of HMS compatibility]
+\label{rem:hms-status}
+The compatibility follows formally from the fact that $\Phi$ is
+Morita invariant: equivalent CY categories produce equivalent
+chiral algebras.  The conditional content is HMS itself, which is
+proved for:
+\begin{enumerate}[label=(\alph*)]
+  \item Elliptic curves (Polishchuk--Zaslow);
+  \item Abelian varieties (Fukaya, Kontsevich--Soibelman);
+  \item K3 surfaces (Seidel, Smith; partial results);
+  \item Quintic threefold (Sheridan, for a suitable formulation);
+  \item Toric varieties (Abouzaid, Fang--Liu--Treumann--Zaslow).
+\end{enumerate}
+For cases where HMS is proved, the compatibility of $\Phi$ with HMS
+is an unconditional theorem.
+\end{remark}
+
 
 \section{The quantum chiral algebra of a Fukaya category}
 \label{sec:fukaya-qca}
 
-This section assembles the functor $\Phi(\Fuk(X))$ for the standard examples: the chiral algebra, its bar complex, the shadow obstruction tower, and the modular characteristic $\kappa$.  The computational verification uses the Fukaya-category compute engines (42 engines, 5,700+ tests across the CY landscape).
+\begin{construction}[Assembling $\Phi(\Fuk(X))$]
+\label{constr:fukaya-phi}
+For a CY manifold $X$ of dimension $d$, the quantum chiral algebra
+$A_{\Fuk(X)} = \Phi(\Fuk(X))$ is assembled in three steps
+(matching the abstract construction of Theorem~CY-A):
+\begin{enumerate}[label=\arabic*.]
+  \item \emph{Cyclic $\Ainf$-extraction}: The Fukaya $\Ainf$-structure
+    $\{\mu_k\}_{k \geq 1}$ and Poincar\'{e} pairing give the input
+    cyclic $\Ainf$-algebra (Chapter~\ref{ch:cyclic-ainf});
+  \item \emph{Lie conformal algebra}: The Hochschild cohomology
+    $\HH^\bullet(\Fuk(X))$ with Gerstenhaber bracket produces a Lie
+    conformal algebra $L_{\Fuk(X)}$
+    (Chapter~\ref{ch:hochschild-calculus});
+  \item \emph{Factorization envelope}: The factorization envelope
+    of $L_{\Fuk(X)}$ on a curve $C$ gives the chiral algebra
+    $A_{\Fuk(X)}$ on $\Ran(C)$.
+\end{enumerate}
+The bar complex $B(A_{\Fuk(X)})$, the shadow obstruction tower
+$\Theta_{A_{\Fuk(X)}}$, and the modular characteristic
+$\kappa_{\mathrm{cat}}$ are then computed from $A_{\Fuk(X)}$
+via the Volume~I machinery.
+\end{construction}
+
+\begin{proposition}[CY-to-chiral: $d = 2$ proved, $d = 3$ conditional]
+\label{prop:fukaya-phi-status}
+\ClaimStatusProvedHere
+The CY-to-chiral functor $\Phi$ applied to Fukaya categories:
+\begin{enumerate}[label=(\roman*)]
+  \item For $d = 2$ (K3, abelian surfaces): $\Phi(\Fuk(X))$ is an
+    $\Etwo$-chiral algebra.  All three steps of
+    Construction~\ref{constr:fukaya-phi} are unconditional.  The
+    $\mathbb{S}^2$-framing is trivial ($\pi_2(BU) = 0$);
+  \item For $d = 3$ (CY threefolds): $\Phi(\Fuk(X))$ is an
+    $\Eone$-chiral algebra.  Steps 1--2 are unconditional.  Step 3
+    requires the chain-level $\mathbb{S}^3$-framing, which is
+    obstructed by a class in $\pi_3(BU) \simeq \Z$.  When the
+    obstruction vanishes, the braiding is recovered via the Drinfeld
+    center $\cZ(\Rep^{\Eone}(A))$
+    (Chapter~\ref{ch:drinfeld-center}).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For $d = 2$: the framing obstruction lives in
+$\pi_2(\mathrm{BGL}) = 0$ (the second homotopy group of the
+classifying space of the structure group).  Since the obstruction
+vanishes, the $\Ainf$-structure on $\Fuk(X)$ promotes to an
+$\Etwo$-algebra (by the framing theorem of
+Chapter~\ref{ch:en-factorization}).  The factorization envelope
+(step 3) then produces the $\Etwo$-chiral algebra.
+
+For $d = 3$: the obstruction lives in
+$\pi_3(BU) \simeq \Z$, which is nontrivial.  The Chern class
+$c_2 \in H^4(BU; \Z)$ is the universal obstruction; for a specific
+CY$_3$ manifold $X$, the obstruction is the evaluation
+$\langle c_2, [X] \rangle$.  Steps 1--2 do not use the framing
+and are unconditional.  Step 3 requires vanishing of this class.
+\end{proof}
+
+
+\section{Homological mirror symmetry and chiral algebra equivalence}
+\label{sec:hms-chiral-equivalence}
+
+Kontsevich's homological mirror symmetry conjecture identifies the
+symplectic and algebraic categorifications of a CY manifold:
+$\Fuk(X) \simeq D^b(\Coh(X^\vee))$.  Under the CY-to-chiral functor
+$\Phi$, this becomes an equivalence of quantum chiral algebras.
+
+\begin{proposition}[HMS implies chiral algebra equivalence]
+\label{prop:hms-chiral-equiv}
+\ClaimStatusConditional
+Let $X$ and $X^\vee$ be mirror CY manifolds of dimension $d$.
+If the HMS equivalence $\Fuk(X) \simeq D^b(\Coh(X^\vee))$ holds as
+an equivalence of CY$_d$ $\Ainf$-categories (preserving the cyclic
+structure), then the CY-to-chiral functor produces an equivalence
+of quantum chiral algebras:
+\[
+  A_{\Fuk(X)} \;\simeq\; A_{D^b(\Coh(X^\vee))}.
+\]
+In particular, the modular characteristics agree:
+$\kappa_{\mathrm{cat}}(\Fuk(X)) = \kappa_{\mathrm{cat}}(D^b(\Coh(X^\vee)))$,
+the bar complexes are quasi-isomorphic as factorization coalgebras,
+and the shadow obstruction towers coincide at all arities.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The CY-to-chiral functor $\Phi$ factors through the cyclic
+$\Ainf$-structure (Chapter~\ref{ch:cyclic-ainf}).  An equivalence
+of CY$_d$ categories that preserves the cyclic pairing induces
+an isomorphism of cyclic bar complexes, hence of factorization
+coalgebras after applying the factorization envelope.  The chiral
+algebra is determined by its factorization coalgebra
+(Volume~I, Theorem~A), so the chiral algebras are equivalent.
+The modular characteristic $\kappa_{\mathrm{cat}}$ is a derived
+invariant of the CY category
+(Theorem~\ref{thm:cy-modular-characteristic}), hence preserved by
+any CY equivalence.
+\end{proof}
+
+\begin{remark}[Numerical HMS tests via shadow invariants]
+\label{rem:hms-shadow-tests}
+The shadow obstruction tower provides computable invariants that
+can be independently evaluated on the symplectic (A-model) and
+algebraic (B-model) sides.  For CY surfaces, the modular
+characteristic $\kappa_{\mathrm{cat}}$ and the shadow depth
+$r_{\max}$ are accessible on both sides:
+\begin{enumerate}[label=(\roman*)]
+  \item \emph{A-model}: $\kappa_{\mathrm{cat}}$ is computed from
+    the Fukaya category's cyclic bar complex; the shadow depth is
+    determined by the $\Ainf$-operations $\mu^k$ (shadow depth
+    $r_{\max} = k_0$ when $\mu^k = 0$ for all $k > k_0$ up to
+    homotopy);
+  \item \emph{B-model}: $\kappa_{\mathrm{cat}} = \chi(\cO_{X^\vee})$
+    from algebraic geometry; the shadow depth is determined by the
+    Ext algebra structure on $D^b(\Coh(X^\vee))$.
+\end{enumerate}
+Agreement of these invariants provides a quantitative test of HMS
+beyond Hodge-number matching.
+\end{remark}
+
+\begin{remark}[SYZ fibrations and the Fukaya--chiral correspondence]
+\label{rem:syz-chiral}
+For CY threefolds admitting a special Lagrangian $T^3$-fibration
+$\pi \colon X \to B$ (the SYZ picture), the Fukaya category
+decomposes along the base: the fiber Fukaya categories
+$\Fuk(\pi^{-1}(b))$ for smooth fibers $b \in B_{\mathrm{sm}}$ are
+CY$_0$ (zero-dimensional CY categories, i.e., semisimple), while
+the singular fibers contribute non-trivial $\Ainf$-operations.  The
+CY-to-chiral functor applied fiberwise produces a family of chiral
+algebras over $B$, with the singular-fiber contributions encoding
+instanton corrections to the mirror map.  The total chiral algebra
+$A_{\Fuk(X)}$ is assembled as a homotopy colimit over the base,
+paralleling the stability-condition assembly of
+Chapter~\ref{ch:derived-cy}.
+\end{remark}
+
+
+\section{Open-string sector and the Swiss-cheese structure}
+\label{sec:fukaya-open-string}
+
+The Fukaya category with a choice of Lagrangian $L$ provides the
+open-string data for the Volume~II Swiss-cheese structure: the
+endomorphism algebra $\End_{\Fuk}(L)$ is the boundary algebra,
+and the chiral derived centre (Volume~I, Theorem~H) recovers the
+closed-string algebra.
+
+\begin{proposition}[Open-closed map from Fukaya categories]
+\label{prop:fukaya-open-closed}
+\ClaimStatusProvedElsewhere
+For a compact CY manifold $X$ and a Lagrangian $L \subset X$:
+\begin{enumerate}[label=(\roman*)]
+  \item The \emph{open-closed map}
+    $\mathrm{OC} \colon \HH_\bullet(\Fuk(X)) \to
+    \mathrm{QH}^\bullet(X)$
+    (Ganatra, extending Piunikhin--Salamon--Schwarz) sends the
+    Hochschild homology of the Fukaya category to the quantum
+    cohomology of $X$;
+  \item Under $\Phi$, the open-closed map becomes the chiral derived
+    centre map:
+    \[
+      \Zder(A_b) \longrightarrow A_{\Fuk(X)}
+    \]
+    where $A_b = \Phi(\End_{\Fuk}(L))$ is the boundary chiral
+    algebra;
+  \item The slab $X \times [0,1]$ with Lagrangian boundary conditions
+    $L_0, L_1$ on $X \times \{0\}$ and $X \times \{1\}$ produces
+    a bimodule $\mathrm{CF}^\bullet(L_0, L_1)$ for the two boundary
+    algebras; the Drinfeld double of this bimodule category recovers
+    the quantum group
+    (Chapter~\ref{ch:quantum-group-reps},
+    Remark~\ref{rem:bps-slab}).
+\end{enumerate}
+% RS-9: slab = bimodule, NOT Swiss-cheese disk.
+\end{proposition}
+
+\begin{remark}[Annulus trace and the genus-1 shadow]
+\label{rem:fukaya-annulus-trace}
+The first modular shadow of the open sector is the annulus trace
+$\Delta_{\mathrm{ns}}(\Tr_{A_b})$.  For the Fukaya category, this
+is the open Gromov--Witten invariant counting annuli with boundary
+on $L$: the annulus amplitude $F_1^{\mathrm{open}}(L)$ equals
+$\kappa_{\mathrm{cat}} \cdot \lambda_1$ (Volume~I, Theorem~D at
+genus~$1$), providing the first open-to-closed map in the modular
+hierarchy.  The full genus tower progressively restores
+bidirectionality between the open and closed sectors.
+\end{remark}
+
+\begin{remark}[Generation and Morita invariance]
+\label{rem:fukaya-morita}
+The boundary algebra $A_b = \End_{\Fuk}(L)$ depends on the choice
+of Lagrangian $L$.  By the open primitive thesis (Volume~II,
+Part~I), the primitive object is the full open-sector factorization
+dg-category $\cC_{\mathrm{op}} = \Fuk(X)$, and the boundary
+algebra is a Morita-dependent chart: $A_b = \End(b)$ for a
+generating object $b = L$.  Different choices of $L$ produce
+Morita-equivalent boundary algebras with isomorphic chiral derived
+centres, so the closed-string algebra $A_{\Fuk(X)}$ is
+independent of the Lagrangian.
+\end{remark}

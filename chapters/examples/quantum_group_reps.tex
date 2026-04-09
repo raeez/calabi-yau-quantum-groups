@@ -1,42 +1,581 @@
 \chapter{Quantum Group Representations}
 \label{ch:quantum-group-reps}
 
-The braided monoidal category $\Rep_q(\frakg)$ is the representation-theoretic target of the CY programme.  The Drinfeld center $\cZ(\Rep^{E_1}(A))$ (Chapter~\ref{ch:drinfeld-center}) provides the bulk algebra; Conjecture~CY-C predicts $\Rep_q(\frakg) \simeq \Rep^{E_2}(A_\cC)$ for a CY category $\cC(\frakg, q)$.  The Kazhdan--Lusztig equivalence $\Rep_q(\frakg) \simeq \mathrm{KL}_k(\frakg)$ at roots of unity is the prototype; the affine Yangian realization (Chapter~\ref{ch:toric-coha}) provides the $E_1$-sector.
+%% AP113: kappa always subscripted in Vol III.
+%% AP33: Koszul duality != Feigin-Frenkel duality != Langlands duality.
+%% AP104: E_1/ordered is primitive; braiding arises from Drinfeld center.
+
+The braided monoidal category $\Rep_q(\frakg)$ is the
+representation-theoretic output of the CY programme.  For a CY$_2$
+category $\cC$ with $\frakg$-symmetry, the Drinfeld center
+$\cZ(\Rep^{E_1}(\Phi(\cC)))$
+(Chapter~\ref{ch:drinfeld-center}) produces a braided monoidal category
+that Conjecture~CY-C identifies with $\Rep_q(\frakg)$.  The present
+chapter develops this identification through three independent routes:
+the Kazhdan--Lusztig equivalence (relating quantum group modules to
+affine Kac--Moody modules at negative integer level), the Yangian
+realization (extracting $Y(\frakg)$ from the collision residue of the
+bar complex), and the BPS algebra construction (producing quantum
+groups from Donaldson--Thomas invariants of CY threefolds).
+
 
 \section{$\Rep_q(\frakg)$ as a braided monoidal category}
 \label{sec:rep-q-braided}
 
-At generic $q$, the category $\Rep_q(\frakg)$ is semisimple and braided monoidal, with the braiding given by the universal $R$-matrix of $U_q(\frakg)$.  At roots of unity $q = e^{\pi i / (k + h^\vee)}$, the category is non-semisimple and the finite tensor subcategory $\cC(q) \subset \Rep_q(\frakg)$ is a modular tensor category (Andersen--Jantzen--Soergel for type A; general types via Sawin, Bakalov--Kirillov).  The braided structure is the target of Conjecture~CY-C.
+\begin{definition}[Category $\Rep_q(\frakg)$]
+\label{def:rep-q}
+Let $\frakg$ be a finite-dimensional simple Lie algebra and
+$q \in \C^\times$.  The category $\Rep_q(\frakg)$ has:
+\begin{enumerate}[label=(\roman*)]
+  \item \emph{Objects}: finite-dimensional $\Uq(\frakg)$-modules
+    (Definition~\ref{def:quantized-enveloping});
+  \item \emph{Morphisms}: $\Uq(\frakg)$-linear maps;
+  \item \emph{Monoidal structure}: the tensor product
+    $V \otimes W$ with $\Uq(\frakg)$-action via the coproduct
+    $\Delta$;
+  \item \emph{Braiding}: $\sigma_{V,W} = \tau_{V,W} \circ \cR_{V,W}$
+    where $\cR$ is the universal $R$-matrix
+    (Proposition~\ref{prop:quasi-triangular}) and $\tau$ is the
+    transposition $v \otimes w \mapsto w \otimes v$.
+\end{enumerate}
+\end{definition}
 
-\section{The quantum chiral algebra of $\Uq(\frakg)$}
-\label{sec:qca-uq}
+\begin{proposition}[Semisimplicity dichotomy]
+\label{prop:semisimplicity-dichotomy}
+\ClaimStatusProvedElsewhere
+The structure of $\Rep_q(\frakg)$ depends on whether $q$ is generic
+or a root of unity:
+\begin{enumerate}[label=(\roman*)]
+  \item \emph{Generic $q$} (i.e., $q$ not a root of unity):
+    $\Rep_q(\frakg)$ is semisimple, with simple objects $V_q(\lambda)$
+    parametrized by dominant integral weights $\lambda \in P^+$.
+    The characters are the same as the classical case:
+    $\mathrm{ch}(V_q(\lambda)) = \mathrm{ch}(V(\lambda))$
+    (the Weyl character formula is $q$-independent).
+  \item \emph{Root of unity $q = e^{\pi i/(k+h^\vee)}$} with
+    $k \in \Z_{>0}$: $\Rep_q(\frakg)$ is non-semisimple; the
+    \emph{fusion category} $\cC_q(\frakg)$ is the quotient by
+    negligible morphisms, with finitely many simple objects
+    $\{V_q(\lambda) : \lambda \in P^+_k\}$ parametrized by the
+    level-$k$ alcove $P^+_k = \{\lambda \in P^+ :
+    \langle \lambda, \theta^\vee \rangle \leq k\}$.
+\end{enumerate}
+\end{proposition}
 
-\begin{conjecture}[Quantum group realization --- Conjecture CY-C]
-\label{conj:qg-realization}
-For a simple Lie algebra $\frakg$ and $q = e^{\pi i / (k + h^\vee)}$ with $k$ a positive integer, the braided monoidal category $\Rep_q(\frakg)$ should arise as $\Rep^{E_2}(A_\cC)$ for a CY category $\cC = \cC(\frakg, q)$.  The quantum chiral algebra $A_\cC$ should recover the affine Kac--Moody vertex algebra $V_k(\frakg)$ at level $k$.
+\begin{example}[$\fsl_2$ at generic $q$]
+\label{ex:sl2-generic}
+For $\frakg = \fsl_2$, the simple modules are
+$V_q(n)$ ($n \in \Z_{\geq 0}$) with $\dim V_q(n) = n+1$.  The
+tensor product decomposition is
+$V_q(m) \otimes V_q(n) \simeq \bigoplus_{k=|m-n|}^{m+n} V_q(k)$
+(same as classical, with $k \equiv m+n \pmod{2}$).  The $R$-matrix
+on $V_q(1) \otimes V_q(1)$ is
+\[
+  \cR = q^{1/2}
+  \begin{pmatrix}
+    q & 0 & 0 & 0 \\
+    0 & 1 & q - q^{-1} & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & q
+  \end{pmatrix}
+\]
+in the basis $\{e_1 \otimes e_1, e_1 \otimes e_2,
+e_2 \otimes e_1, e_2 \otimes e_2\}$.  This is the standard
+solution of the Yang--Baxter equation for the 6-vertex model.
+\end{example}
 
-\emph{Status}: The CY category $\cC(\frakg, q)$ is not yet constructed in general.  At generic $q$ (irrational $k$), $\Rep_q(\frakg)$ is semisimple and the story simplifies; the interesting structure is at roots of unity, where the Kazhdan--Lusztig equivalence provides the prototype.
-\end{conjecture}
+\begin{example}[$\fsl_2$ at root of unity]
+\label{ex:sl2-root-of-unity}
+At $q = e^{\pi i/(k+2)}$, the fusion category $\cC_q(\fsl_2)$ has
+$k+1$ simple objects $\{V_q(0), V_q(1), \ldots, V_q(k)\}$ with
+fusion rules
+\[
+  V_q(m) \otimes V_q(n)
+  = \bigoplus_{\substack{j = |m-n| \\ j \equiv m+n \,(\mathrm{mod}\,2)}}^{\min(m+n, \, 2k-m-n)}
+    V_q(j).
+\]
+The quantum dimension is
+$\dim_q V_q(n) = [n+1]_q = (q^{n+1} - q^{-n-1})/(q - q^{-1})$
+and the total quantum dimension squared is
+$\mathcal{D}^2 = \sum_{j=0}^{k} (\dim_q V_q(j))^2
+= (k+2)/(2\sin^2(\pi/(k+2)))$.
+The $S$-matrix entries are
+$S_{mn} = \sqrt{2/(k+2)} \, \sin(\pi(m+1)(n+1)/(k+2))$.
+This is a modular tensor category: the Reshetikhin--Turaev functor
+produces the $SU(2)$ Chern--Simons invariants of 3-manifolds.
+\end{example}
+
+
+\section{The $R$-matrix as categorical $r(z)$}
+\label{sec:r-matrix-categorical}
+
+The $R$-matrix of $\Uq(\frakg)$ is the categorical incarnation of
+the collision residue $r(z)$ from the Volume~I bar complex.
+
+\begin{proposition}[$R$-matrix from bar arity $(1,1)$]
+\label{prop:r-matrix-bar}
+\ClaimStatusProvedElsewhere
+For the affine vertex algebra $V_k(\frakg)$ at level $k$ with
+$q = e^{\pi i/(k+h^\vee)}$, the arity-$(1,1)$ component of the
+ordered bar complex $B^{\mathrm{ord}}(V_k(\frakg))$ recovers the
+$R$-matrix of $\Uq(\frakg)$:
+\[
+  r(z) = \Res^{\mathrm{coll}}_{0,2}(\Theta_{V_k(\frakg)})
+  \;\longleftrightarrow\;
+  \cR_q = \lim_{z \to 0}\, \cR(z)
+\]
+where $r(z) = \Omega/z + O(1)$ is the classical $r$-matrix with
+Casimir $\Omega \in \frakg \otimes \frakg$, and $\cR_q$ is the
+quantized universal $R$-matrix.  The spectral parameter $z$
+corresponds to the rapidity variable in the integrable lattice model.
+% AP19: the r-matrix has pole orders ONE LESS than the OPE.
+% For affine KM: OPE has z^{-2} and z^{-1}; r-matrix is Omega/z.
+\end{proposition}
+
+\begin{remark}[Three $r$-matrices]
+\label{rem:three-r-matrices}
+% AP107: r^coll != r(z) in general; they coincide for even E_infty algebras.
+Three $r$-matrix-like objects appear:
+\begin{enumerate}[label=(\alph*)]
+  \item $r^{\mathrm{coll}}(z)$: the bar-intrinsic collision residue
+    (Volume~I);
+  \item $r(z) = \Omega/z$: the classical $r$-matrix (Belavin--Drinfeld);
+  \item $\cR_q$: the universal $R$-matrix of $\Uq(\frakg)$
+    (Drinfeld--Jimbo).
+\end{enumerate}
+The quantization passage $r(z) \rightsquigarrow \cR_q$ is the
+Etingof--Kazhdan quantization theorem.  For even $\Einf$-algebras,
+$r^{\mathrm{coll}} = r$; for odd generators or genuinely $\Eone$
+algebras, they can differ (AP107).
+\end{remark}
+
 
 \section{Kazhdan--Lusztig equivalence}
 \label{sec:kl-equivalence}
 
-The Kazhdan--Lusztig equivalence
+The Kazhdan--Lusztig equivalence is the prototype for the CY
+programme's quantum group reconstruction.
+
+\begin{theorem}[Kazhdan--Lusztig]
+\label{thm:kl-equivalence}
+\ClaimStatusProvedElsewhere
+For a simple Lie algebra $\frakg$ and a positive integer $k$, with
+$q = e^{\pi i/(k+h^\vee)}$, there is an equivalence of braided
+monoidal categories
 \[
-  \Rep_q(\frakg) \simeq \mathrm{KL}_k(\frakg)
+  \cC_q(\frakg) \;\simeq\; \mathrm{KL}_k(\frakg)
 \]
-between quantum group representations (at root of unity $q = e^{\pi i/(k+h^\vee)}$) and the Kazhdan--Lusztig category of affine Kac--Moody modules is the prototype for Conjecture~CY-C.  From the bar-complex perspective: $\mathrm{KL}_k(\frakg)$ is the category of modules over the affine vertex algebra $V_k(\frakg)$, and the Volume~I bar complex $B(V_k(\frakg))$ encodes the quantum group $R$-matrix in its arity-$(1,1)$ component (Volume~II, DK bridge, MC3 for all simple types).  The KL equivalence is then the statement that the $E_1$-representation category of the chiral algebra recovers the quantum group representation category.
+where $\cC_q(\frakg)$ is the fusion category of $\Uq(\frakg)$
+at root of unity, and $\mathrm{KL}_k(\frakg)$ is the
+Kazhdan--Lusztig category of $\hat{\frakg}$-modules at level $k$
+(modules on which the Sugawara Casimir acts semisimply).
+\end{theorem}
+
+\begin{remark}[Bar-complex interpretation]
+\label{rem:kl-bar-complex}
+From the bar-complex perspective, the KL equivalence states that
+the $\Eone$-representation category of the affine vertex algebra
+$V_k(\frakg)$ recovers the quantum group representation category.
+The Volume~I bar complex $B(V_k(\frakg))$ encodes the quantum group
+$R$-matrix in its arity-$(1,1)$ component; the DK bridge (Volume~II,
+MC3 for all simple types) extends this to the full categorical
+equivalence.
+\end{remark}
+
+\begin{proposition}[KL and the DK bridge]
+\label{prop:kl-dk-bridge}
+\ClaimStatusProvedElsewhere
+The Kazhdan--Lusztig equivalence factors through the Drinfeld--Kohno
+bridge (Volume~II):
+\[
+\begin{tikzcd}[column sep=large]
+  \mathrm{KL}_k(\frakg) \ar[r, "\sim", "\text{KL}"'] &
+  \cC_q(\frakg) \\
+  \Rep^{E_1}(V_k(\frakg)) \ar[u, hook] \ar[r, "\text{DK}"] &
+  \Rep_q(\frakg) \ar[u, two heads]
+\end{tikzcd}
+\]
+The vertical arrows are: inclusion of KL modules into all
+$V_k(\frakg)$-modules (left), and quotient by negligible morphisms
+(right).  The DK bridge (MC3) provides the horizontal equivalence
+at the level of compact objects.
+\end{proposition}
+
+
+\section{Conjecture CY-C: quantum group realization}
+\label{sec:conj-cy-c}
+
+\begin{conjecture}[Quantum group realization --- Conjecture CY-C]
+\label{conj:qg-realization}
+\ClaimStatusConjectured
+For a simple Lie algebra $\frakg$ and $q = e^{\pi i/(k+h^\vee)}$
+with $k$ a positive integer, there exists a CY$_2$ category
+$\cC(\frakg, q)$ such that:
+\begin{enumerate}[label=(\roman*)]
+  \item $\Phi(\cC(\frakg, q))$ is an $\Etwo$-chiral algebra whose
+    underlying vertex algebra is $V_k(\frakg)$;
+  \item $\Rep^{E_2}(\Phi(\cC(\frakg, q))) \simeq \Rep_q(\frakg)$
+    as braided monoidal categories;
+  \item $\kappa_{\mathrm{cat}}(\cC(\frakg, q))
+    = \dim(\frakg) \cdot (k + h^\vee)/(2h^\vee)$, recovering the
+    Volume~I modular characteristic of $V_k(\frakg)$.
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[Status of Conjecture CY-C]
+\label{rem:cy-c-status}
+Item (i) is constructed for $\frakg = \fsl_N$ via the Bridgeland
+stability conditions on the CY$_2$ resolution of the $A_{N-1}$
+surface singularity.  Item (ii) at the $\Eone$ level is the content
+of MC3 (proved for all simple types, Volume~I/II).  The $\Etwo$
+upgrade requires the Drinfeld center passage
+(Chapter~\ref{ch:drinfeld-center}).  Item (iii) follows from
+Theorem~CY-D (Theorem~\ref{thm:cy-modular-characteristic}) when
+the CY category is constructed.
+\end{remark}
+
 
 \section{Yangian and RTT realizations}
 \label{sec:yangian-rtt}
 
 % AP33: Three distinct algebraic operations must be kept separate:
-% (1) KOSZUL DUALITY: A -> A^! = (H*(B(A)))^v (the Koszul dual ALGEBRA).
-%     For affine KM: V_k(g)^! involves the dual level k' = -k - 2h^v.
-% (2) FEIGIN-FRENKEL INVOLUTION: k -> -k - 2h^v within the SAME family.
-%     At critical level k = -h^v: the FF center z(g-hat) = Fun Op_{G^L}.
-% (3) LANGLANDS DUALITY: G -> G^L (root-coroot exchange).
-%     The Yangian Y(g) has Langlands dual Y(g^L), which is a DIFFERENT
-%     algebra from Y(g)^! (Koszul dual).
-% These three operations coincide for sl_2 (self-dual, self-Langlands)
-% but DIVERGE for non-simply-laced types.
+% Koszul duality, FF involution, and Langlands duality.
+
+\begin{definition}[Yangian]
+\label{def:yangian}
+The \emph{Yangian} $Y(\frakg)$ is the $\C[\hbar]$-algebra with
+generators $\{x^{(r)}_i : i = 1, \ldots, \dim \frakg, \;
+r = 0, 1, 2, \ldots\}$ and relations determined by the RTT
+presentation: $R_{12}(u-v) \, T_1(u) \, T_2(v)
+= T_2(v) \, T_1(u) \, R_{12}(u-v)$ where $T(u) = \sum_r T_r u^{-r}$
+is the generating matrix and $R_{12}(u)$ is the Yang $R$-matrix.
+\end{definition}
+
+\begin{proposition}[Yangian from collision residue]
+\label{prop:yangian-collision}
+\ClaimStatusProvedElsewhere
+The Yangian $Y(\frakg)$ is recovered from the arity-$(1,1)$ collision
+residue of the ordered bar complex:
+\[
+  Y(\frakg) = \langle r^{\mathrm{coll}}(z) \rangle_{\mathrm{RTT}}
+\]
+where the RTT relation is the arity-$(1,1,1)$ bar differential.
+This is the content of Volume~II, MC3: the ordered bar complex
+$B^{\mathrm{ord}}(V_k(\frakg))$ produces the Yangian as the
+universal algebra generated by the modes of $r(z) = \Omega/z$.
+\end{proposition}
+
+\begin{remark}[Three distinct operations]
+\label{rem:three-operations}
+% AP33 restated for clarity.
+The following three operations on quantum groups must never be
+conflated:
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{Koszul duality}:
+    $V_k(\frakg) \mapsto V_k(\frakg)^!$, the Koszul dual vertex
+    algebra involving the dual level
+    $k' = -k - 2h^\vee$ (AP33);
+  \item \emph{Feigin--Frenkel involution}:
+    $k \mapsto -k - 2h^\vee$ within the same family of affine
+    algebras; at the critical level $k = -h^\vee$, this produces
+    the Feigin--Frenkel center
+    $\mathfrak{z}(\hat{\frakg}_{-h^\vee}) = \mathrm{Fun}(
+    \mathrm{Op}_{G^L})$;
+  \item \emph{Langlands duality}:
+    $\frakg \mapsto \frakg^L$ (root-coroot exchange), producing
+    a genuinely different Lie algebra for non-simply-laced types.
+\end{enumerate}
+For $\fsl_2$ (self-dual, self-Langlands), all three coincide on
+representation categories.  For $G_2$:
+$G_2^L = G_2$ (self-Langlands) but the Koszul dual
+$V_k(G_2)^!$ is at level $k' = -k - 8$ (since $h^\vee(G_2) = 4$),
+while the FF involution also sends $k \mapsto -k-8$; these
+coincide as level maps but produce different algebras (AP33).
+\end{remark}
+
+
+\section{BPS algebras and quantum groups}
+\label{sec:bps-algebras}
+
+The BPS algebra of a CY$_3$ category provides a physical
+construction of quantum groups.
+
+\begin{definition}[BPS algebra]
+\label{def:bps-algebra}
+For a CY$_3$ category $\cC$ with stability condition $\sigma$,
+the \emph{BPS algebra} $\cA^{\BPS}_\sigma(\cC)$ is the
+cohomological Hall algebra (CoHA) of $\cC$:
+\[
+  \cA^{\BPS}_\sigma(\cC)
+  = \bigoplus_{\gamma \in K_0(\cC)}
+    H^*_{\mathrm{BM}}(\cM_\sigma(\gamma), \, \phi_{\mathrm{tr}W})
+\]
+where $\cM_\sigma(\gamma)$ is the moduli of $\sigma$-semistable
+objects of class $\gamma$, $W$ is the CY potential, and
+$\phi_{\mathrm{tr}W}$ is the vanishing cycle sheaf.  The
+multiplication is the Hall product (from short exact sequences).
+\end{definition}
+
+\begin{proposition}[CoHA as quantum group]
+\label{prop:coha-quantum-group}
+\ClaimStatusProvedElsewhere
+For the Jordan quiver (one vertex, one loop) with potential
+$W = \mathrm{tr}(B^3/3)$ and CY$_3$ geometry $\C^3$:
+\begin{enumerate}[label=(\roman*)]
+  \item The CoHA is isomorphic to the positive half of the affine
+    Yangian $Y(\widehat{\fgl}_1)^+$ (Schiffmann--Vasserot,
+    Maulik--Okounkov);
+  \item The full affine Yangian $Y(\widehat{\fgl}_1)$ is recovered
+    from the Drinfeld double of the CoHA;
+  \item The quantum toroidal algebra
+    $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ arises from the
+    $K$-theoretic refinement (replacing cohomology by $K$-theory).
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[Slab as bimodule]
+\label{rem:bps-slab}
+% RS-9: The slab is a bimodule, NOT a Swiss-cheese disk.
+In the Dimofte framework (Volume~II, Part~III), the BPS algebra
+arises from the 3d holomorphic-topological theory on the slab
+$X \times [0,1]$.  The slab has \emph{two} boundary components
+($X \times \{0\}$ and $X \times \{1\}$), making the algebra of
+operators on the slab a bimodule for the two boundary algebras.
+The Drinfeld double is the endomorphism algebra of the identity
+bimodule.  This bimodule structure is essential: a Swiss-cheese
+disk has one closed and one open boundary component; the slab has
+two open boundary components.
+\end{remark}
+
+\begin{example}[Resolved conifold]
+\label{ex:resolved-conifold}
+For the resolved conifold $\cO(-1) \oplus \cO(-1) \to \bP^1$, the
+CY$_3$ category is $D^b(\Coh(\cO(-1)^{\oplus 2}))$ and the BPS
+algebra is the affine Yangian $Y(\widehat{\fsl}_2)$.  The
+modular characteristic is
+$\kappa_{\mathrm{cat}} = 1$
+(from $\chi(\cO_{\bP^1}) = 1$; see
+Proposition~\ref{prop:chi-kappa-discrepancy}).  The wall-crossing
+formula of Kontsevich--Soibelman governs the dependence of the
+BPS spectrum on the stability condition.
+\end{example}
+
+
+\section{Wall-crossing and Kontsevich--Soibelman}
+\label{sec:wall-crossing-ks}
+
+The BPS spectrum of a CY$_3$ category depends on the stability
+condition $\sigma \in \Stab(\cC)$.  As $\sigma$ crosses a wall of
+marginal stability, the BPS states reorganize: bound states form or
+decay.  The Kontsevich--Soibelman wall-crossing formula governs
+this reorganization at the level of the motivic Hall algebra.
+
+\begin{definition}[Wall of marginal stability]
+\label{def:wall-marginal}
+A \emph{wall of marginal stability} in $\Stab(\cC)$ is a real
+codimension-$1$ locus $W_{\gamma_1, \gamma_2}$ where two classes
+$\gamma_1, \gamma_2 \in K_0(\cC)$ with $\gamma = \gamma_1 + \gamma_2$
+have aligned central charges:
+$Z_\sigma(\gamma_1)/Z_\sigma(\gamma_2) \in \R_{>0}$.
+On opposite sides of $W_{\gamma_1, \gamma_2}$, a bound state of
+class $\gamma$ may exist or not.
+\end{definition}
+
+\begin{theorem}[Kontsevich--Soibelman wall-crossing formula]
+\label{thm:ks-wall-crossing}
+\ClaimStatusProvedElsewhere
+For a CY$_3$ category $\cC$ with stability condition $\sigma$,
+define the \emph{BPS automorphism} for each class
+$\gamma \in K_0(\cC)$:
+\[
+  U_\gamma = \exp\!\left(
+    \sum_{n=1}^{\infty} \frac{(-1)^{n \dim \cM(\gamma)}}{n^2}\,
+    \Omega(\gamma; \sigma) \cdot \hat{e}_{n\gamma}
+  \right)
+\]
+where $\Omega(\gamma; \sigma) \in \Z$ is the (numerical)
+Donaldson--Thomas invariant and $\hat{e}_\gamma$ is the
+corresponding element of the quantum torus algebra
+$\hat{e}_\gamma \hat{e}_{\gamma'} = (-1)^{\langle \gamma, \gamma' \rangle}
+\hat{e}_{\gamma + \gamma'}$.  The ordered product
+\[
+  \cA_\sigma = \prod_{\gamma : \arg Z_\sigma(\gamma) = \theta}^{\curvearrowleft}
+  U_\gamma
+\]
+(clockwise ordering by phase $\theta = \arg Z_\sigma(\gamma)$) is
+\emph{independent of $\sigma$}: as $\sigma$ crosses a wall, the
+individual $\Omega(\gamma; \sigma)$ jump, but the ordered product
+$\cA_\sigma$ is invariant.
+\end{theorem}
+
+\begin{remark}[Motivic refinement]
+\label{rem:ks-motivic}
+The numerical DT invariants $\Omega(\gamma; \sigma) \in \Z$ are
+shadows of the motivic DT invariants
+$[\cM_\sigma(\gamma)]_{\mathrm{vir}} \in K_0(\mathrm{Var})$ in the
+Grothendieck ring of varieties.  The motivic wall-crossing formula
+replaces $\Omega$ by the motivic class, and the quantum torus by
+the motivic quantum torus.  The identification ``scattering =
+shadow'' (Volume~I, AP42) holds at the motivic level but fails at
+the naive BCH level: the full motivic Hall algebra is required.
+\end{remark}
+
+\begin{conjecture}[Wall-crossing and the bar complex]
+\label{conj:wc-bar}
+\ClaimStatusConjectured
+The wall-crossing formula has a bar-complex interpretation:
+crossing a wall $W_{\gamma_1, \gamma_2}$ in $\Stab(\cC)$ induces
+a mutation of the ordered bar complex
+$B^{\mathrm{ord}}(A_\cC)$ at the corresponding arity.
+Concretely:
+\begin{enumerate}[label=(\roman*)]
+  \item The BPS automorphism $U_\gamma$ corresponds to the
+    arity-$|\gamma|$ component of the MC element
+    $\Theta_{A_\cC}^{E_1}$ in the $\Eone$ convolution algebra;
+  \item Wall-crossing preserves the full MC element
+    $\Theta_{A_\cC}^{E_1}$ (it is an invariant of the CY category
+    $\cC$, not of the stability condition);
+  \item The individual BPS invariants $\Omega(\gamma; \sigma)$ are
+    \emph{projections} of $\Theta_{A_\cC}^{E_1}$ that depend on
+    $\sigma$; the MC element itself is wall-crossing invariant.
+\end{enumerate}
+% AP97: the averaging map av: g^{E_1} -> g^mod is lossy.
+% The ordered MC element Theta^{E_1} sees the full wall-crossing data;
+% the modular projection kappa = av(r(z)) sees only the invariant shadow.
+\end{conjecture}
+
+
+\section{The modular characteristic $\kappa_{\mathrm{cat}}$}
+\label{sec:kappa-cat}
+
+%% AP113: kappa always subscripted in Vol III.
+%% AP48: kappa depends on the full algebra, not just the Virasoro subalgebra.
+
+The modular characteristic of the quantum group representation
+category connects the categorical datum to the genus expansion of
+Volume~I.
+
+\begin{proposition}[$\kappa_{\mathrm{cat}}$ for quantum groups]
+\label{prop:kappa-cat-quantum-groups}
+\ClaimStatusProvedElsewhere
+For the affine vertex algebra $V_k(\frakg)$ at level $k$ with
+$q = e^{\pi i/(k + h^\vee)}$, the modular characteristic of
+the associated CY$_2$ category $\cC(\frakg, q)$
+(Conjecture~\ref{conj:qg-realization}) is:
+\[
+  \kappa_{\mathrm{cat}}(\cC(\frakg, q))
+  = \dim(\frakg) \cdot \frac{k + h^\vee}{2h^\vee}
+\]
+recovering the Volume~I modular characteristic of $V_k(\frakg)$
+(Volume~I, Theorem~D).  For the standard families:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+  \toprule
+  $\frakg$ & $\kappa_{\mathrm{cat}}$ & $q$ \\
+  \midrule
+  $\fsl_2$ & $3(k+2)/4$ & $e^{\pi i/(k+2)}$ \\
+  $\fsl_N$ & $\frac{N^2-1}{2N}(k+N)$ & $e^{\pi i/(k+N)}$ \\
+  $\mathfrak{so}_{2n}$ & $\frac{n(2n-1)(k+2n-2)}{2(2n-2)}$
+    & $e^{\pi i/(k+2n-2)}$ \\
+  $E_8$ & $\frac{248(k+30)}{60}$
+    & $e^{\pi i/(k+30)}$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+% AP39: kappa != S_2 for non-Virasoro families.
+% AP1: each formula recomputed from dim(g)(k+h^v)/(2h^v).
+\end{proposition}
+
+\begin{remark}[$\kappa_{\mathrm{cat}}$ versus other invariants]
+\label{rem:kappa-cat-vs-others}
+Three distinct invariants must be distinguished (AP113):
+\begin{enumerate}[label=(\roman*)]
+  \item $\kappa_{\mathrm{cat}}$: the modular characteristic of the
+    CY category, equal to the genus-$1$ Hodge class coefficient of
+    the associated chiral algebra (Volume~I, Theorem~D);
+  \item $\kappa_{\mathrm{ch}}$: the modular characteristic computed
+    from the chiral algebra directly (may differ from
+    $\kappa_{\mathrm{cat}}$ when the CY-to-chiral functor involves
+    additional data);
+  \item $\kappa_{\mathrm{BKM}}$: the BKM modular weight, a
+    number-theoretic invariant arising from the BKM denominator
+    formula (Chapter~\ref{ch:toroidal-elliptic}; distinct from
+    both $\kappa_{\mathrm{cat}}$ and $\kappa_{\mathrm{ch}}$).
+\end{enumerate}
+For CY$_2$ categories with $\frakg$-symmetry, all three can be
+independently computed.  For the $K3 \times E$ example:
+$\kappa_{\mathrm{ch}} = 3$, $\kappa_{\mathrm{BKM}} = 5$,
+$\kappa_{\mathrm{cat}} = 3$ (Proposition~\ref{prop:kappa-non-multiplicative}).
+\end{remark}
+
+\begin{proposition}[Complementarity for $\kappa_{\mathrm{cat}}$]
+\label{prop:kappa-cat-complementarity}
+\ClaimStatusProvedElsewhere
+Under Koszul duality $V_k(\frakg) \mapsto V_{k'}(\frakg)$ with
+$k' = -k - 2h^\vee$ (Feigin--Frenkel involution):
+\[
+  \kappa_{\mathrm{cat}}(\cC(\frakg, q))
+  + \kappa_{\mathrm{cat}}(\cC(\frakg, q'))
+  = 0
+\]
+where $q' = e^{\pi i/(k' + h^\vee)} = e^{-\pi i/(k + h^\vee)}$.
+This is the CY incarnation of the Volume~I complementarity
+$\kappa + \kappa' = 0$ for KM/free fields (Volume~I, Theorem~C).
+% AP24: complementarity sum is NOT universally zero.
+% For KM/free fields: kappa + kappa' = 0 (proved).
+% For W-algebras: kappa + kappa' = rho*K (Theorem D).
+\end{proposition}
+
+\begin{proof}
+Under $k \mapsto k' = -k - 2h^\vee$:
+$\kappa_{\mathrm{cat}}' = \dim(\frakg)(k' + h^\vee)/(2h^\vee)
+= \dim(\frakg)(-k - h^\vee)/(2h^\vee)
+= -\dim(\frakg)(k + h^\vee)/(2h^\vee)
+= -\kappa_{\mathrm{cat}}$.
+\end{proof}
+
+
+\section{Shadow obstruction tower for quantum group categories}
+\label{sec:shadow-tower-qg}
+
+The shadow obstruction tower $\Theta_{A_\cC}$
+(Volume~I, Part~II) acquires categorical meaning through the
+quantum group lens.
+
+\begin{proposition}[Shadow depth from $R$-matrix pole structure]
+\label{prop:shadow-depth-r-matrix}
+\ClaimStatusProvedElsewhere
+For $V_k(\frakg)$ with $R$-matrix
+$R(z) = 1 + r(z) + O(r^2)$ where $r(z) = \Omega/z$:
+\begin{enumerate}[label=(\roman*)]
+  \item The shadow depth $r_{\max} = 3$ (class~L): the collision
+    residue $r(z)$ has a single pole, the cubic shadow $C$ is
+    nonzero (from the Lie bracket), and the quartic resonance class
+    $Q$ vanishes by semisimplicity of $\frakg$;
+  \item The averaging map (Volume~I) sends
+    $r(z) = \Omega/z \mapsto \kappa_{\mathrm{cat}}$: the full
+    $z$-dependent profile is killed by $\Sigma_2$-coinvariance,
+    leaving only the scalar modular characteristic;
+  \item The KZ associator $\Phi_{\mathrm{KZ}}$ (the arity-$3$
+    component of $\Theta_{A_\cC}^{E_1}$) maps under averaging to
+    the cubic shadow $C$.
+\end{enumerate}
+% AP97: av is lossy. The R-matrix r(z) has more information than kappa.
+% AP59: three invariants: p_max, k_max, r_max. For affine KM:
+% p_max = 2 (OPE poles z^{-2}, z^{-1}), k_max = 1 (r-matrix pole z^{-1}),
+% r_max = 3 (class L, cubic shadow from Lie bracket).
+\end{proposition}
+
+\begin{remark}[From quantum groups to the shadow tower]
+\label{rem:qg-to-shadow}
+The passage from quantum group data to the shadow obstruction tower
+inverts the construction of this chapter: the quantum group
+$\Uq(\frakg)$ determines the $R$-matrix, which is the arity-$(1,1)$
+component of the $\Eone$ MC element $\Theta^{E_1}$, whose
+$\Sigma_n$-coinvariant projections are the shadow tower.  The
+reconstruction problem (from quantum group to chiral algebra) is
+solved by the DK bridge (MC3 for all simple types): the categorical
+data of $\Rep_q(\frakg)$ uniquely determines the chiral algebra
+$V_k(\frakg)$ up to the completion issues of MC4.
+\end{remark}

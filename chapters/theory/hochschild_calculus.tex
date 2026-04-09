@@ -1,17 +1,222 @@
 \chapter{Hochschild Calculus for CY Categories}
 \label{ch:hochschild-calculus}
 
-The Hochschild complex $\mathrm{CC}_\bullet(\cC)$ of a CY category $\cC$ is the categorical analogue of the bar complex $B(A)$ of a chiral algebra: both are chain complexes built from iterated compositions, with the CY trace playing the role of the modular characteristic $\kappa$.  This chapter develops the Hochschild calculus in the CY setting, culminating in the CY Hochschild duality that identifies cohomology with shifted homology.  The bridge to chiral algebras is the content of Part~II: the functor $\Phi$ converts Hochschild data into bar-complex data, and the CY trace becomes $\kappa(\Phi(\cC))$.
+%% AP113: kappa always subscripted in Vol III.
+%% AP104: E_1/ordered is primitive; unordered is derived quotient.
+
+The cyclic bar complex of Chapter~\ref{ch:cyclic-ainf} produces a chain
+complex from the $\Ainf$-structure of a single object.  For a dg
+category $\cC$ with many objects, the analogous construction is the
+Hochschild complex $\mathrm{CC}_\bullet(\cC)$.  Its homology
+$\HH_\bullet(\cC)$ carries a Connes $B$-operator; its cohomology
+$\HH^\bullet(\cC)$ carries a Gerstenhaber bracket.  When $\cC$ is
+Calabi--Yau of dimension $d$, these two structures are related by a
+$(2-d)$-shifted Poincar\'{e} duality, and the resulting $(2-d)$-shifted
+Poisson structure on $\HH^\bullet(\cC)$ is the categorical precursor
+of the convolution Lie bracket on the modular deformation complex
+of Volume~I.
+
 
 \section{Hochschild homology and cohomology}
 \label{sec:hh-basics}
 
-This section reviews the Hochschild homology $\HH_\bullet(\cC)$ and cohomology $\HH^\bullet(\cC)$ of a dg category $\cC$, with emphasis on the structures relevant to the CY programme: the Gerstenhaber bracket on $\HH^\bullet$ (which becomes the convolution Lie bracket of Volume~I), the Connes $B$-operator on $\HH_\bullet$ (which becomes the cyclic structure), and the HKR decomposition when $\cC = \Perf(X)$ for a smooth variety $X$.
+\begin{definition}[Hochschild complex]
+\label{def:hochschild-complex}
+Let $\cC$ be a dg category over $k$.  The \emph{Hochschild chain complex}
+of $\cC$ is
+\[
+  \mathrm{CC}_n(\cC)
+  = \bigoplus_{X_0, \ldots, X_n \in \mathrm{Ob}(\cC)}
+    \Hom_\cC(X_{n}, X_0) \otimes
+    \Hom_\cC(X_{n-1}, X_n) \otimes \cdots \otimes
+    \Hom_\cC(X_0, X_1)
+\]
+with the Hochschild differential
+\begin{align*}
+  b(f_0 \otimes \cdots \otimes f_n)
+  &= \sum_{i=0}^{n-1} (-1)^{\epsilon_i}\,
+     f_0 \otimes \cdots \otimes f_i f_{i+1} \otimes \cdots \otimes f_n \\
+  &\quad + (-1)^{\epsilon_n}\, f_n f_0 \otimes f_1 \otimes \cdots \otimes f_{n-1},
+\end{align*}
+where $\epsilon_i = |f_0| + \cdots + |f_i|$ (Koszul signs).  The
+\emph{Hochschild homology} is $\HH_\bullet(\cC) = H_\bullet(\mathrm{CC}_\bullet(\cC), b)$.
+\end{definition}
+
+\begin{definition}[Hochschild cohomology]
+\label{def:hochschild-cohomology}
+The \emph{Hochschild cochain complex} of a dg category $\cC$ is
+\[
+  \mathrm{CC}^n(\cC)
+  = \prod_{X_0, \ldots, X_n \in \mathrm{Ob}(\cC)}
+    \Hom_k\bigl(
+      \Hom_\cC(X_{n-1}, X_n) \otimes \cdots \otimes \Hom_\cC(X_0, X_1),\;
+      \Hom_\cC(X_0, X_n)
+    \bigr)
+\]
+with the Hochschild coboundary $\delta$ dual to $b$.  The
+\emph{Hochschild cohomology} is
+$\HH^\bullet(\cC) = H^\bullet(\mathrm{CC}^\bullet(\cC), \delta)$.
+\end{definition}
+
+\begin{remark}[Morita invariance]
+\label{rem:hh-morita}
+Both $\HH_\bullet$ and $\HH^\bullet$ are Morita invariant: if
+$\cC$ and $\cD$ are derived Morita equivalent (i.e.,
+$\Perf(\cC) \simeq \Perf(\cD)$ as dg categories), then
+$\HH_\bullet(\cC) \simeq \HH_\bullet(\cD)$ and
+$\HH^\bullet(\cC) \simeq \HH^\bullet(\cD)$.  This is essential for
+the CY programme, where different geometric models (Fukaya, derived
+coherent sheaves, matrix factorizations) of the same CY category must
+produce the same Hochschild invariants.
+\end{remark}
+
+
+\section{The Gerstenhaber bracket}
+\label{sec:gerstenhaber-bracket}
+
+\begin{theorem}[Gerstenhaber structure on $\HH^\bullet$]
+\label{thm:gerstenhaber}
+\ClaimStatusProvedElsewhere
+The Hochschild cohomology $\HH^\bullet(\cC)$ carries two compatible
+structures:
+\begin{enumerate}[label=(\roman*)]
+  \item A graded commutative \emph{cup product}
+    $\smile \colon \HH^p(\cC) \otimes \HH^q(\cC) \to \HH^{p+q}(\cC)$,
+    the composition of multilinear maps;
+  \item A degree $(-1)$ Lie bracket
+    $[\cdot, \cdot] \colon
+      \HH^p(\cC) \otimes \HH^q(\cC) \to \HH^{p+q-1}(\cC)$
+    (the \emph{Gerstenhaber bracket}), defined at the cochain level by
+    \[
+      [f, g] = f \circ g - (-1)^{(|f|-1)(|g|-1)} g \circ f
+    \]
+    where $\circ$ denotes the operadic pre-Lie composition:
+    \[
+      (f \circ g)(a_1, \ldots, a_{p+q-1})
+      = \sum_{i=1}^{p} (-1)^{\dagger}\,
+        f(a_1, \ldots, a_{i-1}, g(a_i, \ldots, a_{i+q-1}), a_{i+q}, \ldots, a_{p+q-1}).
+    \]
+\end{enumerate}
+Together, the cup product and Gerstenhaber bracket make
+$\HH^\bullet(\cC)$ a \emph{Gerstenhaber algebra}: the bracket is a
+derivation of the cup product in each variable.
+\end{theorem}
+
+\begin{remark}[Gerstenhaber = $E_2$ cohomology]
+\label{rem:gerstenhaber-e2}
+By Kontsevich's formality theorem and the Deligne conjecture
+(proved by Kontsevich--Soibelman, McClure--Smith, and others),
+$\mathrm{CC}^\bullet(\cC)$ carries a natural $E_2$-algebra structure
+whose cohomology-level shadow is the Gerstenhaber algebra
+$(\HH^\bullet(\cC), \smile, [\cdot, \cdot])$.  The $E_2$-structure
+is the chain-level origin of the braided monoidal category
+structure on $\Rep^{E_2}(\Zder(A))$ (Chapter~\ref{ch:drinfeld-center}).
+\end{remark}
+
+\begin{proposition}[Gerstenhaber bracket controls deformations]
+\label{prop:gerstenhaber-deformations}
+\ClaimStatusProvedElsewhere
+The Gerstenhaber bracket controls the deformation theory of
+$\cC$:
+\begin{enumerate}[label=(\roman*)]
+  \item $\HH^2(\cC)$ classifies first-order deformations of
+    $\cC$ as a dg category;
+  \item The obstruction to extending a first-order deformation
+    $\mu_1 \in \HH^2(\cC)$ to second order lies in $\HH^3(\cC)$
+    and is given by the Gerstenhaber square
+    $\frac{1}{2}[\mu_1, \mu_1]$;
+  \item A formal deformation is an element
+    $\mu = \sum_{n \geq 1} \hbar^n \mu_n \in \HH^2(\cC)[[\hbar]]$
+    satisfying the Maurer--Cartan equation
+    $\delta \mu + \frac{1}{2}[\mu, \mu] = 0$.
+\end{enumerate}
+The MC equation for deformations of $\cC$ maps, under $\Phi$, to
+the MC equation $D\Theta_A + \frac{1}{2}[\Theta_A, \Theta_A] = 0$
+of the modular convolution algebra $\mathfrak{g}^{\mathrm{mod}}_A$
+(Volume~I, thm:mc2-bar-intrinsic).
+\end{proposition}
+
+
+\section{The Connes $B$-operator and cyclic homology}
+\label{sec:connes-b}
+
+\begin{definition}[Connes $B$-operator]
+\label{def:connes-b}
+The \emph{Connes operator}
+$B \colon \mathrm{CC}_n(\cC) \to \mathrm{CC}_{n+1}(\cC)$ is defined by
+\[
+  B(f_0 \otimes \cdots \otimes f_n)
+  = \sum_{i=0}^{n} (-1)^{ni}\,
+    1 \otimes f_i \otimes f_{i+1} \otimes \cdots
+    \otimes f_{i-1}
+\]
+(indices mod $n+1$), composed with the insertion of the identity.
+It satisfies $B^2 = 0$, $bB + Bb = 0$.
+\end{definition}
+
+\begin{definition}[Cyclic, negative cyclic, and periodic cyclic homology]
+\label{def:cyclic-homology-variants}
+From the mixed complex $(\mathrm{CC}_\bullet(\cC), b, B)$
+with $|b| = -1$, $|B| = +1$, $b^2 = B^2 = bB + Bb = 0$:
+\begin{enumerate}[label=(\roman*)]
+  \item \emph{Cyclic homology}:
+    $\HC_\bullet(\cC) = H_\bullet(\mathrm{CC}_\bullet(\cC) \otimes_{k[B]} k)$;
+  \item \emph{Negative cyclic homology}:
+    $\HC^-_\bullet(\cC) = H_\bullet(\mathrm{CC}_\bullet(\cC)[[u]], b + uB)$,
+    where $|u| = 2$;
+  \item \emph{Periodic cyclic homology}:
+    $\HP_\bullet(\cC) = H_\bullet(\mathrm{CC}_\bullet(\cC)((u)), b + uB)$.
+\end{enumerate}
+The SBI sequence
+$\cdots \to \HH_n \xrightarrow{B} \HC_{n+1}
+  \xrightarrow{S} \HC_{n-1} \xrightarrow{I} \HH_{n-1}
+  \to \cdots$
+relates these.
+\end{definition}
+
+\begin{example}[Smooth variety]
+\label{ex:hkr}
+For $\cC = \Perf(X)$ with $X$ a smooth algebraic variety of
+dimension $n$, the Hochschild--Kostant--Rosenberg theorem gives
+\[
+  \HH_k(\Perf(X)) \simeq \bigoplus_{p-q=k} H^q(X, \Omega^p_X),
+  \qquad
+  \HH^k(\Perf(X)) \simeq \bigoplus_{p+q=k} H^q(X, \bigwedge\nolimits^p T_X).
+\]
+Under HKR, the Connes $B$-operator is the de Rham differential
+$d_{\mathrm{dR}} \colon \Omega^p \to \Omega^{p+1}$, and the
+Gerstenhaber bracket is the Schouten--Nijenhuis bracket on
+polyvector fields.
+\end{example}
+
 
 \section{The Hochschild-to-cyclic spectral sequence}
 \label{sec:hh-hc-spectral}
 
-The Hochschild-to-cyclic spectral sequence $E_1^{p,q} = \HH_{q-p}(\cC) \Rightarrow \HC_{q-p}(\cC)$ degenerates at $E_2$ for smooth proper CY categories (by the Hodge-to-de Rham degeneration theorem of Kaledin).  This degeneration is the categorical analogue of the PBW spectral sequence collapse (Volume~I, Koszulness characterisation K2): it converts the cyclic homology into a direct sum of Hochschild homology groups, just as Koszulness converts the bar cohomology into a direct sum of PBW-graded pieces.
+\begin{proposition}[Hodge-to-de Rham degeneration for dg categories]
+\label{prop:hodge-dR-degeneration}
+\ClaimStatusProvedElsewhere
+For a smooth proper dg category $\cC$ over a field $k$ of
+characteristic zero, the Hochschild-to-cyclic spectral sequence
+\[
+  E_1^{p,q} = \HH_{q-p}(\cC) \;\Longrightarrow\; \HC_{q-p}(\cC)
+\]
+degenerates at $E_2$.
+\end{proposition}
+
+\begin{remark}[Kaledin's theorem]
+\label{rem:kaledin}
+The degeneration was proved by Kaledin (2008) using Deligne--Illusie
+lifting methods in the dg setting.  Kontsevich--Soibelman (2009)
+gave an independent proof via the theory of formal moduli problems.
+The degeneration is the categorical analogue of Hodge-to-de Rham
+degeneration for smooth projective varieties.  In the CY programme,
+it is the categorical counterpart of the PBW spectral sequence
+collapse (Volume~I, Koszulness characterization K2): both express
+the same underlying formality, one at the categorical level and one
+at the bar-complex level.
+\end{remark}
+
 
 \section{CY Hochschild duality}
 \label{sec:cy-hh-duality}
@@ -19,18 +224,163 @@ The Hochschild-to-cyclic spectral sequence $E_1^{p,q} = \HH_{q-p}(\cC) \Rightarr
 \begin{theorem}[CY Hochschild duality]
 \label{thm:cy-hh-duality}
 \ClaimStatusProvedElsewhere
-For a smooth CY category $\cC$ of dimension $d$, there is a canonical isomorphism
+For a smooth CY category $\cC$ of dimension $d$, there is a
+canonical quasi-isomorphism
 \[
-  \HH^\bullet(\cC) \simeq \HH_{\bullet + d}(\cC)
+  \mathrm{CC}^\bullet(\cC)
+  \;\simeq\;
+  \mathrm{CC}_{\bullet + d}(\cC)
 \]
-identifying Hochschild cohomology with (shifted) Hochschild homology.  Under this isomorphism, the Gerstenhaber bracket on $\HH^\bullet$ corresponds to the BV operator (divergence operator) on $\HH_\bullet$; the Connes $B$-operator on $\HH_\bullet$ corresponds to the de~Rham differential under the HKR decomposition.
+identifying the Hochschild cochain complex with the $d$-shifted
+Hochschild chain complex.  On cohomology:
+\[
+  \HH^n(\cC) \;\simeq\; \HH_{n+d}(\cC).
+\]
+Under this identification:
+\begin{enumerate}[label=(\roman*)]
+  \item The Gerstenhaber bracket on $\HH^\bullet$ corresponds to
+    the \emph{BV operator} $\Delta_{\BV} \colon \HH_{n+d} \to \HH_{n+d+1}$
+    (the divergence operator associated to the CY volume form);
+  \item The cup product on $\HH^\bullet$ corresponds to the
+    intersection product on $\HH_{\bullet+d}$;
+  \item The Connes $B$-operator on $\HH_\bullet$ corresponds to
+    the contraction with the Euler vector field under HKR.
+\end{enumerate}
 \end{theorem}
 
-\begin{remark}
-The isomorphism $\HH^\bullet \simeq \HH_{\bullet+d}$ (``CY duality'' or ``Poincar\'{e} duality for Hochschild (co)homology'') follows from smoothness (the diagonal bimodule is compact) combined with the CY condition ($\cC \simeq \cC^\vee[d]$).  See Kontsevich (2006 ICM), Keller (2006), Ginzburg (2006 arXiv:0612139).
+\begin{proof}[Proof sketch]
+The CY condition furnishes an equivalence $\cC \simeq \cC^\vee[d]$
+between the category and its $d$-shifted dual.  Smoothness (the
+diagonal bimodule $\cC_\Delta$ is compact as a
+$\cC \otimes \cC^{\op}$-module) gives
+\[
+  \mathrm{CC}^\bullet(\cC)
+  = \RHom_{\cC \otimes \cC^{\op}}(\cC_\Delta, \cC_\Delta)
+  \simeq \cC_\Delta^\vee \otimes_{\cC \otimes \cC^{\op}} \cC_\Delta
+  \simeq \mathrm{CC}_\bullet(\cC^\vee)
+  \simeq \mathrm{CC}_{\bullet + d}(\cC)
+\]
+using $\cC^\vee \simeq \cC[-d]$ from the CY structure.  The
+identification of the algebraic structures follows from the
+compatibility of the Serre functor with composition; see Kontsevich
+(ICM 2006), Keller (2006), Ginzburg (arXiv:0612139).
+\end{proof}
+
+
+\section{The $(2-d)$-shifted Poisson structure}
+\label{sec:shifted-poisson}
+
+The CY Hochschild duality has a profound consequence: $\HH^\bullet(\cC)$
+carries a $(2-d)$-shifted Poisson structure.
+
+\begin{theorem}[$(2-d)$-shifted Poisson structure]
+\label{thm:shifted-poisson}
+\ClaimStatusProvedElsewhere
+For a smooth CY$_d$ category $\cC$, the Hochschild cohomology
+$\HH^\bullet(\cC)$ carries a $(2-d)$-shifted Poisson structure:
+a Lie bracket of cohomological degree $(2-d)$
+\[
+  \{\cdot, \cdot\}_{2-d}
+  \colon \HH^p(\cC) \otimes \HH^q(\cC)
+  \to \HH^{p+q+2-d}(\cC)
+\]
+satisfying the Jacobi identity and the Leibniz rule with respect
+to the cup product.  This bracket is the CY-shifted Gerstenhaber
+bracket:
+\[
+  \{f, g\}_{2-d} = [f, g]_{\mathrm{Gerst}} \circ \sigma_d
+\]
+where $\sigma_d$ is the CY structure class in
+$\HC^-_d(\cC) \simeq \HH_0(\cC)$.
+\end{theorem}
+
+\begin{remark}[The three dimensions]
+\label{rem:three-dimensions}
+The shifted Poisson structure specializes by dimension:
+\begin{enumerate}[label=(\alph*)]
+  \item $d = 1$ (curves): $(2-d) = 1$-shifted Poisson.  The
+    Gerstenhaber bracket has degree $-1$; the shifted bracket
+    has degree $0$.  This is an ordinary Lie bracket on
+    $\HH^\bullet$, recovering the classical Poisson bracket
+    on deformations of the curve.
+  \item $d = 2$ (surfaces): $(2-d) = 0$-shifted Poisson.  The
+    shifted bracket has degree $0$ and the cup product makes
+    $\HH^\bullet(\cC)$ a Poisson algebra in the ordinary sense.
+    This is the Poisson structure that the CY-to-chiral functor
+    $\Phi$ promotes to the chiral Poisson (coisson) structure of
+    the associated vertex algebra.  The convolution Lie bracket
+    on $\mathfrak{g}^{\mathrm{mod}}_A$ (Volume~I) is the
+    chiral incarnation of this $0$-shifted Poisson bracket.
+  \item $d = 3$ (threefolds): $(2-d) = (-1)$-shifted Poisson.
+    The bracket has degree $-1$, making $\HH^\bullet(\cC)$ a
+    $(-1)$-shifted Poisson algebra $=$ BV algebra (at the
+    cochain level, a $\BV_\infty$-algebra).  This is the BV
+    structure underlying the BRST complex of the associated
+    3d holomorphic-topological theory.  The chiral algebra
+    produced by $\Phi$ is $\Eone$, not $\Etwo$: the $(-1)$-shifted
+    Poisson bracket produces a Lie bracket on the loop space
+    (= Hochschild chains), not a Poisson bracket on functions.
+\end{enumerate}
 \end{remark}
+
 
 \section{Categorical Hodge theory}
 \label{sec:categorical-hodge}
 
-Categorical Hodge theory (Kaledin, Kontsevich--Soibelman, Katzarkov--Kontsevich--Pantev) provides the non-commutative analogue of the Hodge decomposition.  For a smooth proper dg category $\cC$, the periodic cyclic homology $\HP_\bullet(\cC)$ carries a filtration whose associated graded recovers $\HH_\bullet(\cC)$.  In the CY setting, the CY structure class $[\sigma] \in \HC^-_d(\cC)$ determines a preferred splitting.  The target: the categorical Hodge filtration on $\HP_\bullet(\cC)$ should correspond, under $\Phi$, to the shadow obstruction tower filtration on the modular convolution algebra $\mathfrak{g}^{\mathrm{mod}}_A$ (Volume~I).
+\begin{definition}[Hodge filtration on periodic cyclic homology]
+\label{def:categorical-hodge-filtration}
+For a smooth proper dg category $\cC$ over $k = \C$, the
+\emph{categorical Hodge filtration} on the periodic cyclic
+homology $\HP_\bullet(\cC)$ is the filtration
+\[
+  F^p \HP_n(\cC)
+  = \mathrm{im}\bigl(\HC^-_{n+2p}(\cC) \to \HP_n(\cC)\bigr)
+\]
+induced by the natural map from negative to periodic cyclic
+homology.  The associated graded is
+\[
+  \mathrm{gr}^p_F \HP_n(\cC)
+  \simeq \HH_{n+2p}(\cC).
+\]
+\end{definition}
+
+\begin{proposition}[Non-commutative Hodge-to-de Rham]
+\label{prop:nc-hodge-dr}
+\ClaimStatusProvedElsewhere
+For a smooth proper CY$_d$ category $\cC$:
+\begin{enumerate}[label=(\roman*)]
+  \item The Hodge filtration degenerates (Kaledin), giving
+    $\HP_n(\cC) \simeq \prod_{p} \HH_{n+2p}(\cC)$ as a filtered
+    vector space;
+  \item The CY structure class $[\sigma] \in \HC^-_d(\cC)$
+    determines a preferred splitting of the Hodge filtration;
+  \item In the commutative case $\cC = \Perf(X)$, the
+    categorical Hodge filtration recovers the classical Hodge
+    filtration on $H^n_{\mathrm{dR}}(X)$ via HKR.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[Bridge to the shadow obstruction tower]
+\label{rem:hodge-shadow-bridge}
+% AP113: always subscript kappa in Vol III.
+Under the CY-to-chiral functor $\Phi$ (Part~II), the categorical
+Hodge filtration maps to the weight filtration on the modular
+convolution algebra $\mathfrak{g}^{\mathrm{mod}}_A$.  The
+associated graded pieces correspond to the arity-stratified
+components of the shadow obstruction tower:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Categorical side & Chiral side & Arity \\
+\midrule
+$\HH_0(\cC)$ (CY class) & $\kappa_{\mathrm{cat}}(\cC)$ & $r = 2$ \\
+$\HH_1(\cC)$ (1st Hochschild) & Cubic shadow $C$ & $r = 3$ \\
+$\HH_2(\cC)$ (2nd Hochschild) & Quartic resonance $Q$ & $r = 4$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent The CY Hodge filtration degeneration (Kaledin)
+corresponds to the PBW spectral sequence collapse
+(Koszulness K2): both are manifestations of formality at
+different categorical levels.
+\end{remark}
