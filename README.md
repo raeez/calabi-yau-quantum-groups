@@ -42,14 +42,13 @@ For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfac
 | Modular characteristic kappa(A) | Vol I, Theorem D | Real roots + Weyl vector of BKM algebra |
 | R-matrix braiding | Vol II, Part III | E_2 enhancement from E_1 via Drinfeld center |
 
-## Six-Part Structure
+## Five-Part Structure
 
-- **I. CY Categories**: Calabi-Yau categories, cyclic A-infinity structures, Hochschild calculus
-- **II. E_1/E_2 Chiral**: E_1-chiral algebras (associative/ordered), E_2-chiral algebras (braided), E_n factorization
-- **III. The Bridge**: CY-to-chiral functor Phi, quantum chiral algebras, modular trace
-- **IV. Quantum Groups**: Quantum group foundations, braided factorization, Drinfeld center
-- **V. Landscape**: K3 x E, toric CY3, Higgs sheaves, quintic
-- **VI. Connections**: Bar-cobar bridge to Vol I, geometric Langlands
+- **I. The CY Engine**: CY categories, cyclic A-infinity structures, Hochschild calculus (HKR, Gerstenhaber, BV, CY-to-Lie-conformal passage), E_1/E_2-chiral algebras, E_n factorization
+- **II. The CY Characteristic Datum**: CY-to-chiral functor Phi, quantum chiral algebras, modular trace, quantum group foundations, braided factorization (U_q(g), R-matrix, YBE from bar coassociativity, braided bar-cobar adjunction CY-B, braided shadow tower), Drinfeld center and bulk algebras (BZF theorem, center vs derived center, Kazhdan-Lusztig at roots of unity)
+- **III. The CY Landscape**: K3 x E, toric CY3 CoHA, Fukaya categories (elliptic/K3/abelian/CY3/wrapped, HMS compatibility), derived categories, matrix factorizations, quantum group representations (generic q vs roots of unity)
+- **IV. Seven Faces of r_CY(z)**: Bar-cobar bridge to Vol I, CY holographic datum
+- **V. The CY Frontier**: Geometric Langlands and CY quantum groups
 
 ## Status
 
@@ -66,10 +65,13 @@ For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfac
 
 | Metric | Value |
 |--------|------:|
+| Pages | ~250 |
 | Theory chapters | 13 |
 | Example chapters | 7 |
+| Tagged claims | ~260 |
 | Compute tests | ~16,576 |
 | Compute modules | 167 lib + 164 test |
+| Stub chapters remaining | 7 of 12 (5 developed this session) |
 
 ## Build
 
