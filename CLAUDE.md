@@ -1,27 +1,27 @@
 # CLAUDE.md -- Volume III: CY Categories, Quantum Groups, and BPS Algebras
 
-**Canonical reference for all shared content (Beilinson Principle, AP tables, RS safeguards, Symphonic Standard, verification mandate, session protocol, audit/rectification loops, LaTeX/git rules): ~/chiral-bar-cobar/CLAUDE.md. This file contains ONLY Vol III-specific material.**
+**Canonical reference for all shared content: ~/chiral-bar-cobar/CLAUDE.md. This file contains ONLY Vol III-specific material.**
 
 ## Identity
 
-Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_2-ChirAlg that provides input data for the Vols I-II bar-cobar machine. Flow: CY category -> chiral algebra -> bar complex -> modular characteristic -> partition function.
+Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_2-ChirAlg providing input data for the Vols I-II bar-cobar machine. Flow: CY category -> chiral algebra -> bar complex -> modular characteristic -> partition function.
 
-~206pp, this repo, 17,199 tests. Clean build. Five parts: I (CY Engine), II (CY Characteristic Datum), III (CY Landscape), IV (Seven Faces of r_CY(z)), V (CY Frontier).
+~206pp, this repo, 17,199 tests. Five parts: I(CY Engine) II(CY Characteristic Datum) III(CY Landscape) IV(Seven Faces of r_CY(z)) V(CY Frontier).
 
-**12 skeletal stub chapters** (<50 lines, no theorems): cy_categories, cyclic_ainf, hochschild_calculus, quantum_groups_foundations, braided_factorization, drinfeld_center, fukaya_categories, derived_categories_cy, matrix_factorizations, quantum_group_reps, modular_koszul_bridge, geometric_langlands. Each must be developed or commented out (AP114).
+**5 genuine stub chapters** (<50 lines, AP114): quantum_groups_foundations (24), derived_categories_cy (27), geometric_langlands (28), matrix_factorizations (29), modular_koszul_bridge (13). Develop or comment out. **3 thin chapters** (50-100 lines, may need development): cyclic_ainf (55), cy_categories (70), e1_chiral_algebras (90). **5 formerly listed stubs now developed** (>300 lines): hochschild_calculus, braided_factorization, drinfeld_center, fukaya_categories, quantum_group_reps.
 
-## Main Theorems (Targets)
+## Main Theorems
 
 | Theorem | Status | Notes |
 |---------|--------|-------|
 | **CY-A** (CY-to-chiral functor) | d=2 PROVED; d=3 PROGRAMME | d=3 conditional on chain-level S^3-framing |
 | **CY-B** (E_2-chiral Koszul duality) | PROGRAMME | Depends on CY-A |
-| **CY-C** (Quantum group realization) | CONJECTURAL | C(g,q) not constructed. Uses \begin{conjecture}. |
+| **CY-C** (Quantum group realization) | CONJECTURAL | C(g,q) not constructed. Uses \begin{conjecture}. NEVER \begin{theorem} |
 | **CY-D** (Modular CY characteristic) | PROGRAMME | kappa well-defined only when A_C exists |
 
 ## The kappa-Spectrum (AP113, CRITICAL)
 
-Bare "kappa" is FORBIDDEN in Vol III. A single CY manifold can give rise to multiple chiral algebraizations, each with its own kappa. ALWAYS subscript:
+Bare "kappa" is FORBIDDEN in Vol III. A CY manifold gives rise to MULTIPLE chiral algebraizations, each with its own kappa. ALWAYS subscript:
 
 | Subscript | Meaning | K3 x E value |
 |-----------|---------|--------------|
@@ -30,26 +30,29 @@ Bare "kappa" is FORBIDDEN in Vol III. A single CY manifold can give rise to mult
 | kappa_cat | From categorical/holomorphic Euler char | 2 = chi(O_{K3}) |
 | kappa_fiber | From lattice/fiber structure | 24 (lattice rank) |
 
-The kappa(K3 x E) = 3 vs 5 contradiction arose from conflating kappa_ch and kappa_BKM. Full spectrum Spec_kappa(K3 x E) = {2,3,5,24}.
+kappa(K3 x E) = 3 vs 5 contradiction arose from conflating kappa_ch and kappa_BKM. Full spectrum: {2,3,5,24}.
 
 ## E_1/E_2 Chiral Hierarchy
 
-E_1-chiral (Vol II): associative factorization on C x R. Monoidal rep categories. E_2-chiral (this volume): braided factorization on C x C. Braided monoidal rep categories: habitat of quantum groups. E_1 -> E_2 via Dunn additivity. For d=2: S^2-framing of HH_*(C) gives E_2. For d=3: holomorphic CS breaks E_2 to E_1; recover E_2 via Drinfeld center Z(Rep^{E_1}(A)) = Rep^{E_2}(Z^der_ch(A)).
-
-The Drinfeld center is the categorified averaging map av: E_1-Cat -> E_2-Cat. Quantum groups, Yangians, braided tensor categories are natively E_1. E_2 structure is derived.
+E_1-chiral (Vol II): associative factorization on C x R. Monoidal rep categories. E_2-chiral (this vol): braided factorization on C x C. Braided monoidal rep categories: habitat of quantum groups. E_1 -> E_2 via Dunn additivity. d=2: S^2-framing of HH_*(C) gives E_2. d=3: holomorphic CS breaks E_2 to E_1; recover E_2 via Drinfeld center Z(Rep^{E_1}(A)) = Rep^{E_2}(Z^der_ch(A)). Drinfeld center is categorified av: E_1-Cat -> E_2-Cat. Quantum groups, Yangians, braided tensor categories natively E_1. E_2 derived.
 
 ## CY-Specific Anti-Patterns (AP-CY1 through AP-CY8)
 
-| AP-CY | Name | Rule |
-|-------|------|------|
-| 1 | CY dimension d != complex dimension n | Fuk(X) is CY_n, D^b(Coh(X)) is CY_n. Do not confuse with real dimension 2n. |
-| 2 | CY trace is in HC^-_d(C) | NOT just HH_d -> k. Negative cyclic refinement essential for S^d-framing. |
-| 3 | E_2 != commutative | E_2 braiding is NOT symmetric in general. E_2 -> E_inf loses quantum group structure. |
-| 4 | Drinfeld center != derived center | Z(C) (monoidal category) vs Z^der_ch(A) (chiral). Agree under specific hypotheses. State which. |
-| 5 | Kazhdan-Lusztig requires root of unity | At generic q, Rep_q(g) is semisimple. Interesting structure at roots of unity. |
-| 6 | A_X for CY3 does NOT exist | It is the content of the d=3 programme. NEVER write as if defined. |
-| 7 | CoHA != E_1-chiral algebra | CoHA is associative. Calling it "E_1-sector of G(X)" assumes G(X) exists. G(X) is AP43 (undefined). |
-| 8 | Borcherds denominator != bar Euler product | Identification requires CY-to-chiral functor to exist. For K3 x E (d=3): observation, not theorem. |
+AP-CY1: CY dimension d != complex dimension n. Fuk(X) is CY_n, D^b(Coh(X)) is CY_n. Not real dim 2n.
+AP-CY2: CY trace is in HC^-_d(C), NOT just HH_d -> k. Negative cyclic refinement essential for S^d-framing.
+AP-CY3: E_2 != commutative. E_2 braiding is NOT symmetric. E_2 -> E_inf loses quantum group structure.
+AP-CY4: Drinfeld center Z(C) (monoidal category) != derived center Z^der_ch(A) (chiral). State which.
+AP-CY5: Kazhdan-Lusztig requires root of unity. Generic q: Rep_q(g) semisimple.
+AP-CY6: A_X for CY3 does NOT exist. It IS the d=3 programme. NEVER write as if defined. **Strengthened**: any result whose proof chain passes through A_X at d=3 MUST carry \ClaimStatusConditional and explicitly name CY-A_3 as dependency. Conditionality PROPAGATES through all downstream results.
+AP-CY7: CoHA != E_1-chiral algebra. CoHA is associative. "E_1-sector of G(X)" assumes G(X) exists (AP43).
+AP-CY8: Borcherds denominator != bar Euler product. Identification requires CY-to-chiral functor. For K3 x E: observation, not theorem.
+
+### Empirical (AP-CY9-13, from 50-commit error archaeology)
+AP-CY9: Jacobi form discriminant constraint. For phi_{k,m} of index m, only discriminants D with D=0 or D=3 mod 4 (m=1) can appear. NEVER fill coefficient table with sequential D-values. Verify discriminant constraint. c(-1)=2 for phi_{0,1} in EZ convention, NOT 1.
+AP-CY10: Flop != Koszul dual. Birational flop X->X^+ is derived equivalence PRESERVING kappa. Koszul dual A^! has kappa(A)+kappa(A^!)=rho_K. Flop exchanges chambers; Koszul exchanges algebra/coalgebra. kappa(A_X)=kappa(A_{X+}) for flop, NOT kappa(A_X)+kappa(A_{X+})=0.
+AP-CY11: Conditional d=3 transitivity. If Result B depends on Result A which depends on CY-A_3, then B is ALSO conditional on CY-A_3. Use \ClaimStatusConditional and state the dependency chain. DEFAULT environment for new Vol III formal statements is \begin{conjecture} unless proof is COMPLETE and UNCONDITIONAL.
+AP-CY12: Shadow class from full computation. G/L/C/M must be determined by computing full shadow tower, NOT by counting generators. Non-formality (m_3!=0) does NOT by itself determine shadow depth. local P^2 is class M (infinite depth), not class L.
+AP-CY13: Cross-volume Part number staleness. After ANY Part restructuring in ANY volume, grep ALL THREE volumes for stale Part references. Part numbers are the most fragile cross-reference. Use \ref{part:...} exclusively, never hardcode.
 
 ## Dependencies on Vols I-II
 
@@ -67,14 +70,14 @@ cd ~/chiral-bar-cobar-vol2 && make                                # Vol II
 make test                                                         # Vol III tests
 ```
 
-## Session Entry (Vol III-specific additions)
+## Session Entry (Vol III additions)
 
-1. Read ~/chiral-bar-cobar/CLAUDE.md first (canonical reference)
-2. Then read this file (CY-specific pitfalls, kappa-spectrum, AP-CY1-8)
-3. Check AP113 compliance: bare kappa -> subscripted kappa_{ch,BKM,cat,fiber}
-4. Check AP114: do not cite theorems from the 12 stub chapters
-5. CY-A at d=2 PROVED. CY-A at d=3 PROGRAMME. Scope every CY-A claim by dimension.
-6. CY-C is CONJECTURE. Never \begin{theorem} for CY-C (AP40).
+1. Read ~/chiral-bar-cobar/CLAUDE.md first (canonical).
+2. Then this file (kappa-spectrum, AP-CY1-8).
+3. Check AP113: bare kappa -> subscripted kappa_{ch,BKM,cat,fiber}.
+4. Check AP114: do not cite theorems from 12 stub chapters.
+5. CY-A: d=2 PROVED, d=3 PROGRAMME. Scope EVERY CY-A claim by dimension.
+6. CY-C is CONJECTURE. NEVER \begin{theorem} for CY-C (AP40).
 
 ## Git
 
