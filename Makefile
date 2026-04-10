@@ -51,7 +51,13 @@ AUX_EXTS  := aux log out toc synctex.gz fdb_latexmk fls bbl blg \
 #  Targets
 # ============================================================================
 
-.PHONY: all fast clean veryclean count check test publish help release working-notes dist
+.PHONY: all fast clean veryclean count check test publish help release working-notes dist icloud
+
+## icloud: Copy latest PDFs to iCloud Drive
+icloud: main.pdf
+	@mkdir -p "$(ICLOUD_DIR)"
+	@cp -v main.pdf "$(ICLOUD_DIR)/vol3_calabi_yau_quantum_groups.pdf"
+	@echo "Vol III PDF copied to iCloud."
 
 ## all: Full converging build
 all: $(STAMP) publish

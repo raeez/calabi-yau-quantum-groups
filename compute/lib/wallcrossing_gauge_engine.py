@@ -274,33 +274,41 @@ def bch_binary(f: LatticeLieElement, g: LatticeLieElement,
             result = result + gfg.scale(Fraction(-1, 12))
 
         if depth >= 3:
-            if not gfg.is_zero():
-                fgfg = f.bracket(gfg)
-                if not fgfg.is_zero():
-                    result = result + fgfg.scale(Fraction(-1, 24))
+            # Order 3 of BCH: only -[Y,[X,[X,Y]]]/24.
+            # By Jacobi: [X,[Y,[X,Y]]] = [Y,[X,[X,Y]]] + [[X,Y],[X,Y]]
+            #           = [Y,[X,[X,Y]]], since [[X,Y],[X,Y]] = 0 by
+            # antisymmetry. So there is ONE independent term (not two).
             if not ffg.is_zero():
-                gffg = g.bracket(ffg)
+                gffg = g.bracket(ffg)  # [Y,[X,[X,Y]]]
                 if not gffg.is_zero():
                     result = result + gffg.scale(Fraction(-1, 24))
 
             if depth >= 4:
-                # Order 4 terms: several contributions
-                if not ffg.is_zero():
-                    fffg = f.bracket(ffg)
-                    if not fffg.is_zero():
-                        result = result + fffg.scale(Fraction(-1, 720))
+                # Order 4 of BCH (Goldberg):
+                #   -[X,[Y,[Y,[X,Y]]]]/720 - [Y,[X,[X,[X,Y]]]]/720
+                #   +[Y,[X,[Y,[X,Y]]]]/360 + [X,[Y,[X,[X,Y]]]]/360
                 if not gfg.is_zero():
-                    ggfg = g.bracket(gfg)
+                    ggfg = g.bracket(gfg)  # [Y,[Y,[X,Y]]]
                     if not ggfg.is_zero():
-                        result = result + ggfg.scale(Fraction(1, 360))
-                # Cross terms
-                if not ffg.is_zero() and not gfg.is_zero():
-                    fgfg2 = f.bracket(gfg)
-                    gffg2 = g.bracket(ffg)
-                    if not fgfg2.is_zero():
-                        result = result + fgfg2.scale(Fraction(1, 120))
-                    if not gffg2.is_zero():
-                        result = result + gffg2.scale(Fraction(1, 120))
+                        fggfg = f.bracket(ggfg)  # [X,[Y,[Y,[X,Y]]]]
+                        if not fggfg.is_zero():
+                            result = result + fggfg.scale(Fraction(-1, 720))
+                    fgfg_el = f.bracket(gfg)  # [X,[Y,[X,Y]]]
+                    if not fgfg_el.is_zero():
+                        gfgfg = g.bracket(fgfg_el)  # [Y,[X,[Y,[X,Y]]]]
+                        if not gfgfg.is_zero():
+                            result = result + gfgfg.scale(Fraction(1, 360))
+                if not ffg.is_zero():
+                    fffg = f.bracket(ffg)  # [X,[X,[X,Y]]]
+                    if not fffg.is_zero():
+                        gfffg = g.bracket(fffg)  # [Y,[X,[X,[X,Y]]]]
+                        if not gfffg.is_zero():
+                            result = result + gfffg.scale(Fraction(-1, 720))
+                    gffg_el = g.bracket(ffg)  # [Y,[X,[X,Y]]]
+                    if not gffg_el.is_zero():
+                        fgffg = f.bracket(gffg_el)  # [X,[Y,[X,[X,Y]]]]
+                        if not fgffg.is_zero():
+                            result = result + fgffg.scale(Fraction(1, 360))
 
     return result
 
