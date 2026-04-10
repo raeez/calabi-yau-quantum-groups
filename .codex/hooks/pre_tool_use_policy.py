@@ -80,6 +80,17 @@ def main() -> int:
         )
         return 0
 
+    if re.search(r"\b(sed|perl)\b", lower) and re.search(r"\.(tex|py)\b", lower):
+        emit(
+            {
+                "systemMessage": (
+                    "Editing `.tex` or `.py` via Bash: run the pre-edit verification protocol for "
+                    "high-risk surfaces, re-read the live context, and propagate shared formula/status changes."
+                )
+            }
+        )
+        return 0
+
     return 0
 
 

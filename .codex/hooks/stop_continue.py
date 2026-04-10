@@ -10,6 +10,9 @@ KEYWORDS = (
     "rectify",
     "rectification",
     "beilinson",
+    "chriss-ginzburg",
+    "claim-verification",
+    "cross-volume-propagation",
     "red-team",
     "red team",
     "falsify",
@@ -17,6 +20,7 @@ KEYWORDS = (
     "pressure test",
     "converge",
     "convergence",
+    "rectification_session_active",
 )
 
 
@@ -57,13 +61,23 @@ def main() -> int:
     if re.search(r"\b(CONVERGED|BLOCKED)\b", last_message):
         return 0
 
+    lower_last = last_message.lower()
+    if (
+        ("proved internally" in lower_last or "proved here" in lower_last)
+        and ("compute-backed" in lower_last or "verification" in lower_last)
+        and ("conditional" in lower_last or "conjectural" in lower_last or "open" in lower_last)
+    ):
+        return 0
+
     sys.stdout.write(
         json.dumps(
             {
                 "decision": "block",
                 "reason": (
                     "Rectification-style session not yet converged. Run one more hostile pass over the "
-                    "modified surface, verify the active claims, and stop only with CONVERGED or BLOCKED."
+                    "modified surface, verify the active claims, and stop only with CONVERGED or BLOCKED. "
+                    "The close-out should also say what is proved here, what is only compute-backed or verified, "
+                    "and what remains conditional, conjectural, or open."
                 )
             }
         )
