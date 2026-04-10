@@ -65,14 +65,16 @@ For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfac
 
 | Metric | Value |
 |--------|------:|
-| Pages | ~206 |
+| Pages | ~210 |
 | Theory chapters | 13 |
-| Example chapters | 7 |
+| Example chapters | 7 (all now in build, including 4 re-enabled former stubs) |
 | Tagged claims | ~260 |
 | Compute tests | ~17,199 |
 | Compute modules | 167 lib + 164 test |
-| Anti-patterns | AP-CY1 through AP-CY13 (8 foundational + 5 empirical) |
-| Genuine stubs (<50 lines) | 5 (quantum_groups_foundations, derived_categories_cy, geometric_langlands, matrix_factorizations, modular_koszul_bridge) |
+| Anti-patterns | AP-CY1 through AP-CY19 (8 foundational + 11 empirical) |
+| HOT ZONE entries | HZ3-1 through HZ3-10 (Vol III-specific operational templates) |
+| Bibliography | 38 bibitems (0 undefined citations, down from 62) |
+| Genuine stubs (<50 lines) | 1 (quantum_groups_foundations at 24 lines) |
 
 ## Build
 
