@@ -29,7 +29,7 @@ The specification above is \emph{not} a mathematical definition: it is a list of
 \begin{itemize}
   \item For toric CY$_3$ without compact $4$-cycles: the CoHA $\mathcal{H}(Q_X, W_X)$ and its Drinfeld double provide a constructed $E_2$-algebra (Schiffmann--Vasserot, RSYZ).
   \item For $d = 2$: the functor $\Phi$ of Theorem~CY-A$_2$ constructs $A_\cC$ from a CY$_2$ category.
-  \item For $K3 \times E$ ($d = 3$): the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ and its root datum exist (Gritsenko--Nikulin), but the chiral algebra $A_{K3 \times E} = \Phi(D^b(\mathrm{Coh}(X)))$ is \emph{not} constructed.  The identification $\kappa = 5$ is an observation matching the Borcherds lift weight, not a computation from Vol~I's definition of $\kappa$.
+  \item For $K3 \times E$ ($d = 3$): the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ and its root datum exist (Gritsenko--Nikulin), but the chiral algebra $A_{K3 \times E} = \Phi(D^b(\mathrm{Coh}(X)))$ is \emph{not} constructed.  The identification $\kappa_{\mathrm{BKM}} = 5$ is an observation matching the Borcherds lift weight, not a computation from Vol~I's definition of $\kappa_{\mathrm{ch}}$.
   \item The $E_2$ braided monoidal structure on representations is constructed for $d = 2$ and conjectural for $d = 3$.
 \end{itemize}
 Until $G(X)$ is constructed, statements of the form ``$G(X)$ satisfies property $P$'' are conjectures about the target, not theorems about a defined object (AP43).
@@ -115,6 +115,43 @@ All four properties are verified by direct symbolic computation.  The $8 \times 
 The results of this section are supported by $93$ independent tests in \texttt{compute/lib/drinfeld\_center\_yangian.py}.  Verification paths include: direct computation of the half-braiding on charge-$1$ and charge-$2$ Fock modules; symbolic verification of the $8 \times 8$ YBE; unitarity check $R_{12}(u) R_{21}(-u) = 1$; classical $r$-matrix extraction; Schiffmann--Vasserot specialization matching; and Proch\'azka--Rap\v{c}\'ak character comparison.
 \end{remark}
 
+\begin{remark}[Dimofte's $K$-matrix and CY shadow depth]
+\label{rem:dimofte-k-matrix-cy}
+\ClaimStatusProvedElsewhere
+In the PIRSA lecture series (Dimofte, PIRSA 25110067), Dimofte isolates a single chiral operator $K_\cA(z)$ which controls the deviation of the boundary coproduct of an HT boundary algebra from the primitive (Hopf) coproduct.  Its explicit form is
+\begin{equation}
+\label{eq:dimofte-k-matrix-cy}
+K_\cA(z) \;=\; z^{\alpha_0}\,\exp\!\Biggl(\sum_{n>0} \frac{\alpha_{-n}}{-n}\, z^{n}\Biggr)\,\exp\!\Biggl(\sum_{n>0} \frac{\alpha_{n}}{-n}\, z^{-n}\Biggr),
+\end{equation}
+where $\{\alpha_n\}_{n \in \Z}$ are the modes of a free boson identified with the $\mathfrak{u}(1)^r$ Cartan factor of the boundary algebra and $\alpha_0$ is the zero-mode charge.  The operator $K_\cA(z)$ lives inside $\cA$, not over it.  The canonical Vol~II discussion of equation~\eqref{eq:dimofte-k-matrix-cy}, its diagnostic interpretation, and its interaction with the shadow-depth classification is in the ordered bar chapter of Vol~II (\emph{Vol~II}, remark \texttt{rem:dimofte-k-matrix} in \texttt{ordered\_associative\_chiral\_kd\_core.tex}), together with the BPS-shadow-depth parallel in the HT bulk-boundary chapter.  This remark records the CY specialization of that Vol~II content.
+
+Let $\cC$ be a smooth proper Calabi--Yau category of dimension $d \in \{2, 3\}$.  For $d = 2$ the CY-to-chiral functor $\Phi$ of Theorem~CY-A$_2$ produces an $E_2$-chiral algebra $A_\cC = \Phi(\cC)$ and the $K$-matrix $K_{A_\cC}(z)$ is well defined by equation~\eqref{eq:dimofte-k-matrix-cy} applied to the boundary algebra of the associated 3d HT theory.  For $d = 3$ the same prescription is \emph{conditional on} Conjecture~CY-A$_3$ (the chain-level $\mathbb{S}^3$-framing construction): any statement whose proof chain passes through $A_\cC$ at $d = 3$ inherits that conditionality (AP-CY6, AP-CY11).
+
+The diagnostic interpretation of $K_{A_\cC}(z)$ refines on the CY side into a statement about the BPS hull of $\cC$.  Write $\cC^{\mathrm{BPS}} \subset \cC$ for the subcategory of BPS objects (semistable objects at a chosen stability condition), and let $\Phi(\cC^{\mathrm{BPS}})$ denote the image of this subcategory under the CY-to-chiral functor.  Then $K_{A_\cC}(z)$ is determined by $\Phi$ applied to the BPS hull: the Cartan zero-mode $\alpha_0$ records the rank of the $\mathfrak{u}(1)^r$ factor, and the higher modes $\alpha_{\pm n}$ ($n \geq 1$) encode the BPS generating-function corrections.
+\begin{itemize}
+\item For toric CY$_3$ without compact $4$-cycles (Chapter~\ref{ch:toric-coha}), $K_{A_\cC}(z)$ is the generating function of Donaldson--Thomas invariants on the fiber of the toric quiver: the mode $\alpha_{-n}$ scales as the DT partition function restricted to classes with $n$ BPS quanta, and the Schiffmann--Vasserot/RSYZ identification of Theorem~\ref{thm:drinfeld-center-coha} realizes the identification $K_{A_\cC}(z) = Z^{\mathrm{DT}}_{\mathrm{fiber}}(z)$.
+\item For $K3 \times E$ (Chapter~\ref{ch:k3-times-e}), the $K$-matrix specializes to the Fourier coefficients of the Igusa cusp form $\Phi_{10}$: the Fourier--Jacobi expansion $\Phi_{10} = \sum_{m \geq 1} \phi_m(\tau,z)\, p^m$ records the BKM root multiplicities on successive modes, and these coefficients are precisely the data encoded by equation~\eqref{eq:dimofte-k-matrix-cy}.  The weight of $\Phi_{10}$ is $10 = 2 \cdot \kappa_{\mathrm{BKM}}$, where $\kappa_{\mathrm{BKM}} = 5$ is the Borcherds--Kac--Moody modular characteristic (see Table of Chapter~\ref{ch:k3-times-e}, AP113).
+\end{itemize}
+
+The Vol~I shadow-depth classification $\{\mathbf{G}, \mathbf{L}, \mathbf{C}, \mathbf{M}\}$ coincides, under $\Phi$, with the $K$-matrix complexity of the CY boundary algebra:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+\toprule
+Class & $K_{A_\cC}(z)$ & $d_{\mathrm{alg}}(A_\cC)$ \\
+\midrule
+$\mathbf{G}$ (trivial CY fiber, $\mathfrak{u}(1)^r$) & $1$ & $0$ \\
+$\mathbf{L}$ (rank-one CY Heisenberg deformation) & polynomial, simple pole & $1$ \\
+$\mathbf{C}$ (toric CY$_3$, $\beta\gamma$-type) & polynomial, double pole & $2$ \\
+$\mathbf{M}$ ($K3$, $W_N$-type) & infinite expansion & $\infty$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+Equivalently: $K_{A_\cC}(z) = 1$ iff the boundary coproduct is primitive iff $d_{\mathrm{alg}} = 0$ iff $\cC$ is class $\mathbf{G}$.  The correspondence $K_{A_\cC}(z) = 1 \Longleftrightarrow \mathbf{G} \Longleftrightarrow d_{\mathrm{alg}} = 0$ is the CY analogue of the Vol~II biconditional.
+
+The $K$-matrix modifies the coproduct, not the product, so the $r$-matrix vanishing check of AP126 does not apply directly to $K_{A_\cC}(z)$.  The corresponding $r$-matrix check is the affine one: the classical $r$-matrix $k_{\mathrm{ch}}\,\Omega/z$ vanishes at $k_{\mathrm{ch}} = 0$, in which case $A_\cC$ collapses to the trivial Heisenberg and $K_{A_\cC}(z) = 1$, consistent with class $\mathbf{G}$.
+\end{remark}
+
 
 \section{Comparison with the Maulik--Okounkov $R$-matrix}
 \label{sec:mo-rmatrix-comparison}
@@ -143,7 +180,7 @@ Seven independent verification paths confirm the identification:
   \item \emph{$\mathrm{Hilb}^2(\C^2)$ check}: at $n = 2$, the MO construction uses stable envelopes on $\mathrm{Hilb}^2(\C^2)$ (two chambers in the equivariant torus); the resulting $2 \times 2$ $R$-matrix matches the Yangian $R$-matrix.
   \item \emph{Unitarity}: $R_{12}(u) R_{21}(-u) = \mathrm{id}$ holds for both.
   \item \emph{YBE}: both satisfy the same quantum Yang--Baxter equation (Theorem~\ref{thm:yang-r-matrix-ybe}).
-  \item \emph{Crossing symmetry}: the crossing relation $R_{12}(u)^{t_1} R_{12}(-u - \kappa)^{t_1} = f(u) \cdot \mathrm{id}$ holds for both, with the same scalar function $f(u)$.
+  \item \emph{Crossing symmetry}: the crossing relation $R_{12}(u)^{t_1} R_{12}(-u - \kappa_{\mathrm{cr}})^{t_1} = f(u) \cdot \mathrm{id}$ holds for both, with the same scalar function $f(u)$; here $\kappa_{\mathrm{cr}}$ is the Yangian crossing parameter (distinct from the modular characteristic $\kappa_{\mathrm{ch}}$).
   \item \emph{Classical $r$-matrix}: both yield $r(u) = -\sigma_2 / u$ in the $u \to \infty$ limit.
   \item \emph{Schiffmann--Vasserot specialization}: at the SV values $(h_1, h_2, h_3) = (1, -1-\epsilon, \epsilon)$, both $R$-matrices specialize to the CoHA shuffle algebra braiding.
 \end{enumerate}

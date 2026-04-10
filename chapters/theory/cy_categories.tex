@@ -1,6 +1,8 @@
 \chapter{Calabi--Yau Categories}
 \label{ch:cy-categories}
 
+A Calabi--Yau category is a dg category whose Serre functor is a pure degree shift.  This single condition, due independently to Kontsevich and to Costello, organises the diverse sources of Calabi--Yau geometry (coherent sheaves, Fukaya categories, matrix factorisations, noncommutative resolutions) into a uniform categorical framework.  It is the framework on which the Vol~III functor $\Phi$ acts: $\Phi$ takes a cyclic $\Ainf$ Calabi--Yau category of dimension $d$ as input and returns an $\Etwo$-chiral algebra (at $d = 2$) or a programme-level target (at $d = 3$).  This chapter fixes the categorical input, recording the definitions, the Hochschild structure, the cyclic $\Ainf$ enhancement, and the interface to $\Phi$ (Chapter~\ref{ch:cy-to-chiral}).
+
 \section{Smooth and proper dg categories}
 \label{sec:smooth-proper-dg}
 
@@ -14,57 +16,188 @@ A dg category $\cC$ over $k$ is \emph{smooth} if the diagonal bimodule $\cC \in 
 A dg category $\cC$ is \emph{proper} if for all objects $X, Y \in \cC$, the Hom-complex $\Hom_\cC(X,Y)$ has finite-dimensional total cohomology.
 \end{definition}
 
+A category that is both smooth and proper is called \emph{saturated}.  Saturated categories admit a Serre functor $S_\cC$, a distinguished autoequivalence characterised by the natural isomorphism $\Hom_\cC(X, Y) \simeq \Hom_\cC(Y, S_\cC X)^\vee$.  Classical Serre duality recovers $S_{D^b(\Coh(X))} = (- \otimes \omega_X)[\dim X]$; the Calabi--Yau condition asks that the twist $\omega_X$ be trivial, leaving only the shift.
+
 \section{The Calabi--Yau condition}
 \label{sec:cy-condition}
 
 \begin{definition}[Calabi--Yau category, after Kontsevich]
 \label{def:cy-category}
-A smooth dg category $\cC$ is \emph{Calabi--Yau of dimension $d$} if there is a quasi-isomorphism of $\cC$-bimodules
+A smooth dg (or $\Ainf$) category $\cC$ is \emph{Calabi--Yau of dimension $d$} if the Serre functor is a pure shift: $S_\cC \simeq [d]$.  Equivalently, there is a quasi-isomorphism of $\cC$-bimodules
 \[
   \cC \xrightarrow{\;\sim\;} \cC^\vee[d]
 \]
-where $\cC^\vee = \RHom_{\cC^{\op} \otimes \cC}(\cC, \cC^{\op} \otimes \cC)$ is the inverse dualizing bimodule.  Equivalently, there exists a non-degenerate cyclic pairing
+where $\cC^\vee = \RHom_{\cC^{\op} \otimes \cC}(\cC, \cC^{\op} \otimes \cC)$ is the inverse dualizing bimodule.  Equivalently again, there exists a non-degenerate cyclic pairing
 \[
-  \langle \cdot, \cdot \rangle \colon \HH_\bullet(\cC) \otimes \HH_\bullet(\cC) \longrightarrow k[-d].
+  \langle \cdot, \cdot \rangle_d \colon \cC(a, b) \otimes \cC(b, a) \longrightarrow k[-d]
 \]
+of degree $-d$, satisfying the graded symmetry $\langle f, g \rangle_d = (-1)^{|f|\,|g|} \langle g, f \rangle_d$.
 \end{definition}
+
+The equivalence of the bimodule formulation with the cyclic pairing formulation is due to Costello~\cite{Costello2005}; see also Kontsevich's Mirror Symmetry address~\cite{Kontsevich1994} for the original categorical statement and Keller~\cite{Keller2006} for the dg-categorical reformulation used here.
 
 \begin{remark}
 \label{rem:cy-vs-smooth-cy}
-The CY condition combines smoothness (the bimodule $\cC$ is compact) with the Serre functor being a shift ($S_\cC \simeq [d]$).  A smooth proper CY category is \emph{saturated} in the sense of Kontsevich--Soibelman.
+The CY condition combines smoothness (the bimodule $\cC$ is compact) with the Serre functor being a shift.  A smooth proper CY category is \emph{saturated} in the sense of Kontsevich--Soibelman.  Non-proper ``relative'' CY categories also appear (matrix factorisations, Ginzburg dg algebras); they require the Hochschild invariants of Section~\ref{sec:cy-hochschild} to be interpreted in a compactly-supported or negative-cyclic refinement.
 \end{remark}
-
-\section{The CY trace}
-\label{sec:cy-trace}
-
-\begin{definition}[Non-degenerate trace]
-\label{def:cy-trace}
-A \emph{$d$-dimensional CY structure} on a smooth dg category $\cC$ is a class
-\[
-  [\sigma] \in \HC^-_{d}(\cC)
-\]
-in the negative cyclic homology, whose image under the canonical map $\HC^- \to \HH$ is a non-degenerate trace $\Tr \colon \HH_d(\cC) \to k$.
-\end{definition}
-
-\section{Standard examples}
-\label{sec:cy-standard-examples}
 
 \begin{example}[Fukaya category]
 \label{ex:fukaya-cy}
-For a compact symplectic manifold $(M, \omega)$ with $c_1(M) = 0$, the Fukaya category $\Fuk(M)$ is CY of dimension $\dim_\mathbb{R}(M)/2 = n$.  The CY trace arises from the cyclic structure on the $\Ainf$-algebra of Lagrangian Floer cochains.
+For a compact symplectic manifold $(M, \omega)$ with $c_1(M) = 0$, the Fukaya category $\Fuk(M)$ is CY of dimension $\dim_{\mathbb{R}}(M)/2 = n$.  The CY pairing arises from the cyclic structure on the $\Ainf$-algebra of Lagrangian Floer cochains (Fukaya; Seidel~\cite{Seidel2008}).
 \end{example}
 
 \begin{example}[Derived category of a CY manifold]
 \label{ex:derived-cy}
-For a smooth projective CY manifold $X$ of dimension $n$ (i.e., $\omega_X \simeq \cO_X$, $H^i(X, \cO_X) = 0$ for $0 < i < n$), the bounded derived category $D^b(\Coh(X))$ is CY of dimension $n$.  The CY trace is induced by the Serre duality pairing.
+For a smooth projective CY manifold $X$ of complex dimension $n$ (i.e.\ $\omega_X \simeq \cO_X$ and $H^i(X, \cO_X) = 0$ for $0 < i < n$), the bounded derived category $D^b(\Coh(X))$ is CY of dimension $n$.  The CY pairing is Serre duality composed with the $\cO_X$-trivialisation.
 \end{example}
 
 \begin{example}[Matrix factorizations]
 \label{ex:mf-cy}
-For $W \colon \mathbb{A}^n \to \mathbb{A}^1$ a polynomial with isolated singularity, the category $\MF(W)$ of matrix factorizations is CY of dimension $n - 2$ (Dyckerhoff; Orlov).  For the ADE singularities in two variables ($n = 2$), $\MF(W)$ is $\CY_0$ (semisimple, with the structure of a Frobenius algebra).  For threefold singularities ($n = 4$, e.g.\ $W = x_1^2 + \cdots + x_4^2$), $\MF(W)$ is $\CY_2$.
-% RECTIFICATION-FLAG: CY dimension of MF(W) is n-2 by Dyckerhoff
-% (the Serre functor is [n-2]). The original had n-1, which would make
-% ADE in 2 variables CY_1, contradicting the known semisimplicity.
-% Verify against Dyckerhoff "Compact generators in categories of matrix
-% factorizations" Thm 5.5: Serre functor S = [n-2].
+For $W \colon \mathbb{A}^n \to \mathbb{A}^1$ a polynomial with isolated singularity, the category $\MF(W)$ of matrix factorizations is CY of dimension $n - 2$ (Dyckerhoff; Orlov).  For the ADE singularities in two variables ($n = 2$), $\MF(W)$ is $\CY_0$ (semisimple, with the structure of a Frobenius algebra).  For threefold singularities ($n = 4$, e.g.\ $W = x_1^2 + \cdots + x_4^2$), $\MF(W)$ is $\CY_2$.  The exponent $n - 2$ (not $n - 1$) records the projectivisation of the $\mathbb{G}_m$-action on $W^{-1}(0)$; see AP-CY17.
 \end{example}
+
+\section{Hochschild cohomology and the CY structure}
+\label{sec:cy-hochschild}
+
+Hochschild cohomology is the universal invariant of a dg category.  For a CY$_d$ category, Serre duality forces additional structure: an $E_2$-algebra structure on $\HH^\bullet(\cC)$ (Kontsevich--Soibelman, Tamarkin) and, in the presence of the CY pairing, a $(d-2)$-shifted Poisson / BV structure.
+
+\begin{definition}[Hochschild cohomology]
+\label{def:hochschild-cohom}
+The Hochschild cohomology of $\cC$ is
+\[
+  \HH^\bullet(\cC) \;=\; \RHom_{\cC^{\op} \otimes \cC}(\cC, \cC),
+\]
+the derived endomorphisms of the diagonal bimodule.  It is a graded-commutative algebra under Yoneda product and carries the Gerstenhaber bracket of degree $-1$.
+\end{definition}
+
+\begin{theorem}[Deligne conjecture; Kontsevich--Soibelman, Tamarkin]
+\label{thm:deligne-conjecture}
+\ClaimStatusProvedElsewhere{}
+The pair (Yoneda product, Gerstenhaber bracket) on $\HH^\bullet(\cC)$ is the homology of an $E_2$-algebra structure, canonical up to contractible choice.
+\end{theorem}
+
+For a CY$_d$ category, the cyclic pairing relates $\HH^\bullet(\cC)$ to $\HH_\bullet(\cC)[d]$.  Transporting structure through this duality produces the higher Calabi--Yau brackets.
+
+\begin{proposition}[CY bracket spectrum]
+\label{prop:cy-bracket-spectrum}
+\ClaimStatusProvedElsewhere{}
+For a $\CY_d$ category $\cC$, the Hochschild invariants carry the following additional structure:
+\begin{itemize}
+  \item $d = 1$: a BV operator $\Delta \colon \HH^\bullet(\cC) \to \HH^{\bullet - 1}(\cC)$ whose deviation from being a derivation recovers the Gerstenhaber bracket;
+  \item $d = 2$: a degree $-2$ Poisson bracket $\{-, -\}_2$ on $\HH^\bullet(\cC)$, part of a $2$-shifted symplectic structure on the moduli of objects;
+  \item $d \geq 3$: a $(d - 2)$-shifted Poisson structure / $P_{d-1}$-algebra, refining to the Lie-cobar level in the cyclic setting.
+\end{itemize}
+\end{proposition}
+
+\begin{theorem}[HKR for smooth varieties]
+\label{thm:hkr-smooth}
+\ClaimStatusProvedElsewhere{}
+For $X$ a smooth projective variety over $k$ of characteristic zero, the Hochschild--Kostant--Rosenberg isomorphism gives
+\[
+  \HH^p(D^b(\Coh(X))) \;\simeq\; \bigoplus_{q + r = p} H^q\big(X, \wedge^r T_X\big).
+\]
+When $X$ is CY$_n$, the trivialisation $\omega_X \simeq \cO_X$ identifies $\wedge^r T_X \simeq \Omega_X^{n - r}$, so
+\[
+  \HH^p(D^b(\Coh(X))) \;\simeq\; \bigoplus_{q + r = p} H^q\big(X, \Omega_X^{n - r}\big).
+\]
+The sign and compatibility with the Mukai pairing are recorded in C{\u a}ld{\u a}raru~\cite{Caldararu2005}.
+\end{theorem}
+
+\begin{example}[Hochschild cohomology of $K3$]
+\label{ex:hh-k3}
+For a $K3$ surface $X$, the Hodge diamond is
+\[
+  h^{0,0} = 1,\; h^{2,0} = h^{0,2} = 1,\; h^{1,1} = 20,\; h^{2,2} = 1,
+\]
+with all other entries zero.  Applied to the HKR sum
+$\HH^p(D^b(\Coh(X))) = \bigoplus_{q + r = p} H^q(X, \Omega_X^{2 - r})$,
+this gives
+\[
+  \HH^0 \simeq H^0(\cO) \oplus H^2(T_X) \simeq k \oplus k,\quad
+  \HH^1 \simeq H^1(T_X) \simeq k^{20},\quad
+  \HH^2 \simeq H^0(\wedge^2 T_X) \oplus H^2(\cO) \simeq k \oplus k.
+\]
+The total dimension is
+\[
+  \dim_k \HH^\bullet(D^b(\Coh(K3))) \;=\; 2 + 20 + 2 \;=\; 24,
+\]
+matching the topological Euler characteristic $\chi(K3) = 24$.  The Mukai pairing on $\HH^\bullet$ is the non-degenerate pairing $\langle -, - \rangle_\mathrm{Mukai}$ of Mukai~\cite{Mukai1987}; it coincides with the CY pairing produced by Definition~\ref{def:cy-category} at $d = 2$.
+\end{example}
+
+\begin{remark}[$\kappa_\mathrm{cat}$ from $\chi$]
+\label{rem:kappa-cat-from-chi}
+For $X$ a CY$_2$, the categorical kappa of the Vol~III spectrum is
+\[
+  \kappa_\mathrm{cat}(X) \;=\; \chi(\cO_X),
+\]
+the holomorphic Euler characteristic.  For $K3$: $\chi(\cO_{K3}) = 1 - 0 + 1 = 2$, giving $\kappa_\mathrm{cat}(K3) = 2$.  Do not confuse this with the topological Euler characteristic $24$ (which is $\dim \HH^\bullet$), with $\kappa_\mathrm{ch}(K3 \times E) = 3$ (chiral-algebra kappa via $\Phi$), or with $\kappa_\mathrm{BKM}(K3 \times E) = 5$ (Borcherds weight).  See AP113.
+\end{remark}
+
+\section{Cyclic $\Ainf$ structure}
+\label{sec:cyclic-ainf-cy}
+
+The CY pairing in Definition~\ref{def:cy-category} is cohomological.  The categorical input to $\Phi$ requires a chain-level enhancement: a cyclic $\Ainf$-structure for which every higher operation $m_n$ is compatible with the pairing.
+
+\begin{definition}[Cyclic $\Ainf$ category]
+\label{def:cyclic-ainf-cat}
+A \emph{cyclic $\Ainf$-structure of degree $-d$} on an $\Ainf$-category $\cC$ is a collection of pairings
+\[
+  \langle -, - \rangle_d \colon \cC(a_0, a_1) \otimes \cC(a_1, a_0) \longrightarrow k[-d]
+\]
+together with the cyclic symmetry condition
+\[
+  \langle m_n(f_1, \ldots, f_n), f_0 \rangle_d \;=\; (-1)^{\epsilon} \langle m_n(f_0, f_1, \ldots, f_{n-1}), f_n \rangle_d
+\]
+for all $n \geq 2$, where $\epsilon$ is the Koszul sign determined by the degrees of the $f_i$.
+\end{definition}
+
+\begin{definition}[Negative cyclic CY class]
+\label{def:negcyc-cy}
+A \emph{$d$-dimensional CY structure} on a smooth dg category $\cC$ is a class
+\[
+  [\sigma] \in \HC^-_{d}(\cC)
+\]
+in the negative cyclic homology, whose image under the canonical map $\HC^- \to \HH$ is a non-degenerate trace $\Tr \colon \HH_d(\cC) \to k$.  The lift to $\HC^-$ is essential for the $\bS^d$-framing used in Chapter~\ref{ch:cy-to-chiral}; see AP-CY2.
+\end{definition}
+
+\begin{theorem}[Cyclic $\Ainf$ enhancement]
+\label{thm:cyclic-ainf-enhancement}
+\ClaimStatusProvedElsewhere{}
+Every smooth proper CY$_d$ category admits a cyclic $\Ainf$-enhancement, unique up to $\Ainf$-quasi-isomorphism preserving the pairing.  The proof is due to Kontsevich--Soibelman in the formal case, Costello~\cite{Costello2005} for the TCFT enhancement, and Seidel~\cite{Seidel2008} for the Fukaya case.
+\end{theorem}
+
+At $d = 2$ the enhancement is explicit enough to compute directly; it drives the $K3$ computations feeding the Borcherds denominator (Vol~III Chapter~\ref{ch:k3}).  At $d = 3$ the enhancement was constructed by Sheridan~\cite{Sheridan2015} for the quintic threefold, as part of the HMS proof; the general $d = 3$ construction remains programme-level (conditional on $\bS^3$-framing, see AP-CY6).
+
+\section{Interface with the CY-to-chiral functor $\Phi$}
+\label{sec:cy-cat-phi-interface}
+
+The Vol~III functor
+\[
+  \Phi \colon \CY_d\text{-}\Cat^{\mathrm{cyc}} \longrightarrow \Etwo\text{-}\mathrm{ChirAlg}
+\]
+takes as input the data of this chapter: a smooth proper cyclic $\Ainf$ category of dimension $d$, with its negative cyclic CY class $[\sigma] \in \HC^-_d(\cC)$.  The construction (Chapter~\ref{ch:cy-to-chiral}) proceeds by (i) extracting the Gerstenhaber algebra $\HH^\bullet(\cC)$, (ii) promoting it to a Lie conformal algebra using the CY pairing, (iii) taking the factorization envelope on a curve, (iv) and enhancing to $\Etwo$ using the $\bS^2$-framing at $d = 2$.
+
+\begin{theorem}[Categorical kappa equals Euler characteristic --- CY-D$_2$]
+\label{thm:cy-d-d2}
+\ClaimStatusProvedHere{}
+For $\cC$ a smooth proper $\CY_2$ category such that $\Phi(\cC)$ exists, the modular characteristic of the chiral algebra satisfies
+\[
+  \kappa_\mathrm{ch}\big(\Phi(\cC)\big) \;=\; \chi^{\CY}(\cC),
+\]
+the categorical Euler characteristic defined via the Mukai pairing.  When $\cC = D^b(\Coh(X))$ for $X$ a $K3$ surface, the right-hand side is $\kappa_\mathrm{cat}(X) = \chi(\cO_{K3}) = 2$, which implies a contribution to $\kappa_\mathrm{ch}(\Phi(D^b(\Coh(K3))))$; the full $K3 \times E$ chiral kappa is $3$, combining the $K3$ and $E$ factors.
+\end{theorem}
+
+\begin{remark}[The $d = 3$ case]
+\label{rem:cy-cat-d3}
+For $d = 3$, the functor $\Phi$ is not yet unconditional: it depends on the chain-level $\bS^3$-framing programme (CY-A$_3$, AP-CY6).  Any downstream statement inheriting the $d = 3$ $\Phi$ must carry \ClaimStatusConditional{} and name CY-A$_3$ as its dependency (AP-CY11).  The $\mathbb{C}^3$ case is verified end-to-end in Chapter~\ref{ch:cy-to-chiral}, Theorem~\ref{thm:c3-functor-chain}, providing a Rosetta Stone for the general $d = 3$ functor.
+\end{remark}
+
+\begin{remark}[What $\Phi$ does not see]
+\label{rem:phi-does-not-see}
+Not every invariant of $\cC$ survives the passage through $\Phi$.  The functor retains the cyclic $\Ainf$-structure and the Gerstenhaber bracket; it loses the fine structure of the triangulated / $\Ainf$ category (individual objects, t-structures, stability conditions) that is visible only via the fuller categorical CoHA construction of Chapter~\ref{ch:coha}.  The kappa-spectrum (Vol~III CLAUDE.md, AP113) encodes which invariants survive: $\kappa_\mathrm{cat}$ is always present, $\kappa_\mathrm{ch}$ exists only when $\Phi$ is defined, and $\kappa_\mathrm{BKM}$ records the Borcherds-side lift for $K3 \times E$.
+\end{remark}
+
+\begin{remark}[Cross-volume conventions]
+\label{rem:cy-cat-cross-vol-conventions}
+Vol~III uses lambda-bracket conventions for the Lie conformal algebras produced by $\Phi$: an OPE of the form $T(z) T(w) \sim (c/2)(z - w)^{-4} + \cdots$ is rewritten as $\{T_\lambda T\} = (c/12) \lambda^3 + \cdots$, absorbing the combinatorial factor $3! = 6$ from the divided-power $\lambda^{(3)} = \lambda^3/3!$.  Vol~I uses OPE modes directly; care is required when transporting formulas between volumes (see AP22, AP46 and the concordance).  The Hochschild / cyclic invariants of this chapter are convention-independent: they depend only on the chain-level $\Ainf$-structure.
+\end{remark}

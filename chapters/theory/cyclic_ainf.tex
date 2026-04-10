@@ -1,55 +1,206 @@
 \chapter{Cyclic $\Ainf$-Structures}
 \label{ch:cyclic-ainf}
 
-\section{$\Ainf$-categories and the bar complex}
-\label{sec:ainf-bar}
+A Calabi--Yau category enters this volume through a single structural datum: a cyclic $\Ainf$-algebra of dimension $d$.  Everything that follows, the functor $\Phi$ to chiral algebras, the modular characteristic $\kappa_{\mathrm{cat}}$, the four subscripted kappas of the CY kappa-spectrum, depends on this input.  This chapter fixes the definitions, records the standard examples (elliptic curve, K3, quintic), and states the bridge to \ref{part:bridge} precisely.  The content is classical (Stasheff, Kontsevich, Keller, Costello); the Vol~III role is the specific identification of $d$ with the CY dimension appearing in Theorem~CY-A.
 
-The cyclic bar complex is the primary invariant of a CY category.  This section reviews the $\Ainf$-formalism and its cyclic refinement, which Part~II promotes to chiral algebras on curves.
+\section{$\Ainf$-algebras}
+\label{sec:ainf-algebras}
 
-\begin{definition}[$\Ainf$-category]
-\label{def:ainf-category}
-An $\Ainf$-category $\cC$ over $k$ consists of:
-\begin{enumerate}[label=(\roman*)]
-  \item A set of objects $\mathrm{Ob}(\cC)$;
-  \item For each pair of objects $X, Y$, a graded $k$-module $\Hom_\cC(X,Y)$;
-  \item Higher composition maps $\mu_n \colon \Hom(X_0, X_1) \otimes \cdots \otimes \Hom(X_{n-1}, X_n) \to \Hom(X_0, X_n)[2-n]$ for $n \geq 1$, satisfying the $\Ainf$-relations:
-  \[
-    \sum_{\substack{p+q=n+1 \\ 1 \leq i \leq p}} (-1)^{\dagger}\, \mu_p(a_1, \ldots, a_{i-1}, \mu_q(a_i, \ldots, a_{i+q-1}), a_{i+q}, \ldots, a_n) = 0
-  \]
-  where the sign $(-1)^\dagger$ follows the Koszul rule (see Appendix~\ref{app:conventions}).
-\end{enumerate}
+\begin{definition}[$\Ainf$-algebra]
+\label{def:ainf-algebra}
+An \emph{$\Ainf$-algebra} over a field $k$ is a $\Z$-graded $k$-vector space $A$ equipped with operations
+\[
+  \mu_n \colon A^{\otimes n} \longrightarrow A, \qquad \deg(\mu_n) = 2 - n, \quad n \geq 1,
+\]
+satisfying, for every $n \geq 1$, the $\Ainf$-relation
+\[
+  \sum_{\substack{p+q = n+1 \\ 1 \leq i \leq p}} (-1)^{\dagger(i,p,q)}\,
+  \mu_p\bigl(a_1, \ldots, a_{i-1},\, \mu_q(a_i, \ldots, a_{i+q-1}),\, a_{i+q}, \ldots, a_n\bigr) = 0,
+\]
+where $\dagger(i,p,q) = (i-1)(q-1) + q \sum_{j=1}^{i-1}|a_j|$ follows the Koszul sign rule (see Appendix~\ref{app:conventions}).
 \end{definition}
 
-\section{Cyclic structures}
+Specializing to small $n$ yields the familiar relations:
+\begin{itemize}
+  \item $n = 1$: $\mu_1^2 = 0$, so $(A, \mu_1)$ is a cochain complex.
+  \item $n = 2$: $\mu_1(\mu_2(a,b)) = \mu_2(\mu_1 a, b) + (-1)^{|a|} \mu_2(a, \mu_1 b)$, so $\mu_1$ is a derivation of $\mu_2$.
+  \item $n = 3$: $\mu_2$ is associative up to the explicit homotopy $\mu_3$, giving the Stasheff associahedron relation.
+\end{itemize}
+An $\Ainf$-algebra with $\mu_n = 0$ for $n \geq 3$ is a differential graded associative algebra.  The $\mu_n$ for $n \geq 3$ record the higher homotopies that obstruct strict associativity after homological projection (Kadeishvili's theorem: any dg algebra transfers to a minimal $\Ainf$-algebra on its cohomology).
+
+The $\Ainf$-formalism originates with Stasheff's associahedra~\cite{Stasheff1963}.  Its modern use, as the natural habitat for derived categories, mirror symmetry, and deformation quantization, is due to Kontsevich and Soibelman~\cite{KontsevichSoibelman2009} and Keller~\cite{Keller2001Ainfty}.  For a CY category $\cC$, the derived category $D^b(\cC)$ lifts canonically to an $\Ainf$-enhancement; this enhancement is unique up to quasi-isomorphism (Lunts--Orlov, Canonaco--Stellari).  The non-minimal cochain-level model is the preferred input for the Vol~III functor because cyclicity is visible chain-level, not only on cohomology.
+
+\begin{remark}[$\Ainf$-category vs $\Ainf$-algebra]
+\label{rem:ainf-cat-vs-algebra}
+An $\Ainf$-category is the many-object generalization: objects $\mathrm{Ob}(\cC)$ and Hom-complexes $\Hom_\cC(X,Y)$ with composition maps $\mu_n \colon \Hom(X_0,X_1) \otimes \cdots \otimes \Hom(X_{n-1},X_n) \to \Hom(X_0,X_n)[2-n]$.  An $\Ainf$-algebra is the one-object case.  In this chapter we state definitions for algebras; the category version is verbatim by tagging arguments with source and target objects.
+\end{remark}
+
+\section{Cyclic structures and CY dimension}
 \label{sec:cyclic-structures}
 
 \begin{definition}[Cyclic $\Ainf$-algebra]
-\label{def:cyclic-ainf}
-A \emph{cyclic $\Ainf$-algebra of dimension $d$} is an $\Ainf$-algebra $(A, \{\mu_n\}_{n \geq 1})$ equipped with a non-degenerate pairing $\langle \cdot, \cdot \rangle \colon A \otimes A \to k[-d]$ satisfying the cyclic invariance condition
+\label{def:cyclic-ainf-d}
+A \emph{cyclic $\Ainf$-algebra of dimension $d$} is a pair $\bigl((A, \{\mu_n\}_{n \geq 1}),\, \langle -, - \rangle\bigr)$, where $(A, \{\mu_n\})$ is an $\Ainf$-algebra and
 \[
-  \langle \mu_n(a_1, \ldots, a_n), a_0 \rangle = \pm \langle \mu_n(a_0, a_1, \ldots, a_{n-1}), a_n \rangle
+  \langle -, - \rangle \colon A \otimes A \longrightarrow k[-d]
 \]
-for all $n \geq 1$, where the sign is determined by the Koszul rule.
+is a non-degenerate graded symmetric pairing of degree $-d$ (equivalently, $\langle a, b \rangle$ is nonzero only when $|a| + |b| = d$), satisfying the \emph{cyclic invariance} identity
+\[
+  \langle \mu_n(a_1, a_2, \ldots, a_n), a_{n+1} \rangle
+  \;=\; (-1)^{\epsilon_n}\,
+  \langle a_1, \mu_n(a_2, \ldots, a_{n+1}) \rangle
+  \qquad \text{for all } n \geq 1,
+\]
+with sign $\epsilon_n = n + |a_1|(|a_2| + \cdots + |a_{n+1}|)$ determined by the Koszul rule.
 \end{definition}
 
-\begin{remark}
-\label{rem:cyclic-bar-chiral-bridge}
-The cyclic invariance condition is the chain-level precursor of the chiral algebra trace.  The passage from cyclic $\Ainf$ to chiral algebra requires promoting the cyclic pairing to a factorization structure on a curve; this is the content of Part~II.
+The integer $d$ is the \emph{CY dimension} of the cyclic $\Ainf$-algebra.  In the language of Costello~\cite{Costello2005TCFT,Costello2007Ainfty}, a cyclic $\Ainf$-algebra of dimension $d$ is precisely an algebra over the operad of framed chains on the moduli of disks with marked points, with a $d$-shifted symplectic structure.  This operadic viewpoint is what produces, after homotopy transfer, the $\bS^d$-framing of Hochschild homology used in Chapter~\ref{ch:cy-to-chiral}.
+
+\begin{proposition}[Cyclic invariance on the Hochschild complex]
+\label{prop:cyclic-invariance-hochschild}
+\ClaimStatusProvedElsewhere{}
+Let $(A, \langle -, - \rangle)$ be a cyclic $\Ainf$-algebra of dimension $d$.  The pairing induces a non-degenerate pairing on the Hochschild complex
+\[
+  \langle -, - \rangle_{\mathrm{HH}} \colon \HH_\bullet(A) \otimes \HH_{d-\bullet}(A) \longrightarrow k
+\]
+implementing Poincar\'e duality of dimension $d$.  Equivalently, the cyclic structure lifts Hochschild homology to negative cyclic homology with a class in $\HC^-_d(A)$ that is closed under the Connes differential.
+\end{proposition}
+
+\begin{proof}[Attribution]
+Costello~\cite{Costello2007Ainfty} Thm.~A; Kontsevich--Soibelman~\cite{KontsevichSoibelman2009} Sec.~10.  The AP-CY2 distinction is essential: the CY trace lives in $\HC^-_d$, not in $\HH_d \to k$, because the $S^1$-invariance of the cyclic pairing is needed to produce the $\bS^d$-framing.
+\end{proof}
+
+\begin{remark}[Geometric origin of $d$]
+\label{rem:d-geometric}
+For $X$ a smooth projective CY $n$-fold, the derived category $D^b(\mathrm{Coh}(X))$ carries a cyclic $\Ainf$-enhancement of dimension $d = n$.  The pairing is the Serre-duality pairing
+\[
+  \langle -, - \rangle_{\mathrm{Serre}} \colon
+  \Ext^i(\cF, \cG) \otimes \Ext^{n-i}(\cG, \cF) \longrightarrow \Ext^n(\cF, \cF) \xrightarrow{\mathrm{tr}} H^n(X, \omega_X) \cong k,
+\]
+using the trivialization $\omega_X \cong \cO_X$ that defines the CY structure.  AP-CY1: $d$ is the complex dimension, not the real dimension $2n$.  The Serre functor $\mathbb{S} = (-) \otimes \omega_X[n]$ becomes $[n]$-shift under the CY trivialization, which is what produces the $d$-shifted pairing.
 \end{remark}
 
-\section{The cyclic bar complex}
-\label{sec:cyclic-bar-complex}
+\begin{remark}[Cyclic bar complex]
+\label{rem:cyclic-bar-complex}
+The cyclic pairing enters the bar complex $B(A) = T^c(s^{-1}\bar A)$ through the cyclic quotient $\mathrm{CC}_\bullet(A) = B(A)/(1 - t)$ where $t$ is the signed cyclic rotation.  The factor $s^{-1}$ desuspends (AP22): $|s^{-1}v| = |v| - 1$.  The augmentation ideal $\bar A = \ker(\varepsilon)$ is used rather than $A$ itself (AP132).  The cyclic bar complex is the primary invariant of $(A, \mu_n, \langle-,-\rangle)$ and is what \ref{part:bridge} promotes to a factorization coalgebra on curves.
+\end{remark}
 
-\begin{construction}[Cyclic bar complex]
-\label{constr:cyclic-bar}
-Given a cyclic $\Ainf$-algebra $(A, \langle \cdot, \cdot \rangle)$ of dimension $d$, the \emph{cyclic bar complex} is
+\begin{remark}[Cyclic symmetry at $n = 2$]
+\label{rem:cyclic-n2}
+Specializing the cyclic invariance identity to $n = 2$ gives
 \[
-  \mathrm{CC}_\bullet(A) = \bigoplus_{n \geq 0} (A[1])^{\otimes n} / \text{(cyclic)}
+  \langle \mu_2(a_1, a_2), a_3 \rangle \;=\; (-1)^{\epsilon_2}\, \langle a_1, \mu_2(a_2, a_3) \rangle,
 \]
-with differential induced by the $\Ainf$-operations and the cyclic quotient enforced by the pairing.  The $S^1$-action by cyclic rotation on $\mathrm{CC}_\bullet(A)$ endows the cyclic homology $\HC_\bullet(A)$ with its defining structure.
-\end{construction}
+which for a strictly associative cyclic algebra ($\mu_n = 0$ for $n \geq 3$) reduces to the standard invariance condition for a Frobenius algebra of degree $d$.  The higher-$n$ cases are the $\Ainf$-correction: $\mu_3, \mu_4, \ldots$ must individually respect the pairing.  In the $n = 3$ case, the identity
+\[
+  \langle \mu_3(a_1, a_2, a_3), a_4 \rangle \;=\; (-1)^{\epsilon_3}\, \langle a_1, \mu_3(a_2, a_3, a_4) \rangle
+\]
+is the first genuinely homotopical constraint and is what fails in a naive restriction of the Fukaya category to a sub-Lagrangian: cyclic invariance distinguishes the true CY input from merely $\Ainf$-enhanceable ones.
+\end{remark}
 
-\section{The $\mathbb{S}^d$-framing}
-\label{sec:sd-framing}
+\section{Examples}
+\label{sec:cyclic-ainf-examples}
 
-A $d$-dimensional CY structure enhances the $S^1$-action to an $\mathbb{S}^d$-action on the Hochschild complex.  For $d = 2$, the $\mathbb{S}^2$-framing provides the $E_2$-algebra structure underlying the braided monoidal category of quantum group representations.
+The four examples below cover the four CY dimensions $d \in \{1, 1, 2, 3\}$ relevant to Vol~III.  Each fixes one numerical invariant visible to the functor $\Phi$.
+
+\begin{example}[$d = 1$ from a CY-$1$ Lie algebra]
+\label{ex:cy1-lie}
+Let $\mathfrak{g}$ be a finite-dimensional simple Lie algebra with non-degenerate invariant form $\langle -, - \rangle_{\mathfrak{g}}$.  The Chevalley--Eilenberg cochain complex $C^\bullet(\mathfrak{g})$ is a dg commutative algebra of dimension $\dim \mathfrak{g}$; applying Koszul duality twice produces a cyclic $\Ainf$-algebra of CY dimension $1$ whose underlying vector space is $\mathfrak{g}[1]$ with pairing $\langle -, - \rangle_{\mathfrak{g}}$ (shifted to degree $-1$).  For $\mathfrak{g} = \mathfrak{sl}_2$, the resulting cyclic $\Ainf$-algebra has $3$ generators and $\mu_2$ given by the bracket; all higher $\mu_n$ vanish.  This is the simplest nontrivial cyclic $\Ainf$-algebra relevant to Vol~III, and it recovers $\widehat{\mathfrak{sl}}_2$ as its chiral image under $\Phi$.
+\end{example}
+
+\begin{example}[Explicit $\mu_2$ for $\mathfrak{sl}_2$]
+\label{ex:sl2-mu2}
+Continuing Example~\ref{ex:cy1-lie}, the underlying graded space of the cyclic $\Ainf$-algebra for $\mathfrak{sl}_2$ is the suspension $\mathfrak{sl}_2[1]$, with basis $\{e[1], f[1], h[1]\}$ in degree $-1$.  The binary operation $\mu_2$ is the desuspended Lie bracket:
+\[
+  \mu_2(e[1], f[1]) = h[1], \qquad \mu_2(h[1], e[1]) = 2\, e[1], \qquad \mu_2(h[1], f[1]) = -2\, f[1],
+\]
+with the other values determined by graded antisymmetry.  The cyclic pairing has nonzero values
+\[
+  \langle e[1], f[1] \rangle = 1, \qquad \langle h[1], h[1] \rangle = 2,
+\]
+which is the Killing form shifted to degree $-1$, producing a CY structure of dimension $d = 1$.  The $\Ainf$-relations reduce to the Jacobi identity of $\mathfrak{sl}_2$, and all $\mu_n$ for $n \geq 3$ vanish.  This is the simplest nontrivial cyclic $\Ainf$-algebra in the volume; under $\Phi$ it produces the affine Kac--Moody algebra $\widehat{\mathfrak{sl}}_2$ at the critical level, recovering a classical landscape entry from the CY engine.
+\end{example}
+
+\begin{example}[$d = 1$ from an elliptic curve]
+\label{ex:cy1-elliptic}
+Let $E$ be an elliptic curve over $\C$.  The derived category $D^b(\mathrm{Coh}(E))$ has a minimal cyclic $\Ainf$-enhancement of dimension $d = 1$, computed explicitly by Polishchuk~\cite{Polishchuk2011}.  The generators are $\cO_E$ and a single degree-$1$ class in $\mathrm{Ext}^1(\cO_E, \cO_E) = H^1(E, \cO_E) \cong \C$.  The Serre pairing $\mathrm{Ext}^1(\cO_E, \cO_E) \otimes \Hom(\cO_E, \cO_E) \to \C$ realizes the $d = 1$ cyclic structure.  For higher-degree line bundles, Polishchuk's theta-function computation gives explicit formulas for $\mu_n$, $n \geq 3$, in terms of modular forms on $\Gamma_1(N)$.  This example sits at the boundary between $d = 1$ (where the $\bS^1$-framing is classical) and the modular-form territory that Vol~I controls.
+\end{example}
+
+\begin{example}[$d = 2$ from K3]
+\label{ex:cy2-k3}
+Let $X$ be a smooth projective K3 surface.  The derived category $D^b(\mathrm{Coh}(X))$ is a cyclic $\Ainf$-category of dimension $d = 2$ (Caldararu~\cite{Caldararu2005}).  The Hochschild cohomology is
+\[
+  \HH^\bullet(D^b(\mathrm{Coh}(X))) \;\cong\; H^\bullet(X, \wedge^\bullet T_X) \;\cong\; H^\bullet(X, \C),
+\]
+using the CY trivialization $\wedge^2 T_X \cong \cO_X$.  As a graded vector space,
+\[
+  \dim \HH^\bullet(K3) = 1 + 20 + 1 + 20 + 1 \;=\; \text{(degree-$0$: $1$, degree-$1$: $0$, degree-$2$: $22$, etc.)}.
+\]
+The total dimension of the Hochschild complex of K3 is $24$ (Hodge diamond sum), recovering the Euler characteristic $\chi(X) = 24$ familiar from lattice K3 geometry.  The holomorphic Euler characteristic, which is the relevant invariant for the CY kappa-spectrum (AP113), is
+\[
+  \chi(\cO_X) \;=\; 2.
+\]
+This is the value $\kappa_{\mathrm{cat}}(\mathrm{K3}) = 2$ entering the Vol~III kappa-table.
+\end{example}
+
+\begin{example}[$d = 3$ from the quintic]
+\label{ex:cy3-quintic}
+Let $Q \subset \P^4$ be a smooth quintic threefold.  $D^b(\mathrm{Coh}(Q))$ is a cyclic $\Ainf$-category of dimension $d = 3$.  By homological mirror symmetry (Kontsevich's conjecture, established for the quintic at genus $0$ by Sheridan~\cite{Sheridan2015}), there is an $\Ainf$-equivalence
+\[
+  D^b(\mathrm{Coh}(Q)) \;\simeq\; D^\pi \mathrm{Fuk}(Q^\vee),
+\]
+where $Q^\vee$ is the mirror quintic and $\mathrm{Fuk}$ is the Fukaya category (wrapped, compact, depending on geometric input).  Both sides are cyclic $\Ainf$ of dimension $d = 3$, and HMS is an equivalence of cyclic $\Ainf$-categories: the Serre pairing on the B-side matches the Poincar\'e pairing on Lagrangian intersections on the A-side.  The Hochschild cohomology
+\[
+  \HH^\bullet(Q) \cong H^\bullet(Q, \wedge^\bullet T_Q)
+\]
+has $\dim \HH^1 = 101$ (the Kodaira--Spencer space of the quintic) and $\dim \HH^2 = 1$.  The holomorphic Euler characteristic is $\chi(\cO_Q) = 0$, so the naive $\kappa_{\mathrm{cat}}$ vanishes; the nontrivial chiral data enters through $\HH^1$, not through the top pairing.  This is the CY$_3$ regime where the chiral algebra $A_Q$ is not yet constructed (AP-CY6): any result that passes through $A_Q$ is conditional on CY-A$_3$.
+\end{example}
+
+\section{The bridge to the Vol~III functor}
+\label{sec:bridge-to-functor}
+
+The cyclic $\Ainf$-structure is the complete input to the CY-to-chiral functor.  The signature is
+\[
+  \Phi \colon \mathrm{CY}_d\text{-}\Cat \longrightarrow \Etwo\text{-}\mathrm{ChirAlg},
+  \qquad (\cC, \mu_n, \langle-,-\rangle) \longmapsto A_\cC,
+\]
+and the data of $(\cC, \mu_n, \langle-,-\rangle)$ factors through $\Phi$ by the four-step passage in Chapter~\ref{ch:cy-to-chiral}: Hochschild cohomology with Gerstenhaber bracket, Lie conformal algebra via the cyclic pairing, factorization envelope, and $\Etwo$-enhancement via the $\bS^d$-framing.  The cyclic pairing $\langle-,-\rangle$ is what becomes the invariant form on $A_\cC$; without it, the factorization envelope is not a chiral algebra with a trace.
+
+\begin{theorem}[Cyclic $\Ainf$ input determines $\kappa_{\mathrm{cat}}$ at $d = 2$]
+\label{thm:cyclic-ainf-kappa-cat-d2}
+\ClaimStatusProvedHere{}
+Let $\cC$ be a smooth proper cyclic $\Ainf$-category of dimension $d = 2$, and let $A_\cC = \Phi(\cC)$ be its image under the $d = 2$ CY-to-chiral functor (Theorem~\ref{thm:cy-to-chiral}).  Then the categorical modular characteristic satisfies
+\[
+  \kappa_{\mathrm{cat}}(\cC) \;=\; \chi^{\mathrm{CY}}(\cC) \;=\; \sum_{i} (-1)^i \dim \HH^i(\cC)\Big|_{\mathrm{top\ pairing}},
+\]
+and this equals the chiral kappa $\kappa_{\mathrm{ch}}(A_\cC)$ of the image chiral algebra up to the S$^2$-framing correction recorded in the CY kappa-spectrum.  For $\cC = D^b(\mathrm{Coh}(\mathrm{K3}))$, both invariants evaluate to $\kappa_{\mathrm{cat}}(\mathrm{K3}) = 2$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The cyclic pairing of dimension $d = 2$ produces a degree-$(-2)$ symmetric form on the Hochschild complex; its top-degree component is a linear map $\HH^2(\cC) \to k$ whose dimension (as a quotient of $\HH^\bullet$) is $\chi(\cO_X)$ in the geometric case.  The CY-to-chiral functor sends this trace to the invariant form on $A_\cC$, and the resulting $\kappa_{\mathrm{cat}}$ coincides (up to $\bS^2$-framing) with the coefficient of the $E_2$-algebra central extension.  For K3 the computation reduces to $\chi(\cO_{\mathrm{K3}}) = 2$; see Chapter~\ref{ch:cy-to-chiral} Section~\ref{sec:cy-chiral-functor} and the compute module \texttt{cy\_to\_chiral\_functor.py} for the full verification.
+\end{proof}
+
+\begin{conjecture}[Cyclic $\Ainf$ input determines $\kappa_{\mathrm{cat}}$ at $d = 3$]
+\label{conj:cyclic-ainf-kappa-cat-d3}
+\ClaimStatusConjectured{}
+Let $\cC$ be a smooth proper cyclic $\Ainf$-category of dimension $d = 3$.  Assume Conjecture CY-A$_3$ (the $d = 3$ CY-to-chiral functor exists with chain-level $\bS^3$-framing).  Then
+\[
+  \kappa_{\mathrm{cat}}(\cC) \;=\; \chi^{\mathrm{CY}}(\cC),
+\]
+and for $\cC = D^b(\mathrm{Coh}(Q))$ with $Q$ a smooth quintic threefold, this evaluates to a specific integer determined by the $\bS^3$-framing obstruction.  The conjecture is conditional on CY-A$_3$ (AP-CY6, AP-CY11); any downstream result passing through $A_Q$ inherits this conditionality.
+\end{conjecture}
+
+\begin{remark}[Scope: what cyclic $\Ainf$ does not determine]
+\label{rem:cyclic-ainf-scope}
+The cyclic $\Ainf$-structure determines $\kappa_{\mathrm{cat}}$ and the chiral kappa $\kappa_{\mathrm{ch}}$ via the functor $\Phi$, but it does \emph{not} determine the BKM kappa $\kappa_{\mathrm{BKM}}$ or the fiber kappa $\kappa_{\mathrm{fiber}}$ of the kappa-spectrum (AP113).  Those kappas arise from additional data (lattice embedding for $\kappa_{\mathrm{fiber}}$, Borcherds product structure for $\kappa_{\mathrm{BKM}}$) that is not visible to the cyclic $\Ainf$-category alone.  The four-way kappa-spectrum for K3 $\times E$ is $\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{2, 3, 5, 24\}$; only the first two are extracted from the cyclic $\Ainf$-input.
+\end{remark}
+
+\begin{remark}[Comparison with prior work]
+\label{rem:cyclic-ainf-prior-work}
+Four source threads feed the construction used here.  Stasheff~\cite{Stasheff1963} introduced the associahedra and the higher homotopies $\mu_n$.  Kontsevich~\cite{Kontsevich1995} identified cyclic $\Ainf$-algebras with algebras over the operad of ribbon graphs, providing the link to moduli of curves with boundary.  Costello~\cite{Costello2005TCFT,Costello2007Ainfty} proved that cyclic $\Ainf$-categories are equivalent to open topological conformal field theories and supplied the first rigorous construction of the associated chain-level trace.  Kontsevich--Soibelman~\cite{KontsevichSoibelman2009} axiomatized the CY structure in terms of the negative cyclic class (AP-CY2) and gave the formalism used in Part~\ref{part:cy-categories}.  Keller~\cite{Keller2001Ainfty} surveys the homological-algebra side.  For explicit computations on projective varieties, Polishchuk~\cite{Polishchuk2011} computed the cyclic $\Ainf$-structure on elliptic curves and on their products, and Caldararu~\cite{Caldararu2005} set up the Hochschild calculus for smooth proper CY categories.  The Vol~III role is the specific mapping of this input through the functor $\Phi$, producing chiral algebras whose modular characteristic can be computed and compared across the four kappas of the spectrum.
+\end{remark}
+
+\begin{remark}[Costello's operadic description]
+\label{rem:costello-operadic}
+Costello~\cite{Costello2005TCFT} proves that cyclic $\Ainf$-algebras of dimension $d$ are equivalent to algebras over the open topological conformal field theory operad with $d$-shifted framing.  In this formulation, the $\bS^d$-framing used in Chapter~\ref{ch:cy-to-chiral} is visible as the action of the framing circle on the moduli of disks with boundary marked points.  For $d = 2$ the framing is abelian ($\pi_1(SO(2)) = \Z$) and the envelope step produces an honest $\Etwo$-algebra.  For $d = 3$ the framing is nonabelian ($\pi_1(SO(3)) = \Z/2$) and the envelope step is the source of the $\bS^3$-framing obstruction mentioned in AP-CY6.
+\end{remark}

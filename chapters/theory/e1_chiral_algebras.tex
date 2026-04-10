@@ -1,7 +1,7 @@
 \chapter{$E_1$-Chiral Algebras}
 \label{ch:e1-chiral}
 
-Volume~II (Part~III) developed the $E_1$-chiral theory as the ordered sector of the Swiss-cheese algebra.  This chapter reformulates it as the foundation for the $E_2$ extension.
+Volume~III's CY-to-chiral functor $\Phi$ outputs a braided factorization algebra: an $E_2$-chiral object whose representation category is the habitat of the quantum group. The construction factors through an intermediate $E_1$-chiral step. That intermediate step is the subject of this chapter. The reader who knows Volume~II can treat this as a thirty-page review written from the CY vantage point; the reader who does not can treat it as the minimum entry point to the operadic conventions used in Parts~II-IV of this volume.
 
 % AP104: The E_1/ordered story is the PRIMITIVE layer.  The E_2 braided
 % structure is obtained from it by the Drinfeld center construction.
@@ -10,7 +10,7 @@ Volume~II (Part~III) developed the $E_1$-chiral theory as the ordered sector of 
 % averaging map av: g^{E_1} -> g^mod from Vol I.
 
 \begin{remark}[$E_1$ primacy for CY quantum groups]
-\label{princ:e1-primacy-vol3}
+\label{rem:e1-primacy-vol3}
 The $E_1$-chiral algebra (boundary) is the primitive object in this volume.
 The $E_2$-chiral algebra (bulk) is obtained from it by the Drinfeld center
 construction $\cZ(\Rep^{E_1}(A)) \simeq \Rep^{E_2}(\mathrm{Drin}(A))$.
@@ -25,66 +25,177 @@ $R$-matrix data.  The $E_1$-bar $B^{\mathrm{ord}}(A)$ retains
 strictly more information than the $E_\infty$-bar $B^{\Sigma}(A)$.
 \end{remark}
 
-\section{$E_1$-algebras and associative factorization}
-\label{sec:e1-algebras}
+\section{Factorization algebras and the $E_n$ hierarchy}
+\label{sec:factorization-en}
 
-An $E_1$-algebra is an algebra over the little intervals operad.  In the chiral setting, an $E_1$-chiral algebra factorizes associatively along a real line $\mathbb{R}$ while maintaining holomorphic structure along a transverse curve.
+A \emph{factorization algebra} on a smooth manifold $M$ of real dimension $n$ assigns a cochain complex to every open subset and a factorization product to every disjoint pair of opens. Costello and Gwilliam~\cite{CostelloGwilliam} showed that the value on a small disk carries an $E_n$-algebra structure: the little $n$-disks operad acts on local sections. Lurie's higher algebra~\cite{LurieHA} gives the universal statement as $\mathrm{Fact}(\bR^n) \simeq \Alg_{E_n}$. For a complex curve $C$ of complex dimension one, $M = C$ has real dimension two, so every factorization algebra on $C$ is tautologically $E_2$ in the topological sense.
 
-\begin{definition}[$E_1$-chiral algebra]
-\label{def:e1-chiral-algebra}
-An \emph{$E_1$-chiral algebra} on $X \times \mathbb{R}$ is a factorization algebra $\cA$ on $\Ran(X) \times \Ran(\mathbb{R})$ such that:
-\begin{enumerate}[label=(\roman*)]
-  \item The $X$-direction factorization is holomorphic (chiral);
-  \item The $\mathbb{R}$-direction factorization is $E_1$ (associative).
-\end{enumerate}
-The representation category $\Rep^{E_1}(\cA)$ is a monoidal category.
+\begin{proposition}[Holomorphic refinement, Costello-Gwilliam]
+\label{prop:holomorphic-e1}
+\ClaimStatusProvedElsewhere
+Let $\cA$ be a factorization algebra on a smooth complex curve $C$ whose structure maps are holomorphic in the two-point configuration space. The associated $E_2$-algebra specializes to an $E_1$-algebra on the configuration space of ordered points along any real ray, with the ordering provided by the holomorphic argument.
+\end{proposition}
+
+The proof is operadic: the little two-disks operad contracts onto the little intervals operad along the real subspace, and holomorphy pins the contraction to a single slice. Beilinson and Drinfeld~\cite{BeilinsonDrinfeld} studied the symmetric version of this specialization; they called the outcome a \emph{chiral algebra}. Volume~II elevates the ordered version.
+
+\begin{definition}[Swiss-cheese splitting]
+\label{def:swiss-cheese-split}
+The Swiss-cheese operad $\mathrm{SC}^{\mathrm{ch},\mathrm{top}}$ of Volume~II splits as the product $E_1(C) \times E_2(\mathrm{top})$ of an ordered holomorphic operad in the chiral direction and a braided topological operad in the transverse direction. A $\mathrm{SC}^{\mathrm{ch},\mathrm{top}}$-algebra is exactly a pair $(A, M)$ where $A$ is an $E_1$-chiral algebra and $M$ is an $E_2$-module.
 \end{definition}
 
-\section{The bar complex as $E_1$-chiral algebra}
-\label{sec:bar-e1}
+The holomorphic part is $E_1$: ordered, deconcatenating, non-symmetric. The topological part is $E_2$: braided, commutative up to a Reidemeister~III braiding. The split is not cosmetic. It is the operadic source of the kappa-spectrum of this volume: $\kappa_{\mathrm{ch}}$ lives on the $E_1$ factor, $\kappa_{\mathrm{cat}}$ on the $E_2$ factor, and the Drinfeld center exchanges them.
 
-\begin{proposition}
-\label{prop:bar-e1-structure}
-\ClaimStatusProvedElsewhere
-For a chiral algebra $A$ on $X$, the bar complex $B(A)$ carries a natural $E_1$-chiral structure: the bar differential encodes the $X$-direction (holomorphic OPE residues) and the bar coproduct encodes the $\mathbb{R}$-direction (ordered deconcatenation).
-\end{proposition}
-% AP85: The factorization coproduct (Vol I, coshuffle/Sym^c) is DIFFERENT
-% from the deconcatenation coproduct (Vol II, T^c).  The E_1-bar uses
-% deconcatenation; the E_infty-bar uses coshuffle.  See AP82, AP85.
+\begin{remark}[Level-prefixed $r$-matrix]
+\label{rem:level-prefixed-r-matrix}
+The classical $r$-matrix attached to an affine Kac-Moody $E_1$-chiral algebra at level $k$ is $r(z) = k\,\Omega/z$, NOT the level-stripped $\Omega/z$ (AP126, AP141). The level survives the $d\log$ absorption because the ordered bar complex builds in one factor of the level per collision. At $k=0$ the $r$-matrix must vanish identically; any formula in this volume that violates this vanishing is wrong. The collision residue of the Heisenberg $r$-matrix is $k$ (not $k/2$), and the monodromy of the $E_1$ representation category around a puncture is $\exp(-2\pi i k)$ (V2-AP7).
+\end{remark}
 
-This is the Swiss-cheese algebra structure of Volume~II.  The $E_1$-bar
-$B^{\mathrm{ord}}(A)$ is the ordered tensor coalgebra $(T^c(A[1]), d, \Delta_{\mathrm{decat}})$
-with deconcatenation coproduct (AP82, AP85).  The symmetric bar
-$B^{\Sigma}(A) = B^{\mathrm{ord}}(A) / S_n$ is the $S_n$-coinvariant quotient.
-The ordered bar retains the full quantum group data (R-matrix,
-Yangian structure) that the symmetric bar quotients out (AP65, AP97).
+The level-prefix convention is the standing convention throughout this volume. Every time an $r$-matrix is written in the CY-geometric setting, the level constant prefactor is the image of the trace under the CY-to-chiral functor and must be tracked explicitly.
 
-\section{Monoidal representation categories}
-\label{sec:e1-monoidal-rep}
+\section{The ordered bar as the $E_1$ primitive}
+\label{sec:ordered-bar-primitive}
 
-The representation category $\Rep^{E_1}(\cA)$ inherits a monoidal structure
-from the ordered factorization along $\mathbb{R}$.  The tensor product
-$V \otimes W$ of two $\cA$-modules is defined by the fusion of intervals:
-$V$ is placed on $(-\infty, 0)$ and $W$ on $(0, \infty)$, and the
-factorization structure combines them.  The ordering of the intervals makes
-the tensor product associative but \emph{not} symmetric: the natural
-transformation $V \otimes W \to W \otimes V$ does not exist in the
-$E_1$-setting.  It exists only after passing to the Drinfeld center
-(Chapter~\ref{ch:drinfeld-center}).
+The canonical example of an $E_1$-chiral algebra is the ordered bar complex. Let $A$ be a chiral algebra on $C$ with augmentation $\varepsilon \colon A \to \Omega_C$ and augmentation ideal $\bar A = \ker(\varepsilon)$ (AP132: we use the augmentation ideal, never the unital algebra).
 
-\section{The $E_1$-Koszul duality}
-\label{sec:e1-koszul}
-
-\begin{theorem}[$E_1$-chiral Koszul duality, Volume~II]
-\label{thm:e1-koszul}
-\ClaimStatusProvedElsewhere
-For an $E_1$-chiral algebra $\cA$, the bar-cobar adjunction of Volume~I refines to an $E_1$-equivariant adjunction.  On the representation-category level, this gives a monoidal equivalence
+\begin{definition}[Ordered bar complex]
+\label{def:ordered-bar}
+The \emph{ordered bar complex} of $A$ is the cofree conilpotent tensor coalgebra
 \[
-  \Rep^{E_1}(A) \simeq \Rep^{E_1}(A^!)^{\mathrm{rev}}
+  B^{\mathrm{ord}}(A) := T^c(s^{-1} \bar A) = \bigoplus_{n \geq 0} (s^{-1}\bar A)^{\otimes n}
 \]
-between the monoidal representation category of $A$ and the reverse monoidal category of $A^!$.
-\end{theorem}
-% AP25: A^! here means the Koszul dual algebra, i.e., the linear dual of
-% bar cohomology H*(B(A)). This is NOT the cobar Omega(B(A)) (which
-% recovers A itself) nor the Verdier dual D_Ran(B(A)) (which is B(A!)).
-% See Vol I, Convention conv:bar-coalgebra-identity.
+equipped with the \emph{deconcatenation} coproduct
+\[
+  \Delta_{\mathrm{dec}}(a_1 \otimes \dots \otimes a_n) = \sum_{k=0}^{n} (a_1 \otimes \dots \otimes a_k) \otimes (a_{k+1} \otimes \dots \otimes a_n)
+\]
+and the bar differential built from the chiral product of $A$.
+\end{definition}
+
+Deconcatenation is NOT the coshuffle coproduct on $\mathrm{Sym}^c$ (AP83, AP85). Deconcatenation produces $n+1$ terms and respects the ordering; the coshuffle produces $2^n$ terms and destroys it. The symmetric bar complex $B^{\Sigma}(A)$ is the $S_n$-coinvariant quotient of $B^{\mathrm{ord}}(A)$ with the coshuffle coproduct induced on invariants.
+
+\begin{proposition}[Averaging map]
+\label{prop:averaging-e1-einfty}
+\ClaimStatusProvedElsewhere
+The averaging map
+\[
+  \mathrm{av} \colon B^{\mathrm{ord}}(A) \longrightarrow B^{\Sigma}(A),
+  \qquad a_1 \otimes \dots \otimes a_n \longmapsto \tfrac{1}{n!}\sum_{\sigma \in S_n} a_{\sigma(1)} \otimes \dots \otimes a_{\sigma(n)}
+\]
+is a morphism of cochain complexes and sends the $E_1$ structure to the $E_\infty$ structure. It is lossy: the kernel contains the $R$-matrix data of the holomorphic factor, and on arity two $\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$.
+\end{proposition}
+
+Volume~I establishes the map; Volume~II identifies it as the $E_1 \to E_\infty$ symmetrization. For Volume~III purposes, the two consequences that matter are: (a) Yangians and quantum groups live on the $E_1$ side and are quotiented by averaging; (b) the symmetric bar $B^\Sigma$ is sufficient for computing the modular characteristic but insufficient for reconstructing the $R$-matrix.
+
+The averaging map is where the kappa-spectrum first appears. Applied to the arity-two generator $r(z)$, averaging returns the scalar $\kappa_{\mathrm{ch}}$: this is the unique $S_2$-coinvariant of the collision residue. When the same $r(z)$ comes from the CY-to-chiral functor applied to $D^b(\Coh(K3))$, the scalar is $\kappa_{\mathrm{ch}} = 3$, which is distinct from the lattice-rank invariant $\kappa_{\mathrm{fiber}} = 24$ and from the BKM weight $\kappa_{\mathrm{BKM}} = 5$ (AP113). The reader who writes an unsubscripted symbol $\kappa_{\text{?}}$ in Vol~III will confuse at least two of these four integers; the hook will flag it.
+
+\begin{remark}[Three bars, one functor]
+\label{rem:three-bars-vol3}
+The CY-to-chiral functor $\Phi$ of Chapter~\ref{ch:cy-chiral-functor} has three natural composites. $\Phi_{E_1}$ produces $B^{\mathrm{ord}}(A_C)$; this is the ordered bar sensed by the Yangian. $\mathrm{av} \circ \Phi_{E_1}$ produces $B^{\Sigma}(A_C)$; this is the symmetric bar sensed by the modular characteristic $\kappa_{\mathrm{ch}}$. The full $E_2$ enhancement $\Phi_{E_2}$ produces the Drinfeld-centered bar $B^{E_2}(A_C) = \cZ(B^{\mathrm{ord}}(A_C))$; this is the braided bar sensed by the quantum group. All three factor through $\Phi_{E_1}$. This is the volume's motto: the ordered bar is the primitive.
+\end{remark}
+
+\section{$E_1$-chiral algebras from CY categories}
+\label{sec:e1-from-cy}
+
+The CY-to-chiral functor of \ref{part:cy-categories} takes a Calabi-Yau category and produces a chiral algebra together with its $E_1$ structure. The input is a CY$_d$ category $\cC$ in the sense of Kontsevich-Soibelman; the trace lives in $\mathrm{HC}^-_d(\cC)$ (AP-CY2), not merely in Hochschild homology.
+
+\begin{proposition}[$E_1$ sector at $d=2$]
+\label{prop:e1-sector-d2}
+\ClaimStatusProvedHere
+Let $\cC$ be a CY$_2$ category with cyclic $A_\infty$ structure and negative-cyclic trace. The ordered bar complex of the cyclic $A_\infty$ algebra $A_\cC$ carries a natural $E_1$-chiral structure whose holomorphic direction matches the Hochschild differential and whose ordered direction matches the cyclic action on the bar coalgebra.
+\end{proposition}
+
+The proof unfolds in Chapter~\ref{ch:cy-chiral-functor}. For $\cC = D^b(\Coh(K3))$ the output is the positive half of the BKM superalgebra studied in \ref{part:examples}: the Borcherds denominator arises as the Euler character of $B^{\mathrm{ord}}(A_{K3})$, and $\kappa_{\mathrm{BKM}} = 5$ is distinct from $\kappa_{\mathrm{ch}} = 3$ (AP113; see the kappa-spectrum table in CLAUDE.md).
+
+\begin{conjecture}[$E_1$ sector at $d=3$]
+\label{conj:e1-sector-d3}
+Let $\cC$ be a CY$_3$ category with a chain-level $S^3$-framing on $\mathrm{HC}^-_3(\cC)$ (the condition of Conjecture~CY-A$_3$). Then the ordered bar complex of the cyclic $A_\infty$ algebra $A_\cC$ carries an $E_1$-chiral structure whose representation category is a braided monoidal refinement of the BPS Yangian of $\cC$.
+\end{conjecture}
+
+The conjecture is conditional on the chain-level framing; the unconditional statement requires the full CY-A$_3$ programme (AP-CY6, AP-CY11). Every downstream result in \ref{part:examples} and \ref{part:connections} that uses the BPS Yangian inherits this conditionality. The connection to Maulik-Okounkov and Costello-Witten cohomological Hall algebras is traced in Chapter~\ref{ch:cha-yangian}.
+
+\begin{proposition}[$E_2$ enhancement via Drinfeld center]
+\label{prop:e2-enhancement-drinfeld}
+\ClaimStatusProvedHere
+If $A$ is an $E_1$-chiral algebra with monoidal representation category $\Rep^{E_1}(A)$, the Drinfeld center $\cZ(\Rep^{E_1}(A))$ is a braided monoidal category equipped with an equivalence
+\[
+  \cZ(\Rep^{E_1}(A)) \simeq \Rep^{E_2}(\mathrm{Drin}(A))
+\]
+where $\mathrm{Drin}(A)$ is the $E_2$-chiral algebra obtained by the categorified averaging map $E_1\text{-Cat} \to E_2\text{-Cat}$.
+\end{proposition}
+
+This proposition provides the pathway $\Phi_{E_1} \to \Phi_{E_2}$: one computes the $E_1$ chiral algebra first and then applies the Drinfeld center at the categorical level. At $d=2$ the construction produces the braided vertex tensor category of the BKM superalgebra; at $d=3$ the construction is conditional on Conjecture~\ref{conj:e1-sector-d3}.
+
+\begin{remark}[Convolution $L_\infty$-algebra on the $E_1$ side]
+\label{rem:convolution-linfty-e1}
+For an $E_1$-chiral algebra $A$ and a coalgebra $C$, the convolution $L_\infty$-algebra $\hom_\alpha(C, A)$ of Volume~I is the natural habitat of Maurer-Cartan elements controlling twisted morphisms. On the $E_1$ side, $\hom_\alpha$ is a strict dg Lie algebra when the ordering of $C$ is preserved (the strict model $\Conv_{\mathrm{str}}$), and a genuine $L_\infty$-algebra when higher brackets are included ($\Conv_\infty$). The MC moduli of the two models coincide, but the full $L_\infty$-structure is required for homotopy transfer, formality statements, and gauge equivalence. For Vol~III purposes, the key point is that the CY-to-chiral functor $\Phi$ lands in the strict model $\Conv_{\mathrm{str}}$ because the cyclic $A_\infty$ structure on $A_\cC$ is strict at arity two; higher-arity corrections require the $L_\infty$ refinement.
+\end{remark}
+
+\begin{remark}[Comparison with Beilinson-Drinfeld chiral algebras]
+\label{rem:comparison-bd}
+Beilinson and Drinfeld~\cite{BeilinsonDrinfeld} developed the theory of chiral algebras as a symmetric factorization formalism on the Ran space. Their chiral algebras are $E_\infty$ in the locality hierarchy of V2-AP1, even when they carry OPE poles: E-infinity includes all ordinary vertex algebras, which is the correct reading of "factorizable and local" (V2-AP9). The $E_1$-chiral algebras of this chapter are a strict refinement: they carry strictly more data than any Beilinson-Drinfeld chiral algebra because they remember the ordering of collisions. The averaging map $B^{\mathrm{ord}} \to B^{\Sigma}$ is precisely the functor that forgets this extra data and returns to the Beilinson-Drinfeld world. Vol~III's geometric output is ordered; its modular characteristic is symmetric.
+\end{remark}
+
+\section{Connection to Volume~II}
+\label{sec:vol2-connection}
+
+Volume~II is the $E_1$ core of the three-volume programme. Its seven parts develop the Swiss-cheese operad, the ordered bar complex, the classical $r(z)$-matrix (at level $k$, not level-stripped; AP126, AP141), the seven faces of $r(z)$, and the derived center of an $E_1$-chiral algebra. This chapter is a compact entry point to that machinery from the CY viewpoint.
+
+\begin{proposition}[Vol~III composes with Vol~II]
+\label{prop:vol3-composes-vol2}
+\ClaimStatusProvedHere
+The CY-to-chiral functor $\Phi$ of \ref{part:cy-categories} factors as $\Phi = \Phi^{\mathrm{Vol\ II}}_{E_1} \circ \Phi^{\mathrm{Vol\ III}}_{\mathrm{cyc}}$, where $\Phi^{\mathrm{Vol\ III}}_{\mathrm{cyc}}$ takes a CY$_d$ category to its cyclic $A_\infty$ algebra and $\Phi^{\mathrm{Vol\ II}}_{E_1}$ takes a cyclic $A_\infty$ algebra to an $E_1$-chiral algebra via the Swiss-cheese promotion of AP86.
+\end{proposition}
+
+The detailed operadic content of $\Phi^{\mathrm{Vol\ II}}_{E_1}$ is governed by anti-patterns AP81 through AP104 of the canonical CLAUDE.md: the three coalgebra structures (AP81), the difference between coshuffle and deconcatenation (AP83), the promotion from one-colour to two-colour (AP86), the mixed-sector dimension formula (AP88), the curved factor of two at positive genus (AP91), the averaging map lossiness (AP96), the bound on $\mathrm{ChirHoch}^\ast(\Vir_c)$ (AP97), and the distinction between generating depth and algebraic depth (AP131).
+
+\begin{remark}[Why the $E_1$ layer cannot be skipped]
+\label{rem:why-e1-layer}
+The CY geometric data can be packaged directly into a braided factorization algebra (the $E_2$ form) via Kontsevich-Soibelman COHA technology. The temptation is to skip the $E_1$ intermediate and go from $\cC$ straight to the braided output. Three obstructions block that route. First, the convolution $L_\infty$-algebra $\hom_\alpha(C,A)$ of Volume~II fails to be a bifunctor in both slots simultaneously (RNW19); MC3 must be proved one slot at a time, and the slot that admits a proof is the $E_1$ slot. Second, the $r$-matrix $r_{\mathrm{CY}}(z)$ cannot be extracted without seeing the ordered collisions, since the braiding of the $E_2$ picture only remembers $r(z)$ up to $S_2$-coinvariance. Third, the CoHA itself is an $E_1$-associative multiplication (AP-CY7); writing it as an $E_2$ product forgets the preferred direction on short exact sequences that is central to wall-crossing. These three obstructions are the same obstruction seen from three angles: the ordered bar is the only model that remembers the direction.
+\end{remark}
+
+\begin{remark}[lambda-bracket convention in Vol~III]
+\label{rem:lambda-bracket-vol3}
+Vol~III writes classical shadow operations in lambda-bracket notation with divided powers: $\{T_\lambda T\} = (c/12)\,\lambda^3$ (V2-AP34). The divided-power prefactor $1/3! = 1/6$ absorbs the OPE mode coefficient into the lambda-bracket rewrite: starting from the OPE mode $T_{(3)}T$ and dividing by $3!$ yields the stated $c/12$ at order $\lambda^3$. Every formula imported from Vol~I (which uses OPE mode notation) must be converted before appearing in Vol~III. The CY-to-chiral functor $\Phi$ is agnostic to the choice of convention, but its computed values of $\kappa_{\mathrm{ch}}$ are convention-dependent at the level of integral prefactors, and a Vol~I formula transplanted without conversion will produce a wrong $\kappa_{\mathrm{ch}}$ by exactly a factor of $6$.
+\end{remark}
+
+\begin{remark}[Three-volume thesis]
+\label{rem:three-volume-thesis}
+The three volumes are three faces of a single $E_1$-$E_1$ operadic Koszul duality. Volume~I is the symmetric modular face: it develops $B^{\Sigma}$, the five theorems A-D+H, and the modular characteristic $\kappa_{\mathrm{ch}}$ in the uniform-weight setting. Volume~II is the $E_1$ open-colour face: it develops $B^{\mathrm{ord}}$, the Swiss-cheese operad, the $r(z)$-matrix with its seven faces, and the three-dimensional holomorphic-topological bridge to quantum gravity. Volume~III is the CY-geometric face: it develops the functor $\Phi$ that produces the input algebra from a Calabi-Yau category, identifies $\kappa_{\mathrm{ch}}$ within the kappa-spectrum, and traces the quantum group back to its geometric origin in BPS state counts.
+\end{remark}
+
+\begin{remark}[How this chapter is used downstream]
+\label{rem:downstream-usage}
+Chapters~\ref{ch:braided-factorization}, \ref{ch:drinfeld-center}, and \ref{ch:quantum-group-reps} refer back to this chapter as the source of the ordered bar coalgebra and the averaging map. Chapter~\ref{ch:cy-chiral-functor} uses Proposition~\ref{prop:e1-sector-d2} as the $d=2$ existence statement for $A_\cC$. The five parts of this volume exploit the $E_1 \to E_2$ passage (Proposition~\ref{prop:e2-enhancement-drinfeld}) in five different ways; the common structural point is that every time a braided monoidal category appears, it is the Drinfeld center of an underlying ordered one. The reader who remembers only one sentence from this chapter should remember that one.
+\end{remark}
+
+\section{Operadic dictionary for the CY reader}
+\label{sec:operadic-dictionary}
+
+The operadic vocabulary of the canonical CLAUDE.md can be compressed into the following dictionary, which the CY reader can keep on a single page.
+
+\begin{itemize}
+\item \textbf{$E_n$}: little $n$-disks operad. $E_1$ is the operad of intervals on the line; $E_2$ is the operad of disks in the plane; $E_\infty$ is the colimit. $E_1$ algebras are associative; $E_2$ algebras are braided; $E_\infty$ algebras are commutative up to all higher homotopies. Dunn additivity: $E_m \otimes E_n \simeq E_{m+n}$.
+\item \textbf{Ordered bar $B^{\mathrm{ord}}$}: the cofree conilpotent tensor coalgebra $T^c(s^{-1}\bar A)$ with deconcatenation coproduct. Retains arity ordering. Natural $E_1$-object. Source of Yangians and quantum groups.
+\item \textbf{Symmetric bar $B^{\Sigma}$}: the $S_n$-coinvariant quotient of $B^{\mathrm{ord}}$ with the coshuffle coproduct descended from the shuffle product on $T^c$. Natural $E_\infty$-object. Source of the modular characteristic $\kappa_{\mathrm{ch}}$.
+\item \textbf{Harrison bar $B^{\mathrm{Lie}}$}: the Harrison complex; Lie-coalgebra structure via the iterated commutator. Dual to the Chevalley-Eilenberg complex of the associated Lie algebra. Smallest of the three natural bar complexes on any commutative input.
+\item \textbf{Deconcatenation}: coproduct on $T^c$ that splits a word into a prefix and a suffix. Produces $n+1$ terms in arity $n$. Respects ordering. The $E_1$ coproduct.
+\item \textbf{Coshuffle}: coproduct on $\mathrm{Sym}^c$ dual to the shuffle product. Produces up to $2^n$ terms. Destroys ordering. The $E_\infty$ coproduct.
+\item \textbf{Swiss-cheese $\mathrm{SC}^{\mathrm{ch},\mathrm{top}}$}: two-coloured operad combining a chiral (holomorphic, closed) sector with an ordered (topological, open) sector. Product decomposition $E_1(C) \times E_2(\mathrm{top})$ isolates the $E_1$ chiral factor.
+\item \textbf{Drinfeld center $\cZ$}: endofunctor on monoidal categories that sends a monoidal category $\cM$ to the category of objects equipped with a half-braiding against every object of $\cM$. The result is braided monoidal. Categorified averaging: $\cZ$ takes $E_1$-categories to $E_2$-categories.
+\item \textbf{$r$-matrix}: the arity-two generator of the $E_1$ Koszul duality, carrying a pole along the diagonal. At level $k$, the classical Kac-Moody $r$-matrix is $r(z) = k\,\Omega/z$; vanishes at $k=0$ (AP126, AP141).
+\end{itemize}
+
+The dictionary is not symmetric in $E_1$ and $E_\infty$: the ordered bar is the primitive, and everything on the $E_\infty$ side is a quotient. The CY-geometric functor $\Phi$ lands primitively in the $E_1$ layer; the $E_\infty$ and $E_2$ images are obtained by composing with averaging and Drinfeld center respectively.
+
+\begin{remark}[Notation consistency across the three volumes]
+\label{rem:notation-consistency}
+The three volumes use different coalgebra conventions in their displayed formulas. Vol~I displays formulas in $B^{\Sigma}$ with the symmetric coproduct; Vol~II displays formulas in $B^{\mathrm{ord}}$ with deconcatenation; Vol~III displays formulas in whichever form the CY functor produces, which is always $B^{\mathrm{ord}}$ at the source but frequently $B^{\Sigma}$ after averaging to extract $\kappa_{\mathrm{ch}}$. The reader who cross-references a formula between volumes must convert between the three coalgebra structures: $B^{\mathrm{ord}} \to B^{\Sigma}$ by averaging (dividing by $n!$ and symmetrizing), and $B^{\Sigma} \to B^{\mathrm{Lie}}$ by taking the iterated commutator of the cofree tensor coalgebra. The three bars are NOT isomorphic even as complexes; they differ by $S_n$-coinvariant quotients, and the Euler characters diverge accordingly. See Vol~II CLAUDE.md V2-AP3 for the three-bar sequence.
+\end{remark}
+
+\section{Closing: the ordered bar as the primitive of Vol~III}
+\label{sec:closing-primitive}
+
+This chapter has established four structural facts that Parts~II-V of this volume invoke repeatedly. First, factorization algebras on a complex curve are $E_2$ in the topological sense but specialize to $E_1$ when the holomorphic structure is rigid, and the Swiss-cheese splitting $E_1(C) \times E_2(\mathrm{top})$ makes this specialization precise. Second, the ordered bar complex $B^{\mathrm{ord}}(A) = T^c(s^{-1}\bar A)$ with deconcatenation coproduct is the natural $E_1$ primitive, and averaging to the symmetric bar $B^{\Sigma}(A)$ is lossy by a factor equal to the $R$-matrix data. Third, the CY-to-chiral functor $\Phi$ at $d=2$ produces an ordered bar whose Euler character is the Borcherds denominator and whose first shadow invariant is $\kappa_{\mathrm{ch}}$, distinct from $\kappa_{\mathrm{BKM}}$, $\kappa_{\mathrm{cat}}$, and $\kappa_{\mathrm{fiber}}$ in the kappa-spectrum. Fourth, the $E_2$ enhancement requires the Drinfeld center construction, which is the categorified averaging map $E_1\text{-Cat} \to E_2\text{-Cat}$; at $d=3$ the enhancement is conditional on the CY-A$_3$ programme.
+
+This is the version of the $E_1$-$E_1$ operadic Koszul duality adapted to the CY setting: one form $\eta = d\log(z_1 - z_2)$, one relation (Arnold), one object $\Theta_A$, one equation $D_\ast \Theta + \tfrac{1}{2}[\Theta,\Theta] = 0$, all on the ordered bar of the cyclic $A_\infty$ algebra $A_\cC$ attached to the Calabi-Yau category $\cC$. The symmetric bar is the modular shadow.
+
+The remainder of Vol~III unfolds the consequences. \ref{part:bridge} computes the modular trace $\kappa_{\mathrm{ch}}$ for each family in the CY landscape, using the ordered bar as the computational model. \ref{part:examples} catalogues the CY families $K3$, $K3 \times E$, toric CY$_3$, Fukaya, and quantum-group, and in each case identifies the position within the kappa-spectrum. \ref{part:connections} reads the seven faces of $r_{\mathrm{CY}}(z)$ off the $E_1$ structure of Proposition~\ref{prop:e1-sector-d2}. \ref{part:frontier} collects the open problems, almost all of which are versions of Conjecture~\ref{conj:e1-sector-d3} or its downstream consequences. Throughout, the ordered bar is the primitive. The averaging map, the Drinfeld center, and the modular characteristic are all functors defined on the $E_1$ side and computed there before any symmetric or braided image is taken.
