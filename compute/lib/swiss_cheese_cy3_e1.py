@@ -52,9 +52,9 @@ MATHEMATICAL BACKGROUND:
        channel contributes independently. Spin 1 (Heisenberg) = G.
        Spin 2 (Virasoro at c=1) = M. Total: M.
      Resolved conifold -> H_1 (Heisenberg from compact cycle): class G.
-     Local P^2 -> McKay quiver CoHA: class L (finite-type quiver,
-       tree-level OPE from shuffle product, cubic shadow from
-       3-vertex quiver but terminates).
+     Local P^2 -> McKay quiver CoHA: class M (AP-CY12: infinite depth;
+       leading-order OPE is Lie-type from shuffle product, but
+       higher-degree BPS states generate an infinite tower).
      Quintic -> class M (infinite GW invariants drive infinite tower).
      K3 x E -> class M (BKM superalgebra, infinite Borcherds product).
 
@@ -67,7 +67,7 @@ MATHEMATICAL BACKGROUND:
        higher A_inf operations from the MacMahon function.
      Conifold: class G => SC FORMAL. The Heisenberg structure from
        a single compact cycle gives a formal SC algebra.
-     Local P^2: class L => SC FORMAL (cubic shadow terminates).
+     Local P^2: class M => SC NON-FORMAL (AP-CY12: infinite tower).
      Quintic: class M => SC NON-FORMAL.
      K3 x E: class M => SC NON-FORMAL.
 
@@ -438,28 +438,24 @@ def cy3_shadow_data_local_p2() -> CY3ShadowData:
     The quiver has 3 vertices, 9 arrows, potential from CY condition.
 
     The OPE structure: the CoHA shuffle product has a first-order pole
-    from the quiver intersection pairing. This gives a Lie-type (class L)
-    structure at leading order. The cubic shadow is nonzero (from the
-    3-vertex quiver), but the quartic contact invariant is zero because
-    the Z_3 symmetry forces the quartic self-interaction to vanish
-    by a representation-theoretic argument (the quartic invariant of
-    the regular representation of Z_3 is trivial).
+    from the quiver intersection pairing. At leading order this looks
+    Lie-type, but the full BPS spectrum is infinite (higher-degree
+    curve classes contribute infinitely many BPS states), forcing
+    class M (infinite shadow depth).  AP-CY12: leading approximation
+    misses the infinite tower.
 
     kappa(LP^2) = chi(P^2)/2 = 3/2 (from genus-1 GV).
-    But more precisely, the kappa from the shadow tower formalism is
-    extracted from F_1, which for local P^2 involves the constant-map
-    contribution: kappa = integral_{P^2} c_2(TP^2)/24 = 3/24 = 1/8...
-
-    ACTUALLY: the effective kappa depends on the regularization.
-    For the purposes of shadow classification, we use the structure
-    of the OPE (Lie-type from quiver), not the numerical kappa.
     """
+    # AP-CY12: local P^2 is class M (infinite depth), not G/L/C.
+    # Leading approximation (quiver with cubic potential) misses the infinite
+    # tower from higher-degree BPS states.  The full BPS spectrum is infinite
+    # (bps_finite=False), which forces class M.
     return CY3ShadowData(
         name="local P^2",
         kappa=Fraction(3, 2),  # 3 generators, each kappa = 1/2
-        shadow_class="L",
-        r_max=3,
-        sc_formal=False,  # class L has m_3^{SC} != 0 (NOT SC-formal)
+        shadow_class="M",
+        r_max=-1,  # infinite: class M
+        sc_formal=False,  # class M is NOT SC-formal
         euler_chi=3,  # chi(P^2) = 3, non-compact total space
         h11=1,
         h21=0,
@@ -467,10 +463,10 @@ def cy3_shadow_data_local_p2() -> CY3ShadowData:
         e1_koszul_dual="Ext algebra of McKay quiver (Q_{Z_3}, W)",
         reasoning=(
             "McKay quiver of Z_3: 3 nodes, 9 arrows, cubic potential. "
-            "OPE from shuffle product has first-order poles (Lie type). "
-            "Cubic shadow nonzero from 3-vertex interaction. "
-            "Quartic contact vanishes: Z_3 symmetry kills quartic invariant. "
-            "Class L (Lie/tree), r_max=3. SC formal."
+            "Leading-order OPE has first-order poles (Lie type), but "
+            "higher-degree BPS states generate an infinite shadow tower. "
+            "Class M (infinite depth), r_max=infinity. NOT SC-formal. "
+            "AP-CY12: leading approximation misses the infinite tower."
         ),
     )
 
@@ -850,7 +846,7 @@ def critical_discriminant_cy3(kappa: Fraction, S4: Fraction) -> Fraction:
     For CY3 algebras:
       C^3 (Virasoro channel): Delta = 8 * (1/2) * 10/27 = 40/27.
       Conifold: Delta = 0 (Heisenberg, S_4 = 0).
-      Local P^2: Delta = 0 (class L, S_4 = 0 after Z_3 averaging).
+      Local P^2: Delta != 0 (class M, AP-CY12: infinite tower).
     """
     return 8 * kappa * S4
 

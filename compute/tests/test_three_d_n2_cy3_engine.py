@@ -486,9 +486,11 @@ class TestShadowDepth:
         assert cls == "G"
         assert depth == 2
 
-    def test_local_P2_class_L(self):
+    def test_local_P2_class_M(self):
+        # AP-CY12: local P^2 is class M (infinite depth), not G/L/C.
+        # Leading approximation misses the infinite tower.
         cls, depth = shadow_depth_from_cy3(cy3_local_P2())
-        assert cls in ("G", "L")  # Could be either depending on detail
+        assert cls == "M"
 
     def test_quintic_class_M(self):
         cls, depth = shadow_depth_from_cy3(cy3_quintic())

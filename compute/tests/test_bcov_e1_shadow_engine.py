@@ -778,12 +778,14 @@ class TestShadowDepth:
         k3_class = [c for c in classifications if c.cy3.name == "K3 x E"][0]
         assert k3_class.shadow_class == "M"
 
-    def test_local_p2_class_l(self):
-        """Local P^2 is class L (cubic, r_max = 3)."""
+    def test_local_p2_class_m(self):
+        """Local P^2 is class M (infinite depth, AP-CY12).
+        Leading approximation misses the infinite tower.
+        """
         classifications = shadow_depth_bcov_classification()
         lp2_class = [c for c in classifications if c.cy3.name == "local P^2"][0]
-        assert lp2_class.shadow_class == "L"
-        assert lp2_class.r_max == 3
+        assert lp2_class.shadow_class == "M"
+        assert lp2_class.r_max == -1  # infinite
 
 
 # =========================================================================

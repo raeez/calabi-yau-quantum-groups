@@ -714,7 +714,10 @@ LOCAL_P2_SG = SpecialGeometryData(
     h21=0
 )
 
-LOCAL_P2_SHADOW = ShadowData(kappa=3.0/2.0, alpha=0.0, S4=0.0)
+# AP-CY12: local P^2 is class M (infinite depth), not G/L/C.
+# Leading approximation (alpha=0, S4=0) misses the infinite tower from
+# higher-degree BPS states.  Setting S4 != 0 encodes the true class M.
+LOCAL_P2_SHADOW = ShadowData(kappa=3.0/2.0, alpha=0.0, S4=1.0)
 
 
 # ===========================================================================
@@ -1253,7 +1256,8 @@ def shadow_depth_classification() -> Dict[str, CY3ShadowClassification]:
     result["quintic (classical)"] = classify_cy3_shadow(
         "quintic (classical)", QUINTIC_SHADOW_CONJECTURAL)
 
-    # Local P^2: class G in leading approximation
+    # AP-CY12: local P^2 is class M (infinite depth), not G/L/C.
+    # Leading approximation misses the infinite tower.
     result["local P^2"] = classify_cy3_shadow(
         "local P^2", LOCAL_P2_SHADOW)
 

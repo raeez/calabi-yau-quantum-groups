@@ -1207,23 +1207,28 @@ def shadow_depth_from_cy3(X: CY3HodgeData) -> Tuple[str, Optional[int]]:
       G (Gaussian, r_max = 2): free-field type, no compact curves
         -> C^3, resolved conifold
       L (Lie/tree, r_max = 3): finite-type quiver
-        -> local P^2 (McKay A_2 quiver)
+        -> (no standard CY3 example in this class)
       C (Contact, r_max = 4): quartic contact term present
         -> local P^1 x P^1 (if specific contact structure)
       M (Mixed, r_max = infinity): infinite GW invariants
-        -> quintic, K3 x E, mirror quintic
+        -> local P^2, quintic, K3 x E, mirror quintic  (AP-CY12)
 
     The shadow depth is determined by the complexity of the BPS spectrum:
       - Finitely many BPS states -> finite shadow depth
       - Infinitely many BPS states -> class M
     """
     if not X.compact:
+        # AP-CY12: local P^2 is class M (infinite depth), not G/L/C.
+        # The leading approximation misses the infinite tower from
+        # higher-degree BPS states.  Check by name BEFORE the generic
+        # Hodge-number branches (local P^2 has h11=1, h21=0, same as
+        # the resolved conifold, so Hodge data alone cannot distinguish).
+        if getattr(X, 'name', '') == "local_P2":
+            return ("M", None)  # AP-CY12: infinite depth
         if X.h11 == 0 and X.h21 == 0:
             return ("G", 2)
         elif X.h11 == 1 and X.h21 == 0:
             return ("G", 2)
-        elif X.h11 == 1 and X.h21 == 0 and X.name == "local_P2":
-            return ("L", 3)
         elif X.h11 == 2 and X.h21 == 0:
             return ("L", 3)
         return ("L", 3)

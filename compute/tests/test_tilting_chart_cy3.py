@@ -619,9 +619,11 @@ class TestCoHAExtraction:
         assert coha.shadow_class() == "L"
 
     def test_shadow_class_local_p2(self):
+        # AP-CY12: local P^2 is class M (infinite depth), not G/L/C.
+        # Leading approximation misses the infinite tower.
         c = chart_local_p2(0)
         coha = CoHAFromChart(c)
-        assert coha.shadow_class() == "C"
+        assert coha.shadow_class() == "M"
 
     def test_shadow_class_quintic(self):
         c = chart_quintic_large_volume()
@@ -710,7 +712,8 @@ class TestHomotopyColimit:
         check = gluing.gluing_consistency_check()
         assert check['kappa_consistent']
         assert check['kappa'] == Fraction(3)
-        assert check['shadow_class'] == "C"
+        # AP-CY12: local P^2 is class M (infinite depth), not G/L/C.
+        assert check['shadow_class'] == "M"
 
     def test_kappa_global_agrees_across_charts(self):
         """For all standard examples: kappa is the same in every chart."""
@@ -1071,7 +1074,8 @@ class TestGrandSummary:
         lp2 = summary['Local_P2']
         assert lp2['n_charts'] == 3
         assert lp2['kappa_global'] == Fraction(3)
-        assert lp2['shadow_class'] == 'C'
+        # AP-CY12: local P^2 is class M (infinite depth), not G/L/C.
+        assert lp2['shadow_class'] == 'M'
 
     def test_quintic_summary(self):
         summary = tilting_chart_grand_summary()

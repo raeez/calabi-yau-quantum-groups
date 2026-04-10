@@ -1,201 +1,415 @@
-# AGENTS.md — Calabi-Yau Quantum Groups
+# AGENTS.md - Calabi-Yau Quantum Groups
 
-## Purpose
+## Charter
 
-This file is the Codex runtime constitution for Volume III. `CLAUDE.md` may contain Claude-specific orchestration, hooks, or command macros, but `AGENTS.md` must stand on its own as the always-on operating system for Codex.
+This file is the always-on Codex constitution for Volume III. It is optimized for Codex with GPT-5.4-style agentic work: persistent tool use, explicit verification, tight scope control, and sharp stopping criteria. `CLAUDE.md` may remain richer and more experimental, but `AGENTS.md` must be the stable operating system that still works after compaction, context loss, or model drift.
 
 Use this file for:
 
-- durable, repo-wide invariants;
-- metacognitive control loops that should survive context drift and compaction;
-- claim-status discipline;
-- verification discipline;
-- Vol III-specific anti-pattern avoidance;
-- the bridge from manuscript work to compute, tests, build hygiene, and cross-volume propagation.
+- durable repo-wide invariants;
+- task routing and operating modes;
+- claim-state and definition discipline;
+- cross-volume propagation rules;
+- verification and convergence gates;
+- the current dated risk map when live repo state materially changes behavior.
 
-Do not use this file as a dumping ground for temporary plans, local task chatter, or aspirational slogans that do not change behavior.
+Do not use this file for temporary chatter, local TODO spam, or motivational prose that does not change execution.
 
-## Codex Design Principles
+## Programme Map
 
-Codex is strongest in this repo when the environment supplies four things clearly:
+Volume III asks a single question:
 
-1. **Exact scope.** Name the file, theorem, definition, formula, family, and convention before reasoning.
-2. **Executable verification.** Prefer checks that can fail: targeted grep, local computation, `pytest`, `make fast`, log inspection, or line-by-line proof tracing.
-3. **Sharp stopping criteria.** End only at `CONVERGED` or `BLOCKED`, not at "I looked around and found some things."
-4. **Progressive disclosure.** Keep always-on rules in `AGENTS.md`; keep triggered workflows in repo skills; keep deterministic enforcement in Codex hooks where possible.
+> In what precise sense can a Calabi-Yau category produce a quantum chiral algebra whose bar data, trace, and modular characteristic match the modular Koszul duality programme from Volumes I and II?
 
-Design prompts and workflows for Codex accordingly:
+Primary targets:
 
-- Prefer positive instructions over vague prohibitions.
-- Prefer checklists and control loops over essays.
-- Prefer local truth surfaces over historical summaries.
-- Prefer independent recomputation over pattern completion.
-- Prefer smaller true claims to larger false ones.
-- Prefer reusable skills for repeated deep workflows.
+- `CY-A`: `Phi: CY_d-Cat -> E_2-ChirAlg`
+- `CY-B`: `E_2`-chiral bar-cobar adjunction with CY trace as curvature datum
+- `CY-C`: quantum-group realization
+- `CY-D`: modular CY characteristic
 
-## What This Is
+Current hard status boundary:
 
-Research monograph by Raeez Lorgat. Volume III of the modular Koszul duality programme. Volumes I (`~/chiral-bar-cobar`) and II (`~/chiral-bar-cobar-vol2`) built the bar-cobar machine for chiral algebras and its 3d holomorphic-topological QFT interpretation. This volume asks:
+- `CY-A` is proved in the manuscript only for `d = 2`.
+- Any `d = 3` version depends on a chain-level `S^3` framing construction and is not unconditional.
+- `A_X`, `G(X)`, and similar CY3 chiral-algebra objects are not constructed objects of this manuscript.
+- CoHA is associative data, not automatically the `E_1` sector of a larger chiral object.
+- Borcherds denominator identities are not automatically bar Euler products.
+- Drinfeld center and derived/chiral center are distinct unless hypotheses are stated.
 
-> In what precise sense is a Calabi-Yau category, or a more general category with the relevant CY-type structures, actually a Calabi-Yau quantum chiral algebra?
+## Design Axioms for Codex/GPT-5.4
 
-**Title**: *Calabi-Yau Quantum Groups: Chiral Algebras from Calabi-Yau Categories via E_1/E_2 Factorization*
+Best-practice prompt design in this repo means reducing entropy, not adding rhetoric.
 
-## The Central Question
+1. Exact scope before reasoning.
+   Name the file, theorem label, definition, convention, family, and status boundary before trying to solve the problem.
+2. Verification before verbosity.
+   Prefer a short instruction plus a falsifiable check over long exhortation.
+3. Reasoning effort is a last-mile knob.
+   Before escalating effort, tighten the task definition, output contract, and verification loop.
+4. Durable rules, triggered playbooks, mechanical hooks.
+   Keep always-on rules here, deep workflows in skills, deterministic enforcement in hooks or grep-based checks.
+5. Local truth surfaces over inherited summaries.
+   Live `.tex`, compute, tests, logs, and diffs outrank memory, prior chats, and metadata prose.
+6. Self-contained state beats hidden context.
+   For substantial work, externalize the plan, assumptions, blockers, and verification record in a durable note.
+7. Smaller true claims beat larger false ones.
+   The objective is not impressive prose; it is surviving hostile rereading.
+8. Add instructions only when they change behavior.
+   Remove decorative meta-rules, duplicated guidance, and vague slogans that widen the search space.
 
-A CY category `C` of dimension `d` carries a cyclic `A_\infty` structure: a nondegenerate trace
+## Codex-Native Operating Stance
 
-`Tr: HH_*(C) -> k[-d]`
+- Default deliverable: a verified change or a precisely named blocker, not an outline.
+- Default reasoning: `medium`.
+- Escalate to `high` or `xhigh` only for load-bearing proof surgery, chapter-scale architecture, or stalled frontier synthesis after the workflow itself has already been sharpened.
+- No plan theater.
+  If a plan exists, it must cash out into edits, checks, or a blocker.
+- Tool persistence.
+  The first plausible answer is not enough; stop only when the relevant falsifier passes or the blocker is real.
+- Dependency-first execution.
+  Read before editing. Verify prerequisites before downstream claims.
+- Parallel evidence gathering.
+  Batch independent greps, file reads, log checks, and targeted tests whenever they do not couple tightly.
+- Skill-first specialization.
+  If a task matches a repo skill, use the skill instead of reconstructing the workflow from scratch.
+- `AGENTS.md`, `CLAUDE.md`, README files, and prior agent prose are operational guides, not mathematical evidence.
 
-on Hochschild homology. The cyclic bar complex `CC_*(C)` with its `S^d` framing is the primary invariant.
+## Claude-Codex Parity Rule
 
-A chiral algebra `A` carries a bar complex `B(A)`, a factorization coalgebra on `Ran(X)`, with the full modular structure controlled by `Theta_A` from Volume I.
+No durable Claude-side workflow is allowed to remain Claude-only.
 
-The programme is to construct a precise functor
+Any always-on skill, hook, loop, routine, or metacognitive control surface that changes behavior must have a Codex-native home in one of:
 
-`Phi: CY_d-Cat -> E_2-ChirAlg`
+- `AGENTS.md` for always-on rules;
+- `.agents/skills/` for triggered workflows;
+- `.codex/hooks/` for mechanical routing and guardrails.
 
-that:
+If `CLAUDE.md` grows a durable behavior and Codex lacks an analogue, either:
 
-1. takes a CY category as input;
-2. extracts the `E_2`-monoidal structure;
-3. produces a chiral algebra `A_C` whose bar complex encodes CY cyclic homology;
-4. realizes the CY trace as the modular characteristic `kappa(A_C)`.
+1. add the Codex analogue in the same session; or
+2. explicitly mark the parity gap and treat it as unresolved debt.
 
-## The Dual Imperative
+### Claude -> Codex parity map
 
-Maximalist ambition and maximal truth-seeking are not in tension here. Precision is what lets the ambition survive contact with reality.
+- Claude `/build` -> Codex skill `vol3-build-surface`
+- Claude `/audit` and `/rectify` -> Codex skill `vol3-beilinson-loop`
+- Claude `/chriss-ginzburg-rectify` -> Codex skill `vol3-chriss-ginzburg-rectification`
+- Claude `/verify` -> Codex skills `vol3-pre-edit-verification` plus `vol3-claim-verification`
+- Claude `/propagate` -> Codex skill `vol3-cross-volume-propagation`
+- Claude `/compute-engine` -> Codex skill `vol3-compute-engine`
+- Claude `/research-swarm`, `/beilinson-swarm`, `/rectify-all` -> Codex skill `vol3-swarm-orchestration`
 
-When claims outrun proofs:
+Codex-specific delegation rule:
 
-- strengthen the proof first;
-- narrow the theorem second;
-- downgrade the status third;
-- delete the false slogan if necessary.
+- swarm-style decomposition is permitted only when the user explicitly authorizes sub-agents or delegation;
+- absent that authorization, use the same logical workflow locally without spawning agents.
 
-Never protect narrative momentum at the expense of truth conditions.
+## Session Entry Protocol
 
-## The Beilinson Principle
+For any nontrivial task:
 
-Every claim is false until independently verified. Every session should behave as if six hostile examiners are present:
+1. Lock the exact target.
+   Name the file(s), labels, formulas, conventions, and whether the task is audit, rectification, verification, compute, or frontier work.
+2. Read the live target before editing.
+   Never patch by pattern alone.
+3. Inspect the dirty surface.
+   Read the current diff in the touched repo and, when cross-volume claims are involved, inspect the relevant diffs in Volumes I and II.
+4. Lock the conventions.
+   Check grading, shifts, OPE versus lambda-brackets, `E_1` versus `E_2`, CY dimension versus manifold dimension, and any `kappa` subscripts in play.
+5. Name the claim state.
+   Decide whether the surface is proved, proved elsewhere, conditional, conjectural, heuristic, or open.
+6. Name the narrowest falsifier.
+   Usually a targeted `pytest`, grep, local computation, proof trace, or `make fast`.
+7. Only then edit.
 
-- Beilinson
-- Witten
-- Costello
-- Gaiotto
-- Drinfeld
-- Kontsevich
+## Pre-Edit Verification Protocol
 
-Their job is to break the argument. Yours is to help them.
+This is the Codex analogue of the Claude-side pre-edit templates.
 
-### The Verification Reflex
+Use `vol3-pre-edit-verification` before editing any surface touching:
 
-Before asserting anything nontrivial, ask:
+- `r`-matrices or OPE/lambda-bracket conversions;
+- `kappa` formulas or modular characteristics;
+- bar/cobar/Koszul-dual/desuspension formulas;
+- d=3 theorem environments, status tags, or unconstructed objects;
+- shadow class or SC-formality claims;
+- `MF(W)` CY-dimension claims;
+- cross-volume Part references;
+- hardcoded compute or test oracles.
 
-> How do I know this? Did I read it in the live source, compute it, verify it, or merely inherit it?
+Protocol:
 
-If the answer is "inherit" or "pattern-match," stop and verify.
+1. In commentary, write a fenced `PRE-EDIT` block before invoking the edit.
+2. Fill in the exact object/formula, convention, source, boundary checks, and wrong variants avoided.
+3. End with `verdict: ACCEPT` or `verdict: REJECT`.
+4. If any required source is blank or any boundary check fails, do not edit yet.
 
-### Epistemic Hierarchy
+This protocol is not decorative. Filling the block is part of verification.
 
-Trust these sources in this order:
+## Live Truth Surface
+
+The order of trust in this repo is:
 
 1. direct computation and exact local verification;
-2. the live `.tex` source, read with local context;
+2. the live `.tex` or `.py` source, read in context;
 3. build logs, test output, and compiler failures;
-4. primary literature with explicit convention check;
-5. repo audit notes and concordance-like summaries;
-6. `AGENTS.md` and `CLAUDE.md`;
-7. memory, summaries, and prior chat conclusions.
+4. primary literature with explicit convention conversion;
+5. audit notes and self-contained verification notes;
+6. `AGENTS.md` and the three `CLAUDE.md` files;
+7. memory, summaries, prior chat conclusions.
 
-If these layers disagree, investigate. Do not silently choose the most convenient one.
+For nontrivial work, the live surface is:
 
-## Codex Operating Modes
+- the target file plus local neighboring context;
+- `main.tex` and the active `\input` graph;
+- the current dirty diff;
+- relevant build logs;
+- the narrowest relevant compute/tests slice;
+- cross-volume duplicate or advertised claims in `~/chiral-bar-cobar` and `~/chiral-bar-cobar-vol2`.
 
-The always-on layer is small. The deep workflows are triggered.
+If these surfaces disagree, investigate. Do not silently pick the most convenient layer.
 
-### Mode 1 — Default Research Mode
+## Current Empirical Risk Map (April 10, 2026)
 
-Use for ordinary manuscript, proof, notation, and compute tasks.
+This dated section is here because the user explicitly requested that the current failure distribution and dirty state be part of the steering surface. Refresh it when it goes stale.
+
+### Last-100-commit archaeology
+
+- Volume I is dominated by rectification, build-noise cleanup, formula/convention repair, compute/test synchronization, and repeated AP126/AP141, AP124/AP125, AP136, AP137, AP140, AP29, and AP128 failures.
+- Volume II is dominated by rectification, convention repair, cross-volume propagation, AP40 environment/status drift, AP44 divided-power drift, AP32 uniform-weight drift, V2-AP26/V2-AP30 stale Part references, V2-AP31 proof-after-conjecture, and V2-AP32/V2-AP35 artifact/connective drift.
+- Volume III is dominated by build noise, compute/test frontier corrections, AP113 `kappa`-subscript repair, AP-CY6/AP-CY11/AP-CY14 conditionality failures, AP-CY12 shadow-depth misclassification, AP-CY13 stale Part references, AP-CY17/AP-CY18/AP-CY19 geometric/computational convention drift, and README/doc scope inflation.
+
+### Current dirty hotspots
+
+- Volume I currently has a large compute-and-test rectification wave plus extensive PDF/log noise. The live mathematical hotspots include:
+  - Heisenberg versus odd-current versus genuine `E_1` distinction in `chapters/frame/heisenberg_frame.tex`;
+  - PBW / Barr-Beck-Lurie proof strengthening and Koszul-dual degree bookkeeping in `chapters/theory/chiral_koszul_pairs.tex`;
+  - Bershadsky-Polyakov central charge / `K_BP = 196` corrections in `compute/lib/non_principal_w_bar_engine.py` and its tests;
+  - `AGENTS.md` itself is dirty there, so treat Vol I control-surface text as live and evolving.
+- Volume II currently has a focused but load-bearing dirty surface in `chapters/connections/thqg_perturbative_finiteness.tex`, where genus-2 stable graph classification is being corrected from an undercount to:
+  - 7 total connected stable strata at `g = 2`, `n = 0` if the smooth no-edge stratum is included;
+  - 6 edge-bearing Feynman graph types under the at-least-one-edge convention.
+  This surface also adds genus-1 vertex contributions, so any citation to genus-2 graph counts or `F_2` graph formulas must be rechecked.
+- Volume III currently has a compute/manuscript rectification cluster around:
+  - `kappa_ch` versus `kappa_BKM` for `K3 x E`;
+  - restoring the level prefix in CY `r`-matrices;
+  - correcting local `P^2` from class `L` to class `M`;
+  - synchronized updates across `chapters/theory/introduction.tex`, `chapters/connections/cy_holographic_datum_master.tex`, `chapters/examples/toroidal_elliptic.tex`, `compute/lib/modular_cy_characteristic.py`, `compute/lib/swiss_cheese_cy3_e1.py`, and their tests.
+
+Treat all of these as live audit surfaces, not settled facts.
+
+## The Resonance Loop
+
+For any nontrivial task, run this loop until `CONVERGED` or `BLOCKED`.
+
+### 0. Scope Lock
+
+Identify:
+
+- the exact surface;
+- the dependent labels, formulas, and conventions;
+- whether the task is audit, rectification, verification, propagation, compute rectification, or frontier synthesis.
+
+### 1. Invariant Lock
+
+Before trusting any local argument, lock:
+
+- grading and shifts;
+- bar / cobar / Koszul-dual object identity;
+- open / closed color directionality;
+- OPE modes versus lambda-brackets with divided powers;
+- genus / arity / filtration / family scope;
+- Volume I versus II versus III conventions.
+
+### 2. Read the Surface
+
+Read the live target before editing anything. Never patch by pattern alone.
+
+### 3. RED Pass
+
+Attack logic and mathematics:
+
+- hidden hypotheses;
+- circularity;
+- sign or degree errors;
+- formula drift;
+- overclaimed biconditionals;
+- false identifications;
+- proofs that silently assume the conclusion.
+
+### 4. BLUE Pass
+
+Attack consistency:
+
+- theorem / proof / status mismatch;
+- label drift;
+- stale Part references;
+- duplicated formulations;
+- compute/manuscript disagreement;
+- README or metadata advertising a stronger claim than the `.tex` supports;
+- cross-volume inconsistencies.
+
+### 5. GREEN Pass
+
+Attack structural gaps:
+
+- missing definitions;
+- objects used before axiomatization;
+- missing lemmas;
+- dangling references;
+- places where the true statement is weaker than the advertised one.
+
+### 6. Patch in Dependency Order
+
+Fix `CRITICAL` and `SERIOUS` findings first, then `MODERATE`.
+For each fix:
+
+1. re-read the local context;
+2. recompute or re-derive independently;
+3. make the smallest truthful edit;
+4. immediately search for downstream advertisements of the old claim.
+
+### 7. Propagate
+
+After any mathematical change:
+
+- grep Volume III;
+- grep Volume II;
+- grep Volume I;
+- verify sameness of object and convention before editing a verbal match;
+- update genuine duplicates in the same session or leave an explicit pending note.
+
+### 8. Verify
+
+Run the narrowest check that can actually falsify the change:
+
+- targeted `pytest`;
+- targeted grep or label check;
+- proof trace;
+- log inspection;
+- `make fast` for load-bearing manuscript rewrites;
+- broader build only when the local slice passes and scope demands it.
+
+### 9. Re-Audit
+
+Hostilely reread your own rewrite. Try to break it.
+
+### 10. Convergence
+
+- `CONVERGED`: no known actionable `MODERATE+` finding remains on the modified surface, and the narrowest relevant verification passes.
+- `BLOCKED`: exact blocker named precisely.
+
+Do not stop in between.
+
+## Convergent Writing Loop
+
+For introductions, prefaces, chapter openings, architectural rewrites, and other load-bearing prose:
+
+1. write a first truthful draft;
+2. reimagine the structure under hostile and compression-minded rereading;
+3. rewrite from scratch rather than line-polishing a bad skeleton;
+4. run a Beilinson audit on the rewritten surface;
+5. repeat until no actionable `MODERATE+` finding remains.
+
+Minimum standard:
+
+- preface/introduction scale work: three or more iterations;
+- chapter openings and major transitions: two or more iterations.
+
+Structural moves worth preferring when they genuinely fit:
+
+- deficiency opening;
+- unique-survivor framing;
+- instant computation;
+- forced transition;
+- decomposition table;
+- true dichotomy;
+- sentence-as-theorem compression.
+
+## Operating Modes
+
+### Mode 1 - Default Research Mode
+
+Use for ordinary manuscript, notation, compute, and proof maintenance.
 
 Loop:
 
 1. identify the exact target;
-2. read the local source before editing;
-3. inspect the live diff and nearby dependencies;
-4. make the smallest correction that can be defended;
-5. run the narrowest verification that can falsify the change;
-6. propagate any shared formula or status correction;
-7. stop only after the modified surface is coherent.
+2. read the local source;
+3. inspect the nearby diff and dependencies;
+4. make the smallest defensible correction;
+5. run the narrowest falsifier;
+6. propagate shared formula/status changes;
+7. stop only when the surface is coherent.
 
-### Mode 2 — Deep Beilinson Audit
+### Mode 2 - Deep Beilinson Audit
 
-Trigger when the user asks to audit, review, red-team, challenge, falsify, or pressure-test a theorem, chapter, formula family, or manuscript region.
+Trigger when asked to audit, review, red-team, challenge, falsify, or pressure-test a theorem, chapter, formula family, or region.
 
-Audit the **live manuscript surface**:
+Audit the live surface:
 
 - `main.tex`;
-- currently `\input`-ed files;
-- the dirty git diff;
-- relevant build logs;
-- the narrowest relevant compute/tests slice.
+- current `\input` graph;
+- dirty diff;
+- relevant logs;
+- narrow compute/tests slice.
 
-Run three local passes:
+Mandatory passes:
 
-- `RED`: logic, formulas, signs, hypotheses, scope, status tags, hidden conditionality;
+- `RED`: logic, formulas, signs, hypotheses, scope, hidden conditionality;
 - `BLUE`: collisions across intro/chapter/examples/appendices/compute/tests/README/other volumes;
-- `GREEN`: missing definitions, dangling references, absent lemmas, frontier gaps, and places where the text overstates what has actually been built.
+- `GREEN`: missing definitions, dangling references, absent lemmas, frontier gaps, overstated claims.
 
 Findings are mathematical bugs, not editorial trivia.
 
-### Mode 3 — Beilinson Rectification Loop
+### Mode 3 - Beilinson Rectification Loop
 
-Trigger when the user asks to fix, rectify, converge, clean up, tighten, or repair a mathematical surface.
+Trigger when asked to fix, rectify, converge, tighten, or repair a mathematical surface.
 
 Rectification loop:
 
-1. identify the exact claims and dependencies;
-2. classify findings by severity and dependency order;
-3. fix `CRITICAL` and `SERIOUS` items first;
-4. after each fix, rerun the narrowest falsifying check;
-5. re-audit the modified surface hostilely;
-6. repeat until no actionable `MODERATE` or higher findings remain.
+1. identify claims and dependencies;
+2. classify findings by severity and order;
+3. fix `CRITICAL` and `SERIOUS` first;
+4. after each fix, rerun the narrowest falsifier;
+5. re-audit the modified surface;
+6. repeat until no actionable `MODERATE+` finding remains.
 
-**Convergence condition**:
+### Mode 4 - Multi-Path Claim Verification
 
-- `CONVERGED` means the modified surface has no known actionable `MODERATE+` findings and the narrowest relevant verification passes.
-- `BLOCKED` means a real missing input, unresolved contradiction, or external dependency is named precisely.
+Trigger when asked whether a formula, invariant, theorem statement, example, or comparison is correct.
 
-Do not end a rectification session anywhere in between.
+Minimum standard:
 
-### Mode 4 — Multi-Path Claim Verification
+- at least three genuinely independent verification paths for any load-bearing numerical or computational claim;
+- at least two independent paths for test oracles when three are not practical.
 
-Trigger when the user asks whether a formula, invariant, theorem statement, or comparison is correct.
-
-Minimum standard: **three genuinely independent verification paths** for any numerical or computational claim.
-
-Use the Vol I verification taxonomy:
+Allowed path families:
 
 1. direct computation;
-2. alternative formula;
-3. limiting case;
+2. structurally different equivalent formula;
+3. limiting or degenerate case;
 4. symmetry or duality;
 5. cross-family consistency;
 6. literature comparison with convention check;
-7. dimensional or degree analysis;
-8. numerical evaluation.
+7. degree / weight / sign / units analysis;
+8. numerical evaluation;
+9. operadic or factorization consistency;
+10. descent to a classical/PVA/shadow.
 
-For Vol III, add these mandatory checks when relevant:
+Mandatory Vol III overlays when relevant:
 
-- `AP-CY1`: CY dimension `d` is not complex dimension `n` versus real dimension `2n`;
-- `AP-CY2`: CY trace lives in `HC^-_d(C)`, not merely `HH_d -> k`;
+- `AP-CY1`: CY dimension is not real dimension;
+- `AP-CY2`: CY trace lives in negative cyclic, not merely Hochschild;
 - `AP-CY5`: quantum-group claims must specify the `q` regime;
-- `AP-CY6`: any CY3 chiral algebra claim may be conditional on an `S^3` framing construction;
-- `AP-CY7`: CoHA is associative; it is not automatically the `E_1` sector of anything;
+- `AP-CY6` / `AP-CY11` / `AP-CY14`: d=3 conditionality propagates;
+- `AP-CY7`: CoHA is not automatically an `E_1`-chiral algebra;
 - `AP-CY8`: denominator identity is not automatically a bar Euler product;
-- `AP49`: convention conversion across Volumes I, II, and III.
+- `AP-CY12`: shadow class comes from the full tower, not a leading approximation;
+- `AP49`: cross-volume convention conversion.
 
-### Mode 5 — Cross-Volume Propagation Sweep
+### Mode 5 - Cross-Volume Propagation Sweep
 
 Trigger whenever you change a:
 
@@ -204,39 +418,56 @@ Trigger whenever you change a:
 - definition;
 - notation;
 - convention;
-- summary sentence that advertises a result;
-- claim touching `kappa`, `Theta`, bar/cobar, CoHA, `E_1`/`E_2`, Borcherds products, quantum groups, or center constructions.
+- summary sentence advertising a result;
+- claim touching `kappa`, `Theta`, bar/cobar, CoHA, `E_1`/`E_2`, Borcherds products, quantum groups, centers, or shadow towers.
 
 Propagation protocol:
 
 1. grep Volume III;
 2. grep Volume II;
 3. grep Volume I;
-4. verify that similarly worded statements are actually in the same convention;
-5. update all genuine duplicates in the same session or explicitly mark the remaining ones as pending.
+4. verify sameness of object and convention before editing;
+5. update all genuine duplicates or explicitly mark what remains pending and why.
 
-Never paste a formula between volumes without explicit convention conversion.
+Never paste formulas between volumes without explicit convention conversion.
 
-### Mode 6 — Frontier Research Mode
+### Mode 6 - Compute Rectification Mode
 
-Trigger for new theorems, new definitions, conjectural architecture, and the CY3 frontier.
+Trigger whenever a `.py` engine, test oracle, table value, hardcoded coefficient, or numerical claim is edited.
+
+Rules:
+
+- Every new or changed hardcoded value must record source and normalization.
+- Engine and test must not derive from the same mental model.
+- Prefer exact arithmetic when the claim is exact.
+- When a formula changes, audit neighboring comments, docstrings, and tests for stale reasoning.
+- If a compute result is important enough for the prose, it is important enough for an independent executable check.
+- Build artifacts are never evidence.
+
+This mode exists to prevent AP10, AP38, AP80, AP122, AP123, AP128, AP140, and the recurring "engine and test agree on the same wrong number" failure.
+
+### Mode 7 - Frontier Research Mode
+
+Trigger for new theorems, new definitions, new constructions, and CY3 frontier architecture.
 
 Frontier rule set:
 
 1. define the object before naming the programme around it;
 2. test toy models before general prose;
 3. search for counterexamples early;
-4. separate construction, evidence, conjecture, and slogan explicitly;
-5. do not upgrade a frontier claim to theorem status in the same pass that first drafts its proof.
+4. separate construction, evidence, conditional result, conjecture, heuristic, and slogan explicitly;
+5. never upgrade a frontier claim to theorem status in the same pass that first drafts its proof;
+6. default new Vol III formal frontier statements to `conjecture` unless the proof is complete and unconditional.
 
-This mode exists to prevent AP36, AP40, AP42, and AP43.
+This mode exists to prevent AP36, AP40, AP42, AP43, AP-CY6, AP-CY11, and AP-CY14.
 
 ## Claim-State Governance
 
-Every serious statement belongs to exactly one of:
+Every serious statement must belong to exactly one of:
 
 - `\ClaimStatusProvedHere`
 - `\ClaimStatusProvedElsewhere`
+- `\ClaimStatusConditional`
 - `\ClaimStatusConjectured`
 - `\ClaimStatusHeuristic`
 - `\ClaimStatusOpen`
@@ -244,269 +475,241 @@ Every serious statement belongs to exactly one of:
 Rules:
 
 - status is part of the mathematics, not decoration;
-- theorem/proposition/lemma/corollary environments are for proof-bearing claims only;
-- conjectural material belongs in conjecture/observation/remark environments, not theorem environments;
-- define load-bearing objects before using them in theorems;
+- theorem/proposition/lemma/corollary environments are for proof-bearing or genuinely cited results only;
+- conjectural or heuristic material does not belong in theorem-like environments;
+- if the proof chain passes through an unconstructed d=3 object, the result is at least `Conditional`, and often `Conjectured`;
+- if the proof proves less than the sentence claims, weaken the sentence;
 - do not strengthen both statement and status in the same unchecked pass;
-- if the proof proves less than the sentence claims, weaken the sentence.
+- when status changes, update the environment, label prefix, surrounding prose, downstream advertisements, and any compute/docs surface selling the claim.
 
-## Definition-First Discipline
-
-Vol III is vulnerable to aspirational objects. Resist that.
+## Definition-First and Object Discipline
 
 Before using a central object in a theorem, ensure the manuscript already contains a formal definition with hypotheses and ambient category.
 
-This is especially non-negotiable for:
+This is non-negotiable for:
 
 - `G(X)` or any "quantum vertex chiral group";
-- any putative `A_X` attached to a CY3;
-- any center construction where "center" might mean different things;
-- any "bulk algebra" language that could mean derived center, Drinfeld center, or factorization object.
+- any `A_X` or `A_{K3 x E}` at `d = 3`;
+- any `C(g,q)` or quantum-group object whose existence is part of the programme;
+- any center construction where "center" might mean Drinfeld center, derived center, or factorization object;
+- any "bulk algebra" language that could mean different constructions;
+- any claim that sells CoHA as if it were already the chiral object itself.
+
+Never conflate:
+
+- `A` (algebra);
+- `B(A)` (bar coalgebra);
+- `A^i = H^*(B(A))` (dual coalgebra);
+- `A^! = (A^i)^vee` (dual algebra);
+- `Z^{der}_{ch}(A)` (derived/chiral center = bulk);
+- `Z(Rep^{E_1}(A))` (Drinfeld center of a monoidal category).
+
+## Volume III Invariant Lock
+
+### E_1 / E_2 hierarchy
+
+- `E_1`-chiral algebras: associative factorization on `C x R`; representation categories are monoidal.
+- `E_2`-chiral algebras: braided factorization on `C x C`; representation categories are braided monoidal.
+- `E_2` is braided, not symmetric in general.
+- `E_1 -> E_2` via Dunn additivity is structural, not automatic at the level of every candidate example.
+- The Drinfeld center is not the same object as the derived/chiral center unless explicit hypotheses are stated.
+
+### Kappa discipline
+
+Bare `kappa` is forbidden in Volume III unless the local section explicitly binds it to one approved invariant.
+
+Approved subscripts:
+
+- `kappa_ch`: chiral modular characteristic;
+- `kappa_cat`: categorical / Euler-like invariant when precisely defined;
+- `kappa_BKM`: Borcherds-Kac-Moody / automorphic-weight invariant;
+- `kappa_fiber`: fiber/lattice invariant when precisely defined.
+
+Immediate sanity rule:
+
+- `K3 x E` has multiple `kappa`-type numbers.
+- Current active rectification distinguishes `kappa_ch(K3 x E) = 3` from `kappa_BKM(K3 x E) = 5`.
+- Never write `kappa(K3 x E) = 5` unqualified.
+- If `kappa_cat` or `kappa_fiber` enter, re-check the live source instead of inheriting a remembered value.
+
+### Load-bearing d=3 boundaries
+
+- `CY-A` is unconditional only for `d = 2`.
+- Any d=3 theorem depending on chain-level `S^3` framing, chart gluing, or unconstructed `A_X` is not `ProvedHere`.
+- CoHA is associative and may be evidence for an `E_1` sector, but it is not identical to the `E_1`-chiral algebra.
+- Local `P^2` must be classified from the full shadow tower, not a leading Lie-type approximation.
+- `MF(W)` has CY dimension `n - 2` for `W: A^n -> A^1`, not `n - 1`.
+
+## Canonical Checks
+
+Verify against these before trusting a sentence or test:
+
+```text
+kappa(H_k) = k
+kappa(Vir_c) = c/2
+kappa(V_k(g)) = dim(g)(k+h^v)/(2h^v)
+kappa(W_N) = c*(H_N - 1),  H_N = sum_{j=1}^N 1/j
+
+r^KM(z) = k*Omega/z
+r^Heis(z) = k/z
+r^Vir(z) = (c/2)/z^3 + 2T/z
+
+c_bc(lambda) = 1 - 3(2*lambda-1)^2
+c_bg(lambda) = 2*(6*lambda^2 - 6*lambda + 1)
+c_bc + c_bg = 0
+
+B(A) = T^c(s^{-1} A-bar),   A-bar = ker(epsilon)
+|s^{-1}v| = |v| - 1
+d_bar^2 = 0
+MC: d*Theta + (1/2)[Theta,Theta] = 0
+QME: hbar*Delta*S + (1/2){S,S} = 0
+F_1 = kappa/24
+F_2 = 7*kappa/5760
+eta(tau) = q^(1/24) * prod_{n>=1}(1-q^n)
+Cauchy normalization = 1/(2*pi*i)
+
+K_BP = 196
+genus-2 stable graph count:
+  7 total connected stable strata at g=2, n=0
+  6 edge-bearing Feynman types under the at-least-one-edge convention
+
+kappa_ch(K3 x E) = 3
+kappa_BKM(K3 x E) = 5
+local P^2 = class M, not class L
+```
+
+## Forbidden Forms
+
+Grep and fix immediately if any of these appear in the relevant convention:
+
+```text
+Omega/z                               # bare level-stripped r-matrix
+(c/2)/z^4                             # Virasoro quartic r-matrix term
+c*H_{N-1}                             # wrong W_N harmonic-number form
+T^c(s^{-1} A)                         # bar complex forgot augmentation ideal
+|s^{-1}v| = |v|+1                     # desuspension wrong direction
+eta(tau) = prod(1-q^n)                # missing q^(1/24)
+K_BP = 2                              # wrong Bershadsky-Polyakov conductor
+kappa(K3 x E) = 5                     # unqualified Vol III kappa
+local P^2: class L                    # AP-CY12 misclassification
+MF(W) is CY_{n-1}                     # wrong matrix-factorization dimension
+Part~IV / Chapter~12 hardcoded refs   # stale architecture references waiting to happen
+```
+
+## Cross-Volume Anti-Pattern Import
+
+All of the following are in force here:
+
+- the shared Vol I anti-pattern system `AP1` through `AP141` in `~/chiral-bar-cobar/CLAUDE.md`;
+- the Vol II system `V2-AP1` through `V2-AP35` in `~/chiral-bar-cobar-vol2/CLAUDE.md`;
+- the Vol III system `AP-CY1` through `AP-CY19` in `CLAUDE.md`;
+- the workflow anti-patterns `AAP1` through `AAP8`.
+
+### Trigger map
+
+If editing status, theorem environments, or proof blocks, check:
+
+- `AP40`, `AP4`, `AP125`, `AP124`, `V2-AP31`, `AP-CY11`, `AP-CY14`.
+
+If editing `kappa`, modular characteristics, or automorphic weights, check:
+
+- `AP1`, `AP39`, `AP48`, `AP113`, `AP-CY2`, `AP-CY10`, `AP-CY15`.
+
+If editing `r`-matrices, OPEs, or lambda-brackets, check:
+
+- `AP19`, `AP44`, `V2-AP34`, `AP117`, `AP126`, `AP141`.
+
+If editing bar/cobar/Koszul-dual/bulk material, check:
+
+- `AP14`, `AP25`, `AP34`, `AP50`, `AP132`.
+
+If editing shadow depth, class, or SC-formality claims, check:
+
+- `AP14`, `AP131`, `AP-CY12`.
+
+If editing chapter migration, Part references, or duplicated statements, check:
+
+- `AP5`, `AP12`, `AP49`, `AP124`, `AP127`, `V2-AP26`, `V2-AP27`, `V2-AP30`, `AP-CY13`.
+
+If editing compute engines or tests, check:
+
+- `AP10`, `AP38`, `AP80`, `AP122`, `AP123`, `AP128`, `AP140`.
+
+If editing prose, notes, README, or metadata, check:
+
+- `AP29`, `AP121`, `V2-AP29`, `V2-AP32`, `AP115`, `AP-CY15`, `AAP8`.
 
 ## Context and Memory Hygiene
 
-Codex handles long-horizon work better when intermediate state is made explicit.
-
 For substantial tasks:
 
-- keep a short explicit plan;
-- after each major phase, restate the target, current best status, open risks, and next falsification step;
+- keep a short explicit plan or self-contained audit note;
+- after each major phase, restate the target, current status, open risks, and next falsification step;
 - anchor conclusions to exact file paths, theorem labels, and test names;
-- prefer stable note files under `compute/audit/` or `notes/audit_*.md` for substantial audit artifacts;
+- prefer durable notes under `compute/audit/` or `notes/audit_*.md` for major audits;
+- write notes so a newcomer with only the current working tree can continue without hidden chat context;
 - do not let summaries harden into truth without rereading the source.
 
-## The Codex Analog of Claude Hooks
-
-Claude Code can enforce some workflows automatically via hooks. Codex can do part of this through repo hooks, but not all of it. Therefore the hook logic must exist at two layers:
-
-1. **mechanically**, in repo-local Codex hooks where supported;
-2. **cognitively**, as mandatory self-checks in this file.
-
-### Beilinson Gate — Post-Edit Mental Hook
+## Beilinson Gate - Post-Edit Mental Hook
 
 After editing any `.tex` or `.py` file, explicitly check:
 
-- did the edit change the truth conditions or only the prose;
+- did the edit change truth conditions or only presentation;
 - is the claim status still honest;
 - does the surrounding environment match the status macro;
-- did a definition become load-bearing and, if so, is it actually present;
+- did a definition become load-bearing, and if so, is it present;
 - did a shared formula require propagation;
-- did a cross-volume convention bridge need conversion;
+- did a cross-volume convention bridge require conversion;
 - does the compute layer still support the formula;
 - are there hidden CY3 existence assumptions;
-- did any proof silently assume the conclusion.
+- did any proof silently assume the conclusion;
+- did the dirty-diff hotspot nearby require a fresh reread rather than a local patch.
 
 For `.tex`, re-check at least:
 
 - `AP40` environment/status mismatch;
-- `AP43` undefined aspirational object;
-- `AP-CY6` nonexistent CY3 chiral algebra;
-- `AP-CY7` CoHA versus `E_1` conflation;
-- `AP-CY8` denominator/bar-Euler overclaim;
-- `AP49` cross-volume convention paste.
+- `AP113` unqualified `kappa`;
+- `AP-CY6` / `AP-CY11` / `AP-CY14` d=3 existence and conditionality;
+- `AP-CY12` shadow depth from incomplete evidence;
+- `AP-CY13` stale Part references;
+- `AP-CY15` README or summary overclaim if the text advertises the result elsewhere;
+- `V2-AP26` / `V2-AP35` stale structural references or broken connectives.
 
 For `.py`, re-check:
 
 - hardcoded expected values versus independent verification;
-- source and normalization conventions in literals;
-- exact arithmetic versus floating approximations where the claim demands exactness;
-- existence of at least three meaningful verification paths for any new numerical claim.
+- source and normalization conventions in literals and docstrings;
+- exact arithmetic versus floating approximation where exactness is claimed;
+- engine/test independence;
+- `AP113` subscripted invariants;
+- `AP140` family-specific conductors and duality constants;
+- whether adjacent tests, comments, or README surfaces still describe the old result.
 
-### Convergence Gate — Stop-Time Mental Hook
+## Convergence Gate - Stop-Time Mental Hook
 
 If the session is an audit or rectification session, do not stop until you can honestly say one of:
 
-- `CONVERGED`: modified surface is coherent and verified;
+- `CONVERGED`: modified surface is coherent and verified.
 - `BLOCKED`: exact blocker named.
 
-Do not exit with vague half-completion.
+Do not end with a vague half-fix.
 
-### Pre-Commit Gate
+## Pre-Commit Gate
 
 Before any commit:
 
-1. run the narrowest build/test verification that matches the change, usually `make fast` and/or targeted `pytest`;
-2. inspect the diff for build artifacts and accidental noise;
-3. ensure there is no AI attribution in commit message or metadata;
-4. ensure all commits remain authored by Raeez Lorgat only.
+1. run the narrowest build/test verification matching the change;
+2. inspect the diff for build artifacts, logs, PDFs, and accidental noise;
+3. grep touched surfaces for the highest-risk anti-patterns that match the change;
+4. if `RECTIFICATION-FLAG` entered the diff, resolve it or record a precise tracked follow-up before committing;
+5. ensure there is no AI attribution in commit message or metadata;
+6. ensure all commits remain authored by Raeez Lorgat only.
 
-## Repo-Local Codex Skills and Hooks
+## Verification Commands
 
-This repo may include Codex-native skills under `.agents/skills/` and Codex hook configuration under `.codex/`.
+Use the narrowest relevant slice first.
 
-Treat them as the Codex analog of Claude slash commands and hook scripts:
-
-- skills are for triggered deep workflows;
-- hooks are for deterministic guardrails;
-- `AGENTS.md` remains the always-on constitution.
-
-Current high-value Codex-side analogs include:
-
-- `vol3-beilinson-loop` for deep audit and rectification;
-- `vol3-chriss-ginzburg-rectification` for chapter-scale architectural fortification;
-- `vol3-claim-verification` for multi-path formula and theorem checking;
-- `vol3-cross-volume-propagation` for AP5/AP49-style propagation sweeps.
-
-If a workflow repeats and is too large for always-on context, move it to a skill rather than bloating this file.
-
-## The E_1/E_2 Chiral Hierarchy
-
-The key structural ingredient, extending the `E_1` theory from Volume II:
-
-- **`E_1`-chiral algebras**: associative factorization on `C x R`; representation categories are monoidal.
-- **`E_2`-chiral algebras**: braided factorization on `C x C`; representation categories are braided monoidal.
-- **`E_1 -> E_2` passage** via Dunn additivity: `E_2 ~ E_1 tensor E_1`.
-- **CY connection**: for `d = 2`, the `S^2` framing of `HH_*(C)` provides an `E_2` structure on cyclic homology.
-
-The Drinfeld center
-
-`Z(Rep^{E_1}(A)) ~ Rep^{E_2}(Z^der_ch(A))`
-
-is the categorical incarnation of the bulk-boundary correspondence only under explicit hypotheses. Never treat "center" as unqualified shorthand.
-
-## Main Theorem Targets
-
-- **CY-A**: CY-to-chiral functor `Phi: CY_d-Cat -> E_2-ChirAlg`
-- **CY-B**: `E_2`-chiral bar-cobar adjunction, CY trace as curvature
-- **CY-C**: quantum group realization
-- **CY-D**: modular CY characteristic
-
-These are targets, not automatic statuses. Before writing "Theorem," verify what is proved in this manuscript and in what dimension.
-
-## Current Load-Bearing Gaps and Status Boundaries
-
-These are the places where overclaiming is easiest and most damaging:
-
-- `CY-A` is proved in the manuscript only in the `d = 2` case. Any `d = 3` version is conditional on a chain-level `S^3` framing construction.
-- `A_X` for a genuine CY3 is not currently a defined constructed object in the manuscript.
-- CoHA is not itself an `E_1`-chiral algebra; at best it is a target candidate for what an `E_1` sector should recover if the larger object exists.
-- The bar Euler interpretation of Borcherds-type products in `d = 3` is an observation or analogy unless the relevant CY-to-chiral functor actually exists in that dimension.
-- Drinfeld center and derived/chiral center are distinct constructions unless hypotheses are stated.
-
-## Architecture of the Monograph
-
-**Part I — CY Categories and Cyclic Structures**
-
-- CY categories: smoothness, properness, CY condition, trace
-- cyclic `A_\infty` structures: cyclic bar complex, `S^d` framing
-- Hochschild calculus: duality and categorical Hodge theory
-
-**Part II — E_1 and E_2 Chiral Theories**
-
-- `E_1`-chiral review from Volume II
-- `E_2`-chiral algebras as the central innovation
-- higher `E_n` factorization structures
-
-**Part III — The Bridge**
-
-- CY-to-chiral functor
-- quantum chiral algebras
-- modular trace and obstruction tower
-
-**Part IV — Quantum Groups and Braided Structure**
-
-- quantum group foundations
-- braided factorization and `E_2` bar-cobar
-- Drinfeld center and bulk algebras
-
-**Part V — The Standard Landscape**
-
-- Fukaya categories
-- derived categories of CY manifolds
-- matrix factorizations
-- quantum group representation categories
-
-**Part VI — Connections and Frontier**
-
-- bridge back to Volume I
-- modular Koszul duality and CY geometry
-- geometric Langlands and CY quantum groups
-
-## Dependencies on Volumes I and II
-
-| Volume | Provides | Used here |
-|--------|----------|-----------|
-| I | bar-cobar machine, `Theta_A`, `kappa(A)`, five theorems | CY bar complex, modular trace, shadow obstruction tower |
-| II | `SC^{ch,top}`, PVA descent, DK bridge, `E_1` sector | `E_1` chiral theory, braided structure, bulk-boundary |
-
-## The Multi-Path Verification Mandate
-
-Every computational result must be supported by multiple independent computations that converge to the same result. Minimum: **three genuinely independent verification paths per numerical claim**.
-
-The compute layer is the verification engine:
-
-- every nontrivial computational formula should have corresponding tests;
-- every new compute engine should come with a meaningful test surface;
-- hardcoded values must record their source and normalization;
-- tests that merely re-encode a single derivation are not enough.
-
-Cross-volume propagation is part of verification, not aftercare.
-
-## Anti-Patterns
-
-All anti-patterns `AP1` through `AP49` from Volumes I and II apply here. The ones that most often kill Vol III are below.
-
-### Frequently Triggered Cross-Volume and Vol III Failures
-
-- **AP35 — Accidentally correct theorem.**
-  The statement may be right while the proof only proves a smaller case.
-
-- **AP36 — Biconditional overclaim.**
-  A target theorem gets written as proved when the construction only exists conditionally or partially.
-
-- **AP38 — Literature normalization baked into code.**
-  Hardcoded values without source and convention labels silently poison the compute layer.
-
-- **AP40 — LaTeX environment contradicts claim status.**
-  Conjectural or heuristic material appears in theorem-like environments.
-
-- **AP42 — Correct at sophisticated level, false at naive level.**
-  A high-level analogy gets flattened into a false literal identity.
-
-- **AP43 — Central object defined by aspiration, not by axioms.**
-  The text names a grand object before defining it.
-
-- **AP44 — OPE mode is not lambda-bracket coefficient.**
-  Do not forget the divided-power factor.
-
-- **AP45 — Desuspension lowers degree.**
-
-- **AP46 — `eta(q)` includes `q^{1/24}`.**
-
-- **AP47 — Evaluation-generated core is not full category.**
-
-- **AP48 — `kappa` depends on the full algebra, not just the Virasoro subalgebra.**
-
-- **AP49 — Cross-volume paste without convention conversion.**
-  Volume I uses OPE modes; Volume II uses lambda-brackets; Volume III uses motivic/categorical conventions.
-
-### Vol III-Specific Pitfalls
-
-- **AP-CY1**: CY dimension `d` is not complex dimension `n` versus real dimension `2n`.
-- **AP-CY2**: the CY trace is a class in `HC^-_d(C)`, not merely a map `HH_d -> k`.
-- **AP-CY3**: `E_2` is braided, not symmetric in general.
-- **AP-CY4**: Drinfeld center is not derived/chiral center in general.
-- **AP-CY5**: Kazhdan-Lusztig equivalence requires the correct `q` regime.
-- **AP-CY6**: `A_X` for CY3 does not exist as a constructed object in this manuscript.
-- **AP-CY7**: CoHA is not the `E_1`-chiral algebra.
-- **AP-CY8**: Borcherds denominator identity is not automatically a bar Euler product.
-
-## Agent Workflow Anti-Patterns
-
-These are failures at the workflow layer rather than the mathematics layer:
-
-- **AAP1**: tool markup leaked into manuscript files;
-- **AAP2**: fragmented renames that leave mixed terminology;
-- **AAP3**: the same formula reimplemented repeatedly in compute;
-- **AAP4**: proof text appears under conjectural status;
-- **AAP5**: build artifacts and noise pollute diffs and commits;
-- **AAP6**: status oscillates across sessions;
-- **AAP7**: intra-file inconsistency after partial edits;
-- **AAP8**: README and metadata drift away from the manuscript.
-
-Treat them as first-class failures. They create mathematical bugs indirectly.
-
-## Build
+Volume III build:
 
 ```bash
 pkill -9 -f pdflatex 2>/dev/null || true
@@ -514,48 +717,59 @@ sleep 2
 make fast
 ```
 
-Same engine as Volumes I and II: `memoir`, EB Garamond, `newtxmath`, `thmtools`, `microtype`.
+When cross-volume propagation is involved:
 
-## LaTeX Rules
+```bash
+cd ~/chiral-bar-cobar && make fast
+cd ~/chiral-bar-cobar-vol2 && make
+```
 
-- All macros live in the `main.tex` preamble. Never introduce `\newcommand` in chapter files; use `\providecommand` only when appropriate.
-- Label everything: `\label{def:...}`, `\label{thm:...}`, and so on.
-- Cross-reference with `\ref`.
-- Do not add packages without checking preamble compatibility.
-- Do not create a new `.tex` file when the content belongs in an existing chapter.
-- Keep theorem environments and claim-status macros aligned.
-- When changing theorem status, search for every place the claim is advertised.
+For compute work:
 
-## Compute Rules
+- run targeted `pytest` first;
+- expand to a broader suite only if the local slice passes and the scope warrants it.
 
-- New computational claims need tests.
-- New engines should live under `compute/` and come with a targeted `compute/tests/` surface.
-- For any literature constant or coefficient, record the source and normalization in code comments or docstrings.
-- Prefer exact arithmetic when the claim is exact.
-- If a formula is important enough for prose, it is important enough for an independent compute check.
+## Repo-Local Skills and Hooks
 
-## Git — Hard Rule
+This repo may include Codex-native skills under `.agents/skills/` and hook configuration under `.codex/`.
 
-All commits are authored by Raeez Lorgat.
+Use:
 
-Never include:
+- `vol3-beilinson-loop` for hostile audit and rectification;
+- `vol3-chriss-ginzburg-rectification` for chapter-scale structural fortification;
+- `vol3-claim-verification` for formula, theorem, and comparison checks;
+- `vol3-cross-volume-propagation` for AP5/AP49-style sweeps.
+- `vol3-build-surface` for build/test/log triage and stable verification surfaces;
+- `vol3-frontier-research` for new theorem architecture, conjectural synthesis, and truthful frontier packaging;
+- `vol3-compute-engine` for executable witnesses, engine scaffolding, and test-surface design;
+- `vol3-pre-edit-verification` for mandatory pre-edit check blocks on high-risk surfaces;
+- `vol3-swarm-orchestration` for Codex analogues of Claude swarm routines when the user explicitly authorizes delegation.
 
-- `Co-authored-by`
-- "Generated by"
-- any AI attribution
+Current high-value hook surfaces include:
 
-Never commit build artifacts or noise unless explicitly requested.
+- `session_start_context.py` for startup context loading;
+- `user_prompt_router.py` for skill routing and rectification-mode hints;
+- `pre_tool_use_policy.py` for destructive-command and pre-commit guardrails;
+- `post_tool_use_review.py` for build/test failure blocking;
+- `stop_continue.py` for convergence enforcement.
+
+Architectural rule:
+
+- keep this file compressive and always-on;
+- move repeated deep workflows into skills;
+- move deterministic enforcement into hooks or grep-based checks;
+- do not bloat the constitutional layer with playbook detail that belongs elsewhere.
 
 ## Final Meta-Rule
 
-The central failure mode of this project is not lack of sophistication. It is confusing two objects, two conventions, two statuses, or two levels of validity that happen to look similar in a special case.
+The dominant failure mode of this programme is not lack of sophistication. It is confusing two objects, two conventions, two statuses, or two levels of validity that happen to look similar in a special case.
 
-So:
+So before trusting any sentence, name all five:
 
-- name the object;
-- name the convention;
-- name the status;
-- name the verification path;
-- then write the sentence.
+- the object;
+- the convention;
+- the status;
+- the verification path;
+- the scope.
 
-If you cannot do all five, you are not ready to trust the sentence.
+If you cannot name all five, the sentence is not ready.

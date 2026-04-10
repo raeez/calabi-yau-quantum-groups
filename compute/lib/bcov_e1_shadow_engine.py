@@ -1217,16 +1217,18 @@ def shadow_depth_bcov_classification() -> List[ShadowDepthBCOV]:
                 "F_g^{const} = lambda_g^{FP}; full F_g adds Li_{3-2g}(Q) terms."
             ),
         ),
+        # AP-CY12: local P^2 is class M (infinite depth), not G/L/C.
+        # Leading approximation misses the infinite tower.
         ShadowDepthBCOV(
             cy3=local_p2_data(),
-            shadow_class="L",
-            r_max=3,
+            shadow_class="M",
+            r_max=-1,  # infinite
             bcov_interpretation=(
-                "Local P^2 = O(-3) -> P^2 (class L). The cubic prepotential "
-                "C_{ijk} = 3 (triple intersection number of the toric fan) gives "
-                "a non-trivial Yukawa coupling. The shadow tower terminates at "
-                "arity 3 (cubic shadow C). The quartic contact Q = 0 because "
-                "the toric fan has no 4-valent vertices."
+                "Local P^2 = O(-3) -> P^2 (class M, AP-CY12). The cubic "
+                "prepotential C_{ijk} = 3 gives a non-trivial Yukawa coupling "
+                "at leading order, but higher-degree BPS states generate an "
+                "infinite shadow tower. The leading approximation (class L) "
+                "misses this infinite tower."
             ),
         ),
         ShadowDepthBCOV(

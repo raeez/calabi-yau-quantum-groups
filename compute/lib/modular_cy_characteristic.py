@@ -28,7 +28,7 @@ KEY DISTINCTION (from Vol I, AP20/AP24):
   of the CY category C.
 
   chi^CY is NOT the topological Euler characteristic chi_top(X).
-  For K3 x E: chi_top = 0, but chi^CY = kappa = 5.
+  For K3 x E: chi_top = 0; kappa_ch = 3 (proved), kappa_BKM = 5 (conjectural).
 
 DEFINITION of chi^CY (operational, matching Theorem CY-D):
 
@@ -37,7 +37,8 @@ DEFINITION of chi^CY (operational, matching Theorem CY-D):
   partition function.  This is a DERIVED INVARIANT of C, not a simple
   topological one.
 
-  For K3 x E:      kappa = 5 = weight(Delta_5) = (chi(K3) - 4) / 4.
+  For K3 x E:      kappa_ch = 3 (proved, chiral de Rham);
+                    kappa_BKM = 5 = weight(Delta_5) = (chi(K3) - 4) / 4 (conjectural).
   For elliptic E:  kappa = 1 = level of Heisenberg H_1.
   For K3 surface:  kappa = 2 = chi(O_{K3}) (arithmetic genus).
   For point:       kappa = 0.
@@ -258,20 +259,51 @@ def chi_cy_k3() -> ModularCYCharacteristic:
 
 
 def chi_cy_k3_times_e() -> ModularCYCharacteristic:
-    r"""chi^CY(D^b(K3 x E)) = 5 (Theorem CY-D).
+    r"""chi^CY(D^b(K3 x E)) -- BKM weight 5, chiral kappa 3.
 
-    weight(Delta_5) = 5 = (chi(K3) - 4) / 4 = (24 - 4) / 4.
-    DT partition function: Z = C / (Delta_5)^2.
+    TWO DISTINCT KAPPAS (AP113):
+      kappa_ch(K3 x E) = 3   (PROVED, chiral de Rham: kappa(K3) + kappa(E) = 2 + 1)
+      kappa_BKM(K3 x E) = 5  (CONJECTURAL, Borcherds weight: (chi(K3)-4)/4 = 5)
+
+    The .kappa field stores kappa_ch = 3 (the proved chiral value).
+    For kappa_BKM = 5, use kappa_bkm_k3_times_e().
+    The .chi_cy field stores 5 = weight(Delta_5) for backward compatibility;
+    the match kappa_ch == chi_cy is FALSE (the identification chi^CY = kappa_BKM
+    is conjectural).
+
+    DT partition function: Z = C / (Delta_5)^2, weight(Delta_5) = 5.
     """
     return ModularCYCharacteristic(
         name="K3 x E",
         chi_cy=Fraction(5),
-        kappa=Fraction(5),
-        match=True,
-        source="Theorem CY-D + Borcherds product (Delta_5)",
+        # AP113: kappa_ch = 3 (proved, chiral de Rham), NOT kappa_BKM = 5
+        kappa=Fraction(3),
+        match=False,  # chi_cy=5 (BKM) != kappa_ch=3
+        source="kappa_ch PROVED (chiral de Rham); kappa_BKM=5 CONJECTURAL (Borcherds)",
         chi_top=0,
         dimension=3,
     )
+
+
+def kappa_ch_k3_times_e() -> Fraction:
+    r"""kappa_ch(K3 x E) = 3 (PROVED, chiral de Rham).
+
+    kappa_ch(K3 x E) = kappa(K3) + kappa(E) = 2 + 1 = 3.
+    This is the modular characteristic of the chiral algebra.
+    AP113: subscript _ch mandatory in Vol III.
+    """
+    # AP1: from landscape_census; k=0 -> 0 trivially (abelian)
+    return Fraction(3)
+
+
+def kappa_bkm_k3_times_e() -> Fraction:
+    r"""kappa_BKM(K3 x E) = 5 (CONJECTURAL, Borcherds weight).
+
+    weight(Delta_5) = 5 = (chi(K3) - 4) / 4 = (24 - 4) / 4.
+    This is the weight of the Borcherds automorphic form, NOT the
+    chiral modular characteristic.  AP113: subscript _BKM mandatory.
+    """
+    return Fraction(5)
 
 
 def chi_cy_quintic() -> ModularCYCharacteristic:
@@ -353,13 +385,16 @@ def categorical_trace_half_hh0(hd: HodgeDiamond) -> Fraction:
 # =========================================================================
 
 def chi_cy_additivity_test() -> Dict[str, Any]:
-    r"""Test additivity of kappa under independent sums.
+    r"""Test additivity of kappa_ch under independent sums.
 
     Additivity HOLDS for direct sums of categories:
       chi^CY(C_1 oplus C_2) = chi^CY(C_1) + chi^CY(C_2)
 
-    Additivity FAILS for K3 x E:
-      chi^CY(K3) + chi^CY(E) = 2 + 1 = 3  !=  chi^CY(K3 x E) = 5.
+    kappa_ch IS additive for K3 x E (AP113):
+      kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3 = kappa_ch(K3 x E).
+
+    The NON-additivity is between kappa_ch=3 and kappa_BKM=5:
+      kappa_BKM(K3 x E) = 5 != kappa_ch(K3 x E) = 3.
 
     Additivity HOLDS for products of elliptic curves:
       kappa(E x E) = kappa(H_1 + H_1) = 1 + 1 = 2.
@@ -767,15 +802,19 @@ def verify_all_cy_characteristics() -> Dict[str, bool]:
     results["chi_cy_k3xe_5"] = (chi_cy_k3_times_e().chi_cy == 5)
     results["chi_cy_conifold_1"] = (chi_cy_resolved_conifold().chi_cy == 1)
 
-    # All matches hold
+    # All matches hold (where chi_cy == kappa_ch)
+    # AP113: K3xE excluded -- kappa_ch=3 (proved) != chi_cy=5 (kappa_BKM, conjectural)
     for name, func in [("point", chi_cy_point), ("elliptic", chi_cy_elliptic),
-                       ("K3", chi_cy_k3), ("K3xE", chi_cy_k3_times_e),
+                       ("K3", chi_cy_k3),
                        ("conifold", chi_cy_resolved_conifold)]:
         data = func()
         results[f"match_{name}"] = data.match
+    # K3xE: match is intentionally False (kappa_ch != chi_cy)
+    results["match_K3xE_kappa_ch_neq_chi_cy"] = (chi_cy_k3_times_e().match is False)
 
     # Shadow obstruction tower positivity for positive kappa
-    tower_k3xe = shadow_tower_scalar(Fraction(5), 5)
+    # AP113: use kappa_ch=3 for the chiral shadow tower
+    tower_k3xe = shadow_tower_scalar(Fraction(3), 5)
     results["shadow_k3xe_all_positive"] = all(f > 0 for f in tower_k3xe.values())
 
     tower_e = shadow_tower_scalar(Fraction(1), 5)

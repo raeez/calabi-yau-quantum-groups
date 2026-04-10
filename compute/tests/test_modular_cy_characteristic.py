@@ -267,13 +267,17 @@ class TestModularCYCharacteristic:
         assert data.kappa == 2
         assert data.match is True
 
-    def test_k3_times_e_kappa_5(self):
-        """chi^CY(D^b(K3 x E)) = 5 = weight(Delta_5). Core result."""
+    def test_k3_times_e_kappa_ch_3(self):
+        """kappa_ch(K3 x E) = 3 (proved, chiral de Rham); chi_cy = 5 (BKM weight).
+
+        AP113: kappa_ch vs kappa_BKM are distinct for K3 x E.
+        # VERIFIED [DC] kappa(K3)+kappa(E)=2+1=3 [LT] chiral de Rham sheaf
+        """
         data = chi_cy_k3_times_e()
-        assert data.chi_cy == 5
-        assert data.kappa == 5
-        assert data.match is True
-        assert data.source == "Theorem CY-D + Borcherds product (Delta_5)"
+        assert data.chi_cy == 5  # BKM weight, backward compat
+        assert data.kappa == 3   # AP113: kappa_ch = 3 (proved)
+        assert data.match is False  # chi_cy=5 (BKM) != kappa_ch=3
+        assert "kappa_ch PROVED" in data.source
 
     def test_quintic_conjectural(self):
         """chi^CY(quintic) = -25/3 (CONJECTURAL, from chi/24)."""
@@ -327,17 +331,25 @@ class TestAdditivity:
         data = chi_cy_additivity_test()
         assert data["kappa_additivity_direct_sum"] is True
 
-    def test_k3xe_not_additive(self):
-        """kappa(K3 x E) != kappa(K3) + kappa(E): 5 != 2 + 1 = 3."""
+    def test_k3xe_kappa_ch_additive(self):
+        """kappa_ch IS additive: kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 3.
+
+        AP113: the old non-additivity was an artifact of conflating kappa_ch=3
+        with kappa_BKM=5.  kappa_ch is the proved chiral value and IS additive.
+        # VERIFIED [DC] 2+1=3 [LT] chiral de Rham
+        """
         data = chi_cy_additivity_test()
-        assert data["product_is_additive_K3xE"] is False
-        assert data["kappa_K3xE"] == 5
+        assert data["product_is_additive_K3xE"] is True  # kappa_ch additive
+        assert data["kappa_K3xE"] == 3  # kappa_ch, not kappa_BKM
         assert data["kappa_K3_plus_E"] == 3
 
-    def test_k3xe_discrepancy(self):
-        """The discrepancy kappa(K3xE) - kappa(K3) - kappa(E) = 2."""
+    def test_k3xe_no_discrepancy_kappa_ch(self):
+        """kappa_ch(K3xE) - kappa_ch(K3) - kappa_ch(E) = 0 (additive).
+
+        AP113: discrepancy was 5-3=2 when conflating kappa_BKM with kappa_ch.
+        """
         data = chi_cy_additivity_test()
-        assert data["K3xE_discrepancy"] == 2
+        assert data["K3xE_discrepancy"] == 0
 
     def test_product_elliptic_n1(self):
         """kappa(E^1) = 1."""
@@ -528,12 +540,16 @@ class TestBCOV:
         assert c1_generic == Fraction(31, 3)
 
     def test_bcov_c1_not_equal_kappa(self):
-        """c_1^{BCOV} != kappa in general. For K3xE: c_1 = 12, kappa = 5."""
+        """c_1^{BCOV} != kappa_ch in general. For K3xE: c_1 = 12, kappa_ch = 3.
+
+        AP113: kappa_ch (proved), not kappa_BKM=5 (conjectural).
+        # VERIFIED [DC] c1_bcov=12 != 3 [LC] distinct invariants
+        """
         data = bcov_k3_times_e()
         k3e = chi_cy_k3_times_e()
         assert data.c1_bcov != k3e.kappa
         assert data.c1_bcov == 12
-        assert k3e.kappa == 5
+        assert k3e.kappa == 3  # AP113: kappa_ch, not kappa_BKM
 
 
 # ======================================================================
@@ -691,27 +707,46 @@ class TestCrossConsistency:
         assert hkr_k3_times_e().euler_hh == 0
 
     def test_chi_cy_matches_kappa_for_proved(self):
-        """chi^CY = kappa for all proved cases."""
-        proved = [chi_cy_point, chi_cy_elliptic, chi_cy_k3,
-                  chi_cy_k3_times_e, chi_cy_resolved_conifold]
-        for func in proved:
+        """chi^CY = kappa for proved cases where the two coincide.
+
+        AP113: K3 x E excluded -- kappa_ch=3 != chi_cy=5 (the latter is kappa_BKM).
+        """
+        proved_matching = [chi_cy_point, chi_cy_elliptic, chi_cy_k3,
+                           chi_cy_resolved_conifold]
+        for func in proved_matching:
             data = func()
             assert data.match is True, f"Mismatch for {data.name}"
+        # K3 x E: match is False (kappa_ch=3 vs chi_cy=5=kappa_BKM)
+        k3e = chi_cy_k3_times_e()
+        assert k3e.match is False, "K3xE: kappa_ch != chi_cy (AP113)"
 
-    def test_shadow_f1_from_chi_cy(self):
-        """F_1 computed from chi^CY matches direct computation."""
+    def test_shadow_f1_from_kappa_ch(self):
+        """F_1 = kappa_ch / 24 from the chiral shadow amplitude.
+
+        AP113: uses kappa_ch (the .kappa field), not kappa_BKM.
+        K3 x E: F_1 = 3/24 = 1/8 from kappa_ch=3, NOT 5/24 from kappa_BKM=5.
+        # VERIFIED [DC] kappa/24 [CF] matches elliptic and K3 pattern
+        """
         for func, expected_f1 in [(chi_cy_elliptic, Fraction(1, 24)),
                                    (chi_cy_k3, Fraction(2, 24)),
-                                   (chi_cy_k3_times_e, Fraction(5, 24))]:
+                                   (chi_cy_k3_times_e, Fraction(3, 24))]:
             data = func()
             f1 = shadow_amplitude_genus1(data.kappa)
             assert f1 == expected_f1, f"F_1 mismatch for {data.name}"
 
     def test_k3xe_weight_5_from_cy_euler(self):
-        """kappa(K3 x E) = 5 consistent with cy_euler.py."""
+        """cy_euler kappa_k3_times_e() = 5 is kappa_BKM, not kappa_ch.
+
+        AP113: cy_euler returns kappa_BKM=5 (Borcherds weight);
+        modular_cy_characteristic.kappa now returns kappa_ch=3 (proved).
+        The two are DISTINCT invariants.
+        # VERIFIED [DC] kappa_ch=2+1=3 [LT] Borcherds wt(Delta_5)=5
+        """
         from compute.lib.cy_euler import kappa_k3_times_e as kappa_from_cy_euler
-        assert kappa_from_cy_euler() == 5
-        assert chi_cy_k3_times_e().kappa == 5
+        assert kappa_from_cy_euler() == 5  # kappa_BKM from cy_euler
+        assert chi_cy_k3_times_e().kappa == 3  # kappa_ch (AP113)
+        # The two are different invariants
+        assert kappa_from_cy_euler() != chi_cy_k3_times_e().kappa
 
     def test_bcov_c1_positive_for_standard_cy3(self):
         """c_1^{BCOV} > 0 for all standard CY3s (physical requirement).
@@ -873,9 +908,16 @@ class TestHodgeToKappa:
         """(chi(K3) - 4) / 4 = (24 - 4) / 4 = 5."""
         assert kappa_from_k3_fibration(24) == Fraction(5)
 
-    def test_k3_fibration_matches_chi_cy(self):
-        """K3 fibration formula matches chi^CY(K3 x E)."""
-        assert kappa_from_k3_fibration() == chi_cy_k3_times_e().kappa
+    def test_k3_fibration_is_kappa_bkm(self):
+        """K3 fibration formula (chi(K3)-4)/4 = 5 is kappa_BKM, not kappa_ch.
+
+        AP113: kappa_from_k3_fibration()=5 matches kappa_BKM, not the
+        .kappa field (which is now kappa_ch=3).
+        # VERIFIED [DC] (24-4)/4=5 [CF] matches Borcherds weight
+        """
+        from compute.lib.modular_cy_characteristic import kappa_bkm_k3_times_e
+        assert kappa_from_k3_fibration() == kappa_bkm_k3_times_e()
+        assert kappa_from_k3_fibration() != chi_cy_k3_times_e().kappa  # != kappa_ch
 
     def test_k3_fibration_hypothetical(self):
         """Hypothetical K3 with chi=16: (16-4)/4 = 3."""
@@ -894,7 +936,7 @@ class TestHodgeToKappa:
         assert kappa_conjectural_cy3(-200) == Fraction(-25, 3)
 
     def test_conjectural_cy3_fails_for_k3xe(self):
-        """chi_top/24 = 0/24 = 0 for K3 x E, but kappa = 5. Formula fails."""
+        """chi_top/24 = 0/24 = 0 for K3 x E, but kappa_ch = 3. Formula fails."""
         assert kappa_conjectural_cy3(0) == Fraction(0)
         assert kappa_conjectural_cy3(0) != chi_cy_k3_times_e().kappa
 

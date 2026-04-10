@@ -305,11 +305,14 @@ class TestCY3ShadowData:
 
     # --- Local P^2 ---
 
-    def test_local_p2_shadow_class_L(self):
-        """Local P^2: class L (Lie/tree)."""
+    def test_local_p2_shadow_class_M(self):
+        """Local P^2: class M (infinite depth).
+        AP-CY12: local P^2 is class M, not G/L/C.
+        Leading approximation misses the infinite tower.
+        """
         d = cy3_shadow_data_local_p2()
-        assert d.shadow_class == "L"
-        assert d.r_max == 3
+        assert d.shadow_class == "M"
+        assert d.r_max == -1  # infinite
 
     def test_local_p2_kappa(self):
         """Local P^2 kappa = 3/2."""
@@ -317,7 +320,7 @@ class TestCY3ShadowData:
         assert d.kappa == Fraction(3, 2)
 
     def test_local_p2_sc_nonformal(self):
-        """Local P^2: class L, NOT SC-formal (m_3^{SC} != 0)."""
+        """Local P^2: class M, NOT SC-formal (AP-CY12)."""
         d = cy3_shadow_data_local_p2()
         assert d.sc_formal is False
 
@@ -551,10 +554,12 @@ class TestShadowGeometryBridge:
         assert b.gw_finite is False
 
     def test_local_p2_bridge(self):
-        """Local P^2: class L, DT infinite, GW finite (class L -> finite tower)."""
+        """Local P^2: class M, DT infinite, GW infinite (infinite tower).
+        AP-CY12: local P^2 is class M, not G/L/C.
+        """
         b = shadow_geometry_bridge("local P^2")
-        assert b.shadow_class == "L"
-        assert b.gw_finite is True
+        assert b.shadow_class == "M"
+        assert b.gw_finite is False
 
     def test_k3xe_bridge(self):
         """K3 x E: class M."""
@@ -738,7 +743,7 @@ class TestSCFormality:
         assert f.formality_depth == -1
 
     def test_local_p2_nonformal(self):
-        """Local P^2 is NOT SC-formal (class L: m_3^{SC} != 0)."""
+        """Local P^2 is NOT SC-formal (class M, AP-CY12)."""
         f = sc_formality_cy3("local P^2")
         assert f.sc_formal is False
 
@@ -776,14 +781,17 @@ class TestLandscapeCensus:
         assert c.total == 5
 
     def test_census_class_counts(self):
-        """Class distribution: G=1, L=1, M=3."""
+        """Class distribution: G=1, L=0, M=4.
+        AP-CY12: local P^2 is class M (infinite depth), not G/L/C.
+        Leading approximation misses the infinite tower.
+        """
         c = cy3_landscape_census()
         assert c.class_counts.get('G', 0) == 1
-        assert c.class_counts.get('L', 0) == 1
-        assert c.class_counts.get('M', 0) == 3
+        assert c.class_counts.get('L', 0) == 0
+        assert c.class_counts.get('M', 0) == 4
 
     def test_census_formal_count(self):
-        """1 SC-formal CY3 (conifold only; local P^2 is class L, NOT SC-formal)."""
+        """1 SC-formal CY3 (conifold only; local P^2 is class M, NOT SC-formal)."""
         c = cy3_landscape_census()
         assert c.formal_count == 1
 

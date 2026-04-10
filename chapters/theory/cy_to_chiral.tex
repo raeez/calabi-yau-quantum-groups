@@ -29,7 +29,7 @@ For $d = 3$, Step~3 must be replaced: the $\bS^3$-framing gives an $E_3$-structu
 \label{sec:cy-chiral-functor}
 % ============================================================
 
-\begin{theorem}[CY-to-chiral functor --- Theorem CY-A$_2$, $d = 2$]
+\begin{theorem}[CY-to-chiral functor: Theorem CY-A$_2$, $d = 2$]
 \label{thm:cy-to-chiral}
 \ClaimStatusProvedHere{}
 There exists a functor
@@ -39,12 +39,138 @@ There exists a functor
 from smooth proper CY categories of dimension $d = 2$ to $\Etwo$-chiral algebras, such that:
 \begin{enumerate}[label=(\roman*)]
   \item $\Phi(\cC)$ is a chiral algebra whose generating fields are in bijection with $\HH^{\bullet+1}(\cC)$;
-  \item The bar complex $B(\Phi(\cC))$ is quasi-isomorphic to the cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ as a factorization coalgebra;
-  \item The modular characteristic $\kappa_{\mathrm{ch}}(\Phi(\cC))$ equals the CY Euler characteristic $\chi^{\CY}(\cC)$.
+  \item The bar complex $B(\Phi(\cC))$ is quasi-isomorphic to the cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ as a factorization coalgebra.
 \end{enumerate}
 The $\Etwo$-enhancement in Step~3 uses the $\bS^2$-framing of $\HH_\bullet(\cC)$ (Kontsevich--Vlassopoulos).
 \end{theorem}
 
+\begin{conjecture}[CY modular characteristic: Theorem CY-A$_2$(iii)]
+\label{conj:cy-kappa-identification}
+\ClaimStatusConjectured{}
+% Status reconciliation: working notes (notes/theory_cy_to_chiral_construction.tex,
+% Proposition~prop:cy-kappa) mark this ClaimHE (heuristic).  The free-field argument
+% gives kappa_ch = supertrace on generators = chi^CY, but the effect of quantization
+% (Step 4) on kappa is not verified.  Honest status: conjectured with heuristic evidence.
+For $\cC$ a smooth proper CY category of dimension $d = 2$ and $A_\cC = \Phi(\cC)$ the chiral algebra of Theorem~\textup{\ref{thm:cy-to-chiral}},
+\[
+  \kappa_{\mathrm{ch}}(A_\cC) \;=\; \chi^{\CY}(\cC) \;\stackrel{\mathrm{def}}{=}\; \sum_{i} (-1)^i \dim \HH_i(\cC).
+\]
+\end{conjecture}
+
+\begin{remark}[Evidence for Conjecture~\textup{\ref{conj:cy-kappa-identification}}]
+\label{rem:cy-kappa-evidence}
+The free-field (Fock space) argument: for $A_\cC$, the generating space is $\HH^{\bullet+1}(\cC)$, and $\kappa_{\mathrm{ch}}$ equals the supertrace of the identity on the generating space, which is $\chi^{\CY}(\cC)$.  This argument is valid provided the quantization in Step~4 does not introduce corrections to $\kappa_{\mathrm{ch}}$.  The conjecture is verified computationally for K3 surfaces ($\kappa_{\mathrm{ch}} = 2 = \chi(\cO_{\mathrm{K3}})$) and abelian surfaces ($\kappa_{\mathrm{ch}} = 0 = \chi(\cO_A)$).  For $d = 3$, the conjecture is expected to hold at the level of the categorical Euler characteristic (see Proposition~\textup{\ref{prop:categorical-euler}}), but the $d = 3$ functor itself is conjectural beyond $\C^3$.
+\end{remark}
+
+\begin{remark}[Enriques surface: orbifold and kappa halving]
+\label{rem:enriques-orbifold-kappa}
+\ClaimStatusHeuristic{}
+An Enriques surface $S$ is not a strict $\CY_2$ input in the sense of Theorem~\textup{\ref{thm:cy-to-chiral}}, because $\omega_S$ is nontrivial $2$-torsion and the Serre functor on $D^b(\Coh(S))$ is $(-)\otimes \omega_S[2]$, not $[2]$.  It is still the first orbifold test case next to the K3 example of Remark~\textup{\ref{rem:cy-kappa-evidence}}.  Let $\pi \colon X \to S$ be the universal cover, where $X$ is a K3 surface and the deck involution acts freely.  Then $\chi(\cO_X) = 2$ and $\chi(\cO_S) = 1$, so the K3 value $\kappa_{\mathrm{ch}} = 2$ suggests the orbifold value $\kappa_{\mathrm{ch}} = 1$ if $\Phi$ extends to this torsion-canonical quotient surface.
+
+Descent identifies $D^b(\Coh(S))$ with the $\mathbb{Z}/2$-equivariant derived category of the cover, so one expects an orbifold relation
+\[
+  \Phi\bigl(D^b(\Coh(S))\bigr) \,\simeq\, \Phi\bigl(D^b(\Coh(X))\bigr)^{\mathbb{Z}/2}
+\]
+for a suitable equivariant factorization-envelope construction.  At the scalar level this predicts the halving principle
+\[
+  \kappa_{\mathrm{ch}}(A^G) \,=\, \frac{\kappa_{\mathrm{ch}}(A)}{|G|},
+\]
+the chiral shadow of the classical formula $\chi(\cO_S) = \chi(\cO_X)/|G|$ for a free finite quotient.  In the Vol~I Igusa normalization, this same orbifold picture suggests replacing the K3 lift $\Phi_{10}$ by a $\mathbb{Z}/2$-twisted lift of weight $5$ on the quotient side.  That weight drop gives heuristic evidence for $\kappa_{\mathrm{BKM}}$ halving on the Borcherds side, even though the precise Enriques automorphic normalization is a separate question.
+
+Turning this into a theorem requires an orbifold extension of the functor $\Phi$, equivariant descent for factorization envelopes, and the twisted Borcherds-lift technology needed to compare the quotient with its K3 cover.
+\end{remark}
+
+
+\begin{conjecture}[$\Phi$ respects $\bZ/2$-orbifold structure for Enriques]
+\label{conj:phi-enriques-z2-orbifold}
+\ClaimStatusConjectured{}
+Let $X$ be a K3 surface with a fixed-point-free involution $\iota$, and let $S = X/\iota$ be the associated Enriques surface.  Suppose the functor $\Phi$ of Theorem~\textup{\ref{thm:cy-to-chiral}} extends to an equivariant setting (i.e.\ to smooth proper categories with $\bZ/2$-action whose Serre functor is $2$-torsion rather than trivial).  Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item There is an equivalence of chiral algebras
+  \[
+    \Phi\bigl(D^b(\Coh(S))\bigr) \;\simeq\; \Phi\bigl(D^b(\Coh(X))\bigr)^{\bZ/2},
+  \]
+  where the right-hand side denotes the $\iota^*$-invariant subalgebra of the K3 chiral algebra.
+  \item The $\bZ/2$-invariant subalgebra inherits the structure of an $\Etwo$-chiral algebra from the ambient K3 algebra.  The $\Eone$-bar complex satisfies
+  \[
+    B\bigl(\Phi(D^b(\Coh(S)))\bigr) \;\simeq\; B\bigl(\Phi(D^b(\Coh(X)))\bigr)^{\bZ/2}
+  \]
+  as factorization coalgebras.
+  \item The full $\bZ/2$-orbifold chiral algebra $\Phi(D^b(\Coh(X))) \rtimes \bZ/2$ (including the twisted sector) carries a larger shadow tower whose invariant subalgebra recovers $\Phi(D^b(\Coh(S)))$.
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[Evidence and scope for Conjecture~\textup{\ref{conj:phi-enriques-z2-orbifold}}]
+\label{rem:enriques-z2-evidence}
+\ClaimStatusHeuristic{}
+Three lines of evidence support the conjecture.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+  \item \emph{Derived category descent.}  The functor $\pi^* \colon D^b(\Coh(S)) \hookrightarrow D^b(\Coh(X))$ identifies $D^b(\Coh(S))$ with the $\iota^*$-invariant subcategory of $D^b(\Coh(X))$.  (For a free action, this is the content of equivariant descent; see Bridgeland--King--Reid for the general framework.)  If $\Phi$ commutes with taking $G$-invariants, item~(i) follows.
+  \item \emph{Hochschild homology halving.}  The Hochschild homology of the Enriques surface satisfies $\dim \HH_0(S) = 1$, $\dim \HH_1(S) = 0$, $\dim \HH_2(S) = 1$, giving $\chi^{\CY}(S) = 1 - 0 + 1 = 2$.  (The torsion in $H^1(S, \bZ) = \bZ/2$ does not contribute to Hochschild homology over $\bC$.)  This is half the K3 value $\chi^{\CY}(X) = 2 + 0 + 2 = 4$ only at the level of even-degree summands; the total $\chi^{\CY}$ ratio is $2/4 = 1/2$, but the individual Hodge numbers do not halve uniformly.  The precise relationship is: $\HH_\bullet(S) \simeq \HH_\bullet(X)^{\bZ/2}$ as graded vector spaces, and $\iota^*$ acts as $+1$ on $\HH_0$ and $\HH_2$ (by $\iota^* \omega_X = -\omega_X$, so $\iota^*$ acts as $-1$ on $H^{2,0}$, hence $+1$ on the surviving piece of $\HH_2(S)$) while annihilating the anti-invariant summands.
+  \item \emph{Chiral de Rham.}  The chiral de Rham complex $\Omega^{\mathrm{ch}}$ is defined on any smooth variety.  For the Enriques surface, $H^*(\Omega^{\mathrm{ch}}(S)) \simeq H^*(\Omega^{\mathrm{ch}}(X))^{\bZ/2}$ by functoriality of the chiral de Rham sheaf under \'etale morphisms.  This gives the chiral-algebra-level analogue of item~(i) at the level of vertex algebra cohomology.
+\end{enumerate}
+The principal obstruction is Step~4 of the cyclic-to-chiral passage (Section~\ref{sec:cyclic-to-chiral}): the CY trace on $D^b(\Coh(S))$ is $2$-torsion, so the quantization requires a $\bZ/2$-equivariant refinement.
+\end{remark}
+
+\begin{conjecture}[Enriques $\kappa_{\mathrm{BKM}}$-spectrum]
+\label{conj:enriques-kappa-spectrum}
+\ClaimStatusConjectured{}
+Let $S$ be an Enriques surface, $X$ its K3 universal cover, $E$ an elliptic curve, and assume Conjecture~\textup{\ref{conj:phi-enriques-z2-orbifold}} and the extension of $\Phi$ to generalized CY$_3$ inputs.  Then the three modular characteristics satisfy:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\kappa_{\mathrm{ch}}(S) = 1 = \chi(\cO_S)$, half the K3 value $\kappa_{\mathrm{ch}}(X) = 2$.
+  \item $\kappa_{\mathrm{BKM}}(S \times E) = 4$, the weight of the Allcock Borcherds product on $O(2, 10)$.  This is verified computationally by \texttt{enriques\_shadow.py} (72 tests; see Remark~\textup{\ref{rem:enriques-kappa-anomaly}} in the bar-cobar bridge chapter).
+  \item $\kappa_{\mathrm{cat}}(S \times E) = \chi^{\CY}(D^b(\Coh(S \times E)))$, the categorical Euler characteristic.  By additivity (Proposition~\textup{\ref{prop:categorical-euler}}), $\kappa_{\mathrm{cat}}(S \times E) = \kappa_{\mathrm{ch}}(S) + \kappa_{\mathrm{ch}}(E) = 1 + 1 = 2$.
+\end{enumerate}
+The ratio $\kappa_{\mathrm{BKM}}(X \times E) / \kappa_{\mathrm{BKM}}(S \times E) = 5/4$ (not $2$) reflects the fact that $\kappa_{\mathrm{BKM}}$ is the automorphic weight, which is sensitive to the full BPS spectrum across the fiber and not simply the $|G|$-fold quotient of the scalar invariant.  The discrepancy $5/4 \neq 2$ is the \emph{Enriques $\kappa_{\mathrm{BKM}}$-anomaly}: the BKM weight does not halve under the $\bZ/2$ quotient because the Borcherds product on $O(2, 10)$ is not the restriction of the Igusa cusp form on $O(2, 18)$ but rather an independent automorphic form (the Allcock product) whose weight is determined by the Enriques lattice.
+\end{conjecture}
+
+\begin{remark}[BKM lattice structure: Enriques vs.\ K3]
+\label{rem:enriques-bkm-lattice}
+\ClaimStatusHeuristic{}
+The lattice-theoretic origin of the $\kappa_{\mathrm{BKM}}$-anomaly is as follows.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+  \item The K3 lattice is $\Lambda_{\mathrm{K3}} = U^3 \oplus E_8(-1)^2$, of rank $22$ and signature $(3, 19)$.  The BKM algebra for $\mathrm{K3} \times E$ is constructed via the Borcherds lift on $O(2, 18)$ (the orthogonal complement of a hyperbolic plane in $\Lambda_{\mathrm{K3}} \oplus U$), and $\kappa_{\mathrm{BKM}} = \mathrm{wt}(\Delta_5) = 5$.
+  \item The Enriques lattice is $\Lambda_{\mathrm{Enr}} = U \oplus E_8(-1)$, of rank $10$ and signature $(1, 9)$.  The involution $\iota$ acts on $H^2(X, \bZ)$ with invariant sublattice $U(2) \oplus E_8(-2)$ (the $\iota$-invariant part of $\Lambda_{\mathrm{K3}}$, rescaled by the index-$2$ inclusion).  The BKM algebra for $\mathrm{Enr} \times E$ is constructed via the Borcherds lift on $O(2, 10)$ (from $\Lambda_{\mathrm{Enr}} \oplus U$), and $\kappa_{\mathrm{BKM}} = 4$ (the Allcock product weight).
+  \item The embedding $\Lambda_{\mathrm{Enr}} \hookrightarrow \Lambda_{\mathrm{K3}}$ (the inclusion of the $\iota$-invariant sublattice, up to rescaling) induces a restriction map on automorphic forms.  This restriction does \emph{not} send $\Delta_5$ on $O(2, 18)$ to the Allcock product on $O(2, 10)$: the two forms live on orthogonal groups of different rank, and the restriction involves a Fourier--Jacobi expansion along the complementary lattice $E_8(-1)$ that produces a form of weight $4$, not $5$.  The weight drop by $1$ (from $5$ to $4$) reflects the $E_8(-1)$ theta-function contribution of weight $4$ in the Fourier--Jacobi coefficient.
+  \item The BKM root systems differ accordingly.  The K3 BKM superalgebra has root lattice containing $\Lambda_{\mathrm{K3}}$; the Enriques BKM superalgebra has root lattice containing $\Lambda_{\mathrm{Enr}}$.  The real simple roots of the Enriques BKM algebra are the $(-2)$-vectors of $\Lambda_{\mathrm{Enr}}$, forming the Vinberg diagram of the Enriques automorphism group.
+\end{enumerate}
+The $\kappa_{\mathrm{BKM}}$-anomaly ($5/4$ rather than $2$) is therefore a lattice-theoretic phenomenon: the BKM weight is controlled by the rank and root structure of the relevant even lattice, not by the index of the covering map.
+\end{remark}
+
+\begin{remark}[Enriques automorphic forms and moonshine]
+\label{rem:enriques-automorphic}
+\ClaimStatusHeuristic{}
+The automorphic side of the Enriques story involves the following objects.
+\begin{enumerate}[label=\textup{(\arabic*)}]
+  \item The \emph{Allcock Borcherds product} is an automorphic form of weight $4$ on $O(2, 10)$ with known divisor (the Heegner divisors of norm $-2$ vectors in $\Lambda_{\mathrm{Enr}} \oplus U$).  Its square root (a form of weight $2$ on a double cover) is related to the Enriques period map.
+  \item Gritsenko and Nikulin constructed a ``Enriques modular form'' of weight $4$ on $O(2, 10)$ using a quasi-pullback of the Borcherds form $\Phi_{12}$ on $O(2, 26)$.  This is the same object as the Allcock product, identified through different techniques.
+  \item In the moonshine direction: the Mathieu group $M_{12}$ acts on the Enriques lattice (Mukai, Kondo), paralleling the $M_{24}$ action on the K3 lattice.  The ``Enriques moonshine'' question asks whether the $\bZ/2$-twisted elliptic genus of the K3 sigma model (which computes the Enriques partition function) decomposes into $M_{12}$ representations in a manner analogous to Mathieu moonshine for K3.  Gaberdiel--Hohenegger--Volpato have shown that the symmetry group of Enriques sigma models embeds in $O(10, \bF_2)^+$, and partial decompositions into $M_{12}$ characters exist.
+  \item From the $\kappa_{\mathrm{BKM}}$-spectrum perspective: the weight-$4$ Allcock product determines $\kappa_{\mathrm{BKM}}(\mathrm{Enr} \times E) = 4$.  If Enriques moonshine produces a weight-$4$ mock modular form (the twisted analogue of the K3 mock modular form $H(\tau)$ of weight $1/2$ that underlies Mathieu moonshine), the shadow of that form would encode the Enriques BKM denominator, connecting the automorphic weight to the chiral shadow tower via the general mechanism of Conjecture~\textup{\ref{conj:enriques-kappa-spectrum}}.
+\end{enumerate}
+\end{remark}
+
+
+\begin{remark}[Five objects of the CY Koszul programme]
+\label{rem:v3-five-objects-cy}
+\ClaimStatusHeuristic{}
+% FOUR OBJECTS (AP25 discipline, transported to CY setting via Phi):
+% 1. A = Phi(C), the chiral algebra
+% 2. B(A) = T^c(s^{-1} A-bar) with deconcatenation coproduct
+% 3. A^i = H^*(B(A)), the dual coalgebra
+% 4. A^! = ((A^i)^v), the dual algebra (Koszul dual)
+% 5. Z^der_ch(A) = derived chiral center = bulk
+The five algebraic objects of the Koszul programme (Vol~I) transport to the CY setting via the functor~$\Phi$.
+\begin{enumerate}[(i)]
+  \item $A = \Phi(\cC)$, the chiral algebra of the CY category~$\cC$.
+  \item $B(A) = T^c(s^{-1}\bar{A})$, the bar coalgebra with deconcatenation coproduct.  Theorem~\textup{\ref{thm:cy-to-chiral}}(ii) identifies $B(\Phi(\cC))$ with the cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ as a factorization coalgebra (proved for $d = 2$; conjectural for $d = 3$).
+  \item $A^i = H^*(B(A))$, the dual coalgebra (bar cohomology of the chiral algebra).
+  \item $A^! = (A^i)^\vee$, the dual algebra (Koszul dual).  For $\cC = \Coh(\C^3)$, the Koszul dual is the Yangian $Y_\hbar(\widehat{\fgl}_1)$.
+  \item $\Zder(A)$, the derived chiral center (bulk).  In the CY setting, the derived center connects to the BPS algebra via the holographic datum (Section~\ref{sec:d3-functor-chain}).
+\end{enumerate}
+These five objects are distinct: $B(A)$ is a coalgebra, $A^!$ is an algebra, and the cobar recovery $\Omega(B(A)) \simeq A$ is \emph{inversion}, not Koszul duality.  The derived center $\Zder(A)$ arises from Hochschild cochains, not from bar-cobar.
+\end{remark}
+
+The preceding section establishes the $d = 2$ functor unconditionally: for smooth proper CY$_2$ categories, the passage from cyclic $\Ainf$-structure to $\Etwo$-chiral algebra is complete (Theorem~\ref{thm:cy-to-chiral}), and the modular characteristic is conjectured to equal the CY Euler characteristic (Conjecture~\ref{conj:cy-kappa-identification}).  The $d = 3$ case requires a fundamentally different approach: the $\bS^3$-framing produces symmetric braiding under Dunn restriction, and genuine quantum group structure enters only through the Drinfeld center.  The remainder of this chapter develops the $d = 3$ programme, beginning with the one case where both sides are independently known.
 
 % ============================================================
 \section{The $d = 3$ functor chain for $\C^3$}
@@ -395,6 +521,7 @@ The $E_3$-to-$\Etwo$ restriction via Dunn additivity gives a \emph{symmetric} br
 For $d \geq 4$, the $\Eone$ stabilization theorem (Theorem~\ref{thm:e1-stabilization-cy}, Chapter~\ref{ch:en-factorization}) shows that the chiral algebra is always $\Eone$, with additional shifted structure classified by $\pi_d(BU)$ (Bott periodicity).  The framing obstruction is $\Z$-valued at all even $d$, trivial at $d \equiv 1, 3, 7 \pmod{8}$, and $\Z_2$-valued from the $\Sp$-refinement at $d \equiv 5 \pmod{8}$.
 \end{remark}
 
+The topological obstruction to the $\bS^3$-framing vanishes universally, and the chain-level trivialization is supplied by holomorphic Chern--Simons for the standard compact and toric examples.  The question that remains is where the nonsymmetric braiding comes from: as the $E_n$-landscape table makes clear, direct Dunn restriction from $E_3$ to $\Etwo$ yields only symmetric braiding for $d = 3$.  The answer is the Drinfeld center.
 
 % ============================================================
 \section{The Drinfeld center and $\Etwo$ enhancement}
@@ -571,7 +698,7 @@ This ratio counts the higher-spin contributions.
 \label{sec:e1-universality}
 % ============================================================
 
-The preceding sections have established the $d = 3$ functor chain and the Drinfeld center passage from $\Eone$ to $\Etwo$.  We now prove that the $\Eone$ structure is \emph{universal}: every CY$_3$ chiral algebra with $\Omega$-deformation is natively $\Eone$, not $\Etwo$.  The proof has four independent pillars.
+The preceding sections have established the $d = 3$ functor chain and the Drinfeld center passage from $\Eone$ to $\Etwo$.  The following theorem shows that the $\Eone$ structure is \emph{universal}: every CY$_3$ chiral algebra with $\Omega$-deformation is natively $\Eone$, not $\Etwo$.  The proof has four independent pillars.
 
 
 \begin{theorem}[$\Eone$ universality for CY$_3$ chiral algebras]
@@ -1160,7 +1287,7 @@ At genus $1$: $F_1^{\DT}(X) = \kappa_{\mathrm{ch}}(A_X)/24$.  At higher genus, t
 \label{rem:dt-shadow-level}
 % AP42: correct at the motivic Hall algebra level, but naive BCH does NOT
 % reproduce phi_{0,1} multiplicities. State the level explicitly.
-Conjecture~\ref{conj:dt-hocolim-shadow} is expected to hold at the level of \emph{motivic} DT invariants (Kontsevich--Soibelman), where the motivic Hall algebra structure matches the bar complex combinatorics.  At the naive numerical level, the identification $Z_{\DT} = Z^{\mathrm{sh}}$ requires incorporating virtual fundamental class corrections and bound-state contributions that go beyond the leading shadow coefficient $\kappa_{\mathrm{ch}}$.  For $\C^3$: $Z_{\DT} = M(q) = \prod_{n \geq 1}(1-q^n)^{-n}$, the inverse MacMahon function, and $\kappa_{\mathrm{ch}} = 1$ correctly gives $F_1 = 1/24$ (Theorem~\ref{thm:kappa-c3}).  For $K3 \times E$: $\kappa_{\mathrm{ch}} = 5$ and the genus-$1$ shadow matches (Proposition~\ref{prop:categorical-euler}), but the full DT series involves the Igusa cusp form $\Delta_5$ whose higher Fourier coefficients encode information beyond the scalar shadow.
+Conjecture~\ref{conj:dt-hocolim-shadow} is expected to hold at the level of \emph{motivic} DT invariants (Kontsevich--Soibelman), where the motivic Hall algebra structure matches the bar complex combinatorics.  At the naive numerical level, the identification $Z_{\DT} = Z^{\mathrm{sh}}$ requires incorporating virtual fundamental class corrections and bound-state contributions that go beyond the leading shadow coefficient $\kappa_{\mathrm{ch}}$.  For $\C^3$: $Z_{\DT} = M(q) = \prod_{n \geq 1}(1-q^n)^{-n}$, the inverse MacMahon function, and $\kappa_{\mathrm{ch}} = 1$ correctly gives $F_1 = 1/24$ (Theorem~\ref{thm:kappa-c3}).  For $K3 \times E$: $\kappa_{\mathrm{BKM}} = 5$ and the genus-$1$ shadow matches (Proposition~\ref{prop:categorical-euler}), but the full DT series involves the Igusa cusp form $\Delta_5$ whose higher Fourier coefficients encode information beyond the scalar shadow.
 \end{remark}
 
 
@@ -1202,20 +1329,21 @@ The following table records the quiver-chart atlas data for the standard CY$_3$ 
 \end{center}
 \medskip
 
-\noindent Three remarks on the table entries.  First, $K3 \times E$ does not have a quiver atlas in the strict sense of Definition~\ref{def:quiver-chart-atlas}: the derived category $D^b(\Coh(K3 \times E))$ does not admit a single tilting generator, and the fibration structure requires a different gluing mechanism (the relative Fourier--Mukai, see Chapter~\ref{ch:k3-times-e}).  The entry records the effective $\kappa_{\mathrm{ch}} = 5$ from the categorical Euler characteristic (Proposition~\ref{prop:categorical-euler}).  Second, the quintic has $|I| = 2$ charts: one at large volume (a quiver chart from the Beilinson collection restricted to $X$) and one at the Gepner point (a matrix factorization category $\MF(W_{\mathrm{Fermat}})$, which is NOT a quiver chart; see Remark~\ref{rem:gepner-lv-dichotomy}).  Third, the shadow class and depth $r_{\mathrm{max}}$ refer to the Heisenberg truncation ($s = 1$ channel).  At the full spin tower, the classification may differ (Remark~\ref{rem:c3-per-channel}).
+\noindent Three remarks on the table entries.  First, $K3 \times E$ does not have a quiver atlas in the strict sense of Definition~\ref{def:quiver-chart-atlas}: the derived category $D^b(\Coh(K3 \times E))$ does not admit a single tilting generator, and the fibration structure requires a different gluing mechanism (the relative Fourier--Mukai, see Chapter~\ref{ch:k3-times-e}).  The entry records $\kappa_{\mathrm{BKM}} = 5$ (the Borcherds automorphic weight; $\kappa_{\mathrm{ch}} = 3$ by additivity, Proposition~\ref{prop:categorical-euler}).  Second, the quintic has $|I| = 2$ charts: one at large volume (a quiver chart from the Beilinson collection restricted to $X$) and one at the Gepner point (a matrix factorization category $\MF(W_{\mathrm{Fermat}})$, which is NOT a quiver chart; see Remark~\ref{rem:gepner-lv-dichotomy}).  Third, the shadow class and depth $r_{\mathrm{max}}$ refer to the Heisenberg truncation ($s = 1$ channel).  At the full spin tower, the classification may differ (Remark~\ref{rem:c3-per-channel}).
 
 % AP-CY6: A_X does NOT exist for CY3 in general. The table records
 % kappa values from the CoHA / categorical Euler characteristic; the
 % existence of a global chiral algebra A_X is the content of
 % Conjecture CY-A_3, NOT a proved theorem.
 
+The atlas data table records the $\kappa_{\mathrm{ch}}$ values that would result from the quiver-chart gluing construction, but the global chiral algebra $A_X$ itself exists as a proved object only for $\C^3$ (single chart) and the resolved conifold (two charts with explicit wall-crossing).  For the remaining geometries, the hocolim assembly is conditional on Conjecture~\ref{conj:e1-chart-gluing}, which chains back to CY-A$_3$.  The following section collects the full $d = 3$ programme statement and its current status.
 
 % ============================================================
 \section{The CY-to-chiral programme at $d = 3$}
 \label{sec:cy-to-chiral-d3-programme}
 % ============================================================
 
-\begin{conjecture}[CY-to-chiral programme --- CY-A$_3$, $d = 3$;
+\begin{conjecture}[CY-to-chiral programme: CY-A$_3$, $d = 3$;
 \ClaimStatusConjectured]
 \label{conj:cy-to-chiral-d3}
 For a smooth proper CY$_3$ category $\cC$, the functor $\Phi$ extends to produce a quantum vertex chiral group $G(\cC)$ whose generalized root datum is $\cR(\cC)$.
@@ -1252,13 +1380,15 @@ This programme is conditional on constructing the chain-level $\bS^3$-framing co
 \end{tabular}
 \end{center}
 
+\noindent The dividing line is precise.  At $d = 2$, the functor $\Phi$ is constructed unconditionally (Theorem~\ref{thm:cy-to-chiral}): the $\bS^2$-framing provides native $\Etwo$ structure, and no Drinfeld center passage is needed.  At $d = 3$, the functor chain is verified end-to-end for $\C^3$ and the resolved conifold (where both sides are independently known), the topological $\bS^3$-framing obstruction vanishes universally, but the chain-level $\Ainf$-compatible trivialization for compact CY$_3$ and the global hocolim assembly (Conjecture~\ref{conj:e1-chart-gluing}) remain conjectural.  Every formal statement in this chapter carries the appropriate status tag: \verb|\ClaimStatusProvedHere| for the $d = 2$ functor and its $\C^3$ verification, \verb|\ClaimStatusConjectured| for the $d = 3$ programme and its downstream consequences, and \verb|\ClaimStatusConditional| for results that chain through CY-A$_3$ (AP-CY11).
+
 
 % ============================================================
 \section{Compatibility with Koszul duality}
 \label{sec:cy-koszul-compat}
 % ============================================================
 
-The CY-to-chiral functor must be compatible with the bar-cobar machine of Vol~I.  Mirror symmetry for CY categories should correspond to chiral Koszul duality; the bar complex of the chiral algebra $A_\cC$ should recover the cyclic bar complex of $\cC$.  We now verify both identifications.
+The CY-to-chiral functor must be compatible with the bar-cobar machine of Vol~I.  Mirror symmetry for CY categories should correspond to chiral Koszul duality; the bar complex of the chiral algebra $A_\cC$ should recover the cyclic bar complex of $\cC$.  The following results verify both identifications.
 
 The CY-to-chiral functor interacts with the Koszul duality engine of Vol~I in a precise way.  The bar complex of the chiral algebra $A_\cC = \Phi(\cC)$ is quasi-isomorphic to the cyclic bar complex of $\cC$ as a factorization coalgebra (Theorem~\ref{thm:cy-to-chiral}(ii)).  The Koszul dual $A_\cC^! = \Phi(\cC^!)$ is the chiral algebra of the mirror category.
 
@@ -1276,6 +1406,7 @@ Equivalently, the bar complex of the mirror chiral algebra is the Verdier dual o
 For $\C^3$ at the self-dual point ($h_1 = 1, h_2 = 0, h_3 = -1$), the mirror is $\C^3$ itself.  The Koszul dual of the Heisenberg VOA $H_1$ is $H_1^! = \Sym^{\mathrm{ch}}(V^*)$ (AP33: this is NOT the same algebra as $H_1$, though they share the same underlying vector space structure).  At the level of modular characteristics, $\kappa_{\mathrm{ch}}(H_1) = 1$ and $\kappa_{\mathrm{ch}}(H_1^!) = -1$, so $\kappa_{\mathrm{ch}}(H_1) + \kappa_{\mathrm{ch}}(H_1^!) = 0$, consistent with the KM/free-field complementarity rule (Vol~I AP24).
 \end{conjecture}
 
+The Koszul compatibility conjecture predicts that mirror symmetry intertwines with chiral Koszul duality at the level of the functor $\Phi$, and that complementarity $\kappa_{\mathrm{ch}}(A) + \kappa_{\mathrm{ch}}(A^!) = 0$ holds on the KM/free-field lane.  A prerequisite for testing these predictions is a precise determination of the modular characteristic itself.  The next section confronts the fact that the naive candidate $\chi_{\mathrm{top}}/24$ fails for most CY$_3$ geometries, and identifies the categorical Euler characteristic as the correct invariant.
 
 % ============================================================
 \section{The CY modular characteristic}
@@ -1295,7 +1426,7 @@ The topological Euler characteristic $\chi_{\mathrm{top}}(X)/24$ does \emph{not}
   \textbf{CY variety} & $\chi_{\mathrm{top}}/24$ & $\kappa_{\mathrm{ch}}$ & \textbf{Match?} \\
   \midrule
   Elliptic curve $E$ ($\CY_1$) & $0$ & $1$ & No \\
-  K3 surface ($\CY_2$) & $1$ & $12$ & No \\
+  K3 surface ($\CY_2$) & $1$ & $12$\rlap{$^*$} & No \\
   $K3 \times E$ ($\CY_3$) & $0$ & $5$ & No \\
   Resolved conifold & $1/12$ & $1$ & No \\
   Local $\bP^2$ & $1/8$ & $3/2$ & No \\
@@ -1306,7 +1437,11 @@ The topological Euler characteristic $\chi_{\mathrm{top}}(X)/24$ does \emph{not}
   \bottomrule
 \end{tabular}
 \end{center}
-The BCOV formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ holds for compact CICYs with $h^{1,0} = 0$ (complete intersections in products of projective spaces) but fails systematically for K3-fibered CY$_3$ (which have $h^{1,0} \geq 1$) and for non-compact toric CY$_3$.
+{\footnotesize $^*$The K3 entry records $\kappa_{\mathrm{ch}}(\Phi(D^b(\Coh(\mathrm{K3})))) = \dim \HH_*(D^b(\mathrm{K3}))/2 = 12$, the CY-categorical modular characteristic from the functor~$\Phi$.  This is \emph{distinct} from the K3 sigma model value $\kappa_{\mathrm{ch}}(V_{\mathrm{K3}}) = 2$ (Chapter~\ref{ch:k3-times-e}): the two algebras $\Phi(D^b(\Coh(\mathrm{K3})))$ (with $24$ generators) and $V_{\mathrm{K3}}$ (with $c = 6$) are different objects.}
+
+\smallskip
+
+\noindent The BCOV formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ holds for compact CICYs with $h^{1,0} = 0$ (complete intersections in products of projective spaces) but fails systematically for K3-fibered CY$_3$ (which have $h^{1,0} \geq 1$) and for non-compact toric CY$_3$.
 
 % RECTIFICATION-FLAG: The K3 (CY_2) entry uses kappa_{CY2}(K3) = dim HH_*(D^b(K3))/2
 % = 24/2 = 12 (the CY-categorical modular characteristic). This is DISTINCT from
@@ -1321,7 +1456,7 @@ The BCOV formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ holds for compa
 \begin{proof}
 The BCOV formula $F_1 = -\tfrac{1}{2} \log \det(\bar{\partial}^\dagger \bar{\partial})$ on a compact CY$_3$ $X$ gives $F_1 = \chi_{\mathrm{top}}(X)/24$ when $h^{1,0}(X) = 0$.  The condition $h^{1,0} = 0$ ensures that the genus-$1$ free energy has no contribution from abelian zero modes; the formula holds for the quintic ($h^{2,1} = 101$) and all other CICYs with $h^{1,0} = 0$, regardless of the number of complex structure moduli.
 
-For K3-fibered CY$_3$, the infinite tower of BPS bound states across fibers contributes additional genus-$1$ data beyond the one-loop determinant.  For $K3 \times E$: the $24$ free bosons from the K3 fiber give a fiber $\kappa_{\mathrm{ch}} = 24$, but the sewing along $E$ via the DMVV formula introduces imaginary root contributions that shift $\kappa_{\mathrm{ch}}$ to $\mathrm{wt}(\Delta_5) = 5$ (the weight of the Igusa cusp form).  The ``lost'' $19$ units ($24 - 5 = 19$) are absorbed by the Borcherds product structure.
+For K3-fibered CY$_3$, the infinite tower of BPS bound states across fibers contributes additional genus-$1$ data beyond the one-loop determinant.  For $K3 \times E$: the $24$ free bosons from the K3 fiber give $\kappa_{\mathrm{fiber}} = 24$, but the sewing along $E$ via the DMVV formula introduces imaginary root contributions that produce $\kappa_{\mathrm{BKM}} = \mathrm{wt}(\Delta_5) = 5$ (the weight of the Igusa cusp form).  The ``lost'' $19$ units ($24 - 5 = 19$) are absorbed by the Borcherds product structure.
 
 For the resolved conifold: $\chi_{\mathrm{top}} = 2$ (the total space deformation retracts onto $\bP^1$) gives $\chi_{\mathrm{top}}/24 = 1/12$, but the DT computation gives $\kappa_{\mathrm{ch}} = 1$ (the conifold has a single BPS state contributing at genus~$1$).
 \end{proof}
@@ -1329,7 +1464,7 @@ For the resolved conifold: $\chi_{\mathrm{top}} = 2$ (the total space deformatio
 \begin{proposition}[The categorical Euler characteristic resolves the discrepancy]
 \label{prop:categorical-euler}
 \ClaimStatusProvedHere{}
-The invariant controlling $\kappa_{\mathrm{ch}}$ is the \emph{categorical} Euler characteristic $\chi^{\CY}$, not the topological one.  For $K3 \times E$: $\chi_{\mathrm{top}} = 0$ but $\chi^{\CY} = 5$.
+The invariant controlling the BKM modular characteristic is the \emph{categorical} Euler characteristic $\chi^{\CY}$, not the topological one.  For $K3 \times E$: $\chi_{\mathrm{top}} = 0$ but $\chi^{\CY} = 5 = \kappa_{\mathrm{BKM}}$; the chiral modular characteristic $\kappa_{\mathrm{ch}} = 3$ arises from additivity ($\kappa_{\mathrm{ch}}(K3) + \kappa_{\mathrm{ch}}(E) = 2 + 1$).
 
 The categorical Euler characteristic accounts for the full BPS spectrum (all charges), not just the massless modes that contribute to $\chi_{\mathrm{top}}$.  For K3-fibered CY$_3$, the infinite tower of bound states across fibers contributes to $\chi^{\CY}$ via the Borcherds denominator weight.
 

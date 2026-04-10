@@ -11,7 +11,7 @@ Manuscript references:
   thm:yangian-e1 (yangians_foundations.tex): Y(g) as E_1-chiral algebra
   thm:e1-chiral-koszul-duality: E_1 bar-cobar Koszul duality via R-matrix
   thm:sv-c3 (toric_cy3_coha.tex): CoHA(C^3) = Y^+(gl_hat_1)
-  cor:mc3-all-types: MC3 proved for all simple types
+  cor:mc3-all-types: MC3 Layers 1+2 proved for all simple types on eval-generated core; Layer 3 unconditional type A, conditional otherwise
 
 Literature:
   Schiffmann-Vasserot arXiv:1211.1287 (CoHA = positive Yangian)

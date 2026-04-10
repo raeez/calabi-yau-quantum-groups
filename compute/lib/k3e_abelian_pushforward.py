@@ -239,13 +239,15 @@ def kappa_collapse_data() -> Dict[str, Any]:
         'kappa_free_upper': KAPPA_FREE_UPPER,
         'kappa_free_lower': KAPPA_FREE_LOWER,
         'kappa_sigma': KAPPA_SIGMA,
-        'kappa_bps': F(5),
+        # AP113: kappa_BKM (not kappa_BPS -- BPS is not an approved subscript)
+        'kappa_bkm': F(5),
         'collapse_ratio_upper': KAPPA_FREE_UPPER / KAPPA_SIGMA,
         'collapse_ratio_lower': KAPPA_FREE_LOWER / KAPPA_SIGMA,
         'second_quantization_ratio': F(5, 3),
         'note': ('kappa_free = rank(Lambda) in [20, 24]; '
                  'kappa_sigma = dim_C(K3) = 2; '
-                 'kappa_BPS = 5 = weight(Delta_5). '
+                 # AP113: kappa_BKM = 5 (Borcherds weight), not kappa_BPS
+                 'kappa_BKM = 5 = weight(Delta_5). '
                  'The collapse is structural (AP48), not perturbative.'),
     }
 

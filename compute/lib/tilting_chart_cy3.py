@@ -1354,7 +1354,7 @@ class CoHAFromChart:
         For quiver CoHAs:
           - C^3 (Jordan, 3 loops): class G (Heisenberg, terminates at arity 2)
           - Conifold (2 vertices, 4 arrows): class L (gl(1|1), terminates at 3)
-          - Local P^2 (3 vertices, 9 arrows): class C (cubic potential, r_max=4)
+          - Local P^2 (3 vertices, 9 arrows): class M (infinite depth, AP-CY12)
           - Quintic (compact CY3): class M (infinite tower from h^{2,1}=101
             complex structure deformations)
 
@@ -1370,7 +1370,9 @@ class CoHAFromChart:
         elif "Conifold" in name:
             return "L"
         elif "Local_P2" in name:
-            return "C"
+            # AP-CY12: local P^2 is class M (infinite depth), not G/L/C.
+            # Leading approximation misses the infinite tower.
+            return "M"
         elif "Local_P1xP1" in name:
             return "C"
         elif "Quintic" in name:
