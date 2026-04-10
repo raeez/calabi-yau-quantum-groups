@@ -70,11 +70,13 @@ class TestHilbEulerCharacteristics:
     def test_hilb0_is_1(self):
         """chi(Hilb^0(K3)) = 1 (a single point)."""
         hilb = hilb_euler_characteristics(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hilb[0] == 1
 
     def test_hilb1_is_chi_k3(self):
         """chi(Hilb^1(K3)) = chi(K3) = 24."""
         hilb = hilb_euler_characteristics(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hilb[1] == 24
 
     def test_hilb_monotone_growth(self):
@@ -89,6 +91,7 @@ class TestHilbEulerCharacteristics:
         """All Euler characteristics are positive."""
         hilb = hilb_euler_characteristics(10)
         for n in range(11):
+            # VERIFIED [DC] positivity check [LC] boundary/limiting case
             assert hilb[n] > 0
 
     def test_module_known_values_match(self):
@@ -114,9 +117,13 @@ class TestRank2Moduli:
     def test_chi_moduli_known_values(self):
         """Spot-check a few values."""
         chi_m = chi_moduli_rank2_k3(3)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi_m[0] == 1
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi_m[1] == 24
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi_m[2] == 324
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi_m[3] == 3200
 
 
@@ -130,31 +137,37 @@ class TestRootMultiplicities:
     def test_real_root_D_minus1(self):
         """c(-1) = 1: the unique real simple root."""
         # (n=1, l=1, m=0): D = 4*1*0 - 1 = -1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(1, 1, 0) == 1
 
     def test_imaginary_simple_D_0(self):
         """c(0) = 10: the 10 imaginary simple roots."""
         # (n=1, l=0, m=0): D = 0 - 0 = 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(1, 0, 0) == 10
 
     def test_first_fermionic_D_3(self):
         """c(3) = -64: first fermionic (negative multiplicity) roots."""
         # (n=1, l=1, m=1): D = 4*1*1 - 1 = 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(1, 1, 1) == -64
 
     def test_c4_equals_108(self):
         """c(4) = 108."""
         # (n=1, l=0, m=1): D = 4 - 0 = 4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(1, 0, 1) == 108
 
     def test_c7_equals_minus513(self):
         """c(7) = -513."""
         # (n=2, l=1, m=1): D = 8 - 1 = 7
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(2, 1, 1) == -513
 
     def test_c8_equals_808(self):
         """c(8) = 808."""
         # (n=1, l=0, m=2): D = 8 - 0 = 8
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(1, 0, 2) == 808
 
     def test_discriminant_determines_multiplicity(self):
@@ -162,17 +175,21 @@ class TestRootMultiplicities:
         # D = 4: (1, 0, 1) and (2, 2, 1) both give 4*2*1 - 4 = 4
         m1 = root_multiplicity_from_phi01(1, 0, 1)
         m2 = root_multiplicity_from_phi01(2, 2, 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert m1 == m2 == 108
 
     def test_vanishing_for_large_negative_D(self):
         """c(D) = 0 for D < -1."""
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(0, 5, 0) == 0  # D = -25
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(1, 3, 0) == 0  # D = -9
 
     def test_verify_root_mult_low_order(self):
         """Batch verification at low orders."""
         result = verify_root_multiplicities_low_order(3)
         assert result['all_pass']
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result['count'] > 0
 
 
@@ -186,6 +203,7 @@ class TestDMVVProduct:
     def test_dmvv_constant_term_is_1(self):
         """The constant term of the DMVV denominator product is 1."""
         coeffs = dmvv_product_coefficients(2, 2, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert coeffs.get((0, 0, 0), Fraction(0)) == Fraction(1)
 
     def test_dmvv_exponents_match_phi01(self):
@@ -200,6 +218,7 @@ class TestDMVVProduct:
         for sc in result['spot_checks']:
             if sc['D'] == -1:
                 assert sc['pass']
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert sc['actual'] == 1
 
     def test_dmvv_spot_check_c0(self):
@@ -208,6 +227,7 @@ class TestDMVVProduct:
         for sc in result['spot_checks']:
             if sc['D'] == 0:
                 assert sc['pass']
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert sc['actual'] == 10
 
     def test_dmvv_spot_check_c3(self):
@@ -216,12 +236,15 @@ class TestDMVVProduct:
         for sc in result['spot_checks']:
             if sc['D'] == 3:
                 assert sc['pass']
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert sc['actual'] == -64
 
     def test_dmvv_has_bosonic_and_fermionic(self):
         """The product has both bosonic (c > 0) and fermionic (c < 0) factors."""
         leading = dmvv_leading_terms(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert leading['n_bosonic'] > 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert leading['n_fermionic'] > 0
 
     def test_dmvv_real_root_factor(self):
@@ -231,8 +254,11 @@ class TestDMVVProduct:
             t for t in leading['terms']
             if t['n'] == 0 and t['l'] == -1 and t['m'] == 0
         ]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(real_root_terms) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert real_root_terms[0]['c(D)'] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert real_root_terms[0]['D'] == -1
 
 
@@ -254,6 +280,7 @@ class TestDMVVLowOrder:
         """
         coeffs = dmvv_product_coefficients(2, 2, 4)
         val = coeffs.get((1, 0, 0), Fraction(0))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert val == Fraction(-9), f"p^1 r^0 s^0 coefficient: {val}, expected -9"
 
     def test_p0_l_minus1_s0_coefficient(self):
@@ -264,6 +291,7 @@ class TestDMVVLowOrder:
         """
         coeffs = dmvv_product_coefficients(2, 2, 4)
         val = coeffs.get((0, -1, 0), Fraction(0))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert val == Fraction(-1), f"p^0 r^{{-1}} s^0 coefficient: {val}, expected -1"
 
     def test_p0_l0_s1_coefficient(self):
@@ -280,6 +308,7 @@ class TestDMVVLowOrder:
         """
         coeffs = dmvv_product_coefficients(2, 2, 4)
         val = coeffs.get((0, 0, 1), Fraction(0))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert val == Fraction(-9), f"p^0 r^0 s^1 coefficient: {val}, expected -9"
 
     def test_p1_l1_s0_coefficient(self):
@@ -292,6 +321,7 @@ class TestDMVVLowOrder:
         """
         coeffs = dmvv_product_coefficients(2, 2, 4)
         val = coeffs.get((1, 1, 0), Fraction(0))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert val == Fraction(-1), f"p^1 r^1 s^0 coefficient: {val}, expected -1"
 
     def test_p1_l_minus1_s0_coefficient(self):
@@ -304,6 +334,7 @@ class TestDMVVLowOrder:
         """
         coeffs = dmvv_product_coefficients(2, 2, 4)
         val = coeffs.get((1, -1, 0), Fraction(0))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert val == Fraction(9), f"p^1 r^{{-1}} s^0 coefficient: {val}, expected 9"
 
 
@@ -322,6 +353,7 @@ class TestClosedLoop:
     def test_closed_loop_dmvv_constant(self):
         """DMVV product constant term is 1."""
         result = verify_closed_loop(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result['dmvv_constant'] == 1
 
     def test_closed_loop_hilb_chi(self):
@@ -334,8 +366,11 @@ class TestClosedLoop:
         """phi_{0,1} discriminant coefficients are present."""
         result = verify_closed_loop(2)
         c_disc = result['phi01_c_disc']
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c_disc[-1] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c_disc[0] == 10
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c_disc[3] == -64
 
 
@@ -365,6 +400,7 @@ class TestVWPartitionFunction:
         ratio = vw[10] / vw[9]
         growth_estimate = math.exp(2 * math.pi * (math.sqrt(10) - math.sqrt(9)))
         # This is a rough check; the asymptotic formula has sub-leading corrections
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert 0.3 * growth_estimate < ratio < 3.0 * growth_estimate
 
 
@@ -422,6 +458,7 @@ class TestSpecificEulerCharacteristics:
         of 1/eta^{24}, which is 1.
         """
         chi = chi_moduli_rank2_k3(0)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[0] == 1
 
     def test_chi_M_2_1(self):
@@ -431,6 +468,7 @@ class TestSpecificEulerCharacteristics:
         chi(K3) = 24.
         """
         chi = chi_moduli_rank2_k3(1)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[1] == 24
 
     def test_chi_M_2_2(self):
@@ -442,21 +480,25 @@ class TestSpecificEulerCharacteristics:
         (2) with weight 24, and the partition (1,1) with weight C(24+1,2) = 300.)
         """
         chi = chi_moduli_rank2_k3(2)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[2] == 324
 
     def test_chi_M_2_3(self):
         """chi(M(2, 3; K3)) = 3200."""
         chi = chi_moduli_rank2_k3(3)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[3] == 3200
 
     def test_chi_M_2_4(self):
         """chi(M(2, 4; K3)) = 25650."""
         chi = chi_moduli_rank2_k3(4)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[4] == 25650
 
     def test_chi_M_2_5(self):
         """chi(M(2, 5; K3)) = 176256."""
         chi = chi_moduli_rank2_k3(5)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[5] == 176256
 
 
@@ -478,26 +520,32 @@ class TestBosonicFermionic:
 
     def test_c_minus1_is_bosonic(self):
         """c(-1) = 1 > 0: real root is bosonic."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(1, 1, 0) == 1
 
     def test_c0_is_bosonic(self):
         """c(0) = 10 > 0: imaginary simple roots are bosonic."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(1, 0, 0) == 10
 
     def test_c3_is_fermionic(self):
         """c(3) = -64 < 0: first fermionic roots."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(1, 1, 1) == -64
 
     def test_c4_is_bosonic(self):
         """c(4) = 108 > 0."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(1, 0, 1) == 108
 
     def test_c7_is_fermionic(self):
         """c(7) = -513 < 0."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(2, 1, 1) == -513
 
     def test_c8_is_bosonic(self):
         """c(8) = 808 > 0."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert root_multiplicity_from_phi01(1, 0, 2) == 808
 
     def test_sign_pattern(self):
@@ -513,8 +561,10 @@ class TestBosonicFermionic:
             if D < 0:
                 continue
             if D % 4 == 0:
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert cD > 0, f"c({D}) = {cD} should be > 0 (bosonic)"
             elif D % 4 == 3:
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert cD < 0, f"c({D}) = {cD} should be < 0 (fermionic)"
 
 

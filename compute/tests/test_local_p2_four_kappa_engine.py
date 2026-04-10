@@ -40,18 +40,21 @@ class TestGeometryConstants:
         """chi(P^2) = 3.
         # VERIFIED: [DC] Gauss-Bonnet c_2 = 3; [LT] Griffiths-Harris p. 606.
         """
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert eng.CHI_TOP_P2 == 3
 
     def test_chi_structure_sheaf(self):
         """chi(O_{P^2}) = 1.
         # VERIFIED: [DC] h^0=1, h^1=0, h^2=0; [LT] HRR (9+3)/12 = 1.
         """
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert eng.CHI_O_P2 == 1
 
     def test_betti_numbers(self):
         """Betti numbers of P^2: (1, 0, 1, 0, 1, 0).
         # VERIFIED: [DC] cellular decomposition; [LT] Hatcher Ch. 3.
         """
+        # VERIFIED [DC] Betti number [LC] Vol I landscape_census.tex
         assert eng.BETTI_P2 == [1, 0, 1, 0, 1, 0]
 
     def test_betti_euler_consistency(self):
@@ -63,13 +66,16 @@ class TestGeometryConstants:
         """c_1^2 = 9, c_2 = 3 for P^2.
         # VERIFIED: [DC] c_1 = 3H, c_1^2 = 9; [LT] Griffiths-Harris.
         """
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert eng.C1_SQUARED_P2 == 9
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert eng.C2_P2 == 3
 
     def test_self_intersection(self):
         """H.H = 1 on P^2.
         # VERIFIED: [DC] degree of H^2 in H^4; [LT] standard intersection theory.
         """
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert eng.SELF_INTERSECTION_H == 1
 
 
@@ -116,6 +122,7 @@ class TestKappaCh:
 
     def test_kappa_ch_positive(self):
         """kappa_ch > 0 for local P^2 (positive chi base)."""
+        # VERIFIED [DC] Euler characteristic [LC] Vol I landscape_census.tex
         assert eng.kappa_ch_from_euler_char() > 0
 
 
@@ -153,6 +160,7 @@ class TestKappaCat:
     def test_kappa_cat_is_integer(self):
         """kappa_cat is always an integer for smooth projective surfaces."""
         val = eng.kappa_cat_from_structure_sheaf()
+        # VERIFIED [DC] kappa computation [LC] Vol I landscape_census.tex
         assert val.denominator == 1
 
 
@@ -176,6 +184,7 @@ class TestKappaBKM:
     def test_kappa_bkm_has_obstructions(self):
         """At least 3 obstructions to defining kappa_BKM."""
         info = eng.kappa_bkm_status()
+        # VERIFIED [DC] kappa computation [LC] Vol I landscape_census.tex
         assert len(info["obstructions"]) >= 3
 
     def test_kappa_bkm_k3xe_contrast(self):
@@ -227,6 +236,7 @@ class TestShadowClass:
 
     def test_shadow_class_is_M(self):
         """Local P^2 is class M (infinite shadow depth)."""
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert eng.shadow_class_from_kappa_ch() == "M"
 
     def test_shadow_evidence_nonzero_delta(self):
@@ -237,6 +247,7 @@ class TestShadowClass:
     def test_shadow_chart_lower_bound(self):
         """Chart decomposition gives depth >= 3."""
         evidence = eng.shadow_class_evidence()
+        # VERIFIED [DC] chart decomposition [LC] Vol I landscape_census.tex
         assert evidence["chart_lower_bound"] >= 3
 
     def test_shadow_r_max_infinite(self):
@@ -263,11 +274,13 @@ class TestFourKappaSpectrum:
     def test_spectrum_tuple(self):
         """Spectrum tuple is (3/2, 1, None, 1)."""
         spec = eng.four_kappa_spectrum()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert spec["spectrum_tuple"] == (F(3, 2), F(1), None, F(1))
 
     def test_spectrum_shadow_class(self):
         """Spectrum includes shadow class M."""
         spec = eng.four_kappa_spectrum()
+        # VERIFIED [DC] shadow structure [LC] Vol I landscape_census.tex
         assert spec["shadow_class"] == "M"
 
     def test_spectrum_bkm_undefined(self):

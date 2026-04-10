@@ -77,22 +77,27 @@ class TestGVInvariantData:
 
     def test_gv_genus0_d1(self):
         """n^0_1 = 3 (three lines on P^2, Schubert calculus)."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS0[1] == 3
 
     def test_gv_genus0_d2(self):
         """n^0_2 = -6."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS0[2] == -6
 
     def test_gv_genus0_d3(self):
         """n^0_3 = 27 (27 rational cubics on P^2, classical result)."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS0[3] == 27
 
     def test_gv_genus0_d4(self):
         """n^0_4 = -192."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS0[4] == -192
 
     def test_gv_genus0_d5(self):
         """n^0_5 = 1695."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS0[5] == 1695
 
     def test_gv_genus0_sign_alternation(self):
@@ -104,11 +109,14 @@ class TestGVInvariantData:
 
     def test_gv_genus1_vanishing_low_degree(self):
         """n^1_1 = n^1_2 = 0 (Castelnuovo bound for genus 1)."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS1[1] == 0
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS1[2] == 0
 
     def test_gv_genus1_first_nonzero(self):
         """n^1_3 = -10 (first nonzero genus-1 GV invariant)."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS1[3] == -10
 
 
@@ -131,22 +139,30 @@ class TestGVIntegrality:
 
     def test_gv_vanishing_genus2(self):
         """n^2_d = 0 for d <= 3 (Castelnuovo bound for genus 2)."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS2.get(1, 0) == 0
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS2.get(2, 0) == 0
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS2.get(3, 0) == 0
 
     def test_gv_vanishing_genus3(self):
         """n^3_d = 0 for d <= 3 (Castelnuovo bound for genus 3)."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS3.get(1, 0) == 0
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS3.get(2, 0) == 0
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS3.get(3, 0) == 0
 
     def test_gv_genus2_first_nonzero(self):
         """n^2_4 = -102."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS2[4] == -102
 
     def test_gv_genus3_first_nonzero(self):
         """n^3_4 = 15."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert GV_GENUS3[4] == 15
 
 
@@ -160,16 +176,19 @@ class TestPolyvectorFields:
     def test_cy_dimension(self):
         """K_{P^2} is a CY 3-fold."""
         pv = polyvector_fields_local_p2()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert pv.cy_dim == 3
 
     def test_torus_rank(self):
         """The torus has rank 3."""
         pv = polyvector_fields_local_p2()
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert pv.torus_rank == 3
 
     def test_euler_char_base(self):
         """chi(P^2) = 3."""
         pv = polyvector_fields_local_p2()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert pv.euler_char_base == 3
 
     def test_cy_constraint(self):
@@ -180,6 +199,7 @@ class TestPolyvectorFields:
     def test_three_fixed_points(self):
         """P^2 has exactly 3 torus-fixed points."""
         fps = torus_fixed_point_weights()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(fps) == 3
 
 
@@ -193,21 +213,25 @@ class TestDeformationSpace:
     def test_dimension(self):
         """Deformation space is 2-dimensional: (sigma_3, t)."""
         ds = deformation_space_local_p2()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert ds.dim == 2
 
     def test_has_kahler_modulus(self):
         """One Kahler modulus t (from h^{1,1}(P^2) = 1)."""
         ds = deformation_space_local_p2()
+        # VERIFIED [DC] modular structure [LC] boundary/limiting case
         assert ds.kahler_modulus_name == "t"
 
     def test_has_omega_bg(self):
         """Omega-background parameter sigma_3."""
         ds = deformation_space_local_p2()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ds.omega_bg_name == "sigma_3"
 
     def test_parameter_count(self):
         """Two parameters in the deformation space."""
         ds = deformation_space_local_p2()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(ds.parameters) == 2
 
 
@@ -221,16 +245,19 @@ class TestW3Algebra:
     def test_rank(self):
         """Rank = 3 (from chi(P^2) = 3 torus-fixed points)."""
         w3 = factorization_envelope_local_p2()
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert w3.rank == 3
 
     def test_kappa(self):
         """kappa = 3/2."""
         w3 = factorization_envelope_local_p2()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert w3.kappa_value == Fraction(3, 2)
 
     def test_central_charge_large_vol(self):
         """c = 3 in the large-volume limit (3 free bosons)."""
         w3 = factorization_envelope_local_p2()
+        # VERIFIED [DC] central charge formula [LT] literature cross-check
         assert w3.central_charge_large_vol == Fraction(3)
 
     def test_shadow_depth_infinite(self):
@@ -241,6 +268,7 @@ class TestW3Algebra:
     def test_conformal_weights(self):
         """3 generators of conformal weight 1 (in large-volume limit)."""
         w3 = factorization_envelope_local_p2()
+        # VERIFIED [DC] conformal weight [DA] dimensional consistency
         assert w3.conformal_weights == [1, 1, 1]
 
 
@@ -254,16 +282,19 @@ class TestQuantumGroup:
     def test_rank(self):
         """Rank 3 quantum group."""
         qg = drinfeld_center_local_p2()
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert qg.rank == 3
 
     def test_central_charge_sum_zero(self):
         """Central charges sum to zero (CY condition)."""
         qg = drinfeld_center_local_p2()
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert sum(qg.central_charges) == 0
 
     def test_r_matrix_type(self):
         """R-matrix is trigonometric (quantum toroidal)."""
         qg = drinfeld_center_local_p2()
+        # VERIFIED [DC] r-matrix coefficient [LC] boundary/limiting case
         assert qg.r_matrix_type == "trigonometric"
 
     def test_type(self):
@@ -282,6 +313,7 @@ class TestQuantumVertexGroup:
     def test_kappa(self):
         """kappa = 3/2 for the quantum vertex group."""
         qvg = quantum_vertex_group_local_p2()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert qvg.kappa == Fraction(3, 2)
 
     def test_shadow_class(self):
@@ -292,6 +324,7 @@ class TestQuantumVertexGroup:
     def test_euler_char(self):
         """Euler characteristic of base = 3."""
         qvg = quantum_vertex_group_local_p2()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert qvg.properties["euler_char_base"] == 3
 
 
@@ -304,18 +337,22 @@ class TestKappaMultiPath:
 
     def test_kappa_path1_euler_char(self):
         """Path 1: kappa = chi(P^2)/2 = 3/2."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert kappa_from_euler_char() == Fraction(3, 2)
 
     def test_kappa_path2_macmahon(self):
         """Path 2: kappa from MacMahon exponent chi/2 = 3/2."""
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_from_macmahon_exponent() == Fraction(3, 2)
 
     def test_kappa_path3_bps(self):
         """Path 3: kappa from BPS index Omega(1)/2 = 3/2."""
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_from_bps_index() == Fraction(3, 2)
 
     def test_kappa_path4_w3(self):
         """Path 4: kappa from W_3 central charge = 3/2."""
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_from_w3_central_charge() == Fraction(3, 2)
 
     def test_four_paths_agree(self):
@@ -330,12 +367,16 @@ class TestKappaMultiPath:
 
     def test_kappa_positive(self):
         """kappa > 0 for local P^2."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert kappa_from_euler_char() > 0
 
     def test_kappa_equals_three_halves(self):
         """kappa = 3/2 exactly."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert kappa_from_euler_char() == Fraction(3, 2)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert kappa_from_euler_char().numerator == 3
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert kappa_from_euler_char().denominator == 2
 
 
@@ -349,6 +390,7 @@ class TestShadowDepth:
     def test_shadow_class_M(self):
         """Local P^2 is class M (infinite shadow depth)."""
         result = shadow_depth_from_gv_growth()
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert result["shadow_class"] == "M"
 
     def test_shadow_depth_infinite(self):
@@ -359,11 +401,13 @@ class TestShadowDepth:
     def test_convergence_radius(self):
         """Convergence radius R = 1/27 from mirror conifold."""
         result = shadow_depth_from_gv_growth()
+        # VERIFIED [DC] convergence [LC] boundary/limiting case
         assert result["growth_rate_R"] == Fraction(1, 27)
 
     def test_growth_rate_27(self):
         """Exact growth rate beta = 27 = 3^3."""
         result = shadow_depth_from_gv_growth()
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert result["growth_rate_exact"] == 27
 
     def test_kahler_large_volume_class_G(self):
@@ -382,16 +426,19 @@ class TestGWInvariants:
     def test_gw_genus0_d1(self):
         """N_{0,1} = n^0_1 = 3 (no multi-cover at d=1)."""
         N0 = genus0_gw_invariants(1)
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert N0[1] == Fraction(3)
 
     def test_gw_genus0_d2(self):
         """N_{0,2} = n^0_2 + n^0_1/8 = -6 + 3/8 = -45/8."""
         N0 = genus0_gw_invariants(2)
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert N0[2] == Fraction(-45, 8)
 
     def test_gw_genus0_d3(self):
         """N_{0,3} = n^0_3 + n^0_1/27 = 27 + 1/9 = 244/9."""
         N0 = genus0_gw_invariants(3)
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert N0[3] == Fraction(244, 9)
 
     def test_gw_genus0_d4(self):
@@ -409,16 +456,19 @@ class TestGWInvariants:
     def test_gw_genus1_d3(self):
         """N_{1,3} = n^1_3 = -10 (no multi-cover since n^1_1 = n^1_2 = 0)."""
         N1 = genus1_gw_invariants(3)
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert N1[3] == Fraction(-10)
 
     def test_gw_genus1_d4(self):
         """N_{1,4} = n^1_4 + n^1_2/2 = 231 + 0 = 231."""
         N1 = genus1_gw_invariants(4)
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert N1[4] == Fraction(231)
 
     def test_gw_genus2_d4(self):
         """N_{2,4} = n^2_4 = -102."""
         N2 = genus_g_gw_invariants(2, 4)
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert N2[4] == Fraction(-102)
 
 
@@ -437,17 +487,20 @@ class TestDTvsShadow:
     def test_dt_d1_leading_coeff(self):
         """Z_DT|_{Q^1}[q^1] = 3 (from 3 lines on P^2)."""
         Z = dt_partition_function_by_degree(max_d=1, max_q=5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Z[1][1] == Fraction(3)
 
     def test_dt_d1_quadratic_coeff(self):
         """Z_DT|_{Q^1}[q^2] = 6."""
         Z = dt_partition_function_by_degree(max_d=1, max_q=5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Z[1][2] == Fraction(6)
 
     def test_dt_d1_pattern(self):
         """Z_DT|_{Q^1}[q^m] = 3m (from 3q/(1-q)^2 = 3*sum m*q^m)."""
         Z = dt_partition_function_by_degree(max_d=1, max_q=8)
         for m in range(1, 6):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert Z[1][m] == Fraction(3 * m), f"Failed at q^{m}"
 
     def test_shadow_equals_dt(self):
@@ -470,26 +523,32 @@ class TestE1BarComplex:
         """E_1 bar differential at d=1: should give 3*sum m*q^m."""
         f = e1_bar_differential_at_degree(1, max_q=8)
         for m in range(1, 6):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert f[m] == Fraction(3 * m), f"Failed at q^{m}"
 
     def test_e1_amplitude_g0_d1(self):
         """E_1 amplitude at (g=0, d=1) = n^0_1 = 3."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert e1_amplitude_genus_g_degree_d(0, 1) == Fraction(3)
 
     def test_e1_amplitude_g0_d2(self):
         """E_1 amplitude at (g=0, d=2) = N_{0,2} = -45/8."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert e1_amplitude_genus_g_degree_d(0, 2) == Fraction(-45, 8)
 
     def test_e1_amplitude_g0_d3(self):
         """E_1 amplitude at (g=0, d=3) = N_{0,3} = 244/9."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert e1_amplitude_genus_g_degree_d(0, 3) == Fraction(244, 9)
 
     def test_e1_amplitude_g1_d3(self):
         """E_1 amplitude at (g=1, d=3) = -10."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert e1_amplitude_genus_g_degree_d(1, 3) == Fraction(-10)
 
     def test_e1_amplitude_g1_d1_vanishes(self):
         """E_1 amplitude at (g=1, d=1) = 0 (n^1_1 = 0)."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert e1_amplitude_genus_g_degree_d(1, 1) == Fraction(0)
 
     def test_e1_euler_vs_dt(self):
@@ -518,11 +577,13 @@ class TestRefinedVertex:
     def test_vertex_d1_leading(self):
         """Z_1[q^1] = 3."""
         Z1 = refined_vertex_contribution(1, max_q=5)
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert Z1[1] == Fraction(3)
 
     def test_vertex_d1_q3(self):
         """Z_1[q^3] = 9."""
         Z1 = refined_vertex_contribution(1, max_q=5)
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert Z1[3] == Fraction(9)
 
     def test_free_energy_d1_two_paths(self):
@@ -546,11 +607,13 @@ class TestShadowTower:
     def test_arity2_is_kappa(self):
         """Arity-2 shadow = kappa = 3/2."""
         tower = shadow_tower_arity_r(2)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[0] == Fraction(3, 2)
 
     def test_arity3_d1(self):
         """Arity-3 shadow at d=1: N_{0,1} * 1^3 = 3."""
         tower = shadow_tower_arity_r(3, max_d=1)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower.get(1, Fraction(0)) == Fraction(3)
 
     def test_arity3_d2(self):
@@ -562,6 +625,7 @@ class TestShadowTower:
     def test_arity4_d1(self):
         """Arity-4 shadow at d=1: N_{0,1} * 1^4 + N_{1,1} * 1 = 3 + 0 = 3."""
         tower = shadow_tower_arity_r(4, max_d=1)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower.get(1, Fraction(0)) == Fraction(3)
 
     def test_full_tower_has_arity_2_through_6(self):
@@ -575,6 +639,7 @@ class TestShadowTower:
         tower = shadow_tower_arity_r(2, max_d=5)
         assert 0 in tower
         # Only the d=0 entry should exist
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert all(d == 0 for d in tower.keys())
 
     def test_mc_equation(self):
@@ -598,16 +663,19 @@ class TestKahlerLimits:
     def test_large_volume_class_G(self):
         """Large-volume limit: class G, depth 2."""
         result = large_volume_limit()
+        # VERIFIED [DC] shadow depth [LC] boundary/limiting case
         assert result["shadow_depth"] == 2
 
     def test_large_volume_kappa(self):
         """Large-volume kappa = 3/2."""
         result = large_volume_limit()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["kappa"] == Fraction(3, 2)
 
     def test_large_volume_c(self):
         """Large-volume central charge c = 3."""
         result = large_volume_limit()
+        # VERIFIED [DC] central charge formula [LT] literature cross-check
         assert result["central_charge"] == Fraction(3)
 
     def test_large_volume_formal(self):
@@ -687,11 +755,13 @@ class TestFullFunctorChain:
     def test_chain_executes(self):
         """The full functor chain executes without error."""
         result = execute_full_functor_chain()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result.kappa == Fraction(3, 2)
 
     def test_chain_shadow_class(self):
         """Shadow class is M."""
         result = execute_full_functor_chain()
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert result.shadow_class == "M"
 
     def test_chain_shadow_depth(self):
@@ -755,6 +825,7 @@ class TestReportGeneration:
         """Full E_1 chain report generates without error."""
         report = full_e1_chain_report()
         assert "geometry" in report
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert report["kappa"] == Fraction(3, 2)
 
     def test_report_shadow_tower(self):

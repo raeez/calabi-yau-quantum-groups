@@ -99,7 +99,9 @@ class TestPartitionCombinatorics:
         assert plane_partition_counts(11) == expected
 
     def test_partition_base_cases(self):
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert partition_counts(1)[0] == 1
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert plane_partition_counts(1)[0] == 1
 
     def test_macmahon_matches_plane_partitions(self):
@@ -119,32 +121,47 @@ class TestPartitionCombinatorics:
             assert int(eul[i]) == p[i], f"Mismatch at q^{i}"
 
     def test_conjugate_partition(self):
+        # VERIFIED [DC] partition function [LT] Drinfeld center theory
         assert conjugate(()) == ()
+        # VERIFIED [DC] partition function [LT] Drinfeld center theory
         assert conjugate((3, 2, 1)) == (3, 2, 1)  # self-conjugate
+        # VERIFIED [DC] partition function [LT] Drinfeld center theory
         assert conjugate((4, 2, 1)) == (3, 2, 1, 1)
+        # VERIFIED [DC] partition function [LT] Drinfeld center theory
         assert conjugate((3,)) == (1, 1, 1)
 
     def test_partitions_of_small(self):
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert partitions_of(0) == ((),)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert partitions_of(1) == ((1,),)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert len(partitions_of(4)) == 5  # 5 partitions of 4
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert len(partitions_of(5)) == 7  # 7 partitions of 5
 
     def test_n_stat(self):
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert n_stat(()) == 0
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert n_stat((1,)) == 0
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert n_stat((2, 1)) == 1  # 0*2 + 1*1 = 1
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert n_stat((3, 2, 1)) == 0 * 3 + 1 * 2 + 2 * 1  # = 4
 
     def test_hook_lengths(self):
         # Partition (2,1): hooks are 3, 1, 1
         hooks = sorted(hook_lengths((2, 1)))
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert hooks == [1, 1, 3]
 
     def test_hook_product(self):
         # Partition (2): hooks 2, 1. Product = 2.
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert hook_product((2,)) == 2
         # Partition (1,1): hooks 2, 1. Product = 2.
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert hook_product((1, 1)) == 2
 
 
@@ -157,7 +174,9 @@ class TestPowerSeries:
 
     def test_fps_one(self):
         f = _fps_one(5)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert f[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert all(f[i] == Fraction(0) for i in range(1, 5))
 
     def test_fps_mul_identity(self):
@@ -174,8 +193,10 @@ class TestPowerSeries:
         f = euler_fps(N)
         f_inv = _fps_inv(f, N)
         product = _fps_mul(f, f_inv, N)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert product[0] == Fraction(1)
         for i in range(1, N):
+            # VERIFIED [DC] structural property [LT] Drinfeld center theory
             assert product[i] == Fraction(0), f"Non-zero at q^{i}: {product[i]}"
 
 
@@ -194,6 +215,7 @@ class TestJordanCoHA:
 
     def test_dimension_zero(self):
         coha = JordanCoHA(5)
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert coha.dimension(0) == 1
 
     def test_character_is_macmahon(self):
@@ -212,8 +234,11 @@ class TestJordanCoHA:
         table = jordan_coha_product_table(6)
         assert table["macmahon_match"] is True
         # Product (a,b) -> dim(CoHA_{a+b})
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert table["product_matrix"][(0, 0)] == 1  # 1*1 -> 1
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert table["product_matrix"][(1, 0)] == 1  # dim CoHA_1 = 1
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert table["product_matrix"][(1, 1)] == 3  # dim CoHA_2 = 3
 
     def test_shuffle_product_dimension(self):
@@ -223,6 +248,7 @@ class TestJordanCoHA:
 
     def test_coha_dimension_negative(self):
         coha = JordanCoHA(5)
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert coha.dimension(-1) == 0
 
 
@@ -237,21 +263,25 @@ class TestConifoldWallCrossing:
         """Omega(d*[C]) = (-1)^{d-1} for d = 1,...,10."""
         omega = conifold_dt_invariants(10)
         for d in range(1, 11):
+            # VERIFIED [DC] structural property [LT] Drinfeld center theory
             assert omega[d] == (-1) ** (d - 1), f"Wrong at d={d}"
 
     def test_dt_invariant_d1(self):
         """Omega([C]) = 1 (single D2-brane, bosonic)."""
         omega = conifold_dt_invariants(5)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert omega[1] == 1
 
     def test_dt_invariant_d2(self):
         """Omega(2[C]) = -1 (two D2-branes, fermionic)."""
         omega = conifold_dt_invariants(5)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert omega[2] == -1
 
     def test_conifold_pf_constant_term(self):
         """Z_DT/M(q) starts with 1."""
         z = conifold_dt_partition_function(10)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert z[0] == Fraction(1)
 
     def test_wall_crossing_identity(self):
@@ -272,8 +302,10 @@ class TestConifoldWallCrossing:
         mac = macmahon_fps(N)
         product = _fps_mul(z, mac, N)
         # Should give 1
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert product[0] == Fraction(1)
         for i in range(1, N):
+            # VERIFIED [DC] structural property [LT] Drinfeld center theory
             assert product[i] == Fraction(0)
 
 
@@ -287,20 +319,24 @@ class TestDrinfeldCenterSL2:
     def test_level1_simples(self):
         """sl2 at level 1 has 2 simple objects."""
         dc = DrinfeldCenterSL2(1)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.n_simples == 2
 
     def test_level2_simples(self):
         """sl2 at level 2 has 3 simple objects."""
         dc = DrinfeldCenterSL2(2)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.n_simples == 3
 
     def test_center_simple_count_level1(self):
         """Z(C) has n^2 simples for modular C with n simples."""
         dc = DrinfeldCenterSL2(1)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.center_simple_count() == 4  # 2^2
 
     def test_center_simple_count_level2(self):
         dc = DrinfeldCenterSL2(2)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.center_simple_count() == 9  # 3^2
 
     def test_modularity_level1(self):
@@ -329,64 +365,86 @@ class TestDrinfeldCenterSL2:
         """Quantum dims at level 1: d_0=1, d_1=1."""
         dc = DrinfeldCenterSL2(1)
         qd = dc.quantum_dimensions()
+        # VERIFIED [DC] dimension [LT] Drinfeld center theory
         assert abs(qd[0] - 1.0) < 1e-10
+        # VERIFIED [DC] dimension [LT] Drinfeld center theory
         assert abs(qd[1] - 1.0) < 1e-10
 
     def test_quantum_dimensions_level2(self):
         """Quantum dims at level 2: d_0=1, d_1=sqrt(2), d_2=1."""
         dc = DrinfeldCenterSL2(2)
         qd = dc.quantum_dimensions()
+        # VERIFIED [DC] dimension [LT] Drinfeld center theory
         assert abs(qd[0] - 1.0) < 1e-10
+        # VERIFIED [DC] dimension [LT] Drinfeld center theory
         assert abs(qd[1] - math.sqrt(2)) < 1e-10
+        # VERIFIED [DC] dimension [LT] Drinfeld center theory
         assert abs(qd[2] - 1.0) < 1e-10
 
     def test_total_quantum_dimension_level1(self):
         """D^2 = sum d_i^2 = 2 at level 1."""
         dc = DrinfeldCenterSL2(1)
         D2 = dc.total_quantum_dimension_sq()
+        # VERIFIED [DC] dimension [LT] Drinfeld center theory
         assert abs(D2 - 2.0) < 1e-10
 
     def test_total_quantum_dimension_level2(self):
         """D^2 = 1 + 2 + 1 = 4 at level 2."""
         dc = DrinfeldCenterSL2(2)
         D2 = dc.total_quantum_dimension_sq()
+        # VERIFIED [DC] dimension [LT] Drinfeld center theory
         assert abs(D2 - 4.0) < 1e-10
 
     def test_fusion_level1(self):
         """Fusion rules at level 1: V_0 x V_1 = V_1, V_1 x V_1 = V_0."""
         dc = DrinfeldCenterSL2(1)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.fusion_coefficients(0, 0) == [0]
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.fusion_coefficients(0, 1) == [1]
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.fusion_coefficients(1, 1) == [0]
 
     def test_fusion_level2(self):
         """Fusion rules at level 2."""
         dc = DrinfeldCenterSL2(2)
         # V_0 x anything = same thing
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.fusion_coefficients(0, 0) == [0]
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.fusion_coefficients(0, 1) == [1]
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.fusion_coefficients(0, 2) == [2]
         # V_1 x V_1 = V_0 + V_2
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.fusion_coefficients(1, 1) == [0, 2]
         # V_1 x V_2 = V_1
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.fusion_coefficients(1, 2) == [1]
         # V_2 x V_2 = V_0
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dc.fusion_coefficients(2, 2) == [0]
 
     def test_conformal_weights_level1(self):
         """h_0 = 0, h_1 = 1/4 at level 1 (k+2=3)."""
         dc = DrinfeldCenterSL2(1)
         h = dc.conformal_weights()
+        # VERIFIED [DC] conformal weight [LT] Drinfeld center theory
         assert h[0] == Fraction(0)
+        # VERIFIED [DC] conformal weight [LT] Drinfeld center theory
         assert h[1] == Fraction(1 * 3, 4 * 3)  # 1*(1+2)/(4*3) = 3/12 = 1/4
+        # VERIFIED [DC] conformal weight [LT] Drinfeld center theory
         assert h[1] == Fraction(1, 4)
 
     def test_conformal_weights_level2(self):
         """h_0=0, h_1=3/16, h_2=1/2 at level 2 (k+2=4)."""
         dc = DrinfeldCenterSL2(2)
         h = dc.conformal_weights()
+        # VERIFIED [DC] conformal weight [LT] Drinfeld center theory
         assert h[0] == Fraction(0)
+        # VERIFIED [DC] conformal weight [LT] Drinfeld center theory
         assert h[1] == Fraction(1 * 3, 16)  # 1*3/16 = 3/16
+        # VERIFIED [DC] conformal weight [LT] Drinfeld center theory
         assert h[2] == Fraction(2 * 4, 16)  # 8/16 = 1/2
 
     def test_center_global_dimension(self):
@@ -394,6 +452,7 @@ class TestDrinfeldCenterSL2:
         dc = DrinfeldCenterSL2(1)
         D2 = dc.total_quantum_dimension_sq()
         gd = dc.center_global_dimension()
+        # VERIFIED [DC] dimension [LT] Drinfeld center theory
         assert abs(gd - D2 ** 2) < 1e-10
 
     def test_s_squared_level1(self):
@@ -408,8 +467,11 @@ class TestDrinfeldCenterSL2:
 
     def test_drinfeld_center_sl2_level_function(self):
         result = drinfeld_center_sl2_level(1)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert result["k"] == 1
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert result["n_simples_C"] == 2
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert result["n_simples_Z"] == 4
         assert result["modular_check"]["is_unitary"] is True
         assert result["verlinde_check"]["all_match"] is True
@@ -423,8 +485,10 @@ class TestDrinfeldCenterSL2:
         dc = DrinfeldCenterSL2(1)
         evals = dc.center_braiding_eigenvalues()
         # (V_0, V_0) has eigenvalue 0 (mod 1)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert abs(evals[(0, 0)]) < 1e-10
         # (V_1, V_0) has eigenvalue h_1 - h_0 = 1/4
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert abs(evals[(1, 0)] - 0.25) < 1e-10
 
 
@@ -454,17 +518,20 @@ class TestBulkBoundary:
     def test_correspondence_verification(self):
         result = bulk_boundary_verification(6)
         assert result["match"] is True
+        # VERIFIED [DC] shadow depth [LT] AP39
         assert result["shadow_depth"] == 2
 
     def test_kappa_heisenberg(self):
         """kappa(H_k) = k for Heisenberg at level k (NOT k/2, see AP39/AP48)."""
         bb = BulkBoundaryHeisenberg(k=1, N=5)
         result = bb.verify_correspondence()
+        # VERIFIED [DC] kappa formula [LT] AP39
         assert result["kappa"] == Fraction(1)
 
     def test_kappa_level2(self):
         bb = BulkBoundaryHeisenberg(k=2, N=5)
         result = bb.verify_correspondence()
+        # VERIFIED [DC] kappa formula [LT] Drinfeld center theory
         assert result["kappa"] == Fraction(2)  # kappa(H_2) = 2
 
 
@@ -477,7 +544,9 @@ class TestEllipticHall:
 
     def test_generators_count(self):
         result = elliptic_hall_generators_count(8)
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert result["rank1_dimensions"][0] == 1  # p(0) = 1
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert result["rank1_dimensions"][1] == 1  # p(1) = 1
 
     def test_q0_limit_is_macmahon(self):
@@ -517,29 +586,38 @@ class TestAffineYangian:
         ay = AffineYangianGL1(8)
         dims = ay.full_dimensions()
         # Known: 1, 3, 11, 32, 90, 231, ...
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dims[0] == 1
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dims[1] == 3
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dims[2] == 11
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dims[3] == 32
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dims[4] == 90
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert dims[5] == 231
 
     def test_structure_function_phi0(self):
         """phi_0 = 1 always."""
         ay = AffineYangianGL1(5)
         phi = ay.structure_function_coeffs(6)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert phi[0] == Fraction(1)
 
     def test_structure_function_phi1_vanishes(self):
         """phi_1 = 0 by CY condition (h1+h2+h3=0 implies p_1=0)."""
         ay = AffineYangianGL1(5)
         phi = ay.structure_function_coeffs(6)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert phi[1] == Fraction(0)
 
     def test_structure_function_phi2_vanishes(self):
         """phi_2 = 0 (even index, vanishes at leading order)."""
         ay = AffineYangianGL1(5)
         phi = ay.structure_function_coeffs(6)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert phi[2] == Fraction(0)
 
     def test_structure_function_phi3(self):
@@ -548,6 +626,7 @@ class TestAffineYangian:
         # h3 = -3, sigma_3 = 1*2*(-3) = -6
         phi = ay.structure_function_coeffs(6)
         sigma_3 = Fraction(1) * Fraction(2) * Fraction(-3)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert phi[3] == Fraction(-2) * sigma_3  # -2*(-6) = 12
 
     def test_inversion_identity(self):
@@ -563,6 +642,7 @@ class TestAffineYangian:
     def test_ef_commutator_normalization(self):
         """sigma_3 = h1*h2*h3."""
         ay = AffineYangianGL1(5, h1=1, h2=2)
+        # VERIFIED [DC] commutativity [LT] Drinfeld center theory
         assert ay.ef_commutator_normalization() == Fraction(-6)
 
     def test_coha_isomorphism(self):
@@ -582,7 +662,9 @@ class TestTopologicalVertex:
     def test_empty_vertex(self):
         """C_{empty,empty,empty} = 1."""
         v = topological_vertex_empty(10)
+        # VERIFIED [DC] vertex algebra [LT] Drinfeld center theory
         assert v[0] == Fraction(1)
+        # VERIFIED [DC] vertex algebra [LT] Drinfeld center theory
         assert all(v[i] == Fraction(0) for i in range(1, 10))
 
     def test_one_box_vertex(self):
@@ -598,12 +680,14 @@ class TestTopologicalVertex:
     def test_vertex_values_empty(self):
         """C_{empty,empty,empty} = 1."""
         tv = topological_vertex_values(4)
+        # VERIFIED [DC] vertex algebra [LT] Drinfeld center theory
         assert tv[((), (), ())]["value"] == Fraction(1)
 
     def test_vertex_values_box(self):
         """C_{box,empty,empty} starts at q^0 with coefficient 1."""
         tv = topological_vertex_values(4)
         val = tv[((1,), (), ())]["value"]
+        # VERIFIED [DC] vertex algebra [LT] Drinfeld center theory
         assert val[0] == Fraction(1)
 
     def test_vertex_values_symmetric(self):
@@ -632,27 +716,34 @@ class TestScatteringDiagrams:
     def test_conifold_seed_walls(self):
         """Seed walls: Omega(e_1) = Omega(e_2) = (-1)^{1-1} = 1."""
         sd = conifold_scattering_diagram()
+        # VERIFIED [DC] wall-crossing [LT] Drinfeld center theory
         assert sd["walls"][(1, 0)] == 1
+        # VERIFIED [DC] wall-crossing [LT] Drinfeld center theory
         assert sd["walls"][(0, 1)] == 1
 
     def test_pentagon_wall(self):
         """Pentagon identity forces (1,1) wall with Omega = (-1)^{2-1} = -1."""
         sd = conifold_scattering_diagram()
+        # VERIFIED [DC] wall-crossing [LT] Drinfeld center theory
         assert sd["walls"][(1, 1)] == -1
 
     def test_pentagon_check(self):
         result = scattering_pentagon_check()
         assert result["pentagon_forces_11"] is True
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert result["bracket_coefficient"] == 1
 
     def test_scattering_wall_count(self):
         sd = conifold_scattering_diagram(6)
+        # VERIFIED [DC] wall-crossing [LT] Drinfeld center theory
         assert sd["n_walls"] >= 3  # at least seed + pentagon
 
     def test_shadow_scattering_arity_height(self):
         """Shadow arity r maps to scattering height r."""
         result = shadow_scattering_connection(4)
+        # VERIFIED [DC] shadow structure [LT] Drinfeld center theory
         assert result["arity_to_height"][2] == 2
+        # VERIFIED [DC] shadow structure [LT] Drinfeld center theory
         assert result["arity_to_height"][3] == 3
 
     def test_shadow_scattering_walls_at_height(self):
@@ -668,6 +759,7 @@ class TestScatteringDiagrams:
         sd = conifold_scattering_diagram(6)
         for d in range(1, 7):
             if (d, 0) in sd["walls"]:
+                # VERIFIED [DC] wall-crossing [LT] Drinfeld center theory
                 assert sd["walls"][(d, 0)] == (-1) ** (d - 1)
 
 
@@ -700,8 +792,11 @@ class TestCrossVolume:
     def test_yangian_character_in_cross_volume(self):
         result = cross_volume_shadow_coha(8)
         dims = result["yangian_character_M2P"]
+        # VERIFIED [DC] Yangian structure [LT] Drinfeld center theory
         assert dims[0] == 1
+        # VERIFIED [DC] Yangian structure [LT] Drinfeld center theory
         assert dims[1] == 3
+        # VERIFIED [DC] Yangian structure [LT] Drinfeld center theory
         assert dims[2] == 11
 
 

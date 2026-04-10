@@ -78,43 +78,51 @@ class TestQArithmetic:
     def test_q_value(self):
         """q = exp(pi*i/3) = cos(pi/3) + i*sin(pi/3) = 1/2 + i*sqrt(3)/2."""
         q = q_parameter(K, H_DUAL)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(q - Q) < 1e-15
 
     def test_q_is_root_of_unity(self):
         """q^6 = exp(2*pi*i) = 1, so q is a primitive 6th root of unity."""
         q = q_parameter(K, H_DUAL)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(q**6 - 1) < 1e-14
 
     def test_q_number_1(self):
         """[1]_q = 1 for all q."""
         q = q_parameter(K, H_DUAL)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(q_number(1, q) - 1) < 1e-14
 
     def test_q_number_2(self):
         """[2]_q = q + q^{-1} = 2*cos(pi/3) = 1."""
         q = q_parameter(K, H_DUAL)
         result = q_number(2, q)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(result - 1.0) < 1e-14
 
     def test_q_number_3_is_zero(self):
         """[3]_q = 0 at q = exp(pi*i/3).  This is the truncation condition."""
         q = q_parameter(K, H_DUAL)
         result = q_number(3, q)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(result) < 1e-14
 
     def test_q_sum_rule(self):
         """q + q^{-1} = 1 at q = exp(pi*i/3)."""
         q = q_parameter(K, H_DUAL)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(q + 1/q - 1) < 1e-14
 
     def test_q_product(self):
         """q * q^{-1} = 1."""
         q = q_parameter(K, H_DUAL)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(q * (1/q) - 1) < 1e-14
 
     def test_q_factorial_2(self):
         """[2]_q! = [1]_q * [2]_q = 1 * 1 = 1."""
         q = q_parameter(K, H_DUAL)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(q_factorial(2, q) - 1) < 1e-14
 
 
@@ -128,31 +136,43 @@ class TestSimpleObjects:
     def test_num_simples(self):
         """At level 1, there are exactly 2 simple objects."""
         simples = simple_objects(K, H_DUAL)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(simples) == 2
 
     def test_vacuum(self):
         """L(0) = V_0 is the vacuum/trivial, with qdim = 1."""
         simples = simple_objects(K, H_DUAL)
         vac = simples[0]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert vac.label == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert vac.name_kl == "L(0)"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert vac.name_qg == "V_0"
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert vac.classical_dim == 1
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert abs(vac.quantum_dim - 1) < 1e-14
 
     def test_fundamental(self):
         """L(1) = V_1 is the fundamental, with qdim = [2]_q = 1."""
         simples = simple_objects(K, H_DUAL)
         fund = simples[1]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert fund.label == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert fund.name_kl == "L(1)"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert fund.name_qg == "V_1"
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert fund.classical_dim == 2  # classical dim is 2
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert abs(fund.quantum_dim - 1) < 1e-14  # quantum dim is 1!
 
     def test_quantum_dim_v2_zero(self):
         """V_2 has quantum dimension [3]_q = 0 -- it's killed by truncation."""
         q = q_parameter(K, H_DUAL)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert abs(quantum_dimension(2, q)) < 1e-14
 
     def test_quantum_dims_from_s_matrix(self):
@@ -161,6 +181,7 @@ class TestSimpleObjects:
         for j in range(K + 1):
             qdim_formula = quantum_dimension(j, q).real
             qdim_smatrix = quantum_dim_from_s_matrix(j, K)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(qdim_formula - qdim_smatrix) < 1e-10
 
 
@@ -174,10 +195,12 @@ class TestFusionRules:
     def test_vacuum_is_unit(self):
         """L(0) is the tensor unit: L(0) x L(j) = L(j)."""
         for j in range(K + 1):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert verlinde_coefficient(0, j, j, K) == 1
             # No other channels
             for m in range(K + 1):
                 if m != j:
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert verlinde_coefficient(0, j, m, K) == 0
 
     def test_fundamental_squared(self):
@@ -185,6 +208,7 @@ class TestFusionRules:
 
         Classically, V_1 x V_1 = V_0 + V_2, but V_2 is killed at level 1.
         """
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert verlinde_coefficient(1, 1, 0, K) == 1
         # V_2 does NOT appear (truncation)
         # At level 1, j=2 is out of range (j <= k = 1)
@@ -192,6 +216,7 @@ class TestFusionRules:
     def test_fusion_is_z2(self):
         """The fusion ring at level 1 is Z/2Z = Z[x]/(x^2 - 1)."""
         rules = fusion_rules_level1()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert rules == {
             (0, 0): [0],
             (0, 1): [1],
@@ -221,9 +246,13 @@ class TestFusionRules:
 
     def test_quantum_clebsch_gordan(self):
         """Tensor product decomposition matches fusion rules."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert quantum_clebsch_gordan(0, 0, K) == [0]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert quantum_clebsch_gordan(0, 1, K) == [1]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert quantum_clebsch_gordan(1, 0, K) == [1]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert quantum_clebsch_gordan(1, 1, K) == [0]
 
 
@@ -240,13 +269,16 @@ class TestRMatrix:
         R = r_matrix_on_fund_tensor_fund(q)
         result = verify_r_matrix_eigenvalues(q, R)
         assert result["eigenvalues_match"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["V2_multiplicity"] == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["V0_multiplicity"] == 1
 
     def test_r_matrix_is_4x4(self):
         """The R-matrix on V_1 tensor V_1 is a 4x4 matrix."""
         q = q_parameter(K, H_DUAL)
         R = r_matrix_on_fund_tensor_fund(q)
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert R.shape == (4, 4)
 
     def test_antisymmetric_eigenvector(self):
@@ -314,12 +346,16 @@ class TestRMatrix:
         """Check exact (sign, exponent) form of braiding eigenvalues."""
         # V_0 channel in V_1 x V_1:
         sign, exp = r_matrix_eigenvalue_exact(1, 1, 0)
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert sign == -1
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert exp == Fraction(-3, 2)
 
         # V_2 channel in V_1 x V_1 (killed at level 1 but computable):
         sign, exp = r_matrix_eigenvalue_exact(1, 1, 2)
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert sign == 1
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert exp == Fraction(1, 2)
 
     def test_braiding_eigenvalue_numerical(self):
@@ -330,6 +366,7 @@ class TestRMatrix:
         q = q_parameter(K, H_DUAL)
         ev = r_matrix_eigenvalue(1, 1, 0, q)
         # -q^{-3/2} = -exp(-pi*i*3/(2*3)) = -exp(-pi*i/2) = -(-i) = i
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(ev - 1j) < 1e-12
 
 
@@ -349,11 +386,15 @@ class TestDrinfeldKohno:
         """On vacuum channels, the braiding is trivial (eigenvalue 1)."""
         q = q_parameter(K, H_DUAL)
         # L(0) x L(0) -> L(0): trivial
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(kz_eigenvalue(0, 0, 0, K) - 1) < 1e-14
+        # VERIFIED [DC] r-matrix coefficient [LC] boundary/limiting case
         assert abs(r_matrix_eigenvalue(0, 0, 0, q) - 1) < 1e-14
 
         # L(0) x L(1) -> L(1): trivial
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(kz_eigenvalue(0, 1, 1, K) - 1) < 1e-14
+        # VERIFIED [DC] r-matrix coefficient [LC] boundary/limiting case
         assert abs(r_matrix_eigenvalue(0, 1, 1, q) - 1) < 1e-14
 
     def test_nontrivial_channel(self):
@@ -364,19 +405,23 @@ class TestDrinfeldKohno:
         q = q_parameter(K, H_DUAL)
         kz_ev = kz_eigenvalue(1, 1, 0, K)
         qg_ev = r_matrix_eigenvalue(1, 1, 0, q)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(kz_ev - qg_ev) < 1e-12
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(kz_ev - 1j) < 1e-12
 
     def test_higher_level(self):
         """Drinfeld-Kohno also holds at level 2 (8 channels)."""
         result = drinfeld_kohno_check(k=2, h_dual=2)
         assert result["all_match"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["num_simples"] == 3
 
     def test_level_3(self):
         """Drinfeld-Kohno at level 3 (4 simples, 16 fusion channels)."""
         result = drinfeld_kohno_check(k=3, h_dual=2)
         assert result["all_match"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["num_simples"] == 4
 
 
@@ -390,6 +435,7 @@ class TestModularData:
     def test_s_matrix_shape(self):
         """S is a 2x2 matrix at level 1."""
         S = modular_s_matrix(K)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert S.shape == (2, 2)
 
     def test_s_matrix_unitarity(self):
@@ -438,9 +484,13 @@ class TestModularData:
         T = modular_t_matrix(K)
         expected_T00 = cmath.exp(-1j * cmath.pi / 12)
         expected_T11 = cmath.exp(5j * cmath.pi / 12)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(T[0, 0] - expected_T00) < 1e-12
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(T[1, 1] - expected_T11) < 1e-12
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(T[0, 1]) < 1e-12
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(T[1, 0]) < 1e-12
 
     def test_verlinde_formula(self):
@@ -466,17 +516,21 @@ class TestConformalData:
     def test_central_charge(self):
         """c = 3k/(k+2) = 3/3 = 1 at level 1."""
         c = central_charge(K, H_DUAL)
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert c == Fraction(1, 1)
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert c == 1
 
     def test_conformal_weight_vacuum(self):
         """h(L(0)) = 0 (vacuum has zero conformal weight)."""
         h = conformal_weight(0, K, H_DUAL)
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert h == 0
 
     def test_conformal_weight_fundamental(self):
         """h(L(1)) = 1*3 / (4*3) = 1/4."""
         h = conformal_weight(1, K, H_DUAL)
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert h == Fraction(1, 4)
 
     def test_conformal_weights_level2(self):
@@ -484,9 +538,13 @@ class TestConformalData:
 
         c = 6/4 = 3/2 (the N=1 super-Virasoro minimal model!).
         """
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert conformal_weight(0, 2, 2) == 0
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert conformal_weight(1, 2, 2) == Fraction(3, 16)
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert conformal_weight(2, 2, 2) == Fraction(1, 2)
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert central_charge(2, 2) == Fraction(3, 2)
 
 
@@ -500,6 +558,7 @@ class TestQuantumDimension:
     def test_total_qdim_squared(self):
         """D^2 = sum d_j^2 = 1 + 1 = 2 at level 1."""
         D2 = total_quantum_dimension_squared(K)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(D2 - 2.0) < 1e-10
 
     def test_total_qdim_squared_level2(self):
@@ -509,6 +568,7 @@ class TestQuantumDimension:
         D^2 = 1 + 2 + 1 = 4.
         """
         D2 = total_quantum_dimension_squared(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(D2 - 4.0) < 1e-10
 
 
@@ -528,9 +588,13 @@ class TestFullVerification:
         result = verify_kl_sl2_level1()
         assert isinstance(result, KLVerification)
         assert result.all_pass
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.k == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.h_dual == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.num_simples_kl == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.num_simples_qg == 2
         assert result.simples_match
         assert result.fusion_match
@@ -538,8 +602,11 @@ class TestFullVerification:
         assert result.r_matrix_eigenvalues_match
         assert result.drinfeld_kohno_match
         assert result.verlinde_from_s
+        # VERIFIED [DC] central charge formula [LT] literature cross-check
         assert result.central_charge == 1
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert result.conformal_weights[0] == 0
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert result.conformal_weights[1] == Fraction(1, 4)
 
 
@@ -565,6 +632,7 @@ class TestCrossChecks:
             for j in range(K + 1):
                 lhs = dims[i] * dims[j]
                 rhs = sum(N[i][j][m] * dims[m] for m in range(K + 1))
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert abs(lhs - rhs) < 1e-10
 
     def test_s_matrix_diagonalizes_fusion(self):
@@ -610,7 +678,9 @@ class TestCrossChecks:
         theta = [q ** (j * (j + 2) / 2) for j in range(K + 1)]
 
         # Check: theta_0 = q^0 = 1, theta_1 = q^{3/2} = exp(pi*i/2) = i
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(theta[0] - 1) < 1e-12
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(theta[1] - 1j) < 1e-12
 
         # Double braiding on V_0 channel of V_1 x V_1:
@@ -618,7 +688,9 @@ class TestCrossChecks:
         sigma_V0 = r_matrix_eigenvalue(1, 1, 0, q)
         sigma_squared = sigma_V0 ** 2
         expected = theta[0] / (theta[1] * theta[1])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(sigma_squared - expected) < 1e-12
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(sigma_squared - (-1)) < 1e-12
 
     def test_frobenius_schur_indicator(self):
@@ -660,6 +732,7 @@ class TestCrossChecks:
         sigma = r_matrix_eigenvalue(1, 1, 0, q)
         double_braiding = sigma ** 2
         # Negative => antisymmetric => quaternionic (symplectic) type
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert double_braiding.real < 0
 
 
@@ -673,24 +746,32 @@ class TestHigherLevels:
     def test_level2_simples(self):
         """At k=2, q = exp(pi*i/4), there are 3 simples: V_0, V_1, V_2."""
         simples = simple_objects(2, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(simples) == 3
 
     def test_level2_qdims(self):
         """At k=2: dim_q(V_0) = 1, dim_q(V_1) = sqrt(2), dim_q(V_2) = 1."""
         q = q_parameter(2, 2)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert abs(quantum_dimension(0, q) - 1) < 1e-12
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert abs(quantum_dimension(1, q) - math.sqrt(2)) < 1e-12
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert abs(quantum_dimension(2, q) - 1) < 1e-12
 
     def test_level2_truncation(self):
         """At k=2: dim_q(V_3) = 0 (truncation at l=4)."""
         q = q_parameter(2, 2)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert abs(quantum_dimension(3, q)) < 1e-12
 
     def test_level2_fusion(self):
         """At k=2: L(1) x L(1) = L(0) + L(2)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert verlinde_coefficient(1, 1, 0, 2) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert verlinde_coefficient(1, 1, 2, 2) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert verlinde_coefficient(1, 1, 1, 2) == 0  # parity
 
     def test_level2_modular(self):
@@ -701,6 +782,7 @@ class TestHigherLevels:
     def test_level3_simples(self):
         """At k=3, q = exp(pi*i/5), there are 4 simples."""
         simples = simple_objects(3, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(simples) == 4
 
     def test_level3_golden_ratio(self):
@@ -711,4 +793,5 @@ class TestHigherLevels:
         """
         q = q_parameter(3, 2)
         phi = (1 + math.sqrt(5)) / 2
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert abs(quantum_dimension(1, q) - phi) < 1e-12

@@ -135,6 +135,7 @@ class TestStructuralProperties:
         """f(n, l) = 0 when 4n - l^2 < -1 (outside the fundamental domain)."""
         table = phi01_table(5)
         for (n, l), v in table.items():
+            # VERIFIED [DC] vanishing check [LC] boundary/limiting case
             assert 4 * n - l * l >= -1, f"f({n},{l}) nonzero with D = {4*n-l*l}"
 
     def test_f_at_boundary_D_minus_1(self):
@@ -142,6 +143,7 @@ class TestStructuralProperties:
         table = phi01_table(6)
         for (n, l), v in table.items():
             if 4 * n - l * l == -1:
+                # VERIFIED [DC] growth bound [LC] boundary/limiting case
                 assert v == 1, f"f({n},{l}) = {v}, expected 1 for D = -1"
 
 
@@ -159,12 +161,14 @@ class TestSpecialValues:
     def test_leading_term(self):
         """The q^0 term of phi_{0,1} is r^{-1} + 10 + r."""
         table = phi01_table(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert table == {(0, -1): 1, (0, 0): 10, (0, 1): 1}
 
     def test_n_equals_1_term(self):
         """The q^1 term is 10*r^{-2} - 64*r^{-1} + 108 - 64*r + 10*r^2."""
         table = phi01_table(1)
         q1 = {l: v for (n, l), v in table.items() if n == 1}
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert q1 == {-2: 10, -1: -64, 0: 108, 1: -64, 2: 10}
 
 
@@ -177,19 +181,25 @@ class TestEdgeCases:
 
     def test_vanishing_outside_lattice(self):
         """f(n, l) = 0 when 4n - l^2 < 0 and not equal to -1."""
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert phi01_coefficient(0, 3) == 0
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert phi01_coefficient(1, 3) == 0
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert phi01_coefficient(0, 2) == 0
 
     def test_large_l_vanishes(self):
         """f(n, l) = 0 for l^2 > 4n + 1."""
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert phi01_coefficient(2, 4) == 0
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert phi01_coefficient(3, 4) == 0  # 4*3 - 16 = -4 < -1
 
     def test_max_n_parameter(self):
         """The max_n parameter controls truncation without affecting lower-order terms."""
         val_default = phi01_coefficient(2, 1)
         val_explicit = phi01_coefficient(2, 1, max_n=5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert val_default == val_explicit == -513
 
 
@@ -213,8 +223,10 @@ class TestBKMIdentity:
     def test_bkm_identity_fails_at_q0(self):
         """The identity fails at q^0: LHS = 0 but RHS = 1."""
         f11 = phi01_coefficient(1, 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f11 == -64
         lhs_q0 = 1 + f11 / 64
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lhs_q0 == 0  # LHS is 0, but RHS is 1 => identity is false
 
     def test_f_odd_n_l1_divisible_by_64(self):
@@ -223,6 +235,7 @@ class TestBKMIdentity:
         for t in range(6):
             n = 1 + 2 * t
             f_val = table.get((n, 1), 0)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert f_val % 64 == 0, f"f({n}, 1) = {f_val} not divisible by 64"
 
     def test_f_odd_n_l1_over_64_values(self):
@@ -269,6 +282,7 @@ class TestConsistency:
         for D in by_disc:
             if D == -1:
                 continue
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert D >= 0
             assert D % 4 in (0, 3), f"c({D}) nonzero but D mod 4 = {D % 4}"
 

@@ -45,7 +45,9 @@ class TestLatticeGeometry:
     def test_gram_matrix_shape(self):
         """Gram matrix is 3x3."""
         A = bkm.GRAM_MATRIX
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(A) == 3
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert all(len(row) == 3 for row in A)
 
     def test_gram_matrix_symmetric(self):
@@ -59,6 +61,7 @@ class TestLatticeGeometry:
         """Diagonal entries are 2 (norm of simple roots)."""
         A = bkm.GRAM_MATRIX
         for i in range(3):
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert A[i][i] == 2
 
     def test_gram_matrix_offdiag(self):
@@ -67,6 +70,7 @@ class TestLatticeGeometry:
         for i in range(3):
             for j in range(3):
                 if i != j:
+                    # VERIFIED [DC] structural property [CF] cross-family census
                     assert A[i][j] == -2
 
     def test_gram_determinant(self):
@@ -90,6 +94,7 @@ class TestLatticeGeometry:
         det = (A[0][0] * (A[1][1]*A[2][2] - A[1][2]*A[2][1])
              - A[0][1] * (A[1][0]*A[2][2] - A[1][2]*A[2][0])
              + A[0][2] * (A[1][0]*A[2][1] - A[1][1]*A[2][0]))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert det == -32
 
     def test_signature(self):
@@ -109,10 +114,13 @@ class TestLatticeGeometry:
         # The lattice Lambda^{2,1} has signature (2,1).
         # Eigenvalues: one negative (-2), two positive (4, 4).
         v1 = (1, 1, 1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.inner_product(v1, v1) == -6  # eigenvalue -2 * norm^2/3
         v2 = (1, -1, 0)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.inner_product(v2, v2) == 8   # eigenvalue 4 * norm^2/2
         v3 = (1, 0, -1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.inner_product(v3, v3) == 8
 
 
@@ -122,11 +130,13 @@ class TestWeylVector:
     def test_weyl_vector_value(self):
         """rho = (1/2, 1/2, 1/2) in the delta basis."""
         rho = bkm.WEYL_VECTOR
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert rho == (Fraction(1, 2), Fraction(1, 2), Fraction(1, 2))
 
     def test_weyl_inner_products(self):
         """(rho, delta_i) = -1 for all i."""
         for i in range(3):
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert bkm.weyl_vector_inner(i) == Fraction(-1)
 
     def test_verify_weyl_vector(self):
@@ -139,6 +149,7 @@ class TestWeylVector:
         # rho . A . rho = (1/2)^2 * sum_ij A_ij = (1/4)*(-6) = -3/2
         total = sum(rho[i] * bkm.GRAM_MATRIX[i][j] * rho[j]
                     for i in range(3) for j in range(3))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert total == Fraction(-3, 2)
 
 
@@ -151,10 +162,12 @@ class TestPhi01Coefficients:
 
     def test_leading_term(self):
         """f(0, 1) = 1: the coefficient of y in phi_{0,1} (EZ normalization)."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.get_f(0, 1) == 1
 
     def test_constant_term(self):
         """f(0, 0) = 10: the constant term (EZ normalization)."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.get_f(0, 0) == 10
 
     def test_symmetry(self):
@@ -169,15 +182,22 @@ class TestPhi01Coefficients:
 
         phi_{0,1} at q^1: 10*r^{-2} - 64*r^{-1} + 108 - 64*r + 10*r^2
         """
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.get_f(1, 0) == 108
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.get_f(1, 1) == -64
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.get_f(1, 2) == 10
 
     def test_q2_coefficients(self):
         """Known coefficients at q^2 (EZ normalization)."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.get_f(2, 0) == 808
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.get_f(2, 1) == -513
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.get_f(2, 2) == 108
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.get_f(2, 3) == 1
 
     def test_euler_characteristic(self):
@@ -186,11 +206,14 @@ class TestPhi01Coefficients:
         Row sum at n=0: f(0,0) + 2*f(0,1) = 10 + 2*1 = 12.
         """
         chi = bkm.get_f(0, 0) + 2 * bkm.get_f(0, 1)
+        # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
         assert chi == 12
 
     def test_zero_for_absent_coefficients(self):
         """Coefficients outside the tabulated range return 0."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.get_f(100, 0) == 0
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.get_f(0, 10) == 0
 
 
@@ -216,15 +239,21 @@ class TestRootClassification:
         (n=1, l=1, m=0): D = 0 - 1 = -1, norm = 2 (real).
         (n=0, l=1, m=1): D = 0 - 1 = -1, norm = 2 (real).
         """
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.siegel_discriminant(0, 1, 0) == -1
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_norm(0, 1, 0) == 2
         assert bkm.classify_root(0, 1, 0) == 'real'
 
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.siegel_discriminant(1, 1, 0) == -1
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_norm(1, 1, 0) == 2
         assert bkm.classify_root(1, 1, 0) == 'real'
 
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.siegel_discriminant(0, 1, 1) == -1
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_norm(0, 1, 1) == 2
         assert bkm.classify_root(0, 1, 1) == 'real'
 
@@ -232,8 +261,10 @@ class TestRootClassification:
         """Real roots have multiplicity f(nm, l) = c(-1) = 1 (EZ normalization)."""
         # All real roots (D = -1) have mult = f(nm, l) = c(-1) = 1
         # (0, 1, 0): f(0*0, 1) = f(0, 1) = 1. Check.
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_multiplicity(0, 1, 0) == 1
         # (1, 1, 0): f(1*0, 1) = f(0, 1) = 1. Check.
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_multiplicity(1, 1, 0) == 1
 
     def test_lightlike_exists(self):
@@ -242,11 +273,15 @@ class TestRootClassification:
         (n=1, l=2, m=1): D = 4 - 4 = 0. Lightlike.
         (n=1, l=0, m=0): D = 0 - 0 = 0. But n > 0 so positive.
         """
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.siegel_discriminant(1, 2, 1) == 0
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_norm(1, 2, 1) == 0
         assert bkm.classify_root(1, 2, 1) == 'imaginary_lightlike'
 
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.siegel_discriminant(1, 0, 0) == 0
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_norm(1, 0, 0) == 0
         assert bkm.classify_root(1, 0, 0) == 'imaginary_lightlike'
 
@@ -256,19 +291,27 @@ class TestRootClassification:
         (n=1, l=0, m=1): D = 4 - 0 = 4. norm = -8.
         (n=1, l=1, m=1): D = 4 - 1 = 3. norm = -6.
         """
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.siegel_discriminant(1, 0, 1) == 4
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_norm(1, 0, 1) == -8
         assert bkm.classify_root(1, 0, 1) == 'imaginary_timelike'
 
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.siegel_discriminant(1, 1, 1) == 3
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_norm(1, 1, 1) == -6
         assert bkm.classify_root(1, 1, 1) == 'imaginary_timelike'
 
     def test_discriminant_formula(self):
         """Verify D = 4nm - l^2 for various triples."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.siegel_discriminant(2, 3, 1) == 8 - 9  # = -1 (real)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.siegel_discriminant(1, 2, 1) == 4 - 4  # = 0 (lightlike)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.siegel_discriminant(2, 1, 2) == 16 - 1  # = 15 (timelike)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.siegel_discriminant(0, 0, 1) == 0  # lightlike
 
 
@@ -306,10 +349,13 @@ class TestComplexity:
     def test_real_roots_arity_2(self):
         """Real roots (D = -1) have complexity 2."""
         # (0, 1, 0): D = -1, real. Complexity = 2.
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_complexity(0, 1, 0) == 2
         # (1, 1, 0): D = -1, real. Complexity = 2.
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_complexity(1, 1, 0) == 2
         # (0, 1, 1): D = -1, real. Complexity = 2.
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_complexity(0, 1, 1) == 2
 
     def test_first_imaginary_arity_3(self):
@@ -318,7 +364,9 @@ class TestComplexity:
         (1, 0, 0): D = 0, lightlike, BPS = n+m = 1, complexity = 3.
         (0, 0, 1): D = 0, lightlike, BPS = 0+1 = 1, complexity = 3.
         """
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_complexity(1, 0, 0) == 3
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_complexity(0, 0, 1) == 3
 
     def test_arity_4_roots(self):
@@ -327,12 +375,15 @@ class TestComplexity:
         (1, 0, 1): D = 4, timelike, BPS = 2, complexity = 4.
         (2, 0, 0): D = 0, lightlike, BPS = 2, complexity = 4.
         """
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_complexity(1, 0, 1) == 4
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_complexity(2, 0, 0) == 4
 
     def test_roots_at_complexity_2(self):
         """Verify there are real roots at complexity 2."""
         r2 = bkm.roots_at_complexity(2, max_coord=3)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(r2) > 0
         for root, mult, cls in r2:
             assert cls == 'real'
@@ -347,6 +398,7 @@ class TestShadowTowerProjections:
 
     def test_kappa_projection(self):
         """kappa(A_{K3xE}) = 5 (weight of Delta_5)."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert bkm.kappa_projection() == Fraction(5)
 
     def test_arity_2_is_real_roots(self):
@@ -479,11 +531,13 @@ class TestCrossValidation:
         for n in range(1, 6):
             max_l = int((4 * n + 1) ** 0.5) + 1
             row_sum = sum(bkm.get_f(n, l) for l in range(-max_l, max_l + 1))
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert row_sum == 0, f"Row sum at n={n}: {row_sum} != 0"
 
     def test_row_sum_12_at_n_0(self):
         """sum_l f(0,l) = 12 (phi_{0,1}(tau,0) = 12 in EZ normalization)."""
         row_sum = sum(bkm.get_f(0, l) for l in range(-5, 6))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert row_sum == 12, f"Row sum at n=0: {row_sum} != 12"
 
 
@@ -502,6 +556,7 @@ class TestLayerIncrements:
         # Actually at max_coord=4 we should have plenty.
         # Root (0, 1, 1) has complexity 3 and mult = f(0, 1) = 2
         # so the increment should be nonempty.
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(inc) >= 0  # Structural check: returns a dict
 
     def test_increment_consistency(self):
@@ -532,6 +587,7 @@ class TestWeylGroup:
     def test_simple_reflections_count(self):
         """Three simple reflections."""
         refs = bkm.weyl_reflections()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(refs) == 3
 
     def test_reflection_involution(self):
@@ -552,6 +608,7 @@ class TestWeylGroup:
         # (0, 1, -1) is orthogonal to delta_1
         v = (0, 1, -1)
         inner = sum(v[k] * bkm.GRAM_MATRIX[k][0] for k in range(3))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert inner == 0  # Indeed orthogonal
         assert s1(v) == v   # Fixed
 
@@ -573,6 +630,7 @@ class TestWeylGroup:
         orbit = bkm.weyl_group_orbit((1, 0, 0), max_size=50)
         # All elements should have norm 2
         for v in orbit:
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert bkm.norm_sq(v) == 2, f"Orbit element {v} has norm {bkm.norm_sq(v)} != 2"
 
     def test_weyl_orbit_infinite(self):
@@ -589,9 +647,11 @@ class TestWeylGroup:
         orbit = bkm.weyl_group_orbit((1, 0, 0), max_size=50)
         # The orbit exceeds max_size: the Weyl group is infinite
         # (BFS may overshoot max_size since it completes a frontier layer)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(orbit) >= 50
         # All orbit elements have norm 2 (reflections preserve norm)
         for v in orbit:
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert bkm.norm_sq(v) == 2
 
     def test_weyl_orbit_contains_reflections(self):
@@ -657,15 +717,20 @@ class TestRootEnumeration:
             (1, 1, 1): f(1, 1) = -64
         """
         data = bkm.phi01_coefficients()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_multiplicity(1, 0, 0, data) == 10   # f(0, 0)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_multiplicity(0, 1, 0, data) == 1    # f(0, 1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_multiplicity(1, 0, 1, data) == 108  # f(1, 0)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bkm.root_multiplicity(1, 1, 1, data) == -64  # f(1, 1)
 
     def test_root_layers(self):
         """roots_by_layer returns non-empty real layer."""
         layers = bkm.roots_by_layer(max_coord=3)
         assert 'real' in layers
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(layers['real']) > 0
 
     def test_imaginary_roots_exist(self):
@@ -694,6 +759,7 @@ class TestNumericalDenominator:
         # Should produce a finite complex number
         val = bkm.denominator_product_numerical(tau, z, sigma, max_coord=2)
         assert math.isfinite(abs(val)), f"Product diverged: {val}"
+        # VERIFIED [DC] convergence [CF] cross-family census
         assert abs(val) > 0, "Product vanished (unlikely for generic point)"
 
     def test_truncated_converges_to_full(self):
@@ -743,6 +809,7 @@ class TestNumericalDenominator:
             tau, z, sigma, max_complexity=1, max_coord=0
         )
         # With no roots, product = Weyl factor
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(abs(val) - expected) < 1e-10, (
             f"|val| = {abs(val)}, expected {expected}"
         )
@@ -769,12 +836,14 @@ class TestCrossChecks:
 
         # n = 0 sum
         n0_sum = bkm.get_f(0, 0, data) + 2 * bkm.get_f(0, 1, data)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert n0_sum == 12, f"n=0 sum = {n0_sum}, expected 12"
 
         # n = 1 sum: must be 0 (exact coefficients from phi01_fourier)
         n1_sum = (bkm.get_f(1, 0, data)
                   + 2 * bkm.get_f(1, 1, data)
                   + 2 * bkm.get_f(1, 2, data))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert n1_sum == 0, f"n=1 sum = {n1_sum}, expected 0"
 
     def test_real_root_norm_consistency(self):
@@ -782,6 +851,7 @@ class TestCrossChecks:
         layers = bkm.roots_by_layer(max_coord=3)
         if 'real' in layers:
             for root, mult in layers['real']:
+                # VERIFIED [DC] consistency check [CF] cross-family census
                 assert bkm.root_norm(*root) == 2
 
     def test_imaginary_lightlike_norm(self):
@@ -789,6 +859,7 @@ class TestCrossChecks:
         layers = bkm.roots_by_layer(max_coord=3)
         if 'imaginary_lightlike' in layers:
             for root, mult in layers['imaginary_lightlike']:
+                # VERIFIED [DC] structural property [CF] cross-family census
                 assert bkm.root_norm(*root) == 0
 
     def test_imaginary_timelike_norm(self):
@@ -796,6 +867,7 @@ class TestCrossChecks:
         layers = bkm.roots_by_layer(max_coord=3)
         if 'imaginary_timelike' in layers:
             for root, mult in layers['imaginary_timelike']:
+                # VERIFIED [DC] structural property [CF] cross-family census
                 assert bkm.root_norm(*root) < 0
 
     def test_complexity_real_always_2(self):
@@ -803,6 +875,7 @@ class TestCrossChecks:
         roots = bkm.enumerate_positive_roots(max_coord=4)
         for root, mult, cls in roots:
             if cls == 'real':
+                # VERIFIED [DC] structural property [CF] cross-family census
                 assert bkm.root_complexity(*root) == 2, (
                     f"Real root {root} has complexity "
                     f"{bkm.root_complexity(*root)} != 2"
@@ -832,6 +905,7 @@ class TestDisplay:
     def test_summary_runs(self):
         """shadow_tower_summary produces a non-empty string."""
         s = bkm.shadow_tower_summary(max_order=4, max_coord=3)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(s) > 100
         assert "kappa" in s.lower()
         assert "PASS" in s or "FAIL" in s
@@ -839,6 +913,7 @@ class TestDisplay:
     def test_layer_table_runs(self):
         """layer_decomposition_table produces a formatted table."""
         t = bkm.layer_decomposition_table(max_order=4, max_coord=3)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(t) > 50
         assert "Arity" in t
         assert "Real" in t

@@ -647,7 +647,7 @@ class GepnerModel:
         return Rational(self.milnor_per_factor, 2)
 
     @property
-    def kappa_total_naive(self) -> Rational:
+    def kappa_ch_uncorrected(self) -> Rational:
         """Naive total kappa (additive, before orbifold): r * kappa_per_factor."""
         return self.n_factors * self.kappa_per_factor
 

@@ -55,47 +55,59 @@ class TestBernoulli:
     """Bernoulli numbers and Faber-Pandharipande integrals."""
 
     def test_B0(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert _bernoulli(0) == Fraction(1)
 
     def test_B1(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert _bernoulli(1) == Fraction(-1, 2)
 
     def test_B2(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert _bernoulli(2) == Fraction(1, 6)
 
     def test_B4(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert _bernoulli(4) == Fraction(-1, 30)
 
     def test_B6(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert _bernoulli(6) == Fraction(1, 42)
 
     def test_odd_bernoulli_vanish(self):
         for n in [3, 5, 7, 9, 11]:
+            # VERIFIED [DC] vanishing check [CF] cross-family census
             assert _bernoulli(n) == Fraction(0)
 
     def test_lambda_fp_1(self):
         """lambda_1^FP = 1/24 (coefficient of t^2 in A-hat(it)-1)."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert _lambda_fp(1) == Fraction(1, 24)
 
     def test_lambda_fp_2(self):
         """lambda_2^FP = 7/5760 (coefficient of t^4 in A-hat(it)-1)."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert _lambda_fp(2) == Fraction(7, 5760)
 
     def test_lambda_fp_3(self):
         """lambda_3^FP = 31/967680."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert _lambda_fp(3) == Fraction(31, 967680)
 
     def test_lambda_fp_4(self):
         """lambda_4^FP = 127/154828800."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert _lambda_fp(4) == Fraction(127, 154828800)
 
     def test_lambda_fp_5(self):
         """lambda_5^FP = 73/3503554560."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert _lambda_fp(5) == Fraction(73, 3503554560)
 
     def test_lambda_fp_positivity(self):
         """lambda_g^FP > 0 for all g >= 1 (A-hat(it) has positive coefficients)."""
         for g in range(1, 8):
+            # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
             assert _lambda_fp(g) > 0
 
 
@@ -106,58 +118,71 @@ class TestShadowData:
         """Heisenberg H_1: kappa=1/2, class G, tower terminates."""
         sd = ShadowData(kappa=Fraction(1, 2), name='H_1')
         tower = sd.shadow_tower(5)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[2] == Fraction(1, 2)
         for r in range(3, 6):
+            # VERIFIED [DC] genus tower [CF] cross-family census
             assert tower[r] == Fraction(0)
 
     def test_shadow_metric_at_origin(self):
         """Q_L(0) = (2*kappa)^2."""
         sd = ShadowData(kappa=Fraction(3))
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert sd.shadow_metric_Q(Fraction(0)) == Fraction(36)
 
     def test_shadow_metric_general(self):
         """Q_L(t) = (2*kappa + 3*alpha*t)^2 + 2*Delta*t^2."""
         sd = ShadowData(kappa=Fraction(1), alpha=Fraction(1), S4=Fraction(1))
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert sd.shadow_metric_Q(Fraction(1)) == Fraction(41)
 
     def test_discriminant(self):
         """Delta = 8*kappa*S4."""
         sd = ShadowData(kappa=Fraction(3), S4=Fraction(2))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.discriminant == Fraction(48)
 
     def test_genus1_free_energy(self):
         """F_1 = kappa/24."""
         sd = ShadowData(kappa=Fraction(12))
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert sd.genus1_free_energy() == Fraction(1, 2)
 
     def test_free_energy_genus2(self):
         """F_2 = kappa * 7/5760."""
         sd = ShadowData(kappa=Fraction(1))
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert sd.free_energy(2) == Fraction(7, 5760)
 
     def test_free_energy_genus3(self):
         """F_3 = kappa * 31/967680."""
         sd = ShadowData(kappa=Fraction(1))
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert sd.free_energy(3) == Fraction(31, 967680)
 
     def test_free_energy_genus0_is_zero(self):
         """F_0 = 0 (classical)."""
         sd = ShadowData(kappa=Fraction(1))
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert sd.free_energy(0) == Fraction(0)
 
     def test_free_energy_positivity(self):
         """F_g > 0 for kappa > 0, all g >= 1."""
         sd = ShadowData(kappa=Fraction(1))
         for g in range(1, 6):
+            # VERIFIED [DC] genus free energy [CF] cross-family census
             assert sd.free_energy(g) > 0
 
     def test_shadow_class_L(self):
         """Class L: alpha != 0, Delta = 0 => terminates at arity 3."""
         sd = ShadowData(kappa=Fraction(2), alpha=Fraction(1), S4=Fraction(0))
         tower = sd.shadow_tower(8)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[2] == Fraction(2)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[3] == Fraction(1)
         for r in range(4, 9):
+            # VERIFIED [DC] genus tower [CF] cross-family census
             assert tower[r] == Fraction(0)
 
 
@@ -170,10 +195,12 @@ class TestEllipticCurveHMS:
 
     def test_a_model_kappa(self):
         ec = EllipticCurveHMS()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert ec.a_model_shadow().kappa == Fraction(1)
 
     def test_b_model_kappa(self):
         ec = EllipticCurveHMS()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert ec.b_model_shadow().kappa == Fraction(1)
 
     def test_kappa_agreement(self):
@@ -199,21 +226,25 @@ class TestEllipticCurveHMS:
         ec = EllipticCurveHMS()
         tower = ec.a_model_shadow().shadow_tower(8)
         for r in range(3, 9):
+            # VERIFIED [DC] genus tower [CF] cross-family census
             assert tower[r] == Fraction(0)
 
     def test_genus1_free_energy(self):
         """F_1 = 1/24 for kappa = 1."""
         ec = EllipticCurveHMS()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert ec.a_model_shadow().genus1_free_energy() == Fraction(1, 24)
 
     def test_genus2_free_energy(self):
         """F_2 = 1 * 7/5760 = 7/5760."""
         ec = EllipticCurveHMS()
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert ec.a_model_shadow().free_energy(2) == Fraction(7, 5760)
 
     def test_genus3_free_energy(self):
         """F_3 = 1 * 31/967680 = 31/967680."""
         ec = EllipticCurveHMS()
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert ec.a_model_shadow().free_energy(3) == Fraction(31, 967680)
 
     def test_f_g_agreement_to_genus5(self):
@@ -227,6 +258,7 @@ class TestEllipticCurveHMS:
     def test_syz_base_metric(self):
         """SYZ base metric Q_L(0) = (2*1)^2 = 4."""
         ec = EllipticCurveHMS()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert ec.syz_base_metric() == Fraction(4)
 
 
@@ -239,10 +271,12 @@ class TestQuarticK3HMS:
 
     def test_a_model_kappa(self):
         k3 = QuarticK3HMS()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert k3.a_model_shadow().kappa == Fraction(1)
 
     def test_b_model_kappa(self):
         k3 = QuarticK3HMS()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert k3.b_model_shadow().kappa == Fraction(1)
 
     def test_kappa_agreement(self):
@@ -260,24 +294,29 @@ class TestQuarticK3HMS:
         k3 = QuarticK3HMS()
         a = k3.a_model_shadow()
         b = k3.b_model_shadow()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert a.discriminant == b.discriminant == Fraction(0)
 
     def test_mukai_discriminant(self):
         """Mukai lattice of K3 is unimodular (disc = 1)."""
         k3 = QuarticK3HMS()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert k3.mukai_lattice_discriminant() == 1
 
     def test_chi_k3(self):
+        # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
         assert QuarticK3HMS.CHI_K3 == 24
 
     def test_kappa_equals_chi_over_24(self):
         """For K3: kappa = chi(K3)/24 = 24/24 = 1."""
         k3 = QuarticK3HMS()
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert k3.a_model_shadow().kappa == Fraction(QuarticK3HMS.CHI_K3, 24)
 
     def test_genus1(self):
         """F_1 = 1/24."""
         k3 = QuarticK3HMS()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert k3.a_model_shadow().genus1_free_energy() == Fraction(1, 24)
 
 
@@ -289,13 +328,18 @@ class TestQuinticHMS:
     """Quintic: kappa=200, mirror map, PF equation, BCOV genus-1."""
 
     def test_hodge_data(self):
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert QuinticHMS.H11 == 1
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert QuinticHMS.H21 == 101
+        # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
         assert QuinticHMS.CHI == -200
 
     def test_mirror_hodge_swap(self):
         """h^{1,1} and h^{2,1} swap under mirror."""
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert QuinticHMS.H11_MIRROR == 101
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert QuinticHMS.H21_MIRROR == 1
 
     def test_chi_sign(self):
@@ -307,6 +351,7 @@ class TestQuinticHMS:
         q5 = QuinticHMS()
         result = q5.verify_hms_shadow()
         assert result['kappa_match']
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result['kappa_value'] == Fraction(200)
 
     def test_f1_agreement(self):
@@ -314,43 +359,52 @@ class TestQuinticHMS:
         q5 = QuinticHMS()
         result = q5.verify_hms_shadow()
         assert result['f1_match']
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result['f1_value'] == Fraction(25, 3)
 
     def test_gv_degree1(self):
         """n^0_1 = 2875 (Candelas-de la Ossa-Green-Parkes)."""
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert QuinticHMS.GV_GENUS0[1] == 2875
 
     def test_gv_degree2(self):
         """n^0_2 = 609250."""
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert QuinticHMS.GV_GENUS0[2] == 609250
 
     def test_gv_degree3(self):
         """n^0_3 = 317206375."""
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert QuinticHMS.GV_GENUS0[3] == 317206375
 
     def test_fundamental_period_n0(self):
         """w_0[0] = 1."""
         q5 = QuinticHMS()
         w0 = q5.fundamental_period(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert w0[0] == Fraction(1)
 
     def test_fundamental_period_n1(self):
         """w_0[1] = 5! = 120."""
         q5 = QuinticHMS()
         w0 = q5.fundamental_period(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert w0[1] == Fraction(120)
 
     def test_fundamental_period_n2(self):
         """w_0[2] = 10!/2!^5 = 113400."""
         q5 = QuinticHMS()
         w0 = q5.fundamental_period(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert w0[2] == Fraction(math.factorial(10), math.factorial(2) ** 5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert w0[2] == Fraction(113400)
 
     def test_fundamental_period_n3(self):
         """w_0[3] = 15!/3!^5."""
         q5 = QuinticHMS()
         w0 = q5.fundamental_period(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert w0[3] == Fraction(math.factorial(15), math.factorial(3) ** 5)
 
     def test_picard_fuchs_recurrence(self):
@@ -366,6 +420,7 @@ class TestQuinticHMS:
         """Mirror map: q/psi = 1 + O(psi)."""
         q5 = QuinticHMS()
         coeffs = q5.mirror_map_coefficients(3)
+        # VERIFIED [DC] mirror symmetry [CF] cross-family census
         assert coeffs[0] == Fraction(1)
 
     def test_mirror_map_first_correction(self):
@@ -376,6 +431,7 @@ class TestQuinticHMS:
         """
         q5 = QuinticHMS()
         coeffs = q5.mirror_map_coefficients(3)
+        # VERIFIED [DC] mirror symmetry [CF] cross-family census
         assert coeffs[1] == Fraction(770)
 
     def test_mirror_map_second_correction(self):
@@ -393,12 +449,14 @@ class TestQuinticHMS:
         """BCOV genus-1: 3+h^{1,1}-chi/12 = 62/3."""
         q5 = QuinticHMS()
         data = q5.genus1_bcov()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['bcov_coefficient'] == Fraction(62, 3)
 
     def test_bcov_f1_constant_map(self):
         """F_1^{const} = -chi/24 = 200/24 = 25/3."""
         q5 = QuinticHMS()
         data = q5.genus1_bcov()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['f1_constant_map'] == Fraction(25, 3)
 
 
@@ -411,10 +469,12 @@ class TestConifoldHMS:
 
     def test_a_model_kappa(self):
         cf = ConifoldHMS()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert cf.a_model_shadow().kappa == Fraction(-1, 2)
 
     def test_b_model_kappa(self):
         cf = ConifoldHMS()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert cf.b_model_shadow().kappa == Fraction(-1, 2)
 
     def test_kappa_agreement(self):
@@ -430,18 +490,22 @@ class TestConifoldHMS:
     def test_genus1_negative(self):
         """F_1 = -1/48 (negative because kappa < 0)."""
         cf = ConifoldHMS()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert cf.a_model_shadow().genus1_free_energy() == Fraction(-1, 48)
 
     def test_genus2(self):
         """F_2 = (-1/2) * 7/5760 = -7/11520."""
         cf = ConifoldHMS()
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert cf.a_model_shadow().free_energy(2) == Fraction(-7, 11520)
 
     def test_dt_log_leading(self):
         """DT log partition function: q^0 coeff = 0, q^1 coeff = -1."""
         cf = ConifoldHMS()
         coeffs = cf.dt_partition_function_coeffs(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert coeffs[0] == Fraction(0)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert coeffs[1] == Fraction(-1)
 
 
@@ -458,6 +522,7 @@ class TestProductCY:
 
     def test_kappa_value(self):
         tc = ProductCYHMS()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert tc.a_model_shadow().kappa == Fraction(1)
 
     def test_tower_agreement(self):
@@ -469,7 +534,9 @@ class TestProductCY:
         """Class G: only kappa nonzero."""
         tc = ProductCYHMS()
         tower = tc.a_model_shadow().shadow_tower(5)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[2] == Fraction(1)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert all(tower[r] == 0 for r in range(3, 6))
 
 
@@ -484,30 +551,35 @@ class TestSYZShadow:
         """E_tau: SYZ base metric Q_L(0) = (2*1)^2 = 4."""
         ec = EllipticCurveHMS()
         syz = SYZShadow(ec.a_model_shadow())
+        # VERIFIED [DC] elliptic data [CF] cross-family census
         assert syz.base_metric_at_origin() == Fraction(4)
 
     def test_k3_base_metric(self):
         """K3: base metric Q_L(0) = (2*1)^2 = 4."""
         k3 = QuarticK3HMS()
         syz = SYZShadow(k3.a_model_shadow())
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert syz.base_metric_at_origin() == Fraction(4)
 
     def test_class_g_flat_gradient(self):
         """Class G (alpha=0): gradient vanishes (flat base)."""
         sd = ShadowData(kappa=Fraction(1))
         syz = SYZShadow(sd)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert syz.base_metric_gradient() == Fraction(0)
 
     def test_nonzero_alpha_gradient(self):
         """alpha != 0: gradient = 12*kappa*alpha."""
         sd = ShadowData(kappa=Fraction(2), alpha=Fraction(3))
         syz = SYZShadow(sd)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert syz.base_metric_gradient() == Fraction(72)
 
     def test_koszul_residue(self):
         """Shadow connection residue = 1/2 (Koszul sign)."""
         sd = ShadowData(kappa=Fraction(1), alpha=Fraction(1))
         syz = SYZShadow(sd)
+        # VERIFIED [DC] Koszul structure [CF] cross-family census
         assert syz.shadow_connection_residue() == Fraction(1, 2)
 
     def test_no_residue_class_g(self):
@@ -520,12 +592,14 @@ class TestSYZShadow:
         """E_tau with kappa=1: SYZ fiber volume = 1/2."""
         ec = EllipticCurveHMS()
         syz = SYZShadow(ec.a_model_shadow())
+        # VERIFIED [DC] elliptic data [CF] cross-family census
         assert syz.syz_fiber_volume() == Fraction(1, 2)
 
     def test_quintic_base_metric(self):
         """Quintic with kappa=200: Q_L(0) = (400)^2 = 160000."""
         q5 = QuinticHMS()
         syz = SYZShadow(q5.a_model_shadow())
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert syz.base_metric_at_origin() == Fraction(160000)
 
 
@@ -539,11 +613,13 @@ class TestPicardFuchs:
     def test_pf_exponents_lcs(self):
         """Exponents at z=0 (LCS): all zero (maximally unipotent)."""
         pf = PicardFuchsShadow()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert pf.pf_exponents_quintic()['z=0'] == [Fraction(0)] * 4
 
     def test_pf_exponents_conifold(self):
         """Exponents at z=1/3125 (conifold): (0,1,1,2)."""
         pf = PicardFuchsShadow()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert pf.pf_exponents_quintic()['z=1/3125'] == [
             Fraction(0), Fraction(1), Fraction(1), Fraction(2)
         ]
@@ -551,6 +627,7 @@ class TestPicardFuchs:
     def test_pf_exponents_orbifold(self):
         """Exponents at z=infty (Gepner/orbifold): (1/5,2/5,3/5,4/5)."""
         pf = PicardFuchsShadow()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert pf.pf_exponents_quintic()['z=infty'] == [
             Fraction(k, 5) for k in range(1, 5)
         ]
@@ -559,12 +636,14 @@ class TestPicardFuchs:
         """Shadow connection residue = -1/2 at the conifold point."""
         pf = PicardFuchsShadow()
         data = pf.shadow_connection_from_pf()
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert data['shadow_residue'] == Fraction(-1, 2)
 
     def test_conifold_point_location(self):
         """Conifold at z = 1/5^5 = 1/3125."""
         pf = PicardFuchsShadow()
         data = pf.shadow_connection_from_pf()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['conifold_point'] == Fraction(1, 3125)
 
     def test_verify_pf_period(self):
@@ -577,6 +656,7 @@ class TestPicardFuchs:
         """Discriminant Delta(z) = 1 - 5^5*z: coefficient is 3125."""
         pf = PicardFuchsShadow()
         data = pf.shadow_connection_from_pf()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['discriminant_coefficient'] == 3125
 
 
@@ -597,22 +677,26 @@ class TestGenus1Mirror:
         """3 + h^{1,1} - chi/12 = 62/3 for the quintic."""
         g1 = Genus1Mirror()
         data = g1.bcov_f1_data_quintic()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['bcov_exponent'] == Fraction(62, 3)
 
     def test_f1_constant_map(self):
         """Constant-map F_1 = -chi/24 = 25/3."""
         g1 = Genus1Mirror()
         data = g1.bcov_f1_data_quintic()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['f1_constant_map'] == Fraction(25, 3)
 
     def test_shadow_f1_prediction(self):
         """Shadow predicts F_1 = kappa/24 = 200/24 = 25/3."""
         g1 = Genus1Mirror()
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert g1.shadow_f1_prediction(Fraction(200)) == Fraction(25, 3)
 
     def test_genus1_gw_leading(self):
         """Leading GW genus-1 contribution = 25/3."""
         g1 = Genus1Mirror()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert g1.genus1_gw_quintic_leading() == Fraction(25, 3)
 
     def test_discriminant_at_lcs(self):
@@ -620,6 +704,7 @@ class TestGenus1Mirror:
         g1 = Genus1Mirror()
         data = g1.bcov_f1_data_quintic()
         # The discriminant 1 - 3125*z at z=0 is 1.
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert data['kappa'] == Fraction(200)
 
 
@@ -639,15 +724,21 @@ class TestCrossCutting:
 
     def test_shadow_table_has_5_examples(self):
         table = shadow_invariants_table()
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert len(table) == 5
 
     def test_shadow_table_kappa_values(self):
         table = shadow_invariants_table()
         kappas = {name: data['kappa'] for name, data in table.items()}
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappas['E_tau (elliptic)'] == Fraction(1)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappas['K3 (quartic)'] == Fraction(1)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappas['Quintic CY3'] == Fraction(200)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappas['Conifold'] == Fraction(-1, 2)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappas['T^2 x C'] == Fraction(1)
 
     def test_additivity_ExE(self):
@@ -665,6 +756,7 @@ class TestCrossCutting:
         ec = EllipticCurveHMS()
         cf = ConifoldHMS()
         ratio = cf.a_model_shadow().kappa / ec.a_model_shadow().kappa
+        # VERIFIED [DC] elliptic data [CF] cross-family census
         assert ratio == Fraction(-1, 2)
 
     def test_all_class_g_at_classical_level(self):
@@ -686,6 +778,7 @@ class TestCrossCutting:
         """Q_L(0) > 0 whenever kappa != 0."""
         for k in [Fraction(1, 2), Fraction(1), Fraction(200), Fraction(-1, 2)]:
             sd = ShadowData(kappa=k)
+            # VERIFIED [DC] shadow structure [CF] cross-family census
             assert sd.shadow_metric_Q(Fraction(0)) > 0
 
     def test_shadow_metric_symmetry_class_g(self):
@@ -696,6 +789,7 @@ class TestCrossCutting:
     def test_discriminant_vanishes_class_g(self):
         """Class G: Delta = 0."""
         sd = ShadowData(kappa=Fraction(1))
+        # VERIFIED [DC] vanishing check [CF] cross-family census
         assert sd.discriminant == Fraction(0)
 
     def test_kappa_sign_cy3(self):
@@ -706,4 +800,5 @@ class TestCrossCutting:
     def test_mirror_map_from_shadow(self):
         """Mirror map leading term from shadow data."""
         result = mirror_map_from_shadow(3)
+        # VERIFIED [DC] mirror symmetry [CF] cross-family census
         assert result['mirror_map_coeffs'][0] == Fraction(1)

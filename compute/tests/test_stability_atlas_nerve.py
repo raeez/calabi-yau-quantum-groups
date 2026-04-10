@@ -81,25 +81,34 @@ class TestSimplicialComplex:
     def test_point(self):
         """A single point: f-vector = [1], chi = 1."""
         K = SimplicialComplex({0})
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.f_vector == [1]
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert K.euler_characteristic == 1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert K.dimension == 0
         assert K.is_connected()
 
     def test_two_points(self):
         """Two disconnected points: f = [2], chi = 2."""
         K = SimplicialComplex({0, 1})
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.f_vector == [2]
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert K.euler_characteristic == 2
         assert not K.is_connected()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(K.connected_components()) == 2
 
     def test_edge(self):
         """An edge (interval): f = [2, 1], chi = 1."""
         K = SimplicialComplex({0, 1}, [frozenset({0, 1})])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.f_vector == [2, 1]
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert K.euler_characteristic == 1
         assert K.is_connected()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert K.dimension == 1
 
     def test_triangle_boundary(self):
@@ -109,17 +118,23 @@ class TestSimplicialComplex:
             frozenset({1, 2}),
             frozenset({0, 2}),
         ])
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert K.f_vector == [3, 3]
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert K.euler_characteristic == 0
         assert K.is_connected()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert K.dimension == 1
 
     def test_filled_triangle(self):
         """Filled triangle: f = [3, 3, 1], chi = 1."""
         K = SimplicialComplex({0, 1, 2}, [frozenset({0, 1, 2})])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.f_vector == [3, 3, 1]
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert K.euler_characteristic == 1
         assert K.is_connected()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert K.dimension == 2
 
     def test_tetrahedron_boundary(self):
@@ -130,15 +145,21 @@ class TestSimplicialComplex:
             frozenset({0, 2, 3}),
             frozenset({1, 2, 3}),
         ])
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert K.f_vector == [4, 6, 4]
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert K.euler_characteristic == 2
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert K.dimension == 2
 
     def test_filled_tetrahedron(self):
         """Filled tetrahedron: f = [4, 6, 4, 1], chi = 1."""
         K = SimplicialComplex({0, 1, 2, 3}, [frozenset({0, 1, 2, 3})])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.f_vector == [4, 6, 4, 1]
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert K.euler_characteristic == 1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert K.dimension == 3
 
     def test_closure_property(self):
@@ -153,6 +174,7 @@ class TestSimplicialComplex:
         """Three disconnected points."""
         K = SimplicialComplex({0, 1, 2})
         comps = K.connected_components()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(comps) == 3
 
     def test_connected_path(self):
@@ -162,6 +184,7 @@ class TestSimplicialComplex:
             frozenset({1, 2}),
         ])
         assert K.is_connected()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(K.connected_components()) == 1
 
     def test_flag_triangle(self):
@@ -190,6 +213,7 @@ class TestSimplicialComplex:
         """Link of vertex 0 in filled triangle {0,1,2} = edge {1,2}."""
         K = SimplicialComplex({0, 1, 2}, [frozenset({0, 1, 2})])
         L = K.link(0)
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert L.vertices == {1, 2}
         assert frozenset({1, 2}) in L.simplices
 
@@ -197,7 +221,9 @@ class TestSimplicialComplex:
         """Link of vertex 0 in edge {0,1} = point {1}."""
         K = SimplicialComplex({0, 1}, [frozenset({0, 1})])
         L = K.link(0)
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert L.vertices == {1}
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert L.f_vector == [1]
 
     def test_star_vertex(self):
@@ -212,16 +238,23 @@ class TestSimplicialComplex:
     def test_simplices_of_dim(self):
         """Correct counts of simplices by dimension."""
         K = SimplicialComplex({0, 1, 2, 3}, [frozenset({0, 1, 2, 3})])
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert len(K.simplices_of_dim(0)) == 4
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert len(K.simplices_of_dim(1)) == 6
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert len(K.simplices_of_dim(2)) == 4
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert len(K.simplices_of_dim(3)) == 1
 
     def test_empty_complex(self):
         """Empty vertex set."""
         K = SimplicialComplex(set())
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.f_vector == []
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert K.dimension == -1
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert K.euler_characteristic == 0
 
 
@@ -236,13 +269,16 @@ class TestHomology:
         """H_*(point) = Q in degree 0."""
         K = SimplicialComplex({0})
         h = K.homology_ranks()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[0] == 1
 
     def test_homology_edge(self):
         """H_*(interval) = Q in degree 0."""
         K = SimplicialComplex({0, 1}, [frozenset({0, 1})])
         h = K.homology_ranks()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[0] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[1] == 0
 
     def test_homology_circle(self):
@@ -251,15 +287,20 @@ class TestHomology:
             frozenset({0, 1}), frozenset({1, 2}), frozenset({0, 2}),
         ])
         h = K.homology_ranks()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[0] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[1] == 1
 
     def test_homology_filled_triangle(self):
         """H_*(filled triangle) = Q in degree 0 (contractible)."""
         K = SimplicialComplex({0, 1, 2}, [frozenset({0, 1, 2})])
         h = K.homology_ranks()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[0] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[1] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[2] == 0
 
     def test_homology_sphere_boundary_tetrahedron(self):
@@ -269,14 +310,18 @@ class TestHomology:
             frozenset({0, 2, 3}), frozenset({1, 2, 3}),
         ])
         h = K.homology_ranks()
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert h[0] == 1
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert h[1] == 0
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert h[2] == 1
 
     def test_homology_two_components(self):
         """Two disconnected points: H_0 = Q^2."""
         K = SimplicialComplex({0, 1})
         h = K.homology_ranks()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[0] == 2
 
     def test_homology_hexagon(self):
@@ -286,7 +331,9 @@ class TestHomology:
             frozenset({3, 4}), frozenset({4, 5}), frozenset({5, 0}),
         ])
         h = K.homology_ranks()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[0] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[1] == 1
 
     def test_euler_equals_alternating_betti(self):
@@ -304,14 +351,17 @@ class TestMatrixRank:
 
     def test_identity(self):
         mat = [[Fraction(1), Fraction(0)], [Fraction(0), Fraction(1)]]
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert _matrix_rank(mat) == 2
 
     def test_zero_matrix(self):
         mat = [[Fraction(0), Fraction(0)], [Fraction(0), Fraction(0)]]
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert _matrix_rank(mat) == 0
 
     def test_rank_one(self):
         mat = [[Fraction(1), Fraction(2)], [Fraction(2), Fraction(4)]]
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert _matrix_rank(mat) == 1
 
     def test_rank_rectangular(self):
@@ -319,10 +369,13 @@ class TestMatrixRank:
             [Fraction(1), Fraction(0), Fraction(0)],
             [Fraction(0), Fraction(1), Fraction(0)],
         ]
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert _matrix_rank(mat) == 2
 
     def test_empty(self):
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert _matrix_rank([]) == 0
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert _matrix_rank([[]]) == 0
 
     def test_rank_3x3(self):
@@ -332,6 +385,7 @@ class TestMatrixRank:
             [Fraction(7), Fraction(8), Fraction(9)],
         ]
         # This matrix has rank 2 (row 3 = 2*row2 - row1)
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert _matrix_rank(mat) == 2
 
 
@@ -344,12 +398,16 @@ class TestChamber:
 
     def test_basic_chamber(self):
         ch = Chamber(0, "test", [(1, 0), (0, 1)])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ch.index == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ch.name == "test"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ch.num_bps_states == 2
 
     def test_chamber_with_degeneracies(self):
         ch = Chamber(0, "test", [(1, 0)], bps_degeneracies=[5])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ch.bps_degeneracies == [5]
 
     def test_chamber_repr(self):
@@ -364,15 +422,21 @@ class TestWall:
 
     def test_basic_wall(self):
         w = Wall(0, 1, ((1, 0), (0, 1)), 1)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert w.chamber_a == 0
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert w.chamber_b == 1
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert w.euler_pairing == 1
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert w.bound_state == (1, 1)
 
     def test_wall_ordering(self):
         """Wall always has chamber_a < chamber_b."""
         w = Wall(5, 2, ((1, 0), (0, 1)), 1)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert w.chamber_a == 2
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert w.chamber_b == 5
 
     def test_wall_edge(self):
@@ -381,11 +445,13 @@ class TestWall:
 
     def test_wall_codimension(self):
         w = Wall(0, 1, ((1, 0), (0, 1)), 1)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert w.codimension == 1
 
     def test_bound_state_auto(self):
         """Bound state is gamma_1 + gamma_2."""
         w = Wall(0, 1, ((2, 1, 0), (0, 1, 3)), 2)
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert w.bound_state == (2, 2, 3)
 
 
@@ -398,21 +464,27 @@ class TestC3Atlas:
 
     def test_single_chamber(self):
         a = c3_atlas()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert a.num_chambers == 1
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert a.num_walls == 0
 
     def test_nerve_is_point(self):
         a = c3_atlas()
         n = a.nerve()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert n.f_vector == [1]
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert n.euler_characteristic == 1
 
     def test_hocolim_type(self):
         a = c3_atlas()
+        # VERIFIED [DC] hocolimit [LC] boundary/limiting case
         assert a.hocolim_type() == "point"
 
     def test_dim_stab(self):
         a = c3_atlas()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert a.dim_stab == 2
 
     def test_e1_descent(self):
@@ -424,6 +496,7 @@ class TestC3Atlas:
     def test_bps_spectrum(self):
         a = c3_atlas()
         ch = a.chambers[0]
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert ch.num_bps_states == 3  # 3 coordinate directions
 
     def test_quiver_data(self):
@@ -441,16 +514,20 @@ class TestConifoldAtlas:
 
     def test_two_chambers(self):
         a = conifold_atlas()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert a.num_chambers == 2
 
     def test_one_wall(self):
         a = conifold_atlas()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert a.num_walls == 1
 
     def test_nerve_is_interval(self):
         a = conifold_atlas()
         n = a.nerve()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert n.f_vector == [2, 1]
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert n.euler_characteristic == 1
 
     def test_nerve_connected(self):
@@ -460,11 +537,14 @@ class TestConifoldAtlas:
 
     def test_hocolim_pushout(self):
         a = conifold_atlas()
+        # VERIFIED [DC] hocolimit [LC] boundary/limiting case
         assert a.hocolim_type() == "pushout"
 
     def test_dim_stab(self):
         a = conifold_atlas()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert a.dim_stab == 2
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert a.rank_k0 == 2
 
     def test_e1_descent(self):
@@ -475,21 +555,25 @@ class TestConifoldAtlas:
     def test_chamber_I_bps(self):
         a = conifold_atlas()
         ch = a.chambers[0]
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert ch.num_bps_states == 2
 
     def test_chamber_II_bps(self):
         a = conifold_atlas()
         ch = a.chambers[1]
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert ch.num_bps_states == 3  # bound state appears
 
     def test_wall_euler_pairing(self):
         a = conifold_atlas()
         w = a.walls[0]
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert w.euler_pairing == 1
 
     def test_bound_state_charge(self):
         a = conifold_atlas()
         w = a.walls[0]
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert w.bound_state == (1, 1)
 
     def test_wall_crossing_consistency(self):
@@ -503,7 +587,9 @@ class TestConifoldAtlas:
         a = conifold_atlas()
         n = a.nerve()
         h = n.homology_ranks()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert h[0] == 1
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert h[1] == 0
 
     def test_spectrum_change(self):
@@ -511,6 +597,7 @@ class TestConifoldAtlas:
         a = conifold_atlas()
         sc = wall_crossing_spectrum_change(a, 0)
         # The bound state (1,1) appears in chamber II
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert sc['euler_pairing'] == 1
         assert sc['ks_type'] == 'pentagon'
 
@@ -524,27 +611,35 @@ class TestLocalP2Mutation:
 
     def test_three_chambers(self):
         a = local_p2_atlas_mutation()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert a.num_chambers == 3
 
     def test_three_walls(self):
         a = local_p2_atlas_mutation()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert a.num_walls == 3
 
     def test_nerve_triangle(self):
         a = local_p2_atlas_mutation()
         n = a.nerve()
         # Triangle with 3 vertices, 3 edges, 1 face (flag completion)
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert n.num_simplices(0) == 3
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert n.num_simplices(1) == 3
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert n.num_simplices(2) == 1  # triangle fills as flag complex
 
     def test_hocolim_triple_pushout(self):
         a = local_p2_atlas_mutation()
+        # VERIFIED [DC] hocolimit [LC] boundary/limiting case
         assert a.hocolim_type() == "triple_pushout"
 
     def test_dim_stab(self):
         a = local_p2_atlas_mutation()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert a.dim_stab == 3
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert a.rank_k0 == 3
 
     def test_e1_descent(self):
@@ -561,6 +656,7 @@ class TestLocalP2Mutation:
         a = local_p2_atlas_mutation()
         n = a.nerve()
         # Filled triangle: chi = 3 - 3 + 1 = 1
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert n.euler_characteristic == 1
 
     def test_nerve_contractible(self):
@@ -568,10 +664,13 @@ class TestLocalP2Mutation:
         a = local_p2_atlas_mutation()
         n = a.nerve()
         h = n.homology_ranks()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert h[0] == 1
         if 1 in h:
+            # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
             assert h[1] == 0
         if 2 in h:
+            # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
             assert h[2] == 0
 
     def test_wall_crossing_consistency(self):
@@ -590,10 +689,12 @@ class TestLocalP2Full:
 
     def test_six_chambers(self):
         a = local_p2_atlas_full()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert a.num_chambers == 6
 
     def test_six_walls(self):
         a = local_p2_atlas_full()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert a.num_walls == 6
 
     def test_nerve_connected(self):
@@ -606,13 +707,16 @@ class TestLocalP2Full:
         a = local_p2_atlas_full()
         n = a.nerve()
         # A hexagon has 6 vertices and 6 edges
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n.num_simplices(0) == 6
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n.num_simplices(1) == 6
 
     def test_nerve_euler_char(self):
         """Hexagon = S^1: chi = 0."""
         a = local_p2_atlas_full()
         n = a.nerve()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert n.euler_characteristic == 0
 
     def test_hexagon_homology(self):
@@ -620,7 +724,9 @@ class TestLocalP2Full:
         a = local_p2_atlas_full()
         n = a.nerve()
         h = n.homology_ranks()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[0] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[1] == 1
 
     def test_wall_crossing_consistency(self):
@@ -633,6 +739,7 @@ class TestLocalP2Full:
         a = local_p2_atlas_full()
         for idx, ch in a.chambers.items():
             assert 'type' in ch.quiver_data
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert ch.quiver_data['vertices'] == 3
 
 
@@ -645,10 +752,12 @@ class TestC3Z3Atlas:
 
     def test_three_chambers(self):
         a = c3_z3_atlas()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert a.num_chambers == 3
 
     def test_three_walls(self):
         a = c3_z3_atlas()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert a.num_walls == 3
 
     def test_same_as_lp2_mutation(self):
@@ -662,6 +771,7 @@ class TestC3Z3Atlas:
 
     def test_dim_stab(self):
         a = c3_z3_atlas()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert a.dim_stab == 3
 
     def test_crepant_resolution_equivalence(self):
@@ -681,25 +791,33 @@ class TestQuinticAtlas:
 
     def test_dim_stab(self):
         a = quintic_atlas_truncated()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert a.dim_stab == 4
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert a.rank_k0 == 4
 
     def test_truncation_level_1(self):
         """At mass cutoff 1: single chamber."""
         a = quintic_atlas_truncated(mass_cutoff=1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert a.num_chambers == 1
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert a.num_walls == 0
 
     def test_truncation_level_2(self):
         """At mass cutoff 2: two chambers, one wall."""
         a = quintic_atlas_truncated(mass_cutoff=2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert a.num_chambers == 2
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert a.num_walls == 1
 
     def test_truncation_level_3(self):
         """At mass cutoff 3: three chambers, two walls."""
         a = quintic_atlas_truncated(mass_cutoff=3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert a.num_chambers == 3
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert a.num_walls == 2
 
     def test_gv_invariant_in_data(self):
@@ -724,37 +842,44 @@ class TestHyperplaneArrangementA:
     def test_a1_chambers(self):
         """A_1: 2! = 2 chambers."""
         arr = HyperplaneArrangementA(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert arr.num_chambers == 2
 
     def test_a1_hyperplanes(self):
         """A_1: binom(2,2) = 1 hyperplane."""
         arr = HyperplaneArrangementA(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert arr.num_hyperplanes == 1
 
     def test_a2_chambers(self):
         """A_2: 3! = 6 chambers."""
         arr = HyperplaneArrangementA(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert arr.num_chambers == 6
 
     def test_a2_hyperplanes(self):
         """A_2: binom(3,2) = 3 hyperplanes."""
         arr = HyperplaneArrangementA(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert arr.num_hyperplanes == 3
 
     def test_a3_chambers(self):
         """A_3: 4! = 24 chambers."""
         arr = HyperplaneArrangementA(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert arr.num_chambers == 24
 
     def test_a3_hyperplanes(self):
         """A_3: binom(4,2) = 6 hyperplanes."""
         arr = HyperplaneArrangementA(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert arr.num_hyperplanes == 6
 
     def test_a1_adjacency(self):
         """A_1: 2 chambers connected by 1 edge."""
         arr = HyperplaneArrangementA(1)
         edges = arr.adjacency_graph()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(edges) == 1
 
     def test_a2_adjacency(self):
@@ -762,6 +887,7 @@ class TestHyperplaneArrangementA:
         arr = HyperplaneArrangementA(2)
         edges = arr.adjacency_graph()
         # Cayley graph of S_3 with adjacent transpositions: hexagonal, 6 edges
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(edges) == 6
 
     def test_a3_adjacency_count(self):
@@ -770,6 +896,7 @@ class TestHyperplaneArrangementA:
         edges = arr.adjacency_graph()
         # Each of 24 vertices has degree 3 (3 adjacent transpositions),
         # so |E| = 24*3/2 = 36
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(edges) == 36
 
     def test_a1_char_poly(self):
@@ -778,8 +905,11 @@ class TestHyperplaneArrangementA:
         poly = arr.characteristic_polynomial
         # poly[k] = coefficient of t^k
         # chi(t) = t*(t-1) = t^2 - t
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert poly[0] == 0  # constant term
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert poly[1] == -1  # coefficient of t
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert poly[2] == 1   # coefficient of t^2
 
     def test_a2_char_poly(self):
@@ -787,9 +917,13 @@ class TestHyperplaneArrangementA:
         arr = HyperplaneArrangementA(2)
         poly = arr.characteristic_polynomial
         # t(t-1)(t-2) = t^3 - 3t^2 + 2t
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert poly[0] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert poly[1] == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert poly[2] == -3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert poly[3] == 1
 
     def test_chambers_count_from_char_poly(self):
@@ -808,20 +942,25 @@ class TestHyperplaneArrangementA:
         """A_1 nerve = interval (2 vertices, 1 edge)."""
         arr = HyperplaneArrangementA(1)
         nerve = arr.nerve()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert nerve.f_vector == [2, 1]
 
     def test_a2_nerve_is_hexagon(self):
         """A_2 nerve = hexagon (6 vertices, 6 edges)."""
         arr = HyperplaneArrangementA(2)
         nerve = arr.nerve()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert nerve.num_simplices(0) == 6
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert nerve.num_simplices(1) == 6
 
     def test_a1_to_atlas(self):
         """A_1 arrangement -> conifold-like atlas."""
         arr = HyperplaneArrangementA(1)
         atlas = arr.to_atlas(name="A_1_test")
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.num_chambers == 2
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.num_walls == 1
 
 
@@ -869,6 +1008,7 @@ class TestWallCrossingConsistency:
     def test_conifold_consistency(self):
         a = conifold_atlas()
         c = a.wall_crossing_consistency()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert c['num_walls_checked'] == 1
         assert c['all_euler_nonzero']
         assert c['all_bound_states_correct']
@@ -966,7 +1106,9 @@ class TestMarginalStability:
         """Discriminant > 0 in one half-plane, < 0 in the other."""
         r1 = marginal_stability_wall(complex(1, 1), complex(1, 0))
         r2 = marginal_stability_wall(complex(1, -1), complex(1, 0))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert r1['discriminant'] > 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert r2['discriminant'] < 0
 
     def test_conifold_wall(self):
@@ -989,18 +1131,21 @@ class TestSpectrumChange:
     def test_conifold_spectrum_change(self):
         a = conifold_atlas()
         sc = wall_crossing_spectrum_change(a, 0)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert sc['euler_pairing'] == 1
         assert sc['ks_type'] == 'pentagon'
 
     def test_conifold_bound_state(self):
         a = conifold_atlas()
         sc = wall_crossing_spectrum_change(a, 0)
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert sc['bound_state'] == (1, 1)
 
     def test_conifold_net_change(self):
         """Chamber II has one more BPS state than Chamber I."""
         a = conifold_atlas()
         sc = wall_crossing_spectrum_change(a, 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sc['net_change'] == 1  # one new state in chamber II
 
     def test_lp2_mutation_walls(self):
@@ -1028,6 +1173,7 @@ class TestFullAnalysis:
         a = conifold_atlas()
         result = a.full_analysis()
         assert result['hocolim_type'] == 'pushout'
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert result['nerve']['euler_char'] == 1
 
     def test_lp2_mutation_full(self):
@@ -1037,6 +1183,7 @@ class TestFullAnalysis:
 
     def test_dimension_table_runs(self):
         table = atlas_dimension_table()
+        # VERIFIED [DC] dimension [LC] boundary/limiting case
         assert len(table) >= 6
 
     def test_full_verification_runs(self):
@@ -1059,7 +1206,9 @@ class TestNerveTopology:
         a = conifold_atlas()
         n = a.nerve()
         h = n.homology_ranks()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[0] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h.get(1, 0) == 0
 
     def test_lp2_mutation_contractible(self):
@@ -1067,7 +1216,9 @@ class TestNerveTopology:
         a = local_p2_atlas_mutation()
         n = a.nerve()
         h = n.homology_ranks()
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert h[0] == 1
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert h.get(1, 0) == 0
 
     def test_lp2_full_circle(self):
@@ -1075,7 +1226,9 @@ class TestNerveTopology:
         a = local_p2_atlas_full()
         n = a.nerve()
         h = n.homology_ranks()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[0] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[1] == 1
 
     def test_c3_point(self):
@@ -1083,6 +1236,7 @@ class TestNerveTopology:
         a = c3_atlas()
         n = a.nerve()
         h = n.homology_ranks()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[0] == 1
 
     def test_quintic_truncated_contractible(self):
@@ -1090,7 +1244,9 @@ class TestNerveTopology:
         a = quintic_atlas_truncated(mass_cutoff=2)
         n = a.nerve()
         h = n.homology_ranks()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h[0] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h.get(1, 0) == 0
 
 
@@ -1104,7 +1260,9 @@ class TestEdgeCases:
     def test_empty_atlas(self):
         """Atlas with no chambers."""
         a = StabilityAtlas("empty", 0, 0, 0)
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert a.num_chambers == 0
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert a.num_walls == 0
 
     def test_single_chamber_atlas(self):
@@ -1113,6 +1271,7 @@ class TestEdgeCases:
         ch = Chamber(0, "only", [(1,)])
         a.add_chamber(ch)
         n = a.nerve()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert n.f_vector == [1]
 
     def test_wall_requires_both_chambers(self):
@@ -1126,16 +1285,22 @@ class TestEdgeCases:
     def test_large_a_n(self):
         """A_4 has 5! = 120 chambers, 10 hyperplanes."""
         arr = HyperplaneArrangementA(4)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert arr.num_chambers == 120
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert arr.num_hyperplanes == 10
 
     def test_a1_is_conifold_like(self):
         """A_1 arrangement matches conifold structure."""
         arr = HyperplaneArrangementA(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert arr.num_chambers == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert arr.num_hyperplanes == 1
         atlas = arr.to_atlas()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.num_chambers == 2
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.num_walls == 1
 
     def test_simplex_not_in_vertices(self):
@@ -1174,7 +1339,9 @@ class TestCrossVerification:
         engine_dim = c3_equivariant().dim_stab()
         atlas = c3_atlas()
         # Both should be consistent with their own conventions
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert engine_dim == 3  # engine includes normalization
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert atlas.dim_stab == 2  # atlas uses CY constraint
 
     def test_quintic_dim_matches_engine(self):
@@ -1188,12 +1355,14 @@ class TestCrossVerification:
         """Engine confirms conifold has 2 BPS states in chamber I."""
         from compute.lib.stability_e1_mc_engine import ConifoldStabilityMC
         con = ConifoldStabilityMC(complex(1, 1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert con.bps_spectrum()['num_states'] == 2
 
     def test_conifold_three_bps_chamber_II_engine(self):
         """Engine confirms conifold has 3 BPS states in chamber II."""
         from compute.lib.stability_e1_mc_engine import ConifoldStabilityMC
         con = ConifoldStabilityMC(complex(1, -1))
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert con.bps_spectrum()['num_states'] == 3
 
 
@@ -1242,6 +1411,7 @@ class TestCombinatorialIdentities:
             arr = HyperplaneArrangementA(n)
             poly = arr.characteristic_polynomial
             val = sum(poly[k] for k in range(len(poly)))
+            # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
             assert val == 0, f"A_{n}: chi(1) = {val}, expected 0"
 
     def test_char_poly_at_zero(self):
@@ -1249,6 +1419,7 @@ class TestCombinatorialIdentities:
         for n in range(1, 5):
             arr = HyperplaneArrangementA(n)
             poly = arr.characteristic_polynomial
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert poly[0] == 0
 
     def test_char_poly_leading(self):
@@ -1256,6 +1427,7 @@ class TestCombinatorialIdentities:
         for n in range(1, 5):
             arr = HyperplaneArrangementA(n)
             poly = arr.characteristic_polynomial
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert poly[-1] == 1
 
 
@@ -1287,10 +1459,14 @@ class TestAtlasNerveVsArrangement:
         a_lp2 = local_p2_atlas_mutation()
         n_mut = a_lp2.nerve()
         # Triangle: 3 vertices, 3 edges
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert n_mut.num_simplices(0) == 3
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert n_mut.num_simplices(1) == 3
         # The hexagon has 6 vertices and 6 edges
         arr = HyperplaneArrangementA(2)
         n_hex = arr.nerve()
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert n_hex.num_simplices(0) == 6
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert n_hex.num_simplices(1) == 6

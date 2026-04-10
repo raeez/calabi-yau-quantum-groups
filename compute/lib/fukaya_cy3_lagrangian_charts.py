@@ -375,7 +375,7 @@ class LagrangianChartAtlas:
         """Euler characteristic of the nerve: #charts - #walls."""
         return self.n_charts - self.n_walls
 
-    def kappa_global(self) -> Fraction:
+    def kappa_ch(self) -> Fraction:
         """Global kappa computed from the atlas.
 
         By the hocolim theorem: kappa(hocolim) = sum_charts kappa_chart
@@ -1043,7 +1043,7 @@ class AModelE1Hocolim:
 
         By the hocolim theorem: kappa is independent of atlas choice.
         """
-        return self.atlas.kappa_global()
+        return self.atlas.kappa_ch()
 
     def hms_comparison(self, b_model_kappa: Fraction) -> Dict[str, Any]:
         """Compare A-model kappa with B-model kappa.

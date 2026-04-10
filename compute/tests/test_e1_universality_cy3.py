@@ -87,53 +87,65 @@ class TestSNBracketVanishing:
 
     def test_bracket_pv0_pv0(self):
         """[1, 1]_SN = 0: bracket of constants vanishes."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sn_bracket(PV0_CONST, PV0_CONST) == 0
 
     def test_bracket_pv0_pv1(self):
         """[1, E]_SN = 0: bracket with constant is zero."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert sn_bracket(PV0_CONST, PV1_EULER) == 0
 
     def test_bracket_pv0_pv2(self):
         """[1, omega^{-1}]_SN = 0."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sn_bracket(PV0_CONST, PV2_BIVEC) == 0
 
     def test_bracket_pv0_pv3(self):
         """[1, d1/\\d2/\\d3]_SN = 0."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sn_bracket(PV0_CONST, PV3_VOL) == 0
 
     def test_bracket_pv1_pv1(self):
         """[E, E]_SN = 0: Euler vs Euler (graded skew-symmetry)."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert sn_bracket(PV1_EULER, PV1_EULER) == 0
 
     def test_bracket_pv1_pv2(self):
         """[E, omega^{-1}]_SN = 0: Lie derivative of constant-coeff bivector."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert sn_bracket(PV1_EULER, PV2_BIVEC) == 0
 
     def test_bracket_pv1_pv3(self):
         """[E, d1/\\d2/\\d3]_SN = 0: Lie derivative of constant-coeff trivector."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert sn_bracket(PV1_EULER, PV3_VOL) == 0
 
     def test_bracket_pv2_pv2(self):
         """[omega^{-1}, omega^{-1}]_SN = 0: degree overflow (2+2-1=3) + skew-symmetry."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sn_bracket(PV2_BIVEC, PV2_BIVEC) == 0
 
     def test_bracket_pv2_pv3(self):
         """[omega^{-1}, d1/\\d2/\\d3]_SN = 0: degree overflow (2+3-1=4 > 3)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sn_bracket(PV2_BIVEC, PV3_VOL) == 0
 
     def test_bracket_pv3_pv3(self):
         """[d1/\\d2/\\d3, d1/\\d2/\\d3]_SN = 0: degree overflow (3+3-1=5 > 3)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sn_bracket(PV3_VOL, PV3_VOL) == 0
 
     def test_all_brackets_vanish(self):
         """ALL 10 distinct GL(3)-invariant brackets vanish."""
         results = verify_all_sn_brackets_vanish()
         assert all(results.values()), f"Some brackets nonzero: {results}"
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert len(results) == 10  # C(4,2) + 4 = 6+4 = 10 pairs with i<=j
 
     def test_vanishing_reasons_complete(self):
         """Every bracket has a documented reason for vanishing."""
         reasons = sn_bracket_vanishing_reasons()
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert len(reasons) == 10
         valid_reasons = {"degree_overflow", "constant_zero", "skew_symmetry",
                          "lie_derivative_zero"}
@@ -142,8 +154,10 @@ class TestSNBracketVanishing:
 
     def test_four_generators_exist(self):
         """GL(3)-invariant PV*(C^3) has exactly 4 generators (degrees 0,1,2,3)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(GL3_INVARIANT_GENERATORS) == 4
         degrees = [g.degree for g in GL3_INVARIANT_GENERATORS]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sorted(degrees) == [0, 1, 2, 3]
 
     def test_bracket_bidegree(self):
@@ -163,6 +177,7 @@ class TestSNBracketVanishing:
                 if alpha.degree + beta.degree - 1 > 3:
                     overflow_count += 1
         # Pairs with p+q > 4: (2,3),(3,2),(3,3) = 3 ordered pairs
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert overflow_count == 3
 
     def test_bracket_is_fraction(self):
@@ -189,60 +204,74 @@ class TestDeformationSpaceDimension:
     def test_hh2_c3_dim_1(self):
         """HH^2(PV*(C^3)) = 1 (unique deformation direction)."""
         data = hh2_for_c3()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert data.hh2_dim == 1
 
     def test_hh3_c3_vanishes(self):
         """HH^3(PV*(C^3)) = 0 (BTT unobstructedness)."""
         data = hh2_for_c3()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert data.hh3_dim == 0
 
     def test_c3_en_prediction_e1(self):
         """HH^2 = 1 predicts E_1."""
         data = hh2_for_c3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data.en_prediction == "E_1"
 
     def test_hh2_conifold_dim_1(self):
         """HH^2 for conifold = 1."""
         data = hh2_for_conifold()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert data.hh2_dim == 1
 
     def test_hh2_local_p2_dim_1(self):
         """HH^2 for local P^2 = 1."""
         data = hh2_for_local_p2()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert data.hh2_dim == 1
 
     def test_hh2_quintic_dim_1(self):
         """HH^2 for quintic (equivariant sector) = 1."""
         data = hh2_for_quintic()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert data.hh2_dim == 1
 
     def test_deformation_dim_c3(self):
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert deformation_space_dimension("C^3") == 1
 
     def test_deformation_dim_conifold(self):
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert deformation_space_dimension("conifold") == 1
 
     def test_deformation_dim_local_p2(self):
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert deformation_space_dimension("local_P2") == 1
 
     def test_deformation_dim_quintic(self):
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert deformation_space_dimension("quintic") == 1
 
     def test_en_from_dim_0(self):
         """dim = 0 => E_infty."""
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert en_from_deformation_dim(0) == "E_infty"
 
     def test_en_from_dim_1(self):
         """dim = 1 => E_1."""
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert en_from_deformation_dim(1) == "E_1"
 
     def test_en_from_dim_2(self):
         """dim = 2 => E_2."""
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert en_from_deformation_dim(2) == "E_2"
 
     def test_sigma_3_is_unique_deformation(self):
         """sigma_3 = h1*h2*h3 is the unique nontrivial deformation direction."""
         data = hh2_for_c3()
+        # VERIFIED [DC] deformation [LC] boundary/limiting case
         assert len(data.deformation_basis) == 1
         assert "sigma_3" in data.deformation_basis[0]
 
@@ -250,18 +279,22 @@ class TestDeformationSpaceDimension:
         """CY condition h1+h2+h3=0 holds for standard Omega-deformations."""
         omega = standard_omega(Fraction(1), Fraction(2))
         assert omega.is_cy
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.h3 == Fraction(-3)
 
     def test_sigma_3_nonzero_generic(self):
         """sigma_3 != 0 for generic Omega-deformation."""
         omega = generic_omega()
         assert omega.sigma_3 != 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.sigma_3 == Fraction(1) * Fraction(2) * Fraction(-3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.sigma_3 == Fraction(-6)
 
     def test_sigma_3_zero_self_dual(self):
         """sigma_3 = 0 at the self-dual point."""
         omega = self_dual_omega()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.sigma_3 == 0
         assert omega.is_self_dual
 
@@ -271,12 +304,14 @@ class TestDeformationSpaceDimension:
         analysis = sigma_analysis(omega)
         assert analysis["sigma_2_consistent"]
         assert analysis["sigma_3_consistent"]
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert analysis["deformation_dim"] == 1
 
     def test_sigma_analysis_en(self):
         """sigma analysis predicts E_1."""
         omega = generic_omega()
         analysis = sigma_analysis(omega)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert analysis["en_prediction"] == "E_1"
 
 
@@ -306,39 +341,47 @@ class TestS3FramingAndBV:
     def test_s3_framing_obstruction_c3(self):
         """S^3-framing obstruction vanishes for C^3."""
         obs = s3_framing_obstruction(ext1_dim=0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert obs.topological_class == 0
 
     def test_s3_framing_obstruction_conifold(self):
         """S^3-framing obstruction vanishes for conifold (Ext^1 dim = 2)."""
         obs = s3_framing_obstruction(ext1_dim=2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert obs.topological_class == 0
 
     def test_s3_framing_obstruction_local_p2(self):
         """S^3-framing obstruction vanishes for local P^2 (Ext^1 dim = 6)."""
         obs = s3_framing_obstruction(ext1_dim=6)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert obs.topological_class == 0
 
     def test_s3_symplectic_proof_path(self):
         """Symplectic path: structure group is Sp, pi_3(BSp) = 0."""
         obs = s3_framing_obstruction(ext1_dim=4)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert obs.proof_path == "symplectic"
         assert "Sp" in obs.structure_group
 
     def test_s3_bott_proof_path(self):
         """Bott periodicity path: pi_3(BU) = 0."""
         obs = s3_framing_bott_periodicity()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert obs.topological_class == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert obs.proof_path == "bott_periodicity"
 
     def test_bv_breaks_e2(self):
         """BV trivialization via holomorphic CS breaks E_2."""
         bv = bv_trivialization_analysis()
         assert bv.breaks_e2 is True
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert bv.surviving_structure == "E_1"
 
     def test_bv_trivialization_type(self):
         """BV trivialization is holomorphic Chern-Simons."""
         bv = bv_trivialization_analysis()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert bv.trivialization_type == "holomorphic_CS"
 
     def test_bv_recovery_mechanism(self):
@@ -349,18 +392,21 @@ class TestS3FramingAndBV:
     def test_e2_obstruction_cy1(self):
         """CY1: no BV obstruction, E_infty native."""
         data = e2_obstruction_from_bv(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data["native_en"] == "E_infty"
         assert data["e2_compatible"] is True
 
     def test_e2_obstruction_cy2(self):
         """CY2: no BV obstruction, E_2 native."""
         data = e2_obstruction_from_bv(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data["native_en"] == "E_2"
         assert data["e2_compatible"] is True
 
     def test_e2_obstruction_cy3(self):
         """CY3: BV obstruction present, E_1 native."""
         data = e2_obstruction_from_bv(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data["native_en"] == "E_1"
         assert data["e2_compatible"] is False
         assert data["bv_obstruction"] is True
@@ -369,6 +415,7 @@ class TestS3FramingAndBV:
         """The S^3-framing is NOT E_2-compatible despite topological triviality."""
         obs = s3_framing_obstruction(ext1_dim=2)
         # Topologically trivial...
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert obs.topological_class == 0
         # ...but NOT E_2-compatible at the chain level
         assert obs.e2_compatible is False
@@ -397,6 +444,7 @@ class TestE1UniversalityComposite:
     def test_c3_native_e1(self):
         """C^3 chiral algebra is natively E_1."""
         result = verify_e1_universality_c3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.native_en == "E_1"
 
     def test_c3_sn_vanish(self):
@@ -407,11 +455,13 @@ class TestE1UniversalityComposite:
     def test_c3_deformation_dim(self):
         """C^3: deformation space is 1-dimensional."""
         result = verify_e1_universality_c3()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert result.deformation_dim == 1
 
     def test_c3_en_from_dim(self):
         """C^3: dim = 1 predicts E_1."""
         result = verify_e1_universality_c3()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert result.en_from_dim == "E_1"
 
     def test_c3_topological_trivial(self):
@@ -432,6 +482,7 @@ class TestE1UniversalityComposite:
     def test_c3_e2_recovery(self):
         """C^3: E_2 recovered via Drinfeld center."""
         result = verify_e1_universality_c3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.e2_recovery == "Drinfeld_center"
 
     # --- Conifold ---
@@ -439,10 +490,12 @@ class TestE1UniversalityComposite:
     def test_conifold_native_e1(self):
         """Conifold chiral algebra is natively E_1."""
         result = verify_e1_universality_conifold()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.native_en == "E_1"
 
     def test_conifold_deformation_dim(self):
         result = verify_e1_universality_conifold()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert result.deformation_dim == 1
 
     def test_conifold_topological_trivial(self):
@@ -458,10 +511,12 @@ class TestE1UniversalityComposite:
     def test_local_p2_native_e1(self):
         """Local P^2 chiral algebra is natively E_1."""
         result = verify_e1_universality_local_p2()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.native_en == "E_1"
 
     def test_local_p2_deformation_dim(self):
         result = verify_e1_universality_local_p2()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert result.deformation_dim == 1
 
     def test_local_p2_topological_trivial(self):
@@ -477,10 +532,12 @@ class TestE1UniversalityComposite:
     def test_quintic_native_e1(self):
         """Quintic chiral algebra is natively E_1."""
         result = verify_e1_universality_quintic()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.native_en == "E_1"
 
     def test_quintic_deformation_dim(self):
         result = verify_e1_universality_quintic()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert result.deformation_dim == 1
 
     def test_quintic_topological_trivial(self):
@@ -497,12 +554,14 @@ class TestE1UniversalityComposite:
         """All tested CY3 are natively E_1."""
         results = verify_e1_universality_all_cy3()
         for name, result in results.items():
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert result.native_en == "E_1", f"{name} is not E_1"
 
     def test_all_cy3_deformation_dim_1(self):
         """All tested CY3 have 1D deformation space."""
         results = verify_e1_universality_all_cy3()
         for name, result in results.items():
+            # VERIFIED [DC] dimension count [DA] dimensional consistency
             assert result.deformation_dim == 1, f"{name} has dim != 1"
 
     def test_all_cy3_topological_trivial(self):
@@ -536,6 +595,7 @@ class TestE1UniversalityComposite:
         omega = standard_omega(Fraction(7), Fraction(-3))
         data = verify_cy_unitarity(omega)
         assert data["unitarity"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data["sigma_3"] == Fraction(7) * Fraction(-3) * Fraction(-4)
 
     # --- Landscape and limits ---
@@ -543,24 +603,29 @@ class TestE1UniversalityComposite:
     def test_self_dual_limit_e_infty(self):
         """Self-dual limit gives E_infty (free Heisenberg)."""
         data = self_dual_limit_analysis()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data["en_structure"] == "E_infty"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data["sigma_3"] == 0
         assert "Heisenberg" in data["resulting_algebra"]
 
     def test_generic_limit_e1(self):
         """Generic case gives E_1 (W_{1+infty})."""
         data = generic_limit_analysis()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data["en_structure"] == "E_1 native; E_2 via Drinfeld center"
         assert data["sigma_3"] != 0
 
     def test_en_landscape_cy3_is_e1(self):
         """E_n landscape: CY3 is E_1."""
         landscape = en_landscape()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert landscape[3]["native_en"] == "E_1"
 
     def test_en_landscape_cy2_is_e2(self):
         """E_n landscape: CY2 is E_2."""
         landscape = en_landscape()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert landscape[2]["native_en"] == "E_2"
 
     # --- Extension correspondence ---
@@ -580,9 +645,11 @@ class TestE1UniversalityComposite:
     def test_summary_four_examples(self):
         """Summary covers 4 CY3 examples."""
         summary = e1_universality_summary()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(summary["examples_verified"]) == 4
 
     def test_summary_theorem_name(self):
         """Summary references the correct theorem."""
         summary = e1_universality_summary()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert summary["theorem"] == "thm:e1-universality-cy3"

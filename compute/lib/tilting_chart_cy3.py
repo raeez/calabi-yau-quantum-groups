@@ -1596,7 +1596,7 @@ class HomotopyColimitGluing:
             return []
         return CoHAFromChart(self.cover.charts[0]).euler_form_matrix()
 
-    def kappa_global(self) -> Fraction:
+    def kappa_ch(self) -> Fraction:
         """The global kappa: must agree across all charts.
 
         kappa is a topological invariant of the CY3 chiral algebra,
@@ -1652,7 +1652,7 @@ class HomotopyColimitGluing:
 
         # Check kappas
         try:
-            kappa = self.kappa_global()
+            kappa = self.kappa_ch()
             kappa_consistent = True
         except AssertionError:
             kappa_consistent = False
@@ -1810,7 +1810,7 @@ def tilting_chart_grand_summary() -> Dict[str, Dict[str, Any]]:
             'is_toric': cover.is_toric,
             'is_compact': cover.is_compact,
             'charts': charts_info,
-            'kappa_global': consistency['kappa'],
+            'kappa_ch': consistency['kappa'],
             'shadow_class': consistency['shadow_class'],
             'wall_crossing_ok': consistency['wall_crossing_consistent'],
             'finiteness': cover.verify_finiteness(),

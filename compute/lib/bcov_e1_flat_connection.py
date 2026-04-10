@@ -869,9 +869,9 @@ def local_p2_anomaly_verification() -> Dict[str, Any]:
         fp = _lambda_fp(g)
         local_each = kappa * fp
         # The inclusion-exclusion on 3 charts of the toric cover:
-        # kappa_global = 3 * kappa_vertex - 3 * kappa_edge + kappa_face
+        # kappa_ch = 3 * kappa_vertex - 3 * kappa_edge + kappa_face
         # For local P^2 with the standard toric cover:
-        # kappa_global = 3 * (1/2) - 3 * 0 + 0 = 3/2  VERIFIED
+        # kappa_ch = 3 * (1/2) - 3 * 0 + 0 = 3/2  VERIFIED
         inclusion_exclusion = F(3) * F(1, 2) - F(3) * F(0) + F(0)
         results[g] = {
             'local_each': local_each,

@@ -89,7 +89,7 @@ For X = Tot(L -> S) with CY defect delta != 0:
    alpha = (n + 3) * 3 = 3(n + 3)
 
 4. The EFFECTIVE kappa is:
-   kappa_eff(X) = chi(S)/2 - alpha(X)/24
+   kappa_ch(X) = chi(S)/2 - alpha(X)/24
 
    This reduces to kappa = chi(S)/2 when alpha = 0 (CY case).
 
@@ -165,7 +165,7 @@ Non-CY case (L != K_S):
     - CY trace ABSENT (no perfect pairing of correct degree)
     - Bar complex CURVED: d^2 = [m_0, -] with m_0 ~ delta
     - kappa NOT well-defined as genus-1 obstruction
-    - Instead: alpha (anomaly coefficient) and kappa_eff (effective)
+    - Instead: alpha (anomaly coefficient) and kappa_ch (effective)
 
 The CoHA construction (Kontsevich-Soibelman, Schiffmann-Vasserot) applies
 to any smooth 3-fold, but the E_2 structure requires the CY condition.
@@ -194,7 +194,7 @@ CONVENTIONS
 
 - CY defect delta = c_1(L) - K_S (positive when L is "more ample" than K)
 - Anomaly coefficient alpha = integral_S delta . c_1(S)
-- Effective kappa: kappa_eff = chi(S)/2 - alpha/24
+- Effective kappa: kappa_ch = chi(S)/2 - alpha/24
 - Curvature m_0: lives in degree 2 of the bar complex
 - Cohomological grading: |d| = +1
 """
@@ -242,7 +242,7 @@ class LocalSurfaceData(NamedTuple):
     anomaly_coefficient: Fraction  # alpha = integral_S delta . c_1(S)
     is_cy: bool                    # whether delta = 0
     kappa_cy: Optional[Fraction]   # kappa = chi(S)/2 if CY, else None
-    kappa_eff: Fraction            # effective kappa = chi(S)/2 - alpha/24
+    kappa_ch: Fraction            # effective kappa = chi(S)/2 - alpha/24
     serre_shift: int               # pure shift part of Serre functor (always 3)
     serre_twist_degree: int        # twist degree (= -delta . H for projective)
     effective_cy_dim: Optional[Fraction]  # d_eff when well-defined
@@ -427,7 +427,7 @@ def local_surface(
 
     is_cy = (delta_int == 0)
     kappa_cy = Fraction(S.chi, 2) if is_cy else None
-    kappa_eff = Fraction(S.chi, 2) - alpha / 24
+    kappa_ch = Fraction(S.chi, 2) - alpha / 24
 
     # Effective CY dimension: d_eff = 3 + delta_int / (-K_S_c1)
     # = 3 - delta_int / K_S_c1
@@ -461,7 +461,7 @@ def local_surface(
         anomaly_coefficient=alpha,
         is_cy=is_cy,
         kappa_cy=kappa_cy,
-        kappa_eff=kappa_eff,
+        kappa_ch=kappa_ch,
         serre_shift=3,
         serre_twist_degree=serre_twist,
         effective_cy_dim=d_eff,
@@ -519,7 +519,7 @@ def local_del_pezzo_cy(k: int) -> LocalSurfaceData:
         anomaly_coefficient=Fraction(0),
         is_cy=True,
         kappa_cy=Fraction(3 + k, 2),
-        kappa_eff=Fraction(3 + k, 2),
+        kappa_ch=Fraction(3 + k, 2),
         serre_shift=3,
         serre_twist_degree=0,
         effective_cy_dim=Fraction(3),
@@ -541,7 +541,7 @@ def local_hirzebruch_cy(n: int) -> LocalSurfaceData:
         anomaly_coefficient=Fraction(0),
         is_cy=True,
         kappa_cy=Fraction(2),
-        kappa_eff=Fraction(2),
+        kappa_ch=Fraction(2),
         serre_shift=3,
         serre_twist_degree=0,
         effective_cy_dim=Fraction(3),
@@ -558,11 +558,11 @@ class ChiralAlgebraInvariants(NamedTuple):
     name: str
     is_cy: bool                     # CY condition on X
     kappa: Optional[Fraction]       # modular characteristic (CY only)
-    kappa_eff: Fraction             # effective kappa (always defined)
+    kappa_ch: Fraction             # effective kappa (always defined)
     anomaly: Fraction               # anomaly coefficient alpha
     curvature: Fraction             # bar complex curvature m_0
     cy_defect: int                  # delta as integer
-    central_charge_eff: Fraction    # c_eff = 2 * kappa_eff
+    central_charge_eff: Fraction    # c_eff = 2 * kappa_ch
     serre_type: str                 # "CY3" or "quasi-CY" or "non-CY"
     shadow_depth_class: str         # G/L/C/M classification (CY) or "curved" (non-CY)
     e2_structure: bool              # whether E_2 braiding exists
@@ -589,11 +589,11 @@ def chiral_algebra_invariants(X: LocalSurfaceData) -> ChiralAlgebraInvariants:
         name=f"A_{{{X.surface.name}, {X.bundle.name}}}",
         is_cy=X.is_cy,
         kappa=X.kappa_cy,
-        kappa_eff=X.kappa_eff,
+        kappa_ch=X.kappa_ch,
         anomaly=X.anomaly_coefficient,
         curvature=X.curvature_m0,
         cy_defect=X.cy_defect_class,
-        central_charge_eff=2 * X.kappa_eff,
+        central_charge_eff=2 * X.kappa_ch,
         serre_type=serre_type,
         shadow_depth_class=shadow_class,
         e2_structure=e2,
@@ -854,16 +854,16 @@ def kappa_local_hirzebruch(n: int) -> Fraction:
     return Fraction(2)
 
 
-def kappa_eff_local_p2(n: int) -> Fraction:
+def kappa_ch_local_p2(n: int) -> Fraction:
     """Effective kappa for Tot(O(n) -> P^2).
 
-    kappa_eff = chi(P^2)/2 - alpha/24
+    kappa_ch = chi(P^2)/2 - alpha/24
     where alpha = 3(n+3).
 
-    kappa_eff = 3/2 - 3(n+3)/24 = 3/2 - (n+3)/8
+    kappa_ch = 3/2 - 3(n+3)/24 = 3/2 - (n+3)/8
              = (12 - (n+3)) / 8 = (9 - n) / 8.
 
-    Cross-check: at n = -3 (CY): kappa_eff = 12/8 = 3/2 = chi(P^2)/2. Correct.
+    Cross-check: at n = -3 (CY): kappa_ch = 12/8 = 3/2 = chi(P^2)/2. Correct.
     """
     return Fraction(9 - n, 8)
 
@@ -1065,7 +1065,7 @@ def hirzebruch_signature(S: SurfaceData) -> Fraction:
 def summary_table() -> List[Dict[str, Any]]:
     """Generate a summary table of all Fano local surface chiral algebras.
 
-    Each row: (geometry, kappa/kappa_eff, anomaly, CY defect, d_eff, serre_type,
+    Each row: (geometry, kappa/kappa_ch, anomaly, CY defect, d_eff, serre_type,
                shadow_class, curvature).
     """
     landscape = full_fano_landscape()
@@ -1078,7 +1078,7 @@ def summary_table() -> List[Dict[str, Any]]:
             "bundle": X.bundle.name,
             "is_cy": X.is_cy,
             "kappa": str(X.kappa_cy) if X.kappa_cy is not None else "N/A",
-            "kappa_eff": str(X.kappa_eff),
+            "kappa_ch": str(X.kappa_ch),
             "anomaly": str(X.anomaly_coefficient),
             "cy_defect": X.cy_defect_class,
             "d_eff": str(X.effective_cy_dim) if X.effective_cy_dim is not None else "N/A",
@@ -1317,13 +1317,13 @@ def verify_hirzebruch_chi_constant() -> bool:
 
 
 def verify_kappa_eff_reduces_to_kappa() -> bool:
-    """Verify that kappa_eff = kappa when CY (delta = 0).
+    """Verify that kappa_ch = kappa when CY (delta = 0).
 
-    For all CY surfaces in the landscape, kappa_eff should equal kappa_cy.
+    For all CY surfaces in the landscape, kappa_ch should equal kappa_cy.
     """
     for k in range(9):
         X = local_del_pezzo_cy(k)
-        if X.kappa_eff != X.kappa_cy:
+        if X.kappa_ch != X.kappa_cy:
             return False
     return True
 

@@ -134,10 +134,10 @@ def kappa_channel(s: int, c_val: Fraction = Fraction(1)) -> Fraction:
     return c_val / Fraction(s)
 
 
-def kappa_total_regulated(N: int, c_val: Fraction = Fraction(1)) -> Fraction:
+def kappa_ch_regulated(N: int, c_val: Fraction = Fraction(1)) -> Fraction:
     r"""Regulated total kappa of W_{1+inf} at spin cutoff N.
 
-    kappa_total(N) = sum_{s=1}^{N} c/s = c * H_N.
+    kappa_ch(N) = sum_{s=1}^{N} c/s = c * H_N.
 
     For W_N (without spin-1): kappa(W_N) = c * (H_N - 1).
     For full W_{1+inf} (with spin-1): kappa = c * H_N.
@@ -195,12 +195,12 @@ def genus_tower_regulated(N: int, max_genus: int = 5,
                           c_val: Fraction = Fraction(1)) -> Dict[int, Fraction]:
     """Regulated genus tower F_g(W_{1+inf}, cutoff N).
 
-    F_g = kappa_total(N) * lambda_g^FP
-    where kappa_total(N) = c * H_N (including spin-1 channel).
+    F_g = kappa_ch(N) * lambda_g^FP
+    where kappa_ch(N) = c * H_N (including spin-1 channel).
 
     Returns {g: F_g} for g = 1, ..., max_genus.
     """
-    kappa = kappa_total_regulated(N, c_val)
+    kappa = kappa_ch_regulated(N, c_val)
     return {g: kappa * lambda_fp(g) for g in range(1, max_genus + 1)}
 
 
@@ -598,8 +598,8 @@ def shadow_genus_macmahon_comparison(max_genus: int = 5,
         f_g_list = []
         for N in range(2, max_N + 1):
             c_val = Fraction(N - 1)
-            kappa_total = kappa_wn_total(N, c_val)
-            f_g = kappa_total * lam_g
+            kappa_ch = kappa_wn_total(N, c_val)
+            f_g = kappa_ch * lam_g
             f_g_list.append(float(f_g))
         result['genus_data'][g] = {
             'lambda_g': lam_g,
@@ -801,8 +801,8 @@ def main_results() -> Dict[str, Any]:
     spin3 = spin_s_shadow_data(3, max_r=15)
 
     # Kappa values
-    kappa_total_10 = kappa_total_regulated(10, c)
-    kappa_total_100 = kappa_total_regulated(100, c)
+    kappa_ch_10 = kappa_ch_regulated(10, c)
+    kappa_ch_100 = kappa_ch_regulated(100, c)
 
     # MacMahon verification
     mac_ok = verify_macmahon_against_oeis()
@@ -823,8 +823,8 @@ def main_results() -> Dict[str, Any]:
         },
         'kappa': {
             'per_channel': {s: Fraction(1, s) for s in range(1, 11)},
-            'total_regulated_10': kappa_total_10,
-            'total_regulated_100': kappa_total_100,
+            'total_regulated_10': kappa_ch_10,
+            'total_regulated_100': kappa_ch_100,
             'total_divergent': True,
             'effective_per_level': Fraction(1),
         },

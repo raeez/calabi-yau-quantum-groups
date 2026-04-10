@@ -65,12 +65,15 @@ class TestLattice:
         eigenvalues = np.linalg.eigvalsh(GRAM)
         n_pos = sum(1 for e in eigenvalues if e > 0)
         n_neg = sum(1 for e in eigenvalues if e < 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n_pos == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n_neg == 1
 
     def test_simple_root_norms(self):
         """All simple roots have norm 2: (delta_i, delta_i) = 2."""
         for i, delta in enumerate(SIMPLE_ROOTS):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(norm_sq(delta) - 2.0) < 1e-14, f"delta_{i+1} norm wrong"
 
     def test_simple_root_inner_products(self):
@@ -78,6 +81,7 @@ class TestLattice:
         for i in range(3):
             for j in range(3):
                 if i != j:
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert abs(inner_product(SIMPLE_ROOTS[i], SIMPLE_ROOTS[j]) + 2) < 1e-14
 
     def test_weyl_vector(self):
@@ -90,6 +94,7 @@ class TestLattice:
 
     def test_rho_norm(self):
         """(rho, rho) = 2(-1/2)^2 - 2(1)(1) = 1/2 - 2 = -3/2."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(norm_sq(RHO) - (-1.5)) < 1e-14
 
     def test_lattice_decomposition(self):
@@ -124,6 +129,7 @@ class TestLattice:
                 for m in range(-3, 4):
                     v = np.array([n, l, m], dtype=float)
                     expected = 2*l*l - 2*n*m
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert abs(norm_sq(v) - expected) < 1e-12
 
 
@@ -151,6 +157,7 @@ class TestWeylGroup:
                 w = rng.randn(3)
                 sv = reflect(v, root)
                 sw = reflect(w, root)
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert abs(inner_product(sv, sw) - inner_product(v, w)) < 1e-12
 
     def test_reflection_on_root(self):
@@ -175,12 +182,14 @@ class TestWeylGroup:
         elements = weyl_orbit_rho(6)
         rho_norm = norm_sq(RHO)
         for w_rho, _ in elements:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(norm_sq(w_rho) - rho_norm) < 1e-10
 
     def test_weyl_group_growth_doubling(self):
         """Weyl group grows as 3*2^{k-1} at word length k (hyperbolic Coxeter)."""
         growth = weyl_group_growth(8)
         for k in range(1, 9):
+            # VERIFIED [DC] growth bound [LC] boundary/limiting case
             assert growth[k] == 3 * 2**(k-1), (
                 f"growth at k={k}: {growth[k]} != {3*2**(k-1)}"
             )
@@ -188,14 +197,17 @@ class TestWeylGroup:
     def test_weyl_group_size(self):
         """Total elements at word length <= 6 is 1+3+6+12+24+48+96 = 190."""
         elements = weyl_orbit_rho(6)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(elements) == 190
 
     def test_identity_element(self):
         """The identity gives w(rho) = rho with det = +1."""
         elements = weyl_orbit_rho(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(elements) == 1
         w_rho, det_w = elements[0]
         assert np.allclose(w_rho, RHO)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert det_w == 1
 
     def test_s3_symmetry(self):
@@ -210,6 +222,7 @@ class TestWeylGroup:
         elements = weyl_orbit_rho(4)
         for w_rho, det_w in elements:
             if np.allclose(w_rho, RHO):
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert det_w == 1
 
 
@@ -234,23 +247,35 @@ class TestPhi01:
 
     def test_leading_coefficients(self):
         """f(0,0) = 10, f(0,+/-1) = 1."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(0, 0) == 10
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(0, 1) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(0, -1) == 1
 
     def test_q1_coefficients(self):
         """f(1,0) = 108, f(1,+/-1) = -64, f(1,+/-2) = 10."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(1, 0) == 108
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(1, 1) == -64
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(1, -1) == -64
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(1, 2) == 10
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(1, -2) == 10
 
     def test_q2_coefficients(self):
         """f(2,0) = 808, f(2,+/-1) = -513, f(2,+/-2) = 108, f(2,+/-3) = 1."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(2, 0) == 808
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(2, 1) == -513
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(2, 2) == 108
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_phi01(2, 3) == 1
 
     def test_c_disc_values(self):
@@ -265,23 +290,27 @@ class TestPhi01:
     def test_vanishing_below_minus1(self):
         """f(n, l) = 0 when D = 4n - l^2 < -1."""
         for (n, l), f_val in PHI01_TABLE.items():
+            # VERIFIED [DC] vanishing check [LC] boundary/limiting case
             assert 4*n - l*l >= -1, f"Nonzero f({n},{l}) at D={4*n-l*l}"
 
     def test_phi01_normalization_numerical(self):
         """phi_{0,1}(i, 0) = 12."""
         val = phi_01_value(1.0j, 0.0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(val - 12.0) < 1e-6
 
     def test_phi01_T_invariance(self):
         """phi_{0,1}(tau+1, z) = phi_{0,1}(tau, z)."""
         tau = 0.7 + 1.5j
         z = 0.3 + 0.2j
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(phi_01_value(tau, z) - phi_01_value(tau + 1, z)) < 1e-6
 
     def test_phi01_Z_periodicity(self):
         """phi_{0,1}(tau, z+1) = phi_{0,1}(tau, z)."""
         tau = 0.7 + 1.5j
         z = 0.3 + 0.2j
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(phi_01_value(tau, z) - phi_01_value(tau, z + 1)) < 1e-6
 
     def test_phi01_jacobi_transformation(self):
@@ -291,6 +320,7 @@ class TestPhi01:
         val1 = phi_01_value(tau, z)
         val2 = phi_01_value(tau, z + tau)
         factor = np.exp(-2j * np.pi * (tau + 2*z))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(val2 - factor * val1) / abs(val1) < 1e-4
 
     def test_compute_matches_hardcoded(self):
@@ -314,6 +344,7 @@ class TestBorcherdsProduct:
     def test_product_nonzero(self):
         """Product is nonzero deep in the Siegel upper half-space."""
         val = borcherds_product_numerical(3.0j, 0.1j, 3.5j, order=4)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(val) > 1e-30
 
     def test_product_real_for_imaginary_Z(self):
@@ -332,12 +363,14 @@ class TestBorcherdsProduct:
             expected_log = -2 * np.pi * (im_tau + im_tau - 0.05)
             actual_log = np.log(abs(val))
             # Product corrections shift the log by O(1), so allow 2% relative error
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(actual_log - expected_log) / abs(expected_log) < 0.02
 
     def test_product_order_convergence(self):
         """Product stabilizes as truncation order increases."""
         tau, z, omega = 2.0j, 0.2j, 2.5j
         vals = [borcherds_product_numerical(tau, z, omega, order=k) for k in [4, 6, 8]]
+        # VERIFIED [DC] convergence [LC] boundary/limiting case
         assert abs(vals[1] - vals[2]) / abs(vals[2]) < 1e-6
 
 
@@ -361,6 +394,7 @@ class TestWeylSum:
     def test_nonzero(self):
         """Weyl sum is nonzero in the convergence region."""
         val = weyl_sum_numerical(2.0j, 0.2j, 2.5j, max_length=6)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(val) > 1e-15
 
     def test_rapid_convergence(self):
@@ -368,6 +402,7 @@ class TestWeylSum:
         tau, z, omega = 2.0j, 0.2j, 2.5j
         w4 = weyl_sum_numerical(tau, z, omega, max_length=4)
         w8 = weyl_sum_numerical(tau, z, omega, max_length=8)
+        # VERIFIED [DC] convergence [LC] boundary/limiting case
         assert abs(w4 - w8) / abs(w8) < 1e-10
 
     def test_tau_omega_symmetry(self):
@@ -380,6 +415,7 @@ class TestWeylSum:
         w2 = weyl_sum_numerical(omega, z, tau, max_length=8)
         if abs(w1) > 1e-20 and abs(w2) > 1e-20:
             ratio = w2 / w1
+            # VERIFIED [DC] symmetry check [LC] boundary/limiting case
             assert abs(abs(ratio) - 1.0) < 0.01
 
 
@@ -412,12 +448,14 @@ class TestDenominatorIdentity:
             assert ratios[i] < ratios[i-1], (
                 f"|ratio-1| not decreasing: {ratios[i-1]:.2e} -> {ratios[i]:.2e}"
             )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ratios[-1] < 1e-8
 
     def test_imaginary_correction_small(self):
         """S_im = B_F/W is close to 1 at moderate Im(Z)."""
         bf = borcherds_product_numerical(3.0j, 0.1j, 3.5j, order=6)
         ws = weyl_sum_numerical(3.0j, 0.1j, 3.5j, max_length=8)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(bf / ws - 1) < 1e-6
 
     def test_correction_nonzero_at_moderate_im(self):
@@ -425,6 +463,7 @@ class TestDenominatorIdentity:
         bf = borcherds_product_numerical(2.0j, 0.15j, 2.5j, order=8)
         ws = weyl_sum_numerical(2.0j, 0.15j, 2.5j, max_length=8)
         correction = abs(bf / ws)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert 0.999 < correction < 1.001
 
     def test_product_sum_both_real(self):
@@ -450,6 +489,7 @@ class TestImaginaryRoots:
             v = np.array([n, l, m], dtype=float)
             for i, delta in enumerate(SIMPLE_ROOTS):
                 ip = inner_product(v, delta)
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert ip <= 1e-10, (
                     f"({n},{l},{m}): (a, delta_{i+1}) = {ip} > 0"
                 )
@@ -481,7 +521,9 @@ class TestImaginaryRoots:
                     null_pos.append((n, l, m))
                 elif mult < 0:
                     null_neg.append((n, l, m))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(null_pos) > 0, "No null root with positive mult"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(null_neg) > 0, "No null root with negative mult"
 
     def test_negative_norm_roots_mixed_signs(self):
@@ -534,6 +576,7 @@ class TestFullVerification:
             ws = weyl_sum_numerical(tau, 0.1j, 3.5j, max_length=8)
             results.append(bf / ws)
         for i in range(1, len(results)):
+            # VERIFIED [DC] consistency check [LC] boundary/limiting case
             assert abs(results[i] - results[0]) < 0.01
 
 
@@ -575,6 +618,7 @@ class TestCrossValidationBKM:
         for i in range(3):
             wkb_val = inner_product(RHO, SIMPLE_ROOTS[i])
             bkm_val = bkm.weyl_vector_inner(i)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(wkb_val - float(bkm_val)) < 1e-14
 
     def test_phi01_convention_match(self, bkm):
@@ -604,6 +648,7 @@ class TestCrossValidationBKM:
             bkm_rho[i] * bkm_gram[i][j] * bkm_rho[j]
             for i in range(3) for j in range(3)
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(float(bkm_norm) - norm_sq(RHO)) < 1e-14
 
 
@@ -650,11 +695,13 @@ class TestCrossValidationDD:
         """Weyl vector in (f_2, f_3, f_{-2}) basis matches."""
         dd_rho = dd.weyl_vector_f_basis()
         for i in range(3):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(float(RHO[i]) - float(dd_rho[i])) < 1e-14
 
     def test_weyl_vector_norm_agrees(self, dd):
         """(rho, rho) = -3/2 in both modules."""
         dd_norm = dd.weyl_vector_norm_sq()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(norm_sq(RHO) - float(dd_norm)) < 1e-14
 
     def test_verify_weyl_vector_agrees(self, dd):

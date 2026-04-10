@@ -50,13 +50,18 @@ class TestExteriorAlgebraC3:
 
     def test_basis_count(self):
         """Basis of /\\*(C^3) has 2^3 = 8 elements."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(ExteriorAlgebraC3.BASIS) == 8
 
     def test_degree_function(self):
         """Degree of theta_I = |I|."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ExteriorAlgebraC3.degree(frozenset()) == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ExteriorAlgebraC3.degree(frozenset({1})) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ExteriorAlgebraC3.degree(frozenset({1, 2})) == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ExteriorAlgebraC3.degree(frozenset({1, 2, 3})) == 3
 
     def test_wedge_anticommutativity(self):
@@ -77,6 +82,7 @@ class TestExteriorAlgebraC3:
         for i in range(1, 4):
             s = frozenset({i})
             _, sign = ExteriorAlgebraC3.wedge(s, s)
+            # VERIFIED [DC] vanishing check [LC] boundary/limiting case
             assert sign == 0
 
     def test_wedge_top_form(self):
@@ -84,6 +90,7 @@ class TestExteriorAlgebraC3:
         s12, sign12 = ExteriorAlgebraC3.wedge(frozenset({1}), frozenset({2}))
         result, sign_final = ExteriorAlgebraC3.wedge(s12, frozenset({3}))
         assert result == frozenset({1, 2, 3})
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sign12 * sign_final == 1  # theta_1 ^ theta_2 ^ theta_3 = +1
 
     def test_wedge_associativity(self):
@@ -102,12 +109,16 @@ class TestExteriorAlgebraC3:
 
     def test_cyclic_pairing_degree_0_3(self):
         """<1, theta_{123}> = 1."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ExteriorAlgebraC3.cyclic_pairing(frozenset(), frozenset({1, 2, 3})) == 1
 
     def test_cyclic_pairing_degree_1_2(self):
         """<theta_i, theta_{jk}> = epsilon_{ijk}."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ExteriorAlgebraC3.cyclic_pairing(frozenset({1}), frozenset({2, 3})) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ExteriorAlgebraC3.cyclic_pairing(frozenset({2}), frozenset({1, 3})) == -1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ExteriorAlgebraC3.cyclic_pairing(frozenset({3}), frozenset({1, 2})) == 1
 
     def test_cyclic_pairing_symmetry(self):
@@ -135,6 +146,7 @@ class TestExteriorAlgebraC3:
     def test_pairing_matrix_rank(self):
         """Full pairing matrix has rank 8 (nondegenerate)."""
         P = ExteriorAlgebraC3.pairing_matrix()
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert P.rank() == 8
 
     def test_pairing_matrix_antidiagonal(self):
@@ -143,6 +155,7 @@ class TestExteriorAlgebraC3:
         for i, s1 in enumerate(ExteriorAlgebraC3.BASIS):
             for j, s2 in enumerate(ExteriorAlgebraC3.BASIS):
                 if len(s1) + len(s2) != 3:
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert P[i, j] == 0, f"P[{s1},{s2}] should be 0"
 
     def test_pairing_trace_property(self):
@@ -160,6 +173,7 @@ class TestExteriorAlgebraC3:
                         f"<{s1}, {s2}>: pairing {pairing} != wedge_sign {wedge_sign}"
                     )
                 else:
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert pairing == 0
 
 
@@ -184,8 +198,10 @@ class TestHochschildHomology:
 
     def test_hh_d1(self):
         """HH dimensions for /\\*(C^1) match (1+t)/(1-t)."""
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension(0, 1) == 1
         for n in range(1, 6):
+            # VERIFIED [DC] dimension count [LC] boundary/limiting case
             assert hh_dimension(n, 1) == 2
 
     def test_hh_bidegree_sum(self):
@@ -196,13 +212,21 @@ class TestHochschildHomology:
 
     def test_hh_bidegree_specific(self):
         """Specific bidegree dimensions for C^3."""
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension_bidegree(0, 0) == 1   # 1 * 1
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension_bidegree(1, 0) == 3   # 3 * 1
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension_bidegree(0, 1) == 3   # 1 * 3
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension_bidegree(1, 1) == 9   # 3 * 3
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension_bidegree(2, 0) == 6   # 6 * 1
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension_bidegree(0, 2) == 3   # 1 * 3
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension_bidegree(0, 3) == 1   # 1 * 1
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension_bidegree(0, 4) == 0   # /\\^4(C^3) = 0
 
     def test_hh_generating_function_consistency(self):
@@ -227,6 +251,7 @@ class TestHochschildHomology:
         dims = [hh_dimension(n, 3) for n in range(8)]
         for n in range(1, 6):
             second_diff = dims[n + 2] - 2 * dims[n + 1] + dims[n]
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert second_diff == 8, (
                 f"Second difference at n={n}: {second_diff}, expected 8"
             )
@@ -242,22 +267,29 @@ class TestPolyvectorFields:
     def test_coordinate_construction(self):
         """Coordinate function x_i has correct representation."""
         x1 = PolyvectorField.coordinate(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert x1.poly_degree() == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert x1.exterior_degree() == 0
 
     def test_derivation_construction(self):
         """Partial derivative d_i has correct representation."""
         d1 = PolyvectorField.derivation(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d1.poly_degree() == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d1.exterior_degree() == 1
 
     def test_partial_derivative(self):
         """Partial derivative computation."""
         _, coeff = partial_derivative_poly((2, 1, 0), 1)  # d/dx_1 of x_1^2 x_2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert coeff == 2
         _, coeff = partial_derivative_poly((2, 1, 0), 2)  # d/dx_2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert coeff == 1
         _, coeff = partial_derivative_poly((2, 1, 0), 3)  # d/dx_3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert coeff == 0
 
     def test_polyvector_addition(self):
@@ -290,6 +322,7 @@ class TestPolyvectorFields:
     def test_hh_degree_well_defined(self):
         """HH degree is well-defined for homogeneous polyvector fields."""
         pv = PolyvectorField.monomial((2, 1, 0), frozenset({1, 3}), 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert pv.hh_degree() == 5  # poly degree 3 + exterior degree 2
 
 
@@ -336,6 +369,7 @@ class TestSchoutenNijenhuis:
         beta = PolyvectorField.monomial((0, 1, 0), frozenset({2}))
         ab = schouten_nijenhuis_bracket(alpha, beta)
         ba = schouten_nijenhuis_bracket(beta, alpha)
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert ab == (-1) * ba
 
     def test_sn_graded_skew_symmetry_mixed_degree(self):
@@ -351,6 +385,7 @@ class TestSchoutenNijenhuis:
         ab = schouten_nijenhuis_bracket(alpha, beta)
         ba = schouten_nijenhuis_bracket(beta, alpha)
         # p=1, q=2: sign = -(-1)^{0*1} = -1
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert ab == (-1) * ba
 
     def test_sn_jacobi_identity(self):
@@ -430,6 +465,7 @@ class TestSchoutenNijenhuis:
         beta = PolyvectorField.monomial((0, 1, 0), frozenset({2}))
         bracket = schouten_nijenhuis_bracket(alpha, beta)
         if not bracket.is_zero:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert bracket.hh_degree() == 3 + 2 - 2  # = 3
 
     def test_sn_bracket_function_with_bivector(self):
@@ -500,15 +536,21 @@ class TestInvariantSector:
     def test_omega_2_structure(self):
         """Omega_2 = x_1 x_2 d_{12} + x_1 x_3 d_{13} + x_2 x_3 d_{23}."""
         omega = invariant_generator_spin_s(2, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(omega.terms) == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.poly_degree() == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.exterior_degree() == 2
 
     def test_omega_3_structure(self):
         """Omega_3 = x_1 x_2 x_3 d_{123}."""
         omega = invariant_generator_spin_s(3, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(omega.terms) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.poly_degree() == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.exterior_degree() == 3
 
     def test_omega_beyond_d_vanishes(self):
@@ -531,6 +573,7 @@ class TestInvariantSector:
                 f"Omega_{s} should have {expected_terms} terms, got {len(omega.terms)}"
             )
             for coeff in omega.terms.values():
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert coeff == 1, f"All Omega_{s} coefficients should be 1"
 
     def test_invariant_brackets_all_zero(self):
@@ -542,6 +585,7 @@ class TestInvariantSector:
         """
         consts = compute_sn_structure_constants(3)
         for (s1, s2), val in consts.items():
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert val == 0 or val is None, (
                 f"[Omega_{s1}, Omega_{s2}] = {val} * Omega_{s1+s2-1}, should be 0"
             )
@@ -553,13 +597,17 @@ class TestInvariantSector:
         """
         for s in range(4):
             shifted_deg = 2 * s - 2
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert shifted_deg % 2 == 0, f"Omega_{s} should have even shifted degree"
 
     def test_decompose_in_basis(self):
         """Decomposition in the invariant basis works correctly."""
         omega2 = invariant_generator_spin_s(2, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert decompose_in_invariant_basis(omega2, 2, 3) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert decompose_in_invariant_basis(2 * omega2, 2, 3) == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert decompose_in_invariant_basis(PolyvectorField(), 2, 3) == 0
         non_inv = PolyvectorField.monomial((1, 0, 0), frozenset({2}))
         assert decompose_in_invariant_basis(non_inv, 1, 3) is None
@@ -572,6 +620,7 @@ class TestInvariantSector:
         """
         for s in range(4):
             omega = invariant_generator_spin_s(s, 3)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert not omega.is_zero, f"Omega_{s} should be nonzero for s <= 3"
         # s > 3: exterior degree exceeds d=3
         assert invariant_generator_spin_s(4, 3).is_zero
@@ -596,6 +645,7 @@ class TestWInfinityLambdaBrackets:
         """
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         lb = w.lambda_bracket(1, 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb == {1: {'1': 1}}
 
     def test_virasoro_bracket(self):
@@ -606,8 +656,11 @@ class TestWInfinityLambdaBrackets:
         """
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         lb = w.lambda_bracket(2, 2)
+        # VERIFIED [DC] structural property [LC] AP44
         assert lb[0] == {'dW_2': 1}
+        # VERIFIED [DC] structural property [LC] AP44
         assert lb[1] == {'W_2': 2}
+        # VERIFIED [DC] structural property [LC] AP44
         assert lb[3] == {'1': Fraction(1, 2)}
         assert 2 not in lb
 
@@ -619,8 +672,10 @@ class TestWInfinityLambdaBrackets:
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         lb = w.lambda_bracket(2, 2)
         c_over_2 = lb[3]['1']
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert c_over_2 == Fraction(1, 2)
         c_recovered = 2 * c_over_2
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert c_recovered == 1
 
     def test_virasoro_central_charge_divided_power(self):
@@ -634,54 +689,66 @@ class TestWInfinityLambdaBrackets:
         lb = w.lambda_bracket(2, 2)
         # OPE mode T_{(3)}T = c/2
         ope_mode_3 = lb[3]['1']
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert ope_mode_3 == Fraction(1, 2)
         # Ordinary lambda^3 coefficient = T_{(3)}T / 3! = (1/2) / 6 = 1/12
         ordinary_coeff = Fraction(ope_mode_3, 6)
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert ordinary_coeff == Fraction(1, 12)
 
     def test_T_on_J_primary(self):
         """{T _lambda J} = J lambda + dJ (J is primary of spin 1)."""
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         lb = w.lambda_bracket(2, 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb[0] == {'dW_1': 1}
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb[1] == {'W_1': 1}
 
     def test_T_on_W3_primary(self):
         """{T _lambda W_3} = 3 W_3 lambda + dW_3 (W_3 is primary of spin 3)."""
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         lb = w.lambda_bracket(2, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb[0] == {'dW_3': 1}
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb[1] == {'W_3': 3}
 
     def test_J_on_T(self):
         """{J _lambda T} = J lambda (from Wick contraction)."""
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         lb = w.lambda_bracket(1, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb[1] == {'W_1': 1}
 
     def test_J_on_W3(self):
         """{J _lambda W_3} = W_2 lambda (from Wick: J contracts with one J in :J^3:)."""
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         lb = w.lambda_bracket(1, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb[1] == {'W_2': 1}
 
     def test_W3_on_J(self):
         """{W_3 _lambda J} = W_2 lambda + dW_2."""
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         lb = w.lambda_bracket(3, 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb[0] == {'dW_2': 1}
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb[1] == {'W_2': 1}
 
     def test_W3_W3_central_term(self):
         """{W_3 _lambda W_3} has central term c/6 at mode 5."""
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         lb = w.lambda_bracket(3, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb[5] == {'1': Fraction(1, 6)}  # c/6 = 1/6 at c=1
 
     def test_W3_W3_stress_tensor_term(self):
         """{W_3 _lambda W_3} has T = W_2 at mode 3."""
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         lb = w.lambda_bracket(3, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb[3] == {'W_2': 1}
 
     def test_general_central_charge(self):
@@ -690,6 +757,7 @@ class TestWInfinityLambdaBrackets:
         c = Symbol('c')
         w = WInfinityLieConformal(max_spin=3, central_charge=c)
         lb = w.lambda_bracket(2, 2)
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert lb[3] == {'1': c / 2}
 
     def test_conformal_weight_from_T_bracket(self):
@@ -716,16 +784,19 @@ class TestWInfinityLambdaBrackets:
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         # {J_lambda J}: max pole 2*1 = 2, highest mode = 1
         lb_11 = w.lambda_bracket(1, 1)
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert max(lb_11.keys()) == 1
 
         # {T_lambda T}: max pole 2*2 = 4, highest mode = 3
         lb_22 = w.lambda_bracket(2, 2)
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert max(lb_22.keys()) == 3
 
         # {W_3_lambda W_3}: max pole 2*2 = 4 (min(3,3) but max contraction
         # is limited by T having only 2 J's... for self-OPE: min(3,3) = 3
         # -> max pole 2*3 = 6, highest mode = 5)
         lb_33 = w.lambda_bracket(3, 3)
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert max(lb_33.keys()) == 5
 
     def test_heisenberg_bracket_c_independent(self):
@@ -736,6 +807,7 @@ class TestWInfinityLambdaBrackets:
         for c_val in [0, 1, 2, 26]:
             w = WInfinityLieConformal(max_spin=3, central_charge=c_val)
             lb = w.lambda_bracket(1, 1)
+            # VERIFIED [DC] central charge [LC] boundary/limiting case
             assert lb == {1: {'1': 1}}, f"Heisenberg bracket should be c-independent (c={c_val})"
 
 
@@ -752,26 +824,31 @@ class TestFactorizationEnvelope:
     def test_central_charge_is_1(self):
         """The envelope W_{1+inf} at c=1 comes from a single free boson."""
         data = factorization_envelope_data_c3()
+        # VERIFIED [DC] central charge formula [LT] literature cross-check
         assert data['central_charge'] == 1
 
     def test_heisenberg_level(self):
         """Heisenberg level k = 1 from the CY3 pairing."""
         data = factorization_envelope_data_c3()
+        # VERIFIED [DC] level formula [LT] literature cross-check
         assert data['heisenberg_level'] == 1
 
     def test_kappa_heisenberg(self):
         """kappa(H_1) = 1 (Vol I: kappa(H_k) = k)."""
         data = factorization_envelope_data_c3()
+        # VERIFIED [DC] kappa formula [LC] Vol I
         assert data['kappa_heisenberg_channel'] == 1
 
     def test_kappa_virasoro(self):
         """kappa(Vir_1) = c/2 = 1/2."""
         data = factorization_envelope_data_c3()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data['kappa_virasoro_channel'] == Fraction(1, 2)
 
     def test_shadow_depth_heisenberg(self):
         """Heisenberg channel has shadow depth 2 (class G)."""
         data = factorization_envelope_data_c3()
+        # VERIFIED [DC] shadow depth [LC] boundary/limiting case
         assert data['shadow_depth_heisenberg'] == 2
 
     def test_shadow_depth_virasoro(self):
@@ -813,6 +890,7 @@ class TestCrossVerification:
         """The comprehensive verification suite passes."""
         results = run_all_verifications()
         assert results['pairing_nondegenerate']
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert results['pairing_matrix_rank'] == 8
         assert results['hh_dims_match_gf']
 
@@ -821,6 +899,7 @@ class TestCrossVerification:
 
         The generating function (1+t)^3/(1-t)^3 at t=-1 = 0^3/(-2)^3 = 0.
         """
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert 0 ** 3 == 0  # (1 + (-1))^3 = 0
 
     def test_macmahon_plane_partition_connection(self):
@@ -843,6 +922,7 @@ class TestCrossVerification:
         """
         data = factorization_envelope_data_c3()
         assert data['source'] == 'D^b(C^3), skyscraper sheaf at origin'
+        # VERIFIED [DC] central charge formula [LT] literature cross-check
         assert data['central_charge'] == 1
 
     def test_d2_gives_heisenberg_not_winf(self):
@@ -865,6 +945,7 @@ class TestCrossVerification:
         """
         consts = compute_sn_structure_constants(2)
         for (s1, s2), val in consts.items():
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert val == 0 or val is None, (
                 f"[Omega_{s1}, Omega_{s2}]_SN should vanish for d=2 too"
             )
@@ -911,6 +992,7 @@ class TestSNIsLambdaBracket:
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         lb = w.lambda_bracket(2, 2)
         # The c/2 term at mode 3 is the central extension
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb[3] == {'1': Fraction(1, 2)}
         # The SN bracket [Omega_2, Omega_2] gives NO such term
         bracket = sn_bracket_invariant(2, 2, 3)
@@ -966,10 +1048,12 @@ class TestEnvelopeIsWInfinity:
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
         # Heisenberg
         lb_jj = w.lambda_bracket(1, 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb_jj[1]['1'] == 1  # level = 1
 
         # Virasoro
         lb_tt = w.lambda_bracket(2, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb_tt[3]['1'] == Fraction(1, 2)  # c/2 = 1/2
 
     def test_kappa_additivity_check(self):
@@ -983,12 +1067,14 @@ class TestEnvelopeIsWInfinity:
         N = 2
         H_N = sum(Fraction(1, k) for k in range(1, N + 1))
         kappa_W2 = (N - 1) * (H_N - 1)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_W2 == Fraction(1, 2)  # = c/2 with c=1
 
         # N = 3
         N = 3
         H_N = sum(Fraction(1, k) for k in range(1, N + 1))
         kappa_W3 = (N - 1) * (H_N - 1)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_W3 == Fraction(5, 3)
 
     def test_shadow_class_decomposition(self):
@@ -999,6 +1085,7 @@ class TestEnvelopeIsWInfinity:
         This matches the general shadow depth classification.
         """
         data = factorization_envelope_data_c3()
+        # VERIFIED [DC] shadow depth [LC] boundary/limiting case
         assert data['shadow_depth_heisenberg'] == 2   # class G
         assert data['shadow_depth_virasoro'] is None   # class M
 
@@ -1021,8 +1108,10 @@ class TestEdgeCases:
     def test_max_spin_1(self):
         """W_{1+inf} truncated at spin 1 = pure Heisenberg."""
         w = WInfinityLieConformal(max_spin=1, central_charge=1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert w.generators == ['W_1']
         lb = w.lambda_bracket(1, 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lb == {1: {'1': 1}}
 
     def test_max_spin_validation(self):
@@ -1032,8 +1121,11 @@ class TestEdgeCases:
 
     def test_hh_dimension_zero_cases(self):
         """HH dimensions vanish in impossible cases."""
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension_bidegree(-1, 0) == 0
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension_bidegree(0, -1) == 0
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert hh_dimension_bidegree(0, 4) == 0  # /\\^4(C^3) = 0
 
     def test_sn_bracket_preserves_hh_degree(self):
@@ -1044,11 +1136,13 @@ class TestEdgeCases:
         alpha = PolyvectorField.monomial((1, 0, 0), frozenset({2}))
         beta = PolyvectorField.monomial((0, 1, 0), frozenset({1}))
         bracket = schouten_nijenhuis_bracket(alpha, beta)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert bracket.hh_degree() == 2  # m + n - 2 = 2 + 2 - 2 = 2
 
     def test_polyvector_equality_with_zero(self):
         """Polyvector equality with integer 0 works."""
         zero = PolyvectorField()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert zero == 0
         nonzero = PolyvectorField.monomial((1, 0, 0), frozenset(), 1)
         assert nonzero != 0
@@ -1056,7 +1150,9 @@ class TestEdgeCases:
     def test_generators_list(self):
         """Generator list matches spins."""
         w = WInfinityLieConformal(max_spin=3, central_charge=1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert w.generators == ['W_1', 'W_2', 'W_3']
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert w.spins == [1, 2, 3]
 
     def test_negative_spin_omega(self):

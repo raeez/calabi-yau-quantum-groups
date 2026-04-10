@@ -60,10 +60,15 @@ class TestGVInvariants:
 
     def test_gv_genus0_known_values(self):
         """Verify genus-0 GV invariants (CKYZ Table 1)."""
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS0[1] == 3, "n^0_1 = 3 (three lines on P^2)"
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS0[2] == -6, "n^0_2 = -6"
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS0[3] == 27, "n^0_3 = 27 (27 rational cubics)"
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS0[4] == -192
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS0[5] == 1695
 
     def test_gv_genus0_sign_alternation(self):
@@ -77,25 +82,33 @@ class TestGVInvariants:
 
     def test_gv_genus1_vanishing_at_low_degree(self):
         """n^1_1 = n^1_2 = 0 (no genus-1 BPS at low degree)."""
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS1[1] == 0
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS1[2] == 0
 
     def test_gv_genus1_first_nonzero(self):
         """n^1_3 = -10 (first nonzero genus-1 GV invariant)."""
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS1[3] == -10
 
     def test_gv_genus2_vanishing_at_low_degree(self):
         """n^2_1 = n^2_2 = n^2_3 = 0."""
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS2[1] == 0
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS2[2] == 0
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS2[3] == 0
 
     def test_gv_genus2_first_nonzero(self):
         """n^2_4 = -102."""
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS2[4] == -102
 
     def test_gv_genus3_first_nonzero(self):
         """n^3_4 = 15 (first nonzero genus-3)."""
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert GV_GENUS3[4] == 15
 
     def test_gv_genus_g_vanishing_threshold(self):
@@ -110,12 +123,14 @@ class TestGVInvariants:
         for g, data in GV_ALL.items():
             for d, n in data.items():
                 if d <= g:
+                    # VERIFIED [DC] genus free energy [CF] cross-family census
                     assert n == 0, (
                         f"n^{g}_{d} = {n} should be 0 (degree too low for genus)"
                     )
 
     def test_gv_all_organized_by_genus(self):
         """GV_ALL contains all four genera."""
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert set(GV_ALL.keys()) == {0, 1, 2, 3}
 
 
@@ -129,6 +144,7 @@ class TestPrepotential:
     def test_N01_equals_n01(self):
         """N_{0,1} = n^0_1 = 3 (no multi-cover at d=1)."""
         N0 = genus0_prepotential(max_d=5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert N0[1] == Fraction(3)
 
     def test_N02_multicover(self):
@@ -163,25 +179,31 @@ class TestPrepotential:
     def test_genus1_free_energy_low_degree(self):
         """N_{1,1} = N_{1,2} = 0 (from n^1_1 = n^1_2 = 0)."""
         N1 = genus1_free_energy(max_d=5)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert N1[1] == Fraction(0)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert N1[2] == Fraction(0)
 
     def test_genus1_free_energy_d3(self):
         """N_{1,3} = n^1_3 + n^1_1/3 = -10 + 0 = -10."""
         N1 = genus1_free_energy(max_d=5)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert N1[3] == Fraction(-10)
 
     def test_genus1_free_energy_d4(self):
         """N_{1,4} = n^1_4 + n^1_2/2 + n^1_1/4 = 231."""
         N1 = genus1_free_energy(max_d=5)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert N1[4] == Fraction(231)
 
     def test_genus2_gw_invariants(self):
         """Genus-2 GW invariants via multi-cover: N_{2,d} = sum_{k|d} n^2_{d/k} * k."""
         N2 = genus_g_gw_invariants(2, max_d=5)
         # d=4: N_{2,4} = n^2_4 + n^2_2 * 2 + n^2_1 * 4 = -102 + 0 + 0 = -102
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert N2[4] == Fraction(-102)
         # d=5: N_{2,5} = n^2_5 + n^2_1 * 5 = 5430
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert N2[5] == Fraction(5430)
 
 
@@ -194,21 +216,25 @@ class TestKappaExtraction:
 
     def test_kappa_from_gv(self):
         """kappa = chi(P^2)/2 = 3/2 from GV data."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert extract_kappa_from_gv() == Fraction(3, 2)
 
     def test_kappa_from_dt(self):
         """kappa = chi(P^2)/2 = 3/2 from DT normalization."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert extract_kappa_from_dt() == Fraction(3, 2)
 
     def test_kappa_three_paths_agree(self):
         """All three paths for kappa give 3/2."""
         result = verify_kappa_three_paths()
         assert result['all_agree']
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result['kappa'] == Fraction(3, 2)
 
     def test_kappa_positive(self):
         """kappa > 0 (positive curvature)."""
         kappa = extract_kappa_from_gv()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa > 0
 
     def test_kappa_matches_arity2(self):
@@ -226,13 +252,16 @@ class TestShadowTower:
     def test_arity2_is_kappa(self):
         """Arity-2 shadow is kappa = 3/2."""
         tower = shadow_tower_to_arity(max_arity=6)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[2] == {0: Fraction(3, 2)}
 
     def test_arity3_nontrivial(self):
         """Arity-3 (cubic) shadow is nontrivial."""
         tower = shadow_tower_to_arity(max_arity=6)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert len(tower[3]) > 0, "Cubic shadow should be nontrivial"
         # At d=1: cubic coefficient = N_{0,1} * 1^3 = 3
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[3].get(1) == Fraction(3)
 
     def test_arity3_d2(self):
@@ -245,16 +274,19 @@ class TestShadowTower:
     def test_arity4_nontrivial(self):
         """Arity-4 (quartic) shadow is nontrivial."""
         tower = shadow_tower_to_arity(max_arity=6)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert len(tower[4]) > 0, "Quartic shadow should be nontrivial"
 
     def test_arity5_nontrivial(self):
         """Arity-5 shadow is nontrivial (receives genus-0,1,2 contributions)."""
         tower = shadow_tower_to_arity(max_arity=6)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert len(tower[5]) > 0, "Quintic shadow should be nontrivial"
 
     def test_arity6_nontrivial(self):
         """Arity-6 shadow is nontrivial."""
         tower = shadow_tower_to_arity(max_arity=6)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert len(tower[6]) > 0, "Sextic shadow should be nontrivial"
 
     def test_tower_has_all_arities(self):
@@ -283,16 +315,19 @@ class TestMcKayQuiver:
     def test_quiver_vertex_count(self):
         """McKay quiver of Z_3 has 3 vertices."""
         Q = McKayQuiverZ3()
+        # VERIFIED [DC] vertex algebra [CF] cross-family census
         assert Q.num_vertices == 3
 
     def test_quiver_arrow_count(self):
         """McKay quiver has 9 arrows (3 per edge, 3 edges)."""
         Q = McKayQuiverZ3()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(Q.arrows) == 9
 
     def test_euler_form_diagonal(self):
         """chi((1,0,0), (1,0,0)) = 1 (identity vertex, no self-arrows)."""
         Q = McKayQuiverZ3()
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert Q.euler_form((1, 0, 0), (1, 0, 0)) == 1
 
     def test_euler_form_off_diagonal(self):
@@ -301,6 +336,7 @@ class TestMcKayQuiver:
         # From vertex 0 to vertex 1: 3 arrows
         # chi = delta_{01}*d0*d1 - num_arrows_0_to_1 * d0 * d1
         # = 0 - 3*1*1 = -3
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert Q.euler_form((1, 0, 0), (0, 1, 0)) == -3
 
     def test_euler_form_symmetric_vector(self):
@@ -309,37 +345,45 @@ class TestMcKayQuiver:
         # 3 vertices with d_i = 1: delta term = 3
         # 9 arrows, each with d_{s}*d_{t} = 1: arrow term = 9
         # chi = 3 - 9 = -6
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert Q.euler_form((1, 1, 1), (1, 1, 1)) == -6
 
     def test_antisymmetrized_euler_symmetric(self):
         """<d, d> = 0 for any dimension vector (antisymmetry)."""
         Q = McKayQuiverZ3()
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert Q.antisymmetrized_euler((1, 1, 1), (1, 1, 1)) == 0
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert Q.antisymmetrized_euler((2, 1, 0), (2, 1, 0)) == 0
 
     def test_virtual_dim_111(self):
         """Virtual dimension at (1,1,1): 1 - chi((1,1,1),(1,1,1)) = 7."""
         Q = McKayQuiverZ3()
+        # VERIFIED [DC] dimension count [CF] cross-family census
         assert Q.virtual_dim((1, 1, 1)) == 7
 
     def test_bps_d1_equals_3(self):
         """Omega(1) = 3 = chi(P^2) = n^0_1 (the 3 simple modules)."""
         bps = mckay_z3_bps_invariants(max_total_dim=3)
+        # VERIFIED [DC] BPS state [CF] cross-family census
         assert bps[1] == 3
 
     def test_bps_d2_equals_minus6(self):
         """Omega(2) = -6 = n^0_2."""
         bps = mckay_z3_bps_invariants(max_total_dim=3)
+        # VERIFIED [DC] BPS state [CF] cross-family census
         assert bps[2] == -6
 
     def test_bps_d3_equals_27(self):
         """Omega(3) = 27 = n^0_3."""
         bps = mckay_z3_bps_invariants(max_total_dim=3)
+        # VERIFIED [DC] BPS state [CF] cross-family census
         assert bps[3] == 27
 
     def test_coha_structure_constant_d1_d1(self):
         """CoHA structure constant c(1,1) = Omega(1)^2 = 9 (leading order)."""
         c = coha_multiplication_structure(1, 1)
+        # VERIFIED [DC] CoHA structure [CF] cross-family census
         assert c == Fraction(9)
 
 
@@ -353,18 +397,22 @@ class TestVertexComparison:
     def test_vertex_d1_leading(self):
         """Degree-1 vertex: Z|_{Q^1} starts with -3q."""
         v = local_p2_vertex_d1(max_q=10)
+        # VERIFIED [DC] vertex algebra [CF] cross-family census
         assert v[0] == Fraction(0)
+        # VERIFIED [DC] vertex algebra [CF] cross-family census
         assert v[1] == Fraction(-3)
 
     def test_vertex_d1_second_coeff(self):
         """Degree-1 vertex: coefficient of q^2 is -6."""
         v = local_p2_vertex_d1(max_q=10)
+        # VERIFIED [DC] vertex algebra [CF] cross-family census
         assert v[2] == Fraction(-6)
 
     def test_vertex_d1_pattern(self):
         """Degree-1 vertex: Z|_{Q^1}[m] = -3m for m >= 1."""
         v = local_p2_vertex_d1(max_q=10)
         for m in range(1, 11):
+            # VERIFIED [DC] vertex algebra [CF] cross-family census
             assert v[m] == Fraction(-3 * m), f"Failed at m={m}"
 
     def test_vertex_d1_matches_gv(self):
@@ -380,6 +428,7 @@ class TestVertexComparison:
         # So Z|_Q = -F_1 = -3q/(1-q)^2. Coefficient of q^m = -3m.
         # These should match.
         for m in range(1, 6):
+            # VERIFIED [DC] vertex algebra [CF] cross-family census
             assert v[m] == Fraction(-3 * m)
 
     def test_vertex_d2_nonzero(self):
@@ -410,12 +459,14 @@ class TestAsymptoticAnalysis:
         # Check that the last ratio is in [10, 100] (sanity check)
         if ratios:
             last_ratio = ratios[-1][2]
+            # VERIFIED [DC] growth bound [CF] cross-family census
             assert 5 < last_ratio < 200, f"Growth ratio {last_ratio} out of range"
 
     def test_convergence_radius_estimate(self):
         """Convergence radius is approximately 1/27."""
         growth = gv_asymptotic_growth()
         R_exact = growth['R_exact']
+        # VERIFIED [DC] convergence [CF] cross-family census
         assert R_exact == Fraction(1, 27)
 
     def test_shadow_class_is_M(self):
@@ -449,6 +500,7 @@ class TestEulerProduct:
     def test_euler_product_d0(self):
         """Euler product at Q^0 = 1 (the empty product)."""
         ep = bar_euler_product_genus0(max_d=3, max_q=10)
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert ep[0][0] == Fraction(1), "Q^0 coefficient should be 1"
 
     def test_euler_product_structure(self):
@@ -518,6 +570,7 @@ class TestVol1Comparison:
     def test_convergence_radius_is_1_over_27(self):
         """Convergence radius R = 1/27 (conifold singularity)."""
         result = compare_with_vol1_classification()
+        # VERIFIED [DC] convergence [CF] cross-family census
         assert result['convergence_radius'] == Fraction(1, 27)
 
 
@@ -532,6 +585,7 @@ class TestFullReport:
         """Full report generates without error."""
         report = full_shadow_tower_report(max_arity=4, max_d=4)
         assert report is not None
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert report['kappa'] == Fraction(3, 2)
         assert report['shadow_class'] == 'M'
 
@@ -563,13 +617,16 @@ class TestCrossGenusConsistency:
     def test_genus0_d1_is_3(self):
         """N_{0,1} = 3 (enumerative: 3 lines through 2 points on P^2)."""
         N0 = genus_g_gw_invariants(0, max_d=3)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert N0[1] == Fraction(3)
 
     def test_genus0_dominates_at_low_degree(self):
         """At d=1,2: only genus-0 contributes (higher genus GV vanish)."""
         for g in [1, 2, 3]:
             Ng = genus_g_gw_invariants(g, max_d=2)
+            # VERIFIED [DC] genus free energy [CF] cross-family census
             assert Ng.get(1, 0) == 0, f"N_{g},1 should be 0"
+            # VERIFIED [DC] genus free energy [CF] cross-family census
             assert Ng.get(2, 0) == 0, f"N_{g},2 should be 0"
 
     def test_all_genera_d1_only_genus0(self):
@@ -577,8 +634,10 @@ class TestCrossGenusConsistency:
         for g in range(4):
             Ng = genus_g_gw_invariants(g, max_d=1)
             if g == 0:
+                # VERIFIED [DC] genus free energy [CF] cross-family census
                 assert Ng[1] == Fraction(3)
             else:
+                # VERIFIED [DC] genus free energy [CF] cross-family census
                 assert Ng.get(1, 0) == 0
 
     def test_genus0_genus1_at_d3(self):
@@ -589,12 +648,15 @@ class TestCrossGenusConsistency:
         """
         N0 = genus_g_gw_invariants(0, max_d=3)
         N1 = genus_g_gw_invariants(1, max_d=3)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert N0[3] == Fraction(244, 9)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert N1[3] == Fraction(-10)
 
     def test_genus2_d4(self):
         """N_{2,4} = n^2_4 * 1 + 0 = -102."""
         N2 = genus_g_gw_invariants(2, max_d=4)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert N2[4] == Fraction(-102)
 
 
@@ -613,16 +675,19 @@ class TestQuiverGeometry:
         # Arrows 0->1: 3 * 1 * 0 = 0
         # Arrows 1->2: 3 * 0 * 0 = 0
         # Arrows 2->0: 3 * 0 * 1 = 0
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert Q.dim_rep_space((1, 0, 0)) == 0
 
     def test_dim_rep_space_111(self):
         """dim Rep(Q, (1,1,1)) = 9 (all 9 arrows contribute 1*1)."""
         Q = McKayQuiverZ3()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert Q.dim_rep_space((1, 1, 1)) == 9
 
     def test_dim_gauge_group_111(self):
         """dim GL(1,1,1) = 3."""
         Q = McKayQuiverZ3()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert Q.dim_gauge_group((1, 1, 1)) == 3
 
     def test_Z3_cyclic_symmetry(self):

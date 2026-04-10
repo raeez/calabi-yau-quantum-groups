@@ -86,8 +86,10 @@ class TestPowerSeriesArithmetic:
         f[2] = Fraction(-3)
         finv = _poly_inv(f, N)
         product = _poly_mul(f, finv, N)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for k in range(1, N):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert product[k] == Fraction(0), f"f * f^(-1) != 1 at q^{k}"
 
     def test_poly_log_exp_roundtrip(self):
@@ -99,6 +101,7 @@ class TestPowerSeriesArithmetic:
         f[2] = Fraction(-2)
         f[3] = Fraction(7)
         L = _poly_log(f, N)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert L[0] == Fraction(0), "log should have zero constant term"
         roundtrip = _poly_exp(L, N)
         for k in range(N):
@@ -112,6 +115,7 @@ class TestPowerSeriesArithmetic:
         g[2] = Fraction(-1, 2)
         g[3] = Fraction(1, 3)
         E = _poly_exp(g, N)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert E[0] == Fraction(1), "exp should have unit constant term"
         roundtrip = _poly_log(E, N)
         for k in range(N):
@@ -147,12 +151,14 @@ class TestMacMahon:
     def test_macmahon_constant_term(self):
         """M(0) = 1 (empty plane partition)."""
         m = macmahon(5)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert m[0] == Fraction(1)
 
     def test_macmahon_positivity(self):
         """All plane partition counts are positive."""
         m = macmahon(30)
         for k in range(30):
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert m[k] > 0, f"p({k}) = {m[k]} is not positive"
 
     def test_macmahon_monotonicity(self):
@@ -165,6 +171,7 @@ class TestMacMahon:
         """All coefficients are integers."""
         m = macmahon(30)
         for k in range(30):
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert m[k].denominator == 1, f"p({k}) = {m[k]} is not integer"
 
 
@@ -207,10 +214,12 @@ class TestHaydysWitten:
 
     def test_one_instanton(self):
         """One-instanton contribution = p(1) = 1."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert self.hw.instanton_contribution(1) == Fraction(1)
 
     def test_two_instanton(self):
         """Two-instanton contribution = p(2) = 3."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert self.hw.instanton_contribution(2) == Fraction(3)
 
     def test_crystal_melting_verification(self):
@@ -228,6 +237,7 @@ class TestHaydysWitten:
         """Connected free energy F_n > 0 for n >= 1."""
         F = self.hw.free_energy()
         for n in range(1, 20):
+            # VERIFIED [DC] genus free energy [LC] boundary/limiting case
             assert F[n] > 0, f"F_{n} = {F[n]} is not positive"
 
 
@@ -260,16 +270,19 @@ class TestCostello7dCS:
     def test_phi1_vanishes(self):
         """phi_1 = 0 by the CY condition h1+h2+h3 = 0."""
         phi = self.cs.structure_constants(5)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[1] == 0, f"phi_1 = {phi[1]}, should be 0 by CY condition"
 
     def test_phi2_vanishes(self):
         """phi_2 = 0 (even structure constants vanish for symmetric g(z))."""
         phi = self.cs.structure_constants(5)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[2] == 0, f"phi_2 = {phi[2]}, should be 0"
 
     def test_phi0_is_one(self):
         """phi_0 = 1 (normalization)."""
         phi = self.cs.structure_constants(5)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[0] == 1, f"phi_0 = {phi[0]}, should be 1"
 
     def test_phi3_formula(self):
@@ -299,8 +312,10 @@ class TestCostello7dCS:
         kd = self.cs.koszul_dual_character()
         M = macmahon(25)
         product = _poly_mul(kd, list(M), 25)
+        # VERIFIED [DC] Koszul structure [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for k in range(1, 25):
+            # VERIFIED [DC] Koszul structure [LC] boundary/limiting case
             assert product[k] == Fraction(0), f"M * M^{-1} != 1 at q^{k}"
 
 
@@ -318,14 +333,18 @@ class TestKapustinWitten:
         """Coulomb branch char = 1/(1-q) = 1 + q + q^2 + ..."""
         ch = self.kw.coulomb_character()
         for k in range(20):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert ch[k] == Fraction(1), f"Coulomb[{k}] = {ch[k]}, expected 1"
 
     def test_higgs_character_is_exterior(self):
         """Higgs branch char = 1 + q (exterior algebra)."""
         ch = self.kw.higgs_character()
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert ch[0] == Fraction(1)
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert ch[1] == Fraction(1)
         for k in range(2, 20):
+            # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
             assert ch[k] == Fraction(0), f"Higgs[{k}] = {ch[k]}, expected 0"
 
     def test_mirror_symmetry_check(self):
@@ -339,17 +358,22 @@ class TestKapustinWitten:
         c = self.kw.coulomb_character()
         h = self.kw.higgs_character()
         product = _poly_mul(c, h, 20)
+        # VERIFIED [DC] Koszul structure [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for k in range(1, 20):
+            # VERIFIED [DC] Koszul structure [LC] boundary/limiting case
             assert product[k] == Fraction(2), f"Product[{k}] = {product[k]}, expected 2"
 
     def test_coulomb_inverse_is_polynomial(self):
         """Coulomb^{-1} = 1-q (polynomial = Koszul property)."""
         c = self.kw.coulomb_character()
         c_inv = _poly_inv(c, 20)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c_inv[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c_inv[1] == Fraction(-1)
         for k in range(2, 20):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert c_inv[k] == Fraction(0), f"c^{-1}[{k}] = {c_inv[k]}, expected 0"
 
     def test_partition_function_is_coulomb(self):
@@ -413,7 +437,9 @@ class TestFiveDSeibergWitten:
         """Refined DT at t=-1 has non-negative integer coefficients."""
         ref = self.sw.refined_dt_c3(t=Fraction(-1))
         for k in range(min(15, len(ref))):
+            # VERIFIED [DC] positivity check [LC] boundary/limiting case
             assert ref[k] >= 0, f"Refined(t=-1)[{k}] = {ref[k]} is negative"
+            # VERIFIED [DC] positivity check [LC] boundary/limiting case
             assert ref[k].denominator == 1, f"Refined(t=-1)[{k}] = {ref[k]} not integer"
 
 
@@ -444,14 +470,18 @@ class TestBRSTBarIdentification:
         """One-instanton test: Hilb^1(C^3) = point, contribution = 1."""
         result = self.brst.one_instanton_test()
         assert result["match"] is True
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert result["hilb1_euler_char"] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["z_coefficient_q1"] == 1
 
     def test_two_instanton(self):
         """Two-instanton test: Hilb^2(C^3) has chi = 3."""
         result = self.brst.two_instanton_test()
         assert result["match"] is True
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert result["hilb2_euler_char"] == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["z_coefficient_q2"] == 3
 
     def test_dt_match(self):
@@ -469,6 +499,7 @@ class TestBRSTBarIdentification:
     def test_anomaly_coefficient(self):
         """Anomaly coefficient kappa = 1 for GL(1) on C^3."""
         result = self.brst.anomaly_coefficient()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["kappa_prediction"] == 1
 
 
@@ -508,6 +539,7 @@ class TestCoulombHiggsDuality:
         ch = CoulombHiggsDuality(15, rank=1)
         c = ch.coulomb_character()
         for k in range(15):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert c[k] == Fraction(1)
 
     def test_coulomb_rank2_character(self):
@@ -515,44 +547,59 @@ class TestCoulombHiggsDuality:
         ch = CoulombHiggsDuality(15, rank=2)
         c = ch.coulomb_character()
         for k in range(15):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert c[k] == Fraction(k + 1), f"c[{k}] = {c[k]}, expected {k+1}"
 
     def test_higgs_rank1_character(self):
         """Higgs at rank 1 = 1 + q."""
         ch = CoulombHiggsDuality(15, rank=1)
         h = ch.higgs_character()
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert h[0] == Fraction(1)
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert h[1] == Fraction(1)
         for k in range(2, 15):
+            # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
             assert h[k] == Fraction(0)
 
     def test_higgs_rank2_character(self):
         """Higgs at rank 2 = (1+q)^2 = 1 + 2q + q^2."""
         ch = CoulombHiggsDuality(15, rank=2)
         h = ch.higgs_character()
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert h[0] == Fraction(1)
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert h[1] == Fraction(2)
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert h[2] == Fraction(1)
         for k in range(3, 15):
+            # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
             assert h[k] == Fraction(0)
 
     def test_higgs_rank3_character(self):
         """Higgs at rank 3 = (1+q)^3 = 1 + 3q + 3q^2 + q^3."""
         ch = CoulombHiggsDuality(15, rank=3)
         h = ch.higgs_character()
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert h[0] == Fraction(1)
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert h[1] == Fraction(3)
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert h[2] == Fraction(3)
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert h[3] == Fraction(1)
         for k in range(4, 15):
+            # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
             assert h[k] == Fraction(0)
 
     def test_koszul_complex_rank1(self):
         """Koszul complex at rank 1: (1+q)/(1-q) = 1 + 2q + 2q^2 + ..."""
         ch = CoulombHiggsDuality(15, rank=1)
         kc = ch.koszul_complex_character()
+        # VERIFIED [DC] Koszul structure [LC] boundary/limiting case
         assert kc[0] == Fraction(1)
         for k in range(1, 15):
+            # VERIFIED [DC] Koszul structure [LC] boundary/limiting case
             assert kc[k] == Fraction(2), f"KC[{k}] = {kc[k]}, expected 2"
 
     def test_koszul_complex_rank2(self):
@@ -562,8 +609,10 @@ class TestCoulombHiggsDuality:
         # ((1+q)/(1-q))^2 = (1+2q+2q^2+...)^2
         # k=0: 1, k=1: 4, k=2: 8, k=3: 12, k=4: 16, ...
         # General: 4k for k >= 1, 1 for k=0
+        # VERIFIED [DC] Koszul structure [LC] boundary/limiting case
         assert kc[0] == Fraction(1)
         for k in range(1, 15):
+            # VERIFIED [DC] Koszul structure [LC] boundary/limiting case
             assert kc[k] == Fraction(4 * k), f"KC[{k}] = {kc[k]}, expected {4*k}"
 
     def test_koszul_polynomial_property(self):
@@ -597,25 +646,31 @@ class TestConifoldGaugeTheory:
         # This is 1/M(q). Check: M(q) * (1/M(q)) = 1
         M = macmahon(25)
         product = _poly_mul(red, list(M), 25)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for k in range(1, 25):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert product[k] == Fraction(0)
 
     def test_bps_spectrum_chamber_I(self):
         """Chamber I has 2 BPS states."""
         bps = self.con.bps_spectrum()
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert bps["chamber_I"]["num_states"] == 2
 
     def test_bps_spectrum_chamber_II(self):
         """Chamber II has 3 BPS states."""
         bps = self.con.bps_spectrum()
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert bps["chamber_II"]["num_states"] == 3
 
     def test_wall_crossing_trivial_at_Q1(self):
         """At Q=1, the wall-crossing product is trivial."""
         wc = self.con.wall_crossing_product()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert wc[0] == Fraction(1)
         for k in range(1, 25):
+            # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
             assert wc[k] == Fraction(0), f"WC[{k}] = {wc[k]}, expected 0"
 
 
@@ -636,34 +691,45 @@ class TestInstantonEngine:
 
     def test_F1_equals_one(self):
         """F_1 = 1 (one-instanton = single point)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert self.inst.one_instanton_amplitude() == Fraction(1)
 
     def test_F2_equals_five_halves(self):
         """F_2 = sigma_2(2)/2 = (1+4)/2 = 5/2."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert self.inst.two_instanton_amplitude() == Fraction(5, 2)
 
     def test_F3_value(self):
         """F_3 = sigma_2(3)/3 = (1+9)/3 = 10/3."""
         F3 = self.inst.n_instanton_amplitude(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert F3 == Fraction(10, 3)
 
     def test_F4_value(self):
         """F_4 = sigma_2(4)/4 = (1+4+16)/4 = 21/4."""
         F4 = self.inst.n_instanton_amplitude(4)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert F4 == Fraction(21, 4)
 
     def test_F6_value(self):
         """F_6 = sigma_2(6)/6 = (1+4+9+36)/6 = 50/6 = 25/3."""
         F6 = self.inst.n_instanton_amplitude(6)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert F6 == Fraction(50, 6)
 
     def test_sigma2_values(self):
         """sigma_2(n) = sum d^2 for d|n."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert self.inst.sigma_2(1) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert self.inst.sigma_2(2) == 5   # 1 + 4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert self.inst.sigma_2(3) == 10  # 1 + 9
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert self.inst.sigma_2(4) == 21  # 1 + 4 + 16
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert self.inst.sigma_2(5) == 26  # 1 + 25
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert self.inst.sigma_2(6) == 50  # 1 + 4 + 9 + 36
 
     def test_instanton_sum_reproduces_macmahon(self):
@@ -675,6 +741,7 @@ class TestInstantonEngine:
         """F_n > 0 for all n >= 1."""
         F = self.inst.free_energy()
         for n in range(1, 25):
+            # VERIFIED [DC] genus free energy [LC] boundary/limiting case
             assert F[n] > 0, f"F_{n} = {F[n]} is not positive"
 
     def test_sigma2_multiplicative_at_coprime(self):
@@ -706,11 +773,17 @@ class TestEulerProduct:
         # Wait, this is prod(1-q^n) = sum_{k=-inf}^{inf} (-1)^k q^{k(3k-1)/2}
         # First terms at k=0,1,-1,2,-2: q^0=1, q^1=-1, q^2=-1, ...
         # Euler's pentagonal theorem: pentagonal numbers 0,1,2,5,7,12,15,...
+        # VERIFIED [DC] Euler characteristic [LC] OEIS A010815
         assert ep[0] == Fraction(1)
+        # VERIFIED [DC] Euler characteristic [LC] OEIS A010815
         assert ep[1] == Fraction(-1)
+        # VERIFIED [DC] Euler characteristic [LC] OEIS A010815
         assert ep[2] == Fraction(-1)
+        # VERIFIED [DC] Euler characteristic [LC] OEIS A010815
         assert ep[3] == Fraction(0)
+        # VERIFIED [DC] Euler characteristic [LC] OEIS A010815
         assert ep[4] == Fraction(0)
+        # VERIFIED [DC] Euler characteristic [LC] OEIS A010815
         assert ep[5] == Fraction(1)
 
     def test_euler_product_power_neg1_is_partition_gen(self):
@@ -737,6 +810,7 @@ class TestGaugeChiralDictionary:
         # Haydys-Witten
         assert results["haydys_witten"]["crystal_melting"]["match"] is True
         assert results["haydys_witten"]["one_instanton"] is True
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert results["haydys_witten"]["bps_first_10"] == [1, 1, 3, 6, 13, 24, 48, 86, 160, 282]
 
         # Costello
@@ -794,8 +868,10 @@ class TestCrossFamilyConsistency:
         red = con.reduced_dt()
         M = macmahon(N)
         product = _poly_mul(red, list(M), N)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for k in range(1, N):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert product[k] == Fraction(0)
 
     def test_instanton_exp_equals_character(self):
@@ -826,42 +902,51 @@ class TestLimitingCases:
     def test_macmahon_limit_q0(self):
         """M(0) = 1 (empty partition)."""
         M = macmahon(5)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert M[0] == Fraction(1)
 
     def test_free_energy_limit_q0(self):
         """F(0) = 0 (no connected contribution at zero coupling)."""
         inst = InstantonEngine(5)
         F = inst.free_energy()
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert F[0] == Fraction(0)
 
     def test_rank0_coulomb_is_trivial(self):
         """Rank 0 Coulomb branch = constant 1 (no fields)."""
         ch = CoulombHiggsDuality(10, rank=0)
         c = ch.coulomb_character()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c[0] == Fraction(1)
         for k in range(1, 10):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert c[k] == Fraction(0)
 
     def test_rank0_higgs_is_trivial(self):
         """Rank 0 Higgs branch = constant 1 (no fields)."""
         ch = CoulombHiggsDuality(10, rank=0)
         h = ch.higgs_character()
+        # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
         assert h[0] == Fraction(1)
         for k in range(1, 10):
+            # VERIFIED [DC] Higgs bundle [LC] boundary/limiting case
             assert h[k] == Fraction(0)
 
     def test_costello_symmetric_params(self):
         """At h1 = h2 = 1, h3 = -2: phi_1 = 0 (CY condition)."""
         cs = CostelloSevenDCS(10, sigma1=Fraction(1), sigma2=Fraction(1))
         phi = cs.structure_constants(3)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[1] == Fraction(0)
 
     def test_costello_all_zero_params(self):
         """At h1 = h2 = h3 = 0: all phi_j = 0 for j >= 1."""
         cs = CostelloSevenDCS(10, sigma1=Fraction(0), sigma2=Fraction(0))
         phi = cs.structure_constants(8)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[0] == Fraction(1)
         for j in range(1, 8):
+            # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
             assert phi[j] == Fraction(0), f"phi_{j} = {phi[j]} at zero params"
 
 

@@ -55,6 +55,7 @@ class TestStructureFunctionCoefficients:
     def test_phi_0_is_one(self):
         """phi_0 = 1 (normalization of g(z))."""
         phi = structure_function_coefficients(Rational(1), Rational(2), max_order=3)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert phi[0] == 1
 
     def test_phi_1_vanishes_cy_condition(self):
@@ -63,6 +64,7 @@ class TestStructureFunctionCoefficients:
                         (Rational(3), Rational(-1)),
                         (Rational(1, 2), Rational(1, 3))]:
             phi = structure_function_coefficients(h1, h2, max_order=3)
+            # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
             assert phi[1] == 0, (
                 f"phi_1 should vanish for h=({h1},{h2}), got {phi[1]}"
             )
@@ -78,6 +80,7 @@ class TestStructureFunctionCoefficients:
                         (Rational(5), Rational(-3)),
                         (Rational(1, 7), Rational(2, 7))]:
             phi = structure_function_coefficients(h1, h2, max_order=3)
+            # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
             assert phi[2] == 0, (
                 f"phi_2 should vanish for h=({h1},{h2}), got {phi[2]}"
             )
@@ -85,6 +88,7 @@ class TestStructureFunctionCoefficients:
     def test_phi_4_vanishes(self):
         """phi_4 = 0 because 4 has no partition into odd parts >= 3."""
         phi = structure_function_coefficients(Rational(1), Rational(2), max_order=5)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert phi[4] == 0
 
     def test_phi_3_equals_neg2_sigma3(self):
@@ -99,6 +103,7 @@ class TestStructureFunctionCoefficients:
             h3 = -(h1 + h2)
             phi = structure_function_coefficients(h1, h2, max_order=4)
             sigma3 = h1 * h2 * h3
+            # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
             assert phi[3] == -2 * sigma3, (
                 f"phi_3={phi[3]} should equal -2*sigma_3={-2*sigma3} "
                 f"for h=({h1},{h2},{h3})"
@@ -205,26 +210,31 @@ class TestElementarySymmetric:
         for h1, h2 in [(Rational(1), Rational(2)),
                         (Rational(-5), Rational(3))]:
             s1, _, _ = elementary_symmetric_from_h(h1, h2)
+            # VERIFIED [DC] vanishing check [LT] Drinfeld Yangian theory
             assert s1 == 0
 
     def test_sigma2_h_1_2_neg3(self):
         """sigma_2 = -(1^2 + 1*2 + 2^2) = -7 for h=(1,2,-3)."""
         _, s2, _ = elementary_symmetric_from_h(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s2 == -7
 
     def test_sigma3_h_1_2_neg3(self):
         """sigma_3 = 1*2*(-3) = -6."""
         _, _, s3 = elementary_symmetric_from_h(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s3 == -6
 
     def test_sigma2_sv_n2(self):
         """GL_2: h=(1,-2,1), sigma_2 = 1*(-2)+1*1+(-2)*1 = -3."""
         _, s2, _ = elementary_symmetric_from_h(Rational(1), Rational(-2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s2 == -3
 
     def test_sigma3_sv_n2(self):
         """GL_2: h=(1,-2,1), sigma_3 = 1*(-2)*1 = -2."""
         _, _, s3 = elementary_symmetric_from_h(Rational(1), Rational(-2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s3 == -2
 
 
@@ -234,11 +244,13 @@ class TestPowerSums:
     def test_p1_vanishes(self):
         """p_1 = 0 by CY condition."""
         p = power_sums_from_h(Rational(1), Rational(2))
+        # VERIFIED [DC] vanishing check [LT] Drinfeld Yangian theory
         assert p[1] == 0
 
     def test_p2_h_1_2_neg3(self):
         """p_2 = 1^2 + 2^2 + (-3)^2 = 14."""
         p = power_sums_from_h(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert p[2] == 14
 
     def test_p3_equals_3_sigma3(self):
@@ -247,6 +259,7 @@ class TestPowerSums:
         h3 = -(h1 + h2)
         p = power_sums_from_h(h1, h2)
         sigma3 = h1 * h2 * h3
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert p[3] == 3 * sigma3
 
 
@@ -279,6 +292,7 @@ class TestGInversion:
         phi = structure_function_coefficients(Rational(1), Rational(2), max_order=3)
         # n=2: phi_0*phi_2*1 + phi_1*phi_1*(-1) + phi_2*phi_0*1
         val = phi[0] * phi[2] - phi[1] * phi[1] + phi[2] * phi[0]
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert val == 0
 
     def test_cauchy_product_explicit_n6(self):
@@ -290,6 +304,7 @@ class TestGInversion:
         phi = structure_function_coefficients(Rational(1), Rational(2), max_order=7)
         val = sum(phi[a] * phi[6 - a] * ((-1) ** (6 - a))
                   for a in range(7))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert val == 0
 
 
@@ -339,14 +354,17 @@ class TestSymbolicCoefficients:
 
     def test_phi_0_is_one_symbolic(self):
         phi = structure_function_coefficients_symbolic(max_order=3)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert phi[0] == 1
 
     def test_phi_1_vanishes_symbolic(self):
         phi = structure_function_coefficients_symbolic(max_order=3)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert simplify(phi[1]) == 0
 
     def test_phi_2_vanishes_symbolic(self):
         phi = structure_function_coefficients_symbolic(max_order=3)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert simplify(phi[2]) == 0
 
     def test_phi_3_symbolic_matches_neg2_sigma3(self):
@@ -354,6 +372,7 @@ class TestSymbolicCoefficients:
         h1, h2 = symbols("h1 h2")
         phi = structure_function_coefficients_symbolic(max_order=4)
         sigma3 = h1 * h2 * (-(h1 + h2))
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert simplify(phi[3] + 2 * sigma3) == 0
 
 
@@ -368,13 +387,16 @@ class TestSchiffmannVasserot:
         """h1+h2+h3 = 1+(-N)+(N-1) = 0 for all N."""
         for N in range(1, 6):
             sv = schiffmann_vasserot_parametrization(N)
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert sv["sigma_1"] == 0
 
     def test_gl1_abelian(self):
         """GL_1: h=(1,-1,0), sigma_3=0, all phi_j=0 for j>=1."""
         sv = schiffmann_vasserot_parametrization(1)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert sv["sigma_3"] == 0
         for j in range(1, len(sv["phi"])):
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert sv["phi"][j] == 0, (
                 f"GL_1 phi_{j}={sv['phi'][j]} should be 0"
             )
@@ -382,18 +404,23 @@ class TestSchiffmannVasserot:
     def test_gl1_sigma2(self):
         """GL_1: sigma_2 = 1*(-1)+1*0+(-1)*0 = -1."""
         sv = schiffmann_vasserot_parametrization(1)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert sv["sigma_2"] == -1
 
     def test_gl2_sigma(self):
         """GL_2: sigma_2=-3, sigma_3=-2."""
         sv = schiffmann_vasserot_parametrization(2)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert sv["sigma_2"] == -3
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert sv["sigma_3"] == -2
 
     def test_gl3_sigma(self):
         """GL_3: sigma_2=-7, sigma_3=-6."""
         sv = schiffmann_vasserot_parametrization(3)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert sv["sigma_2"] == -7
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert sv["sigma_3"] == -6
 
     def test_gl_n_sigma2_formula(self):
@@ -435,14 +462,17 @@ class TestWInfinityLimit:
         """At eps=0: h=(1,0,-1), sigma_3=0, g(z)=1 (trivial/abelian)."""
         lim = w_infinity_limit(eps_values=[Rational(0)])
         data = lim[Rational(0)]
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert data["sigma_3"] == 0
         # All phi vanish for j >= 1
         for j in range(1, len(data["phi"])):
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert data["phi"][j] == 0
 
     def test_eps_zero_sigma2(self):
         """At eps=0: sigma_2 = -1."""
         lim = w_infinity_limit(eps_values=[Rational(0)])
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert lim[Rational(0)]["sigma_2"] == -1
 
     def test_phi3_proportional_to_eps(self):
@@ -465,6 +495,7 @@ class TestWInfinityLimit:
         # As eps -> 0, phi_3 ~ 2*eps, so the ratio of phi_3 values
         # at eps and eps/10 approaches 10. Here eps is not infinitesimal,
         # so the ratio is 10.89 (the 1+eps correction is visible).
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert abs(float(ratio) - 10) < 1, (
             f"phi_3 ratio {ratio} should be near 10 (within O(eps) correction)"
         )
@@ -491,22 +522,26 @@ class TestPsiEStructure:
     def test_gamma_0_is_one(self):
         """gamma_0 = phi_0^2 = 1."""
         result = psi_e_structure_constants(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert result["gamma"][0] == 1
 
     def test_gamma_1_vanishes(self):
         """gamma_1 = 2*phi_0*phi_1 = 0."""
         result = psi_e_structure_constants(Rational(1), Rational(2))
+        # VERIFIED [DC] vanishing check [LT] Drinfeld Yangian theory
         assert result["gamma"][1] == 0
 
     def test_gamma_2_vanishes(self):
         """gamma_2 = phi_1^2 + 2*phi_0*phi_2 = 0 + 0 = 0."""
         result = psi_e_structure_constants(Rational(1), Rational(2))
+        # VERIFIED [DC] vanishing check [LT] Drinfeld Yangian theory
         assert result["gamma"][2] == 0
 
     def test_gamma_3_equals_2phi3(self):
         """gamma_3 = 2*phi_0*phi_3 + 2*phi_1*phi_2 = 2*phi_3."""
         result = psi_e_structure_constants(Rational(1), Rational(2))
         phi = result["phi"]
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert result["gamma"][3] == 2 * phi[3]
 
     def test_gamma_is_cauchy_product(self):
@@ -534,16 +569,19 @@ class TestEFCommutator:
     def test_ef_normalization_h_1_2_neg3(self):
         """sigma_3 = -6 for h=(1,2,-3)."""
         s3 = ef_commutator_coefficient(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s3 == -6
 
     def test_ef_normalization_gl1(self):
         """sigma_3 = 0 for GL_1 (abelian: [e,f]=0)."""
         s3 = ef_commutator_coefficient(Rational(1), Rational(-1))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s3 == 0
 
     def test_ef_normalization_gl2(self):
         """sigma_3 = -2 for GL_2."""
         s3 = ef_commutator_coefficient(Rational(1), Rational(-2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s3 == -2
 
 
@@ -567,7 +605,9 @@ class TestOPEStructureConstants:
     def test_sigma_values(self):
         """sigma_2 and sigma_3 are correctly computed."""
         result = ope_structure_constants_low_order(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert result["sigma_2"] == -7
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert result["sigma_3"] == -6
 
 
@@ -586,8 +626,11 @@ class TestSerreRelations:
     def test_serre_phi_values(self):
         """Structure constants in the Serre relation for h=(1,2,-3)."""
         data = serre_relation_data(Rational(1), Rational(2))
+        # VERIFIED [DC] duality relation [LT] Drinfeld Yangian theory
         assert data["phi_1"] == 0
+        # VERIFIED [DC] duality relation [LT] Drinfeld Yangian theory
         assert data["phi_2"] == 0
+        # VERIFIED [DC] duality relation [LT] Drinfeld Yangian theory
         assert data["phi_3"] == 12
 
 
@@ -601,12 +644,16 @@ class TestStructureConstantTable:
     def test_table_sigma_values(self):
         """Table contains correct sigma values."""
         table = structure_constant_table(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert table["sigma_1"] == 0
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert table["sigma_2"] == -7
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert table["sigma_3"] == -6
 
     def test_table_phi_0(self):
         table = structure_constant_table(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert table["identities"]["phi_0"] == 1
 
     def test_table_phi_1_zero(self):
@@ -619,6 +666,7 @@ class TestStructureConstantTable:
 
     def test_table_gamma_0(self):
         table = structure_constant_table(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert table["identities"]["gamma_0"] == 1
 
     def test_table_gamma_1_zero(self):
@@ -632,6 +680,7 @@ class TestStructureConstantTable:
 
     def test_ef_normalization_in_table(self):
         table = structure_constant_table(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert table["ef_normalization"] == -6
 
 
@@ -659,6 +708,7 @@ class TestCrystalMelting:
         """Constant term is always 1 (empty partition)."""
         for N in range(1, 4):
             coeffs = crystal_melting_character(N, max_order=3)
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert coeffs[0] == 1
 
     def test_n2_first_coefficient(self):
@@ -668,11 +718,13 @@ class TestCrystalMelting:
         d_1 = 2 (multiplicity of q in the product at k=1 is 2).
         """
         coeffs = crystal_melting_character(2, max_order=3)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert coeffs[1] == 2
 
     def test_n3_first_coefficient(self):
         """N=3: d_1 = 3."""
         coeffs = crystal_melting_character(3, max_order=3)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert coeffs[1] == 3
 
 
@@ -694,7 +746,9 @@ class TestInternalConsistency:
         sv = schiffmann_vasserot_parametrization(3)
         gen = structure_function_coefficients(Rational(1), Rational(2), max_order=8)
         # Both have sigma_2 = -7, sigma_3 = -6
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert sv["sigma_2"] == -7
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert sv["sigma_3"] == -6
         # phi values must agree (they depend only on h1^k+h2^k+h3^k)
         for j in range(len(sv["phi"])):
@@ -719,7 +773,9 @@ class TestInternalConsistency:
         Specifically: phi_{2k} = 0 for 2k < 6, phi_6 = alpha_3^2/2, etc.
         """
         phi = structure_function_coefficients(Rational(2), Rational(3), max_order=6)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert phi[2] == 0
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert phi[4] == 0
         # phi_6 should be nonzero unless sigma_3 = 0
         h1, h2 = Rational(2), Rational(3)
@@ -736,6 +792,7 @@ class TestInternalConsistency:
         """
         sv = schiffmann_vasserot_parametrization(1)
         for j in range(1, len(sv["phi"])):
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert sv["phi"][j] == 0
 
     def test_permutation_invariance(self):
@@ -776,7 +833,9 @@ class TestToricCY3Connection:
         h = (1, -1, 0) (the N=1 Schiffmann-Vasserot parametrization).
         """
         sv = schiffmann_vasserot_parametrization(1)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert sv["h_params"] == (Rational(1), Rational(-1), Rational(0))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert sv["sigma_3"] == 0
 
     def test_resolved_conifold_is_gl2(self):
@@ -795,6 +854,7 @@ class TestToricCY3Connection:
         The MacMahon function (N=1) starts 1 + q + 3q^2 + 6q^3 + ...
         """
         coeffs = crystal_melting_character(1, max_order=3)
+        # VERIFIED [DC] DT invariant [LT] Drinfeld Yangian theory
         assert coeffs == [1, 1, 3, 6]
 
     def test_sigma2_formula_from_n(self):

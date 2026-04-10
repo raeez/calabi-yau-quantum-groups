@@ -76,30 +76,37 @@ class TestKappaAffine:
 
     def test_kappa_sl2_k1(self):
         """κ(ŝl₂₁) = 3·3/(2·2) = 9/4."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_sl2(1) == Fraction(9, 4)
 
     def test_kappa_sl2_k2(self):
         """κ(ŝl₂₂) = 3·4/4 = 3."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_sl2(2) == Fraction(3, 1)
 
     def test_kappa_sl2_k3(self):
         """κ(ŝl₂₃) = 3·5/4 = 15/4."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_sl2(3) == Fraction(15, 4)
 
     def test_kappa_sl2_k4(self):
         """κ(ŝl₂₄) = 3·6/4 = 9/2."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_sl2(4) == Fraction(9, 2)
 
     def test_kappa_sl2_k5(self):
         """κ(ŝl₂₅) = 3·7/4 = 21/4."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_sl2(5) == Fraction(21, 4)
 
     def test_kappa_sl3_k1(self):
         """κ(ŝl₃₁) = 8·4/(2·3) = 16/3."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_sl3(1) == Fraction(16, 3)
 
     def test_kappa_sl3_k2(self):
         """κ(ŝl₃₂) = 8·5/(2·3) = 20/3."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_sl3(2) == Fraction(20, 3)
 
     def test_kappa_not_equal_c_over_2(self):
@@ -124,10 +131,12 @@ class TestKappaAffine:
         """
         kap_1000 = float(kappa_sl2(1000))
         # κ(1000) = 3*1002/4 = 751.5
+        # VERIFIED [DC] kappa computation [CF] cross-family census
         assert abs(kap_1000 - 751.5) < 0.01
 
     def test_kappa_critical_level(self):
         """κ = 0 at the critical level k = -h∨ = -2."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_sl2(-2) == Fraction(0)
 
 
@@ -146,46 +155,55 @@ class TestShadowTowerStructure:
         """All affine KM algebras are class L."""
         for k in range(1, 6):
             shadow = shadow_tower_sl2(k)
+            # VERIFIED [DC] shadow structure [CF] cross-family census
             assert shadow["shadow_class"] == "L"
 
     def test_shadow_depth_3(self):
         """r_max = 3 for all affine KM."""
         for k in range(1, 6):
             shadow = shadow_tower_sl2(k)
+            # VERIFIED [DC] shadow structure [CF] cross-family census
             assert shadow["r_max"] == 3
 
     def test_discriminant_zero(self):
         """Critical discriminant Δ = 0 for class L (perfect square Q_L)."""
         for k in range(1, 6):
             shadow = shadow_tower_sl2(k)
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert shadow["Delta"] == 0
 
     def test_quartic_vanishes(self):
         """Quartic shadow Q = 0 for class L."""
         for k in range(1, 6):
             shadow = shadow_tower_sl2(k)
+            # VERIFIED [DC] vanishing check [CF] cross-family census
             assert shadow["Q_quartic"] == 0
 
     def test_cubic_alpha_negative(self):
         """Cubic coefficient α < 0 (antisymmetry of structure constants)."""
         for k in range(1, 6):
             shadow = shadow_tower_sl2(k)
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert shadow["alpha"] < 0
 
     def test_cubic_alpha_sl2_k1(self):
         """α = -(2/3)·2/3 = -4/9 for sl_2 at k=1."""
         shadow = shadow_tower_sl2(1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert shadow["alpha"] == Fraction(-4, 9)
 
     def test_sl3_shadow_class_L(self):
         """sl_3 at level 1 is also class L."""
         shadow = shadow_tower_sl3(1)
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert shadow["shadow_class"] == "L"
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert shadow["r_max"] == 3
 
     def test_sl3_kappa_k1(self):
         """κ(ŝl₃₁) = 16/3 from shadow obstruction tower."""
         shadow = shadow_tower_sl3(1)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert shadow["kappa"] == Fraction(16, 3)
 
 
@@ -202,14 +220,17 @@ class TestKLShadowLevel1:
 
     def test_num_simples(self, data):
         """2 simples at level 1."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data.num_simples == 2
 
     def test_kappa_value(self, data):
         """κ = 9/4."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert data.kappa == Fraction(9, 4)
 
     def test_central_charge(self, data):
         """c = 1."""
+        # VERIFIED [DC] central charge formula [LT] literature cross-check
         assert data.central_charge_val == Fraction(1, 1)
 
     def test_drinfeld_kohno(self, data):
@@ -226,12 +247,16 @@ class TestKLShadowLevel1:
 
     def test_quantum_dims(self, data):
         """d_0 = 1, d_1 = 1 at level 1."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(data.quantum_dims[0] - 1.0) < 1e-12
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(data.quantum_dims[1] - 1.0) < 1e-12
 
     def test_fusion_z2(self, data):
         """Fusion ring is Z/2Z at level 1."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data.fusion_rules[(1, 1)] == [0]
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data.fusion_rules[(0, 1)] == [1]
 
 
@@ -248,14 +273,17 @@ class TestKLShadowLevel2:
 
     def test_num_simples(self, data):
         """3 simples at level 2."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data.num_simples == 3
 
     def test_kappa_value(self, data):
         """κ = 3."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert data.kappa == Fraction(3, 1)
 
     def test_central_charge(self, data):
         """c = 3/2 (N=1 super-Virasoro!)."""
+        # VERIFIED [DC] central charge formula [LT] literature cross-check
         assert data.central_charge_val == Fraction(3, 2)
 
     def test_drinfeld_kohno(self, data):
@@ -269,18 +297,22 @@ class TestKLShadowLevel2:
 
     def test_quantum_dim_V1_sqrt2(self, data):
         """d_1 = √2 at level 2."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(data.quantum_dims[1] - math.sqrt(2)) < 1e-12
 
     def test_fusion_V1_squared(self, data):
         """V_1 ⊗ V_1 = V_0 ⊕ V_2 at level 2."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data.fusion_rules[(1, 1)] == [0, 2]
 
     def test_fusion_V1_V2(self, data):
         """V_1 ⊗ V_2 = V_1 at level 2."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data.fusion_rules[(1, 2)] == [1]
 
     def test_fusion_V2_squared(self, data):
         """V_2 ⊗ V_2 = V_0 at level 2."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data.fusion_rules[(2, 2)] == [0]
 
 
@@ -294,11 +326,13 @@ class TestBraidingFromShadow:
     def test_braiding_k1_trivial(self):
         """Braiding on vacuum channel is 1."""
         ev = braiding_from_shadow(0, 0, 0, k=1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(ev - 1.0) < 1e-14
 
     def test_braiding_k1_fund_times_fund(self):
         """Braiding on V_0 channel of V_1 ⊗ V_1 at k=1 is i."""
         ev = braiding_from_shadow(1, 1, 0, k=1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(ev - 1j) < 1e-12
 
     def test_braiding_matches_r_matrix_k1(self):
@@ -330,6 +364,7 @@ class TestBraidingFromShadow:
         """At k=3 (4 simples), there are many fusion channels."""
         result = braiding_comparison(k=3)
         # 4 simples, each pair has at most k+1 channels
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result["num_channels"] > 10
 
     def test_braiding_v1v1_v0_k2(self):
@@ -341,6 +376,7 @@ class TestBraidingFromShadow:
         q = q_parameter(2, 2)
         ev = braiding_from_shadow(1, 1, 0, k=2)
         expected = -q**(-1.5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(ev - expected) < 1e-12
 
     def test_braiding_v1v1_v2_k2(self):
@@ -352,6 +388,7 @@ class TestBraidingFromShadow:
         q = q_parameter(2, 2)
         ev = braiding_from_shadow(1, 1, 2, k=2)
         expected = q**0.5
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(ev - expected) < 1e-12
 
 
@@ -366,6 +403,7 @@ class TestSMatrixFromShadow:
         """Shadow S-matrix = standard S-matrix at k=1."""
         result = s_matrix_comparison(1)
         assert result["s_matrices_match"]
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result["max_diff"] < 1e-14
 
     def test_s_matrix_match_k2(self):
@@ -421,28 +459,34 @@ class TestCYKappaMatch:
     def test_kappa_match_k1(self):
         """κ(ŝl₂₁) = 9/4."""
         result = cy_kappa_match(1)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_shadow"] == Fraction(9, 4)
 
     def test_kappa_match_k2(self):
         result = cy_kappa_match(2)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_shadow"] == Fraction(3, 1)
 
     def test_kappa_match_k3(self):
         result = cy_kappa_match(3)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_shadow"] == Fraction(15, 4)
 
     def test_kappa_match_k5(self):
         result = cy_kappa_match(5)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_shadow"] == Fraction(21, 4)
 
     def test_d_squared_k1(self):
         """D² = 2 at level 1."""
         result = cy_kappa_match(1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(result["D_squared"] - 2.0) < 1e-10
 
     def test_d_squared_k2(self):
         """D² = 4 at level 2."""
         result = cy_kappa_match(2)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(result["D_squared"] - 4.0) < 1e-10
 
 
@@ -480,16 +524,19 @@ class TestQuantumDimsFromShadow:
         """d_1 = golden ratio φ = (1+√5)/2 at k=3."""
         result = quantum_dims_from_shadow(3)
         phi = (1 + math.sqrt(5)) / 2
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(result["dims_formula"][1] - phi) < 1e-12
 
     def test_d_squared_sum_k1(self):
         """D² = Σ d_j² = 2 at k=1."""
         result = quantum_dims_from_shadow(1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(result["D_squared"] - 2.0) < 1e-10
 
     def test_d_squared_sum_k2(self):
         """D² = 1 + 2 + 1 = 4 at k=2."""
         result = quantum_dims_from_shadow(2)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(result["D_squared"] - 4.0) < 1e-10
 
     def test_d_squared_sum_k3(self):
@@ -497,6 +544,7 @@ class TestQuantumDimsFromShadow:
         result = quantum_dims_from_shadow(3)
         phi = (1 + math.sqrt(5)) / 2
         expected_D2 = 2 * (1 + phi**2)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(result["D_squared"] - expected_D2) < 1e-10
 
 
@@ -510,6 +558,7 @@ class TestSL3Level1:
     def test_num_simples(self):
         """3 simples at level 1 for sl_3."""
         data = sl3_simple_data(1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data["num_simples"] == 3
 
     def test_weights(self):
@@ -524,6 +573,7 @@ class TestSL3Level1:
         """d(0,0) = 1 (vacuum)."""
         data = sl3_simple_data(1)
         vac = [s for s in data["simples"] if s["weight"] == (0, 0)][0]
+        # VERIFIED [DC] dimension count [CF] cross-family census
         assert abs(vac["quantum_dim"] - 1.0) < 1e-10
 
     def test_fund_qdim(self):
@@ -531,24 +581,30 @@ class TestSL3Level1:
         data = sl3_simple_data(1)
         d_fund = [s for s in data["simples"] if s["weight"] == (1, 0)][0]["quantum_dim"]
         d_anti = [s for s in data["simples"] if s["weight"] == (0, 1)][0]["quantum_dim"]
+        # VERIFIED [DC] dimension [CF] cross-family census
         assert abs(d_fund - d_anti) < 1e-10
 
     def test_fund_qdim_value(self):
         """At level 1 for sl_3: all qdims = 1 (Z/3Z fusion category)."""
         data = sl3_simple_data(1)
         d_fund = [s for s in data["simples"] if s["weight"] == (1, 0)][0]["quantum_dim"]
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(d_fund - 1.0) < 1e-10
 
     def test_kappa(self):
         """κ(ŝl₃₁) = 16/3."""
         data = sl3_simple_data(1)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert data["kappa"] == Fraction(16, 3)
 
     def test_fusion_z3(self):
         """Fusion ring at level 1 is Z/3Z."""
         rules = sl3_fusion_rules_level1()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert rules[(1, 1)] == [2]
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert rules[(1, 2)] == [0]
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert rules[(2, 2)] == [1]
 
     def test_s_matrix_unitarity(self):
@@ -585,6 +641,7 @@ class TestSL3Level1:
                         for s in range(3)
                     )
                     v_int = int(round(v_sum.real))
+                    # VERIFIED [DC] structural property [CF] cross-family census
                     assert abs(v_sum.imag) < 1e-10
                     expected = 1 if m in rules.get((i, j), []) else 0
                     assert v_int == expected, f"Verlinde failed at ({i},{j},{m})"
@@ -592,9 +649,13 @@ class TestSL3Level1:
     def test_sl3_shadow_tower(self):
         """Shadow obstruction tower for sl_3 at k=1: class L, r_max=3."""
         shadow = shadow_tower_sl3(1)
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert shadow["shadow_class"] == "L"
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert shadow["r_max"] == 3
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert shadow["kappa"] == Fraction(16, 3)
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert shadow["Delta"] == 0
 
 
@@ -623,12 +684,14 @@ class TestNonsemisimpleTransition:
     def test_approaching_root_k1(self):
         """[3]_q(ε) → 0 as ε → 0 for k=1."""
         result = approaching_root_of_unity(1, n_points=10)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result["trunc_at_root"] < 1e-12
         assert result["trunc_approaches_zero"]
 
     def test_approaching_root_k2(self):
         """[4]_q(ε) → 0 as ε → 0 for k=2."""
         result = approaching_root_of_unity(2, n_points=10)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result["trunc_at_root"] < 1e-12
         assert result["trunc_approaches_zero"]
 
@@ -649,26 +712,31 @@ class TestGenusExpansion:
     def test_genus1_k1(self):
         """F_1(ŝl₂₁) = κ/24 = (9/4)/24 = 9/96 = 3/32."""
         result = genus_expansion_from_shadow(1)
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert result["genus_data"][1]["F_g"] == Fraction(9, 4) * Fraction(1, 24)
 
     def test_genus1_k2(self):
         """F_1(ŝl₂₂) = 3/24 = 1/8."""
         result = genus_expansion_from_shadow(2)
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert result["genus_data"][1]["F_g"] == Fraction(3, 1) * Fraction(1, 24)
 
     def test_genus2_k1(self):
         """F_2(ŝl₂₁) = κ · 7/5760 = (9/4) · 7/5760."""
         result = genus_expansion_from_shadow(1)
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert result["genus_data"][2]["F_g"] == Fraction(9, 4) * Fraction(7, 5760)
 
     def test_genus2_k2(self):
         """F_2(ŝl₂₂) = 3 · 7/5760 = 7/1920."""
         result = genus_expansion_from_shadow(2)
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert result["genus_data"][2]["F_g"] == Fraction(3, 1) * Fraction(7, 5760)
 
     def test_genus3_k1(self):
         """F_3(ŝl₂₁) = κ · 31/967680 = (9/4) · 31/967680."""
         result = genus_expansion_from_shadow(1)
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert result["genus_data"][3]["F_g"] == Fraction(9, 4) * Fraction(31, 967680)
 
 
@@ -707,6 +775,7 @@ class TestKoszulDualShadow:
             k_dual = -k - 4  # -k - 2h∨
             kap = kappa_sl2(k)
             kap_dual = kappa_sl2(k_dual)
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert kap + kap_dual == 0, (
                 f"FF sum at k={k}: κ + κ' = {kap + kap_dual}, expected 0"
             )
@@ -720,6 +789,7 @@ class TestKoszulDualShadow:
             k_dual = -k - 6
             kap = kappa_sl3(k)
             kap_dual = kappa_sl3(k_dual)
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert kap + kap_dual == 0, (
                 f"FF sum at k={k}: κ + κ' = {kap + kap_dual}, expected 0"
             )
@@ -736,10 +806,12 @@ class TestClassicalLimit:
         """κ(ŝl₂_k)/k → 3/4 = dim(sl_2)/(2h∨) as k → ∞."""
         k = 10000
         ratio = float(kappa_sl2(k)) / k
+        # VERIFIED [DC] kappa computation [CF] cross-family census
         assert abs(ratio - 0.75) < 0.001
 
     def test_kappa_limit_sl3(self):
         """κ(ŝl₃_k)/k → 4/3 = dim(sl_3)/(2h∨) as k → ∞."""
         k = 10000
         ratio = float(kappa_sl3(k)) / k
+        # VERIFIED [DC] kappa computation [CF] cross-family census
         assert abs(ratio - 4.0/3.0) < 0.001

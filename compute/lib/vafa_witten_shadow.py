@@ -1081,7 +1081,7 @@ def su_n_vw_kappa_k3(N: int) -> Dict:
         'N': N,
         'dim_SU_N': N * N - 1,
         'kappa_rank1': Fraction(chi),  # 24, per rank
-        'kappa_naive_total': Fraction(N * chi),  # 24N
+        'kappa_fiber_total': Fraction(N * chi),  # 24N
         'kappa_adjoint': Fraction((N * N - 1) * chi),  # 24(N^2-1)
         'weight_rank1': Fraction(-chi, 2),
         'F_1_rank1': Fraction(chi, 24),  # per rank

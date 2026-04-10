@@ -756,7 +756,7 @@ def kw_gl2_decomposition(t: Fraction, k_abelian: Fraction) -> Dict[str, Any]:
         't': t,
         'kappa_sl2': kap_sl2,
         'kappa_gl1': kap_gl1,
-        'kappa_total': kap_total,
+        'kappa_ch': kap_total,
         'description': f'GL(2) = SL(2) x GL(1): kappa = {kap_sl2} + {kap_gl1} = {kap_total}',
     }
 
@@ -827,7 +827,7 @@ def kw_gln_decomposition(n: int, t: Fraction,
         't': t,
         'kappa_sln': kap_sl,
         'kappa_gl1': kap_gl1,
-        'kappa_total': kap_sl + kap_gl1,
+        'kappa_ch': kap_sl + kap_gl1,
     }
 
 

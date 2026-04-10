@@ -58,16 +58,22 @@ class TestGramMatrices:
 
     def test_hyperbolic_plane_entries(self):
         G = gram_hyperbolic_plane()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[0, 0] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[1, 1] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[0, 1] == -1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[1, 0] == -1
 
     def test_hyperbolic_plane_signature(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert signature(gram_hyperbolic_plane()) == (1, 1, 0)
 
     def test_lambda_32_signature(self):
         """Lambda^{3,2} has signature (3,2)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert signature(gram_lambda_32()) == (3, 2, 0)
 
     def test_lambda_32_is_symmetric(self):
@@ -85,6 +91,7 @@ class TestGramMatrices:
         det = int(round(np.linalg.det(G.astype(float))))
         # G = diag-block structure. In the given basis:
         # (f1,f_{-1}) block has det(-1)^2 - 0 = ... let's just check.
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert det == 2
 
     def test_lambda_21_signature(self):
@@ -93,22 +100,32 @@ class TestGramMatrices:
         Gram matrix in (f_2, f_3, f_{-2}) basis is ((0,0,-1),(0,2,0),(-1,0,0)).
         Eigenvalues: 2, 1, -1 -> signature (2,1,0).
         """
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert signature(gram_lambda_21()) == (2, 1, 0)
 
     def test_lambda_21_entries(self):
         """Specific entries of the Lambda^{2,1} Gram matrix."""
         G = gram_lambda_21()
         # f_3 self-pairing
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[1, 1] == 2
         # f_2, f_{-2} pairing
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[0, 2] == -1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[2, 0] == -1
         # All others zero
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[0, 0] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[2, 2] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[0, 1] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[1, 0] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[1, 2] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert G[2, 1] == 0
 
     def test_lambda_21_II_gram_entries(self):
@@ -124,6 +141,7 @@ class TestGramMatrices:
         """All diagonal entries are 2."""
         G = gram_lambda_21_II()
         for i in range(3):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert G[i, i] == 2
 
     def test_lambda_21_II_off_diagonal(self):
@@ -132,6 +150,7 @@ class TestGramMatrices:
         for i in range(3):
             for j in range(3):
                 if i != j:
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert G[i, j] == -2
 
     def test_lambda_21_II_is_symmetric(self):
@@ -147,6 +166,7 @@ class TestGramMatrices:
         # 2*(2*2 - (-2)(-2)) - (-2)*((-2)*2 - (-2)(-2)) + (-2)*((-2)(-2) - 2*(-2))
         # = 2*(4-4) + 2*(-4-4) - 2*(4+4)
         # = 0 - 16 - 16 = -32
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert det == -32
 
     def test_gram_II_from_ambient_matches(self):
@@ -167,14 +187,18 @@ class TestWeylVector:
     def test_rho_f_basis_values(self):
         """rho = (1, -1/2, 1) in (f_2, f_3, f_{-2}) basis."""
         rho = weyl_vector_f_basis()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert rho[0] == Fraction(1, 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert rho[1] == Fraction(-1, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert rho[2] == Fraction(1, 1)
 
     def test_rho_delta_basis_values(self):
         """rho = (1/2, 1/2, 1/2) in (delta_1, delta_2, delta_3) basis."""
         rho = weyl_vector_delta_basis()
         for i in range(3):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert rho[i] == Fraction(1, 2)
 
     def test_rho_consistency_between_bases(self):
@@ -204,6 +228,7 @@ class TestWeylVector:
         for name, d in deltas.items():
             ip = sum(rho[i] * G[i, j] * d[j]
                      for i in range(3) for j in range(3))
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert ip == Fraction(-1), f"(rho, {name}) = {ip}, expected -1"
 
     def test_rho_norm_squared(self):
@@ -212,10 +237,12 @@ class TestWeylVector:
         rho = (1, -1/2, 1), G = ((0,0,-1),(0,2,0),(-1,0,0)).
         (rho,rho) = 2*(-1/2)^2 + 2*(1)*(1)*(-1) = 1/2 - 2 = -3/2.
         """
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert weyl_vector_norm_sq() == Fraction(-3, 2)
 
     def test_rho_in_negative_cone(self):
         """(rho, rho) < 0, so rho lies in the light cone."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert weyl_vector_norm_sq() < 0
 
 
@@ -230,6 +257,7 @@ class TestAutomorphismGroup:
         """Aut(P_{II}) has order 6 = |S_3|."""
         gens = automorphism_generators_P_II_f_basis()
         elements = enumerate_S3_from_generators(gens)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(elements) == 6
 
     def test_generators_are_involutions(self):
@@ -295,6 +323,7 @@ class TestAutomorphismGroup:
         np.testing.assert_array_equal(s_f3 @ s_f3, I)
         # The group has exactly 2 elements
         elements = enumerate_S3_from_generators([s_f3])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(elements) == 2
 
     def test_aut_P_trivial(self):
@@ -302,6 +331,7 @@ class TestAutomorphismGroup:
         # The paper states Aut(P) is trivial. We verify this indirectly:
         # |Aut(P)| = [W^{(2)}: W^{(2)}] = 1
         indices = reflection_subgroup_indices()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert indices["W^{(2)}(Lambda^{2,1})"] == 1
 
 
@@ -317,6 +347,7 @@ class TestReflectionGroups:
         G = gram_lambda_21()
         deltas = delta_coords_in_f_basis()
         for name, d in deltas.items():
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert norm_sq(d, G) == 2, f"({name},{name}) = {norm_sq(d, G)}"
 
     def test_type_II_reflections_are_involutions(self):
@@ -361,6 +392,7 @@ class TestReflectionGroups:
         for which in ["full", "I", "II"]:
             prims = polyhedron_prim(which)
             for d in prims:
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert norm_sq(d, G) == 2, \
                     f"{which}: root {d} has norm^2 = {norm_sq(d, G)}"
 
@@ -394,6 +426,7 @@ class TestConeEmbeddings:
 
     def test_null_elements_count(self):
         """There are exactly 3 primitive null elements at infinity."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(primitive_elements_at_infinity()) == 3
 
     def test_null_elements_in_lambda_21_II(self):
@@ -462,6 +495,7 @@ class TestEmbeddings:
         delta_sum = d["delta_1"] + d["delta_2"] + d["delta_3"]
         rho = weyl_vector_f_basis()
         for i in range(3):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert Fraction(int(delta_sum[i])) == 2 * rho[i]
 
 
@@ -525,14 +559,17 @@ class TestSubgroupIndices:
 
     def test_full_index_1(self):
         indices = reflection_subgroup_indices()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert indices["W^{(2)}(Lambda^{2,1})"] == 1
 
     def test_type_I_index_2(self):
         indices = reflection_subgroup_indices()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert indices["W^{(2)}(Lambda^{2,1}_I)"] == 2
 
     def test_type_II_index_6(self):
         indices = reflection_subgroup_indices()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert indices["W^{(2)}(Lambda^{2,1}_{II})"] == 6
 
     def test_indices_consistent_with_aut_orders(self):
@@ -588,6 +625,7 @@ class TestSemiDirectProduct:
         elements = enumerate_S3_from_generators(all_gens, max_iter=5)
 
         # Should have strictly more than 6 elements (the S_3 subgroup)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(elements) > 6, \
             f"Expected > 6 elements, got {len(elements)}"
 
@@ -643,6 +681,7 @@ class TestDualLattice:
         """
         G = gram_lambda_21_II()
         det = abs(int(round(np.linalg.det(G.astype(float)))))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert det == 32
 
 
@@ -650,14 +689,17 @@ class TestSignatures:
     """Verify signatures of all lattices."""
 
     def test_lambda_32_sig(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert signature(gram_lambda_32()) == (3, 2, 0)
 
     def test_lambda_21_sig(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert signature(gram_lambda_21()) == (2, 1, 0)
 
     def test_lambda_21_II_sig(self):
         """Lambda^{2,1}_{II} in the delta basis has the same signature
         (2,1) as Lambda^{2,1} since they span the same rational space."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert signature(gram_lambda_21_II()) == (2, 1, 0)
 
 

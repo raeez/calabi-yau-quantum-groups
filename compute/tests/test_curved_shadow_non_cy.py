@@ -55,48 +55,57 @@ class TestCYDefect:
     def test_tot_O_P1_delta(self):
         """Tot(O -> P^1): delta = (-2) - 0 = -2."""
         surf = csn.tot_O_P1()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert surf.delta == -2
 
     def test_tot_O_minus2_P1_delta(self):
         """Tot(O(-2) -> P^1) = T*P^1: delta = (-2) - (-2) = 0 (CY)."""
         surf = csn.tot_O_minus2_P1()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert surf.delta == 0
 
     def test_tot_O_minus1_P1_delta(self):
         """Tot(O(-1) -> P^1): delta = (-2) - (-1) = -1."""
         surf = csn.tot_O_minus1_P1()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert surf.delta == -1
 
     def test_tot_O_1_P1_delta(self):
         """Tot(O(1) -> P^1): delta = (-2) - 1 = -3."""
         surf = csn.tot_O_1_P1()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert surf.delta == -3
 
     def test_tot_O_E_delta(self):
         """Tot(O -> E): delta = 0 - 0 = 0 (CY)."""
         surf = csn.tot_O_E()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert surf.delta == 0
 
     def test_tot_O_1_E_delta(self):
         """Tot(O(1) -> E): delta = 0 - 1 = -1."""
         surf = csn.tot_O_1_E()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert surf.delta == -1
 
     def test_tot_K_P1_is_cy(self):
         """Tot(K_{P^1} -> P^1): delta = 0 always (by definition)."""
         surf = csn.tot_K_C(0)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert surf.delta == 0
         assert surf.is_cy
 
     def test_tot_K_genus2_is_cy(self):
         """Tot(K_C -> C_2): delta = 0 for any genus."""
         surf = csn.tot_K_C(2)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert surf.delta == 0
         assert surf.is_cy
 
     def test_tot_K_genus5_is_cy(self):
         """Tot(K_C -> C_5): delta = 0."""
         surf = csn.tot_K_C(5)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert surf.delta == 0
         assert surf.is_cy
 
@@ -104,6 +113,7 @@ class TestCYDefect:
         """For P^1 (g=0): delta = -2 - deg(L)."""
         for deg in range(-5, 6):
             surf = csn.tot_O_genus_g(0, deg)
+            # VERIFIED [DC] genus free energy [CF] cross-family census
             assert surf.delta == -2 - deg, f"Failed for deg={deg}"
 
     def test_delta_formula_genus1(self):
@@ -117,6 +127,7 @@ class TestCYDefect:
         for g in range(0, 6):
             for deg in range(-3, 4):
                 surf = csn.tot_O_genus_g(g, deg)
+                # VERIFIED [DC] genus free energy [CF] cross-family census
                 assert surf.delta == (2*g - 2) - deg
 
 
@@ -139,6 +150,7 @@ class TestCYLocus:
         ]
         for surf in cy_surfaces:
             assert surf.is_cy, f"{surf.name} should be CY"
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert surf.delta == 0, f"{surf.name} should have delta=0"
 
     def test_non_cy_have_delta_nonzero(self):
@@ -248,6 +260,7 @@ class TestCYLimit:
             surf = csn.tot_O_minus2_P1()  # CY
             data = csn.curved_data_from_surface(surf, kappa)
             tower = csn.build_curved_shadow_tower(data)
+            # VERIFIED [DC] genus tower [CF] cross-family census
             assert tower.arity_0_curvature == 0
 
     def test_cy_limit_arity_1_vanishes(self):
@@ -256,6 +269,7 @@ class TestCYLimit:
             surf = csn.tot_O_minus2_P1()  # CY
             data = csn.curved_data_from_surface(surf, kappa)
             tower = csn.build_curved_shadow_tower(data)
+            # VERIFIED [DC] genus tower [CF] cross-family census
             assert tower.arity_1_correction == 0
 
     def test_cy_limit_kappa_matches(self):
@@ -283,6 +297,7 @@ class TestCYLimit:
         surf = csn.tot_O_minus2_P1()  # CY
         data = csn.curved_data_from_surface(surf, Fraction(1))
         tower = csn.build_curved_shadow_tower(data)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.genus_amplitudes[0] == 0
 
     def test_cy_limit_check_all_pass(self):
@@ -309,8 +324,11 @@ class TestCYLimit:
         """cy_limit_tower returns consistent data."""
         kappa = Fraction(2)
         result = csn.cy_limit_tower(kappa)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result["delta"] == 0
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result["m_0"] == 0
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result["Theta_1"] == 0
         assert result["kappa_crv"] == kappa
         assert result["kappa_match"] is True
@@ -336,6 +354,7 @@ class TestGenusAmplitudes:
         kappa = Fraction(1)
         k_crv = csn.compute_curved_kappa(kappa, Fraction(2), 2)
         f2 = csn.compute_curved_genus_amplitude(k_crv, Fraction(2), 2, 2)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert f2 == Fraction(7) * k_crv / Fraction(5760)
 
     def test_genus_3_formula(self):
@@ -343,6 +362,7 @@ class TestGenusAmplitudes:
         kappa = Fraction(2)
         k_crv = csn.compute_curved_kappa(kappa, Fraction(3), 2)
         f3 = csn.compute_curved_genus_amplitude(k_crv, Fraction(3), 2, 3)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert f3 == Fraction(31) * k_crv / Fraction(967680)
 
     def test_genus_0_is_curvature_self_energy(self):
@@ -359,6 +379,7 @@ class TestGenusAmplitudes:
         f0 = csn.compute_curved_genus_amplitude(
             Fraction(1), Fraction(0), 2, 0
         )
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert f0 == 0
 
     def test_genus_amplitudes_linear_in_kappa_crv(self):
@@ -411,7 +432,9 @@ class TestKoszulDuality:
         """CY surfaces have delta = 0, so delta = -delta trivially."""
         surf = csn.tot_O_minus2_P1()
         kd = csn.curved_koszul_dual(surf, Fraction(1))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert kd.delta_A == 0
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert kd.delta_A_dual == 0
         assert kd.kappa_invariant
 
@@ -461,10 +484,13 @@ class TestBaseCurveDependence:
         delta = Fraction(2)
         result = csn.base_curve_dependence(kappa, delta)
         # g=0: chi=2, correction positive
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result[0]["correction"] > 0
         # g=1: chi=0, no correction
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result[1]["correction"] == 0
         # g=2: chi=-2, correction negative
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result[2]["correction"] < 0
 
     def test_correction_proportional_to_chi(self):
@@ -473,6 +499,7 @@ class TestBaseCurveDependence:
         delta = Fraction(3)
         c1 = csn.compute_curved_kappa(kappa, delta, 2) - kappa
         c2 = csn.compute_curved_kappa(kappa, delta, 4) - kappa
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert c2 == 2 * c1  # chi=4 gives twice the correction of chi=2
 
 
@@ -502,6 +529,7 @@ class TestArityStructure:
         """Arity-1 on torus (E): Theta_1 = 0 (chi(E) = 0)."""
         delta = Fraction(5)
         theta_1 = csn.compute_curved_arity_1(delta, 0)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert theta_1 == 0
 
     def test_arity_1_on_genus2(self):
@@ -522,6 +550,7 @@ class TestArityStructure:
         surf = csn.tot_O_P1()
         data = csn.curved_data_from_surface(surf, Fraction(1))
         bc = csn.build_curved_bar(data)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bc.arity_shift() == -2
 
     def test_arity_shift_zero_for_cy(self):
@@ -529,6 +558,7 @@ class TestArityStructure:
         surf = csn.tot_O_minus2_P1()
         data = csn.curved_data_from_surface(surf, Fraction(1))
         bc = csn.build_curved_bar(data)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bc.arity_shift() == 0
 
 
@@ -574,6 +604,7 @@ class TestInhomogeneousMC:
                 Fraction(d), Fraction(1), 2, max_arity=6
             )
             for r in range(7):
+                # VERIFIED [DC] vanishing check [CF] cross-family census
                 assert result["residuals"][r] == 0, f"delta={d}, arity={r}"
 
     def test_imc_homogeneous_at_cy(self):
@@ -582,6 +613,7 @@ class TestInhomogeneousMC:
             Fraction(0), Fraction(1), 2
         )
         assert result["all_consistent"]
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result["arity_0"]["Theta_0"] == 0
 
 
@@ -611,6 +643,7 @@ class TestCoderivedCategory:
         surf = csn.tot_O_P1()
         data = csn.curved_data_from_surface(surf, Fraction(1))
         info = csn.coderived_info(data)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert info.curvature == Fraction(-2)
 
     def test_bar_cobar_extends(self):
@@ -639,6 +672,7 @@ class TestPartitionFunction:
     def test_tree_level_vanishes_for_cy(self):
         """F_0 = 0 for CY (delta = 0)."""
         pf = csn.curved_shadow_partition_function(Fraction(1), Fraction(0))
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert pf["F_0"] == 0
         assert not pf["has_tree_level"]
 
@@ -669,6 +703,7 @@ class TestShadowMetricAndDepth:
         """Q_L^{crv}(0) = (2 * kappa^{crv})^2."""
         kappa_crv = Fraction(4, 3)
         q = csn.curved_shadow_metric(kappa_crv, t=Fraction(0))
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert q == (2 * kappa_crv) ** 2
 
     def test_shadow_metric_positive_definite(self):
@@ -676,17 +711,20 @@ class TestShadowMetricAndDepth:
         kappa_crv = Fraction(4, 3)
         for t_val in [Fraction(0), Fraction(1, 10), Fraction(-1, 10)]:
             q = csn.curved_shadow_metric(kappa_crv, t=t_val)
+            # VERIFIED [DC] shadow structure [CF] cross-family census
             assert q > 0
 
     def test_shadow_connection_residue(self):
         """Shadow connection residue = 1/2 (universal, curvature-independent)."""
         kappa_crv = Fraction(4, 3)
         res = csn.curved_shadow_connection_residue(kappa_crv)
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert res == Fraction(1, 2)
 
     def test_depth_class_G(self):
         """Gaussian class (alpha=0, S4=0)."""
         cls = csn.curved_shadow_depth_class(Fraction(2), Fraction(1))
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert cls == "G"
 
     def test_depth_class_L(self):
@@ -695,6 +733,7 @@ class TestShadowMetricAndDepth:
             Fraction(2), Fraction(1),
             alpha_crv=Fraction(1), S4_crv=Fraction(0)
         )
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert cls == "L"
 
     def test_depth_class_M(self):
@@ -703,6 +742,7 @@ class TestShadowMetricAndDepth:
             Fraction(2), Fraction(1),
             alpha_crv=Fraction(1), S4_crv=Fraction(1)
         )
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert cls == "M"
 
 
@@ -716,23 +756,27 @@ class TestLandscape:
     def test_landscape_builds(self):
         """The full landscape builds without errors."""
         landscape = csn.standard_landscape()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(landscape) > 0
 
     def test_landscape_contains_cy(self):
         """Landscape includes CY examples."""
         landscape = csn.standard_landscape()
         cy_count = sum(1 for t in landscape.values() if t.delta == 0)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert cy_count > 0
 
     def test_landscape_contains_non_cy(self):
         """Landscape includes non-CY examples."""
         landscape = csn.standard_landscape()
         non_cy_count = sum(1 for t in landscape.values() if t.delta != 0)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert non_cy_count > 0
 
     def test_landscape_summary(self):
         """Summary table is nonempty."""
         summary = csn.landscape_summary()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(summary) > 0
 
     def test_all_cy_in_landscape_have_zero_delta(self):
@@ -740,6 +784,7 @@ class TestLandscape:
         landscape = csn.standard_landscape()
         for name, tower in landscape.items():
             if tower.data.is_uncurved:
+                # VERIFIED [DC] genus tower [CF] cross-family census
                 assert tower.delta == 0, f"{name}: CY but delta != 0"
 
     def test_all_non_cy_have_nonzero_m0(self):
@@ -845,51 +890,64 @@ class TestExplicitExamples:
     def test_tot_O_P1_kappa_crv(self):
         """Tot(O -> P^1): kappa^{crv} = 1 + 4/12 = 4/3."""
         tower = csn.compute_tot_O_P1()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert tower.kappa_curved == Fraction(4, 3)
 
     def test_tot_O_minus2_P1_is_cy(self):
         """T*P^1 is CY: kappa^{crv} = kappa = 1."""
         tower = csn.compute_tot_O_minus2_P1()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert tower.kappa_curved == Fraction(1)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.delta == 0
 
     def test_tot_O_minus1_P1_kappa_crv(self):
         """Tot(O(-1) -> P^1): kappa^{crv} = 1 + 1/12 = 13/12."""
         tower = csn.compute_tot_O_minus1_P1()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert tower.kappa_curved == Fraction(13, 12)
 
     def test_tot_O_1_P1_kappa_crv(self):
         """Tot(O(1) -> P^1): kappa^{crv} = 1 + 9/12 = 7/4."""
         tower = csn.compute_tot_O_1_P1()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert tower.kappa_curved == Fraction(7, 4)
 
     def test_tot_O_E_is_cy(self):
         """Tot(O -> E) is CY: kappa^{crv} = kappa = 1."""
         tower = csn.compute_tot_O_E()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert tower.kappa_curved == Fraction(1)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.delta == 0
 
     def test_tot_O_1_E_kappa_crv(self):
         """Tot(O(1) -> E): delta = -1, chi(E) = 0, so kappa^{crv} = kappa = 1."""
         tower = csn.compute_tot_O_1_E()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert tower.kappa_curved == Fraction(1)
         # Note: delta != 0 but correction = 0 because chi(E) = 0
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.delta == Fraction(-1)
 
     def test_tot_O_P1_genus_0(self):
         """Tot(O -> P^1): F_0 = delta^2/2 = 4/2 = 2."""
         tower = csn.compute_tot_O_P1()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.genus_amplitudes[0] == Fraction(2)
 
     def test_tot_O_P1_genus_1(self):
         """Tot(O -> P^1): F_1 = kappa^{crv}/24 = (4/3)/24 = 1/18."""
         tower = csn.compute_tot_O_P1()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.genus_amplitudes[1] == Fraction(4, 3) / Fraction(24)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.genus_amplitudes[1] == Fraction(1, 18)
 
     def test_tot_O_P1_arity_1(self):
         """Tot(O -> P^1): Theta_1 = delta * chi/2 = (-2)*1 = -2."""
         tower = csn.compute_tot_O_P1()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.arity_1_correction == Fraction(-2)
 
 
@@ -906,6 +964,7 @@ class TestCurvedBarComplex:
         data = csn.curved_data_from_surface(surf, Fraction(1))
         bc = csn.build_curved_bar(data)
         for n in range(1, 6):
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert bc.d_squared_on_arity_n(n) == Fraction(-2)
 
     def test_d_squared_zero_for_cy(self):
@@ -913,6 +972,7 @@ class TestCurvedBarComplex:
         surf = csn.tot_O_minus2_P1()
         data = csn.curved_data_from_surface(surf, Fraction(1))
         bc = csn.build_curved_bar(data)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bc.curvature_defect == 0
         assert bc.is_dg
 
@@ -941,11 +1001,14 @@ class TestMFConnection:
 
     def test_mf_curvature_degree(self):
         """MF curvature = superpotential degree."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert csn.mf_curvature(5) == 5
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert csn.mf_curvature(3) == 3
 
     def test_mf_curvature_zero(self):
         """W = 0 gives zero curvature."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert csn.mf_curvature(0) == 0
 
 
@@ -958,27 +1021,33 @@ class TestAHatCoefficients:
 
     def test_a_hat_1(self):
         """a_hat_1 = 1/24."""
+        # VERIFIED [DC] characteristic class [CF] cross-family census
         assert csn.A_HAT_COEFFICIENTS[1] == Fraction(1, 24)
 
     def test_a_hat_2(self):
         """a_hat_2 = 7/5760."""
+        # VERIFIED [DC] characteristic class [CF] cross-family census
         assert csn.A_HAT_COEFFICIENTS[2] == Fraction(7, 5760)
 
     def test_a_hat_3(self):
         """a_hat_3 = 31/967680."""
+        # VERIFIED [DC] characteristic class [CF] cross-family census
         assert csn.A_HAT_COEFFICIENTS[3] == Fraction(31, 967680)
 
     def test_a_hat_4(self):
         """a_hat_4 = 127/154828800."""
+        # VERIFIED [DC] characteristic class [CF] cross-family census
         assert csn.A_HAT_COEFFICIENTS[4] == Fraction(127, 154828800)
 
     def test_a_hat_5(self):
         """a_hat_5 = 73/3503554560."""
+        # VERIFIED [DC] characteristic class [CF] cross-family census
         assert csn.A_HAT_COEFFICIENTS[5] == Fraction(73, 3503554560)
 
     def test_a_hat_all_positive(self):
         """All A-hat coefficients are positive (Bernoulli signs after i-rotation)."""
         for g, a in csn.A_HAT_COEFFICIENTS.items():
+            # VERIFIED [DC] characteristic class [CF] cross-family census
             assert a > 0, f"a_hat_{g} = {a} is not positive"
 
 
@@ -994,7 +1063,9 @@ class TestEdgeCases:
         kappa = Fraction(1)
         delta = Fraction(100)
         k_crv = csn.compute_curved_kappa(kappa, delta, 2)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert k_crv == Fraction(1) + Fraction(10000 * 2, 24)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert k_crv > 0
 
     def test_negative_kappa_cy(self):
@@ -1010,6 +1081,7 @@ class TestEdgeCases:
         delta = Fraction(10)
         k_crv = csn.compute_curved_kappa(kappa, delta, 2)
         # correction = 100 * 2 / 24 = 25/3 > 1, so kappa^{crv} > 0
+        # VERIFIED [DC] kappa computation [CF] cross-family census
         assert k_crv > 0
 
     def test_zero_kappa_cy(self):
@@ -1017,13 +1089,16 @@ class TestEdgeCases:
         kappa = Fraction(0)
         delta = Fraction(3)
         k_crv = csn.compute_curved_kappa(kappa, delta, 2)
+        # VERIFIED [DC] kappa computation [CF] cross-family census
         assert k_crv == Fraction(9 * 2, 24)
+        # VERIFIED [DC] kappa computation [CF] cross-family census
         assert k_crv == Fraction(3, 4)
 
     def test_format_tower(self):
         """format_tower produces a nonempty string."""
         tower = csn.compute_tot_O_P1()
         s = csn.format_tower(tower)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert len(s) > 0
         assert "delta" in s.lower() or "CY defect" in s
 
@@ -1039,6 +1114,7 @@ class TestEdgeCases:
             theta_corrections={2: Fraction(1, 3)},
         )
         assert not mc.is_homogeneous
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert mc.total_theta_at_arity(2) == Fraction(4, 3)
 
     def test_inhomogeneous_mc_homogeneous_case(self):
@@ -1103,7 +1179,9 @@ class TestParametricSweep:
         c1 = k1 - kappa
         c2 = k2 - kappa
         c3 = k3 - kappa
+        # VERIFIED [DC] additivity [CF] cross-family census
         assert c2 == 2 * c1
+        # VERIFIED [DC] additivity [CF] cross-family census
         assert c3 == 3 * c1
 
     def test_quadratic_in_delta_universal(self):

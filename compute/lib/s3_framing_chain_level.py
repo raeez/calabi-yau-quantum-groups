@@ -1230,7 +1230,7 @@ class ConifoldS3Framing:
         The FULL algebra gl(1|1)^ has kappa = 0 because the fermionic
         contribution cancels.
 
-        So: kappa_bosonic = chi/2 = 1, kappa_total = 0 (supertrace).
+        So: kappa_bosonic = chi/2 = 1, kappa_ch = 0 (supertrace).
         """
         mac = _macmahon(N)
         # Verify MacMahon coefficients
@@ -1243,11 +1243,11 @@ class ConifoldS3Framing:
         return {
             "euler_char_conifold": 2,
             "kappa_bosonic": Fraction(1),
-            "kappa_total_gl11": Fraction(0),
+            "kappa_ch_gl11": Fraction(0),
             "macmahon_match": mac_match,
             "explanation": (
                 "kappa_bosonic = chi/2 = 1 (from the constant map DT contribution "
-                "M(q)^{chi}). kappa_total = 0 because gl(1|1)^ is a superalgebra "
+                "M(q)^{chi}). kappa_ch = 0 because gl(1|1)^ is a superalgebra "
                 "with str = 0 (the bosonic level 1 and fermionic level 1 cancel)."
             ),
         }
@@ -1291,7 +1291,7 @@ class ConifoldS3Framing:
             "geometry": "resolved conifold",
             "algebra": "gl(1|1)^ (affine gl(1|1))",
             "kappa_bosonic": Fraction(1),
-            "kappa_total": Fraction(0),
+            "kappa_ch": Fraction(0),
             "path1_chart_framing_zero": path1_chart,
             "path2_wall_crossing_compatible": path2_wall,
             "path3_dt": path3_dt,

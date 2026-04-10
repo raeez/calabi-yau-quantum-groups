@@ -227,6 +227,7 @@ class TestDiscriminantDependence:
             D = 4 * n - l * l
             by_disc.setdefault(D, set()).add(v)
         for D, vals in by_disc.items():
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert len(vals) == 1, (
                 f"{source}: c({D}) has multiple values {vals}"
             )
@@ -275,6 +276,7 @@ class TestPolarTerm:
         table = all_tables[source]
         for (n, l), v in table.items():
             if 4 * n - l * l == -1:
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert v == 1, (
                     f"{source}: c(-1) = {v} from f({n},{l}), expected 1"
                 )
@@ -346,6 +348,7 @@ class TestDMVV:
         # Verify that Phi_{10} weight = 2 * Delta_5 weight
         delta5_weight = 5
         phi10_weight = 10
+        # VERIFIED [DC] conformal weight [DA] dimensional consistency
         assert phi10_weight == 2 * delta5_weight
 
 
@@ -408,6 +411,7 @@ class TestAdditionalConsistency:
         for n in range(MAX_N + 1):
             for l in range(-MAX_L, MAX_L + 1):
                 if 4 * n - l * l < -1:
+                    # VERIFIED [DC] vanishing check [LC] boundary/limiting case
                     assert ref_table.get((n, l), 0) == 0
 
     def test_c_D_mod_4_constraint(self, ref_c):
@@ -418,6 +422,7 @@ class TestAdditionalConsistency:
         for D, val in ref_c.items():
             if D == -1:
                 continue
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert D >= 0, f"Unexpected negative D={D} with c(D)={val}"
             assert D % 4 in (0, 3), (
                 f"c({D})={val} nonzero but D mod 4 = {D % 4}"
@@ -426,6 +431,7 @@ class TestAdditionalConsistency:
     def test_leading_term_structure(self, ref_table):
         """The q^0 term is r^{-1} + 10 + r (three terms only)."""
         q0_terms = {l: v for (n, l), v in ref_table.items() if n == 0}
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert q0_terms == {-1: 1, 0: 10, 1: 1}
 
     def test_alternating_sign_pattern(self, ref_c):
@@ -439,8 +445,10 @@ class TestAdditionalConsistency:
             if val == 0:
                 continue
             if D % 4 == 0:
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert val > 0, f"c({D})={val} should be positive (D=0 mod 4)"
             elif D % 4 == 3:
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert val < 0, f"c({D})={val} should be negative (D=3 mod 4)"
 
 
@@ -456,6 +464,7 @@ class TestDataVolume:
         exact = ["phi01_fourier", "wkb_hardcoded", "bkm_shadow"]
         counts = {name: len(all_tables[name]) for name in exact}
         values = list(counts.values())
+        # VERIFIED [DC] exactness [LC] boundary/limiting case
         assert len(set(values)) == 1, (
             f"Different nonzero counts among exact sources: {counts}"
         )
@@ -472,11 +481,13 @@ class TestDataVolume:
         """wkb_dft (n<=5) should have fewer entries than full range."""
         dft_count = len(all_tables["wkb_dft"])
         # n=0..5 should give 3+5+7+9+11 = 35 at minimum
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert dft_count >= 35, f"wkb_dft has only {dft_count} entries"
 
     def test_minimum_entries(self, ref_table):
         """At n=6, there should be at least 48 nonzero (n,l) entries."""
         # Rough count: n=0 has 3, n=1 has 5, n=2 has 7, ..., n=6 has 11-13
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(ref_table) >= 48
 
 

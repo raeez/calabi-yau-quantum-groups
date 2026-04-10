@@ -698,7 +698,7 @@ def banana_manifold_family() -> CY3Family:
 
       (2) LOCAL BANANA CURVE: the neighborhood of a banana-shaped singular
           fiber (two P^1s meeting at 2 nodes), with effective Hodge data
-          h^{1,1} = h^{2,1} = 2, chi_eff = -4, kappa_eff = -1/6.
+          h^{1,1} = h^{2,1} = 2, chi_eff = -4, kappa_ch = -1/6.
           This is the local geometry studied in banana_shadow.py.
 
     These are DIFFERENT OBJECTS with different kappa values.  The atlas

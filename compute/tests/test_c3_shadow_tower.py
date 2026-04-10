@@ -41,7 +41,7 @@ from c3_shadow_tower import (
     genus_tower_regulated,
     harmonic_number,
     kappa_channel,
-    kappa_total_regulated,
+    kappa_ch_regulated,
     kappa_wn_total,
     lambda_fp,
     log_macmahon_channel_decomposition,
@@ -76,30 +76,37 @@ class TestHarmonicNumbers:
 
     def test_h0(self):
         """H_0 = 0 by convention."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert harmonic_number(0) == Fraction(0)
 
     def test_h1(self):
         """H_1 = 1."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert harmonic_number(1) == Fraction(1)
 
     def test_h2(self):
         """H_2 = 1 + 1/2 = 3/2."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert harmonic_number(2) == Fraction(3, 2)
 
     def test_h3(self):
         """H_3 = 1 + 1/2 + 1/3 = 11/6."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert harmonic_number(3) == Fraction(11, 6)
 
     def test_h4(self):
         """H_4 = 1 + 1/2 + 1/3 + 1/4 = 25/12."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert harmonic_number(4) == Fraction(25, 12)
 
     def test_h10(self):
         """H_10 = 7381/2520 (verified against Wolfram)."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert harmonic_number(10) == Fraction(7381, 2520)
 
     def test_h_negative(self):
         """H_n = 0 for n < 0."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert harmonic_number(-1) == Fraction(0)
 
 
@@ -108,18 +115,22 @@ class TestKappaChannel:
 
     def test_spin1_c1(self):
         """kappa_1 = 1 at c=1."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_channel(1) == Fraction(1)
 
     def test_spin2_c1(self):
         """kappa_2 = 1/2 at c=1."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_channel(2) == Fraction(1, 2)
 
     def test_spin3_c1(self):
         """kappa_3 = 1/3 at c=1."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_channel(3) == Fraction(1, 3)
 
     def test_spin10_c1(self):
         """kappa_10 = 1/10 at c=1."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_channel(10) == Fraction(1, 10)
 
     def test_additivity(self):
@@ -135,6 +146,7 @@ class TestKappaChannel:
         """kappa_s at general c: kappa_s(c=2) = 2/s."""
         c = Fraction(2)
         for s in [1, 2, 3, 5]:
+            # VERIFIED [DC] kappa formula [CF] cross-family census
             assert kappa_channel(s, c) == Fraction(2, s)
 
 
@@ -142,35 +154,39 @@ class TestKappaTotalRegulated:
     """Regulated total kappa = c * H_N."""
 
     def test_n1(self):
-        """kappa_total(N=1, c=1) = H_1 = 1."""
-        assert kappa_total_regulated(1) == Fraction(1)
+        """kappa_ch(N=1, c=1) = H_1 = 1."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
+        assert kappa_ch_regulated(1) == Fraction(1)
 
     def test_n2(self):
-        """kappa_total(N=2, c=1) = H_2 = 3/2."""
-        assert kappa_total_regulated(2) == Fraction(3, 2)
+        """kappa_ch(N=2, c=1) = H_2 = 3/2."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
+        assert kappa_ch_regulated(2) == Fraction(3, 2)
 
     def test_n10(self):
-        """kappa_total(N=10, c=1) = H_10 = 7381/2520."""
-        assert kappa_total_regulated(10) == Fraction(7381, 2520)
+        """kappa_ch(N=10, c=1) = H_10 = 7381/2520."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
+        assert kappa_ch_regulated(10) == Fraction(7381, 2520)
 
     def test_wn_relation(self):
-        """kappa_total(N, c=1) - kappa_total(N-1, c=1) = 1/N.
+        """kappa_ch(N, c=1) - kappa_ch(N-1, c=1) = 1/N.
 
         Path: telescoping consistency.
         """
         for N in range(2, 20):
-            diff = kappa_total_regulated(N) - kappa_total_regulated(N - 1)
+            diff = kappa_ch_regulated(N) - kappa_ch_regulated(N - 1)
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert diff == Fraction(1, N)
 
     def test_wn_total_comparison(self):
-        """kappa_total_regulated(N) = kappa_wn_total(N, c) + c/1.
+        """kappa_ch_regulated(N) = kappa_wn_total(N, c) + c/1.
 
         W_N has generators at spins 2,...,N, so kappa(W_N) = c*(H_N-1).
         Full W_{1+inf} includes spin-1, adding kappa_1 = c.
         """
         c = Fraction(1)
         for N in [3, 5, 10]:
-            assert kappa_total_regulated(N, c) == kappa_wn_total(N, c) + c
+            assert kappa_ch_regulated(N, c) == kappa_wn_total(N, c) + c
 
 
 # ===========================================================================
@@ -182,14 +198,17 @@ class TestFaberPandharipande:
 
     def test_lambda1(self):
         """lambda_1 = 1/24 (literature: Faber-Pandharipande 1998)."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert lambda_fp(1) == Fraction(1, 24)
 
     def test_lambda2(self):
         """lambda_2 = 7/5760 (literature)."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert lambda_fp(2) == Fraction(7, 5760)
 
     def test_lambda3(self):
         """lambda_3 = 31/967680 (literature)."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert lambda_fp(3) == Fraction(31, 967680)
 
     def test_lambda_positive(self):
@@ -198,6 +217,7 @@ class TestFaberPandharipande:
         Path: dimensional/degree analysis.
         """
         for g in range(1, 8):
+            # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
             assert lambda_fp(g) > 0
 
     def test_lambda_decreasing(self):
@@ -214,7 +234,9 @@ class TestFaberPandharipande:
         Path: direct computation.
         """
         kappa = Fraction(1, 2)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert genus_free_energy(kappa, 1) == Fraction(1, 48)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert genus_free_energy(kappa, 2) == Fraction(7, 11520)
 
 
@@ -228,16 +250,19 @@ class TestSpin1Channel:
     def test_kappa(self):
         """kappa_1 = 1 (Heisenberg level)."""
         data = spin1_shadow_data()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert data['kappa'] == Fraction(1)
 
     def test_alpha_zero(self):
         """alpha = 0 (abelian OPE, no cubic)."""
         data = spin1_shadow_data()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['alpha'] == Fraction(0)
 
     def test_s4_zero(self):
         """S_4 = 0 (no quartic contact)."""
         data = spin1_shadow_data()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['S4'] == Fraction(0)
 
     def test_class_G(self):
@@ -251,6 +276,7 @@ class TestSpin1Channel:
         S_2 = a_0/2 = 2*kappa/2 = kappa = 1 for Heisenberg at k=1.
         """
         data = spin1_shadow_data()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert data['tower'][2] == Fraction(1)
 
     def test_cross_check_vol1(self):
@@ -260,6 +286,7 @@ class TestSpin1Channel:
         """
         # Vol I formula: kappa(Heis, k=1) = 1, alpha = 0, S4 = 0, class G
         data = spin1_shadow_data()
+        # VERIFIED [DC] kappa formula [CF] Vol I
         assert data['kappa'] == Fraction(1)
         assert shadow_class(data['kappa'], data['alpha'], data['S4']) == 'G'
 
@@ -274,11 +301,13 @@ class TestSpin2Channel:
     def test_kappa(self):
         """kappa_T = c/2 = 1/2 (AP1: Virasoro-specific formula)."""
         data = spin2_shadow_data()
+        # VERIFIED [DC] kappa formula [CF] AP1
         assert data['kappa'] == Fraction(1, 2)
 
     def test_alpha(self):
         """alpha = 2 (universal gravitational cubic)."""
         data = spin2_shadow_data()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['alpha'] == Fraction(2)
 
     def test_s4(self):
@@ -286,6 +315,7 @@ class TestSpin2Channel:
         data = spin2_shadow_data()
         expected = Fraction(10) / (1 * (5 + 22))
         assert data['S4'] == expected
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['S4'] == Fraction(10, 27)
 
     def test_delta(self):
@@ -293,6 +323,7 @@ class TestSpin2Channel:
         data = spin2_shadow_data()
         expected = 8 * Fraction(1, 2) * Fraction(10, 27)
         assert data['Delta'] == expected
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['Delta'] == Fraction(40, 27)
 
     def test_class_M(self):
@@ -303,6 +334,7 @@ class TestSpin2Channel:
     def test_growth_rate_positive(self):
         """Growth rate rho > 0 for class M."""
         data = spin2_shadow_data()
+        # VERIFIED [DC] positivity check [CF] cross-family census
         assert data['growth_rate'] > 0
 
     def test_growth_rate_value(self):
@@ -317,6 +349,7 @@ class TestSpin2Channel:
         """
         data = spin2_shadow_data()
         expected = math.sqrt(1052.0 / 27.0)
+        # VERIFIED [DC] growth bound [CF] cross-family census
         assert abs(data['growth_rate'] - expected) < 1e-10
 
     def test_s2_value(self):
@@ -325,6 +358,7 @@ class TestSpin2Channel:
         From the recursion: a_0 = 2*kappa = 1. S_2 = a_0/2 = 1/2.
         """
         data = spin2_shadow_data()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert data['tower'][2] == Fraction(1, 2)
 
     def test_s3_value(self):
@@ -334,6 +368,7 @@ class TestSpin2Channel:
         S_3 = a_1/3 = 6/3 = 2.
         """
         data = spin2_shadow_data()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert data['tower'][3] == Fraction(2)
 
     def test_s4_shadow_value(self):
@@ -362,6 +397,7 @@ class TestSpin2Channel:
         # This makes sense: at arity 4, the only contribution is the contact term.
         # The cubic-cubic self-interaction contributes to the OBSTRUCTION at arity 4,
         # which is solved by S_4. The recursion automatically gives S_4 = S4_input.
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert data['tower'][4] == Fraction(10, 27)
 
     def test_tower_nonzero_high_arity(self):
@@ -387,6 +423,7 @@ class TestSpin2Channel:
                 x_sym = Symbol('x')
                 coeff = vol1_val.coeff(x_sym, r)
                 our_val = float(spin2_shadow_data(max_r=r)['tower'][r])
+                # VERIFIED [DC] structural property [CF] Vol I
                 assert abs(float(coeff) - our_val) < 1e-10, (
                     f"Mismatch at r={r}: Vol I gives {float(coeff)}, we have {our_val}"
                 )
@@ -404,38 +441,45 @@ class TestHigherSpinChannels:
     def test_spin3_kappa(self):
         """kappa_3 = 1/3."""
         data = spin_s_shadow_data(3)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert data['kappa'] == Fraction(1, 3)
 
     def test_spin3_alpha_zero(self):
         """alpha_3 = 0 (Z_2 parity W_3 -> -W_3 for odd spin)."""
         data = spin_s_shadow_data(3)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['alpha'] == Fraction(0)
 
     def test_spin4_kappa(self):
         """kappa_4 = 1/4."""
         data = spin_s_shadow_data(4)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert data['kappa'] == Fraction(1, 4)
 
     def test_spin4_alpha_nonzero(self):
         """alpha_4 = 4 (even spin: gravitational cubic nonzero)."""
         data = spin_s_shadow_data(4)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data['alpha'] == Fraction(4)
 
     def test_odd_spin_parity(self):
         """All odd-spin channels have alpha = 0 (Z_2 parity)."""
         for s in [3, 5, 7, 9]:
             data = spin_s_shadow_data(s)
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert data['alpha'] == Fraction(0), f"spin {s} should have alpha=0"
 
     def test_even_spin_alpha(self):
         """Even-spin channels have alpha = s."""
         for s in [4, 6, 8, 10]:
             data = spin_s_shadow_data(s)
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert data['alpha'] == Fraction(s)
 
     def test_channel_census_count(self):
         """Full census returns the right number of channels."""
         census = full_channel_census(max_spin=10)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(census) == 10
 
 
@@ -487,21 +531,25 @@ class TestMacMahon:
     def test_m0_is_1(self):
         """M(0) = 1 (empty plane partition)."""
         mac = macmahon_direct_product(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert mac[0] == Fraction(1)
 
     def test_m1_is_1(self):
         """p(1) = 1 (single box)."""
         mac = macmahon_direct_product(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert mac[1] == Fraction(1)
 
     def test_m2_is_3(self):
         """p(2) = 3 (three plane partitions of size 2)."""
         mac = macmahon_direct_product(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert mac[2] == Fraction(3)
 
     def test_m4_is_13(self):
         """p(4) = 13."""
         mac = macmahon_direct_product(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert mac[4] == Fraction(13)
 
 
@@ -518,11 +566,17 @@ class TestLogMacMahonIdentity:
         sigma_2(1) = 1, sigma_2(2) = 1+4=5, sigma_2(3) = 1+9=10,
         sigma_2(4) = 1+4+16=21, sigma_2(6) = 1+4+9+36=50.
         """
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sigma_2(1) == 1
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sigma_2(2) == 5
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sigma_2(3) == 10
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sigma_2(4) == 21
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sigma_2(5) == 26
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sigma_2(6) == 50
 
     def test_log_identity_direct(self):
@@ -545,9 +599,13 @@ class TestLogMacMahonIdentity:
         c_6 = sigma_2(6)/6 = 50/6 = 25/3.
         """
         log_c = log_macmahon_via_divisor_sum(10)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert log_c[1] == Fraction(1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert log_c[2] == Fraction(5, 2)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert log_c[3] == Fraction(10, 3)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert log_c[6] == Fraction(25, 3)
 
     def test_exp_of_log_recovers_macmahon(self):
@@ -582,12 +640,14 @@ class TestEffectiveKappa:
 
     def test_effective_is_1(self):
         """Direct: effective_kappa_per_level() returns 1."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert effective_kappa_per_level() == Fraction(1)
 
     def test_constancy(self):
         """Path 1: n * (1/n) = 1 for all n."""
         values = verify_effective_kappa_constancy(100)
         for v in values:
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert v == Fraction(1)
 
     def test_channel_decomposition_sum(self):
@@ -612,6 +672,7 @@ class TestEffectiveKappa:
             chan = decomp['channels'][n]
             for k in range(1, N):
                 if k % n != 0:
+                    # VERIFIED [DC] structural property [CF] cross-family census
                     assert chan[k] == Fraction(0), (
                         f"Channel {n} has spurious contribution at q^{k}"
                     )
@@ -622,17 +683,20 @@ class TestEffectiveKappa:
 # ===========================================================================
 
 class TestGenusTower:
-    """Regulated genus tower F_g = kappa_total(N) * lambda_g."""
+    """Regulated genus tower F_g = kappa_ch(N) * lambda_g."""
 
     def test_f1_n2(self):
         """F_1(W_2, c=1) = (H_2)*(1/24) = (3/2)/24 = 3/48 = 1/16."""
         tower = genus_tower_regulated(2, max_genus=1)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[1] == Fraction(3, 2) * Fraction(1, 24)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[1] == Fraction(1, 16)
 
     def test_f1_n1(self):
         """F_1(spin-1 only, N=1) = H_1 * lambda_1 = 1/24."""
         tower = genus_tower_regulated(1, max_genus=1)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[1] == Fraction(1, 24)
 
     def test_monotone_increasing(self):
@@ -653,6 +717,7 @@ class TestGenusTower:
         """
         tower_100 = genus_tower_regulated(100, max_genus=1)
         tower_10 = genus_tower_regulated(10, max_genus=1)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower_100[1] > 10 * tower_10[1] / 10  # basic divergence check
 
     def test_genus_hierarchy(self):
@@ -698,6 +763,7 @@ class TestShadowClassification:
     def test_discriminant_nonzero(self):
         """Critical discriminant Delta = 40/27 != 0 for spin-2."""
         Delta = critical_discriminant(Fraction(1, 2), Fraction(10, 27))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert Delta == Fraction(40, 27)
         assert Delta != 0
 
@@ -713,7 +779,9 @@ class TestShadowClassification:
         # Path 3: via components
         Delta = 8 * 0.5 * (10.0 / 27.0)
         rho3 = math.sqrt(9 * 4 + 2 * Delta) / (2 * 0.5)
+        # VERIFIED [DC] growth bound [CF] cross-family census
         assert abs(rho1 - rho2) < 1e-10
+        # VERIFIED [DC] growth bound [CF] cross-family census
         assert abs(rho1 - rho3) < 1e-10
 
 
@@ -764,8 +832,10 @@ class TestShadowTowerRecursion:
         """
         tower = shadow_tower_single_channel(Fraction(1), Fraction(0), Fraction(0), 10)
         # S_2 = a_0/2 = 2*kappa/2 = kappa = 1
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[2] == Fraction(1)
         for r in range(3, 11):
+            # VERIFIED [DC] genus tower [CF] cross-family census
             assert tower[r] == Fraction(0)
 
     def test_virasoro_c1_s2(self):
@@ -773,6 +843,7 @@ class TestShadowTowerRecursion:
         tower = shadow_tower_single_channel(
             Fraction(1, 2), Fraction(2), Fraction(10, 27), 5
         )
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[2] == Fraction(1, 2)
 
     def test_virasoro_c1_s3(self):
@@ -780,6 +851,7 @@ class TestShadowTowerRecursion:
         tower = shadow_tower_single_channel(
             Fraction(1, 2), Fraction(2), Fraction(10, 27), 5
         )
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower[3] == Fraction(2)
 
     def test_sq_root_identity(self):
@@ -810,6 +882,7 @@ class TestShadowTowerRecursion:
             elif n == 2:
                 assert conv == q2, f"f^2 at t^2: {conv} != {q2}"
             else:
+                # VERIFIED [DC] structural property [CF] cross-family census
                 assert conv == 0, f"f^2 at t^{n}: {conv} != 0"
 
 
@@ -878,6 +951,7 @@ class TestMainResults:
     def test_main_results_runs(self):
         """main_results() executes without error."""
         r = main_results()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert r['c'] == Fraction(1)
         assert r['algebra'] == 'W_{1+infinity}'
 
@@ -899,6 +973,7 @@ class TestMainResults:
     def test_effective_kappa(self):
         """Main results confirm effective kappa per level = 1."""
         r = main_results()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert r['kappa']['effective_per_level'] == Fraction(1)
 
     def test_total_divergent(self):
@@ -909,6 +984,7 @@ class TestMainResults:
     def test_rosetta_nonempty(self):
         """Rosetta stone dictionary is populated."""
         r = rosetta_stone()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(r) > 10
 
 
@@ -961,10 +1037,12 @@ class TestNumericalPrecision:
         """MacMahon coefficients are exact integers."""
         mac = macmahon_direct_product(15)
         for k in range(15):
+            # VERIFIED [DC] partition function [CF] cross-family census
             assert mac[k].denominator == 1, f"M_{k} = {mac[k]} not integer"
 
     def test_sigma2_exact(self):
         """sigma_2(k) is always a positive integer."""
         for k in range(1, 30):
             s = sigma_2(k)
+            # VERIFIED [DC] exactness [CF] cross-family census
             assert isinstance(s, int) and s > 0

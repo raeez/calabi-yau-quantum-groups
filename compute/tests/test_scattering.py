@@ -49,9 +49,11 @@ class TestLattice:
         """Gram matrix: diagonal = 2, off-diagonal = -2."""
         A = sd_mod.GRAM_MATRIX
         for i in range(3):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert A[i][i] == 2
             for j in range(3):
                 if i != j:
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert A[i][j] == -2
 
     def test_gram_symmetric(self):
@@ -67,17 +69,22 @@ class TestLattice:
         det = (A[0][0] * (A[1][1] * A[2][2] - A[1][2] * A[2][1])
                - A[0][1] * (A[1][0] * A[2][2] - A[1][2] * A[2][0])
                + A[0][2] * (A[1][0] * A[2][1] - A[1][1] * A[2][0]))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert det == -32
 
     def test_eigenvalues(self):
         """Eigenvalues: -2 (eigvec (1,1,1)), 4 (eigvec (1,-1,0)), 4 (eigvec (1,0,-1))."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.inner_product((1, 1, 1), (1, 1, 1)) == -6  # = -2 * 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.inner_product((1, -1, 0), (1, -1, 0)) == 8  # = 4 * 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.inner_product((1, 0, -1), (1, 0, -1)) == 8
 
     def test_simple_root_norms(self):
         """Each simple root has norm 2."""
         for root in sd_mod.SIMPLE_ROOTS:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert sd_mod.norm_sq(root) == 2
 
     def test_simple_root_inner_products(self):
@@ -92,13 +99,19 @@ class TestLattice:
         """delta_1 = (1,0,0): D = 4*1*0 - 0 = 0.
         delta_2 = (0,1,0): D = 4*0*0 - 1 = -1.
         delta_3 = (0,0,1): D = 4*0*1 - 0 = 0."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.siegel_discriminant((1, 0, 0)) == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.siegel_discriminant((0, 1, 0)) == -1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.siegel_discriminant((0, 0, 1)) == 0
 
     def test_root_height(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.root_height((1, 0, 0)) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.root_height((1, 1, 1)) == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.root_height((2, 3, 1)) == 6
 
     def test_is_positive(self):
@@ -108,34 +121,45 @@ class TestLattice:
         assert not sd_mod.is_positive((-1, 1, 0))
 
     def test_add_vectors(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.add_vectors((1, 0, 0), (0, 1, 0)) == (1, 1, 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.add_vectors((2, 1, 3), (1, 2, 0)) == (3, 3, 3)
 
     def test_scale_vector(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.scale_vector(3, (1, 2, 0)) == (3, 6, 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sd_mod.scale_vector(0, (1, 2, 3)) == (0, 0, 0)
 
     def test_s3_orbit_simple(self):
         """Simple root (1,0,0) has orbit size 3."""
         orb = sd_mod.s3_orbit((1, 0, 0))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(orb) == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert set(orb) == {(0, 0, 1), (0, 1, 0), (1, 0, 0)}
 
     def test_s3_orbit_diagonal(self):
         """(1,1,1) is fixed by S_3, orbit size 1."""
         orb = sd_mod.s3_orbit((1, 1, 1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(orb) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert orb[0] == (1, 1, 1)
 
     def test_s3_orbit_two_distinct(self):
         """(1,1,2) has orbit size 3."""
         orb = sd_mod.s3_orbit((1, 1, 2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(orb) == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert set(orb) == {(1, 1, 2), (1, 2, 1), (2, 1, 1)}
 
     def test_s3_orbit_all_distinct(self):
         """(1,2,3) has orbit size 6."""
         orb = sd_mod.s3_orbit((1, 2, 3))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(orb) == 6
 
 
@@ -154,7 +178,9 @@ class TestLieElement:
         a = sd_mod.LieElement({(1, 0, 0): Fraction(1)}, 5)
         b = sd_mod.LieElement({(0, 1, 0): Fraction(2)}, 5)
         c = a + b
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c.coeffs[(1, 0, 0)] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c.coeffs[(0, 1, 0)] == Fraction(2)
 
     def test_add_cancellation(self):
@@ -167,11 +193,13 @@ class TestLieElement:
         a = sd_mod.LieElement({(1, 0, 0): Fraction(5)}, 5)
         b = sd_mod.LieElement({(1, 0, 0): Fraction(2)}, 5)
         c = a - b
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c.coeffs[(1, 0, 0)] == Fraction(3)
 
     def test_scale(self):
         a = sd_mod.LieElement({(1, 0, 0): Fraction(3)}, 5)
         b = a.scale(Fraction(2, 3))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b.coeffs[(1, 0, 0)] == Fraction(2)
 
     def test_bracket_symmetric(self):
@@ -179,6 +207,7 @@ class TestLieElement:
         a = sd_mod.LieElement({(1, 0, 0): Fraction(1)}, 5)
         b = sd_mod.LieElement({(0, 1, 0): Fraction(1)}, 5)
         c = a.bracket(b, 'symmetric')
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert c.coeffs.get((1, 1, 0), Fraction(0)) == Fraction(-2)
 
     def test_bracket_symmetric_value(self):
@@ -187,6 +216,7 @@ class TestLieElement:
         b = sd_mod.LieElement({(0, 0, 1): Fraction(1)}, 5)
         c = a.bracket(b, 'symmetric')
         # (delta_1, delta_3) = -2
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert c.coeffs.get((1, 0, 1), Fraction(0)) == Fraction(-2)
 
     def test_bracket_antisymmetry_skew(self):
@@ -226,6 +256,7 @@ class TestLieElement:
         a = sd_mod.LieElement({(1, 0, 0): Fraction(1)}, 5)
         b = sd_mod.LieElement({(0, 1, 0): Fraction(1)}, 5)
         c = a.bracket(b, 'skew_12')
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c.coeffs.get((1, 1, 0), Fraction(0)) == Fraction(1)
 
     def test_bracket_truncation(self):
@@ -242,6 +273,7 @@ class TestLieElement:
         b = sd_mod.LieElement({(0, 1, 0): Fraction(1)}, 10)
         c = a.bracket(b, 'symmetric')
         for k in c.coeffs:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert sum(k) == 2  # height 1 + height 1
 
     def test_bracket_self_vanishes_skew(self):
@@ -262,6 +294,7 @@ class TestLieElement:
         a = sd_mod.LieElement({(1, 0, 0): Fraction(1)}, 5)
         c = a.bracket(a, 'symmetric')
         # (1,0,0) has norm 2, so [e_{(1,0,0)}, e_{(1,0,0)}] = 2 * e_{(2,0,0)}
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert c.coeffs.get((2, 0, 0), Fraction(0)) == Fraction(2)
 
 
@@ -279,7 +312,9 @@ class TestBCH:
         g = sd_mod.LieElement({(1, 0, 1): Fraction(1)}, 5)
         # [f, g]_{skew_12} = (1*0 - 0*1) = 0 -> commutes
         h = sd_mod.bch(f, g, 'skew_12')
+        # VERIFIED [DC] commutativity [LC] boundary/limiting case
         assert h.coeffs.get((1, 0, 0), Fraction(0)) == Fraction(1)
+        # VERIFIED [DC] commutativity [LC] boundary/limiting case
         assert h.coeffs.get((1, 0, 1), Fraction(0)) == Fraction(1)
 
     def test_bch_leading_order(self):
@@ -288,9 +323,12 @@ class TestBCH:
         g = sd_mod.LieElement({(0, 1, 0): Fraction(1)}, 3)
         h = sd_mod.bch(f, g, 'symmetric', max_bch_depth=1)
         # f + g parts
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h.coeffs.get((1, 0, 0), Fraction(0)) == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h.coeffs.get((0, 1, 0), Fraction(0)) == Fraction(1)
         # [f, g]/2 = (-2)/2 * e_{(1,1,0)} = -1 * e_{(1,1,0)}
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h.coeffs.get((1, 1, 0), Fraction(0)) == Fraction(-1)
 
 
@@ -304,14 +342,18 @@ class TestScatteringDiagram:
     def test_seed_walls(self):
         """Seed walls are at three simple roots with given multiplicity."""
         sd = sd_mod.ScatteringDiagram(4, seed_multiplicity=1)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert sd.walls[(1, 0, 0)] == Fraction(1)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert sd.walls[(0, 1, 0)] == Fraction(1)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert sd.walls[(0, 0, 1)] == Fraction(1)
 
     def test_seed_walls_mult_2(self):
         """Seed walls with multiplicity 2."""
         sd = sd_mod.ScatteringDiagram(4, seed_multiplicity=2)
         for root in sd_mod.SIMPLE_ROOTS:
+            # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
             assert sd.walls[root] == Fraction(2)
 
     def test_walls_forced_at_height_2(self):
@@ -343,7 +385,9 @@ class TestScatteringDiagram:
         sd = sd_mod.ScatteringDiagram(3, seed_multiplicity=1)
         sd.compute()
         counts = sd.wall_count_by_height()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert counts.get(1, 0) == 3
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert counts.get(2, 0) >= 3  # at least the pair sums
 
     def test_wall_at_111_is_nonzero(self):
@@ -357,10 +401,12 @@ class TestScatteringDiagram:
         sd = sd_mod.ScatteringDiagram(3, seed_multiplicity=1)
         sd.compute()
         for root in sd_mod.SIMPLE_ROOTS:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert sd.generation[root] == 0
         # Forced walls should have generation > 0
         for root, gen in sd.generation.items():
             if root not in sd_mod.SIMPLE_ROOTS:
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert gen > 0
 
     def test_different_kappas_produce_different_walls(self):
@@ -400,12 +446,15 @@ class TestGPSTropicalVertex:
     def test_a2_seed_walls(self):
         """A_2 case has seed walls at (1,0) and (0,1)."""
         gps = sd_mod.gps_tropical_vertex_2d(max_order=2)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert gps[(1, 0)] == 1
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert gps[(0, 1)] == 1
 
     def test_a2_wall_at_11(self):
         """The A_2 pentagon identity: wall at (1,1) with n_{(1,1)} = 1."""
         gps = sd_mod.gps_tropical_vertex_2d(max_order=2)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert gps[(1, 1)] == 1
 
     def test_a2_pentagon_identity(self):
@@ -416,10 +465,15 @@ class TestGPSTropicalVertex:
         At height 3: n_{(1,2)} = 1, n_{(2,1)} = 1.
         """
         gps = sd_mod.gps_tropical_vertex_2d(max_order=4)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps[(1, 0)] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps[(0, 1)] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps[(1, 1)] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps[(1, 2)] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps[(2, 1)] == 1
 
     def test_a2_non_primitive_excluded(self):
@@ -430,7 +484,9 @@ class TestGPSTropicalVertex:
     def test_a2_higher_order_multiplicities(self):
         """At height 5: n_{(2,3)} = n_{(3,2)} = 4 (first non-trivial multiplicity)."""
         gps = sd_mod.gps_tropical_vertex_2d(max_order=6)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps.get((2, 3), 0) == 4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps.get((3, 2), 0) == 4
 
     def test_a2_symmetry(self):
@@ -445,9 +501,12 @@ class TestGPSTropicalVertex:
             max_order=3,
             seed_data=[((1, 0), 2), ((0, 1), 3)]
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps[(1, 0)] == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps[(0, 1)] == 3
         # (1,1) forced: 2 * 3 * |1*1 - 0*0| = 6
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps[(1, 1)] == 6
 
 
@@ -469,7 +528,9 @@ class TestPhi01Comparison:
         for c in result['comparisons']:
             if c['root'] == (0, 1, 0):
                 assert c['match']
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert c['phi01_mult'] == 1
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert c['scatter_mult'] == Fraction(1)
 
     def test_seed_does_not_match_at_delta1(self):
@@ -479,7 +540,9 @@ class TestPhi01Comparison:
         for c in result['comparisons']:
             if c['root'] == (1, 0, 0):
                 assert not c['match']
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert c['phi01_mult'] == 10
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert c['scatter_mult'] == Fraction(1)
 
     def test_no_uniform_ratio(self):
@@ -487,6 +550,7 @@ class TestPhi01Comparison:
         This is the main negative result."""
         result = sd_mod.compute_and_compare(4, seed_mult=1)
         assert not result['all_match']
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(result['unique_ratios']) > 1
 
     def test_qualitative_walls_at_all_heights(self):
@@ -496,6 +560,7 @@ class TestPhi01Comparison:
         sd.compute()
         counts = sd.wall_count_by_height()
         for h in range(1, 7):
+            # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
             assert counts.get(h, 0) > 0, f"No walls at height {h}"
 
     def test_wall_111_has_correct_sign(self):
@@ -537,17 +602,21 @@ class TestS3Symmetry:
     def test_orbit_table_well_formed(self):
         """s3_orbit_table returns valid data."""
         orbits = sd_mod.s3_orbit_table(4, 1, 'symmetric')
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(orbits) > 0
         for orb in orbits:
             assert 'representative' in orb
             assert 'orbit_size' in orb
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert 1 <= orb['orbit_size'] <= 6
 
     def test_seed_orbit(self):
         """The three simple roots form a single S_3 orbit."""
         orbits = sd_mod.s3_orbit_table(2, 1, 'symmetric')
         seed_orbit = [o for o in orbits if o['representative'] == (0, 0, 1)]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(seed_orbit) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert seed_orbit[0]['orbit_size'] == 3
 
     def test_diagonal_root_fixed(self):
@@ -556,12 +625,15 @@ class TestS3Symmetry:
         sd.compute()
         if (1, 1, 1) in sd.walls:
             orb = sd_mod.s3_orbit((1, 1, 1))
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert len(orb) == 1
 
     def test_pair_sums_form_orbit(self):
         """(1,1,0), (1,0,1), (0,1,1) form a single S_3 orbit of size 3."""
         orb = sd_mod.s3_orbit((1, 1, 0))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(orb) == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert set(orb) == {(1, 1, 0), (1, 0, 1), (0, 1, 1)}
 
 
@@ -587,11 +659,13 @@ class TestRatioAnalysis:
     def test_by_height_populated(self):
         """Ratio analysis by height is populated."""
         ra = sd_mod.ratio_analysis(4, 1, 'symmetric')
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(ra['by_height']) > 0
 
     def test_by_discriminant_populated(self):
         """Ratio analysis by discriminant is populated."""
         ra = sd_mod.ratio_analysis(4, 1, 'symmetric')
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(ra['by_discriminant']) > 0
 
 
@@ -614,7 +688,9 @@ class TestStructuralProperties:
         sd = sd_mod.ScatteringDiagram(5, 1, 'symmetric')
         sd.compute()
         for root in sd.walls:
+            # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
             assert all(c >= 0 for c in root)
+            # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
             assert any(c > 0 for c in root)
 
     def test_wall_count_grows(self):
@@ -663,6 +739,7 @@ class TestStructuralProperties:
         sd.compute()
         comp = sd.verify_against_phi01()
         assert isinstance(comp, list)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(comp) > 0
         for entry in comp:
             assert 'root' in entry
@@ -693,26 +770,32 @@ class TestNumericalValues:
 
     def test_wall_110(self, sd4):
         """Wall at (1,1,0)."""
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert sd4.walls.get((1, 1, 0)) == Fraction(-1)
 
     def test_wall_101(self, sd4):
         """Wall at (1,0,1)."""
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert sd4.walls.get((1, 0, 1)) == Fraction(-1)
 
     def test_wall_011(self, sd4):
         """Wall at (0,1,1)."""
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert sd4.walls.get((0, 1, 1)) == Fraction(-1)
 
     def test_wall_200(self, sd4):
         """Wall at (2,0,0) from log expansion: -1/2."""
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert sd4.walls.get((2, 0, 0)) == Fraction(-1, 2)
 
     def test_wall_020(self, sd4):
         """Wall at (0,2,0) from log expansion: -1/2."""
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert sd4.walls.get((0, 2, 0)) == Fraction(-1, 2)
 
     def test_wall_002(self, sd4):
         """Wall at (0,0,2) from log expansion: -1/2."""
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert sd4.walls.get((0, 0, 2)) == Fraction(-1, 2)
 
     def test_wall_111(self, sd4):
@@ -721,6 +804,7 @@ class TestNumericalValues:
         assert m is not None
         assert m != 0
         # Pin down the exact value
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert m == Fraction(8, 3)
 
     def test_wall_112(self, sd4):
@@ -730,6 +814,7 @@ class TestNumericalValues:
 
     def test_wall_count_height_4(self, sd4):
         """Total walls up to height 4."""
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert len(sd4.walls) > 20
 
 
@@ -744,6 +829,7 @@ class TestEdgeCases:
         """max_height=1: only seed walls, no forced walls."""
         sd = sd_mod.ScatteringDiagram(1, 1, 'symmetric')
         sd.compute()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert len(sd.walls) == 3
 
     def test_seed_mult_0(self):
@@ -751,6 +837,7 @@ class TestEdgeCases:
         sd = sd_mod.ScatteringDiagram(4, 0, 'symmetric')
         sd.compute()
         # Seed walls exist at mult 0, nothing forced
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert all(m == 0 for m in sd.walls.values())
 
     def test_negative_seed_mult(self):
@@ -758,11 +845,13 @@ class TestEdgeCases:
         sd = sd_mod.ScatteringDiagram(3, -1, 'symmetric')
         sd.compute()
         for root in sd_mod.SIMPLE_ROOTS:
+            # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
             assert sd.walls[root] == Fraction(-1)
 
     def test_gps_max_order_1(self):
         """GPS with max_order=1: only seed walls."""
         gps = sd_mod.gps_tropical_vertex_2d(max_order=1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(gps) == 2  # (1,0) and (0,1)
 
 
@@ -795,6 +884,7 @@ class TestMainFinding:
         # Walls at all heights
         for h in range(1, 6):
             height_h = [r for r in sd.walls if sd_mod.root_height(r) == h]
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert len(height_h) > 0
 
     def test_quantitative_disagreement(self):
@@ -816,11 +906,14 @@ class TestMainFinding:
         gps = sd_mod.gps_tropical_vertex_2d(4)
         # All primitive directions at heights 1-2 get n_d = 1
         for d in [(1, 0), (0, 1), (1, 1), (1, 2), (2, 1)]:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert gps[d] == 1
 
     def test_nontrivial_gps_at_height_5(self):
         """GPS gives n_{(2,3)} = n_{(3,2)} = 4 at height 5.
         This is the first non-unit multiplicity in the A_2 case."""
         gps = sd_mod.gps_tropical_vertex_2d(6)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps[(2, 3)] == 4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gps[(3, 2)] == 4

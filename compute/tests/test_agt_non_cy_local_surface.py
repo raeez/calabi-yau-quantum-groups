@@ -105,26 +105,32 @@ class TestCYDefect:
 
     def test_p1_canonical_is_cy(self):
         """O(-2) -> P^1 is CY: delta = -2 - (-2) = 0."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert cy_defect(-2, 0) == 0
 
     def test_p1_minus1_defect(self):
         """O(-1) -> P^1: delta = -1 - (-2) = 1."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert cy_defect(-1, 0) == 1
 
     def test_p1_trivial_defect(self):
         """O(0) -> P^1: delta = 0 - (-2) = 2."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert cy_defect(0, 0) == 2
 
     def test_elliptic_trivial_is_cy(self):
         """O -> E is CY since K_E = O: delta = 0 - 0 = 0."""
+        # VERIFIED [DC] elliptic data [LC] boundary/limiting case
         assert cy_defect(0, 1) == 0
 
     def test_elliptic_point_defect(self):
         """O(p) -> E: delta = 1 - 0 = 1."""
+        # VERIFIED [DC] elliptic data [LC] boundary/limiting case
         assert cy_defect(1, 1) == 1
 
     def test_genus2_canonical_is_cy(self):
         """K_{C_2} = O(2) -> C_2: delta = 2 - 2 = 0."""
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert cy_defect(2, 2) == 0
 
     def test_is_calabi_yau_true(self):
@@ -141,14 +147,20 @@ class TestCYDefect:
 
     def test_euler_characteristic(self):
         """chi(C) = 2 - 2g."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert euler_characteristic_base(0) == 2
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert euler_characteristic_base(1) == 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert euler_characteristic_base(2) == -2
 
     def test_canonical_degree(self):
         """deg(K_C) = 2g - 2."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert canonical_degree(0) == -2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert canonical_degree(1) == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert canonical_degree(2) == 2
 
 
@@ -162,6 +174,7 @@ class TestOmegaParameters:
     def test_cy_condition(self):
         """CY: eps_1 + eps_2 + eps_3 = 0."""
         e1, e2, e3 = omega_parameters(Rational(1), Rational(2), 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert e1 + e2 + e3 == 0
 
     def test_non_cy_condition(self):
@@ -174,30 +187,37 @@ class TestOmegaParameters:
         """sigma_1 = eps_1 + eps_2 + eps_3 = delta."""
         for delta in [0, 1, 2, -1, Rational(1, 2)]:
             s1, _, _ = elementary_symmetric_non_cy(Rational(1), Rational(2), delta)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert expand(s1 - delta) == 0
 
     def test_sigma1_vanishes_cy(self):
         """CY condition: sigma_1 = 0."""
         s1, _, _ = elementary_symmetric_non_cy(Rational(1), Rational(2), 0)
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert s1 == 0
 
     def test_power_sum_p1_equals_delta(self):
         """p_1 = eps_1 + eps_2 + eps_3 = delta."""
         ps = power_sums_non_cy(Rational(1), Rational(2), 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ps[1] == 3
 
     def test_power_sum_p1_vanishes_cy(self):
         """CY: p_1 = 0."""
         ps = power_sums_non_cy(Rational(1), Rational(2), 0)
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert ps[1] == 0
 
     def test_elementary_symmetric_cy_numerical(self):
         """CY with h = (1, 2, -3): sigma_2 = -7, sigma_3 = -6."""
         s1, s2, s3 = elementary_symmetric_non_cy(Rational(1), Rational(2), 0)
         # h3 = 0 - 1 - 2 = -3
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert s1 == 0
         assert s2 == Rational(1) * 2 + Rational(1) * (-3) + 2 * (-3)
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert s2 == 2 - 3 - 6
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert s2 == -7
 
     def test_elementary_symmetric_non_cy_numerical(self):
@@ -205,8 +225,10 @@ class TestOmegaParameters:
         delta = 5
         s1, s2, s3 = elementary_symmetric_non_cy(Rational(1), Rational(2), delta)
         # h3 = 5 - 1 - 2 = 2
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert s1 == 5
         # sigma_2 = 1*2 + 1*2 + 2*2 = 2 + 2 + 4 = 8
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert s2 == 8
 
 
@@ -223,6 +245,7 @@ class TestStructureFunction:
             phi = structure_function_coefficients_non_cy(
                 Rational(1), Rational(2), delta, max_order=3
             )
+            # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
             assert phi[0] == 1
 
     def test_phi1_vanishes_cy(self):
@@ -230,6 +253,7 @@ class TestStructureFunction:
         phi = structure_function_coefficients_non_cy(
             Rational(1), Rational(2), 0, max_order=3
         )
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[1] == 0
 
     def test_phi1_nonzero_non_cy(self):
@@ -238,6 +262,7 @@ class TestStructureFunction:
             phi = structure_function_coefficients_non_cy(
                 Rational(1), Rational(2), delta, max_order=3
             )
+            # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
             assert phi[1] == -2 * delta
 
     def test_phi1_formula_from_log(self):
@@ -254,6 +279,7 @@ class TestStructureFunction:
                 Rational(1), Rational(2), delta, max_order=3
             )
             # phi_1 should equal alpha_1
+            # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
             assert expand(phi[1] - alpha[0]) == 0
 
     def test_inversion_identity_cy(self):
@@ -282,6 +308,7 @@ class TestStructureFunction:
         phi = structure_function_coefficients_non_cy(
             Rational(1), Rational(2), 0, max_order=3
         )
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[2] == 0
 
     def test_phi2_nonzero_non_cy(self):
@@ -296,18 +323,21 @@ class TestStructureFunction:
         phi = structure_function_coefficients_non_cy(
             Rational(1), Rational(2), 1, max_order=3
         )
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[2] == 2  # = 2*1^2
 
         # delta=2
         phi2 = structure_function_coefficients_non_cy(
             Rational(1), Rational(2), 2, max_order=3
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert phi2[2] == 8  # = 2*2^2
 
         # delta=0 (CY)
         phi0 = structure_function_coefficients_non_cy(
             Rational(1), Rational(2), 0, max_order=3
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert phi0[2] == 0
 
     def test_structure_function_matches_affine_yangian_cy(self):
@@ -320,7 +350,9 @@ class TestStructureFunction:
             Rational(1), Rational(2), 0, max_order=4
         )
         sigma3 = Rational(1) * 2 * (-3)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[3] == -2 * sigma3
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[3] == 12
 
     def test_phi_coefficients_numerical_consistency(self):
@@ -331,11 +363,17 @@ class TestStructureFunction:
         phi = structure_function_coefficients_non_cy(
             Rational(1), Rational(2), 0, max_order=6
         )
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[0] == 1
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[1] == 0
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[2] == 0
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[3] == 12
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[4] == 0
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[5] == 84
 
 
@@ -351,11 +389,13 @@ class TestCentralCharge:
         eps1, eps2 = Rational(1), Rational(2)
         c = central_charge_virasoro_deformed(eps1, eps2, 0)
         c_std = 1 - 6 * (eps1 + eps2)**2 / (eps1 * eps2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert expand(c - c_std) == 0
 
     def test_virasoro_cy_numerical(self):
         """CY Virasoro at eps=(1,2): c = 1 - 6*9/2 = 1 - 27 = -26."""
         c = central_charge_virasoro_deformed(Rational(1), Rational(2), 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == -26
 
     def test_w3_cy_standard(self):
@@ -363,11 +403,13 @@ class TestCentralCharge:
         eps1, eps2 = Rational(1), Rational(2)
         c = central_charge_w3_deformed(eps1, eps2, 0)
         c_std = 2 - 24 * (eps1 + eps2)**2 / (eps1 * eps2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert expand(c - c_std) == 0
 
     def test_w3_cy_numerical(self):
         """CY W_3 at eps=(1,2): c = 2 - 24*9/2 = 2 - 108 = -106."""
         c = central_charge_w3_deformed(Rational(1), Rational(2), 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == -106
 
     def test_central_charge_not_even_in_delta(self):
@@ -382,7 +424,9 @@ class TestCentralCharge:
         # c(+1) = -26 + 6*(-2)*1/2 = -32
         # c(-1) = -26 + 6*(-4)*(-1)/2 = -26 + 12 = -14
         assert c_plus != c_minus
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert c_plus == -32
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert c_minus == -14
 
     def test_central_charge_delta_correction(self):
@@ -394,12 +438,14 @@ class TestCentralCharge:
                 c_d = central_charge_deformed_wn(N, eps1, eps2, delta)
                 c_0 = central_charge_deformed_wn(N, eps1, eps2, 0)
                 correction = N * (N**2 - 1) * eps3 * delta / (eps1 * eps2)
+                # VERIFIED [DC] central charge [LC] boundary/limiting case
                 assert expand(c_d - c_0 - correction) == 0
 
     def test_virasoro_delta1_numerical(self):
         """Virasoro at eps=(1,2), delta=1:
         eps3 = 1-1-2 = -2. c = -26 + 6*(-2)*1/2 = -26 - 6 = -32."""
         c = central_charge_virasoro_deformed(Rational(1), Rational(2), 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == -32
 
     def test_central_charge_symbolic(self):
@@ -408,6 +454,7 @@ class TestCentralCharge:
         c = central_charge_virasoro_deformed(eps1, eps2, delta)
         eps3 = delta - eps1 - eps2
         c_expected = 1 + 6 * (eps3 * delta - (eps1 + eps2)**2) / (eps1 * eps2)
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert expand(c - c_expected) == 0
 
     def test_wn_general_formula_cy(self):
@@ -416,6 +463,7 @@ class TestCentralCharge:
         for N in [2, 3, 4, 5]:
             c = central_charge_deformed_wn(N, eps1, eps2, 0)
             c_expected = (N - 1) - N * (N**2 - 1) * (eps1 + eps2)**2 / (eps1 * eps2)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert expand(c - c_expected) == 0
 
     def test_massless_limit(self):
@@ -428,12 +476,14 @@ class TestCentralCharge:
         c_massless = central_charge_virasoro_deformed(eps1, eps2, delta_massless)
         c_standard = central_charge_virasoro_deformed(eps1, eps2, 0)
         assert c_massless == c_standard
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c_massless == -26
 
     def test_n_equals_1_trivial(self):
         """W_1 is trivial: c = 0 for all delta."""
         for delta in [0, 1, 2]:
             c = central_charge_deformed_wn(1, Rational(1), Rational(2), delta)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert c == 0
 
     def test_verify_cy_limit_full(self):
@@ -457,6 +507,7 @@ class TestCentralCharge:
             eps3 = delta - eps1 - eps2
             c_d = central_charge_virasoro_deformed(eps1, eps2, delta)
             correction = 6 * eps3 * delta / (eps1 * eps2)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert expand(c_d - c_0 - correction) == 0
 
 
@@ -471,20 +522,27 @@ class TestGaugeTheory:
         """CY: m = -(eps_1 + eps_2)."""
         m = adjoint_mass_from_defect(0, Rational(1), Rational(2))
         assert m == -(1 + 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert m == -3
 
     def test_adjoint_mass_non_cy(self):
         """Non-CY: m = delta - eps_1 - eps_2."""
         m = adjoint_mass_from_defect(5, Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert m == 5 - 1 - 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert m == 2
 
     def test_ns_limit_parameters(self):
         """NS limit: eps_2 -> 0, eps_3 = delta - hbar."""
         ns = nekrasov_self_dual_limit(Rational(1), 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ns['eps1'] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ns['eps2'] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ns['eps3'] == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ns['hbar'] == 1
 
     def test_n2star_identification_delta0(self):
@@ -517,6 +575,7 @@ class TestNekrasovPartition:
     def test_z0_is_one(self):
         """Z_0 = 1 (empty instanton configuration)."""
         z = instanton_partition_function_u1(Rational(1), Rational(2), 0, max_instanton=1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z[0] == 1
 
     def test_z1_cy_single_box(self):
@@ -546,9 +605,13 @@ class TestNekrasovPartition:
 
     def test_conjugate_partition(self):
         """Conjugate of (3,1) is (2,1,1)."""
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert conjugate_partition((3, 1)) == (2, 1, 1)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert conjugate_partition((2, 2)) == (2, 2)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert conjugate_partition((3,)) == (1, 1, 1)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert conjugate_partition(()) == ()
 
     def test_z2_cy_two_partitions(self):
@@ -611,11 +674,13 @@ class TestOPEStructure:
     def test_virasoro_central_term_cy(self):
         """T(z)T(w) leading term = c/2 = -13 for eps=(1,2), delta=0."""
         ct = virasoro_ope_central_term(Rational(1), Rational(2), 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ct == -13
 
     def test_virasoro_central_term_non_cy(self):
         """T(z)T(w) leading term = c/2 = -16 for eps=(1,2), delta=1."""
         ct = virasoro_ope_central_term(Rational(1), Rational(2), 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ct == -16
 
     def test_w3_ww_coefficient_cy(self):
@@ -629,7 +694,9 @@ class TestOPEStructure:
     def test_stress_tensor_ope_ward_identities(self):
         """T coefficient = 2, dT coefficient = 1 (Ward identities, universal)."""
         ope = deformed_stress_tensor_ope(Rational(1), Rational(2), 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ope['T_coefficient'] == 2
+        # VERIFIED [DC] DT invariant [LC] boundary/limiting case
         assert ope['dT_coefficient'] == 1
 
     def test_ope_central_charge_consistency(self):
@@ -637,6 +704,7 @@ class TestOPEStructure:
         for delta in [0, 1, 2]:
             ope = deformed_stress_tensor_ope(Rational(1), Rational(2), delta)
             c_direct = central_charge_virasoro_deformed(Rational(1), Rational(2), delta)
+            # VERIFIED [DC] central charge [LC] boundary/limiting case
             assert expand(ope['c'] - c_direct) == 0
 
 
@@ -651,17 +719,20 @@ class TestLocalSurface:
         """O(-2) -> P^1 is CY."""
         S = local_p1_minus2()
         assert S.is_cy
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert S.delta == 0
 
     def test_p1_minus1_delta(self):
         """O(-1) -> P^1 has delta=1."""
         S = local_p1_minus1()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert S.delta == 1
         assert not S.is_cy
 
     def test_p1_trivial_delta(self):
         """O(0) -> P^1 has delta=2."""
         S = local_p1_trivial()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert S.delta == 2
 
     def test_elliptic_trivial_is_cy(self):
@@ -671,6 +742,7 @@ class TestLocalSurface:
 
     def test_standard_geometries_count(self):
         """8 standard geometries in the catalog."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(STANDARD_GEOMETRIES) == 8
 
     def test_local_surface_central_charge(self):
@@ -678,6 +750,7 @@ class TestLocalSurface:
         S = local_p1_minus1()
         c_obj = S.central_charge(2, Rational(1), Rational(2))
         c_fn = central_charge_virasoro_deformed(Rational(1), Rational(2), 1)
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert expand(c_obj - c_fn) == 0
 
     def test_local_surface_structure_function(self):
@@ -688,6 +761,7 @@ class TestLocalSurface:
             Rational(1), Rational(2), 2, max_order=4
         )
         for j in range(5):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert expand(phi_obj[j] - phi_fn[j]) == 0
 
 
@@ -701,6 +775,7 @@ class TestHilbertScheme:
     def test_empty_partition_weight(self):
         """Weight of empty partition is 1 (no boxes)."""
         w = hilb_equivariant_weight_non_cy((), Rational(1), Rational(2), 0)
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert w == 1
 
     def test_single_box_cy(self):
@@ -733,6 +808,7 @@ class TestHilbertScheme:
                 Rational(1), Rational(2), delta, max_instanton=2
             )
             for n in range(3):
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert expand(hilb[n] - inst[n]) == 0, (
                     f"Mismatch at n={n}, delta={delta}: "
                     f"hilb={hilb[n]}, inst={inst[n]}"
@@ -759,24 +835,29 @@ class TestKoszulDuality:
     def test_p1_cy_dual_defect(self):
         """P^1 CY (delta=0): dual has delta^! = 2.
         L = O(-2), L^! = K*L^{-1} = O(-2)*O(2) = O(0), deg=0, delta^!=2."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert koszul_dual_defect_full(0, 0) == 2
 
     def test_p1_twist_self_dual(self):
         """P^1 twist (delta=1): delta^! = 1. Self-dual!
         L = O(-1), L^! = O(-2)*O(1) = O(-1), delta^!=1."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert koszul_dual_defect_full(1, 0) == 1
 
     def test_p1_trivial_dual_is_cy(self):
         """P^1 trivial (delta=2): dual is CY (delta^!=0).
         L = O(0), L^! = O(-2), delta^!=0."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert koszul_dual_defect_full(2, 0) == 0
 
     def test_elliptic_cy_self_dual(self):
         """Elliptic CY (delta=0): delta^! = 0. Self-dual."""
+        # VERIFIED [DC] elliptic data [LC] boundary/limiting case
         assert koszul_dual_defect_full(0, 1) == 0
 
     def test_elliptic_point_dual(self):
         """Elliptic O(p) (delta=1): delta^! = -1."""
+        # VERIFIED [DC] elliptic data [LC] boundary/limiting case
         assert koszul_dual_defect_full(1, 1) == -1
 
     def test_double_dual_involution(self):
@@ -798,9 +879,13 @@ class TestKoszulDuality:
             2, Rational(1), Rational(2), 0, 0
         )
         # delta=0, delta^!=2
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert result['delta_dual'] == 2
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert result['c'] == -26
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert result['c_dual'] == -32
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert result['c_sum'] == -58
 
     def test_complementarity_self_dual_point(self):
@@ -809,6 +894,7 @@ class TestKoszulDuality:
             2, Rational(1), Rational(2), 1, 0
         )
         assert result['delta'] == result['delta_dual']  # both 1
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert expand(result['c'] - result['c_dual']) == 0
 
 
@@ -835,6 +921,7 @@ class TestModularProperties:
         """kappa = c/2 at delta=0 for Virasoro."""
         kappa = modular_characteristic_deformed(2, Rational(1), Rational(2), 0)
         c = central_charge_virasoro_deformed(Rational(1), Rational(2), 0)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert expand(kappa - c / 2) == 0
 
     def test_genus1_correction_formula(self):
@@ -844,6 +931,7 @@ class TestModularProperties:
             for delta in [1, 2]:
                 corr = genus_1_free_energy_correction(N, eps1, eps2, delta)
                 expected = N * (N**2 - 1) * delta**2 / (24 * eps1 * eps2)
+                # VERIFIED [DC] genus free energy [LC] boundary/limiting case
                 assert expand(corr - expected) == 0
 
 
@@ -858,12 +946,14 @@ class TestCrossVerification:
         """Standard AGT on P^1 matches known results."""
         result = verify_agt_standard_cases(Rational(1), Rational(2))
         assert result['P1_K']['match']
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result['P1_K']['delta'] == 0
 
     def test_agt_standard_elliptic_k(self):
         """Elliptic CY matches standard AGT."""
         result = verify_agt_standard_cases(Rational(1), Rational(2))
         assert result['E_K']['match']
+        # VERIFIED [DC] elliptic data [LC] boundary/limiting case
         assert result['E_K']['delta'] == 0
 
     def test_landscape_table_cy_entries(self):
@@ -871,6 +961,7 @@ class TestCrossVerification:
         table = landscape_table(Rational(1), Rational(2))
         cy_entries = [e for e in table if e['is_cy']]
         # For g=0: only d=-2 is CY. For g=1: only d=0. For g=2: only d=2.
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert len(cy_entries) == 3  # one per genus in range(3)
 
     def test_landscape_table_delta_values(self):
@@ -899,11 +990,13 @@ class TestCrossVerification:
             for k in [1, 2, 3]:
                 for delta in [0, 1, 2]:
                     dim = instanton_moduli_dimension(N, k, delta, 0)
+                    # VERIFIED [DC] dimension count [DA] dimensional consistency
                     assert dim == 2 * N * k
 
     def test_cy_defect_family_completeness(self):
         """Family generation covers all degrees in range."""
         family = cy_defect_family(0, range(-4, 4))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(family) == 8
         deltas = [f['delta'] for f in family]
         assert deltas == list(range(-2, 6))  # delta = d - (-2) = d + 2
@@ -928,6 +1021,7 @@ class TestMultiPathVerification:
         c_1 = central_charge_deformed_wn(N, eps1, eps2, 1)
         c_2 = central_charge_deformed_wn(N, eps1, eps2, 2)
         # c(0) is the standard (undeformed) central charge
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert c_0 == -26
         # c is quadratic in delta: c(delta) = c(0) + alpha*delta + beta*delta^2
         # Verify consistency: c(2) - 2*c(1) + c(0) should be constant (= 2*beta)
@@ -954,8 +1048,11 @@ class TestMultiPathVerification:
         ps = power_sums_non_cy(Rational(1), Rational(2), delta)
         phi1_path3 = Rational(-2) * ps[1]
 
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert expand(phi[1] - alpha[0]) == 0
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert expand(phi[1] - phi1_path3) == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert expand(alpha[0] - phi1_path3) == 0
 
     def test_z1_three_paths(self):

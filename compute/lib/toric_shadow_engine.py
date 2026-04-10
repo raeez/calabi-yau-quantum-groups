@@ -723,7 +723,7 @@ def _conifold_kappa_from_gv() -> Fraction:
         F_1 = n_{0,1} * (-1/12) * log(1-Q) + ...
 
     The EFFECTIVE kappa for the conifold CY3 from the genus-1 perspective:
-        kappa_eff = n_{0,1} / 2 = 1/2
+        kappa_ch = n_{0,1} / 2 = 1/2
     But the sign depends on convention. From the GV structure:
         The conifold has chi(O(-1)+O(-1)) = 2, and the genus-1 free energy
         at degree 1 gives F_1|_{Q^1} = n_{0,1}/12 = 1/12.

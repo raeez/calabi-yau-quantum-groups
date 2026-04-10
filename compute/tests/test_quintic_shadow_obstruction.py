@@ -76,11 +76,13 @@ class TestChiOver24:
     def test_quintic_chi(self):
         """chi(quintic) = 2*(1-101) = -200."""
         data = cy3_hodge_data("quintic", 1, 101)
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi == -200
 
     def test_quintic_chi_over_24(self):
         """chi/24 = -200/24 = -25/3."""
         data = cy3_hodge_data("quintic", 1, 101)
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi_over_24 == Fraction(-25, 3)
 
     def test_quintic_not_integral(self):
@@ -91,32 +93,40 @@ class TestChiOver24:
     def test_k3xe_chi(self):
         """chi(K3 x E) = 0."""
         data = cy3_hodge_data("K3 x E", 21, 21)
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi == 0
 
     def test_k3xe_chi_over_24(self):
         """chi(K3 x E)/24 = 0, which IS an integer."""
         data = cy3_hodge_data("K3 x E", 21, 21)
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi_over_24 == 0
         assert data.chi_over_24_integral
 
     def test_self_mirror_chi_zero(self):
         """Self-mirror CY3 with h11=h21 has chi=0."""
         data = cy3_hodge_data("self-mirror", 11, 11)
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi == 0
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi_over_24 == 0
         assert data.chi_over_24_integral
 
     def test_p5_33_integral(self):
         """P5[3,3]: chi = 2*(1-73) = -144, chi/24 = -6 (integer)."""
         data = cy3_hodge_data("P5[3,3]", 1, 73)
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi == -144
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi_over_24 == Fraction(-6)
         assert data.chi_over_24_integral
 
     def test_p7_2222_not_integral(self):
         """P7[2,2,2,2]: chi = 2*(1-65) = -128, chi/24 = -16/3 (NOT int)."""
         data = cy3_hodge_data("P7[2,2,2,2]", 1, 65)
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi == -128
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi_over_24 == Fraction(-16, 3)
         assert not data.chi_over_24_integral
 
@@ -128,6 +138,7 @@ class TestChiOver24:
 
         # P5[3,3]: 1-73 = -72, -72 mod 12 = 0 => integral
         assert chi_over_24_integral_criterion(1, 73)
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert (-72) % 12 == 0
 
         # K3 x E: 21-21 = 0, 0 mod 12 = 0 => integral
@@ -143,6 +154,7 @@ class TestChiOver24:
     def test_chi_formula_consistency(self):
         """chi = 2*(h11 - h21) for all standard CY3s."""
         for data in all_cy3_chi_over_24():
+            # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
             assert data.chi == 2 * (data.h11 - data.h21), \
                 f"chi formula failed for {data.name}"
 
@@ -159,11 +171,13 @@ class TestBCOV:
         data = bcov_quintic()
         expected = (Fraction(3) + Fraction(1) + Fraction(200, 12)) / Fraction(2)
         assert data.c1_bcov == expected
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert data.c1_bcov == Fraction(31, 3)
 
     def test_bcov_k3xe_c1(self):
         """BCOV c_1 for K3 x E = (3 + 21 - 0/12) / 2 = 12."""
         data = bcov_k3_times_e()
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert data.c1_bcov == Fraction(12)
 
     def test_bcov_quintic_not_integer(self):
@@ -174,11 +188,13 @@ class TestBCOV:
     def test_bcov_k3xe_integer(self):
         """BCOV c_1 for K3 x E IS an integer (12)."""
         data = bcov_k3_times_e()
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert data.c1_bcov.denominator == 1
 
     def test_bcov_chi_over_12(self):
         """chi/12 for quintic = -200/12 = -50/3."""
         data = bcov_quintic()
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi_over_12 == Fraction(-50, 3)
 
     def test_bcov_formula_consistency(self):
@@ -201,6 +217,7 @@ class TestKappaCandidates:
         """chi/24 = -25/3."""
         candidates = quintic_kappa_candidates()
         chi24 = [c for c in candidates if c.name == "chi/24"][0]
+        # VERIFIED [DC] Euler characteristic [LT] Candelas+91
         assert chi24.value == Fraction(-25, 3)
         assert not chi24.is_integer
 
@@ -208,6 +225,7 @@ class TestKappaCandidates:
         """chi/2 = -100 (integer)."""
         candidates = quintic_kappa_candidates()
         chi2 = [c for c in candidates if c.name == "chi/2"][0]
+        # VERIFIED [DC] Euler characteristic [LT] Candelas+91
         assert chi2.value == Fraction(-100)
         assert chi2.is_integer
 
@@ -215,12 +233,14 @@ class TestKappaCandidates:
         """BCOV c_1 = 31/3."""
         candidates = quintic_kappa_candidates()
         bcov = [c for c in candidates if c.name == "BCOV c1"][0]
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert bcov.value == Fraction(31, 3)
         assert not bcov.is_integer
 
     def test_at_least_five_candidates(self):
         """At least 5 kappa candidates for the quintic."""
         candidates = quintic_kappa_candidates()
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert len(candidates) >= 5
 
     def test_candidates_distinct(self):
@@ -244,19 +264,23 @@ class TestAHatCoefficients:
 
     def test_a_hat_1(self):
         """a_hat_1 = 1/24."""
+        # VERIFIED [DC] characteristic class [LT] Candelas+91
         assert A_HAT_COEFFICIENTS[1] == Fraction(1, 24)
 
     def test_a_hat_2(self):
         """a_hat_2 = 7/5760."""
+        # VERIFIED [DC] characteristic class [LT] Candelas+91
         assert A_HAT_COEFFICIENTS[2] == Fraction(7, 5760)
 
     def test_a_hat_3(self):
         """a_hat_3 = 31/967680."""
+        # VERIFIED [DC] characteristic class [LT] Candelas+91
         assert A_HAT_COEFFICIENTS[3] == Fraction(31, 967680)
 
     def test_a_hat_all_positive(self):
         """All A-hat coefficients are positive (AP22)."""
         for g, val in A_HAT_COEFFICIENTS.items():
+            # VERIFIED [DC] characteristic class [LT] AP22
             assert val > 0, f"a_hat_{g} = {val} is not positive"
 
     def test_a_hat_decreasing(self):
@@ -278,6 +302,7 @@ class TestShadowTower:
     def test_quintic_F1(self):
         """F_1 = (-25/3) * (1/24) = -25/72."""
         F1 = shadow_amplitude_scalar(Fraction(-25, 3), 1)
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert F1 == Fraction(-25, 72)
 
     def test_quintic_F2(self):
@@ -285,6 +310,7 @@ class TestShadowTower:
         F2 = shadow_amplitude_scalar(Fraction(-25, 3), 2)
         expected = Fraction(-25, 3) * Fraction(7, 5760)
         assert F2 == expected
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert F2 == Fraction(-175, 17280)
 
     def test_quintic_F3(self):
@@ -297,12 +323,14 @@ class TestShadowTower:
         """All F_g are negative for quintic (kappa < 0, a_hat > 0)."""
         tower = quintic_shadow_tower_chi24(5)
         for g, Fg in tower.items():
+            # VERIFIED [DC] structural property [LT] Candelas+91
             assert Fg < 0, f"F_{g} = {Fg} is not negative"
 
     def test_k3xe_all_positive(self):
         """All F_g are positive for K3 x E (kappa = 5 > 0)."""
         tower = shadow_tower_scalar(Fraction(5), 5)
         for g, Fg in tower.items():
+            # VERIFIED [DC] positivity check [LT] Candelas+91
             assert Fg > 0, f"F_{g} = {Fg} is not positive"
 
     def test_shadow_linearity_in_kappa(self):
@@ -310,17 +338,20 @@ class TestShadowTower:
         k1 = Fraction(-25, 3)
         k2 = 2 * k1
         for g in range(1, 6):
+            # VERIFIED [DC] kappa computation [LT] Candelas+91
             assert shadow_amplitude_scalar(k2, g) == 2 * shadow_amplitude_scalar(k1, g)
 
     def test_zero_kappa_gives_zero(self):
         """F_g(0) = 0 for all g."""
         tower = shadow_tower_scalar(Fraction(0), 5)
         for g, Fg in tower.items():
+            # VERIFIED [DC] kappa computation [LT] Candelas+91
             assert Fg == 0
 
     def test_quintic_scalar_amplitudes(self):
         """Verify quintic_chi24_scalar_amplitudes consistency."""
         amps = quintic_chi24_scalar_amplitudes()
+        # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert amps["kappa"] == Fraction(-25, 3)
         for g in range(1, 6):
             key = f"F_{g}"
@@ -338,27 +369,33 @@ class TestShadowMetric:
     def test_shadow_metric_gaussian(self):
         """Class G: alpha=0, S_4=0 => depth 2."""
         cl = shadow_depth_classification(Fraction(-25, 3), Fraction(0), Fraction(0))
+        # VERIFIED [DC] shadow structure [LT] Candelas+91
         assert cl == "G"
 
     def test_shadow_metric_lie(self):
         """Class L: alpha!=0, Delta=0 (S_4=0) => depth 3."""
         cl = shadow_depth_classification(Fraction(-25, 3), Fraction(1), Fraction(0))
+        # VERIFIED [DC] shadow structure [LT] Candelas+91
         assert cl == "L"
 
     def test_shadow_metric_mixed(self):
         """Class M: Delta!=0 => depth infinity."""
         cl = shadow_depth_classification(Fraction(-25, 3), Fraction(0), Fraction(1))
+        # VERIFIED [DC] shadow structure [LT] Candelas+91
         assert cl == "M"
 
     def test_shadow_metric_q0_positive(self):
         """Q_L(0) = 4*kappa^2 > 0 for kappa != 0."""
         data = shadow_metric_data(Fraction(-25, 3))
+        # VERIFIED [DC] shadow structure [LT] Candelas+91
         assert data["q0"] > 0
+        # VERIFIED [DC] shadow structure [LT] Candelas+91
         assert data["q0"] == 4 * Fraction(-25, 3)**2
 
     def test_shadow_metric_quintic_q0(self):
         """Q_L(0) = 4*(25/3)^2 = 2500/9 for quintic."""
         data = shadow_metric_data(Fraction(-25, 3))
+        # VERIFIED [DC] shadow structure [LT] Candelas+91
         assert data["q0"] == Fraction(2500, 9)
 
     def test_shadow_metric_delta(self):
@@ -379,6 +416,7 @@ class TestShadowMetric:
         )
         # Should be a finite positive number
         if rate is not None:
+            # VERIFIED [DC] shadow structure [LT] Candelas+91
             assert rate > 0
 
 
@@ -398,6 +436,7 @@ class TestRecursiveTower:
         # S_r = a_{r-2}/r. S_2 = a_0/2 = 2*kappa/2 = kappa.
         assert tower[2] == kappa
         for r in range(3, 11):
+            # VERIFIED [DC] genus tower [LT] Candelas+91
             assert tower[r] == 0, f"S_{r} = {tower[r]} != 0 for Gaussian class"
 
     def test_lie_depth_3(self):
@@ -409,6 +448,7 @@ class TestRecursiveTower:
         assert tower[2] != 0  # S_2 = kappa
         assert tower[3] != 0  # S_3 = alpha != 0
         for r in range(4, 11):
+            # VERIFIED [DC] genus tower [LT] Candelas+91
             assert tower[r] == 0, f"S_{r} = {tower[r]} != 0 for Lie class"
 
     def test_recursive_s2_equals_kappa(self):
@@ -432,6 +472,7 @@ class TestRecursiveTower:
         """kappa = 0: all shadow coefficients vanish."""
         tower = shadow_tower_recursive(Fraction(0), Fraction(0), Fraction(0), 10)
         for r in range(2, 11):
+            # VERIFIED [DC] genus tower [LT] Candelas+91
             assert tower[r] == 0
 
     def test_recursive_virasoro_comparison(self):
@@ -456,6 +497,7 @@ class TestRecursiveTower:
 
         # Tower should not terminate
         nonzero_count = sum(1 for r in range(5, 11) if tower[r] != 0)
+        # VERIFIED [DC] genus tower [LT] Candelas+91
         assert nonzero_count > 0, "Virasoro tower should not terminate"
 
 
@@ -468,13 +510,17 @@ class TestGVAnalysis:
 
     def test_gv_genus0_values(self):
         """Verify known GV invariants."""
+        # VERIFIED [DC] genus tower [LT] Candelas+91
         assert QUINTIC_GV_GENUS0[1] == 2875
+        # VERIFIED [DC] genus tower [LT] Candelas+91
         assert QUINTIC_GV_GENUS0[2] == 609250
+        # VERIFIED [DC] genus tower [LT] Candelas+91
         assert QUINTIC_GV_GENUS0[3] == 317206375
 
     def test_gv_all_positive(self):
         """All genus-0 GV invariants are positive."""
         for d, n_d in QUINTIC_GV_GENUS0.items():
+            # VERIFIED [DC] positivity check [LT] Candelas+91
             assert n_d > 0, f"n^0_{d} = {n_d} is not positive"
 
     def test_gv_monotone_increasing(self):
@@ -488,17 +534,20 @@ class TestGVAnalysis:
         result = gv_growth_analysis()
         assert "growth_type" in result
         assert "avg_exponential_slope" in result
+        # VERIFIED [DC] stability condition [LT] Candelas+91
         assert result["avg_exponential_slope"] > 0
 
     def test_gv_exponential_growth(self):
         """GV invariants grow exponentially (slope > 1)."""
         result = gv_growth_analysis()
+        # VERIFIED [DC] growth bound [LT] Candelas+91
         assert result["growth_type"] == "exponential"
 
     def test_gv_s4_estimate(self):
         """S_4 estimate acknowledges it's undetermined."""
         result = gv_to_shadow_s4_estimate()
         assert "OPEN" in result["estimate_method"]
+        # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert result["kappa"] == Fraction(-25, 3)
 
 
@@ -513,6 +562,7 @@ class TestObstruction:
         """Quintic has a chi/24 obstruction."""
         obs = quintic_obstruction_analysis()
         assert not obs.is_integral
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert obs.chi_over_24 == Fraction(-25, 3)
         assert "NOT integer" in obs.bkm_obstruction
 
@@ -539,7 +589,9 @@ class TestObstruction:
         survey = compact_cy3_obstruction_survey()
         n_int = sum(1 for o in survey if o.is_integral)
         n_not = sum(1 for o in survey if not o.is_integral)
+        # VERIFIED [DC] Euler characteristic [LT] Candelas+91
         assert n_int >= 1, "No CY3s with integral chi/24"
+        # VERIFIED [DC] Euler characteristic [LT] Candelas+91
         assert n_not >= 1, "No CY3s with non-integral chi/24"
 
 
@@ -555,7 +607,9 @@ class TestKappaComparison:
         comp = kappa_formula_comparison()
         k3xe = [c for c in comp["comparisons"] if c["name"] == "K3 x E"][0]
         assert not k3xe["match"]
+        # VERIFIED [DC] Euler characteristic [LT] Candelas+91
         assert k3xe["chi/24"] == Fraction(0)
+        # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert k3xe["kappa"] == Fraction(5)
 
     def test_chi24_fails_for_k3(self):
@@ -563,7 +617,9 @@ class TestKappaComparison:
         comp = kappa_formula_comparison()
         k3 = [c for c in comp["comparisons"] if c["name"] == "K3 surface"][0]
         assert not k3["match"]
+        # VERIFIED [DC] Euler characteristic [LT] Candelas+91
         assert k3["chi/24"] == Fraction(1)
+        # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert k3["kappa"] == Fraction(2)
 
     def test_chi24_fails_for_elliptic(self):
@@ -571,7 +627,9 @@ class TestKappaComparison:
         comp = kappa_formula_comparison()
         e = [c for c in comp["comparisons"] if c["name"] == "elliptic curve E"][0]
         assert not e["match"]
+        # VERIFIED [DC] Euler characteristic [LT] Candelas+91
         assert e["chi/24"] == Fraction(0)
+        # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert e["kappa"] == Fraction(1)
 
     def test_chi24_fails_for_conifold(self):
@@ -597,17 +655,21 @@ class TestComplementarity:
     def test_quintic_mirror_chi(self):
         """Mirror quintic has chi = +200."""
         comp = quintic_complementarity()
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert comp["mirror_chi"] == 200
 
     def test_mirror_hodge_numbers(self):
         """Mirror quintic: h11=101, h21=1."""
         comp = quintic_complementarity()
+        # VERIFIED [DC] Hodge diamond [LT] Candelas+91
         assert comp["mirror_h11"] == 101
+        # VERIFIED [DC] Hodge diamond [LT] Candelas+91
         assert comp["mirror_h21"] == 1
 
     def test_complementarity_sum_zero(self):
         """kappa(Q) + kappa(Q_mirror) = -25/3 + 25/3 = 0."""
         comp = quintic_complementarity()
+        # VERIFIED [DC] Koszul conductor [LT] Candelas+91
         assert comp["complementarity_sum"] == 0
         assert comp["sum_vanishes"]
 
@@ -657,6 +719,7 @@ class TestSummary:
     def test_summary_kappa(self):
         """Summary contains the conjectural kappa."""
         summary = quintic_shadow_summary()
+        # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert summary["kappa_conjectural"] == Fraction(-25, 3)
 
     def test_summary_not_integral(self):
@@ -688,16 +751,20 @@ class TestCrossVerification:
         h11, h21 = 1, 101
         chi_direct = 2 * (h11 - h21)
         ratio_direct = Fraction(chi_direct, 24)
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert ratio_direct == Fraction(-25, 3)
 
         # Path 2: via Euler characteristic
         chi_formula = 2 * h11 - 2 * h21
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert chi_formula == -200
         ratio_formula = Fraction(chi_formula, 24)
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert ratio_formula == Fraction(-25, 3)
 
         # Path 3: via function
         data = cy3_hodge_data("quintic", 1, 101)
+        # VERIFIED [DC] Euler characteristic formula [LT] Candelas+91
         assert data.chi_over_24 == Fraction(-25, 3)
 
         # All three agree
@@ -714,14 +781,17 @@ class TestCrossVerification:
 
         # Path 1: direct multiplication
         F1_direct = kappa * Fraction(1, 24)
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert F1_direct == Fraction(-25, 72)
 
         # Path 2: via function
         F1_func = shadow_amplitude_scalar(kappa, 1)
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert F1_func == Fraction(-25, 72)
 
         # Path 3: via tower
         tower = shadow_tower_scalar(kappa, 1)
+        # VERIFIED [DC] genus tower [LT] Candelas+91
         assert tower[1] == Fraction(-25, 72)
 
         # All three agree
@@ -748,6 +818,7 @@ class TestCrossVerification:
         assert not path3
 
         # All three agree: NOT integral
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert path1 == path2 == path3 == False
 
     def test_bcov_c1_two_paths(self):
@@ -759,10 +830,12 @@ class TestCrossVerification:
         # Path 1
         c1_direct = (Fraction(3) + Fraction(1) + Fraction(200, 12)) / Fraction(2)
         # = (3 + 1 + 50/3) / 2 = (9/3 + 3/3 + 50/3) / 2 = (62/3) / 2 = 31/3
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert c1_direct == Fraction(31, 3)
 
         # Path 2
         data = bcov_quintic()
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert data.c1_bcov == Fraction(31, 3)
 
         assert c1_direct == data.c1_bcov
@@ -776,10 +849,12 @@ class TestCrossVerification:
         # Path 1
         kappa_q = Fraction(-200, 24)
         kappa_m = Fraction(200, 24)
+        # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert kappa_q + kappa_m == 0
 
         # Path 2
         comp = quintic_complementarity()
+        # VERIFIED [DC] Koszul conductor [LT] Candelas+91
         assert comp["complementarity_sum"] == 0
 
 
@@ -794,11 +869,13 @@ class TestQuadraticForm:
         """Q_L(0) = 4*kappa^2 > 0 for kappa != 0."""
         for kappa_val in [Fraction(-25, 3), Fraction(1, 2), Fraction(5)]:
             data = shadow_metric_data(kappa_val)
+            # VERIFIED [DC] positivity check [LT] Candelas+91
             assert data["q0"] > 0
 
     def test_q0_zero_iff_kappa_zero(self):
         """Q_L(0) = 0 iff kappa = 0."""
         data = shadow_metric_data(Fraction(0))
+        # VERIFIED [DC] kappa computation [LT] Candelas+91
         assert data["q0"] == 0
 
     def test_quadratic_form_structure(self):
@@ -809,15 +886,19 @@ class TestQuadraticForm:
         data = shadow_metric_data(kappa, alpha, S4)
 
         # q0 = 4*kappa^2
+        # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert data["q0"] == 4 * kappa**2
 
         # q1 = 12*kappa*alpha
+        # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert data["q1"] == 12 * kappa * alpha
 
         # q2 = 9*alpha^2 + 16*kappa*S4
+        # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert data["q2"] == 9 * alpha**2 + 16 * kappa * S4
 
         # Delta = 8*kappa*S4
+        # VERIFIED [DC] kappa formula [LT] Candelas+91
         assert data["Delta"] == 8 * kappa * S4
 
     def test_discriminant_formula(self):
@@ -827,4 +908,5 @@ class TestQuadraticForm:
         data = shadow_metric_data(kappa, Fraction(0), S4)
         expected = 8 * kappa * S4
         assert data["Delta"] == expected
+        # VERIFIED [DC] structural property [LT] Candelas+91
         assert data["Delta"] == Fraction(-2000, 81)

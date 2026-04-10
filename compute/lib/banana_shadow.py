@@ -634,7 +634,7 @@ class CY3Comparison(NamedTuple):
     chi: int
     h11: int
     h21: int
-    kappa_naive: Fraction
+    kappa_fiber: Fraction
     shadow_class: str
     has_nonzero_quartic: bool
 
@@ -649,35 +649,35 @@ def cy3_comparison_table() -> List[CY3Comparison]:
         CY3Comparison(
             name="quintic",
             chi=-200, h11=1, h21=101,
-            kappa_naive=Fraction(-200, 24),
+            kappa_fiber=Fraction(-200, 24),
             shadow_class="M",
             has_nonzero_quartic=True,
         ),
         CY3Comparison(
             name="K3 x E",
             chi=0, h11=21, h21=21,
-            kappa_naive=Fraction(0),
+            kappa_fiber=Fraction(0),
             shadow_class="M",
             has_nonzero_quartic=True,
         ),
         CY3Comparison(
             name="banana",
             chi=0, h11=2, h21=2,
-            kappa_naive=Fraction(0),
+            kappa_fiber=Fraction(0),
             shadow_class="M",
             has_nonzero_quartic=True,
         ),
         CY3Comparison(
             name="abelian 3-fold (E^3)",
             chi=0, h11=9, h21=9,
-            kappa_naive=Fraction(0),
+            kappa_fiber=Fraction(0),
             shadow_class="G",
             has_nonzero_quartic=False,
         ),
         CY3Comparison(
             name="resolved conifold",
             chi=2, h11=1, h21=0,
-            kappa_naive=Fraction(2, 24),
+            kappa_fiber=Fraction(2, 24),
             shadow_class="G",
             has_nonzero_quartic=False,
         ),
@@ -861,21 +861,21 @@ def ap31_comparison() -> Dict[str, Dict[str, Any]]:
     return {
         "banana": {
             "chi_top": 0,
-            "kappa_naive_chi24": Fraction(0),
+            "kappa_fiber_chi24": Fraction(0),
             "kappa_actual": Fraction(0),  # from BCOV; to be verified
             "shadow_class": "M",
             "ap31_relevant": True,
         },
         "K3xE": {
             "chi_top": 0,
-            "kappa_naive_chi24": Fraction(0),
+            "kappa_fiber_chi24": Fraction(0),
             "kappa_actual": Fraction(5),  # from Borcherds product
             "shadow_class": "M",
             "ap31_relevant": False,  # kappa != 0
         },
         "E3": {
             "chi_top": 0,
-            "kappa_naive_chi24": Fraction(0),
+            "kappa_fiber_chi24": Fraction(0),
             "kappa_actual": Fraction(3),  # rank-3 Heisenberg
             "shadow_class": "G",
             "ap31_relevant": False,  # kappa != 0
@@ -1149,7 +1149,7 @@ def verify_all() -> Dict[str, Any]:
     results["hodge_symmetries"] = verify_hodge_symmetries()
 
     # Kappa
-    results["kappa_naive"] = banana_kappa_naive()
+    results["kappa_fiber"] = banana_kappa_naive()
     results["kappa_bcov"] = banana_kappa_bcov()
 
     # GV invariants

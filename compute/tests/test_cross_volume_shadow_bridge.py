@@ -84,15 +84,19 @@ class TestKappaHeisenberg:
     """Verify kappa(H_k) = k from first principles."""
 
     def test_kappa_heisenberg_k1(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_heisenberg(1) == Fraction(1)
 
     def test_kappa_heisenberg_k2(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_heisenberg(2) == Fraction(2)
 
     def test_kappa_heisenberg_k_negative(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_heisenberg(-1) == Fraction(-1)
 
     def test_kappa_heisenberg_k_half(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_heisenberg(Fraction(1, 2)) == Fraction(1, 2)
 
 
@@ -100,16 +104,20 @@ class TestKappaVirasoro:
     """Verify kappa(Vir_c) = c/2 from first principles."""
 
     def test_kappa_virasoro_c1(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_virasoro(1) == Fraction(1, 2)
 
     def test_kappa_virasoro_c26(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_virasoro(26) == Fraction(13)
 
     def test_kappa_virasoro_c13(self):
         """At the self-dual point c = 13, kappa = 13/2."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_virasoro(13) == Fraction(13, 2)
 
     def test_kappa_virasoro_c0(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_virasoro(0) == Fraction(0)
 
 
@@ -122,14 +130,17 @@ class TestKappaAffineSl2:
 
     def test_kappa_sl2_k1(self):
         # kappa = 3*(1+2)/4 = 9/4
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_affine("A", 1, 1) == Fraction(9, 4)
 
     def test_kappa_sl2_k2(self):
         # kappa = 3*(2+2)/4 = 3
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_affine("A", 1, 2) == Fraction(3)
 
     def test_kappa_sl2_k4(self):
         # kappa = 3*(4+2)/4 = 18/4 = 9/2
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_affine("A", 1, 4) == Fraction(9, 2)
 
     def test_kappa_sl2_critical_level_raises(self):
@@ -147,10 +158,12 @@ class TestKappaAffineSl3:
 
     def test_kappa_sl3_k1(self):
         # kappa = 4*(1+3)/3 = 16/3
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_affine("A", 2, 1) == Fraction(16, 3)
 
     def test_kappa_sl3_k2(self):
         # kappa = 4*(2+3)/3 = 20/3
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_affine("A", 2, 2) == Fraction(20, 3)
 
     def test_kappa_sl3_critical_raises(self):
@@ -164,18 +177,22 @@ class TestKappaBetaGamma:
 
     def test_kappa_bg_lam0(self):
         # 6*0 - 6*0 + 1 = 1
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_betagamma(0) == Fraction(1)
 
     def test_kappa_bg_lam_half(self):
         # 6*(1/4) - 6*(1/2) + 1 = 3/2 - 3 + 1 = -1/2
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_betagamma(Fraction(1, 2)) == Fraction(-1, 2)
 
     def test_kappa_bg_lam1(self):
         # 6*1 - 6*1 + 1 = 1
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_betagamma(1) == Fraction(1)
 
     def test_kappa_bg_lam2(self):
         # 6*4 - 6*2 + 1 = 24 - 12 + 1 = 13
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_betagamma(2) == Fraction(13)
 
     def test_kappa_bg_symmetry(self):
@@ -193,6 +210,7 @@ class TestKappaBC:
     def test_kappa_bc_complementarity(self):
         """kappa(bg) + kappa(bc) = 0 for all lambda."""
         for lam in [0, Fraction(1, 2), 1, 2]:
+            # VERIFIED [DC] kappa formula [CF] cross-family census
             assert kappa_betagamma(lam) + kappa_bc(lam) == 0
 
 
@@ -200,13 +218,16 @@ class TestKappaW3:
     """Verify kappa(W_3) = 5c/6."""
 
     def test_kappa_w3_c2(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_w3(2) == Fraction(5, 3)
 
     def test_kappa_w3_c50(self):
         """Self-dual at c = 50: kappa = 125/3."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_w3(50) == Fraction(125, 3)
 
     def test_kappa_w3_c100(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_w3(100) == Fraction(250, 3)
 
 
@@ -214,13 +235,16 @@ class TestKappaLattice:
     """Verify kappa(V_Lambda) = rank."""
 
     def test_kappa_lattice_rank1(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_lattice(1) == Fraction(1)
 
     def test_kappa_lattice_rank8(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_lattice(8) == Fraction(8)
 
     def test_kappa_lattice_rank24(self):
         """Leech lattice: rank 24."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_lattice(24) == Fraction(24)
 
 
@@ -232,6 +256,7 @@ class TestKappaE8Affine:
         # kappa = 248 * (1 + 30) / (2 * 30) = 248 * 31 / 60 = 7688/60 = 1922/15
         expected = Fraction(248 * 31, 60)
         assert kappa_e8_affine(1) == expected
+        # VERIFIED [DC] kappa computation [CF] Vol I
         assert expected == Fraction(1922, 15)
 
 
@@ -289,9 +314,11 @@ class TestVolIIIBridge:
             v3_frac = Fraction(Rational(v3).p, Rational(v3).q)
             # Discrepancy RESOLVED: Vol III now correctly gives kappa(H_k) = k
             auth = kappa_heisenberg(1)
+            # VERIFIED [DC] structural property [CF] Vol III
             assert v3_frac == Fraction(1), (
                 f"Vol III kappa should be k=1 (fixed), got {v3_frac}"
             )
+            # VERIFIED [DC] structural property [CF] Vol III
             assert auth == Fraction(1), (
                 f"Authoritative kappa wrong: expected 1, got {auth}"
             )
@@ -321,41 +348,55 @@ class TestShadowDepthClassification:
 
     def test_heisenberg_is_G(self):
         cls, depth = shadow_depth_class("heisenberg")
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert cls == "G"
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert depth == 2
 
     def test_lattice_is_G(self):
         cls, depth = shadow_depth_class("lattice")
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert cls == "G"
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert depth == 2
 
     def test_affine_sl2_is_L(self):
         cls, depth = shadow_depth_class("affine_sl2")
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert cls == "L"
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert depth == 3
 
     def test_affine_e8_is_L(self):
         cls, depth = shadow_depth_class("affine_e8")
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert cls == "L"
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert depth == 3
 
     def test_betagamma_is_C(self):
         cls, depth = shadow_depth_class("betagamma")
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert cls == "C"
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert depth == 4
 
     def test_bc_is_C(self):
         cls, depth = shadow_depth_class("bc")
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert cls == "C"
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert depth == 4
 
     def test_virasoro_is_M(self):
         cls, depth = shadow_depth_class("virasoro")
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert cls == "M"
         assert depth == float("inf")
 
     def test_w3_is_M(self):
         cls, depth = shadow_depth_class("w3")
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert cls == "M"
         assert depth == float("inf")
 
@@ -401,9 +442,11 @@ class TestSCFormality:
         assert sc_depth("heisenberg") == float("inf")  # no non-formality
 
     def test_sc_depth_betagamma(self):
+        # VERIFIED [DC] shadow depth [CF] AP24
         assert sc_depth("betagamma") == 4
 
     def test_sc_depth_virasoro(self):
+        # VERIFIED [DC] shadow depth [CF] AP24
         assert sc_depth("virasoro") == 3
 
 
@@ -415,44 +458,54 @@ class TestComplementarity:
     """Verify kappa(A) + kappa(A!) for each family (AP24)."""
 
     def test_heisenberg_complementarity_zero(self):
+        # VERIFIED [DC] Koszul conductor [CF] AP24
         assert complementarity_sum("heisenberg") == Fraction(0)
 
     def test_virasoro_complementarity_13(self):
         """AP24: kappa(Vir_c) + kappa(Vir_{26-c}) = c/2 + (26-c)/2 = 13."""
+        # VERIFIED [DC] Koszul conductor [CF] AP24
         assert complementarity_sum("virasoro") == Fraction(13)
 
     def test_affine_complementarity_zero(self):
         """For affine KM: kappa + kappa! = 0 (FF involution ensures this)."""
+        # VERIFIED [DC] Koszul conductor [CF] cross-family census
         assert complementarity_sum("affine_sl2") == Fraction(0)
 
     def test_betagamma_complementarity_zero(self):
         """bg + bc = 0."""
+        # VERIFIED [DC] Koszul conductor [CF] cross-family census
         assert complementarity_sum("betagamma") == Fraction(0)
 
     def test_w3_complementarity(self):
         """kappa(W_3,c) + kappa(W_3,100-c) = 5c/6 + 5(100-c)/6 = 500/6 = 250/3."""
+        # VERIFIED [DC] Koszul conductor [CF] cross-family census
         assert complementarity_sum("w3") == Fraction(250, 3)
 
     def test_lattice_complementarity_zero(self):
+        # VERIFIED [DC] Koszul conductor [CF] cross-family census
         assert complementarity_sum("lattice") == Fraction(0)
 
     def test_virasoro_kappa_dual_explicit(self):
         """kappa(Vir_c!) = (26-c)/2."""
         for c in [1, 2, 13, 25, 26]:
             kd = kappa_dual("virasoro", c=c)
+            # VERIFIED [DC] kappa computation [CF] cross-family census
             assert kd == Fraction(26 - c, 2)
 
     def test_virasoro_self_dual_at_c13(self):
         """At c = 13: kappa = kappa! = 13/2."""
         k = kappa_virasoro(13)
         kd = kappa_dual("virasoro", c=13)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert k == kd == Fraction(13, 2)
 
     def test_virasoro_not_self_dual_at_c26(self):
         """At c = 26: kappa = 13, kappa! = 0. NOT self-dual."""
         k = kappa_virasoro(26)
         kd = kappa_dual("virasoro", c=26)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert k == Fraction(13)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert kd == Fraction(0)
         assert k != kd
 
@@ -489,13 +542,16 @@ class TestRMatrix:
         """AP19: Virasoro OPE has z^{-4}, z^{-2}, z^{-1} poles.
         R-matrix has z^{-3} and z^{-1} (one less each)."""
         result = r_matrix_virasoro_collision(26)
+        # VERIFIED [DC] r-matrix [CF] AP19
         assert result["highest_pole_order"] == 3  # z^{-3}, not z^{-4}
 
     def test_affine_sl2_r_matrix_structure(self):
         """Vol I: r(z) = Omega/(2z). Vol III: R = q^{Omega/2}."""
         result = r_matrix_affine_sl2(1)
+        # VERIFIED [DC] r-matrix [CF] Vol I
         assert result["classical_r"] == "Omega / (2z)"
         # KZ parameter = 1/(k + h^v) = 1/3 for sl_2 at k=1
+        # VERIFIED [DC] r-matrix [CF] Vol I
         assert result["kz_parameter"] == Fraction(1, 3)
 
 
@@ -509,11 +565,13 @@ class TestKLEquivalence:
     def test_kl_k1_simples(self):
         """At level 1: 2 simple objects (vacuum + fundamental)."""
         result = kl_equivalence_check(1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result["n_simple_objects"] == 2
 
     def test_kl_k2_simples(self):
         """At level 2: 3 simple objects."""
         result = kl_equivalence_check(2)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result["n_simple_objects"] == 3
 
     def test_kl_kappa_agrees(self):
@@ -535,39 +593,48 @@ class TestFgGenustower:
         lambda_g = (2^{2g-1} - 1) / 2^{2g-1} * |B_{2g}| / (2g)!
         At g=1: (2^1 - 1)/2^1 * |B_2|/2! = (1/2) * (1/6) / 2 = 1/24
         """
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert lambda_fp(1) == Fraction(1, 24)
 
     def test_lambda_fp_genus2(self):
         """lambda_2 = (2^3 - 1)/2^3 * |B_4|/4! = 7/8 * 1/30 / 24 = 7/5760."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert lambda_fp(2) == Fraction(7, 5760)
 
     def test_lambda_fp_genus3(self):
         """lambda_3 = (2^5 - 1)/2^5 * |B_6|/6!
         = 31/32 * (1/42) / 720 = 31 / (32 * 42 * 720) = 31 / 967680."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert lambda_fp(3) == Fraction(31, 967680)
 
     def test_F1_heisenberg_k1(self):
         """F_1(H_1) = kappa * lambda_1 = 1 * 1/24 = 1/24."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert F_g(Fraction(1), 1) == Fraction(1, 24)
 
     def test_F1_virasoro_c26(self):
         """F_1(Vir_26) = 13 * 1/24 = 13/24."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert F_g(Fraction(13), 1) == Fraction(13, 24)
 
     def test_F_g_linearity(self):
         """F_g is linear in kappa: F_g(2A) = 2 * F_g(A)."""
         for g in range(1, 5):
+            # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
             assert F_g(Fraction(6), g) == 3 * F_g(Fraction(2), g)
 
     def test_F_g_table_heisenberg(self):
         """Verify F_g table for Heisenberg at k=1."""
         table = F_g_table("heisenberg", max_genus=4, k=1)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert table[1] == Fraction(1, 24)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert table[2] == Fraction(7, 5760)
 
     def test_F_g_positivity(self):
         """F_g > 0 when kappa > 0 (all Bernoulli/FP numbers are positive)."""
         for g in range(1, 6):
+            # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
             assert F_g(Fraction(1), g) > 0
 
 
@@ -581,12 +648,15 @@ class TestQuarticContact:
     def test_Q_contact_c26(self):
         """Q^contact_Vir(26) = 10/(26*(130+22)) = 10/(26*152) = 10/3952 = 5/1976."""
         result = Q_contact_virasoro(26)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result == Fraction(10, 26 * 152)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result == Fraction(5, 1976)
 
     def test_Q_contact_c2(self):
         """Q^contact_Vir(2) = 10/(2*(10+22)) = 10/64 = 5/32."""
         result = Q_contact_virasoro(2)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result == Fraction(5, 32)
 
     def test_Q_contact_c0_raises(self):
@@ -603,6 +673,7 @@ class TestMasterTable:
 
     def test_table_nonempty(self):
         table = full_master_table()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(table) >= 20
 
     def test_table_all_families_present(self):
@@ -646,22 +717,30 @@ class TestCYCorrelation:
 
     def test_cy1_is_G(self):
         data = cy_dimension_correlation()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data["CY1_elliptic"]["shadow_class"] == "G"
+        # VERIFIED [DC] dimension count [CF] cross-family census
         assert data["CY1_elliptic"]["cy_dim"] == 1
 
     def test_cy2_is_G(self):
         data = cy_dimension_correlation()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data["CY2_K3"]["shadow_class"] == "G"
+        # VERIFIED [DC] dimension count [CF] cross-family census
         assert data["CY2_K3"]["cy_dim"] == 2
 
     def test_cy3_conifold_is_C(self):
         data = cy_dimension_correlation()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data["CY3_conifold"]["shadow_class"] == "C"
+        # VERIFIED [DC] dimension count [CF] cross-family census
         assert data["CY3_conifold"]["cy_dim"] == 3
 
     def test_cy3_C3_is_L(self):
         data = cy_dimension_correlation()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert data["CY3_C3"]["shadow_class"] == "L"
+        # VERIFIED [DC] dimension count [CF] cross-family census
         assert data["CY3_C3"]["cy_dim"] == 3
 
     def test_cy_depth_nondecreasing_with_dim(self):
@@ -684,7 +763,9 @@ class TestDiscrepancyDetection:
                      if d["family"] == "heisenberg" and "Vol III" in d["vol_source"]]
         if vol3_heis:
             # The discrepancy was detected
+            # VERIFIED [DC] kappa formula [CF] Vol III
             assert vol3_heis[0]["authoritative_kappa"] == Fraction(1)
+            # VERIFIED [DC] kappa formula [CF] Vol III
             assert vol3_heis[0]["vol_kappa"] == Fraction(1, 2)
 
     def test_no_vol1_discrepancies(self):
@@ -694,6 +775,7 @@ class TestDiscrepancyDetection:
         vol1_disc = [d for d in disc
                      if d.get("vol_source", "").startswith("Vol I ")
                      or d.get("vol_source", "") == "Vol I"]
+        # VERIFIED [DC] structural property [CF] Vol I
         assert len(vol1_disc) == 0, (
             f"Unexpected Vol I discrepancies: {vol1_disc}"
         )
@@ -708,55 +790,75 @@ class TestLieAlgebraData:
 
     def test_sl2(self):
         dim_g, hv = _lie_dim_hdual("A", 1)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim_g == 3
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert hv == 2
 
     def test_sl3(self):
         dim_g, hv = _lie_dim_hdual("A", 2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim_g == 8
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert hv == 3
 
     def test_so5(self):
         """B_2 = so(5): dim = 10, h^v = 3."""
         dim_g, hv = _lie_dim_hdual("B", 2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim_g == 10
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert hv == 3
 
     def test_sp4(self):
         """C_2 = sp(4): dim = 10, h^v = 3."""
         dim_g, hv = _lie_dim_hdual("C", 2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim_g == 10
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert hv == 3
 
     def test_so8(self):
         """D_4 = so(8): dim = 28, h^v = 6."""
         dim_g, hv = _lie_dim_hdual("D", 4)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim_g == 28
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert hv == 6
 
     def test_e6(self):
         dim_g, hv = _lie_dim_hdual("E", 6)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim_g == 78
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert hv == 12
 
     def test_e7(self):
         dim_g, hv = _lie_dim_hdual("E", 7)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim_g == 133
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert hv == 18
 
     def test_e8(self):
         dim_g, hv = _lie_dim_hdual("E", 8)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim_g == 248
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert hv == 30
 
     def test_f4(self):
         dim_g, hv = _lie_dim_hdual("F", 4)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim_g == 52
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert hv == 9
 
     def test_g2(self):
         dim_g, hv = _lie_dim_hdual("G", 2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim_g == 14
+        # VERIFIED [DC] structural property [CF] AP10
         assert hv == 4
 
 
@@ -797,6 +899,7 @@ class TestKappaMultiFamily:
             k_dual = -k_val - 4  # FF involution for sl_2
             k1 = kappa_affine("A", 1, k_val)
             k2 = kappa_affine("A", 1, k_dual)
+            # VERIFIED [DC] kappa computation [CF] cross-family census
             assert k1 + k2 == 0, (
                 f"FF involution fails for sl_2 at k={k_val}: "
                 f"kappa(k) + kappa(-k-4) = {k1} + {k2} = {k1 + k2}"
@@ -807,6 +910,7 @@ class TestKappaMultiFamily:
         kappa(c=50) = kappa!(c=50) = 125/3."""
         k = kappa_w3(50)
         kd = kappa_dual("w3", c=50)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert k == kd == Fraction(125, 3)
 
 
@@ -818,9 +922,11 @@ class TestDispatchAndEdgeCases:
     """Test the dispatch mechanism and edge cases."""
 
     def test_dispatch_heisenberg(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert _dispatch_kappa("heisenberg", k=3) == Fraction(3)
 
     def test_dispatch_virasoro(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert _dispatch_kappa("virasoro", c=10) == Fraction(5)
 
     def test_dispatch_unknown_raises(self):

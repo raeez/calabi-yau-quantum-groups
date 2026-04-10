@@ -293,7 +293,7 @@ class CY3EntropyPuzzle(NamedTuple):
     """
     name: str
     chi: int
-    kappa_global: Fraction
+    kappa_ch: Fraction
     cardy_argument: Fraction   # kappa * n (may be negative)
     s_bh_naive: complex        # 2 pi sqrt(kappa * n) -- may be imaginary
     is_imaginary: bool         # True if kappa * n < 0
@@ -343,7 +343,7 @@ def cy3_entropy_puzzle(name: str, chi: int, n: int) -> CY3EntropyPuzzle:
     is_imag = float(cardy_arg) < 0
 
     resolution = (
-        "Chart decomposition: kappa_global = sum(-1)^k kappa(S) may be negative "
+        "Chart decomposition: kappa_ch = sum(-1)^k kappa(S) may be negative "
         "even though each local kappa_alpha > 0.  The physical entropy comes from "
         "the LOCAL chart contributions S_alpha = 2pi sqrt(kappa_alpha * n_alpha / 3), "
         "not from the global kappa.  The correction (entanglement/mutual information "
@@ -355,7 +355,7 @@ def cy3_entropy_puzzle(name: str, chi: int, n: int) -> CY3EntropyPuzzle:
     return CY3EntropyPuzzle(
         name=name,
         chi=chi,
-        kappa_global=kappa,
+        kappa_ch=kappa,
         cardy_argument=cardy_arg,
         s_bh_naive=s_naive,
         is_imaginary=is_imag,
@@ -408,7 +408,7 @@ class ChartDecompositionResult(NamedTuple):
     """
     atlas_name: str
     n_total: int
-    kappa_global: Fraction
+    kappa_ch: Fraction
     s_global: float
     s_local_sum: float
     s_correction: float
@@ -454,10 +454,10 @@ def chart_entropy_decomposition(
     )
 
     # Compute global kappa via nerve formula
-    kappa_global = sum(chart_kappas) - sum(wall_kappas)
+    kappa_ch = sum(chart_kappas) - sum(wall_kappas)
 
     # Global entropy (may be 0 for negative kappa)
-    s_global = cardy_entropy_real(kappa_global, n_total)
+    s_global = cardy_entropy_real(kappa_ch, n_total)
 
     # Local entropies
     charts_data: List[ChartEntropyData] = []
@@ -504,12 +504,12 @@ def chart_entropy_decomposition(
 
     # Verification paths
     verification: Dict[str, Any] = {
-        "VP1_nerve_kappa": float(kappa_global),
+        "VP1_nerve_kappa": float(kappa_ch),
         "VP2_sum_chart_kappas": float(sum(chart_kappas)),
         "VP2_sum_wall_kappas": float(sum(wall_kappas)),
         "VP3_s_local_sum": s_local_sum,
         "VP3_s_correction": s_correction,
-        "VP4_s_global_from_kappa": cardy_entropy_real(kappa_global, n_total),
+        "VP4_s_global_from_kappa": cardy_entropy_real(kappa_ch, n_total),
         "VP5_charge_conservation": float(frac_sum) == float(n_total),
         "VP6_non_extensive": abs(s_correction) > 1e-15,  # entropy is NOT additive
     }
@@ -517,7 +517,7 @@ def chart_entropy_decomposition(
     return ChartDecompositionResult(
         atlas_name=atlas_name,
         n_total=n_total,
-        kappa_global=kappa_global,
+        kappa_ch=kappa_ch,
         s_global=s_global,
         s_local_sum=s_local_sum,
         s_correction=s_correction,
@@ -537,7 +537,7 @@ class ConifoldBHResult(NamedTuple):
     kappa_I: Fraction
     kappa_II: Fraction
     kappa_wall: Fraction
-    kappa_global: Fraction
+    kappa_ch: Fraction
     s_I: float                # Cardy of CoHA_I
     s_II: float               # Cardy of CoHA_II
     s_wall_vN: float          # von Neumann entropy of K_W gluing
@@ -574,7 +574,7 @@ def conifold_black_hole(n: int, split: Optional[Tuple[Fraction, Fraction]] = Non
     kappa_I = Fraction(1)
     kappa_II = Fraction(1)
     kappa_wall = Fraction(1)
-    kappa_global = kappa_I + kappa_II - kappa_wall  # = 1
+    kappa_ch = kappa_I + kappa_II - kappa_wall  # = 1
 
     if split is None:
         n_I = Fraction(n, 2)
@@ -610,9 +610,9 @@ def conifold_black_hole(n: int, split: Optional[Tuple[Fraction, Fraction]] = Non
 
     # Verification paths
     verification: Dict[str, Any] = {
-        "VP1_kappa_nerve": float(kappa_global),
+        "VP1_kappa_nerve": float(kappa_ch),
         "VP1_kappa_expected": 1.0,
-        "VP1_kappa_agrees": kappa_global == Fraction(1),
+        "VP1_kappa_agrees": kappa_ch == Fraction(1),
         "VP2_s_global_formula": s_global,
         "VP2_s_global_check": TWO_PI * math.sqrt(n_f / 3.0),
         "VP3_correction_sign": "negative" if s_correction < 0 else "positive",
@@ -639,7 +639,7 @@ def conifold_black_hole(n: int, split: Optional[Tuple[Fraction, Fraction]] = Non
         kappa_I=kappa_I,
         kappa_II=kappa_II,
         kappa_wall=kappa_wall,
-        kappa_global=kappa_global,
+        kappa_ch=kappa_ch,
         s_I=s_I,
         s_II=s_II,
         s_wall_vN=s_wall_vN,
@@ -1258,7 +1258,7 @@ def entropy_chart_comparison(n: int = 10) -> List[Dict[str, Any]]:
     ms_c3 = microstates_c3(n)
     results.append({
         "name": "C^3",
-        "kappa_global": 1,
+        "kappa_ch": 1,
         "n_charts": 1,
         "s_global": cardy_entropy_real(Fraction(1), n),
         "s_local_sum": cardy_entropy_real(Fraction(1), n),
@@ -1272,7 +1272,7 @@ def entropy_chart_comparison(n: int = 10) -> List[Dict[str, Any]]:
     ms_con = microstates_conifold(n)
     results.append({
         "name": "conifold",
-        "kappa_global": 1,
+        "kappa_ch": 1,
         "n_charts": 2,
         "s_global": cbh.s_global,
         "s_local_sum": cbh.s_local_sum,
@@ -1286,7 +1286,7 @@ def entropy_chart_comparison(n: int = 10) -> List[Dict[str, Any]]:
     s_p2_global = cardy_entropy_real(kp2, n)
     results.append({
         "name": "local P^2",
-        "kappa_global": float(kp2),
+        "kappa_ch": float(kp2),
         "n_charts": 3,
         "s_global": s_p2_global,
         "s_local_sum": 3 * cardy_entropy_real(Fraction(1), n // 3 + 1),
@@ -1300,7 +1300,7 @@ def entropy_chart_comparison(n: int = 10) -> List[Dict[str, Any]]:
     ms_q = microstates_quintic_d0(n) if n <= 15 else None
     results.append({
         "name": "quintic",
-        "kappa_global": float(kq),
+        "kappa_ch": float(kq),
         "n_charts": "multiple (non-toric)",
         "s_global": cardy_entropy_real(kq, n),  # = 0 (negative kappa)
         "s_local_sum": None,  # requires full chart atlas

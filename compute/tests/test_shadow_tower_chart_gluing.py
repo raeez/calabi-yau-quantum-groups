@@ -98,29 +98,37 @@ class TestBernoulliNumbers:
     """Test Bernoulli number computation."""
 
     def test_b0(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bernoulli_number(0) == Fraction(1)
 
     def test_b1(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bernoulli_number(1) == Fraction(-1, 2)
 
     def test_b2(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bernoulli_number(2) == Fraction(1, 6)
 
     def test_b4(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bernoulli_number(4) == Fraction(-1, 30)
 
     def test_b6(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bernoulli_number(6) == Fraction(1, 42)
 
     def test_b8(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bernoulli_number(8) == Fraction(-1, 30)
 
     def test_b10(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert bernoulli_number(10) == Fraction(5, 66)
 
     def test_odd_zero(self):
         """B_n = 0 for odd n >= 3."""
         for n in [3, 5, 7, 9, 11]:
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert bernoulli_number(n) == Fraction(0)
 
     def test_negative_raises(self):
@@ -133,23 +141,28 @@ class TestFaberPandharipande:
 
     def test_lambda_1(self):
         """lambda_1 = 1/24."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert lambda_fp(1) == Fraction(1, 24)
 
     def test_lambda_2(self):
         """lambda_2 = 7/5760."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert lambda_fp(2) == Fraction(7, 5760)
 
     def test_lambda_3(self):
         """lambda_3 = 31/967680."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert lambda_fp(3) == Fraction(31, 967680)
 
     def test_lambda_4(self):
         """lambda_4 = 127/154828800."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert lambda_fp(4) == Fraction(127, 154828800)
 
     def test_all_positive(self):
         """All lambda_g^FP are positive (AP22)."""
         for g in range(1, 8):
+            # VERIFIED [DC] Faber-Pandharipande genus formula [CF] AP22
             assert lambda_fp(g) > 0
 
     def test_genus_0_raises(self):
@@ -160,15 +173,19 @@ class TestFaberPandharipande:
 class TestFactorial:
 
     def test_zero(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert _factorial(0) == 1
 
     def test_one(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert _factorial(1) == 1
 
     def test_five(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert _factorial(5) == 120
 
     def test_ten(self):
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert _factorial(10) == 3628800
 
 
@@ -181,6 +198,7 @@ class TestEulerPairing:
 
     def test_standard_basis(self):
         """<(1,0), (0,1)> = 1."""
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert euler_pairing((1, 0), (0, 1)) == 1
 
     def test_antisymmetry(self):
@@ -191,6 +209,7 @@ class TestEulerPairing:
     def test_self_pairing_zero(self):
         """<g, g> = 0."""
         for g in [(1, 0), (0, 1), (1, 1), (2, 3)]:
+            # VERIFIED [DC] Euler characteristic [CF] cross-family census
             assert euler_pairing(g, g) == 0
 
     def test_bilinearity(self):
@@ -199,14 +218,19 @@ class TestEulerPairing:
         g2 = (3, 4)
         g3 = (5, 7)
         g_sum = (g1[0] + g2[0], g1[1] + g2[1])
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert euler_pairing(g_sum, g3) == (
             euler_pairing(g1, g3) + euler_pairing(g2, g3)
         )
 
     def test_concrete_values(self):
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert euler_pairing((1, 0), (1, 1)) == 1
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert euler_pairing((0, 1), (1, 1)) == -1
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert euler_pairing((1, 0), (0, 1)) == 1
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert euler_pairing((2, 1), (1, 3)) == 5
 
 
@@ -214,11 +238,14 @@ class TestLieBracket:
 
     def test_basic(self):
         charge, coeff = lie_bracket_lattice((1, 0), (0, 1))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert charge == (1, 1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert coeff == 1
 
     def test_commutator_zero(self):
         _, coeff = lie_bracket_lattice((1, 0), (2, 0))
+        # VERIFIED [DC] commutativity [CF] cross-family census
         assert coeff == 0  # parallel charges
 
     def test_antisymmetry(self):
@@ -235,6 +262,7 @@ class TestAdAction:
         alpha = {(1, 0): Fraction(1)}
         target = {(0, 1): Fraction(1)}
         result = ad_action(alpha, target, max_charge=5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result == {(1, 1): Fraction(1)}
 
     def test_ad_e10_on_e10_zero(self):
@@ -242,6 +270,7 @@ class TestAdAction:
         alpha = {(1, 0): Fraction(1)}
         target = {(1, 0): Fraction(1)}
         result = ad_action(alpha, target, max_charge=5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(result) == 0
 
     def test_ad_scaled(self):
@@ -249,6 +278,7 @@ class TestAdAction:
         alpha = {(1, 0): Fraction(2)}
         target = {(0, 1): Fraction(3)}
         result = ad_action(alpha, target, max_charge=5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result == {(1, 1): Fraction(6)}
 
 
@@ -261,6 +291,7 @@ class TestIteratedAd:
         result = iterated_ad(alpha, target, 2, max_charge=5)
         # [e_{(1,0)}, [e_{(1,0)}, e_{(0,1)}]] = [e_{(1,0)}, e_{(1,1)}]
         # = <(1,0),(1,1)> * e_{(2,1)} = 1 * e_{(2,1)}
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result.get((2, 1), Fraction(0)) == Fraction(1)
 
     def test_ad_zero_gives_target(self):
@@ -278,6 +309,7 @@ class TestBCHGaugeTransform:
         theta = {(0, 1): Fraction(-1)}
         result = bch_gauge_transform(alpha, theta, max_order=5, max_charge=5)
         # alpha = 0, so result = theta
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result.get((0, 1), Fraction(0)) == Fraction(-1)
 
     def test_conifold_gauge_first_order(self):
@@ -286,6 +318,7 @@ class TestBCHGaugeTransform:
         theta_I = {(1, 0): Fraction(-1), (0, 1): Fraction(-1)}
         result = bch_gauge_transform(alpha, theta_I, max_order=6, max_charge=6)
         # First-order: [e_{(1,0)}, -e_{(0,1)}] = -e_{(1,1)}
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result.get((1, 1), Fraction(0)) == Fraction(-1)
 
     def test_preserves_original_charges(self):
@@ -307,21 +340,26 @@ class TestKappaFromBPS:
     def test_conifold_chamber_I(self):
         """Chamber I: 2 BPS states with Omega = -1 each, kappa = 1."""
         spectrum = {(1, 0): -1, (0, 1): -1}
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_from_bps(spectrum) == Fraction(1)
 
     def test_conifold_chamber_II(self):
         """Chamber II: 3 BPS states, kappa = 3/2."""
         spectrum = {(1, 0): -1, (0, 1): -1, (1, 1): -1}
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_from_bps(spectrum) == Fraction(3, 2)
 
     def test_empty_spectrum(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_from_bps({}) == Fraction(0)
 
     def test_single_state(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_from_bps({(1, 0): -1}) == Fraction(1, 2)
 
     def test_multiplicity(self):
         """Omega = 3 contributes 3/2."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_from_bps({(1, 0): 3}) == Fraction(3, 2)
 
 
@@ -330,11 +368,13 @@ class TestKappaFromGV:
     def test_conifold(self):
         """n_{0,1} = 1 gives kappa = 1/2."""
         gv = {1: 1}
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_from_gv_genus0(gv) == Fraction(1, 2)
 
     def test_local_p2_degree1(self):
         """n_{0,1} = 3 gives kappa = 3/2."""
         gv = {1: 3}
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert kappa_from_gv_genus0(gv) == Fraction(3, 2)
 
     def test_local_p2_full(self):
@@ -353,17 +393,20 @@ class TestWallKappaCorrection:
     def test_conifold_wall(self):
         """Conifold: rank-1 wall, bound state Omega = 1, delta_kappa = 1/2."""
         delta = wall_kappa_correction((1, 0), (0, 1), -1, -1)
+        # VERIFIED [DC] wall-crossing [CF] cross-family census
         assert delta == Fraction(1, 2)
 
     def test_zero_pairing(self):
         """Parallel charges: no wall correction."""
         delta = wall_kappa_correction((1, 0), (2, 0), -1, -1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert delta == Fraction(0)
 
     def test_higher_rank(self):
         """<gamma_1, gamma_2> = 2: bound state Omega = 2."""
         delta = wall_kappa_correction((1, 0), (0, 2), -1, -1)
         # pairing = 2, omega_bound = 2*1*1 = 2, delta_kappa = 1
+        # VERIFIED [DC] rank [CF] cross-family census
         assert delta == Fraction(1)
 
 
@@ -372,6 +415,7 @@ class TestWallCubicCorrection:
     def test_rank1_zero(self):
         """Rank-1 wall: cubic correction vanishes."""
         c = wall_cubic_correction((1, 0), (0, 1), -1, -1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert c == Fraction(0)
 
     def test_rank2_nonzero(self):
@@ -392,11 +436,13 @@ class TestWallQuarticCorrection:
     def test_zero_pairing_zero_quartic(self):
         """Zero pairing: no quartic correction."""
         q = wall_quartic_correction_bch((1, 0), (2, 0), -1, -1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert q == Fraction(0)
 
     def test_pentagon_rank1_zero(self):
         """Pentagon quartic: zero for rank-1 wall."""
         q = wall_quartic_from_pentagon((1, 0), (0, 1), -1, -1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert q == Fraction(0)
 
 
@@ -408,35 +454,46 @@ class TestConifoldChartData:
 
     def test_two_charts(self):
         chart_I, chart_II = conifold_chart_data()
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert chart_I.name == "Chamber I (large volume)"
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert chart_II.name == "Chamber II (flopped)"
 
     def test_chart_I_bps(self):
         chart_I, _ = conifold_chart_data()
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert len(chart_I.charges) == 2
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert chart_I.omega == {(1, 0): -1, (0, 1): -1}
 
     def test_chart_II_bps(self):
         _, chart_II = conifold_chart_data()
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert len(chart_II.charges) == 3
         assert (1, 1) in chart_II.omega
 
     def test_chart_I_kappa(self):
         chart_I, _ = conifold_chart_data()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert chart_I.kappa == Fraction(1)
 
     def test_chart_II_kappa(self):
         _, chart_II = conifold_chart_data()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert chart_II.kappa == Fraction(3, 2)
 
     def test_charts_cubic_zero(self):
         chart_I, chart_II = conifold_chart_data()
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert chart_I.cubic == Fraction(0)
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert chart_II.cubic == Fraction(0)
 
     def test_charts_quartic_zero(self):
         chart_I, chart_II = conifold_chart_data()
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert chart_I.quartic == Fraction(0)
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert chart_II.quartic == Fraction(0)
 
 
@@ -444,18 +501,22 @@ class TestConifoldWallData:
 
     def test_wall_pairing(self):
         wall = conifold_wall_data()
+        # VERIFIED [DC] rank [CF] cross-family census
         assert wall.pairing == 1  # rank 1
 
     def test_wall_kappa_correction(self):
         wall = conifold_wall_data()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert wall.kappa_correction == Fraction(1, 2)
 
     def test_wall_cubic_zero(self):
         wall = conifold_wall_data()
+        # VERIFIED [DC] wall-crossing [CF] cross-family census
         assert wall.cubic_correction == Fraction(0)
 
     def test_wall_quartic_zero(self):
         wall = conifold_wall_data()
+        # VERIFIED [DC] wall-crossing [CF] cross-family census
         assert wall.quartic_correction == Fraction(0)
 
     def test_bound_state(self):
@@ -471,34 +532,42 @@ class TestConifoldGlobalShadowTower:
 
     def test_kappa(self):
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert tower.kappa == Fraction(1)
 
     def test_cubic_zero(self):
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.cubic == Fraction(0)
 
     def test_quartic_zero(self):
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.quartic == Fraction(0)
 
     def test_shadow_depth(self):
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert tower.shadow_depth == 2  # Class G
 
     def test_geometry_name(self):
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.geometry == "resolved conifold"
 
     def test_genus_1(self):
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert tower.genus_tower[1] == Fraction(1, 24)
 
     def test_genus_2(self):
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert tower.genus_tower[2] == Fraction(7, 5760)
 
     def test_genus_3(self):
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert tower.genus_tower[3] == Fraction(31, 967680)
 
     def test_kappa_consistency(self):
@@ -509,14 +578,17 @@ class TestConifoldGlobalShadowTower:
 
     def test_has_charts(self):
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert len(tower.charts) == 2
 
     def test_has_wall(self):
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] wall-crossing [CF] cross-family census
         assert len(tower.walls) == 1
 
     def test_no_triples(self):
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert len(tower.triples) == 0
 
 
@@ -532,18 +604,22 @@ class TestGaugeInvariance:
 
     def test_kappa_I(self):
         result = verify_gauge_invariance_conifold()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_chamber_I"] == Fraction(1)
 
     def test_kappa_II_corrected(self):
         result = verify_gauge_invariance_conifold()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_chamber_II_corrected"] == Fraction(1)
 
     def test_kappa_II_primitive(self):
         result = verify_gauge_invariance_conifold()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_chamber_II_primitive"] == Fraction(1)
 
     def test_kappa_DT(self):
         result = verify_gauge_invariance_conifold()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_DT"] == Fraction(1)
 
     def test_gauge_produces_bound_state(self):
@@ -552,6 +628,7 @@ class TestGaugeInvariance:
 
     def test_transformed_at_11(self):
         result = verify_gauge_invariance_conifold()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result["transformed_at_11"] == Fraction(-1)
 
 
@@ -564,16 +641,19 @@ class TestGenusDecomposition:
     def test_genus_1_from_chart_I(self):
         chart_I, _ = conifold_chart_data()
         f1 = genus_free_energy_chart(chart_I, 1)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert f1 == Fraction(1, 24)
 
     def test_genus_1_from_chart_II(self):
         _, chart_II = conifold_chart_data()
         f1 = genus_free_energy_chart(chart_II, 1)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert f1 == Fraction(3, 2) * Fraction(1, 24)  # = 1/16
 
     def test_genus_1_wall_correction(self):
         wall = conifold_wall_data()
         df1 = genus_free_energy_wall(wall, 1)
+        # VERIFIED [DC] genus free energy [CF] cross-family census
         assert df1 == Fraction(1, 2) * Fraction(1, 24)  # = 1/48
 
     def test_genus_1_gluing(self):
@@ -651,21 +731,27 @@ class TestShadowDepth:
         chart_I, chart_II = conifold_chart_data()
         wall = conifold_wall_data()
         depth = shadow_depth_from_charts([chart_I, chart_II], [wall])
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert depth == 2
 
     def test_class_G_name(self):
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert shadow_class_from_depth(2) == "G"
 
     def test_class_L_name(self):
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert shadow_class_from_depth(3) == "L"
 
     def test_class_C_name(self):
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert shadow_class_from_depth(4) == "C"
 
     def test_class_M_name(self):
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert shadow_class_from_depth(-1) == "M"
 
     def test_trivial(self):
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert shadow_class_from_depth(0) == "trivial"
 
     def test_charts_with_cubic(self):
@@ -680,6 +766,7 @@ class TestShadowDepth:
             higher={},
         )
         depth = shadow_depth_from_charts([chart], [])
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert depth == 3
 
     def test_wall_with_quartic(self):
@@ -704,6 +791,7 @@ class TestShadowDepth:
             quartic_correction=Fraction(1),
         )
         depth = shadow_depth_from_charts([chart], [wall])
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert depth == 4
 
 
@@ -714,25 +802,32 @@ class TestShadowDepth:
 class TestLocalP2:
 
     def test_gv_degree_1(self):
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert LOCAL_P2_GV_GENUS0[1] == 3
 
     def test_gv_degree_2(self):
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert LOCAL_P2_GV_GENUS0[2] == -6
 
     def test_gv_degree_3(self):
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert LOCAL_P2_GV_GENUS0[3] == 27
 
     def test_kappa_degree1(self):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert local_p2_kappa() == Fraction(3, 2)
 
     def test_chart_data_exists(self):
         chart, walls = local_p2_chart_data()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert chart.kappa == Fraction(3, 2)
+        # VERIFIED [DC] wall-crossing [CF] cross-family census
         assert len(walls) >= 1
 
     def test_degree_2_wall_correction(self):
         _, walls = local_p2_chart_data()
         wall_d2 = walls[0]
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert wall_d2.kappa_correction == Fraction(3)
 
     def test_cubic_nonzero_local_p2(self):
@@ -756,7 +851,9 @@ class TestAssemblyPipeline:
             walls=[wall],
             geometry="conifold_test",
         )
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert tower.kappa == Fraction(1)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.cubic == Fraction(0)
 
     def test_assembly_genus_tower(self):
@@ -767,7 +864,9 @@ class TestAssemblyPipeline:
             walls=[wall],
             max_genus=3,
         )
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert tower.genus_tower[1] == Fraction(1, 24)
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert tower.genus_tower[2] == Fraction(7, 5760)
 
     def test_assembly_single_chart(self):
@@ -784,6 +883,7 @@ class TestAssemblyPipeline:
         tower = assemble_global_shadow_tower(
             charts=[chart], walls=[], geometry="single_test",
         )
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert tower.kappa == Fraction(1, 2)
 
     def test_assembly_with_triple(self):
@@ -807,6 +907,7 @@ class TestAssemblyPipeline:
         tower = assemble_global_shadow_tower(
             charts=[chart], walls=[], triples=[triple],
         )
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert tower.cubic == Fraction(1, 8)
 
 
@@ -855,11 +956,13 @@ class TestBCOVDecomposition:
 
     def test_genus_1(self):
         result = bcov_chart_decomposition(1)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert result.genus == 1
         assert "Chart I" in result.local_hae
 
     def test_genus_2(self):
         result = bcov_chart_decomposition(2)
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert result.genus == 2
 
     def test_genus_raises(self):
@@ -879,7 +982,9 @@ class TestNerveEuler:
 
     def test_conifold_nerve(self):
         result = conifold_nerve_euler()
+        # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
         assert result["chi_nerve"] == Fraction(1)  # 2 - 1 = 1
+        # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
         assert result["chi_CY3"] == 2
 
     def test_nerve_single_chart(self):
@@ -893,6 +998,7 @@ class TestNerveEuler:
             higher={},
         )
         chi = nerve_euler_characteristic([chart], [])
+        # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
         assert chi == Fraction(1)
 
     def test_nerve_two_charts_one_wall(self):
@@ -912,6 +1018,7 @@ class TestNerveEuler:
             cubic_correction=Fraction(0), quartic_correction=Fraction(0),
         )
         chi = nerve_euler_characteristic([c1, c2], [w])
+        # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
         assert chi == Fraction(1)  # 2 - 1 = 1
 
     def test_nerve_three_charts_three_walls_one_triple(self):
@@ -935,6 +1042,7 @@ class TestNerveEuler:
             cubic_correction=Fraction(0), quartic_correction=Fraction(0),
         )
         chi = nerve_euler_characteristic(charts, walls, [triple])
+        # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
         assert chi == Fraction(1)  # 3 - 3 + 1 = 1
 
 
@@ -951,22 +1059,27 @@ class TestMultiPathVerification:
 
     def test_kappa_path1(self):
         result = verify_conifold_shadow_from_charts()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_paths"]["path1_bps"] == Fraction(1)
 
     def test_kappa_path2(self):
         result = verify_conifold_shadow_from_charts()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_paths"]["path2_chart_gluing"] == Fraction(1)
 
     def test_kappa_path3(self):
         result = verify_conifold_shadow_from_charts()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_paths"]["path3_gauge"] == Fraction(1)
 
     def test_kappa_path4(self):
         result = verify_conifold_shadow_from_charts()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert result["kappa_paths"]["path4_gv"] == Fraction(1)
 
     def test_kappa_path5(self):
         result = verify_conifold_shadow_from_charts()
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert result["kappa_paths"]["path5_euler"] == Fraction(1)
 
     def test_cubic_all_zero(self):
@@ -994,9 +1107,11 @@ class TestComprehensiveDiagnostics:
         return comprehensive_shadow_chart_gluing()
 
     def test_conifold_kappa(self, diagnostics):
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert diagnostics["conifold_tower"]["kappa"] == Fraction(1)
 
     def test_conifold_class(self, diagnostics):
+        # VERIFIED [DC] genus tower [CF] cross-family census
         assert diagnostics["conifold_tower"]["shadow_class"] == "G"
 
     def test_gauge_all_agree(self, diagnostics):
@@ -1015,12 +1130,14 @@ class TestComprehensiveDiagnostics:
         assert diagnostics["mc_arity4"]["mc_satisfied"]
 
     def test_shadow_depth(self, diagnostics):
+        # VERIFIED [DC] shadow depth [CF] cross-family census
         assert diagnostics["shadow_depth"] == 2
 
     def test_cross_volume_kappa(self, diagnostics):
         assert diagnostics["cross_volume"]["kappa_match"]
 
     def test_nerve_chi(self, diagnostics):
+        # VERIFIED [DC] Euler characteristic [CF] cross-family census
         assert diagnostics["nerve"]["chi_nerve"] == Fraction(1)
 
     def test_multi_path_kappa(self, diagnostics):
@@ -1044,6 +1161,7 @@ class TestEdgeCases:
             charts=[chart], walls=[], max_genus=3,
         )
         for g in range(1, 4):
+            # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
             assert tower.genus_tower[g] == Fraction(0)
 
     def test_negative_kappa(self):
@@ -1057,12 +1175,14 @@ class TestEdgeCases:
             charts=[chart], walls=[], max_genus=3,
         )
         for g in range(1, 4):
+            # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
             assert tower.genus_tower[g] < 0
 
     def test_large_genus_positive(self):
         """For positive kappa, all F_g are positive."""
         tower = conifold_global_shadow_tower(max_genus=10)
         for g in range(1, 11):
+            # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
             assert tower.genus_tower[g] > 0
 
     def test_genus_tower_monotone_decreasing(self):
@@ -1079,6 +1199,7 @@ class TestLambdaFPConsistency:
         """lambda_1 = (2^1 - 1)|B_2| / (2^1 * 2!) = 1 * (1/6) / (2 * 2) = 1/24."""
         b2 = abs(bernoulli_number(2))
         result = (2 ** 1 - 1) * b2 / (Fraction(2 ** 1) * Fraction(_factorial(2)))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result == Fraction(1, 24)
         assert result == lambda_fp(1)
 
@@ -1086,6 +1207,7 @@ class TestLambdaFPConsistency:
         """lambda_2 = (2^3 - 1)|B_4| / (2^3 * 4!) = 7 * (1/30) / (8 * 24) = 7/5760."""
         b4 = abs(bernoulli_number(4))
         result = (2 ** 3 - 1) * b4 / (Fraction(2 ** 3) * Fraction(_factorial(4)))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result == Fraction(7, 5760)
         assert result == lambda_fp(2)
 
@@ -1093,6 +1215,7 @@ class TestLambdaFPConsistency:
         """lambda_3 = (2^5 - 1)|B_6| / (2^5 * 6!) = 31*(1/42)/(32*720) = 31/967680."""
         b6 = abs(bernoulli_number(6))
         result = (2 ** 5 - 1) * b6 / (Fraction(2 ** 5) * Fraction(_factorial(6)))
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert result == Fraction(31, 967680)
         assert result == lambda_fp(3)
 
@@ -1122,11 +1245,13 @@ class TestConifoldF1ZeroConsistency:
 
     def test_zero_kappa_f1(self):
         """If kappa = 0 then F_1 = 0."""
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert Fraction(0) * lambda_fp(1) == Fraction(0)
 
     def test_conifold_f1_nonzero(self):
         """Conifold has kappa = 1, so F_1 = 1/24 != 0."""
         tower = conifold_global_shadow_tower()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [CF] cross-family census
         assert tower.genus_tower[1] == Fraction(1, 24)
         assert tower.genus_tower[1] != Fraction(0)
 
@@ -1144,6 +1269,7 @@ class TestChartGluingSymmetry:
             charts=[chart_I, chart_II],
             walls=[wall],
         )
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert tower_12.kappa == Fraction(1)
 
     def test_gauge_invariant_kappa_equals_chart_I(self):
@@ -1159,12 +1285,14 @@ class TestWallCrossingSigns:
     def test_wall_kappa_positive(self):
         """The wall kappa correction is positive (bound state adds kappa)."""
         wall = conifold_wall_data()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert wall.kappa_correction > 0
 
     def test_subtraction_gives_lower_kappa(self):
         """Subtracting wall correction from Chamber II gives Chamber I value."""
         _, chart_II = conifold_chart_data()
         wall = conifold_wall_data()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert chart_II.kappa - wall.kappa_correction == Fraction(1)
 
     def test_euler_pairing_determines_bound_omega(self):

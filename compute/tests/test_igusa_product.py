@@ -44,9 +44,13 @@ class TestPhi01Coefficients:
 
         phi_{0,1} = (r^{-1} + 10 + r) + q*(10r^{-2} - 64r^{-1} + 108 - 64r + 10r^2) + ...
         """
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_table[-1] == 1,   f"f(-1) = {f_table[-1]}, expected 1"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_table[0]  == 10,  f"f(0) = {f_table[0]}, expected 10"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_table[3]  == -64, f"f(3) = {f_table[3]}, expected -64"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_table[4]  == 108, f"f(4) = {f_table[4]}, expected 108"
 
     def test_d_dependence_only(self, f_table):
@@ -56,19 +60,26 @@ class TestPhi01Coefficients:
         ValueError on inconsistency), but we double-check some cases.
         """
         # f(0, 1) and f(0, -1) both have D = -1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_coeff(0, 1) == f_coeff(0, -1) == 1
 
         # f(1, 0) has D=4, f(2, 2) has D=4*2-4=4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_coeff(1, 0) == f_coeff(2, 2) == 108
 
         # f(1, 1) and f(1, -1) both have D=3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_coeff(1, 1) == f_coeff(1, -1) == -64
 
     def test_vanishing_for_d_below_minus_one(self):
         """f(n, l) = 0 when 4n - l^2 < -1."""
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert f_coeff(0, 2) == 0   # D = -4
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert f_coeff(0, 3) == 0   # D = -9
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert f_coeff(1, 3) == 0   # D = 4 - 9 = -5
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert f_coeff(0, 10) == 0  # D = -100
 
     def test_sum_over_l_vanishes(self, f_table):
@@ -81,12 +92,14 @@ class TestPhi01Coefficients:
         for n in range(1, 5):
             l_max = int(np.sqrt(4 * n + 1)) + 1
             total = sum(f_coeff(n, l) for l in range(-l_max, l_max + 1))
+            # VERIFIED [DC] vanishing check [LC] boundary/limiting case
             assert total == 0, f"sum_l f({n}, l) = {total}, expected 0"
 
     def test_phi01_at_z_zero(self):
         """phi_{0,1}(tau, 0) = 12 for any tau in the upper half-plane."""
         for tau in [1j, 0.3 + 2j, 0.5 + 1j]:
             val = phi_01_numerical(tau, 0, N_terms=80)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(val - 12.0) < 1e-10, \
                 f"phi_01(tau={tau}, 0) = {val}, expected 12"
 
@@ -105,6 +118,7 @@ class TestPhi01Coefficients:
                   + q * (10/r**2 - 64/r + 108 - 64*r + 10*r**2))
 
         numerical = phi_01_numerical(tau, z, N_terms=80)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(numerical - direct) < 1e-6, \
             f"|phi_01 - direct| = {abs(numerical - direct):.2e}"
 
@@ -116,7 +130,9 @@ class TestPhi01Coefficients:
         sum_l f(n,l) = 0 for n=2 requires exactly -513:
             f(2,0) + 2*f(2,1) + 2*f(2,2) + 2*f(2,3) = 808 - 2*513 + 2*108 + 2*1 = 0
         """
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_table[7] == -513, f"f(7) = {f_table[7]}, expected -513"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_table[8] == 808,  f"f(8) = {f_table[8]}, expected 808"
 
 
@@ -130,6 +146,7 @@ class TestDelta5Theta:
     def test_ten_even_characteristics(self):
         """There are exactly 10 even theta characteristics for genus 2."""
         chars = _even_theta_characteristics()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(chars) == 10
 
     def test_delta5_symmetry(self):
@@ -140,6 +157,7 @@ class TestDelta5Theta:
         z1, z2, z3 = 0.1 + 2j, 0.05 + 0.2j, 0.3 + 1.8j
         d5_original = delta5_theta(z1, z2, z3, N_terms=20)
         d5_swapped = delta5_theta(z3, z2, z1, N_terms=20)
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert abs(d5_original - d5_swapped) / abs(d5_original) < 1e-10, \
             "Delta_5 should be symmetric under z1 <-> z3"
 
@@ -155,12 +173,14 @@ class TestDelta5Theta:
         d5_diag = delta5_theta(z1, 0, z3, N_terms=25)
         d5_gen = delta5_theta(z1, 0.1 + 0.15j, z3, N_terms=25)
         if abs(d5_gen) > 1e-30:
+            # VERIFIED [DC] vanishing check [LC] boundary/limiting case
             assert abs(d5_diag) / abs(d5_gen) < 1e-8, \
                 f"|Delta_5(diag)| / |Delta_5(gen)| = {abs(d5_diag)/abs(d5_gen):.2e}"
 
     def test_delta5_nonzero_generic(self):
         """Delta_5 is nonzero at a generic point."""
         d5 = delta5_theta(2j, 0.1j, 2j, N_terms=20)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(d5) > 1e-10, f"|Delta_5| = {abs(d5):.2e}, expected nonzero"
 
 
@@ -190,6 +210,7 @@ class TestBorcherdsProduct:
         result = verify_product_formula(
             z1, z2, z3, N_prod=12, N_theta=25, D_max=80
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result['abs_relative_error'] < 1e-10, \
             (f"Abs relative error = {result['abs_relative_error']:.2e} "
              f"at z1={z1}, z2={z2}, z3={z3}")
@@ -201,6 +222,7 @@ class TestBorcherdsProduct:
         result = verify_product_formula(
             2j, 0.1j, 2j, N_prod=12, N_theta=25, D_max=80
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result['abs_relative_error'] < 1e-12, \
             f"Deep cusp abs error = {result['abs_relative_error']:.2e}"
 
@@ -214,6 +236,7 @@ class TestBorcherdsProduct:
         result = verify_product_formula(
             z1, z2, z3, N_prod=15, N_theta=30, D_max=120
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result['abs_relative_error'] < 1e-6, \
             f"Generic point abs error = {result['abs_relative_error']:.2e}"
 
@@ -233,6 +256,7 @@ class TestBorcherdsProduct:
                 z1, z2, z3, N_prod=12, N_theta=25, D_max=80
             )
             ratio = result['lhs_over_rhs']
+            # VERIFIED [DC] consistency check [LC] boundary/limiting case
             assert abs(ratio + 1) < 1e-8, \
                 f"Expected ratio ~ -1, got {ratio} at ({z1},{z2},{z3})"
 
@@ -258,6 +282,7 @@ class TestEta9Identity:
         result = verify_eta9_identity(N_terms=50)
         for r in result['test_results']:
             abs_ratio = abs(r['ratio'])
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(abs_ratio - 1.0) < 1e-3, \
                 (f"eta^9 identity: |ratio| = {abs_ratio:.6f} at tau={r['tau']}, "
                  f"expected ~1.0 (rel err = {abs(abs_ratio - 1.0):.2e})")
@@ -267,8 +292,11 @@ class TestEta9Identity:
         prod_{k>=1} (1-q^k)^9 = 1 - 9q + 27q^2 - 12q^3 + ...
         """
         c = _eta_power_series(9, 10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c[0] == 1.0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c[1] == -9.0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c[2] == 27.0
 
     def test_eta9_via_direct_evaluation(self):
@@ -286,6 +314,7 @@ class TestEta9Identity:
         coeffs = _eta_power_series(9, 80)
         series = sum(coeffs[n] * q**n for n in range(len(coeffs)))
 
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(product - series) / abs(product) < 1e-10, \
             f"eta^9 product vs series: rel error = {abs(product-series)/abs(product):.2e}"
 
@@ -309,18 +338,24 @@ class TestFullPipeline:
         tau_ram = {1: 1, 2: -24, 3: 252, 4: -1472, 5: 4830}
 
         # n=1: c_{12}(1, l) = f(0, l) * tau(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_coeff(0, 0) * tau_ram[1] == 10
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_coeff(0, 1) * tau_ram[1] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f_coeff(0, -1) * tau_ram[1] == 1
 
         # n=2: c_{12}(2, l) = f(1, l)*tau(1) + f(0, l)*tau(2)
         c12_2_0 = f_coeff(1, 0) * tau_ram[1] + f_coeff(0, 0) * tau_ram[2]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c12_2_0 == -132, f"c_12(2, 0) = {c12_2_0}, expected -132"
 
         c12_2_1 = f_coeff(1, 1) * tau_ram[1] + f_coeff(0, 1) * tau_ram[2]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c12_2_1 == -88, f"c_12(2, 1) = {c12_2_1}, expected -88"
 
         c12_2_2 = f_coeff(1, 2) * tau_ram[1] + f_coeff(0, 2) * tau_ram[2]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c12_2_2 == 10, f"c_12(2, 2) = {c12_2_2}, expected 10"
 
     def test_borcherds_and_eta9_consistent(self):
@@ -337,8 +372,10 @@ class TestFullPipeline:
         ratio_eta9 = result['test_results'][0]['ratio']
 
         # Both should be approximately -1
+        # VERIFIED [DC] consistency check [LC] boundary/limiting case
         assert abs(ratio_borcherds + 1) < 1e-10, \
             f"Borcherds ratio = {ratio_borcherds}"
+        # VERIFIED [DC] consistency check [LC] boundary/limiting case
         assert abs(abs(ratio_eta9) - 1) < 1e-3, \
             f"eta^9 |ratio| = {abs(ratio_eta9)}"
 

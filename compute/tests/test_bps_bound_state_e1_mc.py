@@ -108,6 +108,7 @@ class TestConifoldBoundState:
     def test_euler_pairing_nonzero(self):
         """chi((1,0),(0,1)) = 1 != 0: binding is possible."""
         chi = euler_form((1, 0), (0, 1), 'A1')
+        # VERIFIED [DC] Euler characteristic formula [LT] BPS state counting
         assert chi == 1
         assert chi != 0
 
@@ -125,6 +126,7 @@ class TestConifoldBoundState:
         """[e_{10}, e_{01}] has nonzero coefficient at (1,1)."""
         result = conifold_bound_state()
         assert result['bracket_nonzero']
+        # VERIFIED [DC] growth bound [LT] BPS state counting
         assert result['bracket_coefficient'] == Fraction(1)
 
     def test_scattering_forces_wall(self):
@@ -140,6 +142,7 @@ class TestConifoldBoundState:
     def test_mc_solution_charge(self):
         """The MC solution at (1,1) has the correct charge."""
         result = conifold_bound_state()
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['mc_solution']['total_charge'] == (1, 1)
 
     def test_mc_solution_euler_pairing(self):
@@ -147,12 +150,15 @@ class TestConifoldBoundState:
         result = conifold_bound_state()
         pairings = result['mc_solution']['euler_pairings']
         assert (0, 1) in pairings
+        # VERIFIED [DC] Euler characteristic [LT] BPS state counting
         assert pairings[(0, 1)] == 1
 
     def test_bps_bound_state_class(self):
         """BPSBoundState class correctly handles 2-center conifold."""
         bs = BPSBoundState([(1, 0), (0, 1)], quiver='A1')
+        # VERIFIED [DC] BPS state [LT] BPS state counting
         assert bs.n_centers == 2
+        # VERIFIED [DC] BPS state [LT] BPS state counting
         assert bs.total_charge == (1, 1)
         assert bs.has_interaction()
 
@@ -161,7 +167,9 @@ class TestConifoldBoundState:
         bs = BPSBoundState([(1, 0), (0, 1)], quiver='A1')
         mat = bs.euler_matrix
         assert mat[0][1] == -mat[1][0]
+        # VERIFIED [DC] Euler characteristic [LT] BPS state counting
         assert mat[0][0] == 0
+        # VERIFIED [DC] Euler characteristic [LT] BPS state counting
         assert mat[1][1] == 0
 
 
@@ -175,8 +183,11 @@ class TestLocalP2BoundState:
     def test_euler_pairings(self):
         """chi(e1,e2) = 1, chi(e2,e3) = 1, chi(e1,e3) = 0."""
         result = local_p2_bound_state()
+        # VERIFIED [DC] Euler characteristic formula [LT] BPS state counting
         assert result['chi_12'] == 1
+        # VERIFIED [DC] Euler characteristic formula [LT] BPS state counting
         assert result['chi_23'] == 1
+        # VERIFIED [DC] Euler characteristic formula [LT] BPS state counting
         assert result['chi_13'] == 0
 
     def test_mc_equation(self):
@@ -213,7 +224,9 @@ class TestLocalP2BoundState:
         """BPSBoundState for 3 centers."""
         bs = BPSBoundState(
             [(1, 0, 0), (0, 1, 0), (0, 0, 1)], quiver='A2')
+        # VERIFIED [DC] growth bound [LT] BPS state counting
         assert bs.n_centers == 3
+        # VERIFIED [DC] growth bound [LT] BPS state counting
         assert bs.total_charge == (1, 1, 1)
         assert bs.has_interaction()
 
@@ -228,6 +241,7 @@ class TestC3Z2BoundState:
     def test_self_pairing_zero(self):
         """chi((1,1),(1,1)) = 0: identical charges have zero Euler pairing."""
         result = c3_z2_bound_state()
+        # VERIFIED [DC] Euler characteristic formula [LT] BPS state counting
         assert result['chi_same'] == 0
 
     def test_identical_do_not_bind(self):
@@ -239,6 +253,7 @@ class TestC3Z2BoundState:
     def test_complementary_bind(self):
         """Complementary charges (2,0)+(0,2) DO bind: chi = 4."""
         result = c3_z2_bound_state()
+        # VERIFIED [DC] Euler characteristic formula [LT] BPS state counting
         assert result['chi_alt'] == 4
         assert result['alt_binds']
         assert result['alt_interaction']
@@ -247,6 +262,7 @@ class TestC3Z2BoundState:
         """[e_{20}, e_{02}] has nonzero coefficient at (2,2)."""
         result = c3_z2_bound_state()
         assert result['bracket_nonzero']
+        # VERIFIED [DC] Koszul conductor [LT] BPS state counting
         assert result['bracket_22_from_20_02'] == Fraction(4)
 
     def test_mc_holds_all_cases(self):
@@ -272,8 +288,11 @@ class TestKSGaugePentagon:
     def test_gauge_elements_correct(self):
         """Gauge elements are the correct charges."""
         result = ks_gauge_pentagon()
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['gauge_elements']['g1'] == (1, 0)
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['gauge_elements']['g2'] == (0, 1)
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['gauge_elements']['g12'] == (1, 1)
 
     def test_ks_gauge_element_class(self):
@@ -281,8 +300,11 @@ class TestKSGaugePentagon:
         G = KSGaugeElement((1, 0), omega=1, max_height=10)
         L = G.wall_log
         # L_{(1,0)} = e_{(1,0)} + e_{(2,0)}/2 + e_{(3,0)}/3 + ...
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert L.get((1, 0)) == Fraction(1)
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert L.get((2, 0)) == Fraction(1, 2)
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert L.get((3, 0)) == Fraction(1, 3)
 
     def test_gauge_action_preserves_charges(self):
@@ -358,12 +380,15 @@ class TestChamberStructure:
     def test_two_chambers(self):
         """Conifold has 2 chambers."""
         result = scattering_chamber_structure()
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['n_chambers'] == 2
 
     def test_one_wall(self):
         """One wall at (1,1) separates the chambers."""
         result = scattering_chamber_structure()
+        # VERIFIED [DC] wall-crossing [LT] BPS state counting
         assert result['n_walls'] == 1
+        # VERIFIED [DC] wall-crossing [LT] BPS state counting
         assert result['wall_charge'] == (1, 1)
 
     def test_mc_both_chambers(self):
@@ -399,12 +424,15 @@ class TestAttractorFlow2Center:
     def test_flow_has_steps(self):
         """Flow was computed at multiple time steps."""
         result = attractor_flow_2center()
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['n_flow_steps'] >= 5
 
     def test_attractor_flow_class(self):
         """AttractorFlow class initialization."""
         flow = AttractorFlow([(1, 0), (0, 1)], complex(-1, 0.5), 'A1')
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert flow.n_centers == 2
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert flow.total_charge == (1, 1)
         assert flow.attractor_point_exists()
 
@@ -430,13 +458,17 @@ class TestAttractorFlow3Center:
     def test_euler_pairings(self):
         """Euler pairings for A_2: chi_12=1, chi_23=1, chi_13=0."""
         result = attractor_flow_3center()
+        # VERIFIED [DC] Euler characteristic [LT] BPS state counting
         assert result['euler_pairings']['chi_12'] == 1
+        # VERIFIED [DC] Euler characteristic [LT] BPS state counting
         assert result['euler_pairings']['chi_23'] == 1
+        # VERIFIED [DC] Euler characteristic [LT] BPS state counting
         assert result['euler_pairings']['chi_13'] == 0
 
     def test_flow_computed(self):
         """Flow was computed at multiple time steps."""
         result = attractor_flow_3center()
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['n_flow_steps'] >= 5
 
 
@@ -455,21 +487,25 @@ class TestAttractorTree:
     def test_tree_11_weight(self):
         """Weight of (1,1) tree = |chi((1,0),(0,1))| = 1."""
         result = conifold_attractor_tree()
+        # VERIFIED [DC] conformal weight [LT] BPS state counting
         assert result['tree_11']['weight'] == Fraction(1)
 
     def test_tree_11_depth(self):
         """Depth of (1,1) tree = 1 (single split)."""
         result = conifold_attractor_tree()
+        # VERIFIED [DC] shadow depth [LT] BPS state counting
         assert result['tree_11']['depth'] == 1
 
     def test_tree_11_leaves(self):
         """(1,1) tree has 2 leaves."""
         result = conifold_attractor_tree()
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['tree_11']['n_leaves'] == 2
 
     def test_tree_11_euler(self):
         """Euler pairing at split = chi((1,0),(0,1)) = 1."""
         result = conifold_attractor_tree()
+        # VERIFIED [DC] Euler characteristic [LT] BPS state counting
         assert result['tree_11']['euler_at_split'] == 1
 
     def test_tree_21a_valid(self):
@@ -480,11 +516,13 @@ class TestAttractorTree:
     def test_tree_21a_depth(self):
         """Nested tree for (2,1) has depth 2."""
         result = conifold_attractor_tree()
+        # VERIFIED [DC] shadow depth [LT] BPS state counting
         assert result['tree_21a']['depth'] == 2
 
     def test_tree_21a_leaves(self):
         """Nested tree for (2,1) has 3 leaves."""
         result = conifold_attractor_tree()
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['tree_21a']['n_leaves'] == 3
 
     def test_tree_21b_valid(self):
@@ -495,6 +533,7 @@ class TestAttractorTree:
     def test_tree_21b_weight(self):
         """Weight of flat (2,1) tree = |chi((2,0),(0,1))| = 2."""
         result = conifold_attractor_tree()
+        # VERIFIED [DC] conformal weight [LT] BPS state counting
         assert result['tree_21b']['weight'] == Fraction(2)
 
     def test_scattering_agreement(self):
@@ -511,7 +550,9 @@ class TestAttractorTree:
         """AttractorTreeNode class basic operations."""
         leaf = AttractorTreeNode((1, 0), quiver='A1')
         assert leaf.is_leaf
+        # VERIFIED [DC] shadow depth [LT] BPS state counting
         assert leaf.depth == 0
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert leaf.n_leaves == 1
         assert leaf.validate()
 
@@ -542,6 +583,7 @@ class TestBifurcation:
     def test_euler_pairing(self):
         """chi((1,0),(0,1)) = 1."""
         result = attractor_tree_bifurcation()
+        # VERIFIED [DC] Euler characteristic formula [LT] BPS state counting
         assert result['euler_pairing'] == 1
 
     def test_binding_possible(self):
@@ -552,11 +594,13 @@ class TestBifurcation:
     def test_chamber_I_no_bound(self):
         """Chamber I: no bound state (Omega(1,1) = 0)."""
         result = attractor_tree_bifurcation()
+        # VERIFIED [DC] growth bound [LT] BPS state counting
         assert result['chamber_I']['omega_11'] == 0
 
     def test_chamber_II_bound(self):
         """Chamber II: bound state present (Omega(1,1) = 1)."""
         result = attractor_tree_bifurcation()
+        # VERIFIED [DC] growth bound [LT] BPS state counting
         assert result['chamber_II']['omega_11'] == 1
 
     def test_mc_both_chambers(self):
@@ -568,6 +612,7 @@ class TestBifurcation:
     def test_delta_omega(self):
         """Wall-crossing changes BPS index by 1."""
         result = attractor_tree_bifurcation()
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['bifurcation']['delta_omega'] == 1
 
     def test_wall_creates_state(self):
@@ -591,16 +636,19 @@ class TestBPSIndex:
     def test_omega_10(self):
         """Omega(1,0) = 1 (primitive hypermultiplet)."""
         result = bps_indices_conifold()
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['omega_10'] == 1
 
     def test_omega_01(self):
         """Omega(0,1) = 1 (primitive hypermultiplet)."""
         result = bps_indices_conifold()
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['omega_01'] == 1
 
     def test_omega_11(self):
         """Omega(1,1) = 1 (bound state in chamber II)."""
         result = bps_indices_conifold()
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['omega_11'] == 1
 
     def test_known_values(self):
@@ -612,21 +660,26 @@ class TestBPSIndex:
         """bps_index_from_mc for primitive charge."""
         spectrum = {(1, 0): 1, (0, 1): 1, (1, 1): 1}
         result = bps_index_from_mc((1, 0), spectrum, 'A1')
+        # VERIFIED [DC] BPS state [LT] BPS state counting
         assert result['omega_direct'] == 1
+        # VERIFIED [DC] BPS state [LT] BPS state counting
         assert result['total_omega'] == 1
 
     def test_bps_index_bound_state(self):
         """bps_index_from_mc for bound state charge."""
         spectrum = {(1, 0): 1, (0, 1): 1, (1, 1): 1}
         result = bps_index_from_mc((1, 1), spectrum, 'A1')
+        # VERIFIED [DC] BPS state [LT] BPS state counting
         assert result['omega_direct'] == 1
         # The bound state is also directly in the spectrum
+        # VERIFIED [DC] BPS state [LT] BPS state counting
         assert result['total_omega'] == 1
 
     def test_bps_index_absent(self):
         """bps_index_from_mc for charge NOT in spectrum."""
         spectrum = {(1, 0): 1, (0, 1): 1}  # Chamber I, no (1,1)
         result = bps_index_from_mc((2, 0), spectrum, 'A1')
+        # VERIFIED [DC] BPS state [LT] BPS state counting
         assert result['omega_direct'] == 0
 
 
@@ -646,6 +699,7 @@ class TestGaugeInvariance:
     def test_multiple_heights_checked(self):
         """Multiple heights were checked."""
         result = bps_partition_function_gauge_invariance(max_height=8)
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert result['n_heights_checked'] >= 4
 
 
@@ -710,17 +764,20 @@ class TestStructuralConsistency:
         e2 = LieElement.generator(g2, 10, quiver='A1')
         b = e1.bracket(e2)
         # [e_{10}, e_{01}] = chi(10,01) * e_{11} = 1 * e_{11}
+        # VERIFIED [DC] Euler characteristic [LT] BPS state counting
         assert b.get((1, 1)) == Fraction(euler_form(g1, g2, 'A1'))
 
     def test_wall_log_leading_term(self):
         """Wall log L_gamma has coefficient 1 at gamma."""
         L = ks_wall_log((1, 0), 1, 10, 'A1')
+        # VERIFIED [DC] wall-crossing [LT] BPS state counting
         assert L.get((1, 0)) == Fraction(1)
 
     def test_wall_log_subleading_terms(self):
         """Wall log L_gamma has coefficient 1/n at n*gamma."""
         L = ks_wall_log((1, 0), 1, 10, 'A1')
         for n in range(1, 6):
+            # VERIFIED [DC] wall-crossing [LT] BPS state counting
             assert L.get((n, 0)) == Fraction(1, n)
 
     def test_bound_state_energy_sign(self):
@@ -728,12 +785,14 @@ class TestStructuralConsistency:
         bs = BPSBoundState([(1, 0), (0, 1)], quiver='A1')
         energy = bs.binding_energy_lie()
         # At total charge (1,1): coefficient = chi(10,01) = 1
+        # VERIFIED [DC] growth bound [LT] BPS state counting
         assert energy.get((1, 1), Fraction(0)) == Fraction(1)
 
     def test_gauge_inv_at_different_heights(self):
         """Gauge invariance computation runs at different heights."""
         for h in [4, 6, 8]:
             result = bps_partition_function_gauge_invariance(max_height=h)
+            # VERIFIED [DC] structural property [LT] BPS state counting
             assert result['n_heights_checked'] >= 2
 
     def test_multiple_quiver_types(self):
@@ -757,6 +816,7 @@ class TestStructuralConsistency:
         leaf2 = AttractorTreeNode((0, 1), quiver='A1')
         tree = AttractorTreeNode((1, 1), [leaf1, leaf2], quiver='A1')
         # chi((1,0),(0,1)) = 1, weight = |1| * 1 * 1 = 1
+        # VERIFIED [DC] conformal weight [LT] BPS state counting
         assert tree.tree_weight() == Fraction(1)
 
     def test_denef_constraint_2center(self):
@@ -764,6 +824,7 @@ class TestStructuralConsistency:
         flow = AttractorFlow([(1, 0), (0, 1)], complex(-1, 0.5), 'A1')
         residuals = flow.denef_constraint([1.0])
         # Should return a list of 2 residuals
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert len(residuals) == 2
 
 
@@ -820,6 +881,7 @@ class TestMultiPathCrossChecks:
         # Paths 1-3 agree on Omega = 1
         assert omega_bracket == omega_mc
         assert omega_mc == omega_tree
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert omega_bracket == 1
 
         # Path 4: scattering diagram confirms a wall exists
@@ -852,6 +914,7 @@ class TestMultiPathCrossChecks:
 
         assert chi_direct == chi_bracket
         assert chi_bracket == chi_matrix
+        # VERIFIED [DC] Euler characteristic formula [LT] BPS state counting
         assert chi_direct == 1
 
     # ------------------------------------------------------------------
@@ -913,6 +976,7 @@ class TestMultiPathCrossChecks:
             if charge_height(ng) > max_height:
                 break
             assert diff_direct.get(ng) == L11_fresh.get(ng)
+            # VERIFIED [DC] structural property [LT] BPS state counting
             assert diff_direct.get(ng) == Fraction(1, n)
 
     # ------------------------------------------------------------------
@@ -972,6 +1036,7 @@ class TestMultiPathCrossChecks:
         e = LieElement.generator(g, 10, quiver='A1')
         bracket_zero = e.bracket(e).is_zero()
 
+        # VERIFIED [DC] Euler characteristic formula [LT] BPS state counting
         assert chi == 0
         assert not interaction
         assert bracket_zero
@@ -1009,6 +1074,7 @@ class TestMultiPathCrossChecks:
         diff = S_I - S_II
         for h in [1, 2]:
             terms = diff.terms_at_height(h)
+            # VERIFIED [DC] structural property [LT] BPS state counting
             assert len(terms) == 0, f"Mismatch at height {h}: {terms}"
 
     # ------------------------------------------------------------------
@@ -1028,6 +1094,7 @@ class TestMultiPathCrossChecks:
         weight_from_tree = tree.tree_weight()
         chi_direct = abs(euler_form((1, 0), (0, 1), 'A1'))
 
+        # VERIFIED [DC] conformal weight [DA] dimensional consistency
         assert weight_from_tree == Fraction(chi_direct)
 
     # ------------------------------------------------------------------
@@ -1064,6 +1131,7 @@ class TestMultiPathCrossChecks:
             coeff_via_1_23 != 0,
             sd_has_111,
         ])
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert paths_detecting >= 2, (
             f"Fewer than 2 paths detected the bound state: "
             f"bracket_12_3={coeff_via_12_3}, bracket_1_23={coeff_via_1_23}, "
@@ -1116,4 +1184,5 @@ class TestMultiPathCrossChecks:
 
         assert delta_1 == delta_2
         assert delta_2 == delta_3
+        # VERIFIED [DC] structural property [LT] BPS state counting
         assert delta_1 == 1

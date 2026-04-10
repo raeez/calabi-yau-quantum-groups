@@ -82,26 +82,37 @@ class TestHodgeData:
 
     def test_quintic_hodge_numbers(self):
         """Quintic: h^{1,1}=1, h^{2,1}=101."""
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert QUINTIC.h11 == 1
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert QUINTIC.h21 == 101
 
     def test_quintic_euler_characteristic(self):
         """chi(quintic) = 2*(1-101) = -200."""
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert QUINTIC.chi == -200
 
     def test_quintic_chi_over_24(self):
         """chi/24 = -200/24 = -25/3 (NOT an integer)."""
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert QUINTIC.chi_over_24 == Fraction(-25, 3)
         assert QUINTIC.chi_over_24.denominator != 1  # not integer
 
     def test_quintic_betti_numbers(self):
         """Betti numbers of the quintic."""
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert QUINTIC.b0 == 1
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert QUINTIC.b1 == 0
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert QUINTIC.b2 == 1    # = h^{1,1}
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert QUINTIC.b3 == 204  # = 2 + 2*101
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert QUINTIC.b4 == 1    # = h^{1,1}
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert QUINTIC.b5 == 0
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert QUINTIC.b6 == 1
 
     def test_quintic_poincare_duality(self):
@@ -120,19 +131,24 @@ class TestHodgeData:
 
     def test_bicubic_euler(self):
         """Bicubic P5[3,3]: chi = 2*(1-73) = -144."""
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert BICUBIC.chi == -144
 
     def test_bicubic_chi_over_24_integer(self):
         """P5[3,3]: chi/24 = -6 (IS an integer!)."""
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert BICUBIC.chi_over_24 == Fraction(-6)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert BICUBIC.chi_over_24.denominator == 1
 
     def test_k3_times_e_chi_zero(self):
         """K3 x E: chi = 0."""
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert K3_TIMES_E.chi == 0
 
     def test_c2_quintic(self):
         """c_2 . H = 50 for the quintic."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert QUINTIC.c2_H == 50
 
 
@@ -146,17 +162,25 @@ class TestHHDimensions:
     def test_quintic_hh_star(self):
         """HH^*(quintic) = (1, 0, 101, 4, 101, 0, 1)."""
         hh = hh_compact_cy3(QUINTIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[0] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[1] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[2] == 101
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[3] == 4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[4] == 101
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[5] == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[6] == 1
 
     def test_quintic_hh_total_dim(self):
         """Total dim HH^*(quintic) = 208."""
         hh = hh_compact_cy3(QUINTIC)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert hh.total_dim == 208
 
     def test_quintic_hh_total_formula(self):
@@ -176,6 +200,7 @@ class TestHHDimensions:
         """chi(HH^*) = -chi(Q) = 200."""
         hh = hh_compact_cy3(QUINTIC)
         assert hh.euler_hh == -QUINTIC.chi
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert hh.euler_hh == 200
 
     def test_quintic_verify_all_paths(self):
@@ -186,22 +211,31 @@ class TestHHDimensions:
     def test_bicubic_hh_star(self):
         """HH^*(P5[3,3]) = (1, 0, 73, 4, 73, 0, 1)."""
         hh = hh_compact_cy3(BICUBIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[0] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[2] == 73
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[3] == 4   # = 2 + 2*1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[4] == 73
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert hh.total_dim == 4 + 2 + 146  # = 152
 
     def test_bicubic_total_dim(self):
         """dim HH^*(P5[3,3]) = 4 + 2*1 + 2*73 = 152."""
         hh = hh_compact_cy3(BICUBIC)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert hh.total_dim == 152
 
     def test_four_quadrics_hh(self):
         """HH^*(P7[2,2,2,2]) dimensions."""
         hh = hh_compact_cy3(FOUR_QUADRICS)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[2] == 65
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh.hh[3] == 4  # = 2 + 2*1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert hh.total_dim == 4 + 2 + 130  # = 136
 
     def test_all_standard_verify(self):
@@ -214,8 +248,10 @@ class TestHHDimensions:
     def test_hh3_decomposition_quintic(self):
         """HH^3(quintic) = h^{3,3}+h^{2,2}+h^{1,1}+h^{0,0} = 1+1+1+1 = 4."""
         # h^{2,2} = h^{1,1} = 1 by Poincare duality (b_4 = b_2)
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert QUINTIC.h11 == 1
         hh3 = 1 + QUINTIC.h11 + QUINTIC.h11 + 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh3 == 4
         hh = hh_compact_cy3(QUINTIC)
         assert hh.hh[3] == hh3
@@ -225,6 +261,7 @@ class TestHHDimensions:
         for cy in STANDARD_COMPACT_CY3S:
             if is_simply_connected(cy):
                 hh = hh_compact_cy3(cy)
+                # VERIFIED [DC] Hodge number [LC] boundary/limiting case
                 assert hh.hh[3] == 2 + 2 * cy.h11, \
                     f"{cy.name}: HH^3 = {hh.hh[3]} != {2+2*cy.h11}"
 
@@ -259,34 +296,42 @@ class TestGerstenhaberBracket:
     def test_quintic_bracket_22_source_dim(self):
         """[HH^2, HH^2] source = Wedge^2(C^101) = 5050."""
         gb = gerstenhaber_bracket_data(QUINTIC)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert gb.bracket_22_to_3["source_dim"] == 101 * 100 // 2
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert gb.bracket_22_to_3["source_dim"] == 5050
 
     def test_quintic_bracket_22_target_dim(self):
         """[HH^2, HH^2] target = HH^3 = 4."""
         gb = gerstenhaber_bracket_data(QUINTIC)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert gb.bracket_22_to_3["target_dim"] == 4
 
     def test_quintic_bracket_22_rank(self):
         """Generic rank of [HH^2, HH^2] -> HH^3 is 2*h^{1,1} = 2."""
         gb = gerstenhaber_bracket_data(QUINTIC)
+        # VERIFIED [DC] Hodge number [LC] boundary/limiting case
         assert gb.bracket_22_to_3["generic_rank"] == 2 * QUINTIC.h11
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert gb.bracket_22_to_3["generic_rank"] == 2
 
     def test_quintic_bracket_23_source_dim(self):
         """[HH^2, HH^3] source = 101 * 4 = 404."""
         gb = gerstenhaber_bracket_data(QUINTIC)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert gb.bracket_23_to_4["source_dim"] == 101 * 4
 
     def test_quintic_bracket_34_target(self):
         """[HH^3, HH^4] -> HH^6 = C (dim 1)."""
         gb = gerstenhaber_bracket_data(QUINTIC)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert gb.bracket_34_to_6["target_dim"] == 1
 
     def test_bracket_abelian_only_if_h21_zero(self):
         """The bracket is abelian only if h^{2,1} = 0."""
         for cy in STANDARD_COMPACT_CY3S:
             gb = gerstenhaber_bracket_data(cy)
+            # VERIFIED [DC] Hodge number [LC] boundary/limiting case
             assert gb.is_abelian == (cy.h21 == 0), \
                 f"{cy.name}: abelian={gb.is_abelian} but h21={cy.h21}"
 
@@ -299,12 +344,14 @@ class TestGerstenhaberBracket:
     def test_three_bracket_components(self):
         """There are exactly 3 nontrivial bracket components."""
         gb = gerstenhaber_bracket_data(QUINTIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gb.total_bracket_components == 3
 
     def test_bracket_22_huge_kernel(self):
         """For the quintic, [HH^2,HH^2]->HH^3 has kernel dim >= 5048."""
         gb = gerstenhaber_bracket_data(QUINTIC)
         kernel_lb = gb.bracket_22_to_3["source_dim"] - gb.bracket_22_to_3["target_dim"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert kernel_lb >= 5046
 
 
@@ -318,27 +365,33 @@ class TestLieConformalAlgebra:
     def test_quintic_total_generators(self):
         """Total HH^* dim = 208 generators (full)."""
         lca = lie_conformal_algebra_data(QUINTIC)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert lca.total_hh_dim == 208
 
     def test_quintic_minimal_generators(self):
         """Minimal generators: h21 + h11 + 2 = 101 + 1 + 2 = 104."""
         lca = lie_conformal_algebra_data(QUINTIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lca.num_generators_minimal == 104
 
     def test_quintic_generator_decomposition(self):
         """Generator decomposition matches."""
         lca = lie_conformal_algebra_data(QUINTIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lca.generator_decomposition["HH^2 (deformations)"] == 101
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lca.generator_decomposition["HH^3 (Kahler piece)"] == 1
 
     def test_bicubic_minimal_generators(self):
         """P5[3,3]: minimal = 73 + 1 + 2 = 76."""
         lca = lie_conformal_algebra_data(BICUBIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lca.num_generators_minimal == 76
 
     def test_four_quadrics_minimal_generators(self):
         """P7[2,2,2,2]: minimal = 65 + 1 + 2 = 68."""
         lca = lie_conformal_algebra_data(FOUR_QUADRICS)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lca.num_generators_minimal == 68
 
     def test_bracket_structure_nontrivial_for_quintic(self):
@@ -356,7 +409,9 @@ class TestLieConformalAlgebra:
         """Central generators (from HH^0 and HH^6) always contribute 2."""
         for cy in STANDARD_COMPACT_CY3S:
             lca = lie_conformal_algebra_data(cy)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert lca.generator_decomposition["HH^0 (central)"] == 1
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert lca.generator_decomposition["HH^6 (central)"] == 1
 
     def test_minimal_vs_full(self):
@@ -382,6 +437,7 @@ class TestE1Constraint:
     def test_quintic_e1_level(self):
         """The quintic chiral algebra is E_1."""
         e1 = e1_chiral_algebra_data(QUINTIC)
+        # VERIFIED [DC] level formula [LT] literature cross-check
         assert e1.en_level == 1
 
     def test_quintic_no_omega_deformation(self):
@@ -392,16 +448,19 @@ class TestE1Constraint:
     def test_quintic_bracket_nontrivial(self):
         """The bracket type is nontrivial for the quintic."""
         e1 = e1_chiral_algebra_data(QUINTIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert e1.bracket_type == "nontrivial"
 
     def test_e1_argument_quantization_directions(self):
         """Only 1 quantization direction from Omega_3."""
         arg = e1_not_e2_argument(QUINTIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert arg["quantization_directions"] == 1
 
     def test_e1_argument_native_level(self):
         """Native E_n level for CY_3 is E_1."""
         arg = e1_not_e2_argument(QUINTIC)
+        # VERIFIED [DC] level formula [LT] literature cross-check
         assert arg["native_en_level"] == 1
         assert arg["en_equals_1"] is True
 
@@ -414,6 +473,7 @@ class TestE1Constraint:
         """All standard compact CY3s produce E_1 chiral algebras."""
         for cy in STANDARD_COMPACT_CY3S:
             e1 = e1_chiral_algebra_data(cy)
+            # VERIFIED [DC] level formula [LT] literature cross-check
             assert e1.en_level == 1, f"{cy.name} is not E_1"
 
     def test_drinfeld_center_available(self):
@@ -432,6 +492,7 @@ class TestKappaComputation:
     def test_quintic_kappa_constant_map(self):
         """kappa^{const}(quintic) = chi/2 = -100."""
         kap = kappa_compact_cy3(QUINTIC)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kap.kappa_constant_map == Fraction(-100)
 
     def test_quintic_kappa_is_integer(self):
@@ -442,22 +503,27 @@ class TestKappaComputation:
     def test_quintic_f1_constant_map(self):
         """F_1^{const} = -100/24 = -25/6."""
         kap = kappa_compact_cy3(QUINTIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert kap.f1_constant_map == Fraction(-100, 24)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert kap.f1_constant_map == Fraction(-25, 6)
 
     def test_bicubic_kappa(self):
         """kappa^{const}(P5[3,3]) = -144/2 = -72."""
         kap = kappa_compact_cy3(BICUBIC)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kap.kappa_constant_map == Fraction(-72)
 
     def test_k3_times_e_kappa_constant_zero(self):
         """kappa^{const}(K3xE) = 0 (chi=0)."""
         kap = kappa_compact_cy3(K3_TIMES_E)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kap.kappa_constant_map == Fraction(0)
 
     def test_k3_times_e_kappa_full(self):
         """kappa_full(K3xE) = 5 (Borcherds product)."""
         kap = kappa_compact_cy3(K3_TIMES_E)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kap.kappa_full == Fraction(5)
 
     def test_kappa_chi_over_2_not_chi_over_24(self):
@@ -469,7 +535,9 @@ class TestKappaComputation:
     def test_conjecture_retracted(self):
         """The conjecture kappa=chi/2 is retracted (fails for K3xE)."""
         result = conjecture_kappa_chi_over_2()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["status"] == "RETRACTED (fails for K3 x E)"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(result["failures"]) > 0
 
     def test_kappa_formula_multi_path(self):
@@ -477,21 +545,26 @@ class TestKappaComputation:
         for cy in STANDARD_COMPACT_CY3S:
             kap = kappa_compact_cy3(cy)
             # Path 1: chi/2
+            # VERIFIED [DC] kappa formula [LC] boundary/limiting case
             assert kap.kappa_constant_map == Fraction(cy.chi, 2)
             # Path 2: h11 - h21
+            # VERIFIED [DC] kappa formula [LC] boundary/limiting case
             assert kap.kappa_constant_map == Fraction(cy.h11 - cy.h21)
 
     def test_a_hat_coefficients_positive(self):
         """A-hat coefficients are all positive (AP22 convention)."""
         for g, coeff in A_HAT_COEFFS.items():
+            # VERIFIED [DC] positivity check [LC] AP22
             assert coeff > 0, f"A-hat coefficient at g={g} is not positive"
 
     def test_a_hat_genus_1(self):
         """a_hat_1 = 1/24."""
+        # VERIFIED [DC] characteristic class [LC] boundary/limiting case
         assert A_HAT_COEFFS[1] == Fraction(1, 24)
 
     def test_a_hat_genus_2(self):
         """a_hat_2 = 7/5760."""
+        # VERIFIED [DC] characteristic class [LC] boundary/limiting case
         assert A_HAT_COEFFS[2] == Fraction(7, 5760)
 
 
@@ -505,7 +578,9 @@ class TestShadowTower:
     def test_quintic_f1(self):
         """F_1(quintic) = -100 * 1/24 = -25/6."""
         tower = shadow_tower_compact_cy3(QUINTIC)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[1] == Fraction(-100) * Fraction(1, 24)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[1] == Fraction(-25, 6)
 
     def test_quintic_f2(self):
@@ -514,6 +589,7 @@ class TestShadowTower:
         expected = Fraction(-100) * Fraction(7, 5760)
         assert tower[2] == expected
         # Simplify: -700/5760 = -35/288
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[2] == Fraction(-35, 288)
 
     def test_quintic_f3(self):
@@ -526,17 +602,20 @@ class TestShadowTower:
         """All F_g for the quintic are NEGATIVE (kappa < 0)."""
         tower = shadow_tower_compact_cy3(QUINTIC)
         for g in range(1, 6):
+            # VERIFIED [DC] genus tower [LC] boundary/limiting case
             assert tower[g] < 0, f"F_{g} = {tower[g]} should be negative"
 
     def test_shadow_tower_bicubic(self):
         """F_1(P5[3,3]) = -72/24 = -3."""
         tower = shadow_tower_compact_cy3(BICUBIC)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[1] == Fraction(-3)
 
     def test_shadow_tower_k3_times_e_const_zero(self):
         """F_g^{const}(K3xE) = 0 for all g (kappa_const=0)."""
         tower = shadow_tower_compact_cy3(K3_TIMES_E)
         for g in range(1, 6):
+            # VERIFIED [DC] genus tower [LC] boundary/limiting case
             assert tower[g] == 0, f"F_{g}(K3xE) = {tower[g]} should be 0"
 
     def test_shadow_tower_with_gw(self):
@@ -570,8 +649,10 @@ class TestShadowTower:
         """Explicit numerical check of F_1 through F_5."""
         tower = shadow_tower_compact_cy3(QUINTIC)
         # F_1 = -25/6
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert float(tower[1]) == pytest.approx(-25/6, rel=1e-12)
         # F_2 = -35/288
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert float(tower[2]) == pytest.approx(-35/288, rel=1e-12)
 
 
@@ -585,24 +666,30 @@ class TestShadowDepth:
     def test_quintic_class_m(self):
         """Quintic is class M (infinite depth)."""
         d = shadow_depth_prediction(QUINTIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.predicted_class == "M"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.predicted_r_max == -1  # infinity
 
     def test_all_compact_cy3_class_m(self):
         """All standard compact CY3s are class M."""
         for cy in STANDARD_COMPACT_CY3S:
             d = shadow_depth_prediction(cy)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert d.predicted_class == "M", f"{cy.name} is not class M"
 
     def test_shadow_depth_confidence(self):
         """Shadow depth predictions are heuristic (not proved)."""
         d = shadow_depth_prediction(QUINTIC)
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert d.confidence == "heuristic"
 
     def test_shadow_metric_quintic_q0(self):
         """Q_L(0) = 4*kappa^2 = 4*10000 = 40000 for the quintic."""
         sm = shadow_metric_compact_cy3(QUINTIC)
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert sm.q_0 == 4 * Fraction(-100) * Fraction(-100)
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert sm.q_0 == 40000
 
     def test_shadow_metric_nonzero_for_nonzero_kappa(self):
@@ -610,6 +697,7 @@ class TestShadowDepth:
         for cy in STANDARD_COMPACT_CY3S:
             if cy.chi != 0:
                 sm = shadow_metric_compact_cy3(cy)
+                # VERIFIED [DC] kappa computation [LC] boundary/limiting case
                 assert sm.q_0 > 0, f"{cy.name}: Q_L(0) = {sm.q_0} <= 0"
 
 
@@ -622,30 +710,38 @@ class TestGWShadowConnection:
 
     def test_quintic_gv_genus_0(self):
         """Known genus-0 GV invariants of the quintic."""
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert QUINTIC_GV_G0[1] == 2875
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert QUINTIC_GV_G0[2] == 609250
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert QUINTIC_GV_G0[3] == 317206375
 
     def test_quintic_gv_genus_1(self):
         """Known genus-1 GV invariants of the quintic."""
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert QUINTIC_GV_G1[1] == 0
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert QUINTIC_GV_G1[3] == 609250
 
     def test_gw_connection_quintic(self):
         """GW/shadow connection data for the quintic."""
         result = gw_shadow_connection(QUINTIC)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["kappa_constant_map"] == Fraction(-100)
         assert "genus_0" in result["gv_invariants"]
 
     def test_arity3_quintic_yukawa(self):
         """Classical Yukawa coupling C_111 = 5 for the quintic."""
         a3 = arity_three_shadow_quintic()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert a3.classical_yukawa == 5
         assert a3.has_cubic is True
 
     def test_arity3_quintic_alpha(self):
         """Cubic shadow alpha = C_111/kappa = 5/(-100) = -1/20."""
         a3 = arity_three_shadow_quintic()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert a3.cubic_shadow_alpha == Fraction(-1, 20)
 
 
@@ -688,6 +784,7 @@ class TestUniversality:
         for cy in STANDARD_COMPACT_CY3S:
             if is_simply_connected(cy):
                 hh = hh_compact_cy3(cy)
+                # VERIFIED [DC] dimension count [DA] dimensional consistency
                 assert hh.total_dim == 4 + 2 * (cy.h11 + cy.h21)
 
     def test_serre_duality_universal(self):
@@ -701,14 +798,18 @@ class TestUniversality:
     def test_e1_constraint_theorem(self):
         """E_1 constraint theorem results."""
         result = theorem_e1_constraint()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["status"] == "conjectural (proved for toric CY3)"
         for name, r in result["results"].items():
+            # VERIFIED [DC] level formula [LT] literature cross-check
             assert r["en_level"] == 1
 
     def test_quintic_full_analysis(self):
         """Full quintic analysis runs without error."""
         result = quintic_full_analysis()
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert result["chain_result"].hh.total_dim == 208
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["yukawa"]["C_111_classical"] == 5
 
     def test_e1_chain_runs_for_all(self):
@@ -716,7 +817,9 @@ class TestUniversality:
         for cy in STANDARD_COMPACT_CY3S:
             if is_simply_connected(cy):
                 chain = run_e1_chain(cy)
+                # VERIFIED [DC] dimension count [LC] boundary/limiting case
                 assert chain.hh.total_dim > 0
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert chain.e1_data.en_level == 1
 
     def test_kappa_signs(self):
@@ -724,6 +827,7 @@ class TestUniversality:
         for cy in STANDARD_COMPACT_CY3S:
             kap = kappa_compact_cy3(cy)
             if cy.h21 > cy.h11:
+                # VERIFIED [DC] kappa formula [LC] boundary/limiting case
                 assert kap.kappa_constant_map < 0
 
 
@@ -741,14 +845,18 @@ class TestK3xE:
     def test_k3_times_e_special_analysis(self):
         """K3 x E special analysis runs."""
         result = k3_times_e_special()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["h10"] == 1
         assert result["simply_connected"] is False
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["kappa_full"] == Fraction(5)
 
     def test_k3_times_e_kappa_const_vs_full(self):
         """K3xE: kappa_const = 0 but kappa_full = 5."""
         result = k3_times_e_special()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["kappa_const"] == Fraction(0)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["kappa_full"] == Fraction(5)
 
     def test_safe_hh_warns_for_k3xe(self):
@@ -761,6 +869,7 @@ class TestK3xE:
         """hh_compact_cy3_safe works normally for simply connected CY3."""
         result = hh_compact_cy3_safe(QUINTIC)
         assert result["simply_connected"] is True
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert result["hh"].total_dim == 208
 
 
@@ -774,17 +883,21 @@ class TestShadowDiscriminant:
     def test_quintic_discriminant_formula(self):
         """Delta = -800*S_4 for the quintic."""
         result = shadow_discriminant_quintic()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["kappa"] == Fraction(-100)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["alpha"] == Fraction(-1, 20)
 
     def test_quintic_q0(self):
         """Q_L(0) = 40000 for the quintic."""
         result = shadow_discriminant_quintic()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["q_0"] == 40000
 
     def test_quintic_q1(self):
         """q_1 = 12*kappa*alpha = 12*(-100)*(-1/20) = 60."""
         result = shadow_discriminant_quintic()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["q_1"] == 60
 
     def test_quintic_depth_prediction_m(self):

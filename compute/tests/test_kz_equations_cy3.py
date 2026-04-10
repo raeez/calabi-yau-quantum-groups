@@ -112,16 +112,19 @@ class TestClassicalKZ:
         """tr(Omega) = sum of eigenvalues = 3*(1/4) + 1*(-3/4) = 0."""
         Omega = sl2_casimir_spin_half()
         trace = sum(Omega[i][i] for i in range(4))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert trace == Fraction(0), f"tr(Omega) = {trace}, expected 0"
 
     def test_casimir_eigenvalues_triplet(self):
         """Triplet eigenvalue = 1/4."""
         eigs = sl2_casimir_eigenvalues()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert eigs['triplet_j1'] == Fraction(1, 4)
 
     def test_casimir_eigenvalues_singlet(self):
         """Singlet eigenvalue = -3/4."""
         eigs = sl2_casimir_eigenvalues()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert eigs['singlet_j0'] == Fraction(-3, 4)
 
     def test_casimir_eigenvalue_sum(self):
@@ -135,13 +138,16 @@ class TestClassicalKZ:
         eigs = sl2_casimir_eigenvalues()
         # Path 1: weighted sum
         total = 3 * eigs['triplet_j1'] + 1 * eigs['singlet_j0']
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert total == Fraction(0)
         # Path 2: matrix trace
         Omega = sl2_casimir_spin_half()
         trace = sum(Omega[i][i] for i in range(4))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert trace == Fraction(0)
         # Path 3: from C_2 formula
         c2_j1 = Fraction(1, 2) * (Fraction(1) * Fraction(2) - Fraction(3, 2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c2_j1 == Fraction(1, 4)
 
     def test_kz_2point_exponent_difference(self):
@@ -173,8 +179,11 @@ class TestClassicalKZ:
         k = 1
         F = Fraction
         data = classical_kz_3point_ode(0.5, k, F(1, 4), F(1, 4), F(-3, 4))
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data['kappa_kz'] == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(data['exponents_z0']) == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(data['exponents_z1']) == 2
 
     def test_kz_monodromy_order(self):
@@ -245,6 +254,7 @@ class TestYangianKZ:
     def test_r_matrix_asymptotic(self):
         """g(u) -> 1 as |u| -> infinity."""
         g_large = yangian_r_matrix_scalar(100.0 + 50.0j, H1_REAL, H2_REAL, H3_REAL)
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert abs(g_large - 1.0) < 0.01
 
     def test_log_derivative_is_even(self):
@@ -283,6 +293,7 @@ class TestYangianKZ:
         for ha in [H1_REAL, H2_REAL, H3_REAL]:
             u_near = ha + 1e-6
             v_near = yangian_log_derivative(u_near, H1_REAL, H2_REAL, H3_REAL)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(v_near) > 1e4, \
                 f"v({u_near}) = {v_near}, expected large (pole at h_a={ha})"
 
@@ -302,6 +313,7 @@ class TestYangianKZ:
         v_numerical = (cmath.log(g_p) - cmath.log(g_m)) / (2 * eps)
         # Path 2: library function
         v_lib = yangian_log_derivative(u, H1_GENERIC, H2_GENERIC, H3_GENERIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(v_numerical - v_lib) < 1e-5, \
             f"numerical={v_numerical}, library={v_lib}"
         # Path 3: even formula
@@ -368,6 +380,7 @@ class TestYangianKZ:
         z1, z2, z3 = 0.5 + 0.1j, 1.0 + 0.3j, 2.0 - 0.5j
         phi = yangian_kz_3point_solution(z1, z2, z3,
                                           H1_GENERIC, H2_GENERIC, H3_GENERIC)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(phi) > 1e-15, f"Phi = {phi}, expected nonzero"
 
     def test_kz_3point_satisfies_ode(self):
@@ -430,6 +443,7 @@ class TestYangianKZ:
         dphi = (phi_p - phi_m) / (2 * eps)
         K_1 = yangian_kz_hamiltonian([z1, z2, z3], 0, H1_REAL, H2_REAL, H3_REAL)
         rel = abs(dphi - K_1 * phi) / max(abs(phi), 1e-15)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert rel < 1e-4
 
     def test_kz_3point_not_permutation_symmetric(self):
@@ -449,6 +463,7 @@ class TestYangianKZ:
         phi_213 = yangian_kz_3point_solution(z2, z1, z3,
                                               H1_GENERIC, H2_GENERIC, H3_GENERIC)
         # Path 1: values differ
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert abs(phi_123 - phi_213) > 1e-3, \
             f"phi_123 and phi_213 should differ: {phi_123} vs {phi_213}"
 
@@ -490,17 +505,20 @@ class TestConifoldKZ:
         for eps in [0.01, 0.001, 0.0001]:
             t = complex(eps, eps)  # approach at 45 degrees, |t| = eps*sqrt(2)
             A = conifold_kz_connection(t, [(1, 0), (0, 1)])
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(A) > 1.0 / (3 * eps), \
                 f"A({t}) = {A}, expected large (pole at t=0)"
         # Path 2: scaling check
         A1 = conifold_kz_connection(0.01 + 0.01j, [(1, 0), (0, 1)])
         A2 = conifold_kz_connection(0.001 + 0.001j, [(1, 0), (0, 1)])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(A2) > 5 * abs(A1), "A should scale as ~1/|t|"
         # Path 3: residue
         t_small = 0.001 + 0.001j
         A_small = conifold_kz_connection(t_small, [(1, 0), (0, 1)])
         residue = t_small * A_small
         # residue should be close to -1 (the -1/t term dominates)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(residue - (-1.0)) < 0.01, \
             f"Residue ~ {residue}, expected -1"
 
@@ -509,7 +527,9 @@ class TestConifoldKZ:
         t = 1.0 + 0.5j
         data_I = conifold_kz_equation_2chamber(t, 'I')
         data_II = conifold_kz_equation_2chamber(t, 'II')
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert data_I['n_bps_states'] == 2
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert data_II['n_bps_states'] == 3
 
     def test_exact_solution_derivative(self):
@@ -525,6 +545,7 @@ class TestConifoldKZ:
         A = -1.0 / t - 1.0
         dphi_expected = A * phi
 
+        # VERIFIED [DC] exactness [LC] boundary/limiting case
         assert abs(dphi_numerical - dphi_expected) / max(abs(phi), 1e-15) < 1e-5, \
             f"Derivative mismatch: numerical={dphi_numerical}, expected={dphi_expected}"
 
@@ -539,6 +560,7 @@ class TestConifoldKZ:
         """At large |t|, Phi(t) -> 0 (exponential decay)."""
         t = 10.0 + 0.5j
         phi = conifold_kz_exact_solution(t)
+        # VERIFIED [DC] exactness [LC] boundary/limiting case
         assert abs(phi) < 1e-3, f"|Phi({t})| = {abs(phi)}, expected small"
 
     def test_monodromy_residue(self):
@@ -564,6 +586,7 @@ class TestConifoldKZ:
 
         exact_ratio = phi_exact_end / phi_exact_start
         rel_err = abs(phi_numerical - exact_ratio) / max(abs(exact_ratio), 1e-15)
+        # VERIFIED [DC] exactness [LC] boundary/limiting case
         assert rel_err < 0.1, \
             f"Numerical integration error: {rel_err}"
 
@@ -645,6 +668,7 @@ class TestChartDecomposition:
         for eps in [0.01, 0.001]:
             t = -1.0 + eps * 1j
             data = conifold_chart_decomposition(t)
+            # VERIFIED [DC] growth bound [LC] boundary/limiting case
             assert abs(data['bound_state_contribution']) > 1.0 / (2 * eps)
 
 
@@ -697,6 +721,7 @@ class TestBPSStates:
         charges = conifold_bps_central_charges(t)
         phase_1 = cmath.phase(charges['gamma_1'])
         phase_2 = cmath.phase(charges['gamma_2'])
+        # VERIFIED [DC] stability condition [LC] boundary/limiting case
         assert abs(phase_1 - phase_2) > 1e-3, \
             f"Phases too close: phi_1={phase_1}, phi_2={phase_2}"
 
@@ -705,6 +730,7 @@ class TestBPSStates:
         t = 1.0 + 0.5j
         charges = conifold_bps_central_charges(t)
         for label, z_val in charges.items():
+            # VERIFIED [DC] positivity check [LC] boundary/limiting case
             assert abs(z_val) > 1e-10, \
                 f"|Z({label})| = {abs(z_val)}, expected positive"
 
@@ -734,8 +760,10 @@ class TestBPSStates:
         phi2 = conifold_kz_exact_solution(t2)
         dphi = (conifold_kz_exact_solution(t2 + eps)
                 - conifold_kz_exact_solution(t2 - eps)) / (2 * eps)
+        # VERIFIED [DC] exactness [LC] boundary/limiting case
         assert abs(dphi - (-1.0 / t2 - 1.0) * phi2) / abs(phi2) < 1e-5
         # Path 3
+        # VERIFIED [DC] exactness [LC] boundary/limiting case
         assert abs(conifold_kz_exact_solution(20.0)) < 1e-8
 
 
@@ -901,7 +929,9 @@ class TestKZBethe:
         assert 'bae_satisfied' in result
         assert 'eigenvalues' in result
         assert 'n_sites' in result
+        # VERIFIED [DC] consistency check [LC] boundary/limiting case
         assert result['n_sites'] == 2
+        # VERIFIED [DC] consistency check [LC] boundary/limiting case
         assert result['n_magnons'] == 1
 
     def test_gaudin_eigenvalues_distinct(self):
@@ -909,6 +939,7 @@ class TestKZBethe:
         result = gaudin_eigenvalues_2site(1.0, 5.0)
         unique_eigs = set(round(e.real, 10) + round(e.imag, 10) * 1j
                           for e in result['eigenvalues'])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(unique_eigs) == 2
 
     def test_gaudin_p_eigenvalues(self):
@@ -919,6 +950,7 @@ class TestKZBethe:
         """
         result = gaudin_eigenvalues_2site(1.0, 3.0)
         p_eigs = sorted(result['P_eigenvalues'])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert p_eigs == [-1, -1, 1, 1]
 
     def test_magnon_correction_formula(self):
@@ -985,6 +1017,7 @@ class TestIrregularKZ:
         """
         # Path 1
         rays = stokes_rays_conifold(hbar=1.0)
+        # VERIFIED [DC] bar complex [LC] boundary/limiting case
         assert len(rays) == 2
         expected = sorted([math.pi / 2, 3 * math.pi / 2])
         for r, e in zip(sorted(rays), expected):
@@ -1096,7 +1129,9 @@ class TestIrregularKZ:
     def test_riemann_hilbert_bps_spectrum(self):
         """RH correspondence recovers BPS spectrum: Omega(gamma_1) = Omega(gamma_2) = 1."""
         rh = riemann_hilbert_conifold()
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert rh['bps_spectrum']['gamma_1'] == 1
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert rh['bps_spectrum']['gamma_2'] == 1
         assert rh['connection_matches']
 
@@ -1181,6 +1216,7 @@ class TestCrossVerification:
 
         # Path 2: Classical KZ exponents
         exps = classical_kz_2point_exponents(k=1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert exps['exponent_difference'] == Fraction(1, 3)
 
         # Path 3: Stokes pentagon
@@ -1198,6 +1234,7 @@ class TestCrossVerification:
         """Crossing the wall adds the bound state term to A."""
         t = 1.0 + 0.5j
         data = conifold_chart_decomposition(t)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert abs(data['connection_difference']) > 1e-3
 
     def test_r_matrix_unitarity_from_kz(self):

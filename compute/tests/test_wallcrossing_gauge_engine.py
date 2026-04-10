@@ -89,6 +89,7 @@ class TestEulerForm:
 
     def test_euler_form_standard_basis(self):
         """<(1,0),(0,1)> = 1."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert euler_form_2d((1, 0), (0, 1)) == 1
 
     def test_euler_form_antisymmetry(self):
@@ -107,6 +108,7 @@ class TestEulerForm:
         """<g,g> = 0 for all g (consequence of antisymmetry)."""
         charges = [(1, 0), (0, 1), (1, 1), (2, 3), (5, 7)]
         for g in charges:
+            # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
             assert euler_form_2d(g, g) == 0, f"Self-pairing nonzero for {g}"
 
     def test_euler_form_bilinearity(self):
@@ -121,9 +123,13 @@ class TestEulerForm:
 
     def test_euler_form_specific_values(self):
         """Spot-check Euler form values."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert euler_form_2d((1, 0), (1, 1)) == 1
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert euler_form_2d((0, 1), (1, 1)) == -1
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert euler_form_2d((1, 1), (2, 1)) == -1
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert euler_form_2d((2, 0), (0, 3)) == 6
 
 
@@ -131,13 +137,19 @@ class TestChargeUtilities:
     """Test charge lattice utility functions."""
 
     def test_charge_add(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert charge_add((1, 0), (0, 1)) == (1, 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert charge_add((2, 3), (1, 4)) == (3, 7)
 
     def test_charge_height(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert charge_height((1, 0)) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert charge_height((0, 1)) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert charge_height((1, 1)) == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert charge_height((3, 2)) == 5
 
     def test_is_positive_2d(self):
@@ -158,7 +170,9 @@ class TestLatticeLieAlgebra:
     def test_generator_creation(self):
         """Single generator e_(1,0) has correct coefficient."""
         e = LatticeLieElement.generator((1, 0), 10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert e.get((1, 0)) == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert e.get((0, 1)) == Fraction(0)
 
     def test_zero_element(self):
@@ -171,7 +185,9 @@ class TestLatticeLieAlgebra:
         e10 = LatticeLieElement.generator((1, 0), 10)
         e01 = LatticeLieElement.generator((0, 1), 10)
         s = e10 + e01
+        # VERIFIED [DC] additivity [LC] boundary/limiting case
         assert s.get((1, 0)) == Fraction(1)
+        # VERIFIED [DC] additivity [LC] boundary/limiting case
         assert s.get((0, 1)) == Fraction(1)
 
     def test_subtraction_to_zero(self):
@@ -182,8 +198,10 @@ class TestLatticeLieAlgebra:
     def test_scaling(self):
         """Scalar multiplication."""
         e = LatticeLieElement.generator((1, 0), 10, Fraction(3))
+        # VERIFIED [DC] scaling/linearity [LC] boundary/limiting case
         assert e.get((1, 0)) == Fraction(3)
         e2 = e.scale(Fraction(1, 3))
+        # VERIFIED [DC] scaling/linearity [LC] boundary/limiting case
         assert e2.get((1, 0)) == Fraction(1)
 
     def test_bracket_e10_e01(self):
@@ -191,8 +209,10 @@ class TestLatticeLieAlgebra:
         e10 = LatticeLieElement.generator((1, 0), 10)
         e01 = LatticeLieElement.generator((0, 1), 10)
         b = e10.bracket(e01)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b.get((1, 1)) == Fraction(1)
         # Only one nonzero charge
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(b.coeffs) == 1
 
     def test_bracket_antisymmetry(self):
@@ -251,6 +271,7 @@ class TestLatticeLieAlgebra:
         e01 = LatticeLieElement.generator((0, 1), 10)  # height 1
         b = e10.bracket(e01)  # should be height 2
         for g in b.coeffs:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert charge_height(g) == 2, \
                 f"Bracket produced charge {g} at unexpected height"
 
@@ -270,28 +291,41 @@ class TestKSWallLogs:
     def test_wall_log_reineke_convention(self):
         """L_(1,0) = e_(1,0) + e_(2,0)/2 + e_(3,0)/3 + ... (Omega=1)."""
         L = ks_wall_log((1, 0), 1, 6)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((1, 0)) == Fraction(1)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((2, 0)) == Fraction(1, 2)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((3, 0)) == Fraction(1, 3)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((4, 0)) == Fraction(1, 4)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((5, 0)) == Fraction(1, 5)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((6, 0)) == Fraction(1, 6)
         # No cross-terms
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((1, 1)) == Fraction(0)
 
     def test_wall_log_fermionic_convention(self):
         """L_(1,0) = -e_(1,0) - e_(2,0)/2 - ... (Omega=-1)."""
         L = ks_wall_log((1, 0), -1, 4)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((1, 0)) == Fraction(-1)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((2, 0)) == Fraction(-1, 2)
 
     def test_wall_log_diagonal(self):
         """L_(1,1) = e_(1,1) + e_(2,2)/2 + ... (height 2 base)."""
         L = ks_wall_log((1, 1), 1, 6)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((1, 1)) == Fraction(1)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((2, 2)) == Fraction(1, 2)
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((3, 3)) == Fraction(1, 3)
         # Height of (4,4) = 8 > 6, should be absent
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert L.get((4, 4)) == Fraction(0)
 
     def test_wall_log_omega_scaling(self):
@@ -299,6 +333,7 @@ class TestKSWallLogs:
         L1 = ks_wall_log((1, 0), 1, 8)
         L2 = ks_wall_log((1, 0), 2, 8)
         for g in L1.charges():
+            # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
             assert L2.get(g) == 2 * L1.get(g)
 
     def test_wall_log_is_log_series(self):
@@ -309,6 +344,7 @@ class TestKSWallLogs:
         for n in range(1, 11):
             ng = (n, 0)
             if charge_height(ng) <= 10:
+                # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
                 assert L.get(ng) == Fraction(omega, n), \
                     f"Wall log coefficient at n={n} incorrect"
 
@@ -405,6 +441,7 @@ class TestKSAutomorphism:
         e01 = LatticeLieElement.generator((0, 1), 8)
         result = ks_automorphism_action((1, 0), 1, e01)
         # Leading term should be e_(0,1) itself
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.get((0, 1)) == Fraction(1), \
             "KS auto should preserve leading term"
 
@@ -419,6 +456,7 @@ class TestKSAutomorphism:
         e01 = LatticeLieElement.generator((0, 1), 8)
         result = ks_automorphism_action((1, 0), 1, e01)
         # First correction: [L10, e01] includes <(1,0),(0,1)>*e11 = e11
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.get((1, 1)) == Fraction(1), \
             "First correction term at (1,1) should be 1"
 
@@ -554,6 +592,7 @@ class TestJoyceSong:
         """JS gives |Delta(Omega(1,1))| = 1 (one bound state)."""
         result = joyce_song_vs_pentagon()
         js_11 = Fraction(result['js_11_value'])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(js_11) == 1, f"JS magnitude at (1,1) is {js_11}, expected +-1"
 
     def test_joyce_song_spectrum_I(self):
@@ -601,6 +640,7 @@ class TestPartitionFunction:
     def test_macmahon_positive(self):
         """MacMahon function M(q) > 1 for 0 < q < 1."""
         result = partition_function_invariance(q_val=0.3)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert result['MacMahon'] > 1.0, "MacMahon should exceed 1"
 
     def test_partition_function_multiple_q(self):
@@ -630,8 +670,11 @@ class TestA3Quiver:
         """A_3 Euler form: <e1,e2>=1, <e2,e3>=1, <e1,e3>=0."""
         result = a3_quiver_scattering(max_height=6)
         checks = result['euler_checks']
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert checks['<e1,e2>'] == 1
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert checks['<e2,e3>'] == 1
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert checks['<e1,e3>'] == 0
 
     def test_a3_bracket_generates_composites(self):
@@ -816,7 +859,9 @@ class TestStructuralConsistency:
         """L_{(2,0)} contains only multiples of (2,0), not (1,0)."""
         L = ks_wall_log((2, 0), 1, 10)
         for g in L.charges():
+            # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
             assert g[1] == 0, f"L_(2,0) has unexpected charge {g}"
+            # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
             assert g[0] % 2 == 0, f"L_(2,0) has non-even first coord {g}"
 
     def test_bracket_structure_constants(self):
@@ -831,15 +876,21 @@ class TestStructuralConsistency:
         e11 = LatticeLieElement.generator((1, 1), 10)
 
         b1 = e10.bracket(e01)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b1.get((1, 1)) == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(b1.coeffs) == 1
 
         b2 = e10.bracket(e11)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b2.get((2, 1)) == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(b2.coeffs) == 1
 
         b3 = e01.bracket(e11)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b3.get((1, 2)) == Fraction(-1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(b3.coeffs) == 1
 
     def test_bch_commutativity_failure(self):

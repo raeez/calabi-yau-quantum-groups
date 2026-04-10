@@ -1451,7 +1451,7 @@ def shadow_depth_from_charts() -> Dict[str, Any]:
         kappa_chart = 1/2.
 
     (b) The pairwise overlaps contribute to arity 2 (quadratic corrections).
-        These modify the kappa: kappa_total = 3 * 1/2 = 3/2.
+        These modify the kappa: kappa_ch = 3 * 1/2 = 3/2.
 
     (c) The triple overlap contributes to arity 3 (cubic shadow C).
         This is the FIRST nonvanishing higher shadow from the chart structure.
@@ -1897,7 +1897,7 @@ def verify_kappa_additivity() -> Dict[str, Any]:
     return {
         "kappa_per_chart": Fraction(1, 2),
         "n_charts": 3,
-        "kappa_total": Fraction(3, 2),
+        "kappa_ch": Fraction(3, 2),
         "additivity_holds": True,
         "justification": (
             "In the large-volume limit, the 3 chart algebras decouple "

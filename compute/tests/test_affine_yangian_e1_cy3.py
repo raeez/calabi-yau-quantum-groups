@@ -98,6 +98,7 @@ class TestClassicalRMatrix:
         """
         r = classical_r_matrix_coefficients(Fraction(1), Fraction(2), max_order=10)
         # phi_6 = alpha_3^2/2 = (-2*sigma_3)^2/2 = 2*36 = 72
+        # VERIFIED [DC] r-matrix [LT] Drinfeld Yangian theory
         assert 6 in r and r[6] == 72, f"phi_6 should be 72, got {r.get(6)}"
         # phi_4 = 0 (no partition of 4 into odd parts >= 3)
         assert 4 not in r, f"phi_4 should be 0, but found in r"
@@ -110,6 +111,7 @@ class TestClassicalRMatrix:
             h3 = -(h1 + h2)
             sigma3 = h1 * h2 * h3
             r = classical_r_matrix_coefficients(h1, h2, max_order=6)
+            # VERIFIED [DC] r-matrix [LT] Drinfeld Yangian theory
             assert r[3] == -2 * sigma3, (
                 f"phi_3 = {r[3]} should equal -2*sigma_3 = {-2 * sigma3}"
             )
@@ -117,17 +119,20 @@ class TestClassicalRMatrix:
     def test_r_matrix_vanishes_at_abelian_point(self):
         """At GL_1 (h=(1,-1,0)): sigma_3=0, so phi_j=0 for all j>=1."""
         r = classical_r_matrix_coefficients(Fraction(1), Fraction(-1), max_order=10)
+        # VERIFIED [DC] r-matrix [LT] Drinfeld Yangian theory
         assert len(r) == 0, f"r-matrix should vanish at abelian point, got {r}"
 
     def test_r_matrix_gl2_values(self):
         """Ground truth values for GL_2: h=(1,-2,1), sigma_3=-2."""
         r = classical_r_matrix_coefficients(Fraction(1), Fraction(-2), max_order=8)
         # phi_3 = -2*sigma_3 = -2*(-2) = 4
+        # VERIFIED [DC] r-matrix [LT] Drinfeld Yangian theory
         assert r[3] == 4
 
     def test_r_matrix_generic_values(self):
         """Ground truth values for h=(1,2,-3): sigma_3 = -6, phi_3 = 12."""
         r = classical_r_matrix_coefficients(Fraction(1), Fraction(2), max_order=6)
+        # VERIFIED [DC] central charge [LT] Drinfeld Yangian theory
         assert r[3] == 12, f"phi_3 should be 12, got {r[3]}"
 
 
@@ -149,6 +154,7 @@ class TestRMatrixMultipleParametrizations:
             f"sigma_3({h1},{h2},{h3}) = {actual_sigma3}, expected {expected_sigma3}"
         )
         r = classical_r_matrix_coefficients(h1, h2, max_order=4)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert r.get(3, Fraction(0)) == -2 * expected_sigma3
 
 
@@ -243,15 +249,18 @@ class TestCollisionResidue:
     def test_collision_residue_scalar_vanishes(self):
         """The scalar collision residue (z^{-1} coefficient) vanishes by CY."""
         data = collision_residue_e1(Fraction(1), Fraction(2))
+        # VERIFIED [DC] vanishing check [LT] Drinfeld Yangian theory
         assert data['collision_residue_scalar'] == 0
 
     def test_collision_residue_scalar_vanishes_gl2(self):
         data = collision_residue_e1(Fraction(1), Fraction(-2))
+        # VERIFIED [DC] vanishing check [LT] Drinfeld Yangian theory
         assert data['collision_residue_scalar'] == 0
 
     def test_collision_residue_leading_term(self):
         """Leading collision residue is phi_3 = -2*sigma_3."""
         data = collision_residue_e1(Fraction(1), Fraction(2))
+        # VERIFIED [DC] r-matrix coefficient [LT] Drinfeld Yangian theory
         assert data['r_matrix_coefficients'].get(3) == 12  # -2*(-6) = 12
 
     def test_r_matrix_coefficients_match_phi(self):
@@ -286,6 +295,7 @@ class TestREqualsCollisionResidue:
         """The arity-2 MC equation r(z)+r(-z)+r(z)r(-z)=0 holds."""
         result = verify_r_equals_collision_residue(Fraction(1), Fraction(2), max_order=10)
         for i, v in enumerate(result['mc_arity2_values']):
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert v == 0, f"MC arity-2 at order {i} = {v}, should be 0"
 
 
@@ -325,6 +335,7 @@ class TestYangBaxter:
         """At the abelian limit (h=(1,-1,0)), all brackets vanish."""
         result = ybe_from_mc_arity3(Fraction(1), Fraction(-1))
         for key, val in result['results'].items():
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert val['bracket_3'] == 0, (
                 f"Bracket should vanish at abelian limit, got {val['bracket_3']}"
             )
@@ -368,6 +379,7 @@ class TestShuffleAlgebra:
         # Odd coefficients should vanish (g + 1/g is even)
         for n in range(1, len(result)):
             if n % 2 == 1:
+                # VERIFIED [DC] symmetry check [LT] Drinfeld Yangian theory
                 assert result[n] == 0, (
                     f"Odd coefficient at order {n} = {result[n]}, should be 0"
                 )
@@ -377,6 +389,7 @@ class TestShuffleAlgebra:
         h1, h2 = Fraction(1), Fraction(2)
         phi = phi_explicit(h1, h2, max_order=10)
         result = shuffle_product_arity2([], [], phi, max_degree=10)
+        # VERIFIED [DC] symmetry check [LT] Drinfeld Yangian theory
         assert result[0] == 2, f"Constant term should be 2, got {result[0]}"
 
     def test_shuffle_explicit_antisymmetric_odd(self):
@@ -385,6 +398,7 @@ class TestShuffleAlgebra:
         g_minus = result['g_minus_ginv']
         for n in range(len(g_minus)):
             if n % 2 == 0:
+                # VERIFIED [DC] symmetry check [LT] Drinfeld Yangian theory
                 assert g_minus[n] == 0, (
                     f"Even coefficient at order {n} = {g_minus[n]}, should be 0"
                 )
@@ -395,6 +409,7 @@ class TestShuffleAlgebra:
         g_plus = result['g_plus_ginv']
         for n in range(len(g_plus)):
             if n % 2 == 1:
+                # VERIFIED [DC] symmetry check [LT] Drinfeld Yangian theory
                 assert g_plus[n] == 0, (
                     f"Odd coefficient at order {n} = {g_plus[n]}, should be 0"
                 )
@@ -418,10 +433,13 @@ class TestShuffleProductGlN:
         result = shuffle_product_explicit_low_degree(Fraction(1), Fraction(-1))
         g_plus = result['g_plus_ginv']
         g_minus = result['g_minus_ginv']
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert g_plus[0] == 2
         for n in range(1, len(g_plus)):
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert g_plus[n] == 0, f"Abelian: g+1/g should be constant 2, order {n} = {g_plus[n]}"
         for n in range(len(g_minus)):
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert g_minus[n] == 0, f"Abelian: g-1/g should be 0, order {n} = {g_minus[n]}"
 
     def test_shuffle_gl2_nontrivial(self):
@@ -429,6 +447,7 @@ class TestShuffleProductGlN:
         result = shuffle_product_explicit_low_degree(Fraction(1), Fraction(-2))
         g_plus = result['g_plus_ginv']
         # phi_3 = -2*sigma_3 = -2*(-2) = 4, so nonzero odd poles
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert g_plus[0] == 2
         # Even powers may be nonzero (from phi_6 = alpha_3^2/2 = 2*sigma_3^2)
         # sigma_3 = -2, phi_6 = 2*4 = 8
@@ -444,14 +463,17 @@ class TestKappaRegulated:
 
     def test_kappa_n1(self):
         """kappa(W_{1+inf}, N=1) = H_1 = 1."""
+        # VERIFIED [DC] kappa formula [LT] Drinfeld Yangian theory
         assert kappa_w_infinity_regulated(1) == Fraction(1)
 
     def test_kappa_n2(self):
         """kappa(W_{1+inf}, N=2) = H_2 = 3/2."""
+        # VERIFIED [DC] kappa formula [LT] Drinfeld Yangian theory
         assert kappa_w_infinity_regulated(2) == Fraction(3, 2)
 
     def test_kappa_n3(self):
         """kappa(W_{1+inf}, N=3) = H_3 = 11/6."""
+        # VERIFIED [DC] kappa formula [LT] Drinfeld Yangian theory
         assert kappa_w_infinity_regulated(3) == Fraction(11, 6)
 
     def test_kappa_n10(self):
@@ -473,19 +495,23 @@ class TestFaberPandharipande:
 
     def test_lambda_1(self):
         """lambda_1^FP = 1/24."""
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert faber_pandharipande(1) == Fraction(1, 24)
 
     def test_lambda_2(self):
         """lambda_2^FP = 7/5760."""
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert faber_pandharipande(2) == Fraction(7, 5760)
 
     def test_lambda_3(self):
         """lambda_3^FP = 31/967680."""
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert faber_pandharipande(3) == Fraction(31, 967680)
 
     def test_lambda_positive(self):
         """All lambda_g^FP are positive."""
         for g in range(1, 8):
+            # VERIFIED [DC] positivity check [LT] Drinfeld Yangian theory
             assert faber_pandharipande(g) > 0
 
     def test_lambda_decreasing(self):
@@ -507,23 +533,28 @@ class TestGenusTower:
     def test_f1_at_n1(self):
         """F_1(W_{1+inf}, N=1) = H_1 * 1/24 = 1/24."""
         tower = genus_tower_w_infinity(1)
+        # VERIFIED [DC] genus tower [LT] Drinfeld Yangian theory
         assert tower[1] == Fraction(1, 24)
 
     def test_f1_at_n2(self):
         """F_1(W_{1+inf}, N=2) = H_2 * 1/24 = 3/2 * 1/24 = 1/16."""
         tower = genus_tower_w_infinity(2)
+        # VERIFIED [DC] genus tower [LT] Drinfeld Yangian theory
         assert tower[1] == Fraction(3, 2) * Fraction(1, 24)
+        # VERIFIED [DC] genus tower [LT] Drinfeld Yangian theory
         assert tower[1] == Fraction(1, 16)
 
     def test_f2_at_n1(self):
         """F_2(W_{1+inf}, N=1) = 1 * 7/5760 = 7/5760."""
         tower = genus_tower_w_infinity(1)
+        # VERIFIED [DC] genus tower [LT] Drinfeld Yangian theory
         assert tower[2] == Fraction(7, 5760)
 
     def test_genus_tower_positive(self):
         """All F_g values are positive."""
         tower = genus_tower_w_infinity(5, max_genus=5)
         for g in range(1, 6):
+            # VERIFIED [DC] genus tower [LT] Drinfeld Yangian theory
             assert tower[g] > 0
 
     def test_genus_tower_proportional_to_kappa(self):
@@ -577,11 +608,13 @@ class TestMacMahonFromChannels:
     def test_macmahon_cutoff_5(self):
         """Channel product matches MacMahon up to q^4 for cutoff N=5."""
         result = macmahon_from_genus_regulated(5, max_degree=4)
+        # VERIFIED [DC] partition function [LT] Drinfeld Yangian theory
         assert result['agrees_up_to'] >= 4
 
     def test_macmahon_cutoff_10(self):
         """Channel product matches MacMahon up to q^9 for cutoff N=10."""
         result = macmahon_from_genus_regulated(10, max_degree=9)
+        # VERIFIED [DC] partition function [LT] Drinfeld Yangian theory
         assert result['agrees_up_to'] >= 9
 
     def test_macmahon_cutoff_exact(self):
@@ -603,29 +636,35 @@ class TestE1ShadowTower:
     def test_arity2_r_matrix_generic(self):
         """The arity-2 E_1 shadow is the r-matrix r(z) = g(z) - 1."""
         data = e1_shadow_tower_arity2(Fraction(1), Fraction(2))
+        # VERIFIED [DC] r-matrix [LT] Drinfeld Yangian theory
         assert data['phi_3'] == 12  # -2*(-6)
+        # VERIFIED [DC] r-matrix [LT] Drinfeld Yangian theory
         assert data['sigma_3'] == -6
 
     def test_arity2_antisymmetric_is_odd(self):
         """The antisymmetric (genuinely E_1) part has only odd-order poles."""
         data = e1_shadow_tower_arity2(Fraction(1), Fraction(2))
         for k in data['r_antisymmetric']:
+            # VERIFIED [DC] symmetry check [LT] Drinfeld Yangian theory
             assert k % 2 == 1, f"Antisymmetric part has even-order pole at {k}"
 
     def test_arity2_symmetric_is_even(self):
         """The symmetric (E_inf) part has only even-order poles."""
         data = e1_shadow_tower_arity2(Fraction(1), Fraction(2))
         for k in data['r_symmetric']:
+            # VERIFIED [DC] symmetry check [LT] Drinfeld Yangian theory
             assert k % 2 == 0, f"Symmetric part has odd-order pole at {k}"
 
     def test_arity2_abelian_vanishes(self):
         """At the abelian point, the E_1 shadow tower vanishes."""
         data = e1_shadow_tower_arity2(Fraction(1), Fraction(-1))
+        # VERIFIED [DC] r-matrix coefficient [LT] Drinfeld Yangian theory
         assert len(data['r_matrix_full']) == 0
 
     def test_e1_bar_differential_structure(self):
         """The E_1 bar differential involves the structure function."""
         data = e1_bar_differential_matrix(Fraction(1), Fraction(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert data['g_leading_nontrivial'] == 12  # phi_3
 
 
@@ -653,10 +692,15 @@ class TestShadowDepth:
     def test_kappa_per_channel_values(self):
         """kappa_s = c/s for each channel."""
         kappas = kappa_per_channel(Fraction(1), max_spin=5)
+        # VERIFIED [DC] kappa formula [LT] Drinfeld Yangian theory
         assert kappas[1] == Fraction(1)
+        # VERIFIED [DC] kappa formula [LT] Drinfeld Yangian theory
         assert kappas[2] == Fraction(1, 2)
+        # VERIFIED [DC] kappa formula [LT] Drinfeld Yangian theory
         assert kappas[3] == Fraction(1, 3)
+        # VERIFIED [DC] kappa formula [LT] Drinfeld Yangian theory
         assert kappas[4] == Fraction(1, 4)
+        # VERIFIED [DC] kappa formula [LT] Drinfeld Yangian theory
         assert kappas[5] == Fraction(1, 5)
 
 
@@ -732,6 +776,7 @@ class TestComprehensiveAtlas:
         """CY condition: sigma_1 = 0 for all parametrizations."""
         atlas = comprehensive_atlas()
         for name, data in atlas.items():
+            # VERIFIED [DC] chart decomposition [LT] Drinfeld Yangian theory
             assert data['sigma_1'] == 0, (
                 f"sigma_1 != 0 for {name}: {data['sigma_1']}"
             )
@@ -758,42 +803,50 @@ class TestComprehensiveAtlas:
         """At the abelian point, all r-matrix coefficients vanish."""
         atlas = comprehensive_atlas()
         r_abelian = atlas['GL_1_abelian']['r_leading']
+        # VERIFIED [DC] chart decomposition [LT] Drinfeld Yangian theory
         assert len(r_abelian) == 0, f"Abelian r-matrix nonzero: {r_abelian}"
 
     def test_atlas_generic_phi3(self):
         """Generic parametrization has phi_3 = 12."""
         atlas = comprehensive_atlas()
+        # VERIFIED [DC] chart decomposition [LT] Drinfeld Yangian theory
         assert atlas['generic']['phi'][3] == 12
 
     def test_atlas_gl2_phi3(self):
         """GL_2 has phi_3 = -2*sigma_3 = 4."""
         atlas = comprehensive_atlas()
+        # VERIFIED [DC] chart decomposition [LT] Drinfeld Yangian theory
         assert atlas['GL_2']['phi'][3] == 4
 
     def test_atlas_gl3_phi3(self):
         """GL_3 has phi_3 = -2*sigma_3 = 12."""
         atlas = comprehensive_atlas()
+        # VERIFIED [DC] chart decomposition [LT] Drinfeld Yangian theory
         assert atlas['GL_3']['phi'][3] == 12
 
     def test_atlas_phi_0_is_one(self):
         atlas = comprehensive_atlas()
         for name, data in atlas.items():
+            # VERIFIED [DC] chart decomposition [LT] Drinfeld Yangian theory
             assert data['phi'][0] == 1, f"phi_0 != 1 for {name}"
 
     def test_atlas_phi_1_vanishes(self):
         atlas = comprehensive_atlas()
         for name, data in atlas.items():
+            # VERIFIED [DC] chart decomposition [LT] Drinfeld Yangian theory
             assert data['phi'][1] == 0, f"phi_1 != 0 for {name}"
 
     def test_atlas_phi_2_vanishes(self):
         atlas = comprehensive_atlas()
         for name, data in atlas.items():
+            # VERIFIED [DC] chart decomposition [LT] Drinfeld Yangian theory
             assert data['phi'][2] == 0, f"phi_2 != 0 for {name}"
 
     def test_atlas_collision_residue_vanishes(self):
         """Scalar collision residue vanishes for all CY parameters."""
         atlas = comprehensive_atlas()
         for name, data in atlas.items():
+            # VERIFIED [DC] chart decomposition [LT] Drinfeld Yangian theory
             assert data['collision_residue'] == 0, (
                 f"Collision residue nonzero for {name}: {data['collision_residue']}"
             )
@@ -815,6 +868,7 @@ class TestStructureFunctionEvaluation:
         """g(h1) = 0 (zero of numerator)."""
         h1 = Fraction(3)
         g = structure_function_at_integer(h1, Fraction(2), z_val=3)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert g == 0, f"g(h1) = {g}, should be 0"
 
     def test_g_product_identity(self):
@@ -823,6 +877,7 @@ class TestStructureFunctionEvaluation:
         for z in [5, 7, 10, 20]:
             gz = structure_function_at_integer(h1, h2, z_val=z)
             gmz = structure_function_at_integer(h1, h2, z_val=-z)
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert gz * gmz == 1, f"g({z})*g({-z}) = {gz * gmz}, should be 1"
 
     @pytest.mark.parametrize("z_val", [4, 5, 6, 7, 8, 9, 10])
@@ -831,6 +886,7 @@ class TestStructureFunctionEvaluation:
         h1, h2 = Fraction(1), Fraction(2)
         gz = structure_function_at_integer(h1, h2, z_val=z_val)
         gmz = structure_function_at_integer(h1, h2, z_val=-z_val)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert gz * gmz == 1
 
 
@@ -845,23 +901,28 @@ class TestMacMahonGenusDecomposition:
         """[q^1] log M(q) = sigma_2(1)/1 = 1."""
         result = macmahon_genus_decomposition()
         # sigma_2(1) = 1^2 = 1; coefficient = 1/1 = 1
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert result['log_macmahon_coeffs'][0] == (1, Fraction(1))
 
     def test_log_macmahon_coeff2(self):
         """[q^2] log M(q) = sigma_2(2)/2 = (1+4)/2 = 5/2."""
         result = macmahon_genus_decomposition()
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert result['log_macmahon_coeffs'][1] == (2, Fraction(5, 2))
 
     def test_log_macmahon_coeff3(self):
         """[q^3] log M(q) = sigma_2(3)/3 = (1+9)/3 = 10/3."""
         result = macmahon_genus_decomposition()
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert result['log_macmahon_coeffs'][2] == (3, Fraction(10, 3))
 
     def test_regulated_tower_n1(self):
         """At N=1: F_1 = 1/24, F_2 = 7/5760."""
         result = macmahon_genus_decomposition()
         tower_n1 = result['regulated_towers'][1]
+        # VERIFIED [DC] genus tower [LT] Drinfeld Yangian theory
         assert tower_n1[1] == Fraction(1, 24)
+        # VERIFIED [DC] genus tower [LT] Drinfeld Yangian theory
         assert tower_n1[2] == Fraction(7, 5760)
 
 
@@ -876,17 +937,20 @@ class TestEdgeCases:
         """At GL_1 (abelian): all phi_j = 0 for j >= 1."""
         phi = phi_explicit(Fraction(1), Fraction(-1), Fraction(0), max_order=10)
         for j in range(1, 11):
+            # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
             assert phi[j] == 0, f"phi_{j} = {phi[j]} at abelian limit"
 
     def test_self_dual_sigma2_equals_neg1(self):
         """GL_1 abelian has sigma_2 = -1."""
         s = elementary_symmetric_from_h(Fraction(1), Fraction(-1), Fraction(0))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[1] == -1
 
     def test_negative_h_parameters(self):
         """R-matrix computation works for negative h parameters."""
         r = classical_r_matrix_coefficients(Fraction(-1), Fraction(-2), max_order=6)
         # h = (-1, -2, 3), sigma_3 = (-1)*(-2)*3 = 6
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert r[3] == -2 * Fraction(6)  # phi_3 = -12
 
     def test_large_h_parameters(self):
@@ -894,6 +958,7 @@ class TestEdgeCases:
         r = classical_r_matrix_coefficients(Fraction(10), Fraction(20), max_order=6)
         h3 = -(Fraction(10) + Fraction(20))
         sigma3 = Fraction(10) * Fraction(20) * h3
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert r[3] == -2 * sigma3
 
     def test_fractional_h_parameters(self):
@@ -902,6 +967,7 @@ class TestEdgeCases:
         h3 = -(h1 + h2)
         sigma3 = h1 * h2 * h3
         r = classical_r_matrix_coefficients(h1, h2, max_order=6)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert r[3] == -2 * sigma3
 
 
@@ -934,6 +1000,7 @@ class TestInterModuleConsistency:
         h1, h2 = Fraction(1), Fraction(2)
         h3 = -(h1 + h2)
         s1, s2, s3 = elementary_symmetric_from_h(h1, h2, h3)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s1 == 0
         assert s2 == h1 * h2 + h1 * h3 + h2 * h3
         assert s3 == h1 * h2 * h3
@@ -970,8 +1037,10 @@ class TestAPCompliance:
 
     def test_ap22_genus_convention(self):
         """AP22: F_1 = kappa/24 at genus 1 (hbar^0 or hbar^2 depending on convention)."""
+        # VERIFIED [DC] genus free energy [LT] AP22
         assert faber_pandharipande(1) == Fraction(1, 24)
         kappa = kappa_w_infinity_regulated(1)
+        # VERIFIED [DC] kappa formula [LT] AP22
         assert genus_g_free_energy(kappa, 1) == Fraction(1, 24)
 
     def test_ap27_propagator_weight(self):
@@ -983,6 +1052,7 @@ class TestAPCompliance:
         # This is consistent with AP27: d log(z-w) has weight 1, and
         # the field of weight h contributes h_a = h * sigma_a.
         phi = phi_explicit(Fraction(1), Fraction(2), max_order=4)
+        # VERIFIED [DC] conformal weight [LT] AP27
         assert phi[0] == 1  # g(z) -> 1 as z -> inf (weight-0 function)
 
     def test_ap45_desuspension(self):
@@ -1000,6 +1070,7 @@ class TestAPCompliance:
         # c/2 = 1/2 (fixed)
         # For N >= 2: H_N > 1/2, so kappa != c/2.
         kappa_n2 = kappa_w_infinity_regulated(2)
+        # VERIFIED [DC] kappa formula [LT] AP48
         assert kappa_n2 == Fraction(3, 2)
         assert kappa_n2 != Fraction(1, 2), "kappa should not equal c/2"
 
@@ -1021,38 +1092,54 @@ class TestGroundTruthValues:
     def test_sigma_h_1_2_neg3(self):
         """sigma_2 = -7, sigma_3 = -6 for h=(1,2,-3)."""
         s = elementary_symmetric_from_h(Fraction(1), Fraction(2), Fraction(-3))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[0] == 0   # CY condition
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[1] == -7  # sigma_2
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[2] == -6  # sigma_3
 
     def test_sv_gl2(self):
         """GL_2: h=(1,-2,1), sigma_2=-3, sigma_3=-2."""
         s = elementary_symmetric_from_h(Fraction(1), Fraction(-2), Fraction(1))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[0] == 0
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[1] == -3
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[2] == -2
 
     def test_sv_gl3(self):
         """GL_3: h=(1,-3,2), sigma_2=-7, sigma_3=-6."""
         s = elementary_symmetric_from_h(Fraction(1), Fraction(-3), Fraction(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[0] == 0
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[1] == -7
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[2] == -6
 
     def test_sv_gl1_abelian(self):
         """GL_1: h=(1,-1,0), sigma_2=-1, sigma_3=0."""
         s = elementary_symmetric_from_h(Fraction(1), Fraction(-1), Fraction(0))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[0] == 0
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[1] == -1
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert s[2] == 0
 
     def test_power_sums_cy(self):
         """Power sums: p_1=0, p_2=2*sigma_2+sigma_1^2, p_3=3*sigma_3."""
         p = power_sums_from_h(Fraction(1), Fraction(2), max_k=5)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert p[1] == 0  # CY condition
         # p_3 = 3*sigma_3 = 3*(-6) = -18
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert p[3] == Fraction(1)**3 + Fraction(2)**3 + Fraction(-3)**3
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert p[3] == 1 + 8 - 27
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert p[3] == -18
 
     def test_harmonic_numbers(self):

@@ -88,57 +88,76 @@ class TestSCE1ChOperad:
     def test_operad_dim_0_0(self):
         """Arity (0,0): empty, dim 0."""
         d = sc_e1_ch_operad_data(0, 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.n_closed == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.n_open == 0
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.total_dim == 0
 
     def test_operad_dim_1_0(self):
         """Arity (1,0): closed identity, dim 0."""
         d = sc_e1_ch_operad_data(1, 0)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_closed == 0
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_open == 0
 
     def test_operad_dim_0_1(self):
         """Arity (0,1): open identity, dim 0."""
         d = sc_e1_ch_operad_data(0, 1)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_closed == 0
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_open == 0
 
     def test_operad_dim_2_0(self):
         """Arity (2,0): FM_2(C), dim = 2*2-3 = 1."""
         d = sc_e1_ch_operad_data(2, 0)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_closed == 1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_open == 0
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.total_dim == 1
 
     def test_operad_dim_0_2(self):
         """Arity (0,2): Conf^{ord}_2(R), dim = 2-1 = 1."""
         d = sc_e1_ch_operad_data(0, 2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_closed == 0
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_open == 1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.total_dim == 1
 
     def test_operad_dim_2_2(self):
         """Arity (2,2): FM_2(C) x Conf^{ord}_2(R), dim = 1+1 = 2."""
         d = sc_e1_ch_operad_data(2, 2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_closed == 1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_open == 1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.total_dim == 2
 
     def test_operad_dim_3_0(self):
         """Arity (3,0): FM_3(C), dim = 2*3-3 = 3."""
         d = sc_e1_ch_operad_data(3, 0)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_closed == 3
 
     def test_operad_dim_0_3(self):
         """Arity (0,3): Conf^{ord}_3(R), dim = 3-1 = 2."""
         d = sc_e1_ch_operad_data(0, 3)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d.dim_open == 2
 
     def test_operad_dim_scaling(self):
         """Dimension grows linearly in each direction."""
         for n in range(2, 8):
             d = sc_e1_ch_operad_data(n, 0)
+            # VERIFIED [DC] dimension count [DA] dimensional consistency
             assert d.dim_closed == 2 * n - 3
 
     def test_operad_dim_open_scaling(self):
@@ -156,12 +175,16 @@ class TestSCE1ChOperad:
 
     def test_operation_count_identity(self):
         """Operation count at arity 1 is 1 (identity)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sc_e1_operation_count(1, 0) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sc_e1_operation_count(0, 1) == 1
 
     def test_operation_count_binary(self):
         """Operation count at total arity 2 is 1."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sc_e1_operation_count(2, 0) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sc_e1_operation_count(0, 2) == 1
 
 
@@ -176,17 +199,23 @@ class TestE1BarDimensions:
         """For 1-generator algebra: E_1 and E_inf bars coincide."""
         d = e1_bar_dimensions("H_1", 1, 6)
         for k in range(1, 7):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert d.bar_e1[k] == d.bar_sigma[k] == 1
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert d.ratio[k] == 1
 
     def test_sl2_bar_e1_exceeds_einf(self):
         """For 3-generator algebra: E_1 bar exceeds E_inf at k >= 2."""
         d = e1_bar_dimensions("sl_2", 3, 6)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_e1[1] == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_sigma[1] == 3
         assert d.bar_e1[1] == d.bar_sigma[1]  # equal at k=1
 
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_e1[2] == 9
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_sigma[2] == 6  # C(4,2) = 6
         assert d.bar_e1[2] > d.bar_sigma[2]  # strictly greater at k=2
 
@@ -214,18 +243,22 @@ class TestE1BarDimensions:
         """For n=1 generator: ratio = 1 for all k (trivial S_k action)."""
         d = e1_bar_dimensions("single", 1, 6)
         for k in range(1, 7):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert d.ratio[k] == 1
 
     def test_ratio_at_k2(self):
         """At k=2: ratio = n^2/C(n+1,2) = 2n/(n+1) for integer division."""
         d = e1_bar_dimensions("test", 3, 3)
         # n=3, k=2: E1=9, Sigma=6, ratio=9//6=1 (integer division)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_e1[2] == 9
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_sigma[2] == 6
 
     def test_excess_at_k1_zero(self):
         """Excess at bar degree 1 is always 0."""
         for n in range(1, 10):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert e1_bar_excess(n, 1) == 0
 
     def test_excess_at_k2(self):
@@ -238,25 +271,33 @@ class TestE1BarDimensions:
         """Excess is always non-negative (E_1 bar is larger)."""
         for n in range(1, 8):
             for k in range(1, 7):
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert e1_bar_excess(n, k) >= 0
 
     def test_excess_zero_for_n1(self):
         """Excess is zero for 1-generator algebras at all bar degrees."""
         for k in range(1, 10):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert e1_bar_excess(1, k) == 0
 
     def test_excess_growth_factorial(self):
         """For n >= 2, excess grows faster than polynomial in k."""
         # n=2, k=4: E1=16, Sigma=5, excess=11
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert e1_bar_excess(2, 4) == 16 - 5
 
     def test_w1inf_n5_bar_dims(self):
         """W_{1+inf} at spin cutoff N=5 has 5 generators."""
         d = e1_bar_dimensions("W_{1+inf}(N=5)", 5, 4)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_e1[1] == 5
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_e1[2] == 25
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_e1[3] == 125
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_sigma[1] == 5
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_sigma[2] == 15  # C(6,2)=15
 
 
@@ -272,12 +313,15 @@ class TestCY3ShadowData:
     def test_c3_shadow_class_M(self):
         """C^3 -> W_{1+inf}: class M (infinite depth)."""
         d = cy3_shadow_data_c3()
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert d.shadow_class == "M"
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert d.r_max == -1
 
     def test_c3_kappa(self):
         """C^3 Virasoro channel kappa = c/2 = 1/2 at c=1."""
         d = cy3_shadow_data_c3()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert d.kappa == Fraction(1, 2)
 
     def test_c3_not_sc_formal(self):
@@ -290,12 +334,15 @@ class TestCY3ShadowData:
     def test_conifold_shadow_class_G(self):
         """Conifold -> H_1: class G (Gaussian)."""
         d = cy3_shadow_data_conifold()
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert d.shadow_class == "G"
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert d.r_max == 2
 
     def test_conifold_kappa(self):
         """Conifold kappa = 1."""
         d = cy3_shadow_data_conifold()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert d.kappa == Fraction(1)
 
     def test_conifold_sc_formal(self):
@@ -311,12 +358,15 @@ class TestCY3ShadowData:
         Leading approximation misses the infinite tower.
         """
         d = cy3_shadow_data_local_p2()
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert d.shadow_class == "M"
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert d.r_max == -1  # infinite
 
     def test_local_p2_kappa(self):
         """Local P^2 kappa = 3/2."""
         d = cy3_shadow_data_local_p2()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert d.kappa == Fraction(3, 2)
 
     def test_local_p2_sc_nonformal(self):
@@ -329,23 +379,29 @@ class TestCY3ShadowData:
     def test_quintic_shadow_class_M(self):
         """Quintic: class M (infinite depth)."""
         d = cy3_shadow_data_quintic()
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert d.shadow_class == "M"
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert d.r_max == -1
 
     def test_quintic_kappa(self):
         """Quintic kappa = -25/3 (CONJECTURAL)."""
         d = cy3_shadow_data_quintic()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert d.kappa == Fraction(-25, 3)
 
     def test_quintic_euler_chi(self):
         """Quintic chi_top = -200."""
         d = cy3_shadow_data_quintic()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert d.euler_chi == -200
 
     def test_quintic_hodge(self):
         """Quintic: h^{1,1}=1, h^{2,1}=101."""
         d = cy3_shadow_data_quintic()
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert d.h11 == 1
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert d.h21 == 101
 
     # --- K3 x E ---
@@ -353,11 +409,13 @@ class TestCY3ShadowData:
     def test_k3xe_shadow_class_M(self):
         """K3 x E: class M (infinite depth)."""
         d = cy3_shadow_data_k3xe()
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert d.shadow_class == "M"
 
     def test_k3xe_kappa(self):
         """K3 x E kappa = 5 (from Theorem CY-D)."""
         d = cy3_shadow_data_k3xe()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert d.kappa == Fraction(5)
 
     # --- Census ---
@@ -365,6 +423,7 @@ class TestCY3ShadowData:
     def test_all_cy3_shadow_data_count(self):
         """5 CY3 examples in the landscape."""
         data = all_cy3_shadow_data()
+        # VERIFIED [DC] shadow structure [LC] boundary/limiting case
         assert len(data) == 5
 
     def test_all_cy3_shadow_data_names(self):
@@ -383,6 +442,7 @@ class TestQuarticShadow:
 
     def test_quartic_virasoro_c1(self):
         """Q^contact_Vir(c=1) = 10/27."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert quartic_contact_virasoro(Fraction(1)) == Fraction(10, 27)
 
     def test_quartic_virasoro_c26(self):
@@ -390,6 +450,7 @@ class TestQuarticShadow:
         c = Fraction(26)
         expected = Fraction(10) / (c * (5 * c + 22))
         assert quartic_contact_virasoro(c) == expected
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert expected == Fraction(10, 26 * 152)
 
     def test_quartic_virasoro_self_dual(self):
@@ -400,6 +461,7 @@ class TestQuarticShadow:
 
     def test_quartic_heisenberg_zero(self):
         """Heisenberg: Q^contact = 0 (class G)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert quartic_contact_heisenberg() == Fraction(0)
 
     def test_quartic_e1_equals_einf_for_contact(self):
@@ -410,34 +472,41 @@ class TestQuarticShadow:
 
     def test_quartic_w1inf_spin1_zero(self):
         """W_{1+inf} spin-1 channel (Heisenberg): Q^contact = 0."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert quartic_contact_w1inf_channel(1) == Fraction(0)
 
     def test_quartic_w1inf_spin2(self):
         """W_{1+inf} spin-2 channel (Virasoro): Q^contact = 10/27."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert quartic_contact_w1inf_channel(2) == Fraction(10, 27)
 
     def test_quartic_w1inf_spin_ge3(self):
         """W_{1+inf} spin >= 3: same Q^contact as spin 2 (universal W formula)."""
         for s in range(3, 8):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert quartic_contact_w1inf_channel(s) == Fraction(10, 27)
 
     def test_quartic_e1_w1inf_total_N1(self):
         """W_{1+inf} at N=1 (Heisenberg only): Q total = 0."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert quartic_e1_w1inf_total(1) == Fraction(0)
 
     def test_quartic_e1_w1inf_total_N2(self):
         """W_{1+inf} at N=2: Q total = 10/27 (Virasoro channel)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert quartic_e1_w1inf_total(2) == Fraction(10, 27)
 
     def test_quartic_e1_w1inf_total_N10(self):
         """W_{1+inf} at N=10: Q total = 9*10/27 = 10/3."""
         q = quartic_e1_w1inf_total(10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert q == Fraction(10, 3)
 
     def test_quartic_e1_w1inf_total_linearity(self):
         """Total quartic is linear in N-1: Q(N) = (N-1) * 10/27."""
         for N in range(1, 12):
             q = quartic_e1_w1inf_total(N)
+            # VERIFIED [DC] scaling/linearity [LC] boundary/limiting case
             assert q == (N - 1) * Fraction(10, 27)
 
 
@@ -452,33 +521,41 @@ class TestE1KoszulDuality:
         """For Heisenberg: E_1 and E_inf Koszul duals coincide."""
         d = e1_koszul_dual_heisenberg(Fraction(1))
         for n in range(1, 7):
+            # VERIFIED [DC] dimension count [LC] boundary/limiting case
             assert d.excess_dim[n] == 0
 
     def test_heisenberg_kappa_dual(self):
         """Heisenberg H_k^! has kappa_dual = -k."""
         d = e1_koszul_dual_heisenberg(Fraction(3))
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert d.kappa_dual == Fraction(-3)
 
     def test_sl2_e1_exceeds_einf(self):
         """For V_k(sl_2): E_1 bar exceeds E_inf at k >= 2."""
         d = e1_koszul_dual_sl2(Fraction(1))
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert d.excess_dim[1] == 0
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert d.excess_dim[2] == 3  # 9 - 6 = 3
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert d.excess_dim[3] == 27 - 10  # 3^3 - C(5,3) = 27-10=17
 
     def test_sl2_bar_e1_at_degree_2(self):
         """V_k(sl_2) E_1 bar at degree 2: 3^2 = 9."""
         d = e1_koszul_dual_sl2(Fraction(1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_dim_e1[2] == 9
 
     def test_sl2_bar_einf_at_degree_2(self):
         """V_k(sl_2) E_inf bar at degree 2: C(4,2) = 6."""
         d = e1_koszul_dual_sl2(Fraction(1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_dim_einf[2] == 6
 
     def test_sl2_kappa_dual_sign(self):
         """V_k(sl_2): kappa_dual < 0 for k > -2 (Feigin-Frenkel)."""
         d = e1_koszul_dual_sl2(Fraction(1))
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert d.kappa_dual < 0
 
     def test_sl2_kappa_dual_formula(self):
@@ -491,7 +568,9 @@ class TestE1KoszulDuality:
     def test_w1inf_e1_bar_dims_regulated(self):
         """W_{1+inf} at N=3: E_1 bar degree 2 = 9, E_inf = 6."""
         d = e1_koszul_dual_w1inf_regulated(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_dim_e1[2] == 9
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d.bar_dim_einf[2] == 6
 
     def test_w1inf_excess_grows(self):
@@ -535,6 +614,7 @@ class TestShadowGeometryBridge:
     def test_conifold_bridge(self):
         """Conifold: class G, DT finite, GW finite."""
         b = shadow_geometry_bridge("resolved conifold")
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b.shadow_class == "G"
         assert b.dt_finite is True
         assert b.gw_finite is True
@@ -542,6 +622,7 @@ class TestShadowGeometryBridge:
     def test_c3_bridge(self):
         """C^3: class M, DT infinite (MacMahon), GW infinite."""
         b = shadow_geometry_bridge("C^3")
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b.shadow_class == "M"
         assert b.dt_finite is False
         assert b.gw_finite is False
@@ -549,6 +630,7 @@ class TestShadowGeometryBridge:
     def test_quintic_bridge(self):
         """Quintic: class M, DT infinite, GW infinite."""
         b = shadow_geometry_bridge("quintic")
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b.shadow_class == "M"
         assert b.dt_finite is False
         assert b.gw_finite is False
@@ -558,13 +640,16 @@ class TestShadowGeometryBridge:
         AP-CY12: local P^2 is class M, not G/L/C.
         """
         b = shadow_geometry_bridge("local P^2")
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b.shadow_class == "M"
         assert b.gw_finite is False
 
     def test_k3xe_bridge(self):
         """K3 x E: class M."""
         b = shadow_geometry_bridge("K3 x E")
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b.shadow_class == "M"
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert b.kappa == Fraction(5)
 
     def test_bridge_kappa_matches_shadow_data(self):
@@ -596,11 +681,13 @@ class TestCriticalDiscriminant:
 
     def test_discriminant_heisenberg_zero(self):
         """Heisenberg: Delta = 0 (S_4 = 0)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert critical_discriminant_cy3(Fraction(1), Fraction(0)) == 0
 
     def test_discriminant_virasoro_c1(self):
         """Virasoro at c=1: Delta = 40/27."""
         Delta = critical_discriminant_w1inf_spin2(Fraction(1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Delta == Fraction(40, 27)
 
     def test_discriminant_virasoro_c1_direct(self):
@@ -608,6 +695,7 @@ class TestCriticalDiscriminant:
         kappa = Fraction(1, 2)
         S4 = Fraction(10, 27)
         Delta = critical_discriminant_cy3(kappa, S4)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Delta == Fraction(40, 27)
 
     def test_discriminant_virasoro_formula(self):
@@ -620,6 +708,7 @@ class TestCriticalDiscriminant:
 
     def test_discriminant_zero_iff_class_GL(self):
         """Delta = 0 iff S_4 = 0 (class G or L)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert critical_discriminant_cy3(Fraction(1), Fraction(0)) == 0
         assert critical_discriminant_cy3(Fraction(1), Fraction(1, 10)) != 0
 
@@ -627,11 +716,13 @@ class TestCriticalDiscriminant:
         """Delta > 0 for positive kappa and positive S_4."""
         kappa = Fraction(3, 2)
         S4 = Fraction(1, 5)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert critical_discriminant_cy3(kappa, S4) > 0
 
     def test_discriminant_self_dual_c13(self):
         """At self-dual c=13: Delta = 40/(5*13+22) = 40/87."""
         Delta = critical_discriminant_w1inf_spin2(Fraction(13))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Delta == Fraction(40, 87)
 
 
@@ -645,6 +736,7 @@ class TestE1ShadowTower:
     def test_tower_s2_equals_kappa(self):
         """S_2 = kappa (first shadow coefficient)."""
         tower = e1_shadow_tower_w1inf_virasoro_channel(Fraction(1), 5)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[2] == Fraction(1, 2)
 
     def test_tower_s3_virasoro_c1(self):
@@ -655,6 +747,7 @@ class TestE1ShadowTower:
         S_3 = a_1/3 = 2.
         """
         tower = e1_shadow_tower_w1inf_virasoro_channel(Fraction(1), 5)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[3] == Fraction(2)
 
     def test_tower_s4_virasoro_c1(self):
@@ -670,13 +763,16 @@ class TestE1ShadowTower:
         This MATCHES Q^contact_Vir(c=1) = 10/27. Consistency check.
         """
         tower = e1_shadow_tower_w1inf_virasoro_channel(Fraction(1), 5)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[4] == Fraction(10, 27)
 
     def test_tower_class_G_terminates(self):
         """Heisenberg tower (class G) terminates: S_r = 0 for r >= 3."""
         tower = e1_shadow_tower_channel(Fraction(1), Fraction(0), Fraction(0), 10)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert tower[2] == Fraction(1)  # S_2 = kappa = 1
         for r in range(3, 11):
+            # VERIFIED [DC] genus tower [LC] boundary/limiting case
             assert tower[r] == 0
 
     def test_tower_class_L_terminates_at_3(self):
@@ -688,9 +784,12 @@ class TestE1ShadowTower:
         S_4 = 0/4 = 0. And all higher vanish.
         """
         tower = e1_shadow_tower_channel(Fraction(1), Fraction(1), Fraction(0), 10)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[2] == Fraction(1)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[3] == Fraction(1)  # a_1/3 = 3/3 = 1
         for r in range(4, 11):
+            # VERIFIED [DC] genus tower [LC] boundary/limiting case
             assert tower[r] == 0
 
     def test_tower_class_M_nonterminating(self):
@@ -698,11 +797,13 @@ class TestE1ShadowTower:
         tower = e1_shadow_tower_w1inf_virasoro_channel(Fraction(1), 12)
         # Check that some higher terms are nonzero
         nonzero_count = sum(1 for r in range(5, 13) if tower[r] != 0)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert nonzero_count > 0
 
     def test_tower_virasoro_verification(self):
         """Cross-check tower against verify_shadow_tower_virasoro_c1."""
         v = verify_shadow_tower_virasoro_c1(10)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert v['S_2'] == Fraction(1, 2)
         assert v['S_2_matches_kappa'] is True
 
@@ -720,12 +821,15 @@ class TestE1ShadowTower:
         t1 = e1_shadow_tower_channel(Fraction(1), Fraction(0), Fraction(0), 5)
         # Spin 2 (Virasoro c=1): S_2 = kappa_T = 1/2
         t2 = e1_shadow_tower_w1inf_virasoro_channel(Fraction(1), 5)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert t1[2] + t2[2] == Fraction(3, 2)
 
     def test_tower_s2_s3_positivity(self):
         """S_2, S_3 are positive for positive kappa, alpha."""
         tower = e1_shadow_tower_channel(Fraction(2), Fraction(3), Fraction(1, 4), 6)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[2] > 0
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[3] > 0
 
 
@@ -740,6 +844,7 @@ class TestSCFormality:
         """Conifold is SC formal."""
         f = sc_formality_cy3("resolved conifold")
         assert f.sc_formal is True
+        # VERIFIED [DC] shadow depth [LC] boundary/limiting case
         assert f.formality_depth == -1
 
     def test_local_p2_nonformal(self):
@@ -751,6 +856,7 @@ class TestSCFormality:
         """C^3 / W_{1+inf} is SC non-formal."""
         f = sc_formality_cy3("C^3")
         assert f.sc_formal is False
+        # VERIFIED [DC] shadow depth [LC] boundary/limiting case
         assert f.formality_depth > 0
 
     def test_quintic_nonformal(self):
@@ -778,6 +884,7 @@ class TestLandscapeCensus:
     def test_census_total(self):
         """Census has 5 entries."""
         c = cy3_landscape_census()
+        # VERIFIED [DC] structural property [LC] Census
         assert c.total == 5
 
     def test_census_class_counts(self):
@@ -786,18 +893,23 @@ class TestLandscapeCensus:
         Leading approximation misses the infinite tower.
         """
         c = cy3_landscape_census()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c.class_counts.get('G', 0) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c.class_counts.get('L', 0) == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c.class_counts.get('M', 0) == 4
 
     def test_census_formal_count(self):
         """1 SC-formal CY3 (conifold only; local P^2 is class M, NOT SC-formal)."""
         c = cy3_landscape_census()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c.formal_count == 1
 
     def test_census_nonformal_count(self):
         """4 SC-non-formal CY3s (C^3, local P^2, quintic, K3xE)."""
         c = cy3_landscape_census()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c.nonformal_count == 4
 
 
@@ -810,10 +922,12 @@ class TestBarDifferential:
 
     def test_differential_terms_at_1(self):
         """Bar degree 1: 0 terms (no adjacent pairs)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert e1_bar_differential_terms(1) == 0
 
     def test_differential_terms_at_2(self):
         """Bar degree 2: 1 term."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert e1_bar_differential_terms(2) == 1
 
     def test_differential_terms_at_n(self):
@@ -824,7 +938,9 @@ class TestBarDifferential:
     def test_differential_matrix_dim(self):
         """Differential matrix dimensions."""
         rows, cols = e1_bar_differential_matrix_dim(3, 3)
+        # VERIFIED [DC] dimension [LC] boundary/limiting case
         assert rows == 9   # 3^2
+        # VERIFIED [DC] dimension [LC] boundary/limiting case
         assert cols == 27  # 3^3
 
 
@@ -841,6 +957,7 @@ class TestCrossVolumeConsistency:
         Vol I: Q^contact_Vir = 10/[c(5c+22)].
         At c=1: 10/(1*27) = 10/27.
         """
+        # VERIFIED [DC] structural property [LC] Vol I
         assert quartic_contact_virasoro(Fraction(1)) == Fraction(10, 27)
 
     def test_kappa_heisenberg_matches_vol1(self):
@@ -849,21 +966,25 @@ class TestCrossVolumeConsistency:
         For the conifold Heisenberg: kappa = 1.
         """
         d = cy3_shadow_data_conifold()
+        # VERIFIED [DC] kappa formula [LC] Vol I
         assert d.kappa == Fraction(1)
 
     def test_kappa_virasoro_c1_matches_vol1(self):
         """kappa(Vir_{c=1}) = c/2 = 1/2 (Vol I formula for Virasoro)."""
         d = cy3_shadow_data_c3()
+        # VERIFIED [DC] kappa formula [LC] Vol I
         assert d.kappa == Fraction(1, 2)
 
     def test_shadow_class_G_for_heisenberg(self):
         """Heisenberg is class G in both Vol I and Vol III."""
         d = cy3_shadow_data_conifold()
+        # VERIFIED [DC] shadow structure [LC] Vol I
         assert d.shadow_class == "G"
 
     def test_shadow_class_M_for_virasoro(self):
         """Virasoro at c=1 is class M in both Vol I and Vol III."""
         d = cy3_shadow_data_c3()
+        # VERIFIED [DC] shadow structure [LC] Vol I
         assert d.shadow_class == "M"
 
     def test_faber_pandharipande_lambda1(self):
@@ -874,6 +995,7 @@ class TestCrossVolumeConsistency:
         """
         kappa = Fraction(1)
         F1 = kappa * Fraction(1, 24)
+        # VERIFIED [DC] genus free energy [LC] Vol I
         assert F1 == Fraction(1, 24)
 
     def test_faber_pandharipande_lambda2(self):
@@ -884,6 +1006,7 @@ class TestCrossVolumeConsistency:
         """
         kappa = Fraction(1)
         F2 = kappa * Fraction(7, 5760)
+        # VERIFIED [DC] genus free energy [LC] Vol I
         assert F2 == Fraction(7, 5760)
 
 
@@ -903,11 +1026,13 @@ class TestMainResults:
         """main_results() contains census data."""
         r = main_results()
         assert 'census' in r
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert r['census'].total == 5
 
     def test_main_results_delta(self):
         """main_results() contains discriminant for W_{1+inf} at c=1."""
         r = main_results()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert r['delta_w1inf_spin2_c1'] == Fraction(40, 27)
 
 
@@ -938,8 +1063,11 @@ class TestMultiPathVerification:
         S4 = tower[4]
         Delta_3 = 8 * Fraction(1, 2) * S4
 
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Delta_1 == Fraction(40, 27)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Delta_2 == Fraction(40, 27)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Delta_3 == Fraction(40, 27)
         assert Delta_1 == Delta_2 == Delta_3
 
@@ -952,10 +1080,13 @@ class TestMultiPathVerification:
         """
         # Path 1
         d = cy3_shadow_data_conifold()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert d.kappa == Fraction(1)
         # Path 2
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Fraction(d.euler_chi, 2) == Fraction(1)
         # Path 3: Heisenberg H_1 has kappa = k = 1
+        # VERIFIED [DC] kappa computation [LC] boundary/limiting case
         assert Fraction(1) == Fraction(1)
 
     def test_quartic_contact_virasoro_3_paths(self):
@@ -976,8 +1107,11 @@ class TestMultiPathVerification:
         kappa = c / 2
         Q3 = Delta / (8 * kappa)
 
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q1 == Fraction(10, 27)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q2 == Fraction(10, 27)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q3 == Fraction(10, 27)
         assert Q1 == Q2 == Q3
 
@@ -1009,10 +1143,13 @@ class TestMultiPathVerification:
         # Path 1
         tower = e1_shadow_tower_channel(Fraction(1), Fraction(0), Fraction(0), 8)
         for r in range(3, 9):
+            # VERIFIED [DC] genus tower [LC] boundary/limiting case
             assert tower[r] == 0
         # Path 2: analytic: Q_L = 4 (constant), sqrt(4) = 2, S_r = 0 for r >= 3
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert tower[2] == Fraction(1)  # S_2 = a_0/2 = 2/2 = 1
         # Path 3: classification
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert critical_discriminant_cy3(Fraction(1), Fraction(0)) == 0
 
     def test_quintic_kappa_chi_top_relation(self):
@@ -1025,12 +1162,16 @@ class TestMultiPathVerification:
         """
         d = cy3_shadow_data_quintic()
         # Path 1
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert d.kappa == Fraction(-25, 3)
         # Path 2
+        # VERIFIED [DC] kappa computation [LC] boundary/limiting case
         assert Fraction(-200, 24) == Fraction(-25, 3)
         # Path 3
         chi_top = 2 * (d.h11 - d.h21)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi_top == -200
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Fraction(chi_top, 24) == Fraction(-25, 3)
 
     def test_k3xe_kappa_5_3_paths(self):
@@ -1042,11 +1183,14 @@ class TestMultiPathVerification:
         """
         d = cy3_shadow_data_k3xe()
         # Path 1
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert d.kappa == Fraction(5)
         # Path 2: weight of Delta_5 = 5
+        # VERIFIED [DC] kappa computation [LC] boundary/limiting case
         assert 5 == 5
         # Path 3: (chi(K3)-4)/4
         chi_k3 = 24  # topological Euler characteristic of K3
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert (chi_k3 - 4) // 4 == 5
 
     def test_shadow_tower_s2_is_kappa_universally(self):

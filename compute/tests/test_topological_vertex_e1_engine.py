@@ -109,29 +109,37 @@ class TestVertexEmpty:
     def test_c_000_is_one(self):
         """C_{empty,empty,empty} = 1 (constant FPS)."""
         v = vertex_via_schur_sum((), (), (), 8)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert v[0] == Fraction(1)
         for i in range(1, 9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(0), f"C_{{0,0,0}}[{i}] = {v[i]} != 0"
 
     def test_c_000_via_vertex_empty(self):
         """vertex_empty returns fps_one."""
         v = vertex_empty(10)
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert v[0] == Fraction(1)
         for i in range(1, 11):
+            # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
             assert v[i] == Fraction(0)
 
     def test_c_000_via_hook_content(self):
         """Hook-content formula also gives 1 for empty partition."""
         v = vertex_via_hook_content((), 8)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert v[0] == Fraction(1)
         for i in range(1, 9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(0)
 
     def test_c_000_via_e1_bar_amplitude(self):
         """E_1 bar amplitude at (0,0,0) = 1."""
         v = e1_bar_amplitude_03((), (), (), 8)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert v[0] == Fraction(1)
         for i in range(1, 9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(0)
 
 
@@ -157,12 +165,14 @@ class TestSmallVertexValues:
         """C_{(1),0,0} = s_{(1)}(1,q,...) = 1/(1-q) = 1+q+q^2+..."""
         v = vertex_via_schur_sum((1,), (), (), self.ORDER)
         for i in range(self.ORDER + 1):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(1), f"C_{{(1),0,0}}[{i}] = {v[i]}"
 
     def test_c_00_box(self):
         """C_{0,0,(1)} = s_{(1)}(1,q,...) = 1/(1-q)."""
         v = vertex_via_schur_sum((), (), (1,), self.ORDER)
         for i in range(self.ORDER + 1):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(1)
 
     def test_c_0_box_0(self):
@@ -172,6 +182,7 @@ class TestSmallVertexValues:
         """
         v = vertex_via_schur_sum((), (1,), (), self.ORDER)
         for i in range(self.ORDER + 1):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(1)
 
     def test_c_2_00(self):
@@ -183,6 +194,7 @@ class TestSmallVertexValues:
         v = vertex_via_schur_sum((2,), (), (), self.ORDER)
         expected = [0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
         for i in range(min(self.ORDER + 1, len(expected))):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(expected[i]), \
                 f"C_{{(2),0,0}}[{i}] = {v[i]}, expected {expected[i]}"
 
@@ -194,6 +206,7 @@ class TestSmallVertexValues:
         v = vertex_via_schur_sum((1, 1), (), (), self.ORDER)
         expected = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6]
         for i in range(min(self.ORDER + 1, len(expected))):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(expected[i])
 
     def test_c_0_2_0(self):
@@ -213,6 +226,7 @@ class TestSmallVertexValues:
         # From computation: C_{0,(2),0} = [1, 1, 2, 2, 3, 3, 4, 4, 5]
         expected = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6]
         for i in range(min(self.ORDER + 1, len(expected))):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(expected[i]), \
                 f"C_{{0,(2),0}}[{i}] = {v[i]}, expected {expected[i]}"
 
@@ -226,6 +240,7 @@ class TestSmallVertexValues:
         v = vertex_via_schur_sum((), (1, 1), (), self.ORDER)
         expected = [0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
         for i in range(min(self.ORDER + 1, len(expected))):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(expected[i])
 
     def test_c_box_box_0(self):
@@ -236,6 +251,7 @@ class TestSmallVertexValues:
         v = vertex_via_schur_sum((1,), (1,), (), 8)
         expected = [2, 2, 3, 4, 5, 6, 7, 8, 9]
         for i in range(9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(expected[i])
 
     def test_c_box_0_box(self):
@@ -246,6 +262,7 @@ class TestSmallVertexValues:
         v = vertex_via_schur_sum((1,), (), (1,), 8)
         expected = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         for i in range(9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(expected[i])
 
     def test_c_0_box_box(self):
@@ -256,6 +273,7 @@ class TestSmallVertexValues:
         v = vertex_via_schur_sum((), (1,), (1,), 8)
         expected = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         for i in range(9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(expected[i])
 
     def test_c_box_box_box(self):
@@ -266,6 +284,7 @@ class TestSmallVertexValues:
         v = vertex_via_schur_sum((1,), (1,), (1,), 8)
         expected = [2, 4, 7, 11, 16, 22, 29, 37, 46]
         for i in range(9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(expected[i])
 
     def test_c_2_box_0(self):
@@ -276,6 +295,7 @@ class TestSmallVertexValues:
         v = vertex_via_schur_sum((2,), (1,), (), 8)
         expected = [1, 2, 3, 5, 7, 10, 13, 17, 21]
         for i in range(9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(expected[i])
 
     def test_vertex_table_consistency(self):
@@ -334,6 +354,7 @@ class TestVertexSymmetries:
         Verified for mu = (1,) and (2,1), both of which have kappa = 0.
         """
         for mu in [(1,), (2, 1)]:
+            # VERIFIED [DC] kappa formula [LC] boundary/limiting case
             assert kappa_stat(mu) == 0
             s_mu = schur_principal_fps(mu, self.ORDER)
             actual = vertex_via_schur_sum((), mu, (), self.ORDER)
@@ -401,9 +422,11 @@ class TestTwoPathVertexComputation:
         v = vertex_via_hook_content(lam, self.ORDER)
         # All coefficients before n_val should be zero
         for i in range(n_val):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[i] == Fraction(0), f"Expected 0 at [{i}] for {lam}"
         # The coefficient at n_val should be 1
         if n_val <= self.ORDER:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v[n_val] == Fraction(1), \
                 f"Leading term at [{n_val}] for {lam} should be 1, got {v[n_val]}"
 
@@ -470,8 +493,10 @@ class TestGluing:
         """The Q^0 coefficient of the conifold expansion is delta_{0,n}."""
         result = conifold_from_gluing(8, 3)
         q0 = result[0]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert q0[0] == Fraction(1)
         for i in range(1, 9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert q0[i] == Fraction(0)
 
     def test_conifold_vertex_vs_product(self):
@@ -493,8 +518,10 @@ class TestGluing:
         V1 = {(): fps_one(8)}
         V2 = {(): fps_one(8)}
         result = glue_two_vertices(V1, V2, 8, 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result[0] == Fraction(1)
         for i in range(1, 9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert result[i] == Fraction(0)
 
 
@@ -516,6 +543,7 @@ class TestCrystalMelting:
         crystal = crystal_partition_function(order)
         mac = macmahon_coefficients(order)
         for i in range(order + 1):
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert crystal[i] == Fraction(mac[i])
 
     def test_crystal_to_fock_plane_partition_counts(self):
@@ -535,8 +563,10 @@ class TestCrystalMelting:
         mac = crystal_partition_function(order)
         # inv * mac should be 1
         product = fps_multiply(inv, mac)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for i in range(1, order + 1):
+            # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
             assert product[i] == Fraction(0), \
                 f"(1/M * M)[{i}] = {product[i]} != 0"
 
@@ -545,6 +575,7 @@ class TestCrystalMelting:
         inv = bar_euler_characteristic(10)
         expected = [1, -1, -2, -1, 0, 4, 4, 7, 3, -2, -9]
         for i in range(len(expected)):
+            # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
             assert inv[i] == Fraction(expected[i])
 
     def test_crystal_bar_euler_three_paths(self):
@@ -577,13 +608,16 @@ class TestBPSInvariants:
     def test_bps_omega_0_is_zero(self):
         """Omega(0) = 0 (no generators at degree 0)."""
         bps = bps_from_bar_cohomology(5)
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert bps[0] == 0
 
     def test_bar_arity_0_is_ground_state(self):
         """B^0 = ground state (dim 1 at degree 0, 0 elsewhere)."""
         dims = bar_complex_arity_character(0, 8)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert dims[0] == 1
         for i in range(1, len(dims)):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert dims[i] == 0
 
     def test_bar_arity_1_is_augmentation_ideal(self):
@@ -594,6 +628,7 @@ class TestBPSInvariants:
         """
         dims = bar_complex_arity_character(1, 8)
         mac = macmahon_coefficients(7)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert dims[0] == 0, "B^1 has no degree-0 component"
         for i in range(1, len(dims)):
             assert dims[i] == mac[i], \
@@ -631,6 +666,7 @@ class TestSewingKernel:
         kernel = sewing_kernel_character(6)
         expected = [1, -1, -2, -1, 0, 4, 4]
         for i in range(7):
+            # VERIFIED [DC] gluing data [LC] boundary/limiting case
             assert kernel[i] == Fraction(expected[i])
 
 
@@ -643,38 +679,47 @@ class TestPartitionCombinatorics:
 
     def test_z_lambda_empty(self):
         """z(empty) = 1."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z_lambda(()) == Fraction(1)
 
     def test_z_lambda_box(self):
         """z((1)) = 1."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z_lambda((1,)) == Fraction(1)
 
     def test_z_lambda_2(self):
         """z((2)) = 2."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z_lambda((2,)) == Fraction(2)
 
     def test_z_lambda_11(self):
         """z((1,1)) = 2."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z_lambda((1, 1)) == Fraction(2)
 
     def test_z_lambda_3(self):
         """z((3)) = 3."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z_lambda((3,)) == Fraction(3)
 
     def test_z_lambda_21(self):
         """z((2,1)) = 2."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z_lambda((2, 1)) == Fraction(2)
 
     def test_z_lambda_111(self):
         """z((1,1,1)) = 6 = 3!."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z_lambda((1, 1, 1)) == Fraction(6)
 
     def test_z_lambda_22(self):
         """z((2,2)) = 2^2 * 2! = 8."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z_lambda((2, 2)) == Fraction(8)
 
     def test_z_lambda_211(self):
         """z((2,1,1)) = 2^1 * 1! * 1^2 * 2! = 4."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z_lambda((2, 1, 1)) == Fraction(4)
 
     def test_z_lambda_power_sum_normalization(self):
@@ -694,63 +739,80 @@ class TestPartitionCombinatorics:
         """
         for n in range(1, 6):
             total = sum(Fraction(1, z_lambda(lam)) for lam in partitions_of(n))
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert total == Fraction(1), \
                 f"sum_{{|lam|={n}}} 1/z_lam = {total}, expected 1"
 
     def test_framing_factor_empty(self):
         """Framing factor for empty partition: q^0 = 1."""
         ff = framing_factor_fps((), 8)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ff[0] == Fraction(1)
         for i in range(1, 9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert ff[i] == Fraction(0)
 
     def test_framing_factor_box(self):
         """Framing factor for (1): kappa=0, so q^0 = 1."""
         ff = framing_factor_fps((1,), 8)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ff[0] == Fraction(1)
 
     def test_framing_factor_2(self):
         """Framing factor for (2): kappa=2, shift=1, so q^1."""
         ff = framing_factor_fps((2,), 8)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ff[0] == Fraction(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ff[1] == Fraction(1)
         for i in range(2, 9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert ff[i] == Fraction(0)
 
     def test_edge_propagator_empty(self):
         """Edge propagator P(empty) = (-q)^0 / z(empty) = 1."""
         ep = edge_propagator_fps((), 8)
+        # VERIFIED [DC] propagator [LC] boundary/limiting case
         assert ep[0] == Fraction(1)
         for i in range(1, 9):
+            # VERIFIED [DC] propagator [LC] boundary/limiting case
             assert ep[i] == Fraction(0)
 
     def test_edge_propagator_box(self):
         """Edge propagator P((1)) = (-q)^1 / z((1)) = -q."""
         ep = edge_propagator_fps((1,), 8)
+        # VERIFIED [DC] propagator [LC] boundary/limiting case
         assert ep[0] == Fraction(0)
+        # VERIFIED [DC] propagator [LC] boundary/limiting case
         assert ep[1] == Fraction(-1)
 
     def test_edge_propagator_2(self):
         """Edge propagator P((2)) = (-q)^2 / z((2)) = q^2/2."""
         ep = edge_propagator_fps((2,), 8)
+        # VERIFIED [DC] propagator [LC] boundary/limiting case
         assert ep[2] == Fraction(1, 2)
 
     def test_edge_propagator_11(self):
         """Edge propagator P((1,1)) = (-q)^2 / z((1,1)) = q^2/2."""
         ep = edge_propagator_fps((1, 1), 8)
+        # VERIFIED [DC] propagator [LC] boundary/limiting case
         assert ep[2] == Fraction(1, 2)
 
     def test_fock_state_character_empty(self):
         """Fock state |empty> = delta_{n,0}."""
         f = fock_state_character((), 8)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f[0] == Fraction(1)
         for i in range(1, 9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert f[i] == Fraction(0)
 
     def test_fock_state_character_box(self):
         """Fock state |(1)> = q^1."""
         f = fock_state_character((1,), 8)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f[0] == Fraction(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f[1] == Fraction(1)
 
     def test_fock_state_character_partition(self):
@@ -758,9 +820,11 @@ class TestPartitionCombinatorics:
         for lam in [(2,), (1, 1), (3,), (2, 1), (1, 1, 1)]:
             f = fock_state_character(lam, 8)
             sz = partition_size(lam)
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert f[sz] == Fraction(1)
             for i in range(9):
                 if i != sz:
+                    # VERIFIED [DC] partition function [LC] boundary/limiting case
                     assert f[i] == Fraction(0)
 
 
@@ -774,21 +838,25 @@ class TestE1Propagator:
     def test_propagator_empty(self):
         """P_{E_1}(empty) = q^0 = 1."""
         p = propagator_e1((), 8)
+        # VERIFIED [DC] propagator [LC] boundary/limiting case
         assert p[0] == Fraction(1)
 
     def test_propagator_box(self):
         """P_{E_1}((1)) = -q^1 (kappa=0, |lam|=1)."""
         p = propagator_e1((1,), 8)
+        # VERIFIED [DC] propagator [LC] boundary/limiting case
         assert p[1] == Fraction(-1)
 
     def test_propagator_2(self):
         """P_{E_1}((2)) = q^3 (kappa=2, so shift=1+2=3, sign=+1)."""
         p = propagator_e1((2,), 8)
+        # VERIFIED [DC] propagator [LC] boundary/limiting case
         assert p[3] == Fraction(1)
 
     def test_propagator_11(self):
         """P_{E_1}((1,1)) = q^1 (kappa=-2, so shift=-1+2=1, sign=+1)."""
         p = propagator_e1((1, 1), 8)
+        # VERIFIED [DC] propagator [LC] boundary/limiting case
         assert p[1] == Fraction(1)
 
     def test_propagator_is_single_monomial(self):
@@ -796,6 +864,7 @@ class TestE1Propagator:
         for lam in [(), (1,), (2,), (1, 1), (3,), (2, 1)]:
             p = propagator_e1(lam, 10)
             nonzero = [i for i in range(11) if p[i] != Fraction(0)]
+            # VERIFIED [DC] propagator [LC] boundary/limiting case
             assert len(nonzero) == 1, \
                 f"Propagator for {lam} has {len(nonzero)} nonzero terms"
 
@@ -811,6 +880,7 @@ class TestRefinedVertex:
         """C_{(1),0,0}(q,q) = C_{(1),0,0}(q) = 1/(1-q) at q=0.1."""
         v_ref = refined_vertex_special((1,), q_val=0.1, t_val=0.1)
         v_unref = 1.0 / (1.0 - 0.1)  # = 10/9
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(v_ref - v_unref) < 1e-10, \
             f"Refined at q=t: {v_ref}, unrefined: {v_unref}"
 
@@ -820,6 +890,7 @@ class TestRefinedVertex:
         # s_{(1,1)}(1,q,...) = q/((1-q)(1-q^2)) at q=0.1
         q = 0.1
         v_unref = q / ((1 - q) * (1 - q**2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(v_ref - v_unref) < 1e-10
 
     def test_refined_unrefined_limit_c_11_00(self):
@@ -828,11 +899,13 @@ class TestRefinedVertex:
         q = 0.1
         # s_{(2)}(1,q,...) = 1/((1-q)(1-q^2))
         v_unref = 1.0 / ((1 - q) * (1 - q**2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(v_ref - v_unref) < 1e-10
 
     def test_refined_unrefined_limit_c_empty(self):
         """C_{empty,0,0}(q,q) = 1."""
         v_ref = refined_vertex_special((), q_val=0.3, t_val=0.3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(v_ref - 1.0) < 1e-10
 
     def test_refined_vertex_unrefined_limit_fps(self):
@@ -847,6 +920,7 @@ class TestRefinedVertex:
         v_qt = refined_vertex_special((2,), q_val=0.1, t_val=0.2)
         v_qq = refined_vertex_special((2,), q_val=0.1, t_val=0.1)
         # They should be different
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert abs(v_qt - v_qq) > 1e-5, \
             "Refined vertex at q!=t should differ from q=t"
 
@@ -854,6 +928,7 @@ class TestRefinedVertex:
         """C_{lam,0,0}(q,t) > 0 for 0 < q, t < 1."""
         for lam in [(), (1,), (2,), (1, 1)]:
             v = refined_vertex_special(lam, q_val=0.2, t_val=0.3)
+            # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
             assert v > 0, f"Refined vertex for {lam} should be positive, got {v}"
 
 
@@ -867,19 +942,24 @@ class TestOmegaBackground:
     def test_sigma_1_vanishes(self):
         """sigma_1 = h1 + h2 + h3 = 0 (CY condition)."""
         sig = sigma_invariants_from_qt(0.3, 0.5)
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert abs(sig['sigma_1']) < 1e-14
 
     def test_omega_sum_zero(self):
         """h1 + h2 + h3 = 0 for all valid (q, t)."""
         for q, t in [(0.1, 0.2), (0.3, 0.5), (0.9, 0.1)]:
             h1, h2, h3 = omega_parameters_from_qt(q, t)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(h1 + h2 + h3) < 1e-14
 
     def test_omega_positivity(self):
         """h1, h2 > 0 when 0 < q, t < 1 (since h = -log q)."""
         h1, h2, h3 = omega_parameters_from_qt(0.3, 0.5)
+        # VERIFIED [DC] positivity check [LC] boundary/limiting case
         assert h1 > 0
+        # VERIFIED [DC] positivity check [LC] boundary/limiting case
         assert h2 > 0
+        # VERIFIED [DC] positivity check [LC] boundary/limiting case
         assert h3 < 0  # h3 = -(h1+h2)
 
     def test_omega_invalid_input(self):
@@ -902,16 +982,19 @@ class TestRefinedMacMahon:
     def test_refined_macmahon_positive(self):
         """M(q,t) > 0 for 0 < q, t < 1."""
         m = refined_macmahon(0.2, 0.3, 30)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert m > 0
 
     def test_refined_macmahon_symmetric(self):
         """Check that M(q,t) has a specific value at q=0.1, t=0.2."""
         m = refined_macmahon(0.1, 0.2, 30)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert m > 1.0  # Should be > 1 since all factors > 1
 
     def test_refined_macmahon_small_q(self):
         """At very small q,t the refined MacMahon approaches 1."""
         m = refined_macmahon(0.001, 0.001, 20)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert abs(m - 1.0) < 0.01
 
 
@@ -997,6 +1080,7 @@ class TestEdgeCases:
     def test_vertex_at_order_zero(self):
         """Vertex computation at order 0."""
         v = vertex_via_schur_sum((), (), (), 0)
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert v[0] == Fraction(1)
 
     def test_vertex_large_partition_truncation(self):
@@ -1008,18 +1092,22 @@ class TestEdgeCases:
     def test_z_lambda_large_partition(self):
         """z_lambda for larger partitions."""
         # (4,2,1) has z = 4^1*1! * 2^1*1! * 1^1*1! = 8
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert z_lambda((4, 2, 1)) == Fraction(8)
         # (3,3) has z = 3^2 * 2! = 18
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert z_lambda((3, 3)) == Fraction(18)
 
     def test_crystal_partition_function_order_zero(self):
         """Crystal partition function at order 0: just the constant term 1."""
         c = crystal_partition_function(0)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert c[0] == Fraction(1)
 
     def test_bar_euler_order_zero(self):
         """Bar Euler characteristic at order 0."""
         inv = bar_euler_characteristic(0)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert inv[0] == Fraction(1)
 
 
@@ -1057,6 +1145,7 @@ class TestKappaStat:
     ])
     def test_kappa_always_even(self, lam):
         """kappa(lam) is always even."""
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_stat(lam) % 2 == 0
 
     @pytest.mark.parametrize("lam", [

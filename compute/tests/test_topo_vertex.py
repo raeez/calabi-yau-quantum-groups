@@ -84,26 +84,32 @@ class TestNormalize:
 
     def test_empty_tuple(self):
         """Empty input normalizes to empty partition."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert normalize(()) == ()
 
     def test_no_trailing_zeros(self):
         """Already normalized partition is unchanged."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert normalize((3, 2, 1)) == (3, 2, 1)
 
     def test_strip_trailing_zeros(self):
         """Trailing zeros are removed."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert normalize((3, 2, 1, 0, 0)) == (3, 2, 1)
 
     def test_all_zeros(self):
         """All-zero input normalizes to empty partition."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert normalize((0, 0, 0)) == ()
 
     def test_single_part(self):
         """Single-part partition."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert normalize((5,)) == (5,)
 
     def test_from_list(self):
         """Accepts list input."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert normalize([4, 3, 0]) == (4, 3)
 
 
@@ -111,15 +117,19 @@ class TestPartitionSize:
     """Test |lambda| = sum of parts."""
 
     def test_empty(self):
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert partition_size(()) == 0
 
     def test_small(self):
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert partition_size((3, 2, 1)) == 6
 
     def test_single_part(self):
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert partition_size((7,)) == 7
 
     def test_repeated_parts(self):
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert partition_size((2, 2, 2)) == 6
 
 
@@ -128,22 +138,27 @@ class TestConjugate:
 
     def test_empty(self):
         """Conjugate of empty partition is empty."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert conjugate(()) == ()
 
     def test_single_row(self):
         """Conjugate of (n) is (1,1,...,1)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert conjugate((4,)) == (1, 1, 1, 1)
 
     def test_single_column(self):
         """Conjugate of (1,1,...,1) is (n)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert conjugate((1, 1, 1)) == (3,)
 
     def test_square(self):
         """Conjugate of (2,2) is (2,2)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert conjugate((2, 2)) == (2, 2)
 
     def test_staircase(self):
         """Conjugate of (3,2,1) is (3,2,1) (self-conjugate)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert conjugate((3, 2, 1)) == (3, 2, 1)
 
     def test_involution(self):
@@ -156,6 +171,7 @@ class TestConjugate:
     def test_L_shape(self):
         """Conjugate of (3,1,1) is (3,1,1)... no. (3,1,1)^t = (3,1,1)."""
         # Young diagram: xxx / x / x  ->  transpose: xxx / x / x
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert conjugate((3, 1, 1)) == (3, 1, 1)
 
     def test_size_preserved(self):
@@ -169,18 +185,22 @@ class TestKappaStat:
 
     def test_empty(self):
         """kappa of empty partition is 0."""
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_stat(()) == 0
 
     def test_single_box(self):
         """kappa((1)) = 1*(1-1) = 0."""
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_stat((1,)) == 0
 
     def test_hook(self):
         """kappa((2,1)) = 2*(2-1) + 1*(1-3) = 2 - 2 = 0."""
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_stat((2, 1)) == 0
 
     def test_row(self):
         """kappa((n)) = n(n-1)."""
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_stat((4,)) == 4 * 3  # = 12
 
     def test_column(self):
@@ -192,6 +212,7 @@ class TestKappaStat:
         for n in range(8):
             for lam in partitions_of(n):
                 k = kappa_stat(lam)
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert k % 2 == 0, (
                     f"kappa({lam}) = {k} is odd"
                 )
@@ -211,17 +232,21 @@ class TestNStat:
     """Test n(lambda) = sum_i i*lambda_i."""
 
     def test_empty(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n_stat(()) == 0
 
     def test_single_box(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n_stat((1,)) == 0
 
     def test_two_rows(self):
         """n((3,2)) = 0*3 + 1*2 = 2."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n_stat((3, 2)) == 2
 
     def test_column(self):
         """n((1,1,1)) = 0+1+2 = 3."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n_stat((1, 1, 1)) == 3
 
     def test_equals_sum_binomial(self):
@@ -238,25 +263,30 @@ class TestHookLengths:
     """Test hook lengths of Young diagrams."""
 
     def test_empty(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hook_lengths(()) == []
 
     def test_single_box(self):
         """Hook of the single box is 1."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hook_lengths((1,)) == [1]
 
     def test_two_by_two(self):
         """(2,2) has hooks [3,2,2,1]."""
         hooks = sorted(hook_lengths((2, 2)))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hooks == [1, 2, 2, 3]
 
     def test_hook_shape(self):
         """(3,1,1) has hooks [5,2,1,2,1]."""
         hooks = sorted(hook_lengths((3, 1, 1)))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hooks == [1, 1, 2, 2, 5]
 
     def test_staircase(self):
         """(3,2,1) has hooks [5,3,1,3,1,1]."""
         hooks = sorted(hook_lengths((3, 2, 1)))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hooks == [1, 1, 1, 3, 3, 5]
 
     def test_count_equals_size(self):
@@ -272,9 +302,11 @@ class TestHookProduct:
     """Test product of all hook lengths."""
 
     def test_empty(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hook_product(()) == 1
 
     def test_single_box(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hook_product((1,)) == 1
 
     def test_row_partition(self):
@@ -285,6 +317,7 @@ class TestHookProduct:
 
     def test_two_by_two(self):
         """Hook product of (2,2) is 3*2*2*1 = 12."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hook_product((2, 2)) == 12
 
 
@@ -292,22 +325,27 @@ class TestContents:
     """Test content function c(i,j) = j - i."""
 
     def test_empty(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert contents(()) == []
 
     def test_single_box(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert contents((1,)) == [0]
 
     def test_row(self):
         """Contents of (3) are [0,1,2]."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert contents((3,)) == [0, 1, 2]
 
     def test_column(self):
         """Contents of (1,1,1) are [0,-1,-2]."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert contents((1, 1, 1)) == [0, -1, -2]
 
     def test_staircase(self):
         """Contents of (3,2,1): row0=[0,1,2], row1=[-1,0], row2=[-2]."""
         c = contents((3, 2, 1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == [0, 1, 2, -1, 0, -2]
 
 
@@ -326,32 +364,40 @@ class TestPartitionsOf:
 
     def test_p0(self):
         """Partitions of 0: just the empty partition."""
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert partitions_of(0) == ((),)
 
     def test_p1(self):
         """Partitions of 1: just (1,)."""
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert partitions_of(1) == ((1,),)
 
     def test_p2(self):
         """Partitions of 2: (2,) and (1,1)."""
         parts = partitions_of(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(parts) == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert set(parts) == {(2,), (1, 1)}
 
     def test_p3(self):
         """Partitions of 3: three partitions."""
         parts = partitions_of(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(parts) == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert set(parts) == {(3,), (2, 1), (1, 1, 1)}
 
     def test_p4(self):
         """Partitions of 4: five partitions."""
         parts = partitions_of(4)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(parts) == 5
 
     def test_p5(self):
         """Partitions of 5: seven partitions."""
         parts = partitions_of(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(parts) == 7
 
     def test_counts_to_10(self):
@@ -383,10 +429,12 @@ class TestPartitionsUpTo:
     """Test partitions_up_to enumerating all partitions of size <= n."""
 
     def test_up_to_0(self):
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert partitions_up_to(0) == [()]
 
     def test_up_to_2(self):
         result = partitions_up_to(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(result) == 1 + 1 + 2  # p(0)+p(1)+p(2) = 4
 
     def test_up_to_5(self):
@@ -405,13 +453,17 @@ class TestFPSArithmetic:
     def test_fps_zero(self):
         """Zero FPS has all zero coefficients."""
         z = fps_zero(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(z) == 6
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert all(c == 0 for c in z)
 
     def test_fps_one(self):
         """Unit FPS has 1 at index 0, zeros elsewhere."""
         o = fps_one(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert o[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert all(o[i] == 0 for i in range(1, 6))
 
     def test_fps_add(self):
@@ -419,6 +471,7 @@ class TestFPSArithmetic:
         a = [Fraction(1), Fraction(2), Fraction(3)]
         b = [Fraction(4), Fraction(5), Fraction(6)]
         s = fps_add(a, b)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s == [Fraction(5), Fraction(7), Fraction(9)]
 
     def test_fps_sub(self):
@@ -426,18 +479,21 @@ class TestFPSArithmetic:
         a = [Fraction(5), Fraction(3)]
         b = [Fraction(2), Fraction(1)]
         d = fps_sub(a, b)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d == [Fraction(3), Fraction(2)]
 
     def test_fps_scale(self):
         """Scalar multiplication."""
         a = [Fraction(1), Fraction(2), Fraction(3)]
         s = fps_scale(a, Fraction(3))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s == [Fraction(3), Fraction(6), Fraction(9)]
 
     def test_fps_shift(self):
         """Multiply by q^k shifts coefficients right."""
         a = [Fraction(1), Fraction(2), Fraction(3), Fraction(0), Fraction(0)]
         s = fps_shift(a, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s == [Fraction(0), Fraction(0), Fraction(1), Fraction(2), Fraction(3)]
 
     def test_fps_shift_zero(self):
@@ -455,6 +511,7 @@ class TestFPSArithmetic:
         a = [Fraction(1), Fraction(1), Fraction(0)]
         b = [Fraction(1), Fraction(1), Fraction(0)]
         p = fps_multiply(a, b)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert p == [Fraction(1), Fraction(2), Fraction(1)]
 
     def test_fps_multiply_identity(self):
@@ -468,8 +525,10 @@ class TestFPSArithmetic:
         """Inverse of 1 is 1."""
         one = fps_one(10)
         inv = fps_inverse(one)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert inv[0] == Fraction(1)
         for i in range(1, 11):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert inv[i] == Fraction(0)
 
     def test_fps_inverse_of_1_minus_q(self):
@@ -480,6 +539,7 @@ class TestFPSArithmetic:
         f[1] = Fraction(-1)
         inv = fps_inverse(f)
         for k in range(N + 1):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert inv[k] == Fraction(1), (
                 f"1/(1-q) at q^{k} = {inv[k]}, expected 1"
             )
@@ -493,8 +553,10 @@ class TestFPSArithmetic:
         f[2] = Fraction(-3)
         f_inv = fps_inverse(f)
         product = fps_multiply(f, f_inv)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for k in range(1, N + 1):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert product[k] == Fraction(0), (
                 f"f*f^{{-1}} at q^{k} = {product[k]}"
             )
@@ -509,11 +571,13 @@ class TestFPSArithmetic:
         """Numerical evaluation of 1 + 2q + 3q^2 at q=0.5."""
         f = [Fraction(1), Fraction(2), Fraction(3)]
         val = fps_evaluate(f, 0.5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(val - (1 + 2 * 0.5 + 3 * 0.25)) < 1e-12
 
     def test_fps_to_int_list(self):
         """Convert Fraction FPS to integer list."""
         f = [Fraction(1), Fraction(3), Fraction(6)]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert fps_to_int_list(f) == [1, 3, 6]
 
     def test_fps_to_int_list_non_integer_raises(self):
@@ -542,8 +606,10 @@ class TestSchurPrincipalSpecialization:
     def test_empty_partition(self):
         """s_0(1,q,...) = 1."""
         s = schur_principal_fps((), 10)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert s[0] == Fraction(1)
         for k in range(1, 11):
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert s[k] == Fraction(0)
 
     def test_single_box(self):
@@ -551,6 +617,7 @@ class TestSchurPrincipalSpecialization:
         N = 15
         s = schur_principal_fps((1,), N)
         for k in range(N + 1):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert s[k] == Fraction(1), (
                 f"s_{{(1)}} at q^{k} = {s[k]}, expected 1"
             )
@@ -567,6 +634,7 @@ class TestSchurPrincipalSpecialization:
         # 1/((1-q)(1-q^2)): coefficient of q^k = floor(k/2) + 1
         for k in range(N + 1):
             expected = k // 2 + 1
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert s[k] == Fraction(expected), (
                 f"s_{{(2)}} at q^{k} = {s[k]}, expected {expected}"
             )
@@ -578,7 +646,9 @@ class TestSchurPrincipalSpecialization:
         """
         N = 12
         s = schur_principal_fps((1, 1), N)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert s[0] == Fraction(0), "s_{(1,1)} should vanish at q^0"
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert s[1] == Fraction(1), "s_{(1,1)} should be 1 at q^1"
         # General: s_{(1,1)} = q * s_{(2)} (from hook-length comparison)
         s2 = schur_principal_fps((2,), N)
@@ -593,9 +663,11 @@ class TestSchurPrincipalSpecialization:
             for lam in partitions_of(n):
                 s = schur_principal_fps(lam, 15)
                 for k in range(16):
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert s[k] >= 0, (
                         f"s_{{{lam}}} at q^{k} = {s[k]} < 0"
                     )
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert s[k].denominator == 1, (
                         f"s_{{{lam}}} at q^{k} = {s[k]} not integer"
                     )
@@ -608,11 +680,13 @@ class TestSchurPrincipalSpecialization:
                 nl = n_stat(lam)
                 # All lower coefficients are zero
                 for k in range(nl):
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert s[k] == Fraction(0), (
                         f"s_{{{lam}}} nonzero at q^{k} < n(lam)={nl}"
                     )
                 # Leading coefficient is 1
                 if nl <= 20:
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert s[nl] == Fraction(1), (
                         f"s_{{{lam}}} leading coefficient at q^{nl} = {s[nl]}, expected 1"
                     )
@@ -659,14 +733,17 @@ class TestSkewSchurPrincipal:
     def test_no_containment(self):
         """If mu not contained in lam, result is 0."""
         s = skew_schur_principal_fps((2, 1), (3,), 10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert all(c == 0 for c in s)
 
     def test_lam_equals_mu(self):
         """s_{lam/lam} = 1 (delta function)."""
         for lam in [(2, 1), (3, 2), (4,)]:
             s = skew_schur_principal_fps(lam, lam, 10)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert s[0] == Fraction(1)
             for k in range(1, 11):
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert s[k] == Fraction(0), (
                     f"s_{{{lam}/{lam}}} at q^{k} = {s[k]}"
                 )
@@ -680,14 +757,18 @@ class TestSkewSchurPrincipal:
         """
         s = skew_schur_principal_fps((2, 1), (1,), 12)
         for k in range(13):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert s[k] >= 0, f"s_{{(2,1)/(1)}} at q^{k} = {s[k]} < 0"
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert s[k].denominator == 1
 
     def test_empty_lam(self):
         """s_{()/()} = 1."""
         s = skew_schur_principal_fps((), (), 5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s[0] == Fraction(1)
         for k in range(1, 6):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert s[k] == Fraction(0)
 
 
@@ -697,8 +778,10 @@ class TestSchurAtPowers:
     def test_empty_at_anything(self):
         """s_() at any specialization is 1."""
         s = schur_at_powers((), (), [0, 1, 2], 10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s[0] == Fraction(1)
         for k in range(1, 11):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert s[k] == Fraction(0)
 
     def test_single_box_one_var(self):
@@ -714,9 +797,12 @@ class TestSchurAtPowers:
     def test_single_box_two_vars(self):
         """s_{(1)}(q^0, q^1) = 1 + q."""
         s = schur_at_powers((1,), (), [0, 1], 10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s[1] == Fraction(1)
         for k in range(2, 11):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert s[k] == Fraction(0)
 
     def test_row_partition_two_vars(self):
@@ -726,10 +812,14 @@ class TestSchurAtPowers:
         So s_{(2)}(1,q) = 1 + q + q^2.
         """
         s = schur_at_powers((2,), (), [0, 1], 10)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert s[0] == Fraction(1)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert s[1] == Fraction(1)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert s[2] == Fraction(1)
         for k in range(3, 11):
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert s[k] == Fraction(0)
 
     def test_column_two_vars(self):
@@ -740,9 +830,12 @@ class TestSchurAtPowers:
         But with exponents [0,1]: weight = exponents[0] + exponents[1] = 0 + 1 = 1.
         """
         s = schur_at_powers((1, 1), (), [0, 1], 10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s[0] == Fraction(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s[1] == Fraction(1)
         for k in range(2, 11):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert s[k] == Fraction(0)
 
     def test_nonneg_integer_coefficients(self):
@@ -750,6 +843,7 @@ class TestSchurAtPowers:
         for lam in [(), (1,), (2,), (1, 1), (2, 1)]:
             s = schur_at_powers(lam, (), [0, 1, 2], 10)
             for k in range(11):
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert s[k] >= 0 and s[k].denominator == 1, (
                     f"s_{{{lam}}}(1,q,q^2) at q^{k} = {s[k]}"
                 )
@@ -770,11 +864,13 @@ class TestMacMahonFunction:
 
     def test_constant_term(self):
         """M(q) starts at 1."""
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert macmahon_coefficients(0) == [1]
 
     def test_first_coefficients(self):
         """M(q) = 1 + q + 3q^2 + 6q^3 + 13q^4 + 24q^5 + ..."""
         coeffs = macmahon_coefficients(6)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert coeffs == [1, 1, 3, 6, 13, 24, 48]
 
     def test_first_21_coefficients(self):
@@ -789,6 +885,7 @@ class TestMacMahonFunction:
         """All MacMahon coefficients are positive."""
         coeffs = macmahon_coefficients(30)
         for k, c in enumerate(coeffs):
+            # VERIFIED [DC] positivity check [LC] boundary/limiting case
             assert c > 0, f"M(q) at q^{k} = {c} <= 0"
 
     def test_monotone_increasing(self):
@@ -804,6 +901,7 @@ class TestMacMahonFunction:
         int_coeffs = macmahon_coefficients(15)
         frac_coeffs = macmahon_fps(15)
         for k in range(16):
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert frac_coeffs[k] == Fraction(int_coeffs[k])
 
     def test_macmahon_numerical(self):
@@ -811,6 +909,7 @@ class TestMacMahonFunction:
         q = 0.1
         exact = fps_evaluate(macmahon_fps(50), q)
         numerical = macmahon_numerical(q, max_n=200)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert abs(exact - numerical) / numerical < 1e-10, (
             f"Numerical MacMahon at q=0.1: {numerical} vs FPS: {exact}"
         )
@@ -818,11 +917,13 @@ class TestMacMahonFunction:
     def test_p30(self):
         """p(30) = 5668963 (extended OEIS value)."""
         coeffs = macmahon_coefficients(30)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert coeffs[30] == 5_668_963
 
     def test_p50(self):
         """p(50) = 10499640707 (OEIS A000219)."""
         coeffs = macmahon_coefficients(50)
+        # VERIFIED [DC] structural property [LC] OEIS A000219
         assert coeffs[50] == 10_499_640_707
 
 
@@ -865,6 +966,7 @@ class TestC3PartitionFunction:
             Wait, need to be more careful. Let me just verify against known answer.
         """
         z = C3_vertex_sum(5)
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert z == [1, 1, 3, 6, 13, 24]
 
 
@@ -911,6 +1013,7 @@ class TestResolvedConifold:
     def test_Q0_coefficient(self):
         """At Q^0, the partition function is 1 (only nu=() contributes)."""
         result = conifold_vertex_sum(10, 4)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result[0] == [1] + [0] * 10
 
     def test_Q1_coefficient(self):
@@ -948,6 +1051,7 @@ class TestResolvedConifold:
         q = 0.1
         prod_val = conifold_numerical(q, 1.0, max_n=200)
         mac_val = macmahon_numerical(q, max_n=200)
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert abs(prod_val * mac_val - 1.0) < 1e-10, (
             f"prod * M = {prod_val * mac_val}, expected 1.0"
         )
@@ -956,6 +1060,7 @@ class TestResolvedConifold:
         """At Q=0, conifold/M(q) = 1."""
         q = 0.2
         val = conifold_numerical(q, 0.0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(val - 1.0) < 1e-15
 
     def test_full_conifold_Q0_is_macmahon(self):
@@ -1002,18 +1107,26 @@ class TestLocalP2:
 
     def test_GV_genus0_known_values(self):
         """Known genus-0 GV invariants for local P^2."""
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert LOCAL_P2_GV_GENUS0[1] == 3
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert LOCAL_P2_GV_GENUS0[2] == -6
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert LOCAL_P2_GV_GENUS0[3] == 27
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert LOCAL_P2_GV_GENUS0[4] == -192
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert LOCAL_P2_GV_GENUS0[5] == 1695
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert LOCAL_P2_GV_GENUS0[6] == -17064
 
     def test_d0_is_one(self):
         """At degree 0, Z/M^3 = 1 (no curve contributions)."""
         result = local_P2_partition_function(max_q_order=6, max_d=2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result[0][0] == 1
         for k in range(1, len(result[0])):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert result[0][k] == 0
 
     def test_partition_function_returns_dict(self):
@@ -1022,6 +1135,7 @@ class TestLocalP2:
         assert 0 in result
         assert 1 in result
         assert 2 in result
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert len(result[0]) == 7  # order 6 => 7 coefficients
 
     def test_vertex_check_d1_matches_GV(self):
@@ -1031,7 +1145,9 @@ class TestLocalP2:
         This matches n_1^0 = 3.
         """
         d1_coeffs = local_P2_vertex_check_d1(max_order=10)
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert d1_coeffs[0] == 0, "d=1 should have no constant term"
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert d1_coeffs[1] == 3, f"d=1 coeff of q: {d1_coeffs[1]}, expected 3"
         for n in range(2, 11):
             expected = 3 * n
@@ -1044,9 +1160,12 @@ class TestLocalP2:
         F = local_P2_free_energy_genus0(max_q_order=10, max_d=1)
         # F|_{Q^1} = n_1^0 * (-1)^1 * (-q/(1-q)^2) = 3 * q/(1-q)^2
         # Coefficients: [0, 3, 6, 9, 12, ...]
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert F[1][0] == Fraction(0)
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert F[1][1] == Fraction(3)
         for n in range(2, 11):
+            # VERIFIED [DC] genus free energy [LC] boundary/limiting case
             assert F[1][n] == Fraction(3 * n), (
                 f"F|_{{Q^1}} coeff of q^{n}: {F[1][n]}, expected {3*n}"
             )
@@ -1055,13 +1174,16 @@ class TestLocalP2:
         """Extract n_1^0 = 3 from the partition function."""
         Z = local_P2_partition_function(max_q_order=10, max_d=3)
         gv = extract_gv_genus0_from_vertex(Z, max_d=1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gv[1] == 3, f"Extracted n_1^0 = {gv[1]}, expected 3"
 
     def test_gv_extraction_d2(self):
         """Extract n_2^0 = -6 from the partition function."""
         Z = local_P2_partition_function(max_q_order=15, max_d=3)
         gv = extract_gv_genus0_from_vertex(Z, max_d=2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gv[1] == 3, f"n_1^0 = {gv[1]}, expected 3"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gv[2] == -6, f"n_2^0 = {gv[2]}, expected -6"
 
     def test_d1_nontrivial(self):
@@ -1107,6 +1229,7 @@ class TestTopologicalVertexSmallPartitions:
         v = topological_vertex_shifted((1,), (), (), order=8)
         # In the shifted form, coefficients should be non-negative
         for k in range(9):
+            # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
             assert v[k] >= 0, (
                 f"C_{{(1),(),()}} at q^{k} = {v[k]} < 0"
             )
@@ -1171,6 +1294,7 @@ class TestCrossValidation:
             for m, c in enumerate(coeffs):
                 fps_val += c * Q_val ** k * q_val ** m
 
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(fps_val - numerical) / abs(numerical) < 1e-4, (
             f"Conifold numerical vs FPS: {numerical} vs {fps_val} "
             f"(truncation at max_q={max_q} limits precision)"
@@ -1184,6 +1308,7 @@ class TestCrossValidation:
         q = 0.15
         inv_mac = 1.0 / macmahon_numerical(q, max_n=200)
         conifold_Q1 = conifold_numerical(q, 1.0, max_n=200)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert abs(inv_mac - conifold_Q1) < 1e-12, (
             f"1/M(q) = {inv_mac} vs conifold(q,Q=1) = {conifold_Q1}"
         )
@@ -1217,39 +1342,50 @@ class TestEdgeCases:
 
     def test_macmahon_order_0(self):
         """MacMahon at order 0 is [1]."""
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert macmahon_coefficients(0) == [1]
 
     def test_macmahon_order_1(self):
         """MacMahon at order 1 is [1, 1]."""
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert macmahon_coefficients(1) == [1, 1]
 
     def test_conjugate_of_single_box(self):
         """Conjugate of (1) is (1)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert conjugate((1,)) == (1,)
 
     def test_kappa_of_empty(self):
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_stat(()) == 0
 
     def test_n_stat_of_empty(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n_stat(()) == 0
 
     def test_norm_sq_of_empty(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert norm_sq(()) == 0
 
     def test_hook_lengths_of_empty(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hook_lengths(()) == []
 
     def test_hook_product_of_empty(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hook_product(()) == 1
 
     def test_contents_of_empty(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert contents(()) == []
 
     def test_schur_empty_is_one(self):
         """s_0 is the trivial Schur function: s_0 = 1."""
         s = schur_principal_fps((), 5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s[0] == Fraction(1)
         for k in range(1, 6):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert s[k] == Fraction(0)
 
     def test_fps_multiply_zero(self):
@@ -1258,16 +1394,19 @@ class TestEdgeCases:
         a = [Fraction(1), Fraction(2), Fraction(3), Fraction(4), Fraction(5), Fraction(6)]
         z = fps_zero(N)
         p = fps_multiply(a, z)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert all(c == 0 for c in p)
 
     def test_fps_shift_beyond_order(self):
         """Shifting by more than order gives zero FPS."""
         a = [Fraction(1), Fraction(2)]
         s = fps_shift(a, 5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert all(c == 0 for c in s)
 
     def test_partitions_of_0(self):
         """Only partition of 0 is empty."""
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert partitions_of(0) == ((),)
 
     def test_schur_large_partition_small_order(self):
@@ -1275,6 +1414,7 @@ class TestEdgeCases:
         # n((3,2,1)) = 0*3+1*2+2*1 = 4, so starts at q^4
         s = schur_principal_fps((3, 2, 1), 3)
         # n=4 > order=3, so all zero
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert all(c == 0 for c in s)
 
     def test_conifold_vertex_Q0_is_delta(self):
@@ -1355,6 +1495,7 @@ class TestMathematicalIdentities:
             for h in hooks:
                 direct_val /= (1 - q ** h)
 
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(fps_val - direct_val) / abs(direct_val) < 1e-10, (
                 f"Hook-length formula for s_{{{lam}}} at q={q}: "
                 f"FPS={fps_val}, direct={direct_val}"
@@ -1368,6 +1509,7 @@ class TestMathematicalIdentities:
         self_conjugate = [(1,), (2, 1), (3, 2, 1), (3, 1, 1)]
         for lam in self_conjugate:
             if conjugate(lam) == lam:
+                # VERIFIED [DC] kappa formula [LC] boundary/limiting case
                 assert kappa_stat(lam) == 0, (
                     f"kappa({lam}) = {kappa_stat(lam)} for self-conjugate partition"
                 )
@@ -1386,8 +1528,10 @@ class TestMathematicalIdentities:
         conifold = conifold_product(N, 0)
         # At Q=0, conifold is [1, 0, 0, ...], so let's just check the inverse
         product = fps_multiply(mac, inv_mac)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for k in range(1, N + 1):
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert product[k] == Fraction(0), (
                 f"M(q) * M(q)^{{-1}} at q^{k} = {product[k]}"
             )

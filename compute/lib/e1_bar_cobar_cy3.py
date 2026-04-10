@@ -1272,7 +1272,7 @@ def w1inf_channel_e1_bar(max_spin: int = 5, c_val: Fraction = Fraction(1)
       kappa_s = c / s  (for the spin-s channel)
 
     Total (regulated) kappa:
-      kappa_total = c * H_{max_spin}  (harmonic sum)
+      kappa_ch = c * H_{max_spin}  (harmonic sum)
 
     Parameters
     ----------
@@ -1283,7 +1283,7 @@ def w1inf_channel_e1_bar(max_spin: int = 5, c_val: Fraction = Fraction(1)
     """
     from compute.lib.c3_shadow_tower import (
         kappa_channel,
-        kappa_total_regulated,
+        kappa_ch_regulated,
         lambda_fp,
     )
 
@@ -1297,8 +1297,8 @@ def w1inf_channel_e1_bar(max_spin: int = 5, c_val: Fraction = Fraction(1)
             "shadow_class": "G" if s == 1 and c_val == 1 else "M",
         })
 
-    kappa_total = kappa_total_regulated(max_spin, c_val)
-    total_F1 = kappa_total * Fraction(1, 24)
+    kappa_ch = kappa_ch_regulated(max_spin, c_val)
+    total_F1 = kappa_ch * Fraction(1, 24)
 
     # E₁ bar dimensions for multi-generator algebra
     r = max_spin
@@ -1313,7 +1313,7 @@ def w1inf_channel_e1_bar(max_spin: int = 5, c_val: Fraction = Fraction(1)
         "max_spin": max_spin,
         "c": c_val,
         "channels": channels,
-        "kappa_total_regulated": kappa_total,
+        "kappa_ch_regulated": kappa_ch,
         "total_F1": total_F1,
         "num_generators": r,
         "dims_e1": dims_e1,

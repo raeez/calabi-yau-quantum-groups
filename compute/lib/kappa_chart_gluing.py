@@ -146,7 +146,7 @@ class CY3Atlas(NamedTuple):
 
 class KappaGluingResult(NamedTuple):
     """Result of the local-to-global kappa computation."""
-    kappa_global: Fraction
+    kappa_ch: Fraction
     kappa_nerve_terms: Dict[int, Fraction]  # k -> sum_{|S|=k+1} kappa(S)
     atlas_name: str
     n_charts: int
@@ -184,19 +184,19 @@ def kappa_from_nerve(atlas: CY3Atlas) -> KappaGluingResult:
         nerve_terms[k] += kappa_S
 
     # Alternating sum
-    kappa_global = Fraction(0)
+    kappa_ch = Fraction(0)
     for k, total in nerve_terms.items():
-        kappa_global += (-1) ** k * total
+        kappa_ch += (-1) ** k * total
 
     # Collect verification paths
     verification: Dict[str, Fraction] = {
-        "nerve_alternating_sum": kappa_global,
+        "nerve_alternating_sum": kappa_ch,
     }
     if atlas.chi_top is not None:
         verification["chi_top_over_24"] = Fraction(atlas.chi_top, 24)
 
     return KappaGluingResult(
-        kappa_global=kappa_global,
+        kappa_ch=kappa_ch,
         kappa_nerve_terms=nerve_terms,
         atlas_name=atlas.name,
         n_charts=n,
@@ -1048,9 +1048,9 @@ def verify_all_standard_cy3s() -> Dict[str, Dict[str, Any]]:
     # C^3
     c3 = kappa_from_nerve(c3_atlas())
     results["C^3"] = {
-        "kappa": c3.kappa_global,
+        "kappa": c3.kappa_ch,
         "expected": Fraction(1),
-        "match": c3.kappa_global == Fraction(1),
+        "match": c3.kappa_ch == Fraction(1),
         "method": "single chart",
         "verification": "MacMahon M(q), W_{1+infty}",
     }
@@ -1058,9 +1058,9 @@ def verify_all_standard_cy3s() -> Dict[str, Dict[str, Any]]:
     # Conifold
     con = kappa_from_nerve(conifold_atlas())
     results["conifold"] = {
-        "kappa": con.kappa_global,
+        "kappa": con.kappa_ch,
         "expected": Fraction(1),
-        "match": con.kappa_global == Fraction(1),
+        "match": con.kappa_ch == Fraction(1),
         "method": "nerve formula, 2 charts",
         "verification": "chi_top(P^1)/2 = 1",
     }
@@ -1068,9 +1068,9 @@ def verify_all_standard_cy3s() -> Dict[str, Dict[str, Any]]:
     # Local P^2
     lp2 = kappa_from_nerve(local_p2_atlas())
     results["local_P^2"] = {
-        "kappa": lp2.kappa_global,
+        "kappa": lp2.kappa_ch,
         "expected": Fraction(3, 2),
-        "match": lp2.kappa_global == Fraction(3, 2),
+        "match": lp2.kappa_ch == Fraction(3, 2),
         "method": "single McKay chart",
         "verification": "chi_top(P^2)/2 = 3/2",
     }
@@ -1078,9 +1078,9 @@ def verify_all_standard_cy3s() -> Dict[str, Dict[str, Any]]:
     # Local P^2 toric
     lp2t = kappa_from_nerve(local_p2_toric_atlas())
     results["local_P^2_toric"] = {
-        "kappa": lp2t.kappa_global,
+        "kappa": lp2t.kappa_ch,
         "expected": Fraction(3, 2),
-        "match": lp2t.kappa_global == Fraction(3, 2),
+        "match": lp2t.kappa_ch == Fraction(3, 2),
         "method": "toric vertex counting, 3 charts",
         "verification": "3 * (1/2) = 3/2",
     }
@@ -1088,9 +1088,9 @@ def verify_all_standard_cy3s() -> Dict[str, Dict[str, Any]]:
     # Local P^1xP^1
     lp1p1 = kappa_from_nerve(local_p1xp1_atlas())
     results["local_P^1xP^1"] = {
-        "kappa": lp1p1.kappa_global,
+        "kappa": lp1p1.kappa_ch,
         "expected": Fraction(2),
-        "match": lp1p1.kappa_global == Fraction(2),
+        "match": lp1p1.kappa_ch == Fraction(2),
         "method": "toric vertex counting, 4 charts",
         "verification": "4 * (1/2) = 2",
     }
@@ -1098,9 +1098,9 @@ def verify_all_standard_cy3s() -> Dict[str, Dict[str, Any]]:
     # K3 x E
     k3e = kappa_from_nerve(k3_times_e_atlas())
     results["K3xE"] = {
-        "kappa": k3e.kappa_global,
+        "kappa": k3e.kappa_ch,
         "expected": Fraction(5),
-        "match": k3e.kappa_global == Fraction(5),
+        "match": k3e.kappa_ch == Fraction(5),
         "method": "single global chart (BKM)",
         "verification": "weight(Delta_5) = 5",
     }
@@ -1108,9 +1108,9 @@ def verify_all_standard_cy3s() -> Dict[str, Dict[str, Any]]:
     # Quintic
     q = kappa_from_nerve(quintic_atlas())
     results["quintic"] = {
-        "kappa": q.kappa_global,
+        "kappa": q.kappa_ch,
         "expected": Fraction(-25, 3),
-        "match": q.kappa_global == Fraction(-25, 3),
+        "match": q.kappa_ch == Fraction(-25, 3),
         "method": "single chart (BCOV)",
         "verification": "chi_top/24 = -200/24 = -25/3",
     }
@@ -1118,9 +1118,9 @@ def verify_all_standard_cy3s() -> Dict[str, Dict[str, Any]]:
     # E^3
     e3 = kappa_from_nerve(e_cubed_atlas())
     results["E^3"] = {
-        "kappa": e3.kappa_global,
+        "kappa": e3.kappa_ch,
         "expected": Fraction(3),
-        "match": e3.kappa_global == Fraction(3),
+        "match": e3.kappa_ch == Fraction(3),
         "method": "additive, 3 charts",
         "verification": "3 * kappa(E) = 3 * 1 = 3",
     }
@@ -1128,45 +1128,45 @@ def verify_all_standard_cy3s() -> Dict[str, Dict[str, Any]]:
     # Local Hirzebruch F_0 = P^1 x P^1
     f0 = kappa_from_nerve(local_hirzebruch_atlas(0))
     results["local_F0"] = {
-        "kappa": f0.kappa_global,
+        "kappa": f0.kappa_ch,
         "expected": Fraction(2),
-        "match": f0.kappa_global == Fraction(2),
+        "match": f0.kappa_ch == Fraction(2),
         "method": "Hirzebruch surface F_0",
     }
 
     # Local Hirzebruch F_1
     f1 = kappa_from_nerve(local_hirzebruch_atlas(1))
     results["local_F1"] = {
-        "kappa": f1.kappa_global,
+        "kappa": f1.kappa_ch,
         "expected": Fraction(2),
-        "match": f1.kappa_global == Fraction(2),
+        "match": f1.kappa_ch == Fraction(2),
         "method": "Hirzebruch surface F_1",
     }
 
     # Local Hirzebruch F_2
     f2 = kappa_from_nerve(local_hirzebruch_atlas(2))
     results["local_F2"] = {
-        "kappa": f2.kappa_global,
+        "kappa": f2.kappa_ch,
         "expected": Fraction(2),
-        "match": f2.kappa_global == Fraction(2),
+        "match": f2.kappa_ch == Fraction(2),
         "method": "Hirzebruch surface F_2",
     }
 
     # SPP
     spp = kappa_from_nerve(spp_atlas())
     results["SPP"] = {
-        "kappa": spp.kappa_global,
+        "kappa": spp.kappa_ch,
         "expected": Fraction(3, 2),
-        "match": spp.kappa_global == Fraction(3, 2),
+        "match": spp.kappa_ch == Fraction(3, 2),
         "method": "SPP single chart",
     }
 
     # Quintic two-phase
     q2 = kappa_from_nerve(quintic_two_phase_atlas())
     results["quintic_two_phase"] = {
-        "kappa": q2.kappa_global,
+        "kappa": q2.kappa_ch,
         "expected": Fraction(-25, 3),
-        "match": q2.kappa_global == Fraction(-25, 3),
+        "match": q2.kappa_ch == Fraction(-25, 3),
         "method": "LV + Gepner, 2 charts",
     }
 
@@ -1204,7 +1204,7 @@ def shadow_tower_from_gluing(atlas: CY3Atlas, max_genus: int = 5) -> Dict[int, F
     all genera up to max_genus.
     """
     result = kappa_from_nerve(atlas)
-    kappa = result.kappa_global
+    kappa = result.kappa_ch
     tower = {}
     for g in range(1, max_genus + 1):
         if g in A_HAT_COEFFS:
@@ -1223,7 +1223,7 @@ def refine_atlas(atlas1: CY3Atlas, atlas2: CY3Atlas) -> bool:
     """
     r1 = kappa_from_nerve(atlas1)
     r2 = kappa_from_nerve(atlas2)
-    return r1.kappa_global == r2.kappa_global
+    return r1.kappa_ch == r2.kappa_ch
 
 
 # =========================================================================
@@ -1250,9 +1250,9 @@ def cross_verify_kappa_values() -> Dict[str, bool]:
 
     # Gluing values
     gluing = {
-        "K3xE": kappa_from_nerve(k3_times_e_atlas()).kappa_global,
-        "quintic": kappa_from_nerve(quintic_atlas()).kappa_global,
-        "conifold": kappa_from_nerve(conifold_atlas()).kappa_global,
+        "K3xE": kappa_from_nerve(k3_times_e_atlas()).kappa_ch,
+        "quintic": kappa_from_nerve(quintic_atlas()).kappa_ch,
+        "conifold": kappa_from_nerve(conifold_atlas()).kappa_ch,
     }
 
     for name in gluing:

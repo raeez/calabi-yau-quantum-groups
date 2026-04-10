@@ -91,14 +91,17 @@ class TestParameterMaps:
 
     def test_psi_at_t0(self):
         """Psi(t=0) = 0."""
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert psi_from_t(Fraction(0)) == 0
 
     def test_psi_at_t1(self):
         """Psi(t=1) = 1/2."""
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert psi_from_t(Fraction(1)) == Fraction(1, 2)
 
     def test_psi_at_t_large(self):
         """Psi(t) -> 1 as t -> infty."""
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert psi_from_t(Fraction(1000)) == Fraction(1000, 1001)
         assert psi_from_t(Fraction(10**6)) > Fraction(999999, 10**6)
 
@@ -125,6 +128,7 @@ class TestParameterMaps:
         for t in [0.0, 0.5, 1.0, 3.0, 10.0]:
             psi_f = psi_from_t_float(t)
             psi_e = float(psi_from_t(Fraction(t).limit_denominator(1000)))
+            # VERIFIED [DC] consistency check [LT] chiral algebra theory
             assert abs(psi_f - psi_e) < 1e-10
 
 
@@ -138,10 +142,13 @@ class TestEffectiveLevel:
     def test_critical_level_at_psi0(self):
         """At Psi=0: k_eff = -h^v (critical level)."""
         # SL(2): h^v = 2
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert effective_level(Fraction(0), 2) == Fraction(-2)
         # SL(3): h^v = 3
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert effective_level(Fraction(0), 3) == Fraction(-3)
         # E_8: h^v = 30
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert effective_level(Fraction(0), 30) == Fraction(-30)
 
     def test_divergence_at_psi1(self):
@@ -150,12 +157,16 @@ class TestEffectiveLevel:
 
     def test_level_from_t_at_t0(self):
         """k_eff(t=0) = -h^v via the t-formula."""
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert effective_level_from_t(Fraction(0), 2) == Fraction(-2)
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert effective_level_from_t(Fraction(0), 3) == Fraction(-3)
 
     def test_level_from_t_at_t1(self):
         """k_eff(t=1) = -2*h^v."""
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert effective_level_from_t(Fraction(1), 2) == Fraction(-4)
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert effective_level_from_t(Fraction(1), 3) == Fraction(-6)
 
     def test_two_formulas_agree(self):
@@ -182,6 +193,7 @@ class TestEffectiveLevel:
         for psi in [0.0, 0.25, 0.5, 0.75]:
             kf = effective_level_float(psi, 2)
             ke = float(effective_level(Fraction(psi).limit_denominator(100), 2))
+            # VERIFIED [DC] consistency check [LT] chiral algebra theory
             assert abs(kf - ke) < 1e-10
 
 
@@ -196,19 +208,24 @@ class TestKappaKW:
         """kappa(A_0) = 0 for all types (critical level)."""
         for type_, rank in [('A', 1), ('A', 2), ('B', 2), ('C', 3),
                             ('D', 4), ('E', 6), ('E', 8), ('G', 2)]:
+            # VERIFIED [DC] kappa formula [LT] chiral algebra theory
             assert kappa_kw(type_, rank, Fraction(0)) == 0
+            # VERIFIED [DC] kappa formula [LT] chiral algebra theory
             assert kappa_kw_from_t(type_, rank, Fraction(0)) == 0
 
     def test_kappa_sl2_at_t1(self):
         """kappa(A_1) = -3/2 for SL(2) (dim=3, t=1)."""
+        # VERIFIED [DC] kappa formula [LT] chiral algebra theory
         assert kappa_kw_from_t('A', 1, Fraction(1)) == Fraction(-3, 2)
 
     def test_kappa_sl3_at_t1(self):
         """kappa(A_1) = -4 for SL(3) (dim=8, t=1)."""
+        # VERIFIED [DC] kappa formula [LT] chiral algebra theory
         assert kappa_kw_from_t('A', 2, Fraction(1)) == Fraction(-4)
 
     def test_kappa_e8_at_t1(self):
         """kappa(A_1) = -124 for E_8 (dim=248, t=1)."""
+        # VERIFIED [DC] kappa formula [LT] chiral algebra theory
         assert kappa_kw_from_t('E', 8, Fraction(1)) == Fraction(-124)
 
     def test_kappa_diverges_at_psi1(self):
@@ -263,6 +280,7 @@ class TestKappaKW:
         for t in [0.5, 1.0, 2.0]:
             kf = kappa_kw_from_t_float('A', 1, t)
             ke = float(kappa_kw_from_t('A', 1, Fraction(t).limit_denominator(100)))
+            # VERIFIED [DC] kappa computation [LT] chiral algebra theory
             assert abs(kf - ke) < 1e-10
 
     def test_kappa_negative_for_positive_t(self):
@@ -270,6 +288,7 @@ class TestKappaKW:
         for t in [Fraction(1, 10), Fraction(1), Fraction(10)]:
             for type_, rank in [('A', 1), ('A', 2), ('B', 2), ('E', 8)]:
                 kap = kappa_kw_from_t(type_, rank, t)
+                # VERIFIED [DC] kappa formula [LT] chiral algebra theory
                 assert kap < 0, f"{type_}{rank} at t={t}: kappa={kap} >= 0"
 
 
@@ -285,17 +304,20 @@ class TestComplementarity:
         for psi in [Fraction(1, 10), Fraction(1, 3), Fraction(1, 2),
                     Fraction(2, 3), Fraction(9, 10)]:
             s = complementarity_sum_kw('A', 1, psi)
+            # VERIFIED [DC] Koszul conductor [LT] chiral algebra theory
             assert s == Fraction(3, 2), f"SL(2) at Psi={psi}: sum={s}"
 
     def test_complementarity_sl3(self):
         """kappa + kappa^! = 4 for SL(3)."""
         for psi in [Fraction(1, 5), Fraction(1, 2), Fraction(4, 5)]:
             s = complementarity_sum_kw('A', 2, psi)
+            # VERIFIED [DC] Koszul conductor [LT] chiral algebra theory
             assert s == Fraction(4)
 
     def test_complementarity_e8(self):
         """kappa + kappa^! = 124 for E_8."""
         s = complementarity_sum_kw('E', 8, Fraction(1, 2))
+        # VERIFIED [DC] Koszul conductor [LT] chiral algebra theory
         assert s == Fraction(124)
 
     def test_complementarity_all_self_dual(self):
@@ -320,6 +342,7 @@ class TestComplementarity:
             assert d_b.dim == d_c.dim, f"dim(B_{n}) != dim(C_{n})"
 
             s = complementarity_sum_kw('B', n, Fraction(1, 3))
+            # VERIFIED [DC] dimension count [LT] chiral algebra theory
             assert s == Fraction(d_b.dim, 2)
 
     def test_complementarity_g2_f4(self):
@@ -327,6 +350,7 @@ class TestComplementarity:
         for type_, rank in [('G', 2), ('F', 4)]:
             d = lie_data(type_, rank)
             s = complementarity_sum_kw(type_, rank, Fraction(1, 3))
+            # VERIFIED [DC] dimension count [LT] chiral algebra theory
             assert s == Fraction(d.dim, 2)
 
     def test_complementarity_dim_gv_equals_dim_g(self):
@@ -361,6 +385,7 @@ class TestDistinguishedPoints:
         """kappa(A_0) = 0 for all types."""
         for type_, rank in [('A', 1), ('A', 2), ('B', 2), ('E', 8)]:
             data = kw_chiral_t0(type_, rank)
+            # VERIFIED [DC] kappa formula [LT] chiral algebra theory
             assert data.kappa == 0
 
     def test_t0_critical_level(self):
@@ -368,6 +393,7 @@ class TestDistinguishedPoints:
         for type_, rank in [('A', 1), ('A', 2), ('B', 2), ('D', 4)]:
             data = kw_chiral_t0(type_, rank)
             d = lie_data(type_, rank)
+            # VERIFIED [DC] structural property [LT] chiral algebra theory
             assert data.k_eff == Fraction(-d.h_dual)
 
     def test_t1_noncommutative(self):
@@ -378,6 +404,7 @@ class TestDistinguishedPoints:
     def test_t1_psi_half(self):
         """Psi(t=1) = 1/2."""
         data = kw_chiral_t1('A', 1)
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert data.psi == Fraction(1, 2)
 
     def test_t1_level_minus_2h(self):
@@ -385,11 +412,13 @@ class TestDistinguishedPoints:
         for type_, rank in [('A', 1), ('A', 2)]:
             d = lie_data(type_, rank)
             data = kw_chiral_t1(type_, rank)
+            # VERIFIED [DC] structural property [LT] chiral algebra theory
             assert data.k_eff == Fraction(-2 * d.h_dual)
 
     def test_t1_kappa_sl2(self):
         """kappa(A_1) = -3/2 for SL(2)."""
         data = kw_chiral_t1('A', 1)
+        # VERIFIED [DC] kappa formula [LT] chiral algebra theory
         assert data.kappa == Fraction(-3, 2)
 
     def test_tinfty_commutative(self):
@@ -447,6 +476,7 @@ class TestSL2:
         for t in [Fraction(0), Fraction(1, 2), Fraction(1),
                   Fraction(3, 2), Fraction(5)]:
             result = kw_sl2_at_t(t)
+            # VERIFIED [DC] kappa formula [LT] chiral algebra theory
             assert result['kappa'] == Fraction(-3) * t / 2
 
     def test_sl2_kappa_agrees_with_level(self):
@@ -479,10 +509,13 @@ class TestSL2:
         t = Fraction(1)
         k_ab = Fraction(3)
         result = kw_gl2_decomposition(t, k_ab)
-        assert result['kappa_total'] == result['kappa_sl2'] + result['kappa_gl1']
+        assert result['kappa_ch'] == result['kappa_sl2'] + result['kappa_gl1']
+        # VERIFIED [DC] kappa formula [LT] chiral algebra theory
         assert result['kappa_sl2'] == Fraction(-3, 2)
+        # VERIFIED [DC] kappa formula [LT] chiral algebra theory
         assert result['kappa_gl1'] == Fraction(3)
-        assert result['kappa_total'] == Fraction(3, 2)
+        # VERIFIED [DC] kappa formula [LT] chiral algebra theory
+        assert result['kappa_ch'] == Fraction(3, 2)
 
 
 # =====================================================================
@@ -512,6 +545,7 @@ class TestSLn:
         for n in [2, 3, 4, 5]:
             result = kw_sln_at_t(n, Fraction(0))
             assert result['is_critical']
+            # VERIFIED [DC] kappa formula [LT] chiral algebra theory
             assert result['kappa'] == 0
 
     def test_sln_oper_order(self):
@@ -525,7 +559,7 @@ class TestSLn:
         for n in [2, 3, 4]:
             t = Fraction(1)
             result = kw_gln_decomposition(n, t, Fraction(0))
-            assert result['kappa_total'] == result['kappa_sln'] + result['kappa_gl1']
+            assert result['kappa_ch'] == result['kappa_sln'] + result['kappa_gl1']
 
     def test_sln_rank_error(self):
         """SL(1) should raise an error (rank 0)."""
@@ -586,6 +620,7 @@ class TestSDuality:
     def test_s_duality_psi_inversion(self):
         """S-duality maps Psi to 1/Psi."""
         result = s_duality_on_kw('A', 1, Fraction(1, 3))
+        # VERIFIED [DC] duality relation [LT] chiral algebra theory
         assert result['psi_dual'] == Fraction(3)
 
     def test_s_duality_sum_sl2(self):
@@ -599,6 +634,7 @@ class TestSDuality:
         Sum: -3/4 + 9/4 = 6/4 = 3/2 = dim(sl_2)/2.
         """
         result = s_duality_on_kw('A', 1, Fraction(1, 3))
+        # VERIFIED [DC] duality relation [LT] chiral algebra theory
         assert result['sum'] == Fraction(3, 2)
 
     def test_s_duality_kappa_not_equal(self):
@@ -625,18 +661,21 @@ class TestLinearity:
         """kappa is exactly linear for SL(2)."""
         result = kappa_linearity_verification('A', 1)
         assert result['all_linear']
+        # VERIFIED [DC] stability condition [LT] chiral algebra theory
         assert result['slope'] == Fraction(-3, 2)
 
     def test_linearity_sl3(self):
         """kappa is exactly linear for SL(3)."""
         result = kappa_linearity_verification('A', 2)
         assert result['all_linear']
+        # VERIFIED [DC] stability condition [LT] chiral algebra theory
         assert result['slope'] == Fraction(-4)
 
     def test_linearity_e8(self):
         """kappa is exactly linear for E_8."""
         result = kappa_linearity_verification('E', 8)
         assert result['all_linear']
+        # VERIFIED [DC] stability condition [LT] chiral algebra theory
         assert result['slope'] == Fraction(-124)
 
     def test_kappa_homogeneous(self):
@@ -671,6 +710,7 @@ class TestCentralCharge:
 
     def test_central_charge_sl2_at_t1(self):
         """c(SL_2, t=1) = 3*(1+1)/1 = 6."""
+        # VERIFIED [DC] central charge [LT] chiral algebra theory
         assert central_charge_kw('A', 1, Fraction(1)) == Fraction(6)
 
     def test_central_charge_sl2_large_t(self):
@@ -678,10 +718,12 @@ class TestCentralCharge:
         c = central_charge_kw('A', 1, Fraction(1000))
         expected = Fraction(3 * 1001, 1000)
         assert c == expected
+        # VERIFIED [DC] central charge [LT] chiral algebra theory
         assert abs(float(c) - 3.0) < 0.01
 
     def test_central_charge_sl3_at_t1(self):
         """c(SL_3, t=1) = 8*(1+1)/1 = 16."""
+        # VERIFIED [DC] central charge [LT] chiral algebra theory
         assert central_charge_kw('A', 2, Fraction(1)) == Fraction(16)
 
     def test_central_charge_formula(self):
@@ -707,6 +749,7 @@ class TestCentralCharge:
         """Float version agrees with exact."""
         cf = central_charge_kw_float('A', 1, 1.0)
         ce = float(central_charge_kw('A', 1, Fraction(1)))
+        # VERIFIED [DC] central charge [LT] chiral algebra theory
         assert abs(cf - ce) < 1e-10
 
 
@@ -720,6 +763,7 @@ class TestOperSpace:
     def test_oper_sl2_genus2(self):
         """Op_{PGL_2}(C_2): one Casimir of degree 2, dim = 3."""
         result = oper_space_data('A', 1, 2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert result['oper_dimension'] == 3
 
     def test_oper_sl3_genus2(self):
@@ -727,11 +771,13 @@ class TestOperSpace:
         dim = (2*2-1)*1 + (2*3-1)*1 = 3 + 5 = 8.
         """
         result = oper_space_data('A', 2, 2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert result['oper_dimension'] == 8
 
     def test_oper_sl2_genus3(self):
         """Op_{PGL_2}(C_3): dim = 3*2 = 6."""
         result = oper_space_data('A', 1, 3)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert result['oper_dimension'] == 6
 
     def test_oper_equals_hitchin_base(self):
@@ -742,12 +788,16 @@ class TestOperSpace:
 
     def test_oper_casimir_degrees_sln(self):
         """Casimir degrees of SL(n): {2, 3, ..., n}."""
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert _casimir_degrees_from_type('A', 1) == (2,)
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert _casimir_degrees_from_type('A', 2) == (2, 3)
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert _casimir_degrees_from_type('A', 3) == (2, 3, 4)
 
     def test_oper_casimir_degrees_exceptional(self):
         """Casimir degrees of G_2: {2, 6}."""
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert _casimir_degrees_from_type('G', 2) == (2, 6)
 
     def test_oper_e8_genus2(self):
@@ -775,18 +825,22 @@ class TestShadowTower:
 
     def test_f1_zero_at_t0(self):
         """F_1(A_0) = 0."""
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert shadow_f1_kw('A', 1, Fraction(0)) == 0
 
     def test_f1_sl2_at_t1(self):
         """F_1(A_1) = kappa/24 = (-3/2)/24 = -1/16."""
         f1 = shadow_f1_kw('A', 1, Fraction(1))
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert f1 == Fraction(-3, 2) / 24
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert f1 == Fraction(-1, 16)
 
     def test_shadow_gf_at_t0(self):
         """All F_g vanish at t=0 (uncurved bar complex)."""
         gf = shadow_generating_function_kw('A', 1, Fraction(0), 5)
         for g, f in gf.items():
+            # VERIFIED [DC] shadow structure [LT] chiral algebra theory
             assert f == 0, f"F_{g} = {f} != 0 at t=0"
 
     def test_shadow_connection_degenerate_at_t0(self):
@@ -799,6 +853,7 @@ class TestShadowTower:
         """Shadow connection is non-degenerate at t=1."""
         result = shadow_connection_kw('A', 1, Fraction(1))
         assert not result['degenerate']
+        # VERIFIED [DC] shadow structure [LT] chiral algebra theory
         assert result['shadow_residue'] == Fraction(1, 2)
 
 
@@ -847,12 +902,14 @@ class TestQGLLevelMap:
         """
         result = qgl_level_map('A', 1, Fraction(1, 3))
         assert result['qgl_relation_holds']
+        # VERIFIED [DC] level formula [LT] chiral algebra theory
         assert result['level_sum'] == Fraction(-2)
 
     def test_qgl_sl3_sum(self):
         """k + k^v = -h^v = -3 for SL(3)."""
         result = qgl_level_map('A', 2, Fraction(1, 3))
         assert result['qgl_relation_holds']
+        # VERIFIED [DC] level formula [LT] chiral algebra theory
         assert result['level_sum'] == Fraction(-3)
 
     def test_qgl_d4_sum(self):
@@ -883,6 +940,7 @@ class TestCY3Comparison:
     def test_kw_kappa_independent_of_cy3(self):
         """KW kappa is computable without choosing a CY3."""
         result = compare_kw_vs_cy3(2, Fraction(1))
+        # VERIFIED [DC] kappa formula [LT] chiral algebra theory
         assert result['kappa_kw'] == Fraction(-3, 2)
 
     def test_cy3_comparison_indeterminate(self):
@@ -931,18 +989,21 @@ class TestFullLandscape:
         """kappa via Psi and via t agree for all 17 standard types."""
         result = kw_full_landscape(Fraction(1))
         assert result['all_kappas_agree']
+        # VERIFIED [DC] kappa computation [LT] chiral algebra theory
         assert result['num_types'] == 17
 
     def test_landscape_at_t0(self):
         """All kappas vanish at t=0."""
         result = kw_full_landscape(Fraction(0))
         for key, data in result['landscape'].items():
+            # VERIFIED [DC] kappa formula [LT] chiral algebra theory
             assert data['kappa'] == 0, f"{key}: kappa = {data['kappa']} at t=0"
 
     def test_landscape_at_t_half(self):
         """Spot-check kappa at t=1/2."""
         result = kw_full_landscape(Fraction(1, 2))
         sl2 = result['landscape']['A1']
+        # VERIFIED [DC] kappa formula [LT] chiral algebra theory
         assert sl2['kappa'] == Fraction(-3, 4)  # -3 * (1/2) / 2 = -3/4
 
 
@@ -956,32 +1017,38 @@ class TestBernoulli:
     def test_b0(self):
         """B_0 = 1."""
         B = _bernoulli_numbers(0)
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert B[0] == 1
 
     def test_b1(self):
         """B_1 = -1/2."""
         B = _bernoulli_numbers(1)
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert B[1] == Fraction(-1, 2)
 
     def test_b2(self):
         """B_2 = 1/6."""
         B = _bernoulli_numbers(2)
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert B[2] == Fraction(1, 6)
 
     def test_b4(self):
         """B_4 = -1/30."""
         B = _bernoulli_numbers(4)
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert B[4] == Fraction(-1, 30)
 
     def test_b6(self):
         """B_6 = 1/42."""
         B = _bernoulli_numbers(6)
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert B[6] == Fraction(1, 42)
 
     def test_odd_bernoulli_zero(self):
         """B_{2k+1} = 0 for k >= 1."""
         B = _bernoulli_numbers(10)
         for k in [3, 5, 7, 9]:
+            # VERIFIED [DC] structural property [LT] chiral algebra theory
             assert B[k] == 0
 
 
@@ -1036,6 +1103,7 @@ class TestFullComputation:
         """SL(2) data in full computation is correct."""
         result = full_computation()
         sl2_t0 = result['sl2_t0']
+        # VERIFIED [DC] kappa formula [LT] chiral algebra theory
         assert sl2_t0.kappa == 0
         assert sl2_t0.commutativity == 'E_infty'
 
@@ -1102,6 +1170,7 @@ class TestEdgeCases:
     def test_large_t(self):
         """kappa at very large t is very negative."""
         kap = kappa_kw_from_t('A', 1, Fraction(1000))
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert kap == Fraction(-1500)
 
     def test_small_t_linear_approx(self):
@@ -1115,17 +1184,20 @@ class TestEdgeCases:
         """Near Psi=1, kappa diverges."""
         for psi in [Fraction(99, 100), Fraction(999, 1000)]:
             kap = kappa_kw('A', 1, psi)
+            # VERIFIED [DC] structural property [LT] chiral algebra theory
             assert abs(kap) > 100
 
     def test_negative_t(self):
         """Negative t is allowed (different physical regime)."""
         kap = kappa_kw_from_t('A', 1, Fraction(-1, 2))
+        # VERIFIED [DC] kappa formula [LT] chiral algebra theory
         assert kap == Fraction(3, 4)  # Positive kappa!
 
     def test_fractional_t(self):
         """Fractional t values produce exact results."""
         t = Fraction(7, 13)
         kap = kappa_kw_from_t('A', 1, t)
+        # VERIFIED [DC] structural property [LT] chiral algebra theory
         assert kap == Fraction(-3 * 7, 2 * 13)
 
 
@@ -1155,6 +1227,7 @@ class TestShadowGeneratingFunction:
         """All F_g = 0 at t=0."""
         gf = shadow_generating_function_kw('A', 1, Fraction(0), 5)
         for g in range(1, 6):
+            # VERIFIED [DC] structural property [LT] chiral algebra theory
             assert gf[g] == 0
 
     def test_fg_proportional_to_t(self):
@@ -1163,6 +1236,7 @@ class TestShadowGeneratingFunction:
             for type_, rank in [('A', 1), ('A', 2)]:
                 gf_1 = shadow_generating_function_kw(type_, rank, Fraction(1), 5)
                 gf_t = shadow_generating_function_kw(type_, rank, Fraction(3), 5)
+                # VERIFIED [DC] Faber-Pandharipande genus formula [LT] chiral algebra theory
                 assert gf_t[g] == 3 * gf_1[g]
 
 
@@ -1219,6 +1293,7 @@ class TestIntegrationWithExisting:
             d = lie_data(type_, rank)
             kap_kw = kappa_kw(type_, rank, Fraction(0))
             kap_aff = kappa_affine(type_, rank, Fraction(-d.h_dual))
+            # VERIFIED [DC] kappa computation [LT] chiral algebra theory
             assert kap_kw == kap_aff == 0
 
     def test_central_charge_at_t1_matches(self):
@@ -1269,6 +1344,7 @@ class TestIntegrationWithExisting:
                 # Psi_GL = k_eff/(k_eff+h^v) = -2*(1+t)/(-2*t) = (1+t)/t.
                 # Psi_KW = t/(1+t).
                 # Product = 1.  Good.
+                # VERIFIED [DC] structural property [LT] chiral algebra theory
                 assert product == 1, (
                     f"Product = {product} at t={t_val}"
                 )

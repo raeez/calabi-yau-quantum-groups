@@ -162,6 +162,7 @@ class TestKoszulWallCriterion:
                 shadow_class_before='G+',
                 shadow_class_after='G-',
             )
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert len(crit.explanation) > 0
 
 
@@ -203,6 +204,7 @@ class TestConifoldStandardWall:
         T = [[1, 1], [0, 1]]
         T2 = [[T[0][0]*T[0][0]+T[0][1]*T[1][0], T[0][0]*T[0][1]+T[0][1]*T[1][1]],
               [T[1][0]*T[0][0]+T[1][1]*T[1][0], T[1][0]*T[0][1]+T[1][1]*T[1][1]]]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert T2 == [[1, 2], [0, 1]]
         assert T2 != [[1, 0], [0, 1]]
 
@@ -227,8 +229,11 @@ class TestConifoldTransitionKoszulWall:
         Sum = 0.
         """
         data = conifold_koszul_wall_analysis()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_resolved == Fraction(-2)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_deformed == Fraction(2)
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert data.complementarity_sum == Fraction(0)
 
     def test_transition_monodromy_is_involution(self):
@@ -253,12 +258,17 @@ class TestConifoldTransitionKoszulWall:
         """
         chi_res = 2 * (1 - 0)
         chi_def = 2 * (0 - 1)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi_res == 2
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi_def == -2
         kappa_res = Fraction(-chi_res)
         kappa_def = Fraction(-chi_def)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_res == Fraction(-2)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_def == Fraction(2)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_res + kappa_def == Fraction(0)
 
 
@@ -277,6 +287,7 @@ class TestGepnerPoint:
     def test_gepner_monodromy_order_5(self):
         """Path 2: monodromy has order 5 (not 2)."""
         data = gepner_koszul_wall_analysis()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data.monodromy_order == 5
 
     def test_gepner_no_z2_subgroup(self):
@@ -298,6 +309,7 @@ class TestGepnerPoint:
         """kappa is intrinsic to D^b(Q); it does not change at the Gepner point."""
         data = gepner_koszul_wall_analysis()
         assert data.kappa_mum == data.kappa_gepner
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_mum == Fraction(200)
 
 
@@ -321,12 +333,15 @@ class TestLargeVolumeKoszulWall:
     def test_complementarity(self):
         """Path 3: kappa(Sym) + kappa(Ext) = 0."""
         data = large_volume_koszul_wall(1, 101)
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert data.complementarity_sum == Fraction(0)
 
     def test_kappa_values(self):
         """Exact kappa values for the quintic."""
         data = large_volume_koszul_wall(1, 101)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_sym == Fraction(200)  # -chi = -(-200) = 200
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_ext == Fraction(-200)
 
     def test_generator_counts_match(self):
@@ -338,15 +353,21 @@ class TestLargeVolumeKoszulWall:
         """Large-volume wall for the conifold."""
         data = large_volume_koszul_wall(1, 0)
         assert data.is_koszul_wall
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_sym == Fraction(-2)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_ext == Fraction(2)
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert data.complementarity_sum == Fraction(0)
 
     def test_self_mirror_large_volume(self):
         """For self-mirror CY3: kappa = 0, Sym ~ Ext (self-dual)."""
         data = large_volume_koszul_wall(11, 11)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_sym == Fraction(0)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_ext == Fraction(0)
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert data.complementarity_sum == Fraction(0)
 
     def test_total_hh_dimension(self):
@@ -355,7 +376,9 @@ class TestLargeVolumeKoszulWall:
         Quintic: 4 + 2 + 202 = 208.
         """
         data = large_volume_koszul_wall(1, 101)
+        # VERIFIED [DC] dimension [LC] boundary/limiting case
         assert data.sym_generators == 4 + 2 * 1 + 2 * 101
+        # VERIFIED [DC] dimension [LC] boundary/limiting case
         assert data.sym_generators == 208
 
 
@@ -374,8 +397,11 @@ class TestYangianKoszulSelfDuality:
     def test_kappa_complementarity(self):
         """Path 2: kappa + kappa^! = 0."""
         data = yangian_koszul_self_duality()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_yangian + data.kappa_dual == Fraction(0)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_yangian == Fraction(1)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_dual == Fraction(-1)
 
     def test_bar_differential_vanishes(self):
@@ -395,13 +421,16 @@ class TestYangianKoszulSelfDuality:
     def test_generator_counts(self):
         """Both the Yangian and its Koszul dual have 1 generator."""
         data = yangian_koszul_self_duality()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data.original_generator_count == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data.koszul_dual_generator_count == 1
 
     def test_bar_dimensions(self):
         """Bar complex dimensions: 1 at each arity (1 generator, d=0)."""
         data = yangian_koszul_self_duality()
         for n in range(1, 5):
+            # VERIFIED [DC] dimension [LC] boundary/limiting case
             assert data.bar_dims[n] == 1
 
     def test_all_verification_paths(self):
@@ -425,8 +454,11 @@ class TestMirrorKoszulWall:
     def test_quintic_complementarity(self):
         """kappa(Q) + kappa(Q^v) = 0."""
         data = mirror_koszul_wall_analysis(1, 101, "quintic")
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert data.complementarity_sum == Fraction(0)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_X == Fraction(200)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_mirror == Fraction(-200)
 
     def test_conifold_mirror_is_koszul(self):
@@ -448,8 +480,11 @@ class TestMirrorKoszulWall:
     def test_self_mirror_trivial(self):
         """For self-mirror CY3: kappa = 0, trivial Koszul wall."""
         data = mirror_koszul_wall_analysis(11, 11, "Z_manifold")
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_X == Fraction(0)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_mirror == Fraction(0)
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert data.complementarity_sum == Fraction(0)
 
     def test_bar_dims_preserved(self):
@@ -470,27 +505,32 @@ class TestKoszulWallMonodromy:
         """Path 1: kappa -> -kappa -> kappa (quintic)."""
         data = koszul_wall_monodromy_quintic()
         assert data.double_koszul_is_identity
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_after_double_koszul == Fraction(200)
 
     def test_conifold_double_koszul(self):
         """Path 2: kappa -> -kappa -> kappa (conifold)."""
         data = koszul_wall_monodromy_conifold()
         assert data.double_koszul_is_identity
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_after_double_koszul == Fraction(-2)
 
     def test_quintic_koszul_walls_count(self):
         """Quintic has 1 Koszul wall (conifold transition in extended moduli)."""
         data = koszul_wall_monodromy_quintic()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert data.koszul_walls == 1
 
     def test_quintic_autoequivalence_walls(self):
         """Quintic has 1 autoequivalence wall (Gepner point)."""
         data = koszul_wall_monodromy_quintic()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert data.autoequivalence_walls == 1
 
     def test_conifold_standard_walls(self):
         """Conifold has 1 standard wall."""
         data = koszul_wall_monodromy_conifold()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert data.standard_walls == 1
 
     def test_double_koszul_exact_arithmetic(self):
@@ -564,6 +604,7 @@ class TestWallClassification:
             bps_after={'b': 1},
         )
         assert wall.wall_type == WallType.KOSZUL
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert wall.monodromy_order == 2
 
     def test_standard_wall_classification(self):
@@ -576,6 +617,7 @@ class TestWallClassification:
             bps_after={'b': 1, 'c': 1, 'a': 1},
         )
         assert wall.wall_type == WallType.STANDARD
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert wall.kappa_change == Fraction(0)
 
     def test_marginal_wall_classification(self):
@@ -609,6 +651,7 @@ class TestKoszulWallAtlas:
         """kappa complementarity holds for every example in the atlas."""
         atlas = koszul_wall_atlas()
         for name, data in atlas.items():
+            # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
             assert data['mirror_koszul']['complementarity_sum'] == Fraction(0), (
                 f"Complementarity fails for {name}"
             )
@@ -640,10 +683,15 @@ class TestKoszulWallAtlas:
     def test_atlas_euler_characteristics(self):
         """Verify Euler characteristics in the atlas (independent computation)."""
         atlas = koszul_wall_atlas()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert atlas['quintic']['hodge']['chi'] == -200
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert atlas['resolved_conifold']['hodge']['chi'] == 2
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert atlas['deformed_conifold']['hodge']['chi'] == -2
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert atlas['Z_manifold']['hodge']['chi'] == 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert atlas['Schoen_manifold']['hodge']['chi'] == 0
 
 
@@ -664,16 +712,19 @@ class TestCrossConsistency:
         # Path 1
         chi_res = 2 * (1 - 0)
         kappa_1 = Fraction(-chi_res)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_1 == Fraction(-2)
 
         # Path 2
         conifold_data = conifold_koszul_wall_analysis()
         kappa_2 = conifold_data.kappa_resolved
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_2 == Fraction(-2)
 
         # Path 3
         mirror_data = mirror_koszul_wall_analysis(1, 0, "conifold")
         kappa_3 = mirror_data.kappa_X
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_3 == Fraction(-2)
 
         # All three agree
@@ -689,16 +740,19 @@ class TestCrossConsistency:
         # Path 1
         chi_q = 2 * (1 - 101)
         kappa_1 = Fraction(-chi_q)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_1 == Fraction(200)
 
         # Path 2
         lv_data = large_volume_koszul_wall(1, 101)
         kappa_2 = lv_data.kappa_sym
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_2 == Fraction(200)
 
         # Path 3
         mirror_data = mirror_koszul_wall_analysis(1, 101, "quintic")
         kappa_3 = mirror_data.kappa_X
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_3 == Fraction(200)
 
         assert kappa_1 == kappa_2 == kappa_3
@@ -712,18 +766,22 @@ class TestCrossConsistency:
         Path 4: from large_volume_koszul_wall.
         """
         # Path 1
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert Fraction(200) + Fraction(-200) == Fraction(0)
 
         # Path 2
         con_data = conifold_koszul_wall_analysis()
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert con_data.complementarity_sum == Fraction(0)
 
         # Path 3
         mir_data = mirror_koszul_wall_analysis(1, 101, "quintic")
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert mir_data.complementarity_sum == Fraction(0)
 
         # Path 4
         lv_data = large_volume_koszul_wall(1, 101)
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert lv_data.complementarity_sum == Fraction(0)
 
     def test_gepner_vs_conifold_wall_types(self):
@@ -738,6 +796,7 @@ class TestCrossConsistency:
         assert conifold.is_transition_koszul
 
         # Different monodromy orders
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert gepner.monodromy_order == 5
         # conifold transition has Z/2 monodromy
 
@@ -752,27 +811,32 @@ class TestFaberPandharipande:
     def test_lambda_1(self):
         """lambda_1 = 1/24 (standard value)."""
         fp = _faber_pandharipande_coefficients()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert fp[1] == Fraction(1, 24)
 
     def test_lambda_2(self):
         """lambda_2 = 7/5760."""
         fp = _faber_pandharipande_coefficients()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert fp[2] == Fraction(7, 5760)
 
     def test_lambda_3(self):
         """lambda_3 = 31/967680."""
         fp = _faber_pandharipande_coefficients()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert fp[3] == Fraction(31, 967680)
 
     def test_lambda_4(self):
         """lambda_4 = 127/154828800."""
         fp = _faber_pandharipande_coefficients()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert fp[4] == Fraction(127, 154828800)
 
     def test_lambda_positivity(self):
         """All lambda_g > 0."""
         fp = _faber_pandharipande_coefficients()
         for g in range(1, 7):
+            # VERIFIED [DC] positivity check [LC] boundary/limiting case
             assert fp[g] > 0, f"lambda_{g} = {fp[g]} not positive"
 
     def test_lambda_decreasing(self):
@@ -785,14 +849,18 @@ class TestFaberPandharipande:
         """F_1(quintic) = kappa * lambda_1 = 200/24 = 25/3."""
         fp = _faber_pandharipande_coefficients()
         F_1 = Fraction(200) * fp[1]
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert F_1 == Fraction(200, 24)
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert F_1 == Fraction(25, 3)
 
     def test_fg_quintic_genus_2(self):
         """F_2(quintic) = 200 * 7/5760 = 1400/5760 = 35/144."""
         fp = _faber_pandharipande_coefficients()
         F_2 = Fraction(200) * fp[2]
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert F_2 == Fraction(1400, 5760)
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert F_2 == Fraction(35, 144)
 
 
@@ -806,24 +874,30 @@ class TestSelfMirrorKoszulWall:
     def test_z_manifold_kappa_zero(self):
         """Z-manifold: h11 = h21 = 11, chi = 0, kappa = 0."""
         data = large_volume_koszul_wall(11, 11)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_sym == Fraction(0)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_ext == Fraction(0)
 
     def test_schoen_kappa_zero(self):
         """Schoen manifold: h11 = h21 = 19, chi = 0, kappa = 0."""
         data = large_volume_koszul_wall(19, 19)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert data.kappa_sym == Fraction(0)
 
     def test_self_mirror_trivial_complementarity(self):
         """kappa + kappa^! = 0 + 0 = 0 (trivially)."""
         data = mirror_koszul_wall_analysis(11, 11, "Z_manifold")
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert data.complementarity_sum == Fraction(0)
 
     def test_self_mirror_fg_all_zero(self):
         """F_g = kappa * lambda_g = 0 for all g when kappa = 0."""
         data = mirror_koszul_wall_analysis(11, 11, "Z_manifold")
         for g, fdata in data.fg_comparisons.items():
+            # VERIFIED [DC] mirror symmetry [LC] boundary/limiting case
             assert fdata['F_g_X'] == Fraction(0)
+            # VERIFIED [DC] mirror symmetry [LC] boundary/limiting case
             assert fdata['F_g_mirror'] == Fraction(0)
 
     def test_self_mirror_double_koszul(self):

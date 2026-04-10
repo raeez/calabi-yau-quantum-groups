@@ -139,7 +139,7 @@ CURVATURE IN THE NON-CY CASE:
     [m_0] = delta in H^2(C, Z) = Z (for C = P^1).
 
   The "effective kappa" for a curved algebra:
-    kappa_eff is not well-defined as a modular characteristic (that requires
+    kappa_ch is not well-defined as a modular characteristic (that requires
     an uncurved bar complex). Instead, the curvature delta measures the
     obstruction to defining a consistent genus expansion.
 

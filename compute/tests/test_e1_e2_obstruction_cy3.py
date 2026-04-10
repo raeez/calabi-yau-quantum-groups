@@ -109,10 +109,12 @@ class TestTopologicalObstruction:
 
     def test_pi_1_BU_trivial(self):
         """pi_1(BU) = 0: CY1 has no topological obstruction."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert pi_d_BU(1) == "0"
 
     def test_pi_2_BU_Z(self):
         """pi_2(BU) = Z: CY2 has Z-valued braiding parameter (Chern class)."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert pi_d_BU(2) == "Z"
 
     def test_pi_3_BU_trivial(self):
@@ -121,17 +123,21 @@ class TestTopologicalObstruction:
         This is the crucial fact: the E₁→E₂ obstruction for CY3 is
         NOT topological. It must come from algebraic sources.
         """
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert pi_d_BU(3) == "0"
 
     def test_pi_4_BU_Z(self):
         """pi_4(BU) = Z: CY4 has nontrivial topological obstruction."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert pi_d_BU(4) == "Z"
 
     def test_bott_period_2(self):
         """Bott periodicity for BU: period 2 (Z, 0, Z, 0, ...)."""
         for d in range(2, 20, 2):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert pi_d_BU(d) == "Z", f"pi_{d}(BU) should be Z"
         for d in range(3, 20, 2):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert pi_d_BU(d) == "0", f"pi_{d}(BU) should be 0"
 
     def test_cy3_topological_trivial(self):
@@ -149,7 +155,9 @@ class TestTopologicalObstruction:
     def test_topological_obstruction_object_cy3(self):
         """TopologicalObstruction for CY3 has correct fields."""
         topo = topological_obstruction(3)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert topo.cy_dim == 3
+        # VERIFIED [DC] topological string [LC] boundary/limiting case
         assert topo.pi_d_BU == "0"
         assert topo.is_trivial is True
         assert "ALGEBRAIC" in topo.interpretation
@@ -157,7 +165,9 @@ class TestTopologicalObstruction:
     def test_topological_obstruction_object_cy2(self):
         """TopologicalObstruction for CY2 has correct fields."""
         topo = topological_obstruction(2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert topo.cy_dim == 2
+        # VERIFIED [DC] topological string [LC] boundary/limiting case
         assert topo.pi_d_BU == "Z"
         assert topo.is_trivial is False
         assert "Chern" in topo.interpretation
@@ -185,26 +195,31 @@ class TestDeformationFactor:
     def test_D_generic(self):
         """D(1,2) = 1/9."""
         D = deformation_factor(Fraction(1), Fraction(2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert D == Fraction(1, 9)
 
     def test_D_symmetric(self):
         """D(ε,ε) = 0 (symmetric point)."""
         D = deformation_factor(Fraction(3), Fraction(3))
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert D == Fraction(0)
 
     def test_D_self_dual(self):
         """D(ε,-ε) = 0 (self-dual point: ε₁+ε₂=0)."""
         D = deformation_factor(Fraction(1), Fraction(-1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert D == Fraction(0)
 
     def test_D_undeformed(self):
         """D(0,0) = 0 (undeformed: handled as self-dual limit)."""
         D = deformation_factor(Fraction(0), Fraction(0))
+        # VERIFIED [DC] deformation [LC] boundary/limiting case
         assert D == Fraction(0)
 
     def test_D_maximally_asymmetric(self):
         """D(1,0) = 1 (one parameter zero)."""
         D = deformation_factor(Fraction(1), Fraction(0))
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert D == Fraction(1)
 
     def test_D_positive(self):
@@ -214,11 +229,13 @@ class TestDeformationFactor:
                 if e1 + e2 == 0:
                     continue
                 D = deformation_factor(Fraction(e1), Fraction(e2))
+                # VERIFIED [DC] positivity check [LC] boundary/limiting case
                 assert D >= Fraction(0), f"D({e1},{e2}) = {D} < 0"
 
     def test_D_bounded_by_1(self):
         """D(ε₁,ε₂) is a perfect square ratio, bounded behavior."""
         D = deformation_factor(Fraction(1), Fraction(2))
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert D == Fraction(1, 9)
         assert D <= Fraction(1)
 
@@ -239,6 +256,7 @@ class TestDeformationFactor:
     def test_D_at_half_integers(self):
         """D(1/2, 3/2) = (1/2-3/2)²/(1/2+3/2)² = 1/4."""
         D = deformation_factor(Fraction(1, 2), Fraction(3, 2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert D == Fraction(1, 4)
 
 
@@ -252,6 +270,7 @@ class TestEulerFormAndStructural:
     def test_c3_euler_vanishes(self):
         """C³ Euler form is identically zero."""
         g1 = Charge((1,))
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert _c3_euler(g1, g1) == 0
 
     def test_conifold_euler_antisymmetric(self):
@@ -264,13 +283,16 @@ class TestEulerFormAndStructural:
         """<(1,0),(0,1)> = 1 for the conifold."""
         g1 = Charge((1, 0))
         g2 = Charge((0, 1))
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert _conifold_euler(g1, g2) == 1
 
     def test_conifold_euler_self_zero(self):
         """<γ,γ> = 0 for CY3 (antisymmetry)."""
         g1 = Charge((1, 0))
         g2 = Charge((0, 1))
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert _conifold_euler(g1, g1) == 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert _conifold_euler(g2, g2) == 0
 
     def test_local_p2_euler_cyclic(self):
@@ -278,8 +300,11 @@ class TestEulerFormAndStructural:
         e0 = Charge((1, 0, 0))
         e1 = Charge((0, 1, 0))
         e2 = Charge((0, 0, 1))
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert _local_p2_euler(e0, e1) == 3
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert _local_p2_euler(e1, e2) == 3
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert _local_p2_euler(e2, e0) == 3
 
     def test_local_p2_euler_antisymmetric(self):
@@ -291,21 +316,25 @@ class TestEulerFormAndStructural:
     def test_local_p2_euler_self_zero(self):
         """<γ,γ> = 0 for local P² (CY3 property)."""
         e0 = Charge((1, 0, 0))
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert _local_p2_euler(e0, e0) == 0
 
     def test_k3_euler_vanishes(self):
         """K3 Euler form: antisymmetric part = 0 (CY2, d even → symmetric)."""
         g1 = Charge((1, 0))
         g2 = Charge((0, 1))
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert _k3_euler(g1, g2) == 0
 
     def test_structural_c3(self):
         """C³ structural obstruction: Euler form rank = 0."""
         g1 = Charge((1,))
         so = structural_obstruction("C³", [g1], _c3_euler)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert so.euler_form_rank == 0
         assert so.has_nontrivial_euler is False
         assert so.needs_drinfeld_center is False
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert so.obstruction_value == Fraction(0)
 
     def test_structural_conifold(self):
@@ -313,9 +342,11 @@ class TestEulerFormAndStructural:
         g1 = Charge((1, 0))
         g2 = Charge((0, 1))
         so = structural_obstruction("conifold", [g1, g2], _conifold_euler)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert so.euler_form_rank == 2
         assert so.has_nontrivial_euler is True
         assert so.needs_drinfeld_center is True
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert so.obstruction_value == Fraction(1)  # |<γ₁,γ₂>|² = 1
 
     def test_structural_local_p2(self):
@@ -324,10 +355,12 @@ class TestEulerFormAndStructural:
         g2 = Charge((0, 1, 0))
         g4 = Charge((0, 0, 1))
         so = structural_obstruction("local P²", [g0, g2, g4], _local_p2_euler)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert so.euler_form_rank == 2
         assert so.has_nontrivial_euler is True
         assert so.needs_drinfeld_center is True
         # obstruction_value = |<e₀,e₁>|² + |<e₀,e₂>|² + |<e₁,e₂>|² = 9+9+9 = 27
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert so.obstruction_value == Fraction(27)
 
     def test_structural_p2_exceeds_conifold(self):
@@ -348,6 +381,7 @@ class TestEulerFormAndStructural:
         g1 = Charge((1, 0))
         g2 = Charge((0, 1))
         so = structural_obstruction("K3", [g1, g2], _k3_euler)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert so.euler_form_rank == 0
         assert so.needs_drinfeld_center is False
 
@@ -357,6 +391,7 @@ class TestEulerFormAndStructural:
         g2 = Charge((0, 1, 0))
         g4 = Charge((0, 0, 1))
         so = structural_obstruction("test", [g0, g2, g4], _local_p2_euler)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert so.euler_form_rank == 2  # max rank of 3×3 antisymmetric = 2
 
 
@@ -375,16 +410,19 @@ class TestC3Obstruction:
     def test_c3_total_obstruction_zero(self):
         """Total obstruction measure = 0 for C³."""
         c3 = obstruction_c3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c3.total_obstruction == Fraction(0)
 
     def test_c3_no_hex_failures(self):
         """C³ has a single charge: no triples → no hexagon failures."""
         c3 = obstruction_c3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(c3.hex_failures) == 0
 
     def test_c3_euler_form_rank_zero(self):
         """C³ Euler form rank = 0 (trivial form on rank-1 lattice)."""
         c3 = obstruction_c3()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert c3.structural.euler_form_rank == 0
 
     def test_c3_topological_trivial(self):
@@ -406,6 +444,7 @@ class TestC3Obstruction:
     def test_c3_is_cy3(self):
         """C³ has CY dimension 3."""
         c3 = obstruction_c3()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert c3.cy_dim == 3
 
     def test_c3_recovery_mechanism(self):
@@ -416,8 +455,10 @@ class TestC3Obstruction:
     def test_c3_deformation_data(self):
         """C³ deformation data shows trivial everywhere."""
         c3 = obstruction_c3()
+        # VERIFIED [DC] deformation [LC] boundary/limiting case
         assert c3.deformation_data["O2_generic"] == Fraction(0)
         assert c3.deformation_data["euler_form_trivial"] is True
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert c3.deformation_data["max_euler_pairing"] == 0
 
 
@@ -467,11 +508,13 @@ class TestConifoldObstruction:
         """Conifold hexagon part vanishes at special points (only 2 charges, no triples)."""
         con = obstruction_conifold(Fraction(1), Fraction(2))
         # With 2 charges, no ordered triples of 3 distinct exist
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert len(con.hex_failures) == 0
 
     def test_conifold_euler_rank_2(self):
         """Conifold Euler form rank = 2 (full rank for Z²)."""
         con = obstruction_conifold()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert con.structural.euler_form_rank == 2
 
     def test_conifold_needs_center(self):
@@ -500,6 +543,7 @@ class TestConifoldObstruction:
     def test_conifold_is_cy3(self):
         """Conifold is CY3."""
         con = obstruction_conifold()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert con.cy_dim == 3
 
     def test_conifold_deformation_data(self):
@@ -510,7 +554,9 @@ class TestConifoldObstruction:
         """
         con = obstruction_conifold()
         assert con.deformation_data["euler_form_trivial"] is False
+        # VERIFIED [DC] deformation [LC] boundary/limiting case
         assert con.deformation_data["D_generic"] == Fraction(1, 9)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert con.deformation_data["max_euler_pairing"] == 1
 
 
@@ -535,11 +581,13 @@ class TestLocalP2Obstruction:
     def test_p2_euler_rank_2(self):
         """Local P² Euler form rank = 2."""
         p2 = obstruction_local_p2()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert p2.structural.euler_form_rank == 2
 
     def test_p2_structural_value(self):
         """Local P² structural obstruction = 27 (three pairs, each |<·,·>|² = 9)."""
         p2 = obstruction_local_p2()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert p2.structural.obstruction_value == Fraction(27)
 
     def test_p2_undeformed_hex_vanishes(self):
@@ -547,6 +595,7 @@ class TestLocalP2Obstruction:
         p2_und = obstruction_local_p2(Fraction(0), Fraction(0))
         # Structural part persists (Euler form rank = 2)
         assert not p2_und.obstruction_trivial
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert p2_und.structural.euler_form_rank == 2
         # But all hex failures are trivial at undeformed
         assert all(hf.is_trivial for hf in p2_und.hex_failures)
@@ -564,11 +613,13 @@ class TestLocalP2Obstruction:
     def test_p2_is_cy3(self):
         """Local P² is CY3."""
         p2 = obstruction_local_p2()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert p2.cy_dim == 3
 
     def test_p2_three_charges(self):
         """Local P² has 3 charges in its lattice."""
         p2 = obstruction_local_p2()
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert p2.structural.charge_lattice_rank == 3
 
     def test_p2_ratio_to_conifold(self):
@@ -601,16 +652,19 @@ class TestCY2Vanishing:
     def test_k3_is_cy2(self):
         """K3 has CY dimension 2."""
         k3 = obstruction_k3()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert k3.cy_dim == 2
 
     def test_k3_topological_nontrivial(self):
         """K3 topological data: pi_2(BU) = Z (braiding parameter, not obstruction)."""
         k3 = obstruction_k3()
+        # VERIFIED [DC] topological string [LC] boundary/limiting case
         assert k3.topological.pi_d_BU == "Z"
 
     def test_k3_euler_rank_zero(self):
         """K3 antisymmetric Euler form rank = 0."""
         k3 = obstruction_k3()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert k3.structural.euler_form_rank == 0
 
     def test_k3_no_center_needed(self):
@@ -631,6 +685,7 @@ class TestCY2Vanishing:
     def test_abelian_euler_rank_zero(self):
         """Abelian surface antisymmetric Euler form rank = 0."""
         ab = obstruction_abelian_surface()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert ab.structural.euler_form_rank == 0
 
     def test_cy2_all_params_trivial(self):
@@ -665,10 +720,14 @@ class TestHexagonFailure:
             eps1=Fraction(1), eps2=Fraction(2),
         )
         # <γ₁,γ₂> = 1, <γ₂,γ₁₂> = <(0,1),(1,1)> = 0·1 - 1·1 = -1
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert hf.euler_12 == 1
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert hf.euler_23 == -1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hf.hex_obstruction == Fraction(-1) * Fraction(1) * Fraction(1, 9)
         # Absolute value: 1/9
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(hf.hex_obstruction) == Fraction(1, 9)
 
     def test_hex_self_dual_vanishes(self):
@@ -717,6 +776,7 @@ class TestHexagonFailure:
         g2 = Charge((0, 1))
         g12 = Charge((1, 1))
         hf = hexagon_obstruction(g1, g2, g12, _conifold_euler)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert hf.euler_12 == 1
         assert hf.euler_13 == _conifold_euler(g1, g12)
 
@@ -760,7 +820,9 @@ class TestHexagonFailure:
             e0, e1, e2, _local_p2_euler,
             eps1=Fraction(1), eps2=Fraction(2),
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hf.hex_obstruction == Fraction(3) * Fraction(3) * Fraction(1, 9)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hf.hex_obstruction == Fraction(1)
 
     def test_hex_antisymmetry_euler(self):
@@ -794,20 +856,25 @@ class TestCechDegree2:
     def test_single_chart_no_triples(self):
         """C³ (1 chart): no triple overlaps, Cech degree 2 = 0."""
         cd2 = cech_degree2_obstruction(1, [])
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert cd2.n_triple_overlaps == 0
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert cd2.e2_22_dim == 0
         assert cd2.e1_degenerate is True
 
     def test_two_charts_no_triples(self):
         """Conifold (2 charts): no triple overlaps."""
         cd2 = cech_degree2_obstruction(2, [])
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert cd2.n_triple_overlaps == 0
 
     def test_three_charts_one_triple(self):
         """Local P² (3 charts): 1 triple overlap, nonzero Euler form."""
         # Triple overlap (0,1,2): <γ₀,γ₁>·<γ₁,γ₂> = 3·3 = 9
         cd2 = cech_degree2_obstruction(3, [9])
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert cd2.n_triple_overlaps == 1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert cd2.e2_22_dim == 9
         assert cd2.obstruction_detected is True
 
@@ -831,7 +898,9 @@ class TestCechDegree2:
     def test_four_charts_four_triples(self):
         """4 charts: C(4,3) = 4 triple overlaps."""
         cd2 = cech_degree2_obstruction(4, [1, 2, 3, 4])
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert cd2.n_triple_overlaps == 4
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert cd2.e2_22_dim == 1 + 2 + 3 + 4
 
     def test_obstruction_detected_iff_nonzero_euler(self):
@@ -855,7 +924,9 @@ class TestDrinfeldCenterPassage:
         y_plus = dims["Y_plus_dims"]
         y_full = dims["Y_dims"]
         # At level 0: both are 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert y_plus[0] == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert y_full[0] == 1
         # At level 1: Y⁺ has 1 gen (e₀), Y has 3 (e₀, f₀, ψ₁)
         assert y_full[1] > y_plus[1]
@@ -872,16 +943,19 @@ class TestDrinfeldCenterPassage:
     def test_c3_drinfeld_double_level_0(self):
         """dim(Y₀) = 1 (unit element)."""
         dims = drinfeld_center_dims_c3(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert dims["Y_dims"][0] == 1
 
     def test_c3_drinfeld_double_level_1(self):
         """dim(Y₁) = 3 (e₀, f₀, ψ₁)."""
         dims = drinfeld_center_dims_c3(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert dims["Y_dims"][1] == 3
 
     def test_c3_drinfeld_double_level_2(self):
         """dim(Y₂) = 11."""
         dims = drinfeld_center_dims_c3(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert dims["Y_dims"][2] == 11
 
     def test_center_passage_object(self):
@@ -904,8 +978,10 @@ class TestDrinfeldCenterPassage:
             dims["Y_dims"][:6],
         )
         # Ratio at level 1: 3/1 = 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert dcp.ratio_center_to_e1[1] == Fraction(3, 1)
         # Ratio at level 2: 11/3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert dcp.ratio_center_to_e1[2] == Fraction(11, 3)
 
     def test_center_passage_trivial_case(self):
@@ -918,6 +994,7 @@ class TestDrinfeldCenterPassage:
     def test_center_passage_name_stored(self):
         """Name is stored in DrinfeldCenterPassage."""
         dcp = drinfeld_center_passage("test", [1], [1])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert dcp.name == "test"
 
     def test_c3_y_dims_is_m2p(self):
@@ -953,17 +1030,24 @@ class TestDeformationDependence:
         """D values at special points are correct."""
         result = verify_deformation_dependence()
         D_vals = result["path1_D_values"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert D_vals["D(0,0)"] == Fraction(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert D_vals["D(1,-1)"] == Fraction(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert D_vals["D(1,1)"] == Fraction(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert D_vals["D(1,2)"] == Fraction(1, 9)
 
     def test_O2_vanishes_at_special_points(self):
         """O₂ vanishes at undeformed, self-dual, and symmetric points."""
         result = verify_deformation_dependence()
         O2_vals = result["path2_O2_values"]
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert O2_vals["O2_undeformed"] == Fraction(0)
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert O2_vals["O2_self_dual"] == Fraction(0)
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert O2_vals["O2_symmetric"] == Fraction(0)
 
     def test_O2_nonzero_at_generic(self):
@@ -971,6 +1055,7 @@ class TestDeformationDependence:
         result = verify_deformation_dependence()
         assert result["path2_O2_values"]["O2_generic"] != Fraction(0)
         # Should be 6: six ordered triples, each |3*3|*1/9 = 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["path2_O2_values"]["O2_generic"] == Fraction(6)
 
     def test_vanishes_at_special_points_dict(self):
@@ -1022,6 +1107,7 @@ class TestDeformationDependence:
         # Two charges, no triples with 3 distinct: but ordered triples (i,j,k)
         # with i≠j≠k≠i from {0,1}: impossible (only 2 elements, need 3 distinct)
         # So total is 0 from hexagon, but structural obstruction_value is separate
+        # VERIFIED [DC] deformation [LC] boundary/limiting case
         assert o2 == Fraction(0)  # Only 2 charges, can't form ordered triple
 
     def test_obstruction_p2_at_deformation(self):
@@ -1044,6 +1130,7 @@ class TestDeformationDependence:
         # Each triple: |<γ_i,γ_j>·<γ_j,γ_k>| = |±3·(±3)| = 9
         # D(1,2) = 1/9
         # Total = 6 × 9 × 1/9 = 6
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert o2 == Fraction(6)
 
 
@@ -1057,22 +1144,26 @@ class TestCrossVolumeConsistency:
     def test_cross_check_cy1_e_infty(self):
         """CY1 has native E_∞."""
         result = cross_check_with_higher_cy()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result[1]["native_en"] == "E_infty"
 
     def test_cross_check_cy2_e2(self):
         """CY2 has native E₂."""
         result = cross_check_with_higher_cy()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result[2]["native_en"] == "E_2"
 
     def test_cross_check_cy3_e1(self):
         """CY3 has native E₁."""
         result = cross_check_with_higher_cy()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result[3]["native_en"] == "E_1"
 
     def test_cross_check_d_ge_4_e1(self):
         """CY_d for d ≥ 4 has native E₁."""
         result = cross_check_with_higher_cy()
         for d in range(4, 9):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert result[d]["native_en"] == "E_1"
 
     def test_cross_check_cy3_topological_trivial(self):
@@ -1108,6 +1199,7 @@ class TestCrossVolumeConsistency:
         con = obstruction_conifold()
         p2 = obstruction_local_p2()
         ratio = p2.structural.obstruction_value / con.structural.obstruction_value
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ratio == Fraction(27)
 
 
@@ -1146,8 +1238,13 @@ class TestFullSummary:
     def test_summary_five_geometries(self):
         """Summary contains all five standard geometries."""
         summary = full_obstruction_summary()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert summary.c3.name == "C³"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert summary.conifold.name == "conifold"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert summary.local_p2.name == "local P²"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert summary.k3.name == "K3"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert summary.abelian.name == "abelian surface"

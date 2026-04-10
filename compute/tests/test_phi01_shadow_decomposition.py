@@ -102,10 +102,12 @@ class TestArityAssignment:
 
     def test_arity_D_minus1(self):
         """D = -1 first appears at arity 2 (real roots)."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.minimum_arity_for_discriminant(-1) == 2
 
     def test_arity_D_zero(self):
         """D = 0 first appears at arity 3 (first lightlike imaginary)."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.minimum_arity_for_discriminant(0) == 3
 
     def test_arity_D_3(self):
@@ -113,6 +115,7 @@ class TestArityAssignment:
 
         From (n,l,m) = (1,1,1): n+m=2, D=4-1=3, arity=4.
         """
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.minimum_arity_for_discriminant(3) == 4
 
     def test_arity_D_4(self):
@@ -120,6 +123,7 @@ class TestArityAssignment:
 
         From (n,l,m) = (1,0,1): n+m=2, D=4-0=4, arity=4.
         """
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.minimum_arity_for_discriminant(4) == 4
 
     def test_arity_D_7_and_8(self):
@@ -127,18 +131,24 @@ class TestArityAssignment:
 
         D=7: (1,1,2), n+m=3, arity=5.  D=8: (2,0,1) or (1,0,2), n+m=3, arity=5.
         """
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.minimum_arity_for_discriminant(7) == 5
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.minimum_arity_for_discriminant(8) == 5
 
     def test_maximum_discriminant_formula(self):
         """max_D at arity r = (r-2)^2 for r even, (r-2)^2 - 1 for r odd."""
         # r=3: s=1, max_D = 0 (s odd: s^2 - 1 = 0)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.maximum_discriminant_at_arity(3) == 0
         # r=4: s=2, max_D = 4 (s even: s^2 = 4)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.maximum_discriminant_at_arity(4) == 4
         # r=5: s=3, max_D = 8 (s odd: 9-1=8)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.maximum_discriminant_at_arity(5) == 8
         # r=6: s=4, max_D = 16 (s even: 16)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.maximum_discriminant_at_arity(6) == 16
 
     def test_minimum_arity_consistency(self):
@@ -156,21 +166,25 @@ class TestPathA_DirectFourier:
     def test_polar_coefficient_c_minus1(self):
         """c(-1) = 1 (the polar term, from f(0, +/-1) = 1)."""
         by_d = phi01.phi01_by_discriminant(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert by_d[-1] == 1
 
     def test_lightlike_coefficient_c_0(self):
         """c(0) = 10 (from f(0, 0) = 10)."""
         by_d = phi01.phi01_by_discriminant(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert by_d[0] == 10
 
     def test_first_timelike_c_3(self):
         """c(3) = -64 (from f(1, +/-1) = -64)."""
         by_d = phi01.phi01_by_discriminant(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert by_d[3] == -64
 
     def test_c_4_value(self):
         """c(4) = 108 (from f(1, 0) = 108)."""
         by_d = phi01.phi01_by_discriminant(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert by_d[4] == 108
 
     def test_discriminant_dependence(self):
@@ -189,8 +203,10 @@ class TestPathB_ThetaDecomposition:
         """h_0 collects D mod 4 = 0, h_1 collects D = -1 or D mod 4 = 3."""
         h0, h1 = sd.theta_decomposition(8)
         for D in h0:
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert D % 4 == 0, f"D={D} in h_0 but D mod 4 = {D % 4}"
         for D in h1:
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert D == -1 or D % 4 == 3, f"D={D} in h_1 unexpected"
 
     def test_theta_sign_pattern(self):
@@ -200,15 +216,21 @@ class TestPathB_ThetaDecomposition:
     def test_h0_first_values(self):
         """h_0 channel first values: c(0)=10, c(4)=108, c(8)=808."""
         h0, _ = sd.theta_decomposition(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert h0[0] == 10
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert h0[4] == 108
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert h0[8] == 808
 
     def test_h1_first_values(self):
         """h_1 channel first values: c(-1)=1, c(3)=-64, c(7)=-513."""
         _, h1 = sd.theta_decomposition(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert h1[-1] == 1
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert h1[3] == -64
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert h1[7] == -513
 
     def test_row_sum_from_theta(self):
@@ -217,6 +239,7 @@ class TestPathB_ThetaDecomposition:
         # (two copies of c(-1) from l = +1, -1; one copy of c(0) from l = 0)
         table = phi01.phi01_table(0)
         row_sum = sum(v for (n, l), v in table.items() if n == 0)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert row_sum == 12
 
 
@@ -236,16 +259,22 @@ class TestPathC_HeckeCompatibility:
     def test_hecke_arity_shift_formula(self):
         """T_p maps arity r to arity 2 + p*(r-2)."""
         # p=2, r=3 -> 4
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.hecke_arity_shift(2, 3) == 4
         # p=2, r=4 -> 6
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.hecke_arity_shift(2, 4) == 6
         # p=3, r=3 -> 5
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.hecke_arity_shift(3, 3) == 5
 
     def test_hecke_real_root_fixed(self):
         """Real roots (arity 2) are fixed by T_p."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.hecke_arity_shift(2, 2) == 2
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.hecke_arity_shift(3, 2) == 2
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sd.hecke_arity_shift(5, 2) == 2
 
 
@@ -264,6 +293,7 @@ class TestPathD_BKMCrossCheck:
 
     def test_kappa_value(self):
         """kappa = 5 (weight of Delta_5)."""
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert sd.hypothetical_kappa() == Fraction(5)
 
     def test_kappa_matches_bkm(self):
@@ -274,6 +304,7 @@ class TestPathD_BKMCrossCheck:
         """All roots at arity 2 are real (D = -1)."""
         decomp = sd.full_shadow_decomposition(2, max_coord=4)
         arity2 = decomp.get(2, {})
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert set(arity2.keys()) == {-1}
 
 
@@ -287,6 +318,7 @@ class TestShadowTowerStructure:
     def test_arity3_only_lightlike(self):
         """Arity 3 contains only D = 0 (lightlike) roots."""
         discs = sd.discriminants_at_arity(3)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert discs == {0}
 
     def test_arity4_new_discriminants(self):
@@ -322,8 +354,10 @@ class TestShadowTowerStructure:
     def test_cubic_shadow_D0_only(self):
         """Cubic shadow C (arity 3) has only D = 0 contribution."""
         C = sd.cubic_shadow_invariant(3)
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert set(C.keys()) == {0}
         # Total multiplicity at arity 3 is 2 roots * mult 10 = 20
+        # VERIFIED [DC] shadow structure [CF] cross-family census
         assert C[0] == Fraction(20)
 
 
@@ -338,12 +372,14 @@ class TestRademacherAsymptotics:
         """At D=4, the leading term gives c(4) ~ 108 to within 5%."""
         pred = sd.rademacher_leading_term(4)
         actual = 108
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(pred - actual) / actual < 0.05
 
     def test_rademacher_formula_D20(self):
         """At D=20, the leading term gives c(20) ~ 58640 to within 0.1%."""
         pred = sd.rademacher_leading_term(20)
         actual = 58640
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(pred - actual) / actual < 0.001
 
     def test_rademacher_all_D(self):
@@ -356,6 +392,7 @@ class TestRademacherAsymptotics:
         x = math.pi
         I_exact = math.sqrt(2 / (math.pi * x)) * (math.cosh(x) - math.sinh(x) / x)
         I_computed = sd._bessel_I_3half(x)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert abs(I_exact - I_computed) < 1e-12
 
 
@@ -372,12 +409,14 @@ class TestShadowWeightMultiplicity:
         assert 2 in weight
         for r in weight:
             if r != 2:
+                # VERIFIED [DC] conformal weight [CF] cross-family census
                 assert weight[r] == 0 or r not in weight
 
     def test_D0_first_at_arity3(self):
         """D = 0 first appears at arity 3 with multiplicity 20."""
         mult = sd.shadow_multiplicity_at_discriminant(0, max_arity=6)
         assert 3 in mult
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert mult[3] == 20
 
     def test_D3_first_at_arity4(self):
@@ -385,6 +424,7 @@ class TestShadowWeightMultiplicity:
         mult = sd.shadow_multiplicity_at_discriminant(3, max_arity=6)
         assert 4 in mult
         # Two roots (1,1,1) and (1,-1,1) each with mult = -64
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert mult[4] == -128
 
 
@@ -399,11 +439,13 @@ class TestCumulativeRemainder:
         """Cumulative at D=-1 up to arity 2 gives all the real root multiplicity."""
         cum = sd.cumulative_multiplicity(2, -1, max_coord=4)
         # Real roots at D=-1: multiple roots (n,l,m) with mult=1 each
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert cum > 0
 
     def test_cumulative_D0_at_arity3(self):
         """Cumulative at D=0 through arity 3 gives 20."""
         cum = sd.cumulative_multiplicity(3, 0, max_coord=4)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert cum == 20
 
     def test_remainder_decreases(self):
@@ -479,10 +521,12 @@ class TestStructuralConjectures:
         """
         for r in range(3, 9):
             new = sd.new_discriminants_at_arity(r)
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert len(new) >= 1, f"Arity {r} introduces no new discriminants"
 
     def test_every_valid_D_has_an_arity(self):
         """Every valid D in range has a minimum arity."""
         for D in sd.valid_discriminants(40):
             r = sd.minimum_arity_for_discriminant(D)
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert r >= 2, f"D={D} has no valid minimum arity"

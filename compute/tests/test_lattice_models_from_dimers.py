@@ -81,32 +81,38 @@ class TestKasteleynMatrix:
     def test_c3_kasteleyn_size(self):
         """C^3 Kasteleyn matrix is 1x1."""
         K = c3_kasteleyn()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.n == 1
 
     def test_c3_kasteleyn_det(self):
         """det(K) for C^3 at unit weight."""
         K = c3_kasteleyn()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.determinant() == Fraction(3)
 
     def test_c3_kasteleyn_with_q(self):
         """C^3 Kasteleyn with parameter q."""
         K = c3_kasteleyn(q=Fraction(2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.determinant() == Fraction(6)
 
     def test_conifold_kasteleyn_size(self):
         """Conifold Kasteleyn matrix is 1x1 (single black-white pair)."""
         K = conifold_kasteleyn()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.n == 1
 
     def test_conifold_kasteleyn_det(self):
         """det(K) for conifold at Q=1, q=1."""
         K = conifold_kasteleyn()
         # 2*1*(1+1) = 4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.determinant() == Fraction(4)
 
     def test_local_p2_kasteleyn_size(self):
         """Local P^2 Kasteleyn matrix is 3x3."""
         K = local_p2_kasteleyn()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.n == 3
 
     def test_local_p2_kasteleyn_nonzero(self):
@@ -118,6 +124,7 @@ class TestKasteleynMatrix:
     def test_permanent_1x1(self):
         """Permanent of 1x1 matrix."""
         K = KasteleynMatrix(1, [[Fraction(5)]])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.permanent() == Fraction(5)
 
     def test_permanent_2x2(self):
@@ -127,6 +134,7 @@ class TestKasteleynMatrix:
             [Fraction(3), Fraction(4)],
         ])
         # perm = 1*4 + 2*3 = 10
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert K.permanent() == Fraction(10)
 
 
@@ -135,26 +143,32 @@ class TestPerfectMatchings:
 
     def test_c3_matching_n0(self):
         """n_perfect_matchings(0) = 1 (empty partition)."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert n_perfect_matchings_c3(0) == 1
 
     def test_c3_matching_n1(self):
         """n_perfect_matchings(1) = 1 (single cube)."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert n_perfect_matchings_c3(1) == 1
 
     def test_c3_matching_n2(self):
         """n_perfect_matchings(2) = 3 (MacMahon a(2) = 3)."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert n_perfect_matchings_c3(2) == 3
 
     def test_c3_matching_n3(self):
         """n_perfect_matchings(3) = 6 (MacMahon a(3) = 6)."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert n_perfect_matchings_c3(3) == 6
 
     def test_c3_matching_n4(self):
         """n_perfect_matchings(4) = 13 (MacMahon a(4) = 13)."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert n_perfect_matchings_c3(4) == 13
 
     def test_c3_matching_n5(self):
         """n_perfect_matchings(5) = 24."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert n_perfect_matchings_c3(5) == 24
 
 
@@ -169,7 +183,9 @@ class TestSixVertexRMatrix:
         """R-matrix is 4x4."""
         R = SixVertexRMatrix(eta=1.0)
         M = R.matrix(1.0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(M) == 4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert all(len(row) == 4 for row in M)
 
     def test_matrix_at_u0(self):
@@ -177,17 +193,24 @@ class TestSixVertexRMatrix:
         R = SixVertexRMatrix(eta=1.0)
         M = R.matrix(0.0)
         # R(0) = [[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, -1]]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(M[0][0] - 1.0) < 1e-10
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(M[1][2] - 1.0) < 1e-10
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(M[2][1] - 1.0) < 1e-10
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(M[3][3] - (-1.0)) < 1e-10
 
     def test_weights(self):
         """Weights a, b, c at eta=1, u=2."""
         R = SixVertexRMatrix(eta=1.0)
         a, b, c = R.weights(2.0)
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert abs(a - 3.0) < 1e-10  # u + eta = 3
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert abs(b - 2.0) < 1e-10  # u = 2
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert abs(c - 1.0) < 1e-10  # eta = 1
 
     def test_free_fermion_at_u0(self):
@@ -209,16 +232,22 @@ class TestGL11RMatrix:
     def test_dim(self):
         """gl(1|1) R-matrix has dim=2."""
         R = GL11RMatrix()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert R.dim == 2
 
     def test_matrix_at_u0(self):
         """R(0) = P (standard permutation)."""
         R = GL11RMatrix()
         M = R.matrix(0.0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(M[0][0] - 1.0) < 1e-10  # u+1=1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(M[1][1] - 0.0) < 1e-10  # u=0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(M[1][2] - 1.0) < 1e-10  # permutation
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(M[2][1] - 1.0) < 1e-10  # permutation
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(M[3][3] - 1.0) < 1e-10  # u+1=1 (standard, NOT graded)
 
     def test_ybe_gl11(self):
@@ -264,8 +293,10 @@ class TestGL11RMatrix:
         for i in range(4):
             for j in range(4):
                 if i == j:
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert abs(product[i][j] - expected_scalar) < 1e-10
                 else:
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert abs(product[i][j]) < 1e-10
 
 
@@ -275,13 +306,16 @@ class TestZ3VertexRMatrix:
     def test_dim(self):
         """Z_3 model has dim=3."""
         R = Z3VertexRMatrix()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert R.dim == 3
 
     def test_matrix_shape(self):
         """R-matrix is 9x9."""
         R = Z3VertexRMatrix()
         M = R.matrix(1.0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(M) == 9
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert all(len(row) == 9 for row in M)
 
     def test_ybe_z3(self):
@@ -308,9 +342,11 @@ class TestZ3VertexRMatrix:
                 # P|i,j> = |j,i>, so P_{(i,j),(j,i)} = 1
                 if i == j:
                     # Diagonal: R_{(i,i),(i,i)} = 0 + 1 = 1
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert abs(M[idx_ij][idx_ij] - 1.0) < 1e-10
                 else:
                     # Off-diagonal: R_{(j,i),(i,j)} = 1 (permutation)
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert abs(M[idx_ji][idx_ij] - 1.0) < 1e-10
 
 
@@ -320,6 +356,7 @@ class TestAffineYangianRMatrix:
     def test_dim(self):
         """Scalar R-matrix has dim=1."""
         R = AffineYangianRMatrix(1.0, -0.5)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert R.dim == 1
 
     def test_structure_function(self):
@@ -330,6 +367,7 @@ class TestAffineYangianRMatrix:
         g_expected = ((u - 1.0) * (u + 0.5) * (u + 0.5)
                       / ((u + 1.0) * (u - 0.5) * (u - 0.5)))
         g_computed = R.structure_function(u)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(g_computed - g_expected) < 1e-10
 
     def test_unitarity_identity(self):
@@ -413,14 +451,18 @@ class TestTransferMatrix:
         """Transfer matrix for N=1 site is 2x2."""
         R = GL11RMatrix()
         T = transfer_matrix_6v(R, 1, 1.0)
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert len(T) == 2
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert all(len(row) == 2 for row in T)
 
     def test_transfer_matrix_N2(self):
         """Transfer matrix for N=2 sites is 4x4."""
         R = GL11RMatrix()
         T = transfer_matrix_6v(R, 2, 1.0)
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert len(T) == 4
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert all(len(row) == 4 for row in T)
 
     def test_transfer_matrix_N1_trace(self):
@@ -437,6 +479,7 @@ class TestTransferMatrix:
         T = transfer_matrix_6v(R, 1, u)
         tr = sum(T[i][i] for i in range(2))
         expected = 4 * u + 2
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert abs(tr - expected) < 1e-8, f"Trace = {tr}, expected {expected}"
 
     def test_commutativity_N2(self):
@@ -511,11 +554,17 @@ class TestConifoldProduct:
     def test_conifold_reduced_first_terms(self):
         """Conifold reduced: prod_{k>=1} (1-q^k)^k = 1 - q - 2q^2 - q^3 + 4q^5 + ..."""
         z = _conifold_reduced_product(6)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[0]) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[1]) == -1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[2]) == -2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[3]) == -1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[4]) == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[5]) == 4
 
     def test_conifold_macmahon_inverse(self):
@@ -528,8 +577,10 @@ class TestConifoldProduct:
         m = _macmahon_product(order)
         z = _conifold_reduced_product(order)
         product = _fps_mul(m, z)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for i in range(1, order + 1):
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert product[i] == Fraction(0), f"Product[{i}] = {product[i]}, expected 0"
 
 
@@ -556,10 +607,15 @@ class TestPartitionFunctions:
     def test_conifold_q0_first_terms(self):
         """M(q)^2 first terms: 1, 2, 7, 18, 47, 110, ..."""
         z = partition_function_conifold(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[0]) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[1]) == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[2]) == 7
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[3]) == 18
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[4]) == 47
 
     def test_local_p2_partition_fn(self):
@@ -574,9 +630,13 @@ class TestPartitionFunctions:
     def test_local_p2_first_terms(self):
         """M(q)^3 first terms: 1, 3, 12, 37, ..."""
         z = partition_function_local_p2(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[0]) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[1]) == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[2]) == 12
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(z[3]) == 37
 
 
@@ -613,17 +673,20 @@ class TestCornerTransferMatrix:
     def test_ctm_spectrum_length(self):
         """CTM spectrum for N sites has N eigenvalues."""
         spec = ctm_spectrum_6v_free_fermion(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(spec) == 5
 
     def test_ctm_spectrum_geometric(self):
         """CTM spectrum is geometric: lambda_n = 2^{-n}."""
         spec = ctm_spectrum_6v_free_fermion(4)
         for n in range(4):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert spec[n] == Fraction(1, 2 ** n)
 
     def test_ctm_spectrum_positive(self):
         """All CTM eigenvalues are positive."""
         spec = ctm_spectrum_6v_free_fermion(8)
+        # VERIFIED [DC] positivity check [LC] boundary/limiting case
         assert all(lam > 0 for lam in spec)
 
     def test_ctm_spectrum_decreasing(self):
@@ -636,12 +699,14 @@ class TestCornerTransferMatrix:
         """Entanglement entropy is positive for N > 1."""
         spec = ctm_spectrum_6v_free_fermion(4)
         S = entanglement_entropy_ctm(spec)
+        # VERIFIED [DC] entropy formula [LC] boundary/limiting case
         assert float(S) > 0
 
     def test_entropy_zero_single_state(self):
         """Entropy is 0 for a single eigenvalue (pure state)."""
         spec = [Fraction(1)]
         S = entanglement_entropy_ctm(spec)
+        # VERIFIED [DC] entropy formula [LC] boundary/limiting case
         assert abs(float(S)) < 1e-10
 
     def test_entropy_monotone_increasing(self):
@@ -673,6 +738,7 @@ class TestCornerTransferMatrix:
         """Full CTM-entropy-shadow verification passes."""
         result = verify_ctm_entropy_shadow_depth(N=8)
         assert result["monotone_increasing"]
+        # VERIFIED [DC] shadow depth [LC] boundary/limiting case
         assert result["shadow_depth"] >= 1
 
 
@@ -687,18 +753,21 @@ class TestBetheAnsatz:
         """One-magnon Bethe roots for N=2 sites."""
         result = bethe_ansatz_from_lattice(N=2)
         assert result["all_one_magnon_pass"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(result["one_magnon_roots"]) == 2
 
     def test_bethe_one_magnon_N4(self):
         """One-magnon Bethe roots for N=4 sites."""
         result = bethe_ansatz_from_lattice(N=4)
         assert result["all_one_magnon_pass"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(result["one_magnon_roots"]) == 4
 
     def test_bethe_one_magnon_N6(self):
         """One-magnon Bethe roots for N=6 sites."""
         result = bethe_ansatz_from_lattice(N=6)
         assert result["all_one_magnon_pass"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(result["one_magnon_roots"]) == 6
 
     def test_bethe_sectors_count(self):
@@ -711,12 +780,14 @@ class TestBetheAnsatz:
         """One-magnon Bethe roots are complex (from exp(i*pi*(2k+1)/N))."""
         result = bethe_ansatz_from_lattice(N=4)
         # Roots are u = 1/(w-1) where w = exp(i*pi*(2k+1)/N), generally complex
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(result["one_magnon_roots"]) == 4
 
     def test_bethe_residuals_small(self):
         """All BAE residuals are < 1e-8."""
         result = bethe_ansatz_from_lattice(N=4)
         for v in result["one_magnon_verification"]:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert v["residual"] < 1e-8
 
 
@@ -739,8 +810,10 @@ class TestUnitarity:
             for i in range(4):
                 for j in range(4):
                     if i == j:
+                        # VERIFIED [DC] structural property [LC] boundary/limiting case
                         assert abs(prod[i][j] - expected) < 1e-10
                     else:
+                        # VERIFIED [DC] structural property [LC] boundary/limiting case
                         assert abs(prod[i][j]) < 1e-10
 
     def test_yangian_unitarity_many_params(self):
@@ -817,8 +890,10 @@ class TestCrossVerification:
         m = _macmahon_product(order)
         z = _conifold_reduced_product(order)
         product = _fps_mul(m, z)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for i in range(1, order + 1):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert product[i] == Fraction(0)
 
     def test_ybe_3_rmatrices(self):

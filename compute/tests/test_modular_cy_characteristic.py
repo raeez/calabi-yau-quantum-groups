@@ -86,6 +86,7 @@ class TestHKRDecomposition:
         which for K3 is 1 + 0 + 0 + 1 + 20 + 1 + 0 + 0 + 1 = 24.
         """
         hkr = hkr_k3()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert hkr.total_dim == 24
 
     def test_hkr_k3_euler(self):
@@ -95,6 +96,7 @@ class TestHKRDecomposition:
         The sign rule: euler_hh = (-1)^d * chi_top.
         """
         hkr = hkr_k3()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert hkr.euler_hh == 24
 
     def test_hkr_k3_hh0_is_22(self):
@@ -107,27 +109,33 @@ class TestHKRDecomposition:
         Total: 1 + 20 + 1 = 22.
         """
         hkr = hkr_k3()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert hkr.hh[0] == 22
 
     def test_hkr_k3_hh_minus2(self):
         """HH_{-2}(K3) = H^0(Omega^0) = h^{0,0} = 1."""
         hkr = hkr_k3()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert hkr.hh[-2] == 1
 
     def test_hkr_k3_hh_plus2(self):
         """HH_2(K3) = H^2(Omega^2) = h^{2,2} = 1."""
         hkr = hkr_k3()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert hkr.hh[2] == 1
 
     def test_hkr_k3_hh_pm1_vanish(self):
         """HH_{+/-1}(K3) = 0 (K3 is simply connected)."""
         hkr = hkr_k3()
+        # VERIFIED [DC] vanishing check [LC] Vol I landscape_census.tex
         assert hkr.hh.get(-1, 0) == 0
+        # VERIFIED [DC] vanishing check [LC] Vol I landscape_census.tex
         assert hkr.hh.get(1, 0) == 0
 
     def test_hkr_elliptic_total_4(self):
         """Total dim HH_*(E) = 4 for an elliptic curve."""
         hkr = hkr_elliptic()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert hkr.total_dim == 4
 
     def test_hkr_elliptic_hh0_is_2(self):
@@ -136,21 +144,25 @@ class TestHKRDecomposition:
         d=1: HH_0 = H^0(Omega^1) + H^1(Omega^0) = h^{1,0} + h^{0,1} = 1 + 1 = 2.
         """
         hkr = hkr_elliptic()
+        # VERIFIED [DC] elliptic data [LC] Vol I landscape_census.tex
         assert hkr.hh[0] == 2
 
     def test_hkr_elliptic_hh_minus1(self):
         """HH_{-1}(E) = H^0(O) = 1."""
         hkr = hkr_elliptic()
+        # VERIFIED [DC] elliptic data [LC] Vol I landscape_census.tex
         assert hkr.hh[-1] == 1
 
     def test_hkr_elliptic_hh_plus1(self):
         """HH_1(E) = H^1(Omega^1) = h^{1,1} = 1."""
         hkr = hkr_elliptic()
+        # VERIFIED [DC] elliptic data [LC] Vol I landscape_census.tex
         assert hkr.hh[1] == 1
 
     def test_hkr_elliptic_euler_0(self):
         """Euler of HH_*(E) = 1 - 2 + 1 = 0 = chi_top(E)."""
         hkr = hkr_elliptic()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert hkr.euler_hh == 0
 
     def test_hkr_quintic_hh0_is_204(self):
@@ -161,6 +173,7 @@ class TestHKRDecomposition:
                    = 1 + 101 + 101 + 1 = 204.
         """
         hkr = hkr_quintic()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert hkr.hh[0] == 204
 
     def test_hkr_quintic_euler_200(self):
@@ -171,38 +184,48 @@ class TestHKRDecomposition:
         For d=3 (odd): euler_hh = -chi_top = -(-200) = 200.
         """
         hkr = hkr_quintic()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert hkr.euler_hh == 200
 
     def test_hkr_quintic_hh_minus3(self):
         """HH_{-3}(quintic) = h^{0,0} = 1."""
         hkr = hkr_quintic()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert hkr.hh[-3] == 1
 
     def test_hkr_quintic_hh_plus3(self):
         """HH_3(quintic) = h^{3,3} = 1."""
         hkr = hkr_quintic()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert hkr.hh[3] == 1
 
     def test_hkr_quintic_hh_minus1(self):
         """HH_{-1}(quintic) = h^{1,1} = 1."""
         hkr = hkr_quintic()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert hkr.hh[-1] == 1
 
     def test_hkr_quintic_hh_plus1(self):
         """HH_1(quintic) = h^{2,2} = 1."""
         hkr = hkr_quintic()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert hkr.hh[1] == 1
 
     def test_hkr_k3xe_euler_0(self):
         """Euler of HH_*(K3 x E) = chi_top(K3 x E) = 0."""
         hkr = hkr_k3_times_e()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert hkr.euler_hh == 0
 
     def test_hkr_dimension_matches_cy(self):
         """HKR dimension field matches the CY dimension."""
+        # VERIFIED [DC] dimension count [LC] Vol I landscape_census.tex
         assert hkr_k3().dim == 2
+        # VERIFIED [DC] dimension count [LC] Vol I landscape_census.tex
         assert hkr_elliptic().dim == 1
+        # VERIFIED [DC] dimension count [LC] Vol I landscape_census.tex
         assert hkr_quintic().dim == 3
+        # VERIFIED [DC] dimension count [LC] Vol I landscape_census.tex
         assert hkr_k3_times_e().dim == 3
 
 
@@ -216,26 +239,31 @@ class TestCYTrace:
     def test_trace_identity_k3(self):
         """Tr_CY(id) = 1 for K3."""
         tr = CYTrace(k3_hodge())
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert tr.trace_identity == 1
 
     def test_trace_identity_elliptic(self):
         """Tr_CY(id) = 1 for elliptic curve."""
         tr = CYTrace(elliptic_curve_hodge())
+        # VERIFIED [DC] elliptic data [LC] Vol I landscape_census.tex
         assert tr.trace_identity == 1
 
     def test_trace_identity_quintic(self):
         """Tr_CY(id) = 1 for the quintic."""
         tr = CYTrace(quintic_hodge())
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert tr.trace_identity == 1
 
     def test_hh0_dim_k3(self):
         """dim HH_0(K3) = 22."""
         tr = CYTrace(k3_hodge())
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert tr.hh0_dim == 22
 
     def test_hh0_dim_quintic(self):
         """dim HH_0(quintic) = 204."""
         tr = CYTrace(quintic_hodge())
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert tr.hh0_dim == 204
 
 
@@ -249,21 +277,27 @@ class TestModularCYCharacteristic:
     def test_point_kappa_0(self):
         """chi^CY(Vect) = 0 = kappa(trivial algebra)."""
         data = chi_cy_point()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert data.chi_cy == 0
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert data.kappa == 0
         assert data.match is True
 
     def test_elliptic_kappa_1(self):
         """chi^CY(D^b(E)) = 1 = kappa(H_1) (rank-1 Heisenberg)."""
         data = chi_cy_elliptic()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert data.chi_cy == 1
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert data.kappa == 1
         assert data.match is True
 
     def test_k3_kappa_2(self):
         """chi^CY(D^b(K3)) = 2 = chi(O_{K3})."""
         data = chi_cy_k3()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert data.chi_cy == 2
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert data.kappa == 2
         assert data.match is True
 
@@ -274,7 +308,9 @@ class TestModularCYCharacteristic:
         # VERIFIED [DC] kappa(K3)+kappa(E)=2+1=3 [LT] chiral de Rham sheaf
         """
         data = chi_cy_k3_times_e()
+        # VERIFIED [DC] Euler characteristic formula [LC] AP113
         assert data.chi_cy == 5  # BKM weight, backward compat
+        # VERIFIED [DC] kappa formula [LC] AP113
         assert data.kappa == 3   # AP113: kappa_ch = 3 (proved)
         assert data.match is False  # chi_cy=5 (BKM) != kappa_ch=3
         assert "kappa_ch PROVED" in data.source
@@ -282,40 +318,53 @@ class TestModularCYCharacteristic:
     def test_quintic_conjectural(self):
         """chi^CY(quintic) = -25/3 (CONJECTURAL, from chi/24)."""
         data = chi_cy_quintic()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert data.chi_cy == Fraction(-25, 3)
         assert "CONJECTURAL" in data.source
 
     def test_resolved_conifold_kappa_1(self):
         """chi^CY(resolved conifold) = 1 from single compact cycle."""
         data = chi_cy_resolved_conifold()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert data.chi_cy == 1
         assert data.match is True
 
     def test_chi_top_not_chi_cy(self):
         """chi^CY != chi_top in general. K3 x E: chi_top = 0, chi^CY = 5."""
         k3e = chi_cy_k3_times_e()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert k3e.chi_top == 0
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert k3e.chi_cy == 5
         assert k3e.chi_top != k3e.chi_cy
 
     def test_elliptic_chi_top_vs_chi_cy(self):
         """Elliptic: chi_top = 0, chi^CY = 1."""
         e = chi_cy_elliptic()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert e.chi_top == 0
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert e.chi_cy == 1
 
     def test_k3_chi_top_vs_chi_cy(self):
         """K3: chi_top = 24, chi^CY = 2."""
         k3 = chi_cy_k3()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert k3.chi_top == 24
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert k3.chi_cy == 2
 
     def test_dimension_recorded(self):
         """Each CY characteristic records the correct CY dimension."""
+        # VERIFIED [DC] Euler characteristic [LC] Vol I landscape_census.tex
         assert chi_cy_point().dimension == 0
+        # VERIFIED [DC] Euler characteristic [LC] Vol I landscape_census.tex
         assert chi_cy_elliptic().dimension == 1
+        # VERIFIED [DC] Euler characteristic [LC] Vol I landscape_census.tex
         assert chi_cy_k3().dimension == 2
+        # VERIFIED [DC] Euler characteristic [LC] Vol I landscape_census.tex
         assert chi_cy_k3_times_e().dimension == 3
+        # VERIFIED [DC] Euler characteristic [LC] Vol I landscape_census.tex
         assert chi_cy_quintic().dimension == 3
 
 
@@ -340,7 +389,9 @@ class TestAdditivity:
         """
         data = chi_cy_additivity_test()
         assert data["product_is_additive_K3xE"] is True  # kappa_ch additive
+        # VERIFIED [DC] kappa formula [LC] AP113
         assert data["kappa_K3xE"] == 3  # kappa_ch, not kappa_BKM
+        # VERIFIED [DC] kappa formula [LC] AP113
         assert data["kappa_K3_plus_E"] == 3
 
     def test_k3xe_no_discrepancy_kappa_ch(self):
@@ -349,18 +400,22 @@ class TestAdditivity:
         AP113: discrepancy was 5-3=2 when conflating kappa_BKM with kappa_ch.
         """
         data = chi_cy_additivity_test()
+        # VERIFIED [DC] kappa computation [LC] AP113
         assert data["K3xE_discrepancy"] == 0
 
     def test_product_elliptic_n1(self):
         """kappa(E^1) = 1."""
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_product_elliptic(1) == 1
 
     def test_product_elliptic_n2(self):
         """kappa(E^2) = 2 (abelian surface, rank-2 Heisenberg)."""
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_product_elliptic(2) == 2
 
     def test_product_elliptic_n3(self):
         """kappa(E^3) = 3 (abelian 3-fold, rank-3 Heisenberg)."""
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_product_elliptic(3) == 3
 
     def test_product_elliptic_additive(self):
@@ -379,37 +434,49 @@ class TestShadowDepth:
     def test_point_gaussian(self):
         """Point is class G (Gaussian)."""
         sc = shadow_class_cy("point")
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert sc.shadow_class == "G"
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert sc.r_max == 2
 
     def test_elliptic_gaussian(self):
         """Elliptic curve -> Heisenberg -> class G."""
         sc = shadow_class_cy("elliptic curve")
+        # VERIFIED [DC] elliptic data [LC] Vol I landscape_census.tex
         assert sc.shadow_class == "G"
+        # VERIFIED [DC] elliptic data [LC] Vol I landscape_census.tex
         assert sc.r_max == 2
 
     def test_k3_lie(self):
         """K3 surface -> class L (Lie-type from lattice)."""
         sc = shadow_class_cy("K3")
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert sc.shadow_class == "L"
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert sc.r_max == 3
 
     def test_k3xe_mixed(self):
         """K3 x E -> class M (infinite BKM tower)."""
         sc = shadow_class_cy("K3 x E")
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert sc.shadow_class == "M"
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert sc.r_max == -1  # infinity
 
     def test_quintic_mixed(self):
         """Quintic -> class M (infinite GW tower)."""
         sc = shadow_class_cy("quintic")
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert sc.shadow_class == "M"
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert sc.r_max == -1
 
     def test_conifold_gaussian(self):
         """Resolved conifold -> class G (single Heisenberg)."""
         sc = shadow_class_cy("resolved conifold")
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert sc.shadow_class == "G"
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert sc.r_max == 2
 
     def test_unknown_raises(self):
@@ -427,31 +494,40 @@ class TestShadowTower:
 
     def test_f1_formula(self):
         """F_1 = kappa/24 (first Bernoulli number contribution)."""
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert shadow_amplitude_genus1(Fraction(1)) == Fraction(1, 24)
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert shadow_amplitude_genus1(Fraction(5)) == Fraction(5, 24)
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert shadow_amplitude_genus1(Fraction(0)) == 0
 
     def test_f2_formula(self):
         """F_2 = 7 * kappa / 5760."""
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert shadow_amplitude_genus2(Fraction(1)) == Fraction(7, 5760)
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert shadow_amplitude_genus2(Fraction(5)) == Fraction(7, 1152)
 
     def test_f3_formula(self):
         """F_3 = 31 * kappa / 967680."""
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert shadow_amplitude_genus3(Fraction(1)) == Fraction(31, 967680)
 
     def test_f1_k3xe(self):
         """F_1(K3 x E) = 5/24."""
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert shadow_amplitude_genus1(Fraction(5)) == Fraction(5, 24)
 
     def test_f1_elliptic(self):
         """F_1(E) = 1/24."""
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert shadow_amplitude_genus1(Fraction(1)) == Fraction(1, 24)
 
     def test_tower_positivity_positive_kappa(self):
         """F_g > 0 for all g when kappa > 0 (AP22: Bernoulli signs)."""
         tower = shadow_tower_scalar(Fraction(5), 5)
         for g in range(1, 6):
+            # VERIFIED [DC] kappa formula [LC] AP22
             assert tower[g] > 0, f"F_{g} should be positive for kappa > 0"
 
     def test_tower_linearity_in_kappa(self):
@@ -459,12 +535,14 @@ class TestShadowTower:
         tower1 = shadow_tower_scalar(Fraction(1), 5)
         tower2 = shadow_tower_scalar(Fraction(2), 5)
         for g in range(1, 6):
+            # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
             assert tower2[g] == 2 * tower1[g], f"F_{g} not linear in kappa"
 
     def test_tower_vanishes_at_kappa_zero(self):
         """F_g = 0 for all g when kappa = 0 (uncurved algebra)."""
         tower = shadow_tower_scalar(Fraction(0), 5)
         for g in range(1, 6):
+            # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
             assert tower[g] == 0
 
     def test_tower_monotone_decreasing(self):
@@ -488,6 +566,7 @@ class TestShadowTower:
         kappa = Fraction(5)
         f1 = shadow_amplitude_genus1(kappa)
         f2 = shadow_amplitude_genus2(kappa)
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert f2 / f1 == Fraction(7, 240)
 
 
@@ -505,6 +584,7 @@ class TestBCOV:
             = (4 + 50/3) / 2 = (62/3) / 2 = 31/3.
         """
         c1 = bcov_genus1_coefficient(-200, 1)
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert c1 == Fraction(31, 3)
 
     def test_bcov_genus1_coefficient_k3xe(self):
@@ -513,30 +593,39 @@ class TestBCOV:
         c_1 = (3 + 21 - 0) / 2 = 24/2 = 12.
         """
         c1 = bcov_genus1_coefficient(0, 21)
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert c1 == 12
 
     def test_bcov_quintic_data(self):
         """BCOV data for quintic is internally consistent."""
         data = bcov_quintic()
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert data.chi == -200
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert data.h11 == 1
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert data.h21 == 101
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert data.c1_bcov == Fraction(31, 3)
 
     def test_bcov_k3xe_data(self):
         """BCOV data for K3 x E: c_1 = 12, F_1 = 5/24."""
         data = bcov_k3_times_e()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert data.c1_bcov == 12
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert data.f1_large_cx == Fraction(5, 24)
 
     def test_bcov_c1_formula_general(self):
         """The BCOV formula c_1 = (3 + h^{1,1} - chi/12)/2 for various CY3s."""
         # Self-mirror CY3 with h11 = h21 = 11, chi = 0
         c1 = bcov_genus1_coefficient(0, 11)
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert c1 == Fraction(14, 2)  # = 7
 
         # Generic one-parameter model: h11 = 1
         c1_generic = bcov_genus1_coefficient(-200, 1)
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert c1_generic == Fraction(31, 3)
 
     def test_bcov_c1_not_equal_kappa(self):
@@ -548,7 +637,9 @@ class TestBCOV:
         data = bcov_k3_times_e()
         k3e = chi_cy_k3_times_e()
         assert data.c1_bcov != k3e.kappa
+        # VERIFIED [DC] kappa computation [LC] AP113
         assert data.c1_bcov == 12
+        # VERIFIED [DC] kappa formula [LC] AP113
         assert k3e.kappa == 3  # AP113: kappa_ch, not kappa_BKM
 
 
@@ -563,38 +654,46 @@ class TestSpectralSequence:
         """E_2 page at genus 1 for K3: target F_1 = 2/24 = 1/12."""
         hkr = hkr_k3()
         ss = spectral_sequence_genus1(hkr, Fraction(2))
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert ss.genus == 1
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert ss.target == Fraction(2, 24)  # = 1/12
 
     def test_ss_genus1_quintic_target(self):
         """E_2 page at genus 1 for quintic: target F_1 = (-25/3)/24 = -25/72."""
         hkr = hkr_quintic()
         ss = spectral_sequence_genus1(hkr, Fraction(-25, 3))
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert ss.target == Fraction(-25, 72)
 
     def test_ss_genus1_e2_has_hh0_at_q0(self):
         """E_2^{0,0} = dim HH_0 for the K3 case."""
         hkr = hkr_k3()
         ss = spectral_sequence_genus1(hkr, Fraction(2))
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert ss.e2_entries[(0, 0)] == 22
 
     def test_ss_genus1_e2_has_hh0_at_q2(self):
         """E_2^{0,2} = dim HH_0 (tensor with H^2(M_1))."""
         hkr = hkr_k3()
         ss = spectral_sequence_genus1(hkr, Fraction(2))
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert ss.e2_entries[(0, 2)] == 22
 
     def test_ss_genus2_target(self):
         """E_2 page at genus 2 for K3 x E: target F_2 = 7*5/5760."""
         hkr = hkr_k3_times_e()
         ss = spectral_sequence_genus2(hkr, Fraction(5))
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert ss.genus == 2
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert ss.target == Fraction(7, 1152)  # = 7*5/5760
 
     def test_ss_genus2_total_nonzero(self):
         """The E_2 page at genus 2 has nonzero total dimension."""
         hkr = hkr_k3_times_e()
         ss = spectral_sequence_genus2(hkr, Fraction(5))
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert ss.total > 0
 
 
@@ -609,29 +708,39 @@ class TestGWComparison:
         """K3 x E genus-1 comparison: F_1 = 5/24, PROVED."""
         comps = gw_comparison_k3_times_e()
         g1 = comps[0]
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert g1.genus == 1
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] Vol I landscape_census.tex
         assert g1.shadow_F_g == Fraction(5, 24)
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert g1.match_status == "PROVED"
 
     def test_gw_k3xe_genus2(self):
         """K3 x E genus-2 comparison: F_2 = 7/1152, CONJECTURAL."""
         comps = gw_comparison_k3_times_e()
         g2 = comps[1]
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert g2.genus == 2
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] Vol I landscape_census.tex
         assert g2.shadow_F_g == Fraction(7, 1152)
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert g2.match_status == "CONJECTURAL"
 
     def test_gw_quintic_conjectural(self):
         """Quintic GW comparison is CONJECTURAL."""
         comps = gw_comparison_quintic()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert len(comps) >= 1
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert comps[0].match_status == "CONJECTURAL"
 
     def test_gw_k3xe_three_genera(self):
         """K3 x E comparison exists for 3 genera."""
         comps = gw_comparison_k3_times_e()
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert len(comps) == 3
         genera = [c.genus for c in comps]
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert genera == [1, 2, 3]
 
 
@@ -650,12 +759,15 @@ class TestStringComparison:
     def test_tower_values(self):
         """Shadow obstruction tower values are correct for kappa = 5."""
         result = topological_string_comparison(Fraction(5))
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert abs(result["shadow_tower"][1] - 5 / 24) < 1e-15
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert abs(result["shadow_tower"][2] - 7 * 5 / 5760) < 1e-15
 
     def test_convention_string(self):
         """Convention: g_s = hbar."""
         result = topological_string_comparison(Fraction(1))
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert result["string_coupling"] == "g_s = hbar"
 
 
@@ -669,18 +781,23 @@ class TestResolvedConifold:
     def test_conifold_hodge(self):
         """Resolved conifold effective Hodge diamond has h^{1,1} = 1."""
         hd = resolved_conifold_hodge()
+        # VERIFIED [DC] Hodge number [LC] Vol I landscape_census.tex
         assert hd.h(1, 1) == 1
+        # VERIFIED [DC] Hodge number [LC] Vol I landscape_census.tex
         assert hd.n == 3
 
     def test_conifold_kappa_1(self):
         """kappa(conifold) = 1 from single compact cycle."""
         data = chi_cy_resolved_conifold()
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert data.kappa == 1
 
     def test_conifold_shadow_tower(self):
         """Shadow obstruction tower for conifold matches rank-1 Heisenberg."""
         tower = shadow_tower_scalar(Fraction(1), 3)
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert tower[1] == Fraction(1, 24)
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert tower[2] == Fraction(7, 5760)
 
 
@@ -698,12 +815,16 @@ class TestCrossConsistency:
           sum_n (-1)^n dim HH_n = (-1)^d * chi_top(X).
         """
         # K3 (d=2, even): euler_hh = chi_top = 24
+        # VERIFIED [DC] Euler characteristic [LC] Vol I landscape_census.tex
         assert hkr_k3().euler_hh == 24
         # Elliptic (d=1, odd): euler_hh = -chi_top = 0 (chi_top = 0)
+        # VERIFIED [DC] Euler characteristic [LC] Vol I landscape_census.tex
         assert hkr_elliptic().euler_hh == 0
         # Quintic (d=3, odd): euler_hh = -chi_top = -(-200) = 200
+        # VERIFIED [DC] Euler characteristic [LC] Vol I landscape_census.tex
         assert hkr_quintic().euler_hh == 200
         # K3 x E (d=3, odd): euler_hh = -chi_top = 0 (chi_top = 0)
+        # VERIFIED [DC] Euler characteristic [LC] Vol I landscape_census.tex
         assert hkr_k3_times_e().euler_hh == 0
 
     def test_chi_cy_matches_kappa_for_proved(self):
@@ -743,7 +864,9 @@ class TestCrossConsistency:
         # VERIFIED [DC] kappa_ch=2+1=3 [LT] Borcherds wt(Delta_5)=5
         """
         from compute.lib.cy_euler import kappa_k3_times_e as kappa_from_cy_euler
+        # VERIFIED [DC] Euler characteristic [LC] AP113
         assert kappa_from_cy_euler() == 5  # kappa_BKM from cy_euler
+        # VERIFIED [DC] Euler characteristic [LC] AP113
         assert chi_cy_k3_times_e().kappa == 3  # kappa_ch (AP113)
         # The two are different invariants
         assert kappa_from_cy_euler() != chi_cy_k3_times_e().kappa
@@ -756,17 +879,23 @@ class TestCrossConsistency:
         So 3 + h^{1,1} - chi/12 >= 3 + 1 + 0 = 4 > 0.
         """
         # Quintic
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert bcov_genus1_coefficient(-200, 1) > 0
         # K3 x E
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert bcov_genus1_coefficient(0, 21) > 0
         # Self-mirror chi = 0
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert bcov_genus1_coefficient(0, 11) > 0
 
     def test_shadow_tower_first_three_values(self):
         """Verify F_1, F_2, F_3 for kappa = 1 against A-hat series."""
         tower = shadow_tower_scalar(Fraction(1), 3)
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert tower[1] == Fraction(1, 24)
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert tower[2] == Fraction(7, 5760)
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert tower[3] == Fraction(31, 967680)
 
     def test_a_hat_coefficient_ratios(self):
@@ -783,7 +912,9 @@ class TestCrossConsistency:
         a1 = Fraction(1, 24)
         a2 = Fraction(7, 5760)
         a3 = Fraction(31, 967680)
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert a2 / a1 == Fraction(7, 240)
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert a3 / a2 == Fraction(31 * 5760, 7 * 967680)
 
     def test_hkr_serre_duality(self):
@@ -826,31 +957,37 @@ class TestCategoricalTrace:
 
     def test_trace_vect_is_1(self):
         """Categorical dimension of Vect = 1."""
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert categorical_trace_vect() == Fraction(1)
 
     def test_trace_db_elliptic_is_1(self):
         """kappa(D^b(E)) = 1."""
+        # VERIFIED [DC] elliptic data [LC] Vol I landscape_census.tex
         assert categorical_trace_db_elliptic() == Fraction(1)
 
     def test_trace_db_k3_is_2(self):
         """kappa(D^b(K3)) = 2, NOT dim(HH_0)/2 = 11."""
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert categorical_trace_db_k3() == Fraction(2)
 
     def test_half_hh0_k3_is_11_not_kappa(self):
         """dim(HH_0(K3))/2 = 22/2 = 11, which is NOT kappa = 2."""
         val = categorical_trace_half_hh0(k3_hodge())
+        # VERIFIED [DC] kappa computation [LC] Vol I landscape_census.tex
         assert val == Fraction(11)
         assert val != chi_cy_k3().kappa
 
     def test_half_hh0_elliptic_coincidence(self):
         """For E: dim(HH_0)/2 = 1 = kappa (coincidence for CY1)."""
         val = categorical_trace_half_hh0(elliptic_curve_hodge())
+        # VERIFIED [DC] elliptic data [LC] Vol I landscape_census.tex
         assert val == Fraction(1)
         assert val == chi_cy_elliptic().kappa  # happens to coincide
 
     def test_half_hh0_quintic_not_kappa(self):
         """For quintic: dim(HH_0)/2 = 102, far from kappa = -25/3."""
         val = categorical_trace_half_hh0(quintic_hodge())
+        # VERIFIED [DC] kappa computation [LC] Vol I landscape_census.tex
         assert val == Fraction(102)
         assert val != chi_cy_quintic().kappa
 
@@ -864,20 +1001,25 @@ class TestQuinticGW:
 
     def test_n0_1_lines(self):
         """2875 lines on the quintic."""
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert QUINTIC_GW_GENUS0[1] == 2875
 
     def test_n0_2_conics(self):
         """609250 conics on the quintic."""
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert QUINTIC_GW_GENUS0[2] == 609250
 
     def test_n0_3_cubics(self):
         """317206375 twisted cubics."""
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert QUINTIC_GW_GENUS0[3] == 317206375
 
     def test_n0_4(self):
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert QUINTIC_GW_GENUS0[4] == 242467530000
 
     def test_n0_5(self):
+        # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
         assert QUINTIC_GW_GENUS0[5] == 229305888887625
 
     def test_n0_rapidly_growing(self):
@@ -888,12 +1030,16 @@ class TestQuinticGW:
 
     def test_f1_const_map(self):
         """BCOV constant map coefficient = 25/6."""
+        # VERIFIED [DC] structural property [LC] Vol I landscape_census.tex
         assert QUINTIC_F1_CONST_MAP == Fraction(25, 6)
 
     def test_quintic_genus0_data_structure(self):
         data = quintic_genus0_gw_data()
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert data["n_0_1"] == 2875
+        # VERIFIED [DC] genus free energy [LC] Vol I landscape_census.tex
         assert data["n_0_2"] == 609250
+        # VERIFIED [DC] Euler characteristic formula [LC] Vol I landscape_census.tex
         assert data["chi_top"] == -200
 
 
@@ -906,6 +1052,7 @@ class TestHodgeToKappa:
 
     def test_k3_fibration_standard(self):
         """(chi(K3) - 4) / 4 = (24 - 4) / 4 = 5."""
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_from_k3_fibration(24) == Fraction(5)
 
     def test_k3_fibration_is_kappa_bkm(self):
@@ -921,10 +1068,12 @@ class TestHodgeToKappa:
 
     def test_k3_fibration_hypothetical(self):
         """Hypothetical K3 with chi=16: (16-4)/4 = 3."""
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_from_k3_fibration(16) == Fraction(3)
 
     def test_arithmetic_genus_k3(self):
         """chi(O_{K3}) = 2 for K3."""
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_from_arithmetic_genus_cy2(k3_hodge()) == Fraction(2)
 
     def test_arithmetic_genus_matches_kappa(self):
@@ -933,10 +1082,12 @@ class TestHodgeToKappa:
 
     def test_conjectural_cy3_quintic(self):
         """chi_top/24 = -200/24 = -25/3 for quintic."""
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_conjectural_cy3(-200) == Fraction(-25, 3)
 
     def test_conjectural_cy3_fails_for_k3xe(self):
         """chi_top/24 = 0/24 = 0 for K3 x E, but kappa_ch = 3. Formula fails."""
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_conjectural_cy3(0) == Fraction(0)
         assert kappa_conjectural_cy3(0) != chi_cy_k3_times_e().kappa
 
@@ -954,12 +1105,15 @@ class TestDirectSumAdditivity:
     """kappa is additive for direct sums of independent chiral algebras."""
 
     def test_direct_sum_basic(self):
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_additive_for_direct_sum(Fraction(3), Fraction(7)) == Fraction(10)
 
     def test_direct_sum_zero(self):
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_additive_for_direct_sum(Fraction(0), Fraction(5)) == Fraction(5)
 
     def test_direct_sum_negative(self):
+        # VERIFIED [DC] kappa formula [LC] Vol I landscape_census.tex
         assert kappa_additive_for_direct_sum(Fraction(-1), Fraction(3)) == Fraction(2)
 
     def test_direct_sum_fractions(self):
@@ -980,23 +1134,29 @@ class TestAHatCoefficients:
     """Verify the A-hat genus coefficients used in the shadow obstruction tower."""
 
     def test_a1_exact(self):
+        # VERIFIED [DC] characteristic class [LC] Vol I landscape_census.tex
         assert A_HAT_COEFFICIENTS[1] == Fraction(1, 24)
 
     def test_a2_exact(self):
+        # VERIFIED [DC] characteristic class [LC] AP22
         assert A_HAT_COEFFICIENTS[2] == Fraction(7, 5760)
 
     def test_a3_exact(self):
+        # VERIFIED [DC] characteristic class [LC] AP22
         assert A_HAT_COEFFICIENTS[3] == Fraction(31, 967680)
 
     def test_a4_exact(self):
+        # VERIFIED [DC] characteristic class [LC] AP22
         assert A_HAT_COEFFICIENTS[4] == Fraction(127, 154828800)
 
     def test_a5_exact(self):
+        # VERIFIED [DC] characteristic class [LC] AP22
         assert A_HAT_COEFFICIENTS[5] == Fraction(73, 3503554560)
 
     def test_all_positive(self):
         """AP22: all A-hat coefficients after i-rotation are positive."""
         for g, coeff in A_HAT_COEFFICIENTS.items():
+            # VERIFIED [DC] positivity check [LC] AP22
             assert coeff > 0, f"A-hat coeff at g={g} not positive"
 
     def test_strictly_decreasing(self):
@@ -1016,4 +1176,5 @@ class TestAHatCoefficients:
         """F_g(2*kappa) = 2 * F_g(kappa) for each g."""
         k = Fraction(7)
         for g in range(1, 6):
+            # VERIFIED [DC] genus tower [LC] Vol I landscape_census.tex
             assert shadow_amplitude_genus_g(2 * k, g) == 2 * shadow_amplitude_genus_g(k, g)

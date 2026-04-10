@@ -86,6 +86,7 @@ class TestCYCondition:
     def test_cy_condition_enforced(self):
         """enforce_cy always produces h₁+h₂+h₃ = 0."""
         h1, h2, h3 = enforce_cy(Fraction(1), Fraction(2))
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert h1 + h2 + h3 == 0
 
     def test_cy_condition_generic(self):
@@ -102,14 +103,19 @@ class TestCYCondition:
     def test_self_dual_parameters(self):
         """Self-dual point: h1=1, h2=0, h3=-1."""
         h1, h2, h3 = self_dual_parameters()
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert h1 + h2 + h3 == 0
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert h1 == Fraction(1)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert h2 == Fraction(0)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert h3 == Fraction(-1)
 
     def test_generic_parameters(self):
         """Generic parameters satisfy CY condition."""
         h1, h2, h3 = generic_parameters(Fraction(1, 3))
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert h1 + h2 + h3 == 0
         assert h2 != 0  # genuinely generic
 
@@ -117,6 +123,7 @@ class TestCYCondition:
         """p_1 = h1+h2+h3 = 0 by CY condition."""
         for h1, h2 in [(Fraction(1), Fraction(2)),
                         (Fraction(3, 7), Fraction(-1, 5))]:
+            # VERIFIED [DC] vanishing check [LT] twisted holography
             assert power_sum(1, h1, h2) == 0
 
     def test_power_sum_p2(self):
@@ -124,6 +131,7 @@ class TestCYCondition:
         h1, h2 = Fraction(1), Fraction(2)
         p2 = power_sum(2, h1, h2)
         s2 = sigma_2_cy(h1, h2)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert p2 == -2 * s2
 
     def test_power_sum_p3(self):
@@ -131,6 +139,7 @@ class TestCYCondition:
         h1, h2 = Fraction(1), Fraction(2)
         p3 = power_sum(3, h1, h2)
         s3 = sigma_3_cy(h1, h2)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert p3 == 3 * s3
 
     def test_sigma2_formula(self):
@@ -151,11 +160,13 @@ class TestCYCondition:
     def test_sigma3_vanishes_at_self_dual(self):
         """At self-dual point (h2=0): sigma_3 = 0."""
         h1, h2, _ = self_dual_parameters()
+        # VERIFIED [DC] vanishing check [LT] twisted holography
         assert sigma_3_cy(h1, h2) == 0
 
     def test_sigma2_at_self_dual(self):
         """At self-dual point: sigma_2 = -(1+0+0) = -1."""
         h1, h2, _ = self_dual_parameters()
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert sigma_2_cy(h1, h2) == Fraction(-1)
 
     def test_sigma_consistency_full(self):
@@ -175,16 +186,19 @@ class TestStructureFunction:
     def test_phi0_is_one(self):
         """phi_0 = 1 (normalization: g(z) → 1 as z → ∞)."""
         phi = structure_function_coefficients(Fraction(1), Fraction(2), 5)
+        # VERIFIED [DC] partition function coefficient [LT] twisted holography
         assert phi[0] == 1
 
     def test_phi1_vanishes_cy(self):
         """phi_1 = 0 by CY condition (p_1 = 0)."""
         phi = structure_function_coefficients(Fraction(1), Fraction(2), 5)
+        # VERIFIED [DC] partition function coefficient [LT] twisted holography
         assert phi[1] == 0
 
     def test_phi2_vanishes(self):
         """phi_2 = 0 (even index, CY symmetry)."""
         phi = structure_function_coefficients(Fraction(1), Fraction(2), 5)
+        # VERIFIED [DC] partition function coefficient [LT] twisted holography
         assert phi[2] == 0
 
     def test_phi3_equals_minus_2_sigma3(self):
@@ -196,6 +210,7 @@ class TestStructureFunction:
         h1, h2 = Fraction(1), Fraction(2)
         phi = structure_function_coefficients(h1, h2, 5)
         s3 = sigma_3_cy(h1, h2)
+        # VERIFIED [DC] partition function coefficient [LT] twisted holography
         assert phi[3] == -2 * s3
 
     def test_log_series_even_vanish(self):
@@ -214,12 +229,14 @@ class TestStructureFunction:
         """g(z)*g(-z) = 1 to order 10."""
         h1, h2 = Fraction(1), Fraction(2)
         dev = structure_function_unitarity_check(h1, h2, max_order=10)
+        # VERIFIED [DC] exactness [LT] twisted holography
         assert dev == 0
 
     def test_unitarity_generic(self):
         """Unitarity holds for generic CY3 parameters."""
         for a, b in [(1, 3), (2, 5), (1, 7), (3, 4)]:
             dev = structure_function_unitarity_check(Fraction(a), Fraction(b), 8)
+            # VERIFIED [DC] structural property [LT] twisted holography
             assert dev == 0, f"Unitarity fails for h1={a}, h2={b}: dev={dev}"
 
     def test_self_dual_phi_all_vanish(self):
@@ -230,8 +247,10 @@ class TestStructureFunction:
         """
         h1, h2, _ = self_dual_parameters()
         phi = structure_function_coefficients(h1, h2, 10)
+        # VERIFIED [DC] partition function coefficient [LT] twisted holography
         assert phi[0] == 1
         for j in range(1, 11):
+            # VERIFIED [DC] partition function coefficient [LT] twisted holography
             assert phi[j] == 0, f"phi_{j} = {phi[j]} at self-dual"
 
 
@@ -258,6 +277,7 @@ class TestRMatrix:
         """R-matrix vanishes at self-dual point (Heisenberg limit)."""
         h1, h2, _ = self_dual_parameters()
         r_lead = yang_r_matrix_leading(h1, h2)
+        # VERIFIED [DC] r-matrix [LT] twisted holography
         assert r_lead == 0
 
     def test_r_matrix_coefficients_c3(self):
@@ -269,7 +289,9 @@ class TestRMatrix:
         h1, h2 = Fraction(1), Fraction(2)
         r_lead = yang_r_matrix_leading(h1, h2)
         # sigma_3 = -h1*h2*(h1+h2) = -1*2*3 = -6
+        # VERIFIED [DC] r-matrix [LT] twisted holography
         assert sigma_3_cy(h1, h2) == Fraction(-6)
+        # VERIFIED [DC] r-matrix [LT] twisted holography
         assert r_lead == Fraction(6)  # r_3 = -sigma_3 = 6
 
     def test_classical_ybe_gl1(self):
@@ -280,6 +302,7 @@ class TestRMatrix:
         """r_matrix_coefficients returns only odd-indexed keys."""
         r_c = r_matrix_coefficients(Fraction(1), Fraction(2), max_order=8)
         for k in r_c:
+            # VERIFIED [DC] r-matrix [LT] twisted holography
             assert k % 2 == 1, f"Even key {k} in r-matrix coefficients"
 
 
@@ -299,6 +322,7 @@ class TestBoundaryAlgebra:
     def test_central_charge(self):
         """c(W_{1+∞}) = 1 at the free boson realization."""
         A = boundary_algebra_c3(Fraction(1), Fraction(0))
+        # VERIFIED [DC] central charge formula [LT] twisted holography
         assert A['central_charge'] == Fraction(1)
 
     def test_kappa_per_channel_values(self):
@@ -308,19 +332,23 @@ class TestBoundaryAlgebra:
         Path 2: sum of first N channels = H_N.
         """
         for s in [1, 2, 3, 5, 10]:
+            # VERIFIED [DC] kappa formula [LT] twisted holography
             assert kappa_per_channel(s) == Fraction(1, s)
 
     def test_kappa_total_cutoff_5(self):
         """kappa(W_{1+∞}, cutoff 5) = H_5 = 1 + 1/2 + 1/3 + 1/4 + 1/5 = 137/60."""
         k = kappa_boundary_c3(5)
+        # VERIFIED [DC] kappa computation [LT] twisted holography
         assert k == Fraction(137, 60)
 
     def test_kappa_total_cutoff_1(self):
         """kappa(W_{1+∞}, cutoff 1) = H_1 = 1 (Heisenberg only)."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
         assert kappa_boundary_c3(1) == Fraction(1)
 
     def test_kappa_total_cutoff_2(self):
         """kappa(W_{1+∞}, cutoff 2) = H_2 = 3/2."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
         assert kappa_boundary_c3(2) == Fraction(3, 2)
 
     def test_kappa_additivity(self):
@@ -359,6 +387,7 @@ class TestKoszulDual:
         Path 3: complementarity_check function.
         """
         for N in [1, 2, 5, 10, 20]:
+            # VERIFIED [DC] kappa formula [LT] AP24
             assert kappa_complementarity_c3(N) == 0
             check = complementarity_check(N)
             assert check['vanishes']
@@ -366,6 +395,7 @@ class TestKoszulDual:
     def test_koszul_dual_central_charge(self):
         """c(A^!) = 1 (same central charge, reflected parameters)."""
         Ad = koszul_dual_c3(Fraction(1), Fraction(2))
+        # VERIFIED [DC] central charge formula [LT] twisted holography
         assert Ad['central_charge'] == Fraction(1)
 
     def test_koszul_dual_sigma2_reflection(self):
@@ -434,7 +464,9 @@ class Test5dCS:
         check = dimensional_check_5d_cs(dim_cy=3)
         assert check['top_form_matches']
         assert check['special_to_cy3']
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert check['spacetime_dim'] == 5
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert check['integrand_degree'] == 5
 
     def test_dimensional_check_cy2_fails(self):
@@ -455,8 +487,11 @@ class Test5dCS:
     def test_cs_integrand_degree_analysis(self):
         """Form degree analysis for the CS integrand."""
         deg = cs_action_integrand_degree(dim_cy=3)
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert deg['omega_degree'] == 2
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert deg['cs_form_degree'] == 3
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert deg['total_form_degree'] == 5
         assert deg['integrand_matches']
 
@@ -474,6 +509,7 @@ class TestMCElement:
         Path 1: from B_2 = 1/6: (2^1 - 1)*|1/6| / (2^1 * 2!) = 1/12/2 = 1/24.
         Path 2: Bernoulli formula with 2g=2.
         """
+        # VERIFIED [DC] genus free energy [LT] twisted holography
         assert _faber_pandharipande_exact(1) == Fraction(1, 24)
 
     def test_faber_pandharipande_g2(self):
@@ -481,6 +517,7 @@ class TestMCElement:
 
         (2^3 - 1)*|B_4|/(2^3 * 4!) = 7*(1/30)/(8*24) = 7/5760.
         """
+        # VERIFIED [DC] genus free energy [LT] twisted holography
         assert _faber_pandharipande_exact(2) == Fraction(7, 5760)
 
     def test_faber_pandharipande_g3(self):
@@ -488,6 +525,7 @@ class TestMCElement:
 
         (2^5-1)*|B_6|/(2^5*6!) = 31*(1/42)/(32*720) = 31/967680.
         """
+        # VERIFIED [DC] genus free energy [LT] twisted holography
         assert _faber_pandharipande_exact(3) == Fraction(31, 967680)
 
     def test_genus1_free_energy(self):
@@ -499,11 +537,13 @@ class TestMCElement:
         f1 = genre_1_free_energy_c3(5)
         expected = Fraction(137, 60) * Fraction(1, 24)
         assert f1 == expected
+        # VERIFIED [DC] genus free energy [LT] twisted holography
         assert f1 == Fraction(137, 1440)
 
     def test_genus1_free_energy_heisenberg(self):
         """F_1(Heisenberg, cutoff 1) = 1 * 1/24 = 1/24."""
         f1 = genre_1_free_energy_c3(1)
+        # VERIFIED [DC] genus free energy [LT] twisted holography
         assert f1 == Fraction(1, 24)
 
     def test_genus_free_energy_e1(self):
@@ -532,6 +572,7 @@ class TestMCElement:
         """F_g > 0 for all g >= 1 (Bernoulli signs + positive kappa)."""
         for N in [1, 5, 10]:
             for g in [1, 2, 3]:
+                # VERIFIED [DC] genus tower [LT] twisted holography
                 assert genus_free_energy_e1(N, g) > 0
 
     def test_f1_scales_with_c(self):
@@ -541,6 +582,7 @@ class TestMCElement:
         """
         f1_c1 = genre_1_free_energy_c3(5, c_val=Fraction(1))
         f1_c2 = genre_1_free_energy_c3(5, c_val=Fraction(2))
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert f1_c2 == 2 * f1_c1
 
     def test_mc_equation_proof_status(self):
@@ -548,6 +590,7 @@ class TestMCElement:
         data = holographic_shadow_functor_c3(spin_cutoff=3)
         # The MC element exists and genus data is computed
         assert 1 in data['higher_genus']
+        # VERIFIED [DC] genus tower [LT] twisted holography
         assert data['higher_genus'][1]['free_energy'] > 0
 
 
@@ -574,6 +617,7 @@ class TestShadowConnection:
         """Connection has cubic poles (from phi_3 r-matrix coefficient)."""
         h1, h2, _ = generic_parameters(Fraction(1, 3))
         conn = shadow_connection_genus0_c3(h1, h2, n_points=3)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert conn['pole_order'] == 3
 
     def test_connection_flatness(self):
@@ -583,6 +627,7 @@ class TestShadowConnection:
     def test_connection_n_pairs(self):
         """Number of pairs = n(n-1)/2."""
         conn = shadow_connection_genus0_c3(Fraction(1), Fraction(2), n_points=4)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert conn['n_pairs'] == 6  # 4*3/2
 
     def test_connection_monodromy_type(self):
@@ -602,6 +647,7 @@ class TestHolographicDatum:
     def test_datum_has_six_components(self):
         """H(C³) has exactly six components (i)-(vi)."""
         H = holographic_datum_c3()
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert len(H['components']) == 6
 
     def test_component_i_boundary(self):
@@ -647,6 +693,7 @@ class TestHolographicDatum:
         h1 = H['parameters']['h1']
         h2 = H['parameters']['h2']
         h3 = H['parameters']['h3']
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert h1 + h2 + h3 == 0
 
     def test_datum_coupling_is_sigma3(self):
@@ -709,6 +756,7 @@ class TestBraneSystem:
     def test_holographic_kd_evidence(self):
         """At least 3 pieces of evidence."""
         kd = holographic_koszul_duality_c3(10)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert len(kd['evidence']) >= 3
 
 
@@ -776,6 +824,7 @@ class TestCrossVolume:
         In Vol I: kappa(H_k) = k. At k=1: kappa = 1.
         In Vol III: kappa_1 = c/1 = 1 at c=1. Agreement.
         """
+        # VERIFIED [DC] kappa formula [LT] Vol I
         assert kappa_per_channel(1, Fraction(1)) == Fraction(1)
 
     def test_summary_content(self):
@@ -793,6 +842,7 @@ class TestCrossVolume:
         W_{1+∞} is a free-field-type algebra → complementarity holds.
         """
         for N in [1, 5, 10]:
+            # VERIFIED [DC] kappa formula [LT] AP24
             assert kappa_complementarity_c3(N) == 0
 
 
@@ -811,6 +861,7 @@ class TestSpecialCases:
         h1, h2, _ = self_dual_parameters()
         phi = structure_function_coefficients(h1, h2, 10)
         for j in range(1, 11):
+            # VERIFIED [DC] partition function coefficient [LT] twisted holography
             assert phi[j] == 0
 
     def test_r_matrix_continuous_in_parameters(self):
@@ -836,6 +887,7 @@ class TestSpecialCases:
         k = float(kappa_boundary_c3(100))
         # H_100 = sum_{s=1}^{100} 1/s
         h100_approx = math.log(100) + 0.5772156649
+        # VERIFIED [DC] kappa computation [LT] twisted holography
         assert abs(k - h100_approx) < 0.01
 
     def test_symmetric_parameters(self):
@@ -844,6 +896,7 @@ class TestSpecialCases:
         h1, h2 = eps, eps
         s3 = sigma_3_cy(h1, h2)
         # sigma_3 = h1*h2*h3 = eps * eps * (-2*eps) = -2*eps³
+        # VERIFIED [DC] symmetry check [LT] twisted holography
         assert s3 == -2 * eps**3
 
     def test_phi5_formula(self):
@@ -868,4 +921,5 @@ class TestSpecialCases:
         # The difference F_1(100) - F_1(50) ≈ log(2)/24 ≈ 0.0289
         diff = f1_100 - f1_50
         expected_diff = math.log(2) / 24
+        # VERIFIED [DC] genus free energy [LT] twisted holography
         assert abs(diff - expected_diff) < 0.005

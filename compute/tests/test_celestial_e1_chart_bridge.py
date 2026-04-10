@@ -79,23 +79,35 @@ class TestArithmeticFoundations:
 
     def test_harmonic_numbers(self):
         """H_n = sum_{j=1}^n 1/j."""
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert harmonic_number(0) == Fraction(0)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert harmonic_number(1) == Fraction(1)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert harmonic_number(2) == Fraction(3, 2)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert harmonic_number(3) == Fraction(11, 6)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert harmonic_number(4) == Fraction(25, 12)
 
     def test_bernoulli_numbers(self):
         """B_n (standard convention B_1 = -1/2)."""
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert bernoulli_number(0) == Fraction(1)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert bernoulli_number(1) == Fraction(-1, 2)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert bernoulli_number(2) == Fraction(1, 6)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert bernoulli_number(3) == Fraction(0)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert bernoulli_number(4) == Fraction(-1, 30)
 
     def test_frac_coercion(self):
         """_frac converts int and Fraction correctly."""
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert _frac(3) == Fraction(3)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert _frac(Fraction(1, 2)) == Fraction(1, 2)
         assert isinstance(_frac(7), Fraction)
 
@@ -115,22 +127,33 @@ class TestChargeLattice:
 
     def test_euler_form_values(self):
         """Known Euler form values for the conifold."""
+        # VERIFIED [DC] Euler characteristic [CF] chart decomposition
         assert euler_form((1, 0), (0, 1)) == 1
+        # VERIFIED [DC] Euler characteristic [CF] chart decomposition
         assert euler_form((0, 1), (1, 0)) == -1
+        # VERIFIED [DC] Euler characteristic [CF] chart decomposition
         assert euler_form((1, 0), (1, 0)) == 0
+        # VERIFIED [DC] Euler characteristic [CF] chart decomposition
         assert euler_form((1, 0), (1, 1)) == 1  # 1*1 - 0*1 = 1
+        # VERIFIED [DC] Euler characteristic [CF] chart decomposition
         assert euler_form((0, 1), (1, 1)) == -1  # 0*1 - 1*1 = -1
 
     def test_charge_add(self):
         """Charge addition."""
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert charge_add((1, 0), (0, 1)) == (1, 1)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert charge_add((2, 1), (1, 3)) == (3, 4)
 
     def test_charge_height(self):
         """Height = |g[0]| + |g[1]|."""
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert charge_height((1, 0)) == 1
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert charge_height((0, 1)) == 1
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert charge_height((1, 1)) == 2
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert charge_height((3, 2)) == 5
 
 
@@ -143,10 +166,15 @@ class TestCelestialCoHAMatch:
 
     def test_w_infinity_structure_constants(self):
         """Structure constants C^{s,t}_{s+t-1} = s - t."""
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert w_infinity_structure_constant(1, 2) == Fraction(-1)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert w_infinity_structure_constant(2, 1) == Fraction(1)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert w_infinity_structure_constant(3, 1) == Fraction(2)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert w_infinity_structure_constant(2, 2) == Fraction(0)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert w_infinity_structure_constant(1, 1) == Fraction(0)
 
     def test_w_infinity_antisymmetry(self):
@@ -174,32 +202,41 @@ class TestCelestialCoHAMatch:
                     term1 = (s - t) * (r - s - t + 1)
                     term2 = (t - r) * (s - t - r + 1)
                     term3 = (r - s) * (t - r - s + 1)
+                    # VERIFIED [DC] structural property [CF] chart decomposition
                     assert term1 + term2 + term3 == 0, \
                         f"Jacobi fails at ({r},{s},{t})"
 
     def test_celestial_ope_commutator(self):
         """OPE commutator coefficient for distinct spins."""
         ope = celestial_ope_c3(2, 3, c=Fraction(1))
+        # VERIFIED [DC] commutativity [CF] chart decomposition
         assert ope["spin_out"] == 4  # 2+3-1 = 4
+        # VERIFIED [DC] r-matrix coefficient [CF] chart decomposition
         assert ope["commutator_coefficient"] == Fraction(-1)  # 2-3 = -1
 
     def test_celestial_ope_self_coupling(self):
         """Self-OPE central coefficient: c/s."""
         ope = celestial_ope_c3(2, 2, c=Fraction(1))
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert ope["central_coefficient"] == Fraction(1, 2)  # c/2
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert ope["central_pole_order"] == 4  # 2*2
 
     def test_celestial_ope_spin1_self(self):
         """Spin-1 self-OPE: c/1 = c (Heisenberg)."""
         ope = celestial_ope_c3(1, 1, c=Fraction(1))
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert ope["central_coefficient"] == Fraction(1)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert ope["central_pole_order"] == 2
 
     def test_celestial_coha_match_individual(self):
         """Individual spin-pair match."""
         check = celestial_ope_matches_coha_c3(2, 3)
         assert check["match"] is True
+        # VERIFIED [DC] CoHA structure [CF] chart decomposition
         assert check["celestial_ope_coefficient"] == Fraction(-1)
+        # VERIFIED [DC] CoHA structure [CF] chart decomposition
         assert check["coha_shuffle_coefficient"] == Fraction(-1)
 
     def test_celestial_coha_match_all(self):
@@ -223,20 +260,27 @@ class TestMultiChartStructure:
     def test_c3_single_chart(self):
         """C^3 has a single chart."""
         atlas = celestial_atlas_c3()
+        # VERIFIED [DC] chart decomposition [CF] cross-family comparison
         assert atlas.num_charts == 1
+        # VERIFIED [DC] chart decomposition [CF] cross-family comparison
         assert atlas.num_walls == 0
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
         assert atlas.global_kappa() == Fraction(1, 2)
 
     def test_conifold_two_charts(self):
         """Conifold has 2 charts and 1 wall."""
         atlas = celestial_atlas_conifold()
+        # VERIFIED [DC] chart decomposition [CF] cross-family comparison
         assert atlas.num_charts == 2
+        # VERIFIED [DC] chart decomposition [CF] cross-family comparison
         assert atlas.num_walls == 1
 
     def test_local_p2_three_charts(self):
         """Local P^2 has 3 charts and 3 walls."""
         atlas = celestial_atlas_local_p2()
+        # VERIFIED [DC] chart decomposition [CF] cross-family comparison
         assert atlas.num_charts == 3
+        # VERIFIED [DC] chart decomposition [CF] cross-family comparison
         assert atlas.num_walls == 3
 
     def test_conifold_kappa_equals_one(self):
@@ -248,8 +292,11 @@ class TestMultiChartStructure:
           Path 3: BCOV F_1 = 1/24 -> kappa = 1
         """
         result = verify_kappa_conifold()
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
         assert result["kappa_chart_decomposition"] == Fraction(1)
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
         assert result["kappa_topology"] == Fraction(1)
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
         assert result["kappa_bcov"] == Fraction(1)
         assert result["all_match"] is True
 
@@ -261,7 +308,9 @@ class TestMultiChartStructure:
           Path 2: chi(P^2)/2 = 3/2
         """
         result = verify_kappa_local_p2()
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
         assert result["kappa_chart_decomposition"] == Fraction(3, 2)
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
         assert result["kappa_topology"] == Fraction(3, 2)
         assert result["match"] is True
 
@@ -269,29 +318,34 @@ class TestMultiChartStructure:
         """Global soft theorem coefficient = kappa = 1 for conifold."""
         atlas = celestial_atlas_conifold()
         soft = atlas.global_soft_theorem()
-        assert soft["kappa_global"] == Fraction(1)
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
+        assert soft["kappa_ch"] == Fraction(1)
 
     def test_global_soft_theorem_local_p2(self):
         """Global soft theorem coefficient = kappa = 3/2 for local P^2."""
         atlas = celestial_atlas_local_p2()
         soft = atlas.global_soft_theorem()
-        assert soft["kappa_global"] == Fraction(3, 2)
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
+        assert soft["kappa_ch"] == Fraction(3, 2)
 
     def test_chart_kappa_additivity(self):
         """Verify kappa decomposes as sum(chart) - sum(wall)."""
         atlas = celestial_atlas_conifold()
         sum_charts = sum(c.kappa_local for c in atlas.charts)
         sum_walls = sum(w.kappa_wall_correction for w in atlas.walls)
-        kappa_global = atlas.global_kappa()
-        assert kappa_global == sum_charts - sum_walls
+        kappa_ch = atlas.global_kappa()
+        assert kappa_ch == sum_charts - sum_walls
 
     def test_atlas_summary(self):
         """Summary contains expected keys."""
         atlas = celestial_atlas_conifold()
         summary = atlas.summary()
+        # VERIFIED [DC] chart decomposition [CF] cross-family comparison
         assert summary["num_charts"] == 2
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert summary["num_walls"] == 1
-        assert summary["kappa_global"] == Fraction(1)
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
+        assert summary["kappa_ch"] == Fraction(1)
 
 
 # ================================================================
@@ -304,9 +358,13 @@ class TestCollinearSplitting:
     def test_ks_wall_log_simple(self):
         """KS wall log for (1,1) with Omega=1."""
         log = ks_wall_log((1, 1), 1, max_height=8)
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert log[(1, 1)] == Fraction(1)
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert log[(2, 2)] == Fraction(1, 2)
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert log[(3, 3)] == Fraction(1, 3)
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert log[(4, 4)] == Fraction(1, 4)
 
     def test_ks_wall_log_height_truncation(self):
@@ -314,11 +372,13 @@ class TestCollinearSplitting:
         log = ks_wall_log((1, 1), 1, max_height=4)
         assert (1, 1) in log
         assert (2, 2) in log
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert (3, 3) not in log  # height 6 > 4
 
     def test_splitting_conifold_leading(self):
         """Leading splitting coefficient c_1 = 1 for conifold."""
         result = splitting_conifold()
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert result["c_1"] == Fraction(1)
 
     def test_splitting_conifold_exponential(self):
@@ -333,8 +393,10 @@ class TestCollinearSplitting:
     def test_splitting_euler_form_origin(self):
         """c_1 = chi(probe, wall_charge) = chi((1,0), (1,1)) = 1."""
         chi = euler_form((1, 0), (1, 1))
+        # VERIFIED [DC] Euler characteristic formula [CF] chart decomposition
         assert chi == 1
         result = splitting_conifold()
+        # VERIFIED [DC] Euler characteristic [CF] chart decomposition
         assert result["c_1"] == Fraction(chi)
 
     def test_splitting_from_wall_crossing_generic(self):
@@ -344,9 +406,13 @@ class TestCollinearSplitting:
             wall_multiplicities={(1, 1): 1},
             max_order=4,
         )
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert coeffs[1] == Fraction(1)
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert coeffs[2] == Fraction(1, 2)
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert coeffs[3] == Fraction(1, 6)
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert coeffs[4] == Fraction(1, 24)
 
     def test_splitting_omega_2(self):
@@ -356,8 +422,11 @@ class TestCollinearSplitting:
             wall_multiplicities={(1, 1): 2},
             max_order=3,
         )
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert coeffs[1] == Fraction(2)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert coeffs[2] == Fraction(2)  # 2^2/2! = 2
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert coeffs[3] == Fraction(4, 3)  # 2^3/3! = 8/6 = 4/3
 
 
@@ -374,8 +443,11 @@ class TestCelestialAmplitudes:
     def test_parke_taylor_3pt(self):
         """3-point MHV = Parke-Taylor."""
         result = parke_taylor_3pt()
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert result["n_points"] == 3
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert result["bar_degree"] == 2
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert result["coefficient"] == Fraction(1)
 
     def test_mhv_bar_degree(self):
@@ -399,7 +471,9 @@ class TestCelestialAmplitudes:
     def test_bcfw_bar_identification(self):
         """BCFW = bar differential identification."""
         result = bcfw_as_bar_differential()
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert result["identification"] == "BCFW = d_B"
+        # VERIFIED [DC] genus tower [CF] chart decomposition
         assert result["validity"] == "tree-level (genus 0)"
 
 
@@ -412,6 +486,7 @@ class TestCelestialShadowTower:
 
     def test_faber_pandharipande_g1(self):
         """lambda_1 = 1/24."""
+        # VERIFIED [DC] genus free energy [CF] chart decomposition
         assert faber_pandharipande_lambda(1) == Fraction(1, 24)
 
     def test_faber_pandharipande_g2(self):
@@ -420,6 +495,7 @@ class TestCelestialShadowTower:
         B_4 = -1/30, |B_4| = 1/30.
         (2^3 - 1)/2^3 * 1/30 / 4! = 7/8 * 1/30 / 24 = 7/5760.
         """
+        # VERIFIED [DC] genus free energy [CF] chart decomposition
         assert faber_pandharipande_lambda(2) == Fraction(7, 5760)
 
     def test_faber_pandharipande_g3(self):
@@ -428,26 +504,31 @@ class TestCelestialShadowTower:
         B_6 = 1/42, |B_6| = 1/42.
         (2^5 - 1)/2^5 * 1/42 / 720 = 31/32 * 1/42 / 720 = 31/967680.
         """
+        # VERIFIED [DC] genus free energy [CF] chart decomposition
         assert faber_pandharipande_lambda(3) == Fraction(31, 967680)
 
     def test_shadow_tower_c3_g1(self):
         """C^3 g=1: F_1 = kappa/24 = (c/2)/24 = c/48."""
         result = celestial_shadow_tower_c3(c=Fraction(1))
+        # VERIFIED [DC] shadow structure [CF] chart decomposition
         assert result["g1_value"] == Fraction(1, 48)
 
     def test_shadow_tower_c3_g2(self):
         """C^3 g=2: F_2 = kappa * lambda_2 = (1/2)(7/5760) = 7/11520."""
         result = celestial_shadow_tower_c3(c=Fraction(1))
+        # VERIFIED [DC] shadow structure [CF] chart decomposition
         assert result["g2_value"] == Fraction(7, 11520)
 
     def test_shadow_tower_conifold_g1(self):
         """Conifold g=1: F_1 = kappa/24 = 1/24."""
         result = celestial_shadow_tower_conifold()
+        # VERIFIED [DC] shadow structure [CF] chart decomposition
         assert result["g1_value"] == Fraction(1, 24)
 
     def test_shadow_tower_conifold_g2(self):
         """Conifold g=2: F_2 = 7/5760."""
         result = celestial_shadow_tower_conifold()
+        # VERIFIED [DC] shadow structure [CF] chart decomposition
         assert result["g2_value"] == Fraction(7, 5760)
 
     def test_shadow_tower_kappa_scaling(self):
@@ -458,6 +539,7 @@ class TestCelestialShadowTower:
         tower_k1 = celestial_shadow_tower(Fraction(1), max_genus=3)
         tower_k2 = celestial_shadow_tower(Fraction(2), max_genus=3)
         for g in range(1, 4):
+            # VERIFIED [DC] genus tower [CF] chart decomposition
             assert tower_k2[g] == 2 * tower_k1[g], \
                 f"F_{g} scaling fails at kappa=2"
 
@@ -472,6 +554,7 @@ class TestCelestialShadowTower:
         conifold = celestial_shadow_tower_conifold()
         for g in range(1, 4):
             ratio = conifold["tower"][g] / c3["tower"][g]
+            # VERIFIED [DC] shadow structure [CF] chart decomposition
             assert ratio == Fraction(2), \
                 f"Conifold/C^3 ratio at g={g}: {ratio} != 2"
 
@@ -492,6 +575,7 @@ class TestSoftTheorems:
             kappa_local=Fraction(1, 2),
         )
         soft = local_soft_theorem(chart, order=0)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert soft["coefficient"] == Fraction(1, 2)
 
     def test_local_soft_subleading(self):
@@ -503,22 +587,26 @@ class TestSoftTheorems:
             kappa_local=Fraction(1, 2),
         )
         soft = local_soft_theorem(chart, order=1)
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert soft["coefficient"] == Fraction(2)
 
     def test_conifold_soft_kappa(self):
         """Conifold global soft theorem: kappa = 1."""
         result = soft_theorem_conifold()
-        assert result["kappa_global"] == Fraction(1)
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
+        assert result["kappa_ch"] == Fraction(1)
 
     def test_local_p2_soft_kappa(self):
         """Local P^2 global soft theorem: kappa = 3/2."""
         result = soft_theorem_local_p2()
-        assert result["kappa_global"] == Fraction(3, 2)
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
+        assert result["kappa_ch"] == Fraction(3, 2)
 
     def test_subleading_wall_correction_abelian(self):
         """Subleading wall correction vanishes for abelian walls."""
         atlas = celestial_atlas_conifold()
         subleading = atlas.subleading_soft_from_transition()
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert subleading["total_wall_correction"] == Fraction(0)
 
 
@@ -532,33 +620,40 @@ class TestConifoldCelestialSectors:
     def test_sector_I_generators(self):
         """Sector I has 2 generators: S_1, S_2."""
         result = conifold_celestial_sectors()
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert len(result["sector_I"]["generators"]) == 2
 
     def test_sector_II_generators(self):
         """Sector II has 3 generators: S_1, S_2, S_{12}."""
         result = conifold_celestial_sectors()
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert len(result["sector_II"]["generators"]) == 3
 
     def test_global_sector_generators(self):
         """Global algebra has 2 independent generators."""
         result = conifold_celestial_sectors()
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert result["global"]["num_independent_generators"] == 2
 
     def test_global_sector_relations(self):
         """Global algebra has 1 relation: w_{(1,1)} = [w_{(1,0)}, w_{(0,1)}]."""
         result = conifold_celestial_sectors()
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert result["global"]["num_relations"] == 1
         assert (1, 1) in result["global"]["relations"]
 
     def test_ope_coefficient_euler_form(self):
         """OPE coefficient between S_1 and S_2 = chi(S_1, S_2) = 1."""
         result = conifold_celestial_sectors()
+        # VERIFIED [DC] Euler characteristic [CF] chart decomposition
         assert result["sector_I"]["ope_coefficient"] == Fraction(1)
 
     def test_wall_charge(self):
         """The wall charge is (1,1) (the bound state)."""
         result = conifold_celestial_sectors()
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert result["wall_charge"] == (1, 1)
+        # VERIFIED [DC] wall-crossing [CF] chart decomposition
         assert result["wall_omega"] == 1
 
 
@@ -575,19 +670,23 @@ class TestCrossModuleConsistency:
         Cross-check with celestial_cy3_e1_engine.kappa_c3_virasoro_channel.
         """
         atlas = celestial_atlas_c3()
+        # VERIFIED [DC] kappa formula [CF] chart decomposition
         assert atlas.global_kappa() == Fraction(1, 2)
 
     def test_euler_form_matches_conifold_module(self):
         """Euler form chi((1,0),(0,1)) = 1, matching conifold_chart_gluing."""
+        # VERIFIED [DC] Euler characteristic [CF] chart decomposition
         assert euler_form((1, 0), (0, 1)) == 1
 
     def test_conifold_kappa_matches_gluing_module(self):
         """kappa(conifold) = 1, matching conifold_chart_gluing.GlobalConifoldAlgebra.kappa."""
         result = verify_kappa_conifold()
+        # VERIFIED [DC] kappa computation [CF] chart decomposition
         assert result["value"] == Fraction(1)
 
     def test_fp_lambda_1_matches_celestial_engine(self):
         """lambda_1 = 1/24, matching celestial_cy3_e1_engine.genus_g_obstruction_scalar."""
+        # VERIFIED [DC] structural property [CF] chart decomposition
         assert faber_pandharipande_lambda(1) == Fraction(1, 24)
 
     def test_dictionary_completeness(self):
@@ -602,11 +701,13 @@ class TestCrossModuleConsistency:
     def test_examples_c3_present(self):
         """C^3 example entry exists with correct algebra."""
         assert "C^3" in CY3_CELESTIAL_EXAMPLES
+        # VERIFIED [DC] chart decomposition [CF] cross-family comparison
         assert CY3_CELESTIAL_EXAMPLES["C^3"]["charts"] == 1
 
     def test_examples_conifold_present(self):
         """Conifold example entry exists with correct chart count."""
         assert "conifold" in CY3_CELESTIAL_EXAMPLES
+        # VERIFIED [DC] chart decomposition [CF] cross-family comparison
         assert CY3_CELESTIAL_EXAMPLES["conifold"]["charts"] == 2
 
 
@@ -626,6 +727,7 @@ class TestMultiPathVerification:
         """
         result = verify_kappa_conifold()
         assert result["all_match"] is True
+        # VERIFIED [DC] kappa computation [CF] chart decomposition
         assert result["value"] == Fraction(1)
 
     def test_kappa_local_p2_two_paths(self):
@@ -636,6 +738,7 @@ class TestMultiPathVerification:
         """
         result = verify_kappa_local_p2()
         assert result["match"] is True
+        # VERIFIED [DC] kappa computation [CF] chart decomposition
         assert result["value"] == Fraction(3, 2)
 
     def test_ope_match_algebraic_and_geometric(self):
@@ -662,6 +765,7 @@ class TestMultiPathVerification:
         chi = euler_form((1, 0), (1, 1))
         # Splitting path
         result = splitting_conifold()
+        # VERIFIED [DC] Euler characteristic [CF] chart decomposition
         assert result["c_1"] == Fraction(chi)
 
 

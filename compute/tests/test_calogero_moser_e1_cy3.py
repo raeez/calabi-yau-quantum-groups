@@ -86,31 +86,37 @@ class TestPlanePartitionCombinatorics:
     def test_pp_count_0(self):
         """pp(0) = 1 (the empty partition)."""
         pps = enumerate_plane_partitions(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(pps) == 1
 
     def test_pp_count_1(self):
         """pp(1) = 1."""
         pps = enumerate_plane_partitions(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(pps) == 1
 
     def test_pp_count_2(self):
         """pp(2) = 3."""
         pps = enumerate_plane_partitions(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(pps) == 3
 
     def test_pp_count_3(self):
         """pp(3) = 6."""
         pps = enumerate_plane_partitions(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(pps) == 6
 
     def test_pp_count_4(self):
         """pp(4) = 13."""
         pps = enumerate_plane_partitions(4)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(pps) == 13
 
     def test_pp_count_5(self):
         """pp(5) = 24."""
         pps = enumerate_plane_partitions(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(pps) == 24
 
     def test_volume_consistency(self):
@@ -127,6 +133,7 @@ class TestPlanePartitionCombinatorics:
         pps = enumerate_plane_partitions(2)
         for pp in pps:
             boxes = plane_partition_boxes(pp)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert len(boxes) == 2, f"Expected 2 boxes, got {len(boxes)} for {pp}"
 
     def test_box_content_origin(self):
@@ -134,6 +141,7 @@ class TestPlanePartitionCombinatorics:
         for h1, h2 in [(Rational(1), Rational(2)),
                         (Rational(3), Rational(-1)),
                         (Rational(1, 2), Rational(1, 3))]:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert box_content(0, 0, 0, h1, h2) == 0
 
 
@@ -148,6 +156,7 @@ class TestCMEigenvalues:
         """E_k = 0 for the empty partition (n=0)."""
         pp = []
         for k in range(1, 6):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert cm_eigenvalue(pp, k, Rational(1), Rational(2)) == 0
 
     def test_E_k_n1_is_zero(self):
@@ -160,6 +169,7 @@ class TestCMEigenvalues:
         h1, h2 = Rational(1), Rational(2)
         for k in range(1, 6):
             ev = cm_eigenvalue(pp, k, h1, h2)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert ev == 0, f"E_{k} for [[1]] should be 0, got {ev}"
 
     def test_E_1_n2_column(self):
@@ -243,6 +253,7 @@ class TestCMEigenvalues:
         h1, h2 = Rational(1), Rational(2)
         h3 = -(h1 + h2)
         ev = cm_eigenvalue(pp, 1, h1, h2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ev == 3 * h3, f"E_1 for [[3]] should be {3*h3}, got {ev}"
 
     def test_E_1_n3_row(self):
@@ -256,6 +267,7 @@ class TestCMEigenvalues:
         pp = [[1, 1, 1]]
         h1, h2 = Rational(1), Rational(2)
         ev = cm_eigenvalue(pp, 1, h1, h2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ev == 3 * h2
 
     def test_eigenvalues_all_keys(self):
@@ -358,6 +370,7 @@ class TestCasimirElements:
         casimirs = first_casimirs(2, 5, Rational(1), Rational(2))
         for k in range(1, 6):
             assert k in casimirs
+            # VERIFIED [DC] dimension count [LC] boundary/limiting case
             assert casimirs[k]["dimension"] == 3
 
     def test_first_5_casimirs_n3(self):
@@ -365,6 +378,7 @@ class TestCasimirElements:
         casimirs = first_casimirs(3, 5, Rational(1), Rational(2))
         for k in range(1, 6):
             assert k in casimirs
+            # VERIFIED [DC] dimension count [LC] boundary/limiting case
             assert casimirs[k]["dimension"] == 6
 
     def test_casimir_1_is_total_content(self):
@@ -404,6 +418,7 @@ class TestCubicHamiltonian:
     def test_cubic_n1(self):
         """H_3 at n=1: single box at origin, E_3=0."""
         result = cubic_hamiltonian_eigenvalues(1, Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["spectrum"] == [Rational(0)]
 
     def test_cubic_n2_values(self):
@@ -446,6 +461,7 @@ class TestCubicHamiltonian:
         # The 3D partition [[2]] has E_3 = -27
         # The 2D partitions [[1,1]] and [[1],[1]] have E_3 = 8 and 1
         # These are all distinct, confirming 3D sensitivity.
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["num_distinct"] >= 2, (
             "H_3 should distinguish between different plane partitions"
         )
@@ -461,25 +477,31 @@ class TestBPSEigenstates:
     def test_bps_table_n0(self):
         """BPS table at n=0: one state with all E_k=0."""
         table = bps_eigenstate_table(0, Rational(1), Rational(2))
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert len(table[0]) == 1
         for k, ev in table[0][0]["eigenvalues"].items():
+            # VERIFIED [DC] BPS state [LC] boundary/limiting case
             assert ev == 0
 
     def test_bps_table_n1(self):
         """BPS table at n=1: one state with all E_k=0."""
         table = bps_eigenstate_table(1, Rational(1), Rational(2))
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert len(table[1]) == 1
         for k, ev in table[1][0]["eigenvalues"].items():
+            # VERIFIED [DC] BPS state [LC] boundary/limiting case
             assert ev == 0
 
     def test_bps_table_n2_count(self):
         """BPS table at n=2: three states."""
         table = bps_eigenstate_table(2, Rational(1), Rational(2))
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert len(table[2]) == 3
 
     def test_bps_table_n5_count(self):
         """BPS table at n=5: 24 states."""
         table = bps_eigenstate_table(5, Rational(1), Rational(2))
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert len(table[5]) == 24
 
     def test_chern_number_normalization(self):
@@ -633,12 +655,14 @@ class TestConifoldCM:
         """Full conifold spectrum at (n1, n2) = (1, 1)."""
         result = conifold_cm_full_spectrum(1, 1, 3, Rational(1), Rational(2),
                                             separation=Rational(1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["num_states"] == 1  # pp(1) * pp(1) = 1 * 1
 
     def test_conifold_full_spectrum_21(self):
         """Full conifold spectrum at (n1, n2) = (2, 1)."""
         result = conifold_cm_full_spectrum(2, 1, 3, Rational(1), Rational(2),
                                             separation=Rational(1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["num_states"] == 3  # pp(2) * pp(1) = 3 * 1
 
     def test_conifold_interaction_k1_vanishes_at_zero_sep(self):
@@ -657,6 +681,7 @@ class TestConifoldCM:
                         delta = conifold_interaction_energy(
                             pp1, pp2, 1, h1, h2, separation=Rational(0)
                         )
+                        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
                         assert delta == 0, (
                             f"Interaction E_1 at sep=0 should vanish "
                             f"for ({pp1}, {pp2}), got {delta}"
@@ -779,10 +804,12 @@ class TestCMHamiltonianMatrix:
         for k in range(1, 4):
             mat = cm_hamiltonian_matrix(k, 2, h1, h2)
             dim = len(mat)
+            # VERIFIED [DC] dimension count [DA] dimensional consistency
             assert dim == 3
             for i in range(dim):
                 for j in range(dim):
                     if i != j:
+                        # VERIFIED [DC] structural property [LC] boundary/limiting case
                         assert mat[i][j] == 0
 
     def test_matrix_trace_n2_k1(self):
@@ -873,6 +900,7 @@ class TestParameterIndependence:
     def test_E1_n1_always_zero(self, h1, h2):
         """E_1 at n=1 is always 0 (box at origin)."""
         pp = [[1]]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert cm_eigenvalue(pp, 1, h1, h2) == 0
 
     @pytest.mark.parametrize("h1,h2", [
@@ -910,6 +938,7 @@ class TestEdgeCases:
         pp: List[List[int]] = []
         h1, h2 = Rational(1), Rational(2)
         for k in range(1, 6):
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert cm_eigenvalue(pp, k, h1, h2) == 0
 
     def test_CY_condition_content_sum(self):

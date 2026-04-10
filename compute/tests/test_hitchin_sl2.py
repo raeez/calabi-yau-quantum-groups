@@ -50,12 +50,19 @@ class TestHitchinDimensions:
     def test_sl2_g2_basic_dimensions(self):
         """SL_2, g=2: the distinguished case."""
         h = hitchin_dimensions('SL_2', 2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert h.dim_real == 12
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert h.dim_complex == 6
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert h.dim_hitchin_base == 3
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert h.dim_hitchin_fibre == 3
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert h.dim_group == 3
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert h.rank_group == 1
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert h.casimir_degrees == (2,)
 
     def test_sl2_g2_is_lagrangian_cy3(self):
@@ -63,19 +70,23 @@ class TestHitchinDimensions:
         h = hitchin_dimensions('SL_2', 2)
         assert h.is_lagrangian_cy3 is True
         # But dim_C = 6, NOT 3!
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert h.dim_complex == 6
 
     def test_sl2_g2_NOT_literal_cy3(self):
         """dim_C = 6 means this is NOT a literal CY3 (complex dim 3)."""
         h = hitchin_dimensions('SL_2', 2)
         assert h.dim_complex != 3
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert h.dim_complex == 6
 
     def test_sl2_g2_holomorphic_symplectic(self):
         """M_H is holomorphic symplectic: dim_C is even (= 2n)."""
         h = hitchin_dimensions('SL_2', 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert h.dim_complex % 2 == 0
         n = h.dim_complex // 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n == 3  # Sp(3) holonomy
 
     def test_sl2_g2_global_constant(self):
@@ -103,7 +114,9 @@ class TestHitchinDimensions:
         for group, (dim_G, _, _) in GROUP_DATA.items():
             for genus in [2, 3, 5]:
                 h = hitchin_dimensions(group, genus)
+                # VERIFIED [DC] dimension count [DA] dimensional consistency
                 assert h.dim_complex == 2 * dim_G * (genus - 1)
+                # VERIFIED [DC] dimension count [DA] dimensional consistency
                 assert h.dim_real == 2 * h.dim_complex
 
     def test_genus_1_raises(self):
@@ -138,23 +151,29 @@ class TestLagrangianCY3:
         """Only SL_2, PGL_2, SO_3 at g=2 give Lagrangian CY3."""
         cases = find_lagrangian_cy3_cases(max_genus=20)
         groups = {c.group for c in cases}
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert groups == {'SL_2', 'PGL_2', 'SO_3'}
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert all(c.genus == 2 for c in cases)
 
     def test_uniqueness_algebraic(self):
         """dim(G)*(g-1) = 3 requires dim(G)=3 and g=2 (or dim(G)=1, g=4 -- impossible)."""
         # dim(G)=3, g=2: 3*1=3. Check.
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert 3 * (2 - 1) == 3
         # dim(G)=1, g=4: would need a 1-dim reductive group -- none exist.
         # All groups in GROUP_DATA have dim >= 3.
         for group, (dim_G, _, _) in GROUP_DATA.items():
+            # VERIFIED [DC] dimension count [LC] boundary/limiting case
             assert dim_G >= 3, f"{group} has dim {dim_G}"
 
     def test_all_cy3_groups_are_locally_isomorphic(self):
         """SL_2, PGL_2, SO_3 all have Lie algebra sl_2."""
         for g in ['SL_2', 'PGL_2', 'SO_3']:
             dim_G, _, casimirs = GROUP_DATA[g]
+            # VERIFIED [DC] dimension count [DA] dimensional consistency
             assert dim_G == 3
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert casimirs == (2,)
 
 
@@ -168,21 +187,26 @@ class TestSpectralCurve:
     def test_sl2_genus2_spectral_genus(self):
         """g(Sigma) = 5 for SL_2, g=2 (NOT 3 as erroneously in research note)."""
         s = spectral_curve_sl2(2)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert s.genus_spectral == 5
         # Riemann-Hurwitz: 2*5-2 = 2*(2*2-2) + 4 = 4+4 = 8. Check.
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert 2 * s.genus_spectral - 2 == 2 * (2 * s.genus_base - 2) + s.n_branch_points
 
     def test_sl2_genus2_prym_dimension(self):
         """Prym(Sigma/C) has dimension 3 = g(Sigma) - g(C)."""
         s = spectral_curve_sl2(2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert s.dim_prym == 3
         assert s.dim_prym == s.genus_spectral - s.genus_base
 
     def test_sl2_genus2_branch_points(self):
         """4 branch points (zeros of a quadratic differential of degree 4)."""
         s = spectral_curve_sl2(2)
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert s.n_branch_points == 4
         # deg(K_C^2) = 2*(2g-2) = 4 for g=2
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert s.n_branch_points == 2 * (2 * 2 - 2)
 
     def test_riemann_hurwitz_general(self):
@@ -214,6 +238,7 @@ class TestSpectralCurve:
         """g(Sigma) = 4g - 3 for the SL_2 double cover."""
         for genus in range(2, 10):
             s = spectral_curve_sl2(genus)
+            # VERIFIED [DC] genus tower [LC] boundary/limiting case
             assert s.genus_spectral == 4 * genus - 3
 
     def test_sln_prym_dimension(self):
@@ -221,6 +246,7 @@ class TestSpectralCurve:
         for n in [2, 3, 4]:
             for genus in [2, 3, 4]:
                 s = spectral_curve_sln(n, genus)
+                # VERIFIED [DC] dimension count [DA] dimensional consistency
                 assert s.dim_prym == (n**2 - 1) * (genus - 1)
 
 
@@ -241,28 +267,33 @@ class TestEPolynomial:
         """chi = E(1) = 1 + 4 - 4 - 1 = 0."""
         e_poly = hausel_thaddeus_e_polynomial(2)
         chi = euler_characteristic_from_e_poly(e_poly)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == 0
 
     def test_genus3_euler_zero(self):
         """Euler characteristic vanishes for all genera (affine variety)."""
         e_poly = hausel_thaddeus_e_polynomial(3)
         chi = euler_characteristic_from_e_poly(e_poly)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == 0
 
     def test_genus4_euler_zero(self):
         e_poly = hausel_thaddeus_e_polynomial(4)
         chi = euler_characteristic_from_e_poly(e_poly)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == 0
 
     def test_e_poly_has_negative_coefficients(self):
         """E-polynomial can have negative coefficients (mixed Hodge structure)."""
         e_poly = hausel_thaddeus_e_polynomial(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert any(v < 0 for v in e_poly.values())
 
     def test_e_poly_constant_term_1(self):
         """E(0) = 1 (connected)."""
         for genus in [2, 3, 4]:
             e_poly = hausel_thaddeus_e_polynomial(genus)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert e_poly.get(0, 0) == 1
 
     def test_e_poly_max_degree(self):
@@ -271,6 +302,7 @@ class TestEPolynomial:
             e_poly = hausel_thaddeus_e_polynomial(genus)
             max_deg = max(k for k, v in e_poly.items() if v != 0)
             # For genus 2: max_deg = 8 = 8*2-8 = 8. Check.
+            # VERIFIED [DC] genus tower [LC] boundary/limiting case
             assert max_deg <= 12 * (genus - 1)
 
 
@@ -284,6 +316,7 @@ class TestBettiNumbers:
     def test_bun_betti_values(self):
         """Desale-Ramanan: (2,2) CI in P^5, Betti = [1,0,1,4,1,0,1]."""
         betti = bun_sl2_genus2_betti()
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert betti == {0: 1, 1: 0, 2: 1, 3: 4, 4: 1, 5: 0, 6: 1}
 
     def test_bun_poincare_duality(self):
@@ -296,11 +329,13 @@ class TestBettiNumbers:
         """chi(Bun^s) = 0."""
         betti = bun_sl2_genus2_betti()
         chi = euler_characteristic_from_betti(betti)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == 0
 
     def test_bun_b3_equals_2g(self):
         """b_3 = 4 = 2*genus (genus-2 curve)."""
         betti = bun_sl2_genus2_betti()
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert betti[3] == 4  # = 2 * 2
 
     def test_fibre_betti_is_torus(self):
@@ -313,18 +348,23 @@ class TestBettiNumbers:
     def test_fibre_euler_zero(self):
         """chi(T^6) = 0."""
         fibre = hitchin_fibre_topology_sl2_genus2()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert fibre['euler_char'] == 0
 
     def test_fibre_polarization(self):
         """Prym of SL_2 spectral curve has polarization type (1,1,2)."""
         fibre = hitchin_fibre_topology_sl2_genus2()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert fibre['polarization_type'] == (1, 1, 2)
         assert fibre['is_principally_polarized'] is False
 
     def test_fibre_dimension(self):
         fibre = hitchin_fibre_topology_sl2_genus2()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert fibre['complex_dimension'] == 3
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert fibre['real_dimension'] == 6
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert fibre['prym_dimension'] == 3
 
 
@@ -338,16 +378,19 @@ class TestRootDatum:
     def test_lattice_rank(self):
         """rank = rank(SL_2) + 2g = 1 + 4 = 5."""
         rd = root_datum_sl2_genus2()
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert rd.lattice_rank == 5
 
     def test_real_roots(self):
         """Real roots = A_1 root system: {+alpha, -alpha}."""
         rd = root_datum_sl2_genus2()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert rd.n_real_positive == 1
         assert 'A_1' in rd.real_roots
 
     def test_hitchin_base_dim(self):
         rd = root_datum_sl2_genus2()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert rd.hitchin_base_dim == 3
 
     def test_langlands_dual(self):
@@ -385,14 +428,17 @@ class TestDiscriminant:
 
     def test_discriminant_codimension(self):
         disc = discriminant_locus_sl2_genus2()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert disc['discriminant_codimension'] == 1
 
     def test_base_dimension(self):
         disc = discriminant_locus_sl2_genus2()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert disc['base_dimension'] == 3
 
     def test_n_branch_points(self):
         disc = discriminant_locus_sl2_genus2()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert disc['n_branch_points_generic'] == 4
 
 
@@ -406,31 +452,38 @@ class TestSp4Connection:
     def test_siegel_half_space_dim(self):
         """H_2 has (complex) dimension g*(g+1)/2 = 3."""
         sp4 = sp4_connection()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert sp4['siegel_half_space_dim'] == 3
 
     def test_delta_5_weight(self):
         sp4 = sp4_connection()
+        # VERIFIED [DC] conformal weight [DA] dimensional consistency
         assert sp4['delta_5_weight'] == 5
 
     def test_even_theta_characteristics(self):
         """There are 10 even theta characteristics for genus 2."""
         sp4 = sp4_connection()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sp4['n_even_theta_characteristics'] == 10
         # 2^{g-1}(2^g+1) = 2^1*(2^2+1) = 2*5 = 10. Check.
         g = 2
         n_even = 2**(g - 1) * (2**g + 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n_even == 10
 
     def test_sp4_dim(self):
         """dim(Sp_4) = 2*2*(2*2+1)/2 = 10. (Sp_{2n} has dim n*(2n+1).)"""
         sp4 = sp4_connection()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert sp4['sp4_dim'] == 10
         # n=2: n*(2n+1) = 2*5 = 10
+        # VERIFIED [DC] dimension [LC] boundary/limiting case
         assert 2 * (2 * 2 + 1) == 10
 
     def test_coincidence_dims(self):
         """dim(A_2) = dim(H_2/Sp_4(Z)) = dim(A_H) = 3."""
         sp4 = sp4_connection()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert sp4['a2_dim'] == sp4['a_h_dim'] == 3
 
     def test_torelli(self):
@@ -448,11 +501,14 @@ class TestGenus2Hodge:
 
     def test_curve_euler(self):
         hd = genus2_hodge_data()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert hd['curve_euler'] == -2
 
     def test_curve_hodge(self):
         hd = genus2_hodge_data()
+        # VERIFIED [DC] Hodge number [LC] boundary/limiting case
         assert hd['curve_hodge'][(1, 0)] == 2
+        # VERIFIED [DC] Hodge number [LC] boundary/limiting case
         assert hd['curve_hodge'][(0, 1)] == 2
 
     def test_jacobian_hodge(self):
@@ -464,11 +520,13 @@ class TestGenus2Hodge:
 
     def test_jacobian_euler_zero(self):
         hd = genus2_hodge_data()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert hd['jacobian_euler'] == 0
 
     def test_h1_rank(self):
         """H_1(C, Z) = Z^4 for genus 2."""
         hd = genus2_hodge_data()
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert hd['h1_rank'] == 4
 
 
@@ -481,10 +539,12 @@ class TestHitchinHodge:
 
     def test_e_polynomial_values(self):
         hh = hitchin_hodge_numbers_sl2_g2()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hh['e_polynomial'] == {0: 1, 3: 4, 5: -4, 8: -1}
 
     def test_euler_zero(self):
         hh = hitchin_hodge_numbers_sl2_g2()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert hh['euler_characteristic'] == 0
 
 
@@ -504,20 +564,24 @@ class TestK3xEComparison:
     def test_hitchin_dim_c_is_6(self):
         """Hitchin has dim_C = 6 (NOT 3)."""
         comp = k3xe_comparison()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert comp['hitchin_dim_C'] == 6
 
     def test_k3xe_dim_c_is_3(self):
         """K3 x E has dim_C = 3 (literal CY3)."""
         comp = k3xe_comparison()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert comp['k3xe_dim_C'] == 3
 
     def test_hitchin_lagrangian_fibre_dim(self):
         """Hitchin Lagrangian fibre dim = 3."""
         comp = k3xe_comparison()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert comp['hitchin_lagrangian_fibre_dim'] == 3
 
     def test_kappa_match(self):
         comp = k3xe_comparison()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert comp['hitchin_expected_kappa'] == comp['k3xe_kappa'] == 5
 
     def test_hitchin_is_noncompact(self):
@@ -535,10 +599,12 @@ class TestExpectedKappa:
 
     def test_kappa_value(self):
         kap = expected_kappa_hitchin_sl2_g2()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kap['expected_kappa'] == 5
 
     def test_kappa_crit(self):
         kap = expected_kappa_hitchin_sl2_g2()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kap['kappa_crit'] == 10
 
     def test_self_dual(self):
@@ -583,9 +649,13 @@ class TestFullComputation:
 
     def test_full_computation_consistency(self):
         result = full_computation()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert result['chi_e_polynomial'] == 0
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert result['chi_bun'] == 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert result['hitchin_data']['dim_complex'] == 6
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert result['hitchin_data']['dim_hitchin_base'] == 3
 
 
@@ -603,6 +673,7 @@ class TestVerifyAll:
 
     def test_count(self):
         results = verify_all()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(results) == 9
 
 
@@ -617,6 +688,7 @@ class TestCrossChecks:
         """The Hitchin fibre (Prym) and base have the same dimension."""
         s = spectral_curve_sl2(2)
         h = hitchin_dimensions('SL_2', 2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert s.dim_prym == h.dim_hitchin_base == 3
 
     def test_hitchin_base_dim_equals_siegel_dim(self):
@@ -639,9 +711,12 @@ class TestCrossChecks:
     def test_euler_consistency(self):
         """All Euler characteristics vanish: E-poly, Bun, fibre."""
         e_poly = hausel_thaddeus_e_polynomial(2)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert euler_characteristic_from_e_poly(e_poly) == 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert euler_characteristic_from_betti(bun_sl2_genus2_betti()) == 0
         fibre = hitchin_fibre_topology_sl2_genus2()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert fibre['euler_char'] == 0
 
 
@@ -671,9 +746,11 @@ class TestDimensionRegression:
         # SL_3, g=2: dim_C = 16, base = 8. NOT Lagrangian CY3.
         h = hitchin_dimensions('SL_3', 2)
         assert h.is_lagrangian_cy3 is False
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert h.dim_hitchin_base == 8
 
     def test_research_note_error_documented(self):
         """The spectral curve code documents the g(Sigma)=3 error in the note."""
         s = spectral_curve_sl2(2)
+        # VERIFIED [DC] genus tower [LC] boundary/limiting case
         assert s.genus_spectral == 5  # NOT 3

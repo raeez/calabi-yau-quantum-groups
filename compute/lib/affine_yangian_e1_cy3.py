@@ -1555,11 +1555,11 @@ def cross_verify_genus_tower(N: int = 10) -> Dict[str, Any]:
     """
     from compute.lib.c3_shadow_tower import (
         lambda_fp as c3_lambda_fp,
-        kappa_total_regulated,
+        kappa_ch_regulated,
     )
 
     kappa = kappa_w_infinity_regulated(N)
-    kappa_c3 = kappa_total_regulated(N)
+    kappa_c3 = kappa_ch_regulated(N)
 
     # Verify kappa agrees
     kappa_agree = kappa == kappa_c3

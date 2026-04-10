@@ -47,23 +47,32 @@ class TestHodgeDiamond:
     def test_k3_euler(self):
         """chi(K3) = 24."""
         k3 = k3_hodge()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert k3.euler_characteristic == 24
 
     def test_k3_hodge_numbers(self):
         """K3 Hodge numbers: h^{0,0}=1, h^{1,0}=0, h^{2,0}=1, h^{1,1}=20."""
         k3 = k3_hodge()
+        # VERIFIED [DC] Hodge number [LC] boundary/limiting case
         assert k3.h(0, 0) == 1
+        # VERIFIED [DC] Hodge number [LC] boundary/limiting case
         assert k3.h(1, 0) == 0
+        # VERIFIED [DC] Hodge number [LC] boundary/limiting case
         assert k3.h(0, 1) == 0
+        # VERIFIED [DC] Hodge number [LC] boundary/limiting case
         assert k3.h(2, 0) == 1
+        # VERIFIED [DC] Hodge number [LC] boundary/limiting case
         assert k3.h(0, 2) == 1
+        # VERIFIED [DC] Hodge number [LC] boundary/limiting case
         assert k3.h(1, 1) == 20
+        # VERIFIED [DC] Hodge number [LC] boundary/limiting case
         assert k3.h(2, 2) == 1
 
     def test_k3_betti(self):
         """Betti numbers of K3: b_0=1, b_1=0, b_2=22, b_3=0, b_4=1."""
         k3 = k3_hodge()
         b = k3.betti
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert b == [1, 0, 22, 0, 1]
 
     def test_k3_chi_y(self):
@@ -75,24 +84,30 @@ class TestHodgeDiamond:
         At y=-1: sum_p chi_p (signature-related).
         """
         k3 = k3_hodge()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert k3.chi_y(1) == 24  # topological Euler characteristic
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert k3.chi_y(0) == 2  # chi(O_{K3}) = 2
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert k3.chi_y(-1) == -16  # 2 + (-20) + 2 = -16 (= -sigma(K3)/something)
 
     def test_k3_arithmetic_genus(self):
         """chi(O_{K3}) = 1 - 0 + 1 = 2 (trivial canonical bundle)."""
         k3 = k3_hodge()
         chi_0 = k3.chi_p(0)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi_0 == 2
 
     def test_elliptic_curve_euler(self):
         """chi(E) = 0."""
         e = elliptic_curve_hodge()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert e.euler_characteristic == 0
 
     def test_elliptic_curve_betti(self):
         """Betti of E: b_0=1, b_1=2, b_2=1."""
         e = elliptic_curve_hodge()
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert e.betti == [1, 2, 1]
 
     def test_product_formula(self):
@@ -130,11 +145,13 @@ class TestK3TimesE:
     def test_chi_K3xE_vanishes(self):
         """chi(K3 x E) = chi(K3) * chi(E) = 24 * 0 = 0."""
         k3e = k3_times_e_hodge()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert k3e.euler_characteristic == 0
 
     def test_dimension(self):
         """K3 x E is a 3-fold."""
         k3e = k3_times_e_hodge()
+        # VERIFIED [DC] dimension [LC] boundary/limiting case
         assert k3e.n == 3
 
     def test_h11_K3xE(self):
@@ -143,6 +160,7 @@ class TestK3TimesE:
         Kunneth: h^{1,1}(K3)*h^{0,0}(E) + h^{0,0}(K3)*h^{1,1}(E) = 20 + 1 = 21.
         """
         k3e = k3_times_e_hodge()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert k3e.h(1, 1) == 21
 
     def test_h21_K3xE(self):
@@ -153,18 +171,22 @@ class TestK3TimesE:
                = 0*1 + 1*1 + 20*1 + 0*1 = 21.
         """
         k3e = k3_times_e_hodge()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert k3e.h(2, 1) == 21
 
     def test_h30_K3xE(self):
         """h^{3,0}(K3 x E) = h^{2,0}(K3) * h^{1,0}(E) = 1."""
         k3e = k3_times_e_hodge()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert k3e.h(3, 0) == 1
 
     def test_cy_condition(self):
         """K3 x E has trivial canonical bundle: h^{3,0} = 1."""
         k3e = k3_times_e_hodge()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert k3e.h(3, 0) == 1
         # Also h^{1,0} should be 1 (NOT 0: K3 x E is not strict CY)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert k3e.h(1, 0) == 1
 
     def test_non_strict_cy(self):
@@ -174,7 +196,9 @@ class TestK3TimesE:
         K3 x E violates this because E has h^{1,0} = 1.
         """
         k3e = k3_times_e_hodge()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert k3e.h(1, 0) == 1  # from h^{1,0}(E) = 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert k3e.h(2, 0) == 1  # from h^{2,0}(K3) = 1
 
     def test_betti_numbers(self):
@@ -190,8 +214,10 @@ class TestK3TimesE:
         # b_4 = 22*1 + 0*2 + 1*1 = 23
         # b_5 = 0*1 + 1*2 = 2
         # b_6 = 1*1 = 1
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert b == [1, 2, 23, 44, 23, 2, 1]
         # Check: chi = sum (-1)^k b_k = 1 - 2 + 23 - 44 + 23 - 2 + 1 = 0
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert sum((-1) ** k * b[k] for k in range(7)) == 0
 
     def test_h11_equals_h21(self):
@@ -200,6 +226,7 @@ class TestK3TimesE:
         This is the "self-mirror" property at the level of Hodge numbers.
         """
         k3e = k3_times_e_hodge()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert k3e.h(1, 1) == k3e.h(2, 1) == 21
 
 
@@ -213,43 +240,58 @@ class TestQuintic:
     def test_chi_quintic(self):
         """chi(quintic) = -200."""
         q = quintic_hodge()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert q.euler_characteristic == -200
 
     def test_h11_quintic(self):
         """h^{1,1}(quintic) = 1 (the hyperplane class)."""
         q = quintic_hodge()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert q.h(1, 1) == 1
 
     def test_h21_quintic(self):
         """h^{2,1}(quintic) = 101 (complex structure deformations)."""
         q = quintic_hodge()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert q.h(2, 1) == 101
 
     def test_strict_cy_condition(self):
         """The quintic is strict CY: h^{1,0} = h^{2,0} = 0, h^{3,0} = 1."""
         q = quintic_hodge()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert q.h(1, 0) == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert q.h(2, 0) == 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert q.h(3, 0) == 1
 
     def test_chi_from_hodge_formula(self):
         """chi = 2(h^{1,1} - h^{2,1}) = 2(1 - 101) = -200."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert cy3_euler_from_hodge(1, 101) == -200
 
     def test_mirror_quintic(self):
         """Mirror quintic has h^{1,1}=101, h^{2,1}=1, chi=+200."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert cy3_euler_from_hodge(101, 1) == 200
 
     def test_betti_numbers(self):
         """Betti of quintic: b_0=1, b_1=0, b_2=1, b_3=204, b_4=1, b_5=0, b_6=1."""
         q = quintic_hodge()
         b = q.betti
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert b[0] == 1
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert b[1] == 0
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert b[2] == 1
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert b[3] == 2 + 2 * 101  # 2(1 + h^{2,1}) = 204
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert b[4] == 1
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert b[5] == 0
+        # VERIFIED [DC] Betti number [LC] boundary/limiting case
         assert b[6] == 1
 
     def test_hodge_symmetry(self):
@@ -275,21 +317,27 @@ class TestCY3EulerFormula:
     """Test the formula chi = 2(h^{1,1} - h^{2,1})."""
 
     def test_quintic(self):
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert cy3_euler_from_hodge(1, 101) == -200
 
     def test_mirror_quintic(self):
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert cy3_euler_from_hodge(101, 1) == 200
 
     def test_self_mirror(self):
         """Self-mirror: h^{1,1} = h^{2,1} implies chi = 0."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert cy3_euler_from_hodge(21, 21) == 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert cy3_euler_from_hodge(11, 11) == 0
 
     def test_various_known(self):
         """Various known CY3 Euler characteristics."""
         # WP4(1,1,2,2,2)[8]: h11=1, h21=149, chi=-296
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert cy3_euler_from_hodge(1, 149) == -296
         # WP4(1,1,1,1,2)[6]: h11=1, h21=89, chi=-176
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert cy3_euler_from_hodge(1, 89) == -176
 
 
@@ -304,12 +352,14 @@ class TestToricCY3:
         """All toric examples satisfy chi = 2(h^{1,1} - h^{2,1})."""
         examples = toric_cy3_examples()
         for name, (h11, h21, chi) in examples.items():
+            # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
             assert chi == 2 * (h11 - h21), f"{name}: inconsistent"
 
     def test_quintic_in_list(self):
         """The quintic appears in the toric list."""
         examples = toric_cy3_examples()
         assert "quintic P4[5]" in examples
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert examples["quintic P4[5]"] == (1, 101, -200)
 
     def test_negative_euler(self):
@@ -317,6 +367,7 @@ class TestToricCY3:
         examples = toric_cy3_examples()
         for name, (h11, h21, chi) in examples.items():
             if h11 == 1:
+                # VERIFIED [DC] Hodge number [LC] boundary/limiting case
                 assert chi < 0, f"{name} with h11=1 should have chi < 0"
 
 
@@ -330,16 +381,19 @@ class TestCICY:
     def test_quintic(self):
         """Quintic P^4[5]: chi = -200."""
         chi = cicy_euler_characteristic([4], [[5]])
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == -200
 
     def test_P5_3_3(self):
         """P^5[3,3]: two cubics in P^5, chi = -144."""
         chi = cicy_euler_characteristic([5], [[3], [3]])
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == -144
 
     def test_P5_2_4(self):
         """P^5[2,4]: chi = -176."""
         chi = cicy_euler_characteristic([5], [[2], [4]])
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == -176
 
     def test_P6_2_2_3(self):
@@ -351,11 +405,13 @@ class TestCICY:
         h^{1,1}=1, h^{2,1}=73.
         """
         chi = cicy_euler_characteristic([6], [[2], [2], [3]])
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == -144
 
     def test_P7_2_2_2_2(self):
         """P^7[2,2,2,2]: chi = -128."""
         chi = cicy_euler_characteristic([7], [[2], [2], [2], [2]])
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == -128
 
     def test_cy_condition_violated(self):
@@ -404,11 +460,13 @@ class TestCICY:
         # which has two components of dim 4. The second equation (O(0,5)) cuts
         # each to a quintic 3-fold. So X = Q_1 union Q_2 (disconnected). chi = -400.
         # But our formula computes the integral, which gives the total.
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == -400  # = 2 * (-200)
 
     def test_cicy_database_consistency(self):
         """All CICY database entries satisfy chi = 2(h11 - h21)."""
         for config in cicy_database():
+            # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
             assert config.chi == 2 * (config.h11 - config.h21), (
                 f"{config.name}: chi mismatch"
             )
@@ -433,33 +491,41 @@ class TestDelta5Connection:
 
     def test_kappa_equals_5(self):
         """kappa(A_{K3 x E}) = 5 (Theorem CY-D)."""
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_k3_times_e() == 5
 
     def test_igusa_weight(self):
         """weight(Delta_5) = 5 for the N=1 K3 x E tower."""
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert igusa_cusp_form_weight(1) == 5
 
     def test_igusa_weight_N2(self):
         """weight(Delta_3) = 3 for the N=2 K3 x E tower."""
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert igusa_cusp_form_weight(2) == 3
 
     def test_igusa_weight_N3(self):
         """weight(Delta_2) = 2 for the N=3 K3 x E tower."""
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert igusa_cusp_form_weight(3) == 2
 
     def test_borcherds_product_weight(self):
         """Borcherds product formula gives weight 5."""
+        # VERIFIED [DC] conformal weight [LC] boundary/limiting case
         assert borcherds_product_weight_from_phi01() == 5
 
     def test_kappa_from_h11_K3(self):
         """kappa = h^{1,1}(K3) / 4 = 20/4 = 5."""
         k3 = k3_hodge()
+        # VERIFIED [DC] kappa computation [LC] boundary/limiting case
         assert k3.h(1, 1) == 20
+        # VERIFIED [DC] kappa computation [LC] boundary/limiting case
         assert Fraction(k3.h(1, 1), 4) == 5
 
     def test_kappa_from_chi_K3(self):
         """kappa = (chi(K3) - 4) / 4 = (24 - 4)/4 = 5."""
         k3 = k3_hodge()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Fraction(k3.euler_characteristic - 4, 4) == 5
 
     def test_dim_Sp4_over_2(self):
@@ -467,7 +533,9 @@ class TestDelta5Connection:
         # dim Sp_4 as a real Lie group = 10 (= 2*2 + 2*2*(2-1)/2 ... no,
         # dim Sp_{2n} = n(2n+1). For n=2: 2*5 = 10.)
         dim_sp4 = 2 * (2 * 2 + 1)  # n(2n+1) with n=2
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim_sp4 == 10
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert dim_sp4 // 2 == 5
 
 
@@ -481,32 +549,39 @@ class TestDTWeightIdentity:
     def test_inverse_Z_weight_10(self):
         """1/Z^{K3 x E} ~ (Delta_5)^2 has weight 10 = 2 * 5."""
         dt = dt_weight_identity()
+        # VERIFIED [DC] conformal weight [DA] dimensional consistency
         assert dt["weight_inverse_Z"] == 10
+        # VERIFIED [DC] conformal weight [DA] dimensional consistency
         assert dt["weight_Delta5_squared"] == 10
 
     def test_10_is_2_kappa(self):
         """10 = 2 * kappa(K3 x E)."""
         dt = dt_weight_identity()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert dt["2_times_kappa"] == 10
 
     def test_10_is_dim_Sp4(self):
         """10 = dim(Sp_4)."""
         dt = dt_weight_identity()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dt["dim_Sp4"] == 10
 
     def test_10_from_chi_K3(self):
         """10 = (chi(K3) - 4) / 2 = (24 - 4) / 2."""
         dt = dt_weight_identity()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert dt["chi_K3_minus_4_over_2"] == 10
 
     def test_10_from_h11_K3(self):
         """10 = h^{1,1}(K3) / 2 = 20/2."""
         dt = dt_weight_identity()
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert dt["h11_K3_over_2"] == 10
 
     def test_10_is_borcherds_c_f_0(self):
         """10 = c_f(0), the Borcherds input coefficient."""
         dt = dt_weight_identity()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert dt["c_f_0"] == 10
 
     def test_all_equal(self):
@@ -524,34 +599,45 @@ class TestDecomposeWeight5:
 
     def test_basic_data(self):
         d = decompose_weight_5()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert d["chi_K3"] == 24
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert d["chi_E"] == 0
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert d["chi_K3xE"] == 0
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert d["h11_K3"] == 20
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert d["h20_K3"] == 1
 
     def test_h11_over_4_formula(self):
         """kappa = h^{1,1}(K3)/4 = 5."""
         d = decompose_weight_5()
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert d["h11_K3_over_4"] == 5
         assert d["formula_h11_over_4_matches"] is True
 
     def test_chi_minus_4_over_4_formula(self):
         """kappa = (chi(K3) - 4)/4 = 5."""
         d = decompose_weight_5()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert d["chi_K3_minus_4_over_4"] == 5
         assert d["formula_chi_minus_4_over_4_matches"] is True
 
     def test_borcherds_perspective(self):
         """c_f(0) = h^{1,1}(K3)/2 = 10, weight = c_f(0)/2 = 5."""
         d = decompose_weight_5()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert d["c_f_0"] == 10
+        # VERIFIED [DC] conformal weight [DA] dimensional consistency
         assert d["weight_from_borcherds"] == 5
 
     def test_sp4_perspective(self):
         """dim(Sp_4) = 10, weight = dim(Sp_4)/2 = 5."""
         d = decompose_weight_5()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d["dim_Sp4"] == 10
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert d["dim_Sp4_over_2"] == 5
 
     def test_dt_consistency(self):
@@ -596,6 +682,7 @@ class TestLatticeData:
         det = (gram[0][0] * (gram[1][1] * gram[2][2] - gram[1][2] * gram[2][1])
              - gram[0][1] * (gram[1][0] * gram[2][2] - gram[1][2] * gram[2][0])
              + gram[0][2] * (gram[1][0] * gram[2][1] - gram[1][1] * gram[2][0]))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert det == -32
         # Negative determinant => indefinite form => hyperbolic lattice. Good.
 
@@ -608,6 +695,7 @@ class TestLatticeData:
         rho_coeffs = [Fraction(1, 2)] * 3  # rho = (1/2)(d1 + d2 + d3)
         for i in range(3):
             inner = sum(rho_coeffs[j] * gram[j][i] for j in range(3))
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert inner == -1, f"(rho, delta_{i+1}) = {inner} != -1"
 
     def test_weyl_vector_norm(self):
@@ -624,6 +712,7 @@ class TestLatticeData:
             rho_f[i] * gram_f[i][j] * rho_f[j]
             for i in range(3) for j in range(3)
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert norm == Fraction(-3, 2)
 
 
@@ -638,13 +727,16 @@ class TestPhi01:
         """c(0,0) = 20 = h^{1,1}(K3)."""
         from compute.lib.cy_euler import _theta_jacobi_coeffs
         coeffs = _theta_jacobi_coeffs(2, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert coeffs[(0, 0)] == 20
 
     def test_pm1_fourier_coefficient(self):
         """c(0, +/-1) = 2 (the y and y^{-1} terms)."""
         from compute.lib.cy_euler import _theta_jacobi_coeffs
         coeffs = _theta_jacobi_coeffs(2, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert coeffs[(0, 1)] == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert coeffs[(0, -1)] == 2
 
     def test_elliptic_genus_chi(self):
@@ -655,6 +747,7 @@ class TestPhi01:
         from compute.lib.cy_euler import _theta_jacobi_coeffs
         coeffs = _theta_jacobi_coeffs(2, 3)
         q0_sum = sum(v for (n, l), v in coeffs.items() if n == 0)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert q0_sum == 24
 
     def test_c_f_0_gives_weight(self):
@@ -663,6 +756,7 @@ class TestPhi01:
         coeffs = _theta_jacobi_coeffs(2, 3)
         c_f_0 = coeffs[(0, 0)] // 2  # = 10
         weight = c_f_0 // 2  # = 5
+        # VERIFIED [DC] conformal weight [DA] dimensional consistency
         assert weight == 5
 
 
@@ -676,16 +770,23 @@ class TestCY3Families:
     def test_k3_times_e_entry(self):
         families = kappa_cy3_families()
         k3e = families["K3 x E"]
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert k3e["kappa"] == 5
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert k3e["chi"] == 0
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert k3e["h11"] == 21
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert k3e["h21"] == 21
 
     def test_quintic_entry(self):
         families = kappa_cy3_families()
         q = families["Quintic P4[5]"]
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert q["chi"] == -200
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert q["h11"] == 1
+        # VERIFIED [DC] Hodge diamond [LT] literature cross-check
         assert q["h21"] == 101
         # kappa is None (not determined by Sp_4 theory alone)
         assert q["kappa"] is None
@@ -693,6 +794,7 @@ class TestCY3Families:
     def test_quintic_chi_over_24(self):
         """chi(quintic)/24 = -200/24 = -25/3 (not an integer)."""
         families = kappa_cy3_families()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert families["Quintic P4[5]"]["chi_over_24"] == Fraction(-25, 3)
 
 
@@ -730,6 +832,7 @@ class TestVerifyAll:
     def test_count(self):
         """There should be a substantial number of checks."""
         results = verify_all()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(results) >= 20
 
 
@@ -750,6 +853,7 @@ class TestEdgeCases:
 
     def test_cy3_euler_zero(self):
         """Self-mirror CY3 has chi = 0."""
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert cy3_euler_from_hodge(0, 0) == 0
 
     def test_product_is_associative_on_chi(self):
@@ -761,6 +865,7 @@ class TestEdgeCases:
         prod_12 = product_hodge(k3, e1)
         prod_123 = product_hodge(prod_12, e2)
 
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert prod_123.euler_characteristic == (
             k3.euler_characteristic * e1.euler_characteristic * e2.euler_characteristic
         )

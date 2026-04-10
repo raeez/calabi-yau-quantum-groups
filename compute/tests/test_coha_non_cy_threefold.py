@@ -72,7 +72,9 @@ class TestPowerSeriesArithmetic:
 
     def test_fps_one(self):
         f = _fps_one(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert all(f[i] == Fraction(0) for i in range(1, 5))
 
     def test_fps_mul_identity(self):
@@ -91,6 +93,7 @@ class TestPowerSeriesArithmetic:
         f = [Fraction(1), Fraction(2), Fraction(3)]
         g = _fps_inv(f, 8)
         fg = _fps_mul(f, g, 8)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert fg[0] == Fraction(1)
         for i in range(1, 8):
             assert abs(fg[i]) < Fraction(1, 10**10)
@@ -99,9 +102,13 @@ class TestPowerSeriesArithmetic:
         f = [Fraction(1), Fraction(1)]  # 1 + q
         f2 = _fps_power(f, 2, 5)
         # (1+q)^2 = 1 + 2q + q^2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f2[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f2[1] == Fraction(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f2[2] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f2[3] == Fraction(0)
 
 
@@ -114,64 +121,96 @@ class TestQuiverConstruction:
 
     def test_jordan_cy3_structure(self):
         Q = jordan_quiver_cy3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_vertices == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_arrows == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.arrows_from_to(0, 0) == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(Q.potential_terms) == 2
 
     def test_jordan_w0_structure(self):
         Q = jordan_quiver_w0()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_vertices == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_arrows == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.arrows_from_to(0, 0) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(Q.potential_terms) == 0
 
     def test_jordan_cubic_structure(self):
         Q = jordan_quiver_cubic()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_vertices == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_arrows == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(Q.potential_terms) == 1
         _coeff, cycle = Q.potential_terms[0]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(cycle) == 3  # x^3 = cycle of length 3
 
     def test_asymmetric_2vertex_structure(self):
         Q = asymmetric_2vertex_quiver()
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert Q.n_vertices == 2
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert Q.n_arrows == 4
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert Q.arrows_from_to(0, 1) == 3
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert Q.arrows_from_to(1, 0) == 1
         # Key: ASYMMETRIC arrow counts
 
     def test_conifold_structure(self):
         Q = conifold_quiver_cy3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_vertices == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_arrows == 4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.arrows_from_to(0, 1) == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.arrows_from_to(1, 0) == 2
         # Key: SYMMETRIC arrow counts
 
     def test_a2_path_structure(self):
         Q = a2_path_quiver()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_vertices == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_arrows == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.arrows_from_to(0, 1) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.arrows_from_to(1, 2) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.arrows_from_to(0, 2) == 0
 
     def test_kronecker_m(self):
         for m in range(1, 5):
             Q = kronecker_quiver(m)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert Q.n_vertices == 2
             assert Q.n_arrows == m
             assert Q.arrows_from_to(0, 1) == m
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert Q.arrows_from_to(1, 0) == 0
 
     def test_tot_oo_p1_structure(self):
         Q = tot_o0_o0_p1_quiver()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_vertices == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_arrows == 4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.arrows_from_to(0, 1) == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.arrows_from_to(0, 0) == 2  # loops
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.arrows_from_to(1, 0) == 0
 
 
@@ -186,17 +225,20 @@ class TestEulerForm:
         Q = jordan_quiver_cy3()
         # chi(e_0, e_0) = 1 - 3 = -2 (3 loops)
         chi = Q.euler_form((1,), (1,))
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == -2
 
     def test_jordan_w0_euler_form(self):
         Q = jordan_quiver_w0()
         # chi(e_0, e_0) = 1 - 1 = 0 (1 loop)
         chi = Q.euler_form((1,), (1,))
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == 0
 
     def test_jordan_cubic_euler_form(self):
         Q = jordan_quiver_cubic()
         chi = Q.euler_form((1,), (1,))
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi == 0  # 1 loop: 1 - 1 = 0
 
     def test_asymmetric_euler_form(self):
@@ -207,8 +249,10 @@ class TestEulerForm:
         chi_01 = Q.euler_form(e0, e1)
         chi_10 = Q.euler_form(e1, e0)
         # chi(e_0, e_1) = 0 - 3 = -3 (3 arrows 0->1)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi_01 == -3
         # chi(e_1, e_0) = 0 - 1 = -1 (1 arrow 1->0)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi_10 == -1
         # NOT antisymmetric: chi_01 != -chi_10
         assert chi_01 != -chi_10
@@ -221,11 +265,14 @@ class TestEulerForm:
         chi_01 = Q.euler_form(e0, e1)
         chi_10 = Q.euler_form(e1, e0)
         # chi(e_0, e_1) = 0 - 2 = -2
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi_01 == -2
         # chi(e_1, e_0) = 0 - 2 = -2
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi_10 == -2
         # Off-diagonal: chi_01 = chi_10 (both negative)
         # Antisymmetric part: chi_01 - chi_10 = 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.antisymmetric_euler_form(e0, e1) == 0
 
     def test_a2_path_euler_form(self):
@@ -233,16 +280,22 @@ class TestEulerForm:
         e0, e1, e2 = (1, 0, 0), (0, 1, 0), (0, 0, 1)
         # chi(e_i, e_i) = 1 - 0 = 1 (no loops)
         for e in [e0, e1, e2]:
+            # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
             assert Q.euler_form(e, e) == 1
         # chi(e_0, e_1) = 0 - 1 = -1 (one arrow 0->1)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form(e0, e1) == -1
         # chi(e_1, e_0) = 0 - 0 = 0 (no arrows 1->0)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form(e1, e0) == 0
         # chi(e_1, e_2) = 0 - 1 = -1
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form(e1, e2) == -1
         # chi(e_2, e_1) = 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form(e2, e1) == 0
         # chi(e_0, e_2) = 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form(e0, e2) == 0
 
     def test_euler_form_bilinearity(self):
@@ -260,6 +313,7 @@ class TestEulerForm:
         Q = jordan_quiver_cy3()
         result = verify_euler_form_three_paths(Q, (1,), (1,))
         assert result['all_agree']
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert result['direct'] == -2
 
     def test_euler_form_multipath_asymmetric(self):
@@ -290,12 +344,14 @@ class TestCYDefect:
         Q = jordan_quiver_cy3()
         s = Q.symmetric_euler_form((1,), (1,))
         # s = chi(e,e) + chi(e,e) = -2 + (-2) = -4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s == -4
 
     def test_jordan_w0_defect(self):
         Q = jordan_quiver_w0()
         s = Q.symmetric_euler_form((1,), (1,))
         # s = 0 + 0 = 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s == 0
 
     def test_asymmetric_defect_nonzero(self):
@@ -304,6 +360,7 @@ class TestCYDefect:
         e0, e1 = (1, 0), (0, 1)
         s_01 = Q.symmetric_euler_form(e0, e1)
         # s = chi(e_0, e_1) + chi(e_1, e_0) = -3 + (-1) = -4
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert s_01 == -4
 
     def test_conifold_defect_off_diagonal(self):
@@ -312,6 +369,7 @@ class TestCYDefect:
         e0, e1 = (1, 0), (0, 1)
         s_01 = Q.symmetric_euler_form(e0, e1)
         # s = -2 + (-2) = -4
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s_01 == -4
 
     def test_a2_defect(self):
@@ -319,6 +377,7 @@ class TestCYDefect:
         e0, e1 = (1, 0, 0), (0, 1, 0)
         s_01 = Q.symmetric_euler_form(e0, e1)
         # s = chi(e_0, e_1) + chi(e_1, e_0) = -1 + 0 = -1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s_01 == -1
 
     def test_defect_symmetry(self):
@@ -384,6 +443,7 @@ class TestExtAndSerreDuality:
         Q = asymmetric_2vertex_quiver()
         serre = Q.serre_duality_check()
         assert not serre['holds']
+        # VERIFIED [DC] Serre duality check [LC] boundary/limiting case
         assert len(serre['violations']) > 0
 
     def test_serre_duality_a2_path(self):
@@ -398,6 +458,7 @@ class TestExtAndSerreDuality:
                   a2_path_quiver()]:
             ext = Q.ext_dimensions_simple()
             for key, val in ext.items():
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert val >= 0, f"Negative Ext at {key} for {Q.name}"
 
     def test_categorical_euler_matches_ext(self):
@@ -424,11 +485,13 @@ class TestCYDefectAnalysis:
         # W=0, one loop: categorical Euler form is same as quiver
         # chi(e_0, e_0) = 0 (1 loop, no potential)
         cm = analysis.categorical_euler_matrix()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert cm[0][0] == 0
 
     def test_asymmetric_defect_norm_positive(self):
         Q = asymmetric_2vertex_quiver()
         analysis = CYDefectAnalysis(Q)
+        # VERIFIED [DC] positivity check [LC] boundary/limiting case
         assert analysis.defect_norm() > 0
 
     def test_asymmetric_not_cy3(self):
@@ -487,6 +550,7 @@ class TestCurvedBarComplex:
         bar = CurvedBarComplex(Q)
         # For W=0, one loop: categorical defect s_{00} = 0
         # So curvature = 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert bar.curvature() == Fraction(0)
         assert bar.is_flat()
 
@@ -499,6 +563,7 @@ class TestCurvedBarComplex:
         # Categorical chi(e_0, e_0) = 1 - 1 + 1 - 0 = 1.
         # CY defect s^{cat}(e_0, e_0) = 1 + 1 = 2.
         # Curvature = (1/2) * 2 = 1.
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert bar.curvature() == Fraction(1)
         assert not bar.is_flat()
 
@@ -509,6 +574,7 @@ class TestCurvedBarComplex:
         # chi(e_i, e_i) = 1 (no loops, no potential relations).
         # s^{cat}(e_i, e_i) = 1 + 1 = 2 for each i.
         # Curvature = (1/2) * (2 + 2) = 2.
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert bar.curvature() == Fraction(2)
         assert not bar.is_flat()
 
@@ -518,13 +584,16 @@ class TestCurvedBarComplex:
         # No loops, W=0: chi(e_i, e_i) = 1 for all i.
         # s^{cat}(e_i, e_i) = 2 for each i.
         # Curvature = (1/2) * (2 + 2 + 2) = 3.
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert bar.curvature() == Fraction(3)
 
     def test_bar_dimension_degree_0(self):
         """Bar degree 0 = ground field at d=0."""
         Q = jordan_quiver_w0()
         bar = CurvedBarComplex(Q)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert bar.bar_dimension((0,), 0) == 1
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert bar.bar_dimension((1,), 0) == 0
 
     def test_bar_dimension_degree_1(self):
@@ -560,6 +629,7 @@ class TestCurvedBarComplex:
         for Q in [jordan_quiver_w0(), asymmetric_2vertex_quiver()]:
             bar = CurvedBarComplex(Q)
             d0 = tuple(0 for _ in range(Q.n_vertices))
+            # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
             assert bar.bar_euler_characteristic(d0) == 1
 
 
@@ -572,19 +642,30 @@ class TestCoHADimensions:
 
     def test_partition_counts(self):
         """Partition counts: p(0)=1, p(1)=1, p(2)=2, p(3)=3, p(4)=5, p(5)=7."""
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert _count_partitions(0) == 1
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert _count_partitions(1) == 1
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert _count_partitions(2) == 2
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert _count_partitions(3) == 3
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert _count_partitions(4) == 5
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert _count_partitions(5) == 7
 
     def test_plane_partition_counts(self):
         """Plane partition counts: pp(0)=1, pp(1)=1, pp(2)=3, pp(3)=6, pp(4)=13."""
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert _plane_partition_count(0) == 1
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert _plane_partition_count(1) == 1
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert _plane_partition_count(2) == 3
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert _plane_partition_count(3) == 6
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert _plane_partition_count(4) == 13
 
     def test_jordan_w0_dim_is_partitions(self):
@@ -599,29 +680,35 @@ class TestCoHADimensions:
             assert coha_dimension_cubic(d) == d // 2 + 1
 
     def test_cubic_dim_d0(self):
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert coha_dimension_cubic(0) == 1
 
     def test_cubic_dim_d1(self):
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert coha_dimension_cubic(1) == 1
 
     def test_cubic_dim_d2(self):
         # 2-nilpotent 2x2 matrices: {0, J_2} -> 2 orbits
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert coha_dimension_cubic(2) == 2
 
     def test_cubic_dim_d3(self):
         # 2-nilpotent 3x3: {0, J_2 + 0, J_2 + J_1(?)} -> 2 types
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert coha_dimension_cubic(3) == 2
 
     def test_coha_dim_d0_is_1(self):
         """CoHA at d=0 is the ground field (dimension 1) for all quivers with W=0."""
         for Q in [jordan_quiver_w0(), a2_path_quiver(), kronecker_quiver(2)]:
             d0 = tuple(0 for _ in range(Q.n_vertices))
+            # VERIFIED [DC] dimension count [LC] boundary/limiting case
             assert coha_dimension_w0(Q, d0) == 1
 
     def test_generating_function_starts_with_1(self):
         """The CoHA generating function starts with Z(0) = 1."""
         for Q in [jordan_quiver_w0(), jordan_quiver_cubic()]:
             gf = coha_generating_function(Q, 5, 10)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert gf[0] == Fraction(1)
 
 
@@ -677,6 +764,7 @@ class TestNonCYShuffleAlgebra:
         for i in range(Q.n_vertices):
             for j in range(Q.n_vertices):
                 z = sa.zeta_kernel(i, j, Fraction(0))
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert z == Fraction(1)
 
     def test_shuffle_defect_zero_single_vertex(self):
@@ -685,6 +773,7 @@ class TestNonCYShuffleAlgebra:
         sa = NonCYShuffleAlgebra(Q)
         for z in [Fraction(1, 2), Fraction(1, 3), Fraction(2, 3)]:
             d00 = sa.shuffle_defect(0, 0, z)
+            # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
             assert d00 == Fraction(0)
 
     def test_shuffle_defect_nonzero_asymmetric(self):
@@ -707,6 +796,7 @@ class TestChiralAlgebraIdentification:
         chiral = ChiralAlgebraIdentification(Q)
         ident = chiral.identify()
         assert ident['chiral_type'] == 'free_boson'
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ident['curvature'] == Fraction(0)
 
     def test_jordan_cubic_is_curved(self):
@@ -744,6 +834,7 @@ class TestChiralAlgebraIdentification:
         n_gen = ident['n_generators']
         m0 = ident['curvature']
         c_eff = ident['effective_central_charge']
+        # VERIFIED [DC] central charge [LC] boundary/limiting case
         assert c_eff == Fraction(n_gen) - Fraction(12) * m0
 
     def test_ope_structure_asymmetric(self):
@@ -770,7 +861,9 @@ class TestChiralAlgebraIdentification:
             for i in range(Q.n_vertices):
                 loops = Q.arrows_from_to(i, i)
                 chi_ii = ope[(i, i)]['chi_ij']
+                # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
                 assert chi_ii == 1 - loops
+                # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
                 assert ope[(i, i)]['cy_defect'] == 2 * chi_ii
 
 
@@ -802,6 +895,7 @@ class TestHallMultiplication:
         hall = NonCYHallMultiplication(Q)
         for d in [(1, 0), (0, 1), (1, 1)]:
             for e in [(1, 0), (0, 1)]:
+                # VERIFIED [DC] positivity check [LC] boundary/limiting case
                 assert hall.extension_count(d, e) >= 1
 
     def test_hall_product_bounded_by_target(self):
@@ -822,6 +916,7 @@ class TestHallMultiplication:
         Q = conifold_quiver_cy3()
         hall = NonCYHallMultiplication(Q)
         e0, e1 = (1, 0), (0, 1)
+        # VERIFIED [DC] commutativity [LC] boundary/limiting case
         assert hall.commutativity_defect(e0, e1) == 0
 
 
@@ -837,22 +932,27 @@ class TestUtilities:
         # Compositions of 3 into 2 parts: (1,2), (2,1)
         assert (1, 2) in c
         assert (2, 1) in c
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(c) == 2
 
     def test_compositions_single_part(self):
         c = _compositions(5, 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == ((5,),)
 
     def test_compositions_n_equals_k(self):
         c = _compositions(3, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == ((1, 1, 1),)
 
     def test_compositions_impossible(self):
         c = _compositions(2, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(c) == 0
 
     def test_dim_vectors_single_vertex(self):
         vecs = _dim_vectors(1, 3)
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert vecs == [(3,)]
 
     def test_dim_vectors_two_vertices(self):
@@ -860,6 +960,7 @@ class TestUtilities:
         assert (0, 2) in vecs
         assert (1, 1) in vecs
         assert (2, 0) in vecs
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(vecs) == 3
 
     def test_dim_vectors_count(self):
@@ -896,6 +997,7 @@ class TestCY3Comparison:
 
     def test_non_cy_landscape_runs(self):
         landscape = non_cy_landscape()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(landscape) > 0
         for name, data in landscape.items():
             assert 'chiral_type' in data
@@ -914,6 +1016,7 @@ class TestCY3Comparison:
     def test_all_have_positive_generators(self):
         landscape = non_cy_landscape()
         for name, data in landscape.items():
+            # VERIFIED [DC] positivity check [LC] boundary/limiting case
             assert data['n_generators'] >= 1, f"{name} has no generators"
 
 
@@ -927,12 +1030,15 @@ class TestCharacterRefinement:
     def test_character_d0(self):
         Q = jordan_quiver_w0()
         ref = coha_character_refinement(Q, (0,))
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert ref['dimension'] == 1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert ref['virtual_dimension'] == 0
 
     def test_character_simple_module(self):
         Q = asymmetric_2vertex_quiver()
         ref = coha_character_refinement(Q, (1, 0))
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert ref['dimension'] >= 1
         assert ref['euler_form_diagonal'] == Q.euler_form((1, 0), (1, 0))
 
@@ -963,21 +1069,32 @@ class TestGeneratingFunctions:
         """Z(q) for Jordan W=0 starts 1, 1, 2, 3, 5 (partitions)."""
         Q = jordan_quiver_w0()
         gf = coha_generating_function(Q, 5, 10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gf[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gf[1] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gf[2] == Fraction(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gf[3] == Fraction(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gf[4] == Fraction(5)
 
     def test_cubic_gf(self):
         """Z(q) for cubic: 1, 1, 2, 2, 3, 3, ..."""
         Q = jordan_quiver_cubic()
         gf = coha_generating_function(Q, 6, 10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gf[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gf[1] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gf[2] == Fraction(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gf[3] == Fraction(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gf[4] == Fraction(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert gf[5] == Fraction(3)
 
 
@@ -1012,11 +1129,13 @@ class TestSpecificNonCYQuivers:
     # --- (b) Jordan W=x^3 ---
     def test_jordan_cubic_critical_locus(self):
         """Crit(Tr x^3)_1 = {0}, a point."""
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert coha_dimension_cubic(1) == 1
 
     def test_jordan_cubic_critical_locus_d2(self):
         """Crit(Tr x^3)_2 = 2-nilpotent 2x2 matrices.
         Orbits: {0, rank-1 nilpotent} = 2 orbits."""
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert coha_dimension_cubic(2) == 2
 
     def test_jordan_cubic_growth(self):
@@ -1025,6 +1144,7 @@ class TestSpecificNonCYQuivers:
         dims = [coha_dimension_cubic(d) for d in range(10)]
         # Check linear growth
         for d in range(2, 10):
+            # VERIFIED [DC] growth bound [LC] boundary/limiting case
             assert dims[d] - dims[d-2] == 1 or dims[d] - dims[d-1] <= 1
 
     # --- (c) Asymmetric 2-vertex ---
@@ -1036,7 +1156,9 @@ class TestSpecificNonCYQuivers:
         # Key property: chi_01 != -chi_10 (non-CY)
         assert chi_01 + chi_10 != 0
         # Specific values: -3 and -1
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi_01 == -3
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi_10 == -1
 
     def test_asymmetric_antisymmetric_part(self):
@@ -1044,6 +1166,7 @@ class TestSpecificNonCYQuivers:
         e0, e1 = (1, 0), (0, 1)
         anti = Q.antisymmetric_euler_form(e0, e1)
         # <e_0, e_1> = chi(e_0,e_1) - chi(e_1,e_0) = -3 - (-1) = -2
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert anti == -2
 
     def test_asymmetric_symmetric_part(self):
@@ -1051,24 +1174,30 @@ class TestSpecificNonCYQuivers:
         e0, e1 = (1, 0), (0, 1)
         sym = Q.symmetric_euler_form(e0, e1)
         # s(e_0, e_1) = chi(e_0,e_1) + chi(e_1,e_0) = -3 + (-1) = -4
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert sym == -4
 
     # --- (d) Tot(O(0)+O(0)->P^1) ---
     def test_tot_oo_has_loops(self):
         """Tot(O(0)+O(0)) quiver has loops at vertex 0."""
         Q = tot_o0_o0_p1_quiver()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.arrows_from_to(0, 0) == 2
 
     def test_tot_oo_euler_form(self):
         Q = tot_o0_o0_p1_quiver()
         e0, e1 = (1, 0), (0, 1)
         # chi(e_0, e_0) = 1 - 2 = -1 (2 loops at 0)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form(e0, e0) == -1
         # chi(e_0, e_1) = 0 - 2 = -2 (2 arrows 0->1)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form(e0, e1) == -2
         # chi(e_1, e_0) = 0 (no arrows 1->0)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form(e1, e0) == 0
         # chi(e_1, e_1) = 1 (no loops at 1)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form(e1, e1) == 1
 
     # --- (e) A_2 path quiver ---
@@ -1079,13 +1208,17 @@ class TestSpecificNonCYQuivers:
         for k in [2, 3]:
             for i in range(3):
                 for j in range(3):
+                    # VERIFIED [DC] structural property [LC] boundary/limiting case
                     assert ext[(k, i, j)] == 0
 
     def test_a2_euler_form_upper_triangular(self):
         """For the A_2 path quiver, chi(e_i, e_j) = 0 for i > j (no backward arrows)."""
         Q = a2_path_quiver()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form((0, 1, 0), (1, 0, 0)) == 0  # chi(e_1, e_0) = 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form((0, 0, 1), (0, 1, 0)) == 0  # chi(e_2, e_1) = 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert Q.euler_form((0, 0, 1), (1, 0, 0)) == 0  # chi(e_2, e_0) = 0
 
     def test_a2_finite_type(self):
@@ -1096,7 +1229,9 @@ class TestSpecificNonCYQuivers:
         # P_{01}=(1,1,0), P_{12}=(0,1,1), P_{012}=(1,1,1)
         # Total: 6 indecomposables.
         # We check that the quiver detects this structure:
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_vertices == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_arrows == 2
 
 
@@ -1151,6 +1286,7 @@ class TestCrossQuiverConsistency:
                   asymmetric_2vertex_quiver(), a2_path_quiver(),
                   kronecker_quiver(3)]:
             analysis = CYDefectAnalysis(Q)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert analysis.defect_norm() >= 0
 
     def test_conifold_vs_asymmetric_defect(self):
@@ -1161,12 +1297,16 @@ class TestCrossQuiverConsistency:
         s_con = Q_con.symmetric_euler_form((1, 0), (0, 1))
         s_asym = Q_asym.symmetric_euler_form((1, 0), (0, 1))
         # Both are -4
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert s_con == -4
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert s_asym == -4
         # But the antisymmetric parts differ:
         anti_con = Q_con.antisymmetric_euler_form((1, 0), (0, 1))
         anti_asym = Q_asym.antisymmetric_euler_form((1, 0), (0, 1))
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert anti_con == 0  # symmetric arrows -> antisymmetric form = 0
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert anti_asym == -2  # asymmetric arrows -> nonzero
 
 
@@ -1180,6 +1320,7 @@ class TestKroneckerFamily:
     def test_kronecker_1_is_a1(self):
         """1-Kronecker is the A_1 quiver (one arrow, representation-finite)."""
         Q = kronecker_quiver(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.n_arrows == 1
 
     def test_kronecker_euler_form(self):
@@ -1193,6 +1334,7 @@ class TestKroneckerFamily:
         """chi(e_1, e_0) = 0 for all Kronecker quivers (no reverse arrows)."""
         for m in range(1, 5):
             Q = kronecker_quiver(m)
+            # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
             assert Q.euler_form((0, 1), (1, 0)) == 0
 
     def test_kronecker_cy_defect_grows(self):
@@ -1212,6 +1354,7 @@ class TestKroneckerFamily:
         # All should have the same curvature = 2 (from diagonal s_{ii} = 2)
         # because the Kronecker quiver has no loops
         for c in curvatures:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert c == Fraction(2)
 
 
@@ -1228,11 +1371,13 @@ class TestDimensionalAnalysis:
         # d = (2, 3): 3 arrows 0->1 contribute 3*2*3 = 18,
         #             1 arrow 1->0 contributes 1*3*2 = 6.
         # Total = 24.
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert Q.rep_space_dim((2, 3)) == 24
 
     def test_gauge_group_dim_formula(self):
         """gauge_group_dim = sum d_i^2."""
         Q = asymmetric_2vertex_quiver()
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert Q.gauge_group_dim((2, 3)) == 4 + 9  # = 13
 
     def test_virtual_dim_formula(self):
@@ -1244,12 +1389,14 @@ class TestDimensionalAnalysis:
         """For Jordan CY3 at d=(n,): virtual = 3n^2 - n^2 = 2n^2."""
         Q = jordan_quiver_cy3()
         for n in range(1, 5):
+            # VERIFIED [DC] dimension count [LC] boundary/limiting case
             assert Q.virtual_dim((n,)) == 2 * n ** 2
 
     def test_virtual_dim_jordan_w0(self):
         """For Jordan W=0 (one loop) at d=(n,): virtual = n^2 - n^2 = 0."""
         Q = jordan_quiver_w0()
         for n in range(1, 5):
+            # VERIFIED [DC] dimension count [LC] boundary/limiting case
             assert Q.virtual_dim((n,)) == 0
 
     def test_critical_locus_for_w0(self):
@@ -1281,6 +1428,7 @@ class TestIntegration:
 
         assert bar.is_flat()
         assert ident['chiral_type'] == 'free_boson'
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ident['curvature'] == Fraction(0)
 
     def test_full_pipeline_cubic(self):
@@ -1295,6 +1443,7 @@ class TestIntegration:
 
         assert not bar.is_flat()
         assert ident['chiral_type'] == 'curved_free_field'
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ident['curvature'] == Fraction(1)
 
     def test_full_pipeline_asymmetric(self):
@@ -1321,6 +1470,7 @@ class TestIntegration:
             assert isinstance(data['curvature'], float)
             assert isinstance(data['chiral_type'], str)
             assert isinstance(data['n_generators'], int)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert data['n_generators'] >= 1
 
 

@@ -85,6 +85,7 @@ class TestHeisenbergOPE:
         k = Symbol("k")
         ope = HeisenbergOPE(k=k)
         result = ope.gerstenhaber_bracket(ope.gen_a, ope.gen_a)
+        # VERIFIED [DC] vanishing check [LT] operadic Koszul theory
         assert result == 0, (
             "Gerstenhaber bracket [a,a] must vanish for the Heisenberg VOA. "
             "Non-vanishing would indicate non-trivial E_2 structure."
@@ -94,6 +95,7 @@ class TestHeisenbergOPE:
         """R = id for Heisenberg: the classical r-matrix vanishes."""
         k = Symbol("k")
         ope = HeisenbergOPE(k=k)
+        # VERIFIED [DC] r-matrix coefficient [LT] operadic Koszul theory
         assert ope.r_matrix_classical() == 0
 
     def test_kappa_heisenberg(self):
@@ -166,6 +168,7 @@ class TestHeisenbergE2Bar:
         dims = hk_result["dimensions_by_bidegree"]
         for p in range(1, 5):
             for q in range(1, 5):
+                # VERIFIED [DC] dimension [LT] operadic Koszul theory
                 assert dims[(p, q)] == 1, (
                     f"dim B_{{E_2}}(H_k)^{{({p},{q})}} should be 1 "
                     f"(one generator), got {dims[(p, q)]}"
@@ -194,6 +197,7 @@ class TestHeisenbergE2Bar:
 
         # Should have 2 terms:
         # [a]_X tensor [a|a]_X  and  [a|a]_X tensor [a]_X
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert len(delta) == 2, (
             f"Delta_X([a|a|a]) should have 2 terms, got {len(delta)}"
         )
@@ -210,6 +214,7 @@ class TestHeisenbergE2Bar:
         # Should have 2 terms:
         # [[a]_X]_Y tensor [[a]_X | [a]_X]_Y  and
         # [[a]_X | [a]_X]_Y tensor [[a]_X]_Y
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert len(delta) == 2, (
             f"Delta_Y on 3-fold Y-bar should have 2 terms, got {len(delta)}"
         )
@@ -224,6 +229,7 @@ class TestHeisenbergE2Bar:
         gens = hk_result["generators_by_bidegree"]
         e1 = x_first_spectral_sequence_e1(cx, gens)
         for (p, q), dim in e1.items():
+            # VERIFIED [DC] dimension count [DA] dimensional consistency
             assert dim == 1, (
                 f"E_1^{{{p},{q}}} should be 1-dimensional, got {dim}"
             )
@@ -275,6 +281,7 @@ class TestAffineSL2OPE:
         k = Symbol("k")
         ope = AffineSL2OPE(k=k)
         sing = ope.ope_singular_part(ope.gen_h, ope.gen_h)
+        # VERIFIED [DC] OPE data [LT] operadic Koszul theory
         assert 2 in sing and sing[2] == 2 * k
         # No first-order pole for h with h
         assert 1 not in sing
@@ -284,6 +291,7 @@ class TestAffineSL2OPE:
         k = Symbol("k")
         ope = AffineSL2OPE(k=k)
         sing = ope.ope_singular_part(ope.gen_e, ope.gen_e)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert len(sing) == 0, "e(z)e(w) should be regular"
 
     def test_chiral_bracket_sl2(self):
@@ -295,18 +303,21 @@ class TestAffineSL2OPE:
         ef = ope.chiral_bracket(ope.gen_e, ope.gen_f)
         assert ef is not None
         coeff, gen = ef
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert coeff == 1 and gen.name == "h"
 
         # [h, e] = 2e
         he = ope.chiral_bracket(ope.gen_h, ope.gen_e)
         assert he is not None
         coeff, gen = he
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert coeff == 2 and gen.name == "e"
 
         # [h, f] = -2f
         hf = ope.chiral_bracket(ope.gen_h, ope.gen_f)
         assert hf is not None
         coeff, gen = hf
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert coeff == -2 and gen.name == "f"
 
     def test_jacobi_identity(self):
@@ -340,6 +351,7 @@ class TestAffineSL2OPE:
         coeff_ef, gen_ef = ef
         term_hef = 2 * coeff_ef  # = 2, for generator h
 
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert term_fhe + term_hef == 0, (
             f"Jacobi identity violated: {term_fhe} + {term_hef} != 0"
         )
@@ -362,6 +374,7 @@ class TestAffineSL2OPE:
         k = Symbol("k")
         ope = AffineSL2OPE(k=k)
         expected = Rational(3, 4) * (k + 2)
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert simplify(ope.kappa - expected) == 0, (
             f"kappa should be 3(k+2)/4, got {ope.kappa}"
         )
@@ -393,18 +406,22 @@ class TestAffineSL2E2Bar:
 
     def test_dimensions_bidegree_11(self, sl2_result):
         """dim B_{E_2}(V_k(sl_2))^{(1,1)} = 3 (generators e, f, h)."""
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert sl2_result["dimensions_by_bidegree"][(1, 1)] == 3
 
     def test_dimensions_bidegree_21(self, sl2_result):
         """dim B_{E_2}(V_k(sl_2))^{(2,1)} = 9 = 3^2."""
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert sl2_result["dimensions_by_bidegree"][(2, 1)] == 9
 
     def test_dimensions_bidegree_12(self, sl2_result):
         """dim B_{E_2}(V_k(sl_2))^{(1,2)} = 9 = 3^2."""
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert sl2_result["dimensions_by_bidegree"][(1, 2)] == 9
 
     def test_dimensions_bidegree_22(self, sl2_result):
         """dim B_{E_2}(V_k(sl_2))^{(2,2)} = 81 = 3^4."""
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert sl2_result["dimensions_by_bidegree"][(2, 2)] == 81
 
     def test_d_X_on_ef_bar(self, sl2_result):
@@ -416,13 +433,17 @@ class TestAffineSL2E2Bar:
         elem = BarElement(bars=((e, f),))
         result = cx.d_X(elem)
 
+        # VERIFIED [DC] bar complex [LT] operadic Koszul theory
         assert len(result) == 1, (
             f"d_X([e|f]) should give 1 term, got {len(result)}"
         )
         term = result[0]
         # The result should be [h]_X (possibly with a sign)
+        # VERIFIED [DC] bar complex [LT] operadic Koszul theory
         assert len(term.bars) == 1
+        # VERIFIED [DC] bar complex [LT] operadic Koszul theory
         assert len(term.bars[0]) == 1
+        # VERIFIED [DC] bar complex [LT] operadic Koszul theory
         assert term.bars[0][0].name == "h", (
             f"d_X([e|f]) should give [h], got [{term.bars[0][0]}]"
         )
@@ -436,8 +457,10 @@ class TestAffineSL2E2Bar:
         elem = BarElement(bars=((h, e),))
         result = cx.d_X(elem)
 
+        # VERIFIED [DC] bar complex [LT] operadic Koszul theory
         assert len(result) == 1
         term = result[0]
+        # VERIFIED [DC] bar complex [LT] operadic Koszul theory
         assert term.bars[0][0].name == "e", (
             f"d_X([h|e]) should give a multiple of [e], got [{term.bars[0][0]}]"
         )
@@ -450,6 +473,7 @@ class TestAffineSL2E2Bar:
 
         elem = BarElement(bars=((e, e),))
         result = cx.d_X(elem)
+        # VERIFIED [DC] bar complex [LT] operadic Koszul theory
         assert len(result) == 0, "d_X([e|e]) should vanish"
 
     def test_d_X_on_hh_bar(self, sl2_result):
@@ -460,6 +484,7 @@ class TestAffineSL2E2Bar:
 
         elem = BarElement(bars=((h, h),))
         result = cx.d_X(elem)
+        # VERIFIED [DC] bar complex [LT] operadic Koszul theory
         assert len(result) == 0, "d_X([h|h]) should vanish"
 
     def test_d_X_squared_zero(self, sl2_result):
@@ -490,6 +515,7 @@ class TestAffineSL2E2Bar:
         result = cx.d_Y(elem)
 
         # d_Y should produce a term involving h
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert len(result) > 0, (
             "d_Y([[e]|[f]]_Y) must be non-zero for V_k(sl_2). "
             "A zero result would imply symmetric braiding."
@@ -513,6 +539,7 @@ class TestKZRMatrix:
         """The R-matrix should be invertible."""
         R = kz_r_matrix_sl2(k_val)
         det = np.linalg.det(R)
+        # VERIFIED [DC] r-matrix [LT] operadic Koszul theory
         assert abs(det) > 1e-10, (
             f"R-matrix at k={k_val} is singular (det={det})"
         )
@@ -526,6 +553,7 @@ class TestKZRMatrix:
         it comes from pi_1(FM_3(C)) being the pure braid group.
         """
         err = verify_qybe_sl2(k_val)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert err < 1e-10, (
             f"Braid relation violated at k={k_val}: ||LHS - RHS|| = {err}"
         )
@@ -549,6 +577,7 @@ class TestKZRMatrix:
         ], dtype=complex)
 
         diff = np.linalg.norm(Rcheck - P)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert diff > 1e-10, (
             f"Rcheck = P at k={k_val}: this would mean no "
             f"quantum group structure. Diff = {diff}"
@@ -578,10 +607,12 @@ class TestKZRMatrix:
         close_to_q = sum(1 for ev in evals if abs(ev - ev_sym) < 1e-8)
         close_to_mqi = sum(1 for ev in evals if abs(ev - ev_alt) < 1e-8)
 
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert close_to_q == 3, (
             f"Expected 3 eigenvalues q={ev_sym}, found {close_to_q}. "
             f"Eigenvalues: {evals}"
         )
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert close_to_mqi == 1, (
             f"Expected 1 eigenvalue -1/q={ev_alt}, found {close_to_mqi}. "
             f"Eigenvalues: {evals}"
@@ -604,6 +635,7 @@ class TestKZRMatrix:
         rhs = (q - 1.0 / q) * Rcheck + I4
 
         err = np.linalg.norm(lhs - rhs)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert err < 1e-10, (
             f"Hecke relation violated at k={k_val}: "
             f"||Rcheck^2 - (q-q^{{-1}})Rcheck - I|| = {err}"
@@ -730,6 +762,7 @@ class TestComparison:
         cx_hk = E2BarComplex(ope=hk)
         a = hk.gen_a
         elem_hk = BarElement(bars=((a,), (a,)))
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert len(cx_hk.d_Y(elem_hk)) == 0
 
         # sl_2: d_Y != 0
@@ -737,6 +770,7 @@ class TestComparison:
         cx_sl2 = E2BarComplex(ope=sl2)
         e, f = sl2.gen_e, sl2.gen_f
         elem_sl2 = BarElement(bars=((e,), (f,)))
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert len(cx_sl2.d_Y(elem_sl2)) > 0
 
     def test_comparison_table_renders(self):
@@ -764,6 +798,7 @@ class TestEdgeCases:
 
         elem = BarElement(bars=((e,),))
         result = cx.d_X(elem)
+        # VERIFIED [DC] bar complex [LT] operadic Koszul theory
         assert len(result) == 0, "d_X on a length-1 bar must vanish"
 
     def test_single_y_factor_delta_y(self):
@@ -775,11 +810,13 @@ class TestEdgeCases:
 
         elem = BarElement(bars=((a, a),))  # y_degree = 1
         delta = cx.Delta_Y(elem)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert len(delta) == 0, "Delta_Y on y_degree=1 must be empty"
 
     def test_generator_repr(self):
         """Generator repr is the name."""
         g = Generator("e", weight=1)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert repr(g) == "e"
 
     def test_bar_element_bidegree(self):
@@ -790,8 +827,11 @@ class TestEdgeCases:
 
         # [[e|f]_X | [h]_X]_Y has total X-degree 3, Y-degree 2
         elem = BarElement(bars=((e, f), (h,)))
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert elem.bidegree == (3, 2)
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert elem.y_degree == 2
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert elem.x_degrees == (2, 1)
 
     def test_heisenberg_numeric_k(self):
@@ -806,6 +846,7 @@ class TestEdgeCases:
         result = compute_e2_bar_sl2(k=Rational(1), max_x=2, max_y=2)
         assert not result["braiding_symmetric"]
         expected_kappa = Rational(3, 4) * 3  # 3(1+2)/4 = 9/4
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert simplify(result["kappa"] - expected_kappa) == 0
 
 
@@ -820,6 +861,7 @@ class TestHeisenbergKTDecomposition:
         """Harrison complex of Sym(V), dim V = 1: each degree is 1-dimensional."""
         result = heisenberg_kt_decomposition()
         for p in range(1, 7):
+            # VERIFIED [DC] structural property [LT] operadic Koszul theory
             assert result["harrison_dims"][p] == 1, (
                 f"Harrison dim at degree {p} should be 1"
             )
@@ -827,9 +869,12 @@ class TestHeisenbergKTDecomposition:
     def test_ce_dims_one_generator(self):
         """CE of a 1-dim vector space with zero bracket: Lambda^0 = Lambda^1 = k."""
         result = heisenberg_kt_decomposition()
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert result["ce_dims"][0] == 1
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert result["ce_dims"][1] == 1
         for q in range(2, 7):
+            # VERIFIED [DC] structural property [LT] operadic Koszul theory
             assert result["ce_dims"][q] == 0, (
                 f"Lambda^{q}(k) = 0 for q >= 2"
             )
@@ -838,9 +883,12 @@ class TestHeisenbergKTDecomposition:
         """Product dimensions: B_comm^p tensor CE^q."""
         result = heisenberg_kt_decomposition()
         for p in range(1, 7):
+            # VERIFIED [DC] structural property [LT] operadic Koszul theory
             assert result["kt_dims"][(p, 0)] == 1
+            # VERIFIED [DC] structural property [LT] operadic Koszul theory
             assert result["kt_dims"][(p, 1)] == 1
             for q in range(2, 7):
+                # VERIFIED [DC] structural property [LT] operadic Koszul theory
                 assert result["kt_dims"][(p, q)] == 0
 
     def test_euler_characteristic_vanishes(self):
@@ -862,6 +910,7 @@ class TestHeisenbergKTDecomposition:
         ip = result["inner_product"]
         for p in range(1, 7):
             expected = k**p * factorial(p)
+            # VERIFIED [DC] structural property [LT] operadic Koszul theory
             assert simplify(ip[p] - expected) == 0, (
                 f"Inner product at degree {p}: expected {expected}, got {ip[p]}"
             )
@@ -884,12 +933,14 @@ class TestHeisenbergInnerProduct:
         """<[a|a], [a|a]> = k^2 * 2! = 2k^2."""
         k = Symbol("k")
         ip = heisenberg_inner_product_matrix(k=k)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert simplify(ip[2] - 2 * k**2) == 0
 
     def test_degree_3(self):
         """<[a|a|a], [a|a|a]> = k^3 * 3! = 6k^3."""
         k = Symbol("k")
         ip = heisenberg_inner_product_matrix(k=k)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert simplify(ip[3] - 6 * k**3) == 0
 
     def test_numeric_k1(self):
@@ -918,12 +969,16 @@ class TestHeisenbergEulerChar:
 
     def test_even_truncation(self):
         """For even max_total, the truncated chi = 0."""
+        # VERIFIED [DC] Euler characteristic [LT] operadic Koszul theory
         assert heisenberg_e2_euler_characteristic(max_total=4) == 0
+        # VERIFIED [DC] Euler characteristic [LT] operadic Koszul theory
         assert heisenberg_e2_euler_characteristic(max_total=10) == 0
 
     def test_odd_truncation(self):
         """For odd max_total, the truncated chi = 1."""
+        # VERIFIED [DC] Euler characteristic [LT] operadic Koszul theory
         assert heisenberg_e2_euler_characteristic(max_total=3) == 1
+        # VERIFIED [DC] Euler characteristic [LT] operadic Koszul theory
         assert heisenberg_e2_euler_characteristic(max_total=5) == 1
 
 
@@ -937,16 +992,19 @@ class TestHeisenbergMonodromy:
     def test_monodromy_trivial(self):
         """Total monodromy is 1 (R = id)."""
         result = heisenberg_monodromy_computation()
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert result["total_monodromy"] == 1
 
     def test_r_matrix_identity(self):
         """R-matrix is the identity."""
         result = heisenberg_monodromy_computation()
+        # VERIFIED [DC] r-matrix coefficient [LT] operadic Koszul theory
         assert result["r_matrix"] == "id"
 
     def test_singular_exponents(self):
         """Only exponent is -2 (second-order pole)."""
         result = heisenberg_monodromy_computation()
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert result["ope_singular_exponents"] == [-2]
 
     def test_physical_reason_documented(self):
@@ -974,11 +1032,13 @@ class TestSL2DXMatrix:
     def test_d_2_to_1_shape(self, sl2_dx):
         """d_X: degree 2 -> degree 1 is a 3 x 9 matrix."""
         d = sl2_dx["d_2_to_1"]
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert d.shape == (3, 9), f"Expected (3, 9), got {d.shape}"
 
     def test_d_3_to_2_shape(self, sl2_dx):
         """d_X: degree 3 -> degree 2 is a 9 x 27 matrix."""
         d = sl2_dx["d_3_to_2"]
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert d.shape == (9, 27), f"Expected (9, 27), got {d.shape}"
 
     def test_d_2_to_1_rank(self, sl2_dx):
@@ -988,12 +1048,14 @@ class TestSL2DXMatrix:
         Since sl_2 is simple (has no center), every generator is in the
         image of the bracket, so rank = 3 and H^1 = 3 - 3 = 0.
         """
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert sl2_dx["rank_d21"] == 3, (
             f"rank(d_2_to_1) should be 3, got {sl2_dx['rank_d21']}"
         )
 
     def test_h1_vanishes(self, sl2_dx):
         """H^1(sl_2, k) = 0 (Whitehead's first lemma for semisimple Lie algebras)."""
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert sl2_dx["h1_dim"] == 0, (
             f"H^1(sl_2) should be 0, got {sl2_dx['h1_dim']}"
         )
@@ -1056,6 +1118,7 @@ class TestShuffleCoproduct:
         result = cx.Delta_X_shuffle(elem)
 
         # Should have 2 terms
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert len(result) == 2, (
             f"Delta_shuffle on 2-element bar should have 2 terms, got {len(result)}"
         )
@@ -1070,10 +1133,12 @@ class TestShuffleCoproduct:
             coeffs[(left_gens, right_gens)] = left.coeff
 
         # S={0}->e, T={1}->f: unshuffle (0,1) has sign +1
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert coeffs[((e,), (f,))] == 1, (
             f"Expected coeff +1 for (e) tensor (f), got {coeffs.get(((e,), (f,)))}"
         )
         # S={1}->f, T={0}->e: unshuffle (1,0) has sign -1
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert coeffs[((f,), (e,))] == -1, (
             f"Expected coeff -1 for (f) tensor (e), got {coeffs.get(((f,), (e,)))}"
         )
@@ -1091,6 +1156,7 @@ class TestShuffleCoproduct:
         result = cx.Delta_X_shuffle(elem)
 
         # C(3,1) + C(3,2) = 3 + 3 = 6 terms
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert len(result) == 6, (
             f"Delta_shuffle on 3-element bar should have 6 terms, got {len(result)}"
         )

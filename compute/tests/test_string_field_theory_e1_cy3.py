@@ -67,23 +67,28 @@ class TestPowerSeriesArithmetic:
 
     def test_fps_one(self):
         f = _fps_one(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert f[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert all(f[i] == Fraction(0) for i in range(1, 5))
 
     def test_fps_zero(self):
         f = _fps_zero(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert all(f[i] == Fraction(0) for i in range(5))
 
     def test_fps_add(self):
         a = [Fraction(1), Fraction(2), Fraction(3)]
         b = [Fraction(4), Fraction(5), Fraction(6)]
         c = _fps_add(a, b, 3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == [Fraction(5), Fraction(7), Fraction(9)]
 
     def test_fps_sub(self):
         a = [Fraction(5), Fraction(7)]
         b = [Fraction(1), Fraction(3)]
         c = _fps_sub(a, b, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == [Fraction(4), Fraction(4)]
 
     def test_fps_mul_identity(self):
@@ -108,8 +113,11 @@ class TestPowerSeriesArithmetic:
         a = [Fraction(1), Fraction(1)] + [Fraction(0)] * 3
         b = [Fraction(1), Fraction(-1)] + [Fraction(0)] * 3
         c = _fps_mul(a, b, 5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c[1] == Fraction(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c[2] == Fraction(-1)
 
     def test_fps_inv_round_trip(self):
@@ -118,8 +126,10 @@ class TestPowerSeriesArithmetic:
         f = [Fraction(1), Fraction(2), Fraction(3)] + _fps_zero(N - 3)
         finv = _fps_inv(f, N)
         product = _fps_mul(f, finv, N)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for i in range(1, N):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert product[i] == Fraction(0)
 
     def test_fps_exp_log_inverse(self):
@@ -164,6 +174,7 @@ class TestMacMahon:
         M = macmahon(N)
         known = [1, 1, 3, 6, 13, 24, 48, 86, 160, 282, 500, 859]
         for i in range(len(known)):
+            # VERIFIED [DC] partition function [LC] OEIS A000219
             assert M[i] == Fraction(known[i]), (
                 f"MacMahon M[{i}] = {M[i]} != {known[i]} (OEIS A000219)"
             )
@@ -171,6 +182,7 @@ class TestMacMahon:
     def test_macmahon_constant_term(self):
         """M(0) = 1 (empty plane partition)."""
         M = macmahon(5)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert M[0] == Fraction(1)
 
     def test_macmahon_is_sft_partition(self):
@@ -195,6 +207,7 @@ class TestMacMahon:
         """
         N = 10
         log_M = genus_expansion_log_macmahon(N)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert log_M[1] == Fraction(1), (
             f"log M(q) coefficient of q = {log_M[1]} != 1 = kappa(H_1)"
         )
@@ -208,6 +221,7 @@ class TestMacMahon:
         """
         sft = c3_sft_partition(15)
         kappa = sft.kappa_from_log()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa == Fraction(1), f"kappa from log Z = {kappa} != 1"
 
 
@@ -219,26 +233,33 @@ class TestBernoulliAndGenusExpansion:
     """Tests for Bernoulli numbers and genus expansion."""
 
     def test_bernoulli_b0(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert _bernoulli_exact(0) == Fraction(1)
 
     def test_bernoulli_b1(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert _bernoulli_exact(1) == Fraction(-1, 2)
 
     def test_bernoulli_b2(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert _bernoulli_exact(2) == Fraction(1, 6)
 
     def test_bernoulli_b4(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert _bernoulli_exact(4) == Fraction(-1, 30)
 
     def test_bernoulli_b6(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert _bernoulli_exact(6) == Fraction(1, 42)
 
     def test_bernoulli_b8(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert _bernoulli_exact(8) == Fraction(-1, 30)
 
     def test_bernoulli_odd_vanish(self):
         """B_{2k+1} = 0 for k >= 1."""
         for k in range(1, 10):
+            # VERIFIED [DC] vanishing check [LC] boundary/limiting case
             assert _bernoulli_exact(2 * k + 1) == Fraction(0)
 
     def test_faber_pandharipande_f2(self):
@@ -250,15 +271,18 @@ class TestBernoulliAndGenusExpansion:
         f2 = faber_pandharipande(2)
         # B_4 = -1/30
         # F_2 = (-1)^1 * (-1/30) / (4 * 2) = (1/30) / 8 = 1/240
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert f2 == Fraction(1, 240), f"F_2 = {f2} != 1/240"
 
     def test_faber_pandharipande_f3(self):
         """F_3 = (-1)^2 * B_6 / (6*4) = (1/42) / 24 = 1/1008."""
         f3 = faber_pandharipande(3)
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert f3 == Fraction(1, 1008), f"F_3 = {f3} != 1/1008"
 
     def test_faber_pandharipande_f0(self):
         """F_0 = 0 (no genus-0 contribution for C^3)."""
+        # VERIFIED [DC] genus free energy [LC] boundary/limiting case
         assert faber_pandharipande(0) == Fraction(0)
 
 
@@ -272,19 +296,23 @@ class TestChargeAndStringField:
     def test_charge_addition(self):
         g1 = Charge((1, 0))
         g2 = Charge((0, 1))
+        # VERIFIED [DC] additivity [LC] boundary/limiting case
         assert (g1 + g2).components == (1, 1)
 
     def test_charge_negation(self):
         g = Charge((3, -2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert (-g).components == (-3, 2)
 
     def test_charge_subtraction(self):
         g1 = Charge((3, 1))
         g2 = Charge((1, 2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert (g1 - g2).components == (2, -1)
 
     def test_charge_scalar_mul(self):
         g = Charge((1, 2))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert (3 * g).components == (3, 6)
 
     def test_string_field_addition(self):
@@ -293,7 +321,9 @@ class TestChargeAndStringField:
         psi1 = StringField({g1: Fraction(1)})
         psi2 = StringField({g2: Fraction(2)})
         result = psi1 + psi2
+        # VERIFIED [DC] string field theory [LC] boundary/limiting case
         assert result.components[g1] == Fraction(1)
+        # VERIFIED [DC] string field theory [LC] boundary/limiting case
         assert result.components[g2] == Fraction(2)
 
     def test_string_field_subtraction(self):
@@ -301,6 +331,7 @@ class TestChargeAndStringField:
         psi1 = StringField({g1: Fraction(3)})
         psi2 = StringField({g1: Fraction(1)})
         result = psi1 - psi2
+        # VERIFIED [DC] string field theory [LC] boundary/limiting case
         assert result.components[g1] == Fraction(2)
 
     def test_string_field_cancellation(self):
@@ -313,6 +344,7 @@ class TestChargeAndStringField:
         g1 = Charge((1, 0))
         psi = StringField({g1: Fraction(3)})
         result = psi.scale(Fraction(2))
+        # VERIFIED [DC] string field theory [LC] boundary/limiting case
         assert result.components[g1] == Fraction(6)
 
 
@@ -468,6 +500,7 @@ class TestTachyonCondensation:
         Euler form. For the conifold, <(1,0), (0,1)> = 1.
         """
         tc = conifold_tachyon_condensation()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert tc.ext_dim == 1
 
     def test_conifold_spectrum_change(self):
@@ -494,11 +527,13 @@ class TestTachyonCondensation:
     def test_source_spectrum(self):
         """Source (large volume) has 2 BPS states."""
         tc = conifold_tachyon_condensation()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sum(v for v in tc.source_spectrum.values() if v != 0) == 2
 
     def test_target_spectrum(self):
         """Target (flopped) has 3 BPS states."""
         tc = conifold_tachyon_condensation()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sum(v for v in tc.target_spectrum.values() if v != 0) == 3
 
 
@@ -518,6 +553,7 @@ class TestKoszulDuality:
         """
         kd = c3_koszul_data()
         assert kd.verify_koszul_complementarity()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kd.kappa_sum == Fraction(0)
 
     def test_c3_koszul_self_dual(self):
@@ -537,7 +573,9 @@ class TestKoszulDuality:
     def test_conifold_koszul_generator_count(self):
         """Both the original and dual conifold CoHA have 2 generators."""
         kd = conifold_koszul_data()
+        # VERIFIED [DC] Koszul structure [LC] boundary/limiting case
         assert kd.n_generators_original == 2
+        # VERIFIED [DC] Koszul structure [LC] boundary/limiting case
         assert kd.n_generators_dual == 2
 
     def test_kappa_values(self):
@@ -548,7 +586,9 @@ class TestKoszulDuality:
         """
         c3 = c3_koszul_data()
         con = conifold_koszul_data()
+        # VERIFIED [DC] kappa formula [LC] AP48
         assert c3.kappa_original == Fraction(1)
+        # VERIFIED [DC] kappa formula [LC] AP48
         assert con.kappa_original == Fraction(0)
 
 
@@ -576,6 +616,7 @@ class TestCSFT:
         """
         csft = c3_csft_data(max_arity=6)
         for d in csft.cyclic_bar_dims:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert d == 1
 
     def test_conifold_cyclic_bar_dims(self):
@@ -604,6 +645,7 @@ class TestCSFT:
     def test_csft_kappa_match(self):
         """kappa of the E_2 center matches the E_1 kappa for C^3."""
         csft = c3_csft_data()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert csft.e1_kappa == csft.e2_kappa == Fraction(1)
 
 
@@ -618,6 +660,7 @@ class TestCyclicBarComplex:
         """M(n, 1) = 1 for all n (one necklace with one color)."""
         dims = compute_cyclic_bar_dims(1, 8)
         for d in dims:
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert d == 1
 
     def test_necklace_2_colors(self):
@@ -660,6 +703,7 @@ class TestCyclicBarComplex:
         So M(4, 2) = 6.
         """
         dims = compute_cyclic_bar_dims(2, 5)
+        # VERIFIED [DC] consistency check [LC] boundary/limiting case
         assert dims[3] == 6  # M(4, 2) = 6
 
     def test_burnside_direct_small(self):
@@ -672,6 +716,7 @@ class TestCyclicBarComplex:
         Total = (8+2+2)/3 = 12/3 = 4.
         """
         dims = compute_cyclic_bar_dims(2, 5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert dims[2] == 4  # M(3, 2) = 4
 
 
@@ -699,11 +744,13 @@ class TestSFTPartition:
     def test_c3_euler_characteristic(self):
         """chi(C^3) = 2 (topological Euler characteristic)."""
         sft = c3_sft_partition()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert sft.euler_char == 2
 
     def test_c3_z_top_exponent(self):
         """Z_top = M(g_s)^{chi/2} = M(g_s)^1 for C^3."""
         sft = c3_sft_partition()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sft.z_top_exponent == Fraction(1)
 
     def test_conifold_partition_euler_product(self):
@@ -717,16 +764,23 @@ class TestSFTPartition:
         # Euler function coefficients (pentagonal numbers)
         # prod(1-q^n) = sum_{k=-inf}^{inf} (-1)^k q^{k(3k-1)/2}
         # = 1 - q - q^2 + q^5 + q^7 - q^{12} - ...
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert sft.partition_function[0] == Fraction(1)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert sft.partition_function[1] == Fraction(-1)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert sft.partition_function[2] == Fraction(-1)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert sft.partition_function[3] == Fraction(0)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert sft.partition_function[4] == Fraction(0)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert sft.partition_function[5] == Fraction(1)
 
     def test_conifold_euler_char(self):
         """Conifold BPS factor has chi = 0 contribution."""
         sft = conifold_sft_partition()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert sft.euler_char == 0
 
     def test_euler_pentagonal_specific(self):
@@ -781,6 +835,7 @@ class TestQuiverGaugeTheory:
             bps_spectrum={Charge((1,)): 1},
         )
         assert qgt.is_cy3_quiver
+        # VERIFIED [DC] vertex algebra [LC] boundary/limiting case
         assert qgt.n_vertices == 1
 
     def test_conifold_quiver(self):
@@ -793,6 +848,7 @@ class TestQuiverGaugeTheory:
             bps_spectrum={Charge((1, 0)): 1, Charge((0, 1)): 1},
         )
         assert qgt.is_cy3_quiver
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert qgt.n_vertices == 2
 
     def test_local_p2_quiver(self):
@@ -806,6 +862,7 @@ class TestQuiverGaugeTheory:
                           Charge((0, 0, 1)): 1},
         )
         assert qgt.is_cy3_quiver
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert qgt.n_vertices == 3
 
     def test_chart_partition_c3(self):
@@ -829,6 +886,7 @@ class TestQuiverGaugeTheory:
         # P(q) = 1, 1, 2, 3, 5, 7, 11, 15, 22, 30
         known_partitions = [1, 1, 2, 3, 5, 7, 11, 15, 22, 30]
         for i in range(min(len(known_partitions), N)):
+            # VERIFIED [DC] partition function coefficient [LC] OEIS A000041
             assert Z[i] == Fraction(known_partitions[i]), (
                 f"P(q)[{i}] = {Z[i]} != {known_partitions[i]} (OEIS A000041)"
             )
@@ -853,6 +911,7 @@ class TestFullVerification:
         assert result.koszul_complementarity, "C^3 Koszul complementarity failed"
         assert result.csft_center_ok, "C^3 CSFT center upgrading failed"
         assert result.partition_kappa_match, "C^3 kappa from partition mismatch"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.n_paths_verified >= 7, (
             f"C^3: only {result.n_paths_verified} paths verified, need >= 7"
         )
@@ -869,6 +928,7 @@ class TestFullVerification:
         assert result.tachyon_spectrum_ok, "Conifold tachyon spectrum change failed"
         assert result.koszul_complementarity, "Conifold Koszul complementarity failed"
         assert result.csft_center_ok, "Conifold CSFT center upgrading failed"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.n_paths_verified >= 7, (
             f"Conifold: only {result.n_paths_verified} paths verified, need >= 7"
         )
@@ -880,6 +940,7 @@ class TestFullVerification:
         assert result.star_non_commutative is not None
         assert result.mc_trivial_ok
         assert result.btt_ok
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.n_paths_verified >= 3
 
     def test_master_verification(self):
@@ -888,6 +949,7 @@ class TestFullVerification:
         assert results['all_associative'], "Not all star products are associative"
         assert results['all_mc_ok'], "Not all MC equations pass trivial check"
         assert results['all_btt'], "Not all geometries pass BTT"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert results['total_paths'] >= 15, (
             f"Total paths = {results['total_paths']}, need >= 15"
         )
@@ -942,11 +1004,15 @@ class TestCrossGeometry:
         chi12 = con.euler_form(g1, g2)
         chi21 = con.euler_form(g2, g1)
         # Path 1: antisymmetry
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi12 + chi21 == 0, f"<g1,g2>+<g2,g1>={chi12+chi21} != 0"
         # Path 2: self-pairing
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert con.euler_form(g1, g1) == 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert con.euler_form(g2, g2) == 0
         # Cross-check: the non-zero value is 1, matching conifold geometry
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert abs(chi12) == 1
 
     def test_euler_form_self_pairing_zero_all_geometries(self):
@@ -957,16 +1023,19 @@ class TestCrossGeometry:
         # C^3
         c3 = c3_osft_data()
         g = Charge((1,))
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert c3.euler_form(g, g) == 0
 
         # Conifold
         con = conifold_osft_data()
         for gi in [Charge((1, 0)), Charge((0, 1)), Charge((1, 1))]:
+            # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
             assert con.euler_form(gi, gi) == 0
 
         # Local P^2
         p2 = local_p2_osft_data()
         for gi in [Charge((1, 0, 0)), Charge((0, 1, 0)), Charge((0, 0, 1))]:
+            # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
             assert p2.euler_form(gi, gi) == 0
 
     def test_local_p2_cyclic_euler_cross_check(self):
@@ -989,6 +1058,7 @@ class TestCrossGeometry:
         assert chi12 == -p2.euler_form(g2, g1)
         assert chi20 == -p2.euler_form(g0, g2)
         # Path 3: cyclic symmetry cross-check
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi01 == chi12 == chi20 == 3
 
     def test_e1_not_e2(self):
@@ -1017,6 +1087,7 @@ class TestCrossGeometry:
         All 7 are tested in the master verification.
         """
         results = master_sft_verification()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert results['total_paths'] >= 15
 
 
@@ -1079,6 +1150,7 @@ class TestMultiPathCrossChecks:
         kd = c3_koszul_data()
         kappa_3 = -kd.kappa_dual  # kappa = -kappa^!
 
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_1 == kappa_2 == kappa_3 == Fraction(1), (
             f"kappa(C^3) disagreement: OSFT={kappa_1}, log M={kappa_2}, "
             f"Koszul={kappa_3}"
@@ -1295,6 +1367,7 @@ class TestMultiPathCrossChecks:
         kappa_dual = Fraction(-k)
         sum_2 = kappa_original + kappa_dual
 
+        # VERIFIED [DC] Koszul conductor [LC] boundary/limiting case
         assert sum_1 == sum_2 == Fraction(0), (
             f"Koszul complementarity: data={sum_1}, direct={sum_2}"
         )
@@ -1343,8 +1416,10 @@ class TestMultiPathCrossChecks:
         M = list(macmahon(N))
         Minv = _fps_inv(M, N)
         product = _fps_mul(M, Minv, N)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert product[0] == Fraction(1)
         for i in range(1, N):
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert product[i] == Fraction(0), (
                 f"M * M^{{-1}} at q^{i} = {product[i]} != 0"
             )

@@ -1441,7 +1441,7 @@ class ShadowTowerFromCharts:
         return kappa
 
     @property
-    def kappa_global(self) -> Fraction:
+    def kappa_ch(self) -> Fraction:
         return self._kappa_global
 
     def local_shadow_tower(self, label: str) -> Dict[int, Fraction]:
@@ -1561,7 +1561,7 @@ def grand_chain_level_verification(
                         ("k3xe", k3xe_shadow_tower(max_genus)),
                         ("quintic", quintic_shadow_tower(max_genus))]:
         shadow_results[name] = {
-            "kappa": tower.kappa_global,
+            "kappa": tower.kappa_ch,
             "tower": {str(g): str(v)
                       for g, v in tower.global_shadow_tower().items()},
             "wall_corrections_vanish": tower.verify_wall_corrections_vanish(),

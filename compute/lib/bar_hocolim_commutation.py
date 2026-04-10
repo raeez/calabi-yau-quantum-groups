@@ -1031,7 +1031,7 @@ def conifold_bar_hocolim_full(max_bar_degree: int = 4) -> BarHocolimData:
 
     kappa_mv = hc.kappa_mayer_vietoris()
     # The global κ of the conifold resolved = 1 (from the pair of P¹s)
-    kappa_global = Fraction(1)
+    kappa_ch = Fraction(1)
 
     return BarHocolimData(
         name="conifold",
@@ -1040,9 +1040,9 @@ def conifold_bar_hocolim_full(max_bar_degree: int = 4) -> BarHocolimData:
         local_kappas=local_kappas,
         hocolim_bar_dims=hocolim_dims,
         hocolim_euler=hocolim_euler,
-        global_kappa=kappa_global,
+        global_kappa=kappa_ch,
         kappa_mayer_vietoris=kappa_mv,
-        kappa_match=(kappa_global == kappa_mv),
+        kappa_match=(kappa_ch == kappa_mv),
         mayer_vietoris=mv_data,
     )
 
@@ -1207,20 +1207,20 @@ def shadow_tower_from_local_data(
         κ(A_X) = Σ κ(Aᵢ) − Σ κ(Kᵢⱼ) + ...  (Mayer-Vietoris)
         F_g(A_X) = κ(A_X) · λ_g^FP  (scalar lane)
     """
-    kappa_global = Fraction(0)
+    kappa_ch = Fraction(0)
     for label, kap in local_kappas.items():
         if is_overlap.get(label, False):
-            kappa_global -= kap
+            kappa_ch -= kap
         else:
-            kappa_global += kap
+            kappa_ch += kap
 
     tower = {}
     for g in range(1, max_genus + 1):
         if g in A_HAT_COEFFICIENTS:
-            tower[g] = kappa_global * A_HAT_COEFFICIENTS[g]
+            tower[g] = kappa_ch * A_HAT_COEFFICIENTS[g]
 
     return {
-        "kappa_global": kappa_global,
+        "kappa_ch": kappa_ch,
         "shadow_tower": {str(g): str(v) for g, v in tower.items()},
         "local_kappas": {k: str(v) for k, v in local_kappas.items()},
     }
@@ -1397,9 +1397,9 @@ def grand_verification(max_bar_degree: int = 4) -> Dict[str, Any]:
 
     # Shadow tower consistency
     con_shadow = conifold_shadow_from_hocolim()
-    results["conifold_kappa_from_shadow"] = str(con_shadow["kappa_global"])
+    results["conifold_kappa_from_shadow"] = str(con_shadow["kappa_ch"])
     lp2_shadow = local_p2_shadow_from_hocolim()
-    results["local_p2_kappa_from_shadow"] = str(lp2_shadow["kappa_global"])
+    results["local_p2_kappa_from_shadow"] = str(lp2_shadow["kappa_ch"])
 
     results["all_passed"] = all(
         v is True for k, v in results.items() if isinstance(v, bool))

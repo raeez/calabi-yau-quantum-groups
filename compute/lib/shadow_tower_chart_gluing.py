@@ -571,7 +571,7 @@ def conifold_chart_data() -> Tuple[ChartShadowData, ChartShadowData]:
     wall-crossing creation. It contributes kappa_wall = 1/2.
 
     GLOBAL ASSEMBLY:
-        kappa_global = kappa_I + kappa_II - (shared kappa)
+        kappa_ch = kappa_I + kappa_II - (shared kappa)
         where the shared kappa accounts for the overlap (the common BPS states).
 
     For the conifold: both charts share the same two fundamental BPS states
@@ -579,7 +579,7 @@ def conifold_chart_data() -> Tuple[ChartShadowData, ChartShadowData]:
 
     METHOD: We treat Chart I as the "base" and the wall-crossing as producing
     the correction. The global kappa is then:
-        kappa_global = kappa_I + delta_kappa_wall
+        kappa_ch = kappa_I + delta_kappa_wall
 
     where delta_kappa_wall = kappa from the bound state = 1/2.
     But wait: from the full DT theory, the conifold has kappa = 1
@@ -658,14 +658,14 @@ def conifold_global_shadow_tower(max_genus: int = 5) -> GlobalShadowTower:
 
     The conifold global shadow tower is assembled as:
 
-        kappa_global = kappa_{Chart I} (the gauge-invariant value)
+        kappa_ch = kappa_{Chart I} (the gauge-invariant value)
                      = kappa_{Chart II} - kappa_{wall correction}
 
     CONSISTENCY CHECK:
         kappa_I = 1  (from BPS spectrum in Chamber I)
         kappa_II = 3/2  (from BPS spectrum in Chamber II)
         kappa_wall = 1/2  (from bound state (1,1))
-        kappa_global = kappa_I = kappa_II - kappa_wall = 1
+        kappa_ch = kappa_I = kappa_II - kappa_wall = 1
 
     The global kappa = 1 matches:
         (a) chi(resolved conifold) / 2 = 2/2 = 1
@@ -679,9 +679,9 @@ def conifold_global_shadow_tower(max_genus: int = 5) -> GlobalShadowTower:
     wall = conifold_wall_data()
 
     # Global kappa: gauge-invariant = Chart I value
-    kappa_global = chart_I.kappa
-    assert kappa_global == chart_II.kappa - wall.kappa_correction, (
-        f"Kappa consistency: {kappa_global} != {chart_II.kappa} - {wall.kappa_correction}"
+    kappa_ch = chart_I.kappa
+    assert kappa_ch == chart_II.kappa - wall.kappa_correction, (
+        f"Kappa consistency: {kappa_ch} != {chart_II.kappa} - {wall.kappa_correction}"
     )
 
     # Global cubic: zero (both charts + wall corrections are zero)
@@ -695,11 +695,11 @@ def conifold_global_shadow_tower(max_genus: int = 5) -> GlobalShadowTower:
     # Genus tower: F_g = kappa * lambda_g^FP
     genus_tower = {}
     for g in range(1, max_genus + 1):
-        genus_tower[g] = kappa_global * lambda_fp(g)
+        genus_tower[g] = kappa_ch * lambda_fp(g)
 
     return GlobalShadowTower(
         geometry="resolved conifold",
-        kappa=kappa_global,
+        kappa=kappa_ch,
         cubic=cubic_global,
         quartic=quartic_global,
         higher={},
@@ -883,7 +883,7 @@ def verify_gauge_invariance_conifold() -> Dict[str, Any]:
     The naive extraction kappa = sum |Omega|/2 gives DIFFERENT values
     in the two chambers (1 vs 3/2). This is because the naive formula
     double-counts the bound state. The gauge-invariant extraction is:
-        kappa_global = sum_{primitive gamma} |Omega(gamma)| / 2
+        kappa_ch = sum_{primitive gamma} |Omega(gamma)| / 2
 
     where "primitive" means gamma is not a positive combination of other
     populated charges. For Chamber I: both gamma_1, gamma_2 are primitive.
@@ -1322,7 +1322,7 @@ def assemble_global_shadow_tower(
     (Cech nerve / Mayer-Vietoris decomposition with alternating signs.)
 
     The genus tower is then:
-        F_g = kappa_global * lambda_g^{FP}
+        F_g = kappa_ch * lambda_g^{FP}
 
     for the scalar lane. Higher-arity corrections to the genus tower
     require the full shadow metric and shadow connection machinery.
@@ -1337,26 +1337,26 @@ def assemble_global_shadow_tower(
 
     # For two-chart systems: the shared kappa (overlap) is the sum of kappas
     # from shared BPS states. The formula is:
-    #   kappa_global = kappa_chart1 + kappa_chart2 - kappa_overlap
+    #   kappa_ch = kappa_chart1 + kappa_chart2 - kappa_overlap
     # where kappa_overlap = kappa from shared states.
     # For the conifold: overlap = both charts share gamma_1, gamma_2.
     # kappa_overlap = kappa(gamma_1) + kappa(gamma_2) = 1/2 + 1/2 = 1.
-    # kappa_global = 1 + 3/2 - 1 = 3/2? No.
+    # kappa_ch = 1 + 3/2 - 1 = 3/2? No.
     #
     # Actually the correct formula is: the gauge-invariant kappa uses
     # only PRIMITIVE charges. The Mayer-Vietoris formula is:
-    #   kappa_global = kappa_{base chart} (any chart gives the same result
+    #   kappa_ch = kappa_{base chart} (any chart gives the same result
     #   because kappa is gauge-invariant).
     #
     # The wall correction formula:
-    #   kappa_global = kappa_{extended chart} - kappa_{wall correction}
+    #   kappa_ch = kappa_{extended chart} - kappa_{wall correction}
     # where the wall correction is the kappa of the NON-PRIMITIVE states.
     #
     # For multi-chart systems: we use the FIRST chart as the base.
     # The wall corrections are SUBTRACTED (they account for the
     # overcounting from bound states in the extended charts).
 
-    kappa_global = charts[0].kappa  # Base chart gives gauge-invariant kappa
+    kappa_ch = charts[0].kappa  # Base chart gives gauge-invariant kappa
 
     # Arity 3: cubic
     cubic_charts = sum((c.cubic for c in charts[:1]), Fraction(0))  # base chart only
@@ -1379,14 +1379,14 @@ def assemble_global_shadow_tower(
     # Genus tower
     genus_tower = {}
     for g in range(1, max_genus + 1):
-        genus_tower[g] = kappa_global * lambda_fp(g)
+        genus_tower[g] = kappa_ch * lambda_fp(g)
 
     # Shadow depth
     depth = shadow_depth_from_charts(charts, walls)
 
     return GlobalShadowTower(
         geometry=geometry,
-        kappa=kappa_global,
+        kappa=kappa_ch,
         cubic=cubic_global,
         quartic=quartic_global,
         higher=higher_global,
@@ -1488,7 +1488,7 @@ def nerve_euler_characteristic(
         N_2 = triples (2-simplices)
 
     The kappa decomposes as:
-        kappa_global = sum_{charts} kappa_chart
+        kappa_ch = sum_{charts} kappa_chart
                      - sum_{walls} kappa_{overlap at wall}
                      + sum_{triples} kappa_{triple overlap}
 
@@ -1496,13 +1496,13 @@ def nerve_euler_characteristic(
     from the nerve of the chart covering.
 
     For the conifold:
-        kappa_global = kappa_I + kappa_II - kappa_{shared}
+        kappa_ch = kappa_I + kappa_II - kappa_{shared}
         where kappa_{shared} is the kappa from the BPS states common to both charts.
         kappa_shared = kappa(gamma_1) + kappa(gamma_2) = 1/2 + 1/2 = 1.
-        kappa_global = 1 + 3/2 - 1 = 3/2. NO -- this overcounts.
+        kappa_ch = 1 + 3/2 - 1 = 3/2. NO -- this overcounts.
 
     Actually: the Mayer-Vietoris for kappa uses the GAUGE-INVARIANT value.
-    Each chart independently gives kappa = kappa_global (gauge invariance).
+    Each chart independently gives kappa = kappa_ch (gauge invariance).
     The nerve Euler characteristic formula applies to the TOPOLOGICAL
     Euler characteristic of the CY3, not directly to kappa.
 

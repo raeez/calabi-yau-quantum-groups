@@ -424,7 +424,7 @@ class HitchinExplicitSL2G2(NamedTuple):
 
     # κ verification
     kappa_local: Fraction     # κ of each chart CoHA
-    kappa_global: Fraction    # κ of the hocolim = 0
+    kappa_ch: Fraction    # κ of the hocolim = 0
 
 
 def hitchin_explicit_sl2_genus2() -> HitchinExplicitSL2G2:
@@ -475,7 +475,7 @@ def hitchin_explicit_sl2_genus2() -> HitchinExplicitSL2G2:
         oper_dim=3,
         oper_type='Projective connection: d²/dz² + q(z), q ∈ H⁰(C, K²)',
         kappa_local=Fraction(3),
-        kappa_global=Fraction(0),
+        kappa_ch=Fraction(0),
     )
 
 
@@ -1041,7 +1041,7 @@ def kappa_reduction_sl2_genus2() -> Dict[str, Any]:
 
     return {
         'kappa_local': kap_local,
-        'kappa_global': kap_global,
+        'kappa_ch': kap_global,
         'kappa_reduction': reduction,
         'explanation': (
             f"κ drops from {kap_local} (Heisenberg rank 3) to {kap_global} "
@@ -1078,7 +1078,7 @@ def kappa_reduction_sln_genus(N: int, genus: int) -> Dict[str, Any]:
         'genus': genus,
         'fibre_dim': fibre_dim,
         'kappa_local': kap_local,
-        'kappa_global': kap_global,
+        'kappa_ch': kap_global,
         'kappa_reduction': reduction,
         'reduction_equals_hitchin_base_dim': reduction == fibre_dim,
         'reduction_equals_dim_sln_times_g_minus_1': (
@@ -1100,7 +1100,7 @@ class E1HocolimData(NamedTuple):
     local_algebra_type: str     # Heisenberg
     global_algebra_type: str    # ŝl_N at critical
     kappa_local: Fraction
-    kappa_global: Fraction
+    kappa_ch: Fraction
     kappa_reduction: Fraction
     nerve_dimension: int        # dimension of the nerve of the cover
     bar_complex_arity_dims: Dict[int, int]  # arity -> dim of B^{E₁}
@@ -1141,7 +1141,7 @@ def e1_hocolim_sl2_genus2() -> E1HocolimData:
         local_algebra_type='Heisenberg H₃ (rank 3)',
         global_algebra_type='ŝl₂ at critical level k = -2',
         kappa_local=Fraction(3),
-        kappa_global=Fraction(0),
+        kappa_ch=Fraction(0),
         kappa_reduction=Fraction(3),
         nerve_dimension=2,  # dim of nerve of 3-chart cover of C³
         bar_complex_arity_dims=bar_dims,
@@ -1179,7 +1179,7 @@ def e1_hocolim_sln_genus(N: int, genus: int) -> E1HocolimData:
         local_algebra_type=f'Heisenberg H_{base_dim} (rank {base_dim})',
         global_algebra_type=f'ŝl_{N} at critical level k = -{N}',
         kappa_local=Fraction(base_dim),
-        kappa_global=Fraction(0),
+        kappa_ch=Fraction(0),
         kappa_reduction=Fraction(base_dim),
         nerve_dimension=num_charts - 1,
         bar_complex_arity_dims=bar_dims,
@@ -1300,7 +1300,7 @@ def full_computation() -> Dict[str, Any]:
         'n_branch_points': explicit.n_branch_points,
         'prym_dim': explicit.prym_dim,
         'kappa_local': explicit.kappa_local,
-        'kappa_global': explicit.kappa_global,
+        'kappa_ch': explicit.kappa_ch,
     }
 
     # 4. Oper-Hitchin match
@@ -1351,7 +1351,7 @@ def verify_all() -> Dict[str, bool]:
     results['branch_points_4'] = (explicit.n_branch_points == 4)
     results['prym_dim_3'] = (explicit.prym_dim == 3)
     results['kappa_local_3'] = (explicit.kappa_local == Fraction(3))
-    results['kappa_global_0'] = (explicit.kappa_global == Fraction(0))
+    results['kappa_ch_0'] = (explicit.kappa_ch == Fraction(0))
 
     # 2. Oper-Hitchin match
     for N in range(2, 6):
@@ -1388,7 +1388,7 @@ def verify_all() -> Dict[str, bool]:
     red = kappa_reduction_sl2_genus2()
     results['kappa_reduction_correct'] = (
         red['kappa_local'] == 3
-        and red['kappa_global'] == 0
+        and red['kappa_ch'] == 0
         and red['kappa_reduction'] == 3
     )
 
@@ -1409,7 +1409,7 @@ def verify_all() -> Dict[str, bool]:
     for N in range(2, 5):
         hoc_N = e1_hocolim_sln_genus(N, 2)
         results[f'hocolim_sl{N}_kappa_global_0'] = (
-            hoc_N.kappa_global == Fraction(0)
+            hoc_N.kappa_ch == Fraction(0)
         )
         results[f'hocolim_sl{N}_bar1'] = (
             hoc_N.bar_complex_arity_dims[1] == N * N - 1

@@ -1,24 +1,24 @@
 \chapter{From CY Categories to Chiral Algebras}
 \label{ch:cy-to-chiral}
 
-Where do chiral algebras come from?  Volumes~I and~II begin with a chiral algebra already in hand: the bar-cobar machine, the modular characteristic $\kappa_{\mathrm{ch}}$, the shadow tower, and the five theorems all presuppose an object $A$ with OPE, state space, and vacuum.  The geometric source of that object is left unspecified.  A single family supplies a partial answer: affine Kac--Moody algebras arise from flat connections on curves, and Virasoro arises from reparametrizations.  Everything else, conifolds, Hilbert schemes of K3, resolved $A_n$ singularities, local threefolds with potential, must be fed into the machinery by hand.
+A Calabi--Yau category has a trace.  A chiral algebra has an OPE.  The trace is a map $\HH_d(\cC) \to \C$; the OPE is a distribution-valued product on sections over a punctured disc.  No formal argument connects them: the trace is finite-dimensional Hochschild data, the OPE is an infinite-dimensional vertex structure on a curve.  Volumes~I and~II accept a chiral algebra as given and extract its invariants: bar-cobar adjunction, the modular characteristic $\kappa_{\mathrm{ch}}$, the shadow tower, the five theorems A--D+H.  The geometric source of that algebra is left unspecified.  Affine Kac--Moody algebras arise from flat connections, Virasoro from reparametrizations; every other chiral algebra in the standard landscape (conifold, Hilbert schemes of K3, resolved $A_n$ singularities, local threefolds with potential) must be supplied by hand.  The question is: what functor connects CY categories to chiral algebras, and what structure must it preserve?
 
-This is the deficiency that Vol~III addresses.  A Calabi--Yau category $\cC$ of dimension $d$ carries a cyclic $\Ainf$-structure, a Connes $B$-operator, and an $\bS^d$-framing on Hochschild homology.  None of these are chiral algebras.  The passage from $\cC$ to a chiral algebra $A_\cC$ requires four specific steps: Hochschild cohomology becomes a Lie conformal algebra through the Gerstenhaber bracket, the Lie conformal algebra is promoted to a factorization envelope on a curve, the $\bS^d$-framing provides the higher operadic enhancement, and the CY trace determines the quantization.  The resulting functor $\Phi \colon \CY_d\text{-}\Cat \to \En\text{-}\mathrm{ChirAlg}$ is the central object of this volume.
+The answer requires four constructions, each with a precise structural role.  A CY category $\cC$ of dimension $d$ carries a cyclic $\Ainf$-structure, a Connes $B$-operator, and an $\bS^d$-framing on Hochschild homology.  None of these are chiral algebras.  The Gerstenhaber bracket on $\HH^\bullet(\cC)$ produces a Lie conformal algebra $\mathfrak{L}_\cC$; the factorization envelope on a curve $X$ promotes $\mathfrak{L}_\cC$ to a factorization algebra; the $\bS^d$-framing provides the higher operadic enhancement; and the CY trace determines the quantization.  The functor $\Phi \colon \CY_d\text{-}\Cat \to \En\text{-}\mathrm{ChirAlg}$ that results is the central object of this volume.  It must preserve three things: the Hochschild data (the bar complex of $\Phi(\cC)$ recovers the cyclic bar complex of $\cC$), the modular characteristic ($\kappa_{\mathrm{ch}}(\Phi(\cC))$ equals the CY Euler characteristic $\chi^{\CY}(\cC)$), and the operadic level (the $\bS^d$-framing produces an $E_n$-structure, not higher).
 
-The $d = 2$ case is unconditional: the $\bS^2$-framing of Kontsevich--Vlassopoulos enhances $\Fact_X(\mathfrak{L}_\cC)$ to an $\Etwo$-chiral algebra, and the functor is constructed end-to-end.  The $d = 3$ case is the programme: the native $E_3$-structure restricts to \emph{symmetric} braiding under Dunn additivity, so the nonsymmetric quantum group braiding must be recovered by a separate route through the Drinfeld center of the $\Eone$-monoidal representation category.  This chapter verifies the $d = 3$ chain end-to-end for $\C^3$, where both sides are independently known (CoHA$(\C^3) \simeq Y^+(\widehat{\fgl}_1)$ on the CY side, $\cW_{1+\infty}$ at $c=1$ on the chiral side), and sets up the quiver-chart gluing that assembles global $\Eone$-chiral algebras from local CoHA charts.
+At $d = 2$, the functor is unconditional: the $\bS^2$-framing of Kontsevich--Vlassopoulos enhances $\Fact_X(\mathfrak{L}_\cC)$ to an $\Etwo$-chiral algebra, and $\Phi$ is constructed end-to-end.  At $d = 3$, a fundamental obstruction intervenes.  The native $E_3$-structure on $\HH_\bullet(\cC)$ restricts to \emph{symmetric} braiding under Dunn additivity; the nonsymmetric quantum group braiding that physics demands can only be recovered through the Drinfeld center of the $\Eone$-monoidal representation category.  This chapter verifies the $d = 3$ chain end-to-end for $\C^3$, where both sides are independently known (CoHA$(\C^3) \simeq Y^+(\widehat{\fgl}_1)$ on the CY side, $\cW_{1+\infty}$ at $c=1$ on the chiral side), and sets up the quiver-chart gluing that assembles global $\Eone$-chiral algebras from local CoHA charts.
 
 % ============================================================
 \section{The cyclic-to-chiral passage}
 \label{sec:cyclic-to-chiral}
 % ============================================================
 
-A CY category $\cC$ of dimension $d$ carries a cyclic $\Ainf$-structure (Chapter~\ref{ch:cyclic-ainf}).  The cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ with its $\bS^d$-framing is the primary invariant.  The passage to chiral algebras proceeds in four steps:
+A CY category $\cC$ of dimension $d$ carries a cyclic $\Ainf$-structure (Chapter~\ref{ch:cyclic-ainf}).  The primary invariant is the cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ with its $\bS^d$-framing.  The passage to chiral algebras decomposes into four steps; each consumes a specific piece of the CY data and produces a specific algebraic structure:
 
 \begin{enumerate}[label=\textbf{Step \arabic*.}]
-  \item \textbf{Cyclic $\Ainf \to$ Lie conformal algebra.}  The Hochschild cohomology $\HH^\bullet(\cC)$, with its Gerstenhaber bracket, determines a graded Lie algebra.  The CY pairing promotes this to a Lie conformal algebra $\mathfrak{L}_\cC$ (the ``current algebra'' of $\cC$).
-  \item \textbf{Lie conformal algebra $\to$ factorization envelope.}  The factorization envelope construction (Nishinaka--Vicedo) produces a factorization algebra $\Fact_X(\mathfrak{L}_\cC)$ on any smooth curve $X$.
-  \item \textbf{$\Etwo$ enhancement.}  When $d = 2$, the $\bS^2$-framing of $\HH_\bullet(\cC)$ provides an $\Etwo$-algebra structure.  This enhances $\Fact_X(\mathfrak{L}_\cC)$ to an $\Etwo$-chiral algebra.
-  \item \textbf{Quantization.}  The quantum chiral algebra $A_\cC$ is the quantization of $\Fact_X(\mathfrak{L}_\cC)$ determined by the CY trace.
+  \item \textbf{Cyclic $\Ainf \to$ Lie conformal algebra.}  The Gerstenhaber bracket on $\HH^\bullet(\cC)$ is a graded Lie bracket of degree $-1$.  The CY pairing (the nondegenerate trace $\HH_d(\cC) \to \C$) promotes this to a Lie conformal algebra $\mathfrak{L}_\cC$: the bracket becomes a $\lambda$-bracket, and the pairing becomes the invariant bilinear form.  This step consumes the $\Ainf$-structure and the CY trace; it produces the ``current algebra'' of $\cC$.
+  \item \textbf{Lie conformal algebra $\to$ factorization envelope.}  The factorization envelope construction produces a factorization algebra $\Fact_X(\mathfrak{L}_\cC)$ on any smooth curve $X$.  This step consumes the Lie conformal algebra and the curve; it produces a cosheaf on $\Ran(X)$ whose sections are the OPE data.
+  \item \textbf{$\bS^d$-framing $\to$ $E_n$ enhancement.}  When $d = 2$, the $\bS^2$-framing of $\HH_\bullet(\cC)$ (Kontsevich--Vlassopoulos) provides an $\Etwo$-algebra structure on the factorization algebra.  This step consumes the framing; it produces the operadic enhancement that distinguishes a chiral algebra from a commutative factorization algebra.
+  \item \textbf{Quantization.}  The CY trace $\mathrm{tr} \colon \HH_d(\cC) \to \C$ determines a quantization of the classical factorization algebra.  The quantum chiral algebra $A_\cC = \Phi(\cC)$ is the output.
 \end{enumerate}
 
 For $d = 3$, Step~3 must be replaced: the $\bS^3$-framing gives an $E_3$-structure on $\HH_\bullet(\cC)$, but the resulting $\Etwo$-braiding (obtained by restriction via Dunn additivity) is \emph{symmetric}.  The nonsymmetric quantum group braiding is recovered by a different route: the Drinfeld center of the $\Eone$-monoidal representation category (Section~\ref{sec:d3-drinfeld-center}).
@@ -170,20 +170,20 @@ The five algebraic objects of the Koszul programme (Vol~I) transport to the CY s
 These five objects are distinct: $B(A)$ is a coalgebra, $A^!$ is an algebra, and the cobar recovery $\Omega(B(A)) \simeq A$ is \emph{inversion}, not Koszul duality.  The derived center $\Zder(A)$ arises from Hochschild cochains, not from bar-cobar.
 \end{remark}
 
-The preceding section establishes the $d = 2$ functor unconditionally: for smooth proper CY$_2$ categories, the passage from cyclic $\Ainf$-structure to $\Etwo$-chiral algebra is complete (Theorem~\ref{thm:cy-to-chiral}), and the modular characteristic is conjectured to equal the CY Euler characteristic (Conjecture~\ref{conj:cy-kappa-identification}).  The $d = 3$ case requires a fundamentally different approach: the $\bS^3$-framing produces symmetric braiding under Dunn restriction, and genuine quantum group structure enters only through the Drinfeld center.  The remainder of this chapter develops the $d = 3$ programme, beginning with the one case where both sides are independently known.
+At $d = 2$, the functor $\Phi$ is now in hand (Theorem~\ref{thm:cy-to-chiral}), and $\kappa_{\mathrm{ch}}(\Phi(\cC)) = \chi^{\CY}(\cC)$ is conjectured with computational evidence at K3 and abelian surfaces (Conjecture~\ref{conj:cy-kappa-identification}).  At $d = 3$, Step~3 of the cyclic-to-chiral passage breaks: the $\bS^3$-framing produces symmetric braiding under Dunn restriction, and symmetry is the wrong answer.  Physics demands nonsymmetric braiding (the Yang $R$-matrix, the Yangian coproduct), and the only known route to it passes through the Drinfeld center of the $\Eone$-monoidal representation category.  The remainder of this chapter develops the $d = 3$ programme, beginning with the one case where both sides are independently known.
 
 % ============================================================
 \section{The $d = 3$ functor chain for $\C^3$}
 \label{sec:d3-functor-chain}
 % ============================================================
 
-Affine space $X = \C^3$ is the Rosetta Stone for the $d = 3$ programme.  Both sides are independently known: the CY side produces $\CoHA(\C^3) \simeq Y^+(\widehat{\fgl}_1)$ (Kontsevich--Soibelman, Schiffmann--Vasserot), and the chiral side gives $\cW_{1+\infty}$ at $c = 1$ (Proch\'azka--Rap\v{c}\'ak).  The functor chain is verified end-to-end.
+Affine space $X = \C^3$ is the unique $d = 3$ geometry where both sides of the functor are independently known.  The CY side produces $\CoHA(\C^3) \simeq Y^+(\widehat{\fgl}_1)$ (Kontsevich--Soibelman, Schiffmann--Vasserot); the chiral side produces $\cW_{1+\infty}$ at $c = 1$ (Proch\'azka--Rap\v{c}\'ak).  The task is to verify that $\Phi$ connects them.
 
 
 \subsection{The five-step chain}
 \label{subsec:five-step-chain}
 
-The $d = 3$ functor for $\C^3$ factors as:
+The passage from CY data to quantum group for $\C^3$ factors into five steps, each with a concrete input, a concrete output, and a concrete verification:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
@@ -202,7 +202,7 @@ The $d = 3$ functor for $\C^3$ factors as:
 
 The input at Step~1 is $\mathrm{PV}^*(\C^3) = \bigoplus_{p=0}^{3} \Gamma(\C^3, \bigwedge^p T_{\C^3})$, the algebra of polyvector fields with the Schouten--Nijenhuis bracket.  The $\mathrm{GL}(3)$-invariant sector carries the deformation-theoretic data needed for the CY-to-chiral functor.  The $\Omega$-deformation at Step~2 is parametrized by $\sigma_3 = h_1 h_2 h_3$ (with $h_1 + h_2 + h_3 = 0$), the unique direction in $\HH^2(\mathrm{PV}^*(\C^3))$.  At the self-dual level ($\sigma_3 \to 0$, giving $h_1 = 1, h_2 = 0, h_3 = -1$), the output at Step~3 is $\cW_{1+\infty}$ at $c = 1$, which \emph{is} the Heisenberg VOA $H_1$.
 
-The classical Lie conformal algebra is \emph{abelian} (Theorem~\ref{thm:c3-abelian-bracket}): all noncommutative structure arises from quantization in the envelope step.  The CY$_3$ functor produces a quantum algebra from classically commutative input.
+The classical Lie conformal algebra is \emph{abelian} (Theorem~\ref{thm:c3-abelian-bracket}): every noncommutative structure in $\cW_{1+\infty}$ arises from quantization in the envelope step, not from the input bracket.  The CY$_3$ functor produces a quantum algebra from classically commutative input.  Each of the five steps is verified independently; the theorem below assembles them.
 
 
 \begin{theorem}[The $d = 3$ functor chain is verified for $\C^3$]

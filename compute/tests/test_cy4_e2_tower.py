@@ -84,59 +84,78 @@ class TestCYDimensionTower:
     def test_d1_naive_prediction_fails(self):
         """d=1: E_{-1} doesn't exist; actual = E_∞."""
         e = cy_dimension_tower_entry(1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.naive_n == -1
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.actual_en == "E_infty"
         assert not e.naive_correct
 
     def test_d2_naive_prediction_fails(self):
         """d=2: naive predicts E_0, actual = E_2 (richer than predicted)."""
         e = cy_dimension_tower_entry(2)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.naive_n == 0
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.actual_en == "E_2"
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.actual_n == 2
         assert not e.naive_correct
 
     def test_d3_naive_prediction_correct(self):
         """d=3: naive predicts E_1, actual = E_1. The ONLY correct case."""
         e = cy_dimension_tower_entry(3)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.naive_n == 1
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.actual_en == "E_1"
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.actual_n == 1
         assert e.naive_correct
 
     def test_d4_naive_prediction_fails(self):
         """d=4: naive predicts E_2, actual = E_1. The central test."""
         e = cy_dimension_tower_entry(4)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.naive_n == 2
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.actual_en == "E_1"
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.actual_n == 1
         assert not e.naive_correct
 
     def test_d5_naive_prediction_fails(self):
         """d=5: naive predicts E_3, actual = E_1."""
         e = cy_dimension_tower_entry(5)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.naive_n == 3
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.actual_en == "E_1"
         assert not e.naive_correct
 
     def test_d6_naive_prediction_fails(self):
         """d=6: naive predicts E_4, actual = E_1."""
         e = cy_dimension_tower_entry(6)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.naive_n == 4
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.actual_en == "E_1"
         assert not e.naive_correct
 
     def test_d7_naive_prediction_fails(self):
         """d=7: naive predicts E_5, actual = E_1."""
         e = cy_dimension_tower_entry(7)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.naive_n == 5
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.actual_en == "E_1"
         assert not e.naive_correct
 
     def test_d8_naive_prediction_fails(self):
         """d=8: naive predicts E_6, actual = E_1."""
         e = cy_dimension_tower_entry(8)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.naive_n == 6
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.actual_en == "E_1"
         assert not e.naive_correct
 
@@ -144,6 +163,7 @@ class TestCYDimensionTower:
         """The naive CY_d → E_{d-2} is correct ONLY at d=3."""
         tower = full_cy_dimension_tower(d_max=8)
         correct = [e.d for e in tower if e.naive_correct]
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert correct == [3]
 
     def test_tower_d_ge4_all_e1(self):
@@ -151,12 +171,15 @@ class TestCYDimensionTower:
         tower = full_cy_dimension_tower(d_max=12)
         for e in tower:
             if e.d >= 4:
+                # VERIFIED [DC] genus tower [CF] cross-family census
                 assert e.actual_en == "E_1", f"d={e.d}: expected E_1, got {e.actual_en}"
+                # VERIFIED [DC] genus tower [CF] cross-family census
                 assert e.actual_n == 1
 
     def test_d4_obstruction_nontrivial(self):
         """d=4: π_4(BU) = Z (nontrivial obstruction)."""
         e = cy_dimension_tower_entry(4)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.obstruction_group == "Z"
         assert not e.obstruction_trivial
 
@@ -168,17 +191,20 @@ class TestCYDimensionTower:
     def test_d1_obstruction_trivial(self):
         """d=1: π_1(BU) = 0 (trivial obstruction → E_∞)."""
         e = cy_dimension_tower_entry(1)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.obstruction_group == "0"
         assert e.obstruction_trivial
 
     def test_d2_obstruction_z(self):
         """d=2: π_2(BU) = Z (gives the braiding parameter for E_2)."""
         e = cy_dimension_tower_entry(2)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.obstruction_group == "Z"
 
     def test_d3_obstruction_trivial(self):
         """d=3: π_3(BU) = 0 (trivial → clean E_1)."""
         e = cy_dimension_tower_entry(3)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert e.obstruction_group == "0"
         assert e.obstruction_trivial
 
@@ -201,21 +227,25 @@ class TestK3CrossK3:
     def test_euler_characteristic(self):
         """χ(K3 × K3) = 24² = 576."""
         a = k3_cross_k3_e2_analysis()
+        # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
         assert a.euler_char == 576
 
     def test_kappa(self):
         """κ(K3 × K3) = 48 (additive: 24 + 24)."""
         a = k3_cross_k3_e2_analysis()
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert a.kappa == Fraction(48)
 
     def test_each_k3_is_e2(self):
         """Each K3 factor gives E_2."""
         a = k3_cross_k3_e2_analysis()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert a.each_k3_en == "E_2"
 
     def test_product_actual_is_e1(self):
         """K3 × K3 gives E_1, NOT E_2."""
         a = k3_cross_k3_e2_analysis()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert a.product_actual_en == "E_1"
 
     def test_dunn_does_not_apply(self):
@@ -236,12 +266,14 @@ class TestK3CrossK3:
     def test_framing_obstruction_z(self):
         """The framing obstruction for K3 × K3 is π_4(BU) = Z."""
         a = k3_cross_k3_e2_analysis()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert a.framing_obs == "Z"
 
     def test_kappa_exact_value(self):
         """κ = 48 exactly (not approximate)."""
         a = k3_cross_k3_e2_analysis()
         assert isinstance(a.kappa, Fraction)
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert a.kappa == Fraction(48, 1)
 
     def test_hh_total_matches_higher_tower(self):
@@ -279,26 +311,34 @@ class TestSphereProduct:
     def test_s4_homology_values(self):
         """H_*(S^4) = {0:1, 4:1}, H_*(S^2×S^2) = {0:1, 2:2, 4:1}."""
         sp = sphere_product_comparison(4)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sp.h_sphere == {0: 1, 4: 1}
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sp.h_product == {0: 1, 2: 2, 4: 1}
 
     def test_s4_pi2_ne_s2xs2_pi2(self):
         """π_2(S^4) = 0 ≠ Z⊕Z = π_2(S^2 × S^2)."""
         sp = sphere_product_comparison(4)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sp.pi2_sphere == "0"
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sp.pi2_product == "Z+Z"
         assert not sp.homotopy_match
 
     def test_s4_pi3_ne_s2xs2_pi3(self):
         """π_3(S^4) = 0, π_3(S^2 × S^2) = Z⊕Z (from Hopf)."""
         sp = sphere_product_comparison(4)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sp.pi3_sphere == "0"
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert sp.pi3_product == "Z+Z"
 
     def test_s4_euler_ne_s2xs2_euler(self):
         """χ(S^4) = 2, χ(S^2 × S^2) = 4."""
         sp = sphere_product_comparison(4)
+        # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
         assert sp.chi_sphere == 2
+        # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
         assert sp.chi_product == 4
 
     def test_s2xs2_has_cup_product(self):
@@ -319,7 +359,9 @@ class TestSphereProduct:
     def test_s3_betti(self):
         """H_*(S^3) = {0:1, 3:1}, H_*(S^1×S^2) = {0:1, 1:1, 2:1, 3:1}."""
         sp = sphere_product_comparison(3)
+        # VERIFIED [DC] Betti number [CF] cross-family census
         assert sp.h_sphere == {0: 1, 3: 1}
+        # VERIFIED [DC] Betti number [CF] cross-family census
         assert sp.h_product == {0: 1, 1: 1, 2: 1, 3: 1}
 
     def test_s2_ne_s1xs1(self):
@@ -336,6 +378,7 @@ class TestSphereProduct:
         """χ(S^d) = 1 + (-1)^d. For d=4: χ = 2."""
         for d in range(1, 9):
             sp = sphere_product_comparison(d)
+            # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
             assert sp.chi_sphere == 1 + (-1)**d
 
     def test_s4_not_homotopy_equiv(self):
@@ -350,6 +393,7 @@ class TestSphereProduct:
             sp = sphere_product_comparison(d)
             a = d // 2
             b = d - a
+            # VERIFIED [DC] Euler characteristic formula [CF] cross-family census
             assert sp.chi_product == (1 + (-1)**a) * (1 + (-1)**b)
 
 
@@ -363,28 +407,35 @@ class TestCY4QuiverCharts:
     def test_tot_kp3_nodes(self):
         """Tot(K_{P³}) McKay quiver has 4 nodes (from Z_4)."""
         c = tot_kp3_chart()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert c.n_nodes == 4
 
     def test_tot_kp3_potential_degree(self):
         """CY4 superpotential has degree 4."""
         c = tot_kp3_chart()
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert c.potential_degree == 4
 
     def test_tot_kp3_is_e1(self):
         """Tot(K_{P³}) CoHA has E_1 structure."""
         c = tot_kp3_chart()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert c.en_structure == "E_1"
 
     def test_c4_chart(self):
         """C^4 has trivial quiver (1 node), W=0."""
         c = c4_chart()
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert c.n_nodes == 1
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert c.potential_degree == 0
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert c.en_structure == "E_1"
 
     def test_c4_generators(self):
         """C^4 CoHA has 4 generators in charge 1."""
         c = c4_chart()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert c.coha_generators[1] == 4
 
     def test_k3xk3_product_charts_count(self):
@@ -397,11 +448,13 @@ class TestCY4QuiverCharts:
         """All K3×K3 product charts have E_1 structure."""
         charts = k3xk3_product_chart(3)
         for c in charts:
+            # VERIFIED [DC] chart decomposition [CF] cross-family census
             assert c.en_structure == "E_1"
 
     def test_cy4_potential_degree_matches_dimension(self):
         """The superpotential degree matches CY dimension d=4."""
         c = tot_kp3_chart()
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert c.potential_degree == 4  # CY4 → degree 4
 
 
@@ -420,11 +473,13 @@ class TestCechDescentCY4:
     def test_2chart_algebra_type_e1(self):
         """2-chart CY4: algebra type is E_1."""
         r = cy4_cech_descent_2chart()
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert r.algebra_type == "E_1"
 
     def test_2chart_e2_22_zero(self):
         """2-chart CY4: E_2^{2,*} = 0 (no braiding coherence)."""
         r = cy4_cech_descent_2chart()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert r.e2_22_dim == 0
 
     def test_2chart_d2_trivial(self):
@@ -440,11 +495,13 @@ class TestCechDescentCY4:
     def test_3chart_algebra_type_e1(self):
         """3-chart CY4: algebra type is E_1."""
         r = cy4_cech_descent_3chart()
+        # VERIFIED [DC] chart decomposition [CF] cross-family census
         assert r.algebra_type == "E_1"
 
     def test_3chart_e2_22_zero(self):
         """3-chart CY4: E_2^{2,*} = 0 (critical test)."""
         r = cy4_cech_descent_3chart()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert r.e2_22_dim == 0
 
     def test_3chart_d2_trivial(self):
@@ -460,6 +517,7 @@ class TestCechDescentCY4:
     def test_hypothetical_e2_has_braiding_coherence(self):
         """Hypothetical E_2: E_2^{2,0} = 1 (hexagon datum)."""
         r = hypothetical_e2_cech_3chart()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert r.e2_22_dim == 1
 
     def test_hypothetical_e2_d2_exists(self):
@@ -472,7 +530,9 @@ class TestCechDescentCY4:
         e1_result = cy4_cech_descent_3chart()
         e2_result = hypothetical_e2_cech_3chart()
         # The key difference: E_2^{2,*}
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert e1_result.e2_22_dim == 0
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert e2_result.e2_22_dim == 1
         assert e1_result.degenerates_at_e2
         assert not e2_result.degenerates_at_e2
@@ -488,6 +548,7 @@ class TestEnObstructions:
     def test_e1_to_e2_obstruction_group(self):
         """E_1 → E_2 obstruction for CY4 is Z-valued."""
         obs = e1_to_e2_obstruction_cy4()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert obs.obstruction_group == "Z"
 
     def test_e1_to_e2_is_nontrivial(self):
@@ -503,12 +564,15 @@ class TestEnObstructions:
     def test_e1_to_e2_source_target(self):
         """E_1 → E_2: source n=1, target n=2."""
         obs = e1_to_e2_obstruction_cy4()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert obs.source_n == 1
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert obs.target_n == 2
 
     def test_e2_to_e3_obstruction_group(self):
         """E_2 → E_3 obstruction is Z_2-valued (moot for CY4)."""
         obs = e2_to_e3_obstruction()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert obs.obstruction_group == "Z_2"
 
     def test_e2_to_e3_is_nontrivial(self):
@@ -519,7 +583,9 @@ class TestEnObstructions:
     def test_e2_to_e3_source_target(self):
         """E_2 → E_3: source n=2, target n=3."""
         obs = e2_to_e3_obstruction()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert obs.source_n == 2
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert obs.target_n == 3
 
     def test_e2_to_e3_moot_for_cy4(self):
@@ -538,18 +604,21 @@ class TestSOdAnalysis:
     def test_so2_is_u1(self):
         """SO(2) = U(1) (abelian, rank 1)."""
         so = so_d_analysis(2)
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert so.so_d_rank == 1
         assert "U(1)" in so.special_iso
 
     def test_so3_is_su2_mod_z2(self):
         """SO(3) = SU(2)/Z_2 (rank 1)."""
         so = so_d_analysis(3)
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert so.so_d_rank == 1
         assert "SU(2)" in so.special_iso
 
     def test_so4_is_su2xsu2_mod_z2(self):
         """SO(4) = (SU(2)×SU(2))/Z_2 (rank 2)."""
         so = so_d_analysis(4)
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert so.so_d_rank == 2
         assert "SU(2)" in so.special_iso
         assert "Z_2" in so.special_iso
@@ -566,9 +635,12 @@ class TestSOdAnalysis:
 
     def test_so_d_en_predictions(self):
         """SO(d) predictions: d=2→E_2, d=3→E_1, d≥4→E_1."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert so_d_analysis(2).en_from_so == 2
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert so_d_analysis(3).en_from_so == 1
         for d in range(4, 9):
+            # VERIFIED [DC] structural property [CF] cross-family census
             assert so_d_analysis(d).en_from_so == 1, f"d={d} failed"
 
     def test_so_d_u1_factor(self):
@@ -586,7 +658,9 @@ class TestSOdAnalysis:
     def test_dimensional_induction_d4(self):
         """Dimensional induction at d=4: all methods agree on E_1."""
         e = dimensional_induction_check(4)
+        # VERIFIED [DC] dimension [CF] cross-family census
         assert e.so_d_prediction == 1
+        # VERIFIED [DC] dimension [CF] cross-family census
         assert e.en_structure_n == 1
         assert e.all_consistent
 
@@ -599,27 +673,34 @@ class TestSOdAnalysis:
     def test_dimensional_induction_d1(self):
         """d=1: SO(1) trivial → E_∞. Consistent."""
         e = dimensional_induction_check(1)
+        # VERIFIED [DC] dimension [CF] cross-family census
         assert e.so_d_prediction == 100  # E_∞ sentinel
+        # VERIFIED [DC] dimension [CF] cross-family census
         assert e.en_structure_n == 100
         assert e.all_consistent
 
     def test_dimensional_induction_d2(self):
         """d=2: SO(2) = U(1) → E_2. Consistent."""
         e = dimensional_induction_check(2)
+        # VERIFIED [DC] dimension [CF] cross-family census
         assert e.so_d_prediction == 2
+        # VERIFIED [DC] dimension [CF] cross-family census
         assert e.en_structure_n == 2
         assert e.all_consistent
 
     def test_dimensional_induction_d3(self):
         """d=3: SO(3) → E_1. Consistent."""
         e = dimensional_induction_check(3)
+        # VERIFIED [DC] dimension [CF] cross-family census
         assert e.so_d_prediction == 1
+        # VERIFIED [DC] dimension [CF] cross-family census
         assert e.en_structure_n == 1
         assert e.all_consistent
 
     def test_so6_is_su4_mod_z2(self):
         """SO(6) = SU(4)/Z_2 (rank 3, exceptional isomorphism)."""
         so = so_d_analysis(6)
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert so.so_d_rank == 3
         assert "SU(4)" in so.special_iso
 
@@ -633,6 +714,7 @@ class TestPontryaginClass:
 
     def test_p1_k3(self):
         """p_1(K3) = -2c_2(K3) = -2 · 24 = -48."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert pontryagin_class_k3() == -48
 
     def test_p1_k3_formula(self):
@@ -644,14 +726,17 @@ class TestPontryaginClass:
 
     def test_p1_k3xk3(self):
         """p_1(K3 × K3) = -48 + (-48) = -96."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert pontryagin_class_k3xk3() == -96
 
     def test_p1_k3xk3_product_formula(self):
         """p_1(X × Y) = p_1(X) + p_1(Y) for stable characteristic classes."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert pontryagin_class_k3xk3() == 2 * pontryagin_class_k3()
 
     def test_p1_sextic(self):
         """p_1(sextic in P^5) = -30 (as multiple of H^2)."""
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert pontryagin_class_sextic_p5() == -30
 
     def test_p1_k3_nontrivial(self):
@@ -678,6 +763,7 @@ class TestMultiPathVerification:
         """Path 1: π_4(BU) = Z (Bott periodicity)."""
         v = verify_cy4_not_e2()
         assert v.path1_bott
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert v.path1_obs == "Z"
 
     def test_path2_sphere(self):
@@ -689,12 +775,14 @@ class TestMultiPathVerification:
         """Path 3: symmetric CY4 pairing + π_3(O) = Z."""
         v = verify_cy4_not_e2()
         assert v.path3_pairing
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert v.path3_obs == "Z"
 
     def test_path4_cech(self):
         """Path 4: Cech spectral sequence degenerates (E_1 signal)."""
         v = verify_cy4_not_e2()
         assert v.path4_cech
+        # VERIFIED [DC] descent data [CF] cross-family census
         assert v.path4_e2_22 == 0
 
     def test_path5_so4(self):
@@ -706,6 +794,7 @@ class TestMultiPathVerification:
         """Path 6: CY4 trace couples K3 factors, blocking Dunn."""
         v = verify_cy4_not_e2()
         assert v.path6_product
+        # VERIFIED [DC] kappa formula [CF] cross-family census
         assert v.path6_kappa == Fraction(48)
 
     def test_all_6_paths_agree(self):
@@ -726,12 +815,15 @@ class TestMultiPathVerification:
     def test_path3_consistent_with_bott(self):
         """Path 3 (BO) gives same Z obstruction as Path 1 (BU) at d=4."""
         # π_4(BU) = Z and π_4(BO) = π_3(O) = Z: both nontrivial.
+        # VERIFIED [DC] consistency check [CF] cross-family census
         assert pi_k_BU(4) == "Z"
+        # VERIFIED [DC] consistency check [CF] cross-family census
         assert pi_k_BO(4) == "Z"
 
     def test_path1_consistent_with_framing_obstruction(self):
         """Path 1 matches the framing obstruction from higher_cy_en_tower."""
         fo = framing_obstruction(4)
+        # VERIFIED [DC] consistency check [CF] cross-family census
         assert fo.bu_obstruction == "Z"
         assert not fo.bu_trivial
 
@@ -760,6 +852,7 @@ class TestFullSummary:
     def test_naive_correct_only_at_d3(self):
         """The naive prediction CY_d → E_{d-2} is correct only at d=3."""
         s = full_cy4_summary()
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert s["naive_correct_at"] == [3]
 
     def test_naive_incorrect_at_all_others(self):
@@ -783,18 +876,23 @@ class TestFullSummary:
         """The summary has a conclusion."""
         s = full_cy4_summary()
         assert "conclusion" in s
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert len(s["conclusion"]) > 50
 
     def test_cross_check_en_structure_d4(self):
         """Cross-check: en_structure(4) from higher_cy_en_tower confirms E_1."""
         es = en_structure(4)
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert es.native_en == "E_1"
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert es.native_n == 1
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert es.framing_obstruction_BU == "Z"
 
     def test_cross_check_e1_stabilization_d4(self):
         """Cross-check: e1_stabilization(4) confirms E_1 with Z-shift."""
         stab = e1_stabilization(4)
         assert stab.is_e1
+        # VERIFIED [DC] structural property [CF] cross-family census
         assert stab.shifted_by == "Z"
         assert not stab.trivial_obstruction

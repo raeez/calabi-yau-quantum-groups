@@ -1992,7 +1992,7 @@ def compute_chiral_algebra(X: LocalSurfaceData) -> ChiralAlgebraResult:
         # free-field kappa.  The distinction:
         # - kappa_free = 1 (intrinsic to the betagamma system)
         # - kappa_bg = delta/12 (from the background field's one-loop)
-        # - kappa_total = kappa_free + kappa_bg = 1 + delta/12
+        # - kappa_ch = kappa_free + kappa_bg = 1 + delta/12
         #
         # Verification for delta = 0: kappa = 1 + 0 = 1. Correct.
         # Verification for delta = 12: kappa = 1 + 1 = 2.
@@ -2016,7 +2016,7 @@ def compute_chiral_algebra(X: LocalSurfaceData) -> ChiralAlgebraResult:
         #
         # The conjectural anomaly-shifted value is stored separately
         # for reference (see kappa_anomaly_shifted below).
-        kappa_eff = Fraction(1)
+        kappa_ch = Fraction(1)
 
         # Is the theory conformal?
         # For delta > 0: there are global sections of O(delta) that can
@@ -2036,7 +2036,7 @@ def compute_chiral_algebra(X: LocalSurfaceData) -> ChiralAlgebraResult:
 
         return ChiralAlgebraResult(
             central_charge=c_free,
-            kappa=kappa_eff,
+            kappa=kappa_ch,
             algebra_type="betagamma_anomalous" if delta != 0 else "betagamma",
             is_conformal=is_conf,
             is_anomalous=(delta != 0),
@@ -2246,7 +2246,7 @@ def kappa_local_surface(a: int, b: int) -> Fraction:
     I will implement:
     kappa_free = 1 (free-field value, exact for CY)
     delta_kappa = 0 for now (interaction correction, to be determined)
-    kappa_total = kappa_free + delta_kappa = 1 for all (a,b)
+    kappa_ch = kappa_free + delta_kappa = 1 for all (a,b)
 
     The interesting physics is NOT in kappa (which is always 1) but in:
     - The BRST anomaly Q^2 = delta * (...)
@@ -2619,7 +2619,7 @@ def anomaly_function(delta: int) -> Fraction:
 def kappa_with_anomaly(a: int, b: int) -> Fraction:
     """Effective kappa including the anomaly contribution.
 
-    kappa_eff = kappa_CY + f(delta) = 1 + 0 = 1.
+    kappa_ch = kappa_CY + f(delta) = 1 + 0 = 1.
     """
     delta = cy_defect(a, b)
     return Fraction(1) + anomaly_function(delta)

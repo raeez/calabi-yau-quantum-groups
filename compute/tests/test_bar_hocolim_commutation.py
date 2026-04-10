@@ -86,23 +86,27 @@ class TestLinearAlgebra:
     def test_rank_identity(self):
         """Rank of 3x3 identity = 3."""
         I3 = [[Fraction(1 if i == j else 0) for j in range(3)] for i in range(3)]
+        # VERIFIED [DC] rank [LT] operadic Koszul theory
         assert _matrix_rank(I3) == 3
 
     def test_rank_zero_matrix(self):
         """Rank of zero matrix = 0."""
         Z = [[Fraction(0)] * 3 for _ in range(2)]
+        # VERIFIED [DC] rank [LT] operadic Koszul theory
         assert _matrix_rank(Z) == 0
 
     def test_rank_rank_deficient(self):
         """Rank of a rank-1 matrix = 1."""
         mat = [[Fraction(1), Fraction(2)],
                [Fraction(2), Fraction(4)]]
+        # VERIFIED [DC] rank [LT] operadic Koszul theory
         assert _matrix_rank(mat) == 1
 
     def test_kernel_dim(self):
         """Kernel of [[1, 2], [2, 4]] has dimension 1."""
         mat = [[Fraction(1), Fraction(2)],
                [Fraction(2), Fraction(4)]]
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert _matrix_kernel_dim(mat) == 1
 
     def test_matrix_multiply(self):
@@ -112,9 +116,13 @@ class TestLinearAlgebra:
         B = [[Fraction(5), Fraction(6)],
              [Fraction(7), Fraction(8)]]
         C = _matrix_multiply(A, B)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert C[0][0] == Fraction(19)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert C[0][1] == Fraction(22)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert C[1][0] == Fraction(43)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert C[1][1] == Fraction(50)
 
 
@@ -128,31 +136,37 @@ class TestE1AlgebraBasics:
     def test_conifold_chart_I_generators(self):
         """Chamber I has 2 generators."""
         A = conifold_coha_chart_I()
+        # VERIFIED [DC] chart decomposition [LT] operadic Koszul theory
         assert A.num_generators == 2
 
     def test_conifold_chart_II_generators(self):
         """Chamber II has 3 generators."""
         B = conifold_coha_chart_II()
+        # VERIFIED [DC] chart decomposition [LT] operadic Koszul theory
         assert B.num_generators == 3
 
     def test_transition_algebra_generators(self):
         """Transition algebra has 1 generator."""
         K = conifold_transition_algebra()
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert K.num_generators == 1
 
     def test_chart_I_kappa(self):
         """κ(CoHA_I) = 1."""
         A = conifold_coha_chart_I()
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert A.kappa_value == Fraction(1)
 
     def test_chart_II_kappa(self):
         """κ(CoHA_II) = 1."""
         B = conifold_coha_chart_II()
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert B.kappa_value == Fraction(1)
 
     def test_transition_kappa(self):
         """κ(K) = 1 for transition algebra (wall is an equivalence)."""
         K = conifold_transition_algebra()
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert K.kappa_value == Fraction(1)
 
     def test_bar_element_degree(self):
@@ -160,6 +174,7 @@ class TestE1AlgebraBasics:
         g = E1Generator("a", charge=(1,))
         h = E1Generator("b", charge=(0,))
         elem = BarElement(factors=(g, h))
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert elem.bar_degree == 2
 
     def test_bar_element_charge(self):
@@ -167,6 +182,7 @@ class TestE1AlgebraBasics:
         e1 = E1Generator("e1", charge=(1, 0))
         e2 = E1Generator("e2", charge=(0, 1))
         elem = BarElement(factors=(e1, e2))
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert elem.total_charge == (1, 1)
 
     def test_bar_cohom_degree(self):
@@ -174,36 +190,42 @@ class TestE1AlgebraBasics:
         g = E1Generator("a", charge=(1,), cohom_degree=0)
         h = E1Generator("b", charge=(0,), cohom_degree=0)
         elem = BarElement(factors=(g, h))
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert elem.cohom_degree == -2
 
     def test_bar_dimension_chart_I(self):
         """B¹(CoHA_I) = 2 generators => dim = 2."""
         A = conifold_coha_chart_I()
         bc = E1BarComplex(A, max_bar_degree=3)
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert bc.bar_dimension(1) == 2
 
     def test_bar_dimension_arity_2_chart_I(self):
         """B²(CoHA_I) with 2 generators: 2² = 4 ordered pairs."""
         A = conifold_coha_chart_I()
         bc = E1BarComplex(A, max_bar_degree=3)
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert bc.bar_dimension(2) == 4
 
     def test_bar_dimension_chart_II(self):
         """B¹(CoHA_II) = 3 generators => dim = 3."""
         B = conifold_coha_chart_II()
         bc = E1BarComplex(B, max_bar_degree=3)
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert bc.bar_dimension(1) == 3
 
     def test_bar_dimension_arity_2_chart_II(self):
         """B²(CoHA_II) with 3 generators: 3² = 9 ordered pairs."""
         B = conifold_coha_chart_II()
         bc = E1BarComplex(B, max_bar_degree=3)
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert bc.bar_dimension(2) == 9
 
     def test_bar_dimension_transition(self):
         """B¹(K) = 1 generator => dim = 1."""
         K = conifold_transition_algebra()
         bc = E1BarComplex(K, max_bar_degree=3)
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert bc.bar_dimension(1) == 1
 
     def test_bar_dimension_by_charge(self):
@@ -234,58 +256,71 @@ class TestConifoldTwoChart:
 
     def test_local_bar_A_dim_1(self, hc):
         """dim B¹(CoHA_I) = 2."""
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert hc.bar_A.bar_dimension(1) == 2
 
     def test_local_bar_B_dim_1(self, hc):
         """dim B¹(CoHA_II) = 3."""
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert hc.bar_B.bar_dimension(1) == 3
 
     def test_local_bar_K_dim_1(self, hc):
         """dim B¹(K) = 1."""
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert hc.bar_K.bar_dimension(1) == 1
 
     def test_hocolim_dim_k1_charge_10(self, hc):
         """Hocolim dim at k=1, charge (1,0): A has 1, B has 1, K has 0."""
         dim = hc.hocolim_dimension(1, (1, 0))
         # B¹(A)_{(1,0)} = 1 (e1), B¹(B)_{(1,0)} = 1 (e1), B⁰(K) = 0
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim == 2
 
     def test_hocolim_dim_k1_charge_01(self, hc):
         """Hocolim dim at k=1, charge (0,1)."""
         dim = hc.hocolim_dimension(1, (0, 1))
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim == 2
 
     def test_hocolim_dim_k1_charge_11(self, hc):
         """Hocolim dim at k=1, charge (1,1): A has 0, B has 1 (e12), K has 0."""
         dim = hc.hocolim_dimension(1, (1, 1))
         # B¹(A) has no (1,1) generator, B¹(B) has e12 of charge (1,1)
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert dim >= 1
 
     def test_hocolim_dim_k2_charge_20(self, hc):
         """Hocolim dim at k=2, charge (2,0)."""
         dim = hc.hocolim_dimension(2, (2, 0))
         # B²(A)_{(2,0)} = 1 (e1|e1), B²(B)_{(2,0)} = 1 (e1|e1), B¹(K) = 0 at (2,0)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dim == 2
 
     def test_kappa_mayer_vietoris(self, hc):
         """κ_MV = κ(A) + κ(B) − κ(K) = 1 + 1 − 1 = 1."""
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert hc.kappa_mayer_vietoris() == Fraction(1)
 
     def test_full_data_exists(self):
         """Full conifold bar-hocolim data computes."""
         data = conifold_bar_hocolim_full(max_bar_degree=3)
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert data.name == "conifold"
 
     def test_full_data_local_kappas(self):
         """Local κ values are correct."""
         data = conifold_bar_hocolim_full(max_bar_degree=3)
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert data.local_kappas["CoHA_I"] == Fraction(1)
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert data.local_kappas["CoHA_II"] == Fraction(1)
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert data.local_kappas["K"] == Fraction(1)
 
     def test_full_data_kappa_mv(self):
         """MV κ = 1."""
         data = conifold_bar_hocolim_full(max_bar_degree=3)
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert data.kappa_mayer_vietoris == Fraction(1)
 
     def test_hocolim_euler_char_10(self, hc):
@@ -321,10 +356,12 @@ class TestConifoldTwoChart:
 
     def test_bar_arity_3_chart_II(self, hc):
         """B³(CoHA_II) has 3³ = 27 elements."""
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert hc.bar_B.bar_dimension(3) == 27
 
     def test_bar_arity_3_chart_I(self, hc):
         """B³(CoHA_I) has 2³ = 8 elements."""
+        # VERIFIED [DC] dimension count [LT] operadic Koszul theory
         assert hc.bar_A.bar_dimension(3) == 8
 
 
@@ -341,10 +378,12 @@ class TestLocalP2ThreeChart:
 
     def test_three_charts(self, lp2):
         """Local P² has 3 chart algebras."""
+        # VERIFIED [DC] chart decomposition [LT] operadic Koszul theory
         assert len(lp2.algebras) == 3
 
     def test_three_overlaps(self, lp2):
         """Local P² has 3 pairwise overlaps."""
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert len(lp2.overlaps) == 3
 
     def test_triple_overlap_exists(self, lp2):
@@ -354,40 +393,48 @@ class TestLocalP2ThreeChart:
     def test_chart_kappas(self, lp2):
         """Each chart has κ = 1/2."""
         for label, alg in lp2.algebras.items():
+            # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
             assert alg.kappa_value == Fraction(1, 2)
 
     def test_overlap_kappas(self, lp2):
         """Each overlap has κ = 0."""
         for label, alg in lp2.overlaps.items():
+            # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
             assert alg.kappa_value == Fraction(0)
 
     def test_triple_overlap_kappa(self, lp2):
         """Triple overlap has κ = 0."""
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert lp2.triple_overlap.kappa_value == Fraction(0)
 
     def test_kappa_inclusion_exclusion(self, lp2):
         """κ(LP2) = 3 × (1/2) − 3 × 0 + 0 = 3/2."""
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert lp2.kappa_inclusion_exclusion() == Fraction(3, 2)
 
     def test_kappa_matches_euler_char(self, lp2):
         """κ = χ(P²)/2 = 3/2."""
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert lp2.kappa_inclusion_exclusion() == Fraction(3, 2)
 
     def test_local_bar_dims(self, lp2):
         """Local bar dimensions are computed."""
         dims = lp2.local_bar_dimensions()
+        # VERIFIED [DC] structural property [LT] operadic Koszul theory
         assert len(dims) > 0
 
     def test_chart_bar_dim_1(self, lp2):
         """Each chart has 1 generator, so B¹ = 1."""
         dims = lp2.local_bar_dimensions()
         for label in ["0", "1", "2"]:
+            # VERIFIED [DC] chart decomposition [LT] operadic Koszul theory
             assert dims[label][1] == 1
 
     def test_overlap_bar_dim_1(self, lp2):
         """Overlaps have 0 generators, so B¹ = 0."""
         dims = lp2.local_bar_dimensions()
         for label in ["01", "12", "02"]:
+            # VERIFIED [DC] structural property [LT] operadic Koszul theory
             assert dims[label][1] == 0
 
     def test_full_computation(self):
@@ -398,11 +445,13 @@ class TestLocalP2ThreeChart:
     def test_full_kappa_value(self):
         """Computed κ = 3/2."""
         data = local_p2_bar_hocolim_full(max_bar_degree=3)
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert data["kappa_inclusion_exclusion"] == Fraction(3, 2)
 
     def test_full_expected_kappa(self):
         """Expected κ = 3/2."""
         data = local_p2_bar_hocolim_full(max_bar_degree=3)
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
         assert data["kappa_expected"] == Fraction(3, 2)
 
     def test_chart_bar_arity_n(self, lp2):
@@ -410,6 +459,7 @@ class TestLocalP2ThreeChart:
         dims = lp2.local_bar_dimensions()
         for label in ["0", "1", "2"]:
             for k in range(1, 5):
+                # VERIFIED [DC] chart decomposition [LT] operadic Koszul theory
                 assert dims[label][k] == 1
 
 
@@ -513,6 +563,7 @@ class TestChainMap:
             hc.morph_g, hc.bar_K, hc.bar_B, 1, (1, 1))
         # B¹(K)_{(1,1)} = [e12], B¹(B)_{(1,1)} = [e12]
         if mat:
+            # VERIFIED [DC] structural property [LT] operadic Koszul theory
             assert len(mat) > 0
             # The map should send the single basis element to itself
             assert any(mat[i][0] != Fraction(0)
@@ -524,6 +575,7 @@ class TestChainMap:
             hc.morph_f, hc.bar_K, hc.bar_A, 1, (1, 1))
         # The map should be zero since e12 maps to 0 in A
         if mat:
+            # VERIFIED [DC] structural property [LT] operadic Koszul theory
             assert all(mat[i][j] == Fraction(0)
                        for i in range(len(mat))
                        for j in range(len(mat[0])))
@@ -609,6 +661,7 @@ class TestMayerVietoris:
         """Hocolim cohomology at k=1 is computed."""
         cohom = hc.hocolim_cohomology_dim(1, (1, 0))
         assert "dim_cohomology" in cohom
+        # VERIFIED [DC] cohomology [LT] operadic Koszul theory
         assert cohom["dim_cohomology"] >= 0
 
 
@@ -622,12 +675,14 @@ class TestShadowTowerFromHocolim:
     def test_conifold_global_kappa(self):
         """Conifold κ from local data: 1 + 1 − 1 = 1."""
         data = conifold_shadow_from_hocolim()
-        assert data["kappa_global"] == Fraction(1)
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
+        assert data["kappa_ch"] == Fraction(1)
 
     def test_local_p2_global_kappa(self):
         """Local P² κ from local data: 3 × (1/2) = 3/2."""
         data = local_p2_shadow_from_hocolim()
-        assert data["kappa_global"] == Fraction(3, 2)
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
+        assert data["kappa_ch"] == Fraction(3, 2)
 
     def test_conifold_shadow_genus_1(self):
         """F₁(conifold) = κ × λ₁ = 2 × (1/24) = 1/12."""
@@ -661,11 +716,13 @@ class TestShadowTowerFromHocolim:
             local_kappas={"A": Fraction(3), "K": Fraction(1)},
             is_overlap={"A": False, "K": True},
         )
-        assert data["kappa_global"] == Fraction(2)  # 3 - 1 = 2
+        # VERIFIED [DC] kappa formula [LT] operadic Koszul theory
+        assert data["kappa_ch"] == Fraction(2)  # 3 - 1 = 2
 
     def test_a_hat_coefficients_positive(self):
         """All A-hat coefficients are positive."""
         for g, val in A_HAT_COEFFICIENTS.items():
+            # VERIFIED [DC] positivity check [LT] operadic Koszul theory
             assert val > 0, f"λ_{g} should be positive"
 
 
@@ -696,6 +753,7 @@ class TestDTExtraction:
         bc = E1BarComplex(A, max_bar_degree=4)
         chi = bc.euler_char_by_charge((1, 0))
         # χ(B_{(1,0)}) = (-1)^1 · 1 = -1 (one generator at arity 1)
+        # VERIFIED [DC] Euler characteristic formula [LT] operadic Koszul theory
         assert chi == Fraction(-1)
 
     def test_dt_chart_I_charge_01(self):
@@ -703,6 +761,7 @@ class TestDTExtraction:
         A = conifold_coha_chart_I()
         bc = E1BarComplex(A, max_bar_degree=4)
         chi = bc.euler_char_by_charge((0, 1))
+        # VERIFIED [DC] Euler characteristic formula [LT] operadic Koszul theory
         assert chi == Fraction(-1)
 
     def test_dt_chart_II_charge_11(self):

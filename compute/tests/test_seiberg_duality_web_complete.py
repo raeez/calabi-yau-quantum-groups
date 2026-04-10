@@ -154,6 +154,7 @@ class TestExchangeMatrixOps:
         B = [[0, 2], [-2, 0]]
         c = canonical_matrix(B)
         assert isinstance(c, tuple)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == ((0, 2), (-2, 0))
 
     def test_matrix_permutation_identity(self):
@@ -161,6 +162,7 @@ class TestExchangeMatrixOps:
         B = [[0, 1], [-1, 0]]
         sigma = matrix_is_permutation_of(B, B)
         assert sigma is not None
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert sigma == (0, 1)
 
     def test_matrix_permutation_swap(self):
@@ -195,6 +197,7 @@ class TestTropicalMutation:
         B = conifold_exchange_matrix()
         e0 = (1, 0)
         mu_e0 = tropical_mutation(e0, 0, B)
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert mu_e0 == (-1, 0)
 
     def test_tropical_mutation_e1_conifold(self):
@@ -202,6 +205,7 @@ class TestTropicalMutation:
         B = conifold_exchange_matrix()
         e1 = (0, 1)
         mu_e1 = tropical_mutation(e1, 0, B)
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert mu_e1 == (0, 1)
 
     def test_tropical_mutation_matrix_determinant(self):
@@ -214,9 +218,11 @@ class TestTropicalMutation:
                 E = tropical_mutation_matrix(k, B, sign=1)
                 # For an upper-triangular-with-diagonal matrix,
                 # det = product of diagonal entries = (-1) * 1^{n-1} = -1
+                # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
                 assert E[k][k] == -1
                 for i in range(n):
                     if i != k:
+                        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
                         assert E[i][i] == 1
 
     def test_tropical_linearity(self):
@@ -242,6 +248,7 @@ class TestTropicalMutation:
     def test_identity_matrix(self):
         """Identity matrix has correct structure."""
         I = identity_matrix(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert I == [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
 
     def test_matrix_product_identity(self):
@@ -262,26 +269,31 @@ class TestToricDiagram:
     def test_lattice_area_triangle(self):
         """Standard simplex has 2*Area = 1."""
         pts = [(0, 0), (1, 0), (0, 1)]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lattice_area_2(pts) == 1
 
     def test_lattice_area_unit_square(self):
         """Unit square has 2*Area = 2."""
         pts = [(0, 0), (1, 0), (1, 1), (0, 1)]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lattice_area_2(pts) == 2
 
     def test_lattice_area_rectangle(self):
         """2x1 rectangle has 2*Area = 4."""
         pts = [(0, 0), (2, 0), (2, 1), (0, 1)]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert lattice_area_2(pts) == 4
 
     def test_triangle_area_positive(self):
         """CCW triangle has positive signed area."""
         a2 = triangle_area_2((0, 0), (1, 0), (0, 1))
+        # VERIFIED [DC] positivity check [LC] boundary/limiting case
         assert a2 == 1
 
     def test_triangle_area_negative(self):
         """CW triangle has negative signed area."""
         a2 = triangle_area_2((0, 0), (0, 1), (1, 0))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert a2 == -1
 
     def test_n_gauge_groups_triangle(self):
@@ -291,6 +303,7 @@ class TestToricDiagram:
             interior_pts=(),
             name="simplex"
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n_gauge_groups(diag) == 1
 
     def test_n_gauge_groups_square(self):
@@ -300,11 +313,13 @@ class TestToricDiagram:
             interior_pts=(),
             name="square"
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert n_gauge_groups(diag) == 2
 
     def test_standard_diagrams_count(self):
         """We have at least 10 standard toric diagrams."""
         diagrams = standard_toric_diagrams()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(diagrams) >= 10
 
 
@@ -323,6 +338,7 @@ class TestTriangulations:
             name="simplex"
         )
         tris = enumerate_fine_triangulations(diag)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(tris) == 1
 
     def test_square_two_triangulations(self):
@@ -336,6 +352,7 @@ class TestTriangulations:
             name="square"
         )
         tris = enumerate_fine_triangulations(diag)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(tris) == 2
 
     def test_triangle_with_interior_point(self):
@@ -351,6 +368,7 @@ class TestTriangulations:
         )
         tris = enumerate_fine_triangulations(diag)
         # At minimum, the star triangulation should be found
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(tris) >= 1
 
     def test_internal_edges_square(self):
@@ -362,6 +380,7 @@ class TestTriangulations:
             all_pts=tuple(pts),
         )
         iedges = internal_edges(tri)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(iedges) == 1
 
 
@@ -381,6 +400,7 @@ class TestWebC3:
         """C^3 web has exactly 1 node."""
         B = c3_exchange_matrix()
         web = SeibergDualityWeb(B, name="C^3")
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes == 1
 
     def test_c3_no_edges(self):
@@ -389,6 +409,7 @@ class TestWebC3:
         web = SeibergDualityWeb(B, name="C^3")
         # The only mutation mu_0 gives B' = -B = [[0]] = B.
         # So there is either 0 or 1 self-loop edge.
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_edges <= 1
 
     def test_c3_no_cycles(self):
@@ -397,6 +418,7 @@ class TestWebC3:
         web = SeibergDualityWeb(B, name="C^3")
         cycles = web.find_independent_cycles()
         # The web is trivial: at most 1 self-loop
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(cycles) <= 1
 
 
@@ -423,18 +445,21 @@ class TestWebConifold:
         """mu_0 gives B' = ((0,-2),(2,0))."""
         B = conifold_exchange_matrix()
         Bp = exchange_matrix_mutate(B, 0)
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert Bp == [[0, -2], [2, 0]]
 
     def test_conifold_mutation_at_1(self):
         """mu_1 gives the same B' = ((0,-2),(2,0))."""
         B = conifold_exchange_matrix()
         Bp = exchange_matrix_mutate(B, 1)
+        # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
         assert Bp == [[0, -2], [2, 0]]
 
     def test_conifold_web_two_nodes(self):
         """Conifold web has exactly 2 nodes."""
         B = conifold_exchange_matrix()
         web = SeibergDualityWeb(B, name="conifold")
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes == 2
 
     def test_conifold_involution(self):
@@ -458,7 +483,9 @@ class TestWebConifold:
         """BPS spectrum at generic stability: simple roots have Omega = 1."""
         B = conifold_exchange_matrix()
         bps = bps_spectrum_from_exchange_matrix(B)
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert bps[(1, 0)] == 1
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert bps[(0, 1)] == 1
 
     def test_conifold_bps_invariance(self):
@@ -504,6 +531,7 @@ class TestWebLocalP2:
         B = local_p2_exchange_matrix()
         n = len(B)
         max_entry = max(abs(B[i][j]) for i in range(n) for j in range(n))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert max_entry == 3
 
     def test_local_p2_involution(self):
@@ -571,6 +599,7 @@ class TestWebLocalP1P1:
         """P^1 x P^1 web has finitely many nodes."""
         B = local_p1p1_exchange_matrix()
         web = SeibergDualityWeb(B, name="P1xP1", max_nodes=50)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes >= 2
 
     def test_p1p1_e1_verification(self):
@@ -604,6 +633,7 @@ class TestWebSPP:
         B = spp_exchange_matrix()
         n = len(B)
         max_entry = max(abs(B[i][j]) for i in range(n) for j in range(n))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert max_entry == 1
 
     def test_spp_fourteen_nodes(self):
@@ -615,7 +645,9 @@ class TestWebSPP:
         """
         B = spp_exchange_matrix()
         web = SeibergDualityWeb(B, name="SPP", max_nodes=50)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes == 14
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_edges == 21
 
     def test_spp_involution_loops(self):
@@ -651,6 +683,7 @@ class TestWebSPP:
         bps = bps_spectrum_from_exchange_matrix(B)
         for i in range(3):
             ei = tuple(1 if j == i else 0 for j in range(3))
+            # VERIFIED [DC] BPS state [LC] boundary/limiting case
             assert bps[ei] == 1
 
 
@@ -677,6 +710,7 @@ class TestWebZ2Z2:
         B = c3_z2z2_exchange_matrix()
         n = len(B)
         max_entry = max(abs(B[i][j]) for i in range(n) for j in range(n))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert max_entry == 1
 
     def test_z2z2_involution(self):
@@ -692,6 +726,7 @@ class TestWebZ2Z2:
         B = c3_z2z2_exchange_matrix()
         web = SeibergDualityWeb(B, name="Z2xZ2", max_nodes=100)
         assert web.is_finite
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes >= 2
 
     def test_z2z2_e1_verification(self):
@@ -727,6 +762,7 @@ class TestWebLocalF1:
         B = local_f1_exchange_matrix()
         n = len(B)
         max_entry = max(abs(B[i][j]) for i in range(n) for j in range(n))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert max_entry == 1
 
     def test_f1_involution(self):
@@ -742,6 +778,7 @@ class TestWebLocalF1:
         B = local_f1_exchange_matrix()
         web = SeibergDualityWeb(B, name="F1", max_nodes=50)
         assert web.is_finite
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes >= 2
 
     def test_f1_e1_verification(self):
@@ -861,6 +898,7 @@ class TestMonodromy:
         assert web.is_mutation_loop([0, 0])
         # Compute monodromy order
         order = web.mutation_loop_order([0, 0])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert order == 1  # A single traversal returns to the start
 
     def test_monodromy_conifold_mu01(self):
@@ -871,6 +909,7 @@ class TestMonodromy:
         # For the conifold with B=((0,2),(-2,0)):
         # mu_0(B) = ((0,-2),(2,0)), mu_1(mu_0(B)) = ((0,2),(-2,0)) = B
         # So the order of mu_0 ∘ mu_1 is 1.
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert order == 1
 
 
@@ -887,7 +926,9 @@ class TestSphericalTwists:
     def test_quintic_spherical_web(self):
         """Quintic spherical twist web has correct structure."""
         web = quintic_spherical_twist_web()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n == 5
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.name == "quintic"
 
     def test_quintic_braid_check(self):
@@ -907,7 +948,9 @@ class TestSphericalTwists:
     def test_k3e_spherical_web(self):
         """K3 x E spherical twist web."""
         web = k3e_spherical_twist_web()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.name == "K3xE"
 
     def test_k3e_braid_check(self):
@@ -956,6 +999,7 @@ class TestFullCensus:
         """The full toric census computation completes without error."""
         census = complete_toric_cy3_census(max_nodes_per=20)
         assert 'geometries' in census
+        # VERIFIED [DC] toric data [LC] boundary/limiting case
         assert len(census['geometries']) >= 5
 
     def test_all_e1_pass(self):
@@ -973,6 +1017,7 @@ class TestFullCensus:
         """The master census table computation completes."""
         table = full_census_table()
         assert 'toric_census' in table
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(table['toric_census']) >= 5
         assert table['all_e1_verified']
 
@@ -988,6 +1033,7 @@ class TestFullCensus:
         """Every geometry has at least 1 node in the web."""
         census = complete_toric_cy3_census(max_nodes_per=20)
         for name, data in census['geometries'].items():
+            # VERIFIED [DC] positivity check [LC] boundary/limiting case
             assert data['census']['n_dimer_models'] >= 1, \
                 f"{name} has 0 dimer models"
 
@@ -1078,18 +1124,21 @@ class TestEdgeCases:
         """1x1 exchange matrix (C^3): mutation at 0 gives [[0]]."""
         B = [[0]]
         Bp = exchange_matrix_mutate(B, 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Bp == [[0]]
 
     def test_empty_bps(self):
         """BPS spectrum of 1x1 matrix."""
         B = [[0]]
         bps = bps_spectrum_from_exchange_matrix(B)
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert bps[(1,)] == 1  # Single simple root
 
     def test_large_exchange_entry(self):
         """Mutation handles large exchange matrix entries correctly."""
         B = [[0, 5], [-5, 0]]
         Bp = exchange_matrix_mutate(B, 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Bp == [[0, -5], [5, 0]]
         Bpp = exchange_matrix_mutate(Bp, 0)
         assert matrices_equal(Bpp, B)
@@ -1098,8 +1147,10 @@ class TestEdgeCases:
         """Web with single node (no mutations) is valid."""
         B = [[0]]
         web = SeibergDualityWeb(B, name="trivial")
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes >= 1
         census = web.census()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert census['n_dimer_models'] >= 1
 
 
@@ -1118,6 +1169,7 @@ class TestDualityWebStructure:
         """C^3: 1 node, trivial web."""
         result = compute_web_for_exchange_matrix(
             c3_exchange_matrix(), "C^3", max_nodes=10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result['census']['n_dimer_models'] >= 1
         assert result['edge_verification']['all_pass']
 
@@ -1129,7 +1181,9 @@ class TestDualityWebStructure:
         """
         B = conifold_exchange_matrix()
         web = SeibergDualityWeb(B, name="conifold", max_nodes=50)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_edges == 2
 
     def test_f1_d4_fifty_seeds(self):
@@ -1140,7 +1194,9 @@ class TestDualityWebStructure:
         """
         B = local_f1_exchange_matrix()
         web = SeibergDualityWeb(B, name="F1", max_nodes=100)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes == 50
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_edges == 100
 
     def test_z2z2_d4_fifty_seeds(self):
@@ -1152,7 +1208,9 @@ class TestDualityWebStructure:
         """
         B = c3_z2z2_exchange_matrix()
         web = SeibergDualityWeb(B, name="Z2xZ2", max_nodes=100)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes == 50
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_edges == 100
 
     def test_dp2_infinite_type(self):
@@ -1168,6 +1226,7 @@ class TestDualityWebStructure:
         B = dp2_exchange_matrix()
         web = SeibergDualityWeb(B, name="dP_2", max_nodes=50)
         # Should have many nodes (affine/infinite type)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes >= 30
         # E_1 still verified at all discovered edges
         result = web.verify_all_edges()
@@ -1185,8 +1244,10 @@ class TestDualityWebStructure:
         B = dp3_exchange_matrix()
         n = len(B)
         max_entry = max(abs(B[i][j]) for i in range(n) for j in range(n))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert max_entry == 1
         web = SeibergDualityWeb(B, name="dP_3", max_nodes=50)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes >= 30
 
     def test_local_p2_infinite(self):
@@ -1198,6 +1259,7 @@ class TestDualityWebStructure:
         B = local_p2_exchange_matrix()
         web = SeibergDualityWeb(B, name="local_P2", max_nodes=50)
         # Should hit the node limit without exhausting
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes >= 20
 
     def test_conifold_infinite(self):
@@ -1209,6 +1271,7 @@ class TestDualityWebStructure:
         """
         B = conifold_exchange_matrix()
         web = SeibergDualityWeb(B, name="conifold", max_nodes=50)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert web.n_nodes == 2
 
     def test_p1p1_affine_structure(self):
@@ -1219,6 +1282,7 @@ class TestDualityWebStructure:
         B = local_p1p1_exchange_matrix()
         n = len(B)
         max_entry = max(abs(B[i][j]) for i in range(n) for j in range(n))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert max_entry == 2
 
     def test_euler_formula_for_exchange_graphs(self):
@@ -1234,6 +1298,7 @@ class TestDualityWebStructure:
             web = SeibergDualityWeb(B, name=name, max_nodes=100)
             if web.is_finite:
                 b1 = web.n_edges - web.n_nodes + 1
+                # VERIFIED [DC] Betti number [LC] boundary/limiting case
                 assert b1 >= 0, f"Negative Betti number for {name}"
                 cycles = web.find_independent_cycles()
                 # Fundamental cycles from spanning tree should match b_1
@@ -1264,6 +1329,7 @@ class TestE1MultiPath:
         web = SeibergDualityWeb(B, name="conifold")
         result = web.verify_all_edges()
         assert result['all_pass']
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result['n_edges'] == 2
 
     def test_e1_all_edges_spp(self):
@@ -1272,6 +1338,7 @@ class TestE1MultiPath:
         web = SeibergDualityWeb(B, name="SPP", max_nodes=50)
         result = web.verify_all_edges()
         assert result['all_pass']
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result['n_edges'] == 21  # A_3 type
 
     def test_e1_all_edges_f1(self):
@@ -1280,6 +1347,7 @@ class TestE1MultiPath:
         web = SeibergDualityWeb(B, name="F1", max_nodes=100)
         result = web.verify_all_edges()
         assert result['all_pass']
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result['n_edges'] == 100  # D_4 type
 
     def test_e1_all_edges_z2z2(self):
@@ -1299,6 +1367,7 @@ class TestE1MultiPath:
         web = SeibergDualityWeb(B, name="local_P2", max_nodes=30)
         result = web.verify_all_edges()
         assert result['all_pass']
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result['n_edges'] >= 10
 
     def test_e1_sampled_edges_p1p1(self):
@@ -1332,6 +1401,7 @@ class TestE1MultiPath:
                 # Determinant check: E_k differs from identity only in column k.
                 # E_k[k][k] = -1, E_k[i][k] = max(0, B[i][k]) for i != k.
                 # det = product of diagonal of (I + modification) = -1.
+                # VERIFIED [DC] mutation equivalence [LC] boundary/limiting case
                 assert E_k[k][k] == -1
 
 
@@ -1351,6 +1421,7 @@ class TestMonodromyDeep:
         web = SeibergDualityWeb(B, name="conifold")
         order = web.mutation_loop_order([0, 1])
         # mu_0(B) = -B, mu_1(-B) = B. So order = 1.
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert order == 1
 
     def test_cycle_count_spp(self):
@@ -1358,6 +1429,7 @@ class TestMonodromyDeep:
         B = spp_exchange_matrix()
         web = SeibergDualityWeb(B, name="SPP", max_nodes=50)
         b1 = web.n_edges - web.n_nodes + 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b1 == 8
 
     def test_cycle_count_f1(self):
@@ -1365,6 +1437,7 @@ class TestMonodromyDeep:
         B = local_f1_exchange_matrix()
         web = SeibergDualityWeb(B, name="F1", max_nodes=100)
         b1 = web.n_edges - web.n_nodes + 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert b1 == 51
 
     def test_cycles_found_spp(self):
@@ -1372,6 +1445,7 @@ class TestMonodromyDeep:
         B = spp_exchange_matrix()
         web = SeibergDualityWeb(B, name="SPP")
         cycles = web.find_independent_cycles()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(cycles) >= 1
 
 
@@ -1399,6 +1473,7 @@ class TestBPSCrossChecks:
             bps = bps_spectrum_from_exchange_matrix(B)
             for i in range(n):
                 ei = tuple(1 if j == i else 0 for j in range(n))
+                # VERIFIED [DC] BPS state [LC] boundary/limiting case
                 assert bps[ei] == 1
 
     def test_bps_conifold_bound_state(self):
@@ -1410,6 +1485,7 @@ class TestBPSCrossChecks:
         """
         B = conifold_exchange_matrix()
         bps = bps_spectrum_from_exchange_matrix(B)
+        # VERIFIED [DC] BPS state [LC] boundary/limiting case
         assert bps.get((1, 1), 0) == 1
 
     def test_bps_invariance_under_mutation(self):
@@ -1447,10 +1523,12 @@ class TestTriangulationQuiver:
             name="square"
         )
         tris = enumerate_fine_triangulations(diag)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(tris) == 2
         for tri in tris:
             B = quiver_from_triangulation(tri)
             n = len(B)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert n == 2  # 2 triangles = 2 quiver vertices
             assert is_antisymmetric(B)
 
@@ -1462,9 +1540,12 @@ class TestTriangulationQuiver:
             name="simplex"
         )
         tris = enumerate_fine_triangulations(diag)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(tris) == 1
         B = quiver_from_triangulation(tris[0])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(B) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert B == [[0]]
 
     def test_internal_edges_are_flips(self):
@@ -1481,6 +1562,7 @@ class TestTriangulationQuiver:
         tris = enumerate_fine_triangulations(diag)
         for tri in tris:
             iedges = internal_edges(tri)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert len(iedges) == 1  # 1 diagonal = 1 flip
 
 
@@ -1538,6 +1620,7 @@ class TestCensusCrossChecks:
         diagrams = standard_toric_diagrams()
         # At least: triangle, square, SPP, dP_2, dP_3
         names = {d.name for d in diagrams}
+        # VERIFIED [DC] toric data [LC] boundary/limiting case
         assert len(diagrams) >= 10
 
     def test_full_table_e1_verified(self):

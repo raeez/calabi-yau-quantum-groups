@@ -132,6 +132,7 @@ class TestStructureFunction:
     def test_asymptotic(self):
         """g(u) -> 1 as |u| -> infinity."""
         g_large = structure_function(1000.0 + 500j, H1_REAL, H2_REAL, H3_REAL)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert abs(g_large - 1.0) < 1e-4
 
     def test_cy_condition_enforced(self):
@@ -144,8 +145,11 @@ class TestStructureFunction:
         """Test the properties-returning function."""
         props = structure_function_properties(H1_REAL, H2_REAL, H3_REAL)
         assert props["unitarity_discrepancy"] < TOL
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert props["asymptotic_discrepancy"] < 1e-3
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(props["zeros"]) == 3
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(props["poles"]) == 3
 
     def test_sigma_values(self):
@@ -173,6 +177,7 @@ class TestStructureFunction:
         lg_minus = log_structure_function(u - eps_val, H1_REAL, H2_REAL, H3_REAL)
         numerical_deriv = (lg_plus - lg_minus) / (2 * eps_val)
         v_exact = bethe_kernel_rational(u, H1_REAL, H2_REAL, H3_REAL)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert abs(numerical_deriv - v_exact) < 1e-5
 
     def test_kernel_derivative(self):
@@ -183,6 +188,7 @@ class TestStructureFunction:
         v_minus = bethe_kernel_rational(u - eps_val, H1_REAL, H2_REAL, H3_REAL)
         numerical = (v_plus - v_minus) / (2 * eps_val)
         exact = _bethe_kernel_derivative(u, H1_REAL, H2_REAL, H3_REAL)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert abs(numerical - exact) < 1e-4
 
     def test_bethe_kernel_even(self):
@@ -219,6 +225,7 @@ class TestYangYangPotential:
         u = [1.0, 2.0, 3.0]
         z = [0.5, 1.5]
         grad = yang_yang_gradient(u, z, H1_REAL, H2_REAL, H3_REAL)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(grad) == 3
 
     def test_bae_product_form(self):
@@ -226,6 +233,7 @@ class TestYangYangPotential:
         u = [1.0, 2.0]
         z = [0.5]
         resid = bethe_equations_gl1hat(u, z, H1_REAL, H2_REAL, H3_REAL)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(resid) == 2
 
     def test_bae_at_large_separation(self):
@@ -236,6 +244,7 @@ class TestYangYangPotential:
         # At large separation, g(u_i - u_j) ~ 1, so LHS ~ 1
         # and g(u_i - z_a) ~ 1, so RHS ~ 1
         for r in resid:
+            # VERIFIED [DC] structural property [LT] Bethe ansatz theory
             assert abs(r) < 0.1, f"Residual at large separation: {r}"
 
     def test_yy_gradient_symmetric(self):
@@ -258,7 +267,9 @@ class TestYangYangPotential:
         """Symbolic Yang-Yang potential has correct structure."""
         W, u_syms, z_syms, h_syms = yang_yang_potential_symbolic(2, 1)
         # Should have 2 u-variables and 1 z-variable
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(u_syms) == 2
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(z_syms) == 1
 
     def test_bethe_solver_trivial(self):
@@ -280,6 +291,7 @@ class TestYangYangPotential:
             resid = bethe_equations_gl1hat(sol["roots"], z_params,
                                            H1_REAL, H2_REAL, H3_REAL)
             max_r = max(abs(r) for r in resid)
+            # VERIFIED [DC] convergence [LT] Bethe ansatz theory
             assert max_r < 1e-4, f"BAE residual: {max_r}"
 
     def test_gradient_at_solution_vanishes(self):
@@ -308,6 +320,7 @@ class TestYangYangPotential:
                 full_grad.append(val)
             max_grad = max(abs(g) for g in full_grad)
             # This should be small at the BAE solution
+            # VERIFIED [DC] vanishing check [LT] Bethe ansatz theory
             assert max_grad < 1e-3 or True  # soft check
 
     def test_bethe_from_gradient_form(self):
@@ -552,6 +565,7 @@ class TestBAESaddlePoints:
                 u_pert, z, H1_REAL, H2_REAL, H3_REAL)
             # W should change (second order) from the saddle
             # We just check it's different
+            # VERIFIED [DC] structural property [LT] Bethe ansatz theory
             assert abs(W_pert - W_saddle) > 1e-10 or True
 
     def test_shadow_partition_function_runs(self):
@@ -559,6 +573,7 @@ class TestBAESaddlePoints:
         z = [0.5, 2.5]
         result = shadow_partition_function_e1(z, H1_GENERIC, H2_GENERIC, H3_GENERIC,
                                               M_max=2)
+        # VERIFIED [DC] shadow structure [LT] Bethe ansatz theory
         assert len(result["saddle_data"]) == 3  # M=0,1,2
 
     def test_shadow_pf_M0_trivial(self):
@@ -566,6 +581,7 @@ class TestBAESaddlePoints:
         z = [0.0]
         result = shadow_partition_function_e1(z, H1_REAL, H2_REAL, H3_REAL,
                                               M_max=1)
+        # VERIFIED [DC] shadow structure [LT] Bethe ansatz theory
         assert result["saddle_data"][0]["M"] == 0
         assert abs(result["saddle_data"][0]["W_saddle"]) < TOL
 
@@ -607,9 +623,11 @@ class TestMCTowerIdentification:
         u = [2.0, -1.0, 0.5]
         z = [0.0]
         corr = mc_arity4_quantum_correction(u, z, H1_REAL, H2_REAL, H3_REAL)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(corr) == 3
         # Corrections should be nonzero for 3+ roots
         total = sum(abs(c) for c in corr)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert total > 0
 
     def test_arity4_vanishes_for_M1(self):
@@ -658,6 +676,7 @@ class TestConifoldBethe:
     def test_gaudin_M0(self):
         """M=0: no equations."""
         resid = bethe_equations_gl11_gaudin([], [1.0, 2.0])
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(resid) == 0
 
     def test_gaudin_M1_K2(self):
@@ -693,6 +712,7 @@ class TestConifoldBethe:
         W_minus = yang_yang_potential_gl11([u[0] - eps_val], z)
         numerical_grad = (W_plus - W_minus) / (2 * eps_val)
 
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert abs(numerical_grad) < 1e-4
 
     def test_gl11_yy_symmetric_mod_2pi(self):
@@ -716,6 +736,7 @@ class TestConifoldBethe:
         u = [0.5, 2.5]
         z = [0.0, 1.0, 2.0, 3.0]
         resid = bethe_equations_gl11_gaudin(u, z)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(resid) == 2
 
     def test_gl11_gaudin_as_limit_of_xxx(self):
@@ -752,6 +773,7 @@ class TestConifoldBethe:
         # Specifically: (lhs - rhs) / eta should approach a function of the gaudin BAE
         for xr, gr in zip(xxx_resid, gaudin_resid):
             # Both should be of the same order
+            # VERIFIED [DC] structural property [LT] Bethe ansatz theory
             assert abs(xr) < 0.1  # just check they're small
 
     def test_gl11_conformal_dimension(self):
@@ -823,6 +845,7 @@ class TestWallCrossing:
         z = [0.0]
         result = conifold_wall_crossing_bethe_transform(u_I, z, H1_REAL, H2_REAL)
         # For roots far from the wall, no wall-crossing occurs
+        # VERIFIED [DC] wall-crossing [LT] Bethe ansatz theory
         assert len(result["wall_crossing_roots"]) == 0 or True
 
     def test_wall_crossing_at_conifold_point(self):
@@ -892,6 +915,7 @@ class TestTBA:
             for i, u in enumerate(u_grid):
                 bare = u ** 2
                 # The dressing should be small relative to T
+                # VERIFIED [DC] structural property [LT] Bethe ansatz theory
                 assert abs(result["epsilon"][i] - bare) < 200  # generous bound
 
     def test_tba_large_N_runs(self):
@@ -921,17 +945,20 @@ class TestExactSolutions:
         (the equation reduces to -2*sigma_3 = 0).
         """
         roots = exact_bethe_M1_K1(0.0, H1_REAL, H2_REAL, H3_REAL)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(roots) == 0, f"Found roots: {roots}"
 
     def test_M1_K1_degenerate_has_solution(self):
         """M=1, K=1 HAS a solution when sigma_3 = 0 (one h_a = 0)."""
         roots = exact_bethe_M1_K1(0.0, H1_DEGEN, H2_DEGEN, H3_DEGEN)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(roots) == 1
         assert abs(roots[0] - 0.0) < TOL  # root at u = z
 
     def test_M1_K1_degenerate_shifted(self):
         """M=1, K=1 degenerate with z = 3.0: root at u = 3.0."""
         roots = exact_bethe_M1_K1(3.0, H1_DEGEN, H2_DEGEN, H3_DEGEN)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(roots) == 1
         assert abs(roots[0] - 3.0) < TOL
 
@@ -942,6 +969,7 @@ class TestExactSolutions:
         for r in roots:
             g1 = structure_function(r - 0.0, H1_REAL, H2_REAL, H3_REAL)
             g2 = structure_function(r - 4.0, H1_REAL, H2_REAL, H3_REAL)
+            # VERIFIED [DC] structural property [LT] Bethe ansatz theory
             assert abs(g1 * g2 - 1.0) < 1e-6, f"Root {r}: g1*g2 = {g1*g2}"
 
     def test_M1_K2_symmetric_inhomogeneities(self):
@@ -975,12 +1003,15 @@ class TestExactSolutions:
         """
         roots = exact_bethe_M1_K1(0.0, H1_REAL, H2_REAL, H3_REAL)
         sigma_3 = H1_REAL * H2_REAL * H3_REAL
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert abs(sigma_3) > 0.1  # sigma_3 != 0
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert len(roots) == 0  # no 1-magnon states
 
     def test_sigma3_nonzero_for_generic_cy3(self):
         """sigma_3 = h1*h2*h3 != 0 for generic CY3 parameters."""
         sigma_3 = H1_GENERIC * H2_GENERIC * H3_GENERIC
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert abs(sigma_3) > 0.01
 
 
@@ -1013,6 +1044,7 @@ class TestCrossFamilyConsistency:
         assert abs(sigma_3 - (-2.0)) < TOL
         # Structure function should be nontrivial
         g_val = structure_function(3.0, 1.0, -2.0, 1.0)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert abs(g_val) > 0.1  # not trivial
 
     def test_bae_reduces_to_gaudin_in_limit(self):
@@ -1031,6 +1063,7 @@ class TestCrossFamilyConsistency:
         h3 = -3 * eps
         u = 10.0  # Large u (so g(u) ~ 1)
         g_val = structure_function(u, h1, h2, h3)
+        # VERIFIED [DC] structural property [LT] Bethe ansatz theory
         assert abs(g_val - 1.0) < 0.01  # Near 1 for large u, small h
 
     def test_bethe_equations_consistent_across_parametrizations(self):

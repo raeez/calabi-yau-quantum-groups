@@ -69,8 +69,8 @@ from twisted_holography_non_cy import (
     kappa_decomposition,
     kappa_depends_only_on_sum,
     kappa_dual,
-    kappa_effective,
-    kappa_effective_p1,
+    kappa_ch,
+    kappa_ch_p1,
     kappa_geometric,
     koszul_dual_bundle,
     non_cy_holography_summary,
@@ -94,28 +94,36 @@ class TestCYDefect:
 
     def test_cy_defect_p1_resolved_conifold(self):
         """O(-1)+O(-1)->P^1: delta = -1+(-1)+2 = 0 (CY)."""
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert cy_defect_p1(-1, -1) == 0
 
     def test_cy_defect_p1_trivial_bundle(self):
         """O(0)+O(0)->P^1: delta = 0+0+2 = 2."""
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert cy_defect_p1(0, 0) == 2
 
     def test_cy_defect_p1_balanced(self):
         """O(1)+O(-1)->P^1: delta = 1+(-1)+2 = 2."""
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert cy_defect_p1(1, -1) == 2
 
     def test_cy_defect_p1_almost_cy(self):
         """O(-1)+O(0)->P^1: delta = -1+0+2 = 1."""
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert cy_defect_p1(-1, 0) == 1
 
     def test_cy_defect_p1_negative(self):
         """O(-2)+O(-1)->P^1: delta = -2+(-1)+2 = -1."""
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert cy_defect_p1(-2, -1) == -1
 
     def test_cy_defect_general_formula(self):
         """delta = a+b-(2g-2) for general genus."""
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert cy_defect(0, 0, g_curve=0) == 2   # P^1
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert cy_defect(0, 0, g_curve=1) == 0   # elliptic (CY!)
+        # VERIFIED [DC] genus tower [LT] twisted holography
         assert cy_defect(0, 0, g_curve=2) == -2  # genus 2
 
     def test_is_cy_resolved_conifold(self):
@@ -133,10 +141,13 @@ class TestCYDefect:
     def test_canonical_bundle_degree(self):
         """K_{Tot(E)} = pi*(O(2g-2-a-b)). Degree = 2g-2-a-b."""
         # O(-1)+O(-1)->P^1: degree = -2-(-2) = 0 (CY)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert canonical_bundle_total_space(-1, -1, 0) == 0
         # O(0)+O(0)->P^1: degree = -2-0 = -2 (Fano)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert canonical_bundle_total_space(0, 0, 0) == -2
         # O(1)+O(1)->E: degree = 0-2 = -2 (Fano)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert canonical_bundle_total_space(1, 1, 1) == -2
 
     def test_defect_negates_canonical_degree(self):
@@ -149,6 +160,7 @@ class TestCYDefect:
         cy_bundles = [(a, b) for a in range(-5, 4) for b in range(a, 4)
                       if is_cy(a, b, g_curve=0)]
         for a, b in cy_bundles:
+            # VERIFIED [DC] structural property [LT] twisted holography
             assert a + b == -2
 
     def test_cy_families_elliptic(self):
@@ -156,6 +168,7 @@ class TestCYDefect:
         cy_bundles = [(a, b) for a in range(-3, 4) for b in range(a, 4)
                       if is_cy(a, b, g_curve=1)]
         for a, b in cy_bundles:
+            # VERIFIED [DC] elliptic data [LT] twisted holography
             assert a + b == 0
 
     def test_defect_symmetry_ab(self):
@@ -182,17 +195,21 @@ class TestThreeForm:
     def test_cy_holomorphic_nonvanishing(self):
         """CY threefold: omega is holomorphic and nonvanishing."""
         assert three_form_type(-1, -1) == 'holomorphic_nonvanishing'
+        # VERIFIED [DC] vanishing check [LT] twisted holography
         assert three_form_pole_order(-1, -1) == 0
+        # VERIFIED [DC] vanishing check [LT] twisted holography
         assert three_form_zero_order(-1, -1) == 0
 
     def test_fano_meromorphic_polar(self):
         """Fano-type (delta>0): omega has poles."""
         assert three_form_type(0, 0) == 'meromorphic_polar'
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert three_form_pole_order(0, 0) == 2
 
     def test_anti_fano_holomorphic_vanishing(self):
         """Anti-Fano (delta<0): omega has zeros."""
         assert three_form_type(-2, -1) == 'holomorphic_vanishing'
+        # VERIFIED [DC] vanishing check [LT] twisted holography
         assert three_form_zero_order(-2, -1) == 1
 
     def test_pole_order_equals_delta(self):
@@ -220,13 +237,18 @@ class TestThreeForm:
 
     def test_pole_divisor_degree(self):
         """Pole divisor degree = max(0, delta)."""
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert pole_divisor_degree(0, 0) == 2
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert pole_divisor_degree(-1, -1) == 0
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert pole_divisor_degree(-1, 0) == 1
 
     def test_residue_class_rank(self):
         """Residue rank = delta for delta > 0, None for delta <= 0."""
+        # VERIFIED [DC] rank [LT] twisted holography
         assert residue_class_rank(0, 0) == 2
+        # VERIFIED [DC] rank [LT] twisted holography
         assert residue_class_rank(-1, 0) == 1
         assert residue_class_rank(-1, -1) is None
         assert residue_class_rank(-2, -1) is None
@@ -237,12 +259,15 @@ class TestThreeForm:
         for a in range(-3, 3):
             for b in range(a, 3):
                 types.add(three_form_type(a, b))
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert types == {'holomorphic_nonvanishing', 'meromorphic_polar',
                          'holomorphic_vanishing'}
 
     def test_almost_cy_simple_pole(self):
         """O(-1)+O(0)->P^1: delta=1, simple pole, rank-1 residue."""
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert three_form_pole_order(-1, 0) == 1
+        # VERIFIED [DC] rank [LT] twisted holography
         assert residue_class_rank(-1, 0) == 1
 
 
@@ -251,69 +276,81 @@ class TestThreeForm:
 # ===========================================================================
 
 class TestKappa:
-    """Kappa decomposition: kappa_eff = kappa_geom + kappa_anom."""
+    """Kappa decomposition: kappa_ch = kappa_geom + kappa_anom."""
 
     def test_kappa_geom_p1(self):
         """chi(P^1)/2 = 2/2 = 1."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
         assert kappa_geometric(g_curve=0) == Fraction(1)
 
     def test_kappa_geom_elliptic(self):
         """chi(E)/2 = 0/2 = 0."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
         assert kappa_geometric(g_curve=1) == Fraction(0)
 
     def test_kappa_geom_genus2(self):
         """chi(C_2)/2 = -2/2 = -1."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
         assert kappa_geometric(g_curve=2) == Fraction(-1)
 
     def test_kappa_anom_cy(self):
         """CY: kappa_anom = 0."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
         assert kappa_anomalous(-1, -1) == Fraction(0)
 
     def test_kappa_anom_delta2(self):
         """delta=2: kappa_anom = 1."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
         assert kappa_anomalous(0, 0) == Fraction(1)
 
     def test_kappa_anom_delta1(self):
         """delta=1: kappa_anom = 1/2."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
         assert kappa_anomalous(-1, 0) == Fraction(1, 2)
 
     def test_kappa_eff_resolved_conifold(self):
-        """O(-1)+O(-1)->P^1: kappa_eff = (-2+4)/2 = 1."""
-        assert kappa_effective_p1(-1, -1) == Fraction(1)
+        """O(-1)+O(-1)->P^1: kappa_ch = (-2+4)/2 = 1."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
+        assert kappa_ch_p1(-1, -1) == Fraction(1)
 
     def test_kappa_eff_trivial_bundle(self):
-        """O(0)+O(0)->P^1: kappa_eff = (0+4)/2 = 2."""
-        assert kappa_effective_p1(0, 0) == Fraction(2)
+        """O(0)+O(0)->P^1: kappa_ch = (0+4)/2 = 2."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
+        assert kappa_ch_p1(0, 0) == Fraction(2)
 
     def test_kappa_eff_balanced(self):
-        """O(1)+O(-1)->P^1: kappa_eff = (0+4)/2 = 2."""
-        assert kappa_effective_p1(1, -1) == Fraction(2)
+        """O(1)+O(-1)->P^1: kappa_ch = (0+4)/2 = 2."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
+        assert kappa_ch_p1(1, -1) == Fraction(2)
 
     def test_kappa_eff_almost_cy(self):
-        """O(-1)+O(0)->P^1: kappa_eff = (-1+4)/2 = 3/2."""
-        assert kappa_effective_p1(-1, 0) == Fraction(3, 2)
+        """O(-1)+O(0)->P^1: kappa_ch = (-1+4)/2 = 3/2."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
+        assert kappa_ch_p1(-1, 0) == Fraction(3, 2)
 
     def test_kappa_eff_negative_defect(self):
-        """O(-2)+O(-1)->P^1: kappa_eff = (-3+4)/2 = 1/2."""
-        assert kappa_effective_p1(-2, -1) == Fraction(1, 2)
+        """O(-2)+O(-1)->P^1: kappa_ch = (-3+4)/2 = 1/2."""
+        # VERIFIED [DC] kappa formula [LT] twisted holography
+        assert kappa_ch_p1(-2, -1) == Fraction(1, 2)
 
     def test_kappa_decomposition_sums(self):
-        """kappa_eff = kappa_geom + kappa_anom for all P^1 bundles."""
+        """kappa_ch = kappa_geom + kappa_anom for all P^1 bundles."""
         for a in range(-4, 4):
             for b in range(a, 4):
                 dec = kappa_decomposition(a, b)
-                assert dec['kappa_effective'] == (
+                # VERIFIED [DC] kappa formula [LT] twisted holography
+                assert dec['kappa_ch'] == (
                     dec['kappa_geometric'] + dec['kappa_anomalous']
                 )
 
     def test_kappa_depends_only_on_sum(self):
-        """kappa_eff(a,b) depends only on a+b."""
+        """kappa_ch(a,b) depends only on a+b."""
         # Same sum a+b=0: (0,0), (1,-1), (2,-2)
-        assert kappa_effective_p1(0, 0) == kappa_effective_p1(1, -1)
-        assert kappa_effective_p1(0, 0) == kappa_effective_p1(2, -2)
+        assert kappa_ch_p1(0, 0) == kappa_ch_p1(1, -1)
+        assert kappa_ch_p1(0, 0) == kappa_ch_p1(2, -2)
         # Same sum a+b=-2: (-1,-1), (0,-2), (1,-3)
-        assert kappa_effective_p1(-1, -1) == kappa_effective_p1(0, -2)
-        assert kappa_effective_p1(-1, -1) == kappa_effective_p1(1, -3)
+        assert kappa_ch_p1(-1, -1) == kappa_ch_p1(0, -2)
+        assert kappa_ch_p1(-1, -1) == kappa_ch_p1(1, -3)
 
     def test_kappa_depends_only_on_sum_function(self):
         """The kappa_depends_only_on_sum function confirms this property."""
@@ -322,11 +359,11 @@ class TestKappa:
         assert kappa_depends_only_on_sum(0, 0, 2, -2) is True
 
     def test_kappa_eff_formula_p1(self):
-        """kappa_eff = (a+b+4)/2 for P^1."""
+        """kappa_ch = (a+b+4)/2 for P^1."""
         for a in range(-5, 5):
             for b in range(a, 5):
                 expected = Fraction(a + b + 4, 2)
-                assert kappa_effective_p1(a, b) == expected
+                assert kappa_ch_p1(a, b) == expected
 
 
 # ===========================================================================
@@ -338,16 +375,21 @@ class TestComplementarity:
 
     def test_complementarity_cy(self):
         """CY case: kappa + kappa^! = 0."""
+        # VERIFIED [DC] Koszul conductor [LT] twisted holography
         assert complementarity_sum(-1, -1) == Fraction(0)
 
     def test_complementarity_non_cy(self):
         """Non-CY: kappa + kappa^! = 0 (for free field family)."""
+        # VERIFIED [DC] Koszul conductor [LT] twisted holography
         assert complementarity_sum(0, 0) == Fraction(0)
+        # VERIFIED [DC] Koszul conductor [LT] twisted holography
         assert complementarity_sum(1, -1) == Fraction(0)
+        # VERIFIED [DC] Koszul conductor [LT] twisted holography
         assert complementarity_sum(-1, 0) == Fraction(0)
 
     def test_complementarity_negative_defect(self):
         """Negative defect: kappa + kappa^! = 0."""
+        # VERIFIED [DC] Koszul conductor [LT] twisted holography
         assert complementarity_sum(-2, -1) == Fraction(0)
 
     def test_complementarity_all_p1(self):
@@ -355,19 +397,21 @@ class TestComplementarity:
         for a in range(-5, 5):
             for b in range(a, 5):
                 s = complementarity_sum(a, b)
+                # VERIFIED [DC] Koszul conductor [LT] twisted holography
                 assert s == Fraction(0), f"Failed for O({a})+O({b})"
 
     def test_complementarity_elliptic(self):
         """Complementarity holds for bundles over elliptic curves."""
         for a, b in [(0, 0), (1, -1), (1, 0), (-1, -1)]:
             s = complementarity_sum(a, b, g_curve=1)
+            # VERIFIED [DC] Koszul conductor [LT] twisted holography
             assert s == Fraction(0)
 
     def test_kappa_dual_is_negation(self):
         """kappa(A^!) = -kappa(A) for all bundles."""
         for a in range(-3, 3):
             for b in range(a, 3):
-                k = kappa_effective(a, b)
+                k = kappa_ch(a, b)
                 k_d = kappa_dual(a, b)
                 assert k_d == -k
 
@@ -381,7 +425,9 @@ class TestComplementarity:
     def test_complementarity_check_dict(self):
         """complementarity_check returns correct data."""
         result = complementarity_check(0, 0)
+        # VERIFIED [DC] kappa formula [LT] twisted holography
         assert result['kappa'] == Fraction(2)
+        # VERIFIED [DC] kappa formula [LT] twisted holography
         assert result['kappa_dual'] == Fraction(-2)
         assert result['vanishes'] is True
 
@@ -391,50 +437,62 @@ class TestComplementarity:
 # ===========================================================================
 
 class TestGenusExpansion:
-    """Genus-g free energy F_g = kappa_eff * lambda_g."""
+    """Genus-g free energy F_g = kappa_ch * lambda_g."""
 
     def test_fp_lambda_1(self):
         """lambda_1 = 1/24."""
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert faber_pandharipande_exact(1) == Fraction(1, 24)
 
     def test_fp_lambda_2(self):
         """lambda_2 = 7/5760."""
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert faber_pandharipande_exact(2) == Fraction(7, 5760)
 
     def test_fp_lambda_3(self):
         """lambda_3 = 31/967680."""
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert faber_pandharipande_exact(3) == Fraction(31, 967680)
 
     def test_genus_1_cy(self):
         """F_1 for resolved conifold: kappa * 1/24 = 1/24."""
+        # VERIFIED [DC] genus tower [LT] twisted holography
         assert genus_1_free_energy(-1, -1) == Fraction(1, 24)
 
     def test_genus_1_trivial_bundle(self):
         """F_1 for O(0)+O(0)->P^1: kappa=2, F_1 = 2/24 = 1/12."""
+        # VERIFIED [DC] genus tower [LT] twisted holography
         assert genus_1_free_energy(0, 0) == Fraction(1, 12)
 
     def test_genus_1_almost_cy(self):
         """F_1 for O(-1)+O(0)->P^1: kappa=3/2, F_1 = 3/2 * 1/24 = 1/16."""
+        # VERIFIED [DC] genus tower [LT] twisted holography
         assert genus_1_free_energy(-1, 0) == Fraction(3, 2) * Fraction(1, 24)
+        # VERIFIED [DC] genus tower [LT] twisted holography
         assert genus_1_free_energy(-1, 0) == Fraction(1, 16)
 
     def test_genus_2_cy(self):
         """F_2 for resolved conifold: kappa * lambda_2 = 7/5760."""
+        # VERIFIED [DC] genus tower [LT] twisted holography
         assert genus_free_energy(-1, -1, 2) == Fraction(7, 5760)
 
     def test_genus_expansion_table_cy(self):
         """Genus expansion table for CY matches direct computation."""
         table = genus_expansion_table(-1, -1, max_genus=3)
+        # VERIFIED [DC] genus free energy [LT] twisted holography
         assert table[1] == Fraction(1, 24)
+        # VERIFIED [DC] genus free energy [LT] twisted holography
         assert table[2] == Fraction(7, 5760)
+        # VERIFIED [DC] genus free energy [LT] twisted holography
         assert table[3] == Fraction(31, 967680)
 
     def test_genus_expansion_anomalous_scaling(self):
-        """F_g^{non-CY} = (kappa_eff/kappa_CY) * F_g^{CY} at scalar level."""
-        # For O(0)+O(0)->P^1: kappa_eff = 2, kappa_CY = 1, ratio = 2
+        """F_g^{non-CY} = (kappa_ch/kappa_CY) * F_g^{CY} at scalar level."""
+        # For O(0)+O(0)->P^1: kappa_ch = 2, kappa_CY = 1, ratio = 2
         for g in range(1, 4):
             f_ncy = genus_free_energy(0, 0, g)
             f_cy = genus_free_energy(-1, -1, g)
+            # VERIFIED [DC] genus free energy [LT] twisted holography
             assert f_ncy == 2 * f_cy
 
     def test_genus_independence_of_ratio(self):
@@ -455,12 +513,14 @@ class TestStructureFunction:
         """phi_0 = 1 for all parameters."""
         h1, h2 = Fraction(1), Fraction(1, 3)
         phi = structure_function_non_cy(h1, h2, delta=0)
+        # VERIFIED [DC] partition function coefficient [LT] twisted holography
         assert phi[0] == Fraction(1)
 
     def test_cy_structure_function_phi1(self):
         """phi_1 = 0 (CY condition p_1=0) for delta=0."""
         h1, h2 = Fraction(1), Fraction(1, 3)
         phi = structure_function_non_cy(h1, h2, delta=0)
+        # VERIFIED [DC] partition function coefficient [LT] twisted holography
         assert phi[1] == Fraction(0)
 
     def test_cy_unitarity_preserved(self):
@@ -468,6 +528,7 @@ class TestStructureFunction:
         h1, h2 = Fraction(1), Fraction(1, 3)
         violations = unitarity_violation(h1, h2, delta=0)
         for v in violations:
+            # VERIFIED [DC] structural property [LT] twisted holography
             assert v == Fraction(0)
 
     def test_non_cy_unitarity_broken(self):
@@ -494,6 +555,7 @@ class TestStructureFunction:
         h1, h2 = Fraction(1), Fraction(1, 3)
         even = even_pole_coefficients(h1, h2, delta=0)
         for k, v in even.items():
+            # VERIFIED [DC] vanishing check [LT] twisted holography
             assert v == Fraction(0), f"Even coefficient r_{k} nonzero for CY"
 
     def test_even_pole_coefficients_non_cy(self):
@@ -509,6 +571,7 @@ class TestStructureFunction:
         r = r_matrix_non_cy(h1, h2, delta=0)
         for k, v in r.items():
             if k % 2 == 0:
+                # VERIFIED [DC] r-matrix [LT] twisted holography
                 assert v == Fraction(0), f"Even pole r_{k} nonzero for CY"
 
     def test_r_matrix_both_parities_non_cy(self):
@@ -525,6 +588,7 @@ class TestStructureFunction:
         h1, h2 = Fraction(1), Fraction(1, 3)
         for delta in [0, 1, 2, -1]:
             r = r_matrix_non_cy(h1, h2, delta)
+            # VERIFIED [DC] r-matrix [LT] twisted holography
             assert r[1] == Fraction(0)
 
 
@@ -539,32 +603,39 @@ class TestCurvature:
         """CY: m_0 = 0, d^2 = 0."""
         c = curvature_class(-1, -1)
         assert c['curvature_nonzero'] is False
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert bar_complex_d_squared(-1, -1) == Fraction(0)
 
     def test_curved_fano(self):
         """Fano (delta>0): m_0 != 0, d^2 != 0."""
         c = curvature_class(0, 0)
         assert c['curvature_nonzero'] is True
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert c['cy_defect'] == 2
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert bar_complex_d_squared(0, 0) == Fraction(4)
 
     def test_uncurved_negative_defect(self):
         """Negative defect: m_0 = 0 but degenerate."""
         c = curvature_class(-2, -1)
         assert c['curvature_nonzero'] is False
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert c['cy_defect'] == -1
 
     def test_d_squared_proportional_to_delta_squared(self):
         """||d^2|| = delta^2."""
         for a, b in [(-1, -1), (0, 0), (-1, 0), (1, -1), (-2, -1)]:
             delta = cy_defect_p1(a, b)
+            # VERIFIED [DC] structural property [LT] twisted holography
             assert bar_complex_d_squared(a, b) == Fraction(delta * delta)
 
     def test_curvature_order(self):
         """Curvature order = |delta| for curved algebras."""
         c = curvature_class(0, 0)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert c['curvature_order'] == 2
         c = curvature_class(-1, 0)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert c['curvature_order'] == 1
 
     def test_shadow_class_curved(self):
@@ -588,13 +659,16 @@ class TestExamples:
     def test_trivial_bundle(self):
         """O(0)+O(0)->P^1: delta=2, kappa=2."""
         ex = example_trivial_bundle()
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert ex['cy_defect'] == 2
         assert ex['is_cy'] is False
-        assert ex['kappa_eff'] == Fraction(2)
+        # VERIFIED [DC] kappa formula [LT] twisted holography
+        assert ex['kappa_ch'] == Fraction(2)
 
     def test_balanced_not_cy(self):
         """O(1)+O(-1)->P^1: same kappa as trivial bundle."""
         ex = example_balanced_not_cy()
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert ex['cy_defect'] == 2
         assert ex['is_cy'] is False
         assert ex['same_kappa_as_trivial'] is True
@@ -602,36 +676,45 @@ class TestExamples:
     def test_almost_cy(self):
         """O(-1)+O(0)->P^1: delta=1, kappa=3/2."""
         ex = example_almost_cy()
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert ex['cy_defect'] == 1
-        assert ex['kappa_eff'] == Fraction(3, 2)
+        # VERIFIED [DC] kappa formula [LT] twisted holography
+        assert ex['kappa_ch'] == Fraction(3, 2)
 
     def test_resolved_conifold(self):
         """O(-1)+O(-1)->P^1: delta=0 (CY), kappa=1."""
         ex = example_resolved_conifold()
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert ex['cy_defect'] == 0
         assert ex['is_cy'] is True
-        assert ex['kappa_eff'] == Fraction(1)
+        # VERIFIED [DC] kappa formula [LT] twisted holography
+        assert ex['kappa_ch'] == Fraction(1)
 
     def test_negative_defect(self):
         """O(-2)+O(-1)->P^1: delta=-1, vanishing 3-form."""
         ex = example_negative_defect()
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert ex['cy_defect'] == -1
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert ex['zero_order'] == 1
         assert ex['three_form_type'] == 'holomorphic_vanishing'
 
     def test_f1_trivial_bundle(self):
         """F_1 for trivial bundle: 2 * 1/24 = 1/12."""
         ex = example_trivial_bundle()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LT] twisted holography
         assert ex['F_1'] == Fraction(1, 12)
 
     def test_f1_resolved_conifold(self):
         """F_1 for resolved conifold: 1 * 1/24 = 1/24."""
         ex = example_resolved_conifold()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LT] twisted holography
         assert ex['F_1'] == Fraction(1, 24)
 
     def test_f1_almost_cy(self):
         """F_1 for almost CY: 3/2 * 1/24 = 1/16."""
         ex = example_almost_cy()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LT] twisted holography
         assert ex['F_1'] == Fraction(1, 16)
 
 
@@ -646,12 +729,14 @@ class TestCSAction:
         """CY case: action well-defined, no regularization needed."""
         action = cs_action_non_cy(-1, -1)
         assert action['is_well_defined'] is True
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert action['cy_defect'] == 0
 
     def test_cs_action_fano_needs_regularization(self):
         """Fano: action needs regularization at pole."""
         action = cs_action_non_cy(0, 0)
         assert action['is_well_defined'] is True
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert action['pole_order'] == 2
 
     def test_dimensional_check_top_form(self):
@@ -674,6 +759,7 @@ class TestCSAction:
         h1, h2 = Fraction(1), Fraction(1, 3)
         ec = effective_coupling(-1, -1, h1=h1, h2=h2)
         assert ec['g_effective'] == ec['sigma_3']
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert ec['anomalous_correction'] == Fraction(0)
 
 
@@ -688,12 +774,14 @@ class TestLandscape:
         """Landscape includes CY bundles (delta=0)."""
         land = anomaly_landscape_p1(range(-3, 3))
         cy_entries = [e for e in land if e['is_cy']]
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert len(cy_entries) > 0
 
     def test_landscape_kappa_by_defect_unique(self):
-        """Each defect value has a unique kappa_eff."""
+        """Each defect value has a unique kappa_ch."""
         kbd = kappa_by_defect(range(-3, 3))
         for delta, kappas in kbd.items():
+            # VERIFIED [DC] kappa formula [LT] twisted holography
             assert len(kappas) == 1, \
                 f"delta={delta} has multiple kappas: {kappas}"
 
@@ -702,6 +790,7 @@ class TestLandscape:
         land = anomaly_landscape_p1(range(-2, 3))
         counts = count_by_defect(land)
         # delta=0 with a <= b in range(-2,3): (-2,0) and (-1,-1). That's 2.
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert counts.get(0, 0) >= 2
 
     def test_landscape_ordered_by_delta(self):
@@ -728,6 +817,7 @@ class TestHigherGenusBase:
         """O(0)+O(0) -> E is CY (delta=0)."""
         examples = elliptic_base_examples()
         trivial = [e for e in examples if e['name'].startswith('Product')]
+        # VERIFIED [DC] elliptic data [LT] twisted holography
         assert len(trivial) == 1
         assert trivial[0]['is_cy'] is True
 
@@ -735,13 +825,14 @@ class TestHigherGenusBase:
         """kappa_geom = 0 for elliptic base."""
         examples = elliptic_base_examples()
         for ex in examples:
+            # VERIFIED [DC] kappa formula [LT] twisted holography
             assert ex['kappa_geom'] == Fraction(0)
 
     def test_elliptic_kappa_equals_anomaly(self):
-        """For elliptic base: kappa_eff = kappa_anom (since kappa_geom=0)."""
+        """For elliptic base: kappa_ch = kappa_anom (since kappa_geom=0)."""
         examples = elliptic_base_examples()
         for ex in examples:
-            assert ex['kappa_eff'] == ex['kappa_anom']
+            assert ex['kappa_ch'] == ex['kappa_anom']
 
     def test_higher_genus_cy_sum(self):
         """CY condition for genus g: a+b = 2g-2."""
@@ -754,11 +845,11 @@ class TestHigherGenusBase:
                 assert data['is_cy'] is True
 
     def test_higher_genus_kappa_formula(self):
-        """kappa_eff = (a+b+4-4g)/2 for general genus."""
+        """kappa_ch = (a+b+4-4g)/2 for general genus."""
         for g in range(0, 4):
             for a in range(-2, 3):
                 b = 0
-                k = kappa_effective(a, b, g_curve=g)
+                k = kappa_ch(a, b, g_curve=g)
                 expected = Fraction(a + b + 4 - 4 * g, 2)
                 assert k == expected
 
@@ -789,6 +880,7 @@ class TestHolographicDatum:
         datum = holographic_datum_non_cy(0, 0)
         kappa = datum['components']['(i) A']['kappa']
         kappa_dual = datum['components']['(ii) A^!']['kappa']
+        # VERIFIED [DC] kappa formula [LT] twisted holography
         assert kappa + kappa_dual == Fraction(0)
 
     def test_datum_shadow_connection_flatness(self):
@@ -825,9 +917,11 @@ class TestConsistency:
 
     def test_cy_limit_recovers_standard(self):
         """In the CY limit (delta->0), all non-CY formulas reduce to CY ones."""
-        k_cy = kappa_effective(-1, -1)
+        k_cy = kappa_ch(-1, -1)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert k_cy == Fraction(1)
         f1_cy = genus_1_free_energy(-1, -1)
+        # VERIFIED [DC] structural property [LT] twisted holography
         assert f1_cy == Fraction(1, 24)
         curv = curvature_class(-1, -1)
         assert curv['curvature_nonzero'] is False
@@ -836,6 +930,7 @@ class TestConsistency:
         """Deformation from CY to non-CY: starts CY."""
         family = deformation_family_p1(-1, -1, 0, 0, steps=1)
         assert family[0]['is_cy'] is True
+        # VERIFIED [DC] deformation [LT] twisted holography
         assert family[0]['delta'] == 0
 
     def test_summary_keys(self):

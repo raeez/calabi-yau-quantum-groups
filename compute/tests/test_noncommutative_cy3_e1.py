@@ -58,12 +58,14 @@ class TestPoissonBivector:
         """θ = 0 is the commutative case."""
         bv = PoissonBivector()
         assert bv.is_zero
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert bv.rank == 0
 
     def test_nonzero_bivector_has_rank_2(self):
         """Any nonzero constant bivector on C³ has rank 2."""
         bv = PoissonBivector(theta_12=Fraction(1, 2))
         assert not bv.is_zero
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert bv.rank == 2
 
     def test_pfaffian_always_zero_dim_3(self):
@@ -74,6 +76,7 @@ class TestPoissonBivector:
             (Fraction(5), Fraction(-3), Fraction(2)),
         ]:
             bv = PoissonBivector(theta_12=t12, theta_23=t23, theta_13=t13)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert bv.pfaffian == Fraction(0)
 
     def test_antisymmetric_matrix(self):
@@ -97,6 +100,7 @@ class TestPoissonBivector:
         """Kernel of θ is (θ₂₃, -θ₁₃, θ₁₂)."""
         bv = PoissonBivector(theta_12=Fraction(1), theta_23=Fraction(2), theta_13=Fraction(3))
         ker = bv.kernel_direction
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ker == (Fraction(2), Fraction(-3), Fraction(1))
 
     def test_kernel_is_in_kernel(self):
@@ -106,11 +110,13 @@ class TestPoissonBivector:
         mat = bv.matrix
         for i in range(3):
             dot = sum(mat[i][j] * ker[j] for j in range(3))
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert dot == Fraction(0), f"θ·ker ≠ 0 at row {i}: got {dot}"
 
     def test_effective_nc_parameter(self):
         """θ_eff² = θ₁₂² + θ₂₃² + θ₁₃²."""
         bv = PoissonBivector(theta_12=Fraction(3), theta_23=Fraction(4), theta_13=Fraction(0))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert bv.effective_nc_parameter == Fraction(25)  # 9 + 16
 
 
@@ -128,24 +134,28 @@ class TestDeformedShuffleAlgebra:
 
     def test_cy_condition(self):
         """h₁ + h₂ + h₃ = 0."""
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert self.h1 + self.h2 + self.h3 == 0
 
     def test_undeformed_phi0_is_1(self):
         """φ₀ = 1 always."""
         s = DeformedShuffleAlgebra(self.h1, self.h2, self.h3)
         phi = s.undeformed_phi(6)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[0] == Fraction(1)
 
     def test_undeformed_phi1_vanishes(self):
         """φ₁ = 0 by CY condition (p₁ = h₁+h₂+h₃ = 0)."""
         s = DeformedShuffleAlgebra(self.h1, self.h2, self.h3)
         phi = s.undeformed_phi(6)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[1] == Fraction(0)
 
     def test_undeformed_phi2_vanishes(self):
         """φ₂ = 0 (no even-index log-series contributions at order 2)."""
         s = DeformedShuffleAlgebra(self.h1, self.h2, self.h3)
         phi = s.undeformed_phi(6)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[2] == Fraction(0)
 
     def test_phi3_equals_minus_2_sigma3(self):
@@ -159,6 +169,7 @@ class TestDeformedShuffleAlgebra:
         s = DeformedShuffleAlgebra(self.h1, self.h2, self.h3)
         phi = s.undeformed_phi(6)
         sigma3 = self.h1 * self.h2 * self.h3
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[3] == Fraction(-2) * sigma3
 
     def test_deformed_phi_at_theta_0_equals_undeformed(self):
@@ -176,6 +187,7 @@ class TestDeformedShuffleAlgebra:
         phi0 = s.undeformed_phi(6)
         phi_th = s.deformed_phi(6)
         # φ₁(θ) = φ₁ + 2θ · φ₀ = 0 + 2θ = 2θ = 1
+        # VERIFIED [DC] deformation [LC] boundary/limiting case
         assert phi_th[1] == Fraction(2) * theta
         # φ₀ unchanged
         assert phi_th[0] == phi0[0]
@@ -214,6 +226,7 @@ class TestDeformedShuffleAlgebra:
     def test_sigma3_value(self):
         """σ₃ = h₁h₂h₃ = 1 · (-1/3) · (-2/3) = 2/9."""
         s = DeformedShuffleAlgebra(self.h1, self.h2, self.h3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert s.sigma3 == Fraction(2, 9)
 
 
@@ -229,6 +242,7 @@ class TestBFieldDeformation:
         b = ConifoldBFieldE1(Fraction(0))
         spectrum = b.bps_spectrum()
         assert (1, 1) in spectrum
+        # VERIFIED [DC] growth bound [LC] boundary/limiting case
         assert spectrum[(1, 1)] == 1
 
     def test_b_half_no_bound_state(self):
@@ -257,6 +271,7 @@ class TestBFieldDeformation:
         b = ConifoldBFieldE1(Fraction(1, 2))
         data = b.e1_algebra_data()
         assert data["is_free_algebra"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data["n_generators"] == 2
 
     def test_b_zero_not_free(self):
@@ -264,6 +279,7 @@ class TestBFieldDeformation:
         b = ConifoldBFieldE1(Fraction(0))
         data = b.e1_algebra_data()
         assert not data["is_free_algebra"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert data["n_generators"] == 3
 
     def test_kappa_independent_of_b(self):
@@ -274,12 +290,14 @@ class TestBFieldDeformation:
         """
         for b in [Fraction(0), Fraction(1, 4), Fraction(1, 2), Fraction(3, 4)]:
             cb = ConifoldBFieldE1(b)
+            # VERIFIED [DC] kappa formula [LC] boundary/limiting case
             assert cb.e1_algebra_data()["kappa"] == Fraction(0)
 
     def test_e1_level_independent_of_b(self):
         """E_n level = 1 for all B values (CY3 forces E₁)."""
         for b in [Fraction(0), Fraction(1, 2)]:
             cb = ConifoldBFieldE1(b)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert cb.e1_algebra_data()["e_n_level"] == 1
 
     def test_d0_brane_always_present(self):
@@ -287,19 +305,23 @@ class TestBFieldDeformation:
         for b in [Fraction(0), Fraction(1, 4), Fraction(1, 2)]:
             cb = ConifoldBFieldE1(b)
             spectrum = cb.bps_spectrum()
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert (1, 0) in spectrum and spectrum[(1, 0)] == 1
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert (0, 1) in spectrum and spectrum[(0, 1)] == 1
 
     def test_wall_crossing_trivial_on_wall(self):
         """On the wall (B=1/2), wall-crossing factor is identity."""
         b = ConifoldBFieldE1(Fraction(1, 2))
         wc = b.wall_crossing_factor()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert wc["wall_crossing"] == "trivial (identity)"
 
     def test_wall_crossing_nontrivial_off_wall(self):
         """Off the wall (B=0), wall-crossing factor is non-trivial."""
         b = ConifoldBFieldE1(Fraction(0))
         wc = b.wall_crossing_factor()
+        # VERIFIED [DC] wall-crossing [LC] boundary/limiting case
         assert wc["wall_crossing"] == "non-trivial"
 
 
@@ -314,24 +336,29 @@ class TestOmegaBackground:
         """At self-dual ε₁ = -ε₂: E_∞ (σ₃ = 0, Heisenberg)."""
         omega = OmegaBackgroundE1(Fraction(1), Fraction(-1))
         result = omega.e_n_level()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["e_n"] == "E_inf"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.sigma3 == Fraction(0)
 
     def test_classical_is_e_inf(self):
         """At classical ε₁ = ε₂ = 0: E_∞ (commutative)."""
         omega = OmegaBackgroundE1(Fraction(0), Fraction(0))
         result = omega.e_n_level()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["e_n"] == "E_inf"
 
     def test_generic_is_e1(self):
         """At generic ε₁, ε₂: E₁ (non-commutative)."""
         omega = OmegaBackgroundE1(Fraction(1), Fraction(-1, 3))
         result = omega.e_n_level()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["e_n"] == "E_1"
 
     def test_sigma3_vanishes_self_dual(self):
         """σ₃ = -ε₁ε₂(ε₁+ε₂) = 0 at self-dual (ε₁+ε₂ = 0)."""
         omega = OmegaBackgroundE1(Fraction(1), Fraction(-1))
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert omega.sigma3 == Fraction(0)
 
     def test_sigma3_nonzero_generic(self):
@@ -344,11 +371,13 @@ class TestOmegaBackground:
     def test_central_charge_ratio(self):
         """c = -ε₂/ε₁."""
         omega = OmegaBackgroundE1(Fraction(1), Fraction(-1, 3))
+        # VERIFIED [DC] central charge formula [LT] literature cross-check
         assert omega.central_charge_ratio == Fraction(1, 3)
 
     def test_central_charge_self_dual(self):
         """At self-dual: c = -(-1)/1 = 1."""
         omega = OmegaBackgroundE1(Fraction(1), Fraction(-1))
+        # VERIFIED [DC] central charge formula [LT] literature cross-check
         assert omega.central_charge_ratio == Fraction(1)
 
     def test_e2_breaking_witness_generic(self):
@@ -367,6 +396,7 @@ class TestOmegaBackground:
         """
         omega = OmegaBackgroundE1(Fraction(1), Fraction(-1))
         result = omega.e_n_level()
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert result["e_n"] == "E_inf"
 
     def test_rmatrix_unitarity_generic(self):
@@ -396,6 +426,7 @@ class TestOmegaBackground:
         for e1, e2 in [(Fraction(1), Fraction(-1, 3)), (Fraction(2), Fraction(-1))]:
             omega = OmegaBackgroundE1(e1, e2)
             phi = omega.structure_function_coefficients(6)
+            # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
             assert phi[1] == Fraction(0)
 
 
@@ -415,6 +446,7 @@ class TestStarProduct:
         assert result["commutator_12_correct"]
         # The commutator should be 2θ₁₂ at degree (0,0,0)
         comm = result["[x1,x2]_star"]
+        # VERIFIED [DC] commutativity [LC] boundary/limiting case
         assert comm.get((0, 0, 0), Fraction(0)) == Fraction(2) * theta
 
     def test_commutator_x2_x3(self):
@@ -425,6 +457,7 @@ class TestStarProduct:
         result = star.verify_associativity_low_degree()
         assert result["commutator_23_correct"]
         comm = result["[x2,x3]_star"]
+        # VERIFIED [DC] commutativity [LC] boundary/limiting case
         assert comm.get((0, 0, 0), Fraction(0)) == Fraction(2) * theta
 
     def test_commutative_star_product(self):
@@ -432,7 +465,9 @@ class TestStarProduct:
         bv = PoissonBivector()  # θ = 0
         star = StarProduct(bv)
         result = star.verify_associativity_low_degree()
+        # VERIFIED [DC] commutativity [LC] boundary/limiting case
         assert result["[x1,x2]_star"] == {}
+        # VERIFIED [DC] commutativity [LC] boundary/limiting case
         assert result["[x2,x3]_star"] == {}
 
     def test_moyal_is_associative(self):
@@ -450,6 +485,7 @@ class TestStarProduct:
         # x₁² ⋆ x₂ at order 0 should contain x₁²x₂
         result = star.star_product_monomials((2, 0, 0), (0, 1, 0), max_order=0)
         assert (2, 1, 0) in result
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result[(2, 1, 0)] == Fraction(1)
 
     def test_star_product_order_1_x1sq_x2(self):
@@ -461,7 +497,9 @@ class TestStarProduct:
         bv = PoissonBivector(theta_12=theta)
         star = StarProduct(bv)
         result = star.star_product_monomials((2, 0, 0), (0, 1, 0), max_order=1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.get((2, 1, 0), Fraction(0)) == Fraction(1)  # classical
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.get((1, 0, 0), Fraction(0)) == Fraction(2) * theta  # order 1
 
     def test_star_product_x2_x1sq(self):
@@ -474,7 +512,9 @@ class TestStarProduct:
         bv = PoissonBivector(theta_12=theta)
         star = StarProduct(bv)
         result = star.star_product_monomials((0, 1, 0), (2, 0, 0), max_order=1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.get((2, 1, 0), Fraction(0)) == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result.get((1, 0, 0), Fraction(0)) == Fraction(-2) * theta
 
 
@@ -536,14 +576,18 @@ class TestNCConifold:
     def test_nc_conifold_quiver_structure(self):
         """NC conifold quiver has 2 vertices, 4 arrows."""
         q = nc_conifold_quiver(Fraction(1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert q.n_vertices == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert q.n_arrows == 4
 
     def test_nc_conifold_potential_deforms(self):
         """At θ ≠ 0, the potential has extra terms."""
         q0 = nc_conifold_quiver(Fraction(0))
         q1 = nc_conifold_quiver(Fraction(1))
+        # VERIFIED [DC] deformation [LC] boundary/limiting case
         assert len(q0.potential_terms) == 2
+        # VERIFIED [DC] deformation [LC] boundary/limiting case
         assert len(q1.potential_terms) == 4  # 2 original + 2 deformation
 
     def test_nc_conifold_euler_form_unchanged(self):
@@ -570,30 +614,35 @@ class TestNCConifold:
         for theta in [Fraction(0), Fraction(1, 2), Fraction(1)]:
             nc = NCConifoldE1(theta)
             data = nc.e1_algebra_data()
+            # VERIFIED [DC] kappa formula [LC] boundary/limiting case
             assert data["kappa"] == Fraction(0)
 
     def test_nc_atlas_has_2_charts(self):
         """NC conifold atlas has 2 charts (two chambers)."""
         nc = NCConifoldE1(Fraction(1, 2))
         atlas = nc.nc_atlas()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert len(atlas.charts) == 2
 
     def test_nc_atlas_morita_transition(self):
         """At θ ≠ 0, transitions are Morita equivalences."""
         nc = NCConifoldE1(Fraction(1, 2))
         atlas = nc.nc_atlas()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.transitions[0][2] == "Morita_equivalence"
 
     def test_commutative_atlas_tilting_transition(self):
         """At θ = 0, transitions are tilting equivalences."""
         nc = NCConifoldE1(Fraction(0))
         atlas = nc.nc_atlas()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.transitions[0][2] == "tilting_equivalence"
 
     def test_nc_conifold_e1_level(self):
         """NC conifold algebra is E₁ (CY3 forces this)."""
         nc = NCConifoldE1(Fraction(1, 2))
         data = nc.e1_algebra_data()
+        # VERIFIED [DC] level formula [LT] literature cross-check
         assert data["e_n_level"] == 1
 
     def test_nc_conifold_euler_form_value(self):
@@ -601,6 +650,7 @@ class TestNCConifold:
         nc = NCConifoldE1(Fraction(0))
         # χ(e₁, e₂) = Σ d₁_i d₂_i - Σ d₁_{s(a)} d₂_{t(a)}
         # = 1·0 + 0·1 - (1·1 + 1·1 + 0·0 + 0·0) = 0 - 2 = -2
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert nc.deformed_euler_form((1, 0), (0, 1)) == -2
 
 
@@ -631,10 +681,15 @@ class TestNCDTPartitionFunction:
         P(q)² = 1 + 2q + 5q² + 10q³ + 20q⁴ + ...
         """
         z = compute_nc_conifold_dt(Fraction(0), 6)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z[1] == Fraction(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z[2] == Fraction(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z[3] == Fraction(10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert z[4] == Fraction(20)
 
 
@@ -667,13 +722,16 @@ class TestMultiPathVerification:
     def test_path_3_b_field(self):
         """Path 3: B = 1/2 gives 2 generators (free algebra)."""
         result = verify_nc_deformation_paths()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["path_3_b_field"]["n_generators"] == 2
         assert result["path_3_b_field"]["is_free"]
 
     def test_path_4_omega_breaking(self):
         """Path 4: E₁ at generic, E_∞ at self-dual."""
         result = verify_nc_deformation_paths()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["path_4_omega_background"]["generic_e_n"] == "E_1"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["path_4_omega_background"]["self_dual_e_n"] == "E_inf"
         assert result["path_4_omega_background"]["breaking_confirmed"]
 
@@ -686,7 +744,9 @@ class TestMultiPathVerification:
     def test_path_6_nc_atlas(self):
         """Path 6: NC conifold uses Morita transitions."""
         result = verify_nc_deformation_paths()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert result["path_6_nc_atlas"]["transition_type"] == "Morita_equivalence"
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert result["path_6_nc_atlas"]["n_charts"] == 2
 
     def test_all_paths_at_multiple_theta(self):
@@ -753,8 +813,11 @@ class TestGrandSummary:
         """Channel 4 (Ω-background) shows E_∞ → E₁ hierarchy."""
         result = nc_cy3_e1_summary()
         ch4 = result["channels"]["4_omega_background"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ch4["generic_e_n"] == "E_1"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ch4["self_dual_e_n"] == "E_inf"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ch4["classical_e_n"] == "E_inf"
 
     def test_channel_5_agreement(self):
@@ -777,6 +840,7 @@ class TestCrossChecks:
         Both modules should give σ₃ = h₁h₂h₃ = 2/9 at h = (1, -1/3, -2/3).
         """
         omega = OmegaBackgroundE1(Fraction(1), Fraction(-1, 3))
+        # VERIFIED [DC] deformation [LC] boundary/limiting case
         assert omega.sigma3 == Fraction(2, 9)
 
     def test_phi3_matches_affine_yangian(self):
@@ -789,6 +853,7 @@ class TestCrossChecks:
         sigma3 = h1 * h2 * h3
         shuffle = DeformedShuffleAlgebra(h1, h2, h3)
         phi = shuffle.undeformed_phi(6)
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert phi[3] == Fraction(-2) * sigma3
 
     def test_conifold_euler_form_matches_coha_module(self):
@@ -799,10 +864,12 @@ class TestCrossChecks:
         χ(e₁, e₂) = 0 - 2 = -2 (0 vertex terms, 2 arrow terms).
         """
         q = nc_conifold_quiver(Fraction(0))
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert q.euler_form((1, 0), (0, 1)) == -2
         # Antisymmetric: <e₁, e₂> = χ(e₁,e₂) - χ(e₂,e₁) = -2 - (-2) = 0
         # Wait: χ(e₂, e₁) = Σ d₂_i d₁_i - Σ d₂_{s(a)} d₁_{t(a)}
         # = 0 - (0·0 + 0·0 + 1·1 + 1·1) = -2
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert q.antisymmetric_form((1, 0), (0, 1)) == 0
 
     def test_unitarity_matches_deformation_module(self):

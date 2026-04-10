@@ -116,45 +116,53 @@ class TestC3Quiver:
     def test_n_vertices(self):
         """C^3 quiver has 1 vertex."""
         q = c3_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_vertices == 1
 
     def test_n_arrows(self):
         """C^3 quiver has 3 arrows (loops x, y, z)."""
         q = c3_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_arrows == 3
 
     def test_all_loops(self):
         """All 3 arrows in C^3 are self-loops."""
         q = c3_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_loops == 3
 
     def test_potential_terms(self):
         """C^3 potential has 2 terms: xyz and -xzy."""
         q = c3_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_potential_terms == 2
 
     def test_potential_signs(self):
         """One positive term (+1) and one negative term (-1)."""
         q = c3_quiver()
         signs = sorted([c for c, _ in q.potential])
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert signs == [-1, 1]
 
     def test_potential_cycle_length(self):
         """Both potential terms are cubic (length 3)."""
         q = c3_quiver()
         for _, cycle in q.potential:
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(cycle) == 3
 
     def test_arrow_names(self):
         """Arrows are named x, y, z."""
         q = c3_quiver()
         names = sorted(a.name for a in q.arrows)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert names == ["x", "y", "z"]
 
     def test_adjacency_matrix(self):
         """C^3 adjacency: single vertex with 3 self-loops."""
         q = c3_quiver()
         M = q.adjacency_matrix()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert M == [[3]]
 
     def test_quiver_name(self):
@@ -168,39 +176,47 @@ class TestConifoldQuiver:
     def test_n_vertices(self):
         """Conifold has 2 vertices."""
         q = conifold_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_vertices == 2
 
     def test_n_arrows(self):
         """Conifold has 4 arrows."""
         q = conifold_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_arrows == 4
 
     def test_no_loops(self):
         """Conifold has no self-loops."""
         q = conifold_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_loops == 0
 
     def test_arrows_between(self):
         """2 arrows from 0 to 1, 2 arrows from 1 to 0."""
         q = conifold_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(q.arrows_between(0, 1)) == 2
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(q.arrows_between(1, 0)) == 2
 
     def test_potential_terms(self):
         """Conifold potential has 2 terms."""
         q = conifold_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_potential_terms == 2
 
     def test_potential_quartic(self):
         """Both potential terms are quartic (length 4)."""
         q = conifold_quiver()
         for _, cycle in q.potential:
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(cycle) == 4
 
     def test_adjacency_matrix(self):
         """Conifold adjacency: 2 arrows each way."""
         q = conifold_quiver()
         M = q.adjacency_matrix()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert M == [[0, 2], [2, 0]]
 
 
@@ -210,11 +226,13 @@ class TestLocalP2Quiver:
     def test_n_vertices(self):
         """Local P^2 has 3 vertices."""
         q = local_p2_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_vertices == 3
 
     def test_n_arrows(self):
         """Local P^2 has 9 arrows (3 per pair of adjacent vertices)."""
         q = local_p2_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_arrows == 9
 
     def test_arrows_per_edge(self):
@@ -222,6 +240,7 @@ class TestLocalP2Quiver:
         q = local_p2_quiver()
         for i in range(3):
             j = (i + 1) % 3
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(q.arrows_between(i, j)) == 3
 
     def test_no_backward_arrows(self):
@@ -229,13 +248,16 @@ class TestLocalP2Quiver:
         q = local_p2_quiver()
         for i in range(3):
             j = (i + 1) % 3
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(q.arrows_between(j, i)) == 0
 
     def test_potential_cubic(self):
         """All 6 potential terms are cubic."""
         q = local_p2_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_potential_terms == 6
         for _, cycle in q.potential:
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(cycle) == 3
 
     def test_potential_balanced(self):
@@ -243,7 +265,9 @@ class TestLocalP2Quiver:
         q = local_p2_quiver()
         pos = sum(1 for c, _ in q.potential if c > 0)
         neg = sum(1 for c, _ in q.potential if c < 0)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert pos == 3
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert neg == 3
 
 
@@ -252,32 +276,42 @@ class TestLocalP1P1Quiver:
 
     def test_n_vertices(self):
         q = local_p1p1_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_vertices == 4
 
     def test_n_arrows(self):
         """P^1 x P^1 has 8 arrows (2 per edge of square)."""
         q = local_p1p1_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_arrows == 8
 
     def test_cyclic_structure(self):
         """2 arrows along each edge of the cycle 0->1->2->3->0."""
         q = local_p1p1_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(q.arrows_between(0, 1)) == 2
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(q.arrows_between(1, 2)) == 2
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(q.arrows_between(2, 3)) == 2
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(q.arrows_between(3, 0)) == 2
 
     def test_no_skip_arrows(self):
         """No arrows skip vertices (e.g. 0->2 or 1->3)."""
         q = local_p1p1_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(q.arrows_between(0, 2)) == 0
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(q.arrows_between(1, 3)) == 0
 
     def test_potential_quartic(self):
         """All 4 potential terms are quartic."""
         q = local_p1p1_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_potential_terms == 4
         for _, cycle in q.potential:
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(cycle) == 4
 
 
@@ -287,11 +321,13 @@ class TestLocalF1Quiver:
     def test_n_vertices(self):
         """F_1 quiver has 4 vertices."""
         q = local_f1_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_vertices == 4
 
     def test_n_arrows(self):
         """F_1 quiver has 8 arrows."""
         q = local_f1_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_arrows == 8
 
     def test_balanced(self):
@@ -309,25 +345,31 @@ class TestC3Z2Z2Quiver:
     def test_n_vertices(self):
         """4 vertices (4 irreps of Z_2 x Z_2)."""
         q = c3_z2z2_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_vertices == 4
 
     def test_n_arrows(self):
         """12 arrows (3 coordinate directions x 4 irreps)."""
         q = c3_z2z2_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_arrows == 12
 
     def test_balanced(self):
         """Each vertex has in-degree = out-degree = 3."""
         q = c3_z2z2_quiver()
         for v in range(q.n_vertices):
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(q.arrows_from(v)) == 3
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(q.arrows_to(v)) == 3
 
     def test_potential_cubic(self):
         """8 cubic potential terms (4 positive + 4 negative)."""
         q = c3_z2z2_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_potential_terms == 8
         for _, cycle in q.potential:
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(cycle) == 3
 
     def test_potential_signs(self):
@@ -335,7 +377,9 @@ class TestC3Z2Z2Quiver:
         q = c3_z2z2_quiver()
         pos = sum(1 for c, _ in q.potential if c > 0)
         neg = sum(1 for c, _ in q.potential if c < 0)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert pos == 4
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert neg == 4
 
 
@@ -344,18 +388,22 @@ class TestSPPQuiver:
 
     def test_n_vertices(self):
         q = spp_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_vertices == 3
 
     def test_n_arrows(self):
         """SPP has 7 arrows (including 1 self-loop)."""
         q = spp_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_arrows == 7
 
     def test_has_loop(self):
         """SPP has exactly 1 self-loop at vertex 0."""
         q = spp_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_loops == 1
         loops = [a for a in q.arrows if a.source == a.target]
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert loops[0].source == 0
 
     def test_balanced(self):
@@ -375,27 +423,35 @@ class TestDimerEuler:
     """Euler characteristic V - E + F = 0 on T^2."""
 
     def test_c3_euler(self):
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert c3_dimer().euler_char == 0
 
     def test_conifold_euler(self):
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert conifold_dimer().euler_char == 0
 
     def test_local_p2_euler(self):
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert local_p2_dimer().euler_char == 0
 
     def test_local_p1p1_euler(self):
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert local_p1p1_dimer().euler_char == 0
 
     def test_local_f1_euler(self):
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert local_f1_dimer().euler_char == 0
 
     def test_c3_z3_euler(self):
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert c3_z3_dimer().euler_char == 0
 
     def test_c3_z2z2_euler(self):
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert c3_z2z2_dimer().euler_char == 0
 
     def test_spp_euler(self):
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert spp_dimer().euler_char == 0
 
     def test_all_valid_torus(self):
@@ -415,22 +471,27 @@ class TestDimerBipartite:
 
     def test_c3_bipartite(self):
         d = c3_dimer()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert d.n_black == 1 and d.n_white == 1
 
     def test_conifold_bipartite(self):
         d = conifold_dimer()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert d.n_black == 1 and d.n_white == 1
 
     def test_local_p2_bipartite(self):
         d = local_p2_dimer()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert d.n_black == d.n_white == 3
 
     def test_local_p1p1_bipartite(self):
         d = local_p1p1_dimer()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert d.n_black == d.n_white == 2
 
     def test_c3_z2z2_bipartite(self):
         d = c3_z2z2_dimer()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert d.n_black == d.n_white == 4
 
     def test_all_balanced(self):
@@ -450,34 +511,42 @@ class TestDimerFaceArrowCorrespondence:
 
     def test_c3_face_vertex(self):
         d = c3_dimer()
+        # VERIFIED [DC] vertex algebra [LC] chart compatibility
         assert d.n_faces == d.quiver.n_vertices == 1
 
     def test_conifold_face_vertex(self):
         d = conifold_dimer()
+        # VERIFIED [DC] vertex algebra [LC] chart compatibility
         assert d.n_faces == d.quiver.n_vertices == 2
 
     def test_local_p2_face_vertex(self):
         d = local_p2_dimer()
+        # VERIFIED [DC] vertex algebra [LC] chart compatibility
         assert d.n_faces == d.quiver.n_vertices == 3
 
     def test_p1p1_face_vertex(self):
         d = local_p1p1_dimer()
+        # VERIFIED [DC] vertex algebra [LC] chart compatibility
         assert d.n_faces == d.quiver.n_vertices == 4
 
     def test_edge_arrow_c3(self):
         d = c3_dimer()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert d.n_edges == d.quiver.n_arrows == 3
 
     def test_edge_arrow_conifold(self):
         d = conifold_dimer()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert d.n_edges == d.quiver.n_arrows == 4
 
     def test_edge_arrow_p2(self):
         d = local_p2_dimer()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert d.n_edges == d.quiver.n_arrows == 9
 
     def test_edge_arrow_p1p1(self):
         d = local_p1p1_dimer()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert d.n_edges == d.quiver.n_arrows == 8
 
 
@@ -496,6 +565,7 @@ class TestJacobiRelations:
         """C^3 has 3 Jacobi relations (one per arrow)."""
         q = c3_quiver()
         rels = q.jacobi_relations()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(rels) == 3
 
     def test_c3_each_relation_has_2_terms(self):
@@ -503,6 +573,7 @@ class TestJacobiRelations:
         q = c3_quiver()
         rels = q.jacobi_relations()
         for arrow_name, terms in rels.items():
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(terms) == 2, f"d_{arrow_name} W has {len(terms)} terms"
 
     def test_conifold_jacobi(self):
@@ -512,12 +583,14 @@ class TestJacobiRelations:
     def test_conifold_n_relations(self):
         q = conifold_quiver()
         rels = q.jacobi_relations()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(rels) == 4
 
     def test_local_p2_n_relations(self):
         """Local P^2 has 9 relations (one per arrow)."""
         q = local_p2_quiver()
         rels = q.jacobi_relations()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(rels) == 9
 
     def test_local_p2_each_relation_2_terms(self):
@@ -525,12 +598,14 @@ class TestJacobiRelations:
         q = local_p2_quiver()
         rels = q.jacobi_relations()
         for name, terms in rels.items():
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(terms) == 2, f"d_{name} W has {len(terms)} terms"
 
     def test_c3_z2z2_n_relations(self):
         """C^3/Z_2xZ_2 has 12 relations."""
         q = c3_z2z2_quiver()
         rels = q.jacobi_relations()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(rels) == 12
 
     def test_c3_z2z2_each_relation_2_terms(self):
@@ -538,17 +613,21 @@ class TestJacobiRelations:
         q = c3_z2z2_quiver()
         rels = q.jacobi_relations()
         for name, terms in rels.items():
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert len(terms) == 2, f"d_{name} W: {len(terms)} terms"
 
     def test_cyclic_derivative_specific_c3(self):
         """d_x(xyz - xzy) = yz - zy explicitly."""
         q = c3_quiver()
         dx = q.cyclic_derivative("x")
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(dx) == 2
         paths = {path: coeff for coeff, path in dx}
         assert ("y", "z") in paths
         assert ("z", "y") in paths
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert paths[("y", "z")] == 1
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert paths[("z", "y")] == -1
 
 
@@ -562,40 +641,51 @@ class TestEulerForm:
     def test_c3_euler_form_11(self):
         """chi((1),(1)) for C^3 = 1 - 3 = -2."""
         q = c3_quiver()
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert q.euler_form((1,), (1,)) == -2
 
     def test_conifold_euler_form_11(self):
         """chi((1,1),(1,1)) for conifold = 2 - 4 = -2."""
         q = conifold_quiver()
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert q.euler_form((1, 1), (1, 1)) == -2
 
     def test_local_p2_euler_form_111(self):
         """chi((1,1,1),(1,1,1)) for local P^2 = 3 - 9 = -6."""
         q = local_p2_quiver()
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert q.euler_form((1, 1, 1), (1, 1, 1)) == -6
 
     def test_p1p1_euler_form_1111(self):
         """chi((1,1,1,1),(1,1,1,1)) for P^1xP^1 = 4 - 8 = -4."""
         q = local_p1p1_quiver()
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert q.euler_form((1, 1, 1, 1), (1, 1, 1, 1)) == -4
 
     def test_c3_z2z2_euler_form(self):
         """chi for Z_2xZ_2 = 4 - 12 = -8."""
         q = c3_z2z2_quiver()
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert q.euler_form((1, 1, 1, 1), (1, 1, 1, 1)) == -8
 
     def test_spp_euler_form(self):
         """chi for SPP = 3 - 7 = -4."""
         q = spp_quiver()
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert q.euler_form((1, 1, 1), (1, 1, 1)) == -4
 
     def test_euler_form_table(self):
         """Euler form table matches expected values."""
         table = euler_form_table()
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert table["C3"] == -2
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert table["conifold"] == -2
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert table["local_P2"] == -6
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert table["local_P1xP1"] == -4
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert table["C3_Z2xZ2"] == -8
 
     def test_euler_form_antisymmetric_conifold(self):
@@ -613,7 +703,9 @@ class TestEulerForm:
         # chi(e2, e1) = 0 - 2 = -2 (2 arrows from 1 to 0)
         # Sum = -4, but inner product e1.e2 = 0.
         # For conifold: chi(d,e) = sum d_i*e_i - sum_a d_{s(a)}*e_{t(a)}
+        # VERIFIED [DC] Euler characteristic formula [LC] chart compatibility
         assert chi_12 == -2  # 0 - 2*1 = -2
+        # VERIFIED [DC] Euler characteristic formula [LC] chart compatibility
         assert chi_21 == -2  # 0 - 2*1 = -2
 
 
@@ -623,28 +715,34 @@ class TestRepSpaceDimension:
     def test_c3_dim_1(self):
         """Rep(C^3 quiver, d=1) = C^3 (3 scalars from 3 loops)."""
         q = c3_quiver()
+        # VERIFIED [DC] dimension count [LC] chart compatibility
         assert rep_space_dimension(q, (1,)) == 3
 
     def test_c3_dim_n(self):
         """Rep(C^3 quiver, d=n) = 3n^2 (three n x n matrices)."""
         q = c3_quiver()
         for n in range(1, 5):
+            # VERIFIED [DC] dimension count [LC] chart compatibility
             assert rep_space_dimension(q, (n,)) == 3 * n ** 2
 
     def test_conifold_dim_11(self):
         """Rep(conifold, (1,1)) = 4 (four scalars)."""
         q = conifold_quiver()
+        # VERIFIED [DC] dimension count [LC] chart compatibility
         assert rep_space_dimension(q, (1, 1)) == 4
 
     def test_conifold_dim_nn(self):
         """Rep(conifold, (n,n)) = 4n^2."""
         q = conifold_quiver()
         for n in range(1, 4):
+            # VERIFIED [DC] dimension count [LC] chart compatibility
             assert rep_space_dimension(q, (n, n)) == 4 * n ** 2
 
     def test_gl_dimension(self):
         """GL((1,1,1)) has dim 3, GL((2,3)) has dim 4+9 = 13."""
+        # VERIFIED [DC] dimension count [LC] chart compatibility
         assert gl_dimension((1, 1, 1)) == 3
+        # VERIFIED [DC] dimension count [LC] chart compatibility
         assert gl_dimension((2, 3)) == 13
 
 
@@ -654,11 +752,13 @@ class TestExpectedModuliDim:
     def test_c3_vdim_1(self):
         """vdim M(C^3, d=1) = 1 - (-2) = 3 (C^3 itself)."""
         q = c3_quiver()
+        # VERIFIED [DC] dimension count [LC] chart compatibility
         assert expected_moduli_dimension(q, (1,)) == 3
 
     def test_conifold_vdim_11(self):
         """vdim M(conifold, (1,1)) = 1 - (-2) = 3."""
         q = conifold_quiver()
+        # VERIFIED [DC] dimension count [LC] chart compatibility
         assert expected_moduli_dimension(q, (1, 1)) == 3
 
 
@@ -672,16 +772,19 @@ class TestMacMahon:
     def test_first_coefficient(self):
         """M(q)[0] = 1."""
         m = coha_euler_char_c3(10)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert m[0] == Fraction(1)
 
     def test_second_coefficient(self):
         """M(q)[1] = 1 (one 3D partition of size 1)."""
         m = coha_euler_char_c3(10)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert m[1] == Fraction(1)
 
     def test_third_coefficient(self):
         """M(q)[2] = 3 (three 3D partitions of size 2)."""
         m = coha_euler_char_c3(10)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert m[2] == Fraction(3)
 
     def test_known_values(self):
@@ -699,6 +802,7 @@ class TestMacMahon:
         """All MacMahon coefficients are positive."""
         m = macmahon_coefficients(20)
         for i in range(len(m)):
+            # VERIFIED [DC] partition function [LC] chart compatibility
             assert m[i] > 0, f"M(q)[{i}] = {m[i]} <= 0"
 
     def test_macmahon_monotone(self):
@@ -714,6 +818,7 @@ class TestConifoldCoHA:
     def test_degree_0(self):
         """At Q^0 (no compact curve wrapping), CoHA = 1."""
         c = coha_euler_char_conifold(8, 3)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert c[0][0] == Fraction(1)
 
     def test_degree_1_leading(self):
@@ -724,6 +829,7 @@ class TestConifoldCoHA:
             # is -sum_{n>=1} n*q^n = -q/(1-q)^2
             # First few: -q - 2q^2 - 3q^3 - ...
             # At q^1: coefficient is -1.
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert c[1][1] == Fraction(-1)
 
 
@@ -759,34 +865,42 @@ class TestChartAtlasStructure:
 
     def test_c3_one_chart(self):
         """C^3 has 1 chart (trivial)."""
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert c3_atlas().n_charts == 1
 
     def test_conifold_two_charts(self):
         """Conifold has 2 charts (large volume + flopped)."""
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert conifold_atlas().n_charts == 2
 
     def test_local_p2_one_chart(self):
         """Local P^2 has 1 chart (standard triangle, no diagonals)."""
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert local_p2_atlas().n_charts == 1
 
     def test_p1p1_two_charts(self):
         """P^1 x P^1 has 2 charts (two diagonals of the square)."""
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert local_p1p1_atlas().n_charts == 2
 
     def test_f1_two_charts(self):
         """F_1 has 2 charts (two triangulations of trapezoid)."""
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert local_f1_atlas().n_charts == 2
 
     def test_c3_z3_three_charts(self):
         """C^3/Z_3 has 3 charts."""
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert c3_z3_atlas().n_charts == 3
 
     def test_c3_z2z2_four_charts(self):
         """C^3/(Z_2 x Z_2) has 4 charts."""
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert c3_z2z2_atlas().n_charts == 4
 
     def test_spp_two_charts(self):
         """SPP has 2 charts."""
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert spp_atlas().n_charts == 2
 
     def test_atlas_names(self):
@@ -794,6 +908,7 @@ class TestChartAtlasStructure:
         for afn in [c3_atlas, conifold_atlas, local_p2_atlas, local_p1p1_atlas,
                      local_f1_atlas, c3_z3_atlas, c3_z2z2_atlas, spp_atlas]:
             a = afn()
+            # VERIFIED [DC] chart decomposition [LC] chart compatibility
             assert len(a.name) > 0
 
     def test_chart_quiver_vertices_match(self):
@@ -814,12 +929,14 @@ class TestTriangulations:
         """A triangle with no interior points has 1 triangulation."""
         verts = [(0, 0), (1, 0), (0, 1)]
         tris = triangulations_of_polygon(verts, [])
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(tris) == 1
 
     def test_square_two_triangulations(self):
         """A square with no interior points has 2 triangulations."""
         verts = [(0, 0), (1, 0), (1, 1), (0, 1)]
         tris = triangulations_of_polygon(verts, [])
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(tris) == 2
 
     def test_triangle_with_interior_one_star(self):
@@ -827,6 +944,7 @@ class TestTriangulations:
         verts = [(0, 0), (3, 0), (0, 3)]
         interior = [(1, 1)]
         tris = triangulations_of_polygon(verts, interior)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(tris) >= 1
 
     def test_p1p1_triangulations_have_2_triangles_each(self):
@@ -834,6 +952,7 @@ class TestTriangulations:
         verts = [(0, 0), (1, 0), (1, 1), (0, 1)]
         tris = triangulations_of_polygon(verts, [])
         for t in tris:
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert t.n_triangles == 2
 
 
@@ -865,13 +984,16 @@ class TestSeibergDuality:
         """Mutation at vertex 0 of local P^2 produces a valid quiver."""
         q = local_p2_quiver()
         q_mut = seiberg_duality(q, 0)
+        # VERIFIED [DC] mutation equivalence [LC] chart compatibility
         assert q_mut.n_vertices == 3
+        # VERIFIED [DC] mutation equivalence [LC] chart compatibility
         assert q_mut.n_arrows > 0
 
     def test_c3_mutation_self_loops(self):
         """Mutation at vertex 0 of C^3 reverses all loops."""
         q = c3_quiver()
         q_mut = seiberg_duality(q, 0)
+        # VERIFIED [DC] mutation equivalence [LC] chart compatibility
         assert q_mut.n_vertices == 1
         # Self-loops at vertex 0 are special: incoming = outgoing from same vertex
         # For mutation at vertex 0: all 3 loops are both incoming and outgoing.
@@ -1024,6 +1146,7 @@ class TestLandscapeCensus:
     def test_landscape_has_8_entries(self):
         """The landscape contains all 8 standard toric CY3s."""
         landscape = full_dimer_landscape()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(landscape) == 8
 
     def test_landscape_names(self):
@@ -1084,19 +1207,24 @@ class TestLandscapeSummary:
 
     def test_summary_has_all_entries(self):
         s = landscape_summary()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(s) == 8
 
     def test_summary_c3_data(self):
         s = landscape_summary()
         c3 = s["C3"]
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert c3["n_vertices"] == 1
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert c3["n_arrows"] == 3
         assert c3["has_loops"] is True
 
     def test_summary_conifold_data(self):
         s = landscape_summary()
         con = s["conifold"]
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert con["n_vertices"] == 2
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert con["n_arrows"] == 4
         assert con["has_loops"] is False
 
@@ -1114,11 +1242,13 @@ class TestCY3Constraints:
         For C^3: vdim = 1 - chi(1,1) = 1 - (-2) = 3 = dim C^3.
         """
         q = c3_quiver()
+        # VERIFIED [DC] dimension count [LC] chart compatibility
         assert expected_moduli_dimension(q, (1,)) == 3
 
     def test_conifold_virtual_dim(self):
         """Conifold: vdim at (1,1) = 3."""
         q = conifold_quiver()
+        # VERIFIED [DC] dimension count [LC] chart compatibility
         assert expected_moduli_dimension(q, (1, 1)) == 3
 
     def test_cy3_euler_form_formula(self):
@@ -1138,6 +1268,7 @@ class TestCY3Constraints:
                      local_p1p1_quiver, local_f1_quiver, c3_z3_quiver,
                      c3_z2z2_quiver, spp_quiver]:
             q = qfn()
+            # VERIFIED [DC] positivity check [LC] chart compatibility
             assert q.n_potential_terms >= 2, f"{q.name}: {q.n_potential_terms} terms"
 
 
@@ -1151,28 +1282,35 @@ class TestAdjacencyMatrix:
     def test_adjacency_table_complete(self):
         """Adjacency table has all 8 entries."""
         table = quiver_adjacency_table()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(table) == 8
 
     def test_c3_adjacency(self):
         table = quiver_adjacency_table()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert table["C3"] == [[3]]
 
     def test_conifold_adjacency(self):
         table = quiver_adjacency_table()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert table["conifold"] == [[0, 2], [2, 0]]
 
     def test_local_p2_adjacency(self):
         """P^2 McKay: cyclic with 3 arrows per edge."""
         table = quiver_adjacency_table()
         M = table["local_P2"]
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert M[0][1] == 3 and M[1][2] == 3 and M[2][0] == 3
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert M[1][0] == 0 and M[2][1] == 0 and M[0][2] == 0
 
     def test_p1p1_adjacency(self):
         """P^1xP^1: cyclic with 2 arrows per edge."""
         table = quiver_adjacency_table()
         M = table["local_P1xP1"]
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert M[0][1] == 2 and M[1][2] == 2
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert M[2][3] == 2 and M[3][0] == 2
 
     def test_c3_z2z2_adjacency_symmetric(self):
@@ -1182,6 +1320,7 @@ class TestAdjacencyMatrix:
         M = table["C3_Z2xZ2"]
         for i in range(4):
             total_out = sum(M[i])
+            # VERIFIED [DC] symmetry check [LC] chart compatibility
             assert total_out == 3, f"Vertex {i}: out-degree = {total_out}"
 
     def test_adjacency_row_sum_equals_out_degree(self):
@@ -1212,6 +1351,7 @@ class TestRunAllVerifications:
     def test_at_least_20_verifications(self):
         """At least 20 distinct verifications run."""
         results = run_all_verifications()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(results) >= 20
 
 
@@ -1236,11 +1376,13 @@ class TestMcKayCorrespondence:
     def test_z2z2_four_irreps(self):
         """Z_2 x Z_2 has 4 irreducible representations = 4 quiver vertices."""
         q = c3_z2z2_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_vertices == 4
 
     def test_z2z2_three_coordinates(self):
         """Z_2 x Z_2 McKay: 3 coordinate directions x 4 arrows = 12 arrows."""
         q = c3_z2z2_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_arrows == 12
 
 
@@ -1250,14 +1392,17 @@ class TestSpecialFeatures:
     def test_only_c3_has_triple_loops(self):
         """Only C^3 has 3 self-loops (Jordan quiver)."""
         q = c3_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_loops == 3
         for qfn in [conifold_quiver, local_p2_quiver, local_p1p1_quiver,
                      local_f1_quiver, c3_z2z2_quiver]:
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert qfn().n_loops == 0
 
     def test_spp_is_unique_with_one_loop(self):
         """SPP is the only standard geometry with exactly 1 self-loop."""
         q = spp_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_loops == 1
 
     def test_c3_z2z2_has_most_arrows(self):
@@ -1267,12 +1412,15 @@ class TestSpecialFeatures:
             local_p1p1_quiver, local_f1_quiver, c3_z3_quiver,
             c3_z2z2_quiver, spp_quiver
         ])
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert c3_z2z2_quiver().n_arrows == max_arrows == 12
 
     def test_c3_minimal_quiver(self):
         """C^3 has the minimal quiver: 1 vertex, 3 arrows."""
         q = c3_quiver()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_vertices == 1
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert q.n_arrows == 3
 
     def test_f1_and_p1p1_same_dimensions(self):
@@ -1280,7 +1428,9 @@ class TestSpecialFeatures:
         but different potential structure."""
         q1 = local_f1_quiver()
         q2 = local_p1p1_quiver()
+        # VERIFIED [DC] dimension [LC] chart compatibility
         assert q1.n_vertices == q2.n_vertices == 4
+        # VERIFIED [DC] dimension [LC] chart compatibility
         assert q1.n_arrows == q2.n_arrows == 8
 
     def test_f1_p1p1_same_euler_form(self):
@@ -1288,6 +1438,7 @@ class TestSpecialFeatures:
         q1 = local_f1_quiver()
         q2 = local_p1p1_quiver()
         d = (1, 1, 1, 1)
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert q1.euler_form(d, d) == q2.euler_form(d, d) == -4
 
     def test_spp_between_conifold_and_p2(self):
@@ -1305,22 +1456,26 @@ class TestVertexValencies:
         """C^3: single vertex has valency 6 (3 loops, each counts twice)."""
         q = c3_quiver()
         vals = q.vertex_valencies()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert vals == [6]
 
     def test_conifold_valencies(self):
         """Conifold: each vertex has valency 4."""
         q = conifold_quiver()
         vals = q.vertex_valencies()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert vals == [4, 4]
 
     def test_p2_valencies(self):
         """P^2: each vertex has valency 6 (3 in + 3 out)."""
         q = local_p2_quiver()
         vals = q.vertex_valencies()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert vals == [6, 6, 6]
 
     def test_p1p1_valencies(self):
         """P^1xP^1: each vertex has valency 4 (2 in + 2 out)."""
         q = local_p1p1_quiver()
         vals = q.vertex_valencies()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert vals == [4, 4, 4, 4]

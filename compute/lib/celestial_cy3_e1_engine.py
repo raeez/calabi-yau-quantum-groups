@@ -299,7 +299,7 @@ def kappa_cy3_total(cy3: CY3HodgeData, c: Fraction) -> Dict[str, Fraction]:
     Returns channel-refined kappa:
       kappa_grav = c/2 (graviton / Virasoro)
       kappa_photon = h^{1,1} (graviphotons / KM)
-      kappa_total = c/2 + h^{1,1} (total from leading sectors)
+      kappa_ch = c/2 + h^{1,1} (total from leading sectors)
 
     NOTE: the scalar sector (spin 0) does NOT contribute to kappa
     at leading order because spin-0 operators have no self-OPE pole.
@@ -313,7 +313,7 @@ def kappa_cy3_total(cy3: CY3HodgeData, c: Fraction) -> Dict[str, Fraction]:
         "kappa_graviton": k_grav,
         "kappa_graviphoton": k_photon,
         "kappa_scalar": Fraction(0),
-        "kappa_total": k_grav + k_photon,
+        "kappa_ch": k_grav + k_photon,
     }
 
 
@@ -950,7 +950,7 @@ def celestial_data_c3(c: Fraction = Fraction(1),
         "central_charge": c_f,
         "N_max": N_max,
         "kappa_virasoro_channel": c_f / 2,
-        "kappa_total_regulated": kappa_c3_w_infinity(N_max, c_f),
+        "kappa_ch_regulated": kappa_c3_w_infinity(N_max, c_f),
         "soft_theorems": [
             {"order": st.order, "coefficient": st.coefficient}
             for st in soft_thms
@@ -1246,8 +1246,8 @@ def full_celestial_cy3_verification(c: Fraction = Fraction(1),
 
     # 2. Kappa values
     results["kappa_virasoro"] = kappa_c3_virasoro_channel(c_f)
-    results["kappa_total_N5"] = kappa_c3_w_infinity(N_max, c_f)
-    results["kappa_total_N10"] = kappa_c3_w_infinity(10, c_f)
+    results["kappa_ch_N5"] = kappa_c3_w_infinity(N_max, c_f)
+    results["kappa_ch_N10"] = kappa_c3_w_infinity(10, c_f)
 
     # 3. Soft theorems
     soft_thms = compute_soft_theorems_c3(c_f)

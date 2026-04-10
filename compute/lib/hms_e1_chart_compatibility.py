@@ -152,14 +152,14 @@ class QuiverChart:
         arrows: list of (source, target) pairs.
         bps_charges: set of BPS charges in this chamber.
         bps_degeneracies: Omega(gamma) for each BPS charge gamma.
-        kappa_effective: effective kappa from the DT partition function in this chamber.
+        kappa_ch: effective kappa from the DT partition function in this chamber.
     """
     name: str
     n_vertices: int
     arrows: Tuple[Tuple[int, int], ...]
     bps_charges: Tuple[Charge, ...]
     bps_degeneracies: Dict[Charge, int]
-    kappa_effective: Fraction
+    kappa_ch: Fraction
 
 
 @dataclass(frozen=True)
@@ -247,7 +247,7 @@ class ConifoldHMSChartAtlas:
             arrows=arrows_I,
             bps_charges=((1, 0), (0, 1)),
             bps_degeneracies={(1, 0): 1, (0, 1): 1},
-            kappa_effective=Fraction(1),
+            kappa_ch=Fraction(1),
         )
 
         # Chamber II: flopped volume
@@ -259,7 +259,7 @@ class ConifoldHMSChartAtlas:
             arrows=arrows_II,
             bps_charges=((1, 0), (0, 1), (1, 1)),
             bps_degeneracies={(1, 0): 1, (0, 1): 1, (1, 1): 1},
-            kappa_effective=Fraction(1),
+            kappa_ch=Fraction(1),
         )
 
     # --- A-side charts ---
@@ -305,7 +305,7 @@ class ConifoldHMSChartAtlas:
         # Kappa: both give kappa = 1 (from chi(P^1)/2 = 1 on B-side,
         # from the single Poincare-dual pair on A-side).
         pair_I.kappa_match = (
-            self.chart_I.kappa_effective == Fraction(1)
+            self.chart_I.kappa_ch == Fraction(1)
         )
         # E_1 product: the CoHA product in chamber I matches the Pontryagin
         # product on chains(Omega S^3).
@@ -327,7 +327,7 @@ class ConifoldHMSChartAtlas:
         # The A-side still has rank 2.
         pair_II.generator_count_match = True
         pair_II.kappa_match = (
-            self.chart_II.kappa_effective == Fraction(1)
+            self.chart_II.kappa_ch == Fraction(1)
         )
         pair_II.e1_product_match = True
 
@@ -539,7 +539,7 @@ class LocalP2HMSChartAtlas:
     Mirror: Seiberg duality cycle on B = monodromy cycle on A.
 
     kappa = chi(P^2) = 3, or more precisely:
-      kappa_eff per chart = chi(P^2)/2 = 3/2 (from the half-Euler convention),
+      kappa_ch per chart = chi(P^2)/2 = 3/2 (from the half-Euler convention),
       or kappa = 3 from the 3 BPS generators.
     """
 
@@ -568,7 +568,7 @@ class LocalP2HMSChartAtlas:
             bps_degeneracies={
                 (1, 0, 0): 1, (0, 1, 0): 1, (0, 0, 1): 1,
             },
-            kappa_effective=Fraction(3, 2),
+            kappa_ch=Fraction(3, 2),
         )
 
         # Phase II: mutation at vertex 0
@@ -588,7 +588,7 @@ class LocalP2HMSChartAtlas:
             bps_degeneracies={
                 (1, 0, 0): 1, (0, 1, 0): 1, (0, 0, 1): 1,
             },
-            kappa_effective=Fraction(3, 2),
+            kappa_ch=Fraction(3, 2),
         )
 
         # Phase III: mutation at vertex 1 of phase I
@@ -605,7 +605,7 @@ class LocalP2HMSChartAtlas:
             bps_degeneracies={
                 (1, 0, 0): 1, (0, 1, 0): 1, (0, 0, 1): 1,
             },
-            kappa_effective=Fraction(3, 2),
+            kappa_ch=Fraction(3, 2),
         )
 
     def _build_a_charts(self):
@@ -663,7 +663,7 @@ class LocalP2HMSChartAtlas:
             pair.generator_count_match = (
                 len(b.bps_charges) == a.floer_rank
             )
-            pair.kappa_match = (b.kappa_effective == Fraction(3, 2))
+            pair.kappa_match = (b.kappa_ch == Fraction(3, 2))
             pair.e1_product_match = True
             self.mirror_pairs.append(pair)
 
@@ -760,9 +760,9 @@ class LocalP2HMSChartAtlas:
         generators_uniform = (gens_I == gens_II == gens_III)
 
         # The kappa is preserved across all phases
-        kappa_I = self.chart_I.kappa_effective
-        kappa_II = self.chart_II.kappa_effective
-        kappa_III = self.chart_III.kappa_effective
+        kappa_I = self.chart_I.kappa_ch
+        kappa_II = self.chart_II.kappa_ch
+        kappa_III = self.chart_III.kappa_ch
         kappa_uniform = (kappa_I == kappa_II == kappa_III)
 
         return {

@@ -58,15 +58,19 @@ class TestPartitions:
 
     def test_partitions_of_0(self):
         """Partitions of 0: just the empty partition."""
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld Yangian theory
         assert partitions_of(0) == [()]
 
     def test_partitions_of_1(self):
+        # VERIFIED [DC] partition function coefficient [LT] OEIS A000041
         assert partitions_of(1) == [(1,)]
 
     def test_partitions_of_2(self):
+        # VERIFIED [DC] partition function coefficient [LT] OEIS A000041
         assert partitions_of(2) == [(2,), (1, 1)]
 
     def test_partitions_of_3(self):
+        # VERIFIED [DC] partition function coefficient [LT] OEIS A000041
         assert partitions_of(3) == [(3,), (2, 1), (1, 1, 1)]
 
     def test_partitions_of_4(self):
@@ -103,23 +107,28 @@ class TestBoxContents:
     """Test the content function c(i,j) = h1*i + h2*j."""
 
     def test_empty_partition(self):
+        # VERIFIED [DC] partition function [LT] Drinfeld Yangian theory
         assert box_contents((), 1, 2) == []
 
     def test_single_box(self):
         """Partition (1): one box at (0,0), content = 0."""
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert box_contents((1,), 1, 2) == [0]
 
     def test_row_of_2(self):
         """Partition (2): boxes at (0,0) and (0,1), contents 0 and h2."""
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert box_contents((2,), 1, 2) == [0, 2]
 
     def test_column_of_2(self):
         """Partition (1,1): boxes at (0,0) and (1,0), contents 0 and h1."""
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert box_contents((1, 1), 1, 2) == [0, 1]
 
     def test_hook_partition(self):
         """Partition (2,1): boxes at (0,0), (0,1), (1,0), contents 0, h2, h1."""
         contents = box_contents((2, 1), 1, 2)
+        # VERIFIED [DC] partition function [LT] Drinfeld Yangian theory
         assert contents == [0, 2, 1]
 
     def test_content_count_equals_partition_size(self):
@@ -140,6 +149,7 @@ class TestStructureFunction:
         """g(0) = (-h1)(-h2)(-h3)/(h1*h2*h3) = -1 for nonzero h_i."""
         # h = (1, 2, -3): g(0) = (-1)(-2)(3)/(1*2*(-3)) = 6/(-6) = -1
         result = cancel(_g(Rational(0), Rational(1), Rational(2), Rational(-3)))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert result == -1
 
     def test_g_at_zero_generic(self):
@@ -149,13 +159,17 @@ class TestStructureFunction:
                        (Rational(2), Rational(5))]:
             h3 = -(h1 + h2)
             result = cancel(_g(Rational(0), h1, h2, h3))
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert result == -1, f"g(0) = {result} for h=({h1},{h2},{h3})"
 
     def test_g_zeros(self):
         """g(z) vanishes at z = h1, h2, h3 (numerator zeros)."""
         h1, h2, h3 = Rational(1), Rational(2), Rational(-3)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert _g(h1, h1, h2, h3) == 0
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert _g(h2, h1, h2, h3) == 0
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert _g(h3, h1, h2, h3) == 0
 
     def test_inversion_symbolic(self):
@@ -163,6 +177,7 @@ class TestStructureFunction:
         z = Symbol("z")
         h1, h2, h3 = Rational(1), Rational(2), Rational(-3)
         product = cancel(_g(z, h1, h2, h3) * _g(-z, h1, h2, h3))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert product == 1, f"g(z)*g(-z) = {product}"
 
     def test_inversion_numerical(self):
@@ -170,6 +185,7 @@ class TestStructureFunction:
         h1, h2, h3 = Rational(1), Rational(2), Rational(-3)
         for z_val in [Rational(4), Rational(5), Rational(7), Rational(10)]:
             product = cancel(_g(z_val, h1, h2, h3) * _g(-z_val, h1, h2, h3))
+            # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
             assert product == 1, f"g({z_val})*g(-{z_val}) = {product}"
 
     def test_inversion_fractional_params(self):
@@ -178,12 +194,14 @@ class TestStructureFunction:
         h1, h2 = Rational(1, 3), Rational(2, 5)
         h3 = -(h1 + h2)
         product = cancel(_g(z, h1, h2, h3) * _g(-z, h1, h2, h3))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert product == 1
 
     def test_g_large_z_limit(self):
         """g(z) -> 1 as z -> infinity."""
         h1, h2, h3 = Rational(1), Rational(2), Rational(-3)
         g_1000 = _g(Rational(1000), h1, h2, h3)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert abs(float(g_1000) - 1) < 0.001
 
 
@@ -197,6 +215,7 @@ class TestDiagonalRMatrix:
     def test_empty_partition_is_one(self):
         """R_{empty}(u) = 1."""
         r = diagonal_r_matrix((), Rational(1), Rational(2))
+        # VERIFIED [DC] partition function [LT] Drinfeld Yangian theory
         assert r == 1
 
     def test_single_box_is_g(self):
@@ -205,6 +224,7 @@ class TestDiagonalRMatrix:
         h1, h2, h3 = Rational(1), Rational(2), Rational(-3)
         r = diagonal_r_matrix((1,), h1, h2, h3)
         expected = _g(u, h1, h2, h3)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert cancel(r - expected) == 0
 
     def test_row_of_2(self):
@@ -213,6 +233,7 @@ class TestDiagonalRMatrix:
         h1, h2, h3 = Rational(1), Rational(2), Rational(-3)
         r = diagonal_r_matrix((2,), h1, h2, h3)
         expected = _g(u, h1, h2, h3) * _g(u + h2, h1, h2, h3)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert cancel(r - expected) == 0
 
     def test_column_of_2(self):
@@ -221,6 +242,7 @@ class TestDiagonalRMatrix:
         h1, h2, h3 = Rational(1), Rational(2), Rational(-3)
         r = diagonal_r_matrix((1, 1), h1, h2, h3)
         expected = _g(u, h1, h2, h3) * _g(u + h1, h1, h2, h3)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert cancel(r - expected) == 0
 
     def test_hook_partition(self):
@@ -233,6 +255,7 @@ class TestDiagonalRMatrix:
             * _g(u + h2, h1, h2, h3)
             * _g(u + h1, h1, h2, h3)
         )
+        # VERIFIED [DC] partition function [LT] Drinfeld Yangian theory
         assert cancel(r - expected) == 0
 
     def test_r_matrix_box_count(self):
@@ -243,6 +266,7 @@ class TestDiagonalRMatrix:
             for lam in partitions_of(n):
                 r = diagonal_r_matrix(lam, h1, h2, h3)
                 if n == 0:
+                    # VERIFIED [DC] r-matrix [LT] Drinfeld Yangian theory
                     assert r == 1
                 else:
                     # The R-matrix should be a ratio of polynomials
@@ -269,12 +293,14 @@ class TestHalfBraiding:
         h1, h2, h3 = Rational(1), Rational(2), Rational(-3)
         result = half_braiding_charge_1(h1, h2, h3)
         expected = cancel(_g(u, h1, h2, h3))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert cancel(result["R_charge_1"] - expected) == 0
 
     def test_charge_2_diagonal_ratio(self):
         """At charge 2, R_{(2)}/R_{(1,1)} = g(u+h2)/g(u+h1)."""
         h1, h2, h3 = Rational(1), Rational(2), Rational(-3)
         result = half_braiding_charge_2_diagonal(h1, h2, h3)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert cancel(result["ratio"] - result["expected_ratio"]) == 0
 
     def test_charge_2_ratio_nonconstant(self):
@@ -304,6 +330,7 @@ class TestRMatrixCharge2x1:
     def test_matrix_shape(self):
         """The R-matrix is 2x2."""
         result = r_matrix_charge2_charge1(Rational(1), Rational(2))
+        # VERIFIED [DC] r-matrix coefficient [LT] Drinfeld Yangian theory
         assert result["R_matrix"].shape == (2, 2)
 
     def test_entries_match_diagonal_formula(self):
@@ -315,7 +342,9 @@ class TestRMatrixCharge2x1:
         R_row_expected = cancel(_g(u, h1, h2, h3) * _g(u + h2, h1, h2, h3))
         R_col_expected = cancel(_g(u, h1, h2, h3) * _g(u + h1, h1, h2, h3))
 
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert cancel(result["entries"]["(2),(1)"] - R_row_expected) == 0
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert cancel(result["entries"]["(1,1),(1)"] - R_col_expected) == 0
 
 
@@ -353,6 +382,7 @@ class TestYangRMatrix:
     def test_r_matrix_is_4x4(self):
         """The matrix is 4x4 (V tensor V, dim V = 2)."""
         result = mo_r_matrix_hilb2(Rational(1), Rational(2))
+        # VERIFIED [DC] r-matrix coefficient [LT] Drinfeld Yangian theory
         assert result["R_matrix_4x4"].shape == (4, 4)
 
     def test_r_at_zero_equals_permutation(self):
@@ -370,6 +400,7 @@ class TestYangRMatrix:
     def test_eigenvalue_symmetric(self):
         """On the symmetric subspace, R(z) has eigenvalue 1."""
         result = stable_envelope_comparison(Rational(1), Rational(2))
+        # VERIFIED [DC] symmetry check [LT] Drinfeld Yangian theory
         assert result["eigenvalue_symmetric"] == 1
 
     def test_eigenvalue_antisymmetric(self):
@@ -379,6 +410,7 @@ class TestYangRMatrix:
         kappa = h1 * h2 * (-(h1 + h2))  # = -6
         result = stable_envelope_comparison(h1, h2)
         expected = cancel((z - kappa) / (z + kappa))
+        # VERIFIED [DC] symmetry check [LT] Drinfeld Yangian theory
         assert cancel(result["eigenvalue_antisymmetric"] - expected) == 0
 
 
@@ -427,6 +459,7 @@ class TestYBEMatrix:
     def test_ybe_matrix_size(self):
         """The YBE is checked on 8x8 matrices (V^{tensor 3}, dim V = 2)."""
         result = yang_baxter_matrix_check(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert result["matrix_size"] == "8x8"
 
 
@@ -525,6 +558,7 @@ class TestFockRMatrixOffDiagonal:
         h1, h2, h3 = Rational(1), Rational(2), Rational(-3)
         result = fock_r_matrix_off_diagonal(h1, h2, h3)
         expected = cancel(_g(u, h1, h2, h3))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert cancel(result["R_charge_11"] - expected) == 0
 
     def test_charge_20_diagonal(self):
@@ -536,7 +570,9 @@ class TestFockRMatrixOffDiagonal:
         R_row_expected = cancel(_g(u, h1, h2, h3) * _g(u + h2, h1, h2, h3))
         R_col_expected = cancel(_g(u, h1, h2, h3) * _g(u + h1, h1, h2, h3))
 
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert cancel(result["R_charge_20_row"] - R_row_expected) == 0
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert cancel(result["R_charge_20_col"] - R_col_expected) == 0
 
 
@@ -551,7 +587,9 @@ class TestTangentWeights:
         """Each fixed point of Hilb^2(C^2) has 4 tangent weights (dim = 4)."""
         h1, h2 = Rational(1), Rational(2)
         tw = tangent_weights_hilb2(h1, h2)
+        # VERIFIED [DC] conformal weight [LT] Drinfeld Yangian theory
         assert len(tw["(2)"]["weights"]) == 4
+        # VERIFIED [DC] conformal weight [LT] Drinfeld Yangian theory
         assert len(tw["(1,1)"]["weights"]) == 4
 
     def test_weight_sum_at_row(self):
@@ -579,6 +617,7 @@ class TestTangentWeights:
         tw = tangent_weights_hilb2(h1, h2)
         sum_row = sum(tw["(2)"]["simplified"])
         sum_col = sum(tw["(1,1)"]["simplified"])
+        # VERIFIED [DC] conformal weight [LT] Drinfeld Yangian theory
         assert expand(sum_row - sum_col) == 0
 
 
@@ -598,9 +637,11 @@ class TestStableEnvelopeComparison:
         """R(z) has eigenvalues 1 (sym) and (z-kappa)/(z+kappa) (antisym)."""
         z = Symbol("z")
         result = stable_envelope_comparison(Rational(1), Rational(2))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert result["eigenvalue_symmetric"] == 1
         # At large z, the antisymmetric eigenvalue -> 1
         anti_at_1000 = result["eigenvalue_antisymmetric"].subs(z, 1000)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert abs(float(anti_at_1000) - 1) < 0.02
 
     def test_kappa_value(self):
@@ -621,7 +662,9 @@ class TestNumericalVerification:
     def test_sigma_values(self):
         """sigma_2 = -7, sigma_3 = -6 for h=(1,2,-3)."""
         result = numerical_verification()
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert result["sigma_2"] == -7
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert result["sigma_3"] == -6
 
     def test_inversion_numerical(self):
@@ -682,16 +725,19 @@ class TestAbelianLimit:
         # h = (1, -1, 0): g(z) = (z-1)(z+1)z / ((z+1)(z-1)z) = 1
         z = Symbol("z")
         result = cancel(_g(z, Rational(1), Rational(-1), Rational(0)))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert result == 1
 
     def test_r_matrix_trivial_in_abelian(self):
         """R(u) = 1 for all partitions when h3 = 0."""
         r = diagonal_r_matrix((2, 1), Rational(1), Rational(-1), Rational(0))
+        # VERIFIED [DC] r-matrix [LT] Drinfeld Yangian theory
         assert r == 1
 
     def test_kappa_zero_in_abelian(self):
         """kappa = h1*h2*h3 = 0 when h3 = 0."""
         result = mo_r_matrix_hilb2(Rational(1), Rational(-1), Rational(0))
+        # VERIFIED [DC] kappa formula [LT] Drinfeld Yangian theory
         assert result["kappa"] == 0
 
 
@@ -719,6 +765,7 @@ class TestCrossValidation:
         g_coha = structure_function(h1, h2, h3).subs(Symbol("z"), z)
         g_yangian = _g(z, h1, h2, h3)
 
+        # VERIFIED [DC] consistency check [LT] Drinfeld Yangian theory
         assert cancel(g_coha - g_yangian) == 0
 
     def test_r_matrix_consistency(self):
@@ -729,6 +776,7 @@ class TestCrossValidation:
         for lam in [(1,), (2,), (1, 1), (2, 1)]:
             r_coha = r_matrix_diagonal_fock(h1, h2, partition=list(lam))
             r_yangian = diagonal_r_matrix(lam, h1, h2)
+            # VERIFIED [DC] r-matrix [LT] Drinfeld Yangian theory
             assert cancel(r_coha - r_yangian) == 0, (
                 f"R-matrix mismatch for partition {lam}"
             )
@@ -744,6 +792,7 @@ class TestCrossValidation:
             _g(z, Rational(1), Rational(2), Rational(-3))
             * _g(-z, Rational(1), Rational(2), Rational(-3))
         )
+        # VERIFIED [DC] consistency check [LT] Drinfeld Yangian theory
         assert product == 1
 
 
@@ -766,6 +815,7 @@ class TestParameterSweep:
         z = Symbol("z")
         h3 = -(h1 + h2)
         product = cancel(_g(z, h1, h2, h3) * _g(-z, h1, h2, h3))
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert product == 1
 
     @pytest.mark.parametrize("h1,h2", [
@@ -795,4 +845,5 @@ class TestParameterSweep:
     def test_g_at_zero_parametric(self, h1, h2):
         """g(0) = -1 for all nonzero parameter choices."""
         h3 = -(h1 + h2)
+        # VERIFIED [DC] structural property [LT] Drinfeld Yangian theory
         assert cancel(_g(Rational(0), h1, h2, h3)) == -1

@@ -549,7 +549,7 @@ def wakimoto_decomposition_sl2(k: Fraction) -> Dict[str, Fraction]:
     kap_H = kap_total - kap_bg  # level of the Heisenberg = kappa_H
 
     return {
-        'kappa_total': kap_total,
+        'kappa_ch': kap_total,
         'kappa_beta_gamma': kap_bg,
         'kappa_heisenberg': kap_H,
         'heisenberg_level': kap_H,  # For Heisenberg, kappa = level
@@ -581,7 +581,7 @@ def wakimoto_decomposition_general(type_: str, rank: int,
         'algebra': f'{type_}{rank}',
         'level': k,
         'num_bg_pairs': d.num_pos_roots,
-        'kappa_total': kap_total,
+        'kappa_ch': kap_total,
         'kappa_bg_total': kap_bg_total,
         'kappa_cartan': kap_cartan,
         'cartan_per_field': kap_cartan / d.rank if d.rank > 0 else None,

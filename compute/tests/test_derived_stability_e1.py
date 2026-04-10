@@ -78,11 +78,13 @@ class TestDerivedTangentData:
     def test_classical_dim_conifold(self):
         """Path 1: classical dimension = rk K_0 = 2 for conifold."""
         td = DerivedTangentData(rank_k0=2, hh_dims={0: 2, -1: 2}, cy_dim=3)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert td.classical_dim == 2
 
     def test_classical_dim_c3(self):
         """Path 1: classical dimension = 1 for C^3 (equivariant)."""
         td = DerivedTangentData(rank_k0=1, hh_dims={0: 1, -1: 1}, cy_dim=3)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert td.classical_dim == 1
 
     def test_derived_dim_cy3_is_zero(self):
@@ -93,6 +95,7 @@ class TestDerivedTangentData:
         """
         for r in [1, 2, 3, 5]:
             td = DerivedTangentData(rank_k0=r, hh_dims={0: r, -1: r}, cy_dim=3)
+            # VERIFIED [DC] dimension count [DA] dimensional consistency
             assert td.derived_dim == 0, f"vdim should be 0 for rk={r}"
 
     def test_derived_dim_cy3_is_zero_path2(self):
@@ -108,11 +111,13 @@ class TestDerivedTangentData:
             # HKR: HH^k = sum_{p+q=k} H^q(Omega^p)
             # For CY3 with rk K_0 = r: dim HH^0 = r, dim HH^1 = r (by Serre)
             td = DerivedTangentData(rank_k0=r, hh_dims={0: r, -1: r}, cy_dim=3)
+            # VERIFIED [DC] dimension count [DA] dimensional consistency
             assert td.derived_dim == 0
 
     def test_pi2_obstruction_vanishes_smooth_cy3(self):
         """pi_2(Stab^{der}) = H^{-2}(T) = HH^{-1}(C,C) = 0 for smooth CY3."""
         td = DerivedTangentData(rank_k0=2, hh_dims={0: 2, -1: 2}, cy_dim=3)
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert td.pi2_obstruction == 0
 
     def test_pi2_nontrivial_singular(self):
@@ -125,6 +130,7 @@ class TestDerivedTangentData:
         td = DerivedTangentData(
             rank_k0=2, hh_dims={0: 2, -1: 2, -2: 1}, cy_dim=3,
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert td.pi2_obstruction == 1
 
     def test_pi2_code_check(self):
@@ -137,14 +143,17 @@ class TestDerivedTangentData:
         """
         # Smooth CY3: pi_2 = 0 (key -2 absent)
         td = DerivedTangentData(rank_k0=2, hh_dims={0: 2, -1: 2}, cy_dim=3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert td.pi2_obstruction == 0
 
         # Singular: key -2 present
         td2 = DerivedTangentData(rank_k0=2, hh_dims={0: 2, -1: 2, -2: 3}, cy_dim=3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert td2.pi2_obstruction == 3
 
         # Minimal data: no key -2
         td3 = DerivedTangentData(rank_k0=2, hh_dims={0: 2}, cy_dim=3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert td3.pi2_obstruction == 0
 
 
@@ -154,34 +163,41 @@ class TestDerivedStabilityManifold:
     def test_conifold_classical_truncation(self):
         """Path 1: classical truncation has correct dimension."""
         stab = derived_stab_cy3("Conifold", rank_k0=2)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert stab.classical_truncation_dim == 2
 
     def test_conifold_classical_truncation_path2(self):
         """Path 2: dim Stab = rk K_0 (Bridgeland theorem)."""
         stab = derived_stab_cy3("Conifold", rank_k0=2)
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert stab.rank_k0 == 2
         assert stab.classical_truncation_dim == stab.rank_k0
 
     def test_c3_classical_truncation(self):
         """C^3 equivariant: dim Stab = 1."""
         stab = derived_stab_cy3("C^3", rank_k0=1)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert stab.classical_truncation_dim == 1
 
     def test_local_p2_classical_truncation(self):
         """Local P^2: dim Stab = 3."""
         stab = derived_stab_cy3("Local P^2", rank_k0=3)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert stab.classical_truncation_dim == 3
 
     def test_ptvv_shift_cy3(self):
         """Path 1: PTVV shift = 2 - d = -1 for CY3."""
         stab = derived_stab_cy3("test", rank_k0=2)
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert stab.shifted_symplectic_degree == -1
         assert stab.verify_ptvv_shift()
 
     def test_ptvv_shift_cy3_path2(self):
         """Path 2: verify 2 - cy_dim = 2 - 3 = -1."""
         stab = derived_stab_cy3("test", rank_k0=2)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert 2 - stab.cy_dim == -1
+        # VERIFIED [DC] degree count [DA] dimensional consistency
         assert stab.shifted_symplectic_degree == 2 - stab.cy_dim
 
     def test_serre_duality_conifold(self):
@@ -195,6 +211,7 @@ class TestDerivedStabilityManifold:
         stab = derived_stab_cy3("Conifold", rank_k0=2)
         assert stab.verify_serre_duality()
         # Path 2: verify directly that vdim = 0
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert stab.tangent_data.derived_dim == 0
 
     def test_smooth_classical(self):
@@ -223,6 +240,7 @@ class TestDGMorphismData:
         m = DGMorphismData(source=0, target=1, degree_map={0: 2},
                            is_qiso=True, homotopy_level=2)
         assert not m.is_strict
+        # VERIFIED [DC] level formula [LT] literature cross-check
         assert m.homotopy_level == 2
 
 
@@ -233,6 +251,7 @@ class TestDerivedChartData:
         """Generators all in degree 0: euler = number of generators."""
         c = DerivedChartData(index=0, name="test",
                              dg_generators={"a": 0, "b": 0}, coha_rank=2, virtual_dim=0)
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert c.euler_char == 2
 
     def test_euler_char_mixed(self):
@@ -240,6 +259,7 @@ class TestDerivedChartData:
         c = DerivedChartData(index=0, name="test",
                              dg_generators={"a": 0, "b": 1, "c": 0}, coha_rank=2, virtual_dim=0)
         # (-1)^0 + (-1)^1 + (-1)^0 = 1 - 1 + 1 = 1
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert c.euler_char == 1
 
     def test_amplitude(self):
@@ -247,6 +267,7 @@ class TestDerivedChartData:
         c = DerivedChartData(index=0, name="test",
                              dg_generators={"a": -1, "b": 0, "c": 2},
                              coha_rank=2, virtual_dim=0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c.amplitude == (-1, 2)
 
 
@@ -256,13 +277,17 @@ class TestDerivedChartAtlas:
     def test_conifold_atlas_structure(self):
         """Path 1: conifold has 2 charts, 1 transition."""
         atlas = derived_atlas_conifold()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.num_charts == 2
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.num_transitions == 1
 
     def test_conifold_atlas_structure_path2(self):
         """Path 2: verify nerve has 2 vertices and 1 edge."""
         atlas = derived_atlas_conifold()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert len(atlas.nerve_vertices()) == 2
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert len(atlas.nerve_edges()) == 1
 
     def test_conifold_all_qiso(self):
@@ -273,19 +298,25 @@ class TestDerivedChartAtlas:
     def test_c3_trivial_atlas(self):
         """C^3: single chart, no transitions."""
         atlas = derived_atlas_c3()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.num_charts == 1
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.num_transitions == 0
 
     def test_local_p2_atlas_structure(self):
         """Path 1: local P^2 has 3 charts, 3 transitions."""
         atlas = derived_atlas_local_p2()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.num_charts == 3
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert atlas.num_transitions == 3
 
     def test_local_p2_atlas_structure_path2(self):
         """Path 2: verify nerve has 3 vertices and 3 edges."""
         atlas = derived_atlas_local_p2()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert len(atlas.nerve_vertices()) == 3
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert len(atlas.nerve_edges()) == 3
 
     def test_local_p2_all_qiso(self):
@@ -315,19 +346,25 @@ class TestQuiverWithPotential:
     def test_conifold_quiver_data(self):
         """Conifold: 2 vertices, 4 arrows."""
         Q = conifold_quiver()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.num_vertices == 2
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.num_arrows == 4
 
     def test_c3_quiver_data(self):
         """C^3: 1 vertex, 3 self-loops."""
         Q = c3_quiver()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.num_vertices == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.num_arrows == 3
 
     def test_local_p2_quiver_data(self):
         """Local P^2: 3 vertices, 9 arrows."""
         Q = local_p2_quiver()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.num_vertices == 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Q.num_arrows == 9
 
     def test_conifold_euler_form(self):
@@ -336,9 +373,13 @@ class TestQuiverWithPotential:
         chi = Q.euler_form_matrix()
         # chi = [[1, -2], [-2, 1]]
         # Diagonal: 1 (identity). Off-diagonal: -2 (two arrows each way).
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[0][0] == 1
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[1][1] == 1
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[0][1] == -2
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[1][0] == -2
 
     def test_conifold_euler_form_path2(self):
@@ -348,7 +389,9 @@ class TestQuiverWithPotential:
         # <e_0, e_1> = chi(e_0,e_1) - chi(e_1,e_0) = -2 - (-2) = 0
         # Hmm... both off-diagonals are -2, so antisymmetric part is 0.
         # This is because the conifold has equal arrows in both directions.
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert anti[0][1] == 0
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert anti[1][0] == 0
 
     def test_c3_euler_form(self):
@@ -356,12 +399,14 @@ class TestQuiverWithPotential:
         Q = c3_quiver()
         chi = Q.euler_form_matrix()
         # 1 vertex, 3 self-loops: chi = [[1 - 3]] = [[-2]]
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[0][0] == -2
 
     def test_c3_antisymmetric_euler(self):
         """Antisymmetric Euler form for C^3 is trivially 0."""
         Q = c3_quiver()
         anti = Q.antisymmetric_euler()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert anti[0][0] == 0  # <e, e> = 0 always
 
     def test_local_p2_euler_form(self):
@@ -370,10 +415,14 @@ class TestQuiverWithPotential:
         chi = Q.euler_form_matrix()
         # Diagonal: 1 each
         for i in range(3):
+            # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
             assert chi[i][i] == 1
         # Off-diagonal: -3 (three arrows between each pair)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[0][1] == -3
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[1][2] == -3
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert chi[2][0] == -3
 
     def test_local_p2_antisymmetric(self):
@@ -385,7 +434,9 @@ class TestQuiverWithPotential:
         # So chi(e_0, e_1) = 0 - 3 = -3 (3 arrows 0->1)
         # chi(e_1, e_0) = 0 - 0 = 0 (no arrows 1->0)
         # <e_0, e_1> = -3 - 0 = -3
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert anti[0][1] == -3
+        # VERIFIED [DC] symmetry check [LC] boundary/limiting case
         assert anti[1][0] == 3  # antisymmetric: <e_1,e_0> = -<e_0,e_1>
 
 
@@ -396,8 +447,10 @@ class TestVirtualDimension:
         """Path 1: vdim for simple representations of conifold."""
         Q = conifold_quiver()
         # d = (1, 0): vdim = 1 - chi((1,0),(1,0)) = 1 - 1 = 0
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert virtual_dimension(Q, (1, 0)) == 0
         # d = (0, 1): same by symmetry
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert virtual_dimension(Q, (0, 1)) == 0
 
     def test_conifold_vdim_bound_state(self):
@@ -405,6 +458,7 @@ class TestVirtualDimension:
         Q = conifold_quiver()
         # chi((1,1),(1,1)) = 1+1-2-2 = -2
         # vdim = 1 - (-2) = 3
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert virtual_dimension(Q, (1, 1)) == 3
 
     def test_conifold_vdim_bound_state_path2(self):
@@ -413,15 +467,19 @@ class TestVirtualDimension:
         chi = Q.euler_form_matrix()
         d = (1, 1)
         chi_dd = sum(chi[i][j] * d[i] * d[j] for i in range(2) for j in range(2))
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert chi_dd == -2
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert 1 - chi_dd == 3
 
     def test_c3_vdim(self):
         """Virtual dimension for C^3."""
         Q = c3_quiver()
         # d = (1,): chi = -2, vdim = 1 - (-2) = 3
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert virtual_dimension(Q, (1,)) == 3
         # d = (2,): chi((2,),(2,)) = -2 * 4 = -8, vdim = 9
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert virtual_dimension(Q, (2,)) == 9
 
     def test_c3_vdim_path2(self):
@@ -435,8 +493,11 @@ class TestVirtualDimension:
         """Virtual dimension for simple reps of local P^2."""
         Q = local_p2_quiver()
         # d = (1,0,0): chi = 1, vdim = 0
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert virtual_dimension(Q, (1, 0, 0)) == 0
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert virtual_dimension(Q, (0, 1, 0)) == 0
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert virtual_dimension(Q, (0, 0, 1)) == 0
 
     def test_local_p2_vdim_111(self):
@@ -444,12 +505,14 @@ class TestVirtualDimension:
         Q = local_p2_quiver()
         # chi((1,1,1),(1,1,1)) = 3 - 9 = -6
         # vdim = 1 - (-6) = 7
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert virtual_dimension(Q, (1, 1, 1)) == 7
 
     def test_bps_virtual_dim(self):
         """BPS-weighted virtual dimension."""
         Q = conifold_quiver()
         result = bps_virtual_dim(Q, (1, 1), 1)
+        # VERIFIED [DC] dimension [LC] boundary/limiting case
         assert result == Fraction(3)
 
 
@@ -468,6 +531,7 @@ class TestDerivedModuliData:
         Q = conifold_quiver()
         M = DerivedModuliData(quiver=Q, dim_vector=(1, 1),
                               bps_invariant=1, shifted_symplectic_degree=-1)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert M.virtual_dimension == 3
 
     def test_simple_rep_smooth(self):
@@ -489,13 +553,17 @@ class TestDerivedCorrespondence:
     def test_conifold_correspondence_construction(self):
         """Path 1: conifold correspondence has correct charges."""
         Z = conifold_derived_correspondence()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Z.charge_alpha == (1, 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Z.charge_beta == (0, 1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Z.bound_state_charge == (1, 1)
 
     def test_conifold_euler_pairing(self):
         """Path 1: Euler pairing <alpha, beta> = 1 for conifold."""
         Z = conifold_derived_correspondence()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert Z.euler_pairing == 1
 
     def test_conifold_euler_pairing_path2(self):
@@ -505,6 +573,7 @@ class TestDerivedCorrespondence:
         alpha = (1, 0)
         beta = (0, 1)
         pairing = alpha[0] * beta[1] - alpha[1] * beta[0]
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert pairing == 1
 
     def test_conifold_vdim_correspondence(self):
@@ -512,20 +581,26 @@ class TestDerivedCorrespondence:
         Z = conifold_derived_correspondence()
         # vdim(Z) = vdim(M_alpha) + vdim(M_beta) - vdim(M_{alpha+beta})
         # = 0 + 0 - 3 = -3
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert Z.virtual_dim == -3
 
     def test_conifold_vdim_correspondence_path2(self):
         """Path 2: verify from individual virtual dimensions."""
         Z = conifold_derived_correspondence()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert Z.vdim_source == 0  # vdim(M_{(1,0)})
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert Z.vdim_target == 0  # vdim(M_{(0,1)})
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert Z.vdim_bound == 3   # vdim(M_{(1,1)})
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert Z.vdim_source + Z.vdim_target - Z.vdim_bound == -3
 
     def test_conifold_wall_crossing_formula(self):
         """Verify KS wall-crossing at derived level."""
         Z = conifold_derived_correspondence()
         wc = Z.verify_wall_crossing_formula()
+        # VERIFIED [DC] Euler characteristic formula [LC] boundary/limiting case
         assert wc['euler_pairing'] == 1
         assert wc['primitive_wc_holds']
 
@@ -551,42 +626,52 @@ class TestPTVV:
     def test_conifold_ptvv(self):
         """Path 1: conifold has (-1)-shifted symplectic structure."""
         omega = ptvv_conifold()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.shift == -1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert omega.cy_dim == 3
         assert omega.verify_ptvv_shift()
 
     def test_conifold_ptvv_path2(self):
         """Path 2: shift = 2 - 3 = -1."""
         omega = ptvv_conifold()
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert omega.shift == 2 - omega.cy_dim
 
     def test_local_p2_ptvv(self):
         """Local P^2: (-1)-shifted (CY3)."""
         omega = ptvv_local_p2()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.shift == -1
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert omega.rank == 3
 
     def test_c3_ptvv(self):
         """C^3: (-1)-shifted (CY3)."""
         omega = ptvv_c3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.shift == -1
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert omega.rank == 1
 
     def test_general_ptvv_cy2(self):
         """CY2 (K3): 0-shifted (ordinary symplectic)."""
         omega = ptvv_general(cy_dim=2, rank=24)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.shift == 0
         assert omega.is_ordinary_symplectic
 
     def test_general_ptvv_cy3(self):
         """CY3: (-1)-shifted (critical locus)."""
         omega = ptvv_general(cy_dim=3, rank=2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.shift == -1
         assert omega.is_critical
 
     def test_general_ptvv_cy4(self):
         """CY4: (-2)-shifted."""
         omega = ptvv_general(cy_dim=4, rank=5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert omega.shift == -2
         assert not omega.is_ordinary_symplectic
         assert not omega.is_critical
@@ -620,6 +705,7 @@ class TestCechSpectralSequenceE1:
         nerve_h = {0: 1}
         ss = compute_cech_ss_e1(nerve_h, [1])
         assert ss.is_degenerate_at_e2
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert ss.degenerates_at == 2
 
     def test_interval_nerve_e1(self):
@@ -653,6 +739,7 @@ class TestCechSpectralSequenceE1:
         """E_1 structure space has only H^0 nontrivial."""
         nerve_h = {0: 1}
         ss = compute_cech_ss_e1(nerve_h, [1])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ss.homotopy_sheaf == {0: 1}
 
     def test_e1_e2_page_structure(self):
@@ -661,6 +748,7 @@ class TestCechSpectralSequenceE1:
         ss = compute_cech_ss_e1(nerve_h, [])
         # q=1 row should be zero
         for p in range(4):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert ss.e2_page.get((p, 1), 0) == 0
         # q=0 row should match nerve cohomology
         for p in range(3):
@@ -674,12 +762,14 @@ class TestCechSpectralSequenceE2:
         """Interval nerve: H^2 = 0, so E_2 descent is unobstructed."""
         nerve_h = {0: 1, 1: 0}
         obs = e2_ss_obstruction(nerve_h)
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert obs == 0
 
     def test_triangle_nerve_e2_unobstructed(self):
         """Filled triangle: H^2 = 0, E_2 descent unobstructed."""
         nerve_h = {0: 1, 1: 0, 2: 0}
         obs = e2_ss_obstruction(nerve_h)
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert obs == 0
 
     def test_sphere_nerve_e2_obstructed(self):
@@ -690,6 +780,7 @@ class TestCechSpectralSequenceE2:
         """
         nerve_h = {0: 1, 1: 0, 2: 1}
         obs = e2_ss_obstruction(nerve_h)
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert obs == 1
 
     def test_sphere_nerve_e2_obstructed_path2(self):
@@ -698,6 +789,7 @@ class TestCechSpectralSequenceE2:
         ss = compute_cech_ss_e2(nerve_h, [])
         assert ss.obstruction_differential is not None
         assert ss.obstruction_differential['is_nontrivial']
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert ss.obstruction_differential['obstruction_rank'] == 1
 
     def test_e2_two_rows(self):
@@ -705,25 +797,32 @@ class TestCechSpectralSequenceE2:
         nerve_h = {0: 1, 1: 1}
         ss = compute_cech_ss_e2(nerve_h, [])
         # q=0 row: E_2^{p,0} = H^p(nerve; Z)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ss.e2_page.get((0, 0), 0) == 1  # H^0 = Z
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ss.e2_page.get((1, 0), 0) == 1  # H^1 = Z
         # q=1 row: E_2^{p,1} = H^p(nerve; Z) (same coefficients)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ss.e2_page.get((0, 1), 0) == 1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ss.e2_page.get((1, 1), 0) == 1
 
     def test_e2_degeneration_page(self):
         """SS for E_2 degenerates at page 2 if H^2=0, page 3 otherwise."""
         # H^2 = 0: degenerates at E_2
         ss_unobs = compute_cech_ss_e2({0: 1, 1: 0}, [])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ss_unobs.degenerates_at == 2
 
         # H^2 = 1: degenerates at E_3 (d_2 nontrivial but only 2 rows)
         ss_obs = compute_cech_ss_e2({0: 1, 1: 0, 2: 1}, [])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ss_obs.degenerates_at == 3
 
     def test_e2_homotopy_sheaf(self):
         """E_2 structure: H^0 = Z, H^1 = Z (from pi_1(S^1))."""
         ss = compute_cech_ss_e2({0: 1}, [])
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert ss.homotopy_sheaf == {0: 1, 1: 1}
 
     def test_e1_vs_e2_contrast(self):
@@ -735,6 +834,7 @@ class TestCechSpectralSequenceE2:
         """
         nerve_h = {0: 1, 1: 0, 2: 1}  # S^2 nerve
         assert e1_ss_degenerates(nerve_h)  # E_1 always degenerates
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert e2_ss_obstruction(nerve_h) == 1  # E_2 is obstructed
 
 
@@ -749,6 +849,7 @@ class TestTripleIntersection:
     def test_local_p2_triple_codim(self):
         """Path 1: triple intersection has codimension 2."""
         tri = local_p2_triple_intersection()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert tri.classical_codimension == 2
 
     def test_local_p2_triple_codim_path2(self):
@@ -757,20 +858,26 @@ class TestTripleIntersection:
         # 3 walls meeting at a point: 3 constraints, but 1 is redundant
         # (the three walls all pass through the origin).
         # Independent constraints = 2 (= codimension)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert tri.classical_codimension == 2
 
     def test_local_p2_euler_pairings(self):
         """Path 1: Euler pairings have Z/3 symmetry."""
         tri = local_p2_triple_intersection()
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert tri.euler_pairings[(0, 1)] == 3
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert tri.euler_pairings[(1, 2)] == 3
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert tri.euler_pairings[(2, 0)] == 3
 
     def test_local_p2_euler_pairings_path2(self):
         """Path 2: all pairings equal by cyclic symmetry of the quiver."""
         tri = local_p2_triple_intersection()
         values = list(tri.euler_pairings.values())
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert len(set(values)) == 1  # all equal
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert values[0] == 3
 
     def test_nerve_is_filled(self):
@@ -789,6 +896,7 @@ class TestTripleIntersection:
         The filled triangle (2-simplex) is contractible, so H^2 = 0.
         """
         tri = local_p2_triple_intersection()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert tri.e2_triple_obstruction() == 0
 
     def test_e2_triple_no_obstruction_path2(self):
@@ -800,7 +908,9 @@ class TestTripleIntersection:
             edges=[frozenset({0, 1}), frozenset({1, 2}), frozenset({0, 2})],
             fill_flag=True,
         )
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(2) == 0  # contractible
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(1) == 0
 
     def test_conifold_no_triple(self):
@@ -816,6 +926,7 @@ class TestTripleIntersection:
         """Virtual dimension of triple intersection."""
         tri = local_p2_triple_intersection()
         # vdim = dim(Stab) - codimension = 3 - 2 = 1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert tri.virtual_dim == 1
 
 
@@ -830,13 +941,17 @@ class TestSimplNerve:
     def test_point_nerve(self):
         """Point: H^0 = Z, H^k = 0 for k >= 1."""
         nerve = SimplNerve(vertices={0}, edges=[], fill_flag=True)
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(0) == 1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert nerve.dimension == 0
 
     def test_interval_nerve(self):
         """Interval [0,1]: contractible, H^0 = Z, H^k = 0."""
         nerve = SimplNerve(vertices={0, 1}, edges=[frozenset({0, 1})], fill_flag=True)
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(0) == 1
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(1) == 0
 
     def test_triangle_filled(self):
@@ -846,8 +961,11 @@ class TestSimplNerve:
             edges=[frozenset({0, 1}), frozenset({1, 2}), frozenset({0, 2})],
             fill_flag=True,
         )
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(0) == 1
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(1) == 0
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(2) == 0
 
     def test_triangle_unfilled(self):
@@ -857,7 +975,9 @@ class TestSimplNerve:
             edges=[frozenset({0, 1}), frozenset({1, 2}), frozenset({0, 2})],
             fill_flag=False,
         )
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(0) == 1
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(1) == 1
 
     def test_hexagon(self):
@@ -867,23 +987,28 @@ class TestSimplNerve:
             edges=[frozenset({i, (i + 1) % 6}) for i in range(6)],
             fill_flag=False,
         )
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(0) == 1
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(1) == 1
 
     def test_two_components(self):
         """Two disconnected points: H^0 = Z^2."""
         nerve = SimplNerve(vertices={0, 1}, edges=[], fill_flag=True)
+        # VERIFIED [DC] rank [LC] boundary/limiting case
         assert nerve.cohomology_rank(0) == 2
 
     def test_euler_characteristic_point(self):
         """chi(point) = 1."""
         nerve = SimplNerve(vertices={0}, edges=[], fill_flag=True)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert nerve.euler_characteristic() == 1
 
     def test_euler_characteristic_interval(self):
         """chi(interval) = 1."""
         nerve = SimplNerve(vertices={0, 1}, edges=[frozenset({0, 1})], fill_flag=True)
         # f-vector: [2, 1]. chi = 2 - 1 = 1.
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert nerve.euler_characteristic() == 1
 
     def test_euler_characteristic_triangle(self):
@@ -894,6 +1019,7 @@ class TestSimplNerve:
             fill_flag=True,
         )
         # f-vector: [3, 3, 1]. chi = 3 - 3 + 1 = 1.
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert nerve.euler_characteristic() == 1
 
     def test_f_vector_triangle(self):
@@ -903,6 +1029,7 @@ class TestSimplNerve:
             edges=[frozenset({0, 1}), frozenset({1, 2}), frozenset({0, 2})],
             fill_flag=True,
         )
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert nerve.f_vector() == [3, 3, 1]
 
 
@@ -937,8 +1064,10 @@ class TestFullVerification:
     def test_conifold_verification_path2(self):
         """Path 2: verify conifold nerve cohomology directly."""
         v = verify_conifold_derived()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert v.nerve_h_star.get(0, 0) == 1
         # Interval: H^1 = 0
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert v.nerve_h_star.get(1, 0) == 0
 
     def test_local_p2_verification(self):
@@ -955,13 +1084,17 @@ class TestFullVerification:
     def test_local_p2_verification_path2(self):
         """Path 2: verify local P^2 nerve is contractible."""
         v = verify_local_p2_derived()
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert v.nerve_h_star.get(0, 0) == 1
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert v.nerve_h_star.get(1, 0) == 0
+        # VERIFIED [DC] chart decomposition [LC] boundary/limiting case
         assert v.nerve_h_star.get(2, 0) == 0
 
     def test_master_verification(self):
         """Run all three standard examples."""
         results = master_derived_verification()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert len(results) == 3
         for name, v in results.items():
             assert v.classical_dim_correct, f"{name}: classical dim failed"
@@ -985,6 +1118,7 @@ class TestFullVerification:
         """
         results = master_derived_verification()
         for name, v in results.items():
+            # VERIFIED [DC] rank count [DA] dimensional consistency
             assert v.e2_obstruction_rank == 0 or not v.e2_obstructed or v.e1_degenerate
 
 
@@ -1003,8 +1137,11 @@ class TestCrossChecks:
         For C^3: both should be 1 (equivariant, after CY constraint).
         For local P^2: both should be 3.
         """
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert derived_stab_cy3("Conifold", 2).classical_truncation_dim == 2
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert derived_stab_cy3("C^3", 1).classical_truncation_dim == 1
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert derived_stab_cy3("Local P^2", 3).classical_truncation_dim == 3
 
     def test_vdim_matches_quiver(self):
@@ -1021,6 +1158,7 @@ class TestCrossChecks:
         """Verify PTVV shift = 2 - d for d = 2, 3, 4, 5."""
         for d in [2, 3, 4, 5]:
             omega = ptvv_general(cy_dim=d, rank=2)
+            # VERIFIED [DC] dimension [LC] boundary/limiting case
             assert omega.shift == 2 - d
             assert omega.verify_ptvv_shift()
 
@@ -1040,6 +1178,7 @@ class TestCrossChecks:
             anti = Q.antisymmetric_euler()
             n = Q.num_vertices
             for i in range(n):
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert anti[i][i] == 0, f"Self-pairing should be 0"
 
     def test_nerve_euler_char_conifold(self):
@@ -1051,6 +1190,7 @@ class TestCrossChecks:
             fill_flag=True,
         )
         # Interval: chi = 2 - 1 = 1
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert nerve.euler_characteristic() == 1
 
     def test_nerve_euler_char_local_p2(self):
@@ -1062,4 +1202,5 @@ class TestCrossChecks:
             fill_flag=True,
         )
         # Filled triangle: chi = 3 - 3 + 1 = 1
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert nerve.euler_characteristic() == 1

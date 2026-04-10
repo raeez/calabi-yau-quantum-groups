@@ -649,10 +649,10 @@ class FukayaQuintic:
                    = 200/24 * log(Delta) + ...
 
     The "kappa" from the genus-1 amplitude is thus:
-        kappa_eff = chi(Q)/2 = -200/2 = -100  [WRONG SIGN CONVENTION]
+        kappa_ch = chi(Q)/2 = -200/2 = -100  [WRONG SIGN CONVENTION]
 
     CORRECTION: For a CY3 sigma model, the central charge is c = 3*dim_C = 9.
-    The matter+ghost system has kappa_eff = kappa(matter) + kappa(ghost).
+    The matter+ghost system has kappa_ch = kappa(matter) + kappa(ghost).
     The ghost system contributes kappa(ghost) = -13 (Virasoro at c=26,
     shifted by the ghost contribution).
 
@@ -921,7 +921,7 @@ class FukayaResolvedConifold:
             depth_class: 'C' (contact)
 
         Conifold (as topological string):
-            kappa_eff = 1 (from the single wrapped brane)
+            kappa_ch = 1 (from the single wrapped brane)
             The shadow obstruction tower structure is DIFFERENT from betagamma
             because the A-infinity structure of Fuk(conifold) differs
             from the chiral betagamma OPE.

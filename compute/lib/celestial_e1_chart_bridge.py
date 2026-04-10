@@ -497,14 +497,14 @@ class MultiChartCelestialAlgebra:
         r"""Global leading soft theorem from chart decomposition.
 
         The global soft factor is:
-          S^{(0)} = kappa_global * sum_k (eps.p_k)/(q.p_k)
+          S^{(0)} = kappa_ch * sum_k (eps.p_k)/(q.p_k)
 
-        with kappa_global = sum kappa_alpha - sum kappa_wall.
+        with kappa_ch = sum kappa_alpha - sum kappa_wall.
         """
         kappa_g = self.global_kappa()
         return {
             "order": 0,
-            "kappa_global": kappa_g,
+            "kappa_ch": kappa_g,
             "chart_contributions": {
                 c.name: c.kappa_local for c in self.charts
             },
@@ -512,12 +512,12 @@ class MultiChartCelestialAlgebra:
                 w.name: w.kappa_wall_correction for w in self.walls
             },
             "formula": (
-                f"kappa_global = {kappa_g} = "
+                f"kappa_ch = {kappa_g} = "
                 + " + ".join(f"kappa_{c.name}" for c in self.charts)
                 + " - "
                 + " - ".join(f"kappa_{w.name}" for w in self.walls)
                 if self.walls else
-                f"kappa_global = {kappa_g}"
+                f"kappa_ch = {kappa_g}"
             ),
         }
 
@@ -555,7 +555,7 @@ class MultiChartCelestialAlgebra:
             "name": self.name,
             "num_charts": self.num_charts,
             "num_walls": self.num_walls,
-            "kappa_global": self.global_kappa(),
+            "kappa_ch": self.global_kappa(),
             "charts": {c.name: {"kappa": c.kappa_local,
                                 "num_bps": c.num_bps_states}
                        for c in self.charts},
@@ -1112,7 +1112,7 @@ def global_soft_theorem_from_charts(atlas: MultiChartCelestialAlgebra,
                                      order: int = 0) -> Dict[str, Any]:
     r"""Global soft theorem from chart decomposition.
 
-    Order 0: kappa_global = sum kappa_alpha - sum kappa_wall
+    Order 0: kappa_ch = sum kappa_alpha - sum kappa_wall
     Order 1: S_3^{global} = sum S_3^{alpha} + sum delta S_3^{wall}
     """
     if order == 0:
@@ -1138,7 +1138,7 @@ def soft_theorem_conifold() -> Dict[str, Any]:
         "geometry": "conifold",
         "leading": leading,
         "subleading": subleading,
-        "kappa_global": atlas.global_kappa(),
+        "kappa_ch": atlas.global_kappa(),
     }
 
 
@@ -1155,7 +1155,7 @@ def soft_theorem_local_p2() -> Dict[str, Any]:
         "geometry": "local_P^2",
         "leading": leading,
         "subleading": subleading,
-        "kappa_global": atlas.global_kappa(),
+        "kappa_ch": atlas.global_kappa(),
     }
 
 

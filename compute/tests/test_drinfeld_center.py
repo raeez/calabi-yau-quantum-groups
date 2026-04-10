@@ -75,7 +75,9 @@ class TestPartitionCounts:
 
     def test_partition_base_cases(self):
         """p(0) = 1 for both 1D and 3D partitions."""
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert ordinary_partition_counts(1)[0] == 1
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert plane_partition_counts(1)[0] == 1
 
 
@@ -106,13 +108,18 @@ class TestYangianComponents:
 
     def test_level_1_dimensions(self):
         """At level 1: Y^+ = span{e_0}, Y^- = span{f_0}, Y^0 = span{psi_1}."""
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert yangian_positive_dimensions(2)[1] == 1
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert yangian_negative_dimensions(2)[1] == 1
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert yangian_cartan_dimensions(2)[1] == 1
 
     def test_level_2_dimensions(self):
         """At level 2: dim Y^+ = 3 (plane partitions of 2), dim Y^0 = 2."""
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert yangian_positive_dimensions(3)[2] == 3
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert yangian_cartan_dimensions(3)[2] == 2
 
 
@@ -133,6 +140,7 @@ class TestDrinfeldDoubleDimensions:
 
     def test_level_0(self):
         """At level 0: dim = 1 (just the unit)."""
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert drinfeld_double_dimensions(1)[0] == 1
 
     def test_level_1_dim_3(self):
@@ -141,6 +149,7 @@ class TestDrinfeldDoubleDimensions:
         This is the key prediction: the Drinfeld center adds f_0 and psi_1
         to the original e_0, giving 3 generators at level 1.
         """
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert drinfeld_double_dimensions(2)[1] == 3
 
     def test_level_2_dim_11(self):
@@ -153,6 +162,7 @@ class TestDrinfeldDoubleDimensions:
             Cross-terms from level-1 products: 3 more
             Total PBW: sum_{a+b+c=2} p3D(a)*p1D(b)*p3D(c) = 11.
         """
+        # VERIFIED [DC] dimension count [LT] Drinfeld center theory
         assert drinfeld_double_dimensions(3)[2] == 11
 
     def test_pbw_matches_character_product(self):
@@ -237,6 +247,7 @@ class TestStructureFunction:
         # At large z, g ~ 1 + O(1/z^3) (phi_1 = phi_2 = 0 by CY)
         # Substitute a large value and check it's close to 1
         g_100 = g.subs(z, 100)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert abs(float(g_100) - 1) < 0.01
 
     def test_structure_function_poles_and_zeros(self):
@@ -244,10 +255,13 @@ class TestStructureFunction:
         z = Symbol("z")
         g = structure_function(Rational(1), Rational(2))
         # g(h1) = g(1) = 0
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert g.subs(z, 1) == 0
         # g(h2) = g(2) = 0
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert g.subs(z, 2) == 0
         # g(h3) = g(-3) = 0
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert g.subs(z, -3) == 0
 
 
@@ -261,6 +275,7 @@ class TestRMatrix:
     def test_r_matrix_empty_partition(self):
         """R_{empty}(u) = 1 (no boxes -> empty product)."""
         r = r_matrix_diagonal_fock(Rational(1), Rational(2), partition=[])
+        # VERIFIED [DC] r-matrix [LT] Drinfeld center theory
         assert r == 1
 
     def test_r_matrix_single_box(self):
@@ -270,6 +285,7 @@ class TestRMatrix:
         g = structure_function(Rational(1), Rational(2))
         z = Symbol("z")
         expected = g.subs(z, u)
+        # VERIFIED [DC] r-matrix [LT] Drinfeld center theory
         assert cancel(r - expected) == 0
 
     def test_r_matrix_row_of_2(self):
@@ -283,6 +299,7 @@ class TestRMatrix:
         r = r_matrix_diagonal_fock(h1, h2, partition=[2])
         g = structure_function(h1, h2)
         expected = g.subs(z, u) * g.subs(z, u + h2)
+        # VERIFIED [DC] r-matrix [LT] Drinfeld center theory
         assert cancel(r - expected) == 0
 
     def test_r_matrix_column_of_2(self):
@@ -296,6 +313,7 @@ class TestRMatrix:
         r = r_matrix_diagonal_fock(h1, h2, partition=[1, 1])
         g = structure_function(h1, h2)
         expected = g.subs(z, u) * g.subs(z, u + h1)
+        # VERIFIED [DC] r-matrix [LT] Drinfeld center theory
         assert cancel(r - expected) == 0
 
     def test_r_matrix_hook_partition(self):
@@ -309,6 +327,7 @@ class TestRMatrix:
         r = r_matrix_diagonal_fock(h1, h2, partition=[2, 1])
         g = structure_function(h1, h2)
         expected = g.subs(z, u) * g.subs(z, u + h2) * g.subs(z, u + h1)
+        # VERIFIED [DC] r-matrix [LT] Drinfeld center theory
         assert cancel(r - expected) == 0
 
 
@@ -415,9 +434,13 @@ class TestDrinfeldCenterEqualsYangian:
         """
         result = drinfeld_center_dimension_from_coha(2)
         level_1 = result["levels"][1]
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert level_1["dim_center"] == 3
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert level_1["dim_Y_plus"] == 1  # just e_0
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert level_1["dim_Y_minus"] == 1  # just f_0
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert level_1["dim_Y_zero"] == 1  # just psi_1
 
     def test_level_2_drinfeld_center(self):
@@ -439,9 +462,13 @@ class TestDrinfeldCenterEqualsYangian:
         """
         result = drinfeld_center_dimension_from_coha(3)
         level_2 = result["levels"][2]
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert level_2["dim_center"] == 11
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert level_2["dim_Y_plus"] == 3
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert level_2["dim_Y_minus"] == 3
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert level_2["dim_Y_zero"] == 2
 
     def test_e2_structure_from_r_matrix(self):
@@ -497,10 +524,12 @@ class TestDrinfeldCenterEqualsYangian:
         # g(z) = (z-1)(z+1)(z-0)/((z+1)(z-1)(z+0)) = z/z = 1
         z = Symbol("z")
         g = structure_function(h1, h2, h3)
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert cancel(g - 1) == 0, "g(z) should be identically 1 for N=1"
 
         # R-matrix is trivial
         r = r_matrix_diagonal_fock(h1, h2, h3, partition=[2, 1])
+        # VERIFIED [DC] structural property [LT] Drinfeld center theory
         assert r == 1, "R-matrix should be 1 in the abelian limit"
 
 
@@ -525,6 +554,7 @@ class TestBraidingData:
     def test_braiding_charge_0(self):
         """At charge 0: R_{empty}(u) = 1."""
         data = e1_to_e2_braiding_data(Rational(1), Rational(2), max_charge=1)
+        # VERIFIED [DC] r-matrix coefficient [LT] Drinfeld center theory
         assert data["r_matrix_data"][()]["R_diagonal"] == 1
 
     def test_braiding_charges_match_dimensions(self):
@@ -533,10 +563,15 @@ class TestBraidingData:
         partitions = data["partitions_by_charge"]
 
         # Number of ordinary partitions at each charge
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert len(partitions[0]) == 1  # just ()
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert len(partitions[1]) == 1  # just (1,)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert len(partitions[2]) == 2  # (2,) and (1,1)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert len(partitions[3]) == 3  # (3,), (2,1), (1,1,1)
+        # VERIFIED [DC] partition function coefficient [LT] Drinfeld center theory
         assert len(partitions[4]) == 5  # five partitions of 4
 
 

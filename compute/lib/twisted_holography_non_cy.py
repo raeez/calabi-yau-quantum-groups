@@ -137,17 +137,17 @@ MATHEMATICAL CONTENTS:
 
    For non-CY: the kappa formula must be MODIFIED to account for the
    anomalous contribution from the poles of omega:
-     kappa_eff = kappa_geom + delta * kappa_anom
+     kappa_ch = kappa_geom + delta * kappa_anom
    where:
      kappa_geom = chi(C)/2     (geometric contribution from the base)
      kappa_anom = 1/2           (anomalous contribution per unit defect)
      delta = a+b+2              (CY defect)
 
-   So kappa_eff = chi(P^1)/2 + delta/2 = 1 + (a+b+2)/2 = (a+b+4)/2.
+   So kappa_ch = chi(P^1)/2 + delta/2 = 1 + (a+b+2)/2 = (a+b+4)/2.
 
-   CHECK: For a+b = -2 (CY): kappa_eff = (-2+4)/2 = 1. Correct.
-   CHECK: For a+b = 0: kappa_eff = (0+4)/2 = 2.
-   CHECK: For a+b = -1: kappa_eff = (-1+4)/2 = 3/2.
+   CHECK: For a+b = -2 (CY): kappa_ch = (-2+4)/2 = 1. Correct.
+   CHECK: For a+b = 0: kappa_ch = (0+4)/2 = 2.
+   CHECK: For a+b = -1: kappa_ch = (-1+4)/2 = 3/2.
 
    The ANOMALOUS part delta * kappa_anom = (a+b+2)/2 is the additional
    contribution from the poles of omega. In the CY case it vanishes.
@@ -158,7 +158,7 @@ MATHEMATICAL CONTENTS:
    For E = O(a)+O(b) on P^1:
      chi(P^1, Sym^k(O(-a)+O(-b))) = sum_{i+j=k} chi(P^1, O(-ia-jb))
                                     = sum_{i+j=k} (1-ia-jb)    [by RR on P^1]
-   This gives a family-dependent result confirming that kappa_eff depends on
+   This gives a family-dependent result confirming that kappa_ch depends on
    a+b, not just on the CY condition.
 
 6. THE STRUCTURE FUNCTION (NON-CY DEFORMATION).
@@ -475,24 +475,24 @@ def kappa_anomalous(a: int, b: int, g_curve: int = 0) -> Fraction:
     return Fraction(delta, 2)
 
 
-def kappa_effective(a: int, b: int, g_curve: int = 0) -> Fraction:
+def kappa_ch(a: int, b: int, g_curve: int = 0) -> Fraction:
     r"""Effective kappa for the non-CY boundary algebra.
 
-    kappa_eff = kappa_geom + kappa_anom
+    kappa_ch = kappa_geom + kappa_anom
               = chi(C)/2 + delta/2
               = (chi(C) + delta) / 2
               = (2-2g + a+b - 2g+2) / 2
               = (a + b + 4 - 4g) / 2
 
-    For P^1 (g=0): kappa_eff = (a+b+4)/2.
+    For P^1 (g=0): kappa_ch = (a+b+4)/2.
 
     CHECKS:
-      O(-1)+O(-1) -> P^1: kappa_eff = (-2+4)/2 = 1. [CY, correct]
-      O(0)+O(0) -> P^1:   kappa_eff = (0+4)/2 = 2. [delta=2]
-      O(1)+O(-1) -> P^1:  kappa_eff = (0+4)/2 = 2. [delta=2]
-      O(-1)+O(0) -> P^1:  kappa_eff = (-1+4)/2 = 3/2. [delta=1]
-      O(-3)+O(1) -> P^1:  kappa_eff = (-2+4)/2 = 1. [CY]
-      O(-2)+O(0) -> P^1:  kappa_eff = (-2+4)/2 = 1. [CY]
+      O(-1)+O(-1) -> P^1: kappa_ch = (-2+4)/2 = 1. [CY, correct]
+      O(0)+O(0) -> P^1:   kappa_ch = (0+4)/2 = 2. [delta=2]
+      O(1)+O(-1) -> P^1:  kappa_ch = (0+4)/2 = 2. [delta=2]
+      O(-1)+O(0) -> P^1:  kappa_ch = (-1+4)/2 = 3/2. [delta=1]
+      O(-3)+O(1) -> P^1:  kappa_ch = (-2+4)/2 = 1. [CY]
+      O(-2)+O(0) -> P^1:  kappa_ch = (-2+4)/2 = 1. [CY]
 
     ALTERNATIVE DERIVATION via GRR:
       chi(Tot(E), O) counts holomorphic functions on the total space.
@@ -502,14 +502,14 @@ def kappa_effective(a: int, b: int, g_curve: int = 0) -> Fraction:
         chi(P^1, O(n)) = n+1 for n >= 0, and 0 for n = -1.
       The leading term (k=0) gives chi = 1.
       The k=1 term gives chi(O(-a)) + chi(O(-b)).
-      The generating function encodes kappa_eff.
+      The generating function encodes kappa_ch.
     """
     return kappa_geometric(g_curve) + kappa_anomalous(a, b, g_curve)
 
 
-def kappa_effective_p1(a: int, b: int) -> Fraction:
-    """Shorthand for kappa_eff on P^1: (a+b+4)/2."""
-    return kappa_effective(a, b, g_curve=0)
+def kappa_ch_p1(a: int, b: int) -> Fraction:
+    """Shorthand for kappa_ch on P^1: (a+b+4)/2."""
+    return kappa_ch(a, b, g_curve=0)
 
 
 def kappa_decomposition(a: int, b: int, g_curve: int = 0) -> Dict[str, Fraction]:
@@ -517,7 +517,7 @@ def kappa_decomposition(a: int, b: int, g_curve: int = 0) -> Dict[str, Fraction]
     return {
         'kappa_geometric': kappa_geometric(g_curve),
         'kappa_anomalous': kappa_anomalous(a, b, g_curve),
-        'kappa_effective': kappa_effective(a, b, g_curve),
+        'kappa_ch': kappa_ch(a, b, g_curve),
         'delta': Fraction(cy_defect(a, b, g_curve)),
     }
 
@@ -557,7 +557,7 @@ def koszul_dual_bundle(a: int, b: int, g_curve: int = 0
 def kappa_dual(a: int, b: int, g_curve: int = 0) -> Fraction:
     r"""Kappa of the Koszul dual boundary algebra.
 
-    kappa(A^!) = kappa_eff(E^!) where E^! = O(-a+2g-2) + O(-b+2g-2).
+    kappa(A^!) = kappa_ch(E^!) where E^! = O(-a+2g-2) + O(-b+2g-2).
 
     For P^1: kappa(A^!) = ((-a-2)+(-b-2)+4)/2 = -(a+b)/2.
 
@@ -594,30 +594,30 @@ def kappa_dual(a: int, b: int, g_curve: int = 0) -> Fraction:
     of the NORMAL BUNDLE, not the Omega-parameters, but the pole residue
     inherits the sign of the 3-form, which is odd under reflection.
 
-    So kappa(A^!) = -kappa_eff = -(kappa_geom + kappa_anom).
+    So kappa(A^!) = -kappa_ch = -(kappa_geom + kappa_anom).
     This gives kappa + kappa^! = 0 for ALL bundles, CY or not.
 
     The complementarity pairing is PRESERVED in the non-CY setting
     (for this family: free field / Heisenberg type).
     """
-    return -kappa_effective(a, b, g_curve)
+    return -kappa_ch(a, b, g_curve)
 
 
 def complementarity_sum(a: int, b: int, g_curve: int = 0) -> Fraction:
     r"""Complementarity sum kappa(A) + kappa(A^!) for the non-CY family.
 
     For the E_1 Koszul duality with parameter reflection:
-      kappa(A) + kappa(A^!) = kappa_eff + (-kappa_eff) = 0.
+      kappa(A) + kappa(A^!) = kappa_ch + (-kappa_ch) = 0.
 
     This holds for the free field / Heisenberg family where the
     associative Koszul dual is obtained by parameter negation.
     """
-    return kappa_effective(a, b, g_curve) + kappa_dual(a, b, g_curve)
+    return kappa_ch(a, b, g_curve) + kappa_dual(a, b, g_curve)
 
 
 def complementarity_check(a: int, b: int, g_curve: int = 0) -> Dict[str, Any]:
     """Full complementarity check for Tot(O(a)+O(b)->C_g)."""
-    k = kappa_effective(a, b, g_curve)
+    k = kappa_ch(a, b, g_curve)
     k_dual = kappa_dual(a, b, g_curve)
     s = k + k_dual
 
@@ -859,26 +859,26 @@ def faber_pandharipande_exact(g: int) -> Fraction:
 def genus_free_energy(a: int, b: int, g: int, g_curve: int = 0) -> Fraction:
     r"""Genus-g free energy F_g for the non-CY boundary algebra.
 
-    F_g = kappa_eff * lambda_g + delta * correction_g
+    F_g = kappa_ch * lambda_g + delta * correction_g
 
     For the SCALAR SHADOW (uniform-weight lane):
-      F_g = kappa_eff * lambda_g
-    where kappa_eff includes the anomalous correction.
+      F_g = kappa_ch * lambda_g
+    where kappa_ch includes the anomalous correction.
 
     For CY (delta=0): F_g = kappa_geom * lambda_g (standard result).
 
-    The anomalous correction is already absorbed into kappa_eff,
+    The anomalous correction is already absorbed into kappa_ch,
     so at the scalar level:
-      F_g^{non-CY} = kappa_eff * lambda_g = (kappa_geom + delta/2) * lambda_g
+      F_g^{non-CY} = kappa_ch * lambda_g = (kappa_geom + delta/2) * lambda_g
     """
-    k_eff = kappa_effective(a, b, g_curve)
+    k_eff = kappa_ch(a, b, g_curve)
     lam_g = faber_pandharipande_exact(g)
     return k_eff * lam_g
 
 
 def genus_1_free_energy(a: int, b: int, g_curve: int = 0) -> Fraction:
-    """Genus-1 free energy: F_1 = kappa_eff / 24."""
-    return kappa_effective(a, b, g_curve) * Fraction(1, 24)
+    """Genus-1 free energy: F_1 = kappa_ch / 24."""
+    return kappa_ch(a, b, g_curve) * Fraction(1, 24)
 
 
 def genus_expansion_table(a: int, b: int, max_genus: int = 5,
@@ -890,14 +890,14 @@ def genus_expansion_table(a: int, b: int, max_genus: int = 5,
 def anomaly_ratio(a: int, b: int, g: int, g_curve: int = 0) -> Optional[Fraction]:
     r"""Ratio F_g^{non-CY} / F_g^{CY} measuring the anomalous enhancement.
 
-    F_g^{non-CY} / F_g^{CY} = kappa_eff / kappa_CY
+    F_g^{non-CY} / F_g^{CY} = kappa_ch / kappa_CY
 
     This ratio is GENUS-INDEPENDENT (at the scalar shadow level), which
     is a nontrivial consistency check: the anomaly enters only through kappa.
 
     Returns None if the CY free energy vanishes (kappa_CY = 0).
     """
-    k_eff = kappa_effective(a, b, g_curve)
+    k_eff = kappa_ch(a, b, g_curve)
     # CY version: use a reference CY bundle with same base
     # For P^1: CY is a+b = -2, giving kappa_CY = 1
     k_cy = kappa_geometric(g_curve)  # = chi(C)/2
@@ -916,7 +916,7 @@ def example_trivial_bundle() -> Dict[str, Any]:
     delta = 0+0+2 = 2. Maximally anomalous simple case.
     Trivial normal bundle. Not CY.
 
-    kappa_eff = (0+0+4)/2 = 2.
+    kappa_ch = (0+0+4)/2 = 2.
     Pole order of omega: 2 (double pole at infinity).
     """
     a, b = 0, 0
@@ -927,7 +927,7 @@ def example_trivial_bundle() -> Dict[str, Any]:
         'bundle': f'O({a}) + O({b}) -> P^1',
         'cy_defect': delta,
         'is_cy': False,
-        'kappa_eff': kappa_effective_p1(a, b),
+        'kappa_ch': kappa_ch_p1(a, b),
         'pole_order': three_form_pole_order(a, b),
         'three_form_type': three_form_type(a, b),
         'curvature': curvature_class(a, b),
@@ -940,10 +940,10 @@ def example_balanced_not_cy() -> Dict[str, Any]:
     r"""Tot(O(1)+O(-1) -> P^1).
 
     a+b = 0, delta = 2. Balanced (det(E) = O) but NOT CY.
-    kappa_eff = (0+4)/2 = 2.
+    kappa_ch = (0+4)/2 = 2.
 
     NOTE: O(1)+O(-1) and O(0)+O(0) have the SAME CY defect (delta=2)
-    and the SAME kappa_eff (=2), even though they are non-isomorphic
+    and the SAME kappa_ch (=2), even though they are non-isomorphic
     as bundles. The shadow invariants depend only on delta (and the base),
     not on the individual degrees (a,b).
     """
@@ -955,12 +955,12 @@ def example_balanced_not_cy() -> Dict[str, Any]:
         'bundle': f'O({a}) + O({b}) -> P^1',
         'cy_defect': delta,
         'is_cy': False,
-        'kappa_eff': kappa_effective_p1(a, b),
+        'kappa_ch': kappa_ch_p1(a, b),
         'pole_order': three_form_pole_order(a, b),
         'three_form_type': three_form_type(a, b),
         'F_1': genus_1_free_energy(a, b),
         'same_kappa_as_trivial': (
-            kappa_effective_p1(a, b) == kappa_effective_p1(0, 0)
+            kappa_ch_p1(a, b) == kappa_ch_p1(0, 0)
         ),
     }
 
@@ -969,7 +969,7 @@ def example_almost_cy() -> Dict[str, Any]:
     r"""Tot(O(-1)+O(0) -> P^1).
 
     a+b = -1, delta = 1. Almost CY. Minimal anomaly.
-    kappa_eff = (-1+4)/2 = 3/2.
+    kappa_ch = (-1+4)/2 = 3/2.
     """
     a, b = -1, 0
     delta = cy_defect_p1(a, b)
@@ -979,7 +979,7 @@ def example_almost_cy() -> Dict[str, Any]:
         'bundle': f'O({a}) + O({b}) -> P^1',
         'cy_defect': delta,
         'is_cy': False,
-        'kappa_eff': kappa_effective_p1(a, b),
+        'kappa_ch': kappa_ch_p1(a, b),
         'pole_order': three_form_pole_order(a, b),
         'three_form_type': three_form_type(a, b),
         'F_1': genus_1_free_energy(a, b),
@@ -990,7 +990,7 @@ def example_resolved_conifold() -> Dict[str, Any]:
     r"""Tot(O(-1)+O(-1) -> P^1) = resolved conifold.
 
     a+b = -2, delta = 0. CY. Standard Costello-Li story.
-    kappa_eff = (-2+4)/2 = 1.
+    kappa_ch = (-2+4)/2 = 1.
     """
     a, b = -1, -1
     delta = cy_defect_p1(a, b)
@@ -1000,7 +1000,7 @@ def example_resolved_conifold() -> Dict[str, Any]:
         'bundle': f'O({a}) + O({b}) -> P^1',
         'cy_defect': delta,
         'is_cy': True,
-        'kappa_eff': kappa_effective_p1(a, b),
+        'kappa_ch': kappa_ch_p1(a, b),
         'pole_order': three_form_pole_order(a, b),
         'three_form_type': three_form_type(a, b),
         'F_1': genus_1_free_energy(a, b),
@@ -1011,7 +1011,7 @@ def example_negative_defect() -> Dict[str, Any]:
     r"""Tot(O(-2)+O(-1) -> P^1).
 
     a+b = -3, delta = -1. Negative defect: omega has ZEROS.
-    kappa_eff = (-3+4)/2 = 1/2.
+    kappa_ch = (-3+4)/2 = 1/2.
     Three-form is holomorphic but VANISHING along a divisor.
     """
     a, b = -2, -1
@@ -1022,7 +1022,7 @@ def example_negative_defect() -> Dict[str, Any]:
         'bundle': f'O({a}) + O({b}) -> P^1',
         'cy_defect': delta,
         'is_cy': False,
-        'kappa_eff': kappa_effective_p1(a, b),
+        'kappa_ch': kappa_ch_p1(a, b),
         'pole_order': three_form_pole_order(a, b),
         'zero_order': three_form_zero_order(a, b),
         'three_form_type': three_form_type(a, b),
@@ -1041,7 +1041,7 @@ def anomaly_landscape_p1(a_range: range = range(-5, 6),
 
     For each pair (a,b) with a <= b, computes:
     - CY defect delta
-    - kappa_eff
+    - kappa_ch
     - Three-form type
     - Shadow class
     """
@@ -1062,7 +1062,7 @@ def anomaly_landscape_p1(a_range: range = range(-5, 6),
                 'a': a, 'b': b,
                 'delta': delta,
                 'is_cy': (delta == 0),
-                'kappa_eff': kappa_effective_p1(a, b),
+                'kappa_ch': kappa_ch_p1(a, b),
                 'three_form_type': three_form_type(a, b),
                 'pole_order': three_form_pole_order(a, b),
             })
@@ -1077,11 +1077,11 @@ def count_by_defect(landscape: List[Dict[str, Any]]) -> Dict[int, int]:
 
 
 def kappa_by_defect(a_range: range = range(-5, 6)) -> Dict[int, List[Fraction]]:
-    r"""Group kappa_eff values by CY defect.
+    r"""Group kappa_ch values by CY defect.
 
-    Key observation: kappa_eff depends only on a+b (i.e., on delta),
+    Key observation: kappa_ch depends only on a+b (i.e., on delta),
     not on the individual values (a, b). So all bundles with the same
-    defect have the same kappa_eff.
+    defect have the same kappa_ch.
     """
     result: Dict[int, List[Fraction]] = {}
     for a in a_range:
@@ -1089,7 +1089,7 @@ def kappa_by_defect(a_range: range = range(-5, 6)) -> Dict[int, List[Fraction]]:
             if a > b:
                 continue
             delta = cy_defect_p1(a, b)
-            k = kappa_effective_p1(a, b)
+            k = kappa_ch_p1(a, b)
             if delta not in result:
                 result[delta] = []
             if k not in result[delta]:
@@ -1103,20 +1103,20 @@ def kappa_by_defect(a_range: range = range(-5, 6)) -> Dict[int, List[Fraction]]:
 
 def kappa_depends_only_on_sum(a1: int, b1: int, a2: int, b2: int,
                               g_curve: int = 0) -> bool:
-    r"""Verify that kappa_eff depends only on a+b (not on a,b individually).
+    r"""Verify that kappa_ch depends only on a+b (not on a,b individually).
 
-    This is a key structural property: kappa_eff = (a+b+4-4g)/2.
+    This is a key structural property: kappa_ch = (a+b+4-4g)/2.
     """
     if a1 + b1 != a2 + b2:
         return True  # different sums, allowed to differ
-    return kappa_effective(a1, b1, g_curve) == kappa_effective(a2, b2, g_curve)
+    return kappa_ch(a1, b1, g_curve) == kappa_ch(a2, b2, g_curve)
 
 
 def genus_independence_of_ratio(a: int, b: int, max_genus: int = 4,
                                 g_curve: int = 0) -> bool:
     r"""Verify that F_g^{non-CY}/F_g^{CY} is genus-independent.
 
-    At the scalar shadow level, the ratio is kappa_eff/kappa_CY,
+    At the scalar shadow level, the ratio is kappa_ch/kappa_CY,
     which does not depend on g. This is a nontrivial check of the
     scalar shadow structure.
     """
@@ -1136,9 +1136,9 @@ def anomaly_additivity(a1: int, b1: int, a2: int, b2: int,
     r"""Check additivity of the anomalous kappa under direct sum.
 
     For independent systems (tensor product of theories):
-      kappa_eff(E_1 + E_2) should relate to kappa_eff(E_1) and kappa_eff(E_2).
+      kappa_ch(E_1 + E_2) should relate to kappa_ch(E_1) and kappa_ch(E_2).
 
-    NOTE: This is NOT the same as kappa_eff(a1+a2, b1+b2). The direct
+    NOTE: This is NOT the same as kappa_ch(a1+a2, b1+b2). The direct
     sum of bundles O(a1)+O(b1) and O(a2)+O(b2) is a rank-4 bundle,
     giving a 5-fold, not a 3-fold. The relevant additivity is at the
     level of the CS coupling, not the bundle.
@@ -1146,8 +1146,8 @@ def anomaly_additivity(a1: int, b1: int, a2: int, b2: int,
     For the DEFECT: delta is additive under "stacking" (placing two
     CS theories on the same base curve):
       delta_total = delta_1 + delta_2    (defects add)
-    And kappa_eff is linear in delta:
-      kappa_eff = chi(C)/2 + delta/2
+    And kappa_ch is linear in delta:
+      kappa_ch = chi(C)/2 + delta/2
     So kappa contributions from the anomaly are additive.
     """
     d1 = cy_defect(a1, b1, g_curve)
@@ -1195,7 +1195,7 @@ def elliptic_base_examples() -> List[Dict[str, Any]]:
             'bundle': f'O({a}) + O({b}) -> E',
             'delta': delta,
             'is_cy': (delta == 0),
-            'kappa_eff': kappa_effective(a, b, g_curve=1),
+            'kappa_ch': kappa_ch(a, b, g_curve=1),
             'kappa_geom': kappa_geometric(g_curve=1),
             'kappa_anom': kappa_anomalous(a, b, g_curve=1),
         })
@@ -1211,7 +1211,7 @@ def higher_genus_base(a: int, b: int, g_curve: int) -> Dict[str, Any]:
 
     CY condition: a+b = 2g-2.
     delta = a+b - (2g-2).
-    kappa_eff = (a+b+4-4g)/2 = (2-2g)/2 + delta/2 = (1-g) + delta/2.
+    kappa_ch = (a+b+4-4g)/2 = (2-2g)/2 + delta/2 = (1-g) + delta/2.
 
     For g >= 2: kappa_geom = (2-2g)/2 < 0 (negative geometric contribution).
     The total kappa can be zero or negative even for Fano-type defects.
@@ -1219,7 +1219,7 @@ def higher_genus_base(a: int, b: int, g_curve: int) -> Dict[str, Any]:
     delta = cy_defect(a, b, g_curve)
     k_geom = kappa_geometric(g_curve)
     k_anom = kappa_anomalous(a, b, g_curve)
-    k_eff = kappa_effective(a, b, g_curve)
+    k_eff = kappa_ch(a, b, g_curve)
     cy_ab = 2 * g_curve - 2  # CY value of a+b
 
     return {
@@ -1231,7 +1231,7 @@ def higher_genus_base(a: int, b: int, g_curve: int) -> Dict[str, Any]:
         'is_cy': (delta == 0),
         'kappa_geometric': k_geom,
         'kappa_anomalous': k_anom,
-        'kappa_effective': k_eff,
+        'kappa_ch': k_eff,
         'F_1': k_eff * Fraction(1, 24) if k_eff != 0 else Fraction(0),
     }
 
@@ -1259,7 +1259,7 @@ def holographic_datum_non_cy(a: int, b: int, g_curve: int = 0,
       (vi)  nabla_X = shadow connection (not flat when delta != 0)
     """
     delta = cy_defect(a, b, g_curve)
-    k_eff = kappa_effective(a, b, g_curve)
+    k_eff = kappa_ch(a, b, g_curve)
     k_dual = kappa_dual(a, b, g_curve)
     r_coeffs = r_matrix_non_cy(h1, h2, delta, max_order=8)
 
@@ -1291,7 +1291,7 @@ def holographic_datum_non_cy(a: int, b: int, g_curve: int = 0,
             '(v) Theta': {
                 'type': 'MC element (possibly curved)',
                 'curvature': delta,
-                'kappa_effective': k_eff,
+                'kappa_ch': k_eff,
             },
             '(vi) nabla': {
                 'type': 'shadow connection',
@@ -1326,7 +1326,7 @@ def deformation_family_p1(a_start: int = -1, b_start: int = -1,
             'step': t,
             'a': a_t, 'b': b_t,
             'delta': delta,
-            'kappa_eff': kappa_effective_p1(a_t, b_t),
+            'kappa_ch': kappa_ch_p1(a_t, b_t),
             'is_cy': (delta == 0),
             'F_1': genus_1_free_energy(a_t, b_t),
         })
@@ -1389,7 +1389,7 @@ def non_cy_holography_summary(a: int, b: int, g_curve: int = 0
     complementarity, curvature, structure function properties.
     """
     delta = cy_defect(a, b, g_curve)
-    k_eff = kappa_effective(a, b, g_curve)
+    k_eff = kappa_ch(a, b, g_curve)
 
     return {
         'geometry': {
@@ -1403,7 +1403,7 @@ def non_cy_holography_summary(a: int, b: int, g_curve: int = 0
         'modular_data': {
             'kappa_geometric': kappa_geometric(g_curve),
             'kappa_anomalous': kappa_anomalous(a, b, g_curve),
-            'kappa_effective': k_eff,
+            'kappa_ch': k_eff,
             'complementarity_sum': complementarity_sum(a, b, g_curve),
         },
         'genus_expansion': genus_expansion_table(a, b, max_genus=3, g_curve=g_curve),

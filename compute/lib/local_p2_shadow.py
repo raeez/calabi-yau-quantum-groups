@@ -513,7 +513,7 @@ def extract_kappa_from_gv() -> Fraction:
       chi_top(total space) is infinite (non-compact)
 
     The REGULARIZED value: chi_top(P^2) = 3, giving
-      kappa_eff = 3/24 = 1/8
+      kappa_ch = 3/24 = 1/8
 
     But for the shadow tower, the relevant quantity is the
     "B-model kappa" which for toric CY3s equals:

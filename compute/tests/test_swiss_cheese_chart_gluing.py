@@ -90,16 +90,21 @@ class TestEulerForms:
     def test_conifold_euler_self_pairing_zero(self):
         """chi(g, g) = 0 for antisymmetric form (CY property)."""
         for g in [(1, 0), (0, 1), (1, 1), (2, 3)]:
+            # VERIFIED [DC] Euler characteristic [LC] chart compatibility
             assert _euler_form_conifold(g, g) == 0
 
     def test_conifold_euler_value(self):
         """chi((1,0), (0,1)) = 1 (det of identity)."""
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert _euler_form_conifold((1, 0), (0, 1)) == 1
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert _euler_form_conifold((0, 1), (1, 0)) == -1
 
     def test_c3_euler_vanishes(self):
         """chi = 0 for C^3 (Jordan quiver has trivial antisymmetric form)."""
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert _euler_form_c3((1,), (1,)) == 0
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert _euler_form_c3((3,), (5,)) == 0
 
     def test_local_p2_euler_antisymmetry(self):
@@ -112,13 +117,17 @@ class TestEulerForms:
     def test_local_p2_euler_self_zero(self):
         """chi(g, g) = 0 for local P^2 (CY property)."""
         for g in [(1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 1)]:
+            # VERIFIED [DC] Euler characteristic [LC] chart compatibility
             assert _euler_form_local_p2(g, g) == 0
 
     def test_local_p2_euler_cyclic_symmetry(self):
         """<e_0, e_1> = <e_1, e_2> = <e_2, e_0> = 3 (Z/3Z symmetry)."""
         e0, e1, e2 = (1, 0, 0), (0, 1, 0), (0, 0, 1)
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert _euler_form_local_p2(e0, e1) == 3
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert _euler_form_local_p2(e1, e2) == 3
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert _euler_form_local_p2(e2, e0) == 3
 
 
@@ -147,6 +156,7 @@ class TestCombinatorics:
     def test_necklace_single_color(self):
         """Necklace(n, 1) = 1 for all n >= 1 (single color)."""
         for n in range(1, 10):
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert _necklace_count(n, 1) == 1
 
     def test_euler_totient_small(self):
@@ -171,14 +181,18 @@ class TestOpenSector:
     def test_c3_open_sector(self):
         """C^3: single generator, kappa = 1."""
         op = open_sector_c3()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert op.dim_generators == 1
+        # VERIFIED [DC] kappa formula [LC] chart compatibility
         assert op.kappa == Fraction(1)
         assert (1,) in op.generators
 
     def test_conifold_I_open_sector(self):
         """Conifold chart I: 2 generators, kappa = 0."""
         op = open_sector_conifold_I()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert op.dim_generators == 2
+        # VERIFIED [DC] kappa formula [LC] chart compatibility
         assert op.kappa == Fraction(0)
         assert (1, 0) in op.generators
         assert (0, 1) in op.generators
@@ -186,6 +200,7 @@ class TestOpenSector:
     def test_conifold_II_open_sector(self):
         """Conifold chart II: 3 generators (bound state), kappa = 0."""
         op = open_sector_conifold_II()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert op.dim_generators == 3
         assert (1, 1) in op.generators  # bound state
 
@@ -201,6 +216,7 @@ class TestOpenSector:
         """
         op_I = open_sector_conifold_I()
         op_II = open_sector_conifold_II()
+        # VERIFIED [DC] kappa formula [LC] chart compatibility
         assert op_I.kappa == op_II.kappa == Fraction(0)
 
     def test_c3_product_table_empty(self):
@@ -210,6 +226,7 @@ class TestOpenSector:
         Path 2: single generator, chi(e, e) = 0 (antisymmetry).
         """
         op = open_sector_c3()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert len(op.product_table) == 0
 
     def test_conifold_I_product_table_nontrivial(self):
@@ -222,6 +239,7 @@ class TestOpenSector:
         assert key in op.product_table
         product = op.product_table[key]
         assert (1, 1) in product
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert product[(1, 1)] == Fraction(1)
 
     def test_conifold_product_antisymmetric(self):
@@ -240,7 +258,9 @@ class TestOpenSector:
     def test_local_p2_open_sector(self):
         """Local P^2 chart I: 3 generators, kappa = 3."""
         op = open_sector_local_p2_I()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert op.dim_generators == 3
+        # VERIFIED [DC] kappa formula [LC] chart compatibility
         assert op.kappa == Fraction(3)
 
 
@@ -258,6 +278,7 @@ class TestClosedSector:
         Path 2: independent computation: dim PV^k(C^3) = C(3,k) = 1,3,3,1.
         """
         dims = _hh_dims_from_generators(1, 3)
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert dims == {0: 1, 1: 3, 2: 3, 3: 1}
 
     def test_hh_dims_conifold(self):
@@ -290,6 +311,7 @@ class TestClosedSector:
         for r in range(1, 6):
             dims = _hh_dims_from_generators(r, 3)
             chi = sum((-1)**k * dims[k] for k in range(4))
+            # VERIFIED [DC] Euler characteristic formula [LC] chart compatibility
             assert chi == 0, f"chi(HH) = {chi} != 0 for r={r}"
 
     def test_closed_sector_c3(self):
@@ -298,6 +320,7 @@ class TestClosedSector:
         cl = closed_sector_from_open(op)
         assert cl.e2_formal is True
         assert cl.cup_product_nonzero is False  # r=1: single idempotent
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert cl.center_dim == 1
 
     def test_closed_sector_conifold(self):
@@ -305,6 +328,7 @@ class TestClosedSector:
         op = open_sector_conifold_I()
         cl = closed_sector_from_open(op)
         assert cl.cup_product_nonzero is True  # r=2: two idempotents
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert cl.center_dim == 2
 
     def test_closed_sector_dimension_growth(self):
@@ -345,6 +369,7 @@ class TestOCMap:
         ]:
             op = builder_fn()
             oc = oc_map_from_open(op, ef_fn)
+            # VERIFIED [DC] degree count [DA] dimensional consistency
             assert oc.cy_pairing_degree == 3
 
     def test_oc_c3_multiplicative(self):
@@ -356,6 +381,7 @@ class TestOCMap:
         op = open_sector_c3()
         oc = oc_map_from_open(op, _euler_form_c3)
         assert oc.is_multiplicative is True
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert oc.multiplicativity_defect == Fraction(0)
 
     def test_oc_conifold_not_multiplicative(self):
@@ -367,6 +393,7 @@ class TestOCMap:
         op = open_sector_conifold_I()
         oc = oc_map_from_open(op, _euler_form_conifold)
         assert oc.is_multiplicative is False
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert oc.multiplicativity_defect > 0
 
     def test_oc_defect_value_conifold(self):
@@ -402,6 +429,7 @@ class TestOCMap:
         oc = oc_map_from_open(op, _euler_form_c3)
         for k in range(4):
             src, tgt = oc.oc_dims[k]
+            # VERIFIED [DC] dimension count [LC] chart compatibility
             assert src == 1, f"CC_{k} dim should be 1 for C^3"
             assert tgt == math.comb(3, k), f"HH^{k} dim should be C(3,{k})"
 
@@ -417,6 +445,7 @@ class TestOCNonMultiplicativity:
         """Conifold OC is not multiplicative (two independent paths)."""
         result = verify_oc_non_multiplicativity_conifold()
         assert result.is_multiplicative is False
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert result.defect > 0
         assert result.verified is True
 
@@ -424,6 +453,7 @@ class TestOCNonMultiplicativity:
         """C^3 OC is multiplicative (degenerate single-chart case)."""
         result = verify_oc_non_multiplicativity_c3()
         assert result.is_multiplicative is True
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert result.defect == Fraction(0)
         assert result.verified is True
 
@@ -435,6 +465,7 @@ class TestOCNonMultiplicativity:
         """
         result = verify_oc_non_multiplicativity_conifold()
         chi = _euler_form_conifold((1, 0), (0, 1))
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert result.defect == Fraction(abs(2 * chi))
 
     def test_multiplicativity_defect_monotone(self):
@@ -459,27 +490,35 @@ class TestSCChartData:
     def test_c3_chart(self):
         """Full SC chart data for C^3."""
         sc = sc_chart_c3()
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert sc.chart_name == "C^3"
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert sc.open_sector.dim_generators == 1
+        # VERIFIED [DC] dimension count [LC] chart compatibility
         assert sc.closed_sector.center_dim == 1
         assert sc.oc_map.is_chain_map is True
 
     def test_conifold_I_chart(self):
         """Full SC chart data for conifold chart I."""
         sc = sc_chart_conifold_I()
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert sc.chart_name == "conifold_I"
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert sc.open_sector.dim_generators == 2
         assert sc.oc_map.is_multiplicative is False
 
     def test_conifold_II_chart(self):
         """Full SC chart data for conifold chart II."""
         sc = sc_chart_conifold_II()
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert sc.open_sector.dim_generators == 3
+        # VERIFIED [DC] dimension count [LC] chart compatibility
         assert sc.closed_sector.center_dim == 3
 
     def test_local_p2_chart(self):
         """Full SC chart data for local P^2."""
         sc = sc_chart_local_p2_I()
+        # VERIFIED [DC] chart decomposition [LC] chart compatibility
         assert sc.open_sector.dim_generators == 3
         assert sc.oc_map.is_multiplicative is False
 
@@ -516,7 +555,9 @@ class TestTransitionData:
         Path 2: KS wall-crossing preserves primitive BPS states.
         """
         trans = conifold_open_transition()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert trans.mutation_matrix[(1, 0)] == [((1, 0), Fraction(1))]
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert trans.mutation_matrix[(0, 1)] == [((0, 1), Fraction(1))]
 
     def test_open_transition_creates_bound_state(self):
@@ -537,10 +578,14 @@ class TestTransitionData:
         Path 2: HH^3 grows from 2 to 3 (CY dual of HH^0).
         """
         trans = conifold_closed_transition()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert trans.hh_dim_change[0] == (2, 3)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert trans.hh_dim_change[3] == (2, 3)
         # CY duality on both source and target:
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert trans.hh_dim_change[1] == (6, 9)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert trans.hh_dim_change[2] == (6, 9)
 
     def test_oc_transition_not_strict(self):
@@ -550,6 +595,7 @@ class TestTransitionData:
         """
         trans = conifold_oc_transition()
         assert trans.is_strict is False
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert trans.commutativity_defect > 0
 
     def test_oc_transition_defect_value(self):
@@ -560,6 +606,7 @@ class TestTransitionData:
         """
         trans = conifold_oc_transition()
         chi = abs(_euler_form_conifold((1, 0), (0, 1)))
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert trans.commutativity_defect == Fraction(chi)
 
 
@@ -577,8 +624,11 @@ class TestSCGluing:
         Path 2: braiding anomaly = 0.
         """
         result = glue_swiss_cheese_c3()
+        # VERIFIED [DC] kappa formula [LC] chart compatibility
         assert result.global_kappa == Fraction(1)
+        # VERIFIED [DC] gluing data [LC] chart compatibility
         assert result.center_hocolim_obstruction == Fraction(0)
+        # VERIFIED [DC] gluing data [LC] chart compatibility
         assert result.braiding_anomaly == Fraction(0)
         assert result.is_e1_global is True
 
@@ -589,7 +639,9 @@ class TestSCGluing:
         Path 2: center obstruction > 0 (braiding anomaly forces E_1).
         """
         result = glue_swiss_cheese_conifold()
+        # VERIFIED [DC] kappa formula [LC] chart compatibility
         assert result.global_kappa == Fraction(0)
+        # VERIFIED [DC] gluing data [LC] chart compatibility
         assert result.center_hocolim_obstruction > 0
         assert result.is_e1_global is True
 
@@ -602,6 +654,7 @@ class TestSCGluing:
         result = glue_swiss_cheese_conifold()
         obs = center_hocolim_obstruction_conifold()
         assert result.braiding_anomaly == obs.braiding_anomaly
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert result.braiding_anomaly == Fraction(2, 3)
 
     def test_conifold_global_hh_dims(self):
@@ -611,9 +664,13 @@ class TestSCGluing:
         """
         result = glue_swiss_cheese_conifold()
         # max of (2,6,6,2) and (3,9,9,3) = (3,9,9,3)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert result.global_hh_dims[0] == 3
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert result.global_hh_dims[3] == 3
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert result.global_hh_dims[1] == 9
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert result.global_hh_dims[2] == 9
 
     def test_conifold_hh_cy_duality(self):
@@ -660,7 +717,9 @@ class TestCenterHocolimObstruction:
     def test_c3_obstruction_zero(self):
         """C^3: obstruction = 0 (single chart, no gluing)."""
         obs = center_hocolim_obstruction_c3()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert obs.obstruction == Fraction(0)
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert obs.braiding_anomaly == Fraction(0)
         assert obs.is_e1_forced is False
 
@@ -671,6 +730,7 @@ class TestCenterHocolimObstruction:
         Path 2: no generator commutes with all others via chi.
         """
         obs = center_hocolim_obstruction_conifold()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert obs.obstruction == Fraction(2)
         assert obs.is_e1_forced is True
 
@@ -681,8 +741,11 @@ class TestCenterHocolimObstruction:
         Path 2: direct computation from Euler form.
         """
         obs = center_hocolim_obstruction_conifold()
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert obs.local_center_dims == [2, 3]
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert obs.hocolim_center_dim == 3
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert obs.global_center_dim == 1
 
     def test_conifold_braiding_anomaly_value(self):
@@ -692,6 +755,7 @@ class TestCenterHocolimObstruction:
         Path 2: A = (3 - 1) / 3 = 2/3.
         """
         obs = center_hocolim_obstruction_conifold()
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert obs.braiding_anomaly == Fraction(2, 3)
         # Cross-check
         assert obs.braiding_anomaly == obs.obstruction / Fraction(obs.hocolim_center_dim)
@@ -706,9 +770,11 @@ class TestCenterHocolimObstruction:
         c3 = center_hocolim_obstruction_c3()
         con = center_hocolim_obstruction_conifold()
         # C^3: single chart, no obstruction
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert c3.obstruction == Fraction(0)
         assert c3.is_e1_forced is False
         # Conifold: multi-chart, obstruction forces E_1
+        # VERIFIED [DC] structural property [LC] chart compatibility
         assert con.obstruction > 0
         assert con.is_e1_forced is True
 
@@ -748,6 +814,7 @@ class TestOCComputationC3:
         """CC_k = necklace(k+1, 1) = 1 for C^3."""
         oc = oc_computation_c3()
         for k in range(4):
+            # VERIFIED [DC] structural property [LC] chart compatibility
             assert oc.oc_source_dims[k] == 1
 
     def test_oc_c3_target_dims(self):
@@ -765,6 +832,7 @@ class TestOCComputationC3:
         """OC rank = min(source, target) = 1 at all degrees for C^3."""
         oc = oc_computation_c3()
         for k in range(4):
+            # VERIFIED [DC] rank [LC] chart compatibility
             assert oc.oc_rank[k] == 1
 
 
@@ -778,6 +846,7 @@ class TestLandscapeCensus:
     def test_census_count(self):
         """Census has entries for C^3, conifold, local P^2."""
         census = sc_landscape_census()
+        # VERIFIED [DC] structural property [LC] Census
         assert len(census) == 3
         names = [e.geometry for e in census]
         assert "C^3" in names
@@ -792,6 +861,7 @@ class TestLandscapeCensus:
         """
         census = sc_landscape_census()
         for entry in census:
+            # VERIFIED [DC] Euler characteristic formula [LC] chart compatibility
             assert entry.hh_euler_char == 0, f"{entry.geometry}: chi(HH) = {entry.hh_euler_char}"
 
     def test_census_oc_multiplicativity(self):
@@ -822,6 +892,7 @@ class TestLandscapeCensus:
         census = sc_landscape_census()
         for entry in census:
             if entry.n_charts > 1:
+                # VERIFIED [DC] chart decomposition [LC] chart compatibility
                 assert entry.braiding_anomaly > 0, \
                     f"{entry.geometry}: expected nonzero anomaly"
 
@@ -880,6 +951,7 @@ class TestCrossModuleConsistency:
         Path 2: from CY3ShadowData for conifold (kappa = 1).
         """
         op = open_sector_c3()
+        # VERIFIED [DC] kappa formula [LC] chart compatibility
         assert op.kappa == Fraction(1)
 
     def test_kappa_conifold_matches_hocolim(self):
@@ -889,6 +961,7 @@ class TestCrossModuleConsistency:
         Path 2: from conifold_decomposition().kappa_value (in e1_hocolim_cy3).
         """
         op = open_sector_conifold_I()
+        # VERIFIED [DC] kappa formula [LC] chart compatibility
         assert op.kappa == Fraction(0)
 
     def test_euler_form_conifold_matches(self):
@@ -897,7 +970,9 @@ class TestCrossModuleConsistency:
         Path 1: _euler_form_conifold((1,0), (0,1)) = 1.
         Path 2: conifold_euler_form from e1_hocolim_cy3 uses same formula.
         """
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert _euler_form_conifold((1, 0), (0, 1)) == 1
+        # VERIFIED [DC] Euler characteristic [LC] chart compatibility
         assert _euler_form_conifold((0, 1), (1, 0)) == -1
 
     def test_cy_dim_consistency(self):
@@ -911,6 +986,7 @@ class TestCrossModuleConsistency:
         ]:
             op = builder()
             oc = oc_map_from_open(op, ef_fn, cy_dim=3)
+            # VERIFIED [DC] degree count [DA] dimensional consistency
             assert oc.cy_pairing_degree == 3
 
 

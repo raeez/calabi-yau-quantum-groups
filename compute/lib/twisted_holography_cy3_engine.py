@@ -877,10 +877,10 @@ def holographic_datum_c3(h1: Fraction = Fraction(1),
     }
 
     # Component (v): MC element
-    kappa_total = kappa_boundary_c3(spin_cutoff)
+    kappa_ch = kappa_boundary_c3(spin_cutoff)
     theta_data = {
         'type': 'E₁ MC element (bar-intrinsic)',
-        'scalar_shadow': f'kappa = {kappa_total} (= H_{spin_cutoff})',
+        'scalar_shadow': f'kappa = {kappa_ch} (= H_{spin_cutoff})',
         'mc_equation': 'D*Theta + (1/2)[Theta, Theta] = 0',
         'proof': 'PROVED: D² = 0 (Theorem thm:convolution-d-squared-zero)',
         'spin_cutoff': spin_cutoff,

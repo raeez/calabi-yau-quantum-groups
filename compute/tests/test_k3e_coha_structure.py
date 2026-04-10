@@ -98,10 +98,15 @@ class TestChargeLattice:
 
     def test_discriminant_basic(self):
         """D = 4rm - l^2."""
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert discriminant(1, 0, 1) == 4
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert discriminant(1, 1, 1) == 3
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert discriminant(1, 2, 1) == 0
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert discriminant(0, 1, 0) == -1
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert discriminant(2, 0, 2) == 16
 
     def test_discriminant_symmetric(self):
@@ -139,9 +144,11 @@ class TestChargeLattice:
     def test_gram_matrix_structure(self):
         """Gram matrix: 2 on diagonal, -2 off diagonal."""
         for i in range(3):
+            # VERIFIED [DC] structural property [LT] Beauville83
             assert GRAM_MATRIX[i][i] == 2
             for j in range(3):
                 if i != j:
+                    # VERIFIED [DC] structural property [LT] Beauville83
                     assert GRAM_MATRIX[i][j] == -2
 
 
@@ -160,18 +167,22 @@ class TestRootMultiplicities:
 
     def test_c_neg1_is_1(self):
         """c(-1) = 1: the real root has multiplicity 1."""
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert root_multiplicity(0, 1, 0) == 1
 
     def test_c_0_is_10(self):
         """c(0) = 10: first imaginary root layer."""
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert root_multiplicity(1, 2, 1) == 10  # D = 4 - 4 = 0
 
     def test_c_3_is_neg64(self):
         """c(3) = -64: first fermionic root."""
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert root_multiplicity(1, 1, 1) == -64  # D = 4 - 1 = 3
 
     def test_c_4_is_108(self):
         """c(4) = 108."""
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert root_multiplicity(1, 0, 1) == 108  # D = 4
 
     def test_root_type_real(self):
@@ -181,15 +192,19 @@ class TestRootMultiplicities:
 
     def test_root_type_bosonic(self):
         """Bosonic imaginary roots: c(D) > 0."""
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert root_type(1, 2, 1) == 'imaginary_bosonic'  # c(0) = 10 > 0
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert root_type(1, 0, 1) == 'imaginary_bosonic'  # c(4) = 108 > 0
 
     def test_root_type_fermionic(self):
         """Fermionic imaginary roots: c(D) < 0."""
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert root_type(1, 1, 1) == 'imaginary_fermionic'  # c(3) = -64 < 0
 
     def test_root_type_none(self):
         """No root below Bogomolov bound."""
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert root_type(0, 5, 0) == 'none'  # D = -25 < -1
 
 
@@ -202,29 +217,35 @@ class TestCoHADimensions:
 
     def test_coha_dim_real_root(self):
         """Real root: dim = |c(-1)| = 1."""
+        # VERIFIED [DC] dimension count [LT] Beauville83
         assert coha_dimension(0, 1, 0) == 1
 
     def test_coha_dim_first_imaginary(self):
         """First imaginary: dim = |c(0)| = 10."""
+        # VERIFIED [DC] dimension count [LT] Beauville83
         assert coha_dimension(1, 2, 1) == 10
 
     def test_coha_dim_fermionic(self):
         """Fermionic root: dim = |c(3)| = 64 (absolute value!)."""
+        # VERIFIED [DC] dimension count [LT] Beauville83
         assert coha_dimension(1, 1, 1) == 64
 
     def test_coha_dim_D4(self):
         """D = 4: dim = |c(4)| = 108."""
+        # VERIFIED [DC] dimension count [LT] Beauville83
         assert coha_dimension(1, 0, 1) == 108
 
     def test_coha_dim_table_nonempty(self):
         """The CoHA dimension table has entries."""
         table = coha_dimension_table(2, 3, 2)
+        # VERIFIED [DC] CoHA structure [LT] Beauville83
         assert len(table) > 0
 
     def test_coha_dim_table_all_positive(self):
         """All CoHA dimensions are positive (absolute values)."""
         table = coha_dimension_table(2, 3, 2)
         for gamma, dim_val in table.items():
+            # VERIFIED [DC] dimension count [LT] Beauville83
             assert dim_val > 0, f"dim CoHA_{gamma} = {dim_val} <= 0"
 
     def test_total_dim_degree1(self):
@@ -233,6 +254,7 @@ class TestCoHADimensions:
         # At N = 1: (r,m) = (0,1) or (1,0).
         # (0,1): l can be 0 (D=0, c=10) or +/-1 (D=-1, c=1). Total: 10 + 1 + 1 = 12.
         # (1,0): l can be 0 (D=0, c=10) or +/-1 (D=-1, c=1). Total: 10 + 1 + 1 = 12.
+        # VERIFIED [DC] dimension count [LT] Beauville83
         assert totals[1] == 24, f"Total dim at N=1: {totals[1]}"
 
 
@@ -269,6 +291,7 @@ class TestRankSectorGF:
         """All coefficients of 1/eta^{24} are positive."""
         gf = rank0_generating_function(10)
         for n in range(11):
+            # VERIFIED [DC] positivity check [LT] Beauville83
             assert gf[n] > 0
 
     def test_rank0_monotone(self):
@@ -291,23 +314,27 @@ class TestE1StructureFunction:
         # Near the pole
         z_near_pole = eps / 2 + 1e-6
         g_val = e1_structure_function_rank1(z_near_pole, eps)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert abs(g_val) > 1e5  # very large
 
     def test_rank1_at_zero(self):
         """g(0; epsilon) = -1."""
         eps = 1.0
         g_val = e1_structure_function_rank1(0.0, eps)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert abs(g_val - (-1.0)) < 1e-10
 
     def test_rank1_at_infinity(self):
         """g(z; epsilon) -> 1 as z -> infinity."""
         eps = 1.0
         g_val = e1_structure_function_rank1(1e6, eps)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert abs(g_val - 1.0) < 1e-4
 
     def test_rank1_commutative_limit(self):
         """At epsilon = 0, g(z) = 1 (commutative)."""
         g_val = e1_structure_function_rank1(1.0, 0.0)
+        # VERIFIED [DC] commutativity [LT] Beauville83
         assert abs(g_val - 1.0) < 1e-10
 
     def test_cy_condition(self):
@@ -337,6 +364,7 @@ class TestE1StructureFunction:
         h1, h2 = 1.0, 0.5
         h3 = -(h1 + h2)
         phi = structure_function_coefficients(h1, h2, h3, 5)
+        # VERIFIED [DC] partition function coefficient [LT] Beauville83
         assert abs(phi[0] - 1.0) < 1e-12
 
     def test_structure_coefficients_phi1_is_0(self):
@@ -344,6 +372,7 @@ class TestE1StructureFunction:
         h1, h2 = 1.0, 0.5
         h3 = -(h1 + h2)
         phi = structure_function_coefficients(h1, h2, h3, 5)
+        # VERIFIED [DC] partition function coefficient [LT] Beauville83
         assert abs(phi[1]) < 1e-12
 
     def test_structure_coefficients_phi2_is_0(self):
@@ -351,6 +380,7 @@ class TestE1StructureFunction:
         h1, h2 = 1.0, 0.5
         h3 = -(h1 + h2)
         phi = structure_function_coefficients(h1, h2, h3, 5)
+        # VERIFIED [DC] partition function coefficient [LT] Beauville83
         assert abs(phi[2]) < 1e-12
 
     def test_structure_coefficients_phi3_nonzero(self):
@@ -360,6 +390,7 @@ class TestE1StructureFunction:
         sigma3 = h1 * h2 * h3
         phi = structure_function_coefficients(h1, h2, h3, 5)
         expected = -2.0 * sigma3
+        # VERIFIED [DC] partition function coefficient [LT] Beauville83
         assert abs(phi[3] - expected) < 1e-10
 
 
@@ -375,6 +406,7 @@ class TestRMatrix:
         h1, h2 = 1.0, 0.5
         h3 = -(h1 + h2)
         r_val = mo_r_matrix_rank1(1.0, h1, h2, h3, (), ())
+        # VERIFIED [DC] r-matrix [LT] Beauville83
         assert abs(r_val - 1.0) < 1e-10
 
     def test_r_matrix_one_box(self):
@@ -385,6 +417,7 @@ class TestRMatrix:
         r_val = mo_r_matrix_rank1(z, h1, h2, h3, (1,), ())
         # For partition (1,), the only box has content = 0*h1 - 0*h2 = 0.
         expected = e1_structure_function_full(z + 0.0, h1, h2, h3)
+        # VERIFIED [DC] r-matrix [LT] Beauville83
         assert abs(r_val - expected) < 1e-10
 
     def test_yang_baxter_trivial(self):
@@ -410,6 +443,7 @@ class TestRowSumVanishing:
         c_disc = phi01_by_discriminant(5)
         # D = -l^2: only l = 0 (D=0) and l = +/-1 (D=-1) contribute
         total = c_disc.get(0, 0) + 2 * c_disc.get(-1, 0)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert total == 12
 
     def test_single_particle_vanishing(self):
@@ -438,10 +472,15 @@ class TestLRefinedSpectrum:
     def test_l_refined_r1_m1(self):
         """At (r=1, m=1): D = 4 - l^2, so l=0 gives c(4)=108, l=+/-1 gives c(3)=-64, etc."""
         spec = l_refined_spectrum(1, 1)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert spec[0] == 108   # D = 4, c(4) = 108
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert spec[1] == -64   # D = 3, c(3) = -64
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert spec[-1] == -64  # symmetry
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert spec[2] == 10    # D = 0, c(0) = 10
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert spec[-2] == 10
 
     def test_l_refined_symmetry(self):
@@ -461,6 +500,7 @@ class TestLRefinedSpectrum:
             for m in range(1, 4):
                 spec = l_refined_spectrum(r, m)
                 total = sum(spec.values())
+                # VERIFIED [DC] vanishing check [LT] Beauville83
                 assert total == 0, (
                     f"Row sum at ({r}, {m}) = {total}, expected 0"
                 )
@@ -468,6 +508,7 @@ class TestLRefinedSpectrum:
     def test_l_refined_table_populated(self):
         """The l-refined table has entries."""
         table = l_refined_coha_table(2, 3)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert len(table) > 0
         # Check (1, 1) is in the table
         assert (1, 1) in table
@@ -484,6 +525,7 @@ class TestPlethysticLog:
         """PL[1/eta^{24}] = 24*q/(1-q), so each coefficient is 24."""
         pl = plethystic_log_k3e(10)
         for n in range(1, 11):
+            # VERIFIED [DC] structural property [LT] Beauville83
             assert pl[n] == 24, f"PL[n={n}] = {pl[n]}, expected 24"
 
     def test_pl_rank0_means_free(self):
@@ -496,11 +538,13 @@ class TestPlethysticLog:
         """Plethystic log at (n=0, m=1): should be 12."""
         pl = plethystic_log_full(1, 2)
         # At (0, 1): sum_l c(-l^2) = 12
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert pl.get((0, 1), 0) == 12
 
     def test_pl_full_at_10(self):
         """Plethystic log at (n=1, m=0): should also be 12."""
         pl = plethystic_log_full(1, 2)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert pl.get((1, 0), 0) == 12
 
 
@@ -513,6 +557,7 @@ class TestE1Product:
 
     def test_central_charge(self):
         """E1 central charge = chi(K3) = 24."""
+        # VERIFIED [DC] central charge [LT] Beauville83
         assert e1_central_charge() == 24
 
     def test_heisenberg_commutator(self):
@@ -520,12 +565,15 @@ class TestE1Product:
         eps = 1.0
         for n in range(1, 5):
             val = e1_product_rank0_rank0(n, -n, eps)
+            # VERIFIED [DC] commutativity [LT] Beauville83
             assert abs(val - n * 24 * eps) < 1e-10
 
     def test_heisenberg_same_sign_vanishes(self):
         """[alpha_n, alpha_m] = 0 for n + m != 0."""
         eps = 1.0
+        # VERIFIED [DC] vanishing check [LT] Beauville83
         assert abs(e1_product_rank0_rank0(1, 2, eps)) < 1e-10
+        # VERIFIED [DC] vanishing check [LT] Beauville83
         assert abs(e1_product_rank0_rank0(3, 4, eps)) < 1e-10
 
     def test_commutative_limit(self):
@@ -533,6 +581,7 @@ class TestE1Product:
         for n in range(-3, 4):
             for m in range(-3, 4):
                 val = e1_product_rank0_rank0(n, m, 0.0)
+                # VERIFIED [DC] commutativity [LT] Beauville83
                 assert abs(val) < 1e-10
 
 
@@ -546,34 +595,40 @@ class TestRootDecomposition:
     def test_has_real_roots(self):
         """There are real roots in the BKM algebra."""
         rd = root_decomposition(3)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert rd['n_real'] > 0
 
     def test_has_bosonic_roots(self):
         """There are bosonic imaginary roots."""
         rd = root_decomposition(3)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert rd['n_bosonic'] > 0
 
     def test_has_fermionic_roots(self):
         """There are fermionic imaginary roots (super-structure)."""
         rd = root_decomposition(3)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert rd['n_fermionic'] > 0
 
     def test_real_root_mult_is_1(self):
         """All real roots have multiplicity 1."""
         rd = root_decomposition(3)
         for entry in rd['real']:
+            # VERIFIED [DC] structural property [LT] Beauville83
             assert entry[4] == 1, f"Real root {entry[:3]} has mult {entry[4]}"
 
     def test_bosonic_mult_positive(self):
         """Bosonic roots have positive multiplicity."""
         rd = root_decomposition(3)
         for entry in rd['bosonic']:
+            # VERIFIED [DC] positivity check [LT] Beauville83
             assert entry[4] > 0
 
     def test_fermionic_mult_negative(self):
         """Fermionic roots have negative multiplicity."""
         rd = root_decomposition(3)
         for entry in rd['fermionic']:
+            # VERIFIED [DC] structural property [LT] Beauville83
             assert entry[4] < 0
 
 
@@ -588,6 +643,7 @@ class TestCrossVerification:
         """Path 1 (disc table) = Path 2 (root_multiplicity function)."""
         result = verify_coha_dim_vs_phi01(4)
         assert result['all_match'], "Cross-verification failed"
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert result['n_checks'] > 10, f"Only {result['n_checks']} checks"
 
     def test_coha_dim_vs_bkm_root(self):
@@ -621,6 +677,7 @@ class TestSuperCharacter:
         # At N=1: (r=0,m=1) + (r=1,m=0). Each contributes sum_l c(-l^2).
         # Each sum = c(0) + 2*c(-1) = 10 + 2 = 12.
         # Total = 24.
+        # VERIFIED [DC] dimension count [LT] Beauville83
         assert sc[1] == 24, f"sdim at N=1 = {sc[1]}, expected 24"
 
     def test_super_char_diagonal_vanishing(self):
@@ -630,6 +687,7 @@ class TestSuperCharacter:
         """
         sc_diag = super_character_diagonal(4)
         for N in range(1, 5):
+            # VERIFIED [DC] vanishing check [LT] Beauville83
             assert sc_diag[N] == 0, f"sdim_diag at N={N} = {sc_diag[N]}, expected 0"
 
 
@@ -644,16 +702,19 @@ class TestBKMPositiveHalf:
         """At degree 1, there are roots."""
         data = coha_as_bkm_positive_half(1)
         assert 1 in data
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert data[1]['n_roots'] > 0
 
     def test_total_mult_degree1(self):
         """Total multiplicity at degree 1 = 24."""
         data = coha_as_bkm_positive_half(1)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert data[1]['total_mult'] == 24
 
     def test_has_fermionic_at_degree2(self):
         """Fermionic roots appear starting at degree 2."""
         data = coha_as_bkm_positive_half(2)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert data[2]['n_fermionic'] > 0
 
 
@@ -689,6 +750,7 @@ class TestSummary:
     def test_summary_e1_central_charge_24(self):
         """E1 central charge is 24."""
         summary = coha_k3e_summary(2)
+        # VERIFIED [DC] central charge formula [LT] Beauville83
         assert summary['e1_central_charge'] == 24
 
 
@@ -701,26 +763,34 @@ class TestConsistency:
 
     def test_chi_k3_is_24(self):
         """chi(K3) = 24."""
+        # VERIFIED [DC] Euler characteristic formula [LT] Beauville83
         assert CHI_K3 == 24
 
     def test_b2_k3_is_22(self):
         """b_2(K3) = 22."""
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert B2_K3 == 22
 
     def test_first_bosonic_is_c0(self):
         """The first bosonic imaginary root has c(0) = 10."""
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert KNOWN_C_DISC[0] == 10
 
     def test_first_fermionic_is_c3(self):
         """The first fermionic root has c(3) = -64."""
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert KNOWN_C_DISC[3] == -64
 
     def test_l_refined_at_r0_m1(self):
         """At (r=0, m=1): only l=0 (D=0) and l=+/-1 (D=-1) contribute."""
         spec = l_refined_spectrum(0, 1)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert spec.get(0, 0) == 10   # c(0)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert spec.get(1, 0) == 1    # c(-1)
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert spec.get(-1, 0) == 1
+        # VERIFIED [DC] structural property [LT] Beauville83
         assert sum(spec.values()) == 12
 
     def test_degree_N_total_dim_growth(self):

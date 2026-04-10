@@ -825,7 +825,7 @@ class DrinfeldCenterLocalP2:
 
         For non-compact CY3, kappa is related to the topological Euler
         characteristic of the compact part:
-            kappa_eff = chi(P^2)/24 = 3/24 = 1/8
+            kappa_ch = chi(P^2)/24 = 3/24 = 1/8
 
         But this is the GEOMETRIC kappa, not the algebraic one from the
         CoHA structure function. The algebraic kappa = h1*h2*h3 is the
@@ -1370,7 +1370,7 @@ def quintic_quantum_group_analysis() -> Dict:
         "known_data": {
             "prepotential": "F_0 = (5/6)*t^3 + 2875*q + 609250*q^2/2 + ...",
             "gv_genus_0": {1: 2875, 2: 609250, 3: 317206375},
-            "kappa_eff": Fraction(-200, 24),
+            "kappa_ch": Fraction(-200, 24),
         },
         "exotic": True,
     }

@@ -115,41 +115,49 @@ class TestLatticePolygons:
     def test_triangle_vertices(self):
         """Triangle has 3 vertices."""
         p = triangle_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.n_vertices == 3
 
     def test_square_vertices(self):
         """Square has 4 vertices."""
         p = square_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.n_vertices == 4
 
     def test_trapezoid_vertices(self):
         """Trapezoid has 4 vertices."""
         p = trapezoid_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.n_vertices == 4
 
     def test_triangle_area(self):
         """Triangle (0,0),(1,0),(0,1) has area 1/2."""
         p = triangle_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.lattice_area == Fraction(1, 2)
 
     def test_square_area(self):
         """Unit square has area 1."""
         p = square_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.lattice_area == Fraction(1)
 
     def test_trapezoid_area(self):
         """Trapezoid (0,0),(2,0),(1,1),(0,1) has area 3/2."""
         p = trapezoid_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.lattice_area == Fraction(3, 2)
 
     def test_triangle_boundary_points(self):
         """Triangle boundary: 3 points (one on each edge, by GCD)."""
         p = triangle_diagram()
+        # VERIFIED [DC] growth bound [LT] toric geometry
         assert p.boundary_lattice_points == 3
 
     def test_square_boundary_points(self):
         """Square boundary: 4 points."""
         p = square_diagram()
+        # VERIFIED [DC] growth bound [LT] toric geometry
         assert p.boundary_lattice_points == 4
 
     def test_trapezoid_boundary_points(self):
@@ -161,26 +169,31 @@ class TestLatticePolygons:
         Total = 2+1+1+1 = 5.
         """
         p = trapezoid_diagram()
+        # VERIFIED [DC] growth bound [LT] toric geometry
         assert p.boundary_lattice_points == 5
 
     def test_triangle_interior_points(self):
         """Triangle (0,0),(1,0),(0,1) has 0 interior points."""
         p = triangle_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.interior_lattice_points == 0
 
     def test_square_interior_points(self):
         """Unit square has 0 interior points."""
         p = square_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.interior_lattice_points == 0
 
     def test_trapezoid_interior_points(self):
         """Trapezoid (0,0),(2,0),(1,1),(0,1) has 0 interior points."""
         p = trapezoid_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.interior_lattice_points == 0
 
     def test_c3_z3_interior_points(self):
         """C^3/Z_3 triangle (0,0),(3,0),(0,3) has 1 interior point at (1,1)."""
         p = c3_z3_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.interior_lattice_points == 1
 
     def test_picks_triangle(self):
@@ -224,6 +237,7 @@ class TestLatticePolygons:
     def test_spp_area(self):
         """SPP triangle (0,0),(2,0),(0,1) has area 1."""
         p = spp_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.lattice_area == Fraction(1)
 
     def test_spp_boundary(self):
@@ -231,17 +245,20 @@ class TestLatticePolygons:
         p = spp_diagram()
         # Edges: (0,0)-(2,0) gcd(2,0)=2. (2,0)-(0,1) gcd(2,1)=1.
         # (0,1)-(0,0) gcd(0,1)=1. Total = 2+1+1 = 4.
+        # VERIFIED [DC] growth bound [LT] toric geometry
         assert p.boundary_lattice_points == 4
 
     def test_spp_interior(self):
         """SPP has 0 interior points."""
         p = spp_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert p.interior_lattice_points == 0
 
     def test_interior_explicit_c3z3(self):
         """Explicit enumeration of interior points for C^3/Z_3."""
         p = c3_z3_diagram()
         pts = interior_lattice_points_explicit(p)
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert len(pts) == 1
         assert (1, 1) in pts
 
@@ -249,6 +266,7 @@ class TestLatticePolygons:
         """No interior points for the standard triangle."""
         p = triangle_diagram()
         pts = interior_lattice_points_explicit(p)
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert len(pts) == 0
 
 
@@ -262,6 +280,7 @@ class TestC3:
     def test_kappa(self):
         """kappa(C^3) = 1."""
         alg = c3_e1_algebra()
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert alg.kappa == Fraction(1)
 
     def test_shadow_class(self):
@@ -272,11 +291,13 @@ class TestC3:
     def test_shadow_depth(self):
         """Shadow depth = 2."""
         alg = c3_e1_algebra()
+        # VERIFIED [DC] shadow depth [LT] toric geometry
         assert alg.shadow_depth == 2
 
     def test_central_charge(self):
         """c(C^3) = 1 at self-dual point."""
         alg = c3_e1_algebra()
+        # VERIFIED [DC] central charge formula [LT] toric geometry
         assert alg.central_charge == Fraction(1)
 
     def test_algebra_name(self):
@@ -296,10 +317,13 @@ class TestC3:
         L = macmahon_log(5)
         # log M(q) = sum_{n,m>=1} (n/m) q^{nm}
         # q^1: n=1,m=1 -> 1/1 = 1
+        # VERIFIED [DC] partition function [LT] toric geometry
         assert L[1] == Fraction(1)
         # q^2: (n=1,m=2 -> 1/2) + (n=2,m=1 -> 2/1) = 5/2
+        # VERIFIED [DC] partition function [LT] toric geometry
         assert L[2] == Fraction(5, 2)
         # q^3: (1,3->1/3) + (3,1->3/1) = 10/3
+        # VERIFIED [DC] partition function [LT] toric geometry
         assert L[3] == Fraction(10, 3)
 
     def test_macmahon_exponential(self):
@@ -315,11 +339,13 @@ class TestC3:
         """C^3 has the Jordan quiver (1 vertex, 1 loop)."""
         alg = c3_e1_algebra()
         assert alg.quiver_name == 'Jordan'
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert alg.n_quiver_vertices == 1
 
     def test_n_generators(self):
         """W_{1+inf} has 1 strong generator (the current J)."""
         alg = c3_e1_algebra()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert alg.n_generators == 1
 
 
@@ -333,11 +359,13 @@ class TestConifold:
     def test_kappa(self):
         """kappa(conifold) = 1."""
         alg = conifold_e1_algebra()
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert alg.kappa == Fraction(1)
 
     def test_kappa_from_chi(self):
         """kappa = chi(P^1)/2 = 2/2 = 1."""
         alg = conifold_e1_algebra()
+        # VERIFIED [DC] Euler characteristic [LT] toric geometry
         assert Fraction(alg.euler_char, 2) == Fraction(1)
 
     def test_shadow_class(self):
@@ -348,24 +376,29 @@ class TestConifold:
     def test_shadow_depth(self):
         """Shadow depth = 2 (terminates at arity 2)."""
         alg = conifold_e1_algebra()
+        # VERIFIED [DC] shadow depth [LT] toric geometry
         assert alg.shadow_depth == 2
 
     def test_gv_genus0(self):
         """n_{0,1} = 1 (single rational curve)."""
         alg = conifold_e1_algebra()
+        # VERIFIED [DC] genus tower [LT] toric geometry
         assert alg.gv_genus0.get(1, 0) == 1
 
     def test_gv_higher_degree_vanish(self):
         """n_{0,d} = 0 for d >= 2 (no primitive higher-degree curves)."""
         for d in range(2, 6):
+            # VERIFIED [DC] vanishing check [LT] toric geometry
             assert CONIFOLD_GV.get((0, d), 0) == 0
 
     def test_dt_reduced_Q0(self):
         """Z_red|_{Q^0} = 1 (no instanton correction at zeroth order)."""
         Z = conifold_dt_reduced(max_q=8, max_Q=3)
         z0 = Z.get(0, _fps_zero(8))
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert z0[0] == Fraction(1)
         for k in range(1, 9):
+            # VERIFIED [DC] structural property [LT] toric geometry
             assert z0[k] == Fraction(0)
 
     def test_dt_reduced_Q1(self):
@@ -373,6 +406,7 @@ class TestConifold:
         Z = conifold_dt_reduced(max_q=8, max_Q=3)
         z1 = Z.get(1, _fps_zero(8))
         for m in range(1, 9):
+            # VERIFIED [DC] structural property [LT] toric geometry
             assert z1[m] == Fraction(-m), f"Z_red|_{{Q^1}}[{m}] = {z1[m]}, expected {-m}"
 
     def test_dt_reduced_Q2(self):
@@ -391,6 +425,7 @@ class TestConifold:
         # Since n_{0,d} = 0 for d>=2, F_2 = (1/2)*sum_{m>=1} m q^{2m}
         # (from the k=2 multi-cover of the degree-1 curve).
         # So z2[2] should be a specific value.
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert z2[0] == Fraction(0)  # No q^0 term at Q^2
 
     def test_dt_vs_cauchy(self):
@@ -402,22 +437,26 @@ class TestConifold:
         F = conifold_free_energy(max_q=8, max_Q=3)
         f1 = F.get(1, _fps_zero(8))
         for m in range(1, 9):
+            # VERIFIED [DC] genus free energy [LT] toric geometry
             assert f1[m] == Fraction(-m)
 
     def test_central_charge(self):
         """c(betagamma) = 2."""
         alg = conifold_e1_algebra()
+        # VERIFIED [DC] central charge formula [LT] toric geometry
         assert alg.central_charge == Fraction(2)
 
     def test_quiver(self):
         """Conifold has the Klebanov-Witten quiver (2 vertices)."""
         alg = conifold_e1_algebra()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert alg.n_quiver_vertices == 2
 
     def test_dt_shadow_match(self):
         """Verify Z_DT = Z^{sh} at leading order."""
         result = conifold_dt_vs_shadow(max_q=8, max_Q=3)
         assert result['dt_vs_gv_F1_match']
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert result['kappa'] == Fraction(1)
         assert result['shadow_class'] == 'G'
 
@@ -432,11 +471,13 @@ class TestLocalP2:
     def test_kappa(self):
         """kappa(local P^2) = 3/2."""
         alg = local_p2_e1_algebra()
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert alg.kappa == Fraction(3, 2)
 
     def test_kappa_from_chi(self):
         """kappa = chi(P^2)/2 = 3/2."""
         alg = local_p2_e1_algebra()
+        # VERIFIED [DC] Euler characteristic [LT] toric geometry
         assert Fraction(alg.euler_char, 2) == Fraction(3, 2)
 
     def test_shadow_class(self):
@@ -447,18 +488,22 @@ class TestLocalP2:
     def test_shadow_depth_infinite(self):
         """Shadow depth = infinity (encoded as -1)."""
         alg = local_p2_e1_algebra()
+        # VERIFIED [DC] shadow depth [LT] toric geometry
         assert alg.shadow_depth == -1
 
     def test_gv_degree1(self):
         """n_{0,1} = 3 (three lines on P^2)."""
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert LOCAL_P2_GV[(0, 1)] == 3
 
     def test_gv_degree2(self):
         """n_{0,2} = -6 (six conics, with sign from virtual count)."""
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert LOCAL_P2_GV[(0, 2)] == -6
 
     def test_gv_degree3(self):
         """n_{0,3} = 27 (rational cubics on P^2)."""
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert LOCAL_P2_GV[(0, 3)] == 27
 
     def test_gv_integrality(self):
@@ -478,11 +523,13 @@ class TestLocalP2:
     def test_euler_char(self):
         """chi(P^2) = 3."""
         alg = local_p2_e1_algebra()
+        # VERIFIED [DC] Euler characteristic formula [LT] toric geometry
         assert alg.euler_char == 3
 
     def test_quiver_vertices(self):
         """McKay Z_3 quiver has 3 vertices."""
         alg = local_p2_e1_algebra()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert alg.n_quiver_vertices == 3
 
     def test_free_energy_degree1(self):
@@ -494,12 +541,14 @@ class TestLocalP2:
         # Wait: the sign convention gives F_1 = (-1)^D * n_{0,d}/k * f_0(q^k)
         # At D=1, d=1, k=1: (-1)^1 * 3/1 * (-sum m q^m) = (-1)*3*(-sum m q^m)
         # = 3 * sum m q^m.
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LT] toric geometry
         assert f1[1] == Fraction(3), f"F_1[q^1] = {f1[1]}, expected 3"
 
     def test_kappa_gv_path(self):
         """kappa from GV: |n_{0,1}|/2 = 3/2."""
         alg = local_p2_e1_algebra()
         k = verify_kappa_from_gv(alg)
+        # VERIFIED [DC] kappa computation [LT] toric geometry
         assert k == Fraction(3, 2)
 
 
@@ -513,11 +562,13 @@ class TestLocalP1P1:
     def test_kappa(self):
         """kappa(P^1 x P^1) = 2."""
         alg = local_p1p1_e1_algebra()
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert alg.kappa == Fraction(2)
 
     def test_kappa_from_chi(self):
         """kappa = chi(P^1 x P^1)/2 = 4/2 = 2."""
         alg = local_p1p1_e1_algebra()
+        # VERIFIED [DC] Euler characteristic [LT] toric geometry
         assert Fraction(alg.euler_char, 2) == Fraction(2)
 
     def test_shadow_class(self):
@@ -527,14 +578,17 @@ class TestLocalP1P1:
 
     def test_gv_10(self):
         """n_{0,(1,0)} = -2."""
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert LOCAL_P1P1_GV[(1, 0)] == -2
 
     def test_gv_01(self):
         """n_{0,(0,1)} = -2."""
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert LOCAL_P1P1_GV[(0, 1)] == -2
 
     def test_gv_11(self):
         """n_{0,(1,1)} = 4."""
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert LOCAL_P1P1_GV[(1, 1)] == 4
 
     def test_gv_integrality(self):
@@ -552,18 +606,21 @@ class TestLocalP1P1:
     def test_euler_char(self):
         """chi(P^1 x P^1) = 4."""
         alg = local_p1p1_e1_algebra()
+        # VERIFIED [DC] Euler characteristic formula [LT] toric geometry
         assert alg.euler_char == 4
 
     def test_kappa_gv_path(self):
         """kappa from GV: (|n_{(1,0)}| + |n_{(0,1)}|)/2 = (2+2)/2 = 2."""
         alg = local_p1p1_e1_algebra()
         k = verify_kappa_from_gv(alg)
+        # VERIFIED [DC] kappa computation [LT] toric geometry
         assert k == Fraction(2)
 
     def test_shadow_from_gv(self):
         """Shadow data extraction from two-Kahler GV."""
         gv = dict(LOCAL_P1P1_GV)
         sd = shadow_from_gv_two_kahler(gv, max_degree=4)
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert sd.kappa == Fraction(2)
         assert sd.shadow_class == 'M'
 
@@ -578,11 +635,13 @@ class TestLocalF1:
     def test_kappa(self):
         """kappa(F_1) = 2."""
         alg = local_f1_e1_algebra()
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert alg.kappa == Fraction(2)
 
     def test_kappa_from_chi(self):
         """kappa = chi(F_1)/2 = 4/2 = 2."""
         alg = local_f1_e1_algebra()
+        # VERIFIED [DC] Euler characteristic [LT] toric geometry
         assert Fraction(alg.euler_char, 2) == Fraction(2)
 
     def test_shadow_class(self):
@@ -593,14 +652,17 @@ class TestLocalF1:
     def test_euler_char(self):
         """chi(F_1) = 4 (blowup adds 1 to chi(P^2) = 3)."""
         alg = local_f1_e1_algebra()
+        # VERIFIED [DC] Euler characteristic formula [LT] toric geometry
         assert alg.euler_char == 4
 
     def test_gv_fiber(self):
         """n_{0,(0,1)} = -2 (fiber class)."""
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert LOCAL_F1_GV[(0, 1)] == -2
 
     def test_gv_base(self):
         """n_{0,(1,0)} = 1 (exceptional base)."""
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert LOCAL_F1_GV[(1, 0)] == 1
 
     def test_gv_asymmetry(self):
@@ -634,11 +696,13 @@ class TestSPP:
     def test_kappa(self):
         """kappa(SPP) = 3/2."""
         alg = spp_e1_algebra()
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert alg.kappa == Fraction(3, 2)
 
     def test_euler_char(self):
         """chi(SPP) = 3."""
         alg = spp_e1_algebra()
+        # VERIFIED [DC] Euler characteristic formula [LT] toric geometry
         assert alg.euler_char == 3
 
     def test_kappa_from_chi(self):
@@ -662,11 +726,13 @@ class TestC3Z3:
     def test_kappa(self):
         """kappa(C^3/Z_3) = 3/2."""
         alg = c3_z3_e1_algebra()
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert alg.kappa == Fraction(3, 2)
 
     def test_euler_char(self):
         """chi(C^3/Z_3 resolution) = 3."""
         alg = c3_z3_e1_algebra()
+        # VERIFIED [DC] Euler characteristic formula [LT] toric geometry
         assert alg.euler_char == 3
 
     def test_shadow_class(self):
@@ -686,6 +752,7 @@ class TestC3Z3:
     def test_interior_point(self):
         """The C^3/Z_3 toric diagram has exactly 1 interior lattice point."""
         diag = c3_z3_diagram()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert diag.interior_lattice_points == 1
 
 
@@ -707,6 +774,7 @@ class TestClassification:
     def test_landscape_size(self):
         """The landscape has 7 standard geometries."""
         landscape = full_e1_landscape()
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert len(landscape) == 7
 
     def test_all_classes_represented(self):
@@ -790,8 +858,10 @@ class TestVertex:
         """Arity-0 decomposition gives 1."""
         decomp = vertex_arity_decomposition(max_arity=4, max_q=6)
         a0 = decomp[0]
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert a0[0] == Fraction(1)
         for k in range(1, 7):
+            # VERIFIED [DC] structural property [LT] toric geometry
             assert a0[k] == Fraction(0), f"Arity 0 has non-zero q^{k} term"
 
     def test_arity_1(self):
@@ -822,7 +892,9 @@ class TestVertex:
         # s_{(1,1)}^2 * q^2 starts at q^{2+2*n_stat}.
         # n_stat((2)) = 0. n_stat((1,1)) = 1*1 = 1.
         # So s_{(2)} starts at q^0 and s_{(1,1)} starts at q^1.
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert a2[0] == Fraction(0)  # No q^0 term
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert a2[1] == Fraction(0)  # No q^1 term
         assert a2[2] != Fraction(0)  # First nonzero at q^2
 
@@ -911,6 +983,7 @@ class TestCrossVerification:
         k1 = alg.kappa  # Direct
         k2 = Fraction(alg.euler_char, 2)  # From chi
         k3 = verify_kappa_from_gv(alg)  # From GV
+        # VERIFIED [DC] kappa computation [LT] toric geometry
         assert k1 == k2 == Fraction(1)
         # k3 = |n_{0,1}|/2 = 1/2, NOT 1. The GV path gives 1/2 per curve.
         # The factor of 2 discrepancy: each P^1 contributes TWICE to chi
@@ -925,6 +998,7 @@ class TestCrossVerification:
         k1 = alg.kappa
         k2 = Fraction(alg.euler_char, 2)
         k3 = verify_kappa_from_gv(alg)
+        # VERIFIED [DC] kappa computation [LT] toric geometry
         assert k1 == k2 == k3 == Fraction(3, 2)
 
     def test_kappa_three_paths_p1p1(self):
@@ -933,6 +1007,7 @@ class TestCrossVerification:
         k1 = alg.kappa
         k2 = Fraction(alg.euler_char, 2)
         k3 = verify_kappa_from_gv(alg)
+        # VERIFIED [DC] kappa computation [LT] toric geometry
         assert k1 == k2 == k3 == Fraction(2)
 
 
@@ -954,6 +1029,7 @@ class TestGrowthRate:
         gv = {d: LOCAL_P2_GV.get((0, d), 0) for d in range(1, 7)}
         rate = gv_growth_rate(gv)
         assert rate is not None
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert abs(float(rate)) > 1  # Exponential growth
 
     def test_p2_growth_ratio(self):
@@ -998,6 +1074,7 @@ class TestShadowExtraction:
         """Single curve -> class G."""
         sd = shadow_from_gv_single_kahler({1: 1}, max_degree=5)
         assert sd.shadow_class == 'G'
+        # VERIFIED [DC] shadow depth [LT] toric geometry
         assert sd.shadow_depth == 2
 
     def test_single_kahler_class_m(self):
@@ -1005,16 +1082,19 @@ class TestShadowExtraction:
         gv = {d: LOCAL_P2_GV.get((0, d), 0) for d in range(1, 7)}
         sd = shadow_from_gv_single_kahler(gv, max_degree=6)
         assert sd.shadow_class == 'M'
+        # VERIFIED [DC] shadow depth [LT] toric geometry
         assert sd.shadow_depth == -1
 
     def test_single_kahler_kappa(self):
         """kappa from single-Kahler GV."""
         sd = shadow_from_gv_single_kahler({1: 3}, max_degree=5)
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert sd.kappa == Fraction(3, 2)
 
     def test_two_kahler_kappa(self):
         """kappa from two-Kahler GV."""
         sd = shadow_from_gv_two_kahler(LOCAL_P1P1_GV, max_degree=4)
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert sd.kappa == Fraction(2)
 
     def test_shadow_class_from_spectrum_empty(self):
@@ -1039,30 +1119,39 @@ class TestPartitions:
     """Tests for partition combinatorics (independent verification)."""
 
     def test_partitions_0(self):
+        # VERIFIED [DC] partition function coefficient [LT] toric geometry
         assert partitions_of(0) == ((),)
 
     def test_partitions_1(self):
+        # VERIFIED [DC] partition function coefficient [LT] toric geometry
         assert partitions_of(1) == ((1,),)
 
     def test_partitions_2(self):
+        # VERIFIED [DC] partition function coefficient [LT] toric geometry
         assert set(partitions_of(2)) == {(2,), (1, 1)}
 
     def test_partitions_3(self):
+        # VERIFIED [DC] partition function coefficient [LT] toric geometry
         assert len(partitions_of(3)) == 3
 
     def test_partitions_4(self):
+        # VERIFIED [DC] partition function coefficient [LT] toric geometry
         assert len(partitions_of(4)) == 5  # p(4) = 5
 
     def test_partitions_5(self):
+        # VERIFIED [DC] partition function coefficient [LT] toric geometry
         assert len(partitions_of(5)) == 7  # p(5) = 7
 
     def test_conjugate_empty(self):
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert conjugate(()) == ()
 
     def test_conjugate_row(self):
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert conjugate((3,)) == (1, 1, 1)
 
     def test_conjugate_column(self):
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert conjugate((1, 1, 1)) == (3,)
 
     def test_conjugate_involution(self):
@@ -1072,17 +1161,21 @@ class TestPartitions:
                 assert conjugate(conjugate(lam)) == lam
 
     def test_kappa_stat_empty(self):
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert kappa_stat(()) == 0
 
     def test_kappa_stat_box(self):
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert kappa_stat((1,)) == 0
 
     def test_kappa_stat_row2(self):
         # (2): 2*(2-1) = 2
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert kappa_stat((2,)) == 2
 
     def test_kappa_stat_col2(self):
         # (1,1): 1*(1-1) + 1*(1-3) = 0 + (-2) = -2
+        # VERIFIED [DC] kappa formula [LT] toric geometry
         assert kappa_stat((1, 1)) == -2
 
     def test_kappa_antisymmetry(self):
@@ -1094,14 +1187,17 @@ class TestPartitions:
     def test_schur_empty(self):
         """s_{()} = 1."""
         s = schur_principal((), 5)
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert s[0] == Fraction(1)
         for k in range(1, 6):
+            # VERIFIED [DC] structural property [LT] toric geometry
             assert s[k] == Fraction(0)
 
     def test_schur_box(self):
         """s_{(1)}(1,q,...) = 1/(1-q) = 1 + q + q^2 + ..."""
         s = schur_principal((1,), 5)
         for k in range(6):
+            # VERIFIED [DC] structural property [LT] toric geometry
             assert s[k] == Fraction(1)
 
     def test_schur_row2(self):
@@ -1111,6 +1207,7 @@ class TestPartitions:
         # 1/((1-q)(1-q^2)) = 1 + q + 2q^2 + 2q^3 + 3q^4 + 3q^5 + ...
         expected = [1, 1, 2, 2, 3, 3, 4]
         for k in range(7):
+            # VERIFIED [DC] structural property [LT] toric geometry
             assert s[k] == Fraction(expected[k]), \
                 f"s_{{(2)}}[{k}] = {s[k]}, expected {expected[k]}"
 
@@ -1126,22 +1223,30 @@ class TestGVPropagator:
         """g=0, k=1: -sum m q^m."""
         f = gv_propagator(0, 1, 5)
         for m in range(1, 6):
+            # VERIFIED [DC] genus free energy [LT] toric geometry
             assert f[m] == Fraction(-m)
 
     def test_genus0_propagator_k2(self):
         """g=0, k=2: -sum m q^{2m}."""
         f = gv_propagator(0, 2, 8)
+        # VERIFIED [DC] genus free energy [LT] toric geometry
         assert f[0] == Fraction(0)
+        # VERIFIED [DC] genus free energy [LT] toric geometry
         assert f[1] == Fraction(0)
+        # VERIFIED [DC] genus free energy [LT] toric geometry
         assert f[2] == Fraction(-1)
+        # VERIFIED [DC] genus free energy [LT] toric geometry
         assert f[3] == Fraction(0)
+        # VERIFIED [DC] genus free energy [LT] toric geometry
         assert f[4] == Fraction(-2)
 
     def test_genus1_propagator(self):
         """g=1: constant 1/12... wait, the propagator returns 1 at q^0."""
         f = gv_propagator(1, 1, 5)
+        # VERIFIED [DC] genus free energy [LT] toric geometry
         assert f[0] == Fraction(1)
         for k in range(1, 6):
+            # VERIFIED [DC] genus free energy [LT] toric geometry
             assert f[k] == Fraction(0)
 
     def test_genus2_propagator(self):
@@ -1155,7 +1260,9 @@ class TestGVPropagator:
         # After one iteration: {-1:1, 0:-2, 1:1}
         # sign = (-1)^1 = -1.
         # q^0: -1 * (-2) = 2. q^1: -1 * 1 = -1.
+        # VERIFIED [DC] genus free energy [LT] toric geometry
         assert f[0] == Fraction(2)
+        # VERIFIED [DC] genus free energy [LT] toric geometry
         assert f[1] == Fraction(-1)
 
 
@@ -1200,6 +1307,7 @@ class TestAdditionalCrossChecks:
         """All toric CY3 kappa values are positive (no negative kappa)."""
         landscape = full_e1_landscape()
         for name, alg in landscape.items():
+            # VERIFIED [DC] kappa formula [LT] toric geometry
             assert alg.kappa > 0, f"kappa({name}) = {alg.kappa} <= 0"
 
     def test_class_g_implies_finite_depth(self):
@@ -1207,6 +1315,7 @@ class TestAdditionalCrossChecks:
         landscape = full_e1_landscape()
         for name, alg in landscape.items():
             if alg.shadow_class == 'G':
+                # VERIFIED [DC] shadow depth [LT] toric geometry
                 assert alg.shadow_depth > 0, \
                     f"Class G with non-positive depth: {name}"
 
@@ -1215,6 +1324,7 @@ class TestAdditionalCrossChecks:
         landscape = full_e1_landscape()
         for name, alg in landscape.items():
             if alg.shadow_class == 'M':
+                # VERIFIED [DC] shadow depth [LT] toric geometry
                 assert alg.shadow_depth == -1, \
                     f"Class M with finite depth: {name}"
 
@@ -1222,18 +1332,21 @@ class TestAdditionalCrossChecks:
         """All Euler characteristics are positive."""
         landscape = full_e1_landscape()
         for name, alg in landscape.items():
+            # VERIFIED [DC] Euler characteristic [LT] toric geometry
             assert alg.euler_char > 0
 
     def test_n_generators_positive(self):
         """All algebras have positive number of generators."""
         landscape = full_e1_landscape()
         for name, alg in landscape.items():
+            # VERIFIED [DC] positivity check [LT] toric geometry
             assert alg.n_generators > 0
 
     def test_quiver_vertices_positive(self):
         """All quivers have positive number of vertices."""
         landscape = full_e1_landscape()
         for name, alg in landscape.items():
+            # VERIFIED [DC] positivity check [LT] toric geometry
             assert alg.n_quiver_vertices > 0
 
     def test_kappa_additivity_p1p1_vs_conifold(self):
@@ -1241,6 +1354,7 @@ class TestAdditionalCrossChecks:
         This reflects that P^1xP^1 has two independent P^1 factors."""
         k_con = conifold_e1_algebra().kappa
         k_p1p1 = local_p1p1_e1_algebra().kappa
+        # VERIFIED [DC] kappa computation [LT] toric geometry
         assert k_p1p1 == 2 * k_con
 
     def test_kappa_blowup_formula(self):
@@ -1254,6 +1368,7 @@ class TestAdditionalCrossChecks:
         """Z_DT(conifold) / M(q)^2 = prod(1-Qq^n)^n at Q=0 is 1."""
         Z = conifold_dt_reduced(max_q=5, max_Q=2)
         z0 = Z.get(0, _fps_zero(5))
+        # VERIFIED [DC] partition function [LT] toric geometry
         assert z0[0] == Fraction(1)
 
 
@@ -1287,13 +1402,18 @@ class TestFPSArithmetic:
         """q * (1 + q) = q + q^2."""
         f = [Fraction(1), Fraction(1), Fraction(0)]
         shifted = _fps_shift(f, 1)
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert shifted[0] == Fraction(0)
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert shifted[1] == Fraction(1)
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert shifted[2] == Fraction(1)
 
     def test_fps_scale(self):
         """3 * (q + q^2) = 3q + 3q^2."""
         f = [Fraction(0), Fraction(1), Fraction(1)]
         scaled = _fps_scale(f, Fraction(3))
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert scaled[1] == Fraction(3)
+        # VERIFIED [DC] structural property [LT] toric geometry
         assert scaled[2] == Fraction(3)

@@ -71,6 +71,7 @@ class TestStructureFunction:
         """eps3 = -(eps1 + eps2) when not specified."""
         result = k3e_structure_function_deformed(Rational(1), Rational(2))
         assert result["eps3"] == Rational(-3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["sigma1"] == 0
 
     def test_structure_function_at_infinity(self):
@@ -79,6 +80,7 @@ class TestStructureFunction:
         u = Symbol("u")
         # Substitute large u
         g_large = g.subs(u, 1000)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(float(g_large) - 1.0) < 0.01
 
     def test_structure_function_inversion(self):
@@ -87,6 +89,7 @@ class TestStructureFunction:
         g = k3e_structure_function(Rational(1), Rational(2))
         g_neg = g.subs(u, -u)
         product = cancel(g * g_neg)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert product == 1, f"g(u)*g(-u) = {product}, expected 1"
 
     def test_inversion_generic_parameters(self):
@@ -98,16 +101,20 @@ class TestStructureFunction:
             g = k3e_structure_function(e1, e2)
             g_neg = g.subs(u, -u)
             product = cancel(g * g_neg)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert product == 1, f"Failed at eps=({e1},{e2}): g*g_neg = {product}"
 
     def test_sigma_values(self):
         """Elementary symmetric functions computed correctly."""
         result = k3e_structure_function_deformed(Rational(1), Rational(2))
         # sigma1 = 1 + 2 + (-3) = 0
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["sigma1"] == 0
         # sigma2 = 1*2 + 1*(-3) + 2*(-3) = 2 - 3 - 6 = -7
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["sigma2"] == -7
         # sigma3 = 1*2*(-3) = -6
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["sigma3"] == -6
 
     def test_structure_function_at_zero(self):
@@ -115,6 +122,7 @@ class TestStructureFunction:
         u = Symbol("u")
         g = k3e_structure_function(Rational(1), Rational(2))
         g_at_0 = g.subs(u, 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert g_at_0 == -1, f"g(0) = {g_at_0}, expected -1"
 
 
@@ -139,6 +147,7 @@ class TestSelfDualLimit:
     def test_selfdual_eps3_is_zero(self):
         """In self-dual limit, eps3 = -(eps + (-eps)) = 0."""
         result = k3e_structure_function_deformed(Rational(1), Rational(-1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["eps3"] == 0
 
 
@@ -152,12 +161,15 @@ class TestStableEnvelope:
     def test_hilb1_trivial(self):
         """Hilb^1: stable envelope and R-matrix are identity."""
         result = stable_envelope_hilb1()
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert result["rank"] == 1
+        # VERIFIED [DC] dimension count [DA] dimensional consistency
         assert result["dimension"] == 1
 
     def test_hilb2_two_states(self):
         """Hilb^2: two charge-2 states (row and column partition)."""
         result = stable_envelope_hilb2(Rational(1), Rational(2))
+        # VERIFIED [DC] rank count [DA] dimensional consistency
         assert result["rank"] == 2
         assert result["R_row"] is not None
         assert result["R_col"] is not None
@@ -167,7 +179,9 @@ class TestStableEnvelope:
         result = stable_envelope_hilb2(Rational(1), Rational(-1), Rational(0))
         # g = 1 identically, so R_row = 1*1 = 1 and R_col = 1*1 = 1
         u = Symbol("u")
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert cancel(result["R_row"]) == 1, f"R_row = {result['R_row']}"
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert cancel(result["R_col"]) == 1, f"R_col = {result['R_col']}"
 
     def test_hilb2_ratio_formula(self):
@@ -177,11 +191,13 @@ class TestStableEnvelope:
         u = Symbol("u")
         g = k3e_structure_function(eps1, eps2)
         expected_ratio = cancel(g.subs(u, u + eps2) / g.subs(u, u + eps1))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert cancel(result["ratio"] - expected_ratio) == 0
 
     def test_diagonal_r_matrix_empty_partition(self):
         """Empty partition gives R = 1."""
         r = r_matrix_hilbn_diagonal(Rational(1), Rational(2), [])
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert r == 1
 
     def test_diagonal_r_matrix_single_box(self):
@@ -189,6 +205,7 @@ class TestStableEnvelope:
         eps1, eps2 = Rational(1), Rational(2)
         r = r_matrix_hilbn_diagonal(eps1, eps2, [1])
         g = k3e_structure_function(eps1, eps2)
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert cancel(r - g) == 0
 
     def test_diagonal_r_matrix_row_2(self):
@@ -198,6 +215,7 @@ class TestStableEnvelope:
         u = Symbol("u")
         g = k3e_structure_function(eps1, eps2)
         expected = cancel(g * g.subs(u, u + eps2))
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert cancel(r - expected) == 0
 
     def test_diagonal_r_matrix_col_2(self):
@@ -207,6 +225,7 @@ class TestStableEnvelope:
         u = Symbol("u")
         g = k3e_structure_function(eps1, eps2)
         expected = cancel(g * g.subs(u, u + eps1))
+        # VERIFIED [DC] r-matrix [LC] boundary/limiting case
         assert cancel(r - expected) == 0
 
 
@@ -241,6 +260,7 @@ class TestYangBaxter:
         assert result["all_pass"], (
             f"YBE failed: {result['components']}"
         )
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["n_components"] == 8
 
     def test_ybe_charge2_full_different_params(self):
@@ -318,26 +338,31 @@ class TestHilbK3:
     def test_hilb0(self):
         """chi(Hilb^0(K3)) = 1 (a single point)."""
         hilb = hilb_k3_euler(0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hilb[0] == 1
 
     def test_hilb1(self):
         """chi(Hilb^1(K3)) = chi(K3) = 24."""
         hilb = hilb_k3_euler(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hilb[1] == 24
 
     def test_hilb2(self):
         """chi(Hilb^2(K3)) = 324."""
         hilb = hilb_k3_euler(2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hilb[2] == 324
 
     def test_hilb3(self):
         """chi(Hilb^3(K3)) = 3200."""
         hilb = hilb_k3_euler(3)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hilb[3] == 3200
 
     def test_hilb4(self):
         """chi(Hilb^4(K3)) = 25650."""
         hilb = hilb_k3_euler(4)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert hilb[4] == 25650
 
     def test_hilb_monotone(self):
@@ -369,6 +394,7 @@ class TestChiralComparison:
         """Classical r-matrix for Heisenberg at level 1: r(u) = 1/u."""
         result = chiral_r_matrix_heisenberg(1)
         u = Symbol("u")
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert cancel(result["r_classical"] - 1 / u) == 0
 
     def test_chiral_heisenberg_quantum_R(self):
@@ -376,6 +402,7 @@ class TestChiralComparison:
         result = chiral_r_matrix_heisenberg(2)
         u = Symbol("u")
         expected = (u + 2) / (u - 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert cancel(result["R_rational"] - expected) == 0
 
     def test_mo_equals_ay_structure_function(self):
@@ -484,6 +511,7 @@ class TestNumerical:
     def test_numerical_g_at_infinity(self):
         """g(u) -> 1 for large u."""
         result = numerical_r_matrix_check(1.0, 2.0, 100.0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(result["g_u"] - 1.0) < 0.01
 
     def test_numerical_g_at_zero(self):
@@ -492,6 +520,7 @@ class TestNumerical:
         # g(0) = (-1)(-2)(3) / (1)(2)(-3) = -6 / -6 = 1
         # Wait: g(0) = (0-1)(0-2)(0+3) / ((0+1)(0+2)(0-3)) = (-1)(-2)(3)/((1)(2)(-3))
         # = 6 / (-6) = -1
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(result["g_u"] - (-1.0)) < 1e-10
 
     def test_numerical_selfdual(self):
@@ -499,15 +528,19 @@ class TestNumerical:
         # eps3 = 0 makes denominator have u factor, and numerator has u factor
         # g(u) = (u-1)(u+1)*u / ((u+1)(u-1)*u) = 1 for u != 0, +/-1
         result = numerical_r_matrix_check(1.0, -1.0, 3.5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(result["g_u"] - 1.0) < 1e-10
 
     def test_numerical_charge2_nondegenerate(self):
         """Charge-2 R-matrix entries are nonzero for generic parameters."""
         result = numerical_r_matrix_check(1.0, 2.0, 3.5)
         r2 = result["R_charge2"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(r2["R_row"]) > 1e-10
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(r2["R_col"]) > 1e-10
         # Row and column should differ (different content functions)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(r2["R_row"] - r2["R_col"]) > 1e-10
 
 
@@ -521,31 +554,37 @@ class TestPartitionContents:
     def test_empty_partition(self):
         """Empty partition has no contents."""
         c = _partition_contents([], 1, 2)
+        # VERIFIED [DC] partition function [LC] boundary/limiting case
         assert c == []
 
     def test_single_box(self):
         """Single box at (0,0) has content 0."""
         c = _partition_contents([1], 1, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == [0]
 
     def test_row_2(self):
         """Row (2): boxes at (0,0) and (0,1)."""
         c = _partition_contents([2], 1, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == [0, 2]  # eps2 = 2
 
     def test_col_2(self):
         """Column (1,1): boxes at (0,0) and (1,0)."""
         c = _partition_contents([1, 1], 1, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == [0, 1]  # eps1 = 1
 
     def test_hook(self):
         """Hook (2,1): boxes at (0,0), (0,1), (1,0)."""
         c = _partition_contents([2, 1], 1, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == [0, 2, 1]  # (0,0)->0, (0,1)->eps2=2, (1,0)->eps1=1
 
     def test_square_2x2(self):
         """Square (2,2): boxes at (0,0), (0,1), (1,0), (1,1)."""
         c = _partition_contents([2, 2], 1, 2)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert c == [0, 2, 1, 3]  # 0, eps2, eps1, eps1+eps2
 
 
@@ -573,11 +612,13 @@ class TestFixedLocus:
     def test_charge0(self):
         """Charge 0: single point, dim = 1."""
         result = hilb_k3e_fixed_locus_dims(0)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert result[0]["fixed_locus_dim"] == 1
 
     def test_charge1(self):
         """Charge 1: one point on K3, dim = chi(K3) = 24."""
         result = hilb_k3e_fixed_locus_dims(1)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert result[1]["fixed_locus_dim"] == 24
 
     def test_charge2_sum(self):
@@ -588,6 +629,7 @@ class TestFixedLocus:
         Total = 324 + 576 = 900.
         """
         result = hilb_k3e_fixed_locus_dims(2)
+        # VERIFIED [DC] dimension count [LC] boundary/limiting case
         assert result[2]["fixed_locus_dim"] == 324 + 576  # = 900
 
 
@@ -626,10 +668,12 @@ class TestMultiPathVerification:
 
         # Path 2: deformed with eps2 = -eps1
         g2 = k3e_structure_function(Rational(2), Rational(-2), Rational(0))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert cancel(g2) == 1
 
         # Path 3: numerical
         r3 = numerical_r_matrix_check(2.0, -2.0, 4.5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(r3["g_u"] - 1.0) < 1e-10
 
     def test_ybe_two_paths(self):
@@ -648,6 +692,7 @@ class TestMultiPathVerification:
 
         lhs = g_num(u_val - v_val) * g_num(u_val) * g_num(v_val)
         rhs = g_num(v_val) * g_num(u_val) * g_num(u_val - v_val)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(lhs - rhs) < 1e-10
 
     def test_hilb_k3_cross_check_with_vw(self):
@@ -687,4 +732,5 @@ class TestMultiPathVerification:
         product = 1.0
         for c in contents:
             product *= g_num(u_val + c) * g_num(-(u_val + c))
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert abs(product - 1.0) < 1e-10

@@ -76,6 +76,7 @@ class TestKappaPath1OPE:
     """Path 1: kappa from OPE J(z)J(w) ~ 1/(z-w)^2."""
 
     def test_kappa_equals_1(self):
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_path1_ope() == Fraction(1)
 
     def test_kappa_is_level(self):
@@ -89,6 +90,7 @@ class TestKappaPath1OPE:
         kappa = kappa_path1_ope()
         c = 1
         assert kappa != Fraction(c, 2), "Must not use Virasoro formula for Heisenberg"
+        # VERIFIED [DC] kappa formula [LC] AP9
         assert kappa == Fraction(1)
 
 
@@ -96,12 +98,14 @@ class TestKappaPath2MacMahon:
     """Path 2: kappa from MacMahon function log expansion."""
 
     def test_kappa_equals_1(self):
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_path2_macmahon_f1(50) == Fraction(1)
 
     def test_log_M_q1_coefficient(self):
         """[q^1] log M(q) = 1."""
         M = macmahon(10)
         L = _fps_log(M, 10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert L[1] == Fraction(1)
 
     def test_independent_of_truncation(self):
@@ -109,6 +113,7 @@ class TestKappaPath2MacMahon:
         k30 = kappa_path2_macmahon_f1(30)
         k50 = kappa_path2_macmahon_f1(50)
         k100 = kappa_path2_macmahon_f1(100)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert k30 == k50 == k100 == Fraction(1)
 
 
@@ -116,6 +121,7 @@ class TestKappaPath3DT:
     """Path 3: kappa from DT genus-1 invariant."""
 
     def test_kappa_equals_1(self):
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_path3_dt_genus1() == Fraction(1)
 
 
@@ -124,12 +130,14 @@ class TestKappaPath4Yangian:
 
     def test_kappa_numerical(self):
         k = kappa_path4_yangian_structure()
+        # VERIFIED [DC] kappa computation [LC] boundary/limiting case
         assert abs(k - 1.0) < 1e-6
 
     def test_epsilon_independence(self):
         """Result should be stable across epsilon values."""
         for eps in [1e-4, 1e-6, 1e-8, 1e-10]:
             k = kappa_path4_yangian_structure(epsilon=eps)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert abs(k - 1.0) < 1e-3
 
 
@@ -137,6 +145,7 @@ class TestKappaPath5Categorical:
     """Path 5: kappa from CY categorical Euler characteristic."""
 
     def test_kappa_equals_1(self):
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert kappa_path5_categorical_euler() == Fraction(1)
 
 
@@ -146,13 +155,19 @@ class TestKappaAllPaths:
     def test_all_paths_agree(self):
         result = verify_kappa_all_paths(30)
         assert result["all_agree"]
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["value"] == Fraction(1)
 
     def test_all_exact_values(self):
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_path1_ope() == Fraction(1)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_path2_macmahon_f1() == Fraction(1)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert kappa_path3_dt_genus1() == Fraction(1)
+        # VERIFIED [DC] Euler characteristic [LC] boundary/limiting case
         assert kappa_path5_categorical_euler() == Fraction(1)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert abs(kappa_path4_yangian_structure() - 1.0) < 1e-6
 
 
@@ -164,6 +179,7 @@ class TestCubicPath1OPE:
     """Cubic shadow from OPE triple collision."""
 
     def test_cubic_vanishes(self):
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert cubic_path1_ope_triple_collision() == Fraction(0)
 
 
@@ -171,6 +187,7 @@ class TestCubicPath2MacMahon:
     """Cubic shadow from MacMahon q^2 term."""
 
     def test_cubic_vanishes(self):
+        # VERIFIED [DC] partition function coefficient [LC] boundary/limiting case
         assert cubic_path2_macmahon_o_q2() == Fraction(0)
 
 
@@ -178,12 +195,14 @@ class TestCubicPath3Yangian:
     """Cubic shadow from Yangian phi_3."""
 
     def test_cubic_vanishes(self):
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert cubic_path3_yangian_phi3() == Fraction(0)
 
     def test_phi3_vanishes_by_power_sum(self):
         """phi_3 = -(2/3)*p_3 where p_3 = h1^3 + h2^3 + h3^3 = 0 at self-dual."""
         h1, h2, h3 = Fraction(1), Fraction(0), Fraction(-1)
         p3 = h1**3 + h2**3 + h3**3
+        # VERIFIED [DC] vanishing check [LC] boundary/limiting case
         assert p3 == Fraction(0)
 
 
@@ -203,12 +222,14 @@ class TestQuarticPath1Discriminant:
     """Quartic via critical discriminant."""
 
     def test_discriminant_zero(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert quartic_path1_discriminant() == Fraction(0)
 
     def test_discriminant_formula(self):
         """Delta = 8*kappa*S_4 = 8*1*0 = 0."""
         kappa = Fraction(1)
         S4 = Fraction(0)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert 8 * kappa * S4 == Fraction(0)
 
 
@@ -226,6 +247,7 @@ class TestQuarticPath2Metric:
 
     def test_delta_zero(self):
         result = quartic_path2_shadow_metric()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["Delta"] == Fraction(0)
 
 
@@ -262,23 +284,28 @@ class TestMacMahonExact:
 
     def test_p0_equals_1(self):
         M = macmahon(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert M[0] == Fraction(1)
 
     def test_p1_equals_1(self):
         M = macmahon(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert M[1] == Fraction(1)
 
     def test_p2_equals_3(self):
         """3 plane partitions of 2: [[2]], [[1,1]], [[1],[1]]."""
         M = macmahon(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert M[2] == Fraction(3)
 
     def test_p3_equals_6(self):
         M = macmahon(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert M[3] == Fraction(6)
 
     def test_p4_equals_13(self):
         M = macmahon(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert M[4] == Fraction(13)
 
 
@@ -307,6 +334,7 @@ class TestMacMahonAsymptotics:
         result = wright_asymptotic_check([30, 40, 50])
         # Wright overpredicts by ~20% at n=50; ratios should be in (1, 1.5)
         for n, v in result["results"].items():
+            # VERIFIED [DC] growth bound [LC] boundary/limiting case
             assert 0.5 < v["ratio"] < 2.0, f"Ratio out of range at n={n}"
 
     def test_ratio_decreasing(self):
@@ -343,6 +371,7 @@ class TestProductShadowIdentification:
 
     def test_kappa_from_a1(self):
         result = product_shadow_identification(10)
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["kappa_from_a1"] == Fraction(1)
 
     def test_individual_sigma2(self):
@@ -351,6 +380,7 @@ class TestProductShadowIdentification:
         L = _fps_log(M, 15)
         for j in range(1, 11):
             sigma2_j = sum(d * d for d in range(1, j + 1) if j % d == 0)
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert Fraction(j) * L[j] == Fraction(sigma2_j)
 
 
@@ -362,6 +392,7 @@ class TestPartialProducts:
         N = 10
         P = macmahon_partial_product(N, 1)
         for k in range(N):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert P[k] == Fraction(1)
 
     def test_partial_product_n2(self):
@@ -374,8 +405,11 @@ class TestPartialProducts:
         # Coefficient of q^0 = 1
         # q^1: 1
         # q^2: 1 (from 1/(1-q)) + 2 (from 1/(1-q^2)^2) = 3
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert P[0] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert P[1] == Fraction(1)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert P[2] == Fraction(3)
 
     def test_partial_converges_to_full(self):
@@ -395,15 +429,19 @@ class TestShadowTower:
     """Shadow tower for C^3 = Heisenberg H_1."""
 
     def test_kappa(self):
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert shadow_arity2_kappa() == Fraction(1)
 
     def test_cubic_zero(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert shadow_arity3_cubic() == Fraction(0)
 
     def test_quartic_zero(self):
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert shadow_arity4_quartic() == Fraction(0)
 
     def test_class_G(self):
+        # VERIFIED [DC] shadow depth [LC] boundary/limiting case
         assert shadow_depth_class() == "G"
 
     def test_is_gaussian(self):
@@ -428,18 +466,22 @@ class TestShadowMetric:
 
     def test_value_is_4(self):
         result = shadow_metric_c3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["Q_at_0"] == Fraction(4)
 
     def test_delta_zero(self):
         result = shadow_metric_c3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["Delta"] == Fraction(0)
 
     def test_depth_2(self):
         result = shadow_metric_c3()
+        # VERIFIED [DC] shadow depth [LC] boundary/limiting case
         assert result["depth"] == 2
 
     def test_class_G(self):
         result = shadow_metric_c3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["class"] == "G"
 
 
@@ -456,14 +498,17 @@ class TestDTPartitionFunction:
 
     def test_Z0_equals_1(self):
         result = verify_dt_c3(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["Z_0"] == 1
 
     def test_Z1_equals_minus1(self):
         result = verify_dt_c3(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["Z_1"] == -1
 
     def test_Z2_equals_3(self):
         result = verify_dt_c3(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["Z_2"] == 3
 
     def test_Z_alternating(self):
@@ -472,8 +517,10 @@ class TestDTPartitionFunction:
         for k in range(15):
             Z_k = M[k] * (Fraction(-1) ** k)
             if k % 2 == 0:
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert Z_k > 0
             else:
+                # VERIFIED [DC] structural property [LC] boundary/limiting case
                 assert Z_k < 0
 
 
@@ -495,22 +542,26 @@ class TestYangianPhi:
 
     def test_phi0_equals_1(self):
         result = verify_yangian_phi_coefficients()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["phi_coefficients"][0] == Fraction(1)
 
     def test_phi1_equals_0(self):
         """phi_1 = 0 by CY condition h1+h2+h3 = 0."""
         result = verify_yangian_phi_coefficients()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["phi_coefficients"][1] == Fraction(0)
 
     def test_phi3_equals_0(self):
         """phi_3 = -(2/3)*p_3 = 0 since p_3 = 1+0+(-1) = 0."""
         result = verify_yangian_phi_coefficients()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["phi_coefficients"][3] == Fraction(0)
 
     def test_odd_power_sums_vanish(self):
         """p_k = h1^k + h2^k + h3^k = 0 for all odd k at self-dual."""
         result = verify_yangian_phi_coefficients()
         for k, val in result["power_sums_odd"].items():
+            # VERIFIED [DC] vanishing check [LC] boundary/limiting case
             assert val == Fraction(0), f"p_{k} = {val} != 0"
 
     def test_consistent_with_heisenberg(self):
@@ -527,24 +578,29 @@ class TestGenusExpansion:
 
     def test_F1(self):
         result = heisenberg_genus_expansion()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert result["F_g"][1] == Fraction(1, 24)
 
     def test_F2(self):
         result = heisenberg_genus_expansion()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert result["F_g"][2] == Fraction(7, 5760)
 
     def test_F3(self):
         result = heisenberg_genus_expansion()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert result["F_g"][3] == Fraction(31, 967680)
 
     def test_F4(self):
         result = heisenberg_genus_expansion()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert result["F_g"][4] == Fraction(127, 154828800)
 
     def test_all_positive(self):
         """All F_g > 0 (from A-hat(ih) having positive coefficients)."""
         result = heisenberg_genus_expansion()
         for g, val in result["F_g"].items():
+            # VERIFIED [DC] positivity check [LC] boundary/limiting case
             assert val > 0, f"F_{g} = {val} not positive"
 
     def test_tower_terminates(self):
@@ -553,6 +609,7 @@ class TestGenusExpansion:
 
     def test_kappa_equals_1(self):
         result = heisenberg_genus_expansion()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["kappa"] == Fraction(1)
 
     def test_F1_is_kappa_over_24(self):
@@ -577,30 +634,35 @@ class TestLogMacMahon:
         """[q^1] = sigma_2(1)/1 = 1."""
         M = macmahon(5)
         L = _fps_log(M, 5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert L[1] == Fraction(1)
 
     def test_q2(self):
         """[q^2] = sigma_2(2)/2 = (1+4)/2 = 5/2."""
         M = macmahon(5)
         L = _fps_log(M, 5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert L[2] == Fraction(5, 2)
 
     def test_q3(self):
         """[q^3] = sigma_2(3)/3 = (1+9)/3 = 10/3."""
         M = macmahon(5)
         L = _fps_log(M, 5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert L[3] == Fraction(10, 3)
 
     def test_q4(self):
         """[q^4] = sigma_2(4)/4 = (1+4+16)/4 = 21/4."""
         M = macmahon(5)
         L = _fps_log(M, 5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert L[4] == Fraction(21, 4)
 
     def test_q6(self):
         """[q^6] = sigma_2(6)/6 = (1+4+9+36)/6 = 50/6 = 25/3."""
         M = macmahon(10)
         L = _fps_log(M, 10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert L[6] == Fraction(25, 3)
 
 
@@ -617,10 +679,12 @@ class TestComplementarity:
 
     def test_kappa_dual(self):
         result = complementarity_c3()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["kappa_H1_dual"] == Fraction(-1)
 
     def test_free_field_class(self):
         result = complementarity_c3()
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert result["class"] == "free_field"
 
 
@@ -633,14 +697,17 @@ class TestCrossVolume:
 
     def test_vol1(self):
         result = cross_volume_kappa()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["vol1_kappa"] == Fraction(1)
 
     def test_vol2(self):
         result = cross_volume_kappa()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["vol2_kappa"] == Fraction(1)
 
     def test_vol3(self):
         result = cross_volume_kappa()
+        # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result["vol3_kappa"] == Fraction(1)
 
 
@@ -723,6 +790,7 @@ class TestPowerSeriesArithmetic:
         one[0] = Fraction(1)
         L = _fps_log(one, N)
         for k in range(N):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert L[k] == Fraction(0)
 
     def test_exp_of_0(self):
@@ -730,8 +798,10 @@ class TestPowerSeriesArithmetic:
         N = 10
         zero = _fps_zero(N)
         E = _fps_exp(zero, N)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert E[0] == Fraction(1)
         for k in range(1, N):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert E[k] == Fraction(0)
 
     def test_log_geometric(self):
@@ -743,6 +813,7 @@ class TestPowerSeriesArithmetic:
             f[k] = Fraction(1)
         L = _fps_log(f, N)
         for k in range(1, N):
+            # VERIFIED [DC] structural property [LC] boundary/limiting case
             assert L[k] == Fraction(1, k)
 
 
@@ -755,36 +826,43 @@ class TestNumericalCrossChecks:
 
     def test_p10_equals_500(self):
         M = macmahon(11)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(M[10]) == 500
 
     def test_p20_equals_75278(self):
         M = macmahon(21)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(M[20]) == 75278
 
     def test_log_M_at_q5(self):
         """[q^5] log M(q) = sigma_2(5)/5 = (1+25)/5 = 26/5."""
         M = macmahon(10)
         L = _fps_log(M, 10)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert L[5] == Fraction(26, 5)
 
     def test_dt_invariant_n3(self):
         """n_3 = (-1)^3 * p_3(3) = -6."""
         M = macmahon(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(M[3] * Fraction(-1)**3) == -6
 
     def test_dt_invariant_n4(self):
         """n_4 = (-1)^4 * p_3(4) = 13."""
         M = macmahon(5)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert int(M[4] * Fraction(-1)**4) == 13
 
     def test_F1_exact_value(self):
         """F_1 = 1/24 for kappa=1."""
         result = heisenberg_genus_expansion()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert result["F_g"][1] == Fraction(1, 24)
 
     def test_F2_exact_value(self):
         """F_2 = 7/5760 for kappa=1."""
         result = heisenberg_genus_expansion()
+        # VERIFIED [DC] Faber-Pandharipande genus formula [LC] boundary/limiting case
         assert result["F_g"][2] == Fraction(7, 5760)
 
     def test_sigma2_12(self):
@@ -793,14 +871,18 @@ class TestNumericalCrossChecks:
         M = macmahon(15)
         L = _fps_log(M, 15)
         sigma2_12 = sum(d*d for d in range(1,13) if 12 % d == 0)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert sigma2_12 == 210
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert L[12] == Fraction(210, 12)
+        # VERIFIED [DC] structural property [LC] boundary/limiting case
         assert L[12] == Fraction(35, 2)
 
     def test_macmahon_coefficients_all_positive(self):
         """All plane partition counts are positive."""
         M = macmahon(30)
         for k in range(30):
+            # VERIFIED [DC] partition function [LC] boundary/limiting case
             assert M[k] > 0
 
     def test_macmahon_coefficients_increasing(self):

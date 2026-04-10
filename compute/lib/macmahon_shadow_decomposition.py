@@ -464,11 +464,11 @@ def shadow_tower_kappa_ratio(g: int) -> Optional[Fraction]:
     proves that M(q) is not a scalar shadow tower.
 
     For g >= 2:
-        kappa_eff(g) = F_g^{MacM} / lambda_g^{FP}
+        kappa_ch(g) = F_g^{MacM} / lambda_g^{FP}
           = [B_{2(g-1)}*B_{2g}/((2g-2)!*(2g-2)*(2g))] / [(2^{2g-1}-1)|B_{2g}|/(2^{2g-1}(2g)!)]
           = B_{2(g-1)} * sgn(B_{2g}) * 2^{2g-1} * (2g)! / ((2g-2)!*(2g-2)*(2g)*(2^{2g-1}-1))
 
-    The presence of B_{2(g-1)} makes kappa_eff genus-dependent.  The sign alternates,
+    The presence of B_{2(g-1)} makes kappa_ch genus-dependent.  The sign alternates,
     and the magnitude initially decreases (g=2..4) before growing.
     """
     if g < 2:
@@ -482,7 +482,7 @@ def shadow_tower_kappa_ratio(g: int) -> Optional[Fraction]:
 
 
 def shadow_tower_kappa_ratios(max_genus: int = 15) -> List[Dict[str, Any]]:
-    """Compute kappa_eff(g) for g = 2, ..., max_genus.
+    """Compute kappa_ch(g) for g = 2, ..., max_genus.
 
     Returns a list of dicts with genus, F_g^MacM, lambda_g^FP, and ratio.
     """
@@ -495,8 +495,8 @@ def shadow_tower_kappa_ratios(max_genus: int = 15) -> List[Dict[str, Any]]:
             'genus': g,
             'F_g_macmahon': F_g,
             'lambda_g_FP': lam_g,
-            'kappa_eff': ratio,
-            'kappa_eff_float': float(ratio) if ratio is not None else None,
+            'kappa_ch': ratio,
+            'kappa_ch_float': float(ratio) if ratio is not None else None,
         })
     return results
 
@@ -763,7 +763,7 @@ def shadow_tower_comparison(max_genus: int = 12) -> Dict[str, Any]:
     The scalar shadow tower predicts: F_g = kappa * lambda_g^FP.
     The MacMahon genus amplitudes are: F_g^MacM = B_{2g}/(4(g-1)g).
 
-    The ratio kappa_eff(g) = F_g^MacM / lambda_g^FP should be constant
+    The ratio kappa_ch(g) = F_g^MacM / lambda_g^FP should be constant
     if M(q) is a scalar shadow tower.  It is NOT.
 
     HOWEVER, there is a remarkable structural parallel:
@@ -771,13 +771,13 @@ def shadow_tower_comparison(max_genus: int = 12) -> Dict[str, Any]:
     Both F_g^MacM and lambda_g^FP involve B_{2g}/(2g)!, so the ratio
     simplifies significantly:
 
-    kappa_eff(g) = [B_{2g}/(4(g-1)g)] / [(2^{2g-1}-1)|B_{2g}|/(2^{2g-1}(2g)!)]
+    kappa_ch(g) = [B_{2g}/(4(g-1)g)] / [(2^{2g-1}-1)|B_{2g}|/(2^{2g-1}(2g)!)]
                  = sgn(B_{2g}) * 2^{2g-1}(2g)! / [4(g-1)g(2^{2g-1}-1)]
                  = (-1)^{g+1} * (2g)! / [2(2g-2)(2^{2g-1}-1)]  * 2^{2g-2}/1
 
     Actually let me just compute it:
       B_{2g}/|B_{2g}| = (-1)^{g+1}
-      So kappa_eff = (-1)^{g+1} * 2^{2g-1} * (2g)! / (4(g-1)*g*(2^{2g-1}-1))
+      So kappa_ch = (-1)^{g+1} * 2^{2g-1} * (2g)! / (4(g-1)*g*(2^{2g-1}-1))
     """
     from math import factorial as mfact
 
@@ -793,18 +793,18 @@ def shadow_tower_comparison(max_genus: int = 12) -> Dict[str, Any]:
             'F_g_MacMahon_float': float(F_g_macm),
             'lambda_g_FP': lam_g,
             'lambda_g_FP_float': float(lam_g),
-            'kappa_eff': ratio,
-            'kappa_eff_float': float(ratio) if ratio is not None else None,
+            'kappa_ch': ratio,
+            'kappa_ch_float': float(ratio) if ratio is not None else None,
         })
 
-    # Check if kappa_eff is constant (it is NOT)
-    kappa_values = [r['kappa_eff_float'] for r in results if r['kappa_eff_float'] is not None]
+    # Check if kappa_ch is constant (it is NOT)
+    kappa_values = [r['kappa_ch_float'] for r in results if r['kappa_ch_float'] is not None]
     is_constant = len(set(round(k, 10) for k in kappa_values)) <= 1 if kappa_values else True
 
     return {
         'genus_data': results,
-        'kappa_eff_is_constant': is_constant,
-        'kappa_eff_values': kappa_values,
+        'kappa_ch_is_constant': is_constant,
+        'kappa_ch_values': kappa_values,
         'conclusion': (
             'The MacMahon function does NOT decompose as a scalar shadow tower. '
             'The effective kappa varies with genus, growing as (2g)! * 2^{2g} / g^2. '
@@ -1041,15 +1041,15 @@ def macmahon_effective_kappa() -> Dict[str, Any]:
 
     At genus 2: F_2 = B_2*B_4/(2!*2*4) = (1/6)*(-1/30)/16 = -1/2880.
     lambda_2 = 7/5760.
-    kappa_eff(2) = (-1/2880)/(7/5760) = -2/7 ~ -0.286.
+    kappa_ch(2) = (-1/2880)/(7/5760) = -2/7 ~ -0.286.
 
     At genus 3: F_3 = B_4*B_6/(4!*4*6) = (-1/30)*(1/42)/576 = -1/725760.
     lambda_3 = 31/967680.
-    kappa_eff(3) = (-1/725760)/(31/967680) ~ -0.043.
+    kappa_ch(3) = (-1/725760)/(31/967680) ~ -0.043.
 
     These are DIFFERENT, confirming non-scalar-shadow structure.
 
-    The kappa_eff values initially DECREASE in magnitude (g=2: -0.286, g=3: -0.043,
+    The kappa_ch values initially DECREASE in magnitude (g=2: -0.286, g=3: -0.043,
     g=4: -0.028) before eventually growing.  This non-monotonic behavior reflects
     the interplay of the two Bernoulli factors: B_{2(g-1)} contributes a growing
     factor while the factorial (2(g-1))! suppresses it.
@@ -1058,15 +1058,15 @@ def macmahon_effective_kappa() -> Dict[str, Any]:
     for g in range(2, 10):
         F_g = macmahon_genus_amplitude(g)
         lam_g = lambda_fp(g)
-        kappa_eff = F_g / lam_g if lam_g != 0 else None
-        results[f'kappa_eff_g{g}'] = {
-            'value': kappa_eff,
-            'float': float(kappa_eff) if kappa_eff else None,
+        kappa_ch = F_g / lam_g if lam_g != 0 else None
+        results[f'kappa_ch_g{g}'] = {
+            'value': kappa_ch,
+            'float': float(kappa_ch) if kappa_ch else None,
         }
 
-    kappa_vals = [results[f'kappa_eff_g{g}']['float'] for g in range(2, 10)]
+    kappa_vals = [results[f'kappa_ch_g{g}']['float'] for g in range(2, 10)]
     results['conclusion'] = (
-        'kappa_eff varies with genus, confirming M(q) is not a scalar shadow tower. '
+        'kappa_ch varies with genus, confirming M(q) is not a scalar shadow tower. '
         f'Values: ' + ', '.join(f'g={g}: {v:.6f}' for g, v in zip(range(2, 10), kappa_vals))
         + '. The non-constancy comes from the DOUBLE BERNOULLI structure '
         'B_{2(g-1)}*B_{2g} in the MacMahon genus amplitude vs the single '
@@ -1095,7 +1095,7 @@ def macmahon_shadow_data() -> Dict[str, Any]:
        F^{(r)} = -r*log(1-q^r), and this IS a sum over "shadow channels."
 
     NEGATIVE FINDINGS:
-    4. There is no single kappa: kappa_eff(g) varies with genus.
+    4. There is no single kappa: kappa_ch(g) varies with genus.
 
     5. The genus-1 term is anomalous (logarithmic, not polynomial).
 
@@ -1109,9 +1109,9 @@ def macmahon_shadow_data() -> Dict[str, Any]:
     of Theta (the higher-spin W-algebra structure).
 
     The genus-g amplitude F_g^{MacM} = B_{2g}/(4(g-1)g) can be written as:
-        F_g^{MacM} = lambda_g^{FP} * kappa_eff(g)
+        F_g^{MacM} = lambda_g^{FP} * kappa_ch(g)
 
-    where kappa_eff(g) = (-1)^{g+1} * (2g)! * 2^{2g-1} / (4(g-1)g(2^{2g-1}-1))
+    where kappa_ch(g) = (-1)^{g+1} * (2g)! * 2^{2g-1} / (4(g-1)g(2^{2g-1}-1))
     grows factorially.  This factorial growth is the signature of the
     INFINITE shadow depth of W_{1+inf} (class M with r_max = infinity).
     """
@@ -1124,7 +1124,7 @@ def macmahon_shadow_data() -> Dict[str, Any]:
             'g': g,
             'F_g_MacMahon': str(F_g),
             'lambda_FP': str(lam),
-            'kappa_eff': str(F_g / lam) if lam != 0 else 'N/A',
+            'kappa_ch': str(F_g / lam) if lam != 0 else 'N/A',
         })
 
     return {
