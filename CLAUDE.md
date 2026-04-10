@@ -32,6 +32,145 @@ Bare "kappa" is FORBIDDEN in Vol III. A CY manifold gives rise to MULTIPLE chira
 
 kappa(K3 x E) = 3 vs 5 contradiction arose from conflating kappa_ch and kappa_BKM. Full spectrum: {2,3,5,24}.
 
+## HOT ZONE -- Top 10 Vol III Repeat Offenders
+
+Read this section BEFORE any Edit. These are the AP-CY patterns that fire repeatedly across waves despite being catalogued. Each entry is an operational template, not prose. If you only read 80 lines of Vol III CLAUDE.md, read these.
+
+### HZ3-1. AP-CY6/AP-CY14 (unconstructed A_X in theorem environment)
+
+Decision tree, answer BEFORE writing `\begin{theorem}`:
+
+```
+Q1: Does the proof chain pass through A_X for d=3, G(X), C(g,q), or any
+    object whose existence is part of the d=3 programme?
+    YES -> \begin{conjecture} + \ClaimStatusConjectured. STOP. NEVER theorem.
+    NO  -> Q2
+Q2: Does it pass through A_X for d=2 (CY-A proved)?
+    YES -> \begin{theorem} or \begin{proposition} OK; cite CY-A explicitly.
+    NO  -> Q3
+Q3: Pure categorical / VOA / Yangian statement (no functor invocation)?
+    YES -> \begin{theorem} or \begin{proposition} OK; classical proof.
+UNCERTAIN -> default \begin{conjecture}. Downgrade is cheaper than retract.
+```
+
+Vol III default: `\begin{conjecture}` regardless. The 11+ instances fixed across 4 commits prove that the LLM pattern-matches on "if X then Y" logical form without checking whether X exists.
+
+### HZ3-2. AP113 (bare kappa)
+
+ZERO TOLERANCE in Vol III. Before writing ANY `\kappa`:
+
+```
+(i)  Subscript present?  Required: {ch, cat, BKM, fiber}
+(ii) Forbidden subscripts: {global, BPS, eff, total, naive, MacMahon}
+     If you wrote BPS, you mean BKM. Rename now.
+(iii) Meta-naming "kappa-spectrum" / "kappa-value":
+     write \kappa_\bullet to satisfy the grep regex (the bullet denotes
+     the indexing variable across the approved set).
+```
+
+Decision tree:
+- chiral algebra A_C / Phi(C) -> `\kappa_{\mathrm{ch}}`
+- Borcherds-Kac-Moody / Igusa weight -> `\kappa_{\mathrm{BKM}}`
+- Holomorphic Euler char chi(O_X) -> `\kappa_{\mathrm{cat}}`
+- Lattice rank / fiber structure -> `\kappa_{\mathrm{fiber}}`
+
+### HZ3-3. AP-CY11 (conditional propagation)
+
+If a result depends on Conjecture X which depends on CY-A_3, the result IS conditional on CY-A_3. Use `\ClaimStatusConditional` and state the dependency chain. Pattern caught at Tier 2: `cor:kappa-from-charts` was `ProvedHere` despite chaining through `conj:e1-chart-gluing -> CY-A_3`. Fixed in cy_to_chiral.tex L1127.
+
+Template before `\ClaimStatusProvedHere`:
+
+```
+Q: Does this result's proof chain reach back to CY-A_3 or any unconstructed object?
+   NO  -> ProvedHere OK
+   YES -> ClaimStatusConditional + name the chain in the body
+```
+
+### HZ3-4. AP-CY7 (CoHA vs E_1-chiral)
+
+The Cohomological Hall Algebra is associative, NOT a chiral algebra. The slogan "the E_1-sector of G(X)" assumes G(X) exists (AP43). Forbidden conflations:
+
+```
+"CoHA = E_1-chiral algebra"  WRONG
+"E_1-sector of G(X)"          assumes G(X), AP43 violation
+"CoHA carries a vertex algebra structure"  WRONG (it carries a Hall product)
+```
+
+CoHA is the Hochschild cohomology of the quiver-with-potential category, with the Schiffmann-Vasserot-Yang-Zhao multiplication. The connection to chiral algebras is via the FUNCTOR Phi (CY-A), not by identification.
+
+### HZ3-5. AP-CY3/AP-CY4 (E_2, Drinfeld center, derived center)
+
+Three distinct objects:
+
+```
+1. E_2-monoidal category C  =  little 2-disks structure (NOT symmetric).
+2. Drinfeld center Z(C)     =  monoidal-category center via half-braidings.
+3. Derived center Z^der_ch(A) =  Hochschild cochains, the bulk algebra.
+```
+
+NEVER conflate. Drinfeld center Z(Rep^{E_1}(A)) is a category-theoretic operation; derived center Z^der_ch(A) is the bulk operator algebra. The relationship: Drinfeld center IS the categorification of derived center (modular envelope).
+
+### HZ3-6. AP-CY8 (Borcherds denominator vs bar Euler product)
+
+For K3 x E, the identification `Phi_10 = bar Euler product` is an OBSERVATION, not a theorem. It is conditional on:
+- CY-A_2 (which IS proved at d=2)
+- The Vol I Borcherds-lift identification of bar Euler products
+
+Template: any sentence asserting equality between automorphic forms and bar Euler products MUST cite both CY-A and the Vol I anchor explicitly. Bare "the bar Euler product equals Phi_10" is forbidden.
+
+### HZ3-7. AP-CY17 (MF(W) CY dimension)
+
+For W: A^n -> A^1, the matrix factorization category MF(W) is CY of dimension `n-2`, NOT `n-1`. Mnemonic: ADE in 2 variables gives CY_0 (semisimple). Need 4 variables for CY_2. Need 5 variables for CY_3 (Fermat quintic).
+
+Verification template before any MF(W) CY claim:
+
+```
+W: A^n -> A^1, n = ?
+MF(W) is CY_{n-2}; check n-2 against the desired CY dimension.
+n=2: CY_0 (ADE Lie algebras)
+n=3: CY_1
+n=4: CY_2 (compact K3 surfaces from quartic)
+n=5: CY_3 (compact threefolds from quintic)
+```
+
+### HZ3-8. AP-CY10 (flop vs Koszul dual)
+
+Birational flop X -> X^+ is a derived equivalence; it PRESERVES kappa_ch. Koszul dual A -> A^! has `kappa(A) + kappa(A^!) = K` (family-dependent conductor). Forbidden conflations:
+
+```
+"flop is the Koszul dual"          WRONG
+"kappa(A_X) + kappa(A_{X^+}) = 0"  WRONG (flops preserve kappa)
+"kappa(A_X) = kappa(A_{X^+})"      RIGHT (flop is autoequivalence)
+```
+
+Flop exchanges chambers in the Mukai motion; Koszul exchanges algebra/coalgebra. Different operations entirely.
+
+### HZ3-9. AP-CY12 (shadow class from full tower)
+
+The G/L/C/M classification of a CY chiral algebra MUST be computed from the full shadow tower, NOT from generator counting or non-formality alone. Template:
+
+```
+"X has m_3 != 0"  ->  necessary condition for class >= L; not sufficient.
+"shadow tower terminates at depth 2"  ->  class L (verified by computation).
+"m_n != 0 for all n"  ->  class M (full tower computation required).
+"local P^2 has 3 generators"  ->  inadequate for class. Compute the tower.
+```
+
+local P^2 IS class M (infinite depth), not class L. Wrong classification was caught in compute/audit/cy_shadow_class_audit.
+
+### HZ3-10. AP-CY13/V2-AP26 (cross-volume Part references)
+
+NEVER hardcode `Part~IV`, `Chapter~12` in Vol III prose. Always use `\ref{part:...}`. Before any cross-volume reference:
+
+```
+(i)  Use \ref{part:foo}, never Part~N
+(ii) After ANY restructuring, grep ALL THREE volumes for stale Part refs:
+     grep -rn 'Part~[IVXL]' chapters/ appendices/ standalone/
+(iii) Verify every match resolves to a current part label
+```
+
+Vol III's Tier 2 dnp_identification_master.tex Vol II edit caught a stale Part~II reference (Tier 2 Task E4); the canonical Vol I Parts list is in main.tex L822-1400.
+
 ## E_1/E_2 Chiral Hierarchy
 
 E_1-chiral (Vol II): associative factorization on C x R. Monoidal rep categories. E_2-chiral (this vol): braided factorization on C x C. Braided monoidal rep categories: habitat of quantum groups. E_1 -> E_2 via Dunn additivity. d=2: S^2-framing of HH_*(C) gives E_2. d=3: holomorphic CS breaks E_2 to E_1; recover E_2 via Drinfeld center Z(Rep^{E_1}(A)) = Rep^{E_2}(Z^der_ch(A)). Drinfeld center is categorified av: E_1-Cat -> E_2-Cat. Quantum groups, Yangians, braided tensor categories natively E_1. E_2 derived.

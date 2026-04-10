@@ -15,7 +15,7 @@ Two consecutive sessions totalling ~230 agents across three volumes.
 - Fernandez-Costello-Paquette [FCP24]: boundary-to-bulk via Koszul duality in QFT
 - Bittleston-Costello-Zeng [BCZ24]: twistor anomaly and Deligne exceptional series selection
 - Bittleston-Costello [BC25]: 2-loop QCD from holomorphic CS
-- Cliff-Gannon-Frenkel [CFG25]: universal chiral algebras and genus extension
+- Costello-Francis-Gwilliam [CFG25]: Chern-Simons factorization algebras and knot polynomials
 - Mok [Mok25]: log FM compactification, planted-forest tropicalization (Pillar C)
 - Positselski [Pos11]: coderived categories for curved dg algebras (BV=bar D^co)
 - Adamovic-Milas [AM99]: W(2) triplet algebra (W(2) Koszulness OPEN)
