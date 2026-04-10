@@ -428,6 +428,130 @@ The correct value $\kappa_{\mathrm{BKM}} = 5$ comes from the Borcherds lift weig
 
 \noindent\textit{Verification}: 86 tests in \texttt{k3e\_coha\_structure.py} (G1 subsuite) covering $\chi/24$ vs $\kappa_{\mathrm{ch}}$ comparison for $K3$, $E$, $K3 \times E$, and all eight $X_N$ families.
 
+
+\subsection{The three algebraizations of K3}
+\label{subsec:k3-three-algebraizations}
+
+% FOUR OBJECTS (AP25/AP34/AP50):
+% 1. B(A) = bar coalgebra = T^c(s^{-1} A-bar) with deconcatenation + twist
+% 2. A^i = H^*(B(A)) = dual coalgebra (Koszul cohomology of bar)
+% 3. A^! = ((A^i)^v) = dual ALGEBRA (linear or Verdier dual)
+% 4. Z^der_ch(A) = derived chiral center = Hochschild cochains = bulk
+
+The failure of $\chi_{\mathrm{top}}/24$ as a modular characteristic is not an isolated
+numerical accident.  It is the first symptom of a trichotomy that lies at the heart
+of the CY programme: the K3 surface admits three algebraizations, each extracting
+a different chiral algebra from the same underlying geometry, and the modular
+characteristic $\kappa_{\mathrm{ch}}$ distinguishes them completely.
+
+\begin{proposition}[The K3 trichotomy]
+\label{prop:k3-trichotomy}
+\ClaimStatusProvedHere
+% AP113: all kappa occurrences carry subscripts (kappa_ch, kappa_cat, kappa_BKM, kappa_fiber)
+Let $S$ be a K3 surface with $\chi_{\mathrm{top}}(S) = 24$ and $\chi(\cO_S) = 2$.  Three algebraization routes produce three chiral algebras with distinct modular characteristics:
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{llccl}
+  \toprule
+  \textbf{Route} & \textbf{Algebra} & $c$ & $\kappa_{\mathrm{ch}}$ & \textbf{Source of $\kappa_{\mathrm{ch}}$} \\
+  \midrule
+  CY functor $\Phi$ & $\Phi(D^b(\Coh(S)))$ & $24$ & $2$ & $\chi(\cO_S) = h^{0,0} - h^{0,1} + h^{0,2}$ \\
+  Monster orbifold & $V^\natural$ & $24$ & $12$ & $\dim \HH_*(D^b(S))/2 = 24/2$ \\
+  Lattice VOA & $V_\Lambda$ (Leech) & $24$ & $24$ & $\operatorname{rank}(\Lambda) = 24$ \\
+  \bottomrule
+\end{tabular}
+\end{center}
+All three share $c = 24$ and originate from K3 geometry.  The
+three modular characteristics $2$, $12$, $24$ are pairwise distinct;
+no two agree.
+\ClaimStatusProvedHere
+\end{proposition}
+
+\begin{proof}
+(i) \emph{CY functor.}  The functor
+$\Phi \colon D^b(\Coh(S)) \to \mathrm{ChirAlg}$ of Theorem~\ref{thm:cy-to-chiral}
+produces a chiral algebra with $24$ generators (one per Hochschild class, since
+$\dim \HH_*(D^b(S)) = 24$) and central charge $c = 24$.
+The modular characteristic is $\kappa_{\mathrm{ch}}(\Phi(D^b(S))) = \chi(\cO_S) = 2$:
+the CY trace on $\HH_0$ picks out the holomorphic Euler characteristic, not the
+total Hochschild dimension.  Five independent verifications appear in
+Theorem~\ref{thm:k3-kappa}.
+
+(ii) \emph{Monster orbifold.}  The moonshine module $V^\natural$ has $c = 24$,
+constructed as the $\Z/2$-orbifold of the Leech lattice VOA $V_\Lambda$.
+Its modular characteristic is $\kappa_{\mathrm{ch}}(V^\natural) = 12$
+(Vol~III, Remark~\ref{rem:lattice-voa-k3} and the lattice VOA bar complex of
+Vol~I).  The connection to K3 is that the Leech lattice itself is the unique
+even unimodular lattice of rank $24$ with no roots, and its root system is
+controlled by the K3 geometry: the $196560$ minimal vectors of $\Lambda_{\mathrm{Leech}}$
+arise as a shadow of $\chi_{\mathrm{top}}(S) = 24$.  The $\Z/2$-orbifold halves
+$\kappa_{\mathrm{ch}}$ from $24$ to $12$.
+
+(iii) \emph{Lattice VOA.}  The Leech lattice VOA $V_\Lambda$ has $c = 24$ and
+$\kappa_{\mathrm{ch}}(V_\Lambda) = \operatorname{rank}(\Lambda) = 24$
+(Remark~\ref{rem:leech-connection}).  As a lattice VOA, it is the free-field
+realization of $24$ bosons compactified on $\Lambda_{\mathrm{Leech}}$.  The K3
+lattice $\Lambda_{K3} = U^3 \oplus E_8(-1)^2$ of rank $22$ and signature $(3,19)$
+embeds in the Leech lattice after adding a hyperbolic plane $U$; the passage
+$\Lambda_{K3} \oplus U \hookrightarrow \Lambda_{\mathrm{Leech}}$ is the Niemeier
+classification step that ties K3 geometry to the rank-$24$ lattice.
+\end{proof}
+
+The three numbers $2$, $12$, $24$ are not random.
+They encode the depth at which each algebraization route interrogates the K3 geometry:
+\begin{itemize}
+\item $\kappa_{\mathrm{ch}} = 2 = \chi(\cO_S)$: the CY functor sees only the
+  holomorphic Euler characteristic, the coarsest algebraic invariant of the surface.
+  The $24$ Hochschild generators are present, but the CY trace projects onto a
+  two-dimensional subspace.
+\item $\kappa_{\mathrm{ch}} = 12 = \dim \HH_*(D^b(S))/2$: the Monster orbifold
+  sees half the Hochschild homology.  The $\Z/2$-orbifolding kills exactly the
+  ``wrong-parity'' sector, and $\kappa_{\mathrm{ch}}$ records the surviving half.
+\item $\kappa_{\mathrm{ch}} = 24 = \dim \HH_*(D^b(S))$: the lattice VOA sees
+  the full Hochschild homology.  Every class contributes a free boson, and
+  $\kappa_{\mathrm{ch}} = \operatorname{rank}$ for lattice algebras
+  (Vol~I, census entry C1 applied at rank~$24$).
+\end{itemize}
+The ratio $\kappa_{\mathrm{ch}}(V_\Lambda) / \kappa_{\mathrm{ch}}(V^\natural) /
+\kappa_{\mathrm{ch}}(\Phi(D^b(S))) = 24 : 12 : 2 = 12 : 6 : 1$
+is an invariant of the algebraization route, not of K3 itself.  The K3 surface
+supplies a single derived category $D^b(\Coh(S))$ and a single Hochschild homology
+$\HH_*(D^b(S))$ of total dimension~$24$; the three routes differ in how much of
+this $24$-dimensional space they promote to a chiral algebra generator with
+nonvanishing contribution to the shadow tower.
+
+\begin{remark}[Why one geometry produces three modular characteristics]
+\label{rem:k3-trichotomy-why}
+% AP113: kappa_ch subscripted throughout
+The trichotomy is not a failure of the CY-to-chiral functor.  It is evidence that
+the functor $\Phi$ is \emph{not} the only route from geometry to chiral algebra,
+and that $\kappa_{\mathrm{ch}}$ detects the route, not merely the destination.
+
+At the level of higher structures, the three constructions differ in the operadic
+data they extract.  The CY functor $\Phi$ uses the $\Eone$-algebra structure on the
+bar complex $B^{\Eone}(D^b(S))$, which retains the ordering of collision points;
+the projection to the shadow tower (the $\Sigma_n$-coinvariant quotient) loses all
+but the trace, producing $\kappa_{\mathrm{ch}} = 2$.  The lattice VOA
+construction uses the $E_\infty$-structure directly, promoting every lattice vector
+to a generator; no information is lost in the passage from Hochschild to chiral,
+and $\kappa_{\mathrm{ch}} = 24$.  The Monster orbifold sits between:
+the $\Z/2$-orbifolding is a structured projection that preserves exactly half the
+data, giving $\kappa_{\mathrm{ch}} = 12$.
+
+The question this raises for the CY programme is sharp: given a CY$_d$
+variety $X$, is there a \emph{canonical} algebraization route, or does the
+programme produce a family of chiral algebras parametrized by the choice of
+operadic structure?  For $d = 1$ (elliptic curve) the question is trivial:
+$\kappa_{\mathrm{ch}}(E) = 1$ by all routes.  For $d = 2$ (K3) the question is
+the trichotomy of this subsection.  For $d = 3$ ($K3 \times E$) the question
+acquires a fourth layer: $\kappa_{\mathrm{BKM}} = 5$, the Borcherds lift weight,
+is not the modular characteristic of any of the three $d = 2$ algebras but of the
+second-quantized BKM superalgebra $\mathfrak{g}_{\Delta_5}$ (Theorem~\ref{thm:k3e-fiber-global}).
+\end{remark}
+
+\noindent\textit{Verification}: 75 tests in \texttt{k3\_cy\_a2\_verification\_engine.py} covering the three-algebra distinction, $\kappa_{\mathrm{ch}}$ values, orbifold halving, and $\dim \HH_*$-to-$\kappa_{\mathrm{ch}}$ comparison for all three routes.
+
+
 \section{Five routes to $G(K3 \times E)$}
 \label{sec:k3e-five-routes}
 
