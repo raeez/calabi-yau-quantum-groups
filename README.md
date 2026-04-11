@@ -72,7 +72,7 @@ For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfac
 | Working notes | 22 |
 | Tagged claims | ~364 |
 | Compute tests | ~17,307 |
-| Compute modules | 169 lib + 164 test |
+| Compute modules | 169 lib + 166 test |
 | Anti-patterns | AP-CY1 through AP-CY19 (8 foundational + 11 empirical) |
 | HOT ZONE entries | HZ3-1 through HZ3-10 (Vol III-specific operational templates) |
 | Bibliography | 38 bibitems (0 undefined citations, down from 62) |
