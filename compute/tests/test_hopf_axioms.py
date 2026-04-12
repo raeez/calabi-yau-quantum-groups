@@ -21,8 +21,9 @@ This test suite verifies the five Hopf-like axioms:
 
 4. QUASI-TRIANGULARITY:
    Delta^{op}_z != Delta_z for z != 0 (R-matrix nontrivial).
-   The asymmetry is zero for J (primitive) and nonzero for T at z != 0.
-   At z=0, Delta is cocommutative.
+   The z-shift breaks symmetry even for J (primitive): Delta_z(J_n) has
+   the shift on the RIGHT factor, while Delta^{op}_z puts it on the LEFT.
+   At z=0, Delta is cocommutative for all generators.
 
 5. K-MATRIX: The z-shift generates the translation operator K(z) = e^{-z*d/du}.
    At Psi=1 (free boson), K is trivial (no cross-term).
@@ -450,15 +451,36 @@ class TestQuasiTriangularity:
         P = TH.safe_proj(3)
         return TH, SWAP, P
 
-    def test_J_always_symmetric(self, setup):
-        """Delta^{op}_z(J_n) = Delta_z(J_n) for all z (J is primitive)."""
+    def test_J_symmetric_at_z0(self, setup):
+        """Delta^{op}_0(J_n) = Delta_0(J_n) (cocommutative at z=0).
+
+        At z=0, Delta(J_n) = J^L_n + J^R_n, which is symmetric under swap.
+        At z != 0, the z-shift breaks symmetry even for J (primitive):
+        Delta_z(J_n) = J^L_n + tilde{J}^R_n(z) while
+        Delta^{op}_z(J_n) = J^R_n + tilde{J}^L_n(z). These differ.
+        """
         TH, SWAP, P = setup
-        z = 0.5 + 0.3j
         for n in range(-2, 3):
-            DJ = TH.Delta_J(n, z)
+            DJ = TH.Delta_J(n, 0.0)
             DJ_op = SWAP @ DJ @ SWAP
             err = float(np.max(np.abs(P @ (DJ_op - DJ) @ P)))
-            assert err < 1e-10, f"J_{n}: asymmetry {err:.2e}"
+            assert err < 1e-10, f"J_{n}: asymmetry at z=0: {err:.2e}"
+
+    def test_J_asymmetric_at_z_nonzero(self, setup):
+        """Delta^{op}_z(J_n) != Delta_z(J_n) for z != 0, n < 0.
+
+        The z-shift tilde{J}_n(z) = sum_k binom(n,k) z^k J_{n-k} is
+        nontrivial for n < 0 (creation modes). Swapping factors moves
+        the shift from R to L, breaking symmetry.
+        """
+        TH, SWAP, P = setup
+        z = 0.5 + 0.3j
+        DJ = TH.Delta_J(-1, z)
+        DJ_op = SWAP @ DJ @ SWAP
+        asym = float(np.max(np.abs(P @ (DJ_op - DJ) @ P)))
+        assert asym > 0.1, (
+            f"Expected z-shift asymmetry for J_{{-1}} but got {asym:.2e}"
+        )
 
     def test_T_symmetric_at_z0(self, setup):
         """Delta^{op}_0(T_n) = Delta_0(T_n) (cocommutative at z=0)."""
