@@ -58,6 +58,23 @@ Best-practice prompt design in this repo means reducing entropy, not adding rhet
 8. Add instructions only when they change behavior.
    Remove decorative meta-rules, duplicated guidance, and vague slogans that widen the search space.
 
+### GPT-5.4 Prompt Architecture (for composing task prompts)
+
+When composing task prompts for Codex agents or sub-agents, use XML-tagged blocks for structural clarity:
+
+- `<task>`: the concrete job and repository context
+- `<structured_output_contract>`: exact shape, ordering, brevity requirements
+- `<default_follow_through_policy>`: act without asking routine questions; stop only when a missing detail changes correctness or safety
+- `<verification_loop>`: verify result against task requirements before finalizing
+- `<grounding_rules>`: ground every claim in evidence; label hypotheses
+- `<missing_context_gating>`: do not guess missing repository facts; retrieve with tools or state unknowns
+- `<completeness_contract>`: resolve fully; check for follow-on fixes and edge cases
+- `<dig_deeper_nudge>`: after first finding, check for second-order failures, empty-state behavior, stale state
+- `<action_safety>`: keep changes scoped; avoid unrelated refactors; call out risky actions
+- `<tool_persistence_rules>`: keep using tools until evidence suffices; do not abandon after partial read
+
+**Anti-patterns to avoid**: vague task framing; missing output contract; asking for "more reasoning" instead of better contract; mixing unrelated jobs into one run; unsupported certainty without grounding.
+
 ## Codex-Native Operating Stance
 
 - Default deliverable: a verified change or a precisely named blocker, not an outline.
@@ -74,6 +91,28 @@ Best-practice prompt design in this repo means reducing entropy, not adding rhet
 - Skill-first specialization.
   If a task matches a repo skill, use the skill instead of reconstructing the workflow from scratch.
 - `AGENTS.md`, `CLAUDE.md`, README files, and prior agent prose are operational guides, not mathematical evidence.
+
+## Programme Identity (Crystallized 2026-04-12)
+
+E_1-E_1 operadic Koszul duality in the homotopical modular chiral realm on algebraic curves. One form (eta = d log(z_1 - z_2)), one relation (Arnold), one object (Theta_A), one equation (D*Theta + 1/2[Theta,Theta] = 0).
+
+**The primitive object** is B^ord(A) = T^c(s^{-1}A-bar): ordered bar, deconcatenation coproduct, R-matrix, Yangian. The symmetric bar B^Sigma is the Sigma_n-coinvariant shadow. Physics IS the homotopy type: A-infinity = scattering, SC^{ch,top} governs the (bulk, boundary) pair, modular L-infinity = genus tower. The five theorems A-D+H are the invariants that survive averaging.
+
+**Bar complex is E_1-coassociative; SC^{ch,top} emerges on the derived center (CRITICAL, corrected 2026-04-12).** The bar complex B^{ord}(A) = T^c(s^{-1}A-bar) is an E_1-chiral coassociative COALGEBRA (over ChirAss^!). It has a differential + deconcatenation coproduct. It does NOT carry SC^{ch,top} structure. The SC^{ch,top} structure (or E_3 with conformal vector) emerges on the DERIVED CENTER Z^{der}_{ch}(A) = ChirHoch*(A,A), computed USING the bar complex as a resolution. The bar complex is the E_1 engine; the derived center is the SC^{ch,top}/E_3 output.
+
+**The E_n operadic circle (2026-04-12):** E_3(bulk) -> E_2(boundary chiral) -> E_1(bar/QG) -> E_2(Drinfeld center) -> E_3(derived center). Each arrow: restriction to codim-2 defect, ordered bar complex, categorified averaging (Drinfeld center), higher Deligne (derived center). Closes for 3d HT with conformal vector; without conformal vector, stuck at SC^{ch,top}.
+
+**SC^{ch,top} != E_3 (2026-04-12).** The Swiss-cheese operad is two-coloured with directionality (no open-to-closed). Dunn additivity does NOT apply. E_3 requires topologization: SC^{ch,top} + inner conformal vector (Sugawara at non-critical level, making C-translations Q-exact) = E_3-TOPOLOGICAL (NOT E_3-chiral). Without conformal vector: stuck at SC^{ch,top}. thm:topologization PROVED for affine KM V_k(g) at non-critical level k != -h^v. General: CONJECTURAL (conj:topologization-general). Proof is cohomological; for class M, chain-level E_3 may fail.
+
+**Five notions of E_1-chiral algebra (2026-04-12):** (A) strict ChirAss-algebra, (B) A_inf in End^{ch}_A, (C) EK quantum vertex algebra, (D) A_inf in E_1-chiral, (E) factorization on Ran^{ord}(X). Each has own derived center. (B)<->(C) via Drinfeld associator on Koszul locus. Warning installed at algebraic_foundations.tex warn:multiple-e1-chiral.
+
+**Three Hochschild theories (2026-04-12):** (i) Topological HH: E_1-algebra input -> E_2 output (Deligne). (ii) Chiral HH (ChirHoch): E_inf-chiral input -> E_inf output, concentrated {0,1,2} (Theorem H). (iii) Categorical HH: dg category input -> E_2 with CY shifted Poisson. NEVER conflate. The geometry determines which Hochschild: curve X -> chiral, R -> topological, CY category -> categorical.
+
+**Architecture (2026-04-12):** E_n chiral algebra theory stays in Vol I (pure algebra/operads). ALL physics moves to Vol II. Vol III provides the geometric source (CY categories -> chiral algebras via the E_n circle).
+
+**What we study:** Holomorphic chiral (factorisation) (co)homology via bar and cobar chain constructions at various different geometric locations, hence the different (modular) operads at play. The geometry determines the operad, the operad determines the bar complex, the bar complex computes the factorisation (co)homology. The five theorems are structural properties. The shadow tower is the characteristic class data. The E_n circle is the holographic structure.
+
+**North star:** platonic_ideal_reconstituted_2026_04_12.md is THE SINGLE REFERENCE for all structural questions.
 
 ## Claude-Codex Parity Rule
 
@@ -92,13 +131,20 @@ If `CLAUDE.md` grows a durable behavior and Codex lacks an analogue, either:
 
 ### Claude -> Codex parity map
 
-- Claude `/build` -> Codex skill `vol3-build-surface`
-- Claude `/audit` and `/rectify` -> Codex skill `vol3-beilinson-loop`
-- Claude `/chriss-ginzburg-rectify` -> Codex skill `vol3-chriss-ginzburg-rectification`
-- Claude `/verify` -> Codex skills `vol3-pre-edit-verification` plus `vol3-claim-verification`
-- Claude `/propagate` -> Codex skill `vol3-cross-volume-propagation`
-- Claude `/compute-engine` -> Codex skill `vol3-compute-engine`
-- Claude `/research-swarm`, `/beilinson-swarm`, `/rectify-all` -> Codex skill `vol3-swarm-orchestration`
+| Claude Skill | Codex Skill | Trigger |
+|-------------|-------------|---------|
+| `/build` | `vol3-build-surface` | build, test, compile, verify |
+| `/audit [target]` | `vol3-beilinson-loop` | audit, falsify, red-team, pressure-test |
+| `/rectify [file]` | `vol3-beilinson-loop` | rectify, fortify, tighten, repair |
+| `/chriss-ginzburg-rectify [file]` | `vol3-chriss-ginzburg-rectification` | chapter-scale structural rewrite, CG convergence |
+| `/verify [claim]` | `vol3-pre-edit-verification` + `vol3-claim-verification` | verify formula, invariant, computational claim |
+| `/propagate [pattern]` | `vol3-cross-volume-propagation` | AP5 sweep, cross-volume formula/status fix |
+| `/compute-engine [name]` | `vol3-compute-engine` | new engine with multi-path tests |
+| `/rectify-all` | `vol3-swarm-orchestration` | full-volume parallel rectification (user-authorized) |
+| `/beilinson-swarm` | `vol3-swarm-orchestration` | parallel chapter rectification (user-authorized) |
+| `/research-swarm [topic]` | `vol3-swarm-orchestration` | frontier synthesis, research architecture |
+
+**Both `/rectify` and `/chriss-ginzburg-rectify` are available in BOTH Claude (via CLAUDE.md skill definitions) and Codex (via `.agents/skills/` skill files).** Use `vol3-beilinson-loop` for targeted chapter/proof repair; use `vol3-chriss-ginzburg-rectification` for chapter-scale structural rewriting with convergent loop.
 
 Codex-specific delegation rule:
 
@@ -170,15 +216,15 @@ For nontrivial work, the live surface is:
 
 If these surfaces disagree, investigate. Do not silently pick the most convenient layer.
 
-## Current Empirical Risk Map (April 10, 2026)
+## Current Empirical Risk Map (April 12, 2026)
 
 This dated section is here because the user explicitly requested that the current failure distribution and dirty state be part of the steering surface. Refresh it when it goes stale.
 
 ### Last-100-commit archaeology
 
-- Volume I is dominated by rectification, build-noise cleanup, formula/convention repair, compute/test synchronization, and repeated AP126/AP141, AP124/AP125, AP136, AP137, AP140, AP29, and AP128 failures.
-- Volume II is dominated by rectification, convention repair, cross-volume propagation, AP40 environment/status drift, AP44 divided-power drift, AP32 uniform-weight drift, V2-AP26/V2-AP30 stale Part references, V2-AP31 proof-after-conjecture, and V2-AP32/V2-AP35 artifact/connective drift.
-- Volume III is dominated by build noise, compute/test frontier corrections, AP113 `kappa`-subscript repair, AP-CY6/AP-CY11/AP-CY14 conditionality failures, AP-CY12 shadow-depth misclassification, AP-CY13 stale Part references, AP-CY17/AP-CY18/AP-CY19 geometric/computational convention drift, and README/doc scope inflation.
+- Volume I is dominated by rectification, build-noise cleanup, formula/convention repair, compute/test synchronization, and repeated AP126/AP141, AP124/AP125, AP136, AP137, AP140, AP29, and AP128 failures. The SC^{ch,top} critical correction (AP165) and associated AP166-AP175 represent a major structural fix wave.
+- Volume II is dominated by rectification, convention repair, cross-volume propagation, AP40 environment/status drift, AP44 divided-power drift, AP32 uniform-weight drift, V2-AP26/V2-AP30 stale Part references, V2-AP31 proof-after-conjecture, V2-AP32/V2-AP35 artifact/connective drift, and S_2=c/12 divided-power confusion corrections (AP177/FM30).
+- Volume III is dominated by build noise, compute/test frontier corrections, AP113 `kappa`-subscript repair, AP-CY6/AP-CY11/AP-CY14 conditionality failures, AP-CY12 shadow-depth misclassification, AP-CY13 stale Part references, AP-CY17/AP-CY18/AP-CY19 geometric/computational convention drift, README/doc scope inflation, and pi_3(BU)/kappa_ch=h^{1,1}/McKay corrections (AP181-AP183).
 
 ### Current dirty hotspots
 
@@ -186,6 +232,7 @@ This dated section is here because the user explicitly requested that the curren
   - Heisenberg versus odd-current versus genuine `E_1` distinction in `chapters/frame/heisenberg_frame.tex`;
   - PBW / Barr-Beck-Lurie proof strengthening and Koszul-dual degree bookkeeping in `chapters/theory/chiral_koszul_pairs.tex`;
   - Bershadsky-Polyakov central charge / `K_BP = 196` corrections in `compute/lib/non_principal_w_bar_engine.py` and its tests;
+  - SC^{ch,top} structural correction: B(A) is E_1 coalgebra, NOT SC-coalgebra (AP165); SC is NOT self-dual (AP166);
   - `AGENTS.md` itself is dirty there, so treat Vol I control-surface text as live and evolving.
 - Volume II currently has a focused but load-bearing dirty surface in `chapters/connections/thqg_perturbative_finiteness.tex`, where genus-2 stable graph classification is being corrected from an undercount to:
   - 7 total connected stable strata at `g = 2`, `n = 0` if the smooth no-edge stratum is included;
@@ -195,6 +242,9 @@ This dated section is here because the user explicitly requested that the curren
   - `kappa_ch` versus `kappa_BKM` for `K3 x E`;
   - restoring the level prefix in CY `r`-matrices;
   - correcting local `P^2` from class `L` to class `M`;
+  - pi_3(BU) = 0 correction in `chapters/theory/fukaya_categories.tex` (AP181);
+  - kappa_ch = chi(S)/2 domain enforcement: local surfaces only, not conifold (AP182);
+  - McKay quiver of C^3/Z_3 correction in `chapters/examples/toric_cy3_coha.tex` (AP183);
   - synchronized updates across `chapters/theory/introduction.tex`, `chapters/connections/cy_holographic_datum_master.tex`, `chapters/examples/toroidal_elliptic.tex`, `compute/lib/modular_cy_characteristic.py`, `compute/lib/swiss_cheese_cy3_e1.py`, and their tests.
 
 Treat all of these as live audit surfaces, not settled facts.
@@ -576,6 +626,18 @@ genus-2 stable graph count:
 kappa_ch(K3 x E) = 3
 kappa_BKM(K3 x E) = 5
 local P^2 = class M, not class L
+
+# Homotopy / topology (AP181-AP185)
+pi_3(BU) = 0                  # Bott: pi_odd(BU) = 0; confusion with pi_3(U) = Z
+pi_4(BU) = Z                  # obstruction GROUP, not automatic E_2 structure
+kappa_ch = chi(S)/2            # for local surfaces Tot(K_S -> S) ONLY
+McKay(C^3/Z_n) = n copies of oriented n-cycle, NOT K_{n,n}
+
+# SC / operadic (AP165-AP172)
+B(A) is E_1 coalgebra          # NOT SC-coalgebra; SC on derived center pair
+SC^! = (Lie, Ass, shuffle)     # NOT self-dual; closed dim = (n-1)! vs 1
+A^! is SC^!-algebra = (Lie,Ass) # NOT SC-algebra
+"arity" BANNED                 # AP176 CONSTITUTIONAL; use "degree" everywhere
 ```
 
 ## Forbidden Forms
@@ -594,16 +656,49 @@ kappa(K3 x E) = 5                     # unqualified Vol III kappa
 local P^2: class L                    # AP-CY12 misclassification
 MF(W) is CY_{n-1}                     # wrong matrix-factorization dimension
 Part~IV / Chapter~12 hardcoded refs   # stale architecture references waiting to happen
+"B(A) is SC coalgebra"                # FALSE: E_1 coalgebra; SC in derived center pair (AP165)
+(SC^{ch,top})^! ~ SC^{ch,top}        # FALSE: SC^!=(Lie,Ass,shuffle); not self-dual (AP166)
+"E_3-chiral"                          # FALSE: E_3-TOPOLOGICAL when conformal vector present (AP168)
+"arity" anywhere in manuscript        # BANNED: use "degree" universally (AP176 CONSTITUTIONAL)
+
+# Homotopy / topology (B69-B73)
+pi_3(BU) = Z                          # WRONG: pi_3(BU) = 0 (Bott: pi_odd(BU) = 0) (B69)
+kappa_ch = h^{1,1}                    # WRONG when h^{0,2}!=0; use kappa_ch = chi(S)/2 for local surfaces (B70)
+McKay(Z_3) = K_{3,3}                  # WRONG: 3 copies of oriented 3-cycle, not bipartite (B71)
+"excision gives B(A) tensor B(A)"     # WRONG: excision gives B_L tensor_A B_R (one copy, over A) (B72)
+"pi_4(BU)=Z provides E_2"            # WRONG direction: obstruction group, not guarantee (B73)
 ```
 
 ## Cross-Volume Anti-Pattern Import
 
 All of the following are in force here:
 
-- the shared Vol I anti-pattern system `AP1` through `AP141` in `~/chiral-bar-cobar/CLAUDE.md`;
-- the Vol II system `V2-AP1` through `V2-AP35` in `~/chiral-bar-cobar-vol2/CLAUDE.md`;
+- the shared Vol I anti-pattern system `AP1` through `AP185` in `~/chiral-bar-cobar/CLAUDE.md`;
+- the Vol II system `V2-AP1` through `V2-AP39` in `~/chiral-bar-cobar-vol2/CLAUDE.md`;
 - the Vol III system `AP-CY1` through `AP-CY19` in `CLAUDE.md`;
-- the workflow anti-patterns `AAP1` through `AAP8`.
+- the workflow anti-patterns `AAP1` through `AAP18`.
+
+### Critical APs added since April 10 (AP150-AP185 highlights)
+
+**AP150: Resolution propagation failure.** When a conjecture is proved, disproved, or retracted, ALL references must be updated atomically: concordance, preface, introduction, standalones, CLAUDE.md status table, label prefixes, other volumes.
+
+**AP165: B(A) is NOT an SC^{ch,top}-coalgebra.** The bar complex is an E_1 chiral coassociative coalgebra (differential + deconcatenation). It is a SINGLE E_1 coalgebra, not a two-colored SC datum. The SC^{ch,top} structure emerges in the chiral derived center pair (C^bullet_{ch}(A,A), A). FORBIDDEN: "B(A) is a coalgebra over SC^{ch,top}"; "the bar differential is the closed color"; "the bar coproduct is the open color."
+
+**AP166: SC^{ch,top} is NOT Koszul self-dual.** SC^! = (Lie^c, Ass^c, shuffle-mixed) with closed dim = (n-1)!. SC = (Com, Ass) with closed dim = 1. The duality FUNCTOR is involutive ((P^!)^! ~ P); the OPERAD is not self-dual (P^! != P). FORBIDDEN: "(SC^{ch,top})^! ~ SC^{ch,top}."
+
+**AP172: A^! is an SC^!-algebra** = (Lie, Ass)-algebra (closed = Sklyanin bracket, open = Yangian product). NOT an SC-algebra.
+
+**AP176: CONSTITUTIONAL -- "arity" is BANNED.** "Degree" is the universal term for all index-counting contexts. NEVER reintroduce "arity." Grep check: `grep -rn '\barity\b' chapters/ appendices/ standalone/` must return ZERO hits.
+
+**AP181: pi_3(BU) = 0, not Z.** By Bott periodicity, pi_k(BU) = Z for k even, 0 for k odd. The confusion: pi_3(U) = Z (loop space), but pi_3(BU) = pi_2(U) = 0. Vol III fukaya_categories.tex had this error at lines 209, 396, 413. The correct reason CY_3 gives E_1 (not E_2) is the antisymmetric Euler form structural obstruction, NOT a topological obstruction.
+
+**AP182: kappa_ch = chi(S)/2 only for local surfaces.** The formula applies to Tot(K_S -> S). The conifold Tot(O(-1)^2 -> P^1) is NOT a local surface (K_{P^1} = O(-2) != O(-1)^2). Also kappa_ch != h^{1,1} when h^{0,2} != 0 (K3: h^{1,1}=20 but chi/2=12).
+
+**AP183: McKay quiver != K_{3,3}.** The McKay quiver of C^3/Z_3 is 3 copies of the oriented 3-cycle, NOT the complete bipartite graph K_{3,3}. K_{3,3} is undirected bipartite; McKay quivers are directed.
+
+**AP184: Excision vs coproduct.** Excision: cutting [0,1] at t gives B(A) = B_L tensor_A B_R (one copy, tensor OVER A). Coproduct: Delta: B(A) -> B(A) tensor B(A) (two copies, plain tensor). These are different categorical levels. Never conflate.
+
+**AP185: Obstruction group vs enabler.** pi_4(BU) = Z is the GROUP WHERE THE OBSTRUCTION LIVES, not a guarantee that E_2 exists. Nonzero homotopy group = potential obstruction, not automatic structure.
 
 ### Trigger map
 
@@ -621,7 +716,7 @@ If editing `r`-matrices, OPEs, or lambda-brackets, check:
 
 If editing bar/cobar/Koszul-dual/bulk material, check:
 
-- `AP14`, `AP25`, `AP34`, `AP50`, `AP132`.
+- `AP14`, `AP25`, `AP34`, `AP50`, `AP132`, `AP165`, `AP166`, `AP172`, `AP184`.
 
 If editing shadow depth, class, or SC-formality claims, check:
 
@@ -637,7 +732,11 @@ If editing compute engines or tests, check:
 
 If editing prose, notes, README, or metadata, check:
 
-- `AP29`, `AP121`, `V2-AP29`, `V2-AP32`, `AP115`, `AP-CY15`, `AAP8`.
+- `AP29`, `AP121`, `V2-AP29`, `V2-AP32`, `AP115`, `AP-CY15`, `AAP8`, `AP176`.
+
+If editing homotopy groups, CY dimension, framing, or obstruction claims, check:
+
+- `AP181`, `AP182`, `AP183`, `AP185`, `AP-CY6`, `AP-CY11`, `AP-CY14`.
 
 ## Context and Memory Hygiene
 
@@ -669,6 +768,11 @@ For `.tex`, re-check at least:
 
 - `AP40` environment/status mismatch;
 - `AP113` unqualified `kappa`;
+- `AP165` B(A) not attributed SC structure;
+- `AP166` SC not claimed self-dual;
+- `AP176` no "arity" anywhere;
+- `AP181` pi_3(BU) = 0, not Z;
+- `AP182` kappa_ch = chi(S)/2 only for local surfaces;
 - `AP-CY6` / `AP-CY11` / `AP-CY14` d=3 existence and conditionality;
 - `AP-CY12` shadow depth from incomplete evidence;
 - `AP-CY13` stale Part references;
