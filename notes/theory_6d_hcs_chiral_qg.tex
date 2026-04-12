@@ -1,0 +1,292 @@
+% theory_6d_hcs_chiral_qg.tex -- Frontier Working Note
+% 6d Holomorphic Theory, E_3 Chiral Structure, and Quantum Groups
+% Status: OUTLINE with mathematical content per section
+% Date: 2026-04-12
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,enumerate}
+\newcommand{\Eone}{E_1}
+\newcommand{\Etwo}{E_2}
+\newcommand{\Einf}{E_\infty}
+\newcommand{\fgl}{\mathfrak{gl}}
+\newcommand{\frakg}{\mathfrak{g}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{6d Holomorphic Theory, $E_3$ Chiral Structure, and Quantum Groups:\\
+A Frontier Working Note for Volume III}
+\author{Working note}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+%% ====================================================================
+%% PART I: THE ESTABLISHED CORE
+%% ====================================================================
+
+\section{The Established Core}
+
+\subsection{3d holomorphic CS $\to$ Kac--Moody (Costello--Gwilliam)}
+% PROVED. Boundary of hol CS on C x R is V_k(g).
+% E_inf-chiral (BD sense), E_1-ordered refinement (Vol II Swiss-cheese).
+% Prop \ref{prop:hcs-as-ce-cochains}: CE cochains = bulk observables.
+% At critical level: Feigin--Frenkel center = Fun(Op_{G^L}(D)).
+
+\subsection{5d holomorphic CS $\to$ affine Yangian (Costello 2013)}
+% PROVED (Thm \ref{thm:5d-boundary-yangian}).
+% Omega-background (h_1,h_2,h_3), h_1+h_2+h_3=0.
+% Structure function g(u) = prod(u-h_i)/prod(u+h_i).
+% E_2-chiral factorization on C^2; E_1-chiral projection to curve.
+% Y^+(gl_hat_1) = CoHA (associative, NOT chiral: AP-CY7).
+% Full Yangian via Drinfeld double.
+
+\subsection{Proch\'azka--Rap\v{c}\'ak: $Y(\widehat{\fgl}_1) \simeq W_{1+\infty}$}
+% PROVED ELSEWHERE. The isomorphism identifies the affine Yangian
+% with W_{1+inf} at c=1. Character: vacuum module contributes P(q).
+% Drinfeld double character: M(q)^2 * P(q) (Thm \ref{thm:drinfeld-center-coha}(iii)).
+
+\subsection{Drinfeld center passage (297 tests across 4 suites)}
+% PROVED HERE (Thm \ref{thm:drinfeld-center-coha}).
+% Z(Rep^{E_1}(Y^+)) = Rep^{E_2}(Y(gl_hat_1)).
+% E_1 -> E_2 via center; the braiding comes from universal R-matrix.
+% Content: half-braiding on charge-1,2 Fock modules; 8x8 YBE symbolic;
+% unitarity R_{12}(u)R_{21}(-u)=1; classical r-matrix r(u)=-sigma_2/u.
+% 297 tests: drinfeld_center (43), _yangian (84), _hocolim (76), _e1_cy3 (94).
+
+\subsection{MO $R$-matrix comparison (72 tests)}
+% PROVED HERE (Thm \ref{thm:mo-chiral-rmatrix}).
+% 7 verification paths: diagonal eigenvalues prod_{s in lambda} g(u+c(s)),
+% Hilb^2(C^2) check, unitarity, YBE, crossing symmetry,
+% classical r-matrix, SV specialization.
+% Scope: C^3 (toric), K3 x E (via Hilb^n(K3)).
+
+\subsection{Chiral coproduct spin-2 (23 tests)}
+% SCAFFOLDED (latest commit). Test suite for the chiral coproduct
+% Delta_ch: A^! -> A^! hat-otimes A^! at spin 2.
+% Deviation from primitive by Dimofte K-matrix K_A(z).
+% K-matrix diagnostic: G/L/C/M classification via K complexity.
+
+\subsection{$E_n$ hierarchy from holomorphic CS (47+141 tests)}
+% holomorphic_cs_chiral_engine.py (47 tests): full pipeline
+%   hol CS on C^n -> boundary A -> B(A) -> A^! -> Rep^{E_2}(A^!)
+% higher_cy_en_tower.py (141 tests): E_1 stabilization theorem,
+%   Bott periodicity obstruction for d=1,...,16,
+%   d=4 Pontryagin obstruction, d=5 Z_2 Sp-refinement.
+
+%% ====================================================================
+%% PART II: THE CONJECTURAL PROGRAMME
+%% ====================================================================
+
+\section{The Conjectural Programme}
+
+\subsection{6d holomorphic theory $\to$ $E_3$ factorization}
+% Conj \ref{conj:topological-e3-comparison}. Non-Lagrangian 6d theory on C^3.
+% NOT standard hol CS (Rem \ref{rem:6d-not-lagrangian}): kinetic term
+% Omega wedge A wedge dbar A is (3,2)-form, top on R^5 not R^6.
+% Route: (a) hol twist of 6d (2,0) SCFT, (b) Costello-Li perturbative,
+% (c) CFG factorization homology of E_3 local observables.
+% Two E_3 sources (AP154): algebraic (Deligne on HH^*(A,A) for E_inf A)
+% vs topological (framed little 3-disks on Conf_n(C^3)).
+% Agree rationally under Kontsevich formality; differ integrally.
+
+\subsection{Quantum toroidal from $E_3$ projection}
+% Conj \ref{conj:6d-boundary-toroidal}. E_3 on C^3 projected to E_1 on curve
+% gives U_{q,t}(gl_hat_hat_1) with q=e^{2pi i h_1/h_3}, t=e^{-2pi i h_2/h_3}.
+% Second affinization (second hat) from E_3; first from E_2.
+% Intermediate E_2-projection to C^2 = affine Yangian (Thm 5d).
+
+\subsection{Chiral CE deformation $d_{\boldsymbol{h}}$}
+% Construction \ref{constr:quantum-ce-deformation}.
+% d_h = d_{CE} + h_1 partial_1 + h_2 partial_2 + h_3 partial_3.
+% At h=0: undeformed E_2. At generic h: promotes to E_3-chiral
+% via E_3-operad action on Conf_n(C^3) and Kontsevich formality.
+% Input must be >= E_2 for E_3 output (AP153 scope restriction).
+
+\subsection{$E_3$ Koszul duality}
+% Conj \ref{conj:e3-koszul-duality}. Bar complex B_{E_3}(F) has:
+%   3 commuting differentials d_1,d_2,d_3 (OPE residues per direction),
+%   3 commuting coproducts Delta_1,Delta_2,Delta_3,
+%   E_3 braiding from equivariant R-matrix.
+% Koszul dual F^! has inverted parameters (h_i -> -h_i).
+% Predicts U_{q,t}^! = U_{q^{-1},t^{-1}} (parameter inversion).
+% Reduces: E_3 -> E_2 Koszul (Ch e2-chiral) -> E_1 Koszul (Vol II).
+
+\subsection{Universal defect as chiral quantum group}
+% Conj \ref{conj:chiral-qg-c3}. Defect algebra A^!_{C^3} carries:
+%   (i) coproduct Delta_ch from colliding Wilson lines,
+%   (ii) R-matrix R_ch(u,v) in TWO spectral parameters,
+%   (iii) Rep^{E_2}(A^!|_{C^2}) = braided monoidal cat of quantum toroidal reps,
+%   (iv) deviation from primitive by Dimofte K-matrix.
+% Each arrow verified at 5d; 6d composite conjectural (AP150).
+
+\subsection{$K3 \times E$ via factorization homology}
+% Conj \ref{conj:fact-hom-k3xe}.
+%   int_{K3} F|_{K3} = chiral algebra on E (character ~ Phi_10).
+%   int_E (int_{K3} F) = partition function = Phi_10(tau).
+%   Intermediate: toroidal KM enveloping chiral algebra on E.
+% Three pathways to A_{K3xE} (Rem \ref{rem:6d-adds-to-k3xe}):
+%   CY-to-chiral Phi, toroidal presentation, 6d hol theory.
+% Agreement itself conjectural. kappa-spectrum: {2,3,5,24}.
+
+%% ====================================================================
+%% PART III: THE FRONTIER
+%% ====================================================================
+
+\section{The Frontier (Genuinely New)}
+
+\subsection{Zamolodchikov tetrahedron equation for $U_{q,t}$}
+% The E_3 braiding on C^3 predicts a TETRAHEDRON equation (3-simplex)
+% R_{123} R_{145} R_{246} R_{356} = R_{356} R_{246} R_{145} R_{123}
+% as the E_3 analogue of the YBE (E_2, 2-simplex).
+% For U_{q,t}: the tetrahedron R-matrix acts on triple tensor
+% products of Fock spaces. Connects to Kapranov-Voevodsky 2-categories.
+% STATUS: equation written, no computational verification yet.
+
+\subsection{Spin-3 chiral coproduct}
+% Spin-2 scaffolded (23 tests). Spin-3: next target.
+% At spin 3: W_3 current, first genuinely nonlinear OPE contribution.
+% The coproduct Delta_ch(W_3) involves structure constants of W_{1+inf}
+% beyond the Heisenberg sector. Requires full Yangian R-matrix at charge 3.
+% Predicted: K-matrix modification at spin 3 detects class L vs class C.
+
+\subsection{Two-parameter $R$-matrix $R(u,v)$}
+% The 6d E_3 structure predicts R(u,v) with TWO spectral parameters
+% (from two transverse directions beyond the Wilson line).
+% Conj \ref{conj:chiral-qg-c3}(ii). Satisfies parametric YBE in (u,v).
+% Relation to Maulik-Okounkov: MO gives R(u) (one parameter, from C^2);
+% the second parameter v comes from the third C^3 direction.
+% At v=0: reduces to the Yangian R-matrix of Thm \ref{thm:yang-r-matrix-ybe}.
+
+\subsection{$\tau_3(n)$ as $E_3$ bar complex dimensions}
+% Heuristic observation from holomorphic_cs_chiral_engine.py:
+% The E_3 bar complex B_{E_3} of W_{1+inf} at arity n has
+% dim B_{E_3,n} related to the 3D divisor function tau_3(n).
+% Analogy: E_1 bar ~ p(n) (partitions), E_2 bar ~ d(n) (divisors),
+%          E_3 bar ~ tau_3(n) (3-fold divisor function).
+% tau_3(n) = #{(a,b,c): abc=n}. Generates 1/zeta(s)^3 in Dirichlet series.
+% STATUS: heuristic, observed through n<=20. No proof.
+
+\subsection{K3 double current algebra quantization}
+% The chiral algebra int_{K3} F|_{K3} on E (Conj \ref{conj:fact-hom-k3xe}(iii))
+% is a ``double current algebra'': currents from the K3 lattice Lambda_{K3}
+% (rank 24) with two loop parameters (tau from E, sigma from K3 moduli).
+% Quantization: the Omega-background on the K3 directions provides
+% the deformation parameter. At the classical limit: lattice VOA V_{Lambda}.
+% At generic deformation: a vertex algebra on E whose character is
+% the Fourier-Jacobi expansion of Phi_10.
+% STATUS: definition not constructed. Conditional on CY-A_3.
+
+\subsection{Perturbative $\int_{K3} \cF$ and the Igusa cusp form}
+% The factorization homology int_{K3} F is computed perturbatively
+% by summing over BPS states localized at points of K3.
+% Each BPS state contributes a Fock module; the sum over Mukai vectors
+% v in H^*(K3,Z) with v^2 >= -2 produces the Fourier-Jacobi expansion.
+% The weight-10 condition: 10 = 2*kappa_BKM = 2*5, from the E_3
+% factorization measure on K3 (holomorphic Euler char chi(O_{K3})=2
+% times the BKM weight 5).
+% STATUS: perturbative series written. Convergence not proved.
+
+\subsection{Categorical $S$-matrix: $E_3 \to \mathrm{Sp}_4(\Z) \to \Phi_{10}$}
+% The E_3 braiding on the representation category, integrated over K3,
+% produces a categorical S-matrix valued in Sp_4(Z) (the Siegel modular
+% group for genus 2). The Siegel modular form Phi_10 of weight 10 on
+% Sp_4(Z) is the partition function.
+% Pipeline: E_3 braiding -> MTC on E -> Sp_4(Z) action -> Phi_10.
+% The Sp_4 arises because K3 x E has b_2 = 23, and the lattice
+% polarization reduces to a genus-2 Siegel domain.
+% STATUS: pipeline outlined. No single arrow fully constructed.
+
+%% ====================================================================
+%% PART IV: THE BOTTLENECK
+%% ====================================================================
+
+\section{The Bottleneck: Chain-Level $S^3$-Framing for CY-A$_3$}
+
+\subsection{The obstruction}
+% CY-A_2 is PROVED: the S^2-framing of HH_*(C) for CY_2 gives E_2-chiral.
+% CY-A_3 requires S^3-framing. Thm \ref{thm:e1-stabilization-cy}: at d=3,
+% Obs_eff(3) = 0 (pi_3(BU)=0, pi_3(BSp)=0). The obstruction GROUP is trivial,
+% but the chain-level construction is not done.
+% Analogy: pi_3(S^2)=Z is trivial at the homotopy-group level for maps
+% S^3 -> BSU(2), but the Hopf fibration exists at the chain level.
+
+\subsection{Existing approaches}
+% (A) Direct: construct the S^3-framing on HH_*(C) for CY_3 C at the chain level.
+%     Blocked by: no explicit model for the S^3-framing of a DG category.
+% (B) CoHA route: use Schiffmann-Vasserot-Yang-Zhao CoHA (E_1) + Drinfeld center
+%     to produce E_2. Does NOT produce the chain-level framing directly;
+%     produces the braided category as output.
+% (C) Derived algebraic geometry: Toen-Vezzosi shifted symplectic + PTVV.
+%     The (-1)-shifted symplectic structure on Perf(X) for CY_3 X gives
+%     the data, but extracting a chiral algebra requires the BD formalism.
+% (D) Holomorphic CS route (this note): the 6d E_3 theory on C^3 projects
+%     to E_1-chiral on a curve. If the 6d framework is established for K3 x E,
+%     it BYPASSES the S^3-framing entirely: the chiral algebra comes from
+%     factorization homology, not from the CY-to-chiral functor Phi.
+
+\subsection{Can the 6d route bypass CY-A$_3$?}
+% YES, in principle. The 6d factorization homology route (Conj \ref{conj:fact-hom-k3xe})
+% constructs A_{K3xE} as int_{K3} F without invoking Phi.
+% But: the 6d framework itself is conjectural for compact manifolds.
+% The non-Lagrangian nature of the 6d theory (Rem \ref{rem:6d-not-lagrangian})
+% means there is no action functional; the algebraic surrogate (CFG) is the
+% only available tool, and it requires the local E_3-algebra as input.
+% Net: the 6d route replaces one obstruction (S^3-framing) with another
+% (non-Lagrangian 6d algebraic framework for compact M).
+
+%% ====================================================================
+%% PART V: OPEN PROBLEMS
+%% ====================================================================
+
+\section{Open Problems (Ranked by Impact)}
+
+\begin{enumerate}
+\item \textbf{Chain-level $S^3$-framing for CY-A$_3$.}
+  Construct the functor $\Phi$ at $d=3$. All of Vol III downstream of CY-A depends on this. Impact: unlocks CY-B, CY-D, and the entire $K3 \times E$ programme.
+
+\item \textbf{6d algebraic framework for compact manifolds.}
+  Extend the CFG factorization homology from $\C^3$ to $K3 \times E$. Would provide an alternative to Problem 1. Requires non-Lagrangian algebraic QFT on compact complex 3-folds.
+
+\item \textbf{$E_3$ Koszul duality (Conj~\ref{conj:e3-koszul-duality}).}
+  Prove $B_{E_3}$ has three commuting differentials and coproducts, and that $\cF^!$ has inverted parameters. Would establish the parameter-inversion symmetry $U_{q,t}^! \simeq U_{q^{-1},t^{-1}}$.
+
+\item \textbf{Zamolodchikov tetrahedron equation for $U_{q,t}$.}
+  Construct the tetrahedron $R$-matrix and verify the 3-simplex equation computationally at charge 2. First genuine $E_3$ invariant beyond the YBE.
+
+\item \textbf{Two-parameter $R$-matrix $R(u,v)$.}
+  Construct and verify the parametric YBE for the $E_3$ $R$-matrix on Fock spaces. Relates MO stable envelopes to the quantum toroidal braiding.
+
+\item \textbf{Spin-3 chiral coproduct.}
+  Extend the spin-2 scaffold (23 tests) to spin 3. First test of nonlinear OPE in the coproduct. Discriminates shadow class L from class C.
+
+\item \textbf{$\int_{K3} \cF$ computation.}
+  Compute the perturbative factorization homology over K3 and match to the Fourier--Jacobi expansion of $\Phi_{10}$. Would confirm the link between $E_3$ factorization and Siegel modular forms.
+
+\item \textbf{Categorical $S$-matrix and $\mathrm{Sp}_4(\Z)$.}
+  Construct the functor from the $E_3$ braided category to $\mathrm{Sp}_4(\Z)$-representations and identify $\Phi_{10}$ as the partition function.
+
+\item \textbf{Algebraic vs topological $E_3$ over $\Z$.}
+  Determine whether the two $E_3$ structures (Deligne conjecture vs configuration space) agree integrally or only rationally. Torsion discrepancy would affect the quantum toroidal algebra at roots of unity.
+
+\item \textbf{Quantum group realization CY-C.}
+  Construct $C(\frakg,q)$ as a chiral quantum group. Currently \texttt{\textbackslash begin\{conjecture\}} only. Requires resolution of Problems 1 or 2 as input.
+\end{enumerate}
+
+\end{document}
