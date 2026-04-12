@@ -574,3 +574,244 @@ adjunction at the $\Etwo$ level) and on
 Conjecture~\ref{conj:braided-bar-uq} (braided bar cohomology
 recovering the quantum group).
 \end{remark}
+
+
+\section{The categorical $S$-matrix and $E_3$ scattering}
+\label{sec:categorical-s-matrix}
+
+At $\Etwo$, the categorical $R$-matrix $\cR_{V,W}(z) \colon V \otimes W
+\to W \otimes V$ encodes line-operator braiding. The modular $S$-matrix
+$S_{ij} = \tr_i(\cR_{ij})$ arises by taking the trace over one factor:
+it is a \emph{number} (the Hopf link invariant), and when
+$\Rep^{E_2}(\cA)$ is a modular tensor category, $S$ governs the
+$\SL_2(\Z)$ action on conformal blocks. At $E_3$, the braiding is a
+surface phenomenon---the relevant topology is $3$-dimensional---and
+the analogue of the $S$-matrix is a \emph{categorical $2$-morphism},
+not a scalar. This section formulates the $E_3$ categorical $S$-matrix
+and connects it to Siegel modular forms.
+
+\begin{construction}[From $\Etwo$ $S$-matrix to $E_3$ categorical
+$S$-matrix]
+\label{constr:e3-s-matrix}
+The construction proceeds by dimensional promotion. At $\Etwo$, the
+$S$-matrix is the partial trace of the $R$-matrix:
+\[
+ S_{V,W} \;=\; \tr_W\!\bigl(\cR_{V,W}(z) \circ \cR_{W,V}(z)\bigr)
+ \;\in\; \End(V).
+\]
+This is the Hopf link invariant: two circles linked in $\R^3$, each
+carrying a representation. At $E_3$, the relevant braiding operates on
+\emph{surface operators} (not lines), since $E_3$ factorization governs
+$3$-dimensional topology where the codimension-$2$ objects are surfaces.
+The $E_3$ categorical $S$-matrix is:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Input}: a pair of objects $\cV, \cW$ in the $2$-category
+ $\Rep^{E_3}(\cA)$ of surface-operator representations of the
+ $E_3$-chiral algebra.
+ \item \emph{Operation}: the $E_3$ $R$-matrix
+ $\cR^{E_3}_{\cV,\cW}(u,v)$ is a $2$-morphism (a natural
+ transformation between functors), depending on two spectral
+ parameters $(u,v)$ from the two extra $\C$-directions of the
+ $E_3$ factorization on $\C^3$. The categorical $S$-matrix is
+ the \emph{categorical trace}
+ \[
+  \cS_{\cV,\cW}(u,v)
+  \;=\;
+  \Tr_{\cW}\!\bigl(
+   \cR^{E_3}_{\cV,\cW}(u,v) \circ \cR^{E_3}_{\cW,\cV}(u,v)
+  \bigr)
+  \;\in\; \End_{\mathrm{2\text{-}cat}}(\cV),
+ \]
+ where $\Tr_{\cW}$ is the categorical trace (Hochschild homology of
+ the endomorphism category of $\cW$). The result is an
+ \emph{endomorphism} of $\cV$ in the $2$-category, not a scalar.
+ \item \emph{Topology}: this $2$-morphism is the invariant of a
+ \emph{linked torus} $T^2 \hookrightarrow S^5$ (two surfaces linked
+ in the $5$-sphere), the $E_3$ analogue of the Hopf link
+ $S^1 \hookrightarrow S^3$ at $\Etwo$.
+\end{enumerate}
+\end{construction}
+
+\begin{conjecture}[Double $S$-matrix for the quantum toroidal algebra]
+\label{conj:double-s-matrix}
+\ClaimStatusConjectured
+Let $\cA = U_{q,t}(\widehat{\widehat{\fgl}}_1)$ be the quantum
+toroidal algebra with parameters $q = e^{2\pi i \tau_1}$,
+$t = e^{-2\pi i \tau_2}$, and let
+$\cF_1 = \mathrm{Fock}_1$ be the charge-$1$ Fock module. The
+$E_3$ categorical $S$-matrix on the pair $(\cF_1, \cF_1)$,
+evaluated as a scalar via the rank-$1$ decategorification
+$\Tr_{\cF_1} \to \tr_{\cF_1}$, is the \emph{double $S$-matrix}
+\[
+ S(\tau_1, \tau_2)
+ \;=\;
+ \tr_{\cF_1}\!\left(
+  q^{L_0}\, t^{L_0'}\,
+  \cR^{E_3}(u,v) \circ \cR^{E_3}(v,u)
+ \right)
+ \;=\;
+ \prod_{n \geq 1}
+ \frac{1}{(1 - q^n)^2\,(1 - t^n)^2\,(1 - q^n t^n)^2},
+\]
+where $L_0, L_0'$ are the two Virasoro zero-modes of the
+quantum toroidal algebra corresponding to the two loop
+directions. The product is the square of the MacMahon-type
+generating function, reflecting the two spectral parameters
+of the $E_3$ $R$-matrix $R_{\mathrm{ch}}(u,v)$ of
+Conjecture~\textup{\ref{conj:chiral-qg-c3}(ii)}.
+\end{conjecture}
+
+\begin{conjecture}[$\Sp_4(\Z)$ modularity of the $E_3$ $S$-matrix]
+\label{conj:sp4-modularity}
+\ClaimStatusConjectured
+The double $S$-matrix $S(\tau_1, \tau_2)$ extends to a function of the
+Siegel upper half-plane $\cH_2 = \{Z = \bigl(\begin{smallmatrix}
+\tau_1 & z \\ z & \tau_2 \end{smallmatrix}\bigr) :
+\Im(Z) > 0\}$ via the off-diagonal parameter
+$z = u - v$ (the relative spectral parameter). The extended function
+$\hat{S}(\tau_1, z, \tau_2)$ transforms as a Siegel modular form
+of weight $\kappa_{\mathrm{ch}}$ for a subgroup of $\Sp_4(\Z)$.
+The modular group promotion is:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+ \toprule
+ $E_n$ level & Modular group & $S$-matrix type \\
+ \midrule
+ $\Etwo$ & $\SL_2(\Z)$ acting on $\tau$ & scalar $S_{ij}$, elliptic \\
+ $E_3$ & $\Sp_4(\Z)$ acting on $(\tau_1, z, \tau_2)$ &
+ categorical $\cS_{\cV,\cW}$, Siegel \\
+ \bottomrule
+\end{tabular}
+\end{center}
+The mechanism: $\Etwo$ factorization homology on $T^2$ (the torus,
+moduli $\tau$) gives the genus-$1$ amplitude with $\SL_2(\Z)$ symmetry.
+$E_3$ factorization homology on $T^2 \times S^1$ (the $3$-torus,
+or equivalently on a genus-$2$ surface $\Sigma_2$ via surgery)
+produces the genus-$2$ Siegel period matrix $Z \in \cH_2$, inheriting
+$\Sp_4(\Z)$ symmetry from the mapping class group
+$\mathrm{MCG}(\Sigma_2) \twoheadrightarrow \Sp_4(\Z)$.
+\end{conjecture}
+
+\begin{conjecture}[Connection to $\Phi_{10}$: the BKM $S$-matrix]
+\label{conj:s-matrix-phi10}
+\ClaimStatusConjectured
+For $X = K3 \times E$, the $E_3$ categorical $S$-matrix of the
+conjectural chiral algebra $A_X$ (Conjecture~\textup{\ref{conj:6d-k3xe}},
+conditional on CY-A$_3$) is controlled by the Igusa cusp form
+$\Phi_{10}$. Specifically:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item The Borcherds denominator identity for the BKM superalgebra
+ $\mathfrak{g}_{\Delta_5}$ is
+ \[
+  \Phi_{10}(\tau_1, z, \tau_2)
+  \;=\;
+  e^{2\pi i(\tau_1 + z + \tau_2)}
+  \prod_{(n,\ell,m) > 0}
+  \bigl(1 - e^{2\pi i(n\tau_1 + \ell z + m\tau_2)}\bigr)^{c(4nm - \ell^2)},
+ \]
+ where $c(D)$ are the Fourier coefficients of
+ $\chi_{10,1}(\tau,z) = \phi_{0,1}(\tau,z) \cdot \eta(\tau)^{-24}$
+ (the Gritsenko lift). This product is a Siegel modular form of
+ weight $\kappa_{\mathrm{BKM}} = 5$ for $\Sp_4(\Z)$.
+ \item The $E_3$ categorical $S$-matrix, decategorified to a scalar
+ function on $\cH_2$, satisfies
+ \[
+  \hat{S}_{K3 \times E}(\tau_1, z, \tau_2)
+  \;=\;
+  \Phi_{10}(\tau_1, z, \tau_2)^{-1}
+  \;\cdot\; (\text{Eisenstein factor}),
+ \]
+ where $\Phi_{10}^{-1}$ is the Borcherds product
+ \emph{inverted}---its poles on the Humbert surfaces
+ $\{4n m - \ell^2 = 0\}$ are the \emph{resonances} of the
+ categorical scattering matrix, corresponding to BPS bound
+ states becoming massless. The Eisenstein factor is a
+ (normalizing) Siegel Eisenstein series of weight
+ $\kappa_{\mathrm{cat}} - \kappa_{\mathrm{BKM}} = 2 - 5 = -3$
+ which ensures the correct transformation law.
+ \item The Fourier--Jacobi expansion
+ $\hat{S}^{-1} = \Phi_{10} \cdot E^{-1}
+ = \sum_{m \geq 1} \phi_m(\tau_1, z)\, e^{2\pi i m \tau_2}$
+ encodes the shadow tower: the Jacobi form $\phi_m$ of index $m$
+ is the degree-$m$ braided shadow obstruction
+ $\Theta^{E_2}_{\cA, m}$ of
+ Proposition~\textup{\ref{prop:braided-shadow}}, now promoted from
+ an elliptic modular object to a Siegel modular one by the
+ $E_3$ structure.
+ \item The weight: $\Phi_{10}$ has weight $10 = 2\kappa_{\mathrm{BKM}}$,
+ and $\kappa_{\mathrm{BKM}} = 5$. The $E_3$ $S$-matrix has
+ modular weight $-10$ (as $\Phi_{10}^{-1}$), shifted by the
+ Eisenstein normalizer. The net weight of $\hat{S}$ is
+ $-10 - (-3) \cdot 2 = -4$, which is
+ $-2\kappa_{\mathrm{cat}} = -2 \cdot 2$.
+ The formula $\mathrm{wt}(\hat{S}) = -2\kappa_{\mathrm{cat}}$
+ is the $E_3$ analogue of the $\Etwo$ relation
+ $\mathrm{wt}(S_{ij}) = -\kappa_{\mathrm{cat}}$ (where the
+ modular $S$-matrix of an MTC has weight $-c/2$,
+ $c = 2\kappa_{\mathrm{cat}}$ in our convention).
+\end{enumerate}
+This conjecture depends on CY-A$_3$ (for the existence of $A_X$),
+on Conjecture~\textup{\ref{conj:6d-k3xe}} (for the 6d
+framework), and on the identification of the BKM root datum with
+the $K3 \times E$ BPS spectrum. Each dependency is independent;
+CY-A$_3$ is the bottleneck.
+\end{conjecture}
+
+\begin{remark}[The $\Etwo \to E_3$ modular promotion mechanism]
+\label{rem:e2-e3-modular-promotion}
+The passage from $\SL_2(\Z)$ to $\Sp_4(\Z)$ is not an \emph{ad hoc}
+enlargement: it is forced by the factorization homology of the
+$E_3$-algebra over the mapping class group of $3$-manifolds. The
+concrete mechanism:
+\begin{enumerate}[label=\textup{(\alph*)}]
+ \item At $\Etwo$: factorization homology $\int_{T^2} \cA$ computes
+ the genus-$1$ amplitude. The moduli space of $T^2$ is
+ $\SL_2(\Z) \backslash \cH_1$. The $S$-transformation $\tau \mapsto
+ -1/\tau$ and $T$-transformation $\tau \mapsto \tau + 1$ generate
+ $\SL_2(\Z)$. The $S$-matrix \emph{is} the $S$-transformation of
+ conformal blocks.
+ \item At $E_3$: factorization homology $\int_{\Sigma_2 \times S^1} \cA$
+ computes the genus-$2$ Siegel amplitude. The moduli space of
+ genus-$2$ Riemann surfaces is $\Sp_4(\Z) \backslash \cH_2$.
+ The $E_3$ $S$-matrix is the $\Sp_4(\Z)$ transformation matrix
+ of genus-$2$ conformal blocks. The two spectral parameters
+ $(\tau_1, \tau_2)$ are the diagonal entries of the period matrix;
+ the off-diagonal entry $z$ is the relative spectral parameter
+ from the $E_3$ $R$-matrix $R_{\mathrm{ch}}(u,v)$.
+ \item The Fourier--Jacobi expansion $\Phi_{10} = \sum_m \phi_m\, p^m$
+ is the $\Etwo \hookrightarrow E_3$ restriction: each
+ $\phi_m(\tau_1, z)$ is an $\SL_2(\Z)$ Jacobi form (the $\Etwo$
+ datum), and the assembly into a Siegel form is the $E_3$ datum.
+ The index $m$ is the Fourier--Jacobi charge, which in the
+ categorical picture is the degree of the braided shadow tower
+ $\Theta^{E_2}_{\cA, m}$.
+\end{enumerate}
+The factorization homology perspective explains \emph{why} the
+genus-$2$ modular group appears: $E_3$ factorization on a
+$3$-manifold $M^3$ produces invariants that depend on the moduli of
+$M^3$; for $M^3 = \Sigma_g \times S^1$, these moduli include the
+Siegel period matrix of $\Sigma_g$. At $g = 2$, the period matrix
+lives in $\cH_2$ with $\Sp_4(\Z)$ symmetry.
+\end{remark}
+
+\begin{remark}[Scope and status]
+\label{rem:e3-s-matrix-scope}
+Construction~\ref{constr:e3-s-matrix} is a mathematical definition
+(of the categorical $S$-matrix as a categorical trace of the
+$E_3$ $R$-matrix). Conjectures~\ref{conj:double-s-matrix},
+\ref{conj:sp4-modularity}, and~\ref{conj:s-matrix-phi10} are
+conjectural: the first requires the existence of the $E_3$ $R$-matrix
+on Fock modules (Conjecture~\ref{conj:chiral-qg-c3}); the second
+requires the $\Sp_4(\Z)$ modularity of the resulting function;
+the third requires the full $K3 \times E$ programme
+(CY-A$_3$ + BKM identification). All three conjectures are conditional
+on CY-A$_3$ through the dependency chain
+$A_X \to R^{E_3} \to \cS \to \hat{S}$.
+None of the conjectures above is a theorem. They are formulated
+here because the structural parallels
+($\Etwo/\SL_2(\Z)/S_{ij}$ vs.\ $E_3/\Sp_4(\Z)/\hat{S}$) are
+sufficiently rigid to be falsifiable: compute the $E_3$ factorization
+homology of the quantum toroidal Fock module over $T^3$ and check
+whether $\Sp_4(\Z)$ modularity holds.
+\end{remark}

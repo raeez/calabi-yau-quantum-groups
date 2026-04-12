@@ -25,7 +25,10 @@ from compute.lib.chiral_coproduct_spin2_engine import (
     HeisenbergFock,
     TensorHeisenberg,
     c_eff_expected,
+    derive_antipode_J,
+    derive_antipode_T,
     extract_c_eff,
+    verify_antipode_consistency,
     verify_c_eff_level_dependence,
     verify_delta_J,
     verify_heisenberg,
@@ -191,3 +194,99 @@ class TestIntertwining:
         # VERIFIED: factor = Psi = 0.5 at Psi=0.5 [DC].
         r = verify_T_J_intertwining(Psi=0.5, N_max=6, z=0.0)
         assert r["ok"], f"max error {r['max_error']:.2e}"
+
+
+# ---------------------------------------------------------------------------
+# Antipode: S(J_n) = -J_n, S(T_n) = (2*Psi - 3)*T_n
+# ---------------------------------------------------------------------------
+
+class TestAntipodeJ:
+    """Spin-1 antipode S(J_n) = -J_n (sign flip for primitive elements)."""
+
+    def test_hopf_axiom_Psi1(self):
+        # VERIFIED: S(J_n) = -J_n, m(S x id)Delta(J_n) = 0 [DC].
+        H = HeisenbergFock(Psi=1.0, N_max=6)
+        r = derive_antipode_J(H)
+        assert r["ok"], f"max error {r['max_error']:.2e}"
+
+    def test_hopf_axiom_Psi2(self):
+        # VERIFIED: same formula at Psi=2 [DC].
+        H = HeisenbergFock(Psi=2.0, N_max=6)
+        r = derive_antipode_J(H)
+        assert r["ok"], f"max error {r['max_error']:.2e}"
+
+
+class TestAntipodeT:
+    """Spin-2 antipode S(T_n) = (2*Psi - 3)*T_n.
+
+    Derived from the Hopf axiom m(S tensor id)Delta_0(T_n) = 0 using:
+    - Delta_0(T_n) = T_n^L + T_n^R + ((Psi-1)/Psi) sum_k J_k^L J_{n-k}^R
+    - S(J_k) = -J_k
+    - sum_k J_k J_{n-k} = 2*Psi*T_n  for n != 0
+
+    The coefficient (2*Psi-3) arises from:
+      S(T_n) = -T_n + ((Psi-1)/Psi) * 2*Psi * T_n = (2*Psi - 3)*T_n
+    """
+
+    def test_hopf_axiom_Psi1(self):
+        # VERIFIED: S(T_n) = -T_n at Psi=1 (primitive, cross-term vanishes) [DC].
+        r = derive_antipode_T(Psi=1.0, N_max=6)
+        assert r["ok"]
+        assert abs(r["S_T_coefficient"] - (-1.0)) < 1e-12
+
+    def test_hopf_axiom_Psi2(self):
+        # VERIFIED: S(T_n) = T_n at Psi=2 (involutive, S^2 = id) [DC].
+        r = derive_antipode_T(Psi=2.0, N_max=6)
+        assert r["ok"]
+        assert abs(r["S_T_coefficient"] - 1.0) < 1e-12
+
+    def test_hopf_axiom_Psi_half(self):
+        # VERIFIED: S(T_n) = -2*T_n at Psi=0.5 [DC].
+        r = derive_antipode_T(Psi=0.5, N_max=6)
+        assert r["ok"]
+        assert abs(r["S_T_coefficient"] - (-2.0)) < 1e-12
+
+    def test_hopf_axiom_Psi3(self):
+        # VERIFIED: S(T_n) = 3*T_n at Psi=3 [DC].
+        r = derive_antipode_T(Psi=3.0, N_max=6)
+        assert r["ok"]
+        assert abs(r["S_T_coefficient"] - 3.0) < 1e-12
+
+    @pytest.mark.parametrize("Psi", [0.5, 1.0, 2.0, 3.0, 3.7])
+    def test_S_coefficient_formula(self, Psi):
+        # VERIFIED: S(T_n) = (2*Psi-3)*T_n for all Psi [DC].
+        r = derive_antipode_T(Psi=Psi, N_max=6)
+        assert r["ok"]
+        expected = 2.0 * Psi - 3.0
+        assert abs(r["S_T_coefficient"] - expected) < 1e-10, (
+            f"Psi={Psi}: S_coeff={r['S_T_coefficient']} (expected {expected})"
+        )
+
+    def test_S_squared_involutive_Psi1(self):
+        # VERIFIED: S^2(T_n) = T_n at Psi=1 (cocommutative case) [DC].
+        r = derive_antipode_T(Psi=1.0, N_max=6)
+        assert r["S_squared_is_id"]
+
+    def test_S_squared_involutive_Psi2(self):
+        # VERIFIED: S^2(T_n) = T_n at Psi=2 (special value) [DC].
+        r = derive_antipode_T(Psi=2.0, N_max=6)
+        assert r["S_squared_is_id"]
+
+    def test_S_squared_non_involutive_Psi3(self):
+        # VERIFIED: S^2 != id at Psi=3 (non-cocommutative, S^2=Ad(u)) [DC].
+        r = derive_antipode_T(Psi=3.0, N_max=6)
+        assert not r["S_squared_is_id"]
+
+    def test_not_quasi_hopf(self):
+        # VERIFIED: genuine Hopf algebra, not quasi-Hopf [DC].
+        r = derive_antipode_T(Psi=2.0, N_max=6)
+        assert not r["quasi_hopf"]
+
+
+class TestAntipodeConsistency:
+    """Full antipode consistency across multiple Psi values."""
+
+    def test_full_consistency(self):
+        # VERIFIED: Hopf axiom holds at Psi in {0.5, 1.0, 2.0, 3.0} [DC].
+        r = verify_antipode_consistency(N_max=6)
+        assert r["ok"]

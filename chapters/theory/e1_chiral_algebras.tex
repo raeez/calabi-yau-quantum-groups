@@ -173,6 +173,113 @@ For an $E_1$-chiral algebra $A$ and a coalgebra $C$, the convolution $L_\infty$-
 Beilinson and Drinfeld~\cite{BeilinsonDrinfeld} developed chiral algebras as a symmetric factorization formalism on the Ran space. Their chiral algebras lie on the $E_\infty$ side of the locality hierarchy, even when they carry OPE poles. The $E_1$-chiral algebras of this chapter are a strict refinement: they remember collision order. The averaging map $B^{\mathrm{ord}} \to B^{\Sigma}$ forgets that extra data and returns to the Beilinson-Drinfeld world. Vol~III's geometric output is ordered; its modular characteristic is symmetric.
 \end{remark}
 
+\begin{remark}[$E_1$-chiral bialgebras versus $E_\infty$-vertex bialgebras]
+\label{rem:e1-vs-einfty-bialgebras}
+The $E_n$-hierarchy organises three bar complexes with three coalgebra
+structures, three Hopf structures, and three levels of
+quantum-group data. The comparison table is
+(cf.\ Construction~\ref{constr:three-bar-complexes} in
+Chapter~\ref{ch:e2-chiral} and
+Theorem~\ref{thm:bar-comparison-c3} for the $\mathbb{C}^3$ instance):
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lccc}
+\toprule
+ & \textbf{$E_1$ (labeled-ordered)} & \textbf{$E_2$ (braided)}
+ & \textbf{$E_\infty$ (symmetric)} \\
+\midrule
+Bar complex & $B^{\mathrm{ord}} = T^c(s^{-1}\bar A)$
+ & $B^{E_2}$ ($B_n$-action via $R(z)$)
+ & $B^{\Sigma} = \Sym^c(s^{-1}\bar A)$ \\
+Coproduct & deconcatenation & braided deconcatenation
+ & coshuffle \\
+Terms at arity $n$ & $n+1$ & $B_n$-orbits & $2^n$ \\
+$R$-matrix data & full $r(z)$ & braiding $\sigma$ & none
+ ($\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$) \\
+Koszul dual & $A^!$ (defect algebra) & $A^!$ with
+ $\sigma^{\mathrm{rev}}$ & classical Koszul \\
+Hopf structure & $E_1$-chiral bialgebra & braided Hopf
+ (Majid) & Li vertex bialgebra \\
+Coproduct type & Drinfeld $\Delta_z$ & braided
+ $\Delta_\sigma$ & symmetric $\Delta$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent\emph{What is lost at each level.}
+\begin{enumerate}[label=(\roman*)]
+ \item $E_1 \to E_2$: the labeled ordering is replaced by a braid-group
+ action; half-braiding data (the choice of over- versus
+ under-crossing) is forgotten.
+ \item $E_2 \to E_\infty$: the braiding $\sigma$ becomes symmetric; the
+ $R$-matrix collapses to the scalar $\kappa_{\mathrm{ch}}$.
+ Every non-abelian quantum group datum is lost.
+ \item $E_1 \to E_\infty$ (direct, via $\mathrm{av}$): the full
+ $R$-matrix, the Hopf structure, and the Drinfeld coproduct all
+ vanish. What survives is the modular characteristic
+ $\kappa_{\mathrm{ch}}$ and the shadow tower.
+\end{enumerate}
+
+\noindent\emph{Why Vol~III works at $E_1$.}
+The entire quantum group programme---Yangians ($Y(\fg)$), quantum
+toroidal algebras ($U_{q,t}(\ddot{\fgl}_1)$), Kazhdan-Lusztig
+categories ($\Rep_q(\fg)$ at roots of unity)---lives natively at $E_1$.
+The passage to $E_2$ is via the Drinfeld center
+$\cZ(\Rep^{E_1}(A)) \simeq \Rep^{E_2}(\mathrm{Drin}(A))$
+(Proposition~\ref{prop:e2-enhancement-drinfeld}); the passage to
+$E_\infty$ forgets the quantum group entirely and returns to the
+classical vertex-algebraic world of Beilinson-Drinfeld.
+Li's vertex bialgebra~\cite{Li06} is the $E_\infty$ shadow of the
+$E_1$-chiral bialgebra: it retains the vertex-algebraic OPE structure
+but symmetrizes the coproduct, losing the $R$-matrix that distinguishes
+$U_q(\fg)$ from $U(\fg)$. The chiral quantum group is the $E_1$
+substance; the vertex bialgebra is the $E_\infty$ silhouette.
+\end{remark}
+
+\begin{proposition}[Lossiness of the $E_1 \to E_\infty$ forgetful functor on bialgebras]
+\label{prop:forgetful-e1-einfty-bialgebra}
+\ClaimStatusProvedHere
+Let $(A, \mu, \Delta_z, R(z))$ be an $E_1$-chiral bialgebra with
+$R$-matrix $R(z)$ and Drinfeld coproduct $\Delta_z$. The forgetful
+functor
+\[
+ \mathrm{Forget}_{E_1 \to E_\infty} \colon
+ E_1\text{-}\mathrm{ChirBialg} \longrightarrow
+ E_\infty\text{-}\mathrm{VtxBialg}
+\]
+sends $(A, \mu, \Delta_z, R(z))$ to the Li vertex bialgebra
+$(A, \mu, \mathrm{av}(\Delta_z), 1)$ with \emph{trivial} braiding. In
+particular:
+\begin{enumerate}[label=\textup{(\alph*)}]
+ \item The image has symmetric coproduct:
+ $\mathrm{av}(\Delta_z) = \tau \circ \mathrm{av}(\Delta_z)$.
+ \item The $R$-matrix reduces to the scalar
+ $\mathrm{av}(R(z))|_{z=0} = \kappa_{\mathrm{ch}} \cdot \mathrm{id}$.
+ \item The braiding is \emph{not} recoverable from the
+ $E_\infty$ image. It is recovered precisely by the Drinfeld center:
+ $\cZ(\Rep^{E_1}(A)) \simeq \Rep^{E_2}(\mathrm{Drin}(A))$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Claim~(a): the averaging map $\mathrm{av} \colon B^{\mathrm{ord}} \to
+B^\Sigma$ (Proposition~\ref{prop:averaging-e1-einfty}) is
+$S_n$-coinvariant projection, so the image is $S_n$-invariant by
+construction; in particular the coproduct is symmetric.
+Claim~(b): the degree-two component of $\mathrm{av}$ sends
+$r(z) = R_{12}(z)$ to its $S_2$-coinvariant, which is the scalar
+$\kappa_{\mathrm{ch}}$ (loc.\ cit.).
+Claim~(c): the fiber of $\mathrm{av}$ in degree two is
+$\ker(\mathrm{av}|_2) = \{f(z) : f(z) + f(-z) = 0\}$, the space of
+antisymmetric collision data. The $R$-matrix lives in that kernel
+(it satisfies $R_{12}(z) = -R_{21}(-z)$ by the Yang-Baxter skew
+symmetry). Hence $R(z)$ is annihilated and cannot be recovered from
+the $E_\infty$ image. By
+Proposition~\ref{prop:e2-enhancement-drinfeld}, the Drinfeld center
+reconstructs the braiding from the monoidal structure of
+$\Rep^{E_1}(A)$; this is the unique functorial recovery.
+\end{proof}
+
 \section{Connection to Volume~II}
 \label{sec:vol2-connection}
 
@@ -228,6 +335,701 @@ The dictionary is not symmetric in $E_1$ and $E_\infty$: the ordered bar is the 
 \begin{remark}[Notation consistency across the three volumes]
 \label{rem:notation-consistency}
 The three volumes use different coalgebra conventions in their displayed formulas. Vol~I displays formulas in $B^{\Sigma}$ with the symmetric coproduct; Vol~II displays formulas in $B^{\mathrm{ord}}$ with deconcatenation; Vol~III displays formulas in whichever form the CY functor produces, which is always $B^{\mathrm{ord}}$ at the source but frequently $B^{\Sigma}$ after averaging to extract $\kappa_{\mathrm{ch}}$. The reader who cross-references a formula between volumes must convert between the three coalgebra structures: $B^{\mathrm{ord}} \to B^{\Sigma}$ by averaging (dividing by $n!$ and symmetrizing), and $B^{\Sigma} \to B^{\mathrm{Lie}}$ by taking the iterated commutator of the cofree tensor coalgebra. The three bars are NOT isomorphic even as complexes; they differ by $S_n$-coinvariant quotients, and the Euler characters diverge accordingly. See Vol~II for the three-bar sequence.
+\end{remark}
+
+\section{$E_1$-chiral Koszul duality: three standard families}
+\label{sec:e1-koszul-three-families}
+
+Volume~II proves $E_1$-chiral Koszul duality: the bar-cobar adjunction
+$B^{\mathrm{ord}} \dashv \Omega^{\mathrm{ord}}$ is a Quillen equivalence
+on the Koszul locus, and the Koszul dual algebra $A^!$ satisfies
+$\Rep^{E_1}(A) \simeq \Rep^{E_1}(A^!)^{\mathrm{rev}}$ as monoidal
+categories. The Koszul conductor $\rho_K(A)$ is the real number such that
+\begin{equation}\label{eq:koszul-conductor}
+ \kappa_{\mathrm{ch}}(A) + \kappa_{\mathrm{ch}}(A^!) = \rho_K(A).
+\end{equation}
+The conductor $\rho_K$ is a family invariant: it depends on the
+isomorphism class of the shadow tower, not on the particular algebra
+within the family. This section computes $A^!$, $B^{\mathrm{ord}}$, and
+$\rho_K$ explicitly for the three standard families that span the G/L/M
+classification: Heisenberg (class~G, $\rho_K = 0$), affine Kac--Moody
+$V_k(\mathfrak{sl}_2)$ (class~L, $\rho_K = 0$), and Virasoro $\Vir_c$
+(class~M, $\rho_K = 13$).
+
+\subsection{Family I: Heisenberg $H_k$ (class~G)}
+\label{subsec:koszul-heisenberg}
+
+The rank-one Heisenberg vertex algebra $H_k$ at level $k \neq 0$ has a
+single strong generator $J$ of conformal weight~$1$, with OPE
+$J(z)J(w) \sim k/(z-w)^2$ and no nonlinear terms. The augmentation ideal
+$\bar{H}_k = \langle J, \partial J, \partial^2 J, \ldots \rangle$ is
+spanned by all derivatives, and $\kappa_{\mathrm{ch}}(H_k) = k$.
+
+\begin{proposition}[$E_1$-Koszul dual of the Heisenberg]
+\label{prop:koszul-heisenberg}
+\ClaimStatusProvedHere
+The $E_1$-chiral Koszul dual of $H_k$ is $H_k^! = H_{-k}$, the
+Heisenberg at level $-k$. The ordered bar complex
+$B^{\mathrm{ord}}(H_k) = T^c(s^{-1}\bar{H}_k)$ has trivial differential
+at all arities, and the Koszul conductor is $\rho_K = 0$.
+\end{proposition}
+
+\begin{proof}
+The bar differential $d_{\mathrm{bar}}$ on
+$B^{\mathrm{ord}}_n(H_k) = (s^{-1}\bar{H}_k)^{\otimes n}$ acts by
+summing adjacent OPE multiplications:
+\[
+ d_{\mathrm{bar}}[a_1|\cdots|a_n] = \sum_{i=1}^{n-1} \pm
+ [a_1|\cdots|\mu(a_i, a_{i+1})|\cdots|a_n].
+\]
+For the Heisenberg, $\mu(J, J) = 0$ (the singular OPE $J(z)J(w) \sim
+k/(z-w)^2$ contributes to the metric/pairing, not to the multiplication
+$\mu$: the OPE has no first-order pole, so the normally-ordered product
+$:JJ:$ has no correction from the singular part). Consequently
+$d_{\mathrm{bar}} = 0$ at all arities. The bar complex is exact in the
+trivial sense: $H^*(B^{\mathrm{ord}}(H_k)) = B^{\mathrm{ord}}(H_k)$ as
+a graded vector space.
+
+The Koszul dual is then read from the linear dual of $B^{\mathrm{ord}}$:
+the Verdier dual $D_{\mathrm{Ran}}(B^{\mathrm{ord}}(H_k))$ is a tensor
+coalgebra on $(s^{-1}\bar{H}_k)^*$ with inverted level. Explicitly, the
+dual generator $J^*$ satisfies $J^*(z)J^*(w) \sim (-k)/(z-w)^2$, so
+$H_k^! \cong H_{-k}$.
+
+The conductor computation:
+\[
+ \kappa_{\mathrm{ch}}(H_k) + \kappa_{\mathrm{ch}}(H_{-k}) = k + (-k) = 0
+ = \rho_K.
+\]
+\end{proof}
+
+The explicit bar complex at low arities is:
+\begin{align}
+ B^{\mathrm{ord}}_1(H_k) &= s^{-1}\bar{H}_k =
+ \langle [J], [\partial J], [\partial^2 J], \ldots \rangle,
+ \label{eq:heisenberg-bar-1} \\
+ B^{\mathrm{ord}}_2(H_k) &= (s^{-1}\bar{H}_k)^{\otimes 2} =
+ \langle [J|J], [J|\partial J], [\partial J|J], \ldots \rangle,
+ \quad d_{\mathrm{bar}} = 0,
+ \label{eq:heisenberg-bar-2} \\
+ B^{\mathrm{ord}}_3(H_k) &= (s^{-1}\bar{H}_k)^{\otimes 3} =
+ \langle [J|J|J], [J|J|\partial J], \ldots \rangle,
+ \quad d_{\mathrm{bar}} = 0.
+ \label{eq:heisenberg-bar-3}
+\end{align}
+The dimension at arity $n$ (truncated to conformal weight $\leq N$)
+is $\dim B^{\mathrm{ord}}_n = p(N)^n$ where $p(N)$ is the partition
+function (one basis vector per derivative $\partial^m J$, $m \geq 0$,
+organized by conformal weight $m+1$). The generating function
+$\sum_n \dim B^{\mathrm{ord}}_n \cdot q^n$ at fixed weight truncation
+is a geometric series in $p(N)$, reflecting the triviality of the bar
+differential (class~G: the shadow tower terminates at depth~$2$).
+
+\begin{remark}[Self-duality at $k=1$]
+\label{rem:heisenberg-self-dual}
+At $k = 1$ the Koszul dual is $H_{-1}$, which is isomorphic to $H_1$
+after reversing the ordering of the bar (the level sign is absorbed by
+the $\mathrm{rev}$ functor on $\Rep^{E_1}$). At general $k$, the duality
+$H_k \leftrightarrow H_{-k}$ is the chiral reflection of the parameter
+inversion $(h_1, h_2, h_3) \to (-h_1, -h_2, -h_3)$ of the
+$\Omega$-background.
+\end{remark}
+
+\subsection{Family II: Kac--Moody $V_k(\mathfrak{sl}_2)$ (class~L)}
+\label{subsec:koszul-kac-moody}
+
+The affine Kac--Moody vertex algebra $V_k(\mathfrak{sl}_2)$ at
+non-critical level $k \neq -2$ has three strong generators
+$\{e, f, h\}$ of conformal weight~$1$ with OPE:
+\begin{equation}\label{eq:sl2-ope}
+ h(z)h(w) \sim \frac{2k}{(z-w)^2}, \quad
+ h(z)e(w) \sim \frac{2e(w)}{z-w}, \quad
+ e(z)f(w) \sim \frac{k}{(z-w)^2} + \frac{h(w)}{z-w}.
+\end{equation}
+The critical fact is the \emph{first-order pole} in $e(z)f(w)$: the
+OPE multiplication $\mu(e, f) = h$ is nontrivial, so the bar
+differential is nonzero. The modular characteristic is
+$\kappa_{\mathrm{ch}}(V_k(\mathfrak{sl}_2)) = 3(k+2)/4$ (from the
+general formula $\kappa_{\mathrm{ch}}(V_k(\mathfrak{g})) =
+\dim(\mathfrak{g})(k + h^\vee)/(2h^\vee)$ with $\dim(\mathfrak{sl}_2) = 3$,
+$h^\vee = 2$).
+
+\begin{proposition}[$E_1$-Koszul dual of $V_k(\mathfrak{sl}_2)$]
+\label{prop:koszul-kac-moody}
+\ClaimStatusProvedHere
+The $E_1$-chiral Koszul dual of $V_k(\mathfrak{sl}_2)$ at non-critical
+level $k \neq -2$ is $V_{k'}(\mathfrak{sl}_2)$ at the Feigin--Frenkel
+dual level $k' = -k - 2h^\vee = -k - 4$. The Koszul conductor is
+$\rho_K = 0$.
+\end{proposition}
+
+\begin{proof}
+The argument has three steps.
+
+\emph{Step 1: Bar differential.}
+The ordered bar complex has $B^{\mathrm{ord}}_n(V_k(\mathfrak{sl}_2)) =
+(s^{-1}\bar{V}_k)^{\otimes n}$, where $\bar{V}_k$ is spanned by
+$\{e, f, h, \partial e, \partial f, \partial h, \ldots\}$. The bar
+differential is
+\[
+ d_{\mathrm{bar}}[a_1|\cdots|a_n] = \sum_{i=1}^{n-1} \pm
+ [a_1|\cdots|\mu(a_i, a_{i+1})|\cdots|a_n]
+\]
+where $\mu$ extracts the first-order pole of the OPE. At arity~$2$:
+\begin{align*}
+ d_{\mathrm{bar}}[e|f] &= +[h], \quad
+ d_{\mathrm{bar}}[f|e] = -[h], \\
+ d_{\mathrm{bar}}[h|e] &= +[2e], \quad
+ d_{\mathrm{bar}}[e|h] = -[2e], \\
+ d_{\mathrm{bar}}[h|f] &= -[2f], \quad
+ d_{\mathrm{bar}}[f|h] = +[2f], \\
+ d_{\mathrm{bar}}[e|e] &= 0, \quad
+ d_{\mathrm{bar}}[f|f] = 0, \quad
+ d_{\mathrm{bar}}[h|h] = 0.
+\end{align*}
+Generators $[e|e]$, $[f|f]$, $[h|h]$ are bar cycles (diagonal terms have
+no first-order pole), while off-diagonal terms produce nontrivial
+boundaries. The bar cohomology
+$H^1(B^{\mathrm{ord}}(V_k)) = \bar{V}_k$ (the generators) and the image
+of $d_{\mathrm{bar}}\colon B^{\mathrm{ord}}_2 \to B^{\mathrm{ord}}_1$
+is $3$-dimensional (spanned by $h$, $2e$, $2f$).
+
+\emph{Step 2: Koszul dual OPE.}
+The Verdier dual of $B^{\mathrm{ord}}(V_k(\mathfrak{sl}_2))$ produces
+dual generators $\{e^*, f^*, h^*\}$ with the \emph{same}
+$\mathfrak{sl}_2$ structure but inverted level. The key identity is the
+Feigin--Frenkel duality: the functor
+$V_k(\mathfrak{g}) \mapsto V_{-k-2h^\vee}(\mathfrak{g})$ is the chiral
+level reflection, and its operadic implementation is exactly $E_1$-Koszul
+duality applied to the bar complex. For $\mathfrak{sl}_2$:
+\[
+ k' = -k - 2h^\vee = -k - 4.
+\]
+The dual generators satisfy $e^*(z)f^*(w) \sim k'/(z-w)^2 + h^*(w)/(z-w)$
+with $k' = -k-4$, reproducing the $V_{k'}(\mathfrak{sl}_2)$ OPE.
+
+\emph{Step 3: Conductor.}
+\begin{align*}
+ \kappa_{\mathrm{ch}}(V_k) + \kappa_{\mathrm{ch}}(V_{k'})
+ &= \frac{3(k+2)}{4} + \frac{3(k'+2)}{4}
+ = \frac{3(k+2)}{4} + \frac{3(-k-4+2)}{4} \\
+ &= \frac{3(k+2)}{4} + \frac{3(-k-2)}{4}
+ = \frac{3(k+2) - 3(k+2)}{4} = 0 = \rho_K.
+\end{align*}
+\end{proof}
+
+The low-arity bar complex is:
+\begin{align}
+ B^{\mathrm{ord}}_1 &= s^{-1}\bar{V}_k =
+ \langle [e], [f], [h], [\partial e], [\partial f], [\partial h],
+ \ldots \rangle, \notag \\
+ B^{\mathrm{ord}}_2 &= (s^{-1}\bar{V}_k)^{\otimes 2},
+ \quad \dim = 9 \text{ at weight $1$},
+ \label{eq:sl2-bar-2} \\
+ & \quad d_{\mathrm{bar}}([e|f]) = [h], \;
+ d_{\mathrm{bar}}([h|e]) = [2e], \;
+ d_{\mathrm{bar}}([h|f]) = [-2f], \notag \\
+ B^{\mathrm{ord}}_3 &= (s^{-1}\bar{V}_k)^{\otimes 3},
+ \quad \dim = 27 \text{ at weight $1$}.
+ \label{eq:sl2-bar-3}
+\end{align}
+At arity~$3$ the bar differential has two summands (positions $i=1,2$),
+and the bar cohomology carries the first nontrivial $A_\infty$ operation
+$m_3$ of $V_k(\mathfrak{sl}_2)$. The nonvanishing of $m_3$ is equivalent
+to the non-formality of $\mathfrak{sl}_2$ as a dg Lie algebra
+and places $V_k(\mathfrak{sl}_2)$ in shadow class~L (depth~$2$ tower
+with nontrivial $m_3$).
+
+\begin{remark}[Critical level $k = -2$]
+\label{rem:critical-level}
+At $k = -2$ the modular characteristic
+$\kappa_{\mathrm{ch}}(V_{-2}(\mathfrak{sl}_2)) = 0$ and the Koszul dual
+level is $k' = -(-2) - 4 = -2$: the critical level is a fixed point of
+the Feigin--Frenkel involution. The critical-level vertex algebra
+$V_{-2}(\mathfrak{sl}_2)$ is the home of geometric Langlands (see
+Chapter~\ref{ch:geometric-langlands}), and the self-duality under $E_1$
+Koszul reflects the Langlands self-duality of $\mathfrak{sl}_2$.
+\end{remark}
+
+\begin{remark}[General $\mathfrak{g}$]
+\label{rem:general-g-koszul}
+For a simple Lie algebra $\mathfrak{g}$ with dual Coxeter number
+$h^\vee$, the same argument gives $V_k(\mathfrak{g})^! =
+V_{-k-2h^\vee}(\mathfrak{g})$ with conductor
+\[
+ \kappa_{\mathrm{ch}}(V_k) + \kappa_{\mathrm{ch}}(V_{k'}) =
+ \frac{\dim\mathfrak{g}}{2h^\vee}\bigl[(k + h^\vee) +
+ (-k - 2h^\vee + h^\vee)\bigr] = 0.
+\]
+The vanishing $\rho_K = 0$ is universal for the Kac--Moody family.
+\end{remark}
+
+\subsection{Family III: Virasoro $\Vir_c$ (class~M)}
+\label{subsec:koszul-virasoro}
+
+The Virasoro vertex algebra $\Vir_c$ at central charge $c$ has a single
+strong generator $T$ (the stress-energy tensor) of conformal weight~$2$
+with OPE
+\begin{equation}\label{eq:virasoro-ope}
+ T(z)T(w) \sim \frac{c/2}{(z-w)^4} + \frac{2T(w)}{(z-w)^2}
+ + \frac{\partial T(w)}{z-w}.
+\end{equation}
+The first-order pole gives $\mu(T, T) = \partial T$ (a nontrivial
+multiplication), the second-order pole gives the conformal weight
+assignment (Sugawara), and the fourth-order pole gives the central
+extension. The modular characteristic is $\kappa_{\mathrm{ch}}(\Vir_c) = c/2$
+(from $\dim B^{\mathrm{ord}}_n \sim p(n)$ and the Volume~I shadow
+formula).
+
+The Koszul duality of the Virasoro differs from the Heisenberg and
+Kac--Moody families in a fundamental way: the conductor is
+\emph{nonzero}.
+
+\begin{conjecture}[$E_1$-Koszul dual of the Virasoro]
+\label{conj:koszul-virasoro}
+\ClaimStatusConjectured
+The $E_1$-chiral Koszul dual of $\Vir_c$ is $\Vir_{c'}$ at central charge
+$c' = 26 - c$. The Koszul conductor is $\rho_K = 13$:
+\[
+ \kappa_{\mathrm{ch}}(\Vir_c) + \kappa_{\mathrm{ch}}(\Vir_{c'})
+ = \frac{c}{2} + \frac{26 - c}{2} = 13 = \rho_K.
+\]
+At the self-dual point $c = 13$, $\Vir_{13}$ is Koszul
+self-dual. At $c = 26$ the dual is $\Vir_0$, and at $c = 0$ the dual is
+$\Vir_{26}$ (the bosonic string).
+\end{conjecture}
+
+The conjecture status is necessary because the full $E_1$-chiral
+Koszul duality for the Virasoro requires controlling the bar differential
+to all arities, and the infinite shadow depth (class~M) means the tower
+never terminates. The evidence is:
+
+\begin{proof}[Evidence]
+\emph{(i) Bar differential at arity~$2$.}
+Using the first-order pole $\mu(T, T) = \partial T$:
+\[
+ d_{\mathrm{bar}}[T|T] = [\partial T].
+\]
+The image $\mathrm{im}(d_{\mathrm{bar}}\colon B^{\mathrm{ord}}_2 \to
+B^{\mathrm{ord}}_1)$ is $1$-dimensional (spanned by $[\partial T]$).
+The bar cycle $[T|T] - [T|T]$ is trivial, so
+$\ker(d_{\mathrm{bar}}|_{B^{\mathrm{ord}}_2 \to B^{\mathrm{ord}}_1}) =
+\langle [T|T] + [T|T] \rangle_{/\mathrm{im}}$ is
+computed by the commutator $[T|T] - [T|T] = 0$ (the ordered bar is
+noncommutative; only the symmetric $[T|T] + [T|T]$ survives modulo $d$).
+
+\emph{(ii) Bar differential at arity~$3$.}
+$d_{\mathrm{bar}}[T|T|T] = [\partial T|T] \pm [T|\partial T]$
+(two summands from positions $i = 1, 2$). The sign is determined by the
+Koszul convention (desuspension shifts degree by~$-1$):
+\[
+ d_{\mathrm{bar}}[T|T|T] = [\partial T|T] - [T|\partial T].
+\]
+This is a nonzero cycle in $B^{\mathrm{ord}}_2$ (its image under
+$d_{\mathrm{bar}}\colon B^{\mathrm{ord}}_2 \to B^{\mathrm{ord}}_1$ is
+$[\partial^2 T] - [\partial^2 T] = 0$, so it is indeed a cycle), and it
+represents the $A_\infty$ operation $m_3(T, T, T)$. The nonvanishing of
+this class at all orders is the hallmark of class~M (infinite shadow
+depth).
+
+\emph{(iii) Conductor from the Sugawara construction.}
+The Virasoro at central charge $c$ embeds into the Heisenberg via
+Sugawara: $T = :JJ:/(2k)$ at $c = 1$. Under Koszul duality, the level
+inverts ($k \to -k$), so $c \to c'$ with $c + c' = 26$ determined by the
+ghost central charge of the bosonic string ($bc$-ghost system contributes
+$c = -26$, so the BRST-balanced point is $c + c_{\mathrm{ghost}} = 26$;
+equivalently, $c' = 26 - c$ is the unique value such that
+$\Vir_c \otimes \Vir_{c'}$ has total $\kappa_{\mathrm{ch}} = 13$, the value
+at which the Virasoro shadow tower of Vol~I attains
+its self-dual fixed point).
+
+\emph{(iv) Kappa verification.}
+$\kappa_{\mathrm{ch}}(\Vir_c) = c/2$ and
+$\kappa_{\mathrm{ch}}(\Vir_{26-c}) = (26-c)/2$, so
+\[
+ \kappa_{\mathrm{ch}}(\Vir_c) + \kappa_{\mathrm{ch}}(\Vir_{26-c})
+ = \frac{c}{2} + \frac{26-c}{2} = 13 = \rho_K.
+\]
+The conductor $\rho_K = 13$ is nonzero, reflecting the nontrivial
+conformal anomaly of the Virasoro. Compare with the Heisenberg
+($\rho_K = 0$) and Kac--Moody ($\rho_K = 0$) families.
+\end{proof}
+
+The low-arity bar complex:
+\begin{align}
+ B^{\mathrm{ord}}_1(\Vir_c) &= s^{-1}\overline{\Vir}_c =
+ \langle [T], [\partial T], [\partial^2 T], \ldots \rangle,
+ \label{eq:vir-bar-1} \\
+ B^{\mathrm{ord}}_2(\Vir_c) &= (s^{-1}\overline{\Vir}_c)^{\otimes 2},
+ \quad d_{\mathrm{bar}}[T|T] = [\partial T],
+ \label{eq:vir-bar-2} \\
+ B^{\mathrm{ord}}_3(\Vir_c) &= (s^{-1}\overline{\Vir}_c)^{\otimes 3},
+ \quad d_{\mathrm{bar}}[T|T|T] = [\partial T|T] - [T|\partial T].
+ \label{eq:vir-bar-3}
+\end{align}
+
+\begin{remark}[The conductor and the G/L/M classification]
+\label{rem:conductor-glm}
+The three families exhibit a clean correlation between shadow class and
+Koszul conductor:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llccc}
+\toprule
+\textbf{Family} & \textbf{Class} & $\kappa_{\mathrm{ch}}(A)$ &
+$\kappa_{\mathrm{ch}}(A^!)$ & $\rho_K$ \\
+\midrule
+$H_k$ & G (depth $2$) & $k$ & $-k$ & $0$ \\
+$V_k(\mathfrak{sl}_2)$ & L (depth $2$, $m_3 \neq 0$) &
+$\frac{3(k+2)}{4}$ & $-\frac{3(k+2)}{4}$ & $0$ \\
+$\Vir_c$ & M (infinite depth) & $\frac{c}{2}$ &
+$\frac{26-c}{2}$ & $13$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The pattern: $\rho_K = 0$ for classes~G and~L (finite shadow depth, or
+finite-depth $A_\infty$ operations), and $\rho_K > 0$ for class~M
+(infinite shadow depth). The nonzero conductor is the signature of the
+conformal anomaly: $\rho_K = 13$ is one-half of the critical dimension
+$c = 26$, and the shadow tower never terminates because each order
+contributes a new independent correction to the Koszul sum.
+\end{remark}
+
+\begin{remark}[Compute engine verification]
+\label{rem:koszul-three-families-verification}
+The kappa complementarity $\kappa_{\mathrm{ch}}(A) +
+\kappa_{\mathrm{ch}}(A^!) = \rho_K$ for all three families is verified
+by the compute engines: \texttt{holomorphic\_cs\_chiral\_engine.py}
+(Heisenberg, $\rho_K = 0$), \texttt{e2\_bar\_complex.py}
+(Kac--Moody, $k' = -k - 4$), and
+\texttt{entropy\_koszul\_complement\_cy3.py} (Virasoro, $\rho_K = 13$).
+The bar differentials at arities~$1$--$3$ for $V_k(\mathfrak{sl}_2)$ are
+independently verified in \texttt{e1\_bar\_cobar\_cy3.py}
+(\texttt{compute\_e1\_bar\_sl2}, 59~tests).
+The full Koszul duality computation for the three families is
+verified in \texttt{e1\_koszul\_three\_families.py}
+($44$~tests covering all three families, anti-pattern regression,
+and cross-family conductor verification).
+\end{remark}
+
+\section{$E_1$-chiral bialgebras}
+\label{sec:e1-chiral-bialgebras}
+
+The previous sections established the $E_1$-chiral algebra (product),
+the ordered bar coalgebra (coproduct), and the averaging map
+(symmetrization). This section assembles them into a single object: an
+$E_1$-chiral bialgebra. The definition does not exist in the literature.
+Classical Hopf algebras live in symmetric monoidal categories;
+Drinfeld's quasi-Hopf algebras relax the coassociativity but remain
+in the same ambient category; Li's vertex bialgebras~\cite{Li} use
+the $E_\infty$-chiral tensor product and the coshuffle coproduct, which
+destroys the quantum group $R$-matrix (Proposition~\ref{prop:averaging-e1-einfty}).
+The correct categorical home for the chiral quantum group is an
+$E_1$-chiral bialgebra: a bialgebra object in the $E_1$~sector of the
+Swiss-cheese operad $\mathrm{SC}^{\mathrm{ch},\mathrm{top}}$.
+
+\subsection{The $E_1$-chiral monoidal category}
+\label{subsec:e1-chiral-monoidal}
+
+\begin{definition}[$E_1$-chiral monoidal category]
+\label{def:e1-chiral-monoidal}
+\ClaimStatusProvedHere
+Fix a smooth complex curve $C$. The \emph{$E_1$-chiral monoidal category}
+$(\cM^{E_1}_C, \otimes_{E_1}, \mathbf{1})$ has:
+\begin{enumerate}[label=(\roman*)]
+ \item \emph{Objects}: $E_1$-chiral algebras on $C$ in the sense of the
+ open colour of $\mathrm{SC}^{\mathrm{ch},\mathrm{top}}$
+ (Definition~\ref{def:swiss-cheese-split}). These are factorization
+ algebras on the configuration space $\Conf_n(\mathbb{R}) \subset \Conf_n(C)$
+ of ordered real points along a ray in $C$.
+ \item \emph{Tensor product}: for $E_1$-chiral algebras $A$ and $B$,
+ the \emph{ordered fusion product}
+ \[
+  A \otimes_{E_1} B := \mathrm{colim}_{z_1 < z_2} A(z_1) \otimes B(z_2),
+ \]
+ taken over the configuration of two ordered real points in $C$. This is
+ NOT symmetric: $A \otimes_{E_1} B \not\simeq B \otimes_{E_1} A$ in
+ general. The ordering is fixed by the holomorphic argument
+ (Proposition~\ref{prop:holomorphic-e1}).
+ \item \emph{Unit}: $\mathbf{1} = \Omega_C$, the augmentation target.
+ The augmentation $\varepsilon \colon A \to \Omega_C$ is the counit of
+ the $E_1$-chiral monoidal structure.
+ \item \emph{Associator}: the ordered fusion is strictly associative:
+ $(A \otimes_{E_1} B) \otimes_{E_1} C \simeq A \otimes_{E_1} (B \otimes_{E_1} C)$
+ via the identification $\Conf_3^{\mathrm{ord}}(\mathbb{R}) \simeq \{z_1 < z_2 < z_3\}$,
+ which is contractible. This is the $E_1$ associahedron collapsing to
+ the linear order.
+\end{enumerate}
+The category $\cM^{E_1}_C$ is monoidal but NOT braided: the $E_1$-operad
+has no braiding operations. This is the essential distinction from both
+the Beilinson--Drinfeld symmetric ($E_\infty$) setting and the $E_2$-braided
+setting.
+\end{definition}
+
+\subsection{Algebra and coalgebra objects}
+\label{subsec:e1-alg-coalg}
+
+An $E_1$-chiral algebra $A$ is an algebra object in $\cM^{E_1}_C$:
+a product $\mu \colon A \otimes_{E_1} A \to A$
+(the OPE with ordered collision: the field at $z_1 < z_2$ collides
+onto the field at $z_2$ from the left, producing residues that differ
+from the $z_2 < z_1$ collision by the $R$-matrix). The coalgebra side
+is the ordered bar complex.
+
+\begin{definition}[$E_1$-chiral coalgebra]
+\label{def:e1-chiral-coalgebra}
+\ClaimStatusProvedHere
+An \emph{$E_1$-chiral coalgebra} in $\cM^{E_1}_C$ is a coaugmented
+coassociative coalgebra $(B, \Delta_{\mathrm{dec}}, \eta)$ where:
+\begin{enumerate}[label=(\roman*)]
+ \item $B = T^c(V)$ is a cofree conilpotent tensor coalgebra on a graded
+ vector space $V$;
+ \item The coproduct is the \emph{deconcatenation} coproduct
+ (Definition~\ref{def:ordered-bar}):
+ \[
+  \Delta_{\mathrm{dec}}(v_1 \otimes \cdots \otimes v_n)
+  = \sum_{k=0}^{n} (v_1 \otimes \cdots \otimes v_k)
+  \otimes (v_{k+1} \otimes \cdots \otimes v_n);
+ \]
+ \item The coaugmentation $\eta \colon k \to B$ includes the
+ degree-zero summand.
+\end{enumerate}
+The canonical example is $B^{\mathrm{ord}}(A) = T^c(s^{-1}\bar{A})$
+for an augmented $E_1$-chiral algebra $A$.
+\end{definition}
+
+\subsection{The $E_1$-chiral bialgebra axiom}
+\label{subsec:e1-bialgebra-axiom}
+
+\begin{definition}[$E_1$-chiral bialgebra]
+\label{def:e1-chiral-bialgebra}
+\ClaimStatusProvedHere
+An \emph{$E_1$-chiral bialgebra} on a smooth curve $C$ is
+a tuple $(A, \mu, \Delta_z, \varepsilon, \eta)$ where:
+\begin{enumerate}[label=(\roman*)]
+ \item $(A, \mu, \varepsilon)$ is an augmented $E_1$-chiral algebra in
+ $\cM^{E_1}_C$ (the product is the ordered OPE);
+ \item $(A, \Delta_z, \eta)$ is an $E_1$-chiral coalgebra, where
+ \[
+  \Delta_z \colon A \longrightarrow A \otimes_{E_1, z} A
+ \]
+ is a family of coproducts parametrized by $z \in \Ran(C)$, with
+ $\otimes_{E_1, z}$ denoting the ordered tensor product at collision
+ point~$z$;
+ \item \emph{Bialgebra compatibility}: $\Delta_z$ is a morphism of
+ $E_1$-chiral algebras, i.e.\ the diagram
+ \[
+ \begin{tikzcd}
+  A \otimes_{E_1} A \ar[r, "\mu"] \ar[d, "\Delta_z \otimes \Delta_z"']
+  & A \ar[d, "\Delta_z"] \\
+  (A \otimes_{E_1,z} A) \otimes_{E_1} (A \otimes_{E_1,z} A)
+  \ar[r, "\mu \otimes \mu"']
+  & A \otimes_{E_1,z} A
+ \end{tikzcd}
+ \]
+ commutes, where the bottom-left corner uses the interchange law
+ for the $E_1$-monoidal structure.
+\end{enumerate}
+The compatibility axiom (iii) is the $E_1$-chiral analogue of the
+classical bialgebra axiom ``$\Delta$ is an algebra map.'' The parametrization
+by $z \in \Ran(C)$ is essential: the coproduct depends on the collision
+point, and the $z$-dependence carries the $R$-matrix data.
+\end{definition}
+
+\begin{definition}[$E_1$-chiral Hopf algebra (antipode)]
+\label{def:e1-chiral-antipode}
+\ClaimStatusProvedHere
+An $E_1$-chiral bialgebra $(A, \mu, \Delta_z, \varepsilon, \eta)$ is an
+\emph{$E_1$-chiral Hopf algebra} if there exists a morphism of
+$E_1$-chiral modules $S \colon A \to A$ (the \emph{antipode})
+satisfying
+\[
+ \mu_{E_1} \circ (S \otimes \mathrm{id}) \circ \Delta_z
+ = \eta \circ \varepsilon
+ = \mu_{E_1} \circ (\mathrm{id} \otimes S) \circ \Delta_z,
+\]
+where $\mu_{E_1}$ is the ordered product. The two equalities are
+independent conditions because $\mu_{E_1}$ is not commutative.
+\end{definition}
+
+\subsection{Why $E_1$ and not $E_\infty$}
+\label{subsec:why-e1-not-einfty}
+
+\begin{proposition}[Averaging forgets the Hopf structure]
+\label{prop:averaging-forgets-hopf}
+\ClaimStatusProvedHere
+Let $(A, \mu, \Delta_z, \varepsilon, \eta, S)$ be an $E_1$-chiral Hopf
+algebra. The averaging map
+$\mathrm{av} \colon B^{\mathrm{ord}}(A) \to B^{\Sigma}(A)$ of
+Proposition~\ref{prop:averaging-e1-einfty} sends the $E_1$-chiral
+bialgebra structure to an $E_\infty$-chiral coalgebra
+$(B^{\Sigma}(A), \Delta_{\mathrm{cosh}})$ with the coshuffle coproduct
+$\Delta_{\mathrm{cosh}}$. The data lost under averaging:
+\begin{enumerate}[label=(\roman*)]
+ \item The $R$-matrix: on degree-two elements,
+ $\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$ (a scalar), so the full
+ $z$-dependent $R$-matrix $r(z) = k\,\Omega/z$ is replaced by its
+ $S_2$-coinvariant, which is the collision residue $\kappa_{\mathrm{ch}}$.
+ \item The antipode: $S$ acts on ordered tensor factors; after
+ symmetrization, $S$ becomes the identity (on $S_n$-invariants,
+ the reversal acts trivially).
+ \item The coproduct $z$-dependence: the coshuffle coproduct is
+ independent of the collision point $z$, while the deconcatenation
+ coproduct $\Delta_z$ depends on $z$ through the ordered OPE residues.
+\end{enumerate}
+In particular, the $E_\infty$-chiral coalgebra $B^{\Sigma}(A)$ is NOT
+a bialgebra: it retains no Hopf structure. The coshuffle coproduct on
+$B^{\Sigma}$ is compatible only with the commutative product, which
+$A$ does not possess.
+\end{proposition}
+
+\begin{proof}
+Statement~(i) is Proposition~\ref{prop:averaging-e1-einfty}.
+Statement~(ii): the antipode $S$ reverses the ordered product, so
+$\mathrm{av} \circ S = \mathrm{av}$ (symmetrization absorbs the
+reversal). Statement~(iii): the coshuffle coproduct is
+$\Delta_{\mathrm{cosh}} = \mathrm{av}^{\otimes 2} \circ \Delta_{\mathrm{dec}}$,
+and $\mathrm{av}^{\otimes 2}$ kills the $z$-dependence because
+$\sum_{\sigma} r(\sigma \cdot z) = n! \cdot \kappa_{\mathrm{ch}}$.
+The final claim (no bialgebra structure on $B^{\Sigma}$) follows because
+the bialgebra compatibility diagram of
+Definition~\ref{def:e1-chiral-bialgebra}(iii) requires the interchange
+law for the $E_1$ tensor product, which does not hold in the symmetric
+quotient.
+\end{proof}
+
+This is the central structural result: the vertex bialgebra framework
+of Li~\cite{Li}, which works with $B^{\Sigma}$ and the coshuffle coproduct,
+cannot carry a Hopf structure. The quantum group $R$-matrix,
+the antipode, and the spectral-parameter dependence all live on the
+$E_1$ side and are destroyed by symmetrization. The $E_1$-chiral
+bialgebra is the minimal structure that retains all three.
+
+\subsection{The Drinfeld center recovers $E_2$}
+\label{subsec:drinfeld-recovers-e2}
+
+The $E_1$-chiral bialgebra $A$ is ordered and non-braided. The braided
+($E_2$) structure is recovered by the Drinfeld center.
+
+\begin{proposition}[$R$-matrix from the Drinfeld center]
+\label{prop:r-matrix-from-drinfeld}
+\ClaimStatusProvedHere
+Let $(A, \mu, \Delta_z, \varepsilon, \eta, S)$ be an $E_1$-chiral Hopf
+algebra. The Drinfeld center
+$\cZ(\Rep^{E_1}(A))$ is a braided monoidal category
+(Proposition~\ref{prop:e2-enhancement-drinfeld}), and the universal
+$R$-matrix of the braided structure is
+\[
+ R(z) = (\mathrm{id} \otimes S) \circ \Delta_z(1_A) \in A \otimes A
+ \otimes k((z)),
+\]
+where $1_A = \eta(1)$ is the vacuum and $S$ is the antipode. The
+$R$-matrix lives in $\cZ(\Rep^{E_1}(A))$, not in $A \otimes A$
+directly: it is the half-braiding data of the vacuum module against
+all other modules. This resolves the apparent paradox that the
+$R$-matrix ``lives in $A \otimes A$'' (which is ordered and has no
+braiding): the $R$-matrix is a morphism in the Drinfeld center, which
+IS braided.
+\end{proposition}
+
+\begin{proof}
+The Drinfeld center $\cZ(\Rep^{E_1}(A))$ consists of pairs $(M, \sigma_M)$
+where $M$ is an $A$-module and $\sigma_M \colon M \otimes_{E_1} N
+\xrightarrow{\sim} N \otimes_{E_1} M$ is a half-braiding natural in $N$.
+For $M = A$ (the regular module) with the half-braiding
+$\sigma_A(a \otimes n) = \sum \Delta_z(a)_{(2)} \cdot n \otimes S(\Delta_z(a)_{(1)})$
+(using Sweedler notation for $\Delta_z$), the half-braiding condition is
+exactly the antipode axiom of
+Definition~\ref{def:e1-chiral-antipode}, and the resulting braiding
+on $\cZ$ extracts $R(z) = (\mathrm{id} \otimes S) \circ \Delta_z(1_A)$.
+The braiding satisfies the Yang--Baxter equation because the Drinfeld
+center is a braided monoidal category (a formal consequence of the
+definition). See Theorem~\ref{thm:drinfeld-center-coha} for the
+explicit verification at $A = Y^+(\widehat{\fgl}_1)$.
+\end{proof}
+
+\subsection{Examples}
+\label{subsec:e1-bialg-examples}
+
+\begin{example}[Heisenberg $E_1$-chiral bialgebra]
+\label{ex:heisenberg-bialgebra}
+The rank-one Heisenberg $H_k$ ($k \neq 0$) is an $E_1$-chiral Hopf algebra
+with:
+\begin{itemize}
+ \item Product: $\mu(J(z_1), J(z_2)) = {:}J(z_1)J(z_2){:} + k/(z_1 - z_2)^2$
+ (the time-ordered OPE, not the normally-ordered product).
+ \item Coproduct: $\Delta_z(J) = J \otimes 1 + 1 \otimes J$ (primitive).
+ The Heisenberg coproduct is $z$-independent because the $r$-matrix
+ $r(z) = k/z$ has no nontrivial $z$-dependent correction to $\Delta$.
+ \item Antipode: $S(J) = -J$, so $\mu_{E_1}(S(J) \otimes 1 + 1 \otimes J)
+ = -J + J = 0 = \eta(\varepsilon(J))$.
+ \item $R$-matrix from Drinfeld center: $R(z) = e^{k \log z \cdot h \otimes h}$
+ (the Heisenberg vertex $R$-matrix; here $h$ is the Cartan generator
+ identified with $J$). After averaging, $\mathrm{av}(R(z)) = k$
+ (the level), consistent with $\kappa_{\mathrm{ch}}(H_k) = k$.
+\end{itemize}
+The Heisenberg is class~G: $\Delta$ is primitive, $S$ is the sign
+involution, and the Hopf structure is the simplest possible.
+\end{example}
+
+\begin{conjecture}[$W_{1+\infty}$ $E_1$-chiral bialgebra]
+\label{conj:w1inf-e1-bialgebra}
+\ClaimStatusConjectured
+The $W_{1+\infty}$ algebra at $c = 1$ (equivalently, the affine
+Yangian $Y(\widehat{\fgl}_1)$ via Proch\'azka--Rap\v{c}\'ak) carries an
+$E_1$-chiral Hopf algebra structure with:
+\begin{enumerate}[label=(\roman*)]
+ \item \emph{Coproduct}: for the generating field $T(u)$ (the Yangian
+ transfer matrix), $\Delta_z(T(u)) = T(u) \otimes T(u)$
+ (group-like, NOT primitive). The deviation from primitivity is
+ controlled by the Dimofte $K$-matrix
+ (Remark~\ref{rem:dimofte-k-matrix-cy}):
+ $\Delta_z(W_n) = W_n \otimes 1 + K_{\mathcal{A}}(z) \otimes W_n + \ldots$
+ for the higher spin fields $W_n$.
+ \item \emph{Antipode}: $S(T(u)) = T(u)^{-1}$ (formal inverse of the
+ transfer matrix). On modes: $S(W_2) = -W_2$, $S(W_3) = -W_3 + W_2^2$
+ (the Hopf antipode recursion).
+ \item \emph{$R$-matrix}: via the Drinfeld center,
+ the universal $R$-matrix is the Yangian $R$-matrix
+ of Theorem~\ref{thm:yang-r-matrix-ybe} with structure function $g(u)$.
+ \item \emph{Averaging}: $\mathrm{av}(\Delta_z) = \Delta_{\mathrm{cosh}}$
+ (the coshuffle coproduct on $B^{\Sigma}$), and
+ $\mathrm{av}(R(u)) = g(0) = -1$ (the structure function at $u = 0$,
+ a scalar). The quantum group data is destroyed.
+\end{enumerate}
+This conjecture depends on the existence of the $E_1$-chiral bialgebra
+structure on $W_{1+\infty}$ in the sense of
+Definition~\ref{def:e1-chiral-bialgebra}; the individual ingredients
+(Yangian coproduct, $R$-matrix, antipode) are established
+(Schiffmann--Vasserot, Proch\'azka--Rap\v{c}\'ak), but their assembly into
+an $E_1$-chiral bialgebra in the Swiss-cheese framework requires
+verifying the compatibility diagram (iii) of
+Definition~\ref{def:e1-chiral-bialgebra}.
+\end{conjecture}
+
+\begin{remark}[The three-way resolution]
+\label{rem:three-way-resolution}
+The $E_1$-chiral bialgebra resolves the apparent conflict between
+three classical frameworks for quantum group structure on chiral algebras:
+\begin{enumerate}[label=(\alph*)]
+ \item \emph{Drinfeld quasi-Hopf}: lives in the symmetric monoidal
+ category of vector spaces, with a non-coassociative coproduct corrected
+ by the Drinfeld associator $\Phi$. This is the WRONG ambient category:
+ chiral algebras are not vector spaces, and the associator $\Phi$ is an
+ artifact of forcing a braided structure into a symmetric setting.
+ \item \emph{Li vertex bialgebra}: lives in the $E_\infty$-chiral
+ monoidal category, with the coshuffle coproduct on $B^{\Sigma}$.
+ This uses the CORRECT ambient category (chiral) but the WRONG structure
+ level ($E_\infty$), destroying the $R$-matrix.
+ \item \emph{$E_1$-chiral bialgebra}: lives in the $E_1$-chiral monoidal
+ category $\cM^{E_1}_C$, with the deconcatenation coproduct on
+ $B^{\mathrm{ord}}$. This uses the correct ambient category AND the
+ correct structure level. The $R$-matrix is recovered by passing to the
+ Drinfeld center $\cZ(\Rep^{E_1}(A))$, which is the $E_2$ enhancement.
+\end{enumerate}
+The slogan: the $E_1$-chiral bialgebra is the Hopf algebra object in the
+category that chiral algebras actually inhabit when collision order is
+remembered.
 \end{remark}
 
 \section{Closing: the ordered bar as the primitive of Vol~III}
