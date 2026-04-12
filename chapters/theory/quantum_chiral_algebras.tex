@@ -192,8 +192,288 @@ See \texttt{compute/lib/mo\_rmatrix\_k3e.py} ($104$ tests via the combined compa
 The comparison in Theorem~\ref{thm:mo-chiral-rmatrix} is proved for $X = \C^3$ (and its toric CY degenerations where Hilbert scheme descriptions are available) and for $K3 \times E$ (where the MO stable envelopes are computed on $\mathrm{Hilb}^n(K3)$; see \texttt{compute/lib/mo\_rmatrix\_k3e.py}). For a general CY threefold without torus action, the MO construction is not directly available, and the chiral $R$-matrix from Construction~\ref{constr:cy-r-matrix} is the primary object.
 \end{remark}
 
-\section{Quantum chiral algebras from quantum groups}
+\section{Quantum chiral algebras from holomorphic Chern--Simons theory}
 \label{sec:qca-from-qg}
+
+The Costello programme constructs quantum chiral algebras from holomorphic Chern--Simons theory on complex manifolds of varying dimension. The dimensional hierarchy of the ambient space determines the $\En$ level of the resulting chiral algebra: the observables of holomorphic Chern--Simons on $\C^n$ carry $E_n$-factorization structure, and the holomorphic refinement reduces this to $E_k$-chiral structure upon projection to $\C^k$. Three regimes matter for CY quantum groups.
+
+\begin{construction}[Holomorphic Chern--Simons hierarchy]
+\label{constr:hol-cs-hierarchy}
+Let $\frakg$ be a finite-dimensional Lie algebra equipped with an invariant pairing $\kappa \colon \frakg \otimes \frakg \to \C$. Holomorphic Chern--Simons theory with gauge algebra $\frakg$ on a complex manifold $M$ has action
+\[
+ S_{\mathrm{hCS}}(A) \;=\; \frac{1}{2} \int_M \Omega \wedge \kappa\!\left(A \wedge \dbar A + \tfrac{2}{3} A \wedge A \wedge A\right),
+\]
+where $A \in \Omega^{0,1}(M; \frakg)$ is a $(0,1)$-connection and $\Omega$ is a holomorphic volume form on $M$ (when $M$ is Calabi--Yau) or a partial volume form (when $M$ is a product). The three regimes:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{3d holomorphic CS on $\Sigma \times \R$} (Costello~2007, Costello--Gwilliam~2021):
+ the boundary on $\Sigma$ produces the affine Kac--Moody vertex algebra $V_k(\frakg)$ at level $k$ determined by $\kappa$. This is an $E_\infty$-chiral algebra on $\Sigma$ (in the Beilinson--Drinfeld sense) with $\Eone$-ordered refinement via the Vol~II Swiss-cheese structure.
+
+ \item \emph{5d holomorphic CS on $\C^2 \times \R$} (Costello~2013, ``Supersymmetric gauge theory and the Yangian''):
+ the Omega-background parameters $(h_1, h_2)$ on $\C^2$ with $h_1 + h_2 + h_3 = 0$ produce the affine Yangian $Y(\widehat{\fgl}_1)$ for $\frakg = \fgl_1$, or more generally $Y(\widehat{\frakg})$ for semisimple $\frakg$. The observables on $\C^2$ carry $\Etwo$-chiral factorization structure; projection to a curve $C \subset \C^2$ gives $\Eone$-chiral structure. The positive half $Y^+(\widehat{\fgl}_1)$ is the CoHA (which is associative, not chiral: AP-CY7). The full Yangian is recovered by the Drinfeld double.
+
+ \item \emph{6d holomorphic theory on $\C^3$} (Costello~2017, ``M-theory in the Omega-background and 5-dimensional non-commutative gauge theory''; Costello--Francis--Gwilliam~2024, ``Chern--Simons theory and factorisation homology''):
+ the observables on $\C^3$ carry $E_3$-factorization structure. Projection to $\C^2 \subset \C^3$ gives $\Etwo$-chiral; projection to $C \subset \C^3$ gives $\Eone$-chiral. For $\frakg = \fgl_1$, the $\Eone$-projection is the quantum toroidal algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ of Ding--Iohara--Miki with $(q, t)$ determined by the Omega-background.
+\end{enumerate}
+\end{construction}
+
+\begin{remark}[6d theory is not standard holomorphic CS]
+\label{rem:6d-not-lagrangian}
+The 6d regime (iii) is not literally the holomorphic Chern--Simons action $S_{\mathrm{hCS}}$ on $\C^3$: for $\dim_\C M = 3$, the action requires a holomorphic $3$-form $\Omega$, but the kinetic term $\Omega \wedge A \wedge \dbar A$ produces a $(3,2)$-form, which is a top form on a $5$-real-dimensional space, not on $\C^3$ (real dimension $6$). The correct 6d formulation passes through either (a) the holomorphic twist of the 6d $(2,0)$ superconformal theory on the M5-brane worldvolume, or (b) the Costello--Li perturbative framework for partially holomorphic theories, or (c) the factorization homology formulation of Costello--Francis--Gwilliam applied to the $E_3$-algebra of local observables. Route~(c) is the most algebraic and is the one used here. The 3d and 5d cases are Lagrangian; the 6d case is non-Lagrangian.
+\end{remark}
+
+\begin{theorem}[Boundary chiral algebra at $d = 5$: the affine Yangian]
+\label{thm:5d-boundary-yangian}
+\ClaimStatusProvedElsewhere
+Let $h_1, h_2, h_3 \in \C$ satisfy $h_1 + h_2 + h_3 = 0$. The observables of 5d holomorphic Chern--Simons theory on $\C^2_{h_1, h_2} \times \R$ with gauge algebra $\fgl_1$, projected to a holomorphic curve $C \subset \C^2$, form an $\Eone$-chiral algebra on $C$ isomorphic to the affine Yangian $Y(\widehat{\fgl}_1)$ with structure function
+\[
+ g(u) = \frac{(u - h_1)(u - h_2)(u - h_3)}{(u + h_1)(u + h_2)(u + h_3)}.
+\]
+The Proch\'azka--Rap\v{c}\'ak isomorphism identifies $Y(\widehat{\fgl}_1) \simeq W_{1+\infty}$ at $c = 1$. References: Costello~2013; Proch\'azka--Rap\v{c}\'ak~2019.
+\end{theorem}
+
+\begin{conjecture}[Boundary chiral algebra at $d = 6$: quantum toroidal from factorization]
+\label{conj:6d-boundary-toroidal}
+\ClaimStatusConjectured
+The $E_3$-factorization algebra of 6d holomorphic observables on $\C^3_{h_1, h_2, h_3}$ (with $h_1 + h_2 + h_3 = 0$, via the Costello--Francis--Gwilliam algebraic formulation), projected to an $\Eone$-chiral algebra on a curve $C \subset \C^3$, is the quantum toroidal algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ with parameters $q = e^{2\pi i h_1/h_3}$, $t = e^{-2\pi i h_2/h_3}$. The intermediate $\Etwo$-projection to $\C^2 \subset \C^3$ is the affine Yangian of Theorem~\ref{thm:5d-boundary-yangian}. The $E_3$ structure on $\C^3$ is the \emph{source} of the second affinization (the second hat in $\widehat{\widehat{\fgl}}_1$); the first affinization comes from the $\Etwo$ factorization on $\C^2$.
+\end{conjecture}
+
+\begin{remark}[Dimensional origin of the $\En$ level]
+\label{rem:en-from-dimension}
+The $\En$ level is set by the complex dimension of the ambient space, not by the Deligne conjecture on Hochschild cochains (AP153). Specifically:
+\begin{itemize}
+ \item The $\Etwo$ structure on $\C^2$ comes from $\pi_1(\Conf_2(\R^4)) = 0$, but the \emph{holomorphic} configuration space $\Conf_2(\C^2)$ has $\pi_1 \neq 0$, which produces the nontrivial braiding. This is the braiding of the Yangian $R$-matrix.
+ \item The $E_3$ structure on $\C^3$ comes from the topological $E_3$-operad acting on $\Conf_n(\C^3)$, which has $\pi_1(\Conf_2(\R^6)) = 0$ (trivial braiding topologically). The nontrivial braiding at the $E_3$ level arises from the \emph{holomorphic} refinement and the Omega-background deformation.
+ \item The algebraic $E_3$ from the Deligne conjecture (Remark~\ref{rem:deligne-hochschild}) requires $E_\infty$ input and produces $E_3$ on Hochschild cochains; the topological $E_3$ from $\C^3$ configuration spaces is a priori distinct (AP154). Under formality (Kontsevich 1999), the two $E_3$ structures agree rationally.
+\end{itemize}
+The CY dimension $d$ of the underlying category and the complex dimension $n$ of the ambient holomorphic CS space are related but distinct: for $\C^3$, the CY dimension of the quiver category is $d = 3$ and the CS dimension is $n = 3$ (coincidence); for $K3 \times E$, the CY dimension is $d = 3$ but the ambient space has complex dimension $3$ only if K3 is treated as a compactification of the two directions transverse to the Wilson line.
+\end{remark}
+
+\subsection{The chiral Chevalley--Eilenberg complex}
+\label{subsec:chiral-ce}
+
+The bar complex of a chiral algebra is the chiral analogue of the classical Chevalley--Eilenberg complex of a Lie algebra. Making this identification explicit reveals the connection between Costello's holomorphic CS observables and the bar-cobar machine of Vols~I--II.
+
+\begin{construction}[Chiral CE chains and cochains]
+\label{constr:chiral-ce}
+Let $A$ be a chiral algebra with augmentation $\varepsilon \colon A \to \Omega_C$ and augmentation ideal $\bar{A} = \ker(\varepsilon)$. The three chiral CE-type complexes:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item The \emph{chiral CE chains} (ordered) are the ordered bar complex $B^{\mathrm{ord}}(A) = T^c(s^{-1}\bar{A})$ with the deconcatenation coproduct and bar differential built from the chiral product. This is the direct analogue of the Chevalley--Eilenberg chain complex $C_\bullet(\frakg) = \bigwedge^\bullet \frakg$ with its Lie-bracket-induced differential. The ordered bar retains the full $R$-matrix data.
+
+ \item The \emph{chiral CE chains} (symmetric) are the symmetric bar complex $B^{\Sigma}(A) = \Sym^c(s^{-1}\bar{A})$ with the coshuffle coproduct and the symmetrized differential. This is the direct analogue of $C_\bullet(\frakg) = \bigwedge^\bullet \frakg$ in its standard (commutative-coalgebra) form. The Vol~I bar complex lives here.
+
+ \item The \emph{chiral CE cochains} are the chiral Hochschild cochain complex $C^\bullet_{\mathrm{ch}}(A, A) = \RHom(\Omega B(A), A)$, the chiral derived center $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ of Vol~I Theorem~H. This is the analogue of $C^\bullet(\frakg, \frakg) = \Hom(\bigwedge^\bullet \frakg, \frakg)$, the Chevalley--Eilenberg cochains with adjoint coefficients.
+\end{enumerate}
+The Koszul duality of Vol~I intertwines (i) and (iii): $B(A) \leftrightarrow A^!$ with $A^! = D_{\Ran}(B(A))$ the Verdier dual. In classical terms, this is the CE duality $C_\bullet(\frakg) \leftrightarrow C^\bullet(\frakg^\vee)$ between chains and cochains of the Koszul-dual (Langlands-dual) Lie algebra.
+\end{construction}
+
+\begin{proposition}[Holomorphic CS observables as chiral CE cochains]
+\label{prop:hcs-as-ce-cochains}
+\ClaimStatusProvedElsewhere
+For $A = V_k(\frakg)$ the Kac--Moody vertex algebra at level $k$ (the boundary algebra of 3d holomorphic CS), the chiral CE cochains $C^\bullet_{\mathrm{ch}}(A, A)$ compute the bulk observables of the CS theory. At the critical level $k = -h^\vee$, the zeroth cohomology of the CE cochains is the Feigin--Frenkel center $\mathrm{Fun}(\mathrm{Op}_{G^L}(D))$ (Theorem~\ref{thm:feigin-frenkel-center}).
+\end{proposition}
+
+\begin{proof}[Attribution]
+The identification of the derived center with bulk observables is Vol~I Theorem~H. The Feigin--Frenkel identification is Theorem~\ref{thm:feigin-frenkel-center} (Chapter~\ref{ch:geometric-langlands}).
+\end{proof}
+
+\subsection{The universal defect and holomorphic Wilson lines}
+\label{subsec:universal-defect}
+
+In the holomorphic CS framework, a \emph{defect} is a codimension-$2$ locus along which the gauge field acquires a prescribed singularity. The simplest defect is the holomorphic Wilson line: a line operator valued in a representation $V$ of $\frakg$.
+
+\begin{construction}[Universal defect from Koszul duality]
+\label{constr:universal-defect}
+Let $A$ be the boundary chiral algebra of holomorphic CS with gauge algebra $\frakg$ on $M$. The \emph{universal defect algebra} is the Koszul dual $A^! = D_{\Ran}(B(A))$. In the 3d case ($M = \Sigma \times \R$), $A^!$ is the Feigin--Frenkel dual at the reflected level $k' = -k - 2h^\vee$. The bulk-boundary coupling is the canonical map
+\[
+ \mu_{\mathrm{bb}} \colon Z^{\mathrm{der}}_{\mathrm{ch}}(A) \otimes A^! \;\longrightarrow\; A^!
+\]
+making $A^!$ a module over the bulk algebra $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$. The holomorphic Wilson line in representation $V$ corresponds to a specific $A^!$-module: the image of $V$ under the equivalence $\Rep^{\Eone}(A^!) \simeq \Rep^{\Eone}(A)^{\mathrm{rev}}$ of Vol~I.
+
+In the 5d case ($M = \C^2 \times \R$), the universal defect algebra is the Koszul dual of the affine Yangian. For $\frakg = \fgl_1$, the defect algebra encodes the Wilson lines of the 5d theory, which generate the quantum toroidal algebra via the RTT formalism. The Drinfeld center of the defect module category recovers the $\Etwo$ braided structure:
+\[
+ \cZ(\Rep^{\Eone}(A^!)) \;\simeq\; \Rep^{\Etwo}(Z^{\mathrm{der}}_{\mathrm{ch}}(A)).
+\]
+\end{construction}
+
+\begin{conjecture}[6d universal defect and chiral quantum groups on $\C^3$]
+\label{conj:6d-defect-c3}
+\ClaimStatusConjectured
+For the 6d holomorphic theory on $\C^3$ with gauge algebra $\fgl_1$, the universal defect algebra $A^!_{\C^3}$ (the Koszul dual of the quantum toroidal boundary algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$) satisfies:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $A^!_{\C^3}$ carries $E_3$-chiral factorization structure from the $E_3$-operad action on $\Conf_n(\C^3)$.
+ \item The $\Eone$-projection of $A^!_{\C^3}$ to a curve $C \subset \C^3$ is the Koszul dual of the quantum toroidal algebra, with inverted parameters $q^{-1}, t^{-1}$ (parameter inversion under Koszul duality; see Table of Chapter~\ref{ch:quantum-groups}, Definition~\ref{def:qgf-four-regimes}).
+ \item The $\Etwo$-projection to $\C^2 \subset \C^3$ is the $\Etwo$-chiral algebra whose Drinfeld center $\cZ(\Rep^{\Eone}(A^!_{\C^3}|_C))$ is the braided monoidal category of Fock representations of the quantum toroidal algebra.
+ \item The \emph{chiral quantum group} on $\C^3$ is the Hopf-algebra-in-braided-category structure on the representation category $\Rep^{\Etwo}(A^!_{\C^3}|_{\C^2})$, equipped with the $R$-matrix from the $E_3$ braiding.
+\end{enumerate}
+The conjecture composites three constructions (6d $E_3$ factorization, Koszul duality, Drinfeld center), each of which is independently established at lower dimension; the composite arrow at 6d is conjectural (AP150).
+\end{conjecture}
+
+\begin{conjecture}[6d holomorphic theory on $K3 \times E$ and the BKM chiral algebra]
+\label{conj:6d-k3xe}
+\ClaimStatusConjectured
+Let $X = K3 \times E$ with $E$ an elliptic curve. The 6d holomorphic theory on $X$ (via the algebraic surrogate of Costello--Francis--Gwilliam factorization homology) produces:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item An $\Eone$-chiral algebra $A_{X}$ on $E$ whose character is controlled by the Igusa cusp form $\Phi_{10}$. The chiral algebra is a deformation of the lattice vertex algebra $V_{\Lambda_{K3}}$ of the K3 lattice, with deformation parameters determined by the complex structure of $K3$.
+ \item An $\Etwo$-chiral factorization algebra on $K3$ itself (the ``transverse'' directions), whose Drinfeld center gives the braided monoidal category of BPS modules.
+ \item The universal defect algebra $A^!_X$ on $E$, whose representation category contains the holomorphic Wilson lines wrapping $E$. These Wilson lines are indexed by the BPS spectrum of $K3 \times E$ (Mukai vectors in $H^*(K3, \Z)$).
+ \item The kappa-spectrum: $\kappa_{\mathrm{ch}}(A_X) = 3$, $\kappa_{\mathrm{BKM}}(A_X) = 5$, $\kappa_{\mathrm{cat}}(X) = 2$, $\kappa_{\mathrm{fiber}}(X) = 24$, consistent with Chapter~\ref{ch:k3-times-e}.
+\end{enumerate}
+This conjecture depends on: (a) the existence of the 6d algebraic framework for $K3 \times E$ (non-Lagrangian; Remark~\ref{rem:6d-not-lagrangian}), (b) the CY-A$_3$ programme for the $\Eone$ projection, and (c) the identification of the BPS root datum with the Borcherds--Kac--Moody root system of $\mathfrak{g}_{\Delta_5}$ (Chapter~\ref{ch:k3-times-e}). Each dependency is independent; (b) is the bottleneck.
+\end{conjecture}
+
+\begin{remark}[What the 6d theory adds to the existing $K3 \times E$ story]
+\label{rem:6d-adds-to-k3xe}
+Chapters~\ref{ch:k3-times-e} and~\ref{chap:toroidal-elliptic} develop the \emph{conjectural} $K3 \times E$ chiral algebra programme: the first via the CY-to-chiral functor $\Phi$ (conditional on CY-A$_3$), the second via the toroidal/elliptic quantum group presentation (conditional on Conjecture~\ref{conj:toroidal-e1}). Conjecture~\ref{conj:6d-k3xe} adds a third conjectural construction pathway: the holomorphic CS / factorization homology route. The three pathways should agree if all three programmes are realized:
+\begin{center}
+\small
+\begin{tabular}{lll}
+ \toprule
+ \textbf{Pathway} & \textbf{Input} & \textbf{Output} \\
+ \midrule
+ CY-to-chiral $\Phi$ & $D^b(\Coh(K3 \times E))$ & $A_{K3 \times E}$ (conditional on CY-A$_3$) \\
+ Toroidal presentation & $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ & $\Eone$-chiral on $E$ \\
+ 6d holomorphic theory & $K3 \times E$ as ambient & $\Eone$-chiral on $E$ \\
+ \bottomrule
+\end{tabular}
+\end{center}
+The agreement of the three is itself conjectural. The 6d pathway provides the geometric origin of the quantum toroidal parameters $(q, t)$: they come from the K3 complex structure moduli through the Omega-background identification.
+\end{remark}
+
 
 \section{The quantum chiral Koszul dual}
 \label{sec:qca-koszul-dual}
+
+The Koszul dual of a boundary chiral algebra is the defect algebra. The $\En$ structure on the defect algebra is inherited from the ambient holomorphic theory: a deformation of the chiral CE cochains by the theory's quantum parameters. This section develops the chiral Koszul duality relevant to the quantum group programme and identifies the $E_3$-chiral deformation that the 6d theory provides.
+
+\subsection{Chiral Koszul duality: boundary and defect}
+\label{subsec:chiral-koszul-bd}
+
+\begin{definition}[Chiral Koszul dual]
+\label{def:chiral-koszul-dual}
+For a chiral algebra $A$ on a curve $C$ with bar complex $B(A) = T^c(s^{-1}\bar{A})$ (Definition~\ref{def:ordered-bar}, Chapter~\ref{ch:e1-chiral}), the \emph{chiral Koszul dual} is
+\[
+ A^! \;:=\; D_{\Ran}(B(A)),
+\]
+the Verdier dual of the bar complex as a factorization coalgebra on $\Ran(C)$. This is the Volume~I Verdier leg (Theorem~A), specialized to the CY setting. The algebra $A^!$ is the \emph{defect algebra}: it controls the category of line operators that can end on the boundary where $A$ lives.
+\end{definition}
+
+\begin{proposition}[Three dualities must not be conflated]
+\label{prop:three-dualities}
+\ClaimStatusProvedElsewhere
+The chiral Koszul dual $A^!$ is distinct from:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Bar-cobar inversion}: $\Omega(B(A)) \simeq A$ recovers the original algebra (Vol~I Theorem~B on the Koszul locus). This is $A$, not $A^!$.
+ \item \emph{Derived center}: $Z^{\mathrm{der}}_{\mathrm{ch}}(A) = C^\bullet_{\mathrm{ch}}(A, A) = \RHom(\Omega B(A), A)$ is the bulk algebra (Vol~I Theorem~H). This is the ``$E_2$ uplift,'' not $A^!$.
+ \item \emph{Drinfeld center}: $\cZ(\Rep^{\Eone}(A))$ is a braided monoidal category (Chapter~\ref{ch:drinfeld-center}). This lives on representation categories, not on algebras.
+\end{enumerate}
+The relationships: $A^!$ is the algebra controlling the defect (boundary); $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ is the algebra controlling the bulk; the Drinfeld center is the categorical passage from $\Eone$ (boundary) to $\Etwo$ (bulk). The bulk acts on the defect via $\mu_{\mathrm{bb}}$ (Construction~\ref{constr:universal-defect}).
+\end{proposition}
+
+\subsection{The $\En$ level of the Koszul dual}
+\label{subsec:en-koszul-level}
+
+The $\En$ level of $A^!$ is determined by the ambient theory, not by $A$ alone.
+
+\begin{conjecture}[$\En$-structure on the chiral Koszul dual from holomorphic CS]
+\label{conj:en-koszul-from-hcs}
+\ClaimStatusConjectured
+Let $A_n$ denote the boundary chiral algebra of holomorphic Chern--Simons theory (or its 6d algebraic surrogate) on $\C^n$ projected to a curve $C$, so that the full theory on $\C^n$ carries $E_n$-factorization structure. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item The chiral Koszul dual $A_n^!$ inherits $E_n$-chiral factorization structure from the ambient $E_n$ theory on $\C^n$.
+ \item At $n = 1$ (3d CS): $A_1^! = V_{k'}(\frakg)$ at the reflected level $k' = -k - 2h^\vee$, an $\Eone$-chiral algebra. The $\Eone$ structure is the standard one.
+ \item At $n = 2$ (5d CS): $A_2^!$ carries $\Etwo$-chiral structure on $\C^2$. On a curve, $A_2^!|_C$ is the Koszul dual of the affine Yangian with inverted parameters.
+ \item At $n = 3$ (6d theory): $A_3^!$ carries $E_3$-chiral structure on $\C^3$. This is the \emph{large chiral algebra} of the user's programme: it contains the quantum toroidal algebra (on $C$), the affine Yangian ($\Etwo$ on $\C^2$), and the $E_3$ master structure on $\C^3$.
+\end{enumerate}
+Item~(ii) is a theorem (Feigin--Frenkel reflection). Items~(iii)--(iv) are conjectural; item~(iv) requires the non-Lagrangian 6d framework.
+\end{conjecture}
+
+\begin{remark}[$E_3$ chiral is not $E_3$ symmetric]
+\label{rem:e3-not-symmetric}
+The $E_3$ structure in Conjecture~\ref{conj:en-koszul-from-hcs}(iv) is \emph{not} the trivially braided $E_3$ of Chapter~\ref{ch:en-factorization} (where $\pi_1(\Conf_2(\R^6)) = 0$ kills the braiding). The holomorphic refinement and the Omega-background deformation produce a nontrivial $E_3$-chiral structure: the braiding in the holomorphic configuration space $\Conf_2(\C^3)$ is nontrivial after deformation by the equivariant parameters $(h_1, h_2, h_3)$. Without the Omega-background, the $E_3$ structure reduces to $E_\infty$ (fully symmetric).
+\end{remark}
+
+\subsection{Deformation of chiral CE cochains to $E_3$}
+\label{subsec:ce-deformation-e3}
+
+The chiral CE cochains of a commutative (Beilinson--Drinfeld) chiral algebra $A$ carry a natural $E_2$-algebra structure from the Deligne conjecture (Remark~\ref{rem:deligne-hochschild}). The additional $E_3$ structure arises from a \emph{deformation} of the CE differential by the quantum parameters of the holomorphic CS theory.
+
+\begin{construction}[Quantum deformation of chiral CE cochains]
+\label{constr:quantum-ce-deformation}
+Let $A = V_k(\frakg)$ be a Kac--Moody vertex algebra (an $E_\infty$-chiral algebra). The chiral CE cochains $C^\bullet_{\mathrm{ch}}(A, A) = Z^{\mathrm{der}}_{\mathrm{ch}}(A)$ carry:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item An $\Etwo$-algebra structure from the Deligne conjecture: cup product and brace operations give the two $\Eone$-factors of $\Etwo \simeq \Eone \otimes_{E_0} \Eone$.
+ \item A classical Poisson bracket $\{-, -\}_{\mathrm{cl}}$ of degree $-1$ from the Gerstenhaber structure on $\HH^\bullet(A, A)$.
+ \item A \emph{quantum deformation} parametrized by the Omega-background $\boldsymbol{h} = (h_1, h_2, h_3)$ with $h_1 + h_2 + h_3 = 0$. At $\boldsymbol{h} = 0$, the structure is the undeformed $\Etwo$-structure. At generic $\boldsymbol{h}$, the deformed differential
+ \[
+  d_{\boldsymbol{h}} = d_{\mathrm{CE}} + h_1 \cdot \partial_1 + h_2 \cdot \partial_2 + h_3 \cdot \partial_3
+ \]
+ (where $\partial_i$ are the equivariant differential operators on $\C^3$) promotes the structure to $E_3$-chiral. The promotion uses the $E_3$-operad action on $\Conf_n(\C^3)$ via Kontsevich formality.
+\end{enumerate}
+\end{construction}
+
+\begin{remark}[Two $E_3$ structures: algebraic vs topological (AP154)]
+\label{rem:two-e3-ap154}
+The $E_3$ structure in Construction~\ref{constr:quantum-ce-deformation} arises from two independent sources:
+\begin{enumerate}[label=\textup{(\alph*)}]
+ \item \emph{Algebraic $E_3$}: the Deligne conjecture applied to an $E_\infty$ algebra $A$ gives $E_3$ on $\HH^\bullet(A, A)$ (since $E_\infty$ input upgrades the Hochschild cochains by one operadic level; for $\Eone$ input the result is only $\Etwo$, per AP153).
+ \item \emph{Topological $E_3$}: the $E_3$-operad acts on $\Conf_n(\C^3)$ via the framed little $3$-disks.
+\end{enumerate}
+These two $E_3$ structures agree under Kontsevich formality (over $\Q$) but differ at the chain level. The holomorphic CS construction uses the topological $E_3$ from (b), deformed by the Omega-background; the algebraic $E_3$ from (a) is the classical limit. Whether the two agree integrally (not just rationally) is open.
+\end{remark}
+
+\subsection{Chiral quantum groups from defect Wilson lines}
+\label{subsec:chiral-qg-wilson}
+
+The chiral quantum group is the Hopf-algebra-like structure on the defect algebra $A^!$ extracted from the holomorphic Wilson lines of the ambient CS theory.
+
+\begin{conjecture}[Chiral quantum group on $\C^3$]
+\label{conj:chiral-qg-c3}
+\ClaimStatusConjectured
+For the 6d holomorphic theory on $\C^3$ with $\fgl_1$ gauge algebra and Omega-background $(h_1, h_2, h_3)$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item The defect algebra $A^!_{\C^3}$ carries a coproduct
+ \[
+  \Delta_{\mathrm{ch}} \colon A^!_{\C^3} \;\longrightarrow\; A^!_{\C^3} \hat{\otimes} A^!_{\C^3}
+ \]
+ induced by the collision of two parallel Wilson lines in $\C^3$. The coproduct is coassociative and compatible with the $E_3$-chiral structure.
+ \item The $R$-matrix is the universal braiding of the $E_3$ theory:
+ \[
+  R_{\mathrm{ch}}(u, v) \in A^!_{\C^3} \hat{\otimes} A^!_{\C^3}((u))((v))
+ \]
+ with $(u, v)$ the two spectral parameters from the two extra directions of $\C^3$ beyond the Wilson line. This $R$-matrix satisfies the parametric Yang--Baxter equation in \emph{two} spectral variables.
+ \item The representation category $\Rep^{\Etwo}(A^!_{\C^3}|_{\C^2})$ is the braided monoidal category of quantum toroidal representations, and the Drinfeld center $\cZ(\Rep^{\Eone}(A^!_{\C^3}|_C))$ recovers the $\Etwo$-braided category of Theorem~\ref{thm:drinfeld-center-coha}.
+ \item The coproduct deviates from the primitive (Hopf) coproduct by the Dimofte $K$-matrix (Remark~\ref{rem:dimofte-k-matrix-cy}): $\Delta_{\mathrm{ch}}(x) = x \otimes 1 + K_{\cA}(z) \otimes x + \ldots$.
+\end{enumerate}
+Each arrow in this conjecture is verified independently at lower dimension: item~(i) at 5d (Schiffmann--Vasserot coproduct on CoHA), item~(ii) at 5d (Yangian $R$-matrix, Theorem~\ref{thm:yang-r-matrix-ybe}), item~(iii) at 5d (Theorem~\ref{thm:drinfeld-center-coha}). The 6d composite is conjectural.
+\end{conjecture}
+
+\begin{conjecture}[Chiral quantum group on $K3 \times E$]
+\label{conj:chiral-qg-k3xe}
+\ClaimStatusConjectured
+For the 6d holomorphic theory on $K3 \times E$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item The defect algebra $A^!_{K3 \times E}$ on $E$ is a deformation of the Koszul dual of the BKM vertex algebra $V_{\mathfrak{g}_{\Delta_5}}$, with deformation controlled by the K3 complex structure moduli.
+ \item The Wilson lines wrapping $E$ are indexed by Mukai vectors $v \in H^*(K3, \Z)$; the fusion of Wilson lines is controlled by the Mukai pairing.
+ \item The coproduct on $A^!_{K3 \times E}$ is the chiral coproduct of Vol~I (test-scaffolded for spin-$2$ in the latest commit), specialized to the $K3 \times E$ root datum.
+ \item The $\Etwo$-braided representation category of the chiral quantum group is the Verlinde category of the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ (Proposition~\ref{prop:mtc-k3}, Chapter~\ref{ch:e2-chiral}).
+\end{enumerate}
+This is the most speculative conjecture in the chapter: it requires (a) the 6d algebraic framework for $K3 \times E$, (b) CY-A$_3$, (c) the identification of the BKM root datum with the K3 Mukai lattice. The $\kappa$-spectrum check is $\kappa_{\mathrm{ch}} = 3$, $\kappa_{\mathrm{BKM}} = 5$.
+\end{conjecture}
+
+\begin{remark}[Summary: the holomorphic CS$\to$chiral quantum group pipeline]
+\label{rem:hcs-pipeline}
+The full pipeline from holomorphic Chern--Simons to chiral quantum group:
+\[
+\begin{tikzcd}[column sep=1.8cm]
+ \text{hol CS on } \C^n \ar[r, "\text{boundary}"] &
+ A_n \text{ on } C \ar[r, "B(-)"] &
+ B(A_n) \ar[r, "D_{\Ran}"] &
+ A_n^! \ar[r, "\Rep^{E_2}"] &
+ \text{chiral QG}
+\end{tikzcd}
+\]
+At $n = 1$: Kac--Moody $\to$ bar complex $\to$ Feigin--Frenkel dual $\to$ conformal blocks (ESTABLISHED).
+At $n = 2$: affine Yangian $\to$ bar complex $\to$ dual Yangian $\to$ quantum group braiding (PARTIALLY ESTABLISHED, via Schiffmann--Vasserot / Maulik--Okounkov).
+At $n = 3$: quantum toroidal $\to$ bar complex $\to$ $E_3$-Koszul dual $\to$ chiral quantum group (CONJECTURAL).
+For $K3 \times E$: BKM-related algebra $\to$ bar complex $\to$ defect algebra $\to$ BKM quantum group (CONJECTURAL; depends on CY-A$_3$).
+\end{remark}

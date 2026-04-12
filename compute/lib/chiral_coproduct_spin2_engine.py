@@ -23,52 +23,55 @@ of the Yangian generators and using the multiplicative formula.
 KEY RESULT
 ==========
 
-The spin-2 coproduct is derived from the MULTIPLICATIVE Yangian coproduct:
+The spin-2 coproduct is derived from the ADDITIVE Drinfeld coproduct on the
+Yangian psi-generators, composed with the Miura inversion T = psi_2 - J^2/(2*Psi).
 
-    Delta_z(psi(u)) = psi_L(u) * psi_R(u - z)
+The Drinfeld coproduct on the transfer matrix T(u) = 1 + sum psi_n u^{-n}:
+    Delta_z(T(u)) = T_L(u) * T_R(u - z)
 
-At the level of the Heisenberg modes:
-    Delta_z(J_n) = J_n^L + J_n^R + (1/Psi) sum_{k>=1} J_{n-k}^L * J_k^R(z)
-                   + ... (higher-order terms from the product expansion)
+gives at spin 2 (eq:coprod-psi2 in the standalone paper):
+    Delta_z(psi_2) = psi_2 x 1 + 1 x psi_2 + psi_1 x psi_1 + z*(1 x psi_1)
 
-where J_k^R(z) denotes shifted modes from the Taylor expansion of psi_R(u-z).
+Using the Miura substitution psi_1 = J, psi_2 = T + J^2/(2*Psi), and the fact
+that Delta_z is an algebra homomorphism so Delta_z(J^2) = (Delta_z(J))^2:
 
-For the Sugawara T, the formula is NOT simply the Sugawara of Delta(J).
-Instead, it is determined by expressing T in terms of the Yangian generators
-and applying the multiplicative coproduct.
+    Delta_z(T) = T x 1 + 1 x T + ((Psi - 1)/Psi) * J x J + z*(1 x J)
 
-At leading order (perturbative in 1/u):
-    Delta_z(T_n) = T_n^L + T_n^R + (1/Psi) sum_k J_k^L J_{n-k}^R + O(1/Psi^2)
+The coefficient (Psi - 1)/Psi arises because the psi_1 x psi_1 cross-term
+(coefficient 1) is reduced by the subtraction of Delta_z(J^2/(2*Psi)):
+    (1/(2*Psi)) * (Delta_z(J))^2 = J^2/(2*Psi) x 1 + (1/Psi)*J x J + 1 x J^2/(2*Psi)
+so the net coefficient is 1 - 1/Psi = (Psi - 1)/Psi.
 
-The term (1/Psi)*J^L J^R is the FIRST nontrivial cross-coupling at spin 2.
-The O(1/Psi^2) corrections arise from the multiplicative structure and
-encode the quantum group deformation.
+At Psi = 1 (free boson): the cross-term vanishes, Delta(T) = T^L + T^R.
+At Psi -> infinity (classical limit): the coefficient tends to 1.
 
 WHAT THIS ENGINE VERIFIES
 =========================
 
 1. The Heisenberg Fock space representation (commutators, Sugawara c=1).
-2. The multiplicative Yangian coproduct Delta_z(psi(u)) = psi_L(u)*psi_R(u-z)
-   at the mode level: the PRODUCT of two psi-series.
-3. The extraction of the spin-2 component from the product.
-4. The effective central charge c_eff = 4 in the image of Delta(T) in V tensor V,
-   arising from the cross-term contribution.
-5. Level (Psi) and spectral parameter (z) independence of c_eff.
+2. The Drinfeld coproduct on psi-generators and the Miura inversion to W-fields.
+3. The effective central charge c_eff = 2 + 2*(Psi - 1)^2 in the image of Delta(T),
+   which depends on the level Psi (NOT constant).
+4. The intertwining [Delta(T_n), Delta(J_m)] = -Psi*m*Delta(J_{n+m}) (factor Psi).
+5. At Psi = 1: c_eff = 2 (two decoupled copies), factor = 1 (primitive).
 
 STRUCTURAL FINDING
 ==================
 
-The vertex bialgebra coproduct Delta(J) = J tensor 1 + 1 tensor J does NOT
-give a vertex algebra homomorphism for the Heisenberg VOA (J_{(1)}J = Psi*|0>
-produces a factor-of-2 mismatch in the tensor product). This is because the
-Heisenberg VOA is NOT a vertex bialgebra in the naive sense.
+The Drinfeld coproduct on T = psi_2 - J^2/(2*Psi) is a mode-algebra
+homomorphism of the YANGIAN Y(gl_hat_1), not a vertex algebra homomorphism.
+The image Delta_z(T) generates a Virasoro subalgebra in the tensor product
+with effective central charge c_eff = 2 + 2*(Psi - 1)^2. This is NOT the
+Sugawara of J^{tot} = J^L + J^R (which has c_tot = 1 at any level).
 
-The correct coproduct lives at the level of the YANGIAN algebra Y(gl_hat_1),
-which is a Hopf algebra (not a vertex algebra) with multiplicative coproduct.
-The spin-2 coproduct on T is the restriction of this Yangian coproduct to the
-Sugawara sub-Virasoro, and produces an image with c_eff = 4*c = 4.
+At Psi = 1 (free boson), the coproduct reduces to the decoupled sum T^L + T^R,
+and c_eff = 2 = c_L + c_R. The Heisenberg at Psi = 1 IS a vertex bialgebra
+with primitive Delta(J) = J x 1 + 1 x J.
 
-This is the FIRST explicit computation of a Yangian coproduct on a class M
+At Psi != 1, the cross-term ((Psi-1)/Psi)*J^L*J^R contributes additional
+central charge, and c_eff grows quadratically in Psi.
+
+This is an explicit computation of the Drinfeld coproduct on a class M
 algebra generator at spin 2.
 
 CONVENTIONS
@@ -243,20 +246,26 @@ class TensorHeisenberg:
         return mat
 
     def Delta_T(self, n: int, z: complex = 0.0, K: int = 8) -> np.ndarray:
-        r"""Spin-2 Yangian coproduct Delta_z(T_n).
+        r"""Spin-2 Drinfeld coproduct Delta_z(T_n).
 
-        Delta_z(T_n) = T_n^L + tilde{T}_n^R(z) + (1/Psi) sum_k J_k^L tilde{J}_{n-k}^R(z)
+        Delta_z(T_n) = T_n^L + tilde{T}_n^R(z)
+                      + ((Psi-1)/Psi) sum_k J_k^L tilde{J}_{n-k}^R(z)
 
-        This is the leading-order formula from the multiplicative Yangian
-        coproduct on the psi-generating function.
+        Derived from the Drinfeld coproduct on psi_2 and the Miura inversion
+        T = psi_2 - :JJ:/(2*Psi). The coefficient (Psi-1)/Psi arises from
+        the cross-term subtraction: psi_1 x psi_1 has coefficient 1, minus
+        (1/Psi)*J x J from Delta(J^2/(2*Psi)), giving 1 - 1/Psi.
+
+        At Psi = 1: cross-term vanishes (free boson, Delta(T) = T^L + T^R).
         """
+        alpha = (self.Psi - 1.0) / self.Psi
         term1 = self.T_L(n).astype(complex)
         term2 = self.T_R_shifted(n, z, K)
         term3 = np.zeros((self.dim, self.dim), dtype=complex)
         M = self.N_max + abs(n) + 2
         for k in range(-M, M + 1):
             term3 += self.J_L(k) @ self.J_R_shifted(n - k, z, K)
-        term3 /= self.Psi
+        term3 *= alpha
         return term1 + term2 + term3
 
     def Delta_J(self, n: int, z: complex = 0.0, K: int = 8) -> np.ndarray:
@@ -314,10 +323,27 @@ def verify_delta_J(Psi: float = 1.0, N_max: int = 6, z: complex = 0.5 + 0.3j) ->
     return {"max_error": mx, "ok": mx < 1e-8, "effective_level": "2*Psi"}
 
 
+def c_eff_expected(Psi: float) -> float:
+    """Expected effective central charge: c_eff = 2 + 2*(Psi - 1)^2.
+
+    # VERIFIED sources:
+    # [DC] Direct computation from Miura inversion (Psi-1)/Psi coefficient
+    # [LC] Psi=1 -> c_eff=2 (two decoupled copies, no cross-term)
+    # [LC] Psi=2 -> c_eff=4 (cross-term coefficient 1/2, beta^2*Psi^2 = 1)
+    # [DA] Large Psi: c_eff ~ 2*Psi^2 (quadratic growth from cross-term)
+    """
+    return 2.0 + 2.0 * (Psi - 1.0) ** 2
+
+
 def extract_c_eff(Psi: float = 1.0, N_max: int = 6, z: complex = 0.5 + 0.3j) -> Dict[str, object]:
     """Extract the effective central charge c_eff from [Delta(T_2), Delta(T_{-2})].
 
     On the vacuum: [T_2, T_{-2}] = 4*T_0 + (c/2), so c = 2*(<vac|comm - 4*T_0|vac>).
+
+    The expected c_eff = 2 + 2*(Psi - 1)^2:
+      - Psi=1: c_eff=2 (free boson, cross-term vanishes)
+      - Psi=2: c_eff=4
+      - General: depends quadratically on Psi
     """
     TH = TensorHeisenberg(Psi, N_max)
     DT2 = TH.Delta_T(2, z)
@@ -332,7 +358,9 @@ def extract_c_eff(Psi: float = 1.0, N_max: int = 6, z: complex = 0.5 + 0.3j) -> 
     vac[vac_L * TH.d + vac_L] = 1.0
     c_eff = 2.0 * float((vac @ central @ vac).real)
 
-    return {"c_eff": c_eff, "c_eff_correct": abs(c_eff - 4.0) < 1e-4,
+    expected = c_eff_expected(Psi)
+    return {"c_eff": c_eff, "c_eff_expected": expected,
+            "c_eff_correct": abs(c_eff - expected) < 1e-4,
             "z": z, "Psi": Psi}
 
 
@@ -357,9 +385,10 @@ def verify_T0_eigenvalues(Psi: float = 1.0, N_max: int = 6) -> Dict[str, object]
 
 
 def verify_z0_consistency(Psi: float = 1.0, N_max: int = 6) -> Dict[str, object]:
-    """At z=0: Delta_0(T_n) = T_n^L + T_n^R + (1/Psi)*sum J_k^L J_{n-k}^R."""
+    """At z=0: Delta_0(T_n) = T_n^L + T_n^R + ((Psi-1)/Psi)*sum J_k^L J_{n-k}^R."""
     TH = TensorHeisenberg(Psi, N_max)
     P = TH.safe_proj(5)
+    alpha = (Psi - 1.0) / Psi
     for n_test in [0, 1, -1]:
         D_method = TH.Delta_T(n_test, 0.0)
         D_formula = TH.T_L(n_test).astype(complex) + TH.T_R(n_test).astype(complex)
@@ -367,15 +396,15 @@ def verify_z0_consistency(Psi: float = 1.0, N_max: int = 6) -> Dict[str, object]
         cross = np.zeros((TH.dim, TH.dim), dtype=complex)
         for k in range(-M, M + 1):
             cross += np.kron(TH.H.J(k), TH.H.J(n_test - k)).astype(complex)
-        D_formula += cross / Psi
+        D_formula += alpha * cross
         err = float(np.max(np.abs(P @ (D_formula - D_method) @ P)))
         if err > 1e-10:
             return {"error": err, "ok": False, "failed_at_n": n_test}
     return {"error": 0.0, "ok": True}
 
 
-def verify_c_eff_independence(N_max: int = 6) -> Dict[str, object]:
-    """c_eff = 4 for all Psi and z."""
+def verify_c_eff_level_dependence(N_max: int = 6) -> Dict[str, object]:
+    """c_eff = 2 + 2*(Psi - 1)^2 for all Psi, independent of z."""
     results = {}
     all_ok = True
     for Psi in [0.5, 1.0, 2.0, 3.7]:
@@ -390,15 +419,16 @@ def verify_c_eff_independence(N_max: int = 6) -> Dict[str, object]:
 
 
 def verify_T_J_intertwining(Psi: float = 1.0, N_max: int = 6, z: complex = 0.0) -> Dict[str, object]:
-    """Verify [Delta(T_n), Delta(J_m)] = -2*m*Delta(J_{n+m}) on safe subspace.
+    """Verify [Delta(T_n), Delta(J_m)] = -Psi*m*Delta(J_{n+m}) on safe subspace.
 
-    The factor 2 (instead of 1) arises because Delta(T) contains the cross term
-    (1/Psi)*sum J_k^L J_{-k}^R, which acts on BOTH the J^L and J^R components
-    of Delta(J) = J^L + J^R. Each cross-commutator contributes an additional
-    copy of the result, doubling the eigenvalue.
+    The factor Psi (instead of 1) arises because Delta(T) contains the cross
+    term ((Psi-1)/Psi)*sum J_k^L J_{-k}^R, which acts on BOTH the J^L and J^R
+    components of Delta(J) = J^L + J^R. The left and right cross-commutators
+    each contribute -m*(Psi-1)/Psi * Psi = -(Psi-1)*m per side. Combined with
+    the -m from [T^L+T^R, J^L+J^R], the total factor is 1 + (Psi-1) = Psi.
 
-    This is the CORRECT intertwining: Delta(T_0) acts on Delta(J) with
-    effective conformal weight 2 (not 1), reflecting the Yangian structure.
+    At Psi = 1: factor = 1 (cross-term vanishes, original algebra preserved).
+    At Psi = 2: factor = 2.
     """
     TH = TensorHeisenberg(Psi, N_max)
     P = TH.safe_proj(5)
@@ -406,10 +436,10 @@ def verify_T_J_intertwining(Psi: float = 1.0, N_max: int = 6, z: complex = 0.0) 
     for n in range(-2, 3):
         for m in range(-2, 3):
             comm = TH.Delta_T(n, z) @ TH.Delta_J(m, z) - TH.Delta_J(m, z) @ TH.Delta_T(n, z)
-            exp = float(-2 * m) * TH.Delta_J(n + m, z)
+            exp = float(-Psi * m) * TH.Delta_J(n + m, z)
             diff = P @ (comm - exp) @ P
             mx = max(mx, float(np.max(np.abs(diff))))
-    return {"max_error": mx, "ok": mx < 1e-6, "factor": 2}
+    return {"max_error": mx, "ok": mx < 1e-6, "factor": "Psi"}
 
 
 # ---------------------------------------------------------------------------
@@ -445,25 +475,28 @@ def verify_all() -> Dict[str, object]:
     print(f"  vac: {r['vac_eigenvalue']:.4f}, J-1: {r.get('J-1_vac_eigenvalue', 'N/A')}")
     print(f"  ok: {r['ok']}")
 
-    print("Step 6: Extract c_eff = 4 from vacuum")
-    for z_val in [0.0, 0.5 + 0.3j, 1.0]:
-        r = extract_c_eff(1.0, 6, complex(z_val))
-        results[f"c_eff_z={z_val}"] = r
-        print(f"  z={z_val}: c_eff={r['c_eff']:.4f}, ok={r['c_eff_correct']}")
+    print("Step 6: Extract c_eff = 2 + 2*(Psi-1)^2 from vacuum")
+    for Psi_val in [0.5, 1.0, 2.0]:
+        for z_val in [0.0, 0.5 + 0.3j]:
+            r = extract_c_eff(Psi_val, 6, complex(z_val))
+            exp = c_eff_expected(Psi_val)
+            results[f"c_eff_Psi={Psi_val}_z={z_val}"] = r
+            print(f"  Psi={Psi_val}, z={z_val}: c_eff={r['c_eff']:.4f} "
+                  f"(expected {exp:.4f}), ok={r['c_eff_correct']}")
 
-    print("Step 7: c_eff = 4 for all Psi and z (full independence)")
-    r = verify_c_eff_independence(6)
-    results["independence"] = r
-    count_4 = sum(1 for k, v in r.items() if k != "ok" and abs(v - 4.0) < 0.01)
-    print(f"  {count_4} / {sum(1 for k in r if k != 'ok')} checks give c_eff = 4")
-    print(f"  ok: {r['ok']}")
+    print("Step 7: c_eff formula for all Psi and z")
+    r = verify_c_eff_level_dependence(6)
+    results["level_dependence"] = r
+    ok_count = sum(1 for k, v in r.items()
+                   if k != "ok" and isinstance(v, float))
+    print(f"  {ok_count} checks, all ok: {r['ok']}")
 
-    print("Step 8: [Delta(T_n), Delta(J_m)] = -2m*Delta(J_{n+m}) at z=0")
+    print("Step 8: [Delta(T_n), Delta(J_m)] = -Psi*m*Delta(J_{n+m}) at z=0")
     r = verify_T_J_intertwining(1.0, 6, 0.0)
     results["T_J_intertwining"] = r
     print(f"  max error: {r['max_error']:.2e}, ok: {r['ok']}")
 
-    print("Step 9: [Delta(T_n), Delta(J_m)] = -2m*Delta(J_{n+m}) at z=0.5+0.3j")
+    print("Step 9: [Delta(T_n), Delta(J_m)] = -Psi*m*Delta(J_{n+m}) at z=0.5+0.3j")
     r = verify_T_J_intertwining(1.0, 6, 0.5 + 0.3j)
     results["T_J_intertwining_z"] = r
     print(f"  max error: {r['max_error']:.2e}, ok: {r['ok']}")
@@ -473,15 +506,16 @@ def verify_all() -> Dict[str, object]:
 
 if __name__ == "__main__":
     print("=" * 72)
-    print("SPIN-2 YANGIAN COPRODUCT ON W_{1+infinity} / Y(gl_hat_1)")
+    print("SPIN-2 DRINFELD COPRODUCT ON W_{1+infinity} / Y(gl_hat_1)")
     print("=" * 72)
     print()
     print("FORMULA: Delta_z(T_n) = T_n^L + tilde{T}_n^R(z)")
-    print("       + (1/Psi) sum_k J_k^L tilde{J}_{n-k}^R(z)")
+    print("       + ((Psi-1)/Psi) sum_k J_k^L tilde{J}_{n-k}^R(z)")
     print()
-    print("IMAGE: Virasoro subalgebra with c_eff = 4*c = 4 on the vacuum")
-    print("(not a fixed-c Virasoro on all states; the image is a Yangian")
-    print("representation, larger than the Virasoro mode algebra)")
+    print("IMAGE: Virasoro subalgebra with c_eff = 2 + 2*(Psi-1)^2")
+    print("  Psi=1: c_eff=2 (free boson, cross-term vanishes)")
+    print("  Psi=2: c_eff=4")
+    print("  General: quadratic in Psi")
     print()
 
     results = verify_all()

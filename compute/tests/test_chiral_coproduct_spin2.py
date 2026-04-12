@@ -1,20 +1,22 @@
-"""Tests for the spin-2 Yangian coproduct on W_{1+infinity} / Y(gl_hat_1).
+"""Tests for the spin-2 Drinfeld coproduct on W_{1+infinity} / Y(gl_hat_1).
 
 Verifies the formula:
-    Delta_z(T_n) = T_n^L + tilde{T}_n^R(z) + (1/Psi) sum_k J_k^L tilde{J}_{n-k}^R(z)
+    Delta_z(T_n) = T_n^L + tilde{T}_n^R(z)
+                 + ((Psi-1)/Psi) sum_k J_k^L tilde{J}_{n-k}^R(z)
 
-derived from the multiplicative Yangian coproduct Delta_z(psi(u)) = psi_L(u)*psi_R(u-z).
+derived from the Drinfeld coproduct Delta_z(T(u)) = T_L(u)*T_R(u-z)
+composed with the Miura inversion T = psi_2 - J^2/(2*Psi).
 
 Key results:
-- c_eff = 4 on the vacuum (= c_L + c_R + c_cross = 1 + 1 + 2)
-- [Delta(T_n), Delta(J_m)] = -2m * Delta(J_{n+m}) (factor 2 from cross term)
-- c_eff = 4 independent of level Psi and spectral parameter z
+- c_eff = 2 + 2*(Psi-1)^2 (Psi-dependent, NOT constant)
+- [Delta(T_n), Delta(J_m)] = -Psi*m * Delta(J_{n+m}) (factor Psi, not 2)
+- At Psi=1 (free boson): c_eff=2, factor=1, cross-term vanishes entirely
 
 VERIFIED sources:
-[DC] Direct computation from Sugawara formula + mode commutators
+[DC] Direct computation from Miura inversion, coefficient (Psi-1)/Psi
 [LT] Drinfeld coproduct multiplicative formula (Drinfeld 1987, Tsymbaliuk 2014)
-[LC] c_eff at Psi = 0.5, 1.0, 2.0, 3.7 all give 4 (level independence)
-[SY] c_eff at z = 0, 0.3, 0.5+0.3j, 1.0 all give 4 (spectral independence)
+[LC] c_eff at Psi=1 -> 2 (two decoupled copies); Psi=2 -> 4; Psi=3 -> 10
+[SY] c_eff at z = 0, 0.3, 0.5+0.3j, 1.0 all agree with formula (z-independence)
 """
 
 import pytest
@@ -22,8 +24,9 @@ import pytest
 from compute.lib.chiral_coproduct_spin2_engine import (
     HeisenbergFock,
     TensorHeisenberg,
+    c_eff_expected,
     extract_c_eff,
-    verify_c_eff_independence,
+    verify_c_eff_level_dependence,
     verify_delta_J,
     verify_heisenberg,
     verify_T_J_intertwining,
@@ -104,10 +107,14 @@ class TestDeltaJ:
 # ---------------------------------------------------------------------------
 
 class TestDeltaT:
-    """Spin-2 Yangian coproduct Delta_z(T_n)."""
+    """Spin-2 Drinfeld coproduct Delta_z(T_n)."""
 
     def test_z0_consistency(self):
         r = verify_z0_consistency(Psi=1.0, N_max=6)
+        assert r["ok"], f"error {r['error']:.2e}"
+
+    def test_z0_consistency_Psi2(self):
+        r = verify_z0_consistency(Psi=2.0, N_max=6)
         assert r["ok"], f"error {r['error']:.2e}"
 
     def test_vacuum_eigenvalue_zero(self):
@@ -122,40 +129,57 @@ class TestDeltaT:
 
 
 class TestCeff:
-    """Effective central charge c_eff = 4 in the image."""
+    """Effective central charge c_eff = 2 + 2*(Psi-1)^2 in the image."""
 
-    def test_c_eff_4_z0(self):
-        # VERIFIED: c_eff = 4 [DC] from [Delta(T_2), Delta(T_{-2})] vacuum element.
+    def test_c_eff_2_Psi1_z0(self):
+        # VERIFIED: c_eff = 2 at Psi=1 [DC] cross-term vanishes, two decoupled copies.
+        # [LC] At Psi=1, (Psi-1)/Psi = 0 so Delta(T) = T^L + T^R.
         r = extract_c_eff(Psi=1.0, N_max=6, z=0.0)
-        assert r["c_eff_correct"], f"c_eff = {r['c_eff']}"
+        assert r["c_eff_correct"], f"c_eff = {r['c_eff']} (expected 2.0)"
 
-    def test_c_eff_4_z_complex(self):
-        # VERIFIED: c_eff = 4 [SY] spectral parameter independence.
-        r = extract_c_eff(Psi=1.0, N_max=6, z=0.5 + 0.3j)
-        assert r["c_eff_correct"], f"c_eff = {r['c_eff']}"
+    def test_c_eff_4_Psi2_z0(self):
+        # VERIFIED: c_eff = 4 at Psi=2 [DC] coefficient (Psi-1)/Psi = 1/2.
+        r = extract_c_eff(Psi=2.0, N_max=6, z=0.0)
+        assert r["c_eff_correct"], f"c_eff = {r['c_eff']} (expected 4.0)"
 
-    def test_c_eff_4_z1(self):
-        r = extract_c_eff(Psi=1.0, N_max=6, z=1.0)
-        assert r["c_eff_correct"], f"c_eff = {r['c_eff']}"
+    def test_c_eff_25_Psi_half(self):
+        # VERIFIED: c_eff = 2.5 at Psi=0.5 [DC] coefficient (Psi-1)/Psi = -1.
+        # [LC] 2 + 2*(0.5-1)^2 = 2 + 0.5 = 2.5.
+        r = extract_c_eff(Psi=0.5, N_max=6, z=0.0)
+        assert r["c_eff_correct"], f"c_eff = {r['c_eff']} (expected 2.5)"
+
+    def test_c_eff_z_independence(self):
+        # VERIFIED: c_eff does not depend on z [SY] spectral parameter independence.
+        for z_val in [0.0, 0.5 + 0.3j, 1.0]:
+            r = extract_c_eff(Psi=2.0, N_max=6, z=complex(z_val))
+            assert r["c_eff_correct"], f"z={z_val}: c_eff = {r['c_eff']}"
 
     @pytest.mark.parametrize("Psi", [0.5, 1.0, 2.0, 3.7])
-    def test_c_eff_level_independence(self, Psi):
-        # VERIFIED: c_eff = 4 for all Psi [LC] level independence.
+    def test_c_eff_formula(self, Psi):
+        # VERIFIED: c_eff = 2 + 2*(Psi-1)^2 for all Psi [DC]+[LC].
         r = extract_c_eff(Psi=Psi, N_max=6, z=0.5 + 0.3j)
-        assert r["c_eff_correct"], f"Psi={Psi}: c_eff = {r['c_eff']}"
+        assert r["c_eff_correct"], (
+            f"Psi={Psi}: c_eff = {r['c_eff']:.4f} "
+            f"(expected {c_eff_expected(Psi):.4f})"
+        )
 
-    def test_full_independence(self):
-        # VERIFIED: 12/12 (Psi, z) pairs give c_eff = 4 [LC]+[SY].
-        r = verify_c_eff_independence(N_max=6)
+    def test_full_level_dependence(self):
+        # VERIFIED: all (Psi, z) pairs match formula [LC]+[SY].
+        r = verify_c_eff_level_dependence(N_max=6)
         assert r["ok"]
 
 
 class TestIntertwining:
-    """[Delta(T_n), Delta(J_m)] = -2m * Delta(J_{n+m})."""
+    """[Delta(T_n), Delta(J_m)] = -Psi*m * Delta(J_{n+m})."""
 
-    def test_intertwining_z0(self):
-        # VERIFIED: factor 2 from cross-term action on both J^L and J^R [DC].
+    def test_intertwining_z0_Psi1(self):
+        # VERIFIED: factor = Psi = 1 at Psi=1, cross-term vanishes [DC].
         r = verify_T_J_intertwining(Psi=1.0, N_max=6, z=0.0)
+        assert r["ok"], f"max error {r['max_error']:.2e}"
+
+    def test_intertwining_z0_Psi2(self):
+        # VERIFIED: factor = Psi = 2 at Psi=2 [DC].
+        r = verify_T_J_intertwining(Psi=2.0, N_max=6, z=0.0)
         assert r["ok"], f"max error {r['max_error']:.2e}"
 
     def test_intertwining_z_complex(self):
@@ -163,6 +187,7 @@ class TestIntertwining:
         r = verify_T_J_intertwining(Psi=1.0, N_max=6, z=0.5 + 0.3j)
         assert r["ok"], f"max error {r['max_error']:.2e}"
 
-    def test_intertwining_Psi2(self):
-        r = verify_T_J_intertwining(Psi=2.0, N_max=6, z=0.0)
+    def test_intertwining_Psi_half(self):
+        # VERIFIED: factor = Psi = 0.5 at Psi=0.5 [DC].
+        r = verify_T_J_intertwining(Psi=0.5, N_max=6, z=0.0)
         assert r["ok"], f"max error {r['max_error']:.2e}"
