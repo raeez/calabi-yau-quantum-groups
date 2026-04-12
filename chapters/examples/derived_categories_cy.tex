@@ -1,59 +1,80 @@
 \chapter{Derived Categories of CY Manifolds}
 \label{ch:derived-cy}
 
-Homological mirror symmetry identifies $\Fuk(X) \simeq D^b(\Coh(X^\vee))$.  Under the functor $\Phi$, this becomes an equivalence $A_{\Fuk(X)} \simeq A_{D^b(\Coh(X^\vee))}$ of quantum chiral algebras.  This chapter develops the algebraic side: the CY structure on $D^b(\Coh(X))$, the chiral algebra extracted by $\Phi$, exceptional collections, and the CoHA route for local CY threefolds.
+Homological mirror symmetry identifies $\Fuk(X) \simeq D^b(\Coh(X^\vee))$. Under the functor $\Phi$, this becomes an equivalence $A_{\Fuk(X)} \simeq A_{D^b(\Coh(X^\vee))}$ of quantum chiral algebras. This chapter develops the algebraic side: the CY structure on $D^b(\Coh(X))$, the chiral algebra extracted by $\Phi$, exceptional collections, and the CoHA route for local CY threefolds.
 
 \section{$D^b(\Coh(X))$ as a CY$_d$ category}
 \label{sec:db-coh-cy}
 
-Let $X$ be a smooth projective Calabi--Yau manifold of complex dimension $d$, so that the canonical bundle $\omega_X$ is trivial.  The bounded derived category $D^b(\Coh(X))$ admits a canonical dg-enhancement, smooth and proper over the ground field.  The Serre functor is
+Let $X$ be a smooth projective Calabi--Yau manifold of complex dimension $d$, so that the canonical bundle $\omega_X$ is trivial. The bounded derived category $D^b(\Coh(X))$ admits a canonical dg-enhancement, smooth and proper over the ground field. The Serre functor is
 \[
-  S_X \;=\; (-) \otimes \omega_X [d] \;=\; (-)[d],
+ S_X \;=\; (-) \otimes \omega_X [d] \;=\; (-)[d],
 \]
-the shift by $d$.  The identification $S_X \simeq [d]$ IS the $d$-Calabi--Yau structure (Bondal--Kapranov, Kontsevich): a smooth proper dg-category $\cC$ is CY of dimension $d$ precisely when $S_\cC \simeq [d]$ as endofunctors.
+the shift by $d$.
+
+\begin{definition}[CY$_d$ category]
+\label{def:cy-d-category}
+A smooth proper dg-category $\cC$ over $k$ is \emph{Calabi--Yau of dimension $d$} if there exists a quasi-isomorphism of $\cC$-bimodules
+\[
+ \cC^\vee \;\simeq\; \cC[d],
+\]
+where $\cC^\vee = \RHom_{\cC\text{-}\cC}(\cC, \cC \otimes \cC)$ is the inverse dualizing bimodule (Kontsevich 2006; Ginzburg 2006). Equivalently, the Serre functor satisfies $S_\cC \simeq [d]$ as an autoequivalence of the homotopy category $H^0(\cC)$. The CY structure is additional data (the bimodule quasi-isomorphism), not merely a property: different choices of trivialization yield different CY structures. For $\cC = D^b(\Coh(X))$ with $X$ a smooth projective variety, $S_X \simeq (-) \otimes \omega_X[d]$, and the CY condition becomes $\omega_X \simeq \cO_X$.
+\end{definition}
+
+The identification $S_X \simeq [d]$ for $D^b(\Coh(X))$ carries two consequences for the Vol~III programme. First, it provides the $S^d$-framing data required by the CY-to-chiral functor $\Phi$ (the CY structure determines a class in $\HC^-_d(\cC)$, the negative cyclic homology that refines the Hochschild trace; see AP-CY2). Second, it constrains the Serre duality pairing that governs the $R$-matrix on the B-side.
+
+\begin{proposition}[Serre duality on $D^b(\Coh(X))$ for CY $X$]
+\label{prop:serre-duality-cy}
+\ClaimStatusProvedElsewhere
+Let $X$ be a smooth projective Calabi--Yau $d$-fold. For $\cE, \cF \in D^b(\Coh(X))$, Serre duality takes the form
+\[
+ \Ext^i(\cE, \cF) \;\simeq\; \Ext^{d-i}(\cF, \cE)^\vee,
+\]
+a non-degenerate pairing without any twist by $\omega_X$ (since $\omega_X \simeq \cO_X$). At the level of Hochschild cohomology, this induces a degree $(-d)$ symplectic pairing on $\HH^\bullet(\cC)$, the Mukai pairing (Caldararu 2003; Shklyarov 2013 for the dg-enhancement). The Mukai pairing is the B-side origin of the Ext-residue $R$-matrix: the classical $r$-matrix of the chiral algebra $\Phi(\cC)$ arises from the composition of Serre duality with the Grothendieck residue on $X$.
+\end{proposition}
 
 \begin{theorem}[Hochschild--Kostant--Rosenberg for smooth projective CY]
 \label{thm:hkr-cy}
 \ClaimStatusProvedElsewhere
 For $X$ smooth projective of dimension $d$, there is an isomorphism of graded vector spaces
 \[
-  \HH^\bullet(D^b(\Coh(X))) \;\simeq\; \bigoplus_{p+q = \bullet} H^q\bigl(X, \Lambda^p T_X\bigr),
+ \HH^\bullet(D^b(\Coh(X))) \;\simeq\; \bigoplus_{p+q = \bullet} H^q\bigl(X, \Lambda^p T_X\bigr),
 \]
-intertwining the cup product on the left with the wedge product on polyvector fields on the right (Kontsevich 2003; Caldararu 2005 for the compatibility with the Hochschild--Kostant--Rosenberg isomorphism on chains).  The Hochschild cohomology carries a canonical shifted Lie bracket (the Gerstenhaber bracket) which HKR sends to the Schouten--Nijenhuis bracket on polyvector fields.
+intertwining the cup product on the left with the wedge product on polyvector fields on the right (Kontsevich 2003; Caldararu 2005 for the compatibility with the Hochschild--Kostant--Rosenberg isomorphism on chains). The Hochschild cohomology carries a canonical shifted Lie bracket (the Gerstenhaber bracket) which HKR sends to the Schouten--Nijenhuis bracket on polyvector fields.
 \end{theorem}
 
 For CY $X$, triviality of $\omega_X$ lets us identify polyvector fields with differential forms via the holomorphic volume form $\mathrm{vol}_X$, yielding
 \[
-  \HH^\bullet(D^b(\Coh(X))) \;\simeq\; \bigoplus_{p+q = \bullet} H^q(X, \Omega^{d-p}_X).
+ \HH^\bullet(D^b(\Coh(X))) \;\simeq\; \bigoplus_{p+q = \bullet} H^q(X, \Omega^{d-p}_X).
 \]
-The Schouten--Nijenhuis bracket transports to a degree $(-1)$ Lie bracket on Hodge cohomology.  This is the input data for the Vol~III functor $\Phi$: its output is a chiral algebra whose generating fields are in bijection with $\HH^{\bullet+1}(\cC)$ (Theorem~\ref{thm:cy-to-chiral}), and whose modular characteristic is conjectured to equal the CY Euler characteristic (Conjecture~\ref{conj:cy-kappa-identification}).
+The Schouten--Nijenhuis bracket transports to a degree $(-1)$ Lie bracket on Hodge cohomology. This is the input data for the Vol~III functor $\Phi$: its output is a chiral algebra whose generating fields are in bijection with $\HH^{\bullet+1}(\cC)$ (Theorem~\ref{thm:cy-to-chiral}), and whose modular characteristic is conjectured to equal the CY Euler characteristic (Conjecture~\ref{conj:cy-kappa-identification}).
 
 \begin{example}[K3 surfaces, $d = 2$]
 \label{ex:k3-derived}
-For a K3 surface $X$, the Hodge diamond and HKR give $\HH^0 \simeq \C$, $\HH^1 \simeq H^1(X, T_X) \oplus H^0(X, \Omega^1_X) = H^1(X, T_X)$ (of dimension $20$), and $\HH^2 \simeq H^0(X, \Lambda^2 T_X) \oplus H^2(X, \cO_X) \simeq \C \oplus \C$.  The CY$_2$ structure $S_X = [2]$ pairs $\HH^2$ with $\HH^0$ by the trace.  Under $\Phi$, Theorem~CY-A$_2$ produces the K3 chiral algebra $\cA_{K3}$ of \S\ref{sec:k3-chiral-algebra}: the small $\cN = 4$ superconformal algebra at $c = 6$.  The categorical modular characteristic is
+For a K3 surface $X$, the Hodge diamond and HKR give $\HH^0 \simeq \C$, $\HH^1 \simeq H^1(X, T_X) \oplus H^0(X, \Omega^1_X) = H^1(X, T_X)$ (of dimension $20$), and $\HH^2 \simeq H^0(X, \Lambda^2 T_X) \oplus H^2(X, \cO_X) \simeq \C \oplus \C$. The CY$_2$ structure $S_X = [2]$ pairs $\HH^2$ with $\HH^0$ by the trace. Under $\Phi$, Theorem~CY-A$_2$ produces the K3 chiral algebra $\cA_{K3}$ of \S\ref{sec:k3-chiral-algebra}: the small $\cN = 4$ superconformal algebra at $c = 6$. The categorical modular characteristic is
 \[
-  \kappa_{\mathrm{cat}}\bigl(D^b(\Coh(K3))\bigr) \;=\; \chi(\cO_{K3}) \;=\; 2,
+ \kappa_{\mathrm{cat}}\bigl(D^b(\Coh(K3))\bigr) \;=\; \chi(\cO_{K3}) \;=\; 2,
 \]
 which agrees with $\kappa_{\mathrm{cat}}(\cA_{K3}) = 2$ computed intrinsically from the bar complex.
 \end{example}
 
 \begin{example}[Quintic threefold, $d = 3$]
 \label{ex:quintic-derived}
-The smooth quintic $X_5 \subset \P^4$ is a CY$_3$ with $h^{1,1} = 1$ and $h^{2,1} = 101$.  Hochschild cohomology has
+The smooth quintic $X_5 \subset \P^4$ is a CY$_3$ with $h^{1,1} = 1$ and $h^{2,1} = 101$. Hochschild cohomology has
 \[
-  \HH^1 \simeq H^1(X_5, T_{X_5}) \;\text{of dimension } 101, \qquad
-  \HH^2 \simeq H^2(X_5, T_{X_5}) \oplus H^1(X_5, \cO_{X_5}) = H^2(X_5, T_{X_5}).
+ \HH^1 \simeq H^1(X_5, T_{X_5}) \;\text{of dimension } 101, \qquad
+ \HH^2 \simeq H^2(X_5, T_{X_5}) \oplus H^1(X_5, \cO_{X_5}) = H^2(X_5, T_{X_5}).
 \]
-The CY$_3$ structure $S_{X_5} = [3]$ is the Serre functor used by Bridgeland in his construction of stability conditions.  Theorem~CY-A at $d = 3$ is programme-level (AP-CY6): $A_{X_5}$ is not constructed, and any downstream statement about it must carry \ClaimStatusConditional.
+The CY$_3$ structure $S_{X_5} = [3]$ is the Serre functor used by Bridgeland in his construction of stability conditions. Theorem~CY-A at $d = 3$ is programme-level: $A_{X_5}$ is not constructed, and any downstream statement about it must carry \ClaimStatusConditional.
 \end{example}
 
 \begin{example}[CY$_4$ and SYZ fibrations]
 \label{ex:cy4-syz}
-For a CY $4$-fold $X$ admitting a Strominger--Yau--Zaslow special Lagrangian $T^4$-fibration $\pi \colon X \to B$, the dual fibration $\pi^\vee \colon X^\vee \to B$ is again a CY $4$-fold and mirror to $X$ (Strominger--Yau--Zaslow 1996; conjectural in general, known for hyperK\"ahler families).  On the derived side, $D^b(\Coh(X))$ is CY$_4$ with $S_X = [4]$.  The Vol~III programme for $d = 4$ is strictly conditional on CY-A$_3$ being resolved first (AP-CY11).
+For a CY $4$-fold $X$ admitting a Strominger--Yau--Zaslow special Lagrangian $T^4$-fibration $\pi \colon X \to B$, the dual fibration $\pi^\vee \colon X^\vee \to B$ is again a CY $4$-fold and mirror to $X$ (Strominger--Yau--Zaslow 1996; conjectural in general, known for hyperK\"ahler families). On the derived side, $D^b(\Coh(X))$ is CY$_4$ with $S_X = [4]$. The Vol~III programme for $d = 4$ is strictly conditional on CY-A$_3$ being resolved first.
 \end{example}
 
 \section{Homological mirror symmetry as chiral equivalence}
-\label{sec:hms-chiral}
+\label{sec:hms-chiral-derived}
 
 Kontsevich's homological mirror symmetry conjecture (ICM 1994) predicts that mirror CY $d$-folds have equivalent derived categories, swapping the A-side and the B-side.
 
@@ -62,9 +83,9 @@ Kontsevich's homological mirror symmetry conjecture (ICM 1994) predicts that mir
 \ClaimStatusConjectured{}
 For a mirror pair $(X, X^\vee)$ of smooth projective Calabi--Yau $d$-folds, there is an equivalence of CY$_d$ categories
 \[
-  D^b(\Coh(X)) \;\simeq\; D^\pi\Fuk(X^\vee),
+ D^b(\Coh(X)) \;\simeq\; D^\pi\Fuk(X^\vee),
 \]
-where $D^\pi\Fuk(X^\vee)$ denotes the split-closed derived Fukaya category (Kontsevich 1994).  The equivalence intertwines the Serre functors, identifying the shifted polyvector fields on $X$ with the Floer cohomology of Lagrangians in $X^\vee$.
+where $D^\pi\Fuk(X^\vee)$ denotes the split-closed derived Fukaya category (Kontsevich 1994). The equivalence intertwines the Serre functors, identifying the shifted polyvector fields on $X$ with the Floer cohomology of Lagrangians in $X^\vee$.
 \end{conjecture}
 
 The conjecture is known in the following cases.
@@ -72,13 +93,13 @@ The conjecture is known in the following cases.
 \begin{theorem}[HMS for elliptic curves; Polishchuk--Zaslow 1998]
 \label{thm:hms-d1}
 \ClaimStatusProvedElsewhere
-For $X = E_\tau$ an elliptic curve and $X^\vee = E_{-1/\tau}$ the mirror, there is an equivalence $D^b(\Coh(E_\tau)) \simeq D^\pi\Fuk(E_{-1/\tau})$ as CY$_1$ categories.  The equivalence matches line bundles of degree $d$ with straight-line Lagrangians of slope $d$.
+For $X = E_\tau$ an elliptic curve and $X^\vee = E_{-1/\tau}$ the mirror, there is an equivalence $D^b(\Coh(E_\tau)) \simeq D^\pi\Fuk(E_{-1/\tau})$ as CY$_1$ categories. The equivalence matches line bundles of degree $d$ with straight-line Lagrangians of slope $d$.
 \end{theorem}
 
 \begin{theorem}[HMS for K3 surfaces; Bridgeland, Sheridan--Smith]
 \label{thm:hms-d2}
 \ClaimStatusProvedElsewhere
-For algebraic K3 surfaces in mirror families, homological mirror symmetry holds at the level of split-closed derived categories (Bridgeland 2008 for autoequivalence groups; Sheridan--Smith 2021 for mirror pairs inside hyperK\"ahler families).  In particular, the equivalence of CY$_2$ categories is proved on all mirror families of polarized K3 surfaces with Picard rank at least $1$.
+For algebraic K3 surfaces in mirror families, homological mirror symmetry holds at the level of split-closed derived categories (Bridgeland 2008 for autoequivalence groups; Sheridan--Smith 2021 for mirror pairs inside hyperK\"ahler families). In particular, the equivalence of CY$_2$ categories is proved on all mirror families of polarized K3 surfaces with Picard rank at least $1$.
 \end{theorem}
 
 \begin{theorem}[HMS for the quintic threefold; Sheridan 2015]
@@ -87,67 +108,91 @@ For algebraic K3 surfaces in mirror families, homological mirror symmetry holds 
 For $X_5$ the smooth quintic threefold and $X_5^\vee$ its Greene--Plesser mirror, there is a quasi-equivalence $D^\pi\Fuk(X_5) \simeq D^b(\Coh(X_5^\vee))$ of CY$_3$ categories (Sheridan 2015, building on Seidel's approach for Fano hypersurfaces).
 \end{theorem}
 
-The Vol~III reading is that HMS is a statement about the source of the functor $\Phi$.  Applying $\Phi$ to both sides yields the chiral restatement.
+The Vol~III reading is that HMS is a statement about the source of the functor $\Phi$. Applying $\Phi$ to both sides yields the chiral restatement.
 
 \begin{conjecture}[HMS as chiral equivalence]
 \label{conj:hms-chiral}
 \ClaimStatusConjectured{}
-Let $(X, X^\vee)$ be a mirror pair of CY $d$-folds for which Conjecture~\ref{conj:hms} holds.  If the functor $\Phi$ is defined in CY dimension $d$ (unconditionally for $d = 2$; programme for $d = 3$, AP-CY6), then
+Let $(X, X^\vee)$ be a mirror pair of CY $d$-folds for which Conjecture~\ref{conj:hms} holds. If the functor $\Phi$ is defined in CY dimension $d$ (unconditionally for $d = 2$; programme for $d = 3$, AP-CY6), then
 \[
-  \Phi\bigl(D^b(\Coh(X))\bigr) \;\simeq\; \Phi\bigl(D^\pi\Fuk(X^\vee)\bigr)
+ \Phi\bigl(D^b(\Coh(X))\bigr) \;\simeq\; \Phi\bigl(D^\pi\Fuk(X^\vee)\bigr)
 \]
-as $\Etwo$-chiral algebras.  In particular, the categorical modular characteristics agree:
+as $\Etwo$-chiral algebras. In particular, the categorical modular characteristics agree:
 \[
-  \kappa_{\mathrm{cat}}\bigl(D^b(\Coh(X))\bigr) \;=\; \kappa_{\mathrm{cat}}\bigl(D^\pi\Fuk(X^\vee)\bigr).
+ \kappa_{\mathrm{cat}}\bigl(D^b(\Coh(X))\bigr) \;=\; \kappa_{\mathrm{cat}}\bigl(D^\pi\Fuk(X^\vee)\bigr).
 \]
 \end{conjecture}
 
-The $\kappa_{\mathrm{cat}}$-equality is verified unconditionally at $d = 1$: for mirror elliptic curves $E_\tau, E_{-1/\tau}$, both sides produce the Heisenberg vertex algebra and $\kappa_{\mathrm{cat}} = 1 = \chi(\cO_E)$.  At $d = 2$, the equality reduces via Theorem~CY-A$_2$ to the comparison of Euler characteristics $\chi(\cO_X) = \chi(\cO_{X^\vee})$, which holds because mirror K3 surfaces share the same underlying smooth manifold.  At $d = 3$, the equality is conjectural: it awaits both the construction of $\Phi$ at $d = 3$ and an independent comparison of $\kappa_{\mathrm{cat}}$ across the HMS equivalence.  The chiral restatement transports $R$-matrices between the A-side and the B-side.  On the A-side, the $R$-matrix comes from Floer-theoretic intersection pairings; on the B-side, from Ext-pairings and the Grothendieck residue.  The mirror map intertwines them.
+The $\kappa_{\mathrm{cat}}$-equality is verified unconditionally at $d = 1$: for mirror elliptic curves $E_\tau, E_{-1/\tau}$, both sides produce the Heisenberg vertex algebra and $\kappa_{\mathrm{cat}} = 1 = \chi(\cO_E)$. At $d = 2$, the equality reduces via Theorem~CY-A$_2$ to the comparison of Euler characteristics $\chi(\cO_X) = \chi(\cO_{X^\vee})$, which holds because mirror K3 surfaces share the same underlying smooth manifold. At $d = 3$, the equality is conjectural: it awaits both the construction of $\Phi$ at $d = 3$ and an independent comparison of $\kappa_{\mathrm{cat}}$ across the HMS equivalence. The chiral restatement transports $R$-matrices between the A-side and the B-side. On the A-side, the $R$-matrix comes from Floer-theoretic intersection pairings; on the B-side, from Ext-pairings and the Grothendieck residue. The mirror map intertwines them.
 
 \section{Exceptional collections, quivers, and local CY}
 \label{sec:exceptional-quivers}
 
-When $D^b(\Coh(X))$ admits a full exceptional collection, the category collapses to modules over a finite-dimensional quiver algebra.  This is the tightest combinatorial description of $D^b(\Coh(X))$ and provides the simplest non-trivial inputs to the CY-to-chiral functor (restricted to \emph{local} CY geometries, since a compact variety with a full exceptional collection is Fano, hence NOT Calabi--Yau).
+When $D^b(\Coh(X))$ admits a full exceptional collection, the category collapses to modules over a finite-dimensional quiver algebra. This is the tightest combinatorial description of $D^b(\Coh(X))$ and provides the simplest non-trivial inputs to the CY-to-chiral functor (restricted to \emph{local} CY geometries, since a compact variety with a full exceptional collection is Fano, hence NOT Calabi--Yau).
 
 \begin{theorem}[Beilinson--Bondal for Fano varieties with full exceptional collections]
 \label{thm:beilinson-bondal}
 \ClaimStatusProvedElsewhere
-Let $X$ be a smooth projective variety admitting a full exceptional collection $\langle E_1, \ldots, E_n \rangle$ in $D^b(\Coh(X))$.  Let $A = \End\bigl(\bigoplus_{i=1}^n E_i\bigr)$, the endomorphism algebra of the tilting object.  Then
+Let $X$ be a smooth projective variety admitting a full exceptional collection $\langle E_1, \ldots, E_n \rangle$ in $D^b(\Coh(X))$. Let $A = \End\bigl(\bigoplus_{i=1}^n E_i\bigr)$, the endomorphism algebra of the tilting object. Then
 \[
-  \bR\Hom(\oplus E_i, -) \colon D^b(\Coh(X)) \;\simeq\; D^b(\mathrm{mod}\text{-}A)
+ \bR\Hom(\oplus E_i, -) \colon D^b(\Coh(X)) \;\simeq\; D^b(\mathrm{mod}\text{-}A)
 \]
-is a triangulated equivalence (Beilinson 1978 for $\P^n$; Bondal 1989 in general).  The algebra $A$ is the path algebra of a quiver with relations, the \emph{Beilinson quiver} of $(X, \langle E_i \rangle)$.
+is a triangulated equivalence (Beilinson 1978 for $\P^n$; Bondal 1989 in general). The algebra $A$ is the path algebra of a quiver with relations, the \emph{Beilinson quiver} of $(X, \langle E_i \rangle)$.
 \end{theorem}
 
-Passing from a Fano $X$ to a local CY geometry is standard: the total space $K_X = \mathrm{Tot}(\omega_X)$ of the canonical bundle is a non-compact Calabi--Yau of dimension $d + 1$, where $d = \dim X$.  The derived category $D^b(\Coh(K_X))$ is described by the Beilinson quiver of $X$ together with a superpotential determined by the CY structure.
+Passing from a Fano $X$ to a local CY geometry is standard: the total space $K_X = \mathrm{Tot}(\omega_X)$ of the canonical bundle is a non-compact Calabi--Yau of dimension $d + 1$, where $d = \dim X$. The derived category $D^b(\Coh(K_X))$ is described by the Beilinson quiver of $X$ together with a superpotential determined by the CY structure.
 
 \begin{proposition}[Local CY quiver with potential from Fano exceptional collection]
 \label{prop:local-cy-quiver}
 \ClaimStatusProvedElsewhere
 For $X$ a smooth projective Fano variety of dimension $d$ with a full strong exceptional collection, the derived category of compactly supported coherent sheaves on $K_X$ is equivalent to the derived category of finite-dimensional modules over the Ginzburg dg-algebra of a quiver with potential $(Q_X, W_X)$:
 \[
-  D^b_{cs}(\Coh(K_X)) \;\simeq\; D^b\bigl(\mathrm{mod}\text{-}\cG(Q_X, W_X)\bigr)
+ D^b_{cs}(\Coh(K_X)) \;\simeq\; D^b\bigl(\mathrm{mod}\text{-}\cG(Q_X, W_X)\bigr)
 \]
-(Bridgeland--King--Reid 2001 for McKay, Bocklandt 2008 for toric; Ginzburg 2006 for the dg-algebra formulation).  The total space $K_X$ is a local CY$_{d+1}$, and $(Q_X, W_X)$ is its Beilinson quiver decorated with the superpotential.
+(Bridgeland--King--Reid 2001 for McKay, Bocklandt 2008 for toric; Ginzburg 2006 for the dg-algebra formulation). The total space $K_X$ is a local CY$_{d+1}$, and $(Q_X, W_X)$ is its Beilinson quiver decorated with the superpotential.
 \end{proposition}
 
 \begin{example}[Local $\P^2$ and $K_{\P^2}$]
 \label{ex:local-p2}
 For $X = \P^2$, Beilinson's exceptional collection is $\langle \cO, \cO(1), \cO(2) \rangle$, with quiver
 \[
-  \bullet \rightrightarrows\!\!\rightarrow \bullet \rightrightarrows\!\!\rightarrow \bullet,
+ \bullet \rightrightarrows\!\!\rightarrow \bullet \rightrightarrows\!\!\rightarrow \bullet,
 \]
-three arrows between consecutive vertices.  The local CY$_3$ total space $K_{\P^2}$ inherits a cubic superpotential.  The critical CoHA $\cH(Q_{\P^2}, W_{\P^2})$ is a subalgebra of the affine Yangian $Y(\widehat{\fgl}_3)$.  By AP-CY12, the resulting chiral algebra is class~M (infinite shadow depth), not class~L: the $m_3$ generators do not close at finite arity.
+three arrows between consecutive vertices. The local CY$_3$ total space $K_{\P^2}$ inherits a cubic superpotential. The critical CoHA $\cH(Q_{\P^2}, W_{\P^2})$ is a subalgebra of the affine Yangian $Y(\widehat{\fgl}_3)$. By AP-CY12, the resulting chiral algebra is class~M (infinite shadow depth), not class~L: the $m_3$ generators do not close at finite arity.
 \end{example}
 
 \begin{example}[Conifold and the Klebanov--Witten quiver]
 \label{ex:conifold-derived}
-The resolved conifold $X = \cO_{\P^1}(-1) \oplus \cO_{\P^1}(-1)$ is a local CY$_3$ with toric diagram two triangles sharing an edge.  Its Beilinson quiver is the Klebanov--Witten quiver (two vertices, two arrows in each direction) with quartic superpotential $W = \mathrm{tr}(A_1 B_1 A_2 B_2 - A_1 B_2 A_2 B_1)$.  The critical CoHA is the positive half of the affine super Yangian $Y(\widehat{\mathfrak{gl}}(1|1))$; see \S\ref{sec:c3-yangian} for the parallel story on $\C^3$.
+The resolved conifold $X = \cO_{\P^1}(-1) \oplus \cO_{\P^1}(-1)$ is a local CY$_3$ with toric diagram two triangles sharing an edge. Its Beilinson quiver is the Klebanov--Witten quiver (two vertices, two arrows in each direction) with quartic superpotential $W = \mathrm{tr}(A_1 B_1 A_2 B_2 - A_1 B_2 A_2 B_1)$. The critical CoHA is the positive half of the affine super Yangian $Y(\widehat{\mathfrak{gl}}(1|1))$; see \S\ref{sec:c3-yangian} for the parallel story on $\C^3$.
 \end{example}
 
 \begin{example}[$\C^3$ and the Jordan quiver]
 \label{ex:c3-derived}
-Affine space $X = \C^3$, viewed as the local CY$_3$ total space over a point, has Beilinson quiver the Jordan quiver with three loops and cubic superpotential $W = \mathrm{tr}(XYZ - XZY)$.  The critical CoHA is $Y^+(\widehat{\fgl}_1)$ (Schiffmann--Vasserot 2013).  The full affine Yangian is $\cW_{1+\infty}$ at the self-dual level (Proch\'azka--Rap\v{c}\'ak 2018), verifying the five-step functor chain of Chapter~\ref{ch:toric-coha}.
+Affine space $X = \C^3$, viewed as the local CY$_3$ total space over a point, has Beilinson quiver the Jordan quiver with three loops and cubic superpotential $W = \mathrm{tr}(XYZ - XZY)$. The critical CoHA is $Y^+(\widehat{\fgl}_1)$ (Schiffmann--Vasserot 2013). The full affine Yangian is $\cW_{1+\infty}$ at the self-dual level (Proch\'azka--Rap\v{c}\'ak 2018), verifying the five-step functor chain of Chapter~\ref{ch:toric-coha}.
 \end{example}
 
-Across all three examples the pattern is the same: Beilinson quiver $\to$ superpotential $\to$ critical CoHA $\to$ positive half of an affine (super) Yangian $\to$ $\Eone$-sector of the Vol~III chiral algebra, via the CY-to-chiral functor for toric CY$_3$ without compact $4$-cycles (Theorem~\ref{thm:rsyz}).  The passage from $\Eone$ to $\Etwo$ requires the Drinfeld center (AP-CY4), and is the subject of Chapter~\ref{ch:toric-coha}.  In every case the modular characteristic is of type $\kappa_{\mathrm{cat}}$ (holomorphic Euler characteristic of the base Fano) and must be distinguished from $\kappa_{\mathrm{ch}}$ (computed intrinsically from the resulting chiral algebra) per AP113; agreement between the two is a prediction of the functor, verified at $d = 2$ and conjectural at $d = 3$.
+Across all three examples the pattern is the same: Beilinson quiver $\to$ superpotential $\to$ critical CoHA $\to$ positive half of an affine (super) Yangian $\to$ $\Eone$-sector of the Vol~III chiral algebra, via the CY-to-chiral functor for toric CY$_3$ without compact $4$-cycles (Theorem~\ref{thm:rsyz}). The passage from $\Eone$ to $\Etwo$ requires the Drinfeld center, and is the subject of Chapter~\ref{ch:toric-coha}. In every case the modular characteristic is of type $\kappa_{\mathrm{cat}}$ (holomorphic Euler characteristic of the base Fano) and must be distinguished from $\kappa_{\mathrm{ch}}$ (computed intrinsically from the resulting chiral algebra); agreement between the two is a prediction of the functor, verified at $d = 2$ and conjectural at $d = 3$.
+
+\section{Bridgeland stability conditions and wall-crossing}
+\label{sec:bridgeland-stab}
+
+The space of Bridgeland stability conditions $\Stab(\cC)$ on a CY$_d$ category $\cC$ is a complex manifold (Bridgeland 2007). Its chambers correspond to $t$-structures on $\cC$, and wall-crossing between chambers governs mutations of exceptional collections, DT invariant jumps, and (in the Vol~III reading) transitions between different $\Eone$-chart presentations of the chiral algebra.
+
+\begin{definition}[Bridgeland stability condition]
+\label{def:bridgeland-stability}
+A \emph{Bridgeland stability condition} on a triangulated category $\cC$ is a pair $\sigma = (Z, \cP)$, where $Z \colon K_0(\cC) \to \C$ is a group homomorphism (the \emph{central charge}) and $\cP = \{\cP(\phi)\}_{\phi \in \bR}$ is a slicing of $\cC$ into full additive subcategories (the \emph{semistable objects of phase $\phi$}), subject to: (i) for $0 \neq E \in \cP(\phi)$, $Z(E) = m(E) \exp(i \pi \phi)$ with $m(E) > 0$; (ii) $\cP(\phi + 1) = \cP(\phi)[1]$; (iii) Harder--Narasimhan filtrations exist (Bridgeland 2007).
+\end{definition}
+
+For CY$_3$ categories the stability manifold has rich structure. On K3 surfaces, Bridgeland (2008) proved that $\Stab(D^b(\Coh(X)))$ is a connected, simply connected complex manifold containing the complexified K\"ahler cone as an open subset. The autoequivalence group $\mathrm{Aut}(D^b(\Coh(X)))$ acts on $\Stab(X)$ by deck transformations, and the quotient is a period domain.
+
+\begin{example}[Stability conditions on K3]
+\label{ex:stab-k3}
+For a K3 surface $X$ with Picard rank $\rho$, the distinguished connected component $\Stab^\dagger(X) \subset \Stab(X)$ is a $(\rho + 2)$-dimensional complex manifold. The central charge takes the form $Z_{\omega, B}(E) = -\int_X e^{-(B + i\omega)} \cdot \mathrm{ch}(E)$ for $\omega$ an ample class and $B \in H^{1,1}(X, \bR)$. Walls are real-codimension-one loci where a semistable object acquires a destabilizing subobject; crossing a wall exchanges the two hearts related by a tilt. Under the functor $\Phi$, different stability chambers yield different $\Eone$-chart presentations of $\cA_{K3}$, and the wall-crossing transformations correspond to $R$-matrix gauge equivalences between charts.
+\end{example}
+
+\begin{example}[Stability conditions on the resolved conifold]
+\label{ex:stab-conifold}
+For the resolved conifold $X = \cO_{\P^1}(-1)^{\oplus 2}$, the stability manifold $\Stab(D^b_{cs}(\Coh(X)))$ has a single wall at $\mathrm{Im}(Z(\cO_{\P^1}(-1))) = 0$, separating two chambers: the large-volume chamber (where $\cO_{\P^1}(-1)$ is stable) and the orbifold chamber (where the fractional branes are stable). The wall-crossing formula is the Kontsevich--Soibelman identity for the conifold DT invariants (Kontsevich--Soibelman 2008; Nagao--Nakajima 2011). On the chiral side, this single wall-crossing corresponds to the mutation relating the two Klebanov--Witten quiver presentations of Example~\ref{ex:conifold-derived}.
+\end{example}
+
+The general principle is that the stability manifold $\Stab(\cC)$ provides an atlas of $\Eone$-chart descriptions of the chiral algebra $\Phi(\cC)$; the transition functions are $R$-matrix gauge equivalences encoded by wall-crossing automorphisms. This perspective is developed in Chapter~\ref{ch:toric-coha} for toric CY$_3$ categories and is conjectural in general (conditional on CY-A$_3$, AP-CY6).
