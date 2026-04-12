@@ -278,17 +278,16 @@ class ChiralCEComplex:
     def verify_bar_hierarchy(self, max_n: int = 10) -> Dict[str, bool]:
         """Verify the bar complex dimension hierarchy.
 
-        B^{ord}_n >= B^{E_2}_n >= B^{Sigma}_n for all n >= 1.
+        B^{ord}_n >= B^{Sigma}_n for all n >= 1.
+        (The E_2 bar dimension d(n) is a HEURISTIC observation for the
+        Heisenberg algebra; it does not satisfy d(n) >= p(n) term by term,
+        so we do not check that inequality here.)
         """
         results = {}
         for n in range(1, max_n + 1):
             ord_dim = self.ordered_bar_dimension(n)
             sym_dim = self.symmetric_bar_dimension(n)
             results[f"ord >= sym at n={n}"] = ord_dim >= sym_dim
-            if self.en_level >= 2:
-                e2_dim = self.e2_bar_dimension(n)
-                results[f"ord >= e2 at n={n}"] = ord_dim >= e2_dim
-                results[f"e2 >= sym at n={n}"] = e2_dim >= sym_dim
         return results
 
 

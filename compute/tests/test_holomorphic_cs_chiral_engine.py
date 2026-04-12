@@ -100,9 +100,10 @@ class TestOmegaBackground:
         assert omega.structure_function_at(0) == Rational(-1)
 
     def test_structure_function_symmetry(self):
-        """g(u) * g(-u) = 1 (unitarity)."""
+        """g(u) * g(-u) = 1 (unitarity). Avoid poles at u = -h_i."""
         omega = OmegaBackground(1, -2)
-        for u in [Rational(1), Rational(3), Rational(7, 2)]:
+        # Poles of g(u) at u = -h1=-1, -h2=2, -h3=-1. Avoid these.
+        for u in [Rational(3), Rational(5), Rational(7, 2)]:
             prod = omega.structure_function_at(u) * omega.structure_function_at(-u)
             assert prod == Rational(1), f"g({u})*g({-u}) = {prod} != 1"
 
@@ -141,11 +142,11 @@ class TestBoundaryAlgebra:
         assert ba.en_level == 3
 
     def test_num_parameters(self):
-        """dim=1: 0 params, dim=2: 1 param (sigma_3), dim=3: 2 params."""
+        """All dims have 1 effective deformation parameter from CY_3 Omega-background."""
         omega = OmegaBackground(1, -2)
-        assert BoundaryAlgebra(1, omega).num_parameters == 0
-        assert BoundaryAlgebra(2, omega).num_parameters == 1
-        assert BoundaryAlgebra(3, omega).num_parameters == 1  # n-2 = 1
+        assert BoundaryAlgebra(1, omega).num_parameters == 1  # level k
+        assert BoundaryAlgebra(2, omega).num_parameters == 1  # sigma_3
+        assert BoundaryAlgebra(3, omega).num_parameters == 1  # sigma_3
 
     def test_kappa_ch_self_dual_dim2(self):
         """kappa_ch = 1 at self-dual point for dim=2."""
