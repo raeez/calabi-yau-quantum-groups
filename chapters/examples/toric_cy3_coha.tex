@@ -183,7 +183,7 @@ This arises as the constant term in the Gopakumar--Vafa resummation $F_1 = -\fra
 
 \begin{remark}[McKay $\Z_3$ quiver]
 \label{rem:local-p2-mckay}
-The McKay quiver of $\C^3/\Z_3$ (with the diagonal action $\omega \cdot (x,y,z) = (\omega x, \omega y, \omega z)$, $\omega = e^{2\pi i/3}$) has $3$ vertices and $9$ arrows forming the complete bipartite graph $K_{3,3}$, with superpotential $W = \mathrm{tr}(\epsilon_{ijk} a_i b_j c_k)$. The critical CoHA of this quiver gives the positive half of the affine super Yangian $Y^+(\widehat{\fsl}_3 | \widehat{\fsl}_3)$. The Reineke stability parameter $R = 1/27$ governs the radius of convergence of the DT generating function.
+The McKay quiver of $\C^3/\Z_3$ (with the diagonal action $\omega \cdot (x,y,z) = (\omega x, \omega y, \omega z)$, $\omega = e^{2\pi i/3}$) has $3$ vertices $\{0,1,2\}$ and $9$ directed arrows: three copies of the oriented $3$-cycle $0 \to 1 \to 2 \to 0$ (one for each coordinate direction $x,y,z$), with superpotential $W = \mathrm{tr}(\epsilon_{ijk} a_i b_j c_k)$. The critical CoHA of this quiver gives the positive half of the affine super Yangian $Y^+(\widehat{\fsl}_3 | \widehat{\fsl}_3)$. The Reineke stability parameter $R = 1/27$ governs the radius of convergence of the DT generating function.
 \end{remark}
 
 \noindent\textit{Verification}: 77 tests in \texttt{local\_p2\_coha.py} covering $\kappa_{\mathrm{ch}}$-computation (3 paths), GV growth rate through degree $d = 15$, McKay quiver structure, and loop correction.
@@ -196,7 +196,7 @@ The McKay quiver of $\C^3/\Z_3$ (with the diagonal action $\omega \cdot (x,y,z) 
 \ClaimStatusProvedHere
 Let $X = \mathrm{Tot}(\cO(-2,-2) \to \bP^1 \times \bP^1)$. The shadow data are:
 \begin{enumerate}[label=(\roman*)]
- \item $\kappa_{\mathrm{ch}}(\text{local } \bP^1 \times \bP^1) = 2 = h^{1,1}(\bP^1 \times \bP^1)$.
+ \item $\kappa_{\mathrm{ch}}(\text{local } \bP^1 \times \bP^1) = 2 = \chi(\bP^1 \times \bP^1)/2$.
  \item The shadow metric is the diagonal quadratic form $Q = \mathrm{diag}(1, 1)$ on the two-dimensional space of curve classes $H^2(\bP^1 \times \bP^1, \Z) = \Z e_1 \oplus \Z e_2$, where $e_1, e_2$ are the fiber classes of the two $\bP^1$ factors.
  \item The symmetric sector (classes with $d_1 = d_2$, i.e.\ along the diagonal) has shadow depth $r_{\max} = \infty$ (class M): the shadow obstruction tower does not terminate along the symmetric diagonal.
  \item The anti-symmetric sector (classes with $d_1 = -d_2$, i.e.\ along the anti-diagonal) has shadow depth $r_{\max} = 2$ (class G): the shadow obstruction tower terminates at degree $2$.
@@ -205,7 +205,7 @@ Let $X = \mathrm{Tot}(\cO(-2,-2) \to \bP^1 \times \bP^1)$. The shadow data are:
 \end{theorem}
 
 \begin{proof}
-(i) The compact base $\bP^1 \times \bP^1$ has $h^{1,1} = 2$, giving two independent curve classes and $\kappa_{\mathrm{ch}} = h^{1,1} = 2$.
+(i) The compact base $\bP^1 \times \bP^1$ has $\chi(\bP^1 \times \bP^1) = 4$ (each factor contributes $\chi(\bP^1) = 2$), so $\kappa_{\mathrm{ch}} = \chi/2 = 2$ by the general local-surface formula (Remark~\ref{rem:toric-structural-patterns}).
 
 (ii) The intersection form on $H^2(\bP^1 \times \bP^1)$ in the basis $\{e_1, e_2\}$ is $\langle e_i, e_j \rangle = \delta_{ij}$ (the two rulings are orthogonal with self-intersection $0$ in the total space, but the relevant inner product for the shadow metric is the Euler pairing $\chi(e_i, e_j) = \delta_{ij}$).
 
@@ -302,7 +302,7 @@ For local $\bP^1 \times \bP^1$, the class depends on the sector: M along the sym
 \label{rem:toric-kappa-patterns}
 Three structural patterns emerge:
 \begin{enumerate}[label=(\roman*)]
- \item \emph{$\kappa_{\mathrm{ch}}$ from the compact base}: for local CY3 geometries $X = \mathrm{Tot}(K_S \to S)$ over a smooth projective surface $S$, the modular characteristic is $\kappa_{\mathrm{ch}} = \chi(S)/2$, giving $\kappa_{\mathrm{ch}}(\C^3) = 1$ (formal neighborhood of a point, $\chi = 2$), $\kappa_{\mathrm{ch}}(\text{conifold}) = 1$ ($\chi(\bP^1) = 2$), $\kappa_{\mathrm{ch}}(\text{local } \bP^2) = 3/2$ ($\chi(\bP^2) = 3$), $\kappa_{\mathrm{ch}}(\text{local } \bP^1 \times \bP^1) = 2$ ($\chi(\bP^1 \times \bP^1) = 4$). %: this is chi(S)/2, NOT c/2 of the Virasoro subalgebra.
+ \item \emph{$\kappa_{\mathrm{ch}}$ from the compact base}: for local CY3 geometries of the form $X = \mathrm{Tot}(K_S \to S)$ over a smooth projective surface $S$, the modular characteristic is $\kappa_{\mathrm{ch}} = \chi(S)/2$, giving $\kappa_{\mathrm{ch}}(\text{local } \bP^2) = 3/2$ ($\chi(\bP^2) = 3$) and $\kappa_{\mathrm{ch}}(\text{local } \bP^1 \times \bP^1) = 2$ ($\chi(\bP^1 \times \bP^1) = 4$). For geometries not of the form $\mathrm{Tot}(K_S)$, the value is computed from DT invariants directly: $\kappa_{\mathrm{ch}}(\C^3) = 1$ (from the MacMahon plethystic logarithm) and $\kappa_{\mathrm{ch}}(\text{conifold}) = 1$ (from the single compact curve class). Note: the conifold is $\mathrm{Tot}(\cO(-1)^{\oplus 2} \to \bP^1)$, which is \emph{not} $\mathrm{Tot}(K_{\bP^1}) = \mathrm{Tot}(\cO(-2) \to \bP^1)$, so the $\chi(S)/2$ formula does not apply to it directly. %: this is chi(S)/2, NOT c/2 of the Virasoro subalgebra.
  \item \emph{Shadow class from the quiver}: class G occurs when the quiver has a single nontrivial vertex (Jordan, KW) and class M occurs when the quiver has $\Z_N$-symmetry for $N \geq 3$ (McKay). The conifold, despite having two vertices, is class G because the Klebanov--Witten quiver has a $\Z_2$-symmetry that terminates the tower at degree $2$.
  \item \emph{Wall-crossing preserves $\kappa_{\mathrm{ch}}$}: the modular characteristic is chamber-independent (it depends only on the topology of the compact base, not on the stability parameter). This is a manifestation of the gauge invariance of Theorem~\ref{thm:wall-crossing-mc}.
 \end{enumerate}
