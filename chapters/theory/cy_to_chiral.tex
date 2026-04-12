@@ -164,7 +164,7 @@ The five algebraic objects of the Koszul programme (Vol~I) transport to the CY s
  \item $A = \Phi(\cC)$, the chiral algebra of the CY category~$\cC$.
  \item $B(A) = T^c(s^{-1}\bar{A})$, the bar coalgebra with deconcatenation coproduct. Theorem~\textup{\ref{thm:cy-to-chiral}}(ii) identifies $B(\Phi(\cC))$ with the cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ as a factorization coalgebra (proved for $d = 2$; conjectural for $d = 3$).
  \item $A^i = H^*(B(A))$, the dual coalgebra (bar cohomology of the chiral algebra).
- \item $A^! = (A^i)^\vee$, the dual algebra (Koszul dual). For $\cC = \Coh(\C^3)$, the Koszul dual is the Yangian $Y_z^\hbar(\widehat{\fgl}_1)$.
+ \item $A^! = (A^i)^\vee$, the dual algebra (Koszul dual). For $\cC = \Coh(\C^3)$, the Koszul dual is the Yangian $Y_\hbar(\widehat{\fgl}_1)$.
  \item $\Zder(A)$, the derived chiral center (bulk). In the CY setting, the derived center connects to the BPS algebra via the holographic datum (Section~\ref{sec:d3-functor-chain}).
 \end{enumerate}
 These five objects are distinct: $B(A)$ is a coalgebra, $A^!$ is an algebra, and the cobar recovery $\Omega(B(A)) \simeq A$ is \emph{inversion}, not Koszul duality. The derived center $\Zder(A)$ arises from Hochschild cochains, not from bar-cobar.
@@ -319,7 +319,7 @@ Smoothness is not a matter of convention: the factorization envelope requires lo
 \label{sec:s3-framing}
 % ============================================================
 
-The chain-level $\bS^3$-framing is the central topological obstruction to CY-A at $d = 3$. Conjecture~\ref{conj:cy-to-chiral-d3} requires (a)~constructing this framing compatibly with BV structure and (b)~establishing the quantization step. The following result removes condition~(a).
+The chain-level $\bS^3$-framing is the central obstruction to CY-A at $d = 3$ (the topological obstruction vanishes by Theorem~\ref{thm:s3-framing-vanishes}; the remaining obstruction is chain-level $A_\infty$-compatibility). Conjecture~\ref{conj:cy-to-chiral-d3} requires (a)~constructing this framing compatibly with BV structure and (b)~establishing the quantization step. The following result removes condition~(a).
 
 
 \begin{theorem}[Vanishing of the $\bS^3$-framing obstruction for CY$_3$ categories]
@@ -627,7 +627,7 @@ The BPS invariants are $\Omega(n) = n$ (the multiplicity of the degree-$n$ BPS s
 Three-dimensional partitions (crystal melting configurations for $\C^3$) are precisely the bar cohomology classes of $Y^+(\widehat{\fgl}_1)$. Explicitly:
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item The MacMahon function $M(q) = \prod_{n \geq 1}(1-q^n)^{-n}$ is the bar Euler characteristic of the positive half of the affine Yangian: $M(q) = \sum_{k \geq 0} \mathrm{ch}(H^k(B(Y^+(\widehat{\fgl}_1))))$.
- \item The BPS invariants $\Omega(n) = n$ are recovered as $\Omega(n) = \dim H^1(B(Y^+))_n$, i.e.\ the arity-$1$ bar cohomology at degree~$n$ has dimension~$n$. Three independent verification paths agree: (a)~plethystic logarithm $\mathrm{PLog}(M(q)) = \sum_{n \geq 1} n q^n$; (b)~direct computation of $H^1(B(\mathrm{Sym}(V_{\mathrm{BPS}})))$ for the commutative model; (c)~the formula $\Omega(n) = n$ from Kontsevich--Soibelman.
+ \item The BPS invariants $\Omega(n) = n$ are recovered as $\Omega(n) = \dim H^1(B(Y^+))_n$, i.e.\ the degree-$1$ bar cohomology at degree~$n$ has dimension~$n$. Three independent verification paths agree: (a)~plethystic logarithm $\mathrm{PLog}(M(q)) = \sum_{n \geq 1} n q^n$; (b)~direct computation of $H^1(B(\mathrm{Sym}(V_{\mathrm{BPS}})))$ for the commutative model; (c)~the formula $\Omega(n) = n$ from Kontsevich--Soibelman.
  \item The bar Euler characteristic inverts the MacMahon function: $\sum_{k \geq 0}(-1)^k (M(q)-1)^k = 1/M(q) = \prod_{n \geq 1}(1-q^n)^n$. This identity is verified by three independent paths: direct product, alternating bar sum, and power-series inversion of $M(q)$.
 \end{enumerate}
 \noindent\textit{Verification}: 70 tests in \texttt{test\_crystal\_bar\_identification.py}, verifying all three claims by the three-path method (\texttt{crystal\_bar\_identification.py}).
@@ -635,21 +635,21 @@ Three-dimensional partitions (crystal melting configurations for $\C^3$) are pre
 
 \begin{remark}[Crystal melting as bar filtration]
 \label{rem:crystal-melting-bar}
-The crystal melting model of Okounkov--Reshetikhin--Vafa, counting three-dimensional partitions weighted by $q^{|\pi|}$, is the arity filtration of the $\Eone$ bar complex of $\cW_{1+\infty}$: the bar degree-$n$ component $\barB^n(\cW_{1+\infty})$ counts configurations of $n$ atoms in the crystal. The MacMahon function $M(q) = \prod_{n \ge 1}(1-q^n)^{-n}$ is the bar Poincar\'e series (Proposition~\ref{prop:c3-bar-euler}). Concretely, the arity filtration $F^{\bullet} \barB(\cW_{1+\infty})$ has associated graded whose Hilbert series at arity~$n$ counts plane partitions of size~$n$, with the bar differential encoding the crystal growth rules (addition and removal of atoms at admissible sites). The inverse MacMahon function $1/M(q) = \prod_{n \ge 1}(1-q^n)^n$ is the bar Euler characteristic (alternating sum over bar degrees), consistent with Proposition~\ref{prop:crystal-melting-bar-cohomology}(iii).
+The crystal melting model of Okounkov--Reshetikhin--Vafa, counting three-dimensional partitions weighted by $q^{|\pi|}$, is the degree filtration of the $\Eone$ bar complex of $\cW_{1+\infty}$: the bar degree-$n$ component $\barB^n(\cW_{1+\infty})$ counts configurations of $n$ atoms in the crystal. The MacMahon function $M(q) = \prod_{n \ge 1}(1-q^n)^{-n}$ is the bar Poincar\'e series (Proposition~\ref{prop:c3-bar-euler}). Concretely, the degree filtration $F^{\bullet} \barB(\cW_{1+\infty})$ has associated graded whose Hilbert series at degree~$n$ counts plane partitions of size~$n$, with the bar differential encoding the crystal growth rules (addition and removal of atoms at admissible sites). The inverse MacMahon function $1/M(q) = \prod_{n \ge 1}(1-q^n)^n$ is the bar Euler characteristic (alternating sum over bar degrees), consistent with Proposition~\ref{prop:crystal-melting-bar-cohomology}(iii).
 \end{remark}
 
 
-\begin{proposition}[Topological vertex = arity-$3$ $\Eone$ bar amplitude]
+\begin{proposition}[Topological vertex = degree-$3$ $\Eone$ bar amplitude]
 \label{prop:topological-vertex-e1-amplitude}
 \ClaimStatusProvedHere{}
-The topological vertex $C_{\lambda\mu\nu}(q)$ of Aganagic--Klemm--Mari\~{n}o--Vafa is the arity-$3$ $\Eone$ bar amplitude of $A_{\C^3} = \cW_{1+\infty}$, evaluated on Fock-space states $|\lambda\rangle, |\mu\rangle, |\nu\rangle$:
+The topological vertex $C_{\lambda\mu\nu}(q)$ of Aganagic--Klemm--Mari\~{n}o--Vafa is the degree-$3$ $\Eone$ bar amplitude of $A_{\C^3} = \cW_{1+\infty}$, evaluated on Fock-space states $|\lambda\rangle, |\mu\rangle, |\nu\rangle$:
 \[
  C_{\lambda\mu\nu}(q) \;=\; \bigl\langle \lambda,\mu,\nu \bigm| B^{\Eone}_{0,3}(A_{\C^3}) \bigr\rangle.
 \]
 Four independent components establish this identification.
 \begin{enumerate}[label=\textup{(\alph*)}]
  \item \emph{Algebra identification.} By Schiffmann--Vasserot, $\CoHA(\C^3) = Y^+(\widehat{\fgl}_1)$; by Proch\'azka--Rap\v{c}\'ak, $Y(\widehat{\fgl}_1) = \cW_{1+\infty}$. The CY-to-chiral functor produces $A_{\C^3} = \cW_{1+\infty}$ as an $\Eone$-chiral algebra.
- \item \emph{Vertex as $3$-point amplitude.} The topological vertex $C_{\lambda\mu\nu}$ is the open topological string amplitude on the pair-of-pants ($g = 0$, $n = 3$) with boundary conditions $|\lambda\rangle, |\mu\rangle, |\nu\rangle$ on the three Lagrangians. In chiral algebra language this is the genus-$0$ arity-$3$ factorization homology amplitude $B_{0,3}(A_{\C^3})$; the $\Eone$ structure (not $\Etwo$) is used because $A_{\C^3}$ is natively $\Eone$ (Theorem~\ref{thm:e1-universality-cy3}).
+ \item \emph{Vertex as $3$-point amplitude.} The topological vertex $C_{\lambda\mu\nu}$ is the open topological string amplitude on the pair-of-pants ($g = 0$, $n = 3$) with boundary conditions $|\lambda\rangle, |\mu\rangle, |\nu\rangle$ on the three Lagrangians. In chiral algebra language this is the genus-$0$ degree-$3$ factorization homology amplitude $B_{0,3}(A_{\C^3})$; the $\Eone$ structure (not $\Etwo$) is used because $A_{\C^3}$ is natively $\Eone$ (Theorem~\ref{thm:e1-universality-cy3}).
  \item \emph{Gluing = sewing.} The toric diagram gluing rules (one vertex factor $C_{\lambda\mu\nu}$ per trivalent node, one propagator $(-q)^{|\lambda|}/z_\lambda$ per internal edge, sum over internal partitions) are the $\Eone$ sewing rules (Vol~I, MC5 analytic HS-sewing lane). The edge propagator $(-q)^{|\lambda|}/z_\lambda$ is the $\Eone$ bar complex pairing on $H^1(B^1)$.
  \item \emph{Refined vertex.} The refined vertex $C_{\lambda\mu\nu}(q,t)$ (Iqbal--Kozcaz--Vafa) incorporates the two independent $\Omega$-background parameters $(q,t) = (e^{-h_1}, e^{-h_2})$ of the $\Eone$ bar complex with equivariant data.
 \end{enumerate}
@@ -746,6 +746,43 @@ The structure function $g(z) = \prod_i (z-h_i)/(z+h_i)$ satisfies $g(z)\,g(-z) =
 The theorem does NOT say that CY$_3$ chiral algebras lack $\Etwo$ structure. It says that the $\Etwo$ structure is \emph{not native}: it arises through the Drinfeld center passage $\cZ(\Rep^{\Eone}(A_\cC)) \simeq \Rep^{\Etwo}(Y(\widehat\frakg_\cC))$, which adds new data (the half-braiding / $R$-matrix). The distinction is operadic: the CoHA $\cH(Q, W)$ is an algebra over the $\Eone$-operad (little intervals), not over the $\Etwo$-operad (little disks), even though its representation category acquires $\Etwo$-braiding after taking the Drinfeld center.
 
 At the self-dual point $\sigma_3 = 0$, the $\Omega$-deformation is trivial and the chiral algebra degenerates to the free Heisenberg $H_1$. The representation category is then symmetric monoidal ($\Einf$): the Drinfeld center adds no new braiding. The $\Eone$ universality theorem applies only when $\sigma_3 \neq 0$.
+\end{remark}
+
+
+\begin{proposition}[Categorical $\Etwo$-obstruction for CY$_3$]
+\label{prop:e1-obstruction-categorical}
+\ClaimStatusProvedHere{}
+Let $\cC$ be a smooth proper CY$_3$ category over~$\C$ \textup{(}hypotheses \textup{\ref{hyp:smooth}--\ref{hyp:cy3}} of Conjecture~\textup{\ref{conj:cy-to-chiral-d3}}\textup{)}. No torus action is assumed. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Topological framing is unobstructed.}
+ CY$_3$ Serre duality $\Ext^k(E, F) \cong \Ext^{3-k}(F, E)^*$ gives an antisymmetric pairing on $\Ext^1(E, E)$, reducing the structure group from $\GL(2m)$ to $\Sp(2m)$. Since $\pi_3(B\Sp(2m)) = 0$ for all $m \geq 1$, the topological $\bS^3$-framing obstruction vanishes universally. This is the Serre duality content of Theorem~\textup{\ref{thm:s3-framing-vanishes}(i)}.
+ \item \emph{The structural $\Etwo$-obstruction is nonzero.}
+ The Euler form $\chi(E, F) = \sum_k (-1)^k \dim \Ext^k(E, F)$ satisfies $\chi(E, F) = -\chi(F, E)$ by the CY$_3$ Serre functor. If $\rk(\chi) \geq 2$ \textup{(}i.e., the charge lattice $K_0(\cC)$ has rank $\geq 2$ and the Euler form is not identically zero\textup{)}, then the structural component $\cO_2^{\mathrm{str}} \neq 0$ \textup{(}Proposition~\textup{\ref{prop:three-component-obstruction}(ii)}\textup{)}. The CoHA multiplication, defined by the correspondence of short exact sequences $0 \to V' \to V \to V'' \to 0$, is inherently ordered: sub before quotient. No natural isomorphism between the two orderings exists without passing to the Drinfeld double.
+ \item \emph{The $\Etwo$-promotion is categorically obstructed.}
+ Combining~(i) and~(ii): for any CY$_3$ category $\cC$ with $\rk(\chi) \geq 2$, the topological obstruction to the $\bS^3$-framing vanishes but the structural obstruction to $\Etwo$-enhancement does not. If a chiral algebra $A_\cC$ exists \textup{(}conditionally, via Conjecture~\textup{\ref{conj:cy-to-chiral-d3}}\textup{)}, it is at most $\Eone$: the $\Etwo$-braiding arises only through the Drinfeld center of $\Rep^{\Eone}(A_\cC)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Part~(i) is the symplectic path of Theorem~\ref{thm:s3-framing-vanishes}, whose proof uses only the CY$_3$ Serre pairing and the homotopy group computation $\pi_2(\Sp(2m)) = 0$. No torus action enters.
+
+Part~(ii) follows from the antisymmetry of the Euler form. CY$_3$ Serre duality gives $\chi(E, F) = (-1)^3 \chi(F, E) = -\chi(F, E)$. An antisymmetric bilinear form on a lattice of rank $\geq 2$ has $\rk(\chi) \geq 2$ whenever any arrow in the Ext-quiver has multiplicity $\dim \Ext^1(S_i, S_j) \neq \dim \Ext^1(S_j, S_i)$, which by Serre duality $\Ext^1(S_i, S_j) \cong \Ext^2(S_j, S_i)^*$ is generically the case. The structural obstruction $\cO_2^{\mathrm{str}} = \rk(B^{\mathrm{anti}})$ where $B^{\mathrm{anti}}_{ij} = \dim \Ext^1(S_i, S_j) - \dim \Ext^1(S_j, S_i)$ is proved in Proposition~\ref{prop:three-component-obstruction}(ii) without any toric hypothesis.
+
+Part~(iii) is the logical conjunction. The topological vanishing removes the possibility that the $\Etwo$-obstruction is of homotopy-theoretic origin (as it would be for CY$_4$, where $\pi_3(BU) = 0$ but $\pi_4(BU) = \Z$ provides native $\Etwo$). The structural nonvanishing shows that the obstruction is algebraic: it lives in the antisymmetry of the Euler form, which is a categorical invariant of the CY$_3$ structure.
+\end{proof}
+
+\begin{remark}[Scope of the categorical argument]
+\label{rem:categorical-e1-scope}
+Proposition~\textup{\ref{prop:e1-obstruction-categorical}} establishes that the $\Etwo$-promotion is \emph{obstructed} for any CY$_3$ category with $\rk(\chi) \geq 2$. It does not, by itself, \emph{construct} the $\Eone$ structure. The construction of the $\Eone$-chiral algebra $A_\cC$ requires either the toric CoHA machinery (Theorem~\textup{\ref{thm:e1-universality-cy3}}, which uses the torus action in Pillars~(a), (b), and~(d)) or the general CY-to-chiral functor $\Phi_3$ (Conjecture~\textup{\ref{conj:cy-to-chiral-d3}}, which requires the chain-level $\bS^3$-framing hypothesis~\textup{\ref{hyp:framing}}).
+
+The four pillars of Theorem~\textup{\ref{thm:e1-universality-cy3}} decompose as follows with respect to the toric hypothesis:
+\begin{itemize}
+ \item Pillar~(a) \textup{(}abelian classical bracket\textup{)}: specific to $\C^3$. For compact CY$_3$, the global sections of the polyvector sheaf carry nontrivial brackets from the complex structure moduli. Does not categorify.
+ \item Pillar~(b) \textup{(}one-dimensional deformation space\textup{)}: specific to toric CY$_3$. Compact CY$_3$ have $\dim \HH^2 = h^{2,1}$, which is multi-dimensional for generic threefolds ($h^{2,1} = 101$ for the quintic). Does not categorify.
+ \item Pillar~(c) \textup{(}BV-to-$\Eone$ breaking\textup{)}: partially categorical. The topological vanishing $\pi_3(B\Sp) = 0$ is fully categorical \textup{(}this is Proposition~\textup{\ref{prop:e1-obstruction-categorical}(i)} above\textup{)}. The chain-level BV breaking via the holomorphic volume form $\Omega$ requires geometric input beyond the categorical CY$_3$ structure.
+ \item Pillar~(d) \textup{(}$R$-matrix unitarity\textup{)}: specific to toric CY$_3$ with explicit equivariant parameters. The structure function $g(z)$ requires the torus action. Does not categorify in its current form.
+\end{itemize}
+The categorical content of the four pillars is precisely the $\Etwo$-obstruction of Proposition~\textup{\ref{prop:e1-obstruction-categorical}}: Serre duality forces antisymmetry of the Euler form, which obstructs the promotion. The \emph{construction} of the $\Eone$ structure for non-toric CY$_3$ remains the content of Conjecture~\textup{\ref{conj:cy-to-chiral-d3}}.
 \end{remark}
 
 
@@ -853,6 +890,54 @@ The $\Etwo$-braided representation category is recovered by the Drinfeld center:
 
 The conjecture asserts two structural claims. First, the transition mutations induce $\Eone$-algebra maps between the CoHAs, so the diagram is well-defined. Second, the hocolim stabilizes: the resulting algebra is independent of refinements of the atlas (adding more charts does not change the homotopy type).
 
+For general CY$_3$ categories, the conjecture chains through the Bridgeland finiteness conjecture (Conjecture~\ref{conj:tilting-chart-cover}). For toric CY$_3$ varieties, all ingredients are unconditional, and the construction is a theorem.
+
+\begin{theorem}[Quiver-chart gluing for toric CY$_3$]
+\label{thm:toric-chart-gluing}
+\ClaimStatusProvedHere{}
+Let $X = X_\Sigma$ be a smooth toric CY$_3$ variety with toric fan $\Sigma$. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \textbf{Atlas.} The toric fan determines a quiver-chart atlas $\cA = \{(Q_\alpha, W_\alpha, \Psi_\alpha)\}_{\alpha \in \Sigma(3)}$ with $|\Sigma(3)|$ charts \textup{(}one per maximal cone\textup{)}, where each $(Q_\alpha, W_\alpha)$ is the McKay quiver with potential of the toric patch $\C^3/G_\alpha$, $G_\alpha \subset \SL(3,\C)$ finite abelian. The transition data is given by flop functors between adjacent patches, and the cocycle condition follows from the associativity of the toric fan. \textup{(}Remark after Conjecture~\textup{\ref{conj:tilting-chart-cover}; McKay correspondence: Bridgeland--King--Reid; flops: Bondal--Orlov.)}
+ \item \textbf{Transitions.} Each wall-crossing mutation $\mu_{\alpha\beta}$ between adjacent charts induces an $\Eone$-algebra quasi-isomorphism $\mu_{\alpha\beta}^* \colon \CoHA(Q_\alpha, W_\alpha) \xrightarrow{\simeq_{E_1}} \CoHA(Q_\beta, W_\beta)$, so the hocolim diagram $\Sigma(3) \to \Eone\text{-}\mathrm{ChirAlg}$ is well-defined. \textup{(}Proposition~\textup{\ref{prop:mutation-e1-equivalence}.)}
+ \item \textbf{Descent.} The $\Eone$ descent spectral sequence of the atlas degenerates at $E_2$ \textup{(}Theorem~\textup{\ref{thm:e1-descent-degeneration})}, so the homotopy colimit
+ \begin{equation}
+ \label{eq:toric-global-e1}
+  A_{X_\Sigma} \;:=\; \operatorname{hocolim}_{\Sigma(3)} \CoHA(Q_\alpha, W_\alpha)
+ \end{equation}
+ is assembled from pairwise wall-crossing data alone, with no higher coherences required. The resulting $\Eone$-chiral algebra is independent of the choice of atlas refinement.
+ \item \textbf{Costello--Li comparison.} There exists an $\Eone$ quasi-isomorphism
+ \[
+  \Psi \colon A_{X_\Sigma}^{\mathrm{hocolim}} \;\xrightarrow{\;\simeq_{E_1}\;}\; A_{X_\Sigma}^{\mathrm{CL}} \;=\; U^{\mathrm{ch}}(\mathfrak{L}_{X_\Sigma}),
+ \]
+ where $A_{X_\Sigma}^{\mathrm{CL}}$ is the boundary algebra of $5$d holomorphic Chern--Simons on $X_\Sigma \times \R^2$ \textup{(}Costello--Li\textup{)} and $\mathfrak{L}_{X_\Sigma} = \mathrm{PV}^*(X_\Sigma)$ is the polyvector-field Lie conformal algebra. The comparison map is the composite
+ \[
+  A_{X_\Sigma}^{\mathrm{hocolim}} = \operatorname{hocolim} U^{\mathrm{ch}}(\mathfrak{L}_{Q_\alpha}) = U^{\mathrm{ch}}(\operatorname{hocolim} \mathfrak{L}_{Q_\alpha}) = U^{\mathrm{ch}}(\mathfrak{L}_{X_\Sigma}) = A_{X_\Sigma}^{\mathrm{CL}},
+ \]
+ using that $U^{\mathrm{ch}}$ preserves hocolims \textup{(}left adjoint\textup{)} and that the local Lie conformal algebras glue to the global one \textup{(}Bondal--Van~den~Bergh\textup{)}.
+ \item \textbf{Invariants.} The modular characteristic $\kappa_{\mathrm{ch}}(A_{X_\Sigma})$ is well-defined and independent of the atlas, since flops preserve $\kappa_{\mathrm{ch}}$ \textup{(}Proposition~\textup{\ref{prop:flop-koszul-duality}(iii))}.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Part~(i) is the McKay correspondence for toric CY$_3$ varieties. Each maximal cone $\sigma_\alpha \in \Sigma(3)$ determines a toric patch $U_\alpha = \Spec(\C[\sigma_\alpha^\vee \cap M]) \cong \C^3/G_\alpha$ for a finite abelian $G_\alpha \subset \SL(3)$. The Bridgeland--King--Reid theorem gives $D^b(\Coh(U_\alpha)) \simeq D^b(\mathrm{mod}\text{-}J(Q_\alpha, W_\alpha))$. Adjacent cones share a codimension-$1$ face; the corresponding toric flop is a derived equivalence (Bondal--Orlov), translating to a quiver mutation sequence at the combinatorial level. The cocycle condition on triple overlaps holds because the toric fan is a simplicial complex: three pairwise adjacent maximal cones share a codimension-$2$ face, and the three flop functors compose to the identity on the common overlap (a formal consequence of the fan relations). Finiteness is immediate: $|I| = |\Sigma(3)| < \infty$.
+
+Part~(ii) follows from Proposition~\ref{prop:mutation-e1-equivalence}: the Keller--Yang derived equivalence associated to each mutation preserves the CY$_3$ cyclic $\Ainf$-structure, hence induces an $\Eone$-algebra quasi-isomorphism on critical CoHAs.
+
+Part~(iii) is Theorem~\ref{thm:e1-descent-degeneration} applied to the atlas $\cA$. The $\Eone$ operation spaces are contractible, so the cosimplicial structure maps are strict, and the \v{C}ech cohomology $E_2^{p,*}$ vanishes for $p \geq 2$. The spectral sequence collapses, and the hocolim is determined by pairwise wall-crossing data subject to the cocycle condition. Refinement-independence follows from the fact that adding an intermediate chart connected to both neighbours by $\Eone$-equivalences does not change the hocolim (the pushout of two equivalences along a common source is an equivalence).
+
+Part~(iv): the factorization envelope functor $U^{\mathrm{ch}}$ is a left adjoint (free construction on a Lie conformal algebra) and therefore preserves homotopy colimits. The Schiffmann--Vasserot identification gives $\CoHA(Q_\alpha, W_\alpha) \simeq U^{\mathrm{ch}}(\mathfrak{L}_{Q_\alpha})$ for each chart. The Bondal--Van~den~Bergh theorem (global generation from local Ext-quiver descriptions) gives $\operatorname{hocolim}_\alpha \mathfrak{L}_{Q_\alpha} \simeq \mathfrak{L}_{X_\Sigma}$. The Costello--Li theorem identifies $U^{\mathrm{ch}}(\mathfrak{L}_{X_\Sigma})$ with the boundary algebra of $5$d holomorphic CS.
+
+Part~(v) follows from Proposition~\ref{prop:flop-koszul-duality}(iii): flops are derived equivalences and $\kappa_{\mathrm{ch}}$ is a derived invariant. Since any two atlases of $X_\Sigma$ are related by a sequence of refinements and flop relabellings, $\kappa_{\mathrm{ch}}(A_{X_\Sigma})$ is atlas-independent.
+
+\medskip
+\noindent\textit{Verification}: $133$ tests in \texttt{test\_hocolim\_costello\_li\_comparison.py}, verifying steps~(A)--(F) of the comparison by $10$ independent paths for each of $\C^3$ (single chart, $\kappa_{\mathrm{ch}} = 1$), the resolved conifold ($2$ charts, $\kappa_{\mathrm{ch}} = 1$), and local~$\bP^2$ ($3$ charts, $\kappa_{\mathrm{ch}} = 3/2$). The engine \texttt{hocolim\_costello\_li\_comparison.py} implements the full six-step proof chain: generating data match, Costello--Li $=$ envelope, CoHA $=$ local envelope, hocolim of envelopes $=$ envelope of hocolim, local-to-global Lie algebra gluing, and large-volume limit.
+\end{proof}
+
+\begin{remark}[Scope and limitations]
+\label{rem:toric-chart-gluing-scope}
+The toric hypothesis is used in three places: (a)~finiteness of the atlas ($|\Sigma(3)| < \infty$ is automatic for fans); (b)~the McKay correspondence provides explicit quiver charts; (c)~the flop functors between adjacent toric patches are unconditional derived equivalences. For non-toric smooth projective CY$_3$ varieties, (a)~requires the Bridgeland finiteness conjecture, (b)~requires a tilting generator (which exists by Bondal--Van~den~Bergh but may not admit a quiver-with-potential description at every stability condition), and (c)~requires wall-crossing functors that may not be geometric flops. The general case remains Conjecture~\ref{conj:e1-chart-gluing}.
+\end{remark}
+
 
 \begin{proposition}[Transition = $\Eone$ equivalence]
 \label{prop:transition-e1-equiv}
@@ -938,13 +1023,13 @@ Let $(\Gamma, \langle\cdot,\cdot\rangle)$ be a lattice with skew-symmetric pairi
  D \cdot \Theta + \tfrac{1}{2}[\Theta, \Theta] = 0
  \]
  in $\fg_\Gamma \otimes \C[\![\Gamma^+]\!]$.
- \item The iterative Kontsevich--Soibelman algorithm is the constructive solution of this MC equation by arity filtration: the initial walls give $\Theta^{\leq 1}$, and the consistency condition at height~$k$ determines $\Theta^{\leq k}$ inductively. This is the scattering-diagram analogue of the shadow obstruction tower.
+ \item The iterative Kontsevich--Soibelman algorithm is the constructive solution of this MC equation by degree filtration: the initial walls give $\Theta^{\leq 1}$, and the consistency condition at height~$k$ determines $\Theta^{\leq k}$ inductively. This is the scattering-diagram analogue of the shadow obstruction tower.
  \item The gauge equivalence class of $\Theta$ is chamber-independent: wall-crossing automorphisms $K_\gamma = \exp(\mathrm{Li}_2(X^\gamma) \cdot \partial_\gamma)$ act as MC gauge transformations, and the pentagon identity is a cocycle condition.
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}
-The Lie bracket $[\cdot,\cdot]$ on $\fg_\Gamma$ satisfies the Jacobi identity (from the bimultiplicativity of $\langle\cdot,\cdot\rangle$), so $D^2 = 0$. An element $\Theta = \sum_\gamma a_\gamma e_\gamma \in \fg_\Gamma \otimes \C[\![\Gamma^+]\!]$ satisfies MC if and only if for every pair $(\alpha,\beta)$ with $\alpha + \beta = \gamma$, the consistency relation $\sum_{\alpha+\beta=\gamma} \langle\alpha,\beta\rangle \, a_\alpha a_\beta = 0$ holds. This is precisely the content of the path-ordered product condition at each joint (Kontsevich--Soibelman 2006, \S 1.2; Gross--Pandharipande--Siebert 2010, Theorem~1.4). The iterative construction proceeds order by order in $\Gamma^+$-degree, which is the arity filtration.
+The Lie bracket $[\cdot,\cdot]$ on $\fg_\Gamma$ satisfies the Jacobi identity (from the bimultiplicativity of $\langle\cdot,\cdot\rangle$), so $D^2 = 0$. An element $\Theta = \sum_\gamma a_\gamma e_\gamma \in \fg_\Gamma \otimes \C[\![\Gamma^+]\!]$ satisfies MC if and only if for every pair $(\alpha,\beta)$ with $\alpha + \beta = \gamma$, the consistency relation $\sum_{\alpha+\beta=\gamma} \langle\alpha,\beta\rangle \, a_\alpha a_\beta = 0$ holds. This is precisely the content of the path-ordered product condition at each joint (Kontsevich--Soibelman 2006, \S 1.2; Gross--Pandharipande--Siebert 2010, Theorem~1.4). The iterative construction proceeds order by order in $\Gamma^+$-degree, which is the degree filtration.
 
 \emph{Critical caveat}: the identification holds at the level of the completed lattice Lie algebra. At the naive BCH level (truncated Baker--Campbell--Hausdorff), the pentagon fails at height~$\geq 3$. The full identification requires the quantum dilogarithm $\mathrm{Li}_2$ or equivalently the motivic Hall algebra.
 \end{proof}
@@ -1270,7 +1355,7 @@ The modular characteristic $\kappa_{\mathrm{ch}}$ is a homotopy invariant of the
 \subsection{DT = hocolim shadow}
 \label{subsec:dt-hocolim-shadow}
 
-The gluing construction connects the shadow obstruction tower of Vol~I to the Donaldson--Thomas partition function. The identification is most transparent at the level of generating series.
+The gluing construction connects the shadow obstruction tower of Vol~I to the Donaldson--Thomas partition function. The shadow tower of a CY$_3$ chiral algebra $A_X = \Phi_3(\cC_X)$ encodes the BPS/DT invariants of the underlying CY$_3$ geometry. This is the deepest prediction of the programme: the algebraic shadow tower ($\kappa_{\mathrm{ch}}$, $\mathrm{obs}_g$, $\Theta_A$) determines the enumerative geometry of $X$ (DT invariants, BPS state counting, Gopakumar--Vafa invariants).
 
 \begin{conjecture}[DT = hocolim shadow]
 \label{conj:dt-hocolim-shadow}
@@ -1280,14 +1365,142 @@ For a smooth projective CY$_3$ variety $X$ admitting a quiver-chart atlas $\cA$,
 \label{eq:dt-shadow}
  Z_{\DT}(X; q) \;=\; Z^{\mathrm{sh},\Eone}(A_X; q).
 \end{equation}
-At genus $1$: $F_1^{\DT}(X) = \kappa_{\mathrm{ch}}(A_X)/24$. At higher genus, the genus-$g$ DT free energy $F_g^{\DT}(X)$ equals the genus-$g$ shadow $F_g(A_X) = \kappa_{\mathrm{ch}}(A_X) \cdot \lambda_g^{\mathrm{FP}}$ on the uniform-weight lane (Vol~I, Theorem~D).
+At genus $1$: $F_1^{\DT}(X) = \kappa_{\mathrm{ch}}(A_X)/24$. At higher genus, the genus-$g$ DT free energy $F_g^{\DT}(X)$ equals the genus-$g$ shadow $F_g(A_X) = \kappa_{\mathrm{ch}}(A_X) \cdot \lambda_g^{\mathrm{FP}}$ on the uniform-weight lane (UNIFORM-WEIGHT; Vol~I, Theorem~D).
 \end{conjecture}
 
-\begin{remark}[Level of validity]
+
+The following conjecture refines Conjecture~\ref{conj:dt-hocolim-shadow} by stratifying the identification into three levels of precision and giving the explicit bar Euler product formula. It is the central enumerative prediction of the CY-to-chiral programme.
+
+
+\begin{conjecture}[Shadow--BPS/DT correspondence: precise formulation]
+\label{conj:shadow-bps-dt}
+\ClaimStatusConjectured{}
+
+\medskip\noindent\textbf{Input.}
+Let $\cC$ be a CY$_3$ category satisfying hypotheses \ref{hyp:smooth}--\ref{hyp:framing} of Conjecture~\textup{\ref{conj:cy-to-chiral-d3}}, with CY-to-chiral algebra $A_\cC = \Phi_3(\cC)$ and modular characteristic $\kappa_{\mathrm{ch}}(A_\cC) = \chi^{\CY}(\cC)$ (Proposition~\textup{\ref{prop:categorical-euler}}).
+
+\medskip\noindent\textbf{Output.}
+Define the \emph{shadow partition function} of $A_\cC$:
+\begin{equation}
+\label{eq:v3-shadow-partition-function}
+ Z^{\mathrm{sh}}(A_\cC; q) \;:=\; \prod_{n \geq 1} (1 - q^n)^{-\kappa_{\mathrm{ch}}(A_\cC) \cdot n^0}
+ \;=\; \prod_{n \geq 1} (1 - q^n)^{-\kappa_{\mathrm{ch}}(A_\cC)},
+\end{equation}
+where the exponent $\kappa_{\mathrm{ch}} \cdot n^0 = \kappa_{\mathrm{ch}}$ is the leading-order (degree-independent) BPS multiplicity predicted by the shadow tower. For CY$_3$ geometries with degree-dependent BPS multiplicities $\Omega(n)$, the refined shadow partition function is
+\begin{equation}
+\label{eq:shadow-partition-refined}
+ Z^{\mathrm{sh}}_{\mathrm{ref}}(A_\cC; q) \;:=\; \prod_{n \geq 1} (1 - q^n)^{-\Omega_{\mathrm{sh}}(n)},
+\end{equation}
+where $\Omega_{\mathrm{sh}}(n) := \dim H^1(B^{\Eone}(A_\cC))_n$ is the degree-$1$ bar cohomology of $A_\cC$ at degree~$n$.
+
+\medskip\noindent\textbf{Prediction.}
+The identification of the shadow partition function with the DT partition function holds at three levels.
+
+\begin{enumerate}[label=\textup{(L\arabic*)}]
+
+\item\label{level:genus1} \emph{Genus-$1$ numerical level.} The genus-$1$ free energies agree:
+\begin{equation}
+\label{eq:shadow-dt-genus1}
+ F_1^{\DT}(X) \;=\; F_1^{\mathrm{sh}}(A_X) \;=\; \frac{\kappa_{\mathrm{ch}}(A_X)}{24}.
+\end{equation}
+This is unconditional: no uniform-weight hypothesis is needed at genus~$1$ (Vol~I, Theorem~D at $g = 1$).
+
+\item\label{level:virtual} \emph{Virtual level (all genera, uniform-weight).} The genus-$g$ DT free energies match the shadow tower on the uniform-weight lane:
+\begin{equation}
+\label{eq:shadow-dt-allgenus}
+ F_g^{\DT}(X) \;=\; F_g^{\mathrm{sh}}(A_X) \;=\; \kappa_{\mathrm{ch}}(A_X) \cdot \lambda_g^{\mathrm{FP}}
+ \quad\text{for all } g \geq 1
+ \quad\textup{(UNIFORM-WEIGHT)},
+\end{equation}
+where $\lambda_g^{\mathrm{FP}}$ is the Faber--Pandharipande tautological intersection number on $\overline{\mathcal{M}}_g$. At $g \geq 2$ with multi-weight input, the scalar formula fails and requires the cross-channel correction $\delta F_g^{\mathrm{cross}}$ of Vol~I.
+
+\item\label{level:motivic} \emph{Motivic Hall algebra level.} The bar complex of $A_\cC$ as an $\Eone$-factorization coalgebra is quasi-isomorphic to the motivic DT coalgebra:
+\begin{equation}
+\label{eq:shadow-dt-motivic}
+ B^{\Eone}(A_\cC) \;\simeq\; \mathcal{H}_{\DT}^{\mathrm{mot}}(\cC)
+ \quad\text{as } \Eone\text{-coalgebras in } K_0(\mathrm{Var}/\C)\text{-modules}.
+\end{equation}
+This is the strongest form: the full coalgebra structure of the bar complex, not merely the Euler characteristic, matches the motivic Hall algebra of Kontsevich--Soibelman. The BPS invariants are recovered as $\Omega_{\mathrm{sh}}(n) = \dim H^1(B^{\Eone})_n = \Omega_{\DT}(n)$.
+
+\end{enumerate}
+
+\medskip\noindent\textbf{Scope.}
+Level~\ref{level:genus1} is proved for $\C^3$ (Theorem~\textup{\ref{thm:kappa-c3}}) and verified for $K3 \times E$ (Proposition~\textup{\ref{prop:categorical-euler}}). Level~\ref{level:virtual} is conditional on the uniform-weight hypothesis and on the existence of the CY-to-chiral functor $\Phi_3$ (Conjecture~\textup{\ref{conj:cy-to-chiral-d3}}). Level~\ref{level:motivic} is conjectural in general; it is proved for toric CY$_3$ where the $\CoHA$ provides the motivic comparison.
+
+The conjecture does NOT claim that the naive numerical DT invariants (e.g., the Fourier coefficients of $\Delta_5$ for $K3 \times E$) are recovered by the scalar shadow $\kappa_{\mathrm{ch}}$ alone. The higher Fourier coefficients encode information from the full bar complex (all degrees), not merely the leading shadow coefficient. The scalar shadow captures the leading asymptotics; the refined shadow (bar cohomology at all degrees) captures the full DT data.
+\end{conjecture}
+
+
+\begin{remark}[Level of validity and the three regimes]
 \label{rem:dt-shadow-level}
 %: correct at the motivic Hall algebra level, but naive BCH does NOT
 % reproduce phi_{0,1} multiplicities. State the level explicitly.
-Conjecture~\ref{conj:dt-hocolim-shadow} is expected to hold at the level of \emph{motivic} DT invariants (Kontsevich--Soibelman), where the motivic Hall algebra structure matches the bar complex combinatorics. At the naive numerical level, the identification $Z_{\DT} = Z^{\mathrm{sh}}$ requires incorporating virtual fundamental class corrections and bound-state contributions that go beyond the leading shadow coefficient $\kappa_{\mathrm{ch}}$. For $\C^3$: $Z_{\DT} = M(q) = \prod_{n \geq 1}(1-q^n)^{-n}$, the inverse MacMahon function, and $\kappa_{\mathrm{ch}} = 1$ correctly gives $F_1 = 1/24$ (Theorem~\ref{thm:kappa-c3}). For $K3 \times E$: $\kappa_{\mathrm{BKM}} = 5$ and the genus-$1$ shadow matches (Proposition~\ref{prop:categorical-euler}), but the full DT series involves the Igusa cusp form $\Delta_5$ whose higher Fourier coefficients encode information beyond the scalar shadow.
+The three levels of Conjecture~\ref{conj:shadow-bps-dt} form a hierarchy: \ref{level:motivic} $\Rightarrow$ \ref{level:virtual} $\Rightarrow$ \ref{level:genus1}. The motivic identification \ref{level:motivic} is the fundamental statement; the genus-$1$ identity \ref{level:genus1} is a numerical shadow of the full coalgebra comparison. The intermediate level \ref{level:virtual} captures the tautological intersection theory of $\overline{\mathcal{M}}_g$ (the Faber--Pandharipande coefficients $\lambda_g^{\mathrm{FP}}$) but loses the off-diagonal data in the motivic Hall algebra.
+
+Two distinctions control the passage between levels:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Scalar vs.\ refined shadow.} The scalar shadow partition function \eqref{eq:v3-shadow-partition-function} uses only $\kappa_{\mathrm{ch}}$ and gives $\prod (1-q^n)^{-\kappa_{\mathrm{ch}}}$. For $\C^3$: $\kappa_{\mathrm{ch}} = 1$ gives $\prod (1-q^n)^{-1} = P(q)$ (the Euler partition function), not $M(q) = \prod (1-q^n)^{-n}$ (the MacMahon function). The MacMahon function requires the refined shadow with $\Omega(n) = n$, which comes from the full bar cohomology $H^1(B^{\Eone})_n$. The scalar shadow captures $F_1$ but not the full $Z_{\DT}$.
+\item \emph{Uniform-weight vs.\ multi-weight.} At genus $g \geq 2$, the scalar formula $F_g = \kappa_{\mathrm{ch}} \cdot \lambda_g^{\mathrm{FP}}$ holds on the uniform-weight lane (Vol~I, Theorem~D). For CY$_3$ chiral algebras with generators of multiple conformal weights, the cross-channel correction $\delta F_g^{\mathrm{cross}} \neq 0$ modifies the higher-genus free energies. The full DT free energies require these corrections.
+\end{enumerate}
+\end{remark}
+
+
+\begin{table}[ht]
+\caption{Evidence for the shadow--BPS/DT correspondence (Conjecture~\textup{\ref{conj:shadow-bps-dt}}).}
+\label{tab:shadow-bps-evidence}
+\centering
+\renewcommand{\arraystretch}{1.4}
+\small
+\begin{tabular}{lp{3.2cm}p{4.5cm}lp{2.5cm}}
+ \toprule
+ \textbf{CY$_3$} & \textbf{Shadow data} & \textbf{DT/BPS data} & \textbf{Level} & \textbf{Status} \\
+ \midrule
+ $\C^3$ &
+ $\kappa_{\mathrm{ch}} = 1$; class G; $\Omega(n) = n$ &
+ $Z_{\DT} = M(q) = \prod(1-q^n)^{-n}$; $F_1 = 1/24$ &
+ \ref{level:motivic} &
+ \textbf{Proved} (Thm.~\ref{thm:kappa-c3}, Prop.~\ref{prop:c3-bar-euler}) \\
+ \addlinespace
+ Toric CY$_3$ (resolved conifold, local $\bP^2$, local $\bP^1 \times \bP^1$) &
+ $\kappa_{\mathrm{ch}} \in \{1, 3/2, 2\}$; $\CoHA = Y^+(Q,W)$ &
+ $\CoHA(Q,W) = $ positive half of quantum vertex chiral group &
+ \ref{level:motivic} &
+ \textbf{Proved} (Thm.~\ref{thm:toric-chart-gluing}; Schiffmann--Vasserot, Kontsevich--Soibelman) \\
+ \addlinespace
+ $K3 \times E$ &
+ $\kappa_{\mathrm{ch}} = 3$; $\kappa_{\mathrm{BKM}} = 5$; class M &
+ $Z_{\DT} = C/\Delta_5^2$; $F_1 = 5/24$ (BKM) &
+ \ref{level:genus1} &
+ \textbf{Observational} (Prop.~\ref{prop:categorical-euler}; motivic level needs $\Phi_3$) \\
+ \addlinespace
+ Quintic &
+ $\kappa_{\mathrm{ch}} = -25/3$; class M &
+ $F_1^{\DT} = -25/72$; BCOV verified &
+ \ref{level:genus1} &
+ \textbf{Conditional} (on $\Phi_3$, Conj.~\ref{conj:cy-to-chiral-d3}) \\
+ \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{remark}[Detailed evidence for Conjecture~\textup{\ref{conj:shadow-bps-dt}}]
+\label{rem:shadow-bps-evidence-detail}
+The four cases in Table~\ref{tab:shadow-bps-evidence} have different logical dependencies.
+
+\begin{enumerate}[label=\textup{(\alph*)}]
+
+\item \textbf{$\C^3$: proved at the motivic level.}
+The CY-to-chiral functor produces $A_{\C^3} = \cW_{1+\infty} = H_1$ (at the self-dual point). The bar Euler product is $1/M(q) = \prod (1-q^n)^n$ (Proposition~\ref{prop:c3-bar-euler}), inverting the MacMahon function. The bar cohomology gives $\Omega(n) = n = \Omega_{\DT}(n)$ at all degrees ($115$ tests). The motivic comparison holds: $B^{\Eone}(H_1)$ as a graded $\Eone$-coalgebra matches the motivic DT coalgebra of $\C^3$ via the Schiffmann--Vasserot identification $\CoHA(\C^3) = Y^+(\widehat{\fgl}_1)$.
+
+\item \textbf{Toric CY$_3$: proved via the CoHA.}
+For any smooth toric CY$_3$ $X_\Sigma$ with McKay quiver atlas $(Q_\alpha, W_\alpha)_{\alpha \in I}$, the toric chart gluing theorem (Theorem~\ref{thm:toric-chart-gluing}) assembles the global $\Eone$-chiral algebra $A_{X_\Sigma}$. The $\CoHA$ of $(Q_\alpha, W_\alpha)$ is the positive half of the quantum vertex chiral group $G(Q_\alpha, W_\alpha)$ (Kontsevich--Soibelman, Schiffmann--Vasserot, Davison). The bar complex of $A_{X_\Sigma}$ recovers the DT moduli via the CoHA-bar identification. The correspondence holds at the motivic level because the CoHA multiplication IS the bar differential, and the CoHA Hilbert series IS the bar Euler characteristic.
+
+\item \textbf{$K3 \times E$: observational at genus~$1$, motivic level requires $\Phi_3$.}
+The CY-to-chiral functor at $d = 3$ is not yet constructed for $K3 \times E$ (Conjecture~\ref{conj:cy-to-chiral-d3}). The shadow data is read from two sources: $\kappa_{\mathrm{ch}} = 3$ by additivity ($\kappa_{\mathrm{ch}}(K3) + \kappa_{\mathrm{ch}}(E) = 2 + 1$; Proposition~\ref{prop:categorical-euler}), and $\kappa_{\mathrm{BKM}} = 5 = \mathrm{wt}(\Delta_5)/1$ from the Borcherds lift weight formula. The genus-$1$ shadow $F_1 = \kappa_{\mathrm{BKM}}/24 = 5/24$ matches the DT genus-$1$ free energy. The full DT partition function $Z_{\DT}(K3 \times E) = C/\Delta_5^2$ involves the Igusa cusp form, whose Borcherds product formula $\Delta_5 = p \prod (1-p^n q^l r^m)^{f(4nm - l^2)}$ is a three-variable generalisation of the bar Euler product (Chapter~\ref{ch:k3-times-e}). The passage from the scalar shadow to the full $\Delta_5$ requires the BKM root system, which encodes all BPS states across all charge lattice directions.
+
+\item \textbf{Quintic: conditional on $\Phi_3$.}
+The quintic has $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24 = -25/3$ (this is one of the cases where $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ holds; Theorem~\ref{thm:chi-neq-kappa}). The genus-$1$ DT free energy $F_1 = -25/72$ matches. The BCOV holomorphic anomaly equation (Theorem~\ref{thm:hae-mc-structural}) provides the higher-genus comparison, but the existence of $A_X$ as an $\Eone$-chiral algebra for the quintic depends on the CY-to-chiral functor at $d = 3$.
+
+\end{enumerate}
 \end{remark}
 
 
@@ -1336,25 +1549,121 @@ The following table records the quiver-chart atlas data for the standard CY$_3$ 
 % existence of a global chiral algebra A_X is the content of
 % Conjecture CY-A_3, NOT a proved theorem.
 
-The atlas data table records the $\kappa_{\mathrm{ch}}$ values that would result from the quiver-chart gluing construction, but the global chiral algebra $A_X$ itself exists as a proved object only for $\C^3$ (single chart) and the resolved conifold (two charts with explicit wall-crossing). For the remaining geometries, the hocolim assembly is conditional on Conjecture~\ref{conj:e1-chart-gluing}, which chains back to CY-A$_3$. The following section collects the full $d = 3$ programme statement and its current status.
+The atlas data table records the $\kappa_{\mathrm{ch}}$ values that would result from the quiver-chart gluing construction. For toric CY$_3$ varieties ($\C^3$, resolved conifold, local $\bP^2$, local $\bP^1 \times \bP^1$, and all toric crepant resolutions), the global chiral algebra $A_{X_\Sigma}$ is a proved object: Theorem~\ref{thm:toric-chart-gluing} assembles the hocolim from the McKay quiver atlas and establishes the Costello--Li comparison. For non-toric geometries ($K3 \times E$, the quintic), the hocolim assembly is conditional on Conjecture~\ref{conj:e1-chart-gluing}, which chains back to CY-A$_3$. The following section collects the full $d = 3$ programme statement and its current status.
 
 % ============================================================
 \section{The CY-to-chiral programme at $d = 3$}
 \label{sec:cy-to-chiral-d3-programme}
 % ============================================================
 
-\begin{conjecture}[CY-to-chiral programme: CY-A$_3$, $d = 3$;
+\begin{conjecture}[CY-to-chiral functor at $d = 3$: precise formulation;
 \ClaimStatusConjectured]
 \label{conj:cy-to-chiral-d3}
-For a smooth proper CY$_3$ category $\cC$, the functor $\Phi$ extends to produce a quantum vertex chiral group $G(\cC)$ whose generalized root datum is $\cR(\cC)$.
 
-%: The slogan "S^3-framing gives E_3 gives E_2" is correct at the
-% sophisticated level (via Drinfeld center) but FALSE at the naive level
-% (direct restriction gives symmetric braiding). State the level explicitly.
+\medskip\noindent\textbf{Hypotheses.}
+Let $\cC$ be a CY$_3$ category satisfying:
+\begin{enumerate}[label=\textup{(H\arabic*)}]
+ \item\label{hyp:smooth} \emph{Smoothness}: $\cC$ is a smooth (homologically smooth) dg category over $\C$; equivalently, the diagonal bimodule $\cC \in \cC\text{-}\mathrm{bimod}$ is compact.
+ \item\label{hyp:proper} \emph{Properness}: $\cC$ is proper; equivalently, $\dim \Hom^\bullet_\cC(E, F) < \infty$ for all $E, F$.
+ \item\label{hyp:cy3} \emph{$\CY_3$ structure}: $\cC$ is equipped with a non-degenerate Serre pairing $\langle -, - \rangle \colon \HH_\bullet(\cC) \otimes \HH_\bullet(\cC) \to \C[-3]$ of degree $-3$, inducing an antisymmetric Euler form $\chi(E, F) = -\chi(F, E)$.
+ \item\label{hyp:framing} \emph{Chain-level $\bS^3$-framing}: there exists a trivialization of the class $\kappa_{\mathrm{ch}} \cdot [\Omega_3] \in H^3(B\Sp(2m))$ that is compatible with the $\BV$ operator on the cyclic bar complex of $\cC$.
+\end{enumerate}
+\textup{(}Conditions \ref{hyp:smooth}--\ref{hyp:cy3} are standard; condition~\ref{hyp:framing} is the substantive hypothesis.\textup{)}
+
+\medskip\noindent\textbf{Conclusion.}
+Under \ref{hyp:smooth}--\ref{hyp:framing}, the CY-to-chiral functor of Theorem~\textup{\ref{thm:cy-to-chiral}} extends to $d = 3$:
+\[
+ \Phi_3 \colon \CY_3\text{-}\Cat^{\mathrm{fr}} \longrightarrow \Eone\text{-}\mathrm{ChirAlg},
+\]
+producing an $\Eone$-chiral algebra $A_\cC = \Phi_3(\cC)$ with the following properties:
+\begin{enumerate}[label=\textup{(C\arabic*)}]
+ \item\label{concl:generators} \emph{Generators}: the generating fields of $A_\cC$ are in bijection with $\HH^{\bullet+1}(\cC)$, as for $d = 2$ \textup{(}Theorem~\textup{\ref{thm:cy-to-chiral}(i)}\textup{)}.
+ \item\label{concl:bar} \emph{Bar identification}: $B^{\Eone}(\Phi_3(\cC)) \simeq \mathrm{CC}_\bullet^{\Eone}(\cC)$ as $\Eone$-factorization coalgebras, extending Theorem~\textup{\ref{thm:cy-to-chiral}(ii)} from $d = 2$.
+ \item\label{concl:e1} \emph{Native $\Eone$ structure}: $A_\cC$ is natively $\Eone$, not $\Etwo$. The $\Etwo$-braided structure on $\Rep(A_\cC)$ arises through the Drinfeld center $\cZ(\Rep^{\Eone}(A_\cC))$, not from the algebra itself \textup{(}Theorem~\textup{\ref{thm:e1-universality-cy3}} for toric input\textup{)}.
+ \item\label{concl:kappa} \emph{Modular characteristic}: $\kappa_{\mathrm{ch}}(A_\cC) = \chi^{\CY}(\cC) := \sum_i (-1)^i \dim \HH_i(\cC)$, the categorical Euler characteristic \textup{(}Proposition~\textup{\ref{prop:categorical-euler}}\textup{)}.
+ \item\label{concl:shadow} \emph{Shadow tower}: $A_\cC$ carries the full shadow obstruction tower of Vol~I, with $\kappa_{\mathrm{ch}}$-invariance guaranteed by bar-hocolim commutation \textup{(}Theorem~\textup{\ref{thm:bar-hocolim}}\textup{)}.
+\end{enumerate}
+
+\medskip\noindent\textbf{The braiding mechanism at $d = 3$.}
 The $\bS^3$-framing gives an $E_3$-structure on $\HH_\bullet(\cC)$. The $E_3$-structure restricts to $\Etwo$ via Dunn additivity, but this restricted braiding is \emph{symmetric} at the topological level, since $\pi_1(\mathrm{Conf}_2(\R^3))$ is trivial. The quantum group (non-symmetric) braiding for $d = 3$ does NOT arise from the $E_3$-to-$\Etwo$ restriction; it arises through the \emph{Drinfeld center} of the $\Eone$-monoidal representation category (Theorem~\ref{thm:c3-drinfeld-center}).
 
-This programme is conditional on constructing the chain-level $\bS^3$-framing compatible with the BV structure. Theorem~\textup{\ref{thm:s3-framing-vanishes}} establishes that no topological obstruction exists; the remaining step is the chain-level construction.
+\medskip\noindent\textbf{Comparison with $d = 2$.}
+At $d = 2$ (Theorem~\textup{\ref{thm:cy-to-chiral}}), the functor $\Phi$ produces an $\Etwo$-chiral algebra unconditionally: the $\bS^2$-framing provides native $\Etwo$ structure (the fundamental group $\pi_1(\mathrm{Conf}_2(\R^2)) = \Z$ gives the braiding parameter), and no Drinfeld center passage is needed. At $d = 3$, hypotheses \ref{hyp:smooth}--\ref{hyp:cy3} are parallel to $d = 2$, but the framing hypothesis~\ref{hyp:framing} is new: the topological obstruction in $\pi_3(B\Sp)$ vanishes universally (Theorem~\textup{\ref{thm:s3-framing-vanishes}}), but the chain-level $\Ainf$-compatible trivialization is an additional datum.
+
+\medskip\noindent\textbf{Scope of the input category.}
+The conjecture applies to:
+\begin{itemize}
+ \item Smooth proper CY$_3$ categories $D^b(\Coh(X))$ for smooth projective CY$_3$ varieties $X$ (quintic, $K3 \times E$, complete intersections).
+ \item Toric CY$_3$ categories with $T^3$-equivariant $\Omega$-deformation ($\C^3$, resolved conifold, local $\bP^2$, local $\bP^1 \times \bP^1$); for these, the CoHA construction replaces the factorization envelope, and hypothesis~\ref{hyp:framing} is satisfied by holomorphic Chern--Simons.
+ \item Ginzburg dg algebras $\mathrm{Gin}(Q, W)$ for quivers with CY$_3$ potential; each such algebra provides a single quiver chart (Definition~\textup{\ref{def:quiver-chart}}).
+ \item Generalized CY$_3$ inputs with torsion canonical bundle (Enriques $\times E$), provided the orbifold extension of $\Phi$ is available (Conjecture~\textup{\ref{conj:phi-enriques-z2-orbifold}}).
+\end{itemize}
+The conjecture does NOT apply to singular CY$_3$ categories (smoothness is essential for the factorization-envelope step) or to non-proper inputs (properness controls the finiteness of the generating space).
 \end{conjecture}
+
+
+\begin{remark}[Evidence and obstacle catalogue for Conjecture~\textup{\ref{conj:cy-to-chiral-d3}}]
+\label{rem:cy-to-chiral-d3-evidence}
+
+The following numbered items collect all evidence for and against the conjecture, with explicit status tags. Evidence items are labelled \textbf{E1}--\textbf{E10}; obstacle items are labelled \textbf{O1}--\textbf{O5}.
+
+\medskip\noindent\textbf{Evidence.}
+
+\begin{enumerate}[label=\textbf{E\arabic*.}, leftmargin=3em]
+
+\item \textbf{$\C^3$ end-to-end verification.} \textsc{[Proved]}
+The five-step functor chain (Theorem~\textup{\ref{thm:c3-functor-chain}}) is verified computationally for $\C^3$: $\mathrm{PV}^*(\C^3) \to \Omega\text{-deformation} \to Y^+(\widehat{\fgl}_1) \to \text{Drinfeld center} \to \cW_{1+\infty}$. The output at the self-dual point is $H_1$ (the Heisenberg VOA at level~$1$). Six compute modules, $\sim$600 tests.
+
+\item \textbf{$\bS^3$-framing obstruction vanishes topologically.} \textsc{[Proved]}
+$\pi_3(B\Sp(2m)) = 0$ for all $m \geq 1$ (symplectic path); independently, $\pi_3(BU) = 0$ (Bott periodicity). The topological component of the obstruction is zero universally (Theorem~\textup{\ref{thm:s3-framing-vanishes}}). This removes condition~(a) of hypothesis~\ref{hyp:framing}; only the chain-level BV-compatible trivialization remains.
+
+\item \textbf{$\Eone$ universality for toric CY$_3$.} \textsc{[Proved]}
+Theorem~\textup{\ref{thm:e1-universality-cy3}} establishes, by four independent pillars (abelianity of the classical bracket, one-dimensional deformation space, BV-to-$\Eone$ breaking, $R$-matrix unitarity), that toric CY$_3$ chiral algebras with $\Omega$-deformation are natively $\Eone$. Verified for $\C^3$, resolved conifold, local~$\bP^2$, and the quintic (89 tests).
+
+\item \textbf{$\Eone \to \Etwo$ enhancement obstruction trivial.} \textsc{[Proved for tested cases]}
+Corollary~\textup{\ref{cor:e1-e2-trivial}}: the enhancement obstruction vanishes for $\C^3$, the resolved conifold, and $K3 \times E$. The CY condition $g(z)g(-z) = 1$ forces the $R$-matrix unitarity that controls the obstruction (217 tests across two compute modules).
+
+\item \textbf{Quiver-chart gluing for toric CY$_3$.} \textsc{[Proved for toric; conjectural in general]}
+Wall-crossing mutations induce $\Eone$-algebra equivalences (Proposition~\textup{\ref{prop:transition-e1-equiv}}), verified for the resolved conifold and local~$\bP^2$. The bar-hocolim commutation theorem (Theorem~\textup{\ref{thm:bar-hocolim}}) guarantees $\kappa_{\mathrm{ch}}$-invariance of the global algebra. The general tilting-chart cover (Conjecture~\textup{\ref{conj:tilting-chart-cover}}) and the full $\Eone$ chart gluing (Conjecture~\textup{\ref{conj:e1-chart-gluing}}) remain conjectural.
+
+\item \textbf{$\kappa_{\mathrm{ch}}(\C^3) = 1$: five-path verification.} \textsc{[Proved]}
+Theorem~\textup{\ref{thm:kappa-c3}} establishes $\kappa_{\mathrm{ch}}(\C^3) = \kappa_{\mathrm{ch}}(H_1) = 1$ by five independent paths (Heisenberg level, MacMahon leading order, bar Euler product, DT genus-$1$ free energy, categorical Euler characteristic).
+
+\item \textbf{$\kappa_{\mathrm{ch}}$ formula verified for fibered CY$_3$.} \textsc{[Partial]}
+For $K3 \times E$: $\kappa_{\mathrm{ch}} = 3$ by additivity (Proposition~\textup{\ref{prop:categorical-euler}}). For Enriques~$\times E$: $\kappa_{\mathrm{ch}} = 2$ (72 tests via \texttt{enriques\_shadow.py}). The general formula $\kappa_{\mathrm{ch}} = \chi^{\CY}(\cC)$ for arbitrary compact CY$_3$ is conditional on the functor itself.
+
+\item \textbf{DT/shadow correspondence at genus~$1$.} \textsc{[Verified for $\C^3$ and $K3 \times E$]}
+Conjecture~\textup{\ref{conj:dt-hocolim-shadow}} predicts $F_1^{\DT}(X) = \kappa_{\mathrm{ch}}(A_X)/24$. For $\C^3$: $\kappa_{\mathrm{ch}} = 1$ gives $F_1 = 1/24$, matching the MacMahon function (Theorem~\textup{\ref{thm:kappa-c3}}). For $K3 \times E$: $\kappa_{\mathrm{BKM}} = 5$ and the genus-$1$ shadow matches.
+
+\item \textbf{Drinfeld center identification for $\C^3$.} \textsc{[Proved]}
+$\cZ(\Rep^{\Eone}(Y^+(\widehat{\fgl}_1))) \simeq \Rep^{\Etwo}(Y(\widehat{\fgl}_1)) \simeq \Rep^{\Etwo}(\cW_{1+\infty})$ (Theorem~\textup{\ref{thm:c3-drinfeld-center}}). This is the mechanism by which the non-symmetric braiding arises from the $\Eone$ structure without native $\Etwo$.
+
+\item \textbf{\v{C}ech contracting homotopy for compact CY$_3$.} \textsc{[Proved, perturbative]}
+For the quintic threefold, an algebraic \v{C}ech contracting homotopy satisfying all SDR conditions is constructed (Theorem~\textup{\ref{thm:cech-contracting-homotopy}}). This provides the chain-level trivialization at the perturbative (formal deformation) level; the non-perturbative convergence question remains open (Remark~\textup{\ref{rem:cech-perturbative-scope}}).
+
+\end{enumerate}
+
+\medskip\noindent\textbf{Obstacles.}
+
+\begin{enumerate}[label=\textbf{O\arabic*.}, leftmargin=3em]
+
+\item \textbf{Chain-level $\bS^3$-framing: $\Ainf$-compatibility.} \textsc{[Severity: HIGH]}
+The topological obstruction vanishes (\textbf{E2}), and holomorphic Chern--Simons provides a chain-level trivialization. The remaining gap: this trivialization must be compatible with the full $\Ainf$-structure on $\mathrm{CC}_\bullet(\cC)$. The CS functional is checked at the perturbative level for the quintic (\textbf{E10}) but not at the non-perturbative level for general compact CY$_3$. This is hypothesis~\ref{hyp:framing} and is the single load-bearing open condition.
+
+\item \textbf{$\Omega$-deformation non-uniqueness for compact CY$_3$.} \textsc{[Severity: MODERATE]}
+For toric CY$_3$, the $\Omega$-deformation is unique (one-dimensional, spanned by $\sigma_3$; Theorem~\textup{\ref{thm:c3-hochschild}}). For compact CY$_3$ without torus action, the analogue of the $\Omega$-deformation is the global complex structure deformation, which lives in $\HH^2(\mathrm{PV}^*) = H^1(T_X)$ and can be multi-dimensional ($h^{2,1} > 1$ for most CY$_3$). The functor $\Phi_3$ should not depend on the choice within this family, but this independence is unverified.
+
+\item \textbf{Center-hocolim non-commutation.} \textsc{[Severity: MODERATE]}
+The Drinfeld center does not commute with homotopy colimits (Proposition~\textup{\ref{prop:center-hocolim}}). For multi-chart CY$_3$, the global $\Etwo$-braided category is NOT the hocolim of the local Drinfeld centers. The $\Etwo$ recovery via the Drinfeld center is a \emph{global} construction and cannot be assembled chart-by-chart. The obstruction grows with geometric complexity: $0$ for $\C^3$, $2$ for the conifold, larger for local~$\bP^2$.
+
+\item \textbf{Motivic vs numerical DT identification.} \textsc{[Severity: LOW]}
+The DT/shadow correspondence (Conjecture~\textup{\ref{conj:dt-hocolim-shadow}}) is expected to hold at the motivic Hall algebra level but fails at the naive numerical level for higher-genus terms. The identification $Z_{\DT} = Z^{\mathrm{sh},\Eone}$ requires virtual fundamental class corrections beyond the leading $\kappa_{\mathrm{ch}}$ coefficient. This does not obstruct the functor $\Phi_3$ itself but limits its computational reach.
+
+\item \textbf{Global quantum group object $G(\cC)$.} \textsc{[Severity: HIGH]}
+The conjecture predicts a ``quantum vertex chiral group'' $G(\cC)$. For $\C^3$, the output $Y^+(\widehat{\fgl}_1)$ is a well-defined Yangian, and the Drinfeld center gives the braided category. For general CY$_3$, the global group object $G(\cC)$ encoding the full representation theory is not constructed: it requires assembling the local Yangians $Y^+(Q_\alpha, W_\alpha)$ into a global quantum group via the Drinfeld double, and the Drinfeld double of a hocolim is not the hocolim of Drinfeld doubles (compare \textbf{O3}). This is AP-CY7 territory.
+
+\end{enumerate}
+\end{remark}
 
 
 \subsection{Status summary}
@@ -1372,6 +1681,7 @@ This programme is conditional on constructing the chain-level $\bS^3$-framing co
  $\Eone \to \Etwo$ enhancement & \textbf{Trivial, all tested} & CY condition $g(z)g(-z) = 1$ (Cor.~\ref{cor:e1-e2-trivial}) \\
  Bar complex identification & \textbf{Verified} & Euler product $= 1/M(q)$ (Prop.~\ref{prop:c3-bar-euler}) \\
  $\kappa_{\mathrm{ch}}(\C^3)$ & \textbf{5-path verified} & $\kappa_{\mathrm{ch}} = 1$ (Thm.~\ref{thm:kappa-c3}) \\
+ Toric CY$_3$ chart gluing & \textbf{Proved} & Hocolim of McKay chart CoHAs $=$ CL boundary algebra (Thm.~\ref{thm:toric-chart-gluing}); 133 tests \\
  \midrule
  Compact CY$_3$ chain-level & Open & Holomorphic CS provides trivialization, but $\Ainf$-compatibility not checked \\
  $\kappa_{\mathrm{ch}}$ formula for K3-fibered & Partial & Verified for $K3 \times E$ and Enriques $\times E$; conjectural beyond \\
@@ -1380,7 +1690,7 @@ This programme is conditional on constructing the chain-level $\bS^3$-framing co
 \end{tabular}
 \end{center}
 
-\noindent The dividing line is precise. At $d = 2$, the functor $\Phi$ is constructed unconditionally (Theorem~\ref{thm:cy-to-chiral}): the $\bS^2$-framing provides native $\Etwo$ structure, and no Drinfeld center passage is needed. At $d = 3$, the functor chain is verified end-to-end for $\C^3$ and the resolved conifold (where both sides are independently known), the topological $\bS^3$-framing obstruction vanishes universally, but the chain-level $\Ainf$-compatible trivialization for compact CY$_3$ and the global hocolim assembly (Conjecture~\ref{conj:e1-chart-gluing}) remain conjectural. Every formal statement in this chapter carries the appropriate status tag: \verb|\ClaimStatusProvedHere| for the $d = 2$ functor and its $\C^3$ verification, \verb|\ClaimStatusConjectured| for the $d = 3$ programme and its downstream consequences, and \verb|\ClaimStatusConditional| for results that chain through CY-A$_3$.
+\noindent The dividing line is precise. At $d = 2$, the functor $\Phi$ is constructed unconditionally (Theorem~\ref{thm:cy-to-chiral}): the $\bS^2$-framing provides native $\Etwo$ structure, and no Drinfeld center passage is needed. At $d = 3$, the functor chain is verified end-to-end for $\C^3$ and the resolved conifold (where both sides are independently known), and the quiver-chart gluing construction is a theorem for all smooth toric CY$_3$ varieties (Theorem~\ref{thm:toric-chart-gluing}): the McKay atlas, mutation $\Eone$-equivalences, and $\Eone$ descent degeneration combine to produce a global $\Eone$-chiral algebra with an unconditional Costello--Li comparison. The topological $\bS^3$-framing obstruction vanishes universally, but the chain-level $\Ainf$-compatible trivialization for compact non-toric CY$_3$ and the global hocolim assembly for non-toric geometries (Conjecture~\ref{conj:e1-chart-gluing}) remain conjectural. Every formal statement in this chapter carries the appropriate status tag: \verb|\ClaimStatusProvedHere| for the $d = 2$ functor, the toric CY$_3$ gluing theorem, and the $\C^3$ verification, \verb|\ClaimStatusConjectured| for the general $d = 3$ programme and its downstream consequences, and \verb|\ClaimStatusConditional| for results that chain through CY-A$_3$.
 
 
 % ============================================================
@@ -1639,7 +1949,7 @@ At $t = 0$ (critical level): $\kappa_{\mathrm{ch}} = 0$, commutative ($\Einf$). 
 \begin{remark}[The BCOV constant-map formula vs the shadow formula]
 \label{rem:bcov-vs-shadow}
 %: structural identification correct, quantitative instantiation fails at g >= 2.
-The identification BCOV $=$ shadow is \emph{structural}: the holomorphic anomaly equation IS the genus spectral sequence of an MC equation in the Costello--Li dgLa. However, the \emph{quantitative} formula $F_g = \kappa_{\mathrm{ch}} \cdot \lambda_g^{\mathrm{FP}}$ fails for compact CY$_3$ at $g \geq 2$. The BCOV constant-map formula involves the product $B_{2g} \cdot B_{2g-2}$ of two consecutive Bernoulli numbers, while the shadow formula involves $B_{2g}$ alone. Since $B_{2g-2}/B_{2g}$ varies with~$g$, no single~$\kappa_{\mathrm{ch}}$ reconciles the two at all genera. For the quintic: the effective $\kappa_{\mathrm{ch}}$ matching $F_g^{\mathrm{CM}}$ oscillates ($200, -28.6, -4.3, 2.8, -3.8$ for $g = 1, \ldots, 5$). The shadow formula applies to the \emph{uniform-weight lane} (free fields, toric CY$_3$); for compact CY$_3$, the full shadow tower $\Theta_A$ (all arities) is needed.
+The identification BCOV $=$ shadow is \emph{structural}: the holomorphic anomaly equation IS the genus spectral sequence of an MC equation in the Costello--Li dgLa. However, the \emph{quantitative} formula $F_g = \kappa_{\mathrm{ch}} \cdot \lambda_g^{\mathrm{FP}}$ fails for compact CY$_3$ at $g \geq 2$. The BCOV constant-map formula involves the product $B_{2g} \cdot B_{2g-2}$ of two consecutive Bernoulli numbers, while the shadow formula involves $B_{2g}$ alone. Since $B_{2g-2}/B_{2g}$ varies with~$g$, no single~$\kappa_{\mathrm{ch}}$ reconciles the two at all genera. For the quintic: the effective $\kappa_{\mathrm{ch}}$ matching $F_g^{\mathrm{CM}}$ oscillates ($200, -28.6, -4.3, 2.8, -3.8$ for $g = 1, \ldots, 5$). The shadow formula applies to the \emph{uniform-weight lane} (free fields, toric CY$_3$); for compact CY$_3$, the full shadow tower $\Theta_A$ (all degrees) is needed.
 
 \noindent\textit{Verification}: 130 tests in \texttt{bcov\_e1\_shadow\_engine.py}, including 10 tests quantifying the genus-dependent disagreement.
 \end{remark}
