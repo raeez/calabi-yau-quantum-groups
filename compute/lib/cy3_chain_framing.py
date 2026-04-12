@@ -37,11 +37,15 @@ THE CONIFOLD (simplest CY3 with nontrivial topology)
 
 The resolved conifold X = tot(O(-1)^2 -> P^1).
 
-The Ext algebra: A = Ext^*(O_C, O_C) where C = P^1 (zero section).
+The Ext algebra of a SINGLE object: A = Ext^*(O_C, O_C) where C = P^1 (zero section).
+  NOTE: The full exceptional collection {O, O(1)} on P^1 gives total dim = 12
+  (2+4+4+2 by Ext degree). The single-object Ext below is a SUMMAND.
   - Ext^0 = C (identity endomorphism)
-  - Ext^1 = C^2 (two deformation directions, the normal bundle O(-1)^2)
-  - Ext^2 = C (Serre dual of Ext^0, by CY3 duality)
-  - Total dim = 4
+  - Ext^1 = C^2 (normal bundle N_{C/X} = O(-1)^2, but H^0(O(-1)) = 0;
+    the nonzero Ext^1 comes from H^1(O_C) and the spectral sequence)
+  - Ext^2 = Ext^1(O_C, O_C)^* (CY3 Serre duality: Ext^k = Ext^{3-k}*)
+  - Ext^3 = Ext^0(O_C, O_C)^* = C
+  - Dimensions require careful spectral sequence computation; see cy_to_chiral.tex
 
 The CY3 pairing: <alpha, beta> = integral_X Omega wedge tr(alpha cup beta)
   - <Ext^0, Ext^3> = C (Serre duality)
