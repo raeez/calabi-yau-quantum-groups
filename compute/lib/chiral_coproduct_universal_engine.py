@@ -196,14 +196,17 @@ class AllSpinCoproduct(TensorHeisenberg):
         np.ndarray
             Matrix Delta_z(psi_{s,n}) on H_L tensor H_R.
 
-        Available for s <= 3 (Fock space computation). For s >= 4,
-        use delta_z_table(s) for the structural decomposition.
+        Available for s <= 2 (Fock space computation of the full coproduct
+        including the diagonal psi_s^L term). For s = 3, the cross-term
+        is available via cross_term(3, n, z). For s >= 4, use
+        delta_z_table(s) for the structural decomposition.
         """
-        if s > 3:
+        if s > 2:
             raise NotImplementedError(
-                f"Fock space computation at s={s} requires psi_{s-1} "
-                f"matrices. Use delta_z_table(s) for structural analysis "
-                f"at arbitrary spin."
+                f"Fock space computation of the full delta_z at s={s} "
+                f"requires psi_{s} on the single Fock space. "
+                f"Use cross_term(s, n, z) for the cross-term (s <= 3) "
+                f"or delta_z_table(s) for structural analysis."
             )
         if s < 1:
             raise ValueError(f"Spin s must be >= 1, got {s}")
@@ -249,11 +252,14 @@ class AllSpinCoproduct(TensorHeisenberg):
         cross-validation. The constraint a + b + k = s with a >= 0, b >= 1,
         k >= 0 is enumerated directly.
 
-        Available for s <= 3 (Fock space).
+        Available for s <= 2 (includes the diagonal psi_s^L term which
+        needs psi_s on single Fock space). For s = 3, use the cross-term
+        methods which only require psi_a for a <= 2.
         """
-        if s > 3:
+        if s > 2:
             raise NotImplementedError(
-                f"Fock space computation at s={s} requires psi_{s-1}."
+                f"Fock space computation of full delta_z at s={s} "
+                f"requires psi_{s} on the single Fock space."
             )
         if s < 1:
             raise ValueError(f"Spin s must be >= 1, got {s}")
@@ -317,6 +323,53 @@ class AllSpinCoproduct(TensorHeisenberg):
                 else:
                     for m in range(-M, M + 1):
                         mat += coeff * zp * (
+                            self._psi_L(a, m)
+                            @ self._psi_R(b, n - m).astype(complex)
+                        )
+
+        return mat
+
+    def cross_term_upper_negation(
+        self, s: int, n: int, z: complex = 0.0
+    ) -> np.ndarray:
+        r"""Cross-term C_s(n,z) via the upper negation form.
+
+        C_s(n,z) = sum_{a+b+k=s, b>=1, not(a=0,k=0)}
+                   (-1)^k C(-b, k) z^k [psi_a^L conv psi_b^R]_n
+
+        where (-1)^k C(-b, k) = C(b+k-1, k).
+
+        INDEPENDENT implementation from cross_term() (which uses Pascal form).
+        Excludes the diagonal psi_s^L and unshifted psi_s^R.
+
+        Available for s <= 3 (Fock space).
+        """
+        if s > 3:
+            raise NotImplementedError(
+                f"Fock space cross-term at s={s} requires psi_{s-1}."
+            )
+
+        M = self.N_max + abs(n) + 2
+        mat = np.zeros((self.dim, self.dim), dtype=complex)
+
+        # Enumerate all (a, b, k) with a + b + k = s, a >= 0, b >= 1, k >= 0
+        # Skip (a=0, b=s, k=0) = unshifted psi_s^R
+        for a in range(0, s):
+            for b in range(1, s - a + 1):
+                k = s - a - b
+                if k < 0:
+                    continue
+                if a == 0 and k == 0:
+                    continue  # skip unshifted psi_s^R
+                # (-1)^k C(-b, k) = C(b + k - 1, k)
+                coeff = math.comb(b + k - 1, k)
+                zk = z ** k if k > 0 else 1.0
+
+                if a == 0:
+                    mat += coeff * zk * self._psi_R(b, n).astype(complex)
+                else:
+                    for m in range(-M, M + 1):
+                        mat += coeff * zk * (
                             self._psi_L(a, m)
                             @ self._psi_R(b, n - m).astype(complex)
                         )
@@ -704,6 +757,9 @@ def verify_pascal_vs_upper_negation(
     The Pascal form C(s-a-1, p) and the upper negation form
     (-1)^k C(-b, k) = C(b+k-1, k) are algebraically identical.
     This test verifies the two independent implementations on Fock space.
+
+    For s <= 2: compares the full delta_z vs delta_z_upper_negation.
+    For s = 3: compares cross_term (Pascal) vs cross_term_upper_negation.
     """
     uni = AllSpinCoproduct(Psi, N_max)
     P = uni.safe_proj(3)
@@ -711,8 +767,13 @@ def verify_pascal_vs_upper_negation(
 
     for n in [0, -1, -2, 1]:
         for z_val in [0.0, z, -0.5 + 0.7j]:
-            d_pascal = uni.delta_z(s, n, z_val)
-            d_upper = uni.delta_z_upper_negation(s, n, z_val)
+            if s <= 2:
+                d_pascal = uni.delta_z(s, n, z_val)
+                d_upper = uni.delta_z_upper_negation(s, n, z_val)
+            else:
+                # At s=3, use cross-term methods (avoid psi_3 on Fock)
+                d_pascal = uni.cross_term(s, n, z_val)
+                d_upper = uni.cross_term_upper_negation(s, n, z_val)
             err = float(np.max(np.abs(P @ (d_pascal - d_upper) @ P)))
             mx = max(mx, err)
 

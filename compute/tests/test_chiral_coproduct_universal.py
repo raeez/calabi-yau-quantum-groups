@@ -605,11 +605,23 @@ class TestDirectProperties:
                         f"s={s}, n={n}, z={z_val}: reconstruction error {err:.2e}"
                     )
 
+    def test_delta_z_raises_for_s3(self):
+        """Fock space delta_z at s >= 3 raises NotImplementedError."""
+        uni = AllSpinCoproduct(Psi=1.0, N_max=5)
+        with pytest.raises(NotImplementedError):
+            uni.delta_z(3, 0, 0.0)
+
     def test_delta_z_raises_for_s4(self):
         """Fock space delta_z at s >= 4 raises NotImplementedError."""
         uni = AllSpinCoproduct(Psi=1.0, N_max=5)
         with pytest.raises(NotImplementedError):
             uni.delta_z(4, 0, 0.0)
+
+    def test_delta_z_upper_negation_raises_for_s3(self):
+        """Fock space delta_z_upper_negation at s >= 3 raises NotImplementedError."""
+        uni = AllSpinCoproduct(Psi=1.0, N_max=5)
+        with pytest.raises(NotImplementedError):
+            uni.delta_z_upper_negation(3, 0, 0.0)
 
     def test_delta_z_upper_negation_raises_for_s4(self):
         """Fock space delta_z_upper_negation at s >= 4 raises NotImplementedError."""
