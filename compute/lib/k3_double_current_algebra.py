@@ -160,7 +160,7 @@ Path 2: Heisenberg bar complex dimension count
 Path 3: Generating function = 1/eta^{24} comparison
 Path 4: Cross-check with bar_euler_borcherds.py lattice_voa_bar_euler(24)
 Path 5: Formality of K3 -> vanishing Massey products
-Path 6: Shadow class G verification from (kappa, S3=0, S4=0)
+Path 6: Shadow class G verification from (kappa_fiber, S3=0, S4=0)
 
 References:
   k3_times_e.tex, Definition k3-double-current-algebra (L1165)
@@ -490,18 +490,18 @@ def _binomial(n: int, k: int) -> int:
 # 4. Shadow tower (class G: terminates at depth 2)
 # =========================================================================
 
-def shadow_tower_heisenberg(kappa: Fraction = F(24),
+def shadow_tower_heisenberg(kappa_fiber: Fraction = F(24),
                              max_r: int = 10) -> Dict[int, Fraction]:
     r"""Shadow tower for the K3 Heisenberg algebra.
 
-    For class G (Heisenberg): S_2 = kappa, S_r = 0 for r >= 3.
+    For class G (Heisenberg): S_2 = kappa_fiber, S_r = 0 for r >= 3.
     The MC recursion confirms this: with S_3 = S_4 = 0, all higher S_r = 0.
 
-    Note (AP113): the kappa here is kappa_fiber = 24 (= rank of Mukai lattice),
+    Note (AP113): the kappa_fiber here is 24 (= rank of Mukai lattice),
     NOT kappa_cat = 2 (= chi(O_{K3})).  The Heisenberg algebra of rank 24
     has kappa_fiber = 24.  The full chiral algebra has kappa_ch = 3.
     """
-    tower: Dict[int, Fraction] = {2: kappa}
+    tower: Dict[int, Fraction] = {2: kappa_fiber}
     for r in range(3, max_r + 1):
         tower[r] = F(0)
     return tower
@@ -863,7 +863,7 @@ def verify_bar_euler_product(max_degree: int = 10) -> Dict[str, Any]:
 
 def verify_shadow_class_G() -> Dict[str, Any]:
     """Verify H_Muk is class G (shadow depth 2)."""
-    tower = shadow_tower_heisenberg(kappa=F(24), max_r=10)
+    tower = shadow_tower_heisenberg(kappa_fiber=F(24), max_r=10)
     depth = max(r for r, v in tower.items() if v != 0)
     return {
         'shadow_tower': {r: str(v) for r, v in tower.items()},

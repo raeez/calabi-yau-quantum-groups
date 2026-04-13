@@ -376,7 +376,7 @@ class TestShadowTower:
 
     def test_shadow_depth_2(self):
         """Class G: shadow terminates at depth 2."""
-        tower = shadow_tower_heisenberg(kappa=F(24), max_r=10)
+        tower = shadow_tower_heisenberg(kappa_fiber=F(24), max_r=10)
         assert tower[2] == F(24)
         for r in range(3, 11):
             assert tower[r] == F(0)
