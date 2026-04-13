@@ -404,6 +404,40 @@ At the level of quantum toroidal algebras, the $E_3$ Koszul duality of Conjectur
 which is the conjectural Koszul duality of Chapter~\ref{ch:quantum-groups} (Definition~\ref{def:qgf-four-regimes}, toroidal regime). The $E_3$ framework provides the geometric origin of this parameter inversion: it is the Verdier duality on $\C^3$ factorization coalgebras.
 \end{remark}
 
+\begin{theorem}[The Zamolodchikov tetrahedron equation fails for the Yang $R$-matrix]
+\label{thm:zte-failure}
+\ClaimStatusProvedHere{}
+Let $R(z) = (z \cdot \mathrm{Id} + \kappa \cdot P)/(z + \kappa)$ be the Yang $R$-matrix on $\C^2 \otimes \C^2$ with $\kappa = h_1 h_2 h_3$, and define the $3$-particle $S$-operator
+\[
+ S_{ijk}(u_i, u_j, u_k) \;=\; R_{ij}(u_i - u_j) \, R_{ik}(u_i - u_k) \, R_{jk}(u_j - u_k)
+\]
+acting on $(\C^2)^{\otimes 3}$. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item The Yang--Baxter equation $R_{12} R_{13} R_{23} = R_{23} R_{13} R_{12}$ is satisfied (positive control).
+ \item The Zamolodchikov tetrahedron equation
+ \[
+  S_{012} \, S_{013} \, S_{023} \, S_{123}
+  \;=\;
+  S_{123} \, S_{023} \, S_{013} \, S_{012}
+ \]
+ on $(\C^2)^{\otimes 4}$ is \emph{not} satisfied. The obstruction scales as $O(\kappa^2)$ and is antisymmetric.
+ \item At $\kappa = 0$ (the permutation limit, $R(z) = P$), the ZTE is trivially satisfied (Kapranov--Voevodsky).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Parts~(i) and~(iii) are verified symbolically and numerically. Part~(ii) is computed by explicit matrix multiplication on the charge-$2$ sector of $(\C^2)^{\otimes 4}$ (dimension~$6$): the difference $\mathrm{LHS} - \mathrm{RHS}$ is nonzero at $O(\kappa^2)$, verified at multiple spectral parameter values and confirmed by symbolic expansion in $\kappa$. See \texttt{compute/lib/zamolodchikov\_tetrahedron\_engine.py} ($34$ tests).
+\end{proof}
+
+\begin{remark}[Consequence for $E_3$-chiral structure]
+\label{rem:zte-consequence}
+Theorem~\ref{thm:zte-failure} proves that the $E_3$ coherence condition is \emph{genuinely nontrivial}: the na\"ive factorization $S_{ijk} = R_{ij} R_{ik} R_{jk}$ from pairwise Yang--Baxter solutions does \emph{not} produce a tetrahedron solution. The correct $3$-particle $S$-operator for $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ must include corrections beyond the pairwise product, controlled by the $E_3$ structure of holomorphic Chern--Simons on $\C^3$. At the level of the $A_\infty$ bar complex, these corrections are the shadow tower contributions $\delta^{(k)}$ from the higher operations $m_k$ (Section~\ref{sec:e1-chiral-bialgebras}).
+\end{remark}
+
+\begin{remark}[$E_3$ Koszul duality and quantum toroidal algebras (continued)]
+\label{rem:e3-koszul-toroidal-continued}
+\end{remark}
+
 \begin{theorem}[$E_3$-chiral Koszul self-duality of the Heisenberg]
 \label{thm:e3-koszul-heisenberg}
 \ClaimStatusProvedHere{}

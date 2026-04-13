@@ -86,6 +86,14 @@ from compute.lib.k3_double_current_algebra import (
     MUKAI_SIG_MINUS,
     bar_euler_generating_function,
 )
+from compute.lib.k3_yangian import (
+    K3YangianCoproduct,
+    k3_coproduct_spin_s,
+    k3_coproduct_all_spins,
+    k3_coassociativity,
+    k3_diagonal_factorization,
+    k3_fibered_coproduct_k3e,
+)
 
 F = Fraction
 
@@ -768,3 +776,134 @@ class TestFullVerification:
         # Bar Euler
         assert result['path8_bar_euler_eta24']['all_match']
         assert result['path9_bar_euler_classical_match']['yangian_equals_classical']
+
+
+# =========================================================================
+# Section 12: Chiral coproduct at all spins (AP-CY14: CONJECTURAL)
+# =========================================================================
+
+class TestK3Coproduct:
+    """Tests for the K3 Yangian chiral coproduct at all spins."""
+
+    def test_coproduct_spin1_is_primitive(self):
+        """Spin 1 (Heisenberg) coproduct is primitive: no cross-term."""
+        coprod = K3YangianCoproduct()
+        s1 = coprod.coproduct_spin1()
+        assert s1['type'] == 'primitive'
+        assert s1['z_polynomial_degree'] == 0
+        # Effective level = Tr(omega) = 4 - 20 = -16
+        assert s1['effective_level'] == 4 - 20
+
+    def test_coproduct_spin2_z_degree(self):
+        """Spin 2: z-polynomial degree is 1."""
+        coprod = K3YangianCoproduct()
+        s2 = coprod.coproduct_spin2()
+        assert s2['z_polynomial_degree'] == 1
+        assert len(s2['cross_terms']) == 2
+
+    def test_coproduct_spin2_mukai_cross_term(self):
+        """Spin 2 cross-term involves the Mukai pairing omega^{ij}."""
+        coprod = K3YangianCoproduct()
+        s2 = coprod.coproduct_spin2()
+        assert '4' in s2['mukai_cross_term']
+        assert '20' in s2['mukai_cross_term']
+        assert s2['effective_level_Psi'] == -16
+
+    def test_coproduct_spin3_operator_count(self):
+        """Spin 3 has 5 operator products (s(s+1)/2 - 1 = 5)."""
+        coprod = K3YangianCoproduct()
+        s3 = coprod.coproduct_spin3()
+        assert s3['total_operator_products'] == 5
+        assert s3['z_polynomial_degree'] == 2
+        assert len(s3['cross_terms']) == 5
+
+    def test_coproduct_spin_s_structural(self):
+        """Structural properties hold for all spins 1..24."""
+        coprod = K3YangianCoproduct()
+        for s in range(1, 25):
+            data = coprod.coproduct_spin_s(s)
+            assert not data['truncated']
+            assert data['z_polynomial_degree'] == s - 1
+            assert data['cross_terms_at_z0'] == s - 1
+            assert data['total_operator_products'] == s * (s + 1) // 2 - 1
+
+    def test_coproduct_truncation_above_24(self):
+        """psi_s = 0 for s > 24 (rank truncation)."""
+        coprod = K3YangianCoproduct()
+        for s in [25, 30, 100]:
+            data = coprod.coproduct_spin_s(s)
+            assert data['truncated']
+            assert data['psi_s'] == 0
+
+    def test_all_spin_summary_totals(self):
+        """Total cross-terms and operator products across all 24 spins."""
+        summary = k3_coproduct_all_spins()
+        assert summary['rank'] == 24
+        # sum_{s=1}^{24} (s-1) = 23*24/2 = 276
+        assert summary['total_cross_terms_z0'] == 276
+        # sum_{s=1}^{24} (s(s+1)/2 - 1) = 2576
+        assert summary['total_operator_products'] == 2576
+        assert summary['max_z_degree'] == 23
+
+    def test_diagonal_factorization(self):
+        """Coproduct factorizes into 24 rank-1 components for gl_1."""
+        data = k3_diagonal_factorization()
+        assert data['factorized']
+        assert data['num_factors'] == 24
+        assert data['positive_directions'] == 4
+        assert data['negative_directions'] == 20
+        assert data['lost_for_nonabelian']
+
+    def test_diagonal_factorization_signs(self):
+        """4 positive and 20 negative Mukai directions in factorization."""
+        data = k3_diagonal_factorization()
+        pos = sum(1 for f in data['factors'] if f['sign'] == '+')
+        neg = sum(1 for f in data['factors'] if f['sign'] == '-')
+        assert pos == 4
+        assert neg == 20
+
+    def test_coassociativity_proposition(self):
+        """Coassociativity proposition is correctly stated."""
+        data = k3_coassociativity()
+        assert 'coassociative' in data['statement']
+        assert 'CONJECTURAL' in data['statement']
+        assert data['status'] == 'CONJECTURAL'
+        assert '24' in data['k3_specialization']
+
+    def test_fibered_coproduct_k3e_cy3_constraint(self):
+        """K3 x E fibered coproduct satisfies CY_3: h1+h2+h3=0."""
+        data = k3_fibered_coproduct_k3e()
+        assert '= 0' in data['cy3_constraint']
+        assert data['threefold'] == 'K3 x E'
+
+    def test_fibered_coproduct_custom_params(self):
+        """Fibered coproduct with custom K3 tangent weights."""
+        data = k3_fibered_coproduct_k3e(h1=Rational(2), h2=Rational(-3))
+        assert '= 0' in data['cy3_constraint']
+
+    def test_spin_s_mukai_involvement_spin1(self):
+        """Spin 1: no Mukai involvement in cross-terms (primitive)."""
+        data = k3_coproduct_spin_s(1)
+        assert len(data['terms']) == 0
+
+    def test_spin_s_mukai_involvement_spin2(self):
+        """Spin 2: cross-term involves omega^{ij} directly."""
+        data = k3_coproduct_spin_s(2)
+        assert any('omega' in t['mukai_involvement'] for t in data['terms'])
+
+    def test_highest_z_term_is_JR(self):
+        """At each spin s, the z^{s-1} coefficient is J^R."""
+        coprod = K3YangianCoproduct()
+        for s in range(1, 10):
+            data = coprod.coproduct_spin_s(s)
+            if not data.get('truncated', False):
+                assert 'J^R' in data['highest_z_term']
+
+    def test_coproduct_status_conjectural(self):
+        """All coproduct results carry CONJECTURAL status (AP-CY14)."""
+        coprod = K3YangianCoproduct()
+        assert coprod.STATUS == 'CONJECTURAL'
+        assert coprod.coproduct_spin1()['status'] == 'CONJECTURAL'
+        assert coprod.coproduct_spin2()['status'] == 'CONJECTURAL'
+        assert coprod.coproduct_spin3()['status'] == 'CONJECTURAL'
+        assert k3_coproduct_all_spins()['status'] == 'CONJECTURAL'

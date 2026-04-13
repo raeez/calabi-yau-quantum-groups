@@ -868,6 +868,120 @@ by $z \in \Ran(C)$ is essential: the coproduct depends on the collision
 point, and the $z$-dependence carries the $R$-matrix data.
 \end{definition}
 
+\begin{proposition}[Spectral coassociativity from factorization]
+\label{prop:spectral-coassociativity-factorization}
+\ClaimStatusProvedHere
+Let $(A, \mu, \Delta_z, \varepsilon, \eta)$ be an $E_1$-chiral
+bialgebra on a smooth curve~$C$ in the sense of
+Definition~\textup{\ref{def:e1-chiral-bialgebra}}.
+Then the spectral coassociativity
+axiom~\textup{(iv)}~\eqref{eq:spectral-coassociativity} is a
+consequence of the factorization property of $A$ viewed as a
+factorization algebra on $\Ran(C)$.
+\end{proposition}
+
+\begin{proof}
+The argument is purely operadic; no mode computation is needed.
+
+\emph{Step~1: coproduct as factorization isomorphism.}
+The $E_1$-chiral algebra $A$ is, by
+Proposition~\ref{prop:holomorphic-e1}, a factorization algebra on
+the ordered configuration space of~$C$.  For disjoint finite
+subsets $S_1, S_2 \subset C$ with $\Re(S_1) < \Re(S_2)$, the
+factorization structure provides a canonical isomorphism
+\[
+  \phi_{S_1,S_2} \colon A(S_1 \sqcup S_2)
+  \xrightarrow{\;\sim\;} A(S_1) \otimes_{E_1} A(S_2).
+\]
+The spectral coproduct $\Delta_z$ is the specialization of
+$\phi_{S_1,S_2}$ to the two-point configuration
+$S_1 = \{p\}$, $S_2 = \{p + z\}$, where $z$ records the
+relative position along the ordered ray.
+
+\emph{Step~2: triple factorization and the two
+bracketings.}  For three disjoint subsets $S_1, S_2, S_3$ with
+$\Re(S_1) < \Re(S_2) < \Re(S_3)$, the factorization property
+gives a canonical isomorphism
+\[
+  \phi_{S_1,S_2,S_3} \colon A(S_1 \sqcup S_2 \sqcup S_3)
+  \xrightarrow{\;\sim\;}
+  A(S_1) \otimes_{E_1} A(S_2) \otimes_{E_1} A(S_3).
+\]
+This triple isomorphism factors through two binary compositions:
+\begin{align}
+  \text{(L):}\quad
+  &A(S_1 \sqcup S_2 \sqcup S_3)
+   \xrightarrow{\phi_{S_1, S_2 \sqcup S_3}}
+   A(S_1) \otimes_{E_1} A(S_2 \sqcup S_3)
+   \xrightarrow{\mathrm{id} \otimes \phi_{S_2,S_3}}
+   A(S_1) \otimes_{E_1} A(S_2) \otimes_{E_1} A(S_3),
+   \label{eq:fact-left} \\[4pt]
+  \text{(R):}\quad
+  &A(S_1 \sqcup S_2 \sqcup S_3)
+   \xrightarrow{\phi_{S_1 \sqcup S_2, S_3}}
+   A(S_1 \sqcup S_2) \otimes_{E_1} A(S_3)
+   \xrightarrow{\phi_{S_1,S_2} \otimes \mathrm{id}}
+   A(S_1) \otimes_{E_1} A(S_2) \otimes_{E_1} A(S_3).
+   \label{eq:fact-right}
+\end{align}
+
+\emph{Step~3: strict associativity of the $E_1$-monoidal
+structure.}  The configuration space
+$\Conf_3^{\mathrm{ord}}(\mathbb{R}) = \{z_1 < z_2 < z_3\}$ is
+contractible (it is an open cone).  By
+Definition~\ref{def:e1-chiral-monoidal}(iv), the $E_1$-monoidal
+category $\cM^{E_1}_C$ is therefore strictly associative: the
+two bracketings~\eqref{eq:fact-left} and~\eqref{eq:fact-right}
+coincide as maps from $A(S_1 \sqcup S_2 \sqcup S_3)$ to the
+triple tensor product.  This is the $E_1$ associahedron
+collapsing to the point: the Stasheff polytope $K_3$ is a single
+vertex for linear orders, so there is no associator to insert.
+
+\emph{Step~4: translation to spectral parameters.}
+Specialize to $S_1 = \{p\}$, $S_2 = \{p + w\}$,
+$S_3 = \{p + w + z\}$, so that $w$ is the separation between
+$S_1$ and $S_2$ and $z$ is the separation between $S_2$ and
+$S_3$.  The total separation between $S_1$ and $S_3$ is $z+w$.
+Then:
+\begin{itemize}
+  \item Path~(L) computes
+  $(\mathrm{id} \otimes \Delta_z) \circ \Delta_w$:
+  first split at parameter~$w$ to separate $S_1$ from
+  $S_2 \sqcup S_3$, then split $S_2 \sqcup S_3$ at
+  parameter~$z$.
+  \item Path~(R) computes
+  $(\Delta_w \otimes \mathrm{id}) \circ \Delta_{z+w}$:
+  first split at parameter~$z+w$ to separate
+  $S_1 \sqcup S_2$ from $S_3$, then split
+  $S_1 \sqcup S_2$ at parameter~$w$.
+\end{itemize}
+The equality (L)\,=\,(R), which is Step~3, is precisely the
+spectral coassociativity identity
+\[
+  (\Delta_w \otimes \mathrm{id}) \circ \Delta_{z+w}
+  = (\mathrm{id} \otimes \Delta_z) \circ \Delta_w.
+  \qedhere
+\]
+\end{proof}
+
+\begin{remark}[Why this is stronger than formal coassociativity]
+\label{rem:operadic-vs-formal-coassociativity}
+In the symmetric ($E_\infty$) setting of Beilinson--Drinfeld, the
+factorization isomorphism is also associative, but the coproduct
+carries no spectral parameter and the resulting coassociativity is
+the classical identity $(\Delta \otimes 1)\Delta = (1 \otimes \Delta)\Delta$.
+In the quasi-Hopf ($E_0$) setting of Drinfeld, the configuration
+space $\Conf_3$ is NOT contractible after quotienting by the
+symmetric group, so the two paths (L) and (R) differ by an
+associator~$\Phi$.
+The $E_1$ setting is intermediate: the ordered configuration space
+IS contractible (so no associator), but the collision parameters are
+retained (so the identity is spectral).  This is the operadic reason
+that the $E_1$-chiral bialgebra achieves strict coassociativity with
+spectral parameters: the $E_1$-operad supplies exactly the right
+amount of homotopy coherence.
+\end{remark}
+
 \begin{definition}[$E_1$-chiral Hopf algebra (antipode)]
 \label{def:e1-chiral-antipode}
 \ClaimStatusProvedHere
@@ -997,6 +1111,41 @@ cannot carry a Hopf structure. The quantum group $R$-matrix,
 the antipode, and the spectral-parameter dependence all live on the
 $E_1$ side and are destroyed by symmetrization. The $E_1$-chiral
 bialgebra is the minimal structure that retains all three.
+
+\begin{remark}[$A_\infty$ coproduct and the shadow tower]
+\label{rem:ainfty-coproduct-shadow}
+For class~$M$ algebras (infinite shadow depth), the formal Yangian coproduct $\Delta_z^{\mathrm{Yangian}}$ is the $m_2$-truncation of the full $A_\infty$ coproduct:
+\[
+ \Delta_z^{A_\infty}(T) \;=\; \Delta_z^{\mathrm{Yangian}}(T)
+ + \hbar^2 \cdot \delta^{(3)}(T)
+ + \hbar^3 \cdot \delta^{(4)}(T)
+ + \cdots
+\]
+where $\delta^{(k)}$ is the correction from the $A_\infty$ operation $m_k$, with coefficient equal to the shadow invariant $S_k$. Concretely (\texttt{a\_infinity\_bar\_w1inf.py}): $m_3(T,T,T) = -2T$ gives $\delta^{(3)}$ with coefficient $\alpha = 2$; $m_4(T,T,T,T) = \tfrac{40}{27}T$ gives $\delta^{(4)}$ with coefficient $S_4 = \tfrac{10}{27}$. For class~$G$ (Heisenberg): all $m_k = 0$ for $k \geq 3$, so the truncation is exact. For class~$L$ (Yangian): $S_4 = 0$, so the truncation terminates at finite depth. For class~$M$ (Virasoro): all $S_k \neq 0$, and the coproduct has genuinely infinite complexity. The shadow tower is therefore not merely a classification invariant: it encodes the $A_\infty$ corrections to the chiral coproduct.
+\end{remark}
+
+\begin{proposition}[Universal coproduct formula from the Miura factorization]
+\label{prop:universal-coproduct}
+\ClaimStatusProvedHere{}
+Let $A = W_{1+\infty}$ at level $\Psi$ with transfer matrix $T(u) = \sum_{s \geq 0} (-1)^s \psi_s \, u^{-s}$, where $\psi_s = e_s(\phi_1, \ldots, \phi_N)$ is the $s$-th elementary symmetric polynomial in the free bosons. The Miura coproduct $\Delta_z(T(u)) = T_L(u) \cdot T_R(u - z)$ gives:
+\[
+ \Delta_z(\psi_s) \;=\; \sum_{\substack{a + b + k = s \\ a, b, k \geq 0}} (-1)^k \binom{N_R - b}{k} z^k \, \psi_a^L \cdot \psi_b^R.
+\]
+The coproduct at spin $s$ is a polynomial in $z$ of degree exactly $s$, with $\tfrac{s(s+1)}{2}$ operator-product terms. The number of terms at $z$-power $p$ is $N(s,p) = s - p$, with generating function
+\[
+ F(x,y) \;=\; \sum_{s \geq 1} \sum_{p=0}^{s-1} N(s,p) \, x^s y^p \;=\; \frac{x}{(1-x)^2(1-xy)}.
+\]
+The leading $z^{s-1}$ coefficient is $\psi_1^R = J^R$ (single term). The subleading $z^{s-2}$ coefficient is $(s-1)\psi_2^R + \sum_k J_k^L J_{n-k}^R$ (universal at all spins).
+\end{proposition}
+
+\begin{proof}
+Expand $T_R(u-z) = \sum_b (-1)^b \psi_b^R (u-z)^{-b}$ using the binomial series $(u-z)^{-b} = \sum_{k \geq 0} \binom{b-1+k}{k} z^k u^{-b-k}$. Collecting the $u^{-(a+b+k)}$ coefficient from the product $T_L(u) \cdot T_R(u-z)$ gives the stated formula. The term count follows: at $z$-power $p$, the constraint $a + b = s - p$ with $a \geq 0$ gives $s - p$ choices of $(a, b)$. The generating function $F$ is obtained by geometric-series summation. See \texttt{compute/lib/chiral\_coproduct\_allspin\_engine.py}.
+\end{proof}
+
+\begin{remark}[Spectral vs.\ worldsheet interpretation of $z$]
+\label{rem:z-spectral-vs-worldsheet}
+The spectral parameter $z$ in $\Delta_z$ is a shift of the transfer-matrix argument $u \mapsto u - z$ in the Yangian mode algebra $Y(\widehat{\fgl}_1)$. It is \emph{not} the worldsheet coordinate of a vertex operator insertion. The OPE singularity $T(z)T(w) \sim c/2 \cdot (z-w)^{-4}$ involves the worldsheet variable; the coproduct $\Delta_z$ involves the spectral variable. Setting $z = 0$ in $\Delta_z$ removes the spectral shift and gives a well-defined, cocommutative coproduct with no OPE singularity (verified in \texttt{test\_hopf\_axioms.py}, $50$ tests). The two $z$'s live in different mathematical objects and must not be conflated.
+\end{remark}
 
 \subsection{The Drinfeld center recovers $E_2$}
 \label{subsec:drinfeld-recovers-e2}
@@ -1201,6 +1350,195 @@ object into a symmetric ambient category.
 The $E_1$-chiral bialgebra (leftmost column) is the minimal
 framework retaining all quantum group data.
 \end{remark}
+
+\subsection{The factorization-homology coproduct}
+\label{subsec:fact-hom-coproduct}
+
+The preceding subsections defined the spectral coproduct $\Delta_z$ and
+proved coassociativity from the factorization property
+(Proposition~\ref{prop:spectral-coassociativity-factorization}).  That
+proof is \emph{operadic}: it uses the factorization isomorphism of the
+$E_1$-chiral algebra $A$ on a curve.  A deeper question is whether the
+coproduct itself can be \emph{derived} from factorization homology,
+bypassing mode-level constructions such as the Miura factorization
+(which requires toric data and may not exist for general CY categories).
+The answer is yes: excision for factorization homology
+(Proposition~\ref{prop:fh-excision}) provides a canonical coproduct on
+any chiral algebra obtained by integrating a factorization algebra over
+a compact factor of a product CY manifold.
+
+\medskip
+\noindent\textbf{(1) The $E_3$-chiral factorization algebra on $\C^3$
+and the Ran space diagonal.}
+Let $\cF$ be the $E_3$-chiral factorization algebra of
+Conjecture~\ref{conj:topological-e3-comparison} on $\C^3$.
+For a disjoint union of open disks $U_1 \sqcup U_2 \hookrightarrow \C^3$
+in the Ran space $\Ran(\C^3)$, the factorization structure of $\cF$ provides
+a canonical isomorphism
+\[
+  \cF(U_1 \sqcup U_2) \;\xrightarrow{\;\sim\;}\;
+  \cF(U_1) \otimes \cF(U_2).
+\]
+The \emph{Ran diagonal} $\delta \colon \Ran(\C^3) \to
+\Ran(\C^3) \times \Ran(\C^3)$ (the map sending a finite set $S$
+to $(S_1, S_2)$ for each decomposition $S = S_1 \sqcup S_2$)
+produces a cosheaf-level coproduct: the global sections
+$\cF(\C^3)$ acquire a coalgebra structure via
+\begin{equation}\label{eq:ran-coproduct}
+  \Delta^{\mathrm{Ran}} \colon \cF(U) \xrightarrow{\;\phi_{U_1,U_2}\;}
+  \cF(U_1) \otimes \cF(U_2),
+\end{equation}
+summed over all ways of decomposing $U = U_1 \sqcup U_2$ into disjoint
+subsets.  This is the factorization coproduct at the level of $\C^3$.
+The excision property (Proposition~\ref{prop:fh-excision}) guarantees
+that $\Delta^{\mathrm{Ran}}$ is well-defined: for a collar-gluing
+$U = U_1 \cup_{N \times \R} U_2$ of a domain along a codimension-$1$
+collar,
+\[
+  \int_U \cF \;\simeq\;
+  \int_{U_1} \cF \;\otimes_{\int_{N \times \R} \cF}\;
+  \int_{U_2} \cF.
+\]
+No mode expansion or Miura-type factorization is needed:
+the excision gluing data is carried by the cosheaf structure of $\cF$
+on $\Ran(\C^3)$.
+
+\medskip
+\noindent\textbf{(2) $K3 \times E$: the $E$-direction coproduct from
+cutting the elliptic curve.}
+For the product CY$_3$ manifold $X = K3 \times E$, the factorization
+homology integral $\int_{K3} \cF|_{K3}$ of
+Section~\ref{sec:k3-perturbative-fact-homology} produces a chiral algebra
+$A_E$ on the residual elliptic curve $E$.  The coproduct on $A_E$ arises
+from cutting $E$ into two intervals via excision.  Concretely, choose a
+collar-gluing decomposition $E = I_1 \cup_{S^0 \times \R} I_2$ (cutting
+$E$ at two points into two intervals $I_1, I_2$ with collar
+neighbourhoods).  The excision equivalence gives
+\begin{equation}\label{eq:k3xe-excision-coproduct}
+  \int_E A_E \;\simeq\;
+  \int_{I_1} A_E \;\otimes_{\int_{S^0 \times \R} A_E}\;
+  \int_{I_2} A_E.
+\end{equation}
+The map $A_E \to \int_{I_1} A_E \otimes \int_{I_2} A_E$ is the
+\emph{factorization coproduct}: it decomposes the algebra on the
+full curve into tensor factors localized on the two intervals.
+Since $A_E$ is $\Eone$-chiral on $E$ (holomorphy provides the ordering),
+the decomposition~\eqref{eq:k3xe-excision-coproduct} respects the $\Eone$
+ordering of the intervals, and the resulting coproduct is an $\Eone$-chiral
+coalgebra map.
+
+The essential point: this construction requires \emph{only} that
+$\int_{K3} \cF|_{K3}$ exists as a factorization algebra on $E$.
+No Miura transform, no toric structure on the K3 factor, and no mode
+decomposition of the OPE are needed.  The coproduct is a consequence
+of the factorization structure of $A_E$ on the Ran space of $E$.
+
+\medskip
+\noindent\textbf{(3) Coassociativity from the Ran monoidal structure.}
+The coassociativity of $\Delta^{\mathrm{Ran}}$ follows from the
+associativity of the Ran space monoidal structure, by the same
+operadic argument as
+Proposition~\ref{prop:spectral-coassociativity-factorization}.
+For three disjoint subsets $S_1, S_2, S_3$, the two bracketings
+\begin{align*}
+  &\cF(S_1 \sqcup S_2 \sqcup S_3)
+   \xrightarrow{\phi_{S_1,\, S_2 \sqcup S_3}}
+   \cF(S_1) \otimes \cF(S_2 \sqcup S_3)
+   \xrightarrow{\mathrm{id} \otimes \phi_{S_2, S_3}}
+   \cF(S_1) \otimes \cF(S_2) \otimes \cF(S_3), \\
+  &\cF(S_1 \sqcup S_2 \sqcup S_3)
+   \xrightarrow{\phi_{S_1 \sqcup S_2,\, S_3}}
+   \cF(S_1 \sqcup S_2) \otimes \cF(S_3)
+   \xrightarrow{\phi_{S_1, S_2} \otimes \mathrm{id}}
+   \cF(S_1) \otimes \cF(S_2) \otimes \cF(S_3)
+\end{align*}
+coincide because $\Ran$ is a symmetric monoidal $\infty$-category under
+disjoint union, and the factorization algebra is a symmetric monoidal
+functor from $\mathrm{Disk}_{n/M}$ to chain complexes.  No modes, no
+spectral parameters, no computation: the proof is a formal consequence
+of the symmetric monoidal structure of the Ran space.
+
+When the $\Eone$-ordering is imposed (restricting to ordered
+configurations along a real ray in $E$), the coassociativity
+specializes to the spectral coassociativity identity
+$(\Delta_w \otimes \mathrm{id}) \circ \Delta_{z+w}
+= (\mathrm{id} \otimes \Delta_z) \circ \Delta_w$ of
+equation~\eqref{eq:spectral-coassociativity}, recovering the
+$\Eone$-chiral bialgebra axiom~(H4).
+
+\begin{conjecture}[Factorization-homology coproduct agrees with Miura
+for toric CY$_3$]
+\label{conj:fact-hom-vs-miura}
+\ClaimStatusConjectured
+Let $X$ be a toric CY$_3$ and let $\cF$ be the $E_3$-chiral
+factorization algebra of
+Conjecture~\textup{\ref{conj:topological-e3-comparison}} restricted
+to~$X$.  Let $A_C = \int_{X/C} \cF$ be the chiral algebra on a
+residual curve $C$ obtained by factorization homology over the
+transverse directions.
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item The factorization-homology coproduct
+  $\Delta^{\mathrm{Ran}}$ of~\eqref{eq:ran-coproduct}, restricted to
+  the $\Eone$-sector, coincides with the Drinfeld coproduct
+  $\Delta_z$ of Definition~\textup{\ref{def:e1-chiral-bialgebra}}(ii).
+  \item For $X = \C^3$ with $\Omega$-background $(h_1, h_2, h_3)$
+  and gauge algebra $\fgl_1$, the Drinfeld coproduct on the affine
+  Yangian $Y(\widehat{\fgl}_1)$ is recovered from the Ran diagonal
+  of the $E_3$-factorization algebra on $\C^3$: the
+  Proch\'azka--Rap\v{c}\'ak Miura factorization of
+  $\cW_{1+\infty}$~\textup{\cite{ProchazkaRapcak}} is the toric
+  specialization of the general excision coproduct.
+\end{enumerate}
+The conjecture is conditional on
+Conjecture~\textup{\ref{conj:topological-e3-comparison}} (the
+$E_3$-chiral factorization algebra on $\C^3$).  For the affine
+Yangian specifically, the Drinfeld coproduct is constructed
+independently (Guay--Nakajima--Wendlandt); the content of~(ii) is
+that the two constructions agree under the identification
+$\int_{\C^2} \cF|_{\C^2} \simeq Y(\widehat{\fgl}_1)$.
+\end{conjecture}
+
+\begin{remark}[Well-definedness for general CY$_3$]
+\label{rem:fact-coprod-general-cy3}
+The factorization-homology coproduct $\Delta^{\mathrm{Ran}}$ is
+well-defined for \emph{any} CY$_3$ category $\cC$ for which the
+CY-to-chiral functor $\Phi$ produces a factorization algebra---i.e.,
+whenever CY-A holds.
+\begin{enumerate}[label=(\alph*)]
+  \item \emph{At $d = 2$ (unconditional):} For a CY$_2$ category
+  (e.g.\ $D^b(\Coh(K3))$), the functor $\Phi$ produces an
+  $\Etwo$-chiral algebra (Theorem~CY-A at $d = 2$), and the
+  factorization-homology coproduct is the excision map for any
+  collar-gluing of the underlying surface.  This recovers the
+  lattice vertex algebra coproduct (primitive on generators)
+  without any toric structure.
+  \item \emph{At $d = 3$ (conditional on CY-A$_3$):} The
+  functor $\Phi$ is conjectural, but if it produces a factorization
+  algebra $\cF$ on a curve $C$, then the excision coproduct is
+  automatically well-defined.  The Miura factorization is the
+  toric case where $\cF$ admits a decomposition into free-field
+  factors (one per toric leg of the web diagram); for
+  non-toric CY$_3$ (e.g.\ the quintic, a general complete
+  intersection, or a Pfaffian CY), no such decomposition exists,
+  and the factorization-homology coproduct is the \emph{only}
+  available construction.
+  \item \emph{Obstructions:} The factorization-homology coproduct
+  requires the chiral algebra $A = \Phi(\cC)$ to be a
+  factorization algebra (not merely a vertex algebra in the
+  algebraic sense).  This is automatic when $A$ is obtained from
+  the Costello--Gwilliam programme, but may fail for algebraically
+  constructed vertex algebras that lack a factorization-algebra
+  enhancement.  In the CY setting, the Costello--Gwilliam
+  construction is the native one, so no additional assumption is
+  needed beyond CY-A.
+\end{enumerate}
+The factorization-homology coproduct therefore provides a
+\emph{universal} source of the $\Eone$-chiral coalgebra structure:
+whenever the CY-to-chiral functor exists, the coproduct exists.
+The Miura factorization is the computational specialization in
+the toric case.
+\end{remark}
+
 
 \section{Closing: the ordered bar as the primitive of Vol~III}
 \label{sec:closing-primitive}

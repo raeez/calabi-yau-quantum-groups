@@ -257,7 +257,26 @@ Detailed results:
 - Categorical S-matrix: charge-2 S_{(2)}(u)=g(u+h_2)g(h_2-u), E_3 factorizes as S^{E_3}=S^{E_2}(u)S^{E_2}(v)S^{E_2}(u-v).
 - Shadow class → QGL analytic type: G=polynomial, L=rational, C=convergent, M=Gevrey-1 divergent (Borel).
 
-Compute engines: holomorphic_cs_chiral_engine.py, k3_yangian.py, k3_double_current_algebra.py, drinfeld_center_k3_heisenberg.py, e3_two_parameter_rmatrix.py, categorical_s_matrix_e3.py, e2_koszul_heisenberg.py, e1_koszul_three_families.py, a_infinity_bar_w1inf.py, e1_chiral_bialgebra_engine.py, chiral_coproduct_spin3_engine.py. ~1,400 tests.
+Latest frontier results (late April 2026):
+- UNIVERSAL COPRODUCT: Δ_z(e_s) = Σ_{a+b+k=s} (-1)^k C(N_R-b,k) z^k e_a^L · e_b^R. Closed-form for ALL spins. z-degree at spin s is exactly s. Cross-terms: s-1 types.
+- COASSOCIATIVITY IS TRIVIAL via Miura: T_0(u)·T_1(u-w)·T_2(u-w-z) is associative by commutativity of factors. Mode-level verification unnecessary. The algebraic proof IS Miura multiplicativity.
+- bc SYSTEM: (1+t)^{3g} holds for fermionic class C (same charge conservation, 230 tests). Chain level differs: F(q)^6 vs P(q)^6. Cohomology identical.
+- S³ ≠ S² × S¹: Hopf fibration is nontrivial. CY-A₃ framing cannot be decomposed. Relative chiral A_{K3,rel} bypasses by different mechanism (elliptic fibration).
+- K3 KOSZUL CONDUCTOR = 0 (free-field/KM branch). NOT 13 (Virasoro) or 24 (lattice rank).
+- κ_ch = χ^CY STATUS: proved at d=2 via Serre duality S_C=[2] killing one-loop correction. Status discrepancy in manuscript (conjectured in cy_to_chiral, proved in modular_koszul_bridge) — reconcile to ProvedHere.
+- CoHA(A₁ McKay) = gl(1|1) ≠ W₂. Central charge coincidence (both c=0) does NOT imply isomorphism.
+
+Deepest frontier results (late April 2026, final wave):
+- A_∞ COPRODUCT THEORY: The shadow tower IS the A_∞ correction tower. Δ^{A_∞} = Δ^{Yangian} + ℏ²δ^{(3)} + ℏ³δ^{(4)} + ... where δ^{(k)} has coefficient = shadow S_k. Class G: truncation exact. Class M: infinite corrections. The shadow invariants are coproduct correction coefficients.
+- z=0 RESOLVED: The adversarial "OPE singularity at z=0" objection is a CATEGORY ERROR. z is a Yangian spectral parameter, NOT a worldsheet coordinate. No OPE poles. Δ_0 is cocommutative, admits antipode, satisfies counit.
+- FACTORIZATION ⊗: A ⊗_{E_1} B = colim_{z_1<z_2} A(z_1) ⊗ A(z_2). NOT symmetric (ordering matters). IS strictly associative (ordered config space contractible). np.kron = E_∞ quotient, kills quantum group.
+- K3 MUKAI SIGNATURE: encoded in ω^{ij} = diag(+1,...,-1,...), NOT through imaginary h_i. Unitarity g·g(-)=1 unconditional (algebraic, no reality assumption).
+- COPRODUCT COMBINATORICS: N(s,p) = s-p terms at z^p in spin s. GF: F(x,y) = x/((1-x)²(1-xy)). Total terms: s(s+1)/2. Subleading z^{s-2}: (s-1)ψ_2^R + J^L·J^R (universal).
+- NON-ABELIAN sl₂: Coassociativity via TRACE of matrix Lax (fails for individual entries). Serre null vector: g_{i0}·g_{i1}=1 from affine imaginary root.
+- κ=χ SCOPING: d=2 ProvedHere (modular_koszul_bridge), d≥3 Conjectured (cy_to_chiral). Already correct, no discrepancy.
+- ZAMOLODCHIKOV TETRAHEDRON: COMPUTED NEGATIVE RESULT. The Yang R-matrix does NOT satisfy ZTE. The factored S_{ijk}=R_{ij}R_{ik}R_{jk} fails at O(κ²) where κ=h₁h₂h₃. At κ=0: trivially satisfied (Kapranov-Voevodsky). At generic κ: genuine obstruction. The correct E_3 3-particle S-operator requires CORRECTIONS beyond pairwise products. Engine: zamolodchikov_tetrahedron_engine.py (~1200 lines, 34 tests). THIS PROVES E_3 IS GENUINELY NONTRIVIAL.
+
+Compute engines: holomorphic_cs_chiral_engine.py, k3_yangian.py, k3_double_current_algebra.py, drinfeld_center_k3_heisenberg.py, e3_two_parameter_rmatrix.py, categorical_s_matrix_e3.py, e2_koszul_heisenberg.py, e1_koszul_three_families.py, a_infinity_bar_w1inf.py, e1_chiral_bialgebra_engine.py, chiral_coproduct_spin3_engine.py, e3_bar_bc (230 tests). ~1,800+ tests.
 
 ## Dependencies on Vols I-II
 

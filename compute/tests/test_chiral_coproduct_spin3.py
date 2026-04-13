@@ -28,6 +28,8 @@ import pytest
 
 from compute.lib.chiral_coproduct_spin3_engine import (
     Spin3CoproductEngine,
+    TripleTensorHeisenberg,
+    verify_coassociativity_spin3,
     verify_cross_term_consistency,
     verify_intertwining_n0,
     verify_spin2_cross_consistency,
@@ -233,3 +235,92 @@ class TestDirectProperties:
         p2 = eng.psi2_single(-2)
         result = p2 @ vac_s
         assert float(np.linalg.norm(result)) > 0.1, "psi_2(-2)|0> should be nonzero"
+
+
+# ---------------------------------------------------------------------------
+# Coassociativity at spin 3
+# ---------------------------------------------------------------------------
+
+class TestCoassociativity:
+    r"""(Delta_w x id) o Delta_{z+w}(psi_3) = (id x Delta_z) o Delta_w(psi_3).
+
+    The algebraic proof: the Miura factorization Delta_z(T(u)) = T_L(u)*T_R(u-z)
+    implies both iterated coproducts equal the SAME triple product
+    T_1(u)*T_2(u-w)*T_3(u-w-z) in the completed triple tensor product.
+    Associativity of formal power series multiplication (the three factors
+    act on disjoint tensor components and commute) gives the identity.
+
+    The u^{-3} coefficient (spin 3) inherits coassociativity from the
+    full generating series. These tests verify the mode-level identity
+    for explicit mode indices n at various values of Psi, w, z.
+    """
+
+    def test_coassoc_Psi1(self):
+        # VERIFIED: [TM] Miura triple product at Psi=1 (free boson).
+        r = verify_coassociativity_spin3(
+            Psi=1.0, N_max=4, w=0.3 + 0.1j, z=0.2 - 0.15j
+        )
+        assert r["ok"], f"max rel error {r['max_rel_error']:.2e}"
+
+    def test_coassoc_Psi2(self):
+        # VERIFIED: [TM] Miura triple product at Psi=2 (nontrivial cross-terms).
+        r = verify_coassociativity_spin3(
+            Psi=2.0, N_max=4, w=0.3 + 0.1j, z=0.2 - 0.15j
+        )
+        assert r["ok"], f"max rel error {r['max_rel_error']:.2e}"
+
+    @pytest.mark.parametrize("Psi", [0.5, 1.0, 2.0, 3.0])
+    def test_coassoc_parametric(self, Psi):
+        # VERIFIED: [TM] Coassociativity across Psi range.
+        r = verify_coassociativity_spin3(
+            Psi=Psi, N_max=3, w=0.2 + 0.3j, z=0.4 - 0.1j
+        )
+        assert r["ok"], f"Psi={Psi}: max rel error {r['max_rel_error']:.2e}"
+
+    def test_coassoc_real_spectral(self):
+        # VERIFIED: [TM] Real spectral parameters.
+        r = verify_coassociativity_spin3(
+            Psi=2.0, N_max=3, w=0.5, z=0.7
+        )
+        assert r["ok"], f"max rel error {r['max_rel_error']:.2e}"
+
+    def test_coassoc_z_zero(self):
+        # VERIFIED: [TM] z=0 reduces to (Delta_w x id) o Delta_w = (id x Delta_0) o Delta_w.
+        r = verify_coassociativity_spin3(
+            Psi=2.0, N_max=3, w=0.3 + 0.2j, z=0.0
+        )
+        assert r["ok"], f"max rel error {r['max_rel_error']:.2e}"
+
+    def test_coassoc_w_zero(self):
+        # VERIFIED: [TM] w=0 reduces to (Delta_0 x id) o Delta_z = (id x Delta_z) o Delta_0.
+        r = verify_coassociativity_spin3(
+            Psi=2.0, N_max=3, w=0.0, z=0.4 - 0.2j
+        )
+        assert r["ok"], f"max rel error {r['max_rel_error']:.2e}"
+
+    def test_triple_tensor_construction(self):
+        """TripleTensorHeisenberg builds correctly."""
+        eng = TripleTensorHeisenberg(Psi=1.0, N_max=3)
+        assert eng.dim == eng.d ** 3
+        # J operators on different factors commute
+        P = eng.safe_proj(2)
+        comm = eng.J1(1) @ eng.J2(-1) - eng.J2(-1) @ eng.J1(1)
+        err = float(np.max(np.abs(P @ comm @ P)))
+        assert err < 1e-12, f"[J1, J2] should vanish, got {err:.2e}"
+
+    def test_triple_tensor_cross_factor_commutation(self):
+        """All three pairs of factors commute."""
+        eng = TripleTensorHeisenberg(Psi=2.0, N_max=3)
+        P = eng.safe_proj(2)
+        for (Ja, Jb, name) in [
+            (eng.J1, eng.J2, "1-2"),
+            (eng.J1, eng.J3, "1-3"),
+            (eng.J2, eng.J3, "2-3"),
+        ]:
+            for m in [1, -1]:
+                for n_val in [1, -1]:
+                    comm = Ja(m) @ Jb(n_val) - Jb(n_val) @ Ja(m)
+                    err = float(np.max(np.abs(P @ comm @ P)))
+                    assert err < 1e-12, (
+                        f"[J_{name}({m}), J_{name}({n_val})] = {err:.2e}"
+                    )

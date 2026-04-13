@@ -48,6 +48,28 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 - **Center-hocolim**: >92% of K3×E Drinfeld center non-local. MO stable envelopes bypass it.
 - **E_2→E_3 promotion**: derived center (higher Deligne), NOT iterated Drinfeld center.
 
+### Latest Frontier Results (late April 2026)
+
+- **Universal coproduct**: Δ_z(e_s) = Σ (-1)^k C(N_R-b,k) z^k e_a^L·e_b^R. All spins in closed form. z-degree = s.
+- **Coassociativity is trivial**: Miura multiplicativity T_0·T_1·T_2 = associative. Mode-level verification unnecessary.
+- **Spin-4 coproduct derived**: 3 structural cross-term types at z^0 (including new T^L·T^R). z-degree = 3.
+- **bc system**: (1+t)^{3g} universal for ALL class C (bosonic + fermionic). 230 new tests.
+- **K3 Koszul conductor = 0**: free-field branch. κ_ch + κ_ch' = 2 + (-2) = 0.
+- **S³ ≠ S² × S¹**: CY-A₃ framing non-decomposable. Relative chiral algebra bypasses differently.
+- **κ = χ at d=2**: Serre duality S=[2] kills one-loop correction. Status discrepancy to reconcile.
+- **CoHA(A₁) = gl(1|1) ≠ W₂**: c=0 coincidence ≠ isomorphism. W-algebras enter at rank ≥ 2.
+- **Three-centers remark**: written in drinfeld_center.tex distinguishing Z(C), HH*(B,B), Z_2(C).
+
+### Deepest Frontier (final wave, late April 2026)
+
+- **A_∞ coproduct = shadow tower**: Δ^{A_∞} = Δ^{Yangian} + Σ ℏ^k δ^{(k)} where δ^{(k)} coefficients = shadow S_k. Class G exact, class M infinite.
+- **z=0 category error resolved**: spectral z ≠ worldsheet z. No OPE poles. Δ_0 = cocommutative Hopf coproduct.
+- **Factorization ⊗ = colim over ordered configs**: not np.kron. Non-symmetric, strictly associative.
+- **Coproduct combinatorics**: N(s,p) = s-p, GF = x/((1-x)²(1-xy)), subleading = (s-1)ψ_2^R + J^L·J^R.
+- **Non-abelian sl₂**: trace of matrix Lax gives coassociativity; Serre null vector g_{i0}·g_{i1}=1.
+- **ZTE FAILS for Yang R-matrix**: COMPUTED. S=RRR does NOT solve tetrahedron at O(κ²). E_3 is genuinely nontrivial. Engine: 1200 lines, 34 tests.
+- **A_∞ coproduct = shadow tower**: corrections δ^{(k)} with coefficients = shadow S_k unify coproduct theory with shadow classification.
+
 ### Codex/GPT-5.4-Specific Weakness Mitigations
 
 1. **Docstring confabulation (AP-CY24)**: GPT models fabricate "ground truth" values in docstrings while producing correct code. ALWAYS verify docstring values against function output before committing.
