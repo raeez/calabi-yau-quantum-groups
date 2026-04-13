@@ -3,7 +3,7 @@
 **Volume III** of *Modular Homotopy Theory for Algebraic Factorization Algebras on Algebraic Curves*
 by Raeez Lorgat.
 
-The combinatorial skeleton of a Calabi-Yau category (its lattice, BPS spectrum, and symmetries) is the root datum of a quantum vertex chiral group G(X). The bar-complex Euler product recovers the BKM denominator identity, and the shadow obstruction tower of Vol I organizes the BPS root multiplicities. Proved for d=2 (Yangians, elliptic Hall algebras); for d=3 the identification is a precisely scoped conjecture whose central obstruction is the construction of the CY-to-chiral functor.
+The combinatorial skeleton of a Calabi-Yau category (its lattice, BPS spectrum, and symmetries) is expected to determine the root datum of a quantum vertex chiral group G(X). When that chiral object exists, its bar-complex Euler product recovers the BKM denominator identity, and Vol I's shadow obstruction tower organizes the corresponding root-multiplicity data. Proved for d=2 (Yangians, elliptic Hall algebras); for d=3 the identification remains a precisely scoped open programme whose central obstruction is the construction of the CY-to-chiral functor.
 
 ## The Three Volumes
 
@@ -38,9 +38,9 @@ For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfac
 | Input | Source | Role in Vol III |
 |-------|--------|-----------------|
 | Shadow obstruction tower Theta_A | Vol I, Theorem D + MC2 | Conjecturally = automorphic correction of BKM |
-| E_1 ordered bar B^{ord}(A) | Vol II, Part II | CoHA = E_1-sector of quantum vertex chiral group |
+| E_1 ordered bar B^{ord}(A) | Vol II, Part II | Toric CY3: proved E_1 sector; general d=3 use remains conditional |
 | Modular characteristic kappa(A) | Vol I, Theorem D | Real roots + Weyl vector of BKM algebra |
-| R-matrix braiding | Vol II, Part III | E_2 enhancement from E_1 via Drinfeld center |
+| R-matrix braiding | Vol II, Part III | Abstract E_1 -> E_2 lift via Drinfeld center; d=3 applications require the E_1 input |
 
 ## Five-Part Structure
 
@@ -56,27 +56,26 @@ For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfac
 |-----------|--------|
 | CY_2 functor (d=2) | **Proved** |
 | Lattice VOA bridge | **Proved** |
-| CoHA = E_1 sector | **Proved** |
-| Drinfeld center = E_2 | **Proved** |
-| CY_3 functor (d=3) | **Conjectural** (central open problem) |
+| CoHA as E_1 sector (toric CY3) | **Proved** |
+| Drinfeld center lift E_1 -> E_2 | **Proved elsewhere** (d=3 applications remain conditional) |
+| CY_3 functor (d=3) | **Conjectural** (the programme is conditional on chain-level S^3-framing and quantization) |
 | BKM = shadow tower | **Conjectural** (requires d=3 functor) |
 | Langlands = Koszul | **Conjectural** |
 | BKM side verification | K3 x E: 271 tests (Borcherds product, root multiplicities) |
 
 | Metric | Value |
 |--------|------:|
-| Pages | ~335+ |
+| Pages | 367 |
 | Theory chapters | 13 |
-| Example chapters | 7 (all now in build, including 4 re-enabled former stubs) |
-| Connection chapters | 5 (including restored modular_koszul_bridge + geometric_langlands) |
-| Working notes | 22 |
-| Tagged claims | ~364 |
-| Compute tests | ~17,700+ |
-| Compute modules | 189 lib + 187 test |
+| Example chapters | 6 (with `K3 x E` merged into `toroidal_elliptic`) |
+| Connection chapters | 4 (including restored `modular_koszul_bridge` + `geometric_langlands`) |
+| Working notes | Separate PDF in build |
+| Tagged claims | 451 |
+| Compute tests | 19,838 collected |
+| Compute modules | 196 lib + 204 test |
 | Anti-patterns | AP-CY1 through AP-CY19 + AP150-AP157 + FM24 |
 | HOT ZONE entries | HZ3-1 through HZ3-10 (Vol III-specific operational templates) |
-| Bibliography | 38 bibitems (0 undefined citations, down from 62) |
-| Genuine stubs (<50 lines) | 1 (quantum_groups_foundations at 24 lines) |
+| Bibliography | 39 bibitems |
 
 ## Build
 

@@ -374,8 +374,8 @@ def kappa_heisenberg(k: Fraction) -> Fraction:
 def kappa_dual_heisenberg(k: Fraction) -> Fraction:
     r"""kappa_ch(H_k^!) = -k.
 
-    The Koszul dual H_k^! = H_{-k} (level inversion for class G).
-    kappa_ch(H_{-k}) = -k.
+    The Koszul dual H_k^! = Sym^ch(V*) (curved commutative, class G).
+    kappa_ch(H_k^!) = -k (same value as kappa_ch(H_{-k}), different algebra).
     """
     return -k
 

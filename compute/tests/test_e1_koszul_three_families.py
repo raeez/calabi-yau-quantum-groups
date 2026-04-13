@@ -60,7 +60,7 @@ from compute.lib.e1_koszul_three_families import (
 # ================================================================
 
 class TestHeisenbergKoszulDuality:
-    """Proposition prop:koszul-heisenberg: H_k^! = H_{-k}, rho_K = 0."""
+    """Proposition prop:koszul-heisenberg: H_k^! = Sym^ch(V*), kappa(H_k^!)=-k, rho_K = 0."""
 
     def test_kappa_ch_heisenberg(self):
         """kappa_ch(H_k) = k."""

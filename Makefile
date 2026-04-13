@@ -1,16 +1,27 @@
 # ============================================================================
-#  Makefile — Calabi-Yau Quantum Groups
+#  Makefile - Calabi-Yau Quantum Groups (Vol III)
 # ============================================================================
 #
 #  Usage:
-#    make               Full converging build → main.pdf
-#    make fast           Quick build (up to 4 passes)
+#    make               Full converging build → out/main.pdf
+#    make fast           Quick build (up to 4 passes) → out/main.pdf
+#    make release        Full release → out/ + iCloud
 #    make clean          Remove LaTeX build artifacts
-#    make veryclean      Remove artifacts AND compiled PDFs
+#    make veryclean      Remove artifacts AND out/ (forces rebuild)
+#    make clean-builds   Remove all /tmp/mkd-* isolated build directories
 #    make count          Line counts and page estimate
 #    make check          Halt-on-error validation
 #    make test           Run compute test suite
 #    make help           Show available targets
+#
+#  Build isolation (parallel agents):
+#    Each build runs in its own /tmp directory.  Set MKD_BUILD_NS to reuse
+#    the same directory across invocations (warm .aux files = faster builds):
+#
+#      export MKD_BUILD_NS="agent-$$"   # set once per agent session
+#      make fast                         # cold first time, warm thereafter
+#
+#  All compiled output goes to out/.
 #
 # ============================================================================
 
@@ -32,11 +43,15 @@ SOURCES   := $(wildcard *.tex) \
              $(wildcard chapters/theory/*.tex) \
              $(wildcard chapters/examples/*.tex) \
              $(wildcard chapters/connections/*.tex) \
+             $(wildcard chapters/frame/*.tex) \
              $(wildcard appendices/*.tex)
 
-PDF       := $(MAIN).pdf
+# Output -- everything goes to out/
 OUT_DIR   := out
-OUT_PDF   := $(OUT_DIR)/calabi_yau_quantum_groups.pdf
+PDF       := $(OUT_DIR)/main.pdf
+
+# Working notes
+WN_TEX    := working_notes.tex
 
 STAMP     := .build_stamp
 
@@ -51,25 +66,23 @@ AUX_EXTS  := aux log out toc synctex.gz fdb_latexmk fls bbl blg \
 #  Targets
 # ============================================================================
 
-.PHONY: all fast clean veryclean count check test publish help release working-notes dist icloud
+.PHONY: all fast clean veryclean clean-builds count check test help release working-notes dist icloud
 
 ## icloud: Copy latest PDFs to iCloud Drive
-icloud: main.pdf
+icloud: $(PDF)
 	@mkdir -p "$(ICLOUD_DIR)"
-	@cp -v main.pdf "$(ICLOUD_DIR)/vol3_calabi_yau_quantum_groups.pdf"
-	@echo "Vol III PDF copied to iCloud."
+	@for pdf in $(OUT_DIR)/*.pdf; do [ -f "$$pdf" ] && cp -v "$$pdf" "$(ICLOUD_DIR)/$$(basename $$pdf)" || true; done
+	@echo "Vol III PDFs copied to iCloud."
 
-## all: Full converging build
-all: $(STAMP) publish
+## all: Full converging build → out/
+all: $(STAMP)
 
 $(STAMP): $(SOURCES) $(BUILD_SCRIPT)
 	@echo "======================================================"
 	@echo "  Building: $(MAIN).tex  ->  $(PDF)"
-	@echo "  Engine:   quiet $(TEX) wrapper (up to $(PASSES) passes)"
 	@echo "======================================================"
-	@mkdir -p $(LOG_DIR)
 	@$(BUILD_SCRIPT) $(PASSES)
-	@if [ ! -f $(MAIN).pdf ]; then \
+	@if [ ! -f $(PDF) ]; then \
 		echo "  Build failed -- no PDF produced."; exit 1; \
 	fi
 	@touch $(STAMP)
@@ -77,18 +90,61 @@ $(STAMP): $(SOURCES) $(BUILD_SCRIPT)
 	@echo "  $(PDF) built successfully."
 	@echo ""
 
-## fast: Quick converging build
+## fast: Quick converging build → out/main.pdf
 fast:
 	@echo "  -- Fast build (up to $(FAST_PASSES) passes) --"
-	@mkdir -p $(LOG_DIR)
 	@$(BUILD_SCRIPT) $(FAST_PASSES)
-	@echo "     Logs: $(LOG_DIR)/tex-build.stdout.log and $(MAIN).log"
 
-## publish: Copy final PDF to out/
-publish:
-	@mkdir -p $(OUT_DIR)
-	@if [ -f $(PDF) ]; then cp $(PDF) $(OUT_PDF); echo "  $(OUT_PDF)"; \
-	else echo "  $(PDF) not found -- run 'make fast' first."; fi
+## working-notes: Build the working notes → out/working_notes.pdf
+working-notes:
+	@echo "  -- Building working notes --"
+	@mkdir -p $(OUT_DIR) $(LOG_DIR)
+	@$(TEX) $(TEXFLAGS) $(WN_TEX) >$(LOG_DIR)/working-notes.log 2>&1 || true
+	@$(TEX) $(TEXFLAGS) $(WN_TEX) >$(LOG_DIR)/working-notes.log 2>&1 || true
+	@if [ -f working_notes.pdf ]; then \
+		mv working_notes.pdf $(OUT_DIR)/working_notes.pdf; \
+		rm -f working_notes.aux working_notes.log working_notes.out working_notes.toc 2>/dev/null; \
+		echo "  $(OUT_DIR)/working_notes.pdf"; \
+	else \
+		echo "  Working notes build failed. See $(LOG_DIR)/working-notes.log"; \
+		exit 1; \
+	fi
+
+## release: Full rebuild → out/ + iCloud
+release:
+	@rm -f $(STAMP)
+	@rm -rf $(OUT_DIR)
+	@mkdir -p $(LOG_DIR) $(OUT_DIR)
+	@echo ""
+	@echo "  ══════════════════════════════════════════"
+	@echo "  ── RELEASE BUILD (Vol III) ──"
+	@echo "  ══════════════════════════════════════════"
+	@echo ""
+	@echo "  [1/2] Main manuscript"
+	@$(BUILD_SCRIPT) $(PASSES)
+	@if [ -f $(PDF) ]; then \
+		echo "  ✓  $(PDF)"; \
+	else \
+		echo "  ✗  Manuscript build failed."; \
+	fi
+	@echo ""
+	@echo "  [2/2] Working notes"
+	@$(MAKE) --no-print-directory working-notes
+	@echo ""
+	@echo "  ── Copying to iCloud ──"
+	@mkdir -p "$(ICLOUD_DIR)"
+	@for pdf in $(OUT_DIR)/*.pdf; do \
+		name=$$(basename "$$pdf"); \
+		if [ -f "$$pdf" ]; then \
+			cp "$$pdf" "$(ICLOUD_DIR)/$$name"; \
+			echo "    ✓  $$name"; \
+		fi; \
+	done
+	@echo ""
+	@echo "  ══════════════════════════════════════════"
+	@echo "  Release complete. All output in out/:"
+	@ls -1 $(OUT_DIR)/*.pdf 2>/dev/null | sed 's/^/    /'
+	@echo "  ══════════════════════════════════════════"
 
 ## check: Halt-on-error validation
 check:
@@ -121,19 +177,25 @@ clean:
 	@rm -f texput.log
 	@echo "  Clean."
 
-## veryclean: Remove everything including PDF
+## veryclean: Remove everything including out/
 veryclean: clean
-	@rm -f $(MAIN).pdf $(STAMP)
+	@rm -f $(STAMP)
 	@rm -rf $(OUT_DIR)
-	@echo "  Stamp, PDFs, and out/ removed."
+	@echo "  Stamp and out/ removed."
+
+## clean-builds: Remove ALL /tmp/mkd-* isolated build directories (all volumes).
+clean-builds:
+	@echo "  Cleaning isolated build directories..."
+	@rm -rf /tmp/mkd-chiral-bar-cobar-* /tmp/mkd-chiral-bar-cobar-vol2-* /tmp/mkd-calabi-yau-quantum-groups-*
+	@echo "  ✓  All /tmp/mkd-* build directories removed."
 
 ## count: Manuscript statistics
 count:
 	@echo ""
 	@echo "  -- Manuscript Statistics --"
 	@echo ""
-	@printf "  Source files:   %s .tex files\n" "$$(find . -name '*.tex' -not -path './archive/*' | wc -l | tr -d ' ')"
-	@printf "  Total lines:   %s\n" "$$(find . -name '*.tex' -not -path './archive/*' -exec cat {} + | wc -l | tr -d ' ')"
+	@printf "  Source files:   %s .tex files\n" "$$(find . -name '*.tex' -not -path './archive/*' -not -path './out/*' | wc -l | tr -d ' ')"
+	@printf "  Total lines:   %s\n" "$$(find . -name '*.tex' -not -path './archive/*' -not -path './out/*' -exec cat {} + | wc -l | tr -d ' ')"
 	@if [ -f $(PDF) ]; then \
 		PAGES=$$(strings $(PDF) | grep -c '/Type /Page' 2>/dev/null || echo '?'); \
 		printf "  PDF pages:     %s\n" "$$PAGES"; \
@@ -143,68 +205,6 @@ count:
 	fi
 	@echo ""
 
-# Working notes
-WN_TEX    := working_notes.tex
-WN_PDF    := working_notes.pdf
-OUT_WN    := $(OUT_DIR)/working_notes.pdf
-
-## working-notes: Build the working notes (standalone document).
-working-notes: $(OUT_WN)
-
-$(OUT_WN): $(WN_TEX)
-	@echo "  -- Building working notes --"
-	@mkdir -p $(OUT_DIR) $(LOG_DIR)
-	@$(TEX) $(TEXFLAGS) $(WN_TEX) >$(LOG_DIR)/working-notes.log 2>&1 || true
-	@$(TEX) $(TEXFLAGS) $(WN_TEX) >$(LOG_DIR)/working-notes.log 2>&1 || true
-	@if [ -f $(WN_PDF) ]; then \
-		cp $(WN_PDF) $(OUT_WN); \
-		echo "  $(OUT_WN)"; \
-	else \
-		echo "  Working notes build failed. See $(LOG_DIR)/working-notes.log"; \
-		exit 1; \
-	fi
-
-## release: Full rebuild — manuscript + working notes → out/ + root + iCloud
-release:
-	@rm -f $(STAMP) $(PDF) $(WN_PDF)
-	@rm -rf $(OUT_DIR)
-	@mkdir -p $(LOG_DIR) $(OUT_DIR)
-	@echo ""
-	@echo "  ══════════════════════════════════════════"
-	@echo "  ── RELEASE BUILD (Vol III) ──"
-	@echo "  ══════════════════════════════════════════"
-	@echo ""
-	@echo "  [1/2] Main manuscript"
-	@$(BUILD_SCRIPT) $(PASSES)
-	@if [ -f $(PDF) ]; then \
-		cp $(PDF) $(OUT_PDF); \
-		cp $(PDF) calabi_yau_quantum_groups.pdf; \
-		echo "  ✓  out/calabi_yau_quantum_groups.pdf"; \
-		echo "  ✓  calabi_yau_quantum_groups.pdf (root)"; \
-	else \
-		echo "  ✗  Manuscript build failed."; \
-	fi
-	@echo ""
-	@echo "  [2/2] Working notes"
-	@$(MAKE) --no-print-directory working-notes
-	@if [ -f $(OUT_WN) ]; then cp $(OUT_WN) working_notes.pdf; echo "  ✓  working_notes.pdf (root)"; fi
-	@echo ""
-	@echo "  ── Copying to iCloud ──"
-	@mkdir -p "$(ICLOUD_DIR)"
-	@if [ -f $(OUT_PDF) ]; then \
-		cp $(OUT_PDF) "$(ICLOUD_DIR)/calabi_yau_quantum_groups.pdf"; \
-		echo "    ✓  calabi_yau_quantum_groups.pdf"; \
-	fi
-	@if [ -f $(OUT_WN) ]; then \
-		cp $(OUT_WN) "$(ICLOUD_DIR)/working_notes_vol3.pdf"; \
-		echo "    ✓  working_notes_vol3.pdf"; \
-	fi
-	@echo ""
-	@echo "  ══════════════════════════════════════════"
-	@echo "  Release complete. Output in out/:"
-	@ls -1 $(OUT_DIR)/*.pdf 2>/dev/null | sed 's/^/    /'
-	@echo "  ══════════════════════════════════════════"
-
 ## dist: Create archive for distribution.
 dist: release
 	@echo "  -- Creating archive --"
@@ -212,7 +212,7 @@ dist: release
 	@zip -r $(OUT_DIR)/CalabiYauQuantumGroups.zip \
 		main.tex working_notes.tex chapters/ appendices/ notes/ compute/ \
 		Makefile CLAUDE.md scripts/ \
-		$(OUT_DIR)/calabi_yau_quantum_groups.pdf \
+		$(PDF) \
 		$(OUT_DIR)/working_notes.pdf \
 		-x '.*' -x '**/.*' -x '**/__pycache__/*' -x '**/*.pyc' \
 		-x 'compute/.venv/*' \
@@ -224,17 +224,18 @@ help:
 	@echo ""
 	@echo "  Calabi-Yau Quantum Groups -- Build System"
 	@echo "  ------------------------------------------"
+	@echo "  All compiled output goes to out/"
 	@echo ""
-	@echo "  make               Full converging build"
-	@echo "  make fast          Quick build (up to $(FAST_PASSES) passes)"
-	@echo "  make release       Full release: manuscript + working notes + tests -> out/"
-	@echo "  make working-notes Build working notes -> out/working_notes.pdf"
-	@echo "  make dist          Create CalabiYauQuantumGroups.zip in out/"
+	@echo "  make               Full converging build → out/"
+	@echo "  make fast          Quick build → out/main.pdf"
+	@echo "  make release       Full release → out/ + iCloud"
+	@echo "  make working-notes Build working notes → out/working_notes.pdf"
+	@echo "  make dist          Create archive in out/"
 	@echo "  make check         Halt-on-error validation"
 	@echo "  make test          Run compute tests"
 	@echo "  make clean         Remove build debris"
-	@echo "  make veryclean     Remove everything including PDF"
+	@echo "  make veryclean     Remove everything including out/"
+	@echo "  make clean-builds  Remove /tmp/mkd-* isolated build directories"
 	@echo "  make count         Manuscript statistics"
-	@echo "  make publish       Copy PDF to out/"
 	@echo "  make help          This message"
 	@echo ""
