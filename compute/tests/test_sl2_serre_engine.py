@@ -295,9 +295,12 @@ class TestSerreCheck:
         Path A: serre_check() standalone function.
         Path B: SerreRelation class.
         Path C: Direct T1=T2=T3 via g_matrix, so 1-2+1=0.
+
+        For h=(1,2,-3), must avoid differences in {+/-1, +/-2, +/-3}.
+        z1=10, z2=20, w=30: diffs are -10, -20, -10 -- all safe.
         """
         h1, h2, h3 = Fraction(1), Fraction(2), Fraction(-3)
-        z1, z2, w = Fraction(3), Fraction(7), Fraction(5)
+        z1, z2, w = Fraction(10), Fraction(20), Fraction(30)
         # Path A: standalone
         result_a = serre_check(z1, z2, w, h1=h1, h2=h2, h3=h3)
         assert result_a["serre_vanishes"] is True
@@ -422,9 +425,16 @@ class TestComprehensiveVerification:
         assert result["all_pass"] is True
 
     def test_full_verification_custom_h(self):
-        """All three relations verified for h=(1, 2, -3)."""
+        """All three relations verified for h=(37, 41, -78).
+
+        The full verification uses default test points whose pairwise
+        differences span {+/-2,...,+/-13} and null-vector points are
+        small primes {2,...,29}.  Choosing h1=37, h2=41, h3=-78 places
+        all forbidden values {+/-37, +/-41, +/-78} safely outside both
+        ranges.
+        """
         sf = StructureFunction(
-            h1=Fraction(1), h2=Fraction(2), h3=Fraction(-3)
+            h1=Fraction(37), h2=Fraction(41), h3=Fraction(-78)
         )
         result = sl2_serre_full_verification(sf)
         # VERIFIED [DC] full verification [LT] all three defining relations
@@ -453,8 +463,12 @@ class TestComprehensiveVerification:
 
         Path A: sl2_serre_full_verification() (class-based, all-in-one).
         Path B: Individual standalone functions on same parameters.
+
+        Using h=(37,41,-78): forbidden values {+/-37,+/-41,+/-78} are
+        outside all default test-point differences {+/-2,...,+/-13} and
+        null-vector test points {2,...,29}.
         """
-        h1, h2, h3 = Fraction(1), Fraction(2), Fraction(-3)
+        h1, h2, h3 = Fraction(37), Fraction(41), Fraction(-78)
         sf = StructureFunction(h1=h1, h2=h2, h3=h3)
         # Path A: comprehensive
         full = sl2_serre_full_verification(sf)
@@ -465,8 +479,9 @@ class TestComprehensiveVerification:
         # Path B: standalone wheel
         wc = wheel_condition(h1=h1, h2=h2, h3=h3)
         assert wc["wheel_verified"] is True
-        # Path B: standalone Serre at a specific point
-        sc = serre_check(Fraction(3), Fraction(7), Fraction(5), h1=h1, h2=h2, h3=h3)
+        # Path B: standalone Serre at a pole-safe point
+        sc = serre_check(Fraction(100), Fraction(200), Fraction(300),
+                         h1=h1, h2=h2, h3=h3)
         assert sc["serre_vanishes"] is True
         # Agreement across paths
         assert full["summary"]["null_vector_all_hold"] == nv["all_hold"]

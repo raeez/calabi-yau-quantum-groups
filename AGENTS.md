@@ -59,6 +59,18 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 - **κ = χ at d=2**: Serre duality S=[2] kills one-loop correction. Status discrepancy to reconcile.
 - **CoHA(A₁) = gl(1|1) ≠ W₂**: c=0 coincidence ≠ isomorphism. W-algebras enter at rank ≥ 2.
 - **Three-centers remark**: written in drinfeld_center.tex distinguishing Z(C), HH*(B,B), Z_2(C).
+- **Factorization-homology coproduct**: 180 lines in e1_chiral_algebras.tex. General CY coproduct from Ran excision (no Miura needed).
+- **Vol I/II cross-refs inscribed**: shadow=A_∞ in Vol I, E_1-bialgebra in Vol II.
+- **κ=χ confirmed correct**: d=2 ProvedHere, d≥3 Conjectured. No discrepancy.
+- **All builds pass**: Vol I (2636pp), Vol II, Vol III. ~1,800+ tests.
+
+### Roadmap: Five Load-Bearing Open Problems (priority order)
+
+1. **CY-A₃** (S³-framing A_∞ compatibility). Kummer bypasses for K3×E. Quintic: Z₅⁵ reduces to polynomial growth.
+2. **ZTE correction** (S^{corr} solving tetrahedron). Proved S=RRR fails at O(κ²). Constructing the correction = new math.
+3. **K3 Yangian quantization** (g_{K3} → Y(g_{K3})). All inputs specified. Degree-24 structure function.
+4. **Non-abelian sl₂** (matrix Miura, Serre, beyond gl₁). Trace gives coassociativity. Null vector g_{i0}·g_{i1}=1.
+5. **Sp₄(Z) modularity** (E₃ S-matrix → Siegel forms → Φ₁₀). Fourier-Jacobi = E₂→E₃.
 
 ### Deepest Frontier (final wave, late April 2026)
 

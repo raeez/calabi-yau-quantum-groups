@@ -276,7 +276,33 @@ Deepest frontier results (late April 2026, final wave):
 - κ=χ SCOPING: d=2 ProvedHere (modular_koszul_bridge), d≥3 Conjectured (cy_to_chiral). Already correct, no discrepancy.
 - ZAMOLODCHIKOV TETRAHEDRON: COMPUTED NEGATIVE RESULT. The Yang R-matrix does NOT satisfy ZTE. The factored S_{ijk}=R_{ij}R_{ik}R_{jk} fails at O(κ²) where κ=h₁h₂h₃. At κ=0: trivially satisfied (Kapranov-Voevodsky). At generic κ: genuine obstruction. The correct E_3 3-particle S-operator requires CORRECTIONS beyond pairwise products. Engine: zamolodchikov_tetrahedron_engine.py (~1200 lines, 34 tests). THIS PROVES E_3 IS GENUINELY NONTRIVIAL.
 
-Compute engines: holomorphic_cs_chiral_engine.py, k3_yangian.py, k3_double_current_algebra.py, drinfeld_center_k3_heisenberg.py, e3_two_parameter_rmatrix.py, categorical_s_matrix_e3.py, e2_koszul_heisenberg.py, e1_koszul_three_families.py, a_infinity_bar_w1inf.py, e1_chiral_bialgebra_engine.py, chiral_coproduct_spin3_engine.py, e3_bar_bc (230 tests). ~1,800+ tests.
+Final results:
+- FACTORIZATION-HOMOLOGY COPRODUCT (180 lines, e1_chiral_algebras.tex): For GENERAL CY (non-toric), coproduct from Ran space excision. Works for quintic, complete intersections. Conjectural agreement with Miura for toric.
+- VOL I CROSS-REF: rem:shadow-ainfty-coproduct-vol3 (higher_genus_complementarity.tex). Shadow S_k = A_∞ correction δ^{(k)}.
+- VOL II CROSS-REF: rem:e1-chiral-bialgebra-vol3 (foundations_recast_draft.tex). E_1-chiral bialgebra on open SC^{ch,top} colour.
+- ALL BUILDS PASS: Vol I (2636pp), Vol II, Vol III. All tests pass.
+
+## Roadmap: The Platonic Ideal
+
+The programme constructs chiral quantum groups from CY geometry via holomorphic CS. The architecture:
+```
+CY_d category --Phi--> E_1-chiral algebra --B^{ord}--> bar complex --D_Ran--> Koszul dual A^! --Rep^{E_2}--> chiral QG
+```
+At each step: E_1 (ordered) is the primitive; E_2 (braided) via Drinfeld center; E_3 (6d hCS) via derived center; E_∞ (symmetric) kills Hopf.
+
+Status by dimension:
+- d=1: E_∞ (commutative). PROVED. Trivial.
+- d=2: E_2 (braided). PROVED (CY-A_2). K3 lattice VOA, κ_ch=2.
+- d=3: E_1 (ordered). PROGRAMME (CY-A_3). Yangian/toroidal from CoHA. Kummer route 80% proved.
+
+The five load-bearing open problems:
+1. CY-A_3 (S³-framing): the bottleneck. Kummer bypasses for K3×E.
+2. ZTE correction: S^{corr}=S+κ²T solving the tetrahedron. New math.
+3. K3 Yangian quantization: deforming g_{K3} to Y(g_{K3}). All inputs specified.
+4. Non-abelian (sl_2): matrix Miura, Serre constraints, beyond gl_1.
+5. Sp_4(Z) modularity: E_3 S-matrix → Siegel modular forms → Φ_10.
+
+Compute engines: holomorphic_cs_chiral_engine, k3_yangian, k3_double_current_algebra, drinfeld_center_k3_heisenberg, e3_two_parameter_rmatrix, categorical_s_matrix_e3, e2_koszul_heisenberg, e1_koszul_three_families, a_infinity_bar_w1inf, e1_chiral_bialgebra_engine, chiral_coproduct_spin3_engine, e3_bar_bc, zamolodchikov_tetrahedron_engine. ~1,800+ tests.
 
 ## Dependencies on Vols I-II
 
