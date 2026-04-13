@@ -1070,6 +1070,155 @@ def verify_antipode_consistency(N_max: int = 6) -> Dict[str, object]:
 
 
 # ---------------------------------------------------------------------------
+# A_inf coproduct correction delta^{(3)}
+# ---------------------------------------------------------------------------
+
+def _gram_element(lam: Tuple[int, ...], Psi: float) -> float:
+    r"""Physical norm squared of the partition state |lambda>.
+
+    <lambda|lambda>_phys = prod_i (Psi * i)^{n_i} * n_i!
+    where n_i is the multiplicity of part i in lambda.
+    """
+    from collections import Counter
+    if not lam:
+        return 1.0
+    cnt = Counter(lam)
+    result = 1.0
+    for i, ni in cnt.items():
+        result *= (Psi * i) ** ni
+        f = 1
+        for k in range(2, ni + 1):
+            f *= k
+        result *= f
+    return result
+
+
+def compute_delta3_T0(Psi: float = 2.0, N_max: int = 8) -> Dict[str, object]:
+    r"""Compute the A_inf coproduct correction delta^{(3)}(T_0).
+
+    The A_inf coproduct deforms the Drinfeld coproduct:
+        Delta^{A_inf} = Delta^{Yan} + hbar^2 * delta^{(3)} + ...
+
+    The correction delta^{(3)}(T_0) arises from the obstruction to
+    the Drinfeld coproduct being an A_inf morphism at the m_3 level:
+
+        O_3 = m_3^{tensor}(Delta(T)^{otimes 3}) - Delta(m_3(T^3))
+
+    DERIVATION:
+        m_3(T,T,T) = -2T at c=1 (cubic shadow coefficient alpha=2).
+
+        Delta(T_0) = T_0^L + T_0^R + alpha_cop * X_0
+        where alpha_cop = (Psi-1)/Psi and X_0 = sum_k J_k^L J_{-k}^R.
+
+        In the decoupled tensor product, m_3 acts on each factor:
+            m_3^{tensor}(T_L,T_L,T_L) = -2*T_L, m_3^{tensor}(T_R,T_R,T_R) = -2*T_R
+        Mixed terms vanish (m_3 cannot mix tensor factors).
+
+        So: O_3 = (-2T_L - 2T_R) - (-2T_L - 2T_R - 2*alpha_cop*X_0)
+                = 2*alpha_cop*X_0 (at leading order)
+
+    EVALUATION: the weight-1 transfer matrix element between
+    |J_{-1}vac, vac> and |vac, J_{-1}vac> in the physical inner product,
+    normalized by the physical norms of the states.
+
+    At Psi=2: O_3 = X_0, and the normalized matrix element = Psi = 2 = S_3.
+
+    Parameters
+    ----------
+    Psi : float
+        Heisenberg level.
+    N_max : int
+        Fock space truncation.
+
+    Returns
+    -------
+    dict with keys:
+        delta3_value : float
+            The normalized physical matrix element (the NUMBER).
+        S3_shadow : float
+            The S_3 value from the spin-2 shadow tower for comparison.
+        match_S3 : bool
+            Whether delta^{(3)} matches S_3.
+        obstruction_raw : float
+            The raw (unnormalized) physical matrix element of O_3.
+        alpha_cop : float
+            The coproduct cross-term coefficient (Psi-1)/Psi.
+        m3_coeff : int
+            The m_3(T,T,T) coefficient (-2 at c=1).
+    """
+    H = HeisenbergFock(Psi, N_max)
+    TH = TensorHeisenberg(Psi, N_max)
+    d = H.dim
+
+    alpha_cop = (Psi - 1.0) / Psi
+
+    # Build X_0 = sum_k J_k^L J_{-k}^R
+    M = N_max + 2
+    X0 = np.zeros((TH.dim, TH.dim))
+    for k in range(-M, M + 1):
+        X0 += np.kron(H.J(k), H.J(-k))
+
+    # Obstruction O_3 = 2 * alpha_cop * X_0
+    O3 = 2.0 * alpha_cop * X0
+
+    # Build tensor basis states in the partition-coefficient basis
+    vac_idx = H.idx[()]
+    j1_idx = H.idx.get((1,))
+    if j1_idx is None:
+        raise ValueError("Fock space too small for weight-1 states")
+
+    # |J_{-1}vac, vac>
+    ket = np.zeros(TH.dim)
+    ket[j1_idx * d + vac_idx] = 1.0
+
+    # |vac, J_{-1}vac>
+    bra = np.zeros(TH.dim)
+    bra[vac_idx * d + j1_idx] = 1.0
+
+    # Build the physical Gram matrix for the tensor product
+    G_diag = np.zeros(d)
+    for i, lam in enumerate(H.partitions):
+        G_diag[i] = _gram_element(lam, Psi)
+    G = np.diag(G_diag)
+    G_tensor = np.kron(G, G)
+
+    # Physical matrix element: bra^T @ G_tensor @ O3 @ ket
+    me_phys = float(bra @ G_tensor @ O3 @ ket)
+
+    # Normalize by the physical norms of the |(1,)> states on each side
+    # Physical norm squared of |(1,)> = Psi * 1 = Psi
+    norm_sq_j1 = Psi  # = G_diag[j1_idx]
+    me_normalized = me_phys / norm_sq_j1
+
+    # Shadow tower S_3 for spin-2 at c=1
+    # From the convolution recursion: kappa=1/2, alpha=2
+    # a_0 = 2*kappa = 1, a_1 = 3*alpha = 6, S_3 = a_1/3 = 2
+    kappa_ch = 0.5
+    alpha_m3 = 2  # from m_3(T,T,T) = -2T
+    a0 = 2.0 * kappa_ch
+    a1 = 3.0 * alpha_m3
+    S3_shadow = a1 / 3.0  # = 2.0
+
+    # Exact formula: delta^{(3)} = -m_3_coeff * (Psi - 1) = 2*(Psi - 1)
+    # Derivation: O_3 = 2*alpha_cop*X_0, physical me of X_0 = Psi^2,
+    # normalized me = Psi^2/Psi = Psi, so delta^{(3)} = 2*alpha_cop*Psi = 2*(Psi-1).
+    delta3_exact = -(-2.0) * (Psi - 1.0)  # = 2*(Psi - 1)
+
+    return {
+        "delta3_value": me_normalized,
+        "delta3_exact": delta3_exact,
+        "match_exact": abs(me_normalized - delta3_exact) < 1e-10,
+        "S3_shadow": S3_shadow,
+        "match_S3_at_Psi2": abs(me_normalized - S3_shadow) < 1e-10 if abs(Psi - 2.0) < 1e-10 else None,
+        "obstruction_raw": me_phys,
+        "alpha_cop": alpha_cop,
+        "m3_coeff": -2,
+        "kappa_ch": kappa_ch,
+        "Psi": Psi,
+    }
+
+
+# ---------------------------------------------------------------------------
 # Full suite
 # ---------------------------------------------------------------------------
 

@@ -63,7 +63,13 @@ from compute.lib.k3_double_current_algebra import (
     kummer_factorization_data,
     kummer_twisted_sector_character,
     kummer_orbifold_character_check,
+    kummer_orbifold_character_coefficients,
+    kummer_resolved_vs_lattice_voa,
     verify_kummer_route,
+    # Single A_1 blow-up character correction
+    A1_BLOWUP_GENERATORS, A1_GLUING_RELATIONS, A1_NET_GENERATORS,
+    a1_single_blowup_character,
+    kummer_resolved_character_assembly,
 )
 
 F = Fraction
@@ -704,3 +710,447 @@ class TestKummerCrossVerification:
         """All Kummer route checks pass."""
         result = verify_kummer_route()
         assert result['all_checks_pass'] is True
+
+
+# =========================================================================
+# Section 9: Kummer route character-level computation
+# =========================================================================
+
+class TestKummerOrbifoldCharacter:
+    """Character-level orbifold computation through q^8.
+
+    The orbifold char_{T^4/Z_2}(q) has two layers:
+      Integer powers:      p_8(n)         [from untwisted H_8]
+      Half-integer powers: 16 * p_2(n)    [from 16 twisted sectors]
+
+    After resolution (16 blow-ups), the target is 1/eta^{24}.
+    The blow-up correction Delta(n) = p_24(n) - p_8(n) encodes the
+    16 exceptional CP^1 generators.  The factorization identity
+    p_24 = p_8 * p_16 (convolution) is the character-level avatar
+    of the rank decomposition 24 = 8 + 16.
+    """
+
+    def test_target_eta24_known_coefficients(self):
+        """1/eta^{24} coefficients match OEIS A006922."""
+        data = kummer_orbifold_character_coefficients(max_terms=8)
+        expected = {
+            0: 1, 1: 24, 2: 324, 3: 3200, 4: 25650,
+            5: 176256, 6: 1073720, 7: 5930496, 8: 30178575,
+        }
+        for n, val in expected.items():
+            assert data['target_eta24_coeffs'][n] == val, (
+                f"1/eta^24 at q^{n}: got {data['target_eta24_coeffs'][n]}, "
+                f"expected {val}"
+            )
+
+    def test_untwisted_sector_p8_coefficients(self):
+        """Untwisted sector char(H_8) = prod 1/(1-q^n)^8."""
+        data = kummer_orbifold_character_coefficients(max_terms=8)
+        expected_p8 = {
+            0: 1, 1: 8, 2: 44, 3: 192, 4: 726,
+            5: 2464, 6: 7704, 7: 22528, 8: 62337,
+        }
+        for n, val in expected_p8.items():
+            assert data['orbifold_integer_coeffs'][n] == val
+
+    def test_twisted_sector_half_integer_coefficients(self):
+        """16 twisted sectors contribute 16*p_2(n) at q^{n+1/2}."""
+        data = kummer_orbifold_character_coefficients(max_terms=8)
+        # 16 * p_2(n) for n = 0..8
+        expected_half = {
+            0: 16, 1: 32, 2: 80, 3: 160, 4: 320,
+            5: 576, 6: 1040, 7: 1760, 8: 2960,
+        }
+        for n, val in expected_half.items():
+            assert data['orbifold_half_integer_coeffs'][n] == val
+
+    def test_orbifold_does_not_equal_target(self):
+        """The orbifold integer-power character != 1/eta^24.
+
+        This is the key negative result: the orbifold character (before
+        resolution) does NOT match the K3 partition function.  The
+        blow-up correction is essential.
+        """
+        data = kummer_orbifold_character_coefficients(max_terms=8)
+        assert data['orbifold_equals_target'] is False
+
+    def test_blowup_correction_coefficients(self):
+        """Blow-up correction Delta(n) = p_24(n) - p_8(n)."""
+        data = kummer_orbifold_character_coefficients(max_terms=8)
+        expected_delta = {
+            0: 0, 1: 16, 2: 280, 3: 3008, 4: 24924,
+            5: 173792, 6: 1066016, 7: 5907968, 8: 30116238,
+        }
+        for n, val in expected_delta.items():
+            assert data['blowup_correction'][n] == val, (
+                f"Delta({n}): got {data['blowup_correction'][n]}, "
+                f"expected {val}"
+            )
+
+    def test_blowup_correction_q0_vanishes(self):
+        """Delta(0) = 0: vacuum is unique, no correction needed."""
+        data = kummer_orbifold_character_coefficients(max_terms=8)
+        assert data['blowup_correction'][0] == 0
+
+    def test_blowup_correction_q1_equals_16(self):
+        """Delta(1) = 16: one new generator per exceptional CP^1.
+
+        The 16 exceptional divisors each contribute one new degree-1
+        generator to the Heisenberg algebra.  This is the character-level
+        avatar of the rank jump 8 -> 24.
+        """
+        data = kummer_orbifold_character_coefficients(max_terms=8)
+        assert data['blowup_correction_at_q1'] == 16
+        assert data['blowup_correction_at_q1'] == NUM_FIXED_POINTS
+
+    def test_factorization_identity_p24_equals_p8_times_p16(self):
+        """p_24 = p_8 * p_16 (convolution) through q^8.
+
+        This is the character-level factorization identity:
+          1/prod(1-q^n)^{24} = 1/prod(1-q^n)^8 * 1/prod(1-q^n)^{16}
+
+        encoding the Heisenberg rank decomposition 24 = 8 + 16
+        (8 untwisted generators + 16 from blow-up).
+        """
+        data = kummer_orbifold_character_coefficients(max_terms=8)
+        assert data['factorization_match'] is True
+
+    def test_factorization_convolution_explicit(self):
+        """Explicit convolution check: (p_8 * p_16)(n) = p_24(n)."""
+        data = kummer_orbifold_character_coefficients(max_terms=8)
+        for n in range(9):
+            assert (data['factorization_p8_times_p16'][n]
+                    == data['target_eta24_coeffs'][n])
+
+    def test_blowup_correction_dominates(self):
+        """For n >= 2, the blow-up correction exceeds the untwisted part.
+
+        The 16 exceptional generators rapidly dominate: at q^2 already
+        Delta(2) = 280 >> p_8(2) = 44.
+        """
+        data = kummer_orbifold_character_coefficients(max_terms=8)
+        for n in range(2, 9):
+            assert (data['blowup_correction'][n]
+                    > data['orbifold_integer_coeffs'][n]), (
+                f"At q^{n}: correction {data['blowup_correction'][n]} "
+                f"should exceed untwisted {data['orbifold_integer_coeffs'][n]}"
+            )
+
+    def test_kummer_route_completeness(self):
+        """After resolution, orbifold + blow-up = 1/eta^24 exactly.
+
+        This is the completeness statement: the Kummer route
+        (orbifold + resolution) recovers the full K3 partition
+        function with zero residual through q^8.
+        """
+        data = kummer_orbifold_character_coefficients(max_terms=8)
+        for n in range(9):
+            reconstructed = (data['orbifold_integer_coeffs'][n]
+                             + data['blowup_correction'][n])
+            assert reconstructed == data['target_eta24_coeffs'][n], (
+                f"At q^{n}: {data['orbifold_integer_coeffs'][n]} + "
+                f"{data['blowup_correction'][n]} = {reconstructed} != "
+                f"{data['target_eta24_coeffs'][n]}"
+            )
+
+
+# =========================================================================
+# Section 10: Direct q-expansion comparison --
+#   char(A^{orb}_{resolved}) vs V_{Lambda_{K3}} character 1/eta^{24}
+# =========================================================================
+
+class TestResolvedVsLatticeVOA:
+    r"""Direct q-expansion comparison of char(A^{orb}_{resolved}) vs 1/eta^{24}.
+
+    Three independent paths:
+      Path A: rank-24 Heisenberg partition function = 1/prod(1-q^n)^{24}.
+      Path B: factored convolution p_8 * p_16 = p_24.
+      Path C: DHVW Z_2-even projection yields non-negative integer coefficients.
+
+    The central result: char(A^{orb}_{resolved}) = 1/eta^{24} EXACTLY,
+    verified term-by-term through q^{10}.
+    """
+
+    def test_central_identity(self):
+        """char(A^{orb}_{resolved}) = 1/eta^{24}: master verification."""
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        assert result['char_A_orb_resolved_equals_1_over_eta24'] is True
+
+    def test_path_A_known_coefficients(self):
+        """Path A: 1/eta^{24} matches known values through q^6."""
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        known = {0: 1, 1: 24, 2: 324, 3: 3200, 4: 25650,
+                 5: 176256, 6: 1073720}
+        for n, val in known.items():
+            assert result['path_A_pf24'][n] == val
+
+    def test_path_B_factorization(self):
+        """Path B: p_8 * p_16 = p_24 (Cauchy convolution)."""
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        assert result['path_B_factorization_match'] is True
+
+    def test_path_B_blowup_delta_q0(self):
+        """Path B: Delta(0) = 0 (unique vacuum, no correction)."""
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        assert result['path_B_blowup_delta'][0] == 0
+
+    def test_path_B_blowup_delta_q1(self):
+        """Path B: Delta(1) = 16 (one generator per exceptional CP^1)."""
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        assert result['path_B_blowup_delta'][1] == 16
+
+    def test_path_C_z2_even_integral(self):
+        """Path C: Z_2-even projection has integer coefficients.
+
+        The DHVW formula (1/2)(Z_{(1,1)} + Z_{(1,g)}) counts Z_2-invariant
+        states.  Integrality is a necessary condition for a well-defined
+        state count.
+        """
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        assert result['path_C_z2_even_integral'] is True
+
+    def test_path_C_z2_even_nonneg(self):
+        """Path C: Z_2-even projection has non-negative coefficients.
+
+        Non-negativity is a necessary condition for a physical character
+        (it counts states in the orbifold Hilbert space).
+        """
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        assert result['path_C_z2_even_nonneg'] is True
+
+    def test_path_C_z2_even_q0(self):
+        """Path C: Z_2-even at q^0 = 1 (unique Z_2-invariant vacuum)."""
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        assert result['path_C_z2_even_coeffs'][0] == '1'
+
+    def test_path_C_z2_even_q1_vanishes(self):
+        """Path C: Z_2-even at q^1 = 0.
+
+        Every single-oscillator state a^i_{-1}|0> is Z_2-ODD because Z_2
+        acts as z -> -z on all 4 complex bosons of T^4.  Hence the Z_2-even
+        projection at energy 1 is zero.  This is the character-level
+        signature that the untwisted sector alone is insufficient: the
+        q^1 generators of the K3 character (24 of them) come entirely
+        from the resolution of the 16 twisted sectors plus the untwisted
+        Z_2-even multi-oscillator states at higher energy.
+        """
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        assert result['path_C_z2_even_coeffs'][1] == '0'
+
+    def test_path_C_z2_even_q2(self):
+        """Path C: Z_2-even at q^2 = 36 (two-oscillator Z_2-even states).
+
+        Two-oscillator states a^i_{-1} a^j_{-1}|0> are Z_2-even because
+        (-1)^2 = +1.  There are C(8,2) = 28 pairs plus 8 double
+        excitations a^i_{-2}|0> (which are also Z_2-even since the -2
+        mode of a Z_2-odd oscillator has (-1)^1 = -1... wait, the mode
+        number does not affect the Z_2 charge).
+
+        The Z_2-even count at q^2 is 36, confirming the DHVW computation.
+        """
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        assert result['path_C_z2_even_coeffs'][2] == '36'
+
+    def test_bar_euler_cross_check(self):
+        """Bar Euler from bar_euler_borcherds.lattice_voa_bar_euler(24) matches."""
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        assert result['bar_euler_cross_check'] is True
+
+    def test_blowup_correction_growth(self):
+        """Blow-up correction grows faster than untwisted sector.
+
+        At large n, the 16 resolved generators dominate: Delta(n) >> p_8(n).
+        By q^2 the correction already exceeds the untwisted part by 6x.
+        """
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        delta = result['path_B_blowup_delta']
+        pf24 = result['path_A_pf24']
+        # At q^2: delta = 280, p_8 = 44, ratio ~ 6.4x
+        assert delta[2] > 6 * (pf24[2] - delta[2])
+
+    def test_resolved_rank_from_q1_coefficient(self):
+        """The q^1 coefficient of 1/eta^{24} directly gives the rank.
+
+        p_{24}(1) = 24 = number of bosonic generators (= Mukai rank).
+        The orbifold contributes p_8(1) = 8 from untwisted; the remaining
+        16 = Delta(1) come from resolution.  24 = 8 + 16.
+        """
+        result = kummer_resolved_vs_lattice_voa(max_terms=10)
+        assert result['path_A_pf24'][1] == 24
+        assert result['path_B_blowup_delta'][1] == 16
+        assert result['path_A_pf24'][1] == 8 + result['path_B_blowup_delta'][1]
+
+
+# =========================================================================
+# Section 11: Single A_1 blow-up character (per-point decomposition)
+# =========================================================================
+
+class TestA1BlowupConstants:
+    """Constants for the single A_1 blow-up correction."""
+
+    def test_blowup_generators(self):
+        """H^*(CP^1) contributes 2 generators (H^0 + H^2)."""
+        assert A1_BLOWUP_GENERATORS == 2
+
+    def test_gluing_relations(self):
+        """1 gluing relation identifies H^0(CP^1) with local constant."""
+        assert A1_GLUING_RELATIONS == 1
+
+    def test_net_generators(self):
+        """Net generators per point: 2 - 1 = 1."""
+        assert A1_NET_GENERATORS == 1
+
+    def test_net_generators_arithmetic(self):
+        """Net = blowup - gluing."""
+        assert A1_NET_GENERATORS == A1_BLOWUP_GENERATORS - A1_GLUING_RELATIONS
+
+    def test_total_from_16_points(self):
+        """16 points * 1 net generator = 16 total new generators."""
+        assert NUM_FIXED_POINTS * A1_NET_GENERATORS == 16
+
+    def test_resolved_rank_from_net(self):
+        """8 (untwisted) + 16 * 1 (net from blow-ups) = 24."""
+        assert T4_EVEN_DIM + NUM_FIXED_POINTS * A1_NET_GENERATORS == 24
+
+
+class TestA1SingleBlowupCharacter:
+    """Single A_1 blow-up character = ordinary partition numbers p(n)."""
+
+    def test_net_character_is_partition_numbers(self):
+        """The single blow-up net character equals p(n)."""
+        data = a1_single_blowup_character(max_deg=10)
+        assert data['net_character_is_partition_numbers'] is True
+
+    def test_partition_numbers_explicit(self):
+        """p(0)=1, p(1)=1, p(2)=2, p(3)=3, p(4)=5, p(5)=7."""
+        data = a1_single_blowup_character(max_deg=10)
+        expected = {0: 1, 1: 1, 2: 2, 3: 3, 4: 5, 5: 7,
+                    6: 11, 7: 15, 8: 22, 9: 30, 10: 42}
+        for k, val in expected.items():
+            assert data['net_character'][k] == val, (
+                f"p({k}): got {data['net_character'][k]}, expected {val}"
+            )
+
+    def test_cp1_character_is_p2(self):
+        """CP^1 character (2 generators) = 2-colored partitions p_2(n).
+
+        Verified by checking the explicit p_2 values and the factorization
+        p_2 = p_1 * p_1 (the CP^1 character factors as net * gluing).
+        """
+        data = a1_single_blowup_character(max_deg=10)
+        # The CP^1 character factors as net * gluing (both are p_1)
+        assert data['cp1_factorization_ok'] is True
+        # And the explicit values match p_2
+        expected_p2 = {0: 1, 1: 2, 2: 5, 3: 10, 4: 20}
+        for k, val in expected_p2.items():
+            assert data['cp1_character'][k] == val
+
+    def test_cp1_character_explicit(self):
+        """p_2(0)=1, p_2(1)=2, p_2(2)=5, p_2(3)=10, p_2(4)=20."""
+        data = a1_single_blowup_character(max_deg=10)
+        expected_p2 = {0: 1, 1: 2, 2: 5, 3: 10, 4: 20}
+        for k, val in expected_p2.items():
+            assert data['cp1_character'][k] == val
+
+    def test_cp1_factorization(self):
+        """p_2 = p_1 * p_1 (convolution): 2 generators = net + gluing."""
+        data = a1_single_blowup_character(max_deg=10)
+        assert data['cp1_factorization_ok'] is True
+
+    def test_net_character_q0(self):
+        """p(0) = 1: unique vacuum."""
+        data = a1_single_blowup_character(max_deg=5)
+        assert data['net_character'][0] == 1
+
+    def test_net_character_q1(self):
+        """p(1) = 1: single generator at energy 1."""
+        data = a1_single_blowup_character(max_deg=5)
+        assert data['net_character'][1] == 1
+
+
+class TestKummerResolvedAssembly:
+    r"""Factored assembly: chi_K3 = chi_{H_8} * delta_16.
+
+    The resolved K3 character is assembled from:
+      chi_{H_8} = prod 1/(1-q^n)^8    (untwisted sector)
+      delta_16  = prod 1/(1-q^n)^{16}  (16 blow-up corrections)
+    giving prod 1/(1-q^n)^{24} = 1/eta^{24}.
+    """
+
+    def test_matches_eta24_inverse(self):
+        """Resolved character = 1/eta^{24} through q^{10}."""
+        data = kummer_resolved_character_assembly(max_deg=10)
+        assert data['matches_eta24_inverse'] is True
+
+    def test_match_through_q5(self):
+        """Match verified through at least q^5 (as requested)."""
+        data = kummer_resolved_character_assembly(max_deg=5)
+        assert data['match_through_degree'] >= 5
+
+    def test_match_through_q10(self):
+        """Match verified through q^{10}."""
+        data = kummer_resolved_character_assembly(max_deg=10)
+        assert data['match_through_degree'] == 10
+
+    def test_matches_partition_function(self):
+        """Factored assembly matches partition_function() from bar complex."""
+        data = kummer_resolved_character_assembly(max_deg=8)
+        assert data['matches_partition_fn'] is True
+
+    def test_conv_16_from_single(self):
+        """delta_16 = (delta_1)^{*16}: 16-fold convolution of single blow-up."""
+        data = kummer_resolved_character_assembly(max_deg=8)
+        assert data['conv_16_from_single_ok'] is True
+
+    def test_rank_total(self):
+        """Total rank: 8 + 16*1 = 24."""
+        data = kummer_resolved_character_assembly(max_deg=5)
+        assert data['rank_total'] == 24
+        assert data['rank_untwisted'] == 8
+        assert data['rank_per_blowup'] == 1
+        assert data['num_blowups'] == 16
+
+    def test_resolved_coefficients_explicit(self):
+        """Explicit coefficient check against known 1/eta^{24} values."""
+        data = kummer_resolved_character_assembly(max_deg=10)
+        known = {0: 1, 1: 24, 2: 324, 3: 3200, 4: 25650,
+                 5: 176256, 6: 1073720, 7: 5930496,
+                 8: 30178575, 9: 143184000, 10: 639249300}
+        for n, val in known.items():
+            assert data['resolved'][n] == val, (
+                f"q^{n}: got {data['resolved'][n]}, expected {val}"
+            )
+
+    def test_chi_h8_coefficients(self):
+        """Untwisted sector chi_{H_8} known values."""
+        data = kummer_resolved_character_assembly(max_deg=6)
+        expected = {0: 1, 1: 8, 2: 44, 3: 192, 4: 726,
+                    5: 2464, 6: 7704}
+        for n, val in expected.items():
+            assert data['chi_h8'][n] == val
+
+    def test_delta_16_coefficients(self):
+        """Total blow-up correction delta_16 known values."""
+        data = kummer_resolved_character_assembly(max_deg=6)
+        expected = {0: 1, 1: 16, 2: 152, 3: 1088, 4: 6460,
+                    5: 33440, 6: 155584}
+        for n, val in expected.items():
+            assert data['delta_16_total_blowup'][n] == val
+
+    def test_delta_1_coefficients(self):
+        """Single blow-up delta_1 = ordinary partition numbers."""
+        data = kummer_resolved_character_assembly(max_deg=6)
+        expected = {0: 1, 1: 1, 2: 2, 3: 3, 4: 5, 5: 7, 6: 11}
+        for n, val in expected.items():
+            assert data['delta_1_single_blowup'][n] == val
+
+    def test_q1_decomposition(self):
+        """At q^1: 24 = 8*1 + 1*16 (convolution of chi_h8 and delta_16).
+
+        chi_h8(1) = 8, delta_16(0) = 1: contributes 8*1 = 8.
+        chi_h8(0) = 1, delta_16(1) = 16: contributes 1*16 = 16.
+        Total: 8 + 16 = 24.
+        """
+        data = kummer_resolved_character_assembly(max_deg=5)
+        assert data['chi_h8'][1] * data['delta_16_total_blowup'][0] + \
+            data['chi_h8'][0] * data['delta_16_total_blowup'][1] == 24
