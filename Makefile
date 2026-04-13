@@ -68,11 +68,21 @@ AUX_EXTS  := aux log out toc synctex.gz fdb_latexmk fls bbl blg \
 
 .PHONY: all fast clean veryclean clean-builds count check test help release working-notes dist icloud
 
-## icloud: Copy latest PDFs to iCloud Drive
+## icloud: Copy latest PDFs to iCloud Drive (subject-organised)
 icloud: $(PDF)
-	@mkdir -p "$(ICLOUD_DIR)"
-	@for pdf in $(OUT_DIR)/*.pdf; do [ -f "$$pdf" ] && cp -v "$$pdf" "$(ICLOUD_DIR)/$$(basename $$pdf)" || true; done
-	@echo "Vol III PDFs copied to iCloud."
+	@echo "  ── Copying Vol III to iCloud (subject-organised) ──"
+	@mkdir -p "$(ICLOUD_DIR)/volumes"
+	@mkdir -p "$(ICLOUD_DIR)/vol3_6d_hcs_cy"
+	@[ -f $(PDF) ] && cp $(PDF) "$(ICLOUD_DIR)/volumes/vol3_calabi_yau_quantum_groups.pdf" \
+		&& echo "    ✓ volumes/vol3" || true
+	@for pdf in $(OUT_DIR)/*.pdf; do \
+		name=$$(basename "$$pdf"); \
+		if [ "$$name" != "main.pdf" ]; then \
+			cp "$$pdf" "$(ICLOUD_DIR)/vol3_6d_hcs_cy/$$name"; \
+			echo "    ✓ vol3_6d_hcs_cy/$$name"; \
+		fi; \
+	done
+	@echo "  Vol III PDFs copied to iCloud."
 
 ## all: Full converging build → out/
 all: $(STAMP)
