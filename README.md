@@ -65,7 +65,7 @@ For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfac
 
 | Metric | Value |
 |--------|------:|
-| Pages | ~325+ |
+| Pages | ~335+ |
 | Theory chapters | 13 |
 | Example chapters | 7 (all now in build, including 4 re-enabled former stubs) |
 | Connection chapters | 5 (including restored modular_koszul_bridge + geometric_langlands) |
