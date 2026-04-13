@@ -79,9 +79,23 @@ For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfac
 
 ## Build
 
+All compiled output goes to `out/`.
+
 ```bash
-make              # full build
-make fast         # single-pass quick check
+make fast                    # quick converging build → out/main.pdf
+make                         # full build → out/
+make release                 # full rebuild → out/ + iCloud
+make test                    # compute test suite
+make clean-builds            # remove /tmp/mkd-* isolated build directories
+```
+
+Each build runs in its own `/tmp/mkd-calabi-yau-quantum-groups-<NS>/`
+directory, so parallel agents never clobber each other. Set
+`MKD_BUILD_NS` for warm rebuilds across invocations:
+
+```bash
+export MKD_BUILD_NS="agent-$$"
+make fast                         # warm on second call
 ```
 
 Requires TeX Live 2024+ with pdflatex.
