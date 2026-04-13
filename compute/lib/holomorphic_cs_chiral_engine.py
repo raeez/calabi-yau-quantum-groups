@@ -1139,7 +1139,7 @@ class E3BarComplexYangian:
                    but the complex is formal, so cohomology = generators only
                    ... actually class G has trivial differentials so
                    cohomology = full chain complex. The resolution is that
-                   class G has kappa = k but NO cubic shadow.)
+                   class G has kappa_ch = k but NO cubic shadow.)
 
         CORRECTION: The spectral sequence argument above assumes the
         three E_1 differentials are INDEPENDENT and each individually
@@ -1567,7 +1567,7 @@ class E3BarComplexBetaGamma:
     replaces one direction with the Koszul dual.
 
     Attributes:
-        kappa: kappa_ch = -1/2 (betagamma conformal anomaly)
+        kappa_ch_val: kappa_ch = -1/2 (betagamma conformal anomaly, AP113)
         S4: quartic shadow contact invariant
         num_generators: 2 (beta, gamma)
     """
@@ -1580,7 +1580,7 @@ class E3BarComplexBetaGamma:
                 Default: Q^contact = 1 for standard betagamma at c = -2.
         """
         self.num_generators = 2
-        self.kappa = Rational(-1, 2)
+        self.kappa_ch_val = Rational(-1, 2)  # AP113: always subscripted
         self.central_charge = Rational(-2)
         # Q^contact = -24/(c*(5c+22)) for betagamma;
         # at c = -2: -24/((-2)*(5*(-2)+22)) = -24/(-2*12) = -24/(-24) = 1
@@ -1716,7 +1716,7 @@ class E3BarComplexBetaGamma:
 
     def kappa_ch(self) -> Rational:
         """kappa_ch = -1/2 for the betagamma system."""
-        return self.kappa
+        return self.kappa_ch_val
 
     def kappa_ch_dual(self) -> Rational:
         """kappa_ch of the Koszul dual (bc system).
@@ -1724,9 +1724,9 @@ class E3BarComplexBetaGamma:
         bc with lambda = 0 has c = 2.  kappa_ch(bc) = c/24 ... no.
         Actually: betagamma Koszul conductor is nonzero for class C.
         For the standard conventions: kappa_ch(bg^!) = -(kappa_ch + rho_K).
-        But we use the direct formula: bc at lambda=0 gives kappa = 1/12.
+        But we use the direct formula: bc at lambda=0 gives kappa_ch = 1/12.
 
-        rho_K = kappa + kappa^! = -1/2 + 1/12 = -5/12.
+        rho_K = kappa_ch + kappa_ch^! = -1/2 + 1/12 = -5/12.
         """
         return Rational(1, 12)
 

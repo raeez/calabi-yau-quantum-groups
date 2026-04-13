@@ -18,6 +18,11 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_2-Chi
 | **CY-B** (E_2-chiral Koszul duality) | PROGRAMME | Depends on CY-A |
 | **CY-C** (Quantum group realization) | CONJECTURAL | C(g,q) not constructed. Uses \begin{conjecture}. NEVER \begin{theorem} |
 | **CY-D** (Modular CY characteristic) | PROGRAMME | kappa well-defined only when A_C exists |
+| **E_3 Koszul (Heisenberg)** | d=2 PROVED | thm:e3-koszul-heisenberg, 39 tests |
+| **E_3 Koszul (Yangian)** | COHOMOLOGICAL PROVED | thm:e3-koszul-yangian, 36 tests |
+| **E_2 Koszul (Heisenberg)** | d=2 PROVED | thm:e2-koszul-heisenberg, 49 tests |
+| **Kummer route Steps 1-4** | PROVED | prop:kummer-orbifold, 85 tests |
+| **E_1-chiral bialgebra axioms** | FOUNDATIONAL | sec:e1-chiral-bialgebras, 80 tests |
 
 ## The kappa-Spectrum (AP113, CRITICAL)
 
@@ -213,6 +218,47 @@ AP156: Weierstrass P_1 convention ambiguity. The function variously denoted P_1,
 AP157: Degeneration-type dependence. Limits of CY manifolds (large complex structure, conifold, orbifold, tropical, maximal unipotent monodromy) produce different chiral algebras with different kappa values. A statement proved "in the degeneration limit" is meaningless without specifying WHICH degeneration. Counter: every degeneration-limit claim must name the degeneration type (large complex structure / conifold / orbifold / MUM / tropical / other) and state whether the result is specific to that degeneration or holds for all degenerations.
 FM24: B-cycle sign error from i^2. In genus >= 1, the B-cycle integral involves factors of i (from the imaginary part of the period matrix). The error i^2 = 1 (instead of i^2 = -1) propagates silently and produces |q| = 1 instead of |q| < 1 for the nome, destroying convergence of all q-expansions. Counter: after any computation involving B-cycle integrals, verify that |q| < 1 (convergence of q-expansion). If |q| = 1, trace back to an i^2 sign error. Additionally, verify that Im(tau) > 0 is preserved by all transformations.
 
+### New APs from 6d hCS Session (AP-CY21-AP-CY26, April 2026)
+AP-CY21: E_3 bar dimensions for non-free-field algebras are OPEN. The tricomplex model P(q)^{3g} gives CHAIN-level dimensions for all classes, but the COHOMOLOGY depends on the shadow class. For class G: P(q)^{3g} (formal, infinite). For class L: (1+t)^{3g} (dim 2^{3g}). For class C: (1+t)^{3g} (charge conservation kills d_4). For class M: INFINITE-DIMENSIONAL (d_4 survives). NEVER claim (1+t)^{3g} for class M. Counter: state the shadow class before claiming E_3 bar cohomology.
+AP-CY22: Miki automorphism is algebra-specific, NOT operadic. The S_3 permutation of (q_1,q_2,q_3) comes from the Weyl group of the CY torus, not from the E_3 operad in general. Counterexample: k[x]/(x^2) is E_3 but has no Miki. Counter: never derive Miki from the E_3 operad alone; always state it requires the specific algebra U_{q,t}(gl_hat_hat_1).
+AP-CY23: The E_1-chiral bialgebra (not E_∞ vertex bialgebra) is the correct Hopf framework. The coproduct Δ_z lives on the E_1 (ordered) side of the Swiss-cheese operad. The E_∞ averaging map kills the Hopf structure: av(r(z)) = κ_ch. Li's vertex bialgebra framework (E_∞) is the wrong categorical home. Counter: formulate all Hopf data at the E_1 level using B^{ord} with deconcatenation.
+AP-CY24: Docstring ground-truth confabulation. Agents produce correct CODE but fabricate "ground truth" values in docstrings. The function computes correctly; the docstring claims wrong values for n ≥ 4. Counter: verify EVERY numerical value in docstrings against the actual function output. Especially dangerous for OEIS sequences.
+AP-CY25: The R-matrix extraction formula R(z) = (id ⊗ S) ∘ Δ_z(1_A) is WRONG — applying the coproduct to the vacuum and then the antipode yields 1 ⊗ 1 by the counit axiom. The correct R-matrix is characterized via the half-braiding σ_A(z)(a ⊗ n) = Σ Δ_z(a)_{(2)} · n ⊗ Δ_z(a)_{(1)}. Counter: never extract R from Δ(1); always construct via the half-braiding.
+AP-CY26: Verdier duality parameter inversion does NOT invert σ_2. For the Heisenberg, k^! = -k comes from Shapovalov form transposition (Verdier duality transposes the inner product), NOT from σ_2(-h_i) = -σ_2 (FALSE: σ_2 is degree-2 homogeneous, hence EVEN under h_i → -h_i). Counter: derive k^! from Shapovalov/Verdier, not from σ_2 inversion.
+
+## 6d Holomorphic CS Programme (established April 2026)
+
+The Costello programme constructs chiral quantum groups from holomorphic CS at each dimension:
+- 3d hol CS → Kac-Moody (PROVED, Costello-Gwilliam)
+- 5d hol CS → Affine Yangian (PROVED, Costello 2013)
+- 6d hol theory → Quantum toroidal (CONJECTURAL, Costello-Francis-Gwilliam route)
+
+Key results established in Vol III:
+- E_1-chiral bialgebra axioms (Section 7 of e1_chiral_algebras.tex, ~400 lines, NEW MATH)
+- E_3 bar cohomology: (1+t)^{3g} for classes L,C; fails for class M
+- Kummer route: ∫_{K3} F via CY-A_2 only (Steps 1-4 PROVED, Step 5 conjectural)
+- K3 Yangian: degree-(24,24) structure function from Mukai lattice
+- Borcherds lift = resummation (additive Saito-Kurokawa = perturbative, multiplicative Borcherds = non-perturbative)
+- Class M = mock modular (κ_ch = -h|_{q^{-1/8}})
+- Center-hocolim obstruction: >92% of K3×E Drinfeld center invisible to local charts
+- MO stable envelopes bypass center-hocolim for global braiding
+- Two-parameter R-matrix: R_ch(u,v) = R_1(u)R_2(v)R_12(u-v) (Zamolodchikov factorization)
+- E_2 → E_3 promotion is the DERIVED center (higher Deligne), not iterated Drinfeld center
+
+Detailed results:
+- Kummer route: ∫_{T^4} H_1 = rank-16 Heis, Z_2-inv = rank-8, 16 twisted sectors h=1/2, orbifold κ_ch=2, resolution 8+32-16=24=Mukai rank. Steps 1-4: prop:kummer-orbifold (PROVED). Step 5: conj:kummer-route.
+- Hopf axioms: all 5 verified at spin 2 (50 tests): coassociativity (Δ_w⊗id)∘Δ_{z+w}=(id⊗Δ_z)∘Δ_w, counit ε=vacuum projection, antipode S(T_n)=(2Ψ-3)T_n, quasi-triangularity Δ^{op}≠Δ, K-matrix K(z)=e^{-z d/du}.
+- A_∞ bar W_{1+∞}: m_3(T,T,T)=-2T (cubic shadow α=2), m_4(T,T,T,T)=(40/27)T (quartic S_4=10/27), class M confirmed.
+- K3 center obstruction: level 0: Obs=25/26, level 1: 1199/1248. >92% non-local. Controlled by BKM imaginary roots.
+- Drinfeld center K3 Heisenberg: 49-dim double (24+24+1), Fock char 1/η^{48}, R=exp(ω^{ij}J_i⊗J_j*).
+- Quantum toroidal Koszul dual: G(x;q^{-1})=1/G(x;q), φ: U_{q^{-1},t^{-1}}→U_{q,t}^{cop}, Miki commutes with inversion.
+- E_n Koszul cascade: E_1→E_2→E_3 tower terminates at n=3 for CY inputs (E_1-stabilization at d≥4).
+- Logarithmic center: class M ⟹ non-semisimple Drinfeld center (conjectural). Mock modular: κ_ch=-h|_{q^{-1/8}}.
+- Categorical S-matrix: charge-2 S_{(2)}(u)=g(u+h_2)g(h_2-u), E_3 factorizes as S^{E_3}=S^{E_2}(u)S^{E_2}(v)S^{E_2}(u-v).
+- Shadow class → QGL analytic type: G=polynomial, L=rational, C=convergent, M=Gevrey-1 divergent (Borel).
+
+Compute engines: holomorphic_cs_chiral_engine.py, k3_yangian.py, k3_double_current_algebra.py, drinfeld_center_k3_heisenberg.py, e3_two_parameter_rmatrix.py, categorical_s_matrix_e3.py, e2_koszul_heisenberg.py, e1_koszul_three_families.py, a_infinity_bar_w1inf.py, e1_chiral_bialgebra_engine.py, chiral_coproduct_spin3_engine.py. ~1,400 tests.
+
 ## Dependencies on Vols I-II
 
 | Volume | Provides | Used here |
@@ -232,11 +278,15 @@ make test                                                         # Vol III test
 ## Session Entry (Vol III additions)
 
 1. Read ~/chiral-bar-cobar/CLAUDE.md first (canonical).
-2. Then this file (kappa-spectrum, AP-CY1-8).
+2. Then this file (kappa-spectrum, AP-CY1-8, AP-CY21-26).
 3. Check AP113: bare kappa -> subscripted kappa_{ch,BKM,cat,fiber}.
 4. Check AP114: do not cite theorems from 12 stub chapters.
 5. CY-A: d=2 PROVED, d=3 PROGRAMME. Scope EVERY CY-A claim by dimension.
 6. CY-C is CONJECTURE. NEVER \begin{theorem} for CY-C (AP40).
+7. E_1-chiral bialgebra: the correct Hopf home. E_∞ vertex bialgebra loses R-matrix (AP-CY23).
+8. E_3 bar: (1+t)^{3g} for class L,C ONLY. Fails for class M (AP-CY21).
+9. Kummer route Steps 1-4 are PROVED (prop:kummer-orbifold). Step 5 conjectural.
+10. Borcherds lift = resummation. The additive/multiplicative = perturbative/non-perturbative.
 
 ## Git
 

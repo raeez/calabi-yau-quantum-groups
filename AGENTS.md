@@ -35,6 +35,26 @@ Current hard status boundary:
 - `A_X`, `G(X)`, and similar CY3 chiral-algebra objects are not constructed objects of this manuscript.
 - CoHA is associative data, not automatically the `E_1` sector of a larger chiral object.
 - Borcherds denominator identities are not automatically bar Euler products.
+
+### 6d hCS Programme (April 2026)
+
+The Costello programme constructs chiral quantum groups from holomorphic CS. New infrastructure:
+
+- **E_1-chiral bialgebra**: the correct Hopf framework (NOT E_∞ vertex bialgebra). Axioms in `e1_chiral_algebras.tex` §7 (~400 lines). Coproduct on E_1 (ordered) side of Swiss-cheese; E_∞ averaging kills Hopf data.
+- **E_3 bar cohomology**: `(1+t)^{3g}` for classes L,C; FAILS for class M. Chain level always `P(q)^{3g}`.
+- **Kummer route**: `∫_{K3} F` via CY-A_2 only. Steps 1-4 PROVED (Proposition). Step 5 conjectural.
+- **K3 Yangian**: degree-(24,24) structure function. Bar Euler = `η^{24}` = Ramanujan Δ.
+- **Borcherds lift = resummation**: additive (Saito-Kurokawa) = perturbative; multiplicative (Borcherds product) = non-perturbative.
+- **Center-hocolim**: >92% of K3×E Drinfeld center non-local. MO stable envelopes bypass it.
+- **E_2→E_3 promotion**: derived center (higher Deligne), NOT iterated Drinfeld center.
+
+### Codex/GPT-5.4-Specific Weakness Mitigations
+
+1. **Docstring confabulation (AP-CY24)**: GPT models fabricate "ground truth" values in docstrings while producing correct code. ALWAYS verify docstring values against function output before committing.
+2. **Composite arrow confabulation (AP150)**: GPT stitches real ingredients into non-existent composites. Verify EACH ARROW independently.
+3. **Sign errors in bar differentials**: Agents consistently get signs wrong in arity-3+ bar computations. Always pin sign conventions with explicit tests.
+4. **R-matrix extraction (AP-CY25)**: The formula R=(id⊗S)∘Δ(1) is WRONG. Use half-braiding construction.
+5. **σ_2 parity (AP-CY26)**: σ_2 is EVEN under h_i→-h_i. Level inversion k^!=-k comes from Shapovalov, not σ_2.
 - Drinfeld center and derived/chiral center are distinct unless hypotheses are stated.
 
 ## Design Axioms for Codex/GPT-5.4
