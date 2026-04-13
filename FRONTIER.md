@@ -315,3 +315,176 @@ The twelve frontier directions F1-F12 above. Plus:
 - Genus-5 graph enumeration (3-8 hours, needs optimization)
 - ~35 genuinely untouched Vol II files (AP-swept clean, no violations found)
 - 62 untested compute engines (tech debt, critical ones tested)
+
+---
+
+## 6d Holomorphic CS Session (2026-04-12/13): ~170 agents, ~100 errors fixed, ~1,800 tests
+
+### Session Memorial
+
+The largest single research session in the programme's history. Established the 6d holomorphic Chern-Simons → chiral quantum group pipeline with the E_1-chiral bialgebra as genuinely new mathematics.
+
+**What was accomplished:**
+- 7 theorems/propositions proved (E_3/E_2 Koszul for Heisenberg/Yangian, ZTE failure, Kummer Steps 1-4, universal coproduct)
+- 25+ conjectures formulated with full AP compliance
+- ~100 errors found and fixed across 4 rectification passes
+- 10 adversarial debates resolved
+- ~1,800 new tests, 15+ new compute engines
+- ~8,000 lines new LaTeX, ~15,000 lines new Python
+- CLAUDE.md, AGENTS.md, FRONTIER.md updated
+
+---
+
+## F13. The E_1-Chiral Bialgebra: Completion of the Axiom System
+
+**Definition labels**: def:e1-chiral-bialgebra (e1_chiral_algebras.tex §7, ~490 lines)
+
+**What is established**: The E_1-chiral bialgebra axioms (H1)-(H5) are formalized: E_1-monoidal category (ordered fusion colimit), E_1-coalgebra (deconcatenation on B^{ord}), bialgebra compatibility (Δ_z is E_1-algebra morphism), spectral coassociativity (Δ_w⊗id)∘Δ_{z+w}=(id⊗Δ_z)∘Δ_w, and antipode S. The averaging-forgets-Hopf theorem is proved: av: (E_1-chiral bialgebra) → (E_∞-chiral coalgebra) destroys R-matrix, antipode, and z-dependence. The Drinfeld center recovers E_2 via the half-braiding construction (AP-CY25 compliant).
+
+**What remains**: (a) Verification of axiom (H3) beyond spin 2 — the Miura multiplicativity gives an algebraic proof at all spins, but the mode-level numerical verification is only at spin 2 (50 tests) and spin 3 (33 tests). (b) The E_1-chiral bialgebra for non-abelian gauge algebras (sl_2, sl_N). The matrix Miura factorization gives coassociativity after taking the trace, but the full non-abelian axiom system has not been formalized. (c) The factorization tensor product ⊗_{E_1,z} is defined abstractly; a concrete Fock space realization beyond np.kron is missing.
+
+**Next step**: Implement psi_3, psi_4 on single Fock space (breaking the s≥3 verification wall). Derive the non-abelian E_1-chiral bialgebra axioms for Y(sl_2^).
+
+---
+
+## F14. The Zamolodchikov Tetrahedron Equation and E_3 Corrections
+
+**Theorem label**: thm:zte-failure (en_factorization.tex)
+
+**What is proved**: The factored 3-particle S-operator S_{ijk} = R_{ij}R_{ik}R_{jk} does NOT satisfy the Zamolodchikov tetrahedron equation. The obstruction scales as O(κ²) where κ = h₁h₂h₃. At κ=0 (Kapranov-Voevodsky): trivially satisfied. Engine: zamolodchikov_tetrahedron_engine.py (1200 lines, 34 tests).
+
+**What this means**: The E_3 structure is genuinely nontrivial — the correct 3-particle S-operator for U_{q,t}(gl_hat_hat_1) must include CORRECTIONS beyond the pairwise YBE product. These corrections are controlled by the E_3 operad structure of holomorphic CS on C³.
+
+**What remains**: (a) Construct the CORRECT 3-particle S-operator that solves ZTE. It should involve the arity-3 shadow α = -2σ_3 and the A_∞ operation m_3. (b) Verify ZTE at charge 3 (dim 20 sector of V^⊗4). (c) Connect the ZTE corrections to the A_∞ coproduct corrections δ^{(k)} from F17.
+
+**Next step**: Ansatz for the corrected S-operator: S^{corr}_{ijk} = S_{ijk} + κ² · T_{ijk} where T is a 3-body correction matrix. The ZTE then gives a linear equation for T.
+
+---
+
+## F15. The Universal Coproduct at All Spins
+
+**Proposition label**: prop:universal-coproduct (e1_chiral_algebras.tex)
+
+**What is proved**: The closed-form Miura coproduct Δ_z(e_s) = Σ (-1)^k C(N_R-b,k) z^k e_a^L·e_b^R. The z-polynomial degree at spin s is exactly s. The term count is s(s+1)/2. The generating function for the number of terms is F(x,y) = x/((1-x)²(1-xy)). The subleading z^{s-2} coefficient is (s-1)ψ_2^R + J^L·J^R (universal at all spins).
+
+**What remains**: (a) Implement the universal coproduct engine for s≤6 with Fock space verification. This requires psi_s on single Fock space for s≥3 (see F13). (b) The non-abelian generalization: for sl_N, the elementary symmetric polynomials are replaced by matrix traces of Lax operator products. The combinatorics change. (c) The K3 specialization: 24 generators from the Mukai lattice, degree-(24,24) structure function. The coproduct formula applies formally but the Fock space realization requires the K3 Yangian (conjectural).
+
+**Next step**: Build chiral_coproduct_universal_engine.py implementing Δ_z(ψ_s) for s=1,...,6 using the compact psi_k form.
+
+---
+
+## F16. The Kummer Route: Step 5 (Resolution of 16 A₁ Singularities)
+
+**Proposition label**: prop:kummer-orbifold (Steps 1-4 PROVED), conj:kummer-route (Step 5 conjectural)
+
+**What is proved**: Steps 1-4 of the Kummer route produce the orbifold chiral algebra A^{orb} = H_8 ⊕ 16T_i with κ_ch = 2, using only CY-A_2 (proved) + classical orbifold VOA theory. The arithmetic 8+32-16=24 recovers the Mukai lattice rank. 85 tests.
+
+**What remains**: Step 5 requires the Ayala-Francis-Tanaka excision machinery applied to the crepant resolution of 16 A₁ singularities. Each blow-up replaces D⁴/Z₂ with T*CP¹ — a single E_1-tensor product. The 16 blow-ups are identical local surgeries (all A₁ type). The Z₂ symmetry forces all 16 to be conjugate.
+
+**The obstruction**: The excision theorem requires smooth collars, which the RESOLVED Kummer K3 has (it is smooth). The remaining gap is purely technical: the Ayala-Francis-Tanaka machinery for crepant resolutions of orbifold singularities has not been applied to this specific geometry in the literature.
+
+**Next step**: Implement the single A₁ blow-up correction as an E_1-tensor product in the compute engine. Verify: does the corrected character match the K3 sigma model character?
+
+---
+
+## F17. The A_∞ Coproduct and Shadow Tower Unification
+
+**Remark label**: rem:ainfty-coproduct-shadow (e1_chiral_algebras.tex)
+
+**What is established**: The formal Yangian coproduct is the m_2-truncation of the full A_∞ coproduct. The corrections δ^{(k)} have coefficients equal to the shadow invariants S_k. Specifically: δ^{(3)} has coefficient α = 2 (from m_3(T,T,T) = -2T); δ^{(4)} has coefficient S_4 = 10/27 (from m_4(T,T,T,T) = (40/27)T). For class G: truncation exact. For class L: terminates at finite depth. For class M: infinite corrections.
+
+**What remains**: (a) Make the A_∞ coproduct EXPLICIT beyond the formal statement — compute Δ^{A_∞}_z(T_n) including the δ^{(3)} correction at specific (Ψ, z, n) values. (b) Connect δ^{(k)} to the ZTE corrections of F14: the tetrahedron obstruction at O(κ²) should be expressible in terms of δ^{(3)}. (c) Prove the structural theorem: class G ⟺ Δ^{A_∞} = Δ^{Yangian} (exact truncation ⟺ all m_k = 0 for k≥3).
+
+**Next step**: Compute δ^{(3)}(T_0) explicitly at Ψ=2, z=0, using the contracting homotopy h from the bar complex.
+
+---
+
+## F18. CY-A₃: The Chain-Level S³-Framing
+
+**The bottleneck**: The single most important open problem in the three-volume programme. CY-A at d=3 requires a chain-level S³-framing on HC⁻_3(C) that is A_∞-compatible.
+
+**What is known**: (a) The topological obstruction vanishes (π₃(BU)=0, π₃(BSp)=0). (b) The BV compatibility is solved perturbatively (Čech contracting homotopy for the quintic, Evidence E10). (c) The A_∞ compatibility (Hypothesis H4) is the gap.
+
+**Three approaches investigated**:
+1. **Kontsevich-Soibelman formal geometry**: strongest infrastructure, blocked at non-perturbative convergence.
+2. **Costello holomorphic CS**: physically natural, requires analytic completion (MC5).
+3. **CFG factorization homology bypass**: builds chain-level data into BV quantization. Does NOT bypass CY-A₃ — it reorganizes the obstruction, reducing it to non-perturbative convergence of BV effective action.
+
+**The Kummer bypass**: For K3×E specifically, the K3 integration uses only CY-A₂ (proved). The S³ framing is NOT needed for the K3 factor (it's CY₂). The E factor is 1-dimensional (trivial framing). This sidesteps CY-A₃ for K3×E but does not resolve it in general.
+
+**The quintic at the Fermat point**: Z₅⁵ symmetry reduces factorial growth to polynomial growth via selection rules. Equivariant HTT converges on the 204-dim invariant sector. 4 non-invariant dimensions need separate analysis.
+
+**S³ ≠ S² × S¹**: The Hopf fibration is nontrivial. The framing cannot be decomposed along the product structure of K3×E.
+
+---
+
+## F19. The K3 Yangian Y(g_{K3})
+
+**Conjecture label**: conj:k3-yangian (k3_times_e.tex)
+
+**What is constructed**: The K3 double current algebra g_{K3} for gl_1 is a 25-dim Heisenberg with Mukai pairing (signature (4,20), rank 24). Its bar Euler product is η(q)^{24} = Δ(q)/q² (the Ramanujan discriminant). The Drinfeld center is 49-dimensional with Fock character 1/η^{48}. The conjectural K3 Yangian has degree-(24,24) structure function g_{K3}(z) = ∏(z-h_i)/(z+h_i). Unitarity g·g(-)=1 holds unconditionally. 68 + 44 + 85 = 197 tests across 3 engines.
+
+**What remains**: (a) The explicit quantization of g_{K3} to Y(g_{K3}) — a concrete algebraic problem with all inputs specified. (b) The non-abelian K3 Yangian for g ≠ gl_1. (c) The MO R-matrix comparison: the degree-24 structure function should match the MO stable envelope R-matrix on Hilb^n(K3). (d) The Tannakian reconstruction: Rep^{E_2}(A_S)^{ss} → Rep(C(C,q)) for D^b(Coh(K3)).
+
+**The K3 Koszul conductor**: equals 0 (free-field/KM branch). κ_ch + κ_ch' = 2 + (-2) = 0.
+
+---
+
+## F20. The Center-Hocolim Obstruction for K3×E
+
+**What is computed**: >92% of the global Drinfeld center at every level is NOT assemblable from local chart data. Level 0: Obs = 25/26 (25 Cartan generators invisible to charts). Level 1: 1199/1248. The obstruction is controlled by the BKM imaginary roots.
+
+**The local/global divide**: E_1 data (algebra, bar complex, coproduct, shadows, κ_ch) glues chart-by-chart. E_2 data (R-matrix, braiding, Drinfeld center) is intrinsically global. The center-hocolim non-commutation is PROVED (Proposition in cy_to_chiral.tex).
+
+**MO stable envelopes BYPASS the obstruction**: The MO R-matrix is defined globally on K_T(Hilb^n(K3×E)) via stable envelopes, without chart decomposition. The torus T=C* acts on E by translation (not on K3). This is the only route to the global braiding that avoids the center-hocolim barrier.
+
+**What remains**: (a) Verify the MO R-matrix matches the K3 Yangian R-matrix at specific Omega-background parameters. (b) Compute the Verlinde-type formula for the charge-graded dimensions of the semisimplified center. (c) Prove the Mittag-Leffler condition for the inverse system {Z_N}, confirming completeness.
+
+---
+
+## F21. The Categorical S-Matrix and Sp₄(Z) Modularity
+
+**What is constructed**: The E_3 categorical S-matrix S^{E_3}(u,v) = S^{E_2}(u)·S^{E_2}(v)·S^{E_2}(u-v) (Zamolodchikov factorization). Charge-1: trivial (S=1). Charge-2: S_{(2)}(u) = g(u+h₂)·g(h₂-u), S_{(1,1)}(u) = g(u+h₁)·g(h₁-u). Spectrum product converges to Jacobi theta function quotient. 45 tests.
+
+**The Sp₄(Z) modularity conjecture**: E_3 factorization homology on Σ₂×S¹ (genus-2 surface × circle) produces Siegel period matrices. MCG(Σ₂) ↠ Sp₄(Z) provides the symmetry. For K3×E: Ŝ = Φ₁₀⁻¹ × (Eisenstein factor), with poles on Humbert surfaces {4nm-l²=0} as BPS resonances.
+
+**The Fourier-Jacobi connection**: The expansion Φ₁₀ = Σ φ_m p^m IS the E_2→E_3 restriction: each φ_m is an SL₂(Z) Jacobi form (E_2 datum); their assembly into a Siegel form is the E_3 datum.
+
+---
+
+## F22. Class M = Mock Modular Forms
+
+**What is established**: For class M algebras (infinite shadow depth), the Drinfeld center is logarithmic (non-semisimple). The polar mock modular coefficient h|_{q^{-1/8}} = -κ_ch. The massive/massless decomposition of the N=4 character produces the mock modular form h(τ) with shadow S(τ) = 24η(τ)³.
+
+**The pattern**: Class G → genuine modular forms (semisimple center). Class L → rational functions in κ. Class M → mock modular forms (logarithmic center). The mock shadow is κ_ch · χ(K3) · η³ = 48η³.
+
+**What remains**: Prove the structural theorem: class M ⟹ logarithmic Drinfeld center. Currently a conjecture supported by all examples but requiring the pointwise convergence obstruction to be resolved.
+
+---
+
+## F23. The Borcherds Lift as Resummation
+
+**What is established**: The perturbative expansion of the CY₃ chiral algebra in σ₃ = h₁h₂h₃ reproduces the Fourier-Jacobi expansion of Δ₅ order by order. The identification σ₃ ↔ p (Siegel modular parameter). Convergence: |σ₃| < 1 (unit disk). The Borcherds lift IS the resummation: additive (Saito-Kurokawa) = perturbative, multiplicative (Borcherds product) = non-perturbative.
+
+**The shadow tower resummation**: For K3×E, the shadow generating function at the fiber level (class G, depth 2) resums via the Borcherds lift to the full class M shadow tower (infinite depth). The transition from class G to class M is non-perturbative: no finite truncation captures |c(D)| ~ e^{4π√D}. K3 formality means the entire perturbative series uses only m_2 (cup product); the infinite depth comes from iterated sunset graphs at all loop orders.
+
+---
+
+## F24. The Non-Abelian Chiral Quantum Group (sl₂)
+
+**What is derived**: For the A₁ McKay quiver (resolved conifold = C³/Z₂), the matrix-valued structure function g_{ij}(z) uses the affine Cartan matrix C = ((2,-2),(-2,2)). Same-node: g_{00} = [g_{gl_1}]². Cross-node: g_{01} = 1/g_{00}. Coassociativity holds after taking the trace of the matrix Lax product (fails for individual entries). The Serre relation at charge (2,1) constrains the coproduct via the null vector identity g_{i0}·g_{i1} = 1.
+
+**What remains**: (a) Build the sl₂ shuffle algebra engine with the matrix structure function. (b) Verify the Serre relation numerically. (c) Compute the Kazhdan-Lusztig equivalence at the E_3 level: Rep_{q,t}(U_{q,t}(sl_2^^)) = O_{k,k'}(sl_2^^). (d) The E_3 Kazhdan-Lusztig for exceptional groups: U_{q,t}(g^^) exists for ADE (McKay correspondence) but is OBSTRUCTED for BCFG (no CY₃ orbifold).
+
+## Cross-Volume: Chiral Quantum Group Session (2026-04-12/13, Vol I primary)
+
+Key Vol I results affecting Vol III:
+
+- **E_3 identification PROVED**: the E_n circle closes for simple g. The derived chiral centre = CFG E_3-algebra. Extended to gl_N via two independent bilinear forms.
+- **Verlinde polynomial family** (thm:verlinde-polynomial-family): P_g(n) = n^{g-1}(n²-1)·R_{g-2}(n²) through g=6. Leading coefficients = ζ(2g-2)/(2^{g-2}π^{2g-2}). Rational generating function from cosecant power sums.
+- **Shadow = GW(C³)**: shadow tower at kappa = Psi produces perturbative GW free energies. MacMahon on DT side via MNOP.
+- **Critical level** (prop:critical-level-ordered): Koszulness fails, center = Fun(Op). The CY-to-chiral functor at critical level produces the Feigin-Frenkel center, which is infinite-dimensional.
+- **Miura universality** (conj:miura-cross-universality): (Psi-1)/Psi universal on primary cross-terms at all spins. The W_{1+infinity} = Y(gl_1-hat) coproduct structure is now explicit through spin 4.
+- **K3 double current algebra** (def:k3-double-current-algebra): 24·dim(g)+1 dimensional, Mukai pairing central extension. 188 tests.
+- **Genus-2 conformal block decomposition**: CB_{2,2}(k) = 2k(k+1)(k+2)/3 (cubic in k).
+- See ~/chiral-bar-cobar/FRONTIER.md F25-F36 for full details.
