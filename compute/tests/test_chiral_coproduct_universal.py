@@ -605,17 +605,17 @@ class TestDirectProperties:
                         f"s={s}, n={n}, z={z_val}: reconstruction error {err:.2e}"
                     )
 
-    def test_delta_z_raises_for_s3(self):
-        """Fock space delta_z at s >= 3 raises NotImplementedError."""
+    def test_delta_z_s3_runs(self):
+        """Fock space delta_z at s=3 now works (psi_3 implemented)."""
         uni = AllSpinCoproduct(Psi=1.0, N_max=5)
-        with pytest.raises(NotImplementedError):
-            uni.delta_z(3, 0, 0.0)
+        result = uni.delta_z(3, 0, 0.0)
+        assert result is not None
 
-    def test_delta_z_raises_for_s4(self):
-        """Fock space delta_z at s >= 4 raises NotImplementedError."""
+    def test_delta_z_s4_runs(self):
+        """Fock space delta_z at s=4 now works (psi_4 implemented)."""
         uni = AllSpinCoproduct(Psi=1.0, N_max=5)
-        with pytest.raises(NotImplementedError):
-            uni.delta_z(4, 0, 0.0)
+        result = uni.delta_z(4, 0, 0.0)
+        assert result is not None
 
     def test_delta_z_upper_negation_raises_for_s3(self):
         """Fock space delta_z_upper_negation at s >= 3 raises NotImplementedError."""
@@ -686,18 +686,28 @@ class TestMultiPathCrossChecks:
 
     @pytest.mark.parametrize("Psi", [1.0, 2.0])
     def test_pascal_vs_upper_negation_cross_path(self, Psi):
-        """Path A: delta_z (Pascal form).
-        Path B: delta_z_upper_negation (upper negation form).
+        """Path A: cross_term (Pascal form).
+        Path B: cross_term_upper_negation (upper negation form).
         Two completely independent loop structures over the summation indices.
+        At s=2: also compares full delta_z vs delta_z_upper_negation.
         """
         uni = AllSpinCoproduct(Psi, N_max=5)
         P = uni.safe_proj(3)
         for s in [2, 3]:
             for n in [0, -1]:
                 for z_val in [0.3 + 0.2j, -0.5 + 0.7j]:
-                    a = uni.delta_z(s, n, z_val)
-                    b = uni.delta_z_upper_negation(s, n, z_val)
+                    a = uni.cross_term(s, n, z_val)
+                    b = uni.cross_term_upper_negation(s, n, z_val)
                     err = float(np.max(np.abs(P @ (a - b) @ P)))
                     assert err < 1e-10, (
                         f"s={s}, Psi={Psi}, n={n}, z={z_val}: err {err:.2e}"
                     )
+        # Also verify full delta_z at s=2
+        for n in [0, -1]:
+            for z_val in [0.3 + 0.2j]:
+                a = uni.delta_z(2, n, z_val)
+                b = uni.delta_z_upper_negation(2, n, z_val)
+                err = float(np.max(np.abs(P @ (a - b) @ P)))
+                assert err < 1e-10, (
+                    f"full delta_z s=2, Psi={Psi}, n={n}: err {err:.2e}"
+                )

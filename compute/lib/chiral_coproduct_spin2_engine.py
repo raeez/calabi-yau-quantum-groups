@@ -107,6 +107,8 @@ class HeisenbergFock:
         self._psi2_cache: Dict[int, np.ndarray] = {}
         self._psi3_cache: Dict[int, np.ndarray] = {}
         self._psi4_cache: Dict[int, np.ndarray] = {}
+        self._e3_cache: np.ndarray | None = None
+        self._e4_cache: np.ndarray | None = None
 
     def _build_basis(self):
         self.partitions: List[Tuple[int, ...]] = []
@@ -259,6 +261,98 @@ class HeisenbergFock:
             mat += self.J(k) @ self._psi3_matrix(n - k)
         self._psi4_cache[n] = mat
         return mat
+
+    # --- Elementary symmetric polynomials of box contents ---
+    #
+    # For a partition lambda, the BOX CONTENTS are {j - i : (i,j) in lambda}
+    # (0-indexed row i, column j). The k-th elementary symmetric polynomial
+    # e_k(content(lambda)) gives the eigenvalue of the Yangian charge operator
+    # on the partition state |lambda>.
+    #
+    # These are DISTINCT from the Miura transfer matrix coefficients _psi_k_matrix
+    # above, which are un-normal-ordered mode convolutions used for the Drinfeld
+    # coproduct. The e_k matrices are DIAGONAL in the partition basis (each
+    # |lambda> is an eigenvector) and free of normal-ordering artifacts.
+    #
+    # The connection to the transfer matrix generating function:
+    #     T(u) |lambda> = prod_{box in lambda} (1 + Psi/(u - c(box))) |lambda>
+    #
+    # Expanding in u^{-1}, the coefficient of u^{-k} on the RHS involves
+    # Psi^k * e_k(content(lambda)) at leading order, with lower-order
+    # corrections from the denominators. The PURE e_k eigenvalue arises
+    # in the charge formalism (Schiffmann-Vasserot, Tsymbaliuk) where
+    # the charges are the contents themselves.
+
+    @staticmethod
+    def _contents_of(lam: Tuple[int, ...]) -> List[int]:
+        """Box contents {j - i} for partition lambda (0-indexed rows/columns)."""
+        result: List[int] = []
+        for i, part in enumerate(lam):
+            for j in range(part):
+                result.append(j - i)
+        return result
+
+    @staticmethod
+    def _e_k_contents(lam: Tuple[int, ...], k: int) -> float:
+        r"""k-th elementary symmetric polynomial of the box contents.
+
+        e_k(c_1, ..., c_n) = sum_{1 <= i_1 < ... < i_k <= n} c_{i_1} * ... * c_{i_k}
+
+        Returns 1 for k=0, 0 for k > |lambda|.
+        """
+        contents = HeisenbergFock._contents_of(lam)
+        n = len(contents)
+        if k == 0:
+            return 1.0
+        if k > n:
+            return 0.0
+        # Iterative computation via the recurrence for elementary symmetric polys.
+        # e_k of {c_1,...,c_n} satisfies: prod(1 + c_i * t) = sum_k e_k * t^k.
+        # Build the polynomial coefficients iteratively.
+        poly = [1.0] + [0.0] * n
+        for c in contents:
+            for j in range(n, 0, -1):
+                poly[j] += c * poly[j - 1]
+        return poly[k]
+
+    def e3_matrix(self) -> np.ndarray:
+        r"""Diagonal matrix with eigenvalue e_3(content(lambda)) on |lambda>.
+
+        The third elementary symmetric polynomial of box contents. Nonzero
+        only for partitions with >= 3 boxes (weight >= 3), and nontrivially
+        distinguishes partitions of the same weight (unlike e_1 = sum of
+        contents or e_2, which can coincide on different shapes).
+
+        This is the content-eigenvalue characterization of the spin-3 Yangian
+        charge. It is DIAGONAL in the partition basis by construction.
+        """
+        if self._e3_cache is not None:
+            return self._e3_cache
+        diag = np.zeros(self.dim)
+        for i, lam in enumerate(self.partitions):
+            diag[i] = self._e_k_contents(lam, 3)
+        self._e3_cache = np.diag(diag)
+        return self._e3_cache
+
+    def e4_matrix(self) -> np.ndarray:
+        r"""Diagonal matrix with eigenvalue e_4(content(lambda)) on |lambda>.
+
+        The fourth elementary symmetric polynomial of box contents. Nonzero
+        only for partitions with >= 4 boxes. For weight-4 partitions, all
+        e_4 values are zero because each content set contains 0 as an element
+        (the (0,0) box), making the product of any 4-subset vanish. The first
+        nonzero e_4 values appear at weight 5.
+
+        This is the content-eigenvalue characterization of the spin-4 Yangian
+        charge. It is DIAGONAL in the partition basis by construction.
+        """
+        if self._e4_cache is not None:
+            return self._e4_cache
+        diag = np.zeros(self.dim)
+        for i, lam in enumerate(self.partitions):
+            diag[i] = self._e_k_contents(lam, 4)
+        self._e4_cache = np.diag(diag)
+        return self._e4_cache
 
 
 def _partitions_of(n: int, max_part: int = None) -> List[Tuple[int, ...]]:
@@ -531,6 +625,254 @@ def verify_T_J_intertwining(Psi: float = 1.0, N_max: int = 6, z: complex = 0.0) 
             diff = P @ (comm - exp) @ P
             mx = max(mx, float(np.max(np.abs(diff))))
     return {"max_error": mx, "ok": mx < 1e-6, "factor": "Psi"}
+
+
+# ---------------------------------------------------------------------------
+# e_k content-eigenvalue verification
+# ---------------------------------------------------------------------------
+
+def verify_e3_eigenvalues(N_max: int = 6) -> Dict[str, object]:
+    r"""Verify that e3_matrix() has eigenvalue e_3(content(lambda)) on each |lambda>.
+
+    For every partition lambda in the truncated Fock space, check:
+        e3_matrix @ |lambda> = e_3(content(lambda)) * |lambda>
+
+    The e_3 eigenvalue is the third elementary symmetric polynomial of
+    the box contents {j - i : (i,j) in lambda}. It is zero for |lambda| < 3
+    and begins to distinguish partitions of the same weight at |lambda| = 4:
+        e_3(content((4,)))    =  6
+        e_3(content((3,1)))   = -2
+        e_3(content((2,2)))   =  0
+        e_3(content((2,1,1))) =  2
+        e_3(content((1^4)))   = -6
+    """
+    H = HeisenbergFock(Psi=1.0, N_max=N_max)
+    E3 = H.e3_matrix()
+    mx = 0.0
+    eigenvalues: Dict[str, float] = {}
+    for i, lam in enumerate(H.partitions):
+        v = np.zeros(H.dim)
+        v[i] = 1.0
+        result = E3 @ v
+        expected_val = HeisenbergFock._e_k_contents(lam, 3)
+        expected_vec = expected_val * v
+        err = float(np.max(np.abs(result - expected_vec)))
+        mx = max(mx, err)
+        if sum(lam) <= 5:
+            eigenvalues[str(lam)] = expected_val
+    return {"max_error": mx, "ok": mx < 1e-14, "eigenvalues": eigenvalues}
+
+
+def verify_e4_eigenvalues(N_max: int = 6) -> Dict[str, object]:
+    r"""Verify that e4_matrix() has eigenvalue e_4(content(lambda)) on each |lambda>.
+
+    For every partition lambda in the truncated Fock space, check:
+        e4_matrix @ |lambda> = e_4(content(lambda)) * |lambda>
+
+    The e_4 eigenvalue is zero for all weight-4 partitions (because the
+    (0,0) box contributes content 0, zeroing every 4-element product).
+    First nonzero values appear at weight 5:
+        e_4(content((5,)))     =  24
+        e_4(content((4,1)))    =  -6
+        e_4(content((3,1,1)))  =   4
+        e_4(content((2,1,1,1)))=  -6
+        e_4(content((1^5)))    =  24
+    """
+    H = HeisenbergFock(Psi=1.0, N_max=N_max)
+    E4 = H.e4_matrix()
+    mx = 0.0
+    eigenvalues: Dict[str, float] = {}
+    for i, lam in enumerate(H.partitions):
+        v = np.zeros(H.dim)
+        v[i] = 1.0
+        result = E4 @ v
+        expected_val = HeisenbergFock._e_k_contents(lam, 4)
+        expected_vec = expected_val * v
+        err = float(np.max(np.abs(result - expected_vec)))
+        mx = max(mx, err)
+        if sum(lam) <= 6:
+            eigenvalues[str(lam)] = expected_val
+    return {"max_error": mx, "ok": mx < 1e-14, "eigenvalues": eigenvalues}
+
+
+def verify_e3_diagonality(N_max: int = 6) -> Dict[str, object]:
+    r"""Verify that e3_matrix is exactly diagonal (zero off-diagonal elements).
+
+    Unlike the Miura-recursion _psi3_matrix(0), which has large off-diagonal
+    blocks within fixed-weight subspaces, the content-eigenvalue e3_matrix is
+    diagonal by construction. This test confirms the implementation.
+    """
+    H = HeisenbergFock(Psi=1.0, N_max=N_max)
+    E3 = H.e3_matrix()
+    off_diag = E3 - np.diag(np.diag(E3))
+    mx = float(np.max(np.abs(off_diag)))
+    return {"max_off_diagonal": mx, "ok": mx < 1e-15}
+
+
+def verify_e4_diagonality(N_max: int = 6) -> Dict[str, object]:
+    r"""Verify that e4_matrix is exactly diagonal (zero off-diagonal elements)."""
+    H = HeisenbergFock(Psi=1.0, N_max=N_max)
+    E4 = H.e4_matrix()
+    off_diag = E4 - np.diag(np.diag(E4))
+    mx = float(np.max(np.abs(off_diag)))
+    return {"max_off_diagonal": mx, "ok": mx < 1e-15}
+
+
+def verify_ek_newton_identity(N_max: int = 6) -> Dict[str, object]:
+    r"""Verify Newton's identity relating e_k and power sums p_k on partition states.
+
+    Newton's identity:  k * e_k = sum_{j=1}^{k} (-1)^{j-1} p_j * e_{k-j}
+
+    where p_j(lambda) = sum of j-th powers of contents, e_k(lambda) = k-th
+    elementary symmetric polynomial of contents.
+
+    This is verified for k=3 and k=4 on all partition states.
+    """
+    H = HeisenbergFock(Psi=1.0, N_max=N_max)
+    mx = 0.0
+    results: Dict[str, float] = {}
+
+    for i, lam in enumerate(H.partitions):
+        contents = HeisenbergFock._contents_of(lam)
+        if not contents:
+            continue
+        # Power sums
+        p = {j: float(sum(c ** j for c in contents)) for j in range(1, 5)}
+        # Elementary symmetric polynomials
+        e = {j: HeisenbergFock._e_k_contents(lam, j) for j in range(5)}
+
+        # Newton identity for k=3:  3*e_3 = p_1*e_2 - p_2*e_1 + p_3*e_0
+        lhs3 = 3.0 * e[3]
+        rhs3 = p[1] * e[2] - p[2] * e[1] + p[3] * e[0]
+        err3 = abs(lhs3 - rhs3)
+
+        # Newton identity for k=4:  4*e_4 = p_1*e_3 - p_2*e_2 + p_3*e_1 - p_4*e_0
+        lhs4 = 4.0 * e[4]
+        rhs4 = p[1] * e[3] - p[2] * e[2] + p[3] * e[1] - p[4] * e[0]
+        err4 = abs(lhs4 - rhs4)
+
+        mx = max(mx, err3, err4)
+        if sum(lam) <= 5:
+            results[f"newton3_{lam}"] = err3
+            results[f"newton4_{lam}"] = err4
+
+    return {"max_error": mx, "ok": mx < 1e-12, "details": results}
+
+
+def verify_ek_generating_function(N_max: int = 8) -> Dict[str, object]:
+    r"""Verify the generating-function identity for e_k(content).
+
+    For each partition lambda with contents {c_1, ..., c_n}:
+        prod_{i=1}^{n} (1 + c_i * t) = sum_{k=0}^{n} e_k * t^k
+
+    evaluated at t=1: prod(1 + c_i) should equal sum_k e_k.
+
+    This is a consistency check on the _e_k_contents implementation.
+    """
+    H = HeisenbergFock(Psi=1.0, N_max=N_max)
+    mx = 0.0
+
+    for i, lam in enumerate(H.partitions):
+        contents = HeisenbergFock._contents_of(lam)
+        if not contents:
+            continue
+        # LHS: product
+        product = 1.0
+        for c in contents:
+            product *= (1.0 + c)
+        # RHS: sum of e_k
+        n = len(contents)
+        ek_sum = sum(HeisenbergFock._e_k_contents(lam, k) for k in range(n + 1))
+        err = abs(product - ek_sum)
+        mx = max(mx, err)
+
+    return {"max_error": mx, "ok": mx < 1e-10}
+
+
+def verify_e3_weight_separation(N_max: int = 6) -> Dict[str, object]:
+    r"""Verify that e_3 separates partitions of the same weight.
+
+    At weight 4, the 5 partitions have distinct e_3 values:
+        (4,) -> 6, (3,1) -> -2, (2,2) -> 0, (2,1,1) -> 2, (1^4) -> -6
+
+    At weight 5, several partitions share e_3 = 0, but the overall
+    discriminating power is strong.
+
+    This test checks that e_3 provides nontrivial (not all zero, not all equal)
+    information within each weight >= 4 subspace.
+    """
+    H = HeisenbergFock(Psi=1.0, N_max=N_max)
+    results: Dict[str, object] = {}
+    all_ok = True
+
+    for w in range(4, N_max + 1):
+        parts_w = [lam for lam in H.partitions if sum(lam) == w]
+        vals = [HeisenbergFock._e_k_contents(lam, 3) for lam in parts_w]
+        n_distinct = len(set(vals))
+        nontrivial = n_distinct > 1
+        results[f"weight_{w}"] = {
+            "n_partitions": len(parts_w),
+            "n_distinct_e3": n_distinct,
+            "nontrivial": nontrivial,
+        }
+        if not nontrivial:
+            all_ok = False
+
+    results["ok"] = all_ok
+    return results
+
+
+def verify_e4_conjugation_symmetry(N_max: int = 6) -> Dict[str, object]:
+    r"""Verify e_4(lambda) = e_4(lambda') * (-1)^{|lambda|} for conjugate partitions.
+
+    More precisely, for elementary symmetric polynomials of contents:
+        e_k(content(lambda')) = (-1)^k * e_k(content(lambda))
+
+    because conjugation negates all contents (if (i,j) is a box of lambda,
+    then (j,i) is a box of lambda', and c(j,i) = i - j = -c(i,j)).
+
+    For k=4 (even): e_4(lambda') = e_4(lambda).
+    For k=3 (odd): e_3(lambda') = -e_3(lambda).
+    """
+    H = HeisenbergFock(Psi=1.0, N_max=N_max)
+    mx = 0.0
+    results: Dict[str, object] = {}
+
+    for i, lam in enumerate(H.partitions):
+        if not lam:
+            continue
+        # Compute conjugate partition
+        conj = _conjugate_partition(lam)
+        e3_lam = HeisenbergFock._e_k_contents(lam, 3)
+        e3_conj = HeisenbergFock._e_k_contents(conj, 3)
+        e4_lam = HeisenbergFock._e_k_contents(lam, 4)
+        e4_conj = HeisenbergFock._e_k_contents(conj, 4)
+
+        # e_3(lambda') = -e_3(lambda)
+        err3 = abs(e3_conj - (-e3_lam))
+        # e_4(lambda') = e_4(lambda)
+        err4 = abs(e4_conj - e4_lam)
+        mx = max(mx, err3, err4)
+
+        if sum(lam) <= 5:
+            results[f"e3_{lam}_vs_{conj}"] = {"e3": e3_lam, "e3_conj": e3_conj,
+                                               "err": err3}
+            results[f"e4_{lam}_vs_{conj}"] = {"e4": e4_lam, "e4_conj": e4_conj,
+                                               "err": err4}
+
+    return {"max_error": mx, "ok": mx < 1e-12, "details": results}
+
+
+def _conjugate_partition(lam: Tuple[int, ...]) -> Tuple[int, ...]:
+    """Conjugate (transpose) of a partition."""
+    if not lam:
+        return ()
+    max_part = lam[0]
+    conj = []
+    for j in range(1, max_part + 1):
+        count = sum(1 for part in lam if part >= j)
+        conj.append(count)
+    return tuple(conj)
 
 
 # ---------------------------------------------------------------------------

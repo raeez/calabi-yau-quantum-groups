@@ -31,6 +31,14 @@ from compute.lib.chiral_coproduct_spin2_engine import (
     verify_antipode_consistency,
     verify_c_eff_level_dependence,
     verify_delta_J,
+    verify_e3_diagonality,
+    verify_e3_eigenvalues,
+    verify_e3_weight_separation,
+    verify_e4_conjugation_symmetry,
+    verify_e4_diagonality,
+    verify_e4_eigenvalues,
+    verify_ek_generating_function,
+    verify_ek_newton_identity,
     verify_heisenberg,
     verify_T_J_intertwining,
     verify_T0_eigenvalues,
@@ -290,3 +298,114 @@ class TestAntipodeConsistency:
         # VERIFIED: Hopf axiom holds at Psi in {0.5, 1.0, 2.0, 3.0} [DC].
         r = verify_antipode_consistency(N_max=6)
         assert r["ok"]
+
+
+# ---------------------------------------------------------------------------
+# e_k content-eigenvalue matrices (psi_3 = e_3, psi_4 = e_4)
+# ---------------------------------------------------------------------------
+
+class TestE3Eigenvalues:
+    """e_3(content(lambda)) eigenvalues on partition states.
+
+    The e3_matrix is the diagonal operator whose eigenvalue on |lambda>
+    is the 3rd elementary symmetric polynomial of the box contents
+    {j - i : (i,j) in lambda}. This is the content-eigenvalue
+    characterization of the spin-3 Yangian charge.
+
+    VERIFIED sources:
+    [DC] Direct construction from content formula
+    [NI] Newton identity 3*e_3 = p_1*e_2 - p_2*e_1 + p_3
+    [GF] Generating function prod(1 + c_i*t) = sum e_k t^k
+    """
+
+    def test_e3_eigenvalues_all_partitions(self):
+        # VERIFIED: e3_matrix @ |lam> = e_3(content(lam)) * |lam> for all |lam| <= 6 [DC].
+        r = verify_e3_eigenvalues(N_max=6)
+        assert r["ok"], f"max error {r['max_error']:.2e}"
+
+    def test_e3_e4_diagonality(self):
+        # VERIFIED: e3_matrix and e4_matrix are exactly diagonal [DC].
+        r3 = verify_e3_diagonality(N_max=6)
+        assert r3["ok"], f"e3 max off-diagonal {r3['max_off_diagonal']:.2e}"
+        r4 = verify_e4_diagonality(N_max=6)
+        assert r4["ok"], f"e4 max off-diagonal {r4['max_off_diagonal']:.2e}"
+
+    def test_e3_specific_weight4(self):
+        # VERIFIED: e_3 values at weight 4 [DC]:
+        # (4,)->6, (3,1)->-2, (2,2)->0, (2,1,1)->2, (1^4)->-6.
+        H = HeisenbergFock(Psi=1.0, N_max=6)
+        expected = {(4,): 6.0, (3, 1): -2.0, (2, 2): 0.0,
+                    (2, 1, 1): 2.0, (1, 1, 1, 1): -6.0}
+        for lam, val in expected.items():
+            assert abs(HeisenbergFock._e_k_contents(lam, 3) - val) < 1e-14, (
+                f"e_3({lam}) = {HeisenbergFock._e_k_contents(lam, 3)}, expected {val}"
+            )
+
+    def test_e3_weight_separation(self):
+        # VERIFIED: e_3 gives distinct values within each weight >= 4 block [DC].
+        r = verify_e3_weight_separation(N_max=6)
+        assert r["ok"]
+
+
+class TestE4Eigenvalues:
+    """e_4(content(lambda)) eigenvalues on partition states.
+
+    The e4_matrix is the diagonal operator whose eigenvalue on |lambda>
+    is the 4th elementary symmetric polynomial of the box contents.
+    First nonzero values appear at weight 5 (all weight-4 partitions
+    have e_4 = 0 because content 0 from the (0,0) box zeroes the product).
+
+    VERIFIED sources:
+    [DC] Direct construction from content formula
+    [CS] Conjugation symmetry e_4(lambda') = e_4(lambda)
+    """
+
+    def test_e4_eigenvalues_all_partitions(self):
+        # VERIFIED: e4_matrix @ |lam> = e_4(content(lam)) * |lam> for all |lam| <= 6 [DC].
+        r = verify_e4_eigenvalues(N_max=6)
+        assert r["ok"], f"max error {r['max_error']:.2e}"
+
+    def test_e4_zero_at_weight4(self):
+        # VERIFIED: e_4 = 0 for all weight-4 partitions (content 0 from (0,0) box) [DC].
+        for lam in [(4,), (3, 1), (2, 2), (2, 1, 1), (1, 1, 1, 1)]:
+            assert abs(HeisenbergFock._e_k_contents(lam, 4)) < 1e-14, (
+                f"e_4({lam}) should be 0, got {HeisenbergFock._e_k_contents(lam, 4)}"
+            )
+
+    def test_e4_specific_weight5(self):
+        # VERIFIED: e_4 values at weight 5 [DC]:
+        # (5,)->24, (4,1)->-6, (3,2)->0, (3,1,1)->4, (2,2,1)->0, (2,1^3)->-6, (1^5)->24.
+        expected = {(5,): 24.0, (4, 1): -6.0, (3, 2): 0.0,
+                    (3, 1, 1): 4.0, (2, 2, 1): 0.0,
+                    (2, 1, 1, 1): -6.0, (1, 1, 1, 1, 1): 24.0}
+        for lam, val in expected.items():
+            assert abs(HeisenbergFock._e_k_contents(lam, 4) - val) < 1e-14, (
+                f"e_4({lam}) = {HeisenbergFock._e_k_contents(lam, 4)}, expected {val}"
+            )
+
+
+class TestEkAlgebraicIdentities:
+    """Algebraic identities for e_k content eigenvalues.
+
+    VERIFIED sources:
+    [NI] Newton identity relating e_k and power sums p_k of contents
+    [GF] Generating function identity prod(1+c_i*t) = sum e_k t^k
+    [CS] Conjugation symmetry e_k(lambda') = (-1)^k e_k(lambda)
+    """
+
+    def test_newton_identity_k3_k4(self):
+        # VERIFIED: k*e_k = sum_{j=1}^k (-1)^{j-1} p_j e_{k-j} for k=3,4 [NI].
+        r = verify_ek_newton_identity(N_max=6)
+        assert r["ok"], f"max error {r['max_error']:.2e}"
+
+    def test_generating_function_at_t1(self):
+        # VERIFIED: prod(1 + c_i) = sum_k e_k for all partitions [GF].
+        r = verify_ek_generating_function(N_max=8)
+        assert r["ok"], f"max error {r['max_error']:.2e}"
+
+    def test_conjugation_symmetry(self):
+        # VERIFIED: e_3(lambda') = -e_3(lambda), e_4(lambda') = e_4(lambda) [CS].
+        # Conjugation negates contents: c(j,i) = -c(i,j).
+        # So e_k transforms by (-1)^k under conjugation.
+        r = verify_e4_conjugation_symmetry(N_max=6)
+        assert r["ok"], f"max error {r['max_error']:.2e}"

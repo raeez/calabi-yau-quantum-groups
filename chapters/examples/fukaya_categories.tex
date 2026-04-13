@@ -210,14 +210,47 @@ structural $\Etwo$-obstruction from the antisymmetric Euler form
 while the topological $\mathbb{S}^3$-framing obstruction vanishes
 ($\pi_3(BU) = 0$ by Bott periodicity).
 
+\begin{remark}[Bott periodicity verification]
+\label{rem:fukaya-bott-verification}
+The stable unitary classifying space satisfies $\Omega BU \simeq U$,
+so
+\[
+ \pi_k(BU) \cong \pi_{k-1}(U).
+\]
+Bott periodicity for $U$ gives
+\[
+ \pi_{2m-1}(U) = \Z, \qquad \pi_{2m}(U) = 0 \qquad (m \geq 1),
+\]
+hence
+\[
+ \pi_{2m}(BU) = \Z, \qquad \pi_{2m+1}(BU) = 0.
+\]
+In the low dimensions relevant here:
+\[
+ \pi_2(BU) = \Z, \qquad \pi_3(BU) = 0, \qquad \pi_4(BU) = \Z.
+\]
+These groups have different meanings in adjacent CY dimensions. At
+$d = 2$, the nonzero class $\pi_2(BU) = \Z$ records the native
+braiding parameter of the surface-level $\Etwo$ theory, so
+Theorem~CY-A$_2$ is not a vanishing statement. At $d = 3$, the
+vanishing of $\pi_3(BU)$ removes only the topological framing
+obstruction; the native $\Etwo$ obstruction is the antisymmetric
+Euler form of Proposition~\ref{prop:e1-obstruction-categorical}. At
+$d = 4$, the group $\pi_4(BU) = \Z$ is an obstruction group for the
+$\mathbb{S}^4$-framing, not a guarantee of an $\Etwo$ enhancement:
+Chapter~\ref{ch:en-factorization} still yields only the
+$\Eone$-stabilized conclusion with extra shifted data.
+\end{remark}
+
 \begin{conjecture}[CY$_3$ Fukaya chiral algebra]
 \label{conj:fukaya-cy3}
 \ClaimStatusConjectured
 For a compact CY threefold $X$ with Fukaya category $\Fuk(X)$:
 \begin{enumerate}[label=(\roman*)]
  \item The CY-to-chiral functor $\Phi(\Fuk(X))$ produces an
- $\Eone$-chiral algebra $A_{\Fuk(X)}$, conditional on
- the chain-level $\mathbb{S}^3$-framing;
+ $\Eone$-chiral algebra $A_{\Fuk(X)}$, conditional only on
+ the chain-level $\mathbb{S}^3$-framing \textup{(}the topological
+ obstruction already vanishes\textup{)};
  \item The modular characteristic satisfies
  $\kappa_{\mathrm{cat}}(\Phi(\Fuk(X))) = \chi(\cO_X)$;
  \item The braided monoidal category
@@ -228,6 +261,23 @@ For a compact CY threefold $X$ with Fukaya category $\Fuk(X)$:
  conditions) connects to the Swiss-cheese structure of Volume~II.
 \end{enumerate}
 \end{conjecture}
+
+\begin{remark}[What remains to remove the CY$_3$ condition]
+\label{rem:fukaya-cy3-condition-gap}
+The topological part of Conjecture~\ref{conj:fukaya-cy3} is already
+gone: both Bott periodicity and the symplectic reduction path give
+vanishing of the $\mathbb{S}^3$-framing obstruction. The remaining
+gap is chain-level. One must construct an explicit trivialization of
+the negative-cyclic CY class on the cyclic bar complex of $\Fuk(X)$
+and prove that this trivialization intertwines the full family of
+polygon operations $\mu_k$. Equivalently, the missing datum is an
+$\mathbb{S}^3$-framing on $\HH_\bullet(\Fuk(X))$ compatible with the
+Connes operator and the cyclic $\Ainf$ structure. Two plausible routes
+are known: transfer of a chain-level trivialization across a proved
+HMS equivalence, or a direct continuation-map construction on the
+Fukaya cyclic bar complex. Neither route is completed in this
+manuscript, so the condition is reformulated sharply but not removed.
+\end{remark}
 
 \begin{example}[Quintic threefold]
 \label{ex:fukaya-quintic}
@@ -369,10 +419,13 @@ $A_{\Fuk(X)} = \Phi(\Fuk(X))$ is assembled in three steps
  \item \emph{Cyclic $\Ainf$-extraction}: The Fukaya $\Ainf$-structure
  $\{\mu_k\}_{k \geq 1}$ and Poincar\'{e} pairing give the input
  cyclic $\Ainf$-algebra (Chapter~\ref{ch:cyclic-ainf});
- \item \emph{Lie conformal algebra}: The Hochschild cohomology
- $\HH^\bullet(\Fuk(X))$ with Gerstenhaber bracket produces a Lie
- conformal algebra $L_{\Fuk(X)}$
- (Chapter~\ref{ch:hochschild-calculus});
+ \item \emph{Hochschild-to-chiral bridge}: The categorical Hochschild
+ cochains $\mathrm{CC}^\bullet(\Fuk(X), \Fuk(X))$ carry the
+ Gerstenhaber bracket and Connes operator; under the bar dictionary
+ these map to the chiral Hochschild cochains of the output chiral
+ algebra, and on cohomology give the Lie conformal algebra
+ $L_{\Fuk(X)}$ (Chapter~\ref{ch:hochschild-calculus} and
+ Proposition~\ref{prop:fukaya-hochschild-bridge});
  \item \emph{Factorization envelope}: The factorization envelope
  of $L_{\Fuk(X)}$ on a curve $C$ gives the chiral algebra
  $A_{\Fuk(X)}$ on $\Ran(C)$.
@@ -383,6 +436,69 @@ $\kappa_{\mathrm{cat}}$ are then computed from $A_{\Fuk(X)}$
 via the Volume~I machinery.
 \end{construction}
 
+\begin{proposition}[Fukaya Hochschild bridge]
+\label{prop:fukaya-hochschild-bridge}
+\ClaimStatusProvedHere
+Let $X$ be a compact CY surface and set
+$A_{\Fuk(X)} = \Phi(\Fuk(X))$. Then:
+\begin{enumerate}[label=(\roman*)]
+ \item The categorical Hochschild chains and the ordered chiral bar
+ complex agree:
+ \[
+  \mathrm{CC}_\bullet(\Fuk(X))
+  \xrightarrow{\sim}
+  B(A_{\Fuk(X)})
+ \]
+ as factorization coalgebras on $\Ran(C)$;
+ \item The induced map on cohomology
+ \[
+  \HH^\bullet(\Fuk(X)) \longrightarrow \ChirHoch^*(A_{\Fuk(X)})
+ \]
+ sends the Gerstenhaber bracket to the chiral convolution bracket
+ and, under the CY$_2$ identification
+ $\HH^\bullet(\Fuk(X)) \simeq \HH_{2-\bullet}(\Fuk(X))$, sends the
+ Connes operator to the modular differential;
+ \item The categorical Hochschild cochains map to the chiral derived
+ center:
+ \[
+  \mathrm{CC}^\bullet(\Fuk(X), \Fuk(X))
+  \longrightarrow
+  \RHom(\Omega B(A_{\Fuk(X)}), A_{\Fuk(X)})
+  = \Zder(A_{\Fuk(X)}).
+ \]
+\end{enumerate}
+Thus the bulk operators seen categorically by $\Fuk(X)$ survive as
+bulk operators of the chiral algebra.
+\end{proposition}
+
+\begin{proof}
+This is Theorem~\ref{thm:hochschild-bridge} specialized to
+$\cC = \Fuk(X)$. Part~(i) is the bar dictionary. For part~(ii), the
+CY$_2$ pairing identifies Hochschild cochains with shifted chains, so
+the Gerstenhaber bracket is transported to the convolution bracket on
+$\Hom_{\Ran}(B(A_{\Fuk(X)}), A_{\Fuk(X)})$, while the Connes operator
+corresponds to the degree-preserving component of the bar
+differential, namely the modular differential. Part~(iii) is the
+cochain-level map of Theorem~\ref{thm:hochschild-bridge}(iii), whose
+target is the chiral derived center by definition.
+\end{proof}
+
+\begin{remark}[Secondary proof sketch for the Fukaya Hochschild bridge]
+\label{rem:fukaya-hochschild-bridge-secondary}
+Fix a split-generator of $\Fuk(X)$ and a cyclic $\Ainf$ model $A_L$.
+Then one can rederive Proposition~\ref{prop:fukaya-hochschild-bridge}
+directly on that model: $\mathrm{CC}_\bullet(\Fuk(X))$ is the cyclic
+bar coalgebra of $A_L$, the ordered deconcatenation coproduct on that
+bar coalgebra produces the same convolution complex that defines the
+chiral Hochschild cochains, and the cyclic rotation operator defining
+Connes $B$ becomes the genus-preserving part of the chiral bar
+differential after the factorization envelope. This is a genuine
+second route because it uses only a concrete cyclic $\Ainf$ model and
+the bar-cobar adjunction, not Theorem~\ref{thm:hochschild-bridge}.
+The remaining bookkeeping is the arity-by-arity sign comparison
+between the cyclic bar rotation and the modular differential.
+\end{remark}
+
 \begin{proposition}[CY-to-chiral: $d = 2$ proved, $d = 3$ conditional]
 \label{prop:fukaya-phi-status}
 \ClaimStatusConditional
@@ -391,11 +507,15 @@ The CY-to-chiral functor $\Phi$ applied to Fukaya categories:
  \item For $d = 2$ (K3, abelian surfaces): $\Phi(\Fuk(X))$ is an
  $\Etwo$-chiral algebra. All three steps of
  Construction~\ref{constr:fukaya-phi} are unconditional. The
- $\mathbb{S}^2$-framing is trivial ($\pi_2(BU) = 0$);
- \item For $d = 3$ (CY threefolds): $\Phi(\Fuk(X))$ is an
- $\Eone$-chiral algebra. Steps 1--2 are unconditional. The
- topological $\mathbb{S}^3$-framing obstruction vanishes
- ($\pi_3(BU) = 0$ by Bott periodicity; $3$ is odd), but the
+ relevant Bott group is $\pi_2(BU) = \Z$, which records the native
+ braiding parameter of the surface theory rather than an obstruction
+ to existence;
+ \item For $d = 3$ (CY threefolds): conditional on the chain-level
+ $\mathbb{S}^3$-framing, $\Phi(\Fuk(X))$ produces an
+ $\Eone$-chiral algebra. Steps~1--2 are unconditional and already
+ determine the ordered $\Eone$ sector. The topological
+ $\mathbb{S}^3$-framing obstruction vanishes
+ ($\pi_3(BU) = 0$ by Bott periodicity), but the
  structural $\Etwo$-obstruction from the antisymmetric Euler form
  is generically nonzero
  (Proposition~\ref{prop:e1-obstruction-categorical}). The braiding
@@ -406,24 +526,46 @@ The CY-to-chiral functor $\Phi$ applied to Fukaya categories:
 \end{proposition}
 
 \begin{proof}
-For $d = 2$: the framing obstruction lives in
-$\pi_2(\mathrm{BGL}) = 0$ (the second homotopy group of the
-classifying space of the structure group). Since the obstruction
-vanishes, the $\Ainf$-structure on $\Fuk(X)$ promotes to an
-$\Etwo$-algebra (by the framing theorem of
-Chapter~\ref{ch:en-factorization}). The factorization envelope
-(step 3) then produces the $\Etwo$-chiral algebra.
+For $d = 2$, the operative input is Theorem~CY-A$_2$: it proves
+directly that a CY$_2$ category produces an $\Etwo$-chiral algebra,
+and Construction~\ref{constr:fukaya-phi} applies without any extra
+$d = 3$-type hypothesis. The Bott computation of
+Remark~\ref{rem:fukaya-bott-verification} shows that
+$\pi_2(BU) = \Z$, not $0$; in dimension~$2$ that group measures the
+native braiding parameter already built into the $\Etwo$ output.
 
-For $d = 3$: by Bott periodicity, $\pi_3(BU) = \pi_2(U) = 0$
-(since $3$ is odd), so the topological $\mathbb{S}^3$-framing
-obstruction vanishes universally. The reason CY$_3$ Fukaya algebras
-are $\Eone$ (not $\Etwo$) is the \emph{structural} obstruction:
-CY$_3$ Serre duality gives $\chi(E,F) = -\chi(F,E)$ (antisymmetric
-Euler form), which forces the CoHA multiplication to be ordered
-(Proposition~\ref{prop:e1-obstruction-categorical}). Steps 1--2
-do not use the framing and are unconditional. The $\Etwo$-enhancement
-requires the Drinfeld center construction.
+For $d = 3$, there are two independent topological vanishing
+arguments. The first is the Bott path:
+$\pi_3(BU) = \pi_2(U) = 0$. The second is the symplectic path:
+CY$_3$ Serre duality gives an antisymmetric pairing on
+$\Ext^1(E, E)$, reducing the structure group to $\Sp(2m)$, and
+$\pi_3(B\Sp(2m)) = \pi_2(\Sp(2m)) = 0$. Thus the topological
+$\mathbb{S}^3$-framing obstruction vanishes universally. The reason
+CY$_3$ Fukaya algebras are $\Eone$ rather than native $\Etwo$ is
+therefore structural, not topological: Serre duality forces
+$\chi(E, F) = -\chi(F, E)$, and
+Proposition~\ref{prop:e1-obstruction-categorical} shows that this
+antisymmetric Euler form obstructs the $\Etwo$ promotion. Steps~1--2
+of Construction~\ref{constr:fukaya-phi} therefore survive
+unconditionally and determine the ordered $\Eone$ sector. The passage
+from that ordered sector to the full chiral algebra
+$A_{\Fuk(X)} = \Phi(\Fuk(X))$ remains conditional on the chain-level
+$\mathbb{S}^3$-framing, and the braided structure is recovered only
+afterwards through the Drinfeld center.
 \end{proof}
+
+\begin{remark}[Secondary proof paths for Proposition~\ref{prop:fukaya-phi-status}]
+\label{rem:fukaya-phi-status-secondary}
+Item~(i) admits an independent B-model verification whenever HMS is
+proved: transport the CY-to-chiral result from
+$D^b(\Coh(X^\vee))$ across the equivalence of
+Propositions~\ref{prop:hms-compatibility}
+and~\ref{prop:hms-chiral-equiv}. Item~(ii) already contains two
+independent topological proofs inside the proposition itself: the
+Bott periodicity path through $BU$ and the Serre-duality reduction to
+$\Sp$. What neither route supplies is the missing chain-level
+trivialization compatible with the Fukaya $\Ainf$ operations.
+\end{remark}
 
 
 \section{Homological mirror symmetry and chiral algebra equivalence}
