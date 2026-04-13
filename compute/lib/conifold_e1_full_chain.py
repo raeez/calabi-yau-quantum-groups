@@ -1262,66 +1262,77 @@ class YangianGL11:
         )
 
     def yang_baxter_check(self, u: Fraction, v: Fraction) -> bool:
-        """Verify the Yang-Baxter equation for R(u) = u*Id + P.
+        """Verify the graded Yang-Baxter equation for R(u) = u*Id + P.
 
         The YBE on V tensor V tensor V reads:
           R_{12}(u-v) R_{13}(u) R_{23}(v) = R_{23}(v) R_{13}(u) R_{12}(u-v)
 
-        For the Yang R-matrix R(u) = u*Id + P with P^2 = Id, this is
-        a classical identity. We verify it numerically at given (u, v).
+        For the super Yang R-matrix R(u) = u*Id + P_graded with P^2 = Id,
+        this is a classical identity in the graded tensor category.
 
-        Embedding into 8x8 matrices on (C^2)^{tensor 3}:
+        CRITICAL: For gl(m|n), the embedding R_{13} into V^{x3} must use
+        the GRADED tensor product, which introduces Koszul signs when an
+        operator passes a fermionic state. The correct formula is:
+          R_{13} = P_{12} * R_{23} * P_{12}
+        where P_{12} is the graded permutation on factors 1 and 2.
+        This automatically accounts for all Koszul signs.
+
+        Embedding into 8x8 matrices on (C^{1|1})^{tensor 3}:
           R_{12}(u) acts on factors 1,2 as R(u) and trivially on factor 3.
-          R_{13}(u) acts on factors 1,3 as R(u) and trivially on factor 2.
           R_{23}(u) acts on factors 2,3 as R(u) and trivially on factor 1.
+          R_{13}(u) = P_{12} R_{23}(u) P_{12}  (graded embedding).
         """
         R_uv = self.r_matrix_yang(u - v)
         R_u = self.r_matrix_yang(u)
         R_v = self.r_matrix_yang(v)
 
+        def _parity(i: int) -> int:
+            """Parity of basis vector |i>: 0=even, 1=odd."""
+            return i  # |0> even, |1> odd for C^{1|1}
+
         def embed_12(M):
-            """Embed 4x4 matrix acting on slots 1,2 into 8x8 on slots 1,2,3."""
+            """R_{12} on V1 x V2 x V3: acts on first two factors."""
             E = [[Fraction(0)] * 8 for _ in range(8)]
             for a in range(2):
                 for b in range(2):
-                    for c in range(2):
-                        for d in range(2):
-                            # Input: |a,b,k> -> sum_{c,d} M[2a+b][2c+d] |c,d,k>
-                            row = 4 * c + 2 * d  # but we need to include k
-                            col = 4 * a + 2 * b
-                            # Actually: |a> x |b> x |k> has index 4a + 2b + k
-                            for k in range(2):
-                                i_in = 4 * a + 2 * b + k
-                                i_out = 4 * c + 2 * d + k
-                                E[i_out][i_in] += M[2 * a + b][2 * c + d]
+                    for ap in range(2):
+                        for bp in range(2):
+                            val = M[2 * ap + bp][2 * a + b]
+                            if val == 0:
+                                continue
+                            for c in range(2):
+                                E[4 * ap + 2 * bp + c][4 * a + 2 * b + c] += val
             return E
 
         def embed_23(M):
-            """Embed 4x4 matrix acting on slots 2,3 into 8x8 on slots 1,2,3."""
+            """R_{23} on V1 x V2 x V3: acts on last two factors."""
+            E = [[Fraction(0)] * 8 for _ in range(8)]
+            for b in range(2):
+                for c in range(2):
+                    for bp in range(2):
+                        for cp in range(2):
+                            val = M[2 * bp + cp][2 * b + c]
+                            if val == 0:
+                                continue
+                            for a in range(2):
+                                E[4 * a + 2 * bp + cp][4 * a + 2 * b + c] += val
+            return E
+
+        def graded_P12():
+            """Graded swap of factors 1,2: P_{12}|a,b,c> = (-1)^{|a||b|} |b,a,c>."""
             E = [[Fraction(0)] * 8 for _ in range(8)]
             for a in range(2):
                 for b in range(2):
                     for c in range(2):
-                        for d in range(2):
-                            for k in range(2):
-                                i_in = 4 * k + 2 * a + b
-                                i_out = 4 * k + 2 * c + d
-                                E[i_out][i_in] += M[2 * a + b][2 * c + d]
+                        sign = (-1) ** (_parity(a) * _parity(b))
+                        E[4 * b + 2 * a + c][4 * a + 2 * b + c] += Fraction(sign)
             return E
 
         def embed_13(M):
-            """Embed 4x4 matrix acting on slots 1,3 into 8x8 on slots 1,2,3."""
-            E = [[Fraction(0)] * 8 for _ in range(8)]
-            for a in range(2):
-                for b in range(2):
-                    for c in range(2):
-                        for d in range(2):
-                            # Slots 1 and 3: |a> x |k> x |b> -> M[2a+b][2c+d] |c> x |k> x |d>
-                            for k in range(2):
-                                i_in = 4 * a + 2 * k + b
-                                i_out = 4 * c + 2 * k + d
-                                E[i_out][i_in] += M[2 * a + b][2 * c + d]
-            return E
+            """R_{13} = P_{12} R_{23} P_{12} (graded embedding via conjugation)."""
+            P12 = graded_P12()
+            R23_embedded = embed_23(M)
+            return mat_mul_8(P12, mat_mul_8(R23_embedded, P12))
 
         def mat_mul_8(A, B):
             C = [[Fraction(0)] * 8 for _ in range(8)]

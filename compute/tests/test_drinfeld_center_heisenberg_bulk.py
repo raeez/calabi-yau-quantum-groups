@@ -58,6 +58,11 @@ from compute.lib.drinfeld_center_heisenberg_bulk import (
     compare_grothendieck_invariants,
     compare_e2_structure,
     dimension_comparison_table,
+    # Cross-verification (AP10)
+    cross_verify_chirhoch_dims,
+    cross_verify_drinfeld_double_dim,
+    cross_verify_kappa_heisenberg,
+    cross_verify_shadow_depth,
     # Verification
     verify_at_level,
     verify_level_sweep,
@@ -476,7 +481,104 @@ class TestAPCompliance:
 
 
 # =========================================================================
-# Section 11: Full verification
+# Section 11: Multi-path cross-verification (AP10 compliance)
+# =========================================================================
+
+class TestCrossVerifyChirHochDims:
+    """AP10: cross-verify CHIRHOCH_DIMS = [1, 1, 1] via multiple paths."""
+
+    def test_all_paths_agree(self):
+        """All 4 verification paths agree on dims [1, 1, 1]."""
+        result = cross_verify_chirhoch_dims()
+        assert result["all_match"]
+
+    def test_path1_manuscript(self):
+        """Path 1 [DC]: manuscript thqg_holographic_reconstruction.tex:2751."""
+        result = cross_verify_chirhoch_dims()
+        assert result["path1_manuscript"] == [1, 1, 1]
+
+    def test_path2_ext_plus_normal_ordering(self):
+        """Path 2 [LC]: exterior on 1 gen + normal-ordered :JJ:."""
+        result = cross_verify_chirhoch_dims()
+        assert result["path2_ext_plus_no"] == [1, 1, 1]
+
+    def test_path3_palindromic(self):
+        """Path 3 [SY]: Poincare duality palindromicity."""
+        result = cross_verify_chirhoch_dims()
+        assert result["path3_palindromic"]
+
+    def test_path4_euler(self):
+        """Path 4 [NE]: Euler characteristic = 1."""
+        result = cross_verify_chirhoch_dims()
+        assert result["path4_euler"] == 1
+
+
+class TestCrossVerifyDrinfeldDoubleDim:
+    """AP10: cross-verify DRIN_HK_DIM = 3 via multiple paths."""
+
+    def test_all_paths_agree(self):
+        """All 3 verification paths agree on dim = 3."""
+        result = cross_verify_drinfeld_double_dim()
+        assert result["all_match"]
+
+    def test_path1_construction(self):
+        """Path 1 [DC]: dim(H_k) + dim(H_{-k}) - 1 = 2 + 2 - 1 = 3."""
+        result = cross_verify_drinfeld_double_dim()
+        assert result["path1_construction"] == 3
+
+    def test_path2_kassel(self):
+        """Path 2 [LT]: Kassel formula 2*dim(h) - dim(center) = 3."""
+        result = cross_verify_drinfeld_double_dim()
+        assert result["path2_kassel"] == 3
+
+    def test_path3_generators(self):
+        """Path 3 [DA]: explicit generator count {J, J', c} = 3."""
+        result = cross_verify_drinfeld_double_dim()
+        assert result["path3_generators"] == 3
+
+
+class TestCrossVerifyKappa:
+    """AP10: cross-verify kappa_ch(H_k) = k via multiple paths."""
+
+    def test_all_levels_all_paths(self):
+        """All 3 paths agree at 5 test levels."""
+        result = cross_verify_kappa_heisenberg()
+        assert result["all_match"]
+
+    def test_individual_levels(self):
+        """Each level individually consistent."""
+        result = cross_verify_kappa_heisenberg()
+        for level_str, data in result["checks"].items():
+            assert data["all_agree"], f"Paths disagree at k={level_str}"
+
+    def test_k0_all_zero(self):
+        """At k=0: all paths give kappa = 0."""
+        result = cross_verify_kappa_heisenberg()
+        assert result["checks"]["0"]["engine"] == F(0)
+
+
+class TestCrossVerifyShadow:
+    """AP10: cross-verify shadow depth = 2 via multiple paths."""
+
+    def test_all_paths_agree(self):
+        """Both verification paths agree on depth = 2."""
+        result = cross_verify_shadow_depth()
+        assert result["all_match"]
+
+    def test_delta_zero(self):
+        """Path 1: Delta = 8*kappa*S_4 = 0 (S_4 = 0 for Heisenberg)."""
+        result = cross_verify_shadow_depth()
+        assert result["path1_delta_zero"]
+
+    def test_ope_pole_order(self):
+        """Path 2: max OPE pole order = 2 = shadow depth."""
+        result = cross_verify_shadow_depth()
+        assert result["path2_ope_pole"] == 2
+        assert result["path2_depth"] == 2
+
+
+# =========================================================================
+# Section 12: Full verification
 # =========================================================================
 
 class TestFullVerification:
@@ -510,3 +612,15 @@ class TestFullVerification:
         result = full_verification()
         assert result["shadow_class"] == "G"
         assert result["shadow_depth"] == 2
+
+    def test_full_verification_cross_checks_pass(self):
+        """All 4 cross-verification suites pass (AP10 compliance)."""
+        result = full_verification()
+        assert result["cross_verify_chirhoch"]["all_match"], \
+            "ChirHoch dims cross-verification failed"
+        assert result["cross_verify_drin_dim"]["all_match"], \
+            "Drinfeld double dim cross-verification failed"
+        assert result["cross_verify_kappa"]["all_match"], \
+            "kappa cross-verification failed"
+        assert result["cross_verify_shadow"]["all_match"], \
+            "Shadow depth cross-verification failed"
