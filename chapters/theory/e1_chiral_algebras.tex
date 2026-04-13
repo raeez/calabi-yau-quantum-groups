@@ -229,7 +229,7 @@ $\cZ(\Rep^{E_1}(A)) \simeq \Rep^{E_2}(\mathrm{Drin}(A))$
 (Proposition~\ref{prop:e2-enhancement-drinfeld}); the passage to
 $E_\infty$ forgets the quantum group entirely and returns to the
 classical vertex-algebraic world of Beilinson-Drinfeld.
-Li's vertex bialgebra~\cite{Li06} is the $E_\infty$ shadow of the
+Li's vertex bialgebra~\cite{Li} is the $E_\infty$ shadow of the
 $E_1$-chiral bialgebra: it retains the vertex-algebraic OPE structure
 but symmetrizes the coproduct, losing the $R$-matrix that distinguishes
 $U_q(\fg)$ from $U(\fg)$. The chiral quantum group is the $E_1$
@@ -828,10 +828,30 @@ a tuple $(A, \mu, \Delta_z, \varepsilon, \eta)$ where:
  \end{tikzcd}
  \]
  commutes, where the bottom-left corner uses the interchange law
- for the $E_1$-monoidal structure.
+ for the $E_1$-monoidal structure;
+ \item \emph{Spectral coassociativity}: for $z, w \in \Ran(C)$ in
+ general position, the coproduct satisfies
+ \begin{equation}\label{eq:spectral-coassociativity}
+  (\Delta_w \otimes \mathrm{id}) \circ \Delta_{z+w}
+  = (\mathrm{id} \otimes \Delta_z) \circ \Delta_w.
+ \end{equation}
+ At $z = w = 0$ this reduces to ordinary coassociativity
+ $(\Delta_0 \otimes \mathrm{id}) \circ \Delta_0
+  = (\mathrm{id} \otimes \Delta_0) \circ \Delta_0$.
+ For generic $z, w$ the identity encodes the Yang--Baxter
+ equation: the $R$-matrix extracted from $\Delta_z$ satisfies
+ YBE if and only if spectral coassociativity holds
+ (cf.\ Proposition~\ref{prop:r-matrix-from-drinfeld}).
 \end{enumerate}
 The compatibility axiom (iii) is the $E_1$-chiral analogue of the
-classical bialgebra axiom ``$\Delta$ is an algebra map.'' The parametrization
+classical bialgebra axiom ``$\Delta$ is an algebra map.'' The spectral
+coassociativity axiom~(iv) is the chiral analogue of the identity
+$(\Delta \otimes 1) \circ \Delta = (1 \otimes \Delta) \circ \Delta$,
+promoted to a family over the spectral parameter. It replaces
+Drinfeld's quasi-coassociativity (which uses an associator $\Phi$ to
+correct the failure of coassociativity in the symmetric monoidal setting):
+in the $E_1$-chiral setting, coassociativity holds on the nose, but
+with shifted spectral parameters. The parametrization
 by $z \in \Ran(C)$ is essential: the coproduct depends on the collision
 point, and the $z$-dependence carries the $R$-matrix data.
 \end{definition}
@@ -842,29 +862,85 @@ point, and the $z$-dependence carries the $R$-matrix data.
 An $E_1$-chiral bialgebra $(A, \mu, \Delta_z, \varepsilon, \eta)$ is an
 \emph{$E_1$-chiral Hopf algebra} if there exists a morphism of
 $E_1$-chiral modules $S \colon A \to A$ (the \emph{antipode})
-satisfying
-\[
- \mu_{E_1} \circ (S \otimes \mathrm{id}) \circ \Delta_z
+satisfying the \emph{Hopf axiom at $z = 0$}:
+\begin{equation}\label{eq:hopf-axiom-z0}
+ \mu_{E_1} \circ (S \otimes \mathrm{id}) \circ \Delta_0
  = \eta \circ \varepsilon
- = \mu_{E_1} \circ (\mathrm{id} \otimes S) \circ \Delta_z,
-\]
-where $\mu_{E_1}$ is the ordered product. The two equalities are
+ = \mu_{E_1} \circ (\mathrm{id} \otimes S) \circ \Delta_0,
+\end{equation}
+where $\mu_{E_1}$ is the ordered product and $\Delta_0 = \Delta_z|_{z=0}$
+is the coproduct at the basepoint. The two equalities are
 independent conditions because $\mu_{E_1}$ is not commutative.
+For $z \neq 0$, the antipode axiom generalizes to
+\begin{equation}\label{eq:hopf-axiom-spectral}
+ \mu_{E_1} \circ (S \otimes \mathrm{id}) \circ \Delta_z
+ = \eta \circ \varepsilon \circ \pi_z,
+\end{equation}
+where $\pi_z \colon A \to A$ is the spectral projection that extracts
+the $z$-independent component. When $A$ is connected
+($\varepsilon \circ \eta = \mathrm{id}_k$), the basepoint
+axiom~\eqref{eq:hopf-axiom-z0} determines $S$ uniquely by
+induction on the coalgebra filtration, exactly as in the classical
+Hopf algebra setting.
 \end{definition}
+
+\begin{remark}[Summary of the $E_1$-chiral Hopf axiom system]
+\label{rem:e1-hopf-axiom-summary}
+Definitions~\ref{def:e1-chiral-bialgebra}
+and~\ref{def:e1-chiral-antipode} assemble into a five-part axiom
+system for an $E_1$-chiral Hopf algebra
+$(A, \mu, \Delta_z, \varepsilon, \eta, S)$ on a curve $C$:
+\begin{enumerate}[label=\textbf{(H\arabic*)}]
+ \item \emph{$E_1$-chiral algebra}: $(A, \mu, \varepsilon)$ is an
+ augmented algebra in $\cM^{E_1}_C$; the product $\mu$ is the
+ labeled-ordered OPE (Definition~\ref{def:e1-chiral-monoidal}).
+ \item \emph{$E_1$-chiral coalgebra}: $\Delta_z \colon A \to
+ A \otimes_{E_1,z} A$ is a $z$-parametrized coproduct with counit
+ $\varepsilon$ and coaugmentation $\eta$
+ (Definition~\ref{def:e1-chiral-coalgebra}).
+ \item \emph{Bialgebra compatibility}: $\Delta_z$ is a morphism
+ of $E_1$-chiral algebras---the diagram of
+ Definition~\ref{def:e1-chiral-bialgebra}(iii) commutes.
+ \item \emph{Spectral coassociativity}:
+ $(\Delta_w \otimes \mathrm{id}) \circ \Delta_{z+w}
+  = (\mathrm{id} \otimes \Delta_z) \circ \Delta_w$
+ (equation~\eqref{eq:spectral-coassociativity}).
+ \item \emph{Hopf axiom}:
+ $\mu_{E_1} \circ (S \otimes \mathrm{id}) \circ \Delta_0
+  = \eta \circ \varepsilon
+  = \mu_{E_1} \circ (\mathrm{id} \otimes S) \circ \Delta_0$
+ (equation~\eqref{eq:hopf-axiom-z0}).
+\end{enumerate}
+The axioms are strictly stronger than Li's vertex
+bialgebra~\cite{Li} ($E_\infty$-chiral, no spectral parameter, no
+antipode) and strictly weaker than Drinfeld's quasi-Hopf formulation
+(which works in $({\mathrm{Vect}}, \otimes_k)$ and requires an
+associator $\Phi$). The $E_1$-chiral setting eliminates the
+associator: axiom~\textbf{(H4)} holds on the nose because
+the $E_1$-monoidal category is strictly associative
+(the associahedron is contractible for linear orders).
+\end{remark}
 
 \subsection{Why $E_1$ and not $E_\infty$}
 \label{subsec:why-e1-not-einfty}
 
-\begin{proposition}[Averaging forgets the Hopf structure]
+\begin{proposition}[Averaging forgetful theorem]
 \label{prop:averaging-forgets-hopf}
 \ClaimStatusProvedHere
-Let $(A, \mu, \Delta_z, \varepsilon, \eta, S)$ be an $E_1$-chiral Hopf
-algebra. The averaging map
-$\mathrm{av} \colon B^{\mathrm{ord}}(A) \to B^{\Sigma}(A)$ of
-Proposition~\ref{prop:averaging-e1-einfty} sends the $E_1$-chiral
-bialgebra structure to an $E_\infty$-chiral coalgebra
+The averaging map of
+Proposition~\ref{prop:averaging-e1-einfty} defines a functor
+\[
+ \mathrm{av} \colon
+ E_1\text{-}\mathrm{ChirHopf}(C) \longrightarrow
+ E_\infty\text{-}\mathrm{ChirCoalg}(C)
+\]
+that sends an $E_1$-chiral Hopf algebra
+$(A, \mu, \Delta_z, \varepsilon, \eta, S)$ satisfying
+axioms~\textup{\textbf{(H1)--(H5)}} of
+Remark~\textup{\ref{rem:e1-hopf-axiom-summary}} to the
+$E_\infty$-chiral coalgebra
 $(B^{\Sigma}(A), \Delta_{\mathrm{cosh}})$ with the coshuffle coproduct
-$\Delta_{\mathrm{cosh}}$. The data lost under averaging:
+$\Delta_{\mathrm{cosh}}$. The functor forgets all Hopf data:
 \begin{enumerate}[label=(\roman*)]
  \item The $R$-matrix: on degree-two elements,
  $\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$ (a scalar), so the full
@@ -1030,6 +1106,68 @@ three classical frameworks for quantum group structure on chiral algebras:
 The slogan: the $E_1$-chiral bialgebra is the Hopf algebra object in the
 category that chiral algebras actually inhabit when collision order is
 remembered.
+\end{remark}
+
+\begin{remark}[Comparison table: $E_1$ vs $E_2$ vs $E_\infty$ chiral bialgebras]
+\label{rem:e1-e2-einfty-comparison}
+Table~\ref{tab:en-chiral-comparison} records the structural data at
+each level of the operad filtration $E_1 \to E_2 \to E_\infty$.
+The passage $E_1 \to E_2$ is the Drinfeld center
+(Proposition~\ref{prop:r-matrix-from-drinfeld}); the passage
+$E_2 \to E_\infty$ is the averaging map
+$\mathrm{av} \colon B^{\mathrm{ord}} \to B^{\Sigma}$
+(Proposition~\ref{prop:averaging-e1-einfty}).
+Each arrow \emph{loses} structure irreversibly: the first quotients out
+the ordering to gain a braiding; the second quotients out the braiding
+to gain full symmetry. The slogan:
+$E_\infty$-averaging kills the Hopf structure because
+$\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$---the full
+$z$-dependent $R$-matrix collapses to a single scalar.
+
+\begin{table}[ht]
+\centering
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}l@{\;\;}l@{\;\;}l@{\;\;}l@{}}
+\toprule
+\textbf{Feature} & \textbf{$E_1$ (ordered)} & \textbf{$E_2$ (braided)} & \textbf{$E_\infty$ (symmetric)} \\
+\midrule
+Operad & Little intervals & Little $2$-disks & Comm.\ operad \\
+Symmetry at arity $n$ & Trivial ($1$) & Braid group $B_n$ & $S_n$ \\
+Bar complex & $B^{\mathrm{ord}} = T^c(s^{-1}\bar A)$ & $B_{E_2} = T^c$ with $B_n$-action & $B^{\Sigma} = \Sym^c(s^{-1}\bar A)$ \\
+Coproduct & Deconcatenation $\Delta_{\mathrm{dec}}$ & $\Delta_X, \Delta_Y$ (two commuting) & Coshuffle $\Delta_{\mathrm{cosh}}$ \\
+$z$-dependence & $\Delta_z$ spectral family & $R^{E_2}(z)$ braiding & None ($z$-independent) \\
+$R$-matrix & $r(z) = k\,\Omega/z + \cdots$ & $R^{E_2}(z)$ (half-braiding) & $\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$ (scalar) \\
+Koszul dual & $A^!$ with reversed order & $A^!$ with reversed braiding & $A^!$ (no braiding data) \\
+Hopf structure & Full: $(\mu, \Delta_z, S)$ & Braided Hopf & None (Prop.~\ref{prop:averaging-forgets-hopf}) \\
+Antipode $S$ & $S \colon A \to A$ & Braided antipode & $\mathrm{av}(S) = \mathrm{id}$ \\
+Yang--Baxter & Spectral coassoc.\ (H4) & YBE from center & Trivial \\
+Rep.\ category & Monoidal (not braided) & Braided monoidal & Symmetric monoidal \\
+\midrule
+\textbf{Lost at transition} & --- & Ordering; strict assoc.\ & Braiding; $R$-matrix; $S$; $z$-dep. \\
+\bottomrule
+\end{tabular}
+\caption{Twelve-row comparison of $E_n$-chiral bialgebra data.
+The $E_1 \to E_2$ transition (Drinfeld center) trades the strict
+associativity of linear order for a braiding; the $E_2 \to E_\infty$
+transition (averaging) collapses $r(z)$ to $\kappa_{\mathrm{ch}}$
+and destroys the Hopf structure entirely.
+See Construction~\ref{constr:three-bar-complexes} for the
+bar-complex triple.}
+\label{tab:en-chiral-comparison}
+\end{table}
+
+The table makes precise the content of
+Remark~\ref{rem:three-way-resolution}:
+Li's vertex bialgebras~\cite{Li} occupy the rightmost column, where
+the coshuffle coproduct is $z$-independent and carries no $R$-matrix
+data.
+Drinfeld's quasi-Hopf algebras do not appear in the table because
+they live in $(\mathrm{Vect}, \otimes_k)$, not in a chiral monoidal
+category; the associator $\Phi$ is the artifact of forcing a braided
+object into a symmetric ambient category.
+The $E_1$-chiral bialgebra (leftmost column) is the minimal
+framework retaining all quantum group data.
 \end{remark}
 
 \section{Closing: the ordered bar as the primitive of Vol~III}

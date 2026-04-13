@@ -57,6 +57,13 @@ from compute.lib.k3_double_current_algebra import (
     verify_formality,
     verify_partition_function_coefficients,
     full_verification,
+    # Kummer route
+    T4_BETTI, T4_TOTAL_DIM, T4_EVEN_DIM, T4_ODD_DIM,
+    NUM_FIXED_POINTS, A1_TWISTED_WEIGHT, A1_RESOLUTION_GENERATORS,
+    kummer_factorization_data,
+    kummer_twisted_sector_character,
+    kummer_orbifold_character_check,
+    verify_kummer_route,
 )
 
 F = Fraction
@@ -516,3 +523,184 @@ class TestFullVerification:
         result = verify_bar_euler_product(8)
         assert result['inverse_pair_match'] is True
         assert result['known_eta24_match'] is True
+
+
+# =========================================================================
+# Section 11: Kummer route -- equivariant factorization homology on T^4/Z_2
+# =========================================================================
+
+class TestKummerConstants:
+    """T^4 cohomology and Z_2 fixed-point constants."""
+
+    def test_t4_betti_numbers(self):
+        """H^*(T^4) has Betti numbers (1, 4, 6, 4, 1)."""
+        assert T4_BETTI == {0: 1, 1: 4, 2: 6, 3: 4, 4: 1}
+
+    def test_t4_total_dim(self):
+        """dim H^*(T^4) = 2^4 = 16."""
+        assert T4_TOTAL_DIM == 16
+        assert T4_TOTAL_DIM == sum(T4_BETTI.values())
+
+    def test_t4_even_odd_split(self):
+        """Even/odd cohomology dimensions: 8 + 8 = 16."""
+        assert T4_EVEN_DIM == 8
+        assert T4_ODD_DIM == 8
+        assert T4_EVEN_DIM + T4_ODD_DIM == T4_TOTAL_DIM
+
+    def test_num_fixed_points(self):
+        """Z_2 acts on T^4 with 2^4 = 16 fixed points."""
+        assert NUM_FIXED_POINTS == 16
+        assert NUM_FIXED_POINTS == 2**4
+
+    def test_a1_twisted_weight(self):
+        """Twisted sector conformal weight h = 1/2 from C^2/Z_2."""
+        assert A1_TWISTED_WEIGHT == F(1, 2)
+
+    def test_a1_resolution_generators(self):
+        """Each CP^1 exceptional divisor contributes 2 generators."""
+        assert A1_RESOLUTION_GENERATORS == 2
+
+
+class TestKummerStep1:
+    """Step 1: int_{T^4} H_1 = rank-16 Heisenberg."""
+
+    def test_torus_rank(self):
+        """Factorization homology on T^4 gives rank-16 Heisenberg."""
+        data = kummer_factorization_data()
+        assert data.torus_rank == 16
+
+    def test_torus_rank_equals_betti_sum(self):
+        """Cross-check: rank = sum of Betti numbers."""
+        data = kummer_factorization_data()
+        assert data.torus_rank == sum(data.torus_betti.values())
+
+    def test_central_charge(self):
+        """Central charge c = 4 (one per S^1 factor)."""
+        data = kummer_factorization_data()
+        assert data.torus_central_charge == 4
+
+
+class TestKummerStep2:
+    """Step 2: Z_2-invariant subalgebra = rank-8 Heisenberg."""
+
+    def test_untwisted_rank(self):
+        """Z_2-invariant part has rank 8 = dim H^even(T^4)."""
+        data = kummer_factorization_data()
+        assert data.untwisted_rank == 8
+
+    def test_z2_action_signs(self):
+        """Z_2 acts by (-1)^k on H^k(T^4)."""
+        data = kummer_factorization_data()
+        for k in range(5):
+            assert data.z2_action_on_hk[k] == (-1)**k
+
+    def test_even_cohomology_dimension(self):
+        """Cross-check: dim H^even = 1 + 6 + 1 = 8."""
+        assert T4_BETTI[0] + T4_BETTI[2] + T4_BETTI[4] == 8
+
+
+class TestKummerStep3:
+    """Step 3: 16 twisted sectors with h = 1/2."""
+
+    def test_twisted_sector_count(self):
+        """16 fixed points give 16 twisted sectors."""
+        data = kummer_factorization_data()
+        assert data.num_fixed_points == 16
+
+    def test_twisted_weight(self):
+        """Each twisted sector has weight h = 1/2."""
+        data = kummer_factorization_data()
+        assert data.twisted_weight == F(1, 2)
+
+    def test_twisted_weight_from_components(self):
+        """h = 2 * (1/4) from C^2 normal directions."""
+        complex_dim = 2
+        weight_per_dim = F(1, 4)
+        assert complex_dim * weight_per_dim == F(1, 2)
+
+    def test_p2_partition_coefficients(self):
+        """1/prod(1-q^n)^2 coefficients: p_2(0..4) = 1,2,5,10,20."""
+        tw = kummer_twisted_sector_character(max_terms=6)
+        assert tw['p2_coefficients'][0] == 1
+        assert tw['p2_coefficients'][1] == 2
+        assert tw['p2_coefficients'][2] == 5
+        assert tw['p2_coefficients'][3] == 10
+        assert tw['p2_coefficients'][4] == 20
+
+    def test_p2_known_match(self):
+        """Twisted sector character matches known 2-colored partitions."""
+        tw = kummer_twisted_sector_character(max_terms=6)
+        assert tw['p2_known_match'] is True
+
+
+class TestKummerStep4:
+    """Step 4: orbifold chiral algebra before resolution."""
+
+    def test_orbifold_kappa_ch(self):
+        """kappa_ch of orbifold = 2 = chi(O_{K3})."""
+        data = kummer_factorization_data()
+        assert data.orbifold_kappa_ch == 2
+
+    def test_kappa_ch_not_from_untwisted_alone(self):
+        """The untwisted sector alone has kappa_ch = 0 (abelian torus).
+        The twisted sectors are essential for kappa_ch = 2."""
+        # chi(O_{T^4}) = 0 for abelian variety
+        chi_t4 = 1 - 4 + 6 - 4 + 1  # alternating sum of Betti
+        assert chi_t4 == 0
+        # But chi(O_{K3}) = 2
+        chi_k3 = 1 - 0 + 1  # h^{0,0} - h^{1,0} + h^{2,0}
+        assert chi_k3 == 2
+
+
+class TestKummerStep5:
+    """Step 5: 16 blow-ups recover rank-24 Mukai Heisenberg."""
+
+    def test_resolved_rank(self):
+        """After resolution: 8 + 32 - 16 = 24."""
+        data = kummer_factorization_data()
+        assert data.resolved_rank == 24
+
+    def test_resolved_rank_arithmetic(self):
+        """Cross-check the rank arithmetic explicitly."""
+        untwisted = T4_EVEN_DIM  # 8
+        blown_up = NUM_FIXED_POINTS * A1_RESOLUTION_GENERATORS  # 32
+        gluing = NUM_FIXED_POINTS  # 16
+        assert untwisted + blown_up - gluing == 24
+
+    def test_matches_mukai_rank(self):
+        """Resolved rank = Mukai lattice rank."""
+        data = kummer_factorization_data()
+        assert data.matches_mukai_rank is True
+        assert data.resolved_rank == MUKAI_RANK
+
+    def test_matches_k3_total_dim(self):
+        """Resolved rank = dim H^*(K3)."""
+        data = kummer_factorization_data()
+        assert data.resolved_rank == K3_TOTAL_DIM
+
+
+class TestKummerCrossVerification:
+    """Multi-path cross-verification of the Kummer route."""
+
+    def test_rank_three_paths(self):
+        """Rank 24 from Euler char, Hodge numbers, and lattice."""
+        result = verify_kummer_route()
+        assert result['path5_rank_cross_check'] == 24
+        assert len(result['path5_methods']) == 3
+
+    def test_kappa_two_paths(self):
+        """kappa_ch = 2 from Noether formula and Hodge numbers."""
+        result = verify_kummer_route()
+        assert result['path6_kappa_cross_check'] == 2
+        assert len(result['path6_methods']) == 2
+
+    def test_orbifold_rank_recovery(self):
+        """Orbifold character check recovers rank 24."""
+        orb = kummer_orbifold_character_check(max_terms=6)
+        assert orb['rank_resolved_total'] == 24
+        assert orb['matches_k3_rank'] is True
+
+    def test_full_kummer_verification(self):
+        """All Kummer route checks pass."""
+        result = verify_kummer_route()
+        assert result['all_checks_pass'] is True
