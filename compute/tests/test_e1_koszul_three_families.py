@@ -276,6 +276,54 @@ class TestKacMoodyKoszulDuality:
         assert result["d_full_squared_zero"]
         assert result["class"] == "L (nontrivial m_3)"
 
+    def test_bar_differential_arity3_efh(self):
+        """d_bar([e|f|h]) = [h|h] - 2[e|f].
+
+        d[a|b|c] = [mu(a,b)|c] - [a|mu(b,c)] (reduced bar convention).
+        mu(e,f) = h, mu(f,h) = 2f.
+        d[e|f|h] = [h|h] - [e|2f] = [h|h] - 2[e|f].
+        """
+        bar = kac_moody_sl2_bar_complex()
+        arity_3 = bar[2]
+        efh_diff = arity_3.differentials[0]
+        assert efh_diff.input_element == "[e|f|h]"
+        assert not efh_diff.is_zero
+        assert efh_diff.output_terms == [(1, "[h|h]"), (-2, "[e|f]")]
+
+    def test_bar_differential_arity3_hef(self):
+        """d_bar([h|e|f]) = 2[e|f] - [h|h].
+
+        mu(h,e) = 2e, mu(e,f) = h.
+        d[h|e|f] = [2e|f] - [h|h] = 2[e|f] - [h|h].
+        """
+        bar = kac_moody_sl2_bar_complex()
+        arity_3 = bar[2]
+        hef_diff = arity_3.differentials[1]
+        assert hef_diff.input_element == "[h|e|f]"
+        assert not hef_diff.is_zero
+        assert hef_diff.output_terms == [(2, "[e|f]"), (-1, "[h|h]")]
+
+    def test_bar_differential_arity3_eef(self):
+        """d_bar([e|e|f]) = -[e|h].
+
+        mu(e,e) = 0, mu(e,f) = h.
+        d[e|e|f] = [0|f] - [e|h] = -[e|h].
+        """
+        bar = kac_moody_sl2_bar_complex()
+        arity_3 = bar[2]
+        eef_diff = arity_3.differentials[2]
+        assert eef_diff.input_element == "[e|e|f]"
+        assert not eef_diff.is_zero
+        assert eef_diff.output_terms == [(-1, "[e|h]")]
+
+    def test_bar_differential_arity3_eee(self):
+        """d_bar([e|e|e]) = 0 (all mu vanish on diagonal)."""
+        bar = kac_moody_sl2_bar_complex()
+        arity_3 = bar[2]
+        eee_diff = arity_3.differentials[3]
+        assert eee_diff.input_element == "[e|e|e]"
+        assert eee_diff.is_zero
+
 
 # ================================================================
 #  SECTION 3: VIRASORO (CLASS M)

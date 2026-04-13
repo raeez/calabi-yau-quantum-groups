@@ -1,0 +1,200 @@
+"""Tests for conifold_wall_crossing: KS pentagon identity and DT partition
+functions for the resolved conifold.
+
+Claims tested:
+1. Pentagon identity E(X)*E(Y) = E(Y)*E(XY)*E(X) in the quantum torus (EXACT)
+2. Pentagon identity in the Schrodinger representation (numerical)
+3. Maurer-Cartan equation [Theta, Theta] = 0 in both chambers
+4. Gauge transformation alpha produces e_{(1,1)} at first order
+5. DT partition function decomposition: Z_I/M(q) = prod (1-Qq^n)^n
+6. Numerical DT: two chambers give different partition functions
+
+Ground truth:
+    Kontsevich-Soibelman arXiv:0811.2435
+    Faddeev (1995): quantum dilogarithm pentagon
+    Resolved conifold: charge lattice Z^2, <gamma_1, gamma_2> = 1
+"""
+
+import pytest
+from fractions import Fraction
+
+from compute.lib.conifold_wall_crossing import (
+    pentagon_identity_quantum_torus,
+    pentagon_numerical,
+    conifold_pentagon_spectrum,
+    mc_equation_check,
+    gauge_transformation_conifold,
+    conifold_dt_partition_function,
+    conifold_dt_vs_macmahon,
+    compact_quantum_dilog,
+    lie_bracket,
+    chamber_I_spectrum,
+    chamber_II_spectrum,
+    verify_all,
+)
+
+
+# ======================================================================
+# 1. Pentagon identity (exact, quantum torus)
+# ======================================================================
+
+class TestPentagonExact:
+    """Verify E(X)*E(Y) = E(Y)*E(XY)*E(X) exactly in the quantum torus."""
+
+    def test_pentagon_holds_N8_charge4(self):
+        """Pentagon identity at N_q=8, max_charge=4."""
+        result = pentagon_identity_quantum_torus(N_q=8, max_charge=4)
+        # VERIFIED [DC] pentagon identity [LT] KS wall-crossing theory
+        assert result['pentagon_holds'] is True
+        assert len(result['discrepancies']) == 0
+
+    def test_pentagon_holds_N12_charge6(self):
+        """Pentagon identity at higher precision N_q=12, max_charge=6."""
+        result = pentagon_identity_quantum_torus(N_q=12, max_charge=6)
+        assert result['pentagon_holds'] is True
+
+    def test_pentagon_checks_many_charges(self):
+        """Verify that a nontrivial number of charge sectors are checked."""
+        result = pentagon_identity_quantum_torus(N_q=8, max_charge=4)
+        assert result['charges_checked'] > 10
+
+
+# ======================================================================
+# 2. Pentagon identity (numerical, Schrodinger representation)
+# ======================================================================
+
+class TestPentagonNumerical:
+    """Verify the pentagon numerically at several q values."""
+
+    @pytest.mark.parametrize("q_val", [0.3, 0.5, 0.7])
+    def test_numerical_match(self, q_val):
+        """LHS and RHS agree to < 1e-6 at q={q_val}."""
+        result = pentagon_numerical(q_val, N_terms=50)
+        # At q near 1 convergence is slower; use relative error directly
+        assert result['relative_error'] < 1e-6
+
+    def test_numerical_cross_checks_exact(self):
+        """Numerical and exact methods both confirm the pentagon."""
+        exact = pentagon_identity_quantum_torus(N_q=10, max_charge=5)
+        numerical = pentagon_numerical(0.5, N_terms=50)
+        # Both paths must agree
+        assert exact['pentagon_holds'] is True
+        assert numerical['match'] is True
+
+
+# ======================================================================
+# 3. Lie bracket and MC equation
+# ======================================================================
+
+class TestLieBracket:
+    """Verify the lattice Lie algebra bracket."""
+
+    def test_antisymmetric_pairing(self):
+        """<gamma_1, gamma_2> = 1, <gamma_2, gamma_1> = -1."""
+        _, p12 = lie_bracket((1, 0), (0, 1))
+        _, p21 = lie_bracket((0, 1), (1, 0))
+        assert p12 == 1
+        assert p21 == -1
+
+    def test_self_bracket_zero(self):
+        """<gamma, gamma> = 0."""
+        _, p = lie_bracket((1, 0), (1, 0))
+        assert p == 0
+
+
+class TestMCEquation:
+    """Verify Maurer-Cartan equation in both chambers.
+
+    At the pentagon level, [Theta, Theta] = 0 because the two charges
+    (1,0) and (0,1) have antisymmetric pairing 1, but (-1)*(-1)*1 +
+    (-1)*(-1)*(-1) = 0 at charge (1,1). The obstruction appears at
+    higher order in the L_infinity tower.
+    """
+
+    def test_chamber_I_mc_holds(self):
+        """[Theta_I, Theta_I] = 0 at the Lie algebra level."""
+        side_A, _ = conifold_pentagon_spectrum()
+        result = mc_equation_check(side_A, 6)
+        assert result['mc_equation_holds'] is True
+
+    def test_chamber_II_mc_holds(self):
+        """[Theta_II, Theta_II] = 0 at the Lie algebra level."""
+        _, side_B = conifold_pentagon_spectrum()
+        result = mc_equation_check(side_B, 6)
+        assert result['mc_equation_holds'] is True
+
+
+# ======================================================================
+# 4. Gauge transformation
+# ======================================================================
+
+class TestGaugeTransformation:
+    """Verify gauge transformation connects chambers at leading order."""
+
+    def test_produces_bound_state(self):
+        """alpha = e_{(1,0)} produces -e_{(1,1)} at first order."""
+        result = gauge_transformation_conifold(max_order=5)
+        # VERIFIED [DC] gauge transformation [LT] KS wall-crossing
+        assert result['match_at_charge_11'] is True
+
+
+# ======================================================================
+# 5. DT partition function
+# ======================================================================
+
+class TestDTPartitionFunction:
+    """Verify DT partition function properties."""
+
+    def test_dt_structure(self):
+        """DT partition function has expected structure."""
+        dt = conifold_dt_partition_function(15, N_Q=4)
+        assert 'macmahon' in dt
+
+    def test_dt_decomposition(self):
+        """DT decomposition into MacMahon and conifold factors."""
+        dec = conifold_dt_vs_macmahon(12)
+        # The degree-1 DT correction is k*q^k
+        assert dec["C1_equals_kq^k"] is True
+
+    def test_dt_numerical_two_chambers_differ(self):
+        """Z_I != Z_II: two chambers give different partition functions."""
+        from compute.lib.conifold_wall_crossing import dt_numerical
+        result = dt_numerical(0.5)
+        assert result['Z_I_neq_Z_II'] is True
+
+
+# ======================================================================
+# 6. BPS spectra
+# ======================================================================
+
+class TestBPSSpectra:
+    """Verify BPS spectra in the two chambers."""
+
+    def test_chamber_I_two_states(self):
+        """Chamber I has exactly 2 BPS states."""
+        spec = chamber_I_spectrum()
+        assert len(spec) == 2
+        assert spec[(1, 0)] == -1
+        assert spec[(0, 1)] == -1
+
+    def test_pentagon_sides(self):
+        """Pentagon: side A has 2 particles, side B has 3."""
+        side_A, side_B = conifold_pentagon_spectrum()
+        assert len(side_A) == 2
+        assert len(side_B) == 3
+        assert (1, 1) in side_B
+
+
+# ======================================================================
+# 7. Full verification suite
+# ======================================================================
+
+class TestVerifyAll:
+    """Run the full verification and check all pass."""
+
+    def test_verify_all(self):
+        """verify_all runs without error and pentagon holds."""
+        results = verify_all(N_q=8, max_charge=4)
+        assert results['pentagon_quantum_torus']['pentagon_holds'] is True
+        assert results['pentagon_numerical_q05']['match'] is True
+        assert results['pentagon_numerical_q03']['match'] is True

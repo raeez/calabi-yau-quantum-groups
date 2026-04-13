@@ -376,19 +376,27 @@ class TestKappaExpansion:
 # ---------------------------------------------------------------------------
 
 class TestCharge2SymbolicOptimised:
-    """The existing zamolodchikov_charge2_symbolic_optimized function."""
+    """The existing zamolodchikov_charge2_symbolic_optimized function.
 
+    These tests are marked slow because they call the full symbolic
+    simplification path with cancel(expand(...)) on 36 rational
+    function entries in symbolic kappa.
+    """
+
+    @pytest.mark.slow
     def test_zte_not_satisfied(self):
         """ZTE is not satisfied (symbolic kappa, numeric spectral params)."""
         r = zamolodchikov_charge2_symbolic_optimized()
         assert not r["zte_satisfied"], "ZTE should NOT be satisfied"
         assert not r["all_zero"], "Obstruction should be nonzero"
 
+    @pytest.mark.slow
     def test_antisymmetric(self):
         """Obstruction is antisymmetric."""
         r = zamolodchikov_charge2_symbolic_optimized()
         assert r["antisymmetric"], "Obstruction should be antisymmetric"
 
+    @pytest.mark.slow
     def test_complement_vanishing(self):
         """Complement-pair entries (Hamming distance 4) vanish."""
         r = zamolodchikov_charge2_symbolic_optimized()
@@ -396,6 +404,7 @@ class TestCharge2SymbolicOptimised:
             "Complement-pair entries should vanish"
         )
 
+    @pytest.mark.slow
     def test_nonzero_count_positive(self):
         """Some entries of the obstruction are nonzero."""
         r = zamolodchikov_charge2_symbolic_optimized()
@@ -403,6 +412,7 @@ class TestCharge2SymbolicOptimised:
             f"Expected nonzero entries, got {r['nonzero_count']}"
         )
 
+    @pytest.mark.slow
     def test_different_spectral_params(self):
         """ZTE fails for different spectral parameter choices."""
         u = (Rational(0), Rational(2), Rational(5), Rational(11))
@@ -411,6 +421,7 @@ class TestCharge2SymbolicOptimised:
             "ZTE should NOT be satisfied at u=(0,2,5,11)"
         )
 
+    @pytest.mark.slow
     def test_substitution_matches_specialised(self):
         """Substituting kappa=-6 in the symbolic result matches specialised."""
         r_sym = zamolodchikov_charge2_symbolic_optimized()
@@ -471,6 +482,7 @@ class TestMultiPathCrossChecks:
     specialised vs generic, Taylor expansion vs exact evaluation.
     """
 
+    @pytest.mark.slow
     def test_optimised_zte_matches_full_space_zte(self):
         """Optimised 6x6 ZTE matches projection of full 16x16 ZTE.
 

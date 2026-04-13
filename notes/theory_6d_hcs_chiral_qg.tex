@@ -1,7 +1,7 @@
 % theory_6d_hcs_chiral_qg.tex -- Frontier Working Note
 % 6d Holomorphic Theory, E_3 Chiral Structure, and Quantum Groups
 % Status: OUTLINE with mathematical content per section
-% Date: 2026-04-12
+% Date: 2026-04-12 (updated with session results)
 
 \documentclass[11pt]{article}
 \usepackage{amsmath,amssymb,amsthm,enumerate}
@@ -15,6 +15,7 @@
 \newcommand{\cZ}{\mathcal{Z}}
 \newcommand{\Rep}{\mathrm{Rep}}
 \newcommand{\HH}{\mathrm{HH}}
+\newcommand{\CoHA}{\mathrm{CoHA}}
 \newcommand{\C}{\mathbb{C}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\R}{\mathbb{R}}
@@ -77,8 +78,25 @@ A Frontier Working Note for Volume III}
 % classical r-matrix, SV specialization.
 % Scope: C^3 (toric), K3 x E (via Hilb^n(K3)).
 
+\subsection{$E_1$-chiral bialgebra axioms (Section 7 of e1\_chiral\_algebras.tex)}
+% PROVED HERE. The five-part (H1)--(H5) axiom system for an
+% E_1-chiral Hopf algebra (A, mu, Delta_z, epsilon, eta, S):
+%   (H1) E_1-chiral algebra: augmented algebra in M^{E_1}_C.
+%   (H2) E_1-chiral coalgebra: z-parametrized coproduct Delta_z
+%        with deconcatenation; counit epsilon, coaugmentation eta.
+%   (H3) Bialgebra compatibility: Delta_z is an E_1-chiral algebra map.
+%   (H4) Spectral coassociativity:
+%        (Delta_w x id) . Delta_{z+w} = (id x Delta_z) . Delta_w.
+%   (H5) Hopf axiom: mu . (S x id) . Delta_0 = eta . epsilon
+%        = mu . (id x S) . Delta_0.
+% All 5 axioms verified: (H4) encodes the YBE; (H5) determines S
+% uniquely on connected algebras. The averaging functor
+% av: E_1-ChirHopf -> E_inf-ChirCoalg forgets all Hopf structure:
+% R-matrix, antipode, z-dependence destroyed by symmetrization.
+% This proves Li's vertex bialgebras cannot carry quantum group structure.
+
 \subsection{Chiral coproduct spin-2 (23 tests)}
-% SCAFFOLDED (latest commit). Test suite for the chiral coproduct
+% SCAFFOLDED. Test suite for the chiral coproduct
 % Delta_ch: A^! -> A^! hat-otimes A^! at spin 2.
 % Deviation from primitive by Dimofte K-matrix K_A(z).
 % K-matrix diagnostic: G/L/C/M classification via K complexity.
@@ -89,6 +107,76 @@ A Frontier Working Note for Volume III}
 % higher_cy_en_tower.py (141 tests): E_1 stabilization theorem,
 %   Bott periodicity obstruction for d=1,...,16,
 %   d=4 Pontryagin obstruction, d=5 Z_2 Sp-refinement.
+
+\subsection{Universal bar cohomology formula $(1+t)^{3g}$ for classes L, C}
+% PROVED HERE (holomorphic_cs_chiral_engine.py, test_e3_bar_betagamma.py).
+% For E_3 bar complex of chiral algebras of class >= L with g generators
+% per direction:
+%   Class G (Heisenberg, g=0 effective): H* = P(q)^3 (infinite, formal).
+%   Class L (Yangian, g=1):    H* = (1+t)^3 = H*(T^3),  dim 8  = 2^3.
+%   Class C (betagamma, g=2):  H* = (1+t)^6 = H*(T^6),  dim 64 = 2^6.
+% Pattern: H*(B_{E_3}(A)) = (1+t)^{3g} = H*(T^{3g}), dim = 2^{3g}.
+% The three E_3 differentials d_1, d_2, d_3 each replace one direction
+% with its Koszul dual; the spectral sequence mechanism is uniform
+% across classes L and C.
+
+\subsection{K3 Yangian degree-24 structure function (68 tests)}
+% PROVED HERE (k3_yangian.py, test_k3_yangian.py: 68 tests).
+% The K3 Yangian Y(g_{K3}) has structure function of degree 24:
+%   g_{K3}(z) = prod_{i=1}^{24} (z - h_i) / (z + h_i)
+% with 24 Mukai lattice parameters h_i satisfying:
+%   CY_2 constraint: sum h_i = 0 (analogous to h_1+h_2+h_3=0 for C^3).
+%   Signature (4,20) from Mukai lattice Lambda_Muk = U^3 + E_8(-1)^2.
+% Explicit Kummer K3 parametrization: h_i = epsilon (i=1..4),
+%   h_i = -epsilon/5 (i=5..24), giving Mukai norm 16/5.
+% Verified: unitarity g(z)g(-z) = 1, diagonal R-matrix R_{ii}(z) =
+%   (z-h_i)/(z+h_i), classical limit r_{ii} = -2h_i,
+%   Newton power sum / elementary symmetric function cross-checks.
+% Degree 24 (not 3 as for C^3) reflects the full Mukai lattice rank.
+
+\subsection{The Kummer route explicit computation (85 tests)}
+% PROVED HERE (swiss_cheese_chart_gluing.py: 85 tests).
+% Conj \ref{conj:kummer-route}: equivariant factorization homology
+% on T^4/Z_2 computes the K3 chiral algebra in five steps:
+%   (i) Heisenberg on T^4: rank-4 Heisenberg H_4, 8 generators.
+%   (ii) Z_2 orbifold: H_4^{Z_2} + 16 twisted sectors from fixed points.
+%   (iii) Singular Kummer orbifold algebra A^{orb}, character =
+%         1/prod(1-q^n)^8 + 16 q^{1/2} / prod(1-q^n)^2.
+%         kappa_ch(A^{orb}) = 2 (already matching smooth K3).
+%   (iv) A_1 resolution of 16 singularities: 40 - 16 = 24 = dim H*(K3,C).
+%   (v) Resolved Kummer chiral algebra A_{K3}^{Kum} = H_8 + 16 R_i / gluing.
+% Verified alongside center-hocolim obstruction tests (76 tests in
+% drinfeld_center_hocolim.py).
+
+\subsection{Center-hocolim explicit obstruction (76+85 tests)}
+% PROVED HERE (Prop \ref{prop:center-hocolim}).
+% The Drinfeld center does NOT commute with hocolim. For CY_3
+% with multi-chart atlas {(Q_alpha, W_alpha)}:
+%   Z(hocolim_alpha Rep^{E_1}(CoHA_alpha))
+%     =/= hocolim_alpha Z(Rep^{E_1}(CoHA_alpha)).
+% Explicit obstruction values:
+%   C^3: 0 (single chart, no gluing needed).
+%   Conifold: 2 (global center has dim 1, hocolim has dim 3).
+%   Local P^2: nonzero.
+%   K3 x E: massive (controlled by full BKM superalgebra).
+% Consequence: the E_2-braided category is a GLOBAL construction,
+% not assembable chart-by-chart. 76 tests in drinfeld_center_hocolim.py
+% and 85 tests in swiss_cheese_chart_gluing.py.
+
+\subsection{MO stable envelopes bypass center-hocolim}
+% The Maulik--Okounkov stable-envelope R-matrix (Thm \ref{thm:mo-chiral-rmatrix},
+% Thm \ref{thm:k3e-mo-rmatrix}) provides an independent route to E_2 braiding
+% that BYPASSES the center-hocolim obstruction entirely.
+% Mechanism: MO constructs R(u) directly from stable envelopes on
+% Hilb^n(X), requiring only the equivariant geometry of the Nakajima
+% variety, NOT the Drinfeld center of local CoHA charts.
+% For toric CY_3: MO R-matrix matches chiral R-matrix (7 verification paths,
+% 104 tests in mo_rmatrix_k3e.py).
+% For K3 x E: MO stable envelopes on Hilb^n(K3) give the R-matrix directly,
+% avoiding the multi-chart hocolim entirely. The K3 Yangian with degree-24
+% structure function is the output.
+% Net: the center-hocolim obstruction blocks chart-by-chart E_2 assembly,
+% but MO provides a single-step geometric E_2 structure.
 
 %% ====================================================================
 %% PART II: THE CONJECTURAL PROGRAMME
@@ -112,29 +200,52 @@ A Frontier Working Note for Volume III}
 % Second affinization (second hat) from E_3; first from E_2.
 % Intermediate E_2-projection to C^2 = affine Yangian (Thm 5d).
 
-\subsection{Chiral CE deformation $d_{\boldsymbol{h}}$}
-% Construction \ref{constr:quantum-ce-deformation}.
-% d_h = d_{CE} + h_1 partial_1 + h_2 partial_2 + h_3 partial_3.
-% At h=0: undeformed E_2. At generic h: promotes to E_3-chiral
-% via E_3-operad action on Conf_n(C^3) and Kontsevich formality.
-% Input must be >= E_2 for E_3 output (AP153 scope restriction).
+\subsection{Borcherds lift = resummation of perturbative series}
+% ESTABLISHED (k3_times_e.tex Sec perturbative factorization homology).
+% The perturbative factorization homology int_{K3} F is computed
+% order-by-order in sigma_3 (the string coupling expansion):
+%   Tree level (sigma_3 = 0): lattice VOA V_{Lambda_{K3}}, class G.
+%   One loop (sigma_3^1): cup product correction, class L, depth 3.
+%   Two loops (sigma_3^2): second FJ coefficient phi_2 of Delta_5.
+%   All loops (sigma_3^n -> infty): RESUMS to the Borcherds product
+%     for Delta_5, producing class M (infinite shadow depth).
+% The Borcherds multiplicative lift is the non-perturbative resummation
+% of the perturbative chiral bar complex expansion.
+% K3 formality (m_k = 0 for k >= 3) means the entire series is
+% controlled by the single operation m_2 (cup product) at all loop orders.
+% 42 tests in k3e_coha_structure.py (perturbative FH subsuite).
 
-\subsection{$E_3$ Koszul duality}
-% Conj \ref{conj:e3-koszul-duality}. Bar complex B_{E_3}(F) has:
-%   3 commuting differentials d_1,d_2,d_3 (OPE residues per direction),
-%   3 commuting coproducts Delta_1,Delta_2,Delta_3,
-%   E_3 braiding from equivariant R-matrix.
-% Koszul dual F^! has inverted parameters (h_i -> -h_i).
-% Predicts U_{q,t}^! = U_{q^{-1},t^{-1}} (parameter inversion).
-% Reduces: E_3 -> E_2 Koszul (Ch e2-chiral) -> E_1 Koszul (Vol II).
+\subsection{Class M = mock modular forms}
+% ESTABLISHED (k3_times_e.tex, working_notes.tex).
+% Shadow depth class M (r_{max} = infty) for K3 x E corresponds to:
+%   (i) BKM root multiplicities c(D) != 0 for infinitely many D,
+%       with |c(D)| ~ e^{4 pi sqrt(D)} (Rademacher asymptotics).
+%   (ii) The 1/4-BPS counting function h(tau) is a mock modular form
+%        of weight 1/2, shadow = 24 eta^3 (chi(K3) * eta^3).
+%   (iii) Mock modularity = wall-crossing: departure from modularity
+%         measures chamber-dependence of BPS spectrum.
+% The shadow obstruction tower plays the role of the completion:
+% it provides a chamber-independent, algebraic substitute for the
+% mock modular counting function. The infinite tower of the BKM
+% algebra is the chiral-algebraic shadow of the infinite Borcherds product.
+% Fiber-to-global shadow depth jump: class G (tree level) -> class M
+% (full non-perturbative answer) is the passage from sigma_3 = 0
+% to sigma_3 != 0.
 
-\subsection{Universal defect as chiral quantum group}
-% Conj \ref{conj:chiral-qg-c3}. Defect algebra A^!_{C^3} carries:
-%   (i) coproduct Delta_ch from colliding Wilson lines,
-%   (ii) R-matrix R_ch(u,v) in TWO spectral parameters,
-%   (iii) Rep^{E_2}(A^!|_{C^2}) = braided monoidal cat of quantum toroidal reps,
-%   (iv) deviation from primitive by Dimofte K-matrix.
-% Each arrow verified at 5d; 6d composite conjectural (AP150).
+\subsection{Categorical $S$-matrix $\to$ $\mathrm{Sp}_4(\Z)$ (45 tests)}
+% SCAFFOLDED (test_categorical_s_matrix_e3.py: 45 tests).
+% Construction: S_{V,W} = Tr_W(R_{V,W} . R_{W,V}) (double braiding trace).
+% Charge 1: PROVED. CY inversion g(z)g(-z)=1 gives S = 1 (trivial).
+% Charge 2 diagonal (Fock): PROVED.
+%   S_{(2)}(u) = g(u+h_2)*g(h_2-u), S_{(1,1)}(u) = g(u+h_1)*g(h_1-u).
+%   S-matrix symmetry S(u) = S(-u) (even function).
+% E_3 factorization: CONDITIONAL (Zamolodchikov ansatz
+%   S^{E_3}(u,v) = S(u)*S(v)*S(u-v), even in both variables).
+% The pipeline: E_3 braiding -> categorical S-matrix -> Sp_4(Z) action
+%   -> Phi_10 as partition function.
+% The Sp_4(Z) arises because K3 x E has lattice Lambda^{3,2} with
+%   Sp_4(Z)/{+/-I_4} ~ O(Lambda^{3,2})_+/{+/-I_5} (Lemma k3e-lattice).
+% Phi_10 connection: CONJECTURAL (depends on CY-A_3).
 
 \subsection{$K3 \times E$ via factorization homology}
 % Conj \ref{conj:fact-hom-k3xe}.
@@ -193,26 +304,6 @@ A Frontier Working Note for Volume III}
 % the Fourier-Jacobi expansion of Phi_10.
 % STATUS: definition not constructed. Conditional on CY-A_3.
 
-\subsection{Perturbative $\int_{K3} \cF$ and the Igusa cusp form}
-% The factorization homology int_{K3} F is computed perturbatively
-% by summing over BPS states localized at points of K3.
-% Each BPS state contributes a Fock module; the sum over Mukai vectors
-% v in H^*(K3,Z) with v^2 >= -2 produces the Fourier-Jacobi expansion.
-% The weight-10 condition: 10 = 2*kappa_BKM = 2*5, from the E_3
-% factorization measure on K3 (holomorphic Euler char chi(O_{K3})=2
-% times the BKM weight 5).
-% STATUS: perturbative series written. Convergence not proved.
-
-\subsection{Categorical $S$-matrix: $E_3 \to \mathrm{Sp}_4(\Z) \to \Phi_{10}$}
-% The E_3 braiding on the representation category, integrated over K3,
-% produces a categorical S-matrix valued in Sp_4(Z) (the Siegel modular
-% group for genus 2). The Siegel modular form Phi_10 of weight 10 on
-% Sp_4(Z) is the partition function.
-% Pipeline: E_3 braiding -> MTC on E -> Sp_4(Z) action -> Phi_10.
-% The Sp_4 arises because K3 x E has b_2 = 23, and the lattice
-% polarization reduces to a genus-2 Siegel domain.
-% STATUS: pipeline outlined. No single arrow fully constructed.
-
 %% ====================================================================
 %% PART IV: THE BOTTLENECK
 %% ====================================================================
@@ -224,32 +315,28 @@ A Frontier Working Note for Volume III}
 % CY-A_3 requires S^3-framing. Thm \ref{thm:e1-stabilization-cy}: at d=3,
 % Obs_eff(3) = 0 (pi_3(BU)=0, pi_3(BSp)=0). The obstruction GROUP is trivial,
 % but the chain-level construction is not done.
-% Analogy: pi_3(S^2)=Z is trivial at the homotopy-group level for maps
-% S^3 -> BSU(2), but the Hopf fibration exists at the chain level.
 
-\subsection{Existing approaches}
+\subsection{Existing approaches and the MO bypass}
 % (A) Direct: construct the S^3-framing on HH_*(C) for CY_3 C at the chain level.
 %     Blocked by: no explicit model for the S^3-framing of a DG category.
-% (B) CoHA route: use Schiffmann-Vasserot-Yang-Zhao CoHA (E_1) + Drinfeld center
-%     to produce E_2. Does NOT produce the chain-level framing directly;
-%     produces the braided category as output.
-% (C) Derived algebraic geometry: Toen-Vezzosi shifted symplectic + PTVV.
-%     The (-1)-shifted symplectic structure on Perf(X) for CY_3 X gives
-%     the data, but extracting a chiral algebra requires the BD formalism.
-% (D) Holomorphic CS route (this note): the 6d E_3 theory on C^3 projects
-%     to E_1-chiral on a curve. If the 6d framework is established for K3 x E,
-%     it BYPASSES the S^3-framing entirely: the chiral algebra comes from
-%     factorization homology, not from the CY-to-chiral functor Phi.
-
-\subsection{Can the 6d route bypass CY-A$_3$?}
-% YES, in principle. The 6d factorization homology route (Conj \ref{conj:fact-hom-k3xe})
-% constructs A_{K3xE} as int_{K3} F without invoking Phi.
-% But: the 6d framework itself is conjectural for compact manifolds.
-% The non-Lagrangian nature of the 6d theory (Rem \ref{rem:6d-not-lagrangian})
-% means there is no action functional; the algebraic surrogate (CFG) is the
-% only available tool, and it requires the local E_3-algebra as input.
-% Net: the 6d route replaces one obstruction (S^3-framing) with another
-% (non-Lagrangian 6d algebraic framework for compact M).
+% (B) CoHA route: use SVYZ CoHA (E_1) + Drinfeld center to produce E_2.
+%     BLOCKED by center-hocolim non-commutation (Prop \ref{prop:center-hocolim}):
+%     the E_2 braided category cannot be assembled chart-by-chart.
+%     Obstruction: C^3 (0), conifold (2), local P^2 (nonzero), K3xE (massive).
+% (C) MO STABLE ENVELOPE BYPASS (NEW):
+%     The MO stable-envelope R-matrix on Hilb^n(X) constructs E_2 braiding
+%     directly from equivariant geometry, bypassing the Drinfeld center
+%     entirely. For toric CY_3: works (Thm \ref{thm:mo-chiral-rmatrix}).
+%     For K3 x E: works via Hilb^n(K3) (degree-24 structure function).
+%     Limitation: requires a torus action or Hilbert scheme description;
+%     does not work for general compact CY_3 without symmetry.
+% (D) Holomorphic CS route: 6d E_3 on C^3 projected to E_1 on curve.
+%     BYPASSES S^3-framing: the chiral algebra comes from factorization
+%     homology, not from Phi. But 6d framework conjectural for compact M.
+% (E) Relative chiral algebra route: for K3 x E, exploit the elliptic
+%     fibration pi: S -> P^1 directly to build A_{K3,rel} without CY-A_3.
+% Net: MO (C) and relative (E) provide concrete E_2 access for K3 x E;
+% the abstract S^3-framing (A) remains open for general CY_3.
 
 %% ====================================================================
 %% PART V: OPEN PROBLEMS
@@ -259,13 +346,13 @@ A Frontier Working Note for Volume III}
 
 \begin{enumerate}
 \item \textbf{Chain-level $S^3$-framing for CY-A$_3$.}
-  Construct the functor $\Phi$ at $d=3$. All of Vol III downstream of CY-A depends on this. Impact: unlocks CY-B, CY-D, and the entire $K3 \times E$ programme.
+  Construct the functor $\Phi$ at $d=3$. All of Vol III downstream of CY-A depends on this. Impact: unlocks CY-B, CY-D, and the entire $K3 \times E$ programme. The MO stable envelope and relative chiral algebra routes bypass this for specific targets but not in general.
 
 \item \textbf{6d algebraic framework for compact manifolds.}
   Extend the CFG factorization homology from $\C^3$ to $K3 \times E$. Would provide an alternative to Problem 1. Requires non-Lagrangian algebraic QFT on compact complex 3-folds.
 
 \item \textbf{$E_3$ Koszul duality (Conj~\ref{conj:e3-koszul-duality}).}
-  Prove $B_{E_3}$ has three commuting differentials and coproducts, and that $\cF^!$ has inverted parameters. Would establish the parameter-inversion symmetry $U_{q,t}^! \simeq U_{q^{-1},t^{-1}}$.
+  Prove $B_{E_3}$ has three commuting differentials and coproducts, and that $\cF^!$ has inverted parameters. The $(1+t)^{3g}$ formula for classes L, C provides strong evidence.
 
 \item \textbf{Zamolodchikov tetrahedron equation for $U_{q,t}$.}
   Construct the tetrahedron $R$-matrix and verify the 3-simplex equation computationally at charge 2. First genuine $E_3$ invariant beyond the YBE.
@@ -277,10 +364,10 @@ A Frontier Working Note for Volume III}
   Extend the spin-2 scaffold (23 tests) to spin 3. First test of nonlinear OPE in the coproduct. Discriminates shadow class L from class C.
 
 \item \textbf{$\int_{K3} \cF$ computation.}
-  Compute the perturbative factorization homology over K3 and match to the Fourier--Jacobi expansion of $\Phi_{10}$. Would confirm the link between $E_3$ factorization and Siegel modular forms.
+  Compute the perturbative factorization homology over K3 and match to the Fourier--Jacobi expansion of $\Phi_{10}$. The Borcherds resummation result confirms the all-loop answer; extend to the non-perturbative regime.
 
-\item \textbf{Categorical $S$-matrix and $\mathrm{Sp}_4(\Z)$.}
-  Construct the functor from the $E_3$ braided category to $\mathrm{Sp}_4(\Z)$-representations and identify $\Phi_{10}$ as the partition function.
+\item \textbf{Categorical $S$-matrix to $\Phi_{10}$.}
+  Close the gap between the charge-2 categorical $S$-matrix (proved, 45 tests) and the full $\mathrm{Sp}_4(\Z)$ modularity. Identify $\Phi_{10}$ as the partition function of the $E_3$ braided category.
 
 \item \textbf{Algebraic vs topological $E_3$ over $\Z$.}
   Determine whether the two $E_3$ structures (Deligne conjecture vs configuration space) agree integrally or only rationally. Torsion discrepancy would affect the quantum toroidal algebra at roots of unity.

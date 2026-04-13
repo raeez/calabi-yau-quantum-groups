@@ -320,7 +320,7 @@ The modular characteristic of $A_{K3,\mathrm{rel}}$ is
 \]
 verified by five independent paths:
 \begin{enumerate}[label=(\alph*)]
- \item \emph{Elliptic genus}: $\kappa_{\mathrm{ch}} = c_{\mathrm{eff}}/2 = (6 - 2)/2 = 2$, where $c_{\mathrm{eff}} = c - 24 h_{\min} = 6 - 24 \cdot (1/6) = 2$ (the ground-state energy of the K3 sigma model at $c = 6$ is $h_{\min} = 1/6$ from the spectral flow). %: kappa_ch depends on the full algebra, not just c/2.
+ \item \emph{Elliptic genus}: The K3 elliptic genus $Z_{K3}(\tau,z) = 2\,\phi_{0,1}(\tau,z)$ has leading coefficient $2$ (the coefficient of the identity representation), which equals $\kappa_{\mathrm{ch}} = \chi(\cO_S) = 2$. This identification of $\kappa_{\mathrm{ch}}$ with the leading elliptic genus coefficient is a theorem of the chiral de~Rham complex (Malikov--Schechtman--Vaintrob), not a consequence of $c_{\mathrm{eff}}/2$ (the formula $\kappa_{\mathrm{ch}} = c_{\mathrm{eff}}/2$ does not hold in general).
  \item \emph{Genus-1 bar complex}: the one-loop graph sum gives $F_1 = \kappa_{\mathrm{ch}}/24 \cdot \deg(\lambda_1) = 2/24$, matching the known K3 elliptic genus $q$-expansion.
  \item \emph{Hodge-theoretic}: the rank of the weight-$1$ Hodge bundle for the K3 family over $\cM_{K3}$ gives $\kappa_{\mathrm{ch}} = \mathrm{rk}(\cE_1) = 2$.
  \item \emph{Level-rank duality}: under the K3/heterotic duality, the K3 sigma model at a generic point maps to a heterotic string on $T^4$ with $2$ left-moving compact bosons contributing $\kappa_{\mathrm{ch}} = 2$.
@@ -454,11 +454,12 @@ The topological Euler characteristic $\chi_{\mathrm{top}}(K3 \times E) = \chi(K3
 \[
  \chi^{\CY}(K3 \times E) = \sum_{p,q} (-1)^{p+q} h^{p,q}(K3 \times E) \cdot (\text{weight factor}),
 \]
-which accounts for the Hodge filtration. The formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ already \emph{fails} for $E$ and K3 individually: $\chi_{\mathrm{top}}(E)/24 = 0$ but $\kappa_{\mathrm{ch}}(E) = 1$; $\chi_{\mathrm{top}}(K3)/24 = 1$ but $\kappa_{\mathrm{ch}}(K3) = 2$ (Proposition~\ref{prop:chi-kappa-discrepancy}). It also fails for $K3 \times E$:
+which accounts for the Hodge filtration. The formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ already \emph{fails} for $E$ and K3 individually: $\chi_{\mathrm{top}}(E)/24 = 0$ but $\kappa_{\mathrm{ch}}(E) = 1$; $\chi_{\mathrm{top}}(K3)/24 = 1$ but $\kappa_{\mathrm{ch}}(K3) = 2$ (Proposition~\ref{prop:chi-kappa-discrepancy}). It also fails for $K3 \times E$ against both modular invariants:
 \[
- \frac{\chi_{\mathrm{top}}(K3 \times E)}{24} = 0 \neq 5 = \kappa_{\mathrm{BKM}}(K3 \times E).
+ \frac{\chi_{\mathrm{top}}(K3 \times E)}{24} = 0 \neq 3 = \kappa_{\mathrm{ch}}(K3 \times E), \qquad
+ 0 \neq 5 = \kappa_{\mathrm{BKM}}(K3 \times E).
 \]
-The correct value $\kappa_{\mathrm{BKM}} = 5$ comes from the Borcherds lift weight $c(0)/2$ (Theorem~\ref{thm:k3e-fiber-global}), not from the topological Euler characteristic.
+The correct chiral value $\kappa_{\mathrm{ch}} = 3$ comes from additivity ($\kappa_{\mathrm{ch}}(K3) + \kappa_{\mathrm{ch}}(E) = 2 + 1$), while $\kappa_{\mathrm{BKM}} = 5$ comes from the Borcherds lift weight $c(0)/2$ (Proposition~\ref{thm:k3e-fiber-global}). Neither is determined by the topological Euler characteristic.
 \end{warning}
 
 \noindent\textit{Verification}: 86 tests in \texttt{k3e\_coha\_structure.py} (G1 subsuite) covering $\chi/24$ vs $\kappa_{\mathrm{ch}}$ comparison for $K3$, $E$, $K3 \times E$, and all eight $X_N$ families.
@@ -481,7 +482,6 @@ characteristic $\kappa_{\mathrm{ch}}$ distinguishes them completely.
 
 \begin{proposition}[The K3 trichotomy]
 \label{prop:k3-trichotomy}
-\ClaimStatusProvedHere
 %: all kappa occurrences carry subscripts (kappa_ch, kappa_cat, kappa_BKM, kappa_fiber)
 Let $S$ be a K3 surface with $\chi_{\mathrm{top}}(S) = 24$ and $\chi(\cO_S) = 2$. Three algebraization routes produce three chiral algebras with distinct modular characteristics:
 \begin{center}
@@ -491,14 +491,12 @@ Let $S$ be a K3 surface with $\chi_{\mathrm{top}}(S) = 24$ and $\chi(\cO_S) = 2$
  \textbf{Route} & \textbf{Algebra} & $c$ & $\kappa_{\mathrm{ch}}$ & \textbf{Source of $\kappa_{\mathrm{ch}}$} \\
  \midrule
  CY functor $\Phi$ & $\Phi(D^b(\Coh(S)))$ & $24$ & $2$ & $\chi(\cO_S) = h^{0,0} - h^{0,1} + h^{0,2}$ \\
- Monster orbifold & $V^\natural$ & $24$ & $12$ & $\dim \HH_*(D^b(S))/2 = 24/2$ \\
+ Monster orbifold & $V^\natural$ & $24$ & $12$ & $\Z/2$-orbifold of rank-$24$ lattice VOA \\
  Lattice VOA & $V_\Lambda$ (Leech) & $24$ & $24$ & $\operatorname{rank}(\Lambda) = 24$ \\
  \bottomrule
 \end{tabular}
 \end{center}
-All three share $c = 24$ and originate from K3 geometry. The
-three modular characteristics $2$, $12$, $24$ are pairwise distinct;
-no two agree.
+All three share $c = 24$ and originate from K3 geometry (the connection of $V^\natural$ to K3 is indirect: via the Leech lattice and the Niemeier classification). The three modular characteristics $2$, $12$, $24$ are pairwise distinct; no two agree.
 \ClaimStatusProvedHere
 \end{proposition}
 
@@ -539,9 +537,10 @@ They encode the depth at which each algebraization route interrogates the K3 geo
  holomorphic Euler characteristic, the coarsest algebraic invariant of the surface.
  The $24$ Hochschild generators are present, but the CY trace projects onto a
  two-dimensional subspace.
-\item $\kappa_{\mathrm{ch}} = 12 = \dim \HH_*(D^b(S))/2$: the Monster orbifold
- sees half the Hochschild homology. The $\Z/2$-orbifolding kills exactly the
- ``wrong-parity'' sector, and $\kappa_{\mathrm{ch}}$ records the surviving half.
+\item $\kappa_{\mathrm{ch}} = 12$: the Monster orbifold $V^\natural$ is the
+ $\Z/2$-orbifold of $V_\Lambda$. The orbifolding halves $\kappa_{\mathrm{ch}}$
+ from $24$ to $12$, as the $\Z/2$-twisted sector kills exactly half of the
+ generators that contribute to the shadow tower.
 \item $\kappa_{\mathrm{ch}} = 24 = \dim \HH_*(D^b(S))$: the lattice VOA sees
  the full Hochschild homology. Every class contributes a free boson, and
  $\kappa_{\mathrm{ch}} = \operatorname{rank}$ for lattice algebras
@@ -661,7 +660,7 @@ With $\chi(X) = 0$, the MacMahon prefactor equals~$1$.
 
 \begin{remark}[Structural content of $\chi = 0$]
 \label{rem:k3e-chi-zero-structure}
-The identity $\DT = \mathrm{PT}$ for $K3 \times E$ means that the contribution of zero-dimensional sheaves (the MacMahon sector) is invisible. This is the enumerative counterpart of the vanishing $\chi(X) = 0$: the degree-$0$ virtual class is trivial. Note: the chiral algebra modular characteristic $\kappa_{\mathrm{ch}}(K3 \times E) = 3$ (Section~\ref{sec:k3e-cross-volume}, K3-1), computed by additivity from $\kappa_{\mathrm{ch}}(K3) = 2$ and $\kappa_{\mathrm{ch}}(E) = 1$, does \emph{not} vanish; the global BPS modular characteristic $\kappa_{\mathrm{BKM}} = 5$ (the Borcherds lift weight, Theorem~\ref{thm:k3e-fiber-global}) is a different invariant incorporating the full BPS spectrum beyond the chiral algebra. The vanishing $\chi_{\mathrm{top}}/12 = 0$ is a virtual/enumerative statement, not a shadow tower statement. The nontrivial enumerative content resides entirely in curve-class contributions, organized by the Borcherds product (Theorem~\ref{thm:k3e-product}).
+The identity $\DT = \mathrm{PT}$ for $K3 \times E$ means that the contribution of zero-dimensional sheaves (the MacMahon sector) is invisible. This is the enumerative counterpart of the vanishing $\chi(X) = 0$: the degree-$0$ virtual class is trivial. Note: the chiral algebra modular characteristic $\kappa_{\mathrm{ch}}(K3 \times E) = 3$ (Section~\ref{sec:k3e-cross-volume}, K3-1), computed by additivity from $\kappa_{\mathrm{ch}}(K3) = 2$ and $\kappa_{\mathrm{ch}}(E) = 1$, does \emph{not} vanish; the global BPS modular characteristic $\kappa_{\mathrm{BKM}} = 5$ (the Borcherds lift weight, Proposition~\ref{thm:k3e-fiber-global}) is a different invariant incorporating the full BPS spectrum beyond the chiral algebra. The vanishing $\chi_{\mathrm{top}}/24 = 0$ is a virtual/enumerative statement, not a shadow tower statement. The nontrivial enumerative content resides entirely in curve-class contributions, organized by the Borcherds product (Theorem~\ref{thm:k3e-product}).
 \end{remark}
 
 \subsection{Yau--Zaslow BPS counts}
@@ -684,11 +683,11 @@ This is proved by Beauville (1999) via deformation to the Hilbert scheme and by 
 \label{prop:k3e-bps-shadow}
 The Yau--Zaslow generating function and the shadow obstruction tower of $A_{K3,\mathrm{rel}}$ are related by:
 \begin{enumerate}[label=(\roman*)]
- \item At genus~$0$: $n_h^0 = \chi(\mathrm{Hilb}^h(K3))$ counts rational curves, while $F_0 = 0$ (the genus-$0$ shadow obstruction vanishes by definition of the shadow tower, which starts at $g \geq 1$).
- \item At genus~$1$: the shadow free energy $F_1 = \kappa_{\mathrm{ch}} / 24 = 2/24 = 1/12$ (Theorem~\ref{thm:k3-kappa}) matches the genus-$1$ Gromov--Witten contribution $\sum_h N_{1,h}^{\mathrm{red}} \, Q^h$ via the KKV formula, after extracting the $\kappa_{\mathrm{ch}}$-dependent piece.
- \item At genus~$g \geq 2$: $F_g = \kappa_{\mathrm{ch}} \cdot \lambda_g^{\mathrm{FP}} = 2 \cdot \lambda_g^{\mathrm{FP}}$ captures the tautological class contribution, while the full genus-$g$ GW invariant receives additional contributions from higher BPS states $n_h^g$ with $g \leq h$.
+ \item \textup{(Proved.)} At genus~$0$: $n_h^0 = \chi(\mathrm{Hilb}^h(K3))$ counts rational curves, while $F_0 = 0$ (the genus-$0$ shadow obstruction vanishes by definition of the shadow tower, which starts at $g \geq 1$).
+ \item \textup{(Proved.)} At genus~$1$: the shadow free energy $F_1 = \kappa_{\mathrm{ch}} / 24 = 2/24 = 1/12$ (Theorem~\ref{thm:k3-kappa}) matches the genus-$1$ Gromov--Witten contribution $\sum_h N_{1,h}^{\mathrm{red}} \, Q^h$ via the KKV formula, after extracting the $\kappa_{\mathrm{ch}}$-dependent piece.
+ \item \textup{(Conditional on CY-A$_3$.)} At genus~$g \geq 2$: $F_g = \kappa_{\mathrm{ch}} \cdot \lambda_g^{\mathrm{FP}} = 2 \cdot \lambda_g^{\mathrm{FP}}$ captures the tautological class contribution, while the full genus-$g$ GW invariant receives additional contributions from higher BPS states $n_h^g$ with $g \leq h$. The identification of $F_g$ with the shadow free energy requires the full shadow tower of $A_{K3,\mathrm{rel}}$, whose higher-genus structure depends on the CY-to-chiral functor at $d = 3$.
 \end{enumerate}
-\ClaimStatusProvedHere
+\ClaimStatusConditional{CY-A$_3$ at genus $g \geq 2$}
 \end{proposition}
 
 \noindent\textit{Verification}: 96 tests in \texttt{cy\_dt\_k3e\_engine.py} and \texttt{cy\_gw\_k3e\_engine.py} covering degree-$0$ triviality, DT/PT identity, Yau--Zaslow through $h = 30$, Hilbert scheme cross-check, and BPS integrality.
@@ -850,7 +849,8 @@ The passage $\phi_{0,1} \leadsto \Delta_5$ realizes the shadow obstruction tower
  \item The genus-$2$ shadow data $F_2 = \kappa_{\mathrm{ch}} \cdot \lambda_2^{\mathrm{FP}} = 2 \cdot 7/5760 = 7/2880$ captures the tautological class contribution to the second Fourier--Jacobi coefficient $\phi_2$ of $\Delta_5$.
  \item The \emph{full} $\Delta_5$ requires \emph{all} BPS states (all discriminants $D$), which is the infinite shadow tower of the BKM algebra viewed through the Borcherds product. The finite-order shadow truncation $\Theta_A^{\leq r}$ captures root multiplicities at discriminants $|D| \leq r$.
 \end{enumerate}
-\ClaimStatusProvedHere
+The identification of shadow data with Fourier--Jacobi coefficients beyond genus~$1$ is conditional on the shadow-to-BKM bridge (Construction~\ref{constr:k3e-shadow-bkm-bridge}), which requires the CY-to-chiral functor at $d = 3$ (Conjecture~CY-A$_3$).
+\ClaimStatusConditional{CY-A$_3$ at genus $g \geq 2$}
 \end{proposition}
 
 \noindent\textit{Verification}: 74 tests in \texttt{cy\_borcherds\_lift\_engine.py} covering the Borcherds product through $(n,l,m)$-order $8$, the weight formula, Fourier--Jacobi expansion at index $m = 1,2,3$, and the $\eta^{18}\vartheta_1^2$ identification.
@@ -940,14 +940,14 @@ We collect the correspondences between the four perspectives on $K3 \times E$ in
 \renewcommand{\arraystretch}{1.3}
 \begin{tabular}{@{}llll@{}}
 \textbf{Enumerative} & \textbf{Algebraic (BKM)} & \textbf{Shadow tower} & \textbf{Automorphic} \\ \hline
-$\chi(K3 \times E) = 0$ & Trivial degree-$0$ DT & $\chi/12 = 0$ (virtual) & $M(-q)^0 = 1$ \\
+$\chi(K3 \times E) = 0$ & Trivial degree-$0$ DT & $\chi/24 = 0$ (virtual) & $M(-q)^0 = 1$ \\
 $n_h^0 = \chi(\mathrm{Hilb}^h)$ & Real root ($\alpha^2 = 2$) & $F_1 = 1/12$ & $\phi_1 = \eta^{18}\vartheta_1^2$ \\
 $c(D) = f(D)$ & $\mult(\alpha) = f(D(\alpha))$ & Degree-$r$ shadow & $\prod (1 - q^ny^lp^m)^{f(D)}$ \\
 $\Omega(\gamma)$ (KS) & Root multiplicity & Obstruction class $o_{r+1}$ & Borcherds exponent \\
 DT $=$ PT ($\chi = 0$) & No MacMahon correction & No degree-$0$ curvature & $Z_{\DT,0} = 1$ \\
 Pentagon identity & BKM Serre relation & Cubic gauge triviality & Jacobi identity for $\fn_+$ \\
 $|c(D)| \sim e^{4\pi\sqrt{D}}$ & Infinite root system & Class M ($r_{\max} = \infty$) & $\Delta_5$ is a cusp form \\
-$\kappa_{\mathrm{ch}} = 2$ & $24$ singular fibers & Class G $\to$ class M & $\mathrm{wt} = f(0)/2 = 5$
+$\kappa_{\mathrm{ch}} = 3$ & $24$ singular fibers & Class G $\to$ class M & $\mathrm{wt} = f(0)/2 = 5$
 \end{tabular}
 \end{center}
 
@@ -1127,8 +1127,9 @@ product of a chiral algebra requires both the $d = 3$ CY-to-chiral
 functor (Conjecture~CY-A$_3$) and the Vol~I bar Euler product
 machinery applied to $A_{K3 \times E}$. At $d = 2$, the analogous
 identification is a theorem (CY-A$_2$); at $d = 3$ it is an
-observation matching the formal structure, not a proved identity.
-\ClaimStatusProvedElsewhere
+observation matching the formal structure, not a proved identity
+(AP-CY8: the Borcherds denominator is not the bar Euler product without the CY-to-chiral functor).
+\ClaimStatusConditional{Product formula: proved (Gritsenko--Nikulin). Bar-Euler-product identification: conditional on CY-A$_3$.}
 \end{proposition}
 
 \begin{remark}[Shadow depth: class M]
@@ -1530,9 +1531,12 @@ separate quantisation step that remains open.
 \section{Perturbative factorization homology of K3}
 \label{sec:k3-perturbative-fact-homology}
 
-The $E_3$-chiral factorization algebra $\cF$ of the 6d holomorphic
-theory on $\C^3$ (Conjecture~\ref{conj:topological-e3-comparison})
-restricts to a factorization algebra on any CY$_3$ manifold $X$.
+The topological $E_3$-factorization algebra $\cF$ of the 6d holomorphic
+theory on $\C^3$ (Conjecture~\ref{conj:topological-e3-comparison})---where
+the $E_3$ structure arises from the framed little $3$-disks operad
+acting on the three complex directions, \emph{not} from the algebraic
+$E_3$ of Deligne's conjecture (AP154)---restricts to a factorization
+algebra on any CY$_3$ manifold $X$.
 When $X = K3 \times E$, the factorization homology
 $\int_{K3} \cF|_{K3}$ (integrating over the K3 factor and retaining
 the elliptic curve direction as the chiral direction) should
@@ -1553,7 +1557,7 @@ The computations below are therefore conditional on CY-A$_3$.
 \ClaimStatusConjectured
 At tree level (zeroth order in the deformation parameter
 $\sigma_3 = h_1 h_2 h_3$), the factorization homology of the
-$E_3$-chiral factorization algebra $\cF$ over K3 reduces to the
+topological $E_3$-factorization algebra $\cF$ over K3 reduces to the
 lattice vertex algebra of the K3 lattice:
 \begin{equation}\label{eq:k3-fact-tree}
   \int_{K3} \cF\bigg|_{\sigma_3 = 0}
@@ -1579,7 +1583,7 @@ Including the two additional directions from $H^0(S) \oplus H^4(S)$
 
 \begin{proof}[Derivation (conditional on CY-A$_3$)]
 At $\sigma_3 = 0$, the Omega-background is trivial and the
-$E_3$-chiral factorization algebra reduces to a free (abelian)
+topological $E_3$-factorization algebra reduces to a free (abelian)
 factorization algebra. The classical fields are sections of
 the Lie conformal algebra $\frakL_S$ of
 Example~\ref{ex:k3-step1}: the current algebra of

@@ -305,16 +305,13 @@ class W1InfOPE:
             1: [(Fraction(1), dJ)],
         }
 
-        # J(z)T(w) ~ J(w)/(z-w)^2  (by locality/skew-symmetry + derivative terms)
-        # More precisely: J(z)T(w) ~ 0 -- J is abelian, T has no singular OPE
-        # with J from the J-side. But T(z)J(w) ~ J/(z-w)^2 + dJ/(z-w) implies
-        # J(z)T(w) = e^{(z-w)d_w} T(w)J(z) (skew-symmetry) which gives
-        # J(z)T(w) ~ J(w)/(z-w)^2 - dJ(w)/(z-w) (sign from exchange + Taylor)
-        # Actually for primary fields of weight h under T:
-        # We keep T,J as the canonical ordering for the bracket.
+        # J(z)T(w) by VOA skew-symmetry: a_{(n)}b = sum_{j>=0} (-1)^{n+j+1}/j! d^j(b_{(n+j)}a)
+        # From T(z)J(w): T_{(0)}J = dJ, T_{(1)}J = J.
+        # J_{(0)}T = -T_{(0)}J + d(T_{(1)}J) = -dJ + dJ = 0.
+        # J_{(1)}T = T_{(1)}J = J.
+        # So J(z)T(w) ~ J(w)/(z-w)^2 only (no first-order pole).
         table[("J", "T")] = {
             2: [(Fraction(1), J)],
-            1: [(Fraction(-1), dJ)],
         }
 
         # T(z)W(w) ~ 3W(w)/(z-w)^2 + dW(w)/(z-w)
@@ -324,10 +321,14 @@ class W1InfOPE:
             1: [(Fraction(1), dW)],
         }
 
-        # W(z)T(w): by skew-symmetry from T(z)W(w)
+        # W(z)T(w) by VOA skew-symmetry: a_{(n)}b = sum_{j>=0} (-1)^{n+j+1}/j! d^j(b_{(n+j)}a)
+        # From T(z)W(w): T_{(0)}W = dW, T_{(1)}W = 3W.
+        # W_{(0)}T = -T_{(0)}W + d(T_{(1)}W) = -dW + 3dW = 2dW.
+        # W_{(1)}T = T_{(1)}W = 3W.
+        # So W(z)T(w) ~ 3W(w)/(z-w)^2 + 2dW(w)/(z-w).
         table[("W", "T")] = {
             2: [(Fraction(3), W)],
-            1: [(Fraction(-1), dW)],
+            1: [(Fraction(2), dW)],
         }
 
         # J(z)W(w) ~ 0 (J commutes with W at c=1 in the W_{1+inf} algebra,
@@ -475,10 +476,10 @@ class AInfBarComplex:
         COMPUTED VALUES (c=1):
           m_2(T,T) = dT    (from T(z)T(w) ~ ... + dT/(z-w))
           m_2(T,J) = dJ    (from T(z)J(w) ~ ... + dJ/(z-w))
-          m_2(J,T) = -dJ   (skew-symmetry: exchange introduces sign)
+          m_2(J,T) = 0     (skew-symmetry: J_{(0)}T = -dJ + dJ = 0)
           m_2(J,J) = 0     (no first-order pole)
           m_2(T,W) = dW    (from T(z)W(w) ~ ... + dW/(z-w))
-          m_2(W,T) = -dW   (skew-symmetry)
+          m_2(W,T) = 2dW   (skew-symmetry: W_{(0)}T = -dW + 3dW = 2dW)
           m_2(W,W) = dLambda  (composite; vanishes at generator level)
         """
         return self.ope.m2(g1, g2)
@@ -653,7 +654,7 @@ class AInfBarComplex:
             return LinearCombination()
 
         # m_3(W,T,T) and permutations: involve W-T bracket
-        # m_2(W,T) = -dW (skew of T(z)W(w) ~ ... + dW/(z-w))
+        # m_2(W,T) = 2dW (from VOA skew-symmetry)
         # The associator involves composites with dW, projecting to zero
         # at the generator level.
         if "W" in key and key.count("T") >= 1:
@@ -672,8 +673,8 @@ class AInfBarComplex:
             return LinearCombination()
 
         # m_3(T,W,T): The TWT Massey product
-        # m_2(T,W) = dW, m_2(W,T) = -dW
-        # Associator = m_2(dW,T) - m_2(T,-dW) = m_2(dW,T) + m_2(T,dW)
+        # m_2(T,W) = dW, m_2(W,T) = 2dW
+        # Associator = m_2(dW,T) - m_2(T,2dW)
         # The dW field (spin 4) acting on T (spin 2) gives spin-6 composites.
         # At generator level: zero.
         if key == ("T", "W", "T"):
@@ -898,11 +899,7 @@ def _koszul_sign(factors: Tuple[WGenerator, ...], pos: int, k: int) -> int:
     For generators of cohomological degree 0 (all W_{1+inf} generators):
       |s^{-1}a_j| = -1, so the sum is -pos, giving sign (-1)^{-pos} = (-1)^{pos}.
 
-    Additionally, the m_k operation itself carries a sign from the
-    Koszul convention: (-1)^{(k-1)(sum of preceding desuspended degrees)}.
-    For degree-0 generators: this is (-1)^{(k-1)(-pos)} = (-1)^{(k-1)*pos}.
-
-    NET SIGN: (-1)^{k*pos} for degree-0 generators.
+    NET SIGN: (-1)^{pos} for degree-0 generators (independent of k).
     """
     # All W_{1+inf} generators have degree 0, so desuspended degree = -1
     sign_exponent = 0

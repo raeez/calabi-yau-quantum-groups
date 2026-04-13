@@ -28,8 +28,8 @@ Mathematical references:
 Ground truth values:
     SV parametrization h = (1, -N, N-1):
         N=1: kappa=1, sigma3=0, cubic=0, quartic=0, depth=G
-        N=2: kappa=3, sigma3=-2, cubic=4, quartic=-6, depth=M
-        N=3: kappa=7, sigma3=-6, cubic=12, quartic=-42, depth=M
+        N=2: kappa=3, sigma3=-2, cubic=4, quartic=6, depth=M
+        N=3: kappa=7, sigma3=-6, cubic=12, quartic=42, depth=M
 
     MacMahon M(q) first coefficients: 1, 1, 3, 6, 13, 24, 48, 86, 160, 282
     (OEIS A000219)

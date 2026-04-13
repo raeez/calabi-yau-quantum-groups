@@ -215,11 +215,16 @@ class TestW1InfOPE:
         assert len(ope) == 0
 
     def test_skew_symmetry_jt(self):
-        """J(z)T(w) pole structure from skew-symmetry of T(z)J(w)."""
-        ope_tj = self.ope.ope_singular(T, J)
+        """J(z)T(w) pole structure from skew-symmetry of T(z)J(w).
+
+        T(z)J(w) has poles 2 and 1. But VOA skew-symmetry cancels the
+        first-order pole: J_{(0)}T = -T_{(0)}J + d(T_{(1)}J) = -dJ + dJ = 0.
+        So J(z)T(w) has only pole 2.
+        """
         ope_jt = self.ope.ope_singular(J, T)
-        # VERIFIED [DC] pole orders match [LT] VOA skew-symmetry
-        assert set(ope_tj.keys()) == set(ope_jt.keys())
+        # VERIFIED [DC] pole orders [LT] VOA skew-symmetry
+        assert 2 in ope_jt
+        assert 1 not in ope_jt
 
 
 # ================================================================
@@ -256,14 +261,12 @@ class TestM2:
         assert not s.is_zero
         assert s.terms[0].factors == (dJ,)
 
-    def test_m2_jt_equals_minus_dJ(self):
-        """m_2(J,T) = -dJ: skew-symmetry introduces sign."""
+    def test_m2_jt_zero(self):
+        """m_2(J,T) = 0: VOA skew-symmetry gives J_{(0)}T = -dJ + dJ = 0."""
         result = self.bar_cx.m2(J, T)
         s = result.simplify()
-        # VERIFIED [DC] skew-symmetry sign [LT] VOA locality
-        assert not s.is_zero
-        assert s.terms[0].factors == (dJ,)
-        assert s.terms[0].coeff == Fraction(-1)
+        # VERIFIED [DC] skew-symmetry cancellation [LT] VOA locality
+        assert s.is_zero
 
     def test_m2_tw_equals_dW(self):
         """m_2(T,W) = dW: W is primary of weight 3 under T."""
@@ -273,12 +276,13 @@ class TestM2:
         assert not s.is_zero
         assert s.terms[0].factors == (dW,)
 
-    def test_m2_wt_equals_minus_dW(self):
-        """m_2(W,T) = -dW: skew-symmetry."""
+    def test_m2_wt_equals_2dW(self):
+        """m_2(W,T) = 2dW: VOA skew-symmetry gives W_{(0)}T = -dW + 3dW = 2dW."""
         result = self.bar_cx.m2(W, T)
         s = result.simplify()
         # VERIFIED [DC] skew-symmetry [LT] VOA locality
-        assert s.terms[0].coeff == Fraction(-1)
+        assert not s.is_zero
+        assert s.terms[0].coeff == Fraction(2)
         assert s.terms[0].factors == (dW,)
 
     def test_m2_jw_zero(self):
@@ -772,7 +776,7 @@ class TestMasterComputation:
     def test_master_m2_nonzero(self):
         """Some m_2 pairs are nonzero (T-sector has nontrivial bracket)."""
         data = compute_a_infinity_bar_w1inf(max_arity=3)
-        # VERIFIED [DC] nonzero count [DA] TT, TJ, JT, TW, WT are nonzero
+        # VERIFIED [DC] nonzero count [DA] TT, TJ, TW, WT are nonzero
         assert data["summary"]["m2_nonzero_pairs"] >= 4
 
     def test_master_m3_nonzero(self):
