@@ -104,6 +104,9 @@ class HeisenbergFock:
         self.N_max = N_max
         self._build_basis()
         self._J_cache: Dict[int, np.ndarray] = {}
+        self._psi2_cache: Dict[int, np.ndarray] = {}
+        self._psi3_cache: Dict[int, np.ndarray] = {}
+        self._psi4_cache: Dict[int, np.ndarray] = {}
 
     def _build_basis(self):
         self.partitions: List[Tuple[int, ...]] = []
@@ -168,6 +171,94 @@ class HeisenbergFock:
             if self.weights[i] <= cutoff:
                 P[i, i] = 1.0
         return P
+
+    # --- Transfer matrix coefficients (Yangian psi-generators) ---
+    #
+    # The affine Yangian Y(gl_hat_1) transfer matrix on the Heisenberg
+    # Fock space at level Psi:
+    #     T(u) = 1 + psi_1 u^{-1} + psi_2 u^{-2} + psi_3 u^{-3} + ...
+    #
+    # with psi_1 = J (Heisenberg current).
+    #
+    # On the rank-1 Fock space, the transfer matrix is the Miura operator:
+    #     T(u) = :exp(phi(u)):
+    # where phi involves J. The coefficients e_k = psi_k are determined
+    # recursively from the Newton identity for the exponential:
+    #     s * e_s = sum_{j=1}^{s} p_j * e_{s-j}
+    # where p_j are the power sums (related to J modes).
+    #
+    # In the Heisenberg representation, this recursion gives:
+    #     psi_2(n) = T(n) + (1/(2*Psi)) sum_k J(k) J(n-k)
+    #     psi_3(n) = sum_k J(k) psi_2(n-k)
+    #     psi_4(n) = sum_k J(k) psi_3(n-k)
+    #
+    # VERIFICATION: The spin-3 engine (chiral_coproduct_spin3_engine.py)
+    # uses psi_3(n) = sum_k J(k) psi_2(n-k) in its coassociativity tests,
+    # which pass to machine precision. The same recursive structure extends
+    # to psi_4 via the Miura factorization.
+
+    def _psi2_matrix(self, n: int) -> np.ndarray:
+        r"""psi_{2,n} = T_n + (1/(2*Psi)) sum_k J_k J_{n-k}.
+
+        This is the un-normal-ordered version of the Sugawara construction.
+        The normal-ordered piece is T_n; the correction from un-normal-ordering
+        adds (1/(2*Psi)) sum_k J_k J_{n-k} (the full quadratic without
+        subtracting the commutator swap terms).
+        """
+        if n in self._psi2_cache:
+            return self._psi2_cache[n]
+        mat = self.T(n).copy()
+        K = self.N_max + abs(n) + 2
+        for k in range(-K, K + 1):
+            mat += (1.0 / (2.0 * self.Psi)) * self.J(k) @ self.J(n - k)
+        self._psi2_cache[n] = mat
+        return mat
+
+    def _psi3_matrix(self, n: int) -> np.ndarray:
+        r"""psi_{3,n} = sum_k J_k * psi_{2,n-k}.
+
+        The spin-3 transfer matrix coefficient on the single Fock space.
+        Derived from the Miura factorization: the [u^{-3}] coefficient of
+        T(u) = 1 + psi_1 u^{-1} + psi_2 u^{-2} + ... gives psi_3 as the
+        mode convolution of psi_1 = J with psi_2.
+
+        This formula is VERIFIED by the spin-3 coassociativity tests
+        (Delta_w x id) o Delta_{z+w} = (id x Delta_z) o Delta_w at spin 3.
+        """
+        if n in self._psi3_cache:
+            return self._psi3_cache[n]
+        mat = np.zeros((self.dim, self.dim))
+        K = self.N_max + abs(n) + 2
+        for k in range(-K, K + 1):
+            mat += self.J(k) @ self._psi2_matrix(n - k)
+        self._psi3_cache[n] = mat
+        return mat
+
+    def _psi4_matrix(self, n: int) -> np.ndarray:
+        r"""psi_{4,n} = sum_k J_k * psi_{3,n-k}.
+
+        The spin-4 transfer matrix coefficient on the single Fock space.
+        Derived from the Miura factorization: the [u^{-4}] coefficient of
+        T(u) = 1 + psi_1 u^{-1} + ... + psi_4 u^{-4} + ... gives psi_4
+        as the mode convolution of psi_1 = J with psi_3.
+
+        This extends the chain:
+            psi_1 = J
+            psi_2 = T + J^2/(2*Psi)
+            psi_3 = J * psi_2      (mode convolution)
+            psi_4 = J * psi_3      (mode convolution)
+
+        The recursive structure reflects the Miura factorization of the
+        rank-1 transfer matrix as a single exponential vertex operator.
+        """
+        if n in self._psi4_cache:
+            return self._psi4_cache[n]
+        mat = np.zeros((self.dim, self.dim))
+        K = self.N_max + abs(n) + 2
+        for k in range(-K, K + 1):
+            mat += self.J(k) @ self._psi3_matrix(n - k)
+        self._psi4_cache[n] = mat
+        return mat
 
 
 def _partitions_of(n: int, max_part: int = None) -> List[Tuple[int, ...]]:

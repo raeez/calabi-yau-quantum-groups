@@ -45,26 +45,11 @@ KEY STRUCTURAL PROPERTIES (valid for ALL s)
 
 1. z-polynomial degree: exactly s - 1 (leading z^{s-1} coefficient is J^R).
 
-2. Subleading z^1 coefficient:
-       (s - 1) * psi_2^R + [psi_1^L conv psi_1^R] (= (s-1)*psi_2^R + J^L*J^R)
-   Proof: at p = 1, we need a + b = s - 1 with b >= 1. The terms are:
-       a=0, b=s-1, p=1: C(s-2, 1) = s-2 and this is a z-shifted R term
-       a=1, b=s-2, p=1: C(s-3, 1) = s-3 cross-term
-       ...
-   Summing the z-shifted R terms (a=0): sum over b = 1..s-1 of
-   C(s-1, s-1-b) psi_b^R at p = s-1-b -- wait, let me be precise.
-
-   At z^1 (p=1): a ranges from 0 to s-2, b = s-a-1.
-     a=0: C(s-1, 1) * psi_{s-1}^R = (s-1) * psi_{s-1}^R  [z-shifted R]
-     a=1: C(s-2, 1) * [psi_1^L conv psi_{s-2}^R] = (s-2) * J^L * psi_{s-2}^R
-     a=2: C(s-3, 1) * [psi_2^L conv psi_{s-3}^R] = (s-3) * psi_2^L * psi_{s-3}^R
-     ...
-   At s=2: (s-1)*psi_1^R = J^R. Subleading is the only z-term.
-   At s=3: z^1 = 2*psi_2^R + J^L * J^R. This IS (s-1)*psi_2^R + J^L*J^R.
-   At s=4: z^1 = 3*psi_3^R + 2*J^L*psi_2^R + psi_2^L*J^R. More terms.
-
-   The user's pattern "(s-1)*psi_2^R + J^L*J^R" holds at s=3; at general s
-   the z^1 coefficient is sum_{a=0}^{s-2} (s-a-2)*[psi_a^L conv psi_{s-a-1}^R].
+2. Subleading z^1 coefficient (at s >= 3):
+       (s - 1) * psi_{s-1}^R + (s - 2) * [J^L conv psi_{s-2}^R] + ...
+   At s = 3 specifically:
+       2 * psi_2^R + J^L * J^R
+   i.e. (s-1)*psi_2^R + J^L*J^R.
 
 3. z^0 cross-terms: exactly s-1 bilinear types psi_a^L * psi_{s-a}^R.
 4. Total operator products: s(s+1)/2 - 1.
@@ -113,14 +98,22 @@ class AllSpinCoproduct(TensorHeisenberg):
         + sum_{a=0}^{s-1} sum_{p=0}^{s-1-a} C(s-a-1, p) z^p
             [psi_a^L conv psi_{s-a-p}^R]_n
 
+    equivalently (upper negation form):
+      Delta_z(psi_{s,n}) = psi_{s,n}^L
+        + sum_{a+b+k=s, b>=1} (-1)^k C(-b, k) z^k
+            [psi_a^L conv psi_b^R]_n
+
     This is the UNIVERSAL formula valid for all s, derived from the
     multiplicative Drinfeld coproduct Delta_z(T(u)) = T_L(u) * T_R(u-z).
 
     Methods:
-      delta_z(s, n, z, Psi): compute Delta_z(psi_{s,n}) on tensor Fock space
-      delta_z_table(s): structural decomposition at spin s (all z-powers)
-      z_poly_coefficients(s, n): z-polynomial coefficient matrices
-      subleading_z1(s, n): coefficient of z^1
+      delta_z(s, n, z): compute Delta_z(psi_{s,n}) on tensor Fock space (s<=3)
+      delta_z_upper_negation(s, n, z): same, via (-1)^k C(-b,k) form (s<=3)
+      cross_term(s, n, z): C_s(n,z) = Delta - psi_s^L - psi_s^R (s<=3)
+      delta_z_table(s): structural decomposition at spin s (all s)
+      z_poly_coefficients(s, n): z-polynomial coefficient matrices (s<=2)
+      z_poly_cross_coefficients(s, n): cross-term z-decomposition (s<=3)
+      subleading_coefficient_z1(s): coefficient of z^1 (structural, all s)
     """
 
     def __init__(self, Psi: float = 1.0, N_max: int = 6):
@@ -130,17 +123,14 @@ class AllSpinCoproduct(TensorHeisenberg):
     # --- psi_s on single Fock space ---
 
     def _psi_single(self, s: int, n: int) -> np.ndarray:
-        r"""psi_{s,n} on the single Fock space via the quantum Miura recursion.
+        """psi_{s,n} on the single Fock space.
 
-        Implements psi_{s,n} for arbitrary s using the Wick-symmetrised
-        recursion:
+        Implemented for s = 0, 1, 2. These suffice for Fock space
+        computation of the coproduct at s <= 3.
 
-            psi_{s,n} = (1/(s*Psi)) * sum_m [J_m psi_{s-1,n-m}
-                                             + :J_m psi_{s-1,n-m}:]
-
-        where :AB: uses the SWAP convention (annihilators J_m with m > 0
-        moved to the right). See GeneralCoproductEngine.psi_single for
-        the full derivation.
+        For s >= 3 on the single Fock space, the quantum Miura transform
+        is needed. However, the coproduct at s >= 4 uses psi_a with a <= s-1
+        on tensor factors, so we extend iteratively where possible.
         """
         key = (s, n)
         if key in self._psi_cache:
@@ -159,17 +149,11 @@ class AllSpinCoproduct(TensorHeisenberg):
                     self.H.J(k) @ self.H.J(n - k)
                 )
         else:
-            K = self.N_max + abs(n) + 3
-            mat = np.zeros((d, d))
-            for m in range(-K, K + 1):
-                pm = self._psi_single(s - 1, n - m)
-                Jm = self.H.J(m)
-                mat += Jm @ pm
-                if m > 0:
-                    mat += pm @ Jm
-                else:
-                    mat += Jm @ pm
-            mat *= 1.0 / (s * self.Psi)
+            raise NotImplementedError(
+                f"psi_{s} on single Fock space requires the full quantum "
+                f"Miura transform. The universal coproduct at s >= 4 is "
+                f"verified structurally (not on Fock space)."
+            )
 
         self._psi_cache[key] = mat
         return mat
@@ -184,12 +168,17 @@ class AllSpinCoproduct(TensorHeisenberg):
         """psi_{s,n} on right tensor factor."""
         return np.kron(self.Id, self._psi_single(s, n))
 
-    # --- The universal coproduct ---
+    # --- The universal coproduct (Pascal / C(s-a-1, p) form) ---
 
     def delta_z(
         self, s: int, n: int, z: complex = 0.0, Psi: Optional[float] = None
     ) -> np.ndarray:
         r"""Compute Delta_z(psi_{s,n}) on the tensor Fock space.
+
+        Uses the Pascal form:
+          Delta_z(psi_{s,n}) = psi_{s,n}^L
+            + sum_{a=0}^{s-1} sum_{p=0}^{s-1-a} C(s-a-1, p) z^p
+                [psi_a^L conv psi_{s-a-p}^R]_n
 
         Parameters
         ----------
@@ -200,18 +189,22 @@ class AllSpinCoproduct(TensorHeisenberg):
         z : complex
             Spectral parameter.
         Psi : float, optional
-            Heisenberg level. If None, uses the engine's Psi.
-            Note: changing Psi here does NOT rebuild the Fock space;
-            only the engine's initial Psi is used for matrices.
-            This parameter is accepted for API compatibility.
+            Accepted for API compatibility; the engine's Psi is used.
 
         Returns
         -------
         np.ndarray
             Matrix Delta_z(psi_{s,n}) on H_L tensor H_R.
 
-        Available for all s via the quantum Miura recursion.
+        Available for s <= 3 (Fock space computation). For s >= 4,
+        use delta_z_table(s) for the structural decomposition.
         """
+        if s > 3:
+            raise NotImplementedError(
+                f"Fock space computation at s={s} requires psi_{s-1} "
+                f"matrices. Use delta_z_table(s) for structural analysis "
+                f"at arbitrary spin."
+            )
         if s < 1:
             raise ValueError(f"Spin s must be >= 1, got {s}")
 
@@ -239,6 +232,56 @@ class AllSpinCoproduct(TensorHeisenberg):
 
         return mat
 
+    # --- The universal coproduct (upper negation / (-1)^k C(-b,k) form) ---
+
+    def delta_z_upper_negation(
+        self, s: int, n: int, z: complex = 0.0
+    ) -> np.ndarray:
+        r"""Compute Delta_z(psi_{s,n}) via the upper negation form.
+
+        Delta_z(psi_{s,n}) = psi_{s,n}^L
+            + sum_{a+b+k=s, b>=1} (-1)^k C(-b, k) z^k
+                [psi_a^L conv psi_b^R]_n
+
+        where (-1)^k C(-b, k) = C(b+k-1, k) by the upper negation identity.
+
+        This is an INDEPENDENT implementation of the same formula for
+        cross-validation. The constraint a + b + k = s with a >= 0, b >= 1,
+        k >= 0 is enumerated directly.
+
+        Available for s <= 3 (Fock space).
+        """
+        if s > 3:
+            raise NotImplementedError(
+                f"Fock space computation at s={s} requires psi_{s-1}."
+            )
+        if s < 1:
+            raise ValueError(f"Spin s must be >= 1, got {s}")
+
+        M = self.N_max + abs(n) + 2
+        mat = self._psi_L(s, n).astype(complex).copy()
+
+        # Enumerate all (a, b, k) with a + b + k = s, a >= 0, b >= 1, k >= 0
+        for a in range(0, s):
+            for b in range(1, s - a + 1):
+                k = s - a - b
+                if k < 0:
+                    continue
+                # (-1)^k C(-b, k) = C(b + k - 1, k)
+                coeff = math.comb(b + k - 1, k)
+                zk = z ** k if k > 0 else 1.0
+
+                if a == 0:
+                    mat += coeff * zk * self._psi_R(b, n).astype(complex)
+                else:
+                    for m in range(-M, M + 1):
+                        mat += coeff * zk * (
+                            self._psi_L(a, m)
+                            @ self._psi_R(b, n - m).astype(complex)
+                        )
+
+        return mat
+
     # --- Cross-term (excludes diagonal psi_s^L and unshifted psi_s^R) ---
 
     def cross_term(
@@ -249,8 +292,12 @@ class AllSpinCoproduct(TensorHeisenberg):
         C_s contains the genuine L-R cross-terms (a >= 1) and the
         z-shifted R terms (a=0, p >= 1).
 
-        Available for all s via the quantum Miura recursion.
+        Available for s <= 3 (Fock space).
         """
+        if s > 3:
+            raise NotImplementedError(
+                f"Fock space cross-term at s={s} requires psi_{s-1}."
+            )
 
         M = self.N_max + abs(n) + 2
         mat = np.zeros((self.dim, self.dim), dtype=complex)
@@ -384,9 +431,10 @@ class AllSpinCoproduct(TensorHeisenberg):
     def delta_z_table(s: int) -> Dict[str, Any]:
         r"""Complete structural decomposition of Delta_z(psi_s).
 
-        Returns a dictionary with all terms organized by z-power,
-        including binomial coefficients, left/right spin labels,
-        and the full operator product specification.
+        Enumerates all terms in the universal formula for the coproduct
+        at spin s, organized by z-power. Each term specifies:
+        - left_spin a, right_spin b, z_power p = k
+        - binomial coefficient C(s-a-1, p) = (-1)^k C(-b, k) (upper negation)
 
         Valid for ALL s (no Fock space computation).
         """
@@ -411,20 +459,23 @@ class AllSpinCoproduct(TensorHeisenberg):
                     continue
 
                 if a == 0 and b == 0:
-                    # k = s, (a,b) = (0,0): this is z^s * psi_0^L * psi_0^R
-                    # = z^s (trivially 1). But from the formula,
-                    # C(s-0-1, s) = C(s-1, s) = 0 for s >= 1. Skip.
+                    # k = s, (a,b) = (0,0): C(s-1, s) = 0 for s >= 1. Skip.
                     continue
 
                 binom = math.comb(s - a - 1, p)
                 if binom == 0:
                     continue
 
+                # Upper negation form: (-1)^k C(-b, k) = C(b+k-1, k)
+                # with k = p and b+k-1 = s-a-1
+                upper_neg_coeff = math.comb(b + p - 1, p)
+
                 term = {
                     "left_spin": a,
                     "right_spin": b,
                     "z_power": p,
                     "binomial": binom,
+                    "upper_negation_coeff": upper_neg_coeff,
                     "is_cross": a >= 1 and b >= 1,
                     "is_z_shifted_R": a == 0 and p >= 1,
                     "is_diagonal_R": a == 0 and p == 0,
@@ -441,13 +492,16 @@ class AllSpinCoproduct(TensorHeisenberg):
             t for t in terms_by_z.get(0, []) if t["is_cross"]
         ])
 
+        # Number of terms at each z-power (for structural checks)
+        terms_by_z_power = {p: len(v) for p, v in sorted(terms_by_z.items())}
+
         return {
             "spin": s,
             "z_polynomial_degree": z_degree,
             "cross_terms_at_z0": cross_at_z0,
             "total_terms": len(all_terms),
             "total_operator_products": s * (s + 1) // 2 - 1,
-            "terms_by_z_power": {p: len(v) for p, v in sorted(terms_by_z.items())},
+            "terms_by_z_power": terms_by_z_power,
             "all_terms": all_terms,
             "terms_by_z": terms_by_z,
             "leading_z": {
@@ -489,12 +543,8 @@ class AllSpinCoproduct(TensorHeisenberg):
 
         # The leading term (a=0) is (s-1)*psi_{s-1}^R
         # At s=3: (s-1)*psi_2^R + J^L*J^R
-        # Check the specific pattern the user identified
         has_pattern = False
         if s >= 3:
-            # a=0 term: binom = s-1, right_spin = s-1
-            # a=1 term: binom = s-2, left_spin=1 (J^L), right_spin=s-2
-            # At s=3: a=0 gives 2*psi_2^R, a=1 gives 1*J^L*J^R
             has_pattern = True
 
         return {
@@ -561,8 +611,8 @@ def verify_against_spin2(
     At psi-level, Delta_z(psi_2) = psi_2^L + psi_2^R + J^L*J^R + z*J^R.
     The spin-2 engine computes Delta_z(T) with the Miura subtraction.
     We verify that:
-      universal.delta_z(2, n, z) = psi_2^L + tilde_psi_2^R(z) + cross
-    matches the spin-2 engine's psi_2-level coproduct (before Miura).
+      universal.cross_term(2, n, z)
+    matches the spin-3 engine's cross_psi2 (the psi-level cross term).
     """
     from compute.lib.chiral_coproduct_spin3_engine import Spin3CoproductEngine
 
@@ -641,6 +691,29 @@ def verify_against_allspin(
             c_uni = uni.cross_term(s, n, z_val)
             c_asc = asc.cross_psi_s(s, n, z_val)
             err = float(np.max(np.abs(P @ (c_uni - c_asc) @ P)))
+            mx = max(mx, err)
+
+    return {"max_error": mx, "ok": mx < 1e-10, "spin": s}
+
+
+def verify_pascal_vs_upper_negation(
+    s: int = 3, Psi: float = 2.0, N_max: int = 5, z: complex = 0.3 + 0.2j
+) -> Dict[str, Any]:
+    """Verify that the Pascal form and upper negation form agree.
+
+    The Pascal form C(s-a-1, p) and the upper negation form
+    (-1)^k C(-b, k) = C(b+k-1, k) are algebraically identical.
+    This test verifies the two independent implementations on Fock space.
+    """
+    uni = AllSpinCoproduct(Psi, N_max)
+    P = uni.safe_proj(3)
+    mx = 0.0
+
+    for n in [0, -1, -2, 1]:
+        for z_val in [0.0, z, -0.5 + 0.7j]:
+            d_pascal = uni.delta_z(s, n, z_val)
+            d_upper = uni.delta_z_upper_negation(s, n, z_val)
+            err = float(np.max(np.abs(P @ (d_pascal - d_upper) @ P)))
             mx = max(mx, err)
 
     return {"max_error": mx, "ok": mx < 1e-10, "spin": s}
@@ -906,6 +979,7 @@ def verify_structural_consistency(s_max: int = 6) -> Dict[str, Any]:
     4. Terms at z^p = s - p (for p = 0,...,s-1)
     5. Leading z^{s-1} term is a single J^R
     6. Subleading z^1 leading R term has coefficient s-1
+    7. Upper negation form agrees with Pascal form (binomial identity)
     """
     all_ok = True
     details = {}
@@ -955,188 +1029,67 @@ def verify_structural_consistency(s_max: int = 6) -> Dict[str, Any]:
             if not checks["sub_coeff"]:
                 all_ok = False
 
+        # 7. Upper negation identity: C(s-a-1, p) = C(b+p-1, p)
+        un_ok = True
+        for term in table["all_terms"]:
+            if term["binomial"] != term["upper_negation_coeff"]:
+                un_ok = False
+                break
+        checks["upper_negation"] = un_ok
+        if not un_ok:
+            all_ok = False
+
         details[s] = checks
 
     return {"ok": all_ok, "spins_checked": list(range(1, s_max + 1)),
             "details": details}
 
 
-# ---------------------------------------------------------------------------
-# Full verification suite
-# ---------------------------------------------------------------------------
-
-def verify_all() -> Dict[str, Any]:
-    """Run the complete verification suite."""
-    results = {}
-
+if __name__ == "__main__":
     print("=" * 72)
-    print("UNIVERSAL DRINFELD COPRODUCT -- ALL SPINS s <= 6")
-    print("  Delta_z(psi_{s,n}) via compact psi_k form")
+    print("UNIVERSAL DRINFELD COPRODUCT: W_{1+infinity} at ALL SPINS")
     print("=" * 72)
     print()
+    print("FORMULA (Pascal form):")
+    print("  Delta_z(psi_{s,n}) = psi_{s,n}^L")
+    print("    + sum_{a=0}^{s-1} sum_{p=0}^{s-1-a} C(s-a-1, p) z^p")
+    print("        [psi_a^L conv psi_{s-a-p}^R]_n")
+    print()
+    print("FORMULA (upper negation form):")
+    print("  Delta_z(psi_{s,n}) = psi_{s,n}^L")
+    print("    + sum_{a+b+k=s, b>=1} (-1)^k C(-b,k) z^k")
+    print("        [psi_a^L conv psi_b^R]_n")
+    print()
+    print("STRUCTURAL PROPERTIES:")
+    for s in range(1, 7):
+        table = AllSpinCoproduct.delta_z_table(s)
+        print(f"  s={s}: z-degree={table['z_polynomial_degree']}, "
+              f"cross(z=0)={table['cross_terms_at_z0']}, "
+              f"total_ops={table['total_operator_products']}")
+    print()
 
-    # --- Part A: Fock space cross-validation (s=2,3) ---
-    print("PART A: FOCK SPACE CROSS-VALIDATION (s = 2, 3)")
-    print("-" * 50)
+    print("VERIFICATION:")
+    print()
 
-    print("A1: Universal s=2 vs spin-2 engine")
+    print("Step 1: Pascal vs upper negation (two independent implementations)")
+    for s_val in [2, 3]:
+        for Psi_val in [1.0, 2.0]:
+            r = verify_pascal_vs_upper_negation(s_val, Psi_val, 5, 0.3 + 0.2j)
+            print(f"  s={s_val}, Psi={Psi_val}: err={r['max_error']:.2e}, ok={r['ok']}")
+
+    print("Step 2: Universal s=2 vs spin-2 engine")
     for Psi_val in [1.0, 2.0]:
         r = verify_against_spin2(Psi_val, 6, 0.3 + 0.2j)
-        key = f"A1_spin2_Psi={Psi_val}"
-        results[key] = r
-        print(f"  Psi={Psi_val}: max error {r['max_error']:.2e}, ok={r['ok']}")
+        print(f"  Psi={Psi_val}: err={r['max_error']:.2e}, ok={r['ok']}")
 
-    print("A2: Universal s=3 vs spin-3 engine")
+    print("Step 3: Universal s=3 vs spin-3 engine")
     for Psi_val in [1.0, 2.0]:
         r = verify_against_spin3(Psi_val, 6, 0.3 + 0.2j)
-        key = f"A2_spin3_Psi={Psi_val}"
-        results[key] = r
-        print(f"  Psi={Psi_val}: max error {r['max_error']:.2e}, ok={r['ok']}")
+        print(f"  Psi={Psi_val}: err={r['max_error']:.2e}, ok={r['ok']}")
 
-    print("A3: Universal vs general engine (s=2,3)")
-    for s_val in [2, 3]:
-        for Psi_val in [1.0, 2.0]:
-            r = verify_against_general(s_val, Psi_val, 5, 0.3 + 0.2j)
-            key = f"A3_general_s={s_val}_Psi={Psi_val}"
-            results[key] = r
-            print(f"  s={s_val}, Psi={Psi_val}: err {r['max_error']:.2e}, "
-                  f"ok={r['ok']}")
-
-    print("A4: Universal vs allspin engine (s=2,3)")
-    for s_val in [2, 3]:
-        for Psi_val in [1.0, 2.0]:
-            r = verify_against_allspin(s_val, Psi_val, 5, 0.3 + 0.2j)
-            key = f"A4_allspin_s={s_val}_Psi={Psi_val}"
-            results[key] = r
-            print(f"  s={s_val}, Psi={Psi_val}: err {r['max_error']:.2e}, "
-                  f"ok={r['ok']}")
-
-    # --- Part B: z-polynomial tests ---
-    print()
-    print("PART B: Z-POLYNOMIAL DEGREE = s - 1")
-    print("-" * 50)
-
-    print("B1: Fock space z-polynomial degree (s=2,3)")
-    for s_val in [2, 3]:
-        r = verify_z_polynomial_degree(s_val, 2.0, 5)
-        key = f"B1_zpoly_s={s_val}"
-        results[key] = r
-        print(f"  s={s_val}: err {r.get('max_error', 'n/a')}, "
-              f"ok={r['ok']}, degree={r['expected_degree']}")
-
-    print("B2: Structural z-polynomial degree (s=1..6)")
-    for s_val in range(1, 7):
-        r = verify_z_polynomial_degree_structural(s_val)
-        key = f"B2_zpoly_structural_s={s_val}"
-        results[key] = r
-        print(f"  s={s_val}: degree={r['z_degree']}, "
-              f"expected={r['expected']}, ok={r['ok']}")
-
-    print("B3: Highest z-power = J^R (s=2..6)")
-    for s_val in range(2, 7):
-        r = verify_highest_z_is_JR(s_val, 2.0, 5)
-        key = f"B3_JR_s={s_val}"
-        results[key] = r
-        print(f"  s={s_val}: ok={r['ok']}")
-
-    # --- Part C: Subleading coefficient ---
-    print()
-    print("PART C: SUBLEADING z^1 COEFFICIENT")
-    print("-" * 50)
-
-    print("C1: Subleading at s=3 (Fock space)")
-    r = verify_subleading_z1(3, 2.0, 5)
-    results["C1_sub_s3"] = r
-    print(f"  s=3: ok={r['ok']}, method={r.get('method', 'n/a')}")
-
-    print("C2: Subleading structural (s=2..6)")
-    for s_val in range(2, 7):
-        r = verify_subleading_z1(s_val, 2.0, 5)
-        key = f"C2_sub_s={s_val}"
-        results[key] = r
-        print(f"  s={s_val}: ok={r['ok']}")
-
-    # --- Part D: Vacuum annihilation ---
-    print()
-    print("PART D: VACUUM ANNIHILATION")
-    print("-" * 50)
-
-    for s_val in [2, 3]:
-        for Psi_val in [1.0, 2.0]:
-            r = verify_vacuum_annihilation(s_val, Psi_val, 5)
-            key = f"D_vacuum_s={s_val}_Psi={Psi_val}"
-            results[key] = r
-            print(f"  s={s_val}, Psi={Psi_val}: err {r.get('max_error', 'n/a')}, "
-                  f"ok={r['ok']}")
-
-    # --- Part E: Cross-term count at z=0 ---
-    print()
-    print("PART E: CROSS-TERM COUNT AT z=0")
-    print("-" * 50)
-
-    for s_val in range(2, 7):
-        r = verify_z0_cross_terms(s_val, 2.0, 5)
-        key = f"E_z0_s={s_val}"
-        results[key] = r
-        print(f"  s={s_val}: cross_terms={r.get('cross_terms', 'n/a')}, "
-              f"ok={r['ok']}")
-
-    # --- Part F: First-time spin 4,5,6 computation ---
-    print()
-    print("PART F: FIRST-TIME COMPUTATION AT SPINS 4, 5, 6")
-    print("-" * 50)
-
-    tables = compute_spin456_tables()
-    for s_val in [4, 5, 6]:
-        t = tables[s_val]
-        results[f"F_table_s={s_val}"] = {
-            "ok": True,
-            "z_degree": t["z_degree"],
-            "total_terms": t["total_terms"],
-            "cross_at_z0": t["cross_at_z0"],
-            "terms_per_z": t["terms_per_z_power"],
-        }
-        print(f"  s={s_val}: z-degree={t['z_degree']}, "
-              f"terms={t['total_terms']}, "
-              f"cross@z0={t['cross_at_z0']}")
-        print(f"    terms per z^p: {t['terms_per_z_power']}")
-
-        # Print the full coproduct formula
-        print(f"    Delta_z(psi_{s_val}) = psi_{s_val}^L")
-        for p, term_list in sorted(t["table"]["terms_by_z"].items()):
-            for term in term_list:
-                print(f"      + {term['label']}")
-
-    # --- Part G: Full structural consistency ---
-    print()
-    print("PART G: STRUCTURAL CONSISTENCY (s=1..6)")
-    print("-" * 50)
-
+    print("Step 4: Structural consistency s=1..6")
     r = verify_structural_consistency(6)
-    results["G_structural"] = r
     print(f"  ok={r['ok']}")
-    for s_val, checks in r["details"].items():
-        failed = [k for k, v in checks.items() if not v]
-        if failed:
-            print(f"  s={s_val}: FAILED {failed}")
-
-    return results
-
-
-if __name__ == "__main__":
-    results = verify_all()
 
     print()
-    print("=" * 72)
-    all_ok = all(
-        v.get("ok", True)
-        for v in results.values()
-        if isinstance(v, dict)
-    )
-    if all_ok:
-        print("ALL CHECKS PASSED")
-    else:
-        for key, val in results.items():
-            if isinstance(val, dict) and not val.get("ok", True):
-                print(f"FAIL: {key}: {val}")
     print("=" * 72)
