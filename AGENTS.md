@@ -82,6 +82,16 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 - **ZTE FAILS for Yang R-matrix**: COMPUTED. S=RRR does NOT solve tetrahedron at O(κ²). E_3 is genuinely nontrivial. Engine: 1200 lines, 34 tests.
 - **A_∞ coproduct = shadow tower**: corrections δ^{(k)} with coefficients = shadow S_k unify coproduct theory with shadow classification.
 
+### Anti-Patterns Mined from 180-Agent Swarm (AP-CY27-33)
+
+7. **Agent sandbox non-persistence (AP-CY27)**: Background agents' file writes do NOT persist to the main working tree. ALWAYS `ls` to verify file existence after agent completion. Three engines were "verified passing" inside sandboxes but didn't exist on disk.
+8. **Pole-unsafe test points (AP-CY28)**: Rational structure functions g(z) have poles at z=±h_i. Test points MUST avoid these. Default h=(1,-2,1) has poles at z=±1,±2. Use h=(37,41,-78) for safety.
+9. **Wrong-repo file writes (AP-CY29)**: Agents write to the WRONG volume. sl₂ engine was written to Vol I instead of Vol III. Verify FULL PATH after any agent write.
+10. **Factored ≠ solved (AP-CY30)**: S=RRR from YBE does NOT solve ZTE. Proved: O(κ²) obstruction. Kapranov-Voevodsky requires E_∞; Omega-deformation breaks it.
+11. **Spectral z ≠ worldsheet z (AP-CY31)**: Drinfeld Δ_z = spectral shift. OPE T(z)T(w) = worldsheet. Setting z=0 in Δ_z has no poles. Never conflate.
+12. **Reorganisation ≠ bypass (AP-CY32)**: 6d route reorganises CY-A₃ into subproblems but solves none independently.
+13. **Chain-level ≠ rational (AP-CY33)**: E₃ genuine at chain level, collapses under formality/Q. Physical content (Miki, factorization homology) lives at chains.
+
 ### Codex/GPT-5.4-Specific Weakness Mitigations
 
 1. **Docstring confabulation (AP-CY24)**: GPT models fabricate "ground truth" values in docstrings while producing correct code. ALWAYS verify docstring values against function output before committing.
