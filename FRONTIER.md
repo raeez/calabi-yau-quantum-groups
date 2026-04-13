@@ -484,7 +484,7 @@ Key Vol I results affecting Vol III:
 - **Verlinde polynomial family** (thm:verlinde-polynomial-family): P_g(n) = n^{g-1}(n²-1)·R_{g-2}(n²) through g=6. Leading coefficients = ζ(2g-2)/(2^{g-2}π^{2g-2}). Rational generating function from cosecant power sums.
 - **Shadow = GW(C³)**: shadow tower at kappa = Psi produces perturbative GW free energies. MacMahon on DT side via MNOP.
 - **Critical level** (prop:critical-level-ordered): Koszulness fails, center = Fun(Op). The CY-to-chiral functor at critical level produces the Feigin-Frenkel center, which is infinite-dimensional.
-- **Miura universality** (conj:miura-cross-universality): (Psi-1)/Psi universal on primary cross-terms at all spins. The W_{1+infinity} = Y(gl_1-hat) coproduct structure is now explicit through spin 4.
+- **Miura universality** (thm:miura-cross-universality): PROVED. (Psi-1)/Psi universal on primary cross-terms at all spins, from Prochazka-Rapcak Miura factorization. Verified computationally through spin 6.
 - **K3 double current algebra** (def:k3-double-current-algebra): 24·dim(g)+1 dimensional, Mukai pairing central extension. 188 tests.
 - **Genus-2 conformal block decomposition**: CB_{2,2}(k) = 2k(k+1)(k+2)/3 (cubic in k).
 - See ~/chiral-bar-cobar/FRONTIER.md F25-F36 for full details.

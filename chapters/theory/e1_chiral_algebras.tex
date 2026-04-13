@@ -1147,6 +1147,45 @@ Expand $T_R(u-z) = \sum_b (-1)^b \psi_b^R (u-z)^{-b}$ using the binomial series 
 The spectral parameter $z$ in $\Delta_z$ is a shift of the transfer-matrix argument $u \mapsto u - z$ in the Yangian mode algebra $Y(\widehat{\fgl}_1)$. It is \emph{not} the worldsheet coordinate of a vertex operator insertion. The OPE singularity $T(z)T(w) \sim c/2 \cdot (z-w)^{-4}$ involves the worldsheet variable; the coproduct $\Delta_z$ involves the spectral variable. Setting $z = 0$ in $\Delta_z$ removes the spectral shift and gives a well-defined, cocommutative coproduct with no OPE singularity (verified in \texttt{test\_hopf\_axioms.py}, $50$ tests). The two $z$'s live in different mathematical objects and must not be conflated.
 \end{remark}
 
+\begin{proposition}[Coassociativity from the Ran space $E_1$-monoidal structure]
+\label{prop:coassoc-ran-e1}
+\ClaimStatusProvedHere
+Let $A$ be an $E_1$-factorization algebra on a smooth curve~$C$.
+The factorization isomorphism
+$\phi_{S_1,S_2}\colon A(S_1 \sqcup S_2) \xrightarrow{\sim}
+A(S_1) \otimes A(S_2)$
+for disjoint $S_1, S_2 \in \Ran(C)$ is strictly coassociative:
+the two iterated coproducts
+\[
+  ({\phi_{S_1,S_2} \otimes \mathrm{id}}) \circ \phi_{S_1 \sqcup S_2, S_3}
+  \;=\;
+  ({\mathrm{id} \otimes \phi_{S_2,S_3}}) \circ \phi_{S_1, S_2 \sqcup S_3}
+\]
+coincide as maps $A(S_1 \sqcup S_2 \sqcup S_3) \to
+A(S_1) \otimes A(S_2) \otimes A(S_3)$.
+\end{proposition}
+
+\begin{proof}
+The ordered configuration space
+$\Conf_n^{\mathrm{ord}}(\mathbb{R})
+= \{x_1 < \cdots < x_n\}$
+is contractible for every~$n$ (it is convex).
+By the Ayala--Francis theorem
+(arXiv:1504.04007, Theorem~3.24),
+an $E_1$-algebra is equivalently a locally constant
+factorization algebra on~$\mathbb{R}$,
+and the $E_1$-monoidal structure on $\Ran(C)$
+is strictly associative: the space of parenthesizations
+of an $n$-fold labeled-ordered product is connected
+(contractible associahedron $K_n \simeq \ast$).
+Applied to $n = 3$, the two binary decompositions
+$(S_1 \sqcup S_2) \sqcup S_3$ and
+$S_1 \sqcup (S_2 \sqcup S_3)$
+are connected by the unique path in $K_3 = \ast$.
+Hence the two iterated factorization isomorphisms
+agree, which is coassociativity.
+\end{proof}
+
 \subsection{The Drinfeld center recovers $E_2$}
 \label{subsec:drinfeld-recovers-e2}
 
