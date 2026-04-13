@@ -149,6 +149,7 @@ class GeneralCoproductEngine(TensorHeisenberg):
     def __init__(self, Psi: float = 1.0, N_max: int = 6):
         super().__init__(Psi, N_max)
         self._psi2_cache: Dict[int, np.ndarray] = {}
+        self._psi_cache: Dict[Tuple[int, int], np.ndarray] = {}
 
     # --- psi_s on single Fock space ---
 
@@ -164,25 +165,60 @@ class GeneralCoproductEngine(TensorHeisenberg):
         return mat
 
     def psi_single(self, s: int, n: int) -> np.ndarray:
-        """psi_{s,n} on the single Fock space.
+        r"""psi_{s,n} on the single Fock space.
 
-        Only s=0, 1, 2 are implemented on Fock space (these suffice for
-        numerical verification at s=2 and s=3). Higher s require the full
-        quantum Miura transform; the general formula is instead verified
-        algebraically.
+        Implements the quantum Miura recursion for arbitrary s:
+
+            psi_{s,n} = (1/(s*Psi)) * sum_m [J_m psi_{s-1,n-m}
+                                             + :J_m psi_{s-1,n-m}:]
+
+        where :AB: uses the SWAP convention (annihilators J_m with m > 0
+        moved to the right).
+
+        DERIVATION: The transfer matrix T(u) = :exp(phi(u)): where
+        phi = J/Psi. The coefficients psi_s = [u^{-s}] T(u) satisfy
+        a recursion obtained by differentiating T(u) with respect to u
+        and matching coefficients. The result is the Wick-symmetrised
+        product (average of normal-ordered and un-normal-ordered) of
+        J with psi_{s-1}, divided by s*Psi.
+
+        At s=2, this reproduces psi_2 = T + J^2/(2*Psi) exactly:
+            psi_2 = (1/(2*Psi)) * (sum_m J_m J_{n-m} + sum_m :J_m J_{n-m}:)
+                  = (1/(2*Psi)) * (JJ + :JJ:)
+                  = :JJ:/(2*Psi) + JJ/(2*Psi) = T + JJ/(2*Psi).
+
+        For c=1 (single boson), psi_{3,0} has zero eigenvalues on all
+        partition states (no spin-3 Virasoro primary at c=1), but
+        psi_{3,n} for n != 0 is a nonzero off-diagonal operator.
         """
+        key = (s, n)
+        if key in self._psi_cache:
+            return self._psi_cache[key]
+
         d = self.H.dim
         if s == 0:
-            return np.eye(d) if n == 0 else np.zeros((d, d))
+            mat = np.eye(d) if n == 0 else np.zeros((d, d))
         elif s == 1:
-            return self.H.J(n)
+            mat = self.H.J(n)
         elif s == 2:
-            return self.psi2_single(n)
+            mat = self.psi2_single(n)
         else:
-            raise NotImplementedError(
-                f"psi_{s} on Fock space requires the quantum Miura transform. "
-                f"The general coproduct formula is proved algebraically for all s."
-            )
+            K = self.N_max + abs(n) + 3
+            mat = np.zeros((d, d))
+            for m in range(-K, K + 1):
+                pm = self.psi_single(s - 1, n - m)
+                Jm = self.H.J(m)
+                # Un-normal-ordered product: J_m * psi_{s-1,n-m}
+                mat += Jm @ pm
+                # SWAP normal-ordered: :J_m * psi_{s-1,n-m}:
+                if m > 0:
+                    mat += pm @ Jm
+                else:
+                    mat += Jm @ pm
+            mat *= 1.0 / (s * self.Psi)
+
+        self._psi_cache[key] = mat
+        return mat
 
     # --- psi_s on tensor product ---
 
@@ -204,14 +240,10 @@ class GeneralCoproductEngine(TensorHeisenberg):
         C_s includes the genuine cross-terms (a >= 1) and the z-shifted
         R terms (a=0, p >= 1), but excludes the unshifted psi_s^L and psi_s^R.
 
-        Requires psi_a on Fock space for a = 0, 1, ..., min(s-1, 2) and
-        psi_b for b = 1, ..., min(s, 2). For s <= 3 this is fully computable.
+        Requires psi_a on Fock space for a = 0, 1, ..., s-1 and
+        psi_b for b = 1, ..., s-1. Fully computable for all s via the
+        quantum Miura recursion (psi_single).
         """
-        if s > 3:
-            raise NotImplementedError(
-                f"Fock space cross-term at s={s} requires psi_{s-1} matrices. "
-                f"Use structural_prediction() for properties at arbitrary s."
-            )
         M = self.N_max + abs(n) + 2
         mat = np.zeros((self.dim, self.dim), dtype=complex)
 
@@ -238,7 +270,7 @@ class GeneralCoproductEngine(TensorHeisenberg):
     def Delta_psi_s(self, s: int, n: int, z: complex = 0.0) -> np.ndarray:
         """Full Delta_z(psi_{s,n}) = psi_s^L + psi_s^R + C_s(n,z).
 
-        Only available for s <= 3 (Fock space computation).
+        Available for all s via the quantum Miura recursion.
         """
         return (
             self.psi_L(s, n).astype(complex)
@@ -254,7 +286,7 @@ class GeneralCoproductEngine(TensorHeisenberg):
                 * [psi_a^L conv psi_{s-a-p}^R]_n
 
         Independent implementation for cross-validation.
-        Only available for s <= 3 (Fock space computation).
+        Available for all s via the quantum Miura recursion.
         """
         M = self.N_max + abs(n) + 2
         mat = self.psi_L(s, n).astype(complex).copy()

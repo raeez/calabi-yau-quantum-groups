@@ -130,14 +130,17 @@ class AllSpinCoproduct(TensorHeisenberg):
     # --- psi_s on single Fock space ---
 
     def _psi_single(self, s: int, n: int) -> np.ndarray:
-        """psi_{s,n} on the single Fock space.
+        r"""psi_{s,n} on the single Fock space via the quantum Miura recursion.
 
-        Implemented for s = 0, 1, 2. These suffice for Fock space
-        computation of the coproduct at s <= 3.
+        Implements psi_{s,n} for arbitrary s using the Wick-symmetrised
+        recursion:
 
-        For s >= 3 on the single Fock space, the quantum Miura transform
-        is needed. However, the coproduct at s >= 4 uses psi_a with a <= s-1
-        on tensor factors, so we extend iteratively where possible.
+            psi_{s,n} = (1/(s*Psi)) * sum_m [J_m psi_{s-1,n-m}
+                                             + :J_m psi_{s-1,n-m}:]
+
+        where :AB: uses the SWAP convention (annihilators J_m with m > 0
+        moved to the right). See GeneralCoproductEngine.psi_single for
+        the full derivation.
         """
         key = (s, n)
         if key in self._psi_cache:
@@ -156,11 +159,17 @@ class AllSpinCoproduct(TensorHeisenberg):
                     self.H.J(k) @ self.H.J(n - k)
                 )
         else:
-            raise NotImplementedError(
-                f"psi_{s} on single Fock space requires the full quantum "
-                f"Miura transform. The universal coproduct at s >= 4 is "
-                f"verified structurally (not on Fock space)."
-            )
+            K = self.N_max + abs(n) + 3
+            mat = np.zeros((d, d))
+            for m in range(-K, K + 1):
+                pm = self._psi_single(s - 1, n - m)
+                Jm = self.H.J(m)
+                mat += Jm @ pm
+                if m > 0:
+                    mat += pm @ Jm
+                else:
+                    mat += Jm @ pm
+            mat *= 1.0 / (s * self.Psi)
 
         self._psi_cache[key] = mat
         return mat
@@ -201,15 +210,8 @@ class AllSpinCoproduct(TensorHeisenberg):
         np.ndarray
             Matrix Delta_z(psi_{s,n}) on H_L tensor H_R.
 
-        Available for s <= 3 (Fock space computation). For s >= 4,
-        use delta_z_table(s) for the structural decomposition.
+        Available for all s via the quantum Miura recursion.
         """
-        if s > 3:
-            raise NotImplementedError(
-                f"Fock space computation at s={s} requires psi_{s-1} "
-                f"matrices. Use delta_z_table(s) for structural analysis "
-                f"at arbitrary spin."
-            )
         if s < 1:
             raise ValueError(f"Spin s must be >= 1, got {s}")
 
@@ -247,12 +249,8 @@ class AllSpinCoproduct(TensorHeisenberg):
         C_s contains the genuine L-R cross-terms (a >= 1) and the
         z-shifted R terms (a=0, p >= 1).
 
-        Available for s <= 3 (Fock space).
+        Available for all s via the quantum Miura recursion.
         """
-        if s > 3:
-            raise NotImplementedError(
-                f"Fock space cross-term at s={s} requires psi_{s-1}."
-            )
 
         M = self.N_max + abs(n) + 2
         mat = np.zeros((self.dim, self.dim), dtype=complex)
