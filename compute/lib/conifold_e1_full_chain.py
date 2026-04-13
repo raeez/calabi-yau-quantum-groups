@@ -1261,6 +1261,88 @@ class YangianGL11:
             for j in range(4)
         )
 
+    def yang_baxter_check(self, u: Fraction, v: Fraction) -> bool:
+        """Verify the Yang-Baxter equation for R(u) = u*Id + P.
+
+        The YBE on V tensor V tensor V reads:
+          R_{12}(u-v) R_{13}(u) R_{23}(v) = R_{23}(v) R_{13}(u) R_{12}(u-v)
+
+        For the Yang R-matrix R(u) = u*Id + P with P^2 = Id, this is
+        a classical identity. We verify it numerically at given (u, v).
+
+        Embedding into 8x8 matrices on (C^2)^{tensor 3}:
+          R_{12}(u) acts on factors 1,2 as R(u) and trivially on factor 3.
+          R_{13}(u) acts on factors 1,3 as R(u) and trivially on factor 2.
+          R_{23}(u) acts on factors 2,3 as R(u) and trivially on factor 1.
+        """
+        R_uv = self.r_matrix_yang(u - v)
+        R_u = self.r_matrix_yang(u)
+        R_v = self.r_matrix_yang(v)
+
+        def embed_12(M):
+            """Embed 4x4 matrix acting on slots 1,2 into 8x8 on slots 1,2,3."""
+            E = [[Fraction(0)] * 8 for _ in range(8)]
+            for a in range(2):
+                for b in range(2):
+                    for c in range(2):
+                        for d in range(2):
+                            # Input: |a,b,k> -> sum_{c,d} M[2a+b][2c+d] |c,d,k>
+                            row = 4 * c + 2 * d  # but we need to include k
+                            col = 4 * a + 2 * b
+                            # Actually: |a> x |b> x |k> has index 4a + 2b + k
+                            for k in range(2):
+                                i_in = 4 * a + 2 * b + k
+                                i_out = 4 * c + 2 * d + k
+                                E[i_out][i_in] += M[2 * a + b][2 * c + d]
+            return E
+
+        def embed_23(M):
+            """Embed 4x4 matrix acting on slots 2,3 into 8x8 on slots 1,2,3."""
+            E = [[Fraction(0)] * 8 for _ in range(8)]
+            for a in range(2):
+                for b in range(2):
+                    for c in range(2):
+                        for d in range(2):
+                            for k in range(2):
+                                i_in = 4 * k + 2 * a + b
+                                i_out = 4 * k + 2 * c + d
+                                E[i_out][i_in] += M[2 * a + b][2 * c + d]
+            return E
+
+        def embed_13(M):
+            """Embed 4x4 matrix acting on slots 1,3 into 8x8 on slots 1,2,3."""
+            E = [[Fraction(0)] * 8 for _ in range(8)]
+            for a in range(2):
+                for b in range(2):
+                    for c in range(2):
+                        for d in range(2):
+                            # Slots 1 and 3: |a> x |k> x |b> -> M[2a+b][2c+d] |c> x |k> x |d>
+                            for k in range(2):
+                                i_in = 4 * a + 2 * k + b
+                                i_out = 4 * c + 2 * k + d
+                                E[i_out][i_in] += M[2 * a + b][2 * c + d]
+            return E
+
+        def mat_mul_8(A, B):
+            C = [[Fraction(0)] * 8 for _ in range(8)]
+            for i in range(8):
+                for j in range(8):
+                    for k in range(8):
+                        C[i][j] += A[i][k] * B[k][j]
+            return C
+
+        # LHS: R_{12}(u-v) R_{13}(u) R_{23}(v)
+        lhs = mat_mul_8(mat_mul_8(embed_12(R_uv), embed_13(R_u)), embed_23(R_v))
+
+        # RHS: R_{23}(v) R_{13}(u) R_{12}(u-v)
+        rhs = mat_mul_8(mat_mul_8(embed_23(R_v), embed_13(R_u)), embed_12(R_uv))
+
+        return all(
+            lhs[i][j] == rhs[i][j]
+            for i in range(8)
+            for j in range(8)
+        )
+
     def evaluation_reps(self) -> Dict[str, Any]:
         """The evaluation representations of Y(gl(1|1)).
 
