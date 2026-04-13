@@ -9,9 +9,9 @@ The combinatorial skeleton of a Calabi-Yau category (its lattice, BPS spectrum, 
 
 | Volume | Title | Role |
 |:------:|-------|------|
-| **I** | *Modular Koszul Duality* | The algebraic engine: bar-cobar duality for chiral algebras on curves |
-| **II** | *A-infinity Chiral Algebras and 3D HT QFT* | The 3D interpretation: Swiss-cheese, PVA descent, gravity |
-| **III** | *Calabi-Yau Quantum Groups* (this volume) | The categorical completion |
+| **I** | *Modular Koszul Duality* | E_n-chiral algebras as algebraic-geometric objects on curves and configuration spaces |
+| **II** | *A-infinity Chiral Algebras and 3D HT QFT* | Derived centres interpreted physically as 3d HT gauge theories |
+| **III** | *Calabi-Yau Quantum Groups* (this volume) | Concrete CY quantum groups as examples of Vol I's abstract E_1-chiral quantum groups |
 
 ## The CY-to-Chiral Functor
 
