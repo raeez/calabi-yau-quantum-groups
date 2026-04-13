@@ -187,7 +187,7 @@ class BoundaryAlgebra:
     def deformation_parameters(self) -> Dict[str, Rational]:
         """Return the independent deformation parameters."""
         if self.dim == 1:
-            return {}  # No free parameters
+            return {"k": self.omega.kac_moody_level()}  # KM level
         elif self.dim == 2:
             return {"sigma_3": self.omega.sigma3}  # One parameter
         else:
@@ -368,6 +368,8 @@ class EnStructureVerifier:
         # At the free-field level (sigma_3 = 0, self-dual point), the
         # differentials commute trivially. At generic parameters, the
         # commutation is a consequence of the DIM relations.
+        # NOTE: Under the CY constraint h1+h2+h3=0, sigma3=0 iff
+        # self-dual (one h_i=0), so this disjunction is always True.
         return self.omega.is_self_dual or self.omega.sigma3 != 0
 
     def en_level_summary(self) -> Dict[str, object]:
@@ -1315,7 +1317,7 @@ def _hexapartition_count(n: int) -> int:
     Equivalently, [q^n] P(q)^6 = convolution of _bipartition_count
     taken three times (since P(q)^6 = (P(q)^2)^3).
 
-    First values: 1, 6, 27, 98, 309, 876, 2289, 5594, ...
+    First values: 1, 6, 27, 98, 315, 918, 2492, 6372, ...
     """
     if n < 0:
         return 0
@@ -1731,7 +1733,7 @@ def _quadpartition_count(n: int) -> int:
     Computed as double convolution of bipartitions:
     P(q)^4 = (P(q)^2)^2, so [q^n] P(q)^4 = sum_{a+b=n} bp(a)*bp(b).
 
-    First values: 1, 4, 14, 40, 101, 228, 478, 936, ...
+    First values: 1, 4, 14, 40, 105, 252, 574, 1240, ...
     """
     if n < 0:
         return 0
