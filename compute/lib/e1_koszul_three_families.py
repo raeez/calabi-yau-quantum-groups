@@ -309,12 +309,12 @@ def kac_moody_sl2_bar_complex(k: Fraction = Fraction(1)) -> List[BarComplexArity
         ),
         BarDifferentialResult(
             "[h|e|f]",
-            [(2, "[e|f]"), (1, "[h|h]")],
+            [(2, "[e|f]"), (-1, "[h|h]")],
             is_zero=False,
         ),
         BarDifferentialResult(
             "[e|e|f]",
-            [(1, "[e|h]")],
+            [(-1, "[e|h]")],
             is_zero=False,
         ),
         BarDifferentialResult(
