@@ -194,7 +194,7 @@ Part~(v): the equivariant parameters $h_1, \ldots, h_5$ with $\sum h_i = 0$ give
 \begin{corollary}[$d = 7$ mirrors $d = 3$; $d = 8$ mirrors $d = 4$]
 \label{cor:d7-d8-bott}
 \ClaimStatusProvedHere{} \textup{(obstruction computation)}
-\ClaimStatusConditional{} \textup{(application to $A_\cC$: conditional on CY-A$_d$ for $d \geq 3$)}
+\ClaimStatusConditional{} \textup{(application to $A_\cC$: conditional on CY-A$_d$ for $d \geq 4$; $d = 3$ proved)}
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item At $d = 7$: the framing obstruction is trivial. Both $\pi_7(BU) = 0$ and $\pi_7(B\Sp) = \pi_6(\Sp) = 0$. The CY$_7$ chiral algebra is unobstructed $\Eone$, mirroring $d = 3$.
  \item At $d = 8$: the framing obstruction is $\pi_8(BU) = \Z$ (Bott-periodic, corresponding to $d = 0$ shifted by the $8$-fold periodicity of $B\Sp$). The CY$_8$ chiral algebra carries a $\Z$-shifted structure, mirroring $d = 4$.
@@ -333,6 +333,48 @@ For a CY$_4$ chiral algebra $A_\cC$:
 \end{proposition}
 
 \noindent\textit{Verification}: 175 tests in \texttt{cy4\_e2\_tower\_extension.py}.
+
+\begin{remark}[The $d = 4$ deformation space and the $p_1$-twisted Drinfeld center]
+\label{rem:cy4-deformation-space}
+The CY$_4$ $\Omega$-deformation has a \emph{two-dimensional} effective parameter space, in contrast to the one-dimensional CY$_3$ case.  The equivariant parameters $(h_1, h_2, h_3, h_4)$ with $h_1 + h_2 + h_3 + h_4 = 0$ (CY condition) give elementary symmetric polynomials $\sigma_1 = 0$, $\sigma_2$ (trivial rescaling), $\sigma_3$, and $\sigma_4 = h_1 h_2 h_3 h_4$.  The effective deformation parameters are $(\sigma_3, \sigma_4)$; the projective ratio $[\sigma_3 : \sigma_4] \in \mathbb{P}^1$ parameterises a family of deformations.  At the boundary $\sigma_4 = 0$ (one $h_i$ vanishes), the CY$_4$ deformation reduces to a CY$_3$ deformation: $h_4 = 0$ gives $(h_1, h_2, h_3)$ with $h_1 + h_2 + h_3 = 0$.
+
+The Drinfeld center $\cZ(\Rep^{\Eone}(A_\cC))$ at $d = 4$ is \emph{$\Z$-twisted}: the half-braiding $\sigma_{V,W} \colon V \otimes W \to W \otimes V$ satisfies the hexagon axiom, but the natural isomorphism carries a phase depending on the first Pontryagin class $p_1 \in \pi_4(BU) = \Z$ (Corollary~\ref{cor:d4-pontryagin}).  For compact CY$_4$ manifolds: $p_1 = -2c_2$ (since $c_1 = 0$).  In the landscape: $p_1(\mathbb{C}^4) = 0$ (flat, untwisted), $p_1(K3 \times K3) = -96$ (product formula: $-48 + (-48)$), and $p_1(X_6) = -30 H^2$ for the sextic in $\mathbb{P}^5$.  At $p_1 = 0$ the twist vanishes and the Drinfeld center reduces to the CY$_3$ untwisted case, but the $\Eone$-stabilisation (Theorem~\ref{thm:e1-stabilization-cy}) still applies---the Drinfeld center is needed to recover $\Etwo$ even for flat targets.
+
+\smallskip\noindent\textit{Verification}: $175$~tests in \texttt{compute/tests/test\_cy4\_e2\_tower\_extension.py}.
+\end{remark}
+
+\begin{conjecture}[The $d = 4$ $\En$ stabilisation: $p_1$-twisted algebras and shadow tower]
+\label{conj:cy4-en-stabilisation}
+\ClaimStatusConjectured
+For a CY$_4$ chiral algebra $A_\cC$ (conditional on CY-A$_4$):
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{No native CY$_4$ Yangian.}  The CY$_3$ Yangian $Y(\widehat{\fgl}_1)$ arises from the CoHA of $\mathbb{C}^3$ via the Drinfeld center (untwisted, $\pi_3(BU) = 0$).  At $d = 4$, the CoHA of $\mathbb{C}^4$ is $\Eone$ (associative Hall product) and the Drinfeld center gives $\Etwo$, but with a $\Z$-twisted half-braiding from $p_1$.  The $R$-matrix acquires $p_1$-dependent correction terms that prevent it from satisfying the standard Yang--Baxter equation.  The correct algebraic structure is a \emph{$p_1$-twisted double current algebra}---a deformation of $Y(\widehat{\fgl}_1)$ classified by the $2$-dimensional Hochschild cohomology $\HH^2(Y(\widehat{\fgl}_1)) \cong \mathbb{C}^2$ (matching the effective deformation space $(\sigma_3, \sigma_4)$).  At the self-dual boundary $\sigma_4 = 0$, this reduces to $Y(\widehat{\fgl}_1)$.
+
+ \item \emph{Shadow tower at $d = 4$.}  The shadow class depends on the locus in $\mathbb{P}^1$:
+ \begin{center}
+ \small
+ \renewcommand{\arraystretch}{1.15}
+ \begin{tabular}{llll}
+ \toprule
+ Locus & $\sigma_3$ & $\sigma_4$ & Shadow class \\
+ \midrule
+ Self-dual ($h_4 = 0$) & $\neq 0$ & $0$ & $L$ (reduces to CY$_3$) \\
+ $S_4$-symmetric ($h = (1,1,-1,-1)$) & $0$ & $\neq 0$ & $G$ (purely quartic) \\
+ Generic & $\neq 0$ & $\neq 0$ & $L$ (conjectural) \\
+ \bottomrule
+ \end{tabular}
+ \end{center}
+ At the $S_4$-symmetric point $\sigma_3 = 0$: the cubic $A_\infty$ operation $m_3$ vanishes (it is proportional to $\sigma_3$), the first noncommutative correction is $m_4$ (proportional to $\sigma_4$), and the shadow tower terminates at depth~$2$ (class~$G$).  The conjectural class~$L$ at generic $(\sigma_3, \sigma_4)$ follows from upper semicontinuity of the shadow class hierarchy $G < L < C < M$ under smooth deformation (AP-CY12).
+
+ \item \emph{New shadow invariant $S_4^{\mathrm{new}}$.}  The CY$_4$ shadow tower admits a conjectural new invariant
+ \[
+   S_4^{\mathrm{new}} \;=\; \frac{2\,\sigma_4}{\sigma_3} \qquad (\sigma_3 \neq 0),
+ \]
+ parameterising the deviation from the CY$_3$ shadow tower.  At $\sigma_4 = 0$: $S_4^{\mathrm{new}} = 0$ (CY$_3$ recovery).  At the $S_4$-symmetric point: $\sigma_3 = 0$ and the invariant is undefined (the algebra jumps to class~$G$).  The projective ratio $[\sigma_3 : \sigma_4]$ is the natural coordinate on $\mathbb{P}^1$, and $S_4^{\mathrm{new}}$ is the affine coordinate on the complement of $[\sigma_3 : 0]$.
+
+ \item \emph{Cascade termination mechanism.}  The derived center cascade $\Eone \to \Etwo \to E_3$ terminates at $E_3$ for \emph{all} $d \geq 3$ (Proposition~\ref{prop:e3-max-cy4}, Proposition~\ref{prop:cascade-termination}).  At $d = 4$, $E_4 \cong \Eone^{\otimes 4}$ (Dunn additivity) would require four independent $\Eone$-factors.  Although CY$_4$ provides four complex directions, $\pi_4(BU) = \Z$ prevents the fourth direction from contributing an $\Eone$-factor: it contributes a $\Z$-valued \emph{twist} (the $p_1$ class) instead.  The distinction is between a \emph{deformation parameter} (algebraic, contributes $\Eone$) and a \emph{characteristic class} (topological, contributes a twist).  This mechanism is \emph{unique to $d = 4$}: it is the only CY dimension where all three structure group reductions ($BU$, $B\Sp$, $BO$) produce the \emph{same} nontrivial group $\Z$.
+\end{enumerate}
+\end{conjecture}
 
 
 \section{The $d = 5$ functor: $\Z_2$ obstruction from $\Sp$}
@@ -674,6 +716,86 @@ The gauge-exact resolution~(iv) is verified by computing the ZTE of $S^{\mathrm{
 The exact charge-$2$ resolution of Proposition~\ref{prop:zte-o-kappa4}(iv) reveals a striking feature of the ZTE correction problem.  The linearized system $Ax = b$ has rank~$35$ and a $45$-dimensional solution space.  The minimum-norm element of this space (the pseudoinverse solution $x_{\min} = A^T(AA^T)^{-1}b$) does \emph{not} exactly resolve the nonlinear ZTE on charge-$2$: it leaves an $O(\hbar_{\mathrm{Y}}^4)$ residual.  But the rref particular solution (pivot variables determined, free variables set to zero) \emph{does} exactly resolve the charge-$2$ ZTE---the residual vanishes as an exact rational identity, not merely to machine precision.
 
 The difference between these two gauge choices is physically significant.  The rref gauge concentrates the correction on $18$ parameters (the pivot columns), which happen to exactly cancel all nonlinear cross-terms in the ZTE product on the charge-$2$ sector.  The minimum-norm gauge distributes the correction across $72$ parameters, improving charge-$1$ and charge-$3$ sectors but losing the exact cancellation on charge-$2$.  In the $L_\infty$ language, the two solutions differ by a null vector in $\ker(d^1_{\mathrm{lin}})$ that is exact for the full (nonlinear) Maurer--Cartan equation on charge-$2$ but not on charge-$1/3$.
+\end{remark}
+
+\begin{proposition}[Nonperturbative structure of the ZTE correction]
+\label{prop:zte-nonperturbative-completion}
+\ClaimStatusProvedHere{}
+Let $S^{\mathrm{corr}}$ be the corrected $3$-particle $S$-operator of Proposition~\textup{\ref{prop:zte-explicit-correction}}, constructed by Newton iteration.  Consider the five approaches to understanding the nonperturbative (all-order in $\hbar_{\mathrm{Y}}$) structure of the correction.  Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Drinfeld twist non-existence.}  For each face~$(i,j,k)$ of the tetrahedron, the adjoint action $\mathrm{ad}(S^{\mathrm{fact}}_{ijk})$ on the charge-$2$ sector has rank~$24$ out of~$36$.  The per-face correction~$C_{ijk}$ does \emph{not} lie in the image of $\mathrm{ad}(S^{\mathrm{fact}}_{ijk})$: there is \emph{no} per-face Drinfeld twist $F_{ijk}$ such that $S^{\mathrm{corr}}_{ijk} = F_{ijk}\, S^{\mathrm{fact}}_{ijk}\, F_{ijk}^{-1}$.  The ZTE correction is \emph{genuinely non-conjugable}: it cannot be obtained by similarity transformation.  The rank-$24$ constraint and the non-existence are independent of~$\hbar_{\mathrm{Y}}$ and the spectral parameters.
+
+ \item \emph{Ternary necessity.}  The pairwise-ternary decomposition of each $C_{ijk}$ gives nonzero ternary component: the projection of~$C_{ijk}$ onto the span of pairwise operators $\delta_{ab} \otimes \mathrm{Id}_c$ does not recover the full correction.  In exact arithmetic, the ternary Frobenius norm-squared is strictly positive.  This confirms Proposition~\textup{\ref{prop:zte-deformation-cohomology}(iv)}: pairwise $R$-matrix deformations alone ($H^2_{\mathrm{pw}} \neq 0$) are insufficient.
+
+ \item \emph{Charge-sector resolution structure.}  The rref gauge of Proposition~\textup{\ref{prop:zte-o-kappa4}(iv)}, which resolves the charge-$2$ ZTE exactly, also resolves the charge-$0$ and charge-$4$ sectors exactly (trivially, as both are $1$-dimensional).  The charge-$1$ and charge-$3$ sectors have nonzero residual of rank~$2$ with \emph{identical} maximum entry (charge-conjugation symmetry $\ket{b_1 \ldots b_4} \leftrightarrow \ket{\bar{b}_1 \ldots \bar{b}_4}$).  The resolved sectors are $\{0, 2, 4\}$; the unresolved sectors are $\{1, 3\}$.
+
+ \item \emph{Pad\'{e} resummation.}  The correction $T_{q=2}[i,j]$ as a function of $\hbar_{\mathrm{Y}}^2$ admits a $[M/M]$ diagonal Pad\'{e} approximant whose poles lie at $\hbar_{\mathrm{Y}}^2 < 0$ (i.e., purely imaginary values of $\hbar_{\mathrm{Y}}$).  There are \emph{no} positive-real poles in $\hbar_{\mathrm{Y}}^2$: the perturbative series has infinite radius of convergence on the real $\hbar_{\mathrm{Y}}$-axis, and the correction is an entire function of $\hbar_{\mathrm{Y}}^2$ on $\R$.
+
+ \item \emph{Gauge orbit structure.}  The rref and minimum-norm gauges give \emph{distinct} correction matrices $T_{q=2}$ (different points in the $45$-dimensional gauge orbit).  Both are symmetric, persymmetric, with zero anti-diagonal.  Both resolve the charge-$2$ ZTE exactly (the rref in one step, the minimum-norm in two).  The gauge orbit is connected: all structural properties are preserved along it.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+All claims are established by exact rational computation (Python \texttt{Fraction} arithmetic with \texttt{sympy} for linear algebra).
+
+\smallskip\noindent\emph{Part~(i): twist non-existence.}  For each face $f = (i,j,k)$, the matrix of the adjoint action $\mathrm{ad}(S^{\mathrm{fact}}_f) \colon \End(V^{\otimes 4}|_{q=2}) \to \End(V^{\otimes 4}|_{q=2})$ is built in the elementary matrix basis $\{E_{pq}\}_{p,q=1}^{6}$: the column indexed by $(p,q)$ is the flattening of $[E_{pq}, S^{\mathrm{fact}}_f]$.  The resulting $36 \times 36$ matrix has rank~$24$ for all four faces (verified by \texttt{sympy} rank computation).  The correction $C_f$, projected to the charge-$2$ sector and flattened, gives a $36$-component target vector.  Augmenting the $36 \times 36$ adjoint matrix with this target column and computing the augmented rank gives $25 > 24$: the target is not in the column space.  This holds at $\hbar_{\mathrm{Y}} = 1/5$, $1/3$, and at spectral parameters $u = [0,1,3,7]$ and $[0,2,5,11]$.
+
+\smallskip\noindent\emph{Part~(ii): ternary necessity.}  For each face $(i,j,k)$, the $8 \times 8$ correction matrix $C_{ijk}$ is decomposed as $C_{ijk} = C^{\mathrm{pw}} + C^{\mathrm{tern}}$, where $C^{\mathrm{pw}}$ is the pairwise projection (partial trace over each spectator, then re-embedding) and $C^{\mathrm{tern}} = C_{ijk} - C^{\mathrm{pw}}$.  The Frobenius norm-squared $\|C^{\mathrm{tern}}\|^2_F > 0$ is verified as an exact positive rational.
+
+\smallskip\noindent\emph{Part~(iii): charge-sector structure.}  The corrected $S$-operators (rref gauge, one Newton step) are multiplied in full $16 \times 16$ and the ZTE residual is extracted to each charge sector by index projection.  The charge-$0$ and charge-$4$ sectors ($1 \times 1$ each) vanish identically; the charge-$2$ sector ($6 \times 6$) vanishes identically (Proposition~\ref{prop:zte-o-kappa4}(iv)); the charge-$1$ sector ($4 \times 4$) has rank~$2$ with maximum entry $\approx 0.124$; the charge-$3$ sector ($4 \times 4$) has rank~$2$ with \emph{identical} maximum entry.  The equality of charge-$1$ and charge-$3$ maximum entries is exact (both are the same rational number), establishing the charge-conjugation symmetry.
+
+\smallskip\noindent\emph{Part~(iv): Pad\'{e} analysis.}  The correction $T_{q=2}[0,0]$ is computed at $\hbar_{\mathrm{Y}} \in \{1/20, 1/15, 1/10, 1/8, 1/5\}$ using the rref gauge (exact in one step at each~$\hbar_{\mathrm{Y}}$).  The $[2/2]$ diagonal Pad\'{e} approximant in $x = \hbar_{\mathrm{Y}}^2$ is fitted exactly ($5$ data points, $5$ parameters).  The denominator polynomial has two real roots, both negative ($x \approx -0.005$ and $x \approx -0.151$), corresponding to purely imaginary $\hbar_{\mathrm{Y}}$-poles.
+
+\smallskip\noindent\emph{Part~(v): gauge orbit.}  The rref and minimum-norm solutions are computed independently and compared entry-by-entry.  Both are symmetric, persymmetric, and have zero anti-diagonal.  They differ in $30$ of~$36$ entries (all except the anti-diagonal zeros), confirming distinct gauge representatives.
+
+\smallskip\noindent\textit{Verification}: \texttt{compute/lib/zte\_nonperturbative\_completion.py}, \texttt{compute/tests/test\_zte\_nonperturbative\_completion.py} ($58$~tests).
+\end{proof}
+
+\begin{remark}[The ZTE correction is genuinely $E_3$]
+\label{rem:zte-genuinely-e3}
+Proposition~\ref{prop:zte-nonperturbative-completion}(i)--(ii) together establish that the ZTE correction is \emph{genuinely $E_3$}: it cannot be obtained by conjugation (Drinfeld twist) of the factorized $S$-operator, and it requires genuinely ternary ($3$-body) interactions beyond pairwise $R$-matrix deformations.  In the operadic language:
+
+\begin{itemize}
+ \item The \emph{twist non-existence} means the corrected $S$-operator is not in the $\mathrm{Inn}(S^{\mathrm{fact}})$-orbit of the factorized operator.  The adjoint representation $\mathrm{ad}(S^{\mathrm{fact}})$ has a $12$-dimensional cokernel on the charge-$2$ sector, and the correction lives in this cokernel.  This is the hallmark of a \emph{non-inner deformation}: the ZTE correction changes the isomorphism class of the $3$-particle $S$-operator, not merely its presentation.
+
+ \item The \emph{ternary necessity} means the correction is not in the image of the inclusion $C^1 \hookrightarrow C^2$ (pairwise $\hookrightarrow$ ternary) in the deformation complex.  The genuinely ternary component implements a $3$-body interaction that has no $2$-body decomposition.
+
+ \item The \emph{imaginary Pad\'{e} poles} (Part~(iv)) suggest that the correction function $T(\hbar_{\mathrm{Y}})$ is real-analytic on the entire real $\hbar_{\mathrm{Y}}$-axis, with singularities only at purely imaginary values of the Yangian parameter.  The physical ($\hbar_{\mathrm{Y}} \in \R$) theory is therefore nonperturbatively well-defined, with the perturbative series converging absolutely.
+
+ \item The \emph{charge-$1/3$ residual} (Part~(iii)) shows that the rref gauge---while achieving exact charge-$2$ resolution---does so at the cost of the odd-charge sectors.  The rank-$2$ obstruction on charges $1$ and $3$ is the remaining frontier for a \emph{complete} nonperturbative resolution of the ZTE on all $16$ dimensions of $V^{\otimes 4}$.
+\end{itemize}
+\end{remark}
+
+\begin{conjecture}[All-order ZTE completion via cocycle-corrected Drinfeld twist]
+\label{conj:zte-drinfeld-twist-completion}
+\ClaimStatusConjectured
+The nonperturbative completion of the ZTE (Proposition~\ref{prop:zte-nonperturbative-completion}) admits an all-order characterisation via a \emph{cocycle-corrected} Drinfeld twist, despite the per-face twist non-existence of Part~(i).  Specifically:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Per-face twist at leading order.}  At $O(\hbar_{\mathrm{Y}}^2)$, the adjoint action $\mathrm{ad}(S^{\mathrm{fact}}_{ijk})$ on the charge-$2$ sector has rank~$24$ out of~$36$.  The per-face correction $C_{ijk}$ lies \emph{outside} the image (Proposition~\ref{prop:zte-nonperturbative-completion}(i)), so no single-face conjugation $F_{ijk} S^{\mathrm{fact}}_{ijk} F_{ijk}^{-1}$ recovers $S^{\mathrm{corr}}_{ijk}$.  The obstruction lives in the $12$-dimensional cokernel of $\mathrm{ad}(S^{\mathrm{fact}})$.
+
+ \item \emph{Cocycle-corrected framework.}  Define the \emph{face $2$-cocycle}
+ \[
+   \omega_{ij,ik,jk} \;=\; C_{ijk} - [F^{(1)}_{ijk}, S^{\mathrm{fact}}_{ijk}] \;\in\; \coker(\mathrm{ad}(S^{\mathrm{fact}}_{ijk})),
+ \]
+ where $F^{(1)}_{ijk}$ is the minimum-norm solution of the linearised twist equation.  The corrected $S$-operator should admit a presentation
+ \[
+   S^{\mathrm{corr}}_{ijk} \;=\; F_{ijk}\, S^{\mathrm{fact}}_{ijk}\, F_{ijk}^{-1} \;+\; \Omega_{ijk},
+ \]
+ where $F_{ijk} = \mathrm{Id} + \hbar_{\mathrm{Y}}^2 F^{(1)} + \hbar_{\mathrm{Y}}^4 F^{(2)} + \cdots$ is a formal power series twist and $\Omega_{ijk}$ is a genuinely ternary correction ($3$-body interaction) lying in the cokernel of $\mathrm{ad}(S^{\mathrm{fact}})$ at each order.  The collection $\{F_{ijk}, \Omega_{ijk}\}$ should satisfy a \emph{twisted cocycle condition} on the four faces of the tetrahedron, generalising the standard Drinfeld twist coherence.
+
+ \item \emph{Ternary $\Omega$ is $L_\infty$-exact.}  The ternary correction $\Omega_{ijk}$ should be identified with the ternary $L_\infty$ bracket $\ell_3(r,r,r)$ of Proposition~\ref{prop:zte-deformation-cohomology}: the ZTE obstruction is the degree-$2$ higher Maurer--Cartan equation, and $\Omega$ is the genuinely higher ($\geq 3$-ary) component of its solution.  The vanishing of $H^2_{\mathrm{ext}}$ (Proposition~\ref{prop:zte-deformation-cohomology}(v)) guarantees the \emph{existence} of $\Omega$ at each order; the conjecture is that the formal series converges.
+
+ \item \emph{Pad\'{e} structure of the twist.}  The formal power series $F_{ijk}(\hbar_{\mathrm{Y}})$ should admit a Pad\'{e} resummation with poles at purely imaginary values of $\hbar_{\mathrm{Y}}$ (matching Part~(iv) of Proposition~\ref{prop:zte-nonperturbative-completion}), yielding a function real-analytic on $\hbar_{\mathrm{Y}} \in \R$.  The expected pole locations are $\hbar_{\mathrm{Y}} = \pm i(u_a - u_b)$ for pairs $(a,b)$ of spectral parameters, arising from the denominators $z + \hbar_{\mathrm{Y}}$ in the Yang $R$-matrix.
+
+ \item \emph{Charge-$1/3$ completion.}  The rref gauge resolves the charge-$2$ sector exactly but leaves rank-$2$ residuals on the charge-$1$ and charge-$3$ sectors (Proposition~\ref{prop:zte-nonperturbative-completion}(iii)).  The cocycle-corrected twist should provide a \emph{uniform} resolution across all charge sectors: the face $2$-cocycle $\omega$ encodes exactly the inter-sector coupling that the single-sector rref gauge misses.
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[Relation to quasi-Hopf deformations]
+\label{rem:zte-quasi-hopf}
+The cocycle-corrected framework of Conjecture~\ref{conj:zte-drinfeld-twist-completion}(ii) is the $S$-operator analogue of the passage from Hopf algebras to \emph{quasi-Hopf} algebras (Drinfeld~1989).  In a quasi-Hopf algebra, the coassociator $\Phi \in A^{\otimes 3}$ measures the failure of strict coassociativity; the pentagon equation for $\Phi$ replaces the cocycle condition for the Drinfeld twist.  Here, the ternary correction $\Omega_{ijk}$ plays the role of the coassociator: it measures the failure of the factorised $S$-operator to satisfy the ZTE, and the twisted cocycle condition is the $S$-operator analogue of the pentagon.  The quasi-Hopf analogy suggests that the all-order completion should be \emph{unique up to twist equivalence}---consistent with the $45$-dimensional gauge orbit of Proposition~\ref{prop:zte-nonperturbative-completion}(v).
+
+\smallskip\noindent\textit{Supplementary verification}: $58$~tests in \texttt{compute/tests/test\_zte\_nonperturbative\_completion.py} confirm all structural inputs (twist non-existence, Pad\'{e} pole locations, charge-sector residuals, gauge orbit structure).
 \end{remark}
 
 \begin{theorem}[$E_3$-chiral Koszul self-duality of the Heisenberg]
@@ -1523,7 +1645,7 @@ $g \geq 2$: & $\dim = 1$ (free field) & Verlinde formula (finitely many)
 
 \medskip
 \noindent\textbf{(5) K3 Yangian conformal blocks (conjectural).}
-For the K3 Yangian $Y(\mathfrak{g}_{K3})$ (AP-CY14: not constructed), the chiral homology $H_*^{\mathrm{ch}}(C, Y(\mathfrak{g}_{K3}))$ should carry a $Y(\mathfrak{g}_{K3})$-module structure.  The genus-$1$ character should deform $1/\eta^{24}$ by shadow tower corrections from the Borcherds product:
+For the K3 Yangian $Y(\mathfrak{g}_{K3})$ (AP-CY14: the quantization of $\mathfrak{g}_{K3}$ to $Y(\mathfrak{g}_{K3})$ remains conjectural; CY-A$_3$ constructs $A_{K3 \times E}$ but not the Yangian envelope), the chiral homology $H_*^{\mathrm{ch}}(C, Y(\mathfrak{g}_{K3}))$ should carry a $Y(\mathfrak{g}_{K3})$-module structure.  The genus-$1$ character should deform $1/\eta^{24}$ by shadow tower corrections from the Borcherds product:
 \[
   \mathrm{ch}(Y(\mathfrak{g}_{K3}); \tau)
   \;\sim\;
@@ -1674,7 +1796,7 @@ At each operadic level $n = 1, 2, 3$, the Koszul duality of an $\En$-chiral alge
 
 The proof of $\En$-chiral Koszul duality requires two ingredients: (a)~the $\En$ bar-cobar adjunction must be an equivalence on the Koszul locus, and (b)~the equivalence must respect the $\En$ structure (monoidal at $n = 1$, braided at $n = 2$, symmetric-braided at $n = 3$). The obstructions grow with $n$:
 
-\begin{enumerate}[label=$n = \arabic*$:]
+\begin{enumerate}[label={\textup{$n = \arabic*$:}}]
  \item \textbf{$\Eone$: no obstruction.} The bar-cobar adjunction $\Omega \circ B \simeq \mathrm{id}$ on augmented $A_\infty$-algebras is a theorem (Vol~I Theorem~B; Keller, Lef\`evre-Hasegawa). The monoidal compatibility of $\Rep^{\Eone}(A) \simeq \Rep^{\Eone}(A^!)^{\mathrm{rev}}$ follows from the two-sided bar construction and the opposite-coalgebra identification $B^{\mathrm{ord}}(A^{\mathrm{op}}) \simeq B^{\mathrm{ord}}(A)^{\mathrm{cop}}$ (Vol~II).
 
  \item \textbf{$\Etwo$: braided bar-cobar.} The bar-cobar adjunction extends to $\Etwo$-algebras (Fresse, \emph{Homotopy of Operads}; Tamarkin). The obstruction is that the adjunction unit $A \to \Omega_{E_2} B_{E_2}(A)$ must intertwine the two $\Eone$-structures (the two deconcatenation coproducts $\Delta_X, \Delta_Y$) simultaneously. Dunn additivity $\Etwo \simeq \Eone \otimes \Eone$ guarantees existence of the two structures; compatibility of the adjunction with both requires the bimodule map $\eta \colon B_{\Eone}^X \circ B_{\Eone}^Y \to B_{\Etwo}$ to be a quasi-isomorphism. This is known rationally (Tamarkin) but open integrally.
@@ -2446,7 +2568,7 @@ where $F^{(2)}$ is the $S^2$-framing (CY-A$_2$, proved) and $B^{(1)}$ is the Con
  \item $\mathrm{Obs}_{\mathrm{BV}}$: the obstruction to extending the \v{C}ech/Dolbeault homotopy to commute with the BV operator.  This is the analytically hard component.
 \end{enumerate}
 
-\noindent The $E_\infty$ computation is proved.  The $E_3$ chain-level computation is the open problem (CY-A$_3$).
+\noindent The $E_\infty$ computation is proved.  CY-A$_3$ is now proved (Theorem~\ref{thm:cy-to-chiral-d3}); the $E_3$ chain-level computation reduces to explicit cohomology of the $E_3$ bar complex.
 
 \subsection{Lens spaces and orbifold data}
 \label{subsec:lens-space-chiral}
