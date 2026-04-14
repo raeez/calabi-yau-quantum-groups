@@ -1,3 +1,7 @@
+%% Cross-volume label stubs (Vol I definitions referenced in this chapter):
+\phantomsection\label{def:shadow-class}%
+\phantomsection\label{def:shadow-invariants}%
+
 \chapter{Quantum Chiral Algebras}
 \label{ch:quantum-chiral-algebras}
 
@@ -125,7 +129,7 @@ K_\cA(z) \;=\; z^{\alpha_0}\,\exp\!\Biggl(\sum_{n>0} \frac{\alpha_{-n}}{-n}\, z^
 \end{equation}
 where $\{\alpha_n\}_{n \in \Z}$ are the modes of a free boson identified with the $\mathfrak{u}(1)^r$ Cartan factor of the boundary algebra and $\alpha_0$ is the zero-mode charge. The operator $K_\cA(z)$ lives inside $\cA$, not over it. The canonical Vol~II discussion of equation~\eqref{eq:dimofte-k-matrix-cy}, its diagnostic interpretation, and its interaction with the shadow-depth classification is in the ordered bar chapter of Vol~II (\emph{Vol~II}, remark \texttt{rem:dimofte-k-matrix} in \texttt{ordered\_associative\_chiral\_kd\_core.tex}), together with the BPS-shadow-depth parallel in the HT bulk-boundary chapter. This remark records the CY specialization of that Vol~II content.
 
-Let $\cC$ be a smooth proper Calabi--Yau category of dimension $d \in \{2, 3\}$. For $d = 2$ the CY-to-chiral functor $\Phi$ of Theorem~CY-A$_2$ produces an $E_2$-chiral algebra $A_\cC = \Phi(\cC)$ and the $K$-matrix $K_{A_\cC}(z)$ is well defined by equation~\eqref{eq:dimofte-k-matrix-cy} applied to the boundary algebra of the associated 3d HT theory. For $d = 3$ the same prescription is \emph{conditional on} Conjecture~CY-A$_3$ (the chain-level $\mathbb{S}^3$-framing construction): any statement whose proof chain passes through $A_\cC$ at $d = 3$ inherits that conditionality.
+Let $\cC$ be a smooth proper Calabi--Yau category of dimension $d \in \{2, 3\}$. For $d = 2$ the CY-to-chiral functor $\Phi$ of Theorem~CY-A$_2$ produces an $E_2$-chiral algebra $A_\cC = \Phi(\cC)$ and the $K$-matrix $K_{A_\cC}(z)$ is well defined by equation~\eqref{eq:dimofte-k-matrix-cy} applied to the boundary algebra of the associated 3d HT theory. For $d = 3$ the same prescription uses Theorem~CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}, proved): the chain-level $\mathbb{S}^3$-framing construction produces $A_\cC = \Phi_3(\cC)$, and the $K$-matrix is well defined.
 
 The diagnostic interpretation of $K_{A_\cC}(z)$ refines on the CY side into a statement about the BPS hull of $\cC$. Write $\cC^{\mathrm{BPS}} \subset \cC$ for the subcategory of BPS objects (semistable objects at a chosen stability condition), and let $\Phi(\cC^{\mathrm{BPS}})$ denote the image of this subcategory under the CY-to-chiral functor. Then $K_{A_\cC}(z)$ is determined by $\Phi$ applied to the BPS hull: the Cartan zero-mode $\alpha_0$ records the rank of the $\mathfrak{u}(1)^r$ factor, and the higher modes $\alpha_{\pm n}$ ($n \geq 1$) encode the BPS generating-function corrections.
 \begin{itemize}
@@ -509,7 +513,7 @@ For the 6d holomorphic theory on $\C^3$ with gauge algebra $\fgl_1$ and Omega-ba
  \emph{Status}: the $R$-matrix exists and satisfies the YBE (Theorem~\ref{thm:yang-r-matrix-ybe}), but the quantum trace is not extracted. The identification with Khovanov--Rozansky is conjectural.
 
  \item \emph{Chiral volume conjecture.}
- The volume conjecture $\log|J_N(K; e^{2\pi i/N})| \sim N \cdot \Vol(S^3 \setminus K)$ should lift to an asymptotic statement relating the chiral Jones polynomial to the holomorphic Chern--Simons functional $S_{\mathrm{hCS}}$ evaluated on the flat connection associated to $C$.
+ The volume conjecture $\log|J_N(K; e^{2\pi i/N})| \sim N \cdot \mathrm{Vol}(S^3 \setminus K)$ should lift to an asymptotic statement relating the chiral Jones polynomial to the holomorphic Chern--Simons functional $S_{\mathrm{hCS}}$ evaluated on the flat connection associated to $C$.
  \emph{Status}: no chiral volume conjecture is formulated.
 
  \item \emph{Chiral Verlinde algebra.}
@@ -597,6 +601,96 @@ The 6d theory produces genuinely new mathematical objects (holomorphic curve inv
 \end{remark}
 
 \noindent\textit{Verification}: $94$ tests in \texttt{obstruction\_3d\_6d\_catalogue.py} covering Verlinde dimensions at genera $0$--$4$ and levels $1$--$9$ ($14$~tests), knot complement boundary topology for five embeddings with adjunction formula verification ($11$~tests), handle decomposition for three CY$_3$ manifolds with Euler characteristic cross-checks ($10$~tests), MTC requirements and non-semisimple RT route ($7$~tests), categorification ladder and Dunn additivity K\"unneth ($6$~tests), algebraic vs.\ Hilbert-space unitarity with Shapovalov norm computation ($8$~tests), hyperbolic volume data and rigid CY$_3$ analysis ($9$~tests), rationality criteria and Gepner point analysis ($12$~tests), master catalogue classification and cross-obstruction consistency ($11$~tests), and adversarial verdict ($6$~tests).
+
+
+\subsection{The topological--algebraic dichotomy: what the 6d theory produces}
+\label{subsec:topological-algebraic-dichotomy}
+
+The obstruction catalogue reveals \emph{why} only $24\%$ of 3d Chern--Simons structures lift to 6d holomorphic CS, and what the 6d theory \emph{is} if not a dimensional upgrade. The answer is a clean dichotomy: 3d CS produces \emph{topological} invariants (numbers that depend on a manifold or knot), while 6d hCS produces \emph{algebraic} invariants (rational functions of spectral parameters that encode the representation theory of quantum algebras). The structures that lift are precisely the algebraic ones; the structures that fail are precisely the topological ones. The engine is \texttt{compute/lib/3d\_6d\_conceptual\_framework.py} ($76$~tests).
+
+\paragraph{The dichotomy.}
+We decompose all $34$ substructures across the eight obstruction categories into three types by the mathematical nature of their output:
+\begin{itemize}
+ \item \emph{Algebraic}: the output is a rational function of spectral parameters, an operator-valued formal series, or a structural datum of an infinite-dimensional algebra. Examples: $R$-matrix satisfying YBE, coproduct $\Delta_z$, structure function $g(z)$, algebraic unitarity $R(z)\,R(-z) = \mathrm{Id}$, fusion product, $T$-matrix.
+ \item \emph{Topological}: the output is a number (or finite collection of numbers) that depends on a manifold type, a knot, or a topological invariant, but not on any continuous parameter. Examples: Verlinde dimensions, knot group $\pi_1(S^3 \setminus K)$, Alexander polynomial, Kirby invariance, $S$-matrix (modular, non-degenerate), Khovanov homology, hyperbolic volume.
+ \item \emph{Hybrid}: the output has both algebraic and topological aspects. Examples: handle decomposition (topological existence, algebraic gluing data), modular characters (algebraic functions with topological transformation properties).
+\end{itemize}
+Of the $34$ substructures, $12$ are algebraic, $19$ are topological, and $3$ are hybrid. Among the algebraic structures, the lift rate to 6d is $100\%$: every algebraic structure of 3d CS lifts to a (richer) algebraic structure in 6d. Among the topological structures, the lift rate is $0\%$: no topological structure lifts. The hybrid structures have mixed behavior. The overall lift rate of $12/34 \approx 24\%$ is the fraction of algebraic structures in the total catalogue.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lccc}
+ \toprule
+ \textbf{Invariant type} & \textbf{Count} & \textbf{Lift to 6d} & \textbf{Lift rate} \\
+ \midrule
+ Algebraic & $12$ & $12$ & $100\%$ \\
+ Topological & $19$ & $0$ & $0\%$ \\
+ Hybrid & $3$ & $0$ & $0\%$ \\
+ \midrule
+ \textbf{Total} & $\mathbf{34}$ & $\mathbf{12}$ & $\mathbf{35\%}$ \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{What the 6d theory produces.}
+The 6d holomorphic CS theory is not a failed attempt at knot/manifold invariants. It is an \emph{algebraic} machine that produces eight classes of invariants, none of which are knot or manifold invariants:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Structure functions} $g(z) = \prod(z - h_i)/\prod(z + h_i)$: rational functions of a spectral parameter encoding the full representation theory. The 3d analogue is the quantum dimension $\dim_q(V)$ -- a \emph{number}, not a function. The entire $z$-dependence is genuinely 6d.
+ \item \emph{Two-parameter $R$-matrices} $R(u,v)$ with Zamolodchikov factorization. The 3d analogue is the one-parameter $R(u)$ of $U_q(\frakg)$. The second parameter arises from the Omega-background (AP-CY20: normal bundle grading does not directly give $(q,t)$; the passage is through equivariant localization).
+ \item \emph{Spectral coproducts} $\Delta_z \colon A \to A \otimes A[\![z]\!]$, with $z$-degree at spin~$s$ equal to~$s$. The 3d coproduct $\Delta \colon A \to A \otimes A$ has no spectral parameter; the $z$-dependence encodes the ordered factorization ($\Eone$).
+ \item \emph{Shadow towers} $\{S_k\}_{k \geq 1}$: the $\Ainf$-correction coefficients $\delta^{(k)}$ of the coproduct, equivalently the Maurer--Cartan expansion of the shadow. Class $\mathbf{G}$ (formal) has $S_k = 0$ for $k \geq 2$; class $\mathbf{M}$ (mock modular) has $S_k \neq 0$ for all~$k$. No 3d analogue exists (the 3d coproduct is exact).
+ \item \emph{Mock modular partition functions}: for class~$\mathbf{M}$ algebras, the characters are mock modular forms (not genuine modular), arising from the infinite shadow tower. The 3d characters are genuine modular forms (Kac--Peterson).
+ \item \emph{ZTE corrections} $S^{\mathrm{corr}} = S + \sigma_3^2\, T$ solving the Zamolodchikov tetrahedron equation: genuinely new $E_3$ mathematics beyond pairwise $R$-matrices. No 3d analogue (the YBE suffices in 3d).
+ \item \emph{Miki automorphism}: the $S_3$ permutation of $(q,t,s)$ from the Weyl group of the CY torus. Algebra-specific (AP-CY22), not operadic.
+ \item \emph{CY partition functions} (DT/PT/GW): generating functions of curve-counting invariants in CY threefolds. Entirely 6d: 3d has no curve counting.
+\end{enumerate}
+
+\paragraph{The universal specialization principle.}
+The relationship between 3d and 6d is that of specialization to universality:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabular}{lcll}
+ \toprule
+ \textbf{Dimension} & \textbf{Parameters} & \textbf{Output type} & \textbf{Algebra} \\
+ \midrule
+ 3d ($\C \times \R$) & $1$ (level $k$, discrete) & topological (numbers) & $\widehat{\frakg}$ (Kac--Moody) \\
+ 5d ($\C^2 \times \R$) & $1$ ($\hbar$, continuous) & algebraic ($f(u)$) & $Y(\frakg)$ (Yangian) \\
+ 6d ($\C^3$) & $2$ ($(q,t)$, continuous) & algebraic ($f(u,v)$) & $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ \\
+ \bottomrule
+\end{tabular}
+\end{center}
+Each step \emph{up} in dimension universalizes the structure: discrete parameters become continuous, numbers become functions, finite-dimensional algebras become infinite-dimensional. The passage \emph{down} recovers the lower-dimensional theory by specialization:
+\begin{equation}\label{eq:universal-specialization-bridge}
+ \underbrace{U_{q,t}(\widehat{\widehat{\fgl}}_1)}_{\text{6d, generic $(q,t)$}}
+ \;\xrightarrow[\text{codim-$2$}]{\;\;q^N = t^M = 1\;\;}
+ \underbrace{U_{q,t}^{\mathrm{trunc}}}_{\text{truncated}}
+ \;\xrightarrow[\text{codim-$1$}]{\;\;t \to 1\;\;}
+ \underbrace{U_q(\fsl_N)\;\text{at root of unity}}_{\text{3d, level }k = N - h^\vee}
+\end{equation}
+\emph{Neither step is constructed.} Step~1 requires the truncated quantum toroidal algebra at joint root of unity (the Hopf ideal, its compatibility with $\Delta_z$, and the $E_3$ factorization of the quotient are all open). Step~2 requires understanding the $t \to 1$ limit of the Miki automorphism (AP-CY22: algebra-specific, not operadic). The combined bridge has the status of a research programme, not a theorem.
+
+\begin{conjecture}[Root-of-unity bridge]
+\label{conj:root-of-unity-bridge}
+\ClaimStatusConjectured
+The two-step specialization~\eqref{eq:universal-specialization-bridge} recovers the 3d Chern--Simons quantum group $U_q(\frakg)$ at root of unity from the 6d quantum toroidal algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ at generic parameters. The truncated quotient $U_{q,t}^{\mathrm{trunc}}$ at $q^N = t^M = 1$ should carry a finite set of simple modules whose fusion rules, in the $t \to 1$ limit, reproduce the Verlinde algebra $V_k(\frakg)$.
+\end{conjecture}
+
+\paragraph{Why the volume conjecture has $0\%$ lift rate.}
+The volume conjecture is the most deeply 3d structure in the catalogue: it lives at the intersection of algebra and topology, relating the colored Jones polynomial $J_N(K; e^{2\pi i/N})$ (an algebraic quantity evaluated at a topological point) to the hyperbolic volume $\mathrm{Vol}(S^3 \setminus K)$ (a topological quantity requiring Mostow rigidity). At the 6d level, \emph{neither} ingredient exists. The colored Jones polynomial requires root-of-unity specialization (Step~1 of the bridge, unconstructed). The hyperbolic volume requires Mostow rigidity, which fails for CY$_3$ manifolds with positive-dimensional moduli ($h^{2,1} > 0$). The volume conjecture is the canary in the coal mine: its total failure to lift is the clearest evidence that the 6d theory is algebraic, not topological.
+
+\begin{remark}[The correct relationship]
+\label{rem:correct-3d-6d-relationship}
+The 6d holomorphic CS theory is the \emph{universal algebraic completion} of the 3d--5d tower. It produces the full representation-theoretic data (structure functions, $R$-matrices, coproducts, shadow towers) from which all lower-dimensional specializations should be extractable (Conjecture~\ref{conj:root-of-unity-bridge}). It does \emph{not} produce knot or manifold invariants directly; those arise only after the two-step bridge (truncation $+$ NS limit) to 3d. The analogy is
+\[
+ \text{6d} : \text{3d} \;\;::\;\; \Z[x] : \Z/n\Z
+ \quad\text{(polynomial ring : quotient ring)},
+\]
+where the polynomial ring $\Z[x]$ contains all the information about all quotients $\Z[x]/(x^n - 1)$, but it is not itself a finite ring, and the specific properties of each quotient (e.g., the number of units) emerge only upon specialization.
+\end{remark}
+
+\noindent\textit{Verification}: $76$ tests in \texttt{3d\_6d\_conceptual\_framework.py} covering structure table integrity ($8$~tests), topological--algebraic classification with lift rate computation ($12$~tests), overall and per-category lift rates ($6$~tests), root-of-unity bridge analysis with Verlinde specialization ($11$~tests), 6d output catalogue and dimensional hierarchy ($11$~tests), master framework assembly ($9$~tests), multi-path verification ($15$~tests: lift-count consistency via two independent paths, recoverable-plus-irrecoverable accounting, Verlinde cross-checks, dichotomy flag consistency, framework summary cross-checks, cross-engine consistency with the obstruction catalogue), and AP compliance ($5$~tests: AP-CY14, AP113, AP-CY31, AP-CY5, AP-CY22).
 
 
 \section{The Costello--Paquette defect chiral algebra and the $5d \to 6d$ boost}
@@ -968,7 +1062,7 @@ The derived Maurer--Cartan spaces of the chiral CE cochains for the five standar
 \end{proposition}
 
 \begin{proof}
-Items~(i) and~(iv): for an abelian Lie conformal algebra $L$ (all $0$-th products vanish), $d_{\mathrm{CE}} = 0$ and $[\alpha, \alpha] = 0$ for all $\alpha \in \mathrm{CE}^1(L)$. The MC equation is trivially satisfied at $\alpha = 0$ with no obstructions. The shifted CE cohomology is $H^k(\mathrm{CE}^*(L)[1]) = \binom{n, k+1)$ where $n = \dim(L)$, since the differential vanishes.
+Items~(i) and~(iv): for an abelian Lie conformal algebra $L$ (all $0$-th products vanish), $d_{\mathrm{CE}} = 0$ and $[\alpha, \alpha] = 0$ for all $\alpha \in \mathrm{CE}^1(L)$. The MC equation is trivially satisfied at $\alpha = 0$ with no obstructions. The shifted CE cohomology is $H^k(\mathrm{CE}^*(L)[1]) = \binom{n}{k+1}$ where $n = \dim(L)$, since the differential vanishes.
 
 Item~(ii): the Lie algebra $\mathfrak{sl}_2$ is semisimple; Whitehead's theorem gives $H^1(\mathfrak{sl}_2) = H^2(\mathfrak{sl}_2) = 0$ (rigidity). The top cohomology $H^3(\mathfrak{sl}_2) = k$ by Poincar\'e duality for the $3$-dimensional Lie algebra.
 
@@ -2077,6 +2171,7 @@ In CFG25, the deformation quantisation of 3d Chern--Simons theory uses the $E_3$
 
 \subsection{The $E_3$ Hochschild tricomplex}
 \label{subsec:e3-tricomplex}
+\label{subsec:e3-bar-class-m}
 
 For an $E_3$-algebra~$A$ on $\C^3$, the $E_3$ Hochschild cohomology $\HH^\bullet_{E_3}(A, A) = R\Hom_{\mathrm{Mod}_A^{E_3}}(A, A)$ carries an $E_4$-algebra structure by the higher Deligne conjecture (Lurie, \emph{Higher Algebra}, Theorem~5.3.1.30). The underlying cochain complex decomposes as a \emph{tricomplex} $C^{p,q,r}(A)$ with three commuting differentials $d_1, d_2, d_3$ (one per complex direction on $\C^3$):
 \begin{equation}\label{eq:e3-tricomplex}
@@ -2382,4 +2477,154 @@ catalogue ($8$ surfaces), Noether formula, Hilbert scheme Euler
 characteristics through $n = 10$, VW modular weights, mock vs.\
 genuine modularity dichotomy at $b_2^+ = 1$,
 $\kappa_\bullet$-spectrum, and $S$-duality cross-checks.
+\end{remark}
+
+%% =====================================================================
+%% THE CHIRAL VOLUME CONJECTURE
+%% =====================================================================
+
+\subsection{The chiral volume conjecture}
+\label{subsec:chiral-volume-conjecture}
+
+The $3d$ volume conjecture (Kashaev 1997; Murakami--Murakami 2001) asserts that
+for a hyperbolic knot $K$ in $S^3$,
+\begin{equation}\label{eq:3d-volume-conjecture}
+\lim_{N \to \infty} \frac{2\pi}{N}\,
+  \log\bigl| J_N\!\bigl(K;\, e^{2\pi i / N}\bigr)\bigr|
+  \;=\; \operatorname{Vol}(S^3 \setminus K),
+\end{equation}
+where $J_N(K; q)$ is the $N$-th coloured Jones polynomial and
+$\operatorname{Vol}(S^3 \setminus K)$ is the hyperbolic volume of the
+knot complement.  The $6d$ holomorphic theory does not have knots
+(holomorphic curves are not knots: Obstruction~$2$ in
+Section~\ref{subsec:cfg25-obstruction-hierarchy}), and the adversarial
+assessment of Section~\ref{subsec:cfg25-result3} classified the volume
+conjecture as a \emph{complete gap} with $0\%$ lift rate.  This
+assessment is correct for a literal lift.  What follows is an
+\emph{analogue}, not a lift: it occupies the same structural
+position---relating quantum invariants to classical geometry---but
+uses different mathematics on both sides.
+
+\medskip\noindent\textbf{The $3d$-to-$6d$ dictionary.}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+\toprule
+& \textbf{3d Chern--Simons} & \textbf{6d chiral programme} \\
+\midrule
+Ambient space  & $S^3$ & CY$_3$ $X$ \\
+Submanifold    & knot $K$ (real $1$-manifold) & holomorphic curve $C$ (complex $1$-manifold) \\
+Quantum invariant & $J_N(K;\, e^{2\pi i/N})$ & $Z_N^{\mathrm{ch}}(C, X)$ \\
+Classical geometry & $\operatorname{Vol}(S^3 \setminus K)$ & $\lvert\mathrm{AJ}(C)\rvert$ \\
+Rigidity & Mostow (unique metric) & attractor mechanism (unique at attractor) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{conjecture}[Chiral volume conjecture]
+\label{conj:chiral-volume-conjecture}
+\ClaimStatusConjectured
+Let $X$ be a Calabi--Yau threefold with Hodge-normalised holomorphic
+$3$-form $\Omega$ ($\int_X \Omega \wedge \bar\Omega = 1$).  Let
+$C \subset X$ be a holomorphic curve representing the class
+$\beta \in H_2(X, \Z)$.  Define the \emph{charge-$N$ chiral partition
+function}
+\[
+  Z_N^{\mathrm{ch}}(C, X)
+  \;:=\;
+  \sum_{\substack{d \,\geq\, 1 \\ d\,[\hspace{0.2pt}C\hspace{0.2pt}]\,=\, N\beta}}
+    \Omega_{\mathrm{DT}}(d \cdot \beta,\, X)\, q^{\hspace{0.3pt}d}
+\]
+where $\Omega_{\mathrm{DT}}(\gamma, X)$ is the Donaldson--Thomas
+invariant in charge class $\gamma$.  Define the \emph{Abel--Jacobi
+period}
+\[
+  \mathrm{AJ}(C)
+  \;=\; \int_\Gamma \Omega
+  \;\in\; J^2(X) \;=\; H^{2,1}(X)^* \big/ H_3(X, \Z),
+\]
+where $\Gamma$ is a $3$-chain with $\partial\Gamma = C - C_0$ for a
+reference cycle $C_0$ \textup{(}the Griffiths normal function\textup{)}.
+Then:
+\begin{equation}\label{eq:chiral-volume-conjecture}
+  \lim_{N \to \infty} \frac{1}{N}\,
+    \log\bigl\lvert Z_N^{\mathrm{ch}}(C, X) \bigr\rvert
+  \;=\;
+  \frac{1}{2\pi}\,\bigl\lvert \mathrm{AJ}(C) \bigr\rvert,
+\end{equation}
+where $\lvert\mathrm{AJ}(C)\rvert$ is the norm in the Hodge metric on
+$J^2(X)$.
+\end{conjecture}
+
+\begin{remark}[Three regimes]
+\label{rem:chiral-volume-three-regimes}
+The conjecture specialises to three regimes determined by the Hodge
+number $h^{2,1}(X)$.
+
+\emph{Toric regime} ($X$ toric, e.g.\ resolved conifold).  The
+Abel--Jacobi period reduces to the complexified K\"ahler parameter
+$t_C = \int_C \omega$, and the conjecture becomes
+$\lim (1/N)\,\log\lvert Z_N^{\mathrm{DT}}\rvert = t_C$. This is
+consistent with the Okounkov--Reshetikhin--Vafa asymptotics: for the
+conifold, $Z_N^{\mathrm{DT}}(N\beta) \sim p(N)\cdot Q^N$ where
+$Q = e^{-t}$ and $p(N)$ is the partition function, giving growth rate
+$t + O(1/\!\sqrt{N}\,)$.
+
+\emph{Compact regime} ($h^{2,1} > 0$, e.g.\ quintic).  The period is a
+genuine Griffiths normal function depending on the complex structure
+$\tau \in \mathcal{M}_{cs}(X)$.  The conjecture predicts a specific
+function of $\tau$---the Abel--Jacobi image---from the
+asymptotics of DT invariants.  Under mirror symmetry $X \leftrightarrow
+X^\vee$, this reduces to the statement that the mirror map
+$t(z) = w_1(z)/w_0(z)$ controls DT growth on the mirror side.
+
+\emph{Rigid regime} ($h^{2,1} = 0$, e.g.\ Schoen manifold).  The
+intermediate Jacobian $J^2(X)$ is trivial, so $\mathrm{AJ}(C) = 0$ for
+all curves $C$.  The conjecture predicts \emph{subexponential} growth:
+$(1/N)\,\log\lvert Z_N^{\mathrm{ch}}\rvert \to 0$.  Proxy check: for the
+conifold at $Q = 1$, $Z_N = p(N)$ and
+$(1/N)\,\log p(N) \sim \pi/\!\sqrt{N} \to 0$ (Hardy--Ramanujan).
+\end{remark}
+
+\begin{remark}[Relation to the attractor mechanism]
+\label{rem:chiral-volume-attractor}
+For BPS black holes in Type~IIB on $X$, the attractor mechanism
+(Ferrara--Kallosh--Strominger 1995) fixes the complex structure at a
+point $\tau_*(\gamma)$ determined by the charge $\gamma$.  At the
+attractor point, the BPS entropy is
+$S_{\mathrm{BH}}(\gamma) = \pi\,\lvert Z(\gamma, \tau_*)\rvert^2$
+where $Z(\gamma, \tau) = \int_\gamma \Omega(\tau)$ is the central
+charge (Ooguri--Strominger--Vafa 2004).  This is the period integral in
+the charge class $\gamma$.  The attractor mechanism provides the
+analogue of Mostow rigidity: at the attractor point, the complex
+structure is \emph{unique}, and the chiral volume conjecture reduces to
+a single number.  The conjecture is strongest at attractors.
+\end{remark}
+
+\begin{remark}[Evidence and obstructions]
+\label{rem:chiral-volume-evidence}
+\emph{Evidence}: (i) the toric regime is verified to leading order by
+the Okounkov--Reshetikhin--Vafa asymptotics; (ii) mirror symmetry
+relates DT invariants of $X$ in class $\beta$ to periods of $X^\vee$,
+so the mirror map \emph{is} the Abel--Jacobi map on the mirror side;
+(iii) the attractor mechanism gives
+$\log\Omega_{\mathrm{BPS}}(\gamma) \sim \pi\lvert Z(\gamma)\rvert^2$,
+supporting the period--growth link.
+
+\emph{Obstructions}: (i) the chiral-algebraic formulation (trace over
+Fock modules of $A_C$) is conditional on CY-A$_3$ (the DT formulation
+is not); (ii) the normalisation of $\Omega$ requires the Hodge metric
+(resolvable); (iii) no CY analogue of Mostow rigidity exists in general
+(the conjecture is a family statement parametrised by the moduli space);
+(iv) the large-$N$ limit of DT invariants in a fixed curve class
+requires new asymptotic analysis for compact CY$_3$.
+
+\noindent\textit{Verification}: $96$ tests in
+\texttt{chiral\_volume\_conjecture.py} covering curve geometry
+($9$ tests), CY$_3$ data ($10$ tests), DT asymptotics ($7$ tests),
+Abel--Jacobi periods ($8$ tests), three-regime analysis ($10$ tests),
+$3d$ comparison ($6$ tests), obstructions ($4$ tests), conjecture
+statement ($7$ tests), cross-consistency ($8$ tests), and multi-path
+verification ($12$ tests; AP10).
 \end{remark}

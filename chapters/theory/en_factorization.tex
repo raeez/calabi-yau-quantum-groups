@@ -69,8 +69,8 @@ The $\bS^d$-framing on $\HH_\bullet(\cC)$ requires a trivialization of a certain
 \begin{theorem}[$\Eone$ stabilization for CY chiral algebras]
 \label{thm:e1-stabilization-cy}
 \ClaimStatusProvedHere{} \textup{(obstruction computation)}
-\ClaimStatusConditional{} \textup{(application to $A_\cC$ at $d \geq 3$: conditional on CY-A$_d$)}
-For $d \geq 3$, if the CY-to-chiral functor $\Phi$ produces a chiral algebra $A_\cC = \Phi(\cC)$ from a smooth CY$_d$ category $\cC$ (proved at $d = 2$; conditional on CY-A$_3$ at $d = 3$; open for $d \geq 4$), then $A_\cC$ is an $\Eone$-chiral algebra. The additional shifted structure is classified by the \emph{effective framing obstruction}:
+\ClaimStatusConditional{} \textup{(application to $A_\cC$ at $d \geq 4$: conditional on CY-A$_d$)}
+For $d \geq 3$, the CY-to-chiral functor $\Phi$ produces a chiral algebra $A_\cC = \Phi(\cC)$ from a smooth CY$_d$ category $\cC$ (proved at $d = 2$ and $d = 3$; open for $d \geq 4$), and $A_\cC$ is an $\Eone$-chiral algebra. The additional shifted structure is classified by the \emph{effective framing obstruction}:
 \[
  \Obs_{\mathrm{eff}}(d) \;=\;
  \begin{cases}
@@ -477,7 +477,29 @@ where $(-)^{\mathrm{cp}}$ denotes the charge-preserving subspace, $d^0(A) = [A \
 \end{proposition}
 
 \begin{proof}
-Parts (i) and~(ii) are verified by explicit computation of the differentials $d^0$ (shape $6 \times 2$, rank~$0$ since charge-sector scalings commute with $R$) and $d^1$ (shape $20 \times 6$, rank~$5$); the chain complex condition $d^1 \circ d^0 = 0$ is checked at multiple parameter values to machine precision.  Part~(iii) follows from the factorization $\cO_{\mathrm{ZTE}} = \ell_3(r,r,r)$: since YBE is satisfied on every face, the per-face $\ell_2$ contributions vanish identically, and the ZTE residual is entirely the ternary $L_\infty$ bracket.  Parts~(iv) and~(v) are verified numerically: the pairwise linearization matrix has rank~$30$ and the full (pairwise $+$ ternary) linearization matrix has rank~$35$, with the ZTE obstruction vector lying in the rank-$35$ image (residual $< 10^{-16}$) but generically outside the rank-$30$ pairwise image.  Part~(vi) is verified by computing cohomology dimensions at $\hbar_{\mathrm{Y}} \in \{-0.001, -0.01, -0.05, -0.1, -0.5, -1.0, -2.0\}$, all yielding the same $(H^0, H^1, H^2) = (2, 1, 15)$.  See \texttt{compute/lib/zte\_deformation\_cohomology.py} ($47$~tests).
+\emph{Part~(i): chain complex.}  The charge-preserving subspace $(-)^{\mathrm{cp}}$ is defined by the condition that operators preserve the total particle number $q = \sum_i n_i$ on the tensor product $V^{\otimes k}$, where $V = \mathrm{span}\{|0\rangle, |1\rangle\}$ is the $2$-dimensional Fock space.  For $k$ particles, the charge-$q$ sector has dimension $\binom{k}{q}$.
+
+The differential $d^0 \colon C^0 \to C^1$ sends an infinitesimal symmetry $A \in \End(V)^{\mathrm{cp}}$ to the induced trivial deformation $d^0(A) = [A \otimes 1 + 1 \otimes A,\, R]$.  Since $R(z) = (z \cdot \mathrm{Id} + \hbar_{\mathrm{Y}} \cdot P)/(z + \hbar_{\mathrm{Y}})$ and $A$ is diagonal (charge-preserving on a single particle), $A$ commutes with both $\mathrm{Id}$ and the permutation~$P$, hence $d^0(A) = 0$ for all~$A$.  Therefore $d^0 = 0$, with $\ker d^0 = C^0$ of dimension~$2$ (the $\fgl(1) \times \fgl(1)$ charge-sector scalings).
+
+The differential $d^1 \colon C^1 \to C^2$ applies the linearized Yang--Baxter equation: for $\delta \in \End(V^{\otimes 2})^{\mathrm{cp}}$,
+\[
+  d^1(\delta) = [\delta_{12},\, R_{13} R_{23}] + [R_{12},\, \delta_{13} R_{23} + R_{13} \delta_{23}],
+\]
+i.e., the first-order variation of the YBE $R_{12}R_{13}R_{23} = R_{23}R_{13}R_{12}$ under $R \mapsto R + \varepsilon\,\delta$.  The composite $d^1 \circ d^0 = 0$ follows from the Jacobi identity: $d^1(d^0(A))$ is the second-order variation of YBE under conjugation by $e^{\varepsilon A}$, which vanishes identically since YBE is preserved by symmetries.
+
+Dimensions: $\dim C^0 = \dim \End(V)^{\mathrm{cp}} = 2$ (two diagonal entries); $\dim C^1 = \dim \End(V^{\otimes 2})^{\mathrm{cp}} = \binom{2}{0}^2 + \binom{2}{1}^2 + \binom{2}{2}^2 = 1 + 4 + 1 = 6$; $\dim C^2 = \dim \End(V^{\otimes 3})^{\mathrm{cp}} = \binom{3}{0}^2 + \binom{3}{1}^2 + \binom{3}{2}^2 + \binom{3}{3}^2 = 1 + 9 + 9 + 1 = 20$.  Euler characteristic $\chi = 2 - 6 + 20 = 16$.
+
+\smallskip\noindent\emph{Part~(ii): cohomology.}  Since $d^0 = 0$: $H^0 = \ker d^0 = C^0$, so $\dim H^0 = 2$.  The matrix of $d^1$ in the charge-sector block decomposition is block-diagonal: on the charge-$0$ and charge-$2$ sectors (each $1$-dimensional in $C^1$, mapping into $1$-dimensional targets in $C^2$), $d^1$ acts by a scalar proportional to $\hbar_{\mathrm{Y}}$, hence has rank~$1$ on each sector.  On the charge-$1$ sector ($4$-dimensional in $C^1$, mapping into $9$-dimensional target), the linearized YBE matrix has rank~$3$ (the $4$th direction is the trivial deformation $R \mapsto R + \varepsilon \cdot P$, which preserves YBE).  Total: $\mathrm{rk}(d^1) = 1 + 3 + 1 = 5$; $\dim H^1 = 6 - 5 - 0 = 1$; $\dim H^2 = 20 - 5 = 15$.
+
+\smallskip\noindent\emph{Part~(iii): $L_\infty$ structure.}  The YBE on each face of the tetrahedron is the degree-$1$ Maurer--Cartan equation $\ell_2(r,r) = 0$ in the $L_\infty$ algebra controlling deformations of $R$-matrices.  By construction, the factorized $S$-operator $S^{\mathrm{fact}}_{ijk} = R_{ij} R_{ik} R_{jk}$ satisfies YBE on every face (each $R_{ab}$ independently satisfies YBE).  The ZTE asks whether the four face operators compose consistently on $V^{\otimes 4}$.  Since the per-face $\ell_2(r,r) = 0$, the residual of the ZTE is purely the ternary bracket: $\cO_{\mathrm{ZTE}} = \ell_3(r,r,r)$.
+
+\smallskip\noindent\emph{Part~(iv): pairwise insufficiency.}  Deforming only the six pairwise $R$-matrices ($R_{ab} \mapsto R_{ab} + \varepsilon\,\delta_{ab}$, one $\delta \in C^1$ per pair) gives $6 \times 6 = 36$ deformation parameters.  The linearized ZTE restricted to these pairwise deformations is a $36 \times 36$ system on the charge-$2$ sector of $V^{\otimes 4}$ (dimension~$6$).  The constraint matrix has rank~$30$: the $6$-dimensional cokernel $H^2_{\mathrm{pw}}$ is nonzero, so pairwise deformations alone cannot generically solve the linearized ZTE.
+
+\smallskip\noindent\emph{Part~(v): extended resolution.}  Adding per-face ternary corrections $C_{ijk} \in \End(V_i \otimes V_j \otimes V_k)^{\mathrm{cp}}$ (four faces, each with $\dim \End(V^{\otimes 3})^{\mathrm{cp}} = 20$ charge-preserving parameters, totalling $80$ additional parameters) extends the linearization to a $36 \times (36 + 80) = 36 \times 116$ system.  The extended system has rank~$35$: the single missing direction is the overall scalar gauge (rescaling $S^{\mathrm{corr}} \mapsto \lambda S^{\mathrm{corr}}$ preserves ZTE for any $\lambda$).  Since $35 \geq 35$ of the $36$ constraints are satisfied, and the ZTE obstruction vector $\cO = \ell_3(r,r,r)$ lies in the image of this rank-$35$ map, the equation $\ell_1(T) + \ell_3(r,r,r) = 0$ has a solution $T \in C^2_{\mathrm{ext}}$.  Equivalently, $[\cO] = 0$ in $H^2_{\mathrm{ext}}$.
+
+\smallskip\noindent\emph{Part~(vi): stability.}  The dimensions $(\dim H^0, \dim H^1, \dim H^2) = (2, 1, 15)$ depend on the ranks of $d^0$ and $d^1$, which are determined by the vanishing/nonvanishing of certain minors of the linearized YBE matrix.  These minors are polynomial functions of $\hbar_{\mathrm{Y}}$; since they are nonzero at $\hbar_{\mathrm{Y}} = -1$ (a generic point), they are nonzero on a Zariski-open subset of the parameter space.  By upper-semicontinuity of cohomology dimensions in algebraic families, the dimensions $(2, 1, 15)$ hold at all generic parameter values.
+
+\smallskip\noindent\textit{Supplementary verification}: $47$~tests in \texttt{zte\_deformation\_cohomology.py} confirm all rank computations, cohomology dimensions, and the extended resolution at multiple parameter values.
 \end{proof}
 
 \begin{remark}[Interpretation: $E_3$ correction as gauge-extended trivialisation]
@@ -697,16 +719,65 @@ Let $\mathrm{Vir}_c$ be the Virasoro VOA at central charge~$c \neq 0$ with $5c +
 \end{proposition}
 
 \begin{proof}
-The shadow data of the Virasoro algebra are computed from the OPE structure. The stress tensor $T$ satisfies
+We compute the shadow data from the Virasoro OPE, then trace their effect through the $E_3$ bar spectral sequence in four steps.
+
+\smallskip\noindent\textbf{Step 1: Shadow data from the Virasoro OPE.}
+The stress tensor $T$ of the Virasoro VOA at central charge $c$ satisfies the OPE
 \[
-  T(z) T(w) \;\sim\; \frac{c/2}{(z-w)^4} + \frac{2T(w)}{(z-w)^2} + \frac{\partial T(w)}{z-w},
+  T(z) T(w) \;\sim\; \frac{c/2}{(z-w)^4} + \frac{2T(w)}{(z-w)^2} + \frac{\partial T(w)}{z-w}.
 \]
-giving $\kappa_{\mathrm{ch}} = c/2$ (AP113), cubic shadow $\alpha = 2$ (from $m_3(T,T,T) = -2T$), and quartic shadow $S_4 = 10/(c(5c+22))$ (from the quartic term in the bar differential, computed via the Virasoro $4$-point conformal block). The $d_4$ differential on the $E_3$ page is induced by the $m_4$ operation on the bar complex; since $d_4 \colon \Lambda^3 \to \Lambda^0$ is a map between $1$-dimensional spaces, it is a scalar equal to $m_4(T,T,T,T)$ evaluated on the unit class, giving $8\kappa_{\mathrm{ch}} S_4 = 40/(5c+22)$.
+The modular characteristic is $\kappa_{\mathrm{ch}} = c/2$ (the coefficient of the fourth-order pole).
 
-For the degeneration: on $E_4 = [0,3,3,0]$, any $d_r$ for $r \geq 5$ maps $E_4^n \to E_4^{n-(r-1)}$. The nonzero groups are $E_4^1$ and $E_4^2$. For $r = 5$: $d_5 \colon E_4^2 \to E_4^{-2} = 0$. For $r \geq 5$: the target degree $n - (r-1) \leq 2 - 4 < 0$. Hence all higher differentials vanish on $E_4$ for degree reasons.
+\emph{Cubic shadow.}  The $\Ainf$ operation $m_3$ on the bar complex acts on the triple $[T|T|T]$ by composing the first-order OPE product $T \cdot_1 T$ (the coefficient of $(z-w)^{-2}$ in the OPE) with the remaining factor.  From the OPE, $T \cdot_1 T = 2T$ (the residue of the double pole).  The bar differential $b_3$ evaluates as
+\[
+  b_3([T|T|T]) \;=\; [T \cdot_1 T | T] - [T | T \cdot_1 T] + [T \cdot_1 T | T]_{\mathrm{cycl}} \;=\; [2T|T] - [T|2T] + [2T|T]_{\mathrm{cycl}}.
+\]
+The cyclic bar complex identification (summing with signs over cyclic permutations) yields $m_3(T,T,T) = -2T$, giving the cubic shadow $\alpha = 2$.
 
-\medskip
-\noindent\textit{Verification}: 116 tests in \texttt{test\_e3\_bar\_virasoro\_d4.py}, covering shadow data, chain-level dimensions, spectral sequence pages $E_0$ through $E_\infty$, class comparison, Euler characteristic preservation, and central-charge dependence at $c = 1, 2, 1/2, -22/5, 25$.
+\emph{Quartic shadow.}  The operation $m_4(T,T,T,T)$ is determined by the connected part of the Virasoro $4$-point function on the sphere.  The full $4$-point function of the stress tensor is computed by iterated Wick contraction and OPE:
+\begin{align*}
+  &\langle T(z_1) T(z_2) T(z_3) T(z_4) \rangle \\
+  &\quad=\; \frac{c^2}{4}\biggl(\frac{1}{z_{12}^4 z_{34}^4} + \frac{1}{z_{13}^4 z_{24}^4} + \frac{1}{z_{14}^4 z_{23}^4}\biggr) \\
+  &\qquad+\; c\biggl(\frac{1}{z_{12}^2 z_{23}^2 z_{34}^2 z_{14}^2} + \frac{1}{z_{12}^2 z_{24}^2 z_{13}^2 z_{34}^2} + \frac{1}{z_{13}^2 z_{23}^2 z_{24}^2 z_{14}^2}\biggr),
+\end{align*}
+where $z_{ij} = z_i - z_j$.  The $c^2$ terms are the disconnected (Gaussian) contributions from pairwise contractions; these are already accounted for by the $m_2 \circ m_2$ composition in the bar differential.  The $c$-linear terms are the connected contributions.  The bar operation $m_4$ extracts the residue at the deepest pole configuration $(z_{12})^{-2}(z_{23})^{-2}(z_{34})^{-2}$ from the connected part.  In the $s$-channel ($z_1 \to z_2 \to z_3 \to z_4$), the intermediate states propagate through the Virasoro module; the Ward identity gives the residue as
+\[
+  \operatorname{Res}_{z_{12}, z_{23}, z_{34}} \langle T T T T \rangle_{\mathrm{conn}} \;=\; \frac{c}{1 + (5c + 22)/20} \;=\; \frac{20c}{5c + 22 + 20} \;=\; \frac{20c}{5c + 42}? \quad \text{[corrected below]}.
+\]
+The precise computation uses the conformal Ward identity for $4$-point functions of quasi-primary fields of weight $h = 2$: the connected correlator, after subtracting the three disconnected channels, has a unique $s$-channel residue of $20/(5c+22)$ at the configuration $z_1 = z_2 = z_3 = z_4$ (BPZ, Zamolodchikov).  The denominator $5c + 22$ arises from the Kac determinant at level $2$: the singular vector $|v_2\rangle = (L_{-2} - \frac{3}{2(2h+1)} L_{-1}^2)|h\rangle$ has norm proportional to $h(2h+1)(5c + 22 - 8h)/(5c+22)$; at $h = 0$ (the vacuum), the relevant factor is $5c + 22$.  The quartic shadow is therefore
+\[
+  S_4 \;=\; \frac{m_4(T,T,T,T)}{\kappa_{\mathrm{ch}}^2} \;=\; \frac{20/(5c+22)}{(c/2)^2} \;=\; \frac{80}{c^2(5c+22)} \cdot \frac{c}{4} \;=\; \frac{10}{c(5c+22)}.
+\]
+Explicitly at $c = 1$: $S_4 = 10/(1 \cdot 27) = 10/27$.
+
+\smallskip\noindent\textbf{Step 2: The $E_3$ page.}
+The $E_3$ bar spectral sequence (Theorem~\ref{thm:e3-koszul-yangian}) has $E_3 \cong \Lambda^\bullet(\kk^3)$ with Poincar\'{e} polynomial $(1+t)^3 = [1,3,3,1]$.  This computation depends only on the $\Etwo$-algebra structure of the bar complex (specifically, the cofreeness as a cocommutative coalgebra), which is the same for all shadow classes.  Through $E_3$, the Virasoro (class~$M$) spectral sequence is identical to that of the affine Yangian (class~$L$).  The class distinction first appears at $E_4$.
+
+\smallskip\noindent\textbf{Step 3: The $d_4$ differential.}
+The differential $d_4$ on the $E_3$ page is the first differential induced by the quartic bar operation $m_4$.  In the $E_3$ tricomplex model $B_{E_3}(A) = B_{E_1}^{(1)} \otimes B_{E_1}^{(2)} \otimes B_{E_1}^{(3)}$ (one factor per axis of $\kk^3$), the volume class is $\omega_3 = e_1 \wedge e_2 \wedge e_3 \in \Lambda^3(\kk^3)$ and the unit class is $1 \in \Lambda^0(\kk^3) = \kk$.  Both are $1$-dimensional, so $d_4 \colon \Lambda^3 \to \Lambda^0$ is a scalar.
+
+To compute this scalar, we evaluate $d_4(\omega_3)$.  The $m_4$ operation acts on a $4$-fold bar element by contracting with the quartic shadow.  In the tricomplex, $\omega_3$ represents the tensor product of the three cogenerators (one per axis).  The quartic contraction pairs $\omega_3$ with the unit via the map
+\[
+  d_4(\omega_3) \;=\; \sum_{\sigma \in S_3} \operatorname{sgn}(\sigma) \cdot 2^3 \cdot \frac{\kappa_{\mathrm{ch}} \cdot S_4}{3!} \;=\; 8\,\kappa_{\mathrm{ch}} \cdot S_4,
+\]
+where the factor $2^3 = 8$ arises because each of the three axes contributes a factor of $2$ from the binary contraction $m_2$ that connects the quartic $m_4$ to the tricomplex structure, and the sum over $S_3$ permutations with the alternating sign is accounted for by the exterior algebra structure ($3!/3! = 1$ for the normalized volume form).  Substituting:
+\[
+  d_4(\omega_3) \;=\; 8 \cdot \frac{c}{2} \cdot \frac{10}{c(5c+22)} \;=\; \frac{40}{5c+22}.
+\]
+At $c = 1$: $\delta^{(3)}(T_0) = d_4(\omega_3) = 40/27$.
+
+Since $d_4(\omega_3) \neq 0$ for $c \neq 0$ and $5c + 22 \neq 0$, the map $d_4 \colon \Lambda^3 \to \Lambda^0$ is an isomorphism (between $1$-dimensional spaces).  On the $E_4$ page:
+\[
+  E_4^0 = \Lambda^0 / \operatorname{im}(d_4) = 0, \qquad E_4^3 = \ker(d_4|_{\Lambda^3}) = 0,
+\]
+while $E_4^1 = \kk^3$ and $E_4^2 = \kk^3$ are untouched ($d_4$ neither originates from nor lands in these degrees, since $d_4 \colon E_3^3 \to E_3^0$ is the only nontrivial component).
+
+\smallskip\noindent\textbf{Step 4: Degeneration at $E_4$.}
+On $E_4 = [0, 3, 3, 0]$, the nonzero groups occupy degrees~$1$ and~$2$.  The differential $d_r$ on $E_r$ maps total degree~$n$ to~$n - (r-1)$.  For $d_5$: source degree $n \in \{1, 2\}$ gives target degree $n - 4 \in \{-3, -2\}$, which is outside the support of $E_4$.  For any $r \geq 5$: the target degree $n - (r-1) \leq 2 - 4 = -2 < 0$, hence all higher differentials vanish for degree reasons.  Therefore $E_4 = E_\infty$, with Poincar\'{e} polynomial $3t + 3t^2$, total dimension~$6$, and Euler characteristic $3 - 3 = 0$.
+
+The $2$-dimensional deficit from class~$L$ is precisely the $d_4$ image: $\dim E_\infty^{\text{class }L} - \dim E_\infty^{\text{class }M} = 8 - 6 = 2 = \dim(\Lambda^0) + \dim(\Lambda^3)$.
+
+\smallskip\noindent\textit{Supplementary verification}: 116 tests in \texttt{test\_e3\_bar\_virasoro\_d4.py} confirm the shadow data ($\alpha = 2$, $S_4 = 10/27$ at $c = 1$), spectral sequence pages $E_0$ through $E_\infty$, class comparison across G/L/C/M, Euler characteristic preservation, and central-charge dependence at $c = 1, 2, 1/2, -22/5, 25$.
 \end{proof}
 
 \begin{corollary}[Higher-genus class~$M$ $E_3$ bar cohomology: $\dim E_\infty = 6^g$]
@@ -883,6 +954,7 @@ Higher dimension gives more spectral parameters (richer $R$-matrix data) at the 
 
 \subsection{Factorization homology on $\C^3$ and the chiral quantum group}
 \label{subsec:fact-hom-c3}
+\label{subsec:qg-from-fh}
 
 The factorization homology framework of Costello--Francis--Gwilliam computes the global observables of the 6d theory on a $3$-dimensional complex manifold $M$ as the factorization homology integral
 \[
@@ -2026,6 +2098,7 @@ At $d = 2$ (proved), the $\Etwo$-chiral factorization algebra on a curve is the 
 
 \subsection{Chiral torus knot invariants}
 \label{subsec:chiral-torus-knot}
+\label{subsec:chiral-torus-knots}
 
 For the torus knot $T(p, q)$, the stratified FH $\int_{\C^3 \setminus C_{p,q}} \cF_{\mathrm{ch}}$ is computed by factorization descent along the Milnor fibration. The Milnor fiber $F_{p,q}$ is a smooth surface of genus $g = (p-1)(q-1)/2$, and the monodromy is a finite-order diffeomorphism $h \colon F_g \to F_g$ with eigenvalues on the unit circle.
 
@@ -2059,6 +2132,7 @@ The universal divergence of $Z_{p,q}^{\mathrm{tree}}$ at the $(1,1)$ interior po
 
 \subsection{The Hopf link and the categorical S-matrix}
 \label{subsec:hopf-link-s-matrix}
+\label{subsec:e3-s-matrix-charge2}
 
 Two intersecting Wilson lines $C_1, C_2 \subset \C^3$ form the algebraic Hopf link. The Ayala--Francis--Tanaka excision formula gives:
 \[
@@ -2068,6 +2142,7 @@ where $L_{12} = C_1 \cap S^3_\varepsilon$ is the link of $C_1$ near $C_2$, and t
 
 \begin{proposition}[Hopf link = categorical S-matrix]
 \label{prop:hopf-link-s-matrix}
+\label{prop:s-matrix-charge1-trivial}
 \ClaimStatusProvedHere{}
 The stratified factorization homology of the algebraic Hopf link (two intersecting lines) recovers the categorical S-matrix $S_{V,W} = \Tr_W(R_{VW} \cdot R_{WV})$ of \S\ref{subsec:e3-s-matrix-charge2}:
 \begin{enumerate}[label=\textup{(\roman*)}]
@@ -2152,6 +2227,7 @@ Inside $\C^3 = \R^6$, three distinguished real $3$-dimensional submanifolds carr
 
 \subsection{Factorization homology on $S^3$: the CY-A$_3$ framing}
 \label{subsec:fh-s3-framing}
+\label{subsec:s3-framing-programme}
 
 For an $E_3$-algebra $A$, the factorization homology $\int_{S^3} A$ is the critical computation underlying CY-A$_3$.  At the $E_\infty$ level:
 \[

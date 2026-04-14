@@ -558,8 +558,8 @@ $d = 3$ & $\Eone$-chiral & CY$_4$ & 4d $\cN=1$ gauge \\
 \end{tabular}
 \end{center}
 For $d = 3$, the boundary algebra is $\Eone$ (not $\Etwo$):
-the $\mathbb{S}^3$-framing obstruction (Conjecture~CY-A$_3$)
-breaks $\Etwo$ to $\Eone$. The braiding is recovered
+the $\mathbb{S}^3$-framing (Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3})
+produces an $\Eone$-chiral algebra, not $\Etwo$. The braiding is recovered
 via $\cZ(\Rep^{\Eone}(A))$, not from the boundary $A$ directly.
 \end{remark}
 
@@ -981,11 +981,10 @@ group braiding requires the Drinfeld center passage. This section
 quantifies three aspects of the $\Eone \to \Etwo$ passage
 for $K3 \times E$.
 
-\begin{warning}[Conditional status]
+\begin{warning}[Status update]
 \label{warn:k3e-conditional}
-All results in this section involving the chiral algebra
-$A_{K3 \times E}$ are conditional on Conjecture~CY-A$_3$
-(AP-CY6). The chiral algebra does not exist unconditionally.
+The chiral algebra $A_{K3 \times E}$ is constructed by Theorem~CY-A$_3$
+(Theorem~\ref{thm:cy-to-chiral-d3}). Results involving the quantum vertex chiral group $G(K3 \times E)$ remain conditional on Conjecture~CY-C.
 The BKM superalgebra $\frakg_{\Delta_5}$ and the Maulik--Okounkov
 $R$-matrix are unconditional: they are constructed from the
 Mukai lattice and the Hilbert scheme geometry respectively.
@@ -1352,6 +1351,7 @@ Total: $24 + 24 + 276 = 324$.
 
 \begin{proposition}[MO $R$-matrix at charge~$2$]
 \label{prop:mo-rmatrix-charge2}
+\label{prop:charge2-rmatrix}
 \ClaimStatusProvedHere{}
 For $K3 \times E$ with generic $\Omega$-background
 $(\epsilon_1, \epsilon_2)$ ($\epsilon_1 \neq - \epsilon_2$),
@@ -1450,6 +1450,135 @@ all $324$ diagonal eigenvalues, unitarity (symbolic and numerical),
 YBE at charge~$(2,2,2)$, MO\,=\,Yangian comparison at $4$~parameter
 sets, self-dual limit ($R = \mathrm{Id}$), spectral decomposition,
 and pole structure.
+
+
+\subsection{Non-abelian $R$-matrix at $A_1$ enhancement}
+\label{subsec:nonabelian-rmatrix-a1}
+
+%%: AP-CY14: ALL results in this subsection are CONJECTURAL.
+%% The K3 Yangian Y(g_{K3}) is not constructed.
+%% Environment: conjecture, never theorem (HZ3-1).
+%% kappa subscripted per AP113.
+
+At generic $K3$ moduli the charge-$2$ $R$-matrix is diagonal:
+the $24$ Mukai directions decouple.  At an $A_1$ enhancement
+point where two Mukai weights $h_0, h_1$ collide ($h_0 = h_1 = h$),
+the abelian eigenvalue develops a \emph{double pole}:
+\[
+  g_{01}(u) \;=\; \frac{(u-h)^2}{(u+h)^2},
+\]
+with a double zero at $u = h$ and a double pole at $u = -h$.
+
+\begin{conjecture}[Non-abelian resolution of the double pole]
+\label{conj:nonabelian-pole-resolution}
+\ClaimStatusConjectured
+% AP-CY14: conditional on Y(g_{K3}).
+% Dependency: CY-A_2 (PROVED) -> Y(g_{K3}) (CONJECTURAL).
+Suppose $Y(\fg_{K3})$ exists.  At an $A_1$ enhancement point,
+the Yang $R$-matrix $R_{\fsl_2}(u) = (u\,\mathrm{Id}_4 + \alpha\, P)\,/\,(u + \alpha)$
+resolves the double pole into:
+\begin{itemize}
+  \item \emph{Symmetric sector} $\mathrm{Sym}^2$:
+    eigenvalue~$1$ \textup{(}no pole\textup{)};
+  \item \emph{Antisymmetric sector} $\textstyle\bigwedge^2$:
+    eigenvalue $(u - \alpha)/(u + \alpha)$,
+    a \emph{simple} pole at $u = -\alpha$ with residue $-2\alpha$.
+\end{itemize}
+The pole rank drops from~$2$ \textup{(}abelian\textup{)} to~$1$
+\textup{(}non-abelian\textup{)}.
+\end{conjecture}
+
+\begin{computation}[Off-diagonal $R$-matrix entries at $A_1$]
+\label{comp:offdiag-rmatrix-a1}
+\ClaimStatusConjectured
+The $324$ charge-$2$ states decompose into seven sectors at an
+$A_1$ point with merged directions $(0,1)$:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Sector} & \textbf{States} & \textbf{Block size} & \textbf{Off-diag} \\
+\midrule
+ADE row: $(2)_0,\, (2)_1$           & $2$   & $2\times 2$ & $2$ \\
+ADE col: $(1{,}1)_0,\, (1{,}1)_1$   & $2$   & $2\times 2$ & $2$ \\
+ADE two-point: $(1)_0 + (1)_1$      & $1$   & $1\times 1$ & $0$ \\
+Complement row: $(2)_i,\, i \geq 2$ & $22$  & diagonal    & $0$ \\
+Complement col: $(1{,}1)_i$         & $22$  & diagonal    & $0$ \\
+Mixed: $(1)_a + (1)_i$              & $44$  & $22\times(2\times 2)$ & $44$ \\
+Complement two-point               & $231$ & diagonal    & $0$ \\
+\midrule
+\textbf{Total}                       & $\mathbf{324}$ & & $\mathbf{48}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+At $\delta = 0$ \textup{(}exact $A_1$\textup{)}: $48$ nonzero
+off-diagonal entries, $372$ total nonzero entries out of $104{,}976$
+\textup{(}sparsity ${>}\,99.6\%$\textup{)}.
+
+The off-diagonal entry within each $2 \times 2$ block is
+$\mathrm{ev}_{\mathrm{comp}} \cdot \alpha / (u + \alpha)$
+for bosonic pairs and
+$\mathrm{ev}_{\mathrm{comp}} \cdot (-\alpha) / (u - \alpha)$
+for fermionic pairs \textup{(}both Mukai directions odd\textup{)}.
+\end{computation}
+
+\begin{conjecture}[No complement mixing at charge~$2$, level~$1$]
+\label{conj:no-complement-mixing}
+\ClaimStatusConjectured
+% AP-CY14: conditional on Y(g_{K3}).
+At an $A_1$ enhancement, the $\fsl_2$ Yang $R$-matrix does
+\emph{not} affect the $22$ complement directions.  Every
+off-diagonal entry couples states within the same $2 \times 2$
+block; there is zero cross-sector coupling between the ADE,
+mixed, and complement sectors.  This is a consequence of the
+orthogonal decomposition
+$\Lambda_{\mathrm{Muk}} = \Lambda_{\perp} \oplus \Lambda_{\mathrm{root}}(A_1)$
+at level~$1$.
+\end{conjecture}
+
+\begin{conjecture}[YBE for the block-structured $R$-matrix]
+\label{conj:ybe-block-rmatrix}
+\ClaimStatusConjectured
+% AP-CY14: conditional on Y(g_{K3}).
+% AP-CY30: pairwise YBE does NOT imply tetrahedron (thm:zte-failure).
+The $324 \times 324$ $R$-matrix at $A_1$ satisfies the
+Yang--Baxter equation.  By the absence of cross-sector mixing
+\textup{(}Conjecture~\textup{\ref{conj:no-complement-mixing})},
+the $R$-matrix is a direct sum of $24$ copies of the $2 \times 2$
+Yang $R$-matrix \textup{(}each satisfying YBE\textup{)} and
+$276$ diagonal \textup{(}scalar\textup{)} entries.  The direct
+sum of YBE solutions is a YBE solution.
+Crossing symmetry $R_{12}(u)\, R_{21}(-u) = \mathrm{Id}$ likewise
+holds block-by-block.
+\end{conjecture}
+
+\begin{remark}[Deformation away from $A_1$]
+\label{rem:deformation-away-a1}
+Setting $h_0 = h + \delta$, $h_1 = h - \delta$ for $\delta > 0$
+lifts the eigenvalue degeneracy within each $2 \times 2$ block.
+The block structure---and the count of $48$ off-diagonal
+entries---\emph{persists} for all $\delta$: it is dictated by the
+Mukai lattice decomposition, not by the degeneracy.
+What changes is the \emph{mixing angle}: at $\delta = 0$
+the eigenstates of each $2 \times 2$ block are the symmetric
+and antisymmetric combinations ($\theta = \pi/4$, maximal mixing).
+As $\delta / \alpha \to \infty$ the mixing angle $\theta \to 0$
+and the abelian (diagonal) description is recovered.
+\end{remark}
+
+\noindent\textit{Verification}: $82$~tests in
+\texttt{k3\_nonabelian\_rmatrix\_a1.py}, covering the deformed
+$R$-matrix at $\delta = 0$ and $\delta > 0$, double pole
+resolution ($\mathrm{order}\;2 \to 1$), complement mixing analysis
+(zero cross-sector coupling), YBE via the direct sum argument
+(all blocks pass at $5$ spectral parameter pairs), nonzero count
+($372 = 324 + 48$), eigenvalue splitting profile, block invariants
+(determinant and trace match Yang formula for all $24$ blocks),
+crossing symmetry, fermionic sign comparison (even-even vs.\
+odd-odd), and $6$ multi-path cross-checks.
+A further $76$~tests in
+\texttt{k3\_rmatrix\_a1\_offdiagonal.py} verify the underlying
+off-diagonal structure.
 
 
 \section{The chiral quantum group: $\Rep^{\Etwo}(Y(\fg_{K3}))$}

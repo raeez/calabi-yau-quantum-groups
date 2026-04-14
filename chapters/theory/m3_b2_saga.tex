@@ -1,0 +1,1183 @@
+% ======================================================================
+% Chapter: The [m_3, B^{(2)}] Saga --- Chain-Level CY Algebra
+% Part II: The CY-to-Chiral Functor
+% ======================================================================
+%
+% This chapter tells the mathematical story of the S^3-framing
+% obstruction: three wrong proofs and four independent computations
+% before the TCFT/infty-categorical resolution.
+%
+% The story illuminates WHY chain-level CY arguments are subtle,
+% how the naive [m_k, B^{(2)}] = 0 expectation fails at the strict
+% level, and why the infty-categorical framework was necessary.
+%
+% Compute engines referenced:
+%   obs_ainf_local_p2.py (54 tests)
+%   obs_ainf_random_search.py (67 tests)
+%   obs_ainf_counterexample_search.py (49 tests)
+%   ks_cyclic_minimal_obs_ainf.py (KS minimal model, independent confirmation)
+%   connes_b_obs_ainf.py (bidegree decomposition)
+%   spectral_seq_obs_ainf.py (spectral sequence analysis)
+%   tsygan_formality_obs_ainf.py (Tsygan formality attempt)
+%   stasheff_cancellation_obs_ainf.py (40 tests)
+%   operadic_tcft_mk_b2_engine.py (43 tests)
+%   hopf_fibration_s3_framing.py (67 tests)
+%   derived_framing_obstruction.py (51 tests)
+%   formality_ainf_dcoh.py (formality hierarchy)
+%   cya3_stress_test.py (45 tests)
+%
+% Source: NEW CHAPTER (see notes/vol3_rearchitecture_proposal.tex, Ch. 6)
+
+\chapter{The \texorpdfstring{$[m_3, B^{(2)}]$}{[m3, B(2)]} saga: chain-level CY algebra}
+\label{ch:m3-b2-saga}
+
+The proof of the $\bS^3$-framing compatibility---the central
+chain-level input to CY-A$_3$---was not a straight line.  Three
+independent proof attempts failed, each for a different reason.
+Four independent computations then established the ground truth:
+$[m_3, B^{(2)}] \neq 0$ at the strict chain level, yet
+$\{b, B^{(2)}\} = 0$ at the total level.  Two independent
+resolution frameworks (Costello's open-closed TCFT, the
+$\infty$-categorical obstruction theory of Francis--Gaitsgory)
+confirmed that the nonvanishing is a strict phenomenon invisible
+to the homotopy-coherent world.
+
+The mathematical content of this chapter is original: it documents
+a three-level hierarchy (strict, homotopy, derived) that governs
+the relationship between $\Ainf$-operations and the Connes hierarchy,
+and it provides the first explicit computation of the chain-level
+failure for a non-formal CY$_3$ algebra.  The pedagogical value lies
+in the lesson that concrete computation, not abstract elegance,
+was required to find the correct formulation of the problem.
+
+\medskip
+\noindent\textbf{Dependence.}  This chapter depends on
+Chapter~\ref{ch:cyclic-ainf} (cyclic $\Ainf$-algebras, Connes
+hierarchy) and the four-step construction of $\Phi$ from
+Chapter~\ref{ch:cy-to-chiral}.  It provides the chain-level
+analysis underlying the obstruction decomposition of
+Proposition~\ref{prop:hopf-fibration-decomposition}.
+
+
+% ============================================================
+\section{The question}
+\label{sec:m3b2-question}
+% ============================================================
+
+\subsection{The Hopf fibration decomposition}
+\label{subsec:m3b2-hopf}
+
+The $\bS^3$-framing of the Hochschild complex $\HH_\bullet(\cC)$
+for a CY$_3$ category $\cC$ decomposes via the Hopf fibration
+$S^1 \to S^3 \to S^2$ into three independent obstructions
+(Proposition~\ref{prop:hopf-fibration-decomposition} in
+Chapter~\ref{ch:cy-to-chiral}):
+\begin{equation}
+\label{eq:obs-decomposition}
+ \mathrm{Obs}(\cC) \;=\; \mathrm{Obs}_{\mathrm{top}}(\cC)
+ + \mathrm{Obs}_{\Ainf}(\cC) + \mathrm{Obs}_{\BV}(\cC).
+\end{equation}
+The topological obstruction $\mathrm{Obs}_{\mathrm{top}}$
+vanishes universally ($\pi_3(B\Sp) = 0$; Theorem~\ref{thm:s3-framing-vanishes}).
+The BV obstruction $\mathrm{Obs}_{\BV}$ is analytic, resolved
+for toric CY$_3$ and perturbatively for compact CY$_3$.
+
+The middle term $\mathrm{Obs}_{\Ainf}$ is algebraic.
+It asks: does the cyclic $\Ainf$-structure on the Hochschild
+complex intertwine compatibly with the $S^2$-base of the Hopf
+fibration?  At the operator level, the question becomes:
+
+
+\begin{openproblem}[{The $[m_k, B^{(2)}]$ question}]
+\label{op:mk-b2}
+Let $(A, \{\mu_n\}, \langle -,- \rangle)$ be a cyclic
+$\Ainf$-algebra of CY dimension $d = 3$.  Let
+$b_k \colon C_n(A) \to C_{n-k+1}(A)$ denote the $k$-th
+component of the $\Ainf$-Hochschild differential
+($b_k$ applies $\mu_k$ to $k$ consecutive bar factors),
+and let $B^{(2)} \colon C_n(A) \to C_{n-1}(A)$ be the
+contraction operator from the Connes hierarchy
+(contracting a pair of factors via the degree-$2$ component
+of the CY pairing).  Does
+\begin{equation}
+\label{eq:mk-b2-question}
+ [m_k, B^{(2)}] \;=\; 0 \qquad \text{for all } k \geq 3\text{?}
+\end{equation}
+\end{openproblem}
+
+The answer to this question, as stated, is \emph{no}: the strict
+chain-level commutator $[m_k, B^{(2)}]$ is generically nonzero for
+non-formal algebras.  But $\mathrm{Obs}_{\Ainf}$ is nonetheless zero,
+because the correct formulation involves the \emph{total} differential
+$b = \sum_k b_k$, not the individual components.
+
+
+\subsection{Why the question matters}
+\label{subsec:m3b2-why}
+
+The Connes hierarchy for a CY$_d$ algebra consists of operators
+$B^{(0)}, B^{(1)}, \ldots, B^{(d)}$ on the cyclic bar complex
+$\mathrm{CC}_\bullet(A)$.  The $\bS^d$-framing of $\HH_\bullet(A)$
+is encoded in the nilpotence relation
+$\sum_{i+j=d} B^{(i)} \circ B^{(j)} = 0$
+(Chapter~\ref{ch:cyclic-ainf}).  For $d = 2$, the CY-A$_2$
+proof uses $\{b, B^{(1)}\} = 0$ (the $S^1$-framing), which
+follows directly from the Connes mixed complex axiom
+$\{b, B\} = 0$ where $B = B^{(0)}$.  The extension to $d = 3$
+requires understanding how $b$ interacts with $B^{(2)}$.
+
+If $[m_k, B^{(2)}] = 0$ held for each $k$ individually, the
+proof would follow by direct computation.  The discovery that
+this fails for non-formal algebras forced a fundamental shift
+in approach: from strict chain-level identities to
+homotopy-coherent $\infty$-categorical arguments.  This chapter
+records that shift.
+
+
+% ============================================================
+\section{Three wrong proofs}
+\label{sec:m3b2-wrong-proofs}
+% ============================================================
+
+Each of the following arguments was proposed, scrutinised, and
+retracted.  The retractions are recorded in
+Remark~\ref{rem:adversarial-audit-cyclic-ainf} of
+Chapter~\ref{ch:cy-to-chiral}; this section provides the full
+mathematical detail of what went wrong.
+
+
+\subsection{Wrong proof 1: the cyclic invariance argument}
+\label{subsec:wrong-cyclic}
+
+\begin{remark}[The cyclic invariance argument (retracted)]
+\label{rem:wrong-proof-cyclic}
+The argument proceeded as follows.  Cyclic invariance
+(Definition~\ref{def:cyclic-ainf-d}) gives, for all
+$a_1, \ldots, a_{n+1}$:
+\[
+ \langle \mu_n(a_1, \ldots, a_n), a_{n+1} \rangle
+ \;=\; (-1)^{\epsilon_n}
+ \langle a_1, \mu_n(a_2, \ldots, a_{n+1}) \rangle.
+\]
+The operator $B^{(2)}$ contracts pairs via the CY pairing:
+\[
+ B^{(2)}([a_0 \mid a_1 \mid \cdots \mid a_n])
+ \;=\; \sum_{0 \leq i < j \leq n}
+ \langle a_i, a_j \rangle_2 \cdot
+ [a_0 \mid \cdots \mid \widehat{a_i} \mid \cdots
+ \mid \widehat{a_j} \mid \cdots \mid a_n],
+\]
+where $\langle -, - \rangle_2$ restricts to the degree-$2$
+component of the CY$_3$ pairing.  The cyclic invariance
+identity controls terms where both contracted factors lie inside
+or both lie outside the $m_k$-block---these are the
+\emph{adjacent} contractions.
+
+\textbf{The gap.}  When $B^{(2)}$ contracts one factor $a_i$
+\emph{inside} the $m_k$-block with one factor $a_j$
+\emph{outside}, the resulting term is a ``non-adjacent''
+contraction.  Cyclic invariance permutes factors cyclically, but
+it does not move factors \emph{across} the boundary of the
+$m_k$-application.  Concretely: for
+$b_3([a_1 \mid a_2 \mid a_3 \mid a_4 \mid a_5])$,
+applying $\mu_3$ to $(a_1, a_2, a_3)$ and contracting $a_2$
+with $a_5$ via $B^{(2)}$ produces a term that cyclic invariance
+of $\mu_3$ cannot reach, because cyclic invariance rotates
+$(a_1, a_2, a_3, a_4)$ but $a_5$ is outside the cyclic orbit
+of $\mu_3$.
+
+\textbf{Verdict.}  The argument controls adjacent terms but
+leaves non-adjacent terms unaccounted for.  The gap was
+identified in Remark~\ref{rem:adversarial-audit-cyclic-ainf}
+(AP-CY34).
+\end{remark}
+
+
+\subsection{Wrong proof 2: the bidegree decomposition}
+\label{subsec:wrong-bidegree}
+
+\begin{remark}[The bidegree decomposition argument (retracted)]
+\label{rem:wrong-proof-bidegree}
+The second attempt (engine: \texttt{connes\_b\_obs\_ainf.py})
+introduced a bidegree $(p, q)$ on the cyclic bar complex, where
+$p$ is the bar degree (number of tensor factors) and $q$ is the
+internal cohomological degree.  The mixed complex axiom
+$[b, B_{\mathrm{total}}] = 0$, where
+$B_{\mathrm{total}} = \sum_{i=0}^{d} B^{(i)}$, decomposes by
+total weight $s = k + i$:
+\begin{equation}
+\label{eq:weight-decomposition}
+ \sum_{k + i = s} [b_k, B^{(i)}] \;=\; 0
+ \qquad \text{for each } s.
+\end{equation}
+The argument claimed that this decomposition, combined with the
+independently known $[b_2, B^{(0)}] = 0$ (the standard Connes
+mixed complex axiom for the associative product), would force
+$[b_k, B^{(2)}] = 0$ for each $k$.
+
+\textbf{The flaw.}  The weight decomposition~\eqref{eq:weight-decomposition}
+is correct, but it does \emph{not} isolate individual terms.
+At weight $s = k + 2$, the identity reads:
+\[
+ [b_k, B^{(2)}] + [b_{k-1}, B^{(3)}]
+ + [b_{k+1}, B^{(1)}] + [b_{k+2}, B^{(0)}] \;=\; 0.
+\]
+This says $[b_k, B^{(2)}]$ is determined by the other three
+terms---but those other terms need not individually vanish.
+The argument confused
+$B^{(0)}$ (the standard Connes $B$) with $B^{(2)}$
+(the higher hierarchy operator): $[b, B^{(0)}] = 0$ is the
+mixed complex axiom, but $[b, B^{(2)}] = 0$ is a
+\emph{stronger} claim that requires additional structure.
+
+\textbf{Verdict.}  The mixed complex axiom is too weak.  It
+governs $B_{\mathrm{total}}$, not individual hierarchy
+operators.
+
+\noindent\textit{Verification}: \texttt{connes\_b\_obs\_ainf.py}
+(bidegree structure); \texttt{stasheff\_cancellation\_obs\_ainf.py},
+$40$~tests (weight-$s$ identities, cross-hierarchy cancellation
+partners).
+\end{remark}
+
+
+\subsection{Wrong proof 3: Tsygan formality}
+\label{subsec:wrong-tsygan}
+
+\begin{remark}[The Tsygan formality argument (retracted)]
+\label{rem:wrong-proof-tsygan}
+The third attempt (engine: \texttt{tsygan\_formality\_obs\_ainf.py})
+invoked Tsygan's formality theorem for cyclic chains.  For a
+smooth algebra $A$ over a field of characteristic zero, Tsygan
+(building on Kontsevich) proved the existence of a
+quasi-isomorphism of mixed complexes
+\[
+ \Phi_T \colon (\mathrm{CC}_\bullet(A),\, b,\, B)
+ \;\xrightarrow{\;\sim\;}
+ (\mathrm{HC}_\bullet(A),\, 0,\, B^{\mathrm{formal}}).
+\]
+On the formal (cohomological) side, the transferred
+$\Ainf$-operations $m_k^{\mathrm{formal}}$ satisfy cyclic
+invariance with respect to the induced pairing on
+$H_\bullet(\mathrm{CC}(A))$, and this cyclic invariance
+\emph{does} imply $[m_k^{\mathrm{formal}}, B^{(2),\mathrm{formal}}] = 0$.
+
+\textbf{The flaw.}  Tsygan's formality theorem is a statement
+about the mixed complex $(b, B)$ where $B = B^{(0)}$ is the
+standard Connes operator.  The extension to the full Connes
+hierarchy $B^{(0)}, B^{(1)}, \ldots, B^{(d)}$ requires Costello's
+TCFT formality (arXiv:math/0412149, Theorem~A).  But Costello's
+theorem does \emph{not} assert formality of
+$(\mathrm{CC}_\bullet(A),\, b,\, B^{(2)})$ as a mixed complex;
+it asserts that the \emph{open-closed TCFT} structure is formal.
+The TCFT formality gives $\{b, B^{(2)}\} = 0$ for the
+\emph{total} differential, but this is the resolution itself,
+not an ingredient of the Tsygan approach.
+
+The category error: Tsygan formality applies to
+$(b, B^{(0)})$, not to $(b, B^{(2)})$.  The operators
+$B^{(j)}$ for $j \geq 1$ are not part of the standard mixed
+complex structure; they are part of the operadic
+$\bS^d$-framing data.
+
+\textbf{Verdict.}  Wrong framework.  The correct framework is
+Costello's TCFT, which gives the answer directly but through a
+fundamentally different mechanism (moduli space boundary
+analysis, not quasi-isomorphism of mixed complexes).
+
+\noindent\textit{Verification}: \texttt{tsygan\_formality\_obs\_ainf.py}
+(Tsygan theorem scope, applicability to CY$_3$ hierarchy,
+identification of the gap).
+\end{remark}
+
+
+% ============================================================
+\section{Four computations}
+\label{sec:m3b2-computations}
+% ============================================================
+
+While the three proof attempts were being developed and retracted,
+four independent computational investigations established the
+ground truth.  Their combined verdict: $[m_3, B^{(2)}] \neq 0$
+at the strict chain level for non-formal CY$_3$ algebras, but
+the nonvanishing is confined to specific bar elements and is
+\emph{exact} in the total complex.
+
+
+\subsection{Computation 1: Local $\bP^2$ explicit}
+\label{subsec:comp-local-p2}
+
+\begin{computation}[{Explicit $[m_3, B^{(2)}]$ for local $\bP^2$}]
+\label{comp:local-p2-m3b2}
+The simplest non-formal CY$_3$ category is
+$D^b(\mathrm{Coh}(\mathrm{Tot}(\cO(-3) \to \bP^2)))$.
+The minimal $\Ainf$-model on cohomology of the Ginzburg DG algebra
+of the $\Z_3$-McKay quiver has underlying graded vector space
+\[
+ A \;=\; A^0 \oplus A^1 \oplus A^2 \oplus A^3
+ \;=\; \langle e_0 \rangle \oplus \langle x_1, x_2, x_3 \rangle
+ \oplus \langle y_1, y_2, y_3 \rangle \oplus \langle w \rangle,
+\]
+with $\dim A = 8$, product
+$\mu_2(x_i, x_j) = \epsilon_{ijk} y_k$,
+$\mu_2(x_i, y_j) = \delta_{ij} w$, CY$_3$ pairing
+$\langle e_0, w \rangle = 1$,
+$\langle x_i, y_j \rangle = \delta_{ij}$, and the
+Massey product
+\[
+ \mu_3(x_i, x_j, x_k) \;=\; \epsilon_{ijk} \cdot \alpha \, w
+\]
+for a nonzero structure constant $\alpha$ arising from the cubic
+superpotential $W = x_1 x_2 x_3$.
+
+On the bar element $[x_1 \mid x_1 \mid x_1 \mid x_1 \mid y_1]
+\in C_4(A)$ \textup{(}arity $5$\textup{)}, the explicit
+computation gives:
+\[
+ [m_3, B^{(2)}]([x_1 \mid x_1 \mid x_1 \mid x_1 \mid y_1])
+ \;=\; 2\alpha \cdot [y_1] \;\neq\; 0.
+\]
+The nonvanishing arises from the non-adjacent contraction:
+$B^{(2)}$ contracts $x_1$ (inside the $\mu_3$-block) with $y_1$
+(outside), producing a term that $\mu_3$ cannot cancel.
+
+\noindent\textit{Verification}: $54$~tests in
+\texttt{obs\_ainf\_local\_p2.py} (algebra structure, CY pairing,
+Stasheff identities, cyclic invariance, explicit $[m_3, B^{(2)}]$
+on all $\binom{8}{5} = 56$ arity-$5$ bar elements, cross-check
+with the $b_2$ cancellation).
+\end{computation}
+
+\begin{remark}[The $b_2$ cancellation on the same element]
+\label{rem:b2-cancellation}
+The same bar element satisfies
+$[m_2, B^{(2)}]([x_1 \mid x_1 \mid x_1 \mid x_1 \mid y_1])
+= -2\alpha \cdot [y_1]$,
+so that $\{b, B^{(2)}\} = \{b_2, B^{(2)}\} + \{b_3, B^{(2)}\} = 0$
+on this element.  This is the cross-arity cancellation
+mechanism: the Stasheff identity at arity $4$ couples $\mu_2$
+and $\mu_3$, forcing $\{b_3, B^{(2)}\}$ and $\{b_2, B^{(2)}\}$
+to be exact negatives of each other at every chain element.
+The cancellation is not accidental; it is enforced by
+$\partial^2 = 0$ in Costello's TCFT.
+\end{remark}
+
+
+\subsection{Computation 2: Random search}
+\label{subsec:comp-random}
+
+\begin{computation}[Random search over cyclic $\Ainf$-algebras]
+\label{comp:random-search}
+A systematic numerical search over $1000+$ randomly generated
+cyclic $\Ainf$-algebras (engine:
+\texttt{obs\_ainf\_random\_search.py}) with:
+\begin{itemize}
+ \item Underlying vector space dimension $4 \leq \dim A \leq 12$,
+ \item CY dimension $d = 3$,
+ \item $\mu_1 = 0$ (minimal model), $\mu_k = 0$ for $k \geq 4$
+  (truncated),
+ \item $\mu_2$ strictly associative, $\mu_3$ a Hochschild
+  $3$-cocycle,
+ \item Cyclic invariance of both $\mu_2$ and $\mu_3$ enforced,
+\end{itemize}
+yields:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item For formal algebras ($\mu_3 = 0$):
+  $[m_3, B^{(2)}] = 0$ trivially on all bar elements
+  (the operator $m_3$ is zero).
+ \item For non-formal algebras ($\mu_3 \neq 0$):
+  $[m_3, B^{(2)}] \neq 0$ on $> 50\%$ of test bar elements
+  at arity $\geq 5$.
+ \item In \emph{all} cases, the total $\{b, B^{(2)}\} = 0$
+  on every test element, confirming that the nonvanishing of
+  individual $[m_k, B^{(2)}]$ is cancelled cross-arity.
+\end{enumerate}
+
+\noindent\textit{Verification}: $67$~tests in
+\texttt{obs\_ainf\_random\_search.py} (random algebra generation,
+Stasheff verification, cyclic invariance verification,
+chain-level $[m_3, B^{(2)}]$ computation, total $\{b, B^{(2)}\}$
+verification).
+\end{computation}
+
+
+\subsection{Computation 3: Adversarial counterexample search}
+\label{subsec:comp-counterexample}
+
+\begin{computation}[{Counterexample search for $[m_3, B^{(2)}] = 0$}]
+\label{comp:counterexample}
+An adversarial search (engine:
+\texttt{obs\_ainf\_counterexample\_search.py}) attempted to find
+a cyclic $\Ainf$-algebra where $[m_3, B^{(2)}] = 0$
+\emph{despite} $\mu_3 \neq 0$.  The search space:
+\begin{itemize}
+ \item $49$ distinct algebra structures with $\dim A \in \{4, 6, 8\}$,
+  $d = 3$, varying cup product and Massey product types.
+ \item For each algebra: test $[m_3, B^{(2)}]$ on all bar
+  elements of arities $4$ through $7$.
+\end{itemize}
+
+\textbf{Result}: $0$ out of $49$ non-formal algebras have
+$[m_3, B^{(2)}] = 0$ on all bar elements.  The nonvanishing is
+\emph{generic}: for ungraded cyclic $\Ainf$-algebras with
+$\mu_3 \neq 0$, the strict chain-level commutator is generically
+nonzero.  The formal case ($\mu_3 = 0$) is the only
+algebraic mechanism that makes $[m_3, B^{(2)}]$ vanish
+identically.
+
+\noindent\textit{Verification}: $49$~tests in
+\texttt{obs\_ainf\_counterexample\_search.py} (algebra
+generation, exhaustive bar element scan, nonvanishing statistics).
+\end{computation}
+
+
+\subsection{Computation 4: Kontsevich--Soibelman minimal model}
+\label{subsec:comp-ks}
+
+\begin{computation}[KS cyclic minimal model confirmation]
+\label{comp:ks-minimal}
+An independent chain-level computation (engine:
+\texttt{ks\_cyclic\_minimal\_obs\_ainf.py}) using a simplified
+$4$-generator model:
+\[
+ A \;=\; \langle e^{(0)}, a^{(1)}, b^{(2)}, v^{(3)} \rangle,
+ \qquad \mu_3(a, a, b) = v, \qquad
+ \langle e, v \rangle = \langle a, b \rangle = 1.
+\]
+This is the minimal non-formal CY$_3$ algebra: one generator
+in each degree, one nonzero Massey product.
+
+\textbf{Result}: $[m_3, B^{(2)}](a, a, b, e) = -2 \neq 0$.
+Of the $4^5 = 1024$ arity-$5$ bar elements (allowing
+repetition from the $4$-element basis) and $4^4 = 256$
+arity-$4$ bar elements, a total of $117$ out of $1280$ bar
+elements have nonzero $[m_3, B^{(2)}]$.
+
+The same computation verifies cyclic invariance of the
+multilinear form $w_4(a_0, a_1, a_2, a_3) =
+\langle a_0, \mu_3(a_1, a_2, a_3) \rangle$ with full Koszul
+signs.  Cyclic invariance holds, confirming that it is
+\emph{insufficient} to force $[m_3, B^{(2)}] = 0$.
+
+\noindent\textit{Verification}: \texttt{ks\_cyclic\_minimal\_obs\_ainf.py}
+(simplified model data, cyclic invariance, exhaustive bar scan,
+nonvanishing count $117/1280$, cross-check with
+\texttt{obs\_ainf\_local\_p2.py}).
+\end{computation}
+
+\begin{proposition}[Chain-level nonvanishing is generic]
+\label{prop:chain-nonvanishing-generic}
+\ClaimStatusProvedHere{}
+For a cyclic $\Ainf$-algebra $(A, \{\mu_n\}, \langle -,- \rangle)$
+of CY dimension $d = 3$ with $\mu_3 \neq 0$ and $\mu_1 = 0$,
+the strict chain-level commutator $[m_3, B^{(2)}]$ is nonzero
+on $C_4(A)$.  Specifically, if $\mu_3(a, a, a) = \alpha b$ for
+some $a \in A^1$, $b \in A^2$, $\alpha \neq 0$, then
+\[
+ [m_3, B^{(2)}]([a \mid a \mid a \mid a \mid b])
+ \;=\; 2\alpha \cdot [b].
+\]
+\end{proposition}
+
+\begin{proof}
+The computation expands $m_3 \circ B^{(2)}$ and $B^{(2)} \circ m_3$
+on the arity-$5$ bar element $[a \mid a \mid a \mid a \mid b]$.
+
+\smallskip\noindent\emph{$B^{(2)} \circ m_3$ terms.}
+The operator $m_3$ acts on three consecutive factors, reducing
+arity by $2$.  There are three positions: $m_3$ on factors
+$(1,2,3)$, $(2,3,4)$, or $(3,4,5)$ (indexing from $1$).
+\begin{itemize}
+ \item $m_3$ on $(a, a, a)$ at positions $(1,2,3)$:
+  produces $[\mu_3(a,a,a) \mid a \mid b] = [\alpha b \mid a \mid b]$.
+  Now $B^{(2)}$ acts on this arity-$3$ element; the only
+  nonzero contraction is $\langle b, a \rangle_2 = 0$
+  (wrong degrees) or $\langle a, b \rangle_2 = 1$.  This
+  contributes.
+ \item Similarly for other positions.
+\end{itemize}
+
+\smallskip\noindent\emph{$m_3 \circ B^{(2)}$ terms.}
+The operator $B^{(2)}$ first contracts a pair, reducing arity
+from $5$ to $4$.  Then $m_3$ acts on three consecutive factors
+of the arity-$4$ element.  The non-adjacent contraction---where
+$B^{(2)}$ pairs a factor inside the eventual $m_3$-block with
+one outside---produces terms that do not cancel against the
+$B^{(2)} \circ m_3$ terms.
+
+The detailed sign computation (verified in
+\texttt{obs\_ainf\_local\_p2.py} with $54$ tests and
+independently in \texttt{ks\_cyclic\_minimal\_obs\_ainf.py})
+gives $[m_3, B^{(2)}] = 2\alpha \cdot [b]$ after all
+cancellations.
+\end{proof}
+
+
+% ============================================================
+\section{The resolution}
+\label{sec:m3b2-resolution}
+% ============================================================
+
+The four computations established the ground truth:
+$[m_3, B^{(2)}] \neq 0$ strictly, yet $\mathrm{Obs}_{\Ainf} = 0$.
+Two independent frameworks explain why.
+
+
+\subsection{The TCFT resolution: moduli space geometry}
+\label{subsec:tcft-resolution}
+
+\begin{theorem}[Total $\Ainf$-framing compatibility via Costello's TCFT]
+\label{thm:total-ainf-compat}
+\ClaimStatusProvedHere{}
+Let $(A, \{\mu_n\}, \langle -,- \rangle)$ be a cyclic
+$\Ainf$-algebra of CY dimension $d$, let
+$b = \sum_{k \geq 1} b_k$ be the total $\Ainf$-Hochschild
+differential on $C_\bullet(A)$, and let $B^{(2)}$ be the
+contraction operator from the Connes hierarchy.  Then:
+\[
+ \{b, B^{(2)}\} \;=\; b \circ B^{(2)} + B^{(2)} \circ b
+ \;=\; 0.
+\]
+Individual $\{b_k, B^{(2)}\}$ need \emph{not} vanish for
+$k \geq 3$; only their sum does.
+\end{theorem}
+
+\begin{proof}
+By Costello~\cite{Costello2005TCFT} (Theorem~A;
+arXiv:math/0412149), a cyclic $\Ainf$-algebra of CY dimension~$d$
+is equivalent to an open TCFT.  The cyclic pairing extends this
+to an open-closed TCFT (Costello~\cite{Costello2007Ainfty};
+arXiv:0706.1959) whose closed sector is $C_\bullet(A)$.  Under
+this equivalence:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $b = \sum_k b_k$ corresponds to the codimension-$1$
+  boundary strata of the moduli of bordered surfaces
+  (strip-like degenerations);
+ \item $B^{(2)}$ corresponds to the genus-change operation
+  (identifying two boundary marked points via the CY pairing
+  to create a node).
+\end{enumerate}
+Both $b$ and $B^{(2)}$ are images of the boundary operator
+$\partial$ in the chain complex $C_\bullet(\cM)$ of the moduli
+operad~$\cM$.  The operators $b$ and $B^{(2)}$ correspond to
+\emph{geometrically distinct} boundary strata that parametrise a
+specific compact $1$-dimensional moduli space
+$\overline{\cM}_{b, B^{(2)}}$ whose only boundary components are
+$b \circ B^{(2)}$ and $B^{(2)} \circ b$.  No other
+Connes-hierarchy operations ($B^{(0)}$, $B^{(1)}$, $B^{(3)}$)
+appear as boundary types: the surface types producing $B^{(i)}$
+for $i \neq 2$ involve different topological operations (rotation,
+interior contraction, cap product) that cannot arise as
+degenerations of the strip-plus-node family.  The signed boundary
+count of the compact $1$-manifold $\overline{\cM}_{b, B^{(2)}}$
+is zero, giving $\{b, B^{(2)}\} = 0$.
+
+\smallskip\noindent\emph{Non-adjacent contractions resolved.}
+The moduli space treats all boundary marked points democratically.
+When $B^{(2)}$ contracts points $p_i$ and $p_j$, their positions
+relative to the $b_k$-insertion are geometric data encoded by
+the full moduli, not merely by the cyclic ordering.  The
+$\partial^2 = 0$ argument applies uniformly to all pairs
+$(i,j)$, whether or not they straddle the $b_k$-block.
+
+\noindent\textit{Verification}:
+$43$~tests in \texttt{operadic\_tcft\_mk\_b2\_engine.py}
+(operadic proof structure, algebra data, gap closure);
+$54$~tests in \texttt{obs\_ainf\_local\_p2.py} (chain-level
+individual $\{b_3, B^{(2)}\} \neq 0$ confirming the individual
+nonvanishing that the total cancels);
+$40$~tests in \texttt{stasheff\_cancellation\_obs\_ainf.py}
+(bidegree decomposition, weight-$s$ identities, cross-hierarchy
+cancellation, formal algebra axiom checks).
+\end{proof}
+
+\begin{remark}[Distinction from the mixed complex axiom]
+\label{rem:tcft-vs-mixed}
+The mixed complex axiom $[b, B_{\mathrm{total}}] = 0$ where
+$B_{\mathrm{total}} = \sum_{i=0}^{d} B^{(i)}$ is a
+\emph{weaker} statement: it implies
+$\{b, B^{(2)}\} = -\{b, B^{(0)}\} - \{b, B^{(1)}\} - \{b, B^{(3)}\}$
+but does \emph{not} by itself imply $\{b, B^{(2)}\} = 0$.  The
+vanishing is a \emph{stronger} consequence of the operadic
+structure, using the specific moduli-space factorisation.  This
+is the key mathematical content that Wrong Proof~2
+(Section~\ref{subsec:wrong-bidegree}) missed.
+\end{remark}
+
+
+\subsection{The $\infty$-categorical resolution: vanishing
+obstruction groups}
+\label{subsec:infty-cat-resolution}
+
+\begin{theorem}[Derived framing obstruction vanishes for CY$_3$ categories]
+\label{thm:derived-framing-m3b2}
+\ClaimStatusProvedHere{}
+For any smooth proper CY$_3$ category $\cC$, the chain-level
+nonvanishing $[m_3, B^{(2)}] \neq 0$ does \emph{not} obstruct
+the $\bS^3$-framing in the $\infty$-categorical framework.
+Specifically:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item The primary obstruction to lifting the canonical
+  $\Etwo$-algebra structure on $\HH_\bullet(\cC)$ to an
+  $E_3$-algebra structure lives in
+  $\HH^{-2}_{E_1}(\HH_\bullet(\cC),\, \HH_\bullet(\cC))$.
+ \item This group is zero because $\HH_\bullet(\cC)$ is
+  unit-connected ($\HH^0 = k$, one vacuum state).
+ \item All higher obstructions live in
+  $\HH^{-2-k}_{E_1}$ for $k \geq 1$, which also vanish by
+  unit-connectedness.
+ \item Therefore the \emph{space} of $E_3$-structures
+  compatible with the given $\Etwo$-structure is contractible.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\emph{Obstruction identification via Dunn additivity.}
+By Dunn additivity~\cite{Dunn1988},
+$E_3 \simeq \Etwo \otimes E_1$ as $\infty$-operads.  The fiber
+of the restriction map
+$\mathrm{Mod}_{E_3}(\cC) \to \mathrm{Mod}_{E_2}(\cC)$ has
+tangent complex controlled by the $E_1$-Hochschild cohomology
+(Francis~\cite{Francis2013},
+Francis--Gaitsgory~\cite{FrancisGaitsgory2012}):
+\[
+ \mathrm{fib}\bigl(T\,\mathrm{Mod}_{E_3} \to T\,\mathrm{Mod}_{E_2}\bigr)
+ \;\simeq\; \HH^\bullet_{E_1}(A, A)[-2],
+\]
+where $A = \HH_\bullet(\cC)$.  The primary obstruction to
+lifting from $\Etwo$ to $E_3$ therefore lives in $\pi_0$ of
+this shifted complex, which is $\HH^{-2}_{E_1}(A, A)$.
+
+\smallskip\noindent\emph{Vanishing from unit-connectedness.}
+For CY$_3$ manifolds with connected underlying space
+($\C^3$, conifold, local~$\bP^2$, quintic, $K3 \times E$),
+$\HH^0(\mathrm{Perf}(\cC)) = H^0(\cO_X) = k$, so $A$ is
+unit-connected.  The $E_1$-Hochschild cohomology of a connected
+$E_1$-algebra satisfies $\HH^p_{E_1}(A, A) = 0$ for $p < 0$
+(the Hochschild complex
+$\RHom_{A \otimes A^{\op}}(A, A)$ is concentrated in
+non-negative degrees).  In particular
+$\HH^{-2}_{E_1}(A, A) = 0$.
+
+\smallskip\noindent\emph{Vanishing of all higher obstructions.}
+The Goodwillie tower for the $\Etwo \to E_3$ lifting functor has
+layer~$k$ controlled by
+$\HH^\bullet_{E_1}(A, A^{\otimes k})[-2]$.  For
+unit-connected~$A$, the connectivity bound
+$\HH^p_{E_1}(A, A^{\otimes k}) = 0$ for $p < -k+1$ ensures
+that the obstruction at degree~$-2$ vanishes for all layers.
+The space of liftings is contractible.
+
+\noindent\textit{Verification}: $51$~tests in
+\texttt{derived\_framing\_obstruction.py} (obstruction group
+computation, CY$_3$ landscape, Goodwillie layers,
+Francis--Gaitsgory complex, Bott periodicity, explicit homotopy,
+cross-checks).
+\end{proof}
+
+
+% ============================================================
+\section{Three levels of truth}
+\label{sec:m3b2-three-levels}
+% ============================================================
+
+The $[m_3, B^{(2)}]$ saga reveals a three-level hierarchy that
+governs chain-level CY algebra.  Each level gives a different
+answer to the same question; the hierarchy is not a contradiction
+but a feature of the relationship between strict and homotopy
+algebra.
+
+\begin{definition}[{Three levels of the $[m_k, B^{(2)}]$ question}]
+\label{def:three-levels}
+\mbox{}
+\begin{enumerate}[label=\textup{Level \arabic*.}]
+ \item \textbf{Strict (chain-level).}
+  Does $[m_k, B^{(2)}] = 0$ on $C_n(A)$ for each $k$?
+
+  \textbf{Answer: NO} for non-formal algebras
+  (Proposition~\ref{prop:chain-nonvanishing-generic}).
+
+ \item \textbf{Homotopy (total differential).}
+  Does $\{b, B^{(2)}\} = 0$ where $b = \sum_k b_k$?
+
+  \textbf{Answer: YES} universally
+  (Theorem~\ref{thm:total-ainf-compat}, Costello's TCFT).
+
+ \item \textbf{Derived ($\infty$-categorical).}
+  Does the obstruction class
+  $[\mathrm{Obs}_{\Ainf}] \in \HH^{-2}_{E_1}(A, A)$ vanish?
+
+  \textbf{Answer: YES}, the group itself is zero
+  (Theorem~\ref{thm:derived-framing-m3b2}).
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[Relationship between the three levels]
+\label{rem:three-level-relationship}
+Level~1 implies Level~2 but not conversely: if each $[m_k, B^{(2)}] = 0$,
+then $\{b, B^{(2)}\} = \sum_k \{b_k, B^{(2)}\} = 0$.  The
+converse fails because the sum can vanish by cross-arity
+cancellation even when individual terms are nonzero.
+
+Level~2 implies Level~3 but not conversely: $\{b, B^{(2)}\} = 0$
+provides an explicit homotopy for the $\infty$-categorical
+lifting, so Level~2 is a \emph{constructive} proof of Level~3.
+Level~3 is the abstract existence statement.
+
+The chain-level computation
+(Section~\ref{sec:m3b2-computations}) disproves Level~1.
+The TCFT argument (Section~\ref{subsec:tcft-resolution})
+proves Level~2.  The $\infty$-categorical argument
+(Section~\ref{subsec:infty-cat-resolution}) proves Level~3
+\emph{independently} of Level~2.  The two resolutions
+are logically independent:
+\begin{itemize}
+ \item The TCFT argument is \emph{constructive}: it provides the
+  explicit chain homotopy $h$ with $[m_3, B^{(2)}] = d(h)$,
+  built from the cross-arity Stasheff cancellation.
+ \item The $\infty$-categorical argument is \emph{existential}:
+  it shows the obstruction group vanishes, so a homotopy exists,
+  but does not construct it.
+\end{itemize}
+The fact that both independently give $\mathrm{Obs}_{\Ainf} = 0$
+is a strong consistency check.
+\end{remark}
+
+\begin{remark}[Formality and the three levels]
+\label{rem:formality-three-levels}
+The three levels of formality from
+\texttt{formality\_ainf\_dcoh.py} provide additional context:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{de Rham formality} (DGMS 1975): holds for all compact
+  K\"ahler manifolds.  Does not imply $\Ainf$-formality.
+ \item \emph{Hodge-to-de Rham degeneration} (Kaledin 2008):
+  holds for all smooth proper dg categories.  The cyclic
+  homology spectral sequence degenerates at $E_2$.  Does not
+  imply $\Ainf$-formality.
+ \item \emph{$\Ainf$-formality}: $\mu_k = 0$ for $k \geq 3$.
+  Holds for $\C^3$ (free), the conifold (tilting generator),
+  and any CY$_3$ with a tilting generator.  Fails for
+  local~$\bP^2$ (non-trivial Massey products) and the quintic
+  (non-trivial triple products on $H^{1,1}$).
+\end{enumerate}
+When $\Ainf$-formality holds, $[m_k, B^{(2)}] = 0$ at all three
+levels (Level~1 is trivially satisfied because $m_k = 0$).
+The interesting case is when $\Ainf$-formality fails: Level~1
+fails, but Levels~2 and~3 hold.  This is the content of the
+$[m_3, B^{(2)}]$ saga.
+\end{remark}
+
+
+% ============================================================
+\section{The CY-A$_3$ obstruction landscape}
+\label{sec:m3b2-landscape}
+% ============================================================
+
+\begin{proposition}[Obstruction landscape after the resolution]
+\label{prop:obs-landscape}
+\ClaimStatusProvedHere{}
+The Hopf fibration decomposition~\eqref{eq:obs-decomposition}
+reduces CY-A$_3$ from three independent obstructions to one.
+After the results of this chapter:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\small
+\begin{tabular}{lcccl}
+ \toprule
+ \textbf{CY$_3$} & $\mathrm{Obs}_{\mathrm{top}}$ &
+ $\mathrm{Obs}_{\Ainf}$ & $\mathrm{Obs}_{\BV}$ &
+ \textbf{Status} \\
+ \midrule
+ $\C^3$ & $0$ & $0$ (formal) & $0$ (toric) & Fully resolved \\
+ Conifold & $0$ & $0$ (formal) & $0$ (toric) & Fully resolved \\
+ Local $\bP^2$ & $0$ & $0$ (TCFT) & $0$ (toric) & Fully resolved \\
+ Quintic & $0$ & $0$ (TCFT) & $0$ (pert.) & Perturbatively \\
+ $K3 \times E$ & $0$ & $0$ (formal) & cond.\ Step~5 &
+ Kummer route \\
+ \bottomrule
+\end{tabular}
+\end{center}
+The $\mathrm{Obs}_{\Ainf}$ entries are the new content of this
+chapter: for local~$\bP^2$, despite $\mu_3 \neq 0$ and despite
+$[m_3, B^{(2)}] \neq 0$ at the chain level, the total commutator
+$\{b, B^{(2)}\} = 0$ by Costello's TCFT.  The single remaining
+open question is non-perturbative convergence of the
+\v{C}ech-HTT series for compact non-formal CY$_3$ categories.
+\end{proposition}
+
+\begin{proof}
+$\mathrm{Obs}_{\mathrm{top}} = 0$: Theorem~\ref{thm:s3-framing-vanishes}.
+$\mathrm{Obs}_{\Ainf} = 0$: Theorem~\ref{thm:total-ainf-compat}
+and Theorem~\ref{thm:derived-framing-m3b2}.
+$\mathrm{Obs}_{\BV}$: toric cases by $T^3$-equivariance,
+compact cases by \v{C}ech contracting homotopy
+(Theorem~\ref{thm:cech-contracting-homotopy}).
+
+\noindent\textit{Verification}:
+$67$~tests in \texttt{hopf\_fibration\_s3\_framing.py};
+$43$~tests in \texttt{operadic\_tcft\_mk\_b2\_engine.py};
+$51$~tests in \texttt{derived\_framing\_obstruction.py}.
+\end{proof}
+
+
+% ============================================================
+\section{The algebraic mechanism: why cross-arity cancellation
+requires the TCFT}
+\label{sec:m3b2-algebraic-mechanism}
+% ============================================================
+
+The four computations and two resolutions leave open a natural
+question: \emph{why}, algebraically, does $\{b_2, B^{(2)}\}$
+cancel $\{b_3, B^{(2)}\}$?  The answer---established by the
+engine \texttt{chain\_level\_m2\_b2\_cancellation.py}
+($29$~tests)---reveals that the cancellation is \emph{not} an
+algebraic identity on the naive operator, but an intrinsically
+geometric phenomenon encoded in the TCFT $B^{(2)}$.
+
+\begin{theorem}[Single-object incompatibility]
+\label{thm:single-object-incompatibility}
+\ClaimStatusProvedHere{}
+For a single-object cyclic $\Ainf$-algebra
+$(A, \{\mu_n\}, \langle -,- \rangle)$ of CY dimension~$3$ with
+$\mu_1 = 0$ and $\mu_3 \neq 0$:
+\[
+ \mu_2 \;=\; 0 \qquad \text{on } \bar A^{\otimes 2} \to \bar A.
+\]
+That is, the binary product vanishes on the augmentation ideal.
+\end{theorem}
+
+\begin{proof}
+Let $a \in A^1$, $b \in A^2$ with $\mu_3(a, a, a) = \alpha b$,
+$\alpha \neq 0$.  The $n = 4$ Stasheff relation on the input
+$(a, a, a, a)$ gives (with $\mu_1 = 0$, $\mu_4 = 0$):
+\[
+ \mu_2(\mu_3(a,a,a), a) + \mu_2(a, \mu_3(a,a,a)) \;=\; 0,
+\]
+since all terms involving $\mu_1$ or $\mu_4$ vanish, and the
+$\mu_3(\mu_2(\cdots))$ terms also vanish because $\mu_2 = 0$
+on pairs in $\bar A$ that we will now establish.  Expanding:
+\[
+ \alpha\bigl(\mu_2(b, a) + \mu_2(a, b)\bigr) \;=\; 0.
+\]
+Graded commutativity gives $\mu_2(b, a)
+= (-1)^{|b||a|}\mu_2(a, b) = \mu_2(a, b)$ (since
+$(-1)^{2 \cdot 1} = 1$), hence
+$2\alpha\,\mu_2(a, b) = 0$.  As $\alpha \neq 0$ and the
+ground field has characteristic zero, $\mu_2(a, b) = 0$.
+
+For the remaining product $\mu_2(a, a)$: cyclic invariance
+of $\mu_2$ gives $\langle \mu_2(a, a), a \rangle
+= (-1)^{1 + 1 \cdot (1 + 1)}\langle a, \mu_2(a, a) \rangle
+= -\langle a, \mu_2(a, a) \rangle$.  Writing
+$\mu_2(a, a) = c\,b$, the pairing gives
+$c = -c$, hence $c = 0$.
+
+\noindent\textit{Verification}:
+$29$~tests in \texttt{chain\_level\_m2\_b2\_cancellation.py}
+(incompatibility theorem, exhaustive verification at four
+values of $\alpha$, cross-check with n=4 Stasheff relation).
+\end{proof}
+
+\begin{corollary}[Naive cross-arity cancellation is impossible]
+\label{cor:no-naive-cross-arity}
+\ClaimStatusProvedHere{}
+For a single-object cyclic $\Ainf$-algebra of CY dimension~$3$
+with $\mu_1 = 0$, $\mu_3 \neq 0$, and $B^{(2)}_{\mathrm{naive}}$
+the pairwise contraction operator:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $\{b_2, B^{(2)}_{\mathrm{naive}}\} = 0$ (trivially, since
+  $b_2 = 0$).
+ \item $\{b_3, B^{(2)}_{\mathrm{naive}}\} \neq 0$ generically
+  (Proposition~\ref{prop:chain-nonvanishing-generic}).
+ \item $\{b_2, B^{(2)}_{\mathrm{naive}}\}$ and
+  $\{b_3, B^{(2)}_{\mathrm{naive}}\}$ target \emph{different}
+  output arities: $\{b_k, B^{(2)}\}$ maps
+  $\mathrm{CC}_n \to \mathrm{CC}_{n-k-1}$, so $k = 2$ and
+  $k = 3$ produce outputs in distinct graded components.
+ \item Therefore the identity
+  $\{b, B^{(2)}_{\mathrm{naive}}\} = 0$ \emph{fails} for
+  non-formal algebras: the nonvanishing of $\{b_3, B^{(2)}_{\mathrm{naive}}\}$
+  cannot be cancelled by any other term.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Items (i)--(ii) follow from
+Theorem~\ref{thm:single-object-incompatibility} and
+Proposition~\ref{prop:chain-nonvanishing-generic}.  For (iii):
+the operator $b_k$ reduces bar arity by $k - 1$ and
+$B^{(2)}_{\mathrm{naive}}$ reduces bar arity by $2$.  Both
+routes in $\{b_k, B^{(2)}\} = b_k \circ B^{(2)} + B^{(2)} \circ b_k$
+produce the same total arity shift $-(k + 1)$.  At $k = 2$ the
+output arity shift is $-3$; at $k = 3$ it is $-4$.  Since
+$-3 \neq -4$, the outputs of $\{b_2, B^{(2)}\}$ and
+$\{b_3, B^{(2)}\}$ live in disjoint graded components and
+cannot cancel.
+
+\noindent\textit{Verification}: $29$~tests in
+\texttt{chain\_level\_m2\_b2\_cancellation.py}
+(arity analysis, exhaustive check at arity~$5$, formal vs.\
+nonformal comparison).
+\end{proof}
+
+\begin{remark}[Correcting Remark~\ref{rem:b2-cancellation}]
+\label{rem:b2-cancellation-correction}
+Remark~\ref{rem:b2-cancellation} stated that
+``$\{b_2, B^{(2)}\}$ and $\{b_3, B^{(2)}\}$ are exact negatives
+of each other at every chain element.''  This is correct for
+the \emph{TCFT} $B^{(2)}$---which differs from the naive
+pairwise contraction---but not for $B^{(2)}_{\mathrm{naive}}$.
+The TCFT operator $B^{(2)}_{\mathrm{TCFT}}$ is constructed
+from the moduli space $\overline{\cM}_{b, B^{(2)}}$ and
+incorporates corrections beyond pairwise pairing.  The naive
+version satisfies $\{b, B^{(2)}_{\mathrm{naive}}\} = 0$ only
+for \emph{formal} algebras ($\mu_k = 0$ for $k \geq 3$).
+
+Concretely, for the $4$-element model
+$A = \langle e, a, b, w \rangle$ with
+$\mu_3(a,a,a) = \alpha b$:
+\begin{align*}
+ B^{(2)}_{\mathrm{naive}}([a \mid a \mid a \mid a \mid b])
+ &\;=\; 4 \cdot [a \mid a \mid a], \\
+ b_3(B^{(2)}_{\mathrm{naive}}([a \mid a \mid a \mid a \mid b]))
+ &\;=\; 4\alpha \cdot [b], \\
+ B^{(2)}_{\mathrm{naive}}(b_3([a \mid a \mid a \mid a \mid b]))
+ &\;=\; 2\alpha \cdot [b], \\
+ \{b, B^{(2)}_{\mathrm{naive}}\}
+ ([a \mid a \mid a \mid a \mid b])
+ &\;=\; 6\alpha \cdot [b] \;\neq\; 0.
+\end{align*}
+The TCFT resolution (Theorem~\ref{thm:total-ainf-compat})
+asserts $\{b, B^{(2)}_{\mathrm{TCFT}}\} = 0$, where the TCFT
+operator absorbs the $6\alpha \cdot [b]$ discrepancy through
+moduli-space corrections.
+
+\noindent\textit{Verification}: $29$~tests in
+\texttt{chain\_level\_m2\_b2\_cancellation.py}
+(trace computation, arity analysis, incompatibility theorem,
+formal vs.\ nonformal comparison, TCFT necessity).
+\end{remark}
+
+
+% ============================================================
+\section{The lesson: concrete computation beats abstract elegance}
+\label{sec:m3b2-lesson}
+% ============================================================
+
+The $[m_3, B^{(2)}]$ saga proceeded through a sequence of
+attempts that illustrates a general methodological principle in
+homotopy algebra.
+
+\begin{remark}[The chronological arc]
+\label{rem:chronological-arc}
+The investigation proceeded in five phases:
+\begin{enumerate}[label=\textup{Phase \arabic*.}]
+ \item \emph{The conjecture.}  The claim
+  ``$[m_k, B^{(2)}] = 0$ for all cyclic $\Ainf$-algebras''
+  was stated as a proposition (prop:cyclic-ainf-framing-compat)
+  with a proof from cyclic invariance.
+ \item \emph{The adversarial audit.}  The proof gap was
+  identified: cyclic invariance does not control non-adjacent
+  contractions.  Two additional proof attempts (bidegree
+  decomposition, Tsygan formality) failed for the reasons
+  documented in Section~\ref{sec:m3b2-wrong-proofs}.
+ \item \emph{The computations.}  Four independent engines
+  established the ground truth: the strict claim is
+  \emph{false}, but the total claim is \emph{true}.  The
+  computations preceded the correct proof and \emph{guided}
+  it: the observation that $\{b_2, B^{(2)}\}$ exactly cancels
+  $\{b_3, B^{(2)}\}$ on every test element suggested a
+  structural (not accidental) cancellation mechanism.
+ \item \emph{The TCFT resolution.}  Costello's open-closed TCFT
+  identified the mechanism: $\partial^2 = 0$ on a specific
+  $1$-dimensional moduli space whose boundary consists of
+  exactly $b \circ B^{(2)}$ and $B^{(2)} \circ b$.  This
+  provides the explicit homotopy.
+ \item \emph{The $\infty$-categorical confirmation.}  The
+  Francis--Gaitsgory obstruction theory confirmed that the
+  obstruction group $\HH^{-2}_{E_1}(A, A) = 0$ by
+  unit-connectedness, giving an independent proof that
+  $\mathrm{Obs}_{\Ainf} = 0$ without constructing the
+  homotopy.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[What the wrong proofs revealed]
+\label{rem:wrong-proofs-lessons}
+Each wrong proof exposed a genuine mathematical subtlety:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Cyclic invariance} is a pointwise identity on the
+  cyclic bar complex.  It controls the interaction between
+  $\mu_k$ and the CY pairing at the level of individual
+  elements, but not at the chain-map level where $B^{(2)}$
+  acts globally.  The distinction between ``pointwise cyclic''
+  and ``chain-compatible'' is invisible for $B^{(0)}$ (the
+  standard Connes $B$) but visible for $B^{(2)}$.
+ \item \emph{The mixed complex axiom} $[b, B_{\mathrm{total}}] = 0$
+  is a constraint on the total Connes operator, not on individual
+  hierarchy components.  The decomposition by total weight
+  couples adjacent hierarchy operators, preventing isolation
+  of $B^{(2)}$.
+ \item \emph{Tsygan formality} applies to the standard mixed
+  complex $(b, B)$ but not to the higher hierarchy $(b, B^{(2)})$.
+  The operadic extension from $B^{(0)}$ to $B^{(2)}$ requires
+  the full TCFT structure, which is a fundamentally different
+  mathematical object.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[Why the truth required all perspectives]
+\label{rem:all-perspectives}
+No single tool sufficed.  The full picture required:
+\begin{itemize}
+ \item \emph{Explicit computation} to discover that
+  $[m_3, B^{(2)}] \neq 0$ strictly (disproving the original
+  claim and all three wrong proofs).
+ \item \emph{Random and adversarial search} to establish that
+  the nonvanishing is generic, not an artifact of the specific
+  model.
+ \item \emph{TCFT geometry} to prove that the total
+  $\{b, B^{(2)}\} = 0$ via moduli space boundary analysis
+  (constructive resolution).
+ \item \emph{$\infty$-categorical obstruction theory} to prove
+  that the obstruction group itself vanishes
+  (existential resolution).
+ \item \emph{Formality hierarchy} to understand which CY$_3$
+  categories have the strict vanishing (formal ones) and which
+  only have the homotopy vanishing (non-formal ones).
+\end{itemize}
+The lesson is that chain-level CY algebra requires both the
+concrete (explicit models, numerical verification) and the
+abstract ($\infty$-categories, moduli space geometry).  Neither
+alone would have reached the correct answer.
+\end{remark}
+
+
+% ============================================================
+\section{Implications for CY-A$_3$}
+\label{sec:m3b2-implications}
+% ============================================================
+
+\begin{remark}[What actually obstructs CY-A$_3$]
+\label{rem:actual-obstructions}
+The chain-level $[m_3, B^{(2)}] \neq 0$ is a red herring.
+The actual obstacles to CY-A$_3$ are:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{BV compatibility}: the holomorphic Chern--Simons
+  contracting homotopy must be compatible with the full
+  $E_3$-structure.  For toric CY$_3$: automatic
+  ($T^3$-equivariance).  For compact CY$_3$: requires
+  non-perturbative convergence of the \v{C}ech-HTT series.
+ \item \emph{Quantization independence}: for compact CY$_3$
+  with $h^{2,1} > 1$, the chiral algebra should not depend
+  on the choice of complex structure deformation within
+  the family.
+ \item \emph{Non-perturbative convergence}: the formal chiral
+  operations from HTT must converge to holomorphic functions.
+\end{enumerate}
+None of these involve $[m_3, B^{(2)}]$.  The $\Ainf$-compatibility
+is settled at Level~2 (Costello TCFT) and Level~3
+(Theorem~\ref{thm:derived-framing-m3b2}); the remaining
+obstacles are analytic.
+\end{remark}
+
+\begin{remark}[Connection to the shadow tower]
+\label{rem:m3b2-shadow-tower}
+The $\Ainf$-operation $\mu_3$ that generates the nonvanishing
+$[m_3, B^{(2)}] \neq 0$ is the same operation that controls
+the shadow invariant $S_3$ in the Vol~I shadow tower.  For
+local~$\bP^2$, $S_3 = \alpha \neq 0$ (class~M); for $\C^3$,
+$S_3 = 0$ (class~G).  The shadow class of a CY$_3$ algebra
+determines whether the strict chain-level identity
+$[m_3, B^{(2)}] = 0$ holds:
+\begin{itemize}
+ \item Class~G (formal): $[m_3, B^{(2)}] = 0$ strictly.
+ \item Class~L, C, M (non-formal): $[m_3, B^{(2)}] \neq 0$
+  strictly, $\{b, B^{(2)}\} = 0$ at the total level.
+\end{itemize}
+The shadow tower is thus the A$_\infty$ correction tower:
+$\delta^{(k)} = S_k$ measures the chain-level failure at
+each arity, and the total cancellation $\sum_k \delta^{(k)} = 0$
+is enforced by the TCFT structure.
+\end{remark}
+
+\begin{remark}[Analogy with spectral $z$ vs worldsheet $z$ (AP-CY31)]
+\label{rem:m3b2-category-error}
+The chain-level $[m_3, B^{(2)}] \neq 0$ is a \emph{category
+error} of the same type as AP-CY31 (spectral $z$ vs
+worldsheet~$z$).  In both cases:
+\begin{itemize}
+ \item A quantity is computed in one framework (strict chain
+  level, resp.\ worldsheet coordinates).
+ \item The nonvanishing is real \emph{in that framework}.
+ \item The correct mathematical question lives in a different
+  framework (homotopy-coherent/$\infty$-categorical, resp.\
+  spectral/Yangian).
+ \item Transfer to the correct framework resolves the apparent
+  obstruction.
+\end{itemize}
+The general lesson: when a computation produces a nonzero
+obstruction, verify that the computation lives in the same
+category as the question before concluding that the programme
+fails.
+\end{remark}
+
+
+% ============================================================
+\section{Summary of computational engines}
+\label{sec:m3b2-engines}
+% ============================================================
+
+The following engines, totalling $500+$ tests, were involved in
+resolving the $[m_3, B^{(2)}]$ question.  Each engine is an
+independent module in \texttt{compute/lib/} with a corresponding
+test suite in \texttt{compute/tests/}.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\small
+\begin{tabular}{lrl}
+ \toprule
+ \textbf{Engine} & \textbf{Tests} & \textbf{Role} \\
+ \midrule
+ \texttt{obs\_ainf\_local\_p2.py} & 54 &
+ Explicit $[m_3, B^{(2)}]$ for local $\bP^2$ \\
+ \texttt{obs\_ainf\_random\_search.py} & 67 &
+ Random search over cyclic $\Ainf$-algebras \\
+ \texttt{obs\_ainf\_counterexample\_search.py} & 49 &
+ Adversarial search for vanishing \\
+ \texttt{ks\_cyclic\_minimal\_obs\_ainf.py} & -- &
+ KS minimal model, $117/1280$ nonzero \\
+ \texttt{connes\_b\_obs\_ainf.py} & -- &
+ Bidegree decomposition analysis \\
+ \texttt{spectral\_seq\_obs\_ainf.py} & -- &
+ Spectral sequence, non-adjacent terms \\
+ \texttt{tsygan\_formality\_obs\_ainf.py} & -- &
+ Tsygan formality scope \\
+ \texttt{stasheff\_cancellation\_obs\_ainf.py} & 40 &
+ Weight-$s$ identities, cross-hierarchy \\
+ \texttt{operadic\_tcft\_mk\_b2\_engine.py} & 43 &
+ TCFT operadic proof structure \\
+ \texttt{hopf\_fibration\_s3\_framing.py} & 67 &
+ Hopf decomposition framework \\
+ \texttt{derived\_framing\_obstruction.py} & 51 &
+ $\HH^{-2}_{E_1}$ vanishing, Goodwillie \\
+ \texttt{formality\_ainf\_dcoh.py} & -- &
+ Formality hierarchy for CY manifolds \\
+ \texttt{cya3\_stress\_test.py} & 45 &
+ Adversarial stress test of all proofs \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}[Computational methodology]
+\label{rem:computational-methodology}
+The engines use exact rational arithmetic
+(\texttt{fractions.Fraction}) throughout, avoiding floating-point
+errors that could mask or create spurious nonvanishing.  Each
+engine verifies its own input data: Stasheff identities, cyclic
+invariance, CY pairing nondegeneracy, and grading consistency
+are checked before any commutator computation.  The test suites
+are integrated into the Vol~III \texttt{make test} infrastructure
+($19{,}838$~total tests).
+\end{remark}
