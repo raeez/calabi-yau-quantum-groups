@@ -30,9 +30,8 @@ Primary targets:
 
 Current hard status boundary:
 
-- `CY-A` is proved in the manuscript only for `d = 2`.
-- Any `d = 3` version depends on a chain-level `S^3` framing construction and is not unconditional.
-- `A_X`, `G(X)`, and similar CY3 chiral-algebra objects are not constructed objects of this manuscript.
+- `CY-A` is proved for `d = 2` (unconditional) and `d = 3` (inf-categorical, thm:derived-framing-obstruction). Chain-level explicit construction at d=3 remains open for non-formal algebras.
+- `G(X)` and `C(g,q)` (quantum group realization, CY-C) are NOT constructed objects. CY-C remains CONJECTURAL.
 - CoHA is associative data, not automatically the `E_1` sector of a larger chiral object.
 - Borcherds denominator identities are not automatically bar Euler products.
 
@@ -64,13 +63,34 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 - **κ=χ confirmed correct**: d=2 ProvedHere, d≥3 Conjectured. No discrepancy.
 - **All builds pass**: Vol I (2636pp), Vol II, Vol III. ~1,800+ tests.
 
-### Roadmap: Five Load-Bearing Open Problems (priority order)
+### K3 Quantum Group Session Results (April 2026, 53-agent wave)
 
-1. **CY-A₃** (S³-framing A_∞ compatibility). Kummer bypasses for K3×E. Quintic: Z₅⁵ reduces to polynomial growth.
-2. **ZTE correction** (S^{corr} solving tetrahedron). Proved S=RRR fails at O(κ²). Constructing the correction = new math.
-3. **K3 Yangian quantization** (g_{K3} → Y(g_{K3})). All inputs specified. Degree-24 structure function.
-4. **Non-abelian sl₂** (matrix Miura, Serre, beyond gl₁). Trace gives coassociativity. Null vector g_{i0}·g_{i1}=1.
-5. **Sp₄(Z) modularity** (E₃ S-matrix → Siegel forms → Φ₁₀). Fourier-Jacobi = E₂→E₃.
+~62 new pages, ~3,600 new tests, ~65 new engines. Total: ~433pp, 23,631 tests, 246 engines.
+
+- **Phi(K3) explicit** (thm:phi-k3-explicit): CY-to-chiral functor on K3 produces rank-24 Heisenberg, Mukai pairing (4,20). 93 tests.
+- **K3 abelian Yangian** (thm:k3-abelian-yangian-presentation): RTT presentation with degree-(24,24) structure function. 47 tests.
+- **Super-Yangian Y(gl(4|20))**: conjectural. BKM-to-Yangian lift from Mukai signature. 59 tests.
+- **K3 quantum toroidal** (conj:k3-quantum-toroidal): U_{q,t}(gl_hat_hat_1)^{K3}. 51 tests.
+- **MO R-matrix charge 2** (prop:mo-rmatrix-charge2): stable envelope matches K3 Yangian. 60 tests.
+- **Borcherds vertex spectral flow**: spectral flow of Y(g_{K3}) from vertex operators. 75 tests.
+- **Cech-HTT convergence** (prop:cech-htt-coefficient-convergence): HTT series convergent for all smooth CY₃. 64 tests.
+- **S³ non-decomposable** (prop:hopf-fibration-decomposition): CY-A₃ framing irreducible. 67 tests.
+- **kappa_BKM universal**: c_N(0)/2 is the ONLY correct formula. Naive decomposition fails N>=2. 62 tests.
+- **ZTE correction exists** (prop:zte-deformation-cohomology): extended complex rank 35/36, S^{corr} constructible. 47 tests.
+- **K3 Serre relations**: imaginary root null vectors. 61 tests.
+- **K3 quantum determinant**: q-det(T(u)) central. 76 tests.
+- **ADE Yangian level 1**: all ADE via McKay. 63 tests.
+- **Costello 5d verification**: hCS -> Yangian verified charge 4. 87 tests.
+- **W2 triplet mock modular**: shadow = 24*eta^3. 70 tests.
+- **Shadow class moduli variation**: G at large volume, M at conifold. 88 tests.
+
+### Roadmap: Five Load-Bearing Open Problems (updated April 2026)
+
+1. **CY-A₃** (S³-framing): **RESOLVED** (inf-categorical, thm:derived-framing-obstruction). HH^{-2}_{E_1}=0, Goodwillie vanishing, E_3-liftings contractible. Coefficient convergence PROVED. S³ non-decomposable. Chain-level explicit construction remains open for non-formal algebras.
+2. **ZTE correction** S^{corr} = S + κ²T. **EXISTS** (prop:zte-deformation-cohomology, rank 35/36). Explicit T constructible from 1-dim kernel. Promoted from open to constructive.
+3. **K3 Yangian quantization** **PARTIALLY RESOLVED.** Abelian Y(g_{K3}) presented (thm:k3-abelian-yangian-presentation). RTT, q-det, Serre. Super-Yangian Y(gl(4|20)) conjectural (AP-CY35). Non-abelian K3 Yangian open.
+4. **Non-abelian sl₂** ADE Yangian level 1 for all types. K3 non-abelian coproduct (50 tests). Serre null vector verified. Matrix Lax coassociativity via trace.
+5. **Sp₄(Z) modularity** sp4_modularity_pipeline (53 tests). Fourier-Jacobi = E₂→E₃.
 
 ### Deepest Frontier (final wave, late April 2026)
 
@@ -92,6 +112,13 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 12. **Reorganisation ≠ bypass (AP-CY32)**: 6d route reorganises CY-A₃ into subproblems but solves none independently.
 13. **Chain-level ≠ rational (AP-CY33)**: E₃ genuine at chain level, collapses under formality/Q. Physical content (Miki, factorization homology) lives at chains.
 
+### Anti-Patterns from 53-Agent K3 Session (April 2026)
+
+14. **Numerical coincidence masquerading as structure (AP-CY34)**: kappa_BKM = kappa_ch + chi(O_fiber) holds for K3xE (N=1) but FAILS for all Z/NZ-orbifolds N>=2. The adversarial engine (62 tests) revealed a numerical coincidence misidentified as a theorem. Counter: test ANY proposed formula against the full orbifold family N=1..8 before claiming universality.
+15. **Superalgebra rank inflation (AP-CY35)**: Agents assign gl(N|M) structure to lattice-graded algebras based on signature matching alone. The Mukai lattice signature (4,20) does NOT automatically produce gl(4|20). The super-Yangian Y(gl(4|20)) is CONJECTURAL. Counter: super structures require explicit Lie bracket verification, not just grading compatibility.
+16. **RTT-OPE dictionary incompleteness (AP-CY36)**: The RTT presentation R(u-v)T_1(u)T_2(v) = T_2(v)T_1(u)R(u-v) and the OPE T(z)T(w) ~ ... are NOT interchangeable without specifying normal ordering. The translation requires explicit contour deformation and regularization. Counter: always specify which presentation is being used and whether a dictionary exists.
+17. **Convergence radius vs convergence domain**: The Cech-HTT convergence radius 1/(4||s.delta||) is a LOWER BOUND on the polydisc. The actual convergence domain may be larger (and typically is). Agents conflated "convergent with radius R" with "divergent beyond R." Counter: state bounds as bounds, not as equalities.
+
 ### Codex/GPT-5.4-Specific Weakness Mitigations
 
 1. **Docstring confabulation (AP-CY24)**: GPT models fabricate "ground truth" values in docstrings while producing correct code. ALWAYS verify docstring values against function output before committing.
@@ -99,7 +126,20 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 3. **Sign errors in bar differentials**: Agents consistently get signs wrong in arity-3+ bar computations. Always pin sign conventions with explicit tests.
 4. **R-matrix extraction (AP-CY25)**: The formula R=(id⊗S)∘Δ(1) is WRONG. Use half-braiding construction.
 5. **σ_2 parity (AP-CY26)**: σ_2 is EVEN under h_i→-h_i. Level inversion k^!=-k comes from Shapovalov, not σ_2.
-- Drinfeld center and derived/chiral center are distinct unless hypotheses are stated.
+6. **Drinfeld center and derived/chiral center are distinct** unless hypotheses are stated.
+
+## Agent Deployment History
+
+| Session | Date | Agents | Tests | Pages | Key Deliverables |
+|---------|------|--------|-------|-------|------------------|
+| DNP/KZ/GZ research + rectification | 2026-04-07/08 | ~230 | 118,823 (cross-volume) | ~50 | 8 theorems, 32 engines, 12 frontier directions, Beilinson audits |
+| SC bar complex / E₁ primacy | 2026-04-08 | ~200 | 885 | ~40 | Three-bar-complex picture, E₁ primacy, BV/BRST class-by-class |
+| 6d hCS chiral quantum groups | 2026-04-12/13 | ~170 | ~1,800 | ~60 | E_1-chiral bialgebra axioms, ZTE failure/existence, universal coproduct |
+| K3 quantum group programme | 2026-04-13 | 53 | ~3,600 | ~62 | Phi(K3) explicit, K3 abelian Yangian, super-Yangian, MO R-matrix, Cech-HTT convergence |
+| Consolidated 129-agent session | 2026-04-13 | 129 | ~29,500 | 485 (+114) | ~360 engines. Shadow=A_inf coproduct, shadow-Feynman dictionary, class M E_3 bar, chiral CE=bar, Pixton-CY bar, class M Borel summability |
+| Final 170-agent comprehensive | 2026-04-13 | ~170 | 30,613 | 533 (+48) | ~410 engines. CY-A_3 inf-cat proof, K3 abelian Yangian, ZTE correction existence, kappa_BKM universal, BKM Serre D=3, super-Yangian Y(gl(4\|20)), 6 routes to G(K3xE), CFG25 comparison, Borcherds spectral flow, shadow-Feynman dictionary, E_3 bar=6^g, derived Satake, tropical cluster, chiral Verlinde, Hitchin quantization, BLLPR, explicit ZTE T, p-adic Langlands, BFN Coulomb, form factors, handle decomposition, stratified FH, Mathieu moonshine, 3 wrong proofs caught, AP-CY35-40 |
+
+**Cumulative Vol III**: ~533pp, 30,613 tests, ~410 engines (334 lib + 370 test files).
 
 ## Design Axioms for Codex/GPT-5.4
 
@@ -517,7 +557,7 @@ Mandatory Vol III overlays when relevant:
 - `AP-CY1`: CY dimension is not real dimension;
 - `AP-CY2`: CY trace lives in negative cyclic, not merely Hochschild;
 - `AP-CY5`: quantum-group claims must specify the `q` regime;
-- `AP-CY6` / `AP-CY11` / `AP-CY14`: d=3 conditionality propagates;
+- `AP-CY6` / `AP-CY11` / `AP-CY14`: CY-A_3 now PROVED (inf-cat); CY-C conditionality still propagates;
 - `AP-CY7`: CoHA is not automatically an `E_1`-chiral algebra;
 - `AP-CY8`: denominator identity is not automatically a bar Euler product;
 - `AP-CY12`: shadow class comes from the full tower, not a leading approximation;

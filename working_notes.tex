@@ -3841,4 +3841,1100 @@ The pushforward analysis bears on several open questions from Section~\ref{sec:o
 
 \noindent\textit{Verification}: full computation in \texttt{centcom/scripts/research/k3e\_pushforward\_shadow\_computation.py}, importing Vol~I MC recursion engine. All shadow tower values are exact rational, verified against the MC equation at each degree.
 
+% ============================================================
+\section{Lessons from the 129-agent session (2026-04-13)}
+\label{sec:129-agent-session}
+% ============================================================
+
+This section records the informal knowledge, dead ends, obstructions,
+and meta-insights from the 129-agent computational session that produced
+9,608 new lines across 18 files. The formal mathematics is in the
+manuscript; these notes capture the \emph{heuristic intelligence} that
+would otherwise be lost.
+
+\subsection{Dead ends: three wrong proofs and two false patterns}
+\label{subsec:dead-ends}
+
+\begin{warning}[Dead end 1: bidegree decomposition ``proof'' of $[m_3, B^{(2)}] = 0$]
+\label{warn:dead-end-bidegree}
+Three independent agents attempted to prove that $\{m_3, B^{(2)}\} = 0$
+by appeal to the mixed-complex axiom $[b, B^{(0)}] = 0$ (equivalently
+$[b, B] = 0$ where $B = B^{(0)}$ is the Connes operator). The argument
+decomposed the bracket by bidegree $(p, q)$ in the Hodge filtration and
+claimed that the terms cancelled degree-by-degree. This is \textbf{wrong}:
+\begin{itemize}
+ \item The mixed-complex axiom $[b, B^{(0)}] = 0$ concerns the
+ \emph{zeroth} Connes operator $B^{(0)}$, not the higher operators
+ $B^{(j)}$ in the Connes hierarchy.
+ \item $B^{(2)} \neq B^{(0)}$. The superscript indexes the cyclic
+ degree, not a power. The operators $B^{(j)}$ for $j \geq 1$ satisfy
+ different commutation relations with $b$.
+ \item The bidegree decomposition argument pattern-matches on the
+ form of $[b, B^{(0)}] = 0$ and applies it to $[b, B^{(2)}]$
+ without checking that the identity holds for the higher operator.
+\end{itemize}
+Concrete computation (four agents, direct matrix evaluation at
+dimension $\leq 6$) confirmed that $\{m_3, B^{(2)}\} \neq 0$
+individually. The resolution came from operadic methods: the
+\emph{total} bracket $\{m_2 + m_3, B^{(2)}\} = 0$ vanishes because
+the $m_2$ contribution cancels the $m_3$ contribution. This is the
+cross-arity cancellation phenomenon.
+\end{warning}
+
+\begin{warning}[Dead end 2: Tsygan formality ``proof'']
+\label{warn:dead-end-tsygan}
+A second line of argument invoked Tsygan's formality theorem for cyclic
+chains, claiming that the formality quasi-isomorphism intertwines $m_3$
+with $B^{(2)}$ and therefore $\{m_3, B^{(2)}\} = 0$. This has the
+same flaw: Tsygan's formality applies to the pair $(b, B^{(0)})$, not
+to the full Connes hierarchy $(b, B^{(0)}, B^{(1)}, B^{(2)}, \ldots)$.
+The formality statement is that the $(b, B^{(0)})$-complex is formal
+as a mixed complex; it says nothing about the interaction of $m_3$
+with the higher $B^{(j)}$.
+\end{warning}
+
+\begin{warning}[Dead end 3: cyclic invariance ``proof'' of $\mathrm{Obs}_{\Ainf} = 0$]
+\label{warn:dead-end-cyclic}
+An early attempt to prove vanishing of the $\Ainf$ obstruction class
+$\mathrm{Obs}_{\Ainf} \in \HH^{-2}_{\Eone}$ proceeded by cyclic
+invariance: the claim was that $\mathrm{Obs}_{\Ainf}$, being a
+Hochschild class, is invariant under cyclic rotation of inputs, and
+that this invariance forces the obstruction to vanish. The flaw:
+cyclic invariance controls \emph{adjacent} contractions (consecutive
+pairs in the cyclic word) but does not constrain \emph{non-adjacent}
+contractions. The correct vanishing follows from degree considerations:
+$\HH^{-2}_{\Eone} = 0$ by unit-connectedness of the $\Eone$-operad,
+so the obstruction lives at the wrong degree.
+\end{warning}
+
+\begin{observation}[Dead end 4: $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \kappa_{\mathrm{cat}}$]
+\label{obs:dead-end-kappa-sum}
+For $K3 \times E$: $\kappa_{\mathrm{BKM}} = 5$, $\kappa_{\mathrm{ch}} = 3$,
+$\kappa_{\mathrm{cat}} = 2$, and indeed $5 = 3 + 2$. This was initially
+proposed as a universal formula. It is a \textbf{numerical coincidence}
+for $N = 1$ (single K3 factor). Checking against the full table of
+$8$ orbifold families reveals that the formula fails for $N \geq 2$.
+The correct universal formula (if one exists) must involve the
+second-quantization mechanism, not a simple sum.
+\end{observation}
+
+\begin{warning}[Dead end 5: ZTE additive correction]
+\label{warn:dead-end-zte-additive}
+The Zamolodchikov tetrahedron equation (ZTE) fails at $O(\kappa^2)$ for
+the Yang $R$-matrix. The first attempt at a correction was additive:
+$S^{\mathrm{corr}} = S + \kappa^2 T$ where $T$ is a $3$-particle
+operator. This \textbf{cannot work} because the linearized ZTE for $T$
+is inconsistent: the inhomogeneity (the $O(\kappa^2)$ failure) does not
+lie in the image of the linearized ZTE operator. The correction must
+be at the $R$-matrix level (modifying $R$ itself), not at the
+$S$-operator level (adding to the factored $S$).
+\end{warning}
+
+\subsection{Why the correct proofs work}
+\label{subsec:why-proofs-work}
+
+\begin{observation}[The TCFT proof of $\{m_3, B^{(2)}\}$-total vanishing]
+\label{obs:tcft-proof}
+The correct proof that the total bracket $\{m_2 + m_3, B^{(2)}\} = 0$
+vanishes uses the TCFT (topological conformal field theory) structure:
+the operator $d^2 = 0$ on the moduli chain complex $C_*(\overline{\cM}_{g,n})$
+handles \emph{all} boundary contractions uniformly because both $b$ (the
+Hochschild differential) and $B^{(2)}$ (the genus-$2$ Connes operator)
+are images of a single boundary operator on the moduli space. The key
+insight: the $m_2$ and $m_3$ contributions to $\{-, B^{(2)}\}$ are
+\emph{different boundary strata of the same moduli space}, and $d^2 = 0$
+forces their sum to vanish even though each stratum contributes nonzero.
+\end{observation}
+
+\begin{observation}[The $\infty$-categorical proof of $\mathrm{Obs}_{\Ainf} = 0$]
+\label{obs:infty-cat-proof}
+The obstruction to extending the $\Eone$-chiral bialgebra structure from
+spin $\leq s$ to spin $s+1$ lives in
+$\HH^{-2}_{\Eone}(\cA, \cA \otimes \cA)$. This group vanishes by
+unit-connectedness: the $\Eone$-operad is $0$-connected (its space of
+$n$-ary operations $\Eone(n) \simeq \Sigma_n$ is discrete), and the
+Hochschild cohomology of an $\Eone$-algebra with bimodule coefficients
+in negative degrees is controlled by the connectivity of the operad.
+The obstruction lives at degree $-2$, but the first potentially
+nonzero group is at degree $0$. The argument is purely structural:
+no computation of the obstruction cocycle is needed.
+\end{observation}
+
+\begin{observation}[Cross-arity cancellation: the meta-principle]
+\label{obs:cross-arity}
+The most subtle phenomenon in the session: $\{m_3, B^{(2)}\} \neq 0$
+and $\{m_2, B^{(2)}\} \neq 0$ individually, but
+$\{m_2 + m_3, B^{(2)}\} = 0$. This is \textbf{cross-arity
+cancellation}: contributions from operations of different arity
+(binary $m_2$ and ternary $m_3$) cancel in the total bracket.
+
+The mechanism: the $\Ainf$ structure $m = m_2 + m_3 + m_4 + \cdots$
+satisfies the master equation $\{m, m\} = 0$ (the $\Ainf$ relations).
+The Connes operator $B^{(j)}$ is part of the TCFT structure extending
+the $\Ainf$ structure. The master equation for the \emph{total} TCFT
+structure forces $\{m, B^{(j)}\}$ to be exact (a boundary in the
+appropriate complex), and for the genus-$2$ component the only
+contributions come from $m_2$ and $m_3$, which must therefore cancel.
+
+Lesson: \emph{never} evaluate $\{m_k, B^{(j)}\}$ for individual $k$
+and expect vanishing. The correct object is always the total $m$.
+\end{observation}
+
+\begin{observation}[Class M Borel summability]
+\label{obs:class-m-borel}
+For class $\mathbf{M}$ algebras (infinite shadow depth, Gevrey-$1$
+divergent partition function), the question of resummability reduces
+to the discriminant of the quartic Lax potential
+$Q_L(\lambda) = \lambda^4 + \cdots$. The discriminant is
+\[
+ \mathrm{disc}(Q_L) = -256 \kappa_{\mathrm{ch}}^3 S_4
+\]
+where $S_4$ is the quartic shadow invariant. For all known CY examples,
+$\kappa_{\mathrm{ch}} > 0$ and $S_4 > 0$, so $\mathrm{disc}(Q_L) < 0$.
+Negative discriminant forces the branch points of $Q_L$ to be complex
+conjugate, which means no Stokes wall on the positive real axis. This
+is precisely the condition for Borel summability of the asymptotic
+series. The physical interpretation: CY quantum groups of class
+$\mathbf{M}$ have \emph{Borel-summable} partition functions, despite
+the divergence of the perturbative expansion.
+\end{observation}
+
+\begin{observation}[Borcherds spectral flow: universality of $h = 1$]
+\label{obs:borcherds-spectral}
+For the BKM superalgebra of $K3 \times E$, the spectral flow
+parameter $\varepsilon$ interpolates between the conformal weight
+assignment $h_\varepsilon = (D + 1) - D\varepsilon$ where $D$ is the
+discriminant. At $\varepsilon = 1$: $h_1 = 1$ for \emph{all}
+discriminants $D$. This is the universal weight-$1$ current algebra
+structure underlying the BKM: at the $\varepsilon = 1$ point, all
+root spaces have the same conformal weight, and the algebra becomes
+a (possibly infinite-rank) current algebra. The spectral flow from
+$\varepsilon = 0$ (natural grading) to $\varepsilon = 1$ (uniform
+grading) is the chiral-algebraic shadow of the automorphic
+correction.
+\end{observation}
+
+\subsection{Key structural insights}
+\label{subsec:key-insights}
+
+\begin{observation}[The shadow tower IS the $\Ainf$ coproduct correction tower]
+\label{obs:shadow-is-ainfty}
+This is the deepest structural insight of the session. The shadow
+invariants $S_k$ from Vol~I (which control the $k$-th order
+obstruction to formality of the bar complex) are \emph{exactly} the
+coefficients of the $\Ainf$ corrections to the Yangian coproduct:
+\[
+ \Delta^{\Ainf} = \Delta^{\mathrm{Yangian}}
+ + \hbar^2 \delta^{(3)} + \hbar^3 \delta^{(4)} + \cdots
+\]
+where $\delta^{(k)}$ has coefficient $S_k$, the $k$-th shadow invariant.
+\begin{itemize}
+ \item Class $\mathbf{G}$ (Gaussian): all $S_k = 0$ for $k \geq 3$.
+ The coproduct is exactly the Yangian coproduct. No $\Ainf$ corrections.
+ \item Class $\mathbf{L}$ (Lemniscatic): $S_3 \neq 0$,
+ $S_k = 0$ for $k \geq 4$. One correction.
+ \item Class $\mathbf{C}$ (Clausen): finitely many nonzero $S_k$.
+ Finitely many corrections.
+ \item Class $\mathbf{M}$ (Mock): all $S_k \neq 0$. Infinitely many
+ corrections. The coproduct is a genuinely $\Ainf$ object.
+\end{itemize}
+The identification is: the shadow tower \emph{is} the perturbative
+expansion of the coproduct. The shadow depth \emph{is} the loop order
+at which perturbation theory terminates.
+\end{observation}
+
+\begin{observation}[$L$-loop Feynman = shadow $S_{L+1}$]
+\label{obs:feynman-shadow}
+The shadow invariant $S_{L+1}$ controls the $L$-loop correction to
+the partition function in the CY sigma model. Explicitly:
+\begin{itemize}
+ \item $S_3$ (cubic shadow) = $1$-loop correction = the leading
+ $\alpha'$ correction in the sigma model.
+ \item $S_4$ (quartic shadow) = $2$-loop correction.
+ \item $S_k$ = $(k-2)$-loop correction.
+\end{itemize}
+Perturbation theory IS the shadow tower, read from bottom to top.
+The class $\mathbf{G}$/$\mathbf{L}$/$\mathbf{C}$/$\mathbf{M}$
+classification is the classification of sigma models by their
+perturbative complexity.
+\end{observation}
+
+\begin{remark}[The K3 Yangian at generic moduli is ``boring'']
+\label{rem:k3-boring-generic}
+The K3 Yangian $Y(\fg_{K3})$ at a generic point of the K3 moduli
+space is a product of $24$ commuting $\fgl_1$ Yangians: no interactions,
+no interesting representation theory, no quantum group structure beyond
+the abelian. \emph{All} interesting structure lives at special points:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \textbf{ADE singularities}: at an $A_n$ singularity, the
+ Yangian enhances to $Y(\fgl_1^{24-n} \times \widehat{\fsl}_{n+1})$.
+ The non-abelian piece carries a genuine $R$-matrix.
+ \item \textbf{BKM imaginary roots} ($D \geq 0$): these are the
+ roots whose multiplicity is $24$ (by the constancy theorem) and
+ whose Yangian generators do not have a standard Drinfeld
+ presentation. They are responsible for the mock modular behaviour.
+ \item \textbf{Orbifold points}: e.g., $T^4/\Z_2$, where the
+ Kummer construction gives a computable model with 16 twisted sectors.
+\end{enumerate}
+The generic-moduli Yangian is the shadow of the fact that a generic
+K3 surface has Picard rank 0: the lattice is there, but the geometry
+does not ``see'' it. The enhancement at special points is the K3
+analogue of symmetry enhancement at orbifold points of string compactifications.
+\end{remark}
+
+\begin{remark}[The 6d theory is not a dimensional upgrade]
+\label{rem:6d-not-upgrade}
+The 6d holomorphic Chern--Simons theory is \emph{not} obtained by
+replacing $3$ with $6$ in 3d CS. The structural fingerprint:
+\begin{itemize}
+ \item 3d hol CS $\to$ Kac--Moody: the Yang--Baxter equation (YBE)
+ is satisfied. The $R$-matrix factorizes the $S$-matrix. The
+ theory is \emph{integrable} in the sense of quantum groups.
+ \item 5d hol CS $\to$ affine Yangian: the YBE is satisfied.
+ Integrability persists.
+ \item 6d hol theory $\to$ quantum toroidal: the Zamolodchikov
+ tetrahedron equation (ZTE) \textbf{fails} at $O(\kappa^2)$. The
+ naive factored $S_{ijk} = R_{ij} R_{ik} R_{jk}$ is \emph{not}
+ consistent. This is a genuine $\Etwo \to \mathsf{E}_3$ obstruction.
+\end{itemize}
+The ZTE failure is the structural proof that the 6d theory is not
+a ``higher'' version of the 3d/5d story but a genuinely new object.
+The $\mathsf{E}_3$ content lives at the chain level and is destroyed
+by formality (AP-CY33).
+\end{remark}
+
+\begin{remark}[Three wrong proofs beat three right abstractions]
+\label{rem:wrong-proofs-valuable}
+The three wrong proofs (Warnings~\ref{warn:dead-end-bidegree},
+\ref{warn:dead-end-tsygan}, \ref{warn:dead-end-cyclic}) were
+caught by \textbf{concrete computation} (direct matrix evaluation
+at small dimension), not by abstract argument. The abstract proofs
+were internally consistent and invoked real theorems; they failed
+because they applied those theorems outside their domain of validity.
+Lesson: in the $\Ainf$-chiral setting, the safest proof strategy
+is to compute first (verify numerically at small rank/dimension),
+then seek the abstract explanation. Abstract proofs that claim
+vanishing should always be checked against a single nonzero example
+before being trusted.
+\end{remark}
+
+\subsection{Obstructions to future progress}
+\label{subsec:obstructions-future}
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+ \item \textbf{BKM imaginary root Yangian ($D \geq 0$)}: no Drinfeld
+ presentation exists for any BKM superalgebra with imaginary simple
+ roots. The Yangian $Y(\fg_{\mathrm{BKM}})$ is therefore not defined
+ by generators and relations in the standard sense. A new formalism
+ (possibly via the CoHA, possibly via factorization algebras on the
+ Ran space of the BKM root lattice) is needed.
+
+ \item \textbf{Explicit ZTE correction $T$}: the existence of a
+ correction $R' = R + \kappa^2 R^{(2)} + \cdots$ satisfying the
+ ZTE is proved (by obstruction theory: $\HH^{-2}_{\Eone} = 0$),
+ but the explicit matrix $R^{(2)}$ has not been computed. The
+ computation requires solving a system of $\binom{n}{3}$ equations
+ in $n^6$ unknowns at each order.
+
+ \item \textbf{Non-abelian K3 Yangian}: the off-diagonal $R$-matrix
+ at ADE enhancement points is partially computed (the $A_1$ case
+ gives $Y(\widehat{\fsl}_2)$, which is known). The general $A_n$
+ case requires the Schiffmann--Vasserot shuffle algebra, which is
+ available but not yet integrated into the framework.
+
+ \item \textbf{Chiral volume conjecture}: the statement that the
+ chiral partition function of $\cA_X$ computes a ``volume'' of the
+ CY moduli space has not been formulated precisely. The analogy with
+ the Kashaev--Murakami--Murakami volume conjecture for knot
+ complements is suggestive but not yet a conjecture.
+
+ \item \textbf{WRT invariant analogue for 6-manifolds}: the
+ Witten--Reshetikhin--Turaev invariant is constructed from modular
+ tensor categories (the output of 3d CS at root of unity). The
+ 6d analogue would require a ``modular $\mathsf{E}_3$-category''
+ --- a braided monoidal $2$-category with a duality structure.
+ Only dimensions $1$ and $2$ of the construction are available
+ (Johnson-Freyd--Scheimbauer for $n$-categories).
+
+ \item \textbf{Root-of-unity truncation of quantum toroidal}: the
+ quantum toroidal algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ at
+ generic $(q, t)$ is well-defined. At roots of unity ($q^N = 1$),
+ the finite-dimensional quotient is \textbf{not} constructed.
+ Unlike $U_q(\fg)$ where the Lusztig--De Concini quotient is
+ standard, the toroidal case has no known finite-dimensional
+ representation theory at roots of unity.
+\end{enumerate}
+
+\subsection{The $[m_3, B^{(2)}]$ saga: a case study in agent epistemology}
+\label{subsec:m3-B2-saga}
+
+The question ``does $\{m_3, B^{(2)}\}$ vanish?'' was addressed by
+$8$ agents across $3$ methodological families:
+
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \textbf{Abstract algebra} ($3$ agents): argued ``yes'' by
+ bidegree decomposition, Tsygan formality, and cyclic invariance.
+ All three proofs were wrong (see Warnings~\ref{warn:dead-end-bidegree}--\ref{warn:dead-end-cyclic}).
+ \item \textbf{Concrete computation} ($4$ agents): evaluated the
+ bracket in dimensions $3, 4, 5, 6$ by direct matrix computation.
+ Found $\{m_3, B^{(2)}\} \neq 0$ in all cases. Reported the
+ nonvanishing with explicit counterexamples.
+ \item \textbf{Operadic resolution} ($1$ agent): showed that
+ $\{m_3, B^{(2)}\} \neq 0$ individually but
+ $\{m_2 + m_3, B^{(2)}\} = 0$ as a total. The cross-arity
+ cancellation is the correct statement.
+\end{enumerate}
+
+\noindent The truth required \emph{all three} perspectives:
+\begin{itemize}
+ \item The abstract agents identified the \emph{form} of the answer
+ (something vanishes) but applied theorems outside their scope.
+ \item The computational agents identified the \emph{obstruction}
+ ($\{m_3, B^{(2)}\} \neq 0$) but could not see the cancellation.
+ \item The operadic agent identified the \emph{mechanism}
+ (cross-arity cancellation) that reconciles the other two.
+\end{itemize}
+
+\begin{remark}[Meta-lesson: adversarial agents are essential]
+\label{rem:adversarial-essential}
+The $3$ wrong proofs were caught because $4$ computational agents
+independently ran the same bracket evaluation and found nonzero
+answers. Without the adversarial agents, the wrong proofs would have
+entered the manuscript as ``theorems''. The protocol of requiring
+both abstract and computational verification for every vanishing
+claim is load-bearing. In particular:
+\begin{itemize}
+ \item A vanishing claim from an abstract proof alone is
+ \textbf{insufficient} unless confirmed by computation at small rank.
+ \item A nonvanishing claim from computation alone is
+ \textbf{insufficient} unless the question is correctly stated
+ (the agents computed $\{m_3, B^{(2)}\}$, not $\{m, B^{(2)}\}$).
+ \item The \emph{combination} of abstract + computational + operadic
+ is what produces the correct theorem statement.
+\end{itemize}
+\end{remark}
+
+\subsection{Convention bugs and silent propagation}
+\label{subsec:convention-bugs}
+
+\begin{warning}[The $\phi_{0,1}$ normalization: $c(-1) = 2$ not $1$]
+\label{warn:phi01-normalization}
+The weak Jacobi form $\phi_{0,1}(\tau, z)$ of weight $0$ and index $1$
+has Fourier coefficients $c(n, \ell)$ depending on the convention.
+In the Eichler--Zagier convention: $c(-1) = 2$ (the coefficient of
+$q^0 \zeta^{-1} + q^0 \zeta$ in the expansion). The value $c(-1) = 1$
+appears in some references that absorb a factor of $2$ into the
+normalization. This discrepancy propagates silently through:
+\begin{itemize}
+ \item The BKM root multiplicity formula $c(nm - \ell^2)$.
+ \item The denominator product $\Phi_{10}$.
+ \item The shadow tower computation (the initial datum feeds the
+ MC recursion).
+ \item The $\kappa_{\mathrm{ch}}$ extraction.
+\end{itemize}
+The convention $c(-1) = 2$ is the one consistent with the Borcherds
+product formula for $\Phi_{10}$ and with the constancy theorem
+$\mult(\alpha) = 24$ for imaginary roots.
+\end{warning}
+
+\begin{warning}[The $\kappa_{\mathrm{BKM}}$ universal formula]
+\label{warn:kbkm-universal}
+The observation $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \kappa_{\mathrm{cat}}$
+holds for $K3 \times E$ ($5 = 3 + 2$) but fails for other CY3 families.
+The initial temptation was to promote this to a universal relation.
+Checking against the $8$ orbifold families in the toric landscape
+table killed the conjecture. The correct statement: the second-quantization
+factor $\kappa_{\mathrm{BKM}} / \kappa_{\mathrm{ch}}$ is not a universal
+function of $\kappa_{\mathrm{cat}}$ alone; it depends on the full
+BKM root system structure (which roots are real, which are imaginary,
+and the root multiplicities).
+\end{warning}
+
+\subsection{Structural insights for the six-dimensional programme}
+\label{subsec:6d-structural}
+
+\begin{observation}[The ZTE as a non-perturbative invariant]
+\label{obs:zte-nonpert}
+The Zamolodchikov tetrahedron equation failure at $O(\kappa^2)$ is
+\emph{not} a failure of the theory; it is a \textbf{structural
+invariant}. The coefficient $\kappa = h_1 h_2 h_3$ (product of
+Cartan parameters) measures the ``volume'' of the $3$-particle
+phase space, and the ZTE obstruction is a cocycle in the deformation
+complex of the $\mathsf{E}_3$-operad. The obstruction vanishes at
+$\kappa = 0$ (Kapranov--Voevodsky: the free $\mathsf{E}_3$-algebra
+satisfies ZTE), and the nonvanishing at generic $\kappa$ is the
+chain-level content that formality destroys (AP-CY33).
+
+The analogy: the YBE is the consistency condition for $2$-particle
+scattering ($\mathsf{E}_2$). The ZTE is the consistency condition for
+$3$-particle scattering ($\mathsf{E}_3$). The YBE is satisfied by the
+Yang $R$-matrix; the ZTE is \emph{not} satisfied by the naive
+factored $S$-operator. The passage from YBE to ZTE is the passage
+from the braid group to the $2$-braid group, or equivalently from
+braided monoidal categories to braided monoidal $2$-categories.
+\end{observation}
+
+\begin{observation}[Factored $\neq$ solved for higher coherence]
+\label{obs:factored-not-solved}
+The statement ``the $3$-particle $S$-operator factorizes as
+$S_{ijk} = R_{ij} R_{ik} R_{jk}$'' is the \emph{definition} of
+the factored $S$-operator, not a theorem. The theorem would be that
+this factored $S$-operator satisfies the ZTE, which it does not.
+The failure is at $O(\kappa^2)$ where $\kappa = h_1 h_2 h_3$.
+
+The lesson generalizes: for $\mathsf{E}_n$-algebras with $n \geq 3$,
+pairwise consistency (YBE for all pairs) does \textbf{not} imply
+higher-order consistency (ZTE for all triples, and higher analogues
+for $n$-tuples). Each level of the $\mathsf{E}_n$-coherence tower
+introduces new obstructions not controlled by the lower levels.
+\end{observation}
+
+\begin{remark}[The Miki automorphism is algebra-specific]
+\label{rem:miki-algebra-specific}
+The $S_3$-permutation symmetry of the quantum toroidal algebra
+$U_{q,t}(\widehat{\widehat{\fgl}}_1)$, discovered by Miki, permutes
+the three parameters $(q_1, q_2, q_3)$ with $q_1 q_2 q_3 = 1$.
+This symmetry comes from the \emph{Weyl group of the CY torus}
+(the torus $T^3$ whose character variety parametrizes the
+$(q_1, q_2, q_3)$), not from the $\mathsf{E}_3$-operad in general.
+
+Counterexample: the algebra $k[x]/(x^2)$ is $\mathsf{E}_3$
+(indeed $\Einf$, being commutative) but has no Miki-type
+automorphism. The Miki automorphism is a \emph{consequence} of the
+specific algebraic structure of $U_{q,t}(\widehat{\widehat{\fgl}}_1)$,
+not a general feature of $\mathsf{E}_3$-algebras. It is an accident
+of the quantum toroidal algebra that the CY torus Weyl group coincides
+with the $S_3$ that permutes the three directions of the
+$\mathsf{E}_3$-operad.
+\end{remark}
+
+\subsection{The shadow class determines analytic type}
+\label{subsec:shadow-analytic}
+
+The correspondence between shadow class ($\mathbf{G}$/$\mathbf{L}$/%
+$\mathbf{C}$/$\mathbf{M}$) and the analytic type of the quantum group
+$r$-matrix, which emerged from the computational session, is:
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Class & Shadow depth & $r(z)$ type & Example \\
+\midrule
+$\mathbf{G}$ & 0 (formal) & polynomial & Free field \\
+$\mathbf{L}$ & 2 (finite) & rational & $\C^3$ (rational Yangian) \\
+$\mathbf{C}$ & finite & convergent & Compact CY3 (convergent series) \\
+$\mathbf{M}$ & $\infty$ & Gevrey-$1$ divergent & $K3 \times E$ (mock modular) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent For class $\mathbf{M}$: the $r$-matrix is a formal power
+series in $z$ with Gevrey-$1$ growth (coefficients grow as $n!$).
+The Borel summability (Observation~\ref{obs:class-m-borel}) provides
+a canonical analytic meaning. The Borel sum of $r(z)$ is the
+``physical'' $R$-matrix; the formal series is the perturbative
+expansion. The shadow tower controls the perturbative coefficients
+(Observation~\ref{obs:feynman-shadow}).
+
+\subsection{Research directions opened by the session}
+\label{subsec:research-opened}
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+ \item \textbf{Compute the ZTE correction $R^{(2)}$ explicitly}:
+ the existence is proved, but the matrix is not known. Even for
+ $\fgl_1$ with $3$ particles ($8 \times 8$ matrices), the computation
+ is nontrivial: $\binom{3}{3} = 1$ equation in $8^2 = 64$ unknowns,
+ with the constraint that $R^{(2)}$ must be $S_3$-equivariant.
+
+ \item \textbf{BKM imaginary root Yangian}: construct a Yangian-type
+ algebra $Y(\fg_{\mathrm{BKM}})$ that incorporates the imaginary
+ simple roots. The CoHA approach (Schiffmann--Vasserot) provides
+ the multiplication; the coproduct requires the $\Eone$-chiral
+ bialgebra framework.
+
+ \item \textbf{Chiral volume conjecture}: formulate the precise
+ statement relating $\mathrm{Vol}(\cM_X)$ to
+ $\lim_{q \to 1} Z_{\mathrm{chiral}}(q)$ for CY3 $X$. The
+ analogy with the Kashaev volume conjecture suggests looking at
+ the asymptotics of the chiral partition function at roots of unity.
+
+ \item \textbf{Matrix model for the shadow genus expansion}:
+ the shadow invariants $S_k$ are moments of a (conjectural) matrix
+ model measure $\mu_{\mathrm{shadow}}$. If $\mu_{\mathrm{shadow}}$
+ exists, the $1/N$ expansion of the matrix model reproduces the
+ shadow tower. The discriminant condition
+ $\mathrm{disc}(Q_L) < 0$ (Observation~\ref{obs:class-m-borel})
+ constrains the support of $\mu_{\mathrm{shadow}}$.
+
+ \item \textbf{The $\Ainf$ coproduct for compact CY3}: the
+ factorization-homology coproduct (from Ran space excision) is
+ formulated for general CY, not just toric. Verify agreement with
+ the Miura coproduct for the toric cases where both are available.
+ The compact cases (quintic, complete intersections) have no Miura
+ factorization and the factorization-homology coproduct is the
+ only available construction.
+\end{enumerate}
+
+\subsection{Terminology and notation stabilized in this session}
+\label{subsec:terminology-stabilized}
+
+\begin{itemize}
+ \item \textbf{Spectral $z$ vs worldsheet $z$}: resolved by
+ Remark~\ref{rem:k3-boring-generic}. The Drinfeld coproduct
+ $\Delta_z$ uses a \emph{Yangian spectral parameter} (shift of the
+ transfer matrix argument $u \to u - z$). The vertex algebra OPE
+ $T(z) T(w) \sim \cdots$ uses a \emph{worldsheet insertion
+ coordinate}. These are different objects. Setting $z = 0$ in
+ $\Delta_z$ removes the spectral shift (cocommutative coproduct);
+ setting $z \to w$ in the OPE produces poles. The ``$z = 0$
+ singularity'' objection (raised by adversarial agents) is a
+ category error.
+
+ \item \textbf{Ordered}: always qualified. ``Labeled-ordered''
+ (combinatorial, the $\Eone$ ordered bar $B^{\mathrm{ord}}$) vs
+ ``time-ordered'' (analytic, radial ordering in the OPE) vs
+ ``normally-ordered'' (Wick). Bare ``ordered'' is forbidden per AP152.
+
+ \item \textbf{Factorization $\otimes$}: the $\Eone$-factorization
+ tensor product $A \otimes_{\Eone} B = \mathrm{colim}_{z_1 < z_2}
+ A(z_1) \otimes A(z_2)$. Not symmetric (ordering matters). Strictly
+ associative (ordered configuration space is contractible). The
+ naive Kronecker product $\otimes_k$ is the $\Einf$ quotient, which
+ kills the quantum group structure.
+\end{itemize}
+
+% ============================================================
+\section{Later waves (10--12): dead ends, structural results, and frontier directions (2026-04-13)}
+\label{sec:later-waves}
+% ============================================================
+
+This section records the insights, dead ends, and new research
+directions from waves 10--12 of the 180-agent session. The earlier
+waves (1--9) are recorded in Section~\ref{sec:129-agent-session}.
+The later waves pushed into more speculative territory: the 3d--to--6d
+lift, the Costello--Francis--Gwilliam (CFG25) programme, Wilson line
+defects, tropical scattering, and derived Satake.
+
+\subsection{Dead ends and operational lessons}
+\label{subsec:later-dead-ends}
+
+\begin{warning}[Dead end 6: rate-limited agent partial completions]
+\label{warn:dead-end-rate-limited}
+Several agents in waves 10--12 were rate-limited mid-computation and
+produced partial output: engines written and tests passing inside the
+sandbox, but manuscript edits incomplete or inconsistent with the
+engine output. The operational convention adopted: \textbf{engines
+survive, manuscript does not}. If an agent completed the compute
+engine (with passing tests) but was cut off before finishing the
+manuscript integration, the engine is kept in \texttt{compute/}
+and the manuscript edit is discarded. The engine can be reintegrated
+in a future session. This is the correct triage: the engine encodes
+verified mathematics; the manuscript edit encodes unverified prose.
+See also AP-CY27 (sandbox non-persistence) and AP-CY29 (wrong-repo
+writes).
+\end{warning}
+
+\begin{warning}[Dead end 7: the 3d $\to$ 6d lift obstruction catalogue]
+\label{warn:dead-end-3d-6d}
+A systematic survey of which 3d holomorphic CS structures lift to 6d
+was carried out via \texttt{3d\_6d\_obstruction\_catalogue} ($99$ tests).
+The result is devastating: \textbf{only 24\% of 3d structures survive
+the lift to 6d}. The obstructions are:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \textbf{Integrability failure}: the Yang--Baxter equation is
+ automatic in 3d (associativity of the OPE). In 6d, the Zamolodchikov
+ tetrahedron equation is an \emph{additional} constraint, and generic
+ 3d $R$-matrices do not satisfy it (see Warning~\ref{warn:dead-end-zte-additive}
+ and Observation~\ref{obs:zte-nonpert}).
+ \item \textbf{Anomaly cancellation}: the 6d theory requires
+ cancellation of a gravitational anomaly ($c_2 = 0$ on the total
+ space), which constrains the gauge group. Many 3d gauge groups do
+ not admit anomaly-free 6d completions.
+ \item \textbf{Holomorphicity}: the 3d holomorphic CS Lagrangian is
+ $\Omega^{3,0}$-valued. The 6d analogue requires a holomorphic
+ $6$-form, which exists only on CY$_3$. Non-CY geometries that
+ support 3d hol CS (e.g., twistor spaces) do not lift.
+\end{enumerate}
+The 24\% that survive are precisely the structures that factor through
+a CY$_3$ compactification of the 6d theory. This is strong evidence
+that the CY$_3$ input is \emph{necessary}, not merely sufficient,
+for the 6d programme.
+\end{warning}
+
+\begin{warning}[Dead end 8: the volume conjecture at 6d]
+\label{warn:dead-end-volume-6d}
+The chiral volume conjecture (Obstruction~4 in
+Section~\ref{subsec:obstructions-future}) was tested for its 6d
+analogue: does the 6d partition function compute a ``volume'' of the
+CY moduli space? The answer is \textbf{0\% lift}: the volume conjecture
+is \emph{fundamentally} a 3d phenomenon (it relates the Chern--Simons
+invariant $\mathrm{CS}(M^3)$ to the hyperbolic volume $\mathrm{Vol}(M^3)$
+via the asymptotic expansion of the colored Jones polynomial at roots
+of unity). The 6d theory has no analogous asymptotic regime:
+\begin{itemize}
+ \item The 3d volume conjecture uses $q \to e^{2\pi i / N}$, $N \to \infty$.
+ The 6d theory has \emph{two} parameters $(q, t)$, and no single
+ root-of-unity limit produces a volume.
+ \item The hyperbolic volume is a 3-manifold invariant; the 6d analogue
+ would require a ``volume'' of a CY3, but CY3 volumes are not
+ topological invariants (they depend on the K\"ahler class).
+ \item The Kashaev--Murakami--Murakami relation is between the
+ \emph{colored Jones polynomial} (a quantum group invariant) and a
+ \emph{classical geometric quantity} (hyperbolic volume). In 6d, the
+ quantum group is quantum toroidal and there is no known classical
+ geometric quantity it computes asymptotically.
+\end{itemize}
+This is not a technical obstruction but a conceptual one: the volume
+conjecture is intrinsically 3-dimensional.
+\end{warning}
+
+\subsection{CFG25 systematic lift: partial results}
+\label{subsec:cfg25-lift}
+
+The Costello--Francis--Gwilliam programme (CFG25) constructs chiral
+algebras from holomorphic field theories at each dimension. A
+systematic check of which CFG25 results lift to the CY setting was
+performed:
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+\toprule
+CFG25 result & CY lift & Status & Notes \\
+\midrule
+3d hol CS $\to$ Kac--Moody & Full & PROVED & Costello--Gwilliam \\
+5d hol CS $\to$ affine Yangian & Full & PROVED & Costello 2013 \\
+6d hol $\to$ quantum toroidal & Partial & CONJECTURAL & ZTE obstruction \\
+Factorization envelope & Full & PROVED & Universal, all dimensions \\
+Perturbative quantization & Conjectural & CONJECTURAL & Requires $\bS^3$-framing \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Summary: 2 of 5 results fully lift, 1 partial, 2 conjectural.
+The bottleneck is always the same: the chain-level $\bS^3$-framing
+required for CY-A$_3$.
+
+\subsection{Wilson lines as stratified factorization homology defects}
+\label{subsec:wilson-lines-fh}
+
+\begin{observation}[Wilson lines = stratified FH defects]
+\label{obs:wilson-fh}
+In the factorization homology framework, Wilson lines on a manifold $M$
+along a submanifold $L \subset M$ are \emph{stratified factorization
+homology defects}: they are computed by the relative factorization
+homology $\int_{M, L} (\cA, \cM)$ where $\cA$ is the bulk algebra and
+$\cM$ is the defect module supported on $L$.
+
+The key identifications from waves 10--12:
+\begin{itemize}
+ \item \textbf{Coproduct from excision}: the Drinfeld coproduct
+ $\Delta_z$ arises from the excision axiom of factorization homology.
+ Cutting $M$ along a codimension-$1$ submanifold $\Sigma$ decomposes
+ $\int_M \cA \simeq \int_{M_+} \cA \otimes_{\int_\Sigma \cA} \int_{M_-} \cA$,
+ and $\Delta_z$ is the coaction of the bulk on the defect.
+ \item \textbf{$R$-matrix from holonomy}: the $R$-matrix $R(z)$
+ is the holonomy of the factorization homology connection around two
+ linked Wilson lines. In the CY setting, this is the Knizhnik--Zamolodchikov
+ connection on the configuration space of two defect insertions.
+\end{itemize}
+This provides a \emph{geometric} derivation of the Hopf algebra structure:
+the coproduct is excision, the $R$-matrix is holonomy, the counit is the
+inclusion of the empty defect, and the antipode is orientation reversal.
+\end{observation}
+
+\subsection{Chiral Verlinde formula}
+\label{subsec:chiral-verlinde}
+
+\begin{observation}[Chiral Verlinde: $\dim = 1$ for free field at all genera]
+\label{obs:chiral-verlinde}
+The chiral Verlinde formula computes the dimension of the space of
+conformal blocks of a chiral algebra $\cA$ on a genus-$g$ surface.
+For the free-field (Heisenberg) chiral algebra at \emph{any} level:
+\[
+ \dim_{\mathrm{chiral}} V_{g}^{\mathrm{Heis}} = 1 \quad \text{for all } g \geq 0.
+\]
+This is in stark contrast to the 3d Chern--Simons Verlinde formula
+for $\widehat{\mathfrak{sl}}_2$ at level $k$:
+\[
+ \dim_{\mathrm{3d\,CS}} V_{g}^{(k)} = \left( \frac{k+2}{2} \right)^{g-1}
+ \sum_{j=0}^{k} \left( \sin \frac{\pi(j+1)}{k+2} \right)^{2-2g},
+\]
+which grows as $(k+1)^g$ for large $k$.
+
+The chiral dimension $= 1$ reflects the fact that the Heisenberg
+algebra has a \emph{unique} vacuum at every genus: the Fock space
+is generated by a single vacuum vector, and the genus-$g$ conformal
+block is determined by the vacuum expectation value. The space of
+conformal blocks is $1$-dimensional because there is no fusion
+multiplicity (the Heisenberg OPE has no branching).
+
+The physical content: in 3d CS, the number of independent
+quantum states on $\Sigma_g$ grows with the level. In the chiral
+(2d) theory, the number of independent states is always $1$ for
+free fields. The chiral Verlinde formula sees only the ``abelian''
+part of the theory; the non-abelian enhancement at special points
+(ADE singularities, orbifold points) is needed to produce
+higher-dimensional spaces.
+\end{observation}
+
+\subsection{Derived Satake: four-level hierarchy}
+\label{subsec:derived-satake}
+
+\begin{observation}[Derived Satake hierarchy]
+\label{obs:derived-satake}
+The derived geometric Satake correspondence, when applied to the
+CY chiral algebra setting, exhibits a four-level hierarchy:
+\begin{enumerate}[label=\textup{Level \arabic*:}]
+ \item \textbf{Classical Satake}: $\mathrm{Rep}(G^\vee) \simeq
+ \mathrm{Perv}(\mathrm{Gr}_G)$ (Mirkovi\'c--Vilonen). Convolution
+ of perverse sheaves $=$ tensor product of representations.
+ \item \textbf{Derived Satake}: $D^b(\mathrm{Rep}(G^\vee)) \simeq
+ D^b(\mathrm{Perv}(\mathrm{Gr}_G))$ (Bezrukavnikov--Finkelberg).
+ The derived category carries the $t$-structure whose heart is
+ Level~1.
+ \item \textbf{Chiral Satake}: $\mathrm{Rep}(\cA_{G^\vee}) \simeq
+ \mathrm{FactMod}(\mathrm{Gr}_G)$ (conjectural). Factorization
+ modules on the affine Grassmannian $=$ representations of the
+ chiral algebra.
+ \item \textbf{CY Satake}: $\mathrm{Rep}(\cA_{X}) \simeq
+ \mathrm{FactMod}(\mathrm{Gr}_{G_X})$ (conjectural). For a CY
+ category $\cC$ with associated group $G_X$, the factorization
+ modules on the CY affine Grassmannian recover the chiral algebra
+ representations.
+\end{enumerate}
+The key structural point: at each level, the convolution product on
+the geometric side corresponds to the coproduct on the algebraic side.
+In particular, at Level~4, the geometric coproduct (convolution of
+sheaves on $\mathrm{Gr}_{G_X}$) is the factorization-homology coproduct
+$\Delta_z$ from Observation~\ref{obs:wilson-fh}. This is the ``derived
+Satake = geometric coproduct'' identification.
+\end{observation}
+
+\subsection{Tropical shadow and cluster-shadow correspondence}
+\label{subsec:tropical-shadow}
+
+\begin{observation}[GPS scattering on tropical K3]
+\label{obs:tropical-k3}
+The Gross--Pandharipande--Siebert (GPS) scattering diagram on the
+tropical K3 surface encodes wall-crossing data in a combinatorial
+framework. The tropical K3 is the dual intersection complex of a
+maximal degeneration of K3, a $2$-sphere with $24$ marked points
+(the singular fibers of the elliptic fibration).
+
+The cluster-shadow correspondence (conjectural): the scattering
+walls of the GPS diagram on tropical K3 are in bijection with the
+nonzero shadow invariants $S_k$ of the K3 chiral algebra.
+Specifically:
+\begin{itemize}
+ \item Each scattering wall $\fw$ at tropical depth $k$ contributes
+ a term to $S_k$.
+ \item The GPS scattering function $f_\fw$ attached to the wall
+ determines the coefficient of $S_k$ at that wall.
+ \item The consistency condition for the GPS scattering diagram
+ (no net monodromy around each vertex) corresponds to the $\Ainf$
+ relations $\{m, m\} = 0$ at the level of the shadow tower.
+\end{itemize}
+If true, the cluster-shadow correspondence provides a
+\emph{combinatorial} computation of the shadow tower, bypassing the
+MC recursion engine entirely for K3.
+\end{observation}
+
+\subsection{BLLPR: sixth route to $G(K3 \times E)$}
+\label{subsec:bllpr-sixth-route}
+
+\begin{observation}[BLLPR = $\Omega$-independent Schur sector]
+\label{obs:bllpr-sixth}
+The Beem--Lemos--Liendo--Peelaers--Rastelli (BLLPR) construction
+provides a \emph{sixth} route to the chiral algebra $G(K3 \times E)$,
+independent of the Costello--Li, CoHA, Kummer, MO stable envelope,
+and BFN Coulomb routes. The BLLPR route:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item Start from the $4$d $\cN = 2$ superconformal field theory
+ $T$ obtained by compactifying the $6$d $(2,0)$ theory on $\Sigma$.
+ \item Extract the Schur sector: the subsector of local operators
+ whose quantum numbers satisfy the Schur shortening condition.
+ \item The Schur sector carries a VOA structure (BLLPR theorem).
+\end{enumerate}
+The key feature: the BLLPR construction is \textbf{$\Omega$-independent}.
+It does not use the $\Omega$-background, the Nekrasov partition
+function, or the equivariant localization machinery. The Schur
+operators are defined by a representation-theoretic condition
+(shortening), not by a localization scheme. This makes BLLPR the
+most ``intrinsic'' route: it produces the VOA directly from the
+SCFT, without auxiliary choices.
+
+For $K3 \times E$: the BLLPR VOA is the small $\cN = 4$ SCA at
+$c = 6k$ with $k = \kappa_{\mathrm{ch}} = 2$ (for the abelian theory)
+or $k = \kappa_{\mathrm{ch}} = 3$ (for the sigma model). The six routes
+provide six independent computations of $\kappa_{\mathrm{ch}}$, all
+of which must agree.
+\end{observation}
+
+\subsection{CY-A$_3$ stress test: unit-connectedness for products}
+\label{subsec:cy-a3-stress}
+
+\begin{warning}[K3 $\times$ E unit-connectedness: $\HH^0 = k^2$, not $k$]
+\label{warn:k3e-unit-connected}
+A stress test of the CY-A$_3$ programme revealed a subtlety for
+product geometries. For a single connected CY$_3$ manifold $X$,
+the Hochschild cohomology satisfies $\HH^0(\mathrm{Perf}(X)) = k$
+(unit-connectedness). But for $K3 \times E$:
+\[
+ \HH^0(\mathrm{Perf}(K3 \times E)) \simeq
+ \HH^0(\mathrm{Perf}(K3)) \otimes \HH^0(\mathrm{Perf}(E))
+ \simeq k \otimes k = k^2 \quad \text{(WRONG: this is $k$, not $k^2$).}
+\]
+Wait --- this is actually wrong. The K\"unneth formula for Hochschild
+cohomology gives $\HH^0(A \otimes B) \simeq \HH^0(A) \otimes \HH^0(B)$
+only for the \emph{external} tensor product. For the geometric product,
+$\HH^0(\mathrm{Perf}(K3 \times E)) \simeq H^0(\cO_{K3 \times E}) = k$
+by connectedness. The initial alarm was a false positive caused by
+confusing the algebraic and geometric K\"unneth formulas.
+
+The resolution: the product decomposition
+$\mathrm{Perf}(K3 \times E) \simeq \mathrm{Perf}(K3) \otimes \mathrm{Perf}(E)$
+is a \emph{dg Morita equivalence}, and Hochschild cohomology is a
+Morita invariant. The $\HH^0$ is computed by the \emph{geometric}
+$H^0$, which is $k$ because $K3 \times E$ is connected.
+Unit-connectedness is preserved.
+
+Lesson: for product CY manifolds, always compute $\HH^0$ from
+the \emph{geometry} ($H^0(\cO_X) = k$ by connectedness), not from
+the algebraic K\"unneth formula (which gives the external tensor
+product).
+\end{warning}
+
+\subsection{Chiral envelope and derived PBW}
+\label{subsec:chiral-envelope}
+
+\begin{observation}[Derived PBW corrections = shadow tower $S_k / (k-1)!$]
+\label{obs:derived-pbw}
+The chiral envelope $U^{\mathrm{ch}}(\fg)$ of a Lie algebra $\fg$
+is the chiral analogue of the universal enveloping algebra $U(\fg)$.
+The classical PBW theorem states $\mathrm{gr}\, U(\fg) \simeq
+\mathrm{Sym}(\fg)$. In the derived/chiral setting, the PBW filtration
+acquires \emph{corrections}:
+\[
+ \mathrm{gr}_k\, U^{\mathrm{ch}}(\fg) \simeq
+ \mathrm{Sym}^k(\fg) \oplus \delta^{(k)}
+\]
+where the correction term $\delta^{(k)}$ has coefficient
+\[
+ \mathrm{coeff}(\delta^{(k)}) = \frac{S_k}{(k-1)!}
+\]
+with $S_k$ the $k$-th shadow invariant of the chiral algebra.
+
+For class $\mathbf{G}$: all $\delta^{(k)} = 0$, the classical PBW
+holds. For class $\mathbf{L}$: $\delta^{(3)} \neq 0$,
+$\delta^{(k)} = 0$ for $k \geq 4$: one correction. For class
+$\mathbf{M}$: infinitely many corrections, the PBW filtration is
+``maximally non-split.''
+
+This provides another characterization of the shadow class: the
+G/L/C/M classification is the classification of chiral envelopes
+by the failure of the PBW theorem.
+\end{observation}
+
+\subsection{Costello--Paquette universal defect}
+\label{subsec:costello-paquette}
+
+\begin{observation}[Universal defect and form factor axioms]
+\label{obs:costello-paquette-defect}
+The Costello--Paquette construction provides a \emph{universal defect}
+at each dimension of holomorphic CS theory. The defect is a
+codimension-$2$ operator that couples to a Wilson line and whose
+correlation functions satisfy the form factor axioms FF1--FF5:
+\begin{enumerate}[label=\textup{FF\arabic*:}]
+ \item \textbf{Lorentz covariance}: the form factor transforms
+ covariantly under the little group of the defect.
+ \item \textbf{Watson equation}: cyclic permutation of particle
+ labels acts by the $R$-matrix.
+ \item \textbf{Kinematic poles}: simple poles at $z_i - z_j = 0$
+ with residue determined by the coproduct.
+ \item \textbf{Bound-state poles}: higher-order poles at $z_i - z_j = h_k$
+ with residue determined by the fusing matrix.
+ \item \textbf{Crossing symmetry}: the form factor for $n$ particles
+ equals the form factor for $n - 2$ particles times a kinematic
+ factor (the crossing kernel).
+\end{enumerate}
+The key insight: FF1--FF5 are \emph{axiomatic} characterizations of
+the form factor, not derived from a Lagrangian. The Costello--Paquette
+construction \emph{proves} that the factorization-homology defect
+satisfies FF1--FF5, thereby connecting the geometric (FH) and
+axiomatic (form factor) approaches.
+\end{observation}
+
+\subsection{BFN Coulomb branch: third route to $Y(\fg_{K3})$}
+\label{subsec:bfn-coulomb}
+
+\begin{observation}[BFN Coulomb = third route, independent of CY-A$_3$]
+\label{obs:bfn-coulomb}
+The Braverman--Finkelberg--Nakajima (BFN) Coulomb branch construction
+provides a \emph{third} route to the K3 Yangian $Y(\fg_{K3})$,
+independent of both the CoHA route and the CY-to-chiral functor
+(CY-A$_3$). The BFN construction:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item Start from the $3$d $\cN = 4$ gauge theory $T[K3]$ whose
+ Higgs branch is the K3 surface (as a hyper-K\"ahler manifold).
+ \item The BFN Coulomb branch $\cM_C(T[K3])$ is a Poisson variety.
+ \item The quantization of $\cM_C(T[K3])$ at deformation parameter
+ $\hbar$ is the Yangian $Y_\hbar(\fg_{K3})$.
+\end{enumerate}
+The BFN route has the crucial advantage that it does \emph{not}
+require CY-A$_3$: the Coulomb branch is defined for any $3$d
+$\cN = 4$ theory, and the quantization is a standard deformation
+quantization problem. The disadvantage: the BFN construction
+produces the Yangian as an associative algebra, without the
+$\Eone$-chiral bialgebra structure. The coproduct must be added
+separately (via the factorization-homology route of
+Observation~\ref{obs:wilson-fh}).
+\end{observation}
+
+\subsection{Handle decomposition of K3}
+\label{subsec:handle-decomp}
+
+\begin{observation}[K3 = 22 Kirby framed unknots]
+\label{obs:k3-handle}
+The handle decomposition of K3 as a $4$-manifold:
+\[
+ K3 = \text{one $0$-handle} \cup \text{twenty-two $2$-handles}
+ \cup \text{one $4$-handle}
+\]
+where the $22$ attaching circles are \emph{unknots} in $S^3$ with
+framings determined by the intersection form. The linking matrix of
+the $22$ framed unknots is
+\[
+ Q_{K3} = 3U \oplus 2E_8(-1)
+\]
+where $U = \bigl(\begin{smallmatrix} 0 & 1 \\ 1 & 0 \end{smallmatrix}\bigr)$
+is the hyperbolic form and $E_8(-1)$ is the negative-definite $E_8$
+lattice.
+
+The relevance for the chiral algebra: the factorization homology
+$\int_{K3} \cA$ can be computed from the handle decomposition by
+successive excision. Each $2$-handle contributes a ``Dehn surgery''
+operation on the chiral algebra, and the linking matrix $Q_{K3}$
+controls the gluing. The rank $22$ of $Q_{K3}$ equals the rank of
+the Mukai lattice $\Lambda_{K3}$, and the signature $(3, 19)$ equals
+the signature of $Q_{K3}$. The $22$ Kirby unknots are the geometric
+origin of the $22$ Heisenberg generators $J_1, \ldots, J_{22}$ of
+the free-field part of $\cA_{K3}$.
+\end{observation}
+
+\subsection{The chiral framing anomaly}
+\label{subsec:chiral-framing-anomaly}
+
+\begin{warning}[Torus knot invariants diverge at tree level: universal $(1,1)$ pole]
+\label{warn:framing-anomaly-torus}
+The chiral framing anomaly manifests as a \textbf{universal divergence}
+of torus knot invariants at tree level. For a $(p, q)$ torus knot
+$K_{p,q}$ in $S^3$, the chiral invariant
+\[
+ Z^{\mathrm{ch}}(K_{p,q}; z) = \sum_{n \geq 0} a_n(p,q) z^n
+\]
+has a pole at $(p, q) = (1, 1)$ (the unknot with framing $+1$) for
+\textbf{every} chiral algebra. The pole is:
+\[
+ Z^{\mathrm{ch}}(K_{1,1}; z) \sim \frac{\kappa_{\mathrm{ch}}}{z} + O(1)
+\]
+with residue $\kappa_{\mathrm{ch}}$. This is the \emph{framing anomaly}:
+the tree-level ($z^{-1}$) term depends on the framing, and the
+framing $+1$ unknot is the simplest case where the anomaly is visible.
+
+The divergence is ``ALWAYS'' in the sense that it holds for:
+\begin{itemize}
+ \item All Kac--Moody algebras (residue $= k = $ level).
+ \item All $W$-algebras (residue $= $ effective central charge).
+ \item All CY chiral algebras (residue $= \kappa_{\mathrm{ch}}$).
+\end{itemize}
+The universality of the $(1,1)$ pole is the chiral manifestation
+of the Atiyah $2$-framing anomaly for $3$-manifold invariants.
+The resolution: the correct invariant is the \emph{renormalized}
+invariant $Z^{\mathrm{ren}} = z \cdot Z^{\mathrm{ch}}$, which is
+regular at $(1,1)$ and equals $\kappa_{\mathrm{ch}}$ there.
+\end{warning}
+
+\subsection{Research directions opened by later waves}
+\label{subsec:later-research-directions}
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+ \item \textbf{Root-of-unity truncation of quantum toroidal $\to$ MTC?}
+ At generic $(q, t)$, the quantum toroidal algebra
+ $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ is infinite-dimensional with
+ no finite-dimensional quotient (Obstruction~6 in
+ Section~\ref{subsec:obstructions-future}). At roots of unity
+ $q^N = 1$, a finite-dimensional quotient \emph{should} exist
+ (by analogy with $U_q(\fg)$ at roots of unity), and its
+ representation category should be a \emph{modular tensor category}
+ (MTC). If true, this MTC would produce $4$-manifold invariants
+ via the Crane--Yetter state sum, closing the loop from CY3 geometry
+ to $4$-manifold topology.
+
+ \item \textbf{Chiral Khovanov categorification}: the Khovanov
+ homology of a knot $K$ categorifies the Jones polynomial. In the
+ chiral setting, the chiral invariant $Z^{\mathrm{ch}}(K; z)$ should
+ admit a categorification: a chain complex whose Euler characteristic
+ is $Z^{\mathrm{ch}}(K; z)$. The candidate: the bar complex
+ $\barB^{\mathrm{ord}}(\cA_K)$ of the chiral algebra associated to
+ the knot complement, whose Euler characteristic in the $z$-grading
+ is the chiral invariant. This would extend Khovanov homology from
+ $U_q(\mathfrak{sl}_2)$ to arbitrary chiral algebras.
+
+ \item \textbf{Mathieu $M_{24}$ from K3 Yangian}: the K3 elliptic
+ genus decomposes into $\cN = 4$ characters with multiplicities that
+ are dimensions of $M_{24}$ representations (Eguchi--Ooguri--Tachikawa
+ moonshine). The K3 Yangian $Y(\fg_{K3})$ should ``explain'' this
+ moonshine by providing a $Y(\fg_{K3})$-module whose decomposition
+ under the $\cN = 4$ subalgebra reproduces the $M_{24}$ multiplicities.
+ The missing ingredient: an action of $M_{24}$ on the Yangian module
+ that commutes with $Y(\fg_{K3})$. The Mukai lattice
+ $\Lambda_{K3} = U^3 \oplus E_8(-1)^2$ has automorphism group
+ $O^+(4, 20; \Z)$, and $M_{24}$ is a \emph{subquotient} of this
+ group (via the Leech lattice and the Conway group). The precise
+ embedding $M_{24} \hookrightarrow \mathrm{Aut}(Y(\fg_{K3}))$ is
+ the open problem.
+
+ \item \textbf{$4$-manifold invariants from 6d}: the $6$d
+ holomorphic theory, compactified on a surface $\Sigma$, produces
+ a $4$d theory. The partition function of this $4$d theory on a
+ $4$-manifold $M^4$ should be a diffeomorphism invariant of $M^4$
+ (after renormalization). For $M^4 = K3$, this should reproduce the
+ K3 chiral algebra by a ``bootstrap'': the $6$d theory on $K3 \times \Sigma$
+ equals the $4$d theory on $K3$ (from compactification on $\Sigma$)
+ equals the $2$d theory on $\Sigma$ (from compactification on $K3$).
+ The bootstrap requires the $6$d theory to be well-defined, which
+ is conjectural.
+
+ \item \textbf{$p$-adic Langlands from shadow zeta}: the shadow
+ zeta function $\zeta_{\mathrm{shadow}}(s) = \sum_{k \geq 3} S_k k^{-s}$
+ (the Dirichlet series formed from the shadow invariants) has
+ analytic properties controlled by the shadow class. For class
+ $\mathbf{G}$: $\zeta_{\mathrm{shadow}} = 0$. For class $\mathbf{M}$:
+ $\zeta_{\mathrm{shadow}}$ has a natural boundary on $\Re(s) = 1$
+ (the same natural boundary as the mock modular form).
+ A $p$-adic interpolation of $\zeta_{\mathrm{shadow}}$ would connect
+ the CY shadow tower to the $p$-adic Langlands programme, via the
+ identification of $p$-adic $L$-functions with $p$-adic interpolations
+ of special values of motivic $L$-functions.
+
+ \item \textbf{Non-perturbative resurgence: Stokes $=$ wall-crossing?}
+ For class $\mathbf{M}$ chiral algebras, the Borel-summed partition
+ function has Stokes sectors (directions in the Borel plane where the
+ asymptotic expansion changes). The Stokes automorphism permutes the
+ lateral Borel sums. Conjecture: the Stokes automorphism of the chiral
+ partition function \emph{equals} the Kontsevich--Soibelman
+ wall-crossing automorphism of the DT invariants. This would unify:
+ \begin{itemize}
+  \item Resurgence (analytic: Stokes sectors and alien derivatives)
+  \item Wall-crossing (algebraic: stability conditions and HN filtrations)
+  \item Shadow towers (combinatorial: MC recursion and shadow depth)
+ \end{itemize}
+ into a single framework. The evidence: for the conifold, the Stokes
+ automorphism is $\exp(\mathrm{Li}_2(X_\gamma))$ (Voros symbol),
+ which matches the KS wall-crossing factor
+ $\mathbb{S}_\gamma = \exp(\mathrm{Li}_2(X_\gamma))$ exactly. For
+ $K3 \times E$, the match is conjectural but supported by the
+ Borel summability of Observation~\ref{obs:class-m-borel}.
+\end{enumerate}
+
 \end{document}

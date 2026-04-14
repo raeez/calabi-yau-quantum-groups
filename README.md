@@ -22,7 +22,7 @@ CY category C  -->  cyclic A-infinity  -->  Lie conformal algebra
                                                      |
                                             factorization envelope
                                                      |
-                                              E_2-chiral algebra A_X
+                                                chiral target A_X
                                                      |
                                               bar complex B(A_X)
                                                 /            \
@@ -31,7 +31,7 @@ CY category C  -->  cyclic A-infinity  -->  Lie conformal algebra
                                BKM denominator identity      Vol I Theta_A
 ```
 
-For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfaces). For d=3: conditional on chain-level S^3-framing; the chiral algebra A_X does not yet exist.
+For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfaces). For general d=3: the CY-to-chiral functor remains conditional on chain-level `S^3`-framing, so the CY-A route does not yet construct `A_X`. Toric CY3 has a separate proved `E_1` CoHA/chart-gluing package, but that is not a proof of the general `\Phi_3` functor.
 
 ## Connection to Volumes I-II
 
