@@ -227,21 +227,19 @@ class TestMinnormOrderByOrder:
         """Step 2 linearized system has rank 36 (full). [LA]"""
         assert minnorm_step2_data["rank2"] == 36
 
-    def test_o_kappa6_nonzero(self, minnorm_step2_data):
-        """O(kappa^6) residual after two steps is nonzero. [ZTE]"""
-        assert not minnorm_step2_data["obs6_analysis"]["is_zero"]
+    def test_o_kappa6_exactly_zero(self, minnorm_step2_data):
+        """O(kappa^6) residual after two steps is exactly zero. [ZTE, DC]
 
-    def test_o_kappa6_antisymmetric(self, minnorm_step2_data):
-        """O(kappa^6) residual is exactly antisymmetric. [DC]"""
-        assert minnorm_step2_data["obs6_analysis"]["is_antisymmetric"]
+        The minnorm step 1 (rank 35) leaves O(kappa^4) residual;
+        the rref step 2 (rank 36) resolves charge-2 ZTE exactly.
+        The two-step combination achieves exact charge-2 resolution,
+        just like the one-step rref solver.
+        """
+        assert minnorm_step2_data["obs6_analysis"]["is_zero"]
 
-    def test_o_kappa6_persymmetric(self, minnorm_step2_data):
-        """O(kappa^6) residual is exactly persymmetric. [DC]"""
-        assert minnorm_step2_data["obs6_analysis"]["is_persymmetric"]
-
-    def test_o_kappa6_rank_4(self, minnorm_step2_data):
-        """O(kappa^6) residual has rank 4. [LA]"""
-        assert minnorm_step2_data["obs6_analysis"]["rank"] == 4
+    def test_o_kappa6_rank_0(self, minnorm_step2_data):
+        """O(kappa^6) residual has rank 0 (exactly zero). [LA]"""
+        assert minnorm_step2_data["obs6_analysis"]["rank"] == 0
 
     def test_monotone_decrease(self, base_step1, minnorm_step2_data):
         """Obstruction decreases monotonically. [ZTE]"""
@@ -249,16 +247,7 @@ class TestMinnormOrderByOrder:
         max_o4 = _max_abs_c2(minnorm_step2_data["obs4_c2"])
         max_o6 = _max_abs_c2(minnorm_step2_data["obs6_c2"])
         assert max_o4 < max_o2
-        assert max_o6 < max_o4
-
-    def test_o_kappa6_scaling(self, minnorm_step2_data):
-        """Residual after step 2 scales as kappa^6. [SC]"""
-        max_after = _max_abs_c2(minnorm_step2_data["obs6_c2"])
-        kappa = minnorm_step2_data["kappa"]
-        ratio = max_after / (kappa ** 6)
-        assert Fraction(1, 1000) < ratio < Fraction(1000, 1), (
-            f"O^(6)/kappa^6 = {float(ratio):.6f}, expected O(1)"
-        )
+        assert max_o6 <= max_o4
 
 
 # ---------------------------------------------------------------------------
