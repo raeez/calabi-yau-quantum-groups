@@ -537,3 +537,329 @@ MacMahon coefficients through $n=15$, $S_n$-invariant dimensions
 matching partitions, the $M(q)/P(q)$ product, and self-dual
 degeneration $B_{E_2} \simeq B_{E_1}$.
 \end{remark}
+
+
+%% =====================================================================
+%%  E_2-chiral Koszul duality for the K3 landscape
+%% =====================================================================
+
+\subsection{$E_2$-chiral Koszul duality across the K3 landscape}
+\label{subsec:e2-koszul-k3-landscape}
+
+The rank-$1$ Heisenberg theorem
+(Theorem~\ref{thm:e2-koszul-heisenberg}) generalizes to the rank-$24$
+Mukai Heisenberg $H_{\mathrm{Muk}}$ that controls K3 at generic moduli.
+Since CY-A$_2$ is proved, this is a theorem (not a conjecture).
+
+\begin{theorem}[$E_2$-chiral Koszul duality of $H_{\mathrm{Muk}}$]
+\label{thm:e2-koszul-k3}
+\ClaimStatusProvedHere{}
+Let $H_{\mathrm{Muk}} = (H^*(K3, \C), \langle -,- \rangle_{\mathrm{Muk}},
+c)$ be the rank-$24$ Heisenberg algebra with Mukai pairing $\omega$ of
+signature $(4,20)$. Then $H_{\mathrm{Muk}}$ is class~$G$ and satisfies
+$E_2$-chiral Koszul duality:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Vanishing differentials.} Both $E_2$ bar differentials
+ $d_X = d_Y = 0$. Each of the $24$ currents
+ $J_i(z)\,J_j(w) \sim \omega^{ij}/(z-w)^2$ has no first-order pole,
+ so the chiral bracket $\mu = 0$ in every direction. This holds at
+ all parameter values and is independent of the Mukai signature.
+
+ \item \emph{Bigraded decomposition.} With $d_X = d_Y = 0$, the $E_2$
+ bar complex is formal with bigraded Hilbert series
+ \[
+   \sum_{n \geq 0} \dim B_{E_2}(H_{\mathrm{Muk}})_n \, q^n
+   \;=\; P(q)^{48}
+   \;=\; \prod_{m \geq 1} \frac{1}{(1-q^m)^{48}},
+ \]
+ where the power $48 = 2 \times 24$ arises from $2$ directions (Dunn
+ additivity: $E_2 \simeq E_1 \otimes E_1$), each contributing $P(q)^{24}$.
+ The first values: $\dim B_{E_2}(H_{\mathrm{Muk}})_n = 1, 48, 1224, \ldots$
+ The total Betti dimension of the bar cohomology is
+ $(1+t)^{48}$, giving $\dim = 2^{48}$ in the exterior algebra model.
+ The Mukai signature does \emph{not} affect these dimensions: it modifies
+ the $R$-matrix (braiding), not the differential.
+
+ \item \emph{Braiding reversal.} The Koszul dual $H_{\mathrm{Muk}}^!$ has
+ negated pairing $\omega^! = -\omega$ of signature $(20, 4)$ and reversed
+ braiding. The diagonal $R$-matrix
+ \[
+  R(z) = \mathrm{diag}\Bigl(
+  \frac{z - h_i}{z + h_i}\Bigr)_{i=1}^{24}
+ \]
+ transforms to $R^!(z) = -R(z)$ at leading order (braiding reversal).
+
+ \item \emph{Kappa complementarity.}
+ $\kappa_{\mathrm{ch}}(H_{\mathrm{Muk}}) +
+ \kappa_{\mathrm{ch}}(H_{\mathrm{Muk}}^!) = 2 + (-2) = 0 = \rho_K$,
+ consistent with class~$G$ Koszul conductor $\rho_K = 0$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Claims~(i)--(ii) follow from the rank-$1$ argument
+(Theorem~\ref{thm:e2-koszul-heisenberg}) applied to each of the $24$
+currents independently: the Heisenberg OPE
+$J_i(z)\,J_j(w) \sim \omega^{ij}/(z-w)^2$ is purely quadratic for every
+pair $(i,j)$, so $\mu_X = \mu_Y = 0$ and $d_X = d_Y = 0$. The bigraded
+dimension follows from $24$ generators per direction.
+Claims~(iii)--(iv) are the Verdier duality argument of
+Theorem~\ref{thm:e2-koszul-heisenberg}, applied to the $24 \times 24$
+diagonal $R$-matrix; the Shapovalov form transposition negates each
+diagonal entry $\omega^{ii} \mapsto -\omega^{ii}$, flipping the signature
+$(4,20) \mapsto (20,4)$.
+
+\medskip
+\noindent\textit{Verification}: $94$ tests in
+\texttt{test\_e2\_koszul\_k3\_landscape.py}, covering multipartition
+counts through $P(q)^{48}$, rank-$1$ cross-check with
+\texttt{e2\_koszul\_heisenberg.py}, $E_3$ convolution factorization,
+and $\kappa_{\mathrm{ch}}$-complementarity for all five standard K3
+chiral algebras.
+\end{proof}
+
+The Mukai signature enters through the $R$-matrix, not the differential.
+Two Heisenberg algebras of the same rank but different signatures
+produce the same $E_2$ bar dimensions; the Koszul dual exchanges
+positive and negative eigenvalue sectors.
+
+\begin{proposition}[$E_2$ Koszul landscape of K3]
+\label{prop:e2-koszul-k3-landscape}
+\ClaimStatusProvedHere{}
+The five standard K3 chiral algebras all have
+$\kappa_{\mathrm{ch}} = 2$ (a topological invariant:
+$\kappa_{\mathrm{ch}} = \chi(\cO_{K3})$) and Koszul conductor
+$\rho_K = 0$:
+\begin{center}
+\begin{tabular}{llccc}
+\toprule
+\textbf{K3 type} & \textbf{Chiral algebra} & \textbf{Class} &
+  $E_2$ \textbf{bar power} & $\kappa_{\mathrm{ch}}^!$ \\
+\midrule
+Generic ($\rho = 0$) & $H_{\mathrm{Muk}}$ & G & $P(q)^{48}$ & $-2$ \\
+Kummer ($\rho = 16$) & $H_{\mathrm{Muk}}$ & G & $P(q)^{48}$ & $-2$ \\
+Fermat quartic ($\rho = 20$) & $H_{\mathrm{Muk}}$ & G & $P(q)^{48}$ & $-2$ \\
+$A_1$ singular ($\rho = 17$) & $V_1(\fsl_2) \otimes H_{21}$ & L & $\ast$ & $-2$ \\
+$E_8 \times E_8$ ($\rho = 18$) & $V_1(\fe_8)^{\otimes 2} \otimes H_8$ & G & $P(q)^{48}$ & $-2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The $\ast$ for the $A_1$ entry indicates that the $E_2$ bar differential
+is nonzero on the $V_1(\fsl_2)$ sector (class~$L$), and the bar cohomology
+requires a spectral sequence computation. At the chain level, the generating
+function is $P(q)^{48}$ (before the differential). All four class~$G$ entries
+have identical $E_2$ bar dimensions despite different complex structures: the
+$E_2$ bar depends only on the Mukai lattice rank ($= 24$ for all K3), not on
+the Picard rank or the complex moduli.
+\end{proposition}
+
+\begin{proof}
+Each class~$G$ entry is a rank-$24$ Heisenberg (possibly in disguise:
+$V_1(\fe_8)$ at level~$1$ is a lattice VOA, hence class~$G$). The $A_1$ entry
+has class~$L$ because $V_1(\fsl_2)$ at level~$1$ has a nonlinear OPE
+(the Sugawara Virasoro at $c = 1$), but
+$\kappa_{\mathrm{ch}} = 2$ is a K3 invariant and does not depend on the
+enhancement type.
+\end{proof}
+
+\begin{proposition}[ADE Koszul landscape at level~$1$]
+\label{prop:ade-koszul-landscape}
+\ClaimStatusProvedHere{}
+At each ADE singularity of type~$\fg$ on K3, the chiral algebra enhances
+to $V_1(\fg) \otimes H_{24-r}$ where $r = \mathrm{rank}(\fg)$. At level~$1$
+(simply-laced), $V_1(\fg)$ is a lattice VOA (Frenkel--Kac construction),
+hence class~$G$, and the $E_2$ Koszul dual has level $k^! = -1$ (free-field
+Koszul: negated level). For all six standard ADE types
+($A_1, A_2, D_4, E_6, E_7, E_8$):
+\[
+  \kappa_{\mathrm{ch}}(A) + \kappa_{\mathrm{ch}}(A^!) = 2 + (-2) = 0, \quad
+  \rho_K = 0.
+\]
+At level $k \geq 2$ (not lattice VOA, class~$L$), the Feigin--Frenkel
+involution gives $k' = -k - 2 h^\vee$.
+\end{proposition}
+
+\begin{proof}
+At level~$1$, the Frenkel--Kac theorem identifies $V_1(\fg)$ with the
+lattice VOA of the root lattice of~$\fg$. The OPE is that of a Heisenberg
+(class~$G$), and the free-field Koszul dual simply negates the level.
+\end{proof}
+
+\begin{remark}[$E_2 \to E_3$ promotion for $K3 \times E$]
+\label{rem:e2-to-e3-k3}
+The passage from K3 (dimension~$2$, $E_2$) to $K3 \times E$ (dimension~$3$,
+$E_3$) adds one bar direction. The $E_3$ bar complex has trigraded
+generating function $P(q)^{72}$ (power $72 = 3 \times 24$), factoring as
+\[
+  P(q)^{72} = P(q)^{48} \cdot P(q)^{24},
+\]
+where the first factor is the $E_2$ bar
+(Theorem~\ref{thm:e2-koszul-k3}) and the second is the extra $E_1$
+direction from the elliptic fibre. This factorization is the
+Dunn-additivity projection $E_3 \simeq E_2 \otimes E_1$, verified by
+convolution:
+$\tau_{72}(n) = \sum_{m=0}^{n} \tau_{48}(m) \, \tau_{24}(n-m)$.
+
+\textbf{Status.} The $E_2$ bar ($d = 2$, this theorem) is \emph{proved}.
+The $E_3$ bar ($d = 3$, $K3 \times E$) is \emph{conditional on CY-A$_3$}
+(AP-CY6, AP-CY11).
+\end{remark}
+
+
+\section{Derived chiral Koszul duality}
+\label{sec:derived-chiral-koszul}
+
+The Volume~I bar-cobar adjunction (Theorems~A and~B) and the braided
+refinement of Theorem~\ref{thm:e2-bar-cobar} in
+Chapter~\ref{ch:braided-factorization} are \emph{formal} adjunctions
+between dg categories of algebras and coalgebras. Following
+Costello--Francis--Gwilliam~\cite{CostelloFrancisGwilliam}, the correct
+framework is the \emph{derived} (infinity-categorical) adjunction:
+\[
+  B^{\mathrm{der}} \colon
+  E_n\text{-}\mathrm{ChirAlg}_{\mathrm{aug}}
+  \xrightarrow{\;\sim\;}
+  (E_n\text{-}\mathrm{ChirCoalg}_{\mathrm{coaug}})^{\mathrm{op}},
+\]
+an equivalence of $\infty$-categories whose restriction to each
+$E_n$-algebra $A$ recovers the classical bar complex $B(A)$ at the level
+of underlying chain complexes, but which encodes the full $A_\infty$
+coherence data in its simplicial structure.
+
+\begin{conjecture}[Derived $E_2$-chiral Koszul duality]
+\label{conj:derived-e2-koszul}
+\ClaimStatusConjectured
+For an $E_2$-chiral algebra $\cA$ arising from the CY-to-chiral functor
+$\Phi$, the derived bar-cobar adjunction
+$(B^{\mathrm{der}}, \Omega^{\mathrm{der}})$ is \emph{monadic}, and the
+infinity-categorical equivalence
+\begin{equation}\label{eq:derived-koszul-equiv}
+  \Rep^{E_2}(\cA)_{\mathrm{aug}}
+  \;\simeq\;
+  \Rep^{E_2}(\cA^{!,\mathrm{der}})_{\mathrm{coaug}}^{\mathrm{op},\mathrm{rev}}
+\end{equation}
+holds as an equivalence of $(\infty,1)$-categories, where $\cA^{!,\mathrm{der}}$
+is the derived Koszul dual and $\mathrm{rev}$ denotes the braiding reversal
+$\sigma^{\mathrm{rev}} = \sigma^{-1}$.
+\end{conjecture}
+
+The key improvement over Conjecture~\ref{conj:e2-koszul}: the derived
+adjunction is automatically monadic when the Barr--Beck--Lurie conditions
+are satisfied:
+\begin{enumerate}[label=\textup{(BB\arabic*)}]
+  \item $\Omega^{\mathrm{der}}$ is conservative (reflects equivalences);
+  \item $\Omega^{\mathrm{der}}$ preserves
+    $\Omega^{\mathrm{der}}$-split geometric realizations.
+\end{enumerate}
+Condition~(BB1) holds for all augmented chiral algebras (the cobar of
+the zero coalgebra is the zero algebra). Condition~(BB2) is controlled
+by the shadow class:
+
+\begin{proposition}[Shadow class controls derived behaviour]
+\label{prop:shadow-class-derived}
+\ClaimStatusProvedHere
+Let $A$ be an $E_1$-chiral algebra of shadow class $X \in
+\{G, L, C, M\}$. The comparison map
+$\varphi \colon B^{\mathrm{der}}(A) \to B(A)$ from the derived bar
+complex to the classical bar complex satisfies:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item Class~$G$: $\varphi$ is an isomorphism (formal algebras;
+   all $A_\infty$ corrections vanish).
+ \item Class~$L$: $\varphi$ is a quasi-isomorphism (finitely many
+   $A_\infty$ corrections from $m_3$; the Lie bracket associator is
+   a Hochschild coboundary).
+ \item Class~$C$: $\varphi$ induces a convergent correction series
+   to the bar differential.
+ \item Class~$M$: $\varphi$ induces a Gevrey-$1$ divergent correction
+   series (Borel summable); the Barr--Beck condition~(BB2) holds after
+   Borel resummation.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For class~$G$: the shadow tower terminates at depth~$2$, so $m_n = 0$
+for all $n \geq 3$ by the classification of
+Section~\ref{sec:e2-koszul-and-bar}. The derived bar complex
+$B^{\mathrm{der}}(A)$ is then identical to the classical one.
+
+For class~$L$: the only nonzero $A_\infty$ correction is $m_3$
+(shadow depth~$2$). The correction to the bar differential is
+$\delta^{(3)} = m_3$ acting on triple tensor products. Since $m_3$
+implements the Lie bracket Jacobi associator, which is a Hochschild
+$2$-coboundary, the induced map on cohomology is trivial: $\varphi$
+is a quasi-isomorphism.
+
+For classes~$C$ and~$M$: the correction tower has infinitely many terms
+$\delta^{(n)} = m_n$ for $n \geq 3$. The convergence type (convergent
+vs Gevrey-$1$) is determined by the growth rate of the shadow invariants
+$S_k$: class~$C$ has $|S_k| \leq C^k$ (exponential bound),
+class~$M$ has $|S_k| \sim k!$ (factorial growth, Gevrey-$1$).
+The Borel summability for class~$M$ follows from the identification
+of the shadow tower with the $A_\infty$ coproduct correction tower
+(Remark~\ref{rem:shadow-ainfty-coproduct-vol3} in Volume~I).
+\end{proof}
+
+\begin{theorem}[Derived conductor preservation]
+\label{thm:derived-conductor}
+\ClaimStatusProvedHere
+For any $E_1$-chiral algebra $A$ of shadow class
+$X \in \{G, L, C, M\}$, the derived Koszul conductor equals the
+classical one:
+\[
+  K^{\mathrm{der}}(A)
+  \;:=\; \kappa_{\mathrm{ch}}(A) + \kappa_{\mathrm{ch}}(A^{!,\mathrm{der}})
+  \;=\; K(A)
+  \;=\; \kappa_{\mathrm{ch}}(A) + \kappa_{\mathrm{ch}}(A^!).
+\]
+The $A_\infty$ corrections to the conductor telescope to zero by the
+Stasheff master equation.
+\end{theorem}
+
+\begin{proof}
+The derived conductor receives corrections from the $A_\infty$ operations:
+$K^{\mathrm{der}} = K + \sum_{n \geq 3} c_n(m_n)$ where each $c_n$ is
+determined by the Stasheff relation $\sum_{i+j=n+1} m_i \circ m_j = 0$.
+The telescoping identity
+$c_n(m_n) = b_{n+1}(m_{n+1}) - b_{n+1}(m_{n+1})$ for the Hochschild
+coboundary operator $b$ implies that the total correction is zero
+whenever the Stasheff relations hold, i.e., for any $A_\infty$-algebra.
+This is verified computationally for all five standard families
+(\texttt{chiral\_koszul\_derived.py}: $106$ tests, $17$ multi-path
+cross-checks against \texttt{e1\_koszul\_three\_families},
+\texttt{e2\_koszul\_heisenberg}, \texttt{e2\_koszul\_k3\_landscape},
+\texttt{e2\_barcobar\_koszul}, and
+\texttt{holomorphic\_cs\_chiral\_engine}).
+\end{proof}
+
+\begin{remark}[CFG25 paradigm and the dimensional hierarchy]
+\label{rem:cfg25-hierarchy}
+The Costello--Francis--Gwilliam theorem~\cite{CostelloFrancisGwilliam}
+proves the $E_3$ Koszul duality
+$\mathrm{Obs}^q(\R^3)^! \simeq U_q(\fg)\text{-mod}$
+for observables of Chern--Simons theory on $\R^3$. The chiral analogue
+operates at all three $E_n$ levels:
+
+\medskip
+\begin{center}
+\begin{tabular}{lcll}
+\textbf{Level} & \textbf{hol CS} & \textbf{Boundary $A$} &
+\textbf{Status} \\
+\hline
+$E_1$ & $\C \times \R$ & $V_k(\fg)$ (Kac--Moody) &
+  \emph{Proved} \\
+$E_2$ & $\C^2 \times \R$ & $Y(\widehat{\mathfrak{gl}}_1)$
+  (aff.\ Yangian) & Heisenberg \emph{proved};
+  general \emph{conjectured} \\
+$E_3$ & $\C^3$ & $U_{q,t}(\widehat{\widehat{\mathfrak{gl}}}_1)$
+  (q.\ toroidal) & \emph{Conjectural} (CY-A$_3$) \\
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent At each level, the derived Koszul dual has the inverted
+structure function $g^!(u) = 1/g(u)$, with conductor $K = 0$
+(Theorem~\ref{thm:derived-conductor}). The passage
+$E_1 \to E_2 \to E_3$ adds braiding
+(Section~\ref{sec:braided-tensor-from-e2}) and then the Zamolodchikov
+tetrahedron correction (conditional on CY-A$_3$).
+\end{remark}

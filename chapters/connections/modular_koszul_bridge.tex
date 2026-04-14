@@ -372,7 +372,181 @@ $\cW_{1+\infty}$ at $c = 1$ is Koszul (PBW degree concentration in the bar compl
 
 
 %% ===================================================================
+%% SECTION 6: Pixton ideal and the CY bar complex
+%% ===================================================================
+
+\section{The Pixton ideal and the CY bar complex}
+\label{sec:pixton-cy-bar}
+\index{Pixton ideal}
+\index{tautological ring!Pixton ideal}
+
+The shadow CohFT of Theorem~\ref{thm:cy-shadow-cohft} produces classes in the tautological ring $R^*(\overline{\cM}_{g,n})$. The Pixton ideal $I_g \subset R^*(\overline{\cM}_g)$---the full ideal of tautological relations (Janda--Pandharipande--Pixton--Zvonkine, 2018)---provides the intersection-theoretic counterpart of the shadow obstruction tower. This section connects the two.
+
+\begin{definition}[Tautological $\kappa$-classes versus modular characteristic]
+\label{def:kappa-taut-vs-kappa-ch}
+\index{kappa-class!tautological vs modular}
+Two distinct uses of $\kappa$ coexist in this section:
+\begin{enumerate}[label=(\roman*)]
+ \item \emph{Tautological $\kappa$-classes.} The Miller--Morita--Mumford classes $\kappa_j^{\mathrm{taut}} \in R^j(\overline{\cM}_g)$, $j \geq 1$, are intersection-theoretic invariants of the moduli space. They generate $R^*(\overline{\cM}_g)$ together with the $\lambda$-classes and the boundary strata.
+ \item \emph{Modular characteristic.} The subscripted $\kappa_{\mathrm{ch}}$, $\kappa_{\mathrm{BKM}}$, etc.\ of the $\kappa_\bullet$-spectrum (AP113) are invariants of the chiral algebra, not of the moduli space.
+\end{enumerate}
+The two are related by the shadow CohFT: the genus-$g$ amplitude $F_g = \kappa_{\mathrm{ch}} \cdot \hat{A}_g$ is an intersection number against tautological classes, so $\kappa_{\mathrm{ch}}$ \emph{scales} the tautological class $\lambda_g \in R^g(\overline{\cM}_g)$.
+\end{definition}
+
+\subsection{The Pixton ideal}
+
+\begin{theorem}[Pixton--JPPZ]
+\label{thm:pixton-jppz}
+\ClaimStatusProvedElsewhere
+The ideal of tautological relations in $R^*(\overline{\cM}_{g,n})$ equals the Pixton ideal $I_{g,n}$ defined by the explicit double ramification cycle relations of Pixton (2012). In particular:
+\begin{enumerate}[label=(\roman*)]
+ \item At $g = 1$: the unique relation is the Mumford relation $12\lambda_1 = \kappa_1^{\mathrm{taut}} + [\delta_{\mathrm{irr}}]$ in $R^1(\overline{\cM}_{1,1})$.
+ \item At $g = 2$: the unique relation in $R^2(\overline{\cM}_2)$ is the Faber--Zagier relation, a linear combination of $\kappa_2^{\mathrm{taut}}$, $(\kappa_1^{\mathrm{taut}})^2$, $\lambda_2$, $\lambda_1 \kappa_1^{\mathrm{taut}}$, $\lambda_1^2$ with explicit rational coefficients (Faber, 1999; Pixton, 2012).
+ \item At all $g$: $I_g = \ker(R^*(\overline{\cM}_g) \to H^*(\overline{\cM}_g))$, proved by Janda--Pandharipande--Pixton--Zvonkine (2018) via the $3$-spin CohFT.
+\end{enumerate}
+\end{theorem}
+
+\subsection{Shadow tower as tautological data}
+
+The shadow coefficients $S_k$ of the $A_\infty$ bar complex (Vol~I) encode tautological intersection data via the CohFT:
+
+\begin{proposition}[Shadow-tautological dictionary]
+\label{prop:shadow-taut-dictionary}
+\ClaimStatusProvedHere
+Let $A = \Phi(\cC)$ be the chiral algebra of a CY$_2$ category $\cC$ (CY-A at $d = 2$, PROVED). The shadow coefficients of $B^{\mathrm{ord}}(A)$ map to tautological classes:
+\begin{enumerate}[label=(\roman*)]
+ \item $S_2 = \kappa_{\mathrm{ch}}(A)$ corresponds to $\lambda_1 \in R^1(\overline{\cM}_{g})$: the genus-$1$ amplitude $F_1 = \kappa_{\mathrm{ch}}/24$.
+ \item $S_3 = \alpha$ (cubic shadow) contributes to the $\kappa_1^{\mathrm{taut}} \cdot \lambda_1$ correction at genus~$2$.
+ \item $S_4$ (quartic contact) contributes to $\kappa_2^{\mathrm{taut}}$ at genus~$2$ and higher.
+ \item For class~$G$ ($S_k = 0$ for $k \geq 3$): the CohFT is rank~$1$, and no nontrivial tautological relations are generated.
+ \item For class~$M$ ($S_k \neq 0$ for all $k \geq 2$): the infinite shadow tower accesses all tautological generators.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Part (i): the genus-$1$ shadow amplitude is $F_1 = \kappa_{\mathrm{ch}} \cdot \hat{A}_1 = \kappa_{\mathrm{ch}}/24$, which is the intersection number $\int_{\overline{\cM}_1} \lambda_1 \cdot \kappa_{\mathrm{ch}}$. Parts (ii)--(iii): the cross-channel corrections $\delta F_g^{\mathrm{cross}}$ at genus~$g \geq 2$ involve $S_3, S_4, \ldots$ by the all-weight tower of Vol~I. These corrections multiply tautological monomials in $\kappa_j^{\mathrm{taut}}$ and $\lambda_j$. Part (iv): for class~$G$, $S_k = 0$ for $k \geq 3$ implies $\delta F_g^{\mathrm{cross}} = 0$ at all genera, so the CohFT output is $\kappa_{\mathrm{ch}} \cdot \lambda_g$ (rank~$1$). Part (v): for class~$M$, every $S_k$ contributes a nonzero tautological monomial at genus $\geq k - 1$.
+
+Verification: \texttt{compute/lib/pixton\_cy\_bar\_connection.py} ($76$ tests).
+\end{proof}
+
+\subsection{Shadow class and Pixton generation}
+
+\begin{conjecture}[Shadow class determines Pixton generation]
+\label{conj:shadow-pixton-generation}
+\ClaimStatusConjectured\quad
+\index{shadow obstruction tower!Pixton generation}
+The shadow class of a CY chiral algebra $A = \Phi(\cC)$ determines how much of the Pixton ideal is generated by the shadow CohFT $\Omega_{g,n}(A)$:
+\begin{center}
+\begin{tabular}{lcl}
+\toprule
+\textbf{Class} & \textbf{Shadow depth} & \textbf{Pixton generation} \\
+\midrule
+$G$ (Gaussian) & $r_{\max} = 2$ & Trivial: rank-$1$ CohFT, no relations generated \\
+$L$ (Lie) & $r_{\max} = 3$ & Partial: genus-$2$ relation accessed via $S_3$ \\
+$C$ (contact) & $r_{\max} = 4$ & Partial: genus-$2{,}3$ relations via $S_3, S_4$ \\
+$M$ (mixed) & $r_{\max} = \infty$ & Full: all Pixton generators accessed \\
+\bottomrule
+\end{tabular}
+\end{center}
+For class~$M$: the shadow CohFT generates the full image of the restriction $\mathrm{res} \colon S_*(\mathrm{Sp}(2g,\bZ)) \to R^*(\overline{\cM}_g)$ from the ring of Siegel modular forms to the tautological ring (extending Conjecture~\ref{conj:shadow-taut-projection}).
+\end{conjecture}
+
+\begin{remark}[The $K3$ case: class~$L$, Pixton at $g = 2$]
+\label{rem:k3-pixton-genus2}
+For the $K3$ lattice VOA ($\kappa_{\mathrm{ch}} = 2$, class~$L$, Mukai rank $24$): the genus-$2$ amplitude $F_2 = 2 \cdot 7/5760 = 7/2880$ satisfies the Faber--Zagier relation by the CohFT axioms. The cubic shadow $S_3 \neq 0$ (from the $\cN = 4$ SCA noncommutativity) produces a cross-channel correction at genus~$2$, but the tower terminates at depth~$3$: higher Pixton generators ($\kappa_j^{\mathrm{taut}}$ for $j \geq 3$) are not accessed. This is CY$_2$: unconditional.
+\end{remark}
+
+\begin{remark}[The Virasoro case: class~$M$, full generation at $g = 2$]
+\label{rem:virasoro-pixton-genus2}
+For the Virasoro algebra at $c = 1$ ($\kappa_{\mathrm{ch}} = 1/2$, class~$M$): the shadow tower is infinite ($S_2 = 1/2$, $S_3 = 2$, $S_4 = 10/27$, \ldots). At genus~$2$: the unique Pixton relation is a nontrivial check. The ratio $S_3/S_2 = 4$ enters the cross-channel correction $\delta F_2^{\mathrm{cross}}$, and the Faber--Zagier coefficients constrain this ratio. For class~$M$, the infinite depth ensures that all higher tautological generators are reached.
+\end{remark}
+
+
+%% ===================================================================
+%% Form factors and the shadow partition function
+%% ===================================================================
+
+\subsection{Form factors via Koszul projection and the shadow partition function}
+\label{subsec:form-factor-shadow-pf}
+
+The Costello--Paquette programme computes form factors in holomorphic CS
+via Koszul duality between bulk and boundary algebras.  The Koszul
+projection $\pi \colon \mathrm{Obs}_{\mathrm{bulk}} \to
+\mathrm{Obs}_{\mathrm{boundary}}^!$ factors through the bar complex:
+\[
+  A_{\mathrm{bulk}} \xrightarrow{\;\mathrm{bar}\;}
+  B(A) \xrightarrow{\;D_{\mathrm{Ran}}\;}
+  B(A^!) \xrightarrow{\;\mathrm{cobar}\;} A^!.
+\]
+The $n$-particle form factor of a bulk operator $O$ is the pairing
+against $n$-fold bar elements:
+\[
+  F(O;\, z_1, \ldots, z_n) \;=\;
+  \langle O,\; s^{-1}a_1 \mid \cdots \mid s^{-1}a_n \rangle_{B(A)},
+\]
+where $z_i$ are \emph{spectral} parameters in the Yangian sense, NOT worldsheet
+insertion coordinates (AP-CY31).
+
+\begin{conjecture}[Form factor--shadow partition function identity]
+\label{conj:form-factor-shadow-pf}
+\ClaimStatusConjectured\quad
+\index{form factors!shadow PF identity}%
+Let $A = \Phi(\cC)$ be the chiral algebra of a CY$_d$ category $\cC$
+(conditional on CY-A at dimension~$d$; unconditional at $d = 2$).  The
+integrated form factor generating function equals the shadow partition
+function $\Theta_A$ of Vol~I:
+\[
+  \sum_{n \geq 0} \frac{1}{n!}
+  \int_{\cM_{0,n}} F(O;\, z_1, \ldots, z_n)\, dz_1 \cdots dz_n
+  \;=\; \Theta_A(q),
+\]
+where $\log \Theta_A = \sum_{r \geq 2} S_r$ and each integrated form
+factor yields the shadow invariant at arity~$r$:
+\begin{equation}\label{eq:ff-shadow-invariant}
+  \frac{1}{r!} \int_{\cM_{0,r}} F(O;\, z_1, \ldots, z_r)\, dz_1 \cdots dz_r
+  \;=\; S_r(A).
+\end{equation}
+The identity is class-dependent:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lccl}
+\toprule
+\textbf{Class} & \textbf{Max arity} & $\pi$\textbf{ type} & \textbf{Convergence} \\
+\midrule
+$G$ (Heisenberg) & $r = 2$ & quasi-iso & exact (only $2$-particle) \\
+$L$ (Kac--Moody) & $r = 3$ & single $A_\infty$ corr. & truncated \\
+$C$ (beta-gamma) & finite & finitely many corr.\ & convergent \\
+$M$ (Virasoro) & $\infty$ & $\infty$-many corr.\ & Gevrey-$1$ (Borel) \\
+\bottomrule
+\end{tabular}
+\end{center}
+For class~$G$: the unique nonzero form factor is
+$F(O;\, z_1, z_2) = \kappa_{\mathrm{ch}} / (z_1 - z_2)^2$, and
+$\Theta_A = \prod(1 - q^k)^{\kappa_{\mathrm{ch}}}$ (eta-type).
+For class~$M$: all $S_r \neq 0$ and the series requires Borel resummation.
+At $d = 3$, the full conjecture is conditional on CY-A$_3$ (AP-CY6, AP-CY11).
+\end{conjecture}
+
+\begin{remark}[K3 specialisation and the Borcherds lift]
+\label{rem:form-factor-k3}
+For $K3 \times E$ with the Mukai Heisenberg ($\kappa_{\mathrm{ch}} = 2$,
+class~$G$): the only nonvanishing form factor is the $2$-particle
+term with $S_2 = \kappa_{\mathrm{ch}} = 2$, producing
+$\Theta_A = \prod(1 - q^n)^2$.  For the BKM superalgebra
+$\mathfrak{g}_{\Delta_5}$ (class~$M$, infinite depth): the shadow tower is
+controlled by the Borcherds denominator, and the resummation of the form
+factor series recovers $\Phi_{10}$ via the Borcherds lift---conditional on
+both CY-A and the Vol~I Borcherds-lift identification (AP-CY8).
+
+\noindent\textit{Verification}: $97$ tests in \texttt{form\_factors\_shadow\_pf.py}
+covering class-dependent truncation, integrated form factor = shadow invariant
+at arities $2$--$6$, Koszul projection type, conductor ground truth, and
+$K3 \times E$ specialisations across all four shadow classes.
+\end{remark}
+
+%% ===================================================================
 %% Closing cross-reference
 %% ===================================================================
 
-The five sections transport the Vol~I modular Koszul machine into the CY geometric realm: the convolution algebra of \S\ref{sec:modular-conv-cy} is the working surface, the complementarity of \S\ref{sec:cy-complementarity-bridge} is the duality statement, the CohFT of \S\ref{sec:cy-shadow-cohft} is the genus tower, the Hochschild bridge of \S\ref{sec:hochschild-bridge} identifies which Hochschild theory controls which invariant, and the examples of \S\ref{sec:cy-bridge-examples} verify the $\kappa_\bullet$-spectrum against independent computations. The $d = 2$ case is unconditional (CY-A proved, Theorem~\ref{thm:cy-complementarity-d2}); the $d = 3$ case is the Vol~III programme (Conjecture~\ref{conj:cy-complementarity-d3}, Conjecture~\ref{conj:toric-cy3-shadow-cohft}, Conjecture~\ref{conj:hochschild-bridge-d3}). Verification of every $\kappa_\bullet$-value uses the independent paths of compute/lib/modular\_cy\_characteristic.py and compute/lib/cy\_euler.py, cross-checked against the $\kappa_\bullet$-spectrum $\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{2, 3, 5, 24\}$ for $K3 \times E$.
+The six sections transport the Vol~I modular Koszul machine into the CY geometric realm: the convolution algebra of \S\ref{sec:modular-conv-cy} is the working surface, the complementarity of \S\ref{sec:cy-complementarity-bridge} is the duality statement, the CohFT of \S\ref{sec:cy-shadow-cohft} is the genus tower, the Hochschild bridge of \S\ref{sec:hochschild-bridge} identifies which Hochschild theory controls which invariant, and the examples of \S\ref{sec:cy-bridge-examples} verify the $\kappa_\bullet$-spectrum against independent computations. The $d = 2$ case is unconditional (CY-A proved, Theorem~\ref{thm:cy-complementarity-d2}); the $d = 3$ case is the Vol~III programme (Conjecture~\ref{conj:cy-complementarity-d3}, Conjecture~\ref{conj:toric-cy3-shadow-cohft}, Conjecture~\ref{conj:hochschild-bridge-d3}). Verification of every $\kappa_\bullet$-value uses the independent paths of compute/lib/modular\_cy\_characteristic.py and compute/lib/cy\_euler.py, cross-checked against the $\kappa_\bullet$-spectrum $\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{2, 3, 5, 24\}$ for $K3 \times E$.

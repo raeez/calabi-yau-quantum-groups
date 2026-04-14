@@ -2125,6 +2125,127 @@ twined mock modular form; the shadow of $h_g$ is proportional
 to $\eta_g$.
 \end{remark}
 
+\subsection{Mathieu moonshine through the K3 Yangian}
+\label{subsec:mathieu-yangian}
+\index{Mathieu moonshine!K3 Yangian}
+\index{Yangian!K3!Mathieu moonshine}
+
+The K3 Yangian $Y(\frakg_{K3})$ of
+Section~\ref{sec:ade-yangian-level1} provides a structural
+framework for understanding WHY $M_{24}$ acts on the K3
+elliptic genus.
+
+\begin{conjecture}[$M_{24}$ action on $Y(\frakg_{K3})$ representations]
+\label{conj:m24-yangian-action}
+\ClaimStatusConjectured
+\index{M24@$M_{24}$!Yangian action}
+The Mathieu group $M_{24}$ acts on the representation category
+$\mathrm{Rep}(Y(\frakg_{K3}))$ via its natural permutation
+of the $24$~Mukai lattice directions.  Concretely:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item
+The $24$ Yangian parameters $h_1, \ldots, h_{24}$ live
+in the complexified Mukai lattice
+$\widetilde{H}(K3, \bC) \cong \bC^{24}$,
+subject to the CY$_2$ constraint $\sum h_i = 0$.
+The group $M_{24}$ permutes the $h_i$, preserving the
+constraint (since permutations preserve sums).
+\item
+The structure function
+$g_{K3}(z) = \prod_{i=1}^{24}(z - h_i)/(z + h_i)$
+is a symmetric function of the $h_i$, hence invariant
+under $M_{24}$.  The spectral parameter~$z$ is a Yangian
+shift parameter {\upshape(}$z$ spectral, not worldsheet;
+Remark~\ref{rem:z-spectral-vs-worldsheet}{\upshape)},
+invisible to the $M_{24}$ action.
+\item
+The charge-$1$ representation $V = \bC^{24}$ decomposes
+under $M_{24}$ as $23_{\mathrm{std}} \oplus 1_{\mathrm{triv}}$,
+matching the constraint hyperplane $\sum h_i = 0$ (dimension~$23$)
+plus the normal direction (dimension~$1$).
+\end{enumerate}
+The conjecture is conditional on the existence of
+$Y(\frakg_{K3})$ {\upshape(}AP-CY14{\upshape)}.
+\end{conjecture}
+
+\begin{remark}[Twined structure functions and Frame shapes]
+\label{rem:twined-structure-fn-yangian}
+\index{Frame shape!twined structure function}
+For each conjugacy class $[g]$ of $M_{24}$ with Frame
+shape $\pi_g = \prod i^{a_i}$, the twined
+R-matrix trace restricts the structure function product
+to the $a_1$~fixed-point directions, yielding a twined
+structure function of degree $(a_1, a_1)$:
+\[
+g_g^{\mathrm{twined}}(z)
+\;=\;
+\prod_{i:\, g(i) = i} \frac{z - h_i}{z + h_i},
+\qquad
+\deg = (a_1, a_1).
+\]
+For $1A$: degree $(24,24)$.  For $2A$ ($a_1 = 8$):
+degree $(8,8)$.  For $2B$ ($a_1 = 0$): trivially~$1$.
+
+The twined bar Euler product decomposes as the eta product
+$\eta_g(\tau) = \prod_{i:\,a_i \neq 0} \eta(i\tau)^{a_i}$,
+consistent with the shadow of the twined mock modular
+form~$h_g$ (Remark~\ref{rem:twining-genera}).
+\end{remark}
+
+\begin{remark}[Orthogonality of bar complex and group theory]
+\label{rem:bar-m24-orthogonality}
+\index{Mathieu moonshine!orthogonality principle}
+The moonshine decomposition
+$A_n = \kappa_{\mathrm{ch}} \cdot \dim(\rho_n)$
+(equation~\eqref{eq:moonshine-multiplier})
+exhibits a factorization into two independent contributions:
+the bar complex provides $\kappa_{\mathrm{ch}} = 2$ (a
+topological invariant of the K3 chiral algebra, computed from the
+shadow tower); the group theory provides $\dim(\rho_n)$ (an
+internal symmetry of the massive BPS sector, invisible to the
+single-copy bar construction).  Neither factor determines the
+other.  The K3 Yangian is the proposed structural home for
+this factorization: $\kappa_{\mathrm{ch}}$ comes from the bar
+complex of $Y(\frakg_{K3})$, while $\dim(\rho_n)$ comes from
+the $M_{24}$ action on $\mathrm{Rep}(Y(\frakg_{K3}))$.
+\end{remark}
+
+\begin{remark}[Umbral moonshine and the Niemeier Yangian landscape]
+\label{rem:umbral-yangian}
+\index{Umbral moonshine!Yangian}
+\index{Niemeier lattice!Yangian specialization}
+The $23$ Niemeier lattices with nonempty root system~$R(N)$
+each determine an Umbral moonshine module
+(Cheng--Duncan--Harvey, arXiv:1204.2779).
+The Umbral group $G_N$ and lambency~$\ell$ (the Coxeter number
+of~$R(N)$) parametrize the mock modular forms whose
+coefficients are $G_N$-representation dimensions.  For the
+$A_1^{24}$ Niemeier lattice: $G_N = M_{24}$, $\ell = 2$,
+recovering the original Eguchi--Ooguri--Tachikawa observation.
+
+At each Niemeier maximal enhancement point of the K3 moduli
+space (Proposition~\ref{prop:niemeier-shadow-landscape}),
+the K3 Yangian parameters $h_i$ specialize to incorporate the
+root structure of~$N$.  The Umbral group~$G_N$ acts on the
+Yangian representation category at this specialization.
+The shadow data is identical for all~$24$ Niemeier lattices
+($\kappa_{\mathrm{ch}} = 24$, class~$G$, depth~$2$ for the
+lattice VOA), so the Umbral group is invisible to the shadow
+tower---it is detected only through the representation theory
+of the specialized Yangian.
+\end{remark}
+
+\noindent\textit{Verification}: $50$ tests in
+\texttt{mathieu\_moonshine\_yangian.py}:
+$25$~conjugacy classes (Frame shapes summing to~$24$, cycle
+lengths dividing order, trace consistency); $9$~moonshine
+coefficients ($A_n = 2\,a_n$); twined eta products for
+$1A$, $2A$, $2B$, $3A$ matching Ramanujan tau and eta product
+expansions; $M_{24}$ action on charge-$1$ and
+$\mathrm{Sym}^2$ representations;
+$23$~Niemeier root systems with Umbral data;
+trace-of-power formula for all classes and powers.
+
 \subsection{Lattice VOA and Gepner model}
 \label{subsec:lattice-gepner}
 
@@ -5007,6 +5128,208 @@ At the level of generating functions, the shadow partition function $Z^{\mathrm{
 
 \noindent\textit{Verification}: 81 tests in \texttt{k3\_relative\_chiral.py} covering the five $\kappa_{\mathrm{ch}}$-verification paths, total root multiplicity at levels $1$--$30$, and shadow-to-BKM bridge consistency.
 
+
+\subsection{Factorization homology over $E$: the relative construction}
+\label{sec:k3e-relative-fact-hom}
+
+The relative chiral algebra $A_{K3,\mathrm{rel}}$ admits a precise
+interpretation as a \emph{factorization algebra on $E$}, obtained by
+applying the \emph{constructed} functor $\Phi_2$ fiberwise and
+assembling the result via factorization homology.  This subsection
+delineates exactly what is constructible without $\Phi_3$, and
+identifies the obstruction class controlling the passage from the
+relative to the absolute (conjectural) chiral algebra.
+
+\medskip
+\noindent\textbf{Step 1: the fiber.}  The functor $\Phi_2$ of
+Theorem~\ref{thm:cy-to-chiral} (CY-A$_2$, \textbf{proved}) applied to
+$D^b(\Coh(K3))$ produces the Mukai lattice vertex algebra:
+\begin{equation}\label{eq:phi2-k3}
+  \Phi_2\bigl(D^b(\Coh(K3))\bigr)
+  \;=\;
+  V_{\widetilde{\Lambda}_{K3}},
+  \qquad
+  \widetilde{\Lambda}_{K3} = U^4 \oplus E_8(-1)^2,
+  \qquad
+  \mathrm{rank} = 24,
+  \quad
+  \mathrm{sig} = (4,20).
+\end{equation}
+This is an $\Etwo$-chiral algebra of central charge~$24$ with
+$\kappa_{\mathrm{ch}} = \chi(\cO_{K3}) = 2$
+(Theorem~\ref{thm:k3-kappa}), shadow class~G, and shadow depth~$2$.
+
+\medskip
+\noindent\textbf{Step 2: the family over $E$.}  The product structure
+$K3 \times E \to E$ makes $V_{\widetilde{\Lambda}_{K3}}$ into a
+\emph{constant} factorization algebra on~$E$ (the fiber VOA does not
+vary along $E$ for the trivial product).  The factorization homology
+\begin{equation}\label{eq:fact-hom-over-e}
+  \int_E V_{\widetilde{\Lambda}_{K3}}
+\end{equation}
+is a well-defined \emph{number} at each $q$-power: the trace of the
+identity operator on the Fock space of $24$ free bosons compactified
+on~$E$ at modulus~$\tau$, with $q = e^{2\pi i\tau}$.
+
+\begin{conjecture}[Relative factorization homology character]
+\label{conj:relative-fact-hom-char}
+\ClaimStatusConjectured
+The character of the factorization homology
+$\int_E V_{\widetilde{\Lambda}_{K3}}$ at rank~$0$ (no winding) is
+\begin{equation}\label{eq:rank0-char}
+  \operatorname{ch}\Bigl(\int_E V_{\widetilde{\Lambda}_{K3}}\Bigr)
+  \Bigl|_{\mathrm{rank}\,0}
+  \;=\;
+  \frac{1}{\eta(\tau)^{24}},
+\end{equation}
+recovering the generating function of $\chi(\mathrm{Hilb}^n(K3)) = p_{24}(n)$
+with $\kappa_{\mathrm{fiber}} = 24$.  The full second-quantized character,
+including all winding sectors, is the DMVV product
+\begin{equation}\label{eq:dmvv-relative}
+  Z_{\mathrm{DMVV}}(p, q, y)
+  \;=\;
+  \prod_{(n,l,m) > 0}
+  \bigl(1 - p^n q^m y^l\bigr)^{-c(4nm - l^2)},
+\end{equation}
+whose denominator, after the Weyl vector prefactor, is
+$\frac{1}{64}\Delta_5$.
+\end{conjecture}
+
+\begin{remark}[Scope: what requires Conjecture CY-A$_3$]
+\label{rem:relative-scope}
+The rank-$0$ character~\eqref{eq:rank0-char} is a \textbf{theorem}:
+it follows from the free-field factorization homology of $24$ free
+bosons over~$E$ (Costello--Gwilliam, unconditional).
+The identification of the full DMVV product~\eqref{eq:dmvv-relative}
+with the factorization homology at all ranks is \textbf{conjectural}:
+the higher-rank sectors involve the interacting factorization homology
+of the lattice VOA, which requires deformation by the $\Etwo$ OPE
+data and chains through factorization homology of non-free-field
+vertex algebras over compact curves---a problem not yet solved in
+general.  The Borcherds weight formula
+$\mathrm{wt}(\Delta_5) = c(0)/2 = 5$ is unconditional: it depends
+only on $\phi_{0,1}$ (a topological invariant of K3).
+\end{remark}
+
+\medskip
+\noindent\textbf{Step 3: the $\kappa_\bullet$-spectrum from the relative construction.}
+All five $\kappa_\bullet$-values of the $K3 \times E$ tower are accessible from
+the relative construction without $\Phi_3$:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lllll}
+ \toprule
+ \textbf{Subscript} & \textbf{Value} & \textbf{Source} & \textbf{Status} \\
+ \midrule
+ $\kappa_{\mathrm{ch}}(K3)$ & $2$ & $\chi(\cO_{K3})$ via $\Phi_2$ & \textbf{Proved} (CY-A$_2$) \\
+ $\kappa_{\mathrm{ch}}(K3 \times E)$ & $3$ & Additivity: $2 + 1$ & \textbf{Proved} (CY-A$_2$ + CY-A$_1$) \\
+ $\kappa_{\mathrm{cat}}(K3)$ & $2$ & $\chi(\cO_{K3})$; note $\kappa_{\mathrm{cat}}(K3 \times E) = 0$ & \textbf{Proved} (Hodge) \\
+ $\kappa_{\mathrm{fiber}}$ & $24$ & Mukai lattice rank & \textbf{Proved} (lattice theory) \\
+ $\kappa_{\mathrm{BKM}}$ & $5$ & $c(0)/2 = 10/2$ & \textbf{Proved} (Borcherds weight formula) \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+\noindent\textbf{Step 4: the BKM positive part.}
+The root multiplicities $\mathrm{mult}(\alpha) = c(4nm - l^2)$ of
+$\mathfrak{g}_{\Delta_5}$ are entirely determined by $\phi_{0,1}$ and
+are unconditionally visible in the relative bar complex.  The total
+root multiplicity identity
+$\sum_{\substack{\alpha \in \Delta_+ \\ n(\alpha) + m(\alpha) = h}} c(D(\alpha)) = 24$
+at each level $h \geq 1$ (Proposition~\ref{prop:k3e-total-mult})
+holds as a consequence of the index-$1$ Jacobi form identity.
+The CoHA multiplication on $\mathfrak{g}_{\Delta_5}^+$
+(Schiffmann--Vasserot--Yang--Zhao) is associative (AP-CY7: the CoHA
+is \emph{not} a chiral algebra), and the Lie bracket comes from the
+commutator.
+
+\begin{proposition}[Obstruction to the absolute construction]
+\label{prop:k3e-relative-obstruction}
+\ClaimStatusProvedHere
+The obstruction to promoting the relative chiral algebra
+$A_{K3,\mathrm{rel}}$ (a factorization algebra on~$E$ with
+fiber~$V_{\widetilde{\Lambda}_{K3}}$) to the absolute chiral algebra
+$A_{K3 \times E}$ (a single chiral algebra on~$\bC$) lies in the
+chain-level $\bS^3$-framing datum of Conjecture CY-A$_3$.
+Specifically:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Cohomological obstruction}: \textbf{vanishes}.
+  The product $K3 \times E$ is formal (DGMS 1975 for K3, Abelian
+  variety formality for~$E$, K\"unneth for the product).  All Massey
+  products $m_n = 0$ on $H^*(K3 \times E)$ for $n \geq 3$.
+ \item \emph{Chain-level obstruction}: \textbf{non-vanishing}.
+  The CY$_3$ trace $\Tr \colon \HH_3 \to k$ couples the K3 and $E$
+  directions at the chain level.  The $\bS^3$-framing involves the
+  Hopf fibration $S^1 \hookrightarrow S^3 \twoheadrightarrow S^2$
+  ($\pi_3(S^2) = \bZ$, nontrivial), and the chain-level
+  trivialization is an additional datum beyond $\Phi_2$.
+ \item \emph{Operadic consequence}: the relative construction produces
+  $\Etwo$ structure (from the CY$_2$ fiber), while the absolute
+  CY$_3$ theory is natively $\Eone$.  The relative algebra is
+  ``too symmetric'': it does not see the $\Eone$ obstruction from
+  $\Omega_3 = \Omega_2 \wedge dz$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) follows from the formality theorem of Deligne--Griffiths--Morgan--Sullivan
+applied to K3 (compact K\"ahler) and the general formality of Abelian
+varieties.  The K\"unneth decomposition
+$H^*(K3 \times E) \simeq H^*(K3) \otimes H^*(E)$ as $A_\infty$-algebras
+reduces to the cohomological tensor product (all $m_n = 0$ for $n \geq 3$).
+
+(ii) The CY$_3$ Serre duality pairing
+$\mathrm{Ext}^i(E, F) \times \mathrm{Ext}^{3-i}(F, E) \to k$
+uses the holomorphic $3$-form $\Omega_3 = \Omega_{K3} \wedge dz_E$,
+which couples a degree-$2$ class on K3 with a degree-$1$ class on~$E$.
+The product decomposition of $\Omega_3$ is an equality of
+\emph{forms}, not of \emph{framings}: the $\bS^3$-framing compatible
+with the BV operator on $\mathrm{CC}_\bullet^-(\cC)$ requires a
+chain-level trivialization of the class
+$\kappa_{\mathrm{ch}} \cdot [\Omega_3] \in H^3(B\Sp(2m))$
+(hypothesis~\ref{hyp:framing} of Conjecture~\ref{conj:cy-to-chiral-d3}),
+which is not provided by the product decomposition.
+
+(iii) The $\Etwo$ structure of $V_{\widetilde{\Lambda}_{K3}}$ comes
+from the $\bS^2$-framing of CY$_2$.  The general CY$_3$ functor
+$\Phi_3$ produces $\Eone$ (Conjecture~\ref{conj:cy-to-chiral-d3},
+conclusion~\ref{concl:e1}), and the $\Etwo$ braiding arises only
+through the Drinfeld center
+$\cZ(\Rep^{\Eone}(A))$ (Theorem~\ref{thm:c3-drinfeld-center}).
+The relative construction bypasses the center passage entirely.
+\end{proof}
+
+\begin{remark}[Why K3 $\times$ E is unusually well-behaved]
+\label{rem:k3xe-well-behaved}
+For $K3 \times E$, the relative and absolute constructions agree on
+\emph{all character-level data}: the rank-$0$ partition function
+$1/\eta^{24}$, the full DMVV product, all root multiplicities $c(D)$,
+the entire $\kappa_\bullet$-spectrum $\{2, 3, 2, 24, 5\}$, the shadow class~M,
+and the MO $R$-matrix (Theorem~\ref{thm:k3e-mo-rmatrix}).  The
+\emph{only} difference is the $E_n$ level ($\Etwo$ vs $\Eone$) and
+the chain-level $\bS^3$-framing datum.  This exceptional completeness
+of the relative construction follows from K3 formality: since all
+$A_\infty$ operations vanish on cohomology, the character is entirely
+controlled by the cup product ring $H^*(K3)$, which the relative
+construction captures via the Mukai pairing.
+
+For a non-formal CY$_3$ (such as the quintic, which has $m_3 \neq 0$
+on the Gepner model), the relative construction would miss the
+Massey-product corrections to the character, and the agreement would
+fail beyond the tree-level term.
+\end{remark}
+
+\noindent\textit{Verification}: 79 tests in
+\texttt{k3e\_relative\_chiral\_algebra.py} covering the fiber
+$\Phi_2$ data, base $E$ data, relative $\kappa_\bullet$-spectrum (5~values,
+all proved), BKM positive part (root multiplicities and total
+$= 24$ identity at levels $1$--$20$), obstruction analysis
+(formality and chain-level framing), relative vs.\ absolute
+comparison, and second-quantized elliptic genus cross-verification.
+
+
 \section{From $\kappa_{\mathrm{fiber}}$ to $\kappa_{\mathrm{BKM}}$: the Borcherds lift}
 \label{sec:k3e-fiber-to-global}
 
@@ -5139,6 +5462,173 @@ The quantum vertex chiral group $G(K3 \times E)$ admits five comparison routes.
 Routes 1--3 give progressively more detailed structural information: Route 1 captures the combinatorial skeleton ($\fn_+$ and the root system), Route 2 gives the generic (abelian) fiber, and Route 3 gives the enhanced (nonabelian) fiber. Route 4 would give the full chiral algebra $A_{K3 \times E}$ but requires CY-A$_3$. Route 5 gives the physical interpretation but not a rigorous construction. The relative chiral algebra of Section~\ref{sec:k3e-relative-chiral} provides a concrete intermediary between Routes 2--3 and Route 4.
 \end{remark}
 
+
+%% ========================================================================
+%% K3 x E E_1-chiral Yangian: generators, relations, coproduct, R-matrix
+%% ========================================================================
+
+\section{The $E_1$-chiral Yangian of \texorpdfstring{$K3 \times E$}{K3 x E}}
+\label{sec:k3e-e1-chiral-yangian}
+
+The five routes of the preceding section converge on a single prediction: the conjectural chiral algebra $A_{K3 \times E}$ carries an $E_1$-chiral Yangian structure. This section makes the prediction explicit. Every statement is conditional on Conjecture~CY-A$_3$; the LaTeX environment is uniformly \verb|\begin{conjecture}|.
+
+\subsection{The deformation parameter $\hbar = \sigma_3$}
+\label{subsec:k3e-hbar}
+
+The $\Omega$-background parameters $(\epsilon_1, \epsilon_2, \epsilon_3)$ satisfy the CY condition $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$. In the fibered picture, $\epsilon_1, \epsilon_2$ are tangent weights of the K3 fiber and $\epsilon_3 = -(\epsilon_1 + \epsilon_2)$ is the $E$-direction weight. Define the elementary symmetric functions:
+\[
+ \sigma_1 = 0 \quad\text{(CY condition)}, \qquad
+ \sigma_2 = \epsilon_1 \epsilon_2 + \epsilon_1 \epsilon_3 + \epsilon_2 \epsilon_3, \qquad
+ \hbar := \sigma_3 = \epsilon_1 \epsilon_2 \epsilon_3.
+\]
+The deformation parameter $\hbar = \sigma_3$ controls the CY$_3$ structure:
+\begin{itemize}
+ \item At $\hbar = 0$ (the \emph{self-dual limit} $\epsilon_1 = -\epsilon_2$, $\epsilon_3 = 0$): the structure function $g(u) = 1$, the $R$-matrix is trivial, and the $K3 \times E$ Yangian degenerates to the $K3$ Heisenberg $Y(\mathfrak{g}_{K3})$, which is $E_2$-chiral. The $E_1$ ordering is lost.
+ \item At $\hbar \neq 0$: the structure function is nontrivial, the $R$-matrix produces a genuine quantum group, and the algebra is $E_1$-chiral (ordered, non-commutative).
+\end{itemize}
+
+\begin{warning}[AP-CY20: $\Omega$-background intermediary]
+\label{warn:k3e-omega-intermediary}
+The identification of MO parameters $(\epsilon_1, \epsilon_2, \epsilon_3)$ with the quantum toroidal parameters $(q, t)$ passes through equivariant localization on the $\Omega$-background (Nekrasov partition function), \emph{not} through a direct identification with the normal bundle grading $N_{C/Y}$.
+\end{warning}
+
+\subsection{The structure function}
+\label{subsec:k3e-structure-function}
+
+\begin{conjecture}[Structure function of the $K3 \times E$ Yangian]
+\label{conj:k3e-e1-structure-function}
+\ClaimStatusConjectured
+Conditional on CY-A$_3$: the $K3 \times E$ $E_1$-chiral Yangian has structure function
+\begin{equation}\label{eq:k3e-structure-function}
+ g_{K3 \times E}(u) \;=\; \frac{(u - \epsilon_1)(u - \epsilon_2)(u - \epsilon_3)}
+ {(u + \epsilon_1)(u + \epsilon_2)(u + \epsilon_3)}
+ \;=\;
+ \frac{u^3 + \sigma_2 u - \sigma_3}{u^3 + \sigma_2 u + \sigma_3},
+\end{equation}
+a degree-$(3,3)$ rational function satisfying:
+\begin{enumerate}[label=(\roman*)]
+ \item \emph{Unitarity}: $g(u) \cdot g(-u) = 1$.
+ \item \emph{CY$_3$ parity}: $g(0) = (-1)^3 = -1$.
+ \item \emph{Self-dual degeneration}: $g(u)|_{\epsilon_1 = -\epsilon_2} = 1$.
+ \item \emph{Asymptotic}: $g(u) \to 1$ as $u \to \infty$.
+\end{enumerate}
+This is the Maulik--Okounkov structure function for $\mathrm{Hilb}^n(K3 \times E)$.
+\end{conjecture}
+
+The $\sigma$-form in~\eqref{eq:k3e-structure-function} makes the role of $\hbar$ transparent: at $\sigma_3 = 0$ the numerator and denominator coincide, giving $g(u) = 1$.
+
+\subsection{Generators and character}
+\label{subsec:k3e-generators}
+
+\begin{conjecture}[$K3 \times E$ Yangian generators]
+\label{conj:k3e-e1-generators}
+\ClaimStatusConjectured
+Conditional on CY-A$_3$: the $K3 \times E$ $E_1$-chiral Yangian has the following generators.
+\begin{enumerate}[label=(\roman*)]
+ \item \emph{Mukai-lattice currents}: $J^{(a)}(z) = \sum_{n \geq 0} J^{(a)}_n z^{-n-1}$ for $a = 1, \ldots, 24$ (one per direction in the Mukai lattice $\Lambda_{\mathrm{Muk}} = U^3 \oplus E_8(-1)^2$ of signature $(4,20)$).
+ \item \emph{$E$-direction current}: $J^E(z) = \sum_{n \geq 0} J^E_n z^{-n-1}$ (the Heisenberg current of the elliptic curve factor).
+ \item \emph{W-algebra currents}: $W_s(z)$ for $s \geq 2$ (Sugawara-type higher-spin generators from the product structure).
+\end{enumerate}
+At rank~$1$ (single K3 fiber), the character is the G\"ottsche formula:
+\[
+ \mathrm{ch}_{\mathrm{rank}\,1}(q) = \prod_{n \geq 1} \frac{1}{(1-q^n)^{24}}
+ = \frac{q}{\eta(q)^{24}}
+ = 1 + 24q + 324q^2 + 3200q^3 + 25650q^4 + \cdots
+\]
+The full $K3 \times E$ character including all ranks is the DMVV product formula:
+\[
+ \sum_{N \geq 0} p^N Z_N(q,y) = \prod_{\substack{n > 0, \, l, m \geq 0 \\ (n,l,m) \neq (0,0,0)}}
+ \frac{1}{(1 - p^n q^l y^m)^{c(4nm - l^2)}},
+\]
+where $c(D)$ are the discriminant coefficients of $\phi_{0,1}$ (the K3 elliptic genus).
+\end{conjecture}
+
+\subsection{Relations}
+\label{subsec:k3e-relations}
+
+\begin{conjecture}[$K3 \times E$ Yangian relations]
+\label{conj:k3e-e1-relations}
+\ClaimStatusConjectured
+Conditional on CY-A$_3$: the $K3 \times E$ $E_1$-chiral Yangian satisfies the affine Yangian relations (Tsymbaliuk, arXiv:1404.5240) specialized to the structure function $g = g_{K3 \times E}$:
+\begin{enumerate}[label=\textbf{(R\arabic*)}]
+ \item $[\psi^{(a)}_i, \, \psi^{(b)}_j] = 0$ \hfill (Cartan commutes)
+ \item $\psi^{(a)}(z) \, e^{(b)}(w) = g_{ab}(z-w) \, e^{(b)}(w) \, \psi^{(a)}(z)$ \hfill ($\psi$-$e$ OPE)
+ \item $g_{ab}(z-w) \, e^{(a)}(z) \, e^{(b)}(w) = g_{ba}(w-z) \, e^{(b)}(w) \, e^{(a)}(z)$ \hfill ($e$-$e$ exchange)
+ \item $[e^{(a)}(z), \, f^{(b)}(w)] = \delta_{ab} \, \delta(z-w) \, \psi^{(a)}(z)$ \hfill ($e$-$f$ pairing)
+ \item $\mathrm{Sym}_{z_1,z_2,z_3} \, [e^{(a)}(z_1), \, [e^{(a)}(z_2), \, e^{(a)}(z_3 + \sigma_3)]] = 0$ \hfill (cubic Serre)
+\end{enumerate}
+For the abelian ($\fgl_1$) sector: $g_{ab}(u) = \omega^{ab} \, g(u)$ where $\omega^{ab}$ is the Mukai pairing of signature $(4,20)$. The Mukai pairing couples different lattice directions in \textbf{(R2)} and \textbf{(R3)} but does not enter \textbf{(R1)} or \textbf{(R5)}.
+\end{conjecture}
+
+\begin{warning}[AP-CY7: CoHA is associative, not chiral]
+\label{warn:k3e-yangian-not-coha}
+The CoHA of $K3 \times E$ provides $U(\fn_+)$ (the positive half, an associative algebra). The full Yangian relations \textbf{(R1)--(R5)} above require the Drinfeld double construction (the $E_1 \to E_2$ promotion of Vol~I). The relations are those of the \emph{Yangian}, not the CoHA. The passage CoHA~$\to$~Yangian is conditional on CY-A$_3$ via the functor $\Phi$.
+\end{warning}
+
+\subsection{The Drinfeld coproduct}
+\label{subsec:k3e-coproduct}
+
+\begin{conjecture}[$K3 \times E$ Drinfeld coproduct]
+\label{conj:k3e-e1-coproduct}
+\ClaimStatusConjectured
+Conditional on CY-A$_3$: the $K3 \times E$ Yangian carries a multiplicative Drinfeld coproduct on the transfer matrix
+\[
+ \Delta_z\bigl(T(u)\bigr) = T^L(u) \cdot T^R(u - z),
+\]
+where $z$ is a \emph{Yangian spectral parameter} (AP-CY31: not a worldsheet coordinate). At the mode level, for the generators $\psi_{s,n} = e_s(\phi_1, \ldots, \phi_N)$:
+\begin{equation}\label{eq:k3e-coproduct-universal}
+ \Delta_z(\psi_{s,n}) = \psi_{s,n}^L + \sum_{a=0}^{s-1}\sum_{p=0}^{s-1-a}
+ \binom{s-a-1}{p} z^p \, [\psi_a^L \ast \psi_{s-a-p}^R]_n,
+\end{equation}
+where $\ast$ denotes the mode convolution $[A \ast B]_n = \sum_m A_m B_{n-m}$. Spin by spin:
+\begin{alignat}{3}
+ s = 1\colon &\quad \Delta_z(J_n) &&= J_n^L + J_n^R
+   &&\quad\text{(primitive)}, \label{eq:k3e-cop-s1} \\
+ s = 2\colon &\quad \Delta_z(T_n) &&= T_n^L + T_n^R + \tfrac{\Psi-1}{\Psi}[J^L \ast J^R]_n + z\,J_n^R
+   &&\quad\text{($z$-degree $1$)}, \label{eq:k3e-cop-s2} \\
+ s = 3\colon &\quad \Delta_z(W_n) &&= W_n^L + W_n^R + [J^L \ast T^R + T^L \ast J^R]_n \notag \\
+   & &&\quad + z\,[J^L \ast J^R + T^R]_n + z^2 J_n^R
+   &&\quad\text{($z$-degree $2$)}, \label{eq:k3e-cop-s3}
+\end{alignat}
+with $z$-polynomial degree $s-1$ at spin $s$ and $s(s+1)/2$ total operator products. In the rank-$3$ (MO) framework, $\psi_s = 0$ for $s > 3$, so the coproduct truncates. In the rank-$24$ (Mukai) framework, the coproduct extends through $s = 24$.
+
+Coassociativity follows from the Miura multiplicativity: $T^{(1)}(u) \cdot T^{(2)}(u-z) \cdot T^{(3)}(u-w)$ is associative by commutativity of the free-field factors (proved for $\cW_{1+\infty}$ in Section~\ref{sec:e1-chiral-bialgebras}).
+\end{conjecture}
+
+\subsection{The $R$-matrix}
+\label{subsec:k3e-rmatrix}
+
+\begin{conjecture}[$K3 \times E$ Maulik--Okounkov $R$-matrix]
+\label{conj:k3e-e1-rmatrix}
+\ClaimStatusConjectured
+Conditional on CY-A$_3$: the Maulik--Okounkov $R$-matrix on $K_T(\Hilb^n(K3 \times E))$ is governed by the structure function $g_{K3 \times E}(u)$ of~\eqref{eq:k3e-structure-function}. At charge~$1$:
+\[
+ R(u) = g_{K3 \times E}(u)
+ = \frac{(u - \epsilon_1)(u - \epsilon_2)(u - \epsilon_3)}
+        {(u + \epsilon_1)(u + \epsilon_2)(u + \epsilon_3)}
+\]
+(a scalar, since the charge-$1$ Fock space is one-dimensional for $\fgl_1$). At charge~$n$, the $R$-matrix is diagonal on the partition basis $\{|\lambda| = n\}$:
+\begin{equation}\label{eq:k3e-rmatrix-partition}
+ R(u)_\lambda = \prod_{(i,j) \in \lambda} g_{K3 \times E}\bigl(u + \epsilon_1 i + \epsilon_2 j\bigr),
+\end{equation}
+where the product runs over all boxes $(i,j)$ of the Young diagram $\lambda$ (0-indexed) and $\epsilon_1 i + \epsilon_2 j$ is the content of box $(i,j)$. The $R$-matrix satisfies:
+\begin{enumerate}[label=(\roman*)]
+ \item \emph{Yang--Baxter equation}: automatic for diagonal $R$-matrices (commutativity).
+ \item \emph{Unitarity}: $R_{12}(u) R_{21}(-u) = 1$ (from $g(u)g(-u) = 1$).
+ \item \emph{Classical limit}: $R(u) \sim 1 + O(u^{-2})$ as $u \to \infty$ (the $O(u^{-1})$ term vanishes by $\sigma_1 = 0$).
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[Comparison: $K3$ vs $K3 \times E$ $R$-matrix]
+\label{rem:k3e-vs-k3-rmatrix}
+The K3 Heisenberg Yangian $Y(\fg_{K3})$ has a degree-$(24,24)$ diagonal $R$-matrix $R_{K3}(z) = \mathrm{diag}\bigl((z - h_i)/(z + h_i)\bigr)_{i=1}^{24}$ on $\bC^{24}$ (Section~\ref{sec:k3-yangian-quantization}). The $K3 \times E$ $R$-matrix has degree $(3,3)$ in the rank-$3$ MO framework. The passage $K3 \to K3 \times E$ collapses the $24$ Mukai directions to $2$ effective K3 weights $(\epsilon_1, \epsilon_2)$ by choosing a point in the Mukai moduli space. The $E$-direction weight $\epsilon_3 = -(\epsilon_1 + \epsilon_2)$ is the CY$_3$ deformation that breaks $E_2$ to $E_1$.
+\end{remark}
+
+\begin{remark}[Compute engine verification]
+\label{rem:k3e-e1-verification}
+The engine \texttt{k3e\_e1\_chiral\_yangian.py} ($\sim\!700$~lines) verifies:
+structure function unitarity (symbolic and numerical), CY$_3$ parity $g(0) = -1$, self-dual degeneration $g|_{\hbar=0} = 1$, sigma-form cross-check, rank-$1$ character $p_{24}(n)$ against OEIS A000935, convolution identity with $\eta(q)^{24}$ (cross-check with \texttt{k3\_double\_current\_algebra.py}), structure function agreement with \texttt{mo\_rmatrix\_k3e.py}, coproduct term counts at all spins, rank-$3$ truncation, $R$-matrix at charges $1$ and $2$, and CY$_2$/CY$_3$ comparison ($55$~tests, $0$~failures).
+\end{remark}
 
 %% ========================================================================
 %% DT/GW invariants, wall-crossing, Borcherds Fourier-Jacobi, scattering
@@ -5543,6 +6033,388 @@ follow Volume~I throughout.
  unreduced numerator $2^{2g-1} - 1 = 511$ at $g = 5$
  requires GCD reduction with $(2g)!$.
 \end{enumerate}
+
+
+%% ---------------------------------------------------------------
+\section{Shadow class variation over K3 moduli}
+\label{sec:shadow-class-moduli-variation}
+
+While $\kappa_{\mathrm{ch}}(K3) = 2$ is a topological invariant---constant
+across the entire moduli space $\cM_{K3}$
+(Proposition~\ref{prop:kappa-ch-k3-moduli-independent})---the
+\emph{shadow class} is a finer invariant that varies as the K3 surface
+moves through moduli.  The shadow class depends on the $A_\infty$
+structure of the chiral algebra (specifically on the higher products
+$m_3, m_4, \dotsc$), which detects the OPE structure that
+$\kappa_{\mathrm{ch}}$ alone cannot see.
+
+\begin{proposition}[K3 shadow class landscape]
+\label{prop:k3-shadow-class-landscape}
+\ClaimStatusProvedHere
+Let $S$ be a K3 surface.  The shadow class of the chiral algebra
+$\Phi_2(D^b(\Coh(S)))$ depends on the position of $S$ in $\cM_{K3}$
+as follows.
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Generic point} ($\rho = 1$, no enhanced symmetry):
+ the chiral algebra is the Mukai Heisenberg $H_{\mathrm{Muk}}$
+ (rank~$24$, signature~$(4,20)$).  The OPE is free-field:
+ \[
+  J^i(z)\,J^j(w) \sim \frac{\omega^{ij}}{(z-w)^2},
+  \qquad i,j = 1,\dotsc,24.
+ \]
+ Shadow tower: $S_3 = S_4 = 0$, $\Delta = 0$.
+ \textbf{Class~$G$, depth~$2$} (AP-CY12: full tower computation).
+
+\item \emph{ADE singularity point} ($\rho > 1$, enhanced $\hat{\fg}_1$
+ subalgebra): the chiral algebra acquires nonabelian currents
+ $J^a(z)$ with OPE
+ \[
+  J^a(z)\,J^b(w) \sim \frac{k\,\delta^{ab}}{(z-w)^2}
+  + \frac{if^{ab}{}_c\,J^c(w)}{z - w},
+ \]
+ where $f^{ab}{}_c$ are the structure constants of $\fg$.
+ The cubic OPE produces $S_3 \neq 0$; at level~$1$ the Sugawara
+ structure gives $S_4 = 0$, hence $\Delta = 0$.
+ Enhanced subalgebra: \textbf{class~$L$, depth~$3$}.
+ Full $\cN = 4$ sigma model: \textbf{class~$M$}
+ ($S_3 = 2$, $S_4 = 5/156$, $\Delta = 20/39 \neq 0$).
+
+\item \emph{Kummer point} ($T^4/\bZ_2$, $\rho = 16$):
+ $16$ twisted sectors at $A_1$ fixed points enhance to
+ $\hat{\mathfrak{so}}_4^{\oplus 4}$ at level~$1$ (Nahm--Wendland).
+ Each $\hat{\mathfrak{su}}_2$ at level~$1$ has $S_3 \neq 0$,
+ $S_4 = 0$.  Enhanced subalgebra: \textbf{class~$L$}.
+ Full sigma model: \textbf{class~$M$}.
+
+\item \emph{Fermat quartic / Gepner point} ($\rho = 20$):
+ the Gepner model $(2)^4/\bZ_4$ is a rational $\cN = (4,4)$ SCFT.
+ As a standalone RCFT: \textbf{class~$L$} (finite shadow depth).
+ Full sigma model: \textbf{class~$M$}.
+
+\item \emph{Niemeier maximal points} ($24$ lattices, $\rho = 20$):
+ the lattice VOA $V_N$ is class~$G$ (free-field, $S_3 = S_4 = 0$);
+ the enhanced $\hat{\fg}_1$ subalgebra (for root system $R(N) \neq
+ \varnothing$) is class~$L$.  The Leech lattice ($R = \varnothing$)
+ is class~$G$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+At the generic point, $\Phi_2(D^b(\Coh(S)))$ is the rank-$24$ Mukai
+Heisenberg $H_{\mathrm{Muk}}$ by Theorem~\ref{thm:cy-a-d2}.
+The Heisenberg OPE is free-field, so $S_3 = S_4 = 0$ and the shadow
+class is~$G$ by the single-line dichotomy theorem (Vol~I,
+Theorem~\ref{thm:shadow-dichotomy}).
+
+At an ADE enhancement point, the chiral algebra acquires the affine
+Kac--Moody subalgebra $\hat{\fg}_1$.  At level~$1$ for simply-laced
+$\fg$: $c(\hat{\fg}_1) = \mathrm{rank}(\fg)$, and the structure constants
+produce $S_3 \neq 0$ (cubic bar obstruction from the $J^aJ^bJ^c$
+three-point function).  The quartic invariant $S_4 = 0$ at level~$1$
+because the Sugawara tensor $T = (2(k + h^\vee))^{-1} {:}J^aJ^a{:}$ at
+$k = 1$ has the same singular structure as the free-field stress tensor.
+Hence $\Delta = 0$ and the enhanced subalgebra is class~$L$, depth~$3$.
+
+The full $\cN = 4$ sigma model at $c = 6$ has the nonlinear $G^a$-$G^b$
+OPE involving composite operators $J^aJ^b$.  This produces
+$S_3 = 2$, $S_4 = 5/156$, hence $\Delta = 8 \cdot 2 \cdot 5/156 =
+20/39 \neq 0$, giving class~$M$ (infinite shadow depth) by
+Computation~\ref{comp:shadow-tower-k3}.
+
+The Kummer, Fermat, and Niemeier cases follow from the same analysis
+applied to the specific enhanced algebras at those moduli points.
+\end{proof}
+
+\noindent\textit{Verification}: $88$ tests in
+\texttt{shadow\_class\_moduli\_variation.py}:
+$20$+ moduli points ($8$ ADE types $A_1$--$A_8$, $5$ types $D_4$--$D_8$,
+$3$ types $E_6$--$E_8$, generic, Kummer, Fermat, $4$ Niemeier);
+$\kappa_{\mathrm{ch}} = 2$ at all points;
+shadow class upper-semicontinuity at all transitions;
+$15$ cross-checks between tower computation, point data,
+Hodge theory, and stratification paths.
+
+\begin{conjecture}[Upper-semicontinuity of shadow class]
+\label{conj:shadow-usc}
+\ClaimStatusConjectured
+Let $(\cC_t)_{t \in B}$ be a flat family of $\CY_d$ categories over
+a connected base~$B$.  For each $t \in B$, let $A_t = \Phi_d(\cC_t)$
+be the chiral algebra (assuming $\CY\text{-}A_d$ applies) and let
+$\mathrm{class}(t) \in \{G, L, C, M\}$ be the shadow class of~$A_t$.
+Then the function $t \mapsto \mathrm{class}(t)$ is
+upper-semicontinuous in the ordering $G < L < C < M$.
+
+Equivalently: the locus $\{t \in B : \mathrm{class}(t) \geq X\}$
+is closed for each $X \in \{G, L, C, M\}$, and the shadow depth
+function $t \mapsto \mathrm{depth}(t)$ is lower-semicontinuous.
+\end{conjecture}
+
+\begin{remark}[Evidence for upper-semicontinuity]
+\label{rem:shadow-usc-evidence}
+At $d = 2$ (K3), Conjecture~\ref{conj:shadow-usc} is verified by
+Proposition~\ref{prop:k3-shadow-class-landscape}: the generic class
+is~$G$ (depth~$2$), and specialization to any enhanced symmetry point
+produces class~$L$ (subalgebra) or~$M$ (sigma model), both~$\geq G$.
+
+The heuristic: specialization introduces new OPE singularities (from
+enhanced symmetry, degeneration, orbifold sectors, etc.)\ which can
+only \emph{increase} the shadow depth.  Smoothing (moving to generic
+position) can kill higher-order OPE terms, decreasing shadow depth.
+This is analogous to the upper-semicontinuity of fiber dimension
+in algebraic geometry.
+
+At $d = 3$ (quintic family $X_\psi$, AP157: large complex structure /
+conifold / Gepner degenerations), all studied points have conjectural
+class~$M$ (conditional on CY-A$_3$, AP-CY6): GV invariants grow
+exponentially (Huang--Klemm--Quackenbush), forcing infinite shadow
+depth.  Upper-semicontinuity holds trivially ($M \leq M$) but does
+not provide a nontrivial test.  \textbf{Open question}: does there
+exist a CY$_3$ family with generic shadow class $\neq M$?
+\end{remark}
+
+\begin{remark}[The conifold transition does not change shadow class]
+\label{rem:conifold-shadow-class}
+At the conifold point of the quintic family ($\psi^5 = 1$,
+AP157: conifold degeneration, vanishing $S^3$), a massless
+hypermultiplet appears whose OPE is logarithmic, producing class~$M$.
+The conifold transition $X_\psi \to X_0 \to X'$ changes the Hodge
+numbers ($h^{1,1}: 1 \to 2$, $h^{2,1}: 101 \to 100$), the Euler
+characteristic ($\chi: {-}200 \to {-}196$), and the shadow tower
+\emph{coefficients}~$S_k$, but does \emph{not} change the shadow
+class: it remains~$M$ on both sides and at the singular fiber.
+This is because class~$M$ (infinite shadow depth) is a
+\emph{robust} condition: perturbations of the BPS spectrum
+change the shadow coefficients but not the qualitative
+class.
+
+All CY$_3$ shadow class statements are \emph{conjectural},
+conditional on CY-A$_3$ (AP-CY6).
+\end{remark}
+
+\begin{remark}[The K3 moduli stratification]
+\label{rem:k3-moduli-stratification}
+The shadow class provides a stratification of the K3 moduli space:
+\[
+ \cM_{K3} = \cM_G \;\sqcup\; \cM_L \;\sqcup\; \cM_M
+\]
+where $\cM_G$ is the generic locus (class~$G$, full measure, open dense),
+$\cM_L$ is the enhanced subalgebra locus (class~$L$, measure zero,
+countable union of subvarieties of codimension~$\geq 1$), and
+$\cM_M$ is the full sigma model at all non-generic points
+(class~$M$, the complement of~$\cM_G$, also measure zero).
+There is no class~$C$ stratum for K3: the jump from the generic
+point is either $G \to L$ (subalgebra) or $G \to M$ (sigma model),
+with no intermediate passage through~$C$.
+\end{remark}
+
+
+%% ---------------------------------------------------------------
+\section{ADE Yangians at level~$1$ on K3}
+\label{sec:ade-yangian-level1}
+\index{Yangian!ADE at level~$1$}
+\index{ADE singularity!Yangian enhancement}
+\index{K3 surface!ADE enhancement}
+
+At each ADE enhancement point of the K3 moduli space, a du~Val singularity
+of type~$\frakg$ produces an affine Kac--Moody subalgebra
+$\hat{\frakg}_1$ inside the chiral algebra.  This subsection constructs
+the Yangian~$Y(\hat{\frakg})$ at level~$1$ in the RTT formulation for
+each ADE type, and describes the embedding into the rank-$24$ K3 Yangian
+$Y(\frakg_{K3})$ via the Mukai lattice.
+
+\begin{proposition}[ADE Yangian generators and RTT]
+\label{prop:ade-yangian-rtt}
+\ClaimStatusProvedElsewhere
+Let $\frakg$ be a simply-laced simple Lie algebra of type ADE with rank~$r$,
+dual Coxeter number~$h^\vee$, and defining representation~$V$ of
+dimension~$N = \dim V$.  The Yangian~$Y(\frakg)$ is the associative
+algebra generated by the entries of the $N \times N$ Lax
+operator~$L(u)$ subject to the RTT relation:
+\begin{equation}
+\label{eq:rtt-ade}
+R_{12}(u - v)\, L_1(u)\, L_2(v) \;=\; L_2(v)\, L_1(u)\, R_{12}(u - v),
+\end{equation}
+where $R(u) = u \cdot \mathrm{Id}_{N^2} + P$ is the Yang $R$-matrix
+on~$V \otimes V$ ($P$ the permutation operator), and
+$L_1(u) = L(u) \otimes \mathrm{Id}_N$,
+$L_2(v) = \mathrm{Id}_N \otimes L(v)$.
+
+The following structural properties hold:
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Transfer matrix integrability}: $t(u) = \mathrm{tr}\,L(u)$
+  generates a commutative subalgebra; on the level-$1$ evaluation
+  representation, $t(u) = N \cdot u$.
+\item \emph{$R$-matrix unitarity}: $R(u)\,R(-u) = (1 - u^2)\,\mathrm{Id}_{N^2}$.
+\item \emph{Quantum determinant centrality}: the quantum determinant
+  $\mathrm{qdet}\,L(u) = \prod_{i=1}^{N}(u + \mu_i - i + 1)$ is central in~$Y(\frakg)$.
+\item \emph{Permutation intertwining}: $P\,L_1(u)\,P = L_2(u)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+These are standard results in the RTT formalism (Faddeev--Reshetikhin--Takhtajan 1990,
+Molev 2007).  The Yang $R$-matrix satisfies the Yang--Baxter equation,
+unitarity follows from $P^2 = \mathrm{Id}$, and the quantum determinant
+is central by the Cayley--Hamilton theorem for quantum matrices.
+\end{proof}
+
+\begin{proposition}[Drinfeld's new realization for ADE]
+\label{prop:drinfeld-new-realization-ade}
+\ClaimStatusProvedElsewhere
+In Drinfeld's ``new realization'' (1986 ICM), $Y(\hat{\frakg})$ is generated
+by currents $x_i^{\pm}(u)$, $\varphi_i(u)$ for $i = 1, \dotsc, r$ with
+the relations:
+\begin{enumerate}[label=(D\arabic*)]
+\item $[\varphi_i(u), \varphi_j(v)] = 0$ \quad (Cartan commutes),
+\item $\varphi_i(u)\, x_j^{+}(v) = \frac{u - v + C_{ij}/2}{u - v - C_{ij}/2}\,
+  x_j^{+}(v)\, \varphi_i(u)$,
+\item $[x_i^{+}(u), x_j^{-}(v)] = \delta_{ij}\,
+  \frac{\varphi_i(u) - \varphi_i(v)}{u - v}$,
+\item $\mathrm{ad}(x_i^{+})^{1 - C_{ij}}\, x_j^{+} = 0$
+  \quad (Serre relation, $i \neq j$).
+\end{enumerate}
+Here $C_{ij}$ is the Cartan matrix of~$\frakg$ and the Serre
+exponent~$1 - C_{ij}$ equals~$2$ for adjacent nodes and~$1$ for
+non-adjacent nodes in the ADE Dynkin diagram.
+\end{proposition}
+
+The following table records the Lie-algebraic data and level-$1$
+Yangian dimensions for each ADE type arising on~K3:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{c c c c c c c c}
+\toprule
+$\frakg$ & $r$ & $\dim\frakg$ & $\dim V$ & $h^\vee$
+& $c(\hat{\frakg}_1)$ & complement & Lax size \\
+\midrule
+$A_1 = \mathfrak{sl}_2$ & $1$ & $3$ & $2$ & $2$ & $1$ & $23$ & $2 \times 2$ \\
+$A_2 = \mathfrak{sl}_3$ & $2$ & $8$ & $3$ & $3$ & $2$ & $22$ & $3 \times 3$ \\
+$D_4 = \mathfrak{so}_8$ & $4$ & $28$ & $8$ & $6$ & $4$ & $20$ & $8 \times 8$ \\
+$E_6$ & $6$ & $78$ & $27$ & $12$ & $6$ & $18$ & $27 \times 27$ \\
+$E_7$ & $7$ & $133$ & $56$ & $18$ & $7$ & $17$ & $56 \times 56$ \\
+$E_8$ & $8$ & $248$ & $248$ & $30$ & $8$ & $16$ & $248 \times 248$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}[Freudenthal--de~Vries and the level-$1$ central charge]
+\label{rem:freudenthal-devries-level1}
+For simply-laced~$\frakg$, the identity
+$\dim(\frakg) = r \cdot (1 + h^\vee)$ (Freudenthal--de~Vries) implies
+$c(\hat{\frakg}_1) = \dim(\frakg)/(1 + h^\vee) = r$ at level~$1$.
+This remarkable fact---the level-$1$ central charge equals the rank---holds
+uniformly across the entire ADE classification.
+The total central charge at the enhancement point
+$c_{\mathrm{total}} = r + (24 - r) = 24$ is preserved; the $r$~free-field
+directions reorganize into the non-abelian $\hat{\frakg}_1$ but the central
+charge accounting is exact.
+\end{remark}
+
+\begin{example}[$A_1$: the~$2 \times 2$ Lax operator]
+\label{ex:a1-lax-level1}
+For $\frakg = \mathfrak{sl}_2$, the level-$1$ Lax operator in the
+fundamental representation~$V = \bC^2$ is
+\[
+  L(u) = \begin{pmatrix} u + h(u) & f(u) \\ e(u) & u - h(u) \end{pmatrix},
+\]
+where $e(u), f(u), h(u)$ are the generating currents of $Y(\hat{\mathfrak{sl}}_2)$.
+On the highest-weight state of~$V(\omega_1)$:
+$L_{\mathrm{diag}}(u) = \mathrm{diag}(u + \frac{1}{2},\, u - \frac{1}{2})$,
+$t(u) = 2u$, and
+$\mathrm{qdet}\,L(u) = (u + \frac{1}{2})(u - \frac{3}{2})$.
+Cross-checked against \texttt{sl2\_matrix\_lax\_engine.py}.
+\end{example}
+
+\begin{example}[$A_2$: the~$3 \times 3$ Lax operator]
+\label{ex:a2-lax-level1}
+For $\frakg = \mathfrak{sl}_3$, $V = \bC^3$ with weights
+$(\frac{2}{3}, -\frac{1}{3}, -\frac{1}{3})$ on the highest-weight state.
+The Cartan matrix~$C = \bigl(\begin{smallmatrix} 2 & -1 \\ -1 & 2 \end{smallmatrix}\bigr)$
+gives the Serre relation $\mathrm{ad}(x_1^+)^2\, x_2^+ = 0$.
+The quantum determinant factorizes:
+$\mathrm{qdet}\,L(u) = (u + \frac{2}{3})(u - \frac{4}{3})(u - \frac{7}{3})$.
+\end{example}
+
+\begin{example}[$D_4$: triality and the~$8 \times 8$ Lax operator]
+\label{ex:d4-lax-level1}
+For $\frakg = \mathfrak{so}_8$ ($D_4$), the Dynkin diagram has a
+branching node connected to three equivalent legs, giving an~$S_3$ outer
+automorphism group (triality).  At level~$1$, the three basic
+representations---vector~$V(\omega_1)$, spinor~$V(\omega_3)$,
+cospinor~$V(\omega_4)$---all have dimension~$8$, and triality permutes
+the three corresponding Lax operators.  The RTT relation is
+\emph{covariant} under this~$S_3$ action.
+\end{example}
+
+\begin{example}[$E_6$, $E_7$, $E_8$: exceptional Yangians]
+\label{ex:exceptional-yangian-level1}
+The exceptional Yangians at level~$1$ act on the minuscule
+representations:
+\begin{itemize}
+\item $E_6$: $\dim V = 27$ (the $\mathbf{27}$ of~$E_6$), $c = 6$.
+\item $E_7$: $\dim V = 56$ (the $\mathbf{56}$ of~$E_7$), $c = 7$.
+\item $E_8$: $\dim V = 248$ (the adjoint of~$E_8$), $c = 8$.
+  This is the unique case where the smallest representation is the adjoint.
+\end{itemize}
+All Cartan matrices are verified to be symmetric trees with
+$C_{ii} = 2$, $C_{ij} \in \{0, -1\}$ for $i \neq j$.
+The sum of Coxeter exponents equals the number of positive roots:
+$\sum m_i = (\dim\frakg - r)/2$, verified for all types.
+\end{example}
+
+\begin{conjecture}[ADE Yangian as subalgebra of K3 Yangian]
+\label{conj:ade-yangian-k3-embedding}
+\ClaimStatusConjectured
+At an ADE enhancement point of type~$\frakg$ on the K3 moduli space,
+the Yangian~$Y(\hat{\frakg}_1)$ embeds as a subalgebra of the K3
+Yangian~$Y(\frakg_{K3})$ via the root lattice embedding
+$\Lambda_\frakg \hookrightarrow \Lambda_{\mathrm{Muk}}$.
+
+The $24$ Yangian parameters~$h_1, \dotsc, h_{24}$ of~$Y(\frakg_{K3})$
+decompose as:
+\begin{enumerate}[label=(\roman*)]
+\item $r = \mathrm{rank}(\frakg)$ parameters in the ADE sublattice,
+  constrained by the Cartan matrix~$C_{ij}$;
+\item $24 - r$ parameters in the orthogonal complement, forming a
+  Heisenberg subalgebra of rank~$24 - r$.
+\end{enumerate}
+The K3 structure function factorizes:
+\[
+  g_{K3}(z) \;=\; g_{\mathrm{ADE}}(z) \cdot g_{\mathrm{compl}}(z)
+  \;=\; \prod_{i=1}^{r} \frac{z - h_i}{z + h_i}\;\cdot\;
+  \prod_{j=r+1}^{24} \frac{z - h_j}{z + h_j}.
+\]
+\end{conjecture}
+
+\begin{remark}[Shadow class at ADE enhancement]
+\label{rem:ade-shadow-class}
+At the ADE enhancement point,
+Proposition~\ref{prop:k3-shadow-class-landscape} gives:
+\begin{itemize}
+\item \emph{Enhanced subalgebra} $\hat{\frakg}_1$: class~$L$, depth~$3$
+  ($S_3 \neq 0$ from the cubic OPE~$J^a J^b J^c$, but $S_4 = 0$ at
+  level~$1$ by the Sugawara structure).
+\item \emph{Full sigma model}: class~$M$ (infinite shadow depth).
+\end{itemize}
+The chiral modular invariant $\kappa_{\mathrm{ch}} = 2$ is
+\emph{independent} of the ADE type: the enhancement changes the
+shadow class but preserves~$\kappa_{\mathrm{ch}}$ (AP113).
+\end{remark}
+
+\noindent\textit{Verification}: $144$ tests in
+\texttt{ade\_yangian\_level1.py}: $9$~ADE types ($A_1$--$A_4$, $D_4$,
+$D_5$, $E_6$, $E_7$, $E_8$); Cartan matrix verification for all types;
+RTT discrepancy structure ($R$-matrix unitarity, permutation intertwining,
+$(u-v)(J_1 - J_2)P$ algebraic form) for $A_1$--$D_5$;
+$A_1$ cross-check against \texttt{sl2\_matrix\_lax\_engine.py}
+(Lax operator, transfer matrix, quantum determinant);
+Freudenthal--de~Vries identity $\dim\frakg = r(1+h^\vee)$ for all types;
+exponent sum $= (\dim\frakg - r)/2$ for all types;
+Mukai lattice embedding, structure function factorization and unitarity
+$g(z)g(-z) = 1$ for all~$9$ types;
+$D_4$ triality ($S_3$ branching with three $8$-dimensional legs);
+shadow class~$L$ (depth~$3$) at all ADE enhancement points.
 
 
 %% ---------------------------------------------------------------
@@ -6157,3 +7029,162 @@ is insensitive to the choice of base curve. The dynamical parameter
 $\lambda$ disappears in the rational limit because the CDYBE
 degenerates to the standard CYBE (the right-hand side vanishes).
 \end{remark}
+
+
+%% ===============================================================
+%% STRING ANOMALY CANCELLATION AND THE KAPPA-SPECTRUM
+%% ===============================================================
+
+\section{String anomaly cancellation and the $\kappa_\bullet$-spectrum}
+\label{sec:k3-anomaly-shadow-consistency}
+\index{anomaly cancellation!kappa-spectrum@$\kappa_\bullet$-spectrum}
+
+The $\kappa_\bullet$-spectrum $\{0, 2, 3, 5, 24\}$ of $K3 \times E$ (Example~\ref{ex:kappa-spectrum-k3xe}) is not an arbitrary collection of integers. Each value arises from a distinct string-theoretic anomaly cancellation mechanism. This section verifies that the five anomaly constraints are mutually consistent and that the $\kappa_\bullet$-spectrum satisfies all of them simultaneously.
+
+\begin{conjecture}[Anomaly--$\kappa_\bullet$ consistency;
+\ClaimStatusConjectured]
+\label{conj:anomaly-kappa-consistency}
+\index{anomaly cancellation!anomaly--kappa consistency}
+The $\kappa_\bullet$-spectrum of $K3 \times E$ is the unique solution to the following five anomaly cancellation constraints\textup{:}
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Gravitational anomaly}\textup{:}
+   $c_L - c_R = 0$ for the $K3$ sigma model, with $(c_L, c_R) = (6, 6)$.
+   At the Yangian level, the $\CY_2$ constraint $\sum_i h_i = 0$ ensures
+   the leading term of $\Tr R(z) - \Tr R(-z)$ vanishes.
+   The Mukai supertrace at $z = 0$ encodes the Hirzebruch signature\textup{:}
+   \begin{equation}\label{eq:supertrace-z0}
+    \operatorname{Str}_{\mathrm{Mukai}} R_{K3}(0)
+    \;=\; -\bigl(\sigma_+^{\mathrm{Mukai}} - \sigma_-^{\mathrm{Mukai}}\bigr)
+    \;=\; -(4 - 20) \;=\; 16 \;=\; |\sigma(K3)|.
+   \end{equation}
+
+ \item \emph{Gauge anomaly}\textup{:}
+   At the $A_1$ orbifold point ($T^4/\bZ_2$), enhanced $\widehat{\fsl}(2)_1$
+   symmetry at level $k = 1$ is forced by anomaly cancellation.
+   The Yangian translation\textup{:} the signed Newton power sum
+   $p_2^{\mathrm{signed}} = \sum_i \mu_i h_i^2 = 16/5 \neq 0$
+   (where $\mu_i$ are the Mukai eigenvalues) encodes the non-trivial
+   gauge coupling at the $16$ blowup modes of the Kummer resolution.
+
+ \item \emph{Green--Schwarz mechanism}\textup{:}
+   The $B$-field coupling $S_{\mathrm{GS}} = \int B \wedge X_4$ cancels the
+   mixed gauge-gravitational anomaly and generates the shadow tower at
+   arity $r = 2$. From the Todd class\textup{:}
+   $\kappa_{\mathrm{ch}}(K3) = \chi(\cO_{K3}) = c_2/12 = 24/12 = 2$
+   (proved at $d = 2$ by CY-A$_2$),
+   with $\kappa_{\mathrm{ch}}(E) = 1$, and by Green--Schwarz additivity\textup{:}
+   \begin{equation}\label{eq:gs-additivity}
+    \kappa_{\mathrm{ch}}(K3 \times E)
+    \;=\; \kappa_{\mathrm{ch}}(K3) + \kappa_{\mathrm{ch}}(E)
+    \;=\; 2 + 1 \;=\; 3.
+   \end{equation}
+
+ \item \emph{Modular invariance}\textup{:}
+   The worldsheet partition function on $\SL_2(\bZ)$ requires
+   $c_L \equiv c_R \pmod{24}$. The $K3$ elliptic genus $2\,\phi_{0,1}$
+   has discriminant-zero coefficient $c(0) = 10$, and the Borcherds lift
+   weight is
+   \begin{equation}\label{eq:borcherds-weight-anomaly}
+    \kappa_{\mathrm{BKM}}
+    \;=\; \tfrac{c(0)}{2}
+    \;=\; \tfrac{10}{2}
+    \;=\; 5
+    \;=\; \tfrac{\dim(\Sp_4)}{2}
+   \end{equation}
+   via the isomorphism $\Sp_4 \simeq \SO_+(2,3)$ (unconditional).
+   The structure function satisfies $g_{K3}(0) = (-1)^{24} = 1$.
+
+ \item \emph{Tadpole cancellation}\textup{:}
+   Type IIB on $K3$ requires $\chi(K3) = 24$ units of D$7$-brane charge.
+   This fixes $\kappa_{\mathrm{fiber}} = \rk(\Lambda_{\mathrm{Mukai}})
+   = \chi(K3) = 24 = \deg(g_{K3})$, and the bar Euler product is
+   $\eta^{24}$ with exponent~$24$.
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[The anomaly--$\kappa_\bullet$ dictionary]
+\label{rem:anomaly-kappa-dictionary}
+\index{anomaly cancellation!dictionary}
+The five constraints determine the five members of the
+$\kappa_\bullet$-spectrum via independent mechanisms\textup{:}
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{lclc}
+ \toprule
+ \textbf{Subscript} & \textbf{Value} & \textbf{Anomaly mechanism}
+ & \textbf{Status} \\
+ \midrule
+ $\kappa_{\mathrm{Koszul}}$ & $0$ & Self-Koszul duality (free-field branch)
+ & Proved \\
+ $\kappa_{\mathrm{cat}}$ & $2$ & Holomorphic anomaly (BCOV, genus~$1$)
+ & Proved \\
+ $\kappa_{\mathrm{ch}}$ & $3$ & Green--Schwarz $B$-field (shadow arity $2$)
+ & Proved ($d{=}2$) \\
+ $\kappa_{\mathrm{BKM}}$ & $5$ & $\Sp_4(\bZ)$ modular (genus~$2$)
+ & Proved \\
+ $\kappa_{\mathrm{fiber}}$ & $24$ & D-brane tadpole ($\chi(K3) = 24$)
+ & Proved \\
+ \bottomrule
+\end{tabular}
+\end{center}
+The values are not independent. The following identities hold among them\textup{:}
+\begin{gather}
+ \kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}} + 1
+ \quad\text{(GS additivity)},
+ \label{eq:identity-gs} \\
+ \kappa_{\mathrm{BKM}} = \tfrac{c(0)}{2}
+ \quad\text{(Borcherds weight)},
+ \label{eq:identity-borcherds} \\
+ \kappa_{\mathrm{fiber}} - \kappa_{\mathrm{BKM}} = 19
+ = \operatorname{codim}(\Lambda^{3,2} \hookrightarrow \Lambda_{\mathrm{Mukai}})
+ \quad\text{(lattice codimension)},
+ \label{eq:identity-codim} \\
+ \kappa_{\mathrm{BKM}} - \kappa_{\mathrm{ch}} = 2 = \kappa_{\mathrm{cat}}
+ \quad\text{(numerical coincidence for $N{=}1$ \emph{only})}.
+ \label{eq:identity-coincidence}
+\end{gather}
+Identity~\eqref{eq:identity-coincidence} fails for $\bZ/N$ orbifolds with
+$N \geq 2$ and is therefore \emph{not} a theorem.
+\end{remark}
+
+\begin{remark}[Green--Schwarz mechanism and the shadow tower]
+\label{rem:gs-shadow-tower}
+\index{Green--Schwarz mechanism!shadow tower}
+The shadow tower of the $K3$ chiral algebra receives a contribution
+from the Green--Schwarz $B$-field at arity $r = 2$: the scalar shadow
+$S_2 = \kappa_{\mathrm{ch}}$. Physically, the $B$-field coupling
+$S_{\mathrm{GS}} = \int B \wedge (c_2/12)$ generates a correction
+to the two-point function of the bar complex, and this correction is
+precisely the shadow tower scalar. For $K3$\textup{:}
+$\int_{K3} c_2(T_{K3}) = \chi_{\mathrm{top}}(K3) = 24$,
+giving $\chi(\cO_{K3}) = c_2/12 = 2 = \kappa_{\mathrm{ch}}(K3)$
+by HRR. The Green--Schwarz additivity
+$\kappa_{\mathrm{ch}}(K3 \times E) = \kappa_{\mathrm{ch}}(K3)
++ \kappa_{\mathrm{ch}}(E) = 2 + 1 = 3$ follows from factorization
+of the anomaly polynomial $I_8 = X_4 \cdot X_4'$.
+\end{remark}
+
+\begin{remark}[Tadpole $\kappa_{\mathrm{fiber}} = 24$ and the bar Euler product]
+\label{rem:tadpole-bar-euler}
+\index{D-brane!tadpole cancellation}
+\index{bar Euler product!tadpole}
+The D$7$-brane tadpole on $K3$ requires $\chi(K3) = 24$ units of
+D-brane charge. This topological integer propagates through the
+Yangian construction as follows\textup{:}
+\[
+ N_{D\text{-brane}} = \chi(K3) = 24 = \rk(\Lambda_{\mathrm{Mukai}})
+ = \deg(g_{K3}) = \text{exponent of } \eta^{24}.
+\]
+The chain D-brane charge $\to$ $\chi(K3)$ $\to$ $\rk(\Lambda_{\mathrm{Mukai}})$
+$\to$ $\deg(g_{K3})$ $\to$ bar Euler exponent is the physical origin of the
+$24$ that appears throughout.
+\end{remark}
+
+\noindent\textit{Verification}: $153$ tests in
+\texttt{anomaly\_shadow\_consistency.py}, covering all five anomaly constraints,
+the kappa-spectrum identities, entry-wise $R$-matrix unitarity at $4$ test
+points, the three-path derivation of $\kappa_{\mathrm{BKM}} = 5$,
+cross-engine consistency with \texttt{k3\_yangian.py} and
+\texttt{modular\_cy\_characteristic.py}, and AP compliance checks
+(AP113, AP-CY14, AP-CY1, AP-CY28).

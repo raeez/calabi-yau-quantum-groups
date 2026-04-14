@@ -64,17 +64,17 @@ The full affine Yangian $Y(\widehat{\mathfrak{gl}}_1) \cong \mathcal{W}_{1+\inft
 For a toric CY3 $X$ without compact $4$-cycles, the critical CoHA $\mathcal{H}(Q_X, W_X)$ is isomorphic to the positive half of the affine super Yangian $Y(\widehat{\mathfrak{g}}_{Q_X})$ associated to the toric quiver.
 \end{theorem}
 
-The toric diagram determines the quiver, the super Lie algebra $\mathfrak{g}_{Q_X}$, and the affine super Yangian. The toric fan is the root datum of the quantum vertex chiral group $G(X)$.
+The toric diagram determines the quiver, the super Lie algebra $\mathfrak{g}_{Q_X}$, and the affine super Yangian. On the chiral side, the toric fan organizes the root datum expected for the toric quantum vertex chiral group target.
 
 \section{The CoHA as $E_1$-sector}
 \label{sec:coha-e1}
 
 The critical CoHA is an associative ($E_1$) algebra. In the present framework:
 \begin{itemize}
- \item The CoHA = the positive half of $G(X)$ = the $E_1$-chiral sector (the ordered part).
- \item The full quantum vertex chiral group $G(X)$ is $E_2$ (braided).
- \item The braiding (the passage from $E_1$ to $E_2$) is the quantum group $R$-matrix of the affine super Yangian.
- \item The representation category $\Rep^{E_2}(G(X))$ is braided monoidal, with braiding from the Yangian $R$-matrix.
+ \item The CoHA is the associative ($E_1$) side of the toric package: the ordered half seen directly by the Hall product.
+ \item A full braided / $E_2$ quantum vertex chiral group $G(X)$ is the target object. Outside the cases covered by explicit Drinfeld-center comparison, its identification with the toric data remains conjectural.
+ \item The Yangian $R$-matrix governs the passage from the ordered side to the braided side.
+ \item Accordingly, the braided category $\Rep^{E_2}(G(X))$ should be viewed as the target representation category; for general toric input its identification with the CoHA side is conjectural, while the $\C^3$ comparison is proved.
 \end{itemize}
 
 This is tree-level CY3 combinatorics: the CoHA captures genus-$0$ curve counting (DT invariants as intersection numbers on Hilbert schemes), and the $E_1$ structure encodes the ordered OPE.
@@ -145,6 +145,79 @@ The conifold quiver has a single pair of bifundamental arrows. The OPE of the as
 \end{proof}
 
 \noindent\textit{Verification}: 124 tests in \texttt{conifold\_bar\_complex.py} covering both-chamber bar complex dimensions through degree $12$, pentagon identity, gauge transformation at degrees $2$--$6$, and shadow depth classification.
+
+
+%% ========================================================================
+%% Conifold shadow transition
+%% ========================================================================
+
+\section{Shadow tower at the conifold transition}
+\label{sec:conifold-shadow-transition}
+
+The \emph{conifold transition} (Greene--Morrison--Strominger, hep-th/9504145) changes the topology of a CY$_3$: a vanishing $S^3$ is replaced by an $S^2$ (small resolution), changing the Hodge numbers $h^{1,1} \to h^{1,1} + 1$, $h^{2,1} \to h^{2,1} - 1$. The prototype is the quintic threefold $(h^{1,1}, h^{2,1}) = (1, 101)$ passing through a conifold singularity to a resolved CY$_3$ with $(2, 100)$.
+
+\medskip
+\noindent\textit{Degeneration type}: conifold. Not large complex structure, not orbifold, not maximal unipotent monodromy (cf.\ AP-CY157: every degeneration-limit claim must specify type).
+
+\begin{conjecture}[Shadow tower across the conifold transition]
+\label{conj:conifold-shadow-transition}
+\ClaimStatusConjectured{}
+Let $X$ be a smooth CY$_3$ with Hodge numbers $(h^{1,1}, h^{2,1})$ that degenerates to a conifold singularity (one node) and admits a small resolution $X'$ with Hodge numbers $(h^{1,1}+1, h^{2,1}-1)$. The shadow tower transforms as follows:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \textbf{Smooth phase.} The chiral algebra $A_X$ (conditional on CY-A$_3$) has modular characteristic $\kappa_{\mathrm{ch}}(A_X)$ and shadow class~$M$ (infinite depth), with shadow coefficients $S_k$ encoding the Gopakumar--Vafa BPS spectrum of~$X$.
+ \item \textbf{Conifold point.} As the vanishing $S^3$ shrinks to zero, a massless BPS hypermultiplet appears (the D3-brane wrapping the vanishing $3$-cycle; Strominger, hep-th/9504090). The period integral develops a logarithmic singularity $\Pi \sim t \log t$, producing alternating corrections $\delta S_k = (-1)^k / k$ to the shadow tower.
+ \item \textbf{Resolved phase.} The resolved CY$_3$ $X'$ has $\kappa_{\mathrm{ch}}(A_{X'}) = \kappa_{\mathrm{ch}}(A_X) + \frac{1}{6}$ (from $\Delta\chi = 4$), and shadow class~$M$ (infinite depth persists). The new compact $\bP^1 = S^2$ contributes a class~$\mathbf{G}$ seed channel with $n^0_1 = 1$ (one genus-$0$ BPS state from the vanishing cycle).
+\end{enumerate}
+\end{conjecture}
+
+\begin{proof}[Evidence]
+This conjecture is conditional on CY-A$_3$ (the $d = 3$ CY-to-chiral functor, Conjecture~\ref{conj:cya3}). The individual ingredients are established independently:
+
+\smallskip
+\noindent\textit{(i) Hodge arithmetic.} For $k$ nodes resolved: $\Delta h^{1,1} = k$, $\Delta h^{2,1} = -k$, so $\Delta \chi = 2(\Delta h^{1,1} - \Delta h^{2,1}) = 4k$ (Clemens--Friedman). If $\kappa_{\mathrm{ch}} = \chi/24$ (conjectural for compact CY$_3$), then $\Delta \kappa_{\mathrm{ch}} = k/6$.
+
+\smallskip
+\noindent\textit{(ii) Monodromy.} The conifold monodromy $M_c = I + N_c$ with $N_c^2 = 0$ (Picard--Lefschetz formula for a single vanishing $S^3$) produces $\log M_c = N_c$. This nilpotent of index~$2$ generates the $t \log t$ period singularity (Candelas--de~la~Ossa--Green--Parkes).
+
+\smallskip
+\noindent\textit{(iii) GV seed.} The Gopakumar--Vafa invariant of the vanishing cycle class is $n^0_1 = 1$ (one genus-$0$ BPS state). A genus-$g$ BPS state contributes to the shadow tower at arity $2 + 2g$, with coefficient $|B_{2g}|/(2g \cdot (2g-2)!)$ for $g \geq 2$ and $1/12$ for $g = 1$. At genus~$0$: the contribution is $\Delta S_2 = n^0_1 = 1$, a class~$\mathbf{G}$ channel (shadow depth~$2$).
+
+\smallskip
+\noindent\textit{(iv) Class preservation.} The surviving smooth-phase shadow tower has infinite depth (class~$M$ from infinitely many nonzero GV invariants of the original CY$_3$). Adding a finite-depth class-$\mathbf{G}$ seed channel does not reduce the overall depth: $M + G = M$. The shadow class is preserved across the conifold transition.
+\end{proof}
+
+\begin{remark}[The seed mechanism: $n^0_1 = 1$]
+\label{rem:conifold-seed}
+The GV invariant $n^0_1 = 1$ for the vanishing cycle is the \emph{minimal nontrivial input} to the shadow tower: a single genus-$0$ BPS state producing a Gaussian channel of depth~$2$. This seed channel has $\kappa_{\mathrm{ch}}^{\mathrm{seed}} = 1/6$ (the per-node change in $\kappa_{\mathrm{ch}}$), matching the fact that the resolved conifold itself is class~$\mathbf{G}$ with $\kappa_{\mathrm{ch}} = 1$ (Corollary~\ref{cor:conifold-shadow}). Schematically:
+\[
+ \text{shadow}(X') \;=\; \text{shadow}(X)_{\text{surviving}} \;+\; \bigoplus_{i=1}^{k} \text{seed}_{\mathbf{G}}(\text{node}_i).
+\]
+The class-$\mathbf{G}$ nature of each seed is the shadow-tower explanation for why the resolved conifold is class~$\mathbf{G}$: the resolved conifold IS the seed channel that the transition adds.
+\end{remark}
+
+\begin{computation}[Conifold shadow transition for the quintic]
+\label{comp:conifold-shadow-quintic}
+For the quintic with one node:
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lccc}
+\toprule
+ & \textbf{Smooth} & \textbf{Conifold pt} & \textbf{Resolved} \\
+\midrule
+$(h^{1,1}, h^{2,1})$ & $(1, 101)$ & singular & $(2, 100)$ \\
+$\chi$ & $-200$ & ill-defined & $-196$ \\
+$\kappa_{\mathrm{ch}}$ (conj.) & $-25/3$ & $-25/3$ (limit) & $-49/6$ \\
+Shadow class & $M$ & $M$ & $M$ \\
+Shadow depth & $\infty$ & $\infty$ & $\infty$ \\
+$\log$ correction & no & yes & no \\
+\bottomrule
+\end{tabular}
+\end{center}
+The Euler characteristic changes by $\Delta\chi = 4$, and the conjectural $\kappa_{\mathrm{ch}}$ changes by $\Delta\kappa_{\mathrm{ch}} = 1/6$. The shadow class is preserved as~$M$ throughout.
+\end{computation}
+
+\noindent\textit{Verification}: 79 tests in \texttt{conifold\_shadow\_transition.py}, covering Hodge arithmetic (9 tests), $\kappa_{\mathrm{ch}}$ across phases (6 tests), shadow tower in all three phases (10 tests), GV-to-shadow dictionary and seed mechanism (10 tests), logarithmic period corrections (5 tests), conifold period and monodromy (6 tests), shadow metric and discriminant (7 tests), transition comparison (4 tests), multi-node examples (3 tests), comprehensive analysis (7 tests), and multi-path cross-verification (12 tests across 5 independent computation paths).
+
 
 \section{Local $\bP^2$}
 \label{sec:local-p2}
@@ -594,8 +667,9 @@ Compatibility~(c) is Theorem~\ref{thm:toric-chart-gluing}(iv).
 
 \begin{remark}[The $\Etwo$ structure and Conjecture CY-C]
 \label{rem:toric-e2-status}
-Theorem~\ref{thm:toric-cy3-chiral-qg} constructs the $\Eone$-chiral
-algebra $A_{X_\Sigma}$ unconditionally for all toric CY3. The
+Theorem~\ref{thm:toric-cy3-chiral-qg} constructs the toric
+$\Eone$-side algebra $A_{X_\Sigma}$ via chart gluing, independently of
+the conjectural general functor $\Phi_3$. The
 $\Etwo$-braided representation category
 $\Rep^{\Etwo}(\mathcal{G}(X))$ is recovered by the Drinfeld center:
 $\cZ(\Rep^{\Eone}(A_{X_\Sigma})) \simeq
@@ -670,9 +744,10 @@ Let $X = X_\Sigma$ be a smooth toric CY3 without compact $4$-cycles,
 with toric quiver $(Q_X, W_X)$ and critical CoHA
 $\mathcal{H}(Q_X, W_X) \simeq Y^+(\widehat{\fg}_{Q_X})$
 \textup{(}Theorem~\textup{\ref{thm:rsyz}}\textup{)}.
-Let $A_X = \Phi(\Coh(X))$ denote the $\Eone$-chiral algebra
-of Theorem~\textup{\ref{thm:toric-cy3-chiral-qg}(IV)},
-with ordered bar complex
+Let $A_X$ denote the toric $\Eone$-chiral algebra
+of Theorem~\textup{\ref{thm:toric-cy3-chiral-qg}(IV)}.
+This is the CoHA / chart-gluing object, not an application of the
+general $d = 3$ functor $\Phi_3$. Its ordered bar complex is
 $\barB^{\mathrm{ord}}(A_X) = T^c(s^{-1}\bar{A}_X)$
 \textup{(}deconcatenation coproduct, $|s^{-1}v| = |v| - 1$\textup{)}.
 On the Koszul locus, the following three structures on $A_X$

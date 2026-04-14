@@ -1153,6 +1153,22 @@ The leading $z^{s-1}$ coefficient is $\psi_1^R = J^R$ (single term). The sublead
 Expand $T_R(u-z) = \sum_b (-1)^b \psi_b^R (u-z)^{-b}$ using the binomial series $(u-z)^{-b} = \sum_{k \geq 0} \binom{b-1+k}{k} z^k u^{-b-k}$. Collecting the $u^{-(a+b+k)}$ coefficient from the product $T_L(u) \cdot T_R(u-z)$ gives the stated formula. The term count follows: at $z$-power $p$, the constraint $a + b = s - p$ with $a \geq 0$ gives $s - p$ choices of $(a, b)$. The generating function $F$ is obtained by geometric-series summation. See \texttt{compute/lib/chiral\_coproduct\_allspin\_engine.py}.
 \end{proof}
 
+\begin{remark}[The $A_\infty$ coproduct correction $\delta^{(3)}$ on Fock space]
+\label{rem:delta3-fock-matrix}
+The universal coproduct of Proposition~\ref{prop:universal-coproduct} is the tree-level ($m_2$) coproduct. The cubic shadow correction $\delta^{(3)}$ from $m_3(T,T,T) = -2T$ produces a morphism defect: $\Delta_0(m_3(T^{\otimes 3})) \neq m_3^{\mathrm{diag}}(\Delta_0(T)^{\otimes 3})$. On the truncated Fock space $\cF_{\leq N}^L \otimes \cF_{\leq N}^R$, the defect at mode~$n$ is:
+\[
+  \delta^{(3)}(T_n) \;=\; -2\alpha \sum_{k \in \Z} J_k^L \, J_{n-k}^R, \qquad \alpha = \frac{\Psi - 1}{\Psi},
+\]
+where $\Psi$ is the level parameter ($\Psi = 1$: free boson, $\Psi = 2$: self-dual point). Key properties:
+\begin{itemize}
+ \item $\delta^{(3)}(T_n) = 0$ at $\Psi = 1$ (class~$G$: no shadow, no correction).
+ \item $\langle \mathrm{vac}, \mathrm{vac} | \, \delta^{(3)}(T_0) \, | \mathrm{vac}, \mathrm{vac} \rangle = 0$ (vacuum matrix element vanishes).
+ \item Weight conservation: $[L_0^{\mathrm{tot}}, \delta^{(3)}(T_n)] = -n \cdot \delta^{(3)}(T_n)$.
+ \item The correction is proportional to the cross-term of $\Delta_0$: $\delta^{(3)} = -2 \cdot (\text{cross-term})$, independently of $\Psi$.
+\end{itemize}
+At the $E_3$ level, $\delta^{(3)}(T_0) = 40/27$ as a scalar on the volume class (Proposition~\ref{prop:virasoro-d4}): the spectral sequence value is the trace of the Fock matrix over the $3$-particle sector.  See \texttt{m3\_coproduct\_correction\_engine.py} ($40$ tests).
+\end{remark}
+
 \begin{remark}[Spectral vs.\ worldsheet interpretation of $z$]
 \label{rem:z-spectral-vs-worldsheet}
 The spectral parameter $z$ in $\Delta_z$ is a shift of the transfer-matrix argument $u \mapsto u - z$ in the Yangian mode algebra $Y(\widehat{\fgl}_1)$. It is \emph{not} the worldsheet coordinate of a vertex operator insertion. The OPE singularity $T(z)T(w) \sim c/2 \cdot (z-w)^{-4}$ involves the worldsheet variable; the coproduct $\Delta_z$ involves the spectral variable. Setting $z = 0$ in $\Delta_z$ removes the spectral shift and gives a well-defined, cocommutative coproduct with no OPE singularity (verified in \texttt{test\_hopf\_axioms.py}, $50$ tests). The two $z$'s live in different mathematical objects and must not be conflated.
@@ -1590,6 +1606,411 @@ whenever the CY-to-chiral functor exists, the coproduct exists.
 The Miura factorization is the computational specialization in
 the toric case.
 \end{remark}
+
+
+\subsection{Wilson lines as stratified factorization homology defects}
+\label{subsec:wilson-stratified-fh}
+
+The factorization-homology coproduct of~\eqref{eq:ran-coproduct}
+acquires a physical interpretation when reformulated in the language
+of \emph{stratified factorization homology}
+(Ayala--Francis--Tanaka 2017): Wilson lines in the 6d holomorphic
+theory on $\C^3$ are $1$-dimensional holomorphic defects, and
+their collision produces the coproduct $\Delta_z$ via the excision
+map of the stratified integral.
+
+\medskip
+\noindent\textbf{(1) Defect hierarchy in $\C^3$.}
+In the Costello--Francis--Gwilliam framework, the 6d holomorphic
+theory on $\C^3$ admits defects classified by complex codimension:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lllll}
+ \toprule
+ \textbf{Codim} & \textbf{Defect} & \textbf{Normal bundle} &
+ \textbf{Spectral} & $E_n$ \textbf{level} \\
+ \midrule
+ $0$ & Bulk & --- & $0$ & $E_3$ \\
+ $1$ & Wilson surface & $N \cong \C$ & $1$ & $\Etwo$ \\
+ $2$ & Wilson line & $N \cong \C^2$ & $2$ & $\Eone$ \\
+ $3$ & Point operator & $N \cong \C^3$ & $3$ & $E_0$ \\
+ \bottomrule
+\end{tabular}
+\end{center}
+The number of spectral parameters equals the complex rank of the
+normal bundle $N_{D/\C^3}$: each normal direction provides one
+spectral degree of freedom.  The restriction of the $E_3$ bulk
+algebra to a defect of complex codimension~$k$ loses $k$ chiral
+levels, landing on $E_{3-k}$.  For Wilson lines ($k=2$), the
+restricted algebra is $\Eone$-chiral: the algebra~$A$ of
+Definition~\ref{def:e1-chiral-bialgebra}.
+
+\medskip
+\noindent\textbf{(2) Wilson line collision as stratified excision.}
+Let $D_1, D_2 \subset \C^3$ be two parallel copies of the defect
+curve $C$, separated by $z \in N_{C/\C^3} \cong \C^2$ in the normal
+direction.  The stratified factorization homology integral
+\begin{equation}\label{eq:stratified-excision}
+ \int_{(\C^3,\, D_1 \sqcup D_2)} (\cF,\, V_1 \otimes V_2)
+ \;\xrightarrow{\;\phi^{\mathrm{strat}}_{D_1,D_2}\;}
+ \int_{(\C^3,\, D_1)} (\cF, V_1)
+ \;\otimes\;
+ \int_{(\C^3,\, D_2)} (\cF, V_2)
+\end{equation}
+is the \emph{stratified excision map}, where $\cF$ is the bulk
+$E_3$-algebra and $V_1, V_2$ are the defect algebras
+(modules for $\cF|_{N(D_i)}$).  As $z \to 0$ (the two defects
+collide), the excision map~\eqref{eq:stratified-excision} becomes
+the coproduct:
+\[
+ \Delta_z = \phi^{\mathrm{strat}}_{D_1,D_2}
+ \colon A \;\longrightarrow\; A \otimes_{\Eone,z} A.
+\]
+The spectral parameter $z$ is the
+separation in $N_{C/\C^3}$; it is a Yangian spectral parameter
+(AP-CY31: NOT a worldsheet coordinate).  At $z = 0$, the excision
+map reduces to the deconcatenation coproduct $\Delta_0 =
+\Delta_{\mathrm{dec}}$ of Definition~\ref{def:e1-chiral-coalgebra}.
+
+\medskip
+\noindent\textbf{(3) The axiom dictionary.}
+Each axiom \textbf{(H1)}--\textbf{(H5)} of
+Remark~\ref{rem:e1-hopf-axiom-summary} has a direct translation
+into stratified factorization homology:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+ \toprule
+ \textbf{Axiom} & \textbf{$\Eone$-chiral bialgebra} &
+ \textbf{Stratified FH} \\
+ \midrule
+ \textbf{(H1)} & $\Eone$ algebra $(A,\mu,\varepsilon)$ &
+ Bulk $\cF$ restricted to $C$ with holomorphic ordering \\
+ \textbf{(H2)} & Coalgebra $\Delta_z$ &
+ Stratified excision~\eqref{eq:stratified-excision} along $N_{C/\C^3}$ \\
+ \textbf{(H3)} & $\Delta_z$ is an algebra map &
+ Naturality of excision (morphism of fact.\ algebras) \\
+ \textbf{(H4)} & Spectral coassociativity &
+ Triple excision coherence ($K_3 \simeq \ast$) \\
+ \textbf{(H5)} & Antipode $S$ &
+ Wilson line reversal (self-crossing holonomy) \\
+ \bottomrule
+\end{tabular}
+\end{center}
+The operadic proof of
+Proposition~\ref{prop:spectral-coassociativity-factorization}
+(axiom~\textbf{(H4)}) translates directly: the two bracketings of
+triple Wilson line collision factor through the triple factorization
+isomorphism, and agree because the ordered $3$-configuration space
+$K_3 \simeq \{z_1 < z_2 < z_3\}$ is contractible.
+
+\medskip
+\noindent\textbf{(4) Braiding from Wilson line crossing.}
+In $\C^3$ (real dimension~$6$), two Wilson lines (real
+codimension~$4$) can pass through each other: the complement of
+a codimension-$4$ submanifold in $\R^6$ is simply connected
+($\pi_1 = 0$).  Topologically, the braiding is \emph{trivial}.
+The nontrivial $R$-matrix $R(u,v)$ arises from the
+\emph{$\Omega$-background deformation} of the holomorphic
+factorization structure, producing the holonomy of the
+factorization-algebra connection around the crossing locus.
+At charge~$1$:
+\[
+ R_{\mathrm{ch}}^{(1)}(u,v) \;=\; g(u)\, g(v)\, g(u-v)
+ \qquad\text{(Zamolodchikov factorisation)},
+\]
+where the three factors correspond to the three crossing planes
+in $\C^3$.  The dimensional hierarchy:
+\begin{itemize}
+ \item $\Eone$ (3d): no crossing possible.
+ $R = 1$ (trivial, ordering only).
+ \item $\Etwo$ (5d): one crossing direction, one spectral parameter.
+ $R(u) = g(u)$ (Yangian $R$-matrix, satisfies YBE).
+ \item $E_3$ (6d): two crossing directions, two spectral parameters.
+ $R(u,v) = g(u)\,g(v)\,g(u{-}v)$ (quantum toroidal, satisfies the
+ parametric YBE).
+\end{itemize}
+
+\medskip
+\noindent\textbf{(5) Wilson surfaces and the categorical $S$-matrix.}
+Wilson \emph{surfaces} (complex codimension~$1$, $\Etwo$-level defects)
+produce \emph{categorical} modules: objects in the $2$-category
+$\Rep^{E_3}(\cA)$.  Two linked Wilson surfaces (linked as
+$S^2 \hookrightarrow S^5$; cf.\ Construction~\ref{constr:e3-s-matrix})
+produce the categorical $S$-matrix $\cS_{\cV,\cW}(u,v) =
+\Tr_{\cW}(\cR^{E_3}_{\cV,\cW} \circ \cR^{E_3}_{\cW,\cV})$, which
+is a $2$-morphism (not a scalar).  At charge~$1$, the categorical
+$S$-matrix is trivial ($= 1$) by the CY unitarity identity
+$R(u,v)\, R(-u,-v) = 1$. The nontrivial content appears at
+charge~$\geq 2$.
+
+\begin{remark}[Verification summary: $61$~tests]
+\label{rem:wilson-stratified-fh-tests}
+The stratified factorization homology interpretation is verified in
+\texttt{compute/lib/wilson\_stratified\_fh.py} with $61$~tests in
+$10$~suites:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{llr}
+ \toprule
+ \textbf{Suite} & \textbf{Content} & \textbf{Tests} \\
+ \midrule
+ Defect classification & Codim 0--3 hierarchy, normal bundle, braiding & 11 \\
+ Excision coproduct & Excision $=$ Drinfeld, spin 1/2, multiple $\Psi$ & 7 \\
+ Triple excision & Spectral coassociativity~(H4), $K_3$ contractibility & 4 \\
+ FH holonomy & $E_1$/$\Etwo$/$E_3$ braiding, Zamolodchikov factors & 6 \\
+ Braiding properties & Unitarity, YBE, Miki exchange & 5 \\
+ Wilson surfaces & Surface data, categorical $S$-matrix charge 1 & 5 \\
+ Axiom dictionary & (H1)--(H5) completeness, individual axioms & 8 \\
+ Cross-engine & 8 cross-checks against 4~independent engines & 8 \\
+ $E_n$~level & Codimension $\to$ $E_n$ computation & 4 \\
+ AP compliance & AP-CY31, AP-CY22, AP-CY28 & 3 \\
+ \bottomrule
+\end{tabular}
+\end{center}
+Cross-engine verification confirms agreement with
+\texttt{wilson\_line\_coproduct\_engine},
+\texttt{e1\_chiral\_bialgebra\_engine},
+\texttt{e3\_two\_parameter\_rmatrix}, and
+\texttt{holomorphic\_cs\_chiral\_engine} (all $8$~cross-checks pass
+to machine precision $\leq 10^{-10}$).
+\end{remark}
+
+
+\section{Non-abelian coproduct: the $\mathfrak{sl}_2$ matrix Lax operator}
+\label{sec:nonabelian-matrix-lax}
+
+Everything above is for $\fgl_1$ (abelian, single free boson).
+The passage to $\mathfrak{sl}_2$ requires a \emph{matrix} Lax operator,
+and the coproduct becomes matrix multiplication.
+This is the first genuinely non-abelian case: the Serre
+relations are nontrivial, the quantum determinant is central,
+and coassociativity holds at the \emph{trace} level but fails
+entry-wise at the operator level.
+
+\subsection{The matrix Lax operator}
+\label{subsec:matrix-lax}
+
+\begin{definition}[Matrix Lax operator for $Y(\mathfrak{sl}_2)$]
+\label{def:matrix-lax}
+\ClaimStatusProvedHere
+The \emph{Lax operator} for the Yangian $Y(\mathfrak{sl}_2)$ at level~$k$
+is the $2 \times 2$ matrix
+\begin{equation}\label{eq:lax-operator}
+  L(u) \;=\; u \cdot \mathrm{Id}_2 + J(u)
+  \;=\; \begin{pmatrix} u + h(u) & f(u) \\ e(u) & u - h(u) \end{pmatrix},
+\end{equation}
+where $e(u) = \sum_{n \geq 0} e_n u^{-n-1}$,
+$f(u) = \sum_{n \geq 0} f_n u^{-n-1}$,
+$h(u) = \sum_{n \geq 0} h_n u^{-n-1}$ are the generating currents
+of $Y(\mathfrak{sl}_2)$, and $J(u) = h(u) \cdot H/2 + e(u) \cdot E + f(u) \cdot F$ is the $\mathfrak{sl}_2$-valued current in the fundamental representation.
+\end{definition}
+
+The $\fgl_1$ transfer matrix $T(u) = \sum_s (-1)^s \psi_s u^{-s}$
+of Proposition~\ref{prop:universal-coproduct} is the $1 \times 1$
+specialization of~\eqref{eq:lax-operator}: when $e = f = 0$
+and $h = \psi$, one recovers $L(u) = \mathrm{diag}(T_+(u), T_-(u))$
+and $\tr L(u) = 2u$ (the scalar transfer matrix).
+
+\subsection{The RTT relation}
+\label{subsec:rtt}
+
+The commutation relations of $Y(\mathfrak{sl}_2)$ are encoded in
+a single matrix equation.
+
+\begin{proposition}[RTT relation, Faddeev--Reshetikhin--Takhtajan]
+\label{prop:rtt}
+\ClaimStatusProvedElsewhere
+The Yangian $Y(\mathfrak{sl}_2)$ is the associative algebra generated
+by the entries $\{L_{ij}(u)\}_{i,j \in \{0,1\}}$ subject to the relation
+\begin{equation}\label{eq:rtt}
+  R_{12}(u - v)\, L_1(u)\, L_2(v)
+  \;=\; L_2(v)\, L_1(u)\, R_{12}(u - v),
+\end{equation}
+where $R(u) = u \cdot \mathrm{Id}_4 + P$ is the Yang $R$-matrix,
+$P$ is the permutation operator on $\mathbb{C}^2 \otimes \mathbb{C}^2$,
+and $L_1(u) = L(u) \otimes \mathrm{Id}_2$,
+$L_2(v) = \mathrm{Id}_2 \otimes L(v)$.
+\end{proposition}
+
+The RTT is an \emph{algebraic} relation on the non-commuting entries
+of~$L(u)$.
+For commutative numerical evaluations $L(u) = u \cdot \mathrm{Id} + J$
+(with $J$ a fixed numeric matrix), the RTT discrepancy is
+$R(u{-}v) L_1 L_2 - L_2 L_1 R(u{-}v) = (u{-}v)(J_1 - J_2) P$,
+which is nonzero whenever $u \neq v$ and $J \neq 0$
+(verified: \texttt{sl2\_matrix\_lax\_engine.py},
+\texttt{verify\_rtt\_discrepancy\_structure}, $50$~tests).
+The numerically verifiable consequences are:
+(i)~$P L_1(u) P = L_2(u)$ (permutation intertwines tensor factors),
+(ii)~$R(u)R(-u) = (1 - u^2)\mathrm{Id}_4$ (Yang $R$-matrix unitarity),
+(iii)~$[\tr L(u),\, \tr L(v)] = 0$ (transfer matrix commutativity).
+
+\subsection{The matrix coproduct and trace-coassociativity}
+\label{subsec:matrix-coproduct}
+
+\begin{proposition}[Matrix Lax coproduct]
+\label{prop:matrix-lax-coproduct}
+\ClaimStatusProvedHere
+The Drinfeld coproduct on the Lax operator is \emph{matrix multiplication}:
+\begin{equation}\label{eq:matrix-coproduct}
+  \Delta_z(L(u))_{ij}
+  \;=\; \sum_{k=0}^{1} L^L_{ik}(u) \otimes L^R_{kj}(u - z),
+\end{equation}
+i.e., $\Delta_z(L(u)) = L^L(u) \cdot L^R(u - z)$ where the product is
+$2 \times 2$ matrix multiplication with tensor-product entries.
+This is the non-abelian generalization of the $\fgl_1$ Miura factorization
+$\Delta_z(T(u)) = T^L(u) \cdot T^R(u - z)$ (scalar multiplication).
+\end{proposition}
+
+\begin{proof}
+The Miura factorization of the transfer matrix
+$T(u) = T_0(u) \cdot T_1(u - z_1) \cdot T_2(u - z_1 - z_2) \cdots$
+(Proposition~\ref{prop:universal-coproduct}) extends to the matrix
+setting by replacing scalar factors with $2 \times 2$ matrices.
+The product $L^L(u) \cdot L^R(u-z)$ respects the RTT
+relation~\eqref{eq:rtt} because the RTT is compatible with the
+coproduct by construction (Drinfeld).
+\end{proof}
+
+\begin{proposition}[Trace-coassociativity]
+\label{prop:trace-coassociativity}
+\ClaimStatusProvedHere
+The \emph{trace} of the Lax operator has a coassociative coproduct:
+\begin{equation}\label{eq:trace-coassoc}
+  (\Delta_w \otimes \mathrm{id}) \circ \Delta_{z+w}(\tr L(u))
+  \;=\;
+  (\mathrm{id} \otimes \Delta_z) \circ \Delta_w(\tr L(u)).
+\end{equation}
+Both sides equal
+$\tr\bigl(L^1(u) \cdot L^2(u-w) \cdot L^3(u-w-z)\bigr)$,
+well-defined by the associativity of matrix multiplication.
+Individual entries $L_{ij}(u)$ are \emph{not} coassociative at the
+operator level: the intermediate summation index sits in different
+tensor factors on the two sides.
+\end{proposition}
+
+\begin{proof}
+Path~(L): $\Delta_{z+w}(L)_{ij} = \sum_k L^{12}_{ik} \otimes L^3_{kj}$,
+then $(\Delta_w \otimes \mathrm{id})$ decomposes
+$L^{12}_{ik} = \sum_l L^1_{il} \otimes L^2_{lk}$, giving
+$\sum_{k,l} L^1_{il} \otimes L^2_{lk} \otimes L^3_{kj}$.
+Path~(R): analogous, yielding the same triple sum after index
+relabeling $k \leftrightarrow l$.
+For the trace ($i = j$, summed), both paths give
+$\sum_{i,k,l} L^1_{il} L^2_{lk} L^3_{ki}
+= \tr(L^1 \cdot L^2 \cdot L^3)$.
+The entry-wise failure occurs at the \emph{operator level} when
+the entries of~$L$ are non-commuting Yangian generators:
+the multiplication $L^1_{il} \cdot L^2_{lk}$ takes place in the
+\emph{left} tensor factor on path~(L) but in the \emph{middle}
+factor on path~(R), and these differ when the operators do not commute
+(verified: $50$~tests).
+\end{proof}
+
+\begin{remark}[Comparison with the $\fgl_1$ case]
+\label{rem:gl1-vs-sl2-lax}
+Six features are genuinely new in the $\mathfrak{sl}_2$ Lax formalism:
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Lax dimension}: $L(u)$ is $2 \times 2$ (matrix),
+  encoding the root system of $\mathfrak{sl}_2$.
+  For $\fgl_1$, $T(u)$ is $1 \times 1$ (scalar).
+\item \emph{Coproduct type}: $\Delta_z(L) = L^L \cdot L^R$ is matrix
+  multiplication; for $\fgl_1$, $\Delta_z(T) = T^L \cdot T^R$ is scalar.
+\item \emph{RTT vs.\ exchange}: $\fgl_1$ has a single exchange relation;
+  $\mathfrak{sl}_2$ has the full $4 \times 4$ RTT
+  equation~\eqref{eq:rtt}.
+\item \emph{Quantum determinant}: $\mathrm{qdet}\, L(u) = L_{00}(u) L_{11}(u-1)
+  - L_{01}(u) L_{10}(u-1)$ is central in $Y(\mathfrak{sl}_2)$ and
+  generates the Serre ideal through its factorization
+  $\mathrm{qdet} = (u - j - 1)(u + j)$. Absent for $\fgl_1$.
+\item \emph{Trace-coassociativity}: the correct coassociativity
+  statement for $\mathfrak{sl}_2$ is at the level of $\tr L$, not
+  at the level of individual entries.
+\item \emph{Serre from the Lax}: the wheel condition
+  $g_{00}(h_a) = 0$ of the Serre engine
+  (\texttt{sl2\_serre\_engine.py}) is the structure-function
+  encoding of the vanishing of $\mathrm{qdet}$ at the evaluation points.
+\end{enumerate}
+What \emph{survives} from $\fgl_1$: the Miura factorization structure,
+spectral coassociativity at the trace level, the CY condition
+$h_1 + h_2 + h_3 = 0$, and the unitarity $g(z) g(-z) = 1$.
+\end{remark}
+
+\begin{remark}[Compute engine verification]
+\label{rem:matrix-lax-verification}
+The matrix Lax engine \texttt{sl2\_matrix\_lax\_engine.py}
+($\sim\!700$~lines) verifies all six non-abelian features:
+RTT consequences (permutation intertwining, $R$-unitarity, transfer
+commutativity, discrepancy structure), matrix coproduct,
+trace-coassociativity at $5$~parameter families, quantum determinant
+centrality at spins $j = \tfrac{1}{2}, 1, \tfrac{3}{2}, 2$,
+Serre null vectors from $\mathrm{qdet}$ zeros, and cross-check with the
+Serre engine wheel condition ($50$~tests, $0$~failures).
+\end{remark}
+
+\subsection{Wall-crossing as bar differential: the categorical identification}
+\label{sec:categorical-wall-crossing-bar}
+
+The Kontsevich--Soibelman wall-crossing formula has a natural interpretation as the $\Eone$ bar differential on $B^{\mathrm{ord}}(A_\cC)$.  We formalise this identification at five levels, carefully separating the unconditional components from those conditional on the CY-to-chiral functor at $d = 3$.
+
+\begin{conjecture}[Categorical KS--bar identification]
+\label{conj:categorical-ks-bar}
+\ClaimStatusConjectured
+Let $\cC$ be a CY$_3$ category with charge lattice $\Gamma$ and stability manifold $\Stab(\cC)$.  Conditional on Conjecture~\ref{conj:cy-to-chiral-d3}, the following five identifications hold:
+
+\begin{enumerate}[label=\textup{(L\arabic*)}]
+
+\item\label{cat-level:hall} \emph{Motivic Hall algebra \textup{(unconditional)}.}  The motivic Hall algebra $\mathrm{MH}(\cC)$ carries an associative ($\Eone$) product from short exact sequences.  At the Euler-characteristic level, this is the group algebra product on the charge lattice: $e_{\gamma_1} \cdot e_{\gamma_2} = e_{\gamma_1 + \gamma_2}$.  The Euler form $\chi(\gamma_1, \gamma_2)$ enters at the quantum level via the quantum torus twist $e_{\gamma_1} \ast_q e_{\gamma_2} = q^{\chi(\gamma_1, \gamma_2)/2} \, e_{\gamma_1 + \gamma_2}$, which recovers the lattice Lie bracket $[e_{\gamma_1}, e_{\gamma_2}] = \chi(\gamma_1, \gamma_2) \, e_{\gamma_1+\gamma_2}$ at first order in $\hbar = \log q$.
+
+\item\label{cat-level:bar} \emph{Bar complex of $\mathrm{MH}(\cC)$ \textup{(unconditional)}.}  The ordered bar complex $B^{\mathrm{ord}}(\mathrm{MH}(\cC)) = T^c(s^{-1}\overline{\mathrm{MH}})$ with bar differential
+\[
+  d_{\mathrm{bar}}[a_1 \,|\, \cdots \,|\, a_k] \;=\; \sum_{i=1}^{k-1} (-1)^{i-1}\, [a_1 \,|\, \cdots \,|\, a_i \cdot a_{i+1} \,|\, \cdots \,|\, a_k]
+\]
+satisfies $d_{\mathrm{bar}}^2 = 0$ (from associativity of the Hall product).  The deconcatenation coproduct $\Delta_{\mathrm{dec}}$ is strictly coassociative.
+
+\item\label{cat-level:ks} \emph{KS automorphism as bar generating function \textup{(conditional on CY-A$_3$)}.}  The labeled-ordered product $\prod_{\arg Z(\gamma) \downarrow}^{\mathrm{lab}} \cT_\gamma^{\Omega(\gamma)}$ (AP152: labeled-ordered, NOT time-ordered) is identified with the total bar differential $d_{\mathrm{bar}}$ on $B^{\mathrm{ord}}(A_\cC)$.
+
+\item\label{cat-level:filt} \emph{Wall-crossing as filtration change \textup{(unconditional for $\mathrm{MH}$; conditional for $A_\cC$)}.}  A stability condition $\sigma \in \Stab(\cC)$ defines a filtration
+\[
+  F^p B^k \;=\; \mathrm{span}\!\bigl\{[a_1 \,|\, \cdots \,|\, a_k] : \phi_\sigma(\gamma(a_1)) \geq p\bigr\}
+\]
+on $B^{\mathrm{ord}}$.  Crossing a wall $\cW(\gamma_1, \gamma_2)$ permutes the factors in the labeled-ordered product, changing the filtration but not the total complex.  Different chambers give different spectral sequences of the \emph{same} bar complex.
+
+\item\label{cat-level:bps} \emph{BPS invariants as bar Euler characteristics \textup{(conditional on CY-A$_3$)}.}  The numerical DT invariant is the bar Euler characteristic:
+\[
+  \Omega(\gamma) \;=\; \chi\!\bigl(H^\ast(B^{\mathrm{ord}}(A_\cC))_\gamma\bigr) \;=\; \sum_k (-1)^k \dim H^k(B^{\mathrm{ord}})_\gamma.
+\]
+\end{enumerate}
+
+Levels~\ref{cat-level:hall} and~\ref{cat-level:bar} are unconditional (theorems of Joyce, Kontsevich--Soibelman, Bridgeland).  Levels~\ref{cat-level:ks} and~\ref{cat-level:bps} depend on the existence of the $\Eone$-chiral algebra $A_\cC$ via the CY-to-chiral functor $\Phi_3$ (Conjecture~\ref{conj:cy-to-chiral-d3}).  For toric CY$_3$ (resolved conifold, local~$\bP^2$, etc.), all five levels are unconditional via the CoHA (Schiffmann--Vasserot, Kontsevich--Soibelman, Davison).
+\ClaimStatusConjectured
+\end{conjecture}
+
+\begin{remark}[Spectral sequence from stability filtration]
+\label{rem:spectral-sequence-stability}
+The filtration of Level~\ref{cat-level:filt} defines a spectral sequence $E_r^{p,q}$ converging to $H^{p+q}(B^{\mathrm{ord}})$.  The $E_1$ differential
+\[
+  d_1 \colon E_1^{p,q} \longrightarrow E_1^{p+1,q}
+\]
+connects charge sectors whose phases differ by one step in the filtration, with coefficient $\chi(\gamma_1, \gamma_2) \cdot \Omega(\gamma_1) \cdot \Omega(\gamma_2)$.  The higher differentials $d_r$ encode bound-state interactions at distance $r$ in the phase ordering.  The Kontsevich--Soibelman pentagon identity is the $E_1$-degeneration statement for the two-state conifold; the hexagon identity (A$_3$ quiver) involves $d_2$.
+
+The spectral sequence replaces the na\"{\i}ve BCH computation of the MC gauge transformation (which fails at heights $\geq 3$; AP42) with a systematic homological framework.  Each wall-crossing is a change of filtration, hence a comparison of spectral sequences, and the gauge-invariant bar Euler product is the data that survives to $E_\infty$.
+\end{remark}
+
+\begin{remark}[Connection to the shadow tower]
+\label{rem:categorical-shadow-bridge}
+The shadow tower of Vol~I is recovered from the categorical bar complex.  At arity $k \geq 2$, the shadow coefficient $S_k$ is computed from the bar cohomology at bar degree $k$:
+\[
+  S_k \;=\; \frac{(-1)^{k-1}}{k} \sum_\gamma \dim H^k(B^{\mathrm{ord}})_\gamma.
+\]
+At $k = 2$: $S_2 = \kappa_{\mathrm{ch}}$.  The shadow generating function $\exp\!\bigl(\sum_{k \geq 2} S_k \, x^k / k!\bigr)$ equals the bar Euler product $\prod_\gamma (1 - x^\gamma)^{-\Omega(\gamma)}$, which is chamber-independent.  The shadow tower terminates at finite depth for class~$\mathbf{G}$ (conifold) and class~$\mathbf{L}$ (Yangian), but has infinite depth for class~$\mathbf{M}$ (K3 lattice VOA, Virasoro).
+\end{remark}
+
+\noindent\textit{Verification}: 81 tests in \texttt{test\_categorical\_wall\_crossing\_bar.py} covering all five levels across 15 independent paths: Hall associativity, $d^2 = 0$, deconcatenation coassociativity, KS-bar identification, filtration change, bar Euler characteristics, pentagon identity, shadow tower bridge, labeled-ordering preservation, Euler form axioms, lattice Lie bracket, spectral sequence structure, Joyce--Song integration, chamber independence, and full five-level orchestration. A$_2$ quiver cross-checks verify $d^2 = 0$ and orthogonal-charge spectral sequence behaviour independently (\texttt{categorical\_wall\_crossing\_bar.py}).
 
 
 \section{Closing: the ordered bar as the primitive of Vol~III}

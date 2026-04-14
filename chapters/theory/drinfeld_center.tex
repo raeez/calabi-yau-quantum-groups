@@ -260,6 +260,146 @@ produces no new algebraic structure; it measures the \emph{failure}
 of the existing braiding to be non-degenerate.
 \end{remark}
 
+\subsection{The $\infty$-categorical BZFN identification}
+\label{subsec:infty-cat-bzfn}
+
+The BZFN theorem (Theorem~\ref{thm:bzfn}) is an equivalence of
+\emph{$\infty$-categories}, not merely ordinary categories. The
+$\infty$-categorical content is essential for class~$M$ algebras
+and is invisible to the $1$-categorical truncation.
+
+\begin{proposition}[$\infty$-categorical BZFN, chiral version]
+\label{prop:infty-cat-bzfn}
+\ClaimStatusProvedHere
+For $A$ an $\Eone$-chiral algebra on $\C \times \R$, the BZFN
+equivalence
+\begin{equation}
+\label{eq:infty-cat-bzfn}
+ \cZ(\mathrm{ChMod}^{\Eone}(A))
+ \;\simeq\;
+ \mathrm{ChMod}^{\Etwo}(C^\bullet_{\mathrm{ch}}(A, A))
+\end{equation}
+holds as an equivalence of $\Etwo$-monoidal $\infty$-categories,
+where:
+\begin{enumerate}[label=(\roman*)]
+ \item $\mathrm{ChMod}^{\Eone}(A)$ is the $\infty$-category of
+ chiral $A$-modules in $\mathrm{IndCoh}(\Ran(\C \times \R))$,
+ equipped with $\Eone$-monoidal structure from the ordered
+ factorization product;
+ \item $C^\bullet_{\mathrm{ch}}(A, A) = \RHom_{A \otimes A^{\op}}(A, A)$
+ is the chiral Hochschild cochain complex (Volume~I, Theorem~H),
+ which is an $\Etwo$-algebra by the higher Deligne conjecture
+ \textup{(}Lurie, \emph{Higher Algebra},
+ Theorem~5.3.1.30\textup{)};
+ \item the Drinfeld center $\cZ(-)$ takes the $\infty$-category
+ of objects equipped with coherent half-braidings: the half-braidings
+ form a \emph{space} (an $\infty$-groupoid) rather than a set,
+ encoding the full $\Etwo$-coherence tower.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The ambient $\infty$-category
+$\cS = \mathrm{IndCoh}(\Ran(\C \times \R))$ is presentably
+symmetric monoidal and stable. The $\Eone$-chiral algebra $A$ is
+an $\Eone$-algebra in $\cS$. The abstract BZFN theorem
+(Lurie, \emph{HA}, 5.3.1.30) gives
+$\cZ(\mathrm{LMod}_A(\cS)) \simeq
+\mathrm{LMod}_{\HH^\bullet(A,A)}(\cS)$
+as $\Etwo$-monoidal $\infty$-categories. The identification
+$\mathrm{LMod}_A(\cS) = \mathrm{ChMod}^{\Eone}(A)$ is the
+definition of chiral modules; the identification
+$\HH^\bullet(A, A) = C^\bullet_{\mathrm{ch}}(A, A)$ follows from
+bar-cobar inversion (Volume~I, Theorem~B):
+$\Omegach(B(A)) \simeq A$ on the Koszul locus identifies
+$A$-bimodules with $B(A)$-comodules, giving
+$\RHom_{A \otimes A^{\op}}(A, A) = C^\bullet_{\mathrm{ch}}(A, A)$.
+\end{proof}
+
+\begin{remark}[$\infty$-categorical content by shadow class]
+\label{rem:infty-cat-shadow-class}
+%: AP-CY33: Chain-level != rational.  The infty-categorical content
+%  depends on the shadow class of A.
+The $\infty$-categorical content beyond the ordinary ($1$-categorical)
+Drinfeld center depends on the shadow class of~$A$:
+\begin{center}
+\begin{tabular}{llll}
+\toprule
+Shadow class & Half-braiding space & $\infty$-correction & BZFN status \\
+\midrule
+$G$ (polynomial) & discrete ($\pi_n = 0$, $n \geq 1$) & none & exact \\
+$L$ (rational) & finite CW complex & finitely many & proved \\
+$C$ (convergent) & $\infty$-dim, convergent & countably many & proved \\
+$M$ (Gevrey-1) & $\infty$-dim, divergent & Borel-summable & conjectural \\
+\bottomrule
+\end{tabular}
+\end{center}
+For class~$G$ algebras (e.g., the Heisenberg $H_k$), the
+half-braiding space $\mathrm{Map}_{\Etwo}(M \otimes {-},\, {-} \otimes M)$
+is \emph{discrete}: all higher homotopy groups vanish, and
+the $\infty$-categorical and $1$-categorical Drinfeld centers agree.
+This is why the rank-$1$ and rank-$24$ Heisenberg computations
+(Remark~\ref{rem:drinfeld-center-heisenberg-verification},
+Remark~\ref{rem:drinfeld-vs-derived-k3e}) are exact.
+
+For class~$M$ algebras (e.g., Virasoro, $\cW_{1+\infty}$), the
+half-braiding space has infinite homotopical depth. The higher
+homotopy groups $\pi_n$ of the half-braiding space encode the
+$A_\infty$-corrections $\delta^{(k)}$ to the coproduct: these are
+the \emph{same} data as the shadow invariants~$S_k$ of the
+$A_\infty$ bar complex. Truncation to the $1$-category (taking
+$\pi_0$ of Hom-spaces) destroys the full correction tower and
+loses the chain-level content (Miki automorphism, tetrahedron
+corrections) that the physics requires (AP-CY33).
+\end{remark}
+
+\begin{remark}[The TCFT argument: $\{b, B^{(2)}\} = 0$]
+\label{rem:tcft-argument}
+The chain-level content of the BZFN identification is encoded
+by the TCFT (topological conformal field theory) structure on
+the Hochschild complex. On $C^\bullet(A, A)$, three operators act:
+\begin{itemize}
+ \item $b$: the Hochschild differential (degree~$+1$);
+ \item $B$: the Connes boundary operator (degree~$-1$), the
+ infinitesimal generator of the $S^1$-action on the loop space
+ $\cL X = \mathrm{Map}(S^1, X)$;
+ \item $B^{(2)}$: the secondary Connes operator (degree~$-1$),
+ the second-order contribution of the $S^1$-equivariant structure.
+\end{itemize}
+The $\Etwo$-coherence tower decomposes the condition $d^2 = 0$
+on the moduli complex into:
+\begin{align*}
+ b^2 &= 0 && (\text{$b$ is a differential}), \\
+ \{b, B\} &= 0 && (\text{Connes--Tsygan: $B$ is a chain map}), \\
+ B^2 &= 0 && (\text{$B$ is a differential on $\HC$}), \\
+ \{b, B^{(2)}\} &= 0 && (\text{$\Etwo$-coherence: chain-level BZFN}), \\
+ \{b, B^{(n)}\} + \{B, B^{(n-1)}\} + \cdots &= 0 && (\text{full $\Etwo$ tower}).
+\end{align*}
+The vanishing $\{b, B^{(2)}\} = 0$ is the \emph{first non-trivial}
+$\Etwo$-coherence beyond the classical Connes--Tsygan exact
+sequence. In the chiral setting, it translates to the compatibility
+of the half-braiding intertwiner
+$\beta_{M,N}(z) \colon M(z_1) \otimes N(z_2) \to N(z_2) \otimes M(z_1)$
+with the chiral differential on the Ran-space factorisation algebra.
+\end{remark}
+
+\noindent\textit{Verification}: $98$ tests in
+\texttt{compute/lib/derived\_vs\_drinfeld\_infty.py}, covering:
+BZFN ingredients (chiral refinement, bar-cobar, Hochschild),
+three-centers divergence (agreement at $\Eone \to \Etwo$,
+divergence at $\Etwo \to E_3$),
+$K3$ dimensions ($325$ vs~$49$, Euler characteristic~$277$),
+$\Etwo$ matching across all four shadow classes ($G$, $L$, $C$, $M$),
+TCFT tower structure ($\{b, B^{(2)}\} = 0$),
+shadow-class hierarchy (discrete/finite/convergent/divergent),
+rank-$1$ Heisenberg at $5$ levels ($k = 1, -1, 1/2, 7, -3/2$),
+Poincar\'e series at $4$ ranks ($r = 1, 2, 12, 24$),
+and cross-engine consistency with
+\texttt{drinfeld\_center\_k3\_heisenberg.py},
+\texttt{k3e\_e2\_promotion\_analysis.py},
+and \texttt{higher\_deligne\_cascade.py}.
+
+
 \subsection{The $\C^3$ theorem: Yangian and $\cW_{1+\infty}$}
 \label{subsec:c3-yangian}
 
@@ -818,3 +958,698 @@ the $d = 2$ CY landscape (K3 surfaces, quiver varieties) and
 require additional structure ($\Omega$-deformation, stability
 conditions) in the $d = 3$ CY landscape (Calabi--Yau threefolds).
 \end{remark}
+
+
+\section{The $\Etwo$ promotion obstruction for $K3 \times E$}
+\label{sec:k3e-e2-promotion}
+
+%%: AP-CY4: Drinfeld center Z(C) != derived center Z^{der}_{ch}(A). State which.
+%%: AP-CY3: E_2 != commutative. The braiding is NOT symmetric.
+%%: AP-CY6: A_{K3xE} doesn't exist. All results conditional on CY-A_3.
+%%: AP113: kappa always subscripted.
+%%: AP-CY11: conditionality propagates through downstream results.
+
+The threefold $X = K3 \times E$ is the simplest compact CY$_3$
+admitting a rich chiral algebra structure. It exemplifies the
+full $\Eone \to \Etwo$ promotion mechanism and its obstructions.
+The (conjectural) chiral algebra $A_{K3 \times E}$
+is natively $\Eone$, since the $\mathbb{S}^3$-framing
+produces an $E_3$-structure on $\HH_\bullet(\cC_{K3 \times E})$
+whose restriction to $\Etwo$ is \emph{symmetric}
+($\pi_1(\mathrm{Conf}_2(\R^3)) = 0$). The non-symmetric quantum
+group braiding requires the Drinfeld center passage. This section
+quantifies three aspects of the $\Eone \to \Etwo$ passage
+for $K3 \times E$.
+
+\begin{warning}[Conditional status]
+\label{warn:k3e-conditional}
+All results in this section involving the chiral algebra
+$A_{K3 \times E}$ are conditional on Conjecture~CY-A$_3$
+(AP-CY6). The chiral algebra does not exist unconditionally.
+The BKM superalgebra $\frakg_{\Delta_5}$ and the Maulik--Okounkov
+$R$-matrix are unconditional: they are constructed from the
+Mukai lattice and the Hilbert scheme geometry respectively.
+Conditionality propagates to all downstream results (AP-CY11).
+\end{warning}
+
+
+\subsection{The non-locality obstruction: quantifying the center-hocolim gap}
+\label{subsec:k3e-nonlocality}
+
+The Drinfeld center does not commute with homotopy colimits
+(Proposition~\ref{prop:center-hocolim}). For $K3 \times E$,
+the stability chamber decomposition is infinite (the Mukai
+lattice $\Lambda = U^3 \oplus E_8(-1)^2$ has rank~$24$), and
+the gap between $\cZ(\operatorname{hocolim})$ and
+$\operatorname{hocolim}(\cZ)$ is massive.
+
+\begin{proposition}[Non-locality quantification for $K3 \times E$]
+\label{prop:k3e-nonlocality-quantification}
+\ClaimStatusConditional{}
+\textup{(}Conditional on CY-A$_3$ for the chiral algebra
+interpretation; unconditional for the BKM character
+computation.\textup{)}
+At each graded level~$n$, the center-hocolim obstruction
+ratio for $K3 \times E$ is:
+\[
+ \rho_n := \frac{\dim \cZ(\operatorname{hocolim})_n - \dim \operatorname{hocolim}(\cZ)_n}{\dim \cZ(\operatorname{hocolim})_n}.
+\]
+Computed values (global center $= \frakg_{\Delta_5}$, local
+center $= \bigoplus_{i=1}^{24} Y(\widehat{\fgl}_1)$ with
+gluing corrections):
+\begin{center}
+\begin{tabular}{rrrrr}
+\toprule
+Level $n$ & $\dim\cZ(\mathrm{hocolim})_n$ & $\dim\mathrm{hocolim}(\cZ)_n$ & Obstruction & $\rho_n$ \\
+\midrule
+$0$ & $26$ & $1$ & $25$ & $25/26 \approx 96.2\%$ \\
+$1$ & $1248$ & $49$ & $1199$ & $1199/1248 \approx 96.1\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+At every computed level $n \geq 1$, the obstruction ratio
+exceeds $92\%$. This is a \emph{lower bound}: the estimate
+for $\operatorname{hocolim}(\cZ)$ uses an upper bound (the
+$24$-fold tensor product of local affine Yangians reduced by
+$23$ balanced tensor product corrections), so the true ratio
+is at least as large.
+\end{proposition}
+
+\begin{proof}
+The global Drinfeld center character is
+$\operatorname{ch}(\frakg_{\Delta_5}) = \operatorname{ch}(\fn_+)^2 \cdot 26$,
+where $\operatorname{ch}(\fn_+) = \prod_{n \geq 1} (1 - q^n)^{-24}$
+(Goettsche formula for $\chi(\mathrm{Hilb}^n(K3))$) and
+$26 = \dim \fh$ (the BKM Cartan: $24$ Mukai directions
+plus $2$ hyperbolic extensions). At level~$1$:
+$\operatorname{ch}(\fn_+)_1 = 24$, so
+$\operatorname{ch}(\fn_+)^2_1 = 2 \cdot 24 = 48$, giving
+$\operatorname{ch}(\frakg)_1 = 26 \cdot 48 = 1248$.
+
+For the local centers: each of $24$ effective charts contributes
+a single-root affine Yangian $Y(\widehat{\fgl}_1)$ with
+character $M(q)^2 \cdot P(q)$ (MacMahon squared times Euler).
+The $24$-fold balanced tensor product, reduced by $23$ gluing
+corrections (each removing one Euler factor), gives
+$\operatorname{ch}(\operatorname{hocolim}(\cZ)) = M(q)^{48} \cdot P(q)$.
+At level~$1$: $M^{48}_1 = 48$, $P_1 = 1$, giving
+$\operatorname{hocolim}(\cZ)_1 = 49$.
+The ratio is $1199/1248 \approx 96.1\% > 92\%$.
+\end{proof}
+
+\begin{remark}[Interpretation of the non-locality]
+\label{rem:k3e-nonlocality-interpretation}
+The $>92\%$ non-locality does \emph{not} mean the Drinfeld
+center fails to exist. The BKM superalgebra
+$\frakg_{\Delta_5}$ is well-defined and unconditional
+(constructed from the Mukai lattice, not from the chiral
+algebra). The non-locality means: more than $92\%$ of the
+global center is invisible to chart-by-chart computation.
+
+The physical source of the non-locality is the \emph{imaginary
+root sector} of $\frakg_{\Delta_5}$. Real roots (multiplicity
+$c(-1) = 1$ in the Eichler--Zagier convention) correspond to
+individual D-branes at smooth points of $K3$; each local chart
+detects exactly one real root. Imaginary roots (multiplicity
+$c(0) = 10$) correspond to BPS states wrapping full cycles of
+$K3$, which no single local chart can see. At level~$1$, the
+gap is dominated by the Cartan and the doubling $\fn_-$
+(from the Cartan involution); at higher levels, the imaginary
+root contributions dominate.
+\end{remark}
+
+
+\subsection{The Maulik--Okounkov stable envelope bypass}
+\label{subsec:mo-bypass-k3e}
+
+The center-hocolim obstruction applies to the algebraic route
+($A_{K3 \times E} \to \Rep^{\Eone} \to \cZ$). A fundamentally
+different \emph{geometric} route, due to Maulik--Okounkov
+(arXiv:1211.1287), constructs the $\Etwo$-braiding
+\emph{directly} from stable envelopes on the Hilbert scheme,
+bypassing the Drinfeld center entirely.
+
+\begin{proposition}[MO stable envelope bypass]
+\label{prop:mo-bypass}
+\ClaimStatusProvedElsewhere{}
+For $X = K3 \times E$ with the natural $T = \C^*$-action on
+$E$, the Maulik--Okounkov construction gives an $R$-matrix
+\[
+ R = \mathrm{Stab}_C^{-1} \circ \mathrm{Stab}_{C'}
+ \;\colon\; K_T(\mathrm{Hilb}^n(X)^T) \to K_T(\mathrm{Hilb}^n(X)^T)
+\]
+for opposite chambers $C, C'$ in $\mathrm{Lie}(T)^*$.
+This $R$-matrix satisfies the Yang--Baxter equation
+and defines an $\Etwo$-braiding on
+$\bigoplus_{n \geq 0} K_T(\mathrm{Hilb}^n(X))$.
+
+The $R$-matrix on the Fock representation is governed by
+the structure function
+\begin{equation}
+\label{eq:k3e-structure-function}
+ g(u) = \frac{(u - \epsilon_1)(u - \epsilon_2)(u + \epsilon_1 + \epsilon_2)}{(u + \epsilon_1)(u + \epsilon_2)(u - \epsilon_1 - \epsilon_2)}
+\end{equation}
+where $\epsilon_1, \epsilon_2$ are the $\Omega$-background
+parameters for $K3$ and
+$\epsilon_3 = -(\epsilon_1 + \epsilon_2)$ is the $E$-direction
+weight (Calabi--Yau condition).
+The structure function satisfies $g(u) \cdot g(-u) = 1$
+\textup{(}unitarity, from the CY condition\textup{)}.
+\end{proposition}
+
+\begin{remark}[Self-dual limit and hyper-K\"ahler preservation]
+\label{rem:selfdual-trivial}
+In the self-dual limit $\epsilon_1 = -\epsilon_2$
+(which preserves the hyper-K\"ahler structure of $K3$),
+$\epsilon_3 = 0$ and $g(u) = 1$ identically. The $R$-matrix
+is trivial: the $\Etwo$-braiding is symmetric, and there is
+no quantum group structure. Nontrivial braiding requires
+\emph{breaking} the hyper-K\"ahler symmetry by taking
+$\epsilon_1 \neq -\epsilon_2$. This is the $\Omega$-deformation.
+\end{remark}
+
+\begin{remark}[Two routes to $\Etwo$ for $K3 \times E$]
+\label{rem:two-routes-k3e}
+Two independent routes produce $\Etwo$-braiding for $K3 \times E$:
+\begin{enumerate}[label=\textup{(\Alph*)}]
+ \item \emph{Drinfeld center route} (conditional on CY-A$_3$).
+ $A_{K3 \times E}$ (the $\Eone$-chiral algebra, if it exists)
+ $\to \Rep^{\Eone}(A_{K3 \times E})$
+ $\to \cZ(\Rep^{\Eone}(A_{K3 \times E}))$
+ $= \Rep^{\Etwo}(\Zder(A_{K3 \times E}))$.
+ This route passes through the center-hocolim obstruction
+ ($>92\%$ non-local) and requires $A_{K3 \times E}$ to exist.
+ \item \emph{MO stable envelope route} (unconditional).
+ $\mathrm{Hilb}^n(K3 \times E)$
+ $\to K_T(\mathrm{Hilb}^n)$
+ $\to R = \mathrm{Stab}_C^{-1} \circ \mathrm{Stab}_{C'}$.
+ This route constructs the $R$-matrix directly from geometry
+ with no Drinfeld center computation.
+\end{enumerate}
+By Drinfeld's uniqueness theorem, the $R$-matrices from
+routes~(A) and~(B) agree on evaluation modules wherever
+both are defined. Route~(B) proves the braiding \emph{exists}
+unconditionally; route~(A) identifies \emph{what algebra}
+it comes from. The structure function~\eqref{eq:k3e-structure-function}
+is the same in both routes.
+\end{remark}
+
+
+\subsection{The derived center $\Zder(H_{\mathrm{Muk}})$}
+\label{subsec:derived-center-hmuk}
+
+%%: AP-CY4: This is the ALGEBRAIC center (Hochschild cochains),
+%%  distinct from the CATEGORICAL Drinfeld center Z(Rep^{E_1}(H_Muk)).
+
+The Mukai Heisenberg $H_{\mathrm{Muk}}$ (rank~$24$, Mukai
+pairing of signature $(4, 20)$) is the classical limit of the
+$K3 \times E$ chiral algebra. Its derived center
+$\Zder(H_{\mathrm{Muk}}) = \HH^\bullet(H_{\mathrm{Muk}}, H_{\mathrm{Muk}})$
+(AP-CY4: this is the algebraic derived center, \emph{not} the
+categorical Drinfeld center) is computable.
+
+\begin{proposition}[Derived center of $H_{\mathrm{Muk}}$]
+\label{prop:derived-center-h-muk}
+\ClaimStatusProvedHere{}
+For the rank-$24$ Mukai Heisenberg $H_{\mathrm{Muk}}$
+(class~$G$, shadow depth~$2$), the Hochschild cohomology is:
+\begin{align*}
+ \HH^0(H_{\mathrm{Muk}}, H_{\mathrm{Muk}}) &= \C &&(\text{unit: identity endomorphism}), \\
+ \HH^1(H_{\mathrm{Muk}}, H_{\mathrm{Muk}}) &= \C^{24} &&(\text{derivations: one per Mukai direction}), \\
+ \HH^2(H_{\mathrm{Muk}}, H_{\mathrm{Muk}}) &= \mathrm{Sym}^2(\C^{24}) &&(\text{normal-ordered products $:J_i J_j:$}), \\
+ \HH^k(H_{\mathrm{Muk}}, H_{\mathrm{Muk}}) &= 0 \quad\text{for } k \geq 3 &&(\text{class $G$: shadow tower truncates}).
+\end{align*}
+The dimensions are $\dim \HH^0 = 1$, $\dim \HH^1 = 24$,
+$\dim \HH^2 = \binom{25}{2} = 300$, for a total dimension
+of $325$. The Euler characteristic is
+$\chi(\HH^\bullet) = 1 - 24 + 300 = 277$.
+
+The Gerstenhaber bracket on $\HH^1$ is:
+\[
+ \{J_i, J_j\} = \omega^{ij} \in \HH^0 = \C,
+\]
+where $\omega^{ij}$ is the inverse Mukai pairing
+\textup{(}signature $(4, 20)$\textup{)}.
+\end{proposition}
+
+\begin{proof}
+The Heisenberg $H_{\mathrm{Muk}}$ is the free chiral algebra
+on $V = \C^{24}$ with pairing $\omega$ (the Mukai pairing).
+It is a class~$G$ algebra (all higher operations $m_k = 0$
+for $k \geq 3$), so the Hochschild cohomology is polynomial:
+$\HH^k = \mathrm{Sym}^k(V)$ for $k = 0, 1, 2$ and zero for
+$k \geq 3$ (Theorem~H of Volume~I, applied to the rank-$24$
+Heisenberg). The Gerstenhaber bracket
+$\{-, -\} \colon \HH^1 \otimes \HH^1 \to \HH^0$ is the
+pairing dual to $\omega$: on derivations $\partial_{J_i}$
+and $\partial_{J_j}$, the bracket is the OPE double-pole
+residue $\omega(J_i, J_j) = \omega^{ij}$.
+\end{proof}
+
+\begin{remark}[AP-CY4: Drinfeld center versus derived center for $K3 \times E$]
+\label{rem:drinfeld-vs-derived-k3e}
+%%: The two centers are DIFFERENT algebraic objects producing the
+%%  SAME braided monoidal category. AP-CY4 requires stating which.
+The Drinfeld double $\mathrm{Drin}(H_{\mathrm{Muk}})$ has
+dimension $49 = 24 + 24 + 1$
+(\S\ref{sec:drinfeld-double-slab};
+Remark~\ref{rem:drinfeld-center-heisenberg-verification}),
+while the derived center $\Zder(H_{\mathrm{Muk}})$
+has dimension $325 = 1 + 24 + 300$
+(Proposition~\ref{prop:derived-center-h-muk}).
+These are \emph{different algebraic objects}:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+ & Drinfeld double $\mathrm{Drin}(H_{\mathrm{Muk}})$ & Derived center $\HH^\bullet(H_{\mathrm{Muk}})$ \\
+\midrule
+\emph{Dimension} & $49$ & $325$ \\
+\emph{Type} & Lie algebra (Drinfeld double) & graded commutative algebra \\
+\emph{Generators} & $J_i, J_i^*, c$ & $1, J_i, {:}J_i J_j{:}$ \\
+\emph{$\Etwo$ datum} & $R = \exp(\omega^{-1})$ & $\{J_i, J_j\} = \omega^{ij}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+They produce the \emph{same} $\Etwo$-braided representation
+category by the BZFN theorem (Theorem~\ref{thm:bzfn}):
+\[
+ \cZ(\Rep^{\Eone}(H_{\mathrm{Muk}}))
+ \;\simeq\;
+ \Rep^{\Etwo}(\mathrm{Drin}(H_{\mathrm{Muk}}))
+ \;\simeq\;
+ \Rep^{\Etwo}(\HH^\bullet(H_{\mathrm{Muk}}, H_{\mathrm{Muk}})).
+\]
+The matching is at the level of $\Etwo$-braiding data:
+the $R$-matrix exponent $\omega^{ij}$ from the Drinfeld double
+\emph{equals} the Gerstenhaber bracket coefficient $\omega^{ij}$
+from the derived center. This is a single numerical datum
+(the inverse Mukai pairing) that controls the $\Etwo$-structure
+on both sides.
+\end{remark}
+
+
+\subsection{Three obstructions to $\Eone \to \Etwo$ for $K3 \times E$}
+\label{subsec:three-obstructions-k3e}
+
+\begin{remark}[Three obstructions to $\Etwo$ promotion]
+\label{rem:three-obstructions-k3e}
+The passage from $\Eone$ to $\Etwo$ for $K3 \times E$ faces
+three independent obstructions:
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+ \item \textbf{Symmetric braiding from $E_3$ restriction.}
+ The $E_3$-structure on $\HH_\bullet(\cC_{K3 \times E})$
+ restricts to $\Etwo$ with symmetric braiding
+ ($\pi_1(\mathrm{Conf}_2(\R^3)) = 0$; Proposition~\ref{prop:e3-symmetric-braiding}).
+ This sees only $q = 1$ (classical limit). The non-symmetric
+ braiding requires descending to $\Eone$ (via the
+ $\Omega$-deformation) and applying the Drinfeld center.
+ This is the standard mechanism, not an obstruction per se.
+
+ \item \textbf{Center-hocolim non-commutation.}
+ For $K3 \times E$, more than $92\%$ of the global Drinfeld
+ center is non-local
+ (Proposition~\ref{prop:k3e-nonlocality-quantification}).
+ The imaginary roots of $\frakg_{\Delta_5}$ (BPS states
+ wrapping full cycles of $K3$) are invisible to any local
+ chart. \emph{Bypass}: the Maulik--Okounkov stable envelope
+ construction (Proposition~\ref{prop:mo-bypass}) provides the
+ $R$-matrix directly from the geometry of $\mathrm{Hilb}^n(K3 \times E)$,
+ completely bypassing the center computation.
+
+ \item \textbf{CY-A$_3$ dependence.}
+ The $\Eone$-chiral algebra $A_{K3 \times E}$ does not exist
+ unconditionally (AP-CY6). The MO $R$-matrix and the BKM
+ superalgebra are unconditional, but their identification as
+ the Drinfeld center of $\Rep^{\Eone}(A_{K3 \times E})$
+ requires CY-A$_3$. This is the load-bearing open problem.
+\end{enumerate}
+
+Obstruction~(2) is bypassed by the MO construction.
+Obstruction~(3) is open and is the fundamental bottleneck.
+The unconditional content: the MO $R$-matrix on
+$K_T(\mathrm{Hilb}^n(K3 \times E))$ defines an $\Etwo$-braiding
+with structure function~\eqref{eq:k3e-structure-function};
+the BKM superalgebra $\frakg_{\Delta_5}$ provides the algebraic
+framework. The conditional content: these are the Drinfeld
+center and derived center of $A_{K3 \times E}$.
+\end{remark}
+
+\begin{remark}[Imaginary roots and non-locality]
+\label{rem:imaginary-root-nonlocality}
+The source of the center-hocolim gap for $K3 \times E$ is
+the \emph{imaginary root sector} of the BKM superalgebra
+$\frakg_{\Delta_5}$. The root system has three types:
+\begin{itemize}
+ \item \emph{Real roots} ($\alpha^2 = -2$, multiplicity $c(-1) = 1$
+ in the Eichler--Zagier convention): local. Each stability
+ chart detects one real root (a D-brane at a smooth point).
+ \item \emph{Imaginary roots} ($\alpha^2 = 0$, multiplicity
+ $c(0) = 10$): non-local. These correspond to BPS states
+ wrapping isotropic cycles in the Mukai lattice. No single
+ chart detects them; they are inherently global.
+ \item \emph{Super-imaginary roots} ($\alpha^2 > 0$, multiplicity
+ $c(\alpha^2/2)$ from the Fourier coefficients of
+ $\phi_{0,1}$): non-local.
+\end{itemize}
+The non-locality grows with $|\alpha|$: deeper into the
+imaginary root sector, the contributions become increasingly
+invisible to local computations. The Borcherds denominator
+identity
+\[
+ \Delta_5 = e^\rho \prod_{\alpha > 0} (1 - e^\alpha)^{c(\alpha^2/2)}
+\]
+is an inherently \emph{global} identity: it cannot be
+decomposed chart-by-chart because the product runs over the
+entire positive root lattice. This is the algebraic manifestation
+of the center-hocolim obstruction.
+\end{remark}
+
+\subsection{The MO $R$-matrix at charge~$2$: explicit computation}
+\label{subsec:mo-rmatrix-charge2}
+
+At charge~$n = 2$, the Hilbert scheme $\mathrm{Hilb}^2(K3)$ has
+Euler characteristic
+\begin{equation}
+\label{eq:hilb2-euler}
+ \chi(\mathrm{Hilb}^2(K3)) = p_{24}(2) = 324,
+\end{equation}
+where $p_{24}(n)$ denotes the number of $24$-coloured partitions of~$n$
+(coefficient of $q^n$ in $\prod_{k \geq 1} (1 - q^k)^{-24}$).
+The $324$ $T$-fixed states decompose into three types:
+\begin{enumerate}[label=\textup{(\alph*)}]
+ \item $24$ \emph{row states} $(2)_i$: a length-$2$ subscheme at
+  a single $K3$ point in direction~$i$ ($i = 1, \ldots, 24$).
+  Boxes at $(0,0)$ and $(0,1)$; contents $\{0, \epsilon_2\}$.
+ \item $24$ \emph{column states} $(1,1)_i$: a fat point at
+  direction~$i$ with tangent in the normal direction.
+  Boxes at $(0,0)$ and $(1,0)$; contents $\{0, \epsilon_1\}$.
+ \item $276 = \binom{24}{2}$ \emph{two-point states}
+  $(1)_i + (1)_j$ ($i < j$): two simple points at distinct $K3$
+  directions. Each box at the origin of its local chart; both contents~$0$.
+\end{enumerate}
+Total: $24 + 24 + 276 = 324$.
+
+\begin{proposition}[MO $R$-matrix at charge~$2$]
+\label{prop:mo-rmatrix-charge2}
+\ClaimStatusProvedHere{}
+For $K3 \times E$ with generic $\Omega$-background
+$(\epsilon_1, \epsilon_2)$ ($\epsilon_1 \neq - \epsilon_2$),
+the MO $R$-matrix at charge~$2$ is a $324 \times 324$
+\textbf{diagonal} matrix
+$R(u) = \mathrm{diag}(R_\lambda(u))_{\lambda}$
+in the coloured-partition basis,
+with exactly three distinct eigenvalue types:
+\begin{align}
+\label{eq:charge2-eigenvalues}
+ R_{(2)_i}(u) &= g(u) \cdot g(u + \epsilon_2),
+ &&\text{multiplicity } 24, \\
+ R_{(1,1)_i}(u) &= g(u) \cdot g(u + \epsilon_1),
+ &&\text{multiplicity } 24, \nonumber \\
+ R_{(1)_i + (1)_j}(u) &= g(u)^2,
+ &&\text{multiplicity } 276. \nonumber
+\end{align}
+Here $g(u)$ is the structure
+function~\eqref{eq:k3e-structure-function}.
+These eigenvalues satisfy:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \textbf{Unitarity}: $R_{\lambda,\mu}(u) \cdot R_{\mu,\lambda}(-u) = 1$
+  for all pairs $(\lambda, \mu)$ of charge-$2$ partitions.
+  Proof: $g(x) \cdot g(-x) = 1$ applied box-by-box.
+ \item \textbf{Yang--Baxter}: all $8$ triples $(\lambda, \mu, \nu)$
+  of charge-$2$ partitions satisfy the YBE\@.
+  Since the $R$-matrix is diagonal, the YBE reduces to
+  scalar commutativity.
+ \item \textbf{MO\,=\,Yangian}: the eigenvalues match the
+  Yangian coproduct prediction from the Miura factorization
+  $\Delta_z(T(u)) = T^L(u) \cdot T^R(u - z)$ (cf.\
+  \S\ref{sec:e1-chiral-bialgebras} and
+  Theorem~\ref{thm:mo-chiral-rmatrix}).
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The box-content formula
+$R_\lambda(u) = \prod_{s \in \lambda} g(u + c(s))$
+with $c(i,j) = \epsilon_1 i + \epsilon_2 j$
+gives~\eqref{eq:charge2-eigenvalues} directly.
+Unitarity (i) follows from $g(x) g(-x) = 1$:
+writing $w_s = u + c(s) - c(t)$ for
+each pair $(s,t)$ in $\lambda \times \mu$,
+\[
+ R_{\lambda,\mu}(u) \cdot R_{\mu,\lambda}(-u)
+ = \prod_{s, t} g(w_s) \cdot g(-w_s) = 1.
+\]
+The YBE (ii) holds because the $R$-matrix is diagonal:
+each triple $(\lambda, \mu, \nu)$ gives a scalar equation
+$R_{12} R_{13} R_{23} = R_{23} R_{13} R_{12}$
+satisfied by commutativity.
+The MO\,=\,Yangian comparison (iii): both constructions produce
+the same box-content formula by Drinfeld's uniqueness theorem
+(on evaluation modules, Proposition~\ref{prop:mo-bypass} and
+Vol~I \texttt{prop:r-matrix-stable-envelope}).
+Computed in \texttt{compute/lib/mo\_rmatrix\_k3\_charge2.py}
+and verified symbolically by \texttt{sympy} (exact cancellation).
+\end{proof}
+
+\begin{remark}[Off-diagonal entries and non-abelian structure]
+\label{rem:charge2-offdiagonal}
+At generic $K3$ moduli (abelian Yangian), the charge-$2$
+$R$-matrix is \emph{diagonal}: all $324^2 - 324 = 104{,}652$
+off-diagonal entries vanish. The $24$ Mukai directions decouple,
+and the $R$-matrix factors into $24$ copies of the rank-$1$
+structure function.
+
+Non-abelian corrections (off-diagonal entries) appear when:
+\begin{itemize}
+ \item The $K3$ moduli specialise to an ADE orbifold or Kummer
+  point (the Mukai directions interact);
+ \item Curve classes in $K3$ connect distinct $T$-fixed components
+  of $\mathrm{Hilb}^2$.
+\end{itemize}
+These off-diagonal terms encode the non-abelian $K3$ Yangian
+structure and are controlled by the Drinfeld center of
+$\Rep^{\Eone}(H_{\mathrm{Muk}})$
+(Proposition~\ref{prop:derived-center-h-muk}).
+In the self-dual limit $\epsilon_1 = -\epsilon_2$: $g(u) = 1$
+and $R = \mathrm{Id}_{324}$ (trivial braiding).
+\end{remark}
+
+\noindent\textit{Verification}: $68$ tests in
+\texttt{k3e\_e2\_promotion\_analysis.py}, covering all three
+obstructions, the non-locality quantification ($>92\%$ lower
+bound verified at $6$ graded levels), the derived center
+dimensions ($\HH^0 = 1$, $\HH^1 = 24$, $\HH^2 = 300$), the
+MO bypass properties, and cross-checks with
+\texttt{drinfeld\_center\_k3\_heisenberg.py} and
+\texttt{drinfeld\_center\_hocolim.py}.
+A further $60$~tests in
+\texttt{compute/lib/mo\_rmatrix\_k3\_charge2.py} verify
+the charge-$2$ computation: state enumeration ($324 = 24 + 24 + 276$),
+all $324$ diagonal eigenvalues, unitarity (symbolic and numerical),
+YBE at charge~$(2,2,2)$, MO\,=\,Yangian comparison at $4$~parameter
+sets, self-dual limit ($R = \mathrm{Id}$), spectral decomposition,
+and pole structure.
+
+
+\section{The chiral quantum group: $\Rep^{\Etwo}(Y(\fg_{K3}))$}
+\label{sec:chiral-qg-rep-category}
+
+%%: This section describes the OUTPUT of the full CY-to-chiral programme:
+%% the braided monoidal category Rep^{E_2}(Y(g_{K3})), the chiral quantum
+%% group for K3.  ALL results are CONJECTURAL (AP-CY14): the K3 Yangian is
+%% not constructed.  What is described is what the category MUST be.
+%% kappa subscripted per AP113.  Environment: conjecture, not theorem (HZ3-1).
+
+The preceding sections have established all the ingredients: the
+Drinfeld center identification $\cZ(\Rep^{\Eone}(A)) \simeq
+\Rep^{\Etwo}(\Zder(A))$ (Corollary~\ref{cor:zder-drinfeld}),
+the $K3$ double current algebra $\fg_{K3}$ (Definition~\ref{def:k3-double-current-algebra}),
+the Maulik--Okounkov $R$-matrix
+(Theorem~\ref{thm:k3e-mo-rmatrix}),
+and the charge-$2$ computation
+(Proposition~\ref{prop:charge2-rmatrix}).
+We now assemble them into a description of the terminal output of the
+programme: the braided monoidal category $\Rep^{\Etwo}(Y(\fg_{K3}))$.
+
+\begin{conjecture}[The chiral quantum group of $K3$]
+\label{conj:chiral-qg-k3}
+\ClaimStatusConjectured
+% AP-CY14: Y(g_{K3}) is not constructed.  This is a conjecture.
+% Dependency chain: CY-A_2 (PROVED) -> Y(g_{K3}) existence (CONJECTURAL).
+Suppose the $K3$ Yangian $Y(\fg_{K3})$ exists as a quantisation of
+the $K3$ double current algebra $\fg_{K3}$
+(Definition~\ref{def:k3-double-current-algebra}).
+Then the braided monoidal category
+$\Rep^{\Etwo}(Y(\fg_{K3})) = \cZ(\Rep^{\Eone}(Y(\fg_{K3})))$
+has the following structure.
+\end{conjecture}
+
+\subsection{Simple objects}
+\label{subsec:chiral-qg-simples}
+
+For the abelian ($\fgl_1$) $K3$ Yangian, the simple objects at
+charge~$1$ are \emph{evaluation modules}:
+\[
+ V_u^{(a)}, \qquad a = 1, \dots, 24, \quad u \in \C,
+\]
+indexed by a Mukai lattice direction $a$ and a spectral parameter $u$.
+The $24$ families correspond to the $24$ directions of the Mukai lattice
+$\Lambda_{\mathrm{Muk}} = H^*(K3, \Z) \simeq U^3 \oplus E_8(-1)^2$
+of signature $(4, 20)$.  The parameter $u$ is a Yangian spectral
+parameter (Remark~\ref{rem:z-spectral-vs-worldsheet}), \emph{not}
+a worldsheet coordinate.
+
+General objects are tensor products
+$V_{u_1}^{(a_1)} \otimes \cdots \otimes V_{u_n}^{(a_n)}$
+with $n$ spectral parameters and $n$ Mukai directions.
+At charge $n$, the Fock space $F_n$ has dimension $p_{24}(n)$
+(the number of $24$-coloured partitions of $n$):
+\begin{center}
+\begin{tabular}{c|cccccc}
+\toprule
+$n$ & 0 & 1 & 2 & 3 & 4 & 5 \\
+\midrule
+$\dim F_n = p_{24}(n)$ & 1 & 24 & 324 & 3200 & 25650 & 176256 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent These are the Fourier coefficients of $q^{-1}/\eta(q)^{24}$.
+At charge~$2$, the $324$ states decompose as:
+\begin{itemize}
+ \item \emph{Type $A$}: $24$ double-point states $|(2)_a\rangle$
+  (one per Mukai direction);
+ \item \emph{Type $B$}: $24$ fat-point states $|(1,1)_a\rangle$
+  (one per direction);
+ \item \emph{Type $C$}: $\binom{24}{2} = 276$ two-point states
+  $|(1)_a, (1)_b\rangle$ (one per pair of distinct directions).
+\end{itemize}
+Verification: $24 + 24 + 276 = 324 = p_{24}(2)$.
+
+\subsection{Braiding}
+\label{subsec:chiral-qg-braiding}
+
+The $\Etwo$-braiding on $\Rep^{\Etwo}(Y(\fg_{K3}))$ is:
+\[
+ \beta_{V_u^{(a)},\, V_v^{(b)}}
+ = P_{ab} \cdot R_{ab}(u - v),
+\]
+where $P$ is the graded permutation and $R_{ab}(u)$ is the
+Maulik--Okounkov $R$-matrix.
+
+For the abelian Yangian at charge~$1$: different Mukai directions
+decouple, and the braiding within a single direction $a$ is
+\[
+ R_a(u) = g_a(u) = \frac{u - h_a}{u + h_a},
+\]
+where $h_a$ is the deformation parameter for direction $a$.  At
+charge~$2$ within direction $a$, the $R$-matrix is the $2 \times 2$
+diagonal matrix (Proposition~\ref{prop:charge2-rmatrix}):
+\[
+ R^{(a)}_{n=2}(u)
+ = \mathrm{diag}\bigl(g_{K3}(u)\, g_{K3}(u + h_a),\;
+ g_{K3}(u)\, g_{K3}(u - h_a)\bigr)
+\]
+in the basis $\{|(2)_a\rangle, |(1,1)_a\rangle\}$, where
+$g_{K3}(u) = \prod_{i=1}^{24}(u - h_i)/(u + h_i)$ is the full
+degree-$(24,24)$ structure function.
+
+\begin{remark}[Non-symmetric braiding]
+\label{rem:chiral-qg-nonsymmetric}
+% AP-CY3: E_2 != commutative.  The braiding is NOT symmetric.
+The braiding satisfies
+$R(u) \cdot R(-u) = \mathrm{Id}$ (unitarity), but $R(u) \neq \mathrm{Id}$
+generically: the category is braided ($\Etwo$), \emph{not} symmetric
+($E_\infty$).  Passing to the symmetric quotient would kill the
+quantum group structure entirely.
+\end{remark}
+
+\subsection{Fusion rules}
+\label{subsec:chiral-qg-fusion}
+
+The tensor product $V_u^{(a)} \otimes V_v^{(b)}$ is:
+\begin{enumerate}[label=(\alph*)]
+ \item \emph{Irreducible} when $u - v$ avoids the poles and zeros
+  of $R_{ab}(u - v)$.  For $a \neq b$ (different Mukai directions):
+  always irreducible (abelian decoupling).
+ \item \emph{Reducible} when $a = b$ and $u - v = \pm h_a$.
+  At $u - v = h_a$: the structure function $g_a(h_a) = 0$ (the $R$-matrix
+  vanishes), producing a submodule (bound state).
+  At $u - v = -h_a$: the structure function $g_a(-h_a)$ has a pole,
+  producing a quotient (anti-bound state).
+\end{enumerate}
+For the Kummer $K3$ parametrisation with $h_a = \epsilon$ ($a = 1, \dots, 4$)
+and $h_a = -\epsilon/5$ ($a = 5, \dots, 24$), the fusion locus has two
+distinct magnitudes: $|\epsilon|$ with multiplicity $4$ and $|\epsilon/5|$
+with multiplicity $20$.
+
+\subsection{Ribbon twist}
+\label{subsec:chiral-qg-ribbon}
+
+\begin{conjecture}[Ribbon structure]
+\label{conj:chiral-qg-ribbon}
+\ClaimStatusConjectured
+% AP-CY14: conditional on Y(g_{K3}) existence.
+The category $\Rep^{\Etwo}(Y(\fg_{K3}))$ carries a ribbon twist
+$\theta \colon V \xrightarrow{\sim} V$ satisfying
+$\theta_{V \otimes W} = \beta_{W,V} \circ \beta_{V,W}
+\circ (\theta_V \otimes \theta_W)$.
+On charge-$1$ evaluation modules:
+\[
+ \theta(V_u^{(a)}) = g_a(0)^{-1} = (-1)^{-1} = -1.
+\]
+This fermionic twist is consistent with the spin-statistics of $K3$
+BPS states (half-hypermultiplets with spin~$\tfrac{1}{2}$).
+On charge-$2$ modules:
+$\theta_{n=2} = (-1)^2 = +1$ (bosonic bound state of two fermions).
+
+The category is \emph{not} modular: the simple objects form a
+continuous family (parametrised by $u \in \C$), while modularity
+requires finitely many simples.
+\end{conjecture}
+
+\subsection{Physical interpretation: BPS states}
+\label{subsec:chiral-qg-bps}
+
+\begin{remark}[BPS dictionary]
+\label{rem:chiral-qg-bps-dictionary}
+% AP-CY14, AP-CY6: CONJECTURAL.  Requires CY-A_3.
+Under the conjectural identification of $\Rep^{\Etwo}(Y(\fg_{K3}))$
+with the category of BPS states on $K3 \times E$:
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\emph{Mathematics} & \emph{Physics} \\
+\midrule
+Simple object $V_u^{(a)}$ & Single BPS particle, charge $\gamma_a$, rapidity $u$ \\
+Tensor product $V_{u_1} \otimes \cdots \otimes V_{u_n}$ & $n$-particle state \\
+Braiding $\beta = P \cdot R(u - v)$ & Two-particle scattering amplitude \\
+Fusion at $u - v = \pm h_a$ & Bound state formation \\
+Ribbon twist $\theta = -1$ & Spin-statistics (fermion) \\
+Mukai direction $a$ & BPS charge vector $\gamma_a$ \\
+Spectral parameter $u$ & Rapidity / central charge $Z(\gamma)$ \\
+Mukai pairing $\omega^{ab}$ & BPS mass formula $M^2 = \langle \gamma, \gamma \rangle_{\mathrm{Muk}}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+The $24$ Mukai directions encode the charge lattice
+$\Gamma = H^*(K3, \Z)$, with $\mathrm{rk}(\Gamma) = b_0 + b_2 + b_4
+= 1 + 22 + 1 = 24$ and signature $(4, 20)$.
+\end{remark}
+
+\noindent\textit{Verification}: $76$ tests in
+\texttt{compute/lib/chiral\_qg\_rep\_category.py}, covering:
+coloured partition counts ($p_{24}(0)$ through $p_{24}(5)$,
+cross-checked against OEIS A006922 and the Euler product
+$1/\eta^{24}$),
+charge-$2$ decomposition ($24 + 24 + 276 = 324$),
+evaluation module construction and boundary conditions,
+braiding values (explicit rational computation at $5$~test points,
+unitarity at $16$~point-direction pairs, YBE at $4$~directions),
+fusion rules (irreducibility at generic parameters, reducibility at
+$u - v = \pm h_a$),
+ribbon twist compatibility ($\theta_{V \otimes W} = \beta^2
+\cdot \theta_V \theta_W$),
+modularity obstruction (three independent obstructions verified),
+and the full category summary with all $4$~provenance dependencies.

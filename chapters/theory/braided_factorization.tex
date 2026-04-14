@@ -861,3 +861,501 @@ sufficiently rigid to be falsifiable: compute the $E_3$ factorization
 homology of the quantum toroidal Fock module over $\Sigma_2 \times S^1$
 and check whether $\Sp_4(\Z)$ modularity holds.
 \end{remark}
+
+\begin{remark}[Computational evidence: the $\Sp_4(\Z)$ modularity pipeline]
+\label{rem:sp4-pipeline-evidence}
+The pipeline of Conjectures~\ref{conj:sp4-modularity}
+and~\ref{conj:s-matrix-phi10} has been implemented numerically in
+\texttt{sp4\_modularity\_pipeline.py} (53 tests).
+Three results sharpen the conjectural picture:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{ZTE trace vanishing.}
+ The Zamolodchikov tetrahedron obstruction $\Delta = \mathrm{LHS} - \mathrm{RHS}$
+ on the charge-$2$ sector is \emph{antisymmetric}
+ ($\Delta + \Delta^T = 0$, Theorem~\ref{thm:zte-failure}).
+ Therefore $\Tr(\Delta) = 0$: the \emph{scalar} $S$-matrix trace
+ $\hat{S} = \Tr_{\cW}(\cS)$ receives \emph{no} correction at
+ $O(\hbar_{\mathrm{Y}}^2)$ from the tetrahedron equation.
+ The factored Zamolodchikov approximation
+ $\cS^{\mathrm{fact}} = \cS(u)\cS(v)\cS(u{-}v)$
+ is exact for the scalar trace through $O(\hbar_{\mathrm{Y}}^2)$;
+ the first correction is $O(\hbar_{\mathrm{Y}}^4)$.
+ This explains why the factored expression can exhibit approximate
+ $\Sp_4(\Z)$ covariance.
+
+ \item \emph{Fourier--Jacobi structure.}
+ The $\Etwo \hookrightarrow E_3$ restriction
+ (setting $v = 0$ in $S^{E_3}(u,v)$) satisfies
+ \[
+  S^{E_3}_\lambda(u, 0)
+  \;=\;
+  \bigl[S^{\Etwo}_\lambda(u)\bigr]^2
+  \cdot S^{\Etwo}_\lambda(0),
+ \]
+ where $S^{\Etwo}_\lambda(0) = g(h_i)^2$ is the crossing
+ normalisation constant (verified numerically for both
+ $\lambda = (2)$ and $\lambda = (1,1)$).
+ The Fourier--Jacobi coefficients are:
+ $\phi_0$ (the $\Etwo$ limit),
+ $\phi_1 = \phi_{0,1}$ (the $K3$ elliptic genus, since
+ $S_{1,1} = 1$ by CY inversion), and
+ $\phi_2$ (the charge-$2$ $S$-matrix contribution,
+ decomposing as disconnected $\phi_1^2/2$ plus Hecke
+ correction plus the $S$-matrix multiplicative factor).
+
+ \item \emph{Weight prediction.}
+ The $\Etwo$ weight relation $\mathrm{wt}(S_{ij}) = -\kappa_{\mathrm{cat}}$
+ promotes to $\mathrm{wt}(\hat{S}) = -2\kappa_{\mathrm{cat}} = -4$
+ at the $E_3$ level (the factor of $2$ from the two copies of
+ $\SL_2(\Z)$ in the Siegel parabolic of $\Sp_4(\Z)$).
+ The decomposition
+ $\hat{S} = \Phi_{10}^{-1} \cdot E_6$
+ is weight-consistent:
+ $-4 = -10 + 6$, where $E_6$ is the genus-$2$ Siegel
+ Eisenstein series of weight~$6$.
+\end{enumerate}
+All three observations are \emph{conditional} on
+CY-A$_3$ through the dependency chain of
+Remark~\ref{rem:e3-s-matrix-scope}. The ZTE trace vanishing (i)
+is the only claim that can be stated unconditionally: it is a
+consequence of the antisymmetry of the Yang $R$-matrix tetrahedron
+obstruction (Theorem~\ref{thm:zte-failure}), which does not depend
+on CY-A$_3$.
+\end{remark}
+
+\section{Genus-$2$ chiral partition functions}
+\label{sec:genus-2-partition}
+
+The $E_3$ factorization homology $\int_{\Sigma_2 \times S^1} \cA$ produces
+the genus-$2$ chiral partition function
+\[
+ Z_2(\Omega) \;=\; \Tr_{\cH \otimes \cH}\bigl(q^{L_0}\, y^{J_0}\, p^{L_0'}\bigr),
+ \qquad \Omega = \begin{pmatrix} \tau & z \\ z & \sigma \end{pmatrix} \in \cH_2,
+\]
+where $\cH_2$ is the Siegel upper half-space of genus $2$ and
+$q = e^{2\pi i\tau}$, $r = e^{2\pi i z}$, $p = e^{2\pi i\sigma}$.
+The three entries of the period matrix correspond to the two handle
+moduli $(\tau, \sigma)$ and the cross-coupling $z$ between the handles.
+
+\begin{proposition}[Heisenberg genus-$2$ partition function; \ClaimStatusProvedHere]
+\label{prop:genus2-heisenberg}
+For the Heisenberg vertex algebra $H_k$ at central charge $c$
+\textup{(}class~$G$, $m_n = 0$ for all $n \geq 3$\textup{)}, the
+holomorphic genus-$2$ partition function is
+\[
+ F_2^{\mathrm{Heis}}(\Omega; c)
+ \;=\;
+ \Delta_5(\Omega)^{-c/12},
+\]
+where $\Delta_5 = \prod_{\textup{even } [a;b]} \theta[a;b](\Omega)$ is
+the product of the $10$ even genus-$2$ theta constants, a Siegel
+modular form of weight~$5$ on $\Sp_4(\Z)$ with theta multiplier.
+The full partition function is
+$Z_2 = |F_2|^2 / \det(\Im\,\Omega)^{c/2}$.
+
+The Siegel modular weight is
+\[
+ \mathrm{wt}(F_2^{\mathrm{Heis}}) = -\tfrac{c}{2},
+\]
+the genus-$2$ analogue of $\mathrm{wt}(\eta^{-c}) = -c/2$ at genus~$1$.
+For $c = 1$, the weight $-\frac{1}{2}$ is half-integral, requiring the
+metaplectic cover $\Mp_4(\Z)$.
+\end{proposition}
+
+\begin{proof}
+The Heisenberg is a free field: the OPE $J(z)J(w) \sim k/(z-w)^2$ has
+no first-order pole, so the chiral bracket $\mu = 0$, whence $m_n = 0$
+for $n \geq 3$ (class $G$).  The genus-$g$ bosonization formula for $c$
+free bosons gives $F_g = \Theta_{\mathrm{null}}^{-c/2}$, where
+$\Theta_{\mathrm{null}}^{1/2}$ is the Schottky-normalised chiral
+determinant.  At $g = 2$: $\Theta_{\mathrm{null}} = [2^{-10}\,\Delta_5]^{1/5}$,
+giving $F_2 = \Delta_5^{-c/12}$.  The weight follows from
+$\mathrm{wt}(\Delta_5) = 5$ and $\mathrm{wt}(F_2) = 5 \cdot (-c/12) = -c/2$.
+\end{proof}
+
+\begin{conjecture}[$W_{1+\infty}$ genus-$2$ partition function]
+\label{conj:genus2-w1inf}
+\ClaimStatusConjectured
+For $W_{1+\infty}$ at $c = 1$ \textup{(}class~$M$, $m_3 \neq 0$,
+shadow tower of infinite depth\textup{)}, the genus-$2$ partition
+function acquires $A_\infty$ corrections from the shadow tower:
+\[
+ Z_2^{W}(\Omega)
+ \;=\;
+ Z_2^{\mathrm{Heis}}(\Omega)
+ \;\cdot\;
+ R_{\mathrm{shadow}}(\Omega),
+\]
+where the shadow correction factor is
+\[
+ R_{\mathrm{shadow}}(\Omega)
+ \;=\;
+ 1 + S_3\, C_3(\Omega) + S_4\, C_4(\Omega) + \cdots
+\]
+with $S_3 = 2$ \textup{(}the cubic shadow from $m_3(T,T,T) = -2T$\textup{)},
+$S_4 = \tfrac{10}{27}$ \textup{(}the quartic shadow\textup{)}, and $C_k(\Omega)$
+are genus-$2$ modular cocycles at depth~$k$.  The leading correction
+$C_3(\Omega)$ vanishes in the separating degeneration $z \to 0$
+\textup{(}the propagator between the two handles is $\sim |z|^2 / \Im(\tau)\Im(\sigma)$\textup{)}.
+
+The series $R_{\mathrm{shadow}}$ is \emph{Gevrey-$1$ divergent} (class~$M$
+implies Borel summability but not convergence), and $Z_2^W$ is a
+\emph{mock Siegel modular form}: it transforms under $\Sp_4(\Z)$ as
+weight $-\frac{1}{2}$ up to a non-holomorphic shadow completion.
+\end{conjecture}
+
+\begin{remark}[The $\Sp_4(\Z)$ weight table]
+\label{rem:sp4-weight-table}
+The Siegel modular weight of the genus-$2$ objects:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llll}
+ \toprule
+ Chiral algebra & Shadow class & Weight of $Z_2$ & Weight of $\hat{S}$ \\
+ \midrule
+ $H_k$ at $c=1$ & $G$ & $-\frac{1}{2}$ & trivial \\
+ $H_k^{24}$ at $c=24$ & $G$ & $-12$ & trivial \\
+ $W_{1+\infty}$, $c=1$ & $M$ & $-\frac{1}{2}$ (mock) & mock \\
+ $A_{K3 \times E}$ (conj.) & $M$ (conj.) & $-12$ & $-4$ \\
+ \bottomrule
+\end{tabular}
+\end{center}
+For $K3 \times E$: $\mathrm{wt}(\hat{S}) = -2\kappa_{\mathrm{cat}} = -4$
+decomposes as $\mathrm{wt}(\Phi_{10}^{-1}) + \mathrm{wt}(E_6) = -10 + 6$,
+where $\kappa_{\mathrm{cat}} = \chi(\cO_{K3}) = 2$ and $\kappa_{\mathrm{BKM}} = 5$.
+\end{remark}
+
+\begin{remark}[Fourier--Jacobi expansion]
+\label{rem:fourier-jacobi-genus2}
+The Fourier--Jacobi expansion of $\Phi_{10}$ in the variable
+$\sigma$ (the second handle modulus):
+\[
+ \Phi_{10}(\tau, z, \sigma)
+ \;=\;
+ \sum_{m \geq 1} \phi_{10,m}(\tau, z)\, p^m,
+\]
+where $p = e^{2\pi i\sigma}$ and $\phi_{10,m}$ is a Jacobi form of
+weight~$10$ and index~$m$ on $\SL_2(\Z)$.  The first coefficient is
+\[
+ \phi_{10,1}(\tau, z) = \eta(\tau)^{18}\, \vartheta_1(\tau, z)^2,
+\]
+the unique Jacobi cusp form of weight~$10$, index~$1$.  This is
+the Saito--Kurokawa lifting input (the additive / perturbative side
+of the Borcherds lift).
+
+The Fourier--Jacobi expansion of $1/\Phi_{10}$:
+\[
+ \frac{1}{\Phi_{10}}
+ \;=\;
+ \sum_{m \geq -1} \psi_m(\tau, z)\, p^m,
+\]
+with $\psi_{-1} = 1/\phi_{10,1}$ (the leading pole) and
+$\psi_0 = -\phi_{10,2}/\phi_{10,1}^2$.  The coefficient
+$\psi_m(\tau, z)$ is the degree-$m$ Fourier--Jacobi coefficient of
+the $E_3$ $S$-matrix generating function, corresponding to the
+braided shadow obstruction $\Theta^{E_2}_{\cA, m}$ of
+Proposition~\ref{prop:braided-shadow}.
+\end{remark}
+
+\begin{remark}[Theta multiplier of $\Delta_5$]
+\label{rem:delta5-multiplier}
+The product $\Delta_5 = \prod_{\textup{even}} \theta[a;b](\Omega)$
+carries a \emph{theta multiplier system} $\chi$: under each
+elementary $T$-translation $\Omega \mapsto \Omega + B_i$
+($i = 1, 2, 3$), $\Delta_5$ picks up a sign:
+$\Delta_5(\Omega + B_i) = -\Delta_5(\Omega)$.  The multiplier
+satisfies $\chi^2 = 1$, so $\Phi_{10} = \Delta_5^2$ has trivial
+multiplier (truly $\Sp_4(\Z)$-invariant under translations).
+This is verified numerically to $14$-digit accuracy by the engine
+\verb|genus2_chiral_partition.py|.
+\end{remark}
+
+
+\section{Factorization categories for chiral quantum groups}
+\label{sec:factorization-categories}
+
+Factorization algebras (Costello--Francis--Gwilliam, Beilinson--Drinfeld) assign \emph{vector spaces} to open subsets of a curve; factorization \emph{categories} are the categorical upgrade, assigning \emph{dg categories} to open subsets with compatible restriction and factorization isomorphisms. For a chiral algebra $A$ on a curve $C$, the factorization category assigns
+\[
+ U \;\longmapsto\; \Rep(A|_U),
+\]
+the dg category of $A$-modules supported on $U$. The factorization isomorphism for disjoint opens $U_1, U_2 \subset U$ is the Lurie tensor product of dg categories:
+\[
+ \Rep(A|_U) \;\simeq\; \Rep(A|_{U_1}) \,\otimes\, \Rep(A|_{U_2}).
+\]
+For $\Eone$-chiral algebras, the factorization category is a cosheaf on the \emph{ordered} Ran space $\Ran^{\mathrm{ord}}(C)$; for $\Einf$-chiral algebras, on the unordered $\Ran(C)$.
+
+\begin{definition}[Factorization category]
+\label{def:factorization-category}
+A \emph{factorization category} $\cF$ on a smooth curve $C$ is a rule satisfying:
+\begin{enumerate}[label=\textup{(FC\arabic*)}]
+ \item \emph{Assignment}: for each open $U \subset C$, a dg category $\cF(U)$.
+ \item \emph{Restriction}: for $V \subset U$, a restriction functor $\cF(U) \to \cF(V)$.
+ \item \emph{Factorization}: for disjoint $U_1, U_2 \subset U$,
+       $\cF(U) \simeq \cF(U_1) \otimes \cF(U_2)$ (Lurie tensor product).
+ \item \emph{Ran space formulation}: $\cF$ is a cosheaf of categories on $\Ran(C)$
+       (respectively $\Ran^{\mathrm{ord}}(C)$ for $\Eone$-factorization categories).
+ \item \emph{Chiral homology}: the global sections $\int_C \cF = \mathrm{colim}_{\Ran(C)} \cF(S)$
+       form a category, the categorical chiral homology of $\cF$ on $C$.
+\end{enumerate}
+\end{definition}
+
+The passage from a chiral algebra to its factorization category is functorial: $A \mapsto \Rep(A|_{(-)})$ sends a chiral algebra to a factorization category.  The chiral homology of the factorization category is the \emph{category} of conformal blocks, which contains strictly more information than the \emph{space} of conformal blocks obtained from the chiral algebra directly.
+
+
+\subsection{The Kazhdan--Lusztig factorization category}
+\label{subsec:kl-factorization-category}
+
+The prototype is the affine Kac--Moody algebra $\hat{\frakg}$ at positive integer level $k$.  The factorization category assigns
+\[
+ U \;\longmapsto\; \cO_k^{\mathrm{int}}(\hat{\frakg})\big|_U,
+\]
+the category of integrable level-$k$ modules supported on $U$.  By the Kazhdan--Lusztig equivalence (Theorem~\ref{thm:qgf-kazhdan-lusztig}), the global sections recover the modular tensor category:
+\[
+ \int_C \Rep(\hat{\frakg}_k) \;\simeq\; \mathrm{MTC}_q(\frakg),
+ \quad q = \exp\!\bigl(\pi i / (d \cdot (k + h^\vee))\bigr).
+\]
+The Verlinde formula computes the dimension of conformal block spaces at genus $g$. For $\frakg = \fsl_2$, the $S$-matrix has entries $S_{ij} = \sqrt{2/(k+2)} \cdot \sin(\pi(i+1)(j+1)/(k+2))$, and
+\begin{equation}
+\label{eq:verlinde-sl2}
+ \dim V_{k, \fsl_2}(\Sigma_g)
+ \;=\;
+ \sum_{j=0}^{k} \bigl(S_{0j}\bigr)^{2-2g}.
+\end{equation}
+At genus $0$: $\dim = 1$ for all $k$ (unitarity of the $S$-matrix row). At genus $1$: $\dim = k+1$ (one block per integrable representation). At genus $2$, the closed-form evaluation via $\sum_{m=1}^{n-1} \csc^2(m\pi/n) = (n^2-1)/3$ gives
+\[
+ \dim V_{k, \fsl_2}(\Sigma_2) \;=\; \binom{k+3}{3},
+\]
+verified computationally for $k = 1, \ldots, 7$ in \verb|factorization_categories_chiral.py| ($95$ tests).
+
+\begin{remark}[AP-CY5: root-of-unity constraint]
+\label{rem:factcat-root-of-unity}
+The Kazhdan--Lusztig equivalence requires $q$ at a root of unity. At generic $q$, $\Rep_q(\frakg)$ is semisimple and carries no finite modular structure. The factorization category for the \emph{chiral quantum groups} of this volume operates in the generic regime (Yangians, quantum toroidal), where the relevant categories are infinite (continuous families of Fock modules) rather than finite modular tensor categories.
+\end{remark}
+
+
+\subsection{The Heisenberg factorization category}
+\label{subsec:heisenberg-factorization-category}
+
+For the Mukai Heisenberg $H_{\mathrm{Muk}}$ (rank $24$, Mukai signature $(4,20)$), the factorization category assigns Fock modules parametrised by $\lambda \in \C^{24}$:
+\[
+ U \;\longmapsto\; \{F_\lambda\}_{\lambda \in \C^{24}},
+\]
+with the Lurie tensor product implementing the addition of momenta: $F_\lambda|_{U_1} \otimes F_\mu|_{U_2} \simeq F_{\lambda + \mu}|_{U_1 \cup U_2}$.
+
+The chiral homology on an elliptic curve $E$ of modulus $\tau$ produces the character
+\[
+ \ch\!\bigl(\textstyle\int_E \Rep(H_{\mathrm{Muk}})\bigr)
+ \;=\; 1/\eta(\tau)^{24},
+\]
+whose coefficients $p_{24}(n) = \chi(\mathrm{Hilb}^n(K3))$ are the G\"ottsche numbers. The Drinfeld center of the global sections is the $49$-dimensional Drinfeld double $\mathrm{Drin}(H_{\mathrm{Muk}})$ (Section~\ref{sec:categorical-s-matrix}), with $R$-matrix $R = \exp(\omega^{-1})$ determined by the Mukai pairing.
+
+The factorization category is $\Einf$ (the Heisenberg is commutative), so the ordered Ran space and unordered Ran space produce the same answer. The category is braided but \emph{not} modular (continuous family of simple objects) and \emph{not} symmetric (Mukai signature $(4,20)$ is indefinite).
+
+
+\subsection{The $\Eone$-factorization category and the Drinfeld center}
+\label{subsec:e1-factorization-center}
+
+For a CY$_3$ chiral algebra $A_\cC$ (conditional on CY-A$_3$), the factorization category
+\[
+ U \;\longmapsto\; \Rep^{\Eone}(A_\cC|_U)
+\]
+is a cosheaf on $\Ran^{\mathrm{ord}}(C)$ whose fibre categories are \emph{monoidal} (not braided). The braided structure emerges from the Drinfeld center of the global sections:
+\begin{equation}
+\label{eq:drinfeld-center-factcat}
+ Z\!\bigl(\textstyle\int_C \Rep^{\Eone}(A_\cC)\bigr)
+ \;=\;
+ \Rep^{\Etwo}\!\bigl(Z^{\mathrm{der}}_{\mathrm{ch}}(A_\cC)\bigr),
+\end{equation}
+where $Z^{\mathrm{der}}_{\mathrm{ch}}(A_\cC)$ is the chiral derived center (Definition~\ref{def:three-hochschild}(iii)). This is the categorification of the $\Eone \to \Etwo$ passage: the Drinfeld center of a monoidal category is braided, and the braiding is the categorical $R$-matrix.
+
+The $E_n$ hierarchy of factorization categories by CY dimension is:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{cllll}
+ \toprule
+ $d$ & $E_n$ level & Fibre category type & Center gives & Status \\
+ \midrule
+ $1$ & $\Einf$ & symmetric monoidal & trivial & PROVED \\
+ $2$ & $\Etwo$ & braided monoidal & modular (semisimplified) & PROVED (CY-A$_2$) \\
+ $3$ & $\Eone$ & monoidal (ordered) & braided ($\Etwo$) & PROGRAMME (CY-A$_3$) \\
+ $\geq 4$ & $\Eone$-stabilised & monoidal + shifted data & braided & $\Eone$-stable \\
+ \bottomrule
+\end{tabular}
+\end{center}
+The key structural insight of the Vol~III programme: for $d = 3$, the factorization category $\Rep^{\Eone}(A_\cC)$ is \emph{monoidal}, and the quantum group braiding is \emph{not} intrinsic but emerges from the Drinfeld center. This is the CY-geometric origin of quantum groups.
+
+\begin{conjecture}[BPS factorization category for $K3 \times E$]
+\label{conj:bps-factorization-category}
+\ClaimStatusConjectured
+For $K3 \times E$, the factorization category on $E$ assigns to each point $p \in E$ the category of BPS states:
+\[
+ p \;\longmapsto\; \bigoplus_{n \geq 0} D^b\!\bigl(\mathrm{Coh}(\mathrm{Hilb}^n(K3))\bigr).
+\]
+The Hecke correspondences $\mathrm{Hilb}^n \xleftarrow{} Z \xrightarrow{} \mathrm{Hilb}^{n+1}$ provide the factorization structure (creation/annihilation of instantons), and the global sections have character $1/\eta(\tau)^{24}$ (G\"ottsche formula, unconditional). The chiral algebra interpretation requires CY-A$_3$ (via the Kummer route, Proposition~\ref{prop:kummer-orbifold}, Steps~1--4 proved).
+
+The kappa spectrum (AP113): $\kappa_{\mathrm{ch}} = 3$, $\kappa_{\mathrm{BKM}} = 5$, $\kappa_{\mathrm{cat}} = 2$, $\kappa_{\mathrm{fiber}} = 24$, all distinct, all conditional on the chiral algebra identification except $\kappa_{\mathrm{cat}} = \chi(\cO_{K3}) = 2$ (unconditional).
+\end{conjecture}
+
+\begin{remark}[Factorization algebras vs.\ factorization categories]
+\label{rem:fact-alg-vs-cat}
+Factorization algebras assign vector spaces; factorization categories assign dg categories. The passage $A \mapsto \Rep(A|_{(-)})$ categorifies the theory. At the Kazhdan--Lusztig level: the factorization algebra $V_k(\frakg)$ produces conformal block \emph{spaces}; the factorization category $\Rep(V_k(\frakg)|_U)$ produces conformal block \emph{categories} (the Verlinde category). The Drinfeld center of the Verlinde category is the modular tensor category $\mathrm{MTC}_q(\frakg)$; this is the quantum group realization $C(\cC, q)$ of Conjecture~\ref{conj:qgf-cy-c}, for $\cC = D^b(\mathrm{Coh}(\mathrm{pt}/G))$.
+\end{remark}
+
+
+\section{Categorified chiral invariants}
+\label{sec:chiral-khovanov}
+
+In $3$d, Khovanov homology categorifies the Jones polynomial: a link~$L$ produces a bigraded chain complex $\mathrm{Kh}(L)$ whose graded Euler characteristic is the Jones polynomial $J_L(q)$. The categorification passes through the Temperley--Lieb algebra $\mathrm{TL}_n(q)$ and the Kauffman bracket. In~$6$d, the chiral $R$-matrix $R(z)$ is a \emph{function} of the Yangian spectral parameter~$z$ (not a scalar; AP-CY31: $z$ is spectral, not worldsheet), and the categorification must lift a function-valued invariant to a sheaf-valued one. This section formulates the $6$d analogue: the \emph{chiral Khovanov complex} $\mathrm{CKh}(z)$.
+
+\subsection{The categorification hierarchy}
+\label{subsec:cat-hierarchy}
+
+The categorification hierarchy across dimensions:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llll}
+\toprule
+\textbf{Dimension} & \textbf{Invariant} & \textbf{Categorification} & \textbf{Algebra} \\
+\midrule
+$3$d (CS) & Jones $J_L(q)$ (number) & Khovanov $\mathrm{Kh}(L)$ (bigraded v.s.) & $\mathrm{TL}_n(q)$ \\
+$5$d (hol.\ CS on $\C^2 \!\times\! \R$) & $\chi_L(z)$ (function) & $\mathrm{CKh}(L, z)$ (sheaf on $\A^1_z$) & $H_n(q,t)$ \\
+$6$d (hol.\ theory on $\C^3$) & $\chi_S(z_1, z_2)$ (function) & $\mathrm{CKh}_{6d}(S, z_1, z_2)$ (sheaf on $\A^2$) & DAHA \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+At each step, the invariant acquires an additional spectral parameter, and the underlying algebra is promoted:
+\begin{itemize}
+ \item $3$d $\to$ $5$d: the Temperley--Lieb algebra $\mathrm{TL}_n(q) = \End_{U_q(\fsl_2)}(V^{\otimes n})$ is replaced by the affine Hecke algebra $H_n(q,t) = \End_{Y(\widehat{\fgl}_1)}(\cF_n)$, where $\cF_n$ is the charge-$n$ Fock space. The lattice generators $X_1, \ldots, X_n$ of the affine Hecke algebra encode the spectral parameter~$z$: on each box~$s = (i,j)$ of a partition~$\lambda$, the lattice eigenvalue is $X_s = t^{c(s)}$ where $c(s) = h_1 i + h_2 j$ is the equivariant content.
+ \item $5$d $\to$ $6$d: the affine Hecke algebra is replaced by the DAHA (double affine Hecke algebra) $\cH_n(q,t,s)$, which adjoins the dual lattice $Y_1, \ldots, Y_n$ via the Cherednik operators. The second spectral parameter~$v$ comes from the second transverse direction in~$\C^3$. The Miki automorphism (AP-CY22: algebra-specific, not operadic) permutes the DAHA parameters, implementing the exchange $(q, t) \mapsto (t^{-1}, q^{-1})$ of the two loop directions.
+\end{itemize}
+
+The Schur--Weyl dualities match:
+\begin{equation}\label{eq:schur-weyl-hierarchy}
+\begin{aligned}
+ 3\text{d}: \quad & U_q(\fsl_n) \quad \longleftrightarrow \quad \mathrm{TL}_n(q) & \text{on } V^{\otimes n}, \\
+ 5\text{d}: \quad & Y(\widehat{\fgl}_1) \quad \longleftrightarrow \quad H_n(q,t) & \text{on } \cF_n, \\
+ 6\text{d}: \quad & U_{q,t}(\widehat{\widehat{\fgl}}_1) \quad \longleftrightarrow \quad \cH_n(q,t,s) & \text{on } \cF_n^{(2)}.
+\end{aligned}
+\end{equation}
+
+\subsection{The categorified chiral $R$-matrix}
+\label{subsec:cat-r-matrix}
+
+The categorical $R$-matrix $\cR_\cC(z)$ of Definition~\ref{def:categorical-r-matrix} is a \emph{scalar}-valued function on simple objects of $\Rep^{E_2}(\Phi(\cC))$. The \emph{categorification} promotes this scalar to a chain complex.
+
+\begin{conjecture}[Categorified chiral $R$-matrix]
+\label{conj:cat-chiral-r-matrix}
+\ClaimStatusConjectured
+%: AP-CY6/AP-CY14: conjectural because the full categorification depends
+% on constructing the Coulomb branch functor for general CY categories,
+% which is open. At d=2, the CKL construction provides evidence but
+% the full functoriality is not established.
+For a smooth proper CY$_2$ category~$\cC$, the categorical $R$-matrix lifts to a functor
+\[
+ R_{\mathrm{cat}}(z) \colon D^b(\mathrm{Coh}(\mathrm{Hilb}^n(S)))
+ \longrightarrow D^b(\mathrm{Coh}(\mathrm{Hilb}^n(S)))
+\]
+where $S$ is the underlying CY$_2$ surface, satisfying:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Decategorification}: the induced map on $K$-theory recovers the numerical $R$-matrix $\cR_\cC(z)$ of Definition~\textup{\ref{def:categorical-r-matrix}}.
+ \item \emph{Functorial YBE}: the Yang--Baxter equation lifts to a natural isomorphism
+ \[
+  R_{\mathrm{cat},12}(z_1\!-\!z_2) \circ R_{\mathrm{cat},13}(z_1\!-\!z_3) \circ R_{\mathrm{cat},23}(z_2\!-\!z_3)
+  \;\xrightarrow{\;\sim\;}
+  R_{\mathrm{cat},23}(z_2\!-\!z_3) \circ R_{\mathrm{cat},13}(z_1\!-\!z_3) \circ R_{\mathrm{cat},12}(z_1\!-\!z_2).
+ \]
+ The coherence data of this natural isomorphism is new structure not visible at the numerical level.
+ \item \emph{Unitarity}: $R_{\mathrm{cat},12}(z) \circ R_{\mathrm{cat},21}(-z) \simeq \mathrm{Id}$ in the derived category.
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[Cautis--Kamnitzer--Licata and the Coulomb branch]
+\label{rem:ckl-coulomb}
+Two independent constructions provide evidence for Conjecture~\ref{conj:cat-chiral-r-matrix}:
+\begin{enumerate}[label=\textup{(\alph*)}]
+ \item \emph{CKL categorical actions} (Cautis--Kamnitzer--Licata, 2010): for $\fsl_2$, the functors $E, F \colon D^b(\mathrm{Coh}(\mathrm{Hilb}^n(S))) \to D^b(\mathrm{Coh}(\mathrm{Hilb}^{n \pm 1}(S)))$ categorify the quantum group generators. The $R$-matrix functor is constructed from Fourier--Mukai kernels on the nested Hilbert scheme correspondence $\mathrm{Hilb}^{n,n+1}(S)$. The spectral parameter~$z$ makes these into a family $T_s(z)$ categorifying the transfer matrix modes.
+ \item \emph{Coulomb branches and symplectic duality} (Braverman--Finkelberg--Nakajima, 2018; Webster--Williamson): the $3$d~$\cN = 4$ Coulomb branch $\cM_C(Q, W)$ of the quiver gauge theory associated to~$S$ satisfies $K_T(\cM_C) \simeq Y(\frakg_S)$ (equivariant $K$-theory equals the Yangian). The symplectic duality $\cM_C \leftrightarrow \cM_H = \mathrm{Hilb}^n(S)$ exchanges the Coulomb branch (categorifying the quantum group) with the Higgs branch (geometric representation theory). The Coulomb branch \emph{is} the categorification: the geometric space $\cM_C$ decategorifies to $K_T(\cM_C)$, which is the Yangian, whose representations produce the $R$-matrix.
+\end{enumerate}
+\end{remark}
+
+\subsection{The chiral Khovanov complex}
+\label{subsec:chiral-khovanov-complex}
+
+The \emph{chiral Khovanov complex} $\mathrm{CKh}(z)$ assigns to each partition~$\lambda$ of~$n$ a bounded chain complex whose Euler characteristic recovers the structure function eigenvalue $g_\lambda(u) = \prod_{s \in \lambda} g(u + c(s))$.
+
+\begin{construction}[Chiral Khovanov complex at charge~$n$]
+\label{constr:chiral-khovanov}
+For an $\Etwo$-chiral algebra~$A = \Phi(\cC)$ from a CY$_2$ category (Theorem~CY-A$_2$), the chiral Khovanov complex at charge~$n$ is
+\[
+ \mathrm{CKh}_\lambda(z)
+ \;=\;
+ \bigl[\, C^0_\lambda \xrightarrow{d^0} C^1_\lambda \xrightarrow{d^1} \cdots \xrightarrow{d^{2|\lambda|-1}} C^{2|\lambda|}_\lambda \,\bigr],
+\]
+a bounded cochain complex of graded vector spaces, parametrised by $z \in \C \setminus \{\pm h_1, \pm h_2, \pm h_3\}$ (the spectral base minus the poles of the structure function). The construction:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item Each box~$s = (i,j) \in \lambda$ contributes a two-term factor $[k \to k]$ with grading shift~$c(s) = h_1 i + h_2 j$.
+ \item The total complex is the tensor product over boxes: $\mathrm{CKh}_\lambda = \bigotimes_{s \in \lambda} [k \xrightarrow{g(z + c(s)) - 1} k]$.
+ \item The graded dimension is $(1 + t)^{|\lambda|}$ (the Poincar\'e polynomial of the $|\lambda|$-cube of resolutions), and the homological width is $2|\lambda|$.
+ \item The Euler characteristic satisfies $\chi(\mathrm{CKh}_\lambda(z)) = g_\lambda(z)$, recovering the structure function eigenvalue.
+\end{enumerate}
+\end{construction}
+
+\begin{remark}[Shadow class and formality]
+\label{rem:ckh-shadow-class}
+The behaviour of $\mathrm{CKh}_\lambda(z)$ depends on the shadow class of~$A$ (AP-CY12: determined from the full shadow tower, not generator counting):
+\begin{itemize}
+ \item Class~$\mathbf{G}$ (Heisenberg): $\mathrm{CKh}$ is \emph{formal} (quasi-isomorphic to its cohomology). The complex collapses to a single graded piece: $g(z) = 1$ identically when $h_1 h_2 h_3 = 0$, and $\mathrm{CKh} \simeq k$.
+ \item Class~$\mathbf{M}$ ($W_{1+\infty}$): $\mathrm{CKh}$ carries nontrivial differentials from the $A_\infty$ structure. The shadow tower corrections $\delta^{(k)}$ (the $A_\infty$ coproduct corrections of the $\Eone$-chiral bialgebra axioms) produce higher-order differentials that prevent collapse.
+\end{itemize}
+The chain-level content (AP-CY33) is essential: at the rational level (Kontsevich formality), the complex would collapse, destroying the categorification data.
+\end{remark}
+
+\subsection{BPS state categories}
+\label{subsec:bps-categories}
+
+The ultimate target of the categorification programme is the BPS state \emph{category}. The hierarchy:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lll}
+\toprule
+\textbf{Level} & \textbf{Object} & \textbf{Decategorification} \\
+\midrule
+$0$ (Number) & $\Omega(\gamma) \in \Z$ (DT invariant) & --- \\
+$1$ (Vector space) & $H^*(\Omega^{\mathrm{cat}}(\gamma))$ (BPS cohomology) & $\chi = \Omega(\gamma)$ \\
+$2$ (Chain complex) & $B^{E_1,\mathrm{cat}}(A_X, \sigma)$ (categorified bar) & $\chi = Z_{\mathrm{DT}}$ \\
+$3$ (Sheaf) & $\varphi_{\Tr W}(\mathrm{IC})$ (vanishing cycle) & $H^* \to \Omega^{\mathrm{cat}}$ \\
+$4$ (Category) & $D^b_\gamma(\mathrm{Coh}(X))$ (derived category) & $K_0 \to \Omega$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+For~$\C^3$: the BPS invariant is $\Omega^{\mathrm{BPS}}(n) = (-1)^{n-1} n$ (Szendr\H{o}i, 2008), the BPS cohomology is concentrated in degree~$0$ (no wall-crossing: $\C^3$ has a unique stability condition), and the categorified bar complex $B^{E_1,\mathrm{cat}}(A_{\C^3})$ is the sheaf on the stability space whose fibre recovers the MacMahon partition function $M(q) = \prod_{k \geq 1} 1/(1-q^k)^k$.
+
+For a general CY$_3$ variety~$X$ with wall-crossing: the categorified bar complex $B^{E_1,\mathrm{cat}}(A_X, \sigma)$ varies over the stability space $\mathrm{Stab}(D^b(X))$, and the Kontsevich--Soibelman wall-crossing formula is the derived equivalence at each wall. The chiral Khovanov complex $\mathrm{CKh}(z)$ is the $R$-matrix specialisation of this general framework: $\mathrm{CKh}_\lambda(z)$ is the fibre of $B^{E_1,\mathrm{cat}}$ restricted to the eigenspace labelled by~$\lambda$, at spectral parameter~$z$.
+
+\begin{remark}[Computational verification]
+\label{rem:chiral-khovanov-verification}
+The chiral Khovanov categorification engine (\verb|chiral_khovanov_categorification.py|, $69$~tests in $11$~suites) verifies:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{llr}
+\toprule
+\textbf{Suite} & \textbf{Content} & \textbf{Tests} \\
+\midrule
+Partition utilities & Conjugation, content, arm/leg lengths & 12 \\
+Temperley--Lieb & Catalan dimension, loop value, JW projectors & 5 \\
+Affine Hecke & Dimension, structure functions, unitarity, poles & 6 \\
+Categorified $R$-matrix & Euler char, graded dims, Poincar\'e, consistency & 8 \\
+Coulomb branch & Jordan quiver HS, charge data & 4 \\
+BPS categories & Plane partitions, DT invariants, cohomology, walls & 6 \\
+Chiral Khovanov complex & Unknot, charge-$2$, eigenvalues, unitarity & 8 \\
+Dimension hierarchy & $R$-params, $\En$ levels, DAHA, $\Sp_4$, coherence & 6 \\
+Schur--Weyl duality & TL/Hecke/Fock dims, eigenvalue match, unitarity & 8 \\
+Master verification & End-to-end integration & 3 \\
+AP compliance & AP-CY28 (poles), AP-CY31 (spectral), AP-CY14 (status) & 3 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{remark}

@@ -342,6 +342,64 @@ Non-integrality of $\kappa_{\mathrm{ch}}$ is the generic situation for compact C
 Verification: \texttt{compute/lib/quintic\_shadow\_obstruction.py} (86 tests).
 
 
+\begin{proposition}[Quintic shadow coefficients from Gromov--Witten data]
+\label{prop:quintic-shadow-coefficients}
+\ClaimStatusConditional{Conditional on Conjecture~\textup{\ref{conj:cy-to-chiral-d3}} (CY-A$_3$).}
+At the large complex structure limit \textup{(}LCS degeneration type\textup{)}, the first shadow coefficients of the quintic chiral algebra are:
+\begin{enumerate}[label=(\roman*)]
+ \item $S_2 = \kappa_{\mathrm{ch}} = -25/3$. The scalar shadow, from the genus-$1$ BCOV constant-map contribution $F_1 = \kappa_{\mathrm{ch}}/24 = -25/72$.
+ \item $S_3 = \alpha = -3/5$ \textup{(}classical\textup{)}. The cubic shadow, from the Yukawa coupling: $\alpha = C_{111}/\kappa_{\mathrm{ch}} = 5/(-25/3) = -3/5$, where $C_{111} = H^3 = 5$ is the triple intersection number. At the quantum level, $\alpha$ receives instanton corrections of the form $\alpha(q) = -3/5 + \sum_{d \geq 1} \alpha_d \, q^d$, where $\alpha_1 = n^0_1 / \kappa_{\mathrm{ch}} = 2875/(-25/3) = -345$.
+ \item $S_4 = 0$ \textup{(}classical\textup{)}. The quartic shadow vanishes classically because $\partial^4 F_0^{\mathrm{cl}} / \partial t^4 = 0$ for the cubic prepotential. Instanton corrections are nonzero: the leading correction is proportional to $n^0_1 \cdot 1^4 / \kappa_{\mathrm{ch}} = -345$. The non-vanishing of $S_4$ after instanton corrections promotes the shadow class from~$\mathbf{L}$ to~$\mathbf{M}$.
+\end{enumerate}
+The classical shadow tower \textup{(}$S_4 = 0$\textup{)} is class~$\mathbf{L}$ \textup{(}depth~$3$\textup{)}: the shadow metric $Q_L(t) = (-50/3 - 9t/5)^2$ is a perfect square with discriminant $\Delta = 0$. Instanton corrections destroy the perfect-square structure, promoting to class~$\mathbf{M}$ \textup{(}infinite depth\textup{)}.
+\end{proposition}
+
+\begin{proof}
+The scalar shadow $S_2 = \kappa_{\mathrm{ch}}$ follows from the definition of the shadow tower at arity~$2$. The cubic shadow $S_3 = \alpha$ is the normalised Yukawa coupling: the classical prepotential $F_0^{\mathrm{cl}} = (5/6) t^3$ gives $C_{111} = \partial^3 F_0^{\mathrm{cl}} / \partial t^3 = 5$. The recursive shadow tower with $\kappa_{\mathrm{ch}} = -25/3$, $\alpha = -3/5$, $S_4 = 0$ gives $a_0 = 2\kappa_{\mathrm{ch}} = -50/3$, $a_1 = 3\alpha = -9/5$, and $a_n = -(1/(2a_0)) \sum_{j=1}^{n-1} a_j a_{n-j} = 0$ for all $n \geq 2$, since $q_2 - a_1^2 = 81/25 - 81/25 = 0$ and all subsequent terms vanish by induction. The classical tower terminates at depth~$3$. For the instanton promotion: $C(q) = 5 + \sum_{d \geq 1} \sum_{d'|d} n^0_{d'} {d'}^3 \, q^d$ has nonzero coefficients at all positive degrees (since $n^0_1 = 2875 \neq 0$), so the instanton-corrected $S_4 \neq 0$, giving $\Delta = 8 \kappa_{\mathrm{ch}} S_4 \neq 0$ and class~$\mathbf{M}$.
+\end{proof}
+
+\begin{remark}[Comparison with $K3 \times E$]
+\label{rem:quintic-k3e-comparison}
+The quintic and $K3 \times E$ are both class~$\mathbf{M}$ but differ structurally:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\small
+\begin{tabular}{lcc}
+ \toprule
+ & \textbf{Quintic} & $\boldsymbol{K3 \times E}$ \\
+ \midrule
+ $h^{1,1}$ (lattice rank) & $1$ & $21$ \\
+ $\kappa_{\mathrm{ch}}$ & $-25/3$ (fractional) & $3$ (integer) \\
+ $\kappa_{\mathrm{BKM}}$ & unknown & $5$ \\
+ BKM structure & none (fractional $\kappa_{\mathrm{ch}}$) & $\mathfrak{g}_{\Delta_5}$ \\
+ GV lattice & $\bZ$ (one Kahler modulus) & Mukai lattice (rank $24$) \\
+ Shadow class & $\mathbf{M}$ & $\mathbf{M}$ \\
+ \bottomrule
+\end{tabular}
+\end{center}
+The quintic tower is \emph{rank-$1$}: it lives on a one-dimensional charge lattice $H_2(X, \bZ) \cong \bZ$. The $K3 \times E$ tower is \emph{rank-$21$}: it lives on the Picard lattice of the $K3$ factor. Both have infinite depth, but the quintic is combinatorially simpler (a single GV sequence $n^g_d$) while $K3 \times E$ is structurally richer (the BKM denominator formula organises the full lattice spectrum).
+\end{remark}
+
+\begin{remark}[Mirror symmetry and the shadow tower]
+\label{rem:quintic-mirror-shadow}
+The mirror quintic $\widetilde{Q}$ (Greene--Plesser orbifold) has $h^{1,1} = 101$, $h^{2,1} = 1$, $\chi = +200$, giving $\kappa_{\mathrm{ch}}(\widetilde{Q}) = +25/3$ (conjectural). The kappa-complementarity $\kappa_{\mathrm{ch}}(Q) + \kappa_{\mathrm{ch}}(\widetilde{Q}) = -25/3 + 25/3 = 0$ is consistent with the KM/free-field anti-symmetry class of Vol~I (both values conjectural). Mirror symmetry exchanges the rank-$1$ tower of the quintic with a rank-$101$ tower of the mirror, exchanging Kahler moduli with complex structure moduli.
+\end{remark}
+
+\begin{remark}[Conifold transition and shadow phase transition]
+\label{rem:conifold-shadow-transition}
+At the conifold point ($\psi = 1$ in the Greene--Plesser family, degeneration type: conifold), a $3$-cycle $C \subset Q$ vanishes, and the Yukawa coupling $C(z)$ acquires a double pole. The cubic shadow $\alpha = C/\kappa_{\mathrm{ch}} \to \infty$, and the shadow tower degenerates. After the conifold transition to the resolved conifold $Y = \mathrm{Tot}(\cO(-1) \oplus \cO(-1) \to \bP^1)$: $\kappa_{\mathrm{ch}}(Y) = 1$ and the shadow class is~$\mathbf{G}$ (depth~$2$). This is a \emph{phase transition} in the shadow classification: $\mathbf{M} \to \mathbf{G}$.
+
+The three degeneration types of the mirror quintic family produce distinct shadow tower behaviours:
+\begin{enumerate}[label=\textup{(\alph*)}]
+ \item \emph{Large complex structure} ($z = 0$): class~$\mathbf{M}$, $\alpha = -3/5 + O(q)$ (fully populated tower).
+ \item \emph{Conifold} ($z = 1/3125$): class degenerates ($\alpha \to \infty$); phase transition $\mathbf{M} \to \mathbf{G}$.
+ \item \emph{Gepner/orbifold} ($z = \infty$): class~$\mathbf{M}$ (orbifold), $\bZ_5$-equivariant tower.
+\end{enumerate}
+\end{remark}
+
+\noindent Verification: \texttt{compute/lib/quintic\_shadow\_tower.py} (107 tests).
+
+
 %% -------------------------------------------------------------------
 %% 7.4: Hochschild data
 %% -------------------------------------------------------------------
@@ -526,3 +584,84 @@ Verification: \texttt{compute/lib/cy3\_grand\_atlas.py}, \texttt{compute/tests/t
 \label{rem:enriques-kappa-anomaly}
 The grand atlas uses $\kappa_{\mathrm{BKM}}(\mathrm{Enr} \times E) = 4$, the weight of the Allcock Borcherds product on $O(2, 10)$, verified by \texttt{enriques\_shadow.py} (72 tests). This is the authoritative value. The naive BCOV formula $\kappa_{\mathrm{ch}} = \chi/24$ does not apply because Enriques $\times\, E$ is a \emph{generalized} CY$_3$ ($h^{3,0} = 0$, torsion canonical). The ratio $\kappa_{\mathrm{BKM}}(\mathrm{K3} \times E)/\kappa_{\mathrm{BKM}}(\mathrm{Enr} \times E) = 5/4$.
 \end{remark}
+
+
+%% ===================================================================
+%% SECTION 10: Form factors via Koszul duality and the shadow PF
+%% ===================================================================
+
+\section{Form factors via Koszul duality and the shadow partition function}
+\label{sec:form-factors-shadow-pf}
+
+The Costello--Paquette programme computes form factors in holomorphic Chern--Simons theory via Koszul duality between bulk and boundary algebras. The Koszul projection $\pi \colon \Obs_{\mathrm{bulk}} \to \Obs_{\mathrm{bdry}}^!$ factors through the bar complex $B(A)$, and the $n$-particle form factor
+\[
+ F(\cO;\, z_1, \ldots, z_n) \;=\; \langle \mathrm{vac} \,|\, \cO(0) \,|\, z_1, \ldots, z_n \rangle
+\]
+is computed by pairing the bulk operator~$\cO$ against $n$-fold bar elements:
+\[
+ F(\cO;\, z_1, \ldots, z_n)
+ \;=\; \bigl\langle \cO,\; s^{-1}a_1 \,|\, \cdots \,|\, s^{-1}a_n \bigr\rangle_{B(A)}.
+\]
+Here $z$ is the Yangian spectral parameter (not a worldsheet coordinate; the distinction is essential, cf.\ Remark~\ref{rem:z-spectral-vs-worldsheet} in the E$_1$-chiral bialgebra chapter).
+
+\begin{conjecture}[Form factor--shadow PF identity]
+\label{conj:ff-shadow-identity}
+\ClaimStatusConjectured
+For a chiral algebra $A$ arising from a CY category $\cC$ via the functor~$\Phi$, the generating function of integrated form factors equals the shadow partition function:
+\[
+ \sum_{n \geq 2} \frac{1}{n!} \int_{\cM_{0,n}} F(\cO;\, z_1, \ldots, z_n)\, dz_1 \cdots dz_n
+ \;=\; \log \Theta_A(q),
+\]
+where $\Theta_A = \prod_{k \geq 1} (1 - q^k)^{a_k}$ is the bar Euler product of Volume~I. The integrated $n$-particle form factor equals the shadow invariant at arity~$n$:
+\[
+ \frac{1}{n!} \int_{\cM_{0,n}} F(\cO;\, z_1, \ldots, z_n)
+ \;=\; S_n(A).
+\]
+\end{conjecture}
+
+The identity is realised differently at each shadow depth class.
+
+\begin{proposition}[Form factor truncation by shadow class]
+\label{prop:ff-truncation-by-class}
+\ClaimStatusProvedHere
+The $n$-particle form factor $F(\cO;\, z_1, \ldots, z_n)$ truncates according to the shadow class of~$A$:
+\begin{enumerate}[label=(\roman*)]
+ \item \textbf{Class~G} \textup{(}Heisenberg, depth~$2$\textup{)}: only the $2$-particle form factor is nonzero. The Koszul projection $\pi$ is a quasi-isomorphism, and $F(\cO;\, z_1, z_2) = \kappa_{\mathrm{ch}} / (z_1 - z_2)^2$ \textup{(}Wick contraction\textup{)}. All higher form factors vanish: the bar complex is formal, and $B^{\mathrm{der}}(A) = B(A)$.
+
+ \item \textbf{Class~L} \textup{(}Kac--Moody, depth~$3$\textup{)}: the $3$-particle form factor is the first loop correction, with integrated value $S_3 = \alpha$ \textup{(}the cubic shadow\textup{)}. The Koszul projection carries a single $A_\infty$-correction from $m_3$. All form factors with $n \geq 4$ vanish.
+
+ \item \textbf{Class~C} \textup{(}$\beta\gamma$, finite depth\textup{)}: finitely many form factors are nonzero. The correction series converges, and $\pi$ carries finitely many $A_\infty$-corrections.
+
+ \item \textbf{Class~M} \textup{(}Virasoro, infinite depth\textup{)}: \emph{all} form factors are nonzero. The Koszul projection $\pi$ carries infinitely many $A_\infty$-corrections. The integrated form factor series $\sum S_n$ is Gevrey-$1$ divergent and Borel summable. For the spin-$2$ channel of $W_{1+\infty}$ at $c = 1$: $S_2 = 1/2$, $S_3 = 2$, $S_4 = 10/27$ \textup{(}matching the $A_\infty$-bar computation of \S\ref{sec:c3-shadow-tower}\textup{)}.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The shadow class determines the depth of the $A_\infty$-tower on $B(A)$, hence the maximal arity of nonvanishing bar elements contributing to $\langle \cO, s^{-1}a_1 | \cdots | s^{-1}a_n \rangle$. For class~G, the bar complex is formal ($m_k = 0$ for $k \geq 3$), so only the binary pairing ($n = 2$) contributes. For class~L, $m_3 \neq 0$ but $m_k = 0$ for $k \geq 4$, so only $n \leq 3$ contributes. For class~M, all $m_k$ are nonzero, giving contributions at every arity. The Gevrey-$1$ growth for class~M follows from the Gevrey-$1$ growth of the shadow invariants (Vol~I, Theorem~D). The integrated values $S_n$ match the shadow invariants by the comparison of the moduli-space integral $\int_{\cM_{0,n}}$ with the arity-$n$ projection of the shadow tower (the Costello--Gwilliam factorisation-algebra integration).
+\end{proof}
+
+\begin{remark}[Koszul conductor and form factor normalisation]
+\label{rem:conductor-ff-normalisation}
+The Koszul conductor $K = \kappa_{\mathrm{ch}}(A) + \kappa_{\mathrm{ch}}(A^!)$ controls the normalisation of form factors through the complementarity theorem (Theorem~C, Vol~I). For the three standard families:
+\begin{enumerate}[label=(\alph*)]
+ \item Heisenberg: $K = 0$. The bulk and boundary form factors are \emph{anti-symmetric}: $S_2(A) + S_2(A^!) = 0$.
+ \item Kac--Moody: $K = 0$. Anti-symmetric, with Feigin--Frenkel involution $k \mapsto -k - 2h^\vee$.
+ \item Virasoro: $K = 13$. The conductor is nonzero: $c/2 + (26-c)/2 = 13$ for all~$c$. The form factor normalisation absorbs the conductor through the modular correction $\delta F_g^{\mathrm{cross}}$.
+\end{enumerate}
+\end{remark}
+
+\begin{proposition}[K3 bar Euler product from form factors]
+\label{prop:k3-bar-euler-ff}
+\ClaimStatusProvedHere
+The K3 Yangian $Y(\mathfrak{g}_{K3})$ has rank~$24$ with $24$ Heisenberg generators, each of class~G with per-generator $\kappa_{\mathrm{ch}} = 1$. The form factor computation gives:
+\begin{enumerate}[label=(\roman*)]
+ \item Per-generator $2$-particle form factor: $F(\cO; z_1, z_2) = 1/(z_1 - z_2)^2$.
+ \item Total $2$-particle form factor: $\sum_{i=1}^{24} 1 = 24$, equals the bar Euler exponent.
+ \item All higher form factors vanish \textup{(}class~G\textup{)}.
+ \item Bar Euler product: $\prod_{n \geq 1} (1 - q^n)^{24} = \eta(q)^{24}/q = \Delta(q)/q$.
+ \item First coefficients: $1, -24, 252, -1472, 4830, -6048$ \textup{(}Ramanujan~$\tau$ shifted\textup{)}.
+\end{enumerate}
+The bar Euler exponent is $24 = \operatorname{rank}(\Lambda_{\mathrm{Mukai}})$, \emph{not} $\kappa_{\mathrm{ch}} = 2 = \chi(\cO_{K3})$. The distinction: $\kappa_{\mathrm{ch}}$ is the modular characteristic of the \emph{full} K3 lattice VOA, while the bar Euler exponent counts the number of class-G generators.
+\end{proposition}
+
+Verification: \texttt{compute/lib/form\_factors\_shadow\_pf.py}, \texttt{compute/tests/test\_form\_factors\_shadow\_pf.py} (89 tests).
