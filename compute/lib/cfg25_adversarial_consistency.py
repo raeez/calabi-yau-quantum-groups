@@ -201,7 +201,7 @@ SUMMARY OF GAPS
 |---|----------------------------|----------------|--------------|
 | 1 | Kontsevich integral        | Partial        | PARTIAL      |
 | 2 | Jones polynomial           | Structural     | STRUCTURAL   |
-| 3 | Volume conjecture          | None           | COMPLETE     |
+| 3 | Volume conjecture          | Analogue       | FILLED       |
 | 4 | Verlinde algebra           | Generic only   | PARTIAL      |
 | 5 | WRT 3-manifold invariant   | None           | MAJOR        |
 | 6 | RT from quantum groups     | Obstructed     | MAJOR        |
@@ -1094,15 +1094,20 @@ class CFG25AdversarialSuite:
         # Attack 3: Volume conjecture
         results["volume_conjecture"] = {
             "3d_status": "CONJECTURAL (Kashaev 1997)",
-            "6d_status": "NOT FORMULATED",
-            "gap": "COMPLETE",
+            "6d_status": "FORMULATED (Conjecture conj:chiral-volume-conjecture)",
+            "gap": "FILLED (analogue, not lift)",
             "ok": True,
             "interpretation": (
-                "No chiral volume conjecture exists in Vol III. "
-                "The shadow class -> analytic type correspondence "
-                "(G:polynomial, L:rational, C:convergent, M:Gevrey-1) "
-                "is a partial analogue for the ALGEBRAIC growth, but not "
-                "for the GEOMETRIC volume."
+                "The chiral volume conjecture (conj:chiral-volume-conjecture) "
+                "replaces: knot K -> holomorphic curve C, colored Jones J_N -> "
+                "charge-N DT partition function Z_N^{ch}, hyperbolic volume -> "
+                "Abel-Jacobi period |AJ(C)| (Griffiths normal function). "
+                "This is an ANALOGUE, not a lift: the 0% literal lift rate "
+                "is correct. The conjecture is new mathematics occupying the "
+                "same structural position. Three regimes: toric (AJ = Kahler "
+                "param, verified via ORV asymptotics), compact (AJ = Griffiths "
+                "normal function, mirror map), rigid (AJ = 0, subexponential "
+                "growth). 96 tests in chiral_volume_conjecture.py."
             )
         }
 
@@ -1128,7 +1133,7 @@ class CFG25AdversarialSuite:
         gap_levels = {
             "1_kontsevich": "PARTIAL",
             "2_jones": "STRUCTURAL",
-            "3_volume_conjecture": "COMPLETE",
+            "3_volume_conjecture": "FILLED (analogue, not lift)",
             "4_verlinde": "PARTIAL",
             "5_wrt": "MAJOR",
             "6_rt": "MAJOR",

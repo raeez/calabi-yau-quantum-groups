@@ -1183,28 +1183,30 @@ class TestMultiPathSphericalTwists:
     def test_two_sphericals_generate_weyl(self):
         """Two non-orthogonal spherical reflections generate infinite dihedral Weyl group.
 
-        T_{E1} T_{E2} has infinite order when <v(E1), v(E2)> >= 2.
+        T_{E1} T_{E2} has infinite order when |<v(E1), v(E2)>| >= 2.
 
-        # VERIFIED: Seidel-Thomas braid relations [LT]
+        # VERIFIED: Seidel-Thomas infinite order for |p| >= 2 [LT]
         """
         v_E1 = MukaiVector(1, 0, 1)   # v^2 = -2
         v_E2 = MukaiVector(1, 1, 2)   # v^2 = -2
-        p = mukai_pairing(v_E1, v_E2, degree=1)  # = 2*1 - 1*2 - 1*1 = -1
-        # <E1, E2> = -1: the composition T_{E1}T_{E2} has order related to |p|.
-        # For |p| = 1: braid relation T_1 T_2 T_1 = T_2 T_1 T_2 (type A_2).
+        p = mukai_pairing(v_E1, v_E2, degree=1)  # = 2*0*1 - 1*2 - 1*1 = -3
+        assert p == -3
+        # |p| = 3 >= 2: no finite braid relation, T_{E1}T_{E2} has infinite order.
+        # In the Picard rank 1 Mukai lattice, |p| = 1 is unattainable (lattice obstruction).
 
-        # Verify braid relation on a test vector
+        # Verify infinite order: (T_1 T_2)^n(v) has strictly growing rank for n >= 1
         test_v = MukaiVector(0, 0, -1)
-        # T_1 T_2 T_1
-        s1 = spherical_twist_action(v_E1, test_v)
-        s2 = spherical_twist_action(v_E2, s1)
-        s3 = spherical_twist_action(v_E1, s2)
-        # T_2 T_1 T_2
-        t1 = spherical_twist_action(v_E2, test_v)
-        t2 = spherical_twist_action(v_E1, t1)
-        t3 = spherical_twist_action(v_E2, t2)
-        # For |<E1,E2>| = 1: braid relation holds
-        assert s3 == t3, "Braid relation T_1 T_2 T_1 = T_2 T_1 T_2 fails"
+        v = test_v
+        prev_rank_abs = abs(v.r)
+        for n in range(1, 6):
+            v = spherical_twist_action(v_E2, spherical_twist_action(v_E1, v))
+            # Orbit never returns to start
+            assert v != test_v, f"(T1 T2)^{n} returned to start -- finite order"
+            # Rank magnitude grows strictly (infinite dihedral action)
+            assert abs(v.r) > prev_rank_abs, (
+                f"(T1 T2)^{n}: rank {v.r} did not grow beyond {prev_rank_abs}"
+            )
+            prev_rank_abs = abs(v.r)
 
     def test_spherical_twist_preserves_effectivity(self):
         """For spherical twists, v effective does NOT imply T_E(v) effective.

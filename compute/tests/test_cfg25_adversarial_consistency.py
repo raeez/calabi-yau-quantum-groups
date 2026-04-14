@@ -318,12 +318,14 @@ class TestMasterSuite:
         results = self.suite.run_all()
         assert len(results["gap_summary"]) == 6
 
-    def test_no_complete_gaps_except_volume(self):
-        """Only the volume conjecture has a COMPLETE gap."""
+    def test_no_complete_gaps_remain(self):
+        """No COMPLETE gaps remain (volume conjecture filled by analogue)."""
         results = self.suite.run_all()
         complete_gaps = [k for k, v in results["gap_summary"].items()
                          if v == "COMPLETE"]
-        assert complete_gaps == ["3_volume_conjecture"]
+        assert complete_gaps == []
+        # The volume conjecture gap is now FILLED (analogue, not lift)
+        assert "FILLED" in results["gap_summary"]["3_volume_conjecture"]
 
     def test_major_gaps_identified(self):
         """WRT and RT have MAJOR gaps."""

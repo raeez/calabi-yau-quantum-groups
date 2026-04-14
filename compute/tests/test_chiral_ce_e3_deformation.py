@@ -291,12 +291,13 @@ class TestQuantumCEDeformation:
         assert "l_3" in desc or "sigma_3" in desc
 
     def test_e3_tricomplex_heisenberg_genus3(self):
-        """Heisenberg at genus 3: (1+t)^3, dim 8."""
+        """Heisenberg at genus 3: (1+t)^{3*3} = (1+t)^9, dim 512."""
         # VERIFIED [DC] AP-CY21 [LT] class G: chain = cohomology
+        # n=1 generator, tricomplex => 3 differentials, genus 3 => (1+t)^{1*3*3}
         heis = heisenberg_e3_deformation()
         qd = heis["quantum_deformation"]
         page = qd.e3_tricomplex_page(genus=3)
-        assert page["cohomology_dim"] == 8
+        assert page["cohomology_dim"] == 512  # 2^{3g} = 2^9
         assert page["n_differentials"] == 3
         assert page["shadow_class"] == "G"
 

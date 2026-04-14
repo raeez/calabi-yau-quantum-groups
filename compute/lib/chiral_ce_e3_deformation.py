@@ -513,13 +513,18 @@ class QuantumCEDeformation:
             Class M: 6^g at E_4 page (d_4 survives, (3t(1+t))^g)
         """
         n = self.e3.lca.dim
-        if self.shadow_class in ("G", "L", "C"):
-            total_dim = 2 ** (n * 3 * genus)
+        # Chain-level dimension is always P(q)^{3g} = (1+t)^{n*3*g}
+        total_dim = 2 ** (n * 3 * genus)
+        if self.shadow_class == "G":
+            # Class G (free field): chain = cohomology, P(q)^{3g}
             cohomology_dim = 2 ** (n * 3 * genus)
             poincare_formula = f"(1+t)^{{{n * 3 * genus}}}"
+        elif self.shadow_class in ("L", "C"):
+            # Class L/C: differentials collapse cohomology to (1+t)^{3g}
+            cohomology_dim = 2 ** (3 * genus)
+            poincare_formula = f"(1+t)^{{{3 * genus}}}"
         else:  # class M
             # E_4 page: (3t(1+t))^g, dim 6^g
-            total_dim = 2 ** (n * 3 * genus)  # chain level
             cohomology_dim = 6 ** genus  # E_4 = E_inf for g <= 3
             poincare_formula = f"(3t(1+t))^{genus} (E_4 page)"
 

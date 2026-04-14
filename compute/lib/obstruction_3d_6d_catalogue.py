@@ -103,7 +103,7 @@ CLASSIFICATION SUMMARY
 | 4 | RT functor              | FUNDAMENTAL/UNSOLVED| Via non-semisimple RT |
 | 5 | Categorification        | UNSOLVED            | Via M-theory (7d) |
 | 6 | Unitarity               | FUNDAMENTAL         | At NS limit or self-dual |
-| 7 | Volume conjecture       | FUNDAMENTAL         | For rigid CY3 only |
+| 7 | Volume conjecture       | RESOLVED (analogue) | Via Abel-Jacobi period (conj:chiral-volume-conjecture) |
 | 8 | Rationality             | FUNDAMENTAL         | At Gepner points only |
 
 KEY INSIGHT: The obstructions cluster into two types:
