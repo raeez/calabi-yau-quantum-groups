@@ -258,3 +258,75 @@ The bridge between $U_q(\frakg)$-style data and the chiral algebra side is the q
 \label{rem:qgf-coha-line-ops}
 For a CY$_3$ manifold $X$ with gauge group $G$, the quantum group $U_q(G)$ controls the category of line operators in the associated 3d $\cN = 2$ theory (Costello--Gaiotto). The cohomological Hall algebra $\CoHA(Q_X, W_X)$ of the quiver-with-potential datum provides the \emph{positive half} $U_q^+(G)$: its multiplication is the Hall product, not a vertex algebra structure (AP-CY7: the CoHA is associative, not chiral). The full quantum group is recovered by the Drinfeld double construction $D(\CoHA) \twoheadrightarrow U_q(G)$, which adjoins the Cartan and negative generators. This passage is constructed for toric CY$_3$ without compact $4$-cycles (Schiffmann--Vasserot, Rapcak--Soibelman--Yang--Zhao); for general CY$_3$, it is part of Conjecture~\ref{conj:qgf-cy-c}.
 \end{remark}
+
+% ============================================================
+\section{CY-C at the abelian level: K3}
+\label{sec:qgf-cy-c-k3-abelian}
+% ============================================================
+
+We now identify $C(\frakg, q)$ for $\text{K3}$ at the abelian ($\mathfrak{gl}_1$) level. Three independent routes converge on the same algebra.
+
+\begin{conjecture}[CY-C for K3 at the abelian level]
+\label{conj:cy-c-k3-abelian}
+\ClaimStatusConjectured
+Let $\cC = D^b(\mathrm{Coh}(\mathrm{K3}))$. At the abelian ($\fgl_1$) level, the quantum group of Conjecture~\ref{conj:qgf-cy-c} is the Drinfeld double of the positive half of the K3 Yangian:
+\begin{equation}
+  C(\frakg_{\mathrm{K3}}, q) \ = \ D\bigl(Y^+(\frakg_{\mathrm{K3}})\bigr),
+  \label{eq:cy-c-k3-abelian}
+\end{equation}
+where $Y^+(\frakg_{\mathrm{K3}})$ is the positive half of the rank-$24$ Heisenberg-type Yangian with structure function
+\begin{equation}
+  g_{\mathrm{K3}}(z) = \prod_{i=1}^{24} \frac{z - h_i}{z + h_i},
+  \label{eq:cy-c-structure-fn}
+\end{equation}
+and the parameters $h_1, \ldots, h_{24}$ live in the complexified Mukai lattice $\Lambda_{\mathrm{Muk}} \otimes \C$ with the CY$_2$ constraint $\sum h_i = 0$.
+\end{conjecture}
+
+\begin{remark}[Three routes to $C(\frakg_{\mathrm{K3}}, q)$]
+\label{rem:cy-c-three-routes}
+The identification~\eqref{eq:cy-c-k3-abelian} is supported by three independent constructions:
+\begin{enumerate}[label=\textup{(\Alph*)}]
+  \item \emph{Chiral route.} $\Phi(D^b(\mathrm{K3})) = H_{\mathrm{Muk}}$ (the Mukai Heisenberg) by Theorem~CY-A$_2$. The $\Eone$-ordered bar complex $B^{\mathrm{ord}}(H_{\mathrm{Muk}})$ produces $Y^+(\frakg_{\mathrm{K3}})$; taking the Drinfeld double gives $C(\frakg, q)$. Conditional on CY-A$_2$ (proved at $d = 2$).
+  \item \emph{BFN route.} The Braverman--Finkelberg--Nakajima quantized Coulomb branch $\cA_\hbar(\mathrm{K3})$ for the 3d $\cN = 4$ theory on K3 (Braverman--Finkelberg--Nakajima, arXiv:1601.03586, 1604.03625). For ADE quiver gauge theories, the identification $\cA_\hbar = Y(\frakg_{\mathrm{ADE}})$ is a theorem (BFN 2016). For K3, the identification $\cA_\hbar(\mathrm{K3}) = Y(\frakg_{\mathrm{K3}})$ is conjectural. This route is independent of CY-A.
+  \item \emph{MO route.} The Maulik--Okounkov stable envelope construction (arXiv:1211.1287) produces an $R$-matrix $R_{\mathrm{MO}}(z)$ on $K_T(\mathrm{Hilb}^n(\mathrm{K3} \times E))$ unconditionally. The FRT reconstruction (Faddeev--Reshetikhin--Takhtajan 1989) applied to $R_{\mathrm{MO}}$ produces a bialgebra $A(R_{\mathrm{MO}})$. Route~(C) identifies $A(R_{\mathrm{MO}}) = C(\frakg_{\mathrm{K3}}, q)$.
+\end{enumerate}
+All three routes produce a rank-$24$ algebra with the same classical limit $\mathrm{Drin}(H_{\mathrm{Muk}})$ (dimension $49 = 24 + 24 + 1$), the same structure function~\eqref{eq:cy-c-structure-fn}, and the same Fock-space dimensions $\dim F_n = p_{24}(n)$ (coefficients of $1/\eta(q)^{24}$). Engine: \texttt{cy\_c\_quantum\_group\_k3} (104 tests).
+\end{remark}
+
+\begin{conjecture}[Rep equivalence for K3]
+\label{conj:cy-c-k3-rep}
+\ClaimStatusConjectured
+Under Conjecture~\ref{conj:cy-c-k3-abelian}, the BZFN theorem (Ben-Zvi--Francis--Nadler, arXiv:0805.0157) yields
+\begin{equation}
+  \Rep^{\mathrm{fd}}\bigl(C(\frakg_{\mathrm{K3}}, q)\bigr)
+  \ = \ \cZ\bigl(\Rep^{\Eone}(Y^+(\frakg_{\mathrm{K3}}))\bigr)
+  \ = \ \Rep^{\Etwo}\bigl(Y(\frakg_{\mathrm{K3}})\bigr),
+  \label{eq:cy-c-k3-rep}
+\end{equation}
+where $\cZ$ denotes the Drinfeld center. The braiding on $\Rep^{\Etwo}(Y(\frakg_{\mathrm{K3}}))$ is determined by the $R$-matrix~\eqref{eq:cy-c-structure-fn}. Four structural checks (verified computationally, 104 tests):
+\begin{enumerate}[label=\textup{(V\arabic*)}]
+  \item \emph{Simple objects:} evaluation modules $V_u^{(a)}$ parametrised by $(u, a) \in \C \times \{1, \ldots, 24\}$.
+  \item \emph{Braiding:} $R$-matrix matches the MO stable envelope $R$-matrix at all test points. Unitarity $R(z)R(-z) = \mathrm{Id}$ verified.
+  \item \emph{Fusion rules:} $V_u^{(a)} \otimes V_v^{(a)}$ is reducible iff $u - v = \pm h_a$.
+  \item \emph{Ribbon twist:} $\theta(V_u^{(a)}) = g_a(0)^{-1} = -1$ (fermionic, consistent with half-hypermultiplet BPS states).
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[$R$-matrix is the MO $R$-matrix]
+\label{rem:cy-c-rmatrix-mo}
+At charge~$1$, the $R$-matrix of $C(\frakg_{\mathrm{K3}}, q)$ is the $24 \times 24$ diagonal matrix $R(z) = \mathrm{diag}(g_a(z))_{a=1}^{24}$ where $g_a(z) = (z - h_a)/(z + h_a)$. This is precisely the Maulik--Okounkov stable envelope $R$-matrix on $K_T(\mathrm{Hilb}^1(\mathrm{K3} \times E))$ (Proposition~\ref{prop:mo-rmatrix-charge2}). At charge~$2$, the eigenvalues on the $324$-dimensional Fock space $F_2$ are given by the box-content formula $R_\lambda(z) = \prod_{s \in \lambda} g_{\mathrm{K3}}(z + c(s))$. The identification is tautological at the FRT level: the MO $R$-matrix is the \emph{input} to the FRT reconstruction. The nontrivial content is that the resulting FRT algebra has the structure of a Yangian.
+\end{remark}
+
+\begin{remark}[Root of unity and the CY Kazhdan--Lusztig programme]
+\label{rem:cy-c-root-of-unity}
+At generic $q$ (equivalently generic $\epsilon$), $\Rep(C(\frakg_{\mathrm{K3}}, q))$ is semisimple with infinitely many simple objects, hence not modular. At a root of unity $q = e^{2\pi i/N}$, the level-$N$ alcove produces $24 N$ simple objects, and the S-matrix is
+\[
+  S_{(u,a),(v,b)} = \exp\!\bigl(2\pi i \,\omega^{ab}(u - v)/N\bigr),
+\]
+where $\omega^{ab}$ is the inverse Mukai pairing. For the abelian ($\fgl_1$) theory, this S-matrix is \emph{degenerate}: each of $24$ diagonal blocks is a rank-$1$ circulant. Non-degeneracy---and hence modularity---requires the non-abelian K3 Yangian. The non-degenerate MTC is the CY analogue of the Kazhdan--Lusztig equivalence (Theorem~\ref{thm:qgf-kazhdan-lusztig}).
+\end{remark}
+
+\begin{remark}[Koszul conductor]
+\label{rem:cy-c-koszul-conductor}
+The Koszul dual $C(\frakg_{\mathrm{K3}}, q)^!$ has inverted parameters $h_i \mapsto -h_i$, giving dual structure function $g^!(z) = 1/g_{\mathrm{K3}}(z)$. The Koszul conductor is $K = 0$ (free-field/Kac--Moody branch), so $\kappa_{\mathrm{ch}}(C) + \kappa_{\mathrm{ch}}(C^!) = 0$. For K3, $\kappa_{\mathrm{ch}} = \chi(\cO_{\mathrm{K3}}) = 2$, hence $\kappa_{\mathrm{ch}}(C^!) = -2$. This is compatible with the flop invariance of $\kappa_{\mathrm{ch}}$ (AP-CY10: flop preserves $\kappa_{\mathrm{ch}}$; Koszul inverts it).
+\end{remark}
