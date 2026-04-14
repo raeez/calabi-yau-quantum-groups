@@ -2480,6 +2480,86 @@ $\kappa_\bullet$-spectrum, and $S$-duality cross-checks.
 \end{remark}
 
 %% =====================================================================
+%% CHIRAL WRT INVARIANTS FROM THE K3 QUANTUM TOROIDAL ALGEBRA
+%% =====================================================================
+
+\subsection{Chiral Witten--Reshetikhin--Turaev invariants}
+\label{subsec:chiral-wrt}
+
+The $3d$ WRT invariant $Z_{\mathrm{WRT}}(M^3;\, \frakg,\, k)$ of a closed $3$-manifold $M$ is constructed from three ingredients:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item a quantum group $U_q(\frakg)$ at a root of unity $q = e^{2\pi i/(k + h^\vee)}$, whose representation category is a modular tensor category;
+ \item a surgery presentation $M = S^3(L)$ for a framed link $L$ with linking matrix $L_{ij}$;
+ \item a state sum over colourings of the link components.
+\end{enumerate}
+The $6d$ chiral WRT invariant $Z^{\mathrm{ch}}(K3;\, N)$ replaces each ingredient as follows.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\small
+\begin{tabular}{llp{5.5cm}}
+ \toprule
+ \textbf{$3d$ CS ingredient} & \textbf{$6d$ chiral analogue} & \textbf{Status} \\
+ \midrule
+ $U_q(\frakg)$ at root of unity & $U_{q,t}(\fg_{K3}^{\mathrm{tor}})$ at $\omega = e^{2\pi i/N}$ & Conjectural (AP-CY14) \\
+ Surgery $M = S^3(L)$ & Handle decomposition: $K3 = D^4 \cup 22\,(D^2 \times D^2) \cup D^4$ & Proved (Freedman--Quinn) \\
+ Linking matrix $L_{ij}$ & Intersection form $Q_{K3} = 3U \oplus 2E_8(-1)$, sig.\,$(3, 19)$ & Proved \\
+ State sum & Factorization homology on handles & Conjectural (AP-CY32) \\
+ $\sigma(L) = \mathrm{sig}(L_{ij})$ & $\sigma(K3) = 3 - 19 = -16$ & Proved \\
+ \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{conjecture}[Abelian chiral WRT invariant of K3]
+\label{conj:chiral-wrt-k3}
+\ClaimStatusConjectured
+For the abelian truncation of the K3 quantum toroidal algebra at level $N \geq 2$, the chiral WRT invariant is
+\begin{equation}\label{eq:chiral-wrt-k3}
+ Z^{\mathrm{ch,ab}}(K3;\, N)
+   \;=\; N^{\chi(K3)/2} \cdot \varphi(N)
+   \;=\; N^{12} \cdot \varphi(N),
+\end{equation}
+where $\varphi(N)$ is the Gauss phase product over the Mukai lattice $\widetilde{\Lambda}_{K3}$ of signature~$(4, 20)$:
+\[
+  \varphi(N)
+    \;=\; \prod_{a=1}^{24}
+       \frac{g(\sigma_a, N)}{|g(\sigma_a, N)|},
+  \qquad
+  g(\sigma, N)
+    \;=\; \sum_{n=0}^{N-1} \exp\!\bigl(\pi i \sigma n^2 / N\bigr).
+\]
+Here $\sigma_a = +1$ for $a = 1, \ldots, 4$ and $\sigma_a = -1$ for $a = 5, \ldots, 24$.
+
+The phase $\varphi(N) = 1$ for all $N$, because $\sigma(K3) = 4 - 20 = -16 \equiv 0 \pmod{8}$ and an even unimodular lattice with signature divisible by~$8$ has trivial Gauss phase.  Therefore $Z^{\mathrm{ch,ab}}(K3;\, N) = N^{12}$, an integer.
+\end{conjecture}
+
+The exponent $12 = \chi(K3)/2$ arises from the handle decomposition: each Betti direction contributes $\sqrt{N}$ to the quantum dimension, and the total is $N^{(b_0 + b_2 + b_4)/2} = N^{(1 + 22 + 1)/2} = N^{12}$.  At $N = 2$:
+\[
+  Z^{\mathrm{ch,ab}}(K3;\, 2) \;=\; 2^{12} \;=\; 4096.
+\]
+This is verified by three independent paths: the Gauss sum product formula, the handle-by-handle decomposition, and the Betti number product (\texttt{chiral\_wrt\_quantum\_toroidal.py}, $47$~tests).
+
+\begin{remark}[Connection to G\"ottsche and Vafa--Witten]
+\label{rem:chiral-wrt-gottsche-vw}
+The chiral WRT invariant $Z^{\mathrm{ch}}(K3;\, N) = N^{12}$ is \emph{not} the same as:
+\begin{enumerate}[label=\textup{(\alph*)}]
+ \item The G\"ottsche Euler characteristics $\chi(\mathrm{Hilb}^n(K3)) = p_{24}(n)$ with generating function $\prod_{k \geq 1}(1 - q^k)^{-24}$: these are instanton moduli space invariants, while $Z^{\mathrm{ch}}$ is a topological state count.
+ \item The Vafa--Witten partition function $Z_{\mathrm{VW}}(K3, \mathrm{SU}(N);\, \tau)$, which is a modular form of weight $-\chi(K3)/2 = -12$.
+\end{enumerate}
+The relationship: $Z_{\mathrm{VW}}(K3, \mathrm{SU}(N);\, \tau) = Z^{\mathrm{ch}}(K3;\, N) \cdot F(\tau;\, N)$ where $F$ is the one-loop fluctuation determinant around the truncated vacuum. The chiral WRT extracts the zero-mode (topological) component.
+\end{remark}
+
+\begin{conjecture}[Chiral WRT of $K3 \times E$ and $\Delta_5$]
+\label{conj:chiral-wrt-k3xe}
+\ClaimStatusConjectured
+For $K3 \times E$, the product formula gives
+\begin{equation}\label{eq:chiral-wrt-k3xe}
+  Z^{\mathrm{ch}}(K3 \times E;\, N) \;=\; Z^{\mathrm{ch}}(K3;\, N) \cdot N \;=\; N^{13},
+\end{equation}
+where the factor $N$ is the chiral Verlinde dimension $V^{\mathrm{ch}}_N(E)$ on the elliptic curve~$E$. The exponent $13 = \chi(K3)/2 + 1$ is related to the weight $\kappa_{\mathrm{BKM}} = 5$ of the Igusa cusp form $\Delta_5$ (AP-CY8): the DMVV formula $1/\Delta_5^2 = \sum_N p^N \chi(S^N K3;\, q,\, y)$ has $N$-th coefficients whose polynomial prefactor matches $N^{13}$.  The identification of $Z^{\mathrm{ch}}(K3 \times E;\, N)$ with the asymptotics of $\Delta_5$ Fourier coefficients is an \emph{observation} (AP-CY8), not a theorem: it requires both CY-A and the Vol~I Borcherds-lift identification.
+\end{conjecture}
+
+%% =====================================================================
 %% THE CHIRAL VOLUME CONJECTURE
 %% =====================================================================
 

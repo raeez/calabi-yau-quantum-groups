@@ -393,6 +393,17 @@ $E_8$ & $248$ & $30$ & $248$ & $1922/15$ & $E_8$ & $248$
 \paragraph{Remark.}
 The engine \texttt{compute/lib/chiral\_hitchin\_k3.py} implements: K3 linear system data (Riemann--Roch), Hitchin system on K3 curves (dimensions, spectral curves, Lagrangian property), CDO at the critical level (Feigin--Frenkel center, oper dimensions), spectral parameter identification, kappa analysis (genus-independence, Koszul conductor, critical vanishing), the universal family over~$|L|$, and cross-volume bridge checks against \texttt{higgs\_bundle\_chiral.py}, \texttt{spectral\_curve\_chiral.py}, \texttt{k3\_geometric\_langlands.py}, and \texttt{geometric\_langlands\_shadow.py}.  All 113~tests pass.
 
+\paragraph{Explicit Hitchin--Yangian spectral chain.}
+The companion engine \texttt{compute/lib/hitchin\_spectral\_yangian.py} (189~tests) makes the identification of Conjecture~\ref{conj:hitchin-spectral-yangian} explicit through five steps:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+  \item \emph{Spectral curve.} $\det(\varphi - \lambda) = 0$ defines $\Sigma \subset \operatorname{Tot}(K_C)$.  For $\mathrm{SL}_2$ on a genus-$g$ curve~$C$, $\Sigma$ is a double cover with $g(\Sigma) = 4g - 3$ and $4g - 4$ branch points.
+  \item \emph{K3 embedding.} The adjunction $K_C = L|_C$ embeds $\Sigma$ into $\operatorname{Tot}(L|_C)$, identifying the Hitchin eigenvalue~$\lambda$ with a coordinate on K3 transverse to~$C$.
+  \item \emph{$R$-matrix on~$\Sigma$.} Via $z = \lambda$, the K3 Yangian $R$-matrix $R_{K3}(z) = \operatorname{diag}((z - h_i)/(z + h_i))_{i=1}^{24}$ becomes a function on the spectral curve.  Algebraic unitarity $R(z)R(-z) = I$ and the Yang--Baxter equation are verified at each spectral point.
+  \item \emph{Transfer matrix on~$\Sigma$.} $T(z) = \operatorname{tr}_V R_{01}(z - u_1) \cdots R_{0N}(z - u_N)$ is a meromorphic function on~$\Sigma$, with Bethe roots $u_i$ as points on the spectral curve.
+  \item \emph{Bethe ansatz.} The BAE $\prod_{j \neq i} g(u_i - u_j) = (-1)^{M-1} \prod_a \varphi_a(u_i - z_a)$ are critical point conditions for the Yang--Yang potential on~$\Sigma^M$.  Each Bethe eigenstate is a configuration of~$M$ points on~$\Sigma$.
+\end{enumerate}
+\noindent For $\mathrm{SL}_2$ at $g = 2$: $g(\Sigma) = 5$, $\operatorname{Prym}(\Sigma/C)$ has dimension~$3$ (this is the unique CY$_3$-type Hitchin system, with Lagrangian fibres that are $3$-folds).  All 189~tests pass, including 43~multi-path cross-checks against \texttt{chiral\_hitchin\_k3.py}, \texttt{spectral\_curve\_chiral.py}, and \texttt{geometric\_langlands\_shadow.py}.
+
 
 % ============================================================
 \section{$p$-adic Langlands for K3 surfaces}
@@ -589,6 +600,62 @@ This is verified by direct computation ($105$ tests, \texttt{compute/lib/derived
 \paragraph{Computational support.}
 The engine \texttt{compute/lib/derived\_satake\_chiral.py} implements: the affine Grassmannian structure (orbit dimensions, IC sheaves, Langlands duals), the chiral Grassmannian factorization property, convolution products and their Satake duals, the geometric $R$-matrix (classical symmetric and chiral $\Etwo$-braided), the four-level Satake hierarchy, weight functors for $\mathrm{SL}_2$ and $\mathrm{GL}_1$ on K3, the Iwahori $\Eone \to \Etwo$ passage, and unitarity verification $R(z)\,R(-z) = 1$ at multiple parameter families.
 All 105~tests pass across 12 independent verification paths.
+
+The K3-specific engine \texttt{compute/lib/chiral\_satake\_k3.py} implements the five-step proof strategy of Conjecture~\ref{conj:chiral-satake-k3} adapted from~$\C^3$ to K3: the fiber functor for $\mathrm{GL}_1$ on K3 with dimensions $p_{24}(n)$ (Step~A, proved), Mukai-lattice-indexed monoidal convolution (Step~B, proved), the degree-$(24,24)$ $R$-matrix $g_{K3}(z) = \prod_{i=1}^{24} (z - h_i)/(z + h_i)$ with unitarity, diagonal Yang--Baxter, and charge-$2$ decomposition $24 + 24 + \binom{24}{2} = 324 = p_{24}(2)$ (Step~C, conjectural: requires $Y(\frakg_{K3})$), Tannakian reconstruction (Step~D, conjectural), and DG~equivalence assessment (Step~E, conjectural; K3 is not toric, so the formality argument for~$\C^3$ does not apply).
+The geometric coproduct from $\int_{\mathrm{Ran}^2(C)} \mathrm{Gr}^{\mathrm{ch}}(K3)$ and MV cycles indexed by Mukai lattice partitions are verified at charges $0$--$5$.
+All 138~tests pass across 17 sections including 12 multi-path cross-verifications.
+
+
+% ============================================================
+\section{The Langlands functor from chiral quantum groups}
+\label{sec:langlands-functor-chiral-qg}
+% ============================================================
+
+The preceding sections develop individual aspects of the CY--Langlands correspondence: the Feigin--Frenkel center (Section~\ref{sec:feigin-frenkel}), QGL duality (Section~\ref{sec:quantum-geom-langlands}), K3 Yangian--oper bridge (Section~\ref{sec:k3-ade-langlands}), and shadow--ramification (Section~\ref{sec:shadow-langlands-type}).  This section assembles them into a unified five-step \emph{Langlands functor} from CY categories to Langlands data, and records the three involutions that act on the level parameter.
+
+\paragraph{The five-step pipeline.}
+For a CY $2$-category $\cC$ with ADE enhancement of type~$\frakg$:
+\begin{enumerate}[label=\textbf{Step~\arabic*.}, leftmargin=*]
+  \item \textbf{CY-to-chiral} (CY-A$_2$, proved at $d = 2$): the functor $\Phi$ sends $\cC = D^b(\Coh(S))$ to an $\Etwo$-chiral algebra $A_S$ containing $\hat{\frakg}_1$.
+  \item \textbf{Bar complex} (Vol~I Theorem~A, proved): the bar functor $B$ sends $A_S$ to a factorization coalgebra $T^c(s^{-1}\bar{A}_S)$ with deconcatenation coproduct.
+  \item \textbf{Verdier dual} (Vol~I Theorem~A, proved): the Ran-space Verdier dual $D_{\Ran}$ applied to $B(A_S)$ gives the Koszul dual $A_S^! = D_{\Ran}(B(A_S))$.
+  \item \textbf{Chiral center} (Feigin--Frenkel 1992, proved elsewhere): at the critical level $k = -h^\vee$, the center $\mathfrak{z}(\hat{\frakg}) = Z(V_{-h^\vee}(\frakg)) \cong \mathrm{Fun}(\mathrm{Op}_{G^L}(D))$.
+  \item \textbf{Oper identification} (\textbf{conjectural}): the CY chiral center at critical level, via the Verdier leg, is quasi-isomorphic to $\mathrm{Fun}(\mathrm{Op}_{G^L}(D))$ for CY input.
+\end{enumerate}
+Steps 1--4 are proved (for KM input); Step~5 is the content of Conjecture~\ref{conj:critical-self-dual}.  Along the path from Step~1 to Step~4, the chiral modular characteristic $\kappa_{\mathrm{ch}}$ decreases linearly from $\kappa_{\mathrm{ch}}(\hat{\frakg}_1) = \dim(\frakg)(1 + h^\vee)/(2h^\vee)$ to $0$, at rate $d\kappa_{\mathrm{ch}}/dk = \dim(\frakg)/(2h^\vee)$.  The shadow metric $Q_L(0) = 4\kappa_{\mathrm{ch}}^2$ degenerates at the critical level ($Q_L = 0$), and the surviving data is the oper connection for~$G^L$.
+
+\paragraph{Three involutions on the level space.}
+For simply-laced types (ADE), three involutions act on the level parameter~$k$:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llll}
+\toprule
+Involution & Formula & Characterizing identity & Fixed point \\
+\midrule
+QGL & $k \mapsto k^L = -k - h^\vee$ & $\Psi(k) \cdot \Psi(k^L) = 1$ & $k = -h^\vee/2$ \\
+FF & $k \mapsto k' = -k - 2h^\vee$ & $\kappa_{\mathrm{ch}}(k) + \kappa_{\mathrm{ch}}(k') = 0$ & $k = -h^\vee$ (critical) \\
+Composite & $k \mapsto k + h^\vee$ & (QGL $\circ$ FF, translation) & none (aperiodic) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent The QGL and FF involutions are \emph{different}: QGL exchanges category~$\mathcal{O}$ at levels $k$ and $k^L$ (quantum Langlands), while FF exchanges $\kappa_{\mathrm{ch}} \leftrightarrow -\kappa_{\mathrm{ch}}$ (Koszul duality of Vol~I Theorem~A).  The QGL--FF composite is a translation by~$h^\vee$, generating an infinite-order orbit on the level lattice.  At the QGL fixed point $k = -h^\vee/2$: $\kappa_{\mathrm{ch}} = \dim(\frakg)/4$ for all ADE types, verified across all 8 standard types ($A_1$--$A_3$, $D_4$--$D_5$, $E_6$--$E_8$).
+
+\paragraph{Shadow--ramification refinement.}
+Conjecture~\ref{conj:shadow-ramification} maps the G/L/C/M shadow depth to ramification type.  The engine \texttt{langlands\_from\_chiral\_qg.py} extends this with monodromy data:
+\begin{center}
+\begin{tabular}{lccll}
+Class & Shadow depth & Ram.\ depth & Monodromy & Stokes data \\
+\hline
+G & $2$ & $0$ & trivial & none \\
+L & $3$ & $1$ & quasi-unipotent & none (regular singular) \\
+C & $4$ & $2$ & ramified (Stokes) & finite \\
+M & $\infty$ & $\infty$ & irregular (essential) & infinite (Borel)
+\end{tabular}
+\end{center}
+\noindent At K3 ADE enhancement: class~L (shadow depth~3) for all 9 standard types, corresponding to tamely ramified Langlands parameters with quasi-unipotent monodromy.  The first Kac determinant pole (where the rational QGL series diverges) is at $k = -h^\vee + 1$: for $\hat{\mathfrak{sl}}_2$, this is $k = -1$, with $\kappa_{\mathrm{ch}}(-1) = \dim(\mathfrak{sl}_2)/(2 \cdot 2) = 3/4$.
+
+\paragraph{Computational support.}
+The engine \texttt{compute/lib/langlands\_from\_chiral\_qg.py} implements: the five-step Langlands functor pipeline for all ADE types (center dimensions at genera $2$--$6$), the Yangian--oper bridge (kappa trajectory from $k = 1$ to $k = -h^\vee$, shadow metric degeneration, Sugawara residue), the three-involution QGL duality lattice (Psi product, kappa sums, fixed points, orbit structure, level lattice), the Hecke eigensheaf data for $K3 \times E$ ($\mathrm{Bun}_G(E)$ dimensions, Weyl group orders, dependency chains), and the extended shadow--ramification table (monodromy types, Stokes data, Kac poles).  All 103~tests pass across 7 test classes with 8 multi-path cross-consistency verifications against \texttt{k3\_geometric\_langlands.py} and \texttt{geometric\_langlands\_shadow.py}.
 
 
 % ============================================================

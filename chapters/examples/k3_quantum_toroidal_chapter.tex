@@ -864,3 +864,184 @@ Hilbert scheme Euler characteristics through $n = 10$,
 Kummer orbifold specialisation, stable envelope $R$-matrix
 matching, and cross-engine consistency with \texttt{k3\_yangian.py}.
 \end{remark}
+
+\section{Root-of-unity S-matrix: abelian rigidity and the $N \geq 3$ threshold}
+\label{sec:root-unity-smatrix}
+
+At level $N = 2$, the $324 = p_{24}(2)$-module MTC
+(\texttt{root\_of\_unity\_n2\_explicit.py}, $59$~tests)
+has a block-diagonal S-matrix: $24$ Hadamard blocks of size~$2 \times 2$
+(Ising sectors) and $276$ trivial $1 \times 1$ blocks.
+All quantum dimensions equal~$1$ (pointed category), and the braiding
+is completely determined by the charge lattice $(\bZ/2\bZ)^{24}$.
+
+\begin{conjecture}[Non-abelian S-matrix rigidity at $N = 2$]
+\label{conj:n2-smatrix-rigidity}
+\ClaimStatusConjectured
+At an $A_1$ enhancement point in K3 moduli space, the MTC S-matrix
+for the $N = 2$ truncation of $U_{q,t}(\fg_{K3}^{\mathrm{tor}})$ is
+\emph{unchanged}:
+\[
+  S^{A_1}_{\lambda\mu} \;=\; S^{\mathrm{ab}}_{\lambda\mu}
+  \qquad\text{for all } \lambda,\mu \in \{1,\ldots,324\}.
+\]
+The non-abelian correction vanishes because the double braiding
+at $q = e^{2\pi i/2} = -1$ is trivial: the Drinfeld--Jimbo
+R-check for $U_q(\fsl_2)$ has eigenvalues $q = -1$ (symmetric,
+multiplicity~$3$) and $-q^{-1} = +1$ (antisymmetric, multiplicity~$1$),
+so $q^2 = 1$ and $(-q^{-1})^2 = 1$.
+\end{conjecture}
+
+\begin{remark}[The $N = 2$ rigidity mechanism]
+\label{rem:n2-rigidity-mechanism}
+The Yang R-matrix $R(u) = (u\,\mathrm{Id} + \hbar\,P)/(u + \hbar)$
+introduces $48$ off-diagonal entries in the spectral R-matrix at
+the $A_1$ point (Remark~\ref{rem:charge2-offdiagonal}).
+These modify the $u$-dependent braiding but leave the \emph{modular}
+data invariant: the MTC S-matrix is the double braiding trace, and
+$(q^2 = 1,\; q^{-2} = 1)$ renders all corrections trivial.
+
+At $u = 0$, the Yang R-matrix equals the permutation $P$, and
+$P^2 = \mathrm{Id}$ gives trivial monodromy directly.
+The pointed structure (all $d_\lambda = 1$) forces the MTC to be
+a \emph{metric group} (Deligne 2002): its modular data is
+determined uniquely by the abelian group structure of the fusion ring,
+which the $A_1$ enhancement preserves.
+\end{remark}
+
+\begin{conjecture}[Non-abelian threshold at $N = 3$]
+\label{conj:n3-nonabelian-threshold}
+\ClaimStatusConjectured
+At $N = 3$ ($q = e^{2\pi i/3}$), the $A_1$ enhancement produces
+\emph{genuine} off-diagonal corrections to the MTC S-matrix.
+The double braiding eigenvalue $q^2 = e^{4\pi i/3} \neq 1$ is
+nontrivial, and the Verlinde formula yields non-abelian fusion rules
+among the $p_{24}(3) = 3200$ simple modules.
+The quantum integer $[2]_q = 2\cos(2\pi/3) = -1 \neq 0$
+permits non-trivial representations; $[3]_q = 0$ provides the
+truncation.
+\end{conjecture}
+
+\noindent\textit{Verification}: $59$ tests in
+\texttt{root\_of\_unity\_smatrix.py} covering the Drinfeld--Jimbo
+R-check eigenvalues at $q = -1$, double braiding triviality,
+S-matrix identity $S^{A_1} = S^{\mathrm{ab}}$, module
+classification at the $A_1$ point ($5 + 44 + 44 + 231 = 324$),
+Verlinde fusion ($\bZ/2\bZ$ per Ising sector, unchanged),
+the $N \geq 3$ threshold analysis, and Yang R-matrix unitarity.
+
+\subsection{The $N = 3$ MTC: first non-abelian level}
+\label{subsec:n3-mtc}
+
+At $N = 3$ the threshold is crossed.  The $p_{24}(3) = 3200$
+simple modules decompose into six types:
+\begin{equation}\label{eq:n3-module-types}
+  \underbrace{24}_{(3_a)} \;+\;
+  \underbrace{24}_{(2_a,1_a)} \;+\;
+  \underbrace{24}_{(1_a^3)} \;+\;
+  \underbrace{552}_{(2_a,1_b)} \;+\;
+  \underbrace{552}_{(1_a^2,1_b)} \;+\;
+  \underbrace{2024}_{(1_a,1_b,1_c)}
+  \;=\; 3200.
+\end{equation}
+These organise into $2600$ sectors: $24$ \emph{Ising sectors} of
+size~$3 \times 3$ (charge concentrated in one Mukai direction),
+$552$ \emph{Hadamard sectors} of size~$2 \times 2$ (charge split
+$(2,1)$ across two directions), and $2024$ trivial $1 \times 1$
+sectors (charge spread across three directions).
+
+\begin{conjecture}[Non-abelian quantum dimensions at $N = 3$]
+\label{conj:n3-nonabelian-qdims}
+\ClaimStatusConjectured
+Within each Ising sector, the three modules carry quantum dimensions
+\[
+  d_{V_0} = 1, \qquad d_{V_1} = \sqrt{2}, \qquad d_{V_2} = 1,
+\]
+where the $\mathfrak{sl}_2$ level-$2$ Verlinde S-matrix provides
+the intra-sector braiding:
+\begin{equation}\label{eq:ising-smatrix}
+  S^{\mathrm{Ising}} \;=\;
+  \begin{pmatrix}
+    \frac{1}{2} & \frac{1}{\sqrt{2}} & \frac{1}{2} \\[4pt]
+    \frac{1}{\sqrt{2}} & 0 & -\frac{1}{\sqrt{2}} \\[4pt]
+    \frac{1}{2} & -\frac{1}{\sqrt{2}} & \frac{1}{2}
+  \end{pmatrix}.
+\end{equation}
+The $24$ Type~$B_1$ modules $(2_a, 1_a)$ have quantum dimension
+$\sqrt{2}$; all other $3176$ modules have quantum dimension~$1$.
+The total quantum dimension squared is
+$D^2 = 24 \cdot 4 + 552 \cdot 2 + 2024 \cdot 1 = 3224 > 3200$,
+confirming the MTC is \emph{not pointed}.
+\end{conjecture}
+
+The Ising fusion rules within each $3 \times 3$ sector are
+non-abelian:
+\begin{equation}\label{eq:ising-fusion}
+  V_1 \otimes V_1 \;=\; V_0 \oplus V_2,
+  \qquad
+  V_1 \otimes V_2 \;=\; V_1,
+  \qquad
+  V_2 \otimes V_2 \;=\; V_0.
+\end{equation}
+The fusion $V_1 \otimes V_1 = V_0 \oplus V_2$ (two summands)
+is the hallmark of non-abelian braiding---it is impossible in a
+pointed MTC where all fusions are single-valued.
+
+\begin{conjecture}[Charge-1 sector at $A_1$ enhancement]
+\label{conj:n3-charge1-a1}
+\ClaimStatusConjectured
+The $24 \times 24$ sub-matrix of the abelian S-matrix restricted
+to the $24$ Type~$C_1$ modules $(1_a^3)$ is diagonal with
+$S_{aa} = \tfrac{1}{2}$.
+At an $A_1$ enhancement merging directions $(a,b)$, the double
+braiding phase $q^{-2} = e^{-4\pi i/3} \neq 1$ produces a
+genuine off-diagonal entry
+\[
+  S^{\mathrm{enh}}_{ab}
+  \;=\; \frac{q^{-2}}{\sqrt{2}}
+  \;=\; \frac{e^{-4\pi i/3}}{\sqrt{2}},
+\]
+coupling the previously decoupled modules $(1_a^3)$ and $(1_b^3)$.
+The enhanced $24 \times 24$ matrix retains full rank~$24$.
+\end{conjecture}
+
+\begin{remark}[The $N = 2 \to N = 3$ phase transition]
+\label{rem:n2-n3-phase-transition}
+The passage from $N = 2$ to $N = 3$ is a \emph{phase transition}
+in the MTC structure:
+\begin{itemize}
+\item Pointed $\to$ non-pointed
+  ($d_{\max} = 1 \to d_{\max} = \sqrt{2}$).
+\item Trivial double braiding $\to$ nontrivial
+  ($q^2 = 1 \to q^2 = e^{4\pi i/3}$).
+\item $\bZ/2\bZ$ fusion $\to$ Ising fusion
+  ($V_1 \otimes V_1 = V_0 \oplus V_2$).
+\item Rigid S-matrix $\to$ enhancement-sensitive S-matrix.
+\item $324$ modules in $300$ sectors $\to$
+  $3200$ modules in $2600$ sectors.
+\end{itemize}
+The quantum integer $[2]_q = -1 \neq 0$ ensures the fundamental
+representation survives the truncation, while $[3]_q = 0$
+provides the level-$2$ cutoff.  The Ising MTC
+($\mathrm{SU}(2)_2$) is the simplest non-abelian MTC,
+and it appears here as the \emph{universal local factor} in
+each of the $24$ Mukai-direction sectors.
+\end{remark}
+
+\noindent\textit{Verification}: $80$ tests in
+\texttt{root\_of\_unity\_n3\_mtc.py} covering module enumeration
+($3200 = 24 + 24 + 24 + 552 + 552 + 2024$, six types),
+sector decomposition ($24 + 552 + 2024 = 2600$ sectors),
+Ising S-matrix properties (symmetric, unitary, $S^2 = I$,
+$\det = -1$, quantum dimensions $1, \sqrt{2}, 1$),
+Verlinde fusion rules (non-abelian: $V_1 \otimes V_1 = V_0 \oplus V_2$,
+non-negative integer coefficients, Verlinde consistency
+$\sum_k N^k_{ij} d_k = d_i d_j$),
+DJ R-matrix eigenvalues at $q = e^{2\pi i/3}$
+(nontrivial double braiding $q^2 \neq 1$),
+full $3200 \times 3200$ S-matrix (symmetric, unitary, full rank,
+block-diagonal with Ising and Hadamard blocks),
+charge-$1$ sector ($24 \times 24$ diagonal at abelian level,
+off-diagonal at $A_1$ enhancement, full rank),
+and $N = 2$ vs.\ $N = 3$ comparison
+(pointed $\to$ non-pointed, $D^2 = 324 \to 3224$).

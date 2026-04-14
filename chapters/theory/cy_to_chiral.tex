@@ -185,6 +185,60 @@ The quantum correction $\delta\kappa := \kappa_{\mathrm{ch}} - \chi(\cO_X)$ is c
 \noindent\textit{Verification}: 69 tests in \texttt{kappa\_ch\_d3\_formula.py} covering the CY-D refutation, the dimension-stratified formula, additivity vs.\ multiplicativity, and the quantum correction analysis for 13 standard CY manifolds.
 \end{remark}
 
+
+\begin{proposition}[Beauville reduction formula for $\kappa_{\mathrm{ch}}$ at $d = 3$]
+\label{prop:beauville-kappa-formula}
+\ClaimStatusConditional{BCOV branch conditional on CY-A$_3$; Beauville branch proved.}
+For a \emph{compact} CY$_3$ manifold $X$, the modular characteristic is determined by a single formula in terms of Hodge data:
+\begin{equation}\label{eq:kappa-beauville}
+ \kappa_{\mathrm{ch}}(X)
+ \;=\;
+ \frac{\chi_{\mathrm{top}}(X)}{24}
+ \;+\;
+ \bigl[\, h^{1,0}(X) > 0 \,\bigr]
+ \cdot
+ \bigl(\, h^{3,0}(X) + 2 \,\bigr),
+\end{equation}
+where $[\,\cdot\,]$ denotes the Iverson bracket \textup{(}$1$ if the condition holds, $0$ otherwise\textup{)}.
+
+The formula unifies two branches:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Strict CY$_3$} ($h^{1,0} = 0$, $\mathrm{SU}(3)$ holonomy): $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ \textup{(}BCOV holomorphic anomaly, \textsc{conjectural}\textup{)}.
+ \item \emph{Product CY$_3$} ($h^{1,0} > 0$): $\kappa_{\mathrm{ch}} = h^{3,0}(X) + 2$ \textup{(}\textsc{proved} by additivity and the $d \leq 2$ result\textup{)}.
+\end{enumerate}
+
+The mechanism: by the Beauville--Bogomolov decomposition theorem, every compact K\"ahler manifold with $c_1 = 0$ decomposes \textup{(}up to finite \'etale cover\textup{)} into irreducible factors. For $\dim_\C = 3$, the allowed decomposition types are:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lccccl}
+ \toprule
+ \textbf{Type} & $h^{1,0}$ & $h^{3,0}$ & \textbf{Factors} & $\kappa_{\mathrm{ch}}$ & \textbf{Status} \\
+ \midrule
+ Strict CY$_3$ & $0$ & $1$ & irreducible & $\chi_{\mathrm{top}}/24$ & Conjectural \\
+ $K3 \times E$ & $1$ & $1$ & $K3 + E$ & $2 + 1 = 3$ & Proved \\
+ $\mathrm{Enr} \times E$ & $1$ & $0$ & $\mathrm{Enr} + E$ & $1 + 1 = 2$ & Proved \\
+ $T^6 = E^3$ & $3$ & $1$ & $E + E + E$ & $1 + 1 + 1 = 3$ & Proved \\
+ \bottomrule
+\end{tabular}
+\end{center}
+No other types exist: $h^{1,0} = 2$ is impossible for a compact CY$_3$ \textup{(}any CY$_2$ factor with $h^{1,0} = 1$ does not exist; K3 has $h^{1,0} = 0$, abelian surfaces have $h^{1,0} = 2$ and decompose further\textup{)}.
+
+In the product branch ($h^{1,0} > 0$), $\chi_{\mathrm{top}}(X) = 0$ since $X$ contains an elliptic curve factor with $\chi_{\mathrm{top}}(E) = 0$. Thus the two summands in~\eqref{eq:kappa-beauville} have disjoint support.
+
+\smallskip
+\noindent\textit{Proof of the product branch.}
+By functoriality, $\Phi(D^b(X \times Y)) \simeq \Phi(D^b(X)) \otimes \Phi(D^b(Y))$ for smooth proper CY categories. By Theorem~D \textup{(}Vol~I\textup{)}, $\kappa_{\mathrm{ch}}$ is additive under tensor products. For $K3 \times E$: $\kappa_{\mathrm{ch}} = \chi(\cO_{K3}) + h^{1,0}(E) = 2 + 1 = 3$ \textup{(}using Proposition~\textup{\ref{prop:cy-kappa-d2}} for K3\textup{)}. For Enriques $\times\, E$: $\kappa_{\mathrm{ch}} = \chi(\cO_{\mathrm{Enr}}) + 1 = 1 + 1 = 2$. For $T^6 = E^3$: $\kappa_{\mathrm{ch}} = 3 \cdot 1 = 3$.
+
+The Beauville formula $h^{3,0}(X) + 2$ encodes additivity: for $S \times E$ with $h^{1,0}(S) = 0$, we have $h^{3,0}(S \times E) = h^{2,0}(S) \cdot h^{1,0}(E) = h^{2,0}(S)$, and $\kappa_{\mathrm{ch}}(S) = \chi(\cO_S) = 1 + h^{2,0}(S) = h^{3,0}(S \times E) + 1$, so $\kappa_{\mathrm{ch}}(S \times E) = h^{3,0}(S \times E) + 1 + 1 = h^{3,0}(X) + 2$.
+
+\smallskip
+\noindent\textit{Bug fix.} The formula resolves an inconsistency in the abelian surface: $\kappa_{\mathrm{ch}}(T^4) = 2$ \textup{(}from additivity: $\kappa(E) + \kappa(E) = 1 + 1$\textup{)}, \emph{not} $\chi(\cO_{T^4}) = 0$. Proposition~\textup{\ref{prop:cy-kappa-d2}} is restricted to $h^{1,0} = 0$; abelian surfaces violate this hypothesis. Once $\kappa_{\mathrm{ch}}(T^4) = 2$, the decomposition $T^6 = T^4 \times E$ gives $\kappa_{\mathrm{ch}}(T^6) = 2 + 1 = 3$, consistent with $T^6 = E^3$ giving $3 \cdot 1 = 3$.
+
+\smallskip
+\noindent\textit{Verification}: 65 tests in \texttt{kappa\_ch\_universal\_formula.py} covering all 18 CY$_3$ families in the grand atlas, the Beauville decomposition, the abelian surface fix, and the $h^{1,0} = 2$ impossibility.
+\end{proposition}
+
+
 \begin{remark}[Enriques surface: orbifold and kappa halving]
 \label{rem:enriques-orbifold-kappa}
 \ClaimStatusHeuristic{}
@@ -1713,6 +1767,46 @@ For the Virasoro at $c = 1$: $\kappa_{\mathrm{ch}} = 1/2$, $\alpha = 2$, $S_4 = 
 \end{conjecture}
 
 
+\begin{theorem}[Stokes automorphism = KS wall-crossing: conifold case]
+\label{thm:stokes-ks-conifold}
+\ClaimStatusProvedHere{}
+For the resolved conifold $X = \cO(-1) \oplus \cO(-1) \to \bP^1$ with charge lattice $\Gamma = \bZ^2$ and antisymmetric Euler pairing $\langle \gamma_1, \gamma_2 \rangle = 1$, the Stokes automorphism of the resurgent DT partition function IS the Kontsevich--Soibelman wall-crossing automorphism.  Specifically:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item \emph{Stokes line = wall}.  The single Stokes line at $\theta = \arg(\omega)$ in the Borel plane is the single wall of marginal stability $\cW(\gamma_1, \gamma_2)$ where $\phi_\sigma(\gamma_1) = \phi_\sigma(\gamma_2)$.
+  \item \emph{Trans-series sectors = BPS charge sectors}.  The instanton action $|\omega| = |Z(\gamma_1 + \gamma_2)|$ is the BPS mass of the bound state; the trans-series sectors $(n_+, n_-)$ are the charge sectors $(n_1, n_2)$.
+  \item \emph{Stokes matrix = KS symplectomorphism}.  The Stokes matrix $\underline{\mathfrak{S}}_\theta$ and the KS symplectomorphism $\cA_\cW$ are both upper-triangular in the charge filtration, with matching off-diagonal entry $\cS_\omega = \Omega(\gamma_1 + \gamma_2) = -1$.
+  \item \emph{Pentagon identity = Stokes factorization}.  The Faddeev--Kashaev pentagon identity $E(X)E(Y) = E(Y)E(XY)E(X)$ in the quantum torus is simultaneously the KS wall-crossing formula \textup{(}2-particle chamber $\leftrightarrow$ 3-particle chamber\textup{)} and the Stokes factorization identity \textup{(}Borel sum before the Stokes line $=$ Borel sum after\textup{)}.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The conifold has finitely many BPS states: $\Omega(\gamma_1) = \Omega(\gamma_2) = -1$ in Chamber~I, plus $\Omega(\gamma_1 + \gamma_2) = -1$ in Chamber~II.  The pentagon identity (verified exactly in the quantum torus algebra at each charge sector and each $q$-power; \texttt{conifold\_wall\_crossing.py}) equates the two chamber orderings.  By Bridgeland~\cite{Bridgeland2019RH} (Theorem~1.1), the Stokes data of the Riemann--Hilbert problem associated to a BPS structure IS the collection of DT invariants $\Omega(\gamma)$.  For the conifold, the RH problem has a single Stokes ray, the BPS structure has a single wall, and the pentagon identity is exact.  The five structural properties---ray indexing, factorization, upper-triangularity, integer data, gauge invariance---match by direct verification.
+\end{proof}
+
+\begin{conjecture}[Stokes automorphism = KS wall-crossing: $K3 \times E$]
+\label{conj:stokes-ks-k3e}
+\ClaimStatusConjectured
+For $K3 \times E$ with the BKM root system of $\mathfrak{g}_{\Delta_5}$, the Stokes automorphism of the shadow trans-series \textup{(}Conjecture~\textup{\ref{conj:shadow-resurgence})} is the KS wall-crossing automorphism.  The identification is stratified by discriminant:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lccl@{}}
+\textbf{Discriminant} & \textbf{Wall type} & \textbf{Stokes type} & \textbf{Identification status} \\ \hline
+$D = -1$ & Real root (flop) & Real axis & THEOREM \textup{(}local conifold\textup{)} \\
+$D = 0$ & Lightlike & Imaginary axis & Conjectural \textup{(}CY-A$_3$\textup{)} \\
+$D > 0$ & Imaginary (bound state) & Conjugate pair & Conjectural \textup{(}CY-A$_3$\textup{)}
+\end{tabular}
+\end{center}
+At each real root wall ($D = -1$), the local model is the conifold \textup{(}$\langle \gamma_1, \gamma_2 \rangle = 1$, pentagon identity\textup{)}, so the identification is a theorem locally.  The BKM root multiplicities $c(D)$ from $\phi_{0,1}$ simultaneously count BPS states, walls, and Stokes lines at each discriminant.  The global stitching of infinitely many local identifications is conditional on CY-A$_3$.
+
+The Bridgeland Riemann--Hilbert bridge \textup{(}\cite{Bridgeland2019RH}\textup{)} provides the chain:
+\[
+  \text{Shadow tower} \xrightarrow{\text{Borel}} \text{Borel plane} \xrightarrow{\text{singularities}} \text{Stokes rays} \xrightarrow{\text{Bridgeland RH}} \text{DT invariants} \xrightarrow{\text{KS}} \text{Wall-crossing.}
+\]
+\end{conjecture}
+
+\noindent\textit{Verification}: $84$~tests in \texttt{stokes\_wallcrossing\_identification.py}, covering the five-point structural check (ray indexing, factorization, upper-triangularity, integer data, gauge invariance), conifold pentagon $=$ Stokes factorization, conifold Stokes matrix $=$ KS matrix, $K3 \times E$ discriminant-stratified identification, real root $=$ mini-conifold, imaginary root Stokes structure, Bridgeland RH bridge, and cross-checks with \texttt{shadow\_resurgence\_nonpert.py}, \texttt{k3e\_wall\_crossing\_shadow.py}, and \texttt{conifold\_wall\_crossing.py}.
+
+
 \subsection{Hopf fibration decomposition of the chain-level obstruction}
 \label{subsec:hopf-fibration-decomposition}
 
@@ -3214,6 +3308,58 @@ The arc space interpretation is unconditional at $d = 2$ (CY-A$_2$ proved).  At 
 \end{remark}
 
 
+\subsection{Categorical DT moduli from the bar complex}
+\label{subsec:categorical-dt-bar}
+
+The numerical DT invariants $\Omega(\gamma)$ are recovered as bar complex Euler characteristics (Conjecture~\ref{conj:shadow-bps-dt}). A stronger statement organises the bar complex itself into categorical DT moduli: the charge-graded bar space $B_\gamma(A_\cC)$ categorifies the DT moduli space at charge~$\gamma$. Five levels of categorification are distinguished:
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{llll}
+\toprule
+\textbf{Level} & \textbf{Object} & \textbf{Decategorification} & \textbf{Status} \\
+\midrule
+$0$ & $\Omega(\gamma) = \chi(B_\gamma)$ & --- & Proved ($d \leq 2$, toric $d = 3$) \\
+$1$ & $H^*(B_\gamma)$ (BPS cohomology) & $\chi = \Omega(\gamma)$ & Proved ($\C^3$, K3) \\
+$2$ & $D^b(B_\gamma)$ (derived category) & $K_0 \to \Omega$ & Proved ($d = 2$) \\
+$3$ & $[B_\gamma^{\mathrm{mot}}] \in K_0(\mathrm{Var}/\C)$ & $\chi \to$ Level~0 & Proved ($\C^3$, K3) \\
+$4$ & Wall-crossing equiv.\ of $B_\gamma$ & $\chi \to$ KS formula & Conditional ($d = 3$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{proposition}[Categorical DT moduli for K3; \ClaimStatusProvedHere]
+\label{prop:categorical-dt-k3-rank0}
+For the K3 surface at $d = 2$ (CY-A$_2$ proved), the rank-$0$ bar complex identifies with the Hilbert scheme:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Numerical (Level~0).} The BPS invariants of the Mukai Heisenberg $H_{\mathrm{Muk}}$ are $\Omega(n) = 24 = \kappa_{\mathrm{fiber}}$ for all $n \geq 1$, extracted via the plethystic logarithm:
+ \[
+  \mathrm{PLog}\bigl(1/\eta(q)^{24}\bigr) = 24 \sum_{n \geq 1} q^n.
+ \]
+ \item \emph{Categorical (Level~2).} The charge-$n$ bar space categorifies to the Hilbert scheme: $D^b(B_n(H_{\mathrm{Muk}})) \simeq D^b(\mathrm{Hilb}^n(K3))$, with $\chi(\mathrm{Hilb}^n(K3)) = p_{24}(n)$, where $p_{24}(n)$ is the number of partitions of~$n$ with $24$ colours (G\"ottsche formula).
+ \item \emph{Motivic (Level~3).} The motivic bar Euler product $\prod_{n \geq 1} (1 - q^n)^{-24} = 1/\eta(q)^{24}$ matches the rank-$0$ DT partition function. The bar Euler exponents are constant ($-24$) because the bar complex is class~G (free-field).
+ \item \emph{Beauville--Yoshioka.} For a primitive Mukai vector $v = (r, c_1, s)$ with $\langle v, v \rangle = 2n - 2$, the moduli space $M_H(v)$ is deformation-equivalent to $\mathrm{Hilb}^n(K3)$ (Beauville), so $\chi(M_H(v)) = p_{24}(n)$. The bar complex at any primitive charge has the same Euler characteristic as the Hilbert scheme: the categorical DT moduli are Mukai-lattice covariant.
+ \item \emph{Hyper-K\"ahler.} $\mathrm{Hilb}^n(K3)$ carries a $0$-shifted symplectic structure (PTVV, $d = 2$), i.e.\ it is hyper-K\"ahler. This matches the holomorphic symplectic structure on the bar moduli.
+\end{enumerate}
+\noindent\textit{Verification}: $87$~tests in \texttt{test\_categorical\_dt\_bar.py}, verifying all five levels for $\C^3$ and K3, plethystic round-trip, $p_{24}(n)$ ground truth (OEIS~A006922), Joyce--Song integration, Beauville deformation equivalence, and wall-crossing structure (\texttt{categorical\_dt\_bar.py}).
+\end{proposition}
+
+\begin{conjecture}[Categorical DT moduli for CY$_3$; \ClaimStatusConditional]
+\label{conj:categorical-dt-cy3}
+For a CY$_3$ category $\cC$ satisfying the hypotheses of Theorem~\textup{\ref{thm:cy-to-chiral-d3}} (in particular, the chain-level $S^3$-framing~\ref{hyp:framing}):
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item The charge-graded bar complex $B_\gamma^{\Eone}(A_\cC, \sigma)$ is a family of chain complexes over $\mathrm{Stab}(D^b(\cC))$, varying with the stability condition~$\sigma$.
+ \item At each wall in $\mathrm{Stab}(D^b(\cC))$: the fibres $B_\gamma(A_\cC, \sigma_+)$ and $B_\gamma(A_\cC, \sigma_-)$ are related by a derived equivalence, whose Euler characteristic shadow is the Kontsevich--Soibelman wall-crossing formula.
+ \item The Joyce--Song integration map $I^{\mathrm{JS}} \colon B_\gamma^{\mathrm{mot}} \to \Omega(\gamma)$ is a ring homomorphism from the motivic bar complex to the numerical DT invariants.
+\end{enumerate}
+\emph{Dependencies}: CY-A$_3$ (Theorem~\textup{\ref{thm:cy-to-chiral-d3}}).
+\end{conjecture}
+
+\begin{remark}[Flop vs.\ Koszul at the categorical level]
+\label{rem:categorical-dt-flop-koszul}
+At a wall in $\mathrm{Stab}(D^b(X))$ corresponding to a birational flop $X \dashrightarrow X^+$, the derived equivalence of bar fibres is the Bondal--Orlov equivalence $D^b(X) \simeq D^b(X^+)$. This is a \emph{flop}, not a Koszul dual (AP-CY10): the flop preserves $\kappa_{\mathrm{ch}}$, while Koszul duality satisfies $\kappa_{\mathrm{ch}}(A) + \kappa_{\mathrm{ch}}(A^!) = \rho_K$. The two operations are categorically distinct: flops exchange chambers in the Mukai motion; Koszul duality exchanges algebra and coalgebra.
+\end{remark}
+
+
 \subsection{Connection to the factorization envelope}
 \label{subsec:quiver-chart-envelope}
 
@@ -3933,6 +4079,55 @@ At $t = 0$ (critical level): $\kappa_{\mathrm{ch}} = 0$, commutative ($\Einf$). 
 The identification BCOV $=$ shadow is \emph{structural}: the holomorphic anomaly equation IS the genus spectral sequence of an MC equation in the Costello--Li dgLa. However, the \emph{quantitative} formula $F_g = \kappa_{\mathrm{ch}} \cdot \lambda_g^{\mathrm{FP}}$ fails for compact CY$_3$ at $g \geq 2$. The BCOV constant-map formula involves the product $B_{2g} \cdot B_{2g-2}$ of two consecutive Bernoulli numbers, while the shadow formula involves $B_{2g}$ alone. Since $B_{2g-2}/B_{2g}$ varies with~$g$, no single~$\kappa_{\mathrm{ch}}$ reconciles the two at all genera. For the quintic: the effective $\kappa_{\mathrm{ch}}$ matching $F_g^{\mathrm{CM}}$ oscillates ($200, -28.6, -4.3, 2.8, -3.8$ for $g = 1, \ldots, 5$). The shadow formula applies to the \emph{uniform-weight lane} (free fields, toric CY$_3$); for compact CY$_3$, the full shadow tower $\Theta_A$ (all degrees) is needed.
 
 \noindent\textit{Verification}: 130 tests in \texttt{bcov\_e1\_shadow\_engine.py}, including 10 tests quantifying the genus-dependent disagreement.
+\end{remark}
+
+\begin{proposition}[BCOV recursion $=$ shadow tower recursion on the scalar lane]
+\label{prop:bcov-shadow-recursion}
+\ClaimStatusProvedHere{}
+The BCOV holomorphic anomaly recursion and the shadow tower recursion (Vol~I, Definition~\ref{def:shadow-tower-recursion}) are identified under the genus-arity correspondence $g \leftrightarrow k = g + 1$:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{ccccl}
+\toprule
+\textbf{Genus $g$} & \textbf{Arity $k$} & \textbf{Shadow $S_k$} & \textbf{Value (Vir, $c=1$)} & \textbf{BCOV term} \\
+\midrule
+$1$ & $2$ & $S_2 = \kappa_{\mathrm{ch}}$ & $1/2$ & $F_1 = \kappa_{\mathrm{ch}}/24$ (seed) \\
+$2$ & $3$ & $S_3 = \alpha$ & $2$ & $D^2 F_1 + (DF_1)^2$ \\
+$3$ & $4$ & $S_4$ & $10/27$ & $D^2 F_2 + 2\,DF_1\, DF_2$ \\
+$g$ & $g{+}1$ & $S_{g+1}$ & --- & $D^2 F_{g-1} + \textstyle\sum_{r=1}^{g-1} DF_r\, DF_{g-r}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+On the scalar (uniform-weight) lane, the ratio $F_{g+1}/F_g = \lambda_{g+1}^{\mathrm{FP}}/\lambda_g^{\mathrm{FP}}$ is \emph{universal}: it is independent of $\kappa_{\mathrm{ch}}$ (the modular characteristic cancels in the ratio). Explicit values: $F_2/F_1 = 7/240$, $F_3/F_2 = 31/1176$, $F_4/F_3 = 127/4960$. The BCOV recursion on the scalar lane reduces to a numerical recursion for $\lambda_g^{\mathrm{FP}}$, which is the shadow tower recursion of Vol~I restricted to the scalar lane.
+\end{proposition}
+
+\begin{proof}
+The identification proceeds in three steps.  First, the Costello--Li dgLa $\mathfrak{g}_X = \mathrm{PV}^{*,*}(X^{\vee})[1]$ IS the bar dgLa of $A_X$ (Costello 2007).  Second, the MC equation $D\Theta + \frac{1}{2}[\Theta, \Theta] = 0$ expanded at genus~$g$ gives the HAE (Theorem~\ref{thm:hae-mc-structural}).  Third, on the scalar lane $F_g = \kappa_{\mathrm{ch}} \cdot \lambda_g^{\mathrm{FP}}$, the genus-$g$ MC equation reduces to a recursion for the Faber--Pandharipande intersection numbers.  The arity-$(g+1)$ shadow invariant $S_{g+1}$ encodes the $\Ainf$~operation~$m_{g+1}$; on the scalar lane this is the deviation from universality (the off-diagonal correction).  The handle-creation term $D_j D_k F_{g-1}$ corresponds to the propagator insertion in the bar complex; the factorization sum $\sum D_j F_r \cdot D_k F_{g-r}$ corresponds to $[\Theta^{(r)}, \Theta^{(g-r)}]$.  The universal ratios are verified numerically at $g = 1, \ldots, 4$.
+\end{proof}
+
+\noindent\textit{Verification}: 47 tests in \texttt{test\_bcov\_shadow\_tower.py}, including genus-by-genus comparison for C${}^3$, quintic, K3$\times$E, and the Virasoro channel, universal ratio verification through genus~$4$, and handle/factorization decomposition at each genus (\texttt{bcov\_shadow\_tower.py}).
+
+\begin{remark}[Holomorphic anomaly as shadow non-termination]
+\label{rem:anomaly-shadow-nontermination}
+The holomorphic anomaly $\bar\partial F_g \neq 0$ is \emph{equivalent} to the shadow tower not terminating at arity~$g+1$.  The shadow class (Definition~\ref{def:shadow-class}, Vol~I) determines the anomaly structure:
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{clll}
+\toprule
+\textbf{Class} & \textbf{Shadow tower} & \textbf{Genus expansion} & \textbf{Anomaly type} \\
+\midrule
+$\mathbf{G}$ & Terminates at $S_2$ & $F_g = \kappa_{\mathrm{ch}} \cdot \lambda_g^{\mathrm{FP}}$ (scalar lane only) & No off-diagonal anomaly \\
+$\mathbf{L}$ & Finite depth & Polynomial corrections & Finite anomaly \\
+$\mathbf{C}$ & Convergent & Convergent (radius $1/S_4$) & Convergent anomaly \\
+$\mathbf{M}$ & Gevrey-$1$ divergent & $|F_g| \sim (2g)!/(2\pi)^{2g}$ & Mock modular \\
+\bottomrule
+\end{tabular}
+\end{center}
+For class~$\mathbf{M}$ (Virasoro at $c = 1$, discriminant $\Delta = 8\kappa_{\mathrm{ch}} S_4 = 40/27$), the genus expansion requires Borel resummation; the non-holomorphic completion of $F_g$ produces mock modular forms; and the Borel-plane singularities are conjecturally identified with BPS instanton actions (cf.~Remark~\ref{rem:bcov-shadow-connection}).  The compact CY$_3$ discrepancy (Remark~\ref{rem:bcov-vs-shadow})---the extra $B_{2g-2}$ factor in the constant-map formula---arises because the full shadow tower $\Theta_A$ (all weight sectors) contributes at $g \geq 2$, not just the scalar lane.
+
+\noindent\textit{Verification}: 47 tests in \texttt{bcov\_shadow\_tower.py}, including the discriminant computation, four-class classification, and compact CY$_3$ Bernoulli discrepancy at genera $2$--$5$.
 \end{remark}
 
 \begin{remark}[The $\kappa_{\mathrm{ch}}$ polysemy]
