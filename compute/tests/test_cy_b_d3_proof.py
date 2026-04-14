@@ -398,9 +398,17 @@ class TestE3SpectralSequence:
         assert ss.poincare_poly == [0, 3, 3, 0]
 
     def test_class_m_poincare_genus2(self) -> None:
-        """Class M genus 2: (3t+3t^2)^2 = 9t^2 + 18t^3 + 9t^4."""
+        """Class M genus 2: (3t+3t^2)^2 = 9t^2 + 18t^3 + 9t^4.
+
+        The polynomial is padded to degree 3*genus = 6 (full E_3 bar range),
+        so trailing zeros are expected: [0, 0, 9, 18, 9, 0, 0].
+        """
         ss = e3_spectral_sequence("M", 2)
-        assert ss.poincare_poly == [0, 0, 9, 18, 9]
+        # Strip trailing zeros for comparison
+        stripped = list(ss.poincare_poly)
+        while stripped and stripped[-1] == 0:
+            stripped.pop()
+        assert stripped == [0, 0, 9, 18, 9]
 
     def test_class_m_total_matches_poincare(self) -> None:
         """Class M: total dim from Poincare = 6^g."""

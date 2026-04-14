@@ -813,26 +813,9 @@ class AInfBarComplex:
 
         # m_5(T,T,T,T,T): the quintic Virasoro correction
         if key == ("T", "T", "T", "T", "T"):
-            # Compute from the shadow landscape Q_L(t) = q0 + q1*t + q2*t^2
-            # with kappa, alpha, S_4 as independent OPE inputs.
-            kappa = c / 2
-            alpha_T = Fraction(2) * c  # cubic shadow (= 2 at c=1)
-            S4_val = Fraction(10) / (c * (5 * c + 22))
-
-            q0 = 4 * kappa ** 2
-            q1 = 12 * kappa * alpha_T
-            q2 = 9 * alpha_T ** 2 + 16 * kappa * S4_val
-
-            a0 = 2 * kappa
-            a1 = q1 / (2 * a0)
-            a2 = (q2 - a1 ** 2) / (2 * a0)
-            # a_3 from convolution: sum_{j=1}^{2} a_j * a_{3-j}
-            conv = a1 * a2 + a2 * a1  # j=1 and j=2
-            a3 = -conv / (2 * a0)
-
-            # m_5(T,T,T,T,T) = a_3 * T
+            a = self._virasoro_shadow_coefficients(3)
             return LinearCombination([
-                AInfBarElement(factors=(T,), coeff=a3)
+                AInfBarElement(factors=(T,), coeff=a[3])
             ])
 
         # All other quintets: zero at generator level
@@ -888,26 +871,9 @@ class AInfBarComplex:
 
         # m_6(T,...,T): the sextic Virasoro correction
         if key == ("T", "T", "T", "T", "T", "T"):
-            kappa = c / 2
-            alpha_T = Fraction(2) * c
-            S4_val = Fraction(10) / (c * (5 * c + 22))
-
-            q0 = 4 * kappa ** 2
-            q1 = 12 * kappa * alpha_T
-            q2 = 9 * alpha_T ** 2 + 16 * kappa * S4_val
-
-            a0 = 2 * kappa
-            a1 = q1 / (2 * a0)
-            a2 = (q2 - a1 ** 2) / (2 * a0)
-            # a_3
-            conv3 = a1 * a2 + a2 * a1
-            a3 = -conv3 / (2 * a0)
-            # a_4
-            conv4 = a1 * a3 + a2 * a2 + a3 * a1
-            a4 = -conv4 / (2 * a0)
-
+            a = self._virasoro_shadow_coefficients(4)
             return LinearCombination([
-                AInfBarElement(factors=(T,), coeff=a4)
+                AInfBarElement(factors=(T,), coeff=a[4])
             ])
 
         # All other sextets: zero at generator level
@@ -956,29 +922,9 @@ class AInfBarComplex:
 
         # m_7(T,...,T): the septic Virasoro correction
         if key == ("T", "T", "T", "T", "T", "T", "T"):
-            kappa = c / 2
-            alpha_T = Fraction(2) * c
-            S4_val = Fraction(10) / (c * (5 * c + 22))
-
-            q0 = 4 * kappa ** 2
-            q1 = 12 * kappa * alpha_T
-            q2 = 9 * alpha_T ** 2 + 16 * kappa * S4_val
-
-            a0 = 2 * kappa
-            a1 = q1 / (2 * a0)
-            a2 = (q2 - a1 ** 2) / (2 * a0)
-            # a_3
-            conv3 = a1 * a2 + a2 * a1
-            a3 = -conv3 / (2 * a0)
-            # a_4
-            conv4 = a1 * a3 + a2 * a2 + a3 * a1
-            a4 = -conv4 / (2 * a0)
-            # a_5
-            conv5 = a1 * a4 + a2 * a3 + a3 * a2 + a4 * a1
-            a5 = -conv5 / (2 * a0)
-
+            a = self._virasoro_shadow_coefficients(5)
             return LinearCombination([
-                AInfBarElement(factors=(T,), coeff=a5)
+                AInfBarElement(factors=(T,), coeff=a[5])
             ])
 
         # All other septets: zero at generator level
@@ -1027,36 +973,153 @@ class AInfBarComplex:
 
         # m_8(T,...,T): the octic Virasoro correction
         if key == ("T", "T", "T", "T", "T", "T", "T", "T"):
-            kappa = c / 2
-            alpha_T = Fraction(2) * c
-            S4_val = Fraction(10) / (c * (5 * c + 22))
-
-            q0 = 4 * kappa ** 2
-            q1 = 12 * kappa * alpha_T
-            q2 = 9 * alpha_T ** 2 + 16 * kappa * S4_val
-
-            a0 = 2 * kappa
-            a1 = q1 / (2 * a0)
-            a2 = (q2 - a1 ** 2) / (2 * a0)
-            # a_3
-            conv3 = a1 * a2 + a2 * a1
-            a3 = -conv3 / (2 * a0)
-            # a_4
-            conv4 = a1 * a3 + a2 * a2 + a3 * a1
-            a4 = -conv4 / (2 * a0)
-            # a_5
-            conv5 = a1 * a4 + a2 * a3 + a3 * a2 + a4 * a1
-            a5 = -conv5 / (2 * a0)
-            # a_6
-            conv6 = a1 * a5 + a2 * a4 + a3 * a3 + a4 * a2 + a5 * a1
-            a6 = -conv6 / (2 * a0)
-
+            a = self._virasoro_shadow_coefficients(6)
             return LinearCombination([
-                AInfBarElement(factors=(T,), coeff=a6)
+                AInfBarElement(factors=(T,), coeff=a[6])
             ])
 
         # All other octets: zero at generator level
         return LinearCombination()
+
+    # ----- m_9: nonic correction -----
+
+    def m9(self, g1: WGenerator, g2: WGenerator,
+           g3: WGenerator, g4: WGenerator,
+           g5: WGenerator, g6: WGenerator,
+           g7: WGenerator, g8: WGenerator,
+           g9: WGenerator) -> LinearCombination:
+        r"""m_9(g1,...,g9): the nonic A_∞ operation.
+
+        Extends the shadow-Feynman dictionary to L=8 (loop order 8).
+
+        The coefficient mu_9 = a_7 from the convolution recursion:
+          a_7 = -(a_1*a_6 + a_2*a_5 + a_3*a_4 + a_4*a_3 + a_5*a_2
+                  + a_6*a_1) / (2*a_0)
+
+        For spin-2 at c=1:
+          a_0=1, a_1=6, a_2=40/27, a_3=-80/9, a_4=38080/729,
+          a_5=-24320/81, a_6=33157760/19683
+          conv = 120701440/6561
+          a_7 = -60350720/6561
+
+        So m_9(T,...,T) = a_7 * T = -60350720/6561 * T at c=1.
+        S_9 = a_7/9 = -60350720/59049.
+
+        VERIFICATION: f(t)^2 = Q_L(t) at order t^7 gives 0 (correct, since
+        Q_L is quadratic). This is an independent algebraic identity check.
+
+        VERIFICATION CHAIN: same as m_5 (steps 1-3), then:
+          (4) a_7 = -60350720/6561 [convolution recursion from verified OPE inputs]
+          (5) S_9 = -60350720/59049 [from a_7/9, dictionary at L=8]
+        """
+        c = self.ope.c
+
+        # m_9(J,...) = 0: Heisenberg sector is Gaussian
+        if all(g.name == "J" for g in [g1, g2, g3, g4, g5, g6, g7, g8, g9]):
+            return LinearCombination()
+
+        key = (g1.name, g2.name, g3.name, g4.name,
+               g5.name, g6.name, g7.name, g8.name, g9.name)
+
+        # m_9(T,...,T): the nonic Virasoro correction
+        if key == ("T", "T", "T", "T", "T", "T", "T", "T", "T"):
+            a = self._virasoro_shadow_coefficients(7)
+            return LinearCombination([
+                AInfBarElement(factors=(T,), coeff=a[7])
+            ])
+
+        # All other nonets: zero at generator level
+        return LinearCombination()
+
+    # ----- m_10: decic correction -----
+
+    def m10(self, g1: WGenerator, g2: WGenerator,
+            g3: WGenerator, g4: WGenerator,
+            g5: WGenerator, g6: WGenerator,
+            g7: WGenerator, g8: WGenerator,
+            g9: WGenerator, g10: WGenerator) -> LinearCombination:
+        r"""m_10(g1,...,g10): the decic A_∞ operation.
+
+        Extends the shadow-Feynman dictionary to L=9 (loop order 9).
+
+        The coefficient mu_10 = a_8 from the convolution recursion:
+          a_8 = -(a_1*a_7 + a_2*a_6 + a_3*a_5 + a_4*a_4 + a_5*a_3
+                  + a_6*a_2 + a_7*a_1) / (2*a_0)
+
+        For spin-2 at c=1:
+          a_0=1, ..., a_7=-60350720/6561
+          conv = -51721507840/531441
+          a_8 = 25860753920/531441
+
+        So m_10(T,...,T) = a_8 * T = 25860753920/531441 * T at c=1.
+        S_10 = a_8/10 = 2586075392/531441.
+
+        VERIFICATION: f(t)^2 = Q_L(t) at order t^8 gives 0 (correct, since
+        Q_L is quadratic). This is an independent algebraic identity check.
+
+        VERIFICATION CHAIN: same as m_5 (steps 1-3), then:
+          (4) a_8 = 25860753920/531441 [convolution recursion from verified OPE inputs]
+          (5) S_10 = 2586075392/531441 [from a_8/10, dictionary at L=9]
+        """
+        c = self.ope.c
+
+        # m_10(J,...) = 0: Heisenberg sector is Gaussian
+        if all(g.name == "J" for g in [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10]):
+            return LinearCombination()
+
+        key = (g1.name, g2.name, g3.name, g4.name, g5.name,
+               g6.name, g7.name, g8.name, g9.name, g10.name)
+
+        # m_10(T,...,T): the decic Virasoro correction
+        if key == ("T", "T", "T", "T", "T", "T", "T", "T", "T", "T"):
+            a = self._virasoro_shadow_coefficients(8)
+            return LinearCombination([
+                AInfBarElement(factors=(T,), coeff=a[8])
+            ])
+
+        # All other decets: zero at generator level
+        return LinearCombination()
+
+    # ----- Virasoro shadow coefficient engine -----
+
+    def _virasoro_shadow_coefficients(self, max_n: int) -> List[Fraction]:
+        r"""Compute Taylor coefficients a_0,...,a_{max_n} of f(t) = sqrt(Q_L(t)).
+
+        The quadratic landscape Q_L(t) = q_0 + q_1*t + q_2*t^2 is determined
+        by three independently verified OPE structure constants:
+          kappa = c/2 (from 2-point <T|T> normalization)
+          alpha = 2c  (from Virasoro associator m_3(T,T,T) = -2c T)
+          S_4 = 10/(c(5c+22))  (Zamolodchikov formula from Gram matrix)
+
+        The convolution recursion (Newton's square root):
+          a_0 = 2*kappa
+          a_1 = q_1 / (2*a_0)
+          a_2 = (q_2 - a_1^2) / (2*a_0)
+          a_n = -sum_{j=1}^{n-1} a_j * a_{n-j} / (2*a_0)  for n >= 3
+
+        Returns list [a_0, a_1, ..., a_{max_n}].
+        """
+        c = self.ope.c
+        kappa = c / 2
+        alpha_T = Fraction(2) * c
+        S4_val = Fraction(10) / (c * (5 * c + 22))
+
+        q0 = 4 * kappa ** 2
+        q1 = 12 * kappa * alpha_T
+        q2 = 9 * alpha_T ** 2 + 16 * kappa * S4_val
+
+        a0 = 2 * kappa
+        a: List[Fraction] = [a0]
+
+        if max_n >= 1:
+            a.append(q1 / (2 * a0))
+        if max_n >= 2:
+            a.append((q2 - a[1] ** 2) / (2 * a0))
+        for n in range(3, max_n + 1):
+            conv = sum(a[j] * a[n - j] for j in range(1, n))
+            a.append(-conv / (2 * a0))
+
+        return a
 
     # ----- General m_k for arbitrary arity -----
 
@@ -1064,7 +1127,7 @@ class AInfBarComplex:
         r"""Compute m_k(g1,...,gk) for arbitrary arity k.
 
         Dispatches to the specific m_k implementation.
-        For k >= 9, returns zero (not yet implemented).
+        For k >= 11, returns zero (not yet implemented).
         """
         k = len(generators)
         if k == 0:
@@ -1092,6 +1155,15 @@ class AInfBarComplex:
             return self.m8(generators[0], generators[1], generators[2],
                            generators[3], generators[4], generators[5],
                            generators[6], generators[7])
+        elif k == 9:
+            return self.m9(generators[0], generators[1], generators[2],
+                           generators[3], generators[4], generators[5],
+                           generators[6], generators[7], generators[8])
+        elif k == 10:
+            return self.m10(generators[0], generators[1], generators[2],
+                            generators[3], generators[4], generators[5],
+                            generators[6], generators[7], generators[8],
+                            generators[9])
         else:
             return LinearCombination()
 
@@ -1106,7 +1178,7 @@ class AInfBarComplex:
         with epsilon_i the Koszul sign from desuspension.
 
         Since m_1 = 0, only k >= 2 contribute.
-        We compute through k = 8 (matching the shadow tower through S_8).
+        We compute through k = 10 (matching the shadow tower through S_10).
         """
         factors = elem.factors
         n = len(factors)
@@ -1200,6 +1272,37 @@ class AInfBarComplex:
             sign = _koszul_sign(factors, i, 8)
             for term in m8_result.terms:
                 new_factors = factors[:i] + term.factors + factors[i + 8:]
+                all_terms.append(AInfBarElement(
+                    factors=new_factors,
+                    coeff=elem.coeff * term.coeff * sign
+                ))
+
+        # k=9: nonic part
+        for i in range(n - 8):
+            m9_result = self.m9(
+                factors[i], factors[i + 1], factors[i + 2],
+                factors[i + 3], factors[i + 4], factors[i + 5],
+                factors[i + 6], factors[i + 7], factors[i + 8]
+            )
+            sign = _koszul_sign(factors, i, 9)
+            for term in m9_result.terms:
+                new_factors = factors[:i] + term.factors + factors[i + 9:]
+                all_terms.append(AInfBarElement(
+                    factors=new_factors,
+                    coeff=elem.coeff * term.coeff * sign
+                ))
+
+        # k=10: decic part
+        for i in range(n - 9):
+            m10_result = self.m10(
+                factors[i], factors[i + 1], factors[i + 2],
+                factors[i + 3], factors[i + 4], factors[i + 5],
+                factors[i + 6], factors[i + 7], factors[i + 8],
+                factors[i + 9]
+            )
+            sign = _koszul_sign(factors, i, 10)
+            for term in m10_result.terms:
+                new_factors = factors[:i] + term.factors + factors[i + 10:]
                 all_terms.append(AInfBarElement(
                     factors=new_factors,
                     coeff=elem.coeff * term.coeff * sign
@@ -1714,6 +1817,50 @@ class AInfMaurerCartan:
             ),
         }
 
+    def mc_degree_9(self, theta1: WGenerator) -> Dict[str, Any]:
+        """MC equation at degree 9.
+
+        Involves m_9(Theta_1^9) plus mixed lower-m_k terms.
+        The m_9(T,...,T) contribution gives the nonic shadow
+        S_9 = -60350720/59049.
+        """
+        m9_term = self.bar_cx.m9(
+            theta1, theta1, theta1, theta1, theta1,
+            theta1, theta1, theta1, theta1
+        )
+        return {
+            "theta1": str(theta1),
+            "m9_term": str(m9_term.simplify()),
+            "m9_is_zero": m9_term.simplify().is_zero,
+            "interpretation": (
+                "m_9(Theta_1^9) = 0: shadow terminates at arity 8"
+                if m9_term.simplify().is_zero
+                else "m_9(Theta_1^9) != 0: shadow tower continues (class M)"
+            ),
+        }
+
+    def mc_degree_10(self, theta1: WGenerator) -> Dict[str, Any]:
+        """MC equation at degree 10.
+
+        Involves m_10(Theta_1^10) plus mixed lower-m_k terms.
+        The m_10(T,...,T) contribution gives the decic shadow
+        S_10 = 2586075392/531441.
+        """
+        m10_term = self.bar_cx.m10(
+            theta1, theta1, theta1, theta1, theta1,
+            theta1, theta1, theta1, theta1, theta1
+        )
+        return {
+            "theta1": str(theta1),
+            "m10_term": str(m10_term.simplify()),
+            "m10_is_zero": m10_term.simplify().is_zero,
+            "interpretation": (
+                "m_10(Theta_1^10) = 0: shadow terminates at arity 9"
+                if m10_term.simplify().is_zero
+                else "m_10(Theta_1^10) != 0: shadow tower continues (class M)"
+            ),
+        }
+
     def full_mc_check(self) -> Dict[str, Any]:
         """Run MC equation checks for all standard generators."""
         results = {}
@@ -1726,6 +1873,8 @@ class AInfMaurerCartan:
             deg6 = self.mc_degree_6(gen)
             deg7 = self.mc_degree_7(gen)
             deg8 = self.mc_degree_8(gen)
+            deg9 = self.mc_degree_9(gen)
+            deg10 = self.mc_degree_10(gen)
             results[gen.name] = {
                 "degree_1_zero": deg1.is_zero,
                 "degree_2": str(deg2.simplify()),
@@ -1736,6 +1885,8 @@ class AInfMaurerCartan:
                 "degree_6": deg6,
                 "degree_7": deg7,
                 "degree_8": deg8,
+                "degree_9": deg9,
+                "degree_10": deg10,
             }
         return results
 
@@ -1789,8 +1940,14 @@ def compute_a_infinity_bar_w1inf(max_arity: int = 4) -> Dict[str, Any]:
     # m_8 on T^8
     m8_TTTTTTTT = bar_cx.m8(T, T, T, T, T, T, T, T)
 
+    # m_9 on T^9
+    m9_TTTTTTTTT = bar_cx.m9(T, T, T, T, T, T, T, T, T)
+
+    # m_10 on T^10
+    m10_TTTTTTTTTT = bar_cx.m10(T, T, T, T, T, T, T, T, T, T)
+
     # Shadow tower
-    tower = shadow.full_tower(max_r=10)
+    tower = shadow.full_tower(max_r=12)
 
     # MC equation
     mc_check = mc.full_mc_check()
@@ -1811,6 +1968,8 @@ def compute_a_infinity_bar_w1inf(max_arity: int = 4) -> Dict[str, Any]:
         "m6_TTTTTT": str(m6_TTTTTT.simplify()),
         "m7_TTTTTTT": str(m7_TTTTTTT.simplify()),
         "m8_TTTTTTTT": str(m8_TTTTTTTT.simplify()),
+        "m9_TTTTTTTTT": str(m9_TTTTTTTTT.simplify()),
+        "m10_TTTTTTTTTT": str(m10_TTTTTTTTTT.simplify()),
         "shadow_tower": tower,
         "shadow_class_per_channel": shadow.shadow_class_per_channel(),
         "kappa_ch_total": shadow.kappa_ch_total(),
@@ -1830,9 +1989,11 @@ def compute_a_infinity_bar_w1inf(max_arity: int = 4) -> Dict[str, Any]:
                 "m_5(T,...,T) = (-80/9)T (quintic shadow S_5=-16/9), "
                 "m_6(T,...,T) = (38080/729)T (sextic shadow S_6=19040/2187), "
                 "m_7(T,...,T) = (-24320/81)T (septic shadow S_7=-24320/567), "
-                "m_8(T,...,T) = (33157760/19683)T (octic shadow S_8=4144720/19683). "
+                "m_8(T,...,T) = (33157760/19683)T (octic shadow S_8=4144720/19683), "
+                "m_9(T,...,T) = (-60350720/6561)T (nonic shadow S_9=-60350720/59049), "
+                "m_10(T,...,T) = (25860753920/531441)T (decic shadow S_10=2586075392/531441). "
                 "The Heisenberg sector (J) is class G with all m_k = 0 for k >= 3. "
-                "The shadow-Feynman dictionary is verified independently through L=7."
+                "The shadow-Feynman dictionary is verified independently through L=9."
             ),
         },
     }

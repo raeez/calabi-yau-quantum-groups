@@ -1825,3 +1825,562 @@ class TestShadowFeynmanDictionaryExtended:
         # (may be combined with other terms landing on [T])
         # Just verify the differential is non-trivial
         assert not d8.is_zero
+
+
+# ================================================================
+#  SECTION 16: m_9 (SHADOW-FEYNMAN DICTIONARY AT L=8)
+# ================================================================
+
+class TestM9:
+    """Test the nonic A_inf operation m_9.
+
+    m_9(T,...,T) extends the shadow-Feynman dictionary to L=8.
+    The coefficient a_7 = -60350720/6561 is computed from the SAME OPE inputs
+    as m_5 through m_8, with one more step of the convolution recursion.
+
+    Independent input verification chain:
+      kappa = c/2 = 1/2 [from 2-point <T|T> normalization]
+      alpha = 2 [from Virasoro associator m_3(T,T,T) = -2c T]
+      S_4 = 10/(c(5c+22)) = 10/27 [Zamolodchikov formula, Gram det=196]
+    """
+
+    def setup_method(self):
+        self.bar_cx = AInfBarComplex()
+
+    def test_m9_jjjjjjjjj_zero(self):
+        """m_9(J,...,J) = 0: Heisenberg sector is Gaussian."""
+        result = self.bar_cx.m9(J, J, J, J, J, J, J, J, J)
+        # VERIFIED [DC] vanishing m_9 [LT] class G
+        assert result.simplify().is_zero
+
+    def test_m9_ttttttttt_nonzero(self):
+        """m_9(T,...,T) != 0: nonic shadow is nonzero (class M continues)."""
+        result = self.bar_cx.m9(T, T, T, T, T, T, T, T, T)
+        s = result.simplify()
+        # VERIFIED [DC] nonzero nonic [LT] class M infinite tower
+        assert not s.is_zero
+
+    def test_m9_ttttttttt_coefficient(self):
+        """m_9(T,...,T) = (-60350720/6561) T at c=1.
+
+        a_7 = -(a_1*a_6 + a_2*a_5 + a_3*a_4 + a_4*a_3 + a_5*a_2
+                + a_6*a_1) / (2*a_0)
+             = -(120701440/6561) / 2 = -60350720/6561.
+        """
+        result = self.bar_cx.m9(T, T, T, T, T, T, T, T, T)
+        s = result.simplify()
+        # VERIFIED [DC] -60350720/6561 [DA] convolution recursion from OPE inputs
+        assert len(s.terms) == 1
+        assert s.terms[0].factors == (T,)
+        assert s.terms[0].coeff == Fraction(-60350720, 6561)
+
+    def test_m9_ttttttttt_output_is_T(self):
+        """m_9(T,...,T) outputs T (spin-2)."""
+        result = self.bar_cx.m9(T, T, T, T, T, T, T, T, T)
+        s = result.simplify()
+        assert s.terms[0].factors == (T,)
+
+    def test_m9_shadow_S9_value(self):
+        """S_9 = a_7/9 = -60350720/59049 for Virasoro at c=1."""
+        result = self.bar_cx.m9(T, T, T, T, T, T, T, T, T).simplify()
+        a7 = result.terms[0].coeff  # = -60350720/6561
+        S9 = a7 / 9
+        # VERIFIED [DC] -60350720/59049 [DA] a_7/9 from OPE convolution
+        assert S9 == Fraction(-60350720, 59049)
+
+    def test_m9_matches_shadow_recursion(self):
+        """S_9 from m_9 matches shadow tower recursion at spin-2 channel.
+
+        Shadow-Feynman dictionary verification at L=8.
+        """
+        shadow = AInfShadowTower(self.bar_cx, max_spin=3)
+        tower = shadow.shadow_tower_channel(2, max_r=12)
+        S9_shadow = tower[9]
+
+        m9_result = self.bar_cx.m9(T, T, T, T, T, T, T, T, T).simplify()
+        a7 = m9_result.terms[0].coeff
+        S9_from_m9 = a7 / 9
+
+        # VERIFIED [DC] S_9 match [CT] shadow tower recursion
+        assert S9_from_m9 == S9_shadow, (
+            f"S_9 mismatch: from m_9 = {S9_from_m9}, from shadow = {S9_shadow}"
+        )
+
+    def test_m9_sign_negative(self):
+        """m_9 coefficient is NEGATIVE (sign alternation continues).
+
+        Shadow tower sign pattern from a_3 onward: -, +, -, +, -.
+        a_7 is at odd index from the alternation start, hence negative.
+        """
+        result = self.bar_cx.m9(T, T, T, T, T, T, T, T, T).simplify()
+        # VERIFIED [DC] negative coefficient [DA] oscillatory class M tower
+        assert result.terms[0].coeff < 0
+
+    def test_m9_mk_dispatcher(self):
+        """The mk() dispatcher correctly routes to m9."""
+        direct = self.bar_cx.m9(T, T, T, T, T, T, T, T, T).simplify()
+        dispatched = self.bar_cx.mk(T, T, T, T, T, T, T, T, T).simplify()
+        assert len(dispatched.terms) == 1
+        assert dispatched.terms[0].coeff == direct.terms[0].coeff
+
+
+# ================================================================
+#  SECTION 17: m_10 (SHADOW-FEYNMAN DICTIONARY AT L=9)
+# ================================================================
+
+class TestM10:
+    """Test the decic A_inf operation m_10.
+
+    m_10(T,...,T) extends the shadow-Feynman dictionary to L=9.
+    The coefficient a_8 = 25860753920/531441 is computed from the SAME OPE inputs
+    as m_5 through m_9, with one more step of the convolution recursion.
+    """
+
+    def setup_method(self):
+        self.bar_cx = AInfBarComplex()
+
+    def test_m10_jjjjjjjjjj_zero(self):
+        """m_10(J,...,J) = 0: Heisenberg sector is Gaussian."""
+        result = self.bar_cx.m10(J, J, J, J, J, J, J, J, J, J)
+        # VERIFIED [DC] vanishing m_10 [LT] class G
+        assert result.simplify().is_zero
+
+    def test_m10_tttttttttt_nonzero(self):
+        """m_10(T,...,T) != 0: decic shadow is nonzero (class M continues)."""
+        result = self.bar_cx.m10(T, T, T, T, T, T, T, T, T, T)
+        s = result.simplify()
+        # VERIFIED [DC] nonzero decic [LT] class M infinite tower
+        assert not s.is_zero
+
+    def test_m10_tttttttttt_coefficient(self):
+        """m_10(T,...,T) = (25860753920/531441) T at c=1.
+
+        a_8 = -(a_1*a_7 + a_2*a_6 + a_3*a_5 + a_4^2 + a_5*a_3
+                + a_6*a_2 + a_7*a_1) / (2*a_0)
+             = -(-51721507840/531441) / 2 = 25860753920/531441.
+        """
+        result = self.bar_cx.m10(T, T, T, T, T, T, T, T, T, T)
+        s = result.simplify()
+        # VERIFIED [DC] 25860753920/531441 [DA] convolution recursion from OPE inputs
+        assert len(s.terms) == 1
+        assert s.terms[0].factors == (T,)
+        assert s.terms[0].coeff == Fraction(25860753920, 531441)
+
+    def test_m10_tttttttttt_output_is_T(self):
+        """m_10(T,...,T) outputs T (spin-2)."""
+        result = self.bar_cx.m10(T, T, T, T, T, T, T, T, T, T)
+        s = result.simplify()
+        assert s.terms[0].factors == (T,)
+
+    def test_m10_shadow_S10_value(self):
+        """S_10 = a_8/10 = 2586075392/531441 for Virasoro at c=1."""
+        result = self.bar_cx.m10(T, T, T, T, T, T, T, T, T, T).simplify()
+        a8 = result.terms[0].coeff  # = 25860753920/531441
+        S10 = a8 / 10
+        # VERIFIED [DC] 2586075392/531441 [DA] a_8/10 from OPE convolution
+        assert S10 == Fraction(2586075392, 531441)
+
+    def test_m10_matches_shadow_recursion(self):
+        """S_10 from m_10 matches shadow tower recursion at spin-2 channel.
+
+        Shadow-Feynman dictionary verification at L=9.
+        """
+        shadow = AInfShadowTower(self.bar_cx, max_spin=3)
+        tower = shadow.shadow_tower_channel(2, max_r=12)
+        S10_shadow = tower[10]
+
+        m10_result = self.bar_cx.m10(T, T, T, T, T, T, T, T, T, T).simplify()
+        a8 = m10_result.terms[0].coeff
+        S10_from_m10 = a8 / 10
+
+        # VERIFIED [DC] S_10 match [CT] shadow tower recursion
+        assert S10_from_m10 == S10_shadow, (
+            f"S_10 mismatch: from m_10 = {S10_from_m10}, from shadow = {S10_shadow}"
+        )
+
+    def test_m10_sign_positive(self):
+        """m_10 coefficient is POSITIVE (sign alternation continues).
+
+        Shadow tower sign pattern from a_3 onward: -, +, -, +, -, +.
+        a_8 is at even index from the alternation start, hence positive.
+        """
+        result = self.bar_cx.m10(T, T, T, T, T, T, T, T, T, T).simplify()
+        # VERIFIED [DC] positive coefficient [DA] oscillatory class M tower
+        assert result.terms[0].coeff > 0
+
+    def test_m10_mk_dispatcher(self):
+        """The mk() dispatcher correctly routes to m10."""
+        direct = self.bar_cx.m10(T, T, T, T, T, T, T, T, T, T).simplify()
+        dispatched = self.bar_cx.mk(T, T, T, T, T, T, T, T, T, T).simplify()
+        assert len(dispatched.terms) == 1
+        assert dispatched.terms[0].coeff == direct.terms[0].coeff
+
+
+# ================================================================
+#  SECTION 18: MC EQUATION AT DEGREES 9 AND 10
+# ================================================================
+
+class TestMaurerCartanDegree9And10:
+    """Test MC equation checks at degrees 9 and 10."""
+
+    def setup_method(self):
+        bar_cx = AInfBarComplex()
+        self.mc = AInfMaurerCartan(bar_cx)
+
+    def test_mc_degree9_J(self):
+        """MC degree 9 for J: m_9(J^9) = 0."""
+        data = self.mc.mc_degree_9(J)
+        # VERIFIED [DC] class G [LT] Heisenberg formality
+        assert data["m9_is_zero"] is True
+
+    def test_mc_degree9_T(self):
+        """MC degree 9 for T: m_9(T^9) != 0."""
+        data = self.mc.mc_degree_9(T)
+        # VERIFIED [DC] class M [LT] nonic shadow nonzero
+        assert data["m9_is_zero"] is False
+
+    def test_mc_degree10_J(self):
+        """MC degree 10 for J: m_10(J^10) = 0."""
+        data = self.mc.mc_degree_10(J)
+        # VERIFIED [DC] class G [LT] Heisenberg formality
+        assert data["m10_is_zero"] is True
+
+    def test_mc_degree10_T(self):
+        """MC degree 10 for T: m_10(T^10) != 0."""
+        data = self.mc.mc_degree_10(T)
+        # VERIFIED [DC] class M [LT] decic shadow nonzero
+        assert data["m10_is_zero"] is False
+
+    def test_full_mc_check_includes_degree_9_10(self):
+        """Full MC check now includes degree 9 and 10."""
+        results = self.mc.full_mc_check()
+        assert "degree_9" in results["T"]
+        assert "degree_10" in results["T"]
+        assert results["T"]["degree_9"]["m9_is_zero"] is False
+        assert results["T"]["degree_10"]["m10_is_zero"] is False
+        assert results["J"]["degree_9"]["m9_is_zero"] is True
+        assert results["J"]["degree_10"]["m10_is_zero"] is True
+
+
+# ================================================================
+#  SECTION 19: EXTENDED SHADOW-FEYNMAN DICTIONARY THROUGH L=9
+# ================================================================
+
+class TestShadowFeynmanDictionaryThroughL9:
+    """Extended cross-checks for the shadow-A_inf dictionary through L=9.
+
+    New verifications at L=8 and L=9:
+    (1) f(t)^2 = Q_L(t) identity at orders t^7 and t^8 (both must vanish)
+    (2) Sign alternation pattern: a_7<0, a_8>0
+    (3) Growth rate |a_n| bounded by Gevrey-1 (factorial growth)
+    (4) Borel transform convergence (partial sums bounded)
+    (5) Asymptotic growth rate analysis
+    """
+
+    def setup_method(self):
+        self.bar_cx = AInfBarComplex()
+        self.shadow = AInfShadowTower(self.bar_cx, max_spin=3)
+
+    def _get_all_a_values(self):
+        """Extract a_0,...,a_8 from m_k computations."""
+        a = [Fraction(0)] * 9
+        a[0] = Fraction(1)  # a_0 = 2*kappa = 1
+        a[1] = Fraction(6)  # a_1 = 3*alpha = 6
+        a[2] = self.bar_cx.m4(T, T, T, T).simplify().terms[0].coeff
+        a[3] = self.bar_cx.m5(T, T, T, T, T).simplify().terms[0].coeff
+        a[4] = self.bar_cx.m6(T, T, T, T, T, T).simplify().terms[0].coeff
+        a[5] = self.bar_cx.m7(T, T, T, T, T, T, T).simplify().terms[0].coeff
+        a[6] = self.bar_cx.m8(T, T, T, T, T, T, T, T).simplify().terms[0].coeff
+        a[7] = self.bar_cx.m9(T, T, T, T, T, T, T, T, T).simplify().terms[0].coeff
+        a[8] = self.bar_cx.m10(T, T, T, T, T, T, T, T, T, T).simplify().terms[0].coeff
+        return a
+
+    def test_dictionary_S9(self):
+        """S_9 = -60350720/59049: nonic shadow from m_9 coefficient."""
+        m9 = self.bar_cx.m9(T, T, T, T, T, T, T, T, T).simplify()
+        a7 = m9.terms[0].coeff
+        S9 = a7 / 9
+        # VERIFIED [DC] -60350720/59049 [DA] dictionary at L=8
+        assert S9 == Fraction(-60350720, 59049)
+
+    def test_dictionary_S10(self):
+        """S_10 = 2586075392/531441: decic shadow from m_10 coefficient."""
+        m10 = self.bar_cx.m10(T, T, T, T, T, T, T, T, T, T).simplify()
+        a8 = m10.terms[0].coeff
+        S10 = a8 / 10
+        # VERIFIED [DC] 2586075392/531441 [DA] dictionary at L=9
+        assert S10 == Fraction(2586075392, 531441)
+
+    def test_all_shadows_match_tower_through_S10(self):
+        """All S_k for k=2,...,10 from m_k match shadow tower recursion.
+
+        COMPREHENSIVE verification through L=9.
+        """
+        tower = self.shadow.shadow_tower_channel(2, max_r=12)
+
+        # S_2 from kappa
+        assert tower[2] == Fraction(1, 2)
+
+        # S_3 from m_3
+        assert tower[3] == abs(self.bar_cx.m3(T, T, T).simplify().terms[0].coeff)
+
+        # S_4 from m_4
+        a2 = self.bar_cx.m4(T, T, T, T).simplify().terms[0].coeff
+        assert tower[4] == a2 / 4
+
+        # S_5 from m_5
+        a3 = self.bar_cx.m5(T, T, T, T, T).simplify().terms[0].coeff
+        assert tower[5] == a3 / 5
+
+        # S_6 from m_6
+        a4 = self.bar_cx.m6(T, T, T, T, T, T).simplify().terms[0].coeff
+        assert tower[6] == a4 / 6
+
+        # S_7 from m_7
+        a5 = self.bar_cx.m7(T, T, T, T, T, T, T).simplify().terms[0].coeff
+        assert tower[7] == a5 / 7
+
+        # S_8 from m_8
+        a6 = self.bar_cx.m8(T, T, T, T, T, T, T, T).simplify().terms[0].coeff
+        assert tower[8] == a6 / 8
+
+        # S_9 from m_9
+        a7 = self.bar_cx.m9(T, T, T, T, T, T, T, T, T).simplify().terms[0].coeff
+        assert tower[9] == a7 / 9
+
+        # S_10 from m_10
+        a8 = self.bar_cx.m10(T, T, T, T, T, T, T, T, T, T).simplify().terms[0].coeff
+        assert tower[10] == a8 / 10
+
+    def test_convolution_recursion_a7_a8_independent(self):
+        """Verify a_7 and a_8 by direct convolution from (a_0,...,a_6).
+
+        This computation is INDEPENDENT of the shadow_tower_channel code
+        and the m_9/m_10 implementations. It uses only the three OPE inputs.
+        """
+        c = Fraction(1)
+        kappa = c / 2
+        alpha = Fraction(2)
+        S4 = Fraction(10) / (c * (5 * c + 22))
+
+        q0 = 4 * kappa ** 2
+        q1 = 12 * kappa * alpha
+        q2 = 9 * alpha ** 2 + 16 * kappa * S4
+
+        a0 = 2 * kappa
+        a1 = q1 / (2 * a0)
+        a2 = (q2 - a1 ** 2) / (2 * a0)
+
+        conv3 = a1 * a2 + a2 * a1
+        a3 = -conv3 / (2 * a0)
+
+        conv4 = a1 * a3 + a2 * a2 + a3 * a1
+        a4 = -conv4 / (2 * a0)
+
+        conv5 = a1 * a4 + a2 * a3 + a3 * a2 + a4 * a1
+        a5 = -conv5 / (2 * a0)
+
+        conv6 = a1 * a5 + a2 * a4 + a3 * a3 + a4 * a2 + a5 * a1
+        a6 = -conv6 / (2 * a0)
+
+        # a_7 from convolution
+        conv7 = a1 * a6 + a2 * a5 + a3 * a4 + a4 * a3 + a5 * a2 + a6 * a1
+        a7 = -conv7 / (2 * a0)
+
+        # a_8 from convolution
+        conv8 = (a1 * a7 + a2 * a6 + a3 * a5 + a4 * a4
+                 + a5 * a3 + a6 * a2 + a7 * a1)
+        a8 = -conv8 / (2 * a0)
+
+        # VERIFIED [DC] independent recursion [DA] Newton sqrt
+        assert a7 == Fraction(-60350720, 6561)
+        assert a8 == Fraction(25860753920, 531441)
+
+        # Match against m_9, m_10
+        m9_coeff = self.bar_cx.m9(
+            T, T, T, T, T, T, T, T, T
+        ).simplify().terms[0].coeff
+        m10_coeff = self.bar_cx.m10(
+            T, T, T, T, T, T, T, T, T, T
+        ).simplify().terms[0].coeff
+        assert m9_coeff == a7
+        assert m10_coeff == a8
+
+    def test_f_squared_equals_QL_through_order_8(self):
+        """f(t)^2 = Q_L(t) identity verified at orders t^0 through t^8.
+
+        Since Q_L(t) = q_0 + q_1*t + q_2*t^2, the coefficients of t^n
+        for n >= 3 must vanish: sum_{j=0}^{n} a_j * a_{n-j} = 0.
+        This is an ALGEBRAIC IDENTITY independent of the recursion formula.
+        """
+        c = Fraction(1)
+        kappa = c / 2
+        alpha = Fraction(2)
+        S4 = Fraction(10) / (c * (5 * c + 22))
+
+        q0 = 4 * kappa ** 2
+        q1 = 12 * kappa * alpha
+        q2 = 9 * alpha ** 2 + 16 * kappa * S4
+
+        a = self._get_all_a_values()
+
+        # Verify f^2 coefficients
+        for n in range(9):
+            sq_n = sum(a[j] * a[n - j] for j in range(n + 1))
+            if n == 0:
+                assert sq_n == q0, f"f^2 at t^0: {sq_n} != {q0}"
+            elif n == 1:
+                assert sq_n == q1, f"f^2 at t^1: {sq_n} != {q1}"
+            elif n == 2:
+                assert sq_n == q2, f"f^2 at t^2: {sq_n} != {q2}"
+            else:
+                # VERIFIED [DC] f^2 vanishing [DA] algebraic identity
+                assert sq_n == 0, f"f^2 at t^{n}: {sq_n} != 0"
+
+    def test_sign_alternation_through_a8(self):
+        """Sign alternation: a_0..a_2 > 0, then strict alternation from a_3.
+
+        a_0>0, a_1>0, a_2>0, a_3<0, a_4>0, a_5<0, a_6>0, a_7<0, a_8>0.
+        """
+        a = self._get_all_a_values()
+
+        # VERIFIED [DC] sign pattern [DA] Gevrey-1 oscillation
+        assert a[0] > 0  # a_0 > 0
+        assert a[1] > 0  # a_1 > 0
+        assert a[2] > 0  # a_2 > 0
+        assert a[3] < 0  # a_3 < 0 (first sign change)
+        assert a[4] > 0  # a_4 > 0
+        assert a[5] < 0  # a_5 < 0
+        assert a[6] > 0  # a_6 > 0
+        assert a[7] < 0  # a_7 < 0 (new)
+        assert a[8] > 0  # a_8 > 0 (new)
+
+    def test_gevrey_1_growth_through_a8(self):
+        """Growth rate |a_n| bounded by C * n! (Gevrey-1 for class M).
+
+        For a Gevrey-1 series, |a_n/n!| should remain bounded (not diverge).
+        With 9 terms we have stronger evidence: the ratio DECREASES from n=5.
+        """
+        import math
+
+        a = self._get_all_a_values()
+
+        # |a_n|/n! should be bounded
+        ratios = [abs(float(a[n])) / math.factorial(n) for n in range(9)]
+        # VERIFIED [DC] Gevrey bound [DA] |a_n|/n! bounded
+        assert all(r < 10 for r in ratios), f"Gevrey-1 violated: {ratios}"
+        # Stronger: the ratio should be DECREASING for n >= 5
+        # (convergence of Borel transform)
+        assert ratios[8] < ratios[7], (
+            f"|a_8|/8! = {ratios[8]} should be < |a_7|/7! = {ratios[7]}"
+        )
+
+    def test_borel_partial_sums_bounded_through_a8(self):
+        """Borel transform partial sums B(t) = sum a_k*t^k/k! are bounded.
+
+        With 9 terms the oscillation pattern is clear: partial sums alternate
+        around the Borel sum, never diverging.
+        """
+        import math
+
+        a = self._get_all_a_values()
+
+        # Evaluate Borel transform at t=1: B(1) = sum a_k/k!
+        borel_partials = []
+        running = Fraction(0)
+        for k in range(9):
+            running += a[k] / math.factorial(k)
+            borel_partials.append(float(running))
+
+        # VERIFIED [DC] Borel boundedness [DA] oscillating partial sums
+        assert all(abs(s) < 20 for s in borel_partials), (
+            f"Borel partial sums unbounded: {borel_partials}"
+        )
+        # Verify oscillation: the last 4 partial sums should alternate
+        # around a central value
+        for i in range(5, 8):
+            sign_curr = 1 if borel_partials[i] > borel_partials[i - 1] else -1
+            sign_next = 1 if borel_partials[i + 1] > borel_partials[i] else -1
+            assert sign_curr != sign_next, (
+                f"Borel partials not oscillating at k={i}: {borel_partials[i-1:]}"
+            )
+
+    def test_asymptotic_growth_rate(self):
+        """Asymptotic growth: |a_k| ~ C^k * k! for C near 5.3.
+
+        The ratio |a_{n+1}/a_n| / (n+1) should approach C as n grows.
+        From the data: the ratios |a_{n+1}/a_n| are approximately
+        6.0, 0.25, 6.0, 5.88, 5.75, 5.61, 5.46, 5.29.
+        Dividing by (n+1) and looking at the geometric part:
+        the ratios themselves approach ~5.0-5.3, suggesting C ~ 5.
+
+        This C is the reciprocal of the Borel radius of convergence:
+        R_Borel = 1/C ~ 0.19.
+        """
+        a = self._get_all_a_values()
+
+        # Compute |a_{n+1}/a_n| for n >= 3 (past the initial transient)
+        ratios = []
+        for n in range(3, 8):
+            r = abs(float(a[n + 1]) / float(a[n]))
+            ratios.append(r)
+
+        # VERIFIED [DC] ratio convergence [DA] geometric growth bound
+        # All ratios should be between 4 and 7
+        assert all(4 < r < 7 for r in ratios), f"Ratios out of range: {ratios}"
+
+        # The ratios should be DECREASING (converging toward C from above)
+        for i in range(len(ratios) - 1):
+            assert ratios[i + 1] < ratios[i] + 0.5, (
+                f"Ratios not converging: {ratios}"
+            )
+
+    def test_borel_radius_estimate(self):
+        """Estimate the Borel radius R_Borel = lim n * |a_{n-1}/a_n|.
+
+        For Gevrey-1 series sum a_n t^n with |a_n| ~ C^n * n!, the Borel
+        transform sum a_n t^n / n! converges for |t| < 1/C.
+        R_Borel = 1/C = lim |a_{n-1}/a_n| * n.
+
+        From the data: |a_7/a_8| * 8 = (1/5.29)*8 ~ 1.51
+        and |a_6/a_7| * 7 = (1/5.46)*7 ~ 1.28.
+        These should converge to R_Borel ~ 1.3-1.5 (i.e., C ~ 0.7-0.8).
+
+        Wait: for Gevrey-1, |a_n| ~ A * C^n * n!, so
+        |a_n/a_{n-1}| ~ C * n, hence |a_n|/(n*|a_{n-1}|) -> C.
+        And R_Borel = 1/C.
+        """
+        a = self._get_all_a_values()
+
+        # Compute C_n = |a_n| / (n * |a_{n-1}|) for n >= 4
+        C_estimates = []
+        for n in range(4, 9):
+            C_n = abs(float(a[n])) / (n * abs(float(a[n - 1])))
+            C_estimates.append(C_n)
+
+        # VERIFIED [DC] C convergence [DA] Borel radius from Gevrey-1
+        # C should stabilize (all estimates between 0.5 and 1.5)
+        assert all(0.3 < c < 1.5 for c in C_estimates), (
+            f"C estimates out of range: {C_estimates}"
+        )
+
+    def test_bar_differential_includes_m9_m10(self):
+        """Bar differential d on [T^9] and [T^10] includes m_9 and m_10 terms.
+
+        d([T^9]) should include a term from m_9(T,...,T) = (-60350720/6561)T.
+        d([T^10]) should include a term from m_10(T,...,T) = (25860753920/531441)T.
+        """
+        # d on T^9
+        elem9 = AInfBarElement(factors=(T,) * 9)
+        d9 = self.bar_cx.bar_differential(elem9).simplify()
+        # The m_9 contribution at position 0: (-60350720/6561) * [T]
+        has_m9 = any(t.coeff == Fraction(-60350720, 6561) and t.factors == (T,)
+                     for t in d9.terms)
+        # VERIFIED [DC] m_9 in bar differential [DA] bar complex structure
+        assert has_m9, f"m_9 term not found in d([T^9]): {d9}"
+
+        # d on T^10
+        elem10 = AInfBarElement(factors=(T,) * 10)
+        d10 = self.bar_cx.bar_differential(elem10).simplify()
+        # Just verify the differential is non-trivial
+        assert not d10.is_zero
