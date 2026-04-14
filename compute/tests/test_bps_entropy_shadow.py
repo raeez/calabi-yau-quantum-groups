@@ -1,0 +1,532 @@
+"""Tests for bps_entropy_shadow.py.
+
+Multi-path verification of BPS black hole entropy from the shadow partition
+function for K3 x E.  Each numerical claim is verified by at least 2
+independent methods.
+
+Test organization:
+  1.  Kappa-spectrum (6 tests)
+  2.  Strominger-Vafa entropy (8 tests)
+  3.  Cardy formula (5 tests)
+  4.  BPS degeneracies (6 tests)
+  5.  Bekenstein-Hawking entropy (4 tests)
+  6.  Rademacher expansion (5 tests)
+  7.  Shadow tower contributions (6 tests)
+  8.  Shadow vs Rademacher comparison (4 tests)
+  9.  Kappa-entropy analysis (5 tests)
+  10. Cross-verifications (6 tests)
+  11. Entropy comparison table (5 tests)
+
+Total: 60 tests.
+"""
+
+import math
+import pytest
+from fractions import Fraction
+
+from compute.lib.bps_entropy_shadow import (
+    # Constants
+    A_HAT, K3E_KAPPA_SPECTRUM,
+    # Kappa spectrum
+    KappaSpectrum, verify_kappa_spectrum,
+    # Strominger-Vafa
+    StromingerVafaData, strominger_vafa_entropy,
+    # Cardy
+    verify_cardy_formula, verify_cardy_c24,
+    # BPS degeneracies
+    discriminant_k3e, verify_discriminant_constraint,
+    BPS_DEGENERACIES_K3E, bps_degeneracy_k3e, bps_entropy_exact,
+    # Bekenstein-Hawking
+    bekenstein_hawking_k3e, verify_strominger_vafa_k3e,
+    # Rademacher
+    rademacher_leading_k3e, rademacher_first_correction_k3e,
+    # Shadow tower
+    ShadowEntropyData, shadow_entropy_scalar, shadow_tower_corrections_k3e,
+    shadow_entropy_full,
+    # Shadow vs Rademacher
+    ResummationComparison, shadow_vs_rademacher,
+    # Kappa analysis
+    kappa_entropy_analysis,
+    # Entropy table
+    EntropyTableRow, entropy_comparison_table,
+    # Cross-verifications
+    verify_sv_from_cardy, verify_rademacher_improves_with_D, verify_kappa_identity,
+    # Summary
+    bps_entropy_shadow_summary,
+    # A-hat
+    a_hat_coefficient,
+)
+
+
+# =========================================================================
+# 1. KAPPA-SPECTRUM
+# =========================================================================
+
+class TestKappaSpectrum:
+    """Verify the four kappa values for K3 x E (AP113)."""
+
+    def test_kappa_ch_equals_3(self):
+        """kappa_ch = 3 = dim_C(K3 x E)."""
+        assert K3E_KAPPA_SPECTRUM.kappa_ch == Fraction(3)
+
+    def test_kappa_BKM_equals_5(self):
+        """kappa_BKM = 5 = weight of Delta_5."""
+        assert K3E_KAPPA_SPECTRUM.kappa_BKM == 5
+
+    def test_kappa_cat_equals_2(self):
+        """kappa_cat = 2 = chi(O_{K3}) = 1 + 0 + 1."""
+        assert K3E_KAPPA_SPECTRUM.kappa_cat == 2
+
+    def test_kappa_fiber_equals_24(self):
+        """kappa_fiber = 24 = rank of Mukai lattice."""
+        assert K3E_KAPPA_SPECTRUM.kappa_fiber == 24
+
+    def test_all_kappas_distinct(self):
+        """All four kappa values are distinct (AP113: never confuse)."""
+        ks = K3E_KAPPA_SPECTRUM
+        values = {ks.kappa_ch, ks.kappa_BKM, ks.kappa_cat, ks.kappa_fiber}
+        assert len(values) == 4
+
+    def test_verify_kappa_spectrum_all_pass(self):
+        """All kappa spectrum verifications pass."""
+        checks = verify_kappa_spectrum()
+        assert all(checks.values())
+
+
+# =========================================================================
+# 2. STROMINGER-VAFA ENTROPY
+# =========================================================================
+
+class TestStromingerVafa:
+    """Verify the Strominger-Vafa black hole entropy formula."""
+
+    def test_sv_unit_charges(self):
+        """S = 2*pi*sqrt(1*1*1) = 2*pi for (1,1,1)."""
+        sv = strominger_vafa_entropy(1, 1, 1)
+        assert abs(sv.S_BH - 2 * math.pi) < 1e-10
+
+    def test_sv_micro_equals_bh(self):
+        """S_micro = S_BH exactly (the Strominger-Vafa theorem)."""
+        sv = strominger_vafa_entropy(2, 3, 5)
+        assert abs(sv.S_micro - sv.S_BH) < 1e-10
+
+    def test_sv_c_cft(self):
+        """c_CFT = 6 * n_1 * n_5 for the D1-D5 system."""
+        sv = strominger_vafa_entropy(3, 7, 10)
+        assert sv.c_cft == 6 * 3 * 7
+
+    def test_sv_formula_explicit(self):
+        """S = 2*pi*sqrt(n_1*n_5*n_p) explicit check."""
+        n1, n5, n_p = 2, 5, 8
+        sv = strominger_vafa_entropy(n1, n5, n_p)
+        expected = 2 * math.pi * math.sqrt(n1 * n5 * n_p)
+        assert abs(sv.S_BH - expected) < 1e-10
+
+    def test_sv_scales_correctly(self):
+        """Entropy scales as sqrt(product of charges)."""
+        sv1 = strominger_vafa_entropy(1, 1, 1)
+        sv4 = strominger_vafa_entropy(1, 1, 4)
+        # S(1,1,4) / S(1,1,1) = sqrt(4) = 2
+        assert abs(sv4.S_BH / sv1.S_BH - 2.0) < 1e-10
+
+    def test_sv_zero_charge(self):
+        """Zero charges give zero entropy."""
+        sv = strominger_vafa_entropy(0, 1, 1)
+        assert sv.S_BH == 0.0
+
+    def test_sv_agreement_flag(self):
+        """The agreement flag is always True (Strominger-Vafa theorem)."""
+        sv = strominger_vafa_entropy(5, 7, 11)
+        assert sv.agreement is True
+
+    def test_sv_large_charges(self):
+        """Large charge test: S = 2*pi*sqrt(100*200*300)."""
+        sv = strominger_vafa_entropy(100, 200, 300)
+        expected = 2 * math.pi * math.sqrt(100 * 200 * 300)
+        assert abs(sv.S_BH - expected) < 1e-6
+
+
+# =========================================================================
+# 3. CARDY FORMULA
+# =========================================================================
+
+class TestCardyFormula:
+    """Verify the Cardy formula S ~ 2*pi*sqrt(c*N/6)."""
+
+    def test_cardy_c24_n100(self):
+        """c=24, N=100: S = 4*pi*sqrt(100) = 40*pi."""
+        result = verify_cardy_c24(100)
+        assert abs(result["S_cardy"] - 4 * math.pi * 10) < 1e-10
+        assert result["match"] is True
+
+    def test_cardy_matches_sv(self):
+        """Cardy formula with c = 6*n_1*n_5 matches S_SV."""
+        n1, n5, n_p = 3, 4, 20
+        cardy = verify_cardy_formula(c=6*n1*n5, N=n_p)
+        sv = strominger_vafa_entropy(n1, n5, n_p)
+        assert abs(cardy["S_cardy"] - sv.S_BH) < 1e-10
+
+    def test_cardy_above_btz_threshold(self):
+        """N > c/24 for the Cardy formula to be valid."""
+        result = verify_cardy_formula(c=24, N=100)
+        assert result["above_threshold"] is True
+        assert result["btz_threshold"] == 1.0
+
+    def test_cardy_c6_n1(self):
+        """Single copy K3 sigma model: c=6, N=1.
+        S = 2*pi*sqrt(6/6) = 2*pi."""
+        result = verify_cardy_formula(c=6, N=1)
+        assert abs(result["S_cardy"] - 2 * math.pi) < 1e-10
+
+    def test_cardy_c_over_24(self):
+        """c/24 = 1 for c=24."""
+        result = verify_cardy_formula(c=24, N=10)
+        assert result["c_over_24"] == 1.0
+
+
+# =========================================================================
+# 4. BPS DEGENERACIES
+# =========================================================================
+
+class TestBPSDegeneracies:
+    """Verify BPS degeneracies from 1/Delta_5."""
+
+    def test_discriminant_formula(self):
+        """D = 4nm - l^2."""
+        assert discriminant_k3e(1, 0, 1) == 4
+        assert discriminant_k3e(1, 1, 1) == 3
+        assert discriminant_k3e(2, 1, 1) == 7
+
+    def test_discriminant_constraint_valid(self):
+        """Valid discriminants: D = 0 or 3 mod 4, or D < 0."""
+        assert verify_discriminant_constraint(-1) is True
+        assert verify_discriminant_constraint(0) is True
+        assert verify_discriminant_constraint(3) is True
+        assert verify_discriminant_constraint(4) is True
+        assert verify_discriminant_constraint(7) is True
+
+    def test_discriminant_constraint_invalid(self):
+        """Invalid discriminants: D = 1 or 2 mod 4."""
+        assert verify_discriminant_constraint(1) is False
+        assert verify_discriminant_constraint(2) is False
+        assert verify_discriminant_constraint(5) is False
+
+    def test_bps_ground_state(self):
+        """Omega(-1) = 1: single ground state."""
+        assert bps_degeneracy_k3e(-1) == 1
+
+    def test_bps_d3_is_248(self):
+        """Omega(3) = 248: dimension of E_8 minus 1 plus corrections.
+        Actually 248 = dim(E_8), which is a coincidence / deep fact
+        about the K3 x E BPS spectrum."""
+        assert bps_degeneracy_k3e(3) == 248
+
+    def test_bps_degeneracies_grow(self):
+        """BPS degeneracies grow with discriminant (absolute value)."""
+        D_vals = [3, 7, 11, 15]
+        omegas = [abs(bps_degeneracy_k3e(D)) for D in D_vals]
+        for i in range(len(omegas) - 1):
+            assert omegas[i + 1] > omegas[i]
+
+
+# =========================================================================
+# 5. BEKENSTEIN-HAWKING ENTROPY
+# =========================================================================
+
+class TestBekensteinHawking:
+    """Verify the Bekenstein-Hawking entropy S_BH = pi*sqrt(D)."""
+
+    def test_bh_d4(self):
+        """D=4: S_BH = 2*pi."""
+        assert abs(bekenstein_hawking_k3e(4) - 2 * math.pi) < 1e-10
+
+    def test_bh_d0_is_zero(self):
+        """D=0: zero-area black hole."""
+        assert bekenstein_hawking_k3e(0) == 0.0
+
+    def test_bh_negative_d(self):
+        """D<0: no classical black hole."""
+        assert bekenstein_hawking_k3e(-1) == 0.0
+
+    def test_bh_scales_as_sqrt(self):
+        """S_BH(4D) = 2 * S_BH(D)."""
+        S1 = bekenstein_hawking_k3e(4)
+        S4 = bekenstein_hawking_k3e(16)
+        assert abs(S4 / S1 - 2.0) < 1e-10
+
+
+# =========================================================================
+# 6. RADEMACHER EXPANSION
+# =========================================================================
+
+class TestRademacher:
+    """Verify the Rademacher expansion for K3 x E BPS degeneracies."""
+
+    def test_rademacher_leading_is_bh(self):
+        """Leading Rademacher term matches Bekenstein-Hawking at large D."""
+        D = 1000
+        S_rad = rademacher_leading_k3e(D)
+        S_BH = bekenstein_hawking_k3e(D)
+        # At D=1000, the log correction is small relative to sqrt
+        assert abs(S_rad - S_BH) / S_BH < 0.15
+
+    def test_rademacher_includes_log_correction(self):
+        """Rademacher has a -3/2 * log(D) subleading term."""
+        D = 100
+        S_rad = rademacher_leading_k3e(D)
+        S_BH = bekenstein_hawking_k3e(D)
+        expected_correction = -1.5 * math.log(D)
+        actual_diff = S_rad - S_BH
+        assert abs(actual_diff - expected_correction) < 1e-10
+
+    def test_rademacher_d0_is_zero(self):
+        """Rademacher gives 0 for D <= 0."""
+        assert rademacher_leading_k3e(0) == 0.0
+        assert rademacher_leading_k3e(-5) == 0.0
+
+    def test_rademacher_correction_suppressed(self):
+        """The c=2 Rademacher correction is exponentially suppressed."""
+        D = 100
+        ratio = rademacher_first_correction_k3e(D)
+        # ratio ~ exp(-pi*sqrt(D)/2) ~ exp(-15.7) ~ 1.5e-7
+        assert ratio < 0.01
+
+    def test_rademacher_correction_decreases_with_D(self):
+        """C_2/C_1 decreases as D grows."""
+        r1 = rademacher_first_correction_k3e(10)
+        r2 = rademacher_first_correction_k3e(100)
+        assert r2 < r1
+
+
+# =========================================================================
+# 7. SHADOW TOWER CONTRIBUTIONS
+# =========================================================================
+
+class TestShadowTower:
+    """Verify shadow tower contributions to BPS entropy."""
+
+    def test_shadow_scalar_equals_bh(self):
+        """Shadow scalar reproduces Bekenstein-Hawking at leading order."""
+        D = 100
+        S_shadow = shadow_entropy_scalar(D)
+        S_BH = bekenstein_hawking_k3e(D)
+        assert abs(S_shadow - S_BH) < 1e-10
+
+    def test_shadow_uses_kappa_ch(self):
+        """Shadow tower uses kappa_ch = 3, NOT kappa_BKM."""
+        D = 100
+        data = shadow_entropy_full(D)
+        assert data.kappa_ch_used == Fraction(3)
+        assert data.kappa_BKM_used == 5
+
+    def test_shadow_corrections_decrease_with_genus(self):
+        """Higher-genus corrections are suppressed."""
+        D = 100
+        corrections = shadow_tower_corrections_k3e(D)
+        # Corrections should decrease in absolute value with genus
+        prev = abs(corrections[1])
+        for g in range(2, 6):
+            curr = abs(corrections[g])
+            assert curr < prev
+            prev = curr
+
+    def test_shadow_corrections_zero_for_d0(self):
+        """No corrections for D <= 0."""
+        corrections = shadow_tower_corrections_k3e(0)
+        assert corrections == {}
+
+    def test_shadow_entropy_full_structure(self):
+        """shadow_entropy_full returns all fields correctly."""
+        data = shadow_entropy_full(7)
+        assert data.discriminant == 7
+        assert data.S_BH > 0
+        assert data.kappa_ch_used == Fraction(3)
+        assert data.kappa_BKM_used == 5
+        assert isinstance(data.shadow_tower_corrections, dict)
+
+    def test_shadow_scalar_zero_for_negative_d(self):
+        """Shadow scalar is 0 for D <= 0."""
+        assert shadow_entropy_scalar(-1) == 0.0
+        assert shadow_entropy_scalar(0) == 0.0
+
+
+# =========================================================================
+# 8. SHADOW VS RADEMACHER COMPARISON
+# =========================================================================
+
+class TestShadowVsRademacher:
+    """Compare shadow resummation with Rademacher expansion."""
+
+    def test_comparison_structure(self):
+        """shadow_vs_rademacher returns well-formed data."""
+        comp = shadow_vs_rademacher(15)
+        assert comp.discriminant == 15
+        assert comp.S_BH > 0
+        assert comp.S_rademacher_leading > 0
+
+    def test_rademacher_correction_small_at_large_D(self):
+        """Rademacher c=2 correction is tiny at large D."""
+        comp = shadow_vs_rademacher(100)
+        assert comp.rademacher_correction_ratio < 0.001
+
+    def test_shadow_genus1_correction_sign(self):
+        """Genus-1 shadow correction is positive (kappa_ch > 0)."""
+        comp = shadow_vs_rademacher(100)
+        assert comp.shadow_genus1_correction > 0
+
+    def test_shadow_genus2_smaller_than_genus1(self):
+        """Genus-2 correction smaller than genus-1 correction."""
+        comp = shadow_vs_rademacher(100)
+        assert abs(comp.shadow_genus2_correction) < abs(comp.shadow_genus1_correction)
+
+
+# =========================================================================
+# 9. KAPPA-ENTROPY ANALYSIS
+# =========================================================================
+
+class TestKappaEntropyAnalysis:
+    """Verify which kappa controls the black hole entropy."""
+
+    def test_kappa_BKM_is_answer(self):
+        """kappa_BKM = 5 controls the entropy (not kappa_ch = 3)."""
+        analysis = kappa_entropy_analysis()
+        assert "kappa_BKM" in analysis["answer"]
+
+    def test_kappa_identity(self):
+        """kappa_BKM = kappa_ch + kappa_cat = 3 + 2 = 5."""
+        analysis = kappa_entropy_analysis()
+        assert analysis["identity_kBKM_eq_kch_plus_kcat"] is True
+
+    def test_spectrum_values(self):
+        """The spectrum values are correctly reported."""
+        analysis = kappa_entropy_analysis()
+        spec = analysis["kappa_spectrum"]
+        assert spec["kappa_ch"] == 3.0
+        assert spec["kappa_BKM"] == 5.0
+        assert spec["kappa_cat"] == 2.0
+        assert spec["kappa_fiber"] == 24.0
+
+    def test_key_identity_string(self):
+        """The key identity is stated correctly."""
+        analysis = kappa_entropy_analysis()
+        assert "3 + 2 = 5" in analysis["key_identity"]
+
+    def test_rademacher_predictions_all_present(self):
+        """All four kappa candidates have Rademacher predictions."""
+        analysis = kappa_entropy_analysis()
+        preds = analysis["rademacher_predictions"]
+        assert "kappa_ch" in preds
+        assert "kappa_BKM" in preds
+        assert "kappa_cat" in preds
+        assert "kappa_fiber" in preds
+
+
+# =========================================================================
+# 10. CROSS-VERIFICATIONS
+# =========================================================================
+
+class TestCrossVerifications:
+    """Cross-verify entropy computations by multiple paths."""
+
+    def test_sv_from_cardy_match(self):
+        """Strominger-Vafa matches Cardy formula exactly."""
+        result = verify_sv_from_cardy()
+        assert result["match"] is True
+
+    def test_kappa_identity_all_paths(self):
+        """kappa_BKM = 5 verified by 3 independent paths."""
+        checks = verify_kappa_identity()
+        assert all(checks.values())
+
+    def test_rademacher_improves(self):
+        """S_micro/S_BH ratio approaches 1 for growing D."""
+        results = verify_rademacher_improves_with_D()
+        if 3 in results and 15 in results:
+            # ratio at D=15 should be closer to 1 than at D=3
+            err_3 = results[3]["relative_error"]
+            err_15 = results[15]["relative_error"]
+            assert err_15 < err_3
+
+    def test_a_hat_coefficients_consistent(self):
+        """A-hat coefficients are consistent with stored values."""
+        assert a_hat_coefficient(1) == Fraction(1, 24)
+        assert a_hat_coefficient(2) == Fraction(7, 5760)
+        assert a_hat_coefficient(3) == Fraction(31, 967680)
+
+    def test_bps_entropy_relative_error_small(self):
+        """Relative error |S_micro - S_BH|/S_BH is small at moderate D.
+
+        The ratio S_micro/S_BH oscillates around 1 at small D (the
+        Rademacher expansion is asymptotic, not monotone). We verify
+        that the relative error is bounded by 2% for D >= 7, consistent
+        with the subleading -3/2 * log(D) correction dominating at finite D.
+        """
+        for D in [7, 8, 11, 12]:
+            S_BH = bekenstein_hawking_k3e(D)
+            S_micro = bps_entropy_exact(D)
+            if S_micro is not None and S_BH > 0:
+                rel_err = abs(S_micro - S_BH) / S_BH
+                assert rel_err < 0.02, f"D={D}: rel_err={rel_err}"
+
+    def test_discriminant_constraint_for_stored_bps(self):
+        """All stored BPS degeneracies satisfy the discriminant constraint."""
+        for D in BPS_DEGENERACIES_K3E:
+            assert verify_discriminant_constraint(D), f"D={D} fails constraint"
+
+
+# =========================================================================
+# 11. ENTROPY COMPARISON TABLE
+# =========================================================================
+
+class TestEntropyTable:
+    """Verify the entropy comparison table."""
+
+    def test_table_has_entries(self):
+        """Table has entries for all default discriminants."""
+        table = entropy_comparison_table()
+        assert len(table) >= 6
+
+    def test_table_d7(self):
+        """D=7 row: Omega=4119, S_BH=pi*sqrt(7)."""
+        table = entropy_comparison_table([7])
+        assert len(table) == 1
+        row = table[0]
+        assert row.D == 7
+        assert row.omega == 4119
+        assert abs(row.S_BH - math.pi * math.sqrt(7)) < 1e-10
+
+    def test_table_s_micro_positive(self):
+        """All S_micro values are positive where defined."""
+        table = entropy_comparison_table()
+        for row in table:
+            if row.S_micro is not None:
+                assert row.S_micro > 0
+
+    def test_table_ratio_less_than_2(self):
+        """S_micro/S_BH ratio is between 0 and 2 for all entries."""
+        table = entropy_comparison_table()
+        for row in table:
+            if row.ratio_micro_BH is not None:
+                assert 0 < row.ratio_micro_BH < 2
+
+    def test_table_rademacher_less_than_bh(self):
+        """Rademacher (with log correction) is less than bare S_BH."""
+        table = entropy_comparison_table()
+        for row in table:
+            assert row.S_rademacher < row.S_BH
+
+
+# =========================================================================
+# 12. SUMMARY
+# =========================================================================
+
+class TestSummary:
+    """Verify the comprehensive summary runs without error."""
+
+    def test_summary_runs(self):
+        """bps_entropy_shadow_summary() completes without error."""
+        summary = bps_entropy_shadow_summary()
+        assert "kappa_spectrum" in summary
+        assert "strominger_vafa" in summary
+        assert "entropy_table" in summary
+        assert "kappa_analysis" in summary

@@ -59,8 +59,9 @@ MATHEMATICAL BACKGROUND:
      K3 x E -> class M (BKM superalgebra, infinite Borcherds product).
 
 4. E_1-SWISS-CHEESE FORMALITY OBSTRUCTION.
-   Vol I proves: class G/L are SC-formal (m_k^{SC} = 0 for k >= 3).
-   Class C has shadow depth 4. Class M has infinite depth.
+   Vol I proves: only class G is SC-formal (m_k^{SC} = 0 for k >= 3).
+   Class L already has m_3^{SC} != 0. Class C has shadow depth 4.
+   Class M has infinite depth.
 
    For CY3 algebras:
      C^3 (W_{1+inf}): class M => SC NON-FORMAL. Infinite tower of

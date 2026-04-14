@@ -415,7 +415,7 @@ class TestSCFormality:
     """Verify SC-formality classification (AP14).
 
     SC-formal = m_k^{SC} = 0 for k >= 3.
-    Classes G and L are SC-formal.
+    Only class G is SC-formal.
     Classes C and M are SC-non-formal.
     ALL classes are chirally Koszul (AP14 critical distinction).
     """

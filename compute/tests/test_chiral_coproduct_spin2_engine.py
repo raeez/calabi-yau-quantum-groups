@@ -1,8 +1,19 @@
+import numpy as np
+from fractions import Fraction
+
 from compute.lib.chiral_coproduct_spin2_engine import (
+    HeisenbergFock,
+    TensorHeisenberg,
     compute_delta3_T0,
     extract_c_eff,
     verify_heisenberg,
     verify_virasoro,
+)
+from compute.lib.a_infinity_bar_w1inf import (
+    AInfBarComplex,
+    AInfShadowTower,
+    T,
+    W1InfOPE,
 )
 
 
@@ -99,3 +110,97 @@ class TestDelta3CoproductCorrection:
         assert kappa_ch == 0.5
         assert m3_coeff == -2
         assert abs(result["delta3_value"] - (-2.0 * kappa_ch * m3_coeff)) < 1e-10
+
+    # ---- Cross-checks (AP10: multi-path verification) ----
+
+    def test_delta3_cross_check_shadow_tower_S3(self):
+        """Cross-check: delta^{(3)} at Psi=2 matches S_3 from shadow tower module.
+
+        Path 1: compute_delta3_T0 (Fock space matrix element).
+        Path 2: AInfShadowTower.shadow_tower_channel (convolution recursion).
+        Both must give 2.
+        """
+        # Path 1: Fock space
+        result = compute_delta3_T0(Psi=2.0, N_max=8)
+        delta3 = result["delta3_value"]
+
+        # Path 2: shadow tower recursion from a_infinity_bar_w1inf
+        ope = W1InfOPE(c=Fraction(1))
+        bar_cx = AInfBarComplex(ope=ope)
+        shadow = AInfShadowTower(bar_cx, max_spin=3)
+        tower = shadow.shadow_tower_channel(2, max_r=4)
+        S3_from_tower = float(tower[3])
+
+        assert abs(delta3 - S3_from_tower) < 1e-10
+
+    def test_delta3_cross_check_m3_coefficient(self):
+        """Cross-check: m_3(T,T,T) coefficient from bar complex matches engine.
+
+        Path 1: compute_delta3_T0 returns m3_coeff = -2.
+        Path 2: AInfBarComplex.m3(T,T,T) directly.
+        """
+        # Path 1
+        result = compute_delta3_T0(Psi=2.0, N_max=8)
+        m3_from_engine = result["m3_coeff"]
+
+        # Path 2
+        bar_cx = AInfBarComplex()
+        m3_result = bar_cx.m3(T, T, T).simplify()
+        m3_from_bar = int(m3_result.terms[0].coeff)
+
+        assert m3_from_engine == m3_from_bar == -2
+
+    def test_delta3_cross_check_direct_operator(self):
+        """Cross-check: direct operator construction matches compute_delta3_T0.
+
+        Path 1: compute_delta3_T0 (the engine function).
+        Path 2: build O_3 = 2*alpha_cop*X_0 directly and extract matrix element.
+        """
+        Psi = 2.0
+        N_max = 8
+
+        # Path 1
+        result = compute_delta3_T0(Psi=Psi, N_max=N_max)
+        delta3_engine = result["delta3_value"]
+
+        # Path 2: direct construction
+        H = HeisenbergFock(Psi, N_max)
+        d = H.dim
+        alpha_cop = (Psi - 1.0) / Psi
+
+        M = N_max + 2
+        X0 = np.zeros((d * d, d * d))
+        for k in range(-M, M + 1):
+            X0 += np.kron(H.J(k), H.J(-k))
+        O3 = 2.0 * alpha_cop * X0
+
+        # Build physical Gram matrix
+        from collections import Counter
+        G_diag = np.zeros(d)
+        for i, lam in enumerate(H.partitions):
+            if not lam:
+                G_diag[i] = 1.0
+            else:
+                cnt = Counter(lam)
+                val = 1.0
+                for part, ni in cnt.items():
+                    val *= (Psi * part) ** ni
+                    f = 1
+                    for kk in range(2, ni + 1):
+                        f *= kk
+                    val *= f
+                G_diag[i] = val
+        G_tensor = np.kron(np.diag(G_diag), np.diag(G_diag))
+
+        vac_idx = H.idx[()]
+        j1_idx = H.idx[(1,)]
+
+        ket = np.zeros(d * d)
+        ket[j1_idx * d + vac_idx] = 1.0
+        bra = np.zeros(d * d)
+        bra[vac_idx * d + j1_idx] = 1.0
+
+        me_phys = float(bra @ G_tensor @ O3 @ ket)
+        delta3_direct = me_phys / Psi  # normalize by physical norm of |(1,)>
+
+        assert abs(delta3_engine - delta3_direct) < 1e-10

@@ -391,10 +391,23 @@ class TestCyclicAinfCompatibility:
         assert len(result.proof_steps) >= 5
 
     def test_all_standard_geometries(self):
-        """Obs_Ainf = 0 for all standard geometries."""
-        for geom in ["C^3", "conifold", "K3 x E", "quintic"]:
+        """Obs_Ainf = 0 for all standard geometries.
+
+        Path 1: Formal geometries (C^3, conifold): trivially, m_k = 0.
+        Path 2: Non-formal geometries (quintic, K3 x E): via TCFT.
+        Path 3: All return obs_ainf_vanishes = True.
+        """
+        from compute.lib.hopf_fibration_s3_framing import (
+            verify_cyclic_ainf_compatibility_tcft,
+        )
+        for geom in ["C^3", "conifold"]:
             result = verify_cyclic_ainf_compatibility_formal(geom)
             assert result.obs_ainf_vanishes, f"Failed for {geom}"
+            assert result.is_formal is True, f"{geom} should be formal"
+        for geom in ["quintic", "K3 x E"]:
+            result = verify_cyclic_ainf_compatibility_tcft(geom)
+            assert result.obs_ainf_vanishes, f"Failed for {geom}"
+            assert result.is_formal is False, f"{geom} should NOT be formal"
 
 
 # ================================================================
@@ -483,16 +496,16 @@ class TestConvergenceAnalysis:
     """Tests for the Cech-HTT convergence analysis."""
 
     def test_quintic_converges(self):
-        """Quintic: Cech-HTT converges (formal, finite terms).
+        """Quintic: Cech-HTT converges (non-formal, but finite Cech cover).
 
-        Path 1: Quintic is formal (m_k = 0 for k >= 3).
-        Path 2: Only mu_2 contributes (finite sum).
-        Path 3: Polynomial growth type.
+        Path 1: Quintic is NOT A_inf formal (m_3 != 0 from Yukawa).
+        Path 2: Cech-HTT still converges (Catalan bound on finite cover).
+        Path 3: Growth type is "convergent" (Gevrey-0 coefficient series).
         """
         conv = convergence_quintic()
         assert conv.converges()
-        assert conv.is_formal
-        assert conv.growth_type == "polynomial"
+        assert conv.is_formal is False
+        assert conv.growth_type == "convergent"
 
     def test_quintic_cech_cover_size(self):
         """Quintic has 5 affine opens from P^4."""
@@ -501,10 +514,16 @@ class TestConvergenceAnalysis:
         assert conv.cech_cover_size == 5
 
     def test_quintic_htt_terms(self):
-        """Quintic: only mu_2 contributes (formal)."""
+        """Quintic: HTT terms = 5 (Cech complex length from 5 opens).
+
+        Path 1: Non-formal: all m_k contribute, bounded by Cech length.
+        Path 2: 5 affine opens => Cech complex length 4, so htt_terms = 5.
+        Path 3: Cross-check with cech_cover_size.
+        """
         conv = convergence_quintic()
-        # VERIFIED [DC] count check [LT] formality
-        assert conv.htt_terms == 2
+        # VERIFIED [DC] Cech length = n_opens [LT] formality_ainf_dcoh.py
+        assert conv.htt_terms == 5
+        assert conv.cech_cover_size == 5
 
     def test_general_compact_open(self):
         """General compact CY3: convergence is open."""
