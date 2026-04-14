@@ -1,0 +1,668 @@
+\chapter{Anti-Pattern Catalogue}
+\label{app:ap-catalogue}
+
+This appendix collects all CY-specific anti-patterns (AP-CY1 through
+AP-CY33), cross-programme anti-patterns (AP150--AP157), and the
+formula-mechanical pattern FM24 into a comprehensive reference.
+Each entry records the failure mode, its severity, and the
+counter-measure.  These patterns were identified through systematic
+error archaeology across 180+ commits and a 180-agent verification
+swarm.
+
+%% =====================================================================
+\section{Severity levels}
+\label{sec:ap-sev}
+
+\begin{center}
+\begin{tabular}{@{}lp{4.5cm}p{5cm}@{}}
+\toprule
+\textbf{Level} & \textbf{Meaning} & \textbf{Required action} \\
+\midrule
+\textsc{Critical} & Theorem status wrong; logical
+  error propagates to downstream results &
+  Immediate fix; audit all instances in all three volumes \\
+\textsc{High} & Numerical or structural error;
+  formula incorrect; dimension wrong &
+  Fix before next build \\
+\textsc{Medium} & Convention clash, ambiguity,
+  or scope confusion &
+  Fix in current session \\
+\textsc{Low} & Cosmetic, cross-reference staleness,
+  or README-only issue &
+  Fix in batch \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+\textbf{Statistics}:
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Category} & \textbf{Count} \\
+\midrule
+CY-specific (AP-CY1--AP-CY33) & 33 \\
+Cross-programme (AP150--AP157) & 8 \\
+Formula-mechanical (FM24) & 1 \\
+\midrule
+\textbf{Total catalogued} & \textbf{42} \\
+\midrule
+Critical severity & 8 \\
+High severity & 19 \\
+Medium severity & 12 \\
+Low severity & 1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+Two anti-patterns have required fixes in 10+ independent instances:
+AP-CY6/AP-CY14 (unconstructed object in theorem environment,
+11+ fixes) and AP113 (bare $\kappa$, 15+ fixes).  These two
+alone account for approximately 40\% of all error-correction
+commits in Vol~III.
+
+%% =====================================================================
+\section{CY-specific anti-patterns: AP-CY1 through AP-CY8}
+\label{sec:ap-cy1-8-full}
+
+{%
+\small
+\begin{longtable}{@{}p{1.6cm}p{2.4cm}lp{7.4cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Name} & \textbf{Severity}
+  & \textbf{Description and counter} \\
+\midrule
+\endhead
+AP-CY1 & CY dim $\neq$ cpx dim & \textsc{High} &
+  $\Fuk(X)$ and $D^b(\Coh(X))$ are CY$_n$ where $n$ is the
+  \emph{complex} dimension, not the real dimension $2n$.
+  \textbf{Counter}: always state ``CY$_d$ with
+  $d = \dim_\C X$.'' \\
+\midrule
+AP-CY2 & CY trace target & \textsc{High} &
+  The CY trace lives in $\HC^-_d(\cC)$ (negative cyclic homology),
+  not just $\HH_d \to k$.  The negative cyclic refinement is
+  essential for the $\Sd$-framing.
+  \textbf{Counter}: always write $\HC^-_d$, never bare
+  $\HH_d \to k$. \\
+\midrule
+AP-CY3 & $\Etwo \neq$ commutative & \textsc{High} &
+  $\Etwo$ braiding is \emph{not} symmetric.
+  $\Etwo \to \Einf$ loses all quantum group structure.
+  \textbf{Counter}: write ``braided,'' never ``commutative''
+  for $\Etwo$. \\
+\midrule
+AP-CY4 & Drinfeld $\neq$ derived ctr & \textsc{High} &
+  $Z(\cC)$ (monoidal center via half-braidings) $\neq$
+  $\Zder(A)$ (Hochschild cochains).
+  Drinfeld center categorifies the derived center.
+  \textbf{Counter}: always specify which center
+  (see Appendix~\ref{app:notation-conventions},
+  Section~\ref{sec:nc-centers}). \\
+\midrule
+AP-CY5 & Root-of-unity req. & \textsc{Medium} &
+  Kazhdan--Lusztig equivalence requires $q$ a root of unity.
+  At generic $q$, $\Rep_q(\frakg)$ is semisimple.
+  \textbf{Counter}: state the $q$-specialization explicitly. \\
+\midrule
+AP-CY6 & $A_X$ at $d=3$ & \textsc{Critical} &
+  $A_X$ for CY3 does \emph{not} exist---it IS the $d=3$
+  programme.  Results depending on $A_X$ at $d=3$ must use
+  \verb|\begin{conjecture}| and \verb|\ClaimStatusConditional|,
+  naming CY-A$_3$.
+  \textbf{Counter}: apply the decision tree (HZ3-1).
+  Q1: proof chain through $A_X$ at $d=3$?
+  $\to$ \verb|\begin{conjecture}|.
+  Q2: through $A_X$ at $d=2$?
+  $\to$ \verb|\begin{theorem}|, cite CY-A.
+  Q3: pure categorical / VOA?
+  $\to$ \verb|\begin{theorem}|, classical proof. \\
+\midrule
+AP-CY7 & CoHA $\neq$ $\Eone$-chiral & \textsc{High} &
+  CoHA is associative (Schiffmann--Vasserot--Yang--Zhao
+  Hall product), not a chiral algebra.
+  ``$\Eone$-sector of $G(X)$'' assumes $G(X)$ exists (AP43).
+  \textbf{Counter}: connection is via the functor $\Phi$,
+  not by identification. \\
+\midrule
+AP-CY8 & Borcherds $\neq$ bar Euler & \textsc{High} &
+  $\Phi_{10} =$ bar Euler product is an \emph{observation}
+  (for K3$\times E$), not a theorem.
+  Conditional on CY-A$_2$ and Vol~I Borcherds-lift
+  identification.
+  \textbf{Counter}: cite both CY-A and the Vol~I anchor
+  explicitly. \\
+\bottomrule
+\end{longtable}
+}%
+
+%% =====================================================================
+\section{Empirical anti-patterns: AP-CY9 through AP-CY13}
+\label{sec:ap-cy9-13-full}
+
+Identified through 50-commit error archaeology.
+
+{%
+\small
+\begin{longtable}{@{}p{1.6cm}p{2.4cm}lp{7.4cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Name} & \textbf{Severity}
+  & \textbf{Description and counter} \\
+\midrule
+\endhead
+AP-CY9 & Jacobi discriminant & \textsc{High} &
+  For $\phi_{k,m}$ of index $m$, only discriminants $D$ with
+  $D \equiv 0$ or $3 \pmod{4}$ (at $m=1$) can appear.
+  $c(-1) = 2$ for $\phi_{0,1}$ in Eichler--Zagier convention,
+  not $1$.
+  \textbf{Counter}: verify discriminant constraint before
+  filling coefficient tables. \\
+\midrule
+AP-CY10 & Flop $\neq$ Koszul dual & \textsc{High} &
+  Birational flop $X \dashrightarrow X^+$ \emph{preserves}
+  $\kappa_{\mathrm{ch}}$: $\kappa_{\mathrm{ch}}(A_X) =
+  \kappa_{\mathrm{ch}}(A_{X^+})$.  Koszul dual $A^!$
+  satisfies $\kappa_{\mathrm{ch}}(A) +
+  \kappa_{\mathrm{ch}}(A^!) = \rho_K$.  Flop exchanges
+  K\"{a}hler chambers; Koszul exchanges algebra/coalgebra.
+  \textbf{Counter}: never write ``flop is the Koszul dual.'' \\
+\midrule
+AP-CY11 & Conditional transitivity & \textsc{Critical} &
+  If Result B depends on Result A which depends on CY-A$_3$,
+  then B is \emph{also} conditional on CY-A$_3$.
+  Conditionality propagates through all downstream results.
+  \textbf{Counter}: use \verb|\ClaimStatusConditional| with
+  the full dependency chain.  Before writing
+  \verb|\ClaimStatusProvedHere|, trace the proof chain back
+  to its axioms. \\
+\midrule
+AP-CY12 & Shadow class from tower & \textsc{High} &
+  G/L/C/M must be computed from the full shadow obstruction
+  tower, not from generator counting or non-formality
+  ($m_3 \neq 0$) alone.  Example: local $\bP^2$ is class M
+  (infinite depth), \emph{not} class L.
+  \textbf{Counter}: always compute the full tower before
+  assigning a shadow class. \\
+\midrule
+AP-CY13 & Stale Part references & \textsc{Low} &
+  After any Part restructuring, grep all three volumes for
+  stale \texttt{Part\textasciitilde{}[IVXL]} references.
+  7+ stale refs survived a single restructuring event.
+  \textbf{Counter}: use \verb|\ref{part:...}| exclusively,
+  never hardcode Part numbers. \\
+\bottomrule
+\end{longtable}
+}%
+
+%% =====================================================================
+\section{Deep empirical anti-patterns: AP-CY14 through AP-CY20}
+\label{sec:ap-cy14-20-full}
+
+Identified through 100-commit deep archaeology.
+
+{%
+\small
+\begin{longtable}{@{}p{1.6cm}p{2.4cm}lp{7.4cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Name} & \textbf{Severity}
+  & \textbf{Description and counter} \\
+\midrule
+\endhead
+AP-CY14 & Unconstructed in thm & \textsc{Critical} &
+  Any statement whose proof chain passes through $G(X)$
+  at $d=3$, $A_{K3 \times E}$, or any unconstructed object
+  \textbf{must} use \verb|\begin{conjecture}|, never
+  \verb|\begin{theorem}| or \verb|\begin{proposition}|.
+  The LLM pattern-matches on logical structure
+  (``if $X$ then $Y$'') without checking whether $X$ exists.
+  11+ instances fixed across 4 commits.
+  \textbf{Counter}: default to \verb|\begin{conjecture}|
+  in Vol~III. \\
+\midrule
+AP-CY15 & README inflation & \textsc{Medium} &
+  README must not claim ``verified'' or ``proved'' for
+  structural analogies or pattern matches.
+  The README accumulates stronger claims than the \texttt{.tex}
+  supports.
+  \textbf{Counter}: after README edits, verify every
+  ``proved''/``verified'' against corresponding
+  \verb|\ClaimStatus| tags. \\
+\midrule
+AP-CY16 & Matrix size conflation & \textsc{Medium} &
+  $\Sp_4$ quotient by $\pm I_4$ ($4 \times 4$), \emph{not}
+  $\pm I_5$.
+  $O(\Lambda^{3,2})$ quotient by $\pm I_5$ ($5 \times 5$).
+  When two groups of different rank appear in the same formula,
+  subscripts get harmonized to the most frequent.
+  \textbf{Counter}: verify matrix dimensions match group rank. \\
+\midrule
+AP-CY17 & MF CY dimension & \textsc{High} &
+  For $W \colon \bA^n \to \bA^1$, $\MF(W)$ is CY$_{n-2}$,
+  \emph{not} CY$_{n-1}$ (Dyckerhoff).
+  ADE in 2 variables: CY$_0$ (semisimple).
+  Need 4 variables for CY$_2$, 5 for CY$_3$.
+  \textbf{Counter}: verify $n - 2$ against desired CY dimension
+  (see the table in Appendix~\ref{app:notation-conventions},
+  Section~\ref{sec:nc-cy}). \\
+\midrule
+AP-CY18 & Lattice theta series & \textsc{Medium} &
+  Leech theta: minimum norm${}^2 = 4$, first correction at
+  $q^2$ not $q^1$.  The match with $1/\eta^{24}$ extends
+  through $q^1$.
+  Never conflate $j(\tau)$ coefficients with $V_\Lambda$
+  character coefficients.
+  \textbf{Counter}: verify by direct computation. \\
+\midrule
+AP-CY19 & $\hat{A}$-genus halving & \textsc{High} &
+  $\hat{A}(x) = \frac{x/2}{\sinh(x/2)}$; convergence radius
+  $= 2\pi$ (first pole of $\sin(x/2)$ at $x = 2\pi$).
+  Dropping the $/2$ in the argument gives spurious radius
+  $\pi$.  Appeared in 3+ independent computations.
+  \textbf{Counter}: always include the $/2$ in the argument. \\
+\midrule
+AP-CY20 & Normal bdl $\neq$ spectral & \textsc{High} &
+  The $\Z \times \Z$ grading from $N_{C/Y}$ connects to
+  $(q,t)$ through the $\Omega$-background, \emph{not}
+  directly.  The intermediary mechanism (equivariant
+  localization, Nekrasov partition function, refinement) must
+  be stated.
+  \textbf{Counter}: name the intermediary; never write
+  ``$N_{C/Y}$ grading $=$ $(q,t)$ parameters.'' \\
+\bottomrule
+\end{longtable}
+}%
+
+%% =====================================================================
+\section{6d hCS session anti-patterns: AP-CY21 through AP-CY26}
+\label{sec:ap-cy21-26-full}
+
+Identified during the April 2026 holomorphic Chern--Simons session.
+
+{%
+\small
+\begin{longtable}{@{}p{1.6cm}p{2.4cm}lp{7.4cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Name} & \textbf{Severity}
+  & \textbf{Description and counter} \\
+\midrule
+\endhead
+AP-CY21 & $E_3$ bar class M & \textsc{High} &
+  $(1+t)^{3g}$ holds for classes L and C only.
+  Class M: infinite-dimensional ($d_4$ survives).
+  Chain-level dimension for all classes: $P(q)^{3g}$.
+  \textbf{Counter}: state the shadow class \emph{before}
+  claiming $E_3$ bar cohomology. \\
+\midrule
+AP-CY22 & Miki is algebra-specific & \textsc{Medium} &
+  The $S_3$ permutation of $(q_1, q_2, q_3)$ comes from the
+  Weyl group of the CY torus, not from the $E_3$ operad in
+  general.  Counterexample: $k[x]/(x^2)$ is $E_3$ but has
+  no Miki automorphism.
+  \textbf{Counter}: state it requires
+  $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ specifically. \\
+\midrule
+AP-CY23 & $\Eone$ not $\Einf$ bialgebra & \textsc{Critical} &
+  The coproduct $\Delta_z$ lives on the $\Eone$ (ordered)
+  side of the Swiss-cheese operad.  The $\Einf$ averaging
+  map kills the Hopf structure:
+  $\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$.
+  Li's vertex bialgebra framework ($\Einf$) is the wrong
+  categorical home.
+  \textbf{Counter}: formulate all Hopf data at the $\Eone$
+  level using $B^{\mathrm{ord}}$ with deconcatenation. \\
+\midrule
+AP-CY24 & Docstring confabulation & \textsc{Medium} &
+  Agents produce correct code but fabricate ``ground truth''
+  values in docstrings.  The function computes correctly; the
+  docstring claims wrong values for $n \ge 4$.
+  \textbf{Counter}: verify every numerical value in docstrings
+  against actual function output. \\
+\midrule
+AP-CY25 & $R$-matrix from vacuum & \textsc{High} &
+  $R(z) = (\id \otimes S) \circ \Delta_z(1_A)$ is
+  \textbf{wrong}: applying the coproduct to the vacuum and
+  then the antipode yields $1 \otimes 1$ by the counit axiom.
+  The correct $R$-matrix is characterized via the
+  half-braiding $\sigma_A(z)$.
+  \textbf{Counter}: never extract $R$ from $\Delta(1)$;
+  always construct via the half-braiding. \\
+\midrule
+AP-CY26 & Verdier $\neq$ $\sigma_2$ inv. & \textsc{High} &
+  $k^! = -k$ comes from Shapovalov form transposition
+  (Verdier duality transposes the inner product), \emph{not}
+  from $\sigma_2(-h_i) = -\sigma_2$ (false: $\sigma_2$ is
+  degree-2 homogeneous, hence even under $h_i \to -h_i$).
+  \textbf{Counter}: derive $k^!$ from Shapovalov/Verdier,
+  not from $\sigma_2$ inversion. \\
+\bottomrule
+\end{longtable}
+}%
+
+%% =====================================================================
+\section{Swarm-mined anti-patterns: AP-CY27 through AP-CY33}
+\label{sec:ap-cy27-33-full}
+
+Mined from 180-agent verification swarm, April 2026.
+
+{%
+\small
+\begin{longtable}{@{}p{1.6cm}p{2.4cm}lp{7.4cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Name} & \textbf{Severity}
+  & \textbf{Description and counter} \\
+\midrule
+\endhead
+AP-CY27 & Sandbox non-persist. & \textsc{High} &
+  Background agents report successful file writes but files
+  do \emph{not} persist to the main working tree (sandbox
+  isolation).  Three engines were ``written'' and verified
+  passing inside the sandbox but did not exist on disk.
+  \textbf{Counter}: verify file existence with \texttt{ls}
+  after agent completion. \\
+\midrule
+AP-CY28 & Pole-unsafe test pts & \textsc{High} &
+  When testing $g(z)$ with poles at $z = \pm h_i$, test
+  points must avoid these values.  For $h = (1,-2,1)$:
+  poles at $z = \pm 1, \pm 2$; default $z = 2$ with
+  $h_1 = 2$ gives $\varphi(2) = 0$, hence
+  $g_{01}(2) = 1/0$.
+  \textbf{Counter}: use $h = (37, 41, -78)$ for
+  large-parameter safety. \\
+\midrule
+AP-CY29 & Wrong-repo writes & \textsc{Medium} &
+  Agents write files to the wrong volume's directory.
+  Example: an $\fsl_2$ Serre engine was written to
+  \texttt{chiral-bar-cobar/compute/} (Vol~I) instead of
+  \texttt{calabi-yau-quantum-groups/compute/} (Vol~III).
+  \textbf{Counter}: verify the full path includes the
+  correct repo root after any agent file write. \\
+\midrule
+AP-CY30 & Factored $\neq$ solved & \textsc{Critical} &
+  $S_{ijk} = R_{ij} R_{ik} R_{jk}$ constructed from a
+  YBE-satisfying $R$-matrix does \emph{not} automatically
+  satisfy the Zamolodchikov tetrahedron equation.
+  Proved: $O(\kappa_{\mathrm{ch}}^2)$ obstruction
+  (thm:zte-failure).
+  \textbf{Counter}: never assume pairwise consistency
+  implies higher-order consistency. \\
+\midrule
+AP-CY31 & Spectral $z \neq$ ws $z$ & \textsc{High} &
+  Drinfeld coproduct $\Delta_z$: Yangian spectral parameter
+  (shift $u \to u - z$).
+  OPE $T(z)T(w) \sim c/2 \cdot (z-w)^{-4}$: worldsheet
+  insertion coordinate.  These are \emph{different} objects.
+  Setting $z = 0$ in $\Delta_z$ removes the spectral shift
+  (no OPE singularity).
+  \textbf{Counter}: before any $z = 0$ argument, state
+  whether $z$ is spectral or worldsheet
+  (see Appendix~\ref{app:notation-conventions},
+  Section~\ref{sec:nc-z}). \\
+\midrule
+AP-CY32 & Reorg.\ $\neq$ bypass & \textsc{Medium} &
+  The 6d factorization homology route appears to bypass
+  CY-A$_3$, but each subproblem (local $E_3$ algebra for
+  compact targets, handle decomposition of K3, VOA
+  identification of output) secretly requires the same
+  chain-level data that CY-A$_3$ demands.
+  The route \emph{reorganizes} the conjecture into
+  subproblems but solves none independently.
+  \textbf{Counter}: verify that every subproblem in an
+  alternative route is resolved independently. \\
+\midrule
+AP-CY33 & Chain $\neq$ rational & \textsc{High} &
+  $E_3$ structure is genuine at the \emph{chain} level but
+  collapses to $\Etwo$ under Kontsevich formality (rational
+  coefficients).  Physical content (Miki automorphism,
+  factorization homology, tetrahedron corrections) lives at
+  the chain level.  Formality destroys it.
+  \textbf{Counter}: always state whether a claim about $\En$
+  structure is at the chain level or the rational/formal
+  level. \\
+\bottomrule
+\end{longtable}
+}%
+
+%% =====================================================================
+\section{Cross-programme anti-patterns: AP150--AP157}
+\label{sec:ap-cross-full}
+
+These anti-patterns apply across all three volumes.
+
+{%
+\small
+\begin{longtable}{@{}p{1.6cm}p{2.4cm}lp{7.4cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Name} & \textbf{Severity}
+  & \textbf{Description and counter} \\
+\midrule
+\endhead
+AP150 & Confabulated composites & \textsc{Critical} &
+  Agents stitch real ingredients (a categorical equivalence
+  from paper A, a representation-theoretic identity from
+  paper B) into composite structures that do not exist in
+  the literature.  Each ingredient is real; the composite
+  arrow has never been constructed.
+  \textbf{Counter}: verify each arrow in a composite diagram
+  independently.  If any arrow is unverified, the composite
+  is conjectural. \\
+\midrule
+AP151 & $\hbar$ convention clash & \textsc{High} &
+  Two definitions of $\hbar$ ($\hbar = \log q$ vs
+  $\hbar = (\log q)/(2\pi i)$, or deformation parameter vs
+  Planck constant) can coexist in one chapter when material
+  is drawn from different sources.  The discrepancy cascades
+  silently.
+  \textbf{Counter}: one file, one $\hbar$.  Grep for
+  existing definitions before introducing any $\hbar$.
+  If a second convention is needed, use a distinct symbol
+  with an explicit bridge identity. \\
+\midrule
+AP152 & ``Ordered'' ambiguity & \textsc{Medium} &
+  ``Ordered product'' can mean
+  (a) labeled/indexed (combinatorial, $\Eone$ bar),
+  (b) time-ordered/radially-ordered (analytic, OPE), or
+  (c) normally-ordered (Wick).
+  These produce \emph{different} algebraic structures.
+  \textbf{Counter}: bare ``ordered'' is forbidden.
+  Always qualify: ``labeled-ordered,'' ``time-ordered,''
+  or ``normally-ordered.'' \\
+\midrule
+AP153 & $E_3$ scope inflation & \textsc{High} &
+  $E_3$ structure on Hochschild cochains (Deligne conjecture)
+  requires the input to be $\Einf$ (commutative).  For
+  $\Eone$ input, Hochschild cochains carry only $\Etwo$
+  (Dunn: $\Eone \otimes \Etwo = E_3$, but $\Eone$ input
+  contributes $\Eone$ not $\Einf$).
+  \textbf{Counter}: verify the input algebra is $\Einf$
+  before claiming $E_3$ structure on its Hochschild
+  cochains. \\
+\midrule
+AP154 & Two $E_3$ structures & \textsc{Medium} &
+  Even when $E_3$ is correctly invoked, two distinct $E_3$
+  structures exist:
+  (a) algebraic $E_3$ from Deligne's conjecture on
+  $\HH^*(A)$ for $\Einf$ $A$, and
+  (b) topological $E_3$ from framed little 3-disks on
+  configuration spaces of $\R^3$.
+  They agree under formality; differ at the chain level.
+  \textbf{Counter}: specify which $E_3$ and whether
+  formality is assumed. \\
+\midrule
+AP155 & Novelty overclaim & \textsc{Medium} &
+  When $\Phi$ recovers a known invariant (Euler
+  characteristic, Mukai vector, DT count) through a new
+  construction, the \emph{invariant} is not new, only the
+  \emph{construction path}.
+  \textbf{Counter}: state ``$\Phi$ recovers the known
+  invariant $X$ (originally due to [ref]) via a new
+  construction path through the chiral bar complex.'' \\
+\midrule
+AP156 & Weierstrass $P_1$ ambig. & \textsc{Medium} &
+  $\theta_1'/\theta_1$ (logarithmic derivative of $\theta_1$,
+  quasi-periodic) vs Weierstrass $\zeta(z; \Lambda)$ differ
+  by $\mathrm{Im}(z)$-dependent terms that matter for modular
+  transformation.
+  \textbf{Counter}: specify which convention
+  ($\theta_1'/\theta_1$ vs Weierstrass $\zeta_\tau$) and
+  state the quasi-periodicity explicitly. \\
+\midrule
+AP157 & Degeneration-type dep. & \textsc{High} &
+  Different degenerations (large complex structure, conifold,
+  orbifold, MUM, tropical) produce different chiral algebras
+  with different $\kappa_\bullet$-values.  A statement proved
+  ``in the degeneration limit'' is meaningless without
+  specifying \emph{which} degeneration.
+  \textbf{Counter}: name the degeneration type and state
+  whether the result is specific to that type or holds for
+  all degenerations. \\
+\bottomrule
+\end{longtable}
+}%
+
+%% =====================================================================
+\section{Formula-mechanical: FM24}
+\label{sec:ap-fm24-full}
+
+{%
+\small
+\begin{longtable}{@{}p{1.6cm}p{2.4cm}lp{7.4cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Name} & \textbf{Severity}
+  & \textbf{Description and counter} \\
+\midrule
+\endhead
+FM24 & B-cycle $i^2$ sign & \textsc{Critical} &
+  In genus $\ge 1$, the B-cycle integral involves factors of
+  $i$.  The error $i^2 = 1$ (instead of $i^2 = -1$)
+  propagates silently and produces $|q| = 1$ instead of
+  $|q| < 1$ for the nome, destroying convergence of all
+  $q$-expansions.
+  \textbf{Counter}: after any computation involving B-cycle
+  integrals, verify that $|q| < 1$ (convergence of
+  $q$-expansion).  If $|q| = 1$, trace back to an $i^2$ sign
+  error.  Also verify $\mathrm{Im}(\tau) > 0$ is preserved
+  by all transformations. \\
+\bottomrule
+\end{longtable}
+}%
+
+%% =====================================================================
+\section{Decision trees}
+\label{sec:ap-decision-trees}
+
+The following decision trees codify the most frequently triggered
+anti-patterns into operational templates.
+
+\subsection{HZ3-1: Theorem vs.\ conjecture (AP-CY6, AP-CY14)}
+
+Before writing \verb|\begin{theorem}| in Vol~III:
+\begin{enumerate}[nosep]
+\item Does the proof chain pass through $A_X$ for $d = 3$, $G(X)$,
+      $C(\frakg,q)$, or any object whose existence is part of the
+      $d = 3$ programme?
+      \textbf{Yes} $\to$ \verb|\begin{conjecture}| +
+      \verb|\ClaimStatusConjectured|.  \textbf{Stop.}
+\item Does it pass through $A_X$ for $d = 2$ (CY-A$_2$ proved)?
+      \textbf{Yes} $\to$ \verb|\begin{theorem}| or
+      \verb|\begin{proposition}|; cite CY-A explicitly.
+\item Pure categorical / VOA / Yangian statement (no functor
+      invocation)?
+      \textbf{Yes} $\to$ \verb|\begin{theorem}| or
+      \verb|\begin{proposition}|; classical proof.
+\item \textbf{Uncertain} $\to$ default \verb|\begin{conjecture}|.
+      Downgrade is cheaper than retraction.
+\end{enumerate}
+
+\subsection{HZ3-2: $\kappa$-subscript (AP113)}
+
+Before writing any $\kappa$:
+\begin{enumerate}[nosep]
+\item Subscript present?  Required: $\{\mathrm{ch}, \mathrm{cat},
+      \mathrm{BKM}, \mathrm{fiber}\}$.
+\item Forbidden subscripts: $\{\mathrm{global}, \mathrm{BPS},
+      \mathrm{eff}, \mathrm{total}, \mathrm{naive},
+      \mathrm{MacMahon}\}$.
+      If you wrote BPS, you mean BKM.
+\item For meta-naming (``$\kappa$-spectrum,'' ``$\kappa$-value''):
+      write $\kappa_\bullet$ (the bullet denotes the indexing
+      variable).
+\end{enumerate}
+
+\noindent
+Routing:
+\begin{itemize}[nosep]
+\item Chiral algebra $A_\cC$ / $\Phi(\cC)$ $\to$
+      $\kappa_{\mathrm{ch}}$.
+\item Borcherds--Kac--Moody / Igusa weight $\to$
+      $\kappa_{\mathrm{BKM}}$.
+\item Holomorphic Euler char $\chi(\cO_X)$ $\to$
+      $\kappa_{\mathrm{cat}}$.
+\item Lattice rank / fiber structure $\to$
+      $\kappa_{\mathrm{fiber}}$.
+\end{itemize}
+
+\subsection{HZ3-3: Conditional propagation (AP-CY11)}
+
+Before writing \verb|\ClaimStatusProvedHere|:
+\begin{enumerate}[nosep]
+\item Does this result's proof chain reach back to CY-A$_3$ or
+      any unconstructed object?
+      \textbf{No} $\to$ \verb|\ClaimStatusProvedHere| is valid.
+      \textbf{Yes} $\to$ \verb|\ClaimStatusConditional| + name
+      the dependency chain in the body of the statement.
+\end{enumerate}
+
+\subsection{HZ3-7: MF CY dimension (AP-CY17)}
+
+Before any $\MF(W)$ CY claim:
+\begin{enumerate}[nosep]
+\item Identify $W \colon \bA^n \to \bA^1$.  What is $n$?
+\item $\MF(W)$ is CY$_{n-2}$.  Check $n - 2$ against the desired
+      CY dimension.
+\item Verify: $n = 2$ (CY$_0$), $n = 3$ (CY$_1$),
+      $n = 4$ (CY$_2$), $n = 5$ (CY$_3$).
+\end{enumerate}
+
+\subsection{HZ3-9: Shadow class assignment (AP-CY12)}
+
+Before assigning a G/L/C/M class:
+\begin{enumerate}[nosep]
+\item Compute the full shadow tower $\{S_k\}_{k \ge 2}$.
+\item $S_k = 0$ for all $k \ge 2$ $\to$ class G.
+\item Tower terminates at finite depth $\to$ class L.
+\item Tower terminates due to charge conservation $\to$ class C.
+\item $S_k \neq 0$ for all $k$ (full tower computation required)
+      $\to$ class M.
+\item Generator counting or $m_3 \neq 0$ alone is \textbf{never}
+      sufficient.
+\end{enumerate}
+
+%% =====================================================================
+\section{Cross-reference to Hot Zone}
+\label{sec:ap-hot-zone-xref}
+
+The ten most frequently triggered patterns (``Hot Zone'' entries
+HZ3-1 through HZ3-10 in the development guide) correspond to the
+following catalogue entries:
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Hot Zone} & \textbf{AP IDs} & \textbf{Core issue} \\
+\midrule
+HZ3-1 & AP-CY6, AP-CY14 & Unconstructed object in
+  \verb|\begin{theorem}| \\
+HZ3-2 & AP113 & Bare $\kappa$ without subscript \\
+HZ3-3 & AP-CY11 & Conditional propagation failure \\
+HZ3-4 & AP-CY7 & CoHA $\neq$ $\Eone$-chiral algebra \\
+HZ3-5 & AP-CY3, AP-CY4 & $\Etwo$ / Drinfeld / derived center
+  conflation \\
+HZ3-6 & AP-CY8 & Borcherds denominator $\neq$ bar Euler product \\
+HZ3-7 & AP-CY17 & $\MF(W)$ CY dimension $n - 2$ not $n - 1$ \\
+HZ3-8 & AP-CY10 & Flop $\neq$ Koszul dual \\
+HZ3-9 & AP-CY12 & Shadow class from full tower, not shortcuts \\
+HZ3-10 & AP-CY13 & Stale cross-volume Part references \\
+\bottomrule
+\end{tabular}
+\end{center}

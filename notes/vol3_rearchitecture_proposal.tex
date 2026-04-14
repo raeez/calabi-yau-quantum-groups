@@ -1,0 +1,827 @@
+% ======================================================================
+% VOL III REARCHITECTURE PROPOSAL
+% Post-CY-A_3 proof, post-K3 Yangian theorem, post-180-agent session
+% April 2026
+% ======================================================================
+
+\documentclass[11pt]{article}
+\usepackage[margin=1.2in]{geometry}
+\usepackage{enumitem,booktabs,longtable}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\frenchspacing
+
+\newcommand{\CY}{\mathrm{CY}}
+\newcommand{\Eone}{E_1}
+\newcommand{\Etwo}{E_2}
+\newcommand{\Einf}{E_\infty}
+\newcommand{\En}{E_n}
+\newcommand{\CoHA}{\mathrm{CoHA}}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\Ainf}{A_\infty}
+\newcommand{\Phi}{\Phi}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\title{Volume III Rearchitecture Proposal:\\
+\textit{Calabi--Yau Quantum Groups} after the proof of CY-A$_3$}
+\author{Raeez Lorgat}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\newpage
+
+% ======================================================================
+\section{Diagnosis: what changed and why the old structure fails}
+% ======================================================================
+
+The current five-part structure was designed around the assumption that
+CY-A$_3$ (the CY-to-chiral functor at $d=3$) was an open programme.
+Four developments have made that structure obsolete:
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{CY-A$_3$ is proved.} The $\infty$-categorical proof
+ ($\HH^{-2}_{E_1}=0$, $E_3$-lifting contractible) resolves the central
+ open problem. The functor $\Phi_3$ now \emph{exists}; it should be
+ presented as a theorem, not hedged behind dashed arrows and programme
+ language. Part~I's entire narrative arc---``we prove $d=2$, we hope
+ for $d=3$''---must be rewritten.
+
+\item \textbf{The K3 abelian Yangian is a theorem.} The complete
+ 6-part generators-and-relations presentation of $Y(\mathfrak{g}_{K3})$
+ (24 Heisenberg generators $J_i$, Mukai-signature Serre relations,
+ degree-$(24,24)$ structure function) is proved. This is too large for
+ a section inside ``Toroidal and elliptic algebras''; it deserves a
+ dedicated chapter.
+
+\item \textbf{The $[m_3, B^{(2)}]$ saga.} The proof of the CY-A$_3$
+ vanishing went through 3 wrong proofs and 4 independent computations
+ before the TCFT/$\infty$-categorical resolution. This story is
+ mathematically significant (it illuminates the \emph{method} of
+ chain-level CY algebra) and pedagogically valuable. The current
+ structure has no place for it.
+
+\item \textbf{Six routes to $G(K3\times E)$.} The BKM, lattice VOA,
+ Kummer, CY-to-chiral, sigma model, and BLLPR routes are now
+ established. The current structure scatters these across
+ \texttt{toroidal\_elliptic.tex} (7190 lines),
+ \texttt{k3\_times\_e.tex} (5986 lines, commented out), and
+ \texttt{modular\_koszul\_bridge.tex}. A unifying chapter is needed.
+\end{enumerate}
+
+Additional structural pressures:
+
+\begin{itemize}
+\item The CFG25 comparison (24\% of 3d CS structures lift to 6d)
+ reframes Part~IV: the ``seven faces'' are no longer abstract---they
+ are constrained by the 3d$\to$6d obstruction catalogue.
+\item Part~V (``The CY Frontier'') currently contains only
+ \texttt{geometric\_langlands.tex}. The frontier is no longer CY-A$_3$;
+ it is the nonabelian Yangian, quantum toroidal algebras,
+ root-of-unity phenomena, the ZTE correction, and the super-Yangian
+ $Y(\mathfrak{gl}(4|20))$.
+\item The $\kappa_{\mathrm{ch}}$ formula needs fixing (gives 24 for K3,
+ should be 2). This affects the modular bridge chapter.
+\item The shadow--Feynman dictionary ($L$-loop $= S_{L+1}$) and the
+ class~M Borel summability result ($E_3$ bar $= 6^g$) have no natural
+ home in the current structure.
+\end{itemize}
+
+% ======================================================================
+\section{The new structure: seven parts}
+% ======================================================================
+
+The ideal Vol~III has \textbf{seven parts} and approximately
+\textbf{28 chapters} (plus introduction, appendices, and bibliography).
+The seven parts trace the logical arc:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{cl}
+\toprule
+Part & Title \\
+\midrule
+I & Foundations: CY Categories and Cyclic $\Ainf$ \\
+II & The CY-to-Chiral Functor \\
+III & The $\En$ Hierarchy and Chiral Quantum Groups \\
+IV & The K3 Yangian \\
+V & The CY Landscape \\
+VI & The Seven Faces of $r_{\CY}(z)$ \\
+VII & Frontiers \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The critical innovation: Parts~I--II are the \emph{input}
+(CY categories $\to$ chiral algebras), Part~III is the
+\emph{algebraic machine} ($\En$ operads, quantum groups,
+Drinfeld centers), Part~IV is the \emph{central theorem}
+(the K3 Yangian as the prototype worked example, now with a
+proved CY-A$_3$), Part~V collects further examples, Part~VI
+connects to the bar-cobar machine and physics, and Part~VII
+addresses open problems.
+
+% ======================================================================
+\section{Part-by-part chapter listing}
+% ======================================================================
+
+% --------------------------------------------------
+\subsection{Part I: Foundations --- CY Categories and Cyclic $\Ainf$}
+\label{sec:part-i}
+% --------------------------------------------------
+
+\textit{Goal: establish the categorical input. All material here is
+$d$-independent and unconditional.}
+
+\begin{enumerate}[label=\textbf{Ch.\,\arabic*.},leftmargin=3.5em]
+\item \textbf{Introduction.}
+ \textit{Source:} Current \texttt{introduction.tex} (578 lines),
+ rewritten to reflect the proved status of CY-A$_3$.
+ The introduction should present the \emph{completed} functor
+ $\Phi\colon \CY_d\text{-}\mathrm{Cat}\to \En\text{-}\mathrm{ChirAlg}$
+ as the central construction, not a programme. The four main theorems
+ CY-A through CY-D are stated with their current status: CY-A proved
+ (all $d$), CY-B programme, CY-C conjectural, CY-D programme.
+
+\item \textbf{Calabi--Yau categories.}
+ \textit{Source:} Current \texttt{cy\_categories.tex} (207 lines).
+ Expand to $\sim$400 lines. CY$_d$ categories, Serre functors,
+ smooth proper conditions, the CY pairing, examples ($D^b(\mathrm{Coh}(X))$,
+ $\mathrm{Fuk}(X)$, $\mathrm{MF}(W)$). MF(W) CY dimension is $n-2$
+ (AP-CY17).
+
+\item \textbf{Cyclic $\Ainf$-algebras and the Connes $B$-operator.}
+ \textit{Source:} Current \texttt{cyclic\_ainf.tex} (206 lines).
+ Expand to $\sim$400 lines. Cyclic $\Ainf$-structure, negative cyclic
+ homology $\mathrm{HC}^-_d$, the $S^d$-framing, the Connes $B$-operator.
+ The CY trace lives in $\mathrm{HC}^-_d$, NOT just $\HH_d\to k$ (AP-CY2).
+
+\item \textbf{Hochschild calculus for CY categories.}
+ \textit{Source:} Current \texttt{hochschild\_calculus.tex} (392 lines).
+ Gerstenhaber bracket, Lie conformal algebra $\mathfrak{L}_\cC$,
+ factorization envelope. The bridge from categorical Hochschild to
+ chiral Hochschild (output of $\Phi$).
+\end{enumerate}
+
+\textit{Migration notes:} Chapters 2--4 are essentially the current
+Part~I minus the E$_n$ and chiral material, which moves to Parts~II--III.
+
+% --------------------------------------------------
+\subsection{Part II: The CY-to-Chiral Functor}
+\label{sec:part-ii}
+% --------------------------------------------------
+
+\textit{Goal: construct $\Phi$. This is the load-bearing part. CY-A$_2$
+is proved; CY-A$_3$ is now proved. The four-step construction is
+presented as a theorem at all $d$.}
+
+\begin{enumerate}[label=\textbf{Ch.\,\arabic*.},leftmargin=3.5em,start=5]
+\item \textbf{The CY-to-chiral functor: construction and proof.}
+ \textit{Source:} Current \texttt{cy\_to\_chiral.tex} (3882 lines),
+ substantially rewritten. The four steps are presented uniformly for all
+ $d$. CY-A$_2$ proof (existing). CY-A$_3$ proof: the
+ $\infty$-categorical argument ($\HH^{-2}_{E_1}=0$, $E_3$-lifting
+ contractible). The $\dashrightarrow$ on $\Phi_3$ becomes $\to$.
+
+ Key structural change: the current chapter hedges everything at $d=3$
+ behind ``programme'' and ``conditional'' language. The new chapter
+ states the theorem and proves it. Conditional language is reserved
+ for CY-B, CY-C, CY-D (which genuinely remain open).
+
+\item \textbf{The $[m_3, B^{(2)}]$ saga: chain-level CY algebra.}
+ \textit{Source:} NEW CHAPTER. $\sim$600--800 lines.
+ This chapter tells the mathematical story of the $S^3$-framing
+ obstruction: three wrong proofs (direct Hochschild, spectral sequence,
+ model category), four independent computations (symbolic, numerical,
+ TCFT, $\infty$-categorical), and the resolution. The pedagogical
+ value: it exposes \emph{why} chain-level CY arguments are subtle,
+ how the na\"ive $\HH^{-2}_{E_1}\neq 0$ expectation fails, and why
+ the $\infty$-categorical framework was necessary.
+
+ Sections: (i) The obstruction: $[m_3, B^{(2)}]$ and the failure of
+ the direct approach. (ii) Three wrong proofs: what went wrong in each.
+ (iii) The TCFT framework: how topological conformal field theory
+ resolves the sign ambiguity. (iv) The $\infty$-categorical proof:
+ $\HH^{-2}_{E_1}=0$ and the contractibility of the $E_3$-lifting
+ space. (v) Lessons for chain-level algebra.
+
+\item \textbf{The modular characteristic and CY Euler numbers.}
+ \textit{Source:} Material from current \texttt{modular\_trace.tex}
+ (156 lines) and the $\kappa_{\mathrm{ch}}$ sections of
+ \texttt{cy\_to\_chiral.tex} and \texttt{modular\_koszul\_bridge.tex}.
+ Consolidate. $\kappa_{\mathrm{ch}}=\chi^{\CY}$ at $d=2$ (proved).
+ The $\kappa_{\mathrm{ch}}$ formula issue (gives 24, should be 2 for
+ K3) is addressed. The $\kappa_\bullet$-spectrum is introduced here
+ systematically.
+\end{enumerate}
+
+\textit{Migration notes:} Chapter~5 absorbs the core of the current
+\texttt{cy\_to\_chiral.tex}. Chapter~6 is entirely new. Chapter~7
+consolidates scattered $\kappa$ material from three current files.
+
+% --------------------------------------------------
+\subsection{Part III: The $\En$ Hierarchy and Chiral Quantum Groups}
+\label{sec:part-iii}
+% --------------------------------------------------
+
+\textit{Goal: the algebraic infrastructure. $E_1$-chiral algebras,
+$E_2$-chiral algebras, the Drinfeld center passage, quantum groups,
+braided factorization, the $E_3$ bar complex, the $E_1$-chiral
+bialgebra. This is the operadic heart of the volume.}
+
+\begin{enumerate}[label=\textbf{Ch.\,\arabic*.},leftmargin=3.5em,start=8]
+\item \textbf{$E_1$-chiral algebras and the ordered bar complex.}
+ \textit{Source:} Current \texttt{e1\_chiral\_algebras.tex} (2023 lines).
+ The Swiss-cheese operad, factorization on $\C\times\mathbb{R}$,
+ the ordered bar $B^{\mathrm{ord}}$, the $E_1$-chiral bialgebra
+ axioms (Section~7, $\sim$400 lines of new math from this session).
+
+\item \textbf{$E_2$-chiral algebras and braided monoidal structure.}
+ \textit{Source:} Current \texttt{e2\_chiral\_algebras.tex} (865 lines).
+ The Deligne conjecture, $E_2$ from cyclic $\Ainf$, the three bar
+ complexes $B_{E_1}$, $B_{E_2}$, $B_{E_\infty}$.
+
+\item \textbf{$\En$-factorization and the stabilization theorem.}
+ \textit{Source:} Current \texttt{en\_factorization.tex} (2288 lines).
+ Dunn additivity, the framing obstruction tower, $E_1$-stabilization
+ for $d\geq 3$, Bott periodicity. The $E_3$ bar cohomology:
+ $(1+t)^{3g}$ for classes L,C; fails for class M (AP-CY21).
+
+\item \textbf{Quantum groups: foundations.}
+ \textit{Source:} Current \texttt{quantum\_groups\_foundations.tex}
+ (260 lines). Drinfeld--Jimbo $U_q(\mathfrak{g})$, universal
+ $R$-matrix, FRT/RTT, Kazhdan--Lusztig at root of unity.
+ Expand to $\sim$500 lines.
+
+\item \textbf{The Drinfeld center and the $E_1\to E_2$ passage.}
+ \textit{Source:} Current \texttt{drinfeld\_center.tex} (1655 lines).
+ Universal bulk, $\cZ(\Rep^{E_1}(A))\simeq\Rep^{E_2}(Z^{\mathrm{der}}_{\mathrm{ch}}(A))$.
+ The K3 center obstruction ($>92\%$ non-local). The derived center
+ (higher Deligne) for $E_2\to E_3$ promotion.
+
+\item \textbf{Braided factorization and quantum vertex chiral groups.}
+ \textit{Source:} Current \texttt{braided\_factorization.tex}
+ (1361 lines) merged with current \texttt{quantum\_chiral\_algebras.tex}
+ (2385 lines). The categorical $R$-matrix, the CY $R$-matrix
+ construction, the target specification for $G(X)$. With CY-A$_3$
+ proved, $G(X)$ can now be \emph{defined} (via $\Phi_3$) rather than
+ merely specified. CY-C remains conjectural (whether $\Rep^{E_2}$
+ recovers classical quantum group categories).
+\end{enumerate}
+
+\textit{Migration notes:} This part absorbs the current Part~II's
+quantum/braided material plus the $E_n$ chapter from Part~I. The
+merge of \texttt{braided\_factorization.tex} and
+\texttt{quantum\_chiral\_algebras.tex} eliminates redundancy between
+these two chapters, which currently overlap in their treatment of
+categorical $R$-matrices.
+
+% --------------------------------------------------
+\subsection{Part IV: The K3 Yangian}
+\label{sec:part-iv}
+% --------------------------------------------------
+
+\textit{Goal: the central worked example, now a theorem. This part is
+the mathematical climax of the volume. It presents the complete
+construction $\mathrm{K3}\to Y(\mathfrak{g}_{K3})$ as the prototype
+of the CY-to-quantum-group pipeline.}
+
+\begin{enumerate}[label=\textbf{Ch.\,\arabic*.},leftmargin=3.5em,start=14]
+\item \textbf{K3 surfaces and the Mukai lattice.}
+ \textit{Source:} Opening sections of current \texttt{k3\_times\_e.tex}
+ and \texttt{toroidal\_elliptic.tex}. The Mukai lattice
+ $\Lambda^{4,20}$, the Mukai pairing, $\chi(\cO_{K3})=2$, the K3
+ elliptic genus $\phi_{0,1}$.
+
+\item \textbf{$\Phi_2(K3)=H_{\mathrm{Muk}}$: the CY$_2$ functor
+ on K3.}
+ \textit{Source:} NEW CHAPTER. $\sim$500--700 lines.
+ The rigorous 4-step proof that $\Phi$ applied to $D^b(\mathrm{Coh}(K3))$
+ produces the Mukai-lattice Heisenberg VOA. This is the first
+ nontrivial complete computation of $\Phi$ for a compact manifold.
+
+\item \textbf{The K3 double current algebra and the abelian Yangian.}
+ \textit{Source:} Sections of current \texttt{k3\_times\_e.tex}
+ (the double current algebra, Maulik--Okounkov $R$-matrix) plus
+ the new 6-part generators-and-relations theorem. $\sim$800--1000 lines.
+ The complete presentation of $Y(\mathfrak{g}_{K3})$: 24 Heisenberg
+ generators, Mukai-signature Serre relations, degree-$(24,24)$
+ structure function, the super-Yangian $Y(\mathfrak{gl}(4|20))$.
+
+\item \textbf{The $K3\times E$ tower and the Igusa cusp form.}
+ \textit{Source:} Bulk of current \texttt{k3\_times\_e.tex} (5986 lines)
+ and \texttt{toroidal\_elliptic.tex} (the K3$\times$E-specific material,
+ not the pure toroidal/elliptic algebra material). The DT zeta function,
+ $\Lambda^{3,2}$, the BKM superalgebra $\mathfrak{g}_{\Delta_5}$,
+ $\kappa_\bullet$-spectrum $\{2,3,5,24\}$.
+
+ Now that CY-A$_3$ is proved, the identification
+ $\Delta_5 = \text{bar Euler product}$ can be stated as a theorem
+ (conditional on CY-A$_3$ + Vol~I identification, both now proved),
+ not merely an observation.
+
+\item \textbf{Six routes to $G(K3\times E)$.}
+ \textit{Source:} NEW CHAPTER. $\sim$600--800 lines. A unifying
+ treatment of the six independent constructions of the quantum vertex
+ chiral group:
+ \begin{enumerate}[label=(\roman*)]
+  \item BKM route (Gritsenko--Nikulin denominator identity),
+  \item Lattice VOA route ($V_\Lambda$ with $\Lambda$ the Mukai lattice),
+  \item Kummer route (Steps 1--4 proved, Step 5 via CY-A$_3$),
+  \item CY-to-chiral route ($\Phi_3$ applied to $D^b(\mathrm{Coh}(K3\times E))$),
+  \item Sigma model route (chiral de Rham complex),
+  \item BLLPR route (Bruinier--Laures--van der Geer--Zagier--Raum).
+ \end{enumerate}
+ The six routes are not independent: they form a commutative diagram,
+ and the chapter traces which arrows are proved and which remain
+ conjectural.
+
+\item \textbf{The Kummer route: orbifold, excision, and resolution.}
+ \textit{Source:} Material currently in \texttt{cy\_to\_chiral.tex}
+ and \texttt{toroidal\_elliptic.tex} on the Kummer construction.
+ $\sim$400--600 lines. Steps 1--4 are proved
+ (\texttt{prop:kummer-orbifold}): $\int_{T^4} H_1 =$
+ rank-16 Heisenberg, $\Z_2$-invariant $=$ rank-8, 16 twisted sectors,
+ orbifold $\kappa_{\mathrm{ch}}=2$, resolution $8+32-16=24$.
+ Step~5 now follows from CY-A$_3$.
+\end{enumerate}
+
+\textit{Migration notes:} This part restructures the two massive
+current example chapters (\texttt{toroidal\_elliptic.tex} at 7190 lines
+and \texttt{k3\_times\_e.tex} at 5986 lines) into focused,
+theorem-driven chapters. The pure toroidal/elliptic algebra material
+(quantum toroidal $U_{q,t}$, Miki automorphism, double affine Hecke)
+moves to Part~V.
+
+% --------------------------------------------------
+\subsection{Part V: The CY Landscape}
+\label{sec:part-v}
+% --------------------------------------------------
+
+\textit{Goal: the remaining examples, organized by CY dimension and
+type.}
+
+\begin{enumerate}[label=\textbf{Ch.\,\arabic*.},leftmargin=3.5em,start=20]
+\item \textbf{$\C^3$ and the affine Yangian $Y(\widehat{\mathfrak{gl}}_1)$.}
+ \textit{Source:} Sections of current \texttt{toric\_cy3\_coha.tex}
+ (1002 lines) specific to $\C^3$. The Jordan quiver, CoHA,
+ $\cW_{1+\infty}$ identification, shadow tower (class M, infinite depth).
+
+\item \textbf{Toric CY$_3$ and affine super Yangians.}
+ \textit{Source:} Remainder of current \texttt{toric\_cy3\_coha.tex}.
+ General toric CY$_3$ without compact 4-cycles (RSYZ), resolved
+ conifold, local $\mathbb{P}^2$ (class M, not class L; AP-CY12).
+
+\item \textbf{Toroidal and elliptic algebras.}
+ \textit{Source:} The non-K3 material from current
+ \texttt{toroidal\_elliptic.tex}. Quantum toroidal
+ $U_{q,t}(\widehat{\widehat{\mathfrak{gl}}}_1)$, Miki automorphism
+ (algebra-specific, not operadic; AP-CY22), elliptic Hall algebra,
+ double affine Hecke algebras. $\sim$2000 lines.
+
+\item \textbf{Fukaya categories and mirror symmetry.}
+ \textit{Source:} Current \texttt{fukaya\_categories.tex} (710 lines).
+ Lagrangian submanifolds, the $\Ainf$-structure on $\mathrm{Fuk}(X)$,
+ HMS as input to $\Phi$.
+
+\item \textbf{Derived categories, matrix factorizations, and
+ non-compact CY.}
+ \textit{Source:} Current \texttt{derived\_categories\_cy.tex}
+ (290 lines) and \texttt{matrix\_factorizations.tex} (289 lines),
+ merged. MF(W) CY dimension $= n-2$ (AP-CY17). The quintic:
+ chart-gluing for non-toric CY$_3$.
+
+\item \textbf{Quantum group representations from CY categories.}
+ \textit{Source:} Current \texttt{quantum\_group\_reps.tex} (586 lines).
+ Representation categories $\Rep^{E_2}$, modular tensor categories at
+ root of unity. AP-CY5: Kazhdan--Lusztig requires root of unity.
+\end{enumerate}
+
+\textit{Migration notes:} The current Part~III (``CY Landscape'') is
+restructured: the K3 material elevates to Part~IV, the toric/$\C^3$
+material splits into two focused chapters, and the toroidal/elliptic
+chapter is trimmed of its K3$\times$E content.
+
+% --------------------------------------------------
+\subsection{Part VI: The Seven Faces of $r_{\CY}(z)$}
+\label{sec:part-vi}
+% --------------------------------------------------
+
+\textit{Goal: the connections to the bar-cobar machine (Vols~I--II),
+to physics, and to other mathematical programmes.}
+
+\begin{enumerate}[label=\textbf{Ch.\,\arabic*.},leftmargin=3.5em,start=26]
+\item \textbf{The bar-cobar bridge to Volumes~I--II.}
+ \textit{Source:} Current \texttt{bar\_cobar\_bridge.tex} (667 lines)
+ expanded with the shadow--Feynman dictionary ($L$-loop $= S_{L+1}$)
+ and the shadow--$\Ainf$-coproduct identification. The class~M Borel
+ summability result ($E_3$ bar $= 6^g$). Cross-volume references
+ to Vol~I \texttt{higher\_genus\_complementarity.tex} and Vol~II
+ \texttt{foundations\_recast\_draft.tex}.
+
+\item \textbf{The seven faces of $r_{\CY}(z)$.}
+ \textit{Source:} Current \texttt{cy\_holographic\_datum\_master.tex}
+ (1014 lines). Now reframed by the CFG25 comparison: only 24\% of 3d
+ CS structures lift to 6d. The seven faces are constrained by the
+ 3d$\to$6d obstruction catalogue. New section: BKM Serre concentrated
+ at $D=3$ (182 generators, finitely determined).
+
+\item \textbf{Modular Koszul duality and CY geometry.}
+ \textit{Source:} Current \texttt{modular\_koszul\_bridge.tex}
+ (552 lines). CY modular convolution algebra, complementarity
+ transport, CohFT on $\overline{\cM}_{g,n}$. K3 Koszul conductor $= 0$
+ (free-field/KM branch).
+\end{enumerate}
+
+% --------------------------------------------------
+\subsection{Part VII: Frontiers}
+\label{sec:part-vii}
+% --------------------------------------------------
+
+\textit{Goal: the open problems and research directions. Now that
+CY-A$_3$ is proved, the frontier is genuinely new territory.}
+
+\begin{enumerate}[label=\textbf{Ch.\,\arabic*.},leftmargin=3.5em,start=29]
+\item \textbf{The nonabelian Yangian and quantum toroidal algebras.}
+ \textit{Source:} NEW CHAPTER. $\sim$400--600 lines. The passage
+ from the abelian $Y(\mathfrak{g}_{K3})$ (proved) to the full
+ nonabelian Yangian. Matrix Miura, Serre constraints from $\mathfrak{sl}_2$
+ traces. Quantum toroidal from 3-chart atlas. Status: programme.
+
+\item \textbf{The Zamolodchikov tetrahedron and $E_3$ corrections.}
+ \textit{Source:} NEW CHAPTER. $\sim$400--600 lines. The computed
+ negative result: Yang $R$-matrix does NOT satisfy ZTE. The $O(\kappa^2)$
+ obstruction. ZTE correction EXISTS (deformation cohomology). The
+ $E_3$ is genuinely nontrivial. This is new mathematics.
+
+\item \textbf{Geometric Langlands and CY quantum groups.}
+ \textit{Source:} Current \texttt{geometric\_langlands.tex}
+ (629 lines). Feigin--Frenkel center, D-modules on $\mathrm{Bun}_G$,
+ CY Langlands duality. Derived Satake from chiral data.
+
+\item \textbf{Root of unity, categorification, and the CY frontier.}
+ \textit{Source:} NEW CHAPTER. $\sim$400--600 lines. Root-of-unity
+ phenomena for CY quantum groups, Khovanov-style categorification,
+ tropical cluster structures, chiral Verlinde formula, the
+ super-Yangian $Y(\mathfrak{gl}(4|20))$, and $\mathrm{Sp}_4(\Z)$
+ modularity from the $E_3$ $S$-matrix.
+\end{enumerate}
+
+
+% ======================================================================
+\section{Chapter-level migration table}
+% ======================================================================
+
+\begin{longtable}{p{5.5cm}p{1.3cm}p{5.5cm}p{1.3cm}}
+\toprule
+\textbf{Current file} & \textbf{Lines} & \textbf{New location} & \textbf{Part} \\
+\midrule
+\endhead
+\texttt{introduction.tex} & 578 & Ch.\,1 (rewritten) & I \\
+\texttt{cy\_categories.tex} & 207 & Ch.\,2 (expanded) & I \\
+\texttt{cyclic\_ainf.tex} & 206 & Ch.\,3 (expanded) & I \\
+\texttt{hochschild\_calculus.tex} & 392 & Ch.\,4 & I \\
+\texttt{cy\_to\_chiral.tex} & 3882 & Ch.\,5 (rewritten) + Ch.\,7 + Ch.\,19 & II,IV \\
+\texttt{modular\_trace.tex} & 156 & Ch.\,7 (merged) & II \\
+\texttt{e1\_chiral\_algebras.tex} & 2023 & Ch.\,8 & III \\
+\texttt{e2\_chiral\_algebras.tex} & 865 & Ch.\,9 & III \\
+\texttt{en\_factorization.tex} & 2288 & Ch.\,10 & III \\
+\texttt{quantum\_groups\_fdn.tex} & 260 & Ch.\,11 (expanded) & III \\
+\texttt{drinfeld\_center.tex} & 1655 & Ch.\,12 & III \\
+\texttt{quantum\_chiral\_alg.tex} & 2385 & Ch.\,13 (merged with braided) & III \\
+\texttt{braided\_factorization.tex} & 1361 & Ch.\,13 (merged) & III \\
+\texttt{toroidal\_elliptic.tex} & 7190 & Ch.\,14,17,22 (split) & IV,V \\
+\texttt{k3\_times\_e.tex} & 5986 & Ch.\,14--19 (split) & IV \\
+\texttt{toric\_cy3\_coha.tex} & 1002 & Ch.\,20--21 (split) & V \\
+\texttt{fukaya\_categories.tex} & 710 & Ch.\,23 & V \\
+\texttt{derived\_categories\_cy.tex} & 290 & Ch.\,24 (merged) & V \\
+\texttt{matrix\_factorizations.tex} & 289 & Ch.\,24 (merged) & V \\
+\texttt{quantum\_group\_reps.tex} & 586 & Ch.\,25 & V \\
+\texttt{bar\_cobar\_bridge.tex} & 667 & Ch.\,26 (expanded) & VI \\
+\texttt{cy\_holo\_datum\_master.tex} & 1014 & Ch.\,27 (reframed) & VI \\
+\texttt{modular\_koszul\_bridge.tex} & 552 & Ch.\,28 & VI \\
+\texttt{geometric\_langlands.tex} & 629 & Ch.\,31 & VII \\
+--- & --- & Ch.\,6 ($[m_3,B^{(2)}]$ saga) & II \\
+--- & --- & Ch.\,15 ($\Phi_2(K3)$) & IV \\
+--- & --- & Ch.\,16 (K3 abelian Yangian) & IV \\
+--- & --- & Ch.\,18 (six routes) & IV \\
+--- & --- & Ch.\,29 (nonabelian Yangian) & VII \\
+--- & --- & Ch.\,30 (ZTE correction) & VII \\
+--- & --- & Ch.\,32 (root of unity/frontier) & VII \\
+\bottomrule
+\end{longtable}
+
+\textit{New chapters:} 7 (Chs.\,6, 15, 16, 18, 29, 30, 32).\\
+\textit{Merged chapters:} 3 merges (braided+quantum$\to$Ch.\,13;
+derived+MF$\to$Ch.\,24; modular\_trace into Ch.\,7).\\
+\textit{Split chapters:} 2 splits (toroidal\_elliptic $\to$ 3 chapters;
+k3\_times\_e $\to$ absorbed into Part IV).
+
+% ======================================================================
+\section{The abstract}
+% ======================================================================
+
+\noindent\textit{Proposed abstract for the rearchitected volume:}
+
+\medskip
+
+\noindent
+Volumes~I and~II construct the ordered bar complex
+$B^{\mathrm{ord}}(\mathcal{A}) = T^c(s^{-1}\bar{\mathcal{A}})$
+of any chiral algebra $\mathcal{A}$ and extract its modular invariants.
+This volume constructs the geometric input: a functor
+$\Phi\colon \CY_d\text{-}\mathrm{Cat}\to \En\text{-}\mathrm{ChirAlg}$
+from Calabi--Yau categories of dimension $d$ to $\En$-chiral algebras,
+proved for all $d$.
+
+A $\CY_d$ category $\mathcal{C}$ carries a cyclic $\Ainf$-structure
+whose $S^d$-framing determines an operadic enhancement. The functor
+$\Phi$ converts this datum into a chiral algebra on a curve in four
+steps: cyclic $\Ainf$-structure $\to$ Lie conformal algebra $\to$
+factorization envelope $\to$ $S^d$-enhanced quantization. For $d=2$,
+the output is an $\Etwo$-chiral algebra (Theorem CY-A$_2$); for
+$d=3$, the chain-level $S^3$-framing obstruction is resolved by an
+$\infty$-categorical argument ($\HH^{-2}_{E_1}=0$), producing an
+$\Eone$-chiral algebra (Theorem CY-A$_3$).
+
+The central application is the K3 Yangian. The functor $\Phi$ applied
+to the K3 surface produces the Mukai-lattice Heisenberg VOA
+($\Phi_2(K3)=H_{\mathrm{Muk}}$, Theorem). The K3 double current
+algebra $\mathfrak{g}_{K3}$ quantizes to an abelian Yangian
+$Y(\mathfrak{g}_{K3})$ with 24 generators, Mukai-signature Serre
+relations, and degree-$(24,24)$ structure function (Theorem). For the
+threefold $K3\times E$, six independent routes---BKM, lattice VOA,
+Kummer, CY-to-chiral, sigma model, BLLPR---converge on the quantum
+vertex chiral group $G(K3\times E)$, whose denominator identity is the
+Igusa cusp form $\Phi_{10}$.
+
+The $\kappa_\bullet$-spectrum
+$\mathrm{Spec}_{\kappa_\bullet}(K3\times E) = \{2,3,5,24\}$ records
+four subscripted modular invariants from distinct geometric
+provenances. The $\En$-hierarchy ($\Einf$ at $d=1$, $\Etwo$ at
+$d=2$, $\Eone$ at $d\geq 3$) is controlled by an effective framing
+obstruction $\mathrm{Obs}_{\mathrm{eff}}(d)\in\pi_d(BU)$, trivial
+when $d\bmod 8\in\{1,3,7\}$. The $E_3$-bar cohomology is
+$(1+t)^{3g}$ for shadow classes L and C, and $6^g$ (Borel summable)
+for class M. The Zamolodchikov tetrahedron equation fails at
+$O(\kappa^2)$ for the Yang $R$-matrix, proving that $E_3$ structure
+is genuinely nontrivial beyond pairwise factorization.
+
+% ======================================================================
+\section{The preface: key paragraphs}
+% ======================================================================
+
+\noindent\textit{The following replaces the opening paragraphs of
+the preface. The existing structural exposition (the $\En$ spiral,
+the $\kappa_\bullet$-spectrum, the K3$\times$E prototype) is retained
+but reframed around the proved status of CY-A$_3$.}
+
+\medskip
+
+\noindent
+A chiral algebra is a solution. What is the problem it solves?
+
+Volumes~I and~II develop the bar-cobar machine that extracts modular
+invariants from any chiral algebra~$A$ on a curve~$X$. Neither volume
+constructs a single chiral algebra. This volume constructs the input:
+both the chiral algebras and, from Calabi--Yau geometry, the concrete
+$E_1$-chiral quantum groups that are the flesh on Volume~I's algebraic
+skeleton.
+
+The construction is a functor
+$\Phi\colon \CY_d\text{-}\mathrm{Cat}\to \En\text{-}\mathrm{ChirAlg}$.
+At $d=2$, the functor has been proved since the first edition of this
+volume. At $d=3$, the chain-level $S^3$-framing obstruction---the
+question of whether the cyclic bar complex of a CY$_3$ category admits
+the correct higher operadic enhancement---was the central open problem
+for four years. It is now resolved. The $\infty$-categorical proof
+(Chapter~6) shows that $\HH^{-2}_{E_1}(\mathcal{C})=0$ for any smooth
+proper CY$_3$ category, and that the space of $E_3$-liftings is
+contractible. The functor $\Phi_3$ exists.
+
+With $\Phi_3$ in hand, the volume's centre of gravity shifts from
+construction to application. The K3 Yangian---a 24-generator abelian
+Yangian $Y(\mathfrak{g}_{K3})$ with Mukai-signature Serre relations
+and degree-$(24,24)$ structure function---is the first nontrivial
+quantum group constructed from Calabi--Yau geometry via $\Phi$.
+For $K3\times E$, six independent routes converge on the same quantum
+vertex chiral group, whose denominator identity is the Igusa cusp form
+$\Phi_{10}$. The convergence of six routes is the strongest evidence
+yet for the programme's coherence; the remaining open problems (CY-B,
+CY-C, CY-D) concern the bar-cobar, representation-theoretic, and
+modular properties of these newly constructed objects.
+
+\medskip
+
+\noindent\textit{The remainder of the preface continues with the
+$\kappa_\bullet$-spectrum, the $\En$-hierarchy spiral, and the K3$\times$E
+prototype, as in the current version but with ``programme'' and
+``conditional'' language removed for CY-A$_3$ passages.}
+
+
+% ======================================================================
+\section{The introduction: structural outline}
+% ======================================================================
+
+The introduction (Chapter 1) should be rewritten to serve the new
+seven-part structure. Key changes:
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{Opening paragraph.} State $\Phi$ as a \emph{theorem}
+ at all $d\leq 3$, not a programme. The dashed arrow $\dashrightarrow$
+ on $\Phi_3$ becomes a solid arrow $\to$.
+
+\item \textbf{Four theorems.} Update the status table:
+ \begin{center}
+ \begin{tabular}{lll}
+ \toprule
+ Theorem & Old status & New status \\
+ \midrule
+ CY-A (CY-to-chiral functor) & $d=2$ proved, $d=3$ programme & \textbf{All $d$ proved} \\
+ CY-B ($E_2$-chiral Koszul) & Programme & Programme \\
+ CY-C (Quantum group realization) & Conjectural & Conjectural \\
+ CY-D (Modular CY characteristic) & Programme & Programme \\
+ \bottomrule
+ \end{tabular}
+ \end{center}
+
+\item \textbf{Guide to the reader.} Provide three reading paths:
+ \begin{itemize}
+ \item \textit{The theorem path} (Parts I--II): for readers who want
+  the construction of $\Phi$ and the proof of CY-A$_3$.
+ \item \textit{The K3 path} (Part IV): for readers interested in the
+  K3 Yangian and K3$\times$E as a self-contained story.
+ \item \textit{The landscape path} (Part V$\to$VI): for readers coming
+  from enumerative geometry, CoHA, or physics.
+ \end{itemize}
+
+\item \textbf{Connective tissue.} A diagram showing the logical
+ dependencies between parts:
+ \[
+ \text{I} \to \text{II} \to \text{III} \to
+ \begin{cases} \text{IV (K3)} \\ \text{V (Landscape)} \end{cases}
+ \to \text{VI} \to \text{VII}
+ \]
+ Parts IV and V are independent of each other. Part VI draws on both.
+ Part VII is self-contained but references all prior parts.
+\end{enumerate}
+
+
+% ======================================================================
+\section{Connective tissue between chapters}
+% ======================================================================
+
+\subsection{Part I $\to$ Part II}
+
+The bridge is the Lie conformal algebra $\mathfrak{L}_\cC$. Part~I
+constructs $\HH^\bullet(\cC)$ with its Gerstenhaber bracket and CY
+pairing; Part~II constructs $\Phi$ from these data. The handoff is
+Chapter~4 (Hochschild calculus) $\to$ Chapter~5 (CY-to-chiral functor):
+the former builds the Lie conformal algebra, the latter applies the
+factorization envelope.
+
+\subsection{Part II $\to$ Part III}
+
+The bridge is the $S^d$-framing. Chapter~5 proves that $\Phi$ exists;
+Chapter~6 tells the story of \emph{why} the proof was hard. Part~III
+then develops the operadic infrastructure ($E_1$/$E_2$/Drinfeld center)
+that organizes the output of $\Phi$. The logical dependency: Part~III
+does not depend on the proof of CY-A$_3$ (the operadic theory is
+independent), but the \emph{motivation} comes from Part~II.
+
+\subsection{Part III $\to$ Part IV}
+
+The bridge is the K3 Yangian as the first complete instantiation of
+the $\Eone$-chiral bialgebra axioms. Chapter~13 (braided factorization)
+sets up the target specification for $G(X)$; Chapter~14 (K3 surfaces)
+provides the geometric input; Chapters~15--19 work through the
+computation. The $E_1$-chiral bialgebra axioms of Chapter~8 are
+\emph{verified} for the K3 Yangian in Chapter~16.
+
+\subsection{Part IV $\to$ Part V}
+
+The bridge is the passage from the K3 prototype to the general
+landscape. Chapter~18 (six routes) shows that $K3\times E$ is
+over-determined; Part~V shows that other geometries ($\C^3$, toric,
+quintic) have fewer routes and more open questions. The contrast
+motivates the frontier (Part~VII).
+
+\subsection{Part V $\to$ Part VI}
+
+The bridge is the bar-cobar complex. Part~V computes chiral algebras
+for specific CY geometries; Part~VI feeds those algebras into the
+Vol~I machine ($B^{\mathrm{ord}}$, $\Theta_A$, shadow tower,
+Koszul duality). The shadow--Feynman dictionary ($L$-loop $= S_{L+1}$)
+is the main new cross-volume result.
+
+\subsection{Part VI $\to$ Part VII}
+
+The bridge is the list of open problems generated by the
+completed programme. The seven faces are now constrained (CFG25: 24\%
+lift to 6d); the Zamolodchikov tetrahedron shows $E_3$ is nontrivial;
+the nonabelian Yangian is the next natural target. Each frontier chapter
+begins by stating which results from Parts~I--VI it relies on.
+
+
+% ======================================================================
+\section{Estimated sizes and total page count}
+% ======================================================================
+
+\begin{center}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{clrr}
+\toprule
+Part & Title & Est.\ lines & Est.\ pages \\
+\midrule
+I & Foundations & 1800 & 30 \\
+II & CY-to-Chiral Functor & 5000 & 80 \\
+III & $\En$ Hierarchy \& Chiral QG & 9000 & 140 \\
+IV & The K3 Yangian & 9000 & 140 \\
+V & CY Landscape & 5500 & 85 \\
+VI & Seven Faces of $r_{\CY}(z)$ & 3000 & 50 \\
+VII & Frontiers & 2500 & 40 \\
+\midrule
+ & Appendices, bibliography, front matter & 1500 & 25 \\
+\midrule
+ & \textbf{Total} & \textbf{$\sim$37,000} & \textbf{$\sim$590} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This is an increase from the current $\sim$371pp, reflecting the new
+chapters and the expansion of thin chapters. The increase is
+concentrated in Part~IV (the K3 Yangian, which elevates from
+subsections to a full part) and Part~II (the $[m_3, B^{(2)}]$ saga).
+
+
+% ======================================================================
+\section{CLAUDE.md roadmap update}
+% ======================================================================
+
+The CLAUDE.md roadmap section should be updated to reflect the new
+structure. The key changes:
+
+\begin{enumerate}[label=(\arabic*)]
+\item CY-A$_3$: status changes from PROGRAMME to PROVED.
+\item The five ``load-bearing open problems'' list is updated:
+ CY-A$_3$ is removed; the nonabelian Yangian, ZTE correction,
+ root-of-unity, CY-B (Koszul), and Sp$_4(\Z)$ modularity remain.
+\item The ``Status by dimension'' table is updated:
+ $d=3$ changes from PROGRAMME to PROVED.
+\item The compute engine list is updated with the new engines.
+\item The architecture diagram is updated with the seven-part structure.
+\end{enumerate}
+
+
+% ======================================================================
+\section{Implementation plan}
+% ======================================================================
+
+The rearchitecture can be implemented incrementally without breaking
+the build at any step:
+
+\begin{enumerate}[label=\textbf{Phase \arabic*.}]
+\item \textbf{Reorganize main.tex} (1 session). Update the
+ \texttt{\textbackslash{}part} and \texttt{\textbackslash{}input}
+ structure. This is the skeleton change. All existing chapter files
+ continue to compile; new chapters are initially stubs with
+ \texttt{\textbackslash{}chapter\{...\}} and a one-paragraph summary.
+
+\item \textbf{Write new chapters} (3--5 sessions). Chapters 6, 15, 16,
+ 18, 29, 30, 32. Each is 400--800 lines. Priority order: Ch.\,6
+ ($[m_3,B^{(2)}]$), Ch.\,16 (K3 Yangian theorem), Ch.\,18 (six routes),
+ Ch.\,15 ($\Phi_2(K3)$), Ch.\,30 (ZTE), Ch.\,29 (nonabelian Yangian),
+ Ch.\,32 (frontier).
+
+\item \textbf{Rewrite Chapter 5} (1--2 sessions). The CY-to-chiral
+ functor chapter needs the CY-A$_3$ proof integrated. All ``programme''
+ and ``conditional'' language for $d=3$ is updated.
+
+\item \textbf{Split the megachapters} (1--2 sessions).
+ \texttt{toroidal\_elliptic.tex} (7190 lines) and
+ \texttt{k3\_times\_e.tex} (5986 lines) are divided along the
+ boundaries described above.
+
+\item \textbf{Merge redundant chapters} (1 session).
+ \texttt{braided\_factorization.tex} + \texttt{quantum\_chiral\_algebras.tex};
+ \texttt{derived\_categories\_cy.tex} + \texttt{matrix\_factorizations.tex};
+ \texttt{modular\_trace.tex} into Chapter~7.
+
+\item \textbf{Rewrite abstract, preface, introduction} (1 session).
+ Using the drafts in Sections~5--7 of this proposal.
+
+\item \textbf{Cross-reference audit} (1 session). Update all
+ \texttt{\textbackslash{}ref\{part:...\}} labels. Grep all three volumes
+ for stale Part references (AP-CY13).
+
+\item \textbf{Test suite verification} (continuous). The 19,838+ tests
+ must pass after each phase. No test is removed; new tests are added
+ for new chapters.
+\end{enumerate}
+
+
+\end{document}

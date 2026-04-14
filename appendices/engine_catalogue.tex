@@ -1,0 +1,113 @@
+\chapter{Compute Engine Catalogue}
+\label{app:engines}
+
+This appendix catalogues all 334 computational verification engines in
+\texttt{compute/lib/}.  Each engine is a standalone Python module that
+verifies one or more mathematical claims made in the manuscript.
+Together, they provide 30,613 tests (via \texttt{pytest}) constituting
+the computational backbone of Volume~III.
+
+\section{Overview}
+\label{sec:engine-overview}
+
+\begin{center}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Metric} & \textbf{Count} \\
+\midrule
+Compute engines (\texttt{compute/lib/*.py}) & 334 \\
+Test files (\texttt{compute/tests/test\_*.py}) & 369 \\
+Total test functions & 30,613 \\
+Engines with dedicated tests & 329 \\
+Verification scripts (\texttt{compute/scripts/}) & 3 \\
+Audit reports (\texttt{compute/audit/}) & 7 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+Engines are grouped into 17 thematic areas reflecting the structure of the
+manuscript.  The ``Tests'' column counts \texttt{def test\_*} functions in the
+corresponding test file(s).
+
+\section{Thematic distribution}
+\label{sec:engine-distribution}
+
+\begin{center}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Area} & \textbf{Engines} & \textbf{Tests} \\
+\midrule
+CY-to-chiral functor and CY geometry & 17 & 1,470 \\
+Bar complex, Koszul duality, and shadow tower & 40 & 2,901 \\
+K3 Yangian and K3 chiral algebras & 33 & 2,311 \\
+K3$\times$E, quantum toroidal, and elliptic & 25 & 1,957 \\
+$\En$ hierarchy and factorization & 34 & 2,684 \\
+Chiral algebras and coproducts & 36 & 2,040 \\
+CoHA and Drinfeld center & 15 & 1,397 \\
+Holomorphic CS and 6d programme & 15 & 1,247 \\
+Borcherds, BKM, and automorphic forms & 17 & 1,009 \\
+Conifold and wall-crossing & 12 & 1,036 \\
+Toric CY3 and topological vertex & 9 & 963 \\
+Quintic and compact CY3 & 12 & 1,387 \\
+Fukaya categories and HMS & 4 & 401 \\
+Local surfaces and matrix factorizations & 9 & 983 \\
+Stability manifolds and derived geometry & 10 & 984 \\
+Langlands, $p$-adic, and motivic & 17 & 1,361 \\
+Physical applications & 29 & 2,482 \\
+\midrule
+\textbf{Total} & \textbf{334} & \textbf{26,613} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent
+The test count above reflects \texttt{def test\_*} functions in engine test
+files.  The full pytest collection of 30,613 includes parametrized expansions
+and additional integration tests in \texttt{compute/tests/conftest.py}.
+
+\section{Load-bearing engines}
+\label{sec:engine-load-bearing}
+
+The following engines verify the main theorems and are considered load-bearing
+for the manuscript's claims.
+
+\begin{center}
+\begin{tabular}{@{}lrl@{}}
+\toprule
+\textbf{Engine} & \textbf{Tests} & \textbf{Theorem / result verified} \\
+\midrule
+\texttt{cy\_to\_chiral\_functor} & 124 & Theorem CY-A ($d=2$ proved) \\
+\texttt{e2\_koszul\_heisenberg} & 49 & $\Etwo$ Koszul duality (Heisenberg) \\
+\texttt{e1\_chiral\_bialgebra\_engine} & 80 & $\Eone$-chiral bialgebra axioms \\
+\texttt{chiral\_coproduct\_universal\_engine} & 50 & Universal coproduct formula \\
+\texttt{kummer\_excision\_verification} & 71 & Kummer route Steps 1--4 \\
+\texttt{zamolodchikov\_tetrahedron\_engine} & 34 & ZTE failure at $O(\kappa_{\mathrm{ch}}^2)$ \\
+\texttt{categorical\_s\_matrix\_e3} & 56 & $E_3$ categorical S-matrix \\
+\texttt{k3\_yangian} & 75 & K3 Yangian $Y(\frakg_{K3})$ \\
+\texttt{drinfeld\_center\_k3\_heisenberg} & 113 & K3 Drinfeld center (49-dim double) \\
+\texttt{a\_infinity\_bar\_w1inf} & 98 & $\Ainf$ bar of $\cW_{1+\infty}$ (class M) \\
+\texttt{holomorphic\_cs\_chiral\_engine} & 77 & hCS $\to$ chiral algebra \\
+\texttt{bar\_hocolim\_chain\_level} & 145 & $B(\mathrm{hocolim}) \simeq \mathrm{hocolim}\, B$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Full engine catalogue}
+\label{sec:engine-full}
+
+The table below lists every engine alphabetically within its thematic group.
+Location: \texttt{compute/lib/<name>.py}.  Tests:
+\texttt{compute/tests/test\_<name>.py}.
+
+{%
+\small
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt}
+\begin{longtable}{@{}p{4.2cm}rp{7.8cm}@{}}
+\toprule
+\textbf{Engine} & \textbf{Tests} & \textbf{Description} \\
+\input{appendices/engine_table_rows}
+\bottomrule
+\end{longtable}
+}%

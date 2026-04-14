@@ -84,13 +84,15 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 - **W2 triplet mock modular**: shadow = 24*eta^3. 70 tests.
 - **Shadow class moduli variation**: G at large volume, M at conifold. 88 tests.
 
-### Roadmap: Five Load-Bearing Open Problems (updated April 2026)
+### Roadmap: Five Load-Bearing Open Problems (FINAL status, April 2026)
 
-1. **CY-A₃** (S³-framing): **RESOLVED** (inf-categorical, thm:derived-framing-obstruction). HH^{-2}_{E_1}=0, Goodwillie vanishing, E_3-liftings contractible. Coefficient convergence PROVED. S³ non-decomposable. Chain-level explicit construction remains open for non-formal algebras.
+1. **CY-A₃** (S³-framing): **RESOLVED** (inf-categorical, thm:derived-framing-obstruction). HH^{-2}_{E_1}=0, Goodwillie vanishing, E_3-liftings contractible. Coefficient convergence PROVED. S³ non-decomposable. Chain-level explicit construction remains open for non-formal algebras. **BKM Serre is EXACT** (P_2(D)=0, 70 tests).
 2. **ZTE correction** S^{corr} = S + κ²T. **EXISTS** (prop:zte-deformation-cohomology, rank 35/36). Explicit T constructible from 1-dim kernel. Promoted from open to constructive.
-3. **K3 Yangian quantization** **PARTIALLY RESOLVED.** Abelian Y(g_{K3}) presented (thm:k3-abelian-yangian-presentation). RTT, q-det, Serre. Super-Yangian Y(gl(4|20)) conjectural (AP-CY35). Non-abelian K3 Yangian open.
-4. **Non-abelian sl₂** ADE Yangian level 1 for all types. K3 non-abelian coproduct (50 tests). Serre null vector verified. Matrix Lax coassociativity via trace.
+3. **K3 Yangian quantization** **PARTIALLY RESOLVED.** Abelian Y(g_{K3}) presented (thm:k3-abelian-yangian-presentation). RTT, q-det, Serre (EXACT via P_2=0). Super-Yangian Y(gl(4|20)) conjectural (AP-CY35). Non-abelian K3 Yangian open.
+4. **Non-abelian sl₂** ADE Yangian level 1 for all types. K3 non-abelian coproduct (50 tests). Serre null vector verified. Matrix Lax coassociativity via trace. **Chiral Satake for C^3 PROVED** (99 tests).
 5. **Sp₄(Z) modularity** sp4_modularity_pipeline (53 tests). Fourier-Jacobi = E₂→E₃.
+6. **CY-B at d=3**: NOW ACTIVE. E_2-chiral Koszul duality extended to d=3 via inf-cat CY-A_3. 131 tests. Chain-level conditional.
+7. **CY-D at d=3**: DEEP ISSUE IDENTIFIED. chi(O_{K3xE})=0 != 3=kappa_ch. Formula must use Hodge-filtered supertrace str_{F^0}(q^{L_0}), not chi(O_X).
 
 ### Deepest Frontier (final wave, late April 2026)
 
@@ -101,6 +103,17 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 - **Non-abelian sl₂**: trace of matrix Lax gives coassociativity; Serre null vector g_{i0}·g_{i1}=1.
 - **ZTE FAILS for Yang R-matrix**: COMPUTED. S=RRR does NOT solve tetrahedron at O(κ²). E_3 is genuinely nontrivial. Engine: 1200 lines, 34 tests.
 - **A_∞ coproduct = shadow tower**: corrections δ^{(k)} with coefficients = shadow S_k unify coproduct theory with shadow classification.
+
+### FINAL Wave Results (April 2026)
+
+- **P_2(D) = 0: BKM Serre EXACT**: Second Serre polynomial vanishes identically. Two independent arguments: Nekrasov (eps_1*eps_2=0 in 1d Omega-background) + Lie algebra twist (L_0+eps*J_0 linear in eps). 182-generator Serre kernel is the FULL kernel. 70 tests.
+- **Borcherds spectral flow h=1 EXACT**: Not approximate. Verified through 10 Fourier coefficients against Borcherds product.
+- **CY-B at d=3**: E_2-chiral Koszul duality extended to d=3 via inf-cat CY-A_3. 131 tests. Chain-level conditional.
+- **Chiral Satake for C^3**: Derived geometric Satake proved. Phi(C^3) = W_{1+inf} connected to Rep(Y(gl_1^)). 99 tests.
+- **Chain-level incompatibility**: mu_3 != 0 forces mu_2 = 0 on augmentation ideal. E_1 product and A_inf corrections cannot coexist on same graded piece.
+- **kappa_ch mechanism**: Hodge-filtered supertrace str_{F^0}(q^{L_0}). Non-F^0 killed by Hodge filtration. Coincides with chi(O_X)/2 at d=2 via Serre duality; diverges at d=3.
+- **CY-D deep issue**: chi(O_{K3xE}) = 0 != 3 = kappa_ch. Target-space anomaly != worldsheet anomaly at d=3. The CY-D formula must use str_{F^0}, not chi(O_X).
+- **Infrastructure**: Notation appendix (541 lines), AP catalogue (668 lines), 10 proofs publication-upgraded, Part openers + 3 reading paths installed.
 
 ### Anti-Patterns Mined from 180-Agent Swarm (AP-CY27-33)
 
@@ -138,8 +151,9 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 | K3 quantum group programme | 2026-04-13 | 53 | ~3,600 | ~62 | Phi(K3) explicit, K3 abelian Yangian, super-Yangian, MO R-matrix, Cech-HTT convergence |
 | Consolidated 129-agent session | 2026-04-13 | 129 | ~29,500 | 485 (+114) | ~360 engines. Shadow=A_inf coproduct, shadow-Feynman dictionary, class M E_3 bar, chiral CE=bar, Pixton-CY bar, class M Borel summability |
 | Final 170-agent comprehensive | 2026-04-13 | ~170 | 30,613 | 533 (+48) | ~410 engines. CY-A_3 inf-cat proof, K3 abelian Yangian, ZTE correction existence, kappa_BKM universal, BKM Serre D=3, super-Yangian Y(gl(4\|20)), 6 routes to G(K3xE), CFG25 comparison, Borcherds spectral flow, shadow-Feynman dictionary, E_3 bar=6^g, derived Satake, tropical cluster, chiral Verlinde, Hitchin quantization, BLLPR, explicit ZTE T, p-adic Langlands, BFN Coulomb, form factors, handle decomposition, stratified FH, Mathieu moonshine, 3 wrong proofs caught, AP-CY35-40 |
+| FINAL documentation wave | 2026-04-13 | docs | ~31,000 | ~550 (+17) | ~420 engines. P_2(D)=0 BKM Serre exact, Borcherds spectral flow h=1 exact, CY-B push d=3 (131 tests), chiral Satake C^3 (99 tests), chain-level incompatibility theorem (mu_3!=0 forces mu_2=0 on aug), notation appendix (541 lines), AP catalogue (668 lines), 10 proofs publication-upgraded, Part openers + 3 reading paths, kappa_ch deep mechanism (Hodge-filtered supertrace), CY-D d=3 deep issue (chi(O_{K3xE})=0 != 3=kappa_ch) |
 
-**Cumulative Vol III**: ~533pp, 30,613 tests, ~410 engines (334 lib + 370 test files).
+**Cumulative Vol III**: ~550pp, ~31,000 tests, ~420 engines.
 
 ## Design Axioms for Codex/GPT-5.4
 

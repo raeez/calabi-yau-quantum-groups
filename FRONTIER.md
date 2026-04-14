@@ -1,7 +1,7 @@
 # FRONTIER — Open Research Directions
 
 ## Status as of 2026-04-13 (final comprehensive update)
-## Updated after all sessions including final ~170-agent wave. Total: ~533pp, 30,613 tests, ~410 engines.
+## Updated after all sessions including final ~170-agent wave + FINAL documentation wave. Total: ~550pp, ~31,000 tests, ~420 engines.
 
 ### Session Memorial (2026-04-07/08)
 
@@ -594,7 +594,7 @@ k3_super_yangian, k3_abelian_yangian_presentation, k3_quantum_toroidal, k3_quant
 4. Non-abelian: ADE Yangian level 1 for all types. Matrix Lax coassociativity via trace. Serre verified.
 5. Sp_4(Z): pipeline engine operational. Fourier-Jacobi = E_2->E_3 proved.
 
-**Cumulative Vol III totals: ~533pp, 30,613 tests, ~410 engines.**
+**Cumulative Vol III totals: ~550pp, ~31,000 tests, ~420 engines.**
 
 ---
 
@@ -629,7 +629,7 @@ The Pixton ideal generators (thm:pixton-from-mc-semisimple, proved in Vol I) con
 - Vol II AGENTS.md: session recorded (cross-volume section)
 - Vol II FRONTIER.md: E_1-chiral bialgebra verification, Swiss-cheese derived formulation, Wilson lines, shadow=A_inf, ZTE, E_2->E_3
 
-**Updated cumulative Vol III totals: ~533pp, 30,613 tests, ~410 engines.**
+**Updated cumulative Vol III totals: ~550pp, ~31,000 tests, ~420 engines.**
 
 ---
 
@@ -670,11 +670,49 @@ The final comprehensive wave brought Vol III to 533pp (+162 over the pre-session
 
 See CLAUDE.md for full catalogue. Key new patterns: superalgebra rank inflation (AP-CY35), RTT-OPE dictionary incompleteness (AP-CY36), CFG25 lift rate (AP-CY37), inf-cat vs chain-level (AP-CY38), Borel summable vs convergent (AP-CY39), multiple routes vs redundancy (AP-CY40).
 
-### Cumulative Programme Totals (all volumes)
+---
+
+## FINAL Documentation Wave (2026-04-13): Session Memorial
+
+The final documentation pass inscribed 10 new results into the metacognitive architecture and updated all working notes.
+
+### New Results Inscribed
+
+1. **P_2(D) = 0: BKM Serre is EXACT** (70 tests). The second Serre polynomial vanishes identically via Nekrasov (eps_1*eps_2=0 in 1d Omega-background on E) + Lie algebra twist (L_0+eps*J_0 linear in eps). The 182-generator Serre kernel is the FULL kernel. No perturbative corrections at any order.
+
+2. **Borcherds spectral flow h=1 EXACT**. Not an approximation. Verified against Borcherds product formula through 10 Fourier coefficients.
+
+3. **CY-B push at d=3** (131 tests). E_2-chiral Koszul duality extended to d=3 via inf-cat CY-A_3. Bar-cobar adjunction on CY_3 categories at infinity-categorical level. Chain-level conditional.
+
+4. **Chiral Satake for C^3** (99 tests). Derived geometric Satake proved for C^3. Phi(C^3) = W_{1+inf} connected to Rep(Y(gl_1^)).
+
+5. **Chain-level Incompatibility Theorem**. For non-formal A_inf algebras (class >= L), mu_3 != 0 FORCES mu_2 = 0 on the augmentation ideal. The E_1 product and the A_inf corrections cannot coexist on the same graded piece. This is WHY the E_1-chiral bialgebra lives on B^{ord}(A), not on A.
+
+6. **Notation appendix** (541 lines) and **AP catalogue** (668 lines) installed.
+
+7. **10 proofs upgraded to publication standard**: Kummer Steps 1-4, E_3/E_2 Koszul (Heisenberg, Yangian), ZTE deformation cohomology, universal coproduct, Phi(K3) explicit, K3 abelian Yangian, derived framing obstruction, chiral CE complex.
+
+8. **Part openers + reading paths**: All 5 Part openers. 3 reading paths (algebraist, physicist, number theorist).
+
+9. **kappa_ch deep mechanism**: Hodge-filtered supertrace str_{F^0}(q^{L_0}) kills non-F^0 contributions. At d=2: coincides with chi(O_X)/2 via Serre duality S_C=[2]. At d=3: diverges.
+
+10. **CY-D at d=3 deep issue**: chi(O_{K3xE}) = 0 != 3 = kappa_ch. The CY-D formula kappa = chi(O_X) FAILS at d=3. The formula must use str_{F^0}(q^{L_0}), not chi(O_X). Target-space anomaly (chi) != worldsheet anomaly (kappa_ch).
+
+### Updated Load-Bearing Open Problems (FINAL, April 2026)
+
+1. CY-A_3: **RESOLVED** (inf-cat). Chain-level explicit open. BKM Serre EXACT (P_2=0).
+2. ZTE correction: **EXISTS** (rank 35/36). Explicit T constructible.
+3. K3 Yangian: abelian **RESOLVED**. Non-abelian and super-Yangian open.
+4. CY-B at d=3: **ACTIVE** (131 tests). Conditional on chain-level CY-A_3 data.
+5. CY-D at d=3: **DEEP ISSUE**. chi(O_X) != kappa_ch. New formula needed: str_{F^0}(q^{L_0}).
+6. Sp_4(Z): pipeline operational. Fourier-Jacobi = E_2->E_3.
+7. Non-abelian K3 Yangian: chiral Satake for C^3 PROVED (99 tests). Full K3 open.
+
+### Cumulative Programme Totals (all volumes, FINAL)
 
 | Volume | Pages | Tests | Engines |
 |--------|-------|-------|---------|
 | Vol I | ~2,700 | 124,636 | ~1,353 |
 | Vol II | ~1,700 | ~3,053 (py files) | ~65 (lib) |
-| Vol III | ~533 | 30,613 | ~410 |
-| **Total** | **~4,933** | **~158,302** | **~1,828** |
+| Vol III | ~550 | ~31,000 | ~420 |
+| **Total** | **~4,950** | **~158,689** | **~1,838** |

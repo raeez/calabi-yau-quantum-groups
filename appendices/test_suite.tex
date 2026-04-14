@@ -1,0 +1,116 @@
+\chapter{Test Suite Documentation}
+\label{app:tests}
+
+This appendix documents the computational test suite that verifies the
+mathematical claims of Volume~III.
+
+\section{Overview}
+\label{sec:test-overview}
+
+The test suite comprises 30,613 tests organized across 369 test files in
+\texttt{compute/tests/}.  Every formal claim tagged
+\ClaimStatusProvedHere{} or \ClaimStatusConditional{} that admits
+numerical verification has at least one corresponding test.  Tests are
+run via \texttt{make test} (equivalently
+\texttt{python3 -m pytest compute/tests/ -q}).
+
+\section{Organization}
+\label{sec:test-organization}
+
+\begin{itemize}[nosep]
+\item \textbf{Engine tests} (\texttt{compute/tests/test\_<engine>.py}):
+  Each of the 334 compute engines in \texttt{compute/lib/} has a
+  corresponding test file (329 engines have dedicated tests; 5 are
+  tested via related engine test files).
+
+\item \textbf{Integration tests}: Parametrized tests in
+  \texttt{conftest.py} expand single test functions across multiple CY
+  geometries (e.g., $\C^3$, conifold, local $\bP^2$, quintic, K3,
+  K3$\times E$), contributing to the 30,613 total.
+
+\item \textbf{Verification scripts} (\texttt{compute/scripts/}):
+  Three standalone scripts for high-precision cross-validation:
+  \texttt{cross\_validate\_phi01.py},
+  \texttt{verify\_igusa\_high\_precision.py},
+  \texttt{verify\_shadow\_tower\_clean.py}.
+
+\item \textbf{Audit reports} (\texttt{compute/audit/}): Seven audit
+  reports documenting Beilinson-style audits, cross-consistency checks,
+  and status sweeps.
+\end{itemize}
+
+\section{Anti-pattern compliance}
+\label{sec:test-ap-compliance}
+
+Tests enforce the anti-pattern catalogue (Appendix~\ref{app:ap-catalogue})
+computationally:
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Anti-pattern} & \textbf{Test mechanism} & \textbf{Engine(s)} \\
+\midrule
+AP113 ($\kappa$-spectrum) & Verify all four $\kappa_\bullet$ values &
+  \texttt{kappa\_spectrum\_reconciliation} \\
+AP-CY1 (CY dimension) & $d \neq$ complex dim &
+  \texttt{cy\_euler} \\
+AP-CY3 ($\Etwo \neq \Einf$) & Braiding non-symmetry &
+  \texttt{e2\_koszul\_heisenberg} \\
+AP-CY7 (CoHA $\neq$ $\Eone$-chiral) & Structural comparison &
+  \texttt{coha\_e1\_sector\_engine} \\
+AP-CY10 (flop $\neq$ Koszul) & $\kappa_{\mathrm{ch}}$ preservation &
+  \texttt{flop\_koszul\_duality} \\
+AP-CY12 (shadow class) & Full tower computation &
+  \texttt{c3\_shadow\_tower}, \texttt{local\_p2\_shadow} \\
+AP-CY17 (MF dimension) & $n-2$ not $n-1$ &
+  \texttt{matrix\_factorization\_e1\_engine} \\
+AP-CY21 ($E_3$ bar class M) & $(1+t)^{3g}$ failure &
+  \texttt{e3\_bar\_higher\_genus\_class\_m} \\
+AP-CY25 ($R$-matrix extraction) & Half-braiding construction &
+  \texttt{k3\_rmatrix\_enhanced} \\
+AP-CY28 (pole-unsafe test points) & Safe parameter selection &
+  \texttt{k3\_structure\_function\_explicit} \\
+AP-CY30 (ZTE failure) & $O(\kappa_{\mathrm{ch}}^2)$ obstruction &
+  \texttt{zamolodchikov\_tetrahedron\_engine} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Multi-path verification}
+\label{sec:test-multipath}
+
+Key results are verified through multiple independent computational paths:
+
+\begin{itemize}[nosep]
+\item \textbf{$\C^3$ / $\cW_{1+\infty}$}: Five independent constructions
+  (cyclic $\Ainf$, Lie conformal, factorization envelope, CoHA, hCS)
+  verified to agree: \texttt{c3\_grand\_verification} (104 tests).
+
+\item \textbf{K3 Yangian}: Three routes (Mukai lattice, BFN Coulomb
+  branch, Bridgeland stability) cross-checked:
+  \texttt{k3\_yangian\_adversarial} (45 tests).
+
+\item \textbf{Kummer route}: Steps 1--4 verified via direct computation
+  and independent excision argument:
+  \texttt{kummer\_excision\_verification} (71 tests).
+
+\item \textbf{Bar-hocolim commutation}: Chain-level and cohomological
+  verification across all standard CY3 families:
+  \texttt{bar\_hocolim\_chain\_level} (145 tests).
+
+\item \textbf{Borcherds denominator}: Direct Fourier expansion vs
+  bar Euler product identification:
+  \texttt{borcherds\_denominator\_phi10\_engine} (62 tests).
+\end{itemize}
+
+\section{Running the tests}
+\label{sec:test-running}
+
+\begin{verbatim}
+cd ~/calabi-yau-quantum-groups
+make test                            # Full suite (~3 min)
+python3 -m pytest compute/tests/ -q  # Equivalent
+python3 -m pytest compute/tests/test_<engine>.py -v  # Single engine
+python3 -m pytest -k "k3_yangian" -v # Pattern match
+python3 -m pytest -m "not slow" -q   # Exclude slow tests
+\end{verbatim}
