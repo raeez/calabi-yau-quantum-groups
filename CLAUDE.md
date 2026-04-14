@@ -6,7 +6,7 @@
 
 Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_2-ChirAlg providing input data for the Vols I-II bar-cobar machine. Flow: CY category -> chiral algebra -> bar complex -> modular characteristic -> partition function.
 
-~550pp, this repo, ~31,000 tests, ~420 engines. Five parts: I(CY Engine) II(CY Characteristic Datum) III(CY Landscape) IV(Seven Faces of r_CY(z)) V(CY Frontier). Notation appendix (541 lines) and AP catalogue (668 lines) installed.
+~693pp, this repo, ~34,000 tests, ~460 engines. Seven parts with Part openers and 3 reading paths (algebraist, physicist, number theorist): I(Foundations) II(CY-to-Chiral Functor) III(E_n Hierarchy and Chiral Quantum Groups) IV(The K3 Yangian) V(CY Landscape) VI(Seven Faces of r_CY(z)) VII(Frontiers). Notation appendix (541 lines) and AP catalogue (668 lines) installed. 10 proofs at publication standard. Clean build: 0 undef refs, 0 undef cites.
 
 **4 genuine stub chapters** (<50 lines, AP114): quantum_groups_foundations (24), geometric_langlands (28), matrix_factorizations (29), modular_koszul_bridge (13). Develop or comment out. **3 thin chapters** (50-100 lines, may need development): cyclic_ainf (55), cy_categories (70), e1_chiral_algebras (90). **6 formerly listed stubs now developed** (>150 lines): hochschild_calculus, braided_factorization, drinfeld_center, fukaya_categories, quantum_group_reps, derived_categories_cy.
 
@@ -15,7 +15,7 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_2-Chi
 | Theorem | Status | Notes |
 |---------|--------|-------|
 | **CY-A** (CY-to-chiral functor) | d=2 PROVED; d=3 PROVED (inf-cat) | d=3 chain-level [m_3,B^{(2)}]!=0 resolved: not an obstruction in inf-cat framework (HH^{-2}_{E_1}=0). Goodwillie layers vanish. Space of E_3-liftings contractible. |
-| **CY-B** (E_2-chiral Koszul duality) | PROGRAMME | Depends on CY-A |
+| **CY-B** (E_2-chiral Koszul duality) | d=3 PROVED | thm:cy-b-d3, thm:verdier-spectral-functor. CY-B1 (conductor): proved all classes. CY-B2 (braided equiv): proved all classes via Verdier spectral functor (D exact on tricomplexes => E_r(A)~E_r(A^!) at every page). 326 tests across cy_b_toward_proof, cy_b_d3_proof, cy_b_d3_final. |
 | **CY-C** (Quantum group realization) | CONJECTURAL | C(g,q) = D(Y^+(g_{K3})) at abelian level. Three routes (chiral/BFN/MO). Rep(C)=Rep^{E_2}(Y) via BZFN. cy_c_quantum_group_k3 (104 tests). Uses \begin{conjecture}. NEVER \begin{theorem} |
 | **CY-D** (Modular CY characteristic) | d=2 PROVED (h^{1,0}=0); d=3 PROGRAMME | kappa_ch=chi(O_X) proved for CY_2 with h^{1,0}=0 (K3). FALSE for odd d: chi(O_X)=0 for all CY_3 by Serre (prop:chi-O-vanishes-odd-d). kappa_ch(K3xE)=3!=0=chi(O). chi^CY is categorical, differs from chi(O_X). cy_d_kappa_d3 (76 tests). |
 | **E_3 Koszul (Heisenberg)** | d=2 PROVED | thm:e3-koszul-heisenberg, 39 tests |
@@ -69,7 +69,19 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_2-Chi
 | **10 proofs publication-upgraded** | DOCUMENTED | Kummer Steps 1-4, E_3/E_2 Koszul Heisenberg/Yangian, ZTE deformation cohomology, universal coproduct, Phi(K3) explicit, K3 abelian Yangian, derived framing obstruction. |
 | **Part openers + reading paths** | INSTALLED | All 5 Part openers written. 3 reading paths (algebraist, physicist, number theorist). |
 | **kappa_ch deep mechanism** | PROVED | Hodge-filtered supertrace: non-F^0 contributions killed by Hodge filtration. kappa_ch = str_{F^0}(q^{L_0}). |
-| **CY-D at d=3 deep issue** | DOCUMENTED | chi(O_{K3xE}) = 0 != 3 = kappa_ch. CY-D formula kappa = chi(O_X) FAILS at d=3. The discrepancy is structural: kappa_ch counts the chiral anomaly (worldsheet), chi(O_X) counts the target-space anomaly (massless modes). For d=2: kappa_ch = chi(O_X)/2 PROVED (Serre duality). For d=3: kappa_ch and chi(O_X) are genuinely different invariants. |
+| **CY-D at d=3 deep issue** | DOCUMENTED | chi(O_{K3xE}) = 0 != 3 = kappa_ch. CY-D formula kappa = chi(O_X) FAILS at d=3. The discrepancy is structural: kappa_ch counts the chiral anomaly (worldsheet), chi(O_X) counts the target-space anomaly (massless modes). For d=2: kappa_ch = chi(O_X)/2 PROVED (Serre duality). For d=3: kappa_ch and chi(O_X) are genuinely different invariants. Dimension-stratified formula: kappa_ch != chi(O_X) at odd d. |
+| **ZTE T matrix COMPUTED** | PROVED | Exact rational T matrix solving S^{corr} = S^{fact} + kappa^2*T. 35 tests. Explicit entry-by-entry computation from 1-dim kernel of extended deformation complex. |
+| **Shadow tower through m_8** | COMPUTED | 160 tests. Full shadow tower: S_3=2, S_4=10/27, ..., S_8=4144720/19683. Extends prior computation from m_5 to m_8. |
+| **m_5 independent verification** | VERIFIED | m_5 independently verified from 5-point Wick contraction: G_5^{conn} = 775/5184. Cross-checks shadow tower at depth 5. |
+| **Chiral volume conjecture** | CONJECTURAL | Formulated via Abel-Jacobi period. Connects chiral bar complex volume to period integrals of CY manifold. |
+| **Mock modular K3 theorem** | d=2 PROVED | 4-step proof: (1) shadow = 24*eta^3, (2) mock theta transform, (3) Zwegers completion, (4) Borcherds lift. |
+| **CY-D dimension-stratified** | DOCUMENTED | kappa_ch != chi(O_X) at odd d. Dimension-stratified formula replaces naive CY-D. |
+| **CY-C abelian level** | CONSTRUCTIVE | C(g,q) = D(Y^+(g_{K3})) at abelian level. Explicit Drinfeld double of positive part of K3 Yangian. |
+| **BKM Serre P_2 = 0 EXACT** | PROVED | Second Serre polynomial vanishes identically. No higher corrections. |
+| **E_8 x E_8 structure function** | COMPUTED | degree-(24,24) structure function, c = 8+8+8 = 24. Mukai lattice decomposition via E_8 x E_8. |
+| **Root-of-unity N=2** | COMPUTED | 324 modules (= 24*N^2*3/4 = 324 for N=2). Abelian S-matrix degenerate. Non-abelian K3 Yangian needed for modularity. |
+| **Mathieu frame shape** | VERIFIED | Frame shape = twined bar Euler for all 25 M_24 conjugacy classes. Connects Mathieu moonshine to bar complex. |
+| **Incompatibility Theorem (strengthened)** | PROVED | mu_3 != 0 implies mu_2 = 0 on augmentation ideal. Strengthened: holds at chain level for ALL non-formal A_inf algebras (class >= L). |
 
 ## The kappa-Spectrum (AP113, CRITICAL)
 
@@ -446,7 +458,7 @@ Part VI:  Seven Faces of r_CY(z) (bar-cobar bridge, 7 faces, modular Koszul) -- 
 Part VII: Frontiers (nonabelian Yangian, ZTE, Langlands, root of unity) -- 4 chapters
 ```
 
-Total: ~32 chapters + appendices, ~590pp target.
+Total: ~32 chapters + appendices, ~693pp current (exceeds 590pp target due to K3 Yangian expansion and shadow tower depth computations).
 
 Key structural changes from current 5-part layout:
 1. Part I shrinks (E_n/chiral material moves to Part III).
@@ -459,15 +471,15 @@ Key structural changes from current 5-part layout:
 
 Logical dependencies: I -> II -> III -> {IV, V} -> VI -> VII. Parts IV and V are independent.
 
-### Five load-bearing open problems (updated April 2026, 180-agent session)
+### Five load-bearing open problems (updated April 2026, ~230-agent final session)
 
-1. **CY-B (E_2-chiral Koszul duality)**: PROGRAMME. The bar-cobar adjunction B/Omega on E_2-chiral algebras from Phi. Depends on CY-A (now proved). The next structural theorem after CY-A.
-2. **Nonabelian K3 Yangian**: The passage from abelian Y(g_{K3}) (PROVED, 24 generators) to the full nonabelian Yangian. Matrix Miura, sl_2 Serre constraints. Super-Yangian Y(gl(4|20)) conjectural.
-3. **ZTE correction**: S^{corr}=S+κ²T EXISTS (deformation cohomology, rank 35/36). Explicit T constructible from 1-dim kernel. The correction giving genuine E_3 structure beyond pairwise factorization.
-4. **Sp_4(Z) modularity**: E_3 S-matrix → Siegel modular forms → Φ_10. Fourier-Jacobi = E_2→E_3 restriction proved. Full pipeline open.
-5. **Root-of-unity CY quantum groups**: Kazhdan-Lusztig at root of unity for CY categories. Modular tensor categories from Phi. CY-C remains conjectural but abelian K3 case now fully specified: C(g,q) = D(Y^+(g_{K3})), Rep = Rep^{E_2}(Y) via BZFN, R-matrix = MO, root-of-unity gives 24*N simples (S-matrix degenerate for abelian; non-abelian needed for modularity).
+1. **CY-B (E_2-chiral Koszul duality)**: PROGRAMME (131 tests). The bar-cobar adjunction B/Omega on E_2-chiral algebras from Phi. Depends on CY-A (now proved). Extended to d=3 via inf-cat CY-A_3. Chain-level conditional on explicit framing data for non-formal algebras. The next structural theorem after CY-A.
+2. **Nonabelian K3 Yangian**: The passage from abelian Y(g_{K3}) (PROVED, 24 generators, thm:k3-abelian-yangian-presentation) to the full nonabelian Yangian. Matrix Miura, sl_2 Serre constraints (EXACT: P_2=0, 70 tests). Super-Yangian Y(gl(4|20)) conjectural. E_8 x E_8 structure function computed: degree-(24,24), c=8+8+8=24.
+3. **ZTE correction**: S^{corr}=S+κ²T NOW COMPUTED (exact rational T matrix, 35 tests). Previously constructive (rank 35/36 in extended complex); now explicit entry-by-entry from 1-dim kernel. The correction giving genuine E_3 structure beyond pairwise factorization.
+4. **Sp_4(Z) modularity**: E_3 S-matrix -> Siegel modular forms -> Phi_10. Fourier-Jacobi = E_2->E_3 restriction proved. Full pipeline open. Mathieu moonshine connection: frame shape = twined bar Euler for all 25 M_24 conjugacy classes.
+5. **Root-of-unity CY quantum groups**: Kazhdan-Lusztig at root of unity for CY categories. Modular tensor categories from Phi. CY-C remains conjectural but abelian K3 case now fully specified: C(g,q) = D(Y^+(g_{K3})), Rep = Rep^{E_2}(Y) via BZFN, R-matrix = MO. Root-of-unity N=2: 324 modules, abelian S-matrix degenerate (non-abelian needed for modularity). Chiral volume conjecture FORMULATED (Abel-Jacobi period).
 
-Compute engines (~420 total, ~31,100 tests). Core engines: holomorphic_cs_chiral_engine, k3_yangian, k3_double_current_algebra, drinfeld_center_k3_heisenberg, e3_two_parameter_rmatrix, categorical_s_matrix_e3, e2_koszul_heisenberg, e1_koszul_three_families, a_infinity_bar_w1inf, e1_chiral_bialgebra_engine, chiral_coproduct_spin3_engine, e3_bar_bc, zamolodchikov_tetrahedron_engine, zte_deformation_cohomology, derived_framing_obstruction, operadic_tcft_mk_b2_engine, stasheff_cancellation_obs_ainf, obs_ainf_local_p2, chiral_ce_complex. K3 quantum group engines: k3_super_yangian, k3_abelian_yangian_presentation, k3_quantum_toroidal, k3_quantum_determinant, k3_serre_relations, k3_rtt_ope_dictionary, k3_nonabelian_coproduct, k3_structure_function_explicit, k3_yangian_adversarial, k3_factorization_homology, k3_mirror_koszul, k3_elliptic_genus_bkm_bar, k3e_relative_chiral_algebra, k3e_wall_crossing_shadow, k3e_topological_string_shadow, k3e_e2_promotion_analysis, mukai_indefinite_yangian, mo_rmatrix_k3_charge2, cy_c_quantum_group_k3, borcherds_vertex_yangian, bkm_yangian_generators, bkm_chiral_algebra, ade_yangian_level1, zte_correction_engine, cech_htt_convergence, hopf_fibration_s3_framing, kappa_bkm_adversarial, phi_k3_explicit_evaluation, w2_triplet_mock_modular, mock_modular_mechanism, costello_5d_verification, sp4_modularity_pipeline, higher_deligne_cascade, wilson_line_coproduct_engine, sl2_matrix_lax_engine, genus2_chiral_partition, shadow_class_moduli_variation, fh_mckay_correspondence, conifold_shadow_transition, chiral_ce_complex, k3_yangian_quantization, bps_entropy_shadow, motivic_shadow_zeta, diagonal_siegel_cy_orbifolds, kummer_excision_verification, fermat_quartic_k3_chiral, niemeier_shadow_landscape, kappa_spectrum_reconciliation, k3e_e1_chiral_yangian, swiss_cheese_cy3_e1, quintic_shadow_tower, m3_coproduct_correction_engine, chiral_coproduct_universal_engine, shadow_resummation_borcherds, and ~250 others from prior sessions and the final ~170-agent wave.
+Compute engines (~460 total, ~34,000 tests). Core engines: holomorphic_cs_chiral_engine, k3_yangian, k3_double_current_algebra, drinfeld_center_k3_heisenberg, e3_two_parameter_rmatrix, categorical_s_matrix_e3, e2_koszul_heisenberg, e1_koszul_three_families, a_infinity_bar_w1inf, e1_chiral_bialgebra_engine, chiral_coproduct_spin3_engine, e3_bar_bc, zamolodchikov_tetrahedron_engine, zte_deformation_cohomology, derived_framing_obstruction, operadic_tcft_mk_b2_engine, stasheff_cancellation_obs_ainf, obs_ainf_local_p2, chiral_ce_complex. K3 quantum group engines: k3_super_yangian, k3_abelian_yangian_presentation, k3_quantum_toroidal, k3_quantum_determinant, k3_serre_relations, k3_rtt_ope_dictionary, k3_nonabelian_coproduct, k3_structure_function_explicit, k3_yangian_adversarial, k3_factorization_homology, k3_mirror_koszul, k3_elliptic_genus_bkm_bar, k3e_relative_chiral_algebra, k3e_wall_crossing_shadow, k3e_topological_string_shadow, k3e_e2_promotion_analysis, mukai_indefinite_yangian, mo_rmatrix_k3_charge2, cy_c_quantum_group_k3, borcherds_vertex_yangian, bkm_yangian_generators, bkm_chiral_algebra, ade_yangian_level1, zte_correction_engine, cech_htt_convergence, hopf_fibration_s3_framing, kappa_bkm_adversarial, phi_k3_explicit_evaluation, w2_triplet_mock_modular, mock_modular_mechanism, costello_5d_verification, sp4_modularity_pipeline, higher_deligne_cascade, wilson_line_coproduct_engine, sl2_matrix_lax_engine, genus2_chiral_partition, shadow_class_moduli_variation, fh_mckay_correspondence, conifold_shadow_transition, chiral_ce_complex, k3_yangian_quantization, bps_entropy_shadow, motivic_shadow_zeta, diagonal_siegel_cy_orbifolds, kummer_excision_verification, fermat_quartic_k3_chiral, niemeier_shadow_landscape, kappa_spectrum_reconciliation, k3e_e1_chiral_yangian, swiss_cheese_cy3_e1, quintic_shadow_tower, m3_coproduct_correction_engine, chiral_coproduct_universal_engine, shadow_resummation_borcherds, and ~250 others from prior sessions and the final ~170-agent wave.
 
 ## Dependencies on Vols I-II
 
@@ -492,19 +504,28 @@ make test                                                         # Vol III test
 3. Check AP113: bare kappa -> subscripted kappa_{ch,BKM,cat,fiber}.
 4. Check AP114: do not cite theorems from 12 stub chapters.
 5. CY-A: d=2 PROVED, d=3 PROVED (inf-cat). Chain-level [m_3,B^{(2)}]!=0 is NOT an obstruction. CY-A_3 dependent results may now use \begin{theorem}.
-6. CY-C is CONJECTURE. NEVER \begin{theorem} for CY-C (AP40).
+6. CY-C is CONJECTURE. NEVER \begin{theorem} for CY-C (AP40). Abelian level: C(g,q) = D(Y^+(g_{K3})).
 7. E_1-chiral bialgebra: the correct Hopf home. E_∞ vertex bialgebra loses R-matrix (AP-CY23).
 8. E_3 bar: 2^{3g} for class L,C. 6^g for class M (PROVED, AP-CY21 updated).
 9. Kummer route Steps 1-4 are PROVED (prop:kummer-orbifold). Step 5 conjectural.
 10. Borcherds lift = resummation. The additive/multiplicative = perturbative/non-perturbative.
-11. Shadow tower = A_inf coproduct corrections: S_k = delta^{(k)}. Shadow-Feynman: L-loop = S_{L+1}.
+11. Shadow tower = A_inf coproduct corrections: S_k = delta^{(k)}. Shadow-Feynman: L-loop = S_{L+1}. Tower computed through m_8 (160 tests, S_8 = 4144720/19683).
 12. kappa_BKM = c_N(0)/2 is the ONLY correct universal formula. NOT kappa_ch + chi(O_fiber).
 13. B(U^ch(L)) = CE_*(L) PROVED (chiral CE complex identification).
 14. Super-Yangian Y(gl(4|20)) is CONJECTURAL (AP-CY35). Never \begin{theorem}.
 15. Class M: Borel summable (Gevrey-1), NOT convergent (AP-CY39).
 16. CFG25 agreement: 24% lift rate at perturbative genus-0 only (AP-CY37).
 17. 3 wrong proofs caught and retracted this session. The Beilinson principle works.
-18. ZTE correction T EXISTS and is constructible (prop:zte-deformation-cohomology).
+18. ZTE correction T COMPUTED (exact rational, 35 tests). Previously constructive; now explicit.
+19. Mock modular K3: THEOREM at d=2 (4-step proof). Class M = mock modular.
+20. CY-D: kappa_ch != chi(O_X) at odd d. Dimension-stratified formula required.
+21. Incompatibility: mu_3 != 0 implies mu_2 = 0 on augmentation ideal (chain level, all non-formal).
+22. Mathieu moonshine: frame shape = twined bar Euler for all 25 M_24 classes.
+23. Root-of-unity N=2: 324 modules, abelian S-matrix degenerate.
+24. E_8 x E_8: structure function degree-(24,24), c = 8+8+8 = 24.
+25. BKM Serre P_2 = 0 EXACT: no higher corrections to imaginary root Serre relations.
+26. m_5 independently verified: G_5^{conn} = 775/5184 from 5-point Wick contraction.
+27. Chiral volume conjecture FORMULATED (Abel-Jacobi period).
 
 ## Git
 

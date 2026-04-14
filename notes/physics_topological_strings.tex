@@ -869,6 +869,174 @@ regularized Euler product on the root lattice). The passage
 from algebraic to analytic requires a resummation that
 reshuffles genus-by-genus coefficients.
 
+%% ================================================================
+\section{The BCOV wavefunction from the bar complex}
+\label{sec:bcov-wavefunction}
+
+The topological string partition function, viewed as a \emph{state} in
+the quantum mechanics of the B-model, is the BCOV wavefunction
+\begin{equation}\label{eq:bcov-wavefunction}
+ \Psi(X, g_s) = \exp\Bigl( \sum_{g \geq 0} g_s^{2g-2}\, F_g(X) \Bigr).
+\end{equation}
+The bar complex shadow tower provides a construction of this
+wavefunction.
+
+\subsection{Construction from the shadow tower}
+\label{sub:wavefunction-shadow}
+
+On the scalar lane (uniform-weight sector), the free energy is
+\[
+ F(g_s) = \sum_{g \geq 1} g_s^{2g-2}\, F_g,
+ \qquad
+ F_g = \kappa_{\mathrm{ch}} \cdot \lambda_g^{\mathrm{FP}},
+\]
+where $F_0 = 0$ on the scalar lane (no tree-level contribution
+for non-compact CY$_3$). Writing $x = g_s^2$, the regular part is
+\[
+ F_{\mathrm{reg}}(x) = F_1 + F_2\, x + F_3\, x^2 + \cdots
+\]
+and the wavefunction factorises as
+\begin{equation}\label{eq:psi-factorised}
+ \Psi(x) = e^{F_1} \cdot \sum_{n \geq 0} \psi_n\, x^n,
+\end{equation}
+where the polynomial coefficients $\psi_n$ are the (partial) Bell
+polynomials in $F_2, F_3, \ldots$:
+\begin{align}\label{eq:bell-coeffs}
+ \psi_0 &= 1, \notag \\
+ \psi_1 &= F_2, \notag \\
+ \psi_2 &= F_3 + \tfrac{1}{2} F_2^2, \\
+ \psi_3 &= F_4 + F_2 F_3 + \tfrac{1}{6} F_2^3, \notag \\
+ \psi_4 &= F_5 + F_2 F_4 + \tfrac{1}{2} F_3^2
+            + \tfrac{1}{2} F_2^2 F_3 + \tfrac{1}{24} F_2^4. \notag
+\end{align}
+All $\psi_n$ are computed exactly in Fraction arithmetic.
+The prefactor $e^{F_1} = e^{\kappa_{\mathrm{ch}}/24}$ is irrational
+for generic $\kappa_{\mathrm{ch}}$ and is kept as a separate factor.
+
+\begin{remark}[Bar complex interpretation]
+The MC element of the bar dgLa is
+$\Theta_A = \sum_{g \geq 1} \hbar^{2g}\, \Theta^{(g)}_A$,
+and the wavefunction is $\Psi = \exp(\Theta_A)$ (up to coupling
+constant convention). The shadow tower $\{S_k\}$ \emph{is} the
+logarithm of the wavefunction: $\log \Psi = F = $ (integrated shadow
+tower). This is the content of the identification
+$\text{BCOV dgLa} = \text{bar dgLa of } A_X$ (Costello--Li).
+\end{remark}
+
+\noindent
+Verification: \texttt{compute/lib/bcov\_wavefunction\_bar.py} (52 tests).
+
+\subsection{The heat equation}
+\label{sub:wavefunction-heat}
+
+The wavefunction satisfies the BCOV master equation (Witten 1993):
+\begin{equation}\label{eq:heat-eq}
+ \partial_{\bar{i}} \Psi = \frac{1}{2}\, \bar{C}^{jk}_{\bar{i}}\,
+ D_j D_k\, \Psi.
+\end{equation}
+This is a \emph{heat equation} on the moduli space of complex
+structures. The wavefunction $\Psi$ transforms as a section of the
+half-form bundle $\mathcal{L}^{1/2}$, where $\mathcal{L}$ is the
+Hodge line bundle.
+
+The heat equation~\eqref{eq:heat-eq} is the \emph{exponentiated}
+Maurer--Cartan equation: the MC equation
+$D\Theta + \frac{1}{2}[\Theta, \Theta] = 0$ implies
+$(D + \Theta) \exp(\Theta) = 0$, which is~\eqref{eq:heat-eq} in
+the bar complex language. The flat connection
+$\nabla = \bar{\partial} - \frac{1}{2} \bar{C}^{jk} D_j D_k$
+is the bar differential twisted by the MC element.
+
+The shadow class controls the analytic type of the anomaly:
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lll}
+ \hline
+ \textbf{Class} & \textbf{Anomaly type} & \textbf{Wavefunction type} \\
+ \hline
+ G & Scalar lane only (no $A_\infty$ corrections) & Determined by $\kappa_{\mathrm{ch}}$ \\
+ L & Polynomial (finitely many $\bar{\partial} F_g \neq 0$) & Polynomial corrections \\
+ C & Convergent ($R = 1/S_4$) & Analytic in $g_s$ \\
+ M & Gevrey-1 divergent (mock modular) & Asymptotic, Borel summable \\
+ \hline
+\end{tabular}
+\end{center}
+
+\subsection{$K3 \times E$: the wavefunction and $1/\Phi_{10}$}
+\label{sub:wavefunction-k3xe}
+
+\begin{conjecture}[$K3 \times E$ wavefunction]
+\label{conj:k3xe-wavefunction}
+\index{BCOV wavefunction!K3 x E}
+For $K3 \times E$ with $\kappa_{\mathrm{ch}} = 3$, $\kappa_{\mathrm{BKM}} = 5$,
+$\kappa_{\mathrm{fiber}} = 24$:
+\[
+ |\Psi_{K3 \times E}|^2 \sim \frac{1}{\Phi_{10}},
+\]
+where $\Phi_{10}$ is the Igusa cusp form. This identification is
+\textbf{conditional} on CY-A$_3$.
+\end{conjecture}
+
+The bridge from the bar complex to $1/\Phi_{10}$ requires four steps:
+\begin{enumerate}[label=(\roman*)]
+ \item $\Phi\colon K3 \times E \to A_{K3 \times E}$
+       (CY-to-chiral functor, CY-A$_3$, \textbf{not proved});
+ \item Bar Euler product $\Theta_{A_{K3 \times E}}$ (Vol~I);
+ \item Borcherds multiplicative lift: $\Theta \to \Delta_5$ (Vol~I bridge);
+ \item DMVV formula: $Z_{\mathrm{DMVV}} = C / \Phi_{10}$
+       (Dijkgraaf--Moore--Verlinde--Verlinde).
+\end{enumerate}
+Each step must be cited explicitly (AP-CY8).
+
+The rank-$1$ sector is \textbf{unconditional}:
+$Z_1 = \prod_{k \geq 1} (1 - q^k)^{-24}$, the G\"ottsche formula
+for $\chi(\mathrm{Hilb}^n(K3))$. The bar exponents are constant~$= 24
+= \kappa_{\mathrm{fiber}}$. Verified: $\chi(\mathrm{Hilb}^n(K3))
+= 1, 24, 324, 3200, 25650, 176256$ for $n = 0, \ldots, 5$.
+
+\subsection{The OSV conjecture}
+\label{sub:osv-wavefunction}
+
+The Ooguri--Strominger--Vafa conjecture (hep-th/0405146):
+\begin{equation}\label{eq:osv}
+ Z_{\mathrm{BH}}(p, \phi) = |\Psi_{\mathrm{top}}(X, \phi + ip)|^2
+\end{equation}
+relates the black hole partition function to the topological string
+wavefunction. For $K3 \times E$:
+$Z_{\mathrm{BH}} \sim 1/\Phi_{10}$ (DVV formula for $\frac{1}{4}$-BPS
+dyons), consistent with Conjecture~\ref{conj:k3xe-wavefunction}.
+
+The shadow class M of $K3 \times E$ implies:
+\begin{itemize}
+ \item The genus expansion of $\Psi$ is Gevrey-$1$ divergent.
+ \item Borel resummation is required to extract $Z_{\mathrm{BH}}$.
+ \item Wall-crossing phenomena arise from Stokes automorphisms of the
+       Borel transform (conjectural: Kontsevich--Soibelman).
+ \item The non-holomorphic completion of $\Psi$ produces the weight-$10$
+       Siegel modular form $\Phi_{10}$.
+\end{itemize}
+
+\subsection{Scalar-lane asymptotics}
+\label{sub:wavefunction-asymptotics}
+
+On the scalar lane, $F_g = \kappa_{\mathrm{ch}} \lambda_g^{\mathrm{FP}}$
+with
+\[
+ \lambda_g^{\mathrm{FP}} = \frac{(2^{2g-1} - 1)\, |B_{2g}|}{2^{2g-1}\, (2g)!}
+ \sim \frac{2}{(2\pi)^{2g}} \quad \text{as } g \to \infty.
+\]
+The ratio $\lambda_{g+1}^{\mathrm{FP}} / \lambda_g^{\mathrm{FP}}
+\sim 1/(2\pi)^2$ is less than $1$ for all $g \geq 1$, so the
+scalar-lane genus expansion converges with radius $2\pi$ in $|g_s|$
+(equivalently, $4\pi^2$ in $x = g_s^2$). The convergence radius
+$2\pi$ comes from the first pole of $\hat{A}(x) = (x/2)/\sinh(x/2)$
+at $x = 2\pi$; note the argument is $x/2$, not $x$
+(cf.\ the $\hat{A}$-genus halving rule).
+
+The scalar lane \emph{always} converges, regardless of shadow class.
+Off-diagonal (multi-weight) corrections for class~M are Gevrey-$1$
+divergent and dominate the asymptotics of the full $F_g$.
+
 \bibliographystyle{alpha}
 % References are inline for this note.
 

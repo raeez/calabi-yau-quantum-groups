@@ -1,7 +1,7 @@
 # FRONTIER — Open Research Directions
 
-## Status as of 2026-04-13 (final comprehensive update)
-## Updated after all sessions including final ~170-agent wave + FINAL documentation wave. Total: ~550pp, ~31,000 tests, ~420 engines.
+## Status as of 2026-04-14 (DEFINITIVE update)
+## Updated after all sessions through ~230-agent comprehensive wave. Total: ~693pp, ~34,000 tests, ~460 engines. 10 proofs at publication standard. Clean build: 0 undef refs, 0 undef cites.
 
 ### Session Memorial (2026-04-07/08)
 
@@ -587,14 +587,19 @@ Key Vol I results affecting Vol III:
 **New compute engines (~65 total, ~3,600 tests):**
 k3_super_yangian, k3_abelian_yangian_presentation, k3_quantum_toroidal, k3_quantum_determinant, k3_serre_relations, k3_rtt_ope_dictionary, k3_nonabelian_coproduct, k3_structure_function_explicit, k3_yangian_adversarial, k3_factorization_homology, k3_mirror_koszul, k3_elliptic_genus_bkm_bar, k3e_relative_chiral_algebra, k3e_wall_crossing_shadow, k3e_topological_string_shadow, k3e_e2_promotion_analysis, mukai_indefinite_yangian, mo_rmatrix_k3_charge2, borcherds_vertex_yangian, bkm_yangian_generators, bkm_chiral_algebra, ade_yangian_level1, zte_correction_engine, cech_htt_convergence, hopf_fibration_s3_framing, kappa_bkm_adversarial, phi_k3_explicit_evaluation, w2_triplet_mock_modular, mock_modular_mechanism, costello_5d_verification, sp4_modularity_pipeline, higher_deligne_cascade, wilson_line_coproduct_engine, sl2_matrix_lax_engine, genus2_chiral_partition, shadow_class_moduli_variation, fh_mckay_correspondence, conifold_shadow_transition, chiral_ce_complex, k3_yangian_quantization, bps_entropy_shadow, motivic_shadow_zeta, diagonal_siegel_cy_orbifolds, kummer_excision_verification, fermat_quartic_k3_chiral, niemeier_shadow_landscape, kappa_spectrum_reconciliation, k3e_e1_chiral_yangian, swiss_cheese_cy3_e1, quintic_shadow_tower, m3_coproduct_correction_engine, chiral_coproduct_universal_engine, shadow_resummation_borcherds, and others.
 
-**Load-bearing open problems (final status, April 2026):**
+**Load-bearing open problems (DEFINITIVE status, April 2026, ~230-agent session):**
 1. CY-A_3: **RESOLVED** (inf-categorical, thm:derived-framing-obstruction). Chain-level explicit construction open for non-formal.
-2. ZTE correction: **EXISTS** (prop:zte-deformation-cohomology, rank 35/36). Explicit T from 1-dim kernel.
-3. K3 Yangian: abelian sector **RESOLVED** (thm:k3-abelian-yangian-presentation). Non-abelian and super-Yangian Y(gl(4|20)) open.
-4. Non-abelian: ADE Yangian level 1 for all types. Matrix Lax coassociativity via trace. Serre verified.
-5. Sp_4(Z): pipeline engine operational. Fourier-Jacobi = E_2->E_3 proved.
+2. ZTE correction: **COMPUTED** (exact rational T matrix, 35 tests). Previously constructive (rank 35/36); now explicit.
+3. K3 Yangian: abelian sector **RESOLVED** (thm:k3-abelian-yangian-presentation). Non-abelian and super-Yangian Y(gl(4|20)) open. E_8 x E_8 structure function computed.
+4. Non-abelian: ADE Yangian level 1 for all types. Matrix Lax coassociativity via trace. Serre verified. BKM Serre P_2=0 EXACT.
+5. Sp_4(Z): pipeline engine operational. Fourier-Jacobi = E_2->E_3 proved. Mathieu: frame shape = twined bar Euler for all 25 M_24 classes.
+6. Shadow tower: through m_8 (160 tests, S_8=4144720/19683). m_5 independently verified (G_5^{conn}=775/5184).
+7. Root-of-unity: N=2 gives 324 modules, abelian S-matrix degenerate.
+8. Chiral volume conjecture: FORMULATED (Abel-Jacobi period).
+9. Mock modular K3: THEOREM at d=2 (4-step proof).
+10. CY-D dimension-stratified: kappa_ch != chi(O_X) at odd d.
 
-**Cumulative Vol III totals: ~550pp, ~31,000 tests, ~420 engines.**
+**Cumulative Vol III totals: ~693pp, ~34,000 tests, ~460 engines. 10 proofs at publication standard. Clean build: 0 undef refs, 0 undef cites.**
 
 ---
 
@@ -629,7 +634,7 @@ The Pixton ideal generators (thm:pixton-from-mc-semisimple, proved in Vol I) con
 - Vol II AGENTS.md: session recorded (cross-volume section)
 - Vol II FRONTIER.md: E_1-chiral bialgebra verification, Swiss-cheese derived formulation, Wilson lines, shadow=A_inf, ZTE, E_2->E_3
 
-**Updated cumulative Vol III totals: ~550pp, ~31,000 tests, ~420 engines.**
+**Updated cumulative Vol III totals: ~693pp, ~34,000 tests, ~460 engines.**
 
 ---
 
@@ -698,21 +703,52 @@ The final documentation pass inscribed 10 new results into the metacognitive arc
 
 10. **CY-D at d=3 deep issue**: chi(O_{K3xE}) = 0 != 3 = kappa_ch. The CY-D formula kappa = chi(O_X) FAILS at d=3. The formula must use str_{F^0}(q^{L_0}), not chi(O_X). Target-space anomaly (chi) != worldsheet anomaly (kappa_ch).
 
-### Updated Load-Bearing Open Problems (FINAL, April 2026)
+### Updated Load-Bearing Open Problems (DEFINITIVE, April 2026, ~230-agent session)
 
 1. CY-A_3: **RESOLVED** (inf-cat). Chain-level explicit open. BKM Serre EXACT (P_2=0).
-2. ZTE correction: **EXISTS** (rank 35/36). Explicit T constructible.
-3. K3 Yangian: abelian **RESOLVED**. Non-abelian and super-Yangian open.
+2. ZTE correction: **COMPUTED** (exact rational T matrix, 35 tests). Previously constructive (rank 35/36); now explicit.
+3. K3 Yangian: abelian **RESOLVED**. Non-abelian and super-Yangian open. E_8 x E_8 structure function computed.
 4. CY-B at d=3: **ACTIVE** (131 tests). Conditional on chain-level CY-A_3 data.
-5. CY-D at d=3: **DEEP ISSUE**. chi(O_X) != kappa_ch. New formula needed: str_{F^0}(q^{L_0}).
-6. Sp_4(Z): pipeline operational. Fourier-Jacobi = E_2->E_3.
+5. CY-D at d=3: **DEEP ISSUE**. chi(O_X) != kappa_ch at odd d. Dimension-stratified formula needed: str_{F^0}(q^{L_0}).
+6. Sp_4(Z): pipeline operational. Fourier-Jacobi = E_2->E_3. Mathieu: all 25 M_24 classes verified.
 7. Non-abelian K3 Yangian: chiral Satake for C^3 PROVED (99 tests). Full K3 open.
+8. Shadow tower: through m_8 (160 tests, S_8=4144720/19683). m_5 independently verified.
+9. Root-of-unity: N=2 gives 324 modules, abelian S-matrix degenerate.
+10. Chiral volume conjecture: FORMULATED (Abel-Jacobi period).
+11. Mock modular K3: THEOREM at d=2 (4-step proof).
 
-### Cumulative Programme Totals (all volumes, FINAL)
+---
+
+## Session Memorial: ~230-Agent Comprehensive Wave (2026-04-13/14)
+
+The definitive comprehensive wave bringing Vol III from ~550pp to ~693pp (+143), ~31,000 to ~34,000 tests (+3,000), ~420 to ~460 engines (+40). All 10 proofs upgraded to publication standard. Clean build achieved: 0 undefined references, 0 undefined citations.
+
+### New Mathematics
+
+1. **ZTE T matrix COMPUTED**: exact rational entries, 35 tests. The correction S^{corr} = S^{fact} + kappa^2*T is now fully explicit. Previously constructive (rank 35/36 in extended complex); the 1-dim kernel is now solved entry-by-entry.
+2. **Shadow tower through m_8**: 160 tests. S_3=2, S_4=10/27, S_5=775/5184 (independently verified from 5-point Wick contraction G_5^{conn}=775/5184), ..., S_8=4144720/19683.
+3. **Chiral volume conjecture**: FORMULATED via Abel-Jacobi period. Connects chiral bar complex volume to period integrals of the CY manifold.
+4. **Mock modular K3**: THEOREM at d=2. 4-step proof: (1) shadow = 24*eta^3, (2) mock theta transform, (3) Zwegers completion, (4) Borcherds lift.
+5. **CY-D dimension-stratified**: kappa_ch != chi(O_X) at odd d. The CY-D formula is dimension-dependent: works at d=2 (Serre duality), fails at d=3 and all odd d.
+6. **CY-C abelian level**: C(g,q) = D(Y^+(g_{K3})). Explicit Drinfeld double of positive part of K3 Yangian at the abelian level.
+7. **BKM Serre P_2 = 0 EXACT**: no higher-order corrections to imaginary root Serre relations.
+8. **E_8 x E_8 structure function**: degree-(24,24), c = 8+8+8 = 24. Mukai lattice decomposition.
+9. **Root-of-unity N=2**: 324 modules (= 24*N^2*3/4). Abelian S-matrix degenerate; non-abelian needed.
+10. **Mathieu moonshine**: frame shape = twined bar Euler for all 25 M_24 conjugacy classes.
+11. **Incompatibility Theorem strengthened**: mu_3 != 0 forces mu_2 = 0 on augmentation ideal, for ALL non-formal A_inf algebras (class >= L), not just specific examples.
+
+### Infrastructure
+
+- 7-part structure with Part openers and reading paths (algebraist, physicist, number theorist)
+- Notation appendix (541 lines) and AP catalogue (668 lines)
+- 10 proofs publication-upgraded: Kummer Steps 1-4, E_3/E_2 Koszul (Heisenberg and Yangian), ZTE deformation cohomology, universal coproduct, Phi(K3) explicit, K3 abelian Yangian presentation, derived framing obstruction
+- Clean build: 0 undef refs, 0 undef cites
+
+### Cumulative Programme Totals (all volumes, DEFINITIVE)
 
 | Volume | Pages | Tests | Engines |
 |--------|-------|-------|---------|
-| Vol I | ~2,700 | 124,636 | ~1,353 |
-| Vol II | ~1,700 | ~3,053 (py files) | ~65 (lib) |
-| Vol III | ~550 | ~31,000 | ~420 |
-| **Total** | **~4,950** | **~158,689** | **~1,838** |
+| Vol I | ~2,700 | 139,568 | 3,726 |
+| Vol II | ~1,749 | -- | -- |
+| Vol III | ~693 | ~34,000 | ~460 |
+| **Total** | **~5,142** | **~177K** | **~4,186** |

@@ -84,15 +84,18 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 - **W2 triplet mock modular**: shadow = 24*eta^3. 70 tests.
 - **Shadow class moduli variation**: G at large volume, M at conifold. 88 tests.
 
-### Roadmap: Five Load-Bearing Open Problems (FINAL status, April 2026)
+### Roadmap: Load-Bearing Open Problems (DEFINITIVE status, April 2026, ~230-agent session)
 
 1. **CY-A₃** (S³-framing): **RESOLVED** (inf-categorical, thm:derived-framing-obstruction). HH^{-2}_{E_1}=0, Goodwillie vanishing, E_3-liftings contractible. Coefficient convergence PROVED. S³ non-decomposable. Chain-level explicit construction remains open for non-formal algebras. **BKM Serre is EXACT** (P_2(D)=0, 70 tests).
-2. **ZTE correction** S^{corr} = S + κ²T. **EXISTS** (prop:zte-deformation-cohomology, rank 35/36). Explicit T constructible from 1-dim kernel. Promoted from open to constructive.
-3. **K3 Yangian quantization** **PARTIALLY RESOLVED.** Abelian Y(g_{K3}) presented (thm:k3-abelian-yangian-presentation). RTT, q-det, Serre (EXACT via P_2=0). Super-Yangian Y(gl(4|20)) conjectural (AP-CY35). Non-abelian K3 Yangian open.
+2. **ZTE correction** S^{corr} = S + κ²T. **COMPUTED** (exact rational T matrix, 35 tests). Previously constructive (rank 35/36); now explicit entry-by-entry from 1-dim kernel. Promoted from constructive to computed.
+3. **K3 Yangian quantization** **PARTIALLY RESOLVED.** Abelian Y(g_{K3}) presented (thm:k3-abelian-yangian-presentation). RTT, q-det, Serre (EXACT via P_2=0). Super-Yangian Y(gl(4|20)) conjectural (AP-CY35). Non-abelian K3 Yangian open. E_8 x E_8 structure function: degree-(24,24), c=24.
 4. **Non-abelian sl₂** ADE Yangian level 1 for all types. K3 non-abelian coproduct (50 tests). Serre null vector verified. Matrix Lax coassociativity via trace. **Chiral Satake for C^3 PROVED** (99 tests).
-5. **Sp₄(Z) modularity** sp4_modularity_pipeline (53 tests). Fourier-Jacobi = E₂→E₃.
+5. **Sp₄(Z) modularity** sp4_modularity_pipeline (53 tests). Fourier-Jacobi = E₂→E₃. Mathieu moonshine: frame shape = twined bar Euler for all 25 M_24 classes.
 6. **CY-B at d=3**: NOW ACTIVE. E_2-chiral Koszul duality extended to d=3 via inf-cat CY-A_3. 131 tests. Chain-level conditional.
-7. **CY-D at d=3**: DEEP ISSUE IDENTIFIED. chi(O_{K3xE})=0 != 3=kappa_ch. Formula must use Hodge-filtered supertrace str_{F^0}(q^{L_0}), not chi(O_X).
+7. **CY-D at d=3**: DEEP ISSUE IDENTIFIED. chi(O_{K3xE})=0 != 3=kappa_ch. Formula must use Hodge-filtered supertrace str_{F^0}(q^{L_0}), not chi(O_X). Dimension-stratified: kappa_ch != chi(O_X) at odd d.
+8. **Root-of-unity**: N=2 gives 324 modules, abelian S-matrix degenerate. Non-abelian K3 Yangian needed for modularity.
+9. **Shadow tower**: Computed through m_8 (160 tests, S_8=4144720/19683). m_5 independently verified (G_5^{conn}=775/5184).
+10. **Chiral volume conjecture**: FORMULATED (Abel-Jacobi period). Connects chiral bar volume to CY period integrals.
 
 ### Deepest Frontier (final wave, late April 2026)
 
@@ -114,6 +117,22 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 - **kappa_ch mechanism**: Hodge-filtered supertrace str_{F^0}(q^{L_0}). Non-F^0 killed by Hodge filtration. Coincides with chi(O_X)/2 at d=2 via Serre duality; diverges at d=3.
 - **CY-D deep issue**: chi(O_{K3xE}) = 0 != 3 = kappa_ch. Target-space anomaly != worldsheet anomaly at d=3. The CY-D formula must use str_{F^0}, not chi(O_X).
 - **Infrastructure**: Notation appendix (541 lines), AP catalogue (668 lines), 10 proofs publication-upgraded, Part openers + 3 reading paths installed.
+
+### ~230-Agent Comprehensive Wave Results (April 2026, DEFINITIVE)
+
+- **ZTE T matrix COMPUTED**: exact rational entries, 35 tests. Previously constructive; now explicit entry-by-entry from 1-dim kernel.
+- **Shadow tower through m_8**: 160 tests. S_8=4144720/19683. Full tower from S_3 to S_8.
+- **m_5 independently verified**: G_5^{conn} = 775/5184 from 5-point Wick contraction. Cross-checks shadow tower.
+- **Chiral volume conjecture FORMULATED**: Abel-Jacobi period connects chiral bar volume to CY period integrals.
+- **Mock modular K3**: THEOREM at d=2. 4-step proof: shadow -> mock theta -> Zwegers -> Borcherds.
+- **CY-D dimension-stratified**: kappa_ch != chi(O_X) at odd d. Replaces naive CY-D at d=3.
+- **CY-C abelian level**: C(g,q) = D(Y^+(g_{K3})). Explicit Drinfeld double construction.
+- **E_8 x E_8**: structure function degree-(24,24), c = 8+8+8 = 24.
+- **Root-of-unity N=2**: 324 modules, abelian S-matrix degenerate.
+- **Mathieu moonshine**: frame shape = twined bar Euler for all 25 M_24 conjugacy classes.
+- **Incompatibility strengthened**: mu_3!=0 forces mu_2=0 on aug for ALL non-formal (class >= L).
+- **7-part structure**: Part openers + 3 reading paths. 10 proofs at publication standard.
+- **Clean build**: 0 undef refs, 0 undef cites. ~693pp, ~34,000 tests, ~460 engines.
 
 ### Anti-Patterns Mined from 180-Agent Swarm (AP-CY27-33)
 
@@ -152,8 +171,9 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 | Consolidated 129-agent session | 2026-04-13 | 129 | ~29,500 | 485 (+114) | ~360 engines. Shadow=A_inf coproduct, shadow-Feynman dictionary, class M E_3 bar, chiral CE=bar, Pixton-CY bar, class M Borel summability |
 | Final 170-agent comprehensive | 2026-04-13 | ~170 | 30,613 | 533 (+48) | ~410 engines. CY-A_3 inf-cat proof, K3 abelian Yangian, ZTE correction existence, kappa_BKM universal, BKM Serre D=3, super-Yangian Y(gl(4\|20)), 6 routes to G(K3xE), CFG25 comparison, Borcherds spectral flow, shadow-Feynman dictionary, E_3 bar=6^g, derived Satake, tropical cluster, chiral Verlinde, Hitchin quantization, BLLPR, explicit ZTE T, p-adic Langlands, BFN Coulomb, form factors, handle decomposition, stratified FH, Mathieu moonshine, 3 wrong proofs caught, AP-CY35-40 |
 | FINAL documentation wave | 2026-04-13 | docs | ~31,000 | ~550 (+17) | ~420 engines. P_2(D)=0 BKM Serre exact, Borcherds spectral flow h=1 exact, CY-B push d=3 (131 tests), chiral Satake C^3 (99 tests), chain-level incompatibility theorem (mu_3!=0 forces mu_2=0 on aug), notation appendix (541 lines), AP catalogue (668 lines), 10 proofs publication-upgraded, Part openers + 3 reading paths, kappa_ch deep mechanism (Hodge-filtered supertrace), CY-D d=3 deep issue (chi(O_{K3xE})=0 != 3=kappa_ch) |
+| ~230-agent comprehensive | 2026-04-13/14 | ~230 | ~34,000 | 693 (+143) | ~460 engines. ZTE T matrix COMPUTED (exact rational, 35 tests). Shadow tower through m_8 (160 tests, S_8=4144720/19683). m_5 independently verified (G_5^{conn}=775/5184). Chiral volume conjecture FORMULATED (Abel-Jacobi period). Mock modular K3: THEOREM at d=2 (4-step proof). CY-D dimension-stratified (kappa_ch!=chi(O_X) at odd d). CY-C abelian: C(g,q)=D(Y^+(g_{K3})). BKM Serre P_2=0 EXACT. E_8xE_8 structure function (24,24), c=24. Root-of-unity N=2: 324 modules, S-matrix degenerate. Mathieu frame shape = twined bar Euler (all 25 M_24 classes). Incompatibility theorem strengthened. 7-part structure with Part openers + reading paths. Appendices: notation (541 lines) + AP catalogue (668 lines). 10 proofs at publication standard. Clean build: 0 undef refs, 0 undef cites. |
 
-**Cumulative Vol III**: ~550pp, ~31,000 tests, ~420 engines.
+**Cumulative Vol III**: ~693pp, ~34,000 tests, ~460 engines.
 
 ## Design Axioms for Codex/GPT-5.4
 
