@@ -41,15 +41,15 @@ swarm.
 \toprule
 \textbf{Category} & \textbf{Count} \\
 \midrule
-CY-specific (AP-CY1--AP-CY33) & 33 \\
+CY-specific (AP-CY1--AP-CY52) & 52 \\
 Cross-programme (AP150--AP157) & 8 \\
 Formula-mechanical (FM24) & 1 \\
 \midrule
-\textbf{Total catalogued} & \textbf{42} \\
+\textbf{Total catalogued} & \textbf{61} \\
 \midrule
-Critical severity & 8 \\
-High severity & 19 \\
-Medium severity & 12 \\
+Critical severity & 14 \\
+High severity & 28 \\
+Medium severity & 16 \\
 Low severity & 1 \\
 \bottomrule
 \end{tabular}
@@ -548,6 +548,164 @@ FM24 & B-cycle $i^2$ sign & \textsc{Critical} &
 }%
 
 %% =====================================================================
+\section{290-agent session anti-patterns: AP-CY35 through AP-CY52}
+\label{sec:ap-cy35-52-full}
+
+Identified during the April 2026 290-agent comprehensive session.
+
+{%
+\small
+\begin{longtable}{@{}p{1.6cm}p{2.4cm}lp{7.4cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Name} & \textbf{Severity}
+  & \textbf{Description and counter} \\
+\midrule
+\endhead
+AP-CY35 & $B^{(j)}$ hierarchy & \textsc{Critical} &
+  $B^{(0)} = $ Connes $B$ (mixed complex).
+  $B^{(j \ge 1)} = $ Connes \emph{hierarchy} ($\Sd$-framing).
+  The mixed complex axiom $[b, B^{(0)}] = 0$ does \textbf{not}
+  extend to $[b, B^{(j)}] = 0$.
+  Three ``proofs'' were wrong because of this confusion.
+  \textbf{Counter}: always specify which $B^{(j)}$ and never
+  assume the mixed complex identity for $j \ge 1$. \\
+\midrule
+AP-CY36 & $\kappa_{\mathrm{ch}}$ wrong formula & \textsc{Critical} &
+  $\sum (-1)^i \dim \HH_i$ gives $\chi_{\mathrm{top}}$
+  ($= 24$ for K3), \textbf{not} $\kappa_{\mathrm{ch}}$ ($= 2$).
+  The correct formula is the Hodge-filtered supertrace
+  $\sum (-1)^q h^{0,q}$.  Serre duality kills non-$F^0$
+  contributions.
+  \textbf{Counter}: never compute $\kappa_{\mathrm{ch}}$ as
+  alternating sum of $\HH_i$ dimensions.  Use
+  $\mathrm{str}_{F^0}(q^{L_0})$. \\
+\midrule
+AP-CY37 & $\kappa_{\mathrm{BKM}}$ decomp.\ & \textsc{High} &
+  $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
+  \kappa_{\mathrm{cat}}$ is a \emph{coincidence} for $N = 1$
+  (K3$\times E$).  The correct universal formula is
+  $\kappa_{\mathrm{BKM}} = c_N(0)/2$ (Borcherds weight theorem).
+  Fails for 7/8 diagonal Siegel orbifolds.
+  \textbf{Counter}: use $c_N(0)/2$, never the naive decomposition. \\
+\midrule
+AP-CY38 & Class M $E_3$ bar $\neq \infty$ & \textsc{High} &
+  Class M $E_3$ bar cohomology is $6^g$ (proved via K\"{u}nneth),
+  \textbf{not} infinite-dimensional.  The $d_4$ differential
+  kills $\Lambda^0$ and $\Lambda^3$, leaving $[0,3,3,0]$ at $g = 1$.
+  Chain level is $P(q)^{6g}$; cohomology is $6^g$.
+  \textbf{Counter}: state ``$6^g$ (closed form via K\"{u}nneth)''
+  for class M, not ``infinite.'' \\
+\midrule
+AP-CY39 & Incompatibility thm & \textsc{Critical} &
+  For single-object cyclic $A_\infty$ CY$_3$: $\mu_3 \neq 0$
+  forces $\mu_2 = 0$ on the augmentation ideal.  Cross-arity
+  cancellation is \textbf{impossible} at the naive level.
+  The TCFT $B^{(2)}$ differs from naive pairwise contraction.
+  \textbf{Counter}: never assume $\mu_2$ and $\mu_3$ can
+  coexist on the same graded piece at the chain level. \\
+\midrule
+AP-CY40 & ProvedHere no proof & \textsc{Critical} &
+  A theorem carrying \verb|\ClaimStatusProvedHere| \textbf{must}
+  have a \verb|\begin{proof}| block.  The adversarial agent
+  found \texttt{thm:cy-to-chiral-d3} had ProvedHere but no proof.
+  \textbf{Counter}: grep for \verb|ProvedHere| and verify
+  a \verb|\begin{proof}| block follows within 50 lines. \\
+\midrule
+AP-CY41 & Partial update contradiction & \textsc{High} &
+  When upgrading a conjecture to theorem, \textbf{all} instances
+  must be updated.  The session found $\sim$30 locations still
+  saying ``open'' after CY-A$_3$ was proved.
+  \textbf{Counter}: after any status change, grep all three
+  volumes for the old status string and update every match. \\
+\midrule
+AP-CY42 & $\phi_{0,1}$ normalization & \textsc{High} &
+  $c(-1) = 1$ (standard Gritsenko--Nikulin) vs $c(-1) = 2$
+  (K3 elliptic genus $= 2\phi_{0,1}$).  The factor of 2 is
+  $\kappa_{\mathrm{ch}}(\mathrm{K3})$.  Propagated silently
+  across 3 engines.
+  \textbf{Counter}: state which normalization convention
+  is in force and verify against the K3 elliptic genus. \\
+\midrule
+AP-CY43 & Shadow--Feynman tautology & \textsc{Medium} &
+  At $L \ge 4$, the Feynman engine calls the shadow recursion,
+  making the match tautological.  Independent verification
+  requires computing $m_k$ directly (e.g., from $k$-point
+  conformal blocks).
+  \textbf{Counter}: for $L \ge 4$, verify via an independent
+  computation path, not through the shadow recursion. \\
+\midrule
+AP-CY44 & CY-D false at odd $d$ & \textsc{Critical} &
+  $\kappa_{\mathrm{ch}} \neq \chi(\cO_X)$ when $d$ is odd,
+  because Serre duality forces $\chi(\cO_X) = 0$ for all
+  odd-dimensional CY, while $\kappa_{\mathrm{ch}}$ can be nonzero.
+  Root cause: additivity vs multiplicativity.
+  \textbf{Counter}: never write $\kappa_{\mathrm{ch}} =
+  \chi(\cO_X)$ outside the scope $d = 2$, $h^{1,0} = 0$.
+  Use the dimension-stratified formula. \\
+\midrule
+AP-CY45 & $N=2$ trivial braiding & \textsc{High} &
+  At $N = 2$: $q^2 = 1$.  The double braiding $c_{V,W}^2 = \id$,
+  giving a \emph{symmetric} (not modular) tensor category.
+  Non-abelian MTC requires $N \ge 3$ where $q^2 \neq 1$.
+  \textbf{Counter}: verify $q^2 \neq 1$ before claiming
+  modular (non-symmetric) structure. \\
+\midrule
+AP-CY46 & No native CY$_4$ Yangian & \textsc{High} &
+  $\pi_4(BU) = \Z$ obstructs $E_4$ structure.  The correct
+  object for CY$_4$ is a $p_1$-twisted double current algebra.
+  The E$_n$ cascade maximum is $E_3$ for \textbf{all} $d \ge 3$.
+  \textbf{Counter}: never write ``$E_4$ Yangian'' or
+  ``CY$_4$ Yangian.''  Use ``$p_1$-twisted double current
+  algebra.'' \\
+\midrule
+AP-CY47 & Structure fn degree & \textsc{High} &
+  Structure function degree comes from \emph{Mukai rank}
+  ($= 24$ for K3), \textbf{not} Lie algebra dimension.
+  For $E_8 \times E_8$: degree $(24, 24)$ from 24 Mukai
+  directions, not $(500, 500)$ from $\dim(\frake_8) \times 2$.
+  \textbf{Counter}: verify structure function degree against
+  Mukai lattice rank. \\
+\midrule
+AP-CY48 & 3d$\to$6d lift rate & \textsc{Medium} &
+  Only 24\% of 3d results lift to 6d.  Algebraic structures
+  lift 100\%; topological structures lift 0\%.
+  6d is \textbf{not} a dimensional upgrade of 3d.
+  \textbf{Counter}: state the lift rate and specify
+  which structures lift and which do not. \\
+\midrule
+AP-CY49 & Tautological tests & \textsc{High} &
+  $\sim$10\% of agent-produced tests are tautological (testing
+  hardcoded values against themselves).  Must verify via
+  independent computation paths.
+  \textbf{Counter}: every test must have at least two
+  independent verification sources (AP10 protocol). \\
+\midrule
+AP-CY50 & Duplicate agent launches & \textsc{Medium} &
+  When relaunching failed agents, check the agent registry
+  to avoid running the same task twice.  Duplicate launches
+  waste compute and create merge conflicts.
+  \textbf{Counter}: check the agent registry before
+  any relaunch.  Use unique task IDs. \\
+\midrule
+AP-CY51 & Rate-limited partial writes & \textsc{Medium} &
+  When an agent is rate-limited, it may write engines and tests
+  but \emph{not} manuscript material.  Relaunching from scratch
+  duplicates the compute work.
+  \textbf{Counter}: check disk for persisted files before
+  relaunching.  Resume from the persisted state. \\
+\midrule
+AP-CY52 & Mega-file anti-pattern & \textsc{Medium} &
+  Files exceeding 3000 lines should be split.
+  \texttt{toroidal\_elliptic.tex} was 7190 lines;
+  \texttt{k3\_times\_e.tex} was 5986 lines.  Both needed
+  splitting into logical sub-chapters.
+  \textbf{Counter}: when a \texttt{.tex} file exceeds 3000
+  lines, split it by section.  Target 1000--2000 lines per file. \\
+\bottomrule
+\end{longtable}
+}%
+
+%% =====================================================================
 \section{Decision trees}
 \label{sec:ap-decision-trees}
 
@@ -590,16 +748,24 @@ Before writing any $\kappa$:
 \end{enumerate}
 
 \noindent
-Routing:
+Routing (AP-CY55: distinguish manifold vs algebraization invariants):
+
+\smallskip\noindent
+\emph{Manifold invariants} (topological, independent of algebraization):
+\begin{itemize}[nosep]
+\item Holomorphic Euler char $\chi(\cO_X)$ $\to$
+      $\kappa_{\mathrm{cat}}$.
+\item Lattice rank / fiber structure $\to$
+      $\kappa_{\mathrm{fiber}}$.
+\end{itemize}
+
+\noindent
+\emph{Algebraization invariants} (depend on constructed algebra):
 \begin{itemize}[nosep]
 \item Chiral algebra $A_\cC$ / $\Phi(\cC)$ $\to$
       $\kappa_{\mathrm{ch}}$.
 \item Borcherds--Kac--Moody / Igusa weight $\to$
       $\kappa_{\mathrm{BKM}}$.
-\item Holomorphic Euler char $\chi(\cO_X)$ $\to$
-      $\kappa_{\mathrm{cat}}$.
-\item Lattice rank / fiber structure $\to$
-      $\kappa_{\mathrm{fiber}}$.
 \end{itemize}
 
 \subsection{HZ3-3: Conditional propagation (AP-CY11)}
@@ -663,6 +829,12 @@ HZ3-7 & AP-CY17 & $\MF(W)$ CY dimension $n - 2$ not $n - 1$ \\
 HZ3-8 & AP-CY10 & Flop $\neq$ Koszul dual \\
 HZ3-9 & AP-CY12 & Shadow class from full tower, not shortcuts \\
 HZ3-10 & AP-CY13 & Stale cross-volume Part references \\
+\midrule
+HZ3-11 & AP-CY35 & $B^{(j)}$ hierarchy confusion \\
+HZ3-12 & AP-CY36 & $\kappa_{\mathrm{ch}}$ wrong formula \\
+HZ3-13 & AP-CY40 & ProvedHere without proof block \\
+HZ3-14 & AP-CY44 & CY-D false at odd $d$ \\
+HZ3-15 & AP-CY49 & Agent tautological tests \\
 \bottomrule
 \end{tabular}
 \end{center}

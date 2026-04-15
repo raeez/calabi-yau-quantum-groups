@@ -141,15 +141,7 @@ release:
 	@echo "  [2/2] Working notes"
 	@$(MAKE) --no-print-directory working-notes
 	@echo ""
-	@echo "  ── Copying to iCloud ──"
-	@mkdir -p "$(ICLOUD_DIR)"
-	@for pdf in $(OUT_DIR)/*.pdf; do \
-		name=$$(basename "$$pdf"); \
-		if [ -f "$$pdf" ]; then \
-			cp "$$pdf" "$(ICLOUD_DIR)/$$name"; \
-			echo "    ✓  $$name"; \
-		fi; \
-	done
+	@$(MAKE) --no-print-directory icloud
 	@echo ""
 	@echo "  ══════════════════════════════════════════"
 	@echo "  Release complete. All output in out/:"

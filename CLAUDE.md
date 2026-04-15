@@ -4,7 +4,7 @@
 
 ## Identity
 
-Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_2-ChirAlg providing input data for the Vols I-II bar-cobar machine. Flow: CY category -> chiral algebra -> bar complex -> modular characteristic -> partition function.
+Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_n-ChirAlg (n=inf at d=1, n=2 at d=2, n=1 at d>=3) providing input data for the Vols I-II bar-cobar machine. Flow: CY category -> chiral algebra -> bar complex -> modular characteristic -> partition function. At d>=3 the E_2 braided structure lives on the Drinfeld center Z(Rep^{E_1}(A)), not on A itself.
 
 ~693pp, this repo, ~34,000 tests, ~460 engines. Seven parts with Part openers and 3 reading paths (algebraist, physicist, number theorist): I(Foundations) II(CY-to-Chiral Functor) III(E_n Hierarchy and Chiral Quantum Groups) IV(The K3 Yangian) V(CY Landscape) VI(Seven Faces of r_CY(z)) VII(Frontiers). Notation appendix (541 lines) and AP catalogue (668 lines) installed. 10 proofs at publication standard. Clean build: 0 undef refs, 0 undef cites.
 
@@ -15,7 +15,7 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_2-Chi
 | Theorem | Status | Notes |
 |---------|--------|-------|
 | **CY-A** (CY-to-chiral functor) | d=2 PROVED; d=3 PROVED (inf-cat) | d=3 chain-level [m_3,B^{(2)}]!=0 resolved: not an obstruction in inf-cat framework (HH^{-2}_{E_1}=0). Goodwillie layers vanish. Space of E_3-liftings contractible. |
-| **CY-B** (E_2-chiral Koszul duality) | d=3 PROVED | thm:cy-b-d3, thm:verdier-spectral-functor. CY-B1 (conductor): proved all classes. CY-B2 (braided equiv): proved all classes via Verdier spectral functor (D exact on tricomplexes => E_r(A)~E_r(A^!) at every page). 326 tests across cy_b_toward_proof, cy_b_d3_proof, cy_b_d3_final. |
+| **CY-B** (E_n-chiral Koszul duality) | d=3 PROVED | d=2: E_2-Koszul on A directly (A is E_2). d=3: E_1-Koszul on A via B_{E_3}(A), inducing E_2 on Drinfeld center Z(Rep^{E_1}(A)). thm:cy-b-d3, thm:verdier-spectral-functor. CY-B1 (conductor): proved all classes. CY-B2 (braided equiv on center): proved all classes via Verdier spectral functor. 326 tests across cy_b_toward_proof, cy_b_d3_proof, cy_b_d3_final. |
 | **CY-C** (Quantum group realization) | CONJECTURAL | C(g,q) = D(Y^+(g_{K3})) at abelian level. Three routes (chiral/BFN/MO). Rep(C)=Rep^{E_2}(Y) via BZFN. cy_c_quantum_group_k3 (104 tests). Uses \begin{conjecture}. NEVER \begin{theorem} |
 | **CY-D** (Modular CY characteristic) | d=2 PROVED (h^{1,0}=0); d=3 PROGRAMME | kappa_ch=chi(O_X) proved for CY_2 with h^{1,0}=0 (K3). FALSE for odd d: chi(O_X)=0 for all CY_3 by Serre (prop:chi-O-vanishes-odd-d). kappa_ch(K3xE)=3!=0=chi(O). chi^CY is categorical, differs from chi(O_X). cy_d_kappa_d3 (76 tests). |
 | **E_3 Koszul (Heisenberg)** | d=2 PROVED | thm:e3-koszul-heisenberg, 39 tests |
@@ -39,9 +39,9 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_2-Chi
 | **CY-A_3 inf-categorical** | PROVED | CY-A_3 resolved in the infinity-categorical framework. Obstruction group HH^{-2}_{E_1}=0. Space of framings contractible. Chain-level [m_3,B^{(2)}]!=0 is NOT an obstruction. |
 | **kappa_BKM = c_N(0)/2 universal** | PROVED | prop:bkm-weight-universal. The ONLY correct universal formula. Naive decomposition kappa_BKM = kappa_ch + chi(O_fiber) fails at N>=2. 99 tests. |
 | **BKM Serre at D=3** | PROVED | Serre relations from BKM imaginary roots at discriminant D=3. Null vector g_{i0}*g_{i1}=1. k3_serre_relations engine (61 tests). |
-| **CFG25 comparison** | VERIFIED | CFG (arXiv:2602.12412) E_3 from BV-quantised CS. Agreement at perturbative genus-0 level. Costello 5d verification at charge 4 (87 tests). CFG25 24% lift rate (76% require chain-level corrections). |
+| **CFG25 comparison** | VERIFIED | CFG (arXiv:2602.12412) E_3 from BV-quantised CS. Agreement at perturbative genus-0 level. Costello 5d verification at charge 4 (87 tests). CFG25 35% lift rate (76% require chain-level corrections). |
 | **Super-Yangian Y(gl(4\|20))** | CONJECTURAL | BKM-to-Yangian lift from Mukai signature (4,20). k3_super_yangian (59 tests). |
-| **6 routes to G(K3xE)** | PROGRAMME | Kummer, Borcherds, MO stable envelope, McKay, factorization homology, Costello 5d. Each produces partial data; none yet complete. |
+| **6 routes to G(K3xE)** | PROGRAMME (CY-C) | Six independent CONSTRUCTIONS (not six applications of Phi; AP-CY60): Kummer, Borcherds, MO stable envelope, McKay, factorization homology, Costello 5d. Only Route 4 uses Phi. Convergence = CY-C (CONJECTURAL). |
 | **Borcherds spectral flow** | PROVED | Spectral flow automorphisms of Y(g_{K3}) from Borcherds vertex operators. borcherds_vertex_yangian (75 tests). |
 | **Shadow-Feynman dictionary** | PROVED | L-loop Feynman graph = shadow invariant S_{L+1}. Explicit at all loop orders. Class G: tree-level exact. Class M: all-loop. |
 | **E_3 bar = 6^g** | PROVED | dim H*(B^{E_3}(A)) = 6^g for class M. Chain: P(q)^{6g}. Classes L,C: 2^{3g}=(1+t)^{3g}. |
@@ -61,7 +61,7 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_2-Chi
 | **3 wrong proofs caught** | DOCUMENTED | (1) Bidegree decomposition for {b_k,B^{(2)}}=0 (flawed premise). (2) Tsygan formality argument (wrong scope). (3) kappa_BKM naive decomposition (numerical coincidence). All retracted with documentation. |
 | **P_2(D) = 0: BKM Serre EXACT** | PROVED | Nekrasov + Lie algebra twist: second Serre polynomial vanishes identically. No higher corrections to imaginary root Serre relations. |
 | **Borcherds spectral flow h=1 EXACT** | PROVED | Spectral flow at h=1 is an EXACT automorphism of Y(g_{K3}), not approximate. Verified against Borcherds product formula. |
-| **CY-B push at d=3** | PROGRAMME (131 tests) | E_2-chiral Koszul duality extended to d=3 via inf-cat CY-A_3. Conditional on chain-level data for non-formal algebras. |
+| **CY-B push at d=3** | PROGRAMME (131 tests) | E_1-chiral Koszul duality (inducing E_2 on center) extended to d=3 via inf-cat CY-A_3. Conditional on chain-level data for non-formal algebras. |
 | **Chiral Satake for C^3** | PROVED | Derived geometric Satake for C^3 via chiral bar complex. 99 tests. Connects Phi(C^3) to geometric representation theory. |
 | **Chain-level Incompatibility Theorem** | PROVED | mu_3 != 0 forces mu_2 = 0 on augmentation ideal. A_inf obstruction to simultaneous E_1 and E_inf structure at chain level. |
 | **Notation appendix** | INSTALLED (541 lines) | Complete notation reference for Vol III. All symbols, conventions, cross-volume dictionary. |
@@ -83,16 +83,27 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_2-Chi
 | **Mathieu frame shape** | VERIFIED | Frame shape = twined bar Euler for all 25 M_24 conjugacy classes. Connects Mathieu moonshine to bar complex. |
 | **Incompatibility Theorem (strengthened)** | PROVED | mu_3 != 0 implies mu_2 = 0 on augmentation ideal. Strengthened: holds at chain level for ALL non-formal A_inf algebras (class >= L). |
 
-## The kappa-Spectrum (AP113, CRITICAL)
+## The kappa-Spectrum (AP113 + AP-CY55, CRITICAL)
 
-Bare "kappa" is FORBIDDEN in Vol III. A CY manifold gives rise to MULTIPLE chiral algebraizations, each with its own kappa. ALWAYS subscript:
+Bare "kappa" is FORBIDDEN in Vol III. A CY manifold gives rise to MULTIPLE chiral algebraizations, each with its own kappa. ALWAYS subscript.
+
+**AP-CY55**: The four kappas fall into two types. Conflating them is forbidden:
+
+**Manifold invariants** (topological, fixed by the geometry, INDEPENDENT of algebraization):
+
+| Subscript | Meaning | K3 x E value |
+|-----------|---------|--------------|
+| kappa_cat | chi(O_X) = holomorphic Euler char | 0 = chi(O_{K3xE}); fiber value chi(O_{K3}) = 2 |
+| kappa_fiber | Lattice rank / fiber structure | 24 (Mukai lattice rank) |
+
+**Algebraization invariants** (depend on which chiral/BKM algebra is constructed):
 
 | Subscript | Meaning | K3 x E value |
 |-----------|---------|--------------|
 | kappa_ch | From chiral algebra A_C via Phi | 3 (= kappa_ch(K3) + kappa_ch(E) = 2+1) |
 | kappa_BKM | From Borcherds-Kac-Moody algebra | 5 (weight of Delta_5) |
-| kappa_cat | chi(O_X) = holomorphic Euler char | 0 = chi(O_{K3xE}); fiber value chi(O_{K3}) = 2 |
-| kappa_fiber | From lattice/fiber structure | 24 (Mukai lattice rank) |
+
+Saying "algebraizations share kappa_cat" is VACUOUS: kappa_cat and kappa_fiber are topological invariants of the manifold and cannot vary between algebraizations. Only kappa_ch and kappa_BKM depend on the algebraization.
 
 kappa(K3 x E) = 3 vs 5 contradiction arose from conflating kappa_ch and kappa_BKM. Full spectrum: {0,2,3,5,24}.
 
@@ -246,9 +257,22 @@ NEVER hardcode `Part~IV`, `Chapter~12` in Vol III prose. Always use `\ref{part:.
 
 Vol III's Tier 2 dnp_identification_master.tex Vol II edit caught a stale Part~II reference (Tier 2 Task E4); the canonical Vol I Parts list is in main.tex L822-1400.
 
-## E_1/E_2 Chiral Hierarchy
+## E_n Chiral Hierarchy (CY dimension -> native E_n level)
 
-E_1-chiral (Vol II): associative factorization on C x R. Monoidal rep categories. E_2-chiral (this vol): braided factorization on C x C. Braided monoidal rep categories: habitat of quantum groups. E_1 -> E_2 via Dunn additivity. d=2: S^2-framing of HH_*(C) gives E_2. d=3: holomorphic CS breaks E_2 to E_1; recover E_2 via Drinfeld center Z(Rep^{E_1}(A)) = Rep^{E_2}(Z^der_ch(A)). Drinfeld center is categorified av: E_1-Cat -> E_2-Cat. Quantum groups, Yangians, braided tensor categories natively E_1. E_2 derived.
+The Gerstenhaber bracket on HH*(C,C) has degree 1-d. This determines the native E_n level:
+
+| d | Native E_n | Bracket degree | Mechanism |
+|---|-----------|---------------|-----------|
+| 1 | E_infty (commutative) | degree 0 | Abelian Lie conformal; symmetric factorization |
+| 2 | E_2 (braided) | degree -1 (Lie = lambda-bracket) | S^2-framing of HH_*(C) gives E_2 directly |
+| 3 | E_1 (ordered) | degree -2 (shifted Lie) | Holomorphic CS breaks E_2 to E_1; CoHA is associative |
+| >=4 | E_1 stabilized | degree <=(-3) | pi_d(BU) obstruction; no native braiding |
+
+**E_2 at d=3 is DERIVED, not native**: The E_2 braiding on Rep categories of d=3 chiral algebras comes from the Drinfeld center Z(Rep^{E_1}(A)) = Rep^{E_2}(Z^der_ch(A)), NOT from A itself. The chiral algebra A is E_1; only its representation category acquires E_2 braiding after passing through the center.
+
+E_3 at d=3 is the DERIVED CENTER (higher Deligne): HH*(B_{E_3}(A), B_{E_3}(A)). This is a structure on the observables of the field theory, not on the CY chiral algebra Phi(C).
+
+Drinfeld center is categorified av: E_1-Cat -> E_2-Cat. Quantum groups, Yangians, braided tensor categories natively E_1. E_2 derived.
 
 ## CY-Specific Anti-Patterns (AP-CY1 through AP-CY8)
 
@@ -280,6 +304,9 @@ AP-CY20: Normal bundle vs spectral parameters. The Z x Z grading from the normal
 ### CY-D Correction (AP-CY34, from kappa_ch investigation)
 AP-CY34: kappa_ch != chi(O_X) at odd d. For ANY compact CY_d with d odd, chi(O_X) = 0 by Serre duality (h^{0,q}=h^{0,d-q} and pairwise cancellation). Therefore kappa_ch = chi(O_X) is FALSE whenever kappa_ch != 0. Known falsifications: E (d=1, kappa=1), abelian surface (d=2, kappa=2, h^{1,0}=2), K3xE (d=3, kappa=3). The formula kappa_ch = chi(O_X) is PROVED ONLY for CY_2 with h^{1,0}=0 (K3, etc.) where HH_{-1}=0 and the Serre argument kills the quantum correction. For d>=3: HH_{-1} = h^{2,0}+h^{1,1}+h^{0,2} is ALWAYS nonzero (h^{1,1}>=1 for projective), so the Serre argument NEVER applies. The correct CY-D uses the categorical chi^CY, distinct from chi(O_X). Counter: NEVER write kappa_ch = chi(O_X) outside the scope d=2, h^{1,0}=0. At d=3: use the dimension-stratified formula (conj:cy-kappa-identification). 76 tests in cy_d_kappa_d3.py.
 
+### Manifold vs Algebraization Invariants (AP-CY55)
+AP-CY55: kappa_cat = chi(O_X) and kappa_fiber = rank(Lambda) are TOPOLOGICAL invariants of the MANIFOLD, NOT properties of the algebraization. Saying "algebraizations share kappa_cat" is VACUOUS. Only kappa_ch and kappa_BKM depend on the algebraization. Counter: every kappa-spectrum table or discussion MUST distinguish manifold invariants (kappa_cat, kappa_fiber) from algebraization invariants (kappa_ch, kappa_BKM). NEVER present all four as the same type. NEVER assert that kappa_cat "agrees" between algebraizations as if this were meaningful.
+
 ### Cross-Programme (AP150-AP157 + FM24, from current session)
 AP150: Agent confabulation of non-existent structures. Agents stitch disparate results (e.g. a categorical equivalence from paper A + a representation-theoretic identity from paper B) into composite structures that do not exist in the literature or the manuscript. The stitching looks plausible because each ingredient is real, but the composite arrow has never been constructed. Counter: before writing any composite diagram or multi-step identification, verify EACH ARROW independently. If any arrow is unverified, the composite is conjectural and must use \begin{conjecture}.
 AP151: Convention clash from coexisting hbar definitions. Two definitions of hbar (e.g. hbar = log(q) vs hbar = (log q)/(2*pi*i), or hbar as deformation parameter vs hbar as Planck constant) can coexist in the same chapter when material is drawn from different sources. The discrepancy cascades silently through all formulas that depend on hbar. Counter: before introducing ANY hbar, grep the current file and all imported chapters for existing definitions. If a second convention is needed, introduce a distinct symbol (hbar', hbar_1, Psi) with an explicit bridge identity. One file, one hbar.
@@ -309,13 +336,25 @@ AP-CY32: Reorganisation ≠ bypass. The 6d factorization homology route appears 
 AP-CY33: Chain-level ≠ rational. E₃ structure is genuine at the CHAIN level but collapses to E₂ under Kontsevich formality (rational coefficients). The physical content (Miki automorphism, factorization homology, tetrahedron corrections) lives at the chain level. Formality destroys it. Counter: always state whether a claim about E_n structure is at the chain level or the rational/formal level. Claims about "E₃ being trivial" that invoke formality are true RATIONALLY but miss the chain-level content that the physics requires.
 AP-CY34: RESOLVED via Costello's operadic TCFT. Original gap: cyclic invariance controls adjacent contractions but not non-adjacent. The CORRECTED claim: {b, B^{(2)}} = 0 for the TOTAL A-infinity Hochschild differential b = sum_k b_k. Individual {b_k, B^{(2)}} need NOT vanish; only their sum does. Proof: Costello Theorem A (arXiv:math/0412149) + open-closed TCFT extension + d^2=0 in moduli chain complex. The non-adjacent contractions cancel cross-arity: {b_3, B^{(2)}} is cancelled by {b_2, B^{(2)}} via the Stasheff A-infinity relations (which ARE d^2=0 expanded by arity). Explicit computation (obs_ainf_local_p2.py, 54 tests) confirms {b_3, B^{(2)}}([a|a|a|a|b]) = 2*alpha*[b] != 0 individually, confirming the original per-k claim is FALSE. But the TOTAL {b, B^{(2)}} = 0 by the operadic argument. Obs_Ainf = 0 UNIVERSALLY. CY-A_3 subsequently PROVED (inf-cat, thm:derived-framing-obstruction). PREVIOUS PROOFS RETRACTED: bidegree decomposition (flawed premise), Tsygan formality (wrong scope). Engine: operadic_tcft_mk_b2_engine.py (43 tests). See rem:adversarial-audit-cyclic-ainf in cy_to_chiral.tex.
 
-### Final Session APs (AP-CY35-AP-CY40, from 170-agent final wave, April 2026)
-AP-CY35: Superalgebra rank inflation. Agents assign gl(N|M) structure to lattice-graded algebras based on signature matching alone. The Mukai lattice signature (4,20) does NOT automatically produce gl(4|20). The super-Yangian Y(gl(4|20)) is CONJECTURAL. Counter: super structures require explicit Lie bracket verification, not just grading compatibility.
-AP-CY36: RTT-OPE dictionary incompleteness. The RTT presentation and the OPE are NOT interchangeable without specifying normal ordering. The translation requires explicit contour deformation and regularization. Counter: always specify which presentation and whether a dictionary exists.
-AP-CY37: CFG25 lift rate is 24%, not 100%. Costello-Francis-Gwilliam E_3 agrees with programme at perturbative genus-0 level, but 76% of results require chain-level corrections beyond their filtered E_3. Counter: never cite CFG25 as full confirmation; specify the perturbative genus-0 scope.
-AP-CY38: Inf-categorical proof ≠ chain-level construction. CY-A_3 is PROVED in the inf-cat framework (HH^{-2}_{E_1}=0, Goodwillie vanishing), but this does NOT produce an explicit chain-level A_X. Results requiring explicit chain-level data (mode computations, OPE coefficients) need additional work. Counter: distinguish "exists by abstract nonsense" from "explicitly constructed."
-AP-CY39: Borel summability ≠ convergence. Class M shadow tower is Borel SUMMABLE (Gevrey-1), not convergent. The Borel sum defines a unique non-perturbative completion, but the original series DIVERGES. Counter: never write "converges" for class M; write "Borel summable."
-AP-CY40: Multiple routes ≠ redundancy. The 6 routes to G(K3xE) (Kummer, Borcherds, MO, McKay, FH, Costello) produce DIFFERENT partial data. They are not independent confirmations of the same result. Counter: specify what each route constructs and what it does NOT construct.
+### 290-Agent Session APs (AP-CY35-AP-CY52, from ~290-agent comprehensive wave, April 2026)
+AP-CY35: B^{(j)} hierarchy confusion. B^{(0)} = Connes B (mixed complex). B^{(j>=1)} = Connes HIERARCHY (S^d-framing). The mixed complex axiom [b, B^{(0)}]=0 does NOT extend to [b, B^{(j)}]=0. Three "proofs" were wrong because of this confusion. Counter: always specify which B^{(j)} and never assume the mixed complex identity for j>=1.
+AP-CY36: kappa_ch formula gives wrong value. The formula Sigma(-1)^i dim HH_i gives chi_top (=24 for K3), NOT kappa_ch (=2). The correct formula is the Hodge-filtered supertrace Sigma(-1)^q h^{0,q}. The Serre duality kills non-F^0 contributions. Counter: never compute kappa_ch as alternating sum of HH_i dimensions. Use str_{F^0}(q^{L_0}).
+AP-CY37: kappa_BKM = kappa_ch + kappa_cat is a COINCIDENCE for N=1. The correct universal formula is kappa_BKM = c_N(0)/2 (Borcherds weight theorem). Fails for 7/8 diagonal Siegel orbifolds. Counter: use c_N(0)/2, never the naive decomposition.
+AP-CY38: Class M E_3 bar != infinite. It's 6^g (proved via Kunneth). The d_4 kills Lambda^0 and Lambda^3, leaving [0,3,3,0] at g=1. Counter: state "6^g (closed form via Kunneth)" for class M, not "infinite."
+AP-CY39: Incompatibility Theorem. For single-object cyclic A_inf CY_3: mu_3!=0 forces mu_2=0 on augmentation ideal. Cross-arity cancellation is IMPOSSIBLE at the naive level. The TCFT B^{(2)} differs from naive pairwise contraction. Counter: never assume mu_2 and mu_3 can coexist on the same graded piece at the chain level.
+AP-CY40: ProvedHere with no proof block. A theorem carrying \ClaimStatusProvedHere MUST have a \begin{proof} block. The adversarial agent found thm:cy-to-chiral-d3 had ProvedHere but no proof. Counter: grep for ProvedHere and verify a \begin{proof} block follows within 50 lines.
+AP-CY41: Internal contradictions from partial updates. When upgrading a conjecture to theorem, ALL instances must be updated. The session found ~30 locations still saying "open" after CY-A_3 was proved. Counter: after any status change, grep all three volumes for the old status string and update every match.
+AP-CY42: phi_{0,1} normalization. c(-1)=1 (standard Gritsenko-Nikulin) vs c(-1)=2 (K3 elliptic genus = 2*phi_{0,1}). The factor of 2 is kappa_ch(K3). Propagated silently across 3 engines. Counter: state which normalization convention is in force and verify against the K3 elliptic genus.
+AP-CY43: Shadow-Feynman tautology at L>=4. The Feynman engine calls the shadow recursion, making the match tautological. Independent verification requires computing m_k directly (e.g., from k-point conformal blocks). Counter: for L>=4, verify via an independent computation path, not through the shadow recursion.
+AP-CY44: CY-D false at odd d. kappa_ch != chi(O_X) when d is odd, because Serre duality forces chi(O_X)=0 for all odd-dimensional CY, while kappa_ch can be nonzero. Root cause: additivity vs multiplicativity. Counter: NEVER write kappa_ch = chi(O_X) outside the scope d=2, h^{1,0}=0. Use the dimension-stratified formula.
+AP-CY45: N=2 root-of-unity gives TRIVIAL double braiding. q^2=1 at N=2. Non-abelian MTC requires N>=3 where q^2!=1. Counter: verify q^2 != 1 before claiming modular (non-symmetric) structure.
+AP-CY46: No native CY_4 Yangian. pi_4(BU)=Z obstructs E_4. The correct structure is a p_1-twisted double current algebra. The cascade max is E_3 for ALL d>=3. Counter: never write "E_4 Yangian" or "CY_4 Yangian." Use "p_1-twisted double current algebra."
+AP-CY47: Structure function degree from Mukai rank, NOT Lie algebra dimension. For E_8 x E_8: degree (24,24) from 24 Mukai directions, NOT (500,500) from dim(e_8)*2. Counter: verify structure function degree against Mukai lattice rank.
+AP-CY48: 3d->6d lift rate is only 24%. Algebraic structures lift 100%, topological 0%. 6d is NOT a dimensional upgrade of 3d. Counter: state the lift rate and specify which structures lift and which do not.
+AP-CY49: Agent tautological tests. 10% of agent-produced tests are tautological (testing hardcoded values against themselves). Must verify via independent computation paths. Counter: every test must have at least two independent verification sources (AP10 protocol).
+AP-CY50: Duplicate agent launches. When relaunching failed agents, check the agent registry to avoid running the same task twice. Duplicate launches waste compute and create merge conflicts. Counter: check the agent registry before any relaunch. Use unique task IDs.
+AP-CY51: Rate-limited agents write engines+tests but not manuscript. When an agent is rate-limited, check disk for persisted files before relaunching from scratch. Counter: check disk for persisted files before relaunching. Resume from persisted state.
+AP-CY52: Mega-file anti-pattern. Files >3000 lines should be split. toroidal_elliptic.tex was 7190 lines; k3_times_e.tex was 5986 lines. Both needed splitting. Counter: when a .tex file exceeds 3000 lines, split it by section. Target 1000-2000 lines per file.
 
 ## 6d Holomorphic CS Programme (established April 2026)
 
@@ -421,7 +460,7 @@ K3 quantum group session results (April 2026, 53-agent wave, ~62pp new, ~3,600 n
 FINAL documentation wave results (April 2026):
 - **P_2(D) = 0: BKM SERRE IS EXACT**: The second Serre polynomial vanishes identically via two independent arguments: (1) Nekrasov 1d Omega-background on E has eps_1*eps_2=0, killing all higher-order corrections; (2) Lie algebra twist L_0+eps*J_0 is linear in eps, so spectral flow h_eps is exactly linear. Consequence: the 182-generator Serre kernel computed at leading order is the FULL kernel. No perturbative corrections at any order. bkm_serre_higher_order.py (70 tests).
 - **BORCHERDS SPECTRAL FLOW h=1 EXACT**: The h=1 spectral flow is an exact automorphism, not a leading-order approximation. Verified against Borcherds product formula through 10 Fourier coefficients.
-- **CY-B PUSH AT d=3**: E_2-chiral Koszul duality extended to d=3 using inf-cat CY-A_3. Bar-cobar adjunction on CY_3 categories established at the infinity-categorical level. 131 new tests. Chain-level bar complex construction remains conditional on explicit framing data.
+- **CY-B PUSH AT d=3**: E_1-chiral Koszul duality (inducing E_2 on Drinfeld center) extended to d=3 using inf-cat CY-A_3. At d=3, A is E_1, so the Koszul dual uses B_{E_3}(A); the E_2-braided equivalence lives on Z(Rep^{E_1}(A)). Bar-cobar adjunction on CY_3 categories established at the infinity-categorical level. 131 new tests. Chain-level bar complex construction remains conditional on explicit framing data.
 - **CHIRAL SATAKE FOR C^3**: Derived geometric Satake equivalence proved for C^3 = simplest toric CY_3. Connects Phi(C^3) = W_{1+inf} to Rep(Y(gl_1^)). 99 tests.
 - **CHAIN-LEVEL INCOMPATIBILITY THEOREM**: For non-formal A_inf algebras (class >= L), mu_3 != 0 FORCES mu_2 = 0 on the augmentation ideal (at the chain level). The E_1 product and the A_inf corrections cannot coexist on the same graded piece. This is the algebraic reason why the E_1-chiral bialgebra lives on B^{ord}(A) (where mu_2 is the bar differential) and NOT on A itself (where mu_3 != 0 corrupts the product).
 - **NOTATION APPENDIX**: 541-line notation appendix installed. All symbols, conventions, cross-volume dictionary, kappa-spectrum table, shadow class table, CY dimension table.
@@ -442,7 +481,7 @@ At each step: E_1 (ordered) is the primitive; E_2 (braided) via Drinfeld center;
 Status by dimension:
 - d=1: E_∞ (commutative). PROVED. Trivial.
 - d=2: E_2 (braided). PROVED (CY-A_2). K3 lattice VOA, Phi_2(K3)=H_Muk, κ_ch=2.
-- d=3: E_1 (ordered). PROVED (inf-cat, CY-A_3). Chain-level [m_3,B^{(2)}]!=0 resolved as non-obstruction (HH^{-2}_{E_1}=0, Goodwillie vanishing). K3 abelian Yangian theorem (6-part presentation). 6 routes to G(K3xE). Yangian/toroidal from CoHA.
+- d=3: E_1 (ordered). PROVED (inf-cat, CY-A_3). Chain-level [m_3,B^{(2)}]!=0 resolved as non-obstruction (HH^{-2}_{E_1}=0, Goodwillie vanishing). K3 abelian Yangian theorem (6-part presentation). 6 independent constructions approach G(K3xE) (only Route 4 = Phi; convergence = CY-C, CONJECTURAL; AP-CY60). Yangian/toroidal from CoHA.
 
 ### Ideal seven-part structure (rearchitecture target)
 
@@ -473,7 +512,7 @@ Logical dependencies: I -> II -> III -> {IV, V} -> VI -> VII. Parts IV and V are
 
 ### Five load-bearing open problems (updated April 2026, ~230-agent final session)
 
-1. **CY-B (E_2-chiral Koszul duality)**: PROGRAMME (131 tests). The bar-cobar adjunction B/Omega on E_2-chiral algebras from Phi. Depends on CY-A (now proved). Extended to d=3 via inf-cat CY-A_3. Chain-level conditional on explicit framing data for non-formal algebras. The next structural theorem after CY-A.
+1. **CY-B (E_n-chiral Koszul duality)**: PROGRAMME (131 tests). At d=2: E_2-Koszul on A directly (A is E_2). At d=3: E_1-Koszul on A via B_{E_3}(A), inducing E_2 on Drinfeld center Z(Rep^{E_1}(A)). The conductor formula kappa(A)+kappa(A^!)=rho_K is about the E_1-Koszul dual. Depends on CY-A (now proved). Extended to d=3 via inf-cat CY-A_3. Chain-level conditional on explicit framing data for non-formal algebras. The next structural theorem after CY-A.
 2. **Nonabelian K3 Yangian**: The passage from abelian Y(g_{K3}) (PROVED, 24 generators, thm:k3-abelian-yangian-presentation) to the full nonabelian Yangian. Matrix Miura, sl_2 Serre constraints (EXACT: P_2=0, 70 tests). Super-Yangian Y(gl(4|20)) conjectural. E_8 x E_8 structure function computed: degree-(24,24), c=8+8+8=24.
 3. **ZTE correction**: S^{corr}=S+κ²T NOW COMPUTED (exact rational T matrix, 35 tests). Previously constructive (rank 35/36 in extended complex); now explicit entry-by-entry from 1-dim kernel. The correction giving genuine E_3 structure beyond pairwise factorization.
 4. **Sp_4(Z) modularity**: E_3 S-matrix -> Siegel modular forms -> Phi_10. Fourier-Jacobi = E_2->E_3 restriction proved. Full pipeline open. Mathieu moonshine connection: frame shape = twined bar Euler for all 25 M_24 conjugacy classes.
@@ -514,7 +553,7 @@ make test                                                         # Vol III test
 13. B(U^ch(L)) = CE_*(L) PROVED (chiral CE complex identification).
 14. Super-Yangian Y(gl(4|20)) is CONJECTURAL (AP-CY35). Never \begin{theorem}.
 15. Class M: Borel summable (Gevrey-1), NOT convergent (AP-CY39).
-16. CFG25 agreement: 24% lift rate at perturbative genus-0 only (AP-CY37).
+16. CFG25 agreement: 35% lift rate at perturbative genus-0 only (AP-CY37).
 17. 3 wrong proofs caught and retracted this session. The Beilinson principle works.
 18. ZTE correction T COMPUTED (exact rational, 35 tests). Previously constructive; now explicit.
 19. Mock modular K3: THEOREM at d=2 (4-step proof). Class M = mock modular.
@@ -527,6 +566,79 @@ make test                                                         # Vol III test
 26. m_5 independently verified: G_5^{conn} = 775/5184 from 5-point Wick contraction.
 27. Chiral volume conjecture FORMULATED (Abel-Jacobi period).
 
+## New Failure Modes (2026-04-14 CG Rectification Campaign)
+
+**FM42. Bulk substring replacement corruption.** replace_all "arity"→"degree" corrupts singularity→singuldegree, complementarity→complementdegree, unitarity→unitdegree, regularity→reguldegree, modularity→moduldegree, parity→pdegree. 45 corruptions introduced and fixed. COUNTER: never bulk-replace short substrings; grep `ldegree|ndegree|rdegree|pdegree|tdegree` after any bulk replace. Checklist: {singularity, complementarity, unitarity, regularity, modularity, parity, familiarity, similarity, polarity, disparity, linearity}.
+
+**FM43. E_n output scope of Φ.** Φ outputs E_2 at d≤2, E_1 at d≥3. Writing `Φ: CY_d-Cat → E_2-ChirAlg` is WRONG at d≥3. Found in 5 files. COUNTER: always scope with `(n=2 for d≤2; n=1 for d≥3)`.
+
+**FM44. Agent rate limiting.** >10 concurrent agents → mass rate limiting (27/31 failed). COUNTER: batches of 3.
+
+**FM45. Agent skill fidelity gap.** Subagents get ~200-word brief, not the full 15K-word /chriss-ginzburg-rectify skill. Good for violation scanning, insufficient for deep reconstitution. COUNTER: invoke skill directly in main conversation per file.
+
+**FM46. Stale line counts.** Preface assessment line counts drift as chapters grow. 8 counts were off by up to 3x. COUNTER: update after content campaigns.
+
+## Cached First-Principles Analyses (AP-CY61 dictionary)
+
+**Full cache**: `appendices/first_principles_cache.md` (45 entries with ghost theorems, from Vol III git archaeology). Cross-programme total: ~264 entries across 3 volumes, 30 confusion types.
+
+**CRITICAL ENTRIES** (highest recurrence, check these FIRST):
+
+| Wrong claim | Ghost theorem | Correct relationship | Type |
+|-------------|---------------|---------------------|------|
+| "Drinfeld center = categorified averaging" | av and Z factor: E_1→^Z E_2→^{Sym} E_∞ | Center CONSTRUCTS braiding (step 1). Averaging DESTROYS it (step 2). | construction/narration |
+| "CoHA = bar complex" | SV theorem: CoHA≅Y^+ | CoHA is ALGEBRA; bar is COALGEBRA. Character M(q) coincidence reflects SV iso. | algebra/coalgebra |
+| "SN bracket vanishes for all CY_3" | Two E_1 mechanisms exist | (a) bracket degree 1-d (universal). (b) GL(d)-invariant vanishing (toric-only). | specific/general |
+| "E_2-chiral algebra at d=3" | E_2 DOES appear at d=3 | Lives on Z(Rep^{E_1}(A)), NOT on A. A is E_1 native. | native/derived |
+| "kappa = c/2 universally" | True for Virasoro | kappa(Heis)=k, kappa(KM)=dim(g)(k+h^v)/(2h^v). Each family has own formula. | specific/general |
+| r(z) = Omega/z (bare, no level) | r-matrix IS proportional to Omega/z | Missing level prefix k. At k=0, r MUST vanish. 90+ instances Vol I. | label/content |
+| "B(A) is SC^{ch,top}-coalgebra" | B(A) IS a coalgebra | B(A) is E_1. SC emerges on DERIVED CENTER pair (ChirHoch*(A,A), A). | object/structure |
+| "SC^{ch,top} = E_3" | Related structures | SC + conformal vector = E_3-TOPOLOGICAL. Without: stuck at SC. | generic/special |
+| "{b_k, B^{(2)}}=0 individually" | TOTAL {b,B^{(2)}}=0 true | Per-k FALSE. Cross-arity cancellation via Stasheff. Operadic d^2=0. | part/whole |
+| "kappa_BKM = kappa_ch + chi(O_fiber)" | True at N=1 (K3xE) | Coincidence. Fails N>=2. Correct: kappa_BKM = c_N(0)/2. | specific/general |
+
+### Confusion type taxonomy (30 types, cross-programme)
+
+| Type | Vol I count | Vol II count | Vol III count | Defense |
+|------|------------|-------------|--------------|---------|
+| **specific/general** | ~18 | ~18 | ~12 | Track provenance: WHERE was it proved? |
+| **label/content** | ~15 | ~25 | ~10 | Every label must name a computable quantity |
+| **construction/narration** | ~10 | ~16 | ~8 | AP-CY57: "X gives Y" needs explicit arrow |
+| **native/derived** | ~3 | ~5 | ~5 | State which OBJECT carries the structure |
+| **algebra/coalgebra** | ~5 | ~6 | ~4 | Type-check: both sides same algebraic type |
+| **convention clash** | ~6 | ~12 | ~5 | One file, one convention. Bridge identity required. |
+| **mechanism error** | ~3 | ~2 | ~4 | Right conclusion, wrong proof. Check the PROOF. |
+| **scope error** | ~8 | ~4 | ~6 | Formula valid WHERE? Check domain. |
+| **part/whole** | ~2 | ~1 | ~2 | Individual terms vs total. |
+| **chain/cohomology** | ~2 | ~2 | ~2 | Specify: chain, cohomology, or assoc graded. |
+| **object/structure** | ~4 | ~3 | ~2 | The resolution is not the thing it resolves. |
+| **off-by-one** | ~3 | ~3 | ~2 | n-1 vs n-2, factorial index. |
+| **coincidence/theorem** | ~3 | ~1 | ~2 | Does it hold at N=2? At g=2? At the next case? |
+| **necessary/sufficient** | ~2 | ~2 | ~2 | Does condition X SUFFICE, or merely REQUIRE? |
+| **additive/multiplicative** | ~1 | ~0 | ~2 | kappa_ch additive, chi(O_X) multiplicative. |
+| **temporal** | ~1 | ~1 | ~1 | Status changed. Old status persists. |
+| **sandbox/reality** | ~0 | ~0 | ~3 | Verify files exist after agent completion. |
+
 ## Git
 
 All commits authored by Raeez Lorgat. NEVER credit an LLM. git stash FORBIDDEN.
+
+### User-Identified Conceptual Anti-Patterns (AP-CY53-AP-CY58, from manuscript review)
+
+AP-CY53: π₁(Conf₂) ordered vs unordered confusion. π₁(Conf₂(R^d)) = 0 for d≥3 (ORDERED, S^{d-1} simply connected). π₁(UConf₂(R^d)) = Z/2 (UNORDERED). NEVER confuse ordered and unordered configuration spaces. Counter: always specify ordered/unordered.
+
+AP-CY54: "Categorified averaging" for Drinfeld center. The Drinfeld center is the RIGHT ADJOINT to the forgetful functor BrMon→Mon (categorified COMMUTANT z(A)={a:ab=ba}), NOT a categorified averaging map. The averaging map E₁→E_∞ DESTROYS quantum group data. The center E₁→E₂ CONSTRUCTS braiding via half-braidings. Counter: write "categorified center" or "right adjoint to forgetful", never "categorified averaging".
+
+AP-CY55: κ_cat presented as algebraization-dependent. κ_cat = χ(O_X) is a TOPOLOGICAL invariant of the MANIFOLD, not a property of the algebraization. Saying "algebraizations share κ_cat" is VACUOUS (like saying "both share gravity"). Only κ_ch and κ_BKM depend on the algebraization. Counter: separate manifold invariants (κ_cat, κ_fiber) from algebraization invariants (κ_ch, κ_BKM).
+
+AP-CY56: E_n level conflation across CY dimensions. At d=3, A = Φ₃(C) is E₁ (NATIVE). E₂ lives on Z(Rep^{E₁}(A)), NOT on A. NEVER say "E₂-chiral algebra" at d=3 when referring to A itself. The E_n level of A is determined by the Gerstenhaber bracket degree (1-d): d=1→E_∞, d=2→E₂, d≥3→E₁. Counter: always state which object carries the E_n structure (A vs Rep(A) vs Z(Rep(A))).
+
+AP-CY57: Narration instead of construction (Chriss-Ginzburg violation). Saying "the E₂ structure gives the R-matrix" without constructing the half-braiding mechanism. The R-matrix IS the universal half-braiding σ_M(N): M⊗N→N⊗M in Z(Rep^{E₁}(A)). It is CONSTRUCTED from the center, not "given by" or "recovered via" it. Counter: every claim "X gives Y" must be backed by an explicit construction.
+
+AP-CY58: CY-B E_n scope uniformity. CY-B is d-DEPENDENT: E₂-Koszul at d=2 (A is natively E₂), E₁-Koszul at d=3 (A is E₁, inducing E₂ on center via Verdier spectral functor). NEVER say "E₂-chiral Koszul duality" uniformly across all d. Counter: always state the d-dependent E_n level.
+
+AP-CY59: Multiple algebraizations from single functor. Φ(D^b(Coh(K3))) = H_{Muk}. PERIOD. ONE output. The BKM algebra g_{Δ₅} comes from the Borcherds lift (DIFFERENT construction). The Conway module comes from the Leech lattice VOA (DIFFERENT construction). Saying "Φ distinguishes three algebras" is NONSENSE — Φ gives one. Counter: for each algebra, state which CONSTRUCTION produces it. Different κ values come from different constructions, not different applications of Φ.
+
+AP-CY60: Six routes ≠ six applications of Φ. The six routes to G(K3×E) are six DIFFERENT mathematical constructions (Φ, Borcherds lift, lattice VOA, Kummer, sigma model, BLLPR). NOT six applications of the same functor. Their convergence is the CONTENT of CY-C (conjectural), not a consequence of functoriality. Counter: for each route, name the construction and state what it produces independently.
+
+AP-CY61: Shallow correction without first-principles investigation. When a mathematical claim is challenged, do NOT just swap labels (e.g. "averaging"->"right adjoint"). ALWAYS investigate the actual mathematical relationship from first principles. Find: (1) what the claim gets RIGHT (the ghost of a true theorem), (2) what it gets WRONG (the precise conflation), (3) the correct mathematical statement connecting the objects. Every wrong claim contains the seed of a correct theorem -- extract it. Examples: "categorified averaging" is wrong but the factorization E_1 ->^Z E_2 ->^{Sym} E_inf is real; "CoHA = bar complex" is wrong but the character coincidence reflects the Schiffmann-Vasserot theorem CoHA = Y^+; "SN bracket vanishes" is false for non-toric but reveals two independent E_1 mechanisms (operadic vs equivariant). Counter: before any correction, write down the first-principles analysis. If you cannot state the correct theorem, you do not understand the error.

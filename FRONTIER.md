@@ -687,7 +687,7 @@ The final documentation pass inscribed 10 new results into the metacognitive arc
 
 2. **Borcherds spectral flow h=1 EXACT**. Not an approximation. Verified against Borcherds product formula through 10 Fourier coefficients.
 
-3. **CY-B push at d=3** (131 tests). E_2-chiral Koszul duality extended to d=3 via inf-cat CY-A_3. Bar-cobar adjunction on CY_3 categories at infinity-categorical level. Chain-level conditional.
+3. **CY-B push at d=3** (131 tests). E_1-chiral Koszul duality (inducing E_2 on Drinfeld center) extended to d=3 via inf-cat CY-A_3. At d=3, A is E_1; the Koszul dual uses B_{E_3}(A). Bar-cobar adjunction on CY_3 categories at infinity-categorical level. Chain-level conditional.
 
 4. **Chiral Satake for C^3** (99 tests). Derived geometric Satake proved for C^3. Phi(C^3) = W_{1+inf} connected to Rep(Y(gl_1^)).
 

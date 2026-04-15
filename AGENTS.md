@@ -91,7 +91,7 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 3. **K3 Yangian quantization** **PARTIALLY RESOLVED.** Abelian Y(g_{K3}) presented (thm:k3-abelian-yangian-presentation). RTT, q-det, Serre (EXACT via P_2=0). Super-Yangian Y(gl(4|20)) conjectural (AP-CY35). Non-abelian K3 Yangian open. E_8 x E_8 structure function: degree-(24,24), c=24.
 4. **Non-abelian sl₂** ADE Yangian level 1 for all types. K3 non-abelian coproduct (50 tests). Serre null vector verified. Matrix Lax coassociativity via trace. **Chiral Satake for C^3 PROVED** (99 tests).
 5. **Sp₄(Z) modularity** sp4_modularity_pipeline (53 tests). Fourier-Jacobi = E₂→E₃. Mathieu moonshine: frame shape = twined bar Euler for all 25 M_24 classes.
-6. **CY-B at d=3**: NOW ACTIVE. E_2-chiral Koszul duality extended to d=3 via inf-cat CY-A_3. 131 tests. Chain-level conditional.
+6. **CY-B at d=3**: NOW ACTIVE. E_1-chiral Koszul duality (inducing E_2 on Drinfeld center) extended to d=3 via inf-cat CY-A_3. 131 tests. Chain-level conditional.
 7. **CY-D at d=3**: DEEP ISSUE IDENTIFIED. chi(O_{K3xE})=0 != 3=kappa_ch. Formula must use Hodge-filtered supertrace str_{F^0}(q^{L_0}), not chi(O_X). Dimension-stratified: kappa_ch != chi(O_X) at odd d.
 8. **Root-of-unity**: N=2 gives 324 modules, abelian S-matrix degenerate. Non-abelian K3 Yangian needed for modularity.
 9. **Shadow tower**: Computed through m_8 (160 tests, S_8=4144720/19683). m_5 independently verified (G_5^{conn}=775/5184).
@@ -111,7 +111,7 @@ The Costello programme constructs chiral quantum groups from holomorphic CS. New
 
 - **P_2(D) = 0: BKM Serre EXACT**: Second Serre polynomial vanishes identically. Two independent arguments: Nekrasov (eps_1*eps_2=0 in 1d Omega-background) + Lie algebra twist (L_0+eps*J_0 linear in eps). 182-generator Serre kernel is the FULL kernel. 70 tests.
 - **Borcherds spectral flow h=1 EXACT**: Not approximate. Verified through 10 Fourier coefficients against Borcherds product.
-- **CY-B at d=3**: E_2-chiral Koszul duality extended to d=3 via inf-cat CY-A_3. 131 tests. Chain-level conditional.
+- **CY-B at d=3**: E_1-chiral Koszul duality (inducing E_2 on center) extended to d=3 via inf-cat CY-A_3. 131 tests. Chain-level conditional.
 - **Chiral Satake for C^3**: Derived geometric Satake proved. Phi(C^3) = W_{1+inf} connected to Rep(Y(gl_1^)). 99 tests.
 - **Chain-level incompatibility**: mu_3 != 0 forces mu_2 = 0 on augmentation ideal. E_1 product and A_inf corrections cannot coexist on same graded piece.
 - **kappa_ch mechanism**: Hodge-filtered supertrace str_{F^0}(q^{L_0}). Non-F^0 killed by Hodge filtration. Coincides with chi(O_X)/2 at d=2 via Serre duality; diverges at d=3.
@@ -238,7 +238,7 @@ E_1-E_1 operadic Koszul duality in the homotopical modular chiral realm on algeb
 
 **Bar complex is E_1-coassociative; SC^{ch,top} emerges on the derived center (CRITICAL, corrected 2026-04-12).** The bar complex B^{ord}(A) = T^c(s^{-1}A-bar) is an E_1-chiral coassociative COALGEBRA (over ChirAss^!). It has a differential + deconcatenation coproduct. It does NOT carry SC^{ch,top} structure. The SC^{ch,top} structure (or E_3 with conformal vector) emerges on the DERIVED CENTER Z^{der}_{ch}(A) = ChirHoch*(A,A), computed USING the bar complex as a resolution. The bar complex is the E_1 engine; the derived center is the SC^{ch,top}/E_3 output.
 
-**The E_n operadic circle (2026-04-12):** E_3(bulk) -> E_2(boundary chiral) -> E_1(bar/QG) -> E_2(Drinfeld center) -> E_3(derived center). Each arrow: restriction to codim-2 defect, ordered bar complex, categorified averaging (Drinfeld center), higher Deligne (derived center). Closes for 3d HT with conformal vector; without conformal vector, stuck at SC^{ch,top}.
+**The E_n operadic circle (2026-04-12):** E_3(bulk) -> E_2(boundary chiral) -> E_1(bar/QG) -> E_2(Drinfeld center) -> E_3(derived center). Each arrow: restriction to codim-2 defect, ordered bar complex, right adjoint to forgetful (Drinfeld center), higher Deligne (derived center). Closes for 3d HT with conformal vector; without conformal vector, stuck at SC^{ch,top}.
 
 **SC^{ch,top} != E_3 (2026-04-12).** The Swiss-cheese operad is two-coloured with directionality (no open-to-closed). Dunn additivity does NOT apply. E_3 requires topologization: SC^{ch,top} + inner conformal vector (Sugawara at non-critical level, making C-translations Q-exact) = E_3-TOPOLOGICAL (NOT E_3-chiral). Without conformal vector: stuck at SC^{ch,top}. thm:topologization PROVED for affine KM V_k(g) at non-critical level k != -h^v. General: CONJECTURAL (conj:topologization-general). Proof is cohomological; for class M, chain-level E_3 may fail.
 
@@ -1001,6 +1001,18 @@ Architectural rule:
 - move repeated deep workflows into skills;
 - move deterministic enforcement into hooks or grep-based checks;
 - do not bloat the constitutional layer with playbook detail that belongs elsewhere.
+
+## Failure Modes from 2026-04-14 CG Rectification Campaign
+
+**FM42. Bulk substring replacement corruption.** replace_all "arity"→"degree" silently corrupts singularity→singuldegree, complementarity→complementdegree, unitarity→unitdegree, regularity→reguldegree, modularity→moduldegree, parity→pdegree. 45 corruptions introduced and fixed in one session. COUNTER: never bulk-replace short substrings appearing inside common words. After any bulk replace, grep for `ldegree|ndegree|rdegree|pdegree|tdegree`. Compound word checklist: {singularity, complementarity, unitarity, regularity, modularity, parity, familiarity, similarity, polarity, disparity, linearity}.
+
+**FM43. E_n output scope of Φ.** Φ: CY_d-Cat → E_2-ChirAlg is WRONG at d≥3 (output is E_1). Found in 5 Vol III files. Always scope: `(n=2 for d≤2; n=1 for d≥3)`.
+
+**FM44. Agent rate limiting.** >10 concurrent agents → mass rate limiting (27/31 failed in one campaign). Batch in groups of 3.
+
+**FM45. Agent skill fidelity gap.** Subagents get compressed briefs, not the full 15K-word /chriss-ginzburg-rectify skill. Good for bulk scanning (AP176, AP113, em-dashes); insufficient for deep 5-gate reconstitution. For full-quality rectification, invoke the skill directly per file.
+
+**FM46. Stale line counts.** Preface/introduction chapter assessments list line counts that drift as chapters grow (8 counts off by up to 3x). Update after content campaigns.
 
 ## Final Meta-Rule
 
