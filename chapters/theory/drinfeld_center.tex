@@ -400,6 +400,221 @@ and cross-engine consistency with
 and \texttt{higher\_deligne\_cascade.py}.
 
 
+\subsection{Construction: the $R$-matrix from the Drinfeld center}
+\label{subsec:rmatrix-from-center}
+
+%%: THIS SUBSECTION IS THE CORE CONSTRUCTION.  It makes explicit the
+%% mechanism by which the Drinfeld center produces the quantum group
+%% $R$-matrix.  Every step is a mathematical definition or proposition,
+%% not narration.  The arrow goes: $\Eone$-monoidal category -> Drinfeld
+%% center -> half-braiding = $R$-matrix.  The $R$-matrix measures the
+%% FAILURE of $A$ to be $\Etwo$; it is not derived from an $\Etwo$-structure
+%% on the center.
+
+The Drinfeld center is defined (Definition~\ref{def:drinfeld-center})
+and its identification with the derived center is established
+(Theorem~\ref{thm:bzfn}, Corollary~\ref{cor:zder-drinfeld}).
+What has not been made explicit is the \emph{mechanism} by which
+these structures produce the quantum group $R$-matrix.
+The following construction fills this gap.  The key point: the
+$R$-matrix \emph{is} the half-braiding, not a consequence of it.
+The braiding on the Drinfeld center exists \emph{because} $A$ is
+$\Eone$ (not $\Etwo$); if $A$ were already $\Etwo$, the
+half-braidings would be trivially given by the existing braiding,
+and the $R$-matrix would reduce to the identity.
+
+\begin{construction}[$R$-matrix from the Drinfeld center]
+\label{constr:rmatrix-from-center}
+\ClaimStatusProvedHere
+Let $A$ be an $\Eone$-chiral algebra on $X \times \R$.  The
+quantum group $R$-matrix is constructed in seven steps.
+
+\medskip
+\noindent\textbf{Step~1.}
+\textit{$A$ is an $\Eone$-chiral algebra.}
+The output of the CY-to-chiral functor $\Phi$ at $d = 3$ is an
+$\Eone$-algebra (Theorem~CY-A$_3$,
+Theorem~\ref{thm:cy-to-chiral-d3}).
+It is \emph{not} $\Etwo$: the $E_3$-framing on $\HH_\bullet(\cC)$
+restricts to symmetric braiding
+($\pi_1(\Conf_2(\R^3)) = 0$; Proposition~\ref{prop:e3-symmetric-braiding}),
+and the descent to $\Eone$ via the $\Omega$-deformation
+discards this symmetric braiding, retaining only the ordered
+(associative) product.
+
+\medskip
+\noindent\textbf{Step~2.}
+\textit{$\Rep^{\Eone}(A)$ is monoidal, not braided.}
+The $\Eone$-factorization structure on $A$ gives the
+representation category $\Rep^{\Eone}(A)$ an \emph{ordered}
+tensor product: $M \otimes N \neq N \otimes M$ in general.
+The monoidal structure is the ordered factorization product
+on $\Ran^{\mathrm{ord}}(X)$ (Volume~I, \S4).  There is no
+braiding: the fundamental group
+$\pi_1(\Conf_2(\R)) = \Z$ sees only the ordering, not
+a braid.
+
+\medskip
+\noindent\textbf{Step~3.}
+\textit{The Drinfeld center universally adjoins half-braidings.}
+The Drinfeld center $\cZ(\Rep^{\Eone}(A))$ has objects
+$(M, \sigma_M)$ where $M \in \Rep^{\Eone}(A)$ and
+\begin{equation}
+\label{eq:half-braiding-def}
+ \sigma_M \colon M \otimes (-) \xrightarrow{\;\sim\;} (-) \otimes M
+\end{equation}
+is a natural isomorphism satisfying the hexagon axiom
+(Definition~\ref{def:drinfeld-center}):
+\begin{equation}
+\label{eq:hexagon-half-braiding}
+ \sigma_{M,\, N \otimes P}
+ = (\id_N \otimes \sigma_{M,P}) \circ (\sigma_{M,N} \otimes \id_P)
+\end{equation}
+for all $N, P \in \Rep^{\Eone}(A)$.  The half-braiding
+$\sigma_M$ is \emph{additional data}, not given by $A$:
+it is the datum that promotes $M$ from a module to a
+\emph{central} module (an object of the center).
+
+\medskip
+\noindent\textbf{Step~4.}
+\textit{The braiding on $\cZ$ is the half-braiding.}
+The Drinfeld center $\cZ(\Rep^{\Eone}(A))$ is automatically
+a braided monoidal category.  The braiding is:
+\begin{equation}
+\label{eq:braiding-is-half-braiding}
+ \beta_{(M,\sigma_M),\,(N,\sigma_N)}
+ \;:=\; \sigma_M(N)
+ \;\colon\; M \otimes N \xrightarrow{\;\sim\;} N \otimes M.
+\end{equation}
+This is \emph{the} $R$-matrix: not a consequence of the
+braiding, but the braiding itself.  The braiding
+$\beta$ satisfies the Yang--Baxter equation because
+the hexagon axiom~\eqref{eq:hexagon-half-braiding} for
+$\sigma_M$ is equivalent to the YBE (the hexagon is the
+categorical form of the YBE).
+
+\medskip
+\noindent\textbf{Step~5.}
+\textit{The spectral $R$-matrix on evaluation modules.}
+For a Yangian or affine algebra $A$, the representation
+category contains \emph{evaluation modules} $V_u$
+parametrized by a spectral parameter $u \in \C$
+(Remark~\ref{rem:z-spectral-vs-worldsheet}: $u$ is a
+Yangian spectral parameter, not a worldsheet coordinate).
+On evaluation modules, the half-braiding specializes to:
+\begin{equation}
+\label{eq:rmatrix-spectral}
+ R(z) \;:=\; \sigma_{V_u}(V_v)
+ \;\colon\; V_u \otimes V_v \xrightarrow{\;\sim\;} V_v \otimes V_u,
+ \qquad z = u - v.
+\end{equation}
+The spectral parameter $z$ arises from the evaluation
+module parametrization, not from an OPE or worldsheet
+insertion point.  This is the $R$-matrix of integrable
+systems.
+
+\medskip
+\noindent\textbf{Step~6.}
+\textit{BZFN identifies the categorical and algebraic centers.}
+The Ben-Zvi--Francis--Nadler theorem
+(Theorem~\ref{thm:bzfn}) gives an equivalence of braided
+monoidal $\infty$-categories:
+\[
+ \cZ(\Rep^{\Eone}(A))
+ \;\simeq\;
+ \Rep^{\Etwo}(\HH^\bullet(A, A)).
+\]
+The derived center $\HH^\bullet(A, A)$ (Hochschild cochains)
+inherits its $\Etwo$-structure \emph{from} the Drinfeld
+center, not the other way around.  The Gerstenhaber bracket
+$\{-,-\}$ on $\HH^\bullet$ is the algebraic shadow of the
+categorical half-braiding $\sigma$; the $R$-matrix
+datum~\eqref{eq:rmatrix-spectral} on the left-hand side
+maps, under BZFN, to the $\Etwo$-braiding datum on
+the right-hand side.
+
+\medskip
+\noindent\textbf{Step~7.}
+\textit{The $R$-matrix measures the failure of $A$ to be
+$\Etwo$.}
+If $A$ were already an $\Etwo$-algebra, every $A$-module $M$
+would carry a \emph{canonical} half-braiding
+$\sigma_M^{\mathrm{can}} = \beta_M$ given by the existing
+$\Etwo$-braiding on $A$.  The forgetful functor
+$\Rep^{\Etwo}(A) \to \cZ(\Rep^{\Eone}(A))$, sending
+$M \mapsto (M, \beta_M)$, would be an equivalence, and the
+$R$-matrix~\eqref{eq:rmatrix-spectral} would reduce to the
+permutation $P \colon V_u \otimes V_v \to V_v \otimes V_u$
+(trivial braiding).  The nontrivial $R$-matrix exists
+\emph{because} $A$ is $\Eone$, not $\Etwo$: the
+half-braiding data $\sigma_M$ is genuinely new structure, not
+already present in $A$.  The $R$-matrix is the categorical
+measure of the failure of $A$ to be $\Etwo$.
+\end{construction}
+
+\begin{remark}[The arrow of explanation]
+\label{rem:arrow-of-explanation}
+%: The direction matters.  The R-matrix does not come from
+% "the E_2 structure on the center"; the E_2 structure on the
+% center IS the R-matrix.  The center does not "give" braiding
+% to the algebra; the center extracts braiding from the
+% representation category.
+The correct logical flow is:
+\[
+ A \;\text{($\Eone$)}
+ \;\xrightarrow{\;\Rep^{\Eone}\;}
+ \cC \;\text{(monoidal)}
+ \;\xrightarrow{\;\cZ\;}
+ \cZ(\cC) \;\text{(braided)}
+ \;\xrightarrow{\;\sigma_{V_u}(V_v)\;}
+ R(z) \;\text{(the $R$-matrix)}.
+\]
+The Drinfeld center does not ``give'' braiding to the algebra
+$A$; the algebra $A$ remains $\Eone$.  The braiding lives on
+the \emph{representation category} $\cZ(\Rep^{\Eone}(A))$,
+which is a distinct mathematical object from $A$ itself.
+The $\Etwo$-structure on the derived center $\HH^\bullet(A,A)$,
+identified by BZFN (Theorem~\ref{thm:bzfn}), is the algebraic
+encoding of this categorical braiding---not its source.
+\end{remark}
+
+\begin{example}[The Heisenberg: Construction~\ref{constr:rmatrix-from-center} in action]
+\label{ex:rmatrix-heisenberg-explicit}
+For $A = H_k$ (Heisenberg of level $k$, class~$G$),
+the construction instantiates as follows.
+\begin{enumerate}[label=\textup{Step~\arabic*.},leftmargin=3.5em]
+ \item $H_k$ is $\Eone$-chiral: $[J(z), J(w)] = k \cdot \delta'(z-w)$.
+ \item $\Rep^{\Eone}(H_k)$: Fock modules $\cF_\lambda$
+  labelled by highest weight $\lambda \in \C$; the tensor
+  product $\cF_\lambda \otimes \cF_\mu$ is ordered.
+ \item Half-braiding: $\sigma_{\cF_\lambda}(\cF_\mu)$ acts
+  as the scalar $e^{k\lambda\mu / z}$ (the normal-ordered
+  exponential of the Heisenberg OPE).
+ \item $R$-matrix: $R(z) = \sigma_{\cF_\lambda}(\cF_\mu)
+  = e^{k\lambda\mu / z}$, which is the braiding on
+  $\cZ(\Rep^{\Eone}(H_k))$.  The classical
+  $r$-matrix is $r(z) = k\Omega/z$ (the first-order
+  term in the expansion of $\log R$).
+ \item Spectral parameter: $z = u - v$ from the evaluation
+  module labels $u, v$ on Fock space.
+ \item BZFN: $\Zder(H_k) = \C \oplus \C[-1] \oplus \C[-2]$
+  (dimension~$3$), with Gerstenhaber bracket
+  $\{J, J\} = k$.  The $\Etwo$-braiding on
+  $\Rep^{\Etwo}(\Zder(H_k))$ is governed by $k$:
+  the same parameter that appears in $R(z)$.
+ \item Failure of $\Etwo$: $R(z) = e^{k\lambda\mu/z} \neq 1$
+  (nontrivial) because $H_k$ is $\Eone$, not $\Etwo$.
+  At $k = 0$: $R = 1$ (trivial braiding); indeed $H_0$ is
+  the abelian Lie algebra, which is $E_\infty$.
+\end{enumerate}
+The averaging map kills the $R$-matrix:
+$\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}} = k$
+(Volume~I).  The scalar $\kappa_{\mathrm{ch}}$ is the shadow
+of the full $R$-matrix data; the Drinfeld center retains
+the complete $R$-matrix.
+\end{example}
+
+
 \subsection{The $\C^3$ theorem: Yangian and $\cW_{1+\infty}$}
 \label{subsec:c3-yangian}
 
@@ -445,8 +660,7 @@ Chapter~\ref{ch:cy-to-chiral}.
 \subsection{The Ben-Zvi--Francis--Nadler loop space identification}
 \label{subsec:bzfn-loop-space}
 
-The BZFN theorem admits a geometric reformulation in terms of
-loop spaces that makes the passage from $\Eone$ to $\Etwo$ explicit.
+The algebraic identification $\cZ(\Rep^{\Eone}(A)) \simeq \Rep^{\Etwo}(\HH^\bullet(A,A))$ of Theorem~\ref{thm:bzfn} has a geometric counterpart: the Drinfeld center of quasi-coherent sheaves on a stack $X$ is equivalent to quasi-coherent sheaves on the free loop space $\cL X$.  This reformulation makes the passage from $\Eone$ to $\Etwo$ explicit (the braided structure arises from the $S^1$-rotation action on loops) and provides the geometric foundation for the CY holographic principle: the boundary algebra $A$ lives on $X$, the bulk algebra lives on $\cL X$, and the Drinfeld center is the geometric bridge between them.
 
 \begin{theorem}[BZFN loop space identification; Ben-Zvi--Francis--Nadler]
 \label{thm:bzfn-loop-space}
@@ -593,9 +807,9 @@ convolution bracket on $\fg^{\mathrm{mod}}_{A_\cC}$ of Volume~I.
 \begin{remark}[Status]
 \label{rem:categorical-thm-h-status}
 Items (i)--(iv) are standard consequences of smoothness and properness
-(Keller, Kontsevich). The conditional content is the identification
+(Keller, Kontsevich). The identification
 of the Gerstenhaber bracket with the Volume~I convolution bracket
-under $\Phi$, established for $d = 2$ and conjectural for $d = 3$.
+under $\Phi$ is established for $d = 2$ (CY-A$_2$) and for $d = 3$ at the infinity-categorical level (CY-A$_3$, proved); the chain-level identification at $d = 3$ for non-formal algebras remains open.
 %: polynomial Hilbert series does NOT mean polynomial ring.
 \end{remark}
 
@@ -612,7 +826,7 @@ Tannakian reconstruction gives a quasi-triangular Hopf algebra
 $H = \End(\omega)$ with $\cB \simeq \Rep(H)$ as braided monoidal
 categories. When $\cB = \cZ(\Rep^{\Eone}(A))$ for an $\Eone$-chiral
 algebra $A$ with $\frakg$-symmetry, $H \simeq \Uq(\frakg)$ with
-$q$ determined by $\kappa_{\mathrm{cat}}$.
+$q$ determined by $\kappa_{\mathrm{ch}}$.
 \end{proposition}
 
 \begin{remark}[Non-semisimple reconstruction]
@@ -772,7 +986,7 @@ invariant.
 \end{remark}
 
 
-\section{The $\En$-circle and the categorified averaging map}
+\section{The $\En$-circle and the categorified center}
 \label{sec:en-circle}
 
 The Drinfeld center is not an isolated construction: it is
@@ -801,13 +1015,14 @@ obtained by taking bimodule endomorphisms in the $\En$-sense.
 \end{itemize}
 \end{definition}
 
-\begin{proposition}[Drinfeld center as categorified averaging]
-\label{prop:drinfeld-center-averaging}
+\begin{proposition}[Drinfeld center as right adjoint to forgetful]
+\label{prop:drinfeld-center-adjunction}
 \ClaimStatusProvedHere
 The Drinfeld center $\cZ \colon \Eone\text{-}\Cat \to
-\Etwo\text{-}\Cat$ is the categorification of the averaging map
-$\mathrm{av} \colon \fg^{\Eone} \to \fg^{\mathrm{mod}}$ of
-Volume~I. The correspondence is:
+\Etwo\text{-}\Cat$ is the right adjoint to the forgetful functor
+$U \colon \Etwo\text{-}\Cat \to \Eone\text{-}\Cat$, categorifying
+the algebraic center $z(A) = \{x \in A : [x,a] = 0\;\forall a\}$.
+The correspondence with Volume~I is:
 \begin{center}
 \begin{tabular}{lll}
 \toprule
@@ -815,47 +1030,96 @@ Volume~I (algebraic) & This chapter (categorical) & Level \\
 \midrule
 $\fg^{\Eone}_A$ (convolution Lie) & $\Rep^{\Eone}(A)$ (monoidal)
  & $\Eone$ \\
-$\mathrm{av} \colon \fg^{\Eone} \to \fg^{\mathrm{mod}}$
+$z(\fg^{\Eone})$ (center of Lie algebra)
  & $\cZ \colon \Eone\text{-}\Cat \to \Etwo\text{-}\Cat$
- & averaging \\
+ & center \\
 $\kappa_{\mathrm{ch}} = \mathrm{av}(r(z))$ (scalar shadow)
  & braiding on $\cZ(\cC)$ (categorical shadow)
  & output \\
 \bottomrule
 \end{tabular}
 \end{center}
-The averaging map is lossy: $\mathrm{av}$ discards the
-$\Sigma_n$-equivariant structure of the ordered bar
-$B^{\mathrm{ord}}(A)$, retaining only the
-$\Sigma_n$-coinvariant projection (the scalar
-$\kappa_{\mathrm{ch}}$). The Drinfeld center is the
-categorification of this projection: it extracts the
-$\Etwo$-braided content from the full $\Eone$-monoidal
-structure.
+The algebraic averaging map $\mathrm{av}$ of Volume~I is the
+\emph{decategorification} of the Drinfeld center: it projects
+the ordered $R$-matrix to the scalar
+$\kappa_{\mathrm{ch}}$, discarding the
+$\Sigma_n$-equivariant structure. The Drinfeld center
+itself is \emph{not} averaging---it is the universal construction
+of half-braidings $\sigma_M \colon M \otimes (-) \xrightarrow{\sim}
+(-) \otimes M$, which is a categorified commutant, not a
+coinvariant projection.
 \end{proposition}
 
 \begin{proof}
-The algebraic averaging map
-$\mathrm{av} \colon \fg^{\Eone}_A \to \fg^{\mathrm{mod}}_A$ is
-defined as the $\Sigma_n$-coinvariant projection on the
-ordered convolution algebra. At degree $2$,
-$\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$ extracts the scalar
-shadow from the $r$-matrix (Volume~I, \S5).
+The Drinfeld center is the right adjoint to the forgetful
+functor $U \colon \Etwo\text{-}\Cat \to \Eone\text{-}\Cat$:
+for any $\Eone$-monoidal category $\cC$ and
+$\Etwo$-braided monoidal category $\cD$,
+\[
+  \Hom_{\Etwo}(\cD, \cZ(\cC))
+  \;\simeq\;
+  \Hom_{\Eone}(U(\cD), \cC).
+\]
+Objects of $\cZ(\cC)$ are pairs $(M, \sigma_M)$ where
+$\sigma_M \colon M \otimes (-) \xrightarrow{\sim} (-) \otimes M$
+is a half-braiding (natural isomorphism compatible with the
+monoidal structure). This is the categorification of the
+algebraic center $z(A) = \{x : xa = ax\;\forall a\}$---the
+half-braiding $\sigma_M$ is the categorical analogue of the
+commutation condition, not of $\Sigma_n$-coinvariants.
 
-The categorical analogue: the $\Eone$-monoidal category
-$\cC = \Rep^{\Eone}(A)$ carries a tensor product that is
-associative but not braided. The Drinfeld center
-$\cZ(\cC)$ extracts the braided monoidal structure by
-imposing half-braiding compatibility (the categorical
-analogue of $\Sigma_n$-symmetrization). The braiding on
-$\cZ(\cC)$, when restricted to the forgetful image
-$U(\cZ(\cC)) \subset \cC$, recovers the $R$-matrix data
-that categorifies $r(z)$. The scalar $\kappa_{\mathrm{ch}}$
-is the Euler characteristic of the braiding: the categorical
-trace $\mathrm{tr}_{\cZ}(\sigma) = \kappa_{\mathrm{cat}}$
-gives the categorical shadow of the $R$-matrix.
+The relationship to Volume~I: the algebraic averaging map
+$\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$ is the
+\emph{decategorification} of the forgetful functor
+$U \circ \cZ \to \mathrm{Id}$ (the counit of the adjunction).
+It projects the full $R$-matrix data to its scalar shadow.
 \end{proof}
 
+\begin{remark}[The Drinfeld center is not categorified averaging]
+\label{rem:center-not-averaging}
+The Volume~I averaging map
+$\mathrm{av} \colon \fg^{\Eone}_A \to \fg^{\mathrm{mod}}_A$
+and the Drinfeld center
+$\cZ \colon \Eone\text{-}\Cat \to \Etwo\text{-}\Cat$
+are related by a factorization, but they are not
+categorifications of each other. The factorization:
+\[
+ \Eone\text{-}\Cat
+ \;\xrightarrow{\;\cZ\;}\;
+ \Etwo\text{-}\Cat
+ \;\xrightarrow{\;\mathrm{Sym}\;}\;
+ \Einf\text{-}\Cat
+\]
+where $\mathrm{Sym}$ is the further symmetrization
+(forcing $\sigma_{M,N} \circ \sigma_{N,M} = \mathrm{id}$).
+At the algebra level, this decategorifies to
+\[
+ r(z) \;\xmapsto{\;\text{construct}\;}\; R(z)
+ \;\xmapsto{\;\mathrm{av}\;}\;
+ \kappa_{\mathrm{ch}}.
+\]
+The Drinfeld center is the \emph{first} step:
+it constructs the $R$-matrix (non-symmetric braiding) from
+$\Eone$-monoidal data. The averaging map is the
+\emph{second} step: it projects the braiding to its
+symmetric shadow, destroying the quantum group structure.
+The categorical analogue of the averaging map itself is
+$\mathrm{Sym}$, the symmetrization functor, which kills
+the $R$-matrix by forcing
+$R(z) R(-z) = \mathrm{id} \Rightarrow R = \mathrm{id}$.
+This is precisely why averaging destroys quantum group data
+(AP-CY23): $\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$ is a
+scalar, not a matrix.
+
+The Drinfeld center categorifies the algebraic
+\emph{center} $z(A) = \{x : [x,a] = 0\;\forall a\}$, which
+\emph{constructs} commuting elements---the categorical
+analogue of the half-braiding condition. The averaging map
+categorifies to the \emph{abelianization}
+$A \mapsto A/[A,A]$, which \emph{quotients} by
+non-commutativity. Construction versus quotient: the center
+adds data, averaging removes it.
+\end{remark}
 
 \section{The $E_3 \to \Etwo$ restriction and symmetric braiding}
 \label{sec:e3-symmetric}
@@ -964,14 +1228,15 @@ conditions) in the $d = 3$ CY landscape (Calabi--Yau threefolds).
 
 %%: AP-CY4: Drinfeld center Z(C) != derived center Z^{der}_{ch}(A). State which.
 %%: AP-CY3: E_2 != commutative. The braiding is NOT symmetric.
-%%: AP-CY6: A_{K3xE} doesn't exist. All results conditional on CY-A_3.
+%%: AP-CY6: A_{K3xE} now exists (CY-A_3 proved, inf-cat). Results conditional on CY-C remain conjectural.
 %%: AP113: kappa always subscripted.
 %%: AP-CY11: conditionality propagates through downstream results.
 
 The threefold $X = K3 \times E$ is the simplest compact CY$_3$
 admitting a rich chiral algebra structure. It exemplifies the
 full $\Eone \to \Etwo$ promotion mechanism and its obstructions.
-The (conjectural) chiral algebra $A_{K3 \times E}$
+The chiral algebra $A_{K3 \times E}$
+(constructed by Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3})
 is natively $\Eone$, since the $\mathbb{S}^3$-framing
 produces an $E_3$-structure on $\HH_\bullet(\cC_{K3 \times E})$
 whose restriction to $\Etwo$ is \emph{symmetric}
@@ -1003,10 +1268,10 @@ $\operatorname{hocolim}(\cZ)$ is massive.
 
 \begin{proposition}[Non-locality quantification for $K3 \times E$]
 \label{prop:k3e-nonlocality-quantification}
-\ClaimStatusConditional{}
-\textup{(}Conditional on CY-A$_3$ for the chiral algebra
-interpretation; unconditional for the BKM character
-computation.\textup{)}
+\ClaimStatusProvedHere{}
+\textup{(}The chiral algebra interpretation uses CY-A$_3$
+\textup{(}proved\textup{)}; the BKM character
+computation is independent.\textup{)}
 At each graded level~$n$, the center-hocolim obstruction
 ratio for $K3 \times E$ is:
 \[
@@ -1130,13 +1395,14 @@ $\epsilon_1 \neq -\epsilon_2$. This is the $\Omega$-deformation.
 \label{rem:two-routes-k3e}
 Two independent routes produce $\Etwo$-braiding for $K3 \times E$:
 \begin{enumerate}[label=\textup{(\Alph*)}]
- \item \emph{Drinfeld center route} (conditional on CY-A$_3$).
- $A_{K3 \times E}$ (the $\Eone$-chiral algebra, if it exists)
+ \item \emph{Drinfeld center route} (uses CY-A$_3$, proved).
+ $A_{K3 \times E}$ (the $\Eone$-chiral algebra,
+ constructed by Theorem~CY-A$_3$)
  $\to \Rep^{\Eone}(A_{K3 \times E})$
  $\to \cZ(\Rep^{\Eone}(A_{K3 \times E}))$
  $= \Rep^{\Etwo}(\Zder(A_{K3 \times E}))$.
  This route passes through the center-hocolim obstruction
- ($>92\%$ non-local) and requires $A_{K3 \times E}$ to exist.
+ ($>92\%$ non-local).
  \item \emph{MO stable envelope route} (unconditional).
  $\mathrm{Hilb}^n(K3 \times E)$
  $\to K_T(\mathrm{Hilb}^n)$
@@ -1428,9 +1694,13 @@ Non-abelian corrections (off-diagonal entries) appear when:
   of $\mathrm{Hilb}^2$.
 \end{itemize}
 These off-diagonal terms encode the non-abelian $K3$ Yangian
-structure and are controlled by the Drinfeld center of
-$\Rep^{\Eone}(H_{\mathrm{Muk}})$
-(Proposition~\ref{prop:derived-center-h-muk}).
+structure and are controlled by the derived center
+$\HH^\bullet(H_{\mathrm{Muk}}, H_{\mathrm{Muk}})$
+(Proposition~\ref{prop:derived-center-h-muk};
+AP-CY4: this is the algebraic derived center, not the
+categorical Drinfeld center $\cZ(\Rep^{\Eone}(H_{\mathrm{Muk}}))$,
+though the two produce the same $\Etwo$-braided representation
+category by BZFN, Theorem~\ref{thm:bzfn}).
 In the self-dual limit $\epsilon_1 = -\epsilon_2$: $g(u) = 1$
 and $R = \mathrm{Id}_{324}$ (trivial braiding).
 \end{remark}
@@ -1556,8 +1826,8 @@ holds block-by-block.
 \label{rem:deformation-away-a1}
 Setting $h_0 = h + \delta$, $h_1 = h - \delta$ for $\delta > 0$
 lifts the eigenvalue degeneracy within each $2 \times 2$ block.
-The block structure---and the count of $48$ off-diagonal
-entries---\emph{persists} for all $\delta$: it is dictated by the
+The block structure (and the count of $48$ off-diagonal
+entries) \emph{persists} for all $\delta$: it is dictated by the
 Mukai lattice decomposition, not by the degeneracy.
 What changes is the \emph{mixing angle}: at $\delta = 0$
 the eigenstates of each $2 \times 2$ block are the symmetric
@@ -1743,7 +2013,7 @@ requires finitely many simples.
 
 \begin{remark}[BPS dictionary]
 \label{rem:chiral-qg-bps-dictionary}
-% AP-CY14, AP-CY6: CONJECTURAL.  Requires CY-A_3.
+% AP-CY14: CONJECTURAL.  Requires CY-C (Y(g_{K3}) existence). CY-A_3 proved.
 Under the conjectural identification of $\Rep^{\Etwo}(Y(\fg_{K3}))$
 with the category of BPS states on $K3 \times E$:
 \begin{center}

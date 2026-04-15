@@ -5,10 +5,12 @@
 \chapter{Quantum Chiral Algebras}
 \label{ch:quantum-chiral-algebras}
 
+The central objects of this volume are quantum chiral algebras: $\Eone$-chiral algebras whose Drinfeld centres carry $\Etwo$-braided representation categories encoding the representation theory of quantum groups.  The question this chapter answers is: what algebraic structure does the CY-to-chiral functor $\Phi$ produce when composed with the Drinfeld center?  The answer is a quantum chiral algebra --- an $\Eone$-chiral algebra $A$ whose Drinfeld centre $\mathrm{Drin}(A)$ is an $\Etwo$-chiral algebra carrying an $R$-matrix, a Drinfeld coproduct, and a quantum Yang--Baxter equation --- from which quantum groups, Yangians, and quantum toroidal algebras are extracted as representation-theoretic data.  At $d = 2$, the chiral algebra $\Phi(\cC)$ is natively $\Etwo$; at $d = 3$, it is natively $\Eone$ and the $\Etwo$-braiding lives on the Drinfeld centre of the representation category (not on $A$ itself).  This chapter defines the target structure, constructs the CY $R$-matrix, proves its Yang--Baxter property from bar-complex coassociativity, and develops the holomorphic Chern--Simons programme that produces quantum chiral algebras from gauge theory on $\C^n$.
+
 \section{Definition and structure}
 \label{sec:qca-definition}
 
-A \emph{quantum chiral algebra} is an $E_2$-chiral algebra $A$ (Definition~\ref{def:e2-chiral-algebra}, Chapter~\ref{ch:e2-chiral}) with finite-dimensional weight spaces and an $R$-matrix $R(z) \in A \otimes A \otimes k((z))$ satisfying the quantum Yang--Baxter equation.
+A \emph{quantum chiral algebra} is an $\Eone$-chiral algebra $A$ (at $d \geq 3$; $\Etwo$-chiral at $d = 2$) with finite-dimensional weight spaces whose Drinfeld centre $\cZ(\Rep^{\Eone}(A))$ carries an $\Etwo$-braided monoidal structure with an $R$-matrix $R(z) \in A \otimes A \otimes k((z))$ satisfying the quantum Yang--Baxter equation.  At $d = 2$, $A$ itself is natively $\Etwo$ (Definition~\ref{def:e2-chiral-algebra}, Chapter~\ref{ch:e2-chiral}); at $d \geq 3$, $A$ is natively $\Eone$ and the $\Etwo$-braiding lives on the Drinfeld centre (AP-CY56).
 
 %: G(X) is NOT YET CONSTRUCTED in general. The following is a
 % provisional specification of what properties the target object should
@@ -33,7 +35,7 @@ The specification above is \emph{not} a mathematical definition: it is a list of
 \begin{itemize}
  \item For toric CY$_3$ without compact $4$-cycles: the CoHA $\mathcal{H}(Q_X, W_X)$ and its Drinfeld double provide a constructed $E_2$-algebra (Schiffmann--Vasserot, RSYZ).
  \item For $d = 2$: the functor $\Phi$ of Theorem~CY-A$_2$ constructs $A_\cC$ from a CY$_2$ category.
- \item For $K3 \times E$ ($d = 3$): the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ and its root datum exist (Gritsenko--Nikulin), but the chiral algebra $A_{K3 \times E} = \Phi(D^b(\mathrm{Coh}(X)))$ is \emph{not} constructed. The identification $\kappa_{\mathrm{BKM}} = 5$ is an observation matching the Borcherds lift weight, not a computation from Vol~I's definition of $\kappa_{\mathrm{ch}}$.
+ \item For $K3 \times E$ ($d = 3$): the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ and its root datum exist (Gritsenko--Nikulin), and the chiral algebra $A_{K3 \times E} = \Phi_3(D^b(\mathrm{Coh}(X)))$ is now constructed by Theorem~CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}). The identification $\kappa_{\mathrm{BKM}} = 5$ as a Vol~I modular characteristic remains conditional on the CY-D programme (motivic DT identification).
  \item The $E_2$ braided monoidal structure on representations is constructed for $d = 2$ and conjectural for $d = 3$.
 \end{itemize}
 Until $G(X)$ is constructed, statements of the form ``$G(X)$ satisfies property $P$'' are conjectures about the target, not theorems about a defined object.
@@ -165,7 +167,7 @@ The Maulik--Okounkov (MO) stable-envelope construction provides an independent, 
 \begin{theorem}[MO/chiral $R$-matrix comparison for toric CY$_3$]
 \label{thm:mo-chiral-rmatrix}
 \ClaimStatusProvedHere
-Let $X$ be a toric CY threefold with torus action $T$ (e.g.\ $X = \C^3$ or a toric degeneration admitting a Hilbert scheme description), and let $R^{\mathrm{MO}}(u)$ be the Maulik--Okounkov $R$-matrix from stable envelopes on $\mathrm{Hilb}^n(X)$. Let $R^{\mathrm{ch}}(u)$ be the chiral $R$-matrix from the $E_2$-bar complex of the quantum chiral algebra $A_X$ constructed via the CoHA (Construction~\ref{constr:cy-r-matrix}). Then:
+Let $X$ be a toric CY threefold with torus action $T$ (e.g.\ $X = \C^3$ or a toric degeneration admitting a Hilbert scheme description), and let $R^{\mathrm{MO}}(u)$ be the Maulik--Okounkov $R$-matrix from stable envelopes on $\mathrm{Hilb}^n(X)$. Let $R^{\mathrm{ch}}(u)$ be the chiral $R$-matrix from the $\Etwo$-bar complex of the Drinfeld double $D(Y^+)$ of the CoHA (Construction~\ref{constr:cy-r-matrix}). The $\Etwo$-bar complex here is constructed on the Drinfeld double, not on the CoHA $Y^+$ itself (which is natively $\Eone$; the $\Etwo$-braiding arises from the Drinfeld centre, Theorem~\ref{thm:drinfeld-center-coha}). Then:
 \begin{enumerate}[label=(\roman*)]
  \item Both $R$-matrices act on the same space: the Fock representation $\cF = \bigoplus_n K_T(\mathrm{Hilb}^n(X)^T)$, with basis indexed by partitions.
  \item On each partition $\lambda$, both produce the same diagonal eigenvalue:
@@ -295,7 +297,7 @@ Dually, the chiral CE cochains $\mathrm{CE}^\bullet(L, L) = \Hom(\bigwedge^\bull
 \end{proposition}
 
 \begin{proof}
-The identification follows from the Poincar\'e--Birkhoff--Witt filtration on $U^{\mathrm{ch}}(L)$ (Kac 1998, \S\,2.6; Loday--Vallette 2012, Theorem~10.1.6). The bar complex $B(U(\frakg))$ of the universal enveloping algebra of a Lie algebra $\frakg$ is quasi-isomorphic to the CE chain complex $\mathrm{CE}_\bullet(\frakg)$; the chiral version replaces $\frakg$ with $L$ and $U(\frakg)$ with $U^{\mathrm{ch}}(L)$, the chiral envelope (factorization envelope in the sense of Beilinson--Drinfeld). The identification $d_B = d_{\mathrm{CE}}$ follows from the fact that $d_B$ on $B_2 \to B_1$ computes the residue of the OPE, which for $U^{\mathrm{ch}}(L)$ is the $0$\nobreakdash-th product $a_{(0)}b$, the Lie bracket of $L$. Verification at arity~$3$: $d_{\mathrm{CE}}^2 = 0$ on $\bigwedge^3$ is equivalent to the Jacobi identity for $L$, which holds by hypothesis. The Poincar\'e polynomial is $(1+t)^n$ with $n = \dim L$ by the binomial theorem applied to $\bigwedge^\bullet(L)$. The cochain identification $\mathrm{CE}^\bullet(L,L) = \HH^\bullet(A,A)$ is the derived center characterization of Vol~I Theorem~H, specialized to the PBW case.
+The identification follows from the Poincar\'e--Birkhoff--Witt filtration on $U^{\mathrm{ch}}(L)$ (Kac 1998, \S\,2.6; Loday--Vallette 2012, Theorem~10.1.6). The bar complex $B(U(\frakg))$ of the universal enveloping algebra of a Lie algebra $\frakg$ is quasi-isomorphic to the CE chain complex $\mathrm{CE}_\bullet(\frakg)$; the chiral version replaces $\frakg$ with $L$ and $U(\frakg)$ with $U^{\mathrm{ch}}(L)$, the chiral envelope (factorization envelope in the sense of Beilinson--Drinfeld). The identification $d_B = d_{\mathrm{CE}}$ follows from the fact that $d_B$ on $B_2 \to B_1$ computes the residue of the OPE, which for $U^{\mathrm{ch}}(L)$ is the $0$\nobreakdash-th product $a_{(0)}b$, the Lie bracket of $L$. Verification at degree~$3$: $d_{\mathrm{CE}}^2 = 0$ on $\bigwedge^3$ is equivalent to the Jacobi identity for $L$, which holds by hypothesis. The Poincar\'e polynomial is $(1+t)^n$ with $n = \dim L$ by the binomial theorem applied to $\bigwedge^\bullet(L)$. The cochain identification $\mathrm{CE}^\bullet(L,L) = \HH^\bullet(A,A)$ is the derived center characterization of Vol~I Theorem~H, specialized to the PBW case.
 
 Computational verification (\texttt{compute/lib/chiral\_ce\_complex.py}, $66$ tests):
 \begin{itemize}
@@ -384,7 +386,7 @@ Chapters~\ref{ch:k3-times-e} and~\ref{chap:toroidal-elliptic} develop the \emph{
  \bottomrule
 \end{tabular}
 \end{center}
-The agreement of the three is itself conjectural. The 6d pathway provides the geometric origin of the quantum toroidal parameters $(q, t)$: they come from the K3 complex structure moduli through the Omega-background identification.
+The agreement of the three is itself conjectural. The 6d pathway provides the geometric origin of the quantum toroidal parameters $(q, t)$: they arise from the K3 complex structure moduli via equivariant localisation on the Omega-background of the normal bundle $N_{C/X}$ (AP-CY20: the normal bundle grading does not directly identify with $(q,t)$; the intermediary mechanism is Nekrasov-type equivariant localisation).
 \end{remark}
 
 \subsection{Codimension-$2$ defect OPE from the 6d action}
@@ -525,14 +527,14 @@ For the 6d holomorphic theory on $\C^3$ with gauge algebra $\fgl_1$ and Omega-ba
  \emph{Status}: assignments exist for dimensions $1$--$2$; dimensions $3$--$5$ are missing.
 
  \item \emph{Reshetikhin--Turaev from the quantum toroidal algebra.}
- The 3d RT functor uses $U_q(\frakg)$ at root of unity with the YBE for consistency. At 6d, the Zamolodchikov tetrahedron equation (ZTE) replaces the YBE as the consistency condition. The Yang $R$-matrix satisfies YBE but \emph{fails} ZTE at order $O(\kappa^2)$ where $\kappa = h_1 h_2 h_3$ (Theorem~\ref{thm:zte-failure}, $34$~tests). The ZTE failure at $\kappa \neq 0$ proves that the $E_3$ structure is genuinely nontrivial and that pairwise $R$-matrices alone do not produce consistent $6$-manifold invariants. The $E_3$ correction term $T$ with $S^{\mathrm{corr}} = S + \kappa^2 T$ solving ZTE would constitute new mathematics.
+ The 3d RT functor uses $U_q(\frakg)$ at root of unity with the YBE for consistency. At 6d, the Zamolodchikov tetrahedron equation (ZTE) replaces the YBE as the consistency condition. The Yang $R$-matrix satisfies YBE but \emph{fails} ZTE at order $O(\sigma_3^2)$ where $\sigma_3 = h_1 h_2 h_3$ (Theorem~\ref{thm:zte-failure}, $34$~tests). The ZTE failure at $\sigma_3 \neq 0$ proves that the $E_3$ structure is genuinely nontrivial and that pairwise $R$-matrices alone do not produce consistent $6$-manifold invariants. The $E_3$ correction term $T$ with $S^{\mathrm{corr}} = S + \sigma_3^2 T$ solving ZTE would constitute new mathematics.
  \emph{Status}: ZTE failure proved; the correction term is conjectural.
 \end{enumerate}
 \end{conjecture}
 
 \begin{remark}[The ZTE obstruction as the 6d fingerprint]
 \label{rem:zte-6d-fingerprint}
-The Zamolodchikov tetrahedron equation failure (item~(vi)) is the deepest structural gap between 3d and 6d. In 3d, the Yang--Baxter equation (the $2$-simplex consistency) suffices for all knot and $3$-manifold invariants. In 6d, the ZTE (the $3$-simplex consistency) is the analogue, and it \emph{fails} for the Yang $R$-matrix. The failure is a quantum effect: it vanishes at $\kappa = 0$ (Kapranov--Voevodsky triviality at the permutation limit) and scales as $O(\kappa^2)$. This scaling proves that the $E_3$ corrections live at the \emph{chain level} (AP-CY33: Kontsevich formality destroys them rationally). The 6d theory is not a ``dimensional upgrade'' of 3d CS; it is a genuinely different structure requiring new algebraic inputs beyond quantum groups.
+The Zamolodchikov tetrahedron equation failure (item~(vi)) is the deepest structural gap between 3d and 6d. In 3d, the Yang--Baxter equation (the $2$-simplex consistency) suffices for all knot and $3$-manifold invariants. In 6d, the ZTE (the $3$-simplex consistency) is the analogue, and it \emph{fails} for the Yang $R$-matrix. The failure is a quantum effect: it vanishes at $\sigma_3 = 0$ (Kapranov--Voevodsky triviality at the permutation limit) and scales as $O(\sigma_3^2)$. This scaling proves that the $E_3$ corrections live at the \emph{chain level} (AP-CY33: Kontsevich formality destroys them rationally). The 6d theory is not a ``dimensional upgrade'' of 3d CS; it is a genuinely different structure requiring new algebraic inputs beyond quantum groups.
 \end{remark}
 
 
@@ -592,7 +594,7 @@ The obstructions are not \emph{defects} of the 6d theory but \emph{signatures} o
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item Two-parameter $R$-matrix $R(u, v)$ with Zamolodchikov factorization;
  \item Miki automorphism ($S_3$ on $(q, t, s)$, algebra-specific, AP-CY22);
- \item ZTE corrections at $O(\kappa^2)$ (genuinely new $E_3$ mathematics);
+ \item ZTE corrections at $O(\sigma_3^2)$ (genuinely new $E_3$ mathematics);
  \item Shadow tower / $A_\infty$ coproduct (infinite corrections $\delta^{(k)} = S_k$);
  \item Mock modularity for class~$M$ characters;
  \item Non-semisimple Drinfeld center (richer than semisimple MTC of 3d).
@@ -615,7 +617,7 @@ We decompose all $34$ substructures across the eight obstruction categories into
  \item \emph{Topological}: the output is a number (or finite collection of numbers) that depends on a manifold type, a knot, or a topological invariant, but not on any continuous parameter. Examples: Verlinde dimensions, knot group $\pi_1(S^3 \setminus K)$, Alexander polynomial, Kirby invariance, $S$-matrix (modular, non-degenerate), Khovanov homology, hyperbolic volume.
  \item \emph{Hybrid}: the output has both algebraic and topological aspects. Examples: handle decomposition (topological existence, algebraic gluing data), modular characters (algebraic functions with topological transformation properties).
 \end{itemize}
-Of the $34$ substructures, $12$ are algebraic, $19$ are topological, and $3$ are hybrid. Among the algebraic structures, the lift rate to 6d is $100\%$: every algebraic structure of 3d CS lifts to a (richer) algebraic structure in 6d. Among the topological structures, the lift rate is $0\%$: no topological structure lifts. The hybrid structures have mixed behavior. The overall lift rate of $12/34 \approx 24\%$ is the fraction of algebraic structures in the total catalogue.
+Of the $34$ substructures, $12$ are algebraic, $19$ are topological, and $3$ are hybrid. Among the algebraic structures, the lift rate to 6d is $100\%$: every algebraic structure of 3d CS lifts to a (richer) algebraic structure in 6d. Among the topological structures, the lift rate is $0\%$: no topological structure lifts. The hybrid structures have mixed behavior. The overall lift rate is $12/34 \approx 35\%$; the algebraic fraction of the total catalogue is $12/34$ (AP-CY48).
 
 \begin{center}
 \small
@@ -696,7 +698,7 @@ where the polynomial ring $\Z[x]$ contains all the information about all quotien
 \section{The Costello--Paquette defect chiral algebra and the $5d \to 6d$ boost}
 \label{sec:costello-paquette-defect}
 
-The Costello--Paquette construction (arXiv:2104.14573, arXiv:2208.00354) identifies the boundary chiral algebra of holomorphic Chern--Simons theory as the endomorphism algebra of a \emph{universal defect}: a canonical line defect $D_{\mathrm{univ}}$ whose module category exhausts all Wilson line modules. The construction is established at $5d$ (Costello 2013; Costello--Paquette 2021), producing the affine Yangian $Y(\widehat{\fgl}_1)$, and admits a conjectural boost to $6d$, where the target is the quantum toroidal algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$. This section develops both the $5d$ universal defect and its $6d$ lift, culminating in the form factor map $\mathsf{ff} \colon Z^{\mathrm{der}}_{\mathrm{ch}}(A) \to A^!$ that bridges the bulk algebra to the defect algebra.
+The Costello--Paquette construction (arXiv:2104.14573, arXiv:2208.00354) identifies the boundary chiral algebra of holomorphic Chern--Simons theory as the endomorphism algebra of a \emph{universal defect}: a canonical line defect $D_{\mathrm{univ}}$ whose module category exhausts all Wilson line modules. The construction is established at $5d$ (Costello 2013; Costello--Paquette 2021), producing the affine Yangian $Y(\widehat{\fgl}_1)$, and admits a conjectural boost to $6d$, where the target is the quantum toroidal algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$. The $5d$ universal defect and its $6d$ lift culminate in the form factor map $\mathsf{ff} \colon Z^{\mathrm{der}}_{\mathrm{ch}}(A) \to A^!$ bridging the bulk algebra to the defect algebra.
 
 \subsection{The universal defect at each dimension}
 \label{subsec:cp-universal-defect-dims}
@@ -755,7 +757,7 @@ where the first arrow is the Hochschild-to-bar comparison map (Vol~I Theorem~H, 
 \[
   \mathsf{ff}(O)(|v\rangle) \;=\; \Res_{z=0}\, z^{\Delta_O - 1}\, O(z)\, |v\rangle,
 \]
-extracting the singular part of the bulk-to-boundary OPE---precisely the data captured by the bar complex $B(A)$.
+extracting the singular part of the bulk-to-boundary OPE: precisely the data captured by the bar complex $B(A)$.
 \end{construction}
 
 \begin{proposition}[Form factor axioms]
@@ -814,13 +816,13 @@ Affinization & single ($\widehat{\fgl}_1$) & double ($\widehat{\widehat{\fgl}}_1
 \bottomrule
 \end{tabular}
 \end{center}
-The boost is NOT dimensional reduction in reverse: the $6d$ theory has genuinely new structure---the second affinization, the Miki automorphism (AP-CY22: algebra-specific, not operadic), and the ZTE obstruction---that cannot be obtained from $5d$ alone.
+The boost is NOT dimensional reduction in reverse: the $6d$ theory has genuinely new structure (the second affinization, the Miki automorphism (AP-CY22: algebra-specific, not operadic), and the ZTE obstruction) that cannot be obtained from $5d$ alone.
 
 The two-parameter structure function of the $6d$ defect at charge~$1$ is
 \begin{equation}\label{eq:cp-two-param-structure}
   G_{\mathrm{ch}}(u, v) \;=\; g(u) \cdot g(v) \cdot g(u - v),
 \end{equation}
-where $g(u) = \prod_{i=1}^3(u - h_i)/\prod_{i=1}^3(u + h_i)$ is the Yangian structure function. This is the Zamolodchikov factorisation of the charge-$1$ two-parameter $R$-matrix. At charge $\geq 2$, the factorised ansatz $S_{ijk} = R_{ij}R_{ik}R_{jk}$ fails the Zamolodchikov tetrahedron equation at $O(\kappa^2)$ where $\kappa = \sigma_3 = h_1 h_2 h_3$ (Theorem~\ref{thm:zte-failure}), proving the $E_3$ structure is genuinely nontrivial.
+where $g(u) = \prod_{i=1}^3(u - h_i)/\prod_{i=1}^3(u + h_i)$ is the Yangian structure function. This is the Zamolodchikov factorisation of the charge-$1$ two-parameter $R$-matrix. At charge $\geq 2$, the factorised ansatz $S_{ijk} = R_{ij}R_{ik}R_{jk}$ fails the Zamolodchikov tetrahedron equation at $O(\sigma_3^2)$ where $\sigma_3 = h_1 h_2 h_3$ (Theorem~\ref{thm:zte-failure}), proving the $E_3$ structure is genuinely nontrivial.
 \end{conjecture}
 
 \begin{remark}[What is preserved and what changes]
@@ -850,8 +852,8 @@ The universal defect $D_{\mathrm{univ}}$ for K3 targets produces the following b
 $\dim_\C(M)$ & Ambient & $\kappa_{\mathrm{ch}}$ & Boundary algebra & Status \\
 \midrule
 $1$ & K3 & $2$ & $V_k(\mathfrak{g}_{K3})$ & \textbf{Proved} (CY-A$_2$) \\
-$2$ & $K3 \times \C \times \R$ & $3$ & $Y(\mathfrak{g}_{K3})$ & \textbf{Conjectural} (CY-A$_3$) \\
-$3$ & $K3 \times E \times \C$ & $3$ & $U_{q,t}(\widehat{\mathfrak{g}}_{K3})$ & \textbf{Conjectural} (6d + CY-A$_3$) \\
+$2$ & $K3 \times \C \times \R$ & $3$ & $Y(\mathfrak{g}_{K3})$ & \textbf{Conjectural} (5d K3 hCS) \\
+$3$ & $K3 \times E \times \C$ & $3$ & $U_{q,t}(\widehat{\mathfrak{g}}_{K3})$ & \textbf{Conjectural} (6d non-Lagrangian) \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1306,7 +1308,7 @@ The dimensional reductions are:
  \]
  The rational structure function $g_{K3}(u) = \prod_{a=1}^{24} (u - h_a)/(u + h_a) \to 1$ (trivial $R$-matrix), and the Yangian degenerates to the current algebra of the Mukai Heisenberg.
 \end{enumerate}
-The 3d level is established by CY-A$_2$ (Theorem~CY-A, $d = 2$). The 5d and 6d levels are conjectural and depend on the constructions of the K3 Yangian (Conjecture~\ref{conj:k3-yangian}, Section~\ref{sec:rtt-ope-dictionary}) and K3 quantum toroidal algebra (Conjecture~\ref{conj:6d-k3xe}) respectively. The hierarchy is conditional on CY-A$_3$ for K3 at the 5d and 6d levels (AP-CY11: conditionality propagates from CY-A$_3$ to all downstream results).
+The 3d level is established by CY-A$_2$ (Theorem~CY-A, $d = 2$).  CY-A$_3$ is proved in the $\infty$-categorical framework (Theorem~\ref{thm:derived-framing-m3b2}), so the $d = 3$ functor $\Phi_3$ exists.  The 5d and 6d levels remain conjectural because they depend on the constructions of the K3 Yangian (Conjecture~\ref{conj:k3-yangian}, Section~\ref{sec:rtt-ope-dictionary}) and K3 quantum toroidal algebra (Conjecture~\ref{conj:6d-k3xe}) respectively, which require the 5d/6d holomorphic CS frameworks (not merely CY-A$_3$).
 \end{conjecture}
 
 \subsection{The Omega-background at each level}
@@ -1473,7 +1475,7 @@ The defect algebra (chiral quantum group) arises from the five-stage pipeline of
 \begin{conjecture}[Defect algebra of $K3 \times E$ via Koszul duality]
 \label{conj:defect-koszul-k3xe}
 \ClaimStatusConjectured
-Let $A_{K3 \times E}$ denote the bulk chiral algebra on $E$ from the CY-to-chiral functor $\Phi$ applied to $D^b(\Coh(K3 \times E))$ (Conjecture~\ref{conj:6d-k3xe}, conditional on CY-A$_3$). Then the five-stage pipeline produces two branches:
+Let $A_{K3 \times E}$ denote the bulk chiral algebra on $E$ from the CY-to-chiral functor $\Phi_3$ applied to $D^b(\Coh(K3 \times E))$ (constructed by Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}; the 6d framework of Conjecture~\ref{conj:6d-k3xe} provides an independent route). Then the five-stage pipeline produces two branches:
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item \emph{Free-field branch} (class~G, $\fgl_1$): $\kappa_{\mathrm{ch}}(A) = 3$, $\kappa_{\mathrm{ch}}(A^!) = -3$, conductor $K = 0$. The defect algebra has inverted structure function $g^!_{K3}(u) = 1/g_{K3}(u)$ and reversed braiding $\Rep^{\Etwo}(A^!) \simeq \Rep^{\Etwo}(A)^{\mathrm{rev}}$. The bar-cobar adjunction recovers $A$ on the Koszul locus: $\Omega(B(A)) \simeq A$.
  \item \emph{BKM branch} (class~M): $\kappa_{\mathrm{ch}}(A) = 3$, $\kappa_{\mathrm{ch}}(A^!) = 2$, conductor $K = 5 = \kappa_{\mathrm{BKM}}$. The defect algebra is a deformation of the Koszul dual of the BKM vertex algebra $V_{\mathfrak{g}_{\Delta_5}}$, with infinite shadow depth. The nonzero conductor $K = 5$ places this branch outside the free-field Koszul class.
@@ -1672,8 +1674,8 @@ The (conjectural) K3 Yangian $Y(\fg_{K3})$ for $\fg = \gl_1$ admits two equivale
 \label{warn:spectral-vs-worldsheet}
 The variable $u$ in the RTT presentation is a \emph{Yangian spectral parameter}, living in the complexified weight space. The variable $z$ in the OPE presentation is a \emph{worldsheet coordinate} on the chiral Riemann surface. These are different mathematical objects:
 \begin{itemize}
-  \item Setting $u = 0$ in $\Delta_u$ yields the cocommutative coproduct $\Delta_0(T(v)) = T^L(v) \cdot T^R(v)$---no singularity.
-  \item Setting $z \to w$ in $J_i(z)\,J_j(w)$ produces the OPE poles $\sim (z-w)^{-2}$---a physical collision singularity.
+  \item Setting $u = 0$ in $\Delta_u$ yields the cocommutative coproduct $\Delta_0(T(v)) = T^L(v) \cdot T^R(v)$: no singularity.
+  \item Setting $z \to w$ in $J_i(z)\,J_j(w)$ produces the OPE poles $\sim (z-w)^{-2}$, a physical collision singularity.
 \end{itemize}
 Both encode the \emph{same mode algebra} $[J_{i,m},\, J_{j,n}] = \omega^{ij}\, m\, \delta_{m+n,0}$; the bridge is through the modes.
 \end{warning}
@@ -1801,7 +1803,7 @@ The coproduct preserves the Heisenberg commutator on the tensor product:
   [\Delta_0(J_{i,m}),\, \Delta_0(J_{j,n})]
   \;=\; 2\, \omega^{ij}\, m\, \delta_{m+n,0}
 \]
-(the factor~$2$ arises from the two independent copies $H_L$ and $H_R$). The spectral shift $u$ appears only at the \emph{composite} level---the Sugawara coproduct $\Delta_u(T(v)) = T^L(v) \cdot T^R(v - u)$ acquires $u$-dependent cross-terms via the Miura factorisation (Section~\ref{sec:e1-chiral-bialgebras}).
+(the factor~$2$ arises from the two independent copies $H_L$ and $H_R$). The spectral shift $u$ appears only at the \emph{composite} level: the Sugawara coproduct $\Delta_u(T(v)) = T^L(v) \cdot T^R(v - u)$ acquires $u$-dependent cross-terms via the Miura factorisation (Section~\ref{sec:e1-chiral-bialgebras}).
 \end{proposition}
 
 \begin{proof}
@@ -1983,13 +1985,13 @@ The three obstructions to the CFG25 lift form a partial order by severity:
  \textbf{Level} & \textbf{Obstruction} & \textbf{Type} & \textbf{Status} \\
  \midrule
  1 & ZTE failure & Local algebraic & Computed (Theorem~\ref{thm:zte-failure}); resolved by gauge-extended complex \\
- 2 & CY-A$_3$ ($\bS^3$-framing) & Global geometric & Programme; Kummer bypass 80\% proved \\
+ 2 & CY-A$_3$ ($\bS^3$-framing) & Global geometric & \textbf{Proved} ($\infty$-cat, Theorem~\ref{thm:derived-framing-m3b2}); chain-level explicit framing open for non-formal \\
  3 & 6d non-Lagrangian & Foundational & Conjectural; route~(c) of Remark~\ref{rem:6d-not-lagrangian} \\
  \bottomrule
 \end{tabular}
 \end{center}
 
-\noindent Each later obstruction depends on resolving the earlier ones. The ZTE obstruction (level~1) is purely algebraic and has a deformation-theoretic resolution; CY-A$_3$ (level~2) is the geometric bottleneck of the programme; the non-Lagrangian nature of the 6d theory (level~3) is the foundational question of whether the algebraic formulation of Costello--Francis--Gwilliam extends to the 6d setting.
+\noindent Each later obstruction depends on resolving the earlier ones. The ZTE obstruction (level~1) is purely algebraic and has a deformation-theoretic resolution; CY-A$_3$ (level~2) is now resolved in the $\infty$-categorical framework (Theorem~\ref{thm:derived-framing-m3b2}: obstruction group $\HH^{-2}_{E_1} = 0$), though chain-level explicit framing data for non-formal algebras remains open; the non-Lagrangian nature of the 6d theory (level~3) is the foundational question of whether the algebraic formulation of Costello--Francis--Gwilliam extends to the 6d setting.
 
 \begin{remark}[Verification summary: 113 tests across 11 suites]
 \label{rem:cfg25-verification}
@@ -2293,7 +2295,7 @@ where $Z^{(L)}$ is the $L$-loop Feynman contribution (Proposition~\ref{prop:loop
 
 \begin{remark}[Why conjecture, not theorem]
 \label{rem:mc-shadow-why-conjecture}
-The identification~\eqref{eq:mc-shadow-identification} is conjectural because it requires the existence of the $E_3$-chiral structure on $A$ for CY$_3$ targets, which depends on CY-A$_3$ (AP-CY6/AP-CY14). The individual correspondences $S_k \leftrightarrow Z^{(k-1)}$ and $S_k \leftrightarrow m_k$ are \emph{proved} (Proposition~\ref{prop:loop-shadow-identification} and Vol~I, respectively). The composite arrow $\alpha_k \leftrightarrow S_k$ is the new content: it identifies the MC coefficients on $\HH^2_{E_3}$ with the shadow tower. The conjecture asserts that the deformation-theoretic packaging (the MC equation on $\HH^2_{E_3}$) and the combinatorial packaging (the shadow tower recursion) describe the same underlying structure.
+The identification~\eqref{eq:mc-shadow-identification} is conjectural because it requires the \emph{explicit} $E_3$-chiral tricomplex structure on $A$ for CY$_3$ targets.  CY-A$_3$ is proved in the $\infty$-categorical framework (Theorem~\ref{thm:derived-framing-m3b2}), guaranteeing existence of the $E_3$-lifting; but the explicit chain-level tricomplex data for non-formal algebras, needed to compute the MC coefficients $\alpha_k$, remains open. The individual correspondences $S_k \leftrightarrow Z^{(k-1)}$ and $S_k \leftrightarrow m_k$ are \emph{proved} (Proposition~\ref{prop:loop-shadow-identification} and Vol~I, respectively). The composite arrow $\alpha_k \leftrightarrow S_k$ is the new content: it identifies the MC coefficients on $\HH^2_{E_3}$ with the shadow tower. The conjecture asserts that the deformation-theoretic packaging (the MC equation on $\HH^2_{E_3}$) and the combinatorial packaging (the shadow tower recursion) describe the same underlying structure.
 \end{remark}
 
 The MC series has convergence controlled by the shadow class:
@@ -2582,7 +2584,7 @@ assessment of Section~\ref{subsec:cfg25-result3} classified the volume
 conjecture as a \emph{complete gap} with $0\%$ lift rate.  This
 assessment is correct for a literal lift.  What follows is an
 \emph{analogue}, not a lift: it occupies the same structural
-position---relating quantum invariants to classical geometry---but
+position (relating quantum invariants to classical geometry) but
 uses different mathematics on both sides.
 
 \medskip\noindent\textbf{The $3d$-to-$6d$ dictionary.}
@@ -2654,7 +2656,7 @@ $t + O(1/\!\sqrt{N}\,)$.
 \emph{Compact regime} ($h^{2,1} > 0$, e.g.\ quintic).  The period is a
 genuine Griffiths normal function depending on the complex structure
 $\tau \in \mathcal{M}_{cs}(X)$.  The conjecture predicts a specific
-function of $\tau$---the Abel--Jacobi image---from the
+function of $\tau$ (the Abel--Jacobi image) from the
 asymptotics of DT invariants.  Under mirror symmetry $X \leftrightarrow
 X^\vee$, this reduces to the statement that the mirror map
 $t(z) = w_1(z)/w_0(z)$ controls DT growth on the mirror side.

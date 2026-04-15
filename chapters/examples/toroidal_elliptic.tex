@@ -78,7 +78,9 @@ here.
 
 The Fay identity replaces the Arnold relation at genus~$1$; it is
 both an identity of theta functions and a geometric consequence of
-the degeneration $E_\tau \to \mathbb{P}^1$ as $\tau \to i\infty$.
+the two-step degeneration $E_\tau \to \bC^*$ (as $\tau \to i\infty$,
+the elliptic curve degenerates to a cylinder) followed by
+$\bC^* \to \bC$ (as $q \to 1$, the cylinder opens to the affine line).
 
 \begin{remark}[Two programme tracks]
 \label{rem:toroidal-two-tracks}
@@ -160,7 +162,9 @@ with two independent parameters $q$ and $t = q^k$. See Ginzburg--Kapranov--Vasse
 for the complete presentation.
 \end{definition}
 
-\begin{proposition}[Toroidal OPE \cite{FBZ04}; \ClaimStatusProvedElsewhere]\label{prop:toroidal-ope}
+\begin{proposition}[Toroidal OPE; \ClaimStatusProvedHere]\label{prop:toroidal-ope}
+% AP60: The derivation below is self-contained from Definition~\ref{def:toroidal};
+% the original source is \cite{FBZ04}.
 The OPE for toroidal currents involves both parameters:
 \[
 e_i(z) f_j(w) = \frac{\delta_{ij}}{(1 - q)(1 - t^{-1})} \cdot
@@ -418,7 +422,7 @@ exchange of the two spectral parameters of $D(\fg)$.
 \label{rem:toroidal-three-theorems}
 \index{three theorems!toroidal}
 Conditional on Conjecture~\ref{conj:toroidal-e1}, the expected toroidal analogues of the three main theorems of Vol~I are:
-\emph{Theorem~A} (Vol~I, bar-cobar adjunction): $\bar{B}^{\mathrm{ell}}(U_{q,t})$ computes the Koszul dual coalgebra (nilpotency via Proposition~\ref{prop:fay-implies-d-squared}).
+\emph{Theorem~A} (Vol~I, bar-cobar adjunction): the bar complex $\bar{B}^{\mathrm{ell}}(U_{q,t})$ is an $\Eone$-chiral coassociative coalgebra, with $d^2 = 0$ from Proposition~\ref{prop:fay-implies-d-squared}; its cohomology $H^*(\bar{B}^{\mathrm{ell}}(U_{q,t}))$ is the Koszul dual coalgebra $U_{q,t}^i$.
 \emph{Theorem~B} (Vol~I, bar-cobar inversion): $\Omega(\bar{B}(U_{q,t})) \xrightarrow{\sim} U_{q,t}$ by the rational spectral sequence with elliptic corrections (Theorem~\ref{thm:elliptic-vs-rational}).
 \emph{Theorem~C} (Vol~I, complementarity): $\mathrm{obs}_g(U_{q,t}) + \mathrm{obs}_g(U_{q^{-1},t^{-1}})$ controlled by $H^*$ of a framed moduli space (the $\Eone$ replacement for $\overline{\mathcal{M}}_g$; cf.\ Vol~I, Remark~\ref{rem:yangian-three-theorems}).
 The universal MC class $\Theta_{U_{q,t}}$ should govern the genus expansion, with $(q,t) \mapsto (q^{-1},t^{-1})$ reflected in Verdier duality.
@@ -512,7 +516,7 @@ satisfies the Fay trisecant identity:
 \[
 \theta(u_1 - u_2)\,\theta(u_3 - u_4) - \theta(u_1 - u_3)\,\theta(u_2 - u_4) + \theta(u_1 - u_4)\,\theta(u_2 - u_3) = 0
 \]
-This is a \emph{bilinear} identity (each term is a product of two theta functions), which at genus~1 is the degenerate case of the general Fay trisecant identity on higher-genus curves. The identity is equivalent to the Riemann addition formula and reduces to the Ptolemy relation $\sin(\alpha-\beta)\sin(\gamma-\delta) - \sin(\alpha-\gamma)\sin(\beta-\delta) + \sin(\alpha-\delta)\sin(\beta-\gamma) = 0$ in the rational limit $\tau \to i\infty$.
+This is a \emph{bilinear} identity (each term is a product of two theta functions), which at genus~$1$ is the degenerate case of the general Fay trisecant identity on higher-genus curves. The identity is equivalent to the Riemann addition formula. The degeneration is two-step (FM30): as $\tau \to i\infty$, $\theta_1(z|\tau) \to 2\sin(\pi z)$ and the identity becomes the trigonometric Ptolemy relation $\sin(\alpha{-}\beta)\sin(\gamma{-}\delta) - \sin(\alpha{-}\gamma)\sin(\beta{-}\delta) + \sin(\alpha{-}\delta)\sin(\beta{-}\gamma) = 0$; the further limit $z \to 0$ (i.e.\ $\sin(\pi z) \to \pi z$) recovers the rational partial-fraction identity.
 
 This identity underlies the Yang--Baxter equation for elliptic R-matrices:
 the star-triangle relation is a consequence of the Fay identity applied to the
@@ -549,8 +553,11 @@ the partial fraction identity
 $(z_1 - z_2)^{-1}(z_2 - z_3)^{-1} + \text{cyclic} = 0$.
 
 The elliptic replacement for $(z_i-z_j)^{-1}$ is
-$\zeta_\tau(z_i - z_j) := \partial_z \log\theta_1(z_i - z_j|\tau)$,
-the Weierstrass $\zeta$-function on $E_\tau$. The corresponding
+$\zeta_\tau(z_i - z_j) := \partial_z \log\theta_1(z_i - z_j|\tau)$
+(the logarithmic derivative of $\theta_1$; this differs from the
+classical Weierstrass $\zeta$-function $\zeta_W(z) = \zeta_\tau(z)
++ 2\eta_1 z$ by a linear term, where
+$\eta_1 = \zeta_W(1/2)$). The corresponding
 three-term identity is
 \begin{equation}\label{eq:elliptic-arnold}
 d\zeta_\tau(z_1{-}z_2) \wedge d\zeta_\tau(z_2{-}z_3)
@@ -666,9 +673,13 @@ z_j|\tau)$, while the rational bar complex uses $\eta_{ij}^{\mathrm{rat}}
 = d\log(z_i - z_j)$. Near $z_i = z_j$, both propagators have the same
 simple pole with residue~$1$, so their difference $\delta_{ij}(\tau) :=
 \eta_{ij}^{\mathrm{ell}} - \eta_{ij}^{\mathrm{rat}}$ is a regular
-$1$-form. The classical expansion of the Weierstrass $\zeta$-function
-$\zeta(z;\Lambda_\tau)$ in terms of the Eisenstein--Weierstrass series
-$G_{2k}(\tau)$ gives the Laurent expansion:
+$1$-form. The logarithmic derivative $\zeta_\tau(z) :=
+\partial_z\log\theta_1(z|\tau)$ differs from the classical
+Weierstrass $\zeta$-function $\zeta_W(z;\Lambda_\tau)$ by
+$\zeta_\tau(z) = \zeta_W(z) - 2\eta_1 z$ where
+$\eta_1 = \zeta_W(1/2;\Lambda_\tau)$. Using the
+Eisenstein--Weierstrass expansion of $\zeta_W$ and subtracting
+the linear term gives the Laurent expansion of $\zeta_\tau$:
 
 \[
 \partial_z\log\theta_1(z|\tau)
@@ -818,7 +829,10 @@ propagator
 = \zeta_\tau(z_i - z_j)\,(dz_i - dz_j),
 \end{equation}
 where $\zeta_\tau(z) = \partial_z \log\theta_1(z|\tau)$ is the
-Weierstrass zeta function on $E_\tau$.
+logarithmic derivative of $\theta_1$ on $E_\tau$
+(see the proof of Proposition~\ref{prop:fay-implies-d-squared}
+for the distinction from the classical Weierstrass
+$\zeta$-function).
 
 \begin{computation}[Degree-1 bar elements]\label{comp:ell-bar-deg1}
 \index{bar complex!elliptic!degree 1}
@@ -948,7 +962,7 @@ for $\cH_{\kappa_{\mathrm{ch}}}$ at low degrees}
 & \textbf{Elliptic $d^{\mathrm{ell}}$}
 & \textbf{Correction} \\
 \hline
-$1$ & $0$ & $0$ & --- \\
+$1$ & $0$ & $0$ & $-$ \\
 \hline
 $2$ & $0$ & $-\frac{\kappa_{\mathrm{ch}}\pi^2}{3}\,E_2(\tau)$
 & $E_2(\tau)$ (quasi-modular, wt~$2$) \\

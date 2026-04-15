@@ -15,6 +15,8 @@ homology computation.
 \section{Symplectic duality and the K3 Yangian}
 \label{sec:k3e-symplectic-duality}
 
+The K3 Yangian $Y(\mathfrak{g}_{K3})$ should be self-dual under symplectic duality, because K3 is self-mirror.  This prediction constrains the structure function, the Langlands dual parameters, and the Coulomb/Higgs branch geometry.  The purpose of this section is to formulate the self-duality conjecture precisely, extract its consequences for the $\kappa_\bullet$-spectrum, and verify the Fock-space character prediction against independent data.
+
 Symplectic duality (Braden--Licata--Proudfoot--Webster 2014; physically, 3d $\cN = 4$ mirror symmetry) exchanges Coulomb and Higgs branches of 3d $\cN = 4$ theories:
 \[
   \cM_C(T) \;\longleftrightarrow\; \cM_H(T^!),
@@ -97,7 +99,7 @@ The K3 Yangian $Y(\mathfrak{g}_{K3})$ is the conjectural target of two independe
 \end{enumerate}
 The routes are complementary: Route~(A) constructs the algebra from the CY category, Route~(B) constructs it from the 3d $\cN = 4$ gauge theory.  Where both are defined (Kummer/orbifold K3), they should agree.  The structure function $g(z) = \prod_{i=1}^{24} (z - h_i)/(z + h_i)$ is the same in both routes (it depends only on the Mukai lattice, which is deformation-invariant).
 
-The MO stable envelope route of Proposition~\ref{prop:mo-bypass} (\S\ref{subsec:mo-bypass-k3e}) provides a third, unconditional access to the $R$-matrix---but not to the full Yangian algebra, only to its evaluation $R$-matrix on the Fock space $\bigoplus_n K_T(\operatorname{Hilb}^n(K3))$.
+The MO stable envelope route of Proposition~\ref{prop:mo-bypass} (\S\ref{subsec:mo-bypass-k3e}) provides a third, unconditional access to the $R$-matrix; it yields the evaluation $R$-matrix on the Fock space $\bigoplus_n K_T(\operatorname{Hilb}^n(K3))$, not the full Yangian algebra.
 \end{remark}
 
 \subsection{Generating functions and self-duality check}
@@ -121,12 +123,12 @@ This is simultaneously the Fock space character of $Y(\mathfrak{g}_{K3})$, the i
 The Coulomb branch Euler characteristics are $\chi(\cM_C^T, n) = \chi(\operatorname{Hilb}^n(K3)) = p_{24}(n)$ by the G\"ottsche formula.  The Higgs branch Euler characteristics are $\chi(M_H(v)) = \chi(\operatorname{Hilb}^n(K3)) = p_{24}(n)$ by the Beauville deformation equivalence (Proposition~\ref{prop:k3e-beauville}).  Both equal $p_{24}(n)$, so $Z_C = Z_H$.  The identification with $1/\eta^{24}$ is Proposition~\ref{prop:k3e-dt-bar-rank0}.
 \end{proof}
 
-\noindent\textit{Verification}: 125 tests in \texttt{symplectic\_duality\_k3.py} covering Coulomb branch geometry (charge $0$--$5$, dimensions, Hilbert--Chow resolution), Higgs branch Beauville data (Mukai vectors, deformation equivalence), K3 self-duality (Euler characteristic matching, $\kappa_{\mathrm{ch}}$ preservation), three involutions (Koszul $h_i \mapsto -h_i$, Langlands trivial for $\mathfrak{gl}_1$, unitarity $g(z)g(-z) = 1$), BFN construction (Kummer affine $A_1$ quiver, ADE orbifold points), $\kappa$-diagnostic (symplectic preserves $\kappa_{\mathrm{ch}} = 2$, Koszul reverses to $-2$, conductor $K = 0$), generating functions ($1/\eta^{24}$, bar Euler exponents $-24$, Fake Monster match), Dolgachev--Nikulin lattice (signatures $(2,\rho) + (2,20-\rho) = (4,20)$ for all $\rho$), and 16 cross-engine checks against \texttt{k3\_double\_current\_algebra.py}, \texttt{k3\_yangian.py}, \texttt{k3\_mirror\_koszul.py}, \texttt{k3\_yangian\_quantization.py}, and \texttt{drinfeld\_center\_k3\_heisenberg.py}.
+\noindent\textit{Verification}: 125 tests in \texttt{symplectic\_duality\_k3.py} covering Coulomb branch geometry (charge $0$--$5$, dimensions, Hilbert--Chow resolution), Higgs branch Beauville data (Mukai vectors, deformation equivalence), K3 self-duality (Euler characteristic matching, $\kappa_{\mathrm{ch}}$ preservation), three involutions (Koszul $h_i \mapsto -h_i$, Langlands trivial for $\mathfrak{gl}_1$, unitarity $g(z)g(-z) = 1$), BFN construction (Kummer affine $A_1$ quiver, ADE orbifold points), $\kappa_\bullet$-diagnostic (symplectic preserves $\kappa_{\mathrm{ch}} = 2$, Koszul reverses to $-2$, conductor $K = 0$), generating functions ($1/\eta^{24}$, bar Euler exponents $-24$, Fake Monster match), Dolgachev--Nikulin lattice (signatures $(2,\rho) + (2,20-\rho) = (4,20)$ for all $\rho$), and 16 cross-engine checks against \texttt{k3\_double\_current\_algebra.py}, \texttt{k3\_yangian.py}, \texttt{k3\_mirror\_koszul.py}, \texttt{k3\_yangian\_quantization.py}, and \texttt{drinfeld\_center\_k3\_heisenberg.py}.
 
 \begin{remark}[Three involutions on $Y(\frakg_{K3})$: symplectic, Koszul, unitarity]
 \label{rem:k3-yangian-three-involutions}
 The conjectural K3 Yangian $Y(\frakg_{K3})$ admits three distinct involutions,
-each with a sharp $\kappa$-diagnostic that distinguishes it from the others
+each with a sharp $\kappa_\bullet$-diagnostic that distinguishes it from the others
 (AP-CY10):
 \begin{enumerate}[label=\textup{(\roman*)}]
   \item \emph{Koszul involution} $\iota_K \colon h_i \mapsto -h_i$.
@@ -1076,7 +1078,7 @@ and full consistency ($3$~tests).
 \subsection{BKM simple roots as Yangian generators}
 \label{subsec:k3-bkm-yangian-generators}
 
-The abelian K3 Yangian $Y(\fg_{K3})$ of Theorem~\ref{thm:k3-abelian-yangian-presentation} quantises the rank-$24$ Heisenberg algebra $H_{\mathrm{Muk}}$.  The generators are the $24$ Mukai lattice currents---this is the \emph{free-field} sector.  A deeper question is whether the simple root vectors of the full BKM superalgebra $\fg_{\Delta_5}$ (Construction~\ref{constr:k3e-roots}) can be realised as generators of a \emph{non-abelian} K3 Yangian.
+The abelian K3 Yangian $Y(\fg_{K3})$ of Theorem~\ref{thm:k3-abelian-yangian-presentation} quantises the rank-$24$ Heisenberg algebra $H_{\mathrm{Muk}}$.  The generators are the $24$ Mukai lattice currents: the \emph{free-field} sector.  A deeper question is whether the simple root vectors of the full BKM superalgebra $\fg_{\Delta_5}$ (Construction~\ref{constr:k3e-roots}) can be realised as generators of a \emph{non-abelian} K3 Yangian.
 
 \begin{conjecture}[BKM simple roots as Yangian generators]
 \label{conj:bkm-yangian-generators}
@@ -1098,7 +1100,7 @@ The total generator count through discriminant $D_{\max}$ is $3 + \sum_{D = -1}^
 \label{rem:bkm-yangian-coha}
 The identification $\mathrm{CoHA}(K3 \times E) \cong U(\fn_+(\fg_{\Delta_5}))$ (proved, Gritsenko--Nikulin + Schiffmann--Vasserot framework) shows that the BPS states at each discriminant~$D$ form a vector space of dimension $|c(D)|$, and the CoHA multiplication encodes the BKM Lie bracket.  The passage from CoHA to a Yangian requires the Drinfeld double construction, which for $\fg_{\Delta_5}$ has not been carried out.
 
-\emph{Critical} (AP-CY7): the CoHA is an \emph{associative} algebra.  It is not a chiral algebra, not an $E_1$-chiral algebra.  The Hall product is the convolution on Borel--Moore homology.  Writing ``$\mathrm{CoHA}$ is the $E_1$-sector of $G(X)$'' assumes $G(X)$ exists, which is CY-A$_3$.  The correct unconditional statement is $\mathrm{CoHA}(K3 \times E) = U(\fn_+(\fg_{\Delta_5}))$.
+\emph{Critical} (AP-CY7): the CoHA is an \emph{associative} algebra.  It is not a chiral algebra, not an $E_1$-chiral algebra.  The Hall product is the convolution on Borel--Moore homology.  Writing ``$\mathrm{CoHA}$ is the $E_1$-sector of $G(X)$'' assumes the quantum vertex chiral group $G(X)$ exists, which requires Conjecture~CY-C (the quantum group realization); CY-A$_3$ constructs the chiral algebra $A_X$ but not the group object $G(X)$.  The correct unconditional statement is $\mathrm{CoHA}(K3 \times E) = U(\fn_+(\fg_{\Delta_5}))$.
 \end{remark}
 
 \begin{remark}[Borcherds--Serre obstruction]
@@ -1197,7 +1199,7 @@ edges in the finite Dynkin diagram of~$\fg$.
 
 \item \emph{$A_2$ enhancement} ($\fsl_3$, rank~$2$):
  $\mathrm{qdet}_{\fsl_3}(u)$ has degree~$3$.
- One nontrivial Serre relation from the single edge $0$---$1$.
+ One nontrivial Serre relation from the single edge $0$--$1$.
  Abelian complement: $21$ directions.
 
 \item \emph{$D_4$ enhancement} ($\fso_8$, rank~$4$, triality):
@@ -1289,8 +1291,8 @@ The K3 CFT has $c = 6$, level $k = 1$.  Level-rank duality
 relate rank~$24$ and level~$1$, potentially contradicting the
 rank-$24$ Yangian.  This is \emph{inapplicable}: level-rank duality
 requires simple Lie algebras, not the abelian $\gl_1$.
-The three numbers---lattice rank~$24$ (Mukai), Lie algebra rank~$1$
-($\gl_1$), CFT level~$1$ (Heisenberg normalization)---are independent.
+The three numbers (lattice rank~$24$ (Mukai), Lie algebra rank~$1$
+($\gl_1$), CFT level~$1$ (Heisenberg normalization)) are independent.
 \textbf{Verdict}: not an obstruction.
 
 %% --- Attack 3: Infinite root multiplicity ---
@@ -1334,15 +1336,19 @@ dependence:
   (proved); the abelian $\gl_1$ case is a product of $24$ rank-$1$
   Yangians, each well-defined independently.
 \item \emph{Coproduct from $K3 \times E$ factorization}: requires CY-A$_3$
-  (open).
+  (proved in the infinity-categorical framework, Theorem~\ref{thm:derived-framing-obstruction}; chain-level data conditional).
 \item \emph{Bar Euler $=$ BKM denominator}: requires CY-A$_3$ $+$
-  Vol~I anchor (open).
+  Vol~I anchor (CY-A$_3$ proved; Vol~I anchor conditional).
 \end{enumerate}
-\textbf{Verdict}: genuine obstruction for layers (iii)--(iv);
-not an obstruction for layers (i)--(ii) at abelian~$\gl_1$.
+\textbf{Verdict}: layers (i)--(ii) are fully resolved at abelian~$\gl_1$.
+Layer~(iii) requires chain-level framing data (CY-A$_3$ is proved
+in the infinity-categorical framework, but explicit chain-level
+construction for non-formal algebras remains open).
+Layer~(iv) requires CY-A$_3$ (proved) \emph{plus} the Vol~I
+Borcherds-lift bridge (conditional).
 The conjecture should be \emph{scoped}: the abelian part is accessible
-now; the nonabelian and factorization-homology identifications
-await CY-A$_3$.
+now; the nonabelian factorization-homology identifications and the
+bar Euler--BKM bridge await chain-level data and the Vol~I anchor.
 
 %% --- Attack 6: Coassociativity ---
 \item \emph{Coassociativity obstruction at rank~$24$.}
@@ -1371,8 +1377,11 @@ generic moduli is internally consistent.  Two genuine issues are
 identified: (A1)~the $\omega$-twisted crossing symmetry for
 non-abelian~$\fg$ requires super-Yangian or orthosymplectic
 adaptation; (A5)~the deeper identifications (coproduct as
-factorization, bar Euler as BKM denominator) remain conditional
-on CY-A$_3$.  Neither breaks the abelian construction.
+factorization, bar Euler as BKM denominator) require chain-level
+framing data (for non-formal algebras) and the Vol~I Borcherds-lift
+bridge, respectively.  CY-A$_3$ itself is proved (inf-cat,
+Theorem~\ref{thm:derived-framing-obstruction}).
+Neither issue breaks the abelian construction.
 \end{remark}
 
 \begin{warning}[AP-CY14: K3 Yangian conjecture scoping]
@@ -1380,11 +1389,14 @@ on CY-A$_3$.  Neither breaks the abelian construction.
 The adversarial analysis (Remark~\ref{rem:k3-yangian-adversarial}) establishes
 that the K3 Yangian conjecture (Conjecture~\ref{conj:k3-yangian}) has
 \emph{four layers} with different logical status.  Results that invoke
-layers~(iii)--(iv)---the coproduct interpretation via $K3 \times E$
-factorization or the bar Euler--BKM identification---are conditional
-on CY-A$_3$ and must carry \texttt{\textbackslash ClaimStatusConditional}.
-Results that invoke only layers~(i)--(ii)---the classical DCA $\fg_{K3}$
-and the abelian quantization---require only CY-A$_2$ (proved) plus
+layer~(iii) (the coproduct interpretation via $K3 \times E$
+factorization) require chain-level framing data beyond the
+infinity-categorical CY-A$_3$ proof.  Results that invoke
+layer~(iv) (the bar Euler--BKM identification) require CY-A$_3$
+(proved) plus the Vol~I Borcherds-lift bridge (conditional);
+such results must carry \texttt{\textbackslash ClaimStatusConditional}.
+Results that invoke only layers~(i)--(ii) (the classical DCA $\fg_{K3}$
+and the abelian quantization) require only CY-A$_2$ (proved) plus
 the open quantization step.
 \end{warning}
 
@@ -1444,7 +1456,7 @@ where $g_{E_8}^{(k)}(z) = \prod_{i=1}^{8} (z - h_i^{(k)})/(z + h_i^{(k)})$ has d
 
 \begin{remark}[Degree clarification]
 \label{rem:k3-e8e8-degree}
-The structure function degree is $(24, 24)$---the Mukai rank---\emph{not} $(500, 500)$.  The dimension $\dim(\mathfrak{e}_8 \oplus \mathfrak{e}_8) = 496$ enters through the $R$-matrix block size, not through the structure function degree.  Each $h_i$ parameter corresponds to a Mukai lattice direction, and there are $24$ such directions regardless of the enhancement type.
+The structure function degree is $(24, 24)$ (the Mukai rank), \emph{not} $(500, 500)$.  The dimension $\dim(\mathfrak{e}_8 \oplus \mathfrak{e}_8) = 496$ enters through the $R$-matrix block size, not through the structure function degree.  Each $h_i$ parameter corresponds to a Mukai lattice direction, and there are $24$ such directions regardless of the enhancement type.
 \end{remark}
 
 \paragraph{Serre ideal.}
@@ -1497,7 +1509,7 @@ The Narain moduli space for K3 compactification is the $80$-dimensional double c
   \;=\;
   O(4,20;\bZ) \;\big\backslash\; O(4,20;\bR) \;\big/\; \bigl(O(4) \times O(20)\bigr).
 \end{equation}
-A point $\sigma \in \mathcal{N}_{4,20}$ specifies a Narain lattice $\Gamma^{4,20} \cong \widetilde{\Lambda} = U^4 \oplus E_8(-1)^2$ of signature~$(4,20)$---the \emph{same} lattice as the Mukai lattice.  The $24$ Yangian parameters $h_1, \ldots, h_{24}$ are coordinates in a diagonal basis for the Mukai pairing $\omega^{ij}(\sigma)$, subject to the CY$_2$ constraint $\sum h_i = 0$.
+A point $\sigma \in \mathcal{N}_{4,20}$ specifies a Narain lattice $\Gamma^{4,20} \cong \widetilde{\Lambda} = U^4 \oplus E_8(-1)^2$ of signature~$(4,20)$ (the \emph{same} lattice as the Mukai lattice).  The $24$ Yangian parameters $h_1, \ldots, h_{24}$ are coordinates in a diagonal basis for the Mukai pairing $\omega^{ij}(\sigma)$, subject to the CY$_2$ constraint $\sum h_i = 0$.
 
 The map $\sigma \mapsto \{h_i(\sigma)\}$ is surjective (every parameter set satisfying $\sum h_i = 0$ arises from some $\sigma$) but \emph{not} injective: the $O(4,20;\bZ)$ lattice automorphisms act on the Narain side but produce isomorphic Yangians (up to relabelling of generators).
 
@@ -1515,7 +1527,7 @@ In the heterotic weak-coupling limit $g_s^{\mathrm{het}} \to 0$ (equivalently, l
 \[
   Y(\fg_{K3}) \;\underset{g_s \to 0}{\longrightarrow}\; U(\fg_{K3}).
 \]
-The Yangian deformation parameter satisfies $\hbar \sim g_s^{\mathrm{het}}$ at leading order.  The perturbative expansion $Y = U(\fg_{K3}) + \sum_{g \geq 1} g_s^{2g} \cdot Y_g$ receives genus-$g$ corrections from the K3 elliptic genus.  For the abelian (Heisenberg) Yangian---shadow class~$G$---\emph{all corrections vanish}: the structure function is independent of $g_s$, and the tree-level description is exact.  Non-trivial $g_s$-dependence requires non-abelian enhancement (class~$L$ or~$M$).
+The Yangian deformation parameter satisfies $\hbar \sim g_s^{\mathrm{het}}$ at leading order.  The perturbative expansion $Y = U(\fg_{K3}) + \sum_{g \geq 1} g_s^{2g} \cdot Y_g$ receives genus-$g$ corrections from the K3 elliptic genus.  For the abelian (Heisenberg) Yangian (shadow class~$G$), \emph{all corrections vanish}: the structure function is independent of $g_s$, and the tree-level description is exact.  Non-trivial $g_s$-dependence requires non-abelian enhancement (class~$L$ or~$M$).
 
 The bar Euler product $\eta(q)^{24}$ is deformation-invariant at all orders in $g_s$ (the deformation is flat, preserving the PBW filtration).
 
@@ -1567,7 +1579,7 @@ The Mukai lattice $\widetilde{\Lambda} = U^3 \oplus E_8(-1)^2$ and the Leech lat
 \]
 The Mukai lattice has $\mathrm{rank}(\widetilde{\Lambda}) = \dim H^*(S, \bZ) = 24$.  The Leech lattice has rank~$24$ because it is a Niemeier lattice, and the Niemeier classification is connected to K3 through the embedding $\Lambda_{K3} \oplus U \hookrightarrow N$ (Section~\ref{sec:k3-niemeier-landscape}).  The relation $b_2(S) + 2 = 22 + 2 = 24$, where the $+2$ is the hyperbolic plane $U = H^0 \oplus H^4$ in the Mukai vector, closes the circle: the K3 lattice rank plus two equals the Niemeier rank.
 
-The deeper reason: dimension~$24$ is where even unimodular lattices are maximally rigid---there are exactly~$24$ such lattices (Niemeier, 1973), classified by their root systems.  This finite classification connects K3 geometry (which produces a rank-$24$ cohomology lattice) to the Leech lattice (the unique rootless member of the finite list).  In no other dimension does this triangle of finite classification, K3 cohomology rank, and rootless uniqueness close.
+The deeper reason: dimension~$24$ is where even unimodular lattices are maximally rigid: there are exactly~$24$ such lattices (Niemeier, 1973), classified by their root systems.  This finite classification connects K3 geometry (which produces a rank-$24$ cohomology lattice) to the Leech lattice (the unique rootless member of the finite list).  In no other dimension does this triangle of finite classification, K3 cohomology rank, and rootless uniqueness close.
 
 \paragraph{The Leech enhancement point.}
 At the Leech enhancement point in K3 moduli, the Niemeier lattice has \emph{no} root system, and hence:
@@ -1764,7 +1776,7 @@ Verified symbolically at $\gl(1|1)$ and $\gl(2|1)$.
 The super-Yang $R$-matrix does \emph{not} satisfy the Zamolodchikov
 tetrahedron equation (ZTE), just as the ordinary Yang $R$-matrix fails ZTE
 (Theorem~\ref{thm:zte-failure}).  Both obstructions scale as
-$O(\kappa^2)$ for $\kappa \to 0$, with different numerical prefactors.
+$O(\kappa_{\mathrm{ch}}^2)$ for $\kappa_{\mathrm{ch}} \to 0$, with different numerical prefactors.
 The super-structure modifies but does not eliminate the ZTE
 obstruction: the resolution still requires genuinely 3D corrections
 beyond pairwise $R$-matrices (AP-CY30).
@@ -1778,7 +1790,7 @@ The super-Yangian $Y(\gl(4|20))$:
 \item \textbf{Resolves}: modified unitarity ($P_s^2 = \mathrm{Id}$),
   crossing symmetry (supertranspose), well-defined central element
   (quantum Berezinian).
-\item \textbf{Does not resolve}: ZTE obstruction (persists at $O(\kappa^2)$,
+\item \textbf{Does not resolve}: ZTE obstruction (persists at $O(\kappa_{\mathrm{ch}}^2)$,
   requires 3D corrections), CY-A$_3$ dependence (layers~(iii)--(iv)
   remain conditional).
 \end{enumerate}
@@ -1890,7 +1902,7 @@ $2$ & $\cP^+(K3) = \{\Omega : (\Omega, \Omega) = 0, \; (\Omega, \bar\Omega) > 0\
 $3$ & $\Stab^\dagger(K3)$ (Bridgeland) & $24$ \\
 \end{tabular}
 \end{center}
-The structure function $g_{K3}(z) = \prod_{i=1}^{24} (z - h_i)/(z + h_i)$ is homogeneous of degree~$0$ in the $h_i$: the rescaling $h_i \mapsto \lambda h_i$ leaves $g(z)$ invariant.  Therefore $g(z)$ depends on exactly $\dim_\C \cP^+(K3) = 22 - \rho$ independent parameters --- \emph{not} on $23$ or $24$.
+The structure function $g_{K3}(z) = \prod_{i=1}^{24} (z - h_i)/(z + h_i)$ is homogeneous of degree~$0$ in the $h_i$: the rescaling $h_i \mapsto \lambda h_i$ leaves $g(z)$ invariant.  Therefore $g(z)$ depends on exactly $\dim_\C \cP^+(K3) = 22 - \rho$ independent parameters, \emph{not} on $23$ or $24$.
 
 \begin{conjecture}[Dimension reconciliation]
 \label{conj:stab-dimension-reconciliation}
@@ -1930,7 +1942,7 @@ Linearity of $Z$ corresponds to additivity of weights; the support property on $
 \paragraph{Autoequivalences as gauge transformations.}
 Spherical twists $T_E$ act on $\Stab^\dagger$ by deck transformations and on the period point by the Mukai reflection $s_{v(E)}(\Omega) = \Omega + \langle \Omega, v(E)\rangle_{\mathrm{Muk}} \cdot v(E)$.  This reflection preserves the Mukai pairing: $\langle T_E(\Omega), T_E(\Omega)\rangle = \langle \Omega, \Omega\rangle$, and is an involution on Mukai vectors ($T_E^2 \simeq [2]$, acting trivially on $K$-theory).  On the Yangian, $T_E$ induces an automorphism $T_E \colon Y(\fg_{K3}) \to Y(\fg_{K3})$ that is a \emph{gauge transformation}: it changes the presentation (parameters, root system) but not the isomorphism class.
 
-For the abelian ($\gl_1$) Yangian, $g(z)$ is invariant under permutations of the $h_i$, but $T_E$ is \emph{not} a permutation of the $h_i$ in the diagonal basis --- it mixes the Mukai sublattice directions.  The structure function $g(z)$ therefore changes under a single twist, but returns to its original value under the double twist $T_E^2 = \mathrm{id}$.  For the non-abelian super-Yangian $Y(\gl(4|20))$, $T_E$ acts as a Mukai lattice isometry on the $T$-matrix blocks, with the same involution property.
+For the abelian ($\gl_1$) Yangian, $g(z)$ is invariant under permutations of the $h_i$, but $T_E$ is \emph{not} a permutation of the $h_i$ in the diagonal basis; it mixes the Mukai sublattice directions.  The structure function $g(z)$ therefore changes under a single twist, but returns to its original value under the double twist $T_E^2 = \mathrm{id}$.  For the non-abelian super-Yangian $Y(\gl(4|20))$, $T_E$ acts as a Mukai lattice isometry on the $T$-matrix blocks, with the same involution property.
 
 \paragraph{Wall-crossing: parameters vs.\ modules.}
 Crossing a wall $\cW(v_1, v_2)$ in $\Stab^\dagger$ changes the stability condition $\sigma$ continuously.  The Yangian parameters $h_i(\sigma)$ change \emph{continuously} (since $Z$ depends continuously on $(B, \omega)$), but the module decomposition changes \emph{discontinuously}: the Yangian module $V_v$ splits as $V_{v_1} \otimes_z V_{v_2}$ on one side and remains indecomposable on the other.  Wall-crossing is a gauge transformation acting as the identity on the Yangian algebra and as the KS automorphism on the module category.
@@ -2034,7 +2046,7 @@ planes, giving signature $(4,20)$ on $\widetilde{\Lambda}_{K3}$.
 \end{enumerate}
 This recovers the free-field realization of the K3 sigma model
 at the generic point of the moduli space (Route~2 of
-Section~\ref{sec:k3e-five-routes}), confirming that the tree-level
+Section~\ref{sec:k3e-six-routes}), confirming that the tree-level
 factorization homology is the lattice vertex algebra.
 \end{proof}
 
@@ -2601,10 +2613,10 @@ correction to the modular characteristic to vanish, giving
 $\kappa_{\mathrm{ch}} = \chi^{\CY}(\cC) = \chi(\cO_{K3}) = 2$.
 \end{proof}
 
-\begin{remark}[The full $\kappa$-spectrum]
+\begin{remark}[The full $\kappa_\bullet$-spectrum]
 \label{rem:nc-hodge-kappa-spectrum}
 The nc Hodge structure provides a distinguished representative of
-the $\kappa$-spectrum (Section~\ref{sec:kappa-spectrum}): the
+the $\kappa_\bullet$-spectrum (Section~\ref{sec:kappa-spectrum}): the
 Hodge-filtered supertrace selects $\kappa_{\mathrm{cat}} =
 \chi(\cO_{K3}) = 2$ from the full spectrum
 $\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}},
@@ -2733,7 +2745,7 @@ at $d = 2$.
 \textit{Verification}: $80$ tests in
 \texttt{nc\_hodge\_k3\_yangian.py} covering the categorical Hodge
 structure, Hodge-to-de~Rham degeneration, Yangian filtration,
-$\kappa$-supertrace via $4$ independent paths (Hodge diamond,
+$\kappa_{\mathrm{ch}}$-supertrace via $4$ independent paths (Hodge diamond,
 $\chi(\cO)$, supertrace, Noether formula), twistor unitarity via
 $2$ paths (engine and direct $g(z)\,g(-z)=1$), Hodge-graded
 character cross-checked against Fake Monster multiplicities, and

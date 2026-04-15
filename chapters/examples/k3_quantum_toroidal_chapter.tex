@@ -112,8 +112,7 @@ $\sum_{n \geq 0} p_{24}(n)\, q^n
 = \prod_{k \geq 1} 1/(1 - q^k)^{24}$
 (the Fock space character of $H_{\mathrm{Muk}}$).
 \end{enumerate}
-\emph{Dependency chain}: conditional on CY-A$_3$ for the
-geometric construction, and on Conjecture~\ref{conj:k3-yangian}
+\emph{Dependency chain}: CY-A$_3$ is proved in the infinity-categorical framework (Theorem~\ref{thm:derived-framing-obstruction}); the geometric construction of the K3 quantum toroidal algebra requires the explicit chain-level data beyond the inf-cat existence.  Conditional on Conjecture~\ref{conj:k3-yangian}
 for the existence of the rational limit $Y(\fg_{K3})$.
 \end{conjecture}
 
@@ -432,18 +431,20 @@ $0$d & $K3$ sigma model & $H_{\mathrm{Muk}}$ & $E_1$ & PROVED \\
 
 The four $\kappa$-invariants\footnote{AP113: bare $\kappa$ is forbidden
 in Vol~III; all values are subscripted.} are extracted at each node.
-For the $K3 \times E$ tower:
+They fall into two types (AP-CY55): manifold invariants (topological,
+independent of algebraization) and algebraization invariants (dependent
+on the constructed algebra).  For the $K3 \times E$ tower:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{lcccc}
+\begin{tabular}{lcccl}
 \hline
-\textbf{Invariant} & \textbf{K3} & \textbf{$K3 \times E$} & \textbf{Origin} \\
+\textbf{Invariant} & \textbf{K3} & \textbf{$K3 \times E$} & \textbf{Origin} & \textbf{Type} \\
 \hline
-$\kappa_{\mathrm{ch}}$ & $2$ & $3$ & Chiral modular characteristic \\
-$\kappa_{\mathrm{BKM}}$ & --- & $5$ & Weight of $\Delta_5$ \\
-$\kappa_{\mathrm{cat}}$ & $2$ & $0$ & $\chi(\mathcal{O}_X)$ \\
-$\kappa_{\mathrm{fiber}}$ & $24$ & $24$ & Mukai lattice rank \\
+$\kappa_{\mathrm{cat}}$ & $2$ & $0$ & $\chi(\mathcal{O}_X)$ & manifold \\
+$\kappa_{\mathrm{fiber}}$ & $24$ & $24$ & Mukai lattice rank & manifold \\
+$\kappa_{\mathrm{ch}}$ & $2$ & $3$ & Chiral modular characteristic & algebraization \\
+$\kappa_{\mathrm{BKM}}$ & --- & $5$ & Weight of $\Delta_5$ & algebraization \\
 \hline
 \end{tabular}
 \end{center}
@@ -456,7 +457,9 @@ The decomposition
     = \kappa_{\mathrm{ch}}(K3 \times E) + \kappa_{\mathrm{cat}}(K3)
     = 3 + 2 = 5
 \end{equation}
-is verified numerically (see~\texttt{twisted\_m\_theory\_web.py}).
+holds numerically for $K3 \times E$ (see~\texttt{twisted\_m\_theory\_web.py}).
+\emph{Warning} (Remark~\ref{rem:bkm-decomposition-adversarial}): this decomposition is a \emph{numerical coincidence} specific to $N = 1$.
+For $\bZ/N\bZ$-orbifolds with $N \geq 2$, it fails; the correct universal formula is $\kappa_{\mathrm{BKM}} = c_N(0)/2$ (Borcherds weight theorem, Proposition~\ref{prop:bkm-weight-universal}).
 
 \subsection{$R$-matrix degeneration chain}
 \label{sec:rmatrix-degeneration}
@@ -538,7 +541,7 @@ reduction (shrink $E$: $q \to 1$):
 \]
 That is, $U_{q,t}(\mathfrak{g}_{K3}^{\mathrm{tor}})\big|_{q \to 1}
 = Y(\mathfrak{g}_{K3})$.
-This is conditional on \textup{CY-A}$_3$.
+CY-A$_3$ is proved (inf-cat); the explicit chain-level geometric construction remains conditional.
 \end{conjecture}
 
 \noindent At $d = 2$, the $5$d $\to$ $3$d commutativity (shrink $C$:
@@ -556,8 +559,8 @@ all verified in \texttt{twisted\_m\_theory\_web.py} ($76$~tests):
   $\kappa_{\mathrm{ch}}$ is constant along reduction edges with the same
   CY dimension.
 
-\item \textbf{$\kappa_{\mathrm{BKM}}$ decomposition}:
-  $5 = 3 + 2$ (\eqref{eq:kappa-bkm-decomposition}).
+\item \textbf{$\kappa_{\mathrm{BKM}}$ value}:
+  $\kappa_{\mathrm{BKM}} = c_1(0)/2 = 5$ (Borcherds weight theorem); numerically $= 3 + 2$ (\eqref{eq:kappa-bkm-decomposition}, coincidence for $N = 1$ only).
 
 \item \textbf{$R$-matrix degeneration}: two-parameter $\to$ rational
   $\to$ trivial along the hCS hierarchy.
@@ -580,7 +583,7 @@ all verified in \texttt{twisted\_m\_theory\_web.py} ($76$~tests):
 
 The $\cN = (4,4)$ SCFT on $K3$ at $c = 6$ is \emph{proved}
 (Aspinwall--Morrison, Nahm--Wendland).  The K3 Yangian $Y(\fg_{K3})$
-is \emph{conjectural} (CY-A$_3$).  The sigma model provides seven
+is \emph{conjectural} (the geometric construction of $Y(\fg_{K3})$ requires more than the inf-cat existence of CY-A$_3$, which is proved).  The sigma model provides seven
 independent data that any candidate K3 chiral algebra must match.
 All seven are verified in
 \texttt{physical\_k3\_sigma\_check.py} ($73$~tests).
@@ -653,7 +656,7 @@ All seven are verified in
   The Yangian does \emph{not} see $M_{24}$ directly: the bar complex
   provides the universal coefficient $\kappa_{\mathrm{ch}} \cdot
   \dim(\rho_n)$ but cannot detect which specific finite group acts.
-  This is a structural limitation---the $M_{24}$ action is a symmetry
+  This is a structural limitation: the $M_{24}$ action is a symmetry
   of the \emph{spectrum}, not of the algebra.
 \end{enumerate}
 
@@ -663,7 +666,7 @@ All seven checks pass (the K3 Yangian is \emph{consistent} with the
 physical sigma model), but consistency does not imply existence.
 The checks verify that $Y(\fg_{K3})$, if it exists, produces data
 compatible with the known sigma model.  The existence question is
-CY-A$_3$ (open).
+CY-A$_3$ is proved in the infinity-categorical framework (Theorem~\ref{thm:derived-framing-obstruction}), but the explicit geometric construction of $Y(\fg_{K3})$ remains conjectural.
 \end{remark}
 
 %% ========================================================================
@@ -705,7 +708,7 @@ The shadow obstruction tower $\Theta_A = \kappa_{\mathrm{ch}} + C + Q + \cdots$ 
 Let $A_{K3}$ be the chiral algebra of a K3 surface via CY-A$_2$ \textup{(}proved\textup{)}, and let $\Theta_A \in \mathrm{MC}(\mathrm{Def}_{\mathrm{cyc}}^{\mathrm{mod}}(A_{K3}))$ be its shadow MC element.  In the type~III Kulikov degeneration:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item The shadow tower $\Theta_A$ degenerates to a PL function $\Theta^{\mathrm{trop}} \colon \Delta(K3) \to \R$, affine on each maximal cell.
-\item The arity-$2$ component satisfies $\kappa_{\mathrm{ch}}^{\mathrm{trop}} = 2$ \textup{(}constant\textup{)}, reflecting the topological invariance of $\kappa_{\mathrm{ch}} = \chi(\cO_{K3}) = 2$.
+\item The degree-$2$ component satisfies $\kappa_{\mathrm{ch}}^{\mathrm{trop}} = 2$ \textup{(}constant\textup{)}, reflecting the topological invariance of $\kappa_{\mathrm{ch}} = \chi(\cO_{K3}) = 2$.
 \item The bending locus of $\Theta^{\mathrm{trop}}$ \textup{(}the set of edges where the slope jumps\textup{)} is a subset of the walls in the Gross--Siebert scattering diagram on $\Delta(K3)$.
 \item The tropical MC equation $(\partial^{\mathrm{trop}})^2 \Theta^{\mathrm{trop}} = 0$ holds, where $\partial^{\mathrm{trop}}$ is the tropical differential \textup{(}slope comparison across edges\textup{)}.
 \end{enumerate}
@@ -727,9 +730,9 @@ The scattering diagram $\mathfrak{D}_{K3 \times E}$ \textup{(}Definition~\textup
 \item \emph{Exchange matrix}: $B_{ij} = \chi(S_i, S_j) - \chi(S_j, S_i)$, the antisymmetric part of the Euler form on $K_0(D^b(\Coh(K3)))$.
 \item \emph{Cluster mutations}: wall-crossing at a wall of marginal stability $W(\gamma_1, \gamma_2)$ corresponds to the Fomin--Zelevinsky mutation $\mu_k$ at the vertex $k$ dual to the decaying BPS state.
 \item \emph{Cluster variables}: the canonical theta functions $\vartheta_\gamma$ on the mirror dual algebraic torus are the cluster variables, with the structure constants computed by broken-line counting \textup{(}GPS tropical vertex\textup{)}.
-\item \emph{Shadow compatibility}: the tropical shadow $\Theta^{\mathrm{trop},\leq r}$ at arity $r$ is a PL function whose bending locus lies within the walls of the scattering diagram at heights $\leq r$.
+\item \emph{Shadow compatibility}: the tropical shadow $\Theta^{\mathrm{trop},\leq r}$ at degree $r$ is a PL function whose bending locus lies within the walls of the scattering diagram at heights $\leq r$.
 \end{enumerate}
-This is conditional on CY-A$_3$ for the full K3~$\times$~E identification; the tropical vertex computation is unconditional \textup{(}GPS is a theorem\textup{)}.
+CY-A$_3$ is proved in the infinity-categorical framework; the explicit chain-level construction for $K3 \times E$ remains conditional.  The tropical vertex computation is unconditional \textup{(}GPS is a theorem\textup{)}.
 \end{conjecture}
 
 \begin{remark}[GPS tropical vertex and the pentagon identity]
@@ -740,7 +743,7 @@ The Gross--Pandharipande--Siebert tropical vertex algorithm computes the consist
 \subsection{Tropical BPS states and broken lines}
 \label{subsec:tropical-bps}
 
-The BPS states of $K3 \times E$ tropicalize to \emph{broken lines} on the scattering diagram---PL paths in the charge lattice that bend at walls, accumulating monomial weights at each crossing.
+The BPS states of $K3 \times E$ tropicalize to \emph{broken lines} on the scattering diagram: PL paths in the charge lattice that bend at walls, accumulating monomial weights at each crossing.
 
 \begin{conjecture}[Tropical BPS correspondence]
 \label{conj:tropical-bps}
@@ -755,7 +758,7 @@ At the MUM point \textup{(}AP157: LCS degeneration\textup{)} of K3, the tropical
 \item The broken-line count $b(\gamma) = \#\{$broken lines of total charge $\gamma\}$.
 \item The coefficient of $x^\gamma$ in the theta function $\vartheta_\gamma$ \textup{(}cluster variable\textup{)}.
 \end{enumerate}
-This is conditional on CY-A$_3$ for the K3~$\times$~E identification.
+CY-A$_3$ is proved (inf-cat); the explicit chain-level $K3 \times E$ identification remains conditional.
 \end{conjecture}
 
 \subsection{Cluster structure on the K3 Yangian}
@@ -764,7 +767,7 @@ This is conditional on CY-A$_3$ for the K3~$\times$~E identification.
 \begin{conjecture}[Cluster Yangian]
 \label{conj:cluster-yangian}
 \ClaimStatusConjectured
-The K3 Yangian $Y(\fg_{K3})$ \textup{(}conditional on CY-A$_3$, AP-CY14\textup{)} carries a cluster algebra structure from the Maulik--Okounkov construction:
+The K3 Yangian $Y(\fg_{K3})$ \textup{(}CY-A$_3$ proved inf-cat; explicit geometric construction conjectural, AP-CY14\textup{)} carries a cluster algebra structure from the Maulik--Okounkov construction:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item The Yangian parameters $h_1, \ldots, h_{24}$ transform under cluster mutations as
 \[
@@ -775,7 +778,7 @@ where $B_{ij}$ is the exchange matrix.
 \item Different stability conditions in $\Stab^\dagger(K3)$ correspond to different cluster seeds, related by mutation sequences.  The exchange graph is the Bridgeland--Smith stability graph.
 \item In the tropical limit, the $R$-matrix becomes piecewise-constant: $R^{\mathrm{trop}}_{ii}(z) = (z - h_i)/(z + h_i)$ on each chamber, with wall-crossing given by the mutation rule~\textup{(i)}.
 \end{enumerate}
-This is doubly conjectural: conditional on both the existence of $Y(\fg_{K3})$ \textup{(}CY-A$_3$\textup{)} and its cluster structure \textup{(}open\textup{)}.
+This is doubly conjectural: conditional on both the explicit geometric construction of $Y(\fg_{K3})$ \textup{(}CY-A$_3$ proved inf-cat; chain-level construction open\textup{)} and its cluster structure \textup{(}open\textup{)}.
 \end{conjecture}
 
 \begin{remark}[Unitarity is unconditional]
@@ -848,13 +851,13 @@ $\widehat{A}_1$ affine Dynkin diagram with $2$~vertices.  The
 BFN Coulomb branch at gauge ranks $\mathbf{v} = (1, 1)$ and
 framing $\mathbf{w} = (1, 0)$ produces $Y(\widehat{\fsl}_2)$
 (proved).  Passing to the full K3 (away from the orbifold point)
-requires the non-quiver BFN construction---this is the conjectural
+requires the non-quiver BFN construction; this is the conjectural
 step.
 
 The Hilbert scheme Euler characteristics $\chi(\mathrm{Hilb}^n(K3))$
 provide a strong consistency check: $\chi_0 = 1$, $\chi_1 = 24$,
 $\chi_2 = 324$, $\chi_3 = 3200$, $\chi_4 = 25650$, $\chi_5 = 176256$
-(Gottsche 1990), matching $\prod(1 - q^k)^{-24}$ exactly (verified
+(G\"ottsche 1990), matching $\prod(1 - q^k)^{-24}$ exactly (verified
 computationally through $n = 10$).
 
 \noindent\textit{Verification}: $93$ tests in
@@ -984,7 +987,7 @@ non-abelian:
   V_2 \otimes V_2 \;=\; V_0.
 \end{equation}
 The fusion $V_1 \otimes V_1 = V_0 \oplus V_2$ (two summands)
-is the hallmark of non-abelian braiding---it is impossible in a
+is the hallmark of non-abelian braiding; it is impossible in a
 pointed MTC where all fusions are single-valued.
 
 \begin{conjecture}[Charge-1 sector at $A_1$ enhancement]

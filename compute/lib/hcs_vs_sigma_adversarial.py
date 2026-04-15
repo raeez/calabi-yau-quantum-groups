@@ -609,7 +609,7 @@ def en_structure_comparison() -> Dict[str, Any]:
       - Y(g_{K3}) = Phi_3(D^b(Coh(K3 x E))) would be E_1-chiral.
       - E_2 arises via the Drinfeld center Z(Rep^{E_1}(Y)).
       - The E_1 -> E_2 passage is NOT a forgetful functor; it is a
-        CONSTRUCTION (Drinfeld center = categorified averaging).
+        CONSTRUCTION (Drinfeld center = right adjoint to forgetful).
 
     K3 x E x C (6d, conjectural):
       - The E_3 factorization on C^3 gives E_3-chiral.
@@ -694,7 +694,7 @@ def en_forgetful_vs_promotion() -> Dict[str, Any]:
     E_3 -> E_2 -> E_1.  The forgetful functor goes E_3 -> E_2 -> E_1.
 
     The PROMOTION (reverse direction) uses:
-      - E_1 -> E_2: Drinfeld center (categorified averaging)
+      - E_1 -> E_2: Drinfeld center (right adjoint to forgetful)
       - E_2 -> E_3: derived center (higher Deligne conjecture)
 
     Consistency test:
