@@ -53,7 +53,7 @@ CONVENTIONS:
 MANUSCRIPT REFERENCES:
   - notes/theory_e2_chiral_formalism.tex, Section 2: E_2 bar complex
   - notes/theory_e2_chiral_formalism.tex, Section 4.3: Gerstenhaber decomposition
-  - CLAUDE.md: CY-B (E_2-chiral Koszul duality)
+  - CLAUDE.md: CY-B (E_n-chiral Koszul duality)
 
 MATHEMATICAL SOURCES:
   - Getzler-Jones, "Operads, homotopy algebra, and iterated integrals..."

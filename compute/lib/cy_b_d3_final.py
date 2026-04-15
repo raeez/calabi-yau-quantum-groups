@@ -3,9 +3,11 @@ r"""CY-B at d=3: final proof engine.
 MATHEMATICAL CONTENT
 ====================
 
-CY-B (E_2-chiral Koszul duality): for A = Phi(C) with C a CY_d category,
+CY-B (E_n-chiral Koszul duality): for A = Phi(C) with C a CY_d category,
     kappa_ch(A) + kappa_ch(A^!) = rho_K  (conductor formula, CY-B1)
-    Rep^{E_2}(A) ~ Rep^{E_2}(A^!)^{rev}  (braided equivalence, CY-B2)
+    Z(Rep^{E_1}(A)) ~ Z(Rep^{E_1}(A^!))^{rev}  (braided equiv on center, CY-B2)
+At d=3, A is E_1 (not E_2); the Koszul dual uses B_{E_3}(A) from the CY_3
+S^3-framing. The E_2 braided structure lives on the Drinfeld center.
 
 With CY-A_3 proved (thm:cy-to-chiral-d3), A = Phi(C) exists for all CY_3
 categories C.  Both components of CY-B are therefore well-defined statements,
@@ -1030,11 +1032,11 @@ def cy_b_d3_final_proof_summary() -> Dict[str, Any]:
     cross_d3 = cross_check_with_cy_b_d3_proof()
 
     return {
-        "theorem": "CY-B at d=3: E_2-chiral Koszul duality",
+        "theorem": "CY-B at d=3: E_1-chiral Koszul duality (inducing E_2 on center)",
         "statement": (
-            "For A = Phi(C) with C a CY_3 category, "
+            "For A = Phi(C) with C a CY_3 category (A is E_1), "
             "kappa_ch(A) + kappa_ch(A^!) = rho_K and "
-            "Rep^{E_2}(A) ~ Rep^{E_2}(A^!)^{rev}."
+            "Z(Rep^{E_1}(A)) ~ Z(Rep^{E_1}(A^!))^{rev}."
         ),
         "status": "PROVED" if all_complete else "INCOMPLETE",
         "cy_a3_status": "PROVED (thm:cy-to-chiral-d3)",

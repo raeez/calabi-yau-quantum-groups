@@ -10,7 +10,7 @@ Verifies:
 
 Manuscript references:
     notes/theory_e2_chiral_formalism.tex, Sections 6-8
-    CLAUDE.md: CY-B (E_2-chiral Koszul duality)
+    CLAUDE.md: CY-B (E_n-chiral Koszul duality)
 
 Mathematical references:
     Getzler-Jones (1994): E_2 bar construction, E_n self-duality

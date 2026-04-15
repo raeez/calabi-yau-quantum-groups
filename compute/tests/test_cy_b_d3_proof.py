@@ -1,4 +1,4 @@
-r"""Tests for CY-B at d=3: E_2-chiral Koszul duality for CY_3 inputs.
+r"""Tests for CY-B at d=3: E_1-chiral Koszul duality (inducing E_2 on center) for CY_3 inputs.
 
 Tests the CY-B proof components at d=3, covering:
   1. Verdier duality on E_3 bar complex (all shadow classes)

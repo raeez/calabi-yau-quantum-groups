@@ -17,7 +17,8 @@ The quantum group C(g,q) for K3 at the abelian level is:
     C(g_{K3}, q) = D(Y^+(g_{K3}))
 
 the Drinfeld double of the positive half of the K3 Yangian.  Three
-independent routes converge on this identification:
+independent CONSTRUCTIONS (AP-CY60: not three applications of Phi)
+approach this identification; their convergence is Conjecture CY-C:
 
 (A) CHIRAL ROUTE (requires CY-A_2, PROVED at d=2):
     Phi(D^b(K3)) = H_Muk (the Mukai Heisenberg, a chiral algebra).
@@ -1085,19 +1086,24 @@ def classical_limit_comparison() -> Dict[str, Any]:
 
 
 # =========================================================================
-# 8. The three routes convergence
+# 8. The three constructions convergence (AP-CY60: only Route A uses Phi)
 # =========================================================================
 
 def three_routes_convergence(
     params: Optional[MukaiLatticeParams] = None,
 ) -> Dict[str, Any]:
-    r"""Verify convergence of the three routes to C(g_{K3}, q).
+    r"""Verify convergence of three independent constructions to C(g_{K3}, q).
 
-    Route A (Chiral): Phi(D^b(K3)) -> B^{ord} -> Y^+ -> D(Y^+) = C(g,q)
+    These are three DIFFERENT mathematical constructions (AP-CY60),
+    NOT three applications of Phi. Only Route A uses the functor Phi.
+    Their convergence is the content of Conjecture CY-C.
+
+    Route A (Chiral/Phi): Phi(D^b(K3)) -> B^{ord} -> Y^+ -> D(Y^+) = C(g,q)
+        [THE ONLY ROUTE USING PHI]
     Route B (BFN): A_hbar(K3) = Y(g_{K3}) = C(g,q) [CONJECTURAL]
     Route C (MO): R_{MO} -> FRT -> A(R_{MO}) = C(g,q) [UNCONDITIONAL]
 
-    CONVERGENCE CHECKS:
+    CONVERGENCE CHECKS (all conjectural, CY-C):
     (C1) All three routes produce rank-24 algebras.
     (C2) All three have the same classical limit: Drin(H_Muk).
     (C3) All three have the same structure function: g_{K3}(z).

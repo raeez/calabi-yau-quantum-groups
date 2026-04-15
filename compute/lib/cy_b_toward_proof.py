@@ -1,10 +1,13 @@
-r"""CY-B toward proof: E_2-chiral Koszul duality conductor formula.
+r"""CY-B toward proof: E_n-chiral Koszul duality conductor formula.
 
 MATHEMATICAL CONTENT
 ====================
 
-CY-B: For a CY_d chiral algebra A = Phi(C), the E_2-chiral Koszul dual
+CY-B: For a CY_d chiral algebra A = Phi(C), the E_n-chiral Koszul dual
 A^! satisfies kappa_ch(A) + kappa_ch(A^!) = rho_K (the Koszul conductor).
+At d=2, A is E_2 and this is E_2-Koszul duality on A directly.
+At d=3, A is E_1 and the Koszul dual uses B_{E_3}(A); the E_2 braided
+equivalence is induced on the Drinfeld center Z(Rep^{E_1}(A)).
 
 With CY-A proved at all d, the algebra A = Phi(C) EXISTS for all CY_d
 categories C.  CY-B is therefore a well-defined (not conditional) statement.

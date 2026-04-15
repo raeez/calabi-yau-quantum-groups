@@ -107,7 +107,7 @@ Manuscript references
 ---------------------
     Chapter: k3_times_e.tex, sec:k3-moduli-niemeier-landscape
     Kummer orbifold: cy_to_chiral.tex, prop:kummer-orbifold
-    Three algebraizations: k3_times_e.tex, subsec:k3-three-algebraizations
+    Three constructions (AP-CY59): k3_times_e.tex, subsec:k3-three-algebraizations
     Wall-crossing: k3_times_e.tex, sec:k3e-wall-crossing
 """
 

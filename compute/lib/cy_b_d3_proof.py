@@ -1,4 +1,4 @@
-r"""CY-B at d=3: E_2-chiral Koszul duality for CY_3 inputs.
+r"""CY-B at d=3: E_1-chiral Koszul duality (inducing E_2 on center) for CY_3 inputs.
 
 MATHEMATICAL CONTENT
 ====================

@@ -783,8 +783,9 @@ def monster_voa_connection() -> MonsterVOAConnection:
 def kappa_ch_hierarchy() -> Dict[str, Any]:
     """The kappa_ch hierarchy for K3-related VOAs.
 
-    Three algebraization routes produce three different kappa_ch values
-    from the same K3 geometry (Proposition prop:k3-trichotomy):
+    Three independent CONSTRUCTIONS (AP-CY59: not three outputs of Phi)
+    produce three different kappa_ch values from the same K3 geometry
+    (Proposition prop:k3-trichotomy):
 
       kappa_ch = 24: Leech lattice VOA V_{Leech}
       kappa_ch = 12: Monster VOA V^natural
@@ -825,8 +826,9 @@ def kappa_ch_hierarchy() -> Dict[str, Any]:
         'interpretation': (
             'The three values are NOT different answers to the same question. '
             'They are answers to different questions: how much of the 24-dim '
-            'Hochschild homology does each algebraization route promote to '
-            'chiral algebra generators contributing to the shadow tower?'
+            'Hochschild homology does each independent construction promote to '
+            'chiral algebra generators contributing to the shadow tower? '
+            'Only kappa_ch=2 comes from the functor Phi (AP-CY59).'
         ),
     }
 

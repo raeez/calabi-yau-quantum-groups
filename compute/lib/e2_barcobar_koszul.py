@@ -1,4 +1,4 @@
-"""E_2 bar-cobar adjunction and E_2-chiral Koszul duality (Theorem CY-B).
+"""E_2 bar-cobar adjunction and E_n-chiral Koszul duality (Theorem CY-B).
 
 This module implements the BRAIDED version of Theorems A and B from Vol I.
 The key structural difference from E_1:
