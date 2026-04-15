@@ -3,7 +3,7 @@
 **Volume III** of *Modular Homotopy Theory for Algebraic Factorization Algebras on Algebraic Curves*
 by Raeez Lorgat.
 
-The combinatorial skeleton of a Calabi-Yau category (its lattice, BPS spectrum, and symmetries) is expected to determine the root datum of a quantum vertex chiral group G(X). When that chiral object exists, its bar-complex Euler product recovers the BKM denominator identity, and Vol I's shadow obstruction tower organizes the corresponding root-multiplicity data. Proved for d=2 (Yangians, elliptic Hall algebras); for d=3 the identification remains a precisely scoped open programme whose central obstruction is the construction of the CY-to-chiral functor.
+Constructs the functor Phi: CY_d-Cat -> E_n-ChirAlg from Calabi-Yau categories to chiral algebras, proved for all d (CY-A_2 at d=2; CY-A_3 at d=3 via the infinity-categorical proof that HH^{-2}_{E_1}=0 and the space of E_3-liftings is contractible). The E_n level is dimension-dependent: E_inf at d=1, E_2 at d=2, E_1 at d>=3, with the braided E_2 structure at d>=3 constructed via the Drinfeld center Z(Rep^{E_1}(A)) — the right adjoint to the forgetful functor, not a categorified averaging map. The K3 Yangian Y(g_{K3}) has 24 generators, Mukai-signature (4,20) Serre relations, and degree-(24,24) structure function. Six independent constructions approach G(K3 x E); their conjectural convergence is CY-C.
 
 ## The Three Volumes
 
@@ -31,7 +31,7 @@ CY category C  -->  cyclic A-infinity  -->  Lie conformal algebra
                                BKM denominator identity      Vol I Theta_A
 ```
 
-For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfaces). For general d=3: the CY-to-chiral functor remains conditional on chain-level `S^3`-framing, so the CY-A route does not yet construct `A_X`. Toric CY3 has a separate proved `E_1` CoHA/chart-gluing package, but that is not a proof of the general `\Phi_3` functor.
+For d=2: the functor Phi_2 is proved (Theorem CY-A_2). For d=3: the infinity-categorical proof resolves the chain-level S^3-framing obstruction (Theorem CY-A_3). For toric CY3: a separate proved E_1 CoHA/chart-gluing package provides independent verification. The E_n-chiral Koszul duality (Theorem CY-B) is proved at d=3 via the Verdier spectral functor: E_1-Koszul on A, inducing E_2 on the Drinfeld center. CY-C (quantum group realization) and CY-D (modular characteristic at d>=3) remain conjectural/programme.
 
 ## Connection to Volumes I-II
 
@@ -42,40 +42,44 @@ For d=2: the functor exists (Yangians from quivers, elliptic Hall from K3 surfac
 | Modular characteristic kappa(A) | Vol I, Theorem D | Real roots + Weyl vector of BKM algebra |
 | R-matrix braiding | Vol II, Part III | Abstract E_1 -> E_2 lift via Drinfeld center; d=3 applications require the E_1 input |
 
-## Five-Part Structure
+## Seven-Part Structure
 
-- **I. The CY Engine**: CY categories, cyclic A-infinity structures, Hochschild calculus (HKR, Gerstenhaber, BV, CY-to-Lie-conformal passage), E_1/E_2-chiral algebras, E_n factorization
-- **II. The CY Characteristic Datum**: CY-to-chiral functor Phi, quantum chiral algebras, modular trace, quantum group foundations, braided factorization (U_q(g), R-matrix, YBE from bar coassociativity, braided bar-cobar adjunction CY-B, braided shadow tower), Drinfeld center and bulk algebras (BZF theorem, center vs derived center, Kazhdan-Lusztig at roots of unity)
-- **III. The CY Landscape**: K3 x E, toric CY3 CoHA, Fukaya categories (elliptic/K3/abelian/CY3/wrapped, HMS compatibility), derived categories, matrix factorizations, quantum group representations (generic q vs roots of unity)
-- **IV. Seven Faces of r_CY(z)**: Bar-cobar bridge to Vol I, CY holographic datum
-- **V. The CY Frontier**: Geometric Langlands and CY quantum groups
+- **I. Foundations**: CY categories, cyclic A-infinity, Hochschild calculus
+- **II. CY-to-Chiral Functor**: Construction of Phi, the [m_3,B^{(2)}] saga, kappa-spectrum
+- **III. E_n Hierarchy and Chiral Quantum Groups**: E_1/E_2-chiral algebras, E_n factorization, quantum groups, Drinfeld center, braided factorization
+- **IV. The K3 Yangian**: Phi(K3) explicit, abelian Yangian, K3 x E BKM, quantum toroidal, six routes to G(K3 x E)
+- **V. CY Landscape**: toric CY3 CoHA, Fukaya, derived, matrix factorizations, quantum group reps
+- **VI. Seven Faces of r_CY(z)**: bar-cobar bridge, modular Koszul bridge, CY holographic datum
+- **VII. Frontiers**: geometric Langlands, nonabelian Yangian, ZTE, root of unity
 
 ## Status
 
 | Component | Status |
 |-----------|--------|
-| CY_2 functor (d=2) | **Proved** |
-| Lattice VOA bridge | **Proved** |
+| CY-A (CY-to-chiral functor) | **Proved** at all d (CY-A_2 at d=2; CY-A_3 at d=3, inf-cat) |
+| CY-B (E_n-chiral Koszul duality) | **Proved** at d=3 via Verdier spectral functor |
+| K3 Yangian Y(g_{K3}) | **Proved** (24 generators, Mukai signature, abelian presentation) |
+| Phi(K3) explicit | **Proved** (H_Muk, kappa_ch=2) |
 | CoHA as E_1 sector (toric CY3) | **Proved** |
-| Drinfeld center lift E_1 -> E_2 | **Proved elsewhere** (d=3 applications remain conditional) |
-| CY_3 functor (d=3) | **Conjectural** (the programme is conditional on chain-level S^3-framing and quantization) |
-| BKM = shadow tower | **Conjectural** (requires d=3 functor) |
+| Drinfeld center E_1 -> E_2 | **Proved** (right adjoint to forgetful, half-braiding construction) |
+| CY-C (quantum group realization) | **Conjectural** (G(X) not constructed in general) |
+| CY-D (modular characteristic d>=3) | **Programme** |
 | Langlands = Koszul | **Conjectural** |
-| BKM side verification | K3 x E: 271 tests (Borcherds product, root multiplicities) |
 
 | Metric | Value |
 |--------|------:|
-| Pages | 367 |
-| Theory chapters | 13 |
-| Example chapters | 6 (with `K3 x E` merged into `toroidal_elliptic`) |
-| Connection chapters | 4 (including restored `modular_koszul_bridge` + `geometric_langlands`) |
-| Working notes | Separate PDF in build |
-| Tagged claims | 451 |
-| Compute tests | 19,838 collected |
-| Compute modules | 196 lib + 204 test |
-| Anti-patterns | AP-CY1 through AP-CY19 + AP150-AP157 + FM24 |
-| HOT ZONE entries | HZ3-1 through HZ3-10 (Vol III-specific operational templates) |
-| Bibliography | 39 bibitems |
+| Pages | ~757 |
+| Parts | 7 (with Part openers and 3 reading paths) |
+| Theory chapters | 14 |
+| Example chapters | 11 |
+| Connection chapters | 4 |
+| Working notes | ~89pp (separate PDF) |
+| Compute engines | ~570 |
+| Compute tests | ~39,500 |
+| Anti-patterns | AP-CY1 through AP-CY61 + AP150-AP157 + FM24-FM46 |
+| HOT ZONE entries | HZ3-1 through HZ3-10 |
+| First-principles cache | 179 entries, 30 confusion types |
+| Bibliography | 39+ bibitems |
 
 ## Build
 
