@@ -356,6 +356,22 @@ AP-CY50: Duplicate agent launches. When relaunching failed agents, check the age
 AP-CY51: Rate-limited agents write engines+tests but not manuscript. When an agent is rate-limited, check disk for persisted files before relaunching from scratch. Counter: check disk for persisted files before relaunching. Resume from persisted state.
 AP-CY52: Mega-file anti-pattern. Files >3000 lines should be split. toroidal_elliptic.tex was 7190 lines; k3_times_e.tex was 5986 lines. Both needed splitting. Counter: when a .tex file exceeds 3000 lines, split it by section. Target 1000-2000 lines per file.
 
+### Geometric vs Algebraic Model Conflations (AP-CY62--AP-CY67, 2026-04-16 adversarial swarm)
+
+AP-CY62: Geometric vs algebraic chiral Hochschild model. Two chain-level models: (a) geometric C^*_{ch,geom} (FM compactifications, log forms, 3-component differential), (b) algebraic C^*_{ch,alg} (End^ch_A, Gerstenhaber bracket differential). Quasi-isomorphic for logarithmic chiral algebras. The comparison is only a REMARK, not a named theorem. At genus >= 1, geometric carries curve-dependent data algebraic lacks. Counter: specify "geometric (FM)" or "algebraic (bar/operadic)" when chain-level structure matters. Bare C^*_ch(A,A) forbidden in chain-level arguments. **Triggers**: "C^*_ch(A,A)" without model qualifier; "the derived center Z^der_ch" without model when E_n claimed; FM integration language mixed with formal-variable language.
+
+AP-CY63: BD chiral operad vs algebraic End^ch. BD defines chiral operations via D-module maps. Algebraic End^ch uses formal Laurent series. Isomorphic after 4-step bridge (choose point, choose coordinate, trivialise D-module, identify spectral variables). Counter: never write "the chiral endomorphism operad" without specifying BD or algebraic. Bridge Proposition ABSENT from manuscript. **Triggers**: "the chiral endomorphism operad on FM_k(C)"; mixing D-module language with formal Laurent series.
+
+AP-CY64: Three-way Hochschild confusion (ChirHoch/HH*/H*_GF). ChirHoch* concentrated in {0,1,2} (Theorem H). HH*(A_mode) concentrated in {0} for Weyl algebra (dim 1). H*_GF unbounded (polynomial ring). "ChirHoch is finite while THH is infinite" is WRONG (HH*(Weyl) = 1-dim). Genuine "fails to concentrate" = H*_GF, not THH. At critical level k=-h^v ONLY: ChirHoch* infinite (Feigin-Frenkel), HH* finite. **Triggers**: "ChirHoch is finite while THH is infinite"; "Theorem H has no classical analogue"; "concentration fails for topological Hochschild"; "Gel'fand-Fuchs agrees with ChirHoch".
+
+AP-CY65: Spectral parameter provenance. z in R(z) has three-part origin: (a) algebraic (translation automorphism tau_z creating evaluation modules), (b) geometric (holomorphic translation on curve C), (c) representation-theoretic (z = u - v). "Topological Drinfeld centre has no spectral parameters" is FALSE: Yangian Y(g) has evaluation modules V_u. Correct claim: chiral bar DIFFERENTIAL is z-dependent; topological bar COPRODUCT is z-independent. **Triggers**: "spectral parameters from the chiral structure"; "topological center has no spectral parameters"; "R(z) comes from the derived center"; "E_2 braiding carries spectral parameters".
+
+AP-CY66: BZFN ambient category is NOT tunable. BZFN uses SAME S on both sides. Two centres come from TWO DIFFERENT ALGEBRAS: chiral A (in IndCoh(Ran)) vs mode algebra A_mode (in Vect). Counter: never say "applying BZFN in two different ambient categories." Say: "two different algebras, each with its own BZFN equivalence." **Triggers**: "applying BZFN in two different ambient categories"; "the same algebra viewed in D-modules vs Vect"; "varying S in BZFN".
+
+AP-CY67: "Spectral parameters from FM_k(C)" is narration, not construction. End^ch_A has formal algebraic variables; FM enters via comparison theorem (a comparison, not a definition). Counter: replace "spectral parameters from FM_k(C)" with "spectral parameters from End^ch_A, identified with relative position coordinates on the formal disk via the local-global comparison." **Triggers**: "spectral parameters from FM_k(C)"; "the chiral endomorphism operad on FM_k(C)".
+
+**Higher-order ramification guards (AP-CY62--AP-CY67):** WRONG REASONING: "Because ChirHoch is finite-dimensional, the Drinfeld center is finite" (Drinfeld center is a CATEGORY); "The spectral parameter distinguishes chiral from topological" (Yangian has spectral params despite being topological); "The curve geometry is what makes quantum groups possible" (partially right: curve creates tau_z, but once Yangian exists, spectral params persist regardless).
+
 ## 6d Holomorphic CS Programme (established April 2026)
 
 The Costello programme constructs chiral quantum groups from holomorphic CS at each dimension:
@@ -618,6 +634,102 @@ make test                                                         # Vol III test
 | **additive/multiplicative** | ~1 | ~0 | ~2 | kappa_ch additive, chi(O_X) multiplicative. |
 | **temporal** | ~1 | ~1 | ~1 | Status changed. Old status persists. |
 | **sandbox/reality** | ~0 | ~0 | ~3 | Verify files exist after agent completion. |
+
+## Cross-Volume Anti-Patterns (Vol I + Vol II, injected for self-contained agent awareness)
+
+### Vol I Anti-Patterns (from ~/chiral-bar-cobar/CLAUDE.md)
+
+AP2: Read actual .tex proof, not CLAUDE.md description. Descriptions are claims ABOUT source.
+AP4: ClaimStatusProvedHere = verify proof proves stated claim. Status tag != ground truth.
+AP40: Environment MUST match tag. Conjectured -> \begin{conjecture}. ProvedElsewhere -> theorem + Remark attribution.
+AP5: Grep ALL THREE volumes for variant forms: ~/chiral-bar-cobar, ~/chiral-bar-cobar-vol2, ~/calabi-yau-quantum-groups. After EVERY correction.
+AP6: Specify genus, degree, level (convolution vs ambient) for D^2=0, kappa, Theta_A.
+AP7: Before writing universal quantifier, verify proof has no implicit type/genus/level restriction.
+AP8: NEVER "self-dual" unqualified. Specify which duality, which c. Virasoro self-dual at c=13.
+AP12: When proving a claim, search entire manuscript for variants. Update all instances same commit.
+AP14: Koszulness != SC formality. Koszul = bar H* in degree 1. SC formal = m_k^{SC}=0 for k>=3. All standard families Koszul; only class G SC-formal.
+AP17: After writing ANY new theorem, IMMEDIATELY audit before building next result.
+AP18: "Entire standard landscape" -> list every family, check each against hypotheses.
+AP30: CohFT flat identity requires vacuum in V. ALWAYS list conditional axioms at cross-reference.
+AP32: Genus-1 != all-genera. obs_1=kappa*lambda_1 unconditional. Multi-weight g>=2: scalar formula FAILS. **Every occurrence of obs_g, F_g, lambda_g in a theorem MUST carry explicit tag: (UNIFORM-WEIGHT) or (ALL-WEIGHT, with cross-channel correction). Untagged = violation.**
+AP36: "implies" proved, "iff" claimed -> write "implies" until converse has independent proof. **Before writing "iff" or biconditional arrow, STOP: is the converse proved in the same theorem? If not, write "implies."**
+AP39: kappa != S_2 for non-Virasoro. Coincide only rank-1. Lookup: Heis_k: kappa=k (NOT k/2). Vir_c: kappa=c/2 (ONLY family where kappa=S_2/2). KM: kappa=dim(g)(k+h^v)/(2h^v).
+AP47: Evaluation-generated core != full category. MC3 proved on eval core; DK-4/5 downstream.
+AP60: Tag only genuinely new content ProvedHere. Classical parts ProvedElsewhere with attribution.
+AP67: Strong gen != FREE strong gen. W(p) has 4 strong generators but FREE strong gen OPEN.
+AP105: Heisenberg = abelian KM at level k = abelian CS boundary. SAME OPE J(z)J(w) ~ k/(z-w)^2. Simple-pole requires ODD generator (symplectic fermion).
+AP106: NEVER "This chapter constructs..." Open with the PROBLEM. CG deficiency opening.
+AP107: r^coll(z) differs from Laplace-transform r(z) for odd generators.
+AP108: Heisenberg = CG opening, NOT the atom. Atom of E_1 = genuinely nonlocal (Yangian, EK quantum VA).
+AP109: NEVER list results before proving them. Theorems appear when mathematics demands.
+AP111: No "What this chapter proves" blocks. Restructure instead.
+AP113: kappa without subscripts FORBIDDEN in Vol III. Always kappa_ch, kappa_BKM, kappa_cat, kappa_fiber.
+AP114: Stub chapters (<50 lines, no theorems) create false coverage -> develop or comment out.
+AP126: Level-stripped r-matrix. Classical r-matrix for affine KM at level k is r(z) = k*Omega/z, NOT Omega/z. The level k survives d-log absorption. Verify: at k=0 the r-matrix MUST vanish. 42+ instances found across all three volumes (12 in first commit, 30 more in full-volume CG sweep). THE MOST VIOLATED AP in the manuscript. After writing ANY r-matrix, verify k=0 -> r=0.
+AP136: Harmonic number notation trap. H_{N-1} != H_N - 1. H_{N-1} = sum_{j=1}^{N-1} 1/j. H_N - 1 = (sum_{j=1}^{N} 1/j) - 1 = sum_{j=2}^{N} 1/j. At N=2: H_1=1 but H_2-1=1/2. CLAUDE.md itself had this error (kappa(W_N)=c*H_{N-1} instead of c*(H_N-1)). When a formula involves harmonic numbers with shifted arguments, ALWAYS evaluate at the smallest N to distinguish.
+AP138: Degenerate graded Jacobi. At even suspended degree ||m||=0, [[m,m],f]=0 is TAUTOLOGICAL. The identity [m,[m,f]]=½[[m,m],f] requires ||m|| ODD. Check parity before using Jacobi to relate ad_m^2 to [[m,m],-].
+AP139: Unbound variable in theorem. If LHS depends on {g} but RHS on {g,n}, the variable n is FREE. Every variable in a displayed equation within a theorem MUST be quantified. Found in Thm C^{E1}.
+AP141: AP126 is systemic. The original AP126 noted "12 instances across 5 files." This rectification session found 30 MORE instances across all three volumes. The error survives because Omega/z and kOmega/z look similar and both give valid-looking formulas. ENFORCEMENT: after writing ANY r-matrix formula, (a) check that k=0 gives r=0, (b) grep the manuscript for bare Omega/z without level prefix.
+AP150: Agent confabulation of mathematical structures. Agents can stitch together disparate results from different categorical levels into claimed structures (e.g., an "E_n operadic circle" E_3->E_2->E_1->E_2->E_3) that do not exist in any manuscript. COUNTER: every claimed multi-step structure must be verified arrow-by-arrow against actual .tex source. Each arrow must have an independent theorem reference. If ANY arrow is conjectural, the structure is conjectural.
+AP151: Convention clash within a single file. Two different definitions of the same symbol hbar (e.g., 1/(k+2) in one section vs pi*i/(k+2) in another) produce cascade errors in downstream formulas. The B-cycle monodromy q = e^{2*pi*i*hbar} becomes real instead of a root of unity when hbar has an extra factor of pi*i. COUNTER: after writing ANY formula involving hbar, grep the file for all other definitions of hbar and verify consistency.
+AP152: "Ordered" ambiguity (labeled vs time-ordered). "Ordered configurations" on a curve means LABELED (non-coinvariant), not totally ordered (the curve has no natural total order). The total ordering lives in the topological direction R. The bar complex B^{ord}(A) is a MIXED object: holomorphic differential (from OPE on C) + topological coproduct (from deconcatenation along R). COUNTER: always specify whether "ordered" means "labeled on C" or "time-ordered on R."
+AP153: E_3 scope inflation. The E_3 structure on the derived chiral center Z^{der}_{ch}(A) via the Higher Deligne Conjecture requires B-bar^Sigma(A) to exist as an E_2-coalgebra. For E_inf-chiral algebras (all standard VAs), B-bar^Sigma exists and E_3 follows. For genuinely E_1-chiral algebras (Yangians), B-bar^Sigma does NOT exist (the D-module doesn't descend to X^{(n)}), and the ordered bar gives only E_2 via classical Deligne. COUNTER: every E_3 claim must specify: is the input E_inf or E_1? If E_1, the passage to E_3 requires the Drinfeld center (conjectural).
+AP154: Two distinct E_3 structures. (a) Algebraic E_3: from HDC on E_2 bar coalgebra, no conformal vector needed. (b) Topological E_3: from Sugawara topologisation, requires conformal vector at non-critical level. These are NOT the same; their identification as families over hbar*H^3(g)[[hbar]] is CONJECTURAL (conj:e3-identification). Topological E_3 (b): PROVED for affine KM at non-critical level (thm:topologization); CONJECTURAL for general chiral algebras with conformal vector (conj:topologization-general in Vol I, conj:E3-topological-climax in Vol II). Proof is cohomological; for class M, chain-level E_3 may fail. COUNTER: always specify which E_3 and whether the claim requires Sugawara.
+AP155: "New invariant" overclaiming. The ordered chiral homology framework recovers known invariants (KZB from Bernard 1988, elliptic R-matrix from Felder 1994, Verlinde from BD) from a unified bar-complex construction. The novelty is ARCHITECTURAL (a new framework), not COMPUTATIONAL (new numbers). Claiming "genuinely new E_1 invariants" when the numbers are known under other names is misleading. COUNTER: for any claimed "new invariant," check Bernard/Felder/Etingof-Varchenko/Calaque-Enriquez-Etingof.
+AP156: Quasi-periodicity convention for wp_1. Two different functions both called wp_1: (a) theta_1'(z|tau)/theta_1(z|tau) -- periodic under z->z+1, quasi-periodic under z->z+tau with increment -2*pi*i. (b) Weierstrass zeta_tau(z) = (a) + 2*eta_1*z -- quasi-periodic under BOTH z->z+1 (increment 2*eta_1) and z->z+tau. These produce DIFFERENT monodromy formulas. COUNTER: always specify which function and verify the quasi-periodicity at the point of use.
+AP157: Degeneration-dependent "invariants." A formula computed from a specific degeneration (separating vs non-separating) of a higher-genus curve is NOT an invariant of the curve unless degeneration-independence is proved. The separating degeneration of a genus-2 curve contains ZERO genuinely genus-2 information (everything is determined by genus-0 S-matrix + genus-1 R-matrix eigenvalues). The non-separating channel carries genuinely new data. COUNTER: always specify the degeneration type and state whether independence is proved or assumed.
+
+#### Vol I Failure Modes
+
+**FM24. B-cycle monodromy i^2 error.** When hbar contains a factor of pi*i (from a non-standard convention), the formula q = e^{2*pi*i*hbar} gives q = e^{2*pi*i*pi*i/(k+2)} = e^{-2*pi^2/(k+2)}, which is a REAL number less than 1, not a root of unity. The i^2 = -1 turns an imaginary exponential into a real exponential. This error propagates silently because q still "looks like" a parameter. Counter: after defining q = e^{2*pi*i*hbar}, substitute a specific integer k and verify q is on the unit circle (|q| = 1).
+**FM42. Bulk substring replacement corruption (CRITICAL).** Using replace_all for "arity" → "degree" corrupts every English word containing "arity" as a substring: singularity→singuldegree, complementarity→complementdegree, unitarity→unitdegree, regularity→reguldegree, modularity→moduldegree, parity→pdegree, familiarity→familidegree, similarity→simildegree, polarity→poldegree, disparity→dispdegree, linearity→linedegree. These corruptions pass LaTeX compilation silently and are invisible to grep for the target word. 45 corruptions were introduced and fixed in the Vol III campaign. COUNTER: (1) NEVER use bulk substring replace for short strings that appear inside common words. Fix individual instances or use word-boundary patterns. (2) After ANY bulk replace, immediately grep for `ldegree|ndegree|rdegree|pdegree|tdegree` and all known compound forms. (3) Maintain the checklist: words containing "arity" as substring = {singularity, complementarity, unitarity, regularity, modularity, parity, familiarity, similarity, polarity, disparity, linearity, popularity, circularity, hilarity}.
+**FM43. E_n output scope of CY-to-chiral functor (Vol III).** The functor Φ outputs E_2-chiral at d ≤ 2 and E_1-chiral at d ≥ 3. Writing `Φ: CY_d-Cat → E_2-ChirAlg` without d-qualification is WRONG for d ≥ 3. Found in 5 files across Vol III (preface, cyclic_ainf, cy_categories, main.tex, working_notes). COUNTER: always write `E_n-ChirAlg` with explicit scope `(n = 2 for d ≤ 2; n = 1 for d ≥ 3)`.
+**FM44. Agent rate limiting from parallel launch.** Launching >10 agents simultaneously causes mass rate limiting (31 launched, 27 rate-limited, only 4 completed). Even 4 concurrent agents can hit limits. COUNTER: launch agents in batches of 3, not 30+. Expect ~5-13 minutes per agent on 1000-3000 line files.
+**FM45. Agent skill fidelity gap.** Subagents receive a compressed ~200-word brief, not the full /chriss-ginzburg-rectify 15,000-word programme. The agents DO apply anti-patterns and fix violations, but they lack the full 5-gate framework, the 15-peak standard, and the connective tissue requirements. COUNTER: for full skill-level rectification, invoke the skill directly in the main conversation for each file. Agents are useful for bulk violation scanning, not for deep reconstitution.
+**FM46. Stale preface/introduction line counts (AP112 variant).** Chapter assessment sections in the preface and introduction list line counts that become stale as chapters grow. Found 8 counts off by up to 3x in the Vol III preface. COUNTER: after any large content campaign, update line counts in preface/introduction assessment sections. Automate with `wc -l` comparison.
+
+### Vol II Anti-Patterns (from ~/chiral-bar-cobar-vol2/CLAUDE.md)
+
+V2-AP1: E_inf INCLUDES ALL vertex algebras. KM, Virasoro, Heisenberg are ALL E_inf. NEVER "VAs are not E_inf."
+V2-AP2: R(z)!=tau does NOT imply genuinely E_1. For E_inf with poles, R(z) derived from local OPE. For E_1, R(z) is independent input. Discriminant is PROVENANCE, not value.
+V2-AP3: Three bars: B^FG (zeroth pole only) != B^Sigma (all poles + coinvariants) != B^ord (all poles + ordering). Maps: B^ord -> B^Sigma (coinvariants), gr(B^Sigma) -> B^FG (filtration).
+V2-AP4: Ordered-to-unordered descent is R-matrix twisted: B^Sigma_n = (B^ord_n)^{R-Sigma_n}. Naive quotient only for pole-free.
+V2-AP5: NEVER equate E_inf with "no OPE poles." BD "commutative chiral algebra" (no poles) is STRICT SUBCLASS.
+V2-AP6: BD do NOT study E_1. E_1-chiral algebra = NEW concept from THIS manuscript.
+V2-AP7: Heisenberg R-matrix = exp(k*hbar/z), NOT trivial. Collision residue k/z. Monodromy exp(-2pi*i*k).
+V2-AP8: NEVER add restrictive parenthetical glosses. "E_inf (= BD commutative = no poles)" NARROWS the term.
+V2-AP9: NEVER say VA "is not E_inf." KM, Virasoro, Heisenberg, W-algebras are ALL E_inf. Poles do not break E_inf.
+V2-AP10: NEVER "E_inf implies R(z)=tau" without pole-free qualifier. Correct: "For POLE-FREE E_inf, R(z)=tau."
+V2-AP11: NEVER conflate E_inf with BD "commutative." BD Chapter 4 "commutative" = pole-free = strict subclass.
+V2-AP12: E_1 vs E_inf is about LOCALITY, not poles.
+V2-AP13: NEVER trust agent claim "VAs are not E_inf." This exact error caused cascading damage.
+V2-AP14: NEVER oscillate between conventions in single session.
+V2-AP15: NEVER edit E_1/E_inf language without author confirmation.
+V2-AP16: Three-tier picture is WITHIN E_inf, not a division between E_inf and E_1. (i)+(ii) both E_inf. Only (iii) is E_1.
+V2-AP17: NEVER revert file based on false premise. Surgical removal only.
+V2-AP18: Author's explicit statements override agent literature searches.
+V2-AP19: NEVER batch-propagate unverified corrections. ONE edit, verify, THEN propagate.
+V2-AP20: NEVER add "in the sense of [reference]" without verification.
+V2-AP21: PVA != P_inf-chiral. PVA = classical shadow (descend to cohomology). P_inf = homotopy intermediate. Opposite directions.
+V2-AP22: Full hierarchy: Comm assoc < PVA < E_inf-chiral < P_inf-chiral < E_1-chiral. Bar/Koszul at E_inf and E_1 levels.
+V2-AP23: Chromatic: classical theory is height 0. L_{K(n)}(B(A))=0 for n>=1. Pole order != chromatic height.
+V2-AP24: S-transform (closed, complex structure) != Wick rotation of R (open, E_1 ordering). Different algebraic data.
+V2-AP25: Complex-analytic sign verification. For dbar Im(f), dbar Re(f): (1) write Im(f)=(f-fbar)/(2i), (2) compute dbar on fbar only, (3) verify sign against known case. dbar Im(f) = (i/2)*dbar(fbar), NOT 1/(2i). The identity -1/(2i)=i/2 is a common sign confusion source. Sign corrections must be verified at EACH propagation site.
+V2-AP26: NEVER hardcode Part/chapter numbers in prose. Always \ref{part:...}. After ANY Part restructuring, grep all volumes for stale Part numbers. 24+ stale refs required manual fix after 10->7 Part restructuring.
+V2-AP27: Duplicated mathematical content across files FORBIDDEN. If two chapters need same theorem, use \input{} or \ref{}. NEVER copy-paste theorem environments between files.
+V2-AP28: Test expected values must derive from 2+ independent sources with documented derivation. Engine and test from same mental model share the same error. lambda_3=1/82944 was wrong (correct: 31/967680) because both engine and test used same faulty computation.
+V2-AP29: AI slop cleanup is MANDATORY post-generation pass. After writing ANY .tex content, grep for: moreover, additionally, notably, crucially, remarkably, "it is worth noting", em dashes, "We now", passive "can be shown." Three separate cleanup commits prove aspirational instructions insufficient.
+V2-AP30: After architecture restructuring, run: grep -rn "Part~[IVXL]" chapters/ to find all hardcoded Part refs. Also grep -rn "\\ref{part:" to verify targets resolve.
+V2-AP31: AP4 at write time. Before writing \begin{proof}, verify preceding environment is theorem/prop/lemma with ProvedHere. If conjecture: use \begin{remark}[Evidence] instead. 25-instance fix commit proves post-hoc enforcement is expensive.
+V2-AP32: Standalone-document artifact leak. Chapter .tex files \input{}'d into main.tex MUST NOT contain \title{}, \begin{abstract}, \tableofcontents, \date{}, \author{}. These cause silent rendering artifacts. Grep chapters/ for these after any file creation.
+V2-AP33: RECTIFICATION-FLAG must NOT become permanent debt. Every flag needs resolution or a tracked TODO with owner. Grep for RECTIFICATION-FLAG at session end; zero tolerance for unresolved flags.
+V2-AP34: Divided-power convention in lambda-brackets. Vol II uses {T_lambda T} = (c/12)*lambda^3 (divided power). OPE mode T_{(3)}T = c/2 maps to (c/2)/3! = c/12. EVERY lambda-bracket MUST use divided powers. Grep for c/2.*lambda^3 — if found, almost certainly wrong (should be c/12). W3: c/3*lambda^5 wrong, correct c/360.
+V2-AP35: Unresolved logical connectives after correction. When correcting a formula, audit ALL "therefore"/"hence"/"it follows" within 5 lines. A correction that changes the conclusion but leaves "therefore" pointing to old reasoning is a non-sequitur worse than the original error.
+V2-AP36: Terminology rename atomicity. When renaming terminology X -> Y: (1) enumerate ALL variant forms (X, "X tower", "X Postnikov", compound forms), (2) grep all three volumes including compute/, audit/, *.md, (3) complete ALL replacements in a SINGLE commit, (4) verify zero residual hits before committing. The "shadow Postnikov tower" -> "shadow obstruction tower" rename required 5 commits (114 + 27 + 4 + 1 + 1 files). Follow-up cleanup commits are evidence of incomplete propagation.
+V2-AP37: Arakelov form canonical normalisation. Canonical: omega_1 = i/(2 Im(tau)) dz wedge dz-bar (integral = 1). Arakelov kernel: omega_Ar = -(pi/Im(tau)) dz wedge dz-bar (integral = -1). Relationship: omega_1 = -omega_Ar/(2*pi). The same sign/normalisation error was fixed THREE times across THREE commits. Before writing ANY Arakelov normalisation, verify the integral over the fundamental domain evaluates to the stated value.
+V2-AP38: Phantom label retirement schedule. After chapter migration, install phantom labels as temporary fix but track each in a retirement list. Phantom labels with no retirement path for 3+ sessions should be flagged. 366 phantom labels installed across 2 commits after Vol I -> Vol II migration.
+V2-AP39: Macro portability check after migration. After migrating ANY chapter from Vol I to Vol II: (1) compile Vol II, (2) grep compile log for "Undefined control sequence", (3) add \providecommand for each missing macro in Vol II's preamble. 7 macros required addition across 2 commits. Never assume Vol I macros are available.
+
 
 ## Git
 

@@ -805,6 +805,160 @@ Before assigning a G/L/C/M class:
 \end{enumerate}
 
 %% =====================================================================
+\section{Geometric vs Algebraic Model Conflations (AP-CY62--AP-CY67)}
+\label{sec:ap-geom-alg-model}
+%% Added 2026-04-16: from 15-agent adversarial swarm on two derived centers.
+
+\subsection{AP-CY62: Geometric vs algebraic chiral Hochschild model}
+
+Two chain-level models compute chiral Hochschild cochains:
+\begin{enumerate}[label=(\alph*),nosep]
+\item \emph{Geometric model} $C^\bullet_{\mathrm{ch,geom}}(\cA)$:
+      sections over $\overline{C}_{n+1}(X)$ with log forms, three-component
+      differential ($d_{\mathrm{int}} + d_{\mathrm{fact}} + d_{\mathrm{config}}$).
+\item \emph{Algebraic model} $C^\bullet_{\mathrm{ch,alg}}(\cA)$:
+      $\prod_{n \ge 0} \End^{\mathrm{ch}}_A(n{+}1)[-n]$ with
+      $\delta f = [m, f]$ (Gerstenhaber bracket differential).
+\end{enumerate}
+These are quasi-isomorphic for logarithmic chiral algebras (via the
+logarithmic comparison theorem).  At genus $\ge 1$, the geometric
+model carries curve-dependent data (Green's functions, period
+corrections) that the algebraic model lacks.
+
+\emph{Counter.}  When chain-level structure matters (filtrations,
+$\En$-structure, genus $> 0$), specify ``geometric (FM)'' or
+``algebraic (bar/operadic).''  Bare $C^\bullet_{\mathrm{ch}}(\cA,\cA)$
+is forbidden in chain-level arguments.
+
+\emph{Status of comparison theorem.}  The bar complex comparison
+(geometric $\leftrightarrow$ algebraic) is a named theorem
+(\texttt{thm:geometric-equals-operadic-bar}).  The chiral Hochschild
+comparison is only a remark (\texttt{rem:comparison-geometric-hoch},
+\texttt{chiral\_center\_theorem.tex:346}).  This is a structural gap:
+the comparison is invoked at $100{+}$ locations without a named theorem
+backing it.
+
+\subsection{AP-CY63: BD chiral operad vs algebraic End\textsuperscript{ch}}
+
+Beilinson--Drinfeld define chiral operations via D-module maps:
+$\End^{\mathrm{ch}}_M(n) = \Hom_{D(X^n)}(j_* j^* M^{\boxtimes n},
+\Delta_* M)$.  The algebraic chiral endomorphism operad has
+$\End^{\mathrm{ch}}_A(n) = \Hom(A^{\otimes n},
+A((\lambda_1))\cdots((\lambda_{n-1})))$ (formal Laurent series).
+These are isomorphic after formal-disk restriction and coordinate
+choice (four-step chain: choose point, choose coordinate, trivialise
+D-module, identify spectral variables with relative positions).
+
+\emph{Counter.}  Never write ``the chiral endomorphism operad''
+without specifying BD (D-module, coordinate-free) or algebraic
+(formal Laurent series, coordinate-dependent).
+The bridge is an isomorphism of non-$\Sigma$ operads,
+valid after local coordinate trivialisation.  It requires the
+$\Aut(\cO)$-equivariance statement.  A standalone Bridge
+Proposition assembling the four steps is currently absent from
+the manuscript.
+
+\subsection{AP-CY64: Three-way Hochschild confusion (ChirHoch/HH/GF)}
+
+Three invariants share the name ``Hochschild'' or ``derived centre'':
+\begin{enumerate}[label=(\roman*),nosep]
+\item $\ChirHoch^*(\cA)$: chiral Hochschild cochains.  Concentrated
+      in $\{0,1,2\}$ (Theorem~H).
+\item $\HH^*(A_{\mathrm{mode}})$: classical Hochschild cochains of
+      the mode algebra (associative).  Concentrated in $\{0\}$ for
+      simple algebras (Weyl algebra: $\dim = 1$).
+\item $H^*_{\mathrm{GF}}(\mathrm{Lie}(A))$: Gel'fand--Fuchs
+      continuous Lie cohomology.  Unbounded polynomial ring
+      $\bC[\Theta_1, \ldots, \Theta_r]$.
+\end{enumerate}
+The claim ``Theorem~H has no THH analogue'' is \textbf{false} in
+general: $\HH^*$ of the Weyl algebra is also concentrated (in
+degree~$0$, even more so).  The genuine ``fails to concentrate''
+object is (iii)~Gel'fand--Fuchs, which is neither ChirHoch nor~THH.
+
+\emph{Escape route.}  At critical level $k = -h^\vee$,
+$\ChirHoch^*$ becomes infinite-dimensional (Feigin--Frenkel centre
+$\Fun(\Op_{\fg^\vee}(D))$), while $\HH^*(A_{\mathrm{mode}})$
+remains finite.  This is the \textbf{only} regime where the two
+derived centres genuinely differ in dimension.
+
+\emph{Counter.}  Never claim ``ChirHoch* is finite while THH* is
+infinite'' without specifying the level.  At generic level both are
+finite.  At critical level, state the Feigin--Frenkel mechanism
+explicitly.
+
+\subsection{AP-CY65: Spectral parameter provenance}
+
+The spectral parameter $z$ in the $R$-matrix $R(z)$ has a
+\emph{three-part} origin:
+\begin{enumerate}[label=(\alph*),nosep]
+\item \emph{Algebraic}: the algebra $A$ must have a translation
+      automorphism $\tau_z$ (creating evaluation modules $V_u$).
+\item \emph{Geometric}: in the HT setup, $\tau_z$ is holomorphic
+      translation on the curve~$C$ (the closed colour of $\SCchtop$).
+\item \emph{Representation-theoretic}: the $R$-matrix depends on
+      $z = u - v$ (evaluation parameter difference).
+\end{enumerate}
+The claim ``topological Drinfeld centre has no spectral parameters''
+is \textbf{false}: the Yangian $Y(\fg)$, as a purely associative
+algebra, has evaluation modules $V_u$ and spectral $R(z{=}u{-}v)$
+in its Drinfeld centre.  The correct claim is about the bar complex:
+the chiral bar \emph{differential} is $z$-dependent (OPE residues);
+the topological bar \emph{coproduct} is $z$-independent
+(deconcatenation).
+
+\emph{Counter.}  Never write ``spectral parameters from the chiral
+derived centre.''  Write: ``spectral parameters from the evaluation
+module family, created by the translation automorphism that the
+chiral structure provides.''
+
+\subsection{AP-CY66: BZFN ambient category is not a tunable parameter}
+
+The BZFN theorem (Lurie HA~5.3.1.30) states: for an $\Eone$-algebra
+$A$ in a symmetric monoidal stable $\infty$-category~$\cS$,
+$\cZ(\mathrm{LMod}_A(\cS)) \simeq
+\mathrm{LMod}_{\HH^\bullet(A,A)}(\cS)$.  Both sides use the
+\emph{same}~$\cS$.
+
+The two derived centres arise from two \emph{different algebras}:
+\begin{itemize}[nosep]
+\item $A$ (chiral algebra in $\mathrm{IndCoh}(\Ran(X))$) $\to$
+      $C^\bullet_{\mathrm{ch}}(A,A)$;
+\item $A_{\mathrm{mode}}$ (mode algebra in $\Vect$) $\to$
+      $\HH^\bullet(A_{\mathrm{mode}}, A_{\mathrm{mode}})$.
+\end{itemize}
+
+\emph{Counter.}  Never say ``applying BZFN in two different ambient
+categories to the same algebra.''  Say: ``two different algebras
+($A$ in D-modules, $A_{\mathrm{mode}}$ in $\Vect$), each with its
+own BZFN equivalence.''
+
+\subsection{AP-CY67: ``Spectral parameters from $\FM_k(\bC)$'' is narration}
+
+The Vol~I preface (line~1014) says ``chiral Hochschild cochains
+computed via the chiral endomorphism operad $\End^{\mathrm{ch}}_\cA$
+with spectral parameters from $\FM_k(\bC)$.''  This compresses a
+three-layer relationship into a prepositional phrase:
+\begin{enumerate}[label=(\roman*),nosep]
+\item \emph{Global geometric model}: sections over $\FM_{n+1}(X)$
+      with log forms.
+\item \emph{Formal-disk restriction}: choosing a local coordinate,
+      the configuration space $C_k(\hat{D}_p)$ is parameterised by
+      relative positions $\lambda_i = z_i - z_n$.
+\item \emph{Algebraic model}: $\End^{\mathrm{ch}}_A$ with formal
+      spectral variables $\lambda_i$.
+\end{enumerate}
+The spectral parameters \emph{do not come from} $\FM_k(\bC)$.
+They are formal algebraic variables; their relationship to FM is
+mediated by the local-global identification theorem (a comparison,
+not a definition).
+
+\emph{Counter.}  Replace ``spectral parameters from $\FM_k(\bC)$''
+with ``spectral parameters from the chiral endomorphism operad,
+identified with relative position coordinates on the formal disk via
+the local-global comparison.''
+
+%% =====================================================================
 \section{Cross-reference to Hot Zone}
 \label{sec:ap-hot-zone-xref}
 
@@ -835,6 +989,13 @@ HZ3-12 & AP-CY36 & $\kappa_{\mathrm{ch}}$ wrong formula \\
 HZ3-13 & AP-CY40 & ProvedHere without proof block \\
 HZ3-14 & AP-CY44 & CY-D false at odd $d$ \\
 HZ3-15 & AP-CY49 & Agent tautological tests \\
+\midrule
+HZ3-16 & AP-CY62 & Geometric vs algebraic ChirHoch model \\
+HZ3-17 & AP-CY63 & BD operad vs algebraic $\End^{\mathrm{ch}}$ \\
+HZ3-18 & AP-CY64 & ChirHoch / HH / GF three-way confusion \\
+HZ3-19 & AP-CY65 & Spectral parameter provenance \\
+HZ3-20 & AP-CY66 & BZFN ambient category not tunable \\
+HZ3-21 & AP-CY67 & ``from $\FM_k(\bC)$'' is narration \\
 \bottomrule
 \end{tabular}
 \end{center}
