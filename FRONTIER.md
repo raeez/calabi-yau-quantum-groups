@@ -28,7 +28,7 @@ This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-0
 
 - **Kummer-irregular primes retracted (cross-volume).** {1423, 3067, 23, 43, 419} retracted from the Kummer-irregular label; they remain Riccati-arithmetic characteristic primes in S_r numerators. Tier-3 emergence: {37, 691, 811}. Bernoulli-leading first Kummer-irregular is 691 (B_12); size-leading is 37 (B_32). Always qualify.
 
-- **Super-Yangian Y(gl(4|20)) — COMPLEMENTARITY CORRECTED.** κ(Y(sl(m|n))) + κ(Y(sl(n|m))^!) = max(m, n) (not 0). Verified symbolically at small rank.
+- **Super-Yangian Y_{osp(4|20)} — RENAMED + COMPLEMENTARITY CORRECTED.** Earlier `Y(gl(4|20))` label was a misnomer: the Mukai form is orthogonal (symmetric indefinite), not Z/2-super-graded, so the correct super-Yangian candidate is `Y_{osp(4|20)}` (Arnaudon–Crampé–Doikou–Frappat–Ragoucy 2003 reflection equation) with even part `so(4) ⊕ sp(20)` (dim 216) and odd part `V_+ ⊗ V_-` (dim 80). All manuscript occurrences renamed 2026-04-17 (chapters/examples/k3_yangian_chapter.tex, chapters/theory/en_factorization.tex, chapters/theory/introduction.tex, chapters/examples/cy_c_six_routes_convergence.tex, main.tex, compute/lib/k3_super_yangian.py docstring). New `conj:osp-yangian-mukai` + `rem:gl-to-osp-correction` + `rem:so-4-20-alternative`. Complementarity κ(Y(sl(m|n))) + κ(Y(sl(n|m))^!) = max(m, n) verified symbolically at small rank (gl(1|1), gl(2|1)); rank-(4,20) osp reflection equation remains OPEN.
 
 ### 3. Genuine Open Vol III Frontiers (after Wave 1)
 
@@ -42,7 +42,7 @@ This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-0
 **V3-F15. Universal coproduct at all spins — DOWNGRADED TO ENGINE-COMPLETION HOUSEKEEPING (2026-04-17 Wave-2 batch-2..6).** `thm:miura-cross-universality` (Vol I) proves (Ψ−1)/Ψ universal on J⊗W_{s-1} + W_{s-1}⊗J at all s ≥ 2. No frontier-level mathematics remains. Residues:
 - **(F15a) DONE.** Universal coproduct engine for s ≤ 6 with Fock-space verification already implemented in `chiral_coproduct_allspin_engine.py` (s = 1..6). Closed.
 - **(F15b) Narrow compute extension.** Entry-wise Y(sl_N) RTT verification at ℏ²-order via classical Molev — tractable compute extension of the existing engine, not a frontier theorem. Inscribe `compute/lib/y_sln_rtt_hbar2_engine.py` when needed.
-- **(F15c) RETIRED AS ILL-POSED.** Super-Yangian Y(gl(4|20)) BKM-to-Yangian lift beyond abelian sector is ill-posed per V3-F19b: Mukai signature (4,20) is a symmetric indefinite lattice, not a (4|20) super-grading; the natural super-Yangian, if any, is OSP(4|20). Merged into V3-F19 scope.
+- **(F15c) RENAMED + MERGED INTO V3-F19.** The BKM-to-Yangian lift beyond the abelian sector is the `Y_{osp(4|20)}` reflection-equation construction (NOT `Y(gl(4|20))`; heal 2026-04-17). The Mukai form is symmetric indefinite (orthogonal), not Z/2-super-graded, so `osp`, not `gl`, is the structure-preserving super-Lie algebra. The remaining mathematical content — verification of the rank-(4,20) orthosymplectic reflection equation and the Borcherds/BKM denominator identity with the Molev–Ragoucy reflection Berezinian — is the V3-F19/F26 open frontier. Small-rank gl(m|n) computations in `compute/lib/k3_super_yangian.py` are retained as warm-up scaffolding.
 
 **V3-F16. Kummer step 5c — Mukai-pairing chain-level collar transport.** Mayer-Vietoris E_∞-pushout must transport commutator pairing to Mukai form signature (4,20). 24-dim + character ∏(1-q^n)^{-24} verified through q^{10}; missing quadratic-form identification via (i) explicit collar-pairing computation, (ii) lattice-VOA transport, or (iii) κ_ch = 2 trace constraint. Stronger "FH McKay correspondence" (`fh_mckay_correspondence.py`, EXPECTED not PROVED) would subsume it.
 
@@ -116,7 +116,7 @@ This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-0
 
 ### 4. Programme totals (Vol III)
 
-~693pp, ~34,000 tests, ~460 engines. 10 proofs at publication standard. Clean build.
+~693pp, ~34,000 tests, ~460 engines. 10 proofs inscribed, of which approximately 6 are recastings of classical lattice/modular/moonshine results (Drinfeld 1985, Frenkel-Jing 1988, Kac-Peterson 1984, Chari-Pressley 1995, Gottsche 1990, Gritsenko-Nikulin 1995/1998, Borcherds 1992/1998, DMVV 1997, Eguchi-Ooguri-Tachikawa 2010, Gannon 2016, Kac-Wakimoto 1988) in bar-cobar language, each now carrying a `rem:<name>-classical-attribution` remark per the 2026-04-17 heal. Approximately 3-4 proofs carry genuinely new programme content (CY-A_3 infinity-categorical existence, kappa-spectrum stratification, shadow tower as bar-complex cohomological invariant, Kummer-point structure function as Newton-sum projection). Clean build.
 
 ### 5. Reading guide
 
@@ -661,15 +661,26 @@ Key Vol I results affecting Vol III:
 
 ---
 
-## F26. The Super-Yangian Y(gl(4|20)) and BKM-to-Yangian Lift
+## F26. The Orthosymplectic Super-Yangian Y_{osp(4|20)} and BKM-to-Yangian Lift
 
-**New frontier from 53-agent session.**
+**Originally F26 (53-agent session), RENAMED 2026-04-17 per F19 verdict / AP239 heal.**
 
-**The physics**: The Mukai lattice of K3 has signature (4,20). This suggests a super-Yangian Y(gl(4|20)) where the 4 positive-signature directions correspond to even generators and the 20 negative-signature to odd generators (or vice versa, depending on the Z₂-grading convention). The BKM superalgebra structure of the denominator of Δ₅ should lift to a Yangian superalgebra.
+**The physics**: The Mukai lattice of K3 has signature (4, 20) — a symmetric indefinite (ORTHOGONAL) form, not a Z₂-super-grading. The super-Lie algebra preserving a symmetric indefinite bilinear form is the orthosymplectic super-Lie algebra osp(m|n), not gl(m|n). The correct super-Yangian candidate is therefore Y_{osp(4|20)} (Arnaudon–Crampé–Doikou–Frappat–Ragoucy 2003 reflection-equation presentation). The BKM superalgebra structure of the denominator of Δ₅ should lift to this orthosymplectic super-Yangian.
 
-**What is established**: The k3_super_yangian engine (59 tests) implements the conjectural super-Yangian with RTT relations adapted to the gl(4|20) grading. The bkm_yangian_generators engine (65 tests) constructs the BKM-to-Yangian generator map for real and imaginary roots.
+**Algebraic structure**:
+- osp(4|20)_{even} = so(4) ⊕ sp(20), dim 6 + 210 = 216
+- osp(4|20)_{odd} = V_+ ⊗ V_-, dim 4·20 = 80
+- dim osp(4|20) = 216 + 2·80 = 376 (NOT 576 = 24² of gl(4|20))
+- Crossing shift κ_osp = (m−n−2)ℏ/2 = −9ℏ at (m,n) = (4,20)
+- Centre via Molev–Ragoucy reflection Berezinian (symmetrised under crossing)
 
-**What remains**: (a) Verify the Lie bracket structure (supercommutator vs commutator) for all generator pairs. The grading compatibility is verified but the bracket verification is missing (AP-CY35). (b) The Borcherds denominator of Δ₅ should equal the quantum Berezinian of T(u). (c) The spectral flow from Borcherds vertex operators should be an automorphism of Y(gl(4|20)), not just Y(g_{K3}).
+**Alternative candidate**: Y(so(4,20)), the Yangian of the real form of so(24,C) preserving the Mukai form directly. Non-super, with the (4,20)-signature data in the split Cartan. Distinct from Y_{osp(4|20)} in coproduct and reflection structure.
+
+**What is established**: The k3_super_yangian engine (59 tests) implements the gl(m|n) small-rank super-Yangian framework at gl(1|1) and gl(2|1) — retained as orthosymplectic warm-up. Standard super-unitarity P_s² = Id, graded Yang-Baxter, super-crossing, and graded tensor product conventions are verified there and inherited by the osp construction. The bkm_yangian_generators engine (65 tests) constructs the BKM-to-Yangian generator map for real and imaginary roots.
+
+**What remains**: (a) Verify the orthosymplectic reflection equation at rank (4, 20) with the correct osp R-matrix (Kulish–Reshetikhin, with the trace-projector Q onto the invariant line). (b) The Borcherds denominator of Δ₅ should equal the Molev–Ragoucy reflection Berezinian of T(u). (c) The spectral flow from Borcherds vertex operators should be an automorphism of Y_{osp(4|20)} (not Y(g_{K3}), not Y(gl(4|20))). (d) Decide between Y_{osp(4|20)} and the non-super Y(so(4,20)) via the N=(2,2) worldsheet boundary algebra of K3 at ADE enhancement points.
+
+**Inscriptions in manuscript (2026-04-17)**: `conj:osp-yangian-mukai` (canonical definition of Y_{osp(4|20)}); `rem:gl-to-osp-correction` (naming heal); `rem:so-4-20-alternative` (non-super candidate); `rem:super-yangian-mukai` updated in `en_factorization.tex`.
 
 ---
 
@@ -724,7 +735,7 @@ k3_super_yangian, k3_abelian_yangian_presentation, k3_quantum_toroidal, k3_quant
 9. Mock modular K3: THEOREM at d=2 (4-step proof).
 10. CY-D dimension-stratified: kappa_ch != chi(O_X) at odd d.
 
-**Cumulative Vol III totals: ~693pp, ~34,000 tests, ~460 engines. 10 proofs at publication standard. Clean build: 0 undef refs, 0 undef cites.**
+**Cumulative Vol III totals: ~693pp, ~34,000 tests, ~460 engines. 10 proofs inscribed; per the 2026-04-17 classical-attribution heal, approximately 6 are recastings of classical lattice/modular/moonshine results (Drinfeld, Frenkel-Jing, Kac-Peterson, Chari-Pressley, Gottsche, Gritsenko-Nikulin, Borcherds, DMVV, Eguchi-Ooguri-Tachikawa, Gannon, Kac-Wakimoto) in bar-cobar language; approximately 3-4 carry genuinely new programme content (CY-A_3, kappa-spectrum stratification, shadow tower, Kummer structure function). Each recasting now carries a rem:<name>-classical-attribution remark. Clean build: 0 undef refs, 0 undef cites.**
 
 ---
 
