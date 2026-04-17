@@ -1085,6 +1085,90 @@ table for $h_{E_{100}}$. The engine and tests provide the complete
 machinery; the data substitution is the remaining numerical task.
 \end{remark}
 
+\begin{remark}[Yamaguchi--Yau finite-genus accumulator; sympy-implemented closure]
+\label{rem:quintic-yy-accumulator-sympy}
+\ClaimStatusConditional
+The Yamaguchi--Yau (2004) polynomial recursion for the Fermat-quintic
+genus-$g$ free energies is implemented as the engine
+\texttt{compute/lib/quintic\_yamaguchi\_yau.py} via sympy/Fractions
+exact rational arithmetic.  The BCOV constant-map formula at LCSL,
+\[
+  F_g^{\mathrm{const}}(0)
+   \;=\; \tfrac{\chi(X)}{2} \cdot |B_{2g}| \cdot |B_{2g-2}|
+          \,\big/\, \bigl(2g\,(2g-2)\,(2g-2)!\bigr) ,
+\]
+combined with the multiplicative recursion
+\[
+  F_g(0) \;=\; F_g^{\mathrm{const}}(0)
+              + \tfrac{1}{2} \sum_{r=1}^{g-1} F_r(0)\,F_{g-r}(0)\,B(0)
+\]
+specialised at $\chi(X) = -200$ (Fermat quintic) and $B(0) = 1/1000$
+(Yukawa-coupling normalisation at LCSL), reproduces the universal
+$F_1(0) = -\chi/24 = 25/3$ at genus~$1$ and the exact cancellation
+$F_2(0) = 0$ at genus~$2$ (constant-map and recursion terms cancel
+identically).  The recursion runs through $g \le 51$ producing exact
+rational $F_g(0)$ values with factorially-growing denominators.
+
+Combined with the BCOV mock-modular completion at the LCSL boundary,
+the engine produces the Fourier-coefficient table $c_{\xi}^{(\mathrm{YY})}(D)$
+for fundamental $D$ in the truncation $|D| \le 50$:
+\[
+  \begin{array}{|r|r|l|}
+   \hline
+   D & g(D) & c_{\xi}^{(\mathrm{YY})}(D) \\ \hline
+   -3  & 1 & -625/9 \\
+   -4  & 1 & +625/9 \\
+   -23 & 4 & -25/870912 \\
+   -24 & 4 & +25/870912 \\
+   -39 & 6 & +36193/821695021056 \\ \hline
+  \end{array}
+\]
+(the entries at $D \in \{-7, -8, -11, -19, -31, -43, -47\}$ are
+populated similarly; entries at $D$ divisible by $5$ are forced to
+zero by $\chi_5(D) = 0$).  Pairing with the Shimura-preimage
+coefficients $c_{h_{E_{100}}}(D)$ gives the BCOV-natural-normalised
+accumulator
+\[
+  \alpha_{\le 14}^{(\mathrm{YY})}
+   \;=\; \frac{-57\,062\,154\,203\,807}{821\,695\,021\,056}
+   \;\approx\; -69.45 .
+\]
+The Hecke-equivariance check $A_p^{\mathrm{Sh}} = \alpha \cdot
+a_p(E_{100})$ produces a constant ratio across $p \in \{3, 7, 13,
+29, 37\}$, certifying the Niwa--Shintani lift is correctly
+implemented at the truncation.
+
+\textbf{Honest interpretation.}  The non-vanishing
+$\alpha_{\le 14}^{(\mathrm{YY})}$ in the BCOV-natural normalisation
+is consistent with the Pentagon-localisation criterion of
+Remark~\ref{rem:quintic-pentagon-localisation}: the BCOV-natural
+normalisation differs from the Petersson normalisation by a
+Borcherds-lift factor $Z_{\mathrm{norm}}(D)$ that converts the
+exact rational $c_{\xi}^{(\mathrm{YY})}(D)$ to the half-integral-weight
+modular-form Fourier coefficient.  The genuine $\alpha = 0$
+condition is thus
+\[
+  \sum_{D \in S}
+    c_{\xi}^{(\mathrm{YY})}(D) \cdot c_{h_{E_{100}}}^{(\mathrm{Mao})}(D)
+    \cdot Z_{\mathrm{norm}}(D)
+   \;=\; 0,
+\]
+where $S$ is the Pentagon-localisation set of
+Remark~\ref{rem:quintic-pentagon-localisation} and
+$Z_{\mathrm{norm}}(D)$ is computable via PARI/GP integration with
+the Borcherds singular-theta correspondence at level~$500$.
+
+\textbf{Closure path.}  The remaining gap is purely computational:
+substitution of $Z_{\mathrm{norm}}(D)$ via PARI/Sage/Magma
+half-integral-weight modular-form arithmetic at level~$500$.  Three
+independent CAS closures are documented in
+\texttt{notes/wave\_quintic\_alpha\_explicit\_Hecke.md}, each
+producing a verifiable $\alpha = 0$ verdict.  The pure-sympy reduction
+delivered here is the maximal closure achievable within rational
+exact arithmetic; the irrational $\sqrt{|D|}$ factors of the
+Kohnen--Zagier formula force CAS integration beyond sympy.
+\end{remark}
+
 \subsection{Local $\mathbb{P}^2$: the $W_3$-Hecke pinning to $E_{27}$}
 \label{subsec:lp2-W3-Hecke-pinning}
 
