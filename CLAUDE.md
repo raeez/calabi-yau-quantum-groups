@@ -610,7 +610,7 @@ Compute engines (~460 total, ~34,000 tests). Full catalogue -> `compute/ENGINES.
 11. Shadow tower = A_inf coproduct corrections: S_k = delta^{(k)}. Shadow-Feynman: L-loop = S_{L+1}. Tower computed through m_8 (160 tests, S_8 = 4144720/19683).
 12. kappa_BKM = c_N(0)/2 is the ONLY correct universal formula. NOT kappa_ch + chi(O_fiber).
 13. B(U^ch(L)) = CE_*(L) PROVED (chiral CE complex identification).
-14. Super-Yangian Y(gl(4|20)) is CONJECTURAL (AP-CY35). Never \begin{theorem}.
+14. Super-Yangian Y(gl(4|20)) K3 case is CONJECTURAL (AP-CY35). Never \begin{theorem}. DISTINCT from the GENERAL-RANK super-Riccati Y(sl(m|n)) (session 2026-04-17, `chapters/examples/super_riccati_shadow_tower_platonic.tex`, commit 7a3ea3c): the latter is PROVED at small rank (1|1), (2|1), (1|2), (2|2), (3|1), (3|2), (3|3) via explicit parity-sign recurrence `S_r = -(1/(2rκ_ℓ)) Σ (-1)^{(j-1)(k-1)|ℓ|} f(j,k) jk S_j S_k`. The K3 Y(gl(4|20)) remains conjectural as a specific physical model with Mukai (4,20) signature. Super-complementarity κ(Y(sl(m|n))) + κ(Y(sl(n|m))^!) = **max(m, n)** (NOT 0; Virasoro c+c'=26 analogy REFUTED by direct symbolic computation, Blacklist B86).
 15. Class M: Borel summable (Gevrey-1), NOT convergent (AP-CY39).
 16. CFG25 agreement: 35% lift rate at perturbative genus-0 only (AP-CY37).
 17. 3 wrong proofs caught and retracted this session. The Beilinson principle works.
