@@ -1,34 +1,33 @@
 \chapter{Hochschild Calculus for CY Categories}
 \label{ch:hochschild-calculus}
 
-%%: kappa always subscripted in Vol III.
-%%: E_1/ordered is primitive; unordered is derived quotient.
+A Calabi--Yau $d$-category has a non-degenerate Serre pairing. What does this pairing force on the Hochschild invariants? For a general dg category, Hochschild homology $\HH_\bullet(\cC)$ carries only a Connes $B$-operator and Hochschild cohomology $\HH^\bullet(\cC)$ carries only a Gerstenhaber bracket; the two are linked by a cap product, but no intrinsic pairing relates them. The CY structure supplies exactly this pairing, and the rest of the chapter is its consequence.
 
-\begin{remark}[Three Hochschild theories: NEVER conflate (AP160)]
+\begin{remark}[Three Hochschild theories]
 \label{rem:hochschild-convention-categorical}
-Three distinct Hochschild theories coexist in this programme; AP160 forbids conflating them:
+Three distinct Hochschild theories appear in the three volumes and must be kept separate.
 \begin{enumerate}
- \item \emph{Categorical Hochschild} $\HH^\bullet_{\mathrm{cat}}$ \textup{(}this chapter\textup{)}: input a dg category $\cC$; cyclic bar complex $\mathrm{CC}_\bullet(\cC)$; output $E_2$-algebra (Deligne); for $\cC$ a $\CY_d$ category, also a $(2{-}d)$-shifted Poisson / $\BV$ structure (Theorem~\textup{\ref{thm:shifted-poisson}}).
+ \item \emph{Categorical Hochschild} $\HH^\bullet_{\mathrm{cat}}$ (this chapter): input a dg category $\cC$; cyclic bar complex $\mathrm{CC}_\bullet(\cC)$; output $E_2$-algebra (Deligne); for $\cC$ a $\CY_d$ category, also a $(2{-}d)$-shifted Poisson / $\BV$ structure (Theorem~\textup{\ref{thm:shifted-poisson}}).
  \item \emph{Topological Hochschild} $\HH^\bullet_{\mathrm{top}}$: input an $E_1$-algebra over a base ring; output $E_2$-algebra (Deligne; Lurie). The Hochschild theory of Vol~II's slab algebra of 3d HT theories.
- \item \emph{Chiral Hochschild} $\ChirHoch^\bullet$: input an $E_\infty$-chiral algebra on a curve $X$; output concentrated in cohomological degrees $\{0,1,2\}$ (Vol~I Theorem~H). The chiral Gerstenhaber bracket on $\ChirHoch^\bullet$ is distinct from the topological one (AP164).
+ \item \emph{Chiral Hochschild} $\ChirHoch^\bullet$: input an $E_\infty$-chiral algebra on a curve $X$; output concentrated in cohomological degrees $\{0,1,2\}$ (Vol~I Theorem~H). The chiral Gerstenhaber bracket on $\ChirHoch^\bullet$ is not the topological one.
 \end{enumerate}
-The CY-to-chiral functor $\Phi$ of Chapter~\textup{\ref{ch:cy-to-chiral}} sends the categorical input $\HH^\bullet_{\mathrm{cat}}(\cC)$ to a chiral output whose own chiral Hochschild cohomology $\ChirHoch^\bullet(\Phi(\cC))$ is sharper (concentrated in $\{0,1,2\}$). The categorical Gerstenhaber bracket on $\HH^\bullet_{\mathrm{cat}}$ maps to the chiral convolution bracket on $\ChirHoch^\bullet$ via the bar-cobar passage of Vol~I Chapter~\textup{\ref{chap:climax-platonic}}; this is NOT an identification at the level of objects. Throughout this chapter, $\HH^\bullet$ without qualifier means $\HH^\bullet_{\mathrm{cat}}$. Bare ``Hochschild'' in cross-referenced statements is forbidden.
+The CY-to-chiral functor $\Phi$ of Chapter~\textup{\ref{ch:cy-to-chiral}} sends the categorical input $\HH^\bullet_{\mathrm{cat}}(\cC)$ to a chiral output whose own chiral Hochschild cohomology $\ChirHoch^\bullet(\Phi(\cC))$ is sharper (concentrated in $\{0,1,2\}$). The categorical Gerstenhaber bracket on $\HH^\bullet_{\mathrm{cat}}$ maps to the chiral convolution bracket on $\ChirHoch^\bullet$ via the bar-cobar passage of Vol~I Chapter~\textup{\ref{chap:climax-platonic}}; this is not an identification of objects, only of structures. Throughout this chapter, $\HH^\bullet$ without qualifier means $\HH^\bullet_{\mathrm{cat}}$.
 \end{remark}
 
-\begin{remark}[Convention: $\kappa_\bullet$ subscripts (HZ3-2 / AP113)]
+\begin{remark}[$\kappa_\bullet$ convention in this chapter]
 \label{rem:hochschild-kappa-convention}
-Every $\kappa$ in this chapter and the rest of Vol~III carries a subscript from $\{\mathrm{ch}, \mathrm{cat}, \mathrm{BKM}, \mathrm{fiber}\}$; bare $\kappa$ is forbidden (HZ3-2 zero tolerance). Manifold invariants ($\kappa_{\mathrm{cat}}, \kappa_{\mathrm{fiber}}$) versus algebraisation invariants ($\kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}$) split.
+Every $\kappa$ carries a subscript from $\{\mathrm{ch}, \mathrm{cat}, \mathrm{BKM}, \mathrm{fiber}\}$; the manifold invariants ($\kappa_{\mathrm{cat}}, \kappa_{\mathrm{fiber}}$) and algebraisation invariants ($\kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}$) split as in Chapter~\ref{ch:cy-categories}.
 \end{remark}
 
-A Calabi--Yau $d$-category has a non-degenerate Serre pairing. What does this pairing force on the Hochschild invariants? For a general dg category, Hochschild homology $\HH_\bullet(\cC)$ carries only a Connes $B$-operator and Hochschild cohomology $\HH^\bullet(\cC)$ carries only a Gerstenhaber bracket; the two are linked by a cap product, but no pairing relates them. The CY structure removes this deficiency.
-
-The Serre pairing provides a quasi-isomorphism $\HH^\bullet(\cC) \simeq \HH_{d-\bullet}(\cC)$ of degree $-d$, so that Hochschild cohomology inherits the $B$-operator and Hochschild homology inherits the Gerstenhaber bracket. The combination is a $(2-d)$-shifted Poisson (equivalently, $\BV_{2-d}$) structure on $\HH^\bullet(\cC)$: bracket of degree $1-d$, operator of degree $-1$, compatibility equation $[B, -] = \{-, -\}$. At $d = 2$ this is a $0$-shifted Poisson structure (ordinary Poisson); at $d = 3$, a $(-1)$-shifted Poisson structure (the CY3 case of Pantev--To\"en--Vaqui\'e--Vezzosi); at $d = 1$, a $1$-shifted Poisson structure of the kind that drives factorization homology.
+The Serre pairing provides a quasi-isomorphism $\HH^\bullet(\cC) \simeq \HH_{d-\bullet}(\cC)$ of degree $-d$, so that Hochschild cohomology inherits the $B$-operator and Hochschild homology inherits the Gerstenhaber bracket. The combination is a $(2-d)$-shifted Poisson (equivalently, $\BV_{2-d}$) structure on $\HH^\bullet(\cC)$: under the PTVV convention an $n$-shifted Poisson bracket has cohomological degree $-n$, so the bracket $\{-,-\}_{2-d}$ has degree $d-2$, and the compatibility $[B, -] = \{-,-\}$ with $|B| = +1$ holds on the Hochschild complex. At $d = 2$ this is a $0$-shifted Poisson structure (ordinary Poisson, bracket of degree $0$); at $d = 3$, a $(-1)$-shifted Poisson structure (the CY$_3$ case of Pantev--To\"en--Vaqui\'e--Vezzosi, bracket of degree $+1$, i.e.\ a $\BV$ algebra); at $d = 1$, a $1$-shifted Poisson structure (bracket of degree $-1$) of the kind that drives factorization homology.
 
 The shifted Poisson structure on $\HH^\bullet(\cC)$ is the categorical precursor of the convolution Lie bracket on the modular deformation complex of Volume~I: the Gerstenhaber bracket becomes the bar-cobar convolution bracket, the Connes $B$-operator becomes the modular differential, and the Serre pairing becomes the cyclic duality that controls the $\bS^d$-framing. The cyclic bar complex of Chapter~\ref{ch:cyclic-ainf} is the single-object specialization of the Hochschild complex constructed here.
 
 
 \section{Hochschild homology and cohomology}
 \label{sec:hh-basics}
+
+The cyclic bar complex of a dg category is built from the multi-object generalisation of the cyclic $\Ainf$-complex of Chapter~\ref{ch:cyclic-ainf}, replacing a single algebra by tensor strings of morphisms $X_0 \to X_1 \to \cdots \to X_n \to X_0$. The Hochschild homology and cohomology defined below are the Morita-invariant invariants extracted from this complex.
 
 \begin{definition}[Hochschild complex]
 \label{def:hochschild-complex}
@@ -84,6 +83,8 @@ produce the same Hochschild invariants.
 \section{The Gerstenhaber bracket}
 \label{sec:gerstenhaber-bracket}
 
+The Hochschild cochain complex $\mathrm{CC}^\bullet(\cC)$ is a pre-Lie algebra under operadic composition of multilinear maps, and the pre-Lie commutator descends to a graded Lie bracket of degree $-1$ on $\HH^\bullet(\cC)$. Combined with the cup product, this is the Gerstenhaber algebra structure.
+
 \begin{theorem}[Gerstenhaber structure on $\HH^\bullet$]
 \label{thm:gerstenhaber}
 \ClaimStatusProvedElsewhere
@@ -103,8 +104,9 @@ structures:
  where $\circ$ denotes the operadic pre-Lie composition:
  \[
  (f \circ g)(a_1, \ldots, a_{p+q-1})
- = \sum_{i=1}^{p} (-1)^{\dagger}\,
- f(a_1, \ldots, a_{i-1}, g(a_i, \ldots, a_{i+q-1}), a_{i+q}, \ldots, a_{p+q-1}).
+ = \sum_{i=1}^{p} (-1)^{\dagger_i}\,
+ f(a_1, \ldots, a_{i-1}, g(a_i, \ldots, a_{i+q-1}), a_{i+q}, \ldots, a_{p+q-1}),
+ \qquad \dagger_i = (i-1)(q-1) + (|g|-1)\sum_{j<i}(|a_j|-1),
  \]
 \end{enumerate}
 Together, the cup product and Gerstenhaber bracket make
@@ -142,26 +144,26 @@ $\cC$:
 \end{enumerate}
 The MC equation for deformations of $\cC$ maps, under $\Phi$, to
 the MC equation $D\Theta_A + \frac{1}{2}[\Theta_A, \Theta_A] = 0$
-of the modular convolution algebra $\mathfrak{g}^{\mathrm{mod}}_A$
-(Volume~I, thm:mc2-bar-intrinsic).
+of the modular convolution algebra $\mathfrak{g}^{\mathrm{mod}}_A$ of Vol~I (the bar-cobar Lie algebra whose Maurer--Cartan elements parametrise modular characteristic corrections; Vol~I, thm:mc2-bar-intrinsic).
 \end{proposition}
 
 
 \section{The Connes $B$-operator and cyclic homology}
 \label{sec:connes-b}
 
+The Gerstenhaber structure is one half of the Hochschild calculus; the other half lives on homology and encodes the $S^1$-action on the cyclic bar complex. The Connes $B$-operator is the chain-level incarnation of this action.
+
 \begin{definition}[Connes $B$-operator]
 \label{def:connes-b}
 The \emph{Connes operator}
-$B \colon \mathrm{CC}_n(\cC) \to \mathrm{CC}_{n+1}(\cC)$ is defined by
+$B \colon \mathrm{CC}_n(\cC) \to \mathrm{CC}_{n+1}(\cC)$ is the composite $B = (1 \otimes -) \circ N \circ (1 - t)$, where $t$ is the signed cyclic rotation and $N = \sum_{i=0}^n t^i$ the norm. Explicitly:
 \[
  B(f_0 \otimes \cdots \otimes f_n)
  = \sum_{i=0}^{n} (-1)^{ni}\,
  1 \otimes f_i \otimes f_{i+1} \otimes \cdots
  \otimes f_{i-1}
 \]
-(indices mod $n+1$), composed with the insertion of the identity.
-It satisfies $B^2 = 0$, $bB + Bb = 0$.
+(indices mod $n+1$, with $1 \in \Hom_\cC(X_i, X_i)$ the identity endomorphism on the source object, inserted in the leading slot). It satisfies $B^2 = 0$ and the mixed-complex identity $bB + Bb = 0$.
 \end{definition}
 
 \begin{definition}[Cyclic, negative cyclic, and periodic cyclic homology]
@@ -170,18 +172,19 @@ From the mixed complex $(\mathrm{CC}_\bullet(\cC), b, B)$
 with $|b| = -1$, $|B| = +1$, $b^2 = B^2 = bB + Bb = 0$:
 \begin{enumerate}[label=(\roman*)]
  \item \emph{Cyclic homology}:
- $\HC_\bullet(\cC) = H_\bullet(\mathrm{CC}_\bullet(\cC) \otimes_{k[B]} k)$;
+ $\HC_\bullet(\cC) = H_\bullet(\mathrm{CC}_\bullet(\cC)[[u]] / u\mathrm{CC}_\bullet(\cC)[[u]], b + uB)$, i.e.\ the quotient by $u$ of the negative-cyclic complex (equivalently, the Connes bicomplex modulo the $1-t$ relation);
  \item \emph{Negative cyclic homology}:
  $\HC^-_\bullet(\cC) = H_\bullet(\mathrm{CC}_\bullet(\cC)[[u]], b + uB)$,
  where $|u| = 2$;
  \item \emph{Periodic cyclic homology}:
  $\HP_\bullet(\cC) = H_\bullet(\mathrm{CC}_\bullet(\cC)((u)), b + uB)$.
 \end{enumerate}
-The SBI sequence
-$\cdots \to \HH_n \xrightarrow{B} \HC_{n+1}
- \xrightarrow{S} \HC_{n-1} \xrightarrow{I} \HH_{n-1}
- \to \cdots$
-relates these.
+The SBI exact triangle (Loday convention)
+\[
+ \cdots \longrightarrow \HH_n \xrightarrow{\; I \;} \HC_n \xrightarrow{\; S \;} \HC_{n-2} \xrightarrow{\; B \;} \HH_{n-1} \longrightarrow \cdots,
+ \qquad |I|=0,\ |S|=-2,\ |B|=+1,
+\]
+relates the three theories: $I$ is induced by $\HC \otimes_{k[u]} k \to \HH$, $S$ is periodicity $\otimes u$, and $B$ is the Connes operator after passage to the quotient. The cumulative index shift around the triangle is $0 + (-2) + 1 = -1$, matching the periodic structure.
 \end{definition}
 
 \begin{example}[Smooth variety]
@@ -203,13 +206,15 @@ polyvector fields.
 \section{The Hochschild-to-cyclic spectral sequence}
 \label{sec:hh-hc-spectral}
 
+The three cyclic theories differ from Hochschild homology by the structure of the $u$-variable (equivalently, the Connes $S^1$-action). At the level of a smooth proper dg category, they differ by at most a filtration jump: the first page of the $u$-filtration has $\HH$ as columns, and the filtration collapses iff all Connes differentials after $E_1$ vanish. In characteristic zero, this collapse is a theorem.
+
 \begin{proposition}[Hodge-to-de Rham degeneration for dg categories]
 \label{prop:hodge-dR-degeneration}
 \ClaimStatusProvedElsewhere
 For a smooth proper dg category $\cC$ over a field $k$ of
-characteristic zero, the Hochschild-to-cyclic spectral sequence
+characteristic zero, the Hochschild-to-cyclic spectral sequence associated to the $u$-adic filtration on $(\mathrm{CC}_\bullet(\cC)[[u]], b + uB)$,
 \[
- E_1^{p,q} = \HH_{q-p}(\cC) \;\Longrightarrow\; \HC_{q-p}(\cC)
+ E_1^{p,q} = \HH_{q-2p}(\cC)[u^p] \;\Longrightarrow\; \HC^-_q(\cC),\quad\text{total degree }q = p + (q-p),
 \]
 degenerates at $E_2$.
 \end{proposition}
@@ -231,6 +236,8 @@ at the bar-complex level.
 \section{CY Hochschild duality}
 \label{sec:cy-hh-duality}
 
+Hochschild homology and cohomology of a general dg category are not paired. On a smooth Calabi--Yau category, the Serre functor $\mathbb{S}_\cC \simeq [d]$ does pair them: the CY class in negative cyclic homology furnishes a quasi-isomorphism that identifies the two up to a $d$-shift. This is the structural duality the rest of the chapter unpacks.
+
 \begin{theorem}[CY Hochschild duality]
 \label{thm:cy-hh-duality}
 \ClaimStatusProvedElsewhere
@@ -248,9 +255,11 @@ Hochschild chain complex. On cohomology:
 \]
 Under this identification:
 \begin{enumerate}[label=(\roman*)]
- \item The Gerstenhaber bracket on $\HH^\bullet$ corresponds to
- the \emph{BV operator} $\Delta_{\BV} \colon \HH_{n+d} \to \HH_{n+d+1}$
- (the divergence operator associated to the CY volume form);
+ \item The CY volume form equips $\HH_\bullet(\cC)$ with a \emph{BV operator} $\Delta_{\BV} \colon \HH_{n} \to \HH_{n-1}$ (the divergence of the volume form); the Gerstenhaber bracket on $\HH^\bullet \simeq \HH_{\bullet + d}$ is the associated derived bracket,
+ \[
+ [a, b]_{\mathrm{Gerst}} \;=\; \Delta_{\BV}(a \smile b) - \Delta_{\BV}(a) \smile b - (-1)^{|a|}\, a \smile \Delta_{\BV}(b),
+ \]
+ expressing the Gerstenhaber bracket and the BV operator as two sides of a single $\BV$-algebra structure on $\HH_\bullet$;
  \item The cup product on $\HH^\bullet$ corresponds to the
  intersection product on $\HH_{\bullet+d}$;
  \item The Connes $B$-operator on $\HH_\bullet$ corresponds to
@@ -260,9 +269,8 @@ Under this identification:
 
 \begin{proof}[Proof sketch]
 The CY condition furnishes an equivalence $\cC \simeq \cC^\vee[d]$
-between the category and its $d$-shifted dual. Smoothness (the
-diagonal bimodule $\cC_\Delta$ is compact as a
-$\cC \otimes \cC^{\op}$-module) gives
+between the category and its $d$-shifted dual. Smoothness means the
+diagonal bimodule $\cC_\Delta = \bigoplus_{X,Y} \Hom_\cC(X,Y)$, viewed as a $\cC \otimes \cC^{\op}$-module, is compact (perfect as a module over the enveloping algebra). This compactness gives
 \[
  \mathrm{CC}^\bullet(\cC)
  = \RHom_{\cC \otimes \cC^{\op}}(\cC_\Delta, \cC_\Delta)
@@ -287,48 +295,23 @@ carries a $(2-d)$-shifted Poisson structure.
 \label{thm:shifted-poisson}
 \ClaimStatusProvedElsewhere
 For a smooth CY$_d$ category $\cC$, the Hochschild cohomology
-$\HH^\bullet(\cC)$ carries a $(2-d)$-shifted Poisson structure:
-a Lie bracket of cohomological degree $(2-d)$
+$\HH^\bullet(\cC)$ carries a $(2-d)$-shifted Poisson structure in the sense of Pantev--To\"en--Vaqui\'e--Vezzosi: a graded Lie bracket of cohomological degree $d-2$ (the PTVV convention, where an $n$-shifted Poisson bracket has cohomological degree $-n$)
 \[
  \{\cdot, \cdot\}_{2-d}
  \colon \HH^p(\cC) \otimes \HH^q(\cC)
- \to \HH^{p+q+2-d}(\cC)
+ \to \HH^{p+q+d-2}(\cC)
 \]
 satisfying the Jacobi identity and the Leibniz rule with respect
-to the cup product. This bracket is the CY-shifted Gerstenhaber
-bracket:
-\[
- \{f, g\}_{2-d} = [f, g]_{\mathrm{Gerst}} \circ \sigma_d
-\]
-where $\sigma_d$ is the CY structure class in
-$\HC^-_d(\cC) \simeq \HH_0(\cC)$.
+to the cup product. Construction: the CY structure class $[\sigma] \in \HC^-_d(\cC)$ (Kontsevich--Soibelman convention: a cyclic lift of the Serre class in $\HH_d$ with $I[\sigma]$ non-degenerate) determines a BV operator $\Delta_{\BV}$ on $\HH_\bullet(\cC)$ by reduction modulo $u$ of the negative-cyclic lift (with $|u|=2$); under the CY duality $\HH_\bullet \simeq \HH^{\bullet - d}$, the derived bracket of $\Delta_{\BV}$ with the cup product is the shifted Poisson bracket on $\HH^\bullet$.
 \end{theorem}
 
 \begin{remark}[The three dimensions]
 \label{rem:three-dimensions}
-The shifted Poisson structure specializes by dimension:
+The shifted Poisson structure specialises by dimension, with bracket of cohomological degree $d-2$:
 \begin{enumerate}[label=(\alph*)]
- \item $d = 1$ (curves): $(2-d) = 1$-shifted Poisson. The
- Gerstenhaber bracket has degree $-1$; the shifted bracket
- has degree $0$. This is an ordinary Lie bracket on
- $\HH^\bullet$, recovering the classical Poisson bracket
- on deformations of the curve.
- \item $d = 2$ (surfaces): $(2-d) = 0$-shifted Poisson. The
- shifted bracket has degree $0$ and the cup product makes
- $\HH^\bullet(\cC)$ a Poisson algebra in the ordinary sense.
- This is the Poisson structure that the CY-to-chiral functor
- $\Phi$ promotes to the chiral Poisson (coisson) structure of
- the associated vertex algebra. The convolution Lie bracket
- on $\mathfrak{g}^{\mathrm{mod}}_A$ (Volume~I) is the
- chiral incarnation of this $0$-shifted Poisson bracket.
- \item $d = 3$ (threefolds): $(2-d) = (-1)$-shifted Poisson.
- The bracket has degree $-1$, making $\HH^\bullet(\cC)$ a
- $(-1)$-shifted Poisson algebra $=$ BV algebra (at the
- cochain level, a $\BV_\infty$-algebra). This is the BV
- structure underlying the BRST complex of the associated
- 3d holomorphic-topological theory. The chiral algebra
- produced by $\Phi$ is $\Eone$, not $\Etwo$: the $(-1)$-shifted
- Poisson bracket produces a Lie bracket on the loop space
+ \item $d = 1$ (curves): $1$-shifted Poisson, bracket of degree $-1$. This is the classical Gerstenhaber bracket on $\HH^\bullet(\cC)$ with no further shift; the $1$-shifted Poisson data governs the factorisation-homology of an elliptic curve ($\Phi$ outputs an $E_\infty$-chiral algebra; the $1$-shifted bracket is the $\lambda$-bracket on the conformal current).
+ \item $d = 2$ (surfaces): $0$-shifted Poisson, bracket of degree $0$. Together with the cup product this makes $\HH^\bullet(\cC)$ a Poisson algebra in the ordinary sense. $\Phi$ promotes this Poisson structure to the chiral Poisson (coisson) structure of the output vertex algebra; the convolution Lie bracket on $\mathfrak{g}^{\mathrm{mod}}_A$ of Vol~I is its chiral incarnation.
+ \item $d = 3$ (threefolds): $(-1)$-shifted Poisson, bracket of degree $+1$. $\HH^\bullet(\cC)$ is a $\BV$ algebra (a $(-1)$-shifted Poisson algebra in the PTVV sense); at the cochain level this lifts to a $\BV_\infty$-algebra. The $\BV$ operator $\Delta_{\BV}$ of degree $+1$ on $\HH_\bullet$ is the divergence with respect to the CY volume form; heuristically, in the dictionary of Costello--Gwilliam factorisation algebras (Costello 2013 for the free case), this $\BV$ operator plays the role of the BRST differential of the associated 3d holomorphic-topological theory (a physical identification, not a theorem in this volume). The chiral algebra $\Phi(\cC)$ is $\Eone$, not $\Etwo$: the $(-1)$-shifted Poisson bracket produces a Lie bracket on the loop space
  (= Hochschild chains), not a Poisson bracket on functions.
 \end{enumerate}
 \end{remark}
@@ -336,6 +319,8 @@ The shifted Poisson structure specializes by dimension:
 
 \section{Categorical Hodge theory}
 \label{sec:categorical-hodge}
+
+The CY Hochschild duality interchanges Hochschild homology and cohomology up to a $d$-shift, and the Kaledin degeneration asserts that the mixed complex $(\HH_\bullet, b, B)$ degenerates to $\HP_\bullet$ at $E_2$. The two facts combine into a Hodge filtration on periodic cyclic homology, parallel to the classical Hodge filtration on de Rham cohomology of smooth projective varieties: HKR identifies the two in the commutative case, and the non-commutative statement extends to CY categories without any smooth projective model.
 
 \begin{definition}[Hodge filtration on periodic cyclic homology]
 \label{def:categorical-hodge-filtration}
@@ -372,7 +357,6 @@ For a smooth proper CY$_d$ category $\cC$:
 
 \begin{remark}[Bridge to the shadow obstruction tower]
 \label{rem:hodge-shadow-bridge}
-%: always subscript kappa in Vol III.
 Under the CY-to-chiral functor $\Phi$ (Part~\ref{part:bridge}), the categorical
 Hodge filtration maps to the weight filtration on the modular
 convolution algebra $\mathfrak{g}^{\mathrm{mod}}_A$. The
@@ -391,6 +375,5 @@ $\HH_2(\cC)$ (2nd Hochschild) & Quartic resonance $Q$ & $r = 4$ \\
 \end{center}
 \noindent The CY Hodge filtration degeneration (Kaledin)
 corresponds to the PBW spectral sequence collapse
-(Koszulness K2): both are manifestations of bar-cohomological formality (Koszulness, not SC formality) at
-different categorical levels.
+(Koszulness K2): both are manifestations of bar-cohomological formality (the existence of a quasi-isomorphism between the bar complex and its cohomology, distinct from strict-commutative formality in the Swiss-cheese sense) at different categorical levels. The cyclic $\Ainf$-input $(\cC, \mu_n, \langle-,-\rangle)$ of Chapter~\ref{ch:cyclic-ainf}, equipped with the Hochschild calculus of the present chapter, is the complete input the CY-to-chiral functor of Part~\ref{part:bridge} consumes: the Gerstenhaber bracket becomes the $\lambda$-bracket of the Lie conformal algebra, the $\BV$ operator (at $d=3$) becomes the BRST differential of the factorisation envelope, and the Hodge filtration on $\HP_\bullet$ becomes the weight filtration on modular characteristic.
 \end{remark}
