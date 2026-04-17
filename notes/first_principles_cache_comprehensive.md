@@ -1202,3 +1202,88 @@ The Wave-21 identity is a **bridge** between the two columns. Reading the right-
 **AP5 cross-volume propagation.** Preface L894, CLAUDE.md CY-A Main Theorems entry, en_factorization.tex (e1-stabilization-cy theorems). A single campaign should either (a) pick pi_d(BO) and match to 8-periodicity, or (b) keep pi_d(BU) and match to 2-periodicity with an explicit Sp-refinement invocation for the d ≡ 5 stratum.
 
 **Status.** AP-CY73 catalogued. Cross-volume campaign pending.
+
+
+## Entry: Drinfeld-Jimbo classical r-matrix as Casimir (2026-04-17, CG-rectify quantum_groups_foundations chunk 2, AP-CY74)
+
+**Wrong claim.** The first-order term $r$ in the expansion $\cR = 1 + \hbar r + O(\hbar^2)$ of the Drinfeld-Jimbo universal $R$-matrix equals the quadratic Casimir $\Omega_\frakg$.
+
+**Ghost theorem.** The Drinfeld-Jimbo $r$-matrix satisfies a symmetry identity tying it to the Casimir: the symmetrised part of $r$ is indeed $\Omega/2$, and $r + r^{21} = \Omega$.
+
+**Precise error.** Conflates the SYMMETRY CONSTRAINT ($r + r^{21} = \Omega$) with $r$ itself. A quasi-triangular element $\cR$ cannot be symmetric: if $\cR = \cR^{21}$ then $\cR\cR^{21} = \cR^2 = 1$ forces the trivial quantisation. The antisymmetric part of $r$ is precisely what carries the Lie-bialgebra cobracket data.
+
+**Correct relationship.** $r = \tfrac{1}{2}\Omega_\frakg + r_{\mathrm{sk}}$, where $r_{\mathrm{sk}} = \sum_{\alpha > 0} E_\alpha \wedge F_\alpha$ is the skew-symmetric Drinfeld-Sklyanin component. The symmetric part is forced by quasi-triangularity; the skew part is the data. Under this decomposition, CYBE $[r_{12}, r_{13}] + [r_{12}, r_{23}] + [r_{13}, r_{23}] = 0$ reads as a constraint on $r_{\mathrm{sk}}$ modulo the Casimir terms.
+
+**Confusion type.** Condition/object conflation: the defining constraint $r + r^{21} = \Omega$ is mistaken for the object $r$.
+
+**Status.** AP-CY74 catalogued. Instance fixed at `quantum_groups_foundations.tex` L97 (2026-04-17).
+
+
+## Entry: N=4 SCA vs Mukai Heisenberg for Φ(K3) (2026-04-17, CG-rectify modular_trace, AP-CY75)
+
+**Wrong claim.** The quantum chiral algebra of K3 is the $\cN = 4$ superconformal algebra at $c = 6$, with $\kappa_{\mathrm{ch}} = 2$.
+
+**Ghost theorem.** There exist TWO chiral algebras attached to K3 that share $\kappa_{\mathrm{ch}} = 2$: the $\cN = 4$ SCA (the sigma-model worldsheet algebra) and the Mukai Heisenberg $H_{\mathrm{Muk}}$ (the Vol~III functor output). Both invariants coincide numerically because $\kappa_{\mathrm{ch}}$ counts the rank of a particular pairing.
+
+**Precise error.** Species confusion: two distinct algebras with a matching numerical invariant are identified. The $\cN = 4$ SCA is a Virasoro extension with supersymmetry generators; $H_{\mathrm{Muk}}$ is a rank-$24$ free-boson VOA with Mukai signature $(4, 20)$. They agree on $\kappa_{\mathrm{ch}}$ but differ in operator content and module category.
+
+**Correct relationship.** Theorem CY-A$_2$ identifies $\Phi(D^b\Coh(K3)) = H_{\mathrm{Muk}}$, the Vol~III-canonical output. The $\cN = 4$ SCA is the sigma-model algebra (Eguchi-Ooguri-Tachikawa Mathieu-moonshine target), NOT in the image of $\Phi$ on any Vol~III categorical input. The agreement on $\kappa_{\mathrm{ch}} = 2$ is because both record the Hodge supertrace $\chi(\cO_{K3})$ via different mechanisms.
+
+**Confusion type.** Shared-invariant trap: numerical equality on a coarse invariant masks structural difference.
+
+**Status.** AP-CY75 catalogued. Instance fixed at `modular_trace.tex` L65 (2026-04-17).
+
+
+## Entry: Quintic Kodaira-Spencer in Hochschild degree 1 vs 2 (2026-04-17, CG-rectify cyclic_ainf chunk 3, AP-CY76)
+
+**Wrong claim.** $\HH^1(D^b\Coh(Q_5)) = H^1(Q_5, T_{Q_5}) = \C^{101}$, the Kodaira-Spencer space.
+
+**Ghost theorem.** $H^1(Q_5, T_{Q_5}) = \C^{101}$ IS the Kodaira-Spencer space of the quintic; it is $h^{2,1}(Q_5) = 101$.
+
+**Precise error.** The Kodaira-Spencer space is placed in Hochschild DEGREE 1 via naive identification $\HH^k = H^k(T_X)$, ignoring the Kontsevich HKR sum $\HH^p = \bigoplus_{q+r=p} H^q(\wedge^r T_X)$ adopted in Vol~III. Under Kontsevich grading $p = q + r$, the KS contribution $(q,r) = (1,1)$ lives in $\HH^2$, not $\HH^1$.
+
+**Correct relationship.** Full Kontsevich HKR for compact CY$_3$ quintic $Q_5$:
+- $\HH^0(Q_5) = H^0(\cO) = \C$
+- $\HH^1(Q_5) = H^0(T) \oplus H^1(\cO) = 0 \oplus 0 = 0$ (simply connected)
+- $\HH^2(Q_5) = H^0(\wedge^2 T) \oplus H^1(T) \oplus H^2(\cO) = 0 + 101 + 0 = 101$ (Kodaira-Spencer)
+- $\HH^3(Q_5) = H^0(\wedge^3 T) \oplus H^1(\Omega^1) \oplus H^2(\Omega^2) \oplus H^3(\cO) = 1+1+1+1 = 4$ (contains Yukawa)
+- $\HH^4(Q_5) = 101$, $\HH^6(Q_5) = 1$.
+Alternative "Hodge-style" grading $p = q - r$ or bare $H^p(T)$ assignment places KS in degree 1; this is a DIFFERENT convention from Kontsevich HKR.
+
+**Confusion type.** Grading convention mismatch: two admissible conventions (Kontsevich HKR vs naive $H^p(T)$) produce different assignments; picking one without declaring it leads to cross-chapter inconsistency.
+
+**Status.** AP-CY76 catalogued. Instances fixed at `cyclic_ainf.tex` L165, `derived_categories_cy.tex` L96-99 (2026-04-17).
+
+
+## Entry: BKM cusp form Δ_N on full Sp_4(Z) vs paramodular group (2026-04-17, CG-rectify modular_trace chunk 3, AP-CY77)
+
+**Wrong claim.** The Gritsenko-Nikulin weight-5 Borcherds product for K3×E is a cusp form in $S_5(\Sp_4(\Z))$.
+
+**Ghost theorem.** A weight-5 Siegel modular form controlling the BKM denominator for K3×E exists and is the Gritsenko-Nikulin form $\Delta_5$.
+
+**Precise error.** The weight is correct (5), the form exists and has the claimed BKM interpretation, but the AUTOMORPHY GROUP is wrong. Standard Igusa cusp forms for the full modular group $\Sp_4(\Z)$ are $\chi_{10}$ (weight 10) and $\chi_{35}$ (weight 35); no weight-$5$ cusp form exists on $\Sp_4(\Z)$ itself. The Gritsenko-Nikulin form lives on a paramodular subgroup $\Gamma_{\mathrm{para}} \subset \Sp_4(\Q)$, accessed via the accidental isomorphism $\mathrm{O}^+(2,3) \simeq \PGSp_4$.
+
+**Correct relationship.** BKM Borcherds products for a lattice of signature $(2, n)$ with $n \geq 3$ are automorphic on the orthogonal group $\mathrm{O}^+(2, n)$; for $n = 3$ this transports to a paramodular subgroup of $\Sp_4(\Q)$, not to $\Sp_4(\Z)$. The specific paramodular level depends on the Mukai lattice structure.
+
+**Confusion type.** Group-refinement error: the correct ambient group is a finite-index subgroup (paramodular) rather than the full modular group, and the accidental isomorphism makes the distinction invisible at the symbol level.
+
+**Status.** AP-CY77 catalogued. Instance fixed at `modular_trace.tex` L151 (2026-04-17).
+
+
+## Entry: (2-d)-shifted Poisson bracket degree (2026-04-17, CG-rectify hochschild_calculus chunk 1, AP-CY78)
+
+**Wrong claim.** On a CY$_d$ category $\cC$, the $(2-d)$-shifted Poisson structure on $\HH^\bullet(\cC)$ has a bracket of cohomological degree $1 - d$.
+
+**Ghost theorem.** The $(2-d)$-shifted Poisson structure exists and its bracket degree is determined by the shift.
+
+**Precise error.** Off-by-one in the PTVV degree convention. Under Pantev-Toen-Vaquie-Vezzosi: an $n$-shifted Poisson structure has bracket of cohomological degree $-n$ (the bracket LOWERS degree by $n$). So for $n = 2-d$, the bracket has degree $-(2-d) = d-2$, not $1-d$.
+
+**Correct relationship.** Dimension-by-dimension:
+- $d = 1$: $1$-shifted Poisson, bracket degree $-1$ (the Gerstenhaber bracket itself).
+- $d = 2$: $0$-shifted Poisson, bracket degree $0$ (ordinary Poisson on $\HH^\bullet$).
+- $d = 3$: $(-1)$-shifted Poisson, bracket degree $+1$ ($\BV$ algebra).
+The formula $1-d$ gives $-1$ at $d=2$ (wrong: should be $0$) and $-2$ at $d=3$ (wrong: should be $+1$). The formula $d-2$ gives the right answers.
+
+**Confusion type.** Sign-convention inversion: the PTVV bracket degree is $-n$ for $n$-shifted, not $+n$. Easy to flip if the convention isn't stated.
+
+**Status.** AP-CY78 catalogued. Instance fixed at `hochschild_calculus.tex` L22 (2026-04-17).

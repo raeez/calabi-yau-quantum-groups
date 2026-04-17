@@ -28,7 +28,7 @@ Excluded: `chapters/frame/preface.tex`, `chapters/theory/introduction.tex`
 - [x] `chapters/theory/quantum_groups_foundations.tex` — 2026-04-17 CG-rectified (AP-CY70 scrub: 2 healing-language + 1 AP-tag-in-label leaks removed; §1 motivating opener added; classical r-matrix r=Ω corrected to r+r^{21}=Ω with skew-symmetric decomposition; level-stripped r(z) remark restructured to separate level prefix from κ_ch formula; κ_BKM scope clarified as K3xE-specific; "is forbidden" directive replaced by mathematical statement on invariant distinctness with N=1 coincidence noted; fermionic ribbon twist labeled as heuristic (Costello-Gaiotto); closing bridge to braided_factorization added; ∑h_i=0 clarified as normalization convention; sentence-case typo fixed. 3-agent re-audit: BLUE CONVERGED; RED 3 false-positive HIGH findings (conflating κ with c_Sug, abelian vs non-abelian Yangian Cartan, conductor K=0 with individual values); GREEN 2 HIGH + 2 MED all fixed.)
 - [ ] `chapters/theory/braided_factorization.tex`
 - [ ] `chapters/theory/drinfeld_center.tex`
-- [ ] `chapters/theory/modular_trace.tex`
+- [x] `chapters/theory/modular_trace.tex` — 2026-04-17 CG-rectified (AP-CY70 scrub: 3 healing-language + outdated-CY-A_3-not-constructed comment; CY-D scope restricted to (d=2,h^{1,0}=0) with Serre parity; Φ(D^b(K3))=H_Muk (not N=4 SCA) per AP-CY59; Δ_5 paramodular group via O^+(2,3)≃PGSp_4; opening triple sharpened (χ(O_X) third limb); λ_g parenthetical; closing pivot to Part VI seven faces. 3-agent re-audit: BLUE CONVERGED; RED+GREEN converged after RECTIFICATION-FLAG strip.)
 
 ### examples/ (17 files)
 

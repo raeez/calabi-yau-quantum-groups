@@ -53,11 +53,18 @@ if [[ "$FILE_PATH" == *.tex ]]; then
 
   # === VOL III-SPECIFIC CHECKS ===
 
-  # --- AP-CY6: A_X for CY3 does NOT exist ---
-  if grep -qi 'A_X.*CY3\|chiral algebra.*CY.*3\|A_{CY_3}' "$FILE_PATH" 2>/dev/null; then
-    MATCHES=$(grep -n -i 'A_X.*CY3\|chiral algebra.*CY.*3\|A_{CY_3}' "$FILE_PATH" | grep -v 'conditional\|conjectural\|if.*exists\|programme\|target\|conjecture' | head -3)
+  # --- AP-CY6: CY-A_3 chain-level vs inf-cat scope (UPDATED 2026-04-17) ---
+  # CY-A_3 is proved in the inf-cat framework (thm:derived-framing-obstruction,
+  # thm:cy-to-chiral-d3); chain-level CY-A_3 for non-formal algebras remains
+  # conjectural. Warn only when A_X/Phi_3 at d=3 is stated WITHOUT any inf-cat /
+  # CY-A_3 / thm:cy-to-chiral-d3 / thm:derived-framing-obstruction citation in
+  # the surrounding context, and the claim is not already flagged as conditional.
+  if grep -qi 'A_X.*CY.3\|A_{CY_3}\|\\Phi_3' "$FILE_PATH" 2>/dev/null; then
+    MATCHES=$(grep -n -i 'A_X.*CY.3\|A_{CY_3}\|\\Phi_3' "$FILE_PATH" \
+      | grep -v 'conditional\|conjectural\|if.*exists\|programme\|target\|conjecture\|CY-A[$_]3\|cy-to-chiral-d3\|derived-framing-obstruction\|inf-cat\|infty.cat\|HH\^{-2}' \
+      | head -3)
     if [ -n "$MATCHES" ]; then
-      WARNINGS="${WARNINGS}AP-CY6: A_X for CY3 does NOT exist yet. CY-A proved only for d=2. Lines: ${MATCHES}\n"
+      WARNINGS="${WARNINGS}AP-CY6 scope: A_X / Phi_3 at d=3 appears without citing CY-A_3 (thm:cy-to-chiral-d3 / thm:derived-framing-obstruction). CY-A_3 is proved in the inf-cat framework; chain-level CY-A_3 for non-formal algebras remains conjectural. Cite the appropriate theorem or qualify the claim. Lines: ${MATCHES}\n"
     fi
   fi
 
