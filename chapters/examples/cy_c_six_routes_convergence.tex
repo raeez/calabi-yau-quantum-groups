@@ -558,6 +558,118 @@ completion is verified for the K$3$ Heisenberg + small-ADE cell of
 Vol~II.
 \end{proof}
 
+\subsubsection{The 24 Drinfeld currents at the abelian K$3$ level: explicit form}
+\label{subsubsec:k3-abelian-explicit-currents}
+
+We now make Theorem~\ref{thm:cy-c-abelian-K3} explicit at the level of
+generators and OPEs.  Choose an orthogonal basis
+$\{\alpha_1, \dots, \alpha_{24}\}$ of $\Lambda_{\mathrm{Muk}} = U^3 \oplus E_8(-1)^2$
+adapted to the diagonal Mukai metric $\langle \alpha_i, \alpha_j \rangle_{\mathrm{Muk}}
+= \epsilon_i \delta_{ij}$ with $\epsilon_i \in \{+1, -1\}$ and signature $(4, 20)$:
+$\epsilon_i = +1$ for $i = 1, \dots, 4$ and $\epsilon_i = -1$ for $i = 5, \dots, 24$.
+
+\begin{theorem}[Explicit Drinfeld currents for $Y(\fg_{K3})$]
+\label{thm:cy-c-abelian-K3-currents}
+\ClaimStatusProvedHere
+The Drinfeld double of the positive part $Y^+(\fg_{K3})$ admits the
+following explicit presentation by $24 \times 3$ Drinfeld currents.  Let
+$J_i(z)$ be the $i$-th Heisenberg current with OPE
+\[
+  J_i(z)\, J_j(w) \;\sim\; \frac{\epsilon_i\, \delta_{ij}}{(z - w)^2}.
+\]
+Define
+\[
+  h_i(z) \;:=\; \epsilon_i\, J_i(z),
+  \qquad
+  x^+_i(z) \;:=\; V_{\alpha_i}(z),
+  \qquad
+  x^-_i(z) \;:=\; V_{-\alpha_i}(z),
+\]
+where $V_{\alpha}(z) = {:}\exp\!\bigl(\int J_\alpha(z)\, dz\bigr){:}$ is the
+standard lattice vertex operator.  Then $\{x^+_i(z), x^-_i(z), h_i(z)\}_{i=1}^{24}$
+generate $D(Y^+(\fg_{K3}))$ with the following OPE coefficients at orders
+$(z-w)^{-2}$, $(z-w)^{-1}$, $(z-w)^0$:
+\begin{align*}
+  x^+_i(z)\, x^+_j(w) &\;\sim\; (z - w)^{\epsilon_i \delta_{ij}}\,
+    {:}V_{\alpha_i + \alpha_j}{:}(w),
+  \\
+  x^+_i(z)\, x^-_j(w) &\;\sim\; (z - w)^{-\epsilon_i \delta_{ij}}\,
+    {:}V_{\alpha_i - \alpha_j}{:}(w),
+  \\
+  h_i(z)\, x^\pm_j(w) &\;\sim\; \frac{\pm\, \epsilon_i\, \delta_{ij}\,
+    x^\pm_j(w)}{z - w},
+  \\
+  h_i(z)\, h_j(w) &\;\sim\; \frac{\epsilon_i\, \delta_{ij}}{(z - w)^2}.
+\end{align*}
+The diagonal ``Cartan matrix'' $A_{ij} = \epsilon_i \delta_{ij}$ has trace
+$\Tr A = 4 - 20 = -16$, determinant $\det A = (+1)^4 (-1)^{20} = +1$, and
+signature $(4, 20)$, matching the Mukai signature.  The bar Euler product
+$\prod_{n \geq 1}(1 - q^n)^{24}$ and its Koszul dual $\prod_{n \geq 1}(1 - q^n)^{-24}$
+satisfy the Koszul pairing $E_{\mathrm{bar}} \cdot E_{\mathrm{cobar}} = 1$ to all
+orders, so the Koszul conductor $K^{\mathrm{ff}}_{\Heis(\Lambda_{\mathrm{Muk}})}
+:= \kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^{!} = 0$ \emph{on the free-field
+Heisenberg branch} (\textbf{not} the universal Virasoro/$W$-extended branch,
+where $K_{\mathrm{Vir}} = 13$ rather than $0$; the value $K = 0$ here is specific to the
+flat ($c = 0$) Heisenberg quantisation of $\Lambda_{\mathrm{Muk}}$ used in this section).
+\end{theorem}
+
+\begin{proof}
+For each $i$, $V_{\alpha_i}(z)$ is the lattice vertex operator on the
+rank-$1$ Heisenberg sublattice spanned by $\alpha_i$, with the standard
+OPE $V_{\alpha}(z) V_{\beta}(w) = (z-w)^{\langle \alpha, \beta \rangle}
+{:}V_{\alpha} V_{\beta}{:}(w)$ (Frenkel--Lepowsky--Meurman, Chapter 8).
+The diagonal Mukai metric $\langle \alpha_i, \alpha_j \rangle_{\mathrm{Muk}}
+= \epsilon_i \delta_{ij}$ gives the four OPE families above by direct
+substitution.  The Cartan-ladder OPE is the standard Heisenberg
+$\partial$-derivation on $V_{\alpha_j}$.  The bar/cobar Koszul pairing
+$E_{\mathrm{bar}} \cdot E_{\mathrm{cobar}} = 1$ is the Macdonald--Dyson
+identity $\eta(q)^{24} \cdot \eta(q)^{-24} = 1$, here computed in exact
+rational arithmetic to order $q^{10}$ in
+\texttt{compute.lib.k3\_abelian\_yangian\_currents.koszul\_pairing\_check}.
+The Drinfeld coproduct
+\[
+  \Delta_z(x^\pm_i(u)) \;=\; x^\pm_i(u) \otimes 1 \;+\; 1 \otimes x^\pm_i(u - z),
+  \qquad
+  \Delta_z(h_i(u)) \;=\; h_i(u) \otimes 1 \;+\; 1 \otimes h_i(u - z),
+\]
+has \emph{no} correction terms because the structure constants $f^{ab}_c$
+of $\fg = \fgl_1$ vanish; coassociativity reduces to the associativity
+of the spectral shift $u \mapsto u - z$.
+\end{proof}
+
+\begin{remark}[K$3$ elliptic genus matching, AP-CY42 convention]
+\label{rem:k3-eg-rank-match}
+The K$3$ elliptic genus $\mathrm{EG}_{K3} = 2 \phi_{0,1}$ has GN--convention
+Fourier coefficients $c(0) = 10$, $c(-1) = 1$ (computed by
+\texttt{phi01\_fourier} from squared Jacobi theta-function ratios).  At
+$(\tau, z) = (i\infty, 0)$,
+\[
+  \mathrm{EG}_{K3}\bigm|_{q = 0,\, y = 1}
+   \;=\; 2 \cdot \bigl[\, c(0) + c(-1)(y + y^{-1}) \,\bigr]\Big|_{y = 1}
+   \;=\; 2 \cdot 12 \;=\; 24
+   \;=\; \chi(K3)
+   \;=\; b_0 + b_2 + b_4 \;=\; 1 + 22 + 1.
+\]
+Equivalently, $\chi(K3) = 2c(0) + 4c(-1) = 20 + 4 = 24$, where the
+factor $2$ is $\kappa_{\mathrm{ch}}(K3) = 2$ (AP-CY42) and the factor $4$
+is $2 \cdot 2$ (kappa factor times the $y + y^{-1}$ pair at $y = 1$).
+This is an INDEPENDENT verification of the rank-$24$ of $Y(\fg_{K3})$:
+the elliptic-genus computation makes no reference to lattice VOAs,
+chiral algebras, or Yangians.
+\end{remark}
+
+\begin{remark}[Abelian coproduct has no correction; non-abelian extension]
+\label{rem:abelian-coproduct-no-correction}
+The vanishing of the correction term in $\Delta_z(x^\pm_i(u))$ at the
+abelian level is structural: the Yangian quadratic correction is
+proportional to $f^{ab}_c$, which is zero for $\fgl_1$.  The non-abelian
+super-Yangian $Y(\fgl(4|20))$ extension (CONJECTURAL, see
+Remark~\ref{rem:cy-c-per-class-status}) would carry nonzero correction
+terms proportional to the structure constants of $\fgl(4|20)$, and the
+$24 \times 3$ explicit currents above would extend to an $\fgl(4|20)$-
+sized current algebra with off-diagonal $h_i$--$x^\pm_j$ OPE coefficients.
+\end{remark}
+
 \subsection{The BZFN equivalence}
 \label{subsec:cy-c-bzfn}
 
