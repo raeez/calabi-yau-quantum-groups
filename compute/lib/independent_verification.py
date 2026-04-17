@@ -250,6 +250,7 @@ def independent_verification(
 class CoverageReport:
     """Summary of ProvedHere coverage vs the registry."""
     proved_here_claims: set[str] = field(default_factory=set)
+    conjectured_claims: set[str] = field(default_factory=set)
     covered_claims: set[str] = field(default_factory=set)
     tautological: list[VerificationEntry] = field(default_factory=list)
 
@@ -259,18 +260,25 @@ class CoverageReport:
 
     @property
     def orphan_entries(self) -> list[VerificationEntry]:
-        """Registry entries whose claim is not actually ProvedHere in any .tex."""
+        """Registry entries whose claim is neither ProvedHere nor Conjectured in any .tex.
+
+        Decorations on Conjectured labels are valid: they verify falsifiable
+        predictions of a conjecture (not the conjecture's truth itself).
+        """
+        valid = self.proved_here_claims | self.conjectured_claims
         return [
             e for e in _REGISTRY
-            if e.claim not in self.proved_here_claims
+            if e.claim not in valid
         ]
 
     def summary(self) -> str:
         n_proved = len(self.proved_here_claims)
+        n_conj = len(self.conjectured_claims)
         n_covered = len(self.covered_claims)
         pct = (100.0 * n_covered / n_proved) if n_proved else 0.0
         lines = [
             f"ProvedHere claims found in .tex: {n_proved}",
+            f"Conjectured claims found in .tex: {n_conj}",
             f"Claims with independent verification:  {n_covered} ({pct:.1f}%)",
             f"Claims WITHOUT independent verification: {len(self.uncovered_claims)}",
             f"Tautological registry entries: {len(self.tautological)}",
@@ -280,16 +288,22 @@ class CoverageReport:
         return "\n".join(lines)
 
 
-def build_coverage_report(proved_here_labels: Iterable[str]) -> CoverageReport:
-    """Combine the current registry with a set of ProvedHere labels.
+def build_coverage_report(
+    proved_here_labels: Iterable[str],
+    conjectured_labels: Iterable[str] = (),
+) -> CoverageReport:
+    """Combine the current registry with sets of ProvedHere and Conjectured labels.
 
     The caller (lint script) supplies labels scraped from .tex. This module
     stays independent of the scraper so the module is testable without any
-    .tex files present.
+    .tex files present. Decorations on Conjectured labels are valid (they
+    verify falsifiable predictions of a conjecture).
     """
-    labels = set(proved_here_labels)
+    proved_set = set(proved_here_labels)
+    conj_set = set(conjectured_labels)
     return CoverageReport(
-        proved_here_claims=labels,
-        covered_claims=claims_covered() & labels,
+        proved_here_claims=proved_set,
+        conjectured_claims=conj_set,
+        covered_claims=claims_covered() & proved_set,
         tautological=tautological_entries(),
     )

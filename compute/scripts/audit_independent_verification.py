@@ -49,16 +49,25 @@ from compute.lib.independent_verification import (  # noqa: E402
 
 LABEL_RE = re.compile(r"\\label\{([^}]+)\}")
 PROVED_HERE_RE = re.compile(r"\\ClaimStatusProvedHere")
+# Match Conjectured OR Conditional: both are "not-yet-proved" tags whose
+# falsifiable predictions can carry @independent_verification decorations.
+CONJECTURED_RE = re.compile(r"\\ClaimStatus(?:Conjectured|Conditional)")
+# Construction/Definition environments: valid label-bearing definitional
+# objects; tests verify properties of the constructed object via disjoint
+# inputs.
+CONSTRUCTION_BEGIN_RE = re.compile(r"\\begin\{(?:construction|definition)\}")
 
 
-def scrape_proved_here(tex_root: Path) -> dict[str, list[Path]]:
-    """Find every ProvedHere claim and the label it attaches to.
+def _scrape_status_labels(tex_root: Path,
+                          status_re: re.Pattern[str]) -> dict[str, list[Path]]:
+    """Find every claim with the given status regex and the label it attaches to.
 
-    Heuristic: for each `\\ClaimStatusProvedHere`, walk BACKWARD through the
-    same file looking for the nearest preceding `\\label{...}` within 80
-    lines. Theorem environments in Vol III convention put the label
-    immediately after \\begin{theorem}[...] and the ClaimStatus line inside
-    the same environment. 80 lines is generous and tolerates inline remarks.
+    Heuristic: for each match of status_re, walk BACKWARD through the same
+    file looking for the nearest preceding ``\\label{...}`` within 80 lines.
+    Theorem/Conjecture environments in Vol III convention put the label
+    immediately after ``\\begin{theorem}[...]`` (or ``\\begin{conjecture}[...]``)
+    and the ClaimStatus line inside the same environment. 80 lines is
+    generous and tolerates inline remarks.
 
     Returns
     -------
@@ -90,11 +99,74 @@ def scrape_proved_here(tex_root: Path) -> dict[str, list[Path]]:
         except OSError:
             continue
         for idx, line in enumerate(lines):
-            if not PROVED_HERE_RE.search(line):
+            if not status_re.search(line):
                 continue
             lo = max(0, idx - 80)
             for back in range(idx, lo - 1, -1):
                 m = LABEL_RE.search(lines[back])
+                if m:
+                    label = m.group(1)
+                    found.setdefault(label, []).append(f)
+                    break
+    return found
+
+
+def scrape_proved_here(tex_root: Path) -> dict[str, list[Path]]:
+    """Find every ProvedHere claim and the label it attaches to."""
+    return _scrape_status_labels(tex_root, PROVED_HERE_RE)
+
+
+def scrape_conjectured(tex_root: Path) -> dict[str, list[Path]]:
+    """Find every Conjectured claim and the label it attaches to.
+
+    Used to validate ``@independent_verification`` decorations on conjectures
+    (which verify falsifiable predictions of a conjecture, not its truth).
+    """
+    return _scrape_status_labels(tex_root, CONJECTURED_RE)
+
+
+def scrape_constructions(tex_root: Path) -> dict[str, list[Path]]:
+    """Find every \\begin{construction} or \\begin{definition} and its label.
+
+    These environments produce labels that tests can decorate via
+    ``@independent_verification`` (the test verifies properties of the
+    constructed/defined object via disjoint inputs).
+
+    Heuristic: for each match of CONSTRUCTION_BEGIN_RE, walk FORWARD through
+    the same file looking for the nearest following ``\\label{...}`` within
+    10 lines (constructions usually put the label immediately after the
+    \\begin{...} line).
+    """
+    search_dirs = [
+        tex_root / "chapters",
+        tex_root / "appendices",
+    ]
+    aux_files = []
+    wn = tex_root / "working_notes.tex"
+    if wn.exists():
+        aux_files.append(wn)
+    notes_dir = tex_root / "notes"
+    if notes_dir.exists():
+        aux_files.extend(sorted(notes_dir.glob("*.tex")))
+
+    tex_files: list[Path] = []
+    for d in search_dirs:
+        if d.exists():
+            tex_files.extend(sorted(d.rglob("*.tex")))
+    tex_files.extend(aux_files)
+
+    found: dict[str, list[Path]] = {}
+    for f in tex_files:
+        try:
+            lines = f.read_text(encoding="utf-8", errors="replace").splitlines()
+        except OSError:
+            continue
+        for idx, line in enumerate(lines):
+            if not CONSTRUCTION_BEGIN_RE.search(line):
+                continue
+            hi = min(len(lines), idx + 10)
+            for fwd in range(idx, hi):
+                m = LABEL_RE.search(lines[fwd])
                 if m:
                     label = m.group(1)
                     found.setdefault(label, []).append(f)
@@ -148,6 +220,14 @@ def main(argv: list[str] | None = None) -> int:
     proved_here = scrape_proved_here(args.tex_root)
     print(f"[audit] found {len(proved_here)} ProvedHere-tagged labels.")
 
+    print(f"[audit] scanning {args.tex_root} for Conjectured claims...")
+    conjectured = scrape_conjectured(args.tex_root)
+    print(f"[audit] found {len(conjectured)} Conjectured-tagged labels.")
+
+    print(f"[audit] scanning {args.tex_root} for Construction/Definition labels...")
+    constructions = scrape_constructions(args.tex_root)
+    print(f"[audit] found {len(constructions)} Construction/Definition labels.")
+
     print(f"[audit] importing test modules from {args.tests_dir}...")
     failures = load_test_modules(args.tests_dir)
 
@@ -173,7 +253,11 @@ def main(argv: list[str] | None = None) -> int:
         for name, exc in other_failures[:5]:
             print(f"         {name}: {type(exc).__name__}: {exc}")
 
-    report = build_coverage_report(proved_here.keys())
+    # Conjectured + Construction/Definition labels both count as valid
+    # decoration targets (they're not ProvedHere claims, but they're real
+    # mathematical content in the manuscript).
+    valid_non_proved = set(conjectured.keys()) | set(constructions.keys())
+    report = build_coverage_report(proved_here.keys(), valid_non_proved)
 
     print()
     print("=" * 72)
