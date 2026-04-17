@@ -74,6 +74,39 @@ Per the skill's "use at least two passes for chapter openings and theorem lead-i
 | Why the question matters | "The Connes hierarchy for a CY_d algebra consists of operators B^(0), ..., B^(d) on the cyclic bar complex" — formula-first | Platonic |
 | Three wrong proofs | "Each of the following arguments was proposed, scrutinised, and retracted" — forced transition | Platonic |
 
+## Chunk-by-chunk linear march through Ch 1 (Introduction, 13 sections)
+
+Per the skill's convergent writing standard (3 passes for introductions), applied chunk-by-chunk to each section of chapters/theory/introduction.tex:
+
+| # | Section | Opening | Verdict |
+|---|---------|---------|---------|
+| §1 | The question | functor diagram CY-categories <-> chiral algebras | Platonic (ch-opener level) |
+| §2 | The E_n chiral hierarchy | degree (1-d) Gerstenhaber bracket formula + per-d table | Platonic |
+| §3 | The Mukai Lagrangian and the Platonic ensemble | Lambda_X Mukai pairing display + P1-P5 theorem table | Platonic |
+| §4 | Relation to Volumes I and II | Vol/Provides/Used-here table + five-object remark | Platonic |
+| §5 | The analytic gap and the Cech resolution | deficiency (analytic gap) + explicit SDR contracting homotopy s^q | Platonic |
+| §6 | Automorphic correction as shadow obstruction tower | passage naive Kac-Moody -> generalized BKM with imaginary roots | Platonic |
+| §7 | Main results | itemized theorems CY-A, CY-B, CY-D, BKM-Universal | Platonic |
+| §8 | What is proved versus what is conjectural | bold \Proved itemize + \Conjectural itemize | Platonic |
+| §9 | Thirteen structural results for K3 x E | "supports thirteen structural results" + explicit enumeration | Platonic |
+| §10 | The E_1-chiral bialgebra and Hopf axioms | axiom specification + concrete K3 construction | Platonic |
+| §11 | The ten research programmes | enumeration with compute engine grounding | Platonic |
+| §12 | The landscape of examples | four families + contributions | Platonic |
+| §13 | Guide for the reader | Part dependency display + three reading paths | Platonic |
+
+All thirteen sections of Ch 1 satisfy the Chriss-Ginzburg convergent writing standard (3 passes for an introduction). No rectification required.
+
+## Cross-reference typo fixes (commit 6086bc1)
+
+Per the skill's Phase 3 directive "weaken any sentence whose proof support is not yet there", a broken \ref constitutes a sentence whose proof support is literally not there (the referenced label does not exist). Nine typo-level broken references healed in commit 6086bc1:
+
+  - ch:k3_chiral_algebra -> ch:k3-chiral-algebra (underscore/hyphen)
+  - ch:quantum_chiral_algebras -> ch:quantum-chiral-algebras (underscore/hyphen)
+  - ch:modular-koszul -> ch:modular-koszul-bridge (short vs canonical)
+  - ch:toric-cy3-coha -> ch:toric-coha (wrong stem; 5 occurrences)
+
+Undef-ref count 30 -> 21 after this pass.
+
 ## CONVERGED
 
 Per the skill's stop rule, the volume is CONVERGED at the chapter-opening, section-opening, and theorem-lead-in granularities. Each opening surveyed:
