@@ -145,6 +145,21 @@ CY_4 p_1-twisted double current algebra:
 derived from π_4(BU) = Z obstruction. K3 × K3 specialisation: N(X) = 0,
 unobstructed E_4.
 
+RETRACTED 2026-04-18 (Wave-15 attack+heal, ~/chiral-bar-cobar/adversarial_swarm_20260418/attack_heal_cy4_p1_20260418.md):
+the "K3 × K3: N(X) = 0" slogan is FALSIFIED. Direct Künneth: p_1(T_{K3×K3}) =
+π_1^* p_1(K3) + π_2^* p_1(K3); p_1(K3)^2 ∈ H^8(K3) = 0 since K3 is real-4;
+therefore N(K3×K3) := ∫_{K3×K3} p_1(T_X)^2 = 2 ∫ π_1^* p_1(K3) · π_2^* p_1(K3)
+= 2 · (−48) · (−48) = 4608, NOT 0. The actual CY_4 examples on the N=0
+stratum are abelian CY_4 (C^4/Λ: flat, all Pontryagin classes vanish) and
+K3 × T^4 (p_1(T^4) = 0 kills both diagonal and cross terms in p_1^2).
+Cross-reference: engine cy4_e2_tower.py:843-846 + manuscript
+en_factorization.tex:308-310 table (p_1(K3×K3) = -96) are consistent; this
+session-note line was pre-heal narrative confabulation and has been
+superseded. The bilinear cocycle c(x,y) = ⟨x ∪ y ∪ p_1, [X]⟩ / 24 itself
+remains a plausible conjectural target but is NOT inscribed in Vol III;
+the p_1/24 coefficient is inscribed only as a chiral-central-anomaly shift
+(preface.tex:665-668), not as a bilinear Massey form.
+
 ### CoHA(C^3) = Y^+ (positive half, not full Yangian)
 
 Top-15 cached confusion #6 resolution: CoHA(C^3) is the POSITIVE HALF
