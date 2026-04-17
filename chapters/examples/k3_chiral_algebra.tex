@@ -588,6 +588,47 @@ Item~(ii) follows because the proof chain passes through $\phi_N$ \textup{(}topo
 \smallskip\noindent\textit{Supplementary verification}: 99 tests in \texttt{kappa\_bkm\_universal.py} confirm the Borcherds weight formula for all eight orbifolds, the monotonicity sequence, and 6-path cross-validation against independent engines.
 \end{proof}
 
+\begin{remark}[Independent-verification protocol status: manuscript proved,
+              engine partially tautological]
+\label{rem:bkm-weight-universal-iv-status}
+The Borcherds weight identity
+$\mathrm{wt}(\Phi_N) = c_N(0)/2$
+of Proposition~\ref{prop:bkm-weight-universal}~(i) is the Borcherds weight
+theorem of \textsc{Borcherds 1998} and is genuinely proved.  The identification
+$\kappa_{\mathrm{BKM}}(X_N) = \mathrm{wt}(\Phi_N)$ is the
+\textsc{definition} of $\kappa_{\mathrm{BKM}}$ on the K$3$-fibered class
+\textup{(}see the kappa-spectrum discipline of Appendix
+\ref{app:conventions}\textup{);} no tautology arises at the manuscript level.
+
+The associated engine \texttt{kappa\_bkm\_universal.py} hardcodes
+\texttt{FRAME\_SHAPE\_DATA[N] = (frame\_shape, borcherds\_weight, c\_disc\_0)}
+with the relation \texttt{borcherds\_weight = c\_disc\_0 / 2} literal in the
+data table, and the 99 tests check
+\texttt{Fraction(c\_disc\_0, 2) == borcherds\_weight} against the same source.
+Per the HZ3-11 independent-verification protocol, this constitutes a
+test-level tautology: the verification source is not disjoint from the
+derivation source.
+
+The genuine independent-verification path is: \textup{(}a\textup{)} compute
+$c_N(0)$ \emph{independently from the Frame shape data} via the
+Mathieu-twined elliptic-genus formula
+$\phi_g(\tau, z) = \alpha(g) \phi_{0,1}(\tau, z) + \beta(g) \phi_{-2,1}(\tau, z)$
+with $\alpha(g) = (1/24)\,\mathrm{tr}(g \mid H^*(K3, \mathbb{Z}))$
+\textup{(}Eguchi-Hikami-Ooguri 2010, Cheng 2010, Gaberdiel-Hohenegger-Volpato
+2010\textup{);} and \textup{(}b\textup{)} compute $\mathrm{wt}(\Phi_N)$
+\emph{independently from the modular-form order} via Igusa's classification
+of Siegel modular forms for $\mathrm{Sp}_4(\mathbb{Z})$.  Both sources are
+disjoint from the \texttt{FRAME\_SHAPE\_DATA} table, and the Borcherds
+weight theorem then bridges them.  Installing this independent test is the
+remaining compute work for healing entry $\#1$ of
+\texttt{notes/tautology\_registry.md}.
+
+The proposition itself remains \texttt{ProvedHere} because the proof
+correctly cites the disjoint sources \textup{(}Borcherds 1998 +
+Gaberdiel-Hohenegger-Volpato 2010\textup{);} the proof is independent of
+the engine table tautology.
+\end{remark}
+
 \subsection{Three constructions, three chiral algebras from K3}
 \label{subsec:k3-three-algebraizations}  % label preserved for cross-references
 

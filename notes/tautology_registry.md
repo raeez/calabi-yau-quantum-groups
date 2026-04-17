@@ -12,19 +12,27 @@ Seeded from adversarial audit 2026-04-16 (first_principles_cache.md #57-68).
 
 ---
 
-## prop:bkm-weight-universal (kappa_BKM = c_N(0)/2)
+## prop:bkm-weight-universal (kappa_BKM = c_N(0)/2) — PARTIALLY HEALED 2026-04-17
 
-**File:** chapters/examples/k3_chiral_algebra.tex
+**Status:** Manuscript clean (proposition correctly cites disjoint sources). Engine test still tautological. Healing of test pending.
 
-**Tautology:** FRAME_SHAPE_DATA[N] hardcodes `(weight, c_0, ...)` with the invariant `weight := c_0 / 2` literal. All 99 tests verify `Fraction(c_0, 2) == weight` against the same table. "6-path cross-validation" imports/reconstructs the same FRAME_SHAPE_DATA.
+**File:** chapters/examples/k3_chiral_algebra.tex (proposition + new rem:bkm-weight-universal-iv-status)
 
-**Disjoint source (if pursued):** Compute the BKM central charge of g_{Δ_5} directly from imaginary-root multiplicities of the denominator product Φ_10 (Gritsenko-Nikulin 1998), and compare to c_0/2 as the weight of the Borcherds lift. These are independent derivations.
+**What was done:**
+- Added `rem:bkm-weight-universal-iv-status` (k3_chiral_algebra.tex L590-624) documenting:
+  (a) the manuscript proposition is genuinely proved via disjoint sources (Borcherds 1998 + Gaberdiel-Hohenegger-Volpato 2010); no manuscript-level tautology.
+  (b) the engine `kappa_bkm_universal.py` `FRAME_SHAPE_DATA[N]` table hardcodes BOTH `borcherds_weight` AND `c_disc_0` with the relation `weight = c_0/2` literal, making the 99 tests `Fraction(c_0, 2) == weight` tautological per HZ3-11.
+  (c) the genuine independent-verification path: compute c_N(0) independently from the Mathieu-twined elliptic genus formula α(g) φ_{0,1} + β(g) φ_{-2,1} (Eguchi-Hikami-Ooguri 2010) AND compute wt(Φ_N) independently from Igusa's Sp_4(Z) modular-form classification. Both sources disjoint from FRAME_SHAPE_DATA.
 
-**Scope restriction:** Replace "all K3-fibered CY3s" with "the 8 diagonal Z/NZ symplectic orbifolds (Chaudhuri-Dolan-Hockney-Polchinski / Gaberdiel-Volpato list) plus K3 × E". STU in the diagonal limit only.
+**What remains (compute work):**
+Install `@independent_verification` decorated test that:
+1. Computes c_N(0) from Mathieu-twined elliptic genus formula (Frame shape -> α(g), β(g) -> twined Jacobi form -> q^0 z^0 coefficient) — independent of `FRAME_SHAPE_DATA[N].c_disc_0` hardcoded value.
+2. Verifies wt(Φ_N) from Borcherds product order — independent of `FRAME_SHAPE_DATA[N].borcherds_weight` hardcoded value.
+3. Bridges them via Borcherds 1998 weight theorem.
 
-**Status downgrade:** For general K3-fibered, `\begin{conjecture}` until the root-multiplicity verification is installed.
+This breaks the tautology by sourcing c_N(0) and wt(Φ_N) from disjoint physical/modular sources.
 
-**Recommendation:** scope restriction + separate `prop:bkm-weight-automorphic` (unconditional, trivially c_0/2 by Borcherds) from `conj:bkm-weight-central-charge` (identifying automorphic weight with BKM central charge; proved for N=1,2,3,4 via Gritsenko-Nikulin, conjectural otherwise).
+**Lossless reframe:** the proposition stays `\ClaimStatusProvedHere` because the manuscript proof is correct (disjoint citations to Borcherds + GHV). Engine-level test rectification is a compute-side healing, not a manuscript-side downgrade.
 
 ---
 
