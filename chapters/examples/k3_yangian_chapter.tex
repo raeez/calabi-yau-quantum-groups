@@ -3802,7 +3802,7 @@ face of the Stasheff $K_5$ associahedron evaluating to zero by
 the same three-cancellation mechanism.
 \end{proof}
 
-\begin{theorem}[Chain-to-matrix Pentagon unification, verified at five quadruples]
+\begin{theorem}[Chain-to-matrix Pentagon unification]
 \label{thm:chain-to-matrix-pentagon-unification}
 \ClaimStatusConditional
 The matrix-level Pentagon coherence cocycle $a$ is the
@@ -3823,44 +3823,52 @@ chain-level Pentagon-at-$E_1$ at the K$3$ Yangian
 \textup{(}Theorem~\ref{thm:k3-pentagon-E1-edge-architecture}\textup{)}
 plus additivity of the Pentagon cocycle under Yangian tensor-products
 plus the $V_4$-equivariant Lefschetz formula.
-
-\medskip\noindent
-\emph{Verification at five quadruples \textup{(}upgraded from two\textup{)}.}
-The chain-to-matrix descent has been independently verified at five
-distinct quadruples by direct computation of the matrix-level Pentagon
-cyclic sum and comparison with the chain-level Cartan-coroot
-Lefschetz push-forward predictor:
-\begin{enumerate}
-\item $(W, X, Y, Z) = (\mathrm{conifold}, K3, E, E)$
-       — single cross-class baseline;
-\item $(W, X, Y, Z) = (K3, K3, E, E)$
-       — multi-K$3$ baseline;
-\item $(W, X, Y, Z) = (T^4, K3, E, E)$
-       — abelian-surface anchored, exhibiting double K$3$-anchored
-       elliptic-tower rigidity \textup{(}both $e_{23} = 0$ and
-       $e_{45} = 0$, vs.\ the single-rigidity of cases (1) and (2)\textup{);}
-\item $(W, X, Y, Z) = (\mathrm{conifold}, \mathrm{conifold}, K3, E)$
-       — double cross-class, exhibiting the absorber collapse on the
-       elliptic-tower side \textup{(}$e_{12} = e_{23} = e_{45} = 0$,
-       Pentagon reduces to a $2$-edge identity $e_{34} + e_{51} = 0$\textup{);}
-\item $(W, X, Y, Z) = (\mathrm{LP}^2, K3, E, E)$
-       — Class-B noncompact anchored, with sign-flipped edges
-       relative to case (1) reflecting $M_{\mathrm{LP}^2}
-       = -M_{\mathrm{conifold}}$ on $(\Pi_{++}, \Pi_{+-})$ channels.
-\end{enumerate}
-At every quadruple the cyclic sum $S = \sum_{i=1}^{5} e_{i, i+1}$ vanishes
-identically in $\mathbb{Z}[V_4]$, in agreement with the chain-level
-Lefschetz pushforward predictor (Cartan-coroot decomposition
-$[\omega]^{\mathrm{Pentagon}} = \sum_\alpha 2[\omega^{(2)}_\alpha]$ for ADE
-$\fg_{K3}$ + simply-laced uniformity $(\alpha, \alpha) = 2$).  The
-verification engine \texttt{compute/lib/chain\_to\_matrix\_pentagon\_descent.py}
-computes both sides independently: matrix side via $V_4$ Künneth dichotomy
-+ Drinfeld-coupling correction; chain side via Cartan-coroot decomposition
-+ Killing-form rank counting (\texttt{rem:killing-rank-counting}).  Source
-disjointness is enforced by the
-\texttt{@independent\_verification} decorator
-\textup{(}see notes/wave\_chain\_to\_matrix\_pentagon\_lefschetz.md\textup{).}
 \end{theorem}
+
+\begin{remark}[Verified at five quadruples \textup{(}upgrade
+               from two\textup{)}]
+\label{rem:chain-to-matrix-pentagon-five-quadruples}
+\ClaimStatusProvedHere
+The chain-to-matrix descent of
+Theorem~\ref{thm:chain-to-matrix-pentagon-unification} has been
+independently verified at five distinct quadruples by direct
+computation of the matrix-level Pentagon cyclic sum and comparison
+with the chain-level Cartan-coroot Lefschetz push-forward predictor:
+\begin{enumerate}
+\item[\textup{(1)}] $(W, X, Y, Z) = (\mathrm{conifold}, K3, E, E)$:
+       single cross-class baseline.
+\item[\textup{(2)}] $(W, X, Y, Z) = (K3, K3, E, E)$: multi-K$3$
+       baseline.
+\item[\textup{(3)}] $(W, X, Y, Z) = (T^4, K3, E, E)$: abelian-surface
+       anchored, exhibiting double K$3$-anchored elliptic-tower
+       rigidity \textup{(}both $e_{23} = 0$ and $e_{45} = 0$,
+       contrasting with the single-rigidity of cases \textup{(1)} and
+       \textup{(2)}\textup{).}
+\item[\textup{(4)}] $(W, X, Y, Z) = (\mathrm{conifold}, \mathrm{conifold},
+       K3, E)$: double cross-class, exhibiting the absorber collapse
+       on the elliptic-tower side \textup{(}$e_{12} = e_{23} = e_{45} = 0$,
+       Pentagon reduces to the $2$-edge identity
+       $e_{34} + e_{51} = 0$\textup{).}
+\item[\textup{(5)}] $(W, X, Y, Z) = (\mathrm{LP}^2, K3, E, E)$:
+       Class-B noncompact anchored, with sign-flipped edges relative
+       to case \textup{(1)} reflecting
+       $M_{\mathrm{LP}^2} = -M_{\mathrm{conifold}}$ on the
+       $\Pi_{++}, \Pi_{+-}$ channels.
+\end{enumerate}
+At every quadruple the cyclic sum $S = e_{12} + e_{23} + e_{34} + e_{45}
++ e_{51}$ vanishes identically in $\mathbb{Z}[V_4]$, in agreement with the
+chain-level Lefschetz pushforward predictor \textup{(}Cartan-coroot
+decomposition $[\omega]^{\mathrm{Pentagon}} = \sum_\alpha 2 [\omega^{(2)}_\alpha]$
+for ADE $\fg_{K3}$ plus simply-laced uniformity
+$(\alpha, \alpha) = 2$\textup{).}  The verification engine
+\texttt{chain\_to\_matrix\_pentagon\_descent.py} computes both sides
+independently: matrix side via $V_4$ Künneth dichotomy and
+Drinfeld-coupling correction; chain side via Cartan-coroot
+decomposition and Killing-form rank counting
+\textup{(}Remark~\ref{rem:killing-rank-counting}\textup{).}  Source
+disjointness is enforced by the
+\texttt{@independent\_verification} decorator.
+\end{remark}
 
 \begin{remark}[Cohomological home and Bockstein description]
 \label{rem:bracketing-associator-bockstein}
