@@ -735,20 +735,27 @@ def mukai_rank_from_elliptic_genus() -> int:
       1 + 10 + 1 = 12.  And 2 . 12 = 24 = chi(K3).  CONSISTENT.
 
     So in the GN convention used by phi01_fourier with c(0) = 10,
-    c(-1) = 2, the correct Witten-index / Euler-characteristic identity
+    c(-1) = 1, the correct Witten-index / Euler-characteristic identity
     is:
 
-      chi(K3) = 24 = 2 c(0) + 2 c(-1) = 20 + 4.
+      EG_K3 = 2 . phi_{0,1}                          (AP-CY42 factor of 2)
+      EG_K3|_{q=0} = 2 . [c(0) + c(-1) (y + 1/y)]
+                   = 2 . [10 + 1 . (y + 1/y)]
+      EG_K3|_{q=0, y=1} = 2 . [10 + 2] = 2 . 12 = 24 = chi(K3).
+
+    Equivalently:
+
+      chi(K3) = 24 = 2 c(0) + 4 c(-1) = 20 + 4.
 
     The factor of 2 in front of c(0) comes from the EG_K3 = 2 phi_{0,1}
-    overall normalisation (kappa_ch(K3) = 2, AP-CY42); the factor of 2
-    in front of c(-1) accounts for the y + y^{-1} symmetric pair
-    contributing twice at y = 1.
+    overall normalisation (kappa_ch(K3) = 2, AP-CY42); the factor of 4
+    in front of c(-1) is 2 (from the EG factor) times 2 (from the
+    y + y^{-1} symmetric pair contributing twice at y = 1).
 
     This is the CORRECT identity, verified against the topological count
     chi(K3) = b_0(K3) + b_2(K3) + b_4(K3) = 1 + 22 + 1 = 24.
     """
-    return 2 * k3_elliptic_genus_c_zero() + 2 * k3_elliptic_genus_c_minus_one()
+    return 2 * k3_elliptic_genus_c_zero() + 4 * k3_elliptic_genus_c_minus_one()
 
 
 # =========================================================================
