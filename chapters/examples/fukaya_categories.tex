@@ -1,39 +1,6 @@
 \chapter{Fukaya Categories}
 \label{ch:fukaya}
 
-%%: kappa always subscripted in Vol III.
-%%: genus-1 unconditional != all-genera unconditional.
-%%: E_1/ordered is primitive.
-%
-% Wave-14 anchor cross-references (cross-volume; Vol I CLAUDE.md HOT ZONE):
-%   chap:cy-to-chiral pins the Phi functor that this chapter feeds with
-%      Fuk(X) inputs (A-side of HMS) -- the symplectic-side dual to the
-%      D^b(Coh(X)) inputs of derived_categories_cy.tex.
-%   thm:kappa-stratification-by-d (chapters/examples/cy_d_kappa_stratification.tex)
-%      provides the supertrace formula kappa_ch = Sigma_q (-1)^q h^{0,q};
-%      the Fukaya-side computation of Proposition~\ref{prop:fukaya-k3} below
-%      gives the SAME value via Floer-theoretic Hochschild homology (Abouzaid).
-%   Bott-periodicity verification (Remark~\ref{rem:fukaya-bott-verification})
-%      uses pi_3(BU) = 0 (NOT Z) to conclude topological vanishing of the
-%      S^3-framing obstruction at d = 3; AP181 explicit guard.
-%
-% AP discipline guards (Fukaya-side specific):
-%   AP181 -- pi_3(BU) = 0 by Bott periodicity (NOT Z, which is pi_3(U)).
-%             The CY_3 framing-obstruction vanishing argument depends on
-%             this calculation; see Remark~\ref{rem:fukaya-bott-verification}.
-%   AP185 -- pi_4(BU) = Z is an OBSTRUCTION GROUP at d = 4, not a
-%             guarantee of E_2 enhancement. Nonzero homotopy = potential
-%             obstruction, not automatic structure.
-%   RS-9  -- the SLAB X x [0,1] is a BIMODULE for two boundary algebras,
-%             NOT a Swiss-cheese disk. Two open boundary components, not one
-%             open + one closed. See Proposition~\ref{prop:fukaya-open-closed}(iii)
-%             and the cross-volume Vol II open-closed dictionary.
-%   AP-CY55 -- algebraization invariant kappa_ch (Phi-output) vs manifold
-%             invariant kappa_cat = chi(O_X). HMS preserves kappa_ch
-%             (functoriality of Phi), but kappa_cat agreement is automatic
-%             (manifold invariant). The non-trivial content of HMS-kappa
-%             agreement is the algebraization side.
-
 Symplectic geometry gives Calabi--Yau categories in every dimension
 relevant to Vol~III, but the CY-to-chiral correspondence sees a sharp
 boundary at $d=3$. For $d=2$ the Fukaya category feeds $\Phi$
@@ -137,8 +104,9 @@ standard K\"ahler form $\omega = \frac{i}{2} dz \wedge d\bar{z}$:
  cohomology (Abouzaid);
  \item The CY-to-chiral correspondence produces the Heisenberg
  vertex algebra $H_k$ at level $k = \mathrm{vol}(E_\tau)$;
- \item The modular characteristic is
- $\kappa_{\mathrm{cat}}(\Phi(\Fuk(E_\tau))) = k$
+ \item The manifold invariant $\kappa_{\mathrm{cat}}(E_\tau) =
+ \chi(\cO_{E_\tau}) = 0$, while the chiral invariant of the
+ Heisenberg output satisfies $\kappa_{\mathrm{ch}}(H_k) = k$
  (the level, by the Heisenberg formula).
 \end{enumerate}
 \end{example}
@@ -148,11 +116,12 @@ standard K\"ahler form $\omega = \frac{i}{2} dz \wedge d\bar{z}$:
 Polishchuk--Zaslow proved $\Fuk(E_\tau) \simeq D^b(\Coh(E_{\tau'}))$
 where $\tau' = -1/\tau$ (mirror elliptic curve). Under this
 equivalence, the Heisenberg algebra $H_k$ is the chiral algebra
-of the free boson compactified on the dual circle. The modular
-characteristic is preserved:
-$\kappa_{\mathrm{cat}}(\Phi(\Fuk(E_\tau)))
- = \kappa_{\mathrm{cat}}(\Phi(D^b(\Coh(E_{\tau'}))))
- = k$.
+of the free boson compactified on the dual circle. The chiral
+invariant is preserved:
+$\kappa_{\mathrm{ch}}(\Phi(\Fuk(E_\tau)))
+ = \kappa_{\mathrm{ch}}(\Phi(D^b(\Coh(E_{\tau'}))))
+ = k$, while $\kappa_{\mathrm{cat}} = \chi(\cO) = 0$ on both sides
+is the manifold invariant and plays no role in the level-matching.
 \end{remark}
 
 
@@ -195,15 +164,21 @@ $\kappa_{\mathrm{cat}} = \chi^{\CY} = 2$.
 
 Item (iv): HKR gives
 $\HH_k(\Perf(S)) \simeq \bigoplus_{p-q=k} H^q(S, \Omega^p)$.
-The Hodge diamond of K3 has $h^{p,q}(S) = 1, 0, 1, 0, 20, 0, 1, 0, 1$
-(reading $p+q = 0, 1, \ldots, 4$), giving total
-$\dim \HH_\bullet = 24$. CY duality
-$\HH^\bullet \simeq \HH_{\bullet+2}$ shifts by $d = 2$.
+The Hodge diamond of $K3$ has rows
+$h^{p,q} = (1,0,1)$ for $p=0$, $(0,20,0)$ for $p=1$,
+$(1,0,1)$ for $p=2$, so
+\[
+ \HH_{-2} = H^2(\cO) = \C, \quad
+ \HH_0 = H^0(\cO) \oplus H^1(\Omega^1) \oplus H^2(\Omega^2) = \C^{22}, \quad
+ \HH_2 = H^0(\Omega^2) = \C,
+\]
+giving $\dim \HH_\bullet = 1 + 22 + 1 = 24$. CY duality
+$\HH^\bullet \simeq \HH_{d-\bullet}$ shifts by $d = 2$.
 
 Item (v): the $R$-matrix at degree $(1,1)$ of $B^{\mathrm{ord}}(A)$
 has leading term $\frac{\kappa_{\mathrm{cat}}\Omega}{z}$ where
 $\Omega \in \End(V \otimes V)$ is the Casimir of the Mukai lattice
-$\Lambda_{K3} = U^3 \oplus E_8(-1)^2$.
+$\Lambda_{K3} = U^4 \oplus E_8(-1)^2$ of signature $(4,20)$.
 The subleading terms encode higher-order OPE data.
 \end{proof}
 
@@ -220,11 +195,11 @@ elliptic curves):
  $\kappa_{\mathrm{cat}} = 0$, so the bar complex is uncurved
  at all genera ($d^2 = 0$ strictly).
 \end{enumerate}
-The abelian surface is the CY$_2$ analogue of the critical point
-$c = 26$ for Virasoro: the vanishing of $\kappa_{\mathrm{cat}}$
-makes the genus tower trivial at the scalar level.
-The full shadow obstruction tower may still be nontrivial at
-higher degrees.
+The vanishing of $\kappa_{\mathrm{cat}}$ trivialises the scalar
+channel of the genus tower; the higher shadow invariants
+$S_k$ for $k \geq 3$ are controlled by the shadow class of the
+bar complex, not by $\kappa_{\mathrm{cat}}$, and may still be
+nonzero.
 \end{example}
 
 
@@ -283,9 +258,8 @@ For a compact CY threefold $X$ with Fukaya category $\Fuk(X)$:
  \item The chiral modular characteristic
  $\kappa_{\mathrm{ch}}(\Phi(\Fuk(X))) = \chi^{\CY}(\Fuk(X))$
  is determined by the categorical CY Euler characteristic
- \textup{(}which may differ from $\chi(\cO_X)$ at $d = 3$;
- and Conjecture~\textup{\ref{conj:cy-kappa-identification}});}
-
+ (which may differ from $\chi(\cO_X)$ at $d = 3$; see
+ Conjecture~\ref{conj:cy-kappa-identification});
  \item The braided monoidal category
  $\cZ(\Rep^{\Eone}(A_{\Fuk(X)}))$ (recovered via the Drinfeld
  center, Chapter~\ref{ch:drinfeld-center}) encodes the
@@ -340,10 +314,13 @@ if higher-degree shadows are nonzero.
 The resolved conifold $\cO(-1) \oplus \cO(-1) \to \bP^1$ is
 non-compact with $\chi_{\mathrm{top}} = 2$. The wrapped Fukaya
 category $\cW(\text{conifold})$ is generated by a single Lagrangian
-$S^3$-cycle. The chiral algebra has
-$\kappa_{\mathrm{ch}} = 1$, and the CoHA of the conifold
-(Chapter~\ref{ch:toric-coha}) recovers the affine Yangian
-$Y(\widehat{\fgl}_1)$ at level $1$.
+$S^3$-cycle (wrapped variant; the compact variant $\Fuk$ is
+trivial on the conifold). The CoHA of the conifold
+(Chapter~\ref{ch:toric-coha}) is the positive half
+$Y^+(\widehat{\fgl}_1)$ of the affine Yangian
+(Schiffmann--Vasserot), not the full Yangian; the full
+$Y(\widehat{\fgl}_1)$ arises as the Drinfeld double, conditional
+on the Hopf-pairing data beyond the Hall-algebra structure.
 \end{example}
 
 
@@ -410,28 +387,50 @@ produces the chiral algebra of the $\sigma$-model on $M$.
 \section{Homological mirror symmetry and the CY-to-chiral correspondence}
 \label{sec:hms-chiral}
 
-\begin{proposition}[HMS compatibility with $\Phi$]
+Kontsevich's homological mirror symmetry conjecture identifies the
+symplectic and algebraic categorifications of a CY manifold:
+$\Fuk(X) \simeq D^b(\Coh(X^\vee))$. Under the CY-to-chiral correspondence
+$\Phi$, this becomes an equivalence of chiral algebras at every level
+that the correspondence sees.
+
+\begin{proposition}[HMS implies chiral algebra equivalence]
 \label{prop:hms-compatibility}
 \ClaimStatusConditional
-Let $X$ and $X^\vee$ be mirror CY manifolds related by homological
-mirror symmetry $\Fuk(X) \simeq D^b(\Coh(X^\vee))$. Then the
-CY-to-chiral correspondence is compatible with HMS:
+Let $X$ and $X^\vee$ be mirror CY manifolds of dimension $d$.
+If the HMS equivalence $\Fuk(X) \simeq D^b(\Coh(X^\vee))$ holds as
+an equivalence of CY$_d$ $\Ainf$-categories (preserving the cyclic
+structure), then the CY-to-chiral correspondence produces an
+equivalence of quantum chiral algebras
 \[
- \Phi(\Fuk(X)) \;\simeq\; \Phi(D^b(\Coh(X^\vee)))
+ A_{\Fuk(X)} \;\simeq\; A_{D^b(\Coh(X^\vee))}
 \]
 as $\Etwo$-chiral algebras (for $d = 2$) or $\Eone$-chiral algebras
 (for $d = 3$, conditional on $\mathbb{S}^3$-framing for both sides).
-In particular, the modular characteristics agree:
-$\kappa_{\mathrm{cat}}(\Phi(\Fuk(X)))
- = \kappa_{\mathrm{cat}}(\Phi(D^b(\Coh(X^\vee))))$.
+In particular the bar complexes are quasi-isomorphic as factorization
+coalgebras, the shadow obstruction towers coincide at all degrees,
+and the modular characteristics agree:
+$\kappa_{\mathrm{cat}}(\Fuk(X))
+ = \kappa_{\mathrm{cat}}(D^b(\Coh(X^\vee)))$.
 \end{proposition}
 
-\begin{remark}[Status of HMS compatibility]
+\begin{proof}[Proof sketch]
+The correspondence $\Phi_d$ factors through the cyclic $\Ainf$-structure
+(Chapter~\ref{ch:cyclic-ainf}). An equivalence of CY$_d$ categories
+preserving the cyclic pairing induces an isomorphism of cyclic bar
+complexes, hence of factorization coalgebras after the factorization
+envelope. The chiral algebra is determined by its factorization
+coalgebra (Volume~I, Theorem~A), giving the equivalence of
+$A_{\Fuk(X)}$ and $A_{D^b(\Coh(X^\vee))}$. The shadow tower and
+$\kappa_{\mathrm{cat}}$ are derived invariants
+(Theorem~\ref{thm:cy-modular-characteristic}), hence preserved by any
+CY equivalence.
+\end{proof}
+
+\begin{remark}[Status of HMS]
 \label{rem:hms-status}
-The compatibility follows formally from the fact that $\Phi$ is
-Morita invariant: equivalent CY categories produce equivalent
-chiral algebras. The conditional content is HMS itself, which is
-proved for:
+The compatibility is formal: $\Phi$ is Morita invariant, so equivalent
+CY categories produce equivalent chiral algebras. The conditional
+content is HMS itself, proved for
 \begin{enumerate}[label=(\alph*)]
  \item Elliptic curves (Polishchuk--Zaslow);
  \item Abelian varieties (Fukaya, Kontsevich--Soibelman);
@@ -439,8 +438,41 @@ proved for:
  \item Quintic threefold (Sheridan, for a suitable formulation);
  \item Toric varieties (Abouzaid, Fang--Liu--Treumann--Zaslow).
 \end{enumerate}
-For cases where HMS is proved, the compatibility of $\Phi$ with HMS
-is an unconditional theorem.
+For these cases the compatibility of $\Phi$ with HMS is unconditional.
+\end{remark}
+
+\begin{remark}[Numerical HMS tests via shadow invariants]
+\label{rem:hms-shadow-tests}
+The shadow obstruction tower provides computable invariants that can
+be independently evaluated on the symplectic (A-model) and algebraic
+(B-model) sides. For CY surfaces, $\kappa_{\mathrm{cat}}$ and the
+shadow depth $r_{\max}$ are accessible on both sides:
+\begin{enumerate}[label=(\roman*)]
+ \item \emph{A-model}: $\kappa_{\mathrm{cat}}$ is computed from the
+ Fukaya cyclic bar complex; the shadow depth is determined by the
+ $\Ainf$-operations $\mu^k$ (shadow depth $r_{\max} = k_0$ when
+ $\mu^k = 0$ for all $k > k_0$ up to homotopy);
+ \item \emph{B-model}: $\kappa_{\mathrm{cat}} = \chi(\cO_{X^\vee})$
+ from algebraic geometry; the shadow depth is determined by the Ext
+ algebra structure on $D^b(\Coh(X^\vee))$.
+\end{enumerate}
+Agreement of these invariants provides a quantitative test of HMS
+beyond Hodge-number matching.
+\end{remark}
+
+\begin{remark}[SYZ fibrations and the Fukaya--chiral correspondence]
+\label{rem:syz-chiral}
+For CY threefolds admitting a special Lagrangian $T^3$-fibration
+$\pi \colon X \to B$ (the SYZ picture), the Fukaya category decomposes
+along the base: the fiber Fukaya categories $\Fuk(\pi^{-1}(b))$ for
+smooth $b \in B_{\mathrm{sm}}$ are CY$_0$ (semisimple), while singular
+fibers contribute non-trivial $\Ainf$-operations. The CY-to-chiral
+correspondence applied fiberwise produces a family of chiral algebras
+over $B$, with the singular-fiber contributions encoding instanton
+corrections to the mirror map. The total chiral algebra
+$A_{\Fuk(X)}$ is assembled as a homotopy colimit over the base,
+paralleling the stability-condition assembly of
+Chapter~\ref{ch:derived-cy}.
 \end{remark}
 
 
@@ -598,89 +630,11 @@ through the Drinfeld center.
 Item~(i) admits an independent B-model verification whenever HMS is
 proved: transport the CY-to-chiral result from
 $D^b(\Coh(X^\vee))$ across the equivalence of
-Propositions~\ref{prop:hms-compatibility}
-and~\ref{prop:hms-chiral-equiv}. Item~(ii) already contains two
+Proposition~\ref{prop:hms-compatibility}. Item~(ii) already contains two
 independent topological proofs inside the proposition itself: the
 Bott periodicity path through $BU$ and the Serre-duality reduction to
 $\Sp$. What neither route supplies is the missing chain-level
 trivialization compatible with the Fukaya $\Ainf$ operations.
-\end{remark}
-
-
-\section{Homological mirror symmetry and chiral algebra equivalence}
-\label{sec:hms-chiral-equivalence}
-
-Kontsevich's homological mirror symmetry conjecture identifies the
-symplectic and algebraic categorifications of a CY manifold:
-$\Fuk(X) \simeq D^b(\Coh(X^\vee))$. Under the CY-to-chiral correspondence
-$\Phi$, this becomes an equivalence of quantum chiral algebras.
-
-\begin{proposition}[HMS implies chiral algebra equivalence]
-\label{prop:hms-chiral-equiv}
-\ClaimStatusConditional
-Let $X$ and $X^\vee$ be mirror CY manifolds of dimension $d$.
-If the HMS equivalence $\Fuk(X) \simeq D^b(\Coh(X^\vee))$ holds as
-an equivalence of CY$_d$ $\Ainf$-categories (preserving the cyclic
-structure), then the CY-to-chiral correspondence produces an equivalence
-of quantum chiral algebras:
-\[
- A_{\Fuk(X)} \;\simeq\; A_{D^b(\Coh(X^\vee))}.
-\]
-In particular, the modular characteristics agree:
-$\kappa_{\mathrm{cat}}(\Fuk(X)) = \kappa_{\mathrm{cat}}(D^b(\Coh(X^\vee)))$,
-the bar complexes are quasi-isomorphic as factorization coalgebras,
-and the shadow obstruction towers coincide at all degrees.
-\end{proposition}
-
-\begin{proof}[Proof sketch]
-The CY-to-chiral correspondence $\Phi_d$ factors through the cyclic
-$\Ainf$-structure (Chapter~\ref{ch:cyclic-ainf}). An equivalence
-of CY$_d$ categories that preserves the cyclic pairing induces
-an isomorphism of cyclic bar complexes, hence of factorization
-coalgebras after applying the factorization envelope. The chiral
-algebra is determined by its factorization coalgebra
-(Volume~I, Theorem~A), so the chiral algebras are equivalent.
-The modular characteristic $\kappa_{\mathrm{cat}}$ is a derived
-invariant of the CY category
-(Theorem~\ref{thm:cy-modular-characteristic}), hence preserved by
-any CY equivalence.
-\end{proof}
-
-\begin{remark}[Numerical HMS tests via shadow invariants]
-\label{rem:hms-shadow-tests}
-The shadow obstruction tower provides computable invariants that
-can be independently evaluated on the symplectic (A-model) and
-algebraic (B-model) sides. For CY surfaces, the modular
-characteristic $\kappa_{\mathrm{cat}}$ and the shadow depth
-$r_{\max}$ are accessible on both sides:
-\begin{enumerate}[label=(\roman*)]
- \item \emph{A-model}: $\kappa_{\mathrm{cat}}$ is computed from
- the Fukaya category's cyclic bar complex; the shadow depth is
- determined by the $\Ainf$-operations $\mu^k$ (shadow depth
- $r_{\max} = k_0$ when $\mu^k = 0$ for all $k > k_0$ up to
- homotopy);
- \item \emph{B-model}: $\kappa_{\mathrm{cat}} = \chi(\cO_{X^\vee})$
- from algebraic geometry; the shadow depth is determined by the
- Ext algebra structure on $D^b(\Coh(X^\vee))$.
-\end{enumerate}
-Agreement of these invariants provides a quantitative test of HMS
-beyond Hodge-number matching.
-\end{remark}
-
-\begin{remark}[SYZ fibrations and the Fukaya--chiral correspondence]
-\label{rem:syz-chiral}
-For CY threefolds admitting a special Lagrangian $T^3$-fibration
-$\pi \colon X \to B$ (the SYZ picture), the Fukaya category
-decomposes along the base: the fiber Fukaya categories
-$\Fuk(\pi^{-1}(b))$ for smooth fibers $b \in B_{\mathrm{sm}}$ are
-CY$_0$ (zero-dimensional CY categories, i.e., semisimple), while
-the singular fibers contribute non-trivial $\Ainf$-operations. The
-CY-to-chiral correspondence applied fiberwise produces a family of chiral
-algebras over $B$, with the singular-fiber contributions encoding
-instanton corrections to the mirror map. The total chiral algebra
-$A_{\Fuk(X)}$ is assembled as a homotopy colimit over the base,
-paralleling the stability-condition assembly of
-Chapter~\ref{ch:derived-cy}.
 \end{remark}
 
 
@@ -719,7 +673,6 @@ For a compact CY manifold $X$ and a Lagrangian $L \subset X$:
  (Chapter~\ref{ch:quantum-group-reps},
  Remark~\ref{rem:bps-slab}).
 \end{enumerate}
-% RS-9: slab = bimodule, NOT Swiss-cheese disk.
 \end{proposition}
 
 \begin{remark}[Annulus trace and the genus-1 shadow]
@@ -750,10 +703,6 @@ independent of the Lagrangian.
 
 \section{Curved Fukaya categories and Floer obstruction}
 \label{sec:curved-fukaya}
-
-%%: cached confusion #4 -- "Fukaya gives quantum chiral algebra" needs explicit Phi arrow.
-% This section installs the curved branch of Phi and pins exactly where m_0 nonzero
-% blocks the closed Floer differential, producing curved A_infinity input to Phi.
 
 For a non-exact symplectic manifold the Floer cochain complex of a
 single Lagrangian $L$ may fail to satisfy $\mu_1^2 = 0$. The
@@ -891,11 +840,7 @@ between Fukaya bounding cochains and chiral MC elements.
 \section{$\Fuk(K3)$ and the $E_2$-Mukai-Heisenberg algebra}
 \label{sec:fukaya-mukai-heisenberg}
 
-% Wave-14 Phi U4 (standard input recovery): Phi(D^b(K3)) = E_2-Mukai-Heisenberg.
-% This section pins the Fukaya-side incarnation of the same algebra,
-% confirming HMS compatibility at the Phi-output level.
-
-The K3 example deserves separate treatment because it is the
+The K3 example is the
 simplest CY surface where $\Phi$ produces a non-abelian
 $\Etwo$-chiral algebra and where the Mukai pairing on $H^*(S, \Z)$
 acts as the $R$-matrix at degree $(1,1)$ of the bar complex.
@@ -904,7 +849,7 @@ acts as the $R$-matrix at degree $(1,1)$ of the bar complex.
 \label{def:e2-mukai-heisenberg}
 The \emph{$\Etwo$-Mukai-Heisenberg algebra} $\mathrm{MH}_2(\Lambda_{K3})$
 is the $\Etwo$-chiral algebra associated to the rank-$24$
-Mukai lattice $\Lambda_{K3} = U^3 \oplus E_8(-1)^2$ with its
+Mukai lattice $\Lambda_{K3} = U^4 \oplus E_8(-1)^2$ of signature $(4,20)$ with its
 even bilinear pairing, defined as the factorisation envelope
 on a smooth curve~$C$ of the abelian Lie conformal algebra
 $\mathfrak{a}_{\Lambda_{K3}} = \Lambda_{K3} \otimes \C$ with
@@ -977,26 +922,33 @@ lattice (Mukai), independent of the lattice's specific isomorphism
 class within signature $(4, 20)$.
 \end{proof}
 
-\begin{remark}[Cross-volume Phi U4 verification]
+\begin{remark}[Classical attribution]
+\label{rem:fukaya-k3-classical-attribution}
+The lattice-VOA output is Frenkel--Jing 1988 applied to the
+rank-$24$ even Mukai lattice; the cyclic CY-trace on
+$\HH_\bullet(\Fuk(S))$ is Mukai's 1984 pairing on
+$H^\bullet(K3, \Z)$; no K3-specific geometric input beyond rank
+and signature $(4, 20)$ enters the presentation. The
+theorem is a lattice-VOA restatement in bar-cobar language; the
+programme-novel content is the Fukaya-side verification of the
+standard-input property.
+\end{remark}
+
+\begin{remark}[Cross-side verification at $d = 2$]
 \label{rem:phi-u4-fukaya-side}
-Wave-14 reconstitution
-(\texttt{wave14\_reconstitute\_phi\_functor\_volIII}) characterises
-$\Phi$ by four universal properties (U1)--(U4). Property (U4),
-\emph{standard-input recovery}, asserts
-$\Phi(D^b(\Coh(K3))) = $ $\Etwo$-Mukai-Heisenberg.
-Theorem~\ref{thm:fukaya-k3-mukai-heisenberg} verifies the
-A-side of (U4): $\Phi(\Fuk(S))$ is also the $\Etwo$-Mukai-Heisenberg
-algebra. Combined with HMS for K3 (partial; Seidel--Smith and
-Sheridan), the two computations agree, providing one of the few
-unconditional cross-side verifications of (U4) at $d = 2$.
+The standard-input recovery property of $\Phi$ identifies
+$\Phi(D^b(\Coh(K3)))$ with the $\Etwo$-Mukai-Heisenberg algebra
+(Theorem~\ref{thm:phi-k3-explicit}).
+Theorem~\ref{thm:fukaya-k3-mukai-heisenberg} establishes the
+A-side: $\Phi(\Fuk(S))$ is also $\Etwo$-Mukai-Heisenberg. Combined
+with the partial HMS equivalence for $K3$ (Seidel--Smith; Sheridan)
+the two outputs agree, supplying a cross-side verification of the
+standard-input property at $d = 2$.
 \end{remark}
 
 
 \section{$\Fuk(T^2)$ and the lattice VOA at $d = 1$}
 \label{sec:fukaya-t2-lattice}
-
-% Wave-14 Phi U4: Phi(Coh(E)) = lattice VOA at d=1.
-% Fukaya side of the same identification, confirming HMS at d=1.
 
 For an elliptic curve $E_\tau$ the Polishchuk--Zaslow HMS
 equivalence $\Fuk(E_\tau) \simeq D^b(\Coh(E_{\tau'}))$ at
@@ -1006,7 +958,7 @@ $L = \sqrt{2k}\,\Z$ where $k = \mathrm{vol}(E_\tau)$.
 
 \begin{proposition}[$\Phi(\Fuk(E_\tau))$ is the rank-$1$ lattice VOA]
 \label{prop:fukaya-elliptic-lattice}
-\ClaimStatusProvedHere
+\ClaimStatusConditional
 Let $E_\tau$ be an elliptic curve and $A_E = \Phi(\Fuk(E_\tau))$
 the chiral algebra produced by $\Phi_1$. Then:
 \begin{enumerate}[label=(\roman*)]
@@ -1042,8 +994,10 @@ corresponds to the complex modulus of $E_{\tau'} = E_{-1/\tau}$
 on the B-side. The central charge $c(V_L) = \mathrm{rank}(L) = 1$
 is independent of $k$; the level $k$ controls only the level of
 the Heisenberg sub-VOA inside $V_L$, not the central charge. The
-modular characteristic is $\kappa_{\mathrm{cat}}(\Phi(\Fuk(E_\tau)))
-= k$ (Heisenberg formula: $\kappa_{\mathrm{ch}}(H_k) = k$, Volume~I, C-census).
+chiral invariant is $\kappa_{\mathrm{ch}}(\Phi(\Fuk(E_\tau)))
+= k$ (Heisenberg formula: $\kappa_{\mathrm{ch}}(H_k) = k$, Volume~I,
+C-census); the manifold invariant $\kappa_{\mathrm{cat}}(E_\tau) =
+\chi(\cO_{E_\tau}) = 0$ is independent of the level.
 \end{remark}
 
 
@@ -1052,7 +1006,8 @@ modular characteristic is $\kappa_{\mathrm{cat}}(\Phi(\Fuk(E_\tau)))
 
 The quintic threefold $X_5 \subset \bP^4$ is the original test case
 for HMS at $d = 3$: Sheridan proved a version of HMS for the
-quintic. The Fukaya-side application of $\Phi_3$ produces an
+quintic. By Theorem~CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}),
+the Fukaya-side application of $\Phi_3$ produces an
 $\Eone$-chiral algebra, conditional only on the chain-level
 $\mathbb{S}^3$-framing (the topological obstruction vanishes
 universally; Remark~\ref{rem:fukaya-bott-verification}).
@@ -1074,35 +1029,30 @@ $\Fuk(X_5)$:
  $X_5^\vee$ is the mirror quintic;
  \item The output algebra is non-tempered (in the sense of
  Volume~II Tempered Stratum part); equivalently, the
- shadow tower $\Theta_{A_{X_5}}$ has class~M*
- \textup{(}genuinely modular, beyond rational-vertex-algebra
- finite-type bounds\textup{)}.
+ shadow tower $\Theta_{A_{X_5}}$ has class~M
+ \textup{(}all shadow coefficients nonzero; genuinely modular,
+ beyond rational-vertex-algebra finite-type bounds\textup{)}.
 \end{enumerate}
 \end{conjecture}
 
-\begin{remark}[CY-C status: honest accounting]
+\begin{remark}[CY-C status]
 \label{rem:fukaya-quintic-cyc-honest}
-Conjecture~\ref{conj:fukaya-quintic-d3} is one piece of CY-C, the
-quantum-group reconstruction conjecture. Per cached confusion
-\#10 and the Vol III status table, CY-C remains
-\textsc{conjectural}: $G(X)$ is unconstructed in general, the
-super-Yangian extension is conjectural, and the pentagon of
-five intertwiners (six routes to $G(K3 \times E)$) stratifies
-by generator-rank $\rho^{R_i}$ rather than $\kappa_{\mathrm{ch}}$.
-The quintic case adds a
-specific CY$_3$ test instance where the abstract
-$\Eone$-conditional output predicted by Theorem~CY-A$_3$ can be
-checked against Sheridan's HMS prediction. Neither side has
-been computed in closed form; the conjecture stands as a
-falsification target.
+Conjecture~\ref{conj:fukaya-quintic-d3} is one piece of the
+quantum-group reconstruction conjecture CY-C, which remains
+conjectural: the quantum-group target is unconstructed in general,
+the super-Yangian extension at signature $(4,20)$ is conjectural
+(Chapter~\ref{ch:k3-yangian}), and the six independent routes to
+$G(K3 \times E)$ stratify by distinct generator-rank data rather
+than by $\kappa_{\mathrm{ch}}$ alone
+(Chapter~\ref{ch:cy-c-six-routes-convergence}). The quintic supplies a sharp
+CY$_3$ test: the $\Eone$-conditional output predicted by
+Theorem~CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}) can be checked
+against Sheridan's HMS prediction once both sides are computed.
 \end{remark}
 
 
 \section{HMS shadow agreement and the $S$-functor}
 \label{sec:hms-shadow-agreement}
-
-% Independent HMS test via shadow obstruction tower:
-% same kappa, same r_max, same C_A on both A and B sides.
 
 The shadow obstruction tower (Volume~I Characteristic Datum part) provides a
 quantitative HMS test that is independent of the Hodge-number
@@ -1121,7 +1071,7 @@ Then for all $r \geq 2$:
 \]
 where $S_r$ is the degree-$r$ shadow coefficient
 (Volume~I shadow tower). In particular, the shadow class
-(G/L/C/M/M*) of the two outputs coincides, and the
+(G/L/C/M) of the two outputs coincides, and the
 shadow-exponential base
 $C_{\Phi(\Fuk(X))} = C_{\Phi(D^b(\Coh(X^\vee)))}$.
 \end{proposition}
@@ -1156,9 +1106,11 @@ manifold invariant);
 non-logarithmic;
 (v) bar Hilbert series agrees up to lattice-class isomorphism.
 For K3 all five tests pass: both sides give the
-$\Etwo$-Mukai-Heisenberg algebra, $\kappa_{\mathrm{cat}} = 2$,
-$\kappa_{\mathrm{ch}} = 2$ (matching Hodge supertrace
-$\sum_q (-1)^q h^{0,q} = 1 - 0 + 1 = 2$), shadow class is~G
+$\Etwo$-Mukai-Heisenberg algebra, $\kappa_{\mathrm{cat}}(K3) =
+\chi(\cO_{K3}) = \sum_q (-1)^q h^{0,q} = 1 - 0 + 1 = 2$, and
+$\kappa_{\mathrm{ch}} = 2$ by Theorem CY-D restricted to the
+$d = 2$, $h^{1,0} = 0$ stratum where
+$\kappa_{\mathrm{ch}} = \chi(\cO)$; shadow class is~G
 (scalar-only), and bar HS is $\eta(q)^{-24}$.
 \end{remark}
 
@@ -1166,9 +1118,14 @@ $\sum_q (-1)^q h^{0,q} = 1 - 0 + 1 = 2$), shadow class is~G
 \section{Open problems and the Fukaya $d = 4, 5$ frontier}
 \label{sec:fukaya-frontier}
 
-The CY-to-chiral correspondence programme $\{\Phi_d\}$ extends to $d \geq 4$ via the
-$\Eone$-stabilisation of CY-A at higher dimensions, but the
-Fukaya-side input becomes structurally more elaborate.
+At $d \geq 4$ the native $\En$-level of $\Phi_d$ stabilises at
+$\Eone$ (Gerstenhaber bracket degree $1 - d \leq -3$), but
+$\pi_d(BU)$ is no longer trivial in every even degree:
+$\pi_4(BU) = \Z$ (obstruction), $\pi_5(BU) = 0$,
+$\pi_6(BU) = \Z$ (complex Bott $2$-periodicity). The Fukaya-side
+task is to compute $\Phi_d(\Fuk(X))$ on explicit compact CY $d$-folds
+and to read off whether the $\pi_d(BU)$ class vanishes on the
+image.
 
 \begin{remark}[Hyperk\"{a}hler $d = 4$: HK Fukaya and $\pi_4(BU)$]
 \label{rem:fukaya-d4-hk}
@@ -1201,21 +1158,18 @@ quintic at $d = 3$) admit Fukaya categories whose
 $\Phi$-output has not been computed.
 \end{remark}
 
-\begin{remark}[The Fukaya--chiral dictionary as a research programme]
-\label{rem:fukaya-chiral-research}
-The chapter has installed two operational dictionaries: (a) the
-Hochschild bridge (Proposition~\ref{prop:fukaya-hochschild-bridge})
-and (b) the Floer-curvature-to-chiral-curvature dictionary
-(Proposition~\ref{prop:floer-chiral-curvature}). What remains
-open is a third dictionary: between the wall-crossing structures
-of $\Stab(\Fuk(X))$ (Bridgeland stability for symplectic
-manifolds, currently a research-level open problem) and the
-modular Maurer--Cartan tower of $A_{\Fuk(X)}$. The B-side
-analogue (Bridgeland stability on $D^b(\Coh(X^\vee))$ to
-modular MC tower of the mirror chiral algebra) is being
-developed in
-Chapter~\ref{ch:coha-wall-crossing-platonic} of this volume; the
-A-side requires a definition of symplectic Bridgeland stability
-that is currently incomplete.
+\begin{remark}[Symplectic Bridgeland stability as the open frontier]
+\label{rem:fukaya-bridgeland-frontier}
+On the B-side, Bridgeland stability on $D^b(\Coh(X^\vee))$
+pairs with the modular Maurer--Cartan tower of the mirror chiral
+algebra via the wall-crossing structure developed in
+Chapter~\ref{ch:coha-wall-crossing-platonic}. No symplectic
+Bridgeland stability is currently defined on $\Fuk(X)$: the
+central charge $Z: K_0(\Fuk(X)) \to \C$ requires a period integral
+whose A-model analogue (area of holomorphic discs with boundary on
+$L$) is multivalued under the Fukaya $A_\infty$-structure.
+Constructing such a $Z$, and matching its wall structure to the
+chiral MC tower of $A_{\Fuk(X)}$, is the obstruction that closes
+the A-side of the symplectic/categorical correspondence.
 \end{remark}
 
