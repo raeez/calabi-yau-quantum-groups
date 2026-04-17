@@ -555,22 +555,44 @@ Key results established in Vol III:
 
 Session-by-session archaeology blocks (53/129/180/230-agent waves with running test counts) -> migrated to `~/.claude/projects/-Users-raeez-calabi-yau-quantum-groups/memory/session_log_archaeology.md`. The Main Theorems table above is the canonical statement of each result; the archaeology file preserves the historical engine + test count narrative.
 
-## Roadmap: The Platonic Ideal (post-CY-A_3, April 2026)
+## Roadmap: The Platonic Ideal (post-2026-04-17 rewrite-loop session)
 
-The programme constructs chiral quantum groups from CY geometry via holomorphic CS. The architecture:
+The architectural spine: universal extension theorem + V_4 four-phenotype CY-direction classification + CY-D tri-stratum theorem (all inscribed in the 2026-04-17 rewrite-loop session per notes/loop_session_2026_04_17_progress.md).
+
 ```
 CY_d category --Phi--> E_1-chiral algebra --B^{ord}--> bar complex --D_Ran--> Koszul dual A^! --Rep^{E_2}--> chiral QG
+                          |                    |                 |
+                          |                    |                 v
+              Universal extension       V_4 four-phenotype    Universal Trace
+              theorem (sigma_tot*-      classification of      Identity (CONJ.):
+              generic CY fixed         CY directions          Vol I K(A) and
+              under elliptic           (P_1/P_2/P_3/P_4)      Vol III kappa_BKM
+              iteration)              with Künneth fusion     are two reflections
+                                                              of one Phi-bridged trace
 ```
+
 At each step: E_1 (ordered) is the primitive; E_2 (braided) via Drinfeld center; E_3 (6d hCS) via derived center; E_∞ (symmetric) kills Hopf.
 
 Status by dimension:
-- d=1: E_∞ (commutative). PROVED. Trivial.
+- d=1: E_∞ (commutative). PROVED. Trivial. CY-D stratum (I) odd: Ξ = 0.
 - d=2: E_2 (braided). PROVED (CY-A_2). K3 lattice VOA, Phi_2(K3)=H_Muk, κ_ch=2.
-- d=3: E_1 (ordered). PROVED (inf-cat, CY-A_3). Chain-level [m_3,B^{(2)}]!=0 resolved as non-obstruction (HH^{-2}_{E_1}=0, Goodwillie vanishing). K3 abelian Yangian theorem (6-part presentation). 6 independent constructions approach G(K3xE) (only Route 4 = Phi; convergence = CY-C, CONJECTURAL; AP-CY60). Yangian/toroidal from CoHA.
+- d=3: E_1 (ordered). PROVED (inf-cat, CY-A_3). Chain-level [m_3,B^{(2)}]!=0 resolved as non-obstruction (HH^{-2}_{E_1}=0, Goodwillie vanishing). K3 abelian Yangian theorem (6-part presentation). 6 independent constructions approach G(K3xE) (only Route 4 = Phi; convergence = CY-C, CONJECTURAL; AP-CY60). Yangian/toroidal from CoHA. CY-D stratum (I) odd: Ξ = 0.
+- d=4: P^1-family Phi_4 (CONSTRUCTION). CY-D stratum (II) strict-CY at sextic: Ξ = 2; stratum (III) holomorphic-symplectic K3^[2]: Xi = 3 = n+1. BCOV F_2 zero-correction theorem (PROVED).
+- d=5: Z/2-gerbe Phi_5 (CONSTRUCTION + Theorem at K3xK3xE via Whitney/Wu w_5 vanishing). Universal Serre Cancellation: Ξ = 0 universally for compact CY_5 (PROVED).
 
-### Ideal seven-part structure (rearchitecture target)
+### Architectural anchors (2026-04-17 rewrite-loop):
 
-Full proposal (7 parts, ~32 chapters, dependency map, structural rationale, current 5-part deltas) -> `notes/vol3_rearchitecture_proposal.tex`. Total ~693pp current (exceeds 590pp target due to K3 Yangian expansion + shadow tower depth). Logical dependencies: I -> II -> III -> {IV, V} -> VI -> VII; Parts IV and V are independent.
+(1) **Universal extension theorem** (k3_yangian_chapter.tex): For every sigma_tot*-generic CY input X, M_{X x E^k} = M_X for all k. Subsumes K3-anchored fixed-point. CY^generic sub-category closed under V_4 Künneth (prop:sigma-generic-closed-under-products).
+
+(2) **V_4 four-phenotype classification** (k3_yangian_chapter.tex thm:v4-cy-direction-classification): Every CY direction Y belongs to one of four phenotypes by V_4-Fourier support: P_1 (single-character, K3^[n] absorber), P_2 (anti-pair, E/T^4 doubling), P_3 (par-pair, conifold), P_4 (three-character, K3^BKM/LP^2/quintic maximal). Closed under Künneth fusion; P_4 absorbing, P_1 identity.
+
+(3) **CY-D tri-stratum theorem** (cy_d_kappa_stratification.tex thm:cy-d-tri-stratum): Three mutually-exclusive strata (odd-d Serre / strict-CY even-d / holomorphic-symplectic even-d) governed by Beauville-Bogomolov classification. The kappa_ch landscape lives entirely in even d.
+
+### Ideal seven-part structure (rearchitecture IN PROGRESS as item 5)
+
+Full proposal (7 parts, ~32 chapters, dependency map, structural rationale, current 5-part deltas) -> `notes/vol3_rearchitecture_proposal.tex`. Total ~838pp current (exceeds 590pp target due to K3 Yangian Pentagon edge architecture + frontier wave inscriptions). Logical dependencies: I -> II -> III -> {IV, V} -> VI -> VII; Parts IV and V are independent.
+
+**Item 5 (chapter reshuffle) deferred per dependency analysis** (must follow items 1-12 settlement). Items 1-4, 6-12, 11a + missing M1-M6 inscribed in the 2026-04-17 rewrite-loop session. Item 11b (Universal Trace Identity bridging-diagram construction) deferred as the open frontier.
 
 ### Five load-bearing open problems (updated April 2026, ~230-agent final session)
 
