@@ -708,3 +708,130 @@ class TestMFlatCartanEigenvectorIV:
 
         # Trace closure sanity check.
         assert sum(M_flat_reconstructed) == chi_O_K3xE
+
+
+# =========================================================================
+# INDEPENDENT VERIFICATION (HZ3-11) — cor:Kn-cohomology-generating-function
+# =========================================================================
+#
+# The corollary asserts that the F_2-rank generating function of
+# H^*(V_4; Z) equals (1 + t^3) / (1 - t^2)^2. The proof in the manuscript
+# uses Cartan's presentation
+#   H^*(V_4; Z) = Z[α, β, γ] / (2α, 2β, 2γ, γ² - α²β - αβ²)
+# This test verifies the same generating function via an INDEPENDENT
+# computation: the Künneth decomposition of V_4 = Z/2 × Z/2 with explicit
+# H^*(Z/2; Z) data and Tor terms.
+
+
+class TestKnCohomologyGeneratingFunctionIV:
+    r"""Independent verification of (1 + t^3)/(1 - t^2)^2 closed form.
+
+    Disjoint sources:
+    - DERIVATION: Cartan's presentation of H^*(V_4; Z) via the polynomial
+      ring Z[α, β, γ] modulo specific relations.
+    - VERIFICATION: Künneth decomposition of H^n(V_4 = Z/2 × Z/2; Z) using
+      explicit H^*(Z/2; Z) values (Z in degree 0, Z/2 in even positive
+      degrees, 0 in odd degrees).
+
+    Both compute the F_2-ranks of H^n(V_4; Z), but via algorithmically
+    distinct paths (presentation algebra vs Künneth + Tor exact sequence).
+    """
+
+    @independent_verification(
+        claim="cor:Kn-cohomology-generating-function",
+        derived_from=[
+            "Cartan presentation H*(V_4; Z) = Z[α, β, γ] / "
+            "(2α, 2β, 2γ, γ² - α²β - αβ²)",
+            "Polynomial ring expansion of (1 + t^3) / (1 - t^2)^2",
+        ],
+        verified_against=[
+            "H^k(Z/2; Z) computation: Z in degree 0, Z/2 in even degrees k>=2, "
+            "0 in odd degrees (standard group cohomology, "
+            "Brown-Cartan-Eilenberg)",
+            "Künneth formula for V_4 = Z/2 × Z/2 with Tor terms: "
+            "H^n(V_4; Z) = ⊕_{p+q=n} H^p(Z/2) ⊗ H^q(Z/2) "
+            "⊕ ⊕_{p+q=n+1} Tor(H^p(Z/2), H^q(Z/2))",
+        ],
+        disjoint_rationale=(
+            "The DERIVATION uses Cartan's algebraic presentation of "
+            "H^*(V_4; Z) as a polynomial ring with explicit relations. "
+            "The VERIFICATION uses the Künneth formula for the product "
+            "group V_4 = Z/2 × Z/2, computing H^n(V_4) directly from "
+            "H^*(Z/2; Z) data via the universal coefficient sequence "
+            "(tensor products + Tor terms). "
+            "Both compute the F_2-ranks of H^n(V_4; Z), but the algorithmic "
+            "paths share no common mathematical input: Cartan's presentation "
+            "is a ring-theoretic statement; Künneth + Tor is a chain-complex "
+            "computation. Agreement of F_2-ranks at n = 0..9 confirms the "
+            "closed-form generating function (1 + t^3)/(1 - t^2)^2."
+        ),
+    )
+    def test_F2_ranks_via_kunneth_match_closed_form(self):
+        """The KEY INDEPENDENT TEST: F_2-ranks of H^n(V_4; Z) via Künneth
+        decomposition match the closed-form expansion of (1+t^3)/(1-t^2)^2.
+        """
+        import sympy as sp
+
+        # PATH A (DERIVATION via Cartan): expand (1 + t^3)/(1 - t^2)^2 as
+        # a power series via sympy.
+        t = sp.Symbol('t')
+        gen_fn = (1 + t**3) / (1 - t**2)**2
+        series = sp.series(gen_fn, t, 0, 11).removeO()
+        coeffs_via_cartan = [int(series.coeff(t, n)) for n in range(10)]
+        # Expected (per manuscript proof L6178):
+        #   1, 0, 2, 1, 3, 2, 4, 3, 5, 4
+        assert coeffs_via_cartan == [1, 0, 2, 1, 3, 2, 4, 3, 5, 4], (
+            f"Cartan-side power series expansion gives "
+            f"{coeffs_via_cartan}, expected [1, 0, 2, 1, 3, 2, 4, 3, 5, 4]"
+        )
+
+        # PATH B (VERIFICATION via Künneth): compute F_2-rank of
+        # H^n(V_4; Z) directly from H^*(Z/2; Z) data + Künneth + Tor.
+        #
+        # H^k(Z/2; Z): rank as Z-module / F_2-rank after ⊗ F_2.
+        #   k = 0: H^0 = Z; F_2-rank of (Z ⊗ F_2) = 1; F_2-rank of Tor(Z, F_2) = 0
+        #   k odd, k >= 1: H^k = 0; both ranks = 0
+        #   k even, k >= 2: H^k = Z/2; F_2-rank of (Z/2 ⊗ F_2) = 1; F_2-rank of Tor(Z/2, F_2) = 1
+        def F2_rank_H_Z2(k: int) -> tuple[int, int]:
+            """Returns (F_2-rank of (H^k ⊗ F_2), F_2-rank of Tor(H^k, F_2))."""
+            if k == 0:
+                return (1, 0)  # H^0 = Z
+            if k % 2 == 1:
+                return (0, 0)  # H^odd = 0
+            return (1, 1)  # H^even = Z/2
+
+        # Künneth formula:
+        #   H^n(V_4; Z) ⊗ F_2 = ⊕_{p+q=n} (H^p(Z/2) ⊗ H^q(Z/2)) ⊗ F_2
+        #                       ⊕ ⊕_{p+q=n+1} Tor(H^p(Z/2), H^q(Z/2)) ⊗ F_2
+        #
+        # F_2-rank of (A ⊗ B) ⊗ F_2 = (A_tensor_F2-rank) * (B_tensor_F2-rank)
+        #   for free or Z/2-torsion A, B (the only cases here).
+        # F_2-rank of Tor(A, B) ⊗ F_2 = Tor_F2-rank * Tor_F2-rank for Z/2 ⊗ Z/2;
+        #   for Z ⊗ Z/2 or Z/2 ⊗ Z, Tor = 0.
+        coeffs_via_kunneth: list[int] = []
+        for n in range(10):
+            tensor_part = 0
+            for p in range(n + 1):
+                q = n - p
+                tensor_p, _ = F2_rank_H_Z2(p)
+                tensor_q, _ = F2_rank_H_Z2(q)
+                tensor_part += tensor_p * tensor_q
+            tor_part = 0
+            for p in range(n + 2):
+                q = (n + 1) - p
+                if q < 0:
+                    continue
+                _, tor_p = F2_rank_H_Z2(p)
+                _, tor_q = F2_rank_H_Z2(q)
+                # Tor only contributes from Z/2 ⊗ Z/2 = Z/2 (rank 1 in F_2)
+                if tor_p > 0 and tor_q > 0:
+                    tor_part += 1
+            coeffs_via_kunneth.append(tensor_part + tor_part)
+
+        # The two paths must agree at every degree n = 0..9.
+        assert coeffs_via_kunneth == coeffs_via_cartan, (
+            f"DISJOINT-SOURCE DISAGREEMENT: Künneth gives "
+            f"{coeffs_via_kunneth}, Cartan power-series gives "
+            f"{coeffs_via_cartan}. This would refute either Cartan's "
+            f"presentation of H^*(V_4; Z) or the Künneth formula."
+        )
