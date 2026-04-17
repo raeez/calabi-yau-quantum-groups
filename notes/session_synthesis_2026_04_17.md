@@ -378,18 +378,151 @@ Total tests: ~600 new tests passing across the campaign, distributed:
 
 ## VI. Forward agenda (post-campaign open frontiers)
 
-Five new agents launched on 2026-04-17 endgame:
-1. A_BVDB formality for compact quintic (the genuine ghost theorem from
-   Bridgeland tilting refutation)
-2. Φ_5 promotion to Theorem-level via K3 × K3 × E verification
-3. Quintic α=0 PARI/sympy explicit Hecke computation via Yamaguchi-Yau
-   accumulator
-4. Anti-symmetric T^4-anchored doubling fixed-point structure
-5. Beauville-Bogomolov decomposition applied to universal extension
+Five endgame agents launched on 2026-04-17 — ALL 5 COMPLETED with material additions:
 
-These are running in background and will produce additional inscriptions in
-the next session.
+1. **A_BVDB formality for compact quintic** — COMPLETED with REFUTATION + CURVED-formality heal:
+   - thm:a-bvdb-not-formal-quintic (PROVED): strict formality REFUTED via three obstructions:
+     (a) Calaque-Halbout-Felder route fails — (C^*)^4 torus action on P^4 sends
+         x_i^5 → t_i^5 x_i^5, preserving Fermat quintic only on (Z/5)^4 (order 625).
+         By Beauville-Bogomolov, connected automorphism group of any strict CY_3 is trivial.
+     (b) m_3 = Yukawa coupling Y_3 = 5 + 2875q + 4876875q^2 + ... (Barannikov-Kontsevich).
+         Non-vanishing at H^3 = 5 (classical) + n_1^{(0)} = 2875 (Schubert calculus).
+     (c) Sheridan HMS + Solomon BPS positivity → Y_3 nowhere zero in moduli.
+   - cor:yukawa-curving-bcov (PROVED): the LOSSLESS heal extracts CURVED formality
+     in Costello-Li BCOV BV-quantization with Y_3 as explicit BCOV curving datum.
+   - rem:platonic-kapranov-quintic-curved (UPGRADED Platonic statement).
+   - 40 tests passing.
+
+2. **Φ_5 promotion to Theorem-level via K3 × K3 × E verification** — COMPLETED:
+   - thm:phi-5-construction-K3K3E (PROVED): Φ_5 promoted to Theorem at K3 × K3 × E.
+   - lem:w5-K3-K3-E-vanishes (PROVED): Z/2-gerbe Stiefel-Whitney w_5 obstruction
+     VANISHES at K3 × K3 × E via TWO independent proofs:
+     (a) Whitney product: w(K3 × K3 × E) = w(K3) ∪ w(K3) ∪ w(E) = 1 (since each
+         factor has c_2 mod 2 = 0).
+     (b) Wu formula on complex manifolds: every complex manifold has w_odd = 0
+         universally; K3 × K3 × E is complex 5-fold so w_1 = w_3 = w_5 = 0.
+   - conj:phi-5-K3-K3-E-output (CONJECTURAL): closed-form output identification.
+   - 54 tests passing. Hodge data (1, 1, 2, 2, 1, 1); Ξ = 0; M_K3 ×_V_4 M_K3 = 
+     (450, -416, 130, -160).
+
+3. **Quintic α=0 PARI/sympy explicit Hecke computation** — COMPLETED with HONEST verdict:
+   - rem:quintic-yy-accumulator-sympy (Conditional): α ≠ 0 in BCOV-natural 
+     normalisation. The conjecture α = 0 reduces to a CONCRETE FINITE LINEAR-
+     ALGEBRA IDENTITY in 12 explicit numbers.
+   - Yamaguchi-Yau accumulator implemented through g ≤ 51 (sympy.Fractions exact).
+   - F_1(0) = 25/3, F_2(0) = 0, F_3(0) = -5/36288, F_4(0) = -1/290304, ...
+   - c_ξ(-3) = -625/9, c_ξ(-4) = +625/9, c_ξ(-23) = -25/870912, ...
+   - Closure requires PARI/GP/Sage/Magma for half-integral-weight forms at level 500
+     (sympy alone cannot close due to √|D| factors in Kohnen-Zagier).
+   - 34 tests passing.
+
+4. **Anti-symmetric T^4-anchored doubling fixed-point structure** — COMPLETED with 
+   STRUCTURAL UNIFICATION (eigenvalue trichotomy):
+   - thm:T-E-closed-form: T_E := M *_{V_4} M_E = id − σ_tot* universally on Z[V_4].
+   - lem:T-E-spectral-decomposition: spectrum of T_E = {0, 0, 2, 2}. Kernel = E^+
+     (σ_tot*-symmetric, dim 2), image = E^- (anti-symmetric, dim 2) with T_E acting
+     as 2 · id.
+   - thm:eigenvalue-trichotomy: λ(X) ∈ {0, 1, 2} classifies M_X:
+     λ = 0: kernel branch (E^+, symmetric, annihilated)
+     λ = 1: integral branch (case (3); fixed-point in Z[V_4]) — K3, conifold, LP², C_g for g ≥ 2
+     λ = 2: PROJECTIVE branch (E^-, case (2); fixed-point in P(E^-_Q)) — T^4, E, K3^[n] × E^k
+   - thm:no-non-trivial-integral-fixed-point-T4: T^4 anchors NO additive integral
+     fixed-point distinct from K3-anchored M^♭. The doubling tower is the integer
+     reflection of a PROJECTIVE fixed-point in P(E^-_Q) with eigenvalue λ = 2.
+   - 74 tests passing.
+
+5. **Beauville-Bogomolov decomposition applied to universal extension** — COMPLETED 
+   with SHARPER THREE-REGIME classification (refining the brief's two-regime conjecture):
+   - cor:beauville-bogomolov-universal-extension (PROVED): for compact Kähler CY 
+     products X̃ = T^d × HK × strict-CY, three regimes:
+     **Regime I (TORUS-BIDIRECTIONAL, doubling)**: M_X̃ in σ_tot*-anti-symmetric
+       eigenspace. Pure T^d, T^d × bare-HK products. Iteration doubles.
+     **Regime II (NON-TORUS, trace-zero, FIXED)**: σ_tot*-generic AND χ(O_X̃) = 0.
+       Universal fixed-point applies. Realised by quintic Q_5, conifold, M^♭.
+     **Regime III (NON-TORUS, non-trace-zero, FLOW-into-fixed)**: σ_tot*-generic 
+       AND χ(O_X̃) ≠ 0. Case-(3) Drinfeld counter-term shifts Π_-- by -χ(O), 
+       exiting input. Realised by bare HK alone (flows to Regime I), local P² 
+       (χ = 1, flows to Regime I after one E-step), bare BKM K3 (χ = 2, flows 
+       to Regime II at M^♭).
+   - Structural reason: bivariant Künneth identity is identity ONLY on the 
+     trace-zero hyperplane Z[V_4]_0. The two-regime conjecture missed the 
+     trace-zero requirement.
+   - rem:m-flat-as-canonical-regime-ii: M^♭ is the canonical Regime II fixed-point.
+   - rem:ap-cy55-bb-regimes: AP-CY55 distinction (manifold invariants vs 
+     algebraisation invariants) maps cleanly onto the three regimes.
+   - 48 tests passing.
 
 ---
 
-— Raeez Lorgat, 2026-04-17
+## VII. The deepest LOSSLESS heal pattern of the campaign
+
+A consistent meta-pattern across the campaign: each frontier wave produced 
+LOSSLESS heals where the original conjecture was REFUTED at the SIMPLEST 
+possible level, and the CORRECTED statement was extracted in Platonic-ideal 
+form admitting a complete proof.
+
+**Three major examples**:
+
+(i) **Bridgeland tilting compact quintic** (Wave 5, 7):
+    Original hypothesis: tilting complex E_tilt produces derived equivalence
+    D^b(Coh(X_5)) ≃ D^b(End(E_tilt)).
+    REFUTED: 6 independent obstructions including (a) PTVV (-3)-CY shift mismatch,
+    (b) Rickard non-concentration in degree 0, (c) BVDB dimension class 420.
+    HEAL EXTRACTED: Kapranov 3-shifted Koszul reduces to formality of A_BVDB.
+
+(ii) **A_BVDB formality on compact quintic** (Wave 7):
+    Original hypothesis: A_BVDB is STRICTLY formal as (-3)-CY DG algebra.
+    REFUTED at m_3 = Yukawa Y_3 = 5 + 2875q + 4876875q^2 + ... ≠ 0.
+    HEAL EXTRACTED: A_BVDB admits CURVED formality in Costello-Li BV-quantization
+    framework with Y_3 as explicit BCOV curving datum.
+
+(iii) **Two-regime Beauville-Bogomolov conjecture** (Wave 7):
+    Original brief: generic CYs are fixed; anti-symmetric CYs double.
+    REFUTED by local P² counter-example (eigentype generic, but iteration shifts
+    Π_-- channel by -1 each step due to χ(O_LP^2) = 1 ≠ 0).
+    HEAL EXTRACTED: THREE-regime classification (torus-bidirectional, non-torus
+    trace-zero FIXED, non-torus non-trace-zero FLOW-into-fixed).
+
+**Universal pattern**: the LOSSLESS Platonic-ideal heal works by 
+(a) identifying the SIMPLEST CONCRETE INSTANCE that refutes the original conjecture,
+(b) extracting the GENUINE STRUCTURAL CONTENT that the original conjecture was
+    pointing at,
+(c) inscribing the CORRECTED statement at the level of generality that it admits.
+
+Each heal preserves all the COMPUTATIONAL EVIDENCE and STRUCTURAL INTUITIONS
+that motivated the original conjecture, while replacing its incorrect form 
+with a sharper one. No information is lost; the manuscript's content is 
+strictly enriched by each LOSSLESS heal cycle.
+
+---
+
+## VIII. Cumulative final inscription audit (post-Wave-7)
+
+After all 7 frontier waves and the post-Wave-7 endgame, the inscription gap
+audit (Section IV) is now CLOSED for the highest-priority items:
+
+CLOSED in this session:
+- prop:sigma-generic-closed-under-products (inscribed in K3 Yangian chapter)
+- rem:cy-d-even-odd-meta-pattern (inscribed in CY-D stratification chapter)
+- thm:a-bvdb-not-formal-quintic + cor:yukawa-curving-bcov + rem:platonic-kapranov-quintic-curved (inscribed in e2 chiral algebras chapter)
+- thm:phi-5-construction-K3K3E + lem:w5-K3-K3-E-vanishes (inscribed in cy_to_chiral chapter)
+- cor:beauville-bogomolov-universal-extension (inscribed in K3 Yangian chapter)
+- thm:eigenvalue-trichotomy + thm:T-E-closed-form (inscribed in K3 Yangian chapter)
+
+REMAINING as lower-priority gaps (deferred to subsequent sessions):
+- P(t) generating function ↔ Borcherds product Φ_10 structural similarity
+  (categorical equivalence pattern; observation only)
+- Iterated generic-front doubling pattern as universal lemma 
+  (currently inscribed per-K_n in K_6, K_7, K_8 remarks)
+- Even/odd alternation in resurgent twist higher instantons as META-STATEMENT
+  (currently inscribed per-n in resurgent-higher-instanton remarks)
+
+These three remaining gaps are pattern observations across multiple 
+per-instance inscriptions; the meta-statements are clear from the inscribed
+material but not yet packaged as unified universal lemmas. They can be
+inscribed in future inscription waves once additional per-instance evidence
+accumulates.
+
+---
+
+— Raeez Lorgat, 2026-04-17 (final version, post-Wave-7 + endgame)
