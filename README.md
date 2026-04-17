@@ -64,7 +64,7 @@ For d=2: the functor Phi_2 is proved (Theorem CY-A_2). For d=3: the infinity-cat
 | Drinfeld center E_1 -> E_2 | **Proved** (right adjoint to forgetful, explicit half-braiding sigma_A(z) construction) |
 | CY-C (six routes convergence) | **Proved** at scalar kappa_BKM level via kappa_BKM(Phi_N) = c_N(0)/2 universal (Borcherds weight); generator-relation identification across routes remains CONJECTURAL |
 | CY-D (dimension stratification) | **Proved**: thm:kappa-hodge-supertrace-identification for compact CY_d all d; explicit stratification across d in {1,2,3,4,5} |
-| CY_4 p_1-twisted family | **Proved** (double current algebra with c(x,y) = <x∪y∪p_1(T_X),[X]>/24; K3 x K3 unobstructed E_4) |
+| CY_4 p_1-twisted family | **Conjectural** (p_1-twisted double current algebra on each fibre of the P^1-family; E_1 native, E_2-braided Drinfeld center with Z-valued half-braiding twist from p_1; cascade terminates at E_3 for all d >= 3 per AP-CY46; OPE shift = int p_1 / 12) |
 | Langlands = Koszul | **Conjectural** |
 
 | Metric | Value |
