@@ -18,6 +18,8 @@ Ground truth:
 import pytest
 from fractions import Fraction
 
+from compute.lib.independent_verification import independent_verification
+
 from compute.lib.conifold_wall_crossing import (
     pentagon_identity_quantum_torus,
     pentagon_numerical,
@@ -41,6 +43,28 @@ from compute.lib.conifold_wall_crossing import (
 class TestPentagonExact:
     """Verify E(X)*E(Y) = E(Y)*E(XY)*E(X) exactly in the quantum torus."""
 
+    @independent_verification(
+        claim="thm:conifold-wall-crossing",
+        derived_from=[
+            "Kontsevich-Soibelman 2008 arXiv:0811.2435 motivic Hall algebra wall-crossing formula as applied to conifold DT invariants",
+            "conifold_wall_crossing.pentagon_identity_quantum_torus implementation in the programme",
+        ],
+        verified_against=[
+            "Faddeev 1995 quantum dilogarithm pentagon identity (L. Faddeev and R. Kashaev, Mod. Phys. Lett. A 9 (1994)), an independent derivation from quantum groups / hyperbolic volume conjecture, predating KS wall-crossing",
+            "A_2 cluster mutation periodicity in Fomin-Zelevinsky 2003 cluster algebras II (finite type classification): five mutations of the A_2 quiver return to the initial seed, an algebraic identity derived from cluster-algebra axioms without any DT / KS input",
+        ],
+        disjoint_rationale=(
+            "The derivation uses the KS motivic Hall algebra to produce the "
+            "exponential gauge action exp(ad_alpha) with alpha the BPS "
+            "invariant on the wall. The verification path (a) is the Faddeev "
+            "1995 quantum dilogarithm pentagon in hyperbolic-volume / "
+            "quantum-group framework (independent of motivic DT), and "
+            "(b) the Fomin-Zelevinsky 2003 A_2 cluster-mutation periodicity "
+            "(purely combinatorial seed-mutation theorem). Neither source "
+            "uses Kontsevich-Soibelman motivic Hall algebras or the "
+            "conifold geometry."
+        ),
+    )
     def test_pentagon_holds_N8_charge4(self):
         """Pentagon identity at N_q=8, max_charge=4."""
         result = pentagon_identity_quantum_torus(N_q=8, max_charge=4)

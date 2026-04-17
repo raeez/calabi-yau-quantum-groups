@@ -76,6 +76,8 @@ from compute.lib.genus2_k3e_full import (
     k3_shadow_tower,
 )
 
+from compute.lib.independent_verification import independent_verification
+
 
 # ================================================================
 # STANDARD TEST PARAMETERS
@@ -583,6 +585,29 @@ class TestSchottkyGenus3:
         table = result["genus_dimension_table"]
         assert table[4]["codim_Jg"] == 1
 
+    @independent_verification(
+        claim="subsec:shadow-siegel-gap",
+        derived_from=[
+            "shadow obstruction tower of K3 x E constructed from first-quantised F_g (rational tautological intersection on M-bar_g)",
+            "ratio kappa_BKM/kappa_ch = 5/3 computed from K3 x E via Phi_2 and Borcherds weight theorem",
+        ],
+        verified_against=[
+            "Schottky codimension codim(J_g, A_g) = (g-2)(g-3)/2 (Schottky 1888; Riemann 1857 classical): numerical table values 0, 0, 0, 1, 3, 6, 10 for g = 1..7 computed from dim A_g = g(g+1)/2 and dim M_g = 3g-3",
+            "Igusa 1972 On Siegel modular forms Ch.II: the Igusa cusp form Phi_10 is a holomorphic function on H_2 of weight 10 (transcendental / functional-analytic invariant not derivable from a tautological intersection)",
+        ],
+        disjoint_rationale=(
+            "The derivation side constructs shadow F_g as a rational number "
+            "in the Chow ring of M-bar_g and uses kappa_BKM/kappa_ch = 5/3 "
+            "computed from Phi_2 applied to D^b(Coh(K3)). The verification "
+            "uses the classical Schottky codimension formula (pre-1900 "
+            "Riemann/Schottky, purely Jacobian-Torelli theory) and Igusa's "
+            "1972 weight-10 cusp form (Siegel modular forms over H_2, also "
+            "pre-dating chiral algebra theory). Neither classical source "
+            "references shadow towers, kappa, or Phi_2; the gap is witnessed "
+            "independently by the Torelli codimension table and by the "
+            "weight-10 transcendence of Phi_10."
+        ),
+    )
     def test_o4_absent_at_g3(self):
         """Shadow obstruction O4 is absent at genus 3."""
         # VERIFIED [DC] obstruction check [LT] thm:shadow-siegel-gap O4

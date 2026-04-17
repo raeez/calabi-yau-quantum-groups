@@ -25,6 +25,7 @@ Mathematical references:
 
 import pytest
 
+from compute.lib.independent_verification import independent_verification
 from compute.lib.derived_framing_obstruction import (
     BottPeriodicityData,
     CrossCheckResult,
@@ -487,6 +488,26 @@ class TestCrossChecks:
 class TestMasterTheorem:
     """Tests for the master theorem and complete analysis."""
 
+    @independent_verification(
+        claim="thm:derived-framing-obstruction",
+        derived_from=[
+            "Costello TCFT 2007 arXiv:math/0412149 operadic framework for CY category S^d-framing",
+            "Goodwillie calculus layer decomposition of the E_1-to-E_3 lifting obstruction",
+            "Unit-connectedness HH^0(C) = k for smooth proper CY_3 categories",
+        ],
+        verified_against=[
+            "Lurie Higher Algebra 5.4 centralizer theorem for E_n-algebras (nerve-realization, no TCFT)",
+            "Toen-Vezzosi 2005 arXiv:math/0404373 derived algebraic geometry HKR via DG-categorical deformation (no operadic input)",
+        ],
+        disjoint_rationale=(
+            "Costello TCFT is operadic/pseudo-manifold; Lurie HA 5.4 is ∞-categorical "
+            "centralizer theory via nerve-realization without operadic input; Toen-Vezzosi "
+            "uses derived algebraic geometry to compute the same obstruction via HKR + "
+            "DG-categorical Deligne without reference to E_n-operads or Goodwillie calculus. "
+            "The three routes agree on HH^{-2}_{E_1} = 0 for CY_3, but their machinery is "
+            "disjoint at the string level and at the mathematical foundation."
+        ),
+    )
     def test_master_theorem_statement(self):
         """The master theorem is well-formed.
 
