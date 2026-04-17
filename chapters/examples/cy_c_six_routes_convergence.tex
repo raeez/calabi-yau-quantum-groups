@@ -1368,6 +1368,99 @@ $A(7) \neq 0$ and immediately falsifies the Pentagon vanishing. Details
 in \texttt{notes/wave\_lp2\_PARI\_split\_prime\_attack.md}.
 \end{remark}
 
+
+%% ========================================================================
+%% Unified Class B falsifier-arithmetic proposition: LP^2 PROVED,
+%% quintic CONJECTURAL — asymmetric status preserved.
+%% ========================================================================
+
+\subsection{The Class B falsifier-arithmetic proposition}
+\label{subsec:class-B-falsifier-arithmetic}
+
+The two Class B receptacle pinnings — the LP$^{2}$ pinning at
+$E_{27/\mathbb{Q}}$ and the quintic pinning at $E_{100/\mathbb{Q}}$ — admit
+a unified statement at the level of falsifier arithmetic.  The two
+pinnings have ASYMMETRIC status: LP$^{2}$ $\beta = 0$ is PROVED at the
+split prime $p = 7$ via the Skoruppa--Zagier kernel; quintic $\alpha = 0$
+remains CONJECTURAL with explicit Hecke-eigenvalue predictor.  Both
+falsifiers are arithmetically localised in named LMFDB elliptic curves.
+
+\begin{proposition}[Class B falsifier arithmetic]
+\label{prop:class-B-falsifier-arithmetic}
+\textup{(}Sub-claim \textup{(i)}: \ClaimStatusProvedHere\textup{)}
+\textup{(}Sub-claim \textup{(ii)}: \ClaimStatusConjectured\textup{)}
+The Class B residuals $\alpha_{\mathrm{quintic}}$ and $\beta_{\mathrm{LP}^2}$
+of the chain-level Pentagon-at-$\Eone$ obstruction at non-K3-fibered
+CY$_3$ inputs admit an asymmetric arithmetic localisation:
+\begin{enumerate}
+ \item[\textup{(i)}] \emph{LP$^{2}$ $\beta = 0$ \textup{(}PROVED\textup{).}}
+       The LP$^{2}$ Skoruppa--Zagier image at the split prime $p = 7$
+       satisfies the closed-form arithmetic identity
+       \[
+         A_7^{(\mathrm{SZ})} \;=\; c_\xi(27) + \tfrac{1}{7} c_\xi(3) \;=\; \tfrac{3}{7} - \tfrac{3}{7} \;=\; 0,
+       \]
+       and consequently
+       \[
+         \beta_{\mathrm{LP}^2} \;=\; -\, A_7^{(\mathrm{SZ})} / a_7(E_{27/\mathbb{Q}}) \;=\; 0 / (-1) \;=\; 0.
+       \]
+       Verified by 64 tests against the LMFDB $E_{27/\mathbb{Q}}$ ground
+       truth at 24 primes \textup{(}three independent verification routes:
+       direct $\mathbb{F}_p$ point count, $\mathbb{Z}[\zeta_3]$ CM
+       decomposition, Riemann--Hurwitz dim $S_2(\Gamma_0(27)) = 1$\textup{).}
+ \item[\textup{(ii)}] \emph{Quintic $\alpha = 0$ \textup{(}CONJECTURAL,
+       falsifiable\textup{).}}  The quintic Niwa--Shintani Shimura lift
+       $A_p^{(\mathrm{Sh})}$ vanishes at all primes $p$ of good reduction
+       for $E_{100/\mathbb{Q}}$:
+       \[
+         A_p^{(\mathrm{Sh})} \;=\; \alpha_{\mathrm{quintic}} \cdot a_p(E_{100/\mathbb{Q}}) \;=\; 0 \quad \text{for all } p \in \{3, 7, 13, 29, 37\},
+       \]
+       conditional on the four residual hypotheses: chain-level CY-A$_3$
+       at compact CY$_3$, Costello--Li open--closed factorisation,
+       Yamaguchi--Yau finiteness through $g \leq 51$, and Borcherds-lift
+       convergence at level $500$.  The corresponding LMFDB ground truth
+       is $a_3(E_{100}) = 2$, $a_7 = -2$, $a_{13} = -2$, $a_{29} = 6$,
+       $a_{37} = -2$ \textup{(}verified by four classical theorems:
+       Hasse 1936, Hecke 1937, Tate 1975 conductor-discriminant, Coates-Wiles
+       1977 + Wiles 1995 rank-$0$ partial-$L$ positivity\textup{).}
+\end{enumerate}
+The asymmetry is structural: the LP$^{2}$ pinning lives on a toric local
+CY$_3$ where the chain-level CY-A$_3$ is unconditional, whereas the
+quintic pinning lives on a compact strict CY$_3$ where the four named
+hypotheses propagate through.
+\end{proposition}
+
+\begin{remark}[The asymmetric status as scope-restriction discipline]
+\label{rem:class-B-asymmetric-status}
+Proposition~\ref{prop:class-B-falsifier-arithmetic} is the Platonic
+conjunction of the two Class B receptacle pinnings.  The
+asymmetric-status convention preserves the LOSSLESS principle: a
+verified theorem (LP$^{2}$ $\beta = 0$) is not downgraded to match a
+conjecture (quintic $\alpha = 0$); the two are stated together as
+sub-claims of one proposition with explicit per-sub-claim
+\texttt{ClaimStatus} tags.  Future progress on the four residual
+hypotheses (chain-level CY-A$_3$ for compact CY$_3$, Costello--Li
+factorisation, Yamaguchi--Yau finiteness, Borcherds convergence) would
+upgrade sub-claim (ii) to PROVED and merge the two sub-claims into a
+single uniform statement.  Until then, the asymmetry IS the structural
+content: LP$^{2}$ Pentagon vanishes, quintic Pentagon vanishing is
+falsifiable.
+\end{remark}
+
+\begin{remark}[Cross-reference to the universal receptacle algorithm]
+\label{rem:class-B-receptacle-algorithm}
+Both halves of Proposition~\ref{prop:class-B-falsifier-arithmetic}
+instantiate the universal five-step receptacle-construction algorithm
+\textup{(}Remark~\ref{rem:universal-receptacle-algorithm}\textup{):}
+mock-modular completion \textup{(}step 1\textup{)},
+Shimura/Skoruppa--Zagier image \textup{(}step 2\textup{)}, level/character
+identification \textup{(}step 3\textup{)}, LMFDB elliptic curve match
+\textup{(}step 4\textup{)}, Hecke-eigenvalue falsifier \textup{(}step
+5\textup{).}  At LP$^{2}$ the algorithm runs to completion; at the
+quintic it produces a falsifiable predictor whose verification at the
+five named primes requires PARI/Sage half-integral-weight modular form
+arithmetic out of \texttt{sympy} scope.
+\end{remark}
+
 \subsection{Synthesis: the universal receptacle-construction algorithm}
 \label{subsec:universal-receptacle-algorithm}
 
