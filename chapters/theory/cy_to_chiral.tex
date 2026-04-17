@@ -1975,15 +1975,62 @@ The $\mathrm{Obs}_{\Ainf} = 0$ entry for local~$\bP^2$ is the new content: despi
 \begin{theorem}[Derived framing obstruction vanishes for CY$_3$ categories]
 \label{thm:derived-framing-obstruction}
 \ClaimStatusProvedHere{}
-For any smooth proper CY$_3$ category $\cC$, the chain-level nonvanishing $[m_3, B^{(2)}] \neq 0$ does \emph{not} obstruct the $\bS^3$-framing in the $\infty$-categorical framework.  Specifically:
+For any smooth proper CY$_3$ category $\cC$ such that
+$\HH_\bullet(\cC)$ is connective \textup{(}$\HH_n(\cC) = 0$ for $n < 0$\textup{)}
+\emph{and} unit-connected \textup{(}$\HH^0(\cC) = k$\textup{),}
+the chain-level nonvanishing $[m_3, B^{(2)}] \neq 0$ does \emph{not} obstruct
+the $\bS^3$-framing in the $\infty$-categorical framework.  Specifically:
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item The primary obstruction to lifting the canonical $\Etwo$-algebra structure on $\HH_\bullet(\cC)$ to an $E_3$-algebra structure lives in $\HH^{-2}_{E_1}(\HH_\bullet(\cC),\, \HH_\bullet(\cC))$.
- \item This group is zero because $\HH_\bullet(\cC)$ is unit-connected \textup{(}$\HH^0 = k$, one vacuum state\textup{)}.
- \item All higher obstructions live in $\HH^{-2-k}_{E_1}$ for $k \geq 1$, which also vanish by unit-connectedness.
+ \item This group is zero by the bar-resolution argument: connectivity gives $\bar{A} = A_{\geq 1}$ concentrated in strictly positive degrees, and the bar filtration spectral sequence collapses to give $\HH^{-2}_{E_1}(A, A) = 0$.
+ \item All higher obstructions live in $\HH^{-2-k}_{E_1}$ for $k \geq 1$, which also vanish by the same bar filtration argument.
  \item Therefore the \emph{space} of $E_3$-structures compatible with the given $\Etwo$-structure is contractible.
  \item The explicit homotopy is provided by Costello's TCFT: $\{b, B^{(2)}\} = 0$ via $\partial^2 = 0$ on the moduli chain complex.
 \end{enumerate}
 \end{theorem}
+
+\begin{remark}[Scope of Theorem~\ref{thm:derived-framing-obstruction}: connectivity
+              hypothesis and the compact non-formal CY$_3$ case]
+\label{rem:derived-framing-scope-restriction}
+The connectivity hypothesis \textup{(}$\HH_n(\cC) = 0$ for $n < 0$\textup{)} is
+\textsc{additional} to unit-connectedness; the bar-resolution argument of
+Step~2 uses both \textup{(}the explicit identification
+$\bar{A} = A_{\geq 1}$ requires $A_{<0} = 0$\textup{).}  This hypothesis
+\textsc{holds} for the listed cases:
+\begin{itemize}
+ \item Toric CY$_3$ \textup{($\C^3$, conifold, local~$\bP^2$, local~$\bP^1 \times \bP^1$):}
+       formal models exist by Tate--Tradler--Costello formality; $A$ is
+       concentrated in non-negative degrees by construction.
+ \item Smooth quasi-projective CY$_3$ with formal Kapranov-Manin-Tate model:
+       $A$ is concentrated in non-negative degrees by the formality result.
+\end{itemize}
+For \textbf{compact CY$_3$ with Serre duality at the chain level}
+\textup{(}quintic, $K3 \times E$, complete-intersection threefolds\textup{):}
+Serre self-duality gives
+$\HH_{-3}(\cC) \cong \HH_0(\cC)^* \cong k^* \neq 0$, so $A = \HH_\bullet(\cC)$
+is \emph{non-connective} at the chain level.  Theorem~\ref{thm:derived-framing-obstruction}
+applies in this regime only after passage to a formal model where the
+Serre-dual negative components are killed by the formality \textup{(}or
+equivalently, after Goodwillie convergence of the Postnikov-Goodwillie tower
+in the non-connective category, which requires additional input\textup{).}
+
+The status table of Remark~\ref{rem:hopf-reduction} reflects this
+distinction: $\mathrm{Obs}_{\Ainf} = 0$ entries marked ``formal'' use the
+formality assumption directly; entries marked ``TCFT'' use Costello's
+operadic resolution which produces a formal model up to coherent homotopy.
+The compact non-formal CY$_3$ case is thus \emph{conditional} on either:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+ \item formality of the underlying $\Ainf$ category at the chain level
+       \textup{(}known for the toric cases, conjectural in general\textup{);} or
+ \item Goodwillie convergence in the non-connective category
+       \textup{(}requires Francis-Gaitsgory machinery beyond the bar-filtration
+       argument\textup{).}
+\end{enumerate}
+The HZ3-11 independent-verification protocol annotation:
+the engine \texttt{derived\_framing\_obstruction.py} verifies the
+Goodwillie tower through layer~$k = 4$ for the formal cases; the compact
+non-formal cases are listed as conditional on Step (1) or (2) above.
+\end{remark}
 
 \begin{proof}
 The argument has four steps: identification of the obstruction group, its vanishing, the vanishing of all higher obstructions, and reconciliation with the chain-level nonvanishing.

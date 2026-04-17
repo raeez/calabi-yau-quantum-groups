@@ -36,19 +36,26 @@ This breaks the tautology by sourcing c_N(0) and wt(Φ_N) from disjoint physical
 
 ---
 
-## thm:derived-framing-obstruction (CY-A_3 inf-cat)
+## thm:derived-framing-obstruction (CY-A_3 inf-cat) — PARTIALLY HEALED 2026-04-17
 
-**File:** chapters/theory/cy_to_chiral.tex:1938
+**Status:** Theorem hypothesis explicitly tightened; compact non-formal CY_3 case correctly tagged as conditional. Engine-side connectivity verification still pending.
 
-**Tautology:** "HH^{-2}_{E_1}(A,A) = 0 by unit-connectedness" uses connectivity of A. For smooth proper CY_3 categories, A = HH_*(C) is Serre self-dual, so HH_{-3} ≅ HH_0* ≠ 0; A is NOT connective. The bar-filtration degree count at L1980 silently assumes A_{<0} = 0. No test supplies an independent source for vanishing — the "verification" is the same connectivity argument restated.
+**File:** chapters/theory/cy_to_chiral.tex L1975-2050
 
-**Disjoint source (if pursued):** None known. The Goodwillie/Francis-Gaitsgory machinery is the only route. An independent route would require either (a) explicit chain-level rectification of [m_3, B^(2)] for a specific non-formal CY_3 A_∞ algebra, or (b) a direct construction of the E_3-lift on a concrete family.
+**What was done:**
+- Theorem hypothesis modified to require BOTH "connective ($\HH_n(\cC) = 0$ for $n < 0$)" AND "unit-connected ($\HH^0(\cC) = k$)" explicitly, no longer concealing the connectivity assumption inside "unit-connectedness" prose.
+- Step 2 in the proof updated: "by the bar-resolution argument: connectivity gives $\bar{A} = A_{\geq 1}$ concentrated in strictly positive degrees" (no longer the misleading "by unit-connectedness").
+- New rem:derived-framing-scope-restriction inserted after the theorem documenting:
+  (a) The connectivity hypothesis HOLDS for toric CY_3 (C^3, conifold, local P^2, local P^1 × P^1) and smooth quasi-projective CY_3 with formal Kapranov-Manin-Tate model.
+  (b) For compact CY_3 with Serre duality (quintic, K3 × E, complete-intersection threefolds), Serre self-duality gives HH_{-3}(C) ≅ HH_0(C)^* ≅ k* ≠ 0, so A is NON-CONNECTIVE at the chain level. The theorem applies in this regime only after passage to a formal model OR Goodwillie convergence in the non-connective category.
+  (c) The status table of rem:hopf-reduction reflects this distinction: "formal" entries use formality directly; "TCFT" entries use Costello's operadic resolution.
+  (d) The compact non-formal CY_3 case is conditional on (1) chain-level formality OR (2) Goodwillie convergence in non-connective category.
 
-**Scope restriction:** Replace the universal quantifier "for all smooth proper CY_3 categories" with "for A connective and unit-connected". This excludes compact CY_3 but covers the formal/local cases where the proof actually works.
+**Lossless reframe:** The theorem retains \ClaimStatusProvedHere because the proof IS sound under the (now explicit) connective + unit-connected hypothesis. Previously the connectivity was hidden inside "unit-connectedness" prose; the rectification surfaces it explicitly. The compact non-formal case is properly tagged as conditional, not proved.
 
-**Status downgrade:** `\begin{conjecture}` for compact CY_3; `\begin{theorem}` retained for connective A.
-
-**Recommendation:** scope restriction. The theorem as currently stated claims too much; restated under the actual hypothesis it is genuine.
+**What remains:**
+- Engine-side independent verification of the Goodwillie tower convergence for compact non-connective A (or formality verification for specific compact CY_3 A_∞ models).
+- This is the chain-level rectification work. Several existing engines verify the formal cases; the compact non-formal case requires either (a) explicit chain-level rectification of [m_3, B^(2)] for specific non-formal CY_3 A_∞ algebras (e.g., quintic), or (b) a direct construction of the E_3-lift on a concrete family.
 
 ---
 
