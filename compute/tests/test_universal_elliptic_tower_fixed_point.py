@@ -260,3 +260,61 @@ class TestUniversalBracketingRigidity:
             for _ in range(k):
                 M_iter = elliptic_tower_iteration(M_iter)
             assert M_iter == M_LP2
+
+
+# ============================================================================
+# Universal Drinfeld coupling formula at E^k
+# ============================================================================
+
+
+def drinfeld_coupling_at_E_k(M, k):
+    """Compute Delta_{X, E^k} = (1 - 2^{k-1}) M + 2^{k-1} sigma_tot*(M)."""
+    flipped = antipodal_flip(M)
+    coeff_M = 1 - 2 ** (k - 1)
+    coeff_flip = 2 ** (k - 1)
+    return tuple(coeff_M * m + coeff_flip * f for m, f in zip(M, flipped))
+
+
+def v4_convolve_with_E_k(M, k):
+    """Compute M *_{V_4} M_{E^k} = 2^{k-1} (M - sigma_tot*(M))."""
+    flipped = antipodal_flip(M)
+    return tuple(2 ** (k - 1) * (m - f) for m, f in zip(M, flipped))
+
+
+class TestUniversalDrinfeldCouplingAtEk:
+    """Verify the universal Drinfeld coupling formula at E^k for k = 1, 2, 3."""
+
+    def test_k_equals_1_recovers_E_formula(self):
+        """At k=1, Delta_{X, E^1} = sigma_tot*(M_X)."""
+        for M in [(0, 5, -16, 11), (-1, 1, 0, 0), (1, -3, 3, 0)]:
+            delta_k1 = drinfeld_coupling_at_E_k(M, 1)
+            sigma_M = antipodal_flip(M)
+            assert delta_k1 == sigma_M
+
+    def test_k_equals_2_K3(self):
+        """At X = K3, k = 2: Delta = -M_K3 + 2 sigma_tot*(M_K3) = (22, -37, 26, -11)."""
+        M = (0, 5, -16, 11)
+        delta = drinfeld_coupling_at_E_k(M, 2)
+        assert delta == (22, -37, 26, -11)
+
+    def test_k_equals_3_K3(self):
+        """At X = K3, k = 3: Delta = -3 M_K3 + 4 sigma_tot*(M_K3) = (44, -79, 68, -33)."""
+        M = (0, 5, -16, 11)
+        delta = drinfeld_coupling_at_E_k(M, 3)
+        assert delta == (44, -79, 68, -33)
+
+    def test_k_equals_2_conifold(self):
+        """At X = conifold, k = 2: Delta = -M_C + 2 sigma_tot*(M_C) = (1, -1, 2, -2)."""
+        M = (-1, 1, 0, 0)
+        delta = drinfeld_coupling_at_E_k(M, 2)
+        assert delta == (1, -1, 2, -2)
+
+    def test_fixed_point_property_at_higher_k(self):
+        """Verify M_{X x E^k} = M_X via the universal formula at multiple k."""
+        for M in [(0, 5, -16, 11), (-1, 1, 0, 0), (1, -3, 3, 0)]:
+            for k in range(1, 5):
+                M_conv = v4_convolve_with_E_k(M, k)
+                delta = drinfeld_coupling_at_E_k(M, k)
+                M_total = tuple(c + d for c, d in zip(M_conv, delta))
+                assert M_total == M, \
+                    f"Fixed-point property fails at M = {M}, k = {k}: M_total = {M_total} != M = {M}"
