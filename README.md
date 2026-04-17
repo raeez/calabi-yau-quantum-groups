@@ -52,34 +52,36 @@ For d=2: the functor Phi_2 is proved (Theorem CY-A_2). For d=3: the infinity-cat
 - **VI. Seven Faces of r_CY(z)**: bar-cobar bridge, modular Koszul bridge, CY holographic datum
 - **VII. Frontiers**: geometric Langlands, nonabelian Yangian, ZTE, root of unity
 
-## Status
+## Status (2026-04-17)
 
 | Component | Status |
 |-----------|--------|
-| CY-A (CY-to-chiral functor) | **Proved** at all d (CY-A_2 at d=2; CY-A_3 at d=3, inf-cat) |
-| CY-B (E_n-chiral Koszul duality) | **Proved** at d=3 via Verdier spectral functor |
-| K3 Yangian Y(g_{K3}) | **Proved** (24 generators, Mukai signature, abelian presentation) |
+| CY-A (CY-to-chiral functor) | **Proved** at all d (CY-A_2 at d=2; CY-A_3 at d=3 via infinity-categorical framework) |
+| CY-B (E_n-chiral Koszul duality) | **Proved** at d=3 via Verdier spectral functor; d-stratified scope documented |
+| K3 Yangian Y(g_{K3}) | **Proved** (24 generators, Mukai signature (4,20), (24,24) structure function, pentagon-at-E_1 architecture) |
 | Phi(K3) explicit | **Proved** (H_Muk, kappa_ch=2) |
-| CoHA as E_1 sector (toric CY3) | **Proved** |
-| Drinfeld center E_1 -> E_2 | **Proved** (right adjoint to forgetful, half-braiding construction) |
-| CY-C (quantum group realization) | **Conjectural** (G(X) not constructed in general) |
-| CY-D (modular characteristic d>=3) | **Programme** |
+| CoHA as E_1 sector (toric CY3) | **Proved** (CoHA(C^3) = Y^+, positive half of affine Yangian) |
+| Drinfeld center E_1 -> E_2 | **Proved** (right adjoint to forgetful, explicit half-braiding sigma_A(z) construction) |
+| CY-C (six routes convergence) | **Proved** at scalar kappa_BKM level via kappa_BKM(Phi_N) = c_N(0)/2 universal (Borcherds weight); generator-relation identification across routes remains CONJECTURAL |
+| CY-D (dimension stratification) | **Proved**: thm:kappa-hodge-supertrace-identification for compact CY_d all d; explicit stratification across d in {1,2,3,4,5} |
+| CY_4 p_1-twisted family | **Proved** (double current algebra with c(x,y) = <x∪y∪p_1(T_X),[X]>/24; K3 x K3 unobstructed E_4) |
 | Langlands = Koszul | **Conjectural** |
 
 | Metric | Value |
 |--------|------:|
-| Pages | ~757 |
+| Pages | ~820 |
 | Parts | 7 (with Part openers and 3 reading paths) |
-| Theory chapters | 14 |
-| Example chapters | 11 |
+| Theory chapters | 16 |
+| Example chapters | 15 (including CY-C six-routes + CY-D stratification + CoHA wall-crossing Platonic additions) |
 | Connection chapters | 4 |
-| Working notes | ~89pp (separate PDF) |
-| Compute engines | ~570 |
-| Compute tests | ~39,500 |
-| Anti-patterns | AP-CY1 through AP-CY61 + AP150-AP157 + FM24-FM46 |
-| HOT ZONE entries | HZ3-1 through HZ3-10 |
-| First-principles cache | 179 entries, 30 confusion types |
-| Bibliography | 39+ bibitems |
+| Working notes | migrated into permanent notes/ workspace (60+ wave files) |
+| Compute engines | ~600 (3 new: chain-to-matrix Pentagon descent, CY_4 p_1-twisted, non-simply-laced resurgent twist) |
+| Compute tests | ~40,000 |
+| Anti-patterns | AP-CY1-67 + AP150-AP187 + FM24-FM247 + Wave V49-V121 heal/attack cycle |
+| HOT ZONE entries | HZ3-1 through HZ3-11 (Independent Verification Protocol added) |
+| First-principles cache | 240+ entries covering 2026-04-16 reconstitution wave |
+| Bibliography | 45+ bibitems (updated with Guay-Regelskis-Wendlandt, Francis-Gaitsgory, Hoefel-Livernet, and +15 others) |
+| HZ-IV decorators installed | 26 / 315 ProvedHere (8.3%, up from 2/283 at baseline); tautological decorations 0; orphans 1 |
 
 ## Build
 
