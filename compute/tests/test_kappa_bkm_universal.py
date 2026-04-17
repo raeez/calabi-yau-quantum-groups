@@ -766,7 +766,7 @@ class TestIndependenceFromCYA:
 # (Eichler-Zagier theory of Jacobi forms), independent of the Frame-shape data
 # table used to populate FRAME_SHAPE_DATA.
 
-from independent_verification import independent_verification
+from compute.lib.independent_verification import independent_verification
 
 
 class TestIndependentVerificationN1:
