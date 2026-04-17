@@ -105,3 +105,46 @@ make fast                         # warm on second call
 ```
 
 Requires TeX Live 2024+ with pdflatex.
+
+## Independent Verification Protocol
+
+Every `\ClaimStatusProvedHere` theorem should be paired with a test module
+decorated with `@independent_verification(claim, derived_from, verified_against, disjoint_rationale)`.
+The decorator enforces token-level disjointness between the programme-internal
+derivation and the external-source verification; tautological decoration fails
+at import, not silently.
+
+**Audit state (2026-04-17, post-rewrite-loop):** Vol III audit is **PASSing**
+with zero tautological decorations and zero orphan entries. Coverage snapshot:
+128/412 ProvedHere labels with installed IV (31.0%). 264 Conjectured/Conditional
++ 208 remark/definition/construction labels recognised as valid decoration
+targets. Vol III has the highest IV coverage among the three volumes, reflecting
+48 consecutive +1 ticks of systematic IV installation this rewrite-loop session
+across the K3-Yangian Pentagon edge architecture, CY-D classification,
+cy_to_chiral foundational corollaries, and the full Item 11b cross-volume
+Universal Trace Identity bridging diagram.
+
+**Full Item 11b cross-volume bridging diagram IV-complete:**
+- Parent theorems: `thm:universal-trace-identity-k3-fibered` +
+  `thm:universal-trace-identity-non-k3-fibered`.
+- Three K3-fibered sub-constructions: Z-functoriality of Koszul reflections,
+  supertrace-Trinity-centre collapse, Borcherds character lift.
+- Three non-K3-fibered Bruinier-Funke sub-constructions: BF regularised
+  functoriality, Eisenstein-cusp Trinity-supertrace commutation, BF product
+  expansion at non-unimodular Λ.
+- K3 × E base case: both sides equal κ_BKM = 5 via phi01_fourier theta-ratio
+  + Igusa cusp form weight + M_24 Frame shape (three disjoint sources).
+
+**Cross-volume audit state:** Vol I 166/2718 (6.1%) + Vol II 115/1469 (7.8%) +
+Vol III 128/412 (31.0%) = 409 / 4599 total (8.9%). All three volumes PASS
+simultaneously.
+
+Make targets:
+```
+make verify-independence           # summary audit (no tautology / no orphan gate)
+make verify-independence-verbose   # full list of uncovered claims
+```
+
+See `notes/INDEPENDENT_VERIFICATION.md` for the three-healing rubric
+(find disjoint source / restrict scope / downgrade status) and
+`compute/lib/independent_verification.py` for the decorator implementation.
