@@ -572,7 +572,7 @@ AP-CY72: "S^d = (decomposition)" framing-decomposition shorthand vs manifold equ
 
 AP-CY73: pi_d(BU) 8-periodicity vs 2-periodicity. pi_d(BU) = KU^{-d} is 2-periodic (complex Bott): Z at even d, 0 at odd d. 8-periodicity belongs to pi_d(BO) = KO^{-d} (real Bott) or to an Sp-refined tower. Writing "pi_d(BU) is 8-periodic by Bott periodicity and trivial at d mod 8 in {1, 3, 7}" conflates the two K-theories. Counter: either (a) pi_d(BO) + 8-periodicity, or (b) pi_d(BU) + 2-periodicity + explicit Sp-refinement invocation at d ≡ 5. Instances: preface L894, CLAUDE.md CY-A entry, en_factorization.tex e1-stabilization-cy theorems.
 
-**The AP catalogue (full text) lives in `appendices/anti_pattern_catalogue.tex` as a development-tree-only file; it is NOT compiled into the published manuscript (main.tex L1239 `\input{appendices/anti_pattern_catalogue}` commented out 2026-04-17). The first-principles cache lives in `appendices/first_principles_cache.md` (markdown, never compiled). Both are metacognitive infrastructure, accessed via CLAUDE.md pointers.**
+**The AP catalogue (full text) lives in `notes/anti_pattern_catalogue.tex.archive` as a development-tree-only file, neutralised by both location (`notes/` is metacognitive) and extension (`.tex.archive` is never recognised by the LaTeX build). The first-principles cache lives in `notes/first_principles_cache_comprehensive.md` (markdown, never compiled). Both are metacognitive infrastructure, accessed via CLAUDE.md pointers. Relocation from `appendices/` to `notes/` completed 2026-04-17 per the author's three-volume directive.**
 
 ## 6d Holomorphic CS Programme (established April 2026)
 
@@ -722,7 +722,7 @@ Compute engines (~460 total, ~34,000 tests). Full catalogue -> `compute/ENGINES.
 
 ## Cached First-Principles Analyses (AP-CY61 dictionary)
 
-**Full cache (45 entries, ghost theorems, cross-programme ~264 entries / 30 confusion types, full type taxonomy table)**: `appendices/first_principles_cache.md`.
+**Full cache (45 entries, ghost theorems, cross-programme ~264 entries / 30 confusion types, full type taxonomy table)**: `notes/first_principles_cache_comprehensive.md`.
 
 **Top 3 critical entries** (highest recurrence, check these FIRST; full table in cache):
 
