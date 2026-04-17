@@ -457,7 +457,7 @@ The generator rank $\rho^{R_i}$ must not be conflated with $\kappa_{\mathrm{ch}}
 
 \begin{remark}[Operational consequence: never write $\kappa_{\mathrm{bare}}(K3 \times E)$]
 \label{rem:kappa-k3e-never-bare}
-A bare $\kappa_{\mathrm{bare}}(K3 \times E)$ in the manuscript is a violation of AP113 and of this theorem. Every occurrence must be subscripted: $\kappa_{\mathrm{cat}}$ for the manifold invariant (value $0$), $\kappa_{\mathrm{fiber}}$ for the fiber Euler characteristic (value $24$), $\kappa_{\mathrm{ch}}^{R_i}$ for the algebraization invariant with explicit route (values $3, 12, 24$ depending on $i$), $\kappa_{\mathrm{BKM}}$ for the Borcherds lift weight attached to $R_2$ (value $5$). The supposed ``four values $\{2, 3, 5, 24\}$'' that appears in earlier working notes is the product of conflating fiber-K3 $\chi(\mathcal{O}_S) = 2$ with $X$-data: the correct $\kappa_\bullet$-spectrum on $X$ is $\{0, 3, 5, 12, 24\}$, with $2$ belonging to the fiber K3 only.
+A bare $\kappa(K3 \times E)$ without subscript is ill-defined in the Vol~III setting, where multiple Koszul-conductor invariants coexist and must be distinguished; this violates both the subscripting discipline of the present theorem and the manuscript-wide convention that forbids bare $\kappa$ in Vol~III. Every occurrence must be subscripted: $\kappa_{\mathrm{cat}}$ for the manifold invariant (value $0$), $\kappa_{\mathrm{fiber}}$ for the fiber Euler characteristic (value $24$), $\kappa_{\mathrm{ch}}^{R_i}$ for the algebraization invariant with explicit route (values $3, 12, 24$ depending on $i$), $\kappa_{\mathrm{BKM}}$ for the Borcherds lift weight attached to $R_2$ (value $5$). The supposed ``four values $\{2, 3, 5, 24\}$'' that appears in earlier working notes is the product of conflating fiber-K3 $\chi(\mathcal{O}_S) = 2$ with $X$-data: the correct $\kappa_\bullet$-spectrum on $X$ is $\{0, 3, 5, 12, 24\}$, with $2$ belonging to the fiber K3 only.
 \end{remark}
 
 \section{$\kappa_{\mathrm{bare}}(K3)$ subscripting discipline}
@@ -496,10 +496,10 @@ Consequently, $\kappa_{\mathrm{bare}}(K3)$ without subscript is ambiguous among 
 The values $2$ and $24$ for $\kappa_{\mathrm{bare}}(K3)$ are not two conventions for a single invariant. They are values of two distinct invariants ($\kappa_{\mathrm{ch}}$ and $\kappa_{\mathrm{fiber}}$) of two distinct mathematical objects (the algebra $\Phi_2(D^b(\Coh(K3)))$ and the manifold $K3$ itself). Bridging them requires the construction and not merely renaming.
 \end{remark}
 
-\section{Independent-verification protocol (HZ-IV)}
+\section{Independent-verification protocol}
 \label{sec:cy-c-hziv}
 
-The pairwise bridge table (Section~\ref{sec:cy-c-status-audit}) contains three ProvedHere theorems: Theorem~\ref{thm:pairwise-all-proved-closes-CY-C}, Theorem~\ref{thm:kappa-stratification-CY-C}, Proposition~\ref{prop:kappa-spectrum-k3-healed}. Each requires an independent verification decorator in compliance with HZ-IV. The decorators appear at \texttt{compute/tests/test\_cy\_c\_six\_routes.py}, with the following disjoint-source assignments:
+The pairwise bridge table (Section~\ref{sec:cy-c-status-audit}) contains three ProvedHere theorems: Theorem~\ref{thm:pairwise-all-proved-closes-CY-C}, Theorem~\ref{thm:kappa-stratification-CY-C}, Proposition~\ref{prop:kappa-spectrum-k3-healed}. Each requires an independent verification decorator: every \ClaimStatusProvedHere\ test declares \texttt{derived\_from}, \texttt{verified\_against}, and \texttt{disjoint\_rationale} metadata, with disjointness checked at import time. The decorators appear at \texttt{compute/tests/test\_cy\_c\_six\_routes.py}, with the following disjoint-source assignments:
 
 \begin{itemize}
   \item Theorem~\ref{thm:pairwise-all-proved-closes-CY-C} (``$6$-cycle closure''): derived from the six pairwise bridges of Propositions~\ref{prop:route1-route2-bridge}--\ref{prop:route6-route1-closure}, which in turn derive from the Borcherds denominator identity (Borcherds 1992). Verified against (a) Maulik--Okounkov stable-envelope fixed-point computation of the quantum vertex $R$-matrix on $\mathrm{Hilb}^n(S)$, which is independent of the Borcherds lift; (b) the Hodge-theoretic Chow motive calculation of Huybrechts 2016 (``Chow motive of K3 surfaces''), which does not factor through Jacobi forms.

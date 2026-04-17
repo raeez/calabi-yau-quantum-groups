@@ -27,7 +27,12 @@ Multi-path verification:
 
 Manuscript references:
     subsec:bfn-coulomb-k3 (k3_times_e.tex)
-    conj:bfn-k3-yangian (k3_times_e.tex)
+    conj:bfn-k3-yangian-mukai (k3_times_e.tex; generic K3 moduli,
+        Mukai rank 24, signature (4, 20) -- this test module's primary scope)
+    conj:bfn-k3-yangian-kummer (k3_times_e.tex; A_1 orbifold sub-case,
+        exercised by Section 8 ADE embedding tests)
+    thm:bfn-phi-ade-identification (PROVED ADE sub-case, BFN 2016,
+        exercised by Section 2 ADE Coulomb branch tests)
     conj:k3-yangian (k3_times_e.tex)
 """
 

@@ -33,8 +33,10 @@ Reader-facing prose (the compiled `main.pdf` PLUS every standalone paper in `sta
 
 **Where metadata belongs:** commit messages, `notes/` changelog files, the AP catalogue, CLAUDE.md, first-principles cache. The PDF is for Drinfeld, Beilinson, Etingof — not for the rectification audit trail.
 
+**Allowed exception (2026-04-17, Wave-5 policy):** the exact token `HZ-IV` is the canonical name of the Independent Verification Protocol (this file, §HZ3-11) and is permitted in typeset prose. HOT ZONE indices `HZ-[0-9]+` (Arabic digits) remain forbidden.
+
 **Before every commit that touches a file under `chapters/`, `standalone/`, `main.tex`, `preface`, or an appendix INCLUDED by main.tex, grep:**
-`AP-CY|AP1[0-9]\{2\}|2026-|commit [a-f0-9]\{7\}|inscription|campaign|healed|first edition|earlier phrasing|superseded across|adversarial audit|the agent found|RECTIFICATION-FLAG`
+`AP-CY|AP1[0-9]\{2\}|2026-|commit [a-f0-9]\{7\}|inscription|campaign|healed|first edition|earlier phrasing|superseded across|adversarial audit|the agent found|RECTIFICATION-FLAG` then post-filter with `| grep -v 'HZ-IV'` to preserve the protocol-name exception.
 
 Each hit either (a) strips the metadata while preserving the mathematical claim verbatim, or (b) migrates the content to `notes/` / a commit message / the catalogue.
 
@@ -97,10 +99,10 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_n-Chi
 | **Mathieu moonshine** | PROGRAMME | M24 moonshine for K3 sigma model via chiral bar complex. Shadow = mock modular. |
 | **Class M Borel summable** | PROVED | Class M shadow tower is Gevrey-1 divergent and Borel summable. Stokes automorphism from BKM imaginary root multiplicity. |
 | **3 wrong proofs caught** | DOCUMENTED | (1) Bidegree decomposition for {b_k,B^{(2)}}=0 (flawed premise). (2) Tsygan formality argument (wrong scope). (3) kappa_BKM naive decomposition (numerical coincidence). All retracted with documentation. |
-| **P_2(D) = 0: BKM Serre EXACT** | PROVED | Nekrasov + Lie algebra twist: second Serre polynomial vanishes identically. No higher corrections to imaginary root Serre relations. |
+| **P_1(D) = D^2 − 2D: BKM Serre LEADING ORDER** | PROVED leading order ε¹; ε² CONJECTURAL (AP40-corrected 2026-04-17) | Leading-order imaginary-root Serre polynomial proved (70 tests). Exact vanishing of P_2(D) at order ε² DOWNGRADED to `conj:bkm-serre-exact` (`working_notes.tex:4968-4984`); engine `bkm_serre_higher_order.py` self-declares STATUS=CONJECTURAL. Independent verification at ε² outstanding. See row 118 for the current status-of-record. |
 | **Borcherds spectral flow h=1 EXACT** | PROVED | Spectral flow at h=1 is an EXACT automorphism of Y(g_{K3}), not approximate. Verified against Borcherds product formula. |
 | **CY-B push at d=3** | PROGRAMME (131 tests) | E_1-chiral Koszul duality (inducing E_2 on center) extended to d=3 via inf-cat CY-A_3. Conditional on chain-level data for non-formal algebras. |
-| **Chiral Satake for C^3** | PROVED | Derived geometric Satake for C^3 via chiral bar complex. 99 tests. Connects Phi(C^3) to geometric representation theory. |
+| **Chiral Satake for C^3** | CONJECTURAL (`conj:chiral-satake-c3`) | MO R-matrix + Fock dimension match verified across 99 tests (INGREDIENTS). DG equivalence itself remains conjectural at `conj:chiral-satake-c3` (`geometric_langlands.tex:544-551`). Prior status line "PROVED" was an overclaim. |
 | **Chain-level Incompatibility Theorem** | PROVED | mu_3 != 0 forces mu_2 = 0 on augmentation ideal. A_inf obstruction to simultaneous E_1 and E_inf structure at chain level. |
 | **Notation appendix** | INSTALLED (541 lines) | Complete notation reference for Vol III. All symbols, conventions, cross-volume dictionary. |
 | **AP catalogue** | INSTALLED (668 lines) | Full anti-pattern catalogue AP-CY1 through AP-CY40 with decision trees and counter-templates. |
@@ -694,7 +696,7 @@ These four refinements are intentional and were never executed as a "move" — t
 ### Five load-bearing open problems (updated April 2026, ~230-agent final session)
 
 1. **CY-B (E_n-chiral Koszul duality)**: PROGRAMME (131 tests). At d=2: E_2-Koszul on A directly (A is E_2). At d=3: E_1-Koszul on A via B_{E_3}(A), inducing E_2 on Drinfeld center Z(Rep^{E_1}(A)). The conductor formula kappa(A)+kappa(A^!)=rho_K is about the E_1-Koszul dual. Depends on CY-A (now proved). Extended to d=3 via inf-cat CY-A_3. Chain-level conditional on explicit framing data for non-formal algebras. The next structural theorem after CY-A.
-2. **Nonabelian K3 Yangian**: The passage from abelian Y(g_{K3}) (PROVED, 24 generators, thm:k3-abelian-yangian-presentation) to the full nonabelian Yangian. Matrix Miura, sl_2 Serre constraints (P_2=0 leading order PROVED; conjecturally exact at all orders, AP40-corrected 2026-04-17, 70 tests at leading order). Super-Yangian Y(gl(4|20)) conjectural. E_8 x E_8 structure function computed: degree-(24,24), c=8+8+8=24.
+2. **Nonabelian K3 Yangian**: The passage from abelian Y(g_{K3}) (PROVED, 24 generators, thm:k3-abelian-yangian-presentation) to the full nonabelian Yangian. Matrix Miura, sl_2 Serre constraints: leading-order polynomial `P_1(D) = D^2 − 2D` PROVED (70 tests); ε² vanishing CONJECTURAL via `conj:bkm-serre-exact` (AP40-corrected 2026-04-17; engine `bkm_serre_higher_order.py` self-declares CONJECTURAL; independent ε² Fourier verification outstanding). Super-Yangian Y(gl(4|20)) is itself a naming artifact (Mukai (4, 20) is a symmetric indefinite lattice, not a super-grading; see V3-F19b). E_8 x E_8 structure function computed: degree-(24,24), c=8+8+8=24.
 3. **ZTE correction**: S^{corr}=S+κ²T NOW COMPUTED (exact rational T matrix, 35 tests). Previously constructive (rank 35/36 in extended complex); now explicit entry-by-entry from 1-dim kernel. The correction giving genuine E_3 structure beyond pairwise factorization.
 4. **Sp_4(Z) modularity**: E_3 S-matrix -> Siegel modular forms -> Phi_10. Fourier-Jacobi = E_2->E_3 restriction proved. Full pipeline open. Mathieu moonshine connection: frame shape = twined bar Euler for all 25 M_24 conjugacy classes.
 5. **Root-of-unity CY quantum groups**: Kazhdan-Lusztig at root of unity for CY categories. Modular tensor categories from Phi. CY-C remains conjectural but abelian K3 case now fully specified: C(g,q) = D(Y^+(g_{K3})), Rep = Rep^{E_2}(Y) via BZFN, R-matrix = MO. Root-of-unity N=2: 324 modules, abelian S-matrix degenerate (non-abelian needed for modularity). Chiral volume conjecture FORMULATED (Abel-Jacobi period).
