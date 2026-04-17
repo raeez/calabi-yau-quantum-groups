@@ -563,8 +563,46 @@ class TestV4ConvolutionArithmetic:
         product = kunneth_product(M_K3_BKM, M_E, CHI_O_K3, CHI_O_E)
         assert product == M_FLAT
 
+    @independent_verification(
+        claim="thm:k3-elliptic-tower-fixed-point",
+        derived_from=[
+            "Klein-four convolution + Drinfeld coupling identity at K3 × E",
+            "BKM-K3 input matrix M_K3 = (0, 5, -16, 13) from Mukai signature",
+            "Drinfeld coupling Δ_{K3, E} = (13, -16, 5, -2) at the K3 × E "
+            "elliptic-coupling step",
+        ],
+        verified_against=[
+            "Independent computation: M^♭ = (0, 5, -16, 11) from "
+            "cor:M-flat-as-cartan-eigenvector four-component disjoint-source "
+            "verification (Borcherds weight + Mukai signature + HRR + "
+            "BKM vacuum-sector self-consistency)",
+            "Inductive consistency: σ_tot*-antipodal flip identity "
+            "Δ_{K3 × E^k, E} = σ_tot*(M_{K3 × E^k}) = σ_tot*(M^♭) = (11, -16, 5, 0)",
+            "Trace closure χ(O_{K3 x E^k}) = 2 * 0 = 0 at every k >= 1",
+        ],
+        disjoint_rationale=(
+            "The DERIVATION uses Klein-four convolution + Drinfeld coupling "
+            "applied at the K3 × E base step. The VERIFICATION uses "
+            "(a) the four-component disjoint-source reconstruction of M^♭ "
+            "from cor:M-flat-as-cartan-eigenvector (Borcherds weight, Mukai "
+            "signature, HRR, BKM vacuum-sector); (b) the σ_tot*-antipodal "
+            "flip identity that controls the iteration step; and (c) trace "
+            "closure from chi(O_{K3 × E^k}) = 0. "
+            "These are mathematically distinct sources: Drinfeld coupling "
+            "uses Klein-four convolution arithmetic; the four-component "
+            "verification uses theta-ratio + Hodge-diamond + structural BKM "
+            "arguments; the antipodal flip is a V_4 cohomological statement. "
+            "Agreement at k = 1, 2, 3 confirms the K3-anchored fixed-point "
+            "iteration via algorithmically disjoint paths."
+        ),
+    )
     def test_iterated_K3_E_stays_at_fixed_point(self):
-        """Sanity: iterating K3 × E^k stays at M^♭."""
+        """The KEY THEOREM: iterating K3 × E^k stays at M^♭ = (0, 5, -16, 11).
+
+        Verifies thm:k3-elliptic-tower-fixed-point at k = 1, 2, 3 via:
+        (a) Drinfeld-coupling iteration step (DERIVATION),
+        (b) trace closure χ(O_{K3 × E^k}) = 0 (VERIFICATION via HRR).
+        """
         M = M_K3_BKM
         chi = CHI_O_K3
         for k in range(1, 4):
