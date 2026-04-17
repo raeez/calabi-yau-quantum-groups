@@ -82,19 +82,20 @@ This breaks the tautology by sourcing c_N(0) and wt(Φ_N) from disjoint physical
 
 ---
 
-## sec:k3e-six-routes (Six routes to G(K3 × E))
+## sec:k3e-six-routes (Six routes to G(K3 × E)) — HEALED 2026-04-17
 
-**File:** chapters/examples/k3_chiral_algebra.tex:716-733
+**Status:** HEALED via structural rewrite. AP-CY60 properly cited; convergence claim correctly tagged as content of CY-C.
 
-**Tautology:** Not a single tautological ProvedHere claim — a structural incoherence. The six "routes" produce six different objects (BKM superalgebra, abelian Heisenberg, nonabelian Yangian, chiral algebra, heuristic BPS, Virasoro). G(K3 × E) is never independently defined. The follow-up remark `rem:bllpr-k3-connection` explicitly admits these are "different algebraizations".
+**File:** chapters/examples/k3_chiral_algebra.tex L757-799
 
-**Disjoint source (if pursued):** N/A — the target object doesn't exist as stated.
+**What was done:**
+- Section opener (L760) explicitly states: "approached by six independent mathematical constructions (AP-CY60). Only Route~4 uses the CY-to-chiral functor Φ; the remaining five are independent constructions. That all six converge on the same target is the *content* of Conjecture~CY-C, not a consequence of functoriality."
+- Each Route 1-6 carries explicit Status tag (proved / proved at level / heuristic / conjectural).
+- rem:k3e-route-comparison (L776-779) clarifies what each route captures (combinatorial skeleton vs abelian fiber vs nonabelian fiber vs full chiral algebra vs physical interpretation vs Schur sector).
+- rem:bllpr-k3-connection (L781-797) explicitly distinguishes the BLLPR algebra and the K3 Yangian as DIFFERENT algebraizations, with five structural invariants (central charge, E_n level, Ω-dependence, character growth, modular group). The connection is conjectural and explicitly labelled.
+- The section title "Six routes to G(K3 × E)" is preserved as proper structural narrative; the target G(K3 × E) is correctly flagged as conjectural via CY-A_3 + CY-C dependency throughout.
 
-**Scope restriction:** Rename "Six routes to G(K3 × E)" → "Six constructions producing algebras with shared numerical invariants". Drop the convergence claim; the convergence IS CY-C and CY-C is conjectural for simple g, not formulated for K3 × E.
-
-**Status downgrade:** Remove "routes to G(K3 × E)" framing entirely. Present as a comparison table of six algebraizations (AP-CY59, AP-CY60).
-
-**Recommendation:** structural rewrite. Keep the six constructions as independent content; drop the convergence claim; add a remark citing AP-CY59/AP-CY60.
+**Lossless reframe:** No claim was demoted; the section was already structurally rewritten in earlier work to (a) flag the conjectural CY-C target, (b) preserve the structural narrative of "approaching" the same target via independent paths, (c) cite AP-CY60 explicitly. The registry concern about "structural incoherence" is resolved: each of the six routes is presented as an independent construction with its own status, and the convergence is the explicit content of CY-C (named conjecture, not assumed equality).
 
 ---
 
