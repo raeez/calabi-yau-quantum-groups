@@ -60,19 +60,17 @@ Seeded from adversarial audit 2026-04-16 (first_principles_cache.md #57-68).
 
 ---
 
-## prop:p2-vanishes-exact (BKM Serre P_2(D) = 0)
+## prop:p2-vanishes-exact (BKM Serre P_2(D) = 0) — HEALED 2026-04-17
 
-**File:** working_notes.tex (called theorem there), bkm_serre_higher_order.py (status CONJECTURAL in engine)
+**Status:** HEALED via status downgrade. AP40 violation closed.
 
-**Tautology:** Engine self-declares `STATUS = 'CONJECTURAL'`. Argument "ε_1·ε_2 = ε·0 = 0 in 1d Ω-background" is circular (a 1d background has one parameter by definition). 70 tests compare to the linear extrapolation, not an independent source.
+**File:** working_notes.tex (relabeled `conj:bkm-serre-exact`), bkm_serre_higher_order.py (engine STATUS unchanged)
 
-**Disjoint source (if pursued):** Perturbative computation of P_2 from BKM imaginary-root denominator at order ε² — checking vanishing not by parameter count but by explicit cancellation of ε² terms in the Fourier expansion of the deformed denominator.
+**Resolution:** Status downgraded from `\begin{theorem}` (`thm:bkm-serre-exact`) to `\begin{conjecture}` (`conj:bkm-serre-exact`) with `\ClaimStatusConjectured` tag, matching the engine's self-declared `STATUS = 'CONJECTURAL'`. The two heuristic arguments (ε₁·ε₂ = 0 parameter-count and L_0 + εJ_0 spectral-flow linearity) are preserved as non-conclusive evidence in `rem:p2-status-correction`. The leading-order P_1(D) = -2D claim survives as proved (it is the verified linear-order computation). Higher-order vanishing requires perturbative ε²-cancellation in the BKM imaginary-root denominator Fourier expansion as the genuine independent source; this remains the open frontier for promotion back to theorem.
 
-**Scope restriction:** "P_2 = 0 to leading order in the linear approximation" is trivial; the "exact" qualifier is what's unsupported.
+**Cross-volume sweep:** CLAUDE.md "Main Theorems" table updated (BKM Serre P_2 row tagged CONJECTURAL with healing date and AP40 reference); CLAUDE.md "Five load-bearing open problems" Item 2 updated (sl_2 Serre constraints split into proved leading-order and conjectural higher-order); CLAUDE.md Session-Entry rule 25 updated. The cy_c_six_routes_convergence.tex bullet (line 814 region) updated to reflect leading-order PROVED, higher-order CONJECTURAL split. No theorem-level claim survives as a tautology.
 
-**Status downgrade:** Tag `\begin{conjecture}` — matches the engine's own `STATUS`.
-
-**Recommendation:** status downgrade. AP40 violation: engine says CONJECTURAL, manuscript says THEOREM.
+**Lossless reframe:** the 182-generator Serre kernel is the leading-order kernel; whether it is the full kernel depends on the conjecture. Previous lower-bound rank claims stand.
 
 ---
 

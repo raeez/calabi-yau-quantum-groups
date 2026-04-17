@@ -77,7 +77,7 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_n-Chi
 | **Mock modular K3 theorem** | d=2 PROVED | 4-step proof: (1) shadow = 24*eta^3, (2) mock theta transform, (3) Zwegers completion, (4) Borcherds lift. |
 | **CY-D dimension-stratified** | DOCUMENTED | kappa_ch != chi(O_X) at odd d. Dimension-stratified formula replaces naive CY-D. |
 | **CY-C abelian level** | CONSTRUCTIVE | C(g,q) = D(Y^+(g_{K3})) at abelian level. Explicit Drinfeld double of positive part of K3 Yangian. |
-| **BKM Serre P_2 = 0 EXACT** | PROVED | Second Serre polynomial vanishes identically. No higher corrections. |
+| **BKM Serre P_2 = 0** | CONJECTURAL (AP40-corrected 2026-04-17) | Second Serre polynomial conjecturally vanishes. Engine \texttt{bkm\_serre\_higher\_order.py} self-declares STATUS=CONJECTURAL; manuscript previously stated as theorem (AP40 violation). Healed via downgrade in working_notes.tex `conj:bkm-serre-exact`. Independent verification (perturbative ε² Fourier expansion) outstanding. |
 | **E_8 x E_8 structure function** | COMPUTED | degree-(24,24) structure function, c = 8+8+8 = 24. Mukai lattice decomposition via E_8 x E_8. |
 | **Root-of-unity N=2** | COMPUTED | 324 modules (= 24*N^2*3/4 = 324 for N=2). Abelian S-matrix degenerate. Non-abelian K3 Yangian needed for modularity. |
 | **Mathieu frame shape** | VERIFIED | Frame shape = twined bar Euler for all 25 M_24 conjugacy classes. Connects Mathieu moonshine to bar complex. |
@@ -592,12 +592,12 @@ Status by dimension:
 
 Full proposal (7 parts, ~32 chapters, dependency map, structural rationale, current 5-part deltas) -> `notes/vol3_rearchitecture_proposal.tex`. Total ~838pp current (exceeds 590pp target due to K3 Yangian Pentagon edge architecture + frontier wave inscriptions). Logical dependencies: I -> II -> III -> {IV, V} -> VI -> VII; Parts IV and V are independent.
 
-**Item 5 (chapter reshuffle) deferred per dependency analysis** (must follow items 1-12 settlement). Items 1-4, 6-12, 11a + missing M1-M6 inscribed in the 2026-04-17 rewrite-loop session. Item 11b (Universal Trace Identity bridging-diagram construction) deferred as the open frontier.
+**Item 5 (chapter reshuffle) deferred per dependency analysis** (must follow items 1-12 settlement). Items 1-4, 6-12, 11a + missing M1-M6 inscribed in the 2026-04-17 rewrite-loop session. **Item 11b (Universal Trace Identity bridging-diagram construction): COMPLETE on the entire logarithmic-finite-type class** (chapters/connections/bar_cobar_bridge.tex). thm:universal-trace-identity-k3-fibered closes the K3-fibered case; thm:universal-trace-identity-non-k3-fibered closes the non-K3-fibered case via the Bruinier-Funke regularised lift (constructions a/b/c: chiral functoriality + Eisenstein-cusp-Trinity-supertrace + Borcherds-product expansion at non-unimodular Λ). The cross-volume bridging diagram closes at full structural level on signature-(b,2) Mukai gradings for b ≥ 1; the only remaining open frontier is numerical evaluation of c_γ(n) at specific X ∈ {quintic, LP², conifold} — a case-by-case modular-form computation, not a structural obstruction.
 
 ### Five load-bearing open problems (updated April 2026, ~230-agent final session)
 
 1. **CY-B (E_n-chiral Koszul duality)**: PROGRAMME (131 tests). At d=2: E_2-Koszul on A directly (A is E_2). At d=3: E_1-Koszul on A via B_{E_3}(A), inducing E_2 on Drinfeld center Z(Rep^{E_1}(A)). The conductor formula kappa(A)+kappa(A^!)=rho_K is about the E_1-Koszul dual. Depends on CY-A (now proved). Extended to d=3 via inf-cat CY-A_3. Chain-level conditional on explicit framing data for non-formal algebras. The next structural theorem after CY-A.
-2. **Nonabelian K3 Yangian**: The passage from abelian Y(g_{K3}) (PROVED, 24 generators, thm:k3-abelian-yangian-presentation) to the full nonabelian Yangian. Matrix Miura, sl_2 Serre constraints (EXACT: P_2=0, 70 tests). Super-Yangian Y(gl(4|20)) conjectural. E_8 x E_8 structure function computed: degree-(24,24), c=8+8+8=24.
+2. **Nonabelian K3 Yangian**: The passage from abelian Y(g_{K3}) (PROVED, 24 generators, thm:k3-abelian-yangian-presentation) to the full nonabelian Yangian. Matrix Miura, sl_2 Serre constraints (P_2=0 leading order PROVED; conjecturally exact at all orders, AP40-corrected 2026-04-17, 70 tests at leading order). Super-Yangian Y(gl(4|20)) conjectural. E_8 x E_8 structure function computed: degree-(24,24), c=8+8+8=24.
 3. **ZTE correction**: S^{corr}=S+κ²T NOW COMPUTED (exact rational T matrix, 35 tests). Previously constructive (rank 35/36 in extended complex); now explicit entry-by-entry from 1-dim kernel. The correction giving genuine E_3 structure beyond pairwise factorization.
 4. **Sp_4(Z) modularity**: E_3 S-matrix -> Siegel modular forms -> Phi_10. Fourier-Jacobi = E_2->E_3 restriction proved. Full pipeline open. Mathieu moonshine connection: frame shape = twined bar Euler for all 25 M_24 conjugacy classes.
 5. **Root-of-unity CY quantum groups**: Kazhdan-Lusztig at root of unity for CY categories. Modular tensor categories from Phi. CY-C remains conjectural but abelian K3 case now fully specified: C(g,q) = D(Y^+(g_{K3})), Rep = Rep^{E_2}(Y) via BZFN, R-matrix = MO. Root-of-unity N=2: 324 modules, abelian S-matrix degenerate (non-abelian needed for modularity). Chiral volume conjecture FORMULATED (Abel-Jacobi period).
@@ -643,7 +643,7 @@ Compute engines (~460 total, ~34,000 tests). Full catalogue -> `compute/ENGINES.
 22. Mathieu moonshine: frame shape = twined bar Euler for all 25 M_24 classes.
 23. Root-of-unity N=2: 324 modules, abelian S-matrix degenerate.
 24. E_8 x E_8: structure function degree-(24,24), c = 8+8+8 = 24.
-25. BKM Serre P_2 = 0 EXACT: no higher corrections to imaginary root Serre relations.
+25. BKM Serre P_2(D)=0 conjecturally exact (AP40-corrected 2026-04-17): leading-order $P_1(D) = -2D$ proved; higher-order vanishing tagged \begin{conjecture} (engine bkm_serre_higher_order.py self-declares CONJECTURAL). Independent verification at order ε² outstanding.
 26. m_5 independently verified: G_5^{conn} = 775/5184 from 5-point Wick contraction.
 27. Chiral volume conjecture FORMULATED (Abel-Jacobi period).
 
