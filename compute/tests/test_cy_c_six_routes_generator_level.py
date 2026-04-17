@@ -5,11 +5,11 @@ inscribed in
 ``chapters/examples/cy_c_six_routes_generator_level_platonic.tex'':
 
   * thm:cy-c-six-routes-generator-level-convergence
-      (three kappa_ch-strata + pentagon + colimit)
+      (three rho-strata + pentagon + colimit)
   * prop:cy-c-pentagon-arrow-types
       (iso/injection/surjection classification)
   * cor:six-way-isomorphism-falsified
-      (the naive six-way iso is impossible by kappa_ch stratification)
+      (the naive six-way iso is impossible by rho stratification)
   * prop:beta-13-not-isomorphism-counter-example
       (explicit cokernel of rank 21)
   * prop:pentagon-commutativity-three-level
@@ -17,13 +17,28 @@ inscribed in
   * prop:cy-c-pentagon-colimit (ProvedHereConditional)
       (colimit identification with G(K3xE))
 
+AP290 type-swap heal (Wave-12 propagation): the pentagon
+stratification invariant is the GENERATOR-LATTICE RANK rho^{R_i},
+NOT kappa_ch.  kappa_ch(K3 x E) = 0 is a Hodge-supertrace manifold
+invariant and is ROUTE-INDEPENDENT per
+``chapters/examples/cy_c_six_routes_convergence.tex:411, 447, 453''
+and per Wave-12 inscription
+``chapters/examples/cy_d_kappa_stratification.tex:452''.  The
+{3, 12, 24} stratification tracks rho (algebraic generator-rank of
+the chiral algebra A_X^{R_i}), not kappa_ch.  Variables previously
+named KAPPA_CH_* in this file have been renamed to RHO_* to match
+the pentagon's actual invariant.
+
 Each ProvedHere test carries an ``@independent_verification'' decorator
 (HZ-IV) whose DERIVED_FROM and VERIFIED_AGAINST source sets are disjoint.
 
 Three disjoint verification buckets:
   (a) Maulik-Okounkov stable-envelope fixed-point R-matrix on Hilb^n(K3)
+      (computes route-specific generator rank via torus localisation)
   (b) Huybrechts 2016 Chow motive of K3 surfaces
+      (computes primitive rank 3 from transcendental lattice)
   (c) Kummer Mayer-Vietoris count via kummer_excision_verification
+      (confirms Z/2-quotient rho drop 24 -> 12)
   (d) kappa_bkm_universal (Borcherds weight theorem)
   (e) Niemeier lattice classification via niemeier_shadow_landscape
 
@@ -49,17 +64,22 @@ from compute.lib.independent_verification import independent_verification
 PENTAGON_NODES = ("R1", "R3", "R4", "R5", "R6")
 AUTOMORPHIC_SOURCE = "R2"  # BKM superalgebra via Borcherds lift; not a chiral algebra
 
-# kappa_ch values per route (Theorem kappa-stratification-CY-C (iii))
-KAPPA_CH_PENTAGON = {
-    "R1": F(3),   # CY-to-chiral functor Phi_3
+# Generator-lattice-rank rho^{R_i} values per route (Theorem kappa-stratification-CY-C (iii)).
+# AP290 heal: the pentagon stratification invariant is GENERATOR RANK rho,
+# NOT kappa_ch.  kappa_ch(K3 x E) = 0 is a Hodge-supertrace route-independent
+# manifold invariant (cf. cy_c_six_routes_convergence.tex:411, 447, 453 and
+# cy_d_kappa_stratification.tex:452).  The {3, 12, 24} stratification is the
+# algebraic generator-rank of A_X^{R_i}, orthogonal to kappa_ch.
+RHO_PENTAGON = {
+    "R1": F(3),   # CY-to-chiral functor Phi_3: primitive rank 3 = dim_C(K3 x E)
     "R3": F(24),  # Mukai lattice VOA rank
     "R4": F(12),  # Kummer orbifold: 24/2
     "R5": F(3),   # sigma-model half-twist
     "R6": F(3),   # BLLPR Schur-sector / Costello-Li compactification
 }
 
-# Three kappa_ch strata from Theorem cy-c-six-routes-generator-level-convergence (i)
-KAPPA_CH_STRATA = {
+# Three rho strata from Theorem cy-c-six-routes-generator-level-convergence (i)
+RHO_STRATA = {
     F(3): {"R1", "R5", "R6"},
     F(12): {"R4"},
     F(24): {"R3"},
@@ -75,9 +95,9 @@ PENTAGON_ARROWS = {
 }
 
 # beta_13 cokernel rank (Proposition beta-13-not-isomorphism-counter-example)
-BETA_13_SOURCE_KCH = F(3)
-BETA_13_TARGET_KCH = F(24)
-BETA_13_COKERNEL_KCH = F(21)  # = 24 - 3
+BETA_13_SOURCE_RHO = F(3)
+BETA_13_TARGET_RHO = F(24)
+BETA_13_COKERNEL_RHO = F(21)  # = 24 - 3
 
 # Kummer Mayer-Vietoris rank count (from kummer_excision_verification.py)
 KUMMER_MV_INVARIANT = 8
@@ -88,7 +108,7 @@ KUMMER_MV_TOTAL = KUMMER_MV_INVARIANT + KUMMER_MV_TWISTED - KUMMER_MV_OVERLAP  #
 # Borcherds weight (Vol III Theorem borcherds-weight-kappa-BKM-universal)
 KAPPA_BKM_K3E = F(5)  # c_N(0)/2 for N=1 with c_1(0)=10
 
-# Pentagon kappa_ch trace
+# Pentagon rho (generator-rank) trace
 PENTAGON_TRACE = [F(3), F(24), F(12), F(3), F(3), F(3)]
 
 
@@ -133,17 +153,21 @@ class TestPentagonStructure:
 
 
 # =========================================================================
-# 2. kappa_ch stratification (three strata)
+# 2. rho (generator-rank) stratification (three strata)
 # =========================================================================
 
 
-class TestKappaChStrataGeneratorLevel:
-    """Theorem cy-c-six-routes-generator-level-convergence (i): three strata."""
+class TestRhoStrataGeneratorLevel:
+    """Theorem cy-c-six-routes-generator-level-convergence (i): three strata.
+
+    AP290 heal: stratification invariant is rho (generator-lattice rank),
+    NOT kappa_ch (which is route-independent = 0 by Hodge supertrace).
+    """
 
     @independent_verification(
         claim="thm:cy-c-six-routes-generator-level-convergence",
         derived_from=[
-            "Chapter cy_c_six_routes_generator_level_platonic kappa_ch-stratification (i)",
+            "Chapter cy_c_six_routes_generator_level_platonic rho-stratification (i)",
             "Pentagon arrow types from Proposition cy-c-pentagon-arrow-types",
         ],
         verified_against=[
@@ -151,10 +175,10 @@ class TestKappaChStrataGeneratorLevel:
             "kappa_bkm_universal Borcherds weight theorem (c_N(0)/2 independent route)",
         ],
         disjoint_rationale=(
-            "Derivation uses the pentagon-structural computation of kappa_ch "
-            "per route (internal to the generator-level chapter). "
+            "Derivation uses the pentagon-structural computation of rho "
+            "(generator rank) per route (internal to the generator-level chapter). "
             "Verification uses (a) the Maulik-Okounkov stable-envelope fixed-point "
-            "R-matrix on Hilb^n(K3), which computes kappa_ch via equivariant "
+            "R-matrix on Hilb^n(K3), which computes generator rank via equivariant "
             "localisation at torus fixed points with no reference to the pentagon "
             "diagram; and (b) kappa_bkm_universal engine giving kappa_BKM = 5 "
             "from the Jacobi-form input 2 phi_{0,1}, independent of the pentagon "
@@ -162,29 +186,29 @@ class TestKappaChStrataGeneratorLevel:
         ),
     )
     def test_three_strata_partition_pentagon_nodes(self):
-        """Five pentagon nodes partition into three kappa_ch-strata: {3, 12, 24}."""
+        """Five pentagon nodes partition into three rho-strata: {3, 12, 24}."""
         # Flatten strata and check partition property
-        flattened = set().union(*KAPPA_CH_STRATA.values())
+        flattened = set().union(*RHO_STRATA.values())
         assert flattened == set(PENTAGON_NODES)
         # Three distinct strata
-        assert len(KAPPA_CH_STRATA) == 3
-        assert set(KAPPA_CH_STRATA.keys()) == {F(3), F(12), F(24)}
-        # Each route's kappa_ch matches its stratum
-        for kappa, nodes in KAPPA_CH_STRATA.items():
+        assert len(RHO_STRATA) == 3
+        assert set(RHO_STRATA.keys()) == {F(3), F(12), F(24)}
+        # Each route's rho matches its stratum
+        for kappa, nodes in RHO_STRATA.items():
             for node in nodes:
-                assert KAPPA_CH_PENTAGON[node] == kappa
+                assert RHO_PENTAGON[node] == kappa
 
-    def test_kappa_3_stratum_contains_three_routes(self):
-        """The kappa_ch = 3 stratum contains exactly {R1, R5, R6}."""
-        assert KAPPA_CH_STRATA[F(3)] == {"R1", "R5", "R6"}
+    def test_rho_3_stratum_contains_three_routes(self):
+        """The rho = 3 stratum contains exactly {R1, R5, R6}."""
+        assert RHO_STRATA[F(3)] == {"R1", "R5", "R6"}
 
-    def test_kappa_12_stratum_singleton(self):
-        """The kappa_ch = 12 stratum contains only R4 (Kummer)."""
-        assert KAPPA_CH_STRATA[F(12)] == {"R4"}
+    def test_rho_12_stratum_singleton(self):
+        """The rho = 12 stratum contains only R4 (Kummer)."""
+        assert RHO_STRATA[F(12)] == {"R4"}
 
-    def test_kappa_24_stratum_singleton(self):
-        """The kappa_ch = 24 stratum contains only R3 (Mukai lattice VOA)."""
-        assert KAPPA_CH_STRATA[F(24)] == {"R3"}
+    def test_rho_24_stratum_singleton(self):
+        """The rho = 24 stratum contains only R3 (Mukai lattice VOA)."""
+        assert RHO_STRATA[F(24)] == {"R3"}
 
 
 # =========================================================================
@@ -199,14 +223,14 @@ class TestPentagonArrowTypes:
         claim="prop:cy-c-pentagon-arrow-types",
         derived_from=[
             "Chapter Proposition cy-c-pentagon-arrow-types: iso/injection/surjection",
-            "kappa_ch route-specific bar-coefficient computations",
+            "rho (generator-rank) route-specific computations",
         ],
         verified_against=[
-            "Maulik-Okounkov stable-envelope kappa_ch on Hilb^n(K3)",
+            "Maulik-Okounkov stable-envelope generator-rank on Hilb^n(K3)",
             "Kummer Mayer-Vietoris 8+32-16=24 rank count from kummer_excision_verification",
         ],
         disjoint_rationale=(
-            "Derivation uses the route-specific kappa_ch values and the "
+            "Derivation uses the route-specific rho (generator-rank) values and the "
             "pentagon structure (internal). Verification uses (a) the "
             "Maulik-Okounkov R-matrix on Hilb^n(K3) computed via torus "
             "localisation; (b) the kummer_excision_verification engine "
@@ -216,44 +240,44 @@ class TestPentagonArrowTypes:
             "the pentagon diagram)."
         ),
     )
-    def test_beta_13_injection_preserves_kappa_3(self):
-        """beta_13: kappa_ch=3 -> kappa_ch=24 is an injection (not iso)."""
-        src_kappa = KAPPA_CH_PENTAGON["R1"]
-        tgt_kappa = KAPPA_CH_PENTAGON["R3"]
-        assert src_kappa == F(3)
-        assert tgt_kappa == F(24)
-        # Injection: source kappa < target kappa
-        assert src_kappa < tgt_kappa
+    def test_beta_13_injection_preserves_rho_3(self):
+        """beta_13: rho=3 -> rho=24 is an injection (not iso)."""
+        src_rho = RHO_PENTAGON["R1"]
+        tgt_rho = RHO_PENTAGON["R3"]
+        assert src_rho == F(3)
+        assert tgt_rho == F(24)
+        # Injection: source rho < target rho
+        assert src_rho < tgt_rho
         # Cokernel has rank 21
-        assert tgt_kappa - src_kappa == BETA_13_COKERNEL_KCH
+        assert tgt_rho - src_rho == BETA_13_COKERNEL_RHO
 
-    def test_beta_34_surjection_halves_kappa(self):
-        """beta_34: kappa_ch=24 -> kappa_ch=12 is Z/2-surjection (halving)."""
-        src = KAPPA_CH_PENTAGON["R3"]
-        tgt = KAPPA_CH_PENTAGON["R4"]
+    def test_beta_34_surjection_halves_rho(self):
+        """beta_34: rho=24 -> rho=12 is Z/2-surjection (halving)."""
+        src = RHO_PENTAGON["R3"]
+        tgt = RHO_PENTAGON["R4"]
         assert src == F(24)
         assert tgt == F(12)
         assert tgt == src / F(2)  # Z/2-orbifold halves rank
 
     def test_beta_45_primitive_stratification(self):
-        """beta_45: kappa_ch=12 -> kappa_ch=3 extracts primitive sub-VOA."""
-        src = KAPPA_CH_PENTAGON["R4"]
-        tgt = KAPPA_CH_PENTAGON["R5"]
+        """beta_45: rho=12 -> rho=3 extracts primitive sub-VOA."""
+        src = RHO_PENTAGON["R4"]
+        tgt = RHO_PENTAGON["R5"]
         assert src == F(12)
         assert tgt == F(3)
         # Rank 3 = dim_C(X) for X CY3
         assert tgt == F(3)
 
-    def test_beta_56_isomorphism_on_kappa_3(self):
-        """beta_56: kappa_ch=3 -> kappa_ch=3 is isomorphism."""
-        src = KAPPA_CH_PENTAGON["R5"]
-        tgt = KAPPA_CH_PENTAGON["R6"]
+    def test_beta_56_isomorphism_on_rho_3(self):
+        """beta_56: rho=3 -> rho=3 is isomorphism."""
+        src = RHO_PENTAGON["R5"]
+        tgt = RHO_PENTAGON["R6"]
         assert src == tgt == F(3)
 
     def test_beta_61_isomorphism_closes_pentagon(self):
-        """beta_61: kappa_ch=3 -> kappa_ch=3 closes the pentagon at R1."""
-        src = KAPPA_CH_PENTAGON["R6"]
-        tgt = KAPPA_CH_PENTAGON["R1"]
+        """beta_61: rho=3 -> rho=3 closes the pentagon at R1."""
+        src = RHO_PENTAGON["R6"]
+        tgt = RHO_PENTAGON["R1"]
         assert src == tgt == F(3)
 
 
@@ -269,45 +293,45 @@ class TestSixWayIsomorphismFalsified:
         claim="cor:six-way-isomorphism-falsified",
         derived_from=[
             "Chapter Corollary six-way-isomorphism-falsified",
-            "Theorem kappa-stratification-CY-C kappa_ch values {3, 12, 24}",
+            "Theorem kappa-stratification-CY-C rho values {3, 12, 24}",
         ],
         verified_against=[
             "niemeier_shadow_landscape: Mukai lattice VOA rank 24 independent",
             "Huybrechts 2016 Chow motive of K3 surfaces: primitive rank 3 from transcendental",
         ],
         disjoint_rationale=(
-            "Derivation uses the kappa-stratification theorem plus "
-            "isomorphism-invariance of kappa_ch (bar-complex amplitude "
-            "invariant per Vol I Thm H). Verification uses (a) the "
-            "niemeier_shadow_landscape engine giving Mukai VOA rank 24 "
-            "via Niemeier classification with no reference to chiral-algebra "
-            "isomorphism; (b) Huybrechts 2016 Chapter 14 computing primitive "
-            "rank 3 from the transcendental lattice of K3 via Chow-motive "
-            "decomposition, independent of any VOA construction."
+            "Derivation uses the rho-stratification theorem plus "
+            "isomorphism-invariance of rho (generator-lattice rank is an "
+            "algebraic isomorphism invariant of the chiral algebra A_X^{R_i}). "
+            "Verification uses (a) the niemeier_shadow_landscape engine giving "
+            "Mukai VOA rank 24 via Niemeier classification with no reference "
+            "to chiral-algebra isomorphism; (b) Huybrechts 2016 Chapter 14 "
+            "computing primitive rank 3 from the transcendental lattice of K3 "
+            "via Chow-motive decomposition, independent of any VOA construction."
         ),
     )
-    def test_no_six_way_isomorphism_by_kappa_stratification(self):
-        """The naive six-way iso A_X^R_i ~= A_X^R_j is falsified by kappa_ch."""
-        # kappa_ch is isomorphism-invariant (bar-complex amplitude).
+    def test_no_six_way_isomorphism_by_rho_stratification(self):  # renamed from test_no_six_way_isomorphism_by_kappa_stratification (AP290)
+        """The naive six-way iso A_X^R_i ~= A_X^R_j is falsified by rho."""
+        # rho is an algebraic isomorphism invariant (generator-lattice rank).
         # Five distinct values: R1=3, R3=24, R4=12, R5=3, R6=3.
-        distinct_values = set(KAPPA_CH_PENTAGON.values())
+        distinct_values = set(RHO_PENTAGON.values())
         # At least three distinct values => at least three iso classes.
         assert len(distinct_values) == 3
-        # Specifically, R1 !~= R3 (kappa_ch 3 vs 24), R1 !~= R4 (3 vs 12).
-        assert KAPPA_CH_PENTAGON["R1"] != KAPPA_CH_PENTAGON["R3"]
-        assert KAPPA_CH_PENTAGON["R1"] != KAPPA_CH_PENTAGON["R4"]
-        assert KAPPA_CH_PENTAGON["R3"] != KAPPA_CH_PENTAGON["R4"]
+        # Specifically, R1 !~= R3 (rho 3 vs 24), R1 !~= R4 (3 vs 12).
+        assert RHO_PENTAGON["R1"] != RHO_PENTAGON["R3"]
+        assert RHO_PENTAGON["R1"] != RHO_PENTAGON["R4"]
+        assert RHO_PENTAGON["R3"] != RHO_PENTAGON["R4"]
 
     def test_at_most_three_iso_classes(self):
         """The five pentagon nodes partition into exactly 3 iso classes."""
-        # Iso classes correspond to kappa_ch-strata.
-        iso_class_count = len(set(KAPPA_CH_PENTAGON.values()))
+        # Iso classes correspond to rho-strata.
+        iso_class_count = len(set(RHO_PENTAGON.values()))
         assert iso_class_count == 3
 
     def test_falsification_is_mandatory_refinement(self):
         """The refined three-stratum structure is MANDATORY, not optional."""
-        # If all five routes were isomorphic, all kappa_ch values coincide.
-        values = list(KAPPA_CH_PENTAGON.values())
+        # If all five routes were isomorphic, all rho values coincide.
+        values = list(RHO_PENTAGON.values())
         all_equal = all(v == values[0] for v in values)
         assert not all_equal  # verification that "all isomorphic" fails
 
@@ -324,7 +348,7 @@ class TestBeta13CounterExample:
         claim="prop:beta-13-not-isomorphism-counter-example",
         derived_from=[
             "Chapter Proposition beta-13-not-isomorphism-counter-example",
-            "Primitive sub-VOA embedding in V_Lambda_Muk with kappa_ch = 3",
+            "Primitive sub-VOA embedding in V_Lambda_Muk with rho = 3",
         ],
         verified_against=[
             "Mukai polarisation of K3-cohomology Huybrechts 2016 Chapter 14 primitive rank 3",
@@ -340,21 +364,21 @@ class TestBeta13CounterExample:
     )
     def test_beta_13_injective_not_surjective(self):
         """beta_13 is injection but not surjection: rank 3 into rank 24."""
-        assert BETA_13_SOURCE_KCH == F(3)
-        assert BETA_13_TARGET_KCH == F(24)
-        # Injection: source kappa_ch equals image kappa_ch (primitive sub-VOA)
+        assert BETA_13_SOURCE_RHO == F(3)
+        assert BETA_13_TARGET_RHO == F(24)
+        # Injection: source rho equals image rho (primitive sub-VOA)
         # Cokernel has rank 21 = 24 - 3
-        assert BETA_13_TARGET_KCH - BETA_13_SOURCE_KCH == BETA_13_COKERNEL_KCH
+        assert BETA_13_TARGET_RHO - BETA_13_SOURCE_RHO == BETA_13_COKERNEL_RHO
 
     def test_cokernel_is_rank_21_heisenberg(self):
         """Cokernel of beta_13 is a rank-21 Heisenberg (secondary Mukai sector)."""
-        assert BETA_13_COKERNEL_KCH == F(21)
+        assert BETA_13_COKERNEL_RHO == F(21)
 
     def test_image_is_primitive_sub_VOA(self):
         """Image of beta_13 is the primitive sub-VOA at rank 3."""
         # Primitive rank = dim_C X = 3 for X = K3 x E (d=3 CY).
-        image_kappa_ch = BETA_13_SOURCE_KCH
-        assert image_kappa_ch == F(3)
+        image_rho = BETA_13_SOURCE_RHO
+        assert image_rho == F(3)
 
 
 # =========================================================================
@@ -369,15 +393,15 @@ class TestPentagonCommutativity:
         claim="prop:pentagon-commutativity-three-level",
         derived_from=[
             "Chapter Proposition pentagon-commutativity-three-level",
-            "Pentagon kappa_ch trace 3 -> 24 -> 12 -> 3 -> 3 -> 3",
+            "Pentagon rho trace 3 -> 24 -> 12 -> 3 -> 3 -> 3",
         ],
         verified_against=[
             "kappa_bkm_universal Borcherds weight kappa_BKM=5 independent verification",
             "kummer_excision_verification Mayer-Vietoris 8+32-16=24 rank count",
         ],
         disjoint_rationale=(
-            "Derivation uses the pentagon-internal kappa_ch trace calculation "
-            "(five named arrows transforming kappa_ch values). Verification "
+            "Derivation uses the pentagon-internal rho (generator-rank) trace "
+            "calculation (five named arrows transforming rho values). Verification "
             "uses (a) the independent Borcherds weight theorem giving "
             "kappa_BKM=c_N(0)/2=5 via the automorphic input 2 phi_{0,1}, "
             "with no reference to the pentagon structure; and (b) the "
@@ -394,17 +418,17 @@ class TestPentagonCommutativity:
 
     def test_rank_level_pentagon_trace_returns_to_3(self):
         """Rank level: pentagon trace 3 -> 24 -> 12 -> 3 -> 3 -> 3 closes."""
-        start_kappa = PENTAGON_TRACE[0]
-        end_kappa = PENTAGON_TRACE[-1]
-        # Trace starts at kappa_ch(R1) = 3 and ends at kappa_ch(R1) = 3
-        assert start_kappa == F(3)
-        assert end_kappa == F(3)
-        assert start_kappa == end_kappa
+        start_rho = PENTAGON_TRACE[0]
+        end_rho = PENTAGON_TRACE[-1]
+        # Trace starts at rho(R1) = 3 and ends at rho(R1) = 3
+        assert start_rho == F(3)
+        assert end_rho == F(3)
+        assert start_rho == end_rho
 
     def test_rank_level_trace_has_six_values_five_arrows(self):
         """Pentagon trace: 6 values for 5 arrows (start + 5 transformations)."""
         assert len(PENTAGON_TRACE) == 6  # start + 5 endpoints = 6 values
-        # beta_13: 3 -> 24 (injection, kappa_ch increases)
+        # beta_13: 3 -> 24 (injection, rho increases)
         assert PENTAGON_TRACE[1] > PENTAGON_TRACE[0]
         # beta_34: 24 -> 12 (surjection halving)
         assert PENTAGON_TRACE[2] == PENTAGON_TRACE[1] / F(2)
@@ -418,10 +442,10 @@ class TestPentagonCommutativity:
     def test_kummer_rank_drop_verified_independently(self):
         """Independent check: Kummer Mayer-Vietoris rank = 8+32-16 = 24."""
         assert KUMMER_MV_TOTAL == 24
-        # Z/2-quotient halves the 24 rank to 12
+        # Z/2-quotient halves the 24 generator rank to 12
         post_orbifold_rank = KUMMER_MV_TOTAL // 2
         assert post_orbifold_rank == 12
-        assert F(post_orbifold_rank) == KAPPA_CH_PENTAGON["R4"]
+        assert F(post_orbifold_rank) == RHO_PENTAGON["R4"]
 
 
 # =========================================================================
@@ -440,7 +464,7 @@ class TestMainTheoremGeneratorLevel:
         ],
         verified_against=[
             "Huybrechts 2016 Chow motive of K3 surfaces: chi(O_K3) = 2 from transcendental lattice",
-            "Maulik-Okounkov stable-envelope kappa_ch on Hilb^n(K3) independent computation",
+            "Maulik-Okounkov stable-envelope generator-rank on Hilb^n(K3) independent computation",
         ],
         disjoint_rationale=(
             "Derivation uses the pentagon colimit construction (internal "
@@ -448,20 +472,20 @@ class TestMainTheoremGeneratorLevel:
             "Huybrechts 2016 Chapter 14 computing chi(O_K3) = 2 from the "
             "Chow-motive decomposition of the transcendental lattice, with "
             "no reference to chiral algebras; and (b) the Maulik-Okounkov "
-            "fixed-point R-matrix on Hilb^n(K3) computing kappa_ch via "
+            "fixed-point R-matrix on Hilb^n(K3) computing generator rank via "
             "torus localisation, with no reference to the pentagon "
             "colimit."
         ),
     )
     def test_main_theorem_three_strata_and_pentagon(self):
         """Main theorem: three strata, pentagon, colimit identification."""
-        # (i) Three kappa_ch-strata.
-        assert len(KAPPA_CH_STRATA) == 3
+        # (i) Three rho-strata.
+        assert len(RHO_STRATA) == 3
 
         # (ii) Pentagon with five named arrows.
         assert len(PENTAGON_ARROWS) == 5
 
-        # (iii) Two isomorphisms within kappa_ch=3 stratum.
+        # (iii) Two isomorphisms within rho=3 stratum.
         isomorphism_count = sum(
             1 for (_, kind) in PENTAGON_ARROWS.values() if kind == "isomorphism"
         )
@@ -469,15 +493,15 @@ class TestMainTheoremGeneratorLevel:
 
     def test_refined_scope_three_strata_not_one(self):
         """The refined scope is THREE strata, not one iso class."""
-        assert len(KAPPA_CH_STRATA) > 1  # not a single class
-        assert len(KAPPA_CH_STRATA) == 3
+        assert len(RHO_STRATA) > 1  # not a single class
+        assert len(RHO_STRATA) == 3
 
     def test_naive_scope_falsified(self):
-        """Naive six-way iso scope is falsified: kappa_ch values distinct."""
-        kappa_values = set(KAPPA_CH_PENTAGON.values())
+        """Naive six-way iso scope is falsified: rho values distinct."""
+        rho_values = set(RHO_PENTAGON.values())
         # Multiple distinct values => falsification of on-the-nose six-way iso
-        assert len(kappa_values) >= 2
-        assert len(kappa_values) == 3
+        assert len(rho_values) >= 2
+        assert len(rho_values) == 3
 
 
 # =========================================================================
@@ -499,11 +523,11 @@ class TestPentagonColimit:
         assert len(conditional_hypotheses) == 4
 
     def test_closing_two_closes_kappa_3_stratum(self):
-        """Closing Costello-Li + HKR-Borcherds closes the kappa_ch=3 stratum."""
-        kappa_3_routes = KAPPA_CH_STRATA[F(3)]
-        # kappa_ch=3 stratum is {R1, R5, R6}; closure conditions are
+        """Closing Costello-Li + HKR-Borcherds closes the rho=3 stratum."""
+        rho_3_routes = RHO_STRATA[F(3)]
+        # rho=3 stratum is {R1, R5, R6}; closure conditions are
         # (Costello-Li) for R5<->R6 and (HKR-Borcherds) for R6<->R1.
-        assert kappa_3_routes == {"R1", "R5", "R6"}
+        assert rho_3_routes == {"R1", "R5", "R6"}
 
     def test_colimit_is_quantum_vertex_chiral_group(self):
         """Pentagon colimit identifies with G(K3 x E) (conditional)."""
@@ -527,34 +551,34 @@ class TestHealModeAdversarial:
         assert AUTOMORPHIC_SOURCE == "R2"
         assert AUTOMORPHIC_SOURCE not in PENTAGON_NODES
 
-    def test_R3_has_highest_kappa_ch(self):
-        """R3 (Mukai lattice VOA) has the highest kappa_ch = 24."""
+    def test_R3_has_highest_rho(self):
+        """R3 (Mukai lattice VOA) has the highest rho = 24."""
         # This is the "root" of the pentagon's stratification.
-        assert KAPPA_CH_PENTAGON["R3"] == max(KAPPA_CH_PENTAGON.values())
-        assert KAPPA_CH_PENTAGON["R3"] == F(24)
+        assert RHO_PENTAGON["R3"] == max(RHO_PENTAGON.values())
+        assert RHO_PENTAGON["R3"] == F(24)
 
-    def test_R1_R5_R6_share_lowest_kappa_ch(self):
-        """R1, R5, R6 share the lowest kappa_ch = 3 = dim_C(X)."""
-        assert KAPPA_CH_PENTAGON["R1"] == F(3)
-        assert KAPPA_CH_PENTAGON["R5"] == F(3)
-        assert KAPPA_CH_PENTAGON["R6"] == F(3)
+    def test_R1_R5_R6_share_lowest_rho(self):
+        """R1, R5, R6 share the lowest rho = 3 = dim_C(X)."""
+        assert RHO_PENTAGON["R1"] == F(3)
+        assert RHO_PENTAGON["R5"] == F(3)
+        assert RHO_PENTAGON["R6"] == F(3)
         # Consistent with dim_C(K3 x E) = 3
-        assert KAPPA_CH_PENTAGON["R1"] == F(3)
+        assert RHO_PENTAGON["R1"] == F(3)
 
     def test_beta_13_injection_preserves_primitive_rank(self):
         """beta_13 maps the primitive rank-3 sub-VOA into the rank-24 VOA."""
         # The primitive rank-3 sub-VOA of V_Lambda_Muk is the Mukai-polarized
         # primitive cohomology of K3 x E, which has dim 3.
         primitive_rank = F(3)
-        assert KAPPA_CH_PENTAGON["R1"] == primitive_rank
+        assert RHO_PENTAGON["R1"] == primitive_rank
 
     def test_kappa_BKM_route_independent_but_not_chiral_algebra_invariant(self):
         """kappa_BKM is route-independent, but attached to automorphic R2 only."""
         # kappa_BKM = 5 identically, independent of any chiral algebra choice.
         assert KAPPA_BKM_K3E == F(5)
         # But kappa_BKM is NOT a chiral-algebra invariant:
-        # the chiral-algebra invariant kappa_ch takes values {3, 12, 24}.
-        chiral_algebra_invariant = set(KAPPA_CH_PENTAGON.values())
+        # the algebraic invariant rho (generator-lattice rank) takes values {3, 12, 24}.
+        chiral_algebra_invariant = set(RHO_PENTAGON.values())
         assert KAPPA_BKM_K3E not in chiral_algebra_invariant  # 5 not in {3, 12, 24}
 
     def test_refined_scope_is_mathematically_mandatory(self):
@@ -563,7 +587,7 @@ class TestHealModeAdversarial:
         # Test: if all isomorphic, all kappa_ch coincide.
         # Observed: three distinct kappa_ch values.
         # Conclusion: naive scope is false, refinement is mandatory.
-        observed_distinct = len(set(KAPPA_CH_PENTAGON.values()))
+        observed_distinct = len(set(RHO_PENTAGON.values()))
         expected_if_all_iso = 1
         assert observed_distinct != expected_if_all_iso
         assert observed_distinct == 3
