@@ -1521,6 +1521,44 @@ The topological component of the CY-A$_3$ obstruction vanishes universally (Theo
 \noindent\textit{Verification}: 124 tests in \texttt{cy\_to\_chiral\_functor.py}; 93 tests in \texttt{drinfeld\_center\_yangian.py}.
 \end{corollary}
 
+\begin{remark}[$\Phi_3$ on quintic and local~$\bP^2$; Borcherds admissibility]
+\label{rem:phi3-quintic-local-p2}
+Theorem~\textup{\ref{thm:cy-to-chiral-d3}} establishes existence of the
+CY-to-chiral functor $\Phi_3$ universally in the $\infty$-categorical
+sense (AP-CY11, AP-CY14); the two representative toric / hypersurface
+targets admit explicit descriptions of the $\Eone$-chiral output, which
+we record here together with the Borcherds-lift substitution protocol.
+
+\emph{(a) What is right.} $\Phi_3$ exists universally on smooth proper
+$\CY_3$ categories. For the quintic threefold $X_5 \subset \bP^4$,
+$\Phi_3(X_5) = \mathrm{CoHA}(\cC_{\text{quintic}})$ is the quiver CoHA of
+local dimension vectors on the total space of the $(-5)$ line bundle
+over~$\bP^4$ (critical CoHA in the sense of
+Kontsevich--Soibelman--Davison). For local~$\bP^2$,
+$\Phi_3(\mathrm{local}\,\bP^2) = \mathrm{CoHA}(\mathrm{Hilb}^{\bullet}(\mathrm{local}\,\bP^2))$
+is the nested Hilbert scheme CoHA (Nakajima).
+
+\emph{(b) What is wrong.} Assuming the Borcherds lift substitutes for
+$\Phi_3$ universally. Borcherds admissibility requires the Mukai lattice
+to be even unimodular with Lorentzian signature. The quintic has Mukai
+rank $244$ (not even unimodular); local~$\bP^2$ has Mukai rank $3$ (not
+even unimodular). Neither admits a Borcherds lift. AP-CY8 sharpened:
+Borcherds lift $\neq \Phi_3$ universally; the two agree only on
+K3-fibered $\CY_3$ where the fiberwise Mukai lattice $\Lambda_{K3}$ is
+even unimodular of signature $(4, 20)$.
+
+\emph{(c) What is correct: BCOV substitute.} For non-K3-fibered $\CY_3$
+the Borcherds slot is replaced by the BCOV partition function
+$Z_{\BCOV}(X; \bar{t}, t)$, which is an $\Eone$-chiral representation of
+$\Phi_3(X)$ on the Hilbert space of Kodaira--Spencer deformations. For
+the quintic this reproduces the BCOV holomorphic anomaly tower; for
+local~$\bP^2$ it reduces to the G\"ottsche generating function
+$\prod_{n \geq 1}(1 - q^n)^{-\chi(\mathrm{local}\,\bP^2)}$ on the
+Hilbert-scheme side. The $\Eone$-chiral representation structure
+intertwines BCOV propagators with the Yangian spectral coproduct
+$\Delta_z$ via the Kodaira--Spencer Maurer--Cartan element.
+\end{remark}
+
 
 \subsection{The \v{C}ech contracting homotopy for compact CY$_3$}
 \label{subsec:cech-contracting-homotopy}
@@ -2457,6 +2495,22 @@ The four pillars of Theorem~\textup{\ref{thm:e1-universality-cy3}} decompose as 
  \item Pillar~(d) \textup{(}$R$-matrix unitarity\textup{)}: specific to toric CY$_3$ with explicit equivariant parameters. The structure function $g(z)$ requires the torus action. Does not categorify in its current form.
 \end{itemize}
 The categorical content of the four pillars is precisely the $\Etwo$-obstruction of Proposition~\textup{\ref{prop:e1-obstruction-categorical}}: Serre duality forces antisymmetry of the Euler form, which obstructs the promotion. The \emph{construction} of the $\Eone$ structure for non-toric CY$_3$ remains the content of Theorem~\textup{\ref{thm:cy-to-chiral-d3}}.
+\end{remark}
+
+
+\begin{remark}[K-theoretic vs cohomological Hall: a refinement of $\Phi_3$]
+\label{rem:kha-vs-coha-bridge}
+The $d = 3$ functor chain of Section~\ref{sec:d3-functor-chain} lands on the \emph{cohomological} side: $\CoHA(\cC) := H^\bullet_{G \times T}(\cM^W_\cC, \varphi_W \Q)$ with Kontsevich--Soibelman convolution through the Hecke stack of short exact sequences~\cite{KS2008}. For $\cC = \mathrm{MF}(\C^3, 0)$ the Schiffmann--Vasserot identification gives $\CoHA(\C^3) \simeq Y^+(\widehat{\fgl}_1)$~\cite{SV2013}, which the envelope step upgrades to $\cW_{1 + \infty}$ at $c = 1$ on the chiral side.
+
+A parallel construction replaces cohomology by equivariant $K$-theory: $\KHA(\cC) := K_{G \times T}(\cM^W_\cC)$ with $\mathrm{Tor}$-convolution through the same Hecke stack, in the sense of Kapranov--Vasserot~\cite{KV2011} and Negu\c{t}~\cite{Negut2022}. Three structural differences from $\CoHA$ are load-bearing for the programme.
+
+First, $\KHA(\C^3) \simeq U_{q,t}(\widehat{\widehat{\fgl}_1})$, the \emph{quantum toroidal} algebra, rather than the affine Yangian. The transition is exponential in spectral parameter: where $\CoHA$ sees the rational structure function $g(z) = \prod_i (z - h_i)/(z + h_i)$, $\KHA$ sees the trigonometric function $g^q(z) = \prod_i (1 - q^{h_i} z^{-1})/(1 - q^{-h_i} z^{-1})$. The programme's engine \texttt{compute/lib/e3\_ce\_quantum\_toroidal.py} implements the trigonometric structure function directly; the Koszul-dual identification $\Phi_3^K(\C^3) \simeq U_{q,t}(\widehat{\widehat{\fgl}_1})$ at degenerate parameters is the target of \texttt{conj:k3-quantum-toroidal}.
+
+Second, the relationship is controlled by the Chern character $\ch \colon \KHA \to \CoHA \otimes \Q$. This is a ring homomorphism (convolution commutes with $\ch$ by Grothendieck--Riemann--Roch on the Hecke correspondence), and it is surjective after inverting integer denominators, but it has a torsion kernel given by the $\mathrm{Tor}$-corrections invisible to rational cohomology. The $K$-theoretic refinement is therefore strictly finer: $\KHA$ detects torsion BPS invariants and quantum-group structure constants at roots of unity where $\CoHA$ collapses. Concretely, the Nekrasov partition function $Z^{\mathrm{inst}}(q, t; \epsilon_1, \epsilon_2)$ lives natively on the $\KHA$ side (equivariant $K$-theoretic DT counts); its $\CoHA$ shadow is the cohomological partition function $Z^{\mathrm{coh}}(\epsilon_1, \epsilon_2) = \lim_{q \to 1} Z^{\mathrm{inst}}$ under the standard specialization $q = e^{\hbar \epsilon}$, $t = e^{\hbar \beta}$, $\hbar \to 0$.
+
+Third, the programme's CY-to-chiral functor $\Phi_3$ as constructed in Theorem~\ref{thm:cy-to-chiral-d3} lands on the $\CoHA$ side: the factorization envelope of a $\mathrm{PV}^\bullet$-valued Lie conformal algebra produces rational (Laurent-series) OPE kernels, matching $\CoHA$'s rational structure function. A $K$-theoretic functor $\Phi_3^K$ would take values in chiral algebras over $\Z[q^{\pm 1}, t^{\pm 1}]$ with trigonometric OPE kernels (quantum vertex algebras in the Etingof--Kazhdan sense); its existence, parallelism with $\Phi_3$, and compatibility with the Chern character through the limit $q \to 1$ are conjectural (\texttt{conj:phi3-K-theoretic} in the FRONTIER ledger). The toric verification locus already tested on the cohomological side ($\C^3$, conifold, local~$\bP^2$, local~$\bP^1 \times \bP^1$, $K3 \times E$) has a parallel $\KHA$ calculation where both sides are independently known for $\C^3$, the conifold, and local $\bP^2$; gluing across charts in the $K$-theoretic setting requires a $q$-deformed hocolim whose definition is open.
+
+The distinction cures a drift latent in the programme narration. Where the prose uses ``CoHA'' loosely to mean ``Hall-algebra output of the CY-A$_3$ functor'', the intended object is the \emph{cohomological} Hall algebra, and the \emph{K-theoretic} refinement is a strictly finer parallel with its own target (quantum toroidal) distinct from the affine Yangian. The programme's Vol III $\C^3$ verification is a CoHA statement; the quantum toroidal appears in Koszul-dual position on the $\Etwo$ category ($\Rep^{\Etwo}(Y(\widehat{\fgl}_1))$), not as the direct output of $\Phi_3$. A genuinely K-theoretic CY-to-chiral functor $\Phi_3^K$ remains to be constructed; when it is, its output on $\C^3$ is expected to be the quantum toroidal chiral algebra whose classical ($q \to 1$) limit is $\cW_{1 + \infty}$.
 \end{remark}
 
 
@@ -4159,6 +4213,20 @@ The symbol~$\kappa_{\mathrm{ch}}$ appears in at least four distinct roles across
  \item $\kappa_{\mathrm{BKM}}$: the weight of the BKM automorphic form. For $K3 \times E$: $\kappa_{\mathrm{BKM}} = \mathrm{wt}(\Delta_5) = 5$.
 \end{enumerate}
 These coincide for Heisenberg ($\kappa_{\mathrm{ch}} = k$) and Virasoro ($\kappa_{\mathrm{ch}} = c/2$) but diverge for general CY$_3$. The quintic alone admits three values: $-25/3$, $-100$, $200$.
+\end{remark}
+
+
+\begin{remark}[$\Phi_3$ on the quintic and local~$\bP^2$: scope, Borcherds admissibility, BCOV/G\"ottsche substitutes]
+\label{rem:phi3-quintic-local-p2}
+The CY-A$_3$ functor $\Phi_3 \colon D^b(\Coh(X)) \to \Eone\text{-}\ChirAlg$ is proved at $\infty$-categorical level for every smooth projective CY$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}; AP-CY11, AP-CY14). The \emph{explicit} $\Eone$-chiral output is, however, manifold-dependent, and the availability of a Borcherds-type automorphic witness is restricted to K3-fibered CY$_3$ with even unimodular Mukai lattice. This remark pins down the quintic and local~$\bP^2$ cases and separates the Borcherds substitute from the BCOV / G\"ottsche substitutes.
+\begin{enumerate}[label=\textup{(\alph*)}]
+ \item \textbf{$\Phi_3$ on the quintic $Q = X_5 \subset \bP^4$.} Existence is unconditional via Theorem~\ref{thm:cy-to-chiral-d3}. An explicit $\Eone$-chiral model is obtained through the DT/CoHA route: $\Phi_3(D^b(\Coh(Q)))$ is identified with the Kontsevich--Soibelman CoHA $\cH(Q_{\mathrm{quintic}}, W_{\mathrm{quintic}})$ built from a quiver-with-potential presentation of a tilting-type generator of $D^b(\Coh(Q))$ on the derived category of local coherent sheaves along vanishing cycles (Gepner chart, Remark~\ref{rem:gepner-lv-dichotomy}; $625$ fractional branes; see \texttt{tilting\_chart\_cy3.py}). The large-volume chart has no tilting generator ($\Ext^3 \neq 0$ by Serre duality) and supplies the non-formal $\Ainf$-input $m_3 \neq 0$ (Yukawa coupling $H^3 = 5 + \mathrm{GW}$), consistent with class~$\mathbf{M}$ and $\kappa_{\mathrm{ch}}(A_Q) = -25/3$ (Proposition~\ref{prop:beauville-kappa-formula} and Theorem~\ref{thm:chi-neq-kappa}). Convergence of the \v{C}ech contracting homotopy is proved ($N=5$ patches, $d=5$, radius $\geq 1/20$; Proposition~\ref{prop:cech-htt-coefficient-convergence}).
+ \item \textbf{$\Phi_3$ on local~$\bP^2 = \Tot(K_{\bP^2} \to \bP^2)$.} Explicit: $\Phi_3(D^b(\Coh(\mathrm{local}\,\bP^2)))$ is the Schiffmann--Vasserot / RSYZ CoHA of the McKay quiver of $K_{\bP^2}$, equivalently the Nakajima cohomological Hall algebra on the nested Hilbert scheme tower of points on $\bP^2$ (cf.\ Theorem~\ref{thm:drinfeld-center-coha} and Chapter~\ref{ch:toric-coha}). Class-$\mathbf{M}$ assignment is confirmed by the full shadow tower (AP-CY12), not by generator count; the $\Eone$ universality pillars (Theorem~\ref{thm:e1-universality-cy3}) are verified.
+ \item \textbf{Borcherds admissibility is not $\Phi_3$.} A Borcherds multiplicative lift of a weak Jacobi form produces a Siegel automorphic form (e.g.\ $\Delta_5$, $\Phi_{10}$, $\Phi_{12}$) whose denominator identity carves out a generalized Kac--Moody superalgebra $\mathfrak{g}_{\mathrm{BKM}}$ \emph{iff} the target lattice is Lorentzian and even unimodular of signature compatible with the Weil representation. For a K3-fibered CY$_3$ with fiber $S$, the Mukai lattice $\Lambda_{\mathrm{Muk}}(X) \supseteq H^*(S, \Z)$ inherits even unimodularity from~$S$, and the Borcherds lift applies (Theorem~\ref{thm:borcherds-lift-universal}, $K3 \times E$: $\kappa_{\mathrm{BKM}} = 5$). For the \emph{quintic}, $H^*(Q, \Z)$ does \emph{not} carry an even unimodular Mukai structure: the relevant algebraic lattice is rank-$1$ ($H^2(Q, \Z) \cong \Z$ with $H^3 = 5$), total cohomology is supported in degrees $0, 2, 3, 4, 6$ with $\chi_{\mathrm{top}}(Q) = -200$, and no rank-$2$ Lorentzian even unimodular sublattice admitting a Jacobi input is singled out. Consequently $\kappa_{\mathrm{BKM}}(Q)$ is undefined and no Borcherds lift produces $A_Q$ (consistent with Chapter~\ref{ch:k3_chiral_algebra}, Remark, and Remark~\ref{rem:cy3-kappa-polysemy}).
+ \item \textbf{BCOV as the Borcherds substitute on compact non-K3-fibered CY$_3$.} On a compact CY$_3$ with $h^{1,0} = 0$, the BCOV partition function $Z_{\mathrm{BCOV}}(t, \bar t) = \exp\bigl(\sum_{g\geq 0} \lambda^{2g-2} F_g(t, \bar t)\bigr)$ plays the role that the Borcherds lift plays for K3-fibered CY$_3$: its holomorphic anomaly equation is the shadow-tower spectral connection (Theorem~\ref{thm:hae-mc-structural}; Proposition~\ref{prop:bcov-shadow-recursion}), and $\kappa_{\mathrm{ch}}(A_X)$ is read off from $F_1 = \kappa_{\mathrm{ch}}/24$ (Proposition~\ref{prop:beauville-kappa-formula}). For the quintic $F_1 = -25/72$, matching $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24 = -25/3$. BCOV is \emph{not} a theta lift: there is no Jacobi-form input, no automorphic output, and no denominator identity; the substitute delivers a genus-by-genus holomorphic anomaly recursion, not a BKM superalgebra.
+ \item \textbf{G\"ottsche as the Borcherds substitute on local surfaces.} For $\Tot(K_S \to S)$ with $S$ a smooth projective surface, the rank-$1$ sheaf partition function on~$S$ is the G\"ottsche generating function $\sum_{n\geq 0} \chi(\Hilb^n(S))\, q^n = \prod_{k\geq 1} (1 - q^k)^{-\chi_{\mathrm{top}}(S)}$ (at rank $1$; rank-$r$ Vafa--Witten generalisations in Chapter~\ref{ch:quantum_chiral_algebras}), whose exponent recovers $\kappa_{\mathrm{ch}}(A_{\mathrm{loc}\,S}) = \chi_{\mathrm{top}}(S)/2$ via MNOP degree-zero (conjectural branch of Proposition~\ref{prop:beauville-kappa-formula}). For local~$\bP^2$, $\chi_{\mathrm{top}}(\bP^2) = 3$, so the rank-$1$ exponent is~$3$ and the rank-$1$ VW generating function is $\prod_{k\geq 1}(1-q^k)^{-3}$. G\"ottsche delivers a partition function, not an automorphic form, and no Borcherds lift is available (Mukai rank~$3$, not even unimodular).
+\end{enumerate}
+\textbf{Protocol summary (a/b/c).}  (a) $\Phi_3(\mathrm{quintic})$, $\Phi_3(\mathrm{local}\,\bP^2)$ both have \emph{explicit} identifications — CoHA of the Gepner quiver-with-potential for the quintic, Schiffmann--Vasserot/Nakajima CoHA for local~$\bP^2$ — not merely existence narration.  (b) Borcherds admissibility is strictly narrower than CY-A$_3$: it requires even unimodular Mukai lattice of Lorentzian signature with a Jacobi-form input, which holds for K3-fibered CY$_3$ and fails for the quintic and for local~$\bP^2$.  (c) The non-K3-fibered substitute is \emph{dimension-specialised}: BCOV for compact CY$_3$ with $h^{1,0}=0$ (genus spectral sequence for~$F_g$), G\"ottsche / Vafa--Witten for local surfaces (rank-$1$ partition function with exponent $\chi_{\mathrm{top}}(S)$); neither is a theta lift.  These substitutes do not produce a BKM superalgebra and do not define $\kappa_{\mathrm{BKM}}$; they fix $\kappa_{\mathrm{ch}}$ via $F_1$ or via MNOP degree-zero respectively.  (Cross-references: AP-CY8, AP-CY11, AP-CY12, AP-CY14, AP-CY34, AP-CY37; FM160 on Monster/Borcherds orbifold route; Remark~\ref{rem:cy3-kappa-polysemy}.)
 \end{remark}
 
 
