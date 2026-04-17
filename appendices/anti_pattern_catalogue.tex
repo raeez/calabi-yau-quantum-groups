@@ -958,6 +958,115 @@ with ``spectral parameters from the chiral endomorphism operad,
 identified with relative position coordinates on the formal disk via
 the local-global comparison.''
 
+\subsection{AP-CY68: Fiber-vs-total-space $\kappa_{\mathrm{cat}}$ for
+  K3-fibered CY$_3$}
+
+$\kappa_{\mathrm{cat}}(X) = \chi(\cO_X)$ is the holomorphic Euler
+characteristic of the \emph{total space}.  By K\"unneth,
+$\chi(\cO_{K3 \times E}) = \chi(\cO_{K3}) \cdot \chi(\cO_E)
+= 2 \cdot 0 = 0$, so
+$\kappa_{\mathrm{cat}}(K3 \times E) = 0$, not~$2$.
+The value~$2$ is $\chi(\cO_{K3})$, the \emph{fiber} invariant.
+
+This appears repeatedly in $\kappa_\bullet$-spectrum tables because
+the conjectural BKM decomposition
+$\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\cO_{\mathrm{fiber}})$
+uses the fiber~$\chi$ on the right-hand side; the temptation is to
+relabel the fiber~$\chi$ as ``$\kappa_{\mathrm{cat}}$'' because it
+arithmetically closes the $N{=}1$ coincidence
+$5 = 3 + 2$.  Per AP-CY55, this conflates a \emph{total-space
+manifold invariant} with a \emph{fiber invariant}; the two are
+different per AP-CY55's manifold-vs-algebraization-invariant
+discipline.  The numerical coincidence $5 = 3 + 2$ is real, but it
+identifies $\kappa_{\mathrm{BKM}} - \kappa_{\mathrm{ch}}$ with
+$\chi(\cO_{\mathrm{fiber}})$, not with $\kappa_{\mathrm{cat}}$ of
+the total space.
+
+The correct universal formula is $\kappa_{\mathrm{BKM}} = c_N(0)/2$
+(Borcherds weight theorem, \verb|prop:bkm-weight-universal|), which
+holds for all K3-fibered Class~A CY$_3$'s independently of any
+fiber-total decomposition.
+
+\emph{Counter.}  Every $\kappa_\bullet$-spectrum table listing
+$\kappa_{\mathrm{cat}}(X)$ for $X = K3 \times E$ (or any K3-fibered
+CY$_3$) must use the \emph{total-space} value $\chi(\cO_X)$, which
+vanishes for odd-$d$ Serre manifolds.  If the fiber value is
+relevant for a BKM decomposition argument, label it explicitly as
+$\chi(\cO_{\mathrm{fiber}})$ or $\kappa_{\mathrm{cat}}(\mathrm{fiber})$,
+never as bare $\kappa_{\mathrm{cat}}$.
+
+\emph{Instances found.}  Preface L107 (fixed chunk~5);
+\verb|quantum_chiral_algebras.tex| L870/L1020/L2453,
+\verb|cy_holographic_datum_master.tex| L973,
+\verb|en_factorization.tex| multiple sites (pending cross-file
+cleanup).
+
+\subsection{AP-CY69: Hochschild homology vs cohomology for Connes vs
+  Gerstenhaber}
+
+The $\mathbb{S}^d$-framing (Connes operator hierarchy) lives on
+Hochschild \emph{homology} $\HH_\bullet(\cC)$.  The Gerstenhaber
+bracket of degree~$1 - d$ lives on Hochschild \emph{cohomology}
+$\HH^\bullet(\cC, \cC)$.  These are two different complexes, not
+two structures on the same complex.  Writing ``Hochschild complex
+$\HH_\bullet(\cC)$ receives the $\Sd$-framing and Gerstenhaber
+bracket'' conflates them.
+
+Why this matters: the Gerstenhaber bracket's shifted degree
+$1 - d$ is the mechanism determining native $\En$ level in the
+CY-to-chiral functor ($d = 2 \Rightarrow \Etwo$,
+$d \ge 3 \Rightarrow \Eone$).  This degree count requires the
+bracket to sit on cohomology (where the degree shift is
+unambiguous); placing it on homology loses the shift and breaks
+the $\En$-hierarchy argument.
+
+\emph{Counter.}  Always specify: ``Hochschild homology
+$\HH_\bullet(\cC)$ carries the $\Sd$-framing via the Connes
+$B$-operator; Hochschild cohomology $\HH^\bullet(\cC, \cC)$ carries
+the Gerstenhaber bracket of degree $1 - d$.''  Never attribute both
+to a single unmarked ``Hochschild complex''.
+
+\emph{Instances found.}  Preface L79 (fixed chunk~5).  Related to
+AP-CY2 (CY trace target is $\HC^-_d$ not $\HH_d$) and to HZ3-5
+(derived center vs Drinfeld center vs $\Etwo$).
+
+\subsection{AP-CY70: Internal-development metadata in reader-facing
+  prose}
+
+Five species of manuscript-internal metadata were observed leaking
+into preface prose during the Chriss--Ginzburg rectification pass:
+\begin{enumerate}[label=(\alph*),nosep]
+\item Session timestamps: ``(2026-04-17 inscription)'',
+  ``The 2026-04-17 campaign closed\ldots'', ``pre-2026-04 phrasing
+  superseded\ldots''.
+\item Commit hashes: ``(commit \texttt{cade61c})'' as parenthetical
+  explanation.
+\item Manuscript-version self-reference: ``the central open problem
+  of the first edition of this volume''.
+\item Internal AP-tag citations in prose: ``Conjecture~CY-C,
+  AP-CY60''.
+\item Internal healing-status commentary: ``the original
+  $\kappa_{\mathrm{ch}}$-trichotomy presentation is healed''.
+\end{enumerate}
+None of these have meaning for an external reader (referee,
+\emph{Inventiones} reviewer).  They are artefacts of the
+rectification audit trail, where intermediate states of the
+manuscript are annotated for internal consistency.  Leaving them in
+published prose produces a document that reads like a commit log
+rather than a monograph.
+
+\emph{Counter.}  Before shipping prose, grep for the species above:
+\verb|2026-|, \verb|commit |, \verb|inscription|, \verb|campaign|,
+\verb|AP-CY|, \verb|healed|, \verb|first edition|,
+\verb|earlier phrasing|.  Every hit either (i)~strips the metadata
+while preserving the mathematical claim verbatim, or (ii)~migrates
+the content to a \verb|notes/| changelog file or a commit message.
+The rule: a preface should not date itself.  Mathematical facts are
+timeless; manuscript history is not.
+
+\emph{Instances found and fixed.}  Preface L145, L419, L665, L356
+(fixed chunks~4--5); preface L330 AP-tag (fixed chunk~7).
+
 %% =====================================================================
 \section{Cross-reference to Hot Zone}
 \label{sec:ap-hot-zone-xref}

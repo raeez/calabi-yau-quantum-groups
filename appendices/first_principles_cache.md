@@ -1110,3 +1110,50 @@ The Wave-21 identity is a **bridge** between the two columns. Reading the right-
 **Citation alignment.** Inline arXiv references only (1312.5344, 1810.01970, 1805.12565). If promoted to \cite form: bib keys BLLPR2013, CostelloGaiotto2018, Shimizu2018 need verification in main bibliography; GaiottoMooreNeitzke2013, BPRvR2014, ArakawaMoreau2017 would be added if (b) or (c) layers get theorem-level proof.
 
 **Status.** ClaimStatusConjectured. Scope: full 1/2-BPS chiral-algebra identification of Phi_3(D^b(Coh(S x E))); the 1/4-BPS Schur-sector content is proved and recorded separately in prop:cy-c-pairwise-agreements(c) and at character level by Shimizu. Strongest-form heal path: construct analytic continuation of Costello-Gaiotto bridge in (p,q,t) off the Schur surface t=q, promoting the Shimizu character-level match to a functorial E_1-chiral-algebra isomorphism. This is the (I3) chiral-algebra-level refinement within Corollary cor:cy-c-three-identities-reduction.
+
+
+## Entry: kappa-cat(K3xE) fiber vs total-space (2026-04-17, CG-rectify preface chunk 5)
+
+**Wrong claim.** $\kappa_{\mathrm{cat}}(K3 \times E) = 2$ (seen in preface L107, propagated from the conjectural BKM decomposition $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}}) = 3 + 2 = 5$ at $N = 1$).
+
+**Ghost theorem.** $\chi(\mathcal{O}_{K3}) = 2$ is a genuine invariant of the K3 fiber, and $\kappa_{\mathrm{BKM}} - \kappa_{\mathrm{ch}} = 2$ is a genuine arithmetic relationship at $N = 1$ (the decomposition coincidence flagged by AP-CY55 adversarial).
+
+**Correct relationship.** $\kappa_{\mathrm{cat}}(X) = \chi(\mathcal{O}_X)$ is defined on the TOTAL SPACE. By Künneth, $\chi(\mathcal{O}_{K3 \times E}) = \chi(\mathcal{O}_{K3}) \cdot \chi(\mathcal{O}_E) = 2 \cdot 0 = 0$. The value 2 is $\chi(\mathcal{O}_{\mathrm{fiber}})$, a fiber invariant, distinct from $\kappa_{\mathrm{cat}}(K3 \times E)$. The BKM decomposition, to the extent it holds, decomposes $\kappa_{\mathrm{BKM}}$ as $\kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}})$, not as $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{cat}}$. Per AP-CY55 adversarial, even that decomposition fails for $N \ge 2$; the only correct universal formula is $\kappa_{\mathrm{BKM}} = c_N(0)/2$ (Borcherds weight theorem, prop:bkm-weight-universal).
+
+**Confusion type.** Level error: confusing a fiber invariant of a K3-fibered CY$_3$ with a total-space invariant of the same CY$_3$, driven by the numerical coincidence $5 = 3 + 2$ at $N = 1$.
+
+**AP5 cross-volume propagation.** Other Vol III sites carry the same $\kappa_{\mathrm{cat}} = 2$ mislabelling: `quantum_chiral_algebras.tex` L870/L1020/L2453, `cy_holographic_datum_master.tex` L973, `en_factorization.tex` multiple lines, `working_notes.tex` L2682/L3928, `introduction.tex` L1179. `k3_chiral_algebra.tex` L531 and `k3_yangian_chapter.tex` L2596/L2607 are correct ($\kappa_{\mathrm{cat}}(K3)$, the fiber itself as the manifold). `main.tex` L872 is correct (underbraced with "fiber, manifold"). The Vol III preface L991 is correct ($\kappa_{\mathrm{cat}}(K3) = 2$ in the K3-moonshine-multiplier context). Future chunks should propagate the fix to the listed sites with explicit fiber-vs-total-space labelling per AP-CY68.
+
+**Status.** AP-CY68 catalogued; preface L107 fixed in commit 51cee5b (chunk 5). Propagation to other Vol III sites pending.
+
+
+## Entry: S^d-framing on HH_\bullet vs Gerstenhaber bracket on HH^\bullet (2026-04-17, CG-rectify preface chunk 5)
+
+**Wrong claim.** "Hochschild complex $\HH_\bullet(\mathcal{C})$ receives the $\mathbb{S}^d$-framing and Gerstenhaber bracket" (preface L79-80 pre-fix).
+
+**Ghost theorem.** Both the $\mathbb{S}^d$-framing and the Gerstenhaber bracket are genuine structures on "the Hochschild data of $\mathcal{C}$", and in the CY$_d$ setting they combine to produce the $\En$-chiral structure on the output of $\Phi$.
+
+**Correct relationship.** The $\mathbb{S}^d$-framing (Connes $B$-operator hierarchy, Kontsevich-Vlassopoulos) lives on Hochschild HOMOLOGY $\HH_\bullet(\mathcal{C})$, producing the mixed / negative cyclic refinement $\HC^-_\bullet(\mathcal{C})$ on which the CY trace $\Tr : \HC^-_d(\mathcal{C}) \to k$ is defined. The Gerstenhaber bracket of degree $1 - d$ lives on Hochschild COHOMOLOGY $\HH^\bullet(\mathcal{C}, \mathcal{C})$. These are two distinct complexes with distinct structures; the CY-to-chiral functor uses BOTH: the trace on $\HC^-_d$ supplies the Frobenius pairing, and the Gerstenhaber bracket's degree determines the operadic level ($d = 2 \Rightarrow \Etwo$ via Hochschild's $\mathbb{S}^1$-action, $d \ge 3 \Rightarrow \Eone$ via shifted bracket).
+
+**Why the degree matters.** For $d = 2$ the Gerstenhaber bracket has degree $-1$, which is the degree of the Lie conformal bracket ($\lambda$-bracket): the $\Etwo$-chiral structure emerges directly. For $d \ge 3$ the degree is $\le -2$, too shifted to produce braiding on $\Rep(A)$ via the little-disks operad ($\pi_1(\Conf_2(\R^d)) = 0$ for $d \ge 3$); the $\Etwo$-braiding is produced DERIVED on the Drinfeld centre, not NATIVE on $A$. Attributing the bracket to homology loses the degree shift and breaks this argument.
+
+**Confusion type.** Part/whole confusion (one "Hochschild data" for two different complexes) + degree convention (bracket degree $1 - d$ requires cohomological framing).
+
+**AP5 cross-volume propagation.** No formula propagation. Scope-level only: other Vol III sites using "Hochschild complex $\HH_\bullet(\mathcal{C})$" as a joint carrier for Connes + Gerstenhaber data would benefit from the separation, though most of the theory chapters (`cy_categories.tex`, `hochschild_calculus.tex`, `cyclic_ainf.tex`) already distinguish them correctly; the conflation was specific to the preface's compressed register.
+
+**Status.** AP-CY69 catalogued; preface L79 fixed in commit 51cee5b (chunk 5).
+
+
+## Entry: Internal-development metadata in reader-facing prose (2026-04-17, CG-rectify preface chunks 4-7)
+
+**Wrong claim.** (Five species, not claims but editorial artefacts.) "(2026-04-17 inscription)", "(commit cade61c)", "first edition of this volume", "AP-CY60" cited in prose, "the original trichotomy presentation is healed". All instances document the manuscript's own development history inside prose intended for external readers.
+
+**Ghost theorem.** Manuscript revision history is genuine content with value for internal audit. The AP-CY-NN tags, commit hashes, campaign timestamps, and status-change notes form an accurate record of how each claim reached its current scope.
+
+**Correct relationship.** The audit trail belongs in commit messages, `notes/` changelog files, and the internal AP catalogue (this very document). It does NOT belong in preface prose or chapter introductions that a referee, reviewer, or external mathematician will read. The mathematical CONTENT of each fix (e.g., "$\kappa_{\mathrm{ch}}$ is the Hodge supertrace, hence route-independent" is the actual claim) should appear in prose verbatim; the METACOMMENTARY ("this was healed in commit cade61c; the original trichotomy presentation was wrong") should migrate to the audit trail.
+
+**Confusion type.** Register error: conflating manuscript-internal discipline (AP tags, commit hashes, healing status) with reader-facing mathematical exposition. The LLM pattern-matches on the rectification-session verbiage present in CLAUDE.md and agent briefs, and reproduces that verbiage in the prose being rectified.
+
+**AP5 cross-volume propagation.** Cross-volume grep pattern: `2026-`, `commit `, `inscription`, `campaign`, `AP-CY`, `healed`, `first edition`, `earlier phrasing`, `pre-2026-`, `superseded across the volume`. Each hit either strips the metadata (preserving the mathematical claim) or migrates content to a `notes/` file or commit message. Vol I and Vol II prose likely carry similar artefacts from their parallel rectification campaigns; scope-separate cleanup.
+
+**Status.** AP-CY70 catalogued; 5 Vol III preface instances fixed in commits 38a074e / 51cee5b / 33f4d59 (chunks 4-7). Other files pending.
