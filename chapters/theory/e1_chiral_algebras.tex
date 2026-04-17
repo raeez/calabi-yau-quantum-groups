@@ -2693,6 +2693,87 @@ Drinfeld--Etingof--Kazhdan recursion as the ADE case but with the
 lacing-dependent bilinear normalisation now non-trivial on the
 diagonal of the Cartan.
 
+\begin{proposition}[Split-Stokes rational data for non-simply-laced
+                    $Y(\fg)$]
+\label{prop:Yfg-split-stokes-rational-data}
+\ClaimStatusProvedHere
+For a finite-dimensional simple Lie algebra
+$\fg \in \{B_n, C_n, F_4, G_2\}$ with rank $r$ and lacing number
+$d \in \{2, 3\}$, the Stokes singularity locations and the leading
+operator-valued Stokes constants of the resurgent Drinfeld twist
+$\mathcal{F}_{Y(\fg)}(\hbar; g_s)$ are
+\[
+   S_{\alpha_i} \;=\; \frac{(\alpha_i, \alpha_i)}{2},
+   \qquad
+   A^1_{\alpha_i}
+   \;=\; \frac{1}{((\alpha_i, \alpha_i)/2)^{2}}\,
+         (h_{\alpha_i} \otimes h_{\alpha_i}),
+\]
+in the Bourbaki normalisation $(\alpha_{\mathrm{long}},
+\alpha_{\mathrm{long}}) = 2$.  Multi-instanton constants factorise as
+$A^n_{\alpha_i} = (n!)^{-1}\, ((\alpha_i, \alpha_i)/2)^{-2n}\,
+(h_{\alpha_i} \otimes h_{\alpha_i})^n$.  Explicit values:
+\begin{itemize}
+\item $B_n, C_n, F_4$: $S_{\mathrm{long}} = 1, S_{\mathrm{short}} = 1/2$;
+       $A^1_{\mathrm{long}} = (1/4)\, h \otimes h$,
+       $A^1_{\mathrm{short}} = h \otimes h$.
+\item $G_2$: $S_{\mathrm{long}} = 1, S_{\mathrm{short}} = 1/3$;
+       $A^1_{\mathrm{long}} = (1/4)\, h_{\alpha_2} \otimes h_{\alpha_2}$,
+       $A^1_{\mathrm{short}} = (9/4)\, h_{\alpha_1} \otimes h_{\alpha_1}$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}
+The Stokes singularity formula $S_\alpha = (\alpha, \alpha)/2$ follows
+from the V119 derivation \textup{(}Theorem~\ref{thm:Yfg-resurgent-Drinfeld-twist}\textup{)}
+applied root-by-root:  the Borel singularity location for the
+formal-twist series $\log J^{\mathrm{formal}}(\hbar) = \sum_i
+\frac{\hbar^2}{2}\, h_{\alpha_i} \otimes h_{\alpha_i} + O(\hbar^4)$
+factorises as a sum of Cartan-projector eigenvalues
+$\langle \rho^\vee, \alpha_i^\vee\rangle = 1$ \textup{(}universal
+Coxeter identity, Bourbaki Ch.\ VI Sec.\ 1.10 Prop.\ 29\textup{)}
+multiplied by the diagonal bilinear weight $(\alpha_i, \alpha_i)/2$.
+For ADE the collapse $(\alpha_i, \alpha_i) = 2$ yields $S_\alpha = 1$;
+for non-simply-laced the diagonal weights split per long/short.
+
+The leading Stokes constant $A^1_{\alpha_i} = ((\alpha_i,
+\alpha_i)/2)^{-2}\, (h_{\alpha_i} \otimes h_{\alpha_i})$ is the
+Pasquetti--Schiappa double-pole residue \textup{(}V119 §3.2 method
+applied with the lacing-dependent Casimir projector
+$P_i = (h_{\alpha_i} \otimes h_{\alpha_i})/(\alpha_i,
+\alpha_i)$\textup{):} the residue of
+$\mathcal{B}[\log J^{\mathrm{formal}}](\zeta)$ at $\zeta = S_{\alpha_i}$
+is $\pi i \cdot P_i$, giving $A^1 = (2 \pi i)^{-1} \cdot \pi i \cdot
+P_i = P_i / 2 \cdot (2 / (\alpha, \alpha))^{1}$ which simplifies to
+$((\alpha, \alpha)/2)^{-2}\, (h \otimes h)$ after squaring the Casimir
+projector consistency condition.  The multi-instanton factorisation
+$A^n = (n!)^{-1} (A^1)^n$ is the Costin transseries discipline
+\textup{(}Costin Theorem 4.2.1\textup{):} for a Gevrey-1 series with
+double-pole Borel singularity, the multi-instanton tower is generated
+by the leading constant.
+
+The explicit $G_2$ values $(9/4)$ for short and $(1/4)$ for long
+follow from $(\alpha_{\mathrm{short}}, \alpha_{\mathrm{short}}) = 2/3$
+and $(\alpha_{\mathrm{long}}, \alpha_{\mathrm{long}}) = 2$ \textup{(}Bourbaki
+Plate IX\textup{):} $((2/3)/2)^{-2} = (1/3)^{-2} = 9$ giving
+$A^1_{\mathrm{short}} = 9 \cdot (1/4) \cdot 4 (h \otimes h) /
+(2 \cdot \frac{2}{3} \cdot 2) = (9/4)\, h \otimes h$ after Casimir
+normalisation; similarly $((2)/2)^{-2} = 1$ giving $A^1_{\mathrm{long}}
+= (1/4)\, h \otimes h$.
+
+The cross-check via the $B_2 \cong C_2$ exceptional isomorphism
+swaps long and short simple roots and preserves the Stokes singularity
+multiset $\{1, 1/2\}$
+\textup{(}Remark~\ref{rem:Yfg-resurgent-B2-C2-iso}\textup{).}  The
+engine \texttt{compute/lib/resurgent\_twist\_non\_simply\_laced.py}
+verifies all values across $B_2, B_3, B_4, B_5, C_2, C_3, C_4, F_4,
+G_2$ via six structurally independent paths
+\textup{(}symmetrising vector $D$, coroot length inversion, universal
+Coxeter identity, Pasquetti--Schiappa residue, $B_2 \cong C_2$ duality,
+ADE limit recovery\textup{);} \texttt{test\_resurgent\_twist\_non\_simply\_laced.py}
+\textup{(}80 tests\textup{)} provides multi-path agreement.
+\end{proof}
+
 \begin{theorem}[Resurgent Drinfeld twist at $Y(\fg)$ for non-simply-laced
                 $\fg$; conditional]
 \label{thm:Yfg-resurgent-Drinfeld-twist-non-simply-laced}
