@@ -2,6 +2,36 @@
 
 **Canonical reference for all shared content: ~/chiral-bar-cobar/CLAUDE.md. This file contains ONLY Vol III-specific material.**
 
+## CONSTITUTIONAL TRUST WARNING (2026-04-17, post-adversarial-audit)
+
+**CLAUDE.md and the entire metacognitive layer (MEMORY.md, notes/, first-principles cache, AP catalogue, AP-CY catalogue, HOT ZONE, HZ-IV decorators, FRONTIER.md, true_frontier_*.md, session_end_report_*.md, wave_*.md, platonic_ideal_*.md, adversarial_swarm_*/, and every `\ClaimStatus*` tag) are NEVER TO BE TRUSTED AS ACCURATE OR CORRECT.**
+
+**ALWAYS assume the metacognitive layer is WRONG until verified against primary sources.** The 2026-04-17 adversarial audit established this empirically — see Vol I CLAUDE.md for full programme-wide findings. Vol III-specific findings were the most damaging:
+
+- **κ_BKM TRIPLE CONTRADICTION** at `cy_d_kappa_stratification.tex:1143/1170-1171` (0 in statement, 10 in proof, 5 in engine; correct = 5 via Gritsenko Δ_5). HEALED 2026-04-17 but the pattern of self-inconsistency is systemic.
+- **"N=1 coincidence"** narrative that κ_BKM = κ_ch + χ(O_fiber) was a CONFABULATION; does not hold at any N.
+- **Vol III is ~80% rank-24 signature-(4,20) LATTICE theory with K3 naming lipstick.** `k3_yangian_chapter.tex` (6,744 lines, 50+ ProvedHere): no theorem uses K3 geometry beyond Mukai lattice + DGMS formality. A parallel chapter labelled "Leech Yangian" would contain identical theorems.
+- **K3 abelian Yangian + Y(gl(4|20)) are NAMING ARTIFACTS** (AP239). Mukai (4,20) is symmetric indefinite → OSP(4|20) candidate at best, not gl(4|20) super-Yangian.
+- **"10 publication-standard proofs"**: ~6/10 are lattice restatements (AP190/AP200/AP227/AP243 filter passes ~3/10).
+- **Sp_4(Z) / Mathieu moonshine / BKM-denominator narratives** are restatements of Gritsenko-Nikulin 1995 + Borcherds 1998 + DMVV 1997 + Gannon 2016.
+- **E_8 × E_8 structure function** (degree-(24,24), c=8+8+8=24): rank-addition argument inside a `\begin{conjecture}`, NOT a theorem.
+- **CY-A_3 inf-cat resolution** is a NON-OBSTRUCTION theorem (HH^{-2}=0 proves no obstruction), NOT a construction of Φ(X) for specific compact CY_3.
+- **CY-to-chiral correspondence programme {Φ_d}** — canonical terminology. Prior "CY-to-chiral functor Φ" phrasing is RETRACTED: the d-indexed target (E_∞ at d=1, E_2 at d=2, E_1 at d≥3) violates single-target functoriality; morphism-preservation is per-d conjectural (conj:phi-d-functoriality), never verified on a concrete pair (AP244).
+
+**Operational corollaries for Vol III work specifically**:
+
+1. **Treat the Vol III manuscript as SUGGESTIVE** — orient with the chapters but do NOT assume the K3 / Mukai / BKM / Kummer / CY labelling reflects used geometric content. Strip the label first; compute what's actually used.
+2. **Verify every κ_•, S_r, c_N(0), Φ_N, weight** value against (a) the engine in `compute/lib/`, (b) primary literature (Gritsenko, Borcherds, Eguchi-Ooguri-Tachikawa, Gannon), (c) first-principles re-derivation. Do not trust CLAUDE.md or FRONTIER.md or chapter prose without triangulation.
+3. **Treat every "K3-X / Monster-Y / CY-Z" theorem as a LATTICE-X / LATTICE-Y / LATTICE-Z theorem** until you verify the proof uses more than rank + signature + discriminant + DGMS formality (AP239).
+4. **Treat every `\ClaimStatusProvedHere` as Conjectured until proof body is read** (HZ-IV coverage was 2/283 at installation; effectively zero independent verification).
+5. **Assume "wave-closures" (Wave 14, ~230-agent, ~170-agent, ~129-agent, ~732-agent) are PROJECT-MANAGEMENT RHETORIC** until the specific inscribed theorem's proof is read. The 2026-04-16 "closure wave" day produced 3 commits programme-wide; many "N-agent session PROVED X" claims are retroactive scaffolding compression.
+6. **Treat {Φ_d} as a CORRESPONDENCE PROGRAMME** (case-by-case per-d construction, d-indexed target category), NOT a unified functor, until morphism action is verified on a concrete K3 → K3 or K3 → abelian surface pair.
+7. **Assume Vol III is NOT in stable final form.** 446 sole-authored commits in 5 weeks via LLM-agent swarm. No external validation. Cross-volume K3-programme findings may further collapse under deeper attack.
+
+**Use the Vol III manuscript as a starting hypothesis for CY-X computations**, not as a known fact. When a CLAUDE.md claim and an engine / primary-source / first-principles derivation disagree, trust the derivation.
+
+**This warning is LOAD-BEARING** and SUPERSEDES every "PROVED", "CLOSED", "UNCONDITIONAL", "PUBLICATION-STANDARD", or "10 PROOFS" label elsewhere in the Vol III metacognitive layer.
+
 ## /chriss-ginzburg-rectify: READ THE WHOLE FILE, CHUNK BY CHUNK, LINEARLY (TOP-LEVEL INJUNCTION)
 
 When the user invokes `/chriss-ginzburg-rectify` (or the skill `chriss-ginzburg-rectify`) on a target file, Phase 1 (Global Diagnostic) is NOT OPTIONAL and is NOT ABBREVIATED. You must analyse the **whole file**, **chunk by chunk**, **linearly progressing from start to finish**, with **small chunk size**. Every line must pass under your eyes.
@@ -44,7 +74,7 @@ The AP catalogue input in main.tex (L1239) is commented out 2026-04-17. Any futu
 
 ## Identity
 
-Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_n-ChirAlg (n=inf at d=1, n=2 at d=2, n=1 at d>=3) providing input data for the Vols I-II bar-cobar machine. Flow: CY category -> chiral algebra -> bar complex -> modular characteristic -> partition function. At d>=3 the E_2 braided structure lives on the Drinfeld center Z(Rep^{E_1}(A)), not on A itself.
+Volume III constructs the geometric source: the CY-to-chiral correspondence programme {Phi_d}_{d>=1}, a d-indexed family of per-dimension constructions Phi_d: CY_d-Cat -> E_{n(d)}-ChirAlg (n(d)=inf at d=1, n(d)=2 at d=2, n(d)=1 at d>=3), providing input data for the Vols I-II bar-cobar machine. The d-indexed target violates single-target functoriality: {Phi_d} is NOT a single functor; morphism preservation is per-d CONJECTURAL (conj:phi-d-functoriality), tested at d=2 on Mukai transform K3 -> K3 (pending) and open in general. Flow (per d): CY category -> chiral algebra -> bar complex -> modular characteristic -> partition function. At d>=3 the E_2 braided structure lives on the Drinfeld center Z(Rep^{E_1}(A)), not on A itself.
 
 ~693pp, this repo, ~34,000 tests, ~460 engines. Seven parts with Part openers and 3 reading paths (algebraist, physicist, number theorist): I(Foundations) II(CY-to-Chiral Functor) III(E_n Hierarchy and Chiral Quantum Groups) IV(The K3 Yangian) V(CY Landscape) VI(Seven Faces of r_CY(z)) VII(Frontiers). Notation appendix (541 lines) and AP catalogue (668 lines) installed. 10 proofs at publication standard. Clean build: 0 undef refs, 0 undef cites.
 
@@ -54,7 +84,7 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_n-Chi
 
 | Theorem | Status | Notes |
 |---------|--------|-------|
-| **CY-A** (CY-to-chiral functor) | d=2 PROVED; d=3 PROVED (inf-cat) | d=3 chain-level [m_3,B^{(2)}]!=0 resolved: not an obstruction in inf-cat framework (HH^{-2}_{E_1}=0). Goodwillie layers vanish. Space of E_3-liftings contractible. |
+| **CY-A** (CY-to-chiral correspondence programme {Phi_d}) | d=2 PROVED on objects; d=3 PROVED (inf-cat) on objects; functoriality on morphisms CONJECTURAL all d (conj:phi-d-functoriality) | {Phi_d} is d-indexed (target E_{n(d)}-ChirAlg varies with d); NOT a single functor. d=3 chain-level [m_3,B^{(2)}]!=0 resolved: not an obstruction in inf-cat framework (HH^{-2}_{E_1}=0). Goodwillie layers vanish. Space of E_3-liftings contractible. Mukai-transform functoriality pending at d=2. |
 | **CY-B** (E_n-chiral Koszul duality) | d=3 PROVED | d=2: E_2-Koszul on A directly (A is E_2). d=3: E_1-Koszul on A via B_{E_3}(A), inducing E_2 on Drinfeld center Z(Rep^{E_1}(A)). thm:cy-b-d3, thm:verdier-spectral-functor. CY-B1 (conductor): proved all classes. CY-B2 (braided equiv on center): proved all classes via Verdier spectral functor. 326 tests across cy_b_toward_proof, cy_b_d3_proof, cy_b_d3_final. |
 | **CY-C** (Quantum group realization) | CONJECTURAL | C(g,q) = D(Y^+(g_{K3})) at abelian level. Three routes (chiral/BFN/MO). Rep(C)=Rep^{E_2}(Y) via BZFN. cy_c_quantum_group_k3 (104 tests). Uses \begin{conjecture}. NEVER \begin{theorem} |
 | **CY-D** (Modular CY characteristic) | d=2 PROVED (h^{1,0}=0); d=3 PROGRAMME | kappa_ch=chi(O_X) proved for CY_2 with h^{1,0}=0 (K3). FALSE for odd d: chi(O_X)=0 for all CY_3 by Serre (prop:chi-O-vanishes-odd-d). kappa_ch(K3xE)=3!=0=chi(O). chi^CY is categorical, differs from chi(O_X). cy_d_kappa_d3 (76 tests). |
@@ -66,7 +96,7 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_n-Chi
 | **ZTE deformation cohomology** | PROVED | prop:zte-deformation-cohomology, 47 tests |
 | **BKM weight universality** | PROVED | prop:bkm-weight-universal, kappa_bkm_universal (99 tests). kappa_BKM = c(0)/2 unconditional for all K3-fibered CY3. Does NOT depend on CY-A. |
 | **Phi(K3) explicit** | d=2 PROVED | thm:phi-k3-explicit, phi_k3_explicit_evaluation (93 tests) |
-| **K3 abelian Yangian presentation** | d=2 PROVED | thm:k3-abelian-yangian-presentation, k3_abelian_yangian_presentation (47 tests) |
+| **K3 abelian Yangian presentation** | d=2 PROVED — rank-24 signature-(4,20) lattice Heisenberg Yangian. "K3" labels the physical source (Mukai lattice of K3 cohomology); the mathematical object is lattice-theoretic, not K3-geometric. Equivalent for Leech, Niemeier, E_8(-1)^3. See rem:k3-yangian-lattice-scope. | thm:k3-abelian-yangian-presentation, k3_abelian_yangian_presentation (47 tests) |
 | **Hopf fibration decomposition** | PROVED (negative) | prop:hopf-fibration-decomposition, S^3 framing non-decomposable (67 tests) |
 | **Cyclic A_inf framing compat** | PROVED (corrected) | prop:cyclic-ainf-framing-compat. Original claim [m_k,B^{(2)}]=0 individually is FALSE for non-formal (obs_ainf_local_p2, 54 tests). Corrected claim: {b,B^{(2)}}=0 for TOTAL b=sum_k b_k, via Costello TCFT d^2=0 (operadic_tcft_mk_b2_engine, 43 tests). Cross-arity cancellation: {b_3,B^{(2)}} cancelled by {b_2,B^{(2)}} via Stasheff. Bidegree verification: stasheff_cancellation_obs_ainf (40 tests). Obs_Ainf=0 UNIVERSALLY. |
 | **Cech-HTT coefficient convergence** | PROVED | prop:cech-htt-coefficient-convergence, cech_htt_convergence (64 tests) |
@@ -88,7 +118,7 @@ Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_n-Chi
 | **Derived Satake** | CONJECTURAL | Derived geometric Satake for CY categories. Connects Phi to geometric Langlands. |
 | **Tropical cluster** | PROGRAMME | Tropical cluster varieties as CY moduli. Shadow class varies over tropical limit. |
 | **Chiral Verlinde** | CONJECTURAL | Chiral Verlinde formula for CY chiral algebras. Dim formula for conformal blocks. |
-| **Hitchin quantization** | PROGRAMME | Hitchin system quantization via CY-to-chiral functor. |
+| **Hitchin quantization** | PROGRAMME | Hitchin system quantization via the CY-to-chiral correspondence programme {Phi_d}. |
 | **BLLPR connection** | VERIFIED | Connection to Bringmann-Lovejoy-Mahlburg et al mock modular forms. Shadow = 24*eta^3 for W(2). |
 | **Explicit ZTE correction T** | CONSTRUCTIVE | S^{corr} = S^{fact} + kappa^2*T. T exists (rank 35/36 in extended complex). Explicit construction from 1-dim kernel. |
 | **p-adic Langlands** | CONJECTURAL | p-adic Langlands connection via p-adic CY motives. |
@@ -786,7 +816,7 @@ upstream cross-volume context.
 
 **AP237 (Splitting-principle degree accounting).** Product $\prod_{i=1}^g (\alpha \cdot x_i) = \alpha^g \prod x_i$ is a SINGLE MONOMIAL in $\alpha$, NOT a candidate for "scalar-channel linear-in-$\alpha$ extraction". When applying the splitting principle to extract a scalar-channel coefficient, verify the coefficient depends linearly in the scalar parameter. The correct route is a $K$-theoretic class $\alpha \cdot \lambda_{-1}(\mathbb{E})$ linear in $\alpha$ by construction, NOT a product-formula manipulation. Found at Vol I `higher_genus_foundations.tex:5742-5786` in `prop:scalar-obstruction-hodge-euler` Step 3d — Theorem D's "all-genera CLOSED" chain relies on this step. Counter: if you write $\alpha^g \prod x_i$ and claim "linear-in-$\alpha$ projection gives $\alpha \cdot c_g(\mathbb{E})$", STOP — that projection does not exist. Return to $K$-theoretic class Step 1c.
 
-**AP238 (Statement/proof internal contradiction).** Same mathematical object assigned different numerical values within a single proposition-proof pair. Example: Vol III `cy_d_kappa_stratification.tex:1143` proposition STATEMENT writes $\kappa_{BKM}(\Phi_1) = 0 + 0 = 0$ (N=1 coincidence); proof at :1170-1171 writes $\kappa_{BKM}(\Phi_1) = 10$ (Φ_10 weight 10). This is the paradigmatic AP238 site for the programme. Counter: before inscribing a proposition, numerically evaluate every symbol in statement AND proof at a common test point; discrepancy = retraction required.
+**AP238 (Statement/proof internal contradiction).** Same mathematical object assigned different numerical values within a single proposition-proof pair. Example: Vol III `cy_d_kappa_stratification.tex:1143` proposition STATEMENT formerly wrote $\kappa_{BKM}(\Phi_1) = 0 + 0 = 0$ (N=1 coincidence) while proof at :1170-1171 wrote $\kappa_{BKM}(\Phi_1) = 10$ (Φ_10 weight 10); engine `compute/lib/kappa_bkm_universal.py` recorded $5$. HEALED 2026-04-17: correct value is $\kappa_{BKM}(\Phi_1) = 5$ (Gritsenko $\Delta_5$ weight-5 paramodular form of level 1); statement/proof/engine now agree on 5; "N=1 coincidence" narrative retracted as confabulation. This was the paradigmatic AP238 site for the programme. Counter: before inscribing a proposition, numerically evaluate every symbol in statement AND proof at a common test point; discrepancy = retraction required.
 
 **AP239 (Naming-after-physical-source without geometric content).** Programme systematically names objects after physical sources (K3, Y(gl(4|20)), Kummer) without verifying the geometric input is actually used beyond lattice rank/signature. Examples: (i) Y(gl(4|20)) is Mukai signature (4,20) symmetric indefinite → OSP(4|20) candidate, NOT gl(4|20) super-Yangian (Wave-2 F19); (ii) K3 abelian Yangian `thm:k3-abelian-yangian-presentation` depends only on rank-24 signature-(4,20) even unimodular lattice + CY_2 constraint — no K3-specific geometry enters beyond Mukai pairing. Vol III is the prime habitat for this AP. Counter: for every named object (K3-X, Monster-Y, CY-Z), list what geometric input beyond rank+signature is USED in the theorem; if none, rename to "rank-N sig-(p,q) X" with a remark noting physical source inspiration.
 

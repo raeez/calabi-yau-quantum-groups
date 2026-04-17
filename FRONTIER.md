@@ -6,7 +6,7 @@ This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-0
 
 ### 1. Closures since 2026-04-14
 
-- **CY-D dimension stratification. PROVED.** `thm:kappa-hodge-supertrace-identification` in `chapters/examples/cy_d_kappa_stratification.tex`: κ_ch(A_X) = Σ_q (-1)^q h^{0,q}(X) unconditionally for compact CY_d via HKR + Mukai pairing + HC^-_d trace. `thm:kappa-stratification-by-d`: explicit across d ∈ {1,2,3,4,5}: E(0), K3(2), abelian/bielliptic(0), quintic/K3×E/E³(0), local P²(3/2 via `thm:local-p2-shadow`), CY_4 sextic(2), CY_5 generic(0). `cor:conifold-non-local-surface` closes AP-CY34/AP-CY44 (conifold NOT local surface at d=3; κ_ch=1 via direct McKay). `thm:borcherds-weight-kappa-BKM-universal`: κ_BKM(Φ_N) = c_N(0)/2 universal across N ∈ {1,2,3,4,6}; N=1 coincidence κ_BKM = κ_ch + χ(O_fiber) fails for N ≥ 2 (closes AP-CY37).
+- **CY-D dimension stratification. PROVED.** `thm:kappa-hodge-supertrace-identification` in `chapters/examples/cy_d_kappa_stratification.tex`: κ_ch(A_X) = Σ_q (-1)^q h^{0,q}(X) unconditionally for compact CY_d via HKR + Mukai pairing + HC^-_d trace. `thm:kappa-stratification-by-d`: explicit across d ∈ {1,2,3,4,5}: E(0), K3(2), abelian/bielliptic(0), quintic/K3×E/E³(0), local P²(3/2 via `thm:local-p2-shadow`), CY_4 sextic(2), CY_5 generic(0). `cor:conifold-non-local-surface` closes AP-CY34/AP-CY44 (conifold NOT local surface at d=3; κ_ch=1 via direct McKay). `thm:borcherds-weight-kappa-BKM-universal`: κ_BKM(Φ_N) = c_N(0)/2 universal across N ∈ {1,2,3,4,6}; at N=1 this gives κ_BKM(Φ_1) = 10/2 = 5 via Gritsenko's Δ_5 weight-5 paramodular form of level 1. The naive decomposition κ_BKM = κ_ch + χ(O_fiber) holds at NO N (fails at N=1: 5 ≠ 0); "N=1 coincidence" narrative retracted (HEAL 2026-04-17). Closes AP-CY37.
 
 - **F18 CY-A_3: inf-categorical inscription + HTT coefficient convergence.** `thm:derived-framing-obstruction` (inf-cat resolved). `prop:cech-htt-coefficient-convergence` (64 tests): HTT multilinear maps μ_k define convergent power series in z for ALL smooth CY_3 with finite Leray covers, radius ≥ 1/(4‖s·δ‖). `prop:hopf-fibration-decomposition` (67 tests): S^3 framing non-decomposable.
 
@@ -641,7 +641,7 @@ Key Vol I results affecting Vol III:
 - **E_3 identification PROVED**: the E_n circle closes for simple g. The derived chiral centre = CFG E_3-algebra. Extended to gl_N via two independent bilinear forms.
 - **Verlinde polynomial family** (thm:verlinde-polynomial-family): P_g(n) = n^{g-1}(n²-1)·R_{g-2}(n²) through g=6. Leading coefficients = ζ(2g-2)/(2^{g-2}π^{2g-2}). Rational generating function from cosecant power sums.
 - **Shadow = GW(C³)**: shadow tower at kappa = Psi produces perturbative GW free energies. MacMahon on DT side via MNOP.
-- **Critical level** (prop:critical-level-ordered): Koszulness fails, center = Fun(Op). The CY-to-chiral functor at critical level produces the Feigin-Frenkel center, which is infinite-dimensional.
+- **Critical level** (prop:critical-level-ordered): Koszulness fails, center = Fun(Op). The CY-to-chiral correspondence programme {Phi_d} at critical level produces the Feigin-Frenkel center, which is infinite-dimensional.
 - **Miura universality** (thm:miura-cross-universality): PROVED. (Psi-1)/Psi universal on primary cross-terms at all spins, from Prochazka-Rapcak Miura factorization. Verified computationally through spin 6.
 - **K3 double current algebra** (def:k3-double-current-algebra): 24·dim(g)+1 dimensional, Mukai pairing central extension. 188 tests.
 - **Genus-2 conformal block decomposition**: CB_{2,2}(k) = 2k(k+1)(k+2)/3 (cubic in k).
@@ -690,7 +690,7 @@ Key Vol I results affecting Vol III:
 ### What was accomplished (53 agents, ~62 pages, ~3,600 new tests)
 
 **New theorems/propositions:**
-1. thm:phi-k3-explicit -- CY-to-chiral functor on K3 produces rank-24 Heisenberg (93 tests)
+1. thm:phi-k3-explicit -- Phi_2 (the d=2 member of the CY-to-chiral correspondence programme) on K3 produces rank-24 Heisenberg (93 tests); morphism action on Mukai transform K3 -> K3 pending (conj:phi-d-functoriality)
 2. thm:k3-abelian-yangian-presentation -- RTT presentation of K3 abelian Yangian (47 tests)
 3. prop:hopf-fibration-decomposition -- S^3 framing non-decomposable (67 tests)
 4. prop:cech-htt-coefficient-convergence -- CY-A_3 coefficient convergence for all smooth CY_3 (64 tests)
@@ -750,7 +750,7 @@ The class M shadow tower series is Gevrey-1 divergent but Borel summable. The St
 
 ### Pixton-CY Bar Connection
 
-The Pixton ideal generators (thm:pixton-from-mc-semisimple, proved in Vol I) connect to CY bar complexes via the CY-to-chiral functor Phi. The TCFT structure provides geometric realizations of the Pixton relations through the CY landscape.
+The Pixton ideal generators (thm:pixton-from-mc-semisimple, proved in Vol I) connect to CY bar complexes via the CY-to-chiral correspondence programme {Phi_d}. The TCFT structure provides geometric realizations of the Pixton relations through the CY landscape.
 
 ### Cross-Volume Propagation Completed
 
@@ -788,7 +788,7 @@ The final comprehensive wave brought Vol III to 533pp (+162 over the pre-session
 - **F28. Derived Satake**: Conjectural derived geometric Satake for CY categories connecting Phi to geometric Langlands.
 - **F29. Tropical cluster CY**: Tropical cluster varieties as CY moduli; shadow class transitions over tropical degenerations.
 - **F30. Chiral Verlinde**: Dimension formula for CY chiral algebra conformal blocks.
-- **F31. Hitchin quantization**: Hitchin system quantization via CY-to-chiral functor.
+- **F31. Hitchin quantization**: Hitchin system quantization via the CY-to-chiral correspondence programme {Phi_d}.
 - **F32. BLLPR mock modular connection**: Shadow = 24*eta^3 for W(2) verified against Bringmann-Lovejoy-Mahlburg-Rolen.
 - **F33. p-adic Langlands CY**: p-adic CY motives and p-adic Langlands.
 - **F34. BFN Coulomb**: Braverman-Finkelberg-Nakajima Coulomb branches as CY chiral algebra sources.
