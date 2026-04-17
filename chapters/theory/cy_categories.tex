@@ -3,6 +3,21 @@
 
 A Calabi--Yau category is a dg category whose Serre functor is a pure degree shift. This single condition, due independently to Kontsevich and to Costello, organises the diverse sources of Calabi--Yau geometry (coherent sheaves, Fukaya categories, matrix factorisations, noncommutative resolutions) into a uniform categorical framework. It is the framework on which the Vol~III functor $\Phi$ acts: $\Phi$ takes a cyclic $\Ainf$ Calabi--Yau category of dimension $d$ as input and returns an $\Etwo$-chiral algebra (at $d = 2$) or an $\Eone$-chiral algebra (at $d = 3$, Theorem~CY-A$_3$). This chapter fixes the categorical input, recording the definitions, the Hochschild structure, the cyclic $\Ainf$ enhancement, and the interface to $\Phi$ (Chapter~\ref{ch:cy-to-chiral}).
 
+\begin{remark}[Chapter scope and wave-14 anchors]
+\label{rem:cy-cat-wave14-anchors}
+The categorical input fixed by this chapter feeds the unified functor $\Phi$ of Theorem~\textup{\ref{thm:phi-platonic}}, characterised by the four universal properties \textup{(U1)}--\textup{(U4)}. The downstream evaluations of $\Phi$ supplied by the cyclic $\Ainf$ data of this chapter are the dimension-stratified spectrum of $\kappa_{\mathrm{ch}}$ values catalogued in Theorem~\textup{\ref{thm:kappa-stratification-by-d}} (Chapter~\textup{\ref{ch:cy-d-kappa-stratification}}) and the Borcherds-weight invariant $\kappa_{\mathrm{BKM}} = c_N(0)/2$ of Proposition~\textup{\ref{prop:bkm-weight-universal}} (Chapter~\textup{\ref{ch:k3-times-e}}). On the Vol~I side, the categorical Hochschild data of Section~\textup{\ref{sec:cy-hochschild}} is the cohomological shadow of the chiral universal Maurer--Cartan element of Vol~I Chapter~\textup{\ref{chap:climax-platonic}}, and the Koszul conductor identity $K = -c_{\mathrm{ghost}}(\BRST)$ of Vol~I Chapter~\textup{\ref{chap:universal-conductor}} fixes the family-dependent constants entering the kappa-spectrum.
+\end{remark}
+
+\begin{remark}[Convention: $\kappa_\bullet$ subscripts in Vol~III]
+\label{rem:cy-cat-kappa-convention}
+Throughout this chapter and the rest of Vol~III the symbol $\kappa_\bullet$ ranges over the closed indexing set $\bullet \in \{\mathrm{ch}, \mathrm{cat}, \mathrm{BKM}, \mathrm{fiber}\}$ (HZ3-2 / AP113). Bare $\kappa_{\mathrm{any}}$ outside this set is forbidden. The four entries split into two TYPES:
+\begin{itemize}
+ \item \emph{Manifold invariants} (independent of any algebraization of $\cC$): $\kappa_{\mathrm{cat}} = \chi(\cO_X)$ and $\kappa_{\mathrm{fiber}} = \mathrm{rank}(\Lambda)$ (lattice rank).
+ \item \emph{Algebraization invariants} (depending on the cyclic $\Ainf$-input through $\Phi$): $\kappa_{\mathrm{ch}}(\Phi(\cC))$ and the Borcherds-weight $\kappa_{\mathrm{BKM}}(\Phi_{N}(\cC))$.
+\end{itemize}
+The statement ``algebraizations share $\kappa_{\mathrm{cat}}$'' is vacuous: $\kappa_{\mathrm{cat}}$ is a topological invariant of $X$, not a property of $\cC$.
+\end{remark}
+
 \section{Smooth and proper dg categories}
 \label{sec:smooth-proper-dg}
 
@@ -53,7 +68,7 @@ For a smooth projective CY manifold $X$ of complex dimension $n$ (i.e.\ $\omega_
 
 \begin{example}[Matrix factorizations]
 \label{ex:mf-cy}
-For $W \colon \mathbb{A}^n \to \mathbb{A}^1$ a polynomial with isolated singularity, the category $\MF(W)$ of matrix factorizations is CY of dimension $n - 2$ (Dyckerhoff; Orlov). For the ADE singularities in two variables ($n = 2$), $\MF(W)$ is $\CY_0$ (semisimple, with the structure of a Frobenius algebra). For threefold singularities ($n = 4$, e.g.\ $W = x_1^2 + \cdots + x_4^2$), $\MF(W)$ is $\CY_2$. The exponent $n - 2$ (not $n - 1$) records the projectivisation of the $\mathbb{G}_m$-action on $W^{-1}(0)$; see AP-CY17.
+For $W \colon \mathbb{A}^n \to \mathbb{A}^1$ a polynomial with isolated singularity, the category $\MF(W)$ of matrix factorizations is CY of dimension $n - 2$ (Dyckerhoff; Orlov). For the ADE singularities in two variables ($n = 2$), $\MF(W)$ is $\CY_0$ (semisimple, with the structure of a Frobenius algebra). For threefold singularities ($n = 4$, e.g.\ $W = x_1^2 + \cdots + x_4^2$), $\MF(W)$ is $\CY_2$. The exponent $n - 2$ (not $n - 1$) records the projectivisation of the $\mathbb{G}_m$-action on $W^{-1}(0)$;.
 \end{example}
 
 \section{Hochschild cohomology and the CY structure}
@@ -61,13 +76,24 @@ For $W \colon \mathbb{A}^n \to \mathbb{A}^1$ a polynomial with isolated singular
 
 Hochschild cohomology is the universal invariant of a dg category. For a CY$_d$ category, Serre duality forces additional structure: an $E_2$-algebra structure on $\HH^\bullet(\cC)$ (Kontsevich--Soibelman, Tamarkin) and, in the presence of the CY pairing, a $(d-2)$-shifted Poisson / BV structure.
 
+\begin{remark}[Three Hochschild theories: NEVER conflate (AP160)]
+\label{rem:cy-cat-three-hochschild}
+The geometry determines which Hochschild theory is at play. Three theories coexist in this programme; they are distinct functors on distinct sources, with distinct outputs:
+\begin{enumerate}
+ \item \emph{Categorical Hochschild} $\HH^\bullet_{\mathrm{cat}}$ (this chapter): input a dg category $\cC$; output $E_2$-algebra (Deligne) carrying a $(2{-}d)$-shifted Poisson / $\BV$ structure when $\cC$ is $\CY_d$. Source: dg categories. The Vol~III categorical kappa is $\kappa_{\mathrm{cat}}(\cC) = \chi(\cO_X)$ when $\cC = D^b(\Coh(X))$.
+ \item \emph{Topological Hochschild} $\HH^\bullet_{\mathrm{top}}$: input an $E_1$-algebra; output $E_2$-algebra (Deligne; Lurie). Source: associative algebras over a base ring. This is the Hochschild theory operative in Vol~II for the slab algebra of 3d HT theories.
+ \item \emph{Chiral Hochschild} $\ChirHoch^\bullet$: input an $E_\infty$-chiral algebra on a curve $X$; output concentrated in cohomological degrees $\{0,1,2\}$ (Vol~I Theorem~H). Source: chiral algebras. Carries a chiral Gerstenhaber bracket distinct from the topological one (AP164).
+\end{enumerate}
+The CY-to-chiral functor $\Phi$ of Chapter~\textup{\ref{ch:cy-to-chiral}} maps the categorical Gerstenhaber bracket on $\HH^\bullet_{\mathrm{cat}}(\cC)$ to the chiral convolution bracket on $\ChirHoch^\bullet(\Phi(\cC))$; the two are NOT the same object on the same source. Bare ``Hochschild'' without one of $\{\mathrm{cat}, \mathrm{top}, \mathrm{chiral}\}$ qualifiers is forbidden in cross-referenced statements.
+\end{remark}
+
 \begin{definition}[Hochschild cohomology]
 \label{def:hochschild-cohom}
 The Hochschild cohomology of $\cC$ is
 \[
  \HH^\bullet(\cC) \;=\; \RHom_{\cC^{\op} \otimes \cC}(\cC, \cC),
 \]
-the derived endomorphisms of the diagonal bimodule. It is a graded-commutative algebra under Yoneda product and carries the Gerstenhaber bracket of degree $-1$.
+the derived endomorphisms of the diagonal bimodule. It is a graded-commutative algebra under Yoneda product and carries the Gerstenhaber bracket of degree $-1$. Throughout this chapter, $\HH^\bullet$ without qualifier means $\HH^\bullet_{\mathrm{cat}}$ in the sense of Remark~\textup{\ref{rem:cy-cat-three-hochschild}}.
 \end{definition}
 
 \begin{theorem}[Deligne conjecture; Kontsevich--Soibelman, Tamarkin]
@@ -124,13 +150,19 @@ The total dimension is
 matching the topological Euler characteristic $\chi(K3) = 24$. The Mukai pairing on $\HH^\bullet$ is the non-degenerate pairing $\langle -, - \rangle_\mathrm{Mukai}$ of Mukai~\cite{Mukai1987}; it coincides with the CY pairing produced by Definition~\ref{def:cy-category} at $d = 2$.
 \end{example}
 
-\begin{remark}[$\kappa_\mathrm{cat}$ from $\chi$]
+\begin{remark}[$\kappa_\mathrm{cat}$ as Hodge supertrace; comparison with $\kappa_{\mathrm{ch}}$]
 \label{rem:kappa-cat-from-chi}
-For $X$ a CY$_2$, the categorical kappa of the Vol~III spectrum is
+For $X$ a compact CY$_d$, the categorical kappa of the Vol~III spectrum is the Hodge-supertrace formula
 \[
- \kappa_\mathrm{cat}(X) \;=\; \chi(\cO_X),
+ \kappa_{\mathrm{cat}}(X) \;=\; \chi(\cO_X) \;=\; \sum_{q=0}^{d} (-1)^q\, h^{0,q}(X),
 \]
-the holomorphic Euler characteristic. For $K3$: $\chi(\cO_{K3}) = 1 - 0 + 1 = 2$, giving $\kappa_\mathrm{cat}(K3) = 2$. Do not confuse this with the topological Euler characteristic $24$ (which is $\dim \HH^\bullet$), with $\kappa_\mathrm{ch}(K3 \times E) = 3$ (chiral-algebra kappa via $\Phi$), or with $\kappa_\mathrm{BKM}(K3 \times E) = 5$ (Borcherds weight).
+the holomorphic Euler characteristic. For K3: $\chi(\cO_{K3}) = 1 - 0 + 1 = 2$, so $\kappa_{\mathrm{cat}}(K3) = 2$. At every \emph{odd} dimension $d$, Serre duality forces $h^{0,q}(X) = h^{0,d-q}(X)$, and the supertrace pair-cancels, giving
+\[
+ \chi(\cO_X) \;=\; 0 \qquad (\text{compact CY}_d,\ d\ \text{odd; Vol~III \texttt{prop:chi-O-vanishes-odd-d})}.
+\]
+The chiral kappa $\kappa_{\mathrm{ch}}(\Phi(\cC))$ is the \emph{algebraization} invariant produced by the functor $\Phi$ (Chapter~\textup{\ref{ch:cy-to-chiral}}); the equality $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ holds at $d = 2$ with $h^{1,0}(X) = 0$ (Theorem~\textup{\ref{thm:cy-d-d2}}; Proposition~\textup{\ref{prop:cy-kappa-d2}}). It is FALSE in general at $d = 3$ since the LHS is generically nonzero ($\kappa_{\mathrm{ch}}(K3 \times E) = 3$) while the RHS vanishes. The dimension-stratified spectrum of $\kappa_{\mathrm{ch}}$ values is catalogued in Theorem~\textup{\ref{thm:kappa-stratification-by-d}} and prescribes the correct invariant in each $d$.
+
+Numerical separation for K3: $\dim \HH^\bullet(D^b(\Coh(K3))) = 24$ (the topological Euler characteristic); $\kappa_{\mathrm{cat}}(K3) = \chi(\cO_{K3}) = 2$; $\kappa_{\mathrm{ch}}(\Phi(D^b(\Coh(K3)))) = 2$ ($d = 2$, $h^{1,0}=0$). For the $K3 \times E$ product: $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ by K\"unneth (the TOTAL-SPACE value), while $\kappa_{\mathrm{ch}}(K3 \times E) = 2 + 1 = 3$ by additivity of the chiral kappa under tensor products (Vol~I Theorem~D), and $\kappa_{\mathrm{BKM}}(K3 \times E) = c_1(0)/2 = 5$ by the Borcherds weight theorem (Proposition~\textup{\ref{prop:bkm-weight-universal}}, Vol~III). Conflating any two of these is the most common violation; the four numbers $\{0, 2, 3, 5\}$ for the K3 $\times$ E example are NOT the same invariant evaluated four times, they are four distinct invariants, two of which (cat, fiber) are topological and two of which (ch, BKM) are algebraic.
 \end{remark}
 
 \section{Cyclic $\Ainf$ structure}
@@ -157,7 +189,7 @@ A \emph{$d$-dimensional CY structure} on a smooth dg category $\cC$ is a class
 \[
  [\sigma] \in \HC^-_{d}(\cC)
 \]
-in the negative cyclic homology, whose image under the canonical map $\HC^- \to \HH$ is a non-degenerate trace $\Tr \colon \HH_d(\cC) \to k$. The lift to $\HC^-$ is essential for the $\bS^d$-framing used in Chapter~\ref{ch:cy-to-chiral}; see AP-CY2.
+in the negative cyclic homology, whose image under the canonical map $\HC^- \to \HH$ is a non-degenerate trace $\Tr \colon \HH_d(\cC) \to k$. The lift to $\HC^-$ is essential for the $\bS^d$-framing used in Chapter~\ref{ch:cy-to-chiral};.
 \end{definition}
 
 \begin{theorem}[Cyclic $\Ainf$ enhancement]
@@ -181,24 +213,36 @@ The $d = 3$ extension is now proved ($\infty$-categorical):
 \]
 Both use as input the data of this chapter: a smooth proper cyclic $\Ainf$ category with its negative cyclic CY class $[\sigma] \in \HC^-_d(\cC)$. The construction (Chapter~\ref{ch:cy-to-chiral}) proceeds by (i) extracting the Gerstenhaber algebra $\HH^\bullet(\cC)$, (ii) promoting it to a Lie conformal algebra using the CY pairing, (iii) taking the factorization envelope on a curve, and (iv) at $d = 2$ enhancing to $\Etwo$ using the $\bS^2$-framing.
 
-\begin{theorem}[Categorical kappa equals Euler characteristic: CY-D$_2$]
+\begin{theorem}[Categorical kappa equals chiral kappa at $d = 2$, $h^{1,0} = 0$: CY-D$_2$]
 \label{thm:cy-d-d2}
-\ClaimStatusProvedHere{}
-For $\cC$ a smooth proper $\CY_2$ category such that $\Phi(\cC)$ exists, the modular characteristic of the chiral algebra satisfies
+\ClaimStatusProvedHere{Restricted to $h^{1,0}(X) = 0$. The formula $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ does not extend to $d \geq 3$ or to $d = 2$ with $h^{1,0}(X) \neq 0$ (cf. Remark~\ref{rem:cy-d-d2-hypothesis}).}
+For $\cC$ a smooth proper $\CY_2$ category such that $\Phi(\cC)$ exists \emph{and} $\HH_{-1}(\cC) = 0$ (equivalently, in the geometric case $\cC = D^b(\Coh(X))$, the hypothesis $h^{1,0}(X) = 0$), the chiral modular characteristic satisfies
 \[
- \kappa_\mathrm{ch}\big(\Phi(\cC)\big) \;=\; \chi^{\CY}(\cC),
+ \kappa_{\mathrm{ch}}\big(\Phi(\cC)\big) \;=\; \chi^{\CY}(\cC) \;=\; \chi(\cO_X) \;=\; \kappa_{\mathrm{cat}}(X).
 \]
-the categorical Euler characteristic defined via the Mukai pairing. When $\cC = D^b(\Coh(X))$ for $X$ a $K3$ surface, the right-hand side is $\kappa_\mathrm{cat}(X) = \chi(\cO_{K3}) = 2$, which implies a contribution to $\kappa_\mathrm{ch}(\Phi(D^b(\Coh(K3))))$; the full $K3 \times E$ chiral kappa is $3$, combining the $K3$ and $E$ factors.
+The middle equality is the categorical Euler characteristic via the Mukai pairing; the right equality is the Hodge-supertrace formula of Remark~\textup{\ref{rem:kappa-cat-from-chi}}. For $\cC = D^b(\Coh(X))$ with $X$ a K3 surface ($h^{1,0}(K3) = 0$): $\kappa_{\mathrm{ch}}(\Phi(D^b(\Coh(K3)))) = \kappa_{\mathrm{cat}}(K3) = 2$. The product chiral kappa $\kappa_{\mathrm{ch}}(K3 \times E) = 3$ obtains by additivity of $\kappa_{\mathrm{ch}}$ under tensor products (Vol~I Theorem~D, applied via K\"unneth functoriality of $\Phi$); the four-way separation $\{0, 2, 3, 5\}$ for K3 $\times$ E is laid out in Remark~\textup{\ref{rem:kappa-cat-from-chi}}.
 \end{theorem}
+
+\begin{remark}[Hypothesis $h^{1,0} = 0$ is essential at $d = 2$]
+\label{rem:cy-d-d2-hypothesis}
+The identification $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ FAILS without the hypothesis $h^{1,0}(X) = 0$. Counterexample: the abelian surface $T^4$ has $h^{1,0}(T^4) = 2$ and $\chi(\cO_{T^4}) = 0$, so $\kappa_{\mathrm{cat}}(T^4) = 0$, but additivity gives $\kappa_{\mathrm{ch}}(\Phi(T^4)) = \kappa_{\mathrm{ch}}(\Phi(E)) + \kappa_{\mathrm{ch}}(\Phi(E)) = 1 + 1 = 2 \neq 0$. The sharper Beauville formula of Proposition~\textup{\ref{prop:beauville-kappa-formula}}, $\kappa_{\mathrm{ch}}(\Phi(D^b(\Coh(X)))) = \chi(\cO_X) + h^{1,0}(X)$, reduces to $\kappa_{\mathrm{cat}} = \chi(\cO_X)$ exactly in the simply-connected $h^{1,0} = 0$ case. The most common silent failure mode is applying $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ at odd $d$ where Serre forces $\chi(\cO_X) = 0$ but $\kappa_{\mathrm{ch}}$ is generically nonzero.
+\end{remark}
 
 \begin{remark}[The $d = 3$ case]
 \label{rem:cy-cat-d3}
-For $d = 3$, the functor $\Phi_3$ is proved by the $\infty$-categorical argument (Theorem~\ref{thm:cy-to-chiral-d3}): the obstruction $\mathrm{HH}^{-2}_{E_1}(\cC) = 0$ for smooth proper CY$_3$ categories implies that the $E_3$-lifting of the $\bS^3$-framing is contractible. The $\mathbb{C}^3$ case was verified end-to-end in Chapter~\ref{ch:cy-to-chiral}, Theorem~\ref{thm:c3-functor-chain}, prior to the general proof.
+For $d = 3$, the functor $\Phi_3$ is proved by the $\infty$-categorical argument (Theorem~\ref{thm:cy-to-chiral-d3}): the obstruction $\HH^{-2}_{E_1}(\cC) = 0$ for smooth proper CY$_3$ categories implies that the $E_3$-lifting of the $\bS^3$-framing is contractible. The $\mathbb{C}^3$ case was verified end-to-end in Chapter~\ref{ch:cy-to-chiral}, Theorem~\ref{thm:c3-functor-chain}, prior to the general proof. At $d = 3$ the identification $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ is FALSE for every strict CY$_3$ with $h^{1,0} = 0$: the RHS vanishes by Serre, while the LHS is generically nonzero. The dimension-stratified replacement formula is Conjecture~\textup{\ref{conj:cy-kappa-identification}}, with concrete values catalogued in Theorem~\textup{\ref{thm:kappa-stratification-by-d}} (e.g.\ $\kappa_{\mathrm{ch}}(\text{quintic}) = -25/3$, $\kappa_{\mathrm{ch}}(K3 \times E) = 3$, $\kappa_{\mathrm{ch}}(\text{local }\mathbb{P}^2) = 3/2$).
 \end{remark}
 
-\begin{remark}[What $\Phi$ does not see]
+\begin{remark}[Drinfeld centre: right adjoint to forgetful, NOT averaging]
+\label{rem:cy-cat-drinfeld-center-not-averaging}
+The downstream functor $\Phi$ at $d \geq 3$ produces an $\Eone$-chiral algebra; the braided $\Etwo$-structure is recovered on the Drinfeld centre $\cZ(\Rep^{\Eone}(\Phi_3(\cC)))$ (property~\textup{(U3)} of Theorem~\textup{\ref{thm:phi-platonic}}). The Drinfeld centre is the RIGHT ADJOINT to the forgetful functor $\mathrm{BrMon} \to \mathrm{Mon}$, equivalently the categorified COMMUTANT $z(A) = \{a \in A: ab = ba\ \forall b \in A\}$. It is NOT a categorified averaging map. The averaging map $\Eone \to \Einf$ DESTROYS quantum-group data; the Drinfeld-centre passage $\Eone \to \Etwo$ CONSTRUCTS braiding via half-braidings. This distinction is structural in Vol~III: the chiral-quantum-group content of $\Phi(\cC)$ at $d \geq 3$ is preserved by the centre and lost by symmetric averaging. forbids the prose ``categorified averaging'' for $\cZ(-)$.
+\end{remark}
+
+\begin{remark}[What $\Phi$ does not see, and what CoHA is]
 \label{rem:phi-does-not-see}
-Not every invariant of $\cC$ survives the passage through $\Phi$. The functor retains the cyclic $\Ainf$-structure and the Gerstenhaber bracket; it loses the fine structure of the triangulated / $\Ainf$ category (individual objects, t-structures, stability conditions) that is visible only via the fuller categorical CoHA construction of Chapter~\ref{ch:toric-coha}. The surviving numerical data are organized by the kappa-spectrum: $\kappa_\mathrm{cat}$ is always present, $\kappa_\mathrm{ch}$ exists only when $\Phi$ is defined, and $\kappa_\mathrm{BKM}$ records the Borcherds-side lift for $K3 \times E$.
+Not every invariant of $\cC$ survives the passage through $\Phi$. The functor retains the cyclic $\Ainf$-structure and the Gerstenhaber bracket; it loses the fine structure of the triangulated / $\Ainf$ category (individual objects, t-structures, stability conditions) visible only via the categorical Cohomological Hall Algebra construction of Chapter~\textup{\ref{ch:toric-coha}}. The Cohomological Hall Algebra $\CoHA(X)$ is the Hochschild cohomology of the quiver-with-potential category, equipped with the Schiffmann--Vasserot--Yang--Zhao multiplication. It is an ASSOCIATIVE algebra with a Hall product, NOT a chiral algebra; statements like ``$\CoHA = \Eone$-chiral'' or ``$\CoHA$ carries a vertex algebra structure'' are forbidden. The connection to chiral algebras is via the FUNCTOR $\Phi$ (CY-A), not by identification: at $d = 3$, $\Phi(\CoHA(\C^3))$ produces the positive half of the affine Yangian $Y^{+}(\widehat{\mathfrak{gl}}_1)$ (property~\textup{(U4)} of Theorem~\textup{\ref{thm:phi-platonic}}); the full $\cW_{1+\infty}$ at $c = 1$ then arises from the Drinfeld-centre passage (Remark~\textup{\ref{rem:cy-cat-drinfeld-center-not-averaging}}), not from $\Phi$ directly.
+
+The surviving numerical data of $\Phi$ are organised by the $\kappa_\bullet$-spectrum (Remark~\textup{\ref{rem:cy-cat-kappa-convention}}): $\kappa_{\mathrm{cat}}$ is the manifold invariant always present, $\kappa_{\mathrm{ch}}$ is the algebraization invariant defined when $\Phi$ exists, $\kappa_{\mathrm{BKM}}$ is the Borcherds-side algebraisation invariant defined for K3-fibered CY$_3$s (Class~A; Proposition~\textup{\ref{prop:bkm-weight-universal}}), and $\kappa_{\mathrm{fiber}}$ is the lattice rank.
 \end{remark}
 
 \begin{remark}[Cross-volume conventions]

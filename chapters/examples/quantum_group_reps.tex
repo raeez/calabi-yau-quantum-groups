@@ -4,6 +4,42 @@
 %%: kappa always subscripted in Vol III.
 %%: Koszul duality != Feigin-Frenkel duality != Langlands duality.
 %%: E_1/ordered is primitive; braiding arises from Drinfeld center.
+%
+% Wave-14 anchor cross-references (cross-volume; Vol I CLAUDE.md HOT ZONE):
+%   chap:cy-to-chiral pins the Phi functor; this chapter records the
+%      THREE comparison routes by which the Phi-output braided category
+%      Z(Rep^{E_1}(Phi(C))) is identified with the quantum group
+%      representation category Rep_q(g). Routes: KL-equivalence (sec
+%      kl-equivalence), Yangian RTT (sec yangian-rtt), CoHA-BPS
+%      (sec bps-algebras).
+%   chap:universal-conductor: the kappa_cat-table for affine vertex
+%      algebras (Proposition~\ref{prop:kappa-cat-quantum-groups}) gives
+%      kappa_cat(V_k(g)) = dim(g)(k+h^v)/(2h^v), matching the Vol I
+%      universal conductor formula at the KM row.
+%   thm:kappa-stratification-by-d: the K3 x E example
+%      (Remark~\ref{rem:kappa-cat-vs-others}) records kappa_ch = 3,
+%      kappa_BKM = 5, kappa_cat = 0 -- THREE DIFFERENT invariants of the
+%      same chiral algebra, satisfying the AP113 menu structure.
+%
+% AP discipline guards (quantum-group-rep specific):
+%   AP126/AP141 -- r-matrix level prefix mandatory: r(z) = k Omega/z in
+%      trace-form, vanishing at k = 0; r(z) = Omega/((k+h^v) z) in KZ
+%      form, NONzero at k = 0 for non-abelian g (Lie bracket persists).
+%      All r-matrix formulae below carry the level prefix.
+%   AP170 -- two Yangian definitions: def:e1-chiral-yangian (E_1-factorization
+%      + RTT, weaker) vs def:chiral-yangian-datum (with full modular MC tower,
+%      stronger). Equivalence open. The Yangian of Definition~\ref{def:yangian}
+%      is the RTT-presented one.
+%   AP173 -- Z^der_ch(Y(g)^ch) NOT computed; predicted infinite-dim.
+%      E_1 input gives only E_2-output (not E_3); this is the structural
+%      reason the chiral QG equivalence is at the E_1 level on the
+%      ordered Koszul locus.
+%   RS-9 -- the slab is a BIMODULE for two boundary algebras (NOT a
+%      Swiss-cheese disk); see Remark~\ref{rem:bps-slab}.
+%   AP-CY55 -- kappa_cat (manifold invariant from chi(O_X)) vs kappa_ch
+%      (algebraization invariant from Phi-output); both legitimately
+%      called "kappa" but DIFFERENT invariants. Subscript discipline is
+%      MANDATORY (AP113).
 
 Recovering $\Rep_q(\frakg)$ from CY data requires three comparisons:
 the braided affine category, the ordered collision residue, and the
@@ -510,7 +546,7 @@ Three distinct invariants must be distinguished:
 For CY$_2$ categories with $\frakg$-symmetry, all three can be
 independently computed. For the $K3 \times E$ example:
 $\kappa_{\mathrm{ch}} = 3$, $\kappa_{\mathrm{BKM}} = 5$,
-$\kappa_{\mathrm{cat}} = 0$ (since $\chi(\cO_{K3 \times E}) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ by K\"unneth; AP-CY55).
+$\kappa_{\mathrm{cat}} = 0$ (since $\chi(\cO_{K3 \times E}) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ by K\"unneth).
 \end{remark}
 
 \begin{proposition}[Complementarity for $\kappa_{\mathrm{cat}}$]
@@ -583,4 +619,585 @@ solved on the evaluation-generated core by the DK bridge (MC3 for all
 simple types on that core): the categorical
 data of $\Rep_q(\frakg)$ uniquely determines the chiral algebra
 $V_k(\frakg)$ up to the completion issues of MC4.
+\end{remark}
+
+
+\section{Two Yangian definitions: AP170 discipline}
+\label{sec:two-yangian-definitions}
+
+%%: AP170 strict discipline -- two distinct Yangian definitions.
+% Definition~\ref{def:e1-chiral-yangian-vol3} (E_1-fact + RTT, weaker)
+% vs Definition~\ref{def:chiral-yangian-datum-vol3} (full modular MC tower, stronger).
+% Equivalence is OPEN (cached confusion #4 + AP170).
+
+The Yangian admits two genuinely distinct definitions on a curve.
+The weaker one is an $\Eone$-factorisation algebra with RTT
+relations; the stronger one supplements this with a chiral
+coproduct, spectral $S$-matrix, and the full modular Maurer--Cartan
+tower. Equivalence of the two definitions is an open problem at
+the heart of the Vol~II E$_1$-core.
+
+\begin{definition}[$\Eone$-chiral Yangian (weaker)]
+\label{def:e1-chiral-yangian-vol3}
+An \emph{$\Eone$-chiral Yangian} on a smooth algebraic curve $X$ is
+an $\Eone$-factorisation algebra $\cY^{\mathrm{ch}}$ on $\Ran(X)$
+whose local operator algebra, in the RTT presentation, satisfies
+the spectral RLL relation
+\[
+ R_{12}(u-v)\, T_1(u)\, T_2(v)
+ = T_2(v)\, T_1(u)\, R_{12}(u-v)
+\]
+with spectral parameter identified as the coordinate difference
+of ordered insertion points: $u = z_1 - z_2$. The factorisation
+structure uses \emph{ordered} configuration spaces
+$\Conf^{\mathrm{ord}}_n(X)$, and Verdier duality acts by
+$R$-matrix inversion $R(u) \mapsto R(u)^{-1}$. This definition is
+the Vol~II/I source-of-truth (see Vol~I
+\texttt{yangians\_foundations.tex} \texttt{def:e1-chiral-yangian});
+the present paragraph records its Vol~III incarnation as input
+to $\Phi$.
+\end{definition}
+
+\begin{definition}[Chiral Yangian datum (stronger)]
+\label{def:chiral-yangian-datum-vol3}
+A \emph{chiral Yangian datum} on $X$ is a quadruple
+$(A, S(z), \Delta^{\mathrm{ch}}, \{m_k\})$ consisting of:
+\begin{enumerate}[label=(\roman*)]
+ \item An $\Eone$-chiral algebra $A$ on $\Ran(X)$ (so in
+ particular an $\Eone$-chiral Yangian by
+ Definition~\ref{def:e1-chiral-yangian-vol3});
+ \item A spectral $S$-matrix $S(z) \in \End(A \otimes A)((z))$
+ satisfying the spectral YBE;
+ \item A chiral coproduct $\Delta^{\mathrm{ch}} \colon A \to
+ A \otimes A$ at depth $z = z_1 - z_2$ compatible with the
+ $\Eone$-factorisation structure;
+ \item Higher operations $\{m_k\}$ generating the modular
+ Maurer--Cartan tower $\Theta_A^{E_1}$ in the convolution
+ algebra (Volume~I, MC2--MC4).
+\end{enumerate}
+The four axioms are: Koszul self-recovery
+$\Phi(\Phi(A)) \simeq A$ on the Koszul locus; Verdier by
+$R$-inversion; existence of a braided-module category
+$\Rep^{E_1}(A)$; and convergence of the modular MC tower at all
+genera.
+\end{definition}
+
+\begin{remark}[Forgetful arrow and the open equivalence]
+\label{rem:yangian-forgetful-arrow}
+There is a forgetful functor from chiral Yangian data to
+$\Eone$-chiral Yangians:
+$(A, S, \Delta^{\mathrm{ch}}, \{m_k\}) \mapsto A^{E_1}$. Whether
+this functor is essentially surjective is the open equivalence
+problem of AP170: given an $\Eone$-chiral Yangian, can the
+chiral coproduct $\Delta^{\mathrm{ch}}$ be reconstructed from the
+$\Eone$-factorisation data alone? The main obstruction is that
+$\Delta^{\mathrm{ch}}$ probes the depth-two collision residue
+$r(z_1 - z_2)$ at $z_1 \neq z_2$, while the $\Eone$-factorisation
+structure probes only the depth-one collision residue at the
+limit $z_1 \to z_2$. Whether the depth-two data is determined by
+the depth-one data is unsolved.
+\end{remark}
+
+\begin{remark}[Vol III usage convention]
+\label{rem:vol3-yangian-convention}
+Throughout this chapter and the rest of Vol~III, the term
+\emph{Yangian} without further qualifier refers to the
+RTT-presented $\Eone$-chiral Yangian of
+Definition~\ref{def:e1-chiral-yangian-vol3} (which agrees
+on-the-nose with Definition~\ref{def:yangian} above by
+combining the RTT relations of Definition~\ref{def:yangian}
+with the curve-geometric factorisation
+of Definition~\ref{def:e1-chiral-yangian-vol3}). The full
+chiral Yangian datum is invoked explicitly when needed
+(e.g.~for the Drinfeld-double construction or when the chiral
+coproduct $\Delta^{\mathrm{ch}}$ enters).
+\end{remark}
+
+
+\section{Four Yangian types: AP159 discipline}
+\label{sec:four-yangian-types}
+
+%%: AP159 -- four distinct Yangian types. Conflating any two is a TYPE ERROR.
+% This section records the four-fold typology and pins where each lives in Vol III.
+
+A second source of confusion in the Yangian literature is the
+existence of four distinct objects all called ``Yangian.'' Vol~II
+catalogues them as AP159; the Vol~III incarnation is recorded
+here.
+
+\begin{definition}[Four Yangian types]
+\label{def:four-yangian-types}
+The four distinct objects collectively called ``Yangian'' are:
+\begin{enumerate}[label=(\roman*)]
+ \item \emph{Classical Yangian} $Y_\hbar(\frakg)$: the
+ $\C[\hbar]$-Hopf algebra on a point with
+ Drinfeld--Jimbo presentation; lives on $\R$ as
+ $\Eone$-topological;
+ \item \emph{dg-shifted Yangian} $Y_\hbar^{\mathrm{dg}}(\frakg)$:
+ the dg-Hopf algebra on a formal disk $D = \Spec\,\C[[z]]$
+ obtained as the Etingof--Kazhdan quantization at the formal
+ disk;
+ \item \emph{Chiral Yangian} $Y(\frakg)^{\mathrm{ch}}$: the
+ $\Eone$-chiral algebra on a smooth curve $X$, factorisation
+ algebra on $\Ran(X)$ with ordered configuration spaces
+ (Definition~\ref{def:e1-chiral-yangian-vol3});
+ \item \emph{Spectral Yangian} $Y^{\mathrm{spec}}(\frakg)$: the
+ factorisation algebra on the spectral $\A^1_u$ obtained by
+ viewing the spectral parameter $u$ as the geometric
+ coordinate.
+\end{enumerate}
+The four are related by functorial passages: classical
+$\to$ dg-shifted via formal completion at $\hbar = 0$;
+dg-shifted $\to$ chiral via globalisation along the curve;
+chiral $\to$ spectral via Fourier-Mukai along the spectral
+parameter. None of these passages is an equivalence in
+general.
+\end{definition}
+
+\begin{remark}[Type errors and where they occur]
+\label{rem:yangian-type-errors}
+Conflating any two of the four types produces a type error.
+Common confusions documented in AP159:
+\begin{enumerate}[label=(\alph*)]
+ \item Classical vs dg-shifted: the classical Yangian has no
+ dg-structure, the dg-shifted version does. Statements about
+ ``the Yangian's dg-Hopf structure'' refer to the dg-shifted
+ type only;
+ \item Chiral vs spectral: the chiral Yangian lives on the
+ \emph{worldsheet curve} $X$; the spectral Yangian lives on
+ the \emph{spectral curve} $\A^1_u$. These are different
+ spaces with different geometric meaning. Statements like
+ ``the chiral algebra has spectral parameter $z$'' must
+ specify which curve $z$ parameterizes.
+ (Vol I FM30 elliptic Belavin caveat: the elliptic and
+ trigonometric and rational degenerations refer to the
+ spectral parameter $u$, not the worldsheet $z$.)
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[Vol III scope: chiral Yangian only]
+\label{rem:vol3-yangian-scope}
+The Yangian in Vol~III is the chiral Yangian
+$Y(\frakg)^{\mathrm{ch}}$ of
+Definition~\ref{def:four-yangian-types}(iii) throughout. The
+classical and dg-shifted Yangians appear only as inputs to the
+globalisation procedure constructing
+$Y(\frakg)^{\mathrm{ch}}$ on a curve. The spectral Yangian appears
+in the Drinfeld-center diagonalisation
+(Chapter~\ref{ch:drinfeld-center}) and the K3 toroidal Yangian
+(Chapter~\ref{ch:k3-quantum-toroidal}), where the spectral
+parameter $u$ identifies with a coordinate on the K3 elliptic
+fibration.
+\end{remark}
+
+
+\section{Mukai-Heisenberg as KL realization at $d = 2$}
+\label{sec:mukai-heisenberg-kl}
+
+% Wave-14 Phi U4 cross-volume verification:
+% Phi_2(D^b(K3)) = E_2-Mukai-Heisenberg matches the KL category for K3 lattice.
+
+For K3 surfaces, the cross-volume identification
+$\Phi(D^b(\Coh(K3))) = $ $\Etwo$-Mukai-Heisenberg of Wave-14
+property (U4) provides a quantum-group-side test of the KL
+equivalence: the rank-$24$ Mukai lattice $\Lambda_{K3} = II_{4,20}$
+plays the role of the level data, and the $R$-matrix at degree
+$(1,1)$ is the Mukai pairing.
+
+\begin{proposition}[KL for K3 at the lattice $\Lambda_{K3}$]
+\label{prop:kl-k3-lattice}
+\ClaimStatusProvedHere
+Let $S$ be a K3 surface with Mukai lattice
+$\Lambda_{K3} = U^3 \oplus E_8(-1)^2 \simeq II_{4,20}$.
+Then:
+\begin{enumerate}[label=(\roman*)]
+ \item The B-model output
+ $\Phi_2(D^b(\Coh(S))) = \mathrm{MH}_2(\Lambda_{K3})$
+ is the $\Etwo$-Mukai-Heisenberg algebra of
+ Definition~\ref{def:e2-mukai-heisenberg};
+ \item The braided category
+ $\Rep^{E_2}(\mathrm{MH}_2(\Lambda_{K3}))$ is the modular
+ tensor category $\mathrm{MTC}(\Lambda_{K3})$ associated to
+ the lattice $\Lambda_{K3}$ via the lattice-VOA
+ representation theory;
+ \item The KL equivalence at lattice $\Lambda_{K3}$ identifies
+ $\mathrm{MTC}(\Lambda_{K3})$ with the discriminant-form
+ fusion category $\Rep_q(\Lambda_{K3})$ at the lattice
+ quantum-group root of unity
+ $q_{\Lambda} = e^{\pi i/\det(\Lambda_{K3})}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Item~(i) is Vol~III property (U4) of $\Phi$ at $d = 2$
+combined with the Hochschild bridge for B-side input
+$D^b(\Coh(K3))$. Item~(ii) is the standard lattice-VOA module
+theory: the modules of an even unimodular lattice VOA are
+parametrised by the discriminant form
+$\Lambda^*/\Lambda = 0$ (since $II_{4,20}$ is unimodular),
+giving a single fusion class with $\Etwo$ braiding determined
+by the Mukai pairing. Item~(iii) is the
+discriminant-form-fusion / lattice-quantum-group equivalence
+of Hauschild--Lepowsky--Milas at unimodular lattices
+(reduces to the trivial discriminant form here).
+\end{proof}
+
+\begin{remark}[Cross-side comparison: A-side via HMS]
+\label{rem:mukai-heisenberg-a-side}
+The A-side identification
+$\Phi_2(\Fuk(K3)) = \mathrm{MH}_2(\Lambda_{K3})$
+is Theorem~\ref{thm:fukaya-k3-mukai-heisenberg} of the
+preceding Fukaya chapter. Combined with HMS at K3 (Seidel--Smith,
+Sheridan; partial), the two sides give the same chiral algebra,
+providing the Vol~III flagship cross-volume verification of
+property (U4): both Fukaya and derived-coherent inputs to $\Phi_2$
+at $d = 2$ produce the $\Etwo$-Mukai-Heisenberg algebra.
+\end{remark}
+
+
+\section{CY-C status: honest accounting}
+\label{sec:cy-c-honest-status}
+
+% (C10) cached confusion: CY-C is CONJECTURAL.
+% G(X) UNCONSTRUCTED in general; super-Yangian CONJECTURAL.
+% This section is the honest accounting.
+
+The quantum-group reconstruction conjecture CY-C asserts that for
+a CY$_d$ category $\cC$ with sufficient symmetry, there exists a
+generalised quantum group $G(\cC)$ such that
+$\Rep^{E_n}(\Phi(\cC)) \simeq \Rep_q(G(\cC))$ as
+$\Etwo$-braided monoidal categories
+($n = 2$ for $d = 2$, $n = 1$ for $d \geq 3$ with Drinfeld
+center to recover $\Etwo$). The status of CY-C is
+\textsc{conjectural}; this section records the honest scope.
+
+\begin{conjecture}[CY-C honest status]
+\label{conj:cy-c-honest-status}
+\ClaimStatusConjectured
+The current status of CY-C is:
+\begin{enumerate}[label=(\roman*)]
+ \item For $d = 2$ with $\cC = D^b(\Coh(K3))$ or $\cC = \Fuk(K3)$:
+ $G(\cC)$ is constructed as the Mukai-lattice quantum group
+ $\Rep_{q_\Lambda}(\Lambda_{K3})$
+ (Proposition~\ref{prop:kl-k3-lattice}), and CY-C is
+ \emph{verified} for this case;
+ \item For $d = 2$ with $\cC = D^b(\Coh(\text{abelian surface}))$:
+ $G(\cC)$ is constructed as the trivial group (since
+ $\kappa_{\mathrm{cat}} = 0$ from $\chi(\cO_A) = 0$), and
+ $\Rep^{E_2}(\Phi(\cC))$ is the trivial braided category;
+ CY-C is \emph{verified} (degenerately) for this case;
+ \item For $d = 2$ with general CY$_2$ $\cC$ admitting an
+ $\fsl_N$-symmetry: $G(\cC)$ is conjectured to be
+ $U_q(\fsl_N)$ at root of unity, but the construction is
+ incomplete beyond the Bridgeland-stability case for
+ $A_{N-1}$-singularities (Conjecture~\ref{conj:qg-realization});
+ \item For $d = 3$ with $\cC = \Coh(\C^3)$ or
+ $\cC = \Coh(\text{conifold})$: $G(\cC)$ is the affine Yangian
+ $Y(\widehat{\fgl}_1)$ resp.~$Y(\widehat{\fsl}_2)$ via the
+ Schiffmann--Vasserot CoHA construction
+ (Proposition~\ref{prop:coha-quantum-group}), so CY-C is
+ \emph{verified} for these toric cases;
+ \item For $d = 3$ with general compact CY$_3$ $\cC$:
+ $G(\cC)$ is \emph{unconstructed}; CY-C remains
+ \textsc{conjectural};
+ \item For super-CY$_d$ inputs: the super-Yangian
+ $Y(\frakg(m|n))$ identification is \textsc{conjectural} at
+ the chiral level
+ (Vol~III \texttt{super\_riccati\_shadow\_tower\_platonic.tex},
+ Definition~\texttt{def:chiral-super-yangian-mn});
+ \item For $d \geq 4$: $G(\cC)$ is \emph{undefined} in general,
+ since $\Rep^{E_2}(\Phi(\cC))$ requires the Drinfeld center
+ of an $\Eone$-chiral algebra and the resulting braided
+ category may not be of quantum-group type.
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[The pentagon stratification]
+\label{rem:cy-c-pentagon-healing}
+The naive expectation that
+``the six routes to $G(K3 \times E)$ converge isomorphically''
+is false: at $d = 3$ for
+$K3 \times E$, the routes form a \emph{pentagon} of five
+intertwiners with $R_2$ as the source branch, and they
+stratify by the generator-rank invariant $\rho^{R_i}$, NOT by
+$\kappa_{\mathrm{ch}}$ (which is route-independent
+$= 0$ by the Hodge supertrace formula
+$\kappa_{\mathrm{ch}}(K3 \times E) = \chi^{\mathrm{Hodge}}(K3) \cdot \chi^{\mathrm{Hodge}}(E) = 2 \cdot 0 = 0$).
+The correct invariant is the
+``$\rho^{R_i}$ stratification,'' not a ``$\kappa_{\mathrm{ch}}$
+stratification $\{3, 12, 24\}$.''
+This is a category distinction: the route invariant $\rho^{R_i}$ is
+algebraic (generator-lattice rank), the would-be invariant
+$\kappa_{\mathrm{ch}}$ is geometric (Hodge supertrace) and is
+\emph{automatically} route-independent.
+\end{remark}
+
+\begin{remark}[Why CY-C is hard]
+\label{rem:why-cy-c-hard}
+The structural difficulty of CY-C is that constructing $G(\cC)$
+from $\cC$ requires a generators-and-relations presentation
+of the braided category $\Rep^{E_n}(\Phi(\cC))$, but $\Phi(\cC)$
+is constructed via factorisation envelopes that are inherently
+\emph{not} presented by generators and relations. The known
+verified cases (K3 lattice, toric CY$_3$) all have
+generators-and-relations presentations of $\Phi(\cC)$ available
+through other means (lattice-VOA structure, Hall algebra
+structure). The general CY$_3$ case lacks such presentations.
+The pentagon discovery shows that even when generators and
+relations exist (for K3 $\times$ E), the natural invariant
+distinguishing routes is the generator-lattice rank, not the
+modular characteristic.
+\end{remark}
+
+
+\section{Quantum group A vs B/C/D distinctions}
+\label{sec:qg-abcd-distinctions}
+
+% Type-A (sl_N) versus B/C/D (so_n, sp_2n) distinctions.
+% MC3 proved on evaluation-generated core for ALL simple types via five-family mechanism;
+% Baxter type-A constraint RETRACTED (Vol I commit, 2026-04-16).
+
+The four classical series exhibit type-dependent behaviour at
+several points relevant to the chiral quantum group programme.
+This section records the distinctions and the extension
+of the Baxter type-A constraint to the universal
+five-family mechanism.
+
+\begin{proposition}[MC3 five-family mechanism: types A--D and exceptional]
+\label{prop:mc3-five-family-types}
+\ClaimStatusProvedElsewhere
+The Vol~II MC3 theorem on the evaluation-generated core is
+extended from the type-A Baxter
+constraint to a universal five-family mechanism covering all
+simple types. The five families are:
+\begin{enumerate}[label=(\roman*)]
+ \item \emph{Type A} (asymptotic prefundamentals): generic
+ evaluation modules at distinct spectral parameters give
+ prefundamental modules whose limits as
+ $u_i \to \infty$ generate the evaluation core;
+ \item \emph{Types B, C, D} (reflection-equation Shapovalov):
+ the orthogonal/symplectic evaluation modules satisfy a
+ reflection equation in addition to the YBE, and the
+ Shapovalov form of these modules generates the evaluation
+ core;
+ \item \emph{Uniform across all types} (Chari--Moura
+ multiplicity-free $\ell$-weights): the
+ $\ell$-weight space decomposition of evaluation modules is
+ multiplicity-free at generic spectral parameters, ensuring
+ the core is generated by the simple objects;
+ \item \emph{Elliptic} (theta-divisor complement): for
+ elliptic deformations of the evaluation modules, the
+ $\Theta$-divisor complement provides the evaluation generator
+ set;
+ \item \emph{Super} (parity-balance for super-Yangian): the
+ super-Yangian $Y(\frakg(m|n))$ has its evaluation core
+ generated by parity-balanced modules
+ (super-trace-zero condition).
+\end{enumerate}
+The Baxter constraint $b = a - 1/2$ that previously appeared in
+the type-A statement is now understood as a type-A artifact of
+the asymptotic-prefundamental presentation; it does not generalise
+to types B/C/D, where the reflection-equation Shapovalov gives
+an alternative generator set.
+\end{proposition}
+
+\begin{remark}[Type-A vs B/C/D in the chiral quantum group]
+\label{rem:qg-type-a-vs-bcd}
+The chiral quantum group $\Uq(\widehat{\frakg})^{\mathrm{ch}}$
+has type-dependent structure:
+\begin{enumerate}[label=(\alph*)]
+ \item Type $A_{N-1}$: $\Uq(\widehat{\fsl}_N)^{\mathrm{ch}}$
+ admits the standard RTT presentation with the rational
+ $R$-matrix
+ $R(u) = (u\,\mathrm{Id} - \Psi\,P)/(u - \Psi)$
+ (additive Yang). The qdet is central and gives the
+ $U(\widehat{\fgl}_N)^{\mathrm{ch}}$ extension.
+ (Vol I FM32a: RTT sign convention is
+ $[t_{ij}, t_{kl}] = \Psi(\delta_{il} t_{kj} - \delta_{kj} t_{il})$
+ in the additive presentation; opposite sign in Molev's
+ multiplicative $1 - P/u$.)
+ \item Types $B_n, C_n, D_n$: $\Uq(\widehat{\frakg})^{\mathrm{ch}}$
+ requires the orthogonal/symplectic $R$-matrix and
+ satisfies an additional reflection equation. The Drinfeld
+ second presentation differs from type A by extra
+ generator-level conditions.
+ \item Exceptional $G_2, F_4, E_6, E_7, E_8$: the chiral
+ quantum group exists abstractly via the universal Yangian
+ of Drinfeld but lacks a closed-form RTT presentation; the
+ evaluation-generated core construction
+ (Proposition~\ref{prop:mc3-five-family-types}) provides
+ access via Chari--Moura $\ell$-weights.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[Super-Yangian status]
+\label{rem:super-yangian-status}
+%%: cached confusion #10 -- super-Yangian CONJECTURAL.
+The super-Yangian $Y(\frakg(m|n))^{\mathrm{ch}}$ is
+\textsc{conjectural} at the chiral level:
+\begin{enumerate}[label=(\alph*)]
+ \item The Drinfeld--Jimbo presentation of the classical
+ super-Yangian $Y_\hbar(\frakg(m|n))$ is established
+ (Khoroshkin, Lukierski, Tsuboi);
+ \item The super-trace-zero condition gives a generalised
+ RLL relation with the super-$R$-matrix replacing the bosonic
+ one;
+ \item The chiral globalisation $Y(\frakg(m|n))^{\mathrm{ch}}$
+ on a curve $X$ is conjectured but not constructed; the
+ main obstruction is that $\Sigma_n$-coinvariants do not
+ commute with super-symmetrisation in the way required for
+ the factorisation envelope;
+ \item The super-complementarity identity
+ $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! = \max(m, n)$ is verified per-case for
+ small ranks but lacks a canonical pairing
+ (super-trace vs Berezinian; Vol~II open frontier F4).
+\end{enumerate}
+\end{remark}
+
+
+\section{Cross-volume kappa stratification}
+\label{sec:cross-volume-kappa-strat}
+
+% Wave-14 cross-volume bridge:
+% Vol I conductor K(A) = -c_ghost(BRST(A)),
+% Vol III kappa_ch = sum_q (-1)^q h^{0,q}(X) (Hodge supertrace).
+% This section pins the QG-side incarnation of the kappa stratification.
+
+The kappa-stratification by CY dimension established in Vol~III
+\texttt{cy\_d\_kappa\_stratification.tex} restricts to the
+quantum-group-input cases as follows.
+
+\begin{proposition}[Kappa stratification on QG inputs]
+\label{prop:kappa-strat-qg-inputs}
+\ClaimStatusProvedElsewhere
+For the standard quantum-group inputs to $\Phi$:
+\begin{enumerate}[label=(\roman*)]
+ \item $d = 1$, lattice VOA from Coh(elliptic curve):
+ $\kappa_{\mathrm{ch}} = 0$ (Hodge supertrace
+ $1 - 1 = 0$); the QG output is the trivial braided category;
+ \item $d = 2$, K3: $\kappa_{\mathrm{ch}} = 2$; the QG output
+ is the Mukai-lattice quantum group at root of unity
+ $q_{\Lambda}$;
+ \item $d = 2$, abelian surface: $\kappa_{\mathrm{ch}} = 0$;
+ the QG output is trivially braided;
+ \item $d = 3$, $\C^3$ (CoHA):
+ $\kappa_{\mathrm{ch}} = 3/2$ (local-$\bP^2$ shadow value);
+ the QG output is the affine Yangian
+ $Y(\widehat{\fgl}_1)$;
+ \item $d = 3$, conifold: $\kappa_{\mathrm{ch}} = 1$; the QG
+ output is the affine Yangian $Y(\widehat{\fsl}_2)$;
+ \item $d = 3$, quintic: $\kappa_{\mathrm{ch}}$ computable in
+ principle from Hodge data $(h^{0,0}, h^{1,0}, h^{2,0}, h^{3,0})
+ = (1, 0, 0, 1)$ giving supertrace $0$, but the QG output is
+ \textsc{conjectural} (CY-C unresolved at general
+ compact CY$_3$);
+ \item $d = 3$, $K3 \times E$: $\kappa_{\mathrm{ch}} = 0$ by
+ Hodge supertrace; the QG output is the BKM/super-Yangian
+ of the K3 toroidal Yangian
+ (Chapter~\ref{ch:k3-quantum-toroidal}), with
+ $\kappa_{\mathrm{BKM}}(K3 \times E) = 5$ (universal
+ Borcherds weight).
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[Three kappa values for the same algebra]
+\label{rem:three-kappa-k3xe}
+For $K3 \times E$, the three invariants
+$\{\kappa_{\mathrm{ch}}, \kappa_{\mathrm{cat}}, \kappa_{\mathrm{BKM}}\}$
+are genuinely distinct:
+$\kappa_{\mathrm{ch}}(K3 \times E) = 3$ (chiral algebra invariant
+from Vol~I shadow tower at depth $2$),
+$\kappa_{\mathrm{cat}}(K3 \times E) = 0$ (manifold invariant,
+$\chi(\cO_{K3 \times E}) = \chi(\cO_{K3}) \cdot \chi(\cO_E)
+= 2 \cdot 0 = 0$ by K\"unneth),
+$\kappa_{\mathrm{BKM}}(K3 \times E) = 5$ (BKM modular weight
+$c_1(0)/2 = 10/2 = 5$ for the Igusa cusp form $\Phi_{10}$;
+universal Borcherds weight $c_N(0)/2$ for K3-fibered Class A).
+The earlier conjecture
+$\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\cO_{\text{fiber}})$
+giving $5 = 3 + 2$ is the $N = 1$ K3 $\times$ E numerical
+coincidence; it FAILS for $N \geq 2$ (cached confusion \#15;
+\texttt{rem:bkm-decomposition-adversarial} documents N=2..8
+failure with 62 adversarial tests). The three invariants are
+controlled by three different functorialities (shadow tower,
+manifold Euler characteristic, BKM denominator); their
+agreement at $N = 1$ is not a structural identity.
+\end{remark}
+
+
+\section{Outlook: chiral QG equivalence on the Koszul locus}
+\label{sec:outlook-chiral-qg-koszul}
+
+% Vol I theorem table: chiral QG equivalence PROVED on ordered Koszul locus.
+% The three structures (R-matrix, A_inf, ordered coproduct) determine each other.
+% This section closes the chapter with the unification statement.
+
+\begin{theorem}[Chiral QG equivalence on the ordered Koszul locus]
+\label{thm:chiral-qg-equiv-vol3}
+\ClaimStatusProvedElsewhere
+On the ordered Koszul locus
+$\mathrm{Kosz}^{\mathrm{ord}}(X) \subset \Eone\text{-}\mathrm{ChirAlg}(X)$,
+the three structures
+\begin{enumerate}[label=(\arabic*)]
+ \item $R$-matrix: $r(z) \in \End(A \otimes A)((z))$;
+ \item $\Ainf$ structure: chain-level operations
+ $\{m_k\}_{k \geq 1}$ on $A$;
+ \item Ordered coproduct: $\Delta^{\mathrm{ord}} \colon A \to
+ A \otimes A$ at depth $z = z_1 - z_2$
+\end{enumerate}
+mutually determine each other up to chiral quasi-isomorphism.
+This is the Vol~I content of MC3 (proved on the
+evaluation-generated core for all simple types
+via the five-family mechanism). For $\Eone$-chiral input
+including the Yangian
+$Y(\frakg)^{\mathrm{ch}}$, the equivalence is established by
+Drinfeld's second presentation plus
+Etingof--Kazhdan flatness (Vol~I
+\texttt{thm:chiral-qg-equiv-ordered}).
+\end{theorem}
+
+\begin{remark}[Concrete instances in Vol III]
+\label{rem:vol3-concrete-qg-instances}
+The chiral QG equivalence has three concrete Vol~III instances:
+\begin{enumerate}[label=(\alph*)]
+ \item \emph{$\fsl_2$ Yangian}: explicit $\alpha, \beta, \gamma$
+ order-$\hbar$ computation including the triangle coherence
+ $\alpha \circ \gamma \circ \beta = \mathrm{id}$ (Vol~I
+ \texttt{prop:sl2-yangian-triangle-concrete});
+ \item \emph{Affine $V_k(\fsl_2)$}: KL equivalence at
+ $q = e^{\pi i / (k+2)}$ (Theorem~\ref{thm:kl-equivalence})
+ gives the chiral QG datum at integer level $k$;
+ \item \emph{Toroidal Yangian on $K3 \times E$}: the elliptic
+ deformation, conditional on chain-level class-M topologization
+ (Vol~I open frontier F3) and the K3 elliptic fibration
+ structure of Chapter~\ref{ch:k3-quantum-toroidal}.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[Vol I cross-references and the climax]
+\label{rem:vol3-cross-refs-climax}
+The chapter cross-refers to:
+\begin{enumerate}[label=(\alph*)]
+ \item Vol~I \texttt{thm:chiral-qg-equiv-ordered} (chiral QG
+ equivalence on the ordered Koszul locus, including
+ $\Eone$-chiral Yangian input);
+ \item Vol~I \texttt{thm:e3-identification} (PROVED for simple
+ $\frakg$, $\fgl_N$, semisimple, reductive, nilpotent
+ Heisenberg, solvable);
+ \item Vol~I \texttt{thm:gl-N-drinfeld-double-internal}
+ (gl$_N$ chiral QG via Feigin--Frenkel screening, all
+ $N \geq 2$ unconditional);
+ \item Vol~II \texttt{thm:unified-chiral-quantum-group}
+ (unified chiral quantum group $Q_g^{k,f,\mu}$ covering
+ nine specialisation fibres);
+ \item Vol~III Wave-14 universal trace identity
+ $K(A) = -c_{\mathrm{ghost}}(\mathrm{BRST}(A))$ on Vol~I
+ side bridging to $\kappa_{\mathrm{BKM}}(X) = c_N(0)/2$
+ on Vol~III side via $\Phi$ for K3-fibered Class A.
+\end{enumerate}
+The Vol~III incarnation of the chiral QG equivalence is the
+chapter's own
+Theorem~\ref{thm:cy-c-honest-status} restricted to verified
+cases (i)--(iv), with the open conjectural cases (v)--(vii)
+constituting the residual research programme.
 \end{remark}

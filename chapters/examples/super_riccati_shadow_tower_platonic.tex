@@ -16,6 +16,33 @@
 \chapter{Super-Riccati Shadow Tower: $Y_\hbar(\mathfrak{sl}(m|n))^{\mathrm{ch}}$}
 \label{ch:super-riccati-shadow-tower-platonic}
 
+% Wave-14 anchor cross-references (cross-volume; Vol I CLAUDE.md HOT ZONE):
+%   chap:cy-to-chiral pins the Phi functor; super-Yangian inputs feed
+%      the super-CY side of Phi (super-CY categories on supermanifolds).
+%   chap:shadow-quadrichotomy-platonic: this chapter extends the Vol I
+%      G/L/C/M shadow classification to G_s/L_s/C_s/M_s/FF_s super-classes;
+%      see Theorem~\ref{thm:super-class-assignment}.
+%   chap:universal-conductor: the super-shadow complementarity identity
+%      kappa_ch + kappa_ch^! = max(m, n) of
+%      Theorem~\ref{thm:super-shadow-self-duality} sits in the universal
+%      Koszul-conductor table at the super-Yangian row, distinct from
+%      the Virasoro row (sum 13) and the bosonic-KM row (sum 0).
+%      AP24 scope explicit throughout.
+%
+% AP discipline guards (super-Riccati specific):
+%   AP24 -- complementarity is FAMILY-SPECIFIC: super-Yangian sub-Sugawara
+%      gives sum max(m, n); bosonic Virasoro gives sum 13; bosonic
+%      KM/free-field gives the conductor value zero; W-family gives
+%      rho * K_W (family-specific). Always qualify the family before
+%      writing any conductor identity for kappa + kappa^!.
+%   AP138 -- super-Jacobi at even ||m|| gives [[m,m],f] = 0 tautologically;
+%      the super-Riccati derivation depends on parity-tracking through
+%      Wick contractions; see Remark~\ref{rem:parity-grading-distinction}.
+%   AP-CY7 -- super-commutative with odd generator psi has [psi, psi] =
+%      2 psi^2 NONZERO; only the super-commutator vanishes. The
+%      super-Wick contraction conventions of
+%      Theorem~\ref{thm:super-riccati-master-recurrence} respect this.
+
 \providecommand{\ClaimStatusProvedHere}{\textsc{ProvedHere}}
 \providecommand{\ClaimStatusProvedElsewhere}{\textsc{ProvedElsewhere}}
 \providecommand{\ClaimStatusConjectured}{\textsc{Conjectured}}
@@ -121,7 +148,7 @@ GENERATORS, and propagates through WICK CONTRACTIONS. A Lie
 superalgebra $\mathfrak{g} = \mathfrak{g}_{\bar 0} \oplus \mathfrak{g}_{\bar 1}$
 with bracket $[\cdot, \cdot]$ satisfying super-Jacobi is the
 input; its universal enveloping vertex algebra carries a
-$\mathbb{Z}/2$-grading compatible with the OPE. The AP-CY7 warning
+$\mathbb{Z}/2$-grading compatible with the OPE. The warning
 (super-commutative with odd generator) is the sharpest witness: on an
 odd generator $\psi$, the commutator $[\psi, \psi] = 2\psi^2$ is
 NON-ZERO (only the super-commutator $\{\psi, \psi\}$ vanishes or
@@ -531,8 +558,15 @@ which determines $\kappa_T$.
 \label{thm:sl31-closed-forms}
 \ClaimStatusProvedHere
 For $Y(\mathfrak{sl}(3|1))$ at level $k$:
-$\sdim = 8$, $h^\vee = 2$, super-central
-$c_{\mathrm{Sug}}(Y(\mathfrak{sl}(3|1)))(k) = 8 k / (k + 2)$.
+$\sdim(\mathfrak{sl}(3|1)) = (3-1)^2 - 1 = 3$, $h^\vee = 2$, super-central
+$c_{\mathrm{Sug}}(Y(\mathfrak{sl}(3|1)))(k) = 3 k / (k + 2)$ (the
+super-Sugawara central charge of $\mathfrak{sl}(3|1)$, with sdim 3
+and dual Coxeter $h^\vee = 2$). The $\mathfrak{sl}(3)$ even-sub-Sugawara
+central charge entering item~(a) below is the BOSONIC $\mathfrak{sl}(3)$
+Sugawara at level $k$, namely $c_{\mathrm{sl3}}(k) = 8 k / (k + 3)$
+(bosonic dual Coxeter $h^\vee(\mathfrak{sl}(3)) = 3$, dimension $8$).
+Engine \texttt{compute/lib/super\_riccati\_shadow\_tower.py} uses both
+formulae in their correct conventions.
 \begin{enumerate}[label=\textup{(\alph*)},nosep]
 \item Even $\mathfrak{sl}(3)$ sub-Sugawara $T$-line:
  $\kappa_T = c_{\mathrm{sl3}}(k)/2 = 4 k / (k + 2)$, $S_3(T) = 2$,
@@ -567,19 +601,22 @@ $\kappa_\psi = -k$), even bilinear lines class M$_s$ with effective
 $c = c_{\mathrm{sl3}}(k)$.
 \end{proof}
 
-\begin{remark}[Statement-of-theorem typo in Sugawara $c$]
+\begin{remark}[Statement-of-theorem audit on Sugawara $c$ -- HEALED]
 \label{rem:sl31-sugawara-typo}
-The statement of Theorem~\ref{thm:sl31-closed-forms} contains a typo
-(super-central charge should be $3k/(k+2)$, not $8k/(k+2)$). The
-$8k/(k+3)$ that DOES appear is the BOSONIC $\mathfrak{sl}(3)$ sub-Sugawara
-central charge and is the correct input for part (a). The proof body
-above corrects this; the engine
-\texttt{compute/lib/super\_riccati\_shadow\_tower.py} uses the correct
-formula throughout. This remark is to flag that statement/proof must
-agree; a corrected statement would read
-``super-central $c_{\mathrm{Sug}}(\mathfrak{sl}(3|1))(k) = 3 k / (k + 2)$,
-while the $\mathfrak{sl}(3)$ sub-Sugawara central charge is
-$c_{\mathrm{sl3}}(k) = 8 k / (k + 3)$.''
+A plausible but incorrect super-central $c_{\mathrm{Sug}} =
+8 k / (k + 2)$ conflates $\sdim$ with the dimension of the
+even sub-algebra $\dim \mathfrak{sl}(3) = 8$. The correct
+super-central is
+$c_{\mathrm{Sug}}(\mathfrak{sl}(3|1))(k) = 3 k / (k + 2)$ (with sdim 3
+and $h^\vee = 2$); the $8k/(k+3)$ that enters part~(a) is the BOSONIC
+$\mathfrak{sl}(3)$ sub-Sugawara at the same level $k$ (bosonic dimension
+$\dim \mathfrak{sl}(3) = 8$, dual Coxeter $h^\vee(\mathfrak{sl}(3)) = 3$).
+The two formulae differ in BOTH numerator (sdim 3 vs dim 8) AND
+denominator ($k+h^\vee_{\mathrm{super}} = k+2$ vs $k+h^\vee_{\mathrm{bos}}
+= k+3$); confusing them is a recurring source of error. The
+engine \texttt{compute/lib/super\_riccati\_shadow\_tower.py} uses both
+formulae in their correct conventions; this remark is preserved as
+a guard for future edits.
 \end{remark}
 
 \begin{remark}[\label{rem:balanced-sl-nn-max-limit}
@@ -626,7 +663,7 @@ $\mathfrak{psl}(2|2)$ quotient the super-dimension is $0$ (the
 $-1$ contribution is the identity matrix $I$ which is quotiented out).
 The dual Coxeter of $\mathfrak{psl}(2|2)$ is $h^\vee = 0$, making the
 Sugawara construction critical at every level $k$. This matches the
-$\mathcal{N}{=}4$ boundary superconformal algebra (AP-CY14 context):
+$\mathcal{N}{=}4$ boundary superconformal algebra:
 to get a non-degenerate stress tensor one needs a shifted
 Sugawara with $c_{\mathrm{shifted}} = -6 k$ (the $\mathcal{N}{=}4$
 BRST central charge). The shadow tower on the bosonic
@@ -796,8 +833,6 @@ Future work: extension of the $(1|1), (2|1), (1|2), (2|2), (3|1),
 (3|2), (3|3)$ numerical verification table to the Berezinian
 pairing side, to explicitly compute the $|m - n|$ identity at each
 rank and document the CANONICAL super-pairing programme-wide.
-Documented as Frontier F4 in the 2026-04-17 Beilinson audit (Vol~I
-\texttt{notes/rectification\_map\_beilinson\_audit.md}).
 \end{remark}
 
 \begin{remark}[Alternative super-shadow duality: scaled by $m - n$]

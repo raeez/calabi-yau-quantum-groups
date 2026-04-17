@@ -1,6 +1,39 @@
 \chapter{Derived Categories of CY Manifolds}
 \label{ch:derived-cy}
 
+% Wave-14 anchor cross-references (cross-volume; Vol I CLAUDE.md HOT ZONE):
+%   chap:cy-to-chiral pins the Phi functor that this chapter feeds with
+%      D^b(Coh(X)) inputs (B-side of HMS) -- the dual to Fuk(X) inputs of
+%      the next chapter.
+%   thm:kappa-stratification-by-d (in chapters/examples/cy_d_kappa_stratification.tex)
+%      provides the Hodge-supertrace identification kappa_ch = sum_q (-1)^q h^{0,q}
+%      that this chapter then specialises to derived-equivalence-invariant
+%      computations (Mukai lattice, Caldararu HKR).
+%   chap:universal-conductor: K3 self-Koszul-duality on the free-field branch
+%      (Theorem~\ref{thm:k3-chiral-koszul-selfdual}). The Koszul conductor
+%      K_K3 := kappa_ch(K3) + kappa_ch(K3)^! takes the value zero
+%      SPECIFICALLY because the Mukai chiral algebra of K3 sits on the
+%      free-field (KM/Heisenberg) branch where the conductor identity is
+%      kappa^! = - kappa (sum vanishes). AP24 scope qualifier:
+%      free-field/KM family yields vanishing conductor; Virasoro family
+%      gives K = 13 (self-dual at c = 13); W-family gives K = rho * K_W
+%      (family-specific). The K3 entry sits at the Heisenberg row of the
+%      universal Koszul-conductor table.
+%
+% AP discipline guards (derived-category specific):
+%   AP-CY55 -- algebraization invariant kappa_ch (Phi-output) vs manifold
+%              invariant kappa_cat = chi(O_X) (HKR side); both numerically
+%              agree at (d, h^{1,0}) = (2, 0) but DIFFER conceptually and
+%              can differ for non-standard algebraizations.
+%   HMS-vs-Koszul diagnostic at K3: HMS preserves kappa_ch (2 -> 2);
+%              Koszul duality flips sign on free-field branch (2 -> -2).
+%              They are DIFFERENT involutions (Theorem~\ref{thm:k3-chiral-koszul-selfdual}).
+%   AP184 -- excision = gluing (one copy over A); coproduct = splitting
+%              (two plain copies). The HKR isomorphism is a one-copy
+%              identification (Hochschild homology of the diagonal); the
+%              Mukai pairing is a two-copy DUALITY pairing. Distinct
+%              codomains.
+
 Homological mirror symmetry identifies $\Fuk(X) \simeq D^b(\Coh(X^\vee))$. Under the functor $\Phi$, this becomes an equivalence $A_{\Fuk(X)} \simeq A_{D^b(\Coh(X^\vee))}$ of quantum chiral algebras. The algebraic side requires the CY structure on $D^b(\Coh(X))$, the chiral algebra extracted by $\Phi$, exceptional collections, and the CoHA route for local CY threefolds.
 
 \section{$D^b(\Coh(X))$ as a CY$_d$ category}
@@ -21,7 +54,7 @@ A smooth proper dg-category $\cC$ over $k$ is \emph{Calabi--Yau of dimension $d$
 where $\cC^\vee = \RHom_{\cC\text{-}\cC}(\cC, \cC \otimes \cC)$ is the inverse dualizing bimodule (Kontsevich 2006; Ginzburg 2006). Equivalently, the Serre functor satisfies $S_\cC \simeq [d]$ as an autoequivalence of the homotopy category $H^0(\cC)$. The CY structure is additional data (the bimodule quasi-isomorphism), not merely a property: different choices of trivialization yield different CY structures. For $\cC = D^b(\Coh(X))$ with $X$ a smooth projective variety, $S_X \simeq (-) \otimes \omega_X[d]$, and the CY condition becomes $\omega_X \simeq \cO_X$.
 \end{definition}
 
-The identification $S_X \simeq [d]$ for $D^b(\Coh(X))$ carries two consequences for the Vol~III programme. First, it provides the $S^d$-framing data required by the CY-to-chiral functor $\Phi$ (the CY structure determines a class in $\HC^-_d(\cC)$, the negative cyclic homology that refines the Hochschild trace; see AP-CY2). Second, it constrains the Serre duality pairing that governs the $R$-matrix on the B-side.
+The identification $S_X \simeq [d]$ for $D^b(\Coh(X))$ carries two consequences for the Vol~III programme. First, it provides the $S^d$-framing data required by the CY-to-chiral functor $\Phi$ (the CY structure determines a class in $\HC^-_d(\cC)$, the negative cyclic homology that refines the Hochschild trace;). Second, it constrains the Serre duality pairing that governs the $R$-matrix on the B-side.
 
 \begin{proposition}[Serre duality on $D^b(\Coh(X))$ for CY $X$]
 \label{prop:serre-duality-cy}
@@ -55,7 +88,7 @@ For a K3 surface $X$, the Hodge diamond and HKR give $\HH^0 \simeq \C$, $\HH^1 \
 \[
  \kappa_{\mathrm{cat}}\bigl(D^b(\Coh(K3))\bigr) \;=\; \chi(\cO_{K3}) \;=\; 2,
 \]
-a manifold invariant determined by the Hodge data of K3 alone, independent of any algebraization (AP-CY55).  At $d = 2$, the algebraization invariant $\kappa_{\mathrm{ch}}$ coincides: $\kappa_{\mathrm{ch}}(\cA_{K3}) = 2$ (Proposition~\ref{prop:kappa-cat-chi-cy}).
+a manifold invariant determined by the Hodge data of K3 alone, independent of any algebraization. At $d = 2$, the algebraization invariant $\kappa_{\mathrm{ch}}$ coincides: $\kappa_{\mathrm{ch}}(\cA_{K3}) = 2$ (Proposition~\ref{prop:kappa-cat-chi-cy}).
 \end{example}
 
 \begin{example}[Quintic threefold, $d = 3$]
@@ -124,7 +157,7 @@ as $\Etwo$-chiral algebras (for $d = 2$) or $\Eone$-chiral algebras (for $d \geq
 \end{conjecture}
 
 \noindent
-Note (AP-CY55): the manifold invariant $\kappa_{\mathrm{cat}} = \chi(\cO_X)$ is topological and automatically preserved by any equivalence; asserting its equality across HMS would be vacuous.  The content of the conjecture is the agreement of the \emph{algebraization invariant} $\kappa_{\mathrm{ch}}$.
+Note: the manifold invariant $\kappa_{\mathrm{cat}} = \chi(\cO_X)$ is topological and automatically preserved by any equivalence; asserting its equality across HMS would be vacuous. The content of the conjecture is the agreement of the \emph{algebraization invariant} $\kappa_{\mathrm{ch}}$.
 
 The $\kappa_{\mathrm{ch}}$-equality is verified unconditionally at $d = 1$: for mirror elliptic curves $E_\tau, E_{-1/\tau}$, both sides produce the Heisenberg vertex algebra and $\kappa_{\mathrm{ch}} = 1$. At $d = 2$, the equality reduces via Theorem~CY-A$_2$ to the identification $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ (Proposition~\ref{prop:kappa-cat-chi-cy}), and mirror K3 surfaces share the same underlying smooth manifold.  At $d = 3$, $\Phi_3$ is now constructed (Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}); the remaining content is the comparison of $\kappa_{\mathrm{ch}}$ across the HMS equivalence. The chiral restatement transports $R$-matrices between the A-side and the B-side. On the A-side, the $R$-matrix comes from Floer-theoretic intersection pairings; on the B-side, from Ext-pairings and the Grothendieck residue. The mirror map intertwines them.
 
@@ -253,7 +286,7 @@ For $X = \P^2$, Beilinson's exceptional collection is $\langle \cO, \cO(1), \cO(
 \[
  \bullet \rightrightarrows\!\!\rightarrow \bullet \rightrightarrows\!\!\rightarrow \bullet,
 \]
-three arrows between consecutive vertices. The local CY$_3$ total space $K_{\P^2}$ inherits a cubic superpotential. The critical CoHA $\cH(Q_{\P^2}, W_{\P^2})$ is an associative algebra (AP-CY7: not itself a chiral algebra) isomorphic to a subalgebra of the affine Yangian $Y(\widehat{\fgl}_3)$. The chiral algebra $\Phi_3(D^b(\Coh(K_{\P^2})))$ produced by the CY-to-chiral functor is class~M (infinite shadow depth, by AP-CY12), not class~L: the $m_3$ generators do not close at finite degree.
+three arrows between consecutive vertices. The local CY$_3$ total space $K_{\P^2}$ inherits a cubic superpotential. The critical CoHA $\cH(Q_{\P^2}, W_{\P^2})$ is an associative algebra isomorphic to a subalgebra of the affine Yangian $Y(\widehat{\fgl}_3)$. The chiral algebra $\Phi_3(D^b(\Coh(K_{\P^2})))$ produced by the CY-to-chiral functor is class~M (infinite shadow depth,), not class~L: the $m_3$ generators do not close at finite degree.
 \end{example}
 
 \begin{example}[Conifold and the Klebanov--Witten quiver]
@@ -266,7 +299,7 @@ The resolved conifold $X = \cO_{\P^1}(-1) \oplus \cO_{\P^1}(-1)$ is a local CY$_
 Affine space $X = \C^3$, viewed as the local CY$_3$ total space over a point, has Beilinson quiver the Jordan quiver with three loops and cubic superpotential $W = \mathrm{tr}(XYZ - XZY)$. The critical CoHA is $Y^+(\widehat{\fgl}_1)$ (Schiffmann--Vasserot 2013). The full affine Yangian is $\cW_{1+\infty}$ at the self-dual level (Proch\'azka--Rap\v{c}\'ak 2018), verifying the five-step functor chain of Chapter~\ref{ch:toric-coha}.
 \end{example}
 
-Across all three examples the pattern is the same: Beilinson quiver $\to$ superpotential $\to$ critical CoHA $\to$ positive half of an affine (super) Yangian $\to$ $\Eone$-sector of the Vol~III chiral algebra, via the CY-to-chiral functor for toric CY$_3$ without compact $4$-cycles (Theorem~\ref{thm:rsyz}). The passage from $\Eone$ to $\Etwo$ requires the Drinfeld center, and is developed in Chapter~\ref{ch:drinfeld-center}. In every case the algebraization invariant $\kappa_{\mathrm{ch}}$ (computed intrinsically from the resulting chiral algebra) must be distinguished from the manifold invariant $\kappa_{\mathrm{cat}} = \chi(\cO_X)$ (holomorphic Euler characteristic, fixed by the geometry and independent of algebraization; AP-CY55); agreement $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ is a prediction of the functor, verified at $d = 2$ and conjectural at $d = 3$.
+Across all three examples the pattern is the same: Beilinson quiver $\to$ superpotential $\to$ critical CoHA $\to$ positive half of an affine (super) Yangian $\to$ $\Eone$-sector of the Vol~III chiral algebra, via the CY-to-chiral functor for toric CY$_3$ without compact $4$-cycles (Theorem~\ref{thm:rsyz}). The passage from $\Eone$ to $\Etwo$ requires the Drinfeld center, and is developed in Chapter~\ref{ch:drinfeld-center}. In every case the algebraization invariant $\kappa_{\mathrm{ch}}$ (computed intrinsically from the resulting chiral algebra) must be distinguished from the manifold invariant $\kappa_{\mathrm{cat}} = \chi(\cO_X)$ (holomorphic Euler characteristic, fixed by the geometry and independent of algebraization); agreement $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ is a prediction of the functor, verified at $d = 2$ and conjectural at $d = 3$.
 
 \section{Bridgeland stability conditions and wall-crossing}
 \label{sec:bridgeland-stab}
@@ -290,4 +323,93 @@ For a K3 surface $X$ with Picard rank $\rho$, the distinguished connected compon
 For the resolved conifold $X = \cO_{\P^1}(-1)^{\oplus 2}$, the stability manifold $\Stab(D^b_{cs}(\Coh(X)))$ has a single wall at $\mathrm{Im}(Z(\cO_{\P^1}(-1))) = 0$, separating two chambers: the large-volume chamber (where $\cO_{\P^1}(-1)$ is stable) and the orbifold chamber (where the fractional branes are stable). The wall-crossing formula is the Kontsevich--Soibelman identity for the conifold DT invariants (Kontsevich--Soibelman 2008; Nagao--Nakajima 2011). On the chiral side, this single wall-crossing corresponds to the mutation relating the two Klebanov--Witten quiver presentations of Example~\ref{ex:conifold-derived}.
 \end{example}
 
-The general principle is that the stability manifold $\Stab(\cC)$ provides an atlas of $\Eone$-chart descriptions of the chiral algebra $\Phi(\cC)$; the transition functions are $R$-matrix gauge equivalences encoded by wall-crossing automorphisms. This perspective is developed in Chapter~\ref{ch:toric-coha} for toric CY$_3$ categories and is conjectural in general (conditional on CY-A$_3$, AP-CY6).
+The general principle is that the stability manifold $\Stab(\cC)$ provides an atlas of $\Eone$-chart descriptions of the chiral algebra $\Phi(\cC)$; the transition functions are $R$-matrix gauge equivalences encoded by wall-crossing automorphisms. This perspective is developed in Chapter~\ref{ch:toric-coha} for toric CY$_3$ categories and is conjectural in general (conditional on CY-A$_3$).
+
+\subsection{Wall-crossing as $R$-matrix gauge transformation}
+\label{subsec:wallcrossing-rmatrix}
+
+The dictionary between Bridgeland wall-crossing and $R$-matrix gauge transformations is the second functoriality clause U2 of the CY-to-chiral functor (the first, U1, being the action on Morita equivalences; cf.\ \texttt{platonic\_ideal\_reconstituted\_2026\_04\_17.md}, $\Phi$ U1--U4). Under $\Phi$, a Bridgeland slicing yields a $t$-structure on $\cC$, a $t$-structure yields a heart $\cC^\heartsuit$, the heart yields a tilting object (when one exists), the tilting object yields a quiver $Q_\sigma$, and the quiver gives an $\Eone$-chart of the chiral algebra with a specific generator basis. Two charts $\sigma_1, \sigma_2$ in adjacent chambers of $\Stab(\cC)$ produce two presentations $(Q_{\sigma_1}, R_{\sigma_1})$ and $(Q_{\sigma_2}, R_{\sigma_2})$ of the same chiral algebra; the wall-crossing automorphism is the $R$-matrix gauge transformation relating them.
+
+\begin{conjecture}[Wall-crossing dictionary]
+\label{conj:wallcrossing-dictionary}
+\ClaimStatusConjectured
+Let $\cC$ be a smooth proper CY$_d$ category for which $\Phi$ is defined ($d \in \{1, 2, 3\}$, the latter via Theorem~CY-A$_3$). Let $\sigma_1, \sigma_2 \in \Stab(\cC)$ lie in adjacent chambers separated by a single wall $W$, and let $\mathrm{KS}_W \in \mathrm{Aut}(\cC)$ be the Kontsevich--Soibelman wall-crossing automorphism. Then
+\[
+ \Phi(\mathrm{KS}_W) \;=\; g_W \in \mathrm{GL}_n\bigl(\Phi(\cC)\bigr),
+\]
+a gauge transformation of the chiral algebra realising the change of basis between the two $\Eone$-presentations. The classical $r$-matrix transforms by
+\[
+ r_{\sigma_2}(z) \;=\; g_W(z) \cdot r_{\sigma_1}(z) \cdot g_W(z)^{-1} \;-\; (\partial_z g_W)(z) \cdot g_W(z)^{-1},
+\]
+the standard gauge action on a meromorphic connection on the configuration space.
+\end{conjecture}
+
+\begin{remark}[Categorical content of the gauge action]
+\label{rem:categorical-gauge}
+The transformation rule in Conjecture~\ref{conj:wallcrossing-dictionary} is the classical gauge action of the loop group $G(\!(z)\!)$ on the space of $\mathfrak{g}$-valued meromorphic 1-forms on the punctured disk. The categorical lift comes from the fact that $\mathrm{KS}_W$ is a Fourier--Mukai-type autoequivalence of $\cC$ whose kernel changes the basis of $\HH^\bullet(\cC)$ by the wall-crossing matrix; transporting this through Theorem~\ref{thm:hkr-cy} gives a change of generator basis on the Hochschild side, and thence a change of $r$-matrix on the chiral side. distinguishes the algebraization invariant $\kappa_{\mathrm{ch}}$ (preserved under $\Phi(\mathrm{KS}_W)$, since gauge transformation acts trivially on the trace) from the manifold invariant $\kappa_{\mathrm{cat}}$ (preserved a fortiori).
+\end{remark}
+
+\begin{example}[Single-wall conifold wall-crossing as R-matrix gauge]
+\label{ex:conifold-rmatrix-gauge}
+For the resolved conifold of Example~\ref{ex:stab-conifold}, the single wall separates the large-volume chamber (geometric DT invariants) from the orbifold chamber (noncommutative DT invariants). The Kontsevich--Soibelman wall-crossing automorphism is
+\[
+ \mathrm{KS}_W \;=\; \mathrm{Ad}_{T_E}^{n_E} \quad\text{where } T_E = \prod_{m \in \Z} (1 - q^m e_E)^{(-1)^m},
+\]
+with $n_E$ the DT count of the wall-stable object $E = \cO_{\P^1}(-1)$ and $e_E$ the corresponding root vector in the affine super Yangian $Y(\widehat{\mathfrak{gl}}(1|1))$ (Example~\ref{ex:conifold-derived}). Under $\Phi_3$, this lifts to the gauge transformation $g_W(z) = T_E(z)$ of the chiral $r$-matrix; the two presentations of $\Phi_3(D^b_{cs}(\Coh(X)))$ are related by conjugation, and the modular characteristic is preserved on both sides ($\kappa_{\mathrm{ch}} = 0$ since the conifold has $\chi(\cO) = 0$).
+\end{example}
+
+The categorical content of wall-crossing is that the $R$-matrix is a connection on a flat bundle over $\Stab(\cC)$, and the holonomy of this connection around walls reproduces the Kontsevich--Soibelman wall-crossing formulae. This is the geometric counterpart of the fact that on the algebraic side, the $\Eone$-chiral algebra has a single isomorphism class but many quasi-equivalent presentations indexed by stability conditions.
+
+\section{Birational geometry: flops and derived equivalences}
+\label{sec:flops-derived}
+
+A second source of derived autoequivalences is birational geometry. The Bondal--Orlov reconstruction theorem identifies smooth projective varieties with ample canonical or anti-canonical bundle from their derived categories, but for Calabi--Yau varieties the canonical bundle is trivial and birational CY varieties typically have equivalent derived categories. Flops are the prototypical example.
+
+\begin{theorem}[Bridgeland's flop equivalence]
+\label{thm:bridgeland-flop}
+\ClaimStatusProvedElsewhere
+Let $X \to Y \leftarrow X^+$ be a standard threefold flop between smooth projective Calabi--Yau threefolds (i.e.\ $X$ and $X^+$ are connected by contracting a $\P^1$ and re-resolving). Then there is a derived equivalence
+\[
+ D^b(\Coh(X)) \;\simeq\; D^b(\Coh(X^+))
+\]
+realised by a Fourier--Mukai functor with kernel the structure sheaf of the fibre product $X \times_Y X^+$ (Bridgeland 2002).
+\end{theorem}
+
+Under the functor $\Phi_3$, Theorem~\ref{thm:bridgeland-flop} produces a chiral equivalence: $\Phi_3(D^b(\Coh(X))) \simeq \Phi_3(D^b(\Coh(X^+)))$. The two presentations differ by an $R$-matrix gauge transformation analogous to wall-crossing (the flop corresponds to crossing a wall in $\Stab$).
+
+\begin{example}[Atiyah flop]
+\label{ex:atiyah-flop}
+The Atiyah flop is the simplest non-trivial threefold flop: $X = \cO_{\P^1}(-1) \oplus \cO_{\P^1}(-1)$ (the resolved conifold of Examples~\ref{ex:conifold-derived} and~\ref{ex:stab-conifold}) flops to $X^+$, an isomorphic CY threefold with the orientation of the $\P^1$ reversed. The two are related by the Bridgeland equivalence, and on the chiral side by the gauge transformation of Example~\ref{ex:conifold-rmatrix-gauge}. In particular, $\kappa_{\mathrm{ch}}(\Phi_3(X)) = \kappa_{\mathrm{ch}}(\Phi_3(X^+)) = 0$ (both have $\chi(\cO) = 0$), confirming in this birational instance.
+\end{example}
+
+\begin{remark}[McKay correspondence as derived equivalence]
+\label{rem:mckay-derived}
+\ClaimStatusProvedElsewhere
+The McKay correspondence supplies a third source of derived equivalences. Bridgeland--King--Reid \cite{BridgelandKingReid2001} prove that for $\Gamma \subset \mathrm{SL}(d, \C)$ a finite subgroup with $d \leq 3$, there is an equivalence
+\[
+ D^b(\Coh^\Gamma(\C^d)) \;\simeq\; D^b(\Coh(Y)),
+\]
+where $Y \to \C^d/\Gamma$ is the canonical (crepant) resolution. The left side is the equivariant derived category, equivalent to the derived category of the orbifold $[\C^d/\Gamma]$. Under $\Phi$, the McKay equivalence becomes a chiral equivalence between the orbifold chiral algebra (constructed from the $\Gamma$-equivariant CoHA) and the chiral algebra of the resolution; this is the chiral analogue of the celebrated DHVW orbifold-resolution equivalence at the level of partition functions.
+\end{remark}
+
+\section{Functoriality and the Vol III programme}
+\label{sec:vol3-functoriality}
+
+The three sources of derived equivalences in this chapter -- HMS (mirror symmetry), Bridgeland wall-crossing, and birational geometry (flops, McKay) -- all factor through the CY-to-chiral functor $\Phi$ and produce chiral equivalences on the output side. This is the U1--U4 functoriality structure of $\Phi$ in operational form.
+
+\begin{remark}[$\Phi$ functoriality summary]
+\label{rem:phi-functoriality-summary}
+Recapitulating from \texttt{platonic\_ideal\_reconstituted\_2026\_04\_17.md} (Volume III $\Phi$ U1--U4):
+\begin{itemize}
+ \item \textbf{U1} (Morita equivalences): $\Phi$ sends Morita-equivalent CY$_d$ categories to isomorphic chiral algebras. The HMS equivalences (Theorems~\ref{thm:hms-d1}, \ref{thm:hms-d2}, \ref{thm:hms-quintic}) are instances.
+ \item \textbf{U2} (gauge transformations): $\Phi$ sends Bridgeland wall-crossing to $R$-matrix gauge transformations (Proposition~\ref{prop:wallcrossing-dictionary}). The Atiyah flop (Example~\ref{ex:atiyah-flop}) and McKay equivalence (Remark~\ref{rem:mckay-derived}) are derived consequences.
+ \item \textbf{U3} (deformations): $\Phi$ converts deformations of the CY category (variations of complex structure, K\"ahler moduli) into deformations of the chiral algebra, the latter parametrising a flat bundle on $\Stab(\cC)$.
+ \item \textbf{U4} (degenerations): $\Phi$ sends degenerations of CY$_d$ to degenerations of chiral algebras, including the orbifold/large-volume limits and the LG/CY correspondence (Chapter~\ref{ch:matrix-factorizations}, Section~\ref{sec:lg-cy-correspondence}).
+\end{itemize}
+The four clauses are the operational content of the slogan ``$\Phi$ is functorial and continuous on the moduli stack of CY$_d$ categories''. The Bridgeland stability manifold $\Stab(\cC)$ is the local model for U2 and U3; the Kontsevich--Soibelman wall-crossing formulae govern the holonomy of $\Phi$ along walls.
+\end{remark}
+
+\begin{remark}[Cross-chapter connectivity]
+\label{rem:cross-chapter}
+This chapter feeds three downstream constructions in Vol~III. (a) The CY-to-chiral functor $\Phi$ of Section~\ref{sec:cy-chiral-functor} consumes $D^b(\Coh(X))$ as one of its three canonical input classes (the others being $\Fuk(X)$ in Chapter~\ref{ch:fukaya-categories} and $\MF(W)$ in Chapter~\ref{ch:matrix-factorizations}). (b) The kappa stratification of Theorem~\ref{thm:kappa-stratification-by-d} consumes the HKR identification (Theorem~\ref{thm:hkr-cy}) on its input side. (c) The Koszul reflection theorem (\texttt{thm:koszul-reflection} in Chapter~\ref{ch:universal-conductor}) consumes the K3 self-Koszul-duality result (Theorem~\ref{thm:k3-chiral-koszul-selfdual}) as a calibration: K3 sits at $K = 0$ on the Heisenberg branch of the universal Koszul-conductor table. The exceptional-collection examples (Section~\ref{sec:exceptional-quivers}) feed Chapter~\ref{ch:toric-coha} (toric CY$_3$ via critical CoHA), and the Bridgeland-to-$R$-matrix dictionary (Proposition~\ref{prop:wallcrossing-dictionary}) feeds Chapter~\ref{ch:drinfeld-center} (the categorified $E_2$-promotion that turns $\Eone$-charts into $\Etwo$-output via the Drinfeld center).
+\end{remark}
