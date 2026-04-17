@@ -1,0 +1,89 @@
+% E100_arithmetic_ground_truth.tex
+%
+% Stand-alone proposition: the arithmetic ground truth for the elliptic curve
+% E_{100/Q} = LMFDB 100.a1 at the five quintic falsifier primes.
+% Used by chapters/examples/cy_c_six_routes_convergence.tex
+% (sec:cy-c-class-B-quintic, rem:quintic-hecke-falsifier).
+%
+% This is a stand-alone arithmetic certificate; it is NOT used by main.tex.
+% It is picked up by compute/scripts/audit_independent_verification.py.
+%
+% Author: Raeez Lorgat. 2026-04-17.
+
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem}
+\newtheorem{proposition}{Proposition}
+\providecommand{\ClaimStatusProvedHere}{}
+
+\begin{document}
+
+\begin{proposition}[$E_{100/\mathbb{Q}}$ arithmetic ground truth at the
+quintic falsifier primes]
+\label{prop:E100-arithmetic-ground-truth}
+\ClaimStatusProvedHere
+The Hecke eigenvalues of the elliptic curve $E_{100/\mathbb{Q}} =
+\textup{LMFDB } \texttt{100.a1}$ at the five quintic falsifier primes
+$\{3,\, 7,\, 13,\, 29,\, 37\}$ are
+\[
+  a_3 = 2,\quad a_7 = -2,\quad a_{13} = -2,\quad a_{29} = 6,\quad a_{37} = -2,
+\]
+each obtained as $a_p = p + 1 - \#E(\mathbb{F}_p)$ from the minimal
+Weierstrass model $[a_1, a_2, a_3, a_4, a_6] = [0,\, -1,\, 0,\, -33,\, 62]$.
+The values satisfy:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the Hasse bound $|a_p| \leq 2\sqrt{p}$ at each of the five primes;
+\item Hecke multiplicativity $a_{mn} = a_m \cdot a_n$ for every coprime
+      pair $(m, n)$ tested with $\max(m, n) \leq 100$;
+\item the prime-power recursion $a_{p^2} = a_p^{\,2} - p$ for every good
+      prime $p \leq 50$;
+\item rank-$0$ analytic positivity: the Mellin-truncated partial sum
+      $L(1,\, E_{100}) \approx 0.6315 > 0$, consistent with the
+      LMFDB-listed analytic rank $0$ for \texttt{100.a1};
+\item discriminant--conductor compatibility: $\Delta = 1\,250\,000 =
+      2^4 \cdot 5^7$ supports exactly the bad primes $\{2, 5\}$ of
+      conductor $N = 100 = 2^2 \cdot 5^2$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Direct exhaustive enumeration of $(x, y) \in \mathbb{F}_p^2$ satisfying
+$y^2 = x^3 - x^2 - 33 x + 62$ gives
+\[
+  \#E(\mathbb{F}_3) = 2,\quad \#E(\mathbb{F}_7) = 10,\quad
+  \#E(\mathbb{F}_{13}) = 16,\quad \#E(\mathbb{F}_{29}) = 24,\quad
+  \#E(\mathbb{F}_{37}) = 40,
+\]
+yielding $a_p = p + 1 - \#E(\mathbb{F}_p)$ as $\{2, -2, -2, 6, -2\}$.
+The five corroborating constraints (i)--(v) are independent classical
+theorems about $a_p$ that hold without re-deriving $a_p$ from the
+Weierstrass equation:
+\begin{itemize}[leftmargin=2em]
+\item (i) is Hasse 1936 (\emph{Zur Theorie der abstrakten elliptischen
+      Funktionenkörper}, J.~Reine Angew.~Math.~175), bounding
+      $|a_p| \leq 2\sqrt{p}$ from the Riemann hypothesis for $E/\mathbb{F}_p$.
+\item (ii)--(iii) are Hecke 1937 (\emph{Über die Bestimmung
+      Dirichletscher Reihen}, Math.~Ann.~112): the Euler product of an
+      eigenform L-series gives $a_{mn} = a_m a_n$ for $\gcd(m, n) = 1$
+      and the prime-power recursion at every good prime.
+\item (iv) is Coates--Wiles 1977 (Invent.~Math.~39) for the CM case
+      together with the general modularity theorem (Wiles 1995,
+      Ann.~Math.~141, completed by Breuil--Conrad--Diamond--Taylor 2001):
+      $L(1, E) \neq 0$ iff $\mathrm{rank}\,E(\mathbb{Q}) = 0$. The
+      partial sum is computed from the $a_p$ table via the
+      Mellin-truncated formula
+      $L(1, E) \approx \sum_n a_n / n \cdot \exp(-2\pi n / \sqrt{N})$
+      with $N = 100$.
+\item (v) is the N\'{e}ron--Ogg--Shafarevich criterion (N\'{e}ron 1964,
+      Ogg 1967, Shafarevich): the conductor's bad-prime support is
+      contained in the discriminant's bad-prime support. Equality forces
+      no extra ramification.
+\end{itemize}
+The point-counted values are verified to satisfy each constraint,
+jointly establishing the proposition. The engine
+\texttt{compute/quintic\_E100\_falsifier.py} performs the computation
+and the test suite
+\texttt{compute/tests/test\_quintic\_E100\_falsifier.py} certifies
+each independent constraint.
+\end{proof}
+
+\end{document}
