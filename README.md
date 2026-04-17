@@ -148,3 +148,138 @@ make verify-independence-verbose   # full list of uncovered claims
 See `notes/INDEPENDENT_VERIFICATION.md` for the three-healing rubric
 (find disjoint source / restrict scope / downgrade status) and
 `compute/lib/independent_verification.py` for the decorator implementation.
+
+## Recent Inscriptions and Audit (2026-04-17 wave)
+
+The 2026-04-17 reconstitution wave inscribed Vol III's contribution to the
+universal-trace-identity bridge, healed the CY-C pentagon stratification, and
+propagated the wave-14 anchor cross-references throughout. Items added or
+healed since the last README revision:
+
+- **Seven-part rearchitecture realised losslessly** (commit d3063b9).
+  Two-agent parallel audit confirmed all seven `\part{}` declarations at
+  `main.tex:523, 583, 661, 748, 843, 939, 1007` with Part-openers all
+  carrying substantive prose (35-63 lines each) rather than stubs. 22 of 26
+  chapter assignments match the platonic-ideal proposal exactly; the four
+  refinements are intentional content-org decisions improving on the April
+  draft.
+
+- **Show-don't-tell preface and Part-bridge installation** (commit e53be2a).
+  Each Part-opener now closes with a forward-bridge paragraph to the next
+  Part. Seven bridges installed. The preface was rewritten in
+  construct-don't-narrate form: state the objects and arrows explicitly;
+  defer narration to remarks.
+
+- **CY-D dimension stratification** (`chapters/examples/cy_d_kappa_stratification.tex`,
+  1,328 lines). Inscribes `thm:kappa-hodge-supertrace-identification`:
+  `κ_ch(A_X) = Σ_q (-1)^q h^{0,q}(X)` Hodge-filtered supertrace,
+  unconditional for compact CY_d, and `thm:kappa-stratification-by-d` with
+  explicit values across d ∈ {1, 2, 3, 4, 5} (E: κ_ch = 0; K3: 2;
+  abelian/bielliptic: 0; quintic/K3 × E/E^3: per family; CY_4 sextic: 2;
+  CY_5 generic: 0). Local P^2 (d = 3) gives `κ_ch = 3/2` via
+  `thm:local-p2-shadow`. Resolves the long-standing `κ = χ` confusion: the
+  formula changes at odd d because Serre duality kills `χ(O_X)` when
+  h^{1,0} > 0. Closes AP-CY34, AP-CY44.
+
+- **Borcherds-weight universality** (`prop:bkm-weight-universal`).
+  `κ_BKM = c_N(0)/2` proved universal for all K3-fibered Class A
+  (8 diagonal Z/N orbifolds + STU model, N ∈ {1, 2, 3, 4, 6}; the N = 5
+  Frame shape is exceptional, separately verified). Proof: K3 elliptic
+  genus + orbifold averaging + Borcherds 1998 weight theorem. Does NOT
+  depend on CY-A. For non-K3-fibered Class B (quintic, C^3, conifold,
+  local P^2), `κ_BKM` is UNDEFINED; replacement invariants are
+  `κ_BCOV = χ(X)/24` (BCOV 1994) and shadow depth (conditional on CY-A).
+  The N = 1 K3 × E coincidence `κ_BKM = κ_ch + χ(O_fiber)` FAILS at N ≥ 2
+  per `rem:bkm-decomposition-adversarial` (62 adversarial tests).
+
+- **CY-C pentagon stratification healing** (commit cade61c). The notorious
+  `κ_ch = 3 vs κ_BKM = 5` contradiction is resolved by the recognition that
+  `κ_BKM` is stratified by GENERATOR RANK `ρ^{R_i}`, NOT by `κ_ch`. The
+  universal stratification reads `{3, 12, 24}` against the route index, with
+  `κ_ch = 0` route-independent (Hodge-supertrace invariant for K3 × E). The
+  decomposition `κ_BKM = κ_ch + χ(O_fiber)` is the N = 1 K3 × E numerical
+  coincidence. Manifest invariants (κ_cat, κ_fiber) are topological; only
+  algebraization invariants (κ_ch, κ_BKM) depend on the chiral-algebra
+  realisation.
+
+- **Six routes to G(K3 × E) WITNESS framing**. Six different constructions
+  (Borcherds lift, Mukai pairing, McKay quiver, MO instanton lift,
+  factorisation homology, Costello 5d hCS) WITNESS the same `Φ_3(K3 × E)`
+  output, NOT six applications of the Φ functor. Φ gives ONE output per
+  category; the six routes are six distinct proofs of consistency that
+  converge at the kappa-spectrum level. AP-CY57 construction-not-narration
+  guard inscribed across the six-route discussion.
+
+- **Universal Trace Identity bridge inscription** (Vol III side,
+  `chapters/connections/bar_cobar_bridge.tex`). The cross-volume identity
+  `κ_BKM(X) = K(Φ(X))/2` for K3-fibered Class A is inscribed as
+  `conj:universal-trace-identity` mediated by the κ_ch Hodge supertrace. The
+  Vol I side (`K(A) = -c_ghost(BRST(A))`) is the universal conductor; the
+  Vol III side is the Borcherds weight specialised to K3-fibered Class A.
+  Status: organising principle, conjectural at programme level, per-family
+  verified across the 8 + STU diagonal Class A. Class B explicitly excluded;
+  Class B uses `κ_BCOV = χ(X)/24` instead.
+
+- **Beilinson adversarial swarm audit**
+  (`notes/beilinson_swarm_audit_vol3_2026_04_17.md`). 33 chapters audited
+  across the C1-C5 swarm bundles plus frame matter. 21 surgical fixes
+  across 4 files. Critical finds: 17 bare-κ AP113 residuals all fixed
+  (HZ3-2 zero tolerance now green); 4 broken cross-refs
+  `cor:cy-c-pentagon-colimit` → `prop:` retargeted at 4 callsites
+  (main.tex, preface.tex, introduction.tex). Convention clash discovered:
+  frontier sections used `\kappa` for the affine KM level (Feigin-Frenkel
+  convention), conflicting with the Vol III invariant convention; surgically
+  converted to `k` matching `V_k(\fg)` from landscape_census. AP160, AP161,
+  AP-CY54, AP-CY7, AP-CY8, AP182, AP185 all clean. Six-routes WITNESS
+  framing + ρ^{R_i} pentagon framing verified Beilinson-rectified.
+  Residual flagged: 102 em-dash hits across 16 files (deferred to dedicated
+  sweep — see Vol II elite-prose kickstart for the launch protocol).
+
+- **Six Vol III stub chapter developments** (drinfeld_center +89 lines;
+  braided_factorization expanded; derived_categories_cy +89; matrix_factorizations
+  +187; fukaya_categories +465; quantum_group_reps +582). drinfeld_center now
+  carries the categorified-averaging-via-right-adjoint construction
+  (AP-CY54), the BZFN identification, the E_n circle, and
+  `conj:v3-drinfeld-center-equals-bulk` with three honest obstructions.
+  matrix_factorizations carries Knörrer periodicity in detail, the quintic
+  LG model and chiral matching, the full ADE table stabilised,
+  Hochschild residue → R-matrix data, and a mirror-LG preview.
+  quantum_group_reps carries AP170 two-Yangian-defs discipline,
+  AP159 four-Yangian-types discipline, KL realisation at d = 2, and a
+  CY-C honest accounting with 7 enumerated sub-cases.
+
+- **Chriss-Ginzburg rectification harness**
+  (`.agents/skills/chriss-ginzburg-rectify/`,
+  `.claude/commands/chriss-ginzburg-rectify.md`). 616 lines of harness
+  configuration (smaller than Vol II's 1,524-line set because Vol III's
+  chunk-by-chunk rectification was started under the canonical command
+  directly, omitting v1 retention and Vol I-targeted variant). Repo-local;
+  consumed by the Vol III bundles E9-E10 of the elite-prose rectification
+  swarm queued by the Vol I `notes/elite_prose_rectification_swarm_kickstart.md`.
+
+- **working_notes.pdf snapshot** (`out/working_notes.pdf`, 851 KB,
+  build 2026-04-17 14:07). Author-side companion artifact tracked under the
+  `!out/*.pdf` unignore rule. Reflects post-2026-04-17 state including
+  seven-part rearchitecture, Hodge-supertrace stratification, Borcherds
+  universality, and CY-C pentagon healing. Regenerable by
+  `make working-notes` from `working_notes.tex`; cross-machine reference
+  for the most recent reconstitution state without requiring full rebuild.
+
+Forward direction. Two systemic debts surviving the wave:
+
+(a) Em-dash sweep. 102 ASCII `---` instances flagged across 16 chapter
+files (cy_to_chiral, modular_koszul_bridge, drinfeld_center, several
+Part IV K3 chapters); plus 43 U+2014 Unicode em-dashes (k3_yangian_chapter
+holds 26 of these alone) surfaced as a follow-up scope by the Vol III em-dash
+sweep agent. Each requires contextual rewrite (hyphen for compound nouns;
+parens or commas for parentheticals; colon or semicolon for strong pauses;
+sentence split for amplification). Dedicated sweep, 1-2 sessions; the
+table-cell, math-subscript, and section-break placeholders preserved
+intact (per Vol I CLAUDE.md HZ-10 protocol).
+
+(b) Line-by-line elite-prose rectification programme queued by the Vol I
+`notes/elite_prose_rectification_swarm_kickstart.md`. Vol III owns
+bundles E9 (frame + theory + first-batch examples) and E10 (second-batch
+examples + connections + frontier). Confidence interval on completion:
+4-6 sessions, smaller than Vol II's because Vol III is ~700 pages versus
+Vol II's ~1,950 pages.
