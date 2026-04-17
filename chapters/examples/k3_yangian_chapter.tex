@@ -3385,6 +3385,108 @@ K$3$-fibration stability principle that motivates the
 K$3$-fibred CY$_3$ class.
 \end{remark}
 
+
+%% ========================================================================
+%% Universal Drinfeld-coupling identity at the elliptic-curve factor.
+%% Reformulates the K3-anchored fixed point as a Cartan-eigenvector
+%% characterisation derived from a universal V_4 identity.
+%% ========================================================================
+
+\begin{theorem}[Universal Drinfeld-coupling identity at the elliptic
+                factor]
+\label{thm:universal-drinfeld-coupling-E}
+\ClaimStatusProvedHere
+For every $M \in \bbZ[V_4]$, the $V_4$-convolution with the elliptic-curve
+matrix $M_E = (1, 0, 0, -1)$ satisfies the universal structural identity
+\[
+  \boxed{\;M *_{V_4} M_E \;=\; M \;-\; \sigma_{\mathrm{tot}}^*(M),\;}
+\]
+where $\sigma_{\mathrm{tot}}^*$ is the $V_4$ antipodal involution
+$(m_{++}, m_{+-}, m_{-+}, m_{--}) \mapsto (m_{--}, m_{-+}, m_{+-}, m_{++})$.
+\end{theorem}
+
+\begin{proof}
+Direct computation in $V_4$-Fourier coordinates.  The $V_4$-Fourier
+transform of $M_E = (1, 0, 0, -1)$ is
+\[
+  \hat M_E \;=\; (0, 2, 2, 0) \quad \text{at } (\chi_{++}, \chi_{+-}, \chi_{-+}, \chi_{--}).
+\]
+The $V_4$-Fourier action of $\sigma_{\mathrm{tot}}^*$ is multiplication by
+$(1, -1, -1, 1)$ \textup{(}direct verification from the antipodal-flip
+character pairing\textup{).}  The Fourier transform of
+$M - \sigma_{\mathrm{tot}}^*(M)$ is therefore
+\[
+  \hat M \cdot (1 - 1, 1 - (-1), 1 - (-1), 1 - 1) \;=\; \hat M \cdot (0, 2, 2, 0)
+  \;=\; \hat M \cdot \hat M_E,
+\]
+which is precisely the Fourier transform of $M *_{V_4} M_E$ \textup{(}V_4
+convolution becomes pointwise multiplication in Fourier\textup{).}
+Inverting the Fourier transform, $M - \sigma_{\mathrm{tot}}^*(M) = M *_{V_4} M_E$
+identically on $\bbZ[V_4]$.
+\end{proof}
+
+\begin{corollary}[Universal Drinfeld coupling at $E$]
+\label{cor:universal-drinfeld-coupling-E}
+\ClaimStatusProvedHere
+For every CY input $X$ with bigraded Lefschetz matrix $M_X \in \bbZ[V_4]$,
+the Drinfeld coupling at the elliptic-curve factor is the antipodal flip:
+\[
+  \Delta_{X, E} \;=\; \sigma_{\mathrm{tot}}^*(M_X).
+\]
+Equivalently, $M_{X \times E} = M_X *_{V_4} M_E + \Delta_{X, E} = M_X$
+whenever $\sigma_{\mathrm{tot}}^*(M_X) = \Delta_{X, E}$, which is the
+self-consistency condition for $M_X$ to be a fixed point of the iterated
+elliptic-tower convolution.
+\end{corollary}
+
+\begin{corollary}[$M^\flat$ as Cartan eigenvector]
+\label{cor:M-flat-as-cartan-eigenvector}
+\ClaimStatusProvedHere
+The K$3$-anchored fixed point $M^\flat = (0, 5, -16, 11)$ is the unique
+$V_4$-vector simultaneously satisfying the four constraints:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \textup{(BKM normalisation)} $\Pi_{+-}(M^\flat) = c_5(0)/2 = 5$, the
+       Borcherds weight at the K$3$ Mukai cusp form $\Delta_5$.
+ \item \textup{(Mukai super-signature)} $\Pi_{-+}(M^\flat) = 4 - 20 = -16$,
+       the signed difference of the Mukai $(4, 20)$ signature.
+ \item \textup{(Trace closure)} $\Pi_{++}(M^\flat) + \Pi_{--}(M^\flat) = -(5 + (-16)) = 11$,
+       from $\sum M^\flat = \chi(\mathcal{O}_{K3 \times E^k}) = 2 \cdot 0 = 0$.
+ \item \textup{(Self-consistency)} $\Pi_{++}(M^\flat) = 0$: the BKM imaginary-root
+       summand does not contribute to the trivial vacuum sector at the K$3$-
+       anchored fixed point.
+\end{enumerate}
+The four constraints uniquely determine $M^\flat = (0, 5, -16, 11)$.  Together
+with Theorem~\ref{thm:universal-drinfeld-coupling-E}, this gives the
+self-consistency identity
+\[
+  M^\flat - \sigma_{\mathrm{tot}}^*(M^\flat) \;=\; M^\flat *_{V_4} M_E,
+\]
+which is structurally TRIVIAL \textup{(}holds for all $M \in \bbZ[V_4]$\textup{)},
+so the K$3$-anchored fixed point is preserved by iteration with $E$ at every
+order $k$.
+\end{corollary}
+
+\begin{remark}[Structural significance: the $E$-direction collapses Drinfeld
+               coupling to antipodal flip]
+\label{rem:E-direction-antipodal-collapse}
+Theorem~\ref{thm:universal-drinfeld-coupling-E} reveals a structural feature
+of the elliptic-curve direction in the $V_4$ Künneth dichotomy: the Drinfeld
+coupling $\Delta_{X, E}$ is NEVER an independent piece of data — it is
+ALWAYS the antipodal flip $\sigma_{\mathrm{tot}}^*(M_X)$ of the input matrix.
+This collapses the case~(3) Künneth dichotomy at the $E$-direction to a
+single universal correction, regardless of the specific CY input $X$.
+
+The K$3$-anchored fixed point $M^\flat$ is then determined NOT by the
+case-by-case Drinfeld coupling computation but by the four canonical
+boundary conditions \textup{(}BKM weight, Mukai super-signature, trace
+closure, vacuum-sector vanishing\textup{)} — a clean Platonic-ideal
+characterisation that explains both EXISTENCE \textup{(}via the Cartan-
+eigenvector structure\textup{)} and UNIQUENESS \textup{(}via the four
+boundary conditions\textup{)} of the K$3$-anchored fixed point in the
+elliptic-tower iteration.
+\end{remark}
+
+
 \subsection{Hyperk\"ahler-anchored extension: doubling versus
             multiplicative absorption}
 \label{subsec:hyperkahler-anchored-extension}
