@@ -34,7 +34,7 @@ Excluded: `chapters/frame/preface.tex`, `chapters/theory/introduction.tex`
 
 - [ ] `chapters/examples/derived_categories_cy.tex`
 - [ ] `chapters/examples/fukaya_categories.tex`
-- [ ] `chapters/examples/matrix_factorizations.tex`
+- [x] `chapters/examples/matrix_factorizations.tex` — 2026-04-17 CG-rectified (AP-CY70 scrub: stripped header metadata comments ("wave-14 anchors", "AP-CY17/AP-CY18" / "FM-LIE-NUMERICS" tags); healing language "is now proved"/"is established" → theorem cite; L183 dangling sentence "in line with." completed; A_1 Virasoro@c=2 vs Ising@c=1/2 conflation corrected (AP-CY79 new); Gepner Hodge indices h^{p,d-p} anti-diagonal (AP-CY80 new); Knörrer stabilization count k=2 uv-pairs not 4 (AP-CY81 new); Cl_4 graded-Morita via complex super-Bott 2-periodicity (AP-CY82 new); \ref{ch:fukaya-categories}→\ref{ch:fukaya} (BLUE broken ref); ch:universal-conductor→\texttt{} cross-volume form (BLUE broken ref); closing pivot to Fukaya chapter added (GREEN). 3-agent re-audit: BLUE 2 broken refs fixed; RED 1 HIGH + 4 MEDIUM all fixed; GREEN 1 MEDIUM + LOW all fixed. 4 new AP-CY entries 79-82 added to CLAUDE.md + cache.)
 - [ ] `chapters/examples/quantum_group_reps.tex`
 - [ ] `chapters/examples/toric_cy3_coha.tex`
 - [ ] `chapters/examples/coha_wall_crossing_platonic.tex`

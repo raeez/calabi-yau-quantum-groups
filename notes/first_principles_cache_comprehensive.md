@@ -1287,3 +1287,77 @@ The formula $1-d$ gives $-1$ at $d=2$ (wrong: should be $0$) and $-2$ at $d=3$ (
 **Confusion type.** Sign-convention inversion: the PTVV bracket degree is $-n$ for $n$-shifted, not $+n$. Easy to flip if the convention isn't stated.
 
 **Status.** AP-CY78 catalogued. Instance fixed at `hochschild_calculus.tex` L22 (2026-04-17).
+
+
+## Entry: Virasoro@c=2 vs Ising@c=1/2 for principal W(sl_2) (2026-04-17, CG-rectify matrix_factorizations chunk 4, AP-CY79)
+
+**Wrong claim.** The Vol~III chiral algebra of the stabilized A_1 Landau-Ginzburg model is the Ising vertex algebra (free Majorana fermion at c=1/2); the two Clifford states of the MF endomorphism ring match Ising's two basic states "up to a normalization factor" tied to Clifford stabilization.
+
+**Ghost theorem.** The Drinfeld-Sokolov principal W-algebra of sl_2 IS the Virasoro algebra at a level-dependent central charge; Conjecture ADE-LG predicts Phi(MF(W̃_{A_1})) to be a principal W-algebra of sl_2, hence a Virasoro VOA. The Clifford factor of MF(W̃_{A_1}) from Knörrer stabilization IS related to fermion-like building blocks.
+
+**Precise error.** Two distinct chiral algebras at adjacent central charges are conflated:
+- Virasoro at c=2: κ_ch = c/2 = 1 (matching Milnor μ(A_1)=1).
+- Ising at c=1/2 (= Virasoro Vir_{1/2}): κ_ch = c/2 = 1/4.
+There is no "normalization factor" taking 1/4 to 1; these are different VOAs (Ising = Vir_{1/2} is the level-1/2 degenerate representation VOA, a unitary rational CFT, while Virasoro-at-c=2 has a completely different representation theory).
+
+**Correct relationship.** κ_ch^Vir = c/2 (AP1). For κ_ch = μ(A_1) = 1, the forced Virasoro central charge is c = 2, achieved at the Drinfeld-Sokolov level k satisfying 1 - 6(k+1)²/(k+2) = 2, i.e. k = -1 ± √(2/3) on the sl_2 principal DS curve. The LG-distinguished level from Conjecture ADE-LG is one of these. Ising (c=1/2) has κ_ch = 1/4 and is not the output. The two Clifford states of Example mf-quadratic count Z/2-graded indecomposables (parity-shift pair), not central-charge normalization.
+
+**Confusion type.** Central-charge arithmetic error: κ_ch = c/2 evaluated at two different c values (2 vs 1/2) gives non-commensurable results (1 vs 1/4), not "equal up to normalization."
+
+**Status.** AP-CY79 catalogued. Instance fixed at matrix_factorizations.tex L173 (2026-04-17).
+
+
+## Entry: Gepner (c,c)-ring Hodge indices - anti-diagonal p+q=d vs corners (2026-04-17, CG-rectify matrix_factorizations chunk 6, AP-CY80)
+
+**Wrong claim.** The Gepner chiral ring of the quintic has dimension 1+101+101+1 = 204, matching h^{0,0} + h^{2,1} + h^{1,2} + h^{3,3}.
+
+**Ghost theorem.** The Gepner (c,c)-ring of a Gepner model for a compact CY_d has dimension equal to the total Hodge diamond anti-diagonal ∑_{p+q=d} h^{p,q}. For the quintic (d=3): h^{3,0}+h^{2,1}+h^{1,2}+h^{0,3} = 1+101+101+1 = 204. The stated total 204 is correct; the issue is the Hodge indices.
+
+**Precise error.** The Hodge index labels are wrong:
+- h^{0,0} and h^{3,3} are corner values (= 1 for any connected smooth proper manifold), but they are NOT the Gepner (c,c)-ring components for a CY_3.
+- The correct anti-diagonal indices are h^{p, d-p}: h^{3,0}, h^{2,1}, h^{1,2}, h^{0,3} (satisfying p+q=d=3).
+Both sets sum to 1+101+101+1=204 arithmetically because the quintic has h^{0,0}=h^{3,3}=h^{3,0}=h^{0,3}=1 and h^{2,1}=h^{1,2}=101, but the DERIVATION is different. The Gepner chiral ring is built from the R-charge p+q=d condition, not from the (0,0)+(d,d) corner.
+
+**Correct relationship.** The Gepner (c,c)-ring of a level-k=d-2 minimal-model tensor product on a CY_d is naturally graded by U(1)_R charge, with charges concentrated at {0, 1, ..., d} and the dimension at charge r equal to ∑_{p-q=d-2r} h^{p,q} (a form of the Hodge-to-gauge charge assignment). For the CY_3 quintic this gives the anti-diagonal h^{p,d-p} decomposition, matching the Gepner (c,c) count 1+101+101+1=204.
+
+**Confusion type.** Hodge index misattribution: two different sums in the Hodge diamond happen to have the same numerical value on this specific manifold, and the wrong index set is named.
+
+**Status.** AP-CY80 catalogued. Instance fixed at matrix_factorizations.tex L372 (2026-04-17).
+
+
+## Entry: Knörrer stabilization count - squares reorganize into uv-pairs (2026-04-17, CG-rectify matrix_factorizations chunk 4, AP-CY81)
+
+**Wrong claim.** Stabilizing W to W̃_{A_1} = x² + y² + z² + w² (four variables) requires "four Knörrer stabilizations" from the empty LG model.
+
+**Ghost theorem.** Knörrer periodicity says MF(W + uv) ≃ MF(W) with uv = product of two new variables. Iterating k times recovers MF(W) after adding 2k variables to W.
+
+**Precise error.** A quadratic form ∑_{i=1}^{2k} x_i² in 2k variables is a sum of k uv-pairs after reorganization x_j² + x_{j+1}² = (x_j + i x_{j+1})(x_j - i x_{j+1}) = u v. So adding 2k squared variables counts as k Knörrer steps, NOT 2k.
+
+**Correct relationship.** For W̃_{A_1} = x² + y² + z² + w² with W=0 (empty LG):
+- Reorganize: x² + y² = u_1 v_1 with u_1 = x + iy, v_1 = x - iy; similarly z² + w² = u_2 v_2.
+- So W̃_{A_1} = u_1 v_1 + u_2 v_2 is a sum of 2 uv-pairs, giving k = 2 Knörrer steps.
+- MF(W̃_{A_1}) ≃ MF(0) via two Knörrer applications.
+The "four stabilizations" count mistakes 4 raw variables for 4 Knörrer applications, double-counting by a factor of 2.
+
+**Confusion type.** Unit mismatch: raw variable count vs Knörrer-step count. Each Knörrer step consumes 2 variables.
+
+**Status.** AP-CY81 catalogued. Instance fixed at matrix_factorizations.tex L167 (2026-04-17).
+
+
+## Entry: Cl_n Morita triviality requires Z/2-graded Morita (2026-04-17, CG-rectify matrix_factorizations chunk 4, AP-CY82)
+
+**Wrong claim.** Cl_4 ≅ M_2(C) as a Z/2-graded algebra, and M_2(C) is Morita trivial, so the Clifford factor in MF(W̃_{A_1}) ≃ MF(0) ⊗ Cl_4 drops out.
+
+**Ghost theorem.** Complex Clifford algebras have a 2-periodicity that produces Morita-trivial endomorphism algebras at even n. The MF factorization with Clifford factor does simplify to Vect^{Z/2} after Morita reduction.
+
+**Precise error.** Two distinct statements are conflated:
+- Ungraded: Cl_n(C) has 2-periodicity Cl_{2k} ≅ M_{2^k}(C), Cl_{2k+1} ≅ M_{2^k}(C) ⊕ M_{2^k}(C). So Cl_4(C) ≅ M_4(C) ≅ M_2(C)⊗M_2(C) ungraded, NOT M_2(C).
+- Z/2-graded: Cl^C_n has a 2-periodicity Cl^C_2 ≅ M_{1|1}(C) (super-matrix algebra), so Cl^C_{2k} ≅ M_{2^{k-1}|2^{k-1}}(C) is Z/2-graded-Morita trivial for k ≥ 1. This is the COMPLEX Bott periodicity for super-division-algebras.
+
+The statement "Cl_4 ≅ M_2(C) as Z/2-graded" is wrong on both counts: ungraded Cl_4 is M_4(C), and Z/2-graded Cl^C_4 is M_{2|2}(C). Correct: MF(0) ⊗ Cl^C_{2k} ≃ MF(0) as Z/2-graded dg-categories, invoking Z/2-graded Morita + complex Bott 2-periodicity.
+
+**Correct relationship.** The relevant periodicity for MF is the COMPLEX super-Bott: Cl^C_{2k} is Z/2-graded-Morita trivial for all k ≥ 1, and the Knörrer-stabilization invariance of MF is a consequence. This is NOT the real Bott 8-periodicity (AP-CY73 warns against that conflation) and NOT ungraded Morita.
+
+**Confusion type.** Algebra-structure mismatch: naming the wrong periodicity (real vs complex, graded vs ungraded) while stating a correct downstream fact.
+
+**Status.** AP-CY82 catalogued. Instance fixed at matrix_factorizations.tex L171 (2026-04-17).
