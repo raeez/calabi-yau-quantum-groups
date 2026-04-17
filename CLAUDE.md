@@ -428,7 +428,7 @@ The Gerstenhaber bracket on HH*(C,C) has degree 1-d. This determines the native 
 | 1 | E_infty (commutative) | degree 0 | Abelian Lie conformal; symmetric factorization |
 | 2 | E_2 (braided) | degree -1 (Lie = lambda-bracket) | S^2-framing of HH_*(C) gives E_2 directly |
 | 3 | E_1 (ordered) | degree -2 (shifted Lie) | Holomorphic CS breaks E_2 to E_1; CoHA is associative |
-| >=4 | E_1 stabilized | degree <=(-3) | pi_d(BU) obstruction; no native braiding |
+| >=4 | E_1 stabilized | degree <=(-3) | pi_d(BU)=KU^{-d} obstruction (2-periodic, Z at even d) + pi_d(BSp) subset pi_d(BO)=KO^{-d} refinement (8-periodic, Z/2 at d=5 mod 8); no native braiding. NEVER call pi_d(BU) 8-periodic -- it is 2-periodic; the 8-periodicity is real Bott (BO/BSp). AP-CY73. |
 
 **E_2 at d=3 is DERIVED, not native**: The E_2 braiding on Rep categories of d=3 chiral algebras comes from the Drinfeld center Z(Rep^{E_1}(A)) = Rep^{E_2}(Z^der_ch(A)), NOT from A itself. The chiral algebra A is E_1; only its representation category acquires E_2 braiding after passing through the center.
 
