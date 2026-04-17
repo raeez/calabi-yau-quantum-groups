@@ -1,39 +1,6 @@
 \chapter{Derived Categories of CY Manifolds}
 \label{ch:derived-cy}
 
-% Wave-14 anchor cross-references (cross-volume; Vol I CLAUDE.md HOT ZONE):
-%   chap:cy-to-chiral pins the Phi functor that this chapter feeds with
-%      D^b(Coh(X)) inputs (B-side of HMS) -- the dual to Fuk(X) inputs of
-%      the next chapter.
-%   thm:kappa-stratification-by-d (in chapters/examples/cy_d_kappa_stratification.tex)
-%      provides the Hodge-supertrace identification kappa_ch = sum_q (-1)^q h^{0,q}
-%      that this chapter then specialises to derived-equivalence-invariant
-%      computations (Mukai lattice, Caldararu HKR).
-%   chap:universal-conductor: K3 self-Koszul-duality on the free-field branch
-%      (Theorem~\ref{thm:k3-chiral-koszul-selfdual}). The Koszul conductor
-%      K_K3 := kappa_ch(K3) + kappa_ch(K3)^! takes the value zero
-%      SPECIFICALLY because the Mukai chiral algebra of K3 sits on the
-%      free-field (KM/Heisenberg) branch where the conductor identity is
-%      kappa^! = - kappa (sum vanishes). AP24 scope qualifier:
-%      free-field/KM family yields vanishing conductor; Virasoro family
-%      gives K = 13 (self-dual at c = 13); W-family gives K = rho * K_W
-%      (family-specific). The K3 entry sits at the Heisenberg row of the
-%      universal Koszul-conductor table.
-%
-% AP discipline guards (derived-category specific):
-%   AP-CY55 -- algebraization invariant kappa_ch (Phi-output) vs manifold
-%              invariant kappa_cat = chi(O_X) (HKR side); both numerically
-%              agree at (d, h^{1,0}) = (2, 0) but DIFFER conceptually and
-%              can differ for non-standard algebraizations.
-%   HMS-vs-Koszul diagnostic at K3: HMS preserves kappa_ch (2 -> 2);
-%              Koszul duality flips sign on free-field branch (2 -> -2).
-%              They are DIFFERENT involutions (Theorem~\ref{thm:k3-chiral-koszul-selfdual}).
-%   AP184 -- excision = gluing (one copy over A); coproduct = splitting
-%              (two plain copies). The HKR isomorphism is a one-copy
-%              identification (Hochschild homology of the diagonal); the
-%              Mukai pairing is a two-copy DUALITY pairing. Distinct
-%              codomains.
-
 Homological mirror symmetry identifies $\Fuk(X) \simeq D^b(\Coh(X^\vee))$. Under the functor $\Phi$, this becomes an equivalence $A_{\Fuk(X)} \simeq A_{D^b(\Coh(X^\vee))}$ of quantum chiral algebras. The algebraic side requires the CY structure on $D^b(\Coh(X))$, the chiral algebra extracted by $\Phi$, exceptional collections, and the CoHA route for local CY threefolds.
 
 \section{$D^b(\Coh(X))$ as a CY$_d$ category}
@@ -84,11 +51,24 @@ The Schouten--Nijenhuis bracket transports to a degree $(-1)$ Lie bracket on Hod
 
 \begin{example}[K3 surfaces, $d = 2$]
 \label{ex:k3-derived}
-For a K3 surface $X$, the Hodge diamond and HKR give $\HH^0 \simeq \C$, $\HH^1 \simeq H^1(X, T_X) \oplus H^0(X, \Omega^1_X) = H^1(X, T_X)$ (of dimension $20$), and $\HH^2 \simeq H^0(X, \Lambda^2 T_X) \oplus H^2(X, \cO_X) \simeq \C \oplus \C$. The CY$_2$ structure $S_X = [2]$ pairs $\HH^2$ with $\HH^0$ by the trace. Under $\Phi$, Theorem~CY-A$_2$ produces the K3 chiral algebra $\cA_{K3}$ of \S\ref{sec:k3-chiral-algebra}: the small $\cN = 4$ superconformal algebra at $c = 6$. The categorical modular characteristic is
+For a K3 surface $X$, the Kontsevich HKR sum $\HH^p = \bigoplus_{q+r=p} H^q(X, \wedge^r T_X)$, with $\wedge^r T_X \simeq \Omega^{2-r}_X$ on a CY$_2$, gives (Example~\ref{ex:hh-k3} of Chapter~\ref{ch:cy-categories})
+\[
+ \HH^0 \simeq H^0(\cO_X) \simeq k, \qquad
+ \HH^1 \simeq 0, \qquad
+ \HH^2 \simeq H^0(\wedge^2 T_X) \oplus H^1(T_X) \oplus H^2(\cO_X) \simeq k^{22},
+\]
+\[
+ \HH^3 \simeq 0, \qquad \HH^4 \simeq H^2(\wedge^2 T_X) \simeq k,
+\]
+with $\dim_k \HH^\bullet = 1 + 0 + 22 + 0 + 1 = 24$ recovering the Mukai lattice rank / topological Euler characteristic. The CY$_2$ structure $S_X = [2]$ supplies the cyclic trace $\HH_2(D^b(\Coh(K3))) \to k$ dual to this decomposition. Under $\Phi$, Theorem~CY-A$_2$ produces the Mukai Heisenberg chiral algebra
+\[
+ \Phi\bigl(D^b(\Coh(K3))\bigr) \;=\; H_{\mathrm{Muk}}
+\]
+(Theorem~\ref{thm:phi-k3-explicit}): the rank-$24$ free-boson lattice VOA built from the Mukai lattice of signature $(4,20)$. The $\cN=4$ superconformal algebra at $c = 6$ is a distinct chiral algebra — the K3 sigma-model worldsheet algebra — that happens to share $\kappa_{\mathrm{ch}} = 2$ but is not in the image of $\Phi$. The categorical modular characteristic is
 \[
  \kappa_{\mathrm{cat}}\bigl(D^b(\Coh(K3))\bigr) \;=\; \chi(\cO_{K3}) \;=\; 2,
 \]
-a manifold invariant determined by the Hodge data of K3 alone, independent of any algebraization. At $d = 2$, the algebraization invariant $\kappa_{\mathrm{ch}}$ coincides: $\kappa_{\mathrm{ch}}(\cA_{K3}) = 2$ (Proposition~\ref{prop:kappa-cat-chi-cy}).
+a manifold invariant determined by the Hodge data of K3 alone, independent of any algebraization. At $d = 2$ with $h^{1,0}(K3) = 0$, the algebraisation invariant $\kappa_{\mathrm{ch}}$ coincides: $\kappa_{\mathrm{ch}}(H_{\mathrm{Muk}}) = 2$ (Proposition~\ref{prop:kappa-cat-chi-cy}).
 \end{example}
 
 \begin{example}[Quintic threefold, $d = 3$]
@@ -104,7 +84,7 @@ The CY$_3$ structure $S_{X_5} = [3]$ is the Serre functor used by Bridgeland in 
 
 \begin{example}[CY$_4$ and SYZ fibrations]
 \label{ex:cy4-syz}
-For a CY $4$-fold $X$ admitting a Strominger--Yau--Zaslow special Lagrangian $T^4$-fibration $\pi \colon X \to B$, the dual fibration $\pi^\vee \colon X^\vee \to B$ is again a CY $4$-fold and mirror to $X$ (Strominger--Yau--Zaslow 1996; conjectural in general, known for hyperK\"ahler families). On the derived side, $D^b(\Coh(X))$ is CY$_4$ with $S_X = [4]$. CY-A$_3$ is now proved (Theorem~\ref{thm:cy-to-chiral-d3}); the Vol~III programme for $d = 4$ requires a separate CY-A$_4$ construction.
+For a CY $4$-fold $X$ admitting a Strominger--Yau--Zaslow special Lagrangian $T^4$-fibration $\pi \colon X \to B$, the dual fibration $\pi^\vee \colon X^\vee \to B$ is again a CY $4$-fold and mirror to $X$ (Strominger--Yau--Zaslow 1996; conjectural in general, known for hyperK\"ahler families). On the derived side, $D^b(\Coh(X))$ is CY$_4$ with $S_X = [4]$. Theorem~CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}) covers $d = 3$; the Vol~III programme at $d = 4$ requires a separate CY-A$_4$ construction.
 \end{example}
 
 \section{Homological mirror symmetry as chiral equivalence}
@@ -160,7 +140,7 @@ as $\Etwo$-chiral algebras (for $d = 2$) or $\Eone$-chiral algebras (for $d \geq
 \noindent
 Note: the manifold invariant $\kappa_{\mathrm{cat}} = \chi(\cO_X)$ is topological and automatically preserved by any equivalence; asserting its equality across HMS would be vacuous. The content of the conjecture is the agreement of the \emph{algebraization invariant} $\kappa_{\mathrm{ch}}$.
 
-The $\kappa_{\mathrm{ch}}$-equality is verified unconditionally at $d = 1$: for mirror elliptic curves $E_\tau, E_{-1/\tau}$, both sides produce the Heisenberg vertex algebra and $\kappa_{\mathrm{ch}} = 1$. At $d = 2$, the equality reduces via Theorem~CY-A$_2$ to the identification $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ (Proposition~\ref{prop:kappa-cat-chi-cy}), and mirror K3 surfaces share the same underlying smooth manifold.  At $d = 3$, $\Phi_3$ is now constructed (Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}); the remaining content is the comparison of $\kappa_{\mathrm{ch}}$ across the HMS equivalence. The chiral restatement transports $R$-matrices between the A-side and the B-side. On the A-side, the $R$-matrix comes from Floer-theoretic intersection pairings; on the B-side, from Ext-pairings and the Grothendieck residue. The mirror map intertwines them.
+The $\kappa_{\mathrm{ch}}$-equality is verified unconditionally at $d = 1$: for mirror elliptic curves $E_\tau, E_{-1/\tau}$, both sides produce the Heisenberg vertex algebra and $\kappa_{\mathrm{ch}} = 1$. At $d = 2$, the equality reduces via Theorem~CY-A$_2$ to the identification $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ (Proposition~\ref{prop:kappa-cat-chi-cy}), and mirror K3 surfaces share the same underlying smooth manifold.  At $d = 3$, $\Phi_3$ is supplied by Theorem~CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}); the remaining content is the comparison of $\kappa_{\mathrm{ch}}$ across the HMS equivalence. The chiral restatement transports $R$-matrices between the A-side and the B-side. On the A-side, the $R$-matrix comes from Floer-theoretic intersection pairings; on the B-side, from Ext-pairings and the Grothendieck residue. The mirror map intertwines them.
 
 
 \subsection{K3 mirror symmetry through chiral Koszul duality}
@@ -287,7 +267,7 @@ For $X = \P^2$, Beilinson's exceptional collection is $\langle \cO, \cO(1), \cO(
 \[
  \bullet \rightrightarrows\!\!\rightarrow \bullet \rightrightarrows\!\!\rightarrow \bullet,
 \]
-three arrows between consecutive vertices. The local CY$_3$ total space $K_{\P^2}$ inherits a cubic superpotential. The critical CoHA $\cH(Q_{\P^2}, W_{\P^2})$ is an associative algebra isomorphic to a subalgebra of the affine Yangian $Y(\widehat{\fgl}_3)$. The chiral algebra $\Phi_3(D^b(\Coh(K_{\P^2})))$ produced by the CY-to-chiral functor is class~M (infinite shadow depth,), not class~L: the $m_3$ generators do not close at finite degree.
+three arrows between consecutive vertices. The local CY$_3$ total space $K_{\P^2}$ inherits a cubic superpotential. The critical CoHA $\cH(Q_{\P^2}, W_{\P^2})$ is an associative algebra isomorphic to a subalgebra of the affine Yangian $Y(\widehat{\fgl}_3)$. The chiral algebra $\Phi_3(D^b(\Coh(K_{\P^2})))$ produced by the CY-to-chiral functor is class~M (infinite shadow depth), not class~L: the $m_3$ generators do not close at finite degree.
 \end{example}
 
 \begin{example}[Conifold and the Klebanov--Witten quiver]
