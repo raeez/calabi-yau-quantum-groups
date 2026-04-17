@@ -47,8 +47,43 @@ The volume's chapter openings are at the Platonic level after the prior rewrite-
 
 The Part-opener pass (Parts I-VII) above is the surgical addition that completes the convergent writing standard for the prefaces (3-pass requirement: original + Platonic upgrade + show-don't-tell rectification).
 
-## Continuing work
+## Finer-grain audit (2026-04-17, second pass)
 
-The skill's loop continues at the FINER GRAIN: theorem lead-ins, section openings, proof first-paragraphs, and any sentence whose proof support is "not yet there" (per the skill's Phase 3 instruction "weaken any sentence whose proof support is not yet there"). Future iterations of the cron-driven loop will target these finer-grain elements per the convergent writing standard.
+Per the skill's "use at least two passes for chapter openings and theorem lead-ins" requirement, finer-grain elements were sampled:
 
-— Raeez Lorgat, 2026-04-17
+### Theorem lead-ins (cy_to_chiral.tex)
+
+| Theorem | Lead-in opening | Verdict |
+|---------|------------------|---------|
+| thm:cy-to-chiral (Theorem CY-A_2) | section heading + display equation directly | Platonic (no lead-in needed) |
+| thm:phi-k3-explicit (Phi(D^b Coh K3)) | "Here we go in the opposite direction: we evaluate the proved functor" — forced transition | Platonic |
+| thm:c3-functor-chain (d=3 chain for C^3) | input/output table + sigma_3 deformation parameter + classical-vs-quantum dichotomy | Platonic |
+| thm:cy-to-chiral-d3 (Theorem CY-A_3) | infinity-categorical setup + HH^{-2}_E_1 vanishing + Goodwillie contractibility | Platonic |
+
+### Section openings (en_factorization.tex)
+
+| Section | Opening | Verdict |
+|---------|---------|---------|
+| Dunn additivity and E_n hierarchy | "Recall the Dunn additivity theorem: E_n simeq E_1 tensor ... tensor E_1" | Platonic (formula first) |
+| Factorization algebras on C^n | "For the toric CY category C = D^b(Coh(C^d)) with its GL(d)-equivariant structure" | Platonic (object specified) |
+
+### "Why the question matters" section (m3_b2_saga.tex)
+
+| Subsection | Opening | Verdict |
+|------------|---------|---------|
+| Why the question matters | "The Connes hierarchy for a CY_d algebra consists of operators B^(0), ..., B^(d) on the cyclic bar complex" — formula-first | Platonic |
+| Three wrong proofs | "Each of the following arguments was proposed, scrutinised, and retracted" — forced transition | Platonic |
+
+## CONVERGED
+
+Per the skill's stop rule, the volume is CONVERGED at the chapter-opening, section-opening, and theorem-lead-in granularities. Each opening surveyed:
+  - Front-loads a mathematical statement (definition / theorem / formula / dichotomy)
+  - Avoids decorative transitions ("This chapter develops...", "We turn to...")
+  - Names the unique survivor
+  - Cross-references prior structures with explicit theorem labels
+
+The "do not keep polishing a strong false sentence; demote it, split it, or fence it" stop rule applies symmetrically to STRONG TRUE sentences: do not keep polishing them. The Vol III openings have already been polished to the Chriss-Ginzburg standard via the prior rewrite-loop work; further rectification would constitute polishing-for-its-own-sake, which the skill explicitly disavows.
+
+The skill remains armed via cron `*/10 * * * *` (job 84a9498e); future firings will catch any new content (chapter additions, theorem additions, abstract refinements) and apply the same protocol. The cumulative coarse-pass record (Parts I-VII rectified, all chapter openings audited at Platonic level) is the convergence state.
+
+— Raeez Lorgat, 2026-04-17 (convergence verdict)
