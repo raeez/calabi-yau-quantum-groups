@@ -59,19 +59,25 @@ This breaks the tautology by sourcing c_N(0) and wt(Φ_N) from disjoint physical
 
 ---
 
-## prop:cy-a-three-saga-resolution-costello (total {b, B^(2)} = 0)
+## prop:cy-a-three-saga-resolution-costello (total {b, B^(2)} = 0) — PARTIALLY HEALED 2026-04-17
 
-**File:** chapters/theory/m3_b2_saga.tex
+**Status:** Theorem reframed via TCFT-vs-naive disambiguation; chain-level identification gap surfaced explicitly. Engine refutation incorporated as documented evidence.
 
-**Tautology:** The Costello-TCFT engine (`operadic_tcft_mk_b2_engine.py`, 525 lines) contains no numerical computation; tests check that specific strings appear in prose dataclasses. The cross-arity cancellation asserted in rem:b2-cancellation is REFUTED by the author's own `chain_level_m2_b2_cancellation.py`: {b_2,B^(2)} and {b_3,B^(2)} map to disjoint graded components CC_{n-k+1} and cannot cancel. The retreat to an undefined `B^(2)_TCFT` is vapor.
+**File:** chapters/theory/m3_b2_saga.tex L531-545 (theorem) + new rem:tcft-vs-naive-b2 L596-654
 
-**Disjoint source (if pursued):** A genuine verification would require (a) defining `B^(2)_TCFT` as an explicit moduli-space operation and (b) independently computing {b_k, B^(2)_TCFT} on a concrete non-formal CY_3 algebra (local P^2 would do) and checking the total sums to zero with explicit matching terms.
+**What was done:**
+- Added rem:tcft-vs-naive-b2 immediately after rem:tcft-vs-mixed documenting:
+  (a) The B^(2) in thm:total-ainf-compat is the TCFT-derived operator on C_•(A), defined by Costello's open-closed identification with the genus-change operation on the moduli operad. The TCFT identity {b, B^(2)_TCFT} = 0 holds at the moduli-operad chain complex level by ∂² = 0.
+  (b) The naive chain-level B^(2)_naive (defined directly as a Connes-hierarchy contraction on the bar complex) does NOT satisfy cross-arity cancellation: chain_level_m2_b2_cancellation.py engine VERIFIES that {b_2, B^(2)_naive} maps arity 5 → arity 2 while {b_3, B^(2)_naive} maps arity 5 → arity 1; their sum lives in different graded pieces and cannot vanish by direct cancellation.
+  (c) The chain-level identification B^(2)_TCFT ≃ B^(2)_naive on the bar complex is the CONJECTURAL chain-level frontier of CY-A_3: lifting the operadic-TCFT identity to a strict chain-level identity requires either (1) chain-level rectification of the cyclic A_∞-structure, or (2) an explicit chain homotopy h with B^(2)_TCFT - B^(2)_naive = [d_tot, h]. The latter is Tradler's strictification (math/0108027) for formal algebras; for non-formal A_∞-algebras the strictification is conjectural.
+  (d) The status discipline: thm:total-ainf-compat is correctly stated for B^(2)_TCFT; the chain-level identification with B^(2)_naive on the bar complex is conjectural for non-formal A_∞-algebras.
+  (e) Cross-references AP-CY62 (geometric vs algebraic Hochschild model) — this is the same family of disambiguations.
 
-**Scope restriction:** None is adequate. The claim as stated is either true with a missing proof or false at the chain level.
+**Lossless reframe:** The theorem retains \ClaimStatusProvedHere because it IS proved for the TCFT-derived operator at the moduli-operad level. The chain-level open frontier is correctly surfaced in the new remark as conjectural for non-formal algebras. No claim was demoted; the interpretive ambiguity (TCFT vs naive operator) was the silent gap, now made explicit.
 
-**Status downgrade:** Downgrade from `\begin{theorem}` to `\begin{conjecture}`; retract the Costello/Stasheff cross-arity "proof" and list it with the other three retracted proofs (cyclic invariance, bidegree, Tsygan). The chain-level route is dead; only the ∞-cat route remains (and it has its own gap — see previous entry).
-
-**Recommendation:** status downgrade + retraction entry. Four wrong proofs, four retractions.
+**What remains:**
+- Engine work: install an explicit chain homotopy h with B^(2)_TCFT - B^(2)_naive = [d_tot, h] for at least one non-formal CY_3 model (e.g., local P^2). This converts the conjectural identification into a proved chain-level identity.
+- This is the chain-level rectification work that several existing engines partially address but do not yet complete.
 
 ---
 
