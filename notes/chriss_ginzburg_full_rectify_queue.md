@@ -25,7 +25,7 @@ Excluded: `chapters/frame/preface.tex`, `chapters/theory/introduction.tex`
 - [ ] `chapters/theory/e1_chiral_algebras.tex`
 - [ ] `chapters/theory/e2_chiral_algebras.tex`
 - [ ] `chapters/theory/en_factorization.tex`
-- [ ] `chapters/theory/quantum_groups_foundations.tex`
+- [x] `chapters/theory/quantum_groups_foundations.tex` — 2026-04-17 CG-rectified (AP-CY70 scrub: 2 healing-language + 1 AP-tag-in-label leaks removed; §1 motivating opener added; classical r-matrix r=Ω corrected to r+r^{21}=Ω with skew-symmetric decomposition; level-stripped r(z) remark restructured to separate level prefix from κ_ch formula; κ_BKM scope clarified as K3xE-specific; "is forbidden" directive replaced by mathematical statement on invariant distinctness with N=1 coincidence noted; fermionic ribbon twist labeled as heuristic (Costello-Gaiotto); closing bridge to braided_factorization added; ∑h_i=0 clarified as normalization convention; sentence-case typo fixed. 3-agent re-audit: BLUE CONVERGED; RED 3 false-positive HIGH findings (conflating κ with c_Sug, abelian vs non-abelian Yangian Cartan, conductor K=0 with individual values); GREEN 2 HIGH + 2 MED all fixed.)
 - [ ] `chapters/theory/braided_factorization.tex`
 - [ ] `chapters/theory/drinfeld_center.tex`
 - [ ] `chapters/theory/modular_trace.tex`

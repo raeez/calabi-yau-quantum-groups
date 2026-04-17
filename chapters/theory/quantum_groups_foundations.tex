@@ -10,6 +10,8 @@ Vol~III reads this material backwards. Instead of deforming $U(\frakg)$ first an
 \label{sec:qgf-quantized-enveloping}
 % ============================================================
 
+The Drinfeld--Jimbo presentation realises $U_q(\frakg)$ as a deformation of $U(\frakg)$ in the Hopf-algebra category: generators and Serre relations deform with $q$-corrections, and the coproduct acquires an asymmetry that at $q = 1$ reduces to the symmetric classical coproduct. The data entering the definition is the Cartan matrix and its symmetrisers; everything else is forced.
+
 Let $\frakg$ be a finite-dimensional simple Lie algebra over $\C$ of rank $\ell$ with Cartan matrix $(a_{ij})_{i,j=1}^{\ell}$ and symmetrizers $d_1, \ldots, d_\ell \in \{1, 2, 3\}$ such that $d_i a_{ij} = d_j a_{ji}$. Let $q \in \C^*$ be a formal parameter (or complex number, not a root of unity) and write $q_i = q^{d_i}$, $[n]_q = (q^n - q^{-n})/(q - q^{-1})$, $[n]_q! = [1]_q [2]_q \cdots [n]_q$.
 
 \begin{definition}[Drinfeld--Jimbo quantized enveloping algebra]
@@ -92,7 +94,7 @@ Write $q = e^{\hbar/2}$ and expand the universal $R$-matrix as
  \cR = 1 + \hbar \, r + O(\hbar^2), \qquad r \in \frakg \otimes \frakg.
  \label{eq:qgf-R-expansion}
 \end{equation}
-Then $r$ is the \emph{classical $r$-matrix} of $\frakg$, equal to $r = \Omega_{\frakg}$ (the quadratic Casimir tensor, normalised by the invariant form), and the quantum Yang--Baxter equation~\eqref{eq:qgf-qybe} expands to the classical Yang--Baxter equation
+Then $r$ is the \emph{classical $r$-matrix} of $\frakg$, satisfying the symmetry identity $r + r^{21} = \Omega_{\frakg}$ where $\Omega_{\frakg} \in (\frakg \otimes \frakg)^{\frakg}$ is the quadratic Casimir tensor (normalised by the invariant form). Explicitly, $r$ decomposes as $r = \tfrac{1}{2}\Omega_{\frakg} + r_{\mathrm{sk}}$ with $r_{\mathrm{sk}} = \sum_{\alpha > 0} E_\alpha \wedge F_\alpha$ the skew-symmetric Drinfeld--Sklyanin part; the skew part carries the Lie-bialgebra cobracket data and the symmetric part is forced by quasi-triangularity. The quantum Yang--Baxter equation~\eqref{eq:qgf-qybe} expands to the classical Yang--Baxter equation
 \begin{equation}
  [r_{12}, r_{13}] + [r_{12}, r_{23}] + [r_{13}, r_{23}] = 0
  \label{eq:qgf-cybe}
@@ -104,19 +106,19 @@ at order $\hbar^2$.
 Drinfeld, ``Hamiltonian structures on Lie groups, Lie bialgebras and the geometric meaning of classical Yang--Baxter equations'' (Soviet Math.\ Dokl.\ 1983); Drinfeld (1986), Theorem~3.
 \end{proof}
 
-\begin{remark}[cross-volume check: level-stripped $r$-matrix]
-\label{rem:qgf-ap126-level-check}
+\begin{remark}[Level-stripped affine $r$-matrix and the two sanity points]
+\label{rem:qgf-level-stripped-r}
 Passing from $U_q(\frakg)$ (finite type) to the affine quantum group $U_q(\hat{\frakg})$ at level $k$, Proposition~\ref{prop:qgf-classical-limit-r} acquires a level prefix: the classical limit produces
 \begin{equation}
  r(z) = k \cdot \frac{\Omega_{\frakg}}{z} + O(\hbar, z^0),
  \label{eq:qgf-r-level-k}
 \end{equation}
-matching the Vol~I and Vol~II convention. Two sanity checks, mandatory after writing any $r$-matrix formula:
+matching the Vol~I and Vol~II convention. The affine formula has two distinguished values of $k$ at which the algebraic structure collapses for different reasons; both must be verified whenever an affine $r$-matrix is written.
 \begin{enumerate}[label=(\alph*)]
- \item At $k = 0$: the level-zero limit collapses the affine algebra to a loop algebra whose invariant form is identically zero, the classical $r$-matrix vanishes ($r(z) = 0$), and the universal $R$-matrix reduces to the identity $\cR(z) = 1$. This matches $\kappa_{\mathrm{ch}}^{\mathrm{KM}} = \dim(\frakg)(k + h^\vee)/(2 h^\vee) |_{k=0} = \dim(\frakg)/2$ reflected through the residue at $k = 0$ of the coefficient.
- \item At $k = -h^\vee$ (the critical level): $\kappa_{\mathrm{ch}}^{\mathrm{KM}}$ vanishes, the $R$-matrix degenerates, and the quantum group collapses to the classical enveloping algebra of the loop algebra. This is the Feigin--Frenkel regime.
+ \item \emph{Level zero} ($k = 0$). The level prefix in~\eqref{eq:qgf-r-level-k} vanishes, so $r(z) = 0$ and $\cR(z) = 1$: the affine algebra collapses to the loop algebra, whose invariant form is identically zero. The Sugawara central charge $c_{\mathrm{Sug}} = k\dim(\frakg)/(k + h^\vee)$ vanishes as well at $k = 0$, while the Kac--Moody modular characteristic $\kappa_{\mathrm{ch}}^{\mathrm{KM}} = \dim(\frakg)(k + h^\vee)/(2 h^\vee)$ takes the value $\dim(\frakg)/2$ (the free-field value, governed by the $h^\vee$ shift of the Sugawara construction, not the level prefix of the $r$-matrix).
+ \item \emph{Critical level} ($k = -h^\vee$). The prefix $(k + h^\vee)$ vanishes, so $\kappa_{\mathrm{ch}}^{\mathrm{KM}} = 0$; the $R$-matrix degenerates and the quantum group collapses to the classical enveloping algebra of the loop algebra. This is the Feigin--Frenkel regime.
 \end{enumerate}
-This principle caught repeated level-stripped affine pole terms; both (a) and (b) must be verified whenever an affine $r$-matrix is written.
+The two limits give independent consistency conditions: the $r$-matrix vanishes as $k \to 0$ by the level prefix, and degenerates at $k = -h^\vee$ by the critical-level prefactor.
 \end{remark}
 
 The spectral-parameter version extends Proposition~\ref{prop:qgf-qybe} to a family.
@@ -188,7 +190,7 @@ between the semisimplified quantum group category and the category $\mathcal{O}_
 \end{theorem}
 
 \begin{proof}[Attribution]
-Kazhdan--Lusztig, ``Tensor structures arising from affine Lie algebras'' (I--IV, J.\ Amer.\ Math.\ Soc.\ 1993--1994); Finkelberg, ``An equivalence of fusion categories'' (GAFA 1996), closing the positive-level case. the equivalence requires $q$ at a root of unity; at generic $q$ the two sides are no longer equivalent (the affine side does not even make sense as a finite modular category).
+Kazhdan--Lusztig, ``Tensor structures arising from affine Lie algebras'' (I--IV, J.\ Amer.\ Math.\ Soc.\ 1993--1994); Finkelberg, ``An equivalence of fusion categories'' (GAFA 1996), closing the positive-level case. The equivalence requires $q$ at a root of unity; at generic $q$ the two sides are no longer equivalent (the affine side does not even make sense as a finite modular category).
 \end{proof}
 
 \begin{remark}[Vol~III standpoint]
@@ -243,8 +245,8 @@ where $\mathcal{MTC}(\Phi(\cC)) := \Rep^{\Etwo}(A_\cC)^{\mathrm{ss}}$ is the (se
 \label{rem:qgf-cy-c-scope}
 Conjecture~\ref{conj:qgf-cy-c} is stated as a single conjecture but splits by dimension:
 \begin{itemize}
- \item $d = 2$ (K$3$ and abelian surface cases): the functor $\Phi$ is constructed (Theorem~CY-A$_2$), so $A_\cC$ is defined, and CY-C reduces to a semisimplification plus reconstruction statement. The BKM route (Borcherds--Gritsenko--Nikulin) provides partial evidence; see Chapter~\ref{ch:k3-times-e} and the toroidal elliptic computation in Chapter~\ref{chap:toroidal-elliptic}. At $d = 2$, $\kappa_{\mathrm{cat}} = \chi(\cO_{K3}) = 2$, while $\kappa_{\mathrm{BKM}} = 5$ is the weight of $\Delta_5$: forbids conflation.
- \item $d = 3$: the functor $\Phi_3$ at $d = 3$ is now proved (Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}). Conjecture~\ref{conj:qgf-cy-c} at $d = 3$ remains conjectural: CY-A$_3$ constructs the chiral algebra $A_\cC$, but the existence of the quantum vertex chiral group $C(\cC, q)$ is a separate conjecture. The only end-to-end verified case is $\C^3$, where $C(\C^3, q)$ is the affine Yangian $Y^+(\widehat{\mathfrak{gl}}_1)$ (Schiffmann--Vasserot, Kontsevich--Soibelman).
+ \item $d = 2$ (K$3$ and abelian surface cases): the functor $\Phi$ is constructed (Theorem~CY-A$_2$), so $A_\cC$ is defined, and CY-C reduces to a semisimplification plus reconstruction statement. The BKM route (Borcherds--Gritsenko--Nikulin) provides partial evidence; see Chapter~\ref{ch:k3-times-e} and the toroidal elliptic computation in Chapter~\ref{chap:toroidal-elliptic}. At $d = 2$: $\kappa_{\mathrm{cat}}(\mathrm{K3}) = \chi(\cO_{\mathrm{K3}}) = 2$ (manifold-topological) and the algebraisation invariant $\kappa_{\mathrm{ch}}(\Phi(D^b\Coh(\mathrm{K3}))) = 2$ coincide at the K3 input, by Theorem~CY-A$_2$. The Borcherds weight $\kappa_{\mathrm{BKM}}$ is a distinct invariant attached to the CY$_3$ $K3\times E$ (weight $5$ of $\Delta_5$, per Chapter~\ref{ch:k3-times-e}); it lives in a different dimension and a different construction, and the numerical coincidence $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\cO_{\mathrm{K3}}) = 3 + 2 = 5$ at $N=1$ is an $N=1$-specific arithmetic that fails at $N \geq 2$.
+ \item $d = 3$: the functor $\Phi_3$ is constructed (Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}). Conjecture~\ref{conj:qgf-cy-c} at $d = 3$ remains conjectural: CY-A$_3$ constructs the chiral algebra $A_\cC$, but the existence of the quantum vertex chiral group $C(\cC, q)$ is a separate conjecture. The only end-to-end verified case is $\C^3$, where $C(\C^3, q)$ is the affine Yangian $Y^+(\widehat{\mathfrak{gl}}_1)$ (Schiffmann--Vasserot, Kontsevich--Soibelman).
 \end{itemize}
 In neither case is $C(\cC, q)$ constructed for a general CY category; Conjecture~\ref{conj:qgf-cy-c} is the Vol~III programme, not a theorem.
 \end{remark}
@@ -279,7 +281,7 @@ where $Y^+(\frakg_{\mathrm{K3}})$ is the positive half of the rank-$24$ Heisenbe
   g_{\mathrm{K3}}(z) = \prod_{i=1}^{24} \frac{z - h_i}{z + h_i},
   \label{eq:cy-c-structure-fn}
 \end{equation}
-and the parameters $h_1, \ldots, h_{24}$ live in the complexified Mukai lattice $\Lambda_{\mathrm{Muk}} \otimes \C$ with the CY$_2$ constraint $\sum h_i = 0$.
+and the parameters $h_1, \ldots, h_{24}$ live in the complexified Mukai lattice $\Lambda_{\mathrm{Muk}} \otimes \C$, with the normalisation $\sum h_i = 0$ (the traceless slice, chosen so that the overall translation of the spectral parameter acts trivially; the condition is a choice of origin rather than a constraint forced by the CY$_2$ structure).
 \end{conjecture}
 
 \begin{remark}[Three routes to $C(\frakg_{\mathrm{K3}}, q)$]
@@ -308,7 +310,7 @@ where $\cZ$ denotes the Drinfeld center. The braiding on $\Rep^{\Etwo}(Y(\frakg_
   \item \emph{Simple objects:} evaluation modules $V_u^{(a)}$ parametrised by $(u, a) \in \C \times \{1, \ldots, 24\}$.
   \item \emph{Braiding:} $R$-matrix matches the MO stable envelope $R$-matrix at all test points. Unitarity $R(z)R(-z) = \mathrm{Id}$ verified.
   \item \emph{Fusion rules:} $V_u^{(a)} \otimes V_v^{(a)}$ is reducible iff $u - v = \pm h_a$.
-  \item \emph{Ribbon twist:} $\theta(V_u^{(a)}) = g_a(0)^{-1} = -1$ (fermionic, consistent with half-hypermultiplet BPS states).
+  \item \emph{Ribbon twist:} $\theta(V_u^{(a)}) = g_a(0)^{-1} = -1$. The $-1$ twist is a fermionic $\Z/2$-grading on $V_u^{(a)}$; physically (heuristic, Costello--Gaiotto), this matches the half-hypermultiplet BPS sector of the associated 3d $\cN=4$ theory.
 \end{enumerate}
 \end{conjecture}
 
@@ -329,4 +331,7 @@ where $\omega^{ab}$ is the inverse Mukai pairing. For the abelian ($\fgl_1$) the
 \begin{remark}[Koszul conductor]
 \label{rem:cy-c-koszul-conductor}
 The Koszul dual $C(\frakg_{\mathrm{K3}}, q)^!$ has inverted parameters $h_i \mapsto -h_i$, giving dual structure function $g^!(z) = 1/g_{\mathrm{K3}}(z)$. The Koszul conductor is $K = 0$ (free-field/Kac--Moody branch), so $\kappa_{\mathrm{ch}}(C) + \kappa_{\mathrm{ch}}(C^!) = 0$. For K3, $\kappa_{\mathrm{ch}} = \chi(\cO_{\mathrm{K3}}) = 2$, hence $\kappa_{\mathrm{ch}}(C^!) = -2$. This is compatible with the flop invariance of $\kappa_{\mathrm{ch}}$.
+
+\smallskip
+\noindent\textit{Into the next chapter.} The representation-category equivalence of Conjecture~\ref{conj:cy-c-k3-rep} places the $\Etwo$-braided structure on $\Rep^{\Etwo}(Y(\frakg_{\mathrm{K3}}))$ rather than on $Y(\frakg_{\mathrm{K3}})$ itself; the $\Etwo$-chiral datum on the representation category is the Drinfeld centre of the native $\Eone$-monoidal structure on $Y(\frakg_{\mathrm{K3}})$-modules. Chapter~\ref{ch:braided-factorization} constructs the braided factorisation algebra that realises this centre, identifying the half-braidings $\sigma_M(N)$ with the spectral-parameter $R$-matrix of the present chapter.
 \end{remark}
