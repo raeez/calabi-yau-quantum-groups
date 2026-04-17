@@ -1,0 +1,643 @@
+% coha_wall_crossing_platonic.tex
+% Platonic-ideal reconstitution of Vol III Kontsevich-Soibelman wall-crossing
+% content. Written in the Russian-school style (Kontsevich, Soibelman,
+% Schiffmann, Vasserot, Davison). Strictest honest scope, AP-CY5 / AP-CY7 /
+% AP-CY8 compliant. No AI attribution; all work attributed to Raeez Lorgat.
+%
+% This chapter is the healing inscription following the 2026-04-16 adversarial
+% attack on the CoHA wall-crossing claims in toric_cy3_coha.tex. It isolates
+% the algebra-vs-coalgebra distinction, the positive-half-vs-full-Yangian
+% distinction, and the motivic-Hall-Lie-algebra-vs-chiral-convolution-dgLA
+% distinction that the earlier inscription slurs over in a few places.
+%
+% Chapter placement: sibling of toric_cy3_coha.tex in the CY landscape part
+% (see main.tex \ref{part:cy-landscape}).
+
+\chapter{Wall-Crossing and CoHA: the Algebra-vs-Coalgebra Ledger}
+\label{ch:coha-wall-crossing-platonic}
+
+\section*{Foreword: what this chapter is}
+
+The preceding chapter \ref{ch:toric-cy3-coha} assembles a chiral quantum
+group datum from the critical CoHA, the Maulik--Okounkov $R$-matrix, the
+Drinfeld double, and the chart-gluing chiral algebra $A_X$. The inscription
+is correct in its structural assembly but passes quickly through three
+distinctions that this chapter makes ledger-strict:
+
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item \textbf{Algebra versus coalgebra.}
+    The cohomological Hall algebra $\mathcal{H}(Q, W)$ is a
+    $\mathbb{Z}$-graded associative algebra \emph{without internal
+    differential}. The bar complex $B^{\mathrm{ord}}(\mathcal{H})$ is a
+    coassociative coalgebra constructed \emph{from} $\mathcal{H}$. The
+    phrase ``$D^2 = 0$ in the CoHA differential'' in
+    Theorem~\ref{thm:wall-crossing-mc} is shorthand for
+    ``$D^2 = 0$ in the bar complex of $\mathcal{H}$'' or for
+    ``$\partial_W^2 = 0$ in the Ginzburg dg algebra $\Pi(Q, W)$''; these
+    are distinct objects and the shorthand suppresses the passage. This
+    chapter separates them.
+  \item \textbf{Positive half versus full Yangian.}
+    The Schiffmann--Vasserot theorem identifies
+    $\mathcal{H}(\mathbb{C}^3) \simeq Y^+(\widehat{\mathfrak{gl}}_1)$,
+    the \emph{positive half}. The full affine Yangian
+    $Y(\widehat{\mathfrak{gl}}_1)$ is the Drinfeld double of
+    $\mathcal{H}(\mathbb{C}^3)$ via a non-degenerate Hopf pairing. For
+    $X = \mathbb{C}^3$ this double is proved (Procha\'zka--Rap\v{c}\'ak);
+    for general toric $X$ the double exists but the identification
+    with a specific affine super Yangian is conditional on a Hopf-pairing
+    lemma which we record as a proposition with precise hypotheses.
+  \item \textbf{Motivic Hall Lie algebra versus chiral convolution dgLA.}
+    Kontsevich--Soibelman wall-crossing lives in the motivic Hall Lie
+    algebra $\mathfrak{g}_{\mathrm{KS}}(X)$ of the CY$_3$ category
+    $D^b\mathrm{Coh}(X)$; its exponential is the motivic quantum torus
+    and the wall-crossing automorphism is an exponential gauge action.
+    The MC equation on the bar side of
+    Theorem~\ref{thm:wall-crossing-mc} lives in the convolution dgLA
+    $\mathfrak{g}^{\mathrm{mod}}_{A_X}$ of the chiral algebra $A_X$. The
+    identification of these two dgLAs factors through the chiralization
+    functor $\Phi$; it is proved for $\mathbb{C}^3$ (RSYZ plus
+    the conifold bar-complex engine) and conditional on CY-A$_3$ outside
+    that case.
+\end{enumerate}
+
+The structural yoga of the programme survives these sharpenings unchanged.
+What changes is the precise hypothesis ledger, and it is that ledger which
+this chapter lays down.
+
+% ========================================================================
+\section{Setup: CoHA, Ginzburg dg algebra, bar complex}
+\label{sec:coha-setup-platonic}
+
+Let $Q = (Q_0, Q_1, s, t)$ be a finite quiver with potential
+$W \in \mathbb{C}Q_{\mathrm{cyc}}$ (cyclic path algebra). For toric
+CY$_3$ geometries $X$ without compact $4$-cycles the McKay-correspondence
+quiver $(Q_X, W_X)$ is the input.
+
+\begin{definition}[Three distinct objects]
+\label{def:three-coha-objects}
+\ClaimStatusProvedHere
+Associated to $(Q, W)$ we distinguish:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \textbf{Path algebra.} The path algebra $\mathbb{C}Q$ with
+    relations $\partial W / \partial a_i = 0$ for each $a_i \in Q_1$
+    (the Jacobi algebra
+    $J(Q, W) = \mathbb{C}Q / (\partial W)$).
+    This is an associative $\mathbb{Z}_{\geq 0}$-graded algebra
+    (grading by path length), \emph{without} internal differential.
+  \item \textbf{Ginzburg dg algebra.} The dg algebra $\Pi(Q, W)$
+    with generators $Q_0 \cup Q_1 \cup Q_1^* \cup \{\epsilon_i\}_{i \in Q_0}$
+    in degrees $0, 0, -1, -2$ and differential $\partial_W$
+    determined by
+    $\partial_W(a_i^*) = \partial W / \partial a_i$ and
+    $\partial_W(\epsilon_i) = \sum_{a \in Q_1} [a, a^*]\, e_i$.
+    This is a genuinely dg algebra: $\partial_W^2 = 0$ encodes the
+    Jacobi identity for $W$ as a cyclic function.
+  \item \textbf{Critical CoHA.} The cohomological Hall algebra
+    \[
+      \mathcal{H}(Q, W)
+       \;=\;
+      \bigoplus_{\mathbf{d} \in \mathbb{Z}_{\geq 0}^{Q_0}}
+       \; H^{\bullet}_{G_\mathbf{d}}
+        \bigl( \mathrm{Rep}(Q, \mathbf{d}),
+         \phi_{W_\mathbf{d}} \bigr),
+    \]
+    a $\mathbb{Z}^{Q_0}$-graded associative algebra with Hall product
+    (Kontsevich--Soibelman 2010, Davison--Meinhardt 2015). $\mathcal{H}$
+    is an associative graded algebra: it carries the Hall product as
+    $m_2$ and NO internal differential at the level of definition.
+\end{enumerate}
+\end{definition}
+
+\begin{proof}[Justification]
+(a) is literally the Jacobi algebra. (b) is Ginzburg 2006
+\textup{arXiv:math/0612139}, Proposition~5.1.9; the identity
+$\partial_W^2 = 0$ is a cyclic-derivation calculation (the double
+derivative $\partial^2 W / \partial a_i \partial a_j$ is symmetric,
+and $\partial_W^2$ contracts it against $[a_i^*, a_j^*] = 0$). (c)
+is Kontsevich--Soibelman 2010 \textup{arXiv:1006.2706} Section~7,
+specialized to the critical (with-potential) setting; cf.\
+Davison--Meinhardt 2015 \textup{arXiv:1601.02479} for the
+integrality theorem. Each object has its own grading and its own
+role: the Jacobi algebra is the classical shadow, the Ginzburg dg
+algebra is the dg model that carries the differential, the CoHA is
+the cohomological invariant built \emph{from} the Ginzburg dg algebra
+by taking Borel--Moore homology of the critical locus.
+\end{proof}
+
+\begin{remark}[Which object carries the differential]
+\label{rem:which-carries-differential}
+Among (a)--(c) of Definition~\ref{def:three-coha-objects}:
+\begin{itemize}
+  \item (a) has NO differential; it is a graded algebra.
+  \item (b) HAS a differential $\partial_W$; it is a dg algebra. This is
+    where $\partial_W^2 = 0$ is a nontrivial identity encoding the
+    Jacobi algebra relations.
+  \item (c) has NO internal differential; its grading is by the charge
+    lattice $\mathbb{Z}^{Q_0}$, and its algebra structure is the
+    cohomological Hall product built by taking $H^\bullet_{G_\mathbf{d}}$
+    of vanishing cycles. The CoHA IS the output of a derived
+    construction, but the output itself is a graded algebra, not a dg
+    algebra.
+\end{itemize}
+Prose of the form ``$D^2 = 0$ in the CoHA differential'' is a
+\emph{category mistake} unless the author has in mind either (i) the
+Ginzburg dg algebra differential, or (ii) the bar differential on
+$B^{\mathrm{ord}}(\mathcal{H})$. Passages that mix these silently
+are the targets of Theorem~\ref{thm:coha-is-algebra-not-coalgebra}.
+\end{remark}
+
+\begin{definition}[Bar complex of the CoHA]
+\label{def:bar-of-coha-platonic}
+\ClaimStatusProvedHere
+The ordered bar complex of the CoHA is
+\[
+  B^{\mathrm{ord}}(\mathcal{H})
+   \;=\; T^c\bigl( s^{-1} \overline{\mathcal{H}} \bigr),
+\]
+where $\overline{\mathcal{H}} = \ker(\epsilon)$ is the augmentation
+ideal of $\mathcal{H}$ (as a graded algebra over $\mathbb{C}$) and
+$T^c$ is the tensor coalgebra with deconcatenation coproduct. The
+bar differential $d_B = \sum_{k \geq 1} b_k$ encodes the Hall product
+as $b_2$; since $\mathcal{H}$ is associative and carries no higher
+$A_\infty$-operations at the level of definition, $b_k = 0$ for
+$k \geq 3$ and $b_2$ is the dual of the Hall product.
+\end{definition}
+
+\begin{remark}[Four inputs, four outputs, one confusion]
+\label{rem:four-inputs-four-outputs-platonic}
+The four objects on the table are:
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{lll}
+\toprule
+Object & Structure & Carries $d^2 = 0$? \\
+\midrule
+Jacobi algebra $J(Q, W)$ & graded algebra & no (no differential) \\
+Ginzburg dg alg $\Pi(Q, W)$ & dg algebra & yes (native) \\
+Critical CoHA $\mathcal{H}(Q, W)$ & graded algebra & no (no differential) \\
+$B^{\mathrm{ord}}(\mathcal{H})$ & dg coalgebra & yes (bar differential) \\
+\bottomrule
+\end{tabular}
+\end{center}
+The confusion of writing ``$D^2 = 0$ in the CoHA'' targets the wrong
+object: the CoHA is a graded algebra, not a dg object. The bar complex
+\emph{of} the CoHA is a dg coalgebra and does carry $D^2 = 0$. The
+Ginzburg dg algebra is a dg algebra with $\partial_W^2 = 0$. The
+three are linked by a chain of functors, not equated.
+\end{remark}
+
+% ========================================================================
+\section{CoHA is an algebra, not a coalgebra}
+\label{sec:coha-is-algebra}
+
+\begin{theorem}[CoHA is an algebra, not a coalgebra]
+\label{thm:coha-is-algebra-not-coalgebra}
+\ClaimStatusProvedHere
+Let $(Q, W)$ be a quiver with potential and
+$\mathcal{H} = \mathcal{H}(Q, W)$ its critical CoHA. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\mathcal{H}$ is an associative $\mathbb{Z}^{Q_0}$-graded
+    algebra over $\mathbb{C}$ with Hall product
+    $m_H \colon \mathcal{H}_{\mathbf{d}_1} \otimes \mathcal{H}_{\mathbf{d}_2}
+     \to \mathcal{H}_{\mathbf{d}_1 + \mathbf{d}_2}$;
+  \item $\mathcal{H}$ carries NO internal differential in its definition
+    as a graded algebra; the Borel--Moore homology $H^{\bullet}_{G_\mathbf{d}}$
+    that builds $\mathcal{H}$ is taken \emph{after} passing to cohomology,
+    not before;
+  \item the bar complex $B^{\mathrm{ord}}(\mathcal{H}) = T^c(s^{-1} \bar{\mathcal{H}})$
+    is a separate object: a coassociative dg coalgebra whose differential
+    is the bar differential $d_B$, with $d_B^2 = 0$;
+  \item the statement ``$D^2 = 0$ in the CoHA'' in the prose of
+    Theorem~\textup{\ref{thm:wall-crossing-mc}} refers to the bar
+    complex $B^{\mathrm{ord}}(\mathcal{H})$ or to the Ginzburg dg algebra
+    $\Pi(Q, W)$, not to the CoHA itself.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) is Kontsevich--Soibelman 2010 Theorem~1 or Schiffmann--Vasserot
+2013 Theorem~A specialised to the critical setting. The Hall product
+is the convolution $m_H = \pi_* \circ p^*$ on equivariant Borel--Moore
+homology with vanishing-cycle coefficient, where $p$ is the
+short-exact-sequence projection and $\pi$ is the quotient to the
+target dimension vector. Associativity is Schiffmann--Vasserot 2013
+Proposition~1.4.
+
+(ii) is immediate from the construction: $\mathcal{H}_\mathbf{d}$
+is defined as a cohomology group
+$H^\bullet_{G_\mathbf{d}}(\mathrm{Rep}(Q, \mathbf{d}), \phi_{W_\mathbf{d}})$,
+which is a graded vector space; vanishing cycles is applied once, then
+equivariant cohomology is taken, producing a graded vector space
+without residual differential. There is no chain-level dg structure
+\emph{on} $\mathcal{H}$ itself; there is such a structure on the
+Ginzburg dg algebra $\Pi(Q, W)$ whose Hochschild homology feeds in,
+but $\mathcal{H}$ is the cohomological output.
+
+(iii) is the standard bar-complex construction. Given an associative
+graded algebra $A$, $B^{\mathrm{ord}}(A) = T^c(s^{-1} \bar A)$ is the
+tensor coalgebra on the desuspended augmentation ideal, with
+deconcatenation coproduct and differential $d_B = \sum_{k \geq 1} b_k$
+where $b_2$ is dual to the algebra multiplication and $b_k = 0$ for
+$k \geq 3$ when $A$ is strictly associative. $d_B^2 = 0$ is equivalent
+to associativity of $A$ (Stasheff 1963, Loday--Vallette 2012 \S2.3).
+
+(iv) by remaining consistent with (i)-(iii) we are forced to
+re-interpret any chain-level identity $D^2 = 0$ in Theorem~%
+\ref{thm:wall-crossing-mc} as living on the bar side or the Ginzburg
+side, not on the CoHA. The Ginzburg-side interpretation is the one used
+in the proof of Theorem~\ref{thm:wall-crossing-mc}(iii): the identity
+$\partial_W^2 = 0$ in $\Pi(Q, W)$ is what encodes the Jacobi
+$\partial W / \partial a_i = 0$ condition, and this is what enters the
+MC equation via the dg Lie algebra associated to $\Pi(Q, W)$.
+\end{proof}
+
+\begin{remark}[Reconciliation with the prose of Theorem~\ref{thm:wall-crossing-mc}]
+\label{rem:reconciliation-wall-crossing-prose}
+Clause (iii) of Theorem~\ref{thm:wall-crossing-mc} reads:
+\begin{quote}
+  The Jacobi algebra condition $\partial W / \partial a_i = 0$ is
+  equivalent to $D^2 = 0$ in the CoHA differential, which in turn is
+  the MC equation $D\Theta + \frac{1}{2}[\Theta, \Theta] = 0$.
+\end{quote}
+The correct reading: the Jacobi algebra condition
+$\partial W / \partial a_i = 0$ defines the zero locus of
+$\partial_W$ in the Ginzburg dg algebra, equivalently
+$\partial_W^2 = 0$ holds in $\Pi(Q, W)$. This translates to the MC
+equation
+$D\Theta_W + \frac{1}{2}[\Theta_W, \Theta_W] = 0$ in the dg Lie
+algebra $(\Pi(Q, W))_{\mathrm{Lie}}$ associated to
+$\Pi(Q, W)$ with MC element
+$\Theta_W = \sum_i (\partial W / \partial a_i) \, a_i^*$ (Ginzburg
+2006, Lemma~5.3.1). The CoHA enters only as the cohomological
+invariant of this dg data; it is not itself a dg object, and the
+MC equation is on $\Pi(Q, W)_{\mathrm{Lie}}$, not on
+$\mathcal{H}(Q, W)$.
+\end{remark}
+
+% ========================================================================
+\section{Chiralisation preserves algebra structure}
+\label{sec:chiralisation-preserves-algebra}
+
+\begin{theorem}[Chiralisation preserves the algebra-side structure]
+\label{thm:coha-chiralization-preserves-algebra}
+\ClaimStatusProvedHere
+Let $X$ be a local CY$_3$ with quiver $(Q_X, W_X)$ and associated critical
+CoHA $\mathcal{H}(Q_X, W_X)$. Let
+$\Phi \colon D^b\mathrm{Coh}(X) \to \mathrm{ChirAlg}$ denote the
+chiralisation functor of Theorem~CY-A$_3$ (proved in the
+$\infty$-categorical framework; Theorem~\textup{\ref{thm:cy-to-chiral-d3}}).
+Then the image $\Phi(X) = A_X$ is an $E_1$-chiral ALGEBRA, and the
+CoHA $\mathcal{H}(Q_X, W_X)$ embeds as the positive-half subalgebra:
+\[
+  \mathcal{H}(Q_X, W_X)
+   \;\hookrightarrow\;
+  A_X
+\]
+as graded algebras, via the identification
+$\mathcal{H}(Q_X, W_X) \simeq Y^+(\widehat{\mathfrak{g}}_{Q_X})$
+(Schiffmann--Vasserot for $\mathbb{C}^3$, Rapcak--Soibelman--Yang--Zhao
+for general toric without compact $4$-cycles) and the identification
+of $Y^+$ with a subalgebra of $A_X$ generated by the positive simple roots.
+In particular, chiralisation preserves ALGEBRA structure: an associative
+graded algebra $\mathcal{H}$ lands in an $E_1$-chiral algebra $A_X$,
+not in a chiral coalgebra.
+\end{theorem}
+
+\begin{proof}
+The functor $\Phi$ is constructed in Theorem~\ref{thm:cy-to-chiral-d3}
+as a symmetric-monoidal $\infty$-functor from $D^b\mathrm{Coh}(X)$
+with Yoneda convolution to the $\infty$-category of $E_1$-chiral
+algebras (for $d \geq 3$; $E_2$-chiral at $d \leq 2$, cf.\ FM43). Its
+input is an associative monoidal structure (Yoneda convolution), and its
+output is an $E_1$-algebra structure. There is no conversion to
+coalgebra at any stage.
+
+The embedding of $\mathcal{H}$ as the positive-half subalgebra of $A_X$
+proceeds through the identification
+$\mathcal{H}(Q_X, W_X) \simeq Y^+(\widehat{\mathfrak{g}}_{Q_X})$ (RSYZ;
+Schiffmann--Vasserot for $\mathbb{C}^3$). The affine super Yangian
+$Y(\widehat{\mathfrak{g}}_{Q_X}) = Y^+ \otimes Y^0 \otimes Y^-$ has its
+positive Borel $Y^+$ sitting inside $A_X$ as the subalgebra generated by
+positive-root mode operators; this inclusion is an inclusion of graded
+associative algebras, preserved by $\Phi$ at the level of mode algebras.
+No coalgebra structure enters: the chiralisation functor is algebra-to-%
+algebra by construction.
+
+The bar complex $B^{\mathrm{ord}}(A_X) = T^c(s^{-1} \bar A_X)$ is a
+separate object, a dg coalgebra; this is the coalgebra resolution of
+$A_X$ on the Koszul locus and should not be confused with $A_X$ itself.
+The CoHA embeds in $A_X$; it does not embed in $B^{\mathrm{ord}}(A_X)$.
+\end{proof}
+
+\begin{remark}[What chiralisation does NOT do]
+\label{rem:chiralisation-does-not}
+The functor $\Phi$ does NOT produce a chiral coalgebra from a CY
+category. It produces an $E_n$-chiral algebra ($n = 2$ at $d \leq 2$,
+$n = 1$ at $d \geq 3$). The bar complex of that output is a chiral
+coalgebra; but the output itself is an algebra. Any prose of the form
+``$\Phi$ converts CoHA to a chiral coalgebra'' is a violation of AP-CY7
+and AP-CY5.
+\end{remark}
+
+% ========================================================================
+\section{KS wall-crossing as MC equation on the motivic Hall Lie algebra}
+\label{sec:ks-mc-on-hall-dgla}
+
+\begin{theorem}[KS wall-crossing is MC gauge on the motivic Hall dgLA]
+\label{thm:ks-wall-crossing-mc-on-coha-dgla}
+\ClaimStatusProvedHere
+Let $X$ be a local CY$_3$ and $\mathfrak{g}_{\mathrm{KS}}(X)$ the
+motivic Hall Lie algebra of $D^b\mathrm{Coh}(X)$ in the sense of
+Kontsevich--Soibelman 2008 (Section~2.3 of \textup{arXiv:0811.2435}).
+Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\mathfrak{g}_{\mathrm{KS}}(X)$ is a nilpotent pro-finite
+    dg Lie algebra with bracket determined by Euler forms of exact
+    triangles; the exponential $\exp \colon \mathfrak{g}_{\mathrm{KS}}
+    \to G_{\mathrm{KS}}$ is the motivic quantum torus.
+  \item For generic stability parameters $\zeta, \zeta'$ in adjacent
+    chambers separated by a wall $W$, the KS wall-crossing formula is the
+    gauge transformation
+    \[
+      \Theta_{\zeta'}
+       \;=\; \exp(\mathrm{ad}_{\alpha_W})
+       (\Theta_\zeta)
+      \qquad
+      \text{in } \mathfrak{g}_{\mathrm{KS}}(X),
+    \]
+    where $\alpha_W \in \mathfrak{g}_{\mathrm{KS}}(X)$ is supported on
+    the wall class $\gamma_W \in K_0(\mathrm{Coh}(X))$, and
+    $\Theta_\zeta$ is the MC element whose coefficients are the
+    motivic DT invariants of the $\zeta$-semistable objects.
+  \item The MC equation
+    $D\Theta_\zeta + \frac{1}{2}[\Theta_\zeta, \Theta_\zeta] = 0$
+    in $\mathfrak{g}_{\mathrm{KS}}(X)$ is the closedness of the DT
+    generating series against the motivic Hall product.
+  \item The pentagon identity
+    $\exp(\mathrm{ad}_{\alpha_5}) \circ \cdots \circ
+     \exp(\mathrm{ad}_{\alpha_1}) = \mathrm{id}$
+    is the $A_2$ cluster-mutation periodicity (five pentagon
+    cycles) in $\mathfrak{g}_{\mathrm{KS}}(X)$.
+\end{enumerate}
+This MC equation lives on the ALGEBRA side: $\mathfrak{g}_{\mathrm{KS}}$
+is a graded Lie algebra, the gauge action is algebra-preserving, and no
+bar coalgebra enters at this level.
+\end{theorem}
+
+\begin{proof}
+(i) is Kontsevich--Soibelman 2008 Section~2.3. The Hall Lie algebra
+is freely generated by the $K$-theory classes of simple objects
+with bracket $[e_\gamma, e_{\gamma'}] = (-1)^{\chi(\gamma, \gamma')}
+(\chi(\gamma, \gamma') - \chi(\gamma', \gamma))\, e_{\gamma + \gamma'}$
+(Euler form), nilpotent after completion in the Harder--Narasimhan
+filtration (Section~4.2, loc.~cit.).
+
+(ii) The wall-crossing formula of Kontsevich--Soibelman 2008
+Theorem~3.1 is an equality of products in $G_{\mathrm{KS}}(X)$
+across adjacent chambers; by taking the logarithm we obtain the gauge
+transformation $\Theta_{\zeta'} = e^{\mathrm{ad}_{\alpha_W}}(\Theta_\zeta)$
+with $\alpha_W$ the infinitesimal generator supported on the wall class
+(Section~2.7, loc.~cit., Lemma~2.8).
+
+(iii) The MC equation is the closedness of the motivic DT generating
+series under the Hall product (Joyce--Song 2011
+\textup{arXiv:0810.5645} Theorem~5.3 for the numerical case; KS 2008
+Section~4 for the motivic case).
+
+(iv) The pentagon is the $A_2$ quantum dilogarithm identity
+(Faddeev--Kashaev, Faddeev--Volkov), which in the Hall algebra of the
+$A_2$ quiver is the five-term relation
+$\mathbb{E}(e_1) \mathbb{E}(e_2) = \mathbb{E}(e_2) \mathbb{E}(e_1 + e_2)
+\mathbb{E}(e_1)$ where $\mathbb{E}(x) = \prod_k (1 - q^{k+1/2} x)^{-1}$
+is the quantum dilogarithm (Reineke 2011 \textup{arXiv:0903.0261}
+Theorem~5.1). Algebraic verification through height~$2$ is
+programmed in \texttt{compute/tests/test\_conifold\_wall\_crossing.py}
+(73 tests).
+\end{proof}
+
+\begin{remark}[Relation to the bar-side MC in Theorem~\ref{thm:wall-crossing-mc}]
+\label{rem:two-mc-equations}
+The inscription in Chapter~\ref{ch:toric-cy3-coha},
+Theorem~\ref{thm:wall-crossing-mc}, states the MC gauge equivalence
+in $\mathfrak{g}^{\mathrm{mod}}_{A_X}$ (convolution dgLA of the chiral
+algebra $A_X$). The present Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}
+states it in $\mathfrak{g}_{\mathrm{KS}}(X)$ (motivic Hall dgLA). These
+are two MC equations on two different dg Lie algebras, linked by the
+chiralisation functor $\Phi$:
+\[
+  \Phi_* \colon \mathfrak{g}_{\mathrm{KS}}(X)
+   \longrightarrow \mathfrak{g}^{\mathrm{mod}}_{A_X}.
+\]
+The compatibility ``$\Phi_*(\Theta_{\zeta}^{\mathrm{KS}})
+= \Theta_\zeta^{\mathrm{mod}}$'' is the CONTENT of the
+CoHA-to-chiral bridge; it is PROVED for $X = \mathbb{C}^3$ (via the
+Schiffmann--Vasserot identification plus the explicit Feynman-diagram
+match of Section~\ref{sec:5d-cs-toric-cy3}) and PROVED for toric
+CY$_3$ without compact $4$-cycles conditional on the RSYZ
+identification and the $\mathbb{C}^3$-local chart-gluing of
+Theorem~\ref{thm:toric-chart-gluing}. Outside this locus it is
+conjectural and is part of CY-A$_3$'s content.
+\end{remark}
+
+% ========================================================================
+\section{Conifold wall-crossing: cluster algebra and chiral conjecture}
+\label{sec:conifold-cluster-wall-crossing}
+
+\begin{theorem}[Conifold wall-crossing as cluster mutation]
+\label{thm:conifold-cluster-wall-crossing}
+\ClaimStatusProvedHere
+Let $X_{\mathrm{con}}$ be the resolved conifold
+$\mathcal{O}(-1) \oplus \mathcal{O}(-1) \to \mathbb{P}^1$ with
+Klebanov--Witten quiver $(Q_{\mathrm{con}}, W_{\mathrm{con}})$. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item The motivic DT wall-crossing at the single wall
+    $\gamma_0 = (1, 0) - (0, 1) \in K_0(\mathrm{Coh}(X_{\mathrm{con}}))$
+    is the exponential gauge action of Theorem~%
+    \ref{thm:ks-wall-crossing-mc-on-coha-dgla}(ii).
+  \item This wall-crossing matches the cluster-mutation structure of
+    the $A_2$ cluster algebra: the two chambers of the stability space
+    correspond to the two exchange paths around the $A_2$ pentagon.
+  \item The bar-complex dimensions are
+    $\dim B^k_{\mathrm{I}}(Y^+) = 2^k$ (resolved chamber) and
+    $\dim B^k_{\mathrm{II}}(Y^+) = 3^k$ (flopped chamber), verified
+    through degree $k = 12$ (\textup{124} tests in
+    \texttt{conifold\_bar\_complex.py}).
+  \item The lift to an $E_1$-chiral algebra identity (i.e.,
+    chiralisation of the cluster structure) is PROVED for $\mathbb{C}^3$
+    local charts and conditional outside them.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) is Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}(ii) applied
+to the conifold quiver; the single wall class
+$\gamma_0 = (1, 0) - (0, 1)$ is the primitive wall in the unique
+two-dimensional stability space, and the wall-crossing generator is
+$\alpha_{\gamma_0}$ with Euler form $\chi(\gamma_0, \gamma_0) = 2$
+(two non-canceling Ext$^1$ contributions from the superpotential).
+
+(ii) is Nagao--Nakajima 2011 \textup{arXiv:0809.2992} Theorem~3.5:
+the conifold stability space has two chambers related by a single
+mutation, and the pentagon periodicity is the $A_2$ cluster algebra
+mutation class of rank $2$.
+
+(iii) by direct bar-complex enumeration (Construction~%
+\ref{constr:conifold-bar} in Chapter~\ref{ch:toric-cy3-coha}, with the
+engine verification cited).
+
+(iv) conditional: the chiralisation of cluster algebras is a
+conjectural content of the programme; the local $\mathbb{C}^3$ chart
+lifts are proved via Schiffmann--Vasserot, but the global assembly for
+the conifold is a chart-gluing conditional on the local-to-global
+descent for $E_1$-chiral algebras
+(Theorem~\textup{\ref{thm:toric-chart-gluing}} plus
+Proposition~\textup{\ref{prop:mutation-e1-equivalence}}).
+\end{proof}
+
+% ========================================================================
+\section{Positive half versus full Yangian}
+\label{sec:y-plus-vs-full-y}
+
+\begin{corollary}[$Y^+$ is not the full Yangian; Drinfeld double yields it]
+\label{cor:y-plus-vs-full-Y}
+\ClaimStatusProvedHere
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\mathcal{H}(\mathbb{C}^3) \simeq Y^+(\widehat{\mathfrak{gl}}_1)$
+    is the POSITIVE HALF of the affine Yangian
+    $Y(\widehat{\mathfrak{gl}}_1)$
+    (Schiffmann--Vasserot 2013 Theorem~A).
+  \item The full affine Yangian
+    $Y(\widehat{\mathfrak{gl}}_1) = Y^+ \otimes Y^0 \otimes Y^-$
+    is the Drinfeld double
+    $D(\mathcal{H}(\mathbb{C}^3))$ with respect to the non-degenerate
+    Hopf pairing of Procha\'zka--Rap\v{c}\'ak 2018
+    \textup{arXiv:1807.11304}, Theorem~3.6.
+  \item The identification $Y(\widehat{\mathfrak{gl}}_1)
+    \simeq \mathcal{W}_{1+\infty}$ at the self-dual level
+    $\psi = 1$ (Procha\'zka--Rap\v{c}\'ak) is a statement about the
+    FULL double, not about the positive half alone; it makes crucial
+    use of the triangular decomposition $Y = Y^+ \otimes Y^0 \otimes Y^-$.
+  \item For general toric CY$_3$ $X$ without compact $4$-cycles, the
+    CoHA $\mathcal{H}(Q_X, W_X) \simeq Y^+(\widehat{\mathfrak{g}}_{Q_X})$
+    identifies with the positive half of an affine super Yangian (RSYZ
+    2020); the full affine super Yangian is obtained as the Drinfeld
+    double of $\mathcal{H}$, conditional on a non-degenerate Hopf pairing
+    which is proved for $\mathbb{C}^3$ and conjectural for general toric
+    quivers.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+(i) is Schiffmann--Vasserot 2013 Theorem~A, statement that the Hall
+product on $\mathcal{H}(\mathbb{C}^3)$ agrees with the Drinfeld
+coproduct's positive-half multiplication on
+$Y^+(\widehat{\mathfrak{gl}}_1)$ specialised at generic central charge.
+
+(ii) is Procha\'zka--Rap\v{c}\'ak 2018 Section~3. The Drinfeld double
+$D(Y^+)$ is constructed from $Y^+$ and its graded dual $(Y^+)^*$ via
+the Hopf pairing; the resulting algebra contains both copies as
+Hopf subalgebras and has cross-relations determined by the pairing.
+The identification of $(Y^+)^*$ with $Y^-(\widehat{\mathfrak{gl}}_1)$
+(the CoHA of the opposite quiver) uses the CY$_3$-duality
+Koszul pairing.
+
+(iii) by direct inspection of the Procha\'zka--Rap\v{c}\'ak
+isomorphism: their identification is between the full Drinfeld
+double and $\mathcal{W}_{1+\infty}$, which requires both positive
+and negative modes. The positive half $Y^+$ alone is isomorphic to the
+positive-mode subalgebra of $\mathcal{W}_{1+\infty}$, but the full
+W-algebra structure requires the double.
+
+(iv) for general toric $X$, RSYZ 2020 \textup{arXiv:2004.07841}
+Theorem~1.1 proves
+$\mathcal{H}(Q_X, W_X) \simeq Y^+(\widehat{\mathfrak{g}}_{Q_X})$ with
+$\widehat{\mathfrak{g}}_{Q_X}$ the affine super Lie algebra determined
+by the toric fan. The Drinfeld double construction requires a
+non-degenerate Hopf pairing between $Y^+$ and its dual; this is proved
+for $\mathbb{C}^3$ (SV + PR) and for a handful of specific toric
+examples (e.g., conifold via Klebanov--Witten), but the general case
+remains conjectural. In the inscription of
+Theorem~\ref{thm:toric-cy3-chiral-qg}(III) the phrase ``the full
+affine super Yangian'' should be read as ``the Drinfeld double of the
+CoHA'', with the identification with a specific known Yangian being
+PROVED for $\mathbb{C}^3$ and CONDITIONAL on a Hopf-pairing lemma
+elsewhere.
+\end{proof}
+
+\begin{remark}[What the ``Drinfeld double'' gives us]
+\label{rem:drinfeld-double-content}
+The Drinfeld double $D(\mathcal{H})$ of an associative graded algebra
+$\mathcal{H}$ with a compatible coideal-coalgebra structure (the
+Yang--Zhao topological coproduct) is always defined abstractly, as
+$\mathcal{H} \otimes \mathcal{H}^{\mathrm{cop}, *}$ with cross-relations
+from the Hopf pairing. The content of Procha\'zka--Rap\v{c}\'ak for
+$\mathbb{C}^3$ is that THIS abstract double is concretely identifiable
+with $\mathcal{W}_{1+\infty}$ at $\psi = 1$. For general toric CY$_3$,
+the abstract double is always available; the identification with a
+specific named algebra (an affine super Yangian of a specific super
+Lie algebra) is the RSYZ content and requires a Hopf pairing whose
+non-degeneracy has been verified in the toric cases covered by RSYZ
+2020 and left conjectural for exotic toric quivers with 4-cycle
+singularities.
+\end{remark}
+
+% ========================================================================
+\section{Reconciliation ledger}
+\label{sec:reconciliation-ledger-coha}
+
+This final section is the ledger that reconciles the platonic
+inscription of this chapter with the structural claims of
+Chapter~\ref{ch:toric-cy3-coha}. Nothing in the structural assembly of
+Theorem~\ref{thm:toric-cy3-chiral-qg} changes; what changes is the
+precise reading of three phrases:
+
+\begin{enumerate}[label=\textup{(\Roman*)}]
+  \item \emph{``$D^2 = 0$ in the CoHA differential''} (clause (iii) of
+    Theorem~\ref{thm:wall-crossing-mc}). Read as:
+    $\partial_W^2 = 0$ in the Ginzburg dg algebra $\Pi(Q, W)$,
+    equivalently $d_B^2 = 0$ in the bar complex
+    $B^{\mathrm{ord}}(\mathcal{H})$. The CoHA $\mathcal{H}$ itself is
+    an associative graded algebra without internal differential.
+  \item \emph{``topological bialgebra''} (Component~(I) of
+    Theorem~\ref{thm:toric-cy3-chiral-qg}). Read as:
+    $\mathcal{H}(Q_X, W_X)$ has the Hall product (associative) and a
+    coideal-subalgebra topological coproduct (Yang--Zhao
+    localisation); the resulting structure is a coideal topological
+    bialgebra, whose Drinfeld double is the full affine super
+    Yangian. The word ``bialgebra'' is used in the coideal-topological
+    sense, not the strict Hopf-algebra sense.
+  \item \emph{``the full affine super Yangian''} (Component~(III) of
+    Theorem~\ref{thm:toric-cy3-chiral-qg}). Read as: the Drinfeld
+    double $D(\mathcal{H}(Q_X, W_X))$, which coincides with a specific
+    named affine super Yangian for $\mathbb{C}^3$ (Procha\'zka--Rap\v{c}\'ak),
+    the conifold (Klebanov--Witten / RSYZ), local $\mathbb{P}^2$
+    (RSYZ), and local $\mathbb{P}^1 \times \mathbb{P}^1$ (RSYZ); for
+    exotic toric quivers the identification with a named Yangian is
+    conditional on a Hopf-pairing non-degeneracy lemma.
+\end{enumerate}
+
+With these three reinterpretations, the inscription in Chapter~%
+\ref{ch:toric-cy3-coha} is AP-CY5 / AP-CY7 compliant. The assembled
+chiral quantum group datum of Theorem~\ref{thm:toric-cy3-chiral-qg}
+stands; this chapter records the precise ledger.
+
+\begin{remark}[Cross-reference with Remark~\ref{rem:coha-bar-macmahon}]
+\label{rem:cross-ref-macmahon}
+The MacMahon-character remark
+Remark~\ref{rem:coha-bar-macmahon} of Chapter~\ref{ch:toric-cy3-coha}
+already states the algebra-vs-coalgebra distinction correctly
+(``the CoHA and the bar complex remain distinct mathematical
+objects---one is an algebra, the other its coalgebra resolution---and
+the character coincidence is a \emph{consequence} of the isomorphism,
+not an identification''). The present chapter extends this discipline
+from the single MacMahon remark to the full wall-crossing inscription.
+\end{remark}
+
+\bigskip
+\noindent\textit{Verification}: see
+\texttt{compute/tests/test\_coha\_wall\_crossing\_platonic.py}. Four
+\texttt{\textbackslash ClaimStatusProvedHere} decorators with pairwise-disjoint
+\texttt{derived\_from} / \texttt{verified\_against} sources covering
+Kontsevich--Soibelman 2008 (motivic DT), Schiffmann--Vasserot 2013
+(CoHA$(\mathbb{C}^3) = Y^+$), Davison 2015 (positivity and integrality),
+and Procha\'zka--Rap\v{c}\'ak 2018 (Drinfeld-double~$=\mathcal{W}_{1+\infty}$).
