@@ -602,3 +602,511 @@ Five adversarial agents attacked claims about the two derived centers (chiral vs
 | 54 | "Physics requires two different bulk theories" | Physics has ONE bulk per boundary (uniqueness of derived center) | Two derived centers are two COMPUTATIONAL MODELS of the same physical observable (bulk algebra), not two different physical theories. Their equivalence is conj:drinfeld-center-equals-bulk (proved boundary-linear, open globally). | Physics: boundary A determines unique bulk Z^der(A). Two mathematical routes (ChirHoch via Hochschild functor, Z(U_A) via Koszul-dual reconstruction) should give the same answer. The conjecture says these two presentations agree. | construction/narration (two routes, one destination) |
 | 55 | "The Vol I preface should open with geometry-indexed bar landscape table" | The organizing principle (geometry determines algebraic structure) IS correct | Vol I preface already has Section 1' (lines 827-925) with exactly this, scoped to curves. Current CG-compliant opening (lines 26-42) is better than a table. Two derived centers belong in Vol I BODY, not preface. Vol II's geometric ladder should not be duplicated. | Vol I preface constructs (CG principle); tables are surveys. Two derived centers belong in Vol I hochschild_cohomology.tex where the comparison is load-bearing. Vol II preface owns the 10-stage geometric ladder. Duplicating it damages the Vol I→Vol II handoff. | architectural (survey vs construction) |
 | 56 | Tamarkin inconsistency: C*(H_k, H_k) = k[[κ]] vs Theorem H dim 3 | Both computations are correct | k[[κ]] is the DEFORMATION PARAMETER SPACE (how the family varies with level k). ChirHoch*(H_k) at FIXED k has dim 3 (Theorem H). These are different mathematical objects: total family deformation ring vs fiber at fixed parameter. | The reconstructor deformation parameter space (the Tamarkin k[[κ]]) and the bulk state space (ChirHoch* at fixed k) answer different questions. Neither is wrong. Resolution at hochschild.tex:3376-3413 (rem:drinfeld-center-heisenberg-thesis-resolution). | family/fiber conflation |
+
+## Adversarial Audit 2026-04-16 (six parallel first-principles audits of load-bearing Vol III claims)
+
+Six agents attacked: (1) CY-A_3 inf-cat proof, (2) Costello TCFT / Stasheff cancellation, (3) kappa_BKM universality, (4) class M E_3 bar = 6^g, (5) P_2(D)=0 + six routes, (6) CY-D d=3 + Y(gl(4|20)). Findings below.
+
+| # | Wrong Claim | Ghost Theorem | Precise Error | Correct Relationship | Type |
+|---|-------------|---------------|---------------|---------------------|------|
+| 57 | HH^{-2}_{E_1}(A,A) = 0 by "unit-connectedness" for smooth proper CY_3 categories | Francis-Gaitsgory: fib(TAlg_{E_3} -> TAlg_{E_2}) = HH^*_{E_1}(A,A)[-2] (correct identification of WHERE obstruction lives) | Vanishing requires A connective. For CY_d category, A = HH_*(C) is Serre self-dual: HH_i(C) ≅ HH_{d-i}(C)*. At d=3, HH_{-3}(C) ≅ HH_0(C)* ≠ 0. A is NOT connective. The bar filtration degree count (cy_to_chiral.tex:1980) silently assumes A_{<0}=0. Patch via H^0(O_{K3×E})=k is the wrong invariant (confuses H^0(O) with HH^0(Perf)). | Correct statement: "Under additional hypothesis of connectivity of A, HH^{<0}_{E_1} vanishes and E_3-lift is unobstructed." This excludes smooth proper CY_3. For compact CY_3 the obstruction lives and must be computed, not declared absent. | hypothesis-dressed-as-conclusion (AP-CY14 ramification) |
+| 58 | "Space of E_3-liftings is contractible" | Lifting spaces ARE torsors over obstruction cohomology (Dunn/Francis) | Contractibility requires ALL HH^{-2-j}_{E_1}(A,A) = 0 for j >= 0, i.e., vanishing of the full shifted cotangent complex. This is a much stronger statement than a single HH^{-2} vanishing. Asserted (cy_to_chiral.tex L1991) from the flawed connectivity argument. | For A non-connective, the space has nontrivial homotopy in every degree where HH^{-2-j}_{E_1} is nonzero. No contractibility without uniform connectivity bound. | part/whole (single-degree vs tower vanishing) |
+| 59 | Costello TCFT Theorem A proves {b, B^(2)} = 0 | Costello arXiv:math/0412149 proves existence of TCFT from cyclic A_∞ algebra (genuine theorem) | Misattribution. Costello's theorem concerns the TCFT/cyclic-A_∞ equivalence, NOT the B^(j>=1) hierarchy identity. The engine operadic_tcft_mk_b2_engine.py (525 lines) contains ZERO numerical verification — it is prose strings in dataclasses. Tests check "0412149" appears in a string, not that any identity holds. | Correct: Costello establishes open-closed TCFT from A_∞. Passage to {b, B^(2)} = 0 requires the identification "B^(2) = genus-change operation" which is asserted (citing Costello 0706.1959) but never constructed. The identity remains unproved. | misattribution + narrative-as-proof |
+| 60 | Cross-arity cancellation {b_3,B^(2)} cancelled by {b_2,B^(2)} via Stasheff | Stasheff A_∞ relations give d^2 = 0 for total differential b (genuine) | The author's OWN engine chain_level_m2_b2_cancellation.py proves the OPPOSITE: for single-object cyclic A_∞ CY_3 with μ_3 ≠ 0, the n=4 Stasheff relation forces μ_2 = 0 on augmentation ideal (Incompatibility Theorem). Then {b_2,B^(2)}_naive = 0 trivially and {b_3,B^(2)} = 2α[b] ≠ 0. Corollary cor:no-naive-cross-degree concedes {b_k,B^(2)} map to DISJOINT graded components CC_{n-k+1}, so cannot cancel. | The retreat to an undefined "B^(2)_TCFT" that "absorbs the discrepancy through moduli-space corrections" is vapor. No B^(2)_TCFT is constructed in the manuscript. {b, B^(2)_naive} ≠ 0 stands; the resolution is at the ∞-categorical level (which has its own gap — see #57) not the chain level. | refuted by own engine (AP-CY39 ramification) |
+| 61 | "kappa_BKM = c_N(0)/2 PROVED unconditionally for all K3-fibered CY3s" | Borcherds 1998 weight theorem gives wt(BP(f)) = c_f(0)/2 (genuine classical theorem) | Two distinct invariants both called kappa_BKM: (i) wt(BP(φ_N)), automorphic form weight; (ii) BKM central charge / rank of g_{Δ}, CY invariant. The proposition DEFINES kappa_BKM := wt(BP(φ_N)) making "= c(0)/2" tautological. Identification with (ii) requires Gritsenko-Nikulin denominator identity for each N, valid for N=1,2,3,4 (and case-by-case otherwise). Engine FRAME_SHAPE_DATA hardcodes weight AND c_0 side-by-side with weight := c_0/2. Tests check Fraction(10,2)==5, tautological. | Scope: (a) kappa_BKM as weight: unconditional via Borcherds, trivial; (b) kappa_BKM as BKM central charge: proved via Gritsenko-Nikulin for 8 diagonal Z/NZ symplectic orbifolds of K3 × E (Chaudhuri-Dolan-Hockney-Polchinski/Gaberdiel-Volpato list); (c) "all K3-fibered" overclaim — general fibrations (paramodular, non-cyclic monodromy, STU off the diagonal locus) not covered. | label/content (two kappa_BKM) + tautological tests |
+| 62 | "99 tests verify kappa_BKM = c_N(0)/2 independently" | Cross-validation is a valid methodology | All "paths" (A-F) import or reconstruct the same FRAME_SHAPE_DATA table. No path computes c_N(0) from an independently built orbifold Fourier expansion; no path computes BKM central charge from root multiplicities of g_{Δ_5}. Test farms check arithmetic identities against hardcoded values. | Genuine verification would require: (a) independent Fourier expansion of (K3^N-orbifold) elliptic genus, extract c(0); (b) independent enumeration of imaginary roots of g_{Δ_N} (where constructed), sum with multiplicities for central charge; (c) cross-check (a) and (b) agree to c/2. None exists in the test suite. | AP-CY49 ramification (tautological tests) |
+| 63 | "Six routes to G(K3 × E)" converge (CY-C) | Six distinct constructions produce related algebraic objects sharing numerical invariants (genuine observation) | The six "routes" produce DIFFERENT TYPES of objects: Route 1 BKM superalgebra g_{Δ_5}, Route 2 abelian Heisenberg U(ĥ^+_{20}) (class G), Route 3 nonabelian Yangian Y(ŝo_4)^⊗4, Route 4 chiral algebra Φ_3(...), Route 5 heuristic AdS_3 BPS algebra, Route 6 Virasoro Vir_c. G(K3 × E) is never independently defined. The follow-up remark rem:bllpr-k3-connection EXPLICITLY admits these are "different algebraizations" distinguished by 5 invariants. | Correct: these are six constructions producing SIX DIFFERENT ALGEBRAS that share some invariants (central charge, modular weight). "Convergence" requires a specified target category and functors from each construction; neither exists. CY-C formally concerns C(g,q) for simple g, NOT G(K3 × E). AP-CY59 + AP-CY60 apply. | under-specified target (CY-C scope conflation) |
+| 64 | P_2(D) = 0 "exact" from ε_1·ε_2 = ε·0 = 0 in 1d Ω-background | True observation: 1d Ω-background has only 1 deformation parameter | Circular: a 1d background has ONE parameter by definition; calling the missing parameter "ε_2 = 0" and invoking a 2-parameter Nekrasov formula to get "ε_1·ε_2 = 0" is tautological, not a vanishing theorem. The engine bkm_serre_higher_order.py L567 self-declares STATUS='CONJECTURAL'; working_notes.tex L4968 and CLAUDE.md tag it \begin{theorem}. Engine's own comment L412: "BUT this model is too simple". | Correct statement would require either: (a) a genuine 2-parameter Ω-background on K3 (not just on the E factor) with vanishing second-order correction derived from equivariant localization; or (b) cohomological vanishing of P_2 from BKM denominator identity at order ε^2, with explicit computation. Neither is done. Status should be \begin{conjecture}. | circular argument + theorem/conjecture status mismatch (AP40 violation) |
+| 65 | "Lie algebra twist L_0 + ε·J_0 linear in ε implies OPE exponent linear in ε" | Twist eigenvalues ARE linear in ε (fact about eigenvalues) | Category error: twist eigenvalue (acting on a single state) ≠ OPE exponent between two deformed vertex operators (involves Wick contractions). Normal-ordering / cross-contractions generically produce ε^2 from the product of two ε-corrected operators. Conflating the two conflates spectrum with correlation function. | Correct: h_ε(V) = h_0(V) + ε·J_0(V) is linear per-operator. OPE V_1(z) V_2(w) ~ (z-w)^{-h_{12}} has h_{12} = h_1 + h_2 - h_{12,full} where the "full" term receives cross-contraction corrections quadratic in ε. The linear-in-ε claim is about TWIST, not about two-point OPE. | mechanism error (eigenvalue vs correlator) |
+| 66 | κ_ch "Hodge-filtered supertrace mechanism" PROVED at all d | Serre duality argument at d=2, h^{1,0}=0 genuinely kills quantum correction (HH_{-1}=0) | Identification of str_{F^0}(q^{L_0}) on the abstract chiral algebra A_C with χ(O_X)/2 on the target manifold is σ-model content — it requires CY-A (d=2 version). Proved ONLY at d=2 with h^{1,0}=0. At d=3 the identification is a conjectural bundle of cases (conj:cy-kappa-identification), branching on strict-CY_3 / product / local. No universal formula. | Dimension-stratified taxonomy: (a) d=2, h^{1,0}=0: κ_ch = χ(O_X)/2 (theorem via HKR + F^0 supertrace); (b) d=2, h^{1,0}≠0 (abelian surface): κ_ch = 2, χ(O) = 0, formula fails; (c) d=3 strict: κ_ch = χ_top/24 (BCOV, conjectural); (d) d=3 product S × E: κ_ch = κ_ch(S) + 1 (additive). CY-D is NOT a single formula dimension-stratified; it is FOUR DIFFERENT FORMULAS bundled by taxonomy. | taxonomy-as-theorem (CY-D scope conflation) |
+| 67 | Y(gl(4|20)) "BKM-to-Yangian lift from Mukai signature (4,20)" | Y(gl(m|n)) is a classical object (Nazarov); orthosymplectic signs from bilinear form are a known device | No functor BKM → Yangian is constructed. "Lift" is undefined. (4,20) signature determines dimension of +/- definite subspaces, NOT a canonical Z/2 grading — a maximal positive-definite subspace must be CHOSEN (Hodge-theoretic positive cone is natural but not intrinsic). The claim is an ansatz validated at gl(1|1), gl(2|1), proposed as resolution to ω-twisted unitarity. | Correct framing: (i) Mukai lattice signature (4,20) ⇒ choice of max positive cone ⇒ Z/2 grading V = V_+ ⊕ V_−; (ii) ω-twisted unitarity obstruction P_ω^2 ≠ Id for abelian Y(H_{Muk}); (iii) PROPOSED resolution: replace by super-Yangian Y(gl(4|20)) whose P^2 = Id is forced by super-grading. Status: conjectural ansatz. "Lift" language overclaims. | construction/narration + non-canonical grading |
+| 68 | Class M E_3 bar cohomology = 6^g (global slogan) | For A = Vir_c^⊕g, H*(B^{E_3}(A)) = 6^g at g ≤ 3 (proved via explicit d_4 matrix rank + Künneth) | Scope: proved only for g ≤ 3 where degree-reason degeneration (d_5 = 0) holds. For g ≥ 4, d_5 can act and result is UPPER BOUND only. Engine class_m_einf_dimension docstring says "conjectural for g ≥ 4"; CLAUDE.md slogan drops the caveat. Also: "genus" here is tensor-copy count of Vir_c, NOT factorization homology over Σ_g. | Correct scoped statement: "For A = Vir_c^⊕g with g independent Virasoro copies, H*(B^{E_3}(A)) = 6^g for g ≤ 3, and ≤ 6^g for g ≥ 4 (conjecturally equal)." "6 = 2×3 per handle" is misleading narration (no handle, just a tensor copy; 6 = (3t+3t^2) evaluated at t=1). | scope drop + narration |
+
+### Meta-pattern diagnosis (cross-audit)
+
+All six audits exhibit a SAME failure mode: **status-tag inflation via narrative scaffolding**. The pipeline is:
+
+1. A genuine partial result is established at specific scope (e.g., Borcherds weight for 8 orbifolds; E_3 bar for g ≤ 3; Serre duality at d=2 h^{1,0}=0).
+2. Prose surrounding the result paraphrases it in universal language ("proved unconditionally", "universal formula", "for all K3-fibered").
+3. An engine is scaffolded that takes the paraphrased claim as a definition and validates arithmetic identities against hardcoded data.
+4. Tests count as verification; the hardcoded-data ↔ formula match is circular.
+5. CLAUDE.md inherits the paraphrased claim without scope tag.
+6. Later audits read CLAUDE.md, not the .tex; the paraphrase calcifies as ground truth.
+
+Defense: every \begin{theorem} with status ProvedHere should carry a **scope line** (hypothesis, dimension, class, N-value) and the engine's corresponding test must use INDEPENDENT data (not the same hardcoded table from which the formula was derived).
+
+---
+
+## Entry 51: Gaudin Hamiltonian "identification" is identification of the r-matrix, not of the Hamiltonians (2026-04-16, wave 3 sewing/koszul audit, gaudin_from_collision.tex)
+
+**Wrong claim type**: construction/narration (AP-CY57 / AP155 / AP150).
+
+**Pattern**: A "theorem" of the form `H^new = H^classical · scalar` is asserted, with proof consisting of substituting a definition into a definition. The genuine new content lies one step earlier (an r-matrix or kernel identification); the Hamiltonian identification is then automatic.
+
+**Concrete instance**: `standalone/gaudin_from_collision.tex` `thm:gaudin-from-collision` (L210-227) claims `H_i^GZ = H_i^Gaudin/(k+h^v)` for affine Kac-Moody. The proof substitutes the FFR-Sklyanin r-matrix `r(z) = Ω/((k+h^v)z)` into the GZ flat connection `∇^GZ = d - Σ r(z_{ij}) dz_{ij}` and reads off components. But:
+- `r(z) = Ω/((k+h^v)z)` IS the FFR r-matrix.
+- GZ Hamiltonians are DEFINED as components of `∇^GZ`.
+- So `H^GZ = H^Gaudin/(k+h^v)` is a chain of definitions, not a theorem.
+
+**Ghost theorem (the true new content)**: The chiral collision residue `r(z) = Res^coll_{0,2}(Θ_A)` of the bar Maurer-Cartan element on `V_k(g)` AT THE LEVEL `k+h^v` (not k) equals the FFR-Sklyanin classical r-matrix. The shift `k → k+h^v` is the Sugawara renormalization, derived from chiral data.
+
+**Correct relationship**:
+- collision residue → r-matrix: GENUINE THEOREM (chiral content).
+- r-matrix → GZ connection: definition.
+- GZ connection → GZ Hamiltonians: definition.
+- GZ Hamiltonians = FFR Hamiltonians: composition of three definitions, automatic.
+
+**Corollary**: Searching the manuscript for "X from Y" theorem statements where X and Y are connected by a chain of definitions is a high-yield audit pattern. The genuine new content is always the FIRST link in the chain that is not a definition.
+
+**Cross-references**: This pattern is the SAME as the "categorified averaging" → factorization E_1 →^Z E_2 →^{Sym} E_∞ pattern (AP-CY54, cache entries 1-3); both have the form "X gives Y" where X is invoked, Y is defined in terms of X, and the "identification" is automatic.
+
+**Operational counter**: Before any "X from Y" theorem, list the steps in the proof. If every step is a definition or a substitution, the theorem reduces to identifying a single ingredient. State THAT ingredient as the theorem.
+
+## Vol I r-matrix Convention Audit 2026-04-16 (wave3, chiral Chern–Weil + level hygiene)
+
+| # | Wrong Claim | Ghost Theorem | Precise Error | Correct Relationship | Type |
+|---|-------------|---------------|---------------|---------------------|------|
+| 69 | "Bridge identity: k Ω_trace = Ω/(k+h^v) at generic k" (chiral_chern_weil.tex L458; holographic_datum.tex L635) | The trace-form and KZ-form r-matrices for affine KM are gauge-equivalent representations of the same operadic datum | Identity is type-wrong: LHS scales linearly in k, RHS bounded as k→∞; LHS=0 at k=0 while RHS=Ω/h^v ≠0; LHS=−h^v Ω at k=−h^v while RHS diverges. They cannot be equal at any value of k. The author conflates "rescaling Ω" (Ω_KZ = (k+h^v)Ω_trace) with "rescaling the r-matrix" (r_KZ = r_trace/(k+h^v)). | Two CONVENTIONS are simultaneously rescaled: (a) Ω: Ω_KZ = (k+h^v) Ω_trace; (b) r: r_KZ(z) = (1/(k+h^v)) r_trace(z). Both rescalings together leave the operadic datum invariant. The "bridge" is between conventions (Casimir + r-matrix scale together), not a numerical identity between unscaled quantities. | convention clash + label/content (rescaling labeled as identity) |
+| 70 | "S_3(Vir_c) = 2 by S_3 := T_(1)T_lin / T_(3)T_const = 2T/(c/2) = 2κ/κ = 2" (virasoro_r_matrix.tex L228–243) | The cubic shadow coefficient is c-independent for Vir (genuine class-M signature) | The "proof" replaces the field 2T by the c-number 2κ in numerator, then cancels κ. This is the trivial OPE-coefficient identity (2T_(1)T)_const / (T_(3)T)_const = 2 (a tautology in BPZ normalization), NOT a shadow computation. On a primary state |h⟩, the genuine ratio is 2h/(c/2)=4h/c, which DOES depend on c (and h). | Correct shadow coefficient lives in the L_∞ structure on H^*(B(A)), not in the OPE. The c-independent statement (if true) would be: "the cubic L_∞ operation m_3 on H^*(B(Vir_c)) is c-independent up to normalization" — this requires bar-cohomology computation, not OPE arithmetic. The OPE identity used as proof is tautological. | tautology dressed as theorem (AP-CY49 + mechanism error) |
+| 71 | "r-matrix is r(z) = Ω/((k+h^v)z) (KZ form), derived by d-log absorption" (three_parameter_hbar.tex L290–306) | The d-log absorption rule sends OPE pole order n to r-matrix pole order n−1 (correct mechanism) | D-log absorption applied to the OPE k(t^a,t^b)/(z-w)^2 + f^{ab}_c J^c/(z-w) gives k Ω/z + (regular field). The (k+h^v) factor in the KZ form does NOT come from d-log absorption alone; it comes from Sugawara renormalization (rescaling the energy-momentum tensor by 1/(k+h^v)). The "proof" silently inserts Sugawara as if it were part of d-log. | Correct: bar collision residue from d-log alone gives r_trace(z) = k Ω/z. The KZ form r_KZ(z) = Ω/((k+h^v)z) requires the additional Sugawara hypothesis. The three-parameter identification ℏ = 1/(k+h^v) is therefore *conditional on Sugawara normalization*, not universal. | hidden hypothesis (Sugawara renormalization treated as part of d-log) |
+
+## Entry 52: Rhetorical inflation -- presentation count > object count (2026-04-16, Vol I wave-3 higher-genus audit, higher_genus_modular_koszul.tex L22759--L22918, seven_faces.tex L285--L345, higher_genus_modular_koszul.tex L24454--L24550)
+
+**Wrong claim pattern (recurring 3x in higher-genus pillar):**
+- "Three structurally independent mechanisms each force delta F_g^cross = 0" (free-field exactness, L22759--L22918);
+- "Seven equivalent presentations of r(z)" (seven faces, L285--L345);
+- "Universal gravitational cross-channel formula for W_N" (with body admitting the formula is a lower bound for N >= 4, L24454--L24550).
+
+**Ghost theorem (in each case):**
+- Free-field: the *block-diagonal structure* of the propagator P^{ab} = g^{ab}·d log E(z,w) with respect to the conformal-weight grading (a single fact in the OPE algebra).
+- Seven faces: the *single* universal Maurer--Cartan element Theta_A = D_A - d_0 (one bar-cobar twisting cochain).
+- Universal N-formula: the *gravitational-truncation* Frobenius algebra (one truncation of the W_N OPE, retaining only stress-tensor exchange).
+
+**Precise error pattern:** the manuscript counts PRESENTATIONS or PROJECTIONS of the underlying object as if each presentation were an independent result. The redundancy is sometimes acknowledged (free-field: L22871--L22877 admits the three mechanisms are not logically independent) but the rhetorical headline ("triple redundancy", "seven faces", "universal formula") inflates the redundancy into independence.
+
+**Correct relationship:**
+- Free-field: ONE mechanism (block-diagonal propagator) with three projections (shadow-tower collapse, off-diagonal metric, ghost-number).
+- Seven faces: FOUR distinct objects (E_1 R-matrix, PVA classical r, Sklyanin/Gaudin, the bar-cobar arrows from F1 to each presentation) presented in seven mathematical languages.
+- N-formula: EXACT for N <= 3 (Z/2 parity kills higher-spin exchange), LOWER BOUND for N >= 4.
+
+**Type:** label/content + specific/general (different labels for the same content; specific case of a universal mechanism marketed as if the universality were per-presentation).
+
+**Defense:** in each case the chapter is technically honest -- the redundancy/lower-bound nature is admitted in the body. The bug is presentation, not mathematics. The bug propagates because rhetorical headlines stick in CLAUDE.md and in cross-references where the qualifying admission is invisible.
+
+**Operational counter:** before writing "N independent mechanisms / N equivalent presentations / universal formula for X", check whether the underlying object/mechanism count matches N. If it does not, EITHER reduce N to the object count OR add an explicit "N projections of M underlying objects" framing. The headline must agree with the body.
+
+**Strengthening path (per audit Section 5):** each of the three rhetorical inflations admits a *correct* universal upgrade once the rhetoric is unwound:
+- Free-field: PROMOTE block-diagonality to a separate lemma (the actual content).
+- Seven faces: PROMOTE the bar-cobar arrows F1 -> Fk as the new content (the true theorem is "F1 generates all six presentations via the bar-cobar twisting cochain").
+- N-formula: PROMOTE the c -> infinity Vasiliev-shadow limit B(N) = (N-2)(N+3)/96 as a universal topological invariant (the actual universal content beneath the lower-bound caveat).
+
+The pattern is endemic in higher-genus pillars where the chapter accumulates many partial results. Defense: every "N independent X" headline must pass the test "what is the underlying object count, and do all N projections add genuinely new information?".
+
+## Entry 53: Operadic-circle confabulation as algebraic-vs-topological E_3 conflation (2026-04-16, Vol I wave-4 en_cascade audit, en_chiral_operadic_circle.tex L1973-L2079, L2014-L2026)
+
+**Wrong claim pattern (recurring across operadic literature):**
+- "The E_n operadic circle E_3 -> E_2 -> E_1 -> E_2 -> E_3 closes for simple g via the E_3 identification theorem" (en_chiral_operadic_circle.tex abstract L111).
+- Eq. 6.1 (L1973-L1983) writes the circle as a single closed diagram of operadic shifts.
+- Cor 7.7 (L2349-L2370) titled "circle partly closes" lists 5 steps; only step (v) is a theorem, only at the level of formal deformation families.
+
+**Ghost theorem (the real underlying content):**
+There is a four-step zigzag of CONSTRUCTIONS (not a circle):
+1. B^ord(A) (E_2-chiral input -> E_1-chiral coalgebra; Princ 3.10, PROVED).
+2. Take comodules: E_1-chiral coalgebra -> E_1-monoidal category Comod(B^ord(A)).
+3. Drinfeld centre Z(Comod(...)): E_1-monoidal cat -> E_2-braided monoidal cat.
+4. End-of-identity = chiral Hochschild: E_2-braided monoidal cat -> algebraic E_3.
+5. Topologisation (Thm 5.1/5.5, PROVED for KM/W-algebras): algebraic E_3 -> E_3-top on BRST cohomology.
+6. Conjectural closing (Conj 11.1): output E_3-top ≃ input bulk E_3-top from HT field theory.
+
+**Precise error pattern:** The "circle" packaging conflates **two distinct E_3 structures** (AP154):
+- The **algebraic** E_3 from the higher Deligne conjecture (Francis 2013): well-defined on E_∞ inputs (chain-level / spectral context).
+- The **topological** E_3-top from topologisation: requires inner conformal vector at non-critical level.
+
+The arrow-4 output of HDC is naturally algebraic E_3, NOT topological E_3-top. Eq. 6.1 elides this passage, presenting the output as E_3-top directly. Only after Thm 5.1/5.5 (a separate, conditional step) does algebraic E_3 promote to E_3-top.
+
+A second elision: arrow 1 ("restriction along codim-2 defect, E_3-top -> E_2-chiral") is stated as a definition with no proof; arrow 5 (closing) is conjectural. Marking each arrow status: T (theorem), D (definition only), C (conjecture). The "circle" reads T+D+T+T+C with the C absorbed into the closure rhetoric.
+
+**Correct relationship:**
+- The operadic zigzag of CONSTRUCTIONS is honest mathematics; the "circle" image is rhetorical.
+- For simple g at non-critical level, Thm 7.4 PROVES the formal-family identification of the output algebraic E_3 (after topologisation to E_3-top) with the perturbative-CS E_3-top from CFG '25 (in preparation).
+- The full categorical equivalence (output ≃ input as E_3-top algebras, beyond formal series) is Conj 11.1 in the appropriate (coderived?) category.
+- The "Drinfeld centre is sole source of nontrivial braiding" (Thm 6.3) is correct as a TOPOLOGICAL fact (π_1(Conf_2(R^3))=1) but overclaims: Yangian R-matrices, MTC braidings, factorisation-algebra braidings on 2-manifolds are alternative sources.
+
+**Type:** construction/narration + algebraic/topological + label/content (composite construction marketed as closed circle; two distinct E_3 structures conflated by uniform "E_3-top" tag; "sole source" overclaim for braiding genesis).
+
+**Defense:** the standalone is structurally honest in its hardest places — the SC^chtop ≠ E_3 remark (Rem 4.2, L1192-L1204), the three-Hochschild warning (Warning 3.9, L1067-L1092), the five-notions warning (Warning 8.3, L2531-L2556), the layered (cohomological / model / original-complex) chain-level analysis (Rem 5.7 = `rem:e-three-layers`, L1847-L1881). The defects are concentrated in the rhetorical packaging (abstract, eq 6.1, Cor 7.7), not in the proof content.
+
+**Operational counter (4-pronged):**
+1. Before writing "circle" / "closes" for any composite of operadic functors, draw the level diagram with each arrow tagged (functor / theorem / definition / conjecture). If any arrow is not a theorem, the composite is not a theorem.
+2. For every E_3 occurrence, tag explicitly as E_3^alg (Deligne, from HDC on E_∞ input) or E_3^top (topologised, requires inner conformal vector). Their identification is non-trivial.
+3. For HDC invocations, verify the input is E_∞ (not just E_n for n ≥ 2). Francis 2013 in chain complexes vs chiral HDC for chiral algebras with formal-disk OPE are different theorems.
+4. For "sole source" / "unique" claims about categorical structures (braidings, Hopf, R-matrices), enumerate at least 3 alternative sources and show each leads to the same object via an explicit identification (or a stated conjecture).
+
+**Strengthening path:** the four-step zigzag is genuinely new mathematics. After unwinding the "circle" rhetoric:
+- PROMOTE Rem 4.2 (SC^chtop ≠ E_3) to a numbered separation theorem.
+- PROMOTE the four-step zigzag to "Theorem (Operadic zigzag for E_∞-chiral algebras with inner conformal vector at non-critical level)".
+- REPHRASE Conj 11.1 in the coderived category D^co(E_3-top) so it lives in a definite ambient.
+
+**Cross-volume incidence:** This pattern appears in Vol III as AP-CY32 (reorganisation ≠ bypass: 6d hCS route appears to bypass CY-A_3 but each subproblem secretly requires the same chain-level data). Same operational structure: composite of constructions presented as solving the original problem; each sub-arrow either reduces to the original problem or is independently conjectural.
+
+## Entry 54: Theorem-H amplitude vs occupation (2026-04-16, Vol I wave-4 en_cascade audit)
+
+**Wrong claim:** "Theorem H: ChirHoch^*(A) is concentrated in cohomological degrees {0,1,2}" with three nonvanishing degrees interpreted (en_chiral_operadic_circle.tex Thm 3.6, L996-L1013; Vir entry L3033-L3074, L3151).
+
+**Ghost theorem:** the cohomological *amplitude* is ≤ 2 (proved as `thm:hochschild-polynomial-growth` in chiral_center_theorem.tex L62). The exact occupation depends on the algebra.
+
+**Precise error:** "concentrated in {0,1,2}" reads as non-vanishing at each of 0, 1, 2. The chapter says explicitly (chiral_center_theorem.tex L2025-L2041, ProvedHere) ChirHoch^•(Vir_c) = (C, 0, C·Θ) with H^1=0, Hilbert series 1+t^2. Standalone Prop 10.4 row "concentrated in {0,1,2}, polynomial" is therefore wrong for Vir.
+
+**Correct relationship:** Theorem H is an *amplitude* theorem (upper bound on support), not an *occupation* theorem.
+- Heisenberg: (1, 1, 1).
+- KM V_k(g): (1, dim g, 1).
+- Vir_c: (1, 0, 1).
+- DS reduction of KM at any nilpotent f: (1, 0, 1) (by `prop:DS-ChirHoch-compatibility`).
+
+**Type:** label/content + necessary/sufficient (amplitude bound mislabeled as occupation pattern; sufficient for vanishing at i ≥ 3, not for non-vanishing at i ∈ {0,1,2}).
+
+**Defense:** purely an internal contradiction within the manuscript; chapter is correct, standalone is sloppy.
+
+**Operational counter:** for any "concentrated in {set}" claim, ask: is this an amplitude bound or an occupation pattern? State which.
+
+**Strengthening path:** PROMOTE Theorem H from "concentration in {0,1,2}" to "**amplitude ≤ 2**" + a per-family Hilbert series corollary. The amplitude theorem is the universal one; the occupation pattern is the algebra-specific computation.
+
+---
+
+## Wave 4 (2026-04-16) — holographic / 3d gravity / entanglement (Vol I)
+
+| # | Wrong claim | Ghost theorem | Correct relationship | Type | Locus |
+|---|-------------|---------------|----------------------|------|-------|
+| 138 | "BTZ is an MC element of the convolution Lie algebra" | BTZ is a Cardy state in the module category | Cardy state in module != MC element in algebra. The convolution dg Lie algebra carries structural data; the modules carry physical states. The MC equation lives in g^mod, not in the module of states. Conflation of algebra-level and module-level objects. | algebra/module (sub-type of algebra/coalgebra) | three_dimensional_quantum_gravity.tex thm:btz-mc L1748 |
+| 139 | "Bulk-boundary-line triangle is a single object viewed three ways" | three functorial outputs of the bar complex via three distinct functors (cobar, derived centre, Koszul-dualised module category) | source object != functor target. A single source can have many functorial outputs without BEING those outputs. The unification is functoriality, not identity. | construction/narration (AP-CY57) | three_dimensional_quantum_gravity.tex sec:bbl L885; holographic_datum.tex L217; thqg_introduction_supplement.tex L156 |
+| 140 | "Koszul duality c <-> 26-c is gravitational S-duality" | the Feigin-Fuchs / Verdier reflection on Vir bar coalgebra is a real involution; the central-charge shift is the bc-ghost central charge | Koszul reflection is ADDITIVE (c -> 26-c), not multiplicative. S-duality requires coupling INVERSION (g -> 1/g). At c -> infinity (semiclassical, G -> 0), the dual 26-c -> -infinity is NOT a "weak coupling" of the original. The naming confabulates "S-duality". | label/content | three_dimensional_quantum_gravity.tex abstract L75; thm:vir-koszul L998 |
+| 141 | "Gravitational Yangian Y(Vir_13) at the self-dual point" | the shadow obstruction tower at c=13 is an infinite sequence of conserved-charge invariants with special symmetry structure | Vir is infinite-dim and has NO known Yangian. "Y(Vir_13)" presupposes a structure not constructed in the literature. The shadow tower IS a real algebra of conserved charges, but its Yangian-like RTT presentation is unconstructed. | confabulation (AP150) + label/content | three_dimensional_quantum_gravity.tex sec:gravitational-yangian L2645-2798 |
+| 142 | "Code distance d=2 of the Koszul code" | bar augmentation ideal starts at degree 2 (algebraic graded structure) | algebraic bar-degree != QECC code distance. Code distance d is the min weight of an undetectable error operator; algebraic degree is the grading of the augmentation ideal. The conflation is silent. Same pattern: algebraic invariant labeled with a QECC term. | label/content | holographic_codes_koszul.tex rem:hc-universal-parameters L685-689 |
+| 143 | "Koszulness <=> exact holographic reconstruction" (Theorem G12) | bar-cobar exact recovery (K4) is genuinely equivalent to Koszulness (tautological since K4 IS Koszulness) | the algebraic statement is tautological (K4 <=> K4); the PHYSICAL identification with HKLL bulk reconstruction is a structural analogy, NOT a theorem. The proof of (iii) => (i) silently DEFINES (iii) to be K4. | construction/narration (AP-CY57) | holographic_codes_koszul.tex thm:hc-koszulness-exact-qec L339-421 |
+| 144 | "Shadow L-function L^sh(s) has poles at s=1 and s=2 arising from S_2=kappa and S_3" (Vol I wave 4 arithmetic shadows audit, 2026-04-16) | the genus-1 amplitude Fourier-coefficient Dirichlet series D_2(A,s) = Sigma a_n n^{-s} with a_n = -24 kappa sigma_1(n) DOES factor as -24 kappa zeta(s) zeta(s-1) and have Eisenstein poles at s=1,2 (Ramanujan divisor identity) | within-volume contradiction: the SAME volume's chapter file (chapters/connections/arithmetic_shadows.tex L3458-L3495) explicitly disclaims this exact identification, noting that for class G, L^sh(s) = k * 2^{-s} is ENTIRE while -k zeta(s) zeta(s-1) is meromorphic. D_2 (Fourier-coefficient series, Eisenstein) and L^sh (constant-term series, no Euler product, not in Selberg class) are DIFFERENT objects. The standalone Prop 4.3 commits the disclaimed error. Coefficients S_r are not multiplicative; L^sh is not "an L-function" in any structural sense. Class G is entire (two-term polynomial in 2^{-s}); class L entire (three terms); class C entire (four terms); class M convergent in a half-plane only, with no automatic poles. | label/content + within-volume contradiction (Dirichlet-series category error: Sigma a_n n^{-s} given L-function structural properties without verifying coefficients carry the required arithmetic) | standalone/arithmetic_shadows.tex L639-L663 contra chapters/connections/arithmetic_shadows.tex L3458-L3495 |
+
+## Wave 5 (2026-04-16) — chiral Hochschild and Koszul foundations (Vol I)
+
+| # | Wrong claim | Ghost theorem | Correct relationship | Type | Locus |
+|---|-------------|---------------|----------------------|------|-------|
+| 145 | "the chiral Hochschild complex" (definite article, used across at least 3 distinct definitions) | for finite-type chiral Koszul algebras on a smooth curve, the geometric model `C^•_chiral(A) = Γ(C̄_{n+2}, j*j^* A^{⊠(n+2)} ⊗ Ω^n_log)`, the algebraic model `Ext^*_{A^e}(A,A)` with `A^e = A ⊠_{D_X} A^op`, and the bigraded model `RHH_ch(A) = RHom_{D_{C̄_{p+2}}}(A^{⊠(p+2)}, ω)` are quasi-isomorphic | the equivalence is a THEOREM (FM-tower collapse + Verdier shift `[2]`), not a definition. The shift `[2] = (p+2) - p` cancels totalisation against Verdier-dualizing-sheaf shift. Off the Koszul locus, the three models genuinely differ. AP-CY62 fires (geometric vs algebraic chiral Hochschild model) — Vol I has the same conflation flagged for Vol III. The bigraded model `RHH_ch` should be promoted to canonical; the others are then quasi-iso shadows. | construction/narration (AP-CY57, AP-CY62) + label/content (AP160) | chiral_hochschild_koszul.tex L139-157 (geometric); hochschild_cohomology.tex L76 (algebraic-derived); koszul_pair_structure.tex L259 (Ext via A^e); higher_genus_foundations.tex L2748 (bigraded canonical) |
+| 146 | "ChirHoch is bounded but Gel'fand–Fuchs is unbounded because the latter has no curve geometry" (rem:gf-vs-chirhoch and rem:critical-level-lie-vs-chirhoch) | three distinct Hochschild-flavour invariants exist for Vir_c: ChirHoch^*(Vir_c) bounded in {0,1,2} (Theorem H), HH^*(Zhu(Vir_c)) finite-dim concentrated in {0} (Zhu = polynomial ring), H^*_GF(L_1) = C[Θ] polynomial in degree 2 | the boundedness of ChirHoch is NOT because Gel'fand–Fuchs lacks curve geometry; it is because the curve `D_X`-amplitude is `[0,2]` and the bigraded Verdier shift collapses to constant `[2]` on the Koszul locus. At critical level, ChirHoch becomes unbounded (BD04 4.5.2 identifies it with Lie cohomology), confirming that "curve geometry" is not the source of the bound. AP-CY64 (three-way ChirHoch / HH* / H*_GF). The three are linked by SS: HH^p(Zhu(A)) ⊗ H^q_dR(X) ⇒ ChirHoch^{p+q}(A) at generic level; ChirHoch^*(A_crit) ≅ H^*_Lie,cont at critical level. | mechanism error + chain/cohomology | hochschild_cohomology.tex rem:gf-vs-chirhoch L128 and rem:critical-level-lie-vs-chirhoch L158 |
+| 147 | "the chiral product μ" (one product, used in BD-style language and End^ch-style explicit formulas without bridge) | for finite-type vertex algebras with PBW filtration, BD-chiral operad on D_X-modules and End^ch operad on formal Laurent series are isomorphic as operads in D_X-modules | the iso is a four-step bridge (choose chart, trivialize D_X, identify spectral parameters, verify Borcherds = associativity), NOT a notational synonym. AP-CY63 fires (Bridge Proposition absent). Without the Bridge, claims about "the chiral product" are ambiguous; with it, BD and End^ch interchangeable. | construction/narration (Bridge missing) | chiral_hochschild_koszul.tex Section 3 (uses both formalisms); proof of thm:chiral-hochschild-differential L172-305 mixes BD reasoning with End^ch formulas |
+| 148 | "the chiral Koszul pair" (definite article, four distinct definitions) | Ext-diagonal `Ext^{i,j}_A(C,C) = 0 for i ≠ j` is the canonical invariant; bar concentration, twisting datum, PBW criterion are equivalent on the Koszul locus | four definitions exist (`def:chiral-koszul-morphism` via twisting data; `def:chiral-koszul-pair` via Verdier-compatible pair; `def:koszul-chiral-algebra` referenced but living elsewhere; implicit Ext-diagonal in `prop:degen-koszul`). The equivalence is established via separate theorems (`thm:ext-diagonal-vanishing`, `thm:bar-concentration`, `thm:pbw-koszulness-criterion`) but never as a single equivalence theorem. Reader cannot tell which is "the" definition. | label/content + within-chapter scattering | chiral_koszul_pairs.tex L268, L658, L1367; spectral_sequences.tex L341 |
+| 149 | "k_max ∈ {0,1} ∪ {3,4,...}, the value 2 is excluded by locality and dimension" (universal claim) | for chiral algebras with bosonic integer-weight generators, p_max ∈ {1,2,4,5,...} and so k_max = p_max - 1 skips 2 | mechanism is correct only WITHIN the bosonic-integer-weight landscape. Half-integer weight (N=1 super-Virasoro: G(z)G(w) ~ 2c/3(z-w)^{-3}) gives p_max = 3, k_max = 2 — allowed. The theorem's universal quantifier is too strong; the proof only excludes the bosonic case. Mechanism error: right conclusion in the right scope, wrong scope stated. | mechanism error + scope error | three_invariants.tex rem:k-max-2-missing L298, thm:k-max-trichotomy L312 |
+
+**Operational counter (chiral Hochschild):** every "Hochschild" mention should be tagged `_geom`, `_alg`, or `_bigr`. The bigraded `RHH_ch(A)` of `def:bigraded-hochschild` (`higher_genus_foundations.tex:2748`) is the canonical derived object; the others are quasi-isomorphic shadows on the Koszul locus and genuinely-different objects off it.
+
+**Operational counter (chiral Koszul):** Ext-diagonal `Ext^{i,j}_A(C,C) = 0 for i ≠ j` is the invariant definition. Bar concentration, twisting datum, PBW criterion are derivable equivalences. State the equivalence as a single theorem; cite ONE definition as canonical.
+
+**Strengthening path (Theorem H):** PROMOTE Theorem H to "RHH_ch(A) ≃ RHom(RHH_ch(A^!), ω_X[2]) on the Koszul locus, model-independent, with cohomological amplitude [0,2]." This is independent of which of the three Hochschild models is in force.
+
+**Cross-volume:** all five Wave-5 confusions have direct Vol III analogs (AP-CY62, AP-CY63, AP-CY64). The same patches that fix Vol III's chiral_hochschild_koszul.tex apply here. The conflations are systemic across the programme.
+
+---
+
+## Wave 8 (cross-volume audit, 2026-04-16) additions
+
+| # | Wrong claim | Ghost theorem | Correct relationship | Type | Locus |
+|---|-------------|---------------|----------------------|------|-------|
+| 150 | "conditional on CY-A_3" (~17 instances in Vol III chapters, post-April-2026) | each phrase reads as a true safe-bound (the conditional is weakly true) | after CY-A_3 was proved (inf-cat, thm:derived-framing-obstruction), the dependent prose was not updated. The conditional UNDERSTATES: A_X exists by CY-A_3, and only chain-level explicit framing data (for non-formal algebras) or Vol I Borcherds-lift identification (AP-CY8) or motivic DT comparison (CY-D programme) remains conditional. Files: cy_to_chiral.tex L1728/1763/1765/1802/3308; quantum_chiral_algebras.tex L376/383/1949/2447/2698; e1_chiral_algebras.tex L1983/1991; e2_chiral_algebras.tex L1187; braided_factorization.tex L768/1351; en_factorization.tex L1208/1217/1223. **Healing template:** "A_X exists by Theorem CY-A_3 (Theorem~\ref{thm:cy-to-chiral-d3}); the explicit chain-level [shadow tower / framing data / Borcherds-lift identification] for [class M / non-formal / non-toric] geometries remains conditional on [chain-level framing / Vol I Borcherds-lift bridge (AP-CY8) / motivic DT comparison]." Wave 8 cross-volume audit. | upgrade-staleness (NEW TYPE: status upgrades not propagated to dependent prose) | wave8_cross_volume.md Sections 3, 8, 10, punch list item 1 |
+| 151 | Dangling cross-volume `\ref{def:shadow-invariants}` and `\ref{def:shadow-class}` from Vol III to Vol I | cross-volume references typeset as `??` if `externaldocument` is not configured | Vol III's `quantum_chiral_algebras.tex:2103, 2289, 2293` use `\ref{def:shadow-invariants}` and `\ref{def:shadow-class}` with no Vol III-side definitions; the labels live in Vol I. Without `\externaldocument` setup, these silently typeset as `??`. **Healing:** either (a) configure `\externaldocument{vol1/main}` in Vol III preamble; (b) inline the definitions; or (c) replace `\ref` with descriptive text + label key. V2-AP38 (phantom labels) was supposed to track these. | cross-volume label resolution + V2-AP38 | wave8_cross_volume.md Section 2; quantum_chiral_algebras.tex L2103/2289/2293 |
+| 152 | Cross-volume q-convention bridge ABSENT (KL `\hbar = \log q` vs DK `q = e^{2\pi i \hbar}`) | individual conventions are mutually consistent; bridge identity `q_KL = q_DK` (when `\hbar` matched) is implicit | the bridge is folkloric and never stated explicitly in any of the three CLAUDE.md files. Vol I uses KL across many chapters; Vol II's `thqg_line_operators_extensions.tex:1113` uses DK; Vol III's `e1_chiral_algebras.tex:1975` uses KL. No within-volume clash; cross-volume reader has no key. AP151 in current form is a within-volume rule; cross-volume version absent. **Healing:** 3-line addition to each CLAUDE.md stating the bridge. Cheap insurance. | convention clash (cross-volume) | wave8_cross_volume.md Section 4 |
+| 153 | Vol III internal Chapter~N hardcodes in `notes/theory_drinfeld_chiral_center.tex`, `notes/theory_coha_e1_sector.tex`, `notes/theory_qvcg_koszul.tex` (e.g. "Chapter~12 of the monograph", "Chapter~5", "Chapter~14 of the main text") | the notes are working drafts; once promoted to compiled chapters, V2-AP26 fires immediately | the Chapter~N strings are STALE BY POLICY (V2-AP26 forbids hardcoding). Currently dormant because the notes are not in main build. **Healing:** convert to `\ref{ch:...}` BEFORE promotion. Otherwise the moment a single `\input` is added, the manuscript ships violations. | shipping-out risk + V2-AP26 | wave8_cross_volume.md Section 1 (Chapter-number hardcodes) |
+| 154 | Drinfeld center theorem (`Z(Rep^{E_1}(A)) = Rep^{E_2}(Z^{der}_{ch}(A))`) stated independently three times: Vol II `spectral-braiding(-core).tex`, Vol III `notes/theory_drinfeld_chiral_center.tex`, Vol III `chapters/theory/drinfeld_center.tex` | the abstract theorem has a single canonical home (Vol II) | three copies invite drift under correction. No drift detected today; risk is structural. **Healing:** collapse to Vol II canonical statement + Vol III specializations cite via `\cref` (with `externaldocument`). | duplicated content (V2-AP27, mid risk) | wave8_cross_volume.md Section 6 |
+| 155 | Vol I `standalone/programme_summary.tex:98` says "single open conjecture is the CY-A correspondence at..." while same file L2599 has `\begin{theorem}[CY-A at d=3]` and L2619 says "No open conjecture in the programme has unresolved..." | within-document drift (post-April-2026 upgrade not fully propagated) | the L98 standalone-summary opening was not updated when CY-A_3 was upgraded. The file now self-contradicts: opening says "single open conjecture", body has the theorem, conclusion says "no open conjecture". **Healing:** reconcile L98 to the post-upgrade status (CY-C remains the open conjecture; CY-A is closed). | upgrade-staleness (intra-volume variant of #150) | wave8_cross_volume.md Section 8; programme_summary.tex L98 vs L2599 vs L2619 |
+
+**Operational counter (upgrade-staleness, NEW recurring type):** after any major status upgrade (Conjecture → Theorem), grep all three volumes for variant phrases (`conditional on TheoremName`, `open`, `awaits`) within 100 chars of the theorem name; reframe each match to the residual conditionality (chain-level data, Borcherds bridge, motivic DT comparison) rather than deleting "conditional". The 17 stale Vol III phrases are the second wave of this pattern (first wave: Vol II cache rows 57-66, ~10 phrases). The pattern recurs each time a major conjecture upgrades and is mechanically detectable post-upgrade.
+
+**Cross-volume punchlist (Wave 8):** 12 items in `wave8_cross_volume.md` Section 13. Highest healing yield: de-condition 17 Vol III phrases (Upgrade Path A). Cheapest: 3-line convention bridges to all three CLAUDE.md files (Upgrade Paths C+B). Strongest score: CY-C status discipline (clean across all three volumes; AP40 + HZ3-1 fully enforced).
+
+| 156 | Vol I "Theorem A clause (ii) (Verdier intertwining $\mathbb{D}_{\Ran}\,\barB(\cA) \simeq \cA^!_\infty$) is a derived consequence" | Verdier duality DOES intertwine bar of $\cA$ with bar of $\cA^!$ when both are chiral Koszul algebras | Vol I `def:chiral-koszul-pair` (chiral_koszul_pairs.tex L570--588) **encodes Verdier compatibility $\mathbb{D}_{\Ran}(\cC_1) \simeq \cC_2$ as INPUT DATA**. Theorem A clause (ii)'s "proof" composes this input with clause (i)'s unit equivalence. No new content beyond clause (i) + the definition. **Healing:** rewrite definition to NOT presuppose Verdier compatibility; clause (ii) becomes substantive (confirmed in `theorem_a_b_tautology_verification.md`). Cross-volume relevance: Vol III's CY-A_d functor relies on Vol I Theorem A as the d=1 base; if the d=1 statement is tautological at the Verdier-intertwining level, the d=2/d=3 lift inherits the same artifact. | **definitional tautology** (NEW TYPE) + construction/narration | wave12_proof_verification_ABH.md Sections 1.5, 7 (ghost theorem 1) |
+| 157 | Vol I "Theorem B at $g=0$ (bar-cobar inversion at genus 0) is a theorem" | Bar concentration $\Rightarrow$ counit is qi (chiral analogue of LV12 Theorem 3.4.6) | Vol I `def:koszul-chiral-algebra` (algebraic_foundations.tex L223--234) defines "Koszul" by the condition "counit is qi at genus 0". Theorem B clause (1) at $g=0$ says: if $\cA$ is Koszul (counit is qi at $g=0$), then counit is qi at $g=0$. **Verbatim definition.** Author admits in `rem:inversion-vs-fundamental` (L1686--1695). The non-trivial content is $g \geq 1$ extension and clauses (2)--(4). **Healing:** rewrite definition to use bar-concentration (per `rem:equivalent-formulations-koszul`); $g=0$ clause becomes the LV-style theorem. Cross-volume: Vol III's bar-cobar machinery for CY chiral algebras inherits this definitional pattern; same fix should propagate. | **definitional tautology** (NEW TYPE) | wave12_proof_verification_ABH.md Sections 2.6, 7 (ghost theorem 2) |
+| 158 | "Theorem H gives ChirHoch occupation $\{0, 1, 2\}$" | Theorem H gives ChirHoch **amplitude** $[0, 2]$ universally on the Koszul locus | The standalone statement (five_theorems_modular_koszul.tex L1409--1414) reads "concentrated in degrees $\{0,1,2\}$" which is ambiguous between amplitude and occupation. The chapter realisation `thm:hochschild-polynomial-growth` (chiral_hochschild_koszul.tex L1040ff) gets it right: explicitly labels part (a) "Concentration (cohomological amplitude, not virtual dimension)" with nonvanishing **range** $[0,2]$. For Vir generic: $\ChirHoch^1 = 0$, occupation is $\{0, 2\}$. For KM/Heis: occupation $\{0, 1, 2\}$. **Healing:** rewrite standalone statement to use "amplitude $[0, 2]$"; promote `prop:hilbert-families` to a Theorem with sharp occupation per family. **Cross-volume relevance:** Vol III's Theorem H analogue at $d \geq 2$ should explicitly state amplitude $[0, 2d]$ to maintain discipline. | **amplitude/occupation** (HZ3-14 confirmed cross-volume) | wave12_proof_verification_ABH.md Sections 3.2, 3.6, 7 (ghost theorem 3); HZ3-14 |
+
+**Operational counter (definitional tautology, NEW recurring type, Wave 12):** when a foundational definition encodes the conclusion of the headline theorem, the headline theorem becomes vacuously true. To detect: for each `\ClaimStatusProvedHere` headline theorem, locate the principal definitional hypothesis and check whether it includes (a) the theorem's conclusion verbatim, (b) an equivalent characterization, or (c) the theorem's quasi-isomorphism / equivalence at a special case. If yes: rewrite the definition to use a stronger property (PBW / bar-concentration / acyclicity of twisted product) so the headline theorem becomes a derived consequence. The Vol I Theorem A and Theorem B cases are the prototype; Vol III may have analogues at CY-A_d (e.g., does `def:CY_d-category` encode "carries cyclic A_inf trace" as input?). Mechanical detection: grep for `def:` labels referenced in the hypothesis of any ProvedHere theorem and check whether the definition body contains a quasi-isomorphism or equivalence statement.
+
+## XX. CY-C Six-Routes Pairwise Bridges (Wave 14, 2026-04-16)
+
+Healing chapter `chapters/examples/cy_c_six_routes_convergence.tex` installs the comparison machinery behind Conjecture CY-C. Top-15 cached confusion #10 stated G(X) is unconstructed; the new chapter makes the construction problem precise by factoring convergence into six pairwise bridges organised as a 6-cycle, each a NAMED ARROW with honest status. Cache rows below record the narration-vs-construction violations that were present in the manuscript before the chapter and are now healed.
+
+| # | Wrong Claim | Ghost Theorem | Precise Error | Correct Relationship | Type |
+|---|-------------|---------------|---------------|---------------------|------|
+| 159 | "The six routes to $G(K3\times E)$ converge by functoriality of $\Phi$" | Convergence is asserted by CY-C | Only R1 uses $\Phi_3$; R2--R6 are independent constructions with independent inputs (Jacobi form, Mukai lattice, orbifold data, Ricci-flat metric, 6d SCFT). Functoriality of $\Phi$ cannot force convergence it never applies to | Convergence = CONTENT of CY-C (conjectural). Factor into 6 pairwise bridges $\alpha_{ij}$ with named construction arrows. AP-CY60 | construction/functor | `cy_c_six_routes_convergence.tex` Sec.~\ref{sec:cy-c-six-setup} + Rem.~\ref{rem:six-routes-irreducible} |
+| 160 | "The 6 routes produce a single $\kappa_{\mathrm{ch}}(K3\times E)$ value" | Each route DOES produce a $\kappa_{\mathrm{ch}}$ | Route-dependent: R1=3, R3=24, R4=12, R5=3 (R6 matches R1); R2 has no $\kappa_{\mathrm{ch}}$ (Borcherds lift = Jacobi-form attribute); $\kappa_{\mathrm{BKM}}=5$ is R2-specific | Correct spectrum on K3xE: $\{\kappa_{\mathrm{cat}}=0,\, \kappa_{\mathrm{ch}}^{R_1}=3,\, \kappa_{\mathrm{BKM}}=5,\, \kappa_{\mathrm{ch}}^{R_4}=12,\, \kappa_{\mathrm{ch}}^{R_3}=24,\, \kappa_{\mathrm{fiber}}=24\}$. Different invariants, not different values of one invariant. AP113+AP-CY55+AP-CY59 | construction/functor | `cy_c_six_routes_convergence.tex` Thm.~\ref{thm:kappa-stratification-CY-C} |
+| 161 | "BKM is the Koszul dual of $A_{K3}$" | Some structural pairing $A_{K3}$ vs BKM exists | Conflates R2 (Borcherds lift, Jacobi-form input) with Koszul duality applied to R1. Koszul duality and Borcherds lift are not the same functor | R2 constructs BKM via denominator identity of $\mathfrak{g}_{\Delta_5}$; this does NOT factor through Koszul-duality applied to $\Phi_2(D^b(\Coh(K3)))$. If a Koszul-duality relation exists, it is a SEPARATE bridge not covered by $\alpha_{12}$. | conflation / construction/narration | `cy_c_six_routes_convergence.tex` Rem.~\ref{rem:cy-c-narration-audit}(c) |
+| 162 | "Sigma-model chiral algebra via HKR" | HKR is a real functor | HKR takes $D^b(\Coh(X))$ to polyvector cohomology; sigma-model R5 takes (2,2)-SCFT to half-twist chiral algebra. Different starting data, different functors | R1 uses HKR; R5 uses the half-twist. Agreement of $A_X^{R_5}$ with $A_X^{R_1}$ is content of bridge $\alpha_{56}\circ\alpha_{45}\circ\alpha_{34}\circ\alpha_{23}\circ\alpha_{12}$; saying "R5 via HKR" collapses five bridges into one tautology | conflation | `cy_c_six_routes_convergence.tex` Rem.~\ref{rem:cy-c-narration-audit}(d) |
+| 163 | "$\kappa(K3)$ is 2" (bare, FM119) | Both $\kappa_{\mathrm{ch}}(K3)=2$ and $\kappa_{\mathrm{fiber}}(K3)=24$ are correct | Bare $\kappa(K3)$ collapses two invariants of two different objects (algebra vs manifold). The SAME symbol on the SAME geometry gets two answers because the invariants are different | $\kappa_{\mathrm{ch}}(K3)=2$ (algebraization, routes R1/R5); $\kappa_{\mathrm{fiber}}(K3)=24$ (topology); $\kappa_{\mathrm{ch}}^{R_3}(K3)=24$ (lattice-VOA route, matches fiber value NUMERICALLY not semantically); $\kappa_{\mathrm{cat}}(K3)=2$ (manifold). FM119 | label/content | `cy_c_six_routes_convergence.tex` Prop.~\ref{prop:kappa-spectrum-k3-healed} + Rem.~\ref{rem:fm119-is-a-confusion} |
+| 164 | "Pairwise-bridge closure is automatic once each bridge is proved" | Graph-theoretically a closed 6-cycle does commute IF every edge is an iso | Each alpha_ij must be constructed as an ISOMORPHISM of chiral algebras (not merely of characters, or partition functions, or Euler forms). Character agreement is necessary, not sufficient | Thm.~\ref{thm:pairwise-all-proved-closes-CY-C}: the 6-cycle closure depends on each alpha_ij being a chiral-algebra iso, not just a numerical coincidence. Five of the six bridges are currently Conditional; only alpha_23 (Borcherds 1992) is unconditional | necessary/sufficient | `cy_c_six_routes_convergence.tex` Thm.~\ref{thm:pairwise-all-proved-closes-CY-C} |
+| 165 | "The CY-to-chiral functor Phi distinguishes three K3 algebras" | Three K3 algebras exist (CY functor / Monster orbifold / Leech VOA) | Phi gives ONE output. The other two come from DIFFERENT constructions (orbifold, lattice VOA) that do not factor through Phi | AP-CY59: for each algebra, name the CONSTRUCTION. $\kappa_{\mathrm{ch}}$ distinguishes the route, not the destination. Trichotomy is a consequence of using three different machines, not of Phi producing three outputs | construction/functor | `k3_chiral_algebra.tex` Prop.~\ref{prop:k3-trichotomy} (already healed; cross-referenced) |
+
+**Operational counter (six-routes convergence, NEW pattern, Wave 14):** before writing "six routes converge on $G(X)$" or "the routes give the same algebra," fill in the following template:
+```
+For each route R_i:
+  input data:   [derived category / Jacobi form / lattice / orbifold / SCFT / 6d theory]
+  output:       A_X^{R_i}
+  kappa_ch^{R_i}: [explicit value]
+  construction arrow alpha_{i(i+1)}: [named construction, not "the R-matrix gives"]
+  status:       [ProvedElsewhere / Conditional / Conjectured]
+```
+If any `input data` repeats across routes, the routes are not independent (check AP-CY60). If any `construction arrow` is narrated rather than named, see AP-CY57. If any `kappa_ch^{R_i}` is bare without subscript, see AP113. If the status column is uniformly `ProvedHere`, something is wrong -- only alpha_23 is unconditional at the Wave-14 snapshot.
+
+**Operational counter (kappa-spectrum integrity, NEW pattern, Wave 14):** the kappa-spectrum on $K3 \times E$ is $\{0, 3, 5, 12, 24\}$ with FIVE values, not four. The cached pattern `{2,3,5,24}` conflates fiber $\chi(\mathcal{O}_S)=2$ with total-space data. Correct assignment:
+```
+kappa_cat(K3 x E)      = 0   [manifold; Kunneth 2*0=0]
+kappa_ch^{R1}(K3 x E)  = 3   [algebraization; CY functor]
+kappa_BKM(K3 x E)      = 5   [R2 Borcherds weight c_f(0)/2]
+kappa_ch^{R4}(K3 x E)  = 12  [Kummer orbifold halves R3]
+kappa_ch^{R3}(K3 x E)  = 24  [Mukai lattice VOA rank]
+kappa_fiber(K3 x E)    = 24  [chi_top(K3)]
+```
+The value 2 that appeared as `kappa_cat` for K3xE in earlier working notes was $\chi(\mathcal{O}_{K3})=2$ of the FIBER, not $\chi(\mathcal{O}_{K3\times E})=0$ of the TOTAL SPACE. The value 2 belongs to $\kappa_{\mathrm{cat}}(K3)$, not $\kappa_{\mathrm{cat}}(K3\times E)$.
+
+---
+
+## Entry 51 — Wave-21 right-hand side: $\chi(\mathcal{O}_{K3\times E})$ vs $\chi^{\mathrm{cat}}$ (V53, 2026-04-16)
+
+| # | Wrong Claim | Ghost Theorem | Precise Error | Correct Relationship | Type |
+|---|---|---|---|---|---|
+| 51 | "$\chi(\mathcal{O}_{K3\times E}) = 11$ closes the Wave-21 four-term identity $0+5-16+11=0$" | The Wave-21 identity $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{BKM}} + \mathrm{sdim}_{\mathrm{Ber}} + \chi^{\mathrm{cat}} = \chi(\mathcal{O}_X)$ DOES hold at $K3\times E$ | The right-hand side is $\chi(\mathcal{O}_{K3\times E}) = 0$ (Künneth: $2\cdot 0$), not 11. The value $\chi^{\mathrm{cat}} = 11$ is the *algebraization residual* on the LEFT side, not the manifold invariant on the right. | $0+5-16+11 = 0 = \chi(\mathcal{O}_{K3\times E})$. Manifold invariant ($\chi(\mathcal{O}_X)$, Künneth-multiplicative) closes the identity; algebraization residuals ($\kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \mathrm{sdim}_{\mathrm{Ber}}, \chi^{\mathrm{cat}}$) collectively reproduce it. AP-CY55. | manifold/algebraization |
+
+**First-principles disambiguation (V53 §6, AP-CY55 enforcement):**
+- **Manifold invariants** (Künneth-multiplicative, depend ONLY on the underlying CY): $\chi(\mathcal{O}_X), \kappa_{\mathrm{fiber}}(X)$.
+- **Algebraization residuals** (depend on which chiral/super/BKM algebra is constructed from $X$): $\kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \mathrm{sdim}_{\mathrm{Ber}}, \chi^{\mathrm{cat}}$.
+
+The Wave-21 identity is a **bridge** between the two columns. Reading the right-hand $\chi(\mathcal{O}_X)$ as if it were an algebraization residual is the AP-CY55 conflation. The four projections on the left collectively reconstruct the manifold invariant on the right; this reconstruction is the *content* of the identity, not a tautology.
+
+**Pythagorean companion (V53 §3):** $24^2 = (-16)^2 + 320$ orthogonally decomposes the squared Mukai rank into the squared Berezinian super-trace and the squared positive-root contribution measured against the K3 evaluation pairing. The Mukai signature $(4,20)$ produces a $\mathbb{Z}/2$-graded lattice; even and odd projections are orthogonal.
+
+**Operational counter:** any expression $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{BKM}} + \mathrm{sdim}_{\mathrm{Ber}} + \chi^{\mathrm{cat}}$ MUST be checked against the *manifold-invariant* right-hand side, never against a numerical-coincidence sum. At $K3\times E$: $0+5-16+11 = 0 = \chi(\mathcal{O}_{K3\times E})$ ✓. At $K3$ alone (V50 falsifiable): $\chi^{\mathrm{cat}}(K3) = 13$ is *predicted*, $\chi(\mathcal{O}_{K3}) = 2$ is *known*; the four-term left-hand sum at the K3 fiber must equal 2.
+
+---
+
+## Entry 240 (2026-04-16): thm:borcherds-lift-universal installed
+
+**Where**: chapters/examples/k3e_bkm_chapter.tex, new subsection §Universal property of the Borcherds lift, inserted after prop:k3e-genus-escalation (the Vol III chapter housing BKM machinery).
+
+**Scope-and-hypothesis investigation (a)/(b)/(c):**
+
+- **(a) Before install:** Borcherds lift was stated case-by-case — Δ_5 for K3×E (thm:k3e-borcherds-product), J(τ) for Monster (W13 remark on Vol II side), Fake Monster denominator referenced in notes/theory_generalized_root_datum.tex. prop:bkm-weight-universal proved the WEIGHT formula c_N(0)/2 universally for Z/NZ orbifolds, but only for K3-fibered CY_3 orbifolds; no universal-functor statement.
+- **(b) Hypotheses for admitting a Borcherds lift:** even unimodular Lorentzian lattice L with b^+ ≥ 2, conformal VOA V with primitive isometric embedding L → Lat(V) compatible with Virasoro grading. Non-K3-fibered CY_3s (quintic, local P^2) have no K3 fiber → no Jacobi-form input → no Borcherds lift (prop:bkm-weight-universal(iv)); substitute is BCOV, NOT a theta lift (AP-CY8).
+- **(c) Relation to Φ_3:** composite Φ_(-) ∘ Φ_3: D^b(Coh(X)) → E_1-ChirAlg → AutForm(G(Λ_Muk(X))) is DEFINED iff Λ_Muk(X) is even unimodular (K3-fibered case). NOT universal over all CY_3 — admission of a Borcherds lift is a PROPERTY of X (fibration existence), not of Φ_3 itself. This closes an AP-CY59/AP-CY60 ambiguity: Φ_3 and the Borcherds lift are INDEPENDENT constructions whose convergence at K3×E is Theorem-level, not functoriality.
+
+**Cross-volume Vol II usage:** the Monster E_3-topological orbifold BV route (FM66, FM120, FM128) uses rem:borcherds-three-cases(2) — the Fake Monster denominator at L = II_{2,26} — and the SL_2(Z)-invariance of J(τ) from case (1). DW anomaly vanishing for the Leech Z/2 involution reduces to even-unimodularity of II_{2,26} + full modular invariance of J(τ), both consequences of thm:borcherds-lift-universal(i)+(iii).
+
+**AP5 cross-volume propagation:** no formula with OPE-mode vs λ-bracket convention dependence introduced (weights, character multiplicativity, singular theta integrals are convention-independent). Vol II references the Monster route narratively in CLAUDE.md (FM66/FM120/FM128); no λ-bracket formula edits required. Vol I unaffected (no BKM machinery in Vol I's N-paper series).
+
+**Citation alignment:** uses \cite{Borcherds1998}, \cite{Borcherds1992}, \cite{GN1996, GN2002} — keys consistent with notes/theory_generalized_root_datum.tex.
+
+**Status**: ClaimStatusProvedElsewhere (attribution to Borcherds 1998 §§13-14 + Gritsenko-Nikulin 1996/2002). Strongest-form heal: no downgrade; theorem matches the universal statement the programme requires.
+
+---
+
+## Entry: rem:phi3-quintic-local-p2 (Vol III chapters/theory/cy_to_chiral.tex, 2026-04-16)
+
+**Trigger:** Vol II-initiated adversarial probe — "Φ_3 is proved ∞-cat for any CY_3, but is the explicit E_1-chiral output identified for the quintic and local P^2? Is Borcherds admissibility correctly scoped (even unimodular Mukai)? Are BCOV vs Göttsche substitutes distinguished from Borcherds lift?"
+
+**First-principles triple:**
+- (A) Ghost of a true theorem: Φ_3 has explicit, manifold-specific constructions on the quintic (Gepner-chart CoHA on quiver-with-potential) and on local P^2 (Schiffmann-Vasserot/Nakajima CoHA on nested Hilbert schemes). Borcherds lift is a strict subcase requiring even unimodular Mukai + Lorentzian signature + Jacobi-form input. Non-K3-fibered CY_3 get substitutes that are dimension-specialised: BCOV (compact, h^{1,0}=0) or Göttsche/Vafa-Witten (local surfaces).
+- (B) Precise conflation being defused: (i) "Φ_3 exists everywhere" ≠ "Φ_3 is Borcherds-lift-admissible everywhere" — the former is CY-A_3 (proved), the latter requires Mukai-lattice hypotheses that fail for quintic and local P^2. (ii) "Substitute for Borcherds" is NOT uniform across non-K3-fibered CY_3 — compact strict CY_3 with h^{1,0}=0 use BCOV; local surfaces use Göttsche; neither is a theta lift. (iii) κ_BKM is route-specific to the Borcherds lift (per cy_c_six_routes_convergence.tex R_2 route, AP-CY37); undefined for quintic and local P^2.
+- (C) Correct statement: `rem:phi3-quintic-local-p2` bundles the five facts (a)-(e) with explicit cross-references to existing theorems (thm:cy-to-chiral-d3 for existence, prop:beauville-kappa-formula for κ_ch, thm:hae-mc-structural + prop:bcov-shadow-recursion for BCOV genus recursion, thm:borcherds-lift-universal for admissibility hypothesis, prop:cech-htt-coefficient-convergence for quintic convergence radius 1/20).
+
+**Derived from:**
+- chapters/theory/cy_to_chiral.tex:1629 (quintic N=5 patches, d=5, radius ≥ 1/20), 1968 (HKR H^0(O_X) coverage for quintic/local P^2), 2161 (quintic non-formality, Yukawa H^3=5+GW), 2414 (E_1 universality verified for quintic + local P^2), 3150-3175 (quintic κ_ch=-25/3, F_1=-25/72, conditional-on-Φ_3 now unconditional), 3815 (BCOV F_1=χ/24 for h^{1,0}=0 CICYs including quintic), 3898-3925 (HAE as shadow-tower spectral connection).
+- chapters/examples/k3_chiral_algebra.tex:579 (κ_BKM undefined for quintic, C^3, conifold, local P^2; replacement = κ_BCOV for compact).
+- chapters/examples/k3e_cy3_programme.tex:2140 (κ_BKM undefined for quintic).
+- chapters/examples/cy_c_six_routes_convergence.tex:37-244 (R_2 Borcherds lift is route-specific; Mukai even unimodular required).
+- chapters/connections/bar_cobar_bridge.tex:761 (Göttsche formula at rank 1 for K3); chapters/theory/quantum_chiral_algebras.tex:2470 (rank-1 VW generating function with exponent χ_top(S) for local surfaces).
+- AP-CY8 (Borcherds denominator ≠ bar Euler product; needs CY-to-chiral functor), AP-CY11/AP-CY14 (CY-A_3 proved ∞-cat), AP-CY12 (class from full tower), AP-CY34/AP-CY37 (κ_BKM = c_N(0)/2 universal iff Borcherds admissible), Vol II FM160 (Monster/Borcherds even unimodular lineage).
+
+**Verified against (disjoint sources for the scoping claim):**
+- Quintic Hodge data: h^{1,1}=1, h^{2,1}=101, χ_top=-200 (Candelas-Ossa-Green-Parkes 1991 classical); H^3=5 (deg(X_5)=5).
+- Local P^2 Hodge data: χ_top(P^2)=3 (Euler), McKay quiver of K_{P^2}=Z/3-orbifold quiver (AP-CY54 McKay).
+- Göttsche 1990 (Math. Ann. 286): rank-1 Hilbert scheme generating function Σχ(Hilb^n(S))q^n = Π(1-q^k)^{-χ_top(S)}.
+- BCOV 1994 (Comm. Math. Phys. 165): F_1 = -½ log det(∂̄†∂̄) gives χ_top/24 on strict CY_3 with h^{1,0}=0.
+- Borcherds 1998 (Invent. Math. 132) + Gritsenko-Nikulin 1996/2002: multiplicative lift requires even unimodular Lorentzian lattice with Jacobi-form weight/index matching Weil representation.
+- Schiffmann-Vasserot 2013 (Publ. IHÉS): CoHA of Jordan / affine-type quivers = Nakajima's nested Hilbert scheme Heisenberg extension.
+
+**Disjoint rationale:** Göttsche 1990 computes Hilbert-scheme Euler characteristics directly from Betti numbers of S via Weil-Ellingsrud-Stromme. BCOV 1994 computes F_1 from the Ray-Singer analytic torsion. Borcherds 1998 requires a lattice + Jacobi-form pair whose Weil-representation data forces even unimodularity. These three sources produce the three substitutes independently, with disjoint inputs; the scoping claim ("Borcherds iff even unimodular Mukai; BCOV for compact h^{1,0}=0; Göttsche for local surfaces") is a partition of cases with independent witnesses, not a single-source tautology.
+
+**AP5 cross-volume propagation:** No Vol II edits required. Vol II CLAUDE.md already has the correct Borcherds scoping in FM66/FM120/FM128 + FM160 (Monster orbifold route; even unimodularity of Leech/II_{25,1}). Vol I unaffected (no BCOV or Göttsche machinery). The Vol III remark cross-refs Vol II via the Monster-orbifold discussion only through FM160 in narrative, which is already in place.
+
+**Citation alignment:** uses existing labels thm:cy-to-chiral-d3, prop:beauville-kappa-formula, thm:chi-neq-kappa, prop:cech-htt-coefficient-convergence, thm:e1-universality-cy3, thm:drinfeld-center-coha, thm:borcherds-lift-universal, thm:hae-mc-structural, prop:bcov-shadow-recursion, rem:gepner-lv-dichotomy, rem:cy3-kappa-polysemy — all verified present in chapters/theory/cy_to_chiral.tex and chapters/examples/k3e_bkm_chapter.tex by grep.
+
+**Status:** Remark (not theorem) — it is a scoping/consequences bundle referring to proved theorems. No new ProvedHere tag introduced; no @independent_verification decorator required (this is a scope-bundling remark, the underlying theorems carry their own status). Strongest-form heal: three substitutes preserved (no downgrade to "Borcherds only"); Borcherds-admissibility hypothesis named precisely; explicit CoHA identifications for quintic and local P^2 supplied, not merely existence narration.
+
+
+---
+
+## Entry: rem:kha-vs-coha-bridge (Vol III chapters/theory/cy_to_chiral.tex, 2026-04-16)
+
+**Trigger:** Vol II-initiated adversarial probe — "Are KHA and CoHA distinguished in the programme? Does Phi_3 land on cohomological or K-theoretic side? Is the quantum toroidal the K-theoretic refinement of the affine Yangian, and if so where in the manuscript?"
+
+**First-principles triple:**
+- (A) Ghost of true theorem: CoHA and KHA are genuinely distinct Hall-algebra constructions (rational vs trigonometric structure function), related by Chern character as a surjection-after-rationalization with torsion kernel; Phi_3 as constructed lands on CoHA, with K-theoretic Phi_3^K parallel awaiting construction.
+- (B) Precise conflation defused: (i) narration "CoHA" used loosely for either; (ii) quantum toroidal appears in Vol III but as Koszul-dual target on E_2 category, not as direct Phi_3 output; (iii) Nekrasov partition function is a KHA object whose q->1 limit gives a CoHA object — not two names for the same thing.
+- (C) Correct statement: Three-layer distinction (rational vs trigonometric structure functions; Chern character ring map with torsion kernel; native landing of Phi_3 on CoHA with Phi_3^K conjectural on KHA).
+
+**Derived from:**
+- chapters/theory/cy_to_chiral.tex:1337, 1373, 2363, 2398 (CoHA(C^3) = Y^+(gl_hat_1), five-step chain landing on CoHA).
+- chapters/theory/e1_chiral_algebras.tex (E_1-chiral bialgebra axioms from Vol III swarm).
+- compute/lib/e3_ce_quantum_toroidal.py (trigonometric structure function g^q(z); quantum toroidal U_{q,t}(gl_hat_hat_1) engine).
+- compute/lib/quantum_toroidal_e1_cy3.py (quantum toroidal DIM presentation).
+- compute/lib/qg_from_fh_3d_6d.py:1041 (quantum toroidal -> affine Yangian degeneration).
+- AP-CY7 (CoHA != E_1-chiral algebra; associative construction).
+- AP-CY30 (ZTE failure: K-theoretic refinement breaks K-V for E_infty).
+- AP-CY33 (chain-level != rational; K-theoretic vs cohomological parallels chain vs rational).
+
+**Verified against (disjoint sources):**
+- Kontsevich-Soibelman 2008 (arXiv:0811.2435): CoHA definition via cohomology of moduli stack with vanishing-cycle sheaf.
+- Kapranov-Vasserot 2011 (arXiv:1106.4428): K-theoretic elliptic cohomological Hall algebras on surfaces.
+- Schiffmann-Vasserot 2013 (arXiv:1202.2756): CoHA(C^3) = Y^+(gl_hat_1) for Jordan quiver.
+- Negut 2022 (arXiv:2211.16249): K-theoretic Hall algebras on 3-folds via derived Tor-convolution.
+- Procházka-Rapčák 2018 (Y-algebras): Y(gl_hat_1) = W_{1+infty}.
+- Feigin-Hashizume-Hoshino-Shiraishi-Yanagida 2009: quantum toroidal U_{q,t}(gl_hat_hat_1) presentation with Nekrasov-style trigonometric structure.
+
+**Disjoint rationale:** KS2008 defines CoHA via cohomology (derived input: vanishing-cycle functor on commutative cohomology ring). KV2011 defines KHA via equivariant K-theory (derived input: Tor-convolution on Grothendieck group). Negut 2022 independently proves KHA convolution associativity via derived algebraic geometry on the Hecke stack. The Chern character ring homomorphism is Grothendieck-Riemann-Roch on the Hecke correspondence — each side defined without reference to the other; GRR provides the comparison. The rational-vs-trigonometric structure function dichotomy is computed independently in shuffle-algebra presentations (SV13 rational; FHHSY09 trigonometric).
+
+**AP5 cross-volume propagation:** Vol II FM55 (RT invariants = E_infty factorization homology, not E_1-bar) relates: RT at roots of unity = KHA-level object, not CoHA; consistent with the remark's statement that quantum toroidal appears at roots of unity where CoHA collapses. No Vol II edits required — Vol II CLAUDE.md AP-CY22 (Miki automorphism algebra-specific) and the FM55 entry already capture the E_infty/KHA landing on the physics side. Vol I unaffected.
+
+**Citation alignment:** uses \cite{KS2008, KV2011, SV2013, Negut2022}. Must verify all four bib keys exist in Vol III main bibliography. New keys KV2011 and Negut2022 may need adding to main.tex bibliography.
+
+**Status:** Remark (not theorem) — scoping clarification distinguishing cohomological landing of Phi_3 from K-theoretic refinement. No ProvedHere tag. conj:phi3-K-theoretic noted as FRONTIER-ledger item; not installed as a \begin{conjecture} environment in this edit (separate task if promoted). Strongest-form heal: KHA vs CoHA distinction preserved without downgrade; Phi_3^K left as explicit open construction rather than conflated with Phi_3; quantum toroidal correctly positioned as Koszul-dual on E_2 category, not as direct CY-functor output.
+
+---
+
+## Entry: conj:harvey-moore-functorial (Functorial lift of alpha_{12})
+
+**Location:** chapters/examples/cy_c_six_routes_convergence.tex, inserted after cor:cy-c-three-identities-reduction and before rem:cy-c-heal-upgrade.
+
+**Claim (a) — conjectural statement:** There is an E_1-chiral-algebra isomorphism alpha_{12}^func: Phi_3(D^b(Coh(S x E))) -> A^Borch_{Phi_10}, equivariant under the identification (SL_2(Z) x SL_2(Z))/Z_2 ≅ Gamma_{Spin(2,1,2)}(Phi_10) between the Huybrechts autoequivalence group of D^b(Coh(S x E)) and the Siegel stabiliser of Phi_10 inside Sp(2,2,Z). S is a projective K3; E an elliptic curve; Phi_10 the Borcherds lift of the K3 elliptic genus 2 phi_{0,1}.
+
+**Claim (b) — what is proved:**
+- Rank level: Harvey-Moore 1996 BPS-counting identity for Phi_10 as the Borcherds denominator of g_{Delta_5}.
+- Automorphism level: Huybrechts' autoequivalence group computation on product abelian/K3 derived categories (Ploog-Sosna for the K3 x E product case); Gritsenko-Nikulin's realisation of the Siegel stabiliser of Phi_10; both embed compatibly into Sp(2, 2, Z).
+- 1/4-BPS scalar sector: Dabholkar-Murthy-Zagier Siegel-form counting of 1/4-BPS states = Fourier expansion of 1/Phi_10.
+
+**Claim (c) — residual gap:** Promotion of the rank-, automorphism-, and 1/4-BPS-scalar-sector compatibilities to a functorial chiral-algebra isomorphism carrying higher correlators and mode-algebra structure. This is item (I1) of cor:cy-c-three-identities-reduction.
+
+**Derived from:**
+- chapters/examples/cy_c_six_routes_convergence.tex:196-229 (prop:cy-c-pairwise-agreements(a), cor:cy-c-three-identities-reduction(I1)).
+- Harvey-Moore, Algebras, BPS states, and strings, arXiv:hep-th/9510182 (rank-level Phi_10 identity).
+- Huybrechts (Fourier-Mukai transforms in algebraic geometry; The global Torelli theorem: classical, derived, twisted); Ploog-Sosna (autoequivalences of products).
+- Dabholkar-Murthy-Zagier, Quantum black holes, wall crossing, and mock modular forms, arXiv:1208.4074 (1/4-BPS scalar Siegel-form counting).
+
+**Verified against (disjoint sources):**
+- Gritsenko-Nikulin (Automorphic forms and Lorentzian Kac-Moody algebras I, II; alg-geom/9610022, alg-geom/9611028): independent construction of Phi_10 as a denominator of a Borcherds-Kac-Moody superalgebra with Spin(2, 1, 2)-automorphy, giving the Siegel stabiliser Gamma_{Spin(2,1,2)}(Phi_10) intrinsically.
+- Borcherds 1992 (Monstrous moonshine and monstrous Lie superalgebras, Invent. Math. 109): denominator formula theorem used in the R_2 route, independent of the Harvey-Moore BPS argument.
+- Borcherds 1998 (Automorphic forms with singularities on Grassmannians, Invent. Math. 132): multiplicative lift defining A^Borch_{Phi_10} from 2 phi_{0,1}, independent of HKR/Phi_3.
+
+**Disjoint rationale:** The derived-category side (Phi_3 of D^b(Coh(S x E))) is constructed via HKR + Bridgeland-King-Reid and the Fourier-Mukai kernel on S x E; the Borcherds side (A^Borch_{Phi_10}) is constructed via the Borcherds multiplicative lift applied directly to the K3 elliptic genus without any reference to the derived category. The coincidence of the automorphism groups is an independent theorem on each side: Huybrechts/Ploog-Sosna for the derived side, Gritsenko-Nikulin for the Siegel side. The 1/4-BPS scalar sector match (Dabholkar-Murthy-Zagier) is computed from BPS indices on the physics side and from Fourier coefficients of 1/Phi_10 on the automorphic side, with no common intermediary to Phi_3. All three evidence layers are pairwise derivation-disjoint.
+
+**AP5 cross-volume propagation:** No formula-level propagation required. The conjecture introduces no new OPE coefficients, lambda-bracket entries, or kappa values. Vol II CLAUDE.md bridge tables reference the Phi_10 identity only at the scalar-character level (already Proved); Vol I is unaffected. The conjecture tag is ClaimStatusConjectured; no ProvedHere decorator required.
+
+**Citation alignment:** uses inline references to arXiv:hep-th/9510182 (Harvey-Moore), arXiv:1208.4074 (Dabholkar-Murthy-Zagier), and named-author Huybrechts/Ploog-Sosna/Gritsenko-Nikulin/Borcherds citations. If promoted to \cite form, bib keys HarveyMoore1996, DMZ2012, Huybrechts-GTC, PloogSosna, GritsenkoNikulin, Borcherds1992, Borcherds1998 must be verified or added in main bibliography.
+
+**Status:** Conjecture (ClaimStatusConjectured). Scope: functorial chiral-algebra refinement of alpha_{12}; closes item (I1) of CY-C three-identity reduction if promoted to theorem. Strongest-form heal: residual gap isolated to functorial mode-algebra content; three independent evidence layers prevent collapse to a single partial result; automorphism-level isomorphism promoted from narrative coincidence to explicit equivariance statement.
+
+---
+
+## Entry: prop:cy-c-i2-higher-genus-reduction (CY-C item (I2) modular-bootstrap reduction, 2026-04-16)
+
+**Location:** chapters/examples/cy_c_six_routes_convergence.tex, inserted after rem:cy-c-heal-upgrade, before section "Status audit: pairwise-bridge table".
+
+**Claim (a) — asserted.** For X = S x E with S a projective K3 and E an elliptic curve, the higher-genus EOT identity EG_g(K3) = Theta^{(g)}_{Lambda_Muk} as weight-0 index-1 Siegel modular forms reduces, for every g >= 2, to the genus-1 EOT statement EG_1(K3) = 2 phi_{0,1} via the curved-Dunn modular-bootstrap bridge. The discrepancy delta_g = EG_g(K3) - Theta^{(g)}_{Lambda_Muk} is a cocycle in the modular-bootstrap complex C^bullet_MB(Mbar_{g,n}), defining a class [delta_g] in H^2_MB whose vanishing is the Vol II theorem H^2_MB(g) = 0 for all g >= 1.
+
+**Claim (b) — what is proved.** Unconditional at the cohomological level: the modular-bootstrap vanishing H^2_MB(g) = 0 (Vol II Part VI; curved_dunn_higher_genus.tex, thm:curved-dunn-H2-vanishing-all-genera, plus the modular-bootstrap-to-curved-Dunn bridge) kills the obstruction, giving EG_g(K3) = Theta^{(g)}_{Lambda_Muk} as a Siegel-modular-form identity. Clutching via Getzler-Kapranov modular operad + Borcherds multiplicative lift's compatibility with boundary-divisor restriction furnishes the stratum-wise equality; H^2_MB = 0 propagates it to the smooth locus.
+
+**Claim (c) — residual gap.** Chain-level promotion to a chiral-algebra isomorphism at genus g requires the genus-1 chain-level compatibility of V_{Lambda_Muk(X)} and the half-twisted K3 sigma model, which is the EOT 2011 input and is established as a weak-Jacobi-form equality. The proposition does not eliminate this single genus-1 hypothesis; it eliminates the infinite-genus tower of hypotheses previously imagined for (I2).
+
+**Derived from:**
+- Vol II curved-Dunn directive (H^2_MB(g) = 0 at all g >= 1) and chapters/theory/curved_dunn_higher_genus.tex (Vol II): thm:curved-dunn-H2-vanishing-all-genera, prop:modular-bootstrap-to-curved-dunn-bridge, prop:genus1-twisted-tensor-product.
+- Getzler-Kapranov 1998, Modular Operads (Compositio Math.), Thm 4.2.2: clutching decomposition of Mbar_{g,n} boundary strata.
+- Borcherds 1998, Automorphic forms with singularities on Grassmannians, Invent. Math. 132: multiplicative theta-lift as Siegel modular form, compatibility with stratum restriction.
+- Eguchi-Ooguri-Tachikawa 2011, arXiv:1004.0956: genus-1 EG_1(K3) = 2 phi_{0,1} weak-Jacobi-form equality.
+
+**Verified against (disjoint sources):**
+- Kudla 2003 (Modular forms and arithmetic geometry, Clay Lecture Notes): independent orthogonal-group theta-correspondence framework for higher-genus Siegel theta-lifts of even unimodular lattices, constructed without reference to modular-bootstrap cohomology or Vol II curved-Dunn complex.
+- Gritsenko-Nikulin 1996-98 (Automorphic forms and Lorentzian Kac-Moody algebras I, II; alg-geom/9610022, 9611028): independent automorphy-level verification of the Siegel stabiliser of Phi_10 at arbitrary genus via Lorentzian-KM denominator identities, independent of modular-bootstrap complex.
+- Wendland 2000 (Moduli spaces of unitary conformal field theories; hep-th/0010205 and follow-ups): sigma-model side higher-genus modular invariance of K3 elliptic genus computed from N=(4,4) superconformal character sums, independent of Niemeier-lattice theta-lift.
+- Borcherds 1992 (Monstrous moonshine and monstrous Lie superalgebras, Invent. Math. 109): denominator formula at higher rank for the Phi_10 square root; cross-check on Niemeier-theta-lift side independent of the curved-Dunn bridge.
+
+**Disjoint rationale.** The Niemeier-lattice theta-lift Theta^{(g)}_{Lambda_Muk} is computed via Kudla's orthogonal-group theta correspondence + Gritsenko-Nikulin's Lorentzian-KM framework; the K3 sigma-model elliptic genus EG_g(K3) is computed via Wendland's N=(4,4) superconformal character decomposition. Neither computation invokes the modular-bootstrap complex or Vol II curved-Dunn machinery. The reduction's content is that, once the genus-1 equality of these two independently-computed Siegel forms is established (EOT 2011), the modular-bootstrap vanishing H^2_MB(g) = 0 enforces the higher-genus equality without genus-by-genus computation. The curved-Dunn bridge is the programme-internal mechanism; EG_g(K3) and Theta^{(g)}_{Lambda_Muk} are programme-external objects with four independent automorphic constructions.
+
+**AP5 cross-volume propagation.** No formula-level propagation. The proposition introduces no new OPE coefficients, lambda-bracket entries, kappa values, or modular coefficients. Vol II bridge tables already reference H^2_MB = 0 and the curved-Dunn bridge; this entry cites them by reference only. Vol I unaffected.
+
+**Convention alignment:** Genus-g elliptic genus EG_g(K3) normalised as weight 0 index 1 Siegel modular form on Sp(2g, Z) (Gritsenko-Nikulin convention); 2 phi_{0,1} at genus 1 (EOT normalisation, c(-1) = 2; AP-CY42 respected). Vol II lambda-bracket vs Vol I OPE-mode conventions not engaged: proposition lives at Siegel-modular-form level.
+
+**Status:** ClaimStatusProvedHereConditional. Unconditional cohomological reduction + conditional chain-level promotion on the same genus-1 hypothesis as (I2). Strongest-form heal: reduces surface area of (I2) from infinite-genus tower to single genus-1 chain-level input; Vol II modular-bootstrap vanishing theorem is load-bearing input, application here is novel.
+
+## CY-B at d=3: Precise scope of proved vs open (rem:cy-b-d3-precise, 2026-04-16)
+
+**Ghost theorem / full claim.** For any CY$_d$ category $\cC$, the functor $\Phi$ sends $\cC$ to an $E_n$-chiral algebra (with $n$ depending on $d$ per AP-CY58: $n=2$ at $d=2$; $n=1$ at $d=3$), and Koszul duality on the chiral side lifts to a Koszul duality of the underlying CY$_d$ category itself.
+
+**Wrong/loose version.** "CY-B is proved at $d=3$" or "CY-B transports the CY$_3$ structure to a CY$_0$ Koszul dual," stated without distinguishing which of three layers is intended.
+
+**First-principles layer decomposition (three layers).**
+- Layer (a) — scalar conductor: $\kappa_\mathrm{ch}(A) + \kappa_\mathrm{ch}(A^!) = \rho_K$ for $A = \Phi(\cC)$, all shadow classes. PROVED (thm:cy-b-conductor).
+- Layer (b) — categorical braided equivalence on the center: $\cZ(\Rep^{E_1}(A)) \simeq \cZ(\Rep^{E_1}(A^!))^{\mathrm{rev}}$ via Verdier spectral functor + Shapovalov $k \mapsto -k$. PROVED (thm:cy-b-d3, thm:verdier-spectral-functor). Note AP-CY26: Shapovalov transposition is the mechanism, NOT $\sigma_2$ negation.
+- Layer (c) — geometric Koszul duality of the target CY$_3$ category itself: $D^b(\Coh(X))$ admits a Koszul dual fitting into a $0$-CY structure on $\End^\bullet_{D^b}(E_\bullet)$ for a tilting complex $E_\bullet$, compatible with the PTVV $(-3)$-shifted symplectic structure on $\mathrm{Perf}(X)$ via a $3$-shifted Lagrangian fibration. PROVED for toric CY$_3$ (fan combinatorics / Gale duality) and local CY$_3$ (resolved conifold, $\mathrm{Tot}(\omega_{\P^2})$). CONJECTURAL for compact CY$_3$ (quintic, K3-fibered, abelian).
+
+**Precise open step (within layer (c)).** Compatibility between the tilting-complex $0$-CY structure on $\End^\bullet(E_\bullet)$ and a $3$-shifted Lagrangian fibration into $\mathrm{Perf}(X)$ with the PTVV $(-3)$-shifted symplectic structure. This is a $3$-shifted analogue of Kapranov's Koszul duality for exterior algebras. Required inputs: (i) PTVV $(-3)$-shifted symplectic on CY$_3$ derived moduli — AVAILABLE (Pantev-Toen-Vaquie-Vezzosi); (ii) Fukaya-Seidel $E_1$-algebra realizing Floer deformation at the $3$-shift — AVAILABLE in toric/local settings, UNAVAILABLE for compact quintics / K3-fibered / conifold transitions; (iii) Lagrangian-fibration compatibility — OPEN.
+
+**Correct relationship.** "CY-B proved at $d=3$" in the master status table refers to layers (a)+(b): the conductor and the braided-center equivalence on the $E_1$-chiral side. The geometric Koszul duality of the CY$_3$ category itself (layer (c)) is a separate problem whose resolution would upgrade CY-B at $d=3$ from an $E_1$-chiral theorem to a CY$_3$-categorical theorem. Compact CY$_3$ cases (quintic, K3-fibered) sit outside the proved scope pending (iii).
+
+**Confusion type.** level error (AP-CY56: $E_n$ level confusion across CY dim) + scope error (compact vs toric/local CY$_3$) + construction/narration (layer (b) proves a chiral-side equivalence; (c) would prove a category-side duality — distinct constructions).
+
+**AP5 cross-volume propagation.** Vol II CLAUDE.md bridge tables: "E_2-chiral Koszul duality" entries should (when referring to $d=3$) specify $E_1$-chiral on $A$ inducing $E_2$ on center (per AP-CY58), and should not imply geometric Koszul duality of $D^b(\Coh(X))$. No formula-level propagation; scope-qualification only.
+
+**Status.** Layers (a)+(b) ProvedHere in chapters/theory/e2_chiral_algebras.tex. Layer (c) unresolved; scope explicitly recorded in rem:cy-b-d3-precise. Strongest-honest form of "CY-B at $d=3$" is (a)+(b); layer (c) for compact CY$_3$ is a research frontier beyond the current programme.
+
+
+## conj:kapranov-3shifted-exterior-koszul — Kapranov $3$-shifted exterior Koszul duality (2026-04-16)
+
+**Ghost theorem / full claim.** For a compact CY$_3$ $X$, there exists a tilting object $E_X \in D^b(\Coh(X))$ with derived endomorphism algebra the $(-3)$-shifted exterior algebra on the tangent complex, $\End^\bullet(E_X) \simeq \Lambda^\bullet_{-3}(T_X) = \Sym^\bullet(T_X[-1])$; induced Koszul dual realizes $D^b(\Coh(X))^! \simeq \mathrm{QCoh}(T^*[-3]X)$ compatibly with the PTVV $(-3)$-shifted symplectic structure via a $3$-shifted Lagrangian fibration.
+
+**Wrong/loose version.** "Kapranov Koszul duality extends to CY$_3$ directly" without the $(-3)$-shift; or conflating $\Lambda^\bullet(T_X)$ (classical Kapranov) with $\Lambda^\bullet_{-3}(T_X) = \Sym^\bullet(T_X[-1])$ (parity-swapped by the $3$-shift).
+
+**First-principles three-part decomposition.**
+- (a) Kapranov $1988$: for smooth projective $Y$, tilting $E_Y$ with $\End^\bullet(E_Y) \simeq \Lambda^\bullet(T_Y)$; dual dg-modules on $T[-1]Y$. UNCONDITIONAL.
+- (b) PTVV $2013$: compact CY$_3$ $X$ gives $(-3)$-shifted symplectic on $\mathrm{Perf}(X)/\mathcal{M}_X$, forced by $\mathrm{HH}_3(X) \to k$ trace. UNCONDITIONAL.
+- (c) $3$-shifted Kapranov: tilting $E_X$ with $\End^\bullet(E_X) \simeq \Sym^\bullet(T_X[-1])$; Koszul dual $\mathrm{QCoh}(T^*[-3]X)$ with PTVV-compatible Lagrangian fibration. CONJECTURAL compact; PROVED toric (Bondal-Orlov tilting + Gale duality on the fan; $E_X = \bigoplus_\sigma \mathcal{O}(D_\sigma)$, Jacobi algebra of superpotential as Koszul dual).
+
+**Correct relationship.** Kapranov $1988$ exterior Koszul duality for smooth projective varieties is the unshifted ($d=0$) form. The $(-3)$-shift in the CY$_3$ setting turns $\Lambda^\bullet(T_X)$ into $\Sym^\bullet(T_X[-1])$ by parity swap; PTVV supplies the matching symplectic form; the conjecture asserts the Lagrangian-fibration compatibility needed to combine (a) with (b) into a genuine geometric Koszul duality at $d=3$. This is precisely step (c)(iii) of rem:cy-b-d3-precise.
+
+**Confusion type.** Parity/shift convention (unshifted exterior vs shifted symmetric) + scope (toric/local vs compact CY$_3$) + construction-availability (toric gives explicit $E_X$; compact has candidate BCOV/Landau-Ginzburg routes but no constructed tilting object).
+
+**AP5 cross-volume propagation.** Vol II CLAUDE.md: no formula propagation; the conjecture sharpens the missing step in layer (c) of CY-B at $d=3$ already recorded in the Vol II bridge tables. References Kapranov $1988$, PTVV $2013$, Bondal-Orlov $2001$.
+
+**Status.** Conjectured in chapters/theory/e2_chiral_algebras.tex (conj:kapranov-3shifted-exterior-koszul). Resolution would close step (c)(iii) of rem:cy-b-d3-precise and upgrade CY-B at $d=3$ from an $E_1$-chiral theorem to a CY$_3$-categorical theorem in the sense of Kapranov.
+
+## Entry: conj:cy-c-i3-half-bps (CY-C item (I3) full $1/2$-BPS chiral algebra identification, 2026-04-16)
+
+**Location:** chapters/examples/cy_c_six_routes_convergence.tex, inserted after \end{proof} of prop:cy-c-pairwise-agreements and before conj:harvey-moore-functorial. Paired with rem:conj-cy-c-i3-half-bps-triple.
+
+**Ghost theorem / full claim.** For X = S x E (S projective K3, E elliptic), the derived-category chiral algebra Phi_3(D^b(Coh(S x E))) coincides, as an E_1-chiral algebra, with the FULL 1/2-BPS chiral algebra A^{1/2}_{T[X]} of the class-S theory T[S x E], not merely with its 1/4-BPS (BLLPR Schur) sub-sector.
+
+**First-principles triple.**
+- (a) Asserted: Phi_3(D^b(Coh(S x E))) ~= A^{1/2}_{T[X]} as E_1-chiral algebras; A^{1/2} strictly extends A^{1/4} by short-multiplet operators satisfying E - 2R - 2j_2 = 0 but not the stronger Schur constraint E - 2R - j_2 = 0.
+- (b) Proved: Schur sector (a) identification via BLLPR (arXiv:1312.5344) + Costello-Gaiotto holomorphic-twist bridge (arXiv:1810.01970); character-level match of full 1/2-BPS index with vacuum character of Phi_3(D^b(Coh(X))) after 1/2-BPS R-grading decomposition (Shimizu 2018, arXiv:1805.12565).
+- (c) Residual gap: functorial extension of the Costello-Gaiotto 3d HT construction from the Schur locus t=q into the full 1/2-BPS locus. 1/2-BPS descendants carry irrational (p,q,t) fugacity dependence off the Schur surface; the missing construction is analytic continuation of the CG holomorphic-twist bridge in the superconformal fugacities, not an algebraic identification at a single point.
+
+**Derived from:**
+- BLLPR 2013 (Beem-Lemos-Liendo-Peelaers-Rastelli, Infinite chiral symmetry in four dimensions, arXiv:1312.5344): Schur-sector chiral algebra A^{1/4}_{T[X]} and 4d-N=2/2d-VOA correspondence.
+- Costello-Gaiotto 2018 (Vertex operator algebras and 3d N=4 gauge theories, arXiv:1810.01970): 3d holomorphic-topological theory on X x R with boundary VOA; used to identify A^{1/4}_{T[X]} with Phi_3(D^b(Coh(X)))|_Schur.
+- Shimizu 2018 (arXiv:1805.12565): superconformal-index / VOA-character match for class-S theories.
+- Phi_3 HKR + Fourier-Mukai construction on D^b(Coh(S x E)) (Vol III e1_chiral_algebras.tex; AP-CY14 post-CY-A_3 closure).
+
+**Verified against (disjoint sources):**
+- Gaiotto-Moore-Neitzke 2013 (Framed BPS states, arXiv:1006.0146; Spectral networks, arXiv:1204.4824): independent BPS-state counting on T[X] via spectral networks on the UV curve, producing a partition function that matches the superconformal index via AGT-type localisation without reference to Phi_3 or D^b(Coh(X)).
+- Dabholkar-Murthy-Zagier 2012 (arXiv:1208.4074): 1/4-BPS Siegel-form counting already referenced in prop:cy-c-pairwise-agreements(c); cross-check at the 1/4 locus disjoint from Phi_3 construction.
+- Beem-Peelaers-Rastelli-van Rees 2014 (Chiral algebras of class S, arXiv:1408.6522): independent construction of class-S VOAs via Higgs-branch chiralisation, used here to verify that A^{1/4}_{T[X]} has the correct central charge and stress-tensor structure before the Phi_3 comparison, with no reference to derived categories of Coh.
+- Arakawa-Moreau 2017 (Joseph ideals and lisse minimal W-algebras, arXiv:1706.10523): chiral-algebra-side check on A^{1/4}_{T[X]} C_2-cofiniteness, independent of 3d-HT bridge.
+
+**Disjoint rationale.** The derived-category side (Phi_3) is constructed via HKR + Bridgeland-King-Reid + relative Fourier-Mukai on S x E -> E. The class-S side (T[X], A^{1/4}_{T[X]}, A^{1/2}_{T[X]}) is constructed via 6d (2,0) compactification + BLLPR Schur limit or full 1/2-BPS cohomology. The Costello-Gaiotto bridge is a THIRD construction (3d HT theory on X x R) mediating the comparison at the Schur locus. The character-level extension (Shimizu) is independent of Costello-Gaiotto, using only modular-trace computations on the VOA side and superconformal-index integrals on the class-S side. The four evidence layers (BLLPR construction, CG bridge, Shimizu character match, GMN spectral-network cross-check) are derivation-disjoint: no two share a mathematical intermediary beyond the superconformal index as a numerical output.
+
+**AP5 cross-volume propagation.** No formula-level propagation. The conjecture introduces no new OPE coefficients, lambda-brackets, or kappa values. Vol II conventions (lambda-brackets with 1/n! factor) vs Vol I (OPE modes) are not engaged: conjecture lives at chiral-algebra-iso level. Vol II CLAUDE.md bridge tables reference BLLPR-type constructions at the Schur-sector level only; no table rewrite required.
+
+**Citation alignment.** Inline arXiv references only (1312.5344, 1810.01970, 1805.12565). If promoted to \cite form: bib keys BLLPR2013, CostelloGaiotto2018, Shimizu2018 need verification in main bibliography; GaiottoMooreNeitzke2013, BPRvR2014, ArakawaMoreau2017 would be added if (b) or (c) layers get theorem-level proof.
+
+**Status.** ClaimStatusConjectured. Scope: full 1/2-BPS chiral-algebra identification of Phi_3(D^b(Coh(S x E))); the 1/4-BPS Schur-sector content is proved and recorded separately in prop:cy-c-pairwise-agreements(c) and at character level by Shimizu. Strongest-form heal path: construct analytic continuation of Costello-Gaiotto bridge in (p,q,t) off the Schur surface t=q, promoting the Shimizu character-level match to a functorial E_1-chiral-algebra isomorphism. This is the (I3) chiral-algebra-level refinement within Corollary cor:cy-c-three-identities-reduction.
