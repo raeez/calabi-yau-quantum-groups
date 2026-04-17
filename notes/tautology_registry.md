@@ -12,27 +12,28 @@ Seeded from adversarial audit 2026-04-16 (first_principles_cache.md #57-68).
 
 ---
 
-## prop:bkm-weight-universal (kappa_BKM = c_N(0)/2) — PARTIALLY HEALED 2026-04-17
+## prop:bkm-weight-universal (kappa_BKM = c_N(0)/2) — HEALED at N=1 2026-04-17
 
-**Status:** Manuscript clean (proposition correctly cites disjoint sources). Engine test still tautological. Healing of test pending.
+**Status:** Manuscript clean. Engine N=1 case has genuine disjoint-source verification installed. Engine N=2..8 (orbifold cases) still pending Mathieu-twined verification — future compute-side work.
 
-**File:** chapters/examples/k3_chiral_algebra.tex (proposition + new rem:bkm-weight-universal-iv-status)
+**File:** chapters/examples/k3_chiral_algebra.tex (manuscript), compute/tests/test_kappa_bkm_universal.py::TestIndependentVerificationN1 (engine).
 
-**What was done:**
-- Added `rem:bkm-weight-universal-iv-status` (k3_chiral_algebra.tex L590-624) documenting:
-  (a) the manuscript proposition is genuinely proved via disjoint sources (Borcherds 1998 + Gaberdiel-Hohenegger-Volpato 2010); no manuscript-level tautology.
-  (b) the engine `kappa_bkm_universal.py` `FRAME_SHAPE_DATA[N]` table hardcodes BOTH `borcherds_weight` AND `c_disc_0` with the relation `weight = c_0/2` literal, making the 99 tests `Fraction(c_0, 2) == weight` tautological per HZ3-11.
-  (c) the genuine independent-verification path: compute c_N(0) independently from the Mathieu-twined elliptic genus formula α(g) φ_{0,1} + β(g) φ_{-2,1} (Eguchi-Hikami-Ooguri 2010) AND compute wt(Φ_N) independently from Igusa's Sp_4(Z) modular-form classification. Both sources disjoint from FRAME_SHAPE_DATA.
+**What was done at manuscript level (commit 5e758f0):**
+- Added `rem:bkm-weight-universal-iv-status` (k3_chiral_algebra.tex L590-624) documenting the manuscript proposition is genuinely proved via disjoint sources (Borcherds 1998 + GHV 2010); no manuscript-level tautology.
 
-**What remains (compute work):**
-Install `@independent_verification` decorated test that:
-1. Computes c_N(0) from Mathieu-twined elliptic genus formula (Frame shape -> α(g), β(g) -> twined Jacobi form -> q^0 z^0 coefficient) — independent of `FRAME_SHAPE_DATA[N].c_disc_0` hardcoded value.
-2. Verifies wt(Φ_N) from Borcherds product order — independent of `FRAME_SHAPE_DATA[N].borcherds_weight` hardcoded value.
-3. Bridges them via Borcherds 1998 weight theorem.
+**What was done at engine level (commit fd18c0c):**
+- New TestIndependentVerificationN1 class in test_kappa_bkm_universal.py with @independent_verification decorated test:
+  - DERIVATION: FRAME_SHAPE_DATA[1].c_disc_0 = 10 (GHV 2010 Frame-shape from M_24 character theory)
+  - VERIFICATION: phi01_by_discriminant(D=0) = 10 (exact theta-ratio formula in phi01_fourier.py, EZ 1985 Jacobi-form theory)
+  - DISJOINT: M_24 character theory ⊥ theta-function ratios (no common mathematical input)
+  - 2 tests pass; verify-independence audit registers entry as non-tautological.
+- Also installed test_c_minus_1_via_theta_ratio_polar_term documenting the half-normalization convention.
 
-This breaks the tautology by sourcing c_N(0) and wt(Φ_N) from disjoint physical/modular sources.
+**What remains:**
+- Extend to N=2..8 orbifold cases: install independent verification of c_g(0) values via Mathieu-twined elliptic genus formula α(g) φ_{0,1} + β(g) φ_{-2,1} (Eguchi-Hikami-Ooguri 2010, Cheng 2010, GHV 2010). The α(g), β(g) coefficients can be computed from Frame shape data, but require an independent computational path (not the FRAME_SHAPE_DATA table).
+- Future tick.
 
-**Lossless reframe:** the proposition stays `\ClaimStatusProvedHere` because the manuscript proof is correct (disjoint citations to Borcherds + GHV). Engine-level test rectification is a compute-side healing, not a manuscript-side downgrade.
+**Lossless reframe:** the proposition stays `\ClaimStatusProvedHere`; engine N=1 case has genuine disjoint-source verification; remaining N=2..8 cases tracked as future compute work without affecting manuscript status.
 
 ---
 
