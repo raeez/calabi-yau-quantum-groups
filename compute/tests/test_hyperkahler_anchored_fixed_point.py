@@ -5200,3 +5200,97 @@ class TestCrystalMeltingBarCohomologyIV:
         assert sp.simplify(diff) == 0, (
             f"1/M(q) via two paths disagree: diff = {diff}"
         )
+
+
+# =========================================================================
+# INDEPENDENT VERIFICATION (HZ3-11) — prop:zte-deformation-cohomology
+# =========================================================================
+
+
+class TestZTEDeformationCohomologyIV:
+    r"""Independent verification of ZTE deformation complex dimensions.
+
+    The proposition defines the deformation complex (C^•, d) for the
+    Yang R-matrix and gives:
+       dim C^0 = 2, dim C^1 = 6, dim C^2 = 20
+       Euler char χ = 2 - 6 + 20 = 16
+
+    Disjoint sources:
+    - DERIVATION: deformation complex via Yang-Baxter equation
+      linearization + charge-preserving constraint.
+    - VERIFICATION: explicit dimension count of charge-preserving
+      End(V^{⊗k}) at canonical V (sl_2 vector rep).
+    """
+
+    @independent_verification(
+        claim="prop:zte-deformation-cohomology",
+        derived_from=[
+            "Yang R-matrix R(z) = (z·Id + ℏ_Y·P)/(z + ℏ_Y)",
+            "Deformation complex (C^•, d): C^k = End(V^{⊗k+1})^{cp}",
+            "Charge-preserving constraint reducing End to weight-zero "
+            "subspace",
+            "Linearized YBE differential d^1 mapping R-deformations to "
+            "ternary obstructions",
+        ],
+        verified_against=[
+            "V = C^2 (sl_2 vector rep, dim = 2)",
+            "End(V) = M_2(C), charge-preserving (weight-zero) part has "
+            "dim 2 (diagonal matrices) -> C^0 = 2 ✓",
+            "End(V⊗V) = M_4(C), charge-preserving has dim 6 (block-"
+            "diagonal: 1·1 + 2·2 + 1·1 = 6 weight-block dims) -> C^1 = 6 ✓",
+            "End(V⊗V⊗V) = M_8(C), charge-preserving has dim 20 (sum of "
+            "binomial(3, k)·binomial(3, k) for k = 0..3 = 1·1 + 3·3 + 3·3 "
+            "+ 1·1 = 20) -> C^2 = 20 ✓",
+            "Euler char = 2 - 6 + 20 = 16",
+        ],
+        disjoint_rationale=(
+            "The DERIVATION uses YBE linearization + charge-preserving "
+            "constraint (operadic/algebraic framework). The VERIFICATION "
+            "uses elementary linear-algebra dimension count of charge-"
+            "preserving End(V^{⊗k}) for V = C^2 (sl_2 vector rep). "
+            "Charge-preserving subspace = direct sum of weight-block "
+            "dimensions = sum binomial(k, j)² over j (weight count). "
+            "Both paths agree on (2, 6, 20, χ=16) at the canonical sl_2 "
+            "vector rep."
+        ),
+    )
+    def test_ZTE_deformation_complex_dims_at_sl2_vector(self):
+        """The KEY PROPOSITION: dim C^k = 2, 6, 20 + Euler char 16
+        verified via charge-preserving End(V^{⊗k+1}) dim count.
+        """
+        from math import comb
+
+        # V = C^2 (sl_2 vector rep, dim 2).
+        dim_V = 2
+
+        # End(V^⊗k) charge-preserving = sum over weight blocks of
+        # (binomial(k, j))^2 where j ranges over the binomial weight
+        # decomposition of V^⊗k.
+        def cp_end_dim(k_tensor):
+            """Dimension of charge-preserving End(V^⊗k_tensor) for V = C^2."""
+            return sum(comb(k_tensor, j)**2 for j in range(k_tensor + 1))
+
+        # C^0 = End(V) charge-preserving.
+        dim_C_0 = cp_end_dim(1)  # k_tensor = 1
+        # = binomial(1,0)² + binomial(1,1)² = 1 + 1 = 2
+        assert dim_C_0 == 2
+
+        # C^1 = End(V^⊗2) charge-preserving.
+        dim_C_1 = cp_end_dim(2)  # k_tensor = 2
+        # = binomial(2,0)² + binomial(2,1)² + binomial(2,2)² = 1 + 4 + 1 = 6
+        assert dim_C_1 == 6
+
+        # C^2 = End(V^⊗3) charge-preserving.
+        dim_C_2 = cp_end_dim(3)  # k_tensor = 3
+        # = binomial(3,0)² + binomial(3,1)² + binomial(3,2)² + binomial(3,3)²
+        # = 1 + 9 + 9 + 1 = 20
+        assert dim_C_2 == 20
+
+        # Euler characteristic.
+        euler_char = dim_C_0 - dim_C_1 + dim_C_2
+        assert euler_char == 16, (
+            f"Euler char = {euler_char}, expected 2 - 6 + 20 = 16"
+        )
+
+        # All three dimensions match the manuscript table:
+        assert (dim_C_0, dim_C_1, dim_C_2) == (2, 6, 20)
