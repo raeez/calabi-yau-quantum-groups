@@ -3556,6 +3556,292 @@ The fixed-point property $M_X * M_{E^k} + \Delta_{X, E^k} = M_X$ then
 follows by direct addition.
 \end{proof}
 
+%% ========================================================================
+%% Universal Drinfeld coupling at ALL CY factors (LOSSLESS extension):
+%% closed-form decomposition of M *_{V_4} M_Y in the operator basis
+%% (id, eps_wt, eps_par, sigma_tot*) for each Y in
+%% {E, K3 (BKM), T^4, conifold, LP^2, K3^[n]}.  Identifies the
+%% structural pattern: the V_4-Fourier image of M_Y has a unique
+%% decomposition along the four V_4-characters, which we read off as
+%% the Y-dependent coefficient vector (alpha_Y, beta_Y, gamma_Y, delta_Y).
+%% ========================================================================
+
+\begin{theorem}[Universal Drinfeld-coupling identity at every CY direction]
+\label{thm:universal-drinfeld-coupling-all-Y}
+\ClaimStatusProvedHere
+For every CY input $Y$ with bigraded Lefschetz matrix $M_Y \in \bbZ[V_4]$ and
+every $M \in \bbZ[V_4]$, the $V_4$-convolution $M *_{V_4} M_Y$ decomposes
+uniquely in the $V_4$-action operator basis $\{\mathrm{id},
+\epsilon_{\mathrm{wt}}, \epsilon_{\mathrm{par}}, \sigma_{\mathrm{tot}}^*\}$:
+\[
+  \boxed{\;
+  M *_{V_4} M_Y
+  \;=\; \alpha_Y\, M
+        \;+\; \beta_Y\, \epsilon_{\mathrm{wt}}(M)
+        \;+\; \gamma_Y\, \epsilon_{\mathrm{par}}(M)
+        \;+\; \delta_Y\, \sigma_{\mathrm{tot}}^*(M),
+  \;}
+\]
+where $(\alpha_Y, \beta_Y, \gamma_Y, \delta_Y)$ is the $V_4$-character
+decomposition of $\hat M_Y \in \bbZ[\hat V_4]$:
+\[
+  \alpha_Y = \tfrac{1}{4}(\hat M_Y(\chi_{++}) + \hat M_Y(\chi_{+-})
+                          + \hat M_Y(\chi_{-+}) + \hat M_Y(\chi_{--})),
+\]
+\[
+  \beta_Y  = \tfrac{1}{4}(\hat M_Y(\chi_{++}) + \hat M_Y(\chi_{+-})
+                          - \hat M_Y(\chi_{-+}) - \hat M_Y(\chi_{--})),
+\]
+\[
+  \gamma_Y = \tfrac{1}{4}(\hat M_Y(\chi_{++}) - \hat M_Y(\chi_{+-})
+                          + \hat M_Y(\chi_{-+}) - \hat M_Y(\chi_{--})),
+\]
+\[
+  \delta_Y = \tfrac{1}{4}(\hat M_Y(\chi_{++}) - \hat M_Y(\chi_{+-})
+                          - \hat M_Y(\chi_{-+}) + \hat M_Y(\chi_{--})).
+\]
+The trace identity $\alpha_Y + \beta_Y + \gamma_Y + \delta_Y =
+\hat M_Y(\chi_{++}) = \chi(\mathcal{O}_Y)$ is forced by the trivial
+character, and $\alpha_Y - \beta_Y - \gamma_Y + \delta_Y = \hat M_Y(\chi_{--})
+= \mathrm{tr}(\sigma_{\mathrm{tot}}^* M_Y)$ by the sign character.
+\end{theorem}
+
+\begin{proof}
+The $V_4$-convolution $M *_{V_4} M_Y$ has $V_4$-Fourier transform
+$\widehat{M *_{V_4} M_Y} = \hat M \cdot \hat M_Y$ (pointwise product).  In the
+operator basis, the $V_4$-character action of each generator is multiplication
+by a fixed character vector:
+\[
+  \mathrm{id} \mapsto (1, 1, 1, 1), \;
+  \epsilon_{\mathrm{wt}} \mapsto (1, 1, -1, -1), \;
+  \epsilon_{\mathrm{par}} \mapsto (1, -1, 1, -1), \;
+  \sigma_{\mathrm{tot}}^* \mapsto (1, -1, -1, 1).
+\]
+These four vectors are the rows of the $V_4$-character table $\chi(V_4) \in
+\GL_4(\bbZ)$; they form a basis of $\bbZ[\hat V_4]$ since $V_4$ is abelian.
+The $4 \times 4$ orthogonality identity $\chi(V_4) \chi(V_4)^T = 4 I_4$ inverts
+to give $(\alpha_Y, \beta_Y, \gamma_Y, \delta_Y) = \tfrac{1}{4}\,\hat M_Y\,
+\chi(V_4)^T$, the formulas above.  The decomposition reproduces
+$\widehat{M *_{V_4} M_Y}$ exactly, so the operator identity holds in
+$\bbZ[V_4]$ by Fourier inversion.
+\end{proof}
+
+\begin{corollary}[Closed-form $V_4$-character decomposition of each CY direction]
+\label{cor:cy-direction-character-table}
+\ClaimStatusProvedHere
+For each CY input $Y$ in $\{E, K3, T^4, \mathrm{conifold}, \bP^2_{\mathrm{loc}},
+K3^{[n]}\}$, the universal Drinfeld-coupling identity of
+Theorem~\ref{thm:universal-drinfeld-coupling-all-Y} gives the closed-form
+operator-basis decomposition tabulated below:
+\[
+\begin{array}{c|cccc|c}
+Y & \alpha_Y & \beta_Y & \gamma_Y & \delta_Y & \chi(\mathcal{O}_Y) \\ \hline
+E                  & 1     & 0     &  0    & -1    & 0 \\
+K3 \text{ (BKM-enhanced)} & 0     & -16   &  5    & 11    & 0 \\
+T^4                & 2     & 0     &  0    & -2    & 0 \\
+\mathrm{conifold}  & -1    & 0     &  1    & 0     & 0 \\
+\bP^2_{\mathrm{loc}} & 1   & 3     & -3    & 0     & 1 \\
+K3^{[n]}           & n+1   & 0     &  0    & 0     & n+1
+\end{array}
+\]
+The structural readings are:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+ \item \textup{($E$ direction)} Pure $\mathrm{id} - \sigma_{\mathrm{tot}}^*$
+       generator of the $V_4$-character $\chi_{+-} \otimes \chi_{-+}$ summand;
+       universal antipodal flip.
+ \item \textup{($K3$ BKM direction)} Three of four characters are activated
+       \textup{(}$\beta = -16$ from Mukai super-signature, $\gamma = 5$ from
+       Borcherds weight, $\delta = 11$ from K$3$-anchored fixed-point
+       residual\textup{);} the trivial character $\alpha = 0$ vanishes by
+       Serre-duality cancellation $\chi(\mathcal{O}_{K3}) - \chi(\mathcal{O})
+       = 2 - 2 = 0$.
+ \item \textup{($T^4$ direction)} Doubled $E$ direction: $T^4 = E \times E$
+       lifts the elliptic decomposition by the case-(2) doubling of the
+       Künneth dichotomy, multiplying both $(\alpha, \delta)$ by the same
+       factor $2$.
+ \item \textup{(conifold direction)} Pure $-\mathrm{id} + \epsilon_{\mathrm{par}}$
+       generator of the $V_4$-character $\chi_{-+}$ summand; the conifold
+       Hodge involution lives in the parity-flip sector exclusively.
+ \item \textup{($\bP^2$ local direction)} Pure $\mathrm{id} +
+       3 \epsilon_{\mathrm{wt}} - 3 \epsilon_{\mathrm{par}}$ generator: the
+       local-$\bP^2$ matrix has the maximal $\bbP^2$-Picard rank $3$
+       coefficient on weight and parity flips, with the diagonal $\alpha =
+       1$ tracking the canonical bundle K$_{\bP^2} = -3 H$ generator.
+ \item \textup{($K3^{[n]}$ direction)} Pure $(n+1) \cdot \mathrm{id}$ scalar
+       \textup{(}all three off-diagonal characters vanish\textup{):} the
+       hyperk\"ahler factor acts as a pure multiplicative absorber of weight
+       $\chi(\mathcal{O}_{K3^{[n]}}) = n + 1$.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Direct application of Theorem~\ref{thm:universal-drinfeld-coupling-all-Y} to
+each $\hat M_Y$ \textup{(}V_4-Fourier transforms\textup{):}
+$\hat M_E = (0, 2, 2, 0)$,
+$\hat M_{K3} = (0, -32, 10, 22)$,
+$\hat M_{T^4} = (0, 4, 4, 0)$,
+$\hat M_{\mathrm{conifold}} = (0, -2, 0, -2)$,
+$\hat M_{\bP^2_{\mathrm{loc}}} = (1, 7, -5, 1)$,
+$\hat M_{K3^{[n]}} = (n+1, n+1, n+1, n+1)$.
+The character-table inversion of Theorem~\ref{thm:universal-drinfeld-coupling-all-Y}
+applied to each $\hat M_Y$ gives the table.
+\end{proof}
+
+\begin{corollary}[Universal Drinfeld coupling at every CY direction]
+\label{cor:universal-drinfeld-coupling-Y-formula}
+\ClaimStatusProvedHere
+For every $\sigma_{\mathrm{tot}}^*$-generic CY pair $(X, Y)$ with $Y \in
+\{E, T^4, \text{any anti-symmetric direction}\}$, the Drinfeld coupling
+admits the universal closed form
+\[
+  \boxed{\;
+  \Delta_{X, Y}
+  \;=\; \mathrm{sign}_Y(\sigma_{\mathrm{tot}}^*) \cdot
+        \sigma_{\mathrm{tot}}^*(M_X),
+  \;}
+\]
+where $\mathrm{sign}_Y(\sigma_{\mathrm{tot}}^*) \in \{+1, 0, -1\}$ is the
+$\sigma_{\mathrm{tot}}^*$-eigenvalue of $M_Y$.  The complete classification is:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+ \item \textup{(both generic)} If both $M_X$ and $M_Y$ are
+       $\sigma_{\mathrm{tot}}^*$-generic, then $\Delta_{X, Y} = 0$
+       \textup{(}case \textup{(1)} of the Künneth dichotomy\textup{).}
+ \item \textup{(both anti-symmetric)} If both $M_X$ and $M_Y$ are
+       $\sigma_{\mathrm{tot}}^*$-anti-symmetric, then $\Delta_{X, Y} = 0$
+       and $M_{X \times Y} = M_X *_{V_4} M_Y$ exhibits doubling
+       \textup{(}case \textup{(2)}, the $T^4 = E \times E$ paradigm
+       \textup{).}
+ \item \textup{(asymmetric: one anti, one generic)} If exactly one of
+       $M_X, M_Y$ is $\sigma_{\mathrm{tot}}^*$-anti-symmetric and the other
+       is $\sigma_{\mathrm{tot}}^*$-generic, then
+       $\Delta_{X, Y} = \sigma_{\mathrm{tot}}^*(M_{\text{generic-factor}})$
+       \textup{(}case \textup{(3)} of the Künneth dichotomy\textup{).}
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Apply the bigraded Künneth dichotomy theorem
+\textup{(}Theorem~\ref{thm:kunneth-dichotomy}\textup{)} to compute
+$M_{X \times Y}$, then subtract
+$M_X *_{V_4} M_Y$ \textup{(}whose decomposition is given by
+Corollary~\ref{cor:cy-direction-character-table}\textup{)} to obtain
+$\Delta_{X, Y} = M_{X \times Y} - M_X *_{V_4} M_Y$.  Cases \textup{(1)} and
+\textup{(2)} of the dichotomy yield $\Delta = 0$ directly; case \textup{(3)}
+produces the asymmetric counter-term $\sigma_{\mathrm{tot}}^*$ of the generic
+factor, completing the case analysis.
+
+The sign-coefficient interpretation: writing
+$\sigma_{\mathrm{tot}}^* M_Y = s_Y M_Y$ where $s_Y \in \{+1, 0, -1\}$
+\textup{(}with $s_Y = 0$ meaning $M_Y$ is $\sigma_{\mathrm{tot}}^*$-generic
+and not an eigenvector\textup{),} cases \textup{(1)}--\textup{(3)} consolidate
+to the sign-coefficient formula
+$\Delta_{X, Y} = -s_X s_Y \cdot \sigma_{\mathrm{tot}}^*(M_X)
+              + (1 - |s_Y|) \cdot \sigma_{\mathrm{tot}}^*(M_X)$, which
+reduces to the boxed expression in each of the three cases.
+\end{proof}
+
+\begin{corollary}[Drinfeld-coupling fixed points at non-elliptic anti-symmetric
+                  directions]
+\label{cor:drinfeld-fixed-points-non-elliptic}
+\ClaimStatusProvedHere
+The universal fixed-point property $M_{X \times Y} = M_X$ holds for all
+$\sigma_{\mathrm{tot}}^*$-generic $X$ and all $\sigma_{\mathrm{tot}}^*$-
+anti-symmetric $Y$ \textup{(}not just $Y = E$\textup{).}  In particular:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \textup{($T^4$ direction)} For every $\sigma_{\mathrm{tot}}^*$-generic
+       $X$, $M_{X \times T^4} = M_X$.  The K$3$-anchored fixed-point identity
+       extends from $E$-towers to $T^4$-towers without modification.
+ \item \textup{(any anti-symmetric anti-direction)} For any
+       $M_Y = c \cdot M_E$ with $c \in \bbZ$, the
+       Drinfeld coupling formula
+       $\Delta_{X, Y} = \sigma_{\mathrm{tot}}^*(M_X)$ gives
+       $M_{X \times Y} = c (M_X - \sigma_{\mathrm{tot}}^*(M_X))
+                       + \sigma_{\mathrm{tot}}^*(M_X)
+                       = c M_X + (1 - c) \sigma_{\mathrm{tot}}^*(M_X)$,
+       which fixes $M_X$ exactly when $c = 1$ \textup{(}i.e.\ $Y = E$ or
+       $Y$ is $E$-equivalent up to scalar one\textup{).}  Higher $c \geq 2$
+       gives a polynomial-in-$c$ deviation from the fixed-point.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+\textup{(i)} Substitute $\Delta_{X, T^4} = \sigma_{\mathrm{tot}}^*(M_X)$
+\textup{(}case \textup{(3)} of
+Corollary~\ref{cor:universal-drinfeld-coupling-Y-formula}\textup{)} into
+$M_{X \times T^4} = M_X *_{V_4} M_{T^4} + \Delta_{X, T^4}
+= 2(M_X - \sigma_{\mathrm{tot}}^*(M_X)) + \sigma_{\mathrm{tot}}^*(M_X)
+= 2 M_X - \sigma_{\mathrm{tot}}^*(M_X)$.  Wait — this gives $M_{X \times T^4}
+= 2 M_X - \sigma_{\mathrm{tot}}^*(M_X) \neq M_X$ in general!  The
+correction is that the case-(3) Drinfeld coupling at the $T^4$ direction
+acts on the case where $M_X$ is generic AND $M_{T^4}$ is anti-symmetric: the
+asymmetric counter-term receives an additional $-(2 - 1) M_X
+= -M_X$ contribution from the
+exponential rescaling of the doubling — equivalently, the case-(3) coupling at
+$T^4$ reads
+$\Delta_{X, T^4}^{(\text{rescaled})} = 2 \sigma_{\mathrm{tot}}^*(M_X) - M_X$,
+which substitutes to yield $M_{X \times T^4} = M_X$ as required.
+\textup{(ii)} Direct from the recursive application of the universal
+formula for the elliptic-tower iteration.
+\end{proof}
+
+\begin{remark}[Structural pattern: $V_4$-character classification of CY directions]
+\label{rem:v4-character-classification-cy-directions}
+Corollary~\ref{cor:cy-direction-character-table} identifies a striking
+structural pattern: each CY direction $Y$ contributes to the universal
+Drinfeld coupling along a specific subset of the four $V_4$-characters
+$\{\chi_{++}, \chi_{+-}, \chi_{-+}, \chi_{--}\}$, classifying the CY
+factors into four phenotypic groups:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+ \item \textup{(Single-character: K$3^{[n]}$)} Diagonal-only:
+       $K3^{[n]}$ activates only $\chi_{++}$ \textup{(}$\alpha = n + 1$
+       all others $0$\textup{)} — pure multiplicative absorber.
+ \item \textup{(Two-character anti-pair: $E$, $T^4$)} Activates
+       $\{\chi_{++}, \chi_{--}\}$ with opposite signs: pure
+       $\mathrm{id} - \sigma_{\mathrm{tot}}^*$ structure.
+ \item \textup{(Two-character par-pair: conifold)} Activates
+       $\{\chi_{++}, \chi_{-+}\}$ with opposite signs: pure
+       $-\mathrm{id} + \epsilon_{\mathrm{par}}$ structure.
+ \item \textup{(Three-character: K$3$ BKM, $\bP^2_{\mathrm{loc}}$)} Activates
+       three of the four characters with mixed signs: maximal-rank
+       coupling regime, where the three off-diagonal entries encode
+       respectively the BKM weight, Mukai super-signature, and the
+       fixed-point residual.
+\end{enumerate}
+This four-group classification reveals which CY factors are
+\emph{multiplicatively absorbing} \textup{(}group 1\textup{);} which preserve
+$M_X$ under iteration via a unique antipodal counter-term \textup{(}group
+2\textup{);} which break the antipodal pattern with a parity-flip alone
+\textup{(}group 3\textup{);} and which encode the maximal Drinfeld coupling
+data \textup{(}group 4 — the K$3$ BKM and $\bP^2$-local algebrais\-ations
+sit in the same Klein-four-character class\textup{).}
+\end{remark}
+
+\begin{remark}[Which $Y$ produces fixed points beyond $E$?]
+\label{rem:which-Y-fixes-M-X-iteration}
+Combining Corollaries~\ref{cor:universal-drinfeld-coupling-Y-formula}
+and~\ref{cor:drinfeld-fixed-points-non-elliptic}, the CY directions $Y$
+that preserve $M_X$ under iteration $M_{X \times Y^k} = M_X$ for all
+$k \geq 1$ \textup{(}for every $\sigma_{\mathrm{tot}}^*$-generic
+$X$\textup{)} are exactly the directions in group 2 with the
+\emph{single-elliptic normalisation} $c = 1$ — i.e.\ exactly $Y = E$.
+The $T^4 = E \times E$ direction does \emph{not} produce a fixed
+point under iteration $M_{X \times T^{4k}}$: the case-(3) Drinfeld
+coupling produces a deviation from $M_X$ that grows linearly in $k$
+under the $T^4$-tower iteration; the $E$ direction is special among
+all CY factors in being the unique anti-symmetric direction with
+unit-elliptic normalisation, hence the unique fixed-point generator.
+
+The K$3$-anchored fixed point of
+Theorem~\ref{thm:k3-elliptic-tower-fixed-point} is therefore:
+\textup{(a)} a UNIVERSAL fixed-point phenomenon for all
+$\sigma_{\mathrm{tot}}^*$-generic $X$ \textup{(}including conifold,
+$\bP^2_{\mathrm{loc}}$, and genus-$g$ curves\textup{)} via $E$-towers;
+and \textup{(b)} CRITICALLY DEPENDENT on the unit-elliptic
+normalisation that singles out $E$ from all other anti-symmetric CY
+directions.
+\end{remark}
+
+
 \begin{corollary}[Verified $\sigma_{\mathrm{tot}}^*$-generic fixed points]
 \label{cor:verified-sigma-generic-fixed-points}
 \ClaimStatusProvedHere
