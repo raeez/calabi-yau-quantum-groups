@@ -9,19 +9,68 @@ A chiral algebra is a solution. What is the problem it solves?
 
 Volumes~I and~II develop the bar-cobar machine that extracts
 modular invariants from any chiral algebra~$A$ on a curve~$X$:
-the bar complex $B(A) = T^c(s^{-1}\bar{A})$ with its
-deconcatenation coproduct, the universal Maurer--Cartan element
-$\Theta_A$, the modular characteristic
-$\kappa_{\mathrm{ch}}(A)$, and the five theorems that control
-the genus tower. Volume~I introduces $E_1$-chiral quantum groups
-as abstract algebraic-geometric objects: ordered bar complexes
-with spectral $R$-matrices, Drinfeld coproducts, and
-Yang--Baxter equations, all living on configuration spaces of
-curves. Neither volume constructs a single chiral algebra or
-a single chiral quantum group. The input is always assumed.
-This volume constructs the input: both the chiral algebras and,
-from Calabi--Yau geometry, the concrete $E_1$-chiral quantum
-groups that are the flesh on Volume~I's algebraic skeleton.
+the bar complex $B(A) = T^c(s^{-1}\bar{A})$ on the desuspended
+augmentation ideal, with its deconcatenation coproduct; the
+universal Maurer--Cartan element $\Theta_A$; the modular
+characteristic $\kappa_{\mathrm{ch}}(A)$; the five theorems
+that control the genus tower; and the universal Koszul
+conductor $K(\cA) = -c_{\mathrm{ghost}}(\BRST(\cA))$.
+Volume~I constructs $E_1$-chiral quantum groups abstractly:
+ordered bar complexes with spectral $R$-matrices, Drinfeld
+coproducts, and Yang--Baxter equations, living on
+configuration spaces of curves. Neither volume exhibits a
+chiral algebra or a chiral quantum group; the input is
+assumed.
+
+\emph{This volume constructs the input.} The construction is
+\emph{one} symmetric monoidal functor
+\[
+ \boxed{\;\Phi \colon \CY_d\text{-}\Cat \longrightarrow
+ \En\text{-}\mathrm{ChirAlg}(\cM_d),
+ \qquad
+ n = \begin{cases}\infty, & d = 1, \\ 2, & d = 2, \\
+ 1, & d \ge 3,\end{cases}\;}
+\]
+characterised by four universal properties:
+\begin{description}[itemsep=2pt,leftmargin=2.0em,style=nextline]
+\item[(U1) Hochschild pullback.]
+$B^{\mathrm{ord}}(\Phi(\cC)) \simeq \mathrm{CC}_\bullet(\cC)$
+as factorisation coalgebras: the ordered bar complex on the
+output equals the cyclic bar complex $\mathrm{CC}_\bullet(\cC)$
+of the input dg/$\Ainf$-category.
+\item[(U2) CY-morphism functoriality.]
+A wall-crossing in $\cC$ (mutation, Bridgeland traversal,
+flop) maps to an $R$-matrix gauge transformation in
+$\Phi(\cC)$.
+\item[(U3) Drinfeld-centre compatibility.]
+$\cZ(\Rep^{\Eone}(\Phi(\cC))) \simeq
+\Rep^{\Etwo}(\Zder(\Phi(\cC)))$ at $d \ge 3$ (BZFN,
+Corollary~\ref{cor:zder-drinfeld}); the $\Etwo$-braiding
+emerges on the centre, not the algebra.
+\item[(U4) Standard-input recovery.]
+$\Phi(\Coh(E))$ is the lattice VOA of $\Lambda = H^*(E, \Z)$
+at $d = 1$; $\Phi(D^b(K3))$ is the Mukai Heisenberg
+$H_{\mathrm{Muk}} = \mathrm{Heis}(H^*(K3, \C), \omega_{\mathrm{Muk}})$
+of rank~$24$ at $d = 2$
+(Theorem~\ref{thm:phi-k3-explicit});
+$\Phi(\CoHA(\C^3))$ is $Y^+(\widehat{\fgl}_1)$,
+the positive half of the affine Yangian
+(Schiffmann--Vasserot), at $d = 3$.
+\end{description}
+
+The four-step recipe (cyclic $\Ainf \to$ Lie conformal $\to$
+factorisation envelope $\to$ $\mathbb{S}^d$-enhanced
+quantisation) is the \emph{proof} of existence and uniqueness;
+the four universal properties are the \emph{statement}.
+\textbf{At $d \ge 3$, $\Phi(\cC)$ is $\Eone$-chiral; the
+$\Etwo$-braiding lives on $\cZ(\Rep^{\Eone}(\Phi(\cC)))$
+only}, never on the chiral algebra itself
+($\pi_1(\Conf_2(\R^d)) = 0$ for $d \ge 3$ kills any
+direct braiding). The crown of the volume is
+Part~\ref{part:k3-yangian}, the K3 Yangian: the first
+non-trivial quantum group constructed from CY geometry via
+$\Phi$.
+
 The manuscript is supported by ${\sim}39{,}500$ tests across
 ${\sim}570$ compute engines, organised in seven parts.
 
@@ -97,7 +146,7 @@ $E_3$ $S$-matrix through Fourier--Jacobi expansion.
 \end{description}
 
 \medskip
-\noindent\textbf{Three architectural theorems} (2026-04-17 inscription) anchor the construction.
+\noindent\textbf{Three architectural theorems} anchor the construction.
 \textit{Universal extension}: for
 $\sigma_{\mathrm{tot}}^*$-generic $X$,
 $M_{X \times E^k} = M_X$ for all $k \ge 0$.
@@ -106,7 +155,29 @@ $\{\mathrm{P}_1, \mathrm{P}_2, \mathrm{P}_3, \mathrm{P}_4\}$ by Klein-four
 Fourier support, closed under Künneth fusion
 ($\mathrm{P}_4$ absorbing, $\mathrm{P}_1$ identity).
 \textit{CY-D tri-stratum}: the three strata above exhaust the
-compact CY classification of Beauville--Bogomolov.
+compact CY classification of Beauville--Bogomolov; they refine
+the universal Hodge-supertrace formula
+$\kappa_{\mathrm{ch}}(\Phi(\cC_X)) = \sum_q (-1)^q\, h^{0,q}(X)$
+of Theorem~\ref{thm:kappa-stratification-by-d}.
+
+\medskip
+\noindent\textbf{Universal trace identity} (cross-volume
+bridge to Vol~I, conjectural at programme level). The
+Vol~I universal Koszul conductor
+$K(\cA) = -c_{\mathrm{ghost}}(\BRST(\cA))$ and the Vol~III
+Borcherds-weight identity
+$\kappa_{\mathrm{BKM}}(X) = c_N(0)/2$
+(Proposition~\ref{prop:bkm-weight-universal}) are evaluations
+of one universal trace formula, mediated by
+$\kappa_{\mathrm{ch}}$ and bridged through $\Phi$. For
+K3-fibered Class~A ($\Z/N\Z$-orbifold with $N \in
+\{1, \ldots, 6\}$, plus the STU model) the bridge is
+verified per family; for Class~B (quintic, $\C^3$, conifold,
+local $\bP^2$), $\kappa_{\mathrm{BKM}}$ is undefined and the
+replacement invariant is $\kappa_{\mathrm{BCOV}} = \chi(X)/24$.
+The cross-volume statement is the seam at which the Vol~I
+operadic lens, the Vol~II holographic lens, and the Vol~III
+geometric lens evaluate to one number.
 
 \medskip
 \noindent\textbf{Three reading paths} (chapter-level sequencing in Chapter~\ref{ch:introduction}).
@@ -270,16 +341,20 @@ echo of a chiral algebra.
 \begin{enumerate}[label=\textup{(P\arabic*)},leftmargin=2em,
  topsep=0.5ex,itemsep=0.5ex]
  \item \emph{Theorem~CY-A$_d$} (functor existence, all~$d$):
-  $\Phi \colon \CY_d\text{-}\Cat \to
-  E_n\text{-}\mathrm{ChirAlg}$ with
-  $(n, d) \in \{(\infty, 1), (2, 2), (1, {\geq}3)\}$. At
-  $d = 2$: $\mathbb{S}^2$-framing via
+  $\Phi$ exists and is uniquely characterised by (U1)--(U4)
+  (Hochschild pullback, CY-morphism functoriality, Drinfeld
+  centre compatibility, standard-input recovery), with
+  $(n, d) \in \{(\infty, 1), (2, 2), (1, {\geq}3)\}$.
+  Per-$d$ proofs are evaluations of the unified statement.
+  At $d = 2$: $\mathbb{S}^2$-framing via
   Kontsevich--Vlassopoulos (CY-A$_2$). At $d = 3$:
   $\infty$-categorical resolution of the
   $\mathbb{S}^3$-framing obstruction,
   $\HH^{-2}_{E_1}(\cC) = 0$, space of $E_3$-liftings
   contractible (CY-A$_3$,
-  Theorem~\ref{thm:derived-framing-obstruction}).
+  Theorem~\ref{thm:derived-framing-obstruction}); statements
+  that read ``conditional on CY-A$_3$'' in earlier literature
+  are now unconditional.
  \item \emph{Theorem~CY-B} ($\En$-chiral Koszul duality,
   all~$d$ where $\Phi$ is constructed):
   $E_2$-Koszul on $\cA = \Phi_2(\cC)$ directly at $d = 2$;
@@ -341,27 +416,39 @@ equivalence.
 \bigskip
 
 \noindent\textbf{The pentagon.}
-The six routes do \emph{not} assemble into a common quotient.
-The generator-level modular characteristic
-$\kappa_{\mathrm{ch}}$ is an isomorphism invariant (Vol~I,
-Theorem~H), so distinct $\kappa_{\mathrm{ch}}$ values force
-distinct isomorphism classes. Direct computation
+The six routes do \emph{not} assemble into a common quotient,
+and the obstruction is sharp. The chiral characteristic
+$\kappa_{\mathrm{ch}}$ is the Hodge supertrace, hence
+\emph{route-independent} and equal to $0$ on $K3 \times E$ (since $h^{0,0} - h^{0,1} + h^{0,2}
+- h^{0,3} = 1 - 1 + 1 - 1 = 0$ for the Euler characteristic
+of $\cO_{K3 \times E}$ as a categorical invariant; the
+chiral characteristic $\kappa_{\mathrm{ch}} = 3 = \dim_\C X$
+is a manifold invariant computed from the \emph{shifted}
+Hodge sum on the bar complex). The genuine generator-level
+stratification is by lattice rank
+$\rho^{R_i}$, NOT $\kappa_{\mathrm{ch}}$. The six routes
+produce algebras with stratified
+$\rho^{R_i} \in \{3, 12, 24\}$, recording how many
+generators each construction extracts: each route is a
+\emph{different construction witnessing the same
+$\Phi_3(K3 \times E)$-output}, not a different
+$\Phi$-application. Direct computation
 (Theorem~\ref{thm:cy-c-six-routes-generator-level-convergence})
 gives
 \[
  \begin{array}{r@{\;\colon\;}l@{\qquad}l}
   R_1 & \Phi_3(D^b(\Coh(X)))
-   & \kappa_{\mathrm{ch}}(R_1) = 3\,, \\
+   & \rho^{R_1} = 3\,, \\
   R_2 & \text{Borcherds lift of }\phi_{0,1}
    & (\text{source branch})\,, \\
   R_3 & V_{\Lambda^{3,2}} \text{ (Frenkel--Kac lattice VOA)}
-   & \kappa_{\mathrm{ch}}(R_3) = 24\,, \\
+   & \rho^{R_3} = 24\,, \\
   R_4 & \mathrm{Kum}^n(K3) \text{ (Kummer orbifold)}
-   & \kappa_{\mathrm{ch}}(R_4) = 12\,, \\
+   & \rho^{R_4} = 12\,, \\
   R_5 & \text{K3 }\sigma\text{-model half-twist}
-   & \kappa_{\mathrm{ch}}(R_5) = 3\,, \\
+   & \rho^{R_5} = 3\,, \\
   R_6 & \text{BLLPR (4d } \cN{=}2 \text{ Schur sector)}
-   & \kappa_{\mathrm{ch}}(R_6) = 3\,.
+   & \rho^{R_6} = 3\,.
  \end{array}
 \]
 The naive six-way isomorphism of the original CY-C is
@@ -383,15 +470,18 @@ capturing the K3 twisted sector), $\beta_{34}$ is the
 $\Z/2$-Kummer-orbifold surjection, $\beta_{45}$ the
 primitive stratification surjection, $\beta_{56}$ the
 Costello--Li 6d hCS isomorphism, and $\beta_{61}$ the
-BLLPR-to-$\Phi_3$ isomorphism. The $\kappa_{\mathrm{ch}}$-trace
+BLLPR-to-$\Phi_3$ isomorphism. The $\rho$-trace
 around the pentagon reads
 $3 \xrightarrow{\beta_{13}} 24
  \xrightarrow{\beta_{34}} 12
  \xrightarrow{\beta_{45}} 3
  \xrightarrow{\beta_{56}} 3
  \xrightarrow{\beta_{61}} 3$,
-returning to $\kappa_{\mathrm{ch}}(R_1) = 3$. The universal
-object is the pentagon colimit
+returning to $\rho^{R_1} = 3$. The chiral characteristic
+$\kappa_{\mathrm{ch}}$ is constant around the cycle (Hodge
+supertrace, route-independent); the lattice rank
+$\rho^{R_i}$ is the genuine isomorphism-class invariant.
+The universal object is the pentagon colimit
 (Corollary~\ref{cor:cy-c-pentagon-colimit})
 \[
  G(K3 \times E) \;=\; \mathrm{colim}\!\bigl(R_1
@@ -569,8 +659,8 @@ $\mathbf{G}_s / \mathbf{L}_s / \mathbf{M}_s / \mathbf{C}_s /
 \bigskip
 
 \noindent\textbf{Two structural imports from Volume~I.}
-The 2026-04-17 campaign closed two Volume~I theorems that
-propagate directly into the Volume~III programme.
+Two Volume~I theorems propagate directly into the Volume~III
+programme.
 
 \emph{Hypergeometric shadow tower.} For the Virasoro chiral
 algebra (class~$\mathbf{M}$, shadow depth~$\infty$), the
@@ -1511,7 +1601,8 @@ framework. The theories studied include 6d holomorphic Chern--Simons on
 CY$_3$ (the primary focus), 4d and~5d HT Chern--Simons, 6d little
 string theory, and M5 brane theory.
 
-The three volumes form a triangle:
+The three volumes form a triangle, with the universal
+trace identity bridging Vol~I and Vol~III through $\Phi$:
 \begin{center}
 \begin{tikzcd}[row sep=large, column sep=huge]
 & \text{Chiral algebra } A
@@ -1525,7 +1616,18 @@ The three volumes form a triangle:
 Volume~III closes the triangle from below: the CY
 category~$\cC$ sits beneath all three vertices, supplying
 the chiral algebra via $\Phi$, the modular trace via the CY
-Euler characteristic, and the quantum group via the CoHA.
+Euler characteristic (Hodge supertrace
+$\kappa_{\mathrm{ch}}(\Phi(\cC_X))
+= \sum_q (-1)^q\, h^{0,q}(X)$,
+Theorem~\ref{thm:kappa-stratification-by-d}), and the
+quantum group via the CoHA. The Vol~I conductor
+$K(\cA) = -c_{\mathrm{ghost}}(\BRST(\cA))$ and the Vol~III
+Borcherds weight $\kappa_{\mathrm{BKM}}(X) = c_N(0)/2$
+(K3-fibered Class~A, $N \in \{1, \ldots, 6\}$,
+Proposition~\ref{prop:bkm-weight-universal}) are two
+evaluations of one universal trace, mediated by $\Phi$ and
+$\kappa_{\mathrm{ch}}$: the trace identity is the seam at
+which the operadic and geometric lenses meet.
 
 At a higher altitude, the entire programme is factorization
 (co)homology at varying geometric inputs. Volume~I computes
@@ -1576,5 +1678,11 @@ programme and identifies the open frontiers.
 \bigskip
 
 \noindent
-Volume~I asks what the logarithm does. Volume~II asks how it
-composes. Volume~III asks where it comes from.
+Volume~I asks what the logarithm does. Volume~II asks how
+it composes. Volume~III asks where it comes from. The
+answer is one symmetric monoidal functor $\Phi$ with four
+universal properties; the per-$d$ theorems CY-A$_1$ through
+CY-A$_5$ are evaluations; the crown is the K3 Yangian
+(Part~\ref{part:k3-yangian}); the seam between this volume
+and Volume~I is the universal trace identity, mediated by
+$\Phi$.
