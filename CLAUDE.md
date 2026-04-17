@@ -2,6 +2,30 @@
 
 **Canonical reference for all shared content: ~/chiral-bar-cobar/CLAUDE.md. This file contains ONLY Vol III-specific material.**
 
+## MANUSCRIPT HYGIENE (TOP-LEVEL INJUNCTION)
+
+**NO ANTIPATTERN TAGS OR METADATA LEAKAGE INTO THE MANUSCRIPT OR STANDALONE PAPERS PROPER.**
+
+Reader-facing prose (the compiled `main.pdf` PLUS every standalone paper in `standalone/`, `notes/` when published, or shipped to arXiv/journal) must contain zero manuscript-internal discipline noise. Concretely: every violation below is a HARD VIOLATION and must be stripped before commit.
+
+**Prohibited in manuscript prose:**
+- AP/AP-CY tag citations (e.g., "(AP-CY60)", "(see AP-CY72)", "per AP-CY55", "violates AP113"). The catalogue is at `appendices/anti_pattern_catalogue.tex` and is development-tree-only (NOT \input'd by main.tex). Tags live there and in CLAUDE.md, nowhere else.
+- Session timestamps ("2026-04-17 inscription", "the 2026-04-17 campaign", "earlier phrasing superseded").
+- Commit hashes in parentheses (e.g., "(commit cade61c)").
+- Manuscript-version self-reference ("first edition of this volume", "the earlier formulation").
+- Healing-status commentary ("was previously wrong", "is now healed", "retracted and replaced", "(status upgraded)").
+- Audit language ("the adversarial swarm", "the agent found", "per the audit").
+- Internal RECTIFICATION-FLAG markers in non-comment prose.
+
+**Where metadata belongs:** commit messages, `notes/` changelog files, the AP catalogue, CLAUDE.md, first-principles cache. The PDF is for Drinfeld, Beilinson, Etingof — not for the rectification audit trail.
+
+**Before every commit that touches a file under `chapters/`, `standalone/`, `main.tex`, `preface`, or an appendix INCLUDED by main.tex, grep:**
+`AP-CY|AP1[0-9]\{2\}|2026-|commit [a-f0-9]\{7\}|inscription|campaign|healed|first edition|earlier phrasing|superseded across|adversarial audit|the agent found|RECTIFICATION-FLAG`
+
+Each hit either (a) strips the metadata while preserving the mathematical claim verbatim, or (b) migrates the content to `notes/` / a commit message / the catalogue.
+
+The AP catalogue input in main.tex (L1239) is commented out 2026-04-17. Any future reintroduction of `\input{appendices/anti_pattern_catalogue}` requires explicit user approval.
+
 ## Identity
 
 Volume III constructs the geometric source: the functor Phi: CY_d-Cat -> E_n-ChirAlg (n=inf at d=1, n=2 at d=2, n=1 at d>=3) providing input data for the Vols I-II bar-cobar machine. Flow: CY category -> chiral algebra -> bar complex -> modular characteristic -> partition function. At d>=3 the E_2 braided structure lives on the Drinfeld center Z(Rep^{E_1}(A)), not on A itself.
