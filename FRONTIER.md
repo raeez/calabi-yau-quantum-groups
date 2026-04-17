@@ -1,7 +1,84 @@
-# FRONTIER — Open Research Directions
+# FRONTIER — Vol III Open Research Directions
 
-## Status as of 2026-04-14 (DEFINITIVE update)
-## Updated after all sessions through ~230-agent comprehensive wave. Total: ~693pp, ~34,000 tests, ~460 engines. 10 proofs at publication standard. Clean build: 0 undef refs, 0 undef cites.
+## DEFINITIVE STATUS AS OF 2026-04-17 (Beilinson-rectified, Wave-1 adversarial-audit-refined)
+
+This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-04-17 Beilinson audit (`notes/rectification_map_beilinson_audit.md` cross-volume; Vol III `notes/beilinson_swarm_audit_vol3_2026_04_17.md`), and Wave 1 of the adversarial attack collectively refined 6 prior frontier claims.
+
+### 1. Closures since 2026-04-14
+
+- **CY-D dimension stratification. PROVED.** `thm:kappa-hodge-supertrace-identification` in `chapters/examples/cy_d_kappa_stratification.tex`: κ_ch(A_X) = Σ_q (-1)^q h^{0,q}(X) unconditionally for compact CY_d via HKR + Mukai pairing + HC^-_d trace. `thm:kappa-stratification-by-d`: explicit across d ∈ {1,2,3,4,5}: E(0), K3(2), abelian/bielliptic(0), quintic/K3×E/E³(0), local P²(3/2 via `thm:local-p2-shadow`), CY_4 sextic(2), CY_5 generic(0). `cor:conifold-non-local-surface` closes AP-CY34/AP-CY44 (conifold NOT local surface at d=3; κ_ch=1 via direct McKay). `thm:borcherds-weight-kappa-BKM-universal`: κ_BKM(Φ_N) = c_N(0)/2 universal across N ∈ {1,2,3,4,6}; N=1 coincidence κ_BKM = κ_ch + χ(O_fiber) fails for N ≥ 2 (closes AP-CY37).
+
+- **F18 CY-A_3: inf-categorical inscription + HTT coefficient convergence.** `thm:derived-framing-obstruction` (inf-cat resolved). `prop:cech-htt-coefficient-convergence` (64 tests): HTT multilinear maps μ_k define convergent power series in z for ALL smooth CY_3 with finite Leray covers, radius ≥ 1/(4‖s·δ‖). `prop:hopf-fibration-decomposition` (67 tests): S^3 framing non-decomposable.
+
+- **F13a E_1-chiral bialgebra (H1, H2, H4, H3 primary channel). CLOSED.** H1+H2 by construction; H4 via `prop:spectral-coassociativity-factorization` (`chapters/theory/e1_chiral_algebras.tex:993-1087`) using Conf_3^ord(R) contractibility; H3 primary channel via `thm:miura-cross-universality` (Vol I) at all spins s ≥ 2. Only F13b residue remains open (see §3).
+
+- **F16 Kummer step 5a + 5b. CLOSED.** `cy_to_chiral.tex:634-762` via AFT excision (arXiv:1409.0848 Thm 3.24) + Ayala-Mazel-Gee-Rozenblyum equivariant FH. Only 5c Mukai-pairing chain-level collar-transport remains (see §3).
+
+- **Φ functor universal trace identity (Vol III + cross-volume).** `adversarial_swarm_20260416/wave14_reconstitute_phi_functor_volIII.md` inscribed. Vol III Φ Platonic functor + universal trace identity unifying Vol I K = −c_ghost(BRST) with Vol III κ_BKM = c_N(0)/2.
+
+- **Theorem H concentration via E_3-rigidity.** `thm:H-concentration-via-E3-rigidity` (Vol II chiral higher Deligne) makes Theorem H concentration a CONSEQUENCE of E_3-rigidity-at-a-point + PBW collapse. Theorem H step-3 circularity RESOLVED via rerouting through `thm:pbw-koszulness-criterion` (Vol I).
+
+- **Drinfeld-centre categorified form. PROVED.** `thm:drinfeld-centre-sc-face` (Vol II `sc_chtop_heptagon.tex:364-447`, ProvedHere): Z(Rep_fact(A)) ≃ Rep_fact(Z^{der}_ch(A))^{E_2} via 4-step proof. Combined with chiral higher Deligne + E_3 identification, the categorified form is PROVED for the entire standard Lie landscape including all CY-relevant chiral algebras (Heisenberg, affine KM, lattice, Virasoro, W_N, βγ). Only Vol III mode-level `conj:v3-drinfeld-center-equals-bulk` remains (see §3).
+
+### 2. Retractions and scope corrections from 2026-04-17 audit
+
+- **V3-NF1. CY-C pentagon invariant (commit `cade61c`).** Pentagon stratification {3, 12, 24} healed from `κ_ch^{R_i}` to `ρ^{R_i}` (generator-lattice rank). κ_ch is route-independent = 0 for K3×E by Hodge supertrace; stratification is an ALGEBRAIC invariant (generator rank), ORTHOGONAL to κ_ch. Prior claim "six routes converge isomorphically" is FALSIFIED: actual structure is a PENTAGON OF FIVE INTERTWINERS with R_2 source branch, generator-rank stratified.
+
+- **V3-NF2. CY-D d=3 deep issue — κ_ch ≠ χ(O_X) at odd d.** PRESERVED: dimension-stratified formula needed. The earlier claim κ_ch = χ(O_X) FAILS at d=3 (K3×E: χ(O) = 0 ≠ 3 = κ_ch). Correct formula via str_{F^0}(q^{L_0}) Hodge-filtered supertrace.
+
+- **Kummer-irregular primes retracted (cross-volume).** {1423, 3067, 23, 43, 419} retracted from the Kummer-irregular label; they remain Riccati-arithmetic characteristic primes in S_r numerators. Tier-3 emergence: {37, 691, 811}. Bernoulli-leading first Kummer-irregular is 691 (B_12); size-leading is 37 (B_32). Always qualify.
+
+- **Super-Yangian Y(gl(4|20)) — COMPLEMENTARITY CORRECTED.** κ(Y(sl(m|n))) + κ(Y(sl(n|m))^!) = max(m, n) (not 0). Verified symbolically at small rank.
+
+### 3. Genuine Open Vol III Frontiers (after Wave 1)
+
+**V3-F13b. E_1-chiral bialgebra axiom completeness residue.** (i) H3 composite channels at s ≥ 4 mode-level; (ii) H3 entry-wise for Y(sl_N)^ch noncommutative RTT at ℏ²-order; (iii) H5 spectral Hopf axiom for non-connected Yangians at z ≠ 0; (iv) categorical existence "(Y(g)^ch, μ, Δ_z, ε, η, S) satisfies (H1)-(H5)" as a single proposition. Files: `chapters/theory/e1_chiral_algebras.tex:932-1173`.
+
+**V3-F14. ZTE explicit correction T_{ijk} computation.** Extended deformation complex rank 35/36 (`prop:zte-deformation-cohomology`, 47 tests); 1-dim kernel parametrizes solutions. T matrix COMPUTED 35 tests. Next: cross-volume propagation, ZTE charge-3 verification (dim 20 sector V^⊗4), connection to A_∞ coproduct corrections δ^{(k)} from shadow tower.
+
+**V3-F15. Universal coproduct at all spins — COMPUTE-LEVEL RESIDUE.** `thm:miura-cross-universality` (Vol I) proves (Ψ−1)/Ψ universal on J⊗W_{s-1} + W_{s-1}⊗J at all s ≥ 2. Remaining: (a) universal coproduct engine for s ≤ 6 with Fock space verification (requires ψ_s on single Fock for s ≥ 3); (b) non-abelian sl_N generalization beyond trace-level; (c) super-Yangian Y(gl(4|20)) BKM-to-Yangian lift beyond abelian sector.
+
+**V3-F16. Kummer step 5c — Mukai-pairing chain-level collar transport.** Mayer-Vietoris E_∞-pushout must transport commutator pairing to Mukai form signature (4,20). 24-dim + character ∏(1-q^n)^{-24} verified through q^{10}; missing quadratic-form identification via (i) explicit collar-pairing computation, (ii) lattice-VOA transport, or (iii) κ_ch = 2 trace constraint. Stronger "FH McKay correspondence" (`fh_mckay_correspondence.py`, EXPECTED not PROVED) would subsume it.
+
+**V3-F17. A_∞ coproduct δ^{(k)} explicit values and ZTE connection.** δ^{(3)}(T_0) explicit at Ψ=2, z=0 via contracting homotopy h. Connect δ^{(k)} to ZTE corrections (F14): tetrahedron obstruction at O(κ²) expressible via δ^{(3)}. Structural theorem: class G ⟺ Δ^{A_∞} = Δ^{Yangian} (exact truncation).
+
+**V3-F18. CY-A_3 chain-level explicit for non-formal CY_3.** Inf-cat resolved; coefficient convergence proved; S^3 framing non-decomposable. Chain-level A_∞-compatible S³-framing on HC^-_3(C) for non-formal CY_3 (e.g., quintic) remains open. Fermat quintic Z_5^5-equivariant route polynomial-growth on 204-dim invariant sector; 4 non-invariant dimensions need separate analysis.
+
+**V3-F19. Non-abelian K3 Yangian Y(g_{K3}) for g ≠ gl_1.** Abelian case PROVED (`thm:k3-abelian-yangian-presentation`, 47 tests). Non-abelian requires BKM real root generators. Tannakian reconstruction Rep^{E_2}(A_S)^{ss} → Rep(C(C,q)) for D^b(Coh(K3)). Super-Yangian Y(gl(4|20)): Lie bracket (supercommutator vs commutator) verification missing; Borcherds denominator of Φ_5 should equal quantum Berezinian of T(u).
+
+**V3-F20. Mode-level Drinfeld centre conj:v3-drinfeld-center-equals-bulk.** Categorified form PROVED (§1). Mode-level Z(U_A) vs Z^{der}_ch(A) with three obstructions at `drinfeld_center.tex:926-961`: pointwise reduction for class M; A^! factorization Ran for classes C/M; RHom compatibility only proved class G. Heisenberg-only with naive-vs-derived dim witness (1 vs 3, 72 tests). Reformulated: **2nd-order de-categorification refinement**, not "deepest conjecture after Grand Completion".
+
+**V3-F20-hocolim. Center-hocolim obstruction for K3×E.** >92% of global Drinfeld centre NOT assemblable from local chart data. MO stable envelopes bypass via global K-theoretic construction; charge-2 verified (`prop:mo-rmatrix-charge2`, 60 tests). Remaining: charge ≥ 3 extension; Verlinde-type formula for charge-graded dimensions of semisimplified centre; Mittag-Leffler on inverse system {Z_N}.
+
+**V3-F21. Sp_4(Z) Siegel modularity for K3×E.** Pipeline engine operational (53 tests). Fourier-Jacobi = E_2→E_3 proved. Mathieu: frame shape = twined bar Euler for all 25 M_24 classes. Remaining: structural theorem "E_3 factorization homology on Σ_2×S¹ produces Siegel period matrices via MCG(Σ_2) ↠ Sp_4(Z)" with K3×E specialization Φ_10^{-1} × Eisenstein + Humbert-surface BPS resonances.
+
+**V3-F22. Class M = mock modular, structural theorem.** Pattern: Class G → genuine modular; Class L → rational in κ; Class M → mock modular (logarithmic centre). Structural theorem "class M ⟹ logarithmic Drinfeld centre" currently conjectural, supported by all examples. W(2) triplet verified shadow = 24·η³ (70 tests). New engines give computational infrastructure for explicit verification at specific moduli points.
+
+**V3-F23. Borcherds lift as resummation.** Perturbative expansion in σ_3 = h_1 h_2 h_3 reproduces Fourier-Jacobi of Δ_5. Additive (Saito-Kurokawa) = perturbative; multiplicative (Borcherds product) = non-perturbative. Shadow-tower resummation: class G at fiber level → class M via Borcherds lift. Remaining: Stokes automorphism on Borel-resummed series controlled by BKM imaginary root multiplicity.
+
+**V3-F24. Non-abelian chiral QG at E_3 level.** Kazhdan-Lusztig equivalence `Rep_{q,t}(U_{q,t}(sl_2^^)) = O_{k,k'}(sl_2^^)`. Exceptional groups: obstructed for BCFG (no CY_3 orbifold). Explicit shuffle algebra for non-abelian structure functions.
+
+**V3-F25. Class M Borel summability + imaginary root Serre structural theorem.** Borel summability proved for shadow tower (129-agent session). Pending: (a) prove Borel summability directly (expected from mock modular form theory); (b) imaginary root Serre relations g_{i0}·g_{i1} = 1 as non-perturbative completion conditions; (c) resurgence Stokes automorphism controlled by BKM imaginary root multiplicity.
+
+**V3-F26. Super-Yangian Y(gl(4|20)) Lie bracket verification.** Grading compatibility verified. Supercommutator vs commutator for all generator pairs missing. Borcherds denominator = quantum Berezinian of T(u). Spectral flow from Borcherds vertex operators should be an automorphism of Y(gl(4|20)) (not just Y(g_{K3})).
+
+**V3-F27. 6d hCS K3 quantum toroidal U_{q,t}(g_hat_hat_{K3}).** Costello 5d pipeline verified through charge 4 (87 tests). Conjectural 6d promotion gives quantum toroidal. Miki automorphism for K3 quantum toroidal from CY torus Weyl group — unverified. Quantum toroidal coproduct requires ZTE correction (V3-F14) at toroidal level.
+
+**V3-F28–F37.** Secondary directions opened in prior sessions (Derived Satake, tropical cluster CY, chiral Verlinde, Hitchin quantization, BLLPR mock modular connection, p-adic Langlands CY, BFN Coulomb, chiral form factors, stratified FH for singular CY, Mathieu moonshine) retained as historical open directions; see §F28–F37 below.
+
+### 4. Programme totals (Vol III)
+
+~693pp, ~34,000 tests, ~460 engines. 10 proofs at publication standard. Clean build.
+
+### 5. Reading guide
+
+Top of document (§1–§4) is the DEFINITIVE state as of 2026-04-17. Sections F1–F37 and "Session Memorials" below are HISTORICAL RECORD preserved for provenance. Where they conflict with §1–§4, §1–§4 wins.
+
+---
+
+## Prior status as of 2026-04-14 (HISTORICAL; superseded by §1–§4 above)
+
+Updated after all sessions through ~230-agent comprehensive wave. Total: ~693pp, ~34,000 tests, ~460 engines. 10 proofs at publication standard. Clean build: 0 undef refs, 0 undef cites.
 
 ### Session Memorial (2026-04-07/08)
 

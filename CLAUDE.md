@@ -2,6 +2,20 @@
 
 **Canonical reference for all shared content: ~/chiral-bar-cobar/CLAUDE.md. This file contains ONLY Vol III-specific material.**
 
+## /chriss-ginzburg-rectify: READ THE WHOLE FILE, CHUNK BY CHUNK, LINEARLY (TOP-LEVEL INJUNCTION)
+
+When the user invokes `/chriss-ginzburg-rectify` (or the skill `chriss-ginzburg-rectify`) on a target file, Phase 1 (Global Diagnostic) is NOT OPTIONAL and is NOT ABBREVIATED. You must analyse the **whole file**, **chunk by chunk**, **linearly progressing from start to finish**, with **small chunk size**. Every line must pass under your eyes.
+
+**Binding rules**:
+- The skill's wording "For files >3000 lines: sample strategically" is OVERRIDDEN. Do NOT sample. Do NOT jump. Do NOT read section heads via Grep and call it Phase 1. Do NOT read only opening + closing + dense midsection.
+- **Chunk size: ~250-500 lines per Read call, at most**. Large chunks (1000+ lines) that approach the 25000-token Read cap are forbidden: they compress context and invite skimming. Prefer many small Reads to few large ones.
+- **Linear progression**: start at line 1. Each subsequent Read starts exactly where the previous one ended (offset = prev_offset + prev_limit). No ranges are skipped; no ranges are revisited unless a Phase 3 edit requires re-reading a specific chunk.
+- **Coverage is a proof obligation**. Before leaving Phase 1, verify: the sum of (limit) across all Phase 1 Reads equals the file line count, and the starting offsets form a contiguous cover of [1, EOF]. If you cannot state this, Phase 1 is incomplete.
+- Grep does NOT substitute for Phase 1 reading. Grep is Phase 3 cross-file propagation (AP5), not the global diagnostic.
+- If a Read fails with the 25000-token cap, cut the `limit` in half and retry. Never "skip ahead past the oversized region."
+
+This injunction applies to EVERY invocation of `/chriss-ginzburg-rectify`, on files of any size. A 5000-line chapter takes ~10-20 small Reads. That is the cost; it is not negotiable. (Instance that prompted this rule: cy_to_chiral.tex 5166 lines, 2026-04-17 — strategic sampling attempted and was rejected by the user.)
+
 ## MANUSCRIPT HYGIENE (TOP-LEVEL INJUNCTION)
 
 **NO ANTIPATTERN TAGS OR METADATA LEAKAGE INTO THE MANUSCRIPT OR STANDALONE PAPERS PROPER.**
