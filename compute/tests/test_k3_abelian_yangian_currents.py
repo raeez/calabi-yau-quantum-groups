@@ -278,7 +278,7 @@ class TestLatticeVOACharacter:
         assert result["product_is_identity_to_order_max_n"]
 
     @independent_verification(
-        claim="thm:cy-c-abelian-K3",
+        claim="thm:cy-c-abelian-K3-currents",
         derived_from=[
             "Lattice VOA construction V_alpha = :exp(integral J_alpha): "
             "applied to Lambda_Muk = U^3 + E_8(-1)^2",
