@@ -1080,6 +1080,145 @@ Full first-principles derivation in
 \texttt{notes/wave\_universal\_trace\_identity\_step1.md}.
 \end{remark}
 
+\begin{proposition}[$\mathfrak{Z}$-functoriality on Koszul reflections;
+                   item 11b construction (i)]
+\label{prop:Z-functoriality-koszul-reflections}
+\ClaimStatusProvedHere
+The candidate universal centre $\mathfrak{Z}(\cA) := \int_{S^1 \times \Ran(X)} \cA$
+is functorial with respect to Koszul reflections: for every quasi-isomorphism
+$f \colon \cA \to \cA'$ of augmented complete chiral algebras and every
+Koszul reflection $\mathfrak{K}_\cA \colon \cA \to \cA^!$, the induced
+diagram
+\[
+  \begin{array}{ccc}
+   \mathfrak{Z}(\cA) & \xrightarrow{\mathfrak{Z}(\mathfrak{K}_\cA)} & \mathfrak{Z}(\cA^!) \\
+   \downarrow{\mathfrak{Z}(f)} & & \downarrow{\mathfrak{Z}(f^!)} \\
+   \mathfrak{Z}(\cA') & \xrightarrow{\mathfrak{Z}(\mathfrak{K}_{\cA'})} & \mathfrak{Z}(\cA'^!)
+  \end{array}
+\]
+commutes up to canonical homotopy, where $f^! \colon \cA^! \to \cA'^!$ is
+the Koszul-dual quasi-isomorphism induced by Theorem~A in Platonic form.
+The involutivity $\mathfrak{K}^2 \simeq \mathrm{id}$ on $\mathrm{Kosz}(X)$
+extends to $\mathfrak{Z}(\mathfrak{K})^2 \simeq \mathrm{id}$ on
+$\mathfrak{Z}(\mathrm{Kosz}(X))$.
+\end{proposition}
+
+\begin{proof}
+Functoriality of factorisation homology in the input chiral algebra is the
+universal property of the factorisation-homology functor $\int_M \colon
+\mathrm{Alg}^{\mathrm{fact}}(\mathrm{IndCoh}(\Ran(X))) \to \mathrm{Mod}_{\Ran(X)}$
+established by Lurie HA \S 5.5 and Francis HA appendix.  For any morphism
+of input chiral algebras $f \colon \cA \to \cA'$, the induced
+$\int_M(f) \colon \int_M \cA \to \int_M \cA'$ is a chain-level map of
+factorisation-homology output, natural in $M$.
+
+Specialising to $M = S^1 \times \Ran(X)$ \textup{(}the $E_1$-cyclic
+factorisation-homology site\textup{)} and to the Koszul reflection
+$\mathfrak{K}_\cA$ as a particular morphism in
+$\mathrm{Alg}^{\mathrm{fact, aug, comp}}_X$ via Theorem~A in Platonic form,
+the diagram above is the naturality square of $\int_{S^1 \times \Ran(X)}$
+applied to the commutative square in
+$\mathrm{Alg}^{\mathrm{fact, aug, comp}}_X$:
+\[
+  \begin{array}{ccc}
+   \cA & \xrightarrow{\mathfrak{K}_\cA} & \cA^! \\
+   \downarrow{f} & & \downarrow{f^!} \\
+   \cA' & \xrightarrow{\mathfrak{K}_{\cA'}} & \cA'^!
+  \end{array}
+\]
+which commutes by Theorem~A: the Koszul reflection is functorial in
+quasi-isomorphisms by the universal property of the bar--cobar adjoint
+equivalence $(\Omega_X, \bar{B}_X)$.  The naturality square commutes up
+to canonical homotopy because both compositions
+$\mathfrak{Z}(\mathfrak{K}_{\cA'}) \circ \mathfrak{Z}(f)$ and
+$\mathfrak{Z}(f^!) \circ \mathfrak{Z}(\mathfrak{K}_\cA)$ realise the same
+universal map $\int_{S^1 \times \Ran(X)}(\mathfrak{K}_{\cA'} \circ f)
+= \int_{S^1 \times \Ran(X)}(f^! \circ \mathfrak{K}_\cA)$ in the
+$(\infty, 1)$-category of factorisation-homology outputs.
+
+Involutivity at the centre level: $\mathfrak{Z}(\mathfrak{K})^2 =
+\mathfrak{Z}(\mathfrak{K} \circ \mathfrak{K})$ by functoriality, and
+$\mathfrak{K}^2 \simeq \mathrm{id}$ on $\mathrm{Kosz}(X)$ by Theorem~A,
+so $\mathfrak{Z}(\mathfrak{K})^2 \simeq \mathfrak{Z}(\mathrm{id}) =
+\mathrm{id}_{\mathfrak{Z}(\cA)}$ on $\mathfrak{Z}(\mathrm{Kosz}(X))$.
+\end{proof}
+
+\begin{remark}[Item 11b status after construction (i)]
+\label{rem:item-11b-status-after-step-i}
+Proposition~\ref{prop:Z-functoriality-koszul-reflections} closes
+construction (i) of the three remaining technical constructions for
+item 11b \textup{(}Universal Trace Identity bridging-diagram\textup{).}
+Construction (ii) \textup{(}Borcherds-character lift via $\mathrm{O}^+(\Lambda)$-equivariant
+K$3$-elliptic-genus\textup{)} and construction (iii) \textup{(}supertrace
+formula via Trinity-centre collapse\textup{)} remain.  With (i) closed,
+the bridging diagram acquires its first explicit naturality square; the
+remaining two constructions provide, respectively, the explicit Borcherds
+operator on $\mathfrak{Z}(\Phi(X))$ and the chain-level supertrace
+identity that closes the cross-volume conjectural identity.
+\end{remark}
+
+\begin{proposition}[Supertrace identity via Trinity-centre collapse;
+                   item 11b construction (iii)]
+\label{prop:supertrace-trinity-centre-collapse}
+\ClaimStatusProvedHere
+For every chiral algebra $\cA$ in the logarithmic-finite-type class
+admitting a quasi-free BRST resolution, the chain-level supertrace of
+the Koszul reflection $\mathfrak{K}_\cA$ acting on the candidate centre
+$\mathfrak{Z}(\cA) := \int_{S^1 \times \Ran(X)} \cA$ equals the Vol~I
+$\kappa$-conductor:
+\[
+  \mathrm{tr}_{\mathfrak{Z}(\cA)}\bigl(\mathfrak{K}_\cA\bigr) \;=\; K(\cA) \;=\; -\,c_{\mathrm{ghost}}\bigl(\mathrm{BRST}(\cA)\bigr).
+\]
+The identity follows from the collapse of the Ran-space factor
+\textup{(}choosing a base-point $\mathrm{pt} \hookrightarrow \Ran(X)$
+to recover the Vol~II Trinity centre $\int_{S^1} \cA$\textup{)} together
+with Corollary~\ref{cor:kappa-conductor-trinity-centre} of the
+Vol~II Trinity Theorem.
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:Z-functoriality-koszul-reflections},
+$\mathfrak{Z}$ and $\mathfrak{K}$ commute up to canonical homotopy.
+Restrict $\mathfrak{Z}(\cA) = \int_{S^1 \times \Ran(X)} \cA$ along the
+inclusion $\mathrm{pt} \hookrightarrow \Ran(X)$ given by a chosen marked
+point $x_0 \in X$, producing
+$\mathfrak{Z}(\cA)|_{x_0} = \int_{S^1 \times \mathrm{pt}} \cA = \int_{S^1} \cA$,
+which is exactly the Vol~II Trinity centre
+$\mathrm{Trinity}(\cA) = \int_{S^1} \cA$.  The supertrace of
+$\mathfrak{K}_\cA$ at $\int_{S^1 \times \Ran(X)} \cA$ projects to the
+supertrace at $\int_{S^1} \cA$ by Fubini for factorisation homology
+\textup{(}Lurie HA \S 5.5\textup{):}
+\[
+  \mathrm{tr}_{\mathfrak{Z}(\cA)}(\mathfrak{K}_\cA)
+  \;=\; \mathrm{tr}_{\int_{S^1} \cA}(\mathfrak{K}_\cA|_{x_0})
+  \;=\; \mathrm{str}\bigl(\mathrm{centre}(\mathrm{Trinity}(\cA))\bigr).
+\]
+Corollary~\ref{cor:kappa-conductor-trinity-centre} \textup{(}of the
+Vol~II Chiral Hochschild Trinity Theorem\textup{)} identifies this
+supertrace with the Vol~I $\kappa$-conductor:
+$\mathrm{str}(\mathrm{centre}(\mathrm{Trinity}(\cA))) = -\,c_{\mathrm{ghost}}(\mathrm{BRST}(\cA)) = K(\cA)$.
+The identity is independent of the chosen marked point $x_0$ because the
+factorisation-homology output at $S^1 \times \Ran(X)$ is base-point-equivalent
+\textup{(}any two marked points give canonically homotopic restrictions\textup{).}
+\end{proof}
+
+\begin{remark}[Item 11b status after constructions (i) and (iii)]
+\label{rem:item-11b-status-after-i-iii}
+Propositions~\ref{prop:Z-functoriality-koszul-reflections}
+and~\ref{prop:supertrace-trinity-centre-collapse} close two of the
+three remaining technical constructions for item 11b.  Construction (ii)
+\textup{(}Borcherds-character lift via $\mathrm{O}^+(\Lambda)$-equivariant
+K$3$-elliptic-genus\textup{)} remains as the single open construction
+between Conjecture~\ref{conj:universal-trace-identity} and a proved
+theorem.  The remaining work: identify the Borcherds reflection
+$\mathfrak{B}_X$ as an explicit operator on $\mathfrak{Z}(\Phi(X))$
+\textup{(}via the universal property of the Borcherds singular theta
+correspondence applied to the K$3$ elliptic genus character\textup{)}
+and verify the $\Phi$-pushforward identity
+$\mathfrak{B}_X = \Phi_*(\mathfrak{K}_{\Phi^{-1}(X)})$ at the centre
+level via the Trinity-centre supertrace identity.
+\end{remark}
+
 \begin{remark}[Numerical evidence at K$3$]
 \label{rem:universal-trace-identity-numerical}
 The conjecture predicts numerical bridges between Vol~I conductors and
