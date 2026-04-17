@@ -3,431 +3,1186 @@
 
 \section{The question}
 \label{sec:the-question}
+\label{sec:the-problem}
 
-A Calabi--Yau category $\cC$ of dimension $d$ carries a canonical cyclic $\Ainf$-structure: a non-degenerate trace
+A Calabi--Yau category~$\cC$ of dimension~$d$ carries a canonical
+cyclic $\Ainf$-structure: a non-degenerate trace
 \[
  \Tr \colon \HH_\bullet(\cC) \longrightarrow k[-d]
 \]
-on its Hochschild homology, encoding the CY condition as a $d$-dimensional Frobenius structure at the chain level. The cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ is the primary invariant; it carries an $\Sd$-action from the $d$-sphere framing of the trace, and its $\Sd$-equivariant structure governs higher-genus amplitudes.
+on its Hochschild homology, encoding the CY condition as a
+$d$-dimensional Frobenius structure at the chain level. The
+cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ is the primary
+invariant; it carries an $\Sd$-action from the $d$-sphere
+framing of the trace, and its $\Sd$-equivariant structure
+governs higher-genus amplitudes.
 
-A chiral algebra $A$ on a curve $X$ carries a bar complex $B(A)$, a factorization coalgebra on $\Ran(X)$ whose differential encodes holomorphic OPE residues and whose coproduct encodes topological interval-cutting. At genus $g \geq 1$, the bar complex acquires curvature $\kappa_{\mathrm{ch}}(A) \cdot \omega_g$ from the Hodge bundle, and the full modular structure is controlled by the universal Maurer--Cartan element $\Theta_A := D_A - d_0$ (Volume~I). Together with the $\SC^{\mathrm{ch,top}}$ structure on the derived center pair $(C^\bullet_{\mathrm{ch}}(A,A),\, A)$ (Volume~II), these data form the complete modular invariant.
+A chiral algebra~$\cA$ on a curve~$X$ carries a bar complex
+$B(\cA)$, a factorization coalgebra on $\Ran(X)$ whose
+differential encodes holomorphic OPE residues and whose
+coproduct encodes topological interval-cutting. At genus
+$g \geq 1$, the bar complex acquires curvature
+$\kappa_{\mathrm{ch}}(\cA) \cdot \omega_g$ from the Hodge
+bundle, and the full modular structure is controlled by the
+universal Maurer--Cartan element
+$\Theta_\cA := D_\cA - d_0$ (Volume~I). Together with the
+$\SC^{\mathrm{ch,top}}$ structure on the derived centre pair
+$(C^\bullet_{\mathrm{ch}}(\cA, \cA),\, \cA)$ (Volume~II), these
+data form the complete modular invariant.
 
-That these two structures admit a common description is the organizing theorem of the volume. Both the CY cyclic bar complex $\mathrm{CC}_\bullet(\cC)$ and the chiral bar complex $B(A)$ are instances of the same homotopical object: a cyclic $\Ainf$-coalgebra equipped with a compatible trace. The cyclic $\Ainf$-condition on the CY side (the non-degenerate pairing $\Tr$ satisfying the higher homotopy Frobenius relations) and the Maurer--Cartan equation $D\Theta + \tfrac{1}{2}[\Theta,\Theta] = 0$ on the chiral side are two presentations of one structure. Homological algebra supplies the common language in which CY geometry and chiral algebra can be compared; the functor $\Phi$ is the translation, proved here for all~$d$.
-
-The bridge is the functor $\Phi$:
-\begin{center}
+Both $\mathrm{CC}_\bullet(\cC)$ and $B(\cA)$ are instances of
+the same homotopical object: a cyclic $\Ainf$-coalgebra
+equipped with a compatible trace. The cyclic $\Ainf$-condition
+on the CY side (non-degenerate pairing $\Tr$ satisfying the
+higher homotopy Frobenius relations) and the Maurer--Cartan
+equation
+$D\Theta + \tfrac{1}{2}[\Theta, \Theta] = 0$
+on the chiral side are two presentations of one structure.
+Homological algebra supplies the common language in which CY
+geometry and chiral algebra can be compared; the functor
+\[
 \begin{tikzcd}[column sep=huge]
- \left\{\begin{array}{c}\text{CY categories with}\\\text{appropriate $E_n$-structure}\end{array}\right\}
+ \left\{\begin{array}{c}
+  \text{CY categories with}\\
+  \text{appropriate $E_n$-structure}
+ \end{array}\right\}
  \arrow[r, "\Phi"]
  &
- \left\{\begin{array}{c}\text{quantum chiral algebras}\\\text{with modular trace}\end{array}\right\}
+ \left\{\begin{array}{c}
+  \text{quantum chiral algebras}\\
+  \text{with modular trace}
+ \end{array}\right\}
 \end{tikzcd}
-\end{center}
-For $d = 2$, the functor $\Phi$ sends a CY category $\cC$ (Fukaya, derived, matrix factorization, or more general) to an $\Etwo$-chiral algebra $A_\cC$ whose bar complex $B(A_\cC)$ encodes the CY cyclic homology, with the CY trace realized as the modular characteristic $\kappa_{\mathrm{ch}}(A_\cC)$ (Theorem~CY-A$_2$). For $d = 3$, the chain-level $\mathbb{S}^3$-framing obstruction is resolved by an $\infty$-categorical argument: $\HH^{-2}_{E_1}(\cC) = 0$ for any smooth proper CY$_3$ category, and the space of $E_3$-liftings is contractible, producing an $\Eone$-chiral algebra $A_\cC$ (Theorem~CY-A$_3$). The braided monoidal structure is constructed via the Drinfeld center of the $\Eone$-monoidal representation category: the center $\cZ(\Rep^{\Eone}(A_\cC))$ adjoins half-braidings $\sigma_M \colon M \otimes (-) \xrightarrow{\sim} (-) \otimes M$ to each module, and the quantum group $R$-matrix is $R(z) = \sigma_{V_u}(V_v)$ evaluated on evaluation modules with spectral parameter $z = u - v$ (Construction~\ref{constr:rmatrix-from-center}).
+\]
+is the translation, proved here for all~$d$.
 
-\section{The $E_n$ chiral hierarchy}
+For $d = 2$, $\Phi$ sends a CY category~$\cC$ (Fukaya, derived,
+matrix factorization, or more general) to an $\Etwo$-chiral
+algebra $\cA_\cC$ whose bar complex $B(\cA_\cC)$ encodes the CY
+cyclic homology, with the CY trace realized as the modular
+characteristic $\kappa_{\mathrm{ch}}(\cA_\cC)$
+(Theorem~CY-A$_2$). For $d = 3$, the chain-level
+$\mathbb{S}^3$-framing obstruction is resolved by an
+$\infty$-categorical argument: $\HH^{-2}_{E_1}(\cC) = 0$ for
+every smooth proper CY$_3$ category and the space of
+$E_3$-liftings is contractible, producing an $\Eone$-chiral
+algebra $\cA_\cC$ (Theorem~CY-A$_3$,
+Theorem~\ref{thm:derived-framing-obstruction}). The braided
+monoidal structure is constructed via the Drinfeld centre of
+the $\Eone$-monoidal representation category: the centre
+$\cZ(\Rep^{\Eone}(\cA_\cC))$ adjoins half-braidings
+$\sigma_M \colon M \otimes (-) \xrightarrow{\sim} (-) \otimes M$
+to each module~$M$, and the quantum group $R$-matrix is
+\[
+ R(z) \;=\; \sigma_{V_u}(V_v)
+ \qquad (z = u - v)
+\]
+evaluated on spectral-parameter families of evaluation modules
+(Construction~\ref{constr:rmatrix-from-center}).
+
+\section{The $\En$ chiral hierarchy}
 \label{sec:e1-e2-hierarchy}
 
-The CY dimension~$d$ determines the native $E_n$ level of the chiral algebra $\Phi(\cC)$ through the Gerstenhaber bracket on $\HH^\bullet(\cC,\cC)$, which has degree $1-d$:
+The CY dimension~$d$ determines the native $\En$ level of the
+chiral algebra $\Phi(\cC)$ through the Gerstenhaber bracket on
+$\HH^\bullet(\cC, \cC)$, which has degree $1 - d$:
 
-\begin{itemize}
- \item $d = 1$: $E_\infty$-chiral (commutative). The degree-$0$ bracket is a Poisson bracket; the associated Lie conformal algebra is abelian, so the factorization envelope is commutative. Representation categories are symmetric monoidal. Example: $\Fuk(E_\tau)$ produces the Heisenberg VOA, which is $E_\infty$ as a vertex algebra.
- \item $d = 2$: $E_2$-chiral (braided). The degree-$(-1)$ bracket is a Lie bracket (the $\lambda$-bracket). The $\mathbb{S}^2$-framing of $\HH_\bullet(\cC)$ gives $E_2$ directly via Kontsevich--Vlassopoulos. Representation categories are braided monoidal: the natural habitat of quantum groups at this dimension.
- \item $d = 3$: $E_1$-chiral (ordered) \emph{natively}. The degree-$(-2)$ bracket is a shifted Lie bracket. The CoHA multiplication is ordered (short exact sequences have a preferred direction), giving an associative but \emph{not} braided product. The braided $E_2$ structure is \emph{derived}, not native: it lives on the Drinfeld centre $\cZ(\Rep^{E_1}(A))$, which is a braided monoidal \emph{category}, not a property of the chiral algebra~$A$ itself.
- \item $d \geq 4$: $E_1$-stabilized. The $\pi_d(BU)$ obstruction governs shifted structure but the native level remains $E_1$.
+\begin{itemize}[leftmargin=1.5em,topsep=0.3ex,itemsep=0.4ex]
+ \item $d = 1$: $E_\infty$-chiral (commutative). The degree-$0$
+  bracket is a Poisson bracket; the associated Lie conformal
+  algebra is abelian and the factorization envelope is
+  commutative. Representation categories are symmetric monoidal.
+  Example: $\Fuk(E_\tau)$ produces the Heisenberg VOA, which is
+  $E_\infty$ as a vertex algebra.
+ \item $d = 2$: $E_2$-chiral (braided). The degree-$(-1)$
+  bracket is a Lie bracket (the $\lambda$-bracket). The
+  $\mathbb{S}^2$-framing of $\HH_\bullet(\cC)$ gives $E_2$
+  directly via Kontsevich--Vlassopoulos. Representation
+  categories are braided monoidal: the natural habitat of
+  quantum groups at this dimension.
+ \item $d = 3$: $E_1$-chiral (ordered) \emph{natively}. The
+  degree-$(-2)$ bracket is a shifted Lie bracket. The CoHA
+  multiplication is ordered (short exact sequences have a
+  preferred direction), giving an associative but \emph{not}
+  braided product. The braided $E_2$ structure is
+  \emph{derived}, not native: it lives on the Drinfeld centre
+  $\cZ(\Rep^{E_1}(\cA))$, a braided monoidal \emph{category},
+  not a property of the chiral algebra itself.
+ \item $d \geq 4$: $E_1$-stabilized. The $\pi_d(BU)$ obstruction
+  governs shifted structure but the native level remains $E_1$.
 \end{itemize}
 
-\noindent The passage $E_1 \to E_2$ is always through the Drinfeld centre: $\cZ(\Rep^{E_1}(A)) \simeq \Rep^{E_2}(\mathrm{Drin}(A))$. By Dunn additivity, $E_2 \simeq E_1 \otimes E_1$, so an $E_2$-algebra is an $E_1$-algebra in $E_1$-algebras. The CY quantum groups of this volume are concrete $E_1$-chiral quantum groups (Volume~I) whose Drinfeld centres carry $E_2$-braiding.
+The passage $E_1 \to E_2$ is always through the Drinfeld centre:
+\[
+ \cZ(\Rep^{E_1}(\cA))
+ \;\simeq\; \Rep^{E_2}\!\bigl(\mathrm{Drin}(\cA)\bigr)\,.
+\]
+By Dunn additivity, $E_2 \simeq E_1 \otimes E_1$, so an
+$E_2$-algebra is an $E_1$-algebra in $E_1$-algebras. The CY
+quantum groups of this volume are concrete $E_1$-chiral quantum
+groups (Volume~I) whose Drinfeld centres carry $E_2$-braiding.
 
-The CY condition enters through Kontsevich's identification: a $d$-dimensional CY structure on $\cC$ determines an $\mathbb{S}^d$-framing of the Hochschild complex. For $d = 2$ (CY surfaces), this framing gives $E_2$ directly. For $d = 3$, the $\mathbb{S}^3$-framing resolves the $E_3$-lifting obstruction but the native chiral algebra is $E_1$; the $E_2$-braiding on representation categories is recovered via the Drinfeld centre.
+The CY condition enters through Kontsevich's identification: a
+$d$-dimensional CY structure on $\cC$ determines an
+$\mathbb{S}^d$-framing of the Hochschild complex. For $d = 2$
+(CY surfaces), this framing gives $E_2$ directly. For $d = 3$,
+the $\mathbb{S}^3$-framing resolves the $E_3$-lifting obstruction
+but the native chiral algebra is $E_1$; the $E_2$-braiding on
+representation categories is recovered via the Drinfeld centre.
 
-\subsection{The $E_1$ stabilization theorem}
+\subsection{The $\Eone$ stabilization theorem}
 \label{subsec:e1-stabilization-intro}
 
-For $d \geq 3$, the CY chiral output stabilizes at $E_1$, not $E_d$. The reason is the degree of the Gerstenhaber bracket: on $\HH^\bullet(\cC)$, the bracket has degree $1 - d$, which for $d \geq 3$ is $\leq -2$, too shifted to produce braiding ($\pi_1(\Conf_2^{\mathrm{ord}}(\R^d)) = 0$ for ordered configuration spaces at $d \geq 3$, since $\mathbb{S}^{d-1}$ is simply connected). For toric CY$_d$ ($\C^d$ with $\GL(d)$ action), the $\GL(d)$-invariant Schouten--Nijenhuis brackets vanish identically (Theorem~\ref{thm:c3-abelian-bracket}), so the classical Lie conformal algebra is abelian and all noncommutative structure arises from the $\Omega$-deformation. For non-toric CY$_3$ manifolds, the Schouten--Nijenhuis bracket is generically nonzero, but its shifted degree still prevents braiding. The CoHA construction then gives an ordered (associative) product: the extension correspondence $0 \to V' \to V \to V'' \to 0$ has a preferred direction (sub before quotient), which is $E_1$, not $E_2$. The braided monoidal structure is constructed via the Drinfeld center of the $E_1$-monoidal representation category (Theorem~\ref{thm:c3-drinfeld-center}, Construction~\ref{constr:rmatrix-from-center}): the half-braiding $\sigma_{V_u}(V_v)$ on evaluation modules is the quantum group $R$-matrix.
+For $d \geq 3$, the CY chiral output stabilizes at $\Eone$, not
+$E_d$. The reason is the degree of the Gerstenhaber bracket: on
+$\HH^\bullet(\cC)$, the bracket has degree $1 - d$, which for
+$d \geq 3$ is $\leq -2$, too shifted to produce braiding.
+Equivalently,
+\[
+ \pi_1\bigl(\Conf_2^{\mathrm{ord}}(\R^d)\bigr)
+ \;=\; \pi_1(S^{d-1}) \;=\; 0
+ \qquad (d \geq 3)\,.
+\]
+For toric CY$_d$ ($\C^d$ with $\GL(d)$-action), the
+$\GL(d)$-invariant Schouten--Nijenhuis brackets vanish
+identically (Theorem~\ref{thm:c3-abelian-bracket}): the
+classical Lie conformal algebra is abelian and all
+noncommutative structure arises from the $\Omega$-deformation.
+For non-toric CY$_3$, the Schouten--Nijenhuis bracket is
+generically nonzero, but its shifted degree still prevents
+braiding. The CoHA construction gives an ordered (associative)
+product: the extension correspondence
+$0 \to V' \to V \to V'' \to 0$ has a preferred direction
+(sub before quotient), which is $E_1$, not $E_2$. The braided
+monoidal structure is constructed via the Drinfeld centre of
+the $E_1$-monoidal representation category
+(Theorem~\ref{thm:c3-drinfeld-center},
+Construction~\ref{constr:rmatrix-from-center}): the half-braiding
+$\sigma_{V_u}(V_v)$ on evaluation modules is the quantum group
+$R$-matrix.
 
-The additional shifted structure beyond the base $E_1$ level is controlled by the \emph{framing obstruction} $\pi_d(BU)$, which measures the failure of the $\mathbb{S}^d$-framing on Hochschild homology to trivialize. Two independent computations of this obstruction, the unitary path (Bott periodicity for $BU$, period~2) and the symplectic/orthogonal path (Bott periodicity for $\Sp$ and $O$, period~8), produce the following landscape:
+The additional shifted structure beyond the base $\Eone$ level
+is controlled by the framing obstruction $\pi_d(BU)$. Two
+independent computations of this obstruction---the unitary path
+(Bott periodicity for $BU$, period~$2$) and the
+symplectic/orthogonal path (Bott periodicity for $\Sp$ and $O$,
+period~$8$)---produce the following landscape:
 \begin{center}
 \renewcommand{\arraystretch}{1.3}
 \small
 \begin{tabular}{lllll}
  \toprule
- $d$ & Native $E_n$ & $\pi_d(BU)$ & $\mathrm{Obs}_{\mathrm{eff}}(d)$ & Shifted structure \\
+ $d$ & Native $\En$ & $\pi_d(BU)$
+  & $\Obs_{\mathrm{eff}}(d)$ & Shifted structure \\
  \midrule
  $1$ & $E_\infty$ & $0$ & $0$ & none (commutative) \\
- $2$ & $E_2$ & $\mathbb{Z}$ & $\mathbb{Z}$ & braiding parameter ($c_1$) \\
+ $2$ & $E_2$ & $\Z$ & $\Z$ & braiding parameter ($c_1$) \\
  $3$ & $E_1$ & $0$ & $0$ & none (topological obstruction $0$) \\
- $4$ & $E_1$ & $\mathbb{Z}$ & $\mathbb{Z}$ & $\mathbb{Z}$-shifted symplectic ($p_1$) \\
- $5$ & $E_1$ & $0$ & $\mathbb{Z}_2$ & $\mathbb{Z}_2$-shifted ($\Sp$ refinement) \\
- $6$ & $E_1$ & $\mathbb{Z}$ & $\mathbb{Z}$ & $\mathbb{Z}$-shifted ($c_3$) \\
+ $4$ & $E_1$ & $\Z$ & $\Z$ & $\Z$-shifted symplectic ($p_1$) \\
+ $5$ & $E_1$ & $0$ & $\Z_2$ & $\Z_2$-shifted ($\Sp$ refinement) \\
+ $6$ & $E_1$ & $\Z$ & $\Z$ & $\Z$-shifted ($c_3$) \\
  $7$ & $E_1$ & $0$ & $0$ & none (trivial, mirrors $d = 3$) \\
- $8$ & $E_1$ & $\mathbb{Z}$ & $\mathbb{Z}$ & $\mathbb{Z}$-shifted (Bott-periodic) \\
+ $8$ & $E_1$ & $\Z$ & $\Z$ & $\Z$-shifted (Bott-periodic) \\
  \bottomrule
 \end{tabular}
 \end{center}
-The pattern repeats with period~$8$ by Bott periodicity of $\Sp$ and $O$. The effective obstruction is trivial precisely at $d \bmod 8 \in \{1, 3, 7\}$. All even $d \geq 2$ have $\mathbb{Z}$-valued obstruction from $\pi_d(BU) = \mathbb{Z}$. For CY$_4$, the obstruction is the first Pontryagin class $p_1 \in \pi_4(BU) = \mathbb{Z}$: it provides a level (analogous to the level of a Kac--Moody algebra) that governs the shifted symplectic structure on the moduli of objects. At $d = 3$, the vanishing of this topological obstruction does not by itself construct the chain-level $\mathbb{S}^3$-framing required by CY-A$_3$. For $K3 \times K3$ ($d = 4$), the Hopf decomposition $\mathbb{S}^4 = \mathbb{S}^2 \times \mathbb{S}^2$ recovers $E_2$ by Dunn additivity.
+The pattern repeats with period~$8$ by Bott periodicity of
+$\Sp$ and $O$. The effective obstruction is trivial precisely
+at $d \bmod 8 \in \{1, 3, 7\}$. All even $d \geq 2$ have
+$\Z$-valued obstruction from $\pi_d(BU) = \Z$. For CY$_4$, the
+obstruction is the first Pontryagin class
+$p_1 \in \pi_4(BU) = \Z$: it provides a level (analogous to the
+level of a Kac--Moody algebra) that governs the shifted
+symplectic structure on the moduli of objects. At $d = 3$, the
+vanishing of this topological obstruction does not by itself
+construct the chain-level $\mathbb{S}^3$-framing required by
+CY-A$_3$. For $K3 \times K3$ ($d = 4$), the Hopf decomposition
+$\mathbb{S}^4 = \mathbb{S}^2 \times \mathbb{S}^2$ recovers $E_2$
+by Dunn additivity.
 
-The full proof of the stabilization theorem (Theorem~\ref{thm:e1-stabilization-cy}) is in Chapter~\ref{ch:en-factorization}.
+The full proof of the stabilization theorem
+(Theorem~\ref{thm:e1-stabilization-cy}) is in
+Chapter~\ref{ch:en-factorization}.
+
+\section{The Mukai Lagrangian and the Platonic ensemble}
+\label{sec:mukai-lagrangian-platonic}
+
+For a Calabi--Yau variety~$X$, the even-graded cohomology
+\[
+ \Lambda_X \;\subset\; H^{\mathrm{even}}(X,\Q)\,,
+ \qquad
+ \langle v, w \rangle_{\mathrm{Muk}}
+ \;=\; -\!\int_X v^\vee \cdot w \cdot \mathrm{td}(X)
+\]
+is the Mukai Lagrangian. It is the site of a structural
+redundancy: on the arithmetic side, $\Lambda_X$ is the target
+of the Borcherds singular theta lift; on the Lie-theoretic
+side, $\Lambda_X$ is the weight lattice of the critical
+cohomological Hall algebra $\CoHA(Q_X, W_X) \cong
+Y^+(\widehat{\frakg}_X)$ and of the Maulik--Okounkov stable
+envelope on $\mathrm{Hilb}^n(X)$. Both sides encode the same
+datum---the generating series of BPS invariants of~$X$---once
+as an automorphic form, once as the universal $R$-matrix of a
+quantum group.
+
+Five Platonic theorems govern the volume:
+
+\begin{enumerate}[label=\textup{(P\arabic*)},leftmargin=2em,
+ topsep=0.3ex,itemsep=0.4ex]
+ \item \emph{Theorem CY-A$_d$} (functor existence, all~$d$):
+  $\Phi \colon \CY_d\text{-}\Cat \to E_n\text{-}\mathrm{ChirAlg}$
+  with $n = \infty$ at $d = 1$, $n = 2$ at $d = 2$,
+  $n = 1$ at $d \geq 3$. Proved via $\mathbb{S}^2$-framing
+  (CY-A$_2$) and $\infty$-categorical resolution (CY-A$_3$,
+  Theorem~\ref{thm:derived-framing-obstruction}).
+ \item \emph{Theorem CY-B} ($\En$-chiral Koszul duality):
+  $E_2$-Koszul on $\cA$ at $d = 2$; $E_1$-Koszul on $\cA$ at
+  $d = 3$ via the Verdier spectral functor
+  (Theorem~\ref{thm:verdier-spectral-functor}), inducing
+  $\Etwo$-braided equivalence on
+  $\cZ(\Rep^{\Eone}(\cA))$ at every spectral sequence page.
+ \item \emph{Theorem CY-D} (modular CY characteristic):
+  $\kappa_{\mathrm{ch}}(\Phi(\cC)) = \chi^{\CY}(\cC)$ at
+  $d = 2$, via Serre duality $S_\cC = [2]$. At $d \geq 3$,
+  the formula $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ fails by
+  Serre duality (odd-$d$ CYs have $\chi(\cO_X) = 0$); the
+  correct dimension-stratified formula is a programme.
+ \item \emph{Theorem BKM-Universal}
+  (Theorem~\ref{thm:borcherds-lift-universal}): for every
+  weakly holomorphic modular form~$F$ of weight $(2-n)/2$
+  with integral Fourier coefficients $c(m)$ on a lattice
+  $\Lambda$ of signature $(2, n+2)$, the singular theta lift
+  $\Psi(F)$ is a meromorphic $\Aut(\Lambda)$-invariant modular
+  form on the Grassmannian with product expansion
+  $\Psi(F)(Z) = e^{2\pi i \langle \rho, Z \rangle}
+  \prod_{\lambda > 0}(1 - e^{2\pi i \langle \lambda, Z \rangle})^{c(-\langle\lambda,\lambda\rangle/2)}$,
+  weight $\mathrm{wt}(\Psi(F)) = c(0)/2$, and Hecke-intertwining
+  functoriality.
+ \item \emph{Proposition} ($\kappa_{\mathrm{BKM}}$ universality,
+  Proposition~\ref{prop:bkm-weight-universal}): for every
+  K3-fibered diagonal $\Z/N\Z$-orbifold CY$_3$,
+  $\kappa_{\mathrm{BKM}}(X) = c_N(0)/2$.
+\end{enumerate}
+
+\emph{Conjecture CY-C} (quantum group realization) remains
+conjectural; its abelian level,
+$C(\mathfrak{g}, q) = D(Y^+(\mathfrak{g}_{K3}))$, is
+constructive.
 
 \section{Relation to Volumes I and II}
 \label{sec:relation-vols}
-
-This work depends on and extends the two preceding volumes:
 
 \begin{center}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabular}{lll}
  \toprule
- \textbf{Volume} & \textbf{Provides} & \textbf{Used here} \\
+ \textbf{Volume} & \textbf{Provides}
+  & \textbf{Used here} \\
  \midrule
- I (Modular Koszul Duality) & Bar-cobar machine, $\Theta_A$, $\kappa_{\mathrm{ch}}(A)$ & CY bar complex, modular trace \\
- II (3D HT QFT) & $\SC^{\mathrm{ch,top}}$, PVA descent, DK bridge & $E_1$ sector, braided structure \\
- III (this work) & CY $\to$ chiral functor, $E_2$ theory & --- \\
+ I (Modular Koszul Duality)
+  & Bar--cobar machine, $\Theta_\cA$,
+   $\kappa_{\mathrm{ch}}(\cA)$
+  & CY bar complex, modular trace \\
+ II (3D HT QFT)
+  & $\SC^{\mathrm{ch,top}}$, PVA descent, DK bridge
+  & $E_1$ sector, braided structure \\
+ III (this work)
+  & CY-to-chiral functor, $E_2$ theory
+  & --- \\
  \bottomrule
 \end{tabular}
 \end{center}
 
 \begin{remark}[The five-object chain in the CY context]
 \label{rem:v3-five-object-chain}
-%: four functors, five distinct objects. Never conflate.
-%: all kappa subscripted (kappa_ch).
-Volume~I constructs five objects from a chiral algebra $A$ on a
-curve~$X$, each produced by a distinct functor (Theorems~A--D$+$H).
-Under the CY-to-chiral functor $\Phi \colon \cC \mapsto A_\cC$,
-these become CY invariants:
+Volume~I constructs five objects from a chiral algebra~$\cA$
+on a curve~$X$, each produced by a distinct functor
+(Theorems~A--D$+$H). Under the CY-to-chiral functor
+$\Phi \colon \cC \mapsto \cA_\cC$, these become CY invariants:
 \begin{enumerate}[label=(\roman*)]
- \item $A_\cC$ (the chiral algebra): the factorization envelope of the
- Lie conformal algebra extracted from the cyclic $\Ainf$-structure
- of~$\cC$.
- \item $B(A_\cC) = T^c(s^{-1}\bar{A}_\cC)$ (the bar coalgebra):
- a factorization coalgebra on $\Ran(X)$ with deconcatenation
- coproduct, encoding the CY cyclic bar complex
- $\mathrm{CC}_\bullet(\cC)$. The bar differential carries the
- holomorphic OPE data; at genus $g \geq 1$ the fiberwise
- differential satisfies $d_{\mathrm{fib}}^2 =
- \kappa_{\mathrm{ch}}(A_\cC) \cdot \omega_g$.
- \item $A_\cC^i = H^*(B(A_\cC))$ (the dual coalgebra): the Koszul
- cohomology of the bar complex, a cooperad-algebra whose
- coalgebra structure encodes the BPS spectrum of~$\cC$.
- \item $A_\cC^! = ((A_\cC^i)^\vee)$ (the Koszul dual algebra):
- obtained by applying Verdier duality $D_{\Ran}$ to the bar
- coalgebra. For CY$_2$ categories, $A_\cC^!$ is the chiral
- algebra of the mirror CY$_2$.
- \item $\Zder(A_\cC)$ (the derived chiral center): the chiral
- Hochschild cochain complex, encoding the bulk sector. For a
- CY category of dimension~$d$, $\Zder(A_\cC)$ carries the
- $\mathbb{S}^d$-equivariant structure that governs higher-genus
- amplitudes.
+ \item $\cA_\cC$ (the chiral algebra): the factorization
+  envelope of the Lie conformal algebra extracted from the
+  cyclic $\Ainf$-structure of~$\cC$.
+ \item $B(\cA_\cC) = T^c(s^{-1}\bar{\cA}_\cC)$ (the bar
+  coalgebra): a factorization coalgebra on $\Ran(X)$ with
+  deconcatenation coproduct, encoding the CY cyclic bar
+  complex $\mathrm{CC}_\bullet(\cC)$. The bar differential
+  carries the holomorphic OPE data; at genus $g \geq 1$ the
+  fiberwise differential satisfies
+  $d_{\mathrm{fib}}^2 = \kappa_{\mathrm{ch}}(\cA_\cC) \cdot
+  \omega_g$.
+ \item $\cA_\cC^i = H^*(B(\cA_\cC))$ (the dual coalgebra):
+  the Koszul cohomology of the bar complex, a cooperad-algebra
+  whose coalgebra structure encodes the BPS spectrum of~$\cC$.
+ \item $\cA_\cC^! = ((\cA_\cC^i)^\vee)$ (the Koszul dual
+  algebra): obtained by applying Verdier duality $D_{\Ran}$
+  to the bar coalgebra. For CY$_2$ categories, $\cA_\cC^!$ is
+  the chiral algebra of the mirror CY$_2$.
+ \item $\Zder(\cA_\cC)$ (the derived chiral centre): the
+  chiral Hochschild cochain complex, encoding the bulk sector.
+  For a CY category of dimension~$d$, $\Zder(\cA_\cC)$ carries
+  the $\mathbb{S}^d$-equivariant structure that governs
+  higher-genus amplitudes.
 \end{enumerate}
 The five objects are connected by four functors (bar $B$,
-cohomology $H^*$, linear duality $(-)^\vee$, Hochschild cochains),
-none of which should be conflated. In particular: bar-cobar
-$\Omega(B(A_\cC)) \xrightarrow{\sim} A_\cC$ is \emph{inversion}
-(recovering the algebra), not Koszul duality; and $\Zder(A_\cC)$
-is the Hochschild construction, not the output of bar-cobar.
-The modular characteristic $\kappa_{\mathrm{ch}}(A_\cC)$ governs
-the curvature of $B(A_\cC)$ at genus $g \geq 1$ and equals the
-CY Euler characteristic $\chi^{\CY}(\cC)$ at $d = 2$
-(Theorem~CY-D).
+cohomology $H^*$, linear duality $(-)^\vee$, Hochschild
+cochains), none of which should be conflated. Bar--cobar
+$\Omega(B(\cA_\cC)) \xrightarrow{\sim} \cA_\cC$ is
+\emph{inversion} (recovering the algebra), not Koszul duality;
+$\Zder(\cA_\cC)$ is the Hochschild construction, not the
+output of bar--cobar. The modular characteristic
+$\kappa_{\mathrm{ch}}(\cA_\cC)$ governs the curvature of
+$B(\cA_\cC)$ at genus $g \geq 1$ and equals the CY Euler
+characteristic $\chi^{\CY}(\cC)$ at $d = 2$ (Theorem~CY-D).
 \end{remark}
-
 
 \begin{remark}[The three-volume hierarchy]
 \label{rem:vol3-dimensional-reduction}
-Volume~I constructs $E_n$-chiral algebras at all operadic levels
-($n = 1, 2, 3, \infty$) as algebraic-geometric objects on curves
-and their configuration spaces: the five theorems A--D$+$H are
-the $E_\infty$-invariants that survive $\Sigma_n$-coinvariance,
-while the $E_1$ data ($R$-matrices, Yangians, chiral quantum
-groups, derived centres) lives in the ordered bar
-$B^{\mathrm{ord}}(A)$ and is developed in Volume~I.
+Volume~I constructs $\En$-chiral algebras at all operadic
+levels ($n = 1, 2, 3, \infty$) as algebraic-geometric objects
+on curves and their configuration spaces: the five theorems
+A--D$+$H are the $E_\infty$-invariants that survive
+$\Sigma_n$-coinvariance, while the $\Eone$ data
+($R$-matrices, Yangians, chiral quantum groups, derived
+centres) lives in the ordered bar $B^{\mathrm{ord}}(\cA)$.
 Volume~II interprets these algebraic-geometric constructions
-physically: the derived chiral centre IS the bulk of a real 3d
-HT gauge theory on $\C_z \times \R_t$; the
-$\SC^{\mathrm{ch,top}}$ pair IS a boundary-bulk system; 3d quantum
-gravity is the climax.
-This volume constructs the concrete $E_1$-chiral quantum groups
-from CY geometry: Calabi--Yau categories of dimension $d \geq 3$
-produce $\Eone$-chiral algebras via the functor $\Phi$, and the
-CY quantum groups (CoHA, quantum toroidal algebras) are the
-concrete examples of Volume~I's abstract framework. The Drinfeld
-center $\cZ(\Rep^{\Eone}(\cA))$ constructs the $\Etwo$-braiding:
+physically: the derived chiral centre \emph{is} the bulk of a
+real 3d holomorphic-topological gauge theory on
+$\C_z \times \R_t$; the $\SC^{\mathrm{ch,top}}$ pair
+\emph{is} a boundary--bulk system; 3d quantum gravity is the
+climax. This volume constructs the concrete $\Eone$-chiral
+quantum groups from CY geometry: Calabi--Yau categories of
+dimension $d \geq 3$ produce $\Eone$-chiral algebras via
+$\Phi$, and the CY quantum groups (CoHA, quantum toroidal
+algebras) are the concrete examples of Volume~I's abstract
+framework. The Drinfeld centre
+$\cZ(\Rep^{\Eone}(\cA))$ constructs the $\Etwo$-braiding:
 the half-braiding $\sigma_{V_u}(V_v)$ \emph{is} the $R$-matrix
-(Construction~\ref{constr:rmatrix-from-center}). The
-passage between volumes: Vol~I constructs and proves;
-Vol~II interprets physically; Vol~III constructs concrete examples
-from higher-dimensional geometry.
+(Construction~\ref{constr:rmatrix-from-center}). The passage
+between volumes: Vol~I constructs and proves; Vol~II interprets
+physically; Vol~III constructs concrete examples from
+higher-dimensional geometry.
 \end{remark}
 
 \begin{remark}[Shadow depth classification of the CY landscape]
 \label{rem:v3-cy-glcm-shadow-classification}
 The CY-to-chiral functor $\Phi$ assigns to each CY geometry a
-chiral algebra $A_\cC$ whose shadow class
-(Volume~I) organizes the resulting landscape:
-\begin{itemize}
-\item $\C^3$ (toric, abelian): class~$\mathbf{G}$ (shadow depth~$2$,
- $\kappa_{\mathrm{ch}} = 1$). The Heisenberg truncation at spin~$1$.
-\item Resolved conifold: class~$\mathbf{G}$ (shadow depth~$2$,
- $\kappa_{\mathrm{ch}} = 1$). Both resolutions give the same
- shadow class, consistent with flop invariance.
-\item Local $\bP^2$: class~$\mathbf{M}$ (shadow depth~$\infty$,
- $\kappa_{\mathrm{ch}} = 3/2$). The McKay quiver of $\Z_3$ forces
- non-formality and an infinite shadow tower.
-\item $K3 \times E$: class~$\mathbf{M}$ (shadow depth~$\infty$,
- $\kappa_{\mathrm{ch}} = 3$, $\kappa_{\mathrm{BKM}} = 5$). The
- infinite BPS spectrum drives the tower.
+chiral algebra $\cA_\cC$ whose shadow class (Volume~I)
+organizes the resulting landscape:
+\begin{itemize}[leftmargin=1.5em,topsep=0.3ex,itemsep=0.3ex]
+ \item $\C^3$ (toric, abelian): class~$\mathbf{G}$, shadow
+  depth~$2$, $\kappa_{\mathrm{ch}} = 1$. The Heisenberg
+  truncation at spin~$1$.
+ \item Resolved conifold: class~$\mathbf{G}$, shadow
+  depth~$2$, $\kappa_{\mathrm{ch}} = 1$. Both resolutions
+  give the same shadow class, consistent with flop
+  invariance.
+ \item Local $\bP^2$: class~$\mathbf{M}$, shadow
+  depth~$\infty$, $\kappa_{\mathrm{ch}} = 3/2$. The McKay
+  quiver of $\Z_3$ forces non-formality and an infinite
+  shadow tower.
+ \item $K3 \times E$: class~$\mathbf{M}$, shadow
+  depth~$\infty$, $\kappa_{\mathrm{ch}} = 3$,
+  $\kappa_{\mathrm{BKM}} = 5$. The infinite BPS spectrum
+  drives the tower.
 \end{itemize}
 Two structural patterns emerge from the grand atlas
-(Table~\ref{tab:cy3-grand-atlas}). First, compact CY$_3$ with
-$\chi \neq 0$ are generically class~$\mathbf{M}$: the infinite BPS
-spectrum forces infinite shadow depth. Second, the toric vertex
-bound $r_{\max} \leq N$ (where $N$ is the number of web-diagram
-vertices) predicts that classes~$\mathbf{L}$ ($N = 3$) and
-$\mathbf{C}$ ($N = 4$) should be realized by specific toric
-geometries, but explicit CY examples at shadow depth exactly~$3$
-or~$4$ remain to be identified. The four-class classification
-G/L/C/M of Volume~I thus organizes the CY landscape, with
-classes~G and~M populated and classes~L and~C as targets for the
-toric programme.
+(Table~\ref{tab:cy3-grand-atlas}). Compact CY$_3$ with
+$\chi \neq 0$ are generically class~$\mathbf{M}$: the infinite
+BPS spectrum forces infinite shadow depth. The toric vertex
+bound $r_{\max} \leq N$ (where $N$ is the number of
+web-diagram vertices) predicts that classes~$\mathbf{L}$
+($N = 3$) and $\mathbf{C}$ ($N = 4$) should be realized by
+specific toric geometries, but explicit CY examples at shadow
+depth exactly~$3$ or~$4$ remain to be identified. The
+four-class classification $\mathbf{G}/\mathbf{L}/\mathbf{C}/\mathbf{M}$
+of Volume~I thus organizes the CY landscape, with
+classes~$\mathbf{G}$ and~$\mathbf{M}$ populated and
+classes~$\mathbf{L}$ and~$\mathbf{C}$ as targets for the toric
+programme.
 \end{remark}
-
 
 \section{The analytic gap and the \v{C}ech resolution}
 \label{sec:analytic-gap}
 
-The CY-to-chiral functor $\Phi$ at $d = 3$ requires a chain-level contracting homotopy on the Dolbeault complex of the CY threefold. For noncompact targets ($\mathbb{C}^3$, the conifold), the $T^3$-equivariant structure provides the necessary data. For compact CY$_3$, such as the quintic threefold $X_5 \subset \mathbb{P}^4$, the analytic construction of a contracting homotopy on the Dolbeault resolution would require solving a $\bar\partial$-equation with estimates; this is a PDE problem foreign to the algebraic framework of this volume.
+The CY-to-chiral functor $\Phi$ at $d = 3$ requires a
+chain-level contracting homotopy on the Dolbeault complex of
+the CY threefold. For noncompact targets ($\C^3$, the
+conifold), the $T^3$-equivariant structure provides the
+necessary data. For compact CY$_3$, such as the quintic
+threefold $X_5 \subset \bP^4$, the analytic construction of a
+contracting homotopy on the Dolbeault resolution would require
+solving a $\bar\partial$-equation with estimates---a PDE
+problem foreign to the algebraic framework.
 
-The algebraic \v{C}ech resolution closes this gap at the perturbative level. The standard affine cover $\{U_i = \{x_i \neq 0\}\}_{i=0}^4$ of $\mathbb{P}^4$ restricts to the quintic, giving five affine open sets whose finite intersections are all affine. Leray's theorem guarantees acyclicity of the \v{C}ech complex, and the explicit contracting homotopy $s^q(f_{i_0 \cdots i_q}) := f_{0 i_0 \cdots i_q}$ (prepend the distinguished index~$0$) satisfies the strong deformation retract conditions
+The algebraic \v{C}ech resolution closes this gap at the
+perturbative level. The standard affine cover
+$\{U_i = \{x_i \neq 0\}\}_{i=0}^{4}$ of $\bP^4$ restricts to
+the quintic, giving five affine open sets whose finite
+intersections are all affine. Leray's theorem guarantees
+acyclicity of the \v{C}ech complex, and the explicit
+contracting homotopy
 \[
- \delta s + s \delta = \mathrm{Id} - i \circ p, \qquad
- s^2 = 0, \qquad
- s \circ i = 0, \qquad
- p \circ s = 0.
+ s^q\bigl(f_{i_0 \cdots i_q}\bigr)
+ \;:=\; f_{0\, i_0 \cdots i_q}
+ \quad(\text{prepend the distinguished index }0)
 \]
-The SDR data $(i, p, s)$ interfaces directly with the homotopy transfer theorem (HTT), transferring the $A_\infty$-structure from \v{C}ech cochains $\check{C}^\bullet(\mathcal{E}nd(\mathcal{E}))$ to its cohomology $\mathrm{Ext}^\bullet(\mathcal{E}, \mathcal{E})$. The transferred operations $\mu_k^{\mathrm{ch}}$ are given by sums over planar trees whose internal edges are decorated by the homotopy~$s$; each application of~$s$ introduces rational functions on the affine intersections, and the resulting chiral operations are well-defined as formal power series.
+satisfies the strong deformation retract conditions
+\[
+ \delta s + s \delta \;=\; \Id - i \circ p,
+ \qquad s^2 \;=\; 0,
+ \qquad s \circ i \;=\; 0,
+ \qquad p \circ s \;=\; 0.
+\]
+The SDR data $(i, p, s)$ interfaces directly with the
+homotopy transfer theorem (HTT), transferring the
+$\Ainf$-structure from \v{C}ech cochains
+$\check{C}^\bullet(\cE nd(\cE))$ to its cohomology
+$\Ext^\bullet(\cE, \cE)$. The transferred operations
+$\mu_k^{\mathrm{ch}}$ are given by sums over planar trees
+whose internal edges are decorated by the homotopy~$s$; each
+application of~$s$ introduces rational functions on the
+affine intersections, and the resulting chiral operations
+are well-defined as formal power series.
 
-The scope is perturbative: the \v{C}ech homotopy produces an algebraic $A_\infty$-structure on the Ext algebra, but convergence of the resulting series to holomorphic functions (the non-perturbative statement) requires separate input from the analytic completion programme of Volume~I (MC5, the analytic sewing section there). The perturbative statement suffices for the formal CY-to-chiral functor and for all combinatorial applications in this volume. The full construction, including the proof that the SDR conditions hold and the scope qualification, is Theorem~\ref{thm:cech-contracting-homotopy} in Chapter~\ref{ch:cy-to-chiral}.
+The scope is perturbative: the \v{C}ech homotopy produces an
+algebraic $\Ainf$-structure on the Ext algebra, but convergence
+of the resulting series to holomorphic functions (the
+non-perturbative statement) requires separate input from the
+analytic completion programme of Volume~I (MC5, the analytic
+sewing section there). The perturbative statement suffices for
+the formal CY-to-chiral functor and for all combinatorial
+applications in this volume. The full construction, including
+the proof that the SDR conditions hold and the scope
+qualification, is Theorem~\ref{thm:cech-contracting-homotopy}
+in Chapter~\ref{ch:cy-to-chiral}.
 
 For the quintic $X_5 = \{x_0^5 + \cdots + x_4^5 = 0\} \subset
-\bP^4$, the computation proceeds as follows. The Hodge diamond
-gives $h^{1,1} = 1$, $h^{2,1} = 101$, hence
-$\chi_{\mathrm{top}}(X_5) = 2(h^{1,1} - h^{2,1}) = -200$, so the
-MacMahon-normalized topological quantity is
+\bP^4$, the computation proceeds as follows. The Hodge
+diamond gives
+\[
+ h^{1,1} \;=\; 1,
+ \qquad h^{2,1} \;=\; 101,
+ \qquad \chi_{\mathrm{top}}(X_5) \;=\; 2(h^{1,1} - h^{2,1})
+ \;=\; -200,
+\]
+so the MacMahon-normalized topological quantity is
 $\chi_{\mathrm{top}}(X_5)/2 = -100$. The \v{C}ech cover
-$\{U_i\}_{i=0}^4$ has $\binom{5}{2} = 10$ double intersections,
-$\binom{5}{3} = 10$ triple intersections, $\binom{5}{4} = 5$
-quadruple intersections, and one quintuple intersection
+$\{U_i\}_{i=0}^{4}$ has
+$\binom{5}{2} = 10$ double intersections,
+$\binom{5}{3} = 10$ triple intersections,
+$\binom{5}{4} = 5$ quadruple intersections, and one quintuple
+intersection
 $U_{01234} = X_5 \cap \{x_i \neq 0 \text{ for all } i\}$. Each
-$U_{i_0 \cdots i_q}$ is affine (intersection of an affine variety
-with $X_5$), so the \v{C}ech complex computes sheaf cohomology by
-Leray. The contracting homotopy $s$ prepends the distinguished
-index~$0$: the operation
-$s^q(f_{i_0 \cdots i_q}) = f_{0 i_0 \cdots i_q}$ introduces
-rational functions with poles along $\{x_0 = 0\} \cap X_5$. The
-transferred $\Ainf$-operations are finite sums: at degree~$k$,
-the sum is over planar trees with $k$ leaves, and the number
-of terms is the Catalan number $C_{k-1}$. At $k = 2$, there is a
-single binary tree; at $k = 3$, two trees; the operations stabilize
-to the formal CY-to-chiral data. The mirror quintic
-$X_5^\vee$ has $h^{1,1} = 101$, $h^{2,1} = 1$, and
-$\chi_{\mathrm{top}}(X_5^\vee)/2 = +100$;
-the sign flip
-$\chi_{\mathrm{top}}(X_5)/2 + \chi_{\mathrm{top}}(X_5^\vee)/2
-= 0$ is the CY analogue of the Koszul complementarity
+$U_{i_0 \cdots i_q}$ is affine (intersection of an affine
+variety with $X_5$), so the \v{C}ech complex computes sheaf
+cohomology by Leray. The contracting homotopy $s$ prepends the
+distinguished index~$0$: the operation
+$s^q(f_{i_0 \cdots i_q}) = f_{0\, i_0 \cdots i_q}$ introduces
+rational functions with poles along $\{x_0 = 0\} \cap X_5$.
+The transferred $\Ainf$-operations are finite sums: at
+degree~$k$, the sum is over planar trees with $k$ leaves, and
+the number of terms is the Catalan number $C_{k-1}$. At
+$k = 2$, there is a single binary tree; at $k = 3$, two trees;
+the operations stabilize to the formal CY-to-chiral data.
+
+The mirror quintic $X_5^\vee$ has $h^{1,1} = 101$, $h^{2,1} = 1$,
+and $\chi_{\mathrm{top}}(X_5^\vee)/2 = +100$; the sign flip
+\[
+ \chi_{\mathrm{top}}(X_5)/2 + \chi_{\mathrm{top}}(X_5^\vee)/2
+ \;=\; 0
+\]
+is the CY analogue of the Koszul complementarity
 $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! = K$ at $K = 0$,
 consistent with the vanishing Koszul conductor for KM/free
 families in Volume~I.
 
-Three independent consistency checks confirm the resulting quintic normalization: the Gepner model matrix factorization (via mirror symmetry, $\mathrm{MF}(x_1^5 + \cdots + x_5^5)$), the large-volume Hodge--Kodaira--Rosenberg limit ($\mathrm{HKR}$ degeneration of $\mathrm{Ext}^\bullet$ to Dolbeault cohomology), and the Gopakumar--Vafa integrality of the resulting genus-$g$ amplitudes. All three are consistent with the same topological quantity $\chi_{\mathrm{top}}(X_5)/2 = -100$, which is distinct from $\kappa_{\mathrm{cat}}$ in the $\kappa_\bullet$-spectrum used in this volume.
+Three independent consistency checks confirm the resulting
+quintic normalization: the Gepner model matrix factorization
+(via mirror symmetry, $\MF(x_1^5 + \cdots + x_5^5)$), the
+large-volume Hodge--Kodaira--Rosenberg limit (HKR degeneration
+of $\Ext^\bullet$ to Dolbeault cohomology), and the
+Gopakumar--Vafa integrality of the resulting genus-$g$
+amplitudes. All three are consistent with the same topological
+quantity $\chi_{\mathrm{top}}(X_5)/2 = -100$, distinct from
+$\kappa_{\mathrm{cat}}$ in the $\kappa_\bullet$-spectrum used
+in this volume.
 
-\section{CY3 combinatorics as generalized root data}
+\section{CY$_3$ combinatorics as generalized root data}
 \label{sec:cy3-root-data}
 
-%: G(X) is defined via Phi for toric CY3, d=2, and now d=3 (CY-A_3 proved).
-%: Conjecture CY-C (quantum group realization) remains open.
-The combinatorics of a Calabi--Yau threefold $X$ (lattice, intersection form, BPS spectrum) constitute the \emph{generalized root datum} of a \emph{quantum vertex chiral group} $G(X)$. For toric CY3 (via the CoHA and Drinfeld double), for CY$_2$ categories (via Theorem~CY-A$_2$), and now for CY$_3$ categories (via Theorem~CY-A$_3$), the chiral algebra $A_\cC$ is constructed. The further identification of the $\Etwo$-braided representation category $\cZ(\Rep^{E_1}(G(X)))$ (the Drinfeld centre of the $\Eone$-monoidal representation category) with classical quantum group categories is the content of Conjecture~CY-C.
+The combinatorics of a Calabi--Yau threefold~$X$ (lattice,
+intersection form, BPS spectrum) constitute the
+\emph{generalized root datum} of a \emph{quantum vertex chiral
+group} attached to~$X$. For toric CY$_3$ (via the CoHA and
+Drinfeld double), for CY$_2$ categories (via Theorem~CY-A$_2$),
+and for CY$_3$ categories (via Theorem~CY-A$_3$), the chiral
+algebra $\cA_\cC$ is constructed. The further identification of
+the $\Etwo$-braided representation category
+$\cZ(\Rep^{\Eone}(\cA_\cC))$ with classical quantum group
+categories is the content of Conjecture~CY-C.
 
-Given a CY3 $X$, the generalized root datum $\mathcal{R}(X)$ consists of:
+Given a CY$_3$ $X$, the generalized root datum $\cR(X)$
+consists of:
 \begin{enumerate}[label=(\roman*)]
- \item A lattice $\Lambda(X)$ extracted from $K(X)$ or $H^*(X)$ with its Euler form;
- \item Real simple roots $\Delta^{\mathrm{re}}$ from the geometry (hyperbolic sublattice for $K3 \times E$; toric diagram for toric CY3);
- \item Imaginary roots $\Delta^{\mathrm{im}} = \Delta^{\mathrm{im}}_0 \sqcup \Delta^{\mathrm{im}}_1$ (even and odd) with multiplicities $\mathrm{mult}(\alpha)$ from BPS counting (Donaldson--Thomas invariants for $X$, or equivalently the Fourier coefficients of the appropriate automorphic form);
- \item A Weyl group $W(X)$ acting on the positive cone of $\Lambda(X)$;
- \item A Weyl vector $\rho \in \Lambda(X) \otimes \mathbb{Q}$.
+ \item a lattice $\Lambda(X)$ extracted from $K(X)$ or
+  $H^*(X)$ with its Euler form;
+ \item real simple roots $\Delta^{\mathrm{re}}$ from the
+  geometry (hyperbolic sublattice for $K3 \times E$; toric
+  diagram for toric CY$_3$);
+ \item imaginary roots
+  $\Delta^{\mathrm{im}}
+  = \Delta^{\mathrm{im}}_0 \sqcup \Delta^{\mathrm{im}}_1$
+  (even and odd) with multiplicities $\mult(\alpha)$ from
+  BPS counting (Donaldson--Thomas invariants for~$X$, or
+  equivalently the Fourier coefficients of the appropriate
+  automorphic form);
+ \item a Weyl group $W(X)$ acting on the positive cone of
+  $\Lambda(X)$;
+ \item a Weyl vector $\rho \in \Lambda(X) \otimes \Q$.
 \end{enumerate}
 
-Two families of examples illustrate the construction.
+\emph{The $K3 \times E$ tower.} For $X = (S \times E)/(\Z/N\Z)$
+with $S$ a K3 surface and $E$ an elliptic curve, the lattice
+is
+$\Lambda^{3,2} \simeq \Lambda^{1,1} \oplus \Lambda^{1,1}
+\oplus [2]$ of signature $(3, 2)$. The hyperbolic sublattice
+$\Lambda^{2,1}_{II}$ with Gram matrix
+\[
+ \begin{pmatrix}
+  2 & -2 & -2 \\
+  -2 & 2 & -2 \\
+  -2 & -2 & 2
+ \end{pmatrix}
+\]
+provides the real roots. The root multiplicities are the
+Fourier coefficients $f(n, \ell)$ of the weak Jacobi form
+$\phi_{0,1}$, the K3 elliptic genus. The resulting generalized
+Borcherds--Kac--Moody superalgebra
+$\mathfrak{g}_{\Delta_5}$ has the Igusa cusp form $\Delta_5$ as
+its denominator identity. The single-copy chiral modular
+characteristic satisfies
+\[
+ \kappa_{\mathrm{ch}}(K3 \times E) \;=\; 3 \;=\; \dim_\C
+ \qquad (\kappa_{\mathrm{ch}}(K3) + \kappa_{\mathrm{ch}}(E) = 2 + 1)\,,
+\]
+verified by six independent paths; the BKM automorphic weight
+is the distinct quantity $\kappa_{\mathrm{BKM}} = 5$ (the
+weight of $\Delta_5$, Theorem~\ref{thm:shadow-siegel-gap}).
+The factor~$2$ in $Z_{K3} = 2\,\phi_{0,1}$ is the moonshine
+multiplier
+$\kappa_{\mathrm{cat}}(K3) = \chi(\cO_{K3}) = 2$ (a manifold
+invariant, independent of algebraization). The shadow
+obstruction tower does not produce $\Delta_5$ directly (four
+structural obstructions: categorical,
+$\kappa_{\mathrm{ch}}$-mismatch, second quantization, Schottky;
+Theorem~\ref{thm:shadow-siegel-gap}).
 
-\emph{The $K3 \times E$ tower.} For $X = (S \times E)/(\mathbb{Z}/N\mathbb{Z})$ with $S$ a K3 surface and $E$ an elliptic curve, the lattice is $\Lambda^{3,2} \simeq \Lambda^{1,1} \oplus \Lambda^{1,1} \oplus [2]$ of signature $(3,2)$. The hyperbolic sublattice $\Lambda^{2,1}_{II}$ with Gram matrix $\bigl(\begin{smallmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2 \end{smallmatrix}\bigr)$ provides the real roots. The root multiplicities are the Fourier coefficients $f(n,l)$ of the weak Jacobi form $\phi_{0,1}$, the K3 elliptic genus. The resulting generalized Borcherds--Kac--Moody superalgebra $\mathfrak{g}_{\Delta_5}$ has the Igusa cusp form $\Delta_5$ as its denominator identity. The single-copy chiral modular characteristic satisfies $\kappa_{\mathrm{ch}}(K3 \times E) = 3 = \dim_\C$ (from additivity: $\kappa_{\mathrm{ch}}(K3) + \kappa_{\mathrm{ch}}(E) = 2 + 1$), verified by six independent paths; the BKM automorphic weight is the distinct quantity $\kappa_{\mathrm{BKM}} = 5$ (the weight of $\Delta_5$; see the Shadow--Siegel gap theorem below); the factor~$2$ in $Z_{K3} = 2\,\phi_{0,1}$ is the moonshine multiplier $\kappa_{\mathrm{cat}}(K3) = \chi(\cO_{K3}) = 2$ (a manifold invariant, independent of algebraization); and the shadow obstruction tower does not produce $\Delta_5$ directly (four structural obstructions: categorical, $\kappa_{\mathrm{ch}}$-mismatch, second quantization, Schottky; Theorem~\ref{thm:shadow-siegel-gap}).
-
-\emph{Toric CY3 and critical CoHAs.} For a toric CY3 determined by a fan $\Sigma$, the toric diagram determines a quiver $Q_X$. The critical cohomological Hall algebra $\mathrm{CoHA}(Q_X)$ is the positive half of an affine super Yangian $Y(\widehat{\mathfrak{g}}_{Q_X})$. For $\mathbb{C}^3$: the Jordan quiver gives $Y(\widehat{\mathfrak{gl}}_1) \simeq \mathcal{W}_{1+\infty}$. The toric fan is the Dynkin data.
+\emph{Toric CY$_3$ and critical CoHAs.} For a toric CY$_3$
+determined by a fan $\Sigma$, the toric diagram determines a
+quiver $Q_X$. The critical cohomological Hall algebra
+$\CoHA(Q_X)$ is the positive half of an affine super Yangian
+$Y(\widehat{\mathfrak{g}}_{Q_X})$. For $\C^3$: the Jordan
+quiver gives
+$Y(\widehat{\fgl}_1) \simeq \cW_{1+\infty}$. The toric fan is
+the Dynkin data.
 
 \section{Automorphic correction as shadow obstruction tower}
 \label{sec:automorphic-shadow}
 
-The passage from the naive Kac--Moody algebra $\mathfrak{g}$ (built from the real root Gram matrix alone) to the full generalized BKM superalgebra $\mathfrak{g}_X$ (with all imaginary roots and their multiplicities) is the \emph{automorphic correction}. In the language of Volume~I, this passage is the \emph{shadow obstruction tower}:
+The passage from the naive Kac--Moody algebra $\frakg$ (built
+from the real root Gram matrix alone) to the full generalized
+BKM superalgebra $\frakg_X$ (with all imaginary roots and their
+multiplicities) is the \emph{automorphic correction}. In the
+language of Volume~I, this passage is the \emph{shadow
+obstruction tower}:
 \begin{center}
 \renewcommand{\arraystretch}{1.4}
 \begin{tabular}{lll}
  \toprule
- \textbf{Shadow tower (Vol~I)} & \textbf{BKM language} & \textbf{CY3 geometry} \\
+ \textbf{Shadow tower (Vol~I)}
+  & \textbf{BKM language}
+  & \textbf{CY$_3$ geometry} \\
  \midrule
- $\kappa_{\mathrm{ch}}$ (degree 2) & Weyl vector $\rho$ contribution & Leading DT invariant \\
- $C$ (degree 3, cubic) & First imaginary root corrections & Genus-0 3-point function \\
- $Q$ (degree 4, quartic) & Higher imaginary roots & Genus-0 4-point function \\
- Full $\Theta_A$ & Complete automorphic correction & Full BPS generating function \\
+ $\kappa_{\mathrm{ch}}$ (degree 2)
+  & Weyl vector $\rho$ contribution
+  & Leading DT invariant \\
+ $C$ (degree 3, cubic)
+  & First imaginary root corrections
+  & Genus-0 3-point function \\
+ $Q$ (degree 4, quartic)
+  & Higher imaginary roots
+  & Genus-0 4-point function \\
+ Full $\Theta_\cA$
+  & Complete automorphic correction
+  & Full BPS generating function \\
  \bottomrule
 \end{tabular}
 \end{center}
-The denominator identity of $\mathfrak{g}_X$ ($\Delta_5$ for $K3 \times E$, the DT partition function for toric CY3) is the bar-complex Euler product of the quantum vertex chiral group. For toric CY3 the full identification with classical quantum group categories is part of Conjecture~CY-C. For $K3 \times E$, Theorem~CY-A$_3$ now constructs $A_{K3 \times E}$, and the product formula for $\Delta_5$ follows from the CY-A$_3$ construction combined with the Vol~I Borcherds-lift identification of bar Euler products.
-
-The bar Euler product of lattice VOAs recovers the Borcherds denominator identity (verified for $E_8$ and Leech lattice; for $K3 \times E$ via CY-A$_3$ combined with the Vol~I bar-Euler-product identification).
+The denominator identity of $\frakg_X$ ($\Delta_5$ for
+$K3 \times E$, the DT partition function for toric CY$_3$) is
+the bar-complex Euler product of the quantum vertex chiral
+group. For toric CY$_3$ the full identification with classical
+quantum group categories is part of Conjecture~CY-C. For
+$K3 \times E$, Theorem~CY-A$_3$ constructs $\cA_{K3 \times E}$,
+and the product formula for $\Delta_5$ follows from the
+CY-A$_3$ construction combined with the Vol~I Borcherds-lift
+identification of bar Euler products. The bar Euler product
+of lattice VOAs recovers the Borcherds denominator identity
+(verified for $E_8$ and the Leech lattice; for $K3 \times E$
+via CY-A$_3$ combined with the Vol~I bar-Euler-product
+identification).
 
 \section{Main results}
 \label{sec:main-results}
 
-\begin{itemize}
- \item \textbf{Theorem CY-A} (CY-to-chiral functor; \emph{proved at all~$d$}): Construction of $\Phi \colon \CY_d\text{-}\Cat \to E_n\text{-}\mathrm{ChirAlg}$ via the factorization envelope and $\mathbb{S}^d$-framing. For $d = 1$: the abelian Lie conformal algebra gives $E_\infty$ (commutative factorization). For $d = 2$: the $\mathbb{S}^2$-framing gives $\Etwo$ via Kontsevich--Vlassopoulos (Theorem~CY-A$_2$). For $d = 3$: the chain-level $\mathbb{S}^3$-framing obstruction is resolved by the $\infty$-categorical proof ($\HH^{-2}_{E_1}(\cC) = 0$, the space of $E_3$-liftings contractible), producing an $\Eone$-chiral algebra (Theorem~CY-A$_3$). Since $\pi_1(\mathrm{Conf}_2^{\mathrm{ord}}(\mathbb{R}^3)) = 0$ (ordered configuration space; $d \geq 3$), no nontrivial braiding exists at the native $E_1$ level of the chiral algebra~$A_\cC$; the quantum group $R$-matrix is constructed via the Drinfeld center $\cZ(\Rep^{\Eone}(A_\cC))$, where the half-braiding $\sigma_{V_u}(V_v)$ on evaluation modules \emph{is} the $R$-matrix (Construction~\ref{constr:rmatrix-from-center}).
- \item \textbf{Theorem CY-B} ($E_n$-chiral Koszul duality; \emph{proved at $d = 3$}): At $d = 2$, $A = \Phi_2(\cC)$ is natively $E_2$ and CY-B is $E_2$-chiral Koszul duality on $A$ directly. At $d = 3$, $A = \Phi_3(\cC)$ is $E_1$ and CY-B is $E_1$-chiral Koszul duality on $A$ via the $E_3$ bar complex $B_{E_3}(A)$, inducing $E_2$-braided equivalence on the Drinfeld center $\cZ(\Rep^{E_1}(A))$. The Koszul dual $A_\cC^!$ is identified at every spectral sequence page via the Verdier spectral functor (Theorem~\ref{thm:verdier-spectral-functor}): the Verdier duality functor $D$ is exact on tricomplexes, so $E_r(A_\cC) \simeq E_r(A_\cC^!)$ at every page~$r$. CY-B1 (conductor formula) is proved for all shadow classes; CY-B2 (braided equivalence on the center) is proved for all shadow classes at $d = 3$ via the Verdier spectral functor (Theorem~\ref{thm:cy-b-d3}). The identification of automorphic correction with the shadow obstruction tower and of the denominator identity with the bar-complex Euler product is now a consequence of CY-A, CY-B, and the Vol~I bar-Euler-product framework together.
- \item \textbf{Conjecture CY-C} (Quantum group realization): For toric CY3, $\cZ(\Rep^{E_1}(G(X)))$ should be braided monoidal equivalent to $\Rep(Y(\widehat{\mathfrak{g}}_{Q_X}))$; for $K3 \times E$, the $\Sp_4(\mathbb{Z})$-module structure on the denominator identity should recover the braided structure. The critical CoHA is the $E_1$-sector (positive half). The chiral algebra $A_\cC$ is now constructed by CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}); the quantum vertex chiral group $C(\frakg, q)$ is not yet constructed in general.
- \item \textbf{Theorem CY-D} (Modular CY characteristic; \emph{proved at $d = 2$, programme at $d \geq 3$}): For $d = 2$, $\kappa_{\mathrm{ch}}(\Phi(\cC))$ equals the CY Euler characteristic $\chi^{\CY}(\cC)$ (proved via Serre duality $S_\cC = [2]$). For $K3 \times E$ ($d = 3$), $\Phi_3$ now constructs $A_{K3 \times E}$, and the Borcherds weight gives the distinct automorphic invariant $\kappa_{\mathrm{BKM}} = 5$; the relation between $\kappa_{\mathrm{ch}}(A_{K3 \times E})$ and the $\kappa_\bullet$-spectrum is a programme. The general $d = 3$ formula is conjectural.
- \item \textbf{Theorem (K3 Yangian)}: The K3 double current algebra $\mathfrak{g}_{K3}$ quantizes to an abelian Yangian $Y(\mathfrak{g}_{K3})$ with 24 Heisenberg generators $J_i$, Mukai-signature Serre relations, and degree-$(24,24)$ structure function. The conjectural super-Yangian $Y(\mathfrak{gl}(4|20))$ (a BKM-to-Yangian lift from the Mukai signature~$(4,20)$) provides the natural envelope. For $K3 \times E$, six independent constructions---BKM (Borcherds lift), lattice VOA (Frenkel--Kac), Kummer (orbifold), CY-to-chiral ($\Phi_3$, the only route using the functor), sigma model (BRST), BLLPR (4d Schur sector)---approach $G(K3 \times E)$, whose denominator identity is $\Phi_{10}$; their conjectural convergence is Conjecture~CY-C (AP-CY60).
- \item \textbf{Theorem (Shadow--Siegel gap)}: The shadow obstruction tower of $K3 \times E$ does not produce the Igusa cusp form $\Phi_{10}$. Four structural obstructions: categorical (number vs function), modular characteristic ($\kappa_{\mathrm{ch}} = 3 \neq 5 = \kappa_{\mathrm{BKM}}$), second quantization (single-copy vs DMVV symmetric product), and Schottky at $g \geq 4$ ($\mathrm{codim} = (g{-}2)(g{-}3)/2$). Thirteen structural results (K3-1 through K3-13) and ten research programmes (A through J) are developed in Part~\ref{part:k3-yangian}.
- \item \textbf{Theorem (Zamolodchikov tetrahedron failure)}: The Yang $R$-matrix does NOT satisfy the Zamolodchikov tetrahedron equation; the factored $S_{ijk} = R_{ij}R_{ik}R_{jk}$ fails at $O(\kappa_{\mathrm{ch}}^2)$. A ZTE-correcting deformation exists in deformation cohomology. This proves that $E_3$ structure is genuinely nontrivial beyond pairwise $E_2$ factorization.
+\begin{itemize}[leftmargin=1.5em,topsep=0.3ex,itemsep=0.5ex]
+ \item \textbf{Theorem CY-A} (CY-to-chiral functor;
+  \emph{proved at all~$d$}): construction of
+  $\Phi \colon \CY_d\text{-}\Cat \to
+  E_n\text{-}\mathrm{ChirAlg}$ via the factorization envelope
+  and $\Sd$-framing. For $d = 1$: abelian Lie conformal
+  algebra gives $E_\infty$ (commutative factorization). For
+  $d = 2$: $\mathbb{S}^2$-framing gives $\Etwo$ via
+  Kontsevich--Vlassopoulos (Theorem~CY-A$_2$). For $d = 3$:
+  chain-level $\mathbb{S}^3$-framing obstruction resolved by
+  the $\infty$-categorical proof ($\HH^{-2}_{E_1}(\cC) = 0$,
+  space of $E_3$-liftings contractible), producing an
+  $\Eone$-chiral algebra (Theorem~CY-A$_3$). Since
+  $\pi_1(\Conf_2^{\mathrm{ord}}(\R^3)) = 0$, no nontrivial
+  braiding exists at the native $\Eone$ level; the quantum
+  group $R$-matrix is constructed via the Drinfeld centre
+  $\cZ(\Rep^{\Eone}(\cA_\cC))$, where the half-braiding
+  $\sigma_{V_u}(V_v)$ on evaluation modules \emph{is} the
+  $R$-matrix (Construction~\ref{constr:rmatrix-from-center}).
+ \item \textbf{Theorem CY-B} ($\En$-chiral Koszul duality;
+  \emph{proved at $d = 3$}): at $d = 2$,
+  $\cA = \Phi_2(\cC)$ is natively $E_2$ and CY-B is
+  $E_2$-chiral Koszul duality on $\cA$ directly. At $d = 3$,
+  $\cA = \Phi_3(\cC)$ is $E_1$ and CY-B is $E_1$-chiral
+  Koszul duality on $\cA$ via the $E_3$ bar complex
+  $B_{E_3}(\cA)$, inducing $E_2$-braided equivalence on the
+  Drinfeld centre $\cZ(\Rep^{E_1}(\cA))$. The Koszul dual
+  $\cA_\cC^!$ is identified at every spectral sequence page
+  via the Verdier spectral functor
+  (Theorem~\ref{thm:verdier-spectral-functor}): Verdier
+  duality is exact on tricomplexes, so
+  $E_r(\cA_\cC) \simeq E_r(\cA_\cC^!)$ at every page~$r$.
+  CY-B1 (conductor formula) proved for all shadow classes;
+  CY-B2 (braided equivalence on the centre) proved for all
+  shadow classes at $d = 3$ via the Verdier spectral functor
+  (Theorem~\ref{thm:cy-b-d3}). The identification of
+  automorphic correction with the shadow obstruction tower
+  and of the denominator identity with the bar-complex Euler
+  product is a consequence of CY-A, CY-B, and the Vol~I
+  bar-Euler-product framework together.
+ \item \textbf{Conjecture CY-C} (quantum group realization,
+  \emph{pentagon refinement}): for toric CY$_3$,
+  $\cZ(\Rep^{E_1}(\Phi_3(\cC)))$ should be braided monoidal
+  equivalent to $\Rep(Y(\widehat{\mathfrak{g}}_{Q_X}))$; for
+  $K3 \times E$, the $\Sp_4(\Z)$-module structure on the
+  denominator identity should recover the braided structure.
+  The critical CoHA is the $\Eone$-sector (positive half).
+  The chiral algebra $\cA_\cC$ is constructed by CY-A$_3$
+  (Theorem~\ref{thm:cy-to-chiral-d3}); the quantum vertex
+  chiral group $C(\frakg, q)$ is not yet constructed in
+  general. Abelian level:
+  $C(\frakg, q) = D(Y^+(\mathfrak{g}_{K3}))$.
+  The naive six-way isomorphism is
+  \emph{falsified}: direct computation
+  (Theorem~\ref{thm:cy-c-six-routes-generator-level-convergence})
+  gives $\kappa_{\mathrm{ch}}$-stratification
+  $\{\kappa(R_1), \kappa(R_3), \kappa(R_4),
+  \kappa(R_5), \kappa(R_6)\} = \{3, 24, 12, 3, 3\}$ across
+  the five non-source routes, with the Borcherds
+  branch $R_2$ as source. The correct universal object is
+  the pentagon colimit over five named intertwiners
+  $\beta_{13}, \beta_{34}, \beta_{45}, \beta_{56},
+  \beta_{61}$
+  (Corollary~\ref{cor:cy-c-pentagon-colimit}).
+ \item \textbf{Theorem CY-D} (modular CY characteristic;
+  \emph{proved at $d = 2$, programme at $d \geq 3$}): for
+  $d = 2$, $\kappa_{\mathrm{ch}}(\Phi(\cC))$ equals the CY
+  Euler characteristic $\chi^{\CY}(\cC)$ (proved via Serre
+  duality $S_\cC = [2]$). For $K3 \times E$ ($d = 3$),
+  $\Phi_3$ constructs $\cA_{K3 \times E}$, and the Borcherds
+  weight gives the distinct automorphic invariant
+  $\kappa_{\mathrm{BKM}} = 5$; the relation between
+  $\kappa_{\mathrm{ch}}(\cA_{K3 \times E})$ and the
+  $\kappa_\bullet$-spectrum is a programme. The general
+  $d = 3$ formula is conjectural.
+ \item \textbf{Theorem (K3 Yangian)}: the K3 double current
+  algebra $\mathfrak{g}_{K3}$ quantizes to an abelian Yangian
+  $Y(\mathfrak{g}_{K3})$ with $24$ Heisenberg generators
+  $J_i$, Mukai-signature Serre relations, and degree-$(24, 24)$
+  structure function. The conjectural super-Yangian
+  $Y(\mathfrak{gl}(4|20))$ (a BKM-to-Yangian lift from the
+  Mukai signature $(4, 20)$) provides the natural envelope.
+  For $K3 \times E$, six independent constructions---BKM
+  (Borcherds lift), lattice VOA (Frenkel--Kac), Kummer
+  (orbifold), CY-to-chiral ($\Phi_3$, the only route using
+  the functor), sigma model (BRST), BLLPR (4d Schur
+  sector)---approach a quantum vertex chiral group whose
+  denominator identity is $\Phi_{10}$; their conjectural
+  convergence is Conjecture~CY-C (AP-CY60).
+ \item \textbf{Theorem (Shadow--Siegel gap)}: the shadow
+  obstruction tower of $K3 \times E$ does not produce the
+  Igusa cusp form $\Phi_{10}$. Four structural obstructions:
+  categorical (number vs function), modular characteristic
+  ($\kappa_{\mathrm{ch}} = 3 \neq 5 = \kappa_{\mathrm{BKM}}$),
+  second quantization (single-copy vs DMVV symmetric product),
+  and Schottky at $g \geq 4$
+  ($\mathrm{codim} = (g-2)(g-3)/2$). Thirteen structural
+  results (K3-1 through K3-13) and ten research programmes
+  (A through J) are developed in Part~\ref{part:k3-yangian}.
+ \item \textbf{Theorem (Zamolodchikov tetrahedron failure)}:
+  the Yang $R$-matrix does NOT satisfy the Zamolodchikov
+  tetrahedron equation; the factored
+  $S_{ijk} = R_{ij} R_{ik} R_{jk}$ fails at
+  $O(\kappa_{\mathrm{ch}}^2)$. A ZTE-correcting deformation
+  exists in deformation cohomology; the exact rational,
+  persymmetric correction matrix~$T$ is computed. $E_3$
+  structure is genuinely nontrivial beyond pairwise $E_2$
+  factorization.
+ \item \textbf{Theorem (BKM-Universal,
+  Theorem~\ref{thm:borcherds-lift-universal})}: for a
+  lattice $\Lambda$ of signature $(2, n+2)$ and a weakly
+  holomorphic modular form $F$ of weight $(2-n)/2$ with
+  integral Fourier coefficients $c(m)$, the singular theta
+  lift $\Psi(F)$ is an $\Aut(\Lambda)$-invariant meromorphic
+  modular form on the Grassmannian with product expansion,
+  weight $c(0)/2$, and Hecke-intertwining functoriality.
+ \item \textbf{Proposition
+  ($\kappa_{\mathrm{BKM}}$-universality,
+  Proposition~\ref{prop:bkm-weight-universal})}: for every
+  K3-fibered $\Z/N\Z$-orbifold CY$_3$,
+  $\kappa_{\mathrm{BKM}} = c_N(0)/2$. The naive decomposition
+  $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
+  \chi(\cO_{\mathrm{fiber}})$ is a numerical coincidence at
+  $N = 1$ and fails for $N \geq 2$.
+ \item \textbf{Theorem (CY-C pentagon,
+  Theorem~\ref{thm:cy-c-six-routes-generator-level-convergence})}:
+  the naive six-way convergence of CY-C is falsified. For
+  $X = K3 \times E$, the six routes produce algebras with
+  stratified $\kappa_{\mathrm{ch}}$: $R_1 = 3$, $R_3 = 24$,
+  $R_4 = 12$, $R_5 = R_6 = 3$; $R_2$ (Borcherds) is a source
+  branch, not a pentagon node. The universal object is the
+  pentagon colimit over named intertwiners $\beta_{13},
+  \beta_{34}, \beta_{45}, \beta_{56}, \beta_{61}$
+  (Corollary~\ref{cor:cy-c-pentagon-colimit}); the pentagon
+  $\kappa_{\mathrm{ch}}$-cycle is
+  $3 \to 24 \to 12 \to 3 \to 3 \to 3$.
+ \item \textbf{Theorem (super-Riccati master recurrence,
+  Theorem~\ref{thm:super-riccati-master-recurrence})}: for
+  the super-Yangian $Y(\mathfrak{sl}(m | n))$, the shadow
+  tower satisfies
+  $S_r = -\frac{1}{2 r \kappa_\ell}
+  \sum_{j+k=r} (-1)^{(j-1)(k-1)|\ell|} f(j, k)\, jk\,
+  S_j S_k$,
+  with line parity $|\ell| \in \{0, 1\}$: at $|\ell| = 0$
+  reducing to Vol~I bosonic Riccati exactly (verified at
+  $S_6$); at $|\ell| = 1$ introducing the super-convolution
+  Koszul sign. The super-shadow complementarity is
+  $\kappa_{\mathrm{ch}}(Y(\mathfrak{sl}(m|n))) +
+  \kappa_{\mathrm{ch}}(Y(\mathfrak{sl}(n|m))^!) = \max(m, n)$,
+  not zero; closed forms for $\mathfrak{sl}(1|1),
+  \mathfrak{sl}(2|1), \mathfrak{sl}(2|2)$ realise three shadow
+  subclasses $\mathbf{G}_s, \mathbf{L}_s, \mathbf{M}_s$.
+ \item \textbf{Theorem ($\Phi_5$ at $K3 \times K3 \times E$,
+  Construction~\ref{constr:phi-5-family})}: the CY-to-chiral
+  cascade extends to $d = 5$ at the explicit product CY$_5$.
+  K\"unneth on the Hodge diamond gives
+  $h^{0,q}(X) = (1, 1, 2, 2, 1, 1)$ for $q = 0, \ldots, 5$
+  with Hodge supertrace
+  $\Xi(X) = 1 - 1 + 2 - 2 + 1 - 1 = 0$, matching the
+  universal odd-$d$ vanishing
+  $\chi(\cO_X) = 0$. The $\Z/2$-gerbe obstruction on the
+  triple-product Stiefel--Whitney class vanishes by Whitney
+  + Wu; the four-step construction applies directly.
+ \item \textbf{Theorem (curved formality, quintic)}: for the
+  compact quintic threefold $X_5 \subset \bP^4$, the
+  Bondal--Van den Bergh DG algebra
+  $A_{\mathrm{BVDB}} =
+  \End^\bullet(\bigoplus_{i=0}^4 \cO_{X_5}(i))$
+  is not $\Ainf$-formal as a $(-3)$-CY DG algebra:
+  Calaque--Halbout--Felder torus-action formality does not
+  apply (only the finite Heisenberg group $H_5$ acts, not
+  the continuous torus), and Sheridan's HMS proof for the
+  quintic (arXiv:1507.03085) shows $m_3$ is never zero in
+  complex-structure moduli. The obstruction is the Yukawa
+  coupling
+  $Y_3(\mu_1, \mu_2, \mu_3)
+  = \int_{X_5} \Omega \wedge
+  (\mu_1 \cdot \mu_2 \cdot \mu_3) \lrcorner \Omega$,
+  with $Y_3^{\mathrm{cl}} = H^3 = 5$ at large complex
+  structure and Gromov--Witten corrections
+  $n_1^{(0)} = 2875$, $n_2^{(0)} = 609250$,
+  $n_3^{(0)} = 317{,}206{,}375$ (Candelas--de la
+  Ossa--Green--Parkes 1991). The correct statement is
+  \emph{curved} formality with $Y_3$ as the BCOV curving
+  datum.
+ \item \textbf{Theorem (hypergeometric shadow tower,
+  Vol~I import)}: the Virasoro all-tier generating function
+  $F(r, u) = \Phi_r(1/u)/A_r$
+  with $A_r = 8(-6)^{r-4}/r$ satisfies a Fuchsian
+  second-order linear ODE with regular singular points
+  $\{0, -5/22, -45/218, \infty\}$, reducing under Möbius
+  transformation to Gauss hypergeometric
+  ${}_2 F_1(a, b; c; z)$ with terminating first parameter
+  $a = (4 - r)/2$. Denominator pattern:
+  $D_K = 9^{K-1} (K-1)! K!$. Four explicit tier coefficients
+  $A_r, B_r, \Gamma_r, \Delta_r$ are in closed form. The
+  motivic-rationality theorem
+  $S_r(\mathrm{Vir}_c) \in \Q(c)$ for all $r \geq 2$ is a
+  cohomological consequence: $\Eone$-residue extraction
+  captures only depth-$1$ Arnold forms, blocking MZV
+  emergence; the $\En$-ladder parallels a motivic
+  depth-$n$ ladder.
+ \item \textbf{Theorem (exceptional Yangian Koszul duality,
+  Vol~I import)}: for every simple Lie algebra~$\frakg$,
+  $Y(\frakg)^! \cong Y(\frakg)^{\hbar \mapsto -\hbar}$ via
+  the extended Chevalley involution
+  $\sigma(e_i) = -f_i$, $\sigma(f_i) = -e_i$,
+  $\sigma(h_i) = -h_i$, $\sigma(\hbar) = -\hbar$. The five
+  exceptional cases $\{E_6, E_7, E_8, F_4, G_2\}$
+  (Guay--Regelskis--Wendlandt 2018 PBW + Chevalley) combined
+  with Molev 2007 (classical types) give Yangian Koszul
+  self-duality unconditional across all simple types. Under
+  $\Phi$, exceptional Yangians arise on McKay-quiver critical
+  CoHAs at $E$-type toric CY$_3$ crepant resolutions; the
+  Koszul duality translates to the conjugation symmetry
+  $R(u) = R^*(-u)$ of the Maulik--Okounkov $R$-matrix.
 \end{itemize}
 
 \section{What is proved versus what is conjectural}
 \label{sec:proved-vs-conjectural}
 
 \noindent\textbf{Proved (would survive a referee):}
-\begin{itemize}
- \item Theorem CY-A at all~$d$: steps 1--4 of $\Phi$ (cyclic $\Ainf \to$ Lie conformal $\to$ factorization envelope $\to$ $\Sd$-enhanced quantization). CY-A$_2$ via $\mathbb{S}^2$-framing; CY-A$_3$ via the $\infty$-categorical argument ($\HH^{-2}_{E_1} = 0$, $E_3$-lifting contractible).
- \item The generalized root datum axioms CY1--CY7, adequate for $K3 \times E$ and toric CY3 examples.
- \item The $E_2$-chiral algebra formalism and its basic properties (definition, bar complex, braiding).
- \item The K3 abelian Yangian $Y(\mathfrak{g}_{K3})$: 24 generators, Mukai-signature Serre relations, degree-$(24,24)$ structure function.
- \item The CoHA as $E_1$-sector for toric CY3 (via Schiffmann--Vasserot, RSYZ).
- \item The Drinfeld center equivalence $\cZ(\Rep^{E_1}(A)) \simeq \Rep^{E_2}(\Zder(A))$ (Ben-Zvi--Francis--Nadler, Lurie).
- \item All lattice theory and BKM constructions for $K3 \times E$ (Gritsenko--Nikulin).
- \item The denominator identity $\Delta_5$ and product formula (degree 2--6 computationally verified). BKM Serre relations concentrated at $D = 3$: 182 generators, finitely determined.
- \item The shadow--Siegel gap theorem with four structural obstructions (O1--O4).
- \item $\kappa_{\mathrm{ch}}(K3 \times E) = 3$, verified by six independent paths.
- \item The moonshine multiplier: $A_n = \kappa_{\mathrm{cat}} \cdot \dim(\rho_n)$ identifies the factor $2$ in $Z_{K3} = 2\,\phi_{0,1}$.
- \item The categorical $\Etwo$-obstruction for CY$_3$ (Proposition~\ref{prop:e1-obstruction-categorical}): Serre duality forces antisymmetry of the Euler form, universally obstructing $\Etwo$-enhancement without torus hypotheses.
- \item Quiver-chart gluing for toric CY$_3$ (Theorem~\ref{thm:toric-chart-gluing}): the global $\Eone$-chiral algebra is assembled as a homotopy colimit of McKay-chart CoHAs, with $E_2$ descent degeneration and Costello--Li comparison.
- \item The K3 double current algebra $\fg_{K3}$: the finite-dimensional analogue of the DDCA in which $\bC[u,v]$ is replaced by $H^*(S,\bC)$ with the Mukai pairing.
- \item Kummer route Steps 1--4 (Proposition~\ref{prop:kummer-orbifold}): $\int_{T^4} H_1 =$ rank-16 Heisenberg, $\Z_2$-invariant $=$ rank-8, 16 twisted sectors, orbifold $\kappa_{\mathrm{ch}} = 2$, resolution $8 + 32 - 16 = 24$.
- \item The Zamolodchikov tetrahedron failure at $O(\kappa_{\mathrm{ch}}^2)$ for the Yang $R$-matrix; ZTE correction matrix~$T$ computed explicitly (exact rational, persymmetric).
- \item The $E_1$-chiral bialgebra axioms (H1--H5) verified for Heisenberg and $\cW_{1+\infty}$; spectral coassociativity from Miura multiplicativity.
- \item Theorem~CY-B at $d = 3$: the $\Eone$-chiral Koszul dual (via the $E_3$ bar complex from the CY$_3$ structure) is identified at every spectral sequence page via the Verdier spectral functor (Theorem~\ref{thm:verdier-spectral-functor}). CY-B1 (conductor) proved for all shadow classes; CY-B2 ($\Etwo$-braided equivalence on the Drinfeld center) proved via Verdier spectral functor.
- \item The Stokes automorphism of the shadow Borel transform equals the KS wall-crossing automorphism (Theorem~\ref{thm:stokes-ks-conifold} for the conifold; Conjecture~\ref{conj:stokes-ks-k3e} for $K3 \times E$): Borel singularities are walls of marginal stability, trans-series sectors are BPS sectors.
- \item Mock modular K3 at $d = 2$: four-step proof (shadow~$24\,\eta^3$, mock theta transform, Zwegers completion, Borcherds lift).
- \item Categorical DT: $D^b(B_n(H_{\mathrm{Muk}})) \simeq D^b(\mathrm{Hilb}^n(K3))$ (Proposition~\ref{prop:categorical-dt-k3-rank0}).
+\begin{itemize}[leftmargin=1.5em,topsep=0.3ex,itemsep=0.2ex]
+ \item Theorem CY-A at all~$d$: steps 1--4 of $\Phi$ (cyclic
+  $\Ainf \to$ Lie conformal $\to$ factorization envelope
+  $\to$ $\Sd$-enhanced quantization). CY-A$_2$ via
+  $\mathbb{S}^2$-framing; CY-A$_3$ via the
+  $\infty$-categorical argument ($\HH^{-2}_{E_1} = 0$,
+  $E_3$-lifting contractible).
+ \item The generalized root datum axioms CY1--CY7, adequate
+  for $K3 \times E$ and toric CY$_3$ examples.
+ \item The $E_2$-chiral algebra formalism and its basic
+  properties (definition, bar complex, braiding).
+ \item The K3 abelian Yangian $Y(\mathfrak{g}_{K3})$: $24$
+  generators, Mukai-signature Serre relations,
+  degree-$(24, 24)$ structure function.
+ \item The CoHA as $E_1$-sector for toric CY$_3$ (via
+  Schiffmann--Vasserot, Rapcak--Soibelman--Yang--Zhao).
+ \item The Drinfeld centre equivalence
+  $\cZ(\Rep^{E_1}(\cA)) \simeq \Rep^{E_2}(\Zder(\cA))$
+  (Ben-Zvi--Francis--Nadler, Lurie).
+ \item All lattice theory and BKM constructions for
+  $K3 \times E$ (Gritsenko--Nikulin).
+ \item The denominator identity $\Delta_5$ and product
+  formula (degree 2--6 computationally verified). BKM Serre
+  relations concentrated at $D = 3$: $182$ generators,
+  finitely determined.
+ \item The shadow--Siegel gap theorem with four structural
+  obstructions (O1--O4).
+ \item $\kappa_{\mathrm{ch}}(K3 \times E) = 3$, verified by
+  six independent paths.
+ \item The moonshine multiplier: $A_n = \kappa_{\mathrm{cat}}
+  \cdot \dim(\rho_n)$ identifies the factor~$2$ in
+  $Z_{K3} = 2\,\phi_{0,1}$.
+ \item The categorical $\Etwo$-obstruction for CY$_3$
+  (Proposition~\ref{prop:e1-obstruction-categorical}):
+  Serre duality forces antisymmetry of the Euler form,
+  universally obstructing $\Etwo$-enhancement without torus
+  hypotheses.
+ \item Quiver-chart gluing for toric CY$_3$
+  (Theorem~\ref{thm:toric-chart-gluing}): the global
+  $\Eone$-chiral algebra is assembled as a homotopy colimit
+  of McKay-chart CoHAs, with $E_2$ descent degeneration and
+  Costello--Li comparison.
+ \item The K3 double current algebra $\fg_{K3}$: the
+  finite-dimensional analogue of the DDCA in which
+  $\bC[u, v]$ is replaced by $H^*(S, \bC)$ with the Mukai
+  pairing.
+ \item Kummer route Steps~1--4
+  (Proposition~\ref{prop:kummer-orbifold}):
+  $\int_{T^4} H_1 =$ rank-16 Heisenberg,
+  $\Z_2$-invariant $=$ rank-8, $16$ twisted sectors,
+  orbifold $\kappa_{\mathrm{ch}} = 2$, resolution
+  $8 + 32 - 16 = 24$.
+ \item The Zamolodchikov tetrahedron failure at
+  $O(\kappa_{\mathrm{ch}}^2)$ for the Yang $R$-matrix; ZTE
+  correction matrix~$T$ computed explicitly (exact rational,
+  persymmetric).
+ \item The $E_1$-chiral bialgebra axioms (H1--H5) verified
+  for Heisenberg and $\cW_{1+\infty}$; spectral
+  coassociativity from Miura multiplicativity.
+ \item Theorem~CY-B at $d = 3$: the $\Eone$-chiral Koszul
+  dual (via the $E_3$ bar complex from the CY$_3$ structure)
+  is identified at every spectral sequence page via the
+  Verdier spectral functor
+  (Theorem~\ref{thm:verdier-spectral-functor}). CY-B1
+  (conductor) proved for all shadow classes; CY-B2
+  ($\Etwo$-braided equivalence on the Drinfeld centre)
+  proved via the Verdier spectral functor.
+ \item The Stokes automorphism of the shadow Borel transform
+  equals the Kontsevich--Soibelman wall-crossing automorphism
+  (Theorem~\ref{thm:stokes-ks-conifold} for the conifold;
+  Conjecture~\ref{conj:stokes-ks-k3e} for $K3 \times E$):
+  Borel singularities are walls of marginal stability,
+  trans-series sectors are BPS sectors.
+ \item Mock modular K3 at $d = 2$: four-step proof (shadow
+  $24\,\eta^3$, mock theta transform, Zwegers completion,
+  Borcherds lift).
+ \item Categorical DT:
+  $D^b(B_n(H_{\mathrm{Muk}})) \simeq D^b(\mathrm{Hilb}^n(K3))$
+  (Proposition~\ref{prop:categorical-dt-k3-rank0}).
  \item The shadow tower computed through $m_{10}$.
- \item No native CY$_4$ Yangian: the $p_1 \in \pi_4(BU) = \Z$ twist breaks the spectral parameter shift symmetry.
- \item The $N = 3$ non-abelian MTC from the K3 quantum group: $3200$ modules, quantum dimension $d_1 = \sqrt{2}$, Ising fusion rules.
- \item BCOV holomorphic anomaly recursion $=$ shadow tower recursion: genus-$g$ amplitudes equal the integrated degree-$(g+1)$ shadow invariant (Proposition~\ref{prop:bcov-shadow-recursion}).
- \item Approximately 570 compute engines with ${>}39{,}500$ tests across the standard CY landscape.
+ \item No native CY$_4$ Yangian: the $p_1 \in \pi_4(BU) = \Z$
+  twist breaks the spectral parameter shift symmetry.
+ \item The $N = 3$ non-abelian MTC from the K3 quantum group:
+  $3200$ modules, quantum dimension $d_1 = \sqrt{2}$, Ising
+  fusion rules.
+ \item BCOV holomorphic anomaly recursion $=$ shadow tower
+  recursion: genus-$g$ amplitudes equal the integrated
+  degree-$(g+1)$ shadow invariant
+  (Proposition~\ref{prop:bcov-shadow-recursion}).
+ \item BKM-Universal (universal property of the Borcherds
+  lift, Theorem~\ref{thm:borcherds-lift-universal}) and
+  $\kappa_{\mathrm{BKM}} = c_N(0)/2$
+  (Proposition~\ref{prop:bkm-weight-universal}).
+ \item Approximately 570 compute engines with
+  ${>}39{,}500$ tests across the standard CY landscape.
 \end{itemize}
 
-\noindent\textbf{Rigorous proof sketches (completable with effort):}
-\begin{itemize}
- \item The automorphic correction = shadow obstruction tower identification (parts (a)--(c)).
- \item The denominator = bar Euler product (now accessible via CY-A, CY-B, and the Vol~I bar-Euler-product identification for all relevant dimensions).
+\noindent\textbf{Rigorous proof sketches (completable with
+effort):}
+\begin{itemize}[leftmargin=1.5em,topsep=0.3ex,itemsep=0.2ex]
+ \item The automorphic correction $=$ shadow obstruction
+  tower identification (parts (a)--(c)).
+ \item The denominator $=$ bar Euler product (accessible via
+  CY-A, CY-B, and the Vol~I bar-Euler-product identification
+  for all relevant dimensions).
 \end{itemize}
 
 \noindent\textbf{Conjectural:}
-\begin{itemize}
- \item Conjecture CY-C: the quantum vertex chiral group $C(\frakg, q)$ is not constructed in general (the chiral algebra $A_\cC$ exists by CY-A$_3$).
- \item The super-Yangian $Y(\mathfrak{gl}(4|20))$ as the natural envelope of the K3 abelian Yangian (conjectural BKM-to-Yangian lift from the Mukai signature $(4,20)$).
- \item CY-D at $d \geq 3$: the relation between $\kappa_{\mathrm{ch}}(A_\cC)$ and the $\kappa_\bullet$-spectrum is a programme.
- \item The shadow--BPS/DT correspondence (Conjecture~\ref{conj:shadow-bps-dt}): three-level identification of the shadow partition function with DT invariants, from genus-$1$ through virtual to motivic.
- \item The DDCA--toroidal bridge (Conjecture~\ref{conj:ddca-toroidal-bridge}): the deformed double current algebra as the rational degeneration of the quantum toroidal algebra, with intermediate degenerations and Koszul dual identification.
- \item The Langlands = Koszul duality conjecture.
+\begin{itemize}[leftmargin=1.5em,topsep=0.3ex,itemsep=0.2ex]
+ \item Conjecture CY-C: the quantum vertex chiral group
+  $C(\frakg, q)$ is not constructed in general (the chiral
+  algebra $\cA_\cC$ exists by CY-A$_3$).
+ \item The super-Yangian $Y(\mathfrak{gl}(4|20))$ as the
+  natural envelope of the K3 abelian Yangian (conjectural
+  BKM-to-Yangian lift from the Mukai signature $(4, 20)$).
+ \item CY-D at $d \geq 3$: the relation between
+  $\kappa_{\mathrm{ch}}(\cA_\cC)$ and the
+  $\kappa_\bullet$-spectrum is a programme.
+ \item The shadow--BPS/DT correspondence
+  (Conjecture~\ref{conj:shadow-bps-dt}): three-level
+  identification of the shadow partition function with DT
+  invariants, from genus-$1$ through virtual to motivic.
+ \item The DDCA--toroidal bridge
+  (Conjecture~\ref{conj:ddca-toroidal-bridge}): the deformed
+  double current algebra as the rational degeneration of the
+  quantum toroidal algebra, with intermediate degenerations
+  and Koszul dual identification.
+ \item The Langlands $=$ Koszul duality conjecture.
  \item All physics conjectures in Part~\ref{part:frontier}.
- \item Ten research programmes (A--J) for $K3 \times E$, each with formal conjectures.
- \item The nonabelian Yangian (matrix Miura, Serre from $\mathfrak{sl}_2$ traces), quantum toroidal from 3-chart atlas, root-of-unity phenomena, and $\Sp_4(\Z)$ modularity from the $E_3$ $S$-matrix.
- \item The chiral volume conjecture: $\lim_{N \to \infty} (1/N)\log|Z_N| = (1/2\pi)|AJ(C)|$ (Abel--Jacobi period).
- \item The chiral Khovanov complex $\mathrm{CKh}_{2,n}$ ($\dim = 2^g$, Mukai bigrading) as categorification of the chiral knot invariant.
- \item The universal formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24 + [h^{1,0} > 0]\cdot(h^{3,0}+2)$ for the modular characteristic stratified by Hodge type.
+ \item Ten research programmes (A--J) for $K3 \times E$,
+  each with formal conjectures.
+ \item The nonabelian Yangian (matrix Miura, Serre from
+  $\mathfrak{sl}_2$ traces), quantum toroidal from 3-chart
+  atlas, root-of-unity phenomena, and $\Sp_4(\Z)$ modularity
+  from the $E_3$ $S$-matrix.
+ \item The chiral volume conjecture:
+  $\lim_{N \to \infty} (1/N) \log |Z_N| = (1/2\pi)|AJ(C)|$
+  (Abel--Jacobi period).
+ \item The chiral Khovanov complex $\mathrm{CKh}_{2,n}$
+  ($\dim = 2^g$, Mukai bigrading) as categorification of
+  the chiral knot invariant.
+ \item The universal formula
+  $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24 +
+  [h^{1,0} > 0] \cdot (h^{3,0} + 2)$ for the modular
+  characteristic stratified by Hodge type.
 \end{itemize}
 
-The analytic gap for compact CY$_3$ (the construction of a chain-level contracting homotopy without solving a PDE) is closed by the algebraic \v{C}ech resolution (Theorem~\ref{thm:cech-contracting-homotopy}): the standard $5$-patch cover of the quintic in~$\bP^4$ provides an algebraic SDR that interfaces directly with the homotopy transfer theorem. $E_1$ universality is consistent for the quintic threefold via three independent paths (Gepner MF, large-volume HKR, GV integrality), with the MacMahon-normalized topological quantity $\chi_{\mathrm{top}}(X_5)/2 = -100$ appearing consistently across those checks.
+The analytic gap for compact CY$_3$ (the construction of a
+chain-level contracting homotopy without solving a PDE) is
+closed by the algebraic \v{C}ech resolution
+(Theorem~\ref{thm:cech-contracting-homotopy}): the standard
+$5$-patch cover of the quintic in~$\bP^4$ provides an
+algebraic SDR that interfaces directly with the homotopy
+transfer theorem. $\Eone$ universality is consistent for the
+quintic threefold via three independent paths (Gepner MF,
+large-volume HKR, GV integrality), with the
+MacMahon-normalized topological quantity
+$\chi_{\mathrm{top}}(X_5)/2 = -100$ appearing consistently
+across those checks.
 
-\section{The $E_1$-chiral bialgebra and Hopf axioms}
+\section{Thirteen structural results for $K3 \times E$}
+\label{sec:k3e-thirteen-results}
+
+The $K3 \times E$ prototype supports thirteen structural
+results, each grounded in multiple compute engines and
+developed in Chapter~\ref{chap:toroidal-elliptic}. The pattern
+they form is itself a structural datum.
+
+\emph{K3-1.}
+$\kappa_{\mathrm{ch}}(K3 \times E) = 3 = \dim_\C$, verified
+by six independent paths: direct Hodge, Mukai pairing,
+Dolbeault contracting homotopy, bar computation, Borcherds
+lift, elliptic genus. Additivity:
+$\kappa_{\mathrm{ch}}(K3) = 2$, $\kappa_{\mathrm{ch}}(E) = 1$.
+
+\emph{K3-2.} The factor~$2$ in $Z_{K3} = 2\,\phi_{0,1}$ is
+$\kappa_{\mathrm{cat}}(K3) = \chi(\cO_{K3}) = 2$. The massive
+Mathieu multiplicities satisfy
+$A_n = \kappa_{\mathrm{cat}} \cdot \dim(\rho_n)$: the bar
+complex provides the universal coefficient and does not detect
+$M_{24}$ directly.
+
+\emph{K3-3.}
+$\kappa_{\mathrm{BKM}} = \tfrac{1}{2} \mathrm{wt}(\Phi_{10}) = 5$.
+The ratio
+$\kappa_{\mathrm{BKM}}/\kappa_{\mathrm{ch}} = 5/3$ reflects
+second quantization; the Hilbert--Chow exceptional divisor
+accounts for
+$\chi(\mathrm{Hilb}^2) - \chi(\mathrm{Sym}^2) = 24 = \chi(K3)$.
+
+\emph{K3-4.} The moonshine multiplier
+$A_n = \kappa_{\mathrm{cat}} \cdot \dim(\rho_n)$ factors BPS
+degeneracies into a homological part
+($\kappa_{\mathrm{cat}} = 2$) and a group-theoretic part
+($\rho_n$, the Mathieu representation).
+
+\emph{K3-5.} The mock modular decomposition
+\[
+ Z_{K3} \;=\; (h - 24\mu)\,\vartheta_1^2 / \eta^3
+\]
+is verified to machine precision
+(${\sim}5.7 \times 10^{-16}$ relative error), where $\mu$ is
+the Zwegers Appell--Lerch sum.
+
+\emph{K3-6.} The shadow generating function
+\[
+ Z^{\mathrm{sh}}(t)
+ \;=\; \kappa_{\mathrm{ch}}\!\bigl((t/2)/\sin(t/2) - 1\bigr)
+\]
+converges with radius $R = 2\pi$, has entire Borel transform,
+and exhibits no resurgence. This contrasts with the Gevrey-$1$
+divergent topological string.
+
+\emph{K3-7.} The shadow--Siegel gap theorem with four
+structural obstructions (O1--O4), proving that the shadow
+tower does NOT produce $\Phi_{10}$.
+
+\emph{K3-8.} Boundary versus sigma:
+$\kappa_{\mathrm{fiber}} = 24$ (lattice rank) vs
+$\kappa_{\mathrm{ch}} = 2$ (K3 sigma model); ratio~$12$ at
+genus~$1$, conditional at $g \geq 2$ (the K3 sigma model is
+multi-weight).
+
+\emph{K3-9.} The denominator identity
+\[
+ \prod_{\alpha > 0}(1 - e^{-\alpha})^{\mathrm{mult}(\alpha)}
+\]
+equals the bar Euler product (by CY-A combined with the Vol~I
+Borcherds-lift identification; proved for $d \leq 3$).
+
+\emph{K3-10.} The Borcherds multiplicative lift
+$\phi_{0,1} \leadsto \Delta_5$ realises genus escalation:
+genus-$1$ elliptic genus data on $\bH_1$ determines the
+genus-$2$ Igusa cusp form on $\bH_2$, with additive and
+multiplicative lifts encoding root system and
+Fourier--Jacobi structure respectively.
+
+\emph{K3-11.} Wall-crossing in the Bridgeland stability
+manifold of $D^b(\Coh(K3))$ corresponds to reflections in the
+BKM root system of $\mathfrak{g}_{\Delta_5}$; the
+Kontsevich--Soibelman wall-crossing formula is the MC gauge
+transformation in the convolution algebra.
+
+\emph{K3-12.} The K3 double current algebra $\fg_{K3}$ is the
+finite-dimensional analogue of the DDCA in which $\C[u, v]$ is
+replaced by $H^*(S, \C)$ with the Mukai pairing.
+
+\emph{K3-13.} The Faber--Pandharipande value
+$\lambda_5^{\mathrm{FP}} = 73/3503554560$ at genus~$5$; the
+unreduced numerator $2^{2g-1} - 1 = 511$ requires GCD
+reduction with $(2g)!$.
+
+\section{The $\Eone$-chiral bialgebra and Hopf axioms}
 \label{sec:e1-bialgebra-intro}
 
-Volume~I introduces $E_1$-chiral quantum groups as abstract
+Volume~I introduces $\Eone$-chiral quantum groups as abstract
 algebraic-geometric objects. This volume constructs them
 concretely from CY geometry. The axioms, formalized in
 \S\ref{sec:e1-chiral-bialgebras}, are recorded here for
 reference; they constitute the algebraic framework into which
 all CY quantum groups of this volume are placed.
 
-\begin{definition}[$E_1$-chiral Hopf algebra; preview]
+\begin{definition}[$\Eone$-chiral Hopf algebra; preview]
 \label{def:e1-chiral-bialgebra-intro}
-An \emph{$E_1$-chiral Hopf algebra} on a smooth curve $C$ is a
-tuple $(A, \mu, \Delta_z, \varepsilon, \eta, S)$ satisfying five
+An \emph{$\Eone$-chiral Hopf algebra} on a smooth curve~$C$
+is a tuple
+$(\cA, \mu, \Delta_z, \varepsilon, \eta, S)$ satisfying five
 axioms:
-\begin{enumerate}[label=\textup{(H\arabic*)},nosep]
-\item \emph{$E_1$-chiral algebra.}
- $(A, \mu, \varepsilon)$ is an augmented $E_1$-chiral algebra
- on~$C$: the product $\mu$ is the ordered OPE, and the
- operations live on configuration spaces
- $\mathrm{Conf}_k^{\mathrm{ord}}(C)$ of ordered points.
-\item \emph{Spectral coproduct.}
- For each $z \in \Ran(C)$,
- $\Delta_z \colon A \to A \otimes_{E_1, z} A$
- is an $E_1$-chiral coalgebra structure. At $z = 0$, the
- coproduct $\Delta_0$ coincides with the deconcatenation
- coproduct on $B^{\mathrm{ord}}(A)$; the $z$-deformation
- encodes the spectral data.
-\item \emph{Bialgebra compatibility.}
- The coproduct $\Delta_z$ is a morphism of $E_1$-chiral
- algebras: the diagram expressing ``$\Delta_z$ is an algebra
- map'' commutes, using the interchange law for the
- $E_1$-monoidal structure. This is the chiral analogue of the
- classical bialgebra axiom.
-\item \emph{Spectral coassociativity.}
- For $z, w \in \Ran(C)$ in general position:
+\begin{enumerate}[label=\textup{(H\arabic*)},topsep=0.3ex,
+ itemsep=0.3ex]
+\item \emph{$\Eone$-chiral algebra.}
+ $(\cA, \mu, \varepsilon)$ is an augmented $\Eone$-chiral
+ algebra on $C$: the product $\mu$ is the ordered OPE, and
+ the operations live on configuration spaces
+ $\Conf_k^{\mathrm{ord}}(C)$ of ordered points.
+\item \emph{Spectral coproduct.} For each $z \in \Ran(C)$,
+ $\Delta_z \colon \cA \to \cA \otimes_{\Eone, z} \cA$ is an
+ $\Eone$-chiral coalgebra structure. At $z = 0$, the coproduct
+ $\Delta_0$ coincides with the deconcatenation coproduct on
+ $B^{\mathrm{ord}}(\cA)$; the $z$-deformation encodes the
+ spectral data.
+\item \emph{Bialgebra compatibility.} The coproduct $\Delta_z$
+ is a morphism of $\Eone$-chiral algebras: the diagram
+ expressing ``$\Delta_z$ is an algebra map'' commutes, using
+ the interchange law for the $\Eone$-monoidal structure.
+\item \emph{Spectral coassociativity.} For $z, w \in \Ran(C)$
+ in general position:
  \[
-  (\Delta_w \otimes \mathrm{id}) \circ \Delta_{z+w}
-  = (\mathrm{id} \otimes \Delta_z) \circ \Delta_w.
+  (\Delta_w \otimes \id) \circ \Delta_{z+w}
+  \;=\; (\id \otimes \Delta_z) \circ \Delta_w.
  \]
  At $z = w = 0$ this reduces to ordinary coassociativity.
-\item \emph{Hopf axiom.}
- The antipode $S$ satisfies
+\item \emph{Hopf axiom.} The antipode $S$ satisfies
  \[
-  \mu_{E_1} \circ (S \otimes \mathrm{id}) \circ \Delta_0
-  = \eta \circ \varepsilon
-  = \mu_{E_1} \circ (\mathrm{id} \otimes S) \circ \Delta_0.
+  \mu_{\Eone} \circ (S \otimes \id) \circ \Delta_0
+  \;=\; \eta \circ \varepsilon
+  \;=\; \mu_{\Eone} \circ (\id \otimes S) \circ \Delta_0.
  \]
- The first four axioms are the bialgebra data; this fifth axiom
- upgrades the ordered object to the Hopf framework used for the
- quantum-group applications.
 \end{enumerate}
 \end{definition}
 
-The ordered bar $B^{\mathrm{ord}}(A)$ preserves the $R$-matrix;
-the symmetric bar $B^\Sigma(A)$ of Volume~I kills the Hopf
-structure via averaging
-$\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$. The $E_1$-chiral
-bialgebra (not the $E_\infty$-vertex bialgebra of Li) is the
-correct Hopf framework: the coproduct $\Delta_z$ lives on the
-$E_1$ (ordered) side, and the $E_\infty$-averaging map destroys
-the Hopf data. The associated $R$-matrix and Yang--Baxter equation
-are recovered from the ordered Hopf data rather than postulated as
-separate axioms. Two concrete instances are verified:
-the Heisenberg algebra $H_k$ (where $\Delta_z$ is the constant
-coproduct and $R(z) = k/z$) and $\cW_{1+\infty}$ at generic
-$\Psi$ (where the universal Miura coefficient
-$(\Psi{-}1)/\Psi$ governs the leading cross-term at every spin
-$s \geq 2$). The full development is in
-Chapter~\ref{ch:e1-chiral}.
+The ordered bar $B^{\mathrm{ord}}(\cA)$ preserves the
+$R$-matrix; the symmetric bar $B^\Sigma(\cA)$ of Volume~I
+kills the Hopf structure via averaging
+$\mathrm{av}(r(z)) = \kappa_{\mathrm{ch}}$. The
+$\Eone$-chiral bialgebra (not the $E_\infty$-vertex bialgebra
+of Li) is the correct Hopf framework: the coproduct $\Delta_z$
+lives on the $\Eone$ (ordered) side, and the
+$E_\infty$-averaging map destroys the Hopf data. The
+associated $R$-matrix and Yang--Baxter equation are recovered
+from the ordered Hopf data rather than postulated as separate
+axioms. Two concrete instances are verified: the Heisenberg
+algebra $H_k$ (where $\Delta_z$ is the constant coproduct and
+$R(z) = k/z$) and $\cW_{1+\infty}$ at generic $\Psi$ (where
+the universal Miura coefficient $(\Psi - 1)/\Psi$ governs the
+leading cross-term at every spin $s \geq 2$). The full
+development is in Chapter~\ref{ch:e1-chiral}.
 
 \section{The ten research programmes}
 \label{sec:ten-programmes}
 
-The $K3 \times E$ prototype generates ten research programmes, each with formal conjectures grounded in the 570+ compute engines. The formal development is in Chapter~\ref{chap:toroidal-elliptic}.
+The $K3 \times E$ prototype generates ten research programmes,
+each with formal conjectures grounded in the $570{+}$ compute
+engines. The formal development is in
+Chapter~\ref{chap:toroidal-elliptic}.
 
 \begin{enumerate}[label=\textup{(Prog \Alph*)}]
 \item \emph{Constructive CY gluing.}
@@ -437,91 +1192,92 @@ The $K3 \times E$ prototype generates ten research programmes, each with formal 
  so the global chiral algebra is the hocolim of local CoHAs.
  The minimum chart number, the Brauer obstruction, and the
  extension to non-toric K3 surfaces are open.
-\item \emph{$\kappa_{\mathrm{cat}}$ as universal moonshine multiplier.}
- The factor $2$ in $Z_{K3} = 2\,\phi_{0,1}$ is $\kappa_{\mathrm{cat}}(K3)
- = \chi(\cO_{K3})$. The BPS degeneracies factorise as
- $A_n = \kappa_{\mathrm{cat}} \cdot \dim(\rho_n)$, separating the homological
- part ($\kappa_{\mathrm{cat}}$, from the bar complex) from the
- group-theoretic part ($\rho_n$, from the sporadic symmetry).
- The programme: extend this factorisation to the Monster module,
- the Conway module, and all holomorphic VOAs.
+\item \emph{$\kappa_{\mathrm{cat}}$ as universal moonshine
+ multiplier.}
+ The factor~$2$ in $Z_{K3} = 2\,\phi_{0,1}$ is
+ $\kappa_{\mathrm{cat}}(K3) = \chi(\cO_{K3})$. The BPS
+ degeneracies factorise as
+ $A_n = \kappa_{\mathrm{cat}} \cdot \dim(\rho_n)$, separating
+ the homological part ($\kappa_{\mathrm{cat}}$, from the bar
+ complex) from the group-theoretic part ($\rho_n$, from the
+ sporadic symmetry). The programme: extend this factorisation
+ to the Monster module, the Conway module, and all
+ holomorphic VOAs.
 \item \emph{Second-quantization bridge.}
- The ratio $\kappa_{\mathrm{BKM}}/\kappa_{\mathrm{ch}}
- = 5/3$ encodes the first-to-second-quantization passage:
- the single-copy chiral algebra sees $\kappa_{\mathrm{ch}} = 3$,
+ The ratio $\kappa_{\mathrm{BKM}}/\kappa_{\mathrm{ch}} = 5/3$
+ encodes the first-to-second-quantization passage: the
+ single-copy chiral algebra sees $\kappa_{\mathrm{ch}} = 3$,
  while the Borcherds lift sees $\kappa_{\mathrm{BKM}} = 5$.
- For $K3 \times E$ at orbifold order $N = 1$, the
- numerical coincidence $\kappa_{\mathrm{BKM}}
- = \kappa_{\mathrm{cat}}(S) + \kappa_{\mathrm{ch}}(S \times E)
- = 2 + 3 = 5$ holds, but this decomposition
- \emph{fails} for all $\Z/N\Z$-orbifolds with $N \geq 2$
+ For $K3 \times E$ at orbifold order $N = 1$, the numerical
+ coincidence
+ $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{cat}}(S)
+ + \kappa_{\mathrm{ch}}(S \times E) = 2 + 3 = 5$
+ holds, but this decomposition \emph{fails} for all
+ $\Z/N\Z$-orbifolds with $N \geq 2$
  (Remark~\ref{rem:bkm-decomposition-adversarial}); the correct
  universal formula is $\kappa_{\mathrm{BKM}} = c_N(0)/2$
- (Borcherds weight theorem, Proposition~\ref{prop:bkm-weight-universal}).
- The Hilbert--Chow exceptional
- divisor accounts for
- $\chi(\operatorname{Hilb}^2) - \chi(\operatorname{Sym}^2)
- = 24 = \chi(K3)$, and the DMVV symmetric product formula
- implements the passage from single-copy bar complex to
- second-quantized partition function.
+ (Borcherds weight theorem,
+ Proposition~\ref{prop:bkm-weight-universal}). The
+ Hilbert--Chow exceptional divisor accounts for
+ $\chi(\mathrm{Hilb}^2) - \chi(\mathrm{Sym}^2) = 24 = \chi(K3)$,
+ and the DMVV symmetric product formula implements the
+ passage from single-copy bar complex to second-quantized
+ partition function.
 \item \emph{Schottky shadow programme.}
- At $g \leq 3$, the Torelli map
- $\cM_g \to \cA_g$ is dominant and the shadow obstruction
- tower sees nearly all of the moduli. At $g \geq 4$, the
- Schottky locus has positive codimension
- $\operatorname{codim} = (g{-}2)(g{-}3)/2$ and the shadow is
- imprisoned in tautological classes on
+ At $g \leq 3$, the Torelli map $\cM_g \to \cA_g$ is dominant
+ and the shadow obstruction tower sees nearly all of the
+ moduli. At $g \geq 4$, the Schottky locus has positive
+ codimension $\mathrm{codim} = (g-2)(g-3)/2$ and the shadow
+ is imprisoned in tautological classes on
  $\overline{\cM}_g$. The programme: characterise the
  tautological projection of Siegel modular forms, and
  determine whether the shadow tower generates the image of
- $S_*(\Sp_{2g}(\Z)) \to R^*(\overline{\cM}_g)$.
- The first nontrivial case $g = 4$ (codimension~$1$)
- already constrains the genus-$4$ shadow coefficient.
+ $S_*(\Sp_{2g}(\Z)) \to R^*(\overline{\cM}_g)$. The first
+ nontrivial case $g = 4$ (codimension~$1$) already constrains
+ the genus-$4$ shadow coefficient.
 \item \emph{Mock modularity and the bar complex.}
  The 1/4-BPS counting function is a mock modular form with
- shadow $24\,\eta^3$. The factor $24 = \chi(K3)$ is
- the surface announcing its existence. The programme:
- construct a half-integral-weight metaplectic bar complex
- whose shadow obstruction tower produces the mock modular
- completion.
+ shadow $24\,\eta^3$. The factor $24 = \chi(K3)$ is the
+ surface announcing its existence. The programme: construct
+ a half-integral-weight metaplectic bar complex whose shadow
+ obstruction tower produces the mock modular completion.
 \item \emph{Modular factorization envelope.}
  Construct the universal modular factorization envelope
  $U_X^{\mathrm{mod}}(L)$ for cyclically admissible Lie
  conformal algebras, carrying the full shadow obstruction
  tower. This would give the left adjoint of the modular
  primitive-current functor. The construction requires the
- modular operad structure on the collection of $\Ainf$-operations
- parametrised by $\overline{\cM}_{g,n}$; for CY input, the
- cyclic $\Ainf$-structure of $\cC$ provides exactly the data
- needed for cyclical admissibility.
+ modular operad structure on the collection of
+ $\Ainf$-operations parametrised by $\overline{\cM}_{g,n}$;
+ for CY input, the cyclic $\Ainf$-structure of~$\cC$ provides
+ exactly the data needed for cyclical admissibility.
 \item \emph{BKM algebras and scattering diagrams.}
  The Gross--Siebert scattering diagram consistency condition
- IS the $E_1$ Maurer--Cartan equation
- (Theorem~\ref{thm:scattering-mc}). The programme: lift
- this identification to the full motivic Hall algebra level
+ IS the $\Eone$ Maurer--Cartan equation
+ (Theorem~\ref{thm:scattering-mc}). The programme: lift this
+ identification to the full motivic Hall algebra level
  (where naive BCH is insufficient).
 \item \emph{Descent theorem.}
- \v{C}ech descent for $E_1$-algebras over the Bridgeland
- stability manifold: the global $E_1$-chiral algebra is the
- homotopy colimit of local CoHAs indexed by stability chambers,
- with transition maps given by MC gauge equivalence across walls.
- Proved for toric CY$_3$
- (Theorem~\ref{thm:toric-chart-gluing}); open for
- compact CY$_3$ beyond the chart-atlas regime, where
- the number of charts may be infinite and the hocolim
- requires a convergence argument.
+ \v{C}ech descent for $\Eone$-algebras over the Bridgeland
+ stability manifold: the global $\Eone$-chiral algebra is
+ the homotopy colimit of local CoHAs indexed by stability
+ chambers, with transition maps given by MC gauge equivalence
+ across walls. Proved for toric CY$_3$
+ (Theorem~\ref{thm:toric-chart-gluing}); open for compact
+ CY$_3$ beyond the chart-atlas regime, where the number of
+ charts may be infinite and the hocolim requires a
+ convergence argument.
 \item \emph{Higher-dimensional CY shadows.}
- The $E_n$ stabilization theorem
- (Theorem~\ref{thm:e1-stabilization-cy}) gives a Bott-periodic
- 8-fold pattern: the effective obstruction
- $\mathrm{Obs}_{\mathrm{eff}}(d) \in \pi_d(BU)$ is trivial at
+ The $\En$ stabilization theorem
+ (Theorem~\ref{thm:e1-stabilization-cy}) gives a
+ Bott-periodic 8-fold pattern: the effective obstruction
+ $\Obs_{\mathrm{eff}}(d) \in \pi_d(BU)$ is trivial at
  $d \bmod 8 \in \{1, 3, 7\}$ and $\Z$-valued at all even~$d$.
- For CY$_4$: the $p_1$ Pontryagin class controls
- the shifted symplectic structure via the obstruction
- $\pi_4(BU) = \Z$.
- For $K3 \times K3$: the Hopf decomposition
- $\mathbb{S}^4 = \mathbb{S}^2 \times \mathbb{S}^2$
- gives $E_2$ by Dunn additivity.
+ For CY$_4$: the $p_1$ Pontryagin class controls the shifted
+ symplectic structure via the obstruction
+ $\pi_4(BU) = \Z$. For $K3 \times K3$: the Hopf decomposition
+ $\mathbb{S}^4 = \mathbb{S}^2 \times \mathbb{S}^2$ gives $E_2$
+ by Dunn additivity.
 \item \emph{Convergence vs divergence.}
  The shadow partition function converges with radius $2\pi$
  (Bernoulli decay: $|F_g^{\mathrm{sh}}| \sim (2\pi)^{-2g}/g$);
@@ -536,42 +1292,122 @@ The $K3 \times E$ prototype generates ten research programmes, each with formal 
  full amplitude.
 \end{enumerate}
 
-All ten programmes are computationally testable: the 570+ compute engines provide a laboratory for each conjecture.
+All ten programmes are computationally testable: the $570{+}$
+compute engines provide a laboratory for each conjecture.
 
 \section{The landscape of examples}
 \label{sec:landscape-examples}
 
-The CY-to-chiral functor $\Phi$ operates on any CY category with cyclic $A_\infty$-structure. Four families of CY categories provide the standard landscape; each family contributes distinct structural features to the theory.
+The CY-to-chiral functor $\Phi$ operates on any CY category
+with cyclic $\Ainf$-structure. Four families of CY categories
+provide the standard landscape; each family contributes
+distinct structural features to the theory.
 
-\emph{Fukaya categories} (Chapter~\ref{ch:fukaya}). The symplectic input. For an elliptic curve $E_\tau$, the Fukaya category $\Fuk(E_\tau)$ is CY of dimension~$1$ and $\Phi$ produces the Heisenberg vertex algebra $H_k$ at level $k = \mathrm{vol}(E_\tau)$, an $E_\infty$-chiral algebra (commutative vertex algebra). For a K3 surface~$S$, $\Fuk(S)$ is CY of dimension~$2$ and $\Phi$ produces an $\Etwo$-chiral algebra with $\kappa_{\mathrm{ch}} = \chi(\mathcal{O}_S) = 2$. For compact CY threefolds, the Fukaya-side functor is now available via Theorem~CY-A$_3$; the open-string sector ($\Fuk(X)$ with Lagrangian boundary conditions) connects to the Volume~II Swiss-cheese structure. Wrapped Fukaya categories $\mathcal{W}(X)$ of Liouville manifolds provide the non-compact analogue: for cotangent bundles $T^*M$, Abouzaid's equivalence $\mathcal{W}(T^*M) \simeq \mathrm{Mod}(C_*(\Omega M))$ reduces the CY-to-chiral functor to the based loop space.
+\emph{Fukaya categories} (Chapter~\ref{ch:fukaya}). The
+symplectic input. For an elliptic curve $E_\tau$, the Fukaya
+category $\Fuk(E_\tau)$ is CY of dimension~$1$ and $\Phi$
+produces the Heisenberg vertex algebra $H_k$ at level
+$k = \mathrm{vol}(E_\tau)$, an $E_\infty$-chiral algebra
+(commutative vertex algebra). For a K3 surface~$S$, $\Fuk(S)$
+is CY of dimension~$2$ and $\Phi$ produces an $\Etwo$-chiral
+algebra with $\kappa_{\mathrm{ch}} = \chi(\cO_S) = 2$. For
+compact CY threefolds, the Fukaya-side functor is available
+via Theorem~CY-A$_3$; the open-string sector ($\Fuk(X)$ with
+Lagrangian boundary conditions) connects to the Volume~II
+Swiss-cheese structure. Wrapped Fukaya categories
+$\mathcal{W}(X)$ of Liouville manifolds provide the
+non-compact analogue: for cotangent bundles $T^*M$, Abouzaid's
+equivalence
+$\mathcal{W}(T^*M) \simeq \mathrm{Mod}(C_*(\Omega M))$
+reduces the CY-to-chiral functor to the based loop space.
 
-\emph{Derived categories of coherent sheaves}. The algebraic input. For a smooth projective CY manifold $X$, the bounded derived category $D^b(\mathrm{Coh}(X))$ is CY of dimension~$d$ with the CY trace induced by Serre duality. Homological mirror symmetry identifies $\Fuk(X) \simeq D^b(\mathrm{Coh}(X^\vee))$; under $\Phi$, this becomes an equivalence $A_{\Fuk(X)} \simeq A_{D^b(\mathrm{Coh}(X^\vee))}$ of quantum chiral algebras, providing a consistency check between the symplectic and algebraic sides. When $D^b(\mathrm{Coh}(X))$ admits a full exceptional collection, the CY-to-chiral functor reduces to a quiver-with-potential computation: the critical CoHA of the quiver (Chapter~\ref{ch:toric-coha}). Bridgeland stability conditions parametrize the space of t-structures on $D^b(\mathrm{Coh}(X))$; wall-crossing in the stability manifold corresponds to mutations of the bar complex, and the global chiral algebra is assembled as a homotopy colimit over stability chambers (Programme~A).
+\emph{Derived categories of coherent sheaves.} The algebraic
+input. For a smooth projective CY manifold $X$, the bounded
+derived category $D^b(\Coh(X))$ is CY of dimension~$d$ with
+the CY trace induced by Serre duality. Homological mirror
+symmetry identifies $\Fuk(X) \simeq D^b(\Coh(X^\vee))$; under
+$\Phi$, this becomes an equivalence
+$\cA_{\Fuk(X)} \simeq \cA_{D^b(\Coh(X^\vee))}$ of quantum
+chiral algebras, providing a consistency check between the
+symplectic and algebraic sides. When $D^b(\Coh(X))$ admits a
+full exceptional collection, the CY-to-chiral functor reduces
+to a quiver-with-potential computation: the critical CoHA of
+the quiver (Chapter~\ref{ch:toric-coha}). Bridgeland stability
+conditions parametrize the space of t-structures on
+$D^b(\Coh(X))$; wall-crossing in the stability manifold
+corresponds to mutations of the bar complex, and the global
+chiral algebra is assembled as a homotopy colimit over
+stability chambers (Programme~A).
 
-\emph{Matrix factorizations}. The Landau--Ginzburg input. A polynomial $W \colon \mathbb{C}^n \to \mathbb{C}$ gives a CY category $\mathrm{MF}(W)$ of dimension $n - 2$. For ADE singularities $W = x^N + y^2 + z^2 + w^2$ in four variables, $\mathrm{MF}(W)$ is CY of dimension~$2$ and $\Phi$ (Theorem~CY-A$_2$) produces chiral algebras related to $\mathcal{W}_N$-algebras. The LG/CY correspondence $\mathrm{MF}(W) \simeq D^b(\mathrm{Coh}(X_W))$ provides a further consistency check against the derived-category side. For non-ADE singularities (unimodal, bimodal), the resulting chiral algebras are expected to be new objects not realized by the standard Lie-theoretic landscape of Volume~I.
+\emph{Matrix factorizations.} The Landau--Ginzburg input. A
+polynomial $W \colon \C^n \to \C$ gives a CY category
+$\MF(W)$ of dimension $n - 2$. For ADE singularities
+$W = x^N + y^2 + z^2 + w^2$ in four variables, $\MF(W)$ is
+CY of dimension~$2$ and $\Phi$ (Theorem~CY-A$_2$) produces
+chiral algebras related to $\cW_N$-algebras. The LG/CY
+correspondence $\MF(W) \simeq D^b(\Coh(X_W))$ provides a
+further consistency check against the derived-category side.
+For non-ADE singularities (unimodal, bimodal), the resulting
+chiral algebras are expected to be new objects not realized
+by the standard Lie-theoretic landscape of Volume~I.
 
-\emph{Quantum group representations} (Chapter~\ref{ch:quantum-group-reps}). The representation-theoretic target. The braided monoidal category $\mathrm{Rep}_q(\mathfrak{g})$ is what the CY programme aims to realize: Conjecture~CY-C predicts that $\mathrm{Rep}_q(\mathfrak{g}) \simeq \mathrm{Rep}^{E_2}(A_\cC)$ for a CY category $\cC(\mathfrak{g}, q)$. The Kazhdan--Lusztig equivalence $\mathrm{Rep}_q(\mathfrak{g}) \simeq \mathrm{KL}_k(\mathfrak{g})$ at roots of unity is the prototype: the Volume~I bar complex $B(V_k(\mathfrak{g}))$ encodes the quantum group $R$-matrix in its degree-$(1,1)$ component, and the DK bridge (Volume~II, MC3 on the evaluation-generated core for all simple types) recovers the quantum group categorical structure used here. The affine Yangian realization (Chapter~\ref{ch:toric-coha}) provides the $E_1$-sector; the Drinfeld center (Chapter~\ref{ch:drinfeld-center}) provides the $E_2$-enhancement.
+\emph{Quantum group representations}
+(Chapter~\ref{ch:quantum-group-reps}). The
+representation-theoretic target. The braided monoidal
+category $\Rep_q(\frakg)$ is what the CY programme aims to
+realize: Conjecture~CY-C predicts that
+$\Rep_q(\frakg) \simeq \Rep^{E_2}(\cA_\cC)$ for a CY category
+$\cC(\frakg, q)$. The Kazhdan--Lusztig equivalence
+$\Rep_q(\frakg) \simeq \mathrm{KL}_k(\frakg)$ at roots of
+unity is the prototype: the Volume~I bar complex
+$B(V_k(\frakg))$ encodes the quantum group $R$-matrix in its
+degree-$(1, 1)$ component, and the DK bridge (Volume~II, MC3
+on the evaluation-generated core for all simple types)
+recovers the quantum group categorical structure used here.
+The affine Yangian realization
+(Chapter~\ref{ch:toric-coha}) provides the $\Eone$-sector;
+the Drinfeld centre (Chapter~\ref{ch:drinfeld-center})
+provides the $E_2$-enhancement.
 
-In addition to the four standard families, the toroidal and elliptic algebras chapter (Chapter~\ref{chap:toroidal-elliptic}) develops the $K3 \times E$ programme in full: the generalized root datum, the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ with its Igusa cusp form denominator identity, the shadow--Siegel gap theorem, thirteen structural results (K3-1 through K3-13), all ten research programmes (A through J), and the DDCA--toroidal bridge identifying the deformed double current algebra as the rational degeneration of the quantum toroidal algebra (Conjecture~\ref{conj:ddca-toroidal-bridge}). The K3 double current algebra $\fg_{K3}$, discussed in the DDCA--toroidal bridge of Chapter~\ref{ch:k3-times-e}, provides the K3 analogue of the DDCA, replacing $\bC[u,v]$ with $H^*(S,\bC)$. The toric CY$_3$ CoHA chapter (Chapter~\ref{ch:toric-coha}) develops the affine Yangian and $\mathcal{W}_{1+\infty}$ side: the Jordan quiver gives $Y(\widehat{\mathfrak{gl}}_1) \simeq \mathcal{W}_{1+\infty}$, the toric fan is the Dynkin data, and the shuffle algebra presentation connects to the KZ equations of Volume~I.
+In addition to the four standard families, the toroidal and
+elliptic algebras chapter (Chapter~\ref{chap:toroidal-elliptic})
+develops the $K3 \times E$ programme in full: the generalized
+root datum, the BKM superalgebra $\mathfrak{g}_{\Delta_5}$
+with its Igusa cusp form denominator identity, the
+shadow--Siegel gap theorem, thirteen structural results (K3-1
+through K3-13), all ten research programmes (A through J), and
+the DDCA--toroidal bridge identifying the deformed double
+current algebra as the rational degeneration of the quantum
+toroidal algebra (Conjecture~\ref{conj:ddca-toroidal-bridge}).
+The K3 double current algebra $\fg_{K3}$, discussed in the
+DDCA--toroidal bridge of Chapter~\ref{ch:k3-times-e}, provides
+the K3 analogue of the DDCA, replacing $\bC[u, v]$ with
+$H^*(S, \bC)$. The toric CY$_3$ CoHA chapter
+(Chapter~\ref{ch:toric-coha}) develops the affine Yangian and
+$\cW_{1+\infty}$ side: the Jordan quiver gives
+$Y(\widehat{\fgl}_1) \simeq \cW_{1+\infty}$, the toric fan is
+the Dynkin data, and the shuffle algebra presentation
+connects to the KZ equations of Volume~I.
 
 \section{Guide for the reader}
 \label{sec:guide}
 
-The volume has seven parts.  The logical dependencies are:
+The volume has seven parts. The logical dependencies are:
 \[
-\text{I} \longrightarrow \text{II} \longrightarrow \text{III}
-\longrightarrow
-\begin{cases}
- \text{IV (K3 Yangian)} \\
- \text{V (CY Landscape)}
-\end{cases}
-\longrightarrow \text{VI} \longrightarrow \text{VII}
+ \text{I} \longrightarrow \text{II} \longrightarrow \text{III}
+ \longrightarrow
+ \begin{cases}
+  \text{IV (K3 Yangian)} \\
+  \text{V (CY Landscape)}
+ \end{cases}
+ \longrightarrow \text{VI} \longrightarrow \text{VII}
 \]
-Parts~\ref{part:k3-yangian} and~\ref{part:examples} are independent
-of each other: either may be read first.
+Parts~\ref{part:k3-yangian} and~\ref{part:examples} are
+independent of each other: either may be read first.
 Part~\ref{part:connections} draws on both.
-Part~\ref{part:frontier} is largely self-contained but references all
-prior parts.  We recommend three reading paths, depending on the
-reader's background and goals.
+Part~\ref{part:frontier} is largely self-contained but
+references all prior parts. We recommend three reading paths,
+depending on the reader's background and goals.
 
 \medskip
 
@@ -584,66 +1420,67 @@ approximately 8 chapters).
 \noindent
 This is the shortest path to the main theorems.
 Part~\ref{part:cy-categories} establishes the categorical
-foundations: CY categories (Chapter~\ref{ch:cy-categories}), cyclic
-$\Ainf$-structures (Chapter~\ref{ch:cyclic-ainf}), and the
-Hochschild calculus (Chapter~\ref{ch:hochschild-calculus}).
-Part~\ref{part:bridge} constructs the functor~$\Phi$ and proves
-Theorems~CY-A$_2$ and CY-A$_3$
-(Chapter~\ref{ch:cy-to-chiral}), recounts the $[m_3, B^{(2)}]$
-saga that led to the resolution
+foundations: CY categories (Chapter~\ref{ch:cy-categories}),
+cyclic $\Ainf$-structures (Chapter~\ref{ch:cyclic-ainf}), and
+the Hochschild calculus (Chapter~\ref{ch:hochschild-calculus}).
+Part~\ref{part:bridge} constructs the functor~$\Phi$ and
+proves Theorems~CY-A$_2$ and CY-A$_3$
+(Chapter~\ref{ch:cy-to-chiral}), recounts the
+$[m_3, B^{(2)}]$ saga that led to the resolution
 (Chapter~\ref{ch:m3-b2-saga}), and develops the holomorphic
 Chern--Simons route as an independent construction
 (Chapter~\ref{ch:quantum-chiral-algebras}).
 Part~\ref{part:en-hierarchy} includes the proof of
-Theorem~CY-B$_3$ (the $\Etwo$-chiral Koszul dual identified via the
-Verdier spectral functor).
+Theorem~CY-B$_3$ (the $\Etwo$-chiral Koszul dual identified
+via the Verdier spectral functor).
 
-A reader who wants only the construction of $\Phi$ and its proof
-can stop after Chapter~\ref{ch:cy-to-chiral}; the remaining
-chapters of Part~\ref{part:bridge} provide context and
-alternative routes.  Prerequisites: familiarity with dg
+A reader who wants only the construction of $\Phi$ and its
+proof can stop after Chapter~\ref{ch:cy-to-chiral}; the
+remaining chapters of Part~\ref{part:bridge} provide context
+and alternative routes. Prerequisites: familiarity with dg
 categories and basic homotopical algebra at the level
-of~\cite{LurieHA}; the bar-cobar formalism of Volume~I is used
-freely but the essential definitions are recalled in
+of~\cite{LurieHA}; the bar--cobar formalism of Volume~I is
+used freely but the essential definitions are recalled in
 Chapter~\ref{ch:introduction}.
 
 \medskip
 
 \noindent\textbf{Path~2: The K3 Yangian}
-(Parts~\ref{part:cy-categories}, \ref{part:bridge},
-and~\ref{part:k3-yangian}; approximately 15 chapters).
+(Parts~\ref{part:cy-categories}, \ref{part:bridge}, and
+\ref{part:k3-yangian}; approximately 15 chapters).
 
 \smallskip
 
 \noindent
-This path follows Path~1 through the functor construction, then
-jumps directly to Part~\ref{part:k3-yangian} for the central
-worked example.  The K3 surface is the simplest compact CY
-manifold on which all structures are explicit: the Mukai
-lattice $\Lambda^{4,20}$ provides the root datum, the functor
-$\Phi_2$ produces the lattice Heisenberg VOA $H_{\mathrm{Muk}}$,
-and the K3 double current algebra~$\frakg_{K3}$ quantizes to the
-abelian Yangian $Y(\frakg_{K3})$ with $24$ generators and
-degree-$(24,24)$ structure function.
+This path follows Path~1 through the functor construction,
+then jumps directly to Part~\ref{part:k3-yangian} for the
+central worked example. The K3 surface is the simplest
+compact CY manifold on which all structures are explicit: the
+Mukai lattice $\Lambda^{4,20}$ provides the root datum, the
+functor $\Phi_2$ produces the lattice Heisenberg VOA
+$H_{\mathrm{Muk}}$, and the K3 double current algebra
+$\frakg_{K3}$ quantizes to the abelian Yangian
+$Y(\frakg_{K3})$ with $24$ generators and degree-$(24, 24)$
+structure function.
 
 For the threefold $K3 \times E$, six independent routes (BKM,
-lattice VOA, Kummer, CY-to-chiral, sigma model, BLLPR) converge
-on the quantum vertex chiral group whose denominator identity is the
-Igusa cusp form~$\Phi_{10}$.  The mock modular structure of the
-K3 elliptic genus is proved at $d = 2$ (shadow~$24\,\eta^3$,
-Zwegers completion, Borcherds lift), and the Stokes--wall-crossing
-identification connects Borel singularities to walls of marginal
-stability.  At root-of-unity level $N = 3$, the K3 quantum group
-produces the first non-abelian MTC from 6d geometry ($3200$
-modules, Ising fusion).
-Readers from vertex algebras, BPS
-state counting, or Borcherds--Kac--Moody algebras will find this
+lattice VOA, Kummer, CY-to-chiral, sigma model, BLLPR)
+converge on the quantum vertex chiral group whose denominator
+identity is the Igusa cusp form~$\Phi_{10}$. The mock modular
+structure of the K3 elliptic genus is proved at $d = 2$
+(shadow $24\,\eta^3$, Zwegers completion, Borcherds lift), and
+the Stokes--wall-crossing identification connects Borel
+singularities to walls of marginal stability. At
+root-of-unity level $N = 3$, the K3 quantum group produces
+the first non-abelian MTC from 6d geometry ($3200$ modules,
+Ising fusion). Readers from vertex algebras, BPS state
+counting, or Borcherds--Kac--Moody algebras will find this
 path self-contained once the functor~$\Phi$ is in hand.
-Part~\ref{part:en-hierarchy} may be consulted as needed for the
-$\Eone$-chiral bialgebra axioms
-(Chapter~\ref{ch:e1-chiral}) and the Drinfeld center construction
-(Chapter~\ref{ch:drinfeld-center}), but the K3 material does not
-depend on the full operadic development.
+Part~\ref{part:en-hierarchy} may be consulted as needed for
+the $\Eone$-chiral bialgebra axioms
+(Chapter~\ref{ch:e1-chiral}) and the Drinfeld centre
+construction (Chapter~\ref{ch:drinfeld-center}), but the K3
+material does not depend on the full operadic development.
 
 \medskip
 
@@ -657,18 +1494,19 @@ all 25 chapters).
 The seven parts are written to be read in sequence.
 Part~\ref{part:cy-categories} lays the categorical and
 homological foundations: CY categories, cyclic
-$\Ainf$-structures, and the Hochschild calculus that extracts the
-Lie conformal algebra~$\mathfrak{L}_\cC$ from the categorical
-data.  Part~\ref{part:bridge} constructs and proves the
-CY-to-chiral functor~$\Phi$ at all~$d$, including the
-$\infty$-categorical resolution of the $\mathbb{S}^3$-framing
-obstruction and the holomorphic Chern--Simons route.
-Part~\ref{part:en-hierarchy} develops the $\En$-hierarchy:
-$\Eone$-chiral bialgebras with their Hopf axioms, $\Etwo$-chiral
-algebras with braided monoidal representation categories, the
-$\Eone$-stabilization theorem, classical quantum group theory
-(Drinfeld--Jimbo, RTT, Kazhdan--Lusztig), and the Drinfeld
-center passage from $\Eone$ to~$\Etwo$.
+$\Ainf$-structures, and the Hochschild calculus that extracts
+the Lie conformal algebra~$\mathfrak{L}_\cC$ from the
+categorical data. Part~\ref{part:bridge} constructs and proves
+the CY-to-chiral functor~$\Phi$ at all~$d$, including the
+$\infty$-categorical resolution of the
+$\mathbb{S}^3$-framing obstruction and the holomorphic
+Chern--Simons route. Part~\ref{part:en-hierarchy} develops
+the $\En$-hierarchy: $\Eone$-chiral bialgebras with their
+Hopf axioms, $\Etwo$-chiral algebras with braided monoidal
+representation categories, the $\Eone$-stabilization theorem,
+classical quantum group theory (Drinfeld--Jimbo, RTT,
+Kazhdan--Lusztig), and the Drinfeld centre passage from
+$\Eone$ to $\Etwo$.
 
 Part~\ref{part:k3-yangian} works out the K3 Yangian as the
 principal example: derived categories, the K3 chiral algebra,
@@ -679,60 +1517,191 @@ toric CY$_3$ CoHAs, matrix factorizations, Fukaya categories,
 quantum group representations, and the modular trace.
 Part~\ref{part:connections} develops the seven faces of
 $r_{\mathrm{CY}}(z)$: the modular Koszul bridge
-($\kappa_{\mathrm{ch}} = \chi^{\CY}$ at $d=2$), the bar-cobar
-bridge to Volume~I (shadow--Feynman dictionary, $\Ainf$-coproduct
-tower), the CY holographic datum, the Stokes--wall-crossing
-identification, and the BCOV--shadow tower dictionary.
-Part~\ref{part:frontier} addresses the open frontiers:
-the geometric Langlands programme, the nonabelian Yangian,
-root-of-unity phenomena (including the $N = 3$ non-abelian MTC),
-the Zamolodchikov tetrahedron correction (exact rational~$T$
-matrix), the chiral volume conjecture, the chiral Khovanov
-complex, and the Conway--Leech--Niemeier rigidity connection.
-This path is recommended for readers who intend to work with the
-full CY-to-chiral-to-modular pipeline across all three volumes.
+($\kappa_{\mathrm{ch}} = \chi^{\CY}$ at $d = 2$), the
+bar--cobar bridge to Volume~I (shadow--Feynman dictionary,
+$\Ainf$-coproduct tower), the CY holographic datum, the
+Stokes--wall-crossing identification, and the BCOV--shadow
+tower dictionary. Part~\ref{part:frontier} addresses the open
+frontiers: the geometric Langlands programme, the nonabelian
+Yangian, root-of-unity phenomena (including the $N = 3$
+non-abelian MTC), the Zamolodchikov tetrahedron correction
+(exact rational~$T$ matrix), the chiral volume conjecture,
+the chiral Khovanov complex, and the Conway--Leech--Niemeier
+rigidity connection. This path is recommended for readers
+who intend to work with the full CY-to-chiral-to-modular
+pipeline across all three volumes.
+
+\section{Chapter-and-major-sector assessment}
+\label{sec:maturity-scope}
+
+The honest state of each component:
+
+\begin{itemize}[leftmargin=1.5em,topsep=0.3ex,itemsep=0.3ex]
+ \item \emph{CY categories} (${\sim}200$ lines): definitions
+  and basic properties only; a stub awaiting expansion of
+  the cyclic $\Ainf$-structure and the CY trace.
+ \item \emph{Cyclic $\Ainf$-structures} (${\sim}200$ lines):
+  stub; the higher homotopy Frobenius relations are stated
+  but not developed beyond degree~$3$.
+ \item \emph{Hochschild calculus} (${\sim}390$ lines): the
+  HKR theorem and basic Hochschild-to-cyclic spectral
+  sequence; sufficient for the downstream applications but
+  does not develop the full calculus (cap product, Connes
+  operator, Tsygan formality).
+ \item \emph{$E_n$-factorization} (${\sim}2{,}690$ lines):
+  the $\Eone$-stabilization theorem is proved; the framing
+  obstruction tower is complete. The Bott-periodic table
+  through $d = 8$ is verified.
+ \item \emph{$\Eone$-chiral algebras} (${\sim}2{,}090$ lines):
+  the $\Eone$-chiral Hopf axiom system (H1--H5) is formalized
+  and verified computationally for Heisenberg and
+  $\cW_{1+\infty}$; the spectral coassociativity theorem is
+  proved from factorization. The most developed theoretical
+  chapter.
+ \item \emph{$E_2$-chiral algebras} (${\sim}1{,}130$ lines):
+  definition, braided factorization, and basic structural
+  results; the passage from $\Eone$ to $\Etwo$ via the
+  Drinfeld centre is stated but the full proof is deferred
+  to the Drinfeld centre chapter.
+ \item \emph{CY-to-chiral functor} (${\sim}4{,}280$ lines):
+  the four-step construction
+  (cyclic $\Ainf \to$ Lie conformal $\to$ factorization
+  envelope $\to$ $\Sd$-enhanced quantization), proved for
+  all~$d$. Theorem~CY-A$_2$ at $d = 2$; Theorem~CY-A$_3$ at
+  $d = 3$ via the $\infty$-categorical resolution of the
+  $\mathbb{S}^3$-framing obstruction. The \v{C}ech resolution
+  for compact CY$_3$ (quintic).
+ \item \emph{Drinfeld centre} (${\sim}1{,}780$ lines): the
+  right adjoint to the forgetful functor
+  $\Etwo\text{-}\Cat \to \Eone\text{-}\Cat$ (categorified
+  commutant, not averaging); the equivalence
+  $Z(\Rep^{E_1}(\cA)) \simeq \Rep^{E_2}(\Zder(\cA))$ with
+  five invariant checks at six levels for $\C^3$.
+ \item \emph{Toric CY$_3$ CoHA} (${\sim}1{,}000$ lines): the
+  Jordan quiver computation end-to-end; quiver-chart gluing
+  for general toric CY$_3$; shuffle algebra presentation.
+  Proved.
+ \item \emph{Toroidal and elliptic algebras}
+  (${\sim}1{,}530$ lines): the crown jewel. The
+  $K3 \times E$ programme (K3-1 through K3-13), all ten
+  research programmes (A through J), the DDCA--toroidal
+  bridge, the Fay trisecant identity, the M2-brane model,
+  the double-loop holographic dual, the $N = 3$ non-abelian
+  MTC with $3200$ modules and Ising fusion, and the
+  Stokes--wall-crossing identification. The most developed
+  example chapter.
+ \item \emph{Fukaya categories} (${\sim}710$ lines):
+  symplectic input; elliptic curve and K3 surface fully
+  developed; compact CY$_3$ accessible via
+  Theorem~CY-A$_3$.
+ \item \emph{Derived categories} (${\sim}200$ lines): stub.
+ \item \emph{Matrix factorizations} (${\sim}210$ lines):
+  stub; ADE singularities and the LG/CY correspondence
+  stated but not developed.
+ \item \emph{Quantum group representations}
+  (${\sim}580$ lines): Kazhdan--Lusztig equivalence, affine
+  Yangian realization, critical CoHA; partially developed.
+ \item \emph{Geometric Langlands} (${\sim}700$ lines): the
+  Langlands $=$ Koszul duality conjecture is stated; the
+  chiral Satake extension and CY--chiral dictionary are
+  partially developed.
+ \item \emph{Bar--cobar bridge, modular Koszul bridge,
+  holographic datum}
+  (${\sim}530 + 380 + 1{,}010$ lines): the cross-volume
+  connections; partially developed.
+\end{itemize}
+
+The $K3 \times E$ sector inside the toroidal-and-elliptic
+chapter, with its thirteen structural results and ten research
+directions, is the most developed component; the remaining
+landscape (toric CY$_3$, Fukaya categories, matrix
+factorizations, geometric Langlands) consists of varying
+mixtures of theorems, programmes, and conjectures.
 
 \section{Conventions and notation}
 \label{sec:conventions-intro}
 
-This volume inherits the conventions of Volumes~I and~II; we record here the points where the CY setting introduces additional notation or where conventions differ across the literature. A comprehensive conventions appendix is Appendix~\ref{app:conventions}.
+This volume inherits the conventions of Volumes~I and~II; the
+points where the CY setting introduces additional notation or
+where conventions differ across the literature are recorded
+here. A comprehensive conventions appendix is
+Appendix~\ref{app:conventions}.
 
-\emph{Grading.} All grading is cohomological: differentials have degree $+1$. The bar construction uses desuspension $s^{-1}$, with $|s^{-1}v| = |v| - 1$ (matching Volume~I; see signs\_and\_shifts.tex therein). The CY dimension~$d$ enters as a cohomological shift: the CY trace $\mathrm{Tr} \colon \HH_\bullet(\cC) \to k[-d]$ is a map of degree $-d$.
+\emph{Grading.} All grading is cohomological: differentials
+have degree $+1$. The bar construction uses desuspension
+$s^{-1}$, with $|s^{-1}v| = |v| - 1$ (matching Volume~I; see
+signs\_and\_shifts.tex therein). The CY dimension~$d$ enters
+as a cohomological shift: the CY trace
+$\Tr \colon \HH_\bullet(\cC) \to k[-d]$ is a map of
+degree~$-d$.
 
-\emph{$E_n$ notation.} We write $E_n$ for the little $n$-disks operad (Boardman--Vogt) and $E_\infty$ for the commutative operad. Dunn additivity: $E_2 \simeq E_1 \otimes E_1$. An $E_2$-chiral algebra (Definition~\ref{def:e2-chiral-algebra}) factorizes along two holomorphic directions; its representation category is braided monoidal (Theorem~\ref{thm:lurie-e2-braided}). We write $\mathrm{FM}_k(\mathbb{C})$ for the Fulton--MacPherson compactification of $\mathrm{Conf}_k(\mathbb{C})$; this is a blowup along diagonals, not the complement of the diagonal.
+\emph{$E_n$ notation.} $\En$ denotes the little $n$-disks
+operad (Boardman--Vogt); $E_\infty$ denotes the commutative
+operad. Dunn additivity: $E_2 \simeq E_1 \otimes E_1$. An
+$E_2$-chiral algebra (Definition~\ref{def:e2-chiral-algebra})
+factorizes along two holomorphic directions; its
+representation category is braided monoidal
+(Theorem~\ref{thm:lurie-e2-braided}). $\FM_k(\C)$ denotes the
+Fulton--MacPherson compactification of $\Conf_k(\C)$; this is
+a blowup along diagonals, not the complement of the diagonal.
 
-\emph{Divided powers and the $\lambda$-bracket.} The translation between OPE modes $a_{(n)}b$ and the $\lambda$-bracket uses the divided-power convention $\lambda^{(n)} = \lambda^n / n!$, so $\{a_\lambda b\} = \sum_n \lambda^{(n)} a_{(n)}b$. The $\lambda$-bracket coefficient at order~$n$ is $a_{(n)}b / n!$, not $a_{(n)}b$ (Volume~I). This convention is consistent with Volumes~I and~II; when consulting references that use the Borel transform $B(K)(\lambda) = \sum \lambda^{(n)} c_n$, the $1/n!$ is already absorbed into $\lambda^{(n)}$.
+\emph{Divided powers and the $\lambda$-bracket.} The
+translation between OPE modes $a_{(n)} b$ and the
+$\lambda$-bracket uses the divided-power convention
+$\lambda^{(n)} = \lambda^n / n!$, so
+$\{a_\lambda b\} = \sum_n \lambda^{(n)} a_{(n)} b$. The
+$\lambda$-bracket coefficient at order~$n$ is
+$a_{(n)} b / n!$, not $a_{(n)} b$ (Volume~I). This convention
+is consistent with Volumes~I and~II; when consulting
+references that use the Borel transform
+$B(K)(\lambda) = \sum \lambda^{(n)} c_n$, the $1/n!$ is
+already absorbed into $\lambda^{(n)}$.
 
-\emph{CY categories.} We write $\CY_d$-$\Cat$ for the $\infty$-category of smooth $d$-dimensional CY categories. Tensor products of dg categories are derived unless stated otherwise. ``Equivalence'' means quasi-equivalence of dg categories (equivalence of associated $\infty$-categories). The Hochschild--Kostant--Rosenberg isomorphism $\HH_\bullet(D^b(\mathrm{Coh}(X))) \simeq H^*(X, \Omega^\bullet_X)$ is used freely for smooth projective varieties.
+\emph{CY categories.} $\CY_d$-$\Cat$ denotes the
+$\infty$-category of smooth $d$-dimensional CY categories.
+Tensor products of dg categories are derived unless stated
+otherwise. ``Equivalence'' means quasi-equivalence of dg
+categories (equivalence of associated $\infty$-categories).
+The Hochschild--Kostant--Rosenberg isomorphism
+$\HH_\bullet(D^b(\Coh(X))) \simeq H^*(X, \Omega^\bullet_X)$
+is used freely for smooth projective varieties.
 
-\emph{The $\kappa_\bullet$-spectrum.}
-A single CY manifold admits multiple modular characteristics,
-each measuring a different face of the geometry. This volume uses
-subscripted $\kappa_\bullet$ throughout:
-$\kappa_{\mathrm{ch}}$ (the chiral algebra modular characteristic
-of Volume~I, defined as the degree-$2$ projection of $\Theta_A$),
+\emph{The $\kappa_\bullet$-spectrum.} A single CY manifold
+admits multiple modular characteristics, each measuring a
+different face of the geometry. This volume uses subscripted
+$\kappa_\bullet$ throughout: $\kappa_{\mathrm{ch}}$ (the
+chiral algebra modular characteristic of Volume~I, defined as
+the degree-$2$ projection of $\Theta_\cA$),
 $\kappa_{\mathrm{cat}}$ (the holomorphic Euler characteristic
 $\chi(\cO_X)$, a categorical invariant),
 $\kappa_{\mathrm{BKM}}$ (the half-weight of the Borcherds
 automorphic form, an automorphic invariant), and
 $\kappa_{\mathrm{fiber}}$ (the lattice rank of the fiber,
 relevant for fibered CY manifolds). Unsubscripted use is
-forbidden in this volume; every occurrence carries an explicit
-qualifier.
+forbidden in this volume; every occurrence carries an
+explicit qualifier.
 
-\emph{Operadic terminology.}
-Following Volume~I, the word ``degree'' is used universally
-for: bar complex grading, operadic input count, tree vertex
-valence, Stasheff identity level, Swiss-cheese mixed sector
-parameters, and all index-counting contexts. The word ``arity''
-does not appear.
+\emph{Operadic terminology.} Following Volume~I, the word
+``degree'' is used universally for: bar complex grading,
+operadic input count, tree vertex valence, Stasheff identity
+level, Swiss-cheese mixed sector parameters, and all
+index-counting contexts. The word ``arity'' does not appear.
 
-\emph{Bar complex conventions.}
-The bar complex is $B(A) = T^c(s^{-1}\bar{A})$ with $\bar{A}
-= \ker(\varepsilon)$ the augmentation ideal. The tensor coalgebra
-$T^c$ carries the deconcatenation coproduct. The ordered bar
-$B^{\mathrm{ord}}(A)$ is the primitive object; the symmetric bar
-$B^\Sigma(A)$ is the $\Sigma_n$-coinvariant quotient. The
-desuspension satisfies $|s^{-1}v| = |v| - 1$.
+\emph{Bar complex conventions.} The bar complex is
+$B(\cA) = T^c(s^{-1} \bar{\cA})$ with
+$\bar{\cA} = \ker(\varepsilon)$ the augmentation ideal. The
+tensor coalgebra $T^c$ carries the deconcatenation coproduct.
+The ordered bar $B^{\mathrm{ord}}(\cA)$ is the primitive
+object; the symmetric bar $B^\Sigma(\cA)$ is the
+$\Sigma_n$-coinvariant quotient. The desuspension satisfies
+$|s^{-1} v| = |v| - 1$.
 
-\emph{Cross-volume references.} Results from Volume~I are cited as ``Vol~I, Theorem~X'' or by their Volume~I label (e.g., thm:mc2-bar-intrinsic). Results from Volume~II are cited analogously. When a formula appears in multiple volumes, the conventions may differ: Volume~I uses OPE modes, Volume~II uses $\lambda$-brackets with divided powers, and this volume uses both depending on context. Every cross-volume formula citation in this work has been independently verified against the source.
+\emph{Cross-volume references.} Results from Volume~I are
+cited as ``Vol~I, Theorem~X'' or by their Volume~I label
+(e.g., thm:mc2-bar-intrinsic). Results from Volume~II are
+cited analogously. When a formula appears in multiple
+volumes, the conventions may differ: Volume~I uses OPE modes,
+Volume~II uses $\lambda$-brackets with divided powers, and
+this volume uses both depending on context. Every cross-volume
+formula citation in this work has been independently verified
+against the source.
