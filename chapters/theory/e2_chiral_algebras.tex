@@ -805,7 +805,206 @@ identifies $A$ with the path algebra of the toric Gale dual, whose Koszul dual (
 
 \begin{remark}[Status of layer (c) of CY-B at $d=3$ after Theorem~\ref{thm:cy-b-d3-lp2-koszul}]
 \label{rem:cy-b-d3-status-update}
-Theorem~\ref{thm:cy-b-d3-lp2-koszul} closes layer (c) of Remark~\ref{rem:cy-b-d3-precise} for $\mathrm{LP}^2$ (and, by the same Bondal--Orlov + Gale-duality argument, for any toric Calabi--Yau threefold: resolved conifold, $\C^3$, $\mathrm{Tot}(K_{\F_n})$, $\mathrm{Tot}(K_{\mathrm{dP}_k})$ for the toric del Pezzo surfaces, etc.). The compact case (quintic, K3-fibered, abelian threefold, conifold transitions) remains CONJECTURAL via Conjecture~\ref{conj:kapranov-3shifted-exterior-koszul}~(c). The conductor-level identity $K(X) + K(\check X) = 0$ for HMS pairs (Theorem~\ref{thm:cy-b-d3-conductor-coincidence}) holds in the compact case but does not constitute a chain-level Koszul duality, by Remark~\ref{rem:conductor-coincidence-not-koszul}.
+Theorem~\ref{thm:cy-b-d3-lp2-koszul} closes layer (c) of Remark~\ref{rem:cy-b-d3-precise} for $\mathrm{LP}^2$ (and, by the same Bondal--Orlov + Gale-duality argument, for any toric Calabi--Yau threefold: resolved conifold, $\C^3$, $\mathrm{Tot}(K_{\F_n})$, $\mathrm{Tot}(K_{\mathrm{dP}_k})$ for the toric del Pezzo surfaces, etc.). The compact case (quintic, K3-fibered, abelian threefold, conifold transitions) remains CONJECTURAL via Conjecture~\ref{conj:kapranov-3shifted-exterior-koszul}~(c). The conductor-level identity $K(X) + K(\check X) = 0$ for HMS pairs (Theorem~\ref{thm:cy-b-d3-conductor-coincidence}) holds in the compact case but does not constitute a chain-level Koszul duality, by Remark~\ref{rem:conductor-coincidence-not-koszul}. Two new partial advances (Theorems~\ref{thm:ptvv-quintic} and~\ref{thm:hkr-matching-predictor-quintic} below) localise the residual obstruction precisely at the construction of a tilting complex on the compact CY$_3$.
+\end{remark}
+
+\begin{theorem}[PTVV $(-3)$-shifted symplectic on the quintic]
+\label{thm:ptvv-quintic}
+\ClaimStatusProvedHere
+Let $X_5\subset \P^4$ be the quintic threefold. The derived moduli stack
+$\Perf(X_5)$ of perfect complexes carries a canonical $(-3)$-shifted
+symplectic form
+\[
+\omega_{X_5} \;\in\; \Omega^2_{\mathrm{cl}}(\Perf(X_5),\, -3).
+\]
+At a perfect complex $E\in\Perf(X_5)$, the tangent complex is
+$T_E\Perf(X_5) = \RHom(E, E)[1]$ and the form is the Serre-trace pairing
+twisted by the trivialisation $K_{X_5}\simeq \mathcal{O}_{X_5}$:
+\[
+\omega_{X_5,E}(\alpha,\beta) \;=\; \int_{X_5}
+\mathrm{Tr}(\alpha\smile\beta)\smile \Omega_{X_5},
+\qquad
+\alpha,\beta\in \mathrm{Ext}^*(E,E)[1].
+\]
+\end{theorem}
+
+\begin{proof}
+The PTVV theorem \cite[Thm.~2.5]{PTVV2013} applied with $d=3$
+constructs the canonical $(-d)$-shifted symplectic form on $\Perf(X)$
+for any compact Calabi--Yau $d$-fold $X$. Specialising to $X = X_5$:
+the CY$_3$ trivialisation $K_{X_5}\simeq \mathcal{O}_{X_5}$ supplies
+the $\Omega_{X_5}^{\otimes 1}\simeq \mathcal{O}_{X_5}$ used in the
+Serre-trace formula, and the pairing
+$\mathrm{Ext}^i(E,E)\times \mathrm{Ext}^{3-i}(E,E)\to
+\mathrm{Ext}^3(E,E)\to H^3(X_5,\mathcal{O}_{X_5})\simeq \C$
+is non-degenerate by Serre duality (since $h^{0,3}(X_5)=1$). The
+$(-3)$-shift records that the symplectic pairing has total cohomological
+degree $-3$ on the tangent complex.
+
+\medskip
+\noindent\textit{Verification.} $\sim 10$ tests in
+\texttt{compute/tests/test\_compact\_geometric\_koszul\_d3.py} via
+\texttt{compute/lib/compact\_geometric\_koszul\_d3.py}, including the
+shift-degree, the trivialisation-name, the Serre-pairing-degree, and
+the unconditional-existence assertions, with the Hodge-data input
+verified independently against Voisin's classical computation.
+\end{proof}
+
+\begin{theorem}[HKR-matching predictor for the quintic]
+\label{thm:hkr-matching-predictor-quintic}
+\ClaimStatusProvedHere
+Let $X_5\subset \P^4$ be the quintic threefold and consider the dg-category
+$\QCoh(T^*[-3]X_5)$ of quasi-coherent sheaves on the $3$-shifted cotangent
+bundle. Then the Hochschild homology dimension vectors agree:
+\[
+\dim HH_q\bigl(\QCoh(T^*[-3]X_5)\bigr) \;=\; \dim HH_q(X_5)
+\qquad \text{for all } q\in \Z.
+\]
+Explicitly:
+\[
+\bigl(\dim HH_q(X_5)\bigr)_{q=-3}^{3} \;=\; (1,\,0,\,101,\,4,\,101,\,0,\,1),
+\qquad
+\sum_{q\in\Z} \dim HH_q(X_5) \;=\; 208.
+\]
+\end{theorem}
+
+\begin{proof}
+For $X_5$, the HKR isomorphism \cite{Caldararu2003}
+$HH_q(X) \simeq \bigoplus_{q'-p=q} H^{q'}(X,\Omega^p_X)$ reduces the
+computation to anti-diagonal sums of the Hodge diamond. The Hodge data
+of the quintic (Voisin \cite[Ch.~5]{Voisin2003}) gives
+$h^{0,0}=h^{0,3}=h^{3,0}=h^{3,3}=1$, $h^{1,1}=h^{2,2}=1$,
+$h^{2,1}=h^{1,2}=101$, all other $h^{p,q}=0$. Summing along
+anti-diagonals:
+\[
+\dim HH_{-3} = h^{3,0} = 1,\;
+\dim HH_{-2} = h^{3,1}+h^{2,0} = 0,\;
+\dim HH_{-1} = h^{3,2}+h^{2,1}+h^{1,0} = 101,\;
+\]
+\[
+\dim HH_0 = h^{3,3}+h^{2,2}+h^{1,1}+h^{0,0} = 4,\;
+\dim HH_1 = 101,\;
+\dim HH_2 = 0,\;
+\dim HH_3 = 1.
+\]
+
+For $\QCoh(T^*[-3]X_5)$, the shifted-cotangent HKR (PTVV \cite{PTVV2013}
+$\S 2$ together with Calaque \cite{Calaque2015} for the Lagrangian
+fibration $T^*[-3]X_5\to X_5$) computes Hochschild homology via the
+polyvector cohomology of $T_{X_5}\oplus T^*_{X_5}[-3]$. The Kunneth
+decomposition splits
+\[
+\Lambda^\bullet\bigl(T_{X_5}\oplus T^*_{X_5}[-3]\bigr)
+\;\simeq\;
+\Sym^\bullet\bigl(T_{X_5}[-1]\bigr)
+\otimes
+\Sym^\bullet\bigl(T^*_{X_5}[-2]\bigr)
+\]
+(the $[-1]$ and $[-2]$ shifts swap parity, turning $\Lambda$ into $\Sym$
+on the shifted summands). Pairing under Verdier duality on the CY$_3$
+base $X_5$, each Hodge contribution $h^{p,q}$ enters the same
+anti-diagonal sum as for $HH_q(X_5)$, recovering the dimension vector
+$(1,0,101,4,101,0,1)$.
+
+Total dimension: $1+0+101+4+101+0+1 = 208 = \sum_{p,q} h^{p,q}(X_5)$,
+i.e.\ the dimension is the total Hodge sum.
+
+\medskip
+\noindent\textit{Verification.} $\sim 16$ tests in
+\texttt{compute/tests/test\_compact\_geometric\_koszul\_d3.py} via
+\texttt{compute/lib/compact\_geometric\_koszul\_d3.py}, including the
+explicit Hodge diamond, the Betti numbers $(1,0,1,204,1,0,1)$, the
+HKR dimension vectors for $X_5$ and $\QCoh(T^*[-3]X_5)$, the Verdier
+duality identification $HH^n\simeq HH_{n-3}$, and the total Hodge sum
+$208$. The decoration
+\texttt{@independent\_verification(claim="thm:hkr-matching-predictor-quintic")}
+records the disjointness: derivation via Caldararu HKR + PTVV; verification
+via Voisin's classical Hodge theory of CY$_3$ hypersurfaces (no HKR or
+PTVV input).
+\end{proof}
+
+\begin{remark}[HKR-matching is necessary, not sufficient]
+\label{rem:hkr-matching-not-koszul-duality}
+Theorem~\ref{thm:hkr-matching-predictor-quintic} establishes the
+\emph{numerical} matching of Hochschild homology dimensions between
+$D^b(\Coh(X_5))$ and the shifted cotangent $\QCoh(T^*[-3]X_5)$. This
+matching is a \emph{necessary} condition for the Kapranov $3$-shifted
+Koszul-dual identification of
+Conjecture~\ref{conj:kapranov-3shifted-exterior-koszul}~(c) specialised
+to the quintic: any chain-level Koszul-dual identification produces
+matching $HH_*$ dimensions by Morita invariance.
+
+The implication is one-way. Numerical matching does NOT imply
+chain-level Koszul duality. Two unrelated dg-categories can share
+$HH_*$ dimensions without being Koszul dual: the dimension vector
+encodes Hodge data of $X_5$, which is shared by any geometric object
+with the same Hodge diamond (e.g.\ Pfaffian threefolds with matching
+Hodge numbers), but the Koszul-dual structure depends on the full
+PTVV $(-3)$-shifted symplectic data and on the existence of a tilting
+complex with the Kapranov property.
+
+The chain-level identification requires:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+ \item A tilting object $E_{X_5}\in D^b(\Coh(X_5))$ with
+ $\End^\bullet(E_{X_5})\simeq \Sym^\bullet(T_{X_5}[-1])$
+ (the conjectural Kapranov input).
+ \item A bar--cobar quasi-isomorphism
+ $\Bar^{\mathrm{ord}}(\End^\bullet(E_{X_5}))\simeq
+ \Sym^\bullet(T_{X_5}[-1])^\vee$ (Priddy-type, conditional on (1)).
+ \item Compatibility of the PTVV form with the Koszul-dual identification
+ (Calaque \cite{Calaque2015} in the toric case; OPEN in the compact case).
+\end{enumerate}
+Step (1) is the genuine open obstruction; see Remark~\ref{rem:tilting-complex-obstruction-quintic} below.
+Per AP-CY60: the HKR-matching theorem is a \emph{numerical shadow} of
+the conjectural identification, not a chain-level proof. Per AP-CY61:
+the brief's predictor ``HKR matching $\Rightarrow$ Koszul'' contains
+the ghost theorem of the necessary condition (PROVED here) but the
+forward implication is FALSE.
+\end{remark}
+
+\begin{remark}[Tilting-complex obstruction for the compact quintic]
+\label{rem:tilting-complex-obstruction-quintic}
+The genuine open problem in
+Conjecture~\ref{conj:kapranov-3shifted-exterior-koszul}~(c) for compact
+CY$_3$ is the construction of a tilting object $E_{X_5}\in D^b(\Coh(X_5))$
+with $\End^\bullet(E_{X_5})\simeq \Sym^\bullet(T_{X_5}[-1])$.
+
+\textbf{Bondal--Orlov reconstruction obstruction.} A smooth projective
+variety with trivial canonical bundle (compact CY$_d$, $d\geq 1$) admits
+no exceptional collection of vector bundles by Bondal--Orlov
+\cite{BondalOrlov2001}: the autoequivalence group of $D^b(\Coh(X))$ is
+generally infinite (twists, shifts, spherical twists), and reconstruction
+through tilting bundles fails. The conjectural Kapranov object $E_{X_5}$
+must therefore be a \emph{tilting complex} (object of $D^b(\Coh(X_5))$,
+not a vector bundle), with finite global dimension and generating
+$D^b(\Coh(X_5))$ via the tilted t-structure.
+
+\textbf{Three candidate construction routes, all OPEN.}
+\begin{enumerate}[label=\textup{(\alph*)}]
+ \item \emph{BCOV wave-function quantization.} The polyvector algebra
+ $\Sym^\bullet(T_{X_5}[-1])$ appears as the algebra of holomorphic anomaly
+ observables in the B-model topological string \cite{BCOV1993}. Promoting
+ the BCOV partition function to a categorical structure on
+ $D^b(\Coh(X_5))$ producing a tilting complex with the Kapranov endomorphism
+ algebra has not been done.
+ \item \emph{Derived Landau--Ginzburg mirror.} The Hori--Vafa LG mirror
+ of $X_5$ produces an HMS equivalence with $D^b(\Coh(X_5))$
+ (Sheridan \cite{Sheridan2015} for compact CY$_3$ hypersurfaces). HMS
+ supplies tilting on the matrix-factorisation side; transporting back to
+ the B-model side does not preserve the Kapranov property
+ (per AP-CY60: HMS is an equivalence, NOT Koszul duality).
+ \item \emph{Bridgeland stability tilting.} Stability conditions on
+ $D^b(\Coh(X_5))$ (Bridgeland \cite{Bridgeland2007}) parametrise tilting
+ complexes via the tilted t-structure. A stability $\sigma$ realising
+ $\Sym^\bullet(T_{X_5}[-1])$ as the heart of the tilted t-structure has
+ not been constructed.
+\end{enumerate}
+The chain-level Koszul-dual identification of
+Conjecture~\ref{conj:kapranov-3shifted-exterior-koszul}~(c) for compact
+CY$_3$ remains the genuine research frontier. Resolution of step (1) of
+Remark~\ref{rem:hkr-matching-not-koszul-duality} via any of (a)--(c)
+would close layer (c) of Remark~\ref{rem:cy-b-d3-precise} for the
+compact quintic.
 \end{remark}
 
 \begin{theorem}[Verdier spectral functor]

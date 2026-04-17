@@ -3091,8 +3091,130 @@ only if the BCOV multi-instanton tower factorises through the universal
 Casimir on the adjoint, which is true at the perturbative
 \textup{(}Yamaguchi--Yang\textup{)} level but the chain-level extension
 requires chain-level CY-A_3 + Costello--Li open--closed factorisation.
-Higher orders therefore remain CONJECTURAL pending these inputs
+The closed-form predictor for the higher-instanton anomaly sum is given
+in Conjecture~\ref{conj:Yfg-non-formal-vanishing-higher} below; its
+verification follows the universal-Casimir matching that powers the
+$n = 1$ proof, decoupled into the same-sign Costin tower piece and an
+even/odd-alternating $F_n$ anomaly contribution.
+\end{remark}
+
+\subsection{Higher-instanton extension via the BCOV $F_n$ holomorphic
+            anomaly}
+\label{subsec:Yfg-non-formal-higher-instanton}
+
+\begin{conjecture}[Higher-instanton non-formal vanishing for
+                   $Y(\fg_{\mathrm{ADE}})$]
+\label{conj:Yfg-non-formal-vanishing-higher}
+\ClaimStatusConditional
+For ADE-type simple Lie algebra $\fg$ of rank $r$ and dual Coxeter
+number $h^\vee_\fg$, and for every $n \geq 1$, the $n$-th instanton
+sector of the resurgent Drinfeld twist of
+Theorem~\ref{thm:Yfg-resurgent-Drinfeld-twist} satisfies the
+non-formal vanishing identity
+\[
+   \mathrm{tr}_{Y(\fg)}\bigl(\mathcal{F}^{\mathrm{Stokes}, n}_{Y(\fg)}\bigr)
+   \;+\;
+   A^{(n)}_{\mathrm{BCOV}}|_{Y(\fg)} \cdot e^{-n/g_s}
+   \;=\;
+   0,
+\]
+where each side decomposes as a Costin tower piece plus a genuine $F_n$
+anomaly piece:
+\[
+   A^{(n)}_{\mathrm{algebra}}
+   \;=\;
+   \underbrace{\frac{(-8 \cdot \mathrm{ratio})^n}{n!}}_{\text{Costin tower}}
+   \;+\;
+   \underbrace{M^{\mathrm{Drinfeld}, \mathrm{anom}}_n(\fg)}_{F_n\ \text{anomaly}},
+\]
+\[
+   A^{(n)}_{\mathrm{BCOV}}
+   \;=\;
+   \underbrace{\frac{(+8 \cdot \mathrm{ratio})^n}{n!}}_{\text{Costin tower}}
+   \;+\;
+   \underbrace{M^{F_n, \mathrm{BCOV}}_n(\fg)}_{F_n\ \text{anomaly}},
+\]
+with $\mathrm{ratio} := h^\vee_{A_{r - 1}} / h^\vee_\fg$.  The total
+cancellation holds iff the anomaly pieces satisfy the universal predictor
+\[
+   M^{\mathrm{Drinfeld}, \mathrm{anom}}_n(\fg)
+   + M^{F_n, \mathrm{BCOV}}_n(\fg)
+   \;=\;
+   \begin{cases}
+   -\,\dfrac{2 \cdot 8^n \cdot \mathrm{ratio}^n}{n!},
+   & n\ \text{even};
+   \\[1.5ex]
+   0, & n\ \text{odd}.
+   \end{cases}
+\]
+The BCOV-side anomaly piece $M^{F_n, \mathrm{BCOV}}_n(\fg) = -8^n \cdot
+\mathrm{ratio}^n / n!$ \textup{(}$n$ even\textup{)}, $0$ \textup{(}$n$
+odd\textup{)} is determined unconditionally at the perturbative level
+by the Yamaguchi--Yang $F_g$ polynomial recursion
+\textup{(}arXiv:hep-th/0406078\textup{).}  The Drinfeld-side anomaly
+piece $M^{\mathrm{Drinfeld}, \mathrm{anom}}_n(\fg)$ takes the same
+universal-Casimir-matched value $-8^n \cdot \mathrm{ratio}^n / n!$
+\textup{(}$n$ even\textup{)}, $0$ \textup{(}$n$ odd\textup{)} conditional
+on the chain-level Costello--Li open--closed factorisation
+$C^*_{\mathrm{BCOV}, Y(\fg)} \cong C^*_{\mathrm{open}} \otimes
+C^*_{\mathrm{closed}}$ \textup{(}arXiv:1505.06703 \S 4\textup{).}
+\end{conjecture}
+
+\begin{remark}[Even/odd alternation explicit]
+\label{rem:Yfg-non-formal-higher-parity}
+The cancellation mechanism alternates with parity: at odd $n \geq 3$
+the Costin tower pieces $(-8 \cdot \mathrm{ratio})^n / n!$ and $(+8 \cdot
+\mathrm{ratio})^n / n!$ have opposite signs and self-cancel, requiring
+no anomaly contribution.  At even $n$ the Costin pieces have the same
+sign and add to $+2 \cdot 8^n \cdot \mathrm{ratio}^n / n! > 0$,
+requiring the $F_n$ anomaly pieces to sum to the negative of this value.
+The closed-form predictor is verified by direct computation across
+ADE \textup{(}$A_1, A_2, A_3, A_4, A_5, D_4, D_5, D_6, E_6, E_7,
+E_8$\textup{)} for $n = 2, 3, 4, 5, 6$ in the engine
+\texttt{compute/lib/resurgent\_higher\_instanton.py}; the $D_4$ test at
+$n = 2$ \textup{(}rational values $\pm 128/9$ for the Costin pieces
+and $\mp 128/9$ for the anomaly pieces, with ratio $= 2/3$\textup{)} is
+the falsifiable predictor.
+\end{remark}
+
+\begin{remark}[Where the proof closes / where it conditions]
+\label{rem:Yfg-non-formal-higher-where-it-closes}
+The conjecture closes UNCONDITIONALLY at the perturbative level for
+all four pieces \textup{(}both Costin towers + the BCOV-side $F_n$
+anomaly piece\textup{):} the Costin towers from Costin Theorem 4.2.1
+free convolution, the BCOV-side anomaly from Yamaguchi--Yang
+polynomial recursion.  The CHAIN-LEVEL Drinfeld-side anomaly piece
+$M^{\mathrm{Drinfeld}, \mathrm{anom}}_n(\fg)$ requires Costello--Li
+open--closed factorisation \textup{(}arXiv:1505.06703 \S 4\textup{)}
+for unambiguous definition: the Drinfeld twist transseries lives in
+the open string sector, the gravitational instanton in the closed
+string sector, and the chain-level identification of the two anomaly
+pieces with the universal-Casimir image of $C^*_{\mathrm{open}}
+\otimes C^*_{\mathrm{closed}}$ is the Costello--Li conjecture.  Higher
+orders therefore remain CONDITIONAL on this chain-level input
 \textup{(}HZ3-3 conditional propagation\textup{).}
+\end{remark}
+
+\begin{remark}[Reconstitution if the cancellation fails]
+\label{rem:Yfg-non-formal-higher-reconstitution}
+If the cancellation fails at some order $n_0 \geq 2$, the obstruction
+arises in one of two specific ways: \textup{(a)} the BCOV $F_{n_0}$
+polynomial recursion produces $M^{F_{n_0}, \mathrm{BCOV}} \neq -8^{n_0}
+\cdot \mathrm{ratio}^{n_0} / n_0!$, indicating that the Yamaguchi--Yang
+polynomial structure does not factor through the universal Casimir at
+order $n_0$ \textup{(}requiring a higher-Casimir refinement of the
+matching mechanism, in which case the Pentagon obstruction acquires a
+NEW invariant beyond the universal-Casimir image\textup{);} or
+\textup{(b)} the chain-level Drinfeld twist anomaly piece
+$\mathcal{G}^{(n_0), \mathrm{anom}}$ is not in the image of the
+universal Casimir on adjoint, indicating that Costello--Li open--closed
+factorisation fails at order $n_0$.  The Platonic ideal in case (a) is
+a higher-Casimir matching theorem with refined invariant
+$\mathcal{I}_n(\fg)$ involving the order-$2n$ Casimir on adjoint plus
+correction terms from quartic / sextic Casimirs; in case (b), a
+genus-$g$ extension of Costello--Li with the
+$\mathcal{G}^{(n_0), \mathrm{anom}}$ contribution living in
+$C^*_{\mathrm{open}, g}$ for some $g \geq 1$.
 \end{remark}
 
 \begin{remark}[Analytic counterpart of Goodwillie vanishing]
