@@ -1361,3 +1361,68 @@ The statement "Cl_4 ≅ M_2(C) as Z/2-graded" is wrong on both counts: ungraded 
 **Confusion type.** Algebra-structure mismatch: naming the wrong periodicity (real vs complex, graded vs ungraded) while stating a correct downstream fact.
 
 **Status.** AP-CY82 catalogued. Instance fixed at matrix_factorizations.tex L171 (2026-04-17).
+
+
+## Entry: κ_ch fibre vs total-space in Siegel-weight arithmetic for K3×E (CG-rectify braided_factorization Phase 4, AP-CY68 instance)
+
+**Wrong claim.** In the conjectural identification wt(Ŝ) = −2κ_ch for the K3×E categorical S-matrix, "κ_ch" is taken to be 2 — i.e. the arithmetic -10 + 6 = -4 = -2·2 silently uses κ_ch = 2 for the total space K3×E.
+
+**Ghost theorem.** The weight arithmetic is correct: Φ_10 has weight 10, the Eisenstein normalizer has weight 6, and -10 + 6 = -4 is the Siegel weight of Ŝ. A natural "2" does control the weight — it is the central charge of the K3 chiral algebra feeding the Borcherds lift.
+
+**Precise error.** The natural κ_ch of A_{K3×E} under Phi is 3 (additive under Künneth: κ_ch(K3) + κ_ch(E) = 2 + 1), NOT 2. Writing -4 = -2κ_ch(A_{K3×E}) implies κ_ch(A_{K3×E}) = 2, contradicting additivity. The "2" in -2·2 = -4 is the K3-FIBRE central charge κ_ch(Phi_2(D^b(K3))), not the total-space invariant.
+
+**Correct relationship.** Φ_10 is the Borcherds lift of the K3 elliptic genus φ_{0,1} — K3-fibre data, not total-space data (the E factor enters Φ_10 only as a multiplicative character, not as independent geometric input). The Siegel weight of Ŝ is controlled by the FIBRE κ_ch^fib := κ_ch(Phi_2(D^b(K3))) = 2, and wt(Ŝ) = -2κ_ch^fib = -4. The total-space invariant κ_ch(A_{K3×E}) = 3 does not enter the Siegel-weight arithmetic; it enters other invariants (e.g. the Vol I scalar shadow at the total-space level).
+
+**Confusion type.** Fibre-vs-total-space (AP-CY68). Bare κ_ch without a fibre/total-space qualifier invites the conflation; the cure is either an explicit superscript (κ_ch^fib vs κ_ch(A_X)) or a scope sentence naming which invariant the Siegel weight sees.
+
+**Status.** Catalogued. Instance fixed at braided_factorization.tex L944-954 (conjecture item ii), L963-976 (conjecture item iv), L1202-1208 (inline remark) — all updated to use κ_ch^fib with fibre/total-space scope explicit.
+
+
+## Entry: R-matrix carried by bar complex, NOT by Koszul dual (CG-rectify braided_factorization Phase 4 closing synthesis)
+
+**Wrong claim.** "The Koszul dual A^{!,E_2} is the deformation-quantised vertex enveloping algebra, and its E_2 coalgebra structure is the categorical R-matrix."
+
+**Ghost theorem.** The R-matrix does arise from the E_2-chiral Koszul-duality machinery, and A^{!,E_2} is the correct Koszul dual of A as an algebra (Ω_{E_2}(B_{E_2}(A)) ≃ A^{!,E_2} by bar-cobar inversion on the Koszul locus).
+
+**Precise error.** The categorical R-matrix is the degree-(1,1) datum of B_{E_2}(A) — the E_2-BAR COMPLEX — which is a coalgebra. The Koszul dual A^{!,E_2} is an ALGEBRA (recovered from B_{E_2}(A) by cobar inversion). Attributing the "E_2 coalgebra structure" to A^{!,E_2} conflates the algebra-side object (A^{!,E_2}) with the coalgebra-side object (B_{E_2}(A)): a category error, since A^{!,E_2} is not a coalgebra.
+
+**Correct relationship.** Under the braided bar-cobar adjunction B_{E_2} ⊣ Ω_{E_2}:
+- B_{E_2}(A) is an E_2-COALGEBRA whose degree-(1,1) datum is the categorical R-matrix.
+- A^{!,E_2} := Ω_{E_2}(B_{E_2}(A)) is an E_2-ALGEBRA, the Koszul dual.
+- Bar-cobar inversion Ω_{E_2}(B_{E_2}(A)) ≃ A^{!,E_2} recovers the algebra from the coalgebra.
+
+The R-matrix lives on the coalgebra side; the Koszul dual lives on the algebra side; they are in bar-cobar duality, not identification. The cure in prose: attribute "carries the R-matrix" to B_{E_2}(A) and reserve "Koszul dual" for A^{!,E_2}, with Ω_{E_2}(B_{E_2}(A)) ≃ A^{!,E_2} stated as the bridge.
+
+**Confusion type.** Algebra/coalgebra (cache item #5 variant; hook fingerprints AP25 "Ω(B(A))=A inversion, NOT bulk" and AP34 "bar-cobar inversion, not open-to-closed").
+
+**Status.** Catalogued. Instance fixed at braided_factorization.tex §"What this chapter establishes" (L1724-1740): R-matrix now attributed to B_{E_2}(A) coalgebra; A^{!,E_2} := Ω_{E_2}(B_{E_2}(A)) recovered by cobar inversion.
+
+
+## Entry: Φ_10 weight label — Φ_10 is weight 2κ_BKM = 10, not κ_BKM = 5 (CG-rectify braided_factorization Phase 4)
+
+**Wrong claim.** "Φ_10 is a Siegel modular form of weight κ_BKM = 5 for Sp_4(Z)."
+
+**Ghost theorem.** κ_BKM = 5 is a correct invariant of the BKM superalgebra for K3×E — it is the weight of Δ_5, the Gritsenko-Nikulin paramodular cusp form.
+
+**Precise error.** Φ_10 has weight 10, not 5. The relation Φ_10 = Δ_5² makes this explicit: Φ_10 is the SQUARE of the weight-5 Δ_5, giving weight 10 = 2·5 = 2κ_BKM. Separately, Δ_5 does not live on full Sp_4(Z) (no weight-5 cusp form exists on full Sp_4(Z)) but on a paramodular subgroup Γ_para ⊂ Sp_4(Q) (AP-CY77 related).
+
+**Correct relationship.** Φ_10 ∈ S_10(Sp_4(Z)) is the weight-10 Igusa cusp form; Δ_5 ∈ S_5(Γ_para) is its square root on the paramodular subgroup. κ_BKM = 5 is the weight of Δ_5; the Siegel weight of Φ_10 is 2κ_BKM = 10.
+
+**Confusion type.** Label/content (cache item #2 variant). A shared invariant (κ_BKM) named at two related objects (Δ_5 vs Φ_10 = Δ_5²) invites swapping the label for the content.
+
+**Status.** Catalogued. Instance fixed at braided_factorization.tex L924-929 (Φ_10 now labelled weight 2κ_BKM = 10, with Δ_5 of weight κ_BKM = 5 on Γ_para named as the square root).
+
+
+## Entry: Genus-3 Heisenberg partition function missing 2^c prefactor (CG-rectify braided_factorization Phase 4)
+
+**Wrong claim.** F_3^Heis(Ω_3; c) = χ_18(Ω_3)^{-c/36}, inconsistent with the g=2 formula F_2 = 2^c · Δ_5^{-c/10}.
+
+**Ghost theorem.** The Siegel weight arithmetic wt(F_3) = 18·(-c/36) = -c/2 is correct, and the χ_18 normalization as product of 36 even theta constants is correct.
+
+**Precise error.** The statement omits the 2^c prefactor that the derivation itself produces. From F_g = Θ_null^{-c/2} with Θ_null = [2^{-N_even}·χ]^{1/wt(χ)}, at g=3: Θ_null = [2^{-36}·χ_18]^{1/18}, so F_3 = 2^{36·(c/2)/18} · χ_18^{-c/36} = 2^c · χ_18^{-c/36}. The prefactor 2^{N_even·(c/2)/wt(χ)} = 2^c is genus-independent because N_even/wt(χ) = 2 for both g=2 and g=3; hence it must appear at every genus uniformly.
+
+**Correct relationship.** F_g^Heis = 2^c · χ_g^{-c/wt(χ_g)} for the genus-g theta-product χ_g (Δ_5 at g=2, χ_18 at g=3), with the 2^c prefactor arising from the 2^{-N_even} Schottky normalization of Θ_null. Dropping 2^c at g=3 while keeping it at g=2 produces a genus-inconsistent formula.
+
+**Confusion type.** Part/whole (derivation yields 2^c · χ^{-c/wt}; statement drops 2^c). Also genus-consistency: a pattern correct at g=2 must transport correctly to g=3 when the underlying construction (Schottky-normalised Θ_null) is genus-independent.
+
+**Status.** Catalogued. Instance fixed at braided_factorization.tex L1278-1281 (statement) and L1310-1316 (proof: now shows 2^{36·(c/2)/18} = 2^c explicitly and names the prefactor as genus-independent).

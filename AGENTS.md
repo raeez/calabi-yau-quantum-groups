@@ -315,6 +315,8 @@ UNCERTAIN -> default \begin{conjecture}. Downgrade is cheaper than retract.
 
 Vol III default: `\begin{conjecture}` for CY-C-dependent results.
 
+**E_1-chiral notions collapse to two on the Koszul locus (HEALED 2026-04-17 in Vol I `thm:e1-chiral-notions-collapse`, `algebraic_foundations.tex`):** notions (A) strict ChirAss, (B) A_inf in End^{ch}_A, (C) EK quantum VA, (E) factorization on Ran^{ord}(X) are mutually Quillen-equivalent on the Koszul locus via Stasheff truncation + Etingof-Kazhdan + Beilinson-Drinfeld D-module realization. Only (D) double-A_inf remains genuinely distinct (open problem, `conj:double-ainfty-notion-D-relation`). Operational registry is two: ordinary E_1-chiral input + speculative (∞,2)-enhancement. Outside the Koszul locus the five-fold distinction still applies.
+
 ### HZ3-2. AP113 (bare kappa)
 
 ZERO TOLERANCE. Before writing ANY `\kappa`:

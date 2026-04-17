@@ -56,7 +56,7 @@ For d=2: the functor Phi_2 is proved (Theorem CY-A_2). For d=3: the infinity-cat
 
 | Component | Status |
 |-----------|--------|
-| CY-A (CY-to-chiral functor) | **Proved** at all d (CY-A_2 at d=2; CY-A_3 at d=3 via infinity-categorical framework) |
+| CY-A (CY-to-chiral functor) | **Proved** at d=3 in the infinity-categorical framework: toric and formal unconditional; compact non-formal CONDITIONAL on strictification + connectivity. CY-A_2 at d=2 unconditional. |
 | CY-B (E_n-chiral Koszul duality) | **Proved** at d=3 via Verdier spectral functor; d-stratified scope documented |
 | K3 Yangian Y(g_{K3}) | **Proved** (24 generators, Mukai signature (4,20), (24,24) structure function, pentagon-at-E_1 architecture) |
 | Phi(K3) explicit | **Proved** (H_Muk, kappa_ch=2) |
@@ -64,7 +64,7 @@ For d=2: the functor Phi_2 is proved (Theorem CY-A_2). For d=3: the infinity-cat
 | Drinfeld center E_1 -> E_2 | **Proved** (right adjoint to forgetful, explicit half-braiding sigma_A(z) construction) |
 | CY-C (six routes convergence) | **Proved** at scalar kappa_BKM level via kappa_BKM(Phi_N) = c_N(0)/2 universal (Borcherds weight); generator-relation identification across routes remains CONJECTURAL |
 | CY-D (dimension stratification) | **Proved**: thm:kappa-hodge-supertrace-identification for compact CY_d all d; explicit stratification across d in {1,2,3,4,5} |
-| CY_4 p_1-twisted family | **Proved** (double current algebra with c(x,y) = <x∪y∪p_1(T_X),[X]>/24; K3 x K3 unobstructed E_4) |
+| CY_4 p_1-twisted family | **Conjectural** (p_1-twisted double current algebra on each fibre of the P^1-family; E_1 native, E_2-braided Drinfeld center with Z-valued half-braiding twist from p_1; cascade terminates at E_3 for all d >= 3 per AP-CY46; OPE shift = int p_1 / 12) |
 | Langlands = Koszul | **Conjectural** |
 
 | Metric | Value |
@@ -189,16 +189,22 @@ healed since the last README revision:
   depend on CY-A. For non-K3-fibered Class B (quintic, C^3, conifold,
   local P^2), `κ_BKM` is UNDEFINED; replacement invariants are
   `κ_BCOV = χ(X)/24` (BCOV 1994) and shadow depth (conditional on CY-A).
-  The N = 1 K3 × E coincidence `κ_BKM = κ_ch + χ(O_fiber)` FAILS at N ≥ 2
-  per `rem:bkm-decomposition-adversarial` (62 adversarial tests).
+  The naive decomposition `κ_BKM = κ_ch + χ(O_fiber)` fails at EVERY N,
+  including N = 1: the correct value is `κ_BKM(Φ_1) = 5` via Gritsenko's
+  Δ_5 weight-5 paramodular form of level 1 (Gritsenko 1999), not
+  `0 + 0 = 0`. The prior "N = 1 coincidence" narrative is retracted as
+  confabulation; see `rem:bkm-decomposition-adversarial`
+  (62 adversarial tests).
 
 - **CY-C pentagon stratification healing** (commit cade61c). The notorious
   `κ_ch = 3 vs κ_BKM = 5` contradiction is resolved by the recognition that
   `κ_BKM` is stratified by GENERATOR RANK `ρ^{R_i}`, NOT by `κ_ch`. The
   universal stratification reads `{3, 12, 24}` against the route index, with
   `κ_ch = 0` route-independent (Hodge-supertrace invariant for K3 × E). The
-  decomposition `κ_BKM = κ_ch + χ(O_fiber)` is the N = 1 K3 × E numerical
-  coincidence. Manifest invariants (κ_cat, κ_fiber) are topological; only
+  decomposition `κ_BKM = κ_ch + χ(O_fiber)` holds at NO N: already at N = 1
+  the correct `κ_BKM(Φ_1) = 5` (Gritsenko Δ_5) contradicts `0 + 0 = 0`, so
+  the prior "N = 1 coincidence" framing is retracted. Manifest invariants
+  (κ_cat, κ_fiber) are topological; only
   algebraization invariants (κ_ch, κ_BKM) depend on the chiral-algebra
   realisation.
 

@@ -87,9 +87,14 @@ This chapter
  (scope: super-Yangian Koszul-dual pair on the principal bosonic
  sub-Sugawara line at super-Sugawara-shifted level inversion
  $k \mapsto -k - 2 h^\vee$; the sum is $k$-independent and equals the
- maximum rank $\max(m, n)$, which is the KM-family analog of
- $\kappa_{\mathrm{ch}}(V_k(\mathfrak{g})) + \kappa_{\mathrm{ch}}(V_{-k - 2 h^\vee}(\mathfrak{g})) = \dim(\mathfrak{g})/2$; NOT the bosonic Virasoro
- pair, where $\kappa_{\mathrm{ch}}^{\mathrm{Vir}} + \kappa_{\mathrm{ch}}^{\mathrm{Vir}!} = 13$)
+ maximum rank $\max(m, n)$, which is the super-rank generalisation of
+ the bosonic KM scalar complementarity
+ $\kappa_{\mathrm{ch}}(V_k(\mathfrak{g})) + \kappa_{\mathrm{ch}}(V_{-k - 2 h^\vee}(\mathfrak{g})) = 0$
+ under Feigin--Frenkel involution $k \mapsto -k - 2h^\vee$; distinct
+ from the Virasoro Koszul-dual complementarity
+ $\kappa_{\mathrm{ch}}^{\mathrm{Vir}} + \kappa_{\mathrm{ch}}^{\mathrm{Vir}!} = 13$,
+ and distinct from the super-rank offset $\max(m, n)$, which arises
+ from a Berezinian super-trace term absent in the bosonic case)
  via parity reversal (\S\ref{sec:super-riccati-selfduality}),
 \item verifies $S_3$-triality preservation for the
  GRL-super-$Y$ family $Y(L|1, M|1, N|1)$
@@ -104,8 +109,8 @@ This chapter
 Every closed form in \S\S\ref{sec:super-riccati-closed-forms}--\ref{sec:super-riccati-class-assignment}
 is verified independently in
 \texttt{compute/tests/test\_super\_riccati\_shadow\_tower.py}
-(HZ-IV decorators attached to six master claims, all with disjoint
-derivation and verification source pairs).
+(independent-verification decorators attached to six master claims,
+all with disjoint derivation and verification source pairs).
 
 \section{Super-Yangian setup: parities, super-dimension, dual Coxeter}
 \label{sec:super-riccati-setup}
@@ -725,7 +730,7 @@ equals the constant $\max(m, n)$, the rank of the principal bosonic
 sub-algebra. This is the super-Yangian analogue of the bosonic
 affine-KM complementarity identity for $\kappa_{\mathrm{ch}}$ at
 $k' = -k - 2 h^\vee$; the Virasoro-family analogue (sum $= 13$) is a
-DIFFERENT family-specific constant (AP24 scope).
+DIFFERENT family-specific constant.
 \end{theorem}
 
 \begin{proof}[Proof]
@@ -758,8 +763,9 @@ $\partial_k(\text{sum}) = 0$ in sympy.
 
 The argument is the super-analogue of the bosonic AFFINE KM identity
 for $\kappa_{\mathrm{ch}}$ at $k' = -k - 2 h^\vee$
-(scope: KM/free families per AP24, NOT Virasoro which has
-sum $13$; see Vol~I FM22 and the Koszul conductor table) extended to
+(scope: KM/free families where scalar complementarity vanishes, NOT
+Virasoro whose scalar complementarity sum is $13$; see the Koszul
+conductor table in Vol~I) extended to
 super-algebras by explicit parity reversal.
 \end{proof}
 
@@ -812,7 +818,10 @@ complementarity. Both coexist; both are correct under their own
 subscripts. The bare symbol $\kappa_{\mathrm{ch}}(Y_\hbar(\mathfrak{sl}(m|n)))$
 without pairing qualifier is AMBIGUOUS in the super setting
 (analogous to the $\kappa_{\mathrm{ch}}$ subscripting discipline
-AP113 in the bosonic setting). The programme convention:
+in the bosonic setting, where the unqualified kappa symbol is
+replaced by one of $\kappa_{\mathrm{ch}}$, $\kappa_{\mathrm{cat}}$,
+$\kappa_{\mathrm{BKM}}$, $\kappa_{\mathrm{fiber}}$). The programme
+convention:
 $\kappa_{\mathrm{ch}}^{\mathrm{str}}$ for super-trace pairing,
 $\kappa_{\mathrm{ch}}^{\mathrm{Ber}}$ for Berezinian pairing.
 \end{remark}
@@ -851,9 +860,10 @@ fermionic), the RHS maximises in magnitude, reflecting the
 asymmetry between the two Koszul orientations. The two duality
 relations -- super-Yangian sub-Sugawara-line sum
 $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^{!} = \max(m, n)$
-(Theorem~\ref{thm:super-shadow-self-duality}; AP24-scoped to
-super-KM-family-analogue where the constant is $\max(m, n)$, NOT
-Virasoro which has sum $13$) and the $(m - n)$-scaled Berezinian
+(Theorem~\ref{thm:super-shadow-self-duality}; scoped to the
+super-KM-family analogue where the scalar-complementarity constant
+is $\max(m, n)$, NOT Virasoro whose scalar complementarity sum is
+$13$) and the $(m - n)$-scaled Berezinian
 version -- correspond to DIFFERENT Koszul pairings on the
 super-Yangian: the first uses the straight super-trace, the second
 uses the Berezinian-normalised pairing. Neither produces a zero
@@ -960,14 +970,14 @@ the shadow depth is tied to the screening depth and is finite for
 principal, infinite for hook-type beyond the finite rank.
 \end{proof}
 
-\section{Test coverage and HZ-IV independent-verification decoration}
+\section{Test coverage and independent-verification decoration}
 \label{sec:super-riccati-test-coverage}
 
 Engine: \texttt{compute/lib/super\_riccati\_shadow\_tower.py}
 (265 lines). Test file:
 \texttt{compute/tests/test\_super\_riccati\_shadow\_tower.py}
-(32 tests). Six HZ-IV decorators with pairwise-disjoint
-derivation and verification source sets:
+(32 tests). Six independent-verification decorators with
+pairwise-disjoint derivation and verification source sets:
 
 \begin{enumerate}[label=\textup{(\alph*)},nosep]
 \item \texttt{thm:super-riccati-master-recurrence}: derived from
@@ -1001,14 +1011,14 @@ source sets that pass the \texttt{assert\_sources\_disjoint} check in
 \section{Cross-volume propagation and frontier}
 \label{sec:super-riccati-frontier}
 
-\begin{remark}[Cross-volume AP5 propagation]
+\begin{remark}[Cross-volume propagation sweep]
 \label{rem:super-riccati-cross-volume}
 The super-Yangian $\mathfrak{sl}(1|1)$ entry in
 Vol~III \texttt{chapters/examples/shadow\_tower\_extended\_families.tex}
 (Theorem~\ref{thm:super-yangian-parity-sign}) is the rank-$2$ case
 (a) of Theorem~\ref{thm:sl11-closed-forms}. The Vol~I
-census (landscape\_census.tex) and FM-LIE-NUMERICS class data are
-extended to super by the class assignment of
+census (landscape\_census.tex) and the exceptional-Lie numerical
+class data are extended to super by the class assignment of
 Theorem~\ref{thm:super-class-assignment}. No inconsistency with
 Vol~II's 3d HT gravity climax is introduced: the super-Yangian lines
 enter Vol~II only at the level of $\mathcal{N}{=}2$ superconformal

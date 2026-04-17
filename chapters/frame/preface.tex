@@ -23,14 +23,16 @@ chiral algebra or a chiral quantum group; the input is
 assumed.
 
 \emph{This volume constructs the input.} The construction is
-\emph{one} symmetric monoidal functor
+a $d$-indexed CY-to-chiral correspondence programme
+$\{\Phi_d\}_{d \ge 1}$
 \[
- \boxed{\;\Phi \colon \CY_d\text{-}\Cat \longrightarrow
+ \boxed{\;\Phi_d \colon \CY_d\text{-}\Cat \longrightarrow
  \En\text{-}\mathrm{ChirAlg}(\cM_d),
  \qquad
- n = \begin{cases}\infty, & d = 1, \\ 2, & d = 2, \\
+ n = n(d) = \begin{cases}\infty, & d = 1, \\ 2, & d = 2, \\
  1, & d \ge 3,\end{cases}\;}
 \]
+with target category varying with $d$; each $\Phi_d$ is
 characterised by four universal properties:
 \begin{description}[itemsep=2pt,leftmargin=2.0em,style=nextline]
 \item[(U1) Hochschild pullback.]
@@ -84,8 +86,8 @@ Hochschild homology $\HH_\bullet(\cC)$ carries the
 $\Sd$-framing (Connes operator hierarchy); Hochschild cohomology
 $\HH^\bullet(\cC, \cC)$ carries the Gerstenhaber bracket of
 degree $1 - d$.
-\item[II. The functor $\Phi$.]
-$\Phi \colon \CY_d\text{-}\Cat \to \En\text{-}\mathrm{ChirAlg}$,
+\item[II. The correspondence programme $\{\Phi_d\}$.]
+$\Phi_d \colon \CY_d\text{-}\Cat \to \En\text{-}\mathrm{ChirAlg}$,
 $n = 2$ at $d = 2$, $n = 1$ at $d \ge 3$.
 Four-step construction:
 $\HH_\bullet \leadsto \mathfrak{L}_\cC \leadsto U^{\mathrm{fact}}_X(\mathfrak{L}_\cC)
@@ -107,7 +109,11 @@ lifts $\Eone$-monoidal input to $\Etwo$-braided output at $d \ge 3$.
 $\Phi_2\bigl(D^b\Coh(K3)\bigr) = \mathrm{Heis}(H^*(K3, \C), \omega_{\mathrm{Muk}})$
 ($\mathrm{rank}\ 24$, signature $(4, 20)$, $\kappa_{\mathrm{ch}} = 2$).
 $Y(\mathfrak{g}_{K3})$: $24$ generators, Mukai-signature Serre,
-degree-$(24,24)$ structure function.
+degree-$(24,24)$ structure function. The construction consumes
+only the Mukai lattice datum (rank $24$, signature $(4,20)$,
+even unimodular, $CY_2$-constrained); no K3-specific geometry
+(Hodge decomposition, Ricci-flat metric, holomorphic $2$-form)
+enters. The K3 label preserves physical-source inspiration.
 $K3 \times E$:
 $\kappa_\bullet\text{-spectrum} = \{
 \kappa_{\mathrm{cat}} = 0,\
@@ -162,9 +168,31 @@ Fourier support, closed under Künneth fusion
 ($\mathrm{P}_4$ absorbing, $\mathrm{P}_1$ identity).
 \textit{CY-D tri-stratum}: the three strata above exhaust the
 compact CY classification of Beauville--Bogomolov; they refine
-the universal Hodge-supertrace formula
-$\kappa_{\mathrm{ch}}(\Phi(\cC_X)) = \sum_q (-1)^q\, h^{0,q}(X)$
-of Theorem~\ref{thm:kappa-stratification-by-d}.
+the stratified characteristic
+$\kappa_{\mathrm{ch}}(\Phi(\cC_X))$ of
+Theorem~\ref{thm:kappa-stratification-by-d}. Two
+conventions coexist and must be distinguished: the
+Hodge-supertrace
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(X) := \sum_q (-1)^q\,
+h^{0,q}(X)$, which equals $\chi(\cO_X)$ and vanishes for every
+odd-$d$ strict CY by Serre pairing; and the Künneth-additive
+complex dimension $\kappa_{\mathrm{ch}}^{\mathrm{K}}(X) :=
+\dim_\C X$, which satisfies
+$\kappa_{\mathrm{ch}}^{\mathrm{K}}(X \times Y) =
+\kappa_{\mathrm{ch}}^{\mathrm{K}}(X) +
+\kappa_{\mathrm{ch}}^{\mathrm{K}}(Y)$. The two coincide on
+even-$d$ strict CY with $h^{0,0} = h^{0,d} = 1$ and intermediate
+Hodge numbers contributing with alternating signs summing to
+$d$ (e.g., K3 at $d = 2$: $1 - 0 + 1 = 2$); they diverge at
+$d = 1$ (elliptic curve: $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}
+= 0$ vs $\kappa_{\mathrm{ch}}^{\mathrm{K}} = 1$) and at odd-$d$
+strict CY (e.g., $K3 \times E$ at $d = 3$:
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 0$ vs
+$\kappa_{\mathrm{ch}}^{\mathrm{K}} = 3$). Throughout Vol~III the
+operational convention is Künneth-additive
+$\kappa_{\mathrm{ch}} = \kappa_{\mathrm{ch}}^{\mathrm{K}}$;
+the Hodge-supertrace identity appears as a theorem at even-$d$
+strict CY only.
 
 \medskip
 \noindent\textbf{Universal trace identity} (cross-volume
@@ -197,10 +225,11 @@ categorical Hochschild cohomology: the cyclic bar complex
 $\mathrm{CC}_*(\cC)$ of a dg or $\Ainf$-category, topological
 in nature. The chiral upgrade $\mathrm{ChirHoch}^*(A)$ of
 Volume~I (Theorem~H) is the holomorphic version; it is the
-output of the functor $\Phi$, not the input. The two are
-related by the functor itself: $\Phi$ sends $\mathrm{CC}_*(\cC)$
-to $\mathrm{ChirHoch}^*(A_\cC)$, lifting topological Hochschild
-data to holomorphic chiral data on the curve.
+output of the correspondence $\Phi_d$, not the input. The two
+are related by the correspondence itself: $\Phi_d$ sends
+$\mathrm{CC}_*(\cC)$ to $\mathrm{ChirHoch}^*(A_\cC)$, lifting
+topological Hochschild data to holomorphic chiral data on the
+curve.
 
 The four-step construction, in detail. A CY category $\cC$
 of dimension~$d$ carries a cyclic $\Ainf$-structure: a
@@ -313,8 +342,9 @@ Both structures encode the same datum: the generating series
 of BPS invariants of~$X$, once as an automorphic form
 (Borcherds output with weight $c(0)/2$), once as the universal
 $R$-matrix of a quantum group (Maulik--Okounkov stable
-envelope). The CY-to-chiral functor $\Phi$ (Theorem~CY-A) is
-the \emph{arithmetic-to-Lie} bridge: $\Phi_d(D^b(\Coh(X)))$
+envelope). The CY-to-chiral correspondence programme
+$\{\Phi_d\}$ (Theorem~CY-A) is the
+\emph{arithmetic-to-Lie} bridge: $\Phi_d(D^b(\Coh(X)))$
 produces a chiral algebra whose bar Euler product is a
 Borcherds denominator in the cases where both sides are
 constructed (for $d \leq 3$, by CY-A combined with the Vol~I
@@ -340,21 +370,37 @@ echo of a chiral algebra.
 
 \begin{enumerate}[label=\textup{(P\arabic*)},leftmargin=2em,
  topsep=0.5ex,itemsep=0.5ex]
- \item \emph{Theorem~CY-A$_d$} (functor existence, all~$d$):
-  $\Phi$ exists and is uniquely characterised by (U1)--(U4)
+ \item \emph{Theorem~CY-A$_d$} (per-$d$ correspondence, all~$d$):
+  each $\Phi_d$ exists and is uniquely characterised by (U1)--(U4)
   (Hochschild pullback, CY-morphism functoriality, Drinfeld
   centre compatibility, standard-input recovery), with
   $(n, d) \in \{(\infty, 1), (2, 2), (1, {\geq}3)\}$.
   Per-$d$ proofs are evaluations of the unified statement.
   At $d = 2$: $\mathbb{S}^2$-framing via
-  Kontsevich--Vlassopoulos (CY-A$_2$). At $d = 3$:
-  $\infty$-categorical resolution of the
-  $\mathbb{S}^3$-framing obstruction,
-  $\HH^{-2}_{E_1}(\cC) = 0$, space of $E_3$-liftings
+  Kontsevich--Vlassopoulos (CY-A$_2$). At $d = 3$ the
+  $\mathbb{S}^3$-framing obstruction decomposes by CY class.
+  For \emph{toric and formal} CY$_3$ targets ($\bC^3$, the
+  conifold, local $\bP^2$, local $\bP^1 \times \bP^1$), the
+  $\infty$-categorical resolution is unconditional:
+  $\HH^{-2}_{E_1}(\cC) = 0$ and the space of $E_3$-liftings is
   contractible (CY-A$_3$,
   Theorem~\ref{thm:derived-framing-obstruction}); statements
-  that read ``conditional on CY-A$_3$'' in earlier literature
-  are now unconditional.
+  formerly flagged ``conditional on CY-A$_3$'' are
+  unconditional in this toric/formal regime. For
+  \emph{compact non-formal} CY$_3$ targets (quintic, $K3 \times
+  E$, generic complete-intersection CY$_3$), CY-A$_3$ remains
+  \emph{conditional} on three genuine mathematical inputs:
+  (i)~a Tradler-style strictification of the higher $A_\infty$
+  tower on $\HH_\bullet(\cC)$; (ii)~the chain-level
+  identification $B^{(2)}_{\mathrm{TCFT}} \simeq
+  B^{(2)}_{\mathrm{naive}}$ of the genus-one bulk copairing
+  with its naive Hochschild counterpart; (iii)~connectivity of
+  $\HH_\bullet(\cC)$ in the range forced by the Yukawa
+  curvature. The Costello TCFT moduli-boundary extension is
+  stated here and not constructed; its compact-CY$_3$ upgrade
+  is one of the programme's load-bearing open problems. The
+  compact $d = 3$ case is precisely where strict formality
+  fails and the curved picture below takes over.
  \item \emph{Theorem~CY-B} ($\En$-chiral Koszul duality,
   all~$d$ where $\Phi$ is constructed):
   $E_2$-Koszul on $\cA = \Phi_2(\cC)$ directly at $d = 2$;
@@ -373,18 +419,23 @@ echo of a chiral algebra.
   $\kappa_{\mathrm{ch}}(\Phi(\cC)) = \chi^{\CY}(\cC)$ at
   $d = 2$ (categorical CY Euler characteristic, computed
   via Serre duality $S_\cC = [2]$ which kills the one-loop
-  correction). At $d \geq 3$ the topological identity
-  $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ fails: for every
-  odd-$d$ CY manifold, Serre's pairing $h^{0,q} = h^{0,d-q}$
-  produces pairwise cancellation and $\chi(\cO_X) = 0$, so
-  the identity fails whenever $\kappa_{\mathrm{ch}} \neq 0$
-  ($\kappa_{\mathrm{ch}}(E) = 1$ at $d = 1$,
-  $\kappa_{\mathrm{ch}}(K3 \times E) = 3$ at $d = 3$). The
-  dimension-stratified formula at $d \geq 3$ is a programme;
-  the Hodge-supertrace replacement
-  $\kappa_{\mathrm{ch}}(\Phi(\cC_X)) = \sum_q (-1)^q\, h^{0,q}(X)$
-  of Theorem~\ref{thm:kappa-stratification-by-d} covers all
-  $d \le 5$.
+  correction), coincident at $d = 2$ with both the
+  Hodge-supertrace
+  $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = \chi(\cO_X)$ and
+  the Künneth-additive
+  $\kappa_{\mathrm{ch}}^{\mathrm{K}} = \dim_\C X$. At
+  $d \notin 2\Z$ or at $d = 1$ the two conventions diverge:
+  Hodge-supertrace vanishes on every odd-$d$ strict CY by
+  Serre pairing $h^{0,q} = h^{0,d-q}$ and on the elliptic
+  curve, while Künneth-additive retains
+  $\kappa_{\mathrm{ch}}^{\mathrm{K}}(E) = 1$ at $d = 1$ and
+  $\kappa_{\mathrm{ch}}^{\mathrm{K}}(K3 \times E) = 3$ at
+  $d = 3$. Throughout Vol~III we use the Künneth-additive
+  convention; the Hodge-supertrace identity
+  $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ is a theorem at even-$d$
+  strict CY
+  (Theorem~\ref{thm:kappa-stratification-by-d}), and the
+  dimension-stratified programme at odd-$d$ is a frontier.
  \item \emph{Theorem~BKM-Universal}
   (Theorem~\ref{thm:borcherds-lift-universal}) combined with
   \emph{Proposition $\kappa_{\mathrm{BKM}} = c_N(0)/2$}
@@ -392,12 +443,17 @@ echo of a chiral algebra.
   Borcherds singular theta lift is universal on every
   signature-$(2, n+2)$ lattice (existence, product expansion,
   weight $c(0)/2$, Hecke functoriality), and
-  $\kappa_{\mathrm{BKM}} = c_N(0)/2$ is the unique universal
-  formula for $\kappa_\bullet$ across K3-fibered
-  $\Z/N\Z$-orbifold CY$_3$'s. The naive decomposition
-  $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
-  \chi(\cO_{\mathrm{fiber}})$ is a numerical coincidence at
-  $N = 1$ and fails for all $N \geq 2$
+  $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ is the unique
+  universal formula for $\kappa_\bullet$ across K3-fibered
+  $\Z/N\Z$-orbifold CY$_3$'s, $N \in \{1,2,3,4,6\}$. At
+  $N = 1$ the Borcherds lift is Gritsenko's weight-$5$
+  paramodular form $\Delta_5$ of level $1$
+  (\cite{Gritsenko1999}), giving
+  $\kappa_{\mathrm{BKM}}(\Phi_1) = 10/2 = 5$. The naive
+  decomposition $\kappa_{\mathrm{BKM}} =
+  \kappa_{\mathrm{ch}} + \chi(\cO_{\mathrm{fiber}})$ fails at
+  every $N$: already at $N = 1$ it predicts $0$ against the
+  true value $5$
   (Remark~\ref{rem:bkm-decomposition-adversarial}).
 \end{enumerate}
 
@@ -560,7 +616,7 @@ is curved, and the curvature is the Yukawa.
 \bigskip
 
 \noindent\textbf{The cascade: $\Phi_1, \Phi_2, \Phi_3, \Phi_5$.}
-The CY-to-chiral functor extends through CY dimensions, with
+The CY-to-chiral correspondence programme $\{\Phi_d\}$ extends through CY dimensions, with
 operadic level $(n, d)$ tabulated below:
 \[
 \renewcommand{\arraystretch}{1.35}
@@ -577,7 +633,7 @@ operadic level $(n, d)$ tabulated below:
    & \Phi_3(D^b(\Coh(K3 \times E)))
      \\ & & & \text{(Thm~CY-A$_3$)} \\
  4 & E_1 + p_1\text{-twist} & p_1\text{-twisted DCA}
-   & c(x, y) = \langle x \cup y \cup p_1, [X] \rangle / 24 \\
+   & \text{OPE shift } \int p_1 / 12 \\
  5 & E_1 & \text{ordered chiral on CY$_5$}
    & \Phi_5(K3 \times K3 \times E)
      \\ & & & (\Z/2\text{-gerbe vanishes}) \\
@@ -600,15 +656,21 @@ $\Phi_5$ is constructed by the four-step framework
 (Construction~\ref{constr:phi-5-family}); the
 $\Z/2$-gerbe obstruction on the triple-product
 Stiefel--Whitney class vanishes by Whitney + Wu. At $d = 4$ the
-operadic cascade acquires a $p_1 \in \pi_4(BU) = \Z$ twist
-producing the double current algebra
-\[
- c(x, y) \;=\; \frac{1}{24}\,
- \langle x \cup y \cup p_1(T_X), [X] \rangle\,;
-\]
-for $X = K3 \times K3$, $N(X) = 0$ and the $E_4$ structure is
-unobstructed by the Hopf decomposition
-$\mathbb{S}^4 = \mathbb{S}^2 \times \mathbb{S}^2$.
+operadic cascade acquires a $p_1 \in \pi_4(BU) = \Z$ twist:
+$\pi_4(BU) = \Z$ is the obstruction group to a native
+$E_4$-chiral structure, and the correct object on each fibre
+of the $\mathbb{P}^1$-family is the \emph{$p_1$-twisted double
+current algebra}, $E_1$-chiral with a $\Z$-twisted $E_2$
+half-braiding on its Drinfeld centre. The chiral OPE central
+anomaly is shifted by the Pontryagin characteristic
+$\int p_1 / 12$ \textup{(}twice the $\hat A$-genus degree-$4$
+coefficient $p_1 / 24$, the doubling from two transverse real
+polarisations per complex direction\textup{)}; concretely,
+the shift is $-15$ at the sextic and $-8$ at $K3 \times K3$,
+while the $T^8$ fibre carries $\int p_1 = 0$ and recovers the
+untwisted double current algebra. The cascade terminates at
+$E_3$ for all $d \geq 3$; no native $E_4$ structure exists at
+$d = 4$.
 
 \bigskip
 
@@ -628,7 +690,9 @@ where $|\ell| \in \{0, 1\}$ is the line parity. At $|\ell| = 0$
 the recurrence recovers the Vol~I bosonic Riccati exactly
 (verified at $S_6$); at $|\ell| = 1$ the parity sign factor
 $(-1)^{(j-1)(k-1)}$ captures the super-convolution Koszul sign
-on the fermionic boundary. The super-shadow complementarity is
+on the fermionic boundary. The super-shadow complementarity,
+on the \emph{sub-Sugawara line} and verified symbolically at
+small rank, reads
 \[
  \kappa_{\mathrm{ch}}\!\bigl(Y(\mathfrak{sl}(m | n))\bigr)
  \;+\;
@@ -636,11 +700,18 @@ on the fermionic boundary. The super-shadow complementarity is
  \;=\; \max(m, n)\,,
 \]
 not zero as a naive Virasoro-style
-``$c + (26 - c) = 26$''-analogy would suggest. The correction
-reflects bosonic Kac--Moody complementarity $\dim(\frakg) / 2$
-at Sugawara-shifted dual level: the super-fermionic
-contribution vanishes under the super-Koszul pairing, leaving
-the bosonic core's $\max(m, n)$ as the only surviving datum.
+``$c + (26 - c) = 26$''-analogy would suggest. Two distinct
+pairings (super-trace and Berezinian) coexist without
+programme-level canonicalisation; the central automorphism
+$\sigma_{\mathrm{sBer}}$ intertwines them
+(Lemma~\ref{lem:super-trace-berezinian-bridge}), and a
+Verdier-pairing inscription is pending. At
+$\mathfrak{psl}(2 | 2)$ the apparent coincidence with
+$\max(2, 2) = 2$ reflects a \emph{centre-rank} match, not a
+count of central elements: Beisert's 2007 analysis exhibits
+three central charges $(P, K, C)$ in
+$\mathfrak{psl}(2 | 2) \oplus \mathbb{C}^3$, of which the
+two-dimensional centre rank survives under the shadow pairing.
 Closed forms for $\mathfrak{sl}(1 | 1)$,
 $\mathfrak{sl}(2 | 1)$, and $\mathfrak{sl}(2 | 2)$ realise
 three shadow subclasses $\mathbf{G}_s$, $\mathbf{L}_s$,
@@ -744,7 +815,7 @@ $\sigma(h_i) = -h_i$, $\sigma(\hbar) = -\hbar$
 (Theorem~\ref{thm:exceptional-yangian-koszul-duality-all-five-types}).
 Combined with Molev 2007, this gives Yangian Koszul duality
 unconditional across all simple Lie algebras. Under the
-CY-to-chiral functor, the exceptional Yangians arise on
+CY-to-chiral correspondence programme $\{\Phi_d\}$, the exceptional Yangians arise on
 McKay-quiver critical CoHAs at $E$-type toric CY$_3$
 crepant resolutions; the Koszul self-duality translates to
 the complex-conjugation symmetry of the Maulik--Okounkov
@@ -765,7 +836,7 @@ the Bernoulli-first is~$691$; both appear in $S_r$, at
 different $(r,\text{tier})$ coordinates, and the
 arithmetic-duality theorem refers to the Bernoulli-index
 ordering. The CY landscape inherits this stratification
-through the functor $\Phi$: each CY geometry with
+through the correspondence programme $\{\Phi_d\}$: each CY geometry with
 class-$\mathbf{M}$ chiral output populates specific
 $(r, \text{tier})$ coordinates in the arithmetic grid, and
 the BKM denominators of the K3-fibered tower occupy the
@@ -1473,9 +1544,20 @@ enumerative geometry.
 \bigskip
 
 \noindent\textbf{Maturity and scope.}
-The CY-to-chiral functor $\Phi$ is proved at all dimensions:
-Theorem~CY-A$_2$ at $d = 2$ and Theorem~CY-A$_3$ at $d = 3$.
-The $\En$-chiral Koszul duality (Theorem~CY-B) is proved at
+The CY-to-chiral correspondence programme
+$\{\Phi_d\}_{d \ge 1}$ carries a dimension-stratified
+status. At $d = 1$, $\Phi_1$ is the commutative VOA
+assignment and is trivial. At $d = 2$, Theorem~CY-A$_2$ is
+unconditional. At $d = 3$, Theorem~CY-A$_3$ is
+unconditional for toric and formal CY$_3$ and conditional
+for compact non-formal cases (quintic, $K3 \times E$) on
+strictification, chain-level $B^{(2)}$ identification, and
+connectivity. At $d = 4$, the $p_1$-twist obstruction
+$\pi_4(BU) = \Z$ is a genuine block; the negative statement
+that no native CY$_4$ Yangian exists is proved. At $d = 5$,
+construction is established at the explicit product $K3
+\times K3 \times E$; the generic case is conditional. The
+$\En$-chiral Koszul duality (Theorem~CY-B) is proved at
 $d = 3$: $\Eone$-Koszul on $A$ via the Verdier spectral
 functor, inducing $\Etwo$ on the Drinfeld center and
 identifying the Koszul dual at every spectral sequence page. With both $\Phi$
@@ -1484,7 +1566,11 @@ shifts from construction to application. The K3 Yangian (a
 24-generator abelian Yangian $Y(\mathfrak{g}_{K3})$ with
 Mukai-signature Serre relations and degree-$(24,24)$ structure
 function) is the first nontrivial quantum group constructed
-from Calabi--Yau geometry via $\Phi$.
+from Calabi--Yau input via $\Phi$. Only the Mukai lattice datum
+enters (rank $24$, signature $(4,20)$, even unimodular,
+$CY_2$-constrained); no K3-specific geometry (Hodge
+decomposition, Ricci-flat metric, holomorphic $2$-form) is
+used. The K3 label records the physical-source inspiration.
 The Stokes automorphism of the shadow Borel transform is
 identified with the Kontsevich--Soibelman wall-crossing
 automorphism: Borel singularities are walls of marginal
@@ -1520,7 +1606,7 @@ The most developed theoretical chapters are the
 $E_n$-factorization and $E_1$-chiral algebras chapters, carrying
 the framing-obstruction tower and the $\Eone$-chiral Hopf axiom
 system (H1--H5) with computational verification for Heisenberg
-and $\cW_{1+\infty}$. The CY-to-chiral functor chapter develops
+and $\cW_{1+\infty}$. The CY-to-chiral correspondence chapter develops
 the four-step construction at all~$d$, with the \v{C}ech
 resolution for compact CY$_3$ (quintic).
 The crown of the example material is the toroidal-and-elliptic
@@ -1609,7 +1695,7 @@ foundations: CY categories, cyclic $\Ainf$-structures, the
 Hochschild calculus, and the
 $\Eone$/$\Etwo$/$\En$ chiral hierarchy with the framing
 obstruction tower. Part~\ref{part:bridge} constructs the
-bridge functor $\Phi$ from CY categories to quantum chiral
+bridge correspondence $\Phi_d$ from CY categories to quantum chiral
 algebras and proves Theorem~CY-A at all~$d$
 (CY-A$_2$ for $d = 2$; CY-A$_3$ for $d = 3$), with the
 identification of automorphic correction and shadow
@@ -1637,9 +1723,10 @@ programme and identifies the open frontiers.
 \noindent
 Volume~I asks what the logarithm does. Volume~II asks how
 it composes. Volume~III asks where it comes from. The
-answer is one symmetric monoidal functor $\Phi$ with four
-universal properties; the per-$d$ theorems CY-A$_1$ through
-CY-A$_5$ are evaluations; the crown is the K3 Yangian
+answer is a $d$-indexed CY-to-chiral correspondence programme
+$\{\Phi_d\}_{d \ge 1}$ with four universal properties; the
+per-$d$ theorems CY-A$_1$ through CY-A$_5$ are evaluations;
+the crown is the K3 Yangian
 (Part~\ref{part:k3-yangian}); the seam between this volume
 and Volume~I is the universal trace identity, mediated by
 $\Phi$.

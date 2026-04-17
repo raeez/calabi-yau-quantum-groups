@@ -169,7 +169,20 @@ REFERENCES
 Manuscript references:
     Section: subsec:bfn-coulomb-k3 (k3_times_e.tex)
     Upstream: conj:k3-yangian (k3_times_e.tex)
-    Upstream: conj:bfn-k3-yangian (k3_times_e.tex)
+    Upstream: conj:bfn-k3-yangian-mukai (k3_times_e.tex; generic K3 moduli,
+             Mukai lattice rank 24, signature (4, 20))
+
+    Scope note (three-way specialization, scope-explicit labels):
+      - conj:bfn-k3-yangian-mukai    -- generic K3 moduli (Mukai 24-dim);
+                                        this module's PRIMARY scope.
+      - conj:bfn-k3-yangian-kummer   -- Kummer / A_1 orbifold K3 = T^4/Z_2;
+                                        reduced scope, relates to
+                                        k3_kummer_coulomb_data() / ADE
+                                        embedding at orbifold points.
+      - thm:bfn-phi-ade-identification -- PROVED ADE sub-case
+                                        (BFN 2016 arXiv:1604.03625), used
+                                        via ade_quiver_bfn() and
+                                        ade_embedding_in_k3().
 """
 
 from __future__ import annotations

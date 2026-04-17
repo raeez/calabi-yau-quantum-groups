@@ -1,38 +1,85 @@
-r"""K3 super-Yangian Y(gl(4|20)): resolution of the indefinite-signature
-obstruction for the non-abelian K3 Yangian.
+r"""K3 super-Yangian: small-rank gl(m|n) framework and the osp(4|20) target.
 
-STATUS: CONJECTURAL (AP-CY14).  All results are conditional on the existence
-of Y(g_{K3}) as a quantum group and the identification of the non-abelian
-K3 Yangian with a super-Yangian.  This module constructs the super-Yangian
-framework REQUIRED by the adversarial analysis (rem:k3-yangian-adversarial,
-Attack 1) and verifies internal consistency.
+SCOPE CLARIFICATION (2026-04-17, AP239 / F19 heal)
+===================================================
 
-MATHEMATICAL CONTENT
-====================
+EARLIER DRAFTS of this module and of the manuscript named the K3
+super-Yangian candidate Y(gl(4|20)).  This is a MISNOMER and has been
+corrected throughout the manuscript as follows.
 
-1. THE SUPER-STRUCTURE FROM MUKAI SIGNATURE.
+    The Mukai form omega on H^*(K3, R) is ORTHOGONAL of signature (4, 20):
+    a non-degenerate SYMMETRIC INDEFINITE bilinear form, with four positive
+    and twenty negative eigenvalues.  It is NOT a Z/2-super-grading on the
+    Mukai lattice.  The super-Lie algebra preserving a symmetric indefinite
+    (orthogonal) bilinear form on a Z/2-graded vector space is the
+    ORTHOSYMPLECTIC super-Lie algebra osp(m|n), NOT the general linear
+    super-Lie algebra gl(m|n).  The correct super-Yangian candidate
+    attached to the Mukai form is therefore
 
-   The Mukai pairing omega = diag(+1^4, -1^{20}) of signature (4,20) on
-   H^*(K3, C) induces a Z_2-grading on C^{24}:
-     - EVEN (parity 0): the 4 positive-norm Mukai directions (H^0 + H^4 + 2 Kahler)
-     - ODD  (parity 1): the 20 negative-norm Mukai directions (19 from H^2 + 1 hyp.)
+        Y_{osp(4|20)}    (Arnaudon-Crampe-Doikou-Frappat-Ragoucy 2003+
+                          reflection equation presentation)
 
-   This makes the ambient vector space V = C^{4|20}, a super vector space
-   of superdimension sdim = 4 - 20 = -16.
+    and NOT Y(gl(4|20)).  See chapters/examples/k3_yangian_chapter.tex
+    Section 4.2 ("The K3 super-Yangian Y_{osp(4|20)}"), Conjecture
+    conj:osp-yangian-mukai, and Remark rem:gl-to-osp-correction.
 
-   PHYSICAL INTERPRETATION: The even/odd grading does NOT come from fermion
-   number in the BPS sense.  It comes from the SIGNATURE of the Mukai pairing.
-   The negative-norm directions contribute fermionic signs in the crossing
-   symmetry because the inner product <e_i, e_i> = -1 for odd directions
-   flips the sign in P_omega^2.  This is precisely the mechanism by which
-   super Lie algebras arise from indefinite inner products in the mathematical
-   physics literature (cf. orthosymplectic algebras from O(p,q)).
+    The orthosymplectic construction:
+      osp(4|20)_{0} = so(4) (+) sp(20)   (even, dim 6 + 210 = 216)
+      osp(4|20)_{1} = V_+ (x) V_-        (odd, dim 4 * 20 = 80)
+      dim osp(4|20) = 216 + 2 * 80 = 376  (not 576 = 24^2 of gl(4|20))
 
-   WHY gl(4|20) AND NOT gl(20|4):  The convention is that the positive-norm
-   directions are even.  This ensures that the classical limit (hbar -> 0)
-   recovers gl(4|20) with the standard Borel, and the Berezinian has the
-   correct asymptotic.  The opposite convention gl(20|4) is isomorphic
-   (by parity reversal Pi) but produces a different Berezinian.
+    Alternative (non-super): Y(so(4, 20)) is a legitimate second
+    candidate (Yangian of the real form of so(24, C) preserving the
+    Mukai form directly).
+
+WHAT THIS MODULE ACTUALLY DOES (2026-04-17 honest scope)
+=========================================================
+
+This module implements the gl(m|n) super-Yangian RTT framework at
+SMALL RANK (primarily gl(1|1) and gl(2|1); the dimension-(4|20) case
+is accessible only via the 576-dim numerical routines and NOT at the
+symbolic RTT level).  These small-rank computations serve as a
+structural warm-up for the osp(4|20) target: they verify
+
+  - graded tensor-product signs (Kulish-Sklyanin convention);
+  - standard super-unitarity P_s^2 = Id;
+  - graded Yang-Baxter equation at small rank;
+  - super-crossing symmetry at small rank.
+
+These are inherited by the osp construction (the osp R-matrix is
+built from P_s plus an additional trace-projector Q for the invariant
+form).  They do NOT verify the (4, 20)-rank orthosymplectic
+reflection equation, which remains OPEN.
+
+STATUS: CONJECTURAL (AP-CY14).  The osp(4|20) existence conjecture
+is conj:osp-yangian-mukai in k3_yangian_chapter.tex.  This module
+retains the gl(m|n) small-rank verifications as genuinely useful
+computational scaffolding.
+
+MATHEMATICAL CONTENT (gl(m|n) small-rank warm-up)
+==================================================
+
+1. THE SUPER-STRUCTURE FROM MUKAI POLARISATION.
+
+   The Mukai form omega = diag(+1^4, -1^{20}) of signature (4,20) on
+   H^*(K3, C) induces an ORTHOGONAL POLARISATION C^{24} = V_+ (+) V_-
+   with dim V_+ = 4 (positive-norm: H^0 + H^4 + 2 Kahler) and
+   dim V_- = 20 (negative-norm: 19 from H^2 + 1 hyperbolic).
+   This polarisation, NOT a Z/2-super-grading on C^{24} itself, is
+   what enters the osp construction.
+
+   For the gl(m|n) small-rank WARM-UP (used below), we impose the
+   parity convention p(i) = 0 for i = 1..m, p(i) = 1 for i = m+1..m+n
+   by analogy, understanding that the (4, 20) instance requires the
+   orthogonal form, not the super-grading.
+
+   PHYSICAL INTERPRETATION (osp side): negative-norm directions
+   contribute REFLECTION signs in the osp crossing symmetry, because
+   <e_i, e_i>_Muk = -1 flips the sign in the orthosymplectic form.
+   This is the standard mechanism by which osp super-algebras arise
+   from indefinite inner products in Kac's classification of finite-
+   dimensional simple Lie super-algebras.  No BPS fermion number
+   enters.
 
 2. THE GRADED PERMUTATION AND ITS RELATION TO P_omega.
 
