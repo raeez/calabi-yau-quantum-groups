@@ -1157,3 +1157,48 @@ The Wave-21 identity is a **bridge** between the two columns. Reading the right-
 **AP5 cross-volume propagation.** Cross-volume grep pattern: `2026-`, `commit `, `inscription`, `campaign`, `AP-CY`, `healed`, `first edition`, `earlier phrasing`, `pre-2026-`, `superseded across the volume`. Each hit either strips the metadata (preserving the mathematical claim) or migrates content to a `notes/` file or commit message. Vol I and Vol II prose likely carry similar artefacts from their parallel rectification campaigns; scope-separate cleanup.
 
 **Status.** AP-CY70 catalogued; 5 Vol III preface instances fixed in commits 38a074e / 51cee5b / 33f4d59 (chunks 4-7). Other files pending.
+
+
+## Entry: kappa_ch conflated with Hodge supertrace (2026-04-17, CG-rectify preface chunk 9, AP-CY71)
+
+**Wrong claim.** "kappa_ch is the Hodge supertrace, hence route-independent and equal to 0 on K3 x E."
+
+**Ghost theorem.** kappa_ch IS route-independent across any construction that recovers Phi_3(C) up to equivalence. This is genuine: a categorical invariant of Phi_3(C) is route-independent tautologically.
+
+**Correct relationship.** The Hodge supertrace sum (-1)^q h^{0,q}(X) = chi(O_X) = kappa_cat(X), a MANIFOLD INVARIANT (AP-CY55). It equals 0 for K3 x E by Kunneth (chi(O_K3) * chi(O_E) = 2 * 0 = 0). The chiral characteristic kappa_ch(K3 x E) = 3 is a different invariant, computed via additivity kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3. The WRONG MECHANISM is attributing route-independence to the Hodge supertrace formula; the CORRECT MECHANISM is categorical invariance of Phi_3(C) plus additivity under products.
+
+**Confusion type.** Level error: conflating chi(O_X) = kappa_cat with kappa_ch. The two invariants agree only in the narrow d=2, h^{1,0} = 0 case (e.g. K3: 2 = 2). Elsewhere they diverge (E: chi(O_E) = 0 vs kappa_ch(E) = 1; K3 x E: chi(O_{K3 x E}) = 0 vs kappa_ch = 3).
+
+**AP5 cross-volume propagation.** The stratification theorem kappa_ch(Phi(C_X)) = sum (-1)^q h^{0,q}(X) (thm:kappa-stratification-by-d) asserts this equality universally for d <= 5. It holds at d = 2 with h^{1,0} = 0 but fails at d = 1 (E) and d = 3 (K3 x E). The theorem's scope needs restriction or its claim needs revision. Cross-volume audit pending.
+
+**Status.** AP-CY71 catalogued. Preface L427, L487 fixed in commit bcbdd3b (chunk 9).
+
+
+## Entry: S^4 = S^2 x S^2 framing-decomposition shorthand (2026-04-17, CG-rectify preface chunk 11, AP-CY72)
+
+**Wrong claim (as literally stated).** "The Hopf decomposition S^4 = S^2 x S^2 recovers E_2..."
+
+**Ghost theorem.** For a product CY_4 of the form K3 x K3, the E_4-framing of Phi_4(C) splits as a Kunneth product of two E_2-framings, one per K3 factor, compatible with the Kontsevich-Vlassopoulos S^2-action on each factor's Hochschild homology.
+
+**Correct relationship.** S^4 and S^2 x S^2 are not homeomorphic as manifolds (H^2(S^4) = 0, H^2(S^2 x S^2) = Z^2). The intended claim is a statement about factorization-algebra framing on the CARRIER manifold, not about sphere topology. The shorthand "S^4 = S^2 x S^2" compresses "the E_4-framing splits per K3 factor via Kunneth" into a symbolic equation, inviting literal misreading.
+
+**Confusion type.** Notation shorthand without scope marker: the "=" in "S^4 = S^2 x S^2" is a framing-decomposition bookkeeping, not a manifold isomorphism. Writing it without a qualifier trips readers and introduces an apparent topological error.
+
+**AP5 cross-volume propagation.** The shorthand appears at preface L610, introduction.tex L249 and L1404, en_factorization.tex L2685, m3_b2_saga.tex L1228, plus the engine hopf_fibration_s3_framing.py. Unified propagation needed; local fix in one site creates inconsistency with the rest of the volume.
+
+**Status.** AP-CY72 catalogued. Cross-volume campaign pending.
+
+
+## Entry: pi_d(BU) 8-periodicity vs 2-periodicity (2026-04-17, CG-rectify preface chunk 16, AP-CY73)
+
+**Wrong claim.** "Obs_eff(d) ∈ pi_d(BU) is 8-periodic by Bott periodicity and trivial precisely when d mod 8 in {1, 3, 7}." (Preface L894; CLAUDE.md CY-A statement.)
+
+**Ghost theorem.** The effective framing obstruction has a genuine 8-periodicity structure with a distinguished stratum at d ≡ 5 mod 8 (Sp-refinement contributing a Z/2-obstruction).
+
+**Correct relationship.** pi_d(BU) = KU^{-d} is 2-periodic by complex Bott periodicity: pi_d(BU) = Z for d even, 0 for d odd. The 8-periodicity belongs to pi_d(BO) = KO^{-d} (real Bott) or to an Sp-refined tower. If Obs_eff is genuinely complex-analytic, the group is pi_d(BU) and the periodicity is 2 (trivial at all odd d). If the obstruction is real / symplectic, the group is pi_d(BO) or a refined tower, with the d mod 8 in {1, 3, 5, 7} odd-stratum (Sp refinement) as a further distinction. The shorthand "pi_d(BU) is 8-periodic" conflates the complex 2-periodic group with the real 8-periodic one.
+
+**Confusion type.** Group-vs-periodicity mismatch: the periodicity cited is the real Bott periodicity of pi_d(BO), but the group name written is the complex pi_d(BU).
+
+**AP5 cross-volume propagation.** Preface L894, CLAUDE.md CY-A Main Theorems entry, en_factorization.tex (e1-stabilization-cy theorems). A single campaign should either (a) pick pi_d(BO) and match to 8-periodicity, or (b) keep pi_d(BU) and match to 2-periodicity with an explicit Sp-refinement invocation for the d ≡ 5 stratum.
+
+**Status.** AP-CY73 catalogued. Cross-volume campaign pending.

@@ -1067,6 +1067,127 @@ timeless; manuscript history is not.
 \emph{Instances found and fixed.}  Preface L145, L419, L665, L356
 (fixed chunks~4--5); preface L330 AP-tag (fixed chunk~7).
 
+\subsection{AP-CY71: Hodge supertrace $\ne \kappa_{\mathrm{ch}}$}
+
+The Hodge supertrace $\sum_q (-1)^q\, h^{0,q}(X)$ is the holomorphic
+Euler characteristic $\chi(\cO_X)$, which is $\kappa_{\mathrm{cat}}$,
+a \emph{manifold invariant} (AP-CY55).  It is \emph{not} the
+chiral characteristic $\kappa_{\mathrm{ch}}$.
+
+For $K3 \times E$: $\sum_q (-1)^q\, h^{0,q}(K3 \times E) = 1 - 1 + 1 - 1 = 0$
+by K\"unneth on the Hodge diamond, matching
+$\kappa_{\mathrm{cat}} = \chi(\cO_{K3 \times E}) = 0$.  But
+$\kappa_{\mathrm{ch}}(K3 \times E) = 3$ (additivity under products:
+$\kappa_{\mathrm{ch}}(K3) + \kappa_{\mathrm{ch}}(E) = 2 + 1$).  Writing
+``$\kappa_{\mathrm{ch}}$ is the Hodge supertrace, hence
+route-independent and equal to $0$ on $K3 \times E$'' (found at
+preface L427 pre-fix) conflates two distinct invariants.
+
+The \emph{ghost theorem}: $\kappa_{\mathrm{ch}}$ IS route-independent
+across any construction that recovers $\Phi_3(\cC)$ up to
+equivalence (correct).  The \emph{wrong mechanism}: attributing
+route-independence to the Hodge supertrace formula (which computes
+$\kappa_{\mathrm{cat}}$, not $\kappa_{\mathrm{ch}}$).  The
+\emph{correct mechanism}: $\kappa_{\mathrm{ch}}$ is a categorical
+invariant of $\Phi_3(\cC)$; route-independence follows from
+categorical invariance + additivity.
+
+\emph{Counter.}  Never identify ``Hodge supertrace'' with
+$\kappa_{\mathrm{ch}}$.  The Hodge supertrace is
+$\chi(\cO_X) = \kappa_{\mathrm{cat}}$ (AP-CY55 manifold invariant).
+When invoking $\kappa_{\mathrm{ch}}$ route-independence, cite
+categorical invariance of $\Phi_3(\cC)$, not the Hodge supertrace.
+
+\emph{Context with Theorem \texttt{kappa-stratification-by-d}.}  The
+stratification theorem states
+$\kappa_{\mathrm{ch}}(\Phi(\cC_X)) = \sum_q (-1)^q\, h^{0,q}(X)$
+for $d \le 5$.  The right-hand side IS the Hodge supertrace, so
+the theorem asserts an equality $\kappa_{\mathrm{ch}} =
+\kappa_{\mathrm{cat}}$.  This equality HOLDS at $d = 2$ with
+$h^{1,0} = 0$ (K3: $2 = 2$) but FAILS at $d = 1$
+($\kappa_{\mathrm{ch}}(E) = 1$ vs $\chi(\cO_E) = 0$) and at
+$d = 3$ ($\kappa_{\mathrm{ch}}(K3 \times E) = 3$ vs
+$\chi(\cO_{K3 \times E}) = 0$).  The stratification theorem's
+scope therefore needs restriction or the formula needs replacement;
+flagged as a cross-volume scope audit separate from this chunk.
+
+\emph{Instances found and fixed.}  Preface L427-L433 opening
+attribution; L487-L489 pentagon closing parenthetical.  Both
+fixed in chunk~9 (commit \texttt{bcbdd3b}) by replacing the
+mechanism from ``Hodge supertrace'' to ``categorical invariant of
+$\Phi_3(\cC)$'' while preserving the correct claim that
+$\kappa_{\mathrm{ch}}$ is route-independent.  Cross-volume
+propagation: the stratification-theorem scope is an open audit
+item.
+
+\subsection{AP-CY72: Framing-decomposition shorthand vs manifold equality}
+
+The notation ``$\mathbb{S}^4 = \mathbb{S}^2 \times \mathbb{S}^2$''
+used across Vol~III (preface L610, \verb|introduction.tex|
+L249/L1404, \verb|en_factorization.tex| L2685, \verb|m3_b2_saga.tex|
+L1228, plus engine \verb|hopf_fibration_s3_framing.py|) is
+literally wrong topology: $S^4$ and $S^2 \times S^2$ have different
+cohomology ($H^2(S^4) = 0$, $H^2(S^2 \times S^2) = \Z^2$) and are
+not homeomorphic.
+
+The \emph{intended} meaning: when the CY$_4$ carrier is a product
+$K3 \times K3$, the $E_4$-framing of the factorization algebra
+splits as $E_2 \otimes E_2$ via the K\"unneth decomposition, with
+one $S^2$-framing per K3 factor.  The shorthand
+``$\mathbb{S}^4 = \mathbb{S}^2 \times \mathbb{S}^2$'' compresses
+this K\"unneth split into a symbolic equation.
+
+The trap: a literal read of $S^4 = S^2 \times S^2$ is false, and
+would suggest the whole $S^4$ framing obstruction vanishes whenever
+$E_4$-framing exists, which is not the case for general CY$_4$
+(the obstruction class in $\pi_4(BU)$ is real and depends on
+$p_1(T_X)$).
+
+\emph{Counter.}  Replace ``$\mathbb{S}^4 = \mathbb{S}^2 \times
+\mathbb{S}^2$'' with an explicit framing-decomposition statement:
+``The $E_4$-framing of $\Phi_4(\cC_{K3 \times K3})$ splits as the
+K\"unneth product of two $E_2$-framings, one per $K3$ factor,
+compatible with the Kontsevich--Vlassopoulos $\mathbb{S}^2$-action
+on each factor's Hochschild homology.''  The product structure is
+a statement about the \emph{factorization algebra on the carrier
+manifold}, not about the sphere topology.
+
+\emph{Cross-volume scope.}  Instances across Vol~III were not
+fixed locally (chunk 11) to avoid per-file inconsistency with the
+manuscript-wide convention; propagation pending a single campaign
+that touches all five sites plus the engine docstring.
+
+\subsection{AP-CY73: $\pi_d(BU)$ 8-periodicity vs 2-periodicity}
+
+CLAUDE.md and preface L894 write: ``$\Obs_{\mathrm{eff}}(d) \in
+\pi_d(BU)$ is $8$-periodic by Bott periodicity and trivial precisely
+when $d \bmod 8 \in \{1, 3, 7\}$.''  The group
+$\pi_d(BU) = \mathrm{KU}^{-d}$ is \emph{2-periodic} by complex
+Bott periodicity: $\pi_d(BU) = \Z$ for $d$ even, $0$ for $d$ odd.
+The 8-periodicity belongs to $\pi_d(BO) = \mathrm{KO}^{-d}$ (real
+Bott) or to the effective obstruction after an $\mathrm{Sp}$-refinement.
+
+The claim that $\Obs_{\mathrm{eff}}(d)$ is 8-periodic is correct
+if $\Obs_{\mathrm{eff}}$ is interpreted as a K-theory class in
+the real/symplectic setting, but then the group is $\pi_d(BO)$,
+$\pi_d(BSp)$, or a refined tower, not $\pi_d(BU)$.  The CLAUDE.md
+shorthand ``$\pi_d(BU)$ is 8-periodic'' conflates the complex
+Bott-periodic group ($\pi_d(BU)$, 2-periodic) with the real/
+symplectic 8-periodic K-theory.
+
+\emph{Counter.}  Use the correct group for the claimed periodicity.
+If the framing obstruction is genuinely complex-analytic, the group
+is $\pi_d(BU)$ and the periodicity is 2 (triviality at all odd $d$).
+If the obstruction is real or symplectic (with the $d \bmod 8 \in
+\{1, 3, 5, 7\}$ fine stratification), cite the real K-theory group
+$\pi_d(BO)$ or the refined symplectic tower, and note the
+$d \equiv 5$ case as a $\Z/2$-refinement rather than as an 8-period
+null.
+
+\emph{Scope.}  Flagged as cross-volume shorthand needing unification.
+Instances: \verb|e1_stabilization_cy|-type theorems, preface L894,
+CLAUDE.md CY-A statement, \verb|en_factorization.tex| throughout.
+
 %% =====================================================================
 \section{Cross-reference to Hot Zone}
 \label{sec:ap-hot-zone-xref}
