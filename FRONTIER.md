@@ -1,8 +1,8 @@
 # FRONTIER — Vol III Open Research Directions
 
-## DEFINITIVE STATUS AS OF 2026-04-17 (Beilinson-rectified, Wave-1 adversarial-audit-refined)
+## DEFINITIVE STATUS AS OF 2026-04-17 (Beilinson-rectified, Waves 1–10 adversarial-audit-refined)
 
-This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-04-17 Beilinson audit (`notes/rectification_map_beilinson_audit.md` cross-volume; Vol III `notes/beilinson_swarm_audit_vol3_2026_04_17.md`), and Wave 1 of the adversarial attack collectively refined 6 prior frontier claims.
+This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-04-17 Beilinson audit (`notes/rectification_map_beilinson_audit.md` cross-volume; Vol III `notes/beilinson_swarm_audit_vol3_2026_04_17.md`), and Waves 1–10 of the adversarial attack collectively refined ~20 prior frontier claims. Wave-10 additionally reconciled the typeset Part~VII (`main.tex:1161–1250`) with this ledger by (i) adding a CG deficiency opening and scope-qualifying CY-A$_3$ at chain level for non-formal CY$_3$, (ii) reframing $\Phi$ as a correspondence programme, not a single functor (AP247), (iii) anchoring the super-Yangian candidate as $Y_{\mathfrak{osp}(4|20)}$ rather than $Y(\mathfrak{gl}(4|20))$ (AP246), (iv) noting the universal trace identity as a *reflection* identity across the two Koszul-conductor families, not a scalar equality (AP-UTI-1), (v) promoting "three directions" to four by adding an Outward-$d=4$ direction anchored on $K3 \times K3$ with $p_1 = -96$, and (vi) inserting a typeset pointer to this inventory.
 
 ### 1. Closures since 2026-04-14
 
