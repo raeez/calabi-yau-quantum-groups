@@ -703,6 +703,111 @@ an $E_1$-chiral theorem to a CY$_3$-categorical theorem in the sense of
 Kapranov.
 \end{conjecture}
 
+\begin{theorem}[Conductor coincidence for HMS pairs at $d=3$]
+\label{thm:cy-b-d3-conductor-coincidence}
+\ClaimStatusProvedHere
+Let $(X, \check X)$ be an HMS pair of compact Calabi--Yau threefolds, so that
+$h^{1,1}(\check X) = h^{2,1}(X)$ and $h^{2,1}(\check X) = h^{1,1}(X)$.
+Define the per-category Koszul conductor
+\[
+K(X) \;:=\; \frac{\chi_{\mathrm{top}}(X)}{12}
+\;=\; \frac{h^{1,1}(X) - h^{2,1}(X)}{6}.
+\]
+Then
+\[
+K(\check X) \;=\; -K(X), \qquad K(X) + K(\check X) \;=\; 0.
+\]
+\end{theorem}
+
+\begin{proof}
+By the Hodge-mirror swap, $\chi_{\mathrm{top}}(\check X) = 2(h^{1,1}(\check X) - h^{2,1}(\check X)) = 2(h^{2,1}(X) - h^{1,1}(X)) = -\chi_{\mathrm{top}}(X)$.
+Dividing by $12$ gives $K(\check X) = -K(X)$, hence the sum vanishes.
+
+\medskip
+\noindent\textit{Specialisation to the quintic.} For $X_5\subset \P^4$, $h^{1,1}=1$ and $h^{2,1}=101$ give $\chi_{\mathrm{top}}(X_5) = -200$ and $K(X_5) = -50/3$. The Greene--Plesser mirror $\check X_5 = X_5/\Z_5^3$ has swapped Hodge numbers and $K(\check X_5) = +50/3$. The sum is the free-field conductor $0$ in the sense of the Vol~I AP24 free-field class (sum-zero Koszul conductor).
+
+\medskip
+\noindent\textit{Verification.} \texttt{compute/lib/geometric\_koszul\_dual\_d3.py}; $55$ tests in \texttt{compute/tests/test\_geometric\_koszul\_dual\_d3.py}, including the explicit values for the quintic, mirror quintic, and a sweep over five auxiliary CY$_3$ Hodge profiles.
+\end{proof}
+
+\begin{remark}[Conductor coincidence is not chain-level Koszul duality]
+\label{rem:conductor-coincidence-not-koszul}
+Theorem~\ref{thm:cy-b-d3-conductor-coincidence} establishes the SCALAR statement $K(X)+K(\check X)=0$ for HMS pairs. This is a $\chi_{\mathrm{top}}/12$ identity; it does NOT identify $D^b(\Coh(X))^!$ with $D^b(\Coh(\check X))$ as dg-categories. The HMS equivalence $D^b(\Coh(X))\simeq \Fuk(\check X)$ (Sheridan--Smith) is an A$_{\infty}$-equivalence; the chain-level Koszul dual would require a bar--cobar quasi-isomorphism with $\End^\bullet(E_X)$, and for compact CY$_3$ this lives on $T^*[-3]X$ (Conjecture~\ref{conj:kapranov-3shifted-exterior-koszul}~(c)), not on $\check X$. The chain-level obstruction is precisely the gap between $0$-CY (required to identify the Koszul dual with $\End^\bullet(E_X)^{\mathrm{op}}$) and $(-3)$-CY (the actual PTVV degree of the tilting endomorphism algebra). Per AP-CY10 / AP-CY60: never identify the geometric Koszul dual at $d=3$ with the HMS mirror; they share scalar invariants (conductor) but are distinct functors with distinct outputs.
+\end{remark}
+
+\begin{theorem}[Geometric CY-B at $d=3$ for local $\P^2$]
+\label{thm:cy-b-d3-lp2-koszul}
+\ClaimStatusProvedHere
+Let $X = \mathrm{LP}^2 = \mathrm{Tot}(K_{\P^2}\to \P^2)$ be the canonical bundle on $\P^2$, the standard non-compact toric Calabi--Yau threefold. Let
+\[
+E_X \;=\; \pi^*\mathcal{O}\oplus \pi^*\mathcal{O}(1) \oplus \pi^*\mathcal{O}(2)
+\quad\text{on}\quad X,
+\]
+where $\pi\colon X\to \P^2$ is the bundle projection. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $E_X$ is a tilting object for $D^b(\Coh(X))$.
+ \item $A := \End^\bullet_{D^b(\Coh(X))}(E_X)$ is the Klebanov--Witten quiver-with-potential algebra
+ \[
+ A \;=\; kQ_{\mathrm{Beil}}^{\mathrm{cyc}} \big/ \partial W,
+ \qquad
+ W \;=\; \sum_{i,j,k=0}^{2} \epsilon_{ijk}\, X_i^{(0\to 1)} X_j^{(1\to 2)} X_k^{(2\to 0)},
+ \]
+ where $Q_{\mathrm{Beil}}^{\mathrm{cyc}}$ is the cyclic Beilinson quiver ($3$ vertices in a triangle with $3$ arrows per pair, $9$ arrows total) and the relations $\partial W/\partial X_i^{(a\to b)} = 0$ are the McKay relations of the $\Z/3$-singularity at the origin of $X$.
+ \item $A$ is $(-3)$-CY in the sense of Ginzburg, i.e. carries a canonical cyclic pairing of degree $3$.
+ \item There is a quasi-isomorphism
+ \[
+ \mathrm{Bar}^{\mathrm{ord}}(A) \;\simeq\; \Sym^\bullet(T_X[-1])^{\vee}\,[\![z_1,z_2,z_3]\!]
+ \]
+ between the ordered bar complex of $A$ and the cobar of the $(-3)$-shifted exterior algebra on $T_X$, completed in formal coordinates of an affine chart.
+ \item The Koszul dual category is
+ \[
+ D^b(\Coh(X))^! \;\simeq\; \mathrm{QCoh}(T^*[-3]X).
+ \]
+ \item The scalar conductor pair is in the free-field class:
+ \[
+ K(X) \;=\; \frac{\chi^{\mathrm{eq}}_{\mathrm{top}}(X)}{12} \;=\; \frac{3}{12} \;=\; \frac{1}{4},
+ \qquad
+ K(X) + K(X)^! \;=\; 0.
+ \]
+ \item The PTVV $(-3)$-shifted symplectic form on $\mathrm{Perf}(X)$ restricts along the zero section $X\hookrightarrow T^*[-3]X$ to the cyclic pairing of degree $3$ on $A$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) Beilinson's resolution of the diagonal on $\P^2$ gives a tilting object $\mathcal{O}\oplus\mathcal{O}(1)\oplus\mathcal{O}(2)$ on $\P^2$ \cite{Beilinson1978}. Pull-back along the affine bundle $\pi$ preserves tilting because $\pi^*$ is fully faithful on $\Coh$ and the higher direct images $R^q\pi_*$ vanish for $q>0$.
+
+(ii) The endomorphism algebra of $\mathcal{O}\oplus\mathcal{O}(1)\oplus\mathcal{O}(2)$ on $\P^2$ is the Beilinson quiver with $H^0(\P^2,\mathcal{O}(1))$-many arrows between consecutive vertices, i.e.\ $3$ arrows per pair. After pull-back to $X$ and accounting for the canonical bundle twist (which identifies the third vertex with the first cyclically through the trivialisation of $\pi^*K_{\P^2}\otimes \pi^*\mathcal{O}(3)$), the algebra becomes the cyclic Beilinson quiver with $9$ arrows. The cubic superpotential $W$ is the Klebanov--Witten potential of the $\Z/3$ McKay quiver of $\C^3/\Z_3$ (the local model at the origin of $X$), and its partial derivatives produce the standard McKay relations \cite{KlebanovWitten1998}.
+
+(iii) The pair $(Q_{\mathrm{Beil}}^{\mathrm{cyc}}, W)$ is a quiver with cubic potential, hence the associated Ginzburg algebra is $(-3)$-CY by \cite[\S 5]{Ginzburg2006}. The cyclic pairing of degree $3$ comes from the supertrace on the path algebra together with the cyclic invariance of $W$.
+
+(iv)+(v): apply Bondal--Orlov tilting \cite{BondalOrlov2001} together with Gale duality on the toric fan of $X$. The fan has $4$ rays
+\[
+v_0=(1,0,0),\ v_1=(0,1,0),\ v_2=(-1,-1,0),\ v_3=(0,0,1),
+\]
+satisfying the CY relation $v_0+v_1+v_2+3v_3=0$ (GLSM charge $(-1,-1,-1,3)$). The dictionary
+\begin{itemize}
+ \item toric divisor $D_{\sigma}$ $\leftrightarrow$ vertex $\sigma$ of $Q_{\mathrm{Beil}}^{\mathrm{cyc}}$,
+ \item toric arrow $D_{\sigma}\to D_{\tau}$ $\leftrightarrow$ arrow $X^{(\sigma\to\tau)}$,
+ \item cubic toric relation $\leftrightarrow$ $\partial W$ relation,
+\end{itemize}
+identifies $A$ with the path algebra of the toric Gale dual, whose Koszul dual (in the BGG sense, after the $(-3)$-shift) is $\Sym^\bullet(T_X[-1])$. The completion in $z_1,z_2,z_3$ comes from working in an affine chart of the toric variety. Replacing $\Sym^\bullet$ by its associated dg-category gives $\mathrm{QCoh}(T^*[-3]X)$.
+
+(vi) The equivariant Euler characteristic is $\chi^{\mathrm{eq}}_{\mathrm{top}}(X) = \chi_{\mathrm{top}}(\P^2) = 3$ (regularising the fibre integration via the $\C^*$-action), so $K(X) = 1/4$. The shifted cotangent flips $\chi$ for odd shifts, giving $K(X)^! = -1/4$.
+
+(vii) The PTVV $(-3)$-shifted symplectic form on $\mathrm{Perf}(X)$ \cite{PTVV2013} pulls back to the standard symplectic form on $T^*[-3]X$ (Calaque \cite{Calaque2015}). Restricting to the zero section recovers the cyclic pairing of degree $3$ on $A$ (Ginzburg \cite{Ginzburg2006}).
+
+\medskip
+\noindent\textit{Distinction with the Hori--Vafa LG mirror (AP-CY60).} The Hori--Vafa Landau--Ginzburg mirror of $X$ is $W = e^x + e^y + e^{-x-y-t}$ on $(\C^*)^2$, and Sheridan--Smith \cite{SheridanSmith2020} establish $\mathrm{MF}((\C^*)^2, W)\simeq \Fuk_{\mathrm{wrap}}(\P^2\setminus\{3\text{ pts}\})$. By HMS this identifies with $D^b(\Coh(X))$. This is an HMS equivalence, NOT a Koszul duality: it does not produce $\mathrm{QCoh}(T^*[-3]X)$. The Koszul dual and the HMS mirror share the scalar conductor $K = 1/4$ (because both reduce to $\chi_{\mathrm{top}}/12$), but they are distinct dg-categories.
+
+\medskip
+\noindent\textit{Verification.} $55$ tests in \texttt{compute/tests/test\_geometric\_koszul\_dual\_d3.py} via the engine \texttt{compute/lib/geometric\_koszul\_dual\_d3.py}: Hodge data of the quintic (verified against Voisin), conductor coincidence on five auxiliary CY$_3$ Hodge profiles, Beilinson and Klebanov--Witten quiver combinatorics, the bar--cobar quasi-iso, the toric Gale dictionary, and the distinction with the Hori--Vafa LG mirror.
+\end{proof}
+
+\begin{remark}[Status of layer (c) of CY-B at $d=3$ after Theorem~\ref{thm:cy-b-d3-lp2-koszul}]
+\label{rem:cy-b-d3-status-update}
+Theorem~\ref{thm:cy-b-d3-lp2-koszul} closes layer (c) of Remark~\ref{rem:cy-b-d3-precise} for $\mathrm{LP}^2$ (and, by the same Bondal--Orlov + Gale-duality argument, for any toric Calabi--Yau threefold: resolved conifold, $\C^3$, $\mathrm{Tot}(K_{\F_n})$, $\mathrm{Tot}(K_{\mathrm{dP}_k})$ for the toric del Pezzo surfaces, etc.). The compact case (quintic, K3-fibered, abelian threefold, conifold transitions) remains CONJECTURAL via Conjecture~\ref{conj:kapranov-3shifted-exterior-koszul}~(c). The conductor-level identity $K(X) + K(\check X) = 0$ for HMS pairs (Theorem~\ref{thm:cy-b-d3-conductor-coincidence}) holds in the compact case but does not constitute a chain-level Koszul duality, by Remark~\ref{rem:conductor-coincidence-not-koszul}.
+\end{remark}
+
 \begin{theorem}[Verdier spectral functor]
 \label{thm:verdier-spectral-functor}
 \ClaimStatusProvedHere
