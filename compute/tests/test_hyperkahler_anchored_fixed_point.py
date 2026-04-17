@@ -3673,7 +3673,9 @@ class TestBorcherdsCharacterLiftIV:
             "K3 case Λ = Λ_Muk^K3, c_Λ(0) = 10 from phi01_fourier theta-"
             "ratio formula (already verified in N=1 IV)",
             "Borcherds weight = c_Λ(0)/2 = 10/2 = 5",
-            "kappa_BKM(K3 × E) = 5 = wt(Φ_10) (Igusa cusp form)",
+            "kappa_BKM(K3 × E) = 5 = wt(Delta_5) (Gritsenko 1999 "
+            "paramodular level-1 cusp form; Phi_10 = Delta_5^2 weight 10 "
+            "is the non-paramodular Sp_4(Z) square, not kappa_BKM itself)",
             "Cross-validated with FRAME_SHAPE_DATA[1].borcherds_weight = 5",
         ],
         disjoint_rationale=(
@@ -4290,11 +4292,14 @@ class TestCategoricalEulerIV:
             "h^{0,1} = 0; verified in TestKappaHodgeSupertraceK3IV)",
             "Hodge data E: chi(O_E) = 1 - 1 = 0; but κ_ch(E) = 1 by "
             "convention (algebraisation invariant, AP-CY55)",
-            "Igusa cusp form weight wt(Φ_10) = 10 -> κ_BKM = 10/2 = 5",
-            "phi01_fourier theta-ratio: c_K3(0) = 10 -> κ_BKM = 5",
+            "Paramodular cusp form weight wt(Delta_5) = 5 = kappa_BKM "
+            "(Gritsenko 1999 level-1); wt(Phi_10) = 10 = 2*kappa_BKM "
+            "since Phi_10 = Delta_5^2 in Sp_4(Z) is the non-paramodular "
+            "square, not kappa_BKM itself",
+            "phi01_fourier theta-ratio: c_K3(0) = 10 -> κ_BKM = c_K3(0)/2 = 5",
             "FRAME_SHAPE_DATA[1].borcherds_weight = 5 (M_24 character data)",
             "Three independent paths to κ_BKM(K3 × E) = 5: theta-ratio, "
-            "Igusa weight, M_24 Frame shape; all agree at 5",
+            "paramodular weight, M_24 Frame shape; all agree at 5",
         ],
         disjoint_rationale=(
             "The DERIVATION uses the additivity of κ_ch + the Borcherds "

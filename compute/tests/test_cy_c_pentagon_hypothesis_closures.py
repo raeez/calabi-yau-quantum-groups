@@ -66,22 +66,29 @@ H_30_PLUS_H_03 = 2            # trivialisation + conjugate
 H_21_PLUS_H_12_PRIMITIVE = 1  # primitive (2,1) + (1,2) part
 PRIM_BPS_RING_RANK = H_30_PLUS_H_03 + H_21_PLUS_H_12_PRIMITIVE  # = 3
 
-# HKR-Borcherds lift constants (H4)
-BORCHERDS_LIFT_WEIGHTS = {   # weight w(N) of the multiplicative lift Phi_N
-    1: 10,
-    2: 6,
-    3: 4,
-    4: 4,
-    6: 2,
+# HKR-Borcherds lift constants (H4).  Wave-8 heal: canonical paramodular
+# Borcherds weights are w(N) = c_N(0)/2, per Gritsenko 1999 Selecta (Delta_5
+# paramodular weight-5 level-1 cusp form), Allcock 2000 (Enriques paramodular
+# weight-4 product), and Gritsenko-Nikulin 1998 (CY Kummer orbifold tower).
+# Ground-truth engine: compute/lib/diagonal_siegel_cy_orbifolds.py
+# FRAME_SHAPE_DATA.  Earlier table conflated c_N(0) with weight and
+# mis-identified N=1 with the Siegel-Igusa non-paramodular form Phi_10
+# (weight 10 = Delta_5^2); retracted here.
+BORCHERDS_LIFT_WEIGHTS = {   # canonical paramodular weight w(N) = c_N(0)/2
+    1: 5,    # Delta_5 (Gritsenko 1999 paramodular level-1 cusp form)
+    2: 4,    # Allcock 2000 Enriques paramodular weight
+    3: 3,    # Gritsenko-Nikulin 1998 N=3 orbifold
+    4: 2,    # Gritsenko-Nikulin 1998 N=4 orbifold
+    6: 1,    # Gritsenko-Nikulin 1998 N=6 orbifold
 }
-# Borcherds character input: level-N elliptic genus of K3
-#   2 phi_{0,1} for N=1 has c(0) = 10
+# Borcherds character input: c_N(0) = constant Fourier coefficient of the
+# level-N elliptic genus of K3 (2 phi_{0,1} for N=1, twined genera for N>=2).
 C_N_0_PER_N = {
-    1: 10,
-    2: 6,
-    3: 4,
-    4: 4,
-    6: 2,
+    1: 10,   # 2 * phi_{0,1} constant term
+    2: 8,    # Allcock 2000 Nikulin involution twined genus c_2(0)
+    3: 6,    # Gritsenko-Nikulin 1998 N=3 twined genus c_3(0)
+    4: 4,    # Gritsenko-Nikulin 1998 N=4 twined genus c_4(0)
+    6: 2,    # Gritsenko-Nikulin 1998 N=6 twined genus c_6(0)
 }
 
 # Four hypotheses that the closure chapter discharges
@@ -331,24 +338,35 @@ class TestH4HKRBorcherdsFunctorialLift:
         ),
     )
     def test_h4_borcherds_lift_weights(self):
-        """H4: Borcherds lift weights w(N) for N in {1,2,3,4,6}."""
-        expected = {1: 10, 2: 6, 3: 4, 4: 4, 6: 2}
+        """H4: canonical paramodular Borcherds weights w(N) = c_N(0)/2.
+
+        Wave-8 canonical values from Gritsenko 1999, Allcock 2000, and
+        Gritsenko-Nikulin 1998.
+        """
+        expected = {1: 5, 2: 4, 3: 3, 4: 2, 6: 1}
         assert BORCHERDS_LIFT_WEIGHTS == expected
 
-    def test_h4_lift_weight_equals_c_N_0(self):
-        """H4: weight w(N) = c_N(0) for the Borcherds lift input."""
+    def test_h4_lift_weight_equals_half_c_N_0(self):
+        """H4: paramodular weight w(N) = c_N(0)/2 (Borcherds product rule)."""
+        from fractions import Fraction
         for N in BORCHERDS_LIFT_WEIGHTS:
-            assert BORCHERDS_LIFT_WEIGHTS[N] == C_N_0_PER_N[N]
+            assert BORCHERDS_LIFT_WEIGHTS[N] == Fraction(C_N_0_PER_N[N], 2)
 
-    def test_h4_lift_weight_is_even(self):
-        """H4: weight w(N) is even for all relevant N (Siegel paramodular)."""
-        for N, w in BORCHERDS_LIFT_WEIGHTS.items():
-            assert w % 2 == 0
+    def test_h4_c_N_0_matches_frame_shape(self):
+        """H4: c_N(0) values agree with FRAME_SHAPE_DATA ground-truth engine."""
+        expected_c0 = {1: 10, 2: 8, 3: 6, 4: 4, 6: 2}
+        assert C_N_0_PER_N == expected_c0
 
-    def test_h4_lift_for_N_1_gives_weight_10_phi_10(self):
-        """H4: for N=1, weight = 10, matching Phi_10 paramodular form."""
-        assert BORCHERDS_LIFT_WEIGHTS[1] == 10
-        # The Igusa cusp form Phi_10 has weight 10 and is the N=1 Borcherds lift.
+    def test_h4_lift_for_N_1_is_delta5_paramodular(self):
+        """H4: N=1 Borcherds lift is Delta_5 (Gritsenko 1999 paramodular, weight 5).
+
+        Note: the Siegel-Igusa form Phi_10 (weight 10) is NOT the paramodular
+        N=1 Borcherds lift; Phi_10 = Delta_5^2 in Sp_4(Z), not the paramodular
+        level-1 primitive form.  Per Wave-8 heal.
+        """
+        assert BORCHERDS_LIFT_WEIGHTS[1] == 5
+        assert C_N_0_PER_N[1] == 10
+        # Delta_5 weight 5; Phi_10 = Delta_5^2 is the square (distinct form).
 
     def test_h4_closes_beta_23_source_and_beta_61(self):
         """H4 closes the R2 -> R3 source arrow and beta_61 at VOA level."""

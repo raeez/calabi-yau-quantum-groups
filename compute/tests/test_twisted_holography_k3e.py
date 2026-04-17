@@ -167,15 +167,28 @@ class TestKappaSpectrum:
     def test_kappa_ch_k3e(self):
         """kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E) = 2 + 1 = 3.
 
-        # VERIFIED: DC (additivity), LT (modular_koszul_bridge_k3e.py)
+        # Route B (Heisenberg level / free-boson rank, AP-CY55 algebraisation
+        # invariant): kappa_ch(E) = 1 via k = 1 Heisenberg level, additive
+        # under product of free-boson constructions, giving 2 + 1 = 3.
+        # Route A (Hodge supertrace, Kunneth-multiplicative) gives
+        # Xi(K3 x E) = Xi(K3) * Xi(E) = 2 * 0 = 0 (E has Xi = 1 - 1 = 0);
+        # the canonical Phi_d functor value is 0 per
+        # cy_d_kappa_stratification.tex:411-426. Both routes coexist under
+        # AP234 notational collision; this test pins the Route B value.
+        # VERIFIED: DC (Route B additivity), LT (modular_koszul_bridge_k3e.py)
         """
         assert KAPPA_CH_K3E == KAPPA_CH_K3 + KAPPA_CH_E
         assert KAPPA_CH_K3E == 3
 
     def test_kappa_bkm_k3e(self):
-        """kappa_BKM(K3 x E) = 5 = c(0)/2 = 10/2 (Igusa weight).
+        """kappa_BKM(K3 x E) = wt(Delta_5) = c_1(0)/2 = 10/2 = 5.
 
-        # VERIFIED: DC (c(0)=10 from phi_{0,1}), LT (Gritsenko-Nikulin)
+        Canonical paramodular weight-5 level-1 cusp form Delta_5
+        (Gritsenko 1999); c_1(0) = 10 is the constant Fourier coefficient
+        of 2*phi_{0,1}.  Distinct from Siegel-Igusa Phi_10 (weight 10 in
+        Sp_4(Z), = Delta_5^2, non-paramodular).
+
+        # VERIFIED: DC (c_1(0)=10 from 2*phi_{0,1}), LT (Gritsenko 1999)
         """
         assert KAPPA_BKM_K3E == 5
 

@@ -408,7 +408,7 @@ class TestBorcherdsWeightUniversal:
         ],
         verified_against=[
             "Borcherds Invent Math 1995 Automorphic forms on Grassmannians Theorem 10.1 giving weight of Borcherds product as c(0)/2 directly from the vector-valued theta lift input",
-            "Gritsenko-Hulek-Sankaran 2008 Moduli of K3 Chapter 5 independently listing paramodular weights {10, 6, 3, 2, 1} for N=1,2,3,4,6 without reference to BKM denominator identity",
+            "Gritsenko 1999 Selecta + Allcock 2000 + Gritsenko-Nikulin 1998 independently listing paramodular weights {5, 4, 3, 2, 1} for N=1,2,3,4,6 without reference to BKM denominator identity",
         ],
         disjoint_rationale=(
             "The derivation route uses the frame-shape tabulation "
@@ -416,10 +416,11 @@ class TestBorcherdsWeightUniversal:
             "multiplicities of the BKM superalgebra. The verification "
             "routes cite Borcherds 1995 Theorem 10.1 (theta-lift "
             "weight formula, proved independently of any BKM algebra) "
-            "and Gritsenko-Hulek-Sankaran 2008 (paramodular weights "
-            "from moduli-theoretic classification of K3-quotient "
-            "Siegel forms). Both verification sources give the "
-            "weights {10, 6, 3, 2, 1} without invoking root "
+            "and the paramodular-form literature (Gritsenko 1999 "
+            "Selecta on Delta_5; Allcock 2000; Gritsenko-Nikulin 1998 "
+            "on automorphic forms and Lorentzian KM algebras II). Both "
+            "verification sources give the "
+            "weights {5, 4, 3, 2, 1} without invoking root "
             "multiplicities, denominators, or frame shapes. Three "
             "disjoint derivations."
         ),
@@ -427,17 +428,23 @@ class TestBorcherdsWeightUniversal:
     def test_borcherds_weights_universal(self):
         """c_N(0)/2 matches the known Siegel paramodular weights.
 
-        Values from Gritsenko-Hulek-Sankaran 2008 Moduli of K3 Chapter 5:
-        N=1: Phi_10, weight 10, c_1(0) = 20.
-        N=2: Phi_6,  weight 6,  c_2(0) = 12.
-        N=3: Phi_3,  weight 3,  c_3(0) = 6.
-        N=4: Phi_2,  weight 2,  c_4(0) = 4.
-        N=6: Phi_1,  weight 1,  c_6(0) = 2.
+        Canonical values from Gritsenko 1999 Selecta (Delta_5 paramodular
+        weight-5 level-1 cusp form) + Allcock 2000 + Gritsenko-Nikulin
+        1998 "Automorphic forms and Lorentzian KM algebras II":
+        N=1: Delta_5,  weight 5, c_1(0) = 10.
+        N=2: weight 4, c_2(0) = 8  (Allcock 2000).
+        N=3: Phi_3,    weight 3, c_3(0) = 6.
+        N=4: Phi_2,    weight 2, c_4(0) = 4.
+        N=6: Phi_1,    weight 1, c_6(0) = 2.
+        Engine ground truth: compute/lib/diagonal_siegel_cy_orbifolds.py
+        FRAME_SHAPE_DATA. Earlier programme notes mislabelled N=1 as
+        Igusa Phi_10 (Siegel genus-2 level-1 weight-10) and doubled N=2
+        analogously; retracted here per Wave-8 heal.
         """
         borcherds_table: List[Tuple[int, int, int]] = [
             # (N, c_N(0), weight)
-            (1, 20, 10),
-            (2, 12, 6),
+            (1, 10, 5),
+            (2, 8, 4),
             (3, 6, 3),
             (4, 4, 2),
             (6, 2, 1),
@@ -448,13 +455,15 @@ class TestBorcherdsWeightUniversal:
             )
 
     def test_N1_naive_decomposition_fails(self):
-        """kappa_BKM(Phi_10) = 10 is NOT kappa_ch(K3xE) + chi(O_E) = 0+0 = 0.
+        """kappa_BKM(Delta_5) = 5 is NOT kappa_ch(K3xE) + chi(O_E) = 0+0 = 0.
 
-        The N=1 'coincidence' 5 = 3 + 2 in earlier programme notes
-        conflated Phi_5 with Phi_10 and/or used an incorrect kappa_ch
-        value (3 instead of the supertrace 0 for K3xE).
+        Canonical: Delta_5 is Gritsenko 1999's weight-5 level-1 paramodular
+        cusp form; c_1(0) = 10; kappa_BKM = 5.  Earlier programme notes
+        conflated Delta_5 with Igusa Phi_10 (weight 10) and the 'N=1
+        coincidence' 5 = 3 + 2 used an incorrect kappa_ch value (3 instead
+        of the supertrace 0 for K3xE).  Retracted per Wave-8 heal.
         """
-        N1_weight = F(10)
+        N1_weight = F(5)
         naive_decomposition = (
             hodge_supertrace_column(k3_times_e_hodge())
             + hodge_supertrace_column(elliptic_curve_hodge())
@@ -463,12 +472,12 @@ class TestBorcherdsWeightUniversal:
         assert N1_weight != naive_decomposition
 
     def test_N2_kummer_decomposition_fails(self):
-        """At N=2, c_2(0)/2 = 6 != 1 = kappa_ch(Z_2 orbifold) + chi(O_E)."""
-        N2_weight_from_c0 = F(12, 2)  # = 6
+        """At N=2, c_2(0)/2 = 4 != 1 = kappa_ch(Z_2 orbifold) + chi(O_E)."""
+        N2_weight_from_c0 = F(8, 2)  # = 4 (Allcock 2000 paramodular weight)
         # Z_2 Kummer orbifold: kappa_ch = 1 (single fixed-point class).
         # chi(O_{E_2}) = 0 (odd-d Serre cancellation).
         naive_N2_decomposition = F(1) + F(0)
-        assert N2_weight_from_c0 == F(6)
+        assert N2_weight_from_c0 == F(4)
         assert naive_N2_decomposition == F(1)
         assert N2_weight_from_c0 != naive_N2_decomposition
 
@@ -479,7 +488,7 @@ class TestBorcherdsWeightUniversal:
 
     def test_c_N_strictly_positive(self):
         """c_N(0) > 0 for every Borcherds frame."""
-        c_N_zero = {1: 20, 2: 12, 3: 6, 4: 4, 6: 2}
+        c_N_zero = {1: 10, 2: 8, 3: 6, 4: 4, 6: 2}
         for N, c0 in c_N_zero.items():
             assert c0 > 0, f"N={N}: c_{N}(0) = {c0} must be positive"
 
