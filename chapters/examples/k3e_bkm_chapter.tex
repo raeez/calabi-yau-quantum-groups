@@ -163,7 +163,7 @@ The weak Jacobi form $\phi_{0,1} = \phi_{12,1}/\delta_{12}$ (where $\delta_{12} 
 
 
 %% ========================================================================
-%% Sections added from the K3xE compute swarm (2026-04-05)
+%% K3xE sections (computational results 2026-04-05).
 %% ========================================================================
 
 \section{CoHA structure and the BKM superalgebra}
@@ -682,6 +682,49 @@ The identification of shadow data with Fourier--Jacobi coefficients beyond genus
 \end{proposition}
 
 \noindent\textit{Verification}: 74 tests in \texttt{cy\_borcherds\_lift\_engine.py} covering the Borcherds product through $(n,l,m)$-order $8$, the weight formula, Fourier--Jacobi expansion at index $m = 1,2,3$, and the $\eta^{18}\vartheta_1^2$ identification.
+
+\subsection{Universal property of the Borcherds lift}
+\label{subsec:borcherds-lift-universal}
+
+The case-by-case computations above ($\Delta_5$ for $K3 \times E$, $J(\tau)$ for the Monster, the Fake Monster denominator for $\mathrm{II}_{2,26}$) all realise a single universal construction.  We record it here as a functor from vertex algebras with lattice structure to automorphic forms on positive cones of Grassmannians; the specialisations to Leech and to $\mathrm{II}_{1,1}$ supply the Monster $E_3$-topological lift used in the Vol II climax (Monster orbifold BV route, AP-CY66, FM66, FM120).
+
+\begin{theorem}[Borcherds lift universal property]
+\label{thm:borcherds-lift-universal}
+\ClaimStatusProvedElsewhere
+Let $L$ be an even unimodular Lorentzian lattice of signature $(b^+, b^-)$ with $b^+ \ge 2$, and let $V$ be a conformal vertex operator algebra whose weight lattice carries a primitive isometric embedding $L \hookrightarrow \mathrm{Lat}(V)$ compatible with the Virasoro grading.  Write $\mathcal{G}(L) = \mathrm{O}(L \otimes \mathbb{R}) / (\mathrm{O}(b^+) \times \mathrm{O}(b^-))$ for the Grassmannian of positive $b^+$-planes, and $\Pi^+_L \subset L \otimes \mathbb{R}$ for the positive cone.  Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item \textup{(Existence.)}  There is a canonical automorphic form $\Phi_V$ on $\mathcal{G}(L)$ with respect to the orthogonal group $\mathrm{O}^+(L)$, of weight $c_V(0)/2$, realised as a singular theta lift of the vector-valued vacuum character $\chi_V(\tau) = \mathrm{tr}_V\, q^{L_0 - c/24}$ with Fourier coefficients $c_V(m) = [q^m]\,\chi_V(\tau)$.
+  \item \textup{(Product expansion.)}  On a neighbourhood of a $0$-dimensional cusp $F_\rho$ with Weyl vector $\rho \in L$,
+  \[
+    \Phi_V(Z) \;=\; e^{2\pi i (\rho, Z)} \cdot \prod_{\substack{\lambda \in L^+ \\ (\lambda, \rho) > 0}} \bigl(1 - e^{2\pi i (\lambda, Z)}\bigr)^{c_V(-\lambda^2/2)},
+  \]
+  where $L^+ \subset L$ is the positive cone selected by $\rho$ and $Z \in \Pi^+_L + i\, \mathcal{G}(L)$ is the tube coordinate.
+  \item \textup{(Universality.)}  The assignment $V \mapsto \Phi_V$ is functorial with respect to (a) $L$-equivariant embeddings $V_1 \hookrightarrow V_2$ of conformal VAs and (b) orthogonal lattice embeddings $L \hookrightarrow L'$ preserving even unimodularity; on morphisms it intertwines the singular theta integral with the pull-back of automorphic forms $\mathcal{G}(L') \to \mathcal{G}(L)$.
+  \item \textup{(Weight formula.)}  The weight of $\Phi_V$ is $\mathrm{wt}(\Phi_V) = c_V(0)/2$, extending the orbifold formula of Proposition~\ref{prop:bkm-weight-universal} to arbitrary conformal VAs with even-unimodular-lattice grading.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Attribution]
+Items~\textup{(i)--(ii)} are the Borcherds singular theta correspondence \cite[Thms.~13.3, 14.3]{Borcherds1998}; the product expansion in a neighbourhood of a $0$-cusp is \cite[Thm.~13.3~(5)]{Borcherds1998}.  The weight formula~\textup{(iv)} is the Borcherds weight theorem, specialising Proposition~\ref{prop:bkm-weight-universal}.  Functoriality~\textup{(iii)} follows from naturality of the theta integral under isometric embeddings, established in \cite[§14]{Borcherds1998} and made categorical in Gritsenko--Nikulin \cite{GN1996, GN2002}; the compatibility with $V$-morphisms reduces to the multiplicativity of the vacuum character $\chi_{V_1 \otimes V_2} = \chi_{V_1} \chi_{V_2}$ under tensor product of conformal VAs.
+\end{proof}
+
+\begin{remark}[Three worked cases]
+\label{rem:borcherds-three-cases}
+\begin{enumerate}[label=\textup{(\arabic*)}]
+  \item $L = \mathrm{II}_{1,1}$, $V = \mathbb{C}$ the trivial VA: $\Phi_V = J(\tau) - 744$, the Borcherds--Koike--Norton--Zagier invariant \textup{(}\cite{Borcherds1992}\textup{)}.
+  \item $L = \mathrm{II}_{2,26}$, $V = V_\Lambda$ the Leech lattice VOA: $\Phi_V$ is the Fake Monster denominator, realising the Monster Lie algebra as a generalised Kac--Moody algebra.  This is the input to the Monster $E_3$-topological route (orbifold BV, FM120, FM128): the vanishing of the $\mathbb{Z}/2$ Dijkgraaf--Witten anomaly for the Leech involution is a consequence of $\mathrm{II}_{2,26}$ being even unimodular and $J(\tau)$ being $\mathrm{SL}_2(\mathbb{Z})$-invariant (not merely modular on $\Gamma_0(2)$).
+  \item $L = \mathrm{II}_{3,2}$, $V = V_{K3}^{\mathrm{top}}$ the K3 topological vertex algebra: $\Phi_V = \Delta_5$, recovering the $K3 \times E$ specialisation (Theorem~\ref{thm:k3e-borcherds-product}) as the rank-$3,2$ instance.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[CY-A$_3$ and the Borcherds lift]
+\label{rem:cya3-borcherds-lift-compatibility}
+The CY-to-chiral functor $\Phi_3$ of Theorem~\ref{thm:cy-to-chiral-d3} produces, on a K3-fibered CY$_3$ $X$ with Mukai lattice $\Lambda_{\mathrm{Muk}}(X)$ even unimodular, an $E_1$-chiral algebra $A_X = \Phi_3(D^b(\mathrm{Coh}(X)))$ whose weight lattice is $\Lambda_{\mathrm{Muk}}(X)$.  Theorem~\ref{thm:borcherds-lift-universal} then applies with $L = \Lambda_{\mathrm{Muk}}(X)$ and $V = A_X$, and the composite
+\[
+  D^b(\mathrm{Coh}(X)) \xrightarrow{\Phi_3} E_1\text{-ChirAlg} \xrightarrow{\Phi_{(-)}} \mathrm{AutForm}\bigl(\mathcal{G}(\Lambda_{\mathrm{Muk}}(X))\bigr)
+\]
+sends $X = K3 \times E$ to $\Delta_5$ (Theorem~\ref{thm:k3e-borcherds-product}); on non-K3-fibered CY$_3$s the second arrow is undefined (Proposition~\ref{prop:bkm-weight-universal}~(iv)).  Thus admission of a Borcherds lift is a PROPERTY of the CY$_3$ (existence of a K3 fibration giving even unimodular weight lattice), not of the functor $\Phi_3$.  For $X$ without such a fibration (quintic, local $\mathbb{P}^2$), the substitute is the BCOV partition function, which is not a theta lift (AP-CY8).
+\end{remark}
 
 \subsection{The bar Euler product chain}
 \label{subsec:k3e-bar-euler-chain}
