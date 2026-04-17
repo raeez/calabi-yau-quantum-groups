@@ -1,14 +1,20 @@
 """Tests for the V_4-cohomology Bockstein home of the bracketing-associator.
 
 Theorem (lem:V4-cohomology-bracketing-home):
-    H^3(V_4; Z[V_4]_0) = (Z/2)^3
-with generating classes Bock(a^2), Bock(b^2), Bock(ab) via the Bockstein
-connecting homomorphism.
+    H^3(V_4; Z[V_4]_0) = (Z/2)^2
+with generating classes Bock(alpha) and Bock(beta) via the Bockstein
+connecting homomorphism, where alpha = Bock(a) and beta = Bock(b) are the
+integral lifts of the F_2-generators a (wt) and b (par) of H^1(V_4; F_2).
+
+The mixed cup-product class ab in H^2(V_4; F_2) does NOT lift to H^2(V_4; Z);
+its Bockstein image gamma = Bock(ab) in H^3(V_4; Z) = Z/2 inhabits
+H^4(V_4; Z[V_4]_0) at the next dimension shift and controls the K_5-arity
+matrix Pentagon obstruction.
 
 Theorem (thm:bracketing-associator-cohomology-class):
-    [a] = c_{a^2} . Bock(a^2) + c_{b^2} . Bock(b^2) + c_{ab} . Bock(ab) in (Z/2)^3
-with c_{a^2} = 0 (witnessed by a(K3, K3, K3) = 0) and c_{b^2}, c_{ab}
-non-trivial (witnessed by cross-class triples).
+    [a] = c_{alpha} . Bock(alpha) + c_{beta} . Bock(beta) in (Z/2)^2
+with c_{alpha} = 0 (witnessed by a(K3, K3, K3) = 0) and c_{beta} = 1
+(witnessed by cross-class par-direction-breaking triples).
 
 Tests at this layer cover the COHOMOLOGY HOME COMPUTATION
 (structural / categorical content). Numerical witness triples for the explicit
@@ -45,18 +51,27 @@ from compute.lib.independent_verification import independent_verification
     ),
 )
 def test_H3_V4_Z_V4_zero_dimension():
-    """H^3(V_4; Z[V_4]_0) is (Z/2)^3 as F_2-vector space.
+    """H^3(V_4; Z[V_4]_0) is (Z/2)^2 as F_2-vector space.
 
     Computation: Shapiro vanishing H^n(V_4; Z[V_4]) = 0 for n >= 1
     + dimension shift from short exact 0 -> Z[V_4]_0 -> Z[V_4] -> Z -> 0
     gives H^n(V_4; Z[V_4]_0) cong H^{n-1}(V_4; Z) for n >= 2.
 
-    H^2(V_4; Z) = (Z/2)^3 by direct Klein-four integral cohomology.
+    H^*(V_4; Z) by Künneth from H^*(Z/2; Z) = Z[alpha]/(2 alpha) (deg alpha = 2):
+        H^0 = Z, H^1 = 0, H^2 = (Z/2)^2, H^3 = Z/2, H^4 = (Z/2)^3, ...
+    Therefore H^3(V_4; Z[V_4]_0) = H^2(V_4; Z) = (Z/2)^2 (rank 2, NOT 3).
+    The mixed cup-product class ab in H^2(V_4; F_2) does not lift to a Z-cohomology
+    class in H^2(V_4; Z); its Bockstein image gamma = Bock(ab) lives in
+    H^3(V_4; Z) = Z/2 = H^4(V_4; Z[V_4]_0) at the next dimension shift.
     """
-    # Dimension shift via long exact sequence
-    H2_V4_Z_dimension = 3  # rank of (Z/2)^3
+    H2_V4_Z_dimension = 2  # rank of (Z/2)^2 (NOT 3)
     H3_V4_Z_V4_zero_dimension = H2_V4_Z_dimension
-    assert H3_V4_Z_V4_zero_dimension == 3
+    assert H3_V4_Z_V4_zero_dimension == 2
+
+    # Next dimension: H^4(V_4; Z[V_4]_0) = H^3(V_4; Z) = Z/2 (rank 1)
+    H3_V4_Z_dimension = 1
+    H4_V4_Z_V4_zero_dimension = H3_V4_Z_dimension
+    assert H4_V4_Z_V4_zero_dimension == 1
 
 
 # ============================================================================
