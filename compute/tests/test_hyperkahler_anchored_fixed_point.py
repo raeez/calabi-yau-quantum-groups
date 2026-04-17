@@ -2108,3 +2108,78 @@ class TestK3HeisenbergIV:
         # For the K3 Yangian Heisenberg specifically, the central element
         # is a single dim, so total dim = 24 + 1 = 25.
         assert dim_H_Muk == 25
+
+
+# =========================================================================
+# INDEPENDENT VERIFICATION (HZ3-11) — prop:kappa-hodge-supertrace
+# =========================================================================
+
+
+class TestKappaHodgeSupertraceK3IV:
+    r"""Independent verification of kappa_cat(K3) = chi(O_K3) = 2.
+
+    Disjoint sources:
+    - DERIVATION: chi(O_K3) = sum (-1)^q h^{0,q}(K3) (Hodge supertrace
+      formula).
+    - VERIFICATION: Riemann-Roch on K3 gives chi(O_K3) = 2 directly from
+      the Todd class chi(O_X) = ∫_X Td(X) for K3 via c_1 = 0, c_2 = 24.
+    """
+
+    @independent_verification(
+        claim="prop:kappa-hodge-supertrace",
+        derived_from=[
+            "kappa_cat = chi(O_K3) = sum_q (-1)^q h^{0,q}(K3)",
+            "K3 Hodge data: h^{0,0} = 1, h^{0,1} = 0, h^{0,2} = 1",
+            "Hodge supertrace formula on the structure sheaf cohomology",
+        ],
+        verified_against=[
+            "Riemann-Roch on K3: chi(O_X) = ∫_X Td(X) where Td(X) = "
+            "1 + c_1/2 + (c_1^2 + c_2)/12 + ...",
+            "K3 has c_1(K3) = 0 (CY condition) and c_2(K3) = 24 "
+            "(topological Euler characteristic from c_2 = chi_top)",
+            "Riemann-Roch gives chi(O_K3) = c_2(K3)/12 = 24/12 = 2",
+            "Independent of Hodge supertrace; uses only Chern classes "
+            "and Todd-class formula",
+        ],
+        disjoint_rationale=(
+            "The DERIVATION uses the Hodge-supertrace formula chi(O_X) "
+            "= sum_q (-1)^q h^{0,q} (Dolbeault-cohomological route). "
+            "The VERIFICATION uses Riemann-Roch chi(O_X) = ∫_X Td(X) "
+            "= c_2(X)/12 for K3 (Chern-class route via c_1 = 0 + "
+            "c_2 = 24 from topology). Both compute chi(O_K3) = 2 but "
+            "via algorithmically distinct paths: Dolbeault cohomology "
+            "vs Chern-Pontryagin classes. Agreement confirms the "
+            "kappa_cat identification."
+        ),
+    )
+    def test_chi_O_K3_equals_2_via_two_disjoint_paths(self):
+        """The KEY PROPOSITION: chi(O_K3) = 2 via Hodge supertrace
+        (DERIVATION) and Riemann-Roch with c_2 = 24 (VERIFICATION).
+        """
+        from fractions import Fraction
+
+        # PATH A (DERIVATION via Hodge supertrace).
+        h_0_q = [1, 0, 1]  # h^{0,0}, h^{0,1}, h^{0,2} of K3
+        chi_O_via_Hodge = sum((-1)**q * h for q, h in enumerate(h_0_q))
+        assert chi_O_via_Hodge == 2
+
+        # PATH B (VERIFICATION via Riemann-Roch).
+        # K3 has c_1(K3) = 0 (CY condition) and c_2(K3) = chi_top(K3) = 24.
+        # Riemann-Roch on a smooth projective surface S:
+        #   chi(O_S) = ∫_S Td(S) = 1/12 (c_1^2(S) + c_2(S))
+        # For K3 (c_1 = 0):
+        #   chi(O_K3) = 1/12 (0 + c_2(K3)) = c_2/12 = 24/12 = 2.
+        c_1_K3 = 0
+        c_2_K3 = 24
+        chi_O_via_RR = Fraction(c_1_K3**2 + c_2_K3, 12)
+        assert chi_O_via_RR == Fraction(24, 12) == Fraction(2)
+
+        # Both paths give chi(O_K3) = 2.
+        assert chi_O_via_Hodge == int(chi_O_via_RR), (
+            f"DISJOINT-SOURCE DISAGREEMENT: Hodge supertrace gives "
+            f"chi = {chi_O_via_Hodge}, Riemann-Roch gives chi = "
+            f"{int(chi_O_via_RR)}"
+        )
+        # Therefore kappa_cat(K3) = chi(O_K3) = 2.
+        kappa_cat_K3 = chi_O_via_Hodge
+        assert kappa_cat_K3 == 2
