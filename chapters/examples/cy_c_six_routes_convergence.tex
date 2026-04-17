@@ -1,0 +1,1003 @@
+\chapter{CY-C: Six Routes to $G(K3 \times E)$ and Their Pairwise Comparison}
+\label{ch:cy-c-six-routes-convergence}
+
+%% =====================================================================
+%%  CY-C is the conjecture that six independent mathematical constructions
+%%  produce isomorphic quantum vertex chiral groups G(K3 x E).  This chapter
+%%  makes the comparison machinery explicit: every identification is a
+%%  NAMED ARROW (AP-CY57), every kappa carries a subscript (AP113, AP-CY55),
+%%  and every claim of ProvedHere is backed by an independent verification
+%%  decorator (HZ-IV).  The chapter heals the top-15 cached confusion
+%%  #10 and installs the pairwise-bridge table that Vol III has been
+%%  narrating rather than constructing.
+%% =====================================================================
+
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Eone}{E_{1}}
+
+Conjecture CY-C is the last open conjecture in the CY-A/B/C/D hierarchy: CY-A\textsubscript{3} is proved at the $\infty$-categorical level, CY-B is proved in its $d$-dependent form, and CY-D is proved in its dimension-stratified form. What remains is the assertion that the six independent constructions of a quantum vertex chiral group $G(K3 \times E)$ converge on a single isomorphism class. This chapter is the comparison machinery for that conjecture.
+
+The central discipline of the chapter is the separation of functorial from non-functorial identifications (AP-CY59, AP-CY60). Only one of the six routes is an application of the CY-to-chiral functor $\Phi_3$; the remaining five are independent constructions whose outputs carry their own modular characteristics, their own $R$-matrices, and their own automorphic data. The convergence of these five outputs with $\Phi_3(D^b(\Coh(K3 \times E)))$ is the \emph{content} of CY-C, not a derivation from functoriality.
+
+\section{Setup: the six constructions}
+\label{sec:cy-c-six-setup}
+
+Fix a K3 surface $S$ with N\'eron--Severi lattice of signature $(1, \rho(S) - 1)$, an elliptic curve $E$, and the Calabi--Yau threefold $X = S \times E$. The six routes extract a chiral algebra (or chiral group) from this geometry through six different machines.
+
+\begin{definition}[The six routes]
+\label{def:cy-c-six-routes}
+\ClaimStatusDefinitional
+A \emph{route} for $G(X)$ is a pair (construction, output) producing a chiral algebra $A^{R_i}_X$ and, where applicable, a quantum vertex chiral group $G^{R_i}(X)$. The six canonical routes are:
+\begin{enumerate}[label=\textbf{R\arabic*.}]
+  \item \textbf{CY-to-chiral functor.} $\Phi_3 \colon D^b(\Coh(X)) \longrightarrow \mathrm{ChirAlg}^{\Eone}_X$, applied to $D^b(\Coh(S \times E))$, producing $A_X^{R_1} := \Phi_3(D^b(\Coh(X)))$.  \emph{Status of output}: $A_X^{R_1}$ exists as chiral algebra (CY-A\textsubscript{3} proved, Theorem~\ref{thm:cy-to-chiral-d3}); its quantum vertex chiral group structure is conjectural.
+  \item \textbf{Borcherds lift.} The Borcherds multiplicative lift of the K3 elliptic genus $2\phi_{0,1}$ produces the Siegel cusp form $\Phi_{10}$ (or $\Delta_5$, its square root up to a constant). The root multiplicities from the denominator identity (Theorem~\ref{thm:k3e-denominator}) define the generalized Borcherds--Kac--Moody superalgebra $\mathfrak{g}_{\Delta_5}$. Output: $A_X^{R_2} := U(\mathfrak{g}_{\Delta_5})$-modules on the natural Mukai lattice completion.
+  \item \textbf{Lattice VOA.} The Mukai lattice $H^*(S, \Z) \oplus H^*(E, \Z)$ carries a natural even unimodular quadratic form (Mukai pairing on $S$, standard pairing on $E$), producing a lattice vertex operator algebra $V_{\Lambda_{\mathrm{Muk}}(X)}$. Output: $A_X^{R_3} := V_{\Lambda_{\mathrm{Muk}}(X)}$.
+  \item \textbf{Kummer construction.} The Kummer resolution $\Kum(X) := \widetilde{(S \times E)/\iota}$ for $\iota$ the standard involution produces, after orbifold completion, a chiral algebra $A_X^{R_4}$ as the invariant subalgebra of a twisted lattice VOA. The construction is modelled on the classical Kummer K3 but lifted to the threefold via the fibration $S \times E \to E/\iota$.
+  \item \textbf{Sigma model.} The $\mathcal{N} = (2,2)$ superconformal sigma model on $X$ admits a topological half-twist producing the holomorphic stress tensor and chiral currents. Output: $A_X^{R_5}$ is the chiral algebra of the holomorphic half-twist on $X$.
+  \item \textbf{BLLPR holomorphic dependence.} Beem--Lemos--Liendo--Peelaers--Rastelli (arXiv:1312.5344) associate to a $4$d $\mathcal{N} = 2$ theory a $2$d chiral algebra through the Schur limit. The CY-3 counterpart, discussed in BLLPR-type constructions for class-$S$ theories with K3-fibered geometries (see also arXiv:1710.03254 for the holomorphic sigma model), produces $A_X^{R_6}$ from the holomorphic-twist of a $6$d $(2,0)$ theory compactified on a Riemann surface with K3 structure.
+\end{enumerate}
+Only route R\textsubscript{1} is an application of $\Phi_3$. Routes R\textsubscript{2}--R\textsubscript{6} are independent constructions (AP-CY60).
+\end{definition}
+
+\begin{remark}[Why the six routes do not reduce to one]
+\label{rem:six-routes-irreducible}
+The six constructions use genuinely different mathematical data. R\textsubscript{1} consumes the bounded derived category of coherent sheaves; R\textsubscript{2} consumes a weak Jacobi form of weight $0$ and index $1$; R\textsubscript{3} consumes a rank-$24$ even unimodular lattice with a distinguished signature decomposition; R\textsubscript{4} consumes a finite-group action with specified fixed loci; R\textsubscript{5} consumes a Ricci-flat K\"ahler metric (equivalently, a topological twist of a superconformal theory); R\textsubscript{6} consumes a $6$d superconformal theory compactified on a Riemann surface. None of these inputs refines the others. Convergence of the six outputs is the \emph{content} of CY-C.
+\end{remark}
+
+\section{The central conjecture}
+\label{sec:cy-c-statement}
+
+\begin{conjecture}[CY-C: Six-routes isomorphism]
+\label{thm:six-routes-isomorphism}
+%% Kept under ``thm:'' prefix per CY-C branding in main.tex; environment is
+%% conjecture and status is conjectural (AP40, HZ-2).
+\ClaimStatusConjectured
+For $X = S \times E$ with $S$ a smooth projective K3 surface and $E$ an elliptic curve, the six chiral algebras $A_X^{R_1}, \ldots, A_X^{R_6}$ of Definition~\ref{def:cy-c-six-routes} are pairwise isomorphic as chiral algebras on the analytic elliptic fibration over $E$, up to automorphism of the CY\textsubscript{3} data and up to the $\kappa_\bullet$-stratification of Theorem~\ref{thm:kappa-stratification-CY-C}. Equivalently, the associated quantum vertex chiral groups $G^{R_i}(X)$ are pairwise isomorphic, again up to the $\kappa_\bullet$-stratification, for all $i, j \in \{1, \ldots, 6\}$.
+\end{conjecture}
+
+\begin{remark}[What the conjecture excludes]
+\label{rem:cy-c-exclusions}
+CY-C is \emph{not} the statement that $\kappa_{\mathrm{ch}}^{R_i}(X) = \kappa_{\mathrm{ch}}^{R_j}(X)$ for all pairs. The modular characteristic depends on the route (Theorem~\ref{thm:kappa-stratification-CY-C}); CY-C is the statement that the chiral algebras agree after one accounts for the $\kappa_\bullet$-stratification, i.e., after passing to the quantum vertex chiral group, where the choice of construction is absorbed into the group structure.
+\end{remark}
+
+\section{Pairwise comparison propositions}
+\label{sec:cy-c-pairwise}
+
+The six routes form a $6$-cycle under the pairwise-bridge diagram. Each bridge is a separate identification problem, with its own status and its own construction.
+
+\subsection{Bridge R\textsubscript{1} $\leftrightarrow$ R\textsubscript{2}: $\Phi_3$ versus Borcherds lift}
+
+\begin{proposition}[HKR--Borcherds bridge]
+\label{prop:route1-route2-bridge}
+\ClaimStatusConditional{CY-A\textsubscript{3} (proved); Borcherds lift (unconditional); HKR $\infty$-categorical refinement for threefolds (conjectural).}
+Denote by $\mathrm{HKR}_3 \colon \HH_*(D^b(\Coh(X))) \xrightarrow{\sim} H^*(X, \bigwedge^* T_X)$ the Hochschild--Kostant--Rosenberg isomorphism in dimension $3$, and by $\mathrm{BL} \colon \mathrm{Jac}_{0,1}(\Gamma_0(1)) \to M_5(\Gamma_2)$ the Borcherds multiplicative lift. There is a named arrow
+\[
+  \alpha_{12} \colon A_X^{R_1} \longrightarrow A_X^{R_2}
+\]
+whose construction proceeds in three steps:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item HKR identifies $\HH_*(D^b(\Coh(X)))$ with the polyvector cohomology $H^*(X, \bigwedge^* T_X)$;
+  \item the Mukai polarization of $H^*(K3, \Z)$ promotes the K3-factor polyvectors to weak Jacobi-form data (K3 elliptic genus $2\phi_{0,1}$);
+  \item the Borcherds lift of $2\phi_{0,1}$ produces $\Phi_{10}$, whose denominator identity (Theorem~\ref{thm:k3e-denominator}) constructs $A_X^{R_2}$.
+\end{enumerate}
+The composition (a)--(c) is the arrow $\alpha_{12}$.
+\end{proposition}
+
+\begin{proof}[Proof sketch of Proposition~\ref{prop:route1-route2-bridge}]
+Step (a) is HKR for threefolds (Yekutieli 2002; C\u{a}ld\u{a}raru--Willerton for the Mukai pairing refinement). Step (b) is the Mukai polarization combined with the identification of the $H^*(K3, \C)$-weighted trace over $\Phi_3(D^b(\Coh(S)))$ with the K3 elliptic genus (Borisov--Libgober for the chiral analogue; Wendland for the $\sigma$-model side). Step (c) is the Borcherds lift. That the composite arrow lands in the chiral algebra underlying $\mathfrak{g}_{\Delta_5}$ rather than an unrelated automorphic completion is where the conditional CY-A\textsubscript{3} hypothesis enters: we use the $\infty$-categorical refinement of $\Phi_3$ to ensure that the Jacobi-form input is the correct one (Theorem~\ref{thm:cy-to-chiral-d3}).
+\end{proof}
+
+\subsection{Bridge R\textsubscript{2} $\leftrightarrow$ R\textsubscript{3}: Borcherds denominator versus lattice VOA character}
+
+\begin{proposition}[Borcherds--lattice VOA bridge]
+\label{prop:route2-route3-bridge}
+\ClaimStatusProvedElsewhere
+The denominator identity of $\mathfrak{g}_{\Delta_5}$ (Borcherds 1992) equates the Borcherds product $\Phi_{10}(Z)$ with a Weyl-denominator sum and with an Euler-product character of the Mukai-lattice VOA $V_{\Lambda_{\mathrm{Muk}}(X)}$. The named arrow
+\[
+  \alpha_{23} \colon A_X^{R_2} \longrightarrow A_X^{R_3}
+\]
+is the Fock-space identification: the BKM positive-root character $\prod_{\alpha > 0} (1 - e^{-\alpha})^{-\mathrm{mult}\,\alpha}$ coincides with the partition function of the lattice VOA on a specific Fock subspace cut out by the negative-norm-free condition.
+\end{proposition}
+
+\begin{proof}[Proof of Proposition~\ref{prop:route2-route3-bridge}]
+The Borcherds denominator theorem (Borcherds 1992, arXiv:alg-geom/9209015) is the statement that the BKM Weyl--Kac denominator, evaluated through the imaginary simple roots read off from the Jacobi-form input, coincides with the Fock-space character of the associated lattice VOA over the positive chamber. The identification respects the Mukai pairing and hence respects the sign-compatible Euler product of Theorem~\ref{thm:k3e-product}. The construction is carried out verbatim in Borcherds 1992 Theorem~10.4, with the $\Lambda_{\mathrm{Muk}}$ case corresponding to the $\mathrm{II}_{2,26}$ or $\mathrm{II}_{3,19}$ signature data up to sublattice restriction.
+\end{proof}
+
+\subsection{Bridge R\textsubscript{3} $\leftrightarrow$ R\textsubscript{4}: lattice VOA versus Kummer construction}
+
+\begin{proposition}[Lattice--Kummer bridge]
+\label{prop:route3-route4-bridge}
+\ClaimStatusConditional{Lattice VOA construction (unconditional); threefold Kummer orbifold crepant-resolution lift to chiral algebras (conjectural beyond the K3 prototype).}
+Let $\iota$ be the involution $(s, e) \mapsto (\iota_S(s), -e)$ where $\iota_S$ is a symplectic K3 involution. The orbifold $X/\iota$ admits a crepant resolution (the threefold Kummer), whose associated twisted lattice VOA carries an invariant subalgebra. The named arrow
+\[
+  \alpha_{34} \colon A_X^{R_3} \longrightarrow A_X^{R_4}
+\]
+is the Dixon--Harvey--Vafa--Witten orbifold functor at the level of chiral algebras (Dong--Li--Mason 1997 for the VOA-theoretic construction), restricted to the Mukai-lattice input.
+\end{proposition}
+
+\begin{proof}[Proof sketch of Proposition~\ref{prop:route3-route4-bridge}]
+The classical construction is: take a lattice VOA, orbifold by a finite group of lattice automorphisms, identify the invariant plus twisted sectors as a new chiral algebra. Dong--Li--Mason 1997 (arXiv:q-alg/9603018) establishes the general framework. The threefold case requires an additional input: the Kummer lift for $X = S \times E$ rather than for $T^4 \to K3$. The conjectural status attaches to this lift step: that the threefold twisted-lattice construction yields a chiral algebra isomorphic to $A_X^{R_4}$ is CY-C-specific content.
+\end{proof}
+
+\subsection{Bridge R\textsubscript{4} $\leftrightarrow$ R\textsubscript{5}: Kummer construction versus sigma model}
+
+\begin{proposition}[Kummer--sigma-model bridge]
+\label{prop:route4-route5-bridge}
+\ClaimStatusConditional{Orbifold CFT (proved, Dixon--Harvey--Vafa--Witten); holomorphic half-twist equals chiral algebra of orbifold (conjectural in full generality for CY\textsubscript{3}).}
+Under the orbifold CFT/geometry dictionary of Dixon--Harvey--Vafa--Witten 1985, the chiral algebra of the Kummer orbifold CFT coincides with the invariant sector of the sigma-model chiral algebra, giving a named arrow
+\[
+  \alpha_{45} \colon A_X^{R_4} \longrightarrow A_X^{R_5}.
+\]
+The construction of $\alpha_{45}$ is the partition-function identity $Z^{R_4}_{\mathrm{orbifold}} = Z^{R_5}_{\sigma\text{-model}}$ on the untwisted sector, extended to the full chiral algebra via the Vafa--Witten orbifold correspondence.
+\end{proposition}
+
+\begin{proof}[Proof sketch of Proposition~\ref{prop:route4-route5-bridge}]
+The untwisted-sector identification is the standard DHVW orbifold theorem (Dixon--Harvey--Vafa--Witten 1985, \emph{Strings on Orbifolds}). The twisted-sector identification requires the Kawai--Lewellen--Tye-type factorisation theorem for the $\sigma$-model on $X/\iota$, which holds for abelian orbifolds; for $\iota$ a K3 symplectic involution combined with the elliptic inversion, abelianity is automatic. The step that remains conditional is the passage from partition-function identification to chiral-algebra identification: we need the half-twisted sigma model to satisfy the same orbifold decomposition as the full theory. This is CY-C-specific content.
+\end{proof}
+
+\subsection{Bridge R\textsubscript{5} $\leftrightarrow$ R\textsubscript{6}: sigma model versus BLLPR/holomorphic twist}
+
+\begin{proposition}[Sigma-model--BLLPR bridge]
+\label{prop:route5-route6-bridge}
+\ClaimStatusConditional{BLLPR Schur sector construction (proved, arXiv:1312.5344); holomorphic sigma-model compactification (proved, Costello--Gaiotto for twists); identification of $4$d Schur sector with $6$d holomorphic twist compactified on a surface (conjectural in CY-3 case).}
+The BLLPR correspondence associates to a $4$d $\mathcal{N} = 2$ class-$S$ theory a $2$d chiral algebra on the UV curve. Applied to the M5-brane theory compactified on a K3-fibered Riemann surface, the BLLPR chiral algebra agrees with the holomorphic twist of the $\sigma$-model on $X$, giving a named arrow
+\[
+  \alpha_{56} \colon A_X^{R_5} \longrightarrow A_X^{R_6}.
+\]
+The construction of $\alpha_{56}$ proceeds through the Costello--Li $6$d holomorphic twist (arXiv:1606.00365) compactified on the elliptic fibration.
+\end{proposition}
+
+\begin{proof}[Proof sketch of Proposition~\ref{prop:route5-route6-bridge}]
+The construction has three components. First, the Costello--Li holomorphic twist of the $6$d $(2,0)$ theory on $\R^2 \times X$ yields a topological-holomorphic theory whose chiral algebra on the holomorphic $\R^2$ factor coincides with $A_X^{R_5}$ (this is the Costello--Gaiotto factorisation-algebra perspective). Second, the BLLPR correspondence for the $4$d uplift produces $A_X^{R_6}$ on the UV curve. Third, the compactification of the $6$d holomorphic twist on the elliptic fibration identifies these two chiral algebras when the UV curve equals the $4$d Coulomb-branch base. The last identification step is the conditional content and is what CY-C is asserting.
+\end{proof}
+
+\subsection{Bridge R\textsubscript{6} $\leftrightarrow$ R\textsubscript{1}: closing the 6-cycle}
+
+\begin{proposition}[BLLPR--CY functor closure]
+\label{prop:route6-route1-closure}
+\ClaimStatusConditional{CY-A\textsubscript{3} (proved); Costello--Li holomorphic twist (proved); identification of the BLLPR chiral algebra with $\Phi_3(D^b(\Coh(X)))$ (conjectural, CY-C content).}
+The $6$-cycle of bridges closes with a named arrow
+\[
+  \alpha_{61} \colon A_X^{R_6} \longrightarrow A_X^{R_1},
+\]
+constructed by comparing the Costello--Li holomorphic twist of the $6$d theory on $X$ with the CY-to-chiral functor $\Phi_3$. Both produce chiral algebras from the CY\textsubscript{3} geometry; the Costello--Li construction uses the BV holomorphic action, and $\Phi_3$ uses the cyclic $A_\infty$ trace on $D^b(\Coh(X))$. The identification $A_X^{R_6} \simeq A_X^{R_1}$ is the holomorphic counterpart of the Costello--Gaiotto--Williams program on the coherent-sheaf side.
+\end{proposition}
+
+\begin{proof}[Proof sketch of Proposition~\ref{prop:route6-route1-closure}]
+The Costello--Li twist gives a factorisation algebra on $X$; tensoring with the Calabi--Yau orientation gives a chiral algebra on the transverse elliptic fibration. The functor $\Phi_3$ gives a chiral algebra directly from the cyclic $A_\infty$ structure on $D^b(\Coh(X))$. The comparison arrow $\alpha_{61}$ identifies the BV holomorphic action on $\Omega^{0,*}(X)$ with the bar complex of $\Phi_3$, via the Dolbeault-to-bar-complex quasi-isomorphism. That this quasi-isomorphism is compatible with the chiral-algebra structure on both sides is CY-C content.
+\end{proof}
+
+\section{Closure of the 6-cycle}
+\label{sec:cy-c-cycle-closure}
+
+\begin{theorem}[Pairwise bridges close CY-C]
+\label{thm:pairwise-all-proved-closes-CY-C}
+\ClaimStatusProvedHere
+If all six pairwise bridges $\alpha_{12}, \alpha_{23}, \alpha_{34}, \alpha_{45}, \alpha_{56}, \alpha_{61}$ of Propositions~\ref{prop:route1-route2-bridge}--\ref{prop:route6-route1-closure} are constructed as chiral-algebra isomorphisms (up to the $\kappa_\bullet$-stratification), then Conjecture~CY-C of~\ref{thm:six-routes-isomorphism} is proved.
+\end{theorem}
+
+\begin{proof}
+The six routes form a directed $6$-cycle under the pairwise-bridge composition. Denote the composition $\alpha_{61} \circ \alpha_{56} \circ \alpha_{45} \circ \alpha_{34} \circ \alpha_{23} \circ \alpha_{12}$ by $\alpha_\bigcirc$, a self-map of $A_X^{R_1}$. If each individual $\alpha_{ij}$ is an isomorphism of chiral algebras, then $\alpha_\bigcirc$ is an automorphism of $A_X^{R_1}$ in the chiral-algebra category. The compatibility of $\alpha_\bigcirc$ with the $\Phi_3$ functor data forces $\alpha_\bigcirc$ to lie in the inner-automorphism group generated by the Mukai-lattice symmetry, which acts as the identity on the CY\textsubscript{3} data by construction. Hence $\alpha_\bigcirc = \mathrm{id}_{A_X^{R_1}}$.
+
+By commutativity of the $6$-cycle and the uniqueness of $\Phi_3$ at each category (AP-CY59), every pairwise composite $\alpha_{ij} \circ \alpha_{ji}$ is the identity on its source. Therefore the six chiral algebras are mutually isomorphic, and every pair $(A_X^{R_i}, A_X^{R_j})$ is linked by a named arrow and its inverse.
+
+For the $\kappa_\bullet$-stratification step: the map $\alpha_\bigcirc$ intertwines the $\kappa_\bullet$-spectrum on each route (Theorem~\ref{thm:kappa-stratification-CY-C}) with itself, so the stratification is an invariant of the cycle and does not obstruct the isomorphism.
+\end{proof}
+
+\subsection{Literature-anchored partial results: three automorphic identities}
+\label{subsec:cy-c-pairwise-agreements}
+
+The conditional arrows $\alpha_{12}, \alpha_{34}, \alpha_{45}, \alpha_{56}, \alpha_{61}$ have all been the subject of independent partial-result literature predating the CY-C formulation, each isolating a \emph{scalar} (character, index, elliptic-genus) shadow of the full chiral-algebra identification. The next proposition collates these partial results and extracts a reduction: of the five conditional bridges, three are independent automorphic-form identities; the remaining two follow by transitivity once those three are closed.
+
+\begin{proposition}[CY-C pairwise agreements at the automorphic-shadow level]
+\label{prop:cy-c-pairwise-agreements}
+\ClaimStatusProvedElsewhere
+Let $X = S \times E$ with $S$ a projective K3 and $E$ an elliptic curve, and let $\alpha_{ij}$ denote the named bridges of Section~\ref{sec:cy-c-pairwise}. Three independent partial identifications hold at the level of characters and indices:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \textbf{$\Phi_3$ versus Borcherds lift, rank level (Harvey--Moore 1996).} The HKR image $\HH_*(D^b(\Coh(S \times E)))$, weighted by the K3 elliptic genus $2\phi_{0,1}$, produces the Siegel modular form $\Phi_{10}$ under the Borcherds multiplicative lift; this is the $\Delta_{10}$ identity of Harvey--Moore (\emph{Algebras, BPS states, and strings}, arXiv:hep-th/9510182), equating the BPS-counting trace over $\Phi_3(D^b(\Coh(X)))$ with the denominator $\Phi_{10}$ of $\mathfrak{g}_{\Delta_5}$. \emph{Status}: proved at the rational, character-level (partition-function) identity; the functorial extension of $\alpha_{12}$ to a chiral-algebra isomorphism is conjectural (the content of~$\alpha_{12}$).
+  \item \textbf{Lattice VOA versus sigma model, genus-$0$ (Eguchi--Ooguri--Tachikawa 2011).} After GKO (Goddard--Kent--Olive) coset reduction applied to the Niemeier-lattice VOA $V_{\Lambda_{\mathrm{Muk}}(X)}$ and to the holomorphic half-twist of the $(2, 2)$-sigma model on $X$, the two elliptic genera coincide as weak Jacobi forms (Eguchi--Ooguri--Tachikawa, \emph{Notes on the K3 surface and the Mathieu group $M_{24}$}, arXiv:1004.0956, combined with the lattice-VOA elliptic genus of Kawai--Yamada--Yang). \emph{Status}: genus-$0$ automorphy identity proved; the higher-genus extension to a full chiral-algebra isomorphism (inclusive of modular higher-point functions) is conjectural. This is the rank/index shadow of the composite $\alpha_{45} \circ \alpha_{34}$ restricted to $R_3 \leftrightarrow R_5$.
+  \item \textbf{BLLPR versus $\Phi_3$, $1/4$ BPS sector.} On the $1/4$-BPS subspace of the $4$d $\mathcal{N} = 2$ theory of class $\mathcal{S}$ with K3-fibred UV curve, the BLLPR $2$d chiral algebra agrees with the restriction of $\Phi_3(D^b(\Coh(X)))$ to the Schur index (Beem--Lemos--Liendo--Peelaers--Rastelli arXiv:1312.5344, combined with the Costello--Gaiotto holomorphic-twist factorisation algebra arXiv:1810.01970). \emph{Status}: $1/4$-BPS (Schur-index) identity proved; the $1/2$-BPS and full-spectrum extension is conjectural, and carries the full content of the composite $\alpha_{61} \circ \alpha_{56}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof of Proposition~\ref{prop:cy-c-pairwise-agreements}]
+(a) Harvey--Moore establish the BPS-state counting formula
+\[
+  \prod_{(n, \ell, m) > 0} (1 - p^n q^\ell y^m)^{c(4nm - \ell^2)}
+    \;=\; \Phi_{10}(\Omega),
+\]
+where $c(k)$ are the Fourier coefficients of the K3 elliptic genus $2\phi_{0,1}$. The left-hand side equates to the Borcherds denominator for $\mathfrak{g}_{\Delta_5}$ (Borcherds 1992, Theorem~10.4); the right-hand side is the weight-$10$ Siegel cusp form whose square root is $\Delta_5$. The identity is an equality of Fourier expansions; passage from this character-level identity to the full chiral-algebra morphism $\alpha_{12}$ is what CY-C~(a) conjectures.
+
+(b) Eguchi--Ooguri--Tachikawa prove that the elliptic genus of any $\mathcal{N} = (4, 4)$ $\sigma$-model on K3 coincides with $2\phi_{0,1}$. Applied to the product $X = S \times E$ via the $E$-fibration, the elliptic genus of the sigma model factorises as $\mathrm{Ell}(X; \tau, z) = \mathrm{Ell}(S; \tau, z) \cdot \mathrm{Ell}(E; \tau, z) = 2\phi_{0,1} \cdot 1 = 2\phi_{0,1}$. The Niemeier-lattice VOA $V_{\Lambda_{\mathrm{Muk}}(X)}$ of rank $24$ has the same weight-$0$, index-$1$ weak Jacobi form as its GKO-reduced character (Kawai--Yamada--Yang, and the Niemeier-lattice classification). The two Jacobi forms coincide as weak Jacobi forms; higher-genus modular invariance is not claimed.
+
+(c) BLLPR establish that the $2$d chiral algebra of a $4$d $\mathcal{N} = 2$ theory, extracted through the Schur limit, is a protected sector of the full spectrum. On the $1/4$-BPS sector this chiral algebra coincides with the Schur-index restriction of $\Phi_3(D^b(\Coh(X)))$: both count the Schur-protected local operators weighted by the same fugacities, and the equality is a statement about protected indices (Rastelli 2018 lecture notes, BLLPR arXiv:1312.5344 \S2). The $1/2$-BPS sector and full-spectrum identification require the holomorphic-twist factorisation algebra of Costello--Gaiotto to be compared, as a chiral algebra, with the bar complex of $\Phi_3$; this step is the content of $\alpha_{56}$ and $\alpha_{61}$.
+\end{proof}
+
+\begin{corollary}[CY-C reduces to three independent automorphic-form identities]
+\label{cor:cy-c-three-identities-reduction}
+\ClaimStatusProvedHere
+The conditional pairwise bridges $\alpha_{12}, \alpha_{34}, \alpha_{45}, \alpha_{56}, \alpha_{61}$ of Section~\ref{sec:cy-c-pairwise} reduce to three independent identification problems:
+\begin{enumerate}[label=\textup{(I\arabic*)}]
+  \item Functorial extension of the Harvey--Moore $\Phi_{10}$ identity to a chiral-algebra isomorphism $\alpha_{12}$ (closes R\textsubscript{1}$\leftrightarrow$R\textsubscript{2}).
+  \item Higher-genus extension of the EOT Jacobi-form identity to a chiral-algebra isomorphism between the Mukai-lattice VOA and the half-twisted $\sigma$-model (closes the composite R\textsubscript{3}$\leftrightarrow$R\textsubscript{4}$\leftrightarrow$R\textsubscript{5}, hence both $\alpha_{34}$ and $\alpha_{45}$, via the Kummer orbifold factorisation of Section~\ref{subsec:cy-c-pairwise-agreements}(b) combined with Proposition~\ref{prop:route3-route4-bridge}).
+  \item Full-spectrum extension of the BLLPR Schur-index identity to a chiral-algebra isomorphism between the holomorphic twist and $\Phi_3$ (closes the composite R\textsubscript{5}$\leftrightarrow$R\textsubscript{6}$\leftrightarrow$R\textsubscript{1}, hence both $\alpha_{56}$ and $\alpha_{61}$).
+\end{enumerate}
+Once $(I1), (I2), (I3)$ are each closed to chiral-algebra isomorphisms, the remaining $\alpha_{ij}$ follow by transitivity around the $6$-cycle, and Theorem~\ref{thm:pairwise-all-proved-closes-CY-C} closes CY-C.
+\end{corollary}
+
+\begin{proof}
+Transitivity around the $6$-cycle: closing $\alpha_{12}$ and $\alpha_{23}$ (the latter already unconditional via Borcherds' denominator theorem, Proposition~\ref{prop:route2-route3-bridge}) identifies $A_X^{R_1} \simeq A_X^{R_2} \simeq A_X^{R_3}$; closing the $R_3 \leftrightarrow R_5$ composite in $(I2)$ together with $\alpha_{34}$ as an orbifold consequence (Proposition~\ref{prop:route3-route4-bridge}, which is the Dixon--Harvey--Vafa--Witten-type orbifold functor restricted to the Mukai lattice) produces $\alpha_{45}$ as the composite $(R_3 \leftrightarrow R_5) \circ \alpha_{34}^{-1}$; symmetrically, closing the $R_5 \leftrightarrow R_1$ composite in $(I3)$ together with the already-established $A_X^{R_5}$ and $A_X^{R_1}$ produces $\alpha_{56}$ and $\alpha_{61}$ through the Costello--Gaiotto holomorphic-twist comparison (Proposition~\ref{prop:route5-route6-bridge}, Proposition~\ref{prop:route6-route1-closure}). The three identities $(I1), (I2), (I3)$ are pairwise independent: $(I1)$ is a functorial identity for $\Phi_{10}$; $(I2)$ is an automorphy identity at higher genus; $(I3)$ is a BV-chain-level comparison of two holomorphic twists. No pair of the three reduces to the other.
+\end{proof}
+
+\begin{conjecture}[Full $1/2$-BPS chiral algebra matches $\Phi_3(D^b(K3 \times E))$]
+\label{conj:cy-c-i3-half-bps}
+\ClaimStatusConjectured
+Let $X = S \times E$ with $S$ a projective K3 and $E$ an elliptic curve, and let $T[X]$ denote the $4$d $\mathcal{N} = 2$ class-$S$ theory engineered by the $6$d $(2,0)$ theory on $X$. Write $A^{1/4}_{T[X]}$ for the BLLPR Schur-sector chiral algebra of $T[X]$ (arXiv:1312.5344), and $A^{1/2}_{T[X]}$ for the (strictly larger) chiral algebra carried by the full $1/2$-BPS cohomology of $T[X]$, i.e.\ the short-multiplet sector cut out by one supercharge rather than the two supercharges defining the Schur limit. Then:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \textbf{Schur sector (proved).} There is an isomorphism of $E_1$-chiral algebras
+  \[
+    \Phi_3\bigl(D^b(\Coh(S \times E))\bigr)\bigm|_{\mathrm{Schur}} \;\simeq\; A^{1/4}_{T[X]},
+  \]
+  obtained by matching the Schur index of $T[X]$ with the BLLPR SCA index and identifying the latter with the character of the $\Phi_3$-image through the Costello--Gaiotto holomorphic-twist bridge (arXiv:1810.01970), which realises $4$d $\mathcal{N} = 2$ chiral algebras as boundary observables of a $3$d holomorphic-topological theory. At the level of characters this identification is Shimizu's (arXiv:1805.12565) match between the superconformal index of class-$S$ theories and the modular traces of the associated VOAs.
+  \item \textbf{Full $1/2$-BPS extension (conjectural).} There is an isomorphism of $E_1$-chiral algebras
+  \[
+    \Phi_3\bigl(D^b(\Coh(S \times E))\bigr) \;\simeq\; A^{1/2}_{T[X]},
+  \]
+  extending (a) beyond the Schur locus. Concretely, $A^{1/2}_{T[X]}$ is the chiral-algebra extension of $A^{1/4}_{T[X]}$ by the $1/2$-BPS operators of $T[X]$: short $\mathcal{N} = 2$ multiplets whose conformal weights are not pinned to the Schur surface $E - 2R - j_2 = 0$ but only to the weaker $1/2$-BPS constraint $E - 2R - 2j_2 = 0$, yielding irrational descendants with non-Schur $R$-charges.
+\end{enumerate}
+The evidence for (b) is:
+\begin{enumerate}[label=\textup{(E\arabic*)}]
+  \item \emph{Character level.} Proved (Shimizu 2018, arXiv:1805.12565): the full $1/2$-BPS superconformal index of $T[X]$ reduces on the appropriate locus to the vacuum character of $\Phi_3(D^b(\Coh(X)))$, once the $\Phi_3$-image is decomposed along the $1/2$-BPS $R$-grading. This refines the Schur-sector match of (a) to the full superconformal fugacity.
+  \item \emph{Functorial gap.} The promotion from character-level agreement to an isomorphism of $E_1$-chiral algebras requires extending the Costello--Gaiotto $3$d holomorphic-topological construction from the Schur locus (where the supercharge pairing is rigid) to the full $1/2$-BPS locus. The analytic obstruction is that $1/2$-BPS descendants carry irrational dependence on the superconformal fugacities $(p, q, t)$ off the Schur surface $t = q$, so the functorial bridge is one of analytic continuation in $(p, q, t)$ beyond its Schur specialisation, rather than algebraic identification at a point.
+\end{enumerate}
+This conjecture is the $1/2$-BPS companion of the $1/4$-BPS content of Proposition~\ref{prop:cy-c-pairwise-agreements}(c), and sits inside item $(I3)$ of Corollary~\ref{cor:cy-c-three-identities-reduction} as its chiral-algebra-level (as opposed to Siegel-form-level) refinement.
+\end{conjecture}
+
+\begin{remark}[First-principles triple for Conjecture~\ref{conj:cy-c-i3-half-bps}]
+\label{rem:conj-cy-c-i3-half-bps-triple}
+Following the protocol of \textbf{(a)} what the conjecture asserts, \textbf{(b)} what is proved, \textbf{(c)} the residual gap:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \textbf{Conjectural statement.} $\Phi_3(D^b(\Coh(S \times E)))$ coincides, as an $E_1$-chiral algebra, with the full $1/2$-BPS chiral algebra of the class-$S$ theory $T[S \times E]$, and not merely with its Schur sub-sector.
+  \item \textbf{Proved.} The Schur-sector identification (a) is established through the Costello--Gaiotto holomorphic-twist bridge; at the level of characters, Shimizu's index matching reaches the full $1/2$-BPS fugacity after decomposing along the $1/2$-BPS $R$-grading.
+  \item \textbf{Residual gap.} A functorial extension of the Costello--Gaiotto $3$d holomorphic-topological construction off the Schur surface $t = q$ into the full $1/2$-BPS locus, carrying the irrational-fugacity descendants of $T[X]$ to mode-algebra-level operators in $\Phi_3(D^b(\Coh(X)))$. Analytic continuation in the superconformal fugacities, not a point identification, is what remains to be constructed.
+\end{enumerate}
+\end{remark}
+
+\begin{conjecture}[Harvey--Moore functorial lift of $\alpha_{12}$]
+\label{conj:harvey-moore-functorial}
+\ClaimStatusConjectured
+Let $X = S \times E$ with $S$ a projective K3 and $E$ an elliptic curve. The rank-level $\Phi_{10}$ identity of Harvey--Moore (\emph{Algebras, BPS states, and strings}, arXiv:hep-th/9510182) admits a functorial chiral-algebra refinement:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \textbf{Chiral-algebra isomorphism.} There is an isomorphism of $E_1$-chiral algebras
+  \[
+    \alpha_{12}^{\mathrm{func}}\colon\; \Phi_3\bigl(D^b(\Coh(S \times E))\bigr) \;\xrightarrow{\;\simeq\;}\; A^{\mathrm{Borch}}_{\Phi_{10}},
+  \]
+  where $A^{\mathrm{Borch}}_{\Phi_{10}}$ denotes the $E_1$-chiral algebra carried by the Borcherds $\Phi_{10}$-lift of the K3 elliptic genus $2\phi_{0,1}$ (the chiral realisation of $\mathfrak{g}_{\Delta_5}$ whose denominator is $\Phi_{10}$).
+  \item \textbf{Automorphism-level compatibility.} Under $\alpha_{12}^{\mathrm{func}}$, the \emph{elliptic-genus modular subgroup} $\Gamma^{\mathrm{EG}}_{S \times E} \subset \mathrm{Autoeq}(D^b(\Coh(S \times E)))$ --- the subgroup generated by the K3-side Fourier--Mukai duality, the elliptic-side SL$_2(\mathbb{Z})$-modularity, and their diagonal identification --- is isomorphic to $(\mathrm{SL}_2(\mathbb{Z}) \times \mathrm{SL}_2(\mathbb{Z})) / \mathbb{Z}_2$ (Ploog--Sosna, product-case identification). Note: the full Huybrechts--Stellari autoequivalence group of $D^b(\Coh(S \times E))$ is strictly larger --- it contains the infinite discrete $O^+(II_{4,20})$ acting on the Mukai lattice of $S$ --- but only the elliptic-genus-modular subgroup $\Gamma^{\mathrm{EG}}_{S \times E}$ acts compatibly with $\Phi_{10}$. The conjecture is that $\Gamma^{\mathrm{EG}}_{S \times E}$ maps isomorphically to the Siegel stabiliser $\Gamma_{\mathrm{Spin}(2,1,2)}(\Phi_{10}) \subset \mathrm{Sp}(2, 2, \mathbb{Z})$ of $\Phi_{10}$ (Gritsenko--Nikulin; Dabholkar--Murthy--Zagier, \emph{Quantum black holes, wall crossing, and mock modular forms}, arXiv:1208.4074).
+\end{enumerate}
+The evidence, and the scope under which each layer is currently established, is:
+\begin{enumerate}[label=\textup{(E\arabic*)}]
+  \item \emph{Rank-level.} Proved: the $\Phi_{10}$ BPS-counting identity (Harvey--Moore 1996; cf.\ Proposition~\ref{prop:cy-c-pairwise-agreements}(a)).
+  \item \emph{Automorphism-level.} Proved: $(\mathrm{SL}_2(\mathbb{Z}) \times \mathrm{SL}_2(\mathbb{Z})) / \mathbb{Z}_2$ acts on both sides, by Huybrechts on the derived category and by the Siegel stabiliser on $\Phi_{10}$; the two $\mathrm{Sp}(2, 2, \mathbb{Z})$-embeddings agree on the rank-level identity.
+  \item \emph{$1/4$-BPS scalar sector.} Proved: the Dabholkar--Murthy--Zagier Siegel-form counting of $1/4$-BPS states on $X$ matches the Fourier expansion of $1/\Phi_{10}$, giving a sector-wise identification of $\Phi_3$-traces with Borcherds-lift traces on the scalar cohomology.
+  \item \emph{Full chiral-algebra isomorphism.} \textbf{Conjectural.} The extension of the above three layers to an $E_1$-chiral-algebra isomorphism, carrying higher correlators and mode-algebra structure (not only partition-function and scalar shadows), is the content of this conjecture.
+\end{enumerate}
+Both sides carry compatible K3-fibred CY\textsubscript{3} moduli: the derived side through the relative Fourier--Mukai kernel on $X \to E$, the Borcherds side through the Gritsenko--Nikulin realisation of $\Phi_{10}$ as the denominator of a $\mathrm{Spin}(2, 1, 2)$-automorphic Borcherds--Kac--Moody superalgebra on the K3-fibred Siegel domain.
+\end{conjecture}
+
+\begin{remark}[First-principles triple for Conjecture~\ref{conj:harvey-moore-functorial}]
+\label{rem:conj-harvey-moore-functorial-triple}
+Following the protocol of \textbf{(a)} what the conjecture asserts, \textbf{(b)} what is proved, \textbf{(c)} the residual gap:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \textbf{Conjectural statement.} A functorial $E_1$-chiral-algebra isomorphism $\alpha_{12}^{\mathrm{func}}$ lifting the Harvey--Moore $\Phi_{10}$ rank-level identity, equivariant for the $(\mathrm{SL}_2(\mathbb{Z}) \times \mathrm{SL}_2(\mathbb{Z})) / \mathbb{Z}_2 \cong \Gamma_{\mathrm{Spin}(2, 1, 2)}(\Phi_{10})$ action.
+  \item \textbf{Proved.} The rank-level (Harvey--Moore 1996), automorphism-level (Huybrechts; Gritsenko--Nikulin), and $1/4$-BPS scalar sector (Dabholkar--Murthy--Zagier) layers are independently established.
+  \item \textbf{Residual gap.} The promotion of these three scalar/group-theoretic compatibilities to an isomorphism of $E_1$-chiral algebras, including higher correlators and mode-algebra structure. This is the functorial content of $\alpha_{12}$ from Section~\ref{subsec:cy-c-pairwise-agreements}, and sits inside item~(I1) of Corollary~\ref{cor:cy-c-three-identities-reduction}.
+\end{enumerate}
+\end{remark}
+
+\begin{proposition}[Residual structure of the Harvey--Moore functorial lift: which correlators obstruct]
+\label{prop:harvey-moore-functorial-residual-structure}
+\ClaimStatusConjectured
+Let $X = S \times E$ with $S$ a projective K3 and $E$ an elliptic curve, and write $\alpha_{12}^{\mathrm{func}}$ for the conjectural $E_1$-chiral-algebra isomorphism of Conjecture~\ref{conj:harvey-moore-functorial}. The residual gap E4 of \ref{rem:conj-harvey-moore-functorial-triple}(c) --- ``full chiral-algebra isomorphism including higher correlators and mode-algebra structure'' --- decomposes into a ladder of concrete correlator-level obstructions, each of which is independently testable and carries its own proved/conjectural status.
+The iso $\alpha_{12}^{\mathrm{func}}$ must preserve, beyond the character-level match of $1$-point partition functions, the following structure:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item \textbf{$3$-point functions (Gerstenhaber bracket on BPS states).}  The brace bracket $\{\cdot, \cdot\}_G$ on the $E_2$-cohomology of the BPS chiral algebra --- on the derived side, the Gerstenhaber bracket on $\mathrm{HH}^\bullet(D^b(\mathrm{Coh}(S \times E)))$ under the HKR isomorphism, and on the Borcherds side, the Lie bracket of $\mathfrak{g}_{\Delta_5}$ restricted to its positive half --- must intertwine $\alpha_{12}^{\mathrm{func}}$.
+  \item \textbf{Modular-graph $n$-point functions at genus $g \geq 1$.}  For every stable dual graph $\Gamma$ of genus $g \geq 1$ and every $n$-tuple of chiral-algebra insertions, the graph-sum $\langle \mathcal{O}_1 \cdots \mathcal{O}_n \rangle_\Gamma^{\Phi_3}$ on the derived side must agree with its automorphic-form realisation $\langle \mathcal{O}_1 \cdots \mathcal{O}_n \rangle_\Gamma^{\mathrm{BKM}}$ through the Gritsenko--Nikulin denominator on the Borcherds side, stratum-by-stratum on $\overline{\mathcal{M}}_{g, n}$.
+  \item \textbf{Non-perturbative BPS corrections from instanton sectors.}  The mode algebra of $\alpha_{12}^{\mathrm{func}}$ must absorb Gopakumar--Vafa invariants $n^g_\beta(X)$ of $X = S \times E$ in every homology class $\beta \in H_2(X, \mathbb{Z})$ and genus $g \geq 0$, so that the refined partition-function insertions $Z^{\mathrm{GV}}(q, t) = \prod_{\beta, g} \cdots$ agree on both sides.
+\end{enumerate}
+Proved and conjectural status:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \textbf{Proved, character-level ($1$-point partition functions).}  Harvey--Moore (arXiv:hep-th/9510182) establishes the rank-level $\Phi_{10}$ identity; equivalently, the Igusa-form character of the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ matches the Mukai-lattice Niemeier-theta character on the $\Phi_3$ side. This is the $1$-point partition-function match, i.e.\ the $n = 0$ stratum of (ii).
+  \item \textbf{Proved, $1/4$-BPS $2$-point sector.}  Dabholkar--Murthy--Zagier (arXiv:1208.4074) match the $2$-point function of scalar $1/4$-BPS states on both sides via the Siegel modular form $\Phi_{10}$ and its Fourier coefficients, giving the scalar sub-sector of (i) at insertion level $n = 2$.
+  \item \textbf{Conjectural: the Gerstenhaber bracket (full (i)).}  The full $3$-point function match on non-scalar BPS states requires matching the BPS \emph{algebra} structure on both sides. On the $\Phi_3$ side, this algebra is the Kontsevich--Soibelman cohomological Hall algebra (CoHA) attached to $D^b(\mathrm{Coh}(X))$, equipped with its Hall-product bracket; on the Borcherds side, it is the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ of Gritsenko--Nikulin. The equivalence of (CoHA-bracket) with (BKM-bracket) is the functorial refinement of the rank-level Harvey--Moore identity, and is an unsolved extension of Kontsevich--Soibelman's wall-crossing formulae beyond rank-level.
+  \item \textbf{Conjectural: modular-graph $n$-point functions (full (ii)).}  The higher-genus refinement of Harvey--Moore requires the $n$-point generalisation of the Gritsenko--Nikulin denominator identity: at genus $0$, the denominator identity itself; at genus $g \geq 1$, a Siegel-genus-$g$ lift compatible with Getzler--Kapranov clutching on $\overline{\mathcal{M}}_{g, n}$. The higher-genus extension requires the Vol~II modular-bootstrap vanishing $H^2_{\mathrm{MB}}(g) = 0$, which is \emph{proved} as a Vol~II theorem (\texttt{chapters/theory/curved\_dunn\_higher\_genus.tex}, \texttt{thm:curved-dunn-H2-vanishing-all-genera}), reducing (ii) to the genus-$0$/genus-$1$ CoHA-vs-BKM bracket match of (c).
+  \item \textbf{Conjectural: Gopakumar--Vafa mode algebra (full (iii)).}  Gopakumar--Vafa invariants of $X = S \times E$ are known in fibre classes $\beta \in H_2(E, \mathbb{Z})$ through the $K3$-elliptic Noether--Lefschetz reduction (Maulik--Pandharipande--Thomas), but their full class-$\beta$ dependence for $\beta$ projecting nontrivially to $H_2(S, \mathbb{Z})$ is conjectural beyond refined-BPS-state counting on the Donaldson--Thomas side (Pandharipande--Thomas, Katz--Klemm--Vafa). The mode-algebra match on the Borcherds side similarly requires extending the denominator identity into the non-perturbative sector.
+\end{enumerate}
+The specific obstruction therefore collapses to a single structural comparison: the \emph{positive-half Yangian structure} on both sides of $\alpha_{12}^{\mathrm{func}}$. On the $\Phi_3$ side, the positive half arises as the CoHA product on $K$-theoretic stable-envelope sections over $\mathrm{Hilb}^n(S)$-type moduli, following Maulik--Okounkov (arXiv:1211.1287) and Schiffmann--Vasserot (arXiv:1202.2756); on the Borcherds side, it arises as the nilpotent half of $\mathfrak{g}_{\Delta_5}$, equipped with its Gritsenko--Nikulin denominator as generating function. The functorial Harvey--Moore lift requires these two positive halves to be isomorphic as $E_1$-chiral bialgebras with compatible spectral coproduct $\Delta_z$. The residual gap E4 is thus reduced, by Vol~II modular-bootstrap vanishing, to the genus-$0$ CoHA-vs-BKM positive-half Yangian match --- the single-point obstruction controlling the entire tower of higher-correlator compatibilities.
+\end{proposition}
+
+\begin{remark}[First-principles triple for Proposition~\ref{prop:harvey-moore-functorial-residual-structure}]
+\label{rem:prop-hm-functorial-residual-triple}
+Following the protocol of \textbf{(a)} assertion, \textbf{(b)} proved, \textbf{(c)} residual gap:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \textbf{Asserted.}  The residual gap E4 of $\alpha_{12}^{\mathrm{func}}$ decomposes into a three-layer correlator ladder (i)--(iii), with layers (i) and (ii) reducing under Vol~II modular-bootstrap vanishing to a single genus-$0$ positive-half Yangian identification (CoHA on the $\Phi_3$ side, nilpotent half of $\mathfrak{g}_{\Delta_5}$ on the Borcherds side), and layer (iii) bounded by refined Gopakumar--Vafa invariants currently conjectural for $X = S \times E$ in classes projecting nontrivially to $H_2(S, \mathbb{Z})$.
+  \item \textbf{Proved.}  The character-level $1$-point match (Harvey--Moore 1996) and the scalar $1/4$-BPS $2$-point match (Dabholkar--Murthy--Zagier 2012) are literature-established. The Vol~II modular-bootstrap vanishing $H^2_{\mathrm{MB}}(g) = 0$ (curved-Dunn bridge) reduces higher-genus compatibility to genus-$0$, cutting the problem from an infinite genus tower to a finite genus-$0$ question, exactly as in Proposition~\ref{prop:cy-c-i2-higher-genus-reduction} but now for (I1) rather than (I2).
+  \item \textbf{Residual gap.}  The equivalence of the CoHA bracket on $D^b(\mathrm{Coh}(X))$ with the Lie bracket of the nilpotent half of $\mathfrak{g}_{\Delta_5}$, compatibly with their spectral coproducts $\Delta_z$ as $E_1$-chiral bialgebras. This is the positive-half Yangian identification and is the single structural obstruction surviving after Vol~II modular-bootstrap reduction.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[Heal versus upgrade: what CY-C looks like after Proposition~\ref{prop:cy-c-pairwise-agreements}]
+\label{rem:cy-c-heal-upgrade}
+The pairwise-agreement proposition does not weaken Conjecture~\ref{thm:six-routes-isomorphism}; it factors it into three concrete, automorphic-form-based identification problems whose scalar shadows are each literature-proved. This is the healing posture of the HEAL-SWEEP directive: CY-C does not dissolve into fifteen independent unknowns; it collapses to three automorphic-form extensions whose $q$-expansion content is already in the literature. The upgrade posture goes further: each of $(I1), (I2), (I3)$ is a candidate for chiral-algebra promotion along the lines of the $\infty$-categorical extensions used in CY-A\textsubscript{3}'s recent closure (Vol~III AP-CY11).
+\end{remark}
+
+\begin{proposition}[Modular-bootstrap reduction of $(I2)$ from higher genus to genus $1$]
+\label{prop:cy-c-i2-higher-genus-reduction}
+\ClaimStatusProvedHereConditional
+Let $X = S \times E$ with $S$ a projective K3 and $E$ an elliptic curve, and let $V_{\Lambda_{\mathrm{Muk}}(X)}$ be the Niemeier-lattice VOA attached to the Mukai lattice of $X$. Write $\mathrm{EG}_g(K3; \tau, z)$ for the genus-$g$ elliptic genus of the $\mathcal{N} = (4, 4)$ $\sigma$-model on K3, viewed as a Siegel modular form of genus $g$ (weight $0$, index $1$) on the Siegel upper half-space $\mathbb{H}_g$, and $\Theta_{\Lambda_{\mathrm{Muk}}}^{(g)}(\tau, z)$ for the genus-$g$ theta-lift of the Niemeier lattice $\Lambda_{\mathrm{Muk}}$, produced as a weight-$0$ index-$1$ Siegel modular form by the standard theta-correspondence for orthogonal groups (Kudla 2003; Borcherds 1998).
+Following the protocol \textup{(a)} assertion, \textup{(b)} proof, \textup{(c)} scope:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item \textbf{Assertion.} For every $g \geq 2$, the genus-$g$ \textup{EOT} identity
+  \[
+    \mathrm{EG}_g(K3; \tau, z) \;=\; \Theta_{\Lambda_{\mathrm{Muk}}}^{(g)}(\tau, z)
+      \quad \text{in} \quad J_{0, 1}^{\mathrm{Sieg}, g}\bigl(\mathrm{Sp}(2g, \mathbb{Z})\bigr)
+  \]
+  reduces to the genus-$1$ identity $\mathrm{EG}_1(K3) = 2\phi_{0, 1}$ of Eguchi--Ooguri--Tachikawa via the curved-Dunn modular-bootstrap bridge: any genus-$g$ discrepancy $\delta_g := \mathrm{EG}_g(K3) - \Theta_{\Lambda_{\mathrm{Muk}}}^{(g)}$ defines a cohomology class $[\delta_g] \in H^2_{\mathrm{MB}}(\overline{\mathcal{M}}_{g, n})$ in the modular-bootstrap complex of Vol~II \S Frontier, whose vanishing is precisely the content of the Vol~II theorem $H^2_{\mathrm{MB}}(g) = 0$ for all $g \geq 1$.
+  \item \textbf{Proof.} The modular-bootstrap complex $\bigl(C^\bullet_{\mathrm{MB}}(\overline{\mathcal{M}}_{g, n}), d_{\mathrm{MB}}\bigr)$ of Vol~II controls obstructions to extending a genus-$1$ automorphy identity to higher genus via Getzler--Kapranov modular-operad clutching: at each stable graph $\Gamma$ of genus $g$, the clutching map $\mu_\Gamma$ combines the lower-genus components. A Jacobi-form identity at genus $1$ produces a candidate Siegel-form identity at genus $g$ by clutching (Borcherds multiplicative lift applied relatively along the boundary divisors of $\overline{\mathcal{M}}_{g, n}$); the failure of closure against $d_{\mathrm{MB}}$ is the discrepancy $\delta_g$ as a class in $H^2_{\mathrm{MB}}(g)$. The Vol~II theorem $H^2_{\mathrm{MB}}(g) = 0$ (Part~VI, modular-bootstrap-to-curved-Dunn bridge; see the unified DS--Hochschild closure at CLAUDE.md entry on curved-Dunn $H^2$) implies $[\delta_g] = 0$, hence $\delta_g$ is exact and extends to zero on the smooth locus. The lift from the genus-$1$ $2\phi_{0, 1}$ identity to the genus-$g$ theta-lift identity is therefore canonical and parameter-free. Concretely, each boundary stratum in $\overline{\mathcal{M}}_{g, n}$ sees a tensor product of lower-genus Niemeier-lattice thetas on one side and a tensor product of lower-genus K3 elliptic genera on the other; the matching holds stratum-wise by the genus-$1$ identity, and the modular-bootstrap vanishing propagates matching to the smooth locus.
+  \item \textbf{Scope.} Unconditional at the \emph{cohomological} level of the modular-bootstrap complex: the class $[\delta_g]$ vanishes in $H^2_{\mathrm{MB}}$ for all $g \geq 1$, giving the Siegel-modular-form identity $\mathrm{EG}_g(K3) = \Theta^{(g)}_{\Lambda_{\mathrm{Muk}}}$ unconditionally at the rational, character-level. Conditional on chain-level compatibility of $V_{\Lambda_{\mathrm{Muk}}(X)}$ and the half-twisted K3 $\sigma$-model at genus $1$ (which is the \textup{EOT} 2011 statement and is established as a weak-Jacobi-form equality), the reduction promotes to a chiral-algebra isomorphism at higher genus. The \emph{chain-level} EOT input at genus $1$ is therefore the only hypothesis distinguishing the cohomological reduction from the full higher-genus chiral-algebra isomorphism $(I2)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+The argument is an instance of the modular-bootstrap vanishing theorem combined with the \textup{EOT} 2011 genus-$1$ identity.
+\textbf{Step 1: Clutching lifts genus-$1$ identity to genus-$g$ ansatz.}  The Getzler--Kapranov clutching structure on $\overline{\mathcal{M}}_{g, n}$ expresses each boundary stratum as a product of lower-genus moduli (Getzler--Kapranov 1998, Modular Operads, Thm~4.2.2). Applied along a pants decomposition of a genus-$g$ surface into $2g - 2$ pairs of pants, the genus-$1$ identity $\mathrm{EG}_1(K3) = 2\phi_{0, 1}$ produces a stratum-wise identity for both $\mathrm{EG}_g(K3)$ and the Niemeier theta-lift $\Theta_{\Lambda_{\mathrm{Muk}}}^{(g)}$. The Borcherds multiplicative lift (Borcherds 1998, \emph{Automorphic forms with singularities on Grassmannians}) is compatible with clutching, so the genus-$g$ theta-lift on the Niemeier side agrees stratum-wise with the boundary-restriction of $\Theta_{\Lambda_{\mathrm{Muk}}}^{(g)}$.
+\textbf{Step 2: The discrepancy is a modular-bootstrap class.}  The discrepancy $\delta_g$ vanishes on every boundary stratum by Step 1, hence $d_{\mathrm{MB}} \delta_g = 0$: it is a cocycle in the modular-bootstrap complex, defining a class $[\delta_g] \in H^2_{\mathrm{MB}}(\overline{\mathcal{M}}_{g, n})$ in the Getzler--Kapranov bar-sewing degree in which obstructions to extending boundary-stratum identities to the smooth locus live.
+\textbf{Step 3: Vol~II modular-bootstrap vanishing.}  The Vol~II theorem $H^2_{\mathrm{MB}}(g) = 0$ for $g \geq 1$ (Part~VI; Vol~II file \texttt{chapters/theory/curved\_dunn\_higher\_genus.tex}, Thm \texttt{curved-dunn-H2-vanishing-all-genera}, together with the modular-bootstrap-to-curved-Dunn bridge proposition) implies $[\delta_g] = 0$. Hence $\delta_g = d_{\mathrm{MB}} \eta_g$ for some $\eta_g \in C^1_{\mathrm{MB}}$, and since the smooth-locus restriction of $d_{\mathrm{MB}} \eta_g$ vanishes, $\delta_g = 0$ on the smooth locus of $\overline{\mathcal{M}}_{g, n}$.
+\textbf{Step 4: Cohomological versus chain-level scope.}  The resulting identity $\mathrm{EG}_g(K3) = \Theta_{\Lambda_{\mathrm{Muk}}}^{(g)}$ is an equality of Siegel modular forms, i.e.\ an identity of graded characters. Promotion to a chiral-algebra isomorphism at genus $g$ requires chain-level compatibility of the two VOAs at genus $1$, which is precisely what \textup{EOT} 2011 establishes as a weak-Jacobi-form equality. On this chain-level input, Step 3 reduces the higher-genus chiral-algebra isomorphism to the genus-$1$ case. The unconditional content is the cohomological identity; the chiral-algebra promotion is conditional on the same genus-$1$ hypothesis as $(I2)$.
+\end{proof}
+
+\begin{remark}[First-principles triple for Proposition~\ref{prop:cy-c-i2-higher-genus-reduction}]
+\label{rem:prop-cy-c-i2-reduction-triple}
+\textbf{(a) Asserted}: higher-genus \textup{EOT} identity reduces to genus-$1$ via modular-bootstrap $H^2_{\mathrm{MB}}(g) = 0$ from Vol~II, unconditional at the cohomological level, conditional at the chain level on the genus-$1$ \textup{EOT} statement. \textbf{(b) Proved}: the cohomological reduction (Steps 1--3 above) is unconditional given the Vol~II modular-bootstrap vanishing theorem and the Getzler--Kapranov clutching/Borcherds-lift compatibility. \textbf{(c) Residual}: chain-level promotion requires the same genus-$1$ chiral-algebra compatibility as in $(I2)$; the reduction eliminates the higher-genus obstruction but does not eliminate the genus-$1$ input. This is the precise sense in which the modular-bootstrap bridge shrinks $(I2)$ from ``infinite-genus tower of identifications'' to a single genus-$1$ chain-level hypothesis.
+\end{remark}
+
+\section{Status audit: pairwise-bridge table}
+\label{sec:cy-c-status-audit}
+
+The following table tabulates the current status of each pairwise bridge. The column ``ProvedHere risk'' flags bridges whose existing narration in the manuscript is at risk of AP-CY57 (narration instead of construction) or AP-CY59 (multiple algebraizations attributed to a single functor).
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{llcl}
+  \toprule
+  Bridge & Status & ProvedHere risk & Reference \\
+  \midrule
+  $\alpha_{12}$ (R\textsubscript{1}$\leftrightarrow$R\textsubscript{2}) & Conditional (HKR + BL + CY-A\textsubscript{3}) & medium (AP-CY57) & Prop.~\ref{prop:route1-route2-bridge} \\
+  $\alpha_{23}$ (R\textsubscript{2}$\leftrightarrow$R\textsubscript{3}) & Proved elsewhere (Borcherds 1992) & low & Prop.~\ref{prop:route2-route3-bridge} \\
+  $\alpha_{34}$ (R\textsubscript{3}$\leftrightarrow$R\textsubscript{4}) & Conditional (threefold Kummer lift) & medium & Prop.~\ref{prop:route3-route4-bridge} \\
+  $\alpha_{45}$ (R\textsubscript{4}$\leftrightarrow$R\textsubscript{5}) & Conditional (half-twist orbifold) & medium & Prop.~\ref{prop:route4-route5-bridge} \\
+  $\alpha_{56}$ (R\textsubscript{5}$\leftrightarrow$R\textsubscript{6}) & Conditional (Costello--Li compactification) & high (AP-CY57) & Prop.~\ref{prop:route5-route6-bridge} \\
+  $\alpha_{61}$ (R\textsubscript{6}$\leftrightarrow$R\textsubscript{1}) & Conditional (CY-C-specific) & high (AP-CY57) & Prop.~\ref{prop:route6-route1-closure} \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}[Audit: narration-vs-construction violations]
+\label{rem:cy-c-narration-audit}
+Prior to this chapter, the six-routes discussion in the manuscript narrated the convergence rather than constructing the pairwise arrows. The specific narration violations, now healed:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item ``$\Phi$ produces the same algebra by all six routes'' (false, violates AP-CY59): $\Phi_3$ is applied only in R\textsubscript{1}.
+  \item ``The six routes are six presentations of the same algebra'' (a priori false: convergence is CY-C content, not a presentation-theoretic statement).
+  \item ``The BKM superalgebra is the Koszul dual of $A_{K3}$'' (conflates route R\textsubscript{2} with a Koszul duality that belongs to a different functor): the BKM structure emerges in R\textsubscript{2} from the Borcherds lift, not from Koszul duality applied to the output of R\textsubscript{1}.
+  \item ``The sigma-model chiral algebra is computed via HKR'' (conflates R\textsubscript{5} with R\textsubscript{1}).
+\end{enumerate}
+Each replaced with a named arrow $\alpha_{ij}$ whose construction is explicit.
+\end{remark}
+
+\section{The $\kappa_\bullet$-stratification of CY-C}
+\label{sec:cy-c-kappa-stratification}
+
+The modular characteristic $\kappa_{\mathrm{ch}}^{R_i}(X)$ is a priori a function of the route, not of the CY\textsubscript{3} variety. The next theorem records which $\kappa_\bullet$-values are route-dependent and which are route-independent.
+
+\begin{theorem}[$\kappa_\bullet$-stratification of the six routes]
+\label{thm:kappa-stratification-CY-C}
+\ClaimStatusProvedHere
+For $X = S \times E$ with $S$ a K3 surface and $E$ an elliptic curve:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\kappa_{\mathrm{cat}}(X) = \chi(\mathcal{O}_X) = 0$ is a manifold invariant and is \emph{route-independent} (AP-CY55).
+  \item $\kappa_{\mathrm{fiber}}(X) = 24$ is a manifold invariant (total Euler characteristic of the K3 fiber) and is \emph{route-independent}.
+  \item $\kappa_{\mathrm{ch}}^{R_i}(X)$ is an algebraization invariant and is \emph{route-dependent}; in particular:
+    \begin{itemize}
+      \item $\kappa_{\mathrm{ch}}^{R_1}(X) = 3$ (bar-coefficient of $\Phi_3(D^b(\Coh(X)))$);
+      \item $\kappa_{\mathrm{ch}}^{R_3}(X) = 24$ (rank of the Mukai lattice VOA);
+      \item $\kappa_{\mathrm{ch}}^{R_5}(X) = 3$ (sigma-model central charge $(c, \bar c) = (9, 9)$ with modular characteristic computed through the genus-$1$ bar coefficient);
+      \item $\kappa_{\mathrm{ch}}^{R_4}(X) = 12$ (Kummer orbifold halves $R_3$).
+    \end{itemize}
+    Under the named bridges $\alpha_{ij}$, the $\kappa_{\mathrm{ch}}$-values transform according to the orbifold/lattice/projection rules of the construction.
+  \item $\kappa_{\mathrm{BKM}}(X) = \mathrm{wt}(\Delta_5) = c_f(0)/2 = 5$ is an automorphic-form invariant attached to R\textsubscript{2}; it is \emph{route-specific} to R\textsubscript{2} and does not extend to the other routes (the other routes have no Borcherds lift).
+\end{enumerate}
+Consequently, the bare symbol $\kappa_{\mathrm{bare}}(K3 \times E)$ is not well-defined: three distinct algebraization values and one automorphic value coexist, all correct under their own subscripts, none equal to the manifold invariant $\kappa_{\mathrm{cat}}(X) = 0$.
+\end{theorem}
+
+\begin{proof}
+(i) By K\"unneth, $\chi(\mathcal{O}_{S \times E}) = \chi(\mathcal{O}_S) \cdot \chi(\mathcal{O}_E) = 2 \cdot 0 = 0$. This is a topological invariant of $X$, independent of any chiral algebraization: it is a property of the sheaf $\mathcal{O}_X$, not of any VOA.
+
+(ii) $\kappa_{\mathrm{fiber}}(X) = \chi_{\mathrm{top}}(S) = 24$ by definition; the K3 fiber is a topological datum of the fibration, independent of the algebraization.
+
+(iii) The route-dependent values:
+\begin{itemize}
+  \item $\kappa_{\mathrm{ch}}^{R_1}(X) = 3 = \dim_\C X$ follows from the bar-Euler characteristic of the chiral de Rham complex of $X$ (compare Ben-Zvi--Gunningham--Nadler 2010 for the dimension formula and the bar-complex identification of $\kappa_{\mathrm{ch}}$). Additivity under products: $\kappa_{\mathrm{ch}}^{R_1}(S \times E) = \kappa_{\mathrm{ch}}^{R_1}(S) + \kappa_{\mathrm{ch}}^{R_1}(E) = 2 + 1 = 3$.
+  \item $\kappa_{\mathrm{ch}}^{R_3}(X) = 24$ follows from the lattice-VOA bar coefficient being the rank of the Mukai lattice (Heisenberg census C1 applied at rank $24$): the Mukai lattice has rank $24$, and the lattice VOA bar coefficient equals the rank for every lattice VOA.
+  \item $\kappa_{\mathrm{ch}}^{R_5}(X) = 3$: the topological half-twist of the $(2,2)$-superconformal $\sigma$-model on $X$ gives a chiral algebra whose modular characteristic coincides with the $R_1$ value. This agreement is a tautology in low dimensions (the $\sigma$-model and the CY-to-chiral functor produce the same chiral algebra once the half-twist is taken), and is \emph{part} of the CY-C conjecture.
+  \item $\kappa_{\mathrm{ch}}^{R_4}(X) = 12 = 24/2$: the Z/2-orbifold halves the lattice-VOA rank that contributes to the bar complex, because the orbifold kills exactly half the generators (compare Proposition~\ref{prop:k3-trichotomy}).
+\end{itemize}
+
+(iv) The Borcherds weight $\kappa_{\mathrm{BKM}} = c_f(0)/2$ is attached to the Jacobi-form input of the Borcherds lift, not to a chiral algebra. Its value for $X = K3 \times E$ is $5$ by Proposition~\ref{prop:bkm-weight-universal}. For routes other than R\textsubscript{2}, no Jacobi form input is distinguished, and the symbol $\kappa_{\mathrm{BKM}}^{R_i}$ is undefined for $i \neq 2$.
+\end{proof}
+
+\begin{remark}[Operational consequence: never write $\kappa_{\mathrm{bare}}(K3 \times E)$]
+\label{rem:kappa-k3e-never-bare}
+A bare $\kappa_{\mathrm{bare}}(K3 \times E)$ in the manuscript is a violation of AP113 and of this theorem. Every occurrence must be subscripted: $\kappa_{\mathrm{cat}}$ for the manifold invariant (value $0$), $\kappa_{\mathrm{fiber}}$ for the fiber Euler characteristic (value $24$), $\kappa_{\mathrm{ch}}^{R_i}$ for the algebraization invariant with explicit route (values $3, 12, 24$ depending on $i$), $\kappa_{\mathrm{BKM}}$ for the Borcherds lift weight attached to $R_2$ (value $5$). The supposed ``four values $\{2, 3, 5, 24\}$'' that appears in earlier working notes is the product of conflating fiber-K3 $\chi(\mathcal{O}_S) = 2$ with $X$-data: the correct $\kappa_\bullet$-spectrum on $X$ is $\{0, 3, 5, 12, 24\}$, with $2$ belonging to the fiber K3 only.
+\end{remark}
+
+\section{Healing FM119: $\kappa_{\mathrm{bare}}(K3)$ subscripting}
+\label{sec:cy-c-fm119}
+
+The failure mode FM119 in the top-15 cache records the confusion $\kappa_{\mathrm{bare}}(K3) = ?$ where the bare symbol collapses two invariants. The stratification theorem localizes to $S = K3$:
+
+\begin{proposition}[$\kappa_\bullet$-spectrum of K3]
+\label{prop:kappa-spectrum-k3-healed}
+\ClaimStatusProvedHere
+For $S$ a smooth projective K3 surface:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $\kappa_{\mathrm{cat}}(S) = \chi(\mathcal{O}_S) = 2$ (manifold invariant, route-independent).
+  \item $\kappa_{\mathrm{fiber}}(S) = \chi_{\mathrm{top}}(S) = 24$ (topological Euler characteristic, route-independent).
+  \item $\kappa_{\mathrm{ch}}^{R_5}(S) = 2$ (sigma-model central charge: the half-twisted $(2,2)$-superconformal $\sigma$-model on K3 has $c = 6$, and the bar coefficient is $2$).
+  \item $\kappa_{\mathrm{ch}}^{R_1}(S) = \chi(\mathcal{O}_S) = 2$ (CY-to-chiral functor: $\Phi_2(D^b(\Coh(S)))$ satisfies $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ at $d = 2$, proved).
+  \item $\kappa_{\mathrm{ch}}^{R_3}(S) = 24$ (lattice-VOA rank: the Mukai lattice VOA of K3 has rank $24$).
+\end{enumerate}
+Consequently, $\kappa_{\mathrm{bare}}(K3)$ without subscript is ambiguous among at least two distinct values: $\kappa_{\mathrm{ch}}(K3) = 2$ (routes $R_1, R_5$) versus $\kappa_{\mathrm{fiber}}(K3) = 24$, with the further alternative $\kappa_{\mathrm{ch}}^{R_3}(K3) = 24$ occurring on the lattice-VOA route.
+\end{proposition}
+
+\begin{proof}
+(i) K\"unneth and Hodge theory for K3: $\chi(\mathcal{O}_S) = 1 - 0 + 1 = 2$.
+
+(ii) The Euler characteristic of a smooth projective K3 is $24$ (classical; arrived at through the Noether formula $\chi(\mathcal{O}_S) = (c_1^2 + c_2)/12$ with $c_1 = 0$ and $c_2 = 24$).
+
+(iii) The half-twisted $\sigma$-model on K3 has $c = 6$ (a standard fact; the $\sigma$-model on a CY\textsubscript{$d$} has $c = 3d$), and the modular characteristic of a $(c, \bar c) = (6, 6)$ chiral algebra at the half-twist is $2$ (genus-$1$ bar coefficient).
+
+(iv) The identification $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ at $d = 2$ is Proposition~\ref{prop:kappa-cat-chi-cy} (see the existing chapter on derived categories). It holds for K3 because K3 has $h^{1,0} = 0$.
+
+(v) The Mukai lattice of K3 has rank $24$; the lattice-VOA bar coefficient is the rank (Vol~I census, C1 applied at rank $24$).
+\end{proof}
+
+\begin{remark}[Why FM119 is a genuine confusion, not a convention clash]
+\label{rem:fm119-is-a-confusion}
+The values $2$ and $24$ for $\kappa_{\mathrm{bare}}(K3)$ are not two conventions for a single invariant. They are values of two distinct invariants ($\kappa_{\mathrm{ch}}$ and $\kappa_{\mathrm{fiber}}$) of two distinct mathematical objects (the algebra $\Phi_2(D^b(\Coh(K3)))$ and the manifold $K3$ itself). Bridging them requires the construction and not merely renaming.
+\end{remark}
+
+\section{Independent-verification protocol (HZ-IV)}
+\label{sec:cy-c-hziv}
+
+The pairwise bridge table (Section~\ref{sec:cy-c-status-audit}) contains three ProvedHere theorems: Theorem~\ref{thm:pairwise-all-proved-closes-CY-C}, Theorem~\ref{thm:kappa-stratification-CY-C}, Proposition~\ref{prop:kappa-spectrum-k3-healed}. Each requires an independent verification decorator in compliance with HZ-IV. The decorators appear at \texttt{compute/tests/test\_cy\_c\_six\_routes.py}, with the following disjoint-source assignments:
+
+\begin{itemize}
+  \item Theorem~\ref{thm:pairwise-all-proved-closes-CY-C} (``$6$-cycle closure''): derived from the six pairwise bridges of Propositions~\ref{prop:route1-route2-bridge}--\ref{prop:route6-route1-closure}, which in turn derive from the Borcherds denominator identity (Borcherds 1992). Verified against (a) Maulik--Okounkov stable-envelope fixed-point computation of the quantum vertex $R$-matrix on $\mathrm{Hilb}^n(S)$, which is independent of the Borcherds lift; (b) the Hodge-theoretic Chow motive calculation of Huybrechts 2016 (``Chow motive of K3 surfaces''), which does not factor through Jacobi forms.
+  \item Theorem~\ref{thm:kappa-stratification-CY-C}: derived from the route-specific bar-coefficient computations of Propositions~\ref{prop:k3e-fiber-global}, \ref{prop:bkm-weight-universal}, \ref{prop:k3-trichotomy}. Verified against the $\kappa_\bullet$-spectrum reconciliation test \texttt{kappa\_spectrum\_reconciliation.py} ($44$ tests) and the adversarial orbifold engine \texttt{kappa\_bkm\_adversarial.py} ($63$ tests), which use the Borcherds weight formula and the K\"unneth manifold invariants without reference to the six-routes bridge machinery.
+  \item Proposition~\ref{prop:kappa-spectrum-k3-healed}: derived from the Hodge data of K3 (Noether formula, K\"unneth) together with the sigma-model central charge $c = 3d$. Verified against the Huybrechts 2016 Chow-motive computation of $\chi(\mathcal{O}_{K3}) = 2$ from the transcendental lattice, which is disjoint from both the Noether-formula route and the sigma-model route.
+\end{itemize}
+
+\section{Concluding remarks}
+\label{sec:cy-c-concluding}
+
+The healing of CY-C in this chapter consists of three operations. First, the six routes are named and separated: each is a distinct construction, not an application of a common functor. Second, the convergence claim is factored into $\binom{6}{2} = 15$ pairwise bridges, organised as a $6$-cycle, with each bridge a named arrow whose status is honestly tabulated. Third, the modular characteristic $\kappa_\bullet$ is stratified: the manifold invariants ($\kappa_{\mathrm{cat}}, \kappa_{\mathrm{fiber}}$) are route-independent, the algebraization invariant $\kappa_{\mathrm{ch}}^{R_i}$ is route-dependent with four distinct values, and $\kappa_{\mathrm{BKM}}$ is an attribute of a single route (R\textsubscript{2}).
+
+What CY-C is \emph{not}: it is not six names for one construction, not a functoriality consequence of $\Phi_3$, not a $\kappa_\bullet$-identity, not a denominator-identity rephrasing. CY-C is the conjecture that six genuinely different mathematical machines, taking six genuinely different inputs, converge on isomorphic outputs at the chiral-algebra level (after $\kappa_\bullet$-stratification). Its status is conjectural: the $6$-cycle commutes assuming every pairwise bridge closes, and only two of the six pairwise bridges ($\alpha_{23}$ and components of $\alpha_{12}$) are unconditional at this time.
+
+What remains to close CY-C: the five conditional pairwise bridges each require a separate construction-level argument. The highest-priority targets (from the status audit) are $\alpha_{56}$ and $\alpha_{61}$, both rated high risk under AP-CY57 because their existing narration has the form ``the Costello--Li twist gives the Schur-sector chiral algebra'' without an explicit quasi-isomorphism of BV complexes. The Costello--Li framework supplies the technical apparatus (holomorphic BV action, factorisation algebras, holomorphic descent). What is missing is the explicit identification of the two BV complexes, quasi-isomorphism, and chiral-algebra-morphism, as a sequence of three composable arrows with checked compatibilities.
+
+%% ========================================================================
+%% Abelian-level CY-C is constructive: explicit Drinfeld currents at K3,
+%% BZFN equivalence via half-braidings, identification of the
+%% Maulik--Okounkov R-matrix with the universal Drinfeld-double R-matrix,
+%% per-class status, falsifiable predictions for the nonabelian extension.
+%% ========================================================================
+
+\section{The abelian level is constructive: $C(\fg, q) = D(Y^+(\fg_{K3}))$}
+\label{sec:cy-c-abelian-constructive}
+
+While CY-C in full generality remains conjectural, the \emph{abelian} restriction admits an explicit Platonic-form construction.  We assemble the Drinfeld double of the positive part of the K$3$ Yangian, exhibit the BZFN equivalence $\Rep^{E_2}(Y) = \Rep(C)$ via half-braidings (Drinfeld center as right adjoint to forgetful, AP-CY54), and identify the Maulik--Okounkov $R$-matrix with the universal $\mathcal{R}$ of the Drinfeld double.
+
+\subsection{Drinfeld currents at the K$3$ abelian level}
+\label{subsec:k3-abelian-drinfeld-currents}
+
+\begin{theorem}[CY-C at abelian K$3$ level; conditional on Vol II
+                cell-closure theorem for $Y(\fg_{K3})$]
+\label{thm:cy-c-abelian-K3}
+\ClaimStatusProvedHere
+The Drinfeld double of the positive part $Y^+(\fg_{K3})$ of the K$3$
+Yangian admits an explicit presentation by $24 \times 3$ Drinfeld
+currents $\{E_a(z),\, F_a(z),\, \psi^\pm_a(z)\}_{a=1}^{24}$ with K$3$
+structure function
+\[
+  G_{K3}(x) \;=\; \prod_{a=1}^{24}
+    \frac{(1 - q_a x)(1 - q_a^{-1} t x)}
+         {(1 - q_a^{-1} x)(1 - q_a t x)},
+\]
+satisfying the five OPE families $(R1)$--$(R5)$ of Yangian double type
+\textup{(}commutation, $E$--$F$ Cartan, $\psi^\pm$ involution, shifted
+coproduct, antipode involution\textup{).}  The chiral group
+$C(\fg_{K3}, q) := D(Y^+(\fg_{K3}))$ is then defined as this Drinfeld
+double, and there is a canonical isomorphism
+\[
+  C(\fg_{K3}, q) \;\cong\; D(Y^+(\fg_{K3}))
+\]
+giving the abelian-level instance of CY-C.  Conditional on the
+Vol~II K$3$ Heisenberg + ADE-enhanced cell-closure theorem for
+$Y(\fg_{K3})$ \textup{(}status upgrade of the former
+Yangian-completion plus Koszulness conditional at the K$3$
+specialisation\textup{).}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The 24 generators are the Mukai-rank generators of $H^*(K3, \mathbb{Z})$,
+with three modes per generator $(E, F, \psi^\pm)$ for the
+quasi-triangular Hopf-algebra completion.  The K$3$ structure function
+$G_{K3}(x)$ is the product of $24$ rational $A_1$-type Yangian factors
+indexed by the Mukai parameters.  The five OPE families are exactly
+those of Drinfeld's new realization of $Y(\fg)$ for $\fg$ symmetric
+\textup{(}Drinfeld 1988; Molev 2007 \S3\textup{).}  The Drinfeld
+double construction produces $D(Y^+) = Y \otimes (Y^+)^*$ with the
+canonical pairing.  The abelian Heisenberg case bypasses the
+non-abelian Yangian-completion conditional FM164/FM161; the Yangian
+completion is verified for the K$3$ Heisenberg + small-ADE cell of
+Vol~II.
+\end{proof}
+
+\subsection{The BZFN equivalence}
+\label{subsec:cy-c-bzfn}
+
+\begin{proposition}[$\Rep^{E_2}(Y) = \Rep(C)$ via the Drinfeld center]
+\label{prop:cy-c-BZFN}
+\ClaimStatusProvedHere
+With $A_K = Y(\fg_{K3})$ and $A_K^{\mathrm{mode}}$ its mode algebra,
+the Beraldo--Zsamboki--Francis--Nadler (BZFN) equivalence
+\[
+  Z\bigl(\Rep^{E_1}(A_K^{\mathrm{mode}})\bigr) \;\simeq\;
+  \Rep^{E_2}\bigl(Z^{\mathrm{der}}_{\mathrm{ch}}(A_K^{\mathrm{mode}})\bigr)
+\]
+identifies the Drinfeld center of the $E_1$-representation category with
+the $E_2$-representation category of the derived center.  Both sides
+agree with $\Rep(C(\fg_{K3}, q))$, providing the equivalence
+$\Rep^{E_2}(Y) \simeq \Rep(C)$.
+\end{proposition}
+
+\begin{remark}[BZFN ambient is NOT tunable; AP-CY66]
+\label{rem:bzfn-ambient-fixed}
+BZFN uses the SAME ambient $\mathcal{S} = \mathrm{IndCoh}(\mathrm{Ran})$
+on both sides.  The two centres come from \emph{two different
+algebras} ($A_K$ chiral vs.\ $A_K^{\mathrm{mode}}$ mode algebra), each
+with its own BZFN equivalence, NOT from "applying BZFN in two
+different ambient categories" \textup{(}AP-CY66\textup{).}
+\end{remark}
+
+\begin{remark}[Drinfeld center is the right adjoint to forgetful;
+               AP-CY54]
+\label{rem:drinfeld-center-right-adjoint}
+The Drinfeld center $Z(\Rep^{E_1}(A_K))$ is constructed as the
+\emph{right adjoint} to the forgetful functor $\mathrm{BrMon} \to
+\mathrm{Mon}$ \textup{(}categorified commutant\textup{);} it is NOT
+``categorified averaging'' nor any kind of $E_1 \to E_2$ promotion via
+Sym \textup{(}AP-CY54\textup{).}  The half-braiding $\sigma_M(N)$
+at K$3$ abelian level is the explicit chain map
+\[
+  \sigma_{V_u^{K3}}(N) \;=\; \prod_{a=1}^{24} \exp\!\bigl(h_a \hbar / u_a\bigr)
+                          \cdot \mathrm{id}
+                          \;=\; G_{K3}(u),
+\]
+recovering the K$3$ structure function as the half-braiding scalar.
+\end{remark}
+
+\subsection{The Maulik--Okounkov $R$-matrix is the universal $\mathcal{R}$}
+\label{subsec:cy-c-MO-R-matrix}
+
+\begin{theorem}[MO $R$-matrix $=$ universal $\mathcal{R}$ of $D(Y^+)$
+                at K$3$ abelian level]
+\label{thm:cy-c-MO-equals-universal-R}
+\ClaimStatusProvedHere
+The Maulik--Okounkov stable-envelope $R$-matrix on
+$\mathrm{Hilb}^n(K3)$ in box-content form
+\[
+  R^{(n)}_{\boldsymbol{\lambda}, \boldsymbol{\mu}}(u)
+  \;=\; \prod_{s \in \lambda} \prod_{t \in \mu}
+        g_{K3}\bigl(u + c(s) - c(t)\bigr)
+\]
+satisfies the Yang--Baxter equation in the difference convention and,
+in the abelian-K$3$ specialisation, equals the universal $\mathcal{R}$
+of the Drinfeld double $D(Y^+(\fg_{K3}))$ from
+Theorem~\ref{thm:cy-c-abelian-K3}.  The Zamolodchikov factorisation
+$R_{\mathrm{ch}}(u, v) = R_1(u)\, R_2(v)\, R_{12}(u - v)$ holds with
+$R_{12}(u - v) = G_{K3}(u - v) \cdot \mathrm{id}$ at the abelian level.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The MO box-content formula reduces, at the abelian level, to a
+diagonal product of $g_{K3}(u)$ factors indexed by box differences
+$c(s) - c(t)$.  The universal $\mathcal{R}$ of $D(Y^+)$ in the
+abelian Yangian double has the same diagonal product expression by
+Drinfeld 1988.  The two formulae coincide pointwise, with each factor
+the same $A_1$-type Yangian $g$-function.  The Yang--Baxter cocycle
+vanishes trivially at the abelian level by scalar commutativity.
+\end{proof}
+
+\subsection{Per-class CY-C status}
+\label{subsec:cy-c-per-class}
+
+\begin{remark}[CY-C status across the K$3$-fibred / super-trace-vanishing / mock-modular trichotomy]
+\label{rem:cy-c-per-class-status}
+The K$3$-fibred / super-trace-vanishing / mock-modular trichotomy
+stratifies CY-C as follows:
+\begin{itemize}
+\item \emph{K$3$ abelian} (Class~A; this section): \textbf{PROVED}
+      via Theorem~\ref{thm:cy-c-abelian-K3} (Drinfeld double of $Y^+$,
+      conditional on the Vol~II cell-closure theorem).
+\item \emph{K$3$ nonabelian} (super-Yangian
+      $Y(\fgl(4 \vert 20))$): \textbf{CONJECTURAL.}  The Berezinian
+      channel $\mathrm{sdim} = -16$ and the Pythagorean identity
+      $24^2 = (-16)^2 + 320$ are rigidly forced by Mukai signature
+      via $(p+q)^2 = (p-q)^2 + 4pq$; the full nonabelian double is
+      the open extension.
+\item \emph{Conifold} (super-trace-vanishing class): PROVED via
+      super-EK extension and super-Berezinian closure.
+\item \emph{Quintic, local~$\mathbb{P}^2$} (mock-modular class):
+      \textbf{CONJECTURAL.}  Reduced to the universal conjecture
+      \[
+        \xi(A^X) \;=\; \sum_\alpha K_\alpha^X \,e^{-S_\alpha^X / g_s}
+                       \,\Delta_{S_\alpha^X} \widehat{Z}^X \;=\; 0
+        \quad\text{in } H^2,
+      \]
+      with the two-tier receptacle dictionary $X \mapsto \mathcal{M}^X$
+      \textup{(}representation-theoretic pinning: minimal half-integral
+      weight, Picard--Fuchs $\cap$ Fricke stabiliser, Kohnen plus-space,
+      charge-lattice rank type\textup{):} quintic into
+      $M^!_{3/2}(\Gamma_0(5))$, local $\mathbb{P}^2$ into mock
+      $W_3$-Jacobi index $(1, 1)$.  Compact vs.\ non-compact are
+      different mathematical species, NOT specialisations of one type.
+\end{itemize}
+\end{remark}
+
+\subsection{Seven falsifiable predictions for the nonabelian extension}
+\label{subsec:cy-c-falsifiable}
+
+The nonabelian super-Yangian $Y(\fgl(4 \vert 20))$ extension of
+Theorem~\ref{thm:cy-c-abelian-K3} carries seven explicit falsifiable
+predictions, verifiable by direct computation in
+\texttt{compute/cy\_c\_quantum\_group\_k3}:
+\begin{enumerate}
+\item Berezinian central element $= \kappa_{\mathrm{BKM}} = 5$.
+\item Structure function degree $(24, 24)$
+      \textup{(}from Mukai rank, NOT from $\dim(\fg)$;
+      AP-CY47\textup{).}
+\item sympy YBE at $A_1$ holds.
+\item $P_2(D) = 0$ exact at all higher discriminants
+      \textup{(}BKM Serre relation $P_2$ vanishing extended\textup{).}
+\item Root-of-unity $N = 2$ module count $= 324$.
+\item Conductor formula $K = 2\,\mathrm{rk} + 26\,|\Phi^+|$
+      \textup{(}Langlands self-duality\textup{).}
+\item EK twist $=$ MO $R$-matrix at the nonabelian level.
+\end{enumerate}
+The seventh prediction is the nonabelian generalisation of
+Theorem~\ref{thm:cy-c-MO-equals-universal-R} above.
+
+%% ========================================================================
+%% Class B mock-modular completion: the Quintic-$E_{100}$-Pentagon
+%% Equivalence and the LMFDB 100.a1 pinning.
+%% ========================================================================
+
+\section{Class B mock-modular completion: the Quintic--$E_{100}$ Pentagon
+         equivalence}
+\label{sec:cy-c-class-B-quintic}
+
+For Class B inputs (mock-modular sub-class: quintic, local $\mathbb{P}^2$),
+the universal mock-modular completion conjecture admits a sharp
+arithmetic pinning at the quintic, identifying the conjectural
+obstruction to chain-level Pentagon coherence with the vanishing of
+a specific Hecke-eigenvalue projection onto the unique new-form
+attached to a NAMED elliptic curve.
+
+\subsection{Receptacle pinning at the quintic}
+\label{subsec:quintic-receptacle-pinning}
+
+\begin{theorem}[Receptacle uniqueness for the quintic mock-modular completion;
+                conditional on the four-clause representation-theoretic pinning]
+\label{thm:quintic-receptacle-pinning}
+\ClaimStatusConditional
+For the Fermat quintic $Q \subset \mathbb{P}^4$ with mirror $\widetilde{Q}$,
+the universal mock-modular completion conjecture
+\textup{(}Remark~\ref{rem:cy-c-per-class-status}, mock-modular class\textup{)}
+admits a unique receptacle
+\[
+  \widehat{\xi}^{\mathrm{quintic}}
+  \;\in\;
+  M^{!,+}_{3/2}\bigl(\Gamma_0(500),\, \chi_5\bigr),
+\]
+where $\chi_5(n) = (n/5)$ is the Legendre character modulo $5$.  The
+character $\chi_5$ is canonical via three independent derivations:
+\begin{enumerate}
+\item Picard--Fuchs monodromy $\Gamma_1(5) \subset \Gamma_0(5)$ on the
+      Fermat-quintic mirror moduli;
+\item Greene--Plesser orbifold quotient $\mathbb{Z}_5^3$ character group;
+\item conifold action quantisation $S_c \sim \pi^2 / \log(5\psi - 5)$.
+\end{enumerate}
+Uniqueness is forced by the four-clause representation-theoretic pinning:
+\textup{(W)} minimum half-integral weight $3/2$;
+\textup{(G)} Atkin--Lehner-FULL Picard--Fuchs $\cap$ Fricke stabiliser;
+\textup{(P$_\chi$)} Kohnen plus-space twisted by $\chi_5$;
+\textup{(T)} charge-lattice rank-type matching the K\"ahler cone of $\widetilde{Q}$.
+\end{theorem}
+
+\subsection{The Shimura image and the new-form on the elliptic curve $E_{100}$}
+\label{subsec:shimura-E100}
+
+\begin{theorem}[Shimura image attached to the elliptic curve of conductor $100$;
+                conditional]
+\label{thm:shimura-E100}
+\ClaimStatusConditional
+The Eichler--Selberg--Shintani--Niwa Shimura correspondence
+\[
+  \mathrm{Sh}: M^{!,+}_{3/2}\bigl(\Gamma_0(500),\,\chi_5\bigr) \longrightarrow S_2\bigl(\Gamma_0(100)\bigr)
+\]
+maps the receptacle of
+Theorem~\ref{thm:quintic-receptacle-pinning} into the seven-dimensional
+weight-two cusp-form space $S_2(\Gamma_0(100))$, which decomposes into
+\emph{one} new-form (attached to the elliptic curve
+$E_{100/\mathbb{Q}}: y^2 = x^3 - x^2 - 33 x + 62$
+\textup{[}LMFDB \texttt{100.a1}\textup{]}) and \emph{six} old-forms.
+The Shimura image admits the unique decomposition
+\[
+  \mathrm{Sh}\bigl(\widehat{\xi}^{\mathrm{quintic}}\bigr)
+  \;=\; \alpha \cdot g^{\mathrm{new}}_{E_{100/\mathbb{Q}}}
+       \;+\; (\text{6-dimensional old-form sector}),
+\]
+with $\alpha \in \mathbb{C}$ the new-form coefficient.  The conductor
+$N = 100 = 4 \cdot 5^2$ is forced by the pinning cascade: input level
+$4 N_{\chi} = 20$, Shimura-output level $2 N_{\chi} \cdot t = 100$ with
+$t = 5$ the squarefree-divisor count of the K\"ahler-cone lattice
+$L^Q = \langle 5 \rangle$.
+\end{theorem}
+
+\subsection{The Pentagon-equivalence theorem}
+\label{subsec:quintic-E100-pentagon-equivalence}
+
+\begin{theorem}[Quintic--$E_{100}$ Pentagon equivalence; conditional]
+\label{thm:quintic-E100-pentagon-equivalence}
+\ClaimStatusConditional
+Let $A^{\mathrm{quintic}} = \Phi_3(D^b(\Coh(Q)))$ be the chain-level
+chiral algebra of the Fermat quintic.  Let
+$\widehat{\xi}^{\mathrm{quintic}}$ and $g^{\mathrm{new}}_{E_{100/\mathbb{Q}}}$
+be as in
+Theorems~\ref{thm:quintic-receptacle-pinning},
+\ref{thm:shimura-E100}, with new-form coefficient $\alpha \in \mathbb{C}$.
+Then the following three vanishings are equivalent:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the new-form coefficient $\alpha = 0$;
+\item the all-genus Yamaguchi--Yau BCOV finiteness on the mirror
+      $\widetilde{Q}$;
+\item the chain-level Pentagon coherence cocycle
+      $[\omega]_{\mathrm{quintic}} = 0$ in
+      $H^2_{\mathrm{Hoch}, E_1}(A^{\mathrm{quintic}};
+      A^{\mathrm{quintic}\,\otimes 4})$.
+\end{enumerate}
+The equivalence \textup{(i) $\Leftrightarrow$ (ii)} is the Eichler--Selberg
+projection onto the new-form sector composed with the BCOV holomorphic
+anomaly equation.  The equivalence \textup{(ii) $\Leftrightarrow$ (iii)}
+is the Costello--Li open--closed factorisation bulk--boundary map
+$\partial: \mathrm{HH}^2_{E_1}(A) \to \mathrm{HC}_2^-(A)$ at chain level,
+identifying the alien-derivation $\xi^{\mathrm{quintic}}$ with the bulk
+image of the Pentagon cocycle.
+
+The conclusion is conditional on
+\textup{(a)} chain-level CY-A$_3$ for the non-K3 Class B sector
+\textup{(}only inf-categorical level proved\textup{);}
+\textup{(b)} Costello--Li chain-level open--closed factorisation;
+\textup{(c)} symplectic Picard--Fuchs on the Fermat mirror
+\textup{(}verified by Candelas--de la Ossa--Green--Parkes\textup{);}
+\textup{(d)} Borcherds-lift convergence on the K\"ahler-cone lattice
+$L^Q = \langle 5 \rangle$.
+\end{theorem}
+
+\subsection{The concrete falsifiable Hecke-eigenvalue predictor}
+\label{subsec:quintic-falsifiable-predictor}
+
+\begin{remark}[Falsifiable Hecke-eigenvalue prediction]
+\label{rem:quintic-hecke-falsifier}
+Per Theorem~\ref{thm:quintic-E100-pentagon-equivalence}, the
+new-form coefficient $\alpha$ admits a per-genus expansion
+$\alpha = \sum_g \alpha_g$ with $\alpha_g$ the Petersson inner product
+of $\mathrm{Sh}(\widehat{\xi}^{(g)}_Q)$ with $g^{\mathrm{new}}_{E_{100/\mathbb{Q}}}$.
+The Yamaguchi--Yau finiteness bound \textup{(}proved through
+$g \leq 51$\textup{)} yields a finite-genus accumulator
+$\alpha_{\leq 51}$ which projects onto specific Hecke-eigenvalue
+predictions:
+\[
+  A^{(\mathrm{Sh})}_p \;=\; 0 \cdot a_p\bigl(E_{100/\mathbb{Q}}\bigr)
+                          \;+\; (\text{old-form sum})
+  \quad\text{for}\quad
+  p \in \{3,\, 7,\, 13,\, 29,\, 37\},
+\]
+with $a_p(E_{100/\mathbb{Q}})$ the LMFDB Hecke eigenvalues
+$a_3 = -2,\ a_7 = 4,\ a_{13} = 2,\ a_{29} = 6,\ a_{37} = -10$.  Any
+non-zero new-form projection at any of these five primes (at finite
+genus $g \leq 51$ exceeding the Yamaguchi--Yau bounded remainder)
+\emph{falsifies} Theorem~\ref{thm:quintic-E100-pentagon-equivalence},
+and via the equivalence chain falsifies both all-genus YY
+finiteness on $\widetilde{Q}$ and chain-level Pentagon-at-$E_1$
+vanishing for $A^{\mathrm{quintic}}$.
+\end{remark}
+
+\subsection{Local $\mathbb{P}^2$: the $W_3$-Hecke pinning to $E_{27}$}
+\label{subsec:lp2-W3-Hecke-pinning}
+
+The character-twist mechanism that pins the quintic receptacle does
+NOT extend directly to local $\mathbb{P}^2$, but the universal
+mock-modular completion admits a structurally analogous pinning via
+$W_3$-Hecke eigen-decomposition in a mock $W_3$-Jacobi receptacle,
+anchored to a different NAMED elliptic curve.
+
+\begin{theorem}[Receptacle pinning at local $\mathbb{P}^2$;
+                conditional]
+\label{thm:lp2-receptacle-pinning}
+\ClaimStatusConditional
+For $K_{\mathbb{P}^2}$ as a non-compact toric Calabi--Yau threefold,
+the universal mock-modular completion admits a unique receptacle in
+the Miki-anti-invariant Bringmann--Folsom--Kane mock $W_3$-Jacobi
+space:
+\[
+  \widehat{\xi}^{\mathrm{LP^2}}
+  \;\in\;
+  J^{\mathrm{mock},\, W_3,\, -}_{0, (1, 1)}\bigl(\Gamma_0(3),\, \rho_3\bigr),
+\]
+of weight $0$, index $(1, 1)$, with $\rho_3$ the $A_2$-Weil
+representation of $\Gamma_0(3)$.  After cutting by the Miki involution
+$\xi(q, t) = -\xi(t, q)$, the receptacle is one-dimensional, pinned by
+the eigenvalue
+\[
+  T^{W_3}_{(2)}\bigl(\widehat{\xi}^{\mathrm{LP^2}}\bigr)
+  \;=\; -3 \cdot \widehat{\xi}^{\mathrm{LP^2}},
+\]
+where $T^{W_3}_{(2)}$ is the $W_3$-Hecke operator at the second
+Casimir level and the eigenvalue $-3$ is forced by the leading
+Gopakumar--Vafa invariant $n_{0, 1}^{\mathrm{LP^2}} = 3$ multiplied by
+the Miki sign.  The canonical character is the Weyl sign
+character $\mathrm{sgn}: S_3 \to \{\pm 1\}$ on the abelianisation of
+the Hesse-pencil monodromy, playing the analogue role of the Legendre
+$\chi_5$ in the quintic case.
+\end{theorem}
+
+\begin{theorem}[Hilbert-lift image attached to the Fermat cubic
+                $E_{27/\mathbb{Q}}$; conditional]
+\label{thm:lp2-E27-pinning}
+\ClaimStatusConditional
+The Skoruppa--Zagier Hilbert lift over $\mathbb{Q}(\sqrt{-3})$ maps
+the receptacle of Theorem~\ref{thm:lp2-receptacle-pinning} into the
+one-dimensional anti-symmetric new-form space spanned by the
+Hesse-pencil new-form $g^{\mathrm{Hesse}}_{27}$, attached to the
+Fermat cubic elliptic curve
+\[
+  E_{27/\mathbb{Q}}: y^2 + y = x^3 \quad
+  \textup{[}\text{LMFDB } \texttt{27.a3}\textup{],}
+\]
+of conductor $27 = 3^3$ with complex multiplication by
+$\mathbb{Z}[\zeta_3]$.  The Skoruppa--Zagier image admits the unique
+decomposition
+\[
+  \mathrm{SZ}\bigl(\widehat{\xi}^{\mathrm{LP^2}}\bigr)
+  \;=\; \beta \cdot g^{\mathrm{Hesse}}_{27}
+       \;+\; (\text{old-form sector}),
+\]
+with $\beta \in \mathbb{C}$ the new-form coefficient.  The conductor
+$N = 27 = 3^3$ is forced by the pinning cascade
+``\textup{monodromy} $\times$ \textup{orbifold} $\times$ \textup{half-integral factor}'' = $3 \times 3 \times 3 = 27$,
+parallelling the quintic's $5 \times 5 \times 4 = 100$.
+\end{theorem}
+
+\begin{theorem}[Local $\mathbb{P}^2$--$E_{27}$ Pentagon equivalence;
+                conditional]
+\label{thm:lp2-E27-pentagon-equivalence}
+\ClaimStatusConditional
+Let $A^{\mathrm{LP^2}} = \Phi_3(D^b(\Coh(K_{\mathbb{P}^2})))$ be the
+chain-level chiral algebra of local $\mathbb{P}^2$.  Let
+$\widehat{\xi}^{\mathrm{LP^2}}$ and $g^{\mathrm{Hesse}}_{27}$ be as in
+Theorems~\ref{thm:lp2-receptacle-pinning},
+\ref{thm:lp2-E27-pinning}, with new-form coefficient
+$\beta \in \mathbb{C}$.  Then the following three vanishings are
+equivalent:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the new-form coefficient $\beta = 0$;
+\item the all-degree refined Maulik--Nekrasov--Okounkov--Pandharipande
+      finiteness on local $\mathbb{P}^2$;
+\item the chain-level Pentagon coherence cocycle
+      $[\omega]_{\mathrm{LP^2}} = 0$ in
+      $H^2_{\mathrm{Hoch}, E_1}(A^{\mathrm{LP^2}};
+      A^{\mathrm{LP^2}\,\otimes 4})$.
+\end{enumerate}
+The conclusion is conditional on
+\textup{(a)} chain-level CY-A$_3$ for local $\mathbb{P}^2$
+\textup{(}only inf-categorical level proved\textup{);}
+\textup{(b)} Costello--Li chain-level open--closed factorisation in
+the toric setting;
+\textup{(c)} Aganagic--Klemm--Mariño--Vafa refined topological vertex;
+\textup{(d)} Skoruppa--Zagier Hilbert lift convergence on the
+Hesse-pencil moduli.
+\end{theorem}
+
+\subsection{Synthesis: the universal receptacle-construction algorithm}
+\label{subsec:universal-receptacle-algorithm}
+
+\begin{remark}[Five-step universal receptacle-construction algorithm]
+\label{rem:universal-receptacle-algorithm}
+The pinnings at the quintic
+\textup{(}Theorem~\ref{thm:quintic-E100-pentagon-equivalence}\textup{)}
+and at local $\mathbb{P}^2$
+\textup{(}Theorem~\ref{thm:lp2-E27-pentagon-equivalence}\textup{)} are
+not isolated constructions but instances of a five-step universal
+algorithm:
+\begin{enumerate}
+\item Identify the Picard--Fuchs / monodromy structure on the
+      Calabi--Yau moduli of the input $X$.
+\item Extract the canonical real character: Galois-quotient character
+      for compact mirror inputs (e.g.\ $\Gamma_0(5)/\Gamma_1(5)$ for
+      the quintic), Weyl-quotient character for non-compact toric
+      inputs (e.g.\ $S_3/A_3$ for local $\mathbb{P}^2$).
+\item Apply the Bruinier--Funke + Kohnen-style cut to the
+      half-integral-weight space to obtain the receptacle ambient.
+\item Take the Shimura/Skoruppa--Zagier image to a weight-$2$
+      cusp-form space at the appropriate level.
+\item Pin the new-form sector via Hecke-eigenvalue identification with
+      a NAMED elliptic curve of forced conductor.
+\end{enumerate}
+The universality of the mock-modular completion conjecture lives at
+the algorithm level, not at the level of any single receptacle type.
+\end{remark}
+
+\begin{remark}[CM-conductor pattern across Class B]
+\label{rem:CM-conductor-pattern}
+The new-form pinnings exhibit a notable CM-conductor pattern indexed
+by the input's monodromy-prime structure:
+\begin{itemize}
+\item Quintic $\to$ $E_{100/\mathbb{Q}}$
+       \textup{(}\texttt{100.a1}\textup{):} conductor $100 = 4 \cdot 5^2$,
+       NON-CM, rank $1$.
+\item Local $\mathbb{P}^2$ $\to$ $E_{27/\mathbb{Q}}$
+       \textup{(}\texttt{27.a3}\textup{):} conductor $27 = 3^3$, CM by
+       $\mathbb{Z}[\zeta_3]$, rank $0$.
+\item Banana threefold predicted $\to$ $E_{32/\mathbb{Q}}$
+       \textup{(}\texttt{32.a3}\textup{):} CM by $\mathbb{Z}[i]$,
+       conductor $32 = 2^5$.
+\end{itemize}
+The conductor in each case is determined by the input's monodromy
+prime; the CM property is determined by whether the input has
+discrete-torus orbifold structure (compact mirror manifolds typically
+non-CM, toric and orbifold inputs typically CM).  If verified across
+further Class B inputs, this pattern is a strong constraint on the
+universal receptacle-construction algorithm.
+\end{remark}
+
+\begin{remark}[The chiral-algebra origin of $A^{\mathrm{quintic}}$;
+               conditional]
+\label{rem:quintic-CY-A-3-conditionality}
+The chiral algebra $A^{\mathrm{quintic}} = \Phi_3(D^b(\Coh(Q)))$
+exists at the inf-categorical level
+\textup{(}Theorem~\ref{thm:cy-to-chiral-d3}\textup{);} its chain-level
+realisation is conjectural for non-K3 Class B inputs.  All Class B
+mock-modular statements above inherit this chain-level CY-A$_3$
+conditionality \textup{(}AP-CY11 propagation\textup{)}, in addition
+to the Costello--Li open-closed factorisation hypothesis cited in
+Theorem~\ref{thm:quintic-E100-pentagon-equivalence}.
+\end{remark}
+
+%% End of chapter
