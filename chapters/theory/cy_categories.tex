@@ -68,7 +68,7 @@ For a smooth projective CY manifold $X$ of complex dimension $n$ (i.e.\ $\omega_
 
 \begin{example}[Matrix factorizations]
 \label{ex:mf-cy}
-For $W \colon \mathbb{A}^n \to \mathbb{A}^1$ a polynomial with isolated singularity, the category $\MF(W)$ of matrix factorizations is CY of dimension $n - 2$ (Dyckerhoff; Orlov). For the ADE singularities in two variables ($n = 2$), $\MF(W)$ is $\CY_0$ (semisimple, with the structure of a Frobenius algebra). For threefold singularities ($n = 4$, e.g.\ $W = x_1^2 + \cdots + x_4^2$), $\MF(W)$ is $\CY_2$. The exponent $n - 2$ (not $n - 1$) records the projectivisation of the $\mathbb{G}_m$-action on $W^{-1}(0)$;.
+For $W \colon \mathbb{A}^n \to \mathbb{A}^1$ a polynomial with isolated singularity, the category $\MF(W)$ of matrix factorizations is CY of dimension $n - 2$ (Dyckerhoff; Orlov). For the ADE singularities in two variables ($n = 2$), $\MF(W)$ is $\CY_0$ (semisimple, with the structure of a Frobenius algebra). For threefold singularities ($n = 4$, e.g.\ $W = x_1^2 + \cdots + x_4^2$), $\MF(W)$ is $\CY_2$. The exponent $n - 2$ (not $n - 1$) records the projectivisation of the $\mathbb{G}_m$-action on $W^{-1}(0)$.
 \end{example}
 
 \section{Hochschild cohomology and the CY structure}
@@ -135,19 +135,24 @@ For a $K3$ surface $X$, the Hodge diamond is
 \[
  h^{0,0} = 1,\; h^{2,0} = h^{0,2} = 1,\; h^{1,1} = 20,\; h^{2,2} = 1,
 \]
-with all other entries zero. Applied to the HKR sum
-$\HH^p(D^b(\Coh(X))) = \bigoplus_{q + r = p} H^q(X, \Omega_X^{2 - r})$,
-this gives
+with all other entries zero, and $H^q(\wedge^r T_X) \simeq H^q(\Omega_X^{2-r})$ by the CY$_2$ trivialisation $\omega_X \simeq \cO_X$. Applied to the Kontsevich HKR sum
+$\HH^p(D^b(\Coh(X))) = \bigoplus_{q + r = p} H^q(X, \wedge^r T_X)$ (Theorem~\ref{thm:hkr-smooth}), the single non-vanishing summands at each total degree are
 \[
- \HH^0 \simeq H^0(\cO) \oplus H^2(T_X) \simeq k \oplus k,\quad
- \HH^1 \simeq H^1(T_X) \simeq k^{20},\quad
- \HH^2 \simeq H^0(\wedge^2 T_X) \oplus H^2(\cO) \simeq k \oplus k.
+ \HH^0 \simeq H^0(\cO_X) \simeq k, \qquad
+ \HH^1 \simeq 0,
 \]
-The total dimension is
 \[
- \dim_k \HH^\bullet(D^b(\Coh(K3))) \;=\; 2 + 20 + 2 \;=\; 24,
+ \HH^2 \simeq H^0(\wedge^2 T_X) \,\oplus\, H^1(T_X) \,\oplus\, H^2(\cO_X) \simeq k \oplus k^{20} \oplus k \simeq k^{22},
 \]
-matching the topological Euler characteristic $\chi(K3) = 24$. The Mukai pairing on $\HH^\bullet$ is the non-degenerate pairing $\langle -, - \rangle_\mathrm{Mukai}$ of Mukai~\cite{Mukai1987}; it coincides with the CY pairing produced by Definition~\ref{def:cy-category} at $d = 2$.
+\[
+ \HH^3 \simeq 0, \qquad
+ \HH^4 \simeq H^2(\wedge^2 T_X) \simeq k,
+\]
+with the $H^1(T_X) \simeq k^{20}$ summand recording the infinitesimal K3 moduli and $H^0(\wedge^2 T_X) \simeq H^2(\cO_X) \simeq k$ arising from the trivialisation of $\wedge^2 T_X \simeq \cO_X$. The total dimension is
+\[
+ \dim_k \HH^\bullet(D^b(\Coh(K3))) \;=\; 1 + 0 + 22 + 0 + 1 \;=\; 24,
+\]
+matching the topological Euler characteristic $\chi(K3) = 24$. Collapsing by cohomological row rather than total degree (the Mukai grading of C{\u a}ld{\u a}raru) instead splits this $24$ as $(1{+}1) + 20 + (1{+}1) = 2 + 20 + 2$ across the three even cohomological rows of $K3$; this is the grading used downstream in the Mukai-lattice picture, distinct from the Kontsevich HKR grading above. The Mukai pairing on $\HH^\bullet$ is the non-degenerate pairing $\langle -, - \rangle_\mathrm{Mukai}$ of Mukai~\cite{Mukai1987}; it coincides with the CY pairing produced by Definition~\ref{def:cy-category} at $d = 2$.
 \end{example}
 
 \begin{remark}[$\kappa_\mathrm{cat}$ as Hodge supertrace; comparison with $\kappa_{\mathrm{ch}}$]
@@ -189,7 +194,7 @@ A \emph{$d$-dimensional CY structure} on a smooth dg category $\cC$ is a class
 \[
  [\sigma] \in \HC^-_{d}(\cC)
 \]
-in the negative cyclic homology, whose image under the canonical map $\HC^- \to \HH$ is a non-degenerate trace $\Tr \colon \HH_d(\cC) \to k$. The lift to $\HC^-$ is essential for the $\bS^d$-framing used in Chapter~\ref{ch:cy-to-chiral};.
+in the negative cyclic homology, whose image under the canonical map $\HC^- \to \HH$ is a non-degenerate trace $\Tr \colon \HH_d(\cC) \to k$. The lift to $\HC^-$ is essential for the $\bS^d$-framing used in Chapter~\ref{ch:cy-to-chiral}.
 \end{definition}
 
 \begin{theorem}[Cyclic $\Ainf$ enhancement]
@@ -235,7 +240,7 @@ For $d = 3$, the functor $\Phi_3$ is proved by the $\infty$-categorical argument
 
 \begin{remark}[Drinfeld centre: right adjoint to forgetful, NOT averaging]
 \label{rem:cy-cat-drinfeld-center-not-averaging}
-The downstream functor $\Phi$ at $d \geq 3$ produces an $\Eone$-chiral algebra; the braided $\Etwo$-structure is recovered on the Drinfeld centre $\cZ(\Rep^{\Eone}(\Phi_3(\cC)))$ (property~\textup{(U3)} of Theorem~\textup{\ref{thm:phi-platonic}}). The Drinfeld centre is the RIGHT ADJOINT to the forgetful functor $\mathrm{BrMon} \to \mathrm{Mon}$, equivalently the categorified COMMUTANT $z(A) = \{a \in A: ab = ba\ \forall b \in A\}$. It is NOT a categorified averaging map. The averaging map $\Eone \to \Einf$ DESTROYS quantum-group data; the Drinfeld-centre passage $\Eone \to \Etwo$ CONSTRUCTS braiding via half-braidings. This distinction is structural in Vol~III: the chiral-quantum-group content of $\Phi(\cC)$ at $d \geq 3$ is preserved by the centre and lost by symmetric averaging. forbids the prose ``categorified averaging'' for $\cZ(-)$.
+The downstream functor $\Phi$ at $d \geq 3$ produces an $\Eone$-chiral algebra; the braided $\Etwo$-structure is recovered on the Drinfeld centre $\cZ(\Rep^{\Eone}(\Phi_3(\cC)))$ (property~\textup{(U3)} of Theorem~\textup{\ref{thm:phi-platonic}}). The Drinfeld centre is the RIGHT ADJOINT to the forgetful functor $\mathrm{BrMon} \to \mathrm{Mon}$, equivalently the categorified COMMUTANT $z(A) = \{a \in A: ab = ba\ \forall b \in A\}$. It is NOT a categorified averaging map. The averaging map $\Eone \to \Einf$ DESTROYS quantum-group data; the Drinfeld-centre passage $\Eone \to \Etwo$ CONSTRUCTS braiding via half-braidings. This distinction is structural in Vol~III: the chiral-quantum-group content of $\Phi(\cC)$ at $d \geq 3$ is preserved by the centre and lost by symmetric averaging. Prose such as ``categorified averaging'' for $\cZ(-)$ is therefore forbidden in this volume.
 \end{remark}
 
 \begin{remark}[What $\Phi$ does not see, and what CoHA is]
