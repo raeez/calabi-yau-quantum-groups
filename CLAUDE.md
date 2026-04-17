@@ -588,11 +588,32 @@ Status by dimension:
 
 (3) **CY-D tri-stratum theorem** (cy_d_kappa_stratification.tex thm:cy-d-tri-stratum): Three mutually-exclusive strata (odd-d Serre / strict-CY even-d / holomorphic-symplectic even-d) governed by Beauville-Bogomolov classification. The kappa_ch landscape lives entirely in even d.
 
-### Ideal seven-part structure (rearchitecture IN PROGRESS as item 5)
+### Seven-part structure (rearchitecture REALISED as item 5, LOSSLESS)
 
-Full proposal (7 parts, ~32 chapters, dependency map, structural rationale, current 5-part deltas) -> `notes/vol3_rearchitecture_proposal.tex`. Current realised length ~838pp. **No page target.** Vol III is as many pages as the mathematics demands — the inner music of the E_n hierarchy at every CY dimension, the K3 Yangian in full, the CY landscape, and the frontier programmes. A short Part is short because its content is concentrated; a long Part is long because its content demands the room. Logical dependencies: I -> II -> III -> {IV, V} -> VI -> VII; Parts IV and V are independent.
+Full proposal (7 parts, ~32 chapters, dependency map, structural rationale) -> `notes/vol3_rearchitecture_proposal.tex`. Current realised length ~838pp. **No page target.** Vol III is as many pages as the mathematics demands — the inner music of the E_n hierarchy at every CY dimension, the K3 Yangian in full, the CY landscape, and the frontier programmes. A short Part is short because its content is concentrated; a long Part is long because its content demands the room. Logical dependencies: I -> II -> III -> {IV, V} -> VI -> VII; Parts IV and V are independent.
 
-**Item 5 (chapter reshuffle) deferred per dependency analysis** (must follow items 1-12 settlement). Items 1-4, 6-12, 11a + missing M1-M6 inscribed in the 2026-04-17 rewrite-loop session. **Item 11b (Universal Trace Identity bridging-diagram construction): COMPLETE on the entire logarithmic-finite-type class** (chapters/connections/bar_cobar_bridge.tex). thm:universal-trace-identity-k3-fibered closes the K3-fibered case; thm:universal-trace-identity-non-k3-fibered closes the non-K3-fibered case via the Bruinier-Funke regularised lift (constructions a/b/c: chiral functoriality + Eisenstein-cusp-Trinity-supertrace + Borcherds-product expansion at non-unimodular Λ). The cross-volume bridging diagram closes at full structural level on signature-(b,2) Mukai gradings for b ≥ 1; the only remaining open frontier is numerical evaluation of c_γ(n) at specific X ∈ {quintic, LP², conifold} — a case-by-case modular-form computation, not a structural obstruction.
+**Realised seven-part structure** (main.tex):
+- Part I (line 523): Foundations: CY Categories and Cyclic A_inf
+- Part II (line 576): The CY-to-Chiral Functor
+- Part III (line 632): The E_n Hierarchy and Chiral Quantum Groups
+- Part IV (line 709): The K3 Yangian
+- Part V (line 794): The CY Landscape
+- Part VI (line 851): The Seven Faces of r_CY(z)
+- Part VII (line 904): Frontiers
+
+All seven Parts open with substantive prose blocks (35-63 lines each, audited 2026-04-17): Part I (40 lines, bar-cobar input/output), II (44 lines, four-step Phi construction + CY-A_2/A_3 status), III (56 lines, operadic structures + K3 path guidance), IV (63 lines, K3 family climax + six routes + kappa-spectrum), V (43 lines, horizontal survey + shadow class classification + LG/CY correspondence), VI (41 lines, seven r-matrix interpretations + Vol I-II synthesis), VII (35 lines, four open frontiers: Langlands / nonabelian / Zamolodchikov / Sp_4(Z) modularity).
+
+**Item 5 (chapter rearchitecture): REALISED LOSSLESSLY**. Items 1-4, 6-12, 11a + missing M1-M6 inscribed in the 2026-04-17 rewrite-loop session. **Item 11b (Universal Trace Identity bridging-diagram construction): COMPLETE on the entire logarithmic-finite-type class** (chapters/connections/bar_cobar_bridge.tex).
+
+Of 26 chapter assignments, 22 match the proposal exactly; 4 placements refine the proposal organically without moving any content:
+- `quantum_chiral_algebras` retained in Part II (proposal: Part III): the boundary algebra OPE + codim-2 defect mechanism is the chiral-construction ENGINE feeding Part III, so it sits with the CY-to-Chiral functor as its constructive payload.
+- `derived_categories_cy` retained in Part IV (proposal: Part V): the chapter is K3-specific (Phi_2(K3), HMS for K3) and reads naturally as the lead chapter of the K3 Yangian Part.
+- `modular_trace` retained in Part V (proposal: Part II): the chi-O-vanishes-odd-d / BKM modularity content is a CY-landscape-survey result organised by manifold class, not a CY-to-Chiral construction.
+- `k3_quantum_toroidal_chapter` retained in Part IV (proposal: Part V): K3 quantum toroidal is structurally tied to the K3 Yangian climax and reads naturally as its toroidal extension.
+
+These four refinements are intentional and were never executed as a "move" — they reflect content evolution between the 2026-April proposal draft and the realised manuscript. The realised seven-part structure is canonical; the proposal stands as the architectural rationale.
+
+**Item 11b detail**: thm:universal-trace-identity-k3-fibered closes the K3-fibered case; thm:universal-trace-identity-non-k3-fibered closes the non-K3-fibered case via the Bruinier-Funke regularised lift (constructions a/b/c: chiral functoriality + Eisenstein-cusp-Trinity-supertrace + Borcherds-product expansion at non-unimodular Λ). The cross-volume bridging diagram closes at full structural level on signature-(b,2) Mukai gradings for b ≥ 1; the only remaining open frontier is numerical evaluation of c_γ(n) at specific X ∈ {quintic, LP², conifold} — a case-by-case modular-form computation, not a structural obstruction.
 
 ### Five load-bearing open problems (updated April 2026, ~230-agent final session)
 
