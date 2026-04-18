@@ -238,7 +238,7 @@ the relative construction without $\Phi_3$.  Two are manifold invariants
  $\kappa_{\mathrm{cat}}(K3)$ & $2$ & manifold & $\chi(\cO_{K3})$ (fiber) & \textbf{Proved} (Hodge) \\
  $\kappa_{\mathrm{fiber}}$ & $24$ & manifold & Mukai lattice rank & \textbf{Proved} (lattice theory) \\
  $\kappa_{\mathrm{ch}}(K3)$ & $2$ & algebraization & $\chi(\cO_{K3})$ via $\Phi_2$ & \textbf{Proved} (CY-A$_2$) \\
- $\kappa_{\mathrm{ch}}(K3 \times E)$ & $3$ & algebraization & Additivity: $2 + 1$ & \textbf{Proved} (CY-A$_2$ + CY-A$_1$) \\
+ $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E)$ & $3$ & algebraization & Additivity: $2 + 1$ & \textbf{Proved} (CY-A$_2$ + CY-A$_1$) \\
  $\kappa_{\mathrm{BKM}}$ & $5$ & algebraization & $c(0)/2 = 10/2$ & \textbf{Proved} (Borcherds weight formula) \\
  \bottomrule
 \end{tabular}
@@ -444,12 +444,12 @@ The topological Euler characteristic $\chi_{\mathrm{top}}(K3 \times E) = \chi(K3
 \[
  \chi^{\CY}(K3 \times E) = \sum_{p,q} (-1)^{p+q} h^{p,q}(K3 \times E) \cdot (\text{weight factor}),
 \]
-which accounts for the Hodge filtration. The formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ already \emph{fails} for $E$ and K3 individually: $\chi_{\mathrm{top}}(E)/24 = 0$ but $\kappa_{\mathrm{ch}}(E) = 1$; $\chi_{\mathrm{top}}(K3)/24 = 1$ but $\kappa_{\mathrm{ch}}(K3) = 2$ (Proposition~\ref{prop:chi-kappa-discrepancy}). It also fails for $K3 \times E$ against both modular invariants:
+which accounts for the Hodge filtration. The formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ already \emph{fails} for $E$ and K3 individually: $\chi_{\mathrm{top}}(E)/24 = 0$ but $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 1$; $\chi_{\mathrm{top}}(K3)/24 = 1$ but $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3) = 2$ (Proposition~\ref{prop:chi-kappa-discrepancy}). It also fails for $K3 \times E$ against both modular invariants:
 \[
- \frac{\chi_{\mathrm{top}}(K3 \times E)}{24} = 0 \neq 3 = \kappa_{\mathrm{ch}}(K3 \times E), \qquad
+ \frac{\chi_{\mathrm{top}}(K3 \times E)}{24} = 0 \neq 3 = \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E), \qquad
  0 \neq 5 = \kappa_{\mathrm{BKM}}(K3 \times E).
 \]
-The correct chiral value $\kappa_{\mathrm{ch}} = 3$ comes from additivity ($\kappa_{\mathrm{ch}}(K3) + \kappa_{\mathrm{ch}}(E) = 2 + 1$), while $\kappa_{\mathrm{BKM}} = 5$ comes from the Borcherds lift weight $c(0)/2$ (Proposition~\ref{prop:k3e-fiber-global}). Neither is determined by the topological Euler characteristic.
+The correct chiral value $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$ comes from additivity ($\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3) + \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 2 + 1$), while $\kappa_{\mathrm{BKM}} = 5$ comes from the Borcherds lift weight $c(0)/2$ (Proposition~\ref{prop:k3e-fiber-global}). Neither is determined by the topological Euler characteristic.
 \end{warning}
 
 \noindent\textit{Verification}: 86 tests in \texttt{k3e\_coha\_structure.py} (G1 subsuite) covering $\chi/24$ vs $\kappa_{\mathrm{ch}}$ comparison for $K3$, $E$, $K3 \times E$, and all eight $X_N$ families.
@@ -500,16 +500,16 @@ The values satisfy the following relations:
  \item \textup{(Proved at $d=2$.)}  $\kappa_{\mathrm{ch}}(S) = \kappa_{\mathrm{cat}}(S) = \chi(\cO_S) = 2$.
   The identification $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ at $d = 2$ is Proposition~\textup{\ref{prop:kappa-cat-chi-cy}}.
 
- \item \textup{(Proved.)} $\kappa_{\mathrm{ch}}(E) = 1 \neq 0 = \kappa_{\mathrm{cat}}(E)$.
-  At $d = 1$, the chiral and categorical modular characteristics \emph{differ}: $\kappa_{\mathrm{ch}}(E) = \dim_\C(E) = 1$ (from the single free boson), while $\kappa_{\mathrm{cat}}(E) = \chi(\cO_E) = 1 - 1 = 0$.
+ \item \textup{(Proved.)} $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 1 \neq 0 = \kappa_{\mathrm{cat}}(E)$.
+  At $d = 1$, the chiral and categorical modular characteristics \emph{differ}: $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = \dim_\C(E) = 1$ (from the single free boson), while $\kappa_{\mathrm{cat}}(E) = \chi(\cO_E) = 1 - 1 = 0$.
 
- \item \textup{(Proved.)} $\kappa_{\mathrm{ch}}(K3 \times E) = \kappa_{\mathrm{ch}}(K3) + \kappa_{\mathrm{ch}}(E) = 2 + 1 = 3$ (additivity of the chiral modular characteristic under products).
+ \item \textup{(Proved.)} $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3) + \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 2 + 1 = 3$ (additivity of the chiral modular characteristic under products).
 
  \item \textup{(Proved.)} $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3 \times E}) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ (multiplicativity of the holomorphic Euler characteristic under products, by K\"unneth).
 
  \item \textup{(Proved.)} $\kappa_{\mathrm{BKM}}(K3 \times E) = c_f(0)/2 = 10/2 = 5$ (the Borcherds weight theorem applied to $\phi_{0,1}$, where $c_f(0) = 10$ is the discriminant-zero Fourier coefficient of $\phi_{0,1}$; the correct universal formula is $\kappa_{\mathrm{BKM}} = c(0)/2$, not any expression involving Hodge numbers directly).
 
- \item \textup{(Observation, conjectural decomposition.)} $\kappa_{\mathrm{BKM}}(K3 \times E) = \kappa_{\mathrm{ch}}(K3 \times E) + \kappa_{\mathrm{cat}}(K3) = 3 + 2 = 5$.  The second term is $\chi(\cO_S) = 2$, the holomorphic Euler characteristic of the K3 \emph{fiber} (not $\chi(\cO_{K3 \times E}) = 0$, the total space).
+ \item \textup{(Observation, conjectural decomposition.)} $\kappa_{\mathrm{BKM}}(K3 \times E) = \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) + \kappa_{\mathrm{cat}}(K3) = 3 + 2 = 5$.  The second term is $\chi(\cO_S) = 2$, the holomorphic Euler characteristic of the K3 \emph{fiber} (not $\chi(\cO_{K3 \times E}) = 0$, the total space).
 
  \item \textup{(Proved.)} The deficit $\kappa_{\mathrm{fiber}} - \kappa_{\mathrm{BKM}} = 24 - 5 = 19$ equals the codimension of the sub-lattice $\Lambda^{3,2}$ (rank~$5$) inside the Mukai lattice (rank~$24$), with the $19$ ``lost'' units corresponding to imaginary root families in $\mathfrak{g}_{\Delta_5}$ (Proposition~\textup{\ref{prop:k3e-fiber-global}}).
 \end{enumerate}
@@ -536,9 +536,9 @@ The CLAUDE.md $\kappa_\bullet$-spectrum table records ``$\kappa_{\mathrm{cat}} =
 %: subscripted throughout.
 The BCOV formula $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ holds for compact CICYs with $h^{1,0} = 0$ (e.g.\ the quintic: $\kappa_{\mathrm{ch}} = -200/24 = -25/3$) but fails for every example where $h^{1,0} \neq 0$ or the geometry is non-compact:
 \[
- \frac{\chi_{\mathrm{top}}(E)}{24} = 0 \neq 1 = \kappa_{\mathrm{ch}}(E), \qquad
- \frac{\chi_{\mathrm{top}}(K3)}{24} = 1 \neq 2 = \kappa_{\mathrm{ch}}(K3), \qquad
- \frac{\chi_{\mathrm{top}}(K3 \times E)}{24} = 0 \neq 3 = \kappa_{\mathrm{ch}}(K3 \times E).
+ \frac{\chi_{\mathrm{top}}(E)}{24} = 0 \neq 1 = \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E), \qquad
+ \frac{\chi_{\mathrm{top}}(K3)}{24} = 1 \neq 2 = \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3), \qquad
+ \frac{\chi_{\mathrm{top}}(K3 \times E)}{24} = 0 \neq 3 = \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E).
 \]
 The chiral modular characteristic $\kappa_{\mathrm{ch}}$ is a deeper invariant than $\chi_{\mathrm{top}}/24$: it detects the algebraic (chiral algebra) structure of the CY geometry, not merely the topology.
 \end{remark}
@@ -741,7 +741,7 @@ The question this raises for the CY programme is sharp: given a CY$_d$
 variety $X$, is there a \emph{canonical} construction, or do multiple
 independent constructions produce distinct chiral algebras from the
 same geometry? For $d = 1$ (elliptic curve) the question is trivial:
-$\kappa_{\mathrm{ch}}(E) = 1$ by all routes. For $d = 2$ (K3) the question is
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 1$ by rank-additivity on all Heisenberg-level presentations. For $d = 2$ (K3) the question is
 the trichotomy of this subsection. For $d = 3$ ($K3 \times E$) the question
 acquires a fourth layer: $\kappa_{\mathrm{BKM}} = 5$, the Borcherds lift weight,
 is not the modular characteristic of any of the three $d = 2$ algebras but of the

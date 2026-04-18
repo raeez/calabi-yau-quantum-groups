@@ -1234,6 +1234,67 @@ the left side is $5$ (Gritsenko $\Delta_5$, weight $5$, level $1$
 paramodular) while the right side is $0 + 0 = 0$.
 \end{remark}
 
+\begin{remark}[Gold-standard HZ-IV disjoint verification]
+\label{rem:kappa-bkm-gold-standard-paths}
+For each $N \in \{1, 2, 3, 4, 6\}$ the identity
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ is independently verified by
+three primary-source paths, each carrying out an independent computation
+at the level of the Fourier expansion, the paramodular dimension formula,
+or the Nikulin fixed-point count:
+\begin{enumerate}
+\item \textbf{Path~A (Eichler--Zagier theta-ratio).} Eichler--Zagier
+\emph{The Theory of Jacobi Forms} (1985), Theorem~9.3, supplies the
+weak Jacobi form $\phi_{0,1}$ whose Fourier expansion supplies
+$c_N(0)$ directly at each $N$ as a lattice-theta-series coefficient;
+further $N \geq 2$ data are read off Aoki--Ibukiyama 2005 and
+Gritsenko--Hulek--Sankaran \emph{Moduli of K3 surfaces} (2010).
+\item \textbf{Path~B (Gritsenko paramodular cusp form).} Gritsenko 1999
+(\emph{Arithmetical lifting and its applications}) and Gritsenko--Nikulin
+1998 (\emph{Siegel automorphic form corrections of some Lorentzian
+Kac--Moody Lie algebras}, Theorem~1.4) provide the paramodular cusp
+form dimension formula, giving the weight of $\Phi_N$ directly
+for $N \in \{1,2,3,4,6\}$; the $N = 1$ case pins
+$\mathrm{wt}(\Delta_5) = 5$.
+\item \textbf{Path~C (Nikulin involution fixed-point count).} Mukai
+1988 (\emph{Finite groups of automorphisms of K3 surfaces}) combined
+with the Nikulin 1980 symplectic automorphism classification gives
+the lattice-theoretic input for $c_N(0)$ via fixed-point counting on
+$\mathrm{K3}$ with orbifold halving, and matches the
+Conway--Norton 1979 Monster frame shapes at $N \in \{2,3\}$.
+Clery--Gritsenko 2013 and Clery--Gritsenko--Hulek 2015 close the
+$N = 4, 6$ cases by direct Borcherds-product construction.
+\end{enumerate}
+The three paths converge on the numerical values
+$(\kappa_{\mathrm{BKM}}(\Phi_1), \kappa_{\mathrm{BKM}}(\Phi_2),
+\kappa_{\mathrm{BKM}}(\Phi_3), \kappa_{\mathrm{BKM}}(\Phi_4),
+\kappa_{\mathrm{BKM}}(\Phi_6)) = (5, 4, 3, 2, 1)$ at chain level,
+without routing through a shared engine-level data table. See
+\texttt{compute/tests/test\_kappa\_bkm\_universal.py::%
+TestGoldStandardDisjointPaths} for the implementation; the
+six tests in that class exercise the three paths pairwise for
+every $N$, so any disagreement would refute the universal formula
+and expose a drift in one of the primary sources.
+\end{remark}
+
+\begin{remark}[HZ-IV decorator upgrade]
+\label{rem:kappa-bkm-hziv-decorator-upgrade}
+Before the Wave-9 propagation (2026-04-18) the HZ-IV decoration on
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ routed all five $N$ values
+through a single \texttt{FRAME\_SHAPE\_DATA} engine record in
+\texttt{compute/lib/kappa\_bkm\_universal.py}: disjointness held at
+the citation level but the verification collapsed to one arithmetic
+table. The gold-standard paths of
+Remark~\ref{rem:kappa-bkm-gold-standard-paths} upgrade this by
+performing the three computations independently --- Fourier expansion,
+paramodular dimension formula, Nikulin fixed-point count ---
+so that the engine record is demoted to a post-hoc sanity anchor.
+The upgrade has no effect on the theorem statement or its proof;
+it eliminates the residual HZ-IV-W8-C pattern of
+decorator-label-disjoint-but-computation-identical
+(\texttt{assert\_sources\_disjoint} verifies label disjointness; the
+gold-standard paths now carry computation disjointness as well).
+\end{remark}
+
 \section{Removing $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ misclaims}
 \label{sec:cy-strat-healing-sweep}
 
