@@ -15,8 +15,6 @@ the perturbative factorization homology computation.
 \section{Symplectic duality and the K3 Yangian}
 \label{sec:k3e-symplectic-duality}
 
-The K3 Yangian $Y(\mathfrak{g}_{K3})$ should be self-dual under symplectic duality, because K3 is self-mirror.  This prediction constrains the structure function, the Langlands dual parameters, and the Coulomb/Higgs branch geometry.  The purpose of this section is to formulate the self-duality conjecture precisely, extract its consequences for the $\kappa_\bullet$-spectrum, and verify the Fock-space character prediction against independent data.
-
 Symplectic duality (Braden--Licata--Proudfoot--Webster 2014; physically, 3d $\cN = 4$ mirror symmetry) exchanges Coulomb and Higgs branches of 3d $\cN = 4$ theories:
 \[
   \cM_C(T) \;\longleftrightarrow\; \cM_H(T^!),
@@ -402,7 +400,7 @@ The two cases are:
 \end{center}
 The passage from DDCA to K3 DCA replaces the algebraic surface
 $\bC^2$ (non-compact, trivial cohomology above degree~$0$) with
-a compact K3 surface (compact, rich cohomology in degree~$2$).
+a compact K3 surface (compact, $b_2 = 22$).
 The polynomial residue pairing on $\bC[u,v]$ is the local avatar
 of the Mukai pairing: both are Serre duality pairings, the first
 on the formal neighbourhood of a point in $\bC^2$, the second
@@ -1437,15 +1435,15 @@ and parameter constraints ($4$~tests).
 
 
 %% ========================================================================
-%% Adversarial analysis of the K3 Yangian
+%% Structural obstruction analysis of the K3 Yangian
 %% ========================================================================
 
-\begin{remark}[Adversarial analysis: six attack vectors against $Y(\fg_{K3})$]
+\begin{remark}[Obstruction analysis: six structural tests of $Y(\fg_{K3})$]
 \label{rem:k3-yangian-adversarial}
-We systematically test the K3 Yangian conjecture (Conjecture~\ref{conj:k3-yangian})
-against six potential obstructions.  Of the six, \textbf{two} identify
-genuine structural issues (for the non-abelian regime); \textbf{four}
-are resolved.  All six are verified computationally
+Conjecture~\ref{conj:k3-yangian} is tested against six potential
+obstructions below.  Of the six, \textbf{two} identify genuine structural
+issues confined to the non-abelian regime; the other \textbf{four} are
+resolved at the abelian $\gl_1$ level.  All six are verified computationally
 in \texttt{k3\_yangian\_adversarial.py} (31~tests).
 \begin{enumerate}[label=\textbf{A\arabic*.}, leftmargin=2.5em]
 
@@ -1572,7 +1570,7 @@ Neither issue breaks the abelian construction.
 
 \begin{warning}[K3 Yangian conjecture scoping]
 \label{warn:k3-yangian-scoping}
-The adversarial analysis (Remark~\ref{rem:k3-yangian-adversarial}) establishes
+The obstruction analysis (Remark~\ref{rem:k3-yangian-adversarial}) establishes
 that the K3 Yangian conjecture (Conjecture~\ref{conj:k3-yangian}) has
 \emph{four layers} with different logical status.  Results that invoke
 layer~(iii) (the coproduct interpretation via $K3 \times E$
@@ -1869,8 +1867,8 @@ $Y_{\osp(4 \mid 20)}$, the orthosymplectic super-Yangian of
 Arnaudon--Crampé--Doikou--Frappat--Ragoucy~\cite{AcdfR2003},
 not $Y(\fgl(4 \mid 20))$.
 
-The adversarial analysis (Remark~\ref{rem:k3-yangian-adversarial},
-Attack~A1) identifies the structural obstruction: the
+The obstruction analysis (Remark~\ref{rem:k3-yangian-adversarial},
+Test~A1) identifies the structural obstruction: the
 $\omega$-twisted permutation $P_\omega$ satisfies $P_\omega^2 =
 \omega \otimes \omega$, with $160/576$ eigenvalues equal to~$-1$
 on mixed-sign tensor directions.  This is the same $160/576$ split
@@ -2002,26 +2000,22 @@ the associative super-algebra presentation, whence
 \ClaimStatusProvedElsewhere.
 \end{definition}
 
-\begin{remark}[Naming correction]
+\begin{remark}[Signature-type discipline: orthosymplectic, not general-linear]
 \label{rem:gl-to-osp-correction}
-Earlier drafts of this programme named the K3 super-Yangian
-candidate $Y(\fgl(4 \mid 20))$.  This is a misnomer.  The Mukai
-form is \emph{symmetric indefinite}: polarisation does not
-produce a $\Z/2$-super-grading on $\Lambda_{\mathrm{Muk}}$.  What
-the signature $(4, 20)$ supplies is a polarised orthogonal
-decomposition $\Lambda_{\mathrm{Muk}} \otimes \C = V_+ \oplus V_-$
-with $\dim V_+ = 4$ and $\dim V_- = 20$, preserved by
-$\mathrm{O}(4) \times \mathrm{O}(20) \subset \mathrm{O}(4, 20)$.
-The super-Yangian attached to an orthogonal bilinear form is the
-\emph{orthosymplectic} super-Yangian $Y_{\osp(m \mid n)}$, not
-$Y(\fgl(m \mid n))$.  Formally, $\fgl(m \mid n)$ has no
-invariant bilinear form in its defining representation beyond
-the supertrace, while $\osp(m \mid n)$ is defined precisely as
-the stabiliser of such a form.  We therefore rename all
-occurrences throughout this chapter, and the computational
-framework of \texttt{k3\_super\_yangian.py}, which verifies
-super-RTT at $\gl(1 \mid 1)$ and $\gl(2 \mid 1)$, retains value
-as a small-rank warm-up but does not address the $(4, 20)$ case.
+The Mukai form $\omega_{\mathrm{Muk}}$ on $\Lambda_{\mathrm{Muk}}$ is
+\emph{symmetric indefinite}, not $\Z/2$-supersymmetric.  Polarisation
+by a K\"ahler direction produces a purely orthogonal decomposition
+$\Lambda_{\mathrm{Muk}} \otimes \C = V_+ \oplus V_-$ with
+$\dim V_+ = 4$, $\dim V_- = 20$, preserved by
+$\mathrm{O}(4) \times \mathrm{O}(20) \subset \mathrm{O}(4, 20)$.  The
+super-Yangian attached to an orthogonal bilinear form is the
+\emph{orthosymplectic} series $Y_{\osp(m \mid n)}$: $\osp(m \mid n)$
+is defined as the stabiliser of such a form, while
+$\fgl(m \mid n)$ has no invariant bilinear form on its defining
+representation beyond the supertrace.  The small-rank super-RTT
+verifications of \texttt{k3\_super\_yangian.py} at $\gl(1 \mid 1)$
+and $\gl(2 \mid 1)$ retain value as a general-linear warm-up but do
+not address the $(4, 20)$ orthosymplectic case directly.
 \end{remark}
 
 \begin{conjecture}[K3 super-Yangian]
@@ -2214,12 +2208,12 @@ of $Y_{\osp(4 \mid 20)}$, after identification of $B$- and
 $C$-blocks under the orthogonal-form involution, reduces to a
 $216 \oplus 80$ count that tracks the same-sign / mixed-sign
 split of $P_\omega^2$ (with the factor-of-two quotient
-furnished by the reflection equation).  The $\fgl$-counting
-$(416, 160)$ in the earlier draft was the over-count obtained
-by ignoring the orthogonal constraint; we retain it only as the
-small-rank $\fgl$-analogue verified in
-\texttt{k3\_super\_yangian.py}.  This is not a choice but a
-\emph{consequence} of the indefinite orthogonal pairing.
+furnished by the reflection equation).  The $\fgl(4 \mid 20)$
+count of $(416, 160)$, obtained by ignoring the orthogonal
+constraint, is strictly larger and serves only as the small-rank
+$\fgl$-analogue verified in \texttt{k3\_super\_yangian.py}.  The
+orthosymplectic reduction is not a choice but a \emph{consequence}
+of the indefinite orthogonal pairing.
 \end{remark}
 
 
@@ -3888,24 +3882,18 @@ so the K$3$-anchored fixed point is preserved by iteration with $E$ at every
 order $k$.
 \end{corollary}
 
-\begin{remark}[Structural significance: the $E$-direction collapses Drinfeld
-               coupling to antipodal flip]
+\begin{remark}[$\Delta_{X,E} = \sigma_{\mathrm{tot}}^*(M_X)$]
 \label{rem:E-direction-antipodal-collapse}
-Theorem~\ref{thm:universal-drinfeld-coupling-E} reveals a structural feature
-of the elliptic-curve direction in the $V_4$ Künneth dichotomy: the Drinfeld
-coupling $\Delta_{X, E}$ is NEVER an independent piece of data — it is
-ALWAYS the antipodal flip $\sigma_{\mathrm{tot}}^*(M_X)$ of the input matrix.
-This collapses the case~(3) Künneth dichotomy at the $E$-direction to a
-single universal correction, regardless of the specific CY input $X$.
+By Theorem~\ref{thm:universal-drinfeld-coupling-E}, the Drinfeld coupling
+$\Delta_{X, E}$ along the elliptic-curve direction of the $V_4$ Künneth
+dichotomy equals the antipodal flip $\sigma_{\mathrm{tot}}^*(M_X)$ of the
+input matrix for every $X$. The case~(3) Künneth dichotomy at the
+$E$-direction thus reduces to a single universal correction.
 
-The K$3$-anchored fixed point $M^\flat$ is then determined NOT by the
-case-by-case Drinfeld coupling computation but by the four canonical
-boundary conditions \textup{(}BKM weight, Mukai super-signature, trace
-closure, vacuum-sector vanishing\textup{)} — a clean Platonic-ideal
-characterisation that explains both EXISTENCE \textup{(}via the Cartan-
-eigenvector structure\textup{)} and UNIQUENESS \textup{(}via the four
-boundary conditions\textup{)} of the K$3$-anchored fixed point in the
-elliptic-tower iteration.
+The K$3$-anchored fixed point $M^\flat$ is then determined by four boundary
+conditions: BKM weight, Mukai super-signature, trace closure, vacuum-sector
+vanishing. Existence follows from the Cartan-eigenvector structure;
+uniqueness from the four boundary conditions.
 \end{remark}
 
 
@@ -3987,7 +3975,6 @@ follows by direct addition.
 %% trace-zero hyperplane; the BB classification feeds the eigentype +
 %% trace of M_X via per-factor Hodge support data.
 %% Engine: compute/lib/beauville_bogomolov_extension.py (48 tests).
-%% Note: notes/wave_beauville_bogomolov_universal_extension.md.
 %% ========================================================================
 
 \begin{corollary}[Beauville--Bogomolov refinement of the universal
@@ -4352,11 +4339,9 @@ formula for the elliptic-tower iteration.
 
 \begin{remark}[Structural pattern: $V_4$-character classification of CY directions]
 \label{rem:v4-character-classification-cy-directions}
-Corollary~\ref{cor:cy-direction-character-table} identifies a striking
-structural pattern: each CY direction $Y$ contributes to the universal
-Drinfeld coupling along a specific subset of the four $V_4$-characters
-$\{\chi_{++}, \chi_{+-}, \chi_{-+}, \chi_{--}\}$, classifying the CY
-factors into four phenotypic groups:
+Corollary~\ref{cor:cy-direction-character-table} classifies CY directions by
+their support on the four $V_4$-characters $\{\chi_{++}, \chi_{+-}, \chi_{-+},
+\chi_{--}\}$, producing four phenotypes:
 \begin{enumerate}[label=\textup{(\arabic*)}]
  \item \textup{(Single-character: K$3^{[n]}$)} Diagonal-only:
        $K3^{[n]}$ activates only $\chi_{++}$ \textup{(}$\alpha = n + 1$
@@ -5250,35 +5235,28 @@ for $n = 1, \ldots, 5$ and $k = 1, 2, 3$ \textup{(}$72$ tests, all
 pass\textup{).}
 \end{proof}
 
-\begin{remark}[The corrected ghost theorem]
+\begin{remark}[Algebraisation dependence: bare HK versus BKM lift]
 \label{rem:hyperkahler-bkm-ghost-theorem}
-The original \textquotedblleft universal hyperk\"ahler-anchored
-fixed-point\textquotedblright{} claim
-\textup{(}implicit in the wave that produced
-Theorem~\ref{thm:hyperkahler-elliptic-doubling}\textup{)} was wrong as
-literally stated, but it contained the \emph{ghost} of a true theorem.
-The bare HK form $M^{\mathrm{HK}}_{K3^{[n]}} = (n + 1, 0, 0, 0)$ is
-correct as a manifold invariant
-\textup{(}Bogomolov--Beauville: indecomposable holomorphic rank
-$r = 1$, $\chi(\mathcal{O}_{K3^{[n]}}) = n + 1$\textup{);} but it is the
-\emph{wrong algebraisation} for fixed-point analysis: the BKM lift of
-the K$3^{[n]}$ elliptic genus produces a genuinely different matrix
-$M^{\mathrm{BKM}}_{K3^{[n]}}$ that DOES anchor an elliptic-tower fixed
-point.  The fixed points are \emph{per-$n$}, indexed by the modular data
-of the BKM lift: there is no single universal hyperk\"ahler fixed point,
-but there is a tower $\{M^{\mathrm{BKM}, \flat}_n\}_{n \geq 1}$.
-
-This is the first-principles correction: extract the ghost
-theorem
-\textup{(}\textquotedblleft does the BKM lift restore a fixed point at
-each $n$?\textquotedblright \textup{ -- yes, per-$n$, not
-universal\textup{).}}
-The wrong statement was a \emph{universality} claim; the correct
-statement is a \emph{tower} statement.  Both share the structural insight
-that the BKM lift is the right machinery for fixed-point anchoring; they
-differ in whether the fixed points are scaled multiples
-\textup{(}they are not\textup{)} or a tower
-\textup{(}they are\textup{).}
+Two distinct algebraisations of $K3^{[n]}$ are available, and they give
+genuinely different matrices on $\mathbb{Z}[V_4]$.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The \emph{bare hyperk\"ahler} algebraisation yields
+      $M^{\mathrm{HK}}_{K3^{[n]}} = (n + 1, 0, 0, 0)$, a manifold
+      invariant reflecting the Bogomolov--Beauville decomposition
+      (indecomposable holomorphic rank $r = 1$,
+      $\chi(\mathcal{O}_{K3^{[n]}}) = n + 1$).  Iteration under
+      $E$-multiplication \emph{doubles} rather than fixes this vector.
+\item The \emph{BKM-lift} algebraisation yields a genuinely distinct
+      matrix $M^{\mathrm{BKM}}_{K3^{[n]}}$ whose off-diagonal channels
+      are non-zero.  Under $E$-multiplication it anchors a per-$n$
+      elliptic-tower fixed point with eigendata determined by the
+      modular coefficients of the lift.
+\end{enumerate}
+These are the two algebraisations of the same manifold with different
+iteration behaviour: the bare-HK regime doubles, the BKM-lift regime
+stabilises on a tower $\{M^{\mathrm{BKM}, \flat}_n\}_{n \geq 1}$ indexed
+by $n$.  A single universal hyperk\"ahler fixed point does not exist;
+the BKM lift supplies the per-$n$ tower.
 \end{remark}
 
 \begin{remark}[Connection to $\Phi_{10}$ and the second-quantised picture]
@@ -7101,7 +7079,3 @@ constructing the chiral algebra $\Phi_g(D^b(\mathrm{Coh}(C_g)))$ for
 $g \geq 2$ requires a parallel $\mathbb{P}^1$-family construction
 indexed by the genus-$g$ Pontryagin class.
 \end{remark}
-
-
-%% ========================================================================
-%% Topological string / shadow partition function comparison
