@@ -53,43 +53,6 @@
 
 \chapter{Toroidal and elliptic algebras}
 \label{chap:toroidal-elliptic}
-% Regime IV --- Programmatic (Vol~I, Convention~\ref{conv:regime-tags}).
-%
-% Wave-14 anchor cross-references (cross-volume; Vol I CLAUDE.md HOT ZONE):
-%   chap:cy-to-chiral pins the Phi-functor input. The toroidal/elliptic
-%      track of this chapter supplies the genus-1 fibre data: when the
-%      CY threefold is K3-fibered over E_tau (the K3 x E case of
-%      Chapter~\ref{ch:k3e-cy3-programme}), the Phi-output on the
-%      genus-1 base is a chiral algebra ON E_tau with the elliptic
-%      propagator d log theta_1.
-%   chap:universal-conductor: the universal Hodge-supertrace identifies
-%      kappa_BKM = c_N(0)/2 with the Borcherds weight; the elliptic
-%      shadow data of Construction~\ref{constr:elliptic-shadow-data}
-%      restrict to the K3-fibered toroidal locus where this universal
-%      formula governs.
-%
-% AP discipline guards (toroidal/elliptic specific):
-%   AP-CY32 -- spectral z != worldsheet z. The "z" in the elliptic R-matrix
-%             R(u,lambda) is the SPECTRAL parameter (rapidity); the "z" in
-%             the propagator d log theta_1(z|tau) is the WORLDSHEET point
-%             on E_tau. Both are denoted z in the literature (and below);
-%             distinguish by context.
-%   AP156 -- two wp_1 conventions: (a) theta_1'/theta_1 (used here);
-%             (b) Weierstrass zeta_W(z) = (a) + 2 eta_1 z. They have
-%             DIFFERENT monodromy. The proof of
-%             Proposition~\ref{prop:fay-implies-d-squared} below
-%             explicitly tracks the linear-term offset.
-%   FM30 -- Belavin elliptic R-matrix degenerates two-step:
-%             elliptic -> trigonometric (XXZ, Im tau -> infinity)
-%             -> rational (z -> 0). Single-step degeneration is
-%             a recurring confusion; see Theorem~\ref{thm:fay} below.
-%   FM34a -- heat equation prefactor: 1/(4 pi i) on the diagonal,
-%             1/(2 pi i) off-diagonal. Symmetric-matrix chain rule
-%             gives the factor 2; KZB connection flatness
-%             (Vol I) uses this distinction.
-%   CY condition for toroidal: q_1 q_2 q_3 = 1 leaves TWO free parameters
-%             (the (q,t) parametrisation of Definition~\ref{def:toroidal});
-%             the third parameter is determined by the CY constraint.
 
 The chiral algebras of Vols~I--II each depend on a single deformation
 parameter: the level~$k$, the central charge~$c$, or the spectral
@@ -129,7 +92,7 @@ track~(a) is developed here; track~(b) is a completion target.
 \begin{remark}[The generalization principle: Arnold to Fay]
 \label{rem:arnold-fay-generalization}
 \index{Arnold relation!Fay generalization}
-The Arnold relation (Vol~I, Theorem~\ref{thm:arnold-relations}), which governs the genus-$0$ bar differential, admits two distinct generalizations. Direction~(a): via clutching morphisms and the shadow obstruction tower $\Theta_A^{\leq r}$ (Vol~I, Definition~\ref{def:shadow-postnikov-tower}), one passes to the modular regime on stable curves, recovering the higher-genus bar complex developed in Vol~I (Vol~I, Remark~\ref{rem:five-pieces}). Direction~(b): via the Fay trisecant identity (Theorem~\ref{thm:fay}), one replaces the additive (logarithmic) propagator $\omega = dz/(z-w)$ by the elliptic (multiplicative) propagator built from the Weierstrass $\sigma$-function, entering the toroidal regime. The present chapter develops direction~(b): the systematic passage from logarithmic to elliptic propagators and its consequences for bar-cobar duality.
+The Arnold relation (Vol~I, Theorem~\ref{thm:arnold-relations}) governs the genus-$0$ bar differential on rational curves. Within track~(a) --- curve-based $\Eone$-chiral realizations --- it admits two generalization axes. The \emph{modular axis}: via clutching morphisms and the shadow obstruction tower $\Theta_A^{\leq r}$ (Vol~I, Definition~\ref{def:shadow-postnikov-tower}), one passes to higher-genus stable curves, recovering the higher-genus bar complex of Vol~I (Vol~I, Remark~\ref{rem:five-pieces}). The \emph{elliptic-propagator axis}: via the Fay trisecant identity (Theorem~\ref{thm:fay}), one replaces the additive logarithmic propagator $\omega = dz/(z-w)$ by the doubly-periodic propagator built from $\theta_1(z|\tau)$, entering the toroidal regime at fixed genus~$1$. The present chapter develops the elliptic-propagator axis; the two axes intersect at the higher-genus elliptic bar complex (a frontier target, cf.\ Remark~\ref{rem:toroidal-two-tracks}).
 \end{remark}
 
 \begin{remark}[Rational, trigonometric, elliptic: curve geometry]
@@ -173,6 +136,17 @@ Toroidal and elliptic quantum group algebras carry shadow data in the elliptic r
 \section{Double affine setup}
 \label{sec:double-affine}
 
+Affinizing $\fg$ once produces $\widehat{\fg}$ with one spectral parameter $z$
+and one level $k$. A Calabi--Yau threefold resolved by a single curve carries
+only this one loop direction; a threefold resolved by a \emph{surface}
+$\mathbb{C}^* \times \mathbb{C}^*$ carries two, and the algebra attached to
+it must be affinized twice. The second loop obstructs naive iteration: the
+horizontal and vertical currents cannot both be free because the
+Calabi--Yau constraint $q_1 q_2 q_3 = 1$ forces the product of the three
+directional weights to be trivial. Two independent parameters $(q,t)$
+survive, with $t = q^k$ encoding the second level. The toroidal algebra
+$U_{q,t}(\hat{\hat{\fg}})$ is the resulting double-loop structure.
+
 \subsection{Definition}
 
 \begin{definition}[Toroidal algebra]\label{def:toroidal}
@@ -199,8 +173,6 @@ for the complete presentation.
 \end{definition}
 
 \begin{proposition}[Toroidal OPE; \ClaimStatusProvedHere]\label{prop:toroidal-ope}
-% AP60: The derivation below is self-contained from Definition~\ref{def:toroidal};
-% the original source is \cite{FBZ04}.
 The OPE for toroidal currents involves both parameters:
 \[
 e_i(z) f_j(w) = \frac{\delta_{ij}}{(1 - q)(1 - t^{-1})} \cdot
@@ -389,18 +361,23 @@ Conjecture~\ref{conj:toroidal-koszul-dual}:
   $(q_1,q_2,q_3) \mapsto (q_1^{-1},q_2^{-1},q_3^{-1})$ (total inversion,
   preserving $q_1 q_2 q_3 = 1$).
 
-\item \emph{Affine Yangian obstruction.} The affine Yangian
-  $Y(\hat{\fgl}_1)$ is the rational degeneration $q_1 \to 1$; in this
-  limit, the three parameters collapse to two ($\epsilon_1, \epsilon_2$
-  with $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$), and the $\SL_2(\Z)$
-  degenerates to at most an $S_3$ permutation on
-  $(\epsilon_1, \epsilon_2, \epsilon_3)$, which does not lift to a
-  full algebra automorphism. The Miki automorphism is a genuinely
-  quantum-toroidal phenomenon; it requires both loops to be on equal
-  footing (cf.\ the compute engine
-  \texttt{quantum\_toroidal\_e1\_cy3.py}, which verifies $S^3 = \mathrm{id}$
-  numerically at multiple specialisations and confirms the absence of $S$
-  for the affine Yangian).
+\item \emph{Affine Yangian: triality survives, full $\SL_2(\Z)$ does not.}
+  The affine Yangian $Y(\hat{\fgl}_1)$ is the rational degeneration
+  $q_1 \to 1$; in this limit, the three parameters collapse to
+  $(\epsilon_1, \epsilon_2, \epsilon_3)$ with
+  $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$, and the infinite discrete
+  group $\SL_2(\Z)$ degenerates to the finite symmetric group $S_3$
+  permuting $(\epsilon_1, \epsilon_2, \epsilon_3)$. This $S_3$ triality
+  \emph{does} lift to algebra automorphisms of $Y(\hat{\fgl}_1)$
+  (Prochazka--Rapcak); what fails in the rational limit is the survival
+  of the $\Z$-extension of the Weyl group generated by the Miki element
+  $S$ of infinite order. The Miki automorphism is a genuinely
+  quantum-toroidal phenomenon in precisely this sense: it enhances the
+  rational $S_3$ to an $\SL_2(\Z)$ by placing both loops on equal
+  footing (the compute engine \texttt{quantum\_toroidal\_e1\_cy3.py}
+  verifies $S^3 \neq \mathrm{id}$ in $U_{q,t}$ at generic $(q,t)$,
+  confirming that $S$ is not a finite-order element of the rational
+  $S_3$ triality).
 
 \item \emph{Spectral-parameter exchange for the DDCA.} In the rational
   limit, the double deformation current algebra (DDCA) carries two
@@ -458,8 +435,8 @@ exchange of the two spectral parameters of $D(\fg)$.
 \label{rem:toroidal-three-theorems}
 \index{three theorems!toroidal}
 Conditional on Conjecture~\ref{conj:toroidal-e1}, the expected toroidal analogues of the three main theorems of Vol~I are:
-\emph{Theorem~A} (Vol~I, bar-cobar adjunction): the bar complex $\bar{B}^{\mathrm{ell}}(U_{q,t})$ is an $\Eone$-chiral coassociative coalgebra, with $d^2 = 0$ from Proposition~\ref{prop:fay-implies-d-squared}; its cohomology $H^*(\bar{B}^{\mathrm{ell}}(U_{q,t}))$ is the Koszul dual coalgebra $U_{q,t}^i$.
-\emph{Theorem~B} (Vol~I, bar-cobar inversion): $\Omega(\bar{B}(U_{q,t})) \xrightarrow{\sim} U_{q,t}$ by the rational spectral sequence with elliptic corrections (Theorem~\ref{thm:elliptic-vs-rational}).
+\emph{Theorem~A} (Vol~I, bar-cobar adjunction): the bar complex $\bar{B}^{\mathrm{ell}}(U_{q,t})$ is an $\Eone$-chiral coassociative coalgebra with $d^2 = 0$ from Proposition~\ref{prop:fay-implies-d-squared}; the Verdier chiral dual $\mathbb{D}_{\mathrm{Ran}}\bar{B}^{\mathrm{ell}}(U_{q,t}) \simeq \bar{B}^{\mathrm{ell}}(U_{q,t}^{!})$ identifies the Koszul dual algebra $U_{q,t}^{!}$.
+\emph{Theorem~B} (Vol~I, bar-cobar inversion): $\Omega\bar{B}^{\mathrm{ell}}(U_{q,t}) \xrightarrow{\sim} U_{q,t}$ by the rational spectral sequence with elliptic corrections (Theorem~\ref{thm:elliptic-vs-rational}).
 \emph{Theorem~C} (Vol~I, complementarity): $\mathrm{obs}_g(U_{q,t}) + \mathrm{obs}_g(U_{q^{-1},t^{-1}})$ controlled by $H^*$ of a framed moduli space (the $\Eone$ replacement for $\overline{\mathcal{M}}_g$; cf.\ Vol~I, Remark~\ref{rem:yangian-three-theorems}).
 The universal MC class $\Theta_{U_{q,t}}$ should govern the genus expansion, with $(q,t) \mapsto (q^{-1},t^{-1})$ reflected in Verdier duality.
 \end{remark}
@@ -488,6 +465,17 @@ correction.
 \section{Elliptic quantum groups}
 \label{sec:elliptic-quantum}
 
+The toroidal algebra acts on a double loop $\mathbb{C}^* \times \mathbb{C}^*$;
+compactifying the second loop to an elliptic curve $E_\tau$ replaces the
+trigonometric $R$-matrix by an elliptic one. The bare Yang--Baxter equation
+$R_{12} R_{13} R_{23} = R_{23} R_{13} R_{12}$ then fails: $H^1(E_\tau) = \bC^2$
+is nontrivial, so the R-matrix picks up a monodromy parameter along each
+nontrivial cycle. Felder's dynamical YBE absorbs this parameter by letting
+$R$ depend on a \emph{dynamical variable} $\lambda$ that shifts along the
+B-cycle under propagation. The result is the elliptic quantum group
+$E_{q,p}(\fg)$, in which the B-cycle monodromy of the elliptic propagator
+is promoted to an algebraic parameter.
+
 \subsection{Felder's elliptic quantum group}
 
 \begin{definition}[Elliptic quantum group]\label{def:elliptic-quantum}
@@ -513,13 +501,17 @@ a(u) & 0 & 0 & 0 \\
 0 & 0 & 0 & a(u)
 \end{pmatrix}
 \]
-where $a(u), b(u, \lambda), c(u, \lambda)$ are expressed via theta functions:
+where $\theta = \theta_1(\cdot \mid \tau)$, $\gamma \in \bC^\times$ is the \emph{Felder quantization parameter} (disambiguated from the Arnold propagator $\eta_{ij}$ and the Weierstrass quasi-period $\eta_1$; see Remark~\ref{rem:eta-to-gamma}), and the entries are
 \begin{align*}
-a(u) &= \frac{\theta(u + \eta)}{\theta(\eta)} \\
-b(u, \lambda) &= \frac{\theta(u)\theta(\lambda + \eta)}{\theta(\eta)\theta(\lambda)} \\
-c(u, \lambda) &= \frac{\theta(u + \lambda)\theta(\eta)}{\theta(\lambda)\theta(u + \eta)}
+a(u) &= \frac{\theta(u + \gamma)}{\theta(\gamma)} \\
+b(u, \lambda) &= \frac{\theta(u)\,\theta(\lambda + \gamma)}{\theta(\gamma)\,\theta(\lambda)} \\
+c(u, \lambda) &= \frac{\theta(u + \lambda)\,\theta(\gamma)}{\theta(\lambda)\,\theta(u + \gamma)}.
 \end{align*}
 \end{definition}
+
+\begin{remark}[Three symbols named \texorpdfstring{$\eta$}{eta}: disambiguation]\label{rem:eta-to-gamma}
+The Felder literature writes $\eta$ for the quantization parameter in $R(u,\lambda)$; the Arnold/Orlik--Solomon literature writes $\eta_{ij} = d\log\theta_1(z_i - z_j)$ for the propagator $1$-form; the Weierstrass literature writes $\eta_1 = \zeta_W(1/2;\Lambda_\tau)$ for the quasi-period. All three appear here. We reserve $\eta_{ij}$ for propagator $1$-forms and $\eta_1$ for the quasi-period, and rename the Felder parameter to $\gamma$. The translation $\eta^{\mathrm{Felder}} = \gamma$ is purely notational; every formula in Felder--Varchenko transports verbatim.
+\end{remark}
 
 
 \begin{remark}[Elliptic quantum groups and bar complex]
@@ -552,7 +544,7 @@ satisfies the Fay trisecant identity:
 \[
 \theta(u_1 - u_2)\,\theta(u_3 - u_4) - \theta(u_1 - u_3)\,\theta(u_2 - u_4) + \theta(u_1 - u_4)\,\theta(u_2 - u_3) = 0
 \]
-This is a \emph{bilinear} identity (each term is a product of two theta functions), which at genus~$1$ is the degenerate case of the general Fay trisecant identity on higher-genus curves. The identity is equivalent to the Riemann addition formula. The degeneration is two-step (FM30): as $\tau \to i\infty$, $\theta_1(z|\tau) \to 2\sin(\pi z)$ and the identity becomes the trigonometric Ptolemy relation $\sin(\alpha{-}\beta)\sin(\gamma{-}\delta) - \sin(\alpha{-}\gamma)\sin(\beta{-}\delta) + \sin(\alpha{-}\delta)\sin(\beta{-}\gamma) = 0$; the further limit $z \to 0$ (i.e.\ $\sin(\pi z) \to \pi z$) recovers the rational partial-fraction identity.
+This is a \emph{bilinear} identity (each term is a product of two theta functions), which at genus~$1$ is the degenerate case of the general Fay trisecant identity on higher-genus curves. The identity is equivalent to the Riemann addition formula. The degeneration is two-step: as $\tau \to i\infty$, $\theta_1(z|\tau) \to 2\sin(\pi z)$ and the identity becomes the trigonometric Ptolemy relation $\sin(\alpha{-}\beta)\sin(\gamma{-}\delta) - \sin(\alpha{-}\gamma)\sin(\beta{-}\delta) + \sin(\alpha{-}\delta)\sin(\beta{-}\gamma) = 0$; the further limit $z \to 0$ (i.e.\ $\sin(\pi z) \to \pi z$) recovers the rational partial-fraction identity.
 
 This identity underlies the Yang--Baxter equation for elliptic R-matrices:
 the star-triangle relation is a consequence of the Fay identity applied to the
@@ -793,10 +785,12 @@ admits the filtration
 = H_n(\bar{B}^{\mathrm{ell}}(\cA))
 \]
 with successive quotients $\mathcal{E}^{(k)}_n := E_\infty^{k,n}$.
-The filtration \emph{splits}: the modular weight provides a grading
-on the coefficient ring (quasi-modular forms of different weights are
-linearly independent over~$\bC$), and the $E_\infty$ terms in
-different weights cannot be related by extensions. We therefore
+The filtration \emph{splits} as graded $\bC$-vector spaces:
+the modular weight provides a grading on the coefficient ring
+$\widetilde{M}_*(\SL_2(\bZ))$ (quasi-modular forms of distinct
+even weights are linearly independent over~$\bC$), and the
+$E_\infty$ terms in different weights, viewed as ungraded $\bC$-vector
+spaces, cannot be related by extensions preserving the weight grading. We therefore
 obtain the direct sum decomposition
 $H_n(\bar{B}^{\mathrm{ell}}(\cA)) \cong H_n(\bar{B}^{\mathrm{rat}}(\cA))
 \oplus \bigoplus_{k \geq 1} \mathcal{E}^{(k)}_n(\cA, \tau)$
@@ -976,6 +970,7 @@ m_0^{\mathrm{ell}}
 1 - 24q - 72q^2 - 96q^3 - \cdots
 \bigr).
 \end{equation}
+The sign convention: we take $m_0^{\mathrm{ell}}$ to be the generator of degree-$0$ curvature in the $\Eone$-chiral bar complex, related to the degree-$2$ bar differential~\eqref{eq:ell-bar-diff-result} by the standard curved-$A_\infty$ identity $d_{\mathrm{bar}}|_{\mathrm{deg}\,2} = -m_0 \cdot (\text{vacuum pairing})$; the sign difference between~\eqref{eq:ell-bar-diff-result} and~\eqref{eq:ell-curvature} is that identity.
 At the rational limit $\tau \to i\infty$ ($q \to 0$),
 $E_2(\tau) \to 1$ and $m_0^{\mathrm{ell}} \to
 \kappa_{\mathrm{ch}}\pi^2/3$, recovering the rational curvature
@@ -1061,26 +1056,26 @@ $\B^{(k)}_n = 0$ for $k \geq n$.
 
 \begin{proof}
 \emph{Step~1 (Finite propagator expansion).}
-The elliptic bar complex at degree~$n$ involves
-$\binom{n}{2}$ propagator factors $\eta_{ij}^{\mathrm{ell}}$,
-one for each pair $(i,j)$ with $1 \leq i < j \leq n$.
-Each propagator is expanded via~\eqref{eq:zeta-laurent} as
-$\zeta_\tau(\epsilon_{ij}) = \epsilon_{ij}^{-1} + \sum_{k \geq 1}
-c_k(\tau)\,\epsilon_{ij}^{2k-1}$. The bar differential at
-degree~$n$ extracts the residue at the diagonal
-$\epsilon_{ij} = 0$; since the OPE of the Heisenberg current
-$a(z)$ has a double pole ($a(z_1)\,a(z_2) \sim
-\kappa_{\mathrm{ch}}/(z_1 - z_2)^2$), the residue at each pair involves
-at most the coefficient of $\epsilon_{ij}^{-1}$ in the
-integrand. This means the Laurent coefficient $c_k(\tau)\,
-\epsilon_{ij}^{2k-1}$ contributes to the residue only if
-$2k - 1 \leq 1$, i.e., $k \leq 1$, for each \emph{individual}
-propagator factor. However, when multiple propagator factors
-are combined in the degree-$n$ bar element ($n-1$ propagators
-appear in a degree-$n$ element), the correction terms from
-different propagator pairs may accumulate. The total correction
-order is bounded by $n-1$ (one correction per propagator),
-giving $\B^{(k)}_n = 0$ for $k \geq n$.
+A degree-$n$ bar element $[a_{m_1} | \cdots | a_{m_n}]$ carries
+$\binom{n}{2}$ pair-Wick factors $\eta_{ij}^{\mathrm{ell}}$ indexed
+by $1 \leq i < j \leq n$ (the full configuration-space propagator
+pattern). The bar differential acts by ADJACENT contraction, so
+each application of $d$ involves $n - 1$ adjacent slots
+$(i, i{+}1)$, and the correction-order filtration $\B^{(k)}_n$ is
+driven by these adjacent slots: $k$ Eisenstein corrections require
+$k$ distinct adjacent slots, bounded above by $n - 1$.
+
+Each adjacent propagator is expanded via~\eqref{eq:zeta-laurent} as
+$\zeta_\tau(\epsilon_{i,i+1}) = \epsilon_{i,i+1}^{-1} + \sum_{k \geq 1}
+c_k(\tau)\,\epsilon_{i,i+1}^{2k-1}$. The bar differential extracts
+the residue at the diagonal $\epsilon_{i,i+1} = 0$; since the OPE
+$a(z_1)\,a(z_2) \sim \kappa_{\mathrm{ch}}/(z_1 - z_2)^2$ has a
+double pole, the residue at each adjacent slot involves at most
+the $\epsilon^{-1}$ coefficient of the integrand. The Laurent
+term $c_k(\tau)\,\epsilon^{2k-1}$ therefore contributes at each
+individual slot only if $2k - 1 \leq 1$, i.e., $k \leq 1$ per slot.
+With $n - 1$ adjacent slots, the accumulated correction order is
+bounded by $n - 1$, giving $\B^{(k)}_n = 0$ for $k \geq n$.
 
 \emph{Step~2 (Eisenstein coefficient identification).}
 The correction term $\B^{(k)}_n$ arises from choosing exactly
@@ -1097,8 +1092,8 @@ spanned by monomials in $E_2, E_4, E_6$. Since the Heisenberg
 algebra is free (Gaussian), the only contributing terms are the
 \emph{single-propagator corrections} (there are no interaction
 terms between different propagator pairs), so the coefficient
-of $\B^{(k)}_n$ is precisely $c_k(\tau) = (-1)^k G_{2k+2}(\tau)
-\propto E_{2k+2}(\tau)$ for $k \geq 2$, and $c_1(\tau) \propto
+of $\B^{(k)}_n$ is precisely $c_k(\tau) = -G_{2k}(\tau)
+\propto E_{2k}(\tau)$ for $k \geq 2$, and $c_1(\tau) \propto
 E_2(\tau)$.
 
 \emph{Step~3 (Direct sum splitting).}
@@ -1114,13 +1109,9 @@ is a direct sum, not merely a filtration.
 \index{dynamical Yang--Baxter equation|textbf}
 \index{Yang--Baxter equation!dynamical}
 
-We verify the dynamical Yang--Baxter equation for the
-$\mathfrak{sl}_2$ elliptic $R$-matrix of
-Definition~\ref{def:elliptic-r}, and show that the key identity
-reduces to the Fay trisecant (Theorem~\ref{thm:fay}). The
-connection to bar nilpotency is made precise: the dynamical YBE
-encodes $d^2 = 0$ for the elliptic bar complex with dynamical
-parameter.
+What relation on a meromorphic $R(u,\lambda)$ generalises $d^2 = 0$ when the propagator lives on $E_\tau$? The ordinary YBE controls consistency of unordered double contractions in the rational bar complex; doubly-periodic propagators force the $R$-matrix to depend on a second parameter $\lambda$, and the coherence of the three-fold contraction with respect to both parameters is the dynamical YBE. The reduction we establish below is: DYBE at $(u,v,u{+}v) \in E_\tau^3$ is the Fay trisecant identity written in $R$-matrix form.
+
+Throughout this section we fix the base Lie algebra and representation: $\mathfrak{g} = \mathfrak{sl}_2$, with Cartan generator $h \in \mathfrak{h}$ acting on $V = \bC^2$ as $h = \mathrm{diag}(+1,-1)$ in the weight basis $\{v_+, v_-\}$ (so $V_{\pm 1}$ have weight $\pm 1$ under $h$). On $V^{\otimes 3}$ we write $h^{(i)}$ for the endomorphism acting as $h$ on the $i$-th tensor factor and as identity elsewhere; on each basis vector $v_{\epsilon_1}\otimes v_{\epsilon_2}\otimes v_{\epsilon_3}$ the operator $h^{(i)}$ acts by the scalar $\epsilon_i \in \{+1,-1\}$. The dynamical parameter $\lambda$ lives in $\mathfrak{h}^* \cong \bC$, dual to $h$.
 
 \subsection{The dynamical Yang--Baxter equation}
 \label{subsec:dybe-statement}
@@ -1128,7 +1119,7 @@ parameter.
 \begin{definition}[Dynamical Yang--Baxter equation]
 \label{def:dybe}
 \index{dynamical Yang--Baxter equation!definition}
-The \emph{dynamical Yang--Baxter equation} (DYBE) for an
+With $\mathfrak{g} = \mathfrak{sl}_2$, $V = \bC^2$, $h \in \mathfrak{h}$ and $h^{(i)}$ as above, the \emph{dynamical Yang--Baxter equation} (DYBE) for an
 $R$-matrix $R(u, \lambda) \in \mathrm{End}(V \otimes V)$
 depending on spectral parameter $u$ and dynamical parameter
 $\lambda \in \mathfrak{h}^*$ is:
@@ -1162,13 +1153,13 @@ a(u) & 0 & 0 & 0 \\
 0 & 0 & 0 & a(u)
 \end{pmatrix}
 \end{equation}
-with $a(u) = \theta(u+\eta)/\theta(\eta)$,
-$b(u,\lambda) = \theta(u)\theta(\lambda+\eta)/\allowbreak
-(\theta(\eta)\theta(\lambda))$, and
-$c(u,\lambda) = \theta(u+\lambda)\theta(\eta)/\allowbreak
-(\theta(\lambda)\theta(u+\eta))$
+with $a(u) = \theta(u+\gamma)/\theta(\gamma)$,
+$b(u,\lambda) = \theta(u)\,\theta(\lambda+\gamma)/\allowbreak
+(\theta(\gamma)\,\theta(\lambda))$, and
+$c(u,\lambda) = \theta(u+\lambda)\,\theta(\gamma)/\allowbreak
+(\theta(\lambda)\,\theta(u+\gamma))$
 (the entries from Definition~\ref{def:elliptic-r},
-abbreviated here as $\theta = \theta(\cdot\,|\,\tau)$).
+abbreviated here as $\theta = \theta_1(\cdot\,|\,\tau)$; $\gamma$ is the Felder quantization parameter per Remark~\ref{rem:eta-to-gamma}).
 
 \begin{computation}[Matrix entries of the DYBE]
 \label{comp:dybe-matrix-entries}
@@ -1209,33 +1200,33 @@ c(v,{-}\lambda{+}1)\,c(u{+}v,\lambda)\,a(u).
 Substituting the theta-function expressions and writing
 $[x] := \theta(x|\tau)$ gives
 \begin{align}\label{eq:dybe-11-theta}
-&\frac{[u{+}\eta]}{[\eta]}\cdot
-\frac{[u{+}v][\lambda{-}1{+}\eta]}{[\eta][\lambda{-}1]}
+&\frac{[u{+}\gamma]}{[\gamma]}\cdot
+\frac{[u{+}v][\lambda{-}1{+}\gamma]}{[\gamma][\lambda{-}1]}
 \cdot
-\frac{[v][\lambda{+}\eta]}{[\eta][\lambda]}
+\frac{[v][\lambda{+}\gamma]}{[\gamma][\lambda]}
 \;+\;
-\frac{[u][\lambda{+}\eta]}{[\eta][\lambda]}
+\frac{[u][\lambda{+}\gamma]}{[\gamma][\lambda]}
 \cdot
-\frac{[u{+}v{+}\lambda{-}1][\eta]}{[\lambda{-}1][u{+}v{+}\eta]}
+\frac{[u{+}v{+}\lambda{-}1][\gamma]}{[\lambda{-}1][u{+}v{+}\gamma]}
 \cdot
-\frac{[v{-}\lambda][\eta]}{[-\lambda][v{+}\eta]} \notag \\
+\frac{[v{-}\lambda][\gamma]}{[-\lambda][v{+}\gamma]} \notag \\
 &\quad =\;
-\frac{[v][\lambda{-}1{+}\eta]}{[\eta][\lambda{-}1]}
+\frac{[v][\lambda{-}1{+}\gamma]}{[\gamma][\lambda{-}1]}
 \cdot
-\frac{[u{+}v][\lambda{+}\eta]}{[\eta][\lambda]}
+\frac{[u{+}v][\lambda{+}\gamma]}{[\gamma][\lambda]}
 \cdot
-\frac{[u{+}\eta]}{[\eta]} \;+\;
-\frac{[v{-}\lambda{+}1][\eta]}{[-\lambda{+}1][v{+}\eta]}
+\frac{[u{+}\gamma]}{[\gamma]} \;+\;
+\frac{[v{-}\lambda{+}1][\gamma]}{[-\lambda{+}1][v{+}\gamma]}
 \cdot
-\frac{[u{+}v{+}\lambda][\eta]}{[\lambda][u{+}v{+}\eta]}
+\frac{[u{+}v{+}\lambda][\gamma]}{[\lambda][u{+}v{+}\gamma]}
 \cdot
-\frac{[u{+}\eta]}{[\eta]}.
+\frac{[u{+}\gamma]}{[\gamma]}.
 \end{align}
-After cancelling common factors $[u{+}\eta]/([\eta]^3\,[\lambda]\,
+After cancelling common factors $[u{+}\gamma]/([\gamma]^3\,[\lambda]\,
 [\lambda{-}1])$ from both sides and clearing denominators, the
 equation reduces to an identity among products of theta functions
 evaluated at the six arguments $\{u, v, u{+}v, \lambda,
-\lambda{+}\eta, \lambda{-}1{+}\eta\}$.
+\lambda{+}\gamma, \lambda{-}1{+}\gamma\}$.
 \end{computation}
 
 \begin{proposition}[DYBE reduces to Fay; \ClaimStatusProvedHere]
@@ -1257,7 +1248,7 @@ factors, to an identity of the form
 + \theta(a{-}d)\,\theta(b{-}c) = 0
 \end{equation}
 for appropriate specializations of $a, b, c, d$ depending
-on $u, v, \lambda, \eta$.
+on $u, v, \lambda, \gamma$.
 \item The remaining components (mixing weight-$1$ and
 weight-$(-1)$ sectors) follow from~(i) and the
 quasi-periodicity $\theta(z+1|\tau) = -\theta(z|\tau)$,
@@ -1270,28 +1261,28 @@ $\theta(z+\tau|\tau) = -e^{-\pi i\tau - 2\pi i z}\theta(z|\tau)$.
 The $(1,2)$-entry of the DYBE on the weight-$1$ subspace
 (the matrix element for $v_{++-} \to v_{+-+}$) yields,
 after clearing the common denominator
-$[\eta]^3\,[\lambda]\,[\lambda{-}1]\,[u{+}\eta]\,[v{+}\eta]\,
-[u{+}v{+}\eta]$:
+$[\gamma]^3\,[\lambda]\,[\lambda{-}1]\,[u{+}\gamma]\,[v{+}\gamma]\,
+[u{+}v{+}\gamma]$:
 \begin{align}\label{eq:dybe-12-reduced}
-&[u{+}\eta]\,[v]\,[u{+}v{+}\lambda{-}1]
-- [u]\,[v{+}\eta]\,[u{+}v{+}\lambda{-}1] \notag \\
-&\qquad + [u{+}v{+}\eta]\,[\lambda{-}1]\,
+&[u{+}\gamma]\,[v]\,[u{+}v{+}\lambda{-}1]
+- [u]\,[v{+}\gamma]\,[u{+}v{+}\lambda{-}1] \notag \\
+&\qquad + [u{+}v{+}\gamma]\,[\lambda{-}1]\,
 \bigl([u{+}\lambda]\,[v] - [v{+}\lambda]\,[u]\bigr)
 \;=\; 0.
 \end{align}
 We apply the Fay identity (Theorem~\ref{thm:fay})
-with the specialization $u_1 = 0$, $u_2 = u + \eta$,
-$u_3 = v + \eta$, $u_4 = u + v + \lambda$:
+with the specialization $u_1 = 0$, $u_2 = u + \gamma$,
+$u_3 = v + \gamma$, $u_4 = u + v + \lambda$:
 \begin{align}
-&\theta(u{+}\eta)\,\theta(v{+}\eta - u - v - \lambda)
-- \theta(v{+}\eta)\,\theta(u{+}\eta - u - v - \lambda) \notag \\
-&\qquad + \theta(u{+}v{+}\lambda)\,\theta(v{+}\eta - u - \eta)
+&\theta(u{+}\gamma)\,\theta(v{+}\gamma - u - v - \lambda)
+- \theta(v{+}\gamma)\,\theta(u{+}\gamma - u - v - \lambda) \notag \\
+&\qquad + \theta(u{+}v{+}\lambda)\,\theta(v{+}\gamma - u - \gamma)
 = 0.
 \end{align}
 Using $\theta(-x) = -\theta(x)$, this simplifies to:
 \[
-\theta(u{+}\eta)\,\theta(\lambda{-}v)
-- \theta(v{+}\eta)\,\theta(\lambda{-}u)
+\theta(u{+}\gamma)\,\theta(\lambda{-}v)
+- \theta(v{+}\gamma)\,\theta(\lambda{-}u)
 + \theta(u{+}v{+}\lambda)\,\theta(v{-}u) = 0,
 \]
 which is the content of~\eqref{eq:dybe-12-reduced}
@@ -1309,9 +1300,9 @@ Each reduces to the same Fay identity with permuted arguments.
 \emph{Step~3 (Quasi-periodicity).}
 The elliptic $R$-matrix entries $a(u), b(u,\lambda), c(u,\lambda)$
 are meromorphic on $E_\tau \times E_\tau$ with simple poles at the
-zeros of $\theta(\eta)$ and $\theta(\lambda)$. The DYBE
+zeros of $\theta(\gamma)$ and $\theta(\lambda)$. The DYBE
 relates values at $\lambda$, $\lambda - h^{(1)}$, $\lambda - h^{(2)}$,
-$\lambda - h^{(3)}$ where $h^{(i)} \in \{+1, -1\}$; the
+$\lambda - h^{(3)}$ where $h^{(i)} \in \{+1, -1\}$ are the $\mathfrak{sl}_2$ weights on $V = \bC^2$ (with $h \in \mathfrak{h}$ the Cartan generator acting as $\mathrm{diag}(+1,-1)$); the
 quasi-periodicity of $\theta$ ensures that these $\lambda$-shifts
 are compatible with the lattice $\bZ + \tau\bZ$ acting on $\lambda$.
 \end{proof}
@@ -1325,9 +1316,7 @@ Specifically, the bar complex
 $\B^{\mathrm{ell}}(E_{q,p}(\mathfrak{sl}_2))$
 of the elliptic quantum group
 \textup{(}Definition~\textup{\ref{def:elliptic-quantum})}
-satisfies $d^2 = 0$ on
-$\overline{C}_3(E_\tau)$ if and only if the $R$-matrix
-$R(u,\lambda)$ satisfies the DYBE.
+satisfies $d^2 = 0$ on $\overline{C}_3(E_\tau)$ whenever the $R$-matrix $R(u,\lambda)$ satisfies the DYBE. Conversely, if $R(u,\lambda)$ is a generic $R$-matrix of the Felder family \textup{(}Definition~\textup{\ref{def:elliptic-r})}\textup{,} then $d^2 = 0$ forces the DYBE on the $3 \times 3$ block of non-trivial weight entries.
 \end{proposition}
 
 \begin{proof}
@@ -1340,30 +1329,30 @@ R_{ij,km}(u{-}v,\lambda)\,L_{ml}(v)
 - L_{km}(v)\,R_{mj,il}(u{-}v,\lambda)
 \bigr) \otimes \eta_{12}^{\mathrm{ell}} \wedge \eta_{23}^{\mathrm{ell}}.
 \]
-The computation of $d^2$ on a degree-$1$ element
-$[L_{ij}(u)] \otimes 1$ produces terms on
-$\overline{C}_3(E_\tau)$ involving the product of three
-$R$-matrices. The nine terms (three pairs of propagators,
-each contributing three matrix products) rearrange into
-the left-hand side minus the right-hand side of
-the DYBE~\eqref{eq:dybe}, exactly as in the rational case
-where the Yang--Baxter equation implies $d^2 = 0$
-for the Yangian bar complex
-(Vol~I, proof of Theorem~\ref{thm:yangian-bar-rtt}).
-The only modification is the replacement of the rational
-propagator $\eta_{ij} = d\log(z_i - z_j)$ by the elliptic
-propagator $\eta_{ij}^{\mathrm{ell}}
-= d\log\theta_1(z_i - z_j|\tau)$, and the introduction
-of the dynamical shifts $\lambda \to \lambda - h^{(i)}$
-arising from the $B$-cycle monodromy of
-$\eta^{\mathrm{ell}}_{ij}$ around $E_\tau$
+
+\emph{DYBE $\Rightarrow d^2 = 0$.} Applying $d$ to a degree-$1$ element
+$[L_{ij}(u)] \otimes 1$ and contracting across three pairs of
+propagators produces nine matrix-product terms on $\overline{C}_3(E_\tau)$:
+three from the ordered contractions $(12)(23)$, three from $(23)(31)$,
+three from $(31)(12)$. Under the elliptic Arnold relation $\eta_{12} \wedge \eta_{23}
++ \eta_{23} \wedge \eta_{31} + \eta_{31} \wedge \eta_{12} = 0$
+(Proposition~\ref{prop:fay-implies-d-squared}), the nine terms
+group into a single expression of the schematic form
+$\mathrm{LHS}_{\mathrm{DYBE}}(u,v,\lambda) - \mathrm{RHS}_{\mathrm{DYBE}}(u,v,\lambda)$,
+tensored with $\eta_{12}^{\mathrm{ell}} \wedge \eta_{23}^{\mathrm{ell}}$.
+The dynamical shifts $\lambda \to \lambda - h^{(i)}$ arise from the $B$-cycle
+monodromy of $\eta^{\mathrm{ell}}_{ij}$ around $E_\tau$
 (cf.\ Remark~\ref{rem:elliptic-qg-bar}(ii)).
-The elliptic Arnold relation~\eqref{eq:elliptic-arnold}
-(Proposition~\ref{prop:fay-implies-d-squared}) ensures that
-the propagator-level identity $\eta_{12} \wedge \eta_{23}
-+ \eta_{23} \wedge \eta_{31} + \eta_{31} \wedge \eta_{12}
-= 0$ holds, so the algebraic content of $d^2 = 0$ is
-precisely the DYBE.
+Thus DYBE implies this expression vanishes, giving $d^2 = 0$.
+
+\emph{$d^2 = 0 \Rightarrow$ DYBE.} For a generic $R(u,\lambda)$ in the
+Felder family the assignment $R \mapsto (\mathrm{LHS} - \mathrm{RHS})_{\mathrm{DYBE}}$
+is injective on the nine entries of the weight-$1$ block (the Felder
+family is parametrised by $(\gamma, \tau, \lambda)$ and the three scalar
+entries $a, b, c$ are linearly independent as functions of these parameters,
+so distinct Felder $R$-matrices produce distinct DYBE-deviations).
+The coefficient of $\eta_{12}^{\mathrm{ell}} \wedge \eta_{23}^{\mathrm{ell}}$
+in $d^2([L_{ij}(u)])$ is precisely this DYBE-deviation; $d^2 = 0$ forces it to zero.
 \end{proof}
 
 
@@ -1372,17 +1361,27 @@ precisely the DYBE.
 \index{shuffle algebra|textbf}
 \index{toroidal algebra!shuffle presentation}
 
+The Drinfeld presentation writes $U_{q,t}(\hat{\hat{\fg}})$ by generators and
+relations, with the relations encoded in the elliptic $R$-matrix. Computing
+inside this presentation means reducing words modulo Serre and RLL, which
+is intractable beyond the lowest modes. The shuffle algebra linearises the
+problem: it replaces the generators-and-relations presentation by a
+function-theoretic one on the symmetric algebra
+$\bigoplus_n \bC(z_1,\ldots,z_n)^{S_n}$, with the elliptic structure
+function $\xi(u) = \theta(u+\gamma)/\theta(u)$ absorbed into the product
+rule (the symbol $\xi$ disambiguates the shuffle structure function from the log-derivative $\zeta_\tau$ and the Weierstrass $\zeta_W$ used in \S\ref{sec:elliptic-bar-heisenberg}; $\gamma$ is the Felder quantization parameter of Remark~\ref{rem:eta-to-gamma}). Under residue duality the shuffle product on $\cS_n$ pairs with the deshuffle coproduct on $\B_n(\cA)$ of Vol~I, so shuffle computations are bar computations transported to the function-theoretic side.
+
 \subsection{Definition of the shuffle algebra}
 \label{subsec:shuffle-def}
 
 \begin{definition}[Shuffle algebra]\label{def:shuffle-algebra}
 \index{shuffle algebra!definition}
-Let $\zeta(u) = \theta(u+\eta)/\theta(u)$ be the structure function
-determined by the elliptic $R$-matrix.
-The \emph{shuffle algebra} $\mathcal{S}_\zeta$ is the $\bZ_{\geq 0}$-graded
+Let $\xi(u) = \theta(u+\gamma)/\theta(u)$ be the structure function
+determined by the elliptic $R$-matrix (Definition~\ref{def:elliptic-r}; the $a(u)$ entry up to the normalisation $1/\theta(\gamma)$).
+The \emph{shuffle algebra} $\mathcal{S}_\xi$ is the $\bZ_{\geq 0}$-graded
 vector space
 \[
-\mathcal{S}_\zeta = \bigoplus_{n \geq 0} \mathcal{S}_n, \quad
+\mathcal{S}_\xi = \bigoplus_{n \geq 0} \mathcal{S}_n, \quad
 \mathcal{S}_n = \bC(z_1, \ldots, z_n)^{S_n}_{\mathrm{sym}}
 \]
 (symmetric rational functions in $n$ variables), equipped with
@@ -1393,7 +1392,7 @@ $f \star g \in \mathcal{S}_{m+n}$ by
 (f \star g)(z_1, \ldots, z_{m+n})
 = \frac{1}{m!\,n!} \sum_{\sigma \in S_{m+n}}
 \prod_{\substack{i \leq m \\ j > m}}
-\zeta(z_{\sigma(i)} - z_{\sigma(j)}) \\
+\xi(z_{\sigma(i)} - z_{\sigma(j)}) \\
 \cdot\, f(z_{\sigma(1)}, \ldots, z_{\sigma(m)})
 \cdot g(z_{\sigma(m+1)}, \ldots, z_{\sigma(m+n)}).
 \end{multline}
@@ -1407,12 +1406,12 @@ sum restricted to shuffles.
 The shuffle algebra was introduced by
 Feigin--Odesskii in the rational and
 trigonometric cases and extended to the elliptic case by
-Schiffmann--Vasserot~\cite{SV13} and Negut.
-The rational specialization $\zeta(u) = (u+\eta)/u$
+Schiffmann--Vasserot~\cite{SV13} and by Negu\c{t}~\cite{Neg14}.
+The rational specialization $\xi(u) = (u+\gamma)/u$
 recovers the Feigin--Odesskii shuffle realization of the
 Yangian; the trigonometric specialization
-$\zeta(u) = (1 - q e^{2\pi i u})/(1 - e^{2\pi i u})$
-recovers the quantum affine algebra.
+$\xi(u) = (1 - q e^{2\pi i u})/(1 - e^{2\pi i u})$
+recovers the quantum affine algebra. We distinguish this shuffle-algebra appearance of Schiffmann--Vasserot from the cohomological Hall algebra SV theorem $H^{\mathrm{CoHA}}(\bC^3) \cong Y^+(\widehat{\mathfrak{gl}}_1)$ (positive half only; the full affine Yangian is the Drinfeld double): the shuffle algebra linearises the generators-and-relations side, while CoHA linearises the moduli-of-sheaves side.
 \end{remark}
 
 \subsection{Explicit shuffle products}
@@ -1420,21 +1419,22 @@ recovers the quantum affine algebra.
 
 \begin{computation}[First generators]\label{comp:shuffle-generators}
 \index{shuffle algebra!explicit products}
-Let $e_1 = 1 \in \mathcal{S}_1 = \bC(z)$. By the Fay identity (Theorem~\ref{thm:fay}) and oddness of $\theta$:
+Let $e_1 = 1 \in \mathcal{S}_1 = \bC(z)$. Writing $\xi(u) := \theta(u+\gamma)/\theta(u)$ for the elliptic structure function and applying oddness of $\theta$ to $\xi(-z_{12}) = \theta(\gamma - z_{12})/\theta(-z_{12}) = -\theta(\gamma - z_{12})/\theta(z_{12})$:
 \begin{equation}\label{eq:e1e1-result}
 (e_1 \star e_1)(z_1, z_2)
-= \frac{\theta(z_{12}+\eta) + \theta(\eta-z_{12})}
+= \xi(z_{12}) + \xi(-z_{12})
+= \frac{\theta(z_{12}+\gamma) - \theta(\gamma - z_{12})}
 {\theta(z_{12})},
 \end{equation}
-where $z_{12} = z_1 - z_2$. The triple product is
+where $z_{12} = z_1 - z_2$ and $\gamma$ is the quantization parameter (see Remark~\ref{rem:eta-to-gamma}). The triple product is
 \begin{equation}\label{eq:shuffle-e1e1e1}
 (e_1 \star e_1 \star e_1)(z_1, z_2, z_3)
 = \sum_{\sigma \in S_3}
-\zeta(z_{\sigma(1)} - z_{\sigma(2)})\,
-\zeta(z_{\sigma(1)} - z_{\sigma(3)})\,
-\zeta(z_{\sigma(2)} - z_{\sigma(3)}).
+\xi(z_{\sigma(1)} - z_{\sigma(2)})\,
+\xi(z_{\sigma(1)} - z_{\sigma(3)})\,
+\xi(z_{\sigma(2)} - z_{\sigma(3)}).
 \end{equation}
-Associativity follows from the Yang--Baxter equation for $\zeta$.
+Associativity follows from the Yang--Baxter equation for $\xi$ (equivalent, by the Fay identity, to the DYBE of Proposition~\ref{prop:dybe-reduces-to-fay} restricted to the diagonal entry).
 \end{computation}
 
 \begin{remark}[Shuffle--bar isomorphism]\label{rem:shuffle-bar}
@@ -1475,7 +1475,7 @@ The residue pairing gives an isomorphism $\mathcal{S}_n \cong \B_n(\cA)^*$ under
 \textbf{$R$-matrix}
 & $1 - \hbar P/u$
 & $(q{-}q^{-1})/(u{-}u^{-1})$
-& $\theta(u{+}\eta)/\theta(\eta)$ \\
+& $\theta(u{+}\gamma)/\theta(\gamma)$ \\
 \hline
 \textbf{Arnold id.}
 & $\eta_{12}\!\wedge\!\eta_{23} + \text{cyc} = 0$
@@ -1493,9 +1493,9 @@ The residue pairing gives an isomorphism $\mathcal{S}_n \cong \B_n(\cA)^*$ under
 & $U_{q^{-1},t^{-1}}(\hat{\hat{\fg}})$ (conj.) \\
 \hline
 \textbf{Struct.\ fn.}
-& $(u{+}\eta)/u$
+& $(u{+}\gamma)/u$
 & $(1{-}qe^u)/(1{-}e^u)$
-& $\theta(u{+}\eta)/\theta(u)$ \\
+& $\theta(u{+}\gamma)/\theta(u)$ \\
 \hline
 \textbf{Shuffle alg.}
 & Feigin--Odesskii
@@ -1536,33 +1536,20 @@ As $\tau \to i\infty$, $\theta_1(z|\tau) \to 2\sin(\pi z)$ and the Eisenstein co
 \label{subsec:bridge-shared-E}
 \index{elliptic curve!shared geometry bridge}
 
-\begin{remark}[Bridge: algebras on $E$ and algebras from $K3 \times E$]
+\begin{remark}[Bridge: algebras \emph{on} $E_\tau$ and algebras \emph{from} $K3 \times E$, heuristic]
 \label{rem:bridge-shared-E}
-The elliptic curve $E_\tau$ enters the remainder of this chapter in a second
-capacity. The preceding sections study chiral algebras \emph{on} $E_\tau$:
-the propagator $d\log\theta_1(z|\tau)$, the Eisenstein corrections to
-the bar differential, the toroidal algebra $U_{q,t}(\hat{\hat{\mathfrak{g}}})$
-with $\tau = \log t / \log q$, and Felder's elliptic $R$-matrix
-$R(u,\lambda)$ built from the same theta function.
-The K3 chiral algebra $\cA_{K3}$ (\S\ref{sec:k3-chiral-algebra}) lives on a K3~surface, but
-the Calabi--Yau threefold $K3 \times E$ (\S\ref{sec:k3xe-geometry}) is fibered
-\emph{over} $E$, and Costello--Li's holomorphic twist reduction along K3
-produces a boundary chiral algebra $A_E$ \emph{on} $E_\tau$ with
-$c(A_E) = \chi(K3) = 24$ free bosons from harmonic forms on K3
-(Construction~\ref{constr:costello-li-k3xe}).
+The elliptic curve $E_\tau$ enters this chapter in two distinct capacities, and this remark is the bridge from the first to the second. The preceding sections studied chiral algebras \emph{on} $E_\tau$: the propagator $d\log\theta_1(z|\tau)$, the Eisenstein corrections to the bar differential (Theorem~\ref{thm:elliptic-vs-rational}), the toroidal algebra $U_{q,t}(\hat{\hat{\mathfrak{g}}})$ with $\tau = \log t / \log q$ (Conjecture~\ref{conj:toroidal-e1}), and Felder's elliptic $R$-matrix $R(u,\lambda)$ built from the same theta function (Definition~\ref{def:elliptic-r}).
 
-Thus: the toroidal and elliptic quantum group algebras, and
-the Costello--Li boundary algebra $A_E$, are all chiral
-algebras on the \emph{same} curve $E_\tau$. They share the propagator
-$d\log\theta_1$, the Fay trisecant relation governing $d^2 = 0$
-(Proposition~\ref{prop:fay-implies-d-squared}), and the Eisenstein
-filtration of the elliptic bar complex
-(Theorem~\ref{thm:elliptic-vs-rational}).
-The difference is the algebra: $A_E$ has $24$~generators
-with $\kappa_{\mathrm{ch}}(A_E) = 24$ (rank of the free-boson lattice)
-and shadow class~G (Gaussian, $r_{\max} = 2$), while
-$E_{q,p}(\mathfrak{sl}_N)$ has $N^2 - 1$~generators with
-dynamical parameter $\lambda \in \mathfrak{h}^*$.
+The next chapter studies a Calabi--Yau threefold $K3 \times E$: a K3 surface times the same elliptic curve. If Costello--Li's holomorphic twist reduction along K3 produces, via factorization homology, a boundary chiral algebra $A_E$ \emph{on} $E_\tau$ (a forthcoming construction; see Construction~\ref{constr:costello-li-k3xe}), then on the rank-$24$ Heisenberg hypothesis we would have by AP1 that $c(A_E) = \kappa_{\mathrm{ch}}(A_E) = 24$, a single scalar readable either as the Virasoro central charge or as the Mukai-lattice rank $\chi(K3) = b_0 + b_2 + b_4 = 24$. These are one fact, not two. Both the existence of $A_E$ and the Heisenberg reduction are conjectural at d=3; we therefore state the identification as a heuristic bridge, not a theorem.
+
+The structural payoff, if the bridge holds: the toroidal algebras $U_{q,t}(\hat{\hat{\mathfrak{g}}})$, Felder's elliptic $E_{q,p}(\mathfrak{g})$, and the conjectural Costello--Li boundary $A_E$ are all chiral algebras on the same curve $E_\tau$, sharing the propagator $d\log\theta_1$, the Fay-controlled differential (Proposition~\ref{prop:fay-implies-d-squared}), and the Eisenstein filtration of the bar complex. They differ in the target algebra: $A_E$ would have $24$ free-boson generators and shadow class~G ($r_{\max} = 2$); $E_{q,p}(\mathfrak{sl}_N)$ has $N^2 - 1$ generators and a dynamical parameter $\lambda \in \mathfrak{h}^*$.
 \end{remark}
+
+\subsection{Summary}
+\label{subsec:toroidal-elliptic-summary}
+
+Three chiral algebras on $E_\tau$ share one differential. The propagator $d\log\theta_1(z|\tau)$, the Fay trisecant identity, and the Eisenstein filtration of the bar complex assemble into a single $\Eone$-chiral package; into this package the quantum toroidal $U_{q,t}(\hat{\hat{\mathfrak{g}}})$ (Conjecture~\ref{conj:toroidal-e1}), the Felder dynamical $E_{q,p}(\mathfrak{g})$ (Proposition~\ref{prop:dybe-reduces-to-fay}, Proposition~\ref{prop:dybe-bar-nilpotency}), and the elliptic shuffle algebra (Proposition~\ref{prop:shuffle-associativity}) fit as three faces of the same elliptic chiral structure. The Koszul-dual pairing $(q,t) \leftrightarrow (q^{-1},t^{-1})$ inverts orientation on $E_\tau$ via $\tau \mapsto -\tau$, the elliptic shadow of the Verdier chiral duality $\mathbb{D}_{\mathrm{Ran}}\bar{B}(A) \simeq \bar{B}(A^!)$.
+
+What this forces. If the Costello--Li reduction of the $K3 \times E$ twist lands in the same $\Eone$-chiral package on $E_\tau$ --- with rank-$24$ Heisenberg target on the Mukai lattice --- then the boundary algebra $A_E$ inherits a Fay-controlled bar differential with central charge $\kappa_{\mathrm{ch}}(A_E) = 24$, and the $K3 \times E$ chapter becomes a computation within the framework assembled here rather than a construction from scratch. The next chapter makes this reduction precise.
 
 
