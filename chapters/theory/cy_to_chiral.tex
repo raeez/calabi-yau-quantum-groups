@@ -3533,37 +3533,68 @@ The arc space interpretation is unconditional at $d = 2$ (CY-A$_2$ proved).  At 
 \subsection{Categorical DT moduli from the bar complex}
 \label{subsec:categorical-dt-bar}
 
-The numerical DT invariants $\Omega(\gamma)$ are recovered as bar complex Euler characteristics (Conjecture~\ref{conj:shadow-bps-dt}). A stronger statement organises the bar complex itself into categorical DT moduli: the charge-graded bar space $B_\gamma(A_\cC)$ categorifies the DT moduli space at charge~$\gamma$. Five levels of categorification are distinguished:
-\begin{center}
-\renewcommand{\arraystretch}{1.2}
-\begin{tabular}{llll}
-\toprule
-\textbf{Level} & \textbf{Object} & \textbf{Decategorification} & \textbf{Status} \\
-\midrule
-$0$ & $\Omega(\gamma) = \chi(B_\gamma)$ & --- & Proved ($d \leq 2$, toric $d = 3$) \\
-$1$ & $H^*(B_\gamma)$ (BPS cohomology) & $\chi = \Omega(\gamma)$ & Proved ($\C^3$, K3) \\
-$2$ & $D^b(B_\gamma)$ (derived category) & $K_0 \to \Omega$ & Proved ($d = 2$) \\
-$3$ & $[B_\gamma^{\mathrm{mot}}] \in K_0(\mathrm{Var}/\C)$ & $\chi \to$ Level~0 & Proved ($\C^3$, K3) \\
-$4$ & Wall-crossing equiv.\ of $B_\gamma$ & $\chi \to$ KS formula & Conditional ($d = 3$) \\
-\bottomrule
-\end{tabular}
-\end{center}
+The numerical DT invariants $\Omega(\gamma)$ are recovered as bar-complex Euler characteristics at the decategorified level.  For K3 this recovery is clean because the $d=2$ output is the free Mukai Heisenberg, so the Fock-space shadow is explicit.  The genuinely categorical statement is subtler: the literature gives the Fock/cohomology identification on $\bigoplus_{n \ge 0} H^\bullet(\Hilb^n(S),\Q)$ and the separate derived McKay equivalence
+\[
+  D^b_{S_n}(S^n) \xrightarrow{\sim} D^b(S^{[n]}),
+\]
+but it does not construct a bar-side category whose derived category is already known to be equivalent to $D^b(S^{[n]})$.  We therefore separate the proved character/cohomology bridge from the conjectural categorical lift.
 
-\begin{proposition}[Categorical DT moduli for K3; \ClaimStatusProvedHere]
-\label{prop:categorical-dt-k3-rank0}
-For the K3 surface at $d = 2$ (CY-A$_2$ proved), the rank-$0$ bar complex identifies with the Hilbert scheme:
+\begin{proposition}[K3 Hilbert-scheme Fock bridge; \ClaimStatusProvedElsewhere]
+\label{prop:mukai-hilbert-fock-bridge}
+Let $S$ be a smooth projective K3 surface over $\C$, and let
+\[
+  H_{\mathrm{Muk}} \;:=\; \Phi\bigl(D^b(\Coh(S))\bigr)
+\]
+be the Mukai Heisenberg of Theorem~\textup{\ref{thm:phi-k3-explicit}}.  Then:
 \begin{enumerate}[label=\textup{(\roman*)}]
- \item \emph{Numerical (Level~0).} The BPS invariants of the Mukai Heisenberg $H_{\mathrm{Muk}}$ are $\Omega(n) = 24 = \kappa_{\mathrm{fiber}}$ for all $n \geq 1$, extracted via the plethystic logarithm:
- \[
-  \mathrm{PLog}\bigl(1/\eta(q)^{24}\bigr) = 24 \sum_{n \geq 1} q^n.
- \]
- \item \emph{Categorical (Level~2).} The charge-$n$ bar space categorifies to the Hilbert scheme: $D^b(B_n(H_{\mathrm{Muk}})) \simeq D^b(\mathrm{Hilb}^n(K3))$, with $\chi(\mathrm{Hilb}^n(K3)) = p_{24}(n)$, where $p_{24}(n)$ is the number of partitions of~$n$ with $24$ colours (G\"ottsche formula).
- \item \emph{Motivic (Level~3).} The motivic bar Euler product $\prod_{n \geq 1} (1 - q^n)^{-24} = 1/\eta(q)^{24}$ matches the rank-$0$ DT partition function. The bar Euler exponents are constant ($-24$) because the bar complex is class~G (free-field).
- \item \emph{Beauville--Yoshioka.} For a primitive Mukai vector $v = (r, c_1, s)$ with $\langle v, v \rangle = 2n - 2$, the moduli space $M_H(v)$ is deformation-equivalent to $\mathrm{Hilb}^n(K3)$ (Beauville), so $\chi(M_H(v)) = p_{24}(n)$. The bar complex at any primitive charge has the same Euler characteristic as the Hilbert scheme: the categorical DT moduli are Mukai-lattice covariant.
- \item \emph{Hyper-K\"ahler.} $\mathrm{Hilb}^n(K3)$ carries a $0$-shifted symplectic structure (PTVV, $d = 2$), i.e.\ it is hyper-K\"ahler. This matches the holomorphic symplectic structure on the bar moduli.
+  \item The graded vector space $\bigoplus_{n \ge 0} H^\bullet(S^{[n]}, \Q)$ carries the Fock representation of the rank-$24$ Heisenberg algebra attached to $H^\bullet(S,\Q)$ with the Mukai pairing.
+  \item The Euler-characteristic generating function is
+  \[
+    \sum_{n \ge 0} \chi(S^{[n]})\, q^n \;=\; \prod_{m \ge 1} (1-q^m)^{-24}.
+  \]
+  Equivalently,
+  \[
+    \eta(q)^{-24} \;=\; q^{-1}\prod_{m \ge 1}(1-q^m)^{-24}.
+  \]
+  \item For every $n \ge 1$, the Hilbert scheme $S^{[n]} = \Hilb^n(S)$ is a smooth irreducible holomorphic symplectic variety of complex dimension $2n$.
 \end{enumerate}
-\noindent\textit{Verification}: $87$~tests in \texttt{test\_categorical\_dt\_bar.py}, verifying all five levels for $\C^3$ and K3, plethystic round-trip, $p_{24}(n)$ ground truth (OEIS~A006922), Joyce--Song integration, Beauville deformation equivalence, and wall-crossing structure (\texttt{categorical\_dt\_bar.py}).
 \end{proposition}
+
+\begin{proof}
+Part~\textup{(i)} is the Nakajima--Grojnowski Heisenberg action on Hilbert schemes of points on a smooth surface: the correspondences on nested Hilbert schemes identify $\bigoplus_{n \ge 0} H^\bullet(S^{[n]},\Q)$ with the vacuum Fock representation of the Heisenberg algebra on $H^\bullet(S,\Q)$.  Part~\textup{(ii)} is G\"ottsche's product formula for Euler characteristics of Hilbert schemes of points on a smooth projective surface; for a K3 surface one has $\chi(S)=24$, giving the displayed product.  Part~\textup{(iii)} combines Fogarty's smoothness of $S^{[n]}$ for a smooth surface with Beauville's holomorphic symplectic form on the K3 Hilbert scheme.  In particular, the fourfold statement applies only when $n=2$; in general the complex dimension is $2n$.
+\end{proof}
+
+\begin{conjecture}[Categorical DT lift of the Mukai Heisenberg Fock sector; \ClaimStatusConjectured]
+\label{conj:categorical-dt-k3-fock-lift}
+Let $S$ be a smooth projective K3 surface over $\C$, let $H_{\mathrm{Muk}}=\Phi(D^b(\Coh(S)))$, and fix $n \ge 0$.  Write $\mathscr{F}_n(H_{\mathrm{Muk}})$ for the charge-$n$ Fock sector of the Mukai Heisenberg.  By the symbol
+\[
+  \mathscr{B}_n(H_{\mathrm{Muk}})
+\]
+in this subsection we mean a \emph{categorical lift} of $\mathscr{F}_n(H_{\mathrm{Muk}})$: a triangulated or dg category whose Grothendieck group recovers $\mathscr{F}_n(H_{\mathrm{Muk}})$ and whose creation/annihilation functors categorify the Heisenberg operators.
+
+If such a lift is constructed together with a functor
+\[
+  G_n \colon D^b(\mathscr{B}_n(H_{\mathrm{Muk}})) \longrightarrow D^b_{S_n}(S^n)
+\]
+intertwining the Heisenberg operators with the standard nested-Hilbert-scheme correspondences, then composition with the derived McKay equivalence
+\[
+  \Psi_n \colon D^b_{S_n}(S^n) \xrightarrow{\sim} D^b(S^{[n]})
+\]
+yields an equivalence
+\[
+  D^b(\mathscr{B}_n(H_{\mathrm{Muk}})) \xrightarrow{\sim} D^b(S^{[n]}).
+\]
+
+Equivalently: the slogan
+\[
+  D^b(B_n(H_{\mathrm{Muk}})) \simeq D^b(\Hilb^n(K3))
+\]
+is mathematically defensible only after replacing the undefined symbol $B_n(H_{\mathrm{Muk}})$ by a categorical lift $\mathscr{B}_n(H_{\mathrm{Muk}})$ and naming the functor $G_n$.
+\end{conjecture}
+
+\begin{proof}
+There is presently no proof because the category $\mathscr{B}_n(H_{\mathrm{Muk}})$ and the functor $G_n$ have not been constructed in this volume.  The proved inputs are separate: Theorem~\textup{\ref{thm:phi-k3-explicit}} constructs $H_{\mathrm{Muk}}$; Proposition~\textup{\ref{prop:mukai-hilbert-fock-bridge}} gives the Fock/cohomology identification and the Euler-characteristic product; derived McKay identifies $D^b_{S_n}(S^n)$ with $D^b(S^{[n]})$.  None of these steps, alone or in combination, produces a bar-side categorical lift or a functor from it to the derived McKay model.  Hence the categorical equivalence is conjectural.
+\end{proof}
 
 \begin{conjecture}[Categorical DT moduli for CY$_3$; \ClaimStatusConditional]
 \label{conj:categorical-dt-cy3}
