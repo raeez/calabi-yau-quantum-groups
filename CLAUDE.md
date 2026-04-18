@@ -199,16 +199,16 @@ Bare "kappa" is FORBIDDEN in Vol III. A CY manifold gives rise to MULTIPLE chira
 
 | Subscript | Meaning | K3 x E value |
 |-----------|---------|--------------|
-| kappa_ch | From chiral algebra A_C via Phi | 3 (= kappa_ch(K3) + kappa_ch(E) = 2+1) |
+| kappa_ch^{Heis} | From chiral algebra A_C via Phi, Heisenberg-level reading (additive) | 3 (= kappa_ch^{Heis}(K3) + kappa_ch^{Heis}(E) = 2+1). Distinct from the Hodge-supertrace reading kappa_ch(K3 x E) = chi(O_{K3 x E}) = 0 (thm:kappa-hodge-supertrace-identification, cy_d_kappa_stratification.tex:177). Reconciliation: delta kappa_ch = kappa_ch^{Heis} - chi(O_X) is the d=3 quantum correction (cf. AP289 Kunneth-multiplicative-vs-additive; cy_to_chiral.tex rem:beauville-kappa-formula-subscript-split). |
 | kappa_BKM | From Borcherds-Kac-Moody algebra | 5 (weight of Delta_5) |
 
-Saying "algebraizations share kappa_cat" is VACUOUS: kappa_cat and kappa_fiber are topological invariants of the manifold and cannot vary between algebraizations. Only kappa_ch and kappa_BKM depend on the algebraization.
+Saying "algebraizations share kappa_cat" is VACUOUS: kappa_cat and kappa_fiber are topological invariants of the manifold and cannot vary between algebraizations. Only kappa_ch^{Heis} (additive reading) and kappa_BKM depend on the algebraization; the Hodge-supertrace reading kappa_ch = chi(O_X) is Kunneth-multiplicative and coincides with kappa_cat on compact CY_d with h^{1,0}=0 (thm:kappa-hodge-supertrace-identification).
 
-kappa(K3 x E) = 3 vs 5 contradiction arose from conflating kappa_ch and kappa_BKM. Full spectrum: {0,2,3,5,24}.
+kappa(K3 x E) = 3 vs 5 contradiction arose from conflating kappa_ch^{Heis} and kappa_BKM (and, separately, kappa_ch^{Heis} vs Hodge-supertrace kappa_ch). Full spectrum: {0,2,3,5,24}.
 
-**Critical clarification**: kappa_cat(K3 x E) = chi(O_{K3xE}) = 0 (the TOTAL SPACE value by Kunneth: chi(O_K3)*chi(O_E) = 2*0 = 0). The value 2 = chi(O_{K3}) is kappa_cat of the K3 FIBER. The conjectural BKM decomposition uses the fiber value: kappa_BKM = kappa_ch + chi(O_{K3}) = 3 + 2 = 5.
+**Critical clarification**: kappa_cat(K3 x E) = chi(O_{K3xE}) = 0 (the TOTAL SPACE value by Kunneth: chi(O_K3)*chi(O_E) = 2*0 = 0; Hodge-supertrace reading kappa_ch also gives 0 via thm:kappa-hodge-supertrace-identification). The value 2 = chi(O_{K3}) is kappa_cat of the K3 FIBER. The conjectural BKM decomposition uses the fiber value and the Heisenberg-level reading: kappa_BKM = kappa_ch^{Heis} + chi(O_{K3}) = 3 + 2 = 5.
 
-**ADVERSARIAL RESULT (kappa_bkm_adversarial.py, 62 tests)**: The decomposition kappa_BKM = kappa_ch + chi(O_fiber) is a NUMERICAL COINCIDENCE for K3 x E (N=1). It FAILS for all Z/NZ-orbifolds with N >= 2: N=2 (Enriques) gives 4 != 2+1=3; N=3..8 give kappa_BKM in {3,2,2,1,1,1} != 3+2=5. The correct universal formula is **kappa_BKM = c_N(0)/2** (Borcherds weight theorem, NOT kappa_ch + kappa_cat). See rem:bkm-decomposition-adversarial in k3_times_e.tex.
+**ADVERSARIAL RESULT (kappa_bkm_adversarial.py, 62 tests)**: The decomposition kappa_BKM = kappa_ch^{Heis} + chi(O_fiber) is a NUMERICAL COINCIDENCE for K3 x E (N=1). It FAILS for all Z/NZ-orbifolds with N >= 2: N=2 (Enriques) gives 4 != 2+1=3; N=3..8 give kappa_BKM in {3,2,2,1,1,1} != 3+2=5. The correct universal formula is **kappa_BKM = c_N(0)/2** (Borcherds weight theorem, NOT kappa_ch^{Heis} + kappa_cat). See rem:bkm-decomposition-adversarial in k3_times_e.tex.
 
 **UNIVERSAL RESULT (kappa_bkm_universal.py, 99 tests, prop:bkm-weight-universal)**: kappa_BKM = c(0)/2 is a THEOREM (Borcherds 1998), PROVED unconditionally for ALL K3-fibered CY3s (Class A). It does NOT depend on CY-A. The proof chain: K3 elliptic genus -> orbifold averaging -> Borcherds weight theorem. For non-K3-fibered CY3s (Class B: quintic, C^3, conifold, local P^2), kappa_BKM is UNDEFINED; replacement invariants: kappa_BCOV = chi(X)/24 (compact), shadow depth (all, conditional on CY-A). CY3 families classified: 9 Class A (8 diagonal orbifolds + STU), 6 Class B. Monotonicity: kappa_BKM weakly decreasing in orbifold order N.
 
