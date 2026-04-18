@@ -110,6 +110,31 @@ AP-CY + cache violations. Builds at session end on user opt-in.
 $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$. $\Omega(B(A))=A$ is inversion;
 $A^!$ via Verdier; bulk via Hochschild.
 
+## Chain-level and $(\infty,1)$-categorical: equal status
+
+Both **chain-level** (explicit complexes, $L_\infty$-twistings,
+witnessed homotopies, ambient-qualified Mittag–Leffler towers,
+explicit Borcherds-product expansions, explicit
+$\kappa_{\mathrm{ch}} = \sum_q (-1)^q h^{0,q}$ Hodge supertraces,
+explicit Mukai-vanishing inputs) and **$(\infty,1)$-categorical**
+(CY $\infty$-categories of Kontsevich–Soibelman, derived $\infty$-
+stable categories of coherent sheaves, the cohomological-Hall algebra
+as a stable $\infty$-category construction, Maulik–Okounkov stable
+envelopes in derived geometry) mathematics are **equally load-bearing**
+in this volume. Neither is "the better lane"; neither "replaces" or
+"subsumes" the other.
+
+State each Vol III theorem in the lane in which its proof actually
+works. Chain-level: name the explicit denominator formula / Borcherds
+product / Hodge-supertrace summand / Mukai vanishing input.
+$(\infty,1)$-categorical: name the $(\infty,1)$-functor / cofibre
+sequence / dualisable object / fully extended TFT. If both lanes are
+needed: state both, ambient-qualified (Pattern 236).
+
+Pattern 273 ($\Phi$ as functor vs object-level correspondence) is a
+*scope declaration*, not a hierarchy. **Never** write "this is just
+the chain-level / $(\infty,1)$-shadow of the real theorem".
+
 ## Where the bookkeeping lives
 
 - `notes/claude_md_legacy_20260418.md` — 899-line Vol III CLAUDE.md,

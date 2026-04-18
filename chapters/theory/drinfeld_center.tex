@@ -1300,46 +1300,146 @@ The center-hocolim obstruction applies to the algebraic route
 different \emph{geometric} route, due to Maulik--Okounkov
 (arXiv:1211.1287), constructs the $\Etwo$-braiding
 \emph{directly} from stable envelopes on the Hilbert scheme,
-bypassing the Drinfeld center entirely.
+bypassing the Drinfeld center entirely.  The Maulik--Okounkov
+construction is precisely formulated for symplectic resolutions
+$\widetilde{X} \to X$ equipped with a Hamiltonian torus action
+$T \subset \mathrm{Aut}(\widetilde{X})$ that has isolated
+$T$-fixed points and dilates the symplectic form
+(Maulik--Okounkov, arXiv:1211.1287, \S3.2).
+A generic K3 surface admits no such torus action: $b_1(K3) = 0$,
+the Hodge structure $h^{1,0} = h^{0,1} = 0$ forces
+$H^0(S, T_S) = 0$, and $\mathrm{Aut}(S)^\circ = 1$
+(Mukai 1988, \emph{Inventiones} 94; Nikulin 1980,
+\emph{Trudy Mosk.\ Mat.\ Obshch.} 38).
+The MO machine therefore does \emph{not} apply to a generic K3;
+the bypass below is restricted to the loci of K3 moduli
+(ADE/Kummer orbifold points) where a toric chart with a
+two-dimensional torus exists by the McKay correspondence.
 
-\begin{proposition}[MO stable envelope bypass]
+\begin{proposition}[MO stable envelope bypass; scope-restricted to ADE/Kummer orbifold loci of K3 moduli]
 \label{prop:mo-bypass}
 \ClaimStatusProvedElsewhere{}
-For $X = K3 \times E$ with the natural $T = \C^*$-action on
-$E$, the Maulik--Okounkov construction gives an $R$-matrix
+Let $S$ be a K3 surface and let $p \in S$ be either an ADE orbifold
+point of $S$ \emph{(}so that an analytic neighbourhood of $p$ is the
+minimal crepant resolution $\widetilde{\C^2/\Gamma}$ for some
+$\Gamma \subset \mathrm{SU}(2)$ finite\emph{)} or, equivalently,
+let $S$ itself be replaced by a hyperk\"ahler ALE surface
+$\widetilde{\C^2/\Gamma}$ in the noncompact analogue.
+At such a point, a local toric torus $T_S = (\C^*)^2$ acts on
+the analytic chart by the Kronheimer hyperk\"ahler quotient torus.
+Let $T = T_S \times \C^*_E \subset \mathrm{Aut}(S \times E)$ act on
+$X = S \times E$ near $p \times E$, with $\C^*_E$ the natural
+translation torus of $E$. Then the Maulik--Okounkov construction
+gives an $R$-matrix
 \[
  R = \mathrm{Stab}_C^{-1} \circ \mathrm{Stab}_{C'}
  \;\colon\; K_T(\mathrm{Hilb}^n(X)^T) \to K_T(\mathrm{Hilb}^n(X)^T)
 \]
-for opposite chambers $C, C'$ in $\mathrm{Lie}(T)^*$.
-This $R$-matrix satisfies the Yang--Baxter equation
-and defines an $\Etwo$-braiding on
-$\bigoplus_{n \geq 0} K_T(\mathrm{Hilb}^n(X))$.
-
-The $R$-matrix on the Fock representation is governed by
-the structure function
+for opposite chambers $C, C'$ in $\mathrm{Lie}(T)^*$, satisfying
+the Yang--Baxter equation and defining an $\Etwo$-braiding on
+$\bigoplus_{n \geq 0} K_T(\mathrm{Hilb}^n(X))$ \emph{at the chosen
+chart}. The $R$-matrix on the Fock representation is governed by
+the local toric-chart structure function
 \begin{equation}
 \label{eq:k3e-structure-function}
  g(u) = \frac{(u - \epsilon_1)(u - \epsilon_2)(u + \epsilon_1 + \epsilon_2)}{(u + \epsilon_1)(u + \epsilon_2)(u - \epsilon_1 - \epsilon_2)}
 \end{equation}
-where $\epsilon_1, \epsilon_2$ are the $\Omega$-background
-parameters for $K3$ and
+where $\epsilon_1, \epsilon_2$ are the equivariant weights of
+$T_S = (\C^*)^2$ on the toric chart at $p$ \emph{(}equivalently,
+the $\Omega$-background parameters of the local $\C^2 \subset S$
+near the ADE/Kummer fixed point\emph{)}, and
 $\epsilon_3 = -(\epsilon_1 + \epsilon_2)$ is the $E$-direction
-weight (Calabi--Yau condition).
+equivariant weight enforced by the threefold CY condition
+$\sum \epsilon_i = 0$.
 The structure function satisfies $g(u) \cdot g(-u) = 1$
-\textup{(}unitarity, from the CY condition\textup{)}.
+\textup{(}unitarity, from $\sum \epsilon_i = 0$\textup{).}
 \end{proposition}
+
+\begin{remark}[Why a generic K3 fails the MO hypothesis: scope sharpening]
+\label{rem:generic-k3-no-mo}
+For a generic K3 surface $S$ (away from the ADE/Kummer locus of
+K3 moduli), the connected component
+$\mathrm{Aut}(S)^\circ$ is trivial: $H^0(S, T_S) = 0$ because
+$h^{1,0}(S) = h^{0,1}(S) = 0$ and $\Omega^1_S \cong T_S$ via the
+holomorphic symplectic form $\omega_S$, so
+$H^0(S, T_S) \cong H^0(S, \Omega^1_S) = H^{1,0}(S) = 0$.
+There is no continuous algebraic torus $T \to \mathrm{Aut}(S)$
+from which to build stable envelopes on $\mathrm{Hilb}^n(S)$.
+The natural translation $T = \C^*$ on $E$ alone is one-dimensional
+and acts freely on $E$ (no fixed points), so
+$\mathrm{Hilb}^n(S \times E)^{\C^*_E}$ is generically empty.
+A two-parameter family $\epsilon_1, \epsilon_2$ as
+``$\Omega$-background weights for K3'' presupposes the absent
+two-dimensional toric torus $T_S$ on $S$. Proposition~\ref{prop:mo-bypass}
+is restricted accordingly to the ADE/Kummer locus, where such a
+$T_S$ exists locally by the McKay correspondence; the
+``unconditional bypass'' language formerly attached to this
+proposition was therefore overstated and is corrected here.
+\end{remark}
 
 \begin{remark}[Self-dual limit and hyper-K\"ahler preservation]
 \label{rem:selfdual-trivial}
-In the self-dual limit $\epsilon_1 = -\epsilon_2$
-(which preserves the hyper-K\"ahler structure of $K3$),
-$\epsilon_3 = 0$ and $g(u) = 1$ identically. The $R$-matrix
-is trivial: the $\Etwo$-braiding is symmetric, and there is
-no quantum group structure. Nontrivial braiding requires
-\emph{breaking} the hyper-K\"ahler symmetry by taking
-$\epsilon_1 \neq -\epsilon_2$. This is the $\Omega$-deformation.
+\textit{Within the scope of Proposition~\textup{\ref{prop:mo-bypass}}
+\textup{(}ADE/Kummer orbifold points of K3 moduli, where the local
+toric torus $T_S$ exists\textup{):}}
+in the self-dual limit $\epsilon_1 = -\epsilon_2$
+(which preserves the hyper-K\"ahler structure of the local toric
+chart $\widetilde{\C^2/\Gamma}$), $\epsilon_3 = 0$ and $g(u) = 1$
+identically. The $R$-matrix is trivial: the $\Etwo$-braiding is
+symmetric, and there is no quantum group structure. Nontrivial
+braiding requires \emph{breaking} the hyper-K\"ahler symmetry by
+taking $\epsilon_1 \neq -\epsilon_2$. This is the $\Omega$-deformation
+on the local toric chart.
 \end{remark}
+
+\begin{lemma}[Local-to-global obstruction for the MO bypass on generic K3]
+\label{lem:mo-bypass-local-to-global}
+\ClaimStatusProvedHere{}
+Let $S$ be a smooth projective K3 surface in the generic
+\emph{(}non-ADE, non-Kummer\emph{)} stratum of K3 moduli.  Then
+there is no algebraic torus $T \subset \mathrm{Aut}(S \times E)$
+of dimension $\geq 2$ acting on $\mathrm{Hilb}^n(S \times E)$ with
+isolated $T$-fixed points for $n \geq 2$.  Consequently the
+Maulik--Okounkov construction does \emph{not} produce an
+$R$-matrix on $K_T(\mathrm{Hilb}^n(S \times E))$ for generic K3,
+and the local toric-chart structure function~\eqref{eq:k3e-structure-function}
+does \emph{not} extend to a global structure function on
+$\bigoplus_n K_T(\mathrm{Hilb}^n(S \times E))$ via $T_S$-equivariance.
+\end{lemma}
+
+\begin{proof}
+The connected component of the algebraic automorphism group
+satisfies
+\[
+ \dim \mathrm{Aut}(S \times E)^\circ
+ \;=\; \dim \mathrm{Aut}(S)^\circ + \dim \mathrm{Aut}(E)^\circ
+ \;=\; 0 + 1
+ \;=\; 1,
+\]
+the first equality from
+$\mathrm{Aut}(S \times E)^\circ \cong \mathrm{Aut}(S)^\circ
+\times \mathrm{Aut}(E)^\circ$ (since $S$ and $E$ are simple
+non-isogenous algebraic groups under the action) and the second
+from $H^0(S, T_S) = 0$ for generic K3 (Mukai 1988; the obstruction
+to a continuous $\mathrm{Aut}$-action is the vanishing of global
+holomorphic vector fields, equivalent here to $h^{1,0}(S) = 0$).
+Thus $\dim T \leq 1$.  But the MO stable envelope construction
+requires $\dim T \geq 2$ to define a nontrivial chamber decomposition
+of $\mathrm{Lie}(T)^*$ producing distinct $\mathrm{Stab}_C$
+operators (Maulik--Okounkov, arXiv:1211.1287, \S3.2: chambers are
+connected components of $\mathrm{Lie}(T)^* \setminus \bigcup_\alpha
+\alpha^\perp$ for the $T$-weights $\alpha$ of the symplectic form;
+a one-dimensional $T$ has at most two chambers, and the only
+nontrivial $\mathrm{Stab}$ operator collapses to the identity
+because the moment map is constant along the single direction).
+The local toric-chart formula~\eqref{eq:k3e-structure-function}
+requires the two parameters $\epsilon_1, \epsilon_2$ as independent
+equivariant weights, which presupposes $\dim T_S \geq 2$, absent
+for generic K3.  Hence the MO bypass at generic K3 does not
+produce~\eqref{eq:k3e-structure-function}; only at the ADE/Kummer
+locus where $T_S = (\C^*)^2$ acts on local toric charts is the
+formula meaningful.
+\end{proof}
 
 \begin{remark}[Two routes to $\Etwo$ for $K3 \times E$]
 \label{rem:two-routes-k3e}

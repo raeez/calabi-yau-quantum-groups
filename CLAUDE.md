@@ -162,6 +162,53 @@ cd ~/calabi-yau-quantum-groups && make fast
 $Z^{\mathrm{der}}_{\mathrm{ch}}(A)$. $\Omega(B(A))=A$ is inversion;
 $A^!$ via Verdier; bulk via Hochschild.
 
+## Chain-level and $(\infty,1)$-categorical: equal status
+
+Both **chain-level** mathematics (explicit complexes, $L_\infty$
+twistings, witnessed homotopies, Mittag–Leffler towers, ambient-
+qualified statements, explicit $K3 \times E$ Borcherds product
+denominator-formula computations) and **$(\infty,1)$-categorical**
+mathematics (CY $\infty$-categories of Kontsevich–Soibelman, derived
+$\infty$-stable categories of coherent sheaves, the cohomological-Hall
+algebra as a stable $\infty$-category construction, Maulik–Okounkov
+stable envelopes in derived geometry) are **equally load-bearing** in
+Vol III. Neither is "the better lane"; neither "replaces" or "subsumes"
+the other.
+
+Vol III in particular owes its content to *both* lanes simultaneously:
+
+- The chain-level lane is what lets you compute $\kappa_{\mathrm{ch}}$
+  for K3, K3 $\times$ E, local $\mathbb{P}^2$, the conifold; verify
+  $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ for $N \in \{1, 2, 3, 4, 6\}$
+  by direct Borcherds-product expansion; track the four constructions
+  in $\{2, 3, 5, 24\}$; check the Mukai-vanishing-bypass lemma
+  `lem:mo-bypass-local-to-global` against the actual product-Aut
+  decomposition.
+- The $(\infty,1)$-categorical lane is what lets you state $\Phi$ as a
+  functor on $(\infty,1)$-categories of CY data (when morphism
+  preservation is established), invoke Maulik–Okounkov $R$-matrices in
+  derived geometry, write the Schiffmann–Vasserot K3 cohomological-Hall
+  algebra as a stable $\infty$-category construction, and identify the
+  Borcherds–Monster BKM as the image of a fully-extended CY datum.
+
+**Operating rule**: state every theorem in the lane in which its proof
+actually works. If chain-level: name the explicit denominator formula,
+the explicit Borcherds product, the explicit Hodge-supertrace summand,
+the explicit Mukai vanishing input. If $(\infty,1)$-categorical: name
+the $(\infty,1)$-functor / cofibre sequence / dualisable object / fully
+extended TFT. If both: state both, label which lane each status applies
+to (Pattern 236 ambient-qualifier discipline). **Never** write "this
+is just the chain-level / $(\infty,1)$-categorical shadow of the real
+theorem": both shadows are real, both are the theorem, viewed through
+different lenses.
+
+Pattern 273 ($\Phi$ functor vs object-level correspondence) is a
+*scope declaration*, not a hierarchy: the chain-level object-level
+$\Phi$ and the $(\infty,1)$-categorical $\Phi$-as-functor (when
+morphism preservation is proved) are **two different statements** about
+two different categorical structures, both load-bearing, both
+documented at their precise scope.
+
 ## Where the bookkeeping lives
 
 - **`notes/claude_md_legacy_20260418.md`** — full prior CLAUDE.md,
