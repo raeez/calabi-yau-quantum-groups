@@ -3583,7 +3583,7 @@ class TestSupertraceTrinityCentreCollapseIV:
         verified_against=[
             "Heisenberg H_1: K(H_1) = 2 (kappa + kappa' = 1 + 1; from "
             "Vol I bp_self_duality)",
-            "Virasoro Vir_c: K(Vir) = 26 = 13·κ_BKM(K3) (Vol I climax theorem)",
+            "Virasoro Vir_c: K(Vir) = κ_ch(Vir_c) + κ_ch(Vir_{c!}) = c/2 + c!/2 = 13 constant on c + c! = 26 self-dual line (Vol I)",
             "W_3 algebra: K^c(W_3) = 100 (from CLAUDE.md W_N central-charge "
             "conductor table: K_2=26, K_3=100, K_4=246, K_5=488)",
             "W_4 K^c = 246; W_5 K^c = 488 (cubic formula 4N^3 - 2N - 2)",
@@ -4045,9 +4045,8 @@ class TestUniversalTraceIdentityK3FiberedIV:
             "Explicit K3 × E numerical check: kappa_BKM(K3 × E) = 5 from "
             "the Borcherds weight theorem at the BKM superalgebra g_{Δ_5}",
             "Trinity-centre supertrace at K3 × E: tr_{Z(Φ(K3 × E))}(K) = "
-            "K(Vir_{c=24})/K_BKM-shift = 26/13·2 = 1·2·... actually the "
-            "explicit value is 5 = c_K3(0)/2 by the Borcherds weight + "
-            "Trinity formula combination",
+            "κ_BKM(Φ_1) = c_K3(0)/2 = 5 by the Borcherds weight theorem; "
+            "distinct from the Vol I conductor K(Vir) = 13, no scalar ratio",
             "Both sides agree at 5 via the load-bearing K3 × E base case",
             "Cross-validated with phi01_fourier theta-ratio (c_K3(0)/2 = 5)",
         ],
