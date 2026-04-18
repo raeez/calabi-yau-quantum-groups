@@ -120,11 +120,11 @@ for the existence of the rational limit $Y(\fg_{K3})$.
 
 \begin{proposition}[No $S_3$ Miki for the K3 quantum toroidal]
 \label{prop:k3-qt-no-s3-miki}
-\ClaimStatusProvedHere
-The K3 quantum toroidal algebra $U_{q,t}(\fg_{K3}^{\mathrm{tor}})$
-admits no $S_3$ Miki automorphism.
-It admits an $\SL_2(\Z)$ automorphism from the mapping class group
-of~$E$.
+\ClaimStatusConditional
+Conditional on Conjecture~\ref{conj:k3-quantum-toroidal}, the K3
+quantum toroidal algebra $U_{q,t}(\fg_{K3}^{\mathrm{tor}})$ admits
+no $S_3$ Miki automorphism.  It admits an $\SL_2(\Z)$ automorphism
+from the mapping class group of~$E$.
 \end{proposition}
 
 \begin{proof}
@@ -148,9 +148,9 @@ The mapping class group $\mathrm{MCG}(E) = \SL_2(\Z)$ does act:
 \end{itemize}
 The $\SL_2(\Z)$ acts on the $E$-modulus only; it does not
 permute the $24$ Mukai directions of~K3.
-This is consistent with Miki is algebra-specific
-(requires the $(\bC^*)^3$ torus of~$\bC^3$), not a consequence
-of the $E_3$ operad alone.
+The Miki automorphism is algebra-specific --- it requires the
+$(\bC^*)^3$ torus of~$\bC^3$, and is not forced by the $E_3$
+operad alone.
 \end{proof}
 
 \begin{remark}[What the K3 quantum toroidal adds to the $\bC^3$ picture]
@@ -194,10 +194,15 @@ bar Euler product ($3$~tests), cross-family structure ($3$~tests),
 full verification ($2$~tests), and multi-path cross-checks ($7$~tests).
 
 
-%% ========================================================================
-%% BKM simple roots as Yangian generators
-
-\noindent\textit{Verification}: 65 tests in \texttt{k3e\_topological\_string\_shadow.py} covering G\"ottsche formula through $n = 15$, Ramanujan tau through $n = 15$ (including multiplicativity), $\eta^{24}$ and $1/\eta^{24}$ product expansions, bar Euler vs G\"ottsche exact agreement, $\kappa_\bullet$-spectrum four-distinctness, DT degree-$0$ triviality, DT/PT identity, BPS/shadow class identification (rank-$1$ = G, full = M), Borcherds discriminant constraint, wall-crossing/shadow dictionary, and full comparison summary with conditionality statements.
+\noindent\textit{Verification (topological-string shadow cross-check)}:
+$65$ tests in \texttt{k3e\_topological\_string\_shadow.py} covering
+G\"ottsche's formula through $n = 15$, Ramanujan's $\tau$-function
+through $n = 15$ (including Hecke multiplicativity), $\eta^{24}$ and
+$1/\eta^{24}$ product expansions, bar-Euler versus G\"ottsche
+agreement, $\kappa_\bullet$-spectrum four-distinctness, DT degree-$0$
+triviality, the DT/PT identity, BPS/shadow-class identification
+(rank-$1$~= G, full~= M), the Borcherds discriminant constraint, and
+the wall-crossing/shadow dictionary.
 
 \section{The AGT correspondence for K3: Nekrasov partition function vs conformal blocks}
 \label{sec:k3e-agt}
@@ -252,7 +257,13 @@ which at $y = 1$ recovers $1/\eta^{24}$ and at $y = 0$ gives $\prod(1-q^n)^{-2}$
 
 \begin{remark}[The $\Omega$-background intermediary]
 \label{rem:k3e-omega-background}
-Per, the refinement parameter~$y$ enters through the $\Omega$-background equivariant $\chi_y$ genus, \emph{not} through a direct identification with Mukai lattice parameters. The intermediary mechanism (equivariant localization, Nekrasov partition function, $\Omega$-deformation) must be stated explicitly.
+The refinement parameter~$y$ enters through the $\Omega$-background
+equivariant $\chi_y$ genus, not through a direct identification with
+Mukai lattice parameters.  The intermediary mechanism is explicit:
+equivariant localisation on the $\Omega$-background produces the
+Nekrasov partition function, whose $(\epsilon_1, \epsilon_2)$ plane
+descends to the single refinement parameter $y = -\epsilon_2/\epsilon_1$
+on the unrefined $\chi_y$ locus.
 \end{remark}
 
 \subsection{The conjectural K3 Yangian character}
@@ -315,7 +326,11 @@ For rank~$\geq 2$, the walls of marginal stability in the Bridgeland stability m
 
 \begin{remark}[Higher coherence obstruction]
 \label{rem:k3e-agt-higher-coherence}
-By, the pairwise R-matrix consistency (Yang--Baxter equation) does \emph{not} automatically imply higher-order consistency (Zamolodchikov tetrahedron equation). The charge-$3$ wall-crossing involves $E_3$ corrections beyond pairwise products (Theorem~\ref{thm:zte-failure}).
+Pairwise R-matrix consistency (the Yang--Baxter equation) does not
+automatically imply higher-order consistency (the Zamolodchikov
+tetrahedron equation).  Charge-$3$ wall-crossing therefore involves
+$E_3$ corrections beyond pairwise products
+(Theorem~\ref{thm:zte-failure}).
 \end{remark}
 
 \noindent\textit{Verification}: \texttt{nekrasov\_agt\_k3.py}, 79 tests: genus-$1$ AGT identification, $\chi_y$ specialisations, modular weight $-12$, Kummer decomposition $24 = 8 + 16$, Ramanujan $\tau$ through $n = 10$ (including Hecke multiplicativity), BPS asymptotic growth, refined VW at $y = 0$ and $y = 1$, cross-consistency with four independent engines (\texttt{vafa\_witten\_k3}, \texttt{vafa\_witten\_shadow}, \texttt{k3\_double\_current\_algebra}, \texttt{k3\_yangian}), and nine multi-path verification tests.
@@ -384,9 +399,7 @@ product and DMVV, $W_N$ vacuum characters at $N = 1, 2, 3, 4$,
 AGT matching at genus~$1$ for $N = 1, 2$, structure function degree
 scaling $(24N, 24N)$, unitarity, nonabelian $R$-matrix block
 structure, central charge $c = 24(N-1)$, log expansion coefficients,
-bar Euler product at ranks $1$--$4$, Kummer route at rank $2$,
-
-
+bar-Euler product at ranks $1$--$4$, and the Kummer route at rank $2$.
 
 %% =====================================================================
 \section{The twisted M-theory compactification web}
@@ -421,7 +434,7 @@ $5$d & $(2{,}0)$ on $S^1$ & $Y(\widehat{\gl}_1)$ & $E_2$ & PROVED \\
 $4$d & IIA on $K3 \times T^2$ & $4$d $\mathcal{N}=4$ SYM (VW) & $E_1$ & PROVED \\
 $4$d & IIB on $K3 \times T^2$ & $4$d $\mathcal{N}=4$ (S-dual) & $E_1$ & PROVED \\
 $3$d & M-theory on $K3 \times T^3$ & RW(Hilb$^N$($K3$)) & $E_\infty$ & PROVED \\
-$0$d & $K3$ sigma model & $H_{\mathrm{Muk}}$ & $E_1$ & PROVED \\
+$0$d & $K3$ sigma model (bosonic sector) & $H_{\mathrm{Muk}}$ & $E_1$ & PROVED \\
 \hline
 \end{tabular}
 \end{center}
@@ -446,13 +459,25 @@ on the constructed algebra).  For the $K3 \times E$ tower:
 \hline
 \textbf{Invariant} & \textbf{K3} & \textbf{$K3 \times E$} & \textbf{Origin} & \textbf{Type} \\
 \hline
-$\kappa_{\mathrm{cat}}$ & $2$ & $0$ & $\chi(\mathcal{O}_X)$ & manifold \\
+$\kappa_{\mathrm{cat}}$ & $2$ & $0$ & $\chi(\mathcal{O}_X)$ (Kunneth) & manifold \\
 $\kappa_{\mathrm{fiber}}$ & $24$ & $24$ & Mukai lattice rank & manifold \\
-$\kappa_{\mathrm{ch}}$ & $2$ & $3$ & Chiral modular characteristic & algebraization \\
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ & $2$ & $3$ & Heisenberg-additive reading & algebraization \\
 $\kappa_{\mathrm{BKM}}$ & --- & $5$ & Weight of $\Delta_5$ & algebraization \\
 \hline
 \end{tabular}
 \end{center}
+
+\noindent
+Two readings of $\kappa_{\mathrm{ch}}$ coexist: the Heisenberg-additive
+reading $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(X \times Y) =
+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(X) + \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(Y)$
+used above, and the Hodge-supertrace reading
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(X) = \chi(\mathcal{O}_X)$
+(Kunneth-multiplicative, coinciding with $\kappa_{\mathrm{cat}}$).  They
+agree on compact $\mathrm{CY}_d$ with $h^{1, 0} = 0$ and split at
+$\mathrm{CY}_3$: on $K3 \times E$ one has
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$ while
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = \chi(\mathcal{O}_{K3 \times E}) = 0$.
 
 \noindent
 The decomposition
@@ -485,9 +510,8 @@ where:
   $R(u,v) = R_1(u)\,R_2(v)\,R_{12}(u-v)$
   encodes the $E_3$ crossing correction.
 \item \textbf{5d (rational):} $g(u) = \prod_{i=1}^{24}(u - h_i)/(u + h_i)$
-  with $\sum h_i = 0$ (CY$_2$ condition).
-  Degree-$(24,24)$ in the Yangian spectral parameter $u$
-.
+  with $\sum h_i = 0$ (CY$_2$ condition), degree $(24, 24)$ in the
+  Yangian spectral parameter $u$.
 \item \textbf{3d (trivial):} $g(u) = 1$ (all $h_i = 0$).
   The Yangian degenerates to the current algebra $U(H_{\mathrm{Muk}})$.
 \end{itemize}
@@ -537,16 +561,22 @@ programme $\{\Phi_d\}$ commute with dimensional reduction?
 \begin{conjecture}[Compactification commutativity]
 \label{conj:compactification-commutativity}
 \ClaimStatusConjectured
-The CY-to-chiral correspondence programme $\{\Phi_d\}$ commutes with the $6$d $\to$ $5$d
-reduction (shrink $E$: $q \to 1$), in the sense that $\Phi_3(K3 \times E)|_{q \to 1} = \Phi_2(K3)$:
+The correspondence programme $\{\Phi_d\}$ commutes with the
+$6$d~$\to$~$5$d reduction (shrink $E$, $q \to 1$), in the sense that
+$\Phi_3(K3 \times E)|_{q \to 1} = \Phi_2(K3)$:
 \[
-  \Phi(K3 \times E)\big|_{q \to 1}
+  \Phi_3(K3 \times E)\big|_{q \to 1}
   \;=\;
-  \Phi(K3)
+  \Phi_2(K3)
 \]
-That is, $U_{q,t}(\mathfrak{g}_{K3}^{\mathrm{tor}})\big|_{q \to 1}
-= Y(\mathfrak{g}_{K3})$.
-CY-A$_3$ is proved (inf-cat); the explicit chain-level geometric construction remains conditional.
+at the level of algebras, i.e.\
+$U_{q,t}(\mathfrak{g}_{K3}^{\mathrm{tor}})\big|_{q \to 1}
+= Y(\mathfrak{g}_{K3})$.  Object-level $\Phi_3$ is proved in the
+infinity-categorical framework
+(Theorem~\ref{thm:cy-to-chiral-d3} via
+Theorem~\ref{thm:derived-framing-obstruction}); the explicit
+chain-level geometric construction, and the $q \to 1$ commutativity
+itself, remain conditional.
 \end{conjecture}
 
 \noindent At $d = 2$, the $5$d $\to$ $3$d commutativity (shrink $C$:
@@ -623,7 +653,7 @@ All seven are verified in
   index~$1$) gives BPS multiplicities: $c(-1) = 1$, $c(0) = 10$
   (normalized $\phi_{0,1}$).
   The Borcherds weight is $c(0)/2 = 5 = \kappa_{\mathrm{BKM}}$.
- Only discriminants $D \equiv 0$ or $3 \pmod{4}$ appear.
+  Only discriminants $D \equiv 0$ or $3 \pmod{4}$ appear.
   Negative values ($c(3) = -64$) indicate fermionic/odd BKM roots.
   The Witten index is $\kappa_{\mathrm{ch}} \cdot c(-1) = 2$.
 
@@ -670,8 +700,10 @@ All seven are verified in
 All seven checks pass (the K3 Yangian is \emph{consistent} with the
 physical sigma model), but consistency does not imply existence.
 The checks verify that $Y(\fg_{K3})$, if it exists, produces data
-compatible with the known sigma model.  The existence question is
-CY-A$_3$ is proved in the infinity-categorical framework (Theorem~\ref{thm:derived-framing-obstruction}), but the explicit geometric construction of $Y(\fg_{K3})$ remains conjectural.
+compatible with the known sigma model.  CY-A$_3$ is proved in the
+infinity-categorical framework (Theorem~\ref{thm:derived-framing-obstruction});
+the explicit chain-level geometric construction of $Y(\fg_{K3})$
+remains conjectural.
 \end{remark}
 
 %% ========================================================================
@@ -798,8 +830,8 @@ The identity $g_{K3}(z) \cdot g_{K3}(-z) = 1$ is a purely algebraic consequence 
 %% BFN Coulomb branch route to the K3 Yangian
 %% ===================================================================
 
-\subsection{BFN quantised Coulomb branch route to the K3 Yangian}
-\label{subsec:bfn-coulomb-k3}
+\section{BFN quantised Coulomb branch route to the K3 Yangian}
+\label{sec:bfn-coulomb-k3}
 
 The Braverman--Finkelberg--Nakajima (BFN) programme constructs
 \emph{quantised Coulomb branch algebras} $A_\hbar(G, N)$ from $3d$
@@ -838,11 +870,11 @@ The evidence for this identification is:
     which embeds as the enhanced-symmetry subalgebra.
 \end{enumerate}
 
-CAVEAT the BFN route
-\emph{reorganises} the K3 Yangian construction into subproblems
+The BFN route reorganises the K3 Yangian construction into subproblems
 \textup{(}choosing $(G, N)$, identifying the matter representation,
-verifying the quantisation\textup{)} but does not trivially solve it.
-Each subproblem requires independent verification.
+verifying the quantisation\textup{)}.  Each subproblem requires
+independent verification; the reorganisation does not trivially solve
+any of them.
 \end{conjecture}
 
 \begin{remark}[BFN for ADE quivers: proved cases]
@@ -1072,14 +1104,13 @@ bigraded edge-character matrix.
 \label{subsec:k3qt-cohomological-status}
 
 \begin{theorem}[K$3$ quantum-toroidal Pentagon-at-$E_1$;
-                cohomological unconditional]
+                cohomological, conditional on Vol II fibre cells]
 \label{thm:k3qt-pentagon-cohomological}
-\ClaimStatusProvedHere
-The quantum vertex chiral group $U^+_{q,t}(\widehat{\widehat{\fgl}}_1)^{K3}$
-satisfies Pentagon-at-$E_1$ at
-\emph{cohomological} level unconditionally, conditional on
-closure of the K$3$ Heisenberg and affine-Yangian-fibre cells in
-Vol II.  The cocycle $[\omega]_{K3}$ vanishes in
+\ClaimStatusConditional
+Conditional on closure of the K$3$ Heisenberg and affine-Yangian-fibre
+cells in Vol II, the quantum vertex chiral group
+$U^+_{q,t}(\widehat{\widehat{\fgl}}_1)^{K3}$ satisfies Pentagon-at-$E_1$
+at \emph{cohomological} level.  The cocycle $[\omega]_{K3}$ vanishes in
 $H^2(\mathrm{SC}^{\mathrm{ch,top}};\, \mathfrak{aut})$ via the
 edge-character matrix $M$ of
 Theorem~\ref{thm:k3-pentagon-E1-edge-architecture},
@@ -1191,3 +1222,23 @@ trace is the Pentagon-coherence content; the $-16$ Berezinian entry
 is rigidly forced by the K$3$ Mukai signature $(4, 20)$ via the
 universal $(p+q)^2 = (p-q)^2 + 4pq$ identity.
 \end{remark}
+
+\medskip
+
+What the chapter establishes.  The rational K$3$ Yangian
+$Y(\fg_{K3})$ sits at the Yangian vertex of a four-stage
+Drinfeld--Jimbo tower whose quantum-toroidal apex
+$U_{q,t}(\fg_{K3}^{\mathrm{tor}})$ loses the $S_3$ Miki symmetry of the
+$\bC^3$ case and retains only the $\SL_2(\bZ)$ mapping class of the
+elliptic fibre.  Five independent bridges --- AGT identification with
+the Vafa--Witten partition function, the twisted M-theory
+compactification web, the tropical-cluster incarnation at the MUM
+point, the BFN Coulomb-branch realisation, and the root-of-unity
+$N = 2 \to N = 3$ phase transition --- cross-check the same structure
+function $g_{K3}(u) = \prod_{a=1}^{24}(u - h_a)/(u + h_a)$ and its
+trigonometric lift.  The Pentagon-at-$E_1$ edge-architecture closes
+cohomologically at K$3$ and K$3 \times E$; the chain-level lift reduces
+to a single Stasheff bridge lemma.  Each conjectural bridge carries an
+explicit dependency on CY-A$_3$ beyond its inf-cat resolution; the
+classical limits ($q \to 1$, $h_i \to 0$, MUM) recover proved
+structures.
