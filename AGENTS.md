@@ -156,7 +156,7 @@ Status by dimension:
 | **CY-A** (CY-to-chiral functor) | d=2 PROVED; d=3 PROVED (inf-cat) | d=3 chain-level [m_3, B^{(2)}] != 0 resolved: not an obstruction in inf-cat framework (HH^{-2}_{E_1}=0). Goodwillie layers vanish. Space of E_3-liftings contractible. |
 | **CY-B** (E_n-chiral Koszul duality) | d=2 PROVED; d=3 PROVED (inf-cat) | d=2: E_2-Koszul on A directly (A is E_2). d=3: E_1-Koszul on A via B_{E_3}(A), inducing E_2 on Drinfeld center Z(Rep^{E_1}(A)) via Verdier spectral functor. `thm:cy-b-d3`, `thm:verdier-spectral-functor`. CY-B1 (conductor): proved all classes. CY-B2 (braided equiv on center): proved all classes. 326 tests. |
 | **CY-C** (Quantum group realization) | CONJECTURAL | Abelian level: C(g,q) = D(Y^+(g_{K3})). Three routes (chiral/BFN/MO). Rep(C) = Rep^{E_2}(Y) via BZFN. `cy_c_quantum_group_k3` (104 tests). Uses `\begin{conjecture}`. NEVER `\begin{theorem}`. |
-| **CY-D** (Modular CY characteristic) | d=2 PROVED; d=3 tri-stratum | kappa_ch = chi(O_X) PROVED only for CY_2 with h^{1,0}=0 (K3). FALSE for odd d: chi(O_X) = 0 for all CY_3 by Serre (`prop:chi-O-vanishes-odd-d`). kappa_ch(K3xE) = 3 != 0 = chi(O). chi^CY is categorical, distinct from chi(O_X). `cy_d_kappa_d3` (76 tests). Dimension-stratified: tri-stratum theorem. |
+| **CY-D** (Modular CY characteristic) | d=2 PROVED; d=3 tri-stratum | Hodge-supertrace reading kappa_ch = chi(O_X) PROVED unconditionally for compact CY_d via `thm:kappa-hodge-supertrace-identification` (cy_d_kappa_stratification.tex:177), giving chi(O_{K3xE}) = 0. The Heisenberg-level reading kappa_ch^{Heis} is additive under products and gives kappa_ch^{Heis}(K3xE) = 2+1 = 3 != 0 (cf. AP289, `rem:beauville-kappa-formula-subscript-split`). chi^CY is categorical, distinct from chi(O_X). `cy_d_kappa_d3` (76 tests). Dimension-stratified: tri-stratum theorem. |
 | **E_3 Koszul (Heisenberg)** | d=2 PROVED | `thm:e3-koszul-heisenberg`, 39 tests |
 | **E_3 Koszul (Yangian)** | COHOMOLOGICAL PROVED | `thm:e3-koszul-yangian`, 36 tests |
 | **E_2 Koszul (Heisenberg)** | d=2 PROVED | `thm:e2-koszul-heisenberg`, 49 tests |
@@ -208,7 +208,7 @@ Status by dimension:
 | **10 proofs publication-upgraded** | DOCUMENTED | Kummer Steps 1-4, E_3/E_2 Koszul Heisenberg/Yangian, ZTE deformation cohomology, universal coproduct, Phi(K3) explicit, K3 abelian Yangian, derived framing obstruction. |
 | **Part openers + reading paths** | INSTALLED | All 7 Part openers written (35-63 lines each). 3 reading paths (algebraist, physicist, number theorist). |
 | **kappa_ch deep mechanism** | PROVED | Hodge-filtered supertrace: non-F^0 contributions killed by Hodge filtration. kappa_ch = str_{F^0}(q^{L_0}). |
-| **CY-D at d=3 deep issue** | DOCUMENTED | chi(O_{K3xE}) = 0 != 3 = kappa_ch. CY-D formula kappa = chi(O_X) FAILS at d=3 generically. kappa_ch counts chiral anomaly (worldsheet); chi(O_X) counts target-space anomaly (massless modes). For d=2: kappa_ch = chi(O_X)/2 PROVED (Serre duality). Tri-stratum formula replaces naive CY-D. |
+| **CY-D at d=3 deep issue** | DOCUMENTED | chi(O_{K3xE}) = 0 != 3 = kappa_ch^{Heis}(K3xE) (Heisenberg-level additive reading). The Hodge-supertrace reading kappa_ch = chi(O_X) coincides with kappa_cat unconditionally on compact CY_d via `thm:kappa-hodge-supertrace-identification`, giving 0 for K3xE. The two readings differ by delta kappa_ch = kappa_ch^{Heis} - chi(O_X); at d=2 with h^{1,0}=0 they coincide (Serre duality kills the quantum correction, `prop:cy-kappa-d2`); at d=3 with h^{1,0}=0 delta kappa_ch = chi_top/24 (BCOV); at d=3 on K3xE the fiber h^{1,0}(E) = 1 breaks the d=2 hypothesis and produces delta = 3. Tri-stratum formula replaces naive CY-D. |
 | **ZTE T matrix COMPUTED** | PROVED | Exact rational T matrix, 35 tests. Explicit entry-by-entry from 1-dim kernel. |
 | **Shadow tower through m_8** | COMPUTED | 160 tests. S_3=2, S_4=10/27, ..., S_8 = 4144720/19683. |
 | **m_5 independent verification** | VERIFIED | G_5^{conn} = 775/5184 from 5-point Wick contraction. |
@@ -274,16 +274,16 @@ Bare `kappa` is FORBIDDEN in Vol III. A CY manifold gives rise to MULTIPLE chira
 
 | Subscript | Meaning | K3 x E value |
 |-----------|---------|--------------|
-| `kappa_ch` | From chiral algebra A_C via Phi | 3 (= kappa_ch(K3) + kappa_ch(E) = 2 + 1) |
+| `kappa_ch^{Heis}` | From chiral algebra A_C via Phi, Heisenberg-level (additive) reading | 3 (= kappa_ch^{Heis}(K3) + kappa_ch^{Heis}(E) = 2 + 1). Distinct from the Hodge-supertrace reading kappa_ch(K3 x E) = chi(O_{K3 x E}) = 0 (thm:kappa-hodge-supertrace-identification, `cy_d_kappa_stratification.tex:177`); see `rem:beauville-kappa-formula-subscript-split` and AP289 (Kunneth-multiplicative vs additive). |
 | `kappa_BKM` | From Borcherds-Kac-Moody algebra | 5 (weight of Delta_5) |
 
-Saying "algebraizations share kappa_cat" is VACUOUS: kappa_cat and kappa_fiber are topological invariants of the manifold and cannot vary between algebraizations. Only kappa_ch and kappa_BKM depend on the algebraization.
+Saying "algebraizations share kappa_cat" is VACUOUS: kappa_cat and kappa_fiber are topological invariants of the manifold and cannot vary between algebraizations. Only kappa_ch^{Heis} (additive) and kappa_BKM depend on the algebraization; the Hodge-supertrace reading kappa_ch = chi(O_X) is Kunneth-multiplicative and coincides with kappa_cat on compact CY_d with h^{1,0}=0 (`thm:kappa-hodge-supertrace-identification`).
 
-kappa(K3 x E) = 3 vs 5 contradiction arose from conflating kappa_ch and kappa_BKM. Full spectrum: {0, 2, 3, 5, 24}.
+kappa(K3 x E) = 3 vs 5 contradiction arose from conflating kappa_ch^{Heis} and kappa_BKM (and, separately, kappa_ch^{Heis} vs Hodge-supertrace kappa_ch). Full spectrum: {0, 2, 3, 5, 24}.
 
-**Critical clarification (AP-CY68)**: kappa_cat(K3 x E) = chi(O_{K3xE}) = 0 (TOTAL SPACE, Kunneth: chi(O_K3) * chi(O_E) = 2 * 0 = 0). The value 2 = chi(O_K3) is kappa_cat of the K3 FIBER. The conjectural BKM decomposition uses the fiber value: kappa_BKM = kappa_ch + chi(O_K3) = 3 + 2 = 5.
+**Critical clarification (AP-CY68)**: kappa_cat(K3 x E) = chi(O_{K3xE}) = 0 (TOTAL SPACE, Kunneth: chi(O_K3) * chi(O_E) = 2 * 0 = 0; Hodge-supertrace kappa_ch agrees via `thm:kappa-hodge-supertrace-identification`). The value 2 = chi(O_K3) is kappa_cat of the K3 FIBER. The conjectural BKM decomposition uses the fiber value and the Heisenberg-level reading: kappa_BKM = kappa_ch^{Heis} + chi(O_K3) = 3 + 2 = 5.
 
-**ADVERSARIAL RESULT** (`kappa_bkm_adversarial.py`, 62 tests): the decomposition kappa_BKM = kappa_ch + chi(O_fiber) is a NUMERICAL COINCIDENCE for K3 x E (N=1). It FAILS for all Z/NZ-orbifolds with N >= 2. Correct universal formula: **kappa_BKM = c_N(0)/2** (Borcherds weight theorem). See `rem:bkm-decomposition-adversarial` in `k3_times_e.tex`.
+**ADVERSARIAL RESULT** (`kappa_bkm_adversarial.py`, 62 tests): the decomposition kappa_BKM = kappa_ch^{Heis} + chi(O_fiber) is a NUMERICAL COINCIDENCE for K3 x E (N=1). It FAILS for all Z/NZ-orbifolds with N >= 2. Correct universal formula: **kappa_BKM = c_N(0)/2** (Borcherds weight theorem). See `rem:bkm-decomposition-adversarial` in `k3_times_e.tex`.
 
 **UNIVERSAL RESULT** (`kappa_bkm_universal.py`, 99 tests, `prop:bkm-weight-universal`): kappa_BKM = c(0)/2 is a THEOREM (Borcherds 1998), PROVED unconditionally for ALL K3-fibered CY3s (Class A). Does NOT depend on CY-A. Proof chain: K3 elliptic genus -> orbifold averaging -> Borcherds weight theorem. For non-K3-fibered CY3s (Class B: quintic, C^3, conifold, local P^2), kappa_BKM is UNDEFINED; replacement: kappa_BCOV = chi(X)/24. CY3 families: 9 Class A (8 diagonal orbifolds + STU), 6 Class B. Monotonicity: kappa_BKM weakly decreasing in orbifold order N.
 
@@ -613,10 +613,10 @@ Geometry determines which: curve X -> chiral; R -> topological; CY category -> c
 | Stratum | d-parity | Class | kappa_ch |
 |---------|----------|-------|----------|
 | (I) | odd d | Serre | Xi = 0 |
-| (II) | even d | strict-CY | nonzero (e.g., K3 stratum d=2: kappa_ch = 2; CY_4 sextic: Xi = 2) |
+| (II) | even d | strict-CY | nonzero (e.g., K3 stratum d=2: kappa_ch = 2 via Hodge supertrace, matching kappa_ch^{Heis} at d=2 with h^{1,0}=0; CY_4 sextic: Xi = 2) |
 | (III) | even d | holomorphic-symplectic | Xi = n+1 (K3^[2]: Xi = 3) |
 
-kappa_ch = chi(O_X) PROVED only for CY_2 with h^{1,0}=0 (K3). FALSE for odd d: chi(O_X) = 0 by Serre. kappa_ch(K3xE) = 3 != 0. chi^CY is categorical, distinct from chi(O_X). At d=3: CY-D formula is the tri-stratum theorem, not chi(O_X).
+Hodge-supertrace kappa_ch = chi(O_X) PROVED unconditionally for compact CY_d via `thm:kappa-hodge-supertrace-identification`. For CY_2 with h^{1,0}=0 (K3) the Heisenberg-level reading coincides (`prop:cy-kappa-d2`). At odd d with h^{1,0}=0 the two readings diverge: chi(O_X) = 0 by Serre, while the Heisenberg-level reading picks up the BCOV quantum correction delta kappa_ch = chi_top/24. For K3xE (d=3, fiber h^{1,0}(E)=1): kappa_ch^{Heis} = 3 (additive) != 0 = chi(O_{K3xE}) (Kunneth-multiplicative). chi^CY is categorical, distinct from chi(O_X). At d=3: CY-D formula is the tri-stratum theorem, not chi(O_X).
 
 ## Pre-Edit Verification Protocol
 
@@ -801,7 +801,7 @@ genus-2 stable graph count:
   7 total connected stable strata at g=2, n=0
   6 edge-bearing Feynman types under at-least-one-edge convention
 
-kappa_ch(K3 x E) = 3
+kappa_ch^{Heis}(K3 x E) = 3   # Heisenberg-level additive reading; cf. Hodge-supertrace kappa_ch(K3 x E) = 0 via thm:kappa-hodge-supertrace-identification
 kappa_BKM(K3 x E) = 5
 kappa_cat(K3 x E) = 0           # TOTAL SPACE, not fiber value 2
 kappa_fiber(K3 x E) = 24        # Mukai lattice rank
