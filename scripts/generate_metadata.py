@@ -133,12 +133,16 @@ def get_active_files() -> list[Path]:
 
 
 def get_all_tex_files() -> list[Path]:
-    """Scan chapters/, standalone/, appendices/ for all .tex files."""
+    """Scan chapters/, standalone/, appendices/ for all .tex files, plus main.tex."""
     dirs = [ROOT / "chapters", ROOT / "standalone", ROOT / "appendices"]
     files = []
     for d in dirs:
         if d.exists():
             files.extend(sorted(d.rglob("*.tex")))
+    # Include main.tex itself (for \label{part:...} anchors)
+    main = ROOT / "main.tex"
+    if main.exists():
+        files.append(main)
     return files
 
 

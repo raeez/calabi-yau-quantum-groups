@@ -4269,9 +4269,18 @@ class TestCategoricalEulerIV:
     r"""Independent verification of κ_ch(K3 × E) = 3 vs κ_BKM = 5.
 
     The proposition states the chiral modular characteristic
-    κ_ch(K3 × E) = 3 (additive: 2 + 1) is distinct from the Borcherds
-    automorphic weight κ_BKM = 5 = wt(Φ_10). Both invariants are
-    well-defined but measure different structural data.
+    κ_ch(K3 × E) = 3 (Route B: Heisenberg-level additive, 2 + 1) is
+    distinct from the Borcherds automorphic weight κ_BKM = 5 = wt(Φ_10).
+    Both invariants are well-defined but measure different structural
+    data.
+
+    AP234 disambiguation: Route A (Hodge supertrace,
+    Künneth-multiplicative) gives Ξ(K3 × E) = Ξ(K3) · Ξ(E) = 2 · 0 = 0,
+    the canonical Φ_d functor value per
+    cy_d_kappa_stratification.tex:411-426. Route B (Heisenberg level via
+    AP-CY55 algebraisation invariant, κ_ch(E) = 1) gives 2 + 1 = 3. The
+    proposition here operates under Route B; Route A coexists as the
+    supertrace invariant of the Φ_d image.
 
     Disjoint sources:
     - DERIVATION: additivity κ_ch(K3) + κ_ch(E) = 2 + 1 + Borcherds weight

@@ -9,7 +9,7 @@ Auto-generated 2026-04-18.
 | ProvedHere claims | 387 |
 | Total tagged claims | 786 |
 | Active files in `main.tex` | 43 |
-| Total `.tex` files scanned | 51 |
+| Total `.tex` files scanned | 52 |
 
 ## Status Totals
 
