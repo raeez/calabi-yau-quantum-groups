@@ -407,14 +407,14 @@ class TestBorcherdsWeightUniversal:
             "Denominator-identity calculation of kappa_BKM from the BKM superalgebra root multiplicities",
         ],
         verified_against=[
-            "Borcherds Invent Math 1995 Automorphic forms on Grassmannians Theorem 10.1 giving weight of Borcherds product as c(0)/2 directly from the vector-valued theta lift input",
+            "Borcherds Invent Math 132 (1998) Automorphic forms with singularities on Grassmannians Theorem 13.3 giving weight of Borcherds product as c(0)/2 from the product-expansion at a 0-cusp of the singular theta lift",
             "Gritsenko 1999 Selecta + Allcock 2000 + Gritsenko-Nikulin 1998 independently listing paramodular weights {5, 4, 3, 2, 1} for N=1,2,3,4,6 without reference to BKM denominator identity",
         ],
         disjoint_rationale=(
             "The derivation route uses the frame-shape tabulation "
             "within Vol III and computes kappa_BKM from root "
             "multiplicities of the BKM superalgebra. The verification "
-            "routes cite Borcherds 1995 Theorem 10.1 (theta-lift "
+            "routes cite Borcherds 1998 (Invent. Math. 132) Theorem 13.3 (theta-lift "
             "weight formula, proved independently of any BKM algebra) "
             "and the paramodular-form literature (Gritsenko 1999 "
             "Selecta on Delta_5; Allcock 2000; Gritsenko-Nikulin 1998 "

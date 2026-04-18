@@ -32,7 +32,7 @@ Bare $\kappa$ forbidden (HZ-7 / AP113).
 - $\kappa_{\mathrm{cat}}(K3 \times E) = 0$ (total space), NOT 2 (fibre).
 - $\mathrm{CoHA}(\mathbb{C}^3) = Y^+$ (positive half), NOT $\mathcal{W}_{1+\infty}$.
 - Six routes to $G(K3 \times E)$ are six DIFFERENT constructions, NOT six $\Phi$ applications.
-- $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}})$ is $N=1$ coincidence.
+- $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}})$ FAILS at every $N \in \{1,2,3,4,6\}$ (not a coincidence; at $N=1$ LHS = $5$, RHS = $0+0 = 0$). Universal formula: $\kappa_{\mathrm{BKM}} = c_N(0)/2$ (Borcherds 1998; Gritsenko 1999).
 - Class M $E_3$ bar $= 6^g$ at cohomology, NOT infinite.
 - At $d \geq 3$, $A$ is $E_1$; $E_2$ lives on $Z(\mathrm{Rep}(A))$, not on $A$.
 

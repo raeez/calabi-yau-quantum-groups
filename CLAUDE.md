@@ -123,8 +123,13 @@ source Borcherds 1995 / Gritsenko series.
 - Six routes to $G(K3 \times E)$ are six DIFFERENT constructions, NOT
   six $\Phi$ applications.
 - $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}})$
-  is an $N = 1$ coincidence, not a universal identity. Already fails
-  at $N = 1$ directly.
+  is FALSE at every $N \in \{1, 2, 3, 4, 6\}$ (numerically: at $N=1$,
+  left = $5$, right = $\kappa_{\mathrm{ch}}(K3 \times E) + \chi(\cO_E)
+  = 0 + 0 = 0$; at $N=2$, left = $4$, right = $1$). The universal
+  formula is $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ (Borcherds
+  weight theorem; Gritsenko 1999). See
+  \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+  Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}.
 - Class M $E_3$ bar $= 6^g$ at cohomology, NOT infinite.
 - At $d \geq 3$, $A$ is $E_1$; $E_2$ lives on $Z(\mathrm{Rep}(A))$, not on $A$.
 
