@@ -1,0 +1,19 @@
+---
+description: "Self-pacing /loop swarm: relaunch stopped agents, maintain 5 attack-heal agents across all three volumes"
+model: opus
+---
+
+/loop 3m first relaunch any rate limited or stopped agents. If we are under 5 agents, launch a hardcore convergent ATTACK AND THEN HEAL loop agent swarm across ALL THREE VOLUMES (Vol I /Users/raeez/chiral-bar-cobar, Vol II /Users/raeez/chiral-bar-cobar-vol2, Vol III /Users/raeez/calabi-yau-quantum-groups) to get us back up to 5 agents. These agents ADVERSARIALLY TEAR APART THE RESEARCH PROGRAMME AT ITS FOUNDATIONS, FOUNDATIONALLY, SYSTEMATICALLY AND FROM FIRST-PRINCIPLES BREAK IT DOWN INTO A SURVIVING CORE OF MATHEMATICS, THEN FROM THAT BASIS HEAL the propositions, lemmas, theorems, broken parts, and if those "as stated" are incorrect, find the correct ones. When you successfully heal a proposition, ensure it is written into the manuscript in the correct manner (going back to previous instances where needed), following Chriss-Ginzburg style as north star, fully consonant with the voices of the elite Russian school (Etingof, Polyakov, Kazhdan, Gelfand, Nekrasov, Kapranov, Bezrukavnikov) and the mathematical physics school (Costello, Gaiotto, Witten).
+
+the convergent ATTACK AND THEN HEAL loop agent swarm means EACH agent attacks, then attempts through precise, rigorous, insightful, groundbreaking mathematics into a new form, which then gets attacked and then healed and then attacked and then healed. This process continues UNTIL we converge on MATERIALLY STRONGER more correct more precise mathematics than before we started the first attack. No execeptions. we only conclude when we have upgraded the mathematics. All attacks systematic, foundational, thoroughly exhaustive and rigorous and proceed in a first-principles manner.
+
+    Meanwhile, in the main thread inscribe into the metacognitive architecture all the antipatterns and cache entries that could have prevented these issues from occurring at all in this thread. Cache entries go into notes/first_principles_cache_comprehensive.md with regex triggers and 5-step protocols; reader-facing table entries go into appendices/first_principles_cache.md; conservative auto-detectable signatures get added to .claude/hooks/beilinson-gate.sh.
+
+    Golden rules:
+    1. AGENTS ARE NOT ALLOWED TO STOP UNTIL THE MATHEMATICS IS IN A MATERIALLY STRONGER PLACE than before the attack phase commenced. Inside each agent, LOOP attack-heal-attack-heal-attack-heal until the loop CONVERGES — i.e., a subsequent attack round lands NO new weaknesses that weren't already healed, AND at least one genuine new mathematical result (bridge lemma, counterexample, sharpened hypothesis with proof, or cite-repair that unlocks a previously-unverifiable claim) is inscribed. Mere ambient/status relabelling without new mathematics does NOT count as convergence.
+    2. After writing into the manuscript, always apply the skill /rectify (whole-file Chriss-Ginzburg linear sweep in ~50-line chunks — no hot-spot shortcuts) as well as hardcore first-principles critical analysis including /investigate and other tools.
+    3. Each agent must re-verify every flagged attack item against live source before healing (Pattern 237: stale attacks waste cycles).
+
+    After EVERY WAVE COMPLETES (all 5 agents reported), commit + push upstream on ALL THREE RESEARCH VOLUMES and merge upstream into the repo with a DEEP SEMANTIC MERGE (read each diff, preserve both sets of inscribed mathematics, renumber cache-entry collisions, re-run consistency checks after merge). Commit authorship: Raeez Lorgat ONLY — no AI attribution anywhere (no Claude, no Anthropic, no Co-Authored-By, no 🤖, in commits or prose). CLAUDE.md forbids git stash (use git diff > patch.diff && git apply to pause) and forbids amending commits without explicit instruction.
+
+      Only retain one /loop cron — if a prior one exists, delete it before creating the new one.
