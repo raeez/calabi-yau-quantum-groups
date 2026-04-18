@@ -1,66 +1,43 @@
 \chapter{The $\kappa_{\mathrm{ch}}$ Stratification by CY Dimension}
 \label{ch:cy-d-kappa-stratification}
 
-% Wave-14 anchor links (cross-volume; see Vol I CLAUDE.md HOT ZONE):
-% chap:universal-conductor and chap:shadow-quadrichotomy-platonic
-% pin the universal Hodge-supertrace identification of kappa_ch with the
-% Sigma_n-coinvariant projection of Theta_A. This chapter is the CY-D
-% specialisation; the BKM weight identification of
-% Proposition~\ref{prop:kappa-BKM-universal-cy-strat} below is the
-% CY-class-A face of prop:bkm-weight-universal.
-%
-% AP discipline guards in force throughout this chapter:
-%   AP182  -- kappa_ch = chi_top(S)/2 is local-surface specific (Tot(K_S -> S));
-%             conifold is NOT local surface (Cor.~\ref{cor:conifold-non-local-surface}).
-%   AP183  -- McKay quiver of Z_3 = three oriented 3-cycles (9 directed arrows),
-%             NOT K_{3,3} (Remark~\ref{rem:local-p2-mckay} on the local-P^2 page).
-%   AP184  -- excision = gluing (B_L (x)_A B_R = B(A), one copy over A);
-%             coproduct = splitting (B(A) -> B(A) (x) B(A), two plain copies).
-%             Verify the codomain in any bar-coalgebra computation involving
-%             a CY-D fibration.
-%   cached confusion pattern #15 -- kappa_BKM = c_N(0)/2 universal across
-%             {N=1,2,3,4,6}; the additive decomposition kappa_BKM =
-%             kappa_ch + chi(O_fiber) is an N=1 numerical coincidence and
-%             FAILS for N >= 2 (closed at Proposition~\ref{prop:kappa-BKM-universal-cy-strat}).
+For a compact Calabi--Yau manifold $X$ of complex dimension $d$, let
+$\cA_X = \Phi_d(D^b(\Coh(X)))$ denote the chiral algebra produced by
+the CY-to-chiral correspondence, and let $\kappa_{\mathrm{ch}}(\cA_X)$
+denote its Vol~I shadow-two scalar. Two natural questions arise:
+which Hodge-theoretic invariant of $X$ does $\kappa_{\mathrm{ch}}(\cA_X)$
+compute, and does it depend on the dimensional parity of $X$?
 
-The identification $\kappa_{\mathrm{ch}}(\cA_X) = \chi(\cO_X)$ is proved for
-compact CY$_2$ with $h^{1,0}(X) = 0$ (Proposition~\ref{prop:cy-kappa-d2}).
-Outside that scope the identification either reduces to a Serre-forced
-vanishing or silently misidentifies the underlying invariant. Serre duality
-forces $\chi(\cO_X) = 0$ for every compact CY manifold of \emph{odd} complex
-dimension, so the naive $\chi(\cO_X)$ recipe collapses to a universal zero at
-$d = 1, 3, 5, \ldots$ regardless of any richer Hodge content on $X$. At even
-$d$ with $h^{1,0}(X) \neq 0$ the recipe is again numerically degenerate: for
-the abelian surface $E \times E$ and the bielliptic surface, $\chi(\cO_X) =
-0$ by pairwise cancellation against $h^{0,1}$, not by any genuine absence of
-chiral content. The conjecture $\kappa_{\mathrm{ch}} = \chi(\cO_X)$
-advertised at $\mathrm{Conj.}~\ref{conj:cy-kappa-identification}$ must
-therefore be understood as the $d = 2$, $h^{1,0} = 0$ corollary of a finer
-identification that holds for all compact CY$_d$: the
-\emph{Hodge-filtered supertrace} formula
+The elementary answer $\kappa_{\mathrm{ch}}(\cA_X) = \chi(\cO_X)$ is
+proved for compact CY$_2$ with $h^{1,0}(X) = 0$
+(Proposition~\ref{prop:cy-kappa-d2}) and fails in every other setting
+for a uniform reason: Serre duality forces $\chi(\cO_X) = 0$ whenever
+$d$ is odd, collapsing the identification to a universal zero at
+$d = 1, 3, 5, \ldots$ regardless of any richer content on $X$; and at
+even $d$ with $h^{1,0}(X) \neq 0$ the right-hand side again collapses
+by pairwise cancellation against $h^{0,1}$ (the abelian and bielliptic
+surfaces). The correct identity on every compact CY$_d$ is the
+\emph{Hodge-filtered supertrace}
 \[
  \kappa_{\mathrm{ch}}(\cA_X) \;=\; \sum_{q = 0}^{d} (-1)^q\, h^{0,q}(X).
 \]
-At $d = 2$ with $h^{1,0} = 0$, this supertrace collapses to
-$\chi(\cO_X)$; for every other Hodge diamond the correct
-expression is the full alternating sum. This chapter inscribes the
-stratification theorem, checks it dimension by dimension for
-$d \in \{1, 2, 3, 4, 5\}$, and closes
-Conjecture~\ref{conj:cy-kappa-identification} as a
-\emph{dimension-stratified} result.
+At $d = 2$ with $h^{1,0} = 0$ this collapses to $\chi(\cO_X)$; at every
+other Hodge profile it is the full alternating sum. The chapter proves
+this identity and evaluates it dimension by dimension for
+$d \in \{1, 2, 3, 4, 5\}$, closing
+Conjecture~\ref{conj:cy-kappa-identification} in dimension-stratified
+form.
 
 The chapter also records the universal formula
 $\kappa_{\mathrm{BKM}} = c_N(0)/2$ from Borcherds weight theory
-(Proposition~\ref{prop:kappa-BKM-universal-cy-strat}) and makes explicit,
-once and for all, that the agreement
+(Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}) and demonstrates
+that the additive decomposition
 $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\cO_{\mathrm{fiber}})$
-is an $N = 1$ numerical coincidence and fails at every $N \geq 2$ frame
-shape.
+fails at every $N \in \{1, 2, 3, 4, 6\}$.
 
 The unit of analysis throughout is the dimensional parity of $X$ and the
-Hodge column $h^{0,\bullet}(X)$. We will refer repeatedly to the
-companion engine \texttt{compute/lib/cy\_d\_kappa\_d3.py} and its
-stratification test
+Hodge column $h^{0,\bullet}(X)$. The companion engine is
+\texttt{compute/lib/cy\_d\_kappa\_d3.py} with stratification test
 \texttt{compute/tests/test\_cy\_d\_kappa\_stratification.py}.
 
 \section{Setup: $\kappa_{\mathrm{ch}}$, $\chi(\cO_X)$, and the Hodge
@@ -77,8 +54,9 @@ $\chi(\cO_X)$).
 Fix the CY-to-chiral correspondence $\Phi_d$ and write $\cA_X =
 \Phi_d(D^b(\Coh(X)))$ for the chiral algebra associated to $X$. The
 \emph{algebraization scalar} $\kappa_{\mathrm{ch}}(\cA_X)$ is the
-degree-two shadow invariant introduced in Vol~I,
-Section~\ref{sec:shadow-tower-construction}. It is an algebraization
+degree-two shadow invariant of Vol~I: the coefficient of $[b \mid b]$
+in the quadratic piece of the Maurer--Cartan obstruction on
+$B^{\mathrm{ord}}(\cA_X)$. It is an algebraization
 invariant in the sense of a second algebraization of the same
 topological CY$_d$ manifold can produce a different
 $\kappa_{\mathrm{ch}}$. By contrast, $\kappa_{\mathrm{cat}}(X)$,
@@ -106,8 +84,9 @@ $h^{0,q} = h^{d,d-q}$ identification that flattens it back to
 $\chi(\cO_X)$.
 \item The \emph{explicit algebraic Hochschild sum}
 $\mathrm{HH}_{\mathrm{alg}}(X) = \sum_{p,q} (-1)^{p - q}\, h^{p,q}(X)$.
-This is the signed Hodge sum appearing in the HKR--Caldararu formula and
-for CY$_d$ specializes to $\sum_q (-1)^q \chi_p$.
+This is the signed Hodge sum appearing in the HKR--Caldararu formula;
+on compact K\"ahler $X$ one has $(-1)^{p-q} = (-1)^{p+q}$, so
+$\mathrm{HH}_{\mathrm{alg}}(X) = \sum_p (-1)^p \chi_p(X) = \chi_{\mathrm{top}}(X)$.
 \end{itemize}
 
 The Theorem~\ref{thm:kappa-hodge-supertrace-identification} below shows
@@ -146,8 +125,8 @@ Resolved conifold $\mathrm{Tot}(\cO(-1)^{\oplus 2} \to \P^1)$ & $3$ & open toric
 --- & $1$ \\
 CY$_4$ sextic $\subset \P^5$ & $4$ & $(1, 0, 0, 0, 1)$ & $2610$ & $2$ \\
 Septic CY$_5$ $X_7 \subset \P^6$ & $5$ & $(1, 0, 0, 0, 0, 1)$ & --- & $0$ \\
-Borisov--Caldararu CY$_5$ pair & $5$ & $(1, 0, 0, 0, 0, 1)$ & --- & $0$ \\
 $\mathrm{K3} \times X_5$ (quintic) & $5$ & $(1, 0, 1, 1, 0, 1)$ & $0$ & $0$ \\
+Generic strict CY$_5$ & $5$ & $(1, 0, 0, 0, 0, 1)$ & --- & $0$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -298,28 +277,28 @@ holomorphic-symplectic structure of $X$:
        and $d$ odd means there is no middle term ($q = d/2$ is
        non-integral); pairs cancel uniformly.
  \item[\textup{(II)}] \emph{Even $d$ strict-CY stratum.} If $d$ is even
-       and $X$ is a strict CY \textup{(}holonomy precisely
-       $\mathrm{SU}(d)$, equivalently $h^{0, k} = 0$ for $0 < k < d$
-       except $k = d/2$ where $h^{0, d/2} \in \{0, 1\}$ may
-       vanish\textup{),} then $\Xi(X) = 1 + (-1)^{d/2} h^{0, d/2} + 1$.
-       In particular for $h^{0, d/2} = 0$, $\Xi(X) = 2$ \textup{(}sextic
-       at $d = 4$, decic in $\mathbb{P}(1^5, 5)$, ...\textup{);} for
-       $h^{0, d/2} = 1$, $\Xi(X) = 1 + (-1)^{d/2} + 1$.
+       and $X$ has holonomy exactly $\mathrm{SU}(d)$ \textup{(}so
+       $h^{0, k} = 0$ for $0 < k < d$; the unique global holomorphic
+       form is the Calabi--Yau volume\textup{),} then
+       $\Xi(X) = 2$.  Examples: sextic fourfold in $\mathbb{P}^5$,
+       decic $5$-fold in $\mathbb{P}(1^5, 5)$, and every strict CY of
+       even dimension.
  \item[\textup{(III)}] \emph{Even $d$ holomorphic-symplectic stratum.}
        If $d$ is even and $X$ is irreducible holomorphic-symplectic
        \textup{(}holonomy $\mathrm{Sp}(d/2)$, with
        $h^{0, k} = 1$ for every even $0 \leq k \leq d$ and
        $h^{0, k} = 0$ for $k$ odd\textup{),} then
        $\Xi(X) = (d/2) + 1$.  In particular: K$3^{[n]}$ at
-       $d = 2n$ has $\Xi = n + 1$, recovering $\Xi(K3) = 2$ at $n = 1$,
-       $\Xi(K3^{[2]}) = 3$ at $n = 2$ \textup{(}refining the $d = 4$
-       strict-CY value $\Xi = 2$ at the holomorphic-symplectic
-       sextic-related point $F(Y)$\textup{).}
+       $d = 2n$ has $\Xi = n + 1$, recovering $\Xi(K3) = 2$ at $n = 1$
+       and $\Xi(K3^{[2]}) = 3$ at $n = 2$.
 \end{enumerate}
-The three strata are mutually exclusive on the moduli of compact CY
-manifolds with $h^{1, 0} = 0$, exhausting the Beauville--Bogomolov
-classification of holonomies $\mathrm{SU}(d)$, $\mathrm{Sp}(d/2)$, and
-products thereof.
+Strata \textup{(II)} and \textup{(III)} overlap precisely when
+$\mathrm{SU}(d) = \mathrm{Sp}(d/2)$, which occurs only at $d = 2$
+\textup{(}where $\mathrm{SU}(2) = \mathrm{Sp}(1)$; both strata assign
+$\Xi(K3) = 2$\textup{).} For $d \geq 4$ the strata are disjoint, and
+together with \textup{(I)} they exhaust the Beauville--Bogomolov
+classification of compact CY holonomies on connected simply-connected
+$X$ with $h^{1, 0} = 0$.
 \end{theorem}
 
 \begin{proof}
@@ -331,14 +310,13 @@ pair contributes $0$.  No middle term exists since $d/2$ is
 non-integral.
 
 Stratum (II) uses the strict-CY definition: for $X$ with holonomy exactly
-$\mathrm{SU}(d)$, the only nonzero $h^{0, q}$ are $q = 0, d$ (forced by
-Calabi--Yau condition giving a unique holomorphic $d$-form) and
-possibly $q = d/2$ (a holomorphic $d/2$-form, present iff the polarisation
-admits a quadratic decomposition; absent for the generic strict CY).
-The supertrace is
-$\Xi = h^{0, 0} + (-1)^{d/2} h^{0, d/2} + (-1)^d h^{0, d}
-     = 1 + (-1)^{d/2} h^{0, d/2} + 1$
-since $d$ is even, giving $(-1)^d = 1$.
+$\mathrm{SU}(d)$, the holonomy representation on $\Omega^q$ has no trivial
+summand for $0 < q < d$, so $h^{0, q} = 0$ in this range.  The only
+nonzero $h^{0, q}$ are $q = 0$ (constants) and $q = d$ (the Calabi--Yau
+volume form).  A second holomorphic form at $q = d/2$ would reduce the
+holonomy to $\mathrm{Sp}(d/2)$, placing $X$ in stratum \textup{(III)}
+instead.  Hence $\Xi(X) = h^{0, 0} + (-1)^d h^{0, d} = 1 + 1 = 2$, since
+$d$ is even.
 
 Stratum (III) uses the holomorphic-symplectic Hodge structure of
 Beauville--Bogomolov: for $X$ irreducible holomorphic-symplectic of
@@ -409,21 +387,17 @@ Theorem~\ref{thm:kappa-hodge-supertrace-identification} and takes the
 following values.
 
 \textbf{$d = 1$ (elliptic curve $E$).} Column $h^{0,\bullet} = (1, 1)$,
-so $\Xi(E) = 1 - 1 = 0$ and $\kappa_{\mathrm{ch}}(\cA_E) = 0$. The
-Vol~I Heisenberg identification $\cA_E = H_1$ gives
-$\kappa_{\mathrm{ch}}(H_1) = 0$ independently. The apparent
-discrepancy with the claim ``$\kappa_{\mathrm{ch}}(E) = 1$'' in legacy tables arises
-from conflating $\kappa_{\mathrm{ch}}(\cA_E)$ (which vanishes by
-supertrace) with the Heisenberg level parameter $k$ that parametrizes
-the family of Heisenberg algebras; $k = 1$ chooses the basic
-representation, but the shadow scalar of that VOA is
-$\kappa_{\mathrm{ch}}(H_1) = 1$ in the Vol~I convention where
-$\kappa_{\mathrm{Heis}} = k$, \emph{and} $H_1$ arises by a distinct
-construction (the free-boson lattice of rank $1$) that sits outside the
-$\Phi_d$ functor. The supertrace identification gives
-$\kappa_{\mathrm{ch}}(\Phi_1(D^b(E))) = 0$, an independent invariant.
-We inscribe $\kappa_{\mathrm{ch}}(\Phi_1(D^b(E))) = 0$ as the canonical
-$d = 1$ value.
+so $\Xi(E) = 1 - 1 = 0$ and $\kappa_{\mathrm{ch}}(\cA_E) = 0$.  Two Heisenberg invariants must be
+distinguished: the shadow scalar $\kappa_{\mathrm{ch}}$ of the chiral
+output $\cA_E = \Phi_1(D^b(\Coh(E)))$, which vanishes by the supertrace
+$1 - 1 = 0$; and the Heisenberg level $\kappa_{\mathrm{Heis}} = k$, which
+parametrizes the free-boson lattice VOA $H_k$ of rank $1$ and equals $1$
+at the basic representation $H_1$.  The lattice VOA $H_1$ is a separate
+construction from $\Phi_1(D^b(\Coh(E)))$, so $\kappa_{\mathrm{Heis}}(H_1)
+= 1$ and $\kappa_{\mathrm{ch}}(\Phi_1(D^b(\Coh(E)))) = 0$ are invariants
+of different algebras.  In this chapter $\kappa_{\mathrm{ch}}$ always
+denotes the supertrace on the $\Phi_d$ output; the $d = 1$ value is
+$\kappa_{\mathrm{ch}}(\Phi_1(D^b(\Coh(E)))) = 0$.
 
 \textbf{$d = 2$, K3 ($h^{1,0} = 0$).} Column $(1, 0, 1)$, so
 $\Xi(K3) = 2$ and $\kappa_{\mathrm{ch}}(\cA_{K3}) = 2 = \chi(\cO_{K3})$.
@@ -457,7 +431,7 @@ compact $X$ is replaced by compactly-supported duality on the total
 space. The supertrace evaluates instead on the Dolbeault column of the
 base: for local $\P^2 = \mathrm{Tot}(\omega_{\P^2})$ this is
 $\frac{1}{2}\chi_{\mathrm{top}}(\P^2) = \frac{3}{2}$, matching
-Theorem~\ref{thm:local-p2-shadow} inscribed in the main thread.
+Theorem~\ref{thm:local-p2-shadow}.
 
 \textbf{$d = 4$, CY$_4$.} Column $(1, h^{0,1}, h^{0,2}, h^{0,3},
 h^{0,4})$ with $h^{0,4} = h^{4,0} = 1$ and $h^{0,q} = h^{0,4-q}$ by
@@ -496,7 +470,7 @@ The odd $d = 5$ vanishing is purely Serre: every pair cancels.
 
 The $d = 4$ entry of Theorem~\ref{thm:kappa-stratification-by-d}
 records the supertrace $\Xi(X_6) = 2$ for the sextic. This section
-inscribes the full $d = 4$ stratum: explicit computation across five
+develops the full $d = 4$ stratum: explicit computation across five
 families (sextic, octic double cover, decic, $\mathrm{K3}^{[2]}$,
 $F(Y)$ Beauville--Donagi cubic-4-fold lines) plus the new structural
 \emph{BCOV $F_2$ zero-correction theorem} establishing that the leading
@@ -659,7 +633,7 @@ $0$ (no anomaly) \\
 $3$ & Serre forces $\chi(\cO) = 0$; $\kappa_{\mathrm{ch}}$ via K\"unneth &
 n/a (universal vanishing) \\
 $4$ & $F_1$ moduli-independence kills $F_2$ anomaly &
-$0$ \emph{(NEW)} \\
+$0$ (Theorem~\ref{thm:bcov-f2-zero-correction-d4}) \\
 $5$ & Serre forces $\chi(\cO) = 0$ (odd $d$) & n/a \\
 \bottomrule
 \end{tabular}
@@ -692,31 +666,17 @@ lines $F(Y)$ are deformation-equivalent to $\mathrm{K3}^{[2]}$
 (Beauville--Donagi 1985), so $\Xi(F(Y)) = 3$ as well.
 \end{remark}
 
-\begin{remark}[Closure]
-\label{rem:cy-strat-d4-ap-cy61}
-The wrong claim ``BCOV $F_2$ introduces a non-trivial correction to
-$\kappa_{\mathrm{ch}}$ at $d = 4$'' contains the seed of the correct
-theorem under first-principles analysis:
-\begin{itemize}
-\item \textbf{What it gets right:} $F_2$ is a non-trivial higher-genus
-topological string amplitude with non-zero constant-map contribution
-$F_2^{\mathrm{const}} = \chi/5760 \neq 0$; the BCOV anomaly equation
-\emph{a priori} admits non-trivial contributions to all observables.
-\item \textbf{What it gets wrong:} At $d = 4$, this $F_2$ contribution
-fails to be \emph{quantum-anomalous} for $\kappa_{\mathrm{ch}}$. The
-moduli-dependent (anomalous) part of $F_2$ vanishes; only the
-moduli-independent (classical Yukawa) part contributes, which is
-already absorbed into $\Xi(X)$.
-\item \textbf{Correct statement:} Theorem
-\ref{thm:bcov-f2-zero-correction-d4}: the $F_2$ correction to
-$\kappa_{\mathrm{ch}}$ at $d = 4$ is identically zero, by $F_1$
-moduli-independence ($D_i F_1 = 0$).
-\end{itemize}
-The ghost of the wrong claim is the genuine result that $F_g$ for
-$g \geq 2$ has classical-only contributions to $\kappa_{\mathrm{ch}}$
-at $d = 4$. The wrong claim conflated the topological string
-amplitude $F_g$ with its anomalous contribution to the algebraization
-scalar.
+\begin{remark}[Classical vs.\ anomalous parts of $F_2$]
+\label{rem:cy-strat-d4-ghost-theorem}
+Theorem~\ref{thm:bcov-f2-zero-correction-d4} separates the classical
+and anomalous contributions of the $F_2$ topological string amplitude.
+The classical constant-map term $F_2^{\mathrm{const}} = \chi(X)/5760$
+is nonzero but Hodge-type $(0,0)$ and is therefore absorbed into the
+leading supertrace $\Xi(X)$. The anomalous (moduli-derivative)
+contribution $\kappa_{\mathrm{ch}}^{F_2\text{-corr}}(\cA_X)$ vanishes by
+$F_1$ moduli-independence $D_i F_1 = 0$. Only the classical piece
+contributes to $\kappa_{\mathrm{ch}}$ at $d = 4$, and it is already
+counted in $\Xi(X)$.
 \end{remark}
 
 \begin{remark}[Engine and tests for $d = 4$]
@@ -741,9 +701,10 @@ deformation-theoretic moduli classification) are genuinely disjoint.
 $\kappa_{\mathrm{cat}}(X) = \chi(\cO_X)$ is a topological manifold
 invariant and therefore does \emph{not} reduce to
 $\kappa_{\mathrm{ch}}$ outside the $(d, h^{1,0}) = (2, 0)$ scope. For
-K3, $\kappa_{\mathrm{cat}}(K3) = 2 = \kappa_{\mathrm{ch}}(\cA_{K3})$ --
-coincidence from which the conjecture
-$\kappa_{\mathrm{cat}} = \kappa_{\mathrm{ch}}$ was wrongly generalized.
+K3, $\kappa_{\mathrm{cat}}(K3) = 2 = \kappa_{\mathrm{ch}}(\cA_{K3})$ -- a
+coincidence: at $d = 2$ with $h^{1, 0} = 0$, the Hodge supertrace
+collapses to $\chi(\cO_{K3})$, so the two invariants share a single
+number. The coincidence does not extend beyond this scope.
 For $\mathrm{K3} \times E$, $\kappa_{\mathrm{cat}}(\mathrm{K3} \times E)
 = \chi(\cO_{\mathrm{K3}\times E}) = 0 = \kappa_{\mathrm{ch}}$: the
 identification by accident continues to hold because both sides
@@ -762,7 +723,7 @@ this equals $\chi(\cO_X)$; otherwise it is simply the signed sum.
 
 The $d = 5$ entry of Theorem~\ref{thm:kappa-stratification-by-d}
 records the universal vanishing $\Xi(X) = 0$ for every compact CY$_5$.
-This section inscribes the full $d = 5$ stratum: explicit computation
+This section develops the full $d = 5$ stratum: explicit computation
 for the septic $X_7 \subset \P^6$ and the Borisov--Caldararu Pfaffian
 pair (a celebrated derived-equivalent non-birational CY$_5$ pair from
 arXiv:0710.5901), the Kunneth-product $\mathrm{K3} \times X_5$ check, plus
@@ -782,10 +743,6 @@ mechanism & reference \\
 \midrule
 Septic $X_7 \subset \P^6$ & $(1,0,0,0,0,1)$ & $0$ & $0$ & strict CY hypersurface &
 Cox--Katz Ch.~7 \\
-Borisov--Caldararu $X$ & $(1,0,0,0,0,1)$ & $0$ & $0$ & Pfaffian--Grassmannian &
-arXiv:0710.5901 \\
-Borisov--Caldararu $Y$ & $(1,0,0,0,0,1)$ & $0$ & $0$ & Pfaffian dual of $X$ &
-arXiv:0710.5901 \\
 $\mathrm{K3} \times X_5$ & $(1,0,1,1,0,1)$ & $0$ & $0$ & Kunneth + Serre cancel &
 Griffiths--Harris \\
 generic strict CY$_5$ & $(1,0,0,0,0,1)$ & $0$ & $0$ & strict universal &
@@ -794,15 +751,16 @@ universal Serre \\
 \end{tabular}
 \end{center}
 
-The five families share a single output value $\Xi = 0$, but partition
-into three Hodge patterns: (i) \emph{strict CY column} $(1,0,0,0,0,1)$ for
-the septic, both Borisov--Caldararu varieties, and the generic strict
-CY$_5$; (ii) \emph{nontrivial middle column} $(1,0,1,1,0,1)$ for the
-$\mathrm{K3} \times X_5$ product, where Kunneth produces $h^{0,2} = h^{0,3} = 1$
-that cancel pairwise by Serre; (iii) the \emph{derived-equivalence pair}
-$(X, Y)$ where $\Xi(X) = \Xi(Y) = 0$ verifies the Hochschild-homology-
-preserving discipline of derived equivalence (Caldararu HKR) on the
-$(0,\bullet)$ supertrace channel.
+The three families share a single output value $\Xi = 0$, partitioned
+into two Hodge patterns: (i) \emph{strict CY column} $(1,0,0,0,0,1)$ for
+the septic and the generic strict CY$_5$, annihilated directly by the
+$(0, 5)$ Serre pair; (ii) \emph{nontrivial middle column}
+$(1,0,1,1,0,1)$ for the $\mathrm{K3} \times X_5$ product, where
+K\"unneth produces $h^{0,2} = h^{0,3} = 1$ that cancel pairwise by
+Serre. Any derived-equivalent CY$_5$ pair is automatically captured by
+both patterns: by Caldararu HKR, derived equivalence preserves
+$\bigoplus_q H^{0,q}$, hence the supertrace, which is already zero by
+the theorem below.
 
 \begin{theorem}[$d = 5$ Universal Serre Cancellation]
 \label{thm:cy-d-d5-stratification}
@@ -830,22 +788,17 @@ odd, $q = 5/2$ is not integral). Direct computation:
 \]
 each Serre pair contributing zero by the identity
 $(-1)^q + (-1)^{5-q} = (-1)^q (1 + (-1)^5) = 0$. The septic
-$X_7 \subset \P^6$, the Borisov--Caldararu Pfaffian pair $(X, Y)$, and
-the K\"unneth product $\mathrm{K3} \times X_5$ are all instances of this
-identity:
+$X_7 \subset \P^6$ and the K\"unneth product $\mathrm{K3} \times X_5$ are
+both instances of this identity:
 \begin{itemize}
 \item Septic $X_7$: column $(1, 0, 0, 0, 0, 1)$, $\Xi = 1 - 1 = 0$.
-\item Borisov--Caldararu $X$, $Y$: column $(1, 0, 0, 0, 0, 1)$, same
-calculation. The agreement $\Xi(X) = \Xi(Y) = 0$ is forced by
-Caldararu HKR-equivariance: derived equivalence
-$D^b(\Coh(X)) \simeq D^b(\Coh(Y))$ preserves Hochschild homology, hence
-the $(0, \bullet)$ Hodge column under the HKR isomorphism, and
-therefore the supertrace.
 \item K\"unneth product $\mathrm{K3} \times X_5$: column
 $(1, 0, 1, 1, 0, 1)$ from $h^{0, q}(\mathrm{K3} \times X_5) =
 \sum_{b + d = q} h^{0, b}(\mathrm{K3}) \cdot h^{0, d}(X_5)$. Even with
 nontrivial middle terms $h^{0, 2} = h^{0, 3} = 1$, the supertrace
 $1 - 0 + 1 - 1 + 0 - 1 = 0$ vanishes by the Serre pairing.
+\item Any compact CY$_5$ with $h^{0, q} = h^{0, 5 - q}$ (i.e., every
+      such manifold) follows immediately from the universal pairing.
 \end{itemize}
 The absence of any $F_g$ correction at $d = 5$ is
 Theorem~\ref{thm:bcov-fg-zero-correction-d5} below.
@@ -919,10 +872,11 @@ $0$ (no anomaly to begin with) \\
 $3$ & Serre forces $\chi(\cO) = 0$; two Serre pairs, no middle &
 n/a (vanishing universal at odd d) \\
 $4$ & $F_1 = \chi/24$ moduli-independence kills $F_2$ anomaly &
-$0$ (theorem~\ref{thm:bcov-f2-zero-correction-d4}) \\
+$0$ (Theorem~\ref{thm:bcov-f2-zero-correction-d4}) \\
 $5$ & Universal Serre cancellation; three pairs, no middle; $F_g$
 inherits $\sigma$ &
-$0$ \emph{for all $g \geq 2$ (NEW)} \\
+$0$ for all $g \geq 2$
+(Theorem~\ref{thm:bcov-fg-zero-correction-d5}) \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -962,52 +916,36 @@ $2 + 0 = 2$. Both are correct in their respective conventions; the
 chapter's $\kappa_{\mathrm{ch}}$ is the supertrace, hence $0$.
 \end{remark}
 
-\begin{remark}[Borisov--Caldararu derived-equivalence consistency]
-\label{rem:cy-strat-d5-borisov-caldararu}
-Borisov--Caldararu (arXiv:0710.5901, J.~Algebraic Geom.~18 (2009)) construct
-a CY$_5$ pair $(X, Y)$ with $D^b(\Coh(X)) \simeq D^b(\Coh(Y))$ but $X \not\sim_{\mathrm{bir}} Y$
-(non-birational), via the Pfaffian--Grassmannian construction inside
-the Grassmannian $\mathrm{Gr}(2, 7)$. By Caldararu HKR-equivariance
-(arXiv:math/0408149, Adv.~Math.~194 (2005)), derived equivalence preserves
-Hochschild homology, hence the $(0, \bullet)$ Hodge column under the
-HKR isomorphism. The supertrace $\Xi(X) = \Xi(Y)$ is therefore forced.
-The Universal Serre Cancellation gives both equal to $0$, providing
-the strongest possible cross-check: a derived-equivalence-invariant
-quantity must agree on derived-equivalent CY manifolds, and the
-$\Xi$-supertrace passes this test trivially at $d = 5$. For derived
-pairs at $d = 4$ where Serre allows $\Xi \neq 0$, this would be a
-non-trivial check; at $d = 5$, both sides vanish by the universal
-mechanism, and the agreement is automatic.
+\begin{remark}[Derived-equivalence compatibility at $d = 5$]
+\label{rem:cy-strat-d5-derived-equivalence}
+Caldararu HKR (\emph{Adv.~Math.}~194 (2005), arXiv:math/0308079)
+identifies Hochschild homology of $D^b(\Coh(X))$ with
+$\bigoplus_{p, q} H^{p, q}(X)$, and derived equivalence
+$D^b(\Coh(X)) \simeq D^b(\Coh(Y))$ preserves this sum. For any hypothetical
+derived-equivalent CY$_5$ pair, the supertrace $\Xi$ --- which reads only
+the $(0, q)$ column --- therefore agrees trivially. The Universal Serre
+Cancellation gives both sides $0$, so the compatibility is automatic
+at $d = 5$. The substantive derived-equivalence check occurs at $d = 4$
+where Serre allows $\Xi \neq 0$; the Borisov--Caldararu pair
+(arXiv:0710.5901, \emph{J.~Algebraic Geom.}~18 (2009)) is a CY$_3$
+construction and therefore lives in stratum (I), not here.
 \end{remark}
 
-\begin{remark}[Closure at $d = 5$]
-\label{rem:cy-strat-d5-ap-cy61}
-The wrong claim ``BCOV $F_g$ introduces a non-trivial correction to
-$\kappa_{\mathrm{ch}}$ at $d = 5$ via large quantum corrections from
-the high-genus topological string sector'' contains the seed of the
-correct theorem under first-principles analysis:
-\begin{itemize}
-\item \textbf{What it gets right:} The high-genus $F_g$ for $g \geq 2$
-on CY$_5$ are individually large and complicated; the BCOV anomaly
-equation \emph{a priori} admits non-trivial moduli-derivative
-contributions to all observables.
-\item \textbf{What it gets wrong:} The supertrace $\kappa_{\mathrm{ch}}$
-projects onto the alternating-sign $(-1)^q$ sum of $(0, q)$ moduli
-derivatives. The Serre involution $q \mapsto 5 - q$ pairs every
-contribution with an opposite-sign partner, killing the supertrace
-projection regardless of how large the individual $F_g$ contributions
-might be.
-\item \textbf{Correct statement:} Theorem
-\ref{thm:bcov-fg-zero-correction-d5}: the $F_g$ correction to
-$\kappa_{\mathrm{ch}}$ at $d = 5$ is identically zero for every
-$g \geq 2$, by inherited Serre symmetry. The full $F_g$ partition
-function is non-trivial; only its supertrace projection vanishes.
-\end{itemize}
-The ghost of the wrong claim is the genuine result that $F_g$ for
-$g \geq 2$ \emph{can} contribute to other observables (e.g., the
-Gromov--Witten invariants, the topological string partition function),
-but \emph{cannot} contribute to $\kappa_{\mathrm{ch}}$ at any odd $d$
-because of the Serre involution on the $(0, \bullet)$ column.
+\begin{remark}[$F_g$ partition function vs.\ its supertrace projection]
+\label{rem:cy-strat-d5-ghost-theorem}
+Theorem~\ref{thm:bcov-fg-zero-correction-d5} separates the full
+$F_g$ partition function from its supertrace projection. The
+high-genus $F_g$ for $g \geq 2$ on CY$_5$ are individually large
+and non-trivial; the BCOV anomaly equation admits moduli-derivative
+contributions to all observables, and $F_g$ contributes genuinely to
+Gromov--Witten invariants and to the topological string partition
+function. What vanishes is only the alternating-sign $(-1)^q$
+supertrace over the $(0, q)$ moduli derivatives: the Serre involution
+$q \mapsto 5 - q$ pairs every contribution with an opposite-sign
+partner, so the supertrace projection is zero for every $g \geq 2$
+by inherited Serre symmetry. The same mechanism forces $\Xi(X) = 0$
+on the leading $g = 0$ column and propagates up the tower of $F_g$
+corrections unchanged.
 \end{remark}
 
 \begin{remark}[Engine and tests for $d = 5$]
@@ -1112,7 +1050,10 @@ of the Kronecker quiver with two arrows from one node to a second and
 two arrows back, corresponding to the two sections of $\cO(-1)$) yields
 $\kappa_{\mathrm{ch}} = 1$, independent of any Hodge formula. The
 bounded derived category $D^b(\Coh(X_{\mathrm{con}}))$ contains exactly
-one compact generator $\cO_{\P^1}$; under $\Phi_3$ this generator
+one compact generator $\cO_{\P^1}$; under the $d = 3$ CY-to-chiral
+correspondence of Theorem~\ref{thm:cy-to-chiral-d3} (infinity-categorical
+existence; the framing obstruction vanishes by
+Theorem~\ref{thm:derived-framing-obstruction}), this generator
 produces a single Heisenberg mode of level $1$, giving $\kappa_{\mathrm{ch}}
 = 1$ as the abelian shadow.
 
@@ -1151,7 +1092,6 @@ $d = 3$, $\kappa_{\mathrm{ch}}(\cA_X) = 0$ for every compact $X$.
 $c_N(0)/2$ across the five Borcherds frame shapes]
 \label{thm:borcherds-weight-kappa-BKM-universal}
 \ClaimStatusProvedHere
-\label{prop:kappa-BKM-universal-cy-strat}
 Let $\Phi_N$ be the Borcherds product of a vector-valued theta series of
 weight-generating level $N$, with denominator-identity constant term
 $c_N(0)$. Then the BKM modular characteristic satisfies
@@ -1173,15 +1113,9 @@ The correct universal formula is $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
 (Gritsenko 1999; Borcherds 1998), with no coincidence at any $N$.
 \end{theorem}
 
-% HEAL 2026-04-17: The prior statement $\kappa_{\mathrm{BKM}}(\Phi_1)=0$
-% and proof $\kappa_{\mathrm{BKM}}(\Phi_{10})=10$ were both incorrect;
-% the correct value is $5$ via Gritsenko $\Delta_5$ weight-$5$ paramodular
-% form of level $1$. The ``$N=1$ coincidence'' narrative referenced in
-% CLAUDE.md was a confabulation and is retracted.
-
 \begin{proof}
-The Borcherds weight theorem (Borcherds, Invent.~Math.~1995,
-Theorem~10.1) states that for a Borcherds product $\Phi_N$ with
+The Borcherds weight theorem (Borcherds, \emph{Invent.\ Math.}~132
+(1998), Theorem~10.1) states that for a Borcherds product $\Phi_N$ with
 vector-valued theta data of weight-generating level $N$, the weight
 $\mathrm{wt}(\Phi_N)$ equals $c_N(0)/2$, where $c_N(0)$ is the
 principal-part constant of the theta-lift input at the cusp. The BKM
@@ -1192,22 +1126,25 @@ BKM algebra. Hence
  \kappa_{\mathrm{BKM}}(\Phi_N) \;=\; \mathrm{wt}(\Phi_N) \;=\;
    \frac{c_N(0)}{2},
 \]
-uniformly across the five families (see Gritsenko 1999,
-\emph{Arithmetical lifting and its applications}, and
-Cheng--Duncan--Harvey, \emph{Umbral moonshine}, 2014, for the explicit
-$c_N(0)$ values). The $N = 1$ case is Gritsenko's weight-$5$ Siegel
+uniformly across the five families. The explicit $c_N(0)$ values for
+$N \in \{1, 2, 3, 4, 6\}$ are read from the K$3$ elliptic genus and its
+$\mathbb{Z}/N\mathbb{Z}$-orbifold twists (Eguchi--Ooguri--Tachikawa,
+\emph{Notes on the K3 surface and the Mathieu group $M_{24}$},
+\emph{Exp.\ Math.}~20 (2011)~91--96; Gritsenko--Nikulin,
+\emph{Automorphic forms and Lorentzian Kac--Moody algebras II}, 1995),
+giving the table $c_N(0) = (10, 8, 6, 4, 2)$.
+The $N = 1$ case is Gritsenko's weight-$5$ Siegel
 paramodular form $\Delta_5 = \Phi_1$ of level $1$, with $c_1(0) = 10$;
 $\kappa_{\mathrm{BKM}}(\Phi_1) = 10/2 = 5$.
 Meanwhile, $\kappa_{\mathrm{ch}}(\cA_{\mathrm{K3}\times E}) +
 \chi(\cO_E) = 0 + 0 = 0 \neq 5$, so at $N = 1$ the literal
 decomposition $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
-\chi(\cO_{\mathrm{fiber}})$ fails; the earlier claim in the programme
-($5 = 3 + 2$) conflated the $\Phi_5$-weight with the unrelated
-numerical invariants $3$ and $2$, and the subsequent claim
-$\kappa_{\mathrm{BKM}}(\Phi_1) = 0$ conflated the supertrace side
-with the Borcherds-weight side. The universal formula is
-$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$, valid at every $N$
-without coincidence.
+\chi(\cO_{\mathrm{fiber}})$ fails: the symbol $\kappa_{\mathrm{BKM}}$
+records the weight of the paramodular form $\Phi_1 = \Delta_5$
+($= 5$), not a supertrace on the fiber $E$ ($\chi(\cO_E) = 0$) added
+to a supertrace on $\mathrm{K3} \times E$ ($\kappa_{\mathrm{ch}} = 0$).
+The universal formula is $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$,
+valid at every $N$.
 
 For $N \geq 2$, the Borcherds constants for the diagonal Siegel
 orbifolds of $\mathrm{K3}\times E$ are $c_2(0) = 8$, $c_3(0) = 6$,
@@ -1221,17 +1158,19 @@ $\kappa_{\mathrm{ch}}(\cA_{Z_N}) + \chi(\cO_{E_N})$ of the quotient
 CY$_3$.
 \end{proof}
 
-\begin{remark}[Numerical coincidence at $N=1$ rejected]
-\label{rem:ap-cy37-closed}
-Working notes flagged the decomposition
+\begin{remark}[Failure of the additive decomposition at every $N$]
+\label{rem:bkm-additive-decomposition-fails}
+The decomposition
 $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\cO_{\mathrm{fiber}})$
-as a numerical coincidence, failing for $7$ of the $8$ diagonal Siegel
-orbifold frames. Proposition
-\ref{prop:kappa-BKM-universal-cy-strat} closes that question: the correct
-universal formula is $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$, and the
-additive decomposition holds at no $N$ whatsoever. Already at $N = 1$,
-the left side is $5$ (Gritsenko $\Delta_5$, weight $5$, level $1$
-paramodular) while the right side is $0 + 0 = 0$.
+holds at no $N \in \{1, 2, 3, 4, 6\}$. At $N = 1$ the left side is $5$
+(Gritsenko $\Delta_5$, weight $5$, level-$1$ paramodular), while the
+right side is $\kappa_{\mathrm{ch}}(\cA_{\mathrm{K3}\times E}) + \chi(\cO_E) = 0 + 0 = 0$.
+At $N = 2$ the left side is $4$ while the right side is
+$\kappa_{\mathrm{ch}}(\cA_{Z_2}) + \chi(\cO_{E_2}) = 1 + 0 = 1$.
+Direct evaluation at $N = 3, 4, 6$ similarly falsifies the additive
+decomposition at every frame. The correct universal formula is
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
+(Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}).
 \end{remark}
 
 \begin{remark}[Gold-standard HZ-IV disjoint verification]
@@ -1276,27 +1215,23 @@ every $N$, so any disagreement would refute the universal formula
 and expose a drift in one of the primary sources.
 \end{remark}
 
-\begin{remark}[HZ-IV decorator upgrade]
-\label{rem:kappa-bkm-hziv-decorator-upgrade}
-Before the Wave-9 propagation (2026-04-18) the HZ-IV decoration on
-$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ routed all five $N$ values
-through a single \texttt{FRAME\_SHAPE\_DATA} engine record in
-\texttt{compute/lib/kappa\_bkm\_universal.py}: disjointness held at
-the citation level but the verification collapsed to one arithmetic
-table. The gold-standard paths of
-Remark~\ref{rem:kappa-bkm-gold-standard-paths} upgrade this by
-performing the three computations independently --- Fourier expansion,
-paramodular dimension formula, Nikulin fixed-point count ---
-so that the engine record is demoted to a post-hoc sanity anchor.
-The upgrade has no effect on the theorem statement or its proof;
-it eliminates the residual HZ-IV-W8-C pattern of
-decorator-label-disjoint-but-computation-identical
-(\texttt{assert\_sources\_disjoint} verifies label disjointness; the
-gold-standard paths now carry computation disjointness as well).
+\begin{remark}[HZ-IV computation-level disjointness]
+\label{rem:kappa-bkm-hziv-computation-disjoint}
+The gold-standard paths of
+Remark~\ref{rem:kappa-bkm-gold-standard-paths} perform three
+independent computations at primary-source level --- weak Jacobi form
+Fourier expansion, paramodular cusp form dimension formula, Nikulin
+fixed-point count --- so the identity
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ is verified without
+routing the five $N$ values through a shared tabulation. The
+\texttt{assert\_sources\_disjoint} decorator in the test file verifies
+label disjointness; the three paths of
+Remark~\ref{rem:kappa-bkm-gold-standard-paths} carry the matching
+computation-level disjointness.
 \end{remark}
 
 \section{Removing $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ misclaims}
-\label{sec:cy-strat-healing-sweep}
+\label{sec:cy-strat-misclaim-sweep}
 
 Theorem~\ref{thm:kappa-hodge-supertrace-identification} provides the
 universal replacement. Every occurrence of ``$\kappa_{\mathrm{ch}} = \chi(\cO_X)$''
@@ -1318,13 +1253,19 @@ $\chi(\cO_X)$ symbol.
 \end{enumerate}
 
 \begin{remark}[Algebraization vs manifold invariants]
-\label{rem:ap-cy34-44-closure}
-Three working-note items flagged the prior programme text:
-(a) the assertion $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ outside the scope
-$(d, h^{1,0}) = (2, 0)$; (b) the assertion that CY-D holds at odd $d$
-when Serre forces $\chi(\cO_X) = 0$ there; (c) the conflation of
-algebraization invariants with manifold invariants.
-The stratification theorem closes all three. The supertrace form
+\label{rem:algebraization-vs-manifold-invariants}
+Three disciplines must be observed to avoid collapse between the
+supertrace $\kappa_{\mathrm{ch}}$ and the manifold invariant
+$\chi(\cO_X)$:
+(a) $\kappa_{\mathrm{ch}}(\cA_X) = \chi(\cO_X)$ holds ONLY on the scope
+$(d, h^{1,0}) = (2, 0)$;
+(b) at odd $d$, Serre forces $\chi(\cO_X) = 0$, so any identity
+``$\kappa_{\mathrm{ch}} = \chi(\cO_X)$'' at odd $d$ is vacuous;
+(c) $\kappa_{\mathrm{ch}}$ is an algebraization invariant and
+$\kappa_{\mathrm{cat}}(X) = \chi(\cO_X)$ is a manifold invariant, so
+equating them conflates two different categories of invariant.
+The stratification theorem supplies the universal replacement
+$\kappa_{\mathrm{ch}}(\cA_X) = \Xi(X)$. The supertrace form
 $\Xi(X)$ survives because it is an invariant of the \emph{category}
 $\Phi_d(D^b(\Coh(X)))$ (equivalently, of the chiral algebra $\cA_X$),
 not of the manifold $X$: different algebraizations of the same
@@ -1353,8 +1294,9 @@ identification of $\kappa_{\mathrm{ch}}(\cA_X)$ for
 non-product, non-toric, non-local CY$_3$ (Remark
 \ref{rem:cy-strat-open-frontier}): in every known family,
 $\Xi(X) = \kappa_{\mathrm{ch}}(\cA_X)$ holds, but the verification
-requires explicit construction of $\Phi_3(D^b(\Coh(X)))$ on
-cases beyond the quintic and the Kummer orbifolds. The conifold
+requires explicit construction of $\Phi_3(D^b(\Coh(X)))$
+(Theorem~\ref{thm:cy-to-chiral-d3}) on cases beyond the quintic and
+the Kummer orbifolds. The conifold
 (Corollary~\ref{cor:conifold-non-local-surface}) is the sole
 genuinely open case where the direct McKay computation gives a value
 ($\kappa_{\mathrm{ch}} = 1$) not predicted by $\Xi$, reflecting its
@@ -1450,6 +1392,5 @@ is promoted to Theorem~\ref{thm:kappa-hodge-supertrace-identification}.
 The original \emph{form} of the conjecture (with $\chi(\cO_X)$ on the
 right) survives as the $d = 2$, $h^{1,0} = 0$ corollary. The cases
 $d \in \{1, 3, 5\}$ record the Serre-enforced vanishing
-(Lemma~\ref{lem:chi-O-vanishes-odd-d}). The programme therefore
-inscribes the stratification theorem as the unconditional form of
-CY-D, with Conjecture~\ref{conj:cy-kappa-identification} closed.
+(Lemma~\ref{lem:chi-O-vanishes-odd-d}). The stratification theorem is thus the unconditional form of
+CY-D, subsuming Conjecture~\ref{conj:cy-kappa-identification}.
