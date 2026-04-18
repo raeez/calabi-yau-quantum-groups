@@ -785,29 +785,90 @@ characteristic by the universal weight theorem (Theorem~13.3 of
 Pattern~230 discipline requires the BKM subscript.
 \begin{enumerate}[label=\textup{(\arabic*)}]
   \item $L = \mathrm{II}_{1,1}$, $V = V^\natural$ the Moonshine module of central
-  charge $c = 24$ (\cite{FrenkelLepowskyMeurman1988}):
-  the Hauptmodul input $\chi_{V^\natural}(\tau) - 744
-  = J(\tau) = q^{-1} + 0 + 196884\, q + 21493760\, q^2 + \cdots$
-  is a weakly holomorphic modular function (weight $0$) with
-  \emph{constant} Fourier coefficient $c_V(0) = 0$ (by the
-  normalisation $\chi_{V^\natural} - 744 = J$), and the Borcherds
-  product is $\Phi_V = J(\tau) - 744$, the Monster Lie algebra
-  denominator of Borcherds 1992~\cite{Borcherds1992}.  The Borcherds
-  weight theorem then gives
+  charge $c = 24$ (\cite{FrenkelLepowskyMeurman1988}). \emph{Scope
+  warning (see Lemma~\ref{lem:monster-outside-grassmannian-lift} below):}
+  $\mathrm{II}_{1,1}$ has signature $(1,1)$, so $b^+ = 1$; this lies
+  \emph{outside} the hypothesis $b^+ \ge 2$ of
+  Theorem~\ref{thm:borcherds-lift-universal}.  Case~(1) is therefore
+  \emph{not} an instance of that theorem but of the separate
+  Borcherds-1992 two-variable denominator construction
+  \cite[Prop.~3.1, Thm.~10.1]{Borcherds1992}.  We record it here for
+  comparison; the universal property applies at cases~(2) and~(3)
+  where $b^+ \ge 2$.
+
+  \emph{Conventions.}  The FLM grading of $V^\natural = \bigoplus_{n
+  \ge 0} V^\natural_n$ has $\dim V^\natural_0 = 1$, $\dim V^\natural_1
+  = 0$, $\dim V^\natural_2 = 196884$ \cite[Chap.~10]{FrenkelLepowskyMeurman1988};
+  with $c/24 = 1$, the $L_0$-shifted character is $\chi_{V^\natural}(\tau) =
+  \mathrm{tr}_{V^\natural}\, q^{L_0 - c/24} = q^{-1}(1 + 0 \cdot q +
+  196884\, q^2 + 21493760\, q^3 + \cdots)$.  We adopt the shifted
+  indexing $c_V(m) := [q^m]\,\chi_V(\tau)$ consistent with
+  Theorem~\ref{thm:borcherds-lift-universal}, so $c_V(-1) = 1$,
+  $c_V(0) = 0$, $c_V(1) = 196884 = \dim V^\natural_2$ (\emph{not}
+  $\dim V^\natural_1 = 0$).  Under this convention
+  $\chi_{V^\natural}(\tau) = J(\tau)$ exactly, where $J = j - 744$ is
+  the unique weight-$0$ weakly-holomorphic modular function with
+  constant term $0$ and $q^{-1}$-coefficient $1$; the classical Klein
+  $j$-function is $j = J + 744$, so the ``$-744$'' in the common
+  formula $\chi_{V^\natural} = j - 744$ is the Atkin--Lehner constant
+  of $J$, \emph{not} a VOA-internal correction and \emph{not} a
+  K\"unneth summand of any $\chi(\mathcal{O}_\bullet)$.  (CLAUDE.md
+  AP307 flag: do \emph{not} identify the $-744$ with a
+  $\kappa_\bullet$-additive fibre correction.)
+
+  \emph{Denominator identity (Borcherds 1992, two variables).}  The
+  Monster Lie algebra $\mathfrak{m}$ of \cite{Borcherds1992} is
+  $\mathrm{II}_{1,1}$-graded, with $\dim \mathfrak{m}_{(m,n)} = c(mn)$
+  for $(m,n) \in \mathrm{II}_{1,1}$ and $c(k) = c_V(k)$ the shifted
+  Fourier coefficients above.  Its denominator identity is the
+  two-variable product \cite[Thm.~10.1]{Borcherds1992},
   \[
-    \kappa_{\mathrm{BKM}}(\Phi_V) \;=\; c_V(0)/2 \;=\; 0/2 \;=\; 0,
+    p^{-1} \prod_{\substack{m > 0 \\ n \in \mathbb{Z}}}
+    \bigl(1 - p^m q^n\bigr)^{c(mn)}
+    \;=\; J(p) - J(q),
   \]
-  reflecting the genus-$0$ property of the Monster denominator ($\Phi_V$
-  is an automorphic \emph{function}, not a form of positive weight);
-  $196884 = \dim V^\natural_1 = c_V(1)$ is the grade-$1$ Monster-module
-  dimension, \emph{not} a value of $\kappa_{\mathrm{BKM}}$.  Writing
-  ``$\kappa_{\bullet} = 196884$'' (bare $\kappa_\bullet$ with undeclared
-  subscript at an algebra/automorphic-form interface) is a
+  as an identity in formal power series on $\mathbb{H} \times
+  \mathbb{H}$; it is \emph{not} a theta lift to an orthogonal
+  Grassmannian (which would require $b^+ \ge 2$ and
+  Theorem~\ref{thm:borcherds-lift-universal}).  The left-hand side is
+  the Weyl--Kac--Borcherds product over positive roots of
+  $\mathfrak{m}$; the right-hand side is the Koike--Norton--Zagier
+  form of the difference of Hauptmoduln
+  \cite[\S8--10]{Borcherds1992}.
+
+  \emph{Modular characteristic.}  The Monster Lie algebra denominator
+  $J(p) - J(q)$ is bi-weight $(0,0)$ (a modular function separately
+  in $p$ and $q$); its $\kappa_{\mathrm{BKM}}$ in the
+  Lemma~\ref{lem:monster-outside-grassmannian-lift} sense is
+  $\kappa_{\mathrm{BKM}}(\mathfrak{m}) = 0$, reflecting the
+  \emph{genus-$0$ property} of the Monster moonshine module (the
+  Hauptmodul input $J$ is the unique normalised generator of the
+  field of modular functions on $\mathrm{SL}_2(\mathbb{Z})$).  This
+  value is \emph{derived} from the genus-$0$ property, \emph{not}
+  from an application of the weight formula $c_V(0)/2$ of
+  Theorem~\ref{thm:borcherds-lift-universal} (which does not apply
+  at $b^+ = 1$).  The formal identity $c_V(0)/2 = 0/2 = 0$ happens
+  to give the correct numerical answer, but only coincidentally: the
+  convention gives $c_V(0) = 0$ by the Atkin--Lehner normalisation
+  of $J$, which is the \emph{output} of the Koike--Norton--Zagier
+  calculation, not an input to a Grassmannian singular theta
+  integral.
+
+  \emph{Pattern-$230$ discipline.}  $196884 = \dim V^\natural_2 =
+  c_V(1)$ is the shifted-grade-$1$ Monster-module dimension,
+  \emph{not} a value of $\kappa_{\mathrm{BKM}}$.  Writing
+  ``$\kappa_\bullet = 196884$'' with undeclared subscript is a
   Pattern-$230$ violation; $196884$ is a representation dimension of
   the Monster module, not a modular characteristic of any of
-  $\{\kappa_{\mathrm{ch}}, \kappa_{\mathrm{cat}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\}$.
-  The trivial VA $V = \mathbb{C}$ has $\chi_V = 1$ and yields only the
-  trivial theta lift; it does not produce $J(\tau)$.
+  $\{\kappa_{\mathrm{ch}}, \kappa_{\mathrm{cat}}, \kappa_{\mathrm{BKM}},
+  \kappa_{\mathrm{fiber}}\}$.  Moonshine-convention ambiguity
+  (Conway--Norton genus-zero list \cite{ConwayNorton1979} vs
+  FLM VOA construction \cite{FrenkelLepowskyMeurman1988}) is
+  resolved here by the FLM choice: $V^\natural$ is the
+  FLM VOA, the Monster acts as its $\mathrm{Aut}(V^\natural)$-symmetry
+  \cite[Thm.~1.1]{FrenkelLepowskyMeurman1988}.  The trivial VA $V =
+  \mathbb{C}$ has $\chi_V = 1$ and yields only the trivial product;
+  it does not produce $J(\tau)$.
   \item $L = \mathrm{II}_{25,1}$, $V = V_\Lambda$ the Leech lattice VOA:
   $\Phi_V$ is the \emph{Fake Monster} denominator on the Grassmannian
   of $\mathrm{II}_{26,2}$, realising the \emph{Fake Monster} Lie algebra
@@ -822,6 +883,107 @@ Pattern~230 discipline requires the BKM subscript.
   being the unique rootless Niemeier lattice.
   \item $L = \mathrm{II}_{3,2}$, $V = V_{K3}^{\mathrm{top}}$ the K3 topological vertex algebra: $\Phi_V = \Delta_5$, recovering the $K3 \times E$ specialisation (Theorem~\ref{thm:k3e-borcherds-product}) as the rank-$3,2$ instance, with $\kappa_{\mathrm{BKM}} = c_V(0)/2 = 10/2 = 5$.
 \end{enumerate}
+\end{remark}
+
+\begin{lemma}[Scope boundary: Monster case outside the Grassmannian theta lift]
+\label{lem:monster-outside-grassmannian-lift}
+\ClaimStatusProvedHere
+Let $L$ be an even unimodular Lorentzian lattice of signature
+$(b^+, b^-)$.  Theorem~\ref{thm:borcherds-lift-universal} (singular
+theta lift to the Grassmannian $\mathcal{G}(L)$, following
+\cite[Thm.~13.3]{Borcherds1998}) requires $b^+ \ge 2$ for
+$\mathcal{G}(L)$ to be a non-trivial Hermitian symmetric domain and
+for the theta integral to converge to a holomorphic automorphic
+form.  At $L = \mathrm{II}_{1,1}$, $b^+ = 1$ and $\mathcal{G}(L)$
+degenerates to a point; the Borcherds-1992 Monster Lie algebra
+denominator \cite[Thm.~10.1]{Borcherds1992} is a
+\emph{two-variable} product on $\mathbb{H} \times \mathbb{H}$, not
+an automorphic form on a Grassmannian.  Consequently:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item The Monster case $(L, V) = (\mathrm{II}_{1,1}, V^\natural)$
+  of Remark~\ref{rem:borcherds-three-cases} is a \emph{separate}
+  construction, not an instance of the universal theorem
+  Theorem~\ref{thm:borcherds-lift-universal}.
+  \item The weight formula $\mathrm{wt}(\Phi_V) = c_V(0)/2$ does not
+  apply as such; for the Monster case one instead defines
+  $\kappa_{\mathrm{BKM}}(\mathfrak{m}) := 0$ from the
+  \emph{genus-$0$ property} of the Hauptmodul input $J$ (the unique
+  normalised generator of the field of modular functions on
+  $\mathrm{SL}_2(\mathbb{Z})$), consistent with the bi-weight
+  $(0, 0)$ of the Koike--Norton--Zagier denominator $J(p) - J(q)$.
+  \item The formal identity $c_V(0)/2 = 0/2 = 0$ gives the correct
+  numerical answer \emph{because} the FLM-shifted character
+  convention $\chi_{V^\natural}(\tau) = J(\tau)$ has $c_V(0) =
+  [q^0] J(\tau) = 0$ by Atkin--Lehner normalisation.  This
+  coincidence does \emph{not} extend to any claim that the
+  Borcherds-1992 two-variable construction is a degenerate limit
+  of the Borcherds-1998 Grassmannian theta lift:  the two
+  constructions share the weight formula as a \emph{numerical
+  pattern}, but are distinct theorems.
+  \item In particular the functoriality statement
+  Theorem~\ref{thm:borcherds-lift-universal}(iii) does \emph{not}
+  include the Monster case; the category of Monster-Lie-algebra-type
+  denominator identities (Borcherds 1992) and the category of
+  Grassmannian singular theta lifts (Borcherds 1998) intersect
+  only at a numerical pattern, not at the level of the universal
+  property.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(i) Direct scope check: Theorem~\ref{thm:borcherds-lift-universal}
+quantifies over $L$ with $b^+ \ge 2$; $\mathrm{II}_{1,1}$ has
+$(b^+, b^-) = (1, 1)$ and is excluded.
+\par
+(ii) The Hauptmodul $J$ generates the field of modular functions on
+$\mathrm{SL}_2(\mathbb{Z})$ with constant term $0$; the Koike--Norton
+presentation of $J(p) - J(q)$ \cite[\S8]{Borcherds1992} exhibits
+$J(p) - J(q)$ as a bi-weight-$(0,0)$ object, so its ``BKM weight''
+is $0$ as a direct reading of the two-variable modular-function
+property, \emph{not} as an output of the theta integral.
+\par
+(iii) Numerical coincidence: under the FLM-shifted convention
+$\chi_{V^\natural}(\tau) = J(\tau)$ so $c_V(0) = 0$; both
+conventions (Grassmannian weight formula at $b^+ \ge 2$, genus-$0$
+reading at $b^+ = 1$) return $\kappa_{\mathrm{BKM}} = 0$.  Equality
+of numerical outputs does not imply equality of constructions; the
+Borcherds-1992 identity is proved by a Hecke-operator / replication-
+formula argument \cite[Thm.~8.1, Thm.~10.1]{Borcherds1992},
+independent of the later theta-lift machinery.
+\par
+(iv) Functoriality (iii) of Theorem~\ref{thm:borcherds-lift-universal}
+intertwines the theta integral with Grassmannian pullback; at
+$b^+ = 1$ the target Grassmannian is a point and the pullback is the
+trivial map, so the functoriality statement is vacuous there and
+does \emph{not} cover $L$-morphisms $\mathrm{II}_{1,1}
+\hookrightarrow \mathrm{II}_{25,1}$ in the Grassmannian sense.  Any
+cross-lattice comparison between Monster (case~1) and Fake Monster
+(case~2) must go through the Conway--Norton generalised-moonshine
+framework \cite{ConwayNorton1979} or the Carnahan monstrous-moonshine
+generalisation, not through
+Theorem~\ref{thm:borcherds-lift-universal}(iii).
+\end{proof}
+
+\begin{remark}[Pattern 245 / CLAUDE.md AP307 bookkeeping]
+\label{rem:monster-bkm-additivity-disclaimer}
+The CLAUDE.md scratchpad registers the coincidence formula
+$\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
+\chi(\mathcal{O}_{\mathrm{fiber}})$ as \emph{false} at every
+$N \in \{1, 2, 3, 4, 6\}$ (cf.\ the $N=1$ datum $5 \ne 0$ and
+$N = 2$ datum $4 \ne 1$).  At the Monster case~(1) here, the
+numerical value $\kappa_{\mathrm{BKM}} = 0$ does \emph{not} decompose
+as $\kappa_{\mathrm{ch}}(V^\natural) + \chi(\mathcal{O}_{\bullet})$
+for any CY geometry: $V^\natural$ is not the image of $\Phi_3$ on
+any smooth compact CY$_3$ (it is a vertex algebra associated to the
+Leech-orbifold, not to a sheaf category).  The additive
+decomposition $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
+\kappa_{\mathrm{fiber}}$ is a feature of \emph{K3-fibered} geometry
+(case~3, $K3 \times E$) and its specialisations, not a universal
+law.  Propagating it to the Monster case is an AP307
+Künneth-multiplicative-vs-additive $\kappa_\bullet$ conflation
+(where $\bullet \in \{\mathrm{ch}, \mathrm{BKM}, \mathrm{cat},
+\mathrm{fiber}\}$ would each require separate subscript tracking)
+and is explicitly forbidden by the CLAUDE.md discipline.
 \end{remark}
 
 \begin{remark}[CY-A$_3$ and the Borcherds lift]
