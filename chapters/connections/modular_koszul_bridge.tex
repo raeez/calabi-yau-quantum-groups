@@ -76,7 +76,7 @@ For a smooth proper CY$_d$ category $\cC$, the \emph{categorical modular charact
 \[
  \kappa_{\mathrm{cat}}(\cC) \;:=\; \chi^{\CY}(\cC) \;\stackrel{\mathrm{def}}{=}\; \chi(\cO_X) \;=\; \sum_{q=0}^{d} (-1)^q\, h^{0,q}(X),
 \]
-where the last expression is for $\cC = D^b(\Coh(X))$ with $X$ a smooth projective CY$_d$ manifold. In the abstract categorical setting, $\chi^{\CY}(\cC)$ is the Hodge-filtered trace on Hochschild homology: it extracts the $F^0$-graded piece via the HKR filtration. This is \emph{not} the raw alternating sum $\sum_i (-1)^i \dim \HH_i(\cC)$: the latter gives $-16$ for K3 (since $\dim \HH_0 = 2$, $\dim \HH_1 = 20$, $\dim \HH_2 = 2$), not $\chi(\cO_{\mathrm{K3}}) = 2$. The invariant $\kappa_{\mathrm{cat}}$ is distinct \emph{a priori} from the chiral modular characteristic $\kappa_{\mathrm{ch}}(A_\cC)$ of the chiral algebra $A_\cC = \Phi(\cC)$; the two coincide at $d = 2$ (Proposition~\ref{prop:kappa-cat-chi-cy}) but differ at $d \neq 2$ in general: $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 1 \neq 0 = \kappa_{\mathrm{cat}}(E)$ at $d = 1$, and $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3 \neq 0 = \kappa_{\mathrm{cat}}(K3 \times E)$ at $d = 3$ (see Conjecture~\ref{conj:cy-kappa-identification} and Remark~\ref{rem:kappa-cat-vs-kappa-ch} below for the corrected dimension-stratified formula; for the Heisenberg-level subscript see Remark~\ref{rem:beauville-kappa-formula-subscript-split}).
+where the last expression is for $\cC = D^b(\Coh(X))$ with $X$ a smooth projective CY$_d$ manifold. In the abstract categorical setting, $\chi^{\CY}(\cC)$ is the Hodge-filtered trace on Hochschild homology: it extracts the $F^0$-graded piece via the HKR filtration. This is \emph{not} the raw alternating sum $\sum_i (-1)^i \dim \HH_i(\cC)$: the latter gives $24$ for K3 (HKR: $\dim \HH_0(K3) = h^{0,0} + h^{1,1} + h^{2,2} = 1 + 20 + 1 = 22$, $\dim \HH_{\pm 1} = 0$, $\dim \HH_{\pm 2} = h^{0,2} = h^{2,0} = 1$, so $\sum (-1)^i \dim \HH_i = 22 + 1 + 1 = 24$), not $\chi(\cO_{\mathrm{K3}}) = 1 + 1 = 2$. The invariant $\kappa_{\mathrm{cat}}$ is distinct \emph{a priori} from the chiral modular characteristic $\kappa_{\mathrm{ch}}(A_\cC)$ of the chiral algebra $A_\cC = \Phi(\cC)$; the two coincide at $d = 2$ (Proposition~\ref{prop:kappa-cat-chi-cy}) but differ at $d \neq 2$ in general: $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 1 \neq 0 = \kappa_{\mathrm{cat}}(E)$ at $d = 1$, and $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3 \neq 0 = \kappa_{\mathrm{cat}}(K3 \times E)$ at $d = 3$ (see Conjecture~\ref{conj:cy-kappa-identification} and Remark~\ref{rem:kappa-cat-vs-kappa-ch} below for the corrected dimension-stratified formula; for the Heisenberg-level subscript see Remark~\ref{rem:beauville-kappa-formula-subscript-split}).
 \end{definition}
 
 \begin{proposition}[$\kappa_{\mathrm{cat}} = \kappa_{\mathrm{ch}}$ under $\Phi$ at $d = 2$]
@@ -148,7 +148,7 @@ Let $\cC$ be a smooth proper cyclic $A_\infty$-category of CY dimension $d = 2$ 
 
 \begin{remark}[Verification against CY-D]
 \label{rem:cy-d2-cy-d-check}
-Substituting $d = 2$ (K3) into $\kappa_{\mathrm{ch}}(A_\cC) = \chi^{\CY}(\cC)$ (Theorem~\ref{thm:cy-modular-characteristic}) gives $\kappa_{\mathrm{ch}}(\cA_{K3}) = \chi^{\CY}(K3) = 2$, which agrees with the independently verified chiral de Rham computation (\S\ref{sec:cy-trace-kappa}, Proposition~\ref{prop:kappa-k3}). Theorem~\ref{thm:cy-complementarity-d2} is therefore consistent with the five-path verification of $\kappa_{\mathrm{ch}}(K3) = 2$ (compute/lib/modular\_cy\_characteristic.py, $80$ tests).
+Substituting $d = 2$ (K3) into $\kappa_{\mathrm{ch}}(A_\cC) = \chi^{\CY}(\cC)$ (Theorem~\ref{thm:cy-modular-characteristic}) gives $\kappa_{\mathrm{ch}}(\cA_{K3}) = \chi^{\CY}(K3) = 2$, which agrees with the independently verified chiral de Rham computation (\S\ref{sec:cy-trace-kappa}, Proposition~\ref{prop:kappa-k3}). Theorem~\ref{thm:cy-complementarity-d2} is therefore consistent with the five-path verification of $\kappa_{\mathrm{ch}}(K3) = 2$ (compute/lib/modular\_cy\_characteristic.py, $126$ tests).
 \end{remark}
 
 \begin{remark}[Categorical complementarity]
@@ -511,7 +511,7 @@ function $\Theta_A$ of Vol~I:
   \int_{\cM_{0,n}} F(O;\, z_1, \ldots, z_n)\, dz_1 \cdots dz_n
   \;=\; \Theta_A(q),
 \]
-where $\log \Theta_A = \sum_{r \geq 2} S_r$ and each integrated form
+where $\log \Theta_A(q) = \sum_{r \geq 2} S_r(q)$ and each integrated form
 factor yields the shadow invariant at degree~$r$:
 \begin{equation}\label{eq:ff-shadow-invariant}
   \frac{1}{r!} \int_{\cM_{0,r}} F(O;\, z_1, \ldots, z_r)\, dz_1 \cdots dz_r
@@ -566,20 +566,13 @@ $K3 \times E$ specialisations across all four shadow classes.
 \index{wall-crossing!Stokes identification}%
 \index{resurgence!BPS}%
 
-The shadow obstruction tower $\Theta_A = \exp(\sum_{k \geq 2} S_k)$ of a chiral algebra $A$ encodes the genus-$g$ invariants of the underlying geometry through the modular characteristic $\kappa_{\mathrm{ch}}$, the cubic shadow $S_3$, the quartic contact $S_4$, and the infinite tail of higher shadow invariants.  For class~$G$ (Gaussian) algebras, the tower terminates at $S_2 = \kappa_{\mathrm{ch}}$ and the generating function $\Theta_A(t) = \sum_{k \geq 2} S_k\, t^k$ is a polynomial: convergent, exact, and unproblematic.  For class~$M$ (mixed) algebras, every $S_k$ is nonzero and $\Theta_A(t)$ is a power series of \emph{Gevrey-$1$} type: the coefficients satisfy $|S_k| \sim C^k\, k!$, so the radius of convergence is zero.  This factorial divergence is not a defect of the perturbative expansion: the Borel transform $\hat{\Theta}_A(\zeta)$ has positive radius of convergence, its analytic continuation has singularities exactly at the BPS central-charge values $\zeta = Z(\gamma)$, the discontinuities of the Laplace sum across each Stokes ray are the Donaldson--Thomas invariants $\Omega(\gamma)$, and the resulting Stokes automorphism of the Borel-resummed tower equals the Kontsevich--Soibelman (KS) wall-crossing automorphism of $D^b\Coh(X)$.
+The shadow invariants $\{S_k\}_{k \geq 2}$ of a chiral algebra $A$ encode genus-$g$ geometric data through the modular characteristic $\kappa_{\mathrm{ch}} = S_2$, the cubic shadow $S_3$, the quartic contact $S_4$, and the infinite tail. Assemble them into a formal power series in a resurgence parameter $t$:
+\[
+ \Theta_A(t) \;:=\; \sum_{k \geq 2} S_k\, t^k \;\in\; \C\llbracket t \rrbracket
+\]
+(Definition~\ref{def:shadow-generating-gevrey} below; distinct from the Vol~I partition function $\Theta_A(q)$ of \S\ref{sec:form-factor-shadow-pf}, whose log is the $q$-expansion whose degree-$r$ coefficient is $S_r(q)$). For class~$G$ (Gaussian) algebras, only $S_2 = \kappa_{\mathrm{ch}}$ is nonzero and $\Theta_A(t)$ is a quadratic polynomial: convergent, exact, unproblematic. For class~$M$ (mixed) algebras, every $S_k$ is nonzero and $\Theta_A(t)$ is of \emph{Gevrey-$1$} type: the coefficients satisfy $|S_k| \sim C^k\, k!$, so the radius of convergence is zero. This factorial divergence is not a defect: the Borel transform $\hat{\Theta}_A(\zeta)$ has positive radius of convergence, its analytic continuation has singularities exactly at the BPS central-charge values $\zeta = Z(\gamma)$, the discontinuities of the Laplace sum across each Stokes ray are the Donaldson--Thomas invariants $\Omega(\gamma)$, and the Stokes automorphism of the Borel-resummed formal series equals the Kontsevich--Soibelman (KS) wall-crossing automorphism of $D^b\Coh(X)$.
 
-The central message is captured by a single slogan:
-
-\medskip
-\begin{center}
-\emph{Perturbative divergence $=$ non-perturbative information.}
-\end{center}
-\medskip
-
-\noindent The shadow tower diverges because the Borel plane has singularities; the singularities are at the BPS masses; the discontinuity around each singularity is the BPS index; the formal completion of the perturbative series by non-perturbative exponentials (the trans-series) is the BPS partition function.  This chain of identifications, from the formal power series of the shadow tower to the exact BPS content of the CY category, is the subject of the present section.
-
-\medskip
-\noindent\textbf{Dependence map.} The identification has two components of different logical status. The \emph{Stokes side} (the Borel transform, the singularity analysis, the alien derivatives) is intrinsic to the chiral algebra $A$: it requires only the shadow invariants $S_k$ and the Vol~I resurgence theory. The \emph{wall-crossing side} (the KS formula, the BPS spectrum, the walls of marginal stability) is intrinsic to the CY category $\cC$: it requires DT invariants and Bridgeland stability conditions. The identification between the two sides is unconditional for the conifold (Theorem~\ref{thm:stokes-wc-conifold} below); for $K3 \times E$ (Conjecture~\ref{conj:stokes-wc-k3e} below), Theorem~\ref{thm:cy-to-chiral-d3} (CY-A$_3$) supplies $A_{K3 \times E}$, and the remaining conditionality is the Vol~I Borcherds-lift identification.
+The shadow tower diverges because the Borel plane has singularities; the singularities lie at the BPS masses; the discontinuity around each singularity is the BPS index; the trans-series completion is the BPS partition function.  The identification has two components of different logical status.  The \emph{Stokes side} (Borel transform, singularity analysis, alien derivatives) is intrinsic to the chiral algebra $A$: it requires only the shadow invariants $S_k$ and the Vol~I resurgence theory.  The \emph{wall-crossing side} (KS formula, BPS spectrum, walls of marginal stability) is intrinsic to the CY category $\cC$: it requires DT invariants and Bridgeland stability conditions.  The identification is unconditional for the conifold (Theorem~\ref{thm:stokes-wc-conifold}); for $K3 \times E$ (Conjecture~\ref{conj:stokes-wc-k3e}), Theorem~\ref{thm:cy-to-chiral-d3} (CY-A$_3$) supplies $A_{K3 \times E}$, and the remaining conditionality is the Vol~I Borcherds-lift identification.
 
 \subsection{The Borel side: resurgence of the shadow tower}
 \label{subsec:borel-side}
@@ -635,13 +628,21 @@ with $|S_k| \sim k!$ for large $k$ (class~$M$, infinite shadow depth).  The form
 \[
   \hat{\Theta}_{\mathrm{Vir}}(\zeta) \;=\; \tfrac{1}{2} \cdot \tfrac{\zeta^2}{2!} \;+\; 2 \cdot \tfrac{\zeta^3}{3!} \;+\; \tfrac{10}{27} \cdot \tfrac{\zeta^4}{4!} \;+\; \cdots \;=\; \tfrac{\zeta^2}{4} \;+\; \tfrac{\zeta^3}{3} \;+\; \tfrac{10\,\zeta^4}{648} \;+\; \cdots,
 \]
-which converges on a disc of radius $R > 0$.  The singularities lie at $\omega_\pm = t_c \pm i\delta$ where $t_c = -\alpha/(2\kappa_{\mathrm{ch}}) = -2$ and $\delta^2 = (S_4/\kappa_{\mathrm{ch}} - \alpha^2/\kappa_{\mathrm{ch}}^2)/4$; both satisfy $\Re(\omega_\pm) = -2 < 0$ (left half-plane).  The positive real axis is singularity-free, so $\cS_0[\Theta_{\mathrm{Vir}}]$ is unambiguous.  The Stokes lines at $\theta_\pm = \arg(\omega_\pm)$ lie in the second and third quadrants.
+which converges on a disc of radius $R > 0$.  The shadow quadratic $Q_L(\zeta) = q_0 + q_1\zeta + q_2\zeta^2$ has coefficients $q_0 = 4\kappa_{\mathrm{ch}}^2 = 1$, $q_1 = 12\kappa_{\mathrm{ch}}\alpha = 12$, $q_2 = 9\alpha^2 + 16\kappa_{\mathrm{ch}} S_4 = 36 + 80/27 = 1052/27$; the discriminant $\Delta(Q_L) = q_1^2 - 4 q_0 q_2 = -256\,\kappa_{\mathrm{ch}}^3 S_4 = -320/27 < 0$.  The Borel singularities are the complex-conjugate roots $\omega_\pm = t_c \pm i\delta$ with
+\[
+  t_c \;=\; -\frac{q_1}{2q_2} \;=\; -\frac{81}{526} \;\approx\; -0.154, \qquad \delta^2 \;=\; -\frac{\Delta(Q_L)}{4q_2^2} \;=\; \frac{64\,\kappa_{\mathrm{ch}}^3 S_4}{(9\alpha^2 + 16\kappa_{\mathrm{ch}} S_4)^2} \;>\; 0.
+\]
+Both satisfy $\Re(\omega_\pm) = t_c < 0$ (left half-plane).  The positive real axis is singularity-free, so $\cS_0[\Theta_{\mathrm{Vir}}]$ is unambiguous; the Stokes lines at $\theta_\pm = \arg(\omega_\pm)$ lie in the second and third quadrants.
 \end{example}
 
 \begin{proposition}[Borel summability of class~$M$ shadow towers]
 \label{prop:class-m-borel-summability-bridge}
 \ClaimStatusProvedElsewhere
-Let $A$ be a chiral algebra of class~$M$ with $\kappa_{\mathrm{ch}} > 0$ and quartic shadow $S_4 > 0$ \textup{(}e.g.\ the Virasoro at $c = 1$; see Example~\textup{\ref{ex:virasoro-borel}}\textup{)}.  The Borel transform $\hat{\Theta}_A(\zeta)$ extends to an analytic function on $\C \setminus \{\omega_+, \omega_-\}$, where $\omega_\pm = t_c \pm i\delta$ are complex conjugate Borel singularities determined by the shadow quadratic $Q_L(\zeta) = q_0 + q_1 \zeta + q_2 \zeta^2$ \textup{(}$q_0 = 4\kappa_{\mathrm{ch}} \alpha^2 - 4 S_4 \kappa_{\mathrm{ch}}^2$, $q_1 = -4\alpha \kappa_{\mathrm{ch}}$, $q_2 = 4\kappa_{\mathrm{ch}}$\textup{)}.  The discriminant $\Delta(Q_L) = q_1^2 - 4 q_0 q_2 < 0$ when $S_4 < \alpha^2 / \kappa_{\mathrm{ch}}$, which holds for all standard examples \textup{(}Virasoro, $\cW_{1+\infty}$, etc.\textup{)}, so the Borel singularities are complex conjugate with $\Re(\omega_\pm) = t_c = -q_1/(2q_2) < 0$.
+Let $A$ be a chiral algebra of class~$M$ with $\kappa_{\mathrm{ch}} > 0$, cubic shadow $\alpha > 0$, and quartic shadow $S_4 > 0$ \textup{(}e.g.\ the Virasoro at $c = 1$; see Example~\textup{\ref{ex:virasoro-borel}}\textup{)}.  The Borel transform $\hat{\Theta}_A(\zeta)$ extends to an analytic function on $\C \setminus \{\omega_+, \omega_-\}$, where $\omega_\pm = t_c \pm i\delta$ are complex-conjugate Borel singularities, the roots of the shadow quadratic $Q_L(\zeta) = q_0 + q_1 \zeta + q_2 \zeta^2$ with
+\[
+  q_0 = 4\kappa_{\mathrm{ch}}^2, \qquad q_1 = 12\kappa_{\mathrm{ch}}\alpha, \qquad q_2 = 9\alpha^2 + 16\kappa_{\mathrm{ch}} S_4
+\]
+\textup{(}Chapter~\textup{\ref{ch:cy-to-chiral}} Proposition~\textup{\ref{prop:class-m-borel-summability}}, Step~1\textup{)}.  The discriminant satisfies the shadow identity $\Delta(Q_L) = q_1^2 - 4 q_0 q_2 = -256\,\kappa_{\mathrm{ch}}^3\, S_4$: under $\kappa_{\mathrm{ch}}, S_4 > 0$ it is strictly negative, so the roots are complex-conjugate with $\Re(\omega_\pm) = t_c = -q_1/(2q_2) = -3\kappa_{\mathrm{ch}}\alpha/(9\alpha^2 + 16\kappa_{\mathrm{ch}} S_4) < 0$.
 
 \medskip
 The crucial consequence: since $t_c < 0$, \emph{both singularities lie in the left half-plane}, and the positive real axis $\R_+ \subset \C$ is free of obstructions.  The Borel sum along $\theta = 0$ \textup{(}the physical direction\textup{)} is well-defined and unambiguous:
@@ -807,18 +808,6 @@ The proof consists of verifying the five structural properties shared by both si
 \medskip\noindent Verification: all five structural checks implemented in \texttt{stokes\_wallcrossing\_identification.py} ($84$~tests, function \texttt{five\_point\_structural\_check}).
 \end{proof}
 
-\begin{remark}[The deep content]
-\label{rem:deep-content}
-The six-fold correspondence is not merely a dictionary: it has genuine predictive content.  Given only the perturbative shadow coefficients $S_k$ of a class~$M$ algebra, one can:
-\begin{enumerate}[label=\textup{(\roman*)}]
-  \item Compute the Borel singularities $\omega_\pm$ from the shadow quadratic $Q_L$;
-  \item Extract the Stokes constants $\cS_{\omega_\pm}$;
-  \item Identify these with BPS indices $\Omega(\gamma_\pm)$;
-  \item Reconstruct the wall-crossing structure of the underlying CY category.
-\end{enumerate}
-In other words: the factorial divergence of the shadow tower is not an obstacle to computation; it is a \emph{resource} that encodes the exact non-perturbative BPS content.
-\end{remark}
-
 \subsubsection{The Bridgeland Riemann--Hilbert bridge}
 \label{subsubsec:bridgeland-rh}
 \index{Riemann--Hilbert problem!Bridgeland}%
@@ -941,7 +930,7 @@ The global stitching of these infinitely many local identifications requires the
 
 \begin{example}[Explicit discriminant table for $K3 \times E$]
 \label{ex:k3e-discriminant-table}
-The first several discriminants of the BKM root system of $\mathfrak{g}_{\Delta_5}$, with the Fourier coefficients $c(D)$ of the weak Jacobi form $\phi_{0,1}$ (Eichler--Zagier convention: $c(-1) = 2$ in EZ, but $1$ per discriminant class), and their Stokes--wall-crossing interpretation:
+The Fourier coefficient $f(n, l)$ of the weak Jacobi form $\phi_{0,1}$ of weight $0$, index $1$ depends only on $D = 4n - l^2$, and the valid discriminants are $D \in \{-1\} \cup \{D \geq 0 : D \equiv 0 \text{ or } 3 \pmod 4\}$. Writing $c(D) = f(n, l)$ for any $(n, l)$ with $4n - l^2 = D$ (per-discriminant convention), the first several values, computed exactly from the theta-ratio identity $\phi_{0,1} = 4\sum_{i = 2, 3, 4} (\theta_i(\tau, z)/\theta_i(\tau, 0))^2$ in \texttt{compute/lib/phi01\_fourier.py}, are:
 \begin{center}
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{@{}rrcccl@{}}
@@ -950,31 +939,19 @@ $D$ & $c(D)$ & Wall type & $\#$ Stokes lines & $|\cS_{\omega_D}|$ & Shadow degre
 \midrule
 $-1$ & $1$ & Real root (flop) & $1$ & $1$ & $2$ only \\
 $0$ & $10$ & Lightlike & $10$ & $10$ & $2$ only \\
-$1$ & $-64$ & Imaginary (bound) & $64$ & $64$ & $\geq 3$ \\
-$2$ & $108$ & Imaginary (bound) & $108$ & $108$ & $\geq 3$ \\
-$3$ & $-88$ & Imaginary (bound) & $88$ & $88$ & $\geq 3$ \\
-$4$ & $-132$ & Imaginary (bound) & $132$ & $132$ & $\geq 3$ \\
+$3$ & $-64$ & Imaginary (bound) & $64$ & $64$ & $\geq 3$ \\
+$4$ & $108$ & Imaginary (bound) & $108$ & $108$ & $\geq 3$ \\
+$7$ & $-513$ & Imaginary (bound) & $513$ & $513$ & $\geq 3$ \\
+$8$ & $808$ & Imaginary (bound) & $808$ & $808$ & $\geq 3$ \\
 \bottomrule
 \end{tabular}
 \end{center}
-The column ``$\#$~Stokes lines'' counts $|c(D)|$ Borel singularities at the BPS mass scale $|Z_D|$; the sign of $c(D)$ tracks the fermion number of the BPS multiplet.  The exponential growth $|c(D)| \sim e^{4\pi\sqrt{D}}/D^{3/4}$ (Rademacher) ensures that the shadow tower has infinite depth (class~$M$), and the accumulation of Stokes lines in the Borel plane mirrors the accumulation of walls in the stability manifold.  The shadow contribution from discriminant $D > 0$ at degree $k$ is $\Delta S_k = c(D) \cdot D^{k-2}/k!$; summing over all $D$ reconstructs the full shadow tower.
+The column ``$\#$~Stokes lines'' counts $|c(D)|$ Borel singularities at the BPS mass scale $|Z_D|$; the sign of $c(D)$ tracks the fermion number of the BPS multiplet. The absence of $D = 1, 2, 5, 6$ reflects the index-$1$ parity constraint $D \equiv 0, 3 \pmod 4$ (for $D \geq 0$). The exponential growth $|c(D)| \sim e^{4\pi\sqrt{D}}/D^{3/4}$ (Rademacher) ensures that the shadow tower has infinite depth (class~$M$), and the accumulation of Stokes lines in the Borel plane mirrors the accumulation of walls in the stability manifold. The shadow contribution from discriminant $D > 0$ at degree $k$ is $\Delta S_k = c(D) \cdot D^{k-2}/k!$; summing over all admissible $D$ reconstructs the full shadow tower.
 \end{example}
 
 \begin{remark}[Why the conifold is a theorem and $K3 \times E$ is a conjecture]
 \label{rem:conifold-vs-k3e}
 The logical status differs because the conifold has \emph{finitely many} BPS states (the pentagon identity is an exact algebraic identity in the quantum torus), while $K3 \times E$ has \emph{infinitely many} BPS states (the BKM root system is infinite). For the conifold, the identification requires no unconstructed objects: the DT partition function and its resurgent structure are explicit. For $K3 \times E$, the chiral algebra $A_{K3 \times E}$ exists by Theorem~CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}); the remaining obstacle is the identification of the bar Euler product with the Borcherds denominator, together with the infinite stitching of local conifold-type identifications across the full BKM root system.
-\end{remark}
-
-\begin{remark}[Perturbative divergence encodes non-perturbative BPS data]
-\label{rem:pert-div-nonpert-bps}
-The Stokes--wall-crossing identification provides a precise realisation of the slogan ``perturbative divergence $=$ non-perturbative information.''  For a class~$M$ chiral algebra $A$:
-\begin{itemize}
-  \item The perturbative shadow tower $\Theta_A(t) = \sum S_k\, t^k$ diverges factorially ($|S_k| \sim k!$).
-  \item The Borel transform $\hat{\Theta}_A(\zeta) = \sum S_k\, \zeta^k / k!$ has singularities at the BPS masses $|\omega| = |Z(\gamma)|$.
-  \item The Stokes constants at these singularities are the BPS indices $\cS_\omega = \Omega(\gamma)$.
-  \item The trans-series completion $\Theta_A^{\mathrm{full}}$ restores the full non-perturbative BPS partition function.
-\end{itemize}
-In particular, the $k!$-growth of the shadow coefficients is not a failure of the shadow tower but a \emph{feature}: it is the perturbative shadow of the non-perturbative BPS spectrum, visible through the window of resurgence.  The analogy with the semiclassical expansion of quantum mechanics is precise: the factorial divergence of the perturbative series in $\hbar$ encodes the instanton contributions $e^{-S_{\mathrm{inst}}/\hbar}$, and the Stokes constants are the instanton amplitudes.
 \end{remark}
 
 \begin{remark}[The instanton gap is computable]
@@ -987,7 +964,7 @@ For a class~$M$ chiral algebra $A$, let $F_g^{\mathrm{sh}}$ denote the genus-$g$
 %% Closing cross-reference
 %% ===================================================================
 
-The seven sections transport the Vol~I modular Koszul machine into the CY geometric realm: the convolution algebra of \S\ref{sec:modular-conv-cy} is the working surface, the complementarity of \S\ref{sec:cy-complementarity-bridge} is the duality statement, the CohFT of \S\ref{sec:cy-shadow-cohft} is the genus tower, the Hochschild bridge of \S\ref{sec:hochschild-bridge} identifies which Hochschild theory controls which invariant, the examples of \S\ref{sec:cy-bridge-examples} verify the $\kappa_\bullet$-spectrum against independent computations, the Pixton ideal of \S\ref{sec:pixton-cy-bar} connects the shadow tower to tautological classes, and the Stokes--wall-crossing identification of \S\ref{sec:stokes-wallcrossing} reveals the non-perturbative content of the Gevrey-$1$ divergence.  The $d = 2$ case is unconditional (CY-A proved, Theorem~\ref{thm:cy-complementarity-d2}); the $d = 3$ case is the Vol~III programme (Conjecture~\ref{conj:cy-complementarity-d3}, Conjecture~\ref{conj:toric-cy3-shadow-cohft}, Conjecture~\ref{conj:hochschild-bridge-d3}, Conjecture~\ref{conj:stokes-wc-k3e}). Verification of every $\kappa_\bullet$-value uses the independent paths of compute/lib/modular\_cy\_characteristic.py and compute/lib/cy\_euler.py, cross-checked against the $\kappa_\bullet$-spectrum $\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{2, 3, 5, 24\}$ for $K3 \times E$.
+The seven sections transport the Vol~I modular Koszul machine into the CY geometric realm: the convolution algebra of \S\ref{sec:modular-conv-cy} is the working surface, the complementarity of \S\ref{sec:cy-complementarity-bridge} is the duality statement, the CohFT of \S\ref{sec:cy-shadow-cohft} is the genus tower, the Hochschild bridge of \S\ref{sec:hochschild-bridge} identifies which Hochschild theory controls which invariant, the examples of \S\ref{sec:cy-bridge-examples} verify the $\kappa_\bullet$-spectrum against independent computations, the Pixton ideal of \S\ref{sec:pixton-cy-bar} connects the shadow tower to tautological classes, and the Stokes--wall-crossing identification of \S\ref{sec:stokes-wallcrossing} reveals the non-perturbative content of the Gevrey-$1$ divergence.  The $d = 2$ case is unconditional (CY-A proved, Theorem~\ref{thm:cy-complementarity-d2}); the $d = 3$ case is the Vol~III programme (Conjecture~\ref{conj:cy-complementarity-d3}, Conjecture~\ref{conj:toric-cy3-shadow-cohft}, Conjecture~\ref{conj:hochschild-bridge-d3}, Conjecture~\ref{conj:stokes-wc-k3e}). Verification of every $\kappa_\bullet$-value uses the independent paths of compute/lib/modular\_cy\_characteristic.py and compute/lib/cy\_euler.py, cross-checked against the $K3 \times E$ spectrum $\{\kappa_{\mathrm{cat}}^{\mathrm{fiber}}, \kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{2, 3, 5, 24\}$, with $\kappa_{\mathrm{cat}}^{\mathrm{fiber}} = \chi(\cO_{K3}) = 2$ the fibre value; the K\"unneth-multiplicative total-space value is $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$.
 
 
 %% ===================================================================
