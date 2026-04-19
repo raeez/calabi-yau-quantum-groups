@@ -408,7 +408,7 @@ on the full K3 surface.
 
 The physical origin is parallel. The DDCA arises as the boundary
 algebra of 5d holomorphic Chern--Simons on $\bR_t \times \bC^2$
-(Proposition~\ref{prop:costello-quantum-double-loop}); the K3 DCA
+(Costello's quantum double-loop boundary algebra); the K3 DCA
 should arise as the boundary algebra of 5d holomorphic Chern--Simons
 on $\bR_t \times S$. The quantization of the DDCA produces the
 affine Yangian $Y(\widehat{\fg})$; the quantization of the K3 DCA
@@ -635,6 +635,17 @@ $U^3 \oplus E_8(-1)^2$.
 This K3 Yangian stands in the same relation to the K3 DCA as the affine
 Yangian $Y(\widehat{\fg})$ stands to the classical double current algebra.
 \end{conjecture}
+
+\begin{remark}[Scope of the symbol $Y(\fg_{K3})$ in this chapter]
+\label{rem:k3-yangian-symbol-scope}
+Throughout this chapter the symbol $Y(\fg_{K3})$ refers to the abelian
+$\gl_1$ Heisenberg Yangian of Conjecture~\ref{conj:k3-yangian}, whose
+presentation is constructed in
+Theorem~\ref{thm:k3-abelian-yangian-presentation}.  A non-abelian,
+BKM-enhanced version is a separate, more speculative object whose
+existence depends on CY-C at the K3 level; it is not named by this
+symbol here.
+\end{remark}
 
 \begin{remark}[Obstruction to the equivariant construction]
 \label{rem:k3-yangian-obstruction}
@@ -1020,7 +1031,10 @@ Heisenberg algebra.
 \emph{(ii)~Transfer matrix.}
 The Miura factorisation is the standard free-field realisation
 of $W_{1+\infty}$ at rank~$24$: $T_{K3}(u) = \prod(u - \phi_i)$
-with $\phi_i$ the Heisenberg free fields.
+with $\phi_i$ the Heisenberg free fields.  (This free-field Miura
+construction is distinct from the CY$_3$ CoHA identification: on
+$\bC^3$ one has $\mathrm{CoHA}(\bC^3) = Y^+(\widehat{\gl}_1)$, the
+positive half of the affine Yangian, not $W_{1+\infty}$ itself.)
 Truncation $\psi_s = 0$ for $s > 24$ follows from
 $e_s(x_1, \ldots, x_{24}) = 0$ for $s > 24$.
 
@@ -1447,7 +1461,7 @@ resolved at the abelian $\gl_1$ level.  All six are verified computationally
 in \texttt{k3\_yangian\_adversarial.py} (31~tests).
 \begin{enumerate}[label=\textbf{A\arabic*.}, leftmargin=2.5em]
 
-%% --- Attack 1: Indefinite signature ---
+%% --- Test 1: Indefinite signature ---
 \item \emph{Indefinite signature obstruction} (Mukai pairing of signature
 $(4,20)$).
 Standard Yangian theory assumes a positive-definite inner product
@@ -1468,7 +1482,7 @@ of Chapter~\ref{ch:toric-coha}).
 \textbf{Verdict}: not an obstruction for $\gl_1$; genuine modified
 crossing for non-abelian~$\fg$.
 
-%% --- Attack 2: Level-rank duality ---
+%% --- Test 2: Level-rank duality ---
 \item \emph{Level-rank duality obstruction.}
 The K3 CFT has $c = 6$, level $k = 1$.  Level-rank duality
 ($\mathfrak{su}(N)_k \leftrightarrow \mathfrak{su}(k)_N$) would
@@ -1479,7 +1493,7 @@ The three numbers (lattice rank~$24$ (Mukai), Lie algebra rank~$1$
 ($\gl_1$), CFT level~$1$ (Heisenberg normalization)) are independent.
 \textbf{Verdict}: not an obstruction.
 
-%% --- Attack 3: Infinite root multiplicity ---
+%% --- Test 3: Infinite root multiplicity ---
 \item \emph{Infinite root multiplicity obstruction.}
 The BKM superalgebra $\fg_{\Delta_5}$ has imaginary roots with
 multiplicities $c(D) \sim \exp(2\pi\sqrt{D}) \to \infty$.
@@ -1493,7 +1507,7 @@ finitely-generated input (cf.\ $Y(\widehat{\gl}_1)$ for $\bC^3$:
 finitely many generators, MacMahon-function bar Euler product).
 \textbf{Verdict}: not an obstruction.
 
-%% --- Attack 4: Moduli dependence ---
+%% --- Test 4: Moduli dependence ---
 \item \emph{Moduli dependence obstruction.}
 At generic Mukai moduli, $Y(\fg_{K3})$ is abelian
 ($24$~commuting $\gl_1$'s); at enhanced points (Gepner, orbifold),
@@ -1510,7 +1524,7 @@ by enhanced $\cN = (4,4)$ symmetry, while $\kappa_{\mathrm{ch}} = 2$
 persists as a global invariant.
 \textbf{Verdict}: not an obstruction.
 
-%% --- Attack 5: CY-A_3 ---
+%% --- Test 5: CY-A_3 ---
 \item \emph{CY-A$_3$ obstruction for $K3 \times E$.}
 The K3 Yangian construction has four layers with escalating CY-A
 dependence:
@@ -1534,7 +1548,7 @@ The conjecture should be \emph{scoped}: the abelian part is accessible
 now; the nonabelian factorization-homology identifications and the
 bar Euler--BKM bridge await chain-level data and the Vol~I anchor.
 
-%% --- Attack 6: Coassociativity ---
+%% --- Test 6: Coassociativity ---
 \item \emph{Coassociativity obstruction at rank~$24$.}
 The $\mathfrak{sl}_2$ matrix Lax analysis
 (\texttt{sl2\_matrix\_lax\_engine.py})
@@ -3118,7 +3132,7 @@ At $y = 1$:
 recovering the ungraded Fock character $1/\eta^{24}$ (up to
 $q$-shift).  The coefficients $p_{24}(n)$ reproduce the Fake
 Monster root multiplicities $c(n-1)$
-(Section~\ref{subsec:k3e-bkm-roots}).
+(Construction~\ref{constr:k3e-roots}).
 \end{conjecture}
 
 \begin{remark}[Hodge R-matrix decomposition]
@@ -3184,11 +3198,11 @@ Theorem~\ref{thm:k3-abelian-yangian-presentation} satisfies a
 chain-level Pentagon coherence theorem of $\mathrm{Sp}_4(\mathbb{Z})$-type.
 The closure decomposes into three independent verification routes
 certifying pairwise-disjoint Pentagon edge groups; the fifth edge
-closes by Pentagon coboundary.  This section states the theorem in
-its Platonic form, separating the minimal Hodge--Lattice--Heisenberg
-hypothesis from the edge-architecture closure data, and identifies the
-chiral Hochschild $(\mathbb{Z}/2)^2$-action that organises the four
-trace projections of the multi-projection identity.
+closes by Pentagon coboundary.  This section separates the minimal
+Hodge--Lattice--Heisenberg hypothesis from the edge-architecture
+closure data, and identifies the chiral Hochschild $(\mathbb{Z}/2)^2$-action
+that organises the four trace projections of the multi-projection
+identity.
 
 \subsection{The minimal Hodge--Lattice--Heisenberg hypothesis}
 \label{subsec:k3-mhlh-hypothesis}
@@ -3246,7 +3260,7 @@ Leech\textup{);} the Mukai $(4, 20)$ specialisation is the unique
 \begin{theorem}[Pentagon-at-$E_1$ at K$3$ input; edge-architecture
                 form; conditional on FM164, FM161]
 \label{thm:k3-pentagon-E1-edge-architecture}
-\ClaimStatusProvedHere
+\ClaimStatusConditional
 Let $A = Y(\fg_{K3})$ be the K$3$ Yangian
 \textup{(}Theorem~\ref{thm:k3-abelian-yangian-presentation}\textup{)}
 satisfying the Hodge--Lattice--Heisenberg hypothesis
@@ -3459,7 +3473,7 @@ The Klein-four genuineness verdict per the K$3$-fibred\,/\,super-trace-vanishing
 
 \begin{remark}[Six downstream conjectures collapse to corollaries]
 \label{rem:k3-pentagon-six-corollaries}
-Six previously-independent open conjectures collapse to corollaries
+Six open conjectures collapse to corollaries
 of Theorem~\ref{thm:k3-pentagon-E1-edge-architecture}:
 \textup{(1)} the chiral-Hochschild trinity at $E_1$ for the K$3$
 Yangian \textup{(}as the chiral projection of the Pentagon\textup{);}
@@ -5099,7 +5113,9 @@ $\kappa^{\mathrm{Hilb}}_{\mathrm{BKM}}(K3^{[3]}) = 1024$;
 $\kappa^{\mathrm{Hilb}}_{\mathrm{BKM}}(K3^{[4]}) = 7393$;
 $\kappa^{\mathrm{Hilb}}_{\mathrm{BKM}}(K3^{[5]}) = 46332$.
 
-The $n = 1$ value $10$ corresponds to $\Phi_{10} = (\Delta_5)^2$ via the
+The $n = 1$ value $10$ corresponds to the Gritsenko-normalised identity
+$\Phi_{10} = c \cdot (\Delta_5)^2$ (with $c$ the constant fixed by the
+paramodular-to-$\mathrm{Sp}_4(\Z)$ restriction) via the
 factor of $2$ between $\mathrm{ell}(K3) = 2 \, \phi_{0, 1}$
 \textup{(}DMVV convention here\textup{)} and $\phi_{0, 1}$
 \textup{(}manuscript convention used in
@@ -6585,9 +6601,9 @@ $K_n$-arity home dimension as the $(n-1)$-coefficient.
 \label{rem:Ainfty-truncation-cohomological}
 The universal $A_\infty$-truncation theorem $m_{\geq 4} = 0$
 \textup{(}Theorem~\ref{thm:universal-Ainfty-truncation}\textup{)} admits
-a clean cohomological reformulation under
+a cohomological reformulation under
 Theorem~\ref{thm:universal-Kn-tower-stratification}: the $K_n$-arity
-matrix Pentagon coherence cohomology home is FINITE-DIMENSIONAL at every
+matrix Pentagon coherence cohomology home is finite-dimensional at every
 arity $n \geq 3$, with dimension growing at most linearly in $n$
 \textup{(}explicitly $\lfloor n/2 \rfloor + O(1)$\textup{).}  The
 chain-level $m_n$-tower of an $A_\infty$-algebra arising from $\Phi$ on a
@@ -6596,9 +6612,9 @@ CY input therefore terminates at $m_3$ in the matrix-projection
 in the trivial classes of the cohomology home, by the polytope-axiom
 $\partial^2 K_n = 0$ reduction\textup{).}
 
-In short: the $K_n$-tower coherence cohomology home is dimensionally
-SMALL ENOUGH that the chain-level $m_n$-tower MUST truncate at $m_3$
-in matrix projection, regardless of the specific CY input.  This is the
+The $K_n$-tower coherence cohomology home is dimensionally small enough
+that the chain-level $m_n$-tower truncates at $m_3$ in matrix projection
+regardless of the specific CY input.  This is the
 \emph{cohomological-boundedness mechanism} for the universal
 $A_\infty$-truncation, complementary to the $K_5$-polytope-axiom
 mechanism stated in Theorem~\ref{thm:universal-Ainfty-truncation}.
@@ -6849,7 +6865,7 @@ the K$3$-anchored elliptic tower.
 \begin{remark}[The three-fold Pentagon unification]
 \label{rem:three-pentagon-unification}
 Theorem~\ref{thm:chain-to-matrix-pentagon-unification} brings together
-three Pentagon structures previously articulated separately:
+three Pentagon structures:
 \begin{enumerate}
 \item the chain-level Pentagon-at-$E_1$ of the K$3$ Yangian
        \textup{(}Theorem~\ref{thm:k3-pentagon-E1-edge-architecture},
