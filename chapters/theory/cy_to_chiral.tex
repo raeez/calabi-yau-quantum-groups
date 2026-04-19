@@ -408,15 +408,6 @@ Let $S$ be an Enriques surface, $X$ its K3 universal cover, $E$ an elliptic curv
  \item $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(S) = 1 = \chi(\cO_S)$, half the K3 value $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(X) = 2$.
  \item $\kappa_{\mathrm{BKM}}(S \times E) = 4$, the weight of the Allcock Borcherds product on $O(2, 10)$. This is verified computationally by \texttt{enriques\_shadow.py} (72 tests; see Remark~\textup{\ref{rem:enriques-kappa-anomaly}} in the bar-cobar bridge chapter).
  \item $\kappa_{\mathrm{cat}}(S \times E) = \chi^{\CY}(D^b(\Coh(S \times E))) = \chi(\cO_{S \times E})$, the categorical Euler characteristic. By K\"unneth multiplicativity of $\chi(\cO_{-})$, this is $\kappa_{\mathrm{cat}}(S \times E) = \chi(\cO_S) \cdot \chi(\cO_E) = 1 \cdot 0 = 0$.
- % WARNING: pre-Wave-12 heal this clause wrote
- %   "kappa_cat(S x E) = kappa_ch(S) + kappa_ch(E) = 1 + 1 = 2"
- % which is a three-layer error: (a) AP290 category-jump -- LHS is
- % kappa_cat, RHS wrote kappa_ch; (b) AP289 Hodge-supertrace /
- % categorical Euler char is Kuenneth-MULTIPLICATIVE, not additive;
- % (c) chi(O_E) = 1 - 1 = 0 (Serre duality h^{0,0}=h^{0,1}=1 cancel),
- % so the product is 0, not 2. See cy_d_kappa_stratification.tex:411-426
- % for Route A (Hodge supertrace, multiplicative) vs Route B (Heisenberg,
- % additive) discipline.
 \end{enumerate}
 The ratio $\kappa_{\mathrm{BKM}}(X \times E) / \kappa_{\mathrm{BKM}}(S \times E) = 5/4$ (not $2$) reflects the fact that $\kappa_{\mathrm{BKM}}$ is the automorphic weight, which is sensitive to the full BPS spectrum across the fiber and not simply the $|G|$-fold quotient of the scalar invariant. The discrepancy $5/4 \neq 2$ is the \emph{Enriques $\kappa_{\mathrm{BKM}}$-anomaly}: the BKM weight does not halve under the $\bZ/2$ quotient because the Borcherds product on $O(2, 10)$ is not the restriction of the Igusa cusp form on $O(2, 18)$ but rather an independent automorphic form (the Allcock product) whose weight is determined by the Enriques lattice.
 \end{conjecture}
@@ -4122,7 +4113,6 @@ The shadow obstruction tower $\Theta_A$ of Vol~I specializes as follows for CY$_
 \subsection{$\Eone$-chiral coalgebra and the derived center}
 \label{subsec:cross-vol-sc}
 
-% AP165: SC^{ch,top} lives on the derived center pair, NOT on B(A).
 The bar complex $B(A)$ is an $\Eone$ chiral coassociative coalgebra over $(\mathrm{ChirAss})^!$; the $\SC^{\mathrm{ch,top}}$ two-colour structure emerges on the derived center pair $(C^\bullet_{\mathrm{ch}}(A,A),\, A)$, not on the bar complex itself. Three bar constructions reflect three levels of operadic symmetry:
 \begin{itemize}
  \item $B_{\Eone}(A)$: ordered tensors, deconcatenation coproduct ($\Eone$ coalgebra).
@@ -4294,7 +4284,7 @@ The $\Ainf$-moduli has the largest deformation space ($1455$ dimensions of gradi
 \label{sec:beyond-cy3}
 % ============================================================
 
-The CY-to-chiral correspondence programme $\{\Phi_d\}$ extends beyond the Calabi--Yau setting. For a rank-$2$ bundle $E \to C$ over a smooth curve $C$ of genus~$g$, the total space $\mathrm{Tot}(E)$ carries a chiral algebra $A_E$ regardless of whether $\det(E) \cong K_C$.
+The constructions of \S\ref{sec:d3-functor-chain} produce $\Phi_3(\cC)$ exactly when $\cC$ carries a CY$_3$ structure: the local CY$_3$ condition on the total space $\mathrm{Tot}(E)$ for $E \to C$ a rank-$2$ bundle on a smooth curve reads $\det(E) \cong K_C$, the cohomological identity that supplies the chain-level Maurer--Cartan equation $D \cdot \Theta + \tfrac12 [\Theta, \Theta] = 0$. The topological $\bS^3$-framing trivialises universally on every $\CY_3$ category by Theorem~\ref{thm:s3-framing-vanishes}; the present obstruction is not topological but \emph{chain-level}, the curvature class produced by failure of $\det(E) \cong K_C$. What happens off the CY locus? The bar complex still exists; the chain-level CY$_3$ condition fails. The numerical defect $\delta := \deg(\det E) - \deg(K_C) \in \bZ$ controls a curvature element on the bar complex (introduced as $m_0$ in Theorem~\ref{thm:curved-chiral-non-cy}), and $\Phi_3$ extends to a \emph{curved} chiral algebra parametrised by $\delta$, with $\delta = 0$ recovering the strict CY$_3$ output.
 
 \begin{definition}[CY defect]
 \label{def:cy-defect}
@@ -4337,7 +4327,7 @@ For the Kapustin--Witten twisted $\cN = 4$ gauge theory with gauge group~$G$ and
 \[
  \kappa_{\mathrm{ch}}(A_t) = -\frac{\dim(\frakg) \cdot t}{2}.
 \]
-At $t = 0$ (critical level): $\kappa_{\mathrm{ch}} = 0$, commutative ($\Einf$). At $t = 1$ (balanced): $\kappa_{\mathrm{ch}} = -\dim(\frakg)/2$. At $t = \infty$ (dual critical): $\kappa_{\mathrm{ch}} \to \infty$. Complementarity on the Kapustin--Witten twist family: $\kappa_{\mathrm{ch}}(A_t) + \kappa_{\mathrm{ch}}(A_t^!) = \dim(\frakg)/2$ for all~$t$ and all gauge groups. This is a KW-specific additive normalisation, distinct from the standard KM/free-field complementarity $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}'=0$ recorded at Proposition~\ref{prop:complementarity-heis} and the Virasoro complementarity $c+c'=13$.
+At $t = 0$ (critical level): $\kappa_{\mathrm{ch}} = 0$, commutative ($\Einf$). At $t = 1$ (balanced): $\kappa_{\mathrm{ch}} = -\dim(\frakg)/2$. At $t = \infty$ (dual critical): $\kappa_{\mathrm{ch}} \to \infty$. Complementarity on the Kapustin--Witten twist family: $\kappa_{\mathrm{ch}}(A_t) + \kappa_{\mathrm{ch}}(A_t^!) = \dim(\frakg)/2$ for all~$t$ and all gauge groups. This is a KW-specific additive normalisation, distinct from the standard KM/free-field complementarity $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}'=0$ on the Heisenberg lane (Vol~I, Theorem~C) and the Virasoro complementarity $c+c'=13$.
 
 \noindent\textit{Verification}: 137 tests in \texttt{kw\_twisted\_n4\_chiral.py}.
 \end{proposition}
@@ -5279,19 +5269,23 @@ property of the bigraded Lefschetz character.
 \ClaimStatusConjectured\quad
 \index{$\Phi_5$!K3 $\times$ K3 $\times$ E output}%
 The $\Phi_5$ output at $X = K3 \times K3 \times E$ admits a K\"unneth-monoidal
-decomposition up to a chain-level coboundary correction:
+quasi-isomorphism
 \[
-   \Phi_5(D^b\mathrm{Coh}(K3 \times K3 \times E)) \;\sim\;
+   \Phi_5(D^b\mathrm{Coh}(K3 \times K3 \times E)) \;\simeq\;
    \Phi_2(D^b\mathrm{Coh}(K3)) \otimes \Phi_2(D^b\mathrm{Coh}(K3)) \otimes
    \Phi_1(D^b\mathrm{Coh}(E))
    \;=\; \cH_{\mathrm{Muk}(K3)}^{\otimes 2} \otimes H_1
 \]
-in an appropriate $\Phi_2 \otimes \Phi_2 \otimes \Phi_1 \to \Phi_5$
-dimension-shift category. The Mukai rank gives $c \in \{49, 2304\}$
-\textup{(}lattice rank $24 + 24 + 1$ vs full Hodge filtration $F^5$
-total $2304$\textup{)}, with the discrepancy being the Hodge filtration
-restriction to the unitary Mukai sector. Conditional on Künneth-monoidality
-of $\Phi$ at $d = 5$, an open question.
+in the $\Phi_2 \otimes \Phi_2 \otimes \Phi_1 \to \Phi_5$ dimension-shift
+category, modulo a pseudo-monoidality obstruction class
+$[\beta] \in \HH^2_{\otimes}(\Phi)$ controlling deformations of the monoidal
+structure on $\Phi$ at $d = 5$.
+The Mukai rank gives $c \in \{49, 2304\}$ \textup{(}lattice rank
+$24 + 24 + 1$ vs full Hodge filtration $F^5$ total $2304$\textup{)}, with
+the discrepancy being the Hodge filtration restriction to the unitary
+Mukai sector. Conditional on the vanishing $[\beta] = 0$
+\textup{(}equivalently, on strict K\"unneth-monoidality of $\Phi$ at
+$d = 5$\textup{)}, which is open.
 \end{conjecture}
 
 \noindent\textit{Verification}: $53$ tests in
@@ -5321,4 +5315,4 @@ closed-form K\"unneth-monoidal output identification.
 
 Two correspondences have been proved. The CY-to-chiral functor $\Phi_2$ is constructed unconditionally on the smooth proper locus of $\CY_2$-categories \textup{(}Theorem~\ref{thm:cy-to-chiral}\textup{),} with the modular characteristic identified as the Hodge supertrace $\kappa_{\mathrm{ch}}(\Phi_2(\cC)) = \chi(\cO_X)$ under the hypothesis $h^{1,0}(X) = 0$ \textup{(}Proposition~\ref{prop:cy-kappa-d2}\textup{);} the K3 instance evaluates to $\kappa_{\mathrm{ch}} = 2$ and matches the Mukai-lattice chiral algebra. At $d = 3$, Theorem~\ref{thm:cy-to-chiral-d3} proves the $\infty$-categorical existence of $\Phi_3$ on $\CY_3$ categories with chain-level $\bS^3$-framing, with the $\Etwo$-braided representation category recovered on the Drinfeld centre $\cZ(\Rep^{\Eone}(\Phi_3(\cC)))$ via the half-braiding presentation of the $R$-matrix \textup{(}Construction~\ref{constr:rmatrix-from-center}\textup{).} For $\cC = \MF(\C^3, 0)$ the functor chain evaluates to $\CoHA(\C^3) \simeq Y^+(\widehat{\fgl}_1)$, with the full $\cW_{1+\infty}$ at $c = 1$ recovered through the Drinfeld-centre passage, not through $\Phi_3$ directly.
 
-What this forces. The seven faces of $r_{\mathrm{CY}}$ \textup{(}the part on $r_{\mathrm{CY}}$\textup{)} are the per-$d$ evaluations of $\Phi$ at the canonical inputs singled out by property~\textup{(U4):} the K3 Yangian at $d = 2$, the Borcherds--Monster BKM at $d = 2$ on $K3 \times E$ via the K3-fibre Borcherds lift, the $\Eone$-chiral CoHA outputs at $d = 3$ on $\C^3$, the conifold, $K3 \times E$, and local $\bP^2$, and the genus-0 BCOV reconstruction at compact CY$_3$ with $h^{1,0} = 0$. Each face is a specific consequence of the construction proved here; the mathematical content of the part on $r_{\mathrm{CY}}$ is to verify, per face, that the chiral-side invariant predicted by $\Phi_d$ matches the BPS-side invariant produced by the K-theoretic / cohomological Hall algebra of the target CY. The correspondence is stated; its evaluation on the canonical landscape is the subject of Chapter~\ref{ch:seven-faces-of-rcy}.
+What this forces. The seven faces of $r_{\mathrm{CY}}$ \textup{(}the part on $r_{\mathrm{CY}}$\textup{)} are the per-$d$ evaluations of $\Phi$ at the canonical inputs singled out by property~\textup{(U4):} the K3 Yangian at $d = 2$, the Borcherds--Monster BKM at $d = 2$ on $K3 \times E$ via the K3-fibre Borcherds lift, the $\Eone$-chiral CoHA outputs at $d = 3$ on $\C^3$, the conifold, $K3 \times E$, and local $\bP^2$, and the genus-0 BCOV reconstruction at compact CY$_3$ with $h^{1,0} = 0$. Each face is a specific consequence of the construction proved here. The mathematical content of the part on $r_{\mathrm{CY}}$ is to verify, per face, that the chiral-side invariant predicted by $\Phi_d$ matches the BPS-side invariant produced by the K-theoretic / cohomological Hall algebra of the target CY. The correspondence is stated; its evaluation on the canonical landscape is Theorem~\ref{thm:seven-faces-of-r-cy}.
