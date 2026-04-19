@@ -3678,7 +3678,7 @@ The fixed-point identity $M_{K3 \times T^4} = M_{K3 \times E}$ is not
 isolated; it is the manifold realisation of a structural identity on
 the trace-zero hyperplane in $\mathbb{Z}[V_4]$.
 
-\begin{lemma}[Bivariant Künneth identity on the trace-zero hyperplane]
+\begin{lemma}[Bivariant Künneth identity on $\mathbb{Z}[V_4]$]
 \label{lem:bivariant-kunneth-identity}
 \ClaimStatusProvedHere
 Define the bivariant Künneth functor
@@ -3689,11 +3689,15 @@ $\kappa_E: \mathbb{Z}[V_4] \to \mathbb{Z}[V_4]$ by
 where $M_E = (1, 0, 0, -1)$ is the elliptic-curve matrix
 \textup{(}Proposition~\ref{prop:elliptic-bigraded-matrix}\textup{)}
 and $\sigma_{\mathrm{tot}}^*$ is the antipodal $V_4$-character involution.
-Then $\kappa_E$ acts as the identity on the trace-zero hyperplane
-\[
-  \mathbb{Z}[V_4]_0 \;=\; \bigl\{N \in \mathbb{Z}[V_4]
-                             \,\bigm|\, \operatorname{tr}(N) = 0\bigr\}.
-\]
+Then $\kappa_E$ acts as the identity on all of $\mathbb{Z}[V_4]$
+\textup{(}the proof below gives the identity for every $N \in \mathbb{Z}[V_4]$,
+not only on the trace-zero hyperplane
+$\mathbb{Z}[V_4]_0 = \{N \mid \operatorname{tr}(N) = 0\}$\textup{).} The
+trace-zero hyperplane is the sub-case relevant to the K$3$-anchored
+elliptic-tower fixed point, where $\operatorname{tr}(M^\flat) =
+\chi(\mathcal{O}_{K3 \times E^k}) = 0$ for $k \geq 1$ and the universal
+fixed-point identity of
+Theorem~\ref{thm:universal-elliptic-tower-fixed-point} closes.
 \end{lemma}
 
 \begin{proof}[Proof sketch]
@@ -4199,7 +4203,7 @@ operator-basis decomposition tabulated below:
 \begin{array}{c|cccc|c}
 Y & \alpha_Y & \beta_Y & \gamma_Y & \delta_Y & \chi(\mathcal{O}_Y) \\ \hline
 E                  & 1     & 0     &  0    & -1    & 0 \\
-K3 \text{ (BKM-enhanced)} & 0     & -16   &  5    & 11    & 0 \\
+K3 \times E^k \text{ (BKM-enhanced fixed point, }k \geq 1\text{)} & 0     & -16   &  5    & 11    & 0 \\
 T^4                & 2     & 0     &  0    & -2    & 0 \\
 \mathrm{conifold}  & -1    & 0     &  1    & 0     & 0 \\
 \bP^2_{\mathrm{loc}} & 1   & 3     & -3    & 0     & 1 \\
@@ -4240,7 +4244,10 @@ The structural readings are:
 Direct application of Theorem~\ref{thm:universal-drinfeld-coupling-all-Y} to
 each $\hat M_Y$ \textup{(}V_4-Fourier transforms\textup{):}
 $\hat M_E = (0, 2, 2, 0)$,
-$\hat M_{K3} = (0, -32, 10, 22)$,
+$\hat M^\flat \;=\; \hat M_{K3 \times E^k} = (0, -32, 10, 22)$
+\textup{(}Fourier of the fixed-point matrix $M^\flat = (0, 5, -16, 11)$;
+for the bare BKM input $M_{K3}^{\mathrm{BKM}} = (0, 5, -16, 13)$ with
+trace $2$ one has $\hat M_{K3}^{\mathrm{BKM}} = (2, -34, 8, 24)$\textup{),}
 $\hat M_{T^4} = (0, 4, 4, 0)$,
 $\hat M_{\mathrm{conifold}} = (0, -2, 0, -2)$,
 $\hat M_{\bP^2_{\mathrm{loc}}} = (1, 7, -5, 1)$,
@@ -4693,8 +4700,11 @@ routes\textup{).}
 The following CY inputs are $\sigma_{\mathrm{tot}}^*$-generic and therefore
 fixed by the elliptic-tower iteration:
 \begin{itemize}
- \item $K3$ with $M_K3 = (0, 5, -16, 11)$ \textup{(}BKM-enhanced\textup{):}
-       $\sigma_{\mathrm{tot}}^*(M_K3) = (11, -16, 5, 0) \neq \pm M_K3$.
+ \item $K3$-anchored tower with $M^\flat = M_{K3 \times E^k} = (0, 5, -16, 11)$
+       for all $k \geq 1$ \textup{(}BKM-enhanced, post one elliptic iteration;
+       the bare $M_{K3}^{\mathrm{BKM}} = (0, 5, -16, 13)$ has trace
+       $\chi(\mathcal{O}_{K3}) = 2$ and reaches $M^\flat$ at $k = 1$\textup{):}
+       $\sigma_{\mathrm{tot}}^*(M^\flat) = (11, -16, 5, 0) \neq \pm M^\flat$.
  \item Conifold with $M_C = (-1, 1, 0, 0)$:
        $\sigma_{\mathrm{tot}}^*(M_C) = (0, 0, 1, -1) \neq \pm M_C$.
  \item Local $\bP^2$ with $M_{LP^2} = (1, -3, 3, 0)$:
@@ -5527,9 +5537,21 @@ by the Bockstein into the next integral degree\textup{):}
  \item $c_{\alpha} = 0$, witnessed by $a(K3, K3, K3) = (0, 0, 0, 0)$
        \textup{(}all factors generic, case (1) of the K\"unneth dichotomy
        applies, hence bracketing-independent product matrix\textup{).}
- \item $c_{\beta} = 1$, witnessed by cross-class par-direction-breaking
-       triples \textup{(}for example $(\mathrm{conifold}, \mathrm{conifold}, K3)$
-       gives a non-trivial par-direction Bockstein contribution\textup{).}
+ \item $c_{\beta} = 1$, witnessed by the cross-class par-direction-breaking
+       triple $(\mathrm{conifold}, K3, E)$ with
+       $a(\mathrm{conifold}, K3, E) = (0, 0, 2, -2)$
+       \textup{(}Theorem~\ref{thm:bracketing-associator-closed-form}\textup{),}
+       reducing modulo $2$ to $(0, 0, 1, 1) \in \bbF_2[V_4]_0$ in the
+       par-direction sector; the integral Bockstein of this
+       $\bbF_2$-class generates the par-direction $\mathrm{Bock}(\beta)$
+       summand of $H^3(V_4;\, \bbZ[V_4]_0) = (\bbZ/2)^2$, confirming
+       $c_{\beta} = 1$. \textup{(}The alternative naive triple
+       $(\mathrm{conifold}, \mathrm{conifold}, K3)$ yields $a = (0, 0, 0, 0)$:
+       all three factors are $\sigma_{\mathrm{tot}}^*$-generic, so every
+       pairwise Drinfeld correction $\Delta$ vanishes by case~(1) of the
+       K\"unneth dichotomy, and the closed-form bracketing-associator
+       formula reduces to zero; it cannot witness any non-trivial
+       Bockstein class.\textup{)}
 \end{itemize}
 The wt-direction Bockstein coefficient vanishes \textup{(}$c_{\alpha} = 0$\textup{)}:
 the K$3$-Yangian Pentagon obstruction has no wt-only correction, mirroring
@@ -5555,14 +5577,24 @@ pairwise step and the iterated convolution is bracketing-independent;
 hence $a(K3, K3, K3) = (0, 0, 0, 0)$ and the wt-direction Bockstein
 coefficient $c_{\alpha} = 0$.
 
-At cross-class par-direction-breaking triples \textup{(}for example
-$(\mathrm{conifold}, \mathrm{conifold}, K3)$, where the
-$\sigma$-asymmetry of conifold combined with the K3-anchored
-fixed-point dynamics produces a non-trivial Drinfeld coupling
-$\Delta_{\mathrm{conifold}, K3}$ in case (3) of the dichotomy\textup{):}
-the bracketing-associator $a$ has all entries even and after Bockstein
-$a/2 \pmod 2$ projects onto the par-direction integral generator
-$\beta = \mathrm{Bock}(b)$, yielding $c_{\beta} = 1$.
+At cross-class par-direction-breaking triples where at least one
+factor is $E$-like \textup{(}in the $-1$-eigenspace of
+$\sigma_{\mathrm{tot}}^*$, triggering case~(3) of the K\"unneth
+dichotomy and producing a non-trivial Drinfeld coupling $\Delta_{X, E}
+= \sigma_{\mathrm{tot}}^*(M_X) - \chi(\mathcal{O}_X) e_{\Pi_{--}}$\textup{):}
+at the canonical witness $(\mathrm{conifold}, K3, E)$, the closed-form
+formula of Theorem~\ref{thm:bracketing-associator-closed-form} gives
+$a(\mathrm{conifold}, K3, E) = (0, 0, 2, -2)$; all entries are even,
+and $a/2 \pmod 2 = (0, 0, 1, 1) \in \bbF_2[V_4]_0$ is supported in the
+par-direction sector \textup{(}both $(-+)$ and $(--)$ components, the
+par-parity-odd pair\textup{),} projecting onto the par-direction
+integral generator $\beta = \mathrm{Bock}(b)$ under the dimension-shift
+isomorphism $H^3(V_4; \bbZ[V_4]_0) \xrightarrow{\sim} H^2(V_4; \bbZ)$.
+Hence $c_{\beta} = 1$. \textup{(}Note: the naive all-generic triple
+$(\mathrm{conifold}, \mathrm{conifold}, K3)$ yields $a = (0, 0, 0, 0)$
+by case~(1) of the dichotomy — every pairwise Drinfeld correction
+vanishes — and therefore CANNOT witness $c_{\beta} = 1$; the
+$E$-like factor is load-bearing for triggering case~(3)\textup{).}
 
 The two coefficients $c_{\alpha}, c_{\beta} \in \bbZ/2$ are
 $\bbF_2$-linearly independent in $(\bbZ/2)^2 = H^3(V_4; \bbZ[V_4]_0)$

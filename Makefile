@@ -134,6 +134,8 @@ release:
 	@$(BUILD_SCRIPT) $(PASSES)
 	@if [ -f $(PDF) ]; then \
 		echo "  ✓  $(PDF)"; \
+		cp $(PDF) calabi_yau_quantum_groups.pdf; \
+		echo "  ✓  calabi_yau_quantum_groups.pdf"; \
 	else \
 		echo "  ✗  Manuscript build failed."; \
 	fi
