@@ -1,0 +1,105 @@
+# Wave-2 numerical dataset: Costello elliptic K3-Yangian R-matrix.
+# Author: Raeez Lorgat (sole). Voice: Polyakov.
+# Generated: 2026-04-19.
+# Compute library: compute/lib/k3_yangian_wave2_elliptic_rmatrix.py,
+#                  compute/lib/k3_yangian_wave2_rank24_elliptic_ybe.py.
+
+# ============================================================================
+# Spectral parameter convention
+# ============================================================================
+# Parameters:
+#   tau = 0.5 + 1.2i (generic upper half-plane modulus).
+#   test z = 1e-5 (near the pole of zeta).
+# Output:
+#   zeta(z=1e-5; tau=0.5+1.2i) = 99999.99999999999 + 1.30e-15 i
+#   z * zeta(z) - 1 = (-1.11e-16, 1.30e-20)
+#   |z * zeta(z) - 1| = 1.11e-16       [residue 1, machine precision]
+
+# ============================================================================
+# Rank-4 signature (2, 2) elliptic YBE residual table
+# ============================================================================
+# Parameters: u = 2.3, v = 1.7, tau = 0.5 + 1.2i, hbar = 0.1,
+#             Eisenstein truncation N_trunc = 30 (for rank 4).
+# Format: <R-matrix name>  <classical YBE>  <elliptic YBE to hbar^3>
+
+Mukai_diagonal_Omega_eta_sig_22                    0          2.776e-17
+gl_N_permutation_P_signature_independent           4.012e+01  4.714e-01
+so_2_2_Casimir_Omega_BelavinDrinfeld               1.003e+01  1.046e-01
+Yang_rational_u_plus_hbar_P_over_u_plus_hbar       n/a        5.551e-17  [full YBE, hbar = 1]
+rational_limit_gauge_err_Mukai_diag                4.352e-02  [exp vs Yang form]
+
+# ============================================================================
+# Rank-24 Mukai signature (4, 20) tests
+# ============================================================================
+# Parameters: u = 2.3, v = 1.7, tau = 0.5 + 1.2i, hbar = 0.1,
+#             Eisenstein truncation N_trunc = 12.
+# Signs: s_i = +1 for i in 1..4, s_i = -1 for i in 5..24.
+
+Yang_rational_u_plus_hbar_P_over_u_plus_hbar_rank24_sig_independent    5.551e-17  [full YBE, hbar = 1]
+CYBE_residual_Mukai_diagonal_rank24                                    0          [exact]
+CYBE_residual_gl24_permutation                                         4.012e+01  [non-zero]
+elliptic_YBE_residual_to_hbar3_Mukai_diagonal_rank24                   2.776e-17  [machine precision]
+
+# ============================================================================
+# Rational limit of Weierstrass zeta
+# ============================================================================
+# z = 0.6, varying tau = 0.5 + T*i.
+# Converges to a CONSTANT shift (-0.7135), the Laurent G_4 * z^3 term at z=0.6;
+# at small z, zeta - 1/z -> 0 faithfully.
+
+tau=0.5+2i:    zeta(0.6) - 1/0.6 = -0.7133 + 8.34e-6 i
+tau=0.5+4i:    zeta(0.6) - 1/0.6 = -0.7135 + 4.72e-7 i
+tau=0.5+8i:    zeta(0.6) - 1/0.6 = -0.7135 + 1.77e-8 i
+tau=0.5+16i:   zeta(0.6) - 1/0.6 = -0.7135 - 7.06e-9 i
+
+tau=0.5+16i, z=1e-3:    (zeta(z) - 1/z)/z = -2.16e-6     [essentially zero]
+
+# ============================================================================
+# Costello vs Yang R-matrix at rank 24 (rational limit)
+# ============================================================================
+# z = 0.6, hbar = 0.01, rank 24, signature (4, 20).
+# R_cost  = exp(hbar * Omega_eta / z)           (diagonal on |ii>)
+# R_yang  = (z + hbar s_i) / (z - hbar s_i) on |ii>
+# Both 1 on off-diagonal |ij> (i != j).
+# Mode i, signature s_i:
+
+i=0_s=+1    R_cost=1.016806    R_yang=1.033898    ratio=0.9835
+i=3_s=+1    R_cost=1.016806    R_yang=1.033898    ratio=0.9835
+i=4_s=-1    R_cost=0.983471    R_yang=0.967213    ratio=1.0168
+i=5_s=-1    R_cost=0.983471    R_yang=0.967213    ratio=1.0168
+i=23_s=-1   R_cost=0.983471    R_yang=0.967213    ratio=1.0168
+
+# Interpretation: same Lie algebra (rank-24 abelian Heisenberg), different
+# R-matrix presentations (exp vs linear-fractional, related by scalar gauge).
+
+# ============================================================================
+# Schiffmann-Vasserot charge-1 comparison
+# ============================================================================
+# SV R-matrix at charge 1: R_SV = diag((spec - h_a)/(spec + h_a)) on K_T(K3).
+# Costello rational charge 1: R_cost = diag(exp(hbar s_i / spec)) on V x V.
+# At spec = u - v = 0.6, hbar = 0.01, rank 24, 24 random h_i in [-0.4, 0.4]:
+
+charge_1_rank          24
+spec                   0.600
+hbar                   0.010
+||R_SV - R_Costello||  2.796  [disagree as R-matrices]
+Lie_algebra_match      YES    [both are rank-24 abelian Heisenberg]
+R-matrix_match         NO     [different normalisations]
+Identification         hbar = -2*h_i / s_i  mode-by-mode  [not a global hbar]
+
+# ============================================================================
+# Wall-clock times
+# ============================================================================
+spectral_parameter_convention                   ~0.01 s
+rank_4_signature_22_full_suite                  ~1   s
+rank_24_Mukai_4_20_CYBE_suite                   ~815 s  [13824 x 13824 dense]
+rank_24_Mukai_4_20_elliptic_YBE_hbar3           ~114 s
+Schiffmann_Vasserot_charge_1                    ~1   s
+
+# ============================================================================
+# Reproducibility
+# ============================================================================
+# Numpy version: 1.x or 2.x (tested on default). Python 3.
+# Seed for RNG in SV comparison: rng = np.random.default_rng(42).
+# No external dependencies beyond numpy.
+# All floating-point results are reproducible to machine precision.
