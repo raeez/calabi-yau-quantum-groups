@@ -6,7 +6,8 @@ This repository is an instrument for advancing human mathematical
 knowledge. Specifically, for understanding the **CY-to-chiral functor
 $\Phi: \mathrm{CY}\text{-cat}_d \to \mathrm{ChirAlg}$**, and the seven
 faces of $r_{\mathrm{CY}}$ that crystallise the correspondence between
-BPS quantum groups (K3 Yangian, BKM / Borcherds / Monster) and their
+BPS quantum groups (K3 Hall--Drinfeld double / self-mirror K3 Yangian
+branch, BKM / Borcherds / Monster) and their
 chiral-side analogues.
 
 If you are an agent here, your purpose is identical to that mission.
@@ -30,9 +31,13 @@ Bare $\kappa$ forbidden (HZ-7 / AP113).
 
 **Key facts** (always-on cache):
 - $\kappa_{\mathrm{cat}}(K3 \times E) = 0$ (total space), NOT 2 (fibre).
+- The BKM-side K3 object is the Hall--Drinfeld double $\mathcal{D}_\hbar(\mathrm{CoHA}_{K3\times E})$, NOT a Drinfeld Yangian. "K3 Yangian" is historical shorthand for the separate Mukai self-mirror branch.
 - $\mathrm{CoHA}(\mathbb{C}^3) = Y^+$ (positive half), NOT $\mathcal{W}_{1+\infty}$.
 - Six routes to $G(K3 \times E)$ are six DIFFERENT constructions, NOT six $\Phi$ applications.
 - $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}})$ FAILS at every $N \in \{1,2,3,4,6\}$ (not a coincidence; at $N=1$ LHS = $5$, RHS = $0+0 = 0$). Universal formula: $\kappa_{\mathrm{BKM}} = c_N(0)/2$ (Borcherds 1998; Gritsenko 1999).
+- Wave 13 crown: bi-based Ran/$\overline{\mathcal{A}_2}$ architecture, CY-2 $[2]$ shift, class-$\mathcal{S}$ $A_1$ parent on $\Sigma_{0,24}$, $H^2(\mathfrak{g}_{\Delta_5})^{\mathbb{Z}/2,K(1)} = \mathbb{C}\cdot\Delta_5$, and $\Delta_5$ as 1-loop-forced output.
+- On the $\mathcal{B}$-family, $K^{\kappa_{\mathrm{ch}}}=8=\mathrm{ord}(H_1)$ and $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}}=-1$.
+- Wave 13 installs 59 AP-CY-W13-* anti-patterns; highest-recurrence confusions are Ikeda↔Gritsenko, BKM-as-Yangian, $\Delta_5$ input-vs-output, Lie-level abelianity versus vertex-level non-abelianity, and CY-3 versus CY-2 shift.
 - Class M $E_3$ bar $= 6^g$ at cohomology, NOT infinite.
 - At $d \geq 3$, $A$ is $E_1$; $E_2$ lives on $Z(\mathrm{Rep}(A))$, not on $A$.
 
@@ -102,6 +107,9 @@ AP-CY + cache violations. Builds at session end on user opt-in.
   $\kappa_{\mathrm{BKM}} = 5$.
 - K3 $\times$ E spectrum: $\{2, 3, 5, 24\}$ from four distinct
   constructions.
+- Theorem-C $\mathcal{B}$-family face: $K^{\kappa_{\mathrm{ch}}}=8$,
+  Humbert-$H_1$ monodromy order $8$, and $\hbar^2 \cdot
+  K^{\kappa_{\mathrm{ch}}}=-1$.
 - Local $\mathbb{P}^2$: $\kappa_{\mathrm{ch}} = 3/2$.
 - Conifold is NOT a local surface; $\kappa_{\mathrm{ch}} = 1$ via
   direct McKay.

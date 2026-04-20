@@ -764,6 +764,32 @@ Francis--Gaitsgory complex, Bott periodicity, explicit homotopy,
 cross-checks).
 \end{proof}
 
+\begin{remark}[Manin-pair structure of the $E_1$-Hochschild vanishing]
+\label{rem:m3b2-DNA-manin-pair}
+The vanishing
+$\HH^{-2}_{E_1}(A, A) = 0$ of
+Theorem~\ref{thm:derived-framing-m3b2} is a \emph{one-sided}
+structural statement: unit-connectedness gives a Manin \emph{pair}
+$(A, A)$ with the diagonal $A \hookrightarrow A \otimes A^{\op}$
+acting by conjugation, not a Manin \emph{triple}
+$(A \oplus A^!, A, A^!)$ with a Lie-bialgebra coproduct
+on each summand.  This distinction is load-bearing at the
+boundary with Part~\ref{part:k3-yangian}: the Hall-algebra /
+Kontsevich--Soibelman construction on a CY$_2$ category produces
+a Drinfeld \emph{double} (a full Manin triple built from the Hall
+product on stable objects and its dual on costable objects), not
+a Yangian (whose RTT relations require a genuine $\R$-matrix
+satisfying the classical Yang--Baxter equation, i.e., a Lie
+bialgebra datum that upgrades the Manin pair to a Manin triple).
+The $E_1$-Hochschild obstruction here lives on the pair; promotion
+to the triple requires additional CY$_2$-Yangian data supplied by
+the K3 $\R$-matrix of Part~\ref{part:k3-yangian}, not by the
+chain-level CY$_3$ saga of this chapter.  Engine
+\texttt{derived\_framing\_obstruction.py} verifies only the pair-level
+vanishing; the triple-level question is the subject of
+Chapter~\ref{ch:k3-yangian}.
+\end{remark}
+
 
 % ============================================================
 \section{Three levels of truth}
@@ -917,6 +943,33 @@ $67$~tests in \texttt{hopf\_fibration\_s3\_framing.py};
 $43$~tests in \texttt{operadic\_tcft\_mk\_b2\_engine.py};
 $51$~tests in \texttt{derived\_framing\_obstruction.py}.
 \end{proof}
+
+\begin{remark}[$K3 \times E$ as 1-loop-forced 11D-SUGRA on $I_1$ Kodaira fibres]
+\label{rem:m3b2-DNA-sugra-forcing}
+The $K3 \times E$ row of the landscape table is the only compact
+entry with nontrivial \v{C}ech step, and the physical origin of
+its $\Ainf$-data sharpens the interpretation.  Twisted
+11D-supergravity compactified on $K3 \times T^2$ with $24$ M5-branes
+wrapping the $I_1$ Kodaira fibres of an elliptic K3 produces, at
+one loop, a forced output: the weight-$5$ Igusa modular form
+$\Delta_5$ (the Igusa cusp form of weight $5 = 2 + 3$, where
+$2$ is the $T^2$ contribution and $3$ is the $K3$
+contribution).  On the chain-level CY algebra side of this
+duality, $\Delta_5$ is the invariant that records the
+$\Ainf$-data: the non-formal Massey products $\mu_3$ on the K3
+fibre and the associative structure $\mu_2$ on the elliptic
+factor combine multiplicatively, and the resulting chain-level
+datum is precisely what the Kummer-route
+$\mathrm{Obs}_{\BV}$ Step~$5$ must resolve.  The weight
+decomposition $5 = 2 + 3$ mirrors the product structure
+$K3 \times E$ at the level of CY factors; the single-object
+incompatibility theorem (Theorem~\ref{thm:single-object-incompatibility}
+below) does not apply because the algebra is
+\emph{bi-based} on two CY factors, not a single-object cyclic
+$\Ainf$-algebra.  This is why the $K3 \times E$ row differs from
+local~$\bP^2$: the Kummer route inherits a product-of-factors
+structure that is unavailable for irreducible CY$_3$ categories.
+\end{remark}
 
 
 % ============================================================
@@ -1184,6 +1237,35 @@ and the total cancellation $\sum_k \delta^{(k)} = 0$ is enforced
 by the TCFT.
 \end{remark}
 
+\begin{remark}[Abelian-at-Lie, non-abelian-at-vertex: the input-output dichotomy]
+\label{rem:m3b2-DNA-frenkel-kac}
+Remark~\ref{rem:m3b2-shadow-tower} contains an instance of a
+structural phenomenon first identified by Frenkel--Kac (1980) in
+the vertex operator construction of basic representations of
+affine Kac--Moody algebras.  The CoHA seed $Y^+(\widehat{\mathfrak{gl}}_1)$
+at $\C^3$ is Lie-algebraically \emph{abelian} (Jordan quiver: one
+vertex, no off-diagonal bracket; $\mu_3 = 0$ at the input level);
+yet its chiral envelope
+$\mathcal{W}_{1+\infty}$ at $c = 1$ is vertex-algebraically
+\emph{non-abelian}, with class~M shadow tower $S_3 = 2$ and
+non-trivial OPE.  The passage input-abelian $\rightsquigarrow$ output-non-abelian
+is precisely the Frenkel--Kac vertex operator construction:
+the free-boson lattice $\mathbb{Z}\alpha$ with $\langle \alpha,
+\alpha \rangle = 2$ builds an $\widehat{\mathfrak{sl}_2}_1$ vertex
+algebra from an abelian Heisenberg lattice, exponentiating the
+Lie-abelian data into a Lie-non-abelian structure at the vertex
+level.  The $[m_k, B^{(2)}]$ separation of SC-formality from
+Koszulness above is the CY$_3$ shadow of this vertex-operator
+dichotomy: abelianness at the input CoHA (Lie level,
+$\mu_3 = 0$) does not obstruct non-abelianness at the output
+chiral envelope (vertex level, $S_3 \neq 0$), because the
+envelope factorisation performs the analogue of Frenkel--Kac
+exponentiation.  The chain-level obstruction
+$[m_3, B^{(2)}]$ is indexed at the Lie-input level; the shadow
+tower $\{S_k\}$ lives at the vertex-output level; the envelope
+factorisation is the $\infty$-categorical bridge between them.
+\end{remark}
+
 
 % ============================================================
 \section{Summary of computational engines}
@@ -1243,6 +1325,33 @@ invariance, CY pairing nondegeneracy, and grading consistency
 are checked before any commutator computation.  The test suites
 are integrated into the Vol~III \texttt{make test} infrastructure
 ($19{,}838$~total tests).
+\end{remark}
+
+\begin{remark}[Three faces of $8$: where $K^{\kappa_{\mathrm{ch}}}$ resurfaces]
+\label{rem:m3b2-DNA-three-faces-eight}
+At the boundary of this chapter with Part~\ref{part:k3-yangian},
+a single integer $K^{\kappa_{\mathrm{ch}}} = 8$ records three
+independent data: $K^{\kappa_{\mathrm{ch}}}
+= 2\,c_+(\mathrm{Mukai}(K3))$ on the CY$_2$ side (twice the
+positive-signature part of the Mukai lattice $H^\ast(K3, \Z) =
+II_{4,20}$, whose positive summand is $II_{2,2}$ of rank $4$
+with $c_+ = 4$, giving $8$); the Humbert-surface monodromy
+order of the Hilbert modular family along the K3 locus of $A_2$
+(the Humbert flag has order $8$ in the relevant Kuga--Satake
+construction); and Lusztig's $\ell = 8$ at the order at which
+the quantum group $U_\ell(\widehat{\mathfrak{sl}_2})$ admits a
+cell-theoretic Frobenius splitting producing the K3 category.
+The chain-level CY-A$_3$ data of this chapter feeds into the
+Part~\ref{part:k3-yangian} construction by multiplying
+$K^{\kappa_{\mathrm{ch}}}$ against the chiral-level parameter
+$\hbar$: on the $B$-family (analogue of the $B$-model side),
+the universal identity $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$
+holds, pinning $\hbar^2 = -1/8$ at the critical point of the
+CY-to-chiral functor.  The $[m_3, B^{(2)}]$ saga supplies the
+chain-level homotopy data that allows this chiral-level
+identity to lift past the formality obstruction of local~$\bP^2$
+and the quintic to K3-fibred CY$_3$ categories.  Chapter~\ref{ch:k3-yangian}
+develops the consequences.
 \end{remark}
 
 \bigskip

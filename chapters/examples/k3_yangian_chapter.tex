@@ -10,7 +10,302 @@ the Koszul dual, the orthosymplectic super-Yangian envelope
 $Y_{\osp(4 \mid 20)}$ attached to the Mukai orthogonal form, and
 the perturbative factorization homology computation.
 
+\begin{remark}[Nomenclature scope: ``K3 Yangian'' versus Hall--Drinfeld double]
+\label{rem:k3-yangian-nomenclature-scope}
+The label \emph{K3 Yangian} used throughout this chapter refers to the integrable
+quantisation of $\mathfrak{g}_{K3}$ via its $24$ Heisenberg generators, Mukai-signature
+Serre relations, and degree-$(24,24)$ structure function. The object underlying the
+BKM superalgebra $\mathfrak{g}_{\Delta_5}$ (Chapter~\ref{ch:k3e-bkm}) is distinct: it
+is \emph{not} a Drinfeld Yangian in the sense of Drinfeld 1985 (no J-presentation,
+no Kac--Moody Cartan, no Weyl action on imaginary simple roots) but a
+\emph{K3 chiral Hall--Drinfeld double}
+$\mathcal{D}_\hbar(\mathcal{Y}^{\mathrm{Hall}}_\hbar(\mathrm{CoHA}_{K3\times E}))$
+attached to the Manin pair
+$(\mathfrak{g}_{\Delta_5},\mathfrak{n}_+^{\mathrm{imag}}\oplus\mathfrak{h}^{\mathrm{imag,rk\,23}})$
+with Schiffmann--Vasserot shuffle presentation. The full platonic architecture is
+inscribed in Chapter~\ref{ch:k3-chiral-bialgebra-platonic}; a reader who wants the
+Yangian facet of the K3 story should continue here; a reader who wants the
+BKM / Siegel-modular-form facet should read the platonic chapter in parallel. The
+two facets meet on the rank-$24$ Mukai data: $\mathfrak{g}_{K3}$ presents the
+self-mirror Yangian branch, $\mathfrak{g}_{\Delta_5}$ presents the generalised-Borcherds
+imaginary-root extension.
+\end{remark}
 
+\begin{remark}[Abelian-at-Lie / non-abelian-at-vertex discipline]
+\label{rem:k3-yangian-abelian-at-lie}
+At the Lie-algebra level both $\mathfrak{g}_{K3}$ (this chapter) and
+$\mathfrak{g}_{\Delta_5}$ (Chapter~\ref{ch:k3e-bkm}) are \emph{abelian} when restricted
+to a single Miki or Heisenberg factor; non-abelian structure emerges only after
+vertex-operator closure on the K3 Fock module
+$\mathcal{F}_{K3}=\mathrm{Sym}(\bigoplus_n H^*(K3)_{t^n})$ via the Frenkel--Kac
+pattern (Frenkel--Kac 1980). Every occurrence of ``non-abelian K3 chiral bialgebra''
+in these two chapters should be read as vertex-operator-level, not Lie-bracket-level;
+the discipline is made structural by the Frenkel--Kac closure
+Theorem~\ref{thm:k3-yangian-frenkel-kac-closure} below, and inscribed as
+Theorem~\ref{thm:k3-abelian-at-lie} in the platonic chapter.
+\end{remark}
+
+\begin{theorem}[Abelian at Lie level; non-abelian emerges at vertex-operator closure]
+\label{thm:k3-yangian-frenkel-kac-closure}
+\ClaimStatusProvedHere
+Let $\mathcal{H}_{\mathrm{Muk}}$ denote the Mukai--Heisenberg lattice vertex algebra
+$V_{\Lambda_{\mathrm{Muk}}}$ attached to the Mukai lattice
+$\Lambda_{\mathrm{Muk}} = U^{\oplus 3}\oplus E_8(-1)^{\oplus 2}$ of signature $(4,20)$
+(Section~\ref{sec:k3-mukai-heisenberg-voa}). As a Lie algebra, the mode algebra of
+$\mathcal{H}_{\mathrm{Muk}}$ restricted to its rank-$24$ Cartan current subalgebra
+is the affine Heisenberg
+\[
+  \widehat{\mathcal{H}}_{\mathrm{Muk}}
+  \;=\;
+  \bigoplus_{n\in\mathbb{Z}}\Lambda_{\mathrm{Muk}}\otimes t^n\;\oplus\;\mathbb{C}\mathbf{c},
+  \qquad
+  [\alpha_m,\beta_n] = m\,\langle\alpha,\beta\rangle_{\mathrm{Muk}}\,\delta_{m+n,0}\,\mathbf{c},
+\]
+which is \emph{abelian modulo centre} in the following precise sense: the derived
+subalgebra $[\widehat{\mathcal{H}}_{\mathrm{Muk}},\widehat{\mathcal{H}}_{\mathrm{Muk}}]
+= \mathbb{C}\mathbf{c}$ is one-dimensional, and the abelianisation
+$\widehat{\mathcal{H}}_{\mathrm{Muk}}^{\mathrm{ab}} =
+\bigoplus_{n\in\mathbb{Z}}\Lambda_{\mathrm{Muk}}\otimes t^n$ has dimension $24$ per
+mode. The full non-abelian BKM structure $\mathfrak{g}_{\Delta_5}$
+(Chapter~\ref{ch:k3e-bkm}) arises only after closing under the vertex-operator
+exponentials furnished by Theorem~\ref{thm:mukai-frenkel-kac-map},
+\[
+  V(\alpha, z)
+  \;=\;
+  {:}\exp\!\Bigl(\alpha\cdot\phi(z)\Bigr){:}
+  \;=\;
+  \exp\!\Bigl(\sum_{n\geq 1}\frac{\alpha_{-n}}{n}z^n\Bigr)\,
+  \exp\!\Bigl(-\sum_{n\geq 1}\frac{\alpha_n}{n}z^{-n}\Bigr)\,
+  e^{\alpha}\,z^{\alpha_0},
+\]
+for $\alpha\in\Lambda_{\mathrm{Muk}}$ acting on the K3 Fock module $\mathcal{F}_{K3}
+= \mathrm{Sym}\!\bigl(\bigoplus_{n\geq 1}\Lambda_{\mathrm{Muk}}\otimes t^{-n}\bigr)
+\otimes\mathbb{C}[\Lambda_{\mathrm{Muk}}]$. The commutator
+\[
+  [V(\alpha,z),\, V(\beta,w)]
+  \;=\;
+  \epsilon(\alpha,\beta)\,(z-w)^{\langle\alpha,\beta\rangle}\,
+    V(\alpha+\beta,w)\;+\;\text{regular},
+\]
+with $\epsilon\colon \Lambda_{\mathrm{Muk}}\times\Lambda_{\mathrm{Muk}}\to\{\pm 1\}$
+the Frenkel--Kac sign cocycle, produces non-abelian brackets $[e_\alpha,e_\beta]
+= \epsilon(\alpha,\beta)e_{\alpha+\beta}$ whenever $\langle\alpha,\beta\rangle = -1$;
+these are the non-abelian BKM simple-root brackets of $\mathfrak{g}_{\Delta_5}$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The Lie-algebra statement is a direct consequence of the mode expansion of a
+free-boson vertex algebra: the Heisenberg commutator $[\alpha_m,\beta_n] =
+m\langle\alpha,\beta\rangle\delta_{m+n,0}\mathbf{c}$ is central
+(Kac--Frenkel 1980; Frenkel--Lepowsky--Meurman 1988, Chapter~1). The
+vertex-operator commutator formula is the OPE consequence of
+Theorem~\ref{thm:mukai-frenkel-kac-map}, applied to the Mukai lattice with its
+Borcherds sign cocycle $\epsilon$ determined by the bimultiplicative solution of
+$\epsilon(\alpha,\beta)\epsilon(\beta,\alpha)
+= (-1)^{\langle\alpha,\beta\rangle+\langle\alpha,\alpha\rangle\langle\beta,\beta\rangle}$
+(Borcherds 1986, §5). The non-abelianity at discriminant $D < 0$ (real simple roots)
+is the content of Frenkel--Kac's original ADE construction; the extension to
+imaginary simple roots of $\mathfrak{g}_{\Delta_5}$ uses Borcherds's 1986
+generalised-Kac--Moody lattice-VOA-to-BKM functor
+(Theorem~\ref{thm:borcherds-lift-universal} of Chapter~\ref{ch:k3e-bkm}).
+Both steps are vertex-operator constructions: the underlying Heisenberg Lie
+algebra remains abelian-modulo-centre throughout; the non-abelian brackets
+live entirely on the Fock module.
+\end{proof}
+
+\begin{remark}[Frenkel--Kac dictionary: abelian $\to$ non-abelian]
+\label{rem:k3-yangian-frenkel-kac-dictionary}
+The Frenkel--Kac pattern is three-column:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}llll@{}}
+\textbf{Heisenberg} & \textbf{Lattice} & \textbf{Vertex closure} & \textbf{Non-abelian output} \\ \hline
+$\mathcal{H}_r$ rank-$r$ & root lattice of ADE $\mathfrak{g}$ & $V(\alpha,z)$ for $\alpha$ root & affine $\widehat{\mathfrak{g}}$ at level $1$ \\
+$\mathcal{H}_{25,1}$ & $\mathrm{II}_{25,1}$ & $V^{\mathrm{lattice}}_{\mathrm{II}_{25,1}}$ & Fake Monster BKM \\
+$\mathcal{H}_{\mathrm{Muk}}$ rank-$24$ & $\Lambda_{\mathrm{Muk}} = \mathrm{II}_{4,20}$ & $V_{\Lambda_{\mathrm{Muk}}}$ & $\mathfrak{g}_{\Delta_5}$ BKM super
+\end{tabular}
+\end{center}
+Row~$1$ is Frenkel--Kac 1980; row~$2$ is Borcherds 1992; row~$3$ is the K3 case, synthesis
+of Borcherds 1998 (singular theta lift) with Gritsenko--Nikulin 1997/1998
+(denominator-product equality). In every row the input is an abelian Heisenberg,
+the output is a non-abelian Lie algebra, and the passage is vertex-operator closure
+on the Fock module. The K3 chiral bialgebra
+$\mathbf{H}_{\Delta_5}$ of Chapter~\ref{ch:k3-chiral-bialgebra-platonic} is the
+$\hbar$-quantisation of the rank-$24$ Heisenberg input of row~$3$, not of the
+non-abelian BKM output.
+\end{remark}
+
+\begin{remark}[Hall--Drinfeld double discipline]
+\label{rem:k3-yangian-hall-drinfeld-scope}
+Combining Remark~\ref{rem:k3-yangian-nomenclature-scope} and
+Theorem~\ref{thm:k3-yangian-frenkel-kac-closure}, the correct
+quantum-group-theoretic identification of the integrable structure associated to
+the K3 BKM reads: $\mathbf{H}_{\Delta_5}$ is a K3 \emph{chiral Hall--Drinfeld
+double} whose underlying Lie structure is the $24$ abelian-Heisenberg generators
+of $\widehat{\mathcal{H}}_{\mathrm{Muk}}$, twisted by the $\widetilde{M}_{24}$
+cocycle and quantised by $\hbar$; its non-abelian BKM shadow
+$\mathfrak{g}_{\Delta_5}$ is not a feature of the algebra itself but of the
+vertex-operator closure of this algebra on its Fock representation
+$\mathcal{F}_{K3}$. This is the Drinfeld~W13 retraction
+(Remark~\ref{rem:retract-k3-yangian-name} of
+Chapter~\ref{ch:k3-chiral-bialgebra-platonic}) made concrete at the
+Frenkel--Kac / Borcherds level: no Yangian J-presentation is needed because
+the non-abelian brackets are derived vertex-operator-theoretic consequences,
+not axioms of the primary algebra.
+\end{remark}
+
+
+
+\section{The Frenkel--Kac map and vertex-operator closure}
+\label{sec:k3-frenkel-kac-map-closure}
+
+The Yangian presentation of the K3 story is rank-$24$ and abelian at the Lie level.
+The passage from that abelian presentation to the non-abelian BKM side is the
+Frenkel--Kac lattice-VOA map on the Mukai lattice. The detailed construction is
+expanded in Section~\ref{sec:k3-mukai-heisenberg-voa}; the present section places the
+map next to the Yangian presentation so that the Heisenberg generators, the lattice
+states, and the vertex-operator closure are visible on one page.
+
+\begin{theorem}[Presentation-level Frenkel--Kac map on the Mukai lattice]
+\label{thm:k3-presentation-frenkel-kac-map}
+\ClaimStatusProvedHere
+Let
+\[
+  \Lambda_{\mathrm{Muk}}
+  \;=\;
+  \widetilde{H}(K3,\mathbb{Z})
+  \;\simeq\;
+  \mathrm{II}_{4,20},
+  \qquad
+  \widehat{\mathcal{H}}_{\mathrm{Muk}}
+  \;=\;
+  \bigoplus_{n\in\mathbb{Z}}\Lambda_{\mathrm{Muk}}\otimes t^n
+  \oplus \mathbb{C}\mathbf{c}.
+\]
+Fix a bimultiplicative cocycle
+\[
+  \epsilon\colon
+  \Lambda_{\mathrm{Muk}}\times\Lambda_{\mathrm{Muk}}
+  \longrightarrow
+  \{\pm 1\},
+  \qquad
+  \epsilon(\alpha,\beta)\epsilon(\beta,\alpha)
+  =
+  (-1)^{\langle\alpha,\beta\rangle_{\mathrm{Muk}}}
+\]
+as in Frenkel--Kac 1980 and Borcherds 1986, and write normal ordering
+$:{-}:$ by placing all negative Heisenberg modes to the left of the non-negative
+ones. Then the assignment
+\[
+  \iota_{\mathrm{FK}}^{\mathrm{pres}}\colon
+  \mathrm{Sym}\!\Bigl(\bigoplus_{n\geq 1}\Lambda_{\mathrm{Muk}}\otimes t^{-n}\Bigr)
+  \otimes \mathbb{C}_\epsilon[\Lambda_{\mathrm{Muk}}]
+  \longrightarrow
+  V_{\Lambda_{\mathrm{Muk}}}
+\]
+defined by
+\[
+  (\alpha_1\otimes t^{-n_1})\cdots(\alpha_r\otimes t^{-n_r})\otimes e^\lambda
+  \longmapsto
+  \alpha_{1,-n_1}\cdots\alpha_{r,-n_r}(1\otimes e^\lambda)
+\]
+is a linear isomorphism, and for each $\alpha\in\Lambda_{\mathrm{Muk}}$ the
+corresponding field is the vertex operator
+\begin{equation}
+\label{eq:k3-presentation-level-vertex-operator}
+  V_\alpha(z)
+  \;:=\;
+  Y(1\otimes e^\alpha,z)
+  \;=\;
+  {:}\exp\!\bigl(i\,\alpha\cdot\phi(z)\bigr){:}\,\otimes e^\alpha
+  \;=\;
+  \exp\!\Bigl(\sum_{n\geq 1}\frac{\alpha_{-n}}{n}z^n\Bigr)
+  \exp\!\Bigl(-\sum_{n\geq 1}\frac{\alpha_n}{n}z^{-n}\Bigr)
+  e^\alpha z^{\alpha_0}.
+\end{equation}
+In the algebraic normalisation used elsewhere in this chapter, the factor of $i$ is
+absorbed into the boson field, so \eqref{eq:k3-presentation-level-vertex-operator}
+matches Theorem~\ref{thm:mukai-frenkel-kac-map}.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+This is the lattice-VOA construction of Frenkel--Kac 1980, written for the Mukai
+lattice $\Lambda_{\mathrm{Muk}}=\mathrm{II}_{4,20}$. The bosonic Fock space of the
+negative Heisenberg modes identifies with the symmetric algebra on
+$\bigoplus_{n\geq 1}\Lambda_{\mathrm{Muk}}\otimes t^{-n}$, while the momentum sectors
+are recorded by the cocycle-twisted group algebra
+$\mathbb{C}_\epsilon[\Lambda_{\mathrm{Muk}}]$. Normal ordering together with the
+Baker--Campbell--Hausdorff formula for the Heisenberg commutator
+$[\alpha_m,\beta_n]
+=m\langle\alpha,\beta\rangle_{\mathrm{Muk}}\delta_{m+n,0}\mathbf{c}$
+gives the exponential expression for $V_\alpha(z)$. The full Mukai construction is
+spelled out in Theorem~\ref{thm:mukai-frenkel-kac-map}; the present statement is its
+presentation-level form.
+\end{proof}
+
+\begin{remark}[Twenty-four Heisenberg generators lift to the Mukai lattice VOA]
+\label{rem:k3-24-heisenberg-lattice-voa}
+The $24$ Heisenberg generators of $Y(\mathfrak{g}_{K3})$ are the modes of a rank-$24$
+free boson system on the Mukai lattice
+$\Lambda_{\mathrm{Muk}}=\mathrm{II}_{4,20}$. Concretely, if
+$\{e_i\}_{i=1}^{24}$ is any integral basis of $\Lambda_{\mathrm{Muk}}$, then the
+Yangian Cartan currents are the fields
+\[
+  J_i(z)
+  \;=\;
+  \sum_{n\in\mathbb{Z}} (e_i)_n\, z^{-n-1},
+  \qquad
+  J_i(z)J_j(w)
+  \sim
+  \frac{\langle e_i,e_j\rangle_{\mathrm{Muk}}}{(z-w)^2}.
+\]
+Their common state space is the lattice VOA
+\[
+  \mathcal{H}_{\mathrm{Muk}}
+  \;=\;
+  V_{\Lambda_{\mathrm{Muk}}}
+  \;=\;
+  \mathrm{Sym}\!\Bigl(\bigoplus_{n\geq 1}\Lambda_{\mathrm{Muk}}\otimes t^{-n}\Bigr)
+  \otimes \mathbb{C}_\epsilon[\Lambda_{\mathrm{Muk}}],
+\]
+whose central charge is
+$c\bigl(\mathcal{H}_{\mathrm{Muk}}\bigr)=\mathrm{rk}(\Lambda_{\mathrm{Muk}})=24$.
+This is the precise sense in which the Yangian side is free-field and rank-$24$ at
+presentation level: the Heisenberg part is abelian modulo centre, and all subsequent
+non-abelianity is deferred to the vertex-operator closure.
+\end{remark}
+
+\begin{remark}[Borcherds 1986 closure on the hyperbolic K3 sublattice]
+\label{rem:k3-borcherds-hyperbolic-closure}
+Frenkel--Kac 1980 constructs affine Kac--Moody algebras from positive-definite root
+lattices. Borcherds 1986 extends the same vertex-operator mechanism to even lattices
+of Lorentzian type by allowing lattice vectors of non-positive norm to serve as simple
+roots. For the K3 story the relevant hyperbolic lattice is the rank-$3$ Borcherds
+sublattice
+\[
+  \Lambda_{II}^{2,1}
+  \hookrightarrow
+  \Lambda_{\mathrm{Muk}}=\mathrm{II}_{4,20},
+\]
+and the corresponding fields
+\[
+  V_\alpha(z)
+  \;=\;
+  {:}\exp\!\bigl(i\,\alpha\cdot\phi(z)\bigr){:}\,\otimes e^\alpha,
+  \qquad
+  \alpha\in\Lambda_{II}^{2,1},
+  \qquad
+  \alpha^2\leq 0,
+\]
+are the vertex operators attached to imaginary simple roots. Their OPE is still
+governed by the same cocycle $\epsilon$ and the same normal ordering as in
+\eqref{eq:k3-presentation-level-vertex-operator}; what changes is the signature of the
+lattice and hence the presence of negative-norm and isotropic simple roots. This is
+the vertex-operator input for the generalised Borcherds--Kac--Moody superalgebra
+$\mathfrak{g}_{\Delta_5}$ of Chapter~\ref{ch:k3e-bkm}: the non-abelian brackets on the
+imaginary sector are generated by these hyperbolic-lattice vertex operators, not by a
+separate Yangian presentation.
+\end{remark}
 
 \section{Symplectic duality and the K3 Yangian}
 \label{sec:k3e-symplectic-duality}
@@ -577,6 +872,382 @@ The additional structure (distinguishing the Mukai lattice
 $U^3 \oplus E_8(-1)^2$ from the Leech lattice $\Lambda_{24}$) emerges
 in the \emph{full root-lattice-graded} bar Euler product,
 which records root multiplicities at each lattice vector.
+\end{remark}
+
+\section{The Mukai--Heisenberg lattice VOA and Frenkel--Kac vertex-operator closure}
+\label{sec:k3-mukai-heisenberg-voa}
+
+The $24$ Heisenberg generators of the K3 double current algebra
+$\mathfrak{g}_{K3}$ are not an accident of dimension-counting
+($\dim H^*(K3) = 24$). They are the Cartan currents of a lattice vertex
+operator algebra $V_{\Lambda_{\mathrm{Muk}}}$ at central charge $c_V = 24$,
+and their vertex-operator exponentials generate --- via the Frenkel--Kac
+construction --- the BKM superalgebra $\mathfrak{g}_{\Delta_5}$ of
+Chapter~\ref{ch:k3e-bkm}. This section inscribes the construction
+explicitly and clarifies in what precise sense the abelian Mukai--Heisenberg
+input generates the non-abelian BKM output.
+
+\subsection{The Mukai lattice and its lattice VOA}
+\label{subsec:k3-mukai-lattice-voa}
+
+\begin{definition}[Mukai lattice VOA]
+\label{def:mukai-voa}
+The \emph{Mukai lattice} is the even unimodular lattice
+\[
+  \Lambda_{\mathrm{Muk}}
+  \;=\;
+  \widetilde{H}(K3,\mathbb{Z})
+  \;\simeq\;
+  U^{\oplus 3}\oplus E_8(-1)^{\oplus 2}
+  \;=\;
+  \mathrm{II}_{4,20}
+\]
+of rank $24$ and signature $(4,20)$, equipped with the Mukai pairing
+$\langle\,,\,\rangle_{\mathrm{Muk}}$ of~\eqref{eq:mukai-pairing-k3dca}.
+The associated \emph{Mukai--Heisenberg lattice vertex operator algebra}
+$\mathcal{H}_{\mathrm{Muk}} := V_{\Lambda_{\mathrm{Muk}}}$ is the lattice
+VOA whose underlying vector space is
+\[
+  V_{\Lambda_{\mathrm{Muk}}}
+  \;=\;
+  M(\Lambda_{\mathrm{Muk}})\otimes \mathbb{C}_\epsilon[\Lambda_{\mathrm{Muk}}]
+  \;=\;
+  \mathrm{Sym}\!\Bigl(\bigoplus_{n\geq 1}(\Lambda_{\mathrm{Muk}})_{-n}\Bigr)
+  \otimes
+  \mathbb{C}_\epsilon[\Lambda_{\mathrm{Muk}}],
+\]
+with $M(\Lambda_{\mathrm{Muk}})$ the Heisenberg Fock space of the rank-$24$
+Heisenberg algebra $\widehat{\mathcal{H}}_{\mathrm{Muk}}$ and
+$\mathbb{C}_\epsilon[\Lambda_{\mathrm{Muk}}]$ the $\epsilon$-twisted group algebra
+carrying the Frenkel--Kac cocycle
+$\epsilon\colon\Lambda_{\mathrm{Muk}}\times\Lambda_{\mathrm{Muk}}\to\{\pm 1\}$
+satisfying
+$\epsilon(\alpha,\beta)\epsilon(\beta,\alpha) = (-1)^{\langle\alpha,\beta\rangle
++ \langle\alpha,\alpha\rangle\langle\beta,\beta\rangle}$
+(Borcherds 1986, §5). The vertex operator of a lattice element
+$\alpha\in\Lambda_{\mathrm{Muk}}$ is
+\begin{equation}
+\label{eq:mukai-vertex-operator}
+  V(\alpha, z)
+  \;=\;
+  {:}\exp\!\bigl(\alpha\cdot\phi(z)\bigr){:}\,\otimes\, e^\alpha
+  \;=\;
+  \exp\!\Bigl(\sum_{n\geq 1}\frac{\alpha_{-n}}{n}z^n\Bigr)\,
+  \exp\!\Bigl(-\sum_{n\geq 1}\frac{\alpha_n}{n}z^{-n}\Bigr)\,e^\alpha\,z^{\alpha_0}.
+\end{equation}
+The central charge is $c_V(\mathcal{H}_{\mathrm{Muk}}) = \mathrm{rk}(\Lambda_{\mathrm{Muk}}) = 24$.
+\end{definition}
+
+\begin{theorem}[Explicit Frenkel--Kac map for the Mukai lattice VOA]
+\label{thm:mukai-frenkel-kac-map}
+\ClaimStatusProvedHere
+Let
+\[
+  \mathfrak{h}_{\mathrm{Muk}}
+  \;:=\;
+  \Lambda_{\mathrm{Muk}}\otimes_{\mathbb{Z}}\mathbb{C},
+  \qquad
+  \mathcal{F}^{\mathrm{bos}}_{\mathrm{Muk}}
+  \;:=\;
+  \mathrm{Sym}\!\Bigl(\bigoplus_{n\geq 1}\mathfrak{h}_{\mathrm{Muk}}\otimes t^{-n}\Bigr).
+\]
+Then the assignment
+\[
+  \iota_{\mathrm{FK}}\colon
+  \mathcal{F}^{\mathrm{bos}}_{\mathrm{Muk}}\otimes
+  \mathbb{C}_\epsilon[\Lambda_{\mathrm{Muk}}]
+  \longrightarrow
+  V_{\Lambda_{\mathrm{Muk}}},
+  \qquad
+  (\alpha_1\otimes t^{-n_1})\cdots(\alpha_r\otimes t^{-n_r})\otimes e^\lambda
+  \longmapsto
+  \alpha_{1,-n_1}\cdots\alpha_{r,-n_r}(1\otimes e^\lambda),
+\]
+is a linear isomorphism. Under this identification the state-field map is
+\begin{equation}
+\label{eq:mukai-state-field-map}
+  Y\bigl(\iota_{\mathrm{FK}}(1\otimes e^\lambda),z\bigr)
+  \;=\;
+  E^{-}(\lambda,z)\,E^{+}(\lambda,z)\,e^\lambda\, z^{\lambda_0},
+  \qquad
+  E^{-}(\lambda,z)
+  \;=\;
+  \exp\!\Bigl(\sum_{n\geq 1}\frac{\lambda_{-n}}{n}z^n\Bigr),
+  \qquad
+  E^{+}(\lambda,z)
+  \;=\;
+  \exp\!\Bigl(-\sum_{n\geq 1}\frac{\lambda_n}{n}z^{-n}\Bigr),
+\end{equation}
+and for $\alpha\in\mathfrak{h}_{\mathrm{Muk}}$ and $m\geq 1$ one has
+\[
+  Y\bigl(\iota_{\mathrm{FK}}(\alpha\otimes t^{-m}),z\bigr)
+  \;=\;
+  \frac{1}{(m-1)!}\,\partial^{m-1}\alpha(z).
+\]
+Equivalently, the full Mukai lattice VOA is obtained from the abelian Heisenberg
+Fock space by adjoining the momentum operators $e^\lambda$ and exponentiating the
+Heisenberg field.
+\end{theorem}
+
+\begin{proof}
+Frenkel--Lepowsky--Meurman 1988, Chapter~8, identifies the bosonic Fock space of a
+lattice VOA with the symmetric algebra on the negative Heisenberg modes. For the Mukai
+lattice this gives the vector-space decomposition
+\[
+  V_{\Lambda_{\mathrm{Muk}}}
+  \;=\;
+  \mathrm{Sym}\!\Bigl(\bigoplus_{n\geq 1}\mathfrak{h}_{\mathrm{Muk}}\otimes t^{-n}\Bigr)
+  \otimes
+  \mathbb{C}_\epsilon[\Lambda_{\mathrm{Muk}}],
+\]
+so $\iota_{\mathrm{FK}}$ is the standard PBW identification. The field of a momentum
+state $e^\lambda$ is computed by normal ordering and the Baker--Campbell--Hausdorff
+formula for the Heisenberg commutator
+$[\alpha_m,\beta_n]=m\langle\alpha,\beta\rangle_{\mathrm{Muk}}\delta_{m+n,0}\mathbf{c}$,
+which yields exactly the exponential expression~\eqref{eq:mukai-state-field-map}. The
+field of a pure Heisenberg creation operator is the usual derivative field
+$\frac{1}{(m-1)!}\partial^{m-1}\alpha(z)$. Equation~\eqref{eq:mukai-vertex-operator} is
+the specialisation of~\eqref{eq:mukai-state-field-map} to a single momentum state and
+therefore records the same Frenkel--Kac map in vertex-operator form.
+\end{proof}
+
+\begin{proposition}[Mukai--Heisenberg VOA modular characteristic]
+\label{prop:mukai-voa-kappa}
+\ClaimStatusProvedHere
+The Mukai--Heisenberg lattice VOA $\mathcal{H}_{\mathrm{Muk}}$ has chiral
+Heisenberg modular characteristic $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}
+(\mathcal{H}_{\mathrm{Muk}}) = 24$, matching its free-field central charge.
+Its bar complex has shadow class~$G$ (Gaussian) with shadow depth~$2$ and
+$S_2 = \kappa_{\mathrm{fiber}}(\mathcal{H}_{\mathrm{Muk}}) = 24$; all higher
+shadow invariants vanish. The graded character of the vacuum module is
+\[
+  \chi_{\mathcal{H}_{\mathrm{Muk}}}(\tau)
+  \;=\;
+  \mathrm{tr}_{\mathcal{H}_{\mathrm{Muk}}}\,q^{L_0 - c_V/24}
+  \;=\;
+  \frac{\Theta_{\Lambda_{\mathrm{Muk}}}(\tau)}{\eta(\tau)^{24}}
+\]
+with $\Theta_{\Lambda_{\mathrm{Muk}}}(\tau) = \sum_{\alpha\in\Lambda_{\mathrm{Muk}}}
+q^{\langle\alpha,\alpha\rangle/2}$ the theta series of the Mukai lattice; at
+signature $(4,20)$ this is a real-analytic Siegel theta function, not a
+holomorphic modular form, because of the non-positive-definiteness.
+\end{proposition}
+
+\begin{proof}
+The lattice VOA construction (Frenkel--Lepowsky--Meurman 1988, Chapter~8;
+Borcherds 1986) gives central charge $c_V = \mathrm{rk}(\Lambda)$ for any
+even lattice~$\Lambda$, and Heisenberg modular characteristic
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = c_V$ for any free-field (class~$G$) VOA
+(Vol~I Theorem on Heisenberg $\kappa_{\mathrm{ch}}$). The shadow-tower
+truncation at depth $2$ and $S_2 = 24$ follows from
+Proposition~\ref{prop:k3-heisenberg-bar}. The character identity is the
+standard lattice-VOA character formula (Kac 1998, Chapter~5).
+\end{proof}
+
+\subsection{Frenkel--Kac 1980: abelian Heisenberg generates non-abelian affine Kac--Moody}
+\label{subsec:frenkel-kac-1980}
+
+The prototype of the construction relevant to the K3 case is Frenkel--Kac
+1980's vertex-operator realisation of affine Kac--Moody algebras:
+
+\begin{theorem}[Frenkel--Kac 1980]
+\label{thm:frenkel-kac-1980}
+\ClaimStatusProvedElsewhere
+Let $Q$ be the root lattice of a simply-laced simple Lie algebra
+$\mathfrak{g}$ of rank $r$ (type $A$, $D$, or $E$). Then the lattice VOA
+$V_Q$ carries a canonical action of the affine Kac--Moody algebra
+$\widehat{\mathfrak{g}}$ at level~$1$, generated by the vertex operators
+\[
+  E_\alpha(z)
+  \;=\;
+  V(\alpha, z)
+  \;=\;
+  {:}\exp\!\bigl(\alpha\cdot\phi(z)\bigr){:}\,e^\alpha,
+  \qquad
+  \alpha\in Q,\;\langle\alpha,\alpha\rangle = 2.
+\]
+Their commutator reads
+\begin{equation}
+\label{eq:fk-commutator}
+  [E_\alpha(z),E_\beta(w)]
+  \;=\;
+  \begin{cases}
+    \epsilon(\alpha,\beta)(z-w)\,E_{\alpha+\beta}(w) + O\bigl((z-w)^2\bigr) & \text{if }\langle\alpha,\beta\rangle = -1,\\[2pt]
+    \epsilon(\alpha,\beta)\,\delta(z/w)\,h_\alpha(w) + \partial_w\delta(z/w) & \text{if }\beta = -\alpha,\\[2pt]
+    0 & \text{if }\langle\alpha,\beta\rangle \geq 0,
+  \end{cases}
+\end{equation}
+where $h_\alpha(w)$ is the Cartan current and $\epsilon$ is the Frenkel--Kac
+sign cocycle. The modes of $E_\alpha$ and $h_\alpha$ generate
+$\widehat{\mathfrak{g}}$ at level~$1$ acting on $V_Q$, which is an integrable
+highest-weight module.
+\end{theorem}
+
+\begin{proof}[Attribution]
+Frenkel--Kac 1980 \emph{Invent.\ Math.\ 62}; subsequently presented in
+Frenkel--Lepowsky--Meurman 1988 Chapter~7 in the form used here.
+\end{proof}
+
+\begin{remark}[The structural claim: abelian input, non-abelian output]
+\label{rem:fk-abelian-in-nonabelian-out}
+The Heisenberg algebra $\widehat{\mathcal{H}}_r = Q\otimes\mathbb{C}[t,t^{-1}]
+\oplus\mathbb{C}\mathbf{c}$ underlying $V_Q$ is \emph{abelian modulo centre}:
+its commutator $[\alpha_m,\beta_n] = m\langle\alpha,\beta\rangle\delta_{m+n,0}
+\mathbf{c}$ lands entirely in the one-dimensional centre. The affine
+Kac--Moody algebra $\widehat{\mathfrak{g}}$ is non-abelian, with
+structurally distinct simple-root-bracket data
+$[E_\alpha,E_{-\alpha}] = h_\alpha$ and $[E_\alpha,E_\beta] =
+E_{\alpha+\beta}$ for $\alpha+\beta$ a root. The Frenkel--Kac construction
+produces the latter from the former by applying vertex-operator
+exponentials to the abelian Heisenberg. No new Lie-bracket axiom is
+introduced; the non-abelianity is \emph{derived} from the OPE of
+$V(\alpha,z)$ with $V(\beta,w)$.
+\end{remark}
+
+\subsection{Borcherds 1986: lattice VOA on signature-$(p,q)$ generates BKM}
+\label{subsec:borcherds-1986-bkm}
+
+Borcherds 1986 generalises Frenkel--Kac to indefinite-signature lattices:
+
+\begin{theorem}[Borcherds 1986, lattice-VOA-to-BKM]
+\label{thm:borcherds-1986-bkm}
+\ClaimStatusProvedElsewhere
+Let $L$ be an even lattice of signature $(p,q)$ with $q\geq 1$, equipped with
+the data of an involution $\theta\colon L\to L$ and a BRST choice selecting a
+suitable $c = 26$ completion. Then the BRST cohomology
+\[
+  \mathfrak{g}(L)
+  \;:=\;
+  H^1_{\mathrm{BRST}}\bigl(V_L\otimes V_{\mathrm{trans}}\otimes V_{\mathrm{ghost}}\bigr)
+\]
+is a generalised Kac--Moody (Borcherds--Kac--Moody) Lie algebra whose root
+lattice is $L$, with simple-root multiplicities determined by the
+Borcherds denominator formula attached to the transverse VOA character
+$\chi_{V_{\mathrm{trans}}}$. Real simple roots arise from ADE-type roots
+$\alpha\in L$ with $\langle\alpha,\alpha\rangle = 2$; imaginary simple roots
+arise from $\alpha$ with $\langle\alpha,\alpha\rangle\leq 0$ and
+Fourier-coefficient data from $\chi_{V_{\mathrm{trans}}}$.
+\end{theorem}
+
+\begin{proof}[Attribution]
+Borcherds 1986 \emph{Proc.\ Nat.\ Acad.\ Sci.} 83, \emph{Invent.\ Math.} 109 (1992),
+extended in Borcherds 1998 via the singular theta correspondence. The Mukai
+lattice $\Lambda_{\mathrm{Muk}}\simeq\mathrm{II}_{4,20}$ is of signature $(4,20)$;
+splitting $\mathrm{II}_{4,20} = \mathrm{II}_{2,18}\oplus\mathrm{II}_{2,2}$
+and restricting to the $\mathrm{II}_{2,1}$ hyperbolic sublattice
+$\Lambda^{2,1}_{II}\subset\Lambda^{3,2}$ of Chapter~\ref{ch:k3e-bkm},
+Section~\ref{sec:k3e-reflections}, yields the BKM superalgebra
+$\mathfrak{g}_{\Delta_5}$ with denominator $\Delta_5$ by the Borcherds--Gritsenko--Nikulin
+construction.
+\end{proof}
+
+\begin{corollary}[$\mathfrak{g}_{\Delta_5}$ as Frenkel--Kac closure]
+\label{cor:g-delta5-fk-closure}
+\ClaimStatusProvedHere
+The BKM superalgebra $\mathfrak{g}_{\Delta_5}$ of Chapter~\ref{ch:k3e-bkm} is
+the Frenkel--Kac / Borcherds vertex-operator closure of the abelian rank-$24$
+Mukai--Heisenberg lattice VOA $\mathcal{H}_{\mathrm{Muk}}$ on its Fock
+representation $\mathcal{F}_{K3}$. More precisely:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The Cartan subalgebra $\mathfrak{h}_{\Delta_5}\subset\mathfrak{g}_{\Delta_5}$
+  is the $3$-dimensional real subspace of the rank-$24$ Heisenberg spanned by
+  the hyperbolic sublattice $\Lambda^{2,1}_{II}\otimes\mathbb{R}$.
+\item The $3$ real simple roots $\delta_1,\delta_2,\delta_3$ of
+  Chapter~\ref{ch:k3e-bkm}, Section~\ref{sec:k3e-reflections}, appear as
+  Frenkel--Kac vertex operators $V(\delta_i,z)$ with $\langle\delta_i,\delta_i\rangle = 2$.
+\item The imaginary simple roots $\alpha\in\Lambda^{2,1}_{II}$ with
+  $\langle\alpha,\alpha\rangle\leq 0$ appear with multiplicity
+  $|c(4nm - l^2)|$ given by the Fourier coefficients of the K3 elliptic
+  genus $\phi_{0,1}$; these are the vertex operators whose OPE
+  exponent is non-negative (spacelike or null) and which require the
+  Borcherds singular-theta regularisation to enter the BKM as simple roots.
+\item The full bracket structure of $\mathfrak{g}_{\Delta_5}$ is read off the
+  OPE residues of $V(\alpha,z)V(\beta,w)$; no additional Lie-bracket
+  axioms are imposed beyond those implicit in the OPE of the lattice VOA.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+By Theorem~\ref{thm:borcherds-1986-bkm}, the BRST cohomology of
+$V_{\Lambda^{2,1}_{II}}\otimes V_{\mathrm{trans}}\otimes V_{\mathrm{ghost}}$
+is a BKM with denominator $\Delta_5$. Chapter~\ref{ch:k3e-bkm}
+Section~\ref{sec:k3e-bkm} identifies this cohomology with
+$\mathfrak{g}_{\Delta_5}$. The transverse VOA $V_{\mathrm{trans}}$ has
+central charge $c = 23$ and encodes the K3 sigma model; the lattice VOA
+$V_{\Lambda^{2,1}_{II}}$ has $c = 3$; together with the ghost $c = -26$
+the total central charge vanishes. The embedding
+$\Lambda^{2,1}_{II}\hookrightarrow\Lambda_{\mathrm{Muk}}$ preserves the
+Frenkel--Kac cocycle, so the $V(\alpha,z)$ computed inside
+$V_{\Lambda_{\mathrm{Muk}}}$ and inside $V_{\Lambda^{2,1}_{II}}$ agree on the
+shared sublattice, and the Mukai--Heisenberg VOA
+$\mathcal{H}_{\mathrm{Muk}}$ contains the BKM-generating lattice VOA as a
+subalgebra.
+\end{proof}
+
+\subsection{Three manifestations of the rank-$24$ Mukai data}
+\label{subsec:three-manifestations-mukai-rank24}
+
+The same rank-$24$ Mukai data supports three structurally distinct
+algebraic objects, each arising by a different functor from the common
+input:
+
+\begin{theorem}[Three branches from $\Lambda_{\mathrm{Muk}}$]
+\label{thm:three-branches-mukai}
+\ClaimStatusProvedHere
+From the Mukai lattice $\Lambda_{\mathrm{Muk}}\simeq\mathrm{II}_{4,20}$ three
+functors produce three algebras, each carrying one facet of the K3 chiral
+structure:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{Lattice VOA branch.} The functor
+  $\Lambda\mapsto V_\Lambda$ produces the Mukai--Heisenberg lattice VOA
+  $\mathcal{H}_{\mathrm{Muk}} = V_{\Lambda_{\mathrm{Muk}}}$ at $c_V = 24$
+  (Definition~\ref{def:mukai-voa}); this is the self-mirror K3 Yangian branch
+  at $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 24$.
+\item \emph{BKM branch.} The functor $\Lambda\mapsto H^1_{\mathrm{BRST}}
+  (V_\Lambda\otimes V_{\mathrm{trans}}\otimes V_{\mathrm{ghost}})$ restricted
+  to the $\mathrm{II}_{2,1}$ sublattice of $\Lambda_{\mathrm{Muk}}$ produces the
+  BKM superalgebra $\mathfrak{g}_{\Delta_5}$; this is the generalised-Borcherds
+  imaginary-root extension.
+\item \emph{Quantum toroidal / Miki branch.} The functor sending a node of
+  $E^{\mathrm{nod}}_{24}$ to a Miki copy of
+  $U_{q_1,q_2}(\widehat{\widehat{\mathfrak{gl}}}_1)$ and twisting the
+  $24$-tuple by the umbral $\widetilde{M}_{24}$-cocycle (Cheng--Duncan--Harvey 2014)
+  produces the $\widetilde{M}_{24}$-twisted $24$-Miki presentation of
+  $\mathbf{H}_{\Delta_5}$ (Theorem~\ref{thm:k3-24miki-presentation} of
+  Chapter~\ref{ch:k3-chiral-bialgebra-platonic}).
+\end{enumerate}
+The three branches meet on the common rank-$24$ Mukai data and are
+interchanged under the three Wave-13 structural bridges: Koszul duality
+exchanges (a) and its dual, Borcherds BRST cohomology produces (b) from (a),
+and Miki's quantum toroidal specialisation of Frenkel--Kac produces (c) from
+a deformation of (a).
+\end{theorem}
+
+\begin{proof}
+Branch~(a): by Definition~\ref{def:mukai-voa} and
+Proposition~\ref{prop:mukai-voa-kappa}. Branch~(b): by
+Corollary~\ref{cor:g-delta5-fk-closure} and
+Chapter~\ref{ch:k3e-bkm}, Section~\ref{sec:k3e-bkm-chiral-status}.
+Branch~(c): by Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Theorem~\ref{thm:k3-24miki-presentation}, using the
+$\widetilde{M}_{24}$-cocycle of
+Theorem~\ref{thm:m24-schur-cocycle}. The meeting on rank-$24$ data is
+immediate: all three branches take as input the rank-$24$ lattice
+$\Lambda_{\mathrm{Muk}}$ and produce their output by a specified
+functor.
+\end{proof}
+
+\begin{remark}[Self-mirror / Borcherds / Miki: one data, three presentations]
+\label{rem:three-presentations-one-data}
+The three branches of Theorem~\ref{thm:three-branches-mukai} should be
+read as three \emph{presentations} of the same underlying rank-$24$ chiral
+data, each selecting a different aspect for display: (a) exhibits the
+abelian Heisenberg character, (b) exhibits the BKM root system with
+imaginary simple roots, (c) exhibits the quantum toroidal integrable
+structure with $\widetilde{M}_{24}$-equivariance. The K3 chiral bialgebra
+$\mathbf{H}_{\Delta_5}$ of Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+is the $(\infty,1)$-quasi-Hopf quantisation of this data; which
+presentation is used depends on the question asked.
 \end{remark}
 
 \subsection{Formality and the Massey product obstruction}
@@ -1875,7 +2546,7 @@ eigenvalues.  It is not a $\Z/2$-super-grading, and its
 automorphism group is the indefinite orthogonal group
 $\mathrm{O}(4, 20)$, not the general linear supergroup
 $\mathrm{GL}(4 \mid 20)$.  The corresponding super-Yangian
-candidate for the non-abelian K3 Yangian is therefore
+candidate for the K3 chiral Hall--Drinfeld double (Remark~\ref{rem:k3-yangian-nomenclature-scope}) is therefore
 $Y_{\osp(4 \mid 20)}$, the orthosymplectic super-Yangian of
 Arnaudon--Crampé--Doikou--Frappat--Ragoucy~\cite{AcdfR2003},
 not $Y(\fgl(4 \mid 20))$.
@@ -2033,7 +2704,7 @@ not address the $(4, 20)$ orthosymplectic case directly.
 \begin{conjecture}[K3 super-Yangian]
 \label{conj:k3-super-yangian}
 \ClaimStatusConjectured
-The non-abelian K3 Yangian at ADE enhancement points is the
+The K3 chiral Hall--Drinfeld double (Remark~\ref{rem:k3-yangian-nomenclature-scope}) at ADE enhancement points is the
 orthosymplectic super-Yangian $Y_{\osp(4 \mid 20)}$ of
 Conjecture~\ref{conj:osp-yangian-mukai}, with
 \begin{enumerate}[label=\textup{(\roman*)}]

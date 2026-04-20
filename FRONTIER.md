@@ -1,8 +1,35 @@
 # FRONTIER — Vol III Open Research Directions
 
-## DEFINITIVE STATUS AS OF 2026-04-17 (Beilinson-rectified, Waves 1–10 adversarial-audit-refined)
+## DEFINITIVE STATUS AS OF 2026-04-19 (Beilinson-rectified, Waves 1–13 adversarial-audit-refined)
 
-This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-04-17 Beilinson audit (`notes/rectification_map_beilinson_audit.md` cross-volume; Vol III `notes/beilinson_swarm_audit_vol3_2026_04_17.md`), and Waves 1–10 of the adversarial attack collectively refined ~20 prior frontier claims. Wave-10 additionally reconciled the typeset Part~VII (`main.tex:1161–1250`) with this ledger by (i) adding a CG deficiency opening and scope-qualifying CY-A$_3$ at chain level for non-formal CY$_3$, (ii) reframing $\Phi$ as a correspondence programme, not a single functor (AP247), (iii) anchoring the super-Yangian candidate as $Y_{\mathfrak{osp}(4|20)}$ rather than $Y(\mathfrak{gl}(4|20))$ (AP246), (iv) noting the universal trace identity as a *reflection* identity across the two Koszul-conductor families, not a scalar equality (AP-UTI-1), (v) promoting "three directions" to four by adding an Outward-$d=4$ direction anchored on $K3 \times K3$ with $p_1 = -96$, and (vi) inserting a typeset pointer to this inventory.
+This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-04-17 Beilinson audit (`notes/rectification_map_beilinson_audit.md` cross-volume; Vol III `notes/beilinson_swarm_audit_vol3_2026_04_17.md`), and the 2026-04-19 Wave 13 synthesis (`notes/k3_nonabelian_yangian_swarm_wave13_20260419/SYNTHESIS_WAVE13.md`, especially §A/§C/§G/§I/§J) reconstitute the K3 / CY-C / BKM lane at the architectural level. The BKM-side object is the K3 chiral Hall–Drinfeld double; plain BKM-side "K3 Yangian" is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.5.
+
+## Wave 13 platonic-ideal crown
+
+The load-bearing architectural source is `chapters/examples/k3_chiral_bialgebra_platonic.tex`, especially the seven refinements at lines 32–107 and the theorems at lines 626–1640, read together with `SYNTHESIS_WAVE13.md` §A and §I.
+
+- **R1. Classification invariant.** $\mathbf{H}_{\Delta_5}$ is classified by the 1-dimensional cohomology group $H^2(\mathfrak{g}_{\Delta_5})^{\mathbb{Z}/2,\,K(1)} \cong \mathbb{C}\cdot\Delta_5$, so the Igusa cusp form is the classification invariant, not a decorative modular factor.
+- **R2. Presentation.** The correct quantum-group presentation is the Hall–Drinfeld double $\mathcal{D}_\hbar(\mathcal{Y}^{\mathrm{Hall}}_\hbar(\mathrm{CoHA}_{K3\times E}),\widetilde{\Phi}^{\mathrm{Sieg\text{-}Bor}}_{\mathrm{Sp}_4}[\Phi_{10}/\eta^{24}],R_{\mathrm{Sieg,dyn}})$ with 24 $\widetilde{M}_{24}$-twisted Miki copies at the nodes. Plain "K3 Yangian" for the BKM-side object is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.5.
+- **R3. Hosted base.** The factorization architecture is bi-based: BD chirality on $\mathrm{Ran}(E^{\mathrm{nod,sm}}_{24})$, nearby-cycles continuation at the 24 nodes, and Francis–Gaitsgory factorization on $\overline{\mathcal{A}_2}$ coupled by the averaging morphism. Any direct BD-chiral claim on the nodal curve is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.7.
+- **R4. Koszul shift.** The homological shift is CY-2 $[2]$ with the $\widetilde{M}_{24}$ Schur cocycle, not CY-3 $[3]$; the old CY-3 reading is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.8.
+- **R5. 4d parent.** The 4d parent is the class-$\mathcal{S}$ theory $\mathcal{T}[A_1,\Sigma_{0,24}]$ with 24 maximal regular $\mathfrak{su}(2)$ punctures. The Schur relation is the two-step arrow $\mathcal{I}_{\mathrm{Schur}} \to \phi_{0,1}^{K3} \to \Delta_5$, not a direct equality; the direct equality is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.10.
+- **R6. 1-loop origin.** $\Delta_5$ is the 1-loop-forced anomaly-cancellation output of twisted 11D-SUGRA on $K3\times T^2$ with 24 M5-branes on the $I_1$ fibres, equivalently the Harvey–Moore threshold / BPS-counting output across the duality web. The input-tensor reading is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.9.
+- **R7. Abelian-at-Lie discipline.** At Lie/Hopf level the object is abelian up to the 24 Heisenberg / Miki copies; non-abelian BKM structure appears only after vertex-operator closure on the K3 Fock module. This is the language discipline fixing the Hall–Drinfeld lane against the old BKM-as-Yangian confusion.
+- **B-family conductor face.** On the $\mathcal{B}$-family, $K^{\kappa_{\mathrm{ch}}}=8$, $\mathrm{ord}(H_1)=K^{\kappa_{\mathrm{ch}}}=8$, and $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}}=-1$. Humbert monodromy, Mukai doubling, and the Lusztig specialisation are one identity, not three disconnected numerics.
+- **Wave 13 cache.** The synthesis installs 59 AP-CY-W13-* anti-patterns, with the highest-recurrence failures being Ikeda↔Gritsenko conflation, BKM-as-Yangian, $\Delta_5$ as input instead of output, Lie-level abelianity versus vertex-level non-abelianity, and CY-3 versus CY-2 shift.
+
+## Wave 14 handoff queue
+
+1. Adjudicate the $c_{2d}$ bridge between Polyakov's stalk-level $c_{\mathrm{gen}}=1$ and Gaiotto's global $c_{2d}=-214$ by an explicit 24-Miki stalk sum.
+2. Compute the first 10 Schur-index coefficients of $\mathcal{T}[A_1,\Sigma_{0,24}]$ and verify the composite arrow $\mathcal{I}_{\mathrm{Schur}} \to \phi_{0,1}^{K3} \to \Delta_5$.
+3. Reframe `chapters/examples/k3e_bkm_chapter.tex` so the ambient 11D / class-$\mathcal{S}$ theory is on the left-hand side and $\Delta_5$ is derived as the 1-loop output.
+4. Verify the Beem–Rastelli flavour-level convention against the Beem–Peelaers–Rastelli tables.
+5. Compute explicit $A_\infty$ quasi-Hopf structure constants for the $\widetilde{M}_{24}$-twisted 24-Miki algebra at the Humbert walls.
+6. Inscribe the Arthur packet $\psi_{\Delta_{10}}$ into `chapters/examples/k3e_bkm_chapter.tex` with explicit Hecke eigenvalues at the listed primes.
+7. Prioritise the Wave 13 compute modules for the Gritsenko additive lift, twisted 11D 1-loop output, class-$\mathcal{S}$ parent, bi-based Ran datum, and Hall–Drinfeld double.
+8. Enlarge Vol I Theorem C so the $\mathcal{B}$-family slot records $K^{\kappa_{\mathrm{ch}}}=2c_+=8$ as the Humbert-$H_1$ monodromy identity.
+9. Append the 59 AP-CY-W13-* anti-patterns to the first-principles cache and concordance.
+10. Complete the nomenclature sweep: rename plain "K3 Yangian" to "K3 chiral Hall–Drinfeld double" or "Hall-Yangian of $K3\times E$" where the BKM-side object is meant, and scope "non-abelian" naming to the vertex-closure lane.
 
 ### 1. Closures since 2026-04-14
 
@@ -22,7 +49,7 @@ This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-0
 
 ### 2. Retractions and scope corrections from 2026-04-17 audit
 
-- **V3-NF1. CY-C pentagon invariant (commit `cade61c`).** Pentagon stratification {3, 12, 24} healed from `κ_ch^{R_i}` to `ρ^{R_i}` (generator-lattice rank). κ_ch is route-independent = 0 for K3×E by Hodge supertrace; stratification is an ALGEBRAIC invariant (generator rank), ORTHOGONAL to κ_ch. Prior claim "six routes converge isomorphically" is FALSIFIED: actual structure is a PENTAGON OF FIVE INTERTWINERS with R_2 source branch, generator-rank stratified.
+- **V3-NF1. CY-C pentagon invariant (Wave 13 reconstituted; commit `cade61c`).** Pentagon stratification {3, 12, 24} healed from `$\kappa_{\mathrm{ch}}^{R_i}$` to `$\rho^{R_i}$` (generator-lattice rank). `$\kappa_{\mathrm{ch}}$` is route-independent = 0 for $K3\times E$ by Hodge supertrace; the pentagon now sits around the Hall–Drinfeld double $\mathbf{H}_{\Delta_5}$ on the bi-based Ran / $\overline{\mathcal{A}_2}$ datum with CY-2 $[2]$ shift, class-$\mathcal{S}$ parent $\mathcal{T}[A_1,\Sigma_{0,24}]$, and $\Delta_5$ treated as 1-loop output. Prior plain-"K3 Yangian" narration is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.5; prior input-side $\Delta_5$ narration is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.9.
 
 - **V3-NF2. CY-D d=3 deep issue — κ_ch ≠ χ(O_X) at odd d.** PRESERVED: dimension-stratified formula needed. The earlier claim κ_ch = χ(O_X) FAILS at d=3 (K3×E: χ(O) = 0 ≠ 3 = κ_ch). Correct formula via str_{F^0}(q^{L_0}) Hodge-filtered supertrace.
 
@@ -53,16 +80,16 @@ This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-0
 
 **V3-F18. CY-A_3 chain-level explicit for non-formal CY_3 — SEVERITY DOWNGRADED (2026-04-17 Wave-2).** Inf-cat resolved; coefficient convergence proved; S^3 framing non-decomposable. Chain-level A_∞-compatible S³-framing on HC^-_3(C) for non-formal CY_3 (e.g., quintic) remains open. **Cross-volume note**: F18 is the SAME frontier as class-M-chain-level-original-complex; Vol I `thm:mc5-class-m-chain-level-pro-ambient` CLOSED that direction on pro-ambient / J-adic / filtered-completed ambients of the raw bar complex, so F18 auto-closes cross-volume in those ambients. Severity downgraded to LOW. **Low-hanging closure path**: inscribe `compute/lib/fermat_quintic_z5_chiral.py` + a 20-line Tradler-strictification-non-connective lemma. Fermat + Bogomolov-Tian-Todorov decomposition reduces the general quintic to Fermat + BTT (theorem, not conjecture). **Scope correction**: the phrase "204-dim Z_5^5-invariant sector" in prior frontier notes was CONFABULATED — 204 is the Hodge-diamond total 1 + 101 + 101 + 1 for the quintic, not a Z_5^5-invariant-sector dimension.
 
-**V3-F19. Non-abelian K3 Yangian — three sub-items (refined 2026-04-17 Wave-2).**
-- **(F19a) Construction: GENUINE OPEN.** Abelian case PROVED (`thm:k3-abelian-yangian-presentation`, 47 tests). Non-abelian requires BKM real root generators; ADE-level-1 K3 embedding is CONJECTURAL at `compute/lib/ade_yangian_level1.py:1075`. Super-bracket is NOT reducible to BKM Serre P_2=0 (category error — deformation-exponent vs Jacobi-identity structural constraint).
-- **(F19b) $Y_{osp}(4|20)$ (formerly mislabelled $Y(gl(4|20))$): NAMING ARTIFACT.** Mukai signature (4, 20) is a SYMMETRIC INDEFINITE lattice, not a (4|20) super-grading; if any super-Yangian is natural here it is $OSP(4|20)$, not $GL(4|20)$. The engine `compute/lib/k3_super_yangian.py` verifies RTT relations only at gl(1|1) and gl(2|1), never at (4|20). Borcherds denominator = quantum Berezinian of T(u) remains an attractive CONJECTURE but not a theorem; downgrade "verification missing" to "object not well-defined at the specified signature".
-- **(F19c) Tannakian reconstruction.** Rep^{E_2}(A_S)^{ss} → Rep(C(C,q)) for D^b(Coh(K3)) has not been attempted in the REVERSE direction (reconstructing the chiral algebra from the derived category). Open direction.
+**V3-F19. Hall–Drinfeld double / historical "K3 Yangian" split — three sub-items (refined 2026-04-19 by Wave 13).**
+- **(F19a) General BKM-side object: GENUINE OPEN.** Plain "non-abelian K3 Yangian" as the BKM-side object is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.5. The object pinned by Wave 13 is the Hall–Drinfeld double $\mathbf{H}_{\Delta_5}$ with the bi-based architecture, CY-2 $[2]$ shift, class-$\mathcal{S}$ parent, and 1-loop $\Delta_5$ output already fixed. What remains open is the real-root completion and comparison data beyond the abelian 24-Miki / Heisenberg presentation; super-bracket claims cannot be reduced to the BKM Serre polynomial.
+- **(F19b) Mukai Yangian branch versus BKM branch.** The platonic chapter's three-branch parallel keeps the Mukai self-mirror Yangian branch separate from the BKM branch. The frontier is therefore a split frontier, not one object under two labels: the Mukai/Yangian lane and the Hall–Drinfeld / BKM lane meet on the rank-24 Mukai data, but the BKM lane is not renamed into a Yangian.
+- **(F19c) Orthosymplectic completion and reverse reconstruction.** The reflection-equation candidate remains $Y_{osp}(4|20)$ rather than $Y(gl(4|20))$, and the reverse Tannakian reconstruction `Rep^{E_2}(A_S)^{ss} \to Rep(C(C,q))` for $D^b(\mathrm{Coh}(K3))$ is still open. Wave 13 fixes the classification invariant and the Humbert / $\mathcal{B}$-family conductor data; it does not close the orthosymplectic or reconstruction frontier.
 
 **V3-F20. Mode-level Drinfeld centre conj:v3-drinfeld-center-equals-bulk.** Categorified form PROVED (§1). Mode-level Z(U_A) vs Z^{der}_ch(A) with three obstructions at `drinfeld_center.tex:926-961`: pointwise reduction for class M; A^! factorization Ran for classes C/M; RHom compatibility only proved class G. Heisenberg-only with naive-vs-derived dim witness (1 vs 3, 72 tests). Reformulated: **2nd-order de-categorification refinement**, not "deepest conjecture after Grand Completion".
 
 **V3-F20-hocolim. Center-hocolim obstruction for K3×E.** >92% of global Drinfeld centre NOT assemblable from local chart data. MO stable envelopes bypass via global K-theoretic construction; charge-2 verified (`prop:mo-rmatrix-charge2`, 60 tests). Remaining: charge ≥ 3 extension; Verlinde-type formula for charge-graded dimensions of semisimplified centre; Mittag-Leffler on inverse system {Z_N}.
 
-**V3-F21. DEMOTED to sub-item of V3-F18.** Sp_4(Z) Siegel modularity for K3×E inherits CY-A_3 status: non-FH parts (Φ_10 = K3×E BKM denominator, MCG(Σ_2) ↠ Sp_4(Z), Humbert divisor) are classical literature (Gritsenko-Nikulin 1995, Borcherds 1998, DMVV 1997, Farb-Margalit Ch.6). `sp4_modularity_pipeline` engine self-declares CONJECTURAL; its 53 tests verify elementary linear algebra and algebraic tautologies, not Sp_4(Z) covariance. Genuine residue: ONE precise factorization-homology theorem identifying ∫_{Σ_2 × S¹} A_{K3×E} with the Igusa/Borcherds tower — inherits status from V3-F18 downstream.
+**V3-F21. DEMOTED to sub-item of V3-F18.** Sp_4(Z) Siegel modularity for K3×E inherits CY-A_3 status: non-FH parts (Φ_10 = K3×E BKM denominator, MCG(Σ_2) ↠ Sp_4(Z), Humbert divisor) are classical literature (Gritsenko-Nikulin 1995, Borcherds 1998, DMVV 1997, Farb-Margalit Ch.6). Wave 13 fixes the Humbert face numerically: $\mathrm{ord}(H_1)=K^{\kappa_{\mathrm{ch}}}=8$ on the $\mathcal{B}$-family and $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}}=-1$. `sp4_modularity_pipeline` still self-declares CONJECTURAL; its 53 tests verify elementary linear algebra and algebraic tautologies, not Sp_4(Z) covariance. Genuine residue: ONE precise factorization-homology theorem identifying ∫_{Σ_2 × S¹} $A_{K3\times E}$ with the Igusa/Borcherds tower — inherits status from V3-F18 downstream.
 
 **V3-F22. Class M = mock modular — two sub-items (refined 2026-04-17 Wave-2).**
 - **(F22a) Per-family mock identity.** K3 CLOSED via `thm:k3-mock-modular-proof` (`chapters/examples/k3_yangian_chapter.tex:2767-2783`, ProvedHere). K3 × E open. Non-CY Monster / W_N mock identities need explicit scope qualifier (not every class M is mock; mock needs additional spectral-decomposition structure such as N=4 superconformal).
@@ -120,11 +147,11 @@ This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-0
 
 ### 5. Reading guide
 
-Top of document (§1–§4) is the DEFINITIVE state as of 2026-04-17. Sections F1–F37 and "Session Memorials" below are HISTORICAL RECORD preserved for provenance. Where they conflict with §1–§4, §1–§4 wins.
+Top of document through "Programme totals", including the Wave 13 platonic-ideal crown and Wave 14 handoff queue, is the definitive state as of 2026-04-19. Sections F1–F37 and "Session Memorials" below are HISTORICAL RECORD preserved for provenance. Every historical K3 / BKM reference there must be read with the Wave 13 retractions applied: plain BKM-side "K3 Yangian" retracted by `SYNTHESIS_WAVE13.md` §C.5, direct nodal BD-chirality by §C.7, CY-3 $[3]$ shift by §C.8, input-side $\Delta_5$ narration by §C.9, and direct Schur $=1/\Delta_5$ by §C.10. Where the historical record conflicts with the crown or the closures above, the crown and closures win.
 
 ---
 
-## Prior status as of 2026-04-14 (HISTORICAL; superseded by §1–§4 above)
+## Prior status as of 2026-04-14 (HISTORICAL; superseded by the 2026-04-19 crown, queue, and definitive closures above)
 
 Updated after all sessions through ~230-agent comprehensive wave. Total: ~693pp, ~34,000 tests, ~460 engines. 10 proofs at publication standard. Clean build: 0 undef refs, 0 undef cites.
 

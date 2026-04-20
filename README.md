@@ -3,7 +3,11 @@
 **Volume III** of *Modular Homotopy Theory for Algebraic Factorization Algebras on Algebraic Curves*
 by Raeez Lorgat.
 
-Constructs the functor Phi: CY_d-Cat -> E_n-ChirAlg from Calabi-Yau categories to chiral algebras, proved for all d (CY-A_2 at d=2; CY-A_3 at d=3 via the infinity-categorical proof that HH^{-2}_{E_1}=0 and the space of E_3-liftings is contractible). The E_n level is dimension-dependent: E_inf at d=1, E_2 at d=2, E_1 at d>=3, with the braided E_2 structure at d>=3 constructed via the Drinfeld center Z(Rep^{E_1}(A)) — the right adjoint to the forgetful functor, not a categorified averaging map. The K3 Yangian Y(g_{K3}) has 24 generators, Mukai-signature (4,20) Serre relations, and degree-(24,24) structure function. Six independent constructions approach G(K3 x E); their conjectural convergence is CY-C.
+Constructs the functor Phi: CY_d-Cat -> E_n-ChirAlg from Calabi-Yau categories to chiral algebras, proved for all d (CY-A_2 at d=2; CY-A_3 at d=3 via the infinity-categorical proof that HH^{-2}_{E_1}=0 and the space of E_3-liftings is contractible). The E_n level is dimension-dependent: E_inf at d=1, E_2 at d=2, E_1 at d>=3, with the braided E_2 structure at d>=3 constructed via the Drinfeld center Z(Rep^{E_1}(A)) — the right adjoint to the forgetful functor, not a categorified averaging map. Wave 13 separates the two K3 lanes: the historical Part-IV Yangian chapter studies the Mukai self-mirror Yangian branch, while the BKM-side object is the K3 chiral Hall–Drinfeld double on the bi-based Ran / $\overline{\mathcal{A}_2}$ datum with CY-2 $[2]$ shift, class-$\mathcal{S}$ parent $\mathcal{T}[A_1,\Sigma_{0,24}]$, and $\Delta_5$ as 1-loop-forced output.
+
+## Wave 13 Platonic Crown (2026-04-19)
+
+The architectural source is `chapters/examples/k3_chiral_bialgebra_platonic.tex`. Wave 13 pins the BKM-side object by the classification invariant $H^2(\mathfrak{g}_{\Delta_5})^{\mathbb{Z}/2,\,K(1)} \cong \mathbb{C}\cdot\Delta_5$, the Hall–Drinfeld-double presentation, the bi-based factorization datum, the CY-2 $[2]$ shift with $\widetilde{M}_{24}$ Schur cocycle, the class-$\mathcal{S}$ $A_1$ parent on $\Sigma_{0,24}$, and the 1-loop-output interpretation of $\Delta_5$. On the $\mathcal{B}$-family this fixes the conductor face as $K^{\kappa_{\mathrm{ch}}}=8=\mathrm{ord}(H_1)$ with $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}}=-1$.
 
 ## The Three Volumes
 
@@ -31,7 +35,7 @@ CY category C  -->  cyclic A-infinity  -->  Lie conformal algebra
                                BKM denominator identity      Vol I Theta_A
 ```
 
-For d=2: the functor Phi_2 is proved (Theorem CY-A_2). For d=3: the infinity-categorical proof resolves the chain-level S^3-framing obstruction (Theorem CY-A_3). For toric CY3: a separate proved E_1 CoHA/chart-gluing package provides independent verification. The E_n-chiral Koszul duality (Theorem CY-B) is proved at d=3 via the Verdier spectral functor: E_1-Koszul on A, inducing E_2 on the Drinfeld center. CY-C (quantum group realization) and CY-D (modular characteristic at d>=3) remain conjectural/programme.
+For d=2: the functor Phi_2 is proved (Theorem CY-A_2). For d=3: the infinity-categorical proof resolves the chain-level S^3-framing obstruction (Theorem CY-A_3). For toric CY3: a separate proved E_1 CoHA/chart-gluing package provides independent verification. The E_n-chiral Koszul duality (Theorem CY-B) is proved at d=3 via the Verdier spectral functor: E_1-Koszul on A, inducing E_2 on the Drinfeld center. CY-C remains a correspondence programme whose K3 / $\Delta_5$ lane is now reconstituted by the Hall–Drinfeld-double architecture; CY-D is proved as a dimension-stratified $\kappa_{\mathrm{ch}}$ theory with universal $\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$ on the K3-fibered class-A lane.
 
 ## Connection to Volumes I-II
 
@@ -39,7 +43,8 @@ For d=2: the functor Phi_2 is proved (Theorem CY-A_2). For d=3: the infinity-cat
 |-------|--------|-----------------|
 | Shadow obstruction tower Theta_A | Vol I, Theorem D + MC2 | Conjecturally = automorphic correction of BKM |
 | E_1 ordered bar B^{ord}(A) | Vol II, Part II | Toric CY3: proved E_1 sector; general d=3 use remains conditional |
-| Modular characteristic kappa(A) | Vol I, Theorem D | Real roots + Weyl vector of BKM algebra |
+| Modular characteristic $\kappa_{\mathrm{ch}}(A)$ | Vol I, Theorem D | Chiral-side anomaly and the CY-D input to the K3 / $\Delta_5$ lane |
+| Humbert / conductor face $K^{\kappa_{\mathrm{ch}}}=8=\mathrm{ord}(H_1)$ | Vol I, Theorem C enlarged by Wave 13 | The $\mathcal{B}$-family bridge between Mukai doubling, Humbert monodromy, and the root-of-unity specialisation |
 | R-matrix braiding | Vol II, Part III | Abstract E_1 -> E_2 lift via Drinfeld center; d=3 applications require the E_1 input |
 
 ## Seven-Part Structure
@@ -52,18 +57,19 @@ For d=2: the functor Phi_2 is proved (Theorem CY-A_2). For d=3: the infinity-cat
 - **VI. Seven Faces of r_CY(z)**: bar-cobar bridge, modular Koszul bridge, CY holographic datum
 - **VII. Frontiers**: geometric Langlands, nonabelian Yangian, ZTE, root of unity
 
-## Status (2026-04-17)
+## Status (2026-04-19)
 
 | Component | Status |
 |-----------|--------|
 | CY-A (CY-to-chiral functor) | **Proved** at d=3 in the infinity-categorical framework: toric and formal unconditional; compact non-formal CONDITIONAL on strictification + connectivity. CY-A_2 at d=2 unconditional. |
 | CY-B (E_n-chiral Koszul duality) | **Proved** at d=3 via Verdier spectral functor; d-stratified scope documented |
-| K3 Yangian Y(g_{K3}) | **Proved** (24 generators, Mukai signature (4,20), (24,24) structure function, pentagon-at-E_1 architecture) |
-| Phi(K3) explicit | **Proved** (H_Muk, kappa_ch=2) |
+| Historical K3 Yangian lane | **Split by Wave 13**: the Mukai self-mirror Yangian branch retains its abelian presentation, but plain BKM-side "K3 Yangian" is retracted in favour of the Hall–Drinfeld double |
+| K3 chiral Hall–Drinfeld double $\mathbf{H}_{\Delta_5}$ | **Architecturally pinned / still frontier as a full construction**: Hall–Drinfeld double of $\mathrm{CoHA}_{K3\times E}$, bi-based Ran / $\overline{\mathcal{A}_2}$ datum, CY-2 $[2]$ shift, class-$\mathcal{S}$ parent on $\Sigma_{0,24}$, $H^2=\mathbb{C}\cdot\Delta_5$ classification, and $\Delta_5$ as 1-loop output |
+| Phi(K3) explicit | **Proved** (H_Muk, $\kappa_{\mathrm{ch}}=2$) |
 | CoHA as E_1 sector (toric CY3) | **Proved** (CoHA(C^3) = Y^+, positive half of affine Yangian) |
 | Drinfeld center E_1 -> E_2 | **Proved** (right adjoint to forgetful, explicit half-braiding sigma_A(z) construction) |
-| CY-C (six routes convergence) | **Proved** at scalar kappa_BKM level via kappa_BKM(Phi_N) = c_N(0)/2 universal (Borcherds weight); generator-relation identification across routes remains CONJECTURAL |
-| CY-D (dimension stratification) | **Proved**: thm:kappa-hodge-supertrace-identification for compact CY_d all d; explicit stratification across d in {1,2,3,4,5} |
+| CY-C (six routes convergence) | **Reconstituted by Wave 13**: scalar $\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$ is universal on the K3-fibered class-A lane, but the honest geometry is a pentagon of five intertwiners around the Hall–Drinfeld double, not six routes converging isomorphically |
+| CY-D (dimension stratification) | **Proved**: $\kappa_{\mathrm{ch}}$ is dimension-stratified across compact CY_d, $\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$ on the K3-fibered class-A lane, and the naive decomposition $\kappa_{\mathrm{BKM}}=\kappa_{\mathrm{ch}}+\chi(\mathcal{O}_{\mathrm{fiber}})$ fails at every $N$ |
 | CY_4 p_1-twisted family | **Conjectural** (p_1-twisted double current algebra on each fibre of the P^1-family; E_1 native, E_2-braided Drinfeld center with Z-valued half-braiding twist from p_1; cascade terminates at E_3 for all d >= 3 per AP-CY46; OPE shift = int p_1 / 12) |
 | Langlands = Koszul | **Conjectural** |
 
