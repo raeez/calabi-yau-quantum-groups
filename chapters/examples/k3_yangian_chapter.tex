@@ -1217,10 +1217,10 @@ structure:
   Chapter~\ref{ch:k3-chiral-bialgebra-platonic}).
 \end{enumerate}
 The three branches meet on the common rank-$24$ Mukai data and are
-interchanged under the three Wave-13 structural bridges: Koszul duality
-exchanges (a) and its dual, Borcherds BRST cohomology produces (b) from (a),
-and Miki's quantum toroidal specialisation of Frenkel--Kac produces (c) from
-a deformation of (a).
+interchanged by three structural bridges: Koszul duality exchanges (a)
+and its dual, Borcherds BRST cohomology produces (b) from (a), and Miki's
+quantum toroidal specialisation of Frenkel--Kac produces (c) from a
+deformation of (a).
 \end{theorem}
 
 \begin{proof}
@@ -4058,11 +4058,15 @@ canonical $(\mathbb{Z}/2)^2$-action
       acting as $-1$ on the volume sector.
 \end{itemize}
 The four characters of $V_4$ select four projections
-$\Pi_{\epsilon_1 \epsilon_2}$ identified with the four trace channels:
-$\Pi_{++} \leftrightarrow \kappa_{\mathrm{ch}}$,
-$\Pi_{+-} \leftrightarrow \kappa_{\mathrm{BKM}}$,
-$\Pi_{-+} \leftrightarrow \mathrm{sdim}_{\mathrm{Ber}}$,
-$\Pi_{--} \leftrightarrow \chi^{\mathrm{cat}}$.
+$\Pi_{\epsilon_1 \epsilon_2}$ giving a $V_4$-graded decomposition of
+$\operatorname{tr}(\mathfrak{K}_{\mathcal{C}})$ into channel
+contributions, written
+$c_{++}^{\mathrm{ch}}$, $c_{+-}^{\mathrm{BKM}}$,
+$c_{-+}^{\mathrm{Ber}}$, $c_{--}^{\mathrm{cat}}$,
+where the superscript names the shadow-class an isolated term
+of that channel probes \textup{(}chiral, Borcherds--Kac--Moody,
+Berezinian super-dimension, categorical Euler\textup{):} each $c$ is a
+\emph{channel projection}, NOT the global CY--D invariant it names.
 The bigraded Lefschetz identity reads
 \[
   \boxed{\;
@@ -4208,20 +4212,23 @@ The bigraded Lefschetz matrix of the elliptic curve $E$ is
 \[
   \boxed{\;M_E \;=\; (1, 0, 0, -1).\;}
 \]
-The four trace channels carry: $\mathrm{tr}_{\Pi_{++}}(\mathfrak{K}_C)
-= \kappa_{\mathrm{ch}}(\Phi_1(E)) = 1$
-\textup{(}single boson contribution from $H^0 \oplus H^1$\textup{);}
-$\mathrm{tr}_{\Pi_{+-}}(\mathfrak{K}_C) = 0$ \textup{(}no
-Borcherds-Kac-Moody enhancement; the constant term of the relevant
-weight-$0$ index-$1$ Jacobi form $\phi_{0, 1}(\tau, z)$ is $0$\textup{);}
-$\mathrm{tr}_{\Pi_{-+}}(\mathfrak{K}_C) = 0$ \textup{(}no super-Yangian
-Berezinian channel; the Mukai signature of $E$ is $(2, 2)$ giving
+The four channel projections carry: $c_{++}^{\mathrm{ch}}(E)
+= \mathrm{tr}_{\Pi_{++}}(\mathfrak{K}_C) = 1 = h^{0,0}(E)$
+\textup{(}single boson contribution from $H^{0,0}$; not to be conflated
+with the CY--D total $\kappa_{\mathrm{ch}}(E) = \chi(\mathcal{O}_E) = 0$,
+which is the signed sum across all four channels\textup{);}
+$c_{+-}^{\mathrm{BKM}}(E) = 0$ \textup{(}no Borcherds-Kac-Moody
+enhancement; the constant term of the relevant weight-$0$ index-$1$
+Jacobi form $\phi_{0, 1}(\tau, z)$ is $0$\textup{);}
+$c_{-+}^{\mathrm{Ber}}(E) = 0$ \textup{(}no super-Yangian Berezinian
+channel; the Mukai signature of $E$ is $(2, 2)$ giving
 $\mathrm{sdim}_{\mathrm{Ber}}(E) = 2 - 2 = 0$\textup{);}
-$\mathrm{tr}_{\Pi_{--}}(\mathfrak{K}_C) = -1
-= -h^{1, 0}(E)$
+$c_{--}^{\mathrm{cat}}(E) = -1 = -h^{1, 0}(E)$
 \textup{(}negative algebraization residual matching the elliptic
 $H^{1, 0}$\textup{).}  Sum
-$1 + 0 + 0 - 1 = 0 = \chi(\mathcal{O}_E)$.
+$1 + 0 + 0 - 1 = 0 = \chi(\mathcal{O}_E) = \kappa_{\mathrm{ch}}(E)$,
+consistent with Proposition~\ref{prop:kappa-hodge-supertrace} applied
+at $d = 1$ via Serre duality $S_\mathcal{C} = [1]$.
 \end{proposition}
 
 \begin{proposition}[$T^4$ via Künneth]
@@ -5776,7 +5783,12 @@ tests \texttt{compute/tests/test\_hyperkahler\_BKM\_lift.py}
 \label{prop:k3n-borcherds-weight}
 \ClaimStatusProvedHere
 By the Borcherds 1998 weight theorem applied to the K$3^{[n]}$ elliptic
-genus,
+genus, with $c_n^{\mathrm{Hilb}}(0)$ denoting the constant coefficient of
+the weight-zero Jacobi form attached to the $n$-th Hilbert scheme
+\textup{(}distinct from the $\Delta_5$ paramodular constant
+$c(0) = 10$ of the Gritsenko form, recorded at the Borcherds weight
+calculation of Theorem~\ref{thm:borcherds-1986-bkm} giving
+$\kappa_{\mathrm{BKM}} = 5$\textup{):}
 \[
   \boxed{\;
   \kappa^{\mathrm{Hilb}}_{\mathrm{BKM}}(K3^{[n]})
@@ -7790,13 +7802,13 @@ $g \geq 2$ requires a parallel $\mathbb{P}^1$-family construction
 indexed by the genus-$g$ Pontryagin class.
 \end{remark}
 
-\section{Wave 13 DNA perspective}
+\section{The chiral Hall--Drinfeld double $\mathbf H_{\Delta_5}$}
 \label{sec:k3yang-wave13-DNA}
 
-\begin{remark}[Fourth taxonomic slot: K3 chiral Hall-Drinfeld double]
+\begin{remark}[Fourth taxonomic slot: the K3 chiral Hall--Drinfeld double]
 \label{rem:k3yang-DNA-1}
-The K3 Yangian programme developed here meets its platonic ideal at the
-Wave~13 non-abelian chiral bialgebra
+The $\hbar$-formal K3 Yangian $Y_\hbar(\mathfrak g_{K3})$ of this chapter
+is the classical ($\hbar \to 0$) limit of a non-abelian chiral bialgebra
 \[
 \mathbf H_{\Delta_5} \;=\; \mathcal D_\hbar\!\bigl(\mathcal Y^{\mathrm{Hall}}_\hbar(\mathrm{CoHA}_{K3\times E}),\;
 \widetilde\Phi^{\mathrm{Sieg\text{-}Bor}}_{\mathrm{Sp}_4}[\Phi_{10}/\eta^{24}],\;
@@ -7839,10 +7851,28 @@ $\hbar^2 = -1/\ell = -1/8$, this yields the universal identity
 \[
 \hbar^2\cdot K^{\kappa_{\mathrm{ch}}} \;=\; -1
 \]
-on the K3 B-family. This identity is the numerical signature of the
-Wave~13 structure, observable in any concrete representation-theoretic
-calculation in the Hall Yangian: the level of the vacuum representation,
-the specialisation at which bar--cobar is a strict equivalence, and the
-Lusztig quantum-$\mathrm{sl}_2$ root-of-unity parameter all coincide on
-this locus. Primary-lit: Bruinier 2002, Lusztig 1990, Mukai 1987.
+on the K3 B-family. This identity is observable in any concrete
+representation-theoretic calculation in the Hall Yangian: the level of the
+vacuum representation, the specialisation at which bar--cobar is a strict
+equivalence, and the Lusztig quantum-$\mathrm{sl}_2$ root-of-unity parameter
+all coincide on this locus. Primary-lit: Bruinier 2002, Lusztig 1990,
+Mukai 1987.
+\end{remark}
+
+\begin{remark}[What this chapter proved; what the next chapter must supply]
+\label{rem:k3yang-chapter-closing}
+The $\hbar$-formal K3 Yangian $Y_\hbar(\mathfrak g_{K3})$ is constructed
+here at the abelian $\gl_1$ level with rank-$24$ Mukai Cartan, Serre relations
+from the Mukai form, dressing function $g_{K3}(z)$ of degree $(24,24)$,
+three involutions (Koszul, symplectic duality, unitarity), and the
+Göttsche generating function $1/\eta^{24}$ common to Coulomb and Higgs
+branches. The classical shadow identifies with the Schiffmann--Vasserot
+CoHA of $K3\times E$ on zero modes and with Grojnowski--Nakajima
+Heisenberg on the Hilbert scheme tower. What remains --- the non-abelian
+chiral bialgebra $\mathbf H_{\Delta_5}$, the Hall lift
+$\mathcal Y^{\mathrm{Hall}}_\hbar$ from CoHA${}_{K3\times E}$ to the full
+K3 Yangian, and the Siegel--Borcherds associator
+$\widetilde\Phi^{\mathrm{Sieg\text{-}Bor}}_{\mathrm{Sp}_4}[\Phi_{10}/\eta^{24}]$
+that couples dynamical Igusa data to the RTT side --- is the subject of
+Chapter~\ref{ch:k3-chiral-bialgebra-platonic}.
 \end{remark}
