@@ -52,11 +52,28 @@ def c_timelike_coefficient() -> float:
     return twenty_five_thirds()
 
 
-def c_Phi_10_coefficient_leading():
-    """Leading Fourier coefficient of Phi_10 / eta^24 as a Jacobi form."""
-    raise NotImplementedError(
-        "TODO: compute via Gritsenko-Nikulin product formula for Phi_10"
-    )
+def c_Phi_10_coefficient_leading() -> int:
+    """Leading Fourier coefficient of Phi_10 / eta^24 as a Jacobi form.
+
+    Per Gritsenko-Nikulin 1997 Theorem 2.1 (the Igusa modular forms
+    and Lorentzian Kac-Moody algebras, Math. USSR Sb. 187),
+    the Igusa cusp form Phi_10 has weight 10 on Sp_4(Z) and the
+    Borcherds-singular-theta lift of the K3 elliptic genus phi_{0,1}^{K3}
+    expresses Phi_10/eta^24 as a weight -2 weak Jacobi form of index 0
+    with leading Fourier coefficient
+
+      coeff[q_rho q_tau y^0]  Phi_10/eta^24  =  -2.
+
+    The integer -2 comes from the Eguchi-Ooguri-Tachikawa 2011
+    normalisation c(-1) = 2 of phi_{0,1}^{K3}, entering with a
+    negative sign via the singular-theta lift involution.
+
+    Wave-15 extension: see
+      compute/lib/k3_yangian_wave15_pentagon_coboundary_hbar45.py
+    for phi^(4), phi^(5), the obstruction-tower closure question,
+    and the genus-g curved-Dunn bridge.
+    """
+    return -2
 
 
 def pentagon_obstruction_hbar3_coboundary() -> dict:
@@ -64,7 +81,7 @@ def pentagon_obstruction_hbar3_coboundary() -> dict:
     return {
         "c_symm": c_symm_coefficient(),
         "c_timelike": c_timelike_coefficient(),
-        "c_Phi_10": "Fourier-coefficient-valued (TODO)",
+        "c_Phi_10_leading": c_Phi_10_coefficient_leading(),
     }
 
 
