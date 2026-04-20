@@ -1426,3 +1426,84 @@ The R-matrix lives on the coalgebra side; the Koszul dual lives on the algebra s
 **Confusion type.** Part/whole (derivation yields 2^c · χ^{-c/wt}; statement drops 2^c). Also genus-consistency: a pattern correct at g=2 must transport correctly to g=3 when the underlying construction (Schottky-normalised Θ_null) is genus-independent.
 
 **Status.** Catalogued. Instance fixed at braided_factorization.tex L1278-1281 (statement) and L1310-1316 (proof: now shows 2^{36·(c/2)/18} = 2^c explicitly and names the prefactor as genus-independent).
+
+
+## Entry: Archimedean Schmidt parameter — weight $k$ gives $(k-3/2, k-5/2)$, but $\Delta_5$ Maass-spin cover twists by sgn_R (Wave 17 Kazhdan)
+
+**Wrong claim.** Archimedean Weil-Deligne parameter of $\Delta_5$ is Schmidt $(7/2, 5/2)$ directly, identical form to $\Delta_{10}$ read off from weight-$5$ Siegel data.
+
+**Ghost theorem.** Schmidt dictionary $k \mapsto (k-3/2, k-5/2)$ is correct for paramodular Siegel forms; for $k = 5$ this yields $(7/2, 5/2)$. The weight-to-parameter pairing is a real theorem (Schmidt 2017, Asgari-Schmidt 2001).
+
+**Precise error.** $\Delta_5$ is NOT paramodular (Wave 14 retraction record): it lives on the Maass spin cover $\widetilde{\mathrm{Sp}_4(\mathbb{Z})}$ with character $v_{\Delta_5}$ factoring through $\mathrm{Sp}_4(\mathbb{Z}/2) \cong S_6$. The $\mathbb{Z}/2$-spin double cover forces an extra twist by the sign character $\mathrm{sgn}_\R: W_\R \to \{\pm 1\}$ on the archimedean parameter. Omitting the twist reads $\Delta_5$ and $\Delta_{10}$ as having the SAME archimedean parameter up to Schmidt-weight doubling, which contradicts the squaring relation $\Delta_5^2 = \Delta_{10}$ at the $L$-function level (Schmidt parameters would then be $(7/2, 5/2)^2 \neq (17/2, 15/2)$).
+
+**Correct relationship.** $\phi_{\Delta_5, \infty} = \phi^{(k=5)}_{\mathrm{Sp}_4(\mathbb{R})} \otimes \mathrm{sgn}_\R$: the Schmidt parameter on $\mathbb{C}^\times \subset W_\R$ is $(7/2, 5/2)$ (holomorphic discrete series, weight $5$), but the action of the non-identity component (complex conjugation element) is twisted by $\mathrm{sgn}_\R$. The twist is exactly the archimedean shadow of the Maass-spin lift and parallels the finite-place quadratic character $\varepsilon_2$ of conductor $2^3$ at $p = 2$ (Wave 16). $\phi_{\Delta_{10}, \infty}$ on the paramodular side has Schmidt $(17/2, 15/2)$ matching the weight-$10$ SK lift of a weight-$16$ elliptic seed, with no sgn twist.
+
+**Confusion type.** Scope error (paramodular Schmidt dictionary applied to Maass-spin cover) + convention clash (arch parameter vs weight dictionary without tracking the double cover) + construction/narration ($\Delta_5^2 = \Delta_{10}$ squaring at form level treated as squaring at L-parameter level).
+
+**Status.** Catalogued. Inscribed at /Users/raeez/chiral-bar-cobar/chapters/theory/derived_langlands.tex Wave~17 section (Remark `rem:dl-wave17-DNA-archimedean-delta5`). Primary: Ibukiyama 1998 "Paramodular forms and their L-functions"; Schmidt 2017 "Archimedean aspects of Siegel modular forms"; Weissauer 2009 "Endoscopy for GSp(4)".
+
+
+## Entry: Global Arthur A-packet size vs local archimedean packet size (Wave 17 Kazhdan)
+
+**Wrong claim.** Global Arthur packet $|\Psi_{\Delta_{10}}| = 1$ because $\pi_{\Delta_{10}}$ appears with multiplicity $1$ in $L^2_{\mathrm{cusp}}$; hence the packet is a singleton.
+
+**Ghost theorem.** Ikeda SK lift $\pi_{\Delta_{10}}$ is cuspidal automorphic with multiplicity $1$ in $L^2_{\mathrm{cusp}}(\mathrm{Sp}_4(\mathbb{Q}) \backslash \mathrm{Sp}_4(\mathbb{A}))$ (Ikeda 2001 Cor 16.2, Arthur 2013 Thm 1.5.1).
+
+**Precise error.** Conflating \emph{packet size} with \emph{multiplicity of a distinguished constituent}. The packet size $|\Psi| = \prod_v |\Psi_v|$ is a product of local packet sizes. For SK lifts, all finite-place local packets are singletons (spherical up to local twists); but the \emph{archimedean} discrete-series packet for $\mathrm{Sp}_4(\mathbb{R})$ has size $4$ (the holomorphic discrete series comes in a packet of $4$ indexed by $S_\psi = \mathbb{Z}/2 \times \mathbb{Z}/2$, namely holomorphic/antiholomorphic crossed with Atkin--Lehner-sign). Hence $|\Psi_{\Delta_{10}}| = 4$, not $1$. Arthur's multiplicity formula then selects $m(\pi_{\Delta_{10}}) = 1$ among the 4, with Arthur's character $\varepsilon_\psi$ picking the holomorphic constituent and annihilating the antiholomorphic-paired constituents.
+
+**Correct relationship.** $|\Psi_{\Delta_{10}}| = |\Psi_{\Delta_{10}, \infty}| = 4$ (all finite-place factors trivial), and $m(\pi_{\Delta_{10}}) = 1$ via Arthur's formula (4 constituents, 2 pair to $+1$ via $\varepsilon_\psi$: the Ikeda lift with multiplicity $1$ and one other; the remaining two pair to $-1$ and have multiplicity $0$). The global packet has size $4$ in the Arthur-theoretic sense, but contributes $\leq 2$ automorphic constituents to $L^2_{\mathrm{cusp}}$ with total multiplicity $\leq 2$. Primary: Arthur 2013 Thm 1.5.2; Ikeda 2001 Cor 16.2; Moeglin-Renard 2018.
+
+**Confusion type.** Part/whole (conflating packet size $|\Psi|$ with single-constituent multiplicity $m(\pi)$) + label/content (Ikeda SK lift's mult $= 1$ labeled as packet size).
+
+**Status.** Catalogued. Inscribed at /Users/raeez/chiral-bar-cobar/chapters/theory/derived_langlands.tex Wave~17 Remark `rem:dl-wave17-DNA-global-packet-closure`. Equation eq:wave17-packet-size gives $|\Psi| = 4$, equation eq:wave17-multiplicity gives Arthur's formula.
+
+
+## Entry: K3-BKM Langlands duality — it's SELF-duality, not a dual pair (Wave 17 Kazhdan)
+
+**Wrong claim.** K3-BKM geometric Langlands is a duality between $\mathfrak{g}_{\Delta_5}$ and a distinct Langlands-dual ${}^L\mathfrak{g}_{\Delta_5}$ obtained by Mukai signature swap $(c_+, c_-) = (4, 20) \to (20, 4)$.
+
+**Ghost theorem.** Wave 13 Remark `rem:glang-DNA-1` correctly identifies an Arthur-Hecke pairing $\mathfrak{g}_{\Delta_5} \leftrightarrow {}^L\mathfrak{g}_{\Delta_5}$ via Andrianov factorisation $L(\Phi_{10}) = L(\Delta_{E_6}) \zeta(s-9) \zeta(s-8)$. The packet structure is real.
+
+**Precise error.** At the BKM-Lie-algebra level, the Mukai signature-swap $(c_+, c_-) \mapsto (c_-, c_+)$ does NOT produce a distinct Lie algebra: it's an automorphism of the Mukai lattice (the lattice $\mathrm{II}_{4,20}$ is self-isomorphic under signature reversal up to global parity). The Langlands dual $G^{\vee}$ of a simply-laced hyperbolic BKM with signature-$(2,1)$ Killing form reduces to $G$ itself after transpose/normalisation on the real root sublattice. Hence ${}^L\mathfrak{g}_{\Delta_5} = \mathfrak{g}_{\Delta_5}$, not a distinct object. The ``dual pair'' language is misleading: the correspondence is a \emph{self-duality}, with the Fricke involution $w_8: Z \mapsto -(8Z)^{-1}$ on Siegel $\mathbb{H}_2$ as the structural $S$-matrix exchanging the two sides of a single Lie algebra's geometric Langlands.
+
+**Correct relationship.** K3-BKM geometric Langlands is a self-duality: $(D^b\mathrm{Coh}(\mathrm{LocSys}_{\mathfrak{g}_{\Delta_5}}(\overline{\mathcal{A}_2})), D(\mathrm{Bun}_{\mathfrak{g}_{\Delta_5}}(\overline{\mathcal{A}_2}))^{\mathrm{Hecke}})$ exchanged under Fricke $w_8$. The Fricke-fixed locus $H_1 \cap H_4$ is the diagonal of this self-duality; off this locus, on $\mathcal{U}^{K3}_{\mathrm{Kosz}} = \overline{\mathcal{A}_2} \setminus (H_1 \cup H_4)$, $w_8$ acts freely and the self-duality is genuine. The Wave 13 ``dual pair'' language persists as a heuristic but must be qualified: the pair is $(\mathfrak{g}_{\Delta_5}, \mathfrak{g}_{\Delta_5})$ on two different sheaf-theoretic sides, exchanged by $w_8$, not two distinct Lie algebras.
+
+**Confusion type.** Specific/general (a general Langlands duality is an exchange of distinct dual data; here we have self-duality) + conflation (Mukai signature-swap automorphism read as producing a distinct ${}^L\mathfrak{g}$).
+
+**Status.** Catalogued. Inscribed at /Users/raeez/calabi-yau-quantum-groups/chapters/connections/geometric_langlands.tex Wave~17 section (Remarks `rem:gl-wave17-DNA-self-langlands-dual`, `rem:gl-wave17-DNA-fricke-self-duality`, `rem:gl-wave17-DNA-w8-modular`). Primary: Gritsenko-Nikulin 1998 alg-geom/9612004; Kac 1990 Ch.11; Borcherds 1998 Invent. 132; Bruinier 2002 LNM 1780 Prop 5.1.
+
+
+## Entry: Drinfeld centre of $\mathrm{Rep}(\mathbf{H}_{\Delta_5})$ = Yetter-Drinfeld, NOT averaging (Wave 17 Kazhdan)
+
+**Wrong claim.** Drinfeld centre $\mathcal{Z}(\mathrm{Rep}(\mathbf{H}_{\Delta_5}))$ IS the averaging map $\mathrm{av}: \mathfrak{g}^{E_1}_{\Delta_5} \to \mathfrak{g}^{\mathrm{mod}}_{\Delta_5}$ of Vol I.
+
+**Ghost theorem.** Both Drinfeld centre and averaging are real operations; both are related to the $E_1 \to E_2$ promotion.
+
+**Precise error.** Category-level vs scalar-level conflation. Drinfeld centre produces a \emph{category} (the universal $E_2$-braided recipient, right adjoint to the forgetful functor to $\mathrm{sVec}$). Averaging map produces a \emph{scalar} $\kappa_{\mathrm{ch}}$ (an invariant of the shadow tower after symmetrisation). They are related by a commutative square — the scalar is the Grothendieck-decategorification of the centre, at the level of Frobenius-Perron dimensions of the gerbe-fibre — but they are different operations on different categorical levels.
+
+**Correct relationship.** $\mathcal{Z}(\mathrm{Rep}(\mathbf{H}_{\Delta_5})) \simeq \mathrm{YD}^{A_\infty}_{\mathbf{H}_{\Delta_5}}$ (Yetter-Drinfeld modules; Schauenburg 1998, Kassel 1995 Ch.XIII, Majid 1995 \S7.1). Because $\mathbf{H}_{\Delta_5}$ is genuinely $A_\infty$-quasi-Hopf (BKM imaginary cone is infinite-dim), the YD category is $A_\infty$-deformed. Averaging map: $\mathrm{av}$ projects the $r$-matrix $r_{\mathrm{Sieg,dyn}}(u-v)$ to its scalar $\kappa_{\mathrm{ch}} = 5$. The two sit in a square: $\mathrm{FPdim}(\mathcal{Z}|_{H_1 \cap H_4}) = 4 = |\Psi_{\Delta_{10}, \infty}|$, matching the archimedean Arthur packet size.
+
+**Confusion type.** Level error (category level vs scalar level) + mechanism error (averaging and centre both produce $E_1 \to E_2$-related outputs, but through different mechanisms: averaging by symmetrisation, centre by adjunction).
+
+**Status.** Catalogued. Inscribed at /Users/raeez/calabi-yau-quantum-groups/chapters/theory/drinfeld_center.tex Wave~17 section (Remarks `rem:dc-wave17-DNA-H-delta5-center`, `rem:dc-wave17-DNA-center-ratio`, `rem:dc-wave17-DNA-fricke-S-matrix`, `rem:dc-wave17-DNA-arch-FP-dim`, `rem:dc-wave17-DNA-nonconflation`). Enforces the AP-CY54 cache discipline.
+
+
+## Entry: Transcribed $a_p$ vs convolved $a_p$ -- LMFDB is tertiary, not primary (Wave 17 Beilinson)
+
+**Wrong habit.** Treating LMFDB-tabulated $a_p(\Delta_{E_6})$ as a primary source that can be cited without re-derivation.
+
+**Correction.** LMFDB 16.1.a.a is a \emph{tertiary} tabulation aggregating from William Stein's SageMath modular-symbol basis. For Beilinson's dictum, every $a_p$ must trace to first principles: $\dim S_{16}(\mathrm{SL}_2(\mathbb{Z})) = 1$, spanned by $E_4 \cdot \Delta$; therefore $a_p = [q^p](E_4 \cdot \Delta)$, computable bit-exact via
+  - $E_4(q) = 1 + 240 \sum_{n \geq 1} \sigma_3(n) q^n$;
+  - $\Delta(q) = q \prod_{n \geq 1} (1-q^n)^{24}$;
+  - convolution $[q^p](E_4 \cdot \Delta) = \sum_{k=0}^{p} e_4(k)\,\tau(p-k)$.
+Wave 17 extended this to $p \in \{41, 43, 47, 53, 59, 61, 67, 71, 73, 79\}$; the 12 smaller primes $\{2,\ldots, 37\}$ reproduced LMFDB exactly, anchoring the convolution pipeline.
+
+**Independent triangulation.** For any first-principles $a_p$ sequence:
+  (a) Hecke multiplicativity $a_{pq} = a_p a_q$ for $\gcd(p,q) = 1$ -- one off-by-one error in any $a_p$ would be detected across 18 prime pairs with $p\cdot q \leq 79$;
+  (b) Hecke recursion $a_p^2 = a_{p^2} + p^{15}$;
+  (c) Deligne bound $|a_p| \leq 2 p^{15/2}$ (Deligne 1974 Publ.\ IHES 43).
+Any two of (a,b,c) failing forces re-derivation.
+
+**Confusion type.** Source epistemology (Beilinson hierarchy puts direct computation above published literature; LMFDB sits below "primary-source re-derivation").
+
+**Status.** Catalogued. Instance: Wave-17 extension of Wave 14's `k3_yangian_wave14_arthur_hecke_delta10.py` compute module (new: `DELTA_E6_AP_W17`, `PRIMES_W17`, `satake_cosine`, `frenkel_reshetikhin_c2_eigenvalue`); Vol I `chiral_climax_platonic.tex` Wave-17 section (rem:cclimax-wave17-ap-extension, rem:cclimax-wave17-sk-euler, rem:cclimax-wave17-satake-casimir); Vol III `notes/SYNTHESIS_WAVES_14_15_16.md` §5.4 table extension. 89/89 tests pass (82 Wave-15 + 7 Wave-17).
