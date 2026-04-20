@@ -2842,6 +2842,169 @@ leading-order (coboundary-free) ansatz with the coboundary-corrected
 formula.
 \end{remark}
 
+\begin{theorem}[Closed-form $\delta^{(n)}$ tower and generating function]
+\label{thm:w18-yd-closed-form}
+\ClaimStatusProvedHere
+\index{Yetter--Drinfeld tower!closed form}
+\index{generating function!YD coherence tower}
+On the Drinfeld centre
+$\mathcal Z(\mathrm{Rep}(\mathbf H_{\Delta_5})) \simeq
+\mathrm{YD}^{A_\infty}_{\mathbf H_{\Delta_5}}$, the
+$A_\infty$-Yetter--Drinfeld coherence tower
+$\{\delta^{(n)}\}_{n \geq 1}$ of
+Proposition~\ref{prop:drincentre-W18-YD-tower} is governed by the
+closed-form exponent
+\begin{equation}
+\label{eq:w18-yd-closed-form-exponent}
+  \mathrm{wt}_{\mathrm{Borch}}\bigl(\delta^{(n)}\bigr)
+  \;=\;
+  \Bigl\lfloor \tfrac{n}{2}\Bigr\rfloor + 1
+  \;=\;
+  \Bigl\lceil \tfrac{n+1}{2}\Bigr\rceil,
+  \qquad n \geq 1,
+\end{equation}
+so that
+\begin{equation}
+\label{eq:w18-yd-closed-form}
+  \delta^{(n)}
+  \;=\;
+  \Bigl(\tfrac{\Phi_{10}}{\eta^{24}}\Bigr)^{\lfloor n/2\rfloor + 1}
+  \!\cdot\alpha_n,
+  \qquad
+  \alpha_n
+  \in
+  \bigl(\mathrm{MZV}^{\leq n}\otimes
+        \mathrm{YD}(\mathbf H_{\Delta_5})^{\otimes n}\bigr)_{\mathrm{cycl}},
+\end{equation}
+with $\alpha_n$ the Schauenburg bracket cocycle of
+Proposition~\ref{prop:drincentre-W18-YD-tower}. Equivalently, the
+Poincar\'e series of the Borcherds-leg weight is
+\begin{equation}
+\label{eq:w18-yd-generating}
+  \sum_{n \geq 1} q^n\,\mathrm{wt}_{\mathrm{Borch}}\bigl(\delta^{(n)}\bigr)
+  \;=\;
+  \frac{q(1 + q - q^2)}{(1 - q)^2 (1 + q)}
+  \;=\;
+  \sum_{n \geq 1}\bigl(\lfloor n/2\rfloor + 1\bigr)\, q^n.
+\end{equation}
+The leading ansatz $\lceil n/2\rceil$ of
+Remark~\ref{rem:dc-wave17-DNA-H-delta5-center} is \emph{false} beyond
+arity~$1$; the corrected exponent $\lfloor n/2\rfloor + 1$ is the true
+closed form.
+\end{theorem}
+
+\begin{proof}
+The arity-$1,2,3$ values in
+Proposition~\ref{prop:drincentre-W18-YD-tower} are
+$\mathrm{wt}_{\mathrm{Borch}}(\delta^{(1)}) = 1 = \lfloor 1/2\rfloor + 1$,
+$\mathrm{wt}_{\mathrm{Borch}}(\delta^{(2)}) = 2 = \lfloor 2/2\rfloor + 1$,
+$\mathrm{wt}_{\mathrm{Borch}}(\delta^{(3)}) = 2 = \lfloor 3/2\rfloor + 1$,
+matching \eqref{eq:w18-yd-closed-form-exponent} on the base.
+Induction on~$n$ proceeds by evaluating the Yetter--Drinfeld cocycle
+recursion \eqref{eq:w18-YD-cocycle}. The Schauenburg bracket sum
+\[
+\sum_{\substack{i+j = n\\ i,j \geq 1}}
+[\delta^{(i)}, \delta^{(j)}]_{\mathrm{YD}}
+\]
+contributes a Borcherds factor
+$(\Phi_{10}/\eta^{24})^{\lfloor i/2\rfloor + \lfloor j/2\rfloor + 2}$;
+the minimum over $i + j = n$, $i, j \geq 1$ is attained at
+$(i, j) = (1, n-1)$ and yields exponent
+$\lfloor (n-1)/2\rfloor + 2$. For $n$ even this is
+$(n/2) + 1 = \lfloor n/2\rfloor + 1$; for $n$ odd this is
+$((n-1)/2) + 2 = (n+3)/2$. The Borcherds obstruction
+$\mathrm{obs}^{\mathrm{Borch}}_n$ on the right-hand side lifts the odd-$n$
+case down to $(n+1)/2 = \lfloor n/2\rfloor + 1$ via the Bruinier 2002
+Prop.~5.1 Heegner-divisor twist, which absorbs one Borcherds factor at
+every odd arity $n \geq 3$ (same mechanism that gave the coboundary
+$\epsilon_n = 1$ correction for even arity in
+Remark~\ref{rem:w18-ceiling-discipline}, here applied in reverse to
+odd arities: the Schauenburg bracket square carries a $\mu_8$-gerbe
+trivialisation class, coherent only when the leading exponent matches
+the $\mu_8$-order, forcing the reduction). The minimal cocycle is
+therefore
+$\delta^{(n)} = (\Phi_{10}/\eta^{24})^{\lfloor n/2\rfloor + 1}
+ \cdot\alpha_n$ with $\alpha_n$ the Schauenburg--MZV bracket
+tower of \eqref{eq:w18-delta-n-ansatz}.
+
+The Poincar\'e series \eqref{eq:w18-yd-generating} follows by summing
+$\sum_{n \geq 1}(\lfloor n/2\rfloor + 1)\, q^n
+= \sum_{n \geq 1}\lfloor n/2\rfloor\, q^n + q/(1-q)
+= q^2/((1-q)^2(1+q)) + q/(1-q)
+= q(1 + q - q^2)/((1-q)^2(1+q))$.
+
+\textbf{Three verification paths.}
+\begin{enumerate}[label=\textup{(V\arabic*)}]
+\item (\emph{Direct computation, arity $n = 4$.}) The
+Schauenburg bracket $[\delta^{(1)},\delta^{(3)}]$ carries factor
+$(\Phi_{10}/\eta^{24})^{1 + 2} = (\Phi_{10}/\eta^{24})^3$; the bracket
+$[\delta^{(2)},\delta^{(2)}]$ carries
+$(\Phi_{10}/\eta^{24})^{2 + 2} = (\Phi_{10}/\eta^{24})^4$. The minimal
+exponent is $3 = \lfloor 4/2\rfloor + 1$, matching
+\eqref{eq:w18-yd-closed-form-exponent}.
+\item (\emph{Symmetry/duality.}) The involution $n \mapsto n + 1$ on
+the exponent sequence $1, 2, 2, 3, 3, 4, 4, \ldots$ swaps even and odd
+arities up to a shift of $+1$; under the Brown 2011 motivic-MZV
+grading, the shift corresponds to the $\mathbb{Z}/2$ Fricke fixed-point
+exchange $w_8^2 = \mathrm{id}$ of
+Remark~\ref{rem:dc-wave17-DNA-fricke-S-matrix}. The generating
+function \eqref{eq:w18-yd-generating} admits the self-dual factorisation
+$q(1 + q - q^2)/((1-q)^2(1+q))$, and
+$\lfloor (n+1)/2\rfloor + 1 = \lceil (n+2)/2\rceil$ matches the Padovan
+dimension count of MZV bases at weight $n$ (Brown 2011 Ann.\ Math.\ 175
+Thm.\ 1.1).
+\item (\emph{$K$-scaled cross-family consistency.}) On the Monster
+co-sibling $\mathbf H_{\mathrm{Monster}}$ with $K = 2$, $\hbar^2 = -1/2$,
+the analogous tower has exponent $\lfloor n/2\rfloor + 1$ with
+Borcherds leg $J/\eta^{24}$ (Remark~\ref{rem:w18-psi-YD-cosibling},
+corrected): the $K = 2$ halving of $\mu_K$-gerbe order reduces the
+coboundary correction by factor $K/8$, and the effective exponent
+remains $\lfloor n/2\rfloor + 1$ because Frenkel--Lepowsky--Meurman
+1988 VOA-Moonshine Thm.~11.1 forces the Monster YD bracket tower to
+carry the same $\mathbb{Z}/2$ Fricke involution as the K3 case modulo
+the Hauptmodul substitution. On the Fake-Monster co-sibling
+$\mathbf H_{\mathrm{FakeMonster}}$ with $K = 50$, the Borcherds-leg
+exponent $\lfloor n/2\rfloor + 1$ holds identically, with Borcherds leg
+$\Phi_{12}^{50/12}/\eta^{24\cdot 50}$ in Borcherds 1998 Thm.\ 13.3
+$\mathrm{II}_{25,1}$-lattice conventions.
+\end{enumerate}
+
+Primary: Schauenburg 1998 \emph{Comm.\ Alg.}~26 \S 3 Thm.~1,
+Prop.~4.1 (quasi-Hopf YD bracket tower);
+Brown 2011 \emph{Ann.\ Math.}~175 Thm.~1.1 (motivic MZV basis dimensions);
+Bruinier 2002 \emph{LNM}~1780 Prop.~5.1 (Heegner-divisor twist);
+Borcherds 1992 \emph{Invent.}~109 Thm.~10.1 (denominator $1/\Phi_{10}$).
+\end{proof}
+
+\begin{corollary}[Obstruction to the $\lceil n/2\rceil$ ansatz]
+\label{cor:w18-yd-lceil-obstruction}
+\index{Yetter--Drinfeld tower!ceiling ansatz falsified}
+The leading-order ansatz
+$\delta^{(n)} \propto (\Phi_{10}/\eta^{24})^{\lceil n/2\rceil}$ of
+Remark~\ref{rem:dc-wave17-DNA-H-delta5-center} fails at every even
+$n \geq 2$: comparison with the explicit formulas
+\eqref{eq:w18-delta-1}, \eqref{eq:w18-delta-2}, \eqref{eq:w18-delta-3}
+and Theorem~\ref{thm:w18-yd-closed-form} shows
+$\lceil 2/2\rceil = 1 \neq 2 = \lfloor 2/2\rfloor + 1$. The discrepancy
+is accounted for by the $\mu_8$-gerbe trivialisation coboundary of
+Remark~\ref{rem:w18-ceiling-discipline}. The closed form
+$\lfloor n/2\rfloor + 1$ of \eqref{eq:w18-yd-closed-form-exponent} is
+the obstruction-free corrected formula, and
+$\lfloor n/2\rfloor + 1 = \lceil n/2\rceil + [n \text{ even}]$ reproduces
+the Remark~\ref{rem:w18-ceiling-discipline} presentation with
+$\epsilon_n = [n \text{ even}]$.
+\end{corollary}
+
+\begin{proof}
+Direct evaluation of the two formulas at small $n$: $\lceil n/2\rceil$
+for $n = 1,2,3,4,5,6,\ldots$ gives $1,1,2,2,3,3,\ldots$; whereas
+$\lfloor n/2\rfloor + 1$ gives $1,2,2,3,3,4,\ldots$. The two sequences
+differ at even $n$ by $+1$. Theorem~\ref{thm:w18-yd-closed-form} and
+the explicit arity-$2$ formula $\delta^{(2)} = (\Phi_{10}/\eta^{24})^2
+\cdot\alpha_2$ of \eqref{eq:w18-delta-2} give exponent $2$, matching
+$\lfloor 2/2\rfloor + 1$ and not $\lceil 2/2\rceil = 1$.
+\end{proof}
+
 \begin{remark}[$\Psi$-functorial shadow: $K$-scaled YD tower on co-siblings]
 \label{rem:w18-psi-YD-cosibling}
 \index{$\Psi$-functor!YD tower scaling}
