@@ -104,6 +104,72 @@ verification paths for numerics.
 6. This file.
 7. Memory.
 
+## Writing standard: Chriss–Ginzburg north star
+
+The manuscript prose is written in the Chriss–Ginzburg voice,
+channelling simultaneously the Russian elite mathematical school ---
+Gelfand, Manin, Drinfeld, Arnold, Beilinson, Bernstein, Kapranov,
+Etingof, Kazhdan, Kontsevich, Soibelman, Bezrukavnikov --- and the
+mathematical physics elite --- Polyakov, Nekrasov, Witten, Costello,
+Gaiotto, Moore, Segal. **Show don't tell.** Do not narrate. Construct
+the mathematics directly and let the synthesis of disparate technical
+domains (algebra + geometry, physics + mathematics, operads +
+representation theory, Hodge theory + automorphic forms) bring out
+the inner music of the subject.
+
+**Forbidden in manuscript prose** (reader-facing `.tex` in `chapters/`,
+`frame/`, `examples/`, `theory/`, `connections/`, `bibliography/`):
+
+- Bookkeeping vocabulary of any kind. No "Wave N", no "round M",
+  no "batch K", no "DNA strand S$x$", no "AP-CY$n$", no
+  "antipattern $n$", no "Pattern $n$", no "cache entry $n$",
+  no "CG-rectify pass $k$", no "$\mathsf{HZ}$-$n$ inscription".
+  These belong in `notes/`, `FRONTIER.md`, commit messages, and
+  the local `memory/` --- never in the manuscript.
+- Meta-narration of the author's intent: "we now turn to",
+  "having established", "let us now", "this brings us to",
+  "it is worth noting", "notably", "crucially", "remarkably",
+  "furthermore", "moreover", "in the present work", "this preface's
+  role is to". Delete every instance; replace with direct mathematical
+  statements.
+- Hedging the mathematics does not earn. If the identification
+  $X = Y$ is proved, write "$X = Y$"; do not write "$X$ is closely
+  related to $Y$". Courage, after Drinfeld and Polyakov and Nekrasov:
+  the equals sign is a theorem, not a suggestion.
+
+**Required** (the CG standard):
+
+- Every section and subsection title names a mathematical object,
+  construction, theorem, or question --- never a process, wave,
+  round, or meta-organising device.
+- Every definition is preceded within ten lines by the question
+  or obstruction it answers. The reader feels "of course" before
+  the definition arrives.
+- Every symbol is defined at or before first use, with a
+  parenthetical first-principles definition for standard concepts
+  (D-module, Ran space, FM compactification, Hodge bundle,
+  $L_\infty$-algebra, Kuga--Satake, Humbert divisor).
+- Every physical claim is labelled: theorem, heuristic, or
+  metaphor. When a physical identification can be stated as a
+  theorem, state it as a theorem; do not hide the content as an
+  "analogy".
+- **Economy.** Every word carries weight. A paragraph that can be
+  one sentence is one sentence.
+- At every section boundary, three sentences: (1) what was just
+  established; (2) the question or obstruction the next section
+  resolves; (3) the construction or theorem that resolves it.
+  These sentences are *mathematics*, not signposts.
+
+The reader is an equal who sees the force of the argument when it
+is stated with sufficient precision. The prose does not explain
+mathematics; it *is* mathematics, carrying the same logical force
+as the displayed equations.
+
+This rule is retroactive and forward-looking. Existing manuscript
+prose containing bookkeeping vocabulary is to be rectified chapter
+by chapter through the `chriss-ginzburg-rectify` skill; new prose
+is to be written in the CG voice from the first keystroke.
+
 ## How to work
 
 **$\kappa$ values come from the subscripted source.** Bare $\kappa$ is

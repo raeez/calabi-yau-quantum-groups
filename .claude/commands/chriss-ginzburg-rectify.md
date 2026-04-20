@@ -72,6 +72,25 @@ A page of this monograph should feel like sitting in Gelfand's seminar while Dri
 
 The tension between them is the engine. The resolution of each tension, on each page, is what produces mathematics at this level.
 
+### Bookkeeping vocabulary: absolutely prohibited in manuscript prose
+
+The manuscript is not a project log. No reader-facing `.tex` in `chapters/`, `frame/`, `examples/`, `theory/`, `connections/`, or `bibliography/` may contain ANY of the following, in section titles, subsection titles, remark titles, labels (the cosmetic portion), or body prose:
+
+- **Session/workflow markers**: "Wave N", "round M", "batch K", "phase $j$", "session $k$", "main-thread pass", "deepening round", "hook cascade". The manuscript does not know what session produced it.
+- **DNA / strand naming**: "Wave 13 DNA perspective", "Wave 13 base point", "Wave 14 compute module", "DNA strand S$x$", "Wave N~insists", "Wave N exhibits", "Wave N sharpening", "Wave-N witnessing". These are planning-layer constructs; they do not survive the reader.
+- **Catalogue IDs**: "AP-CY$n$", "AP$n$", "antipattern $n$", "Pattern $n$", "HZ-$n$", "MP$n$", "cache entry $n$", "CG-rectify pass $k$". Catalogue IDs live in the AP catalogue (`notes/` or `chapters/appendix/`), not in the body of a theorem, remark, or section.
+- **Author self-reference**: "in the present work", "the author", "our programme", "we have argued", "it is worth noting". The reader is not a spectator of the author.
+- **Meta-narration of editorial state**: "this chapter's function is to", "this preface's role is to", "this section sharpens", "this preface's hidden axis", "this remark provides the stronger statement". Write the mathematics, delete the meta-narration.
+
+When found during rectification, these are deleted on sight. **Replace with direct mathematical prose.** Section titles name mathematical objects, constructions, theorems, or questions, not processes. "Wave 13 DNA perspective" is never a valid title. "The K3 chiral Hall--Drinfeld double as a fourth Etingof--Kazhdan taxon" is.
+
+The voice to channel, simultaneously, all at once:
+
+- **Russian elite school**: Gelfand, Manin, Drinfeld, Arnold, Beilinson, Bernstein, Kapranov, Etingof, Kazhdan, Kontsevich, Soibelman, Bezrukavnikov, Nekrasov, Polyakov.
+- **Mathematical physics elite**: Witten, Costello, Gaiotto, Moore, Segal.
+
+*Show don't tell. Don't narrate. Construct the mathematics directly. Synthesize deep disparate domains* (algebra + geometry, physics + mathematics, operads + representation theory, Hodge theory + automorphic forms, arithmetic + quantum field theory) *to bring out the inner music of the subject.* The prose does not explain mathematics; it IS mathematics, carrying the same logical force as the displayed equations.
+
 ---
 
 ## THE PROGRAMME
@@ -378,6 +397,24 @@ WHILE cursor < end of file:
             - No dashes where colons or periods suffice.
             - No AI slop of any kind.
             - Standard: Kac, Etingof, Bezrukavnikov, Gelfand.
+            - BOOKKEEPING SCRUB (HARD). Delete on sight:
+              * Session/workflow markers: "Wave N", "round M",
+                "batch K", "phase j", "main-thread", "deepening".
+              * DNA/strand naming: "Wave 13 DNA perspective",
+                "Wave 13 base point", "Wave 14 compute module",
+                "DNA strand Sx", "Wave N insists/exhibits/sharpens".
+              * Catalogue IDs in prose: "AP-CY<n>", "AP<n>",
+                "Pattern <n>", "HZ-<n>", "MP<n>", "cache entry <n>".
+                These belong in the AP catalogue, not in theorem/
+                remark/section bodies.
+              * Section/subsection/remark titles containing any
+                bookkeeping term are INVALID. Rename to name the
+                mathematical object/construction/theorem.
+              * Author self-reference: "in the present work",
+                "the author", "this chapter's function is to",
+                "this preface's role is to", "this remark provides".
+              When found, delete the wrapper and replace with direct
+              mathematical prose.
         
         (f) OPENING (first chunk only). If the chapter opens with a
             summary dump (conclusions before constructions): delete it.
