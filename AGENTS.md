@@ -177,3 +177,33 @@ cd ~/calabi-yau-quantum-groups && make fast
 6. Read legacy files whole — grep by AP-CY index.
 7. Confuse this file with a configuration manual. Mathematician's
    manifesto.
+
+## Branch and worktree reconciliation -- DEEP SEMANTIC MERGES ONLY
+
+When branches or worktrees differ, ALWAYS perform a **deep semantic
+merge** to reconcile them. **NO EXCEPTIONS.**
+
+- Never discard one side of a divergence without reading it.
+- Never `git reset --hard`, `git checkout --`, or `git restore` to
+  clobber work as a shortcut to resolve conflict.
+- Never force-push to obliterate upstream divergence.
+- Read both sides in full, understand what each side uniquely
+  contributes, and construct a merged result that preserves the
+  mathematical content, prose improvements, and structural refinements
+  from **both** sides. When a line-level conflict is semantic
+  (e.g., a theorem statement reworded), merge at the semantic level --
+  pick the stronger statement, the tighter citation, the more rigorous
+  proof -- not at the diff-hunk level.
+- When unclear which side is stronger on a given hunk, read both in
+  context. Do not guess.
+
+Applies to: `git pull`, `git merge`, worktree reconciliation, cherry-picks
+across branches, rebase conflicts, and any divergence between local and
+upstream (including push rejections where upstream has new commits).
+
+**Rationale:** work loss in this programme is irrecoverable -- chapters
+represent weeks of adversarial-swarm output, elite-voice synthesis, and
+primary-literature audit. A shallow "accept theirs" / "accept ours" is
+never the right answer. Deep semantic merges take longer but are the
+only operation consistent with Beilinson's dictum and the golden rule
+"NEVER CUT CONTENT".
