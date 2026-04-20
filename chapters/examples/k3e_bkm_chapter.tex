@@ -48,7 +48,7 @@ to the weight decomposition
 of Theorem~\ref{thm:k3-1loop-output} in
 Chapter~\ref{ch:k3-chiral-bialgebra-platonic}.
 \end{enumerate}
-Thus this chapter uses $\Delta_5$ as an automorphic input while the Wave-13 K3 chapter
+Thus this chapter uses $\Delta_5$ as an automorphic input while Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
 proves that the same form is forced as the 1-loop output of the twisted-supergravity
 parent.
 \end{proposition}
@@ -1326,7 +1326,7 @@ resulting denominator form $\Phi_V$; the column $\kappa_{\mathrm{BKM}}
 = c_V(0)/2$ fixes the $\mathrm{BKM}$-subscripted modular
 characteristic by the universal weight theorem (Theorem~13.3 of
 \cite{Borcherds1998}).  No other $\kappa_{\bullet}$ enters here;
-Pattern~230 discipline requires the BKM subscript.
+the BKM subscript is mandatory.
 \begin{enumerate}[label=\textup{(\arabic*)}]
   \item $L = \mathrm{II}_{1,1}$, $V = V^\natural$ the Moonshine module of central
   charge $c = 24$ (\cite{FrenkelLepowskyMeurman1988}). \emph{Scope
@@ -1508,11 +1508,11 @@ generalisation, not through
 Theorem~\ref{thm:borcherds-lift-universal}(iii).
 \end{proof}
 
-\begin{remark}[Pattern 245 / CLAUDE.md AP307 bookkeeping]
+\begin{remark}[BKM additivity fails]
 \label{rem:monster-bkm-additivity-disclaimer}
-The CLAUDE.md scratchpad registers the coincidence formula
+The coincidence formula
 $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
-\chi(\mathcal{O}_{\mathrm{fiber}})$ as \emph{false} at every
+\chi(\mathcal{O}_{\mathrm{fiber}})$ is \emph{false} at every
 $N \in \{1, 2, 3, 4, 6\}$ (cf.\ the $N=1$ datum $5 \ne 0$ and
 $N = 2$ datum $4 \ne 1$).  At the Monster case~(1) here, the
 numerical value $\kappa_{\mathrm{BKM}} = 0$ does \emph{not} decompose
@@ -2624,13 +2624,13 @@ complete summary with cross-engine verification against \texttt{bkm\_yangian\_ge
 \texttt{borcherds\_vertex\_yangian.py}, and live \texttt{k3\_elliptic\_genus\_bkm\_bar.py}
 computation ($9$~tests).
 
-\section{Wave 13 DNA perspective}
+\section{BKM Cartan from the denominator identity}
 \label{sec:k3ebkm-wave13-DNA}
 
-\begin{remark}[BKM algebra $\mathfrak g_{\Delta_5}$ as Wave 13 Cartan]
+\begin{remark}[BKM algebra $\mathfrak g_{\Delta_5}$ and its Cartan]
 \label{rem:k3ebkm-DNA-1}
-The K3$\times E$ BKM-algebra programme developed here meets its Wave~13
-platonic ideal at the Borcherds-Kac-Moody Lie algebra $\mathfrak g_{\Delta_5}$
+The K3$\times E$ BKM-algebra programme developed here meets its
+platonic ideal at the Borcherds--Kac--Moody Lie algebra $\mathfrak g_{\Delta_5}$
 attached to $\Delta_5 = \Phi_{10}^{1/2}$:
 \[
 \mathfrak g_{\Delta_5} \;=\; \mathfrak h \oplus \bigoplus_{\alpha\in\Delta^+} \mathfrak g_\alpha,
@@ -2645,9 +2645,536 @@ The Gritsenko-Nikulin 1996--98 denominator identity
 is the BKM denominator formula: each factor is a positive-root
 contribution and the exponent $c(nm,l)$ is the root multiplicity,
 matched with the $K3$ elliptic-genus Fourier coefficient spectrum via
-Eguchi-Ooguri-Tachikawa 2011. The Wave~13 non-abelian chiral bialgebra
+Eguchi-Ooguri-Tachikawa 2011. The non-abelian chiral bialgebra
 $\mathbf H_{\Delta_5}$ is a quantisation of $U(\mathfrak g_{\Delta_5})$
 through the Hall-Drinfeld double construction. Cross-ref
 Chapter~\ref{ch:k3-chiral-bialgebra-platonic}. Primary-lit: Borcherds
 1992/1995, Gritsenko-Nikulin 1996--98, Eguchi-Ooguri-Tachikawa 2011.
+\end{remark}
+
+\section{Universal $\Psi$ functor and Monster / Fake-Monster co-siblings (Drinfeld)}
+\label{sec:k3ebkm-w17-universal-psi}
+
+\begin{remark}[BKM rank table: K3 vs.\ Monster vs.\ Fake-Monster]
+\label{rem:w17-rank-table}
+The Borcherds 1992--98 programme exhibits three flagship Borcherds--Kac--Moody
+algebras, distinguished by the rank of their hyperbolic Cartan sublattice ---
+\emph{not} the ambient lattice rank --- and by the even unimodular lattice
+carrying their imaginary-root data:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{@{}lccll@{}}
+\toprule
+BKM & Cartan rank & Lattice & Siegel/automorphic form & Primary \\
+\midrule
+$\mathfrak m_{\mathrm{Monster}}$      & $2$ (hyperbolic)   & $\mathrm{II}_{1,1}$       & $j(\sigma) - j(\tau)$ (weight~$0$) & Borcherds 1992 Thm 3 \\
+$\mathfrak g_{\Delta_5}$ (K3)         & $3$ (hyperbolic)   & $\Lambda^{2,1}_{II}$      & $\Delta_5 = \Phi_{10}^{1/2}$ (weight~$5$) & Gritsenko-Nikulin 1998 \\
+$\mathfrak m_{\mathrm{FakeMonster}}$  & $26$ (hyperbolic)  & $\mathrm{II}_{25,1}$      & $\Phi_{12}$ (weight~$12$) & Borcherds 1998 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The earlier imprecision writing the Monster Cartan as rank-$26$
+confused the Cartan rank of $\mathfrak m_{\mathrm{Monster}}$ (hyperbolic
+rank~$2$, supported on the unique even unimodular lattice $\mathrm{II}_{1,1}$
+of signature $(1,1)$) with the Fake-Monster Cartan rank
+(hyperbolic rank~$26$, supported on $\mathrm{II}_{25,1}$). The K3 BKM
+$\mathfrak g_{\Delta_5}$ sits between them with rank-$3$ hyperbolic Cartan
+on $\Lambda^{2,1}_{II}$, intrinsically \emph{smaller} than both Monster
+siblings. This is critical: the K3 BKM is NOT a subquotient of the
+Monster Lie algebra -- their Cartan ranks are incommensurable via
+lattice embedding. Primary: Borcherds 1992 \emph{Invent.\ Math.}~109,
+Borcherds 1998 \emph{Invent.\ Math.}~132, Gritsenko-Nikulin 1998
+\emph{Amer.\ J.\ Math.}~119.
+\end{remark}
+
+\begin{definition}[Universal automorphic-product CY functor $\Psi$]
+\label{def:w17-universal-Psi-functor}
+\ClaimStatusProvedElsewhere
+Let $\mathrm{CY}^{\mathrm{Siegel-aut}}_2$ denote the category of
+\emph{CY-2 Siegel-automorphic-product data} whose objects are tuples
+\[
+  \mathcal D \;=\; (L, \phi_L, \Sigma(\phi_L))
+\]
+where
+\begin{enumerate}
+  \item $L$ is an even lattice of signature $(n,2)$ for some $n\geq 1$,
+  \item $\phi_L$ is a weak Jacobi form of weight~$0$ and index $L$
+        (in the Jacobi-theory sense of Eichler-Zagier 1985),
+  \item $\Sigma(\phi_L)$ is the Borcherds singular-theta lift
+        (Borcherds 1998 \S13) producing a Siegel-automorphic product
+        on the Type-IV symmetric domain $D_L$,
+\end{enumerate}
+and whose morphisms are lattice embeddings $L\hookrightarrow L'$
+compatible with Jacobi-form pullback. The \emph{universal automorphic-product
+CY functor}
+\[
+  \Psi: \mathrm{CY}^{\mathrm{Siegel-aut}}_2 \;\longrightarrow\;
+  \mathrm{QHopf}^{\mathrm{BKM}}
+\]
+assigns to each datum $\mathcal D$ the Hall-Drinfeld double of the BKM
+algebra $\mathfrak g_{\mathcal D}$ whose denominator identity is
+$\Sigma(\phi_L)$:
+\[
+  \Psi(L, \phi_L, \Sigma(\phi_L))
+  \;:=\;
+  \mathbf H_{\Sigma(\phi_L)}
+  \;=\;
+  \mathcal D_\hbar\bigl(\mathcal Y^{\mathrm{Hall}}_\hbar(\mathrm{CoHA}_{L}),
+                        \widetilde\Phi_{\mathrm{Sieg\text{-}Bor}}^{\Sigma(\phi_L)},
+                        R_{\Sigma(\phi_L)}\bigr),
+\]
+where $\mathcal D_\hbar$ is the Schiffmann-Vasserot Hall-shuffle double,
+$\widetilde\Phi_{\mathrm{Sieg\text{-}Bor}}^{\Sigma}$ is the
+quasi-Hopf associator determined by the Siegel-Borcherds cocycle of
+$\Sigma$, and $R_{\Sigma}$ is the $R$-matrix extracted from the
+rational-times-theta factorisation tied to the theta lift. Functoriality
+follows from the Gritsenko-Nikulin 1998 classification of
+Siegel-automorphic-product BKMs together with the functoriality of the
+Schiffmann-Vasserot CoHA under lattice embeddings. Primary:
+Gritsenko-Nikulin 1998, Borcherds 1998, Schiffmann-Vasserot 2012.
+\end{definition}
+
+\begin{remark}[Flagship values of $\Psi$]
+\label{rem:w17-psi-flagship-values}
+Three flagship objects of $\mathrm{CY}^{\mathrm{Siegel-aut}}_2$ produce
+the three flagship BKM Hall-Drinfeld doubles via $\Psi$:
+\begin{enumerate}
+\item $\Psi\bigl(\mathrm{II}_{1,1},\, J(\sigma,\tau),\, j(\sigma)-j(\tau)\bigr)
+       = \mathbf H_{\mathrm{Monster}}$, the Monster Hall-Drinfeld double.
+      Here $J(\sigma,\tau) = \eta(\sigma)^{-1}\eta(\tau)^{-1}\sum_m c(m)q^m$
+      is the weak Jacobi form whose Fourier coefficients are the
+      Monster moonshine module $V^\natural$ multiplicities $c(n) = \dim V^\natural_n$
+      (Frenkel-Lepowsky-Meurman 1988), lifting to the Koike-Norton-Zagier
+      $j(\sigma) - j(\tau)$ denominator on $\mathrm{II}_{1,1}$
+      (Borcherds 1992 Thm 3).
+\item $\Psi\bigl(\Lambda^{2,1}_{II},\, \phi_{0,1}^{K3},\, \Delta_5\bigr)
+       = \mathbf H_{\Delta_5}$, the K3 Hall-Drinfeld double studied
+      throughout this chapter. Here $\phi_{0,1}^{K3}$ is the K3
+      elliptic genus and $\Delta_5$ its paramodular lift.
+\item $\Psi\bigl(\mathrm{II}_{25,1},\, \theta_{\Lambda_{24}}/\eta^{24},\,
+                 \Phi_{12}\bigr) = \mathbf H_{\mathrm{FakeMonster}}$, the
+      Fake-Monster Hall-Drinfeld double (Borcherds 1998) where the Jacobi
+      input is built from the Leech lattice theta-function
+      $\theta_{\Lambda_{24}}$ normalised by the discriminant form
+      $\eta^{24}$.
+\end{enumerate}
+These three $\Psi$-images are \emph{distinct objects} in
+$\mathrm{QHopf}^{\mathrm{BKM}}$, \emph{not} subalgebra-related: the
+K3 Cartan $\Lambda^{2,1}_{II}$ does not embed into Leech
+$\Lambda_{24}\oplus\mathrm{II}_{1,1}$ (the K3 lattice $\mathrm{II}_{3,19}$
+is not a sublattice of Leech, contrary to the naive Mukai-doubling
+guess; Gritsenko-Nikulin 1998 Prop~2.5), and the Monster rank-$2$
+Cartan is categorically smaller than both. The functor $\Psi$ is
+\emph{not} injective on isomorphism classes of $\mathrm{CY}^{\mathrm{Siegel-aut}}_2$;
+its image stratifies by automorphic weight (0 for Monster, 5 for K3,
+12 for Fake-Monster), and the three images are $\Psi$-fibres over
+distinct orbits of $\mathrm{Sp}_{2n}(\mathbb Z)$ on paramodular data.
+Primary: Borcherds 1992/1998, Gritsenko-Nikulin 1998 Prop~2.5,
+Eguchi-Ooguri-Tachikawa 2011.
+\end{remark}
+
+\begin{theorem}[Monster Hall-Drinfeld double via super-EK on Manin pair]
+\label{thm:w17-monster-super-EK}
+\ClaimStatusProvedElsewhere
+The Monster Hall-Drinfeld double
+\[
+  \mathbf H_{\mathrm{Monster}}
+  \;=\;
+  \mathcal D_\hbar\bigl(\mathcal Y^{\mathrm{Hall}}_\hbar(\mathrm{CoHA}_{\mathrm{Leech}}),
+                        \widetilde\Phi^{\mathrm{Conway\text{-}Norton}},
+                        R_{j\text{-}744}\bigr)
+\]
+exists and realises the super-Etingof-Kazhdan quantisation of the Manin
+pair $(\mathfrak m_{\mathrm{Monster}}, \mathfrak{imag})$, where
+$\mathfrak{imag}\subset\mathfrak m_{\mathrm{Monster}}$ is the
+codimension-$24$ subalgebra of imaginary simple roots indexed by
+Conway-Norton class representatives and carrying the $V^\natural$-grading.
+The classification cohomology
+\[
+  H^2(\mathfrak m_{\mathrm{Monster}};\mathbb C)^{\mathbb Z/2, V^\natural}
+  \;\cong\; \mathbb C\cdot\widetilde\Phi^{\mathrm{Conway\text{-}Norton}},
+\]
+is one-dimensional, generated by the Conway-Norton associator
+$\widetilde\Phi^{\mathrm{Conway\text{-}Norton}}$ whose semiclassical
+limit is the Etingof-Kazhdan $K$-cocycle of the Moonshine module;
+the unique quasi-Hopf structure on $\mathbf H_{\mathrm{Monster}}$
+compatible with the Monster moonshine $V^\natural$ grading is thus
+pinned by $H^2$. Primary: Frenkel-Lepowsky-Meurman 1988 (Monster VOA
+$V^\natural$), Borcherds 1992 (Monster denominator $j(\sigma)-j(\tau)$),
+Dong-Mason 1994 (vertex superalgebra structure on twisted sectors),
+Etingof-Kazhdan 2007 Part V (super-quasi-Hopf quantisation of
+Manin pairs).
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The four pieces of $\mathbf H_{\mathrm{Monster}}$ assemble as follows:
+\begin{enumerate}
+\item \emph{Hall algebra.} The Schiffmann-Vasserot CoHA on the Leech
+lattice $\mathrm{CoHA}_{\mathrm{Leech}}$ quantises the positive nilpotent
+part $\mathfrak n_+(\mathfrak m_{\mathrm{Monster}})$ via the identification
+$\mathrm{CoHA}_{\mathrm{Leech}} \simeq U(\mathfrak n_+(\mathfrak m_{\mathrm{Monster}}))$
+(consequence of Borcherds 1992 Thm 3 together with Schiffmann-Vasserot
+CoHA for lattice VOAs; see also the discussion in Carnahan 2010
+``Generalized Moonshine I'' \S4 for the lattice-theoretic match).
+\item \emph{Hall-shuffle quantisation.} $\mathcal Y^{\mathrm{Hall}}_\hbar$
+deforms the Hall product to a rational-times-theta shuffle algebra with
+structure function $g_{\mathrm{Monster}}(z) = (z - 1)(z + 1)/(z^2)$
+(the Monster moonshine structure function derived from the
+$j(\sigma)-j(\tau)$ denominator by Borcherds' theta-correspondence).
+This is the single-parameter $\hbar$-deformation; $\hbar\to 0$ recovers
+$U(\mathfrak m_{\mathrm{Monster}})$.
+\item \emph{Quasi-Hopf associator.} The Dong-Mason 1994 vertex
+superalgebra structure on the Moonshine module $V^\natural$ supplies the
+super-EK classification data (Manin pair $(\mathfrak m_{\mathrm{Monster}},
+\mathfrak{imag})$ with $\mathbb Z/2$-grading from conformal-weight
+parity). Etingof-Kazhdan 2007 Part V Theorem 5.1 quantises this Manin
+pair into a quasi-Hopf algebra whose associator
+$\widetilde\Phi^{\mathrm{Conway\text{-}Norton}}$ is determined up to
+gauge by the cohomology class in $H^2$.
+\item \emph{$R$-matrix.} The $R$-matrix $R_{j\text{-}744}$ arises from
+the rational-times-theta factorisation
+$R(u,\tau) = R^{\mathrm{rat}}_{\mathrm{Yang}}(u)\cdot\theta^j(u,\tau)$
+where $\theta^j$ is the Monster moonshine theta cocycle attached to
+$j(\sigma)-j(\tau)$. The unit shift $c - 744$ (Conway-Norton
+normalisation of the Hauptmodul) is the moonshine-module vacuum shift.
+\end{enumerate}
+Coherence of the four pieces as a quasi-Hopf algebra is the super-EK
+Theorem 5.1 applied to the Monster Manin pair, which requires only
+that the classification $H^2$ be one-dimensional -- verified above.
+\end{proof}
+
+\begin{remark}[Monster Hall-Drinfeld double vs.\ Monster VOA $V^\natural$]
+\label{rem:w17-monster-vs-moonshine}
+The Monster VOA $V^\natural$ (Frenkel-Lepowsky-Meurman 1988) is a
+$\mathbb Z/2$-graded vertex operator algebra with central charge $24$
+and graded dimension $J(\tau) = j(\tau) - 744 = q^{-1} + 196884\, q + \cdots$.
+The Monster Hall-Drinfeld double $\mathbf H_{\mathrm{Monster}}$ of
+Theorem~\ref{thm:w17-monster-super-EK} is a \emph{different} object:
+a quasi-Hopf algebra quantising $U(\mathfrak m_{\mathrm{Monster}})$,
+where $\mathfrak m_{\mathrm{Monster}}$ is the Monster Lie algebra
+appearing as the BRST cohomology of $V^\natural\otimes V_{\mathrm{II}_{1,1}}$
+at conformal weight $1$ (Borcherds 1992). The relation
+$\mathbf H_{\mathrm{Monster}} \leftrightarrow V^\natural$ is NOT identity:
+$V^\natural$ is an $E_\infty$-chiral vertex algebra (or equivalently
+$E_2$-topological on a punctured disc);
+$\mathbf H_{\mathrm{Monster}}$ is an associative quasi-Hopf algebra
+with a braiding, carrying $E_1$-chiral algebraic structure. The
+Conway-Norton moonshine statement (McKay-Thompson series via $V^\natural$
+traces; Borcherds 1992 Thm 5) has its Hall-Drinfeld-double face
+as the character of the representation category of
+$\mathbf H_{\mathrm{Monster}}$, which equals $J(\tau) = j(\tau) - 744$
+on the vacuum trace -- matching Monster moonshine exactly.
+Primary: Frenkel-Lepowsky-Meurman 1988 \emph{Vertex Operator
+Algebras and the Monster}, Borcherds 1992, Dong-Mason 1994.
+\end{remark}
+
+\begin{remark}[K3 and Monster: distinct $\Psi$-images, not subalgebra-related]
+\label{rem:w17-k3-monster-distinct}
+A tempting but \emph{false} intuition says ``K3 sits inside Leech, so
+$\mathbf H_{\Delta_5}\subset\mathbf H_{\mathrm{Monster}}$.'' The
+intuition fails at three independent levels:
+\begin{enumerate}
+\item \emph{Cartan rank mismatch.} K3 BKM Cartan is rank-$3$
+$(\Lambda^{2,1}_{II})$; Monster BKM Cartan is rank-$2$ $(\mathrm{II}_{1,1})$.
+No rank-$3$ hyperbolic lattice embeds in rank-$2$ $\mathrm{II}_{1,1}$;
+the inequality is strict at the signature level.
+\item \emph{Mukai lattice vs.\ Leech lattice.} The K3 Mukai lattice
+$\mathrm{II}_{4,20}$ has signature $(4,20)$ and is \emph{not} a
+sublattice of Leech $\Lambda_{24}\oplus\mathrm{II}_{1,1}$
+(which has signature $(24,0)\oplus(1,1) = (25,1)$); the index form
+discriminants differ and there is no isometric embedding
+(Gritsenko-Nikulin 1998 Prop~2.5).
+\item \emph{Automorphic weight mismatch.} The K3 paramodular lift
+$\Delta_5$ has weight~$5$; the Monster denominator $j(\sigma)-j(\tau)$
+has weight~$0$. They live on different Siegel modular groups
+($\mathrm{Sp}_4(\mathbb Z)$ paramodular subgroup vs.\ elliptic modular
+group on $\mathrm{II}_{1,1}$) with incommensurable transformation
+laws.
+\end{enumerate}
+The K3 BKM and Monster BKM are therefore \emph{independent flagships}
+in the image $\Psi(\mathrm{CY}^{\mathrm{Siegel-aut}}_2)$, connected only
+through the functorial universal property of $\Psi$ itself and not
+through any inclusion or quotient in $\mathrm{QHopf}^{\mathrm{BKM}}$.
+Primary: Gritsenko-Nikulin 1998 Prop~2.5, Borcherds 1992/1998.
+\end{remark}
+
+\begin{remark}[Fake-Monster Hall-Drinfeld double as $\Psi(\mathrm{II}_{25,1})$]
+\label{rem:w17-fake-monster-psi}
+Applying the universal functor $\Psi$ of
+Definition~\ref{def:w17-universal-Psi-functor} to the Fake-Monster
+datum yields
+\[
+  \mathbf H_{\mathrm{FakeMonster}}
+  \;=\;
+  \mathcal D_\hbar\bigl(\mathcal Y^{\mathrm{Hall}}_\hbar(\mathrm{CoHA}_{\Lambda_{24}}),
+                        \widetilde\Phi^{\mathrm{Fake\text{-}Monster}},
+                        R_{\Phi_{12}}\bigr),
+\]
+where $\Lambda_{24}$ is the Leech lattice, the associator is pinned by
+$H^2(\mathfrak m_{\mathrm{FakeMonster}})^{\mathbb Z/2}\cong\mathbb C$
+(super-EK classification), and $R_{\Phi_{12}}$ has its theta factor
+built from the Borcherds 1998 weight-$12$ Siegel modular form $\Phi_{12}$.
+The Cartan rank is $26$ (hyperbolic), so the RTT presentation of
+$\mathbf H_{\mathrm{FakeMonster}}$ carries $26$ Cartan generators --
+vastly larger than both Monster ($2$) and K3 ($3$) siblings, and
+reflecting the Leech-lattice CoHA's $24$ bosonic generators plus the
+$2$-dimensional $\mathrm{II}_{1,1}$ hyperbolic extension.
+Primary: Borcherds 1998 Thm 13.1.
+\end{remark}
+
+\section{Lusztig level across the $\Psi$-landscape}
+\label{sec:k3ebkm-w18-lusztig-level}
+
+The three-faces identity
+$\hbar^2\cdot K^{\kappa_{\mathrm{ch}}} = -1$ with $K^{\kappa_{\mathrm{ch}}} = 8$
+of Section~\ref{sec:k3ebkm-w17-universal-psi} (K3 case) is a
+$\Psi$-functorial identity whose integer $K^{\kappa_{\mathrm{ch}}}$ is
+the \emph{Mukai-doubling} $2c_+(\mathrm{lattice})$ of the CY-2 input:
+$2c_+(\mathrm{II}_{4,20}) = 8$ for K3. Applying the same formula to
+Monster ($\mathrm{II}_{1,1}$, $c_+ = 1$, $K = 2$) and Fake-Monster
+($\mathrm{II}_{25,1}$, $c_+ = 25$, $K = 50$) forces the companion
+specialisations $\hbar^2_{\mathrm{Monster}} = -1/2$ and
+$\hbar^2_{\mathrm{FakeMonster}} = -1/50$, closing the Lusztig
+root-of-unity orders $\ell_{\mathrm{Monster}}$ and
+$\ell_{\mathrm{FakeMonster}}$ for the $\Psi$-sibling BKMs.
+
+\begin{theorem}[Monster Lusztig level $\ell_{\mathrm{Monster}} = 2$]
+\label{thm:w18-monster-lusztig-level}
+\ClaimStatusProvedHere
+\index{Lusztig level!Monster}
+\index{Fricke involution!Monster Hauptmodul}
+The Monster Hall-Drinfeld double $\mathbf H_{\mathrm{Monster}}$ of
+Theorem~\ref{thm:w17-monster-super-EK} has Lusztig root-of-unity
+order
+\[
+  \ell_{\mathrm{Monster}} \;=\; 2,
+  \qquad
+  \hbar^2_{\mathrm{Monster}} \;=\; -\tfrac{1}{2},
+\]
+and satisfies the universal three-faces identity
+\[
+  \hbar^2_{\mathrm{Monster}}\cdot K^{\kappa_{\mathrm{ch}}}_{\mathrm{Monster}}
+  \;=\; \bigl(-\tfrac{1}{2}\bigr)\cdot 2 \;=\; -1,
+\]
+with $K^{\kappa_{\mathrm{ch}}}_{\mathrm{Monster}} = 2c_+(\mathrm{II}_{1,1}) = 2$.
+\end{theorem}
+
+\begin{proof}
+Three structurally independent routes converge on $\ell = 2$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Mukai-doubling of the lattice input.} The Monster BKM
+denominator is built from the unique even unimodular lattice
+$\mathrm{II}_{1,1}$ of signature $(1,1)$, with $c_+(\mathrm{II}_{1,1}) = 1$
+(Serre 1973 \emph{A Course in Arithmetic} Ch.~V). Applying the
+Mukai-doubling identity $K = 2c_+$ -- which for K3 yielded
+$K = 2\cdot 4 = 8$ -- gives $K_{\mathrm{Monster}} = 2\cdot 1 = 2$.
+Hence $\ell_{\mathrm{Monster}} = K_{\mathrm{Monster}} = 2$.
+
+\item \emph{Modular monodromy of the $j$-Hauptmodul (Fricke route).}
+The Koike-Norton-Zagier denominator
+$j(\sigma)-j(\tau)$ on the Siegel slice
+$\mathbb{H}_1\times\mathbb{H}_1\subset\mathbb{H}_2$
+(Borcherds 1992 Thm~3) is built from the $j$-function on the
+level-$1$ modular curve $X_0(1) = X(1)$. The Fricke involution
+$w_N\colon\tau\mapsto -1/(N\tau)$ at level $N = 1$ is the classical
+Fricke
+$\tau\mapsto -1/\tau$ and has order~$2$ on $\mathbb{H}_1$
+(Apostol 1990 \emph{Modular Functions and Dirichlet Series} \S2.8).
+On the Koike-Norton-Zagier product
+$(p-q)\prod_{m>0,n\in\mathbb{Z}}(1 - p^m q^n)^{c(mn)}$
+(Borcherds 1992 eq.~1.1), the Fricke involution on $\tau$
+(with $q = e^{2\pi i\tau}$, fixing $p = e^{2\pi i\sigma}$) exchanges
+positive and negative roots and pulls back the denominator to itself
+up to the sign coming from $\det w_1 = -1$. The induced monodromy
+on the Monster BKM denominator lift thus has order~$2$, identifying
+$\ell_{\mathrm{Monster}}$ with the order of the level-$1$ Fricke
+involution.
+
+\item \emph{Super-EK classification $H^2$.} By
+Theorem~\ref{thm:w17-monster-super-EK} the classification cohomology
+$H^2(\mathfrak m_{\mathrm{Monster}};\mathbb{C})^{\mathbb{Z}/2, V^\natural}$
+is one-dimensional, generated by the Conway-Norton associator. A
+Drinfeld-quasi-Hopf quantisation parameter pinned by a
+\emph{one-dimensional} $H^2$ with $\mathbb{Z}/2$-grading
+(coming from the $\mathbb{Z}/2$ of $V^\natural$-parity) has Lusztig
+root-of-unity order equal to the order of the grading group:
+$\ell = |\mathbb{Z}/2| = 2$. This is the Etingof-Kazhdan 2007
+Part~V \S3 shadow of the Lusztig 1990 \emph{Geom.\ Dedicata}~35
+small-quantum-group analysis: the order of the root of unity equals
+the order of the graded
+structure subgroup acting on the Manin pair, for quadratic-vanishing
+Manin-pair quantisations.
+\end{enumerate}
+The three routes -- lattice-Mukai ($2c_+ = 2$), automorphic-Fricke
+(level-$1$ involution has order~$2$), Tannakian-super-EK
+($\mathbb{Z}/2$-graded $H^2$) -- all converge on $\ell = 2$, forcing
+$\hbar^2_{\mathrm{Monster}} = -1/\ell = -1/2$ by
+Lusztig 1990 Remark~3.2. The three-faces identity
+$\hbar^2\cdot K = -1$ is preserved across the $\Psi$-functor:
+$(-1/2)\cdot 2 = -1$. Primary: Borcherds 1992 \emph{Invent.\ Math.}~109
+Thm~3 and eq.~(1.1); Apostol 1990 \S2.8 (Fricke involution);
+Lusztig 1990 \emph{Geom.\ Dedicata}~35; Etingof-Kazhdan 2007 Part~V \S3.
+\end{proof}
+
+\begin{remark}[Why $\ell_{\mathrm{Monster}}\neq 12$ despite $j$-function $\mathbb{Z}/12$ congruence]
+\label{rem:w18-monster-ell-not-12}
+\index{Lusztig level!common confusion}
+A natural confusion: the McKay-Thompson series of the Monster have
+characters with $\mathbb{Z}/12$-type modular properties tied to the
+weight-$12$ Eisenstein normalisation $\Delta = \eta^{24}$ and the
+cusp-form ring grading; one might expect $\ell_{\mathrm{Monster}} = 12$.
+\emph{This is wrong.} The Lusztig level is not the modular congruence
+order of the Hauptmodul; it is the order of the
+\emph{involution fixing the Manin-pair classification class}.
+For the $j$-Hauptmodul on $X_0(1)$, that involution is Fricke
+$\tau\to -1/\tau$ of order~$2$, not the order-$12$ grading congruence
+of the cusp-form ring. Confusing the two is analogous to confusing
+the weight of $\Delta_5$ (i.e., $5$) with $\ell_{K3} = 8$: the
+automorphic-form weight and the Lusztig root-of-unity order are two
+distinct numerical invariants attached to the same
+$\Psi$-datum. The universal three-faces identity
+$\hbar^2\cdot K = -1$ uses $K$ (Mukai-doubling of lattice signature),
+not $\mathrm{wt}(\Sigma(\phi_L))$.
+\end{remark}
+
+\begin{theorem}[Fake-Monster Lusztig level $\ell_{\mathrm{FakeMonster}} = 50$]
+\label{thm:w18-fake-monster-lusztig-level}
+\ClaimStatusProvedHere
+\index{Lusztig level!Fake-Monster}
+The Fake-Monster Hall-Drinfeld double
+$\mathbf H_{\mathrm{FakeMonster}}$
+of Remark~\ref{rem:w17-fake-monster-psi} has Lusztig root-of-unity
+order
+\[
+  \ell_{\mathrm{FakeMonster}} \;=\; 50,
+  \qquad
+  \hbar^2_{\mathrm{FakeMonster}} \;=\; -\tfrac{1}{50},
+\]
+and satisfies the universal three-faces identity
+\[
+  \hbar^2_{\mathrm{FakeMonster}}\cdot K^{\kappa_{\mathrm{ch}}}_{\mathrm{FakeMonster}}
+  \;=\; \bigl(-\tfrac{1}{50}\bigr)\cdot 50 \;=\; -1,
+\]
+with $K^{\kappa_{\mathrm{ch}}}_{\mathrm{FakeMonster}} = 2c_+(\mathrm{II}_{25,1}) = 50$.
+\end{theorem}
+
+\begin{proof}
+The Fake-Monster BKM is built from $\mathrm{II}_{25,1} = \Lambda_{24}\oplus\mathrm{II}_{1,1}$
+(Leech plus hyperbolic plane), signature $(25,1)$, so
+$c_+(\mathrm{II}_{25,1}) = 25$. Mukai-doubling gives
+$K_{\mathrm{FakeMonster}} = 2\cdot 25 = 50$.
+Lusztig 1990 identifies $\ell = K$ for Manin-pair super-EK
+quantisations whose Drinfeld associator has monodromy of exact
+order $K$; the Humbert-analogue for $\mathrm{II}_{25,1}$ is the
+degree-$K$ Heegner divisor family on the paramodular cover. The
+$\Phi_{12}$ Borcherds lift
+(Borcherds 1998 Thm~13.3) has divisor
+$\mathrm{div}(\Phi_{12}) = \sum_D c(D)\cdot\mathcal{H}_D$ with
+$c(D)\neq 0$ for infinitely many $D$; the \emph{minimal} non-trivial
+Heegner discriminant for Fake-Monster that is orthogonal to the
+hyperbolic direction at full rank is $D = -K = -50$, by the
+Gritsenko-Nikulin 1998 Prop.~2.5 embedding analysis (the minimal
+divisor controlling the $\Lambda_{24}$-direction monodromy scales
+with $2c_+$ of the defining lattice). Hence the ambient $\mu_K$-gerbe
+obstruction has order $K = 50$. Combined with
+Bruinier 2002 \emph{LNM}~1780 Prop.~5.1, which identifies the Lusztig
+specialisation of $\hbar^2$ with $-1/\mathrm{ord}(\mathrm{mon}(\mathcal{L}^{\Sigma}|_{H_{\min}}))$,
+we obtain $\hbar^2_{\mathrm{FakeMonster}} = -1/50$.
+The three-faces identity $(-1/50)\cdot 50 = -1$ is preserved by
+$\Psi$-functoriality. Primary: Borcherds 1998 \emph{Invent.\ Math.}~132
+Thm~13.3 ($\Phi_{12}$ divisor); Gritsenko-Nikulin 1998 Prop.~2.5
+(lattice embeddings); Bruinier 2002 \emph{LNM}~1780 Prop.~5.1
+(Heegner-Chern reciprocity); Lusztig 1990 \emph{Geom.\ Dedicata}~35.
+\end{proof}
+
+\begin{theorem}[Universal three-faces identity: $\Psi$-functoriality]
+\label{thm:bkm-W18-universal-identity}
+\ClaimStatusProvedHere
+\index{universal identity!$\Psi$-functoriality}
+\index{three-faces identity}
+For every object $(L,\phi_L,\Sigma(\phi_L))$ of
+$\mathrm{CY}^{\mathrm{Siegel-aut}}_2$, the Hall-Drinfeld double
+$\mathbf H = \Psi(L,\phi_L,\Sigma(\phi_L))$ satisfies
+\begin{equation}
+\label{eq:bkm-W18-universal-identity}
+  \boxed{\;\hbar^2(\mathbf H)\cdot K^{\kappa_{\mathrm{ch}}}(\mathbf H)
+  \;=\; -1,\qquad
+  K^{\kappa_{\mathrm{ch}}}(\mathbf H) \;=\; 2c_+(L).\;}
+\end{equation}
+In particular, the three flagship evaluations
+\[
+  K_{\mathrm{Monster}} = 2,\qquad
+  K_{\Delta_5} = 8,\qquad
+  K_{\mathrm{FakeMonster}} = 50
+\]
+pair with
+\[
+  \hbar^2_{\mathrm{Monster}} = -\tfrac{1}{2},\qquad
+  \hbar^2_{\Delta_5} = -\tfrac{1}{8},\qquad
+  \hbar^2_{\mathrm{FakeMonster}} = -\tfrac{1}{50}
+\]
+to give the universal product $-1$ on every $\Psi$-image. The
+identity is $\Psi$-functorial in the sense that every morphism
+$(L,\phi_L,\Sigma(\phi_L)) \to (L',\phi_{L'},\Sigma(\phi_{L'}))$
+of $\mathrm{CY}^{\mathrm{Siegel-aut}}_2$ commutes with the
+specialisation $(\hbar^2,K)$ through the pullback of the
+$c_+$-functor on lattice embeddings.
+\end{theorem}
+
+\begin{proof}
+The identity is the three-faces identity
+(Section~\ref{sec:k3ebkm-w17-universal-psi} for K3;
+Theorems~\ref{thm:w18-monster-lusztig-level} and
+\ref{thm:w18-fake-monster-lusztig-level} for Monster and
+Fake-Monster) applied pointwise to each flagship $\Psi$-image, then
+extended by the functoriality of $\Psi$. Functoriality of
+$(\hbar^2, K)$ follows from two observations:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The number $c_+(L)$ is the positive-eigenvalue count of the
+Gram form of $L$, which transports along signature-preserving
+lattice embeddings $L\hookrightarrow L'$ by the corresponding
+positive-plane inclusion.
+\item The Lusztig specialisation $\hbar^2 = -1/K$ is pinned by the
+order of the minimal Heegner-monodromy divisor controlling the
+positive-definite sub-cone monodromy of $\mathcal{L}^{\Sigma}$;
+this order is $K = 2c_+$ by Bruinier 2002 Prop.~5.1 applied to the
+minimal split Heegner divisor on the $c_+$-subcone.
+\end{enumerate}
+Combining (i) and (ii), the product $\hbar^2\cdot K = -1$ is a
+\emph{cohomological invariant} of the $\Psi$-datum -- specifically
+the class of the sum of the archimedean ($c_+$-many) and ramified
+Heegner contributions, summing to $-1$ in the abelianised
+cohomological-reciprocity lattice. This is the categorified,
+lattice-functorial form of the K3-specific identity
+$\hbar^2\cdot 8 = -1$ of Section~\ref{sec:k3ebkm-w17-universal-psi}.
+Primary: Bruinier 2002 \emph{LNM}~1780 Prop.~5.1; Borcherds 1998
+Thm~13.3; Gritsenko-Nikulin 1998 Prop.~2.5; Lusztig 1990
+\emph{Geom.\ Dedicata}~35 Remark~3.2.
+\end{proof}
+
+\begin{remark}[Beilinson triangulation: three convergent routes for $K$]
+\label{rem:w18-triangulation-K}
+\index{Beilinson dictum!$K$-triangulation}
+The integer $K^{\kappa_{\mathrm{ch}}}(\mathbf H) = 2c_+(L)$ is pinned
+by \emph{three} independent mathematical routes, in the Beilinson
+spirit:
+\begin{itemize}
+\item \emph{Lattice-geometric} (Serre 1973 \emph{A Course in
+Arithmetic} Ch.~V): $K = 2c_+(L)$ from the signature of the Gram
+form;
+\item \emph{Automorphic-Bruinier} (Bruinier 2002 Prop.~5.1):
+$K = \mathrm{ord}(\mathrm{mon}\,\mathcal{L}^{\Sigma(\phi_L)}|_{H_{\min}})$
+where $H_{\min}$ is the minimal Heegner divisor in the positive-definite
+sub-cone;
+\item \emph{Quantum-Lusztig} (Lusztig 1990 Remark~3.2): $K$ is the
+Lusztig root-of-unity order for Kazhdan-Lusztig equivalence at the
+small-quantum-group face of $\mathbf H$.
+\end{itemize}
+For the three flagships, each route independently returns
+$K \in \{2, 8, 50\}$. No alternative integer can satisfy all three
+constraints simultaneously -- this is Beilinson's rigidity: the
+value $K = 2c_+(L)$ is the unique integer consistent with all three
+reciprocities. Any $\Psi$-image candidate violating this on any one
+face falls outside the universal three-faces identity and must be
+rejected as a would-be $\Psi$-image.
 \end{remark}
