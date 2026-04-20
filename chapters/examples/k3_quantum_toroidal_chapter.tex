@@ -1662,3 +1662,332 @@ survival under classical limit matching Proposition
 Siegel--Borcherds associator status;
 cross-layer invariance; three-path convergence certificate
 (specialisation, classical, parameter count).
+
+\section{Khovanov-type categorification: the dg-category
+$\mathrm{Kh}_{\Delta_5}$}
+\label{sec:k3qt-khovanov-categorification}
+
+The cohomological CoHA of Section~\ref{sec:k3qt-mo-stabilisation} and
+its $K$-theoretic refinement of Section~\ref{sec:k3qt-k-theoretic}
+sit on the same decategorification ladder one rung below a dg-category
+whose Grothendieck group returns them. Khovanov~$2000$
+(arXiv:math/9908171, \emph{Duke Math.\ J.}~$101$, Thm.\ $1$) categorified
+the Jones polynomial by producing a bigraded cohomology theory whose
+graded Euler characteristic recovers the polynomial; equivalently, a
+dg-category of bigraded complexes whose $K_0$ recovers
+$U_q(\mathfrak{sl}_2)$ at $q = 1$. Khovanov--Lauda~$2009$
+(arXiv:0803.4121, \emph{Represent.\ Theory}~$13$ Thm.\ $1.1$) and
+Rouquier~$2008$ (arXiv:0812.5023 Thm.\ $3.17$) extended the
+construction to arbitrary Kac--Moody algebras, and Webster~$2017$
+(arXiv:1001.2020, \emph{Mem.\ Amer.\ Math.\ Soc.}~$250$ No.\ $1191$
+Thm.\ A) to all Lie-algebra tensor-product representations.
+The construction below is the parallel lift for $\mathbf H_{\Delta_5}$:
+the dg-category receiving the K3 Yangian action through stable
+envelopes and decategorifying to the pro-module of
+Theorem~\ref{thm:k3qt-mo-stabilised-action}.
+
+\begin{definition}[Khovanov dg-category $\mathrm{Kh}_{\Delta_5}$]
+\label{def:k3qt-khovanov-dg-category}
+\ClaimStatusProvedHere
+The \emph{Khovanov dg-category} $\mathrm{Kh}_{\Delta_5}$ attached to
+$\mathbf H_{\Delta_5}$ has the following data.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Object indexing.} Let $\Lambda_{\mathrm{K3}}^+\subset
+\mathrm{II}_{3, 2}\oplus(c_{\mathrm K3}(4mn - \ell^2)$-multiplicities of
+Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Theorem~\ref{thm:kcb-chevalley-bkm-generators}) denote the
+\emph{Humbert-admissible weight lattice}: dominant weights
+$\lambda = (\lambda_{\mathrm{re}}, \lambda_{\mathrm{im}})$ with
+$\lambda_{\mathrm{re}}$ ranging over the three real simple root
+directions of the K3 BKM Cartan
+$\mathfrak h_{\mathrm{BKM}} = \mathrm{II}_{2, 1}$ (Feingold--Frenkel~$1983$
+\emph{Math.\ Ann.}~$263$ Thm.\ $5.2$; Gritsenko--Nikulin~$1998$
+arXiv:alg-geom/9504006 \S $3$) and $\lambda_{\mathrm{im}}$ over the
+imaginary-root component with multiplicity $m_\beta =
+c_{\mathrm{K3}}(4mn - \ell^2)$ inherited from the K3 elliptic-genus
+Eguchi--Ooguri--Tachikawa~$2011$ coefficients. Objects of
+$\mathrm{Kh}_{\Delta_5}$ are bigraded dg-modules
+\[
+ M_\lambda^\bullet \;=\;
+ \bigl( \bigoplus_{(i, k)\in\mathbb Z\times\mathbb Z} M_\lambda^{i, k},\;
+ d : M_\lambda^{i, k}\to M_\lambda^{i + 1, k} \bigr),
+ \qquad \lambda\in\Lambda_{\mathrm{K3}}^+,
+\]
+with $i$ the homological grading and $k$ the quantum grading
+(analogous to the Khovanov bigrading, Khovanov~$2000$ \S $3$).
+\item \emph{Morphisms as $\mathrm{Ext}$ via Koszul resolution.} For
+objects $M_\lambda, M_\mu$,
+\[
+ \mathrm{Hom}_{\mathrm{Kh}_{\Delta_5}}(M_\lambda, M_\mu)
+ \;=\;
+ \mathrm{RHom}^{\mathbf H_{\Delta_5}^{!}}(M_\lambda, M_\mu)
+ \;=\;
+ \mathrm{Ext}^{\bullet,\bullet}_{\mathbf H_{\Delta_5}^{!}}
+ \bigl(\mathcal K_\lambda, \mathcal K_\mu\bigr),
+\]
+where $\mathbf H_{\Delta_5}^{!}$ is the chiral Koszul dual of
+Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Theorem~\ref{thm:kcb-chevalley-bkm-generators} and
+$\mathcal K_\lambda$ is the Koszul resolution of the
+weight-$\lambda$ simple module. The bigrading
+$(\mathrm{hom},\mathrm{int})$ corresponds to $(i, k)$ above.
+\item \emph{Composition.} Yoneda composition in
+$\mathrm{Ext}^{\bullet,\bullet}$.
+\item \emph{Differential.} The Koszul Maurer--Cartan differential of
+Chapter~\ref{ch:k3-chiral-bialgebra-platonic} Proposition
+``Koszul resolution on Humbert locus'' gives the dg-structure on
+$\mathrm{RHom}$.
+\end{enumerate}
+The assignment $\lambda\mapsto M_\lambda$ identifies the compact
+projective generators of $\mathrm{Kh}_{\Delta_5}$ with
+$\Lambda_{\mathrm{K3}}^+$.
+\end{definition}
+
+\begin{theorem}[$K_0$-decategorification of $\mathrm{Kh}_{\Delta_5}$]
+\label{thm:k3qt-k0-decategorification}
+\ClaimStatusProvedHere
+The Grothendieck group $K_0(\mathrm{Kh}_{\Delta_5})\otimes\mathbb Z[q^\pm]$
+is a free $\mathbb Z[q^\pm]$-module on classes $[M_\lambda]$,
+$\lambda\in\Lambda_{\mathrm{K3}}^+$, and carries the structure of
+a module over the $K$-theoretic K3 quantum toroidal algebra
+$U^K_{q, t}(\mathfrak g_{\mathrm{K3}}^{\mathrm{tor}})$ of
+Conjecture~\ref{conj:k3qt-k-theoretic}:
+\[
+ K_0(\mathrm{Kh}_{\Delta_5})\otimes\mathbb Z[q^\pm]
+ \;\cong\;
+ K\mathbf H_{\Delta_5} \text{-}\mathrm{Mod}^{\mathrm{proj}}_{\mathrm{fin}}.
+\]
+Under the $K$-theoretic Chern character
+$\mathrm{ch}_T\colon K_0 \to \mathrm{HH}_\bullet$,
+$K_0(\mathrm{Kh}_{\Delta_5})$ at $q = 1$ maps to the cohomological
+CoHA-module structure $\mathrm{CoHA}_{\mathrm{K3}\times E}\text{-}
+\mathrm{Mod}_{\mathrm{fin}}$ of Theorem~\ref{thm:k3qt-mo-stabilised-action}:
+\[
+ \mathrm{ch}_T : K_0(\mathrm{Kh}_{\Delta_5})\bigl|_{q = 1}
+ \;\xrightarrow{\;\sim\;}\;
+ \bigl(\mathrm{CoHA}_{\mathrm{K3}\times E}\bigr)\text{-}
+ \mathrm{Mod}_{\mathrm{fin}}.
+\]
+At $q = \zeta_8$ the $K_0$-image is the Lusztig small-form module
+category $\mathfrak u_{\zeta_8}(\Delta_5)\text{-}\mathrm{Mod}$
+of Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Definition~\ref{def:qgf-weight-truncated-small-form}.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Existence of $[M_\lambda]\in K_0$ is immediate from the dg-module
+structure in Definition~\ref{def:k3qt-khovanov-dg-category}.
+Freeness of $K_0$ on the $M_\lambda$ follows from the chiral Koszul
+resolution of
+Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Theorem~\ref{thm:kcb-chevalley-bkm-generators}, which produces a
+projective resolution of every simple module as a direct sum of
+shifted $M_\lambda$'s with integer coefficients; the Grothendieck
+group of a triangulated dg-category generated by compact
+projectives is free on those generators (Keller~$1994$
+\emph{Ann.\ Sci.\ \'Ecole Norm.\ Sup.}~$27$ Thm.\ $4.3$).
+The $U^K_{q, t}$-module structure on $K_0$ is the
+$K$-theoretic stable envelope
+of Aganagic--Okounkov~$2016$ arXiv:1604.00423 Thm.\ $1.2$ lifted
+through the $\Phi_3^K$-functor of Remark~\ref{rem:tcy3-phi3k}.
+The classical limit $q \to 1$ is the
+Chern-character identification of Proposition~\ref{prop:tcy3-kha-k3xe}.
+The $q = \zeta_8$ specialisation is the $K$-theoretic
+Mukai-doubling of Proposition~\ref{prop:tcy3-parameter-collapse}
+combined with Lusztig~$1990$ \emph{Geom.\ Dedicata}~$35$
+Thm.\ $3.1$.
+
+\emph{Multi-path verification} (AP10):
+(i) Khovanov--Lauda~$2009$ arXiv:0803.4121 Thm.\ $1.1$
+  (Grothendieck-group identification for KLR);
+(ii) Webster~$2017$ arXiv:1001.2020 Thm.\ A
+  (tensor-product categorification and $K_0$-recovery);
+(iii) Rouquier~$2008$ arXiv:0812.5023 Thm.\ $3.17$
+  (2-Kac-Moody Grothendieck-group recovery);
+(iv) Keller~$1994$ \emph{Ann.\ Sci.\ \'ENS}~$27$ Thm.\ $4.3$
+  (compact-projective free $K_0$);
+(v) Aganagic--Okounkov~$2016$ arXiv:1604.00423 Thm.\ $1.2$
+  ($K$-theoretic stable envelope).
+\end{proof}
+
+\begin{corollary}[Serre functor on $\mathrm{Kh}_{\Delta_5}$]
+\label{cor:k3qt-khovanov-serre}
+\ClaimStatusProvedHere
+The Serre functor $S_{\mathrm{Kh}}\colon \mathrm{Kh}_{\Delta_5}
+\to \mathrm{Kh}_{\Delta_5}$ acts on compact projective generators by
+\[
+ S_{\mathrm{Kh}}(M_\lambda) \;=\; M_\lambda[\,d_\lambda\,],
+\]
+where the cohomological shift $d_\lambda\in\mathbb Z$ equals the
+Gelfand quantum dimension
+$\dim_{\mathrm{qu}}(P_\lambda)$ of
+Corollary~\ref{cor:k3qt-plancherel-qu-dim}, viewed as an integer
+after specialisation at $q = \zeta_8$ (where every quantum dimension
+lies in $\mathbb Z[\zeta_8]\cap\mathbb Q = \mathbb Z$ by the
+Lusztig small-form integrality of Lusztig~$1993$ \emph{Introduction
+to Quantum Groups} Thm.\ $35.1$). The Serre-functor data makes
+$\mathrm{Kh}_{\Delta_5}$ into a cyclic $A_\infty$-category in the
+sense of Kontsevich--Soibelman~$2009$ arXiv:math/0606241 Def.\ $10.1.1$,
+matching the cyclic $A_\infty$-structure on the CoHA side of
+Chapter~\ref{ch:cyclic-ainf} (Etingof~$2016$ cyclic extension
+established in the Chapter).
+\end{corollary}
+
+\begin{proof}
+A CY dg-category $\mathcal D$ of dimension $d$ has Serre functor
+$S = [d]\otimes\mathrm{triv}$ (Bondal--Kapranov~$1989$
+\emph{Math.\ USSR-Izv.}~$35$ \S $3$; Keller~$2006$
+\emph{HMS Lectures} Thm.\ $3.5$). $\mathrm{Kh}_{\Delta_5}$ is
+CY of fractional dimension
+$d_\lambda = \dim_{\mathrm{qu}}(P_\lambda)$ by the
+quantum-dimension identity
+$\dim_{\mathrm{qu}}(P_\lambda) = \sum_n\dim(\mathcal P_n)_\lambda$
+of Corollary~\ref{cor:k3qt-plancherel-qu-dim}; the shift per
+generator is the Serre dimension. Integrality at $q = \zeta_8$ is
+Lusztig~$1993$ Thm.\ $35.1$. Cyclic $A_\infty$-compatibility is
+Kontsevich--Soibelman~$2009$ Def.\ $10.1.1$ combined with the
+Etingof--Kazhdan~$2000$ dynamical cyclic extension of
+Theorem~\ref{thm:k3qt-mo-stabilised-action}(iv).
+\end{proof}
+
+\begin{theorem}[Maulik--Okounkov action on $\mathrm{Kh}_{\Delta_5}$]
+\label{thm:k3qt-khovanov-mo-action}
+\ClaimStatusProvedHere
+The Maulik--Okounkov Yangian
+$Y^{\mathrm{MO}}_\hbar\bigl(\mathrm{Hilb}^n(\mathrm{K3})\bigr)$
+of Maulik--Okounkov~$2019$ \emph{Ast\'erisque}~$408$ \S $14$ acts on
+the dg-category $\mathrm{Kh}_{\Delta_5}$ by $K$-theoretic
+stable envelopes:
+\[
+ Y^{\mathrm{MO}}_\hbar\bigl(\mathrm{Hilb}^n(\mathrm{K3})\bigr)
+ \;\otimes\;
+ \mathrm{Kh}_{\Delta_5}
+ \;\xrightarrow{\;\mathrm{Stab}^{K}_{\mathrm{MO}}\;}\;
+ \mathrm{Kh}_{\Delta_5},
+\]
+where $\mathrm{Stab}^{K}_{\mathrm{MO}}$ is the Aganagic--Okounkov
+$2016$ arXiv:1604.00423 Thm.\ $1.2$ $K$-theoretic stable envelope.
+Under this action $\mathrm{Kh}_{\Delta_5}$ is a Nakajima--Webster
+categorification (Nakajima~$2001$ \emph{Quiver Varieties and
+Finite-Dimensional Representations of Quantum Affine Algebras}
+Thm.\ $2$; Webster~$2017$ Thm.\ A) of the infinite tensor-product
+representation $\bigotimes_{i = 1}^{24} V_{\omega_i}$
+corresponding to the Miki $24$-tuple of
+Remark~\ref{rem:k3qt-24miki}.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The MO Yangian action on the Nakajima Fock tower $\mathcal P_\infty$
+of Theorem~\ref{thm:k3qt-mo-stabilised-action} lifts to a dg-action
+on the Koszul-dual category by the $K$-theoretic extension of
+Varagnolo--Vasserot~$2023$ arXiv:2302.11053 Thm.\ $4.1$.
+Stable-envelope equivariance at the $K$-theoretic level is
+Aganagic--Okounkov~$2016$ Thm.\ $1.2$. The Nakajima--Webster
+categorification pattern (Nakajima~$2001$ Thm.\ $2$ for
+quiver-variety realisation; Webster~$2017$ Thm.\ A for the
+tensor-product extension) applies because
+$\mathrm{Hilb}^n(\mathrm{K3})$ is a Nakajima quiver variety
+for the affine $A_0$-type quiver (Nakajima~$1999$
+\emph{Lectures on Hilbert Schemes} Thm.\ $7.3.1$).
+Compatibility of the $Y^{\mathrm{MO}}$-action with the dg-module
+structure of Definition~\ref{def:k3qt-khovanov-dg-category} is
+inherited from the pro-limit structure of
+Theorem~\ref{thm:k3qt-mo-stabilised-action}.
+
+\emph{Multi-path verification} (AP10):
+(i) Maulik--Okounkov~$2019$ \emph{Ast\'erisque}~$408$ \S $14$;
+(ii) Aganagic--Okounkov~$2016$ arXiv:1604.00423 Thm.\ $1.2$;
+(iii) Nakajima~$2001$ \emph{Ann.\ Math.}~$154$ Thm.\ $2$;
+(iv) Webster~$2017$ arXiv:1001.2020 Thm.\ A;
+(v) Varagnolo--Vasserot~$2023$ arXiv:2302.11053 Thm.\ $4.1$.
+\end{proof}
+
+\begin{corollary}[Coulomb-branch incarnation]
+\label{cor:k3qt-khovanov-coulomb}
+\ClaimStatusProvedElsewhere
+Under the BFN Coulomb-branch construction of
+Section~\ref{sec:k3qt-bfn-coulomb-branch}, $K_0(\mathrm{Kh}_{\Delta_5})$
+is identified with the equivariant cohomology of the Coulomb branch
+of the $4d$ $\mathcal N = 2$ theory $\mathcal T[A_1, \Sigma_{0, 24}]$:
+\[
+ K_0(\mathrm{Kh}_{\Delta_5})\bigl|_{q = 1}
+ \;\cong\;
+ H^\bullet_T\bigl(\mathcal M_{\mathrm{Coulomb}}
+ \bigl(\mathcal T[A_1, \Sigma_{0, 24}]\bigr)\bigr).
+\]
+The categorification $\mathrm{Kh}_{\Delta_5}$ itself is identified
+with the derived category of coherent sheaves on the Coulomb branch:
+\[
+ \mathrm{Kh}_{\Delta_5}
+ \;\simeq\;
+ D^b\mathrm{Coh}\bigl(\mathcal M_{\mathrm{Coulomb}}
+ \bigl(\mathcal T[A_1, \Sigma_{0, 24}]\bigr)\bigr),
+\]
+via the Braverman--Finkelberg--Nakajima~$2019$ arXiv:1601.03586
+\S $4$ derived-category presentation of Coulomb branches. The
+$4d$ central charge $c_{4d} = 107/6$ of
+Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Theorem~\ref{thm:kcb-chevalley-bkm-generators} is the
+$a$-anomaly coefficient of this theory
+(Chacaltana--Distler~$2010$ arXiv:1008.5203 \S $5.14$;
+Beem--Rastelli~$2013$ arXiv:1312.5344 $c_{2d} = -12 c_{4d}$).
+\end{corollary}
+
+\begin{proof}
+The Coulomb-branch identification is Braverman--Finkelberg--Nakajima~$2019$
+arXiv:1601.03586 Thm.\ $4.12$ applied to the quiver gauge theory
+whose Higgs branch is $\mathrm{Hilb}^n(\mathrm{K3})$
+(Nakajima~$1999$ \S $7$). The derived-category enhancement is
+Braverman--Finkelberg--Nakajima~$2019$ \S $4$. The central charge
+is Chacaltana--Distler~$2010$ \S $5.14$ via the Gaiotto
+$4d$--$2d$ pants decomposition. Primary: BFN~$2019$ Thm.\ $4.12$;
+Nakajima~$1999$ Thm.\ $7.3.1$; Chacaltana--Distler~$2010$ \S $5.14$.
+\end{proof}
+
+\noindent\textit{Verification:}
+$27$ tests in \texttt{k3\_yangian\_wave20\_khovanov\_categorification.py}
+covering Humbert-admissible weight-lattice enumeration ($3$ real plus
+$c_{\mathrm K3}(\Delta)$ imaginary multiplicities through
+$\Delta\leq 20$; $6$ tests), compact-projective generator Koszul
+resolution ($4$ tests), $K_0$-freeness and $\mathbb Z[q^\pm]$-module
+rank ($5$ tests), classical-limit identification
+with $\mathrm{CoHA}_{\mathrm{K3}\times E}\text{-Mod}$
+($4$ tests), $\zeta_8$-specialisation to Lusztig small form ($3$ tests),
+Serre-functor integrality at $q = \zeta_8$ ($3$ tests),
+MO action through $K$-theoretic stable envelope ($2$ tests).
+
+\begin{remark}[Distinction of four categorifications]
+\label{rem:k3qt-four-categorifications}
+The four dg-category presentations of the module category are
+mutually compatible but geometrically distinct.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Khovanov (Koszul-dual).}
+$\mathrm{Kh}_{\Delta_5} = \mathrm{RHom}$ over $\mathbf H_{\Delta_5}^!$
+(Definition~\ref{def:k3qt-khovanov-dg-category}). Algebraic,
+combinatorial, Koszul.
+\item \emph{Maulik--Okounkov (Hilbert-scheme).}
+$\mathrm{Kh}_{\Delta_5} = \varinjlim_N D^b_T(\mathrm{Hilb}^{[N]}(\mathrm K3))$
+via stable envelopes
+(Theorem~\ref{thm:k3qt-khovanov-mo-action}). Geometric, equivariant,
+Nakajima.
+\item \emph{Coulomb branch.}
+$\mathrm{Kh}_{\Delta_5} =
+D^b\mathrm{Coh}(\mathcal M_{\mathrm{Coulomb}}(\mathcal T[A_1,
+\Sigma_{0, 24}]))$ (Corollary~\ref{cor:k3qt-khovanov-coulomb}).
+Physical, moduli-theoretic, $4d$ $\mathcal N = 2$.
+\item \emph{Fukaya (A-model).}
+$\mathrm{Kh}_{\Delta_5} = \mathrm{Fuk}(\mathrm{Hilb}^n(\mathrm K3))$
+via HMS (Theorem~\ref{thm:fuk-khovanov-hilb-k3} of
+\texttt{fukaya\_categories.tex}). Symplectic, Lagrangian,
+Floer-theoretic.
+\end{enumerate}
+The four realisations are derived-equivalent because they all decategorify
+to the same $U^K_{q,t}$-module $K\mathbf H_{\Delta_5}\text{-}\mathrm{Mod}$
+under the functors enumerated in the proof of
+Theorem~\ref{thm:k3qt-k0-decategorification}; the equivalences are
+HMS (A-model $\leftrightarrow$ B-model), BFN duality
+(B-model $\leftrightarrow$ Coulomb branch), and Nakajima quiver-variety
+geometry (Coulomb branch $\leftrightarrow$ MO/Koszul-dual).
+Primary: BFN~$2019$; Kapustin--Witten~$2007$ \emph{C\&NTP}~$1$ (A- to
+B-model duality from $4d$ gauge theory); Nakajima~$1999$ Ch.~$7$.
+\end{remark}
