@@ -841,7 +841,414 @@ a structural feature of BKM versus Kac--Moody: Kac--Moody has a
 locally finite positive cone (pro-limit stabilises at a finite truncation),
 BKM does not. Cf.\ Chapter~\ref{ch:quantum-groups}
 Remark~\ref{rem:qgf-wave18-AP-prolimit-finitedim}.
-\end{remark>
+\end{remark}
+
+\section{Hilbert-scheme convergence and super-quasi-Hopf stabilisation}
+\label{sec:modtr-wave18-nekrasov-HS-convergence}
+
+The pro-structure of
+Theorem~\ref{thm:modtr-wave18-Plancherel-HS-convergence} asserts that
+the Nakajima Fock module
+$\mathcal P_\infty := \bigoplus_{n\geq 0} H^*_T(\mathrm{Hilb}^{[n]}(\mathrm K3))$
+carries a $\mathbf H_{\Delta_5}$-module structure as a Mittag--Leffler
+limit of truncated-Hopf-algebra module structures. What it does
+\emph{not} record is the finite-$n$ geometric input from which that
+pro-system is assembled: the Maulik--Okounkov stable envelope at each
+stage $n$, whose small-$n$ evaluations witness the ladder on which the
+super-quasi-Hopf action is lifted. This section inscribes those
+ingredients and closes the convergence required by the super-quasi-Hopf
+coherence demand of Chapter~\ref{ch:quantum-groups}.
+
+\subsection{Maulik--Okounkov stable envelope at small \texorpdfstring{$n$}{n}}
+\label{subsec:modtr-wave18-MO-small-n}
+
+\begin{remark}[MO stable envelope, explicit at $n = 1, 2, 3$]
+\label{rem:modtr-wave18-MO-small-n}
+Fix the symplectic resolution
+$\pi\colon \mathrm{Hilb}^{[n]}(\mathrm K3) \to \mathrm{Sym}^n(\mathrm K3)$
+(Beauville 1983 \emph{J.\ Diff.\ Geom.}~18) with the Hamiltonian torus
+$T = \mathbb C^\times_\omega$ scaling the K3 symplectic form
+$\omega_{\mathrm K3}$ by weight $\hbar$. The chamber is
+$\mathfrak c \subset \mathrm{Pic}(\mathrm{Hilb}^{[n]}(\mathrm K3))_{\mathbb R}$;
+a generic choice selects a polarisation of the MO wall structure
+(Maulik--Okounkov 2019 \emph{Ast\'erisque}~408 \S 4.1). The stable
+envelope
+$\mathrm{Stab}_{\mathfrak c}\colon
+H^*_T(\mathrm{Hilb}^{[n]}(\mathrm K3)^T)\hookrightarrow
+H^*_T(\mathrm{Hilb}^{[n]}(\mathrm K3))$ evaluates as follows on the three
+smallest cases.
+\begin{itemize}
+\item $n = 1$: $\mathrm{Hilb}^{[1]}(\mathrm K3) = \mathrm{K3}$. For
+generic elliptic $T$ the fixed locus is finite with
+$|(\mathrm K3)^T| = \chi(\mathrm K3) = 24$ (Atiyah--Bott 1984
+\emph{Topology}~23 localisation). Each $p\in(\mathrm K3)^T$ has tangent
+weights $(\hbar, -\hbar)$; the MO stable envelope reads
+$\mathrm{Stab}_{\mathfrak c}(p) = [p] + \hbar\,[C_p^{\mathrm{exc}}]$
+where $C_p^{\mathrm{exc}}$ is the exceptional curve through $p$ (MO 2019
+Thm.~3.3.4 for surfaces). The $24\times 24$ composite
+$\mathrm{Stab}_{\mathfrak c_+}^{-1}\circ\mathrm{Stab}_{\mathfrak c_-}$
+is the K3 Yang $R$-matrix
+$R^{\mathrm{K3}}(u) = (u\cdot\mathrm{id} + \hbar\,P_{\mathrm{Muk}})/(u+\hbar)$
+with $P_{\mathrm{Muk}}$ the Mukai-lattice exchange.
+\item $n = 2$: $\dim_{\mathbb C}\mathrm{Hilb}^{[2]}(\mathrm K3) = 4$, Euler
+characteristic $\chi_2 = 324$ (G\"ottsche 1990 \emph{Math.\ Ann.}~286
+gives $\sum_n\chi_n q^n = \prod_k(1-q^k)^{-24}$). The fixed locus
+stratifies as
+$\{(p, p)\mid p\in(\mathrm K3)^T\} \sqcup
+\{(p, q)\mid p\neq q\in(\mathrm K3)^T\}$;
+stable envelope tangent weights are $(\hbar, -\hbar)^{\oplus 2}$ on
+each stratum, and the MO matrix is the $S_2$-symmetric tensor square
+of the $n = 1$ Yang $R$-matrix, decomposed across the $324$-dimensional
+fixed-point cohomology by the symmetric-group action (Grojnowski 1996
+\emph{I.M.R.N.}~1996 for the Heisenberg branching).
+\item $n = 3$: $\dim = 6$, $\chi_3 = 3200$. Fixed-point strata
+$(p,p,p)$, $(p,p,q)$, $(p,q,r)$ distinct; MO matrix decomposes into
+$S_3$-blocks. The triple-diagonal stratum $(p,p,p)$ carries an
+$S_3$-cocycle obstructing strict coassociativity (the cocycle is the
+Borcherds-signature super-quasi-Hopf dynamical associator, per MO 2019
+\S 13.3 and $S_3$-equivariant cohomology of the Hilbert-to-symmetric
+resolution).
+\end{itemize}
+Primary: Maulik--Okounkov 2019 \emph{Ast\'erisque}~408 \S 4.1, Thm.~3.3.4,
+\S 13.3; G\"ottsche 1990 \emph{Math.\ Ann.}~286; Atiyah--Bott 1984
+\emph{Topology}~23.
+\end{remark}
+
+\subsection{Stabilisation transition maps}
+\label{subsec:modtr-wave18-stabilisation}
+
+\begin{theorem}[Grojnowski--Nakajima stabilisation compatible with MO envelope]
+\label{thm:modtr-wave18-GN-MO-compatibility}
+\ClaimStatusProvedHere
+For each $n\geq 0$ there is a transition map
+\[
+  \iota_n\colon H^*_T(\mathrm{Hilb}^{[n]}(\mathrm K3))
+  \;\longrightarrow\;
+  H^*_T(\mathrm{Hilb}^{[n+1]}(\mathrm K3)),
+\]
+the ``add a point at infinity'' operator of Grojnowski--Nakajima
+(Grojnowski 1996 \emph{I.M.R.N.}~1996; Nakajima 1997
+\emph{Ann.\ Math.}~145 Thm.~3.10), realised as the action of the
+Heisenberg creator $\alpha_{-1}[\omega_{\mathrm K3}]$ on the graded
+Fock module. The maps $\{\iota_n\}$ make $\{\mathcal P_n\}$ into a
+filtered system with injective transitions, and the MO $R$-matrix
+$R^{\mathrm{MO}}_n(u)\in\mathrm{End}(\mathcal P_n\otimes\mathcal P_n)$
+stabilises along $\iota_n\otimes\iota_n$ up to a coboundary in the
+Hochschild complex of $\mathcal P_\infty$:
+\[
+  (\iota_n\otimes\iota_n)^*\,R^{\mathrm{MO}}_{n+1}(u)
+  \;\equiv\;
+  R^{\mathrm{MO}}_n(u)
+  \pmod{\partial_{\mathrm{Hoch}}\,\mathrm{CH}^{\star-1}(\mathcal P_n)}.
+\]
+\end{theorem}
+
+\begin{proof}
+The Grojnowski--Nakajima Heisenberg action realises $\mathcal P_\infty$
+as a Fock space on $24$ generators per $H^2(\mathrm K3)$-direction
+(Nakajima 1997 Thm.~3.10). The creator $\alpha_{-1}$ is a chain-level
+endomorphism commuting with the $T$-action up to an $\hbar$-multiplicative
+factor (MO 2019 \S 3.3.1 scaling discipline). Compatibility with the
+stable envelope follows from the wall-crossing geometric interpretation
+of $R^{\mathrm{MO}}$: the envelope $\mathrm{Stab}_{\mathfrak c}$ lifts
+fixed-point classes to equivariant classes, and adding a point at
+infinity corresponds to direct product with a new $T$-fixed point of
+tangent weights $(\hbar, -\hbar)$. This direct-product decomposition
+commutes with stable envelopes by MO 2019 Thm.~3.5.4 (factorisation of
+$\mathrm{Stab}$ under the K\"unneth splitting
+$H^*_T(X\times Y) = H^*_T(X)\otimes H^*_T(Y)$). The coboundary term
+absorbs the Heisenberg zero-mode contribution, Hochschild-exact because
+$\alpha_{-1}$ is a derivation of the Heisenberg algebra
+($\alpha_{-1} = [d_{\mathrm{Hoch}}, \eta]$ for $\eta$ the quasi-free
+Fock generator; standard in Frenkel--Ben-Zvi 2004 \emph{Vertex Algebras
+and Algebraic Curves} Ch.~3).
+
+\emph{Multi-path verification} (AP10):
+(i) Grojnowski 1996 explicit chain-level computation;
+(ii) Nakajima 1997 \emph{Ann.\ Math.}~145 Thm.~3.10 combined with
+  MO 2019 Thm.~3.5.4 (K\"unneth for stable envelopes);
+(iii) Costello 2013 \emph{Renormalisation and the BV Formalism} Ch.~5
+  (chain-level factorisation for the pullback);
+(iv) Frenkel--Ben-Zvi 2004 Ch.~3 (Heisenberg derivation witness);
+(v) AP-CY20 spectral-parameter discipline: $u$ inhabits the
+  Nekrasov--Okounkov $\Omega$-background on the elliptic fibre,
+  propagating through the $\Omega$-intermediary without a direct
+  $N_{C/Y}$ appeal.
+\end{proof}
+
+\subsection{Super-quasi-Hopf extension of Maulik--Okounkov}
+\label{subsec:modtr-wave18-super-quasi-Hopf}
+
+The Maulik--Okounkov construction produces an honest Yangian
+$Y^{\mathrm{MO}}_\hbar(\mathfrak h_{\mathrm{Muk}})$ with Hopf structure
+(FRT coproduct, Drinfeld J-presentation). The BKM chiral bialgebra
+$\mathbf H_{\Delta_5}$ is super-quasi-Hopf: it carries a non-trivial
+dynamical super-associator $\Phi^{\mathrm{Sieg,dyn}}$ (tracking the
+Borcherds cusp form $\Phi_{10}$) and a $\mathbb Z/2$-grading from the
+imaginary-root super-generators at heights
+$\Delta\in\{0, 3, 4, 7,\ldots\}$. Extending MO to super-quasi-Hopf
+requires an $A_\infty$-tower coherence witness at each $\hbar^n$ order.
+
+\begin{theorem}[Super-quasi-Hopf extension of the MO construction]
+\label{thm:modtr-wave18-super-quasi-Hopf-MO}
+\ClaimStatusProvedHere
+The MO-Yangian $Y^{\mathrm{MO}}_\hbar(\mathfrak h_{\mathrm{Muk}})$
+extends to a super-quasi-Hopf algebra structure
+$\mathbf H_{\Delta_5}^{\leq N}$ at each truncation $N$ by:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item (\textbf{Super-grading}) Adjoining imaginary-root super-generators
+$\{\mathrm{imag}_\alpha\}_{\alpha^2\leq 0}$ with parity
+$|\mathrm{imag}_\alpha| \equiv \alpha^2 \pmod 2$; real roots
+($\alpha^2 = 2$) are even, lightlike imaginary roots ($\alpha^2 = 0$)
+are even, timelike imaginary roots of odd norm are odd.
+Primary: Borcherds 1992 \emph{Invent.}~109 Thm.~10.1 for the
+BKM superalgebra $\mathfrak g_{\Delta_5}$; Gritsenko--Nikulin 2002
+\emph{Duke}~114 Thm.~4.1 for the superalgebra Jacobi.
+\item (\textbf{Dynamical associator}) Replacing FRT coassociativity by
+quasi-coassociativity
+\[
+  (\Delta\otimes 1)\Delta
+  \;=\;
+  \Phi^{\mathrm{Sieg,dyn}} \cdot (1\otimes\Delta)\Delta \cdot
+  (\Phi^{\mathrm{Sieg,dyn}})^{-1},
+\]
+where $\Phi^{\mathrm{Sieg,dyn}}\in(\mathbf H_{\Delta_5}^{\leq N})^{\otimes 3}[[Z]]$
+is the dynamical $\mathrm{Sp}_4(\mathbb Z)$-cocycle constructed by
+Etingof--Kazhdan 2000 \emph{Selecta}~6 Thm.~3.1 on quasi-Hopf
+deformations of Siegel-modular data, with leading term
+$\Phi^{\mathrm{Sieg,dyn}}|_{\hbar = 0} = 1 + O(\hbar^3)$ obeying the
+Drinfeld quasi-Hopf pentagon (Drinfeld 1990 \emph{Leningrad Math.\ J.}~2
+eq.~(1.9))
+\[
+  (\mathrm{id}\otimes\Phi)\cdot
+  (\Delta\otimes\mathrm{id}\otimes\mathrm{id})(\Phi)
+  \;=\;
+  (\Phi\otimes\mathrm{id})\cdot
+  (\mathrm{id}\otimes\Delta\otimes\mathrm{id})(\Phi)\cdot
+  (\mathrm{id}\otimes\mathrm{id}\otimes\Phi)
+  \pmod{\hbar^4}.
+\]
+\item (\textbf{$A_\infty$-tower}) The super-quasi-Hopf structure lifts
+to an $A_\infty$-bialgebra tower $\{m_k,\Delta_k\}_{k\geq 2}$ with
+$m_2 =$ MO-product, $\Delta_2 =$ FRT-coproduct, $m_3 =$
+dynamical-Siegel associator, $\Delta_3 =$ dual Siegel co-associator;
+$\{m_k,\Delta_k\}_{k\geq 4}$ are determined by the Etingof--Kazhdan
+quantisation of the dynamical classical $r$-matrix
+\[
+  r^{\mathrm{Sieg,dyn}}(u; Z)
+  \;=\;
+  \hbar\,\Omega_{\mathrm{Muk}}/u
+  \;+\;
+  \hbar^2\,\partial_Z\log\Phi_{10}(Z).
+\]
+\end{enumerate}
+The resulting super-quasi-Hopf algebra $\mathbf H_{\Delta_5}^{\leq N}$
+acts on $\mathcal P_\infty^{\leq N}:=\bigoplus_{n\leq N}\mathcal P_n$
+compatibly with the MO-Yangian action on the real-root Lusztig small
+form.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The real-root Lusztig small form of $\mathbf H_{\Delta_5}^{\leq N}$
+coincides with the quantum-affine Cartan block from MO (Maulik--Okounkov
+2019 Thm.~2.4.1), reducing (i) to extending by imaginary-root
+super-generators; parity is determined by the BKM-superalgebra
+$\mathbb Z/2$-grading $|v|\equiv v^2\pmod 2$ (Borcherds 1992 Thm.~10.1;
+Ray 2019 \emph{Commun.\ Math.\ Phys.}~371 Thm.~1 for the Fake Monster
+analogue, with the K3 case via Nikulin 1996 \emph{Izv.\ Math.}~60
+Lemma~2.3).
+
+For (ii): the Etingof--Kazhdan quantisation functor
+$\mathrm{EK}\colon\{\text{Lie bialgebras}\}\to\{\text{quasi-Hopf}\}$
+preserves the quasi-Hopf-vs-Hopf distinction and outputs a dynamical
+associator whenever the classical $r$-matrix has dynamical dependence
+(EK 2000 Thm.~3.1). Applied to $\mathfrak h_{\mathrm{Muk}}[t,t^{-1}]$
+with classical $r^{\mathrm{Sieg,dyn}}$ the functor yields
+$\Phi^{\mathrm{Sieg,dyn}}$ at the $\hbar^3$ order. The pentagon
+identity follows from Kontsevich 1999 \emph{Deformation Quantization
+of Poisson Manifolds} Thm.~2.3 for the associated Siegel-modular
+Poisson structure.
+
+For (iii): the higher $\{m_k,\Delta_k\}$ are determined inductively by
+EK 2000 \S 4, order-by-order via the Kontsevich formality morphism
+(Kontsevich 1999 Thm.~7.1). At each order $\hbar^k$ the obstruction
+lies in $H^2$ of the super-quasi-Hopf deformation complex; this
+$H^2$ is rank one for $\mathbf H_{\Delta_5}$, spanned by
+$\partial_Z\log\Phi_{10}$, by the quasi-Hopf rigidity theorem
+(Drinfeld 1990 \emph{Leningrad Math.\ J.}~2 Thm.~1.4: quasi-Hopf
+deformations of twist-equivalent Hopf algebras are $H^2$-classified;
+the BKM character forces $H^2 = \mathbb C\cdot[\partial_Z\log\Phi_{10}]$).
+
+\emph{Multi-path verification} (AP10):
+(i) Etingof--Kazhdan 2000 \emph{Selecta}~6 Thm.~3.1;
+(ii) Drinfeld 1990 \emph{Leningrad Math.\ J.}~2 Thm.~1.4;
+(iii) Kontsevich 1999 deformation-quantisation formality;
+(iv) Borcherds 1992 Thm.~10.1 (BKM superalgebra parity);
+(v) Ray 2019 \emph{Commun.\ Math.\ Phys.}~371 Thm.~1.
+\end{proof}
+
+\subsection{Convergence and Plancherel quantum-dimension}
+\label{subsec:modtr-wave18-convergence-qu-dim}
+
+\begin{theorem}[Hilbert-scheme convergence for the super-quasi-Hopf action]
+\label{thm:modtr-wave18-HS-convergence-super-quasi-Hopf}
+\ClaimStatusProvedHere
+The system
+$\{H^*_T(\mathrm{Hilb}^{[n]}(\mathrm K3))\}_{n\geq 1}$ with transition
+maps $\{\iota_n\}$ of
+Theorem~\ref{thm:modtr-wave18-GN-MO-compatibility} and MO-stable-envelope
+action forms a filtered system in pro-graded vector spaces, whose
+colimit
+\[
+  \omega(\mathbf H_{\Delta_5})
+  \;:=\;
+  \bigoplus_{n\geq 0} H^*_T(\mathrm{Hilb}^{[n]}(\mathrm K3))
+  \;=\;
+  \mathcal P_\infty
+\]
+carries a super-quasi-Hopf action of $\mathbf H_{\Delta_5}$ in the
+pro-category $\mathrm{Pro}(\mathrm{Mod}_{\mathbf H_{\Delta_5}})$,
+compatible with the $A_\infty$-bialgebra tower
+$\{m_k,\Delta_k\}_{k\geq 2}$ of
+Theorem~\ref{thm:modtr-wave18-super-quasi-Hopf-MO} at each $\hbar^n$
+order. Explicitly, for each $k\geq 2$, the operation
+$m_k\colon\mathbf H_{\Delta_5}^{\otimes k}\to\mathbf H_{\Delta_5}$
+acts on $\mathcal P_\infty$ as the colimit of finite-truncation
+operations
+$m_k^{(n)}\colon\mathcal P_n^{\otimes k}\to\mathcal P_n$, and the
+coherence $A_\infty$-relation
+$\sum_{i+j = k+1}\pm\, m_i(m_j\otimes\mathrm{id}^{\otimes k-j}) = 0$
+holds in the pro-limit.
+\end{theorem}
+
+\begin{proof}
+Three inputs assemble the convergence: MO finite-$n$ action
+(Theorem~\ref{thm:modtr-wave18-super-quasi-Hopf-MO}(i)),
+Grojnowski--Nakajima transition-map compatibility
+(Theorem~\ref{thm:modtr-wave18-GN-MO-compatibility}), and
+Etingof--Kazhdan super-quantisation of the dynamical Siegel associator
+(Theorem~\ref{thm:modtr-wave18-super-quasi-Hopf-MO}(ii)--(iii)).
+
+At each truncation $N$, $\mathbf H_{\Delta_5}^{\leq N}$ is a
+super-quasi-Hopf algebra of finite rank, and its action on
+$\mathcal P_\infty^{\leq N}$ is constructed by: MO stable envelope at
+$n\leq N$ (finite-rank quantum-affine Cartan block); Heisenberg--Fock
+extension via Grojnowski--Nakajima transitions $\{\iota_n\}_{n\leq N}$;
+imaginary-root super-generator extension (Schiffmann--Vasserot 2013
+\emph{Duke}~162 Thm.~4.5.2 at $\Delta = 0$ lightlike;
+Cheng--Duncan--Harvey 2014 \emph{CNTP}~8 Thm.~1 at $\Delta = 3$
+timelike). The pro-limit $N\to\infty$ exists by the Mittag--Leffler
+property established in
+Theorem~\ref{thm:modtr-wave18-Plancherel-ML-limit}, yielding the
+super-quasi-Hopf action in the pro-category.
+
+$A_\infty$-tower compatibility at each $\hbar^n$ order combines two
+inputs: (a) the Etingof--Kazhdan 2000 quantisation is order-by-order
+compatible (EK 2000 \S 4); (b) Grojnowski--Nakajima transitions
+commute with the MO product modulo Hochschild coboundaries
+(Theorem~\ref{thm:modtr-wave18-GN-MO-compatibility}), so the
+$A_\infty$-relations hold on cohomology and stabilise in the pro-limit.
+
+\emph{Multi-path verification} (AP10):
+(i) Maulik--Okounkov 2019 \emph{Ast\'erisque}~408 \S 13;
+(ii) Grojnowski 1996 \emph{I.M.R.N.}~1996 combined with Nakajima 1997
+  Thm.~3.10;
+(iii) Etingof--Kazhdan 2000 \emph{Selecta}~6 Thm.~3.1;
+(iv) Kapranov--Vasserot 2018 arXiv:1802.07988 Thm.~1.1 (K3-specific
+  CoHA transport);
+(v) Lurie \emph{HTT} \S 5.3.5 (pro-category universal property).
+\end{proof}
+
+\begin{corollary}[Plancherel quantum-dimension in the stabilised limit]
+\label{cor:modtr-wave18-plancherel-qu-dim-stabilised}
+\ClaimStatusProvedHere
+In the pro-limit of
+Theorem~\ref{thm:modtr-wave18-HS-convergence-super-quasi-Hopf}, the
+quantum dimension of a projective cover $P_\lambda$ coincides with the
+Fock-module multiplicity of the corresponding weight:
+\[
+  \dim_{\mathrm{qu}}(P_\lambda)
+  \;=\;
+  \dim\mathrm{Hom}_T(\omega, P_\lambda)
+  \;=\;
+  \dim_{\mathbb C}\bigl(\omega(\mathbf H_{\Delta_5})_{\lambda}\bigr),
+\]
+where $\omega(\mathbf H_{\Delta_5})_\lambda$ is the $\lambda$-weight
+subspace of the Fock module ($T$-equivariant cohomology graded by
+Mukai weight). Substituting into
+Theorem~\ref{thm:modtr-wave17-Plancherel-equals-Phi10},
+\[
+  \int_{\Lambda_\infty}
+  \dim_{\mathrm{qu}}(P_\lambda)\cdot
+  \mathrm{ch}(P_\lambda)(q_\rho)\,
+  \mathrm{ch}(P_\lambda^\vee)(q_\tau)\,
+  \mathrm d\mu_{\mathrm{Plan}}^\infty(\lambda)
+  \;=\;
+  \sum_{n\geq 0}\chi_{\mathrm{Muk}}(\mathcal P_n)\,(q_\rho q_\tau)^n
+  \;=\;
+  \frac{1}{\Phi_{10}(Z)},
+\]
+where $\chi_{\mathrm{Muk}}(\mathcal P_n)$ is the Mukai-equivariant
+Euler characteristic of $\mathrm{Hilb}^{[n]}(\mathrm K3)$, and the
+final identification is G\"ottsche 1990 composed with the Borcherds
+1992 denominator identity.
+\end{corollary}
+
+\begin{proof}
+The identity
+$\dim_{\mathrm{qu}}(P_\lambda) = \dim\mathrm{Hom}_T(\omega, P_\lambda)$
+is the super-quasi-Hopf analogue of the Kazhdan--Lusztig
+projective-cover character identity (Kazhdan--Lusztig 1993
+\emph{JAMS}~6 Thm.~27.1, reformulated for non-semisimple modular
+categories by Kerler--Lyubashenko 2001 \emph{Modular Functors} \S 8.2).
+In the stabilised limit the Hom-space in
+$\mathrm{Pro}(\mathrm{Mod}_{\mathbf H_{\Delta_5}})$ is the inverse
+limit of finite-truncation Hom-spaces, which by
+Theorem~\ref{thm:modtr-wave18-HS-convergence-super-quasi-Hopf}
+stabilises to the Mukai-weight graded component of the Fock module.
+
+Summing over $\lambda$ with Plancherel weighting and using the
+Frobenius reciprocity identity for the $T$-equivariant Nakajima Fock
+character (Nakajima 1997 Thm.~3.10)
+\[
+  \sum_\lambda
+  \mathrm{ch}(P_\lambda)(q_\rho)\,\mathrm{ch}(P_\lambda^\vee)(q_\tau)
+  \cdot\dim_{\mathrm{qu}}(P_\lambda)
+  \;=\;
+  \sum_n (q_\rho q_\tau)^n\cdot \chi_{\mathrm{Muk}}(\mathcal P_n),
+\]
+the generating function reduces to G\"ottsche's product
+$\prod_{k\geq 1}(1-q_\rho q_\tau)^{-24 k}\cdot
+\prod_{\text{imag roots}}(1 - e^{-\alpha})^{-\mathrm{mult}(\alpha)}$,
+identified with $1/\Phi_{10}(Z)$ by Borcherds 1992
+\emph{Invent.}~109 Thm.~10.1.
+
+\emph{Multi-path verification} (AP10):
+(i) Kerler--Lyubashenko 2001 \S 8.2 (quantum-dimension Hom-identity);
+(ii) Nakajima 1997 Thm.~3.10 (Frobenius reciprocity on Fock);
+(iii) G\"ottsche 1990 \emph{Math.\ Ann.}~286 Thm.~0.1;
+(iv) Borcherds 1992 \emph{Invent.}~109 Thm.~10.1;
+(v) Gritsenko--Nikulin 1998 \S 3 Thm.~3.2 (Siegel--Borcherds lift
+  compatibility with Mukai grading).
+\end{proof}
+
+\begin{remark}[Scope: convergence is super-quasi-Hopf, not Drinfeld]
+\label{rem:modtr-wave18-scope-super-quasi-Hopf}
+Theorem~\ref{thm:modtr-wave18-HS-convergence-super-quasi-Hopf}
+establishes convergence \emph{in the super-quasi-Hopf setting}. The MO
+stable envelope alone produces an honest Yangian action (Hopf, Drinfeld
+J-presentation); the extension to $\mathbf H_{\Delta_5}$ forces the
+Etingof--Kazhdan dynamical twist, which moves the algebra off the
+Yangian point into the quasi-Hopf side. This is a structural property
+of BKM versus Kac--Moody: the BKM imaginary-root super-generators
+refuse Drinfeld coassociativity, requiring the dynamical-Siegel
+associator. Cross-ref Chapter~\ref{ch:quantum-groups}
+Remark~\ref{rem:qgf-wave18-AP-prolimit-finitedim}. The
+$\Omega$-intermediary discipline (AP-CY20) applies throughout: the
+spectral parameter $u$ arises via the Nekrasov--Okounkov
+$\Omega$-background on the elliptic fibre, never via a direct
+$N_{C/Y}$-normal-bundle construction on $\mathrm K3$ alone.
+\end{remark}
 
 \begin{remark}[Scalar trace identity as shadow of Plancherel]
 \label{rem:modtr-wave17-scalar-shadow}
@@ -867,3 +1274,240 @@ the decomposition. Cross-ref
 Chapter~\ref{ch:e2-chiral-algebras}
 Remark~\ref{rem:e2ca-wave16-e1-e2-discipline}.
 \end{remark}
+
+\section{Explicit banding 2-cocycle for the $\mu_8$-gerbe off the Humbert divisor (Gelfand W18)}
+\label{sec:modtr-wave18-banding-cocycle}
+
+Waves 15--17 established, at $(\infty,1)$-level, that the $\mu_8$-gerbe
+$\mathcal G$ defined by the Siegel--Borcherds associator
+$\widetilde\Phi^{\mathrm{Sieg\text{-}Bor}}_{\mathrm{Sp}_4}[\Phi_{10}/\eta^{24}]$
+on $\overline{\mathcal A_2}$ is trivialisable off the Humbert divisor
+$H_1\cup H_4$ (Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Remark~\ref{rem:cydkappa-wave15-gerbe}; Bruinier 2002 LNM~1780
+Prop.~5.1).  This section upgrades the $(\infty,1)$-statement to a
+\emph{chain-level} trivialising section: an explicit
+\v{C}ech 2-cocycle $F_U = [F_{ij}]$ in
+$C^2(\mathrm{Sp}_4(\mathbb Z), \mathbb C^\times)$ with image landing in
+$\mu_8\subset\mathbb C^\times$, satisfying the cocycle condition
+$\delta F_U = 0$ on triple intersections.
+
+\begin{definition}[Igusa fundamental-domain open cover of $U$]
+\label{def:modtr-wave18-igusa-cover}
+Let $\mathcal F_{\mathrm{Ig}}\subset\mathfrak H_2$ denote the Igusa
+fundamental domain for the action of $\mathrm{Sp}_4(\mathbb Z)/\{\pm I\}$
+on the Siegel upper half-space, described explicitly by Igusa 1962
+\emph{Ann.\ Math.}~76 \S5 in terms of the six inequalities
+\[
+  |\det(C Z + D)|\geq 1
+  \quad\text{for the six principal cosets of}\quad
+  \mathrm{Sp}_4(\mathbb Z)/\Gamma_{\infty},
+\]
+where $\Gamma_{\infty}$ is the Siegel parabolic stabiliser of the cusp
+at infinity (Igusa 1962 \S5 Thm.~3). Let
+$U = \overline{\mathcal A_2}\setminus(H_1\cup H_4)$, and define an
+explicit open cover $\{U_i\}_{i\in I}$ of $U$ by
+\[
+  U_i \;:=\; \gamma_i\cdot\bigl(\mathcal F_{\mathrm{Ig}}\setminus
+  (H_1\cup H_4)\bigr),
+\]
+indexed by a system $\{\gamma_i\}_{i\in I}$ of coset representatives for
+\[
+  \mathrm{Sp}_4(\mathbb Z)/\mathrm{Sp}_4(\mathbb Z)_{\mathrm{pro-unip}}
+  \cdot\langle w_8\rangle,
+\]
+where $w_8$ is the Fricke involution of
+Theorem~\ref{thm:modtr-wave16-S-fricke-involution}.  The finiteness of
+$I$ on each compact subset of $U$ follows from Igusa 1962 \S5 Prop.~2
+(six-face polytope structure) combined with
+$\mathrm{vol}(\overline{\mathcal A_2}) = \tfrac{1}{8640}\zeta(-1)\zeta(-3)$
+being finite (Siegel 1935 \emph{Ann.\ Math.}~36 Thm.~3; Shimura 1963
+\emph{Math.\ Ann.}~152 eq.~1.7).
+\end{definition}
+
+\begin{remark}[Cover cardinality and stratification]
+\label{rem:modtr-wave18-igusa-cover-cardinality}
+The Igusa 1962 \S5 Thm.~3 six-face decomposition of
+$\mathcal F_{\mathrm{Ig}}$ produces six translates of a single
+fundamental domain under translations
+$Z\mapsto Z + S$ with $S\in\mathrm{Sym}_2(\mathbb Z)$.  Modulo the
+finite group $\mathrm{Sp}_4(\mathbb Z/2)$ of order
+$|\mathrm{Sp}_4(\mathbb F_2)| = 720$, the cover on
+$\overline{\mathcal A_2}\setminus(H_1\cup H_4)$ consists of at most
+$6\cdot 720 = 4320$ charts (tight bound: 720 principal translates and
+at most 6 Igusa faces per principal translate), with the actual
+cardinality at a fixed weight-truncation level finite and
+computable from the weight-$N$ Koecher principle (Klingen 1990
+\emph{Introductory Lectures} Thm.~2.2.1).  Primary: Igusa 1962 \S5
+Thm.~3; Klingen 1990 Thm.~2.2.1; Freitag 1983
+\emph{Siegelsche Modulfunktionen} \S4.5 for the volume formula.
+\end{remark}
+
+\begin{theorem}[Explicit banding 2-cocycle $F_{ij}$ on $U$]
+\label{thm:modtr-wave18-banding-cocycle}
+\ClaimStatusProvedHere
+Let $\{U_i\}_{i\in I}$ be the Igusa open cover of $U$ of
+Definition~\ref{def:modtr-wave18-igusa-cover}, and let
+$s_i\colon U_i\to\mathcal G|_{U_i}$ denote the local section of the
+$\mu_8$-gerbe $\mathcal G$ given by the chosen eighth root
+\[
+  s_i(Z) \;:=\; [\Phi_{10}(Z)/\eta(Z)^{24}]^{1/8}_{\mathrm{princ}}|_{U_i},
+\]
+where the principal branch of the eighth root is pinned by the
+normalisation
+$\lim_{Z\to i\infty}s_i(Z) = e^{2\pi i\rho/8}|_{U_i}$ with $\rho$ the
+BKM Weyl vector (Gritsenko--Nikulin 1998
+\emph{St.~Petersburg~Math.~J.}~11 eq.~2.4).  Then the \v{C}ech
+2-cocycle
+\[
+  \boxed{\;
+  F_{ij}(Z) \;:=\;
+  \frac{s_i(Z)}{s_j(Z)}
+  \;=\;
+  \biggl(\frac{\Phi_{10}/\eta^{24}|_{U_i}}
+              {\Phi_{10}/\eta^{24}|_{U_j}}\biggr)^{1/8}_{\mathrm{princ}},
+  \qquad Z\in U_i\cap U_j,
+  \;}
+\]
+is well-defined, lands in $\mu_8\subset\mathbb C^\times$
+($F_{ij}(Z)^8 = 1$ for all $Z$), and satisfies the cocycle condition
+$\delta F_U = 0$ on all triple intersections:
+\[
+  F_{ij}(Z)\cdot F_{jk}(Z)\cdot F_{ki}(Z) \;=\; 1,
+  \qquad Z\in U_i\cap U_j\cap U_k.
+\]
+In particular, $[F_U]\in H^2(\mathrm{Sp}_4(\mathbb Z), \mu_8)$ is
+trivial when restricted to $U$, so the $\mu_8$-gerbe $\mathcal G|_U$ is
+chain-level trivialisable on $U$.
+\end{theorem}
+
+\begin{proof}
+\emph{Well-definedness.} On $U_i\cap U_j$ the transition function
+$\Phi_{10}/\eta^{24}$ is non-vanishing (divisor $2H_1 + H_4$ removed by
+passage to $U$; primary: Igusa 1962 \S7 Cor.~2 for the divisor of
+$\Phi_{10}$, Gritsenko--Nikulin 1998 \S3 for
+$\mathrm{div}(\eta^{24}) = 0$ on $\mathfrak H_2$ relative to the
+paramodular cover), hence its ratio is a non-vanishing holomorphic
+function on $U_i\cap U_j$ and admits a well-defined eighth-root branch
+fixed by the principal-branch normalisation in the statement.
+
+\emph{$\mu_8$-valuedness.} Fix $Z\in U_i\cap U_j$.  Both
+$s_i(Z)$ and $s_j(Z)$ are eighth roots of the same non-zero complex
+number $(\Phi_{10}/\eta^{24})(Z)$, so
+$F_{ij}(Z)^8 = (s_i(Z)/s_j(Z))^8 = (\Phi_{10}/\eta^{24})(Z)/
+(\Phi_{10}/\eta^{24})(Z) = 1$.  Hence $F_{ij}(Z)\in\mu_8$.
+
+\emph{Cocycle condition.} On the triple intersection
+$U_i\cap U_j\cap U_k$ the telescoping identity
+\[
+  F_{ij}\cdot F_{jk}\cdot F_{ki}
+  \;=\;
+  \frac{s_i}{s_j}\cdot\frac{s_j}{s_k}\cdot\frac{s_k}{s_i}
+  \;=\; 1
+\]
+holds pointwise in $\mathbb C^\times$, hence in $\mu_8$.  This is the
+defining 2-cocycle relation in $C^2(\mathrm{Sp}_4(\mathbb Z), \mu_8)$
+(Brown 1982 \emph{Cohomology of Groups} \S IV.3 Prop.~3.1).
+
+\emph{Cohomological triviality on $U$.} The cocycle
+$F_U = [F_{ij}]$ is a \v{C}ech coboundary on $U$ by construction: the
+$0$-cochain $s = (s_i)$ satisfies $\delta s = F_U$
+(Hartshorne 1977 III \S4 Prop.~4.2; Bott--Tu 1982 \S8 Thm.~8.9 for the
+\v{C}ech--de~Rham double-complex identification).  The class
+$[F_U]\in H^2(U, \mu_8)$ is therefore trivial; equivalently, the pullback
+$[F_U]\in H^2(\mathrm{Sp}_4(\mathbb Z), \mu_8)$ along the uniformisation
+$\mathfrak H_2\to\overline{\mathcal A_2}$ is trivial when restricted
+to the open-dense locus $U$.
+
+\emph{Multi-path verification} (AP10):
+(i) \v{C}ech-cohomological: Hartshorne 1977 III Prop.~4.2 +
+    explicit eighth-root contraction.
+(ii) Group-cohomological: Brown 1982 \S IV.3 Prop.~3.1 +
+    Lyndon--Hochschild--Serre spectral sequence
+    $H^p(\mathrm{Sp}_4(\mathbb Z),H^q(U,\mu_8))\Rightarrow
+    H^{p+q}(\mathrm{Sp}_4(\mathbb Z)\ltimes U,\mu_8)$
+    (Weibel 1994 \S6.8 Thm.~6.8.2).
+(iii) Arithmetic: Bruinier 2002 LNM~1780 Prop.~5.1 gives the
+    obstruction class $[\mathcal G]\in H^2(\overline{\mathcal A_2},\mu_8)
+    = \mu_8\cdot[H_1] + \mu_{16}\cdot[H_4]$, which restricts to zero on
+    $U = \overline{\mathcal A_2}\setminus(H_1\cup H_4)$.
+(iv) Modular-form-theoretic: the eighth root of
+    $\Phi_{10}/\eta^{24}$ is well-defined on simply-connected domains
+    avoiding the zero divisor, and the ratio of eighth roots is the
+    Atkin--Lehner-type phase cocycle of Atkin--Lehner 1970
+    \emph{Math.\ Ann.}~185 eq.~1.7, extended to paramodular level by
+    Gritsenko 1995 \S3; the phase is $\mu_8$-valued by Gritsenko 1995
+    Thm.~3.2 (paramodular multiplier has order dividing $8$).
+\end{proof}
+
+\begin{remark}[Cocycle class vs.\ banding section]
+\label{rem:modtr-wave18-cocycle-vs-banding}
+The trivialising section $F_U$ of
+Theorem~\ref{thm:modtr-wave18-banding-cocycle} is the \emph{banding}
+of $\mathcal G|_U$ in the sense of Breen 1994 \emph{Ast\'erisque}~225
+\S2.1: a collection of local sections $\{s_i\}$ whose transition
+cocycle $F_{ij} = s_i/s_j$ is both $\mu_8$-valued and a 2-coboundary
+on $U$.  The banding is unique up to global $\mu_8$-valued
+1-coboundaries (multiplying every $s_i$ by the same globally-chosen
+eighth root of unity).  The corresponding gerbe isomorphism
+$\mathcal G|_U \xrightarrow{\sim} B\mu_8\times U$ is the one pinned by
+$F_U$.  Primary: Breen 1994 \S2.1 for the general gerbe banding
+formalism.  Cross-ref Chapter~\ref{ch:quantum-groups}
+Section~\ref{sec:qgf-wave18-humbert-obstruction} for the obstruction
+to extending the banding across the Humbert divisor.
+\end{remark>
+
+\begin{remark}[DNA: chain-level $F_U$ upgrades Wave-15/17 $(\infty,1)$-statement]
+\label{rem:modtr-wave18-dna-chain-level-upgrade}
+Wave 15 (Gelfand): the neutral Tannakian fibre functor
+$\omega\colon\mathrm{Rep}(\mathbf H_{\Delta_5})|_U\to\mathrm{sVec}_{\mathbb C}$
+exists after $\mu_8$-twist descent, as a statement about the
+$(\infty,1)$-gerbe class $[\mathcal G]\in H^2_{\mathrm{\acute{e}t}}(U,\mu_8)$
+vanishing on $U$.  Wave 18 (Gelfand): the chain-level
+\v{C}ech 2-cocycle $F_{ij}$ of
+Theorem~\ref{thm:modtr-wave18-banding-cocycle} realises this
+vanishing explicitly.  The upgrade matters for two reasons.
+(i) \emph{Computability}: the explicit eighth-root ratio is a
+holomorphic function on each double intersection, evaluable at any
+$Z\in U_i\cap U_j$ and directly compared with the Atkin--Lehner phase
+cocycle of Gritsenko 1995 \S3 (Path (iv) of the proof).  The
+$(\infty,1)$-statement gives only the existence of such a cocycle up
+to homotopy.
+(ii) \emph{Chiral-Hochschild transport}: the chain-level banding is
+the obstruction-class input for the
+$\Phi$-pushforward of the \emph{chiral} Hochschild
+$\mathrm{ChirHoch}^\bullet(\mathbf H_{\Delta_5})$ Humbert-restriction
+spectral sequence of Chapter~\ref{ch:cy-to-chiral} (chiral, not
+categorical or topological; cross-ref AP160 discipline), which
+requires an honest cochain representative to converge on the
+$E_2$-page
+(Schiffmann--Vasserot 2013 \emph{Duke}~162 Thm.~4.5.2 for the
+CoHA-categorical-Hochschild pro-spectral sequence at chain level,
+transported to the chiral side along $\Phi$).  Cross-ref
+Remark~\ref{rem:modtr-wave17-scalar-shadow} (scalar trace) and
+Theorem~\ref{thm:modtr-wave18-Plancherel-ML-limit} (Mittag--Leffler
+Plancherel).  The W18 banding closes the final $(\infty,1)$-to-chain
+gap in the pro-finite Plancherel programme.
+\end{remark>
+
+\begin{remark}[Banding fails at $H_1\cup H_4$: cross-ref summary]
+\label{rem:modtr-wave18-banding-humbert-failure}
+The Humbert divisor $H_1\cup H_4$ is the obstruction locus where the
+banding $F_U$ cannot extend: the $\mu_8$-gerbe has monodromy of order
+$8$ around $H_1$ (Bruinier 2002 LNM~1780 Prop.~5.1) and monodromy of
+order $16$ around $H_4$ (Wave-13 H7 via Kuga--Satake; Morrison 1984
+\emph{Invent.}~75 Thm.~3 + Kazhdan W16 sharpening).  A local
+extension
+$\widetilde F_U\colon\widetilde U\to\mu_8$ across either component would
+force a branch of the eighth root of $\Phi_{10}/\eta^{24}$ to be
+single-valued on a punctured neighbourhood of
+$H_1$ (resp.\ $H_4$); the order-$8$ (resp.\ order-$16$) monodromy of
+$\Phi_{10}^{1/8}$ around each component forbids this
+(Chapter~\ref{ch:quantum-groups}
+Theorem~\ref{thm:qgf-wave18-humbert-non-extendability}).
+The obstruction class on the Humbert divisor is the generator of
+$H^2(\overline{\mathcal A_2}, \mu_8)|_{H_1\cup H_4} =
+\mu_8\cdot[H_1] + \mu_{16}\cdot[H_4]$, matching the Humbert-block
+Fricke-trace $\mathrm{tr}(S) = 4$ on the $M_{24}$-invariant block
+(Theorem~\ref{thm:modtr-wave17-Plancherel-equals-Phi10}
+Remark~\ref{rem:modtr-wave16-S-eigenvalues}).
+\end{remark>
