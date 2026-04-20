@@ -20,7 +20,7 @@ The load-bearing architectural source is `chapters/examples/k3_chiral_bialgebra_
 
 ## Wave 14 handoff queue
 
-1. Adjudicate the $c_{2d}$ bridge between Polyakov's stalk-level $c_{\mathrm{gen}}=1$ and Gaiotto's global $c_{2d}=-214$ by an explicit 24-Miki stalk sum.
+1. ~~Adjudicate the $c_{2d}$ bridge between Polyakov's stalk-level $c_{\mathrm{gen}}=1$ and Gaiotto's global $c_{2d}=-214$ by an explicit 24-Miki stalk sum.~~ **Closed Wave 14 (2026-04-20):** global $c_{2d}=-312$ via Chacaltana–Distler $c_{4d}(A_1,\Sigma_{0,24})=26$ (Vol III Prop `prop:k3-chacaltana-distler-24`); the earlier $-214$ value is retracted; bridge to $c_{\mathrm{gen}}=1$ is inscribed at `rem:k3-c2d-bridge` with four-factorisation check at `rem:k3-312-factorisations` ($-312 = -24\cdot 13 = -12\cdot 26 = -26\cdot 12 = -6\cdot 52$).
 2. Compute the first 10 Schur-index coefficients of $\mathcal{T}[A_1,\Sigma_{0,24}]$ and verify the composite arrow $\mathcal{I}_{\mathrm{Schur}} \to \phi_{0,1}^{K3} \to \Delta_5$.
 3. Reframe `chapters/examples/k3e_bkm_chapter.tex` so the ambient 11D / class-$\mathcal{S}$ theory is on the left-hand side and $\Delta_5$ is derived as the 1-loop output.
 4. Verify the Beem–Rastelli flavour-level convention against the Beem–Peelaers–Rastelli tables.
