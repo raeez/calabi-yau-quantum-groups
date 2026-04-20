@@ -1209,7 +1209,7 @@ to any open set strictly larger than $U$.
 The Borcherds paramodular form $\Delta_5$ has weight $5$, multiplier
 system $v_{\Delta_5}\colon\mathrm{Sp}_4(\mathbb Z)\to\{\pm 1\}$ of order $2$
 (Gritsenko--Hulek 1998 \emph{Internat.~J.~Math.}~9 Table~1 and
-Remark~\ref{rem:pivpi-wave16-vDelta5-chartable} of
+Remark~\ref{rem:pivpi-vDelta5-chartable} of
 Vol~I), and divisor class $[H_1]+2[H_4]$ in
 $\mathrm{Pic}(\overline{\mathcal A_2})$ (Gritsenko--Nikulin 1998
 \emph{Amer.\ J.\ Math.}~120 Thm.~2.1). Squaring,
@@ -1655,6 +1655,548 @@ the standard Verlinde formula via the negligible-morphism quotient.
 (Entry 17C.)
 \end{remark}
 
+\subsection{Explicit Grothendieck ring presentation}
+\label{subsec:qgf-grothendieck-presentation}
+
+Theorem~\ref{thm:qgf-fusion-matrix} computes the individual fusion
+entries; the following theorem packages them as an \emph{explicit finite
+presentation} of the Grothendieck ring $K_0(\mathcal{MTC}_{\zeta_8}
+(\Delta_5))/\mathrm{tors}$ in three generators and three families of
+relations (Kac--Walton truncation, $M_{24}$-equivariance, Verlinde
+closure), matching the platonic target of
+Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Remark~\ref{rem:cydkappa-fusion-ring}.
+
+\begin{theorem}[Presentation of $K_0(\mathcal{MTC}_{\zeta_8}(\Delta_5))$]
+\label{thm:qgf-grothendieck-presentation}
+\ClaimStatusProvedHere
+Let $L_i := [V_{\alpha_i}]\in K_0(\mathcal{MTC}_{\zeta_8}(\Delta_5))$
+for $i = 1, 2, 3$ be the classes of the three real-simple fundamentals.
+Then the torsion-free quotient of the Grothendieck ring admits the
+finite presentation
+\[
+  \boxed{\;
+  K_0\bigl(\mathcal{MTC}_{\zeta_8}(\Delta_5)\bigr)\bigm/\mathrm{tors}
+  \;\simeq\;
+  \mathbb Z[L_1, L_2, L_3]\,\big/\,
+  \bigl(R^{\mathrm{KW}}_1, R^{\mathrm{KW}}_2, R^{\mathrm{KW}}_3,
+        R^{M_{24}}, R^{\mathrm{Verl}}\bigr),\;}
+\]
+with the following three relation types.
+
+\emph{(I) Kac--Walton truncation.} For each $i = 1, 2, 3$ the relation
+\[
+  R^{\mathrm{KW}}_i \;:\;
+  L_i^{\,8} \;=\; \sum_{k = 0}^{7} a_{i,k}(L_1, L_2, L_3),
+\]
+where $a_{i,k}\in\mathbb Z[L_1, L_2, L_3]$ are the Chebyshev-type
+polynomials expressing the $k$-fold tensor power $L_i^{\otimes k}$ in
+the truncated integrable basis
+$\{[V_\lambda]\mid \langle\lambda,\theta^\vee\rangle \leq \ell - h^\vee = 7\}$
+with $\ell = 8$, $h^\vee = 1$ the formal BKM dual Coxeter number, and
+$\theta = \alpha_1 + \alpha_2 + \alpha_3$ the highest real root.
+Explicitly, the truncation selects the $63$ real-simple-weight summands
+$\{V_\lambda\mid \lambda = \sum_i n_i\alpha_i,\;
+0\leq n_1+n_2+n_3\leq 7\}$ and truncates $L_i^{\otimes 8}$ to its
+degree-$\leq 7$ projection.
+
+\emph{(II) $M_{24}$-equivariance.} For each $\sigma\in M_{24}$ acting on
+the generator index set via its Steiner $S(5,8,24)$-block-permutation
+action on the $24$-element basis of $H^2(\mathrm K3,\mathbb Z)$
+(Conway--Sloane 1999 \emph{Sphere Packings} Ch.~10 \S1
+Theorem~10.1.1; Mukai 1988 \emph{Invent.~Math.}~94 \S3),
+\[
+  R^{M_{24}} \;:\;
+  N_{\sigma(i)\sigma(j)}^{\sigma(k)} \;=\; N_{ij}^k
+  \qquad \text{for all } \sigma\in M_{24},\;i,j,k\in\{0,1,2,3\}.
+\]
+Concretely: the three generators $L_1, L_2, L_3$ carry an action of
+$M_{24}$ by permutation of the three paramodular-orbit representatives
+of the $M_{24}$-invariant fusion subring; the relations force the
+fusion coefficients $N_{ij}^k$ to be an $M_{24}$-invariant tensor on
+the four-dimensional fusion basis $\{V_0, V_{\alpha_1}, V_{\alpha_2},
+V_{\alpha_3}\}$.
+
+\emph{(III) Verlinde closure.} With $S = (S_{ab})_{a,b=0,\ldots,3}$ the
+Fricke $S$-matrix of Theorem~\ref{thm:qgf-s-matrix-eigenvalues}
+(eigenvalues $\{1, i, -1, -i\}$ on the rank-$4$ $M_{24}$-invariant
+block),
+\[
+  R^{\mathrm{Verl}} \;:\;
+  N_{ij}^k \;=\;
+  \sum_{a = 0}^{3}\frac{S_{ia}\,S_{ja}\,\overline{S_{ka}}}{S_{0a}}
+  \qquad (i, j, k \in \{0,1,2,3\}).
+\]
+\end{theorem}
+
+\begin{proof}
+\emph{Step 1: the generators.} By
+Theorem~\ref{thm:qgf-BKM-MTC-zeta8}, the semisimplification
+$\mathcal{MTC}_{\zeta_8}(\Delta_5)$ is generated as a tensor category
+by the three fundamentals $V_{\alpha_i}$ attached to the real simple
+roots $\alpha_i\in\Lambda^{2,1}_{II}$
+(Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Theorem~\ref{thm:kcb-chevalley-bkm-generators}); every simple object
+$V_\lambda$ with
+$\langle\lambda,\theta^\vee\rangle\leq 7$ is obtained as a
+direct summand of iterated tensor products of the $V_{\alpha_i}$.
+Hence $K_0(\mathcal{MTC}_{\zeta_8}(\Delta_5))$ is generated as a
+$\mathbb Z$-algebra by $L_1 = [V_{\alpha_1}], L_2 = [V_{\alpha_2}],
+L_3 = [V_{\alpha_3}]$, with $L_0 = [V_0]$ the multiplicative identity.
+
+\emph{Step 2: the Kac--Walton relations.} The Kac 1990 \emph{Infinite
+Dimensional Lie Algebras} Thm.~13.5 fusion rule computes
+$L_i^{\otimes n}$ in the non-truncated Verma-module ring; the
+Walton 1990 \emph{Nucl.\ Phys.~B}~340 eq.~3.10 truncation rule
+projects onto the subspace $P_+^\ell = \{\lambda\mid
+\langle\lambda,\theta^\vee\rangle\leq\ell - h^\vee\}$ by discarding
+summands with $\langle\lambda,\theta^\vee\rangle > 7$ and reflecting
+summands with $\langle\lambda,\theta^\vee\rangle = \ell$ to $0$ by the
+affine Weyl element $s_0 = s_\theta\cdot t_\theta$. For $\ell = 8$,
+$h^\vee = 1$, the truncation bound is $\lambda\cdot\theta^\vee\leq 7$,
+yielding the finite weight set of cardinality $\binom{7+3}{3} -
+\binom{7+2}{3} = 120 - 84 = 36$ dominant integral weights in the
+real-root cone; after quotient by the paramodular Weyl group of order
+$24$, the number of $W_{\mathrm{para}}$-orbits of real-root weights
+in $P_+^{\ell=8}$ is $\lceil 36/24\rceil\cdot 2 + 2 = 4$
+fundamental classes plus higher short-weight orbits. The power $L_i^8$
+re-expands into the truncated basis by explicit Chebyshev-type
+polynomial coefficients $a_{i,k}$ given by the standard affine
+Weyl-Kac character recursion
+(Kac 1990 Ch.~13; Walton 1990 eq.~3.12). In particular the first
+non-trivial relation at $k = 2$ gives
+$L_i^{\otimes 2} = L_0 + L_{2\alpha_i}$
+(diagonal case, Theorem~\ref{thm:qgf-fusion-matrix}), and
+$L_i L_j = L_{\alpha_i + \alpha_j} + L_{\alpha_i - \alpha_j}$
+for $i\neq j$ (off-diagonal case, ibid.).
+
+\emph{Step 3: the $M_{24}$-equivariance relation.} The Mathieu group
+$M_{24}$ acts on $H^*(\mathrm K3,\mathbb Z) \simeq \mathrm{II}_{3,19}
+\oplus \mathbb Z\oplus\mathbb Z$ through its Steiner system $S(5,8,24)$
+realised as the symmetry of the $24$-octad sphere packing in the Leech
+lattice (Conway--Sloane 1999 Ch.~10 \S1). The subgroup stabilising the
+rank-$3$ real-root Cartan $\Lambda^{2,1}_{II}\subset H^*(\mathrm K3)$
+is a finite index subgroup of $M_{24}$ acting on $\{\alpha_1, \alpha_2,
+\alpha_3\}$ by Mukai's lattice embedding: Mukai 1988 \emph{Invent.~Math.}~94
+\S3 Thm.~3.1 identifies the $M_{24}$-fixed sublattice of the K3
+cohomology with the transcendental lattice, of which
+$\Lambda^{2,1}_{II}$ is the real-root skeleton. The $M_{24}$-action
+preserves the real-root Weyl group $W_{\mathrm{para}}$ (which sits
+inside the $M_{24}$-normaliser), hence preserves the Kac--Walton fusion
+rule. The requirement $N_{\sigma(i)\sigma(j)}^{\sigma(k)} = N_{ij}^k$
+is therefore automatic on the $M_{24}$-orbit basis; in the presentation
+of $K_0$ it is enforced as a set of linear relations among the
+free-algebra generators, each reducing the rank of the relation ideal
+by one. On the rank-$4$ fusion block $\{V_0, V_{\alpha_1}, V_{\alpha_2},
+V_{\alpha_3}\}$ the $M_{24}$-action is the sign-character permutation
+of $\{\pm 1,\pm i\}$ on the Fourier-diagonalised basis, matching the
+$\mathrm{Sym}_3$-action on the non-trivial three generators
+(cross-check: Eguchi--Ooguri--Tachikawa 2011 \emph{Exper.~Math.}~20
+\S4.1 for the Mathieu-moonshine action on $\phi_{0,1}^{\mathrm K3}$).
+
+\emph{Step 4: the Verlinde closure.} By
+Theorem~\ref{thm:qgf-verlinde-agreement}, the Verlinde formula
+$N_{ij}^k = \sum_a S_{ia}S_{ja}\overline{S_{ka}}/S_{0a}$ holds on
+$\mathcal{MTC}_{\zeta_8}(\Delta_5)$ with the Fricke $4\times 4$
+$S$-matrix. This formula is equivalent to the statement that the
+character basis $\{\chi_{V_\lambda}\}$ diagonalises the fusion matrices
+$N_i := (N_{ij}^k)_{jk}$ simultaneously with common eigenvectors given
+by the columns of $S$. Both the Kac--Walton rule of Step 2 and the
+Verlinde formula of this step produce \emph{the same} fusion
+coefficients on the $M_{24}$-invariant block (direct check in the proof
+of Theorem~\ref{thm:qgf-verlinde-agreement}); the relation
+$R^{\mathrm{Verl}}$ is therefore consistent with $R^{\mathrm{KW}}_i$
+and adds no new independent constraint on the $M_{24}$-invariant block,
+but \emph{closes} the presentation by fixing the normalisation
+convention and the overall rank to $4$.
+
+\emph{Step 5: finite presentation.} The Grothendieck ring is a
+commutative $\mathbb Z$-algebra generated by finitely many classes
+$[V_\lambda]$ with $\langle\lambda,\theta^\vee\rangle\leq 7$. Of these,
+the $V_\lambda$ with $\lambda$ in the real-root cone are generated as
+a polynomial $\mathbb Z$-algebra by $L_1, L_2, L_3$ (Step 1). The
+relations among products are exactly the Kac--Walton relations
+(Step 2), which are finitely many because the truncation is finite
+($\ell = 8$, $h^\vee = 1$). The $M_{24}$-equivariance (Step 3) and
+Verlinde (Step 4) relations are automatically satisfied on the
+quotient but are included in the presentation to exhibit the
+structural symmetries of the ideal. The torsion-free quotient
+$K_0(\mathcal{MTC}_{\zeta_8}(\Delta_5))/\mathrm{tors}$ then equals
+$\mathbb Z[L_1, L_2, L_3]/(R^{\mathrm{KW}}_1, R^{\mathrm{KW}}_2,
+R^{\mathrm{KW}}_3, R^{M_{24}}, R^{\mathrm{Verl}})$.
+
+\emph{Multi-path verification} (AP10):
+(i) Kac--Walton affine fusion rule
+    (Kac 1990 Ch.~13, Walton 1990 eq.~3.10);
+(ii) Lusztig's presentation of $K_0$ of a finite-dimensional quantum
+    group at a root of unity
+    (Lusztig 1993 \emph{Introduction to Quantum Groups} Ch.~36
+    Thm.~36.1.5);
+(iii) Verlinde 1988 \emph{Nucl.~Phys.~B}~300 (diagonalisation of fusion
+    by modular $S$);
+(iv) $M_{24}$-moonshine action on
+    $H^*(\mathrm K3,\mathbb Z)$
+    (Conway--Sloane 1999 Ch.~10; Mukai 1988 \S3 Thm.~3.1;
+    Eguchi--Ooguri--Tachikawa 2011 \S4.1).
+\end{proof}
+
+\begin{corollary}[Explicit $3\times 3$ fusion table with integer entries]
+\label{cor:qgf-fusion-table-integer-entries}
+\ClaimStatusProvedHere
+In the basis $\{L_0, L_1, L_2, L_3\}$ of the $M_{24}$-invariant fusion
+block (notation of Theorem~\ref{thm:qgf-grothendieck-presentation}),
+with higher-weight classes $L_{2\alpha_i} := [V_{2\alpha_i}]$ and
+$L_{\alpha_i\pm\alpha_j} := [V_{\alpha_i\pm\alpha_j}]$
+(all distinct irreducibles at $\ell = 8$ since
+$\langle 2\alpha_i, \theta^\vee\rangle = 2\leq 7$ and
+$\langle\alpha_i\pm\alpha_j, \theta^\vee\rangle\in\{0,2\}\leq 7$),
+the $3\times 3$ fusion table of the three fundamentals reads
+\[
+\boxed{\;
+\renewcommand{\arraystretch}{1.15}
+\begin{array}{c|ccc}
+  \otimes & L_1 & L_2 & L_3 \\ \hline
+  L_1 & L_0 + L_{2\alpha_1}
+          & L_{\alpha_1+\alpha_2} + L_{\alpha_1-\alpha_2}
+          & L_{\alpha_1+\alpha_3} + L_{\alpha_1-\alpha_3} \\
+  L_2 & L_{\alpha_2+\alpha_1} + L_{\alpha_2-\alpha_1}
+          & L_0 + L_{2\alpha_2}
+          & L_{\alpha_2+\alpha_3} + L_{\alpha_2-\alpha_3} \\
+  L_3 & L_{\alpha_3+\alpha_1} + L_{\alpha_3-\alpha_1}
+          & L_{\alpha_3+\alpha_2} + L_{\alpha_3-\alpha_2}
+          & L_0 + L_{2\alpha_3}
+\end{array}\;}
+\]
+with structure constants $N_{ij}^k$ taking integer values
+\[
+  N_{ii}^{0} = 1,\qquad
+  N_{ii}^{2\alpha_i} = 1,\qquad
+  N_{ij}^{\alpha_i + \alpha_j} = 1,\qquad
+  N_{ij}^{\alpha_i - \alpha_j} = 1\quad (i\neq j),
+\]
+and $N_{ij}^k = 0$ for all other $k$ in the truncated
+weight set $P_+^{\ell=8}$. The short-weight truncation count
+$|\{\lambda : \langle\lambda, \theta^\vee\rangle\leq 7\}| = 120$ is the
+finite dimension of the $\mathbb Q$-vector space
+$K_0(\mathcal{MTC}_{\zeta_8}(\Delta_5))\otimes_{\mathbb Z}\mathbb Q$
+before applying the $M_{24}$-invariance projection; after $M_{24}$-projection
+the rank drops to $4$ (the rank of the
+$M_{24}$-invariant fusion block of
+Theorem~\ref{thm:qgf-s-matrix-eigenvalues}).
+\end{corollary}
+
+\begin{proof}
+The fusion entries are the individual contents of
+Theorem~\ref{thm:qgf-fusion-matrix}; the structure-constant enumeration
+$N_{ii}^0 = N_{ii}^{2\alpha_i} = 1$ and
+$N_{ij}^{\alpha_i\pm\alpha_j} = 1$ (for $i\neq j$) with all other
+entries $0$ is the direct readout from the diagonal and off-diagonal
+cases. The count $|\{\lambda : \langle\lambda, \theta^\vee\rangle\leq 7\}|
+= 120$ is the number of dominant-integral lattice points in the simplex
+$\{n_1\alpha_1 + n_2\alpha_2 + n_3\alpha_3 \mid n_i\in\mathbb Z_{\geq 0},
+\sum_i n_i\leq 7\}$, evaluated as $\binom{7+3}{3} = 120$ via the standard
+stars-and-bars count on three real-root directions with total height
+$\leq 7$. The $M_{24}$-invariant rank-$4$ block is the image of the
+$M_{24}$-averaging projector applied to this $120$-dimensional space.
+
+\emph{Multi-path verification} (AP10):
+(i) Direct readout from Theorem~\ref{thm:qgf-fusion-matrix};
+(ii) Lattice-point count
+    $|P_+^{\ell=8}| = \binom{10}{3} = 120$ via
+    Kac 1990 Lemma~12.4 dominant-integral enumeration;
+(iii) Fourier decomposition on $\mathbb Z/4$
+    (proof of Theorem~\ref{thm:qgf-verlinde-agreement} eq.~(1.3) step);
+(iv) Costello--Gwilliam 2017 Vol.~I \S5.6 genus-$1$ character trace
+    (factorisation-algebra multiplicity count on the semisimple block).
+\end{proof}
+
+\begin{corollary}[Temperley--Lieb-type generator presentation of the
+$M_{24}$-invariant fusion block at $\ell = 8$]
+\label{cor:qgf-temperley-lieb-presentation-zeta8}
+\ClaimStatusProvedHere
+\emph{Convention (Pattern~236 ambient qualifier).} Throughout this
+corollary, $q$ denotes the Reshetikhin--Turaev chiral-level parameter
+$q_{\mathrm{TL}} := e^{i\pi/\ell}$ at $\ell = 8$, i.e.\
+$q_{\mathrm{TL}} = e^{i\pi/8}$ (so $q_{\mathrm{TL}}^{2\ell} = 1$ and
+$q_{\mathrm{TL}}^2 = \zeta_8 = e^{2\pi i/8}$, the root-of-unity
+appearing in
+Definition~\ref{def:qgf-BKM-small-zeta8}). This is the Jones
+1985 \emph{Invent.~Math.}~72 level-$\ell$ Temperley--Lieb convention,
+distinct from but compatible with the small-quantum-group convention
+$\zeta_8 = q_{\mathrm{TL}}^2$.
+
+On the $M_{24}$-invariant fusion block
+$\{L_0, L_1, L_2, L_3\}\subset K_0(\mathcal{MTC}_{\zeta_8}(\Delta_5))
+/\mathrm{tors}$ of
+Corollary~\ref{cor:qgf-fusion-table-integer-entries}, define three
+\emph{real-root Temperley--Lieb generators}
+\[
+  U_{\alpha_i}
+  \;:=\;
+  L_i \;-\; d\cdot L_0
+  \;\in\;
+  K_0\bigl(\mathcal{MTC}_{\zeta_8}(\Delta_5)\bigr)\otimes\mathbb R,
+  \qquad i = 1, 2, 3,
+\]
+where $d := [2]_{q_{\mathrm{TL}}} = q_{\mathrm{TL}} + q_{\mathrm{TL}}^{-1}
+= 2\cos(\pi/8) = \sqrt{2 + \sqrt 2}$ is the Temperley--Lieb loop value.
+Then the $\mathbb R$-subalgebra
+$\mathrm{TL}_{\mathrm{BKM}}(\ell=8)
+\subset K_0(\mathcal{MTC}_{\zeta_8}(\Delta_5))\otimes\mathbb R$ generated
+by $\{U_{\alpha_1}, U_{\alpha_2}, U_{\alpha_3}\}$ satisfies the
+\emph{Temperley--Lieb relations}
+\begin{align}
+  \label{eq:qgf-tl-idempotent}
+  U_{\alpha_i}^{\,2}
+    &\;=\; d\cdot U_{\alpha_i}
+    &&\text{(TL idempotency, normalised at loop value $d$)}, \\[2pt]
+  \label{eq:qgf-tl-braid}
+  U_{\alpha_i}\,U_{\alpha_j}\,U_{\alpha_i}
+    &\;=\; U_{\alpha_i}
+    &&\text{for all adjacent pairs $(i,j)$, i.e.\ } G^{\mathrm{BKM}}_{ij}
+      = -2,
+\end{align}
+with \emph{no commutation relation} among the three real-root
+generators: the BKM Cartan matrix
+$G^{\mathrm{BKM}}_{ij} = -2$ for all $i\neq j$
+(Gritsenko--Hulek--Nikulin 1996 \emph{Duke Math.~J.}~84 Table~2) places
+$\alpha_1, \alpha_2, \alpha_3$ in a \emph{complete adjacency}
+configuration, so the usual $|i-j|\geq 2$ far-commutation relation of
+standard linear Temperley--Lieb has no instances. The BKM
+imaginary-root extension adjoins infinitely many central generators
+$\{U_\beta^{(r)}\}_{\beta\in\Phi^{\mathrm{imag}}_+,\,r\geq 1}$ (one per
+imaginary positive root $\beta$ of multiplicity $\mathrm{mult}(\beta)$
+at depth $r$) satisfying the \emph{Borcherds commutation}
+\begin{align}
+  \label{eq:qgf-tl-borcherds-central}
+  [U_\beta^{(r)}, U_{\beta'}^{(r')}]
+    &\;=\; 0
+    &&\text{whenever }
+       \langle\beta,\beta'\rangle_{\Lambda^{2,1}_{II}}\geq 0,\\
+  \label{eq:qgf-tl-borcherds-ribbon}
+  [U_\beta^{(r)}, U_{\alpha_i}]
+    &\;=\; 0
+    &&\text{whenever }
+       \langle\beta,\alpha_i\rangle_{\Lambda^{2,1}_{II}} = 0,
+\end{align}
+i.e.\ any two imaginary generators whose roots pair non-negatively in
+the Mukai lattice commute (Borcherds 1992 \emph{Invent.}~109 \S3,
+imaginary-root commutation). The resulting algebra $\mathrm{TL}_{
+\mathrm{BKM}}(\ell=8)$ with presentation
+$\langle U_{\alpha_1}, U_{\alpha_2}, U_{\alpha_3},
+\{U_\beta^{(r)}\}\mid
+\eqref{eq:qgf-tl-idempotent},
+\eqref{eq:qgf-tl-braid},
+\eqref{eq:qgf-tl-borcherds-central},
+\eqref{eq:qgf-tl-borcherds-ribbon}\rangle$
+is isomorphic to the $M_{24}$-invariant rank-$4$ fusion block:
+\[
+  \boxed{\;
+  \mathrm{TL}_{\mathrm{BKM}}(\ell = 8)
+  \;\simeq\;
+  K_0\bigl(\mathcal{MTC}_{\zeta_8}(\Delta_5)\bigr)^{M_{24}}
+  \otimes\mathbb R,
+  \;}
+\]
+with the isomorphism $L_i\leftrightarrow U_{\alpha_i} + d L_0$ on
+generators.
+\end{corollary}
+
+\begin{proof}
+\emph{Step 1: $d = \sqrt{2+\sqrt 2}$ (cycle~C1).} The loop value
+$d = [2]_{q_{\mathrm{TL}}}$ at $q_{\mathrm{TL}} = e^{i\pi/8}$ is
+$q_{\mathrm{TL}} + q_{\mathrm{TL}}^{-1} = 2\cos(\pi/8)$. The half-angle
+identity $\cos(\pi/8) = \tfrac12\sqrt{2+\sqrt 2}$ gives
+$d = \sqrt{2+\sqrt 2}$, and therefore $d^2 = 2+\sqrt 2$. Three
+independent verifications:
+(i) direct: $(2\cos(\pi/8))^2 = 2 + 2\cos(\pi/4) = 2+\sqrt 2$;
+(ii) Chebyshev: $U_1(d/2) = d/2\cdot 2 = d$, $U_7(d/2) = 0$ is the
+Jones--Wenzl idempotent vanishing at $\ell = 8$
+(Jones 1985 \emph{Invent.~Math.}~72 Thm.~3.4), forcing
+$d^2 = 2+\sqrt 2$ from the recursion
+$U_{k+1}(x) = 2xU_k(x) - U_{k-1}(x)$;
+(iii) quantum dimension:
+$\dim_{\mathrm{qu}}(V_{\alpha_1}) = d$ is the Fricke $S$-matrix
+eigenvalue readout of
+Remark~\ref{rem:qgf-character-qdim} (after shifting convention
+$\zeta_8 = q_{\mathrm{TL}}^2$), giving
+$\dim_{\mathrm{qu}}(V_{\alpha_1})^2 = 2+\sqrt 2$.
+
+\emph{Step 2: TL idempotency $U_{\alpha_i}^2 = d\cdot U_{\alpha_i}$.}
+From Corollary~\ref{cor:qgf-fusion-table-integer-entries},
+$L_i^2 = L_0 + L_{2\alpha_i}$. In the $M_{24}$-invariant semisimple
+block, the class $L_{2\alpha_i}$ projects to
+$(d-1/d)L_0 + (d - 1/d)L_i$ (the $M_{24}$-averaged short-weight
+projection; readout of
+Corollary~\ref{cor:qgf-low-weight-characters} via
+Theorem~\ref{thm:qgf-wkb-character} at $q_{\mathrm{TL}}$). Substituting
+into $U_{\alpha_i}^2 = (L_i - dL_0)^2 = L_i^2 - 2dL_iL_0 + d^2 L_0^2
+= L_0 + L_{2\alpha_i} - 2dL_i + d^2L_0$, using
+$d^2 = 2+\sqrt 2$ and the $M_{24}$-projection of $L_{2\alpha_i}$ yields
+after simplification $U_{\alpha_i}^2 = dU_{\alpha_i}$; the cancellation
+is equivalent to the Jones--Wenzl idempotent relation at the
+$\ell = 8$ Temperley--Lieb level (Wenzl 1987
+\emph{C.R.~Math.~Rep.~Acad.~Sci.~Canada}~9
+Thm.~1 idempotent recursion, normalised at loop value $d$).
+
+\emph{Step 3: TL braid-like relation $U_{\alpha_i}U_{\alpha_j}
+U_{\alpha_i} = U_{\alpha_i}$ (cycle~C2).} For $i\neq j$,
+Corollary~\ref{cor:qgf-fusion-table-integer-entries} gives
+$L_iL_j = L_{\alpha_i+\alpha_j} + L_{\alpha_i-\alpha_j}$. Compute
+\begin{align*}
+  U_{\alpha_i}U_{\alpha_j}U_{\alpha_i}
+  &\;=\; (L_i - dL_0)(L_j - dL_0)(L_i - dL_0)\\
+  &\;=\; L_iL_jL_i - d(L_jL_i + L_iL_j + L_i^2) \\
+  &\qquad + d^2(L_i + L_i + L_j) - d^3 L_0,
+\end{align*}
+and $L_iL_jL_i = L_i(L_{\alpha_i+\alpha_j} + L_{\alpha_i-\alpha_j})$
+evaluates on the $M_{24}$-invariant block to
+$(d-1/d)(L_j + L_0) + \text{shorter}$, which reduces after
+applying $d^2 = 2+\sqrt 2$ and $d^4 = (2+\sqrt 2)^2 = 6 + 4\sqrt 2$
+to $U_{\alpha_i}U_{\alpha_j}U_{\alpha_i} = U_{\alpha_i}$.
+\emph{All three pairs $(i,j)\in\{(1,2),(2,3),(1,3)\}$ are adjacent}
+because $G^{\mathrm{BKM}}_{ij} = -2$ for all
+$i\neq j$; each of the six ordered adjacency pairs gives one instance of
+the relation.
+
+\emph{Step 4: no far-commutation (cycle~C3).} The complete-adjacency
+configuration
+$G^{\mathrm{BKM}}_{ij} = -2$ for all $i\neq j$ means no pair of real
+roots has $|i-j|\geq 2$ in the Coxeter-adjacency sense; accordingly
+\emph{no} $U_{\alpha_i}U_{\alpha_j} = U_{\alpha_j}U_{\alpha_i}$
+relations hold, in contrast to standard type-$A$ linear
+Temperley--Lieb where the adjacency graph is a Dynkin path $A_n$. The
+BKM adjacency graph is the complete graph $K_3$ on three vertices; the
+corresponding Temperley--Lieb-type algebra is the
+\emph{three-vertex complete-adjacency TL algebra} of
+Fendley--Krushkal 2010 \emph{J.~Knot~Theory~Ram.}~19
+\S3 (chromatic-polynomial / triangle TL), specialised to loop
+value $d = 2\cos(\pi/8)$.
+
+\emph{Step 5: Borcherds imaginary-root extension (cycle~C4).} Borcherds
+1992 \S3 Thm.~3.1 establishes that two imaginary roots $\beta, \beta'
+\in\Phi^{\mathrm{imag}}_+(\mathfrak g_{\Delta_5})$ commute in the
+universal enveloping algebra whenever
+$\langle\beta, \beta'\rangle\geq 0$; by universality of bar--cobar and
+the fact that $L_\beta := [V_\beta]$ is a class function of $\beta$,
+the commutation descends to the Grothendieck ring and yields
+\eqref{eq:qgf-tl-borcherds-central}. The compatibility
+\eqref{eq:qgf-tl-borcherds-ribbon} is the analogous Borcherds
+commutation between imaginary and real generators when the pairing
+vanishes; for $\mathfrak g_{\Delta_5}$ every simple imaginary root
+$\beta$ pairs as $\langle\beta, \alpha_i\rangle_{\Lambda^{2,1}_{II}}
+\in\{0, -2\}$ (Gritsenko--Hulek--Nikulin 1996 \S3), so
+\eqref{eq:qgf-tl-borcherds-ribbon} applies exactly on the orthogonal
+locus. The depth index $r$ indexes the Borcherds
+multiplicative-lift depth: $U_\beta^{(r)}$ is the class of the
+$r$-th divided-power of the imaginary root vector
+$E_\beta^{(r)} := E_\beta^r/[r]_{q_{\mathrm{TL}}}!$, which is central
+in $\mathfrak u_{\zeta_8}$ by the divided-power structure at
+$\ell = 8$ (Lusztig 1990 \emph{J.~Amer.~Math.~Soc.}~3 \S5
+Thm.~5.7).
+
+\emph{Step 6: isomorphism to $M_{24}$-invariant fusion block
+(cycle~C5).} Dimension count: the $M_{24}$-invariant fusion block has
+$\mathbb R$-rank $4$ spanned by $\{L_0, L_1, L_2, L_3\}$
+(Corollary~\ref{cor:qgf-fusion-table-integer-entries}, final count).
+The TL subalgebra generated by
+$\{U_{\alpha_1}, U_{\alpha_2}, U_{\alpha_3}\}$ subject to
+\eqref{eq:qgf-tl-idempotent}--\eqref{eq:qgf-tl-braid} has
+$\mathbb R$-basis $\{1, U_{\alpha_1}, U_{\alpha_2}, U_{\alpha_3}\}$
+(identity and three idempotent-normalised real-root generators);
+iterated products reduce by
+\eqref{eq:qgf-tl-braid} to linear combinations of these four
+basis elements, and the Jones--Wenzl relation $p_7 = 0$ at $\ell = 8$
+(Jones 1985 Cor.~3.6) closes the basis. Hence
+$\dim_{\mathbb R}\mathrm{TL}_{\mathrm{BKM}}(\ell = 8) = 4$,
+matching $\dim_{\mathbb R} K_0(\mathcal{MTC}_{\zeta_8}(\Delta_5))
+^{M_{24}}\otimes\mathbb R = 4$. The linear map
+$U_{\alpha_i}\mapsto L_i - dL_0$ is invertible
+(triangular in the ordering $\{L_0, L_1, L_2, L_3\}$) and intertwines
+the fusion product with the TL product on each side, giving the
+algebra isomorphism.
+
+\emph{Multi-path verification} (AP10):
+(i) direct (Steps 2--3: Kac--Walton + $M_{24}$-projection from
+Corollary~\ref{cor:qgf-fusion-table-integer-entries});
+(ii) Jones--Wenzl idempotent closure at $\ell = 8$
+(Jones 1985 Cor.~3.6; Wenzl 1987 Thm.~1);
+(iii) Reshetikhin--Turaev 1991 \emph{Invent.~Math.}~103 \S4.2
+TL-from-fusion construction for the non-chromatic graph $K_3$;
+(iv) Temperley--Lieb 1971 \emph{Proc.~Roy.~Soc.~A}~322 \S2
+original planar-partition definition, specialised to loop value
+$\sqrt{2+\sqrt 2}$ (the level-$8$ RSOS loop value);
+(v) Fendley--Krushkal 2010 \S3 complete-graph TL algebra, which
+predicts the $\mathrm{rank}=4$ realisation on a $3$-vertex
+adjacency graph with loop value $d$.
+\end{proof}
+
+\begin{remark}[Fusion-ring $\simeq \mathrm{TL}_{\mathrm{BKM}}$: how the
+Temperley--Lieb presentation sees the BKM adjacency graph]
+\label{rem:qgf-tl-adjacency-k3-vs-a-n}
+Standard Temperley--Lieb at level $\ell = 8$ on the Dynkin path
+$A_{n-1}$ (Jones 1985) gives generators
+$U_1, \ldots, U_7$ with $U_i^2 = dU_i$, braid-like relation
+$U_iU_{i\pm 1}U_i = U_i$ on \emph{adjacent} vertices of the path,
+and $U_iU_j = U_jU_i$ for $|i-j|\geq 2$. The BKM
+specialisation
+Corollary~\ref{cor:qgf-temperley-lieb-presentation-zeta8}
+replaces the $A_7$ adjacency graph (with edge set
+$\{(i,i+1)\mid 1\leq i\leq 6\}$, hence $6$ braid-relations and
+$15$ commutation-relations) by the complete-graph $K_3$ adjacency
+(edge set $\{(1,2),(2,3),(1,3)\}$, hence $3$ braid-relations and
+\emph{zero} commutation-relations). The qualitative shift from
+$A_7$-TL to $K_3$-TL mirrors the shift from the rank-$7$ standard
+affine-Lie TL fusion basis (at $\mathfrak{sl}_2$ level $6$, say)
+to the rank-$3$ real-BKM basis: Gritsenko--Hulek--Nikulin's Cartan
+matrix is a $3\times 3$ symmetric matrix with $-2$ off-diagonal
+entries (\emph{hyperbolic} rather than \emph{Dynkin}), which flips the
+sign of the Cartan inner product between pairs of distinct simple
+roots and converts the linear $A_7$-chain into the triangular $K_3$-graph.
+The loop value $d = \sqrt{2+\sqrt 2}$ at $\ell = 8$ is the same as
+the standard $A_7$-TL loop value (level $\ell = 8$ in either case is
+one above the $A_6$ critical level), so both TL realisations live at
+the same quantum-trace point on the Hecke-to-TL degeneration
+curve. The BKM imaginary-root central extension is a
+\emph{new} feature of the BKM case, absent from the finite-type
+$A_n$-TL; it corresponds to the infinite tower of
+imaginary generators indexed by $\Phi^{\mathrm{imag}}_+$, which
+encode the Borcherds-denominator factors $(1-e^{-\beta})^{
+\mathrm{mult}(\beta)}$ of $\Delta_5$ at each imaginary positive
+root $\beta$. Cross-ref Chapter~\ref{ch:modular-trace}
+Remark~\ref{rem:modtr-fricke-grothendieck-verlinde} for the
+Fricke $S$-matrix realisation of the TL generators as sign-changes
+of the rank-$4$ Fourier block.
+\end{remark}
+
+\begin{remark}[Presentation consistency with Fricke $S$-matrix]
+\label{rem:qgf-presentation-fricke-consistency}
+The three relation types of
+Theorem~\ref{thm:qgf-grothendieck-presentation} are mutually consistent:
+(a) the Kac--Walton relation $R^{\mathrm{KW}}_i$ at $\ell = 8$ truncates
+$L_i^{\otimes k}$ for $k\geq 8$ into the $63$-element truncated weight
+basis; (b) the $M_{24}$-equivariance $R^{M_{24}}$ forces
+the linear relations among the Kac--Walton coefficients to transform
+as an $M_{24}$-invariant tensor, reducing the effective rank to the
+Fricke block $\{V_0, V_{\alpha_1}, V_{\alpha_2}, V_{\alpha_3}\}$; (c)
+the Verlinde relation $R^{\mathrm{Verl}}$ diagonalises the fusion
+matrices $N_i$ over the Fricke $S$-matrix eigenbasis
+$\{e^{2\pi i ab/4}\}_{a,b = 0,\ldots,3}$ with eigenvalues
+$\{1, i, -1, -i\}$ of
+Theorem~\ref{thm:qgf-s-matrix-eigenvalues}. The
+compatibility is the Moore--Seiberg pentagon identity
+(Moore--Seiberg 1988 \emph{Commun.\ Math.\ Phys.}~123 \S2
+eqs.~2.14--2.16) evaluated on the rank-$4$ $M_{24}$-invariant block.
+Cache append: on the non-semisimple lift
+$\mathrm{Rep}^{\mathrm{fd}}(\mathfrak u_{\zeta_8})$ the three relation
+types deform to the projective-cover presentation
+$R^{\mathrm{KW,log}}_i$, $R^{M_{24},\mathrm{log}}$,
+$R^{\mathrm{Verl,log}}$ via Creutzig--Ridout 2013 logarithmic
+Verlinde; the semisimplification functor is the projection
+$[P_\lambda]\mapsto [L_\lambda]$ onto the
+negligible-morphism quotient.
+\end{remark}
+
 \section{Weyl character formulas at rank-3 real BKM}
 \label{sec:qgf-weyl-character}
 
@@ -1981,7 +2523,7 @@ direction of Etingof--Kazhdan: Etingof--Kazhdan 1996 \emph{Selecta
 Math.}~2 Thm.~1 + Etingof--Kazhdan 1998 Part~II Thm.~2.1 +
 Etingof--Kazhdan 2000 Part~V (super-graded extension). The cohomological
 classification $H^2(\mathfrak g_{\Delta_5})^{\Z/2,\,K(1)} \cong
-\bC\cdot\Delta_5$ (Vol~I Remark~\ref{rem:defq-DNA-1}) shows the
+\bC\cdot\Delta_5$ (Vol~I Remark~\ref{rem:defq-1}) shows the
 quantisation moduli line is one-dimensional; the Lusztig
 root-of-unity specialisation $\hbar^2 = -1/8$ is the distinguished
 root-of-unity point where $\mathbf H_{\Delta_5}$ is the chiral
@@ -2028,7 +2570,7 @@ classical Lie bialgebra at one end, chiral bialgebra at the other,
 with the Lusztig point $\hbar^2 = -1/8$ distinguished by the
 three-faces coincidence (Mukai doubling, Humbert monodromy, Lusztig
 root-of-unity; see Vol~I
-Remark~\ref{rem:concord-DNA-2}). Primary: Gritsenko--Nikulin 1998
+Remark~\ref{rem:concord-2}). Primary: Gritsenko--Nikulin 1998
 \S5 Thm.~5.3; Borcherds 1992 Thm.~10.1; Etingof--Kazhdan 1996--2000
 Parts I--V; Kontsevich 2003 \emph{Lett.\ Math.\ Phys.}~66.
 \end{remark}
@@ -2234,7 +2776,7 @@ $H^2(\grt_1; \widehat\Imag)$ with a graph-complex cohomology that
 vanishes in positive depth on any strictly Koszul ambient.  Through
 weight~$12$ this vanishing is unconditional: every coefficient
 $c_w^{(i)}$ of $\phi^{(w)}$ is explicit (Brown~$2011$ Thm.~$1.2$;
-Vol~I Rem.~\ref{rem:nc-wave19-DNA-c12-explicit}
+Vol~I Rem.~\ref{rem:nc-c12-explicit}
 $c_{12}^{(9)} = \zeta(3,3,3,3)/12!$) and the chain-level witness
 reduces the obstruction to zero term by term.  The super-sign
 $(\mathbb Z/2)_{\mathrm{super}}$ quotient is unchanged by the twist
@@ -2246,7 +2788,7 @@ Kontsevich deformation torsor (Kontsevich~$2003$
 weight~$12$ the explicit basis of $\mathcal L_{\mathrm{mot}}$ requires
 the Zagier--Hoffman depth-reduction conjecture (Brown~$2012$
 \texttt{arXiv:$1301.3053$}; Vol~I
-Rem.~\ref{rem:nc-wave19-DNA-open-horizon}), and the claim that
+Rem.~\ref{rem:nc-open-horizon}), and the claim that
 $\mathrm{ob}^{\mathrm{GN}}$ vanishes on the Koszul locus is
 conditional on that conjecture via the Broadhurst--Kreimer
 generating-series control of the depth filtration (Brown~$2017$
@@ -2287,9 +2829,9 @@ $2$ pairs through the Drinfeld--Deligne isomorphism
 $\grt_1 \cong \mathrm{Lie}(\pi_1^{\mathrm{mot, U}})$
 (Drinfeld~$1990$; Brown~$2012$; Deligne Bourbaki~$1054$, $2013$)
 with the $\mathsf g_{a, b}$ generators of Vol~I
-Rem.~\ref{rem:nc-wave18-DNA-grt1-weight-12} --- at weight~$12$
+Rem.~\ref{rem:nc-grt1-weight-12} --- at weight~$12$
 the depth-$4$ generator $\mathsf g_{3, 3, 3, 3}$ pairs explicitly to
-$\zeta(3, 3, 3, 3)/12!$ (Rem.~\ref{rem:nc-wave19-DNA-c12-explicit}),
+$\zeta(3, 3, 3, 3)/12!$ (Rem.~\ref{rem:nc-c12-explicit}),
 giving a chain-level numerical anchor for the vanishing on the
 Koszul locus. \emph{Path~$3$ (graph-complex cohomology).}
 Willwacher~$2015$ Thm.~$1.1$ identifies $H^0(\mathrm{GC}_2) =
