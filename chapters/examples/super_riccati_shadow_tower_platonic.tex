@@ -206,26 +206,25 @@ coefficient of $\theta_{r+2}$ on the RHS is
 \;=\; \tfrac{1}{2}
 \sum_{j + k = r + 2} S_j S_k \, [\theta_j, \theta_k].
 \]
-Tracked formally in the super-Wick expansion of $[\Theta_\ell,
-\Theta_\ell]$ (i.e.\ bookkeeping the Koszul sign of each Wick
-contraction, not asserting strict commutation of chiral operators in
-the enveloping), the parity prefactor on the $\theta_j \theta_k$
-term in the bracket is $(1 - (-1)^{|\theta_j| |\theta_k|}) = (1 -
-(-1)^{(j-1)(k-1)|\ell|^2}) = (1 - (-1)^{(j-1)(k-1)|\ell|})$ since
-$|\ell|^2 = |\ell|$ mod $2$. Reading $|\ell| \in \{0, 1\}$:
+The convolution bracket $[\theta_j, \theta_k]_{\mathrm{conv}}$ on
+line-descendants is built from the bar coproduct of $B(A)$ and the
+product on $A$; its Wick expansion counts the parity-signed
+contractions of a $j$-leg into a $k$-leg, producing a descendant
+of weight $j + k - 2$ with Koszul sign
+$(-1)^{|\theta_j|\cdot|\theta_k|} = (-1)^{(j-1)(k-1)|\ell|^2} =
+(-1)^{(j-1)(k-1)|\ell|}$ (using $|\ell|^2 \equiv |\ell| \pmod 2$).
+Reading $|\ell| \in \{0, 1\}$:
 \begin{itemize}[nosep]
-\item $|\ell| = 0$: all operators commute and
- $[\theta_j, \theta_k] = 0$ formally. The left-hand side of the
- master equation is driven by the differential $d$ and the
- single-leg input $\kappa_\ell$; this drives
- \eqref{eq:super-riccati-master} back to the bosonic recurrence
- when $|\ell| = 0$.
-\item $|\ell| = 1$: parities of descendants are $|(\theta_r)| = (r-1)
+\item $|\ell| = 0$: every descendant is bosonic, $|\theta_r| = 0$, and
+ the Koszul sign collapses to $+1$; the convolution bracket reduces
+ to its symmetric form and $[\Theta_\ell, \Theta_\ell]_{\mathrm{conv}}$
+ generates the bosonic Riccati recurrence of Vol~I.
+\item $|\ell| = 1$: parities of descendants are $|\theta_r| = (r-1)
  \pmod 2$. Odd $r$: $|\theta_r| = 0$ (bosonic descendant). Even $r$:
- $|\theta_r| = 1$ (fermionic descendant). The signed bracket
- $[\theta_j, \theta_k]$ enters the master equation with sign
- $(-1)^{(j-1)(k-1)}$, which is precisely the Koszul sign in
- \eqref{eq:super-riccati-master}.
+ $|\theta_r| = 1$ (fermionic descendant). The convolution bracket
+ $[\theta_j, \theta_k]_{\mathrm{conv}}$ enters the master equation
+ with sign $(-1)^{(j-1)(k-1)}$, which is precisely the Koszul sign
+ in \eqref{eq:super-riccati-master}.
 \end{itemize}
 
 The normalisation prefactor $-1/(2 r \kappa_\ell)$ comes from solving
@@ -306,8 +305,11 @@ and $S_4^W$ is seeded by $\alpha = 16/(5c + 22)$ directly
 We compute $S_3$ and $S_4$ on every distinguished line of the rank-$2$
 super-Yangians. Three subfamilies organize the calculation:
 \begin{enumerate}[label=\textup{(\roman*)},nosep]
-\item $Y(\mathfrak{sl}(1|1))$: the simplest super-Yangian. $\sdim = 0$
- forces $c_{\mathrm{aff}} = 0$ and the Sugawara $T$-line is degenerate.
+\item $Y(\mathfrak{sl}(1|1))$: the simplest super-Yangian. $\sdim = -1$
+ and $h^\vee = 0$; the naive Sugawara central charge $k\sdim/(k+h^\vee)$
+ is $-k/k$, indeterminate at every level, and the super-trace
+ $\str(J_a \otimes J^a)$ vanishes separately (one even plus one odd
+ Cartan cancelling), so the $T$-line is degenerate.
 \item $Y(\mathfrak{sl}(2|1))$: first non-degenerate mixed case.
  $\sdim = 3$, $h^\vee = 1$.
 \item $Y(\mathfrak{sl}(1|2))$: parity mirror of (ii). $\sdim = -3$,
@@ -600,20 +602,22 @@ $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! = n$.
 \begin{theorem}[$Y(\mathfrak{sl}(2|2))$: critical super-algebra]
 \label{thm:sl22-critical}
 \ClaimStatusProvedHere
-The super-Yangian $Y(\mathfrak{sl}(2|2))$ has $\sdim = 0$ and
-$h^\vee = 0$, hence the Sugawara $T$-line is doubly degenerate: both
-super-central charge and dual Coxeter vanish. On this family one
-must work with $\mathfrak{psl}(2|2)$ (quotienting out the
-$1$-dimensional centre) and use a shifted Sugawara at the
+The super-Yangian $Y(\mathfrak{sl}(2|2))$ has $\sdim(\mathfrak{sl}(2|2))
+= -1$ and $h^\vee = 0$; at $m = n$ the identity matrix $I$ has
+supertrace zero and remains inside $\mathfrak{sl}(2|2)$ as a
+$1$-dimensional centre. The Sugawara $T$-line is doubly degenerate:
+both the super-dual Coxeter and the Cartan--Killing form vanish. One
+must work with the simple quotient $\mathfrak{psl}(2|2) =
+\mathfrak{sl}(2|2)/\mathbb{C} I$ and use a shifted Sugawara at the
 super-critical-plus-twist level. The shadow tower on the bosonic
 $\mathfrak{sl}(2) \oplus \mathfrak{sl}(2)$ sub is $(S_3, S_4) = (2,
 10/[c(5c+22)])$ at effective $c = 2 \cdot 3k/(k+2) = 6k/(k+2)$.
 \end{theorem}
 
 \begin{proof}[Proof]
-$\sdim(\mathfrak{sl}(2|2)) = (2 - 2)^2 - 1 = -1$; in the
-$\mathfrak{psl}(2|2)$ quotient the super-dimension is $0$ (the
-$-1$ contribution is the identity matrix $I$ which is quotiented out).
+$\sdim(\mathfrak{sl}(2|2)) = (2 - 2)^2 - 1 = -1$; the simple quotient
+$\mathfrak{psl}(2|2)$ removes the even central element $I$, leaving
+super-dimension $-2$ (even dim $2m^2 - 2 = 6$, odd dim $2m^2 = 8$).
 The dual Coxeter of $\mathfrak{psl}(2|2)$ is $h^\vee = 0$, making the
 Sugawara construction critical at every level $k$. This matches the
 $\mathcal{N}{=}4$ boundary superconformal algebra:
@@ -759,7 +763,10 @@ respect to the super-trace pairing
 $\mathrm{str}(x, y) = \mathrm{tr}(x|_{\text{even}})
  - \mathrm{tr}(x|_{\text{odd}})$ restricted to the principal
 sub-Sugawara line. A second natural pairing is the Berezinian
-superdeterminant, whose restriction gives a distinct Koszul-dual
+(the super-determinant $\mathrm{Ber}(X) = \det(X_{00})
+\cdot \det(X_{11} - X_{10}X_{00}^{-1}X_{01})^{-1}$ of a block matrix
+$X \in \mathrm{End}(\mathbb{C}^{m|n})$), whose restriction gives a
+distinct Koszul-dual
 level inversion $k \mapsto -k - \epsilon h^\vee$ with
 $\epsilon \in \{+1, -1\}$ determined by the parity of $m - n$. Under
 the Berezinian pairing the complementarity sum is
@@ -909,8 +916,8 @@ class M$_s$ with infinite depth.
 
 (e) Super-BP uses super-Drinfeld--Sokolov on the minimal nilpotent
 orbit; the fractional-weight $G^\pm$ lines inherit the $\sqrt{c}$
-scaling from the bosonic C analogue (see Vol~I
-chap:shadow-tower-other-class-m-platonic).
+scaling from the bosonic C analogue (see Vol~I,
+\texttt{shadow\_tower\_other\_class\_M\_platonic.tex}).
 
 (f) Super-FF emerges from parabolic screenings on super-$\mathfrak{g}$;
 the shadow depth is tied to the screening depth and is finite for
@@ -994,8 +1001,12 @@ Three directions remain open:
 At Mukai-enhanced K3, the super-Riccati shadow tower specialises to the
 Lorentzian-lattice-parametric $\mathcal{B}$-family Koszul conductor
 $K^{\kappa_{\mathrm{ch}}}(\mathcal{H}_{\mathrm{Muk}}(K3)) =
-2\,c_+(\mathrm{Mukai}(K3)) = 8$, with $c_+$ the positive index of the
-Mukai lattice (rank 24, signature $(4, 20)$; $c_+ = 4$). The universal
+2\,c_+(\mathrm{Mukai}(K3)) = 8$, where
+$K^{\kappa_{\mathrm{ch}}}(A)$ denotes the Koszul conductor of $A$
+(Vol~I, the chirally-Koszul integer that pins the Lusztig
+specialisation $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$) and
+$c_+$ is the positive index of the Mukai lattice (rank 24,
+signature $(4, 20)$; $c_+ = 4$). The universal
 identity $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$ pins the Lusztig
 $u_\zeta$-specialisation at $\ell = 8$, matching the Humbert divisor
 $H_1$ monodromy order (Bruinier 2002, Proposition~5.1). The shared
