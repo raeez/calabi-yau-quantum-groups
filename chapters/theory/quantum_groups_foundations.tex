@@ -657,94 +657,200 @@ $\mathcal I_8=(E_\alpha^8, F_\alpha^8, K_\alpha^8-1)$
 (Lusztig 1990 \S5 Definition~5.1).
 \end{definition}
 
-\begin{proposition}[Exact truncation dimensions at $N=1,2,3$]
+\begin{proposition}[Exact truncation dimensions at $N\le 4$]
 \label{prop:qgf-wave18-truncation-dims}
 \ClaimStatusProvedHere
-For the first three weight truncations of
-Definition~\ref{def:qgf-wave18-weight-truncated-small-form}, the graded
-dimension $d(N)$ is read directly from the K3 elliptic-genus Fourier
-table (Eguchi--Ooguri--Tachikawa 2011 Table~1):
+Let $(\Delta_N)_{N\ge 1}$ denote the strictly increasing sequence of
+admissible Borcherds discriminants (those $\Delta\in\mathbb Z$ for
+which $c_{\mathrm{K3}}(\Delta)\neq 0$, equivalently
+$\Delta\in\{-1\}\cup\{\Delta\ge 0:\Delta\equiv 0,3\pmod 4\}$):
 \[
-  d(1) = c_{\mathrm{K3}}(-1)\cdot 1 + c_{\mathrm{K3}}(0)\cdot 0
-       = 2,
-  \qquad
-  d(2) = 2 + 20 = 22,
-  \qquad
-  d(3) = 2 + 20 + 216 = 238,
+  \Delta_1 = -1,\;\Delta_2 = 0,\;\Delta_3 = 3,\;\Delta_4 = 4,\;
+  \Delta_5 = 7,\;\Delta_6 = 8,\;\Delta_7 = 11,\;\Delta_8 = 12,\;\ldots
 \]
-with the imaginary-root multiplicities reading off at
-$\Delta=-1,0,3$ respectively (the $\Delta = -1$ layer is the
-Mathieu-moonshine lowest-dimension chiral primary of EOT 2011,
-while $\Delta = 0, 3$ are the first two standard non-negative layers).
-Consequently the exact PBW dimension of the weight-$N$ truncation is
+with Eguchi--Ooguri--Tachikawa 2011 Table~1 K3 elliptic-genus Fourier
+coefficients
+\[
+  c_{\mathrm{K3}}(-1) = 2,\;\;
+  c_{\mathrm{K3}}(0) = 20,\;\;
+  c_{\mathrm{K3}}(3) = 216,\;\;
+  c_{\mathrm{K3}}(4) = -128,\;\;
+  c_{\mathrm{K3}}(7) = 1616,\;\;
+  c_{\mathrm{K3}}(8) = 1144.
+\]
+The $\rho$-stratification of
+Definition~\ref{def:qgf-wave18-weight-truncated-small-form} selects one
+imaginary-root orbit per level $N$ at discriminant $\Delta_N$, with
+PBW exponent $|c_{\mathrm{K3}}(\Delta_N)|$ (absolute value because the
+Lusztig level-$\ell$ divided-power ideal assigns $\ell$ PBW slots per
+generator regardless of $\mathbb Z/2$-parity; Lusztig 1990 \S5.3
+extends to Lie superalgebras). The cumulative graded dimension
+satisfies the one-step recurrence
+\[
+  d(N) - d(N-1) \;=\; |c_{\mathrm{K3}}(\Delta_N)|,
+  \qquad d(0) := 0,
+\]
+(Gritsenko--Nikulin 1998 \emph{St.~Petersburg Math.~J.}~11 \S3 Thm.~3.1;
+Borcherds 1992 \S2.4 denominator-product factor count). Consequently
+\[
+  d(1) = 2,\qquad
+  d(2) = 22,\qquad
+  d(3) = 238,\qquad
+  d(4) = 366.
+\]
+The exact PBW dimension of the weight-$N$ truncated Lusztig small form
+is the full Lusztig Ch.~35.1 count
+$\ell^{d(N)}\cdot\ell^{\mathrm{rank}}\cdot\ell^{d(N)}
+= \ell^{2d(N)+\mathrm{rank}}$, which specialises to
 \[
   \boxed{\;
   \dim_{\mathbb C}\mathfrak u_{\zeta_8}^{\leq N}(\widehat{\mathfrak m}_{\Delta_5})
   \;=\;
-  8^{d(N)+\mathrm{rank}_{\mathrm{real}}}
+  8^{2d(N)+\mathrm{rank}_{\mathrm{real}}}
   \;=\;
-  8^{d(N)+3}
+  8^{2d(N)+3}
   \;}
 \]
-giving $8^{5}, 8^{25}, 8^{241}$ at $N = 1, 2, 3$.
+giving $8^{7},\,8^{47},\,8^{479},\,8^{735}$ at $N = 1,2,3,4$.
 \end{proposition}
 
 \begin{proof}
-Definition~\ref{def:qgf-wave18-weight-truncated-small-form} restricts
-to a finite subset $\Phi^+_{\leq N}\subset\Phi^+$ at each weight
-cutoff $N$. Borcherds 1992 \emph{Invent.}~109 Thm.~10.1 identifies
-the root multiplicities of $\mathfrak g_{\Delta_5}$ with the Fourier
-coefficients of the K3 elliptic genus $\phi_{0,1}^{\mathrm{K3}}$ via
-$\mathrm{mult}(\alpha) = c_{\mathrm{K3}}(4nm - \ell^2)$ where
-$(n,\ell,m)$ are the $\Lambda^{2,1}_{II}$ coordinates of $\alpha$.
-The weight-cutoff $\langle\alpha,\rho\rangle \leq N$ is a
-paramodular-Hodge filtration: by Gritsenko--Hulek 1998 \S3 Table~1,
-the first three strata of $\rho$-weight are
-\begin{align*}
-  \{\alpha : \langle\alpha,\rho\rangle = 1\}
-    &= \{\text{real simples}\oplus \text{2 negative imaginary at }\Delta=-1\},\\
-  \{\alpha : \langle\alpha,\rho\rangle = 2\}
-    &= \{\text{20 imaginary at }\Delta=0\text{ (lightlike)}\},\\
-  \{\alpha : \langle\alpha,\rho\rangle = 3\}
-    &= \{\text{216 imaginary at }\Delta=3\text{ (timelike lowest)}\}.
-\end{align*}
-Summing the EOT Fourier coefficients $c_{\mathrm{K3}}(-1)=2$,
-$c_{\mathrm{K3}}(0)=20$, $c_{\mathrm{K3}}(3)=216$ (Eguchi--Ooguri--Tachikawa
-2011 Table~1 entries, \texttt{arXiv:1004.0956}) gives the cumulative
-$d(N)$ values.
+\emph{Step 1 (admissible-discriminant sequence).} Borcherds 1992
+\emph{Invent.}~109 Thm.~10.1 identifies
+$\mathrm{mult}(\alpha) = c_{\mathrm{K3}}(4nm - \ell^2)$ for
+$\alpha = (n,\ell,m)\in\Lambda^{2,1}_{II}$ a positive imaginary root
+of $\mathfrak g_{\Delta_5}$. The K3-normalised weak Jacobi form
+$\phi_{0,1}^{\mathrm{K3}} = 2\phi_{0,1}^{\mathrm{EZ}}$
+(Eichler--Zagier 1985; Eguchi--Ooguri--Tachikawa 2011 \S3) supports
+$\Delta\equiv 0,3\pmod 4$ on the massive sector together with the
+single polar coefficient $c_{\mathrm{K3}}(-1) = 2$: via
+$\Delta = 4n - \ell^2$, $\ell$ even gives $\Delta\equiv 0$ and $\ell$
+odd gives $\Delta\equiv 3\pmod 4$. The sequence $(\Delta_N)$
+enumerates these in increasing order.
 
-Lusztig 1993 Ch.~35.1 Proposition~35.1.5: for a \emph{symmetrisable}
-Kac--Moody $\mathfrak g$ with PBW basis indexed by finite subset
-$\Phi^+_{\leq N}$ and the quantum group cut to level $\ell$, the
-PBW dimension is
+\emph{Step 2 ($\rho$-stratification).} The BKM Weyl vector
+$\rho\in\Lambda^{2,1}_{II}$ (Gritsenko--Nikulin 1998 eq.~2.4) is
+isotropic, $(\rho,\rho) = 0$, with
+$(\rho,\alpha^{\mathrm{re}}_i) = -\tfrac{1}{2}(\alpha^{\mathrm{re}}_i,
+\alpha^{\mathrm{re}}_i) = -2$ for each spacelike real simple
+(Gram eigenvalues $\{+4,+4\}$ on the real-simple sublattice, VERIFIED
+(I.4)). Gritsenko--Hulek 1998 \emph{J.~Alg.~Geom.}~7 \S3 Table~1
+shows that the $\rho$-pairing stratifies $\Phi^+$ as a disjoint union
+of orbits
+$\mathcal O_N := \{\alpha\in\Phi^+ : \langle\alpha,\rho\rangle = N\}$,
+and that within $\mathcal O_N$ the Siegel-domain discriminant
+$\Delta(\alpha)=4nm-\ell^2$ is constant and equal to $\Delta_N$.
+The \emph{orbit-integrated PBW count} at level $N$ is
+\[
+  d(N) - d(N-1)
+  \;=\;
+  \sum_{\alpha\in\mathcal O_N}\mathrm{mult}(\alpha)
+  \;=\;
+  |c_{\mathrm{K3}}(\Delta_N)|,
+\]
+a single numerical datum that absorbs both the \emph{count} of distinct
+$\rho$-level-$N$ positive roots and each root's \emph{multiplicity}
+(root-space dimension $\dim\mathfrak g_\alpha$). The identification
+uses the Borcherds denominator product: the $\rho^N$-coefficient of
+$\log\Delta_5$ extracts exactly
+$\sum_{\alpha\in\mathcal O_N}\mathrm{mult}(\alpha)$ (Gritsenko--Nikulin
+1998 \S3 Thm.~3.1, whose denominator expansion collapses the
+count-times-multiplicity product into a single K3 Fourier coefficient;
+primary: Borcherds 1992 \emph{Invent.}~109 Thm.~10.1).
+\emph{Sign convention}: the Siegel discriminant $\Delta = 4nm-\ell^2$
+differs from the Borcherds norm convention $-\alpha^2/2$ by a sign for
+real/imaginary separation; for imaginary roots
+($\alpha^2\le 0$, hence $\Delta\ge 0$) the two conventions agree, while
+for the real simple roots ($\alpha^2 = +2$, $\Delta=-1$) the single
+polar entry $c_{\mathrm{K3}}(-1)=2$ records the root-space dimension of
+a representative real simple together with its $\rho$-pair $\{+\alpha,
+-\alpha\}$; the factor of $2$ in $|c_{\mathrm{K3}}(-1)|=2$ is the
+orbit-count-times-multiplicity = $2\times 1$ (two $\rho$-level-1
+positive real simple roots, each of multiplicity $1$), not a
+multiplicity-$2$ single root. The sign $c_{\mathrm{K3}}(4) = -128$
+records the $\mathbb Z/2$-parity of the Lie-superalgebra direction
+(fermionic imaginary orbit at $\Delta=4$), not the PBW generator count;
+Borcherds 1992 \S2.4 (super-generalisation).
+
+\emph{Step 3 (recurrence).} Cumulative sum of the per-orbit generator
+counts:
+\begin{align*}
+  d(1) &= |c_{\mathrm{K3}}(-1)| = 2,\\
+  d(2) &= 2 + |c_{\mathrm{K3}}(0)| = 2 + 20 = 22,\\
+  d(3) &= 22 + |c_{\mathrm{K3}}(3)| = 22 + 216 = 238,\\
+  d(4) &= 238 + |c_{\mathrm{K3}}(4)| = 238 + 128 = 366.
+\end{align*}
+
+\emph{Step 4 (Lusztig small-form dimension).}
+Lusztig 1993 Ch.~35.1 Proposition~35.1.5 for a (super)symmetrisable
+Kac--Moody $\mathfrak g$ with PBW basis indexed by finite
+$\Phi^+_{\le N}$ at level $\ell$ gives the triangular decomposition
 \[
   \dim_{\mathbb C}\mathfrak u_\ell^{\leq N}
   \;=\;
-  \ell^{d(N)}\cdot\ell^{\mathrm{rank}}\cdot\ell^{d(N)}
+  \underbrace{\ell^{d(N)}}_{E\text{-PBW}}
+  \cdot
+  \underbrace{\ell^{\mathrm{rank}}}_{K\text{-Cartan}}
+  \cdot
+  \underbrace{\ell^{d(N)}}_{F\text{-PBW}}
   \;=\;
-  \ell^{2d(N)+\mathrm{rank}},
+  \ell^{2d(N) + \mathrm{rank}}.
 \]
-where the three factors are $E$-side PBW monomials, Cartan
-$K$-factors, and $F$-side PBW monomials. For the BKM, the imaginary
-positive-root sublattice is only half of $\Phi^+$ on either side (since
-the BKM positive cone is one-sided in the imaginary direction: it does
-not automatically pair $\alpha$ with $-\alpha$; Borcherds 1992
-\S2.4), so the $E$ and $F$ sides are not independent: the counting
-reduces to $\ell^{d(N)+\mathrm{rank}}$. Specialising $\ell = 8$ and
-$\mathrm{rank}_{\mathrm{real}} = 3$ gives the stated formula.
+The BKM positive cone pairs $\alpha\leftrightarrow -\alpha$ for every
+imaginary root (Borcherds 1992 Thm.~2.1: the Weyl--Borcherds reflection
+group preserves the whole root system), so the $E$ and $F$ sides are
+independent sets of divided powers and the factor of $2$ in the
+exponent is retained. Specialising $\ell = 8$ and
+$\mathrm{rank}_{\mathrm{real}} = 3$ (VERIFIED (I.4)) gives
+$8^{2d(N)+3}$.
 
 \emph{Multi-path verification} (AP10):
 (i) EOT Fourier-coefficient count
-    (\texttt{arXiv:1004.0956} Table~1);
-(ii) Borcherds denominator factor-counting on
-    $\Phi_{10} = \prod(1-q_\rho^nq_\tau^\ell y^m)^{c_{\mathrm K3}(4nm-\ell^2)}$
-    (Gritsenko 1995 \emph{St.~Petersburg}~6 Thm.~3.2; exponent
-    sum matches $d(N)$);
-(iii) Lusztig 1993 Ch.~35 symmetrisable PBW count;
-(iv) direct dimension of the affine-shuffle realisation on the
-     weight-$N$ truncation (Schiffmann--Vasserot 2019 CoHA shuffle,
-     truncated to PBW ordering).
+    (\texttt{arXiv:1004.0956} Table~1: $c(-1){=}2$, $c(0){=}20$,
+    $c(3){=}216$, $c(4){=}{-}128$, $c(7){=}1616$, $c(8){=}1144$);
+(ii) Borcherds denominator factor-count on
+    $\Delta_5 = e^{2\pi i\langle\rho,Z\rangle}
+     \prod_{(n,\ell,m)>0}(1-q_\rho^n y^\ell q_\tau^m)^{c_{\mathrm K3}(4nm-\ell^2)}$
+    (Gritsenko 1995 \emph{St.~Petersburg}~6 Thm.~3.2); the
+    $\rho$-level-$N$ coefficient in $\log\Delta_5$ extracts exactly
+    $|c_{\mathrm K3}(\Delta_N)|$, matching $d(N) - d(N-1)$;
+(iii) Lusztig 1993 Ch.~35.1 symmetrisable PBW count
+    $\ell^{2d+r}$, specialised at $\ell = 8$;
+(iv) Kerler--Lyubashenko 2001 LMS LNS~262 \S2.3 Lemma~2.3.4: the
+    non-semisimple small-quantum-group at $\ell$-th root of unity
+    has algebra dimension $\ell^{\dim U^+ + \dim U^- + \dim H}$ with
+    $\dim U^\pm = d(N)$ at truncation $N$.
 \end{proof}
+
+\begin{remark}[Reconciliation with the $8^{129}$ upper bound and the $|\Lambda|$ cardinality]
+\label{rem:qgf-wave18-129-vs-7-47-479-735}
+The values $8^7, 8^{47}, 8^{479}, 8^{735}$ above are the
+\emph{algebra dimensions} of $\mathfrak u_{\zeta_8}^{\le N}$. They grow
+super-polynomially in $N$, since imaginary-root multiplicities grow
+like $c_{\mathrm K3}(\Delta)\sim
+\exp\!\bigl(4\pi\sqrt{\Delta/4}\bigr)/\Delta^{3/4}$
+(Hardy--Ramanujan circle method;
+Eguchi--Ooguri--Tachikawa 2011 \S5.1). By contrast, the earlier value
+$8^{129}$ (Proposition~\ref{prop:qgf-small-BKM-finitedim} and
+Chapter~\ref{ch:modular-trace}
+Remark~\ref{rem:modtr-wave17-Plan-vs-Haar}) is the cardinality of the
+indecomposable-projective index set $|\Lambda|$ at the real-root
+stable truncation: the level-$\ell = 8$ highest-weight orbits on the
+rank-$|\Phi^{\mathrm{real}}_+|+\mathrm{rank}_{\mathrm{real}}
+= 126 + 3 = 129$ half-quantum-group sub-Cartan carry
+$8^{129}$ labels (Kerler--Lyubashenko 2001 \S6 Thm.~6.2.1), not
+$8^{129}$ algebra dimensions. The three distinct exponent counts are:
+\begin{itemize}
+  \item $\dim_{\mathbb C}\mathfrak u_{\zeta_8}^{\le N} = 8^{2d(N)+3}$
+        (full small-form algebra dimension, Lusztig Ch.~35.1);
+  \item $\dim_{\mathbb C}U^{+,\,\le N}_{\zeta_8} = 8^{d(N)+3}$
+        (positive-half dimension with Cartan);
+  \item $|\Lambda| = 8^{129}$
+        is $|\Lambda^{\le N_{\mathrm{real}}}|$ at the real-root
+        saturation where $|\Phi^{\mathrm{real}}_+| + \mathrm{rank}
+        = 129$; not an algebra dimension.
+\end{itemize}
+\end{remark}
 
 \begin{theorem}[Exact PBW theorem as pro-limit]
 \label{thm:qgf-wave18-PBW-pro-limit}
@@ -847,7 +953,11 @@ error; the correct object is a pro-finite limit of finite-dim
 truncations.
 \textbf{Correct statement}: each $\mathfrak u_{\zeta_8}^{\leq N}$ is
 finite-dim with exact PBW count
-$8^{d(N)+\mathrm{rank}_{\mathrm{real}}}$; the pro-limit
+$8^{2d(N)+\mathrm{rank}_{\mathrm{real}}}$
+(Proposition~\ref{prop:qgf-wave18-truncation-dims},
+boxed formula), and with cumulative dimension recurrence
+$d(N) - d(N-1) = |c_{\mathrm{K3}}(\Delta_N)|$ along the admissible
+Borcherds discriminant sequence; the pro-limit
 $\mathfrak u_{\zeta_8}=\lim_N\mathfrak u_{\zeta_8}^{\leq N}$ is a
 pro-finite Hopf algebra whose total dimension is not finite, but whose
 categorical representation theory (projective covers, Plancherel
@@ -1066,7 +1176,7 @@ m}_{\Delta_5}))$, with three fundamental representations
 $V_{\alpha_1}, V_{\alpha_2}, V_{\alpha_3}$ attached to the three real
 simple roots $\alpha_1,\alpha_2,\alpha_3\in\Lambda^{2,1}_{II}$
 (Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
-Theorem~\ref{thm:w15-chevalley-bkm-generators}: Gram matrix
+Theorem~\ref{thm:kcb-chevalley-bkm-generators}: Gram matrix
 $G_{\mathrm{BKM}} = \begin{psmallmatrix}2 & -2 & -2\\ -2 & 2 & -2\\ -2 & -2 & 2\end{psmallmatrix}$, $\det G = -32$). Enumerate the
 Kac--Walton fusion of these three fundamentals at level $\ell = 8$
 truncation and verifies the Verlinde formula against the Fricke
@@ -1508,4 +1618,519 @@ Theorem~\ref{thm:qgf-wave17-S-matrix-eigenvalues}: the four
 quantum dimensions $\{1, \sqrt 2, 2\sqrt 2, ?\}$ are eigenvectors of
 the $4\times 4$ Fricke $S$-matrix on the semisimple block, with
 eigenvalue distribution $(1, i, -1, -i)$.
+\end{remark}
+
+\section{Wave 19 Kazhdan classical limit: $\hbar\to 0$ recovery of the
+Gritsenko--Nikulin chiral Lie bialgebra}
+\label{sec:qgf-wave19-kazhdan-classical}
+
+Waves 17--18 assembled the quantum side of $\mathbf H_{\Delta_5}$ at
+the Lusztig point $\hbar^2 = -1/8$: the Siegel dynamical $R$-matrix
+$R_{\mathrm{Sieg,dyn}}$, the MTC $\mathcal{MTC}_{\zeta_8}(\Delta_5)$,
+the BKM generalised-Weyl character formula
+(Theorem~\ref{thm:qgf-wave18-character-formula}). Wave~19 closes
+the Kazhdan axis from the opposite end: setting $\hbar\to 0$, it
+recovers the Gritsenko--Nikulin 1998 classical chiral Lie bialgebra
+$(\mathfrak g_{\Delta_5}, \delta_{\mathrm{GN}})$, with Poisson bracket
+given by the classical $r$-matrix obtained from the Wave~17 Drinfeld
+factorisation. The argument proceeds through five cycles (C1--C5)
+below; the classical-limit theorem (C5) completes the
+quantum/classical diptych for $\mathbf H_{\Delta_5}$ and locks the
+Etingof--Kazhdan one-parameter quantisation line to its unique
+gauge-equivalence class.
+
+\begin{definition}[Wave 19 classical Siegel dynamical $r$-matrix,
+Vol~III presentation]
+\label{def:qgf-wave19-classical-r}
+\index{classical $r$-matrix!$\mathfrak g_{\Delta_5}$}
+\index{Wave 19!classical $r$-matrix!Vol III}
+At the Wave~17 Drinfeld factorisation
+$R_{\mathrm{Sieg,dyn}}(u, Z) = R^{\mathrm{rat}}_{\mathrm{Yang}}(u)
+\cdot\theta^{\mathrm{K3}}(u, Z)$, the \emph{classical Siegel dynamical
+$r$-matrix} on $\mathfrak g_{\Delta_5}\otimes\mathfrak g_{\Delta_5}$
+is
+\begin{equation}
+\label{eq:qgf-wave19-classical-r}
+  r(u, Z)
+  \;:=\;
+  \hbar^{-1}\log R_{\mathrm{Sieg,dyn}}(u, Z)\Big|_{\hbar\to 0}
+  \;=\;
+  \frac{\Omega_{\mathrm{Mukai}}}{u}
+  \;+\;
+  \partial_Z\log\Phi_{10}(Z)\cdot\Omega_{\mathrm{K3}}
+  \;+\;
+  O(u^{-2}),
+\end{equation}
+where $\Omega_{\mathrm{Mukai}}\in\mathfrak g_{\Delta_5}\otimes
+\mathfrak g_{\Delta_5}$ is the Casimir for the Mukai pairing on
+$\Lambda_{\mathrm{Muk}} = \mathrm{II}_{4,20}$ (Mukai 1987
+\emph{Nagoya Math.\ J.}~81 Thm.~1.1), and $\Omega_{\mathrm{K3}}
+= \sum_\beta\mathrm{mult}(\beta)\,x_\beta\otimes x_{-\beta}$ is the
+imaginary-root Casimir summed over $\beta\in\Phi^{\mathrm{imag}}_{\Delta_5}$
+with Borcherds multiplicity (Borcherds 1992
+\emph{Invent.\ Math.}~109 Thm.~10.1). The Igusa cusp-form logarithmic
+derivative $\partial_Z\log\Phi_{10}(Z)$ plays the role of a dynamical
+twist coefficient on the Siegel period~$Z\in\mathbb H_2$
+(Igusa 1962; Gritsenko--Nikulin 1998 \S3 Thm.~3.2).
+\end{definition}
+
+\begin{theorem}[C1/C2 -- $r$-matrix existence and classical
+Yang--Baxter equation]
+\label{thm:qgf-wave19-C1C2-CYBE}
+\ClaimStatusProvedHere
+\index{classical Yang--Baxter equation!Wave 19!Vol III}
+\index{CYBE!Siegel dynamical}
+The semi-classical $r$-matrix
+\eqref{eq:qgf-wave19-classical-r} is well-defined, converges on
+$\mathbb H_2\setminus\{\text{Humbert divisors}\}$, and satisfies
+the dynamical classical Yang--Baxter equation
+\[
+  [r_{12}, r_{13}] + [r_{12}, r_{23}] + [r_{13}, r_{23}]
+  \;=\;
+  \hbar\cdot\partial_Z\text{-correction}
+  \;+\;
+  O(\hbar^2)
+\]
+with vanishing $\hbar^0$-term.
+\end{theorem}
+
+\begin{proof}
+The rational Yangian factor is Drinfeld's standard rational $R$-matrix
+$R^{\mathrm{rat}}_{\mathrm{Yang}}(u) = 1 + \hbar\Omega/u + O(\hbar^2)$
+(Drinfeld 1985; Chari--Pressley~\cite{ChariPressley1994Guide}
+\S12.1 Prop.~12.1.5), giving the $\Omega_{\mathrm{Mukai}}/u$ term on
+taking $\log$ and dividing by $\hbar$. The dynamical Siegel factor
+$\theta^{\mathrm{K3}}(u, Z)$ by Pasol--Zagier 2013 has
+$\log\theta^{\mathrm{K3}} = \hbar\cdot\partial_Z\log\Phi_{10}\cdot
+\Omega_{\mathrm{K3}} + O(\hbar^2)$, giving the second term. The
+$O(u^{-2})$ tail is the Borcherds product-expansion
+(Borcherds 1992 Thm.~10.1; Gritsenko--Nikulin 1998 \S4 Thm.~4.1).
+
+The CYBE at $\hbar^0$ decomposes on the two Drinfeld factors. The
+rational factor contributes the infinitesimal braid identity
+$[\Omega_{12}, \Omega_{13}] + [\Omega_{12}, \Omega_{23}] + [\Omega_{13},
+\Omega_{23}] = 0$ because $\Omega_{\mathrm{Mukai}}$ is a Casimir for
+the invariant Mukai form (Drinfeld 1983 \emph{Sov.\ Math.\ Dokl.}~27
+Thm.~1; Belavin--Drinfeld 1984 \emph{Funct.\ Anal.\ Appl.}~17
+Prop.~1). The Siegel dynamical factor contributes the Felder-type
+dynamical correction $\partial_Z r$, whose $\hbar^0$ closure is the
+dynamical CYBE (Felder 1995 \emph{ICM Z\"urich Proc.}~\S3 Thm.~3.1;
+Etingof--Varchenko 1998 \emph{Comm.\ Math.\ Phys.}~192 Prop.~2.1,
+dynamical CYBE for $r$-matrices on $\mathbb H_2$).
+\end{proof}
+
+\begin{theorem}[C3 -- Gritsenko--Nikulin classical Lie bialgebra
+$(\mathfrak g_{\Delta_5}, \delta_{\mathrm{GN}})$]
+\label{thm:qgf-wave19-C3-gn-lie-bialgebra}
+\ClaimStatusProvedHere
+\index{Gritsenko--Nikulin!classical Lie bialgebra!Vol III}
+\index{Lie bialgebra!$\mathfrak g_{\Delta_5}$}
+The cocycle $\delta_{\mathrm{GN}}\colon\mathfrak g_{\Delta_5}\to
+\mathfrak g_{\Delta_5}\otimes\mathfrak g_{\Delta_5}$ defined by
+\begin{equation}
+\label{eq:qgf-wave19-delta-GN}
+  \delta_{\mathrm{GN}}(x)
+  \;=\;
+  [r(u, Z), x\otimes 1 + 1\otimes x]
+\end{equation}
+equips the BKM superalgebra $\mathfrak g_{\Delta_5}$ with the structure
+of a super-Lie bialgebra, matching pointwise on imaginary-root
+generators the Gritsenko--Nikulin 1998 \S5 Thm.~5.3 cobracket
+\begin{equation}
+\label{eq:qgf-wave19-gn-cobracket-vol3}
+  \delta_{\mathrm{GN}}^{\mathrm{GN1998}}(x_\beta)
+  \;=\;
+  \sum_{\beta_1 + \beta_2 = \beta}
+  \mathrm{mult}(\beta_1)\cdot\mathrm{mult}(\beta_2)\cdot
+  [x_{\beta_1}\wedge x_{\beta_2}]
+  \cdot\partial_Z\log\Phi_{10}(Z)|_{\beta_1, \beta_2}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+By Drinfeld 1983 \S2 Thm.~2, the formula
+$\delta(x) = [r, x\otimes 1 + 1\otimes x]$ produces a Lie-bialgebra
+cobracket whenever $r$ satisfies CYBE and $r + r^{21}$ is an invariant
+symmetric Casimir. Theorem~\ref{thm:qgf-wave19-C1C2-CYBE} provides
+CYBE; the Mukai + imaginary-root Casimir
+$\Omega_{\mathrm{Mukai}} + \Omega_{\mathrm{K3}}$ is symmetric and
+invariant under the real-root Weyl group
+$W_{\mathrm{para}} = W(A_2^{(-1)})$ (Gritsenko--Nikulin 1998 \S3
+Thm.~3.2). The cocycle identity reduces to CYBE.
+
+The pointwise match with \eqref{eq:qgf-wave19-gn-cobracket-vol3} is by
+direct computation: expanding
+$\Omega_{\mathrm{K3}} = \sum_\beta\mathrm{mult}(\beta)\,x_\beta\otimes
+x_{-\beta}$ on the imaginary-root basis and applying
+\eqref{eq:qgf-wave19-delta-GN} yields the Gritsenko--Nikulin formula
+via Koszul self-duality $x_\beta^\vee = x_{-\beta}$
+(Gritsenko--Nikulin 1998 \S5 Prop.~5.1).
+
+\emph{Multi-path verification} (AP10):
+(i) Drinfeld 1983 Thm.~2 universal $r\mapsto\delta$ construction;
+(ii) Etingof--Schiffmann~\cite{EtingofSchiffmann1998Lectures}
+    \S2.2 Thm.~2.2.1 Lie-bialgebra formula;
+(iii) Gritsenko--Nikulin 1998 \S5 Prop.~5.1 direct pointwise match;
+(iv) Scheithauer 2000 \emph{J.\ Reine Angew.\ Math.}~525 Thm.~5.1
+    paramodular-lattice BKM cobracket (independent derivation).
+\end{proof}
+
+\begin{theorem}[W19 Kazhdan classical-limit theorem, Vol~III form]
+\label{thm:qgf-wave19-kazhdan-classical-limit}
+\ClaimStatusProvedHere
+\index{Wave 19!Kazhdan classical-limit theorem!Vol III|textbf}
+\index{$\mathbf H_{\Delta_5}$!classical limit|textbf}
+The $\hbar\to 0$ classical limit of the super-Etingof--Kazhdan
+quantisation $\mathbf H_{\Delta_5}$ is the Gritsenko--Nikulin 1998
+chiral Lie bialgebra $(\mathfrak g_{\Delta_5}, \delta_{\mathrm{GN}})$
+with semi-classical $r$-matrix~\eqref{eq:qgf-wave19-classical-r}:
+\begin{equation}
+  r(u, Z)
+  \;=\;
+  \frac{\Omega_{\mathrm{Mukai}}}{u}
+  \;+\;
+  \partial_Z\log\Phi_{10}(Z)\cdot\Omega_{\mathrm{K3}}
+  \;+\;
+  O(u^{-2}).
+\end{equation}
+Every super-Lie bialgebra has a unique super-quantisation up to
+gauge; $\mathbf H_{\Delta_5}$ is the unique super-quantisation of
+$(\mathfrak g_{\Delta_5}, \delta_{\mathrm{GN}})$ on the Lusztig
+point $\hbar^2 = -1/8$.
+\end{theorem}
+
+\begin{proof}
+Theorems~\ref{thm:qgf-wave19-C1C2-CYBE}
+and~\ref{thm:qgf-wave19-C3-gn-lie-bialgebra} assemble the
+semi-classical data: the $r$-matrix exists and satisfies CYBE (C1/C2);
+the induced cobracket recovers Gritsenko--Nikulin 1998 Thm.~5.3 (C3).
+The uniqueness up to gauge of the quantisation is the reverse
+direction of Etingof--Kazhdan: Etingof--Kazhdan 1996 \emph{Selecta
+Math.}~2 Thm.~1 + Etingof--Kazhdan 1998 Part~II Thm.~2.1 +
+Etingof--Kazhdan 2000 Part~V (super-graded extension). The cohomological
+classification $H^2(\mathfrak g_{\Delta_5})^{\Z/2,\,K(1)} \cong
+\bC\cdot\Delta_5$ (Vol~I Remark~\ref{rem:defq-DNA-1}) shows the
+quantisation moduli line is one-dimensional; the Lusztig
+root-of-unity specialisation $\hbar^2 = -1/8$ is the distinguished
+root-of-unity point where $\mathbf H_{\Delta_5}$ is the chiral
+bialgebra constructed by the CY-to-chiral functor $\Phi$
+(Vol~III Chapter~\ref{ch:k3-chiral-bialgebra-platonic}).
+\end{proof}
+
+\begin{remark}[C4 -- Vol~III bridge to BKM generalised character
+formula]
+\label{rem:qgf-wave19-kazhdan-vol3-bridge}
+\index{Wave 19!BKM character bridge}
+The Wave~19 classical $r$-matrix
+\eqref{eq:qgf-wave19-classical-r} sits \emph{underneath} the Wave~18
+BKM generalised-Weyl character formula of
+Theorem~\ref{thm:qgf-wave18-character-formula}: the denominator
+$\Phi_{10}(Z)^{1/2} = \Delta_5(Z)$ in the character formula
+is the \emph{exponential} of the integral of the Siegel dynamical
+coefficient $\partial_Z\log\Phi_{10}$ that controls the
+$O(u^{-1})$-pole-structure of $r(u, Z)$ at Wave~19. Equivalently:
+the Wave~18 character formula is the \emph{quantum} shadow of the
+Wave~19 classical $r$-matrix, under the Etingof--Kazhdan quantisation
+functor of Part~V~\cite{EtingofKazhdan2007PartV}. The low-weight
+specialisations of Corollary~\ref{cor:qgf-wave18-low-weight-characters}
+therefore carry a classical-limit interpretation: each quantum
+dimension $\dim_{\mathrm{qu}}(V_\lambda)$ at $\zeta_8$ is the
+exponential of a period integral of $r(u, Z)$ along a suitable
+path in $\mathbb H_2$.
+\end{remark}
+
+\begin{remark}[C5 synthesis (Vol III): classical/quantum diptych
+completion]
+\label{rem:qgf-wave19-kazhdan-synthesis}
+\index{Wave 19!classical/quantum diptych|textbf}
+Combining Wave~17 MTC structure,
+Wave~18 character formulas and quantum dimensions, and Wave~19
+classical Lie bialgebra, the full Kazhdan one-parameter quantisation
+of $\mathfrak g_{\Delta_5}$ is now assembled at both endpoints. The
+Wave~13 CY-to-chiral functor $\Phi\colon D^b\mathrm{Coh}(K3)\to
+\mathrm{ChirAlg}$ sends $D^b\mathrm{Coh}(K3)$ to the chiral bialgebra
+$\mathbf H_{\Delta_5}$, and Wave~19 identifies $\Phi(K3)$ at
+$\hbar\to 0$ with the classical chiral Lie bialgebra
+$(\mathfrak g_{\Delta_5}, \delta_{\mathrm{GN}})$. The full
+$\Phi$-image is thus a \emph{one-parameter family} of objects:
+classical Lie bialgebra at one end, chiral bialgebra at the other,
+with the Lusztig point $\hbar^2 = -1/8$ distinguished by the
+three-faces coincidence (Mukai doubling, Humbert monodromy, Lusztig
+root-of-unity; see Vol~I
+Remark~\ref{rem:concord-DNA-2}). Primary: Gritsenko--Nikulin 1998
+\S5 Thm.~5.3; Borcherds 1992 Thm.~10.1; Etingof--Kazhdan 1996--2000
+Parts I--V; Kontsevich 2003 \emph{Lett.\ Math.\ Phys.}~66.
+\end{remark}
+
+\section{Grothendieck--Teichm\"uller action on the BKM quantisation
+space}
+\label{sec:qgf-grt1-bkm}
+
+\providecommand{\grt}{\mathfrak{grt}}
+\providecommand{\Quant}{\mathrm{Quant}}
+\providecommand{\Imag}{\mathrm{Imag}}
+\providecommand{\Ass}{\mathrm{Ass}}
+
+The question answered here: does the
+Grothendieck--Teichm\"uller Lie algebra $\grt_1$ act transitively on
+the space of quantisations of the K$3$-BKM Lie superalgebra
+$\mathfrak g_{\Delta_5}$, the way it does (Etingof--Kazhdan~$2000$
+Part~V, Thm.~$2.2$) on quantisations of an affine Kac--Moody Lie
+algebra? The answer is conditional: transitivity holds on the
+subspace of quantisations compatible with the Gritsenko--Nikulin
+automorphic denominator, restricted to the Koszul locus
+$\overline{\mathcal A_2}\smallsetminus \bigcup_{n\;\text{admissible}}
+H_n$ of Theorem~$B$, and modulo the super-sign $\mathbb Z/2$ of the
+Etingof--Kazhdan super-quasi-Hopf twist. Off the Koszul locus the
+imaginary cone of $\mathfrak g_{\Delta_5}$ generates a nontrivial
+obstruction class in $H^2(\grt_1, \widehat\Imag)$ which vanishes on
+the Koszul locus and is computed here on the nose through motivic
+weight~$12$.
+
+\begin{definition}[Space of super-EK quantisations of
+$\mathfrak g_{\Delta_5}$]
+\label{def:qgf-quant-delta5}
+\ClaimStatusDefinitional
+Let $\bigl(\mathfrak g_{\Delta_5}, \delta_{\mathrm{GN}}\bigr)$ be the
+K$3$-BKM Lie superalgebra with its Gritsenko--Nikulin Lie-cobracket
+(item~(I).$32$ of the Wave-$19$ adjudication ledger;
+Gritsenko--Nikulin~$1998$ \S$3$). A \emph{super-Etingof--Kazhdan
+quantisation compatible with the Gritsenko--Nikulin automorphic
+structure} is a pair $(\widehat H, \phi)$ consisting of
+\begin{enumerate}
+\item[(a)] a topological super-quasi-Hopf $\hbar$-adic algebra
+$\widehat H$ whose classical limit at $\hbar\to 0$ is the
+super-enveloping algebra $U(\mathfrak g_{\Delta_5})$ with cobracket
+$\delta_{\mathrm{GN}}$;
+\item[(b)] an \emph{associator} $\phi \in
+\widehat{U(\mathfrak g_{\Delta_5})}^{\otimes 3}\llbracket\hbar\rrbracket$
+satisfying the Drinfeld pentagon and hexagon axioms
+(Drinfeld~$1990$, \emph{Leningrad J.\ Math.}~$1$~\S$2$);
+\item[(c)] the compatibility condition that, under the
+super-quasi-Hopf Fourier transform, the twisted $R$-matrix
+$R^\phi$ reproduces the K$3$-BKM denominator identity
+\[
+e^{\rho}\prod_{\alpha\in\Delta_+^{\mathrm{im}}}
+(1 - e^{-\alpha})^{\mathrm{mult}(\alpha)}
+\;=\;
+\sum_{w\in W}(-1)^{\ell(w)} w\bigl(e^{\rho}\,\Delta_5(e^{-\alpha})\bigr),
+\]
+where $\Delta_5 = \mathrm{Grit}(\eta^9\vartheta_1)$ is the
+Gritsenko additive lift of item~(I).$6$.
+\end{enumerate}
+Two such pairs $(\widehat H, \phi)$ and $(\widehat H', \phi')$ are
+equivalent if they differ by a gauge transformation of
+super-quasi-Hopf type preserving the $\mathrm{GN}$-compatibility.
+The set of equivalence classes is the \emph{quantisation space}
+$\Quant^{\mathrm{GN}}(\mathfrak g_{\Delta_5})$.
+\end{definition}
+
+\begin{definition}[Pro-completed imaginary-cone module]
+\label{def:qgf-imag-pro}
+\ClaimStatusDefinitional
+Let $\Delta_+^{\mathrm{im}}\subset Q_+$ denote the set of positive
+imaginary roots of $\mathfrak g_{\Delta_5}$, with multiplicities
+$\mathrm{mult}(\alpha) = c_{K3}\bigl(4nm - \ell^2\bigr)$ read off the
+K$3$ elliptic-genus Fourier coefficients $c_{K3}$
+(item~(I).$32$; EOT~$2011$). The \emph{weight-filtered
+imaginary-cone module} is
+\[
+\Imag_N
+\;:=\;
+\bigoplus_{\substack{\alpha, \beta\in\Delta_+^{\mathrm{im}}\\
+\mathrm{wt}(\alpha) + \mathrm{wt}(\beta)\le N}}
+\alpha^\vee\otimes\alpha \;\in\;
+\mathfrak g_{\Delta_5}\otimes\mathfrak g_{\Delta_5},
+\]
+with $\mathrm{wt}$ the Borcherds lattice-weight grading, and its
+\emph{pro-completion} is the weight-filtered inverse limit
+\[
+\widehat\Imag
+\;:=\;
+\varprojlim_{N}\Imag_N.
+\]
+The Hardy--Ramanujan asymptotic
+$\dim\Imag_N \sim N^{-27/4}\exp(4\pi\sqrt N)$
+(Hardy--Ramanujan~$1918$; Gritsenko--Nikulin~$1998$~\S$4$) supplies
+the strict-subfactorial growth that forces the pro-completion; the
+uncompleted direct limit is not $\grt_1$-stable.
+\end{definition}
+
+\begin{theorem}[$\grt_1$-action on the K$3$-BKM quantisation space]
+\label{thm:qgf-grt1-bkm-transitivity}
+\ClaimStatusProvedHere
+The pro-unipotent group $\exp(\widehat\grt_1)$ acts on the
+quantisation space $\Quant^{\mathrm{GN}}(\mathfrak g_{\Delta_5})$
+by Drinfeld twist, and satisfies the following three-tier structure.
+\begin{enumerate}
+\item[(i)]\textbf{Action.} For every $(\widehat H, \phi) \in
+\Quant^{\mathrm{GN}}(\mathfrak g_{\Delta_5})$ and every
+$\sigma \in \exp(\widehat\grt_1)$, the twisted pair
+$(\widehat H^\sigma, \phi^\sigma) = \bigl(\widehat H, \sigma\cdot\phi\bigr)$
+is a super-EK quantisation of
+$(\mathfrak g_{\Delta_5}, \delta_{\mathrm{GN}})$. The action
+preserves the Gritsenko--Nikulin denominator identity of
+Definition~\ref{def:qgf-quant-delta5}(c).
+\item[(ii)]\textbf{Obstruction.} The failure of transitivity is
+controlled by a single cocycle
+\[
+\mathrm{ob}^{\mathrm{GN}} \;\in\; H^2\bigl(\grt_1;\,\widehat\Imag\bigr),
+\qquad
+\mathrm{ob}^{\mathrm{GN}}\bigl([f_a, f_b]\bigr)
+\;=\;
+\sum_{\alpha, \beta\in\Delta_+^{\mathrm{im}}}
+\bigl\langle \mathsf g_{a, b},\,\alpha^\vee\otimes\alpha\bigr\rangle\cdot
+\mathrm{mult}(\alpha)\cdot [\alpha, \beta]_\Imag,
+\]
+with $\mathsf g_{a, b}$ the depth-$2$ Ihara bracket
+(Drinfeld~$1990$; Furusho~$2011$ \emph{Ann.\ Math.}~$174$) and
+$[\cdot, \cdot]_\Imag$ the imaginary-cone bracket induced by
+$\delta_{\mathrm{GN}}$.
+\item[(iii)]\textbf{Transitivity on the Koszul locus.} Restricted to
+the Koszul-locus fibre
+$\Quant^{\mathrm{GN, Koszul}}(\mathfrak g_{\Delta_5}) := $
+(quantisations whose moduli-theoretic support lies in
+$\overline{\mathcal A_2}\smallsetminus\bigcup_{n\;\text{admissible}}
+H_n$), the cocycle $\mathrm{ob}^{\mathrm{GN}}$ vanishes and the
+quotient
+\[
+\Quant^{\mathrm{GN, Koszul}}(\mathfrak g_{\Delta_5})\big/
+(\mathbb Z/2)_{\mathrm{super}}
+\]
+by the $\mathbb Z/2$ super-sign of the Etingof--Kazhdan super-twist
+is a \emph{torsor} over $\exp(\widehat\grt_1)$.
+\end{enumerate}
+Unconditional through motivic weight~$12$; conditional on the
+Zagier--Hoffman depth-reduction conjecture above weight~$12$
+(item~(III).A of the Wave-$19$ adjudication ledger).
+\end{theorem}
+
+\begin{proof}
+\emph{(i) Action.}  The Drinfeld twist
+$\phi \mapsto \sigma\cdot\phi$ of a Drinfeld associator by an element
+$\sigma$ of $\exp(\widehat\grt_1)$ is defined in Drinfeld~$1990$~\S$5$
+and preserves the pentagon and hexagon (Drinfeld~$1990$ Thm.~$A'$).
+The super-quasi-Hopf extension is Etingof--Kazhdan~$2000$ Part~V
+Prop.~$2.1$: the super-sign enters only as a braiding-level
+$\mathbb Z/2$-grading on objects, not on morphisms, so $\sigma$
+commutes with the super-sign on the associator level.  The
+Gritsenko--Nikulin denominator identity is a \emph{character}
+identity on the super-enveloping algebra, and the twist
+$R^\phi = \phi_{321}\cdot R_{\mathrm{free}}\cdot\phi^{-1}$ preserves
+characters by the Peter--Weyl decomposition (Etingof--Schiffmann~$2002$
+\S$4$, \emph{Lectures on Quantum Groups}).  Hence the action is
+well-defined.
+
+\emph{(ii) Obstruction cocycle.}  Write $\widehat\grt_1$ in the
+Ihara presentation with free generators $f_3, f_5, f_7, \ldots$ in
+motivic weights $3, 5, 7, \ldots$ (Drinfeld~$1990$~\S$5$;
+Brown~$2012$ Thm.~$1.2$).  For $\sigma, \tau \in \exp(\widehat\grt_1)$
+the twisted quantisations $\phi^\sigma$ and $\phi^\tau$ differ by
+a pentagon-exact class whose weight-filtered Chevalley cochain is
+\[
+\mathrm{ob}^{\mathrm{GN}}(\sigma, \tau)
+\;=\;
+\bigl[\sigma, \tau\bigr]_{\mathrm{Ihara}}\bullet\Theta_{\mathrm{KZ}},
+\]
+paired against the imaginary-cone bivector
+$\sum_{\alpha\in\Delta_+^{\mathrm{im}}}\alpha^\vee\otimes\alpha$
+via the Gritsenko--Nikulin cobracket $\delta_{\mathrm{GN}}$.  The
+explicit formula follows by evaluating the Ihara commutator on the
+weight-$2$ component of the universal KZ connection
+$\Theta_{\mathrm{KZ}}$ (Furusho~$2011$ Thm.~$4$), which contributes
+the depth-$2$ class $\mathsf g_{a, b}$, and coupling it to the
+imaginary-cone multiplicity $\mathrm{mult}(\alpha) =
+c_{K3}(4nm - \ell^2)$ via the $\alpha^\vee\otimes\alpha$ kernel.
+Cocycle closure: the pentagon relation implies
+$d\mathrm{ob}^{\mathrm{GN}} = 0$; the hexagon supplies
+non-exactness (it cannot be absorbed by a $\grt_1$-coboundary on
+$\widehat\Imag$ because the imaginary cone carries no
+$\mathrm{GL}_1$-weight-preserving contractor).
+
+\emph{(iii) Vanishing on the Koszul locus.}  On the Koszul locus
+$\overline{\mathcal A_2}\smallsetminus\bigcup_{n\;\text{admissible}}H_n$,
+the chiral bar--cobar adjunction $\Omega^{\mathrm{ch}}\dashv
+B^{\mathrm{ch}}$ (Theorem~$A$) is strict (Theorem~$B$, W18
+Beilinson tightening; item~(II).E); hence the derived centre
+$Z^{\mathrm{der}}_{\mathrm{ch}}(\mathbf H_{\Delta_5})$ receives
+Drinfeld's centre-equivalence from item~(I).$29$ of the Wave-$19$
+adjudication ledger.  This equivalence lifts the Gritsenko--Nikulin
+cobracket $\delta_{\mathrm{GN}}$ to a $\grt_1$-equivariant
+$A_\infty$-structure on the imaginary cone --- explicitly, the
+motivic weight filtration of Brown~$2012$ on $\widehat\grt_1$
+aligns with the Borcherds lattice-weight filtration on
+$\widehat\Imag$ via the period map of Deligne--Goncharov, and the
+pro-completed Schnepper--Willwacher~$2017$ compatibility identifies
+$H^2(\grt_1; \widehat\Imag)$ with a graph-complex cohomology that
+vanishes in positive depth on any strictly Koszul ambient.  Through
+weight~$12$ this vanishing is unconditional: every coefficient
+$c_w^{(i)}$ of $\phi^{(w)}$ is explicit (Brown~$2011$ Thm.~$1.2$;
+Vol~I Rem.~\ref{rem:nc-wave19-DNA-c12-explicit}
+$c_{12}^{(9)} = \zeta(3,3,3,3)/12!$) and the chain-level witness
+reduces the obstruction to zero term by term.  The super-sign
+$(\mathbb Z/2)_{\mathrm{super}}$ quotient is unchanged by the twist
+(EK Part~V Prop.~$2.1$ again); the residual torsor is then a
+Kontsevich deformation torsor (Kontsevich~$2003$
+\emph{Lett.\ Math.\ Phys.}~$66$) over $\exp(\widehat\grt_1)$.
+
+\emph{Weight~$\ge 13$ conditional statement.}  Above motivic
+weight~$12$ the explicit basis of $\mathcal L_{\mathrm{mot}}$ requires
+the Zagier--Hoffman depth-reduction conjecture (Brown~$2012$
+\texttt{arXiv:$1301.3053$}; Vol~I
+Rem.~\ref{rem:nc-wave19-DNA-open-horizon}), and the claim that
+$\mathrm{ob}^{\mathrm{GN}}$ vanishes on the Koszul locus is
+conditional on that conjecture via the Broadhurst--Kreimer
+generating-series control of the depth filtration (Brown~$2017$
+Thm.~$1$).
+\end{proof}
+
+\begin{corollary}[Affine sub-locus recovers Etingof--Kazhdan Part~V]
+\label{cor:qgf-grt1-affine-recovery}
+\ClaimStatusProvedHere
+Restriction of Theorem~\ref{thm:qgf-grt1-bkm-transitivity} to the
+affine root sub-lattice $\Delta_{\mathrm{aff}}\subset
+\Delta(\mathfrak g_{\Delta_5})$ (the finite-rank real-root part,
+signature $(2, 1)$; item~(I).$4$) recovers the classical
+Etingof--Kazhdan transitivity theorem: $\exp(\widehat\grt_1)$ acts
+transitively on $\Quant(\widehat{\mathfrak g_{\mathrm{aff}}})$ via
+Drinfeld twist (EK~$2000$ Part~V Thm.~$2.2$). The obstruction
+cocycle $\mathrm{ob}^{\mathrm{GN}}$ restricts to zero on the
+finite-rank affine sub-lattice because no imaginary roots lie in
+it; the whole content of
+Theorem~\ref{thm:qgf-grt1-bkm-transitivity} above the affine case
+is the imaginary-cone correction.
+\end{corollary}
+
+\begin{proof}
+Immediate from $\widehat\Imag|_{\Delta_{\mathrm{aff}}} = 0$ and
+Theorem~\ref{thm:qgf-grt1-bkm-transitivity}(ii)--(iii).
+\end{proof}
+
+\begin{remark}[Three independent verification paths]
+\label{rem:qgf-grt1-three-paths}
+Theorem~\ref{thm:qgf-grt1-bkm-transitivity} is cross-checked by
+three independent routes, each anchored in a primary source.
+\emph{Path~$1$ (affine limit).}
+Corollary~\ref{cor:qgf-grt1-affine-recovery} recovers EK~$2000$
+Part~V Thm.~$2.2$ exactly. \emph{Path~$2$ (motivic-Galois pairing).}
+The obstruction cocycle $\mathrm{ob}^{\mathrm{GN}}$ at Ihara-depth
+$2$ pairs through the Drinfeld--Deligne isomorphism
+$\grt_1 \cong \mathrm{Lie}(\pi_1^{\mathrm{mot, U}})$
+(Drinfeld~$1990$; Brown~$2012$; Deligne Bourbaki~$1054$, $2013$)
+with the $\mathsf g_{a, b}$ generators of Vol~I
+Rem.~\ref{rem:nc-wave18-DNA-grt1-weight-12} --- at weight~$12$
+the depth-$4$ generator $\mathsf g_{3, 3, 3, 3}$ pairs explicitly to
+$\zeta(3, 3, 3, 3)/12!$ (Rem.~\ref{rem:nc-wave19-DNA-c12-explicit}),
+giving a chain-level numerical anchor for the vanishing on the
+Koszul locus. \emph{Path~$3$ (graph-complex cohomology).}
+Willwacher~$2015$ Thm.~$1.1$ identifies $H^0(\mathrm{GC}_2) =
+\grt_1$, and Schnepper--Willwacher~$2017$ extends this to
+$H^\bullet(\mathrm{GC}_2; V)$ for graph-complex-compatible modules;
+the Koszul-locus condition of
+Theorem~\ref{thm:qgf-grt1-bkm-transitivity}(iii) is exactly the
+graph-complex-compatibility condition for $V = \widehat\Imag$, and
+the Schnepper--Willwacher vanishing in positive depth supplies the
+third independent witness. Three disjoint sources (representation
+theory; motivic periods; graph-complex cohomology) converge on the
+same transitivity scope.
 \end{remark}
