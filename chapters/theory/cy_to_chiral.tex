@@ -295,11 +295,10 @@ Consequently,
 Item~\textup{(i)} is the HKR identification for a smooth projective surface. Since K3
 is CY-$2$, its Serre functor on $D^b\mathrm{Coh}(K3)$ is the cohomological shift
 $[2]$, so the Koszul shift attached to $\Phi_2$ is likewise $[2]$; this proves
-item~\textup{(ii)}. Item~\textup{(iii)} is the retraction of the earlier ambient-space
-conflation: the functor $\Phi_2$ is evaluated on the category
-$D^b\mathrm{Coh}(K3)$ itself, so the shift is controlled by the CY dimension of the
-input category and not by any auxiliary factorization envelope used in the
-construction.
+item~\textup{(ii)}. Item~\textup{(iii)} records that $\Phi_2$ is evaluated on the
+category $D^b\mathrm{Coh}(K3)$ itself, so the shift is controlled by the CY dimension
+of the input category and not by the ambient factorization envelope on the curve
+$X$ used in the construction.
 
 For item~\textup{(iv)}, the projective $M_{24}$-equivariant structure on the K3 chiral
 bialgebra is already computed in Chapter~\ref{ch:k3-chiral-bialgebra-platonic}:
@@ -1432,7 +1431,7 @@ $[a_\lambda\, b] = 0$ for all $a, b \in \mathfrak{L}_\cC$.  This is the K3 analo
 \textbf{Step 3.} \emph{$\bS^2$-framing $\to$ $\Etwo$ enhancement.}
 
 \smallskip\noindent
-The CY$_2$ structure on $\cC$ provides the $\bS^2$-framing of $\HH_\bullet(\cC)$ via the Kontsevich--Vlassopoulos construction. Concretely, the CY trace lives in the negative cyclic homology $\HC^-_2(\cC)$, not merely in $\HH_2(\cC) \to \C$; the negative cyclic refinement is essential for the $\bS^2$-framing (cf.\).
+The CY$_2$ structure on $\cC$ provides the $\bS^2$-framing of $\HH_\bullet(\cC)$ via the Kontsevich--Vlassopoulos construction. The CY trace lives in the negative cyclic homology $\HC^-_2(\cC)$, not merely in $\HH_2(\cC) \to \C$; the negative cyclic refinement is essential for the $\bS^2$-framing.
 
 The $\bS^2$-framing promotes the factorization envelope $\Fact_X(\mathfrak{L}_\cC)$ to an $\Etwo$-chiral algebra.  For an abelian Lie conformal algebra (as established in Step~2), the factorization envelope is a \emph{free field theory}: the free boson system determined by the bilinear form from the CY trace.  The $\Etwo$-enhancement is automatic because the free Heisenberg VOA is $\Einf$ (it is a commutative factorization algebra deformed by a quadratic central extension, and the deformation preserves all $E_n$-structures).
 
@@ -1724,9 +1723,11 @@ is the nested Hilbert scheme CoHA (Nakajima).
 
 \emph{(b) What is wrong.} Assuming the Borcherds lift substitutes for
 $\Phi_3$ universally. Borcherds admissibility requires the Mukai lattice
-to be even unimodular with Lorentzian signature. The quintic has Mukai
-rank $244$ (not even unimodular); local~$\bP^2$ has Mukai rank $3$ (not
-even unimodular). Neither admits a Borcherds lift. sharpened:
+to be even unimodular with Lorentzian signature. The quintic has total
+cohomology rank $208$ \textup{(}middle odd-dimensional rank $b_3 = 204$;
+$1 + 1 + 204 + 1 + 1$\textup{),} which is not even unimodular; local~$\bP^2$
+has Mukai rank $3$, also not even unimodular. Neither admits a Borcherds
+lift. Sharpened:
 Borcherds lift $\neq \Phi_3$ universally; the two agree only on
 K3-fibered $\CY_3$ where the fiberwise Mukai lattice $\Lambda_{K3}$ is
 even unimodular of signature $(4, 20)$.
@@ -2104,30 +2105,15 @@ The explicit computation (\texttt{obs\_ainf\_local\_p2.py}, $54$~tests) confirms
 \end{proof}
 
 
-\begin{remark}[Resolution via Costello's TCFT]
+\begin{remark}[Scope of the $\Ainf$-framing obstruction]
 \label{rem:cyclic-ainf-framing-audit}
-\textsc{[Status: RESOLVED.  $\mathrm{Obs}_{\Ainf} = 0$ universally by Costello's operadic TCFT.]}
-
-\smallskip\noindent
-\textbf{History of the claim.}  Four successive arguments for $\Ainf$-framing compatibility:
-\begin{enumerate}[label=\textup{(P\arabic*)}]
- \item \emph{Cyclic invariance argument} (original, retracted).  Claimed $[m_k, B^{(2)}] = 0$ for each $k$ from cyclic invariance alone.  \textbf{Gap}: cyclic invariance controls adjacent contractions but not ``non-adjacent'' terms.
- \item \emph{Bidegree decomposition} (retracted).  Claimed $[b, B^{\mathrm{full}}] = 0$ decomposes by degree into $[m_k, B^{(j)}] = 0$ for each $(k,j)$.  \textbf{Flaw}: the decomposition by degree does not preserve the vanishing; individual $\{b_k, B^{(2)}\}$ can be nonzero.
- \item \emph{Tsygan formality argument} (retracted).  \textbf{Flaw}: Tsygan formality applies to $(b, B)$ but not to the Connes hierarchy operators $B^{(j)}$ for $j \geq 1$.
- \item \textbf{Costello operadic TCFT} (this proof, \textbf{correct}).  The claim is $\{b, B^{(2)}\} = 0$ for the \emph{total} differential $b = \sum_k b_k$, not for individual $b_k$.  This follows from $\partial^2 = 0$ in the chain complex of Costello's open-closed TCFT moduli operad.
-\end{enumerate}
-
-\smallskip\noindent
-\textbf{The correction.}
-The original claim ``$[m_k, B^{(2)}] = 0$ for all $k \geq 3$'' is \textbf{false} for non-formal algebras.  The explicit computation (\texttt{obs\_ainf\_local\_p2.py}, $54$~tests) confirms:
+The obstruction $\mathrm{Obs}_{\Ainf} = 0$ holds \emph{universally} for cyclic $\Ainf$-algebras (formal or not), via Costello's operadic open-closed TCFT. The identity is $\{b, B^{(2)}\} = 0$ for the \emph{total} $\Ainf$-Hochschild differential $b = \sum_k b_k$, not for each $b_k$ separately; individual components $\{b_k, B^{(2)}\}$ can be nonzero. The explicit computation \textup{(}\texttt{obs\_ainf\_local\_p2.py}, $54$~tests\textup{)} records
 \[
   \{b_3, B^{(2)}\}([a \mid a \mid a \mid a \mid b]) \;=\; 2\alpha \cdot [b] \;\neq\; 0
 \]
-on the minimal non-formal model with $\mu_3(a,a,a) = \alpha b$.  However, this does NOT imply $\mathrm{Obs}_{\Ainf} \neq 0$.  The correct claim is $\{b, B^{(2)}\} = \sum_k \{b_k, B^{(2)}\} = 0$: the nonzero $\{b_3, B^{(2)}\}$ is \emph{exactly cancelled} by $\{b_2, B^{(2)}\}$ on the same element.  The cancellation is enforced by the Stasheff $\Ainf$-relations at degree $n = 4$, which couple $\mu_2$ and $\mu_3$.  Costello's TCFT packages this cross-degree cancellation as the single identity $\partial^2 = 0$.
+on the minimal non-formal model with $\mu_3(a,a,a) = \alpha b$; the nonzero $\{b_3, B^{(2)}\}$ is cancelled cross-degree by $\{b_2, B^{(2)}\}$ on the same element, the cancellation enforced by the Stasheff $\Ainf$-relations at degree $n = 4$ coupling $\mu_2$ and $\mu_3$. Costello's TCFT packages this cross-degree cancellation as the single identity $\partial^2 = 0$ on the open-closed TCFT moduli operad.
 
-\smallskip\noindent
-\textbf{Impact on the programme.}
-$\mathrm{Obs}_{\Ainf} = 0$ \emph{universally}, for all cyclic $\Ainf$-algebras (formal or not).  CY-A$_3$ reverts to a \emph{single} remaining open obstruction: $\mathrm{Obs}_{\BV}$ (non-perturbative convergence).  The landscape is restored to the structure of Proposition~\ref{prop:hopf-fibration-decomposition}.
+By this universality, the CY-A$_3$ obstruction landscape of Proposition~\ref{prop:hopf-fibration-decomposition} reduces to a single remaining open obstruction: $\mathrm{Obs}_{\BV}$ (non-perturbative convergence).
 
 \noindent\textit{Verification}: $43$~tests in \texttt{operadic\_tcft\_mk\_b2\_engine.py} (operadic proof structure, local~$\bP^2$ algebra, gap closure); $54$~tests in \texttt{obs\_ainf\_local\_p2.py} (chain-level individual $\{b_3, B^{(2)}\} \neq 0$); $67$~tests in \texttt{hopf\_fibration\_s3\_framing.py}; $40$~tests in \texttt{stasheff\_cancellation\_obs\_ainf.py} (independent verification: bidegree decomposition of $[b,B]=0$ by total weight $s = k+i$, weight-$s$ identities for CY$_3$, cross-hierarchy cancellation partners, formal algebra axiom checks).
 \end{remark}
@@ -2286,12 +2272,12 @@ None of these involve the chain-level commutator $[m_3, B^{(2)}]$.  The $\Ainf$-
 \end{remark}
 
 
-\begin{remark}[Adversarial stress test of the $E_3$ obstruction proofs]
+\begin{remark}[Stress test of the $E_3$ obstruction proofs]
 \label{rem:e3-obstruction-stress-test}
 An independent stress test (\texttt{cya3\_stress\_test.py}, $45$~tests) targets Theorem~\ref{thm:derived-framing-obstruction}, Proposition~\ref{prop:aq-e3-lifting-verification}, and Proposition~\ref{prop:cyclic-ainf-framing-compat} via five independent vectors:
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item \emph{Dunn additivity domain}: $E_3 \simeq \Etwo \otimes E_1$ holds for $E_n$-algebras in a symmetric monoidal $\infty$-category. The ambient $\mathrm{Ch}(k)$ qualifies; however, $E_3$ in $\mathrm{Ch}(k)$ does not automatically yield an $E_3$-chiral (= $E_3$-factorization) algebra; the factorization descent is part of the CY-A$_3$ programme. \textbf{Severity}: moderate; mitigated by the correct scoping in Remark~\ref{rem:derived-framing-actual-obstructions}.
- \item \emph{Unit-connectedness scope}: the generic argument ($\HH^0(\cC) = k$ implies unit-connected) applies to all connected CY$_3$ manifolds.  For $K3 \times E$: the geometric Hochschild cohomology $\HH^0(\mathrm{Perf}(K3 \times E)) = H^0(\cO_{K3 \times E}) = k$ by connectedness, so the generic argument applies directly.  \textup{(}An earlier version of this remark incorrectly claimed $\HH^0 = k^2$ by conflating the algebraic K\"unneth formula for the external tensor product with the geometric $\HH^0$; the HKR decomposition $H^0(\cO_{K3}) \oplus H^2(T_{K3}) = k^2$ applies to K3 alone, not to $K3 \times E$.  See working-notes correction~\textup{\ref{warn:k3e-unit-connected}}.\textup{)}  The product decomposition of Remark~\ref{rem:k3e-product-decomposition} provides an independent confirmation. \textbf{Severity}: low (resolved by the geometric $\HH^0$ computation).
+ \item \emph{Unit-connectedness scope}: the generic argument ($\HH^0(\cC) = k$ implies unit-connected) applies to all connected CY$_3$ manifolds.  For $K3 \times E$: the geometric Hochschild cohomology $\HH^0(\mathrm{Perf}(K3 \times E)) = H^0(\cO_{K3 \times E}) = k$ by connectedness, so the generic argument applies directly.  The HKR decomposition $H^0(\cO_{K3}) \oplus H^2(T_{K3}) = k^2$ applies to K3 alone, not to the product $K3 \times E$; see Warning~\ref{warn:k3e-unit-connected}.  The product decomposition of Remark~\ref{rem:k3e-product-decomposition} provides an independent confirmation. \textbf{Severity}: low (resolved by the geometric $\HH^0$ computation).
  \item \emph{Andr\'e--Quillen cotangent complex}: reduces to vectors~(i) and~(ii); no independent gap.
  \item \emph{TCFT $B^{(2)}$ identification}: Costello's open-closed TCFT equivalence identifies $B^{(2)}$ with the Connes-hierarchy contraction; this requires a strictly cyclic $\Ainf$ model. Tradler's strictification theorem (arXiv:math/0108027) guarantees existence. \textbf{Severity}: low.
  \item \emph{Cohomological vs chain-level}: all three proofs give cohomological vanishing; the chain-level $[m_3, B^{(2)}] \neq 0$ is a fact. The proofs correctly show the obstruction \emph{vanishes}; they do not claim to \emph{construct} the $E_3$-chiral algebra. \textbf{Severity}: non-issue (correctly scoped).
@@ -3980,7 +3966,7 @@ For an $L_\infty$-conformal algebra $\mathfrak{L}$ (with higher structure maps $
 \end{equation}
 where $d_{\mathrm{CE}}^{L_\infty} = \sum_{k \geq 2} d^{(k)}$ has contributions from each $l_k$.
 
-The identification~\eqref{eq:bar-ce} connects to the shadow tower of Vol~I: the shadow invariant $S_k$ is the obstruction class from $l_k$ in the $L_\infty$ CE complex (cf.\ \textup{\texttt{rem:shadow-ainfty-coproduct-vol3}}, Vol~I).
+The identification~\eqref{eq:bar-ce} connects to the shadow tower of Vol~I: the shadow invariant $S_k$ is the obstruction class from $l_k$ in the $L_\infty$ CE complex \textup{(}Vol~I, shadow/$A_\infty$-coproduct discussion\textup{).}
 
 \noindent\emph{Verification}: cross-checked against \textup{\texttt{chiral\_ce\_complex.py}} (Heisenberg, sl$_2$, Virasoro, Yangian).
 \end{proposition}
@@ -4023,7 +4009,7 @@ where $\mathrm{corr}_n = S_n / (n-1)!$ and $S_n$ is the $n$-th shadow invariant 
 \begin{proof}
 The classical PBW theorem for vertex algebras (Frenkel--Ben-Zvi~\cite{FrenkelBenZvi}, Section~3.4) establishes~\eqref{eq:chiral-pbw} for strict Lie conformal algebras.  The universal property of $U^{\mathrm{ch}}$ gives a surjection $\mathrm{Sym}^{\mathrm{ch}}(\mathfrak{L}) \twoheadrightarrow \mathrm{gr}\, U^{\mathrm{ch}}(\mathfrak{L})$, and injectivity follows from the reconstruction theorem for vertex algebras (which shows that the normally-ordered monomials form a PBW basis).
 
-The derived extension~\eqref{eq:derived-pbw} follows from the bar--CE identification~\eqref{eq:bar-ce-linfty}: the PBW filtration on $U^{\mathrm{ch,der}}$ is controlled by the degree filtration on $\mathrm{CE}_*^{L_\infty}$, and the $l_n$ contributions produce corrections at PBW degree~$n$.  The identification $\mathrm{corr}_n = S_n/(n-1)!$ connects to the shadow tower through $\texttt{rem:shadow-ainfty-coproduct-vol3}$ (Vol~I).
+The derived extension~\eqref{eq:derived-pbw} follows from the bar--CE identification~\eqref{eq:bar-ce-linfty}: the PBW filtration on $U^{\mathrm{ch,der}}$ is controlled by the degree filtration on $\mathrm{CE}_*^{L_\infty}$, and the $l_n$ contributions produce corrections at PBW degree~$n$.  The identification $\mathrm{corr}_n = S_n/(n-1)!$ connects to the shadow tower through the Vol~I shadow / $A_\infty$-coproduct construction, where $S_n$ is the $n$-th shadow invariant attached to $l_n$.
 \end{proof}
 
 
@@ -4065,7 +4051,7 @@ For a Lie conformal algebra $\mathfrak{L}$ of rank~$r$ and a curve $C_g$ of genu
 \end{proposition}
 
 \begin{proof}
-The $E_n$ bar complex at genus~$g$ is $B_{E_n}(A)^{\otimes g}$ with the appropriate operadic tensor product. For abelian~$\mathfrak{L}$ (class~G), all differentials vanish and the cohomology is the exterior algebra $(1+t)^{nrg}$ at each $E_n$ level. For classes~L and~C, the tricomplex model $P(q)^{3g}$ at the chain level gives the same Poincar\'e polynomial because charge conservation kills~$d_4$ (cf.\ the bc system comparison, \texttt{e3\_bar\_bc.py}). For class~M, the differential~$d_4$ survives (it couples to the infinite shadow tower), but the cohomology is \emph{finite}: $\dim H^*(B^{E_3}(A)) = 6^g$ (closed form via K\"unneth; $d_4$ kills $\Lambda^0$ and $\Lambda^3$ per handle, leaving Betti vector $[0, 3, 3, 0]$ at $g = 1$). The chain-level complex $P(q)^{6g}$ is infinite, but the cohomology is $6^g$. This is the content of.
+The $E_n$ bar complex at genus~$g$ is $B_{E_n}(A)^{\otimes g}$ with the appropriate operadic tensor product. For abelian~$\mathfrak{L}$ (class~G), all differentials vanish and the cohomology is the exterior algebra $(1+t)^{nrg}$ at each $E_n$ level. For classes~L and~C, the tricomplex model $P(q)^{3g}$ at the chain level gives the same Poincar\'e polynomial because charge conservation kills~$d_4$ (cf.\ the bc system comparison, \texttt{e3\_bar\_bc.py}). For class~M, the differential~$d_4$ survives (it couples to the infinite shadow tower), but the cohomology is \emph{finite}: $\dim H^*(B^{E_3}(A)) = 6^g$ (closed form via K\"unneth; $d_4$ kills $\Lambda^0$ and $\Lambda^3$ per handle, leaving Betti vector $[0, 3, 3, 0]$ at $g = 1$). The chain-level complex $P(q)^{6g}$ is infinite, but the cohomology is $6^g$.
 \end{proof}
 
 
@@ -4487,7 +4473,7 @@ The CY-A$_3$ functor $\Phi_3 \colon D^b(\Coh(X)) \to \Eone\text{-}\ChirAlg$ is p
  \item \textbf{BCOV as the Borcherds substitute on compact non-K3-fibered CY$_3$.} On a compact CY$_3$ with $h^{1,0} = 0$, the BCOV partition function $Z_{\mathrm{BCOV}}(t, \bar t) = \exp\bigl(\sum_{g\geq 0} \lambda^{2g-2} F_g(t, \bar t)\bigr)$ plays the role that the Borcherds lift plays for K3-fibered CY$_3$: its holomorphic anomaly equation is the shadow-tower spectral connection (Theorem~\ref{thm:hae-mc-structural}; Proposition~\ref{prop:bcov-shadow-recursion}), and $\kappa_{\mathrm{ch}}(A_X)$ is read off from $F_1 = \kappa_{\mathrm{ch}}/24$ (Proposition~\ref{prop:beauville-kappa-formula}). For the quintic $F_1 = -25/72$, matching $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24 = -25/3$. BCOV is \emph{not} a theta lift: there is no Jacobi-form input, no automorphic output, and no denominator identity; the substitute delivers a genus-by-genus holomorphic anomaly recursion, not a BKM superalgebra.
  \item \textbf{G\"ottsche as the Borcherds substitute on local surfaces.} For $\Tot(K_S \to S)$ with $S$ a smooth projective surface, the rank-$1$ sheaf partition function on~$S$ is the G\"ottsche generating function $\sum_{n\geq 0} \chi(\Hilb^n(S))\, q^n = \prod_{k\geq 1} (1 - q^k)^{-\chi_{\mathrm{top}}(S)}$ (at rank $1$; rank-$r$ Vafa--Witten generalisations in Chapter~\ref{ch:quantum-chiral-algebras}), whose exponent recovers $\kappa_{\mathrm{ch}}(A_{\mathrm{loc}\,S}) = \chi_{\mathrm{top}}(S)/2$ via MNOP degree-zero (conjectural branch of Proposition~\ref{prop:beauville-kappa-formula}). For local~$\bP^2$, $\chi_{\mathrm{top}}(\bP^2) = 3$, so the rank-$1$ exponent is~$3$ and the rank-$1$ VW generating function is $\prod_{k\geq 1}(1-q^k)^{-3}$ (rank-$r$ Vafa--Witten generalisations in Chapter~\ref{ch:quantum-chiral-algebras}). G\"ottsche delivers a partition function, not an automorphic form, and no Borcherds lift is available (Mukai rank~$3$, not even unimodular).
 \end{enumerate}
-\textbf{Protocol summary (a/b/c).} (a) $\Phi_3(\mathrm{quintic})$, $\Phi_3(\mathrm{local}\,\bP^2)$ both have \emph{explicit} identifications — CoHA of the Gepner quiver-with-potential for the quintic, Schiffmann--Vasserot/Nakajima CoHA for local~$\bP^2$ — not merely existence narration. (b) Borcherds admissibility is strictly narrower than CY-A$_3$: it requires even unimodular Mukai lattice of Lorentzian signature with a Jacobi-form input, which holds for K3-fibered CY$_3$ and fails for the quintic and for local~$\bP^2$. (c) The non-K3-fibered substitute is \emph{dimension-specialised}: BCOV for compact CY$_3$ with $h^{1,0}=0$ (genus spectral sequence for~$F_g$), G\"ottsche / Vafa--Witten for local surfaces (rank-$1$ partition function with exponent $\chi_{\mathrm{top}}(S)$); neither is a theta lift. These substitutes do not produce a BKM superalgebra and do not define $\kappa_{\mathrm{BKM}}$; they fix $\kappa_{\mathrm{ch}}$ via $F_1$ or via MNOP degree-zero respectively. (Cross-references:; FM160 on Monster/Borcherds orbifold route; Remark~\ref{rem:cy3-kappa-polysemy}.)
+\textbf{Protocol summary (a/b/c).} (a) $\Phi_3(\mathrm{quintic})$, $\Phi_3(\mathrm{local}\,\bP^2)$ both have \emph{explicit} identifications — CoHA of the Gepner quiver-with-potential for the quintic, Schiffmann--Vasserot/Nakajima CoHA for local~$\bP^2$ — not merely existence narration. (b) Borcherds admissibility is strictly narrower than CY-A$_3$: it requires even unimodular Mukai lattice of Lorentzian signature with a Jacobi-form input, which holds for K3-fibered CY$_3$ and fails for the quintic and for local~$\bP^2$. (c) The non-K3-fibered substitute is \emph{dimension-specialised}: BCOV for compact CY$_3$ with $h^{1,0}=0$ (genus spectral sequence for~$F_g$), G\"ottsche / Vafa--Witten for local surfaces (rank-$1$ partition function with exponent $\chi_{\mathrm{top}}(S)$); neither is a theta lift. These substitutes do not produce a BKM superalgebra and do not define $\kappa_{\mathrm{BKM}}$; they fix $\kappa_{\mathrm{ch}}$ via $F_1$ or via MNOP degree-zero respectively. \textup{(}Cross-references: Chapter~\ref{ch:k3-chiral-algebra} on the Monster/Borcherds orbifold route; Remark~\ref{rem:cy3-kappa-polysemy}.\textup{)}
 \end{remark}
 
 
@@ -5145,8 +5131,8 @@ collapses to a single algebra
 \]
 the higher Heisenberg algebra of rank $5$ \textup{(}the $d = 5$ analogue of the
 Vol I rank-$1$ free-boson Heisenberg $H_1$\textup{)}, with central charge
-$c(H_5) = 5$ and $\kappa_{\mathrm{ch}}(H_5) = 0$ by additivity from
-$\kappa_{\mathrm{ch}}(H_1) = 0$. This identification remains conjectural.
+$c(H_5) = 5$ and $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(H_5) = 5$ by additivity from
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(H_1) = 1$ \textup{(}Theorem~\textup{\ref{thm:kappa-c3}}\textup{).} This identification remains conjectural.
 \end{example}
 
 \begin{remark}[Why $\tfrac{7}{60}$ rather than an integer]
@@ -5384,16 +5370,9 @@ product input \textup{(}where the gerbe trivialises\textup{)}; the
 closed-form K\"unneth-monoidal output identification.
 
 % ============================================================
-\section{Summary and forward reference}
-\label{sec:cy-to-chiral-closing}
-% ============================================================
-
-Two correspondences have been proved. The CY-to-chiral functor $\Phi_2$ is constructed unconditionally on the smooth proper locus of $\CY_2$-categories \textup{(}Theorem~\ref{thm:cy-to-chiral}\textup{),} with the modular characteristic identified as the Hodge supertrace $\kappa_{\mathrm{ch}}(\Phi_2(\cC)) = \chi(\cO_X)$ under the hypothesis $h^{1,0}(X) = 0$ \textup{(}Proposition~\ref{prop:cy-kappa-d2}\textup{);} the K3 instance evaluates to $\kappa_{\mathrm{ch}} = 2$ and matches the Mukai-lattice chiral algebra. At $d = 3$, Theorem~\ref{thm:cy-to-chiral-d3} proves the $\infty$-categorical existence of $\Phi_3$ on $\CY_3$ categories with chain-level $\bS^3$-framing, with the $\Etwo$-braided representation category recovered on the Drinfeld centre $\cZ(\Rep^{\Eone}(\Phi_3(\cC)))$ via the half-braiding presentation of the $R$-matrix \textup{(}Construction~\ref{constr:rmatrix-from-center}\textup{).} For $\cC = \MF(\C^3, 0)$ the functor chain evaluates to $\CoHA(\C^3) \simeq Y^+(\widehat{\fgl}_1)$, with the full $\cW_{1+\infty}$ at $c = 1$ recovered through the Drinfeld-centre passage, not through $\Phi_3$ directly.
-
-What this forces. The seven faces of $r_{\mathrm{CY}}$ \textup{(}the part on $r_{\mathrm{CY}}$\textup{)} are the per-$d$ evaluations of $\Phi$ at the canonical inputs singled out by property~\textup{(U4):} the K3 Yangian at $d = 2$, the Borcherds--Monster BKM at $d = 2$ on $K3 \times E$ via the K3-fibre Borcherds lift, the $\Eone$-chiral CoHA outputs at $d = 3$ on $\C^3$, the conifold, $K3 \times E$, and local $\bP^2$, and the genus-0 BCOV reconstruction at compact CY$_3$ with $h^{1,0} = 0$. Each face is a specific consequence of the construction proved here. The mathematical content of the part on $r_{\mathrm{CY}}$ is to verify, per face, that the chiral-side invariant predicted by $\Phi_d$ matches the BPS-side invariant produced by the K-theoretic / cohomological Hall algebra of the target CY. The correspondence is stated; its evaluation on the canonical landscape is Theorem~\ref{thm:seven-faces-of-r-cy}.
-
 \section{K3 base point: the Kodaira--Kuga-Satake--Torelli factorisation}
 \label{sec:cy2ch-k3-base-point}
+% ============================================================
 
 \begin{remark}[$\Phi$ at the K3 base point]
 \label{rem:cy2ch-DNA-1}
@@ -5437,3 +5416,12 @@ from the CY side (Bridgeland-stability in $D^b\mathrm{Coh}(K3)$) to
 the chiral side (representation theory of $\mathbf H_{\Delta_5}$). See
 Vol.~III, Chapter~\ref{ch:k3-chiral-bialgebra-platonic}.
 \end{remark}
+
+% ============================================================
+\section{Summary and forward reference}
+\label{sec:cy-to-chiral-closing}
+% ============================================================
+
+Two correspondences have been proved. The CY-to-chiral functor $\Phi_2$ is constructed unconditionally on the smooth proper locus of $\CY_2$-categories \textup{(}Theorem~\ref{thm:cy-to-chiral}\textup{),} with the modular characteristic identified as the Hodge supertrace $\kappa_{\mathrm{ch}}(\Phi_2(\cC)) = \chi(\cO_X)$ under the hypothesis $h^{1,0}(X) = 0$ \textup{(}Proposition~\ref{prop:cy-kappa-d2}\textup{);} the K3 instance evaluates to $\kappa_{\mathrm{ch}} = 2$ and matches the Mukai-lattice chiral algebra. At $d = 3$, Theorem~\ref{thm:cy-to-chiral-d3} proves the $\infty$-categorical existence of $\Phi_3$ on $\CY_3$ categories with chain-level $\bS^3$-framing, with the $\Etwo$-braided representation category recovered on the Drinfeld centre $\cZ(\Rep^{\Eone}(\Phi_3(\cC)))$ via the half-braiding presentation of the $R$-matrix \textup{(}Construction~\ref{constr:rmatrix-from-center}\textup{).} For $\cC = \MF(\C^3, 0)$ the functor chain evaluates to $\CoHA(\C^3) \simeq Y^+(\widehat{\fgl}_1)$, with the full $\cW_{1+\infty}$ at $c = 1$ recovered through the Drinfeld-centre passage, not through $\Phi_3$ directly.
+
+What this forces. The seven faces of $r_{\mathrm{CY}}$ \textup{(}the part on $r_{\mathrm{CY}}$\textup{)} are the per-$d$ evaluations of $\Phi$ at the canonical inputs singled out by property~\textup{(U4):} the K3 Yangian at $d = 2$, the Borcherds--Monster BKM at $d = 2$ on $K3 \times E$ via the K3-fibre Borcherds lift, the $\Eone$-chiral CoHA outputs at $d = 3$ on $\C^3$, the conifold, $K3 \times E$, and local $\bP^2$, and the genus-0 BCOV reconstruction at compact CY$_3$ with $h^{1,0} = 0$. Each face is a specific consequence of the construction proved here. The mathematical content of the part on $r_{\mathrm{CY}}$ is to verify, per face, that the chiral-side invariant predicted by $\Phi_d$ matches the BPS-side invariant produced by the K-theoretic / cohomological Hall algebra of the target CY. The correspondence is stated; its evaluation on the canonical landscape is Theorem~\ref{thm:seven-faces-of-r-cy}.
