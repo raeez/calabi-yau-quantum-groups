@@ -1675,17 +1675,22 @@ For each pair $(n, m)$ with $n + m = \ell$ and $n, m \geq 1$:
  \sum_{l \in \bZ} c_0(4nm - l^2) \;=\; 0.
 \]
 This is the modular constancy of $\phi_{0,1}$ at $z = 0$.
-The weak Jacobi form $\phi_{0,1}(\tau, z)$ has weight~$0$ and
-index~$1$; evaluating at $z = 0$ gives a modular form of
-weight~$0$ on $\mathrm{SL}_2(\bZ)$, which is necessarily constant
-(the space $M_0(\mathrm{SL}_2(\bZ))$ is one-dimensional, spanned
-by~$1$). The value is $\phi_{0,1}(\tau, 0) = 12$
-(Eichler--Zagier, \emph{The Theory of Jacobi Forms}, 1985, p.~108).
-At the level of Fourier coefficients:
-$\sum_l c_0(4N - l^2) = 0$ for all $N \geq 1$, since the $q^N$
-coefficient of the constant function~$12$ vanishes for $N \geq 1$.
-The boundary gives~$24$, the interior gives~$0$, so the total at
-every level is~$24$.
+The weak Jacobi form $\phi_{0,1}(\tau, z) = \sum_{n\geq 0,\,l\in\bZ}
+c(n, l)\, q^n \zeta^l$ has weight~$0$ and index~$1$; for index-$1$
+Jacobi forms the Fourier coefficient $c(n,l)$ depends only on the
+discriminant $4n - l^2$ and on $l\bmod 2$, and for $\phi_{0,1}$
+the two residue classes produce the same $c_0(4n - l^2)$
+(Eichler--Zagier 1985, Theorem~2.2). Setting $z = 0$
+(equivalently $\zeta = 1$) collapses $\zeta^l \to 1$ and gives
+$\phi_{0,1}(\tau, 0) = \sum_{n\geq 0} q^n \sum_l c_0(4n - l^2)$,
+a weight-$0$ modular form on $\mathrm{SL}_2(\bZ)$. The space
+$M_0(\mathrm{SL}_2(\bZ))$ is one-dimensional; the value is
+$\phi_{0,1}(\tau, 0) = 12$ (Eichler--Zagier 1985, p.~108).
+Matching coefficients of $q^N$ on both sides:
+$\sum_l c_0(4N - l^2) = 0$ for all $N \geq 1$. Applying at
+$N = nm$: the interior at each level vanishes. The boundary
+gives~$24$, the interior gives~$0$, so the total at every level
+is~$24$.
 \end{proof}
 
 \begin{remark}[The interior cancellation at level~$2$]
@@ -2250,10 +2255,15 @@ of the K3 sigma model
 This suggests a universal principle.
 \begin{enumerate}[label=\textup{(B\arabic*)}]
 \item \emph{Monster moonshine.} For the Monster module
- $V^\natural$ ($c = 24$, $\kappa_{\mathrm{ch}}(V^\natural) = 12$ by
- Remark~\ref{rem:lattice-voa-k3} and
- Vol~I, Theorem~\ref{thm:lattice-voa-bar}, applied to the
- Leech lattice construction):
+ $V^\natural$ (Frenkel--Lepowsky--Meurman 1988), $c = 24$,
+ constructed as the $\bZ/2$-orbifold of the Leech lattice VOA
+ $V_\Lambda$ \textup{(}rank $24$, so
+ $\kappa_{\mathrm{ch}}(V_\Lambda) = 24$\textup{)};
+ the orbifold projection produces a holomorphic VOA with no
+ weight-$1$ states. The appropriate $\kappa_\bullet$-invariant
+ for $V^\natural$ is not the lattice formula but the Monster
+ moonshine multiplier; its value $\kappa_{\mathrm{ch}}(V^\natural)$
+ is conjectural. The question:
  does $A_n^{\text{Monster}} = \kappa_{\mathrm{ch}}(V^\natural) \cdot
  \dim(\rho_n^{\mathbb{M}})$ for the Monster group
  $\mathbb{M}$?
@@ -2261,13 +2271,14 @@ This suggests a universal principle.
  \sum_n \operatorname{tr}(\rho_n(g))\,q^{n-1}$ is a
  genus-zero Hauptmodul; the question is whether the
  \emph{dimensions} (not characters) factor through~$\kappa_{\mathrm{ch}}$.
-\item \emph{Conway moonshine.} For $V^{s\natural}$
- ($c = 12$, the shorter moonshine module):
- $\kappa_{\mathrm{ch}}(V^{s\natural}) = ?$ and does
- $A_n = \kappa_{\mathrm{ch}} \cdot \dim(\rho_n^{Co_0})$?
- The Conway group $Co_0$ acts on the Leech lattice;
- $V^{s\natural}$ is the $\bZ/2$-orbifold of the
- rank-$12$ lattice VOA.
+\item \emph{Conway moonshine.} For the Duncan--Mack-Crane
+ $V^{s\natural}$ ($c = 12$), constructed as the $\bZ/2$-orbifold
+ of the $c = 12$ free-fermion VOA ($24$ chiral fermions)
+ carrying a $\mathrm{Co}_0$ action (Duncan 2007; Duncan--Mack-Crane
+ 2014): $\kappa_{\mathrm{ch}}(V^{s\natural}) = ?$ and does
+ $A_n = \kappa_{\mathrm{ch}} \cdot \dim(\rho_n^{\mathrm{Co}_0})$?
+ The Conway group $\mathrm{Co}_0$ stabilises the Leech lattice
+ and fixes the free-fermion generators of $V^{s\natural}$.
 \item \emph{General principle.} For a holomorphic VOA~$V$
  of central charge~$c$ with finite automorphism group~$G$,
  does the elliptic genus decompose as
@@ -2790,16 +2801,16 @@ What happens in higher CY dimension?
  $\Phi_{10}$?
 \item \emph{$\mathrm{CY}_5 = K3 \times K3 \times E$.}
  Similarly,
- $\kappa_{\mathrm{ch}} = 2 + 2 + 1 = 5$. The same
+ $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3) + \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3) + \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 2 + 2 + 1 = 5$. The same
  $\kappa_{\mathrm{BKM}} = 5$
  as for $K3 \times E$ arises, but for different reasons:
- the CY$_5$ has $\kappa_{\mathrm{ch}} = 5$ directly, without
+ the $\mathrm{CY}_5$ has $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 5$ directly, without
  second quantization. Does this numerical coincidence
  have algebraic content?
 \item \emph{The dimensional ladder.} For a product
  $\mathrm{CY}_d = X_1 \times \cdots \times X_k$,
- additivity gives
- $\kappa_{\mathrm{ch}} = \sum_i \kappa_{\mathrm{ch}}(X_i) = \sum_i \dim_\bC(X_i) = d$.
+ Heisenberg-level additivity gives
+ $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = \sum_i \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(X_i) = \sum_i \dim_\bC(X_i) = d$.
  The shadow class should be
  $\max(\text{classes of } X_i)$ under the ordering
  $G < L < C < M$. Does this determine the shadow
@@ -2814,8 +2825,8 @@ What happens in higher CY dimension?
 For a product $\mathrm{CY}_d = X_1 \times \cdots \times X_k$ of
 Calabi--Yau manifolds,
 \begin{align}
-\kappa_{\mathrm{ch}}(X_1 \times \cdots \times X_k)
- &\;=\; \sum_{i=1}^k \kappa_{\mathrm{ch}}(X_i)
+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(X_1 \times \cdots \times X_k)
+ &\;=\; \sum_{i=1}^k \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(X_i)
  \;=\; \sum_{i=1}^k \dim_\bC(X_i)
  \;=\; d, \\
 \operatorname{class}(X_1 \times \cdots \times X_k)
@@ -2824,8 +2835,8 @@ Calabi--Yau manifolds,
 \textup{(}under the ordering
 $G < L < C < M$\textup{)}. The shadow obstruction tower
 $\Theta_{X_1 \times \cdots \times X_k}$ at the scalar
-level is determined by $\kappa_{\mathrm{ch}} = d$ alone; the higher-degree
-components are controlled by the most complex factor.
+level is determined by $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = d$ alone;
+the higher-degree components are controlled by the most complex factor.
 \end{conjecture}
 
 
@@ -3017,17 +3028,18 @@ Cross-references to this chapter and to the foundations in Vols~I--II:
 \index{Igusa cusp form|textbf}
 \index{K3 surface!BKM algebra}
 
-The preceding sections developed the elliptic bar complex on a
-single elliptic curve $E_\tau$. The following sections examine a fundamentally
-different role for genus-$2$ modular forms: the Calabi--Yau
-threefold $K3 \times E$ produces a Borcherds--Kac--Moody (BKM)
-superalgebra whose denominator function is the Igusa cusp form
-$\Phi_{10}$, a Siegel modular form of weight~$10$ on
-$\operatorname{Sp}(4, \bZ)$. The shadow obstruction tower
-of $K3 \times E$ detects the topological skeleton of this
-structure, but the passage from shadow amplitudes to the full
-BPS partition function encounters four independent obstructions.
-The bridge, and its limitations, require precise quantification.
+On a single elliptic curve $E_\tau$ the elliptic bar complex
+produced a genus-$1$ modular structure. The Calabi--Yau threefold
+$K3 \times E$ produces a Borcherds--Kac--Moody (BKM) superalgebra
+$\mathfrak{g}_{\Delta_5}$ whose denominator function is the Igusa
+cusp form $\Phi_{10}$, the unique Siegel cusp form of weight~$10$
+on $\operatorname{Sp}(4,\bZ)$; its Gritsenko additive lift
+$\Delta_5$ is the weight-$5$ paramodular Jacobi form entering the
+Borcherds product. The shadow obstruction tower of $K3 \times E$
+detects the topological skeleton of this structure; the passage
+from shadow amplitudes to the full BPS partition function
+$1/\Phi_{10}$ encounters four independent obstruction classes,
+quantified in Theorem~\ref{thm:shadow-siegel-gap}.
 
 \subsection{The Igusa cusp form and the DVV formula}
 \label{subsec:igusa-dvv}
@@ -3672,7 +3684,7 @@ The Gritsenko--Nikulin Igusa form $\Delta_5$ is the $1$-loop-forced output of pa
 \begin{remark}[$4d$ class-$\mathcal{S}$ parent]
 \label{rem:k3e-cy3-platonic-classS}
 \ClaimStatusConjectured
-The $4d$ $\mathcal{N}=2$ parent is $\mathcal{T}[A_1,\Sigma_{0,24}]$ with $24$ maximal regular $\mathfrak{su}(2)$ punctures preserving the Steiner system $S(5,8,24)$ (Conway--Sloane $1988$). Chacaltana--Distler $2010$: $c_{4d}=(12(g-1)+7n)/6=26$ at $(g,n)=(0,24)$; Beem--Rastelli $c_{2d}=-12\,c_{4d}=-312$; Coulomb rank $21$; flavour $\mathfrak{su}(2)^{24}$. The Schur index $M_{24}$-averaged over flavour fugacities reduces to $\phi_{0,1}$, Borcherds-lifted to $\Delta_5$.
+The $4d$ $\mathcal{N}=2$ parent is $\mathcal{T}[A_1,\Sigma_{0,24}]$ with $24$ maximal regular $\mathfrak{su}(2)$ punctures preserving the Steiner system $S(5,8,24)$ (Conway--Sloane $1988$). The Chacaltana--Distler formula for $\mathcal{T}[A_1,\Sigma_{g,n},\text{max reg}]$ gives $c_{4d}=(5n-13)/6$, so at $(g,n)=(0,24)$: $(c_{4d},c_{2d})=(107/6,-214)$ via Beem--Rastelli $c_{2d}=-12c_{4d}$; Coulomb rank $21$; flavour $\mathfrak{su}(2)^{24}$. The Schur index $M_{24}$-averaged over flavour fugacities reduces to $\phi_{0,1}$, Borcherds-lifted to $\Delta_5$.
 \end{remark}
 
 \begin{remark}[Classification invariant $H^2=\mathbb{C}\cdot\Delta_5$]
@@ -3690,11 +3702,10 @@ Write $K^{\kappa_{\mathrm{ch}}}$ for the Koszul conductor of the $\kappa_{\mathr
 \section*{Closing crystallisation}
 \label{sec:k3e-cy3-closing-crystallisation}
 
-The chapter's climax is
-Theorem~\ref{thm:shadow-siegel-gap}: four obstruction classes
-$(\mathrm{O}_1, \mathrm{O}_2, \mathrm{O}_3, \mathrm{O}_4)$ measure
-the gap between the shadow tower of the $\cN = 4$ sigma model
-on $K3$ and the Siegel-modular partition function
+Theorem~\ref{thm:shadow-siegel-gap} exhibits four obstruction
+classes $(\mathrm{O}_1, \mathrm{O}_2, \mathrm{O}_3, \mathrm{O}_4)$
+measuring the gap between the shadow tower of the $\cN = 4$
+sigma model on $K3$ and the Siegel-modular partition function
 $1/\Phi_{10}$ of $K3 \times E$. The four $\kappa_\bullet$-values
 $\{\kappa_{\mathrm{ch}}, \kappa_{\mathrm{cat}},
 \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{3, 0, 5, 24\}$
@@ -3770,7 +3781,7 @@ For $X = K3 \times E$ viewed as a compact Calabi--Yau threefold,
 \[
   \kappa_{\mathrm{cat}}(K3 \times E) \;=\; \chi(\mathcal{O}_{K3 \times E}) \;=\; \chi(\mathcal{O}_{K3}) \cdot \chi(\mathcal{O}_E) \;=\; 2 \cdot 0 \;=\; 0
 \]
-by K\"unneth multiplicativity for coherent cohomology (Hartshorne, Chapter~III, Proposition~8.5) combined with $\chi(\mathcal{O}_E) = 1 - 1 = 0$ (elliptic curve) and $\chi(\mathcal{O}_{K3}) = 1 - 0 + 1 = 2$ (K3 Hodge diamond). This is the total-space categorical invariant. Note the four distinct invariants from Remark~\ref{rem:four-kappas}:
+by K\"unneth multiplicativity for coherent cohomology (Hartshorne, Chapter~III, Proposition~8.5) combined with $\chi(\mathcal{O}_E) = 1 - 1 = 0$ (elliptic curve) and $\chi(\mathcal{O}_{K3}) = 1 - 0 + 1 = 2$ (K3 Hodge diamond). The total space $K3\times E$ has $\chi(\mathcal{O}) = 0$; the K3 fibre has $\chi(\mathcal{O}_{K3}) = 2$. The four canonical invariants from Remark~\ref{rem:four-kappas}:
 \[
   \kappa_{\mathrm{ch}}(\Omega^{\mathrm{ch}}_{K3 \times E}) = 3,
   \qquad
@@ -3778,12 +3789,12 @@ by K\"unneth multiplicativity for coherent cohomology (Hartshorne, Chapter~III, 
   \qquad
   \kappa_{\mathrm{BKM}}(\Delta_5) = 5,
   \qquad
-  \kappa_{\mathrm{fiber}}(K3) = 2.
+  \kappa_{\mathrm{fiber}}(K3) = 24.
 \]
-The value $2$ is the fibre-K3 value, not the total-space value. Writing $\kappa_{\mathrm{cat}}(K3 \times E) = 2$ conflates the fibre with the total space; the correct total-space value is $0$. The distinction is between manifold and algebraization invariants. Cross-reference: Chapter~\ref{ch:cy-c-six-routes-convergence}, Remark~\ref{rem:cy-c-six-routes-kappa-cat-zero}; landscape census (Vol~I \texttt{chapters/examples/landscape\_census.tex}, CY$_3$ family table).
+The fibre-restricted categorical value $\chi(\mathcal{O}_{K3}) = 2$ is a separate scalar, not $\kappa_{\mathrm{fiber}}$: the canonical $\kappa_{\mathrm{fiber}} = 24$ is the Mukai lattice rank, whereas $\chi(\mathcal{O}_{K3}) = 2$ is the categorical fibre value of the Hodge supertrace $\kappa_{\mathrm{cat}}$. Writing $\kappa_{\mathrm{cat}}(K3 \times E) = 2$ conflates the fibre with the total space; the correct total-space value is $0$. Cross-reference: Chapter~\ref{ch:cy-c-six-routes-convergence}, Remark~\ref{rem:cy-c-six-routes-kappa-cat-zero}; landscape census (Vol~I \texttt{chapters/examples/landscape\_census.tex}, CY$_3$ family table).
 \end{remark}
 
 \begin{remark}[Six routes converging at $\mathbf{H}_{\Delta_5}$: per-route scalars $\kappa_{\mathrm{ch}}^{R_i}, \kappa_{\mathrm{cat}}^{R_i}, \kappa_{\mathrm{BKM}}^{R_i}$]
 \label{rem:k3e-cy3-six-routes-per-route-kappa}
-The six routes of Chapter~\ref{ch:cy-c-six-routes-convergence} feed six different inputs into six different construction machines. The only route that is an application of $\Phi_3$ is R\textsubscript{1}; the remaining five are independent constructions. Per-route generator ranks stratify as $\rho^{R_i} \in \{3, 12, 24\}$ (Theorem~\ref{thm:kappa-stratification-CY-C}(iv)); this is the \emph{only} route-distinguishing invariant, not $\kappa_{\mathrm{ch}}$ (which is the Hodge-supertrace, route-independent, equal to $0$ for $K3 \times E$). The denominator $=$ bar Euler identity of Remark~\ref{rem:k3e-cy3-two-anchor} lives specifically on route R\textsubscript{1} $\leftrightarrow$ route R\textsubscript{2}: the Borcherds lift consumes Jacobi-form input (route R\textsubscript{2}) and matches the bar Euler of $\mathbf{H}_{\Delta_5} = A_X^{R_1}$ (route R\textsubscript{1}). The ambient confusion ``six $\Phi_3$'s, each producing its own denominator identity'' is ruled out: there is one $\Phi_3$, one bar Euler, one Borcherds lift, and one denominator identity; the other five routes contribute independent evidence for the CY-C conjectural isomorphism, not alternative bar-Euler constructions.
+The six routes of Chapter~\ref{ch:cy-c-six-routes-convergence} feed six different inputs into six different constructions. The only route that is an application of $\Phi_3$ is R\textsubscript{1}; the remaining five are independent constructions. Per-route generator ranks stratify as $\rho^{R_i} \in \{3, 12, 24\}$ (Theorem~\ref{thm:kappa-stratification-CY-C}(iv)); this is the \emph{only} route-distinguishing invariant, not $\kappa_{\mathrm{cat}}$ (the Hodge-supertrace $\chi(\mathcal{O}_X)$, route-independent, equal to $0$ for $K3 \times E$ by K\"unneth multiplicativity) and not $\kappa_{\mathrm{ch}}(\Omega^{\mathrm{ch}}_{K3\times E}) = 3$ (Hodge-supertrace identification on the chiral de~Rham complex, route-independent at the Heisenberg level). The denominator $=$ bar Euler identity of Remark~\ref{rem:k3e-cy3-two-anchor} lives specifically on route R\textsubscript{1} $\leftrightarrow$ route R\textsubscript{2}: the Borcherds lift consumes Jacobi-form input (route R\textsubscript{2}) and matches the bar Euler of $\mathbf{H}_{\Delta_5} = A_X^{R_1}$ (route R\textsubscript{1}). The ambient confusion ``six $\Phi_3$'s, each producing its own denominator identity'' is ruled out: there is one $\Phi_3$, one bar Euler, one Borcherds lift, and one denominator identity; the other five routes contribute independent evidence for the CY-C conjectural isomorphism, not alternative bar-Euler constructions.
 \end{remark}
