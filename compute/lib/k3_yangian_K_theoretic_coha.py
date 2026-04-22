@@ -187,7 +187,7 @@ def phi3K_classical_limit_matches_phi3() -> bool:
 
     Primary: Varagnolo-Vasserot 2023 Thm 4.2 (K-theory -> cohomology
     classical limit via Chern character); Wave-18 engine
-    k3_yangian_wave18_monster_bkm_lusztig Prop 3.
+    k3_yangian_monster_bkm_lusztig Prop 3.
     """
     return True
 
@@ -258,7 +258,7 @@ def k3_lusztig_ell() -> int:
 
     ell_K3 = 2 * c_+(II_{4,20}) = 2 * 4 = 8.
     Primary: Wave-17 DRINFELD engine (Mukai doubling); Wave-18
-    WITTEN/NEKRASOV engine k3_yangian_wave18_monster_bkm_lusztig.
+    WITTEN/NEKRASOV engine k3_yangian_monster_bkm_lusztig.
     """
     return 2 * MUKAI_SIGNATURE_POSITIVE
 
@@ -285,7 +285,7 @@ def hbar_log_q_at_specialisation() -> Fraction:
     Primary: Lusztig 1990 Geom. Ded. 35 Eq. 3.3 (root-of-unity
     parameter); matches Wave-18 hbar^2 = -1/8 under the further
     convention hbar_squared = -hbar_formal / (8 * hbar_formal)^0
-    (see k3_yangian_wave18 for the -1/ell identity).
+    (see k3_yangian_enriques_bkm for the -1/ell identity).
     """
     return Fraction(1, k3_lusztig_ell())
 

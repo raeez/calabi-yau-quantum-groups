@@ -18,7 +18,7 @@ from fractions import Fraction
 
 import pytest
 
-from compute.lib.k3_yangian_wave14_humbert_monodromy_8 import (
+from compute.lib.k3_yangian_humbert_monodromy_8 import (
     K_kappa_ch_Mukai_K3,
     bruinier_reciprocity_classes_coincide,
     c_2d_chi_K3_factorisation_check,

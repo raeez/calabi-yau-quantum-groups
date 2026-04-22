@@ -51,7 +51,7 @@ F3. Wave 5 claims H^1_{hbar^{2n}} parity: only EVEN-order obstructions.
     is not derived — it is assumed.
 
 F4. K3 has torsion in integral cohomology (see
-     k3_yangian_wave6_costello_torsion.py — written separately).
+     k3_yangian_costello_torsion.py — written separately).
      Wave 5's "Spin(4,20;Z) x SL_2(Z) preserved" claim only verifies
      rationality of A_n with denom | Igusa-denom, i.e., rational control.
      Integral arithmetic preservation needs control of H^*(K3; Z),
@@ -605,7 +605,7 @@ def wave6_costello_fiveloop_report() -> Dict[str, object]:
                 "conjectural statement. The heterotic arithmetic preservation "
                 "is RATIONAL (denominator divides 720 for n=4) but not "
                 "INTEGRAL (no computation with K3's torsion cohomology yet; "
-                "see k3_yangian_wave6_costello_torsion.py)."
+                "see k3_yangian_costello_torsion.py)."
             ),
             "Wave_6_required_upgrade_path": [
                 "(a) Specify the Costello-Gwilliam deformation complex for 6d hCS on K3 x E: D^n at each hbar-order, differential d_BV, cohomology.",

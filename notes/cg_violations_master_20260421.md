@@ -3,19 +3,18 @@
 Filter: manuscript .tex only, false-positive protection over \cite{}, \texttt{}, \label{}, \ref{}, \index{}, \verb|...| and verbatim blocks.
 
 ## Per-volume counts
-- vol1: 587
-- vol2: 139
-- vol3: 98
+- vol1: 133
+- vol2: 59
+- vol3: 0
 
 ## Per-trigger counts
-- Wave-N: 342
-- inscrib: 274
-- APn: 164
-- WN: 26
-- adjudicat: 8
-- AP-CY: 7
-- Pattern-n: 2
+- inscrib: 98
+- Wave-N: 44
+- APn: 41
+- WN: 6
 - KAZHDAN-tag: 1
+- AP-CY: 1
+- adjudicat: 1
 
 ## Artifact
 

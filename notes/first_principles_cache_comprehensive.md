@@ -3,6 +3,20 @@
 This file caches every first-principles investigation from the programme's git history.
 For each wrong claim: what it gets RIGHT, what it gets WRONG, the correct relationship, and the confusion type.
 
+## AP5 dual-indexing header (Gate 0, pending landscape-census lock, 2026-04-21)
+
+Several "Correct Relationship" entries below assert
+$\kappa_{\mathrm{BKM}}(\mathbf H_{\Delta_5}) = 5$ standalone. Per the
+canonical preamble of `notes/antipatterns_catalogue.md`
+(row "$\kappa_{\mathrm{BKM}}(\mathbf H_{\Delta_5})$ cross-volume value")
+and AP-CY49, BOTH values $5$ (paramodular $\Phi_{10} = \Delta_5^2$
+convention) and $12$ (Fake-Monster $\Phi_{12}$ convention) occur
+legitimately under different $N$-index conventions. **Every standalone
+assertion of only one value without naming the input denominator is a
+latent AP5 violation.** Historical entries below that state
+$\kappa_{\mathrm{BKM}} = 5$ without the paramodular qualifier must be
+read against this header until the landscape-census lock is executed.
+
 ## Confusion Type Taxonomy (21 types)
 
 1. **part/whole** — individual term properties assumed for total
@@ -1507,3 +1521,1058 @@ Any two of (a,b,c) failing forces re-derivation.
 **Confusion type.** Source epistemology (Beilinson hierarchy puts direct computation above published literature; LMFDB sits below "primary-source re-derivation").
 
 **Status.** Catalogued. Instance: Wave-17 extension of Wave 14's `k3_yangian_wave14_arthur_hecke_delta10.py` compute module (new: `DELTA_E6_AP_W17`, `PRIMES_W17`, `satake_cosine`, `frenkel_reshetikhin_c2_eigenvalue`); Vol I `chiral_climax_platonic.tex` Wave-17 section (rem:cclimax-wave17-ap-extension, rem:cclimax-wave17-sk-euler, rem:cclimax-wave17-satake-casimir); Vol III `notes/SYNTHESIS_WAVES_14_15_16.md` §5.4 table extension. 89/89 tests pass (82 Wave-15 + 7 Wave-17).
+
+
+## Wave 20-24 exhaustive Vol-III appendix (2026-04-20)
+
+The following entries (166-200) crystallise every Wave 20-24 finding with Vol-III relevance that was not already inscribed in the cache above. Numbering continues from max=165 of the pre-Wave-20 comprehensive cache.
+
+### Entry 166: $\Psi$-nonsurjectivity onto $\mathrm{BKM}^{\mathrm{GN}}$ (Wave 20 GELFAND)
+
+**Wrong claim.** $\Psi: \mathrm{CY}\text{-cat} \to \mathrm{BKM}^{\mathrm{GN}}$ surjects onto every GN-Siegel-automorphic-product reflective BKM whose denominator sits in GN 1998 Table 1.
+
+**Ghost theorem.** Four proved $\Psi$-rows (Monster / K3 / Fake-Monster / Enriques) plus conjectural Conway row are a genuine set of $\Psi$-images; 22 non-Leech Niemeier BKMs of Scheithauer 2000 Thm 6.2 are genuine super-EK-quantisable reflective GKMs.
+
+**Precise error.** Unconditional surjectivity is false: the 22 non-Leech Niemeier BKMs $\mathfrak g^{(N)}$ (rank 26 Scheithauer lattices, $N \neq \Lambda_{24}$) are outside $\mathrm{Im}(\Psi_{d\in\{2,3\}})$ at any $d$; $d \geq 4$ extension blocked by FM43 $\mathbb S^d$-framing obstruction. Six-route conflation: K3 / Enriques / Monster / Fake-Monster / Conway / paramodular-prime are six DIFFERENT constructions with different CY-$d$ inputs, lattices, and $\kappa_{\mathrm{BKM}}$; advertising one unified $\Psi$ is a type error. Conway-conditional: fifth row is CONJECTURAL (Conj `conj:bkm-conway-psi-fifth-image`).
+
+**Correct relationship.** Scope-restricted $\Psi = \bigsqcup_{d\in\{2,3\}} \Psi_d$; $\Psi|_{d\in\{2,3\}}$ surjects onto CY-$d$-derivable reflective BKMs with defining lattice signature $(n,2)$, $n \in \{1, 10, 18, 19\}$ or $\mathrm{II}_{25,1}$ or $\mathrm{II}_{1,1}$. Unconditionally $\mathrm{Im}(\Psi) \subseteq \{\text{Mukai-K3/Enriques/abelian at }n\in\{1,10,18,19\}\} \cup \{\mathrm{II}_{25,1}\text{-Fake-Monster}\} \cup \{\mathrm{II}_{1,1}\text{-Monster}\}$; conditional on Conway conjecture adjoin $\Lambda_{24} \oplus \mathrm{II}_{1,1}$. Paramodular-prime BKMs $\mathrm{II}_{1,1}(p) \oplus \Lambda$ at $p \in \{2, 3, 5, 7, 11\}$ unconditionally outside $\mathrm{Im}(\Psi)$ (non-unit $\mathrm{II}_{1,1}$-scaling fails GN98 Prop 2.5 unimodularity). Primary: GN98 J reine angew Math 507 Tab 1 + Prop 2.5, 5.1; Scheithauer 2000 CMP 215 Thm 6.2; Borcherds 1988/1990/1992/1998; Etingof-Kazhdan 2007 Selecta 13 Part V Thm 5.1; Möller-Scheithauer 2023 arXiv 2312.07357.
+
+**Confusion type.** Scope error + construction/functor + conditional transitivity.
+
+**Status.** Catalogued. Inscribed at `cy_to_chiral.tex` Thm `thm:psi-nonsurjective-gn`, Cor `cor:psi-image-characterization`, Rem `rem:psi-scope-restriction-discipline`; cross-ref `notes/ADJUDICATION_LEDGER_WAVES_14_TO_19.md` §(III.I).
+
+### Entry 167: $24A_1$ non-Leech Niemeier BKM as $\Psi$-image counterexample (Wave 20 GELFAND)
+
+**Wrong claim.** $\mathfrak g^{(24A_1)}$ is a $\Psi$-image via rank-26 lattice embedding $\mathrm{II}_{25,1} \supset L_{\mathrm{Muk,K3}}$.
+
+**Ghost theorem.** Scheithauer-Niemeier $\mathfrak g^{(24A_1)}$ is a genuine super-EK-quantisable reflective GKM with $24 \cdot A_1$ real simple roots and weight-$12$ automorphic denominator.
+
+**Precise error.** Three independent verification paths falsify $\Psi$-image status: (i) lattice-rank signature $(25, 1) \notin \{(1, 2), (10, 2), (18, 2), (19, 2)\}$ mismatches CY-$d$ Mukai at $d \in \{2, 3\}$; (ii) Serre-parity $\mathbb S_\cC \simeq [3]$ (Caldararu 2005 §5 eq 5.3; Keller 2011 Thm A.1) is incompatible with symmetric positive pairing on 24 real-root weight-$1$ classes in $\mathrm{HH}_0$; (iii) modular weight $\kappa_{\mathrm{BKM}}(\mathfrak g^{(24A_1)}) = 12$ matches Fake-Monster weight but on lattice signature $(25, 1)$ distinct from $\mathrm{II}_{25,1}$ Fake-Monster signature.
+
+**Correct relationship.** $\mathfrak g^{(24A_1)}$ is the explicit first counterexample to bare $\Psi$-surjectivity; triple-path falsification anchors `thm:psi-nonsurjective-gn`. The other 21 non-Leech Niemeier BKMs $\{A_2^{12}, A_3^{8}, A_4^{6}, D_4^{6}, A_5^{4} D_4, \ldots\}$ fail analogously by two or more of the three routes.
+
+**Confusion type.** Scope error with triple independent verification (lattice-rank / Serre-parity / modular-weight).
+
+**Status.** Catalogued. Primary: Caldararu 2005 Adv Math 194 §5 eq 5.3; Keller 2011 arXiv 1103.5023 Thm A.1; Huybrechts 2016 \emph{K3 Lectures} Ch 16 Problem 16.12; Conway 1968 Bull LMS 1.
+
+### Entry 168: Conway $V^{s\natural}$ as fifth $\Psi$-image — triple-error falsification (Wave 20 BEILINSON)
+
+**Wrong claim.** Conway moonshine module $V^{s\natural}$ (Duncan 2007) is the fifth independent $\Psi$-image on an "$E_8$ super-lattice" with $c_+(\Lambda_{24}) = 0$ giving super-extension Lusztig pair $(K, \hbar^2) = (2, -1/2)$ via $K^{\mathrm{super}} = 2c_+(\Lambda_{24} \oplus \mathrm{II}_{1,1}^{\mathrm{super}}) = 2$.
+
+**Ghost theorem.** Duncan 2007 constructs genuine self-dual $N = 1$ SVOA $V^{s\natural}$ at $c = 12$ with $(V^{s\natural})_{1/2} = 0$ and $\mathrm{Aut}(V^{s\natural}) = \mathrm{Co}_0$; commutative $\mathbb Z/2$-orbifolding diamond $\{V_{\Lambda_{24}}, V^\natural, V_{\Lambda_{24}}^s, V^{s\natural}\}$ (Duncan 2007 §6) is established; four-row $\Psi$-landscape (K3/Enriques/Monster/Fake-Monster) is established.
+
+**Precise error.** Three concrete errors in the W19 inscription (at `k3e_bkm_chapter.tex:4262` et seq.): (a) \emph{venue} stated as MRL 14 but correct venue is \emph{Duke Math J} 139 no. 2, 255--315; arXiv:math/0605219 is a different Duncan paper ("Arithmetic groups and the affine $E_8$ Dynkin diagram"), Conway construction is arXiv:math/0502267; (b) \emph{construction} described as "$\mathbb Z/2$-orbifold of 24 free fermions at $E_8$ super-lattice" but Duncan 2007 §3-4 uses $A(\Lambda_{24})$ on LEECH lattice — no $E_8$ super-lattice; (c) \emph{sign convention} $c_+(\Lambda_{24}) = 0$ contradicts the programme's universal sign: $c_+$ counts positive-eigenvalue dimensions in signature-orthogonal decomposition; Leech has signature $(24, 0)$ so $c_+(\Lambda_{24}) = 24$, giving $K = 48$, $\hbar^2 = -1/48$, contradicting the claimed $(2, -1/2)$.
+
+**Correct relationship.** Default W20 reading (consistent with Duncan 2007 §6 commutative diamond): $V^{s\natural}$ is the $\mathbb Z/2$-super-twin of $V^\natural$ INSIDE the Monster row via the diamond, NOT an independent fifth $\Psi$-image; $(K, \hbar^2) = (2, -1/2)$ INHERITED from Monster through the diamond. Alternative reading (Scheithauer 2008 Invent 172 Thm 3.2): $V^{s\natural}$ as $\mathbb Z/2$-twisted subsector of Fake-Monster on $\mathrm{II}_{25,1}$ via $\Lambda_{24} \subset \mathrm{II}_{25,1}$. Cache discipline (standing): $\Psi$ gives ONE output per input CATEGORY; a VOA advertised as image of TWO different $\Psi$-inputs is an orbifold-diamond / super-twin symptom. Disk state 2026-04-20: downgraded to conjecture `conj:bkm-conway-psi-fifth-image`; venue corrected; three-reading anomaly inscribed `rem:bkm-conway-psi-image-sign-and-diamond`; four downstream refs updated (`cy_categories.tex` x 3, `k3e_bkm_chapter.tex` x 1).
+
+**Confusion type.** AI-fabrication (three-source falsification) + sign-convention violation + venue-confusion.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Conj `conj:bkm-conway-psi-fifth-image`, Rem `rem:bkm-conway-psi-image-sign-and-diamond`, `rem:bkm-conway-monster-fake-monster-triangle`; cross-ref `notes/ADJUDICATION_LEDGER_WAVES_14_TO_19.md` §(III.B). Primary: Duncan 2007 Duke 139 arXiv math/0502267 Thm 1.1 + §3-6; Duncan-Mack-Ono 2015 FMP 3 e10; Scheithauer 2008 Invent 172 Thm 3.2; Borcherds 1998 Thm 13.3; FLM 1988 Ch 12; Conway 1968 Bull LMS 1.
+
+### Entry 169: Enriques BKM $\mathfrak g_{\Delta_5}^{\mathrm{Enr}}$ metaplectic weight $5/2$ (Wave 18 BEILINSON)
+
+**Wrong claim.** Enriques BKM on signature-$(1, 9)$ lattice $E_8(-1) \oplus \mathrm{II}_{1,1}$ carries Siegel weight $5$.
+
+**Ghost theorem.** Enriques BKM is a genuine GKM with Weyl-Kac-Borcherds denominator; the K3-side weight is $5$ on paramodular $K(2)$.
+
+**Precise error.** $\Delta_5^{\mathrm{Enr}}$ lives on the DOUBLE COVER $\widetilde{K(2)}$ of $K(2)$, carrying Siegel weight $5/2$, not $5$; metaplectic halving is essential. Imaginary-root multiplicity is $\mathrm{mult}_{\mathrm{Enr}}(\alpha) = c_{K3}(-\alpha^2/2)/2$ via Borisov-Libgober 2000 (orbifold twisted sector vanishes because Enriques involution $\iota$ is fixed-point-free).
+
+**Correct relationship.** Lattice $E_8(-1) \oplus \mathrm{II}_{1,1}$ signature $(1, 9)$; metaplectic Siegel weight $5/2$; $\Delta_5^{\mathrm{Enr}} \in S_{5/2}(\widetilde{K(2)}^{v_{\mathrm{Enr}}})$. Integer multiplicities on admissible $D \geq 0$ even-$c_{K3}$ locus; VIRTUAL half-integer sections on Mersenne odd-$c_{K3}$ locus $\{7, 15, 31, 47, 55, \ldots\}$ via metaplectic $\widetilde{K(2)}$. Primary: Gritsenko 1999 Algebra i Analiz 11 Thm 2.1; GN98 Thm 5.2; Borisov-Libgober 2000 Duke 104 Thm 4.1; Ibukiyama 2012 Proc Japan Acad 88 §2.
+
+**Confusion type.** Metaplectic-cover conflation + integer-vs-virtual multiplicity.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Thm `thm:bkm-enriques-denominator`, Thm `thm:bkm-enriques-imaginary`, Thm `thm:bkm-enriques-generating-function`.
+
+### Entry 170: Enriques direct $M_{12}$ moonshine — template-mismatch falsification (Wave 20 BEILINSON)
+
+**Wrong claim.** Enriques BKM carries direct $M_{12}$ moonshine, with $f_{\mathrm{En}}(0, 1) = 10$ an $M_{12}$-irreducible dimension.
+
+**Ghost theorem.** Persson-Volpato 2013 §3 genuine sporadic symmetry on Enriques sigma-model is $G_{\mathrm{Enr}} \subset M_{24}$ of order 7920 (point-stabiliser of commuting involution pair in $M_{24}$), distinct from both $M_{12}$ (order 95040) and $2.M_{12}$ (order 190080).
+
+**Precise error.** ATLAS $M_{12}$ irreducible dimensions are $\{1, 11, 11, 16, 16, 45, 54, 55, 55, 55, 66, 99, 120, 144, 176\}$ — $10$ is not among them. Direct $M_{12}$ ansatz is a TEMPLATE-mismatch conflation with $M_{24}$ Mathieu moonshine. Additionally $24 = 1 + 11 + 11 + 1$ arithmetically totals 24 not 20; sextet-stabiliser branching $V^{M_{24}}_{23} \downarrow M_{12} = V^{M_{12}}_{11} + V^{M_{12}}_{11'} + V^{M_{12}}_1$ gives 23 not 20.
+
+**Correct relationship.** Healed via Persson-Volpato 2013 $M_{12} \hookrightarrow M_{24}$ point-stabiliser VIRTUAL decomposition: $f^{K3}(0, 1) = 10 = 16 + 16 - 11 - 11$ signed $M_{12}$-character sum $= \dim V^{M_{12}}_{16} + \dim V^{M_{12}}_{16'} - \dim V^{M_{12}}_{11} - \dim V^{M_{12}}_{11'}$; $\iota$-halving gives $f_{\mathrm{En}}(0, 1) = 5 = 16 - 11$ (virtual signed difference, not non-negative sum). 12-class $\times$ 10-Fourier-coefficient twining table at $D \in \{-1, 0, 3, 4, 7, 8, 11, 12, 15, 16, 19, 20\}$ established. Isolated coincidence $\mathrm{mult}_{\mathrm{En}}(\alpha_4) = 54$ with 54-dim $M_{12}$-irrep is not moonshine: does not propagate to $D \in \{0, 3, 8, 12, 16\}$. Primary: Persson-Volpato 2013 arXiv 1312.0622 Prop 3.1 + §4 Tab 2; Cheng-Duncan 2015 CNTP 9 Thm 5.1 (umbral $12A_2$ cross-check); Gannon 2016 arXiv 1211.3452 Thm 1; Gaberdiel-Hohenegger-Volpato 2010 arXiv 1004.0956 Tab 3; ATLAS p.32.
+
+**Confusion type.** Direct-vs-virtual moonshine + template-mismatch conflation.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Thm `thm:bkm-enriques-m12-falsification`, Thm `thm:bkm-enriques-m12-twining-table`, Thm `thm:bkm-enriques-m12-twining-table-extended`.
+
+### Entry 171: Enriques $M_{12}$ mass formula — trace-sum / sign-alternating positivity / Plancherel (Wave 21 KAZHDAN)
+
+**Wrong claim.** Enriques $M_{12}$-moonshine mass formula is unit-weight trace-sum $\sum_{[g]} \phi^{\mathrm{En}, g}_{0, 1} = \phi^{\mathrm{En}}_{0, 1}$ giving unconditional non-negative integer multiplicities at every $D \geq 0$.
+
+**Ghost theorem.** $M_{12}$-invariant projector on class functions is $\Pi^{M_{12}}_{\mathrm{inv}} \phi = |M_{12}|^{-1} \sum_{[g]} |C_g| \phi^g$; Schur orthogonality; Gannon 2016 Thm 1 proves virtual-$M_{24}$-multiplicity positivity with sign alternation $\mathrm{sgn}(N_j(D)) = (-1)^{D+1}$.
+
+**Precise error.** Three conflations at once. (i) Trace-sum weighting: unit-weight summation is NOT the $M_{12}$-invariant projector; correct weighting is centraliser-weighted $|M_{12}|^{-1} \sum_{[g]} |C_g| \phi^g$. (ii) Unconditional positivity vs sign-alternation: Gannon positivity is SIGN-ALTERNATING by $D \pmod 4$ not uniform non-negative: $D \equiv 0 \pmod 4$ massive-long gives non-negative; $D \equiv 3 \pmod 4$ massive-short gives non-positive. (iii) Threshold: $M_{24}$ positivity applies at every $D \geq 0$; $M_{12}$-restriction and $\iota$-halving preserve sign structure for $D \geq 0$ outside Mersenne odd-$f^{K3}$ locus; polar $D = -1$ fails uniform-sign rule (real-root axiom fixes to 1).
+
+**Correct relationship.** Three simultaneous identities (Thm `thm:bkm-enriques-m12-mass-formula`): (a) centraliser-weighted trace-sum $|M_{12}|^{-1} \sum_{[g] \in \mathcal C_\iota} |C_g| \phi^{\mathrm{En}, g}_{0, 1} = \phi^{\mathrm{En}}_{0, 1}$; (b) sign-alternating positivity with sharp threshold $D_0 = 0$ and Mersenne exception, $\mathrm{sgn}(n_i(D)) = (-1)^{D+1}$ uniform in $i \in \mathrm{Irr}(M_{12})$; (c) Plancherel norm $|M_{12}|^{-1} \sum_{[g]} |C_g| \cdot |f^{\mathrm{En}, g}(D)|^2 = \sum_i n_i(D)^2 \dim V_i^{M_{12}}$. Three verification paths: direct trace-sum check; Gannon transfer; GHV 2010 $M_{24}$-equivariant cross-check + ATLAS branching + $\iota$-halving. Primary: Gannon 2016 arXiv 1211.3452 Thm 1; Persson-Volpato 2013 §4; GHV 2010 arXiv 1004.0956 Tab 3; Borisov-Libgober 2000 Thm 4.1; Serre 1977 §2; ATLAS p.32.
+
+**Confusion type.** Projector-weighting conflation + positivity-threshold discipline.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Thm `thm:bkm-enriques-m12-mass-formula`.
+
+### Entry 172: Siegel weight ladder $k_N$ — Coxeter-void failure mode (Wave 21 GAIOTTO)
+
+**Wrong claim.** Siegel weight ladder $k_N^{\mathrm{honest}} = N + 3$ with $k_N^{\mathrm{spin}} = (N + 3)/2$ holds uniformly; $4A_5$ Niemeier correspondence at $N = 6$.
+
+**Ghost theorem.** Gritsenko 1999 gives paramodular-prime Siegel weights; Niemeier lattices carry Coxeter-indexed root systems; unimodular-23 classification of Niemeier 1973.
+
+**Precise error.** ``$4A_5$ Niemeier'' does NOT exist — no such root system among Niemeier's 24 classes. $h(A_5) = 6$ would require four orthogonal $A_5$ with rank 20, filling; but no Niemeier lattice with four orthogonal $A_5$ components exists. Re-anchor: $A_5^4 D_4$ Niemeier (rank 24 with $A_5$ rank 5 $\times 4 = 20$ + $D_4$ rank 4 = 24; ATLAS Sym group $3.\mathrm{Sym}_6$). $N = 11$ is a NEW FAILURE MODE: Coxeter-void ($h(A_{10}) = 11$ is unique realization of Coxeter number 11 but $A_{10}$ has rank 10, no filler completes to 24).
+
+**Correct relationship.** Niemeier correspondences: $24A_1$ ($N = 2$), $12A_2$ ($N = 3$), $8A_3$ ($N = 4$), $6A_4$ ($N = 5$), $A_5^4 D_4$ or $6D_4$ ($N = 6$), $4A_6$ ($N = 7$), $2A_7 D_5^2$ ($N = 8$), $3A_8$ ($N = 9$), $2A_9 D_6$ ($N = 10$), **void** ($N = 11$), $A_{11} D_7 E_6$ ($N = 12$). Four regimes: naive / substitute / void / Leech-escape (at $N = 24$ Conway). $k_N^{\mathrm{honest}} = N + 3$ and $k_N^{\mathrm{spin}} = (N + 3)/2$ in non-void regimes only. Primary: Niemeier 1973 J Num Theory 5; Conway-Sloane 1999 Ch 4; Gritsenko 1999 §3.
+
+**Confusion type.** Coxeter-void failure mode + Niemeier-root-system misattribution.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Rem `rem:bkm-siegel-weight-ladder-four-regimes`.
+
+### Entry 173: $\mu_8$ vs $\mu_{16}$ gerbe — two distinct covers (Wave 18 DRINFELD)
+
+**Wrong claim.** $\mu_8$ gerbe and $\mu_{16}$ refinement live on the same Igusa cover; order 8 identification globally.
+
+**Ghost theorem.** $\Phi_{10} / \eta^{24}$ ratio has order 8 on Igusa fundamental domain; square root lifts to metaplectic double cover.
+
+**Precise error.** Two distinct gerbe structures on two distinct cover bases: $\mu_8$ lives on $\overline{\mathcal A_2} \setminus (H_1 \cup H_4)$ (full obstruction locus), $\mu_{16}$ on $\overline{\mathcal A_2} \setminus H_1$ (less obstructed, metaplectic-covered only over $H_4$). Order 16 comes from $\mathrm{ord}_{H_4}(\Delta_5) = 2$ plus metaplectic doubling.
+
+**Correct relationship.** $\mu_8$ Čech cocycle $F_{ij} = [\Phi_{10}/\eta^{24}]^{1/8}$-ratio on $\overline{\mathcal A_2} \setminus (H_1 \cup H_4)$, $\delta F = 0$. $\mu_{16}$ refinement $G_{ij} = [\Delta_5/\eta^{12}]^{1/8}$-ratio on metaplectic cover of $\overline{\mathcal A_2} \setminus H_1$, $G_{ij}^2 = F_{ij}$. Only $H_4$-component of $\mu_{16}$ requires metaplectic cover; $H_1$-component killed by $\Delta_5$ vanishing order 2. Primary: Gritsenko 1995 St Petersburg Math J 6 §3; Bruinier 2002 LNM 1780 Prop 5.1.
+
+**Confusion type.** Gerbe-cover-base conflation.
+
+**Status.** Catalogued. Inscribed at `modular_trace.tex` Thm `thm:mu16-refinement`.
+
+### Entry 174: $\dim \mathfrak u_{\zeta_8} = 8^{129}$ — NOT Hopf-quotient dimension (Wave 19 KAZHDAN)
+
+**Wrong claim.** $\dim \mathfrak u_{\zeta_8} = 8^{129}$ is a Hopf-quotient dimension; $d(N_\star) = 63$ has integer $N_\star$ between $N = 2$ and $N = 3$.
+
+**Ghost theorem.** Truncation $\dim \mathfrak u_{\zeta_8}^{\leq N} = 8^{d(N) + 3}$ with $d(N)$ cumulative Borcherds multiplicity; $d(1) = 2, d(2) = 22, d(3) = 238, d(4) = 366$.
+
+**Precise error.** $\mathfrak u_{\zeta_8}$ is pro-finite with infinite imaginary cone (Hardy-Ramanujan $\exp(4 \pi \sqrt n)$ asymptotic multiplicities). $8^{129}$ is not a Hopf-quotient dimension. Arithmetic gap: no integer $N_\star$ between $N = 2$ and $N = 3$ satisfies $d(N_\star) = 63$.
+
+**Correct relationship.** Correct identifications for $8^{129}$: (a) $\dim \mathfrak b^{\mathrm{re}, +}_{\zeta_8}$ real-root positive-Borel sub-Hopf dimension; (b) $|\Lambda^{\mathrm{re}}|$ Kerler-Lyubashenko projective-index cardinality at $\ell = 8$. Full $\mathfrak u_{\zeta_8}$ is pro-finite (infinite imaginary cone). Primary: GN98 §4 Hardy-Ramanujan; Kerler-Lyubashenko 2001 LMS LNS 262; Lusztig 1993 \emph{Intro to QG} Ch 35.
+
+**Confusion type.** Finite-vs-pro-finite Hopf dimension.
+
+**Status.** Catalogued. Inscribed at `quantum_groups_foundations.tex` Rem `rem:qgf-dim-8-129-reinterpretation`.
+
+### Entry 175: Yetter-Drinfeld tower $\delta^{(n)}$ — $\lfloor n/2 \rfloor + 1$ weight correction (Wave 18 DRINFELD)
+
+**Wrong claim.** YD-tower coherence cocycle scales as $\delta^{(n)} \propto (\Phi_{10}/\eta^{24})^{\lceil n/2 \rceil}$ at every arity.
+
+**Ghost theorem.** Wave 17 conjectured $\lceil n/2 \rceil$ scaling from pentagon-$\phi^{(n)}$ MZV/Borcherds split; partial envelope does scale monotonically.
+
+**Precise error.** Schauenburg bracket-square at EVEN arity produces extra Bruinier Heegner-divisor twist. Explicit arity-2 check: $\delta^{(2)} = (\Phi_{10}/\eta^{24})^2 \cdot \tfrac{1}{2} [\beta_{\mathrm{YD}}, \beta_{\mathrm{YD}}]_{(2)}$, exponent 2 not $\lceil 2/2 \rceil = 1$.
+
+**Correct relationship.** $\mathrm{wt}_{\mathrm{Borch}}(\delta^{(n)}) = \lfloor n/2 \rfloor + 1$ (Thm `thm:dc-yd-closed-form`); effective sequence $\{1, 2, 2, 3, 3, 4, 4, \ldots\}$. Full cocycle at arities $n \in \{4, 5, 6\}$ is $C_{n-1} \cdot d_n$-dimensional (Catalan $\times$ Padovan): $\delta^{(4)} = (\Phi_{10}/\eta^{24})^3 [\tfrac{1}{24} \mathrm{Sch}_1 + \tfrac{1}{8} \mathrm{Sch}_2 + \tfrac{1}{12} \zeta(3) \otimes c_{\mathrm{symm}} [\beta, \beta]]$; $\delta^{(5)}$ with four terms in Brown basis $\{\zeta(5), \zeta(2)\zeta(3)\}$; $\delta^{(6)}$ with five terms in Brown basis $\{\zeta(3)^2, \zeta(3, 3)\}$. General rule: sum over planar binary rooted trees (Catalan $C_{n-1}$) $\times$ motivic MZV basis (Padovan $d_n$), coefficients $1/|\mathrm{Aut}(\mathsf T)|$ from Schauenburg bracket-symmetry. Three verification paths: Schauenburg cocycle check; $\Psi$-functorial $K$-scaling; MO compatibility with $Z^{\mathrm{red}}_{\mathrm{DT}}(K3) = 1/\Phi_{10}$ Borcherds prefactor. Primary: Schauenburg 1998 Comm Alg 26 §3 Thm 1 + Prop 4.1; Brown 2011 Ann Math 175 Thm 1.1; Drinfeld 1988 associator; Etingof-Schiffmann 1998 Lect 10; Bruinier 2002 Prop 5.1; Maulik-Okounkov 2019 Ast 408; Oberdieck-Pandharipande 2016 arXiv 1607.05220 Thm 1.
+
+**Confusion type.** Weight-vs-structure conflation + even-arity bracket-square twist.
+
+**Status.** Catalogued. Inscribed at `drinfeld_center.tex` Thm `thm:dc-yd-explicit-456`, Rem `rem:dc-yd-weight-vs-structure`.
+
+### Entry 176: Fake-Monster rank-26 R-matrix Leech-theta cocycle (Wave 18 WITTEN)
+
+**Wrong claim.** Fake-Monster $R$-matrix has no theta correction because $\mathrm{II}_{25, 1}$ is unimodular.
+
+**Ghost theorem.** Borcherds 1990 Fake-Monster denominator $\Phi_{12} = \exp(\mathrm{Borch}(\chi_{12}))$ on $\mathrm{II}_{26, 2}$ has weight 12; Borcherds 1986 lattice VOA has bicharacter $\epsilon(\alpha, \beta) = (-1)^{(\alpha, \beta) + (\alpha, \alpha)(\beta, \beta)}$.
+
+**Precise error.** Rank-26 theta correction $\theta^{\mathrm{FM}}(u, Z)$ is the Leech-theta cocycle carrying the Borcherds bicharacter; it is not absent merely non-trivially parameterised by the $\mathrm{II}_{25, 1}$ positive cone.
+
+**Correct relationship.** $R^{\mathrm{FM}}(u, Z) = (1 + \hbar \Omega_{\mathrm{II}_{25, 1}}/u) \cdot \theta^{\mathrm{FM}}(u, Z)$; $\theta^{\mathrm{FM}}$ is Leech-theta cocycle with Borcherds bicharacter $\epsilon(\alpha, \beta) = (-1)^{(\alpha, \beta) + (\alpha, \alpha)(\beta, \beta)}$; Borcherds 1990 denominator weight 12 on $\mathrm{II}_{26, 2}$. Primary: Borcherds 1986 Proc NAS 83 §5 (lattice VOA OPE); Borcherds 1990 Invent 99 Thm 3; Borcherds 1992 Invent 109 Thm 10.4.
+
+**Confusion type.** Rank-26 theta factor presence.
+
+**Status.** Catalogued. Inscribed at `braided_factorization.tex` Thm `thm:fake-monster-R-matrix`.
+
+### Entry 177: Universal ratio-of-levels — Leech-Conway exception (Wave 18 DRINFELD)
+
+**Wrong claim.** Universal ratio-of-levels $\ell_X / \ell_Y = c_+(L_X)/c_+(L_Y)$ holds across all $\Psi$-image BKMs including Conway.
+
+**Ghost theorem.** Four-row identity $(c_+, \ell) = (1, 2), (2, 4), (4, 8), (25, 50)$ for Monster / Enriques / K3 / Fake-Monster is a proved theorem; Mukai-doubling factor 2 cancels in the ratio.
+
+**Precise error.** Leech-Conway row has $c_+(\Lambda_{24}) = 24$, $\ell_{\mathrm{Conway}} = 2$, giving ratio $24/25$ with Fake-Monster — breaking universal linearity. Reason: no Fricke involution exists on positive-definite $\Lambda_{24}$ (positive-definite lattices have no signature-swap involution).
+
+**Correct relationship.** Universal identity holds on 4 rows Monster / Enriques / K3 / Fake-Monster (Mukai-doubling preserved); Conway row breaks universality because $\Lambda_{24}$ is positive-definite. $\ell_{\mathrm{Monster}} = 2$ by four convergent routes: (a) Mukai-doubling $K = 2c_+(\mathrm{II}_{1, 1}) = 2$; (b) Fricke $w_1$ order 2; (c) super-EK $\mathbb Z/2$-grading; (d) Conway-Norton $1A$-class. Primary: Lusztig 1990 Geom Dedicata 35; Apostol 1990 §2.8; Silverman 1994 Thm VI.2.3; Atkin-Lehner 1970 Math Ann 185.
+
+**Confusion type.** Positive-definite exception to signature-swap rule.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Thm `thm:bkm-W18-universal-identity` + Rem `rem:bkm-leech-exception`.
+
+### Entry 178: Six routes to $G(K3 \times E)$ — construction-vs-functor (Wave 22 POLYAKOV)
+
+**Wrong claim.** Six routes to $G(K3 \times E)$ yield a single six-way isomorphism via $\Phi_3$ applied to one CY3 object.
+
+**Ghost theorem.** Each individual route (Borcherds / CoHA / Drinfeld-double / Hall-quiver / HPD / MO-stable-envelope) is a genuine construction.
+
+**Precise error.** Generator-level stratification by lattice rank $\rho^{R_i} \in \{3, 12, 24\}$: six routes are six DIFFERENT constructions witnessing the same $\Phi_3$-OUTPUT, NOT six $\Phi_3$-applications to one input. Naive six-way isomorphism is falsified by the rank stratification.
+
+**Correct relationship.** Five non-source routes assemble into pentagon COLIMIT over named intertwiners $\beta_{13}, \beta_{34}, \beta_{45}, \beta_{56}, \beta_{61}$; $R_2$ Borcherds is source. Primary: Kontsevich-Soibelman 2008 §2.3; Davison 2017 arXiv 1512.04179; Maulik-Okounkov 2019 Ast 408; Oberdieck-Pandharipande 2016 arXiv 1607.05220.
+
+**Confusion type.** Construction-vs-functor conflation + six-route reification.
+
+**Status.** Catalogued. Inscribed at `cy_d_kappa_stratification.tex` Thm `thm:six-routes-pentagon-colimit`.
+
+### Entry 179: Path (D) $\chi_3$ — absolute vs relative HPD (Wave 23 KUZNETSOV)
+
+**Wrong claim.** Path (D) $\chi_3$ verification uses absolute HPD on $K3 \times E$.
+
+**Ghost theorem.** Kuznetsov 2007 HPD gives genuine derived-category extraction of K3 as Kuznetsov component of cubic fourfold.
+
+**Precise error.** Absolute HPD on $K3 \times E$ is BLOCKED by Fano obstruction: $K3 \times E$ has $\omega_Y \simeq \mathcal O_Y$ (trivial canonical); absolute HPD requires non-trivial dualising sheaf.
+
+**Correct relationship.** Replaced by RELATIVE HPD over $E$: K3 as Kuznetsov component of cubic fourfold, base-changed fibrewise over $E$, via Kuznetsov-Markushevich 2009 arXiv 0904.4330. Three Vol-III-native paths: (A) CoHA Casimir $\mathrm{Cas}_2(\alpha) = 1$ on real simple root $\times$ Mukai $\chi(\mathcal O_{K3}) = 2$; (D) relative HPD; plus (B), (C), (E), (F) categorical / spectral / Serre routes. Primary: Kuznetsov 2007 arXiv 0706.2615; Kuznetsov-Markushevich 2009 arXiv 0904.4330.
+
+**Confusion type.** Absolute-vs-relative HPD + Fano obstruction.
+
+**Status.** Catalogued. Inscribed at `cy_to_chiral.tex` Thm `thm:six-paths-chi3`.
+
+### Entry 180: $\kappa_{\mathrm{ch}} = \chi(\mathcal O_X)$ Hodge supertrace — $d = 2$ only (Wave 22 CG-rectify)
+
+**Wrong claim.** $\kappa_{\mathrm{ch}}(A_X) = \chi(\mathcal O_X)$ Hodge supertrace identity holds at all CY dimensions $d \geq 2$.
+
+**Ghost theorem.** At $d = 2$: $\kappa_{\mathrm{ch}}(\Phi_2(\mathcal C)) = \chi^{\mathrm{CY}}(\mathcal C)$ via Serre $\mathbb S_\cC = [2]$; this IS the identification.
+
+**Precise error.** At $d \geq 3$ the topological equality FAILS: odd-$d$ Serre pairing forces $\chi(\mathcal O_X) = 0$ by Hodge parity, while $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ remains nonzero via products-additivity. Three distinct mechanisms at $d \geq 3$: odd-$d$ Serre zero / strict-CY even-$d$ / holomorphic-symplectic.
+
+**Correct relationship.** Beauville-Bogomolov tri-stratum at $d \geq 3$. For $K3 \times E$: $\kappa_{\mathrm{cat}}(K3 \times E) = 0$ total space (Künneth-multiplicative: $\chi(\mathcal O_{K3}) \cdot \chi(\mathcal O_E) = 2 \cdot 0 = 0$); $\kappa_{\mathrm{ch}}^{\mathrm{K}} = 3$ Künneth; $\kappa_{\mathrm{BKM}} = 5$ Borcherds weight **(paramodular $\Phi_{10} = \Delta_5^2$ convention; Fake-Monster $\Phi_{12}$ convention gives $12$ — AP5 dual-indexing, pending landscape-census lock per antipatterns_catalogue.md "$\kappa_{\mathrm{BKM}}(\mathbf H_{\Delta_5})$ cross-volume value" / AP-CY49)**; $\kappa_{\mathrm{fiber}}(K3) = 2$. Four distinct $\kappa$'s forbid bare $\kappa$ usage. Primary: Serre 1955 Bull SMF 83; Hartshorne 1977 III §7; Beauville 1983 J Diff Geom 18; Caldararu 2005 Adv Math 194 §5.
+
+**Confusion type.** $\kappa$-subscript discipline + Hodge-parity at odd $d$ + Beauville-Bogomolov stratification.
+
+**Status.** Catalogued. Inscribed at `cy_d_kappa_stratification.tex` Thm `thm:kappa-hodge-supertrace-stratification`.
+
+### Entry 181: Five-archetype landscape with BKM crown row B (Wave 20 POLYAKOV)
+
+**Wrong claim.** Five-archetype landscape is Vol-I G/L/C/M; BKM crown row is absent.
+
+**Ghost theorem.** Vol-I four-archetype $G/L/C/M$ with $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! \in \{0, 13, 250/3, 98/3\}$ (Heisenberg, KM, $\beta\gamma$, Virasoro) is proved.
+
+**Precise error.** BKM crown $\mathbf H_{\Delta_5}$ at $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! = 8$ is an explicit new row B, witnessed by three-faces identity $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$ at $(K, \hbar^2) = (8, -1/8)$ with $K = 2c_+ = 8 = \mathrm{ord}(\mathrm{mon}|_{H_1}) = \ell_{\mathrm{Lusztig}}$ and $\kappa_{\mathrm{BKM}} = 12$ **(Fake-Monster $\Phi_{12}$ convention; paramodular $\Phi_{10} = \Delta_5^2$ convention gives $5$ — AP5 dual-indexing, pending landscape-census lock per antipatterns_catalogue.md "$\kappa_{\mathrm{BKM}}(\mathbf H_{\Delta_5})$ cross-volume value" / AP-CY49; cf.~Entry 180)**.
+
+**Correct relationship.** Five-archetype: $G/L/C/M/\mathbf B$ with $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! \in \{0, 8, 13, 250/3, 98/3\}$. Primary: Gritsenko 1999 Thm 6.1; Bruinier 2002 Prop 5.1; Lusztig 1990 Geom Dedicata 35; Mukai 1987 Invent 77.
+
+**Confusion type.** Archetype-landscape expansion with new row.
+
+**Status.** Catalogued. Inscribed at `cy_d_kappa_stratification.tex` Thm `thm:five-archetype-landscape`.
+
+### Entry 182: GRT$_1$ transitivity scope-restriction (Wave 22 ETINGOF)
+
+**Wrong claim.** GRT$_1$ transitivity is unconditional on super-EK-quantisable BKMs.
+
+**Ghost theorem.** GRT$_1$ = Grothendieck-Teichmüller group acts transitively on Drinfeld associators within the Koszul locus (Drinfeld 1989 §5 for affine case).
+
+**Precise error.** GRT$_1$ transitivity on BKM super-quantisations is SCOPE-RESTRICTED on $\mathrm{Quant}^{\mathrm{GN, Koszul}}(\mathfrak g_{\Delta_5})/(\mathbb Z/2)_{\mathrm{super}}$ with explicit obstruction cocycle $\mathrm{ob}^{\mathrm{GN}} \in H^2(\mathfrak{grt}_1; \widehat{\mathrm{Imag}})$. Vanishes on Koszul locus via Deligne-Goncharov motivic weight alignment through weight 12 unconditionally; Zagier-Hoffman conditional above weight 12.
+
+**Correct relationship.** Transitivity holds on Koszul locus through weight 12 unconditional, conditional on Zagier-Hoffman above. Affine limit recovers EK Part V exactly (imaginary cone vanishes on finite-rank affine sub-lattice). Primary: Drinfeld 1989 Algebra i Analiz 1 §5; Etingof-Kazhdan 2007 Selecta 13 Part V Thm 5.1; Brown 2012 Ann Math 175; Deligne-Goncharov 2005 Ann Sci ENS 38.
+
+**Confusion type.** GRT$_1$ scope restriction + motivic-weight threshold.
+
+**Status.** Catalogued. Inscribed at `cy_to_chiral.tex` Thm `thm:grt1-scope-restricted`.
+
+### Entry 183: $\chi_3$ classifies GN Borcherds twist (Wave 22 DRINFELD)
+
+**Wrong claim.** $\chi_3$ classifies Etingof-Kazhdan super-quantisation (degree 2) OR Drinfeld-centre deformation (degree 4).
+
+**Ghost theorem.** EK super-quantisation produces degree-2 Drinfeld associator cocycle; Drinfeld-centre deformation produces degree-4 cocycle.
+
+**Precise error.** $\chi_3$ is degree-3 cohomology class, classifying the Gritsenko-Nikulin Borcherds twist $\widetilde\Phi^{\mathrm{Sieg-Bor}}_\hbar[\Phi_{10}/\eta^{24}]$, not EK deformation (degree 2) or Drinfeld-centre deformation (degree 4).
+
+**Correct relationship.** $\chi_3 \in H^3(\mathfrak{grt}_1; \mathrm{Imag})$ classifies GN Borcherds twist at degree 3, distinct cohomologically from EK and Drinfeld-centre deformations. Primary: Gritsenko-Nikulin 1998 Thm 5.2; Borcherds 1998 Thm 13.3; Etingof-Kazhdan 2007 Part V.
+
+**Confusion type.** Cohomological-degree discipline.
+
+**Status.** Catalogued. Inscribed at `drinfeld_center.tex` Thm `thm:chi3-classifies-gn-borcherds`.
+
+### Entry 184: Plancherel Hilbert-scheme pro-limit — composite-input requirement (Wave 22 MO)
+
+**Wrong claim.** $\{H^*_T(\mathrm{Hilb}^{[n]}(K3))\}$ pro-limit converges as super-quasi-Hopf module via MO alone.
+
+**Ghost theorem.** MO stable envelope is a genuine construction; Grojnowski-Nakajima Fock-space action on $H^*(\mathrm{Hilb}^{[n]}(K3))$ is a theorem.
+
+**Precise error.** Convergence requires THREE composite inputs: (1) MO stable envelope (rank-1 Fock); (2) Grojnowski-Nakajima K3 Heisenberg (arbitrary rank); (3) Etingof-Kazhdan super-quantisation (quasi-Hopf super-twist). Single-input assertions are incomplete.
+
+**Correct relationship.** Pro-limit $\{H^*_T(\mathrm{Hilb}^{[n]}(K3))\}$ converges in $\mathrm{Pro}(\mathrm{Mod}_{\mathbf H_{\Delta_5}})$ as super-quasi-Hopf module via MO + Grojnowski-Nakajima + EK super-quantisation COMPOSITE. Primary: Maulik-Okounkov 2019 Ast 408; Grojnowski 1996 arXiv hep-th/9603056; Nakajima 1997 Ann Math 145; Etingof-Kazhdan 2007 Part V.
+
+**Confusion type.** Composite-input discipline + incomplete construction.
+
+**Status.** Catalogued. Inscribed at `k3_yangian_chapter.tex` Thm `thm:plancherel-hilbert-k3-pro-limit`.
+
+### Entry 185: $\mathrm{CoHA}(\mathbb C^3) = Y^+$ positive half, not $\mathcal W_{1 + \infty}$ (Wave 22 SCHIFFMANN)
+
+**Wrong claim.** $\mathrm{CoHA}(\mathbb C^3) = \mathcal W_{1 + \infty}$ (full algebra identification).
+
+**Ghost theorem.** Schiffmann-Vasserot 2017 proves CoHA of one-loop quiver on $\mathbb C^3$ is positive half $Y^+$ of affine Yangian of $\mathfrak{gl}_1$; this IS the vertex realisation on positive-mode side.
+
+**Precise error.** $\mathcal W_{1 + \infty}$ is the FULL Yangian (positive + negative modes via Cartan-doubling); $\mathrm{CoHA}(\mathbb C^3) = Y^+$ only, missing negative-mode generators.
+
+**Correct relationship.** $\mathrm{CoHA}(\mathbb C^3) = Y^+(\widehat{\widehat{\mathfrak{gl}}}_1)$ positive half; Hall-Drinfeld doubling $\mathcal D_\hbar(-)$ adjoins negative modes to recover full $\mathcal W_{1 + \infty}$. Primary: Schiffmann-Vasserot 2017 Publ IHES 118; Arbesfeld-Schiffmann 2013 arXiv 1209.0429; Costello 2013 arXiv 1303.2632.
+
+**Confusion type.** Positive-half vs full-Yangian conflation.
+
+**Status.** Catalogued. Inscribed at `toric_cy3_coha.tex` Thm `thm:coha-c3-positive-half`.
+
+### Entry 186: Refined GW/DT on non-toric $K3 \times E$ (Wave 22 NEKRASOV)
+
+**Wrong claim.** Refined GW/DT partition function of $K3 \times E$ extends unconditionally to all $(\epsilon_1, \epsilon_2)$ via refined topological vertex.
+
+**Ghost theorem.** At self-dual slice $\epsilon_1 + \epsilon_2 = 0$, $Z^{\mathrm{ref}}(K3 \times E) = Z^{\mathrm{red, '}}_{\mathrm{DT}}(K3 \times E) = 1/\Phi_{10}$ (Oberdieck-Pandharipande 2016); Iqbal-Kozcaz-Vafa refined topological vertex defines refined theory for toric CY3.
+
+**Precise error.** Scope violation: refined topological vertex is TORIC only; $K3 \times E$ is non-toric. Refined DT off self-dual slice on non-toric CY3 is conjectural; requires different construction (Aganagic-Okounkov 2016 refined stable envelope or Nekrasov-Shatashvili 2009 $\Omega$-background).
+
+**Correct relationship.** Refined $Z^{\mathrm{ref}}(K3 \times E)$ is conjectural off self-dual slice, tagged `\ClaimStatusConjectured` in Vol III. Spectral parameter of MO-Yangian on $\mathbf H_{\Delta_5}$ arises via $\Omega$-background on elliptic fibre $E$: $u = 2\pi i \epsilon_1^E/\hbar$, not directly from $N_{K3/K3 \times E} = p^* T_E$. Primary: Iqbal-Kozcaz-Vafa 2007 arXiv hep-th/0701156; Nekrasov-Shatashvili 2009 arXiv 0908.4052; Aganagic-Okounkov 2016 arXiv 1604.00423; Costello-Yagi 2018 arXiv 1810.01970.
+
+**Confusion type.** Toric-only refined vertex scope.
+
+**Status.** Catalogued. Inscribed at `toric_cy3_coha.tex` Conj `conj:K3xE-refined-family`.
+
+### Entry 187: KKV BPS logarithmic CFT scope (Wave 22 OBERDIECK)
+
+**Wrong claim.** KKV BPS invariants $\Omega(\beta, n, j_L, j_R)$ of $K3 \times E$ are semisimple irreducible $\mathbf H_{\Delta_5}$-modules.
+
+**Ghost theorem.** Katz-Klemm-Vafa 1999 defined BPS invariants through M-theory on CY3; Pandharipande-Thomas 2014 and Oberdieck-Pandharipande 2016 proved unrefined KKV formula $= 1/\Phi_{10}$; each BPS multiplet corresponds to $SU(2)_L \times SU(2)_R$ content.
+
+**Precise error.** Logarithmic CFT scope: $\mathbf H_{\Delta_5}$ is non-semisimple chiral bialgebra (KL MTC in semisimplification; Kerler-Lyubashenko 2001). KKV invariants with negative or non-integral refinement correspond to Jordan-block modules, NOT semisimple irreducibles. Asserting semisimple correspondence collapses the logarithmic structure.
+
+**Correct relationship.** BPS modules live in $\mathrm{Rep}^{E_1}(\mathbf H_{\Delta_5})$; semisimple BPS maps to simples $L_\lambda$ (refinement $\Omega \in \mathbb Z_{\geq 0}$); logarithmic BPS maps to Jordan-block projective covers $P_\lambda$ (refinement $\Omega < 0$ or non-integral). Tempered stratum controls when semisimple correspondence suffices. Primary: Katz-Klemm-Vafa 1999 hep-th/9910181; Pandharipande-Thomas 2014 arXiv 1206.5490; Oberdieck-Pandharipande 2016 arXiv 1607.05220; Kerler-Lyubashenko 2001 ISBN 3-540-42416-4.
+
+**Confusion type.** Semisimple-vs-Jordan-block module + logarithmic CFT scope.
+
+**Status.** Catalogued. Inscribed at `toric_cy3_coha.tex` Conj `conj:K3xE-kkv-module`.
+
+### Entry 188: $M_{12}$ mass-formula threshold $D_0 = 0$ with Mersenne exception (Wave 21 BEILINSON extension)
+
+**Wrong claim.** All odd discriminants $D \geq 0$ give half-integer Enriques Fourier coefficient $f_{\mathrm{En}}(D)$; half-integer locus is $\{D : D \text{ odd}\}$.
+
+**Ghost theorem.** Through $D \leq 60$ the parity $c_{K3}(D) \pmod 2$ is odd precisely at $D \in \{-1, 7, 15, 31, 47, 55\}$; even elsewhere; $\iota$-halving gives half-integer $f_{\mathrm{En}}$ precisely on odd-$c_{K3}$ locus.
+
+**Precise error.** Parity-of-$D$ vs parity-of-$c_{K3}(D)$ conflation: Fourier-side signature of half-integral Siegel weight $5/2$ on $K(2)$ is the $c_{K3}$-PARITY locus, not the $D$-parity locus. Among $\{11, 12, 15, 16, 19, 20\}$: only $D = 15$ gives $f_{\mathrm{En}} = -11775/2$; $D \in \{11, 19\}$ give INTEGER $f_{\mathrm{En}}$ even though $D$ is odd (because $c_{K3}(11) = -2752$ and $c_{K3}(19) = -43200$ are even).
+
+**Correct relationship.** Odd-$c_{K3}$ locus $\{7, 15, 31, 47, 55\}$ partly follows Mersenne pattern $\{2^k - 1 : k \in \{3, 4, 5\}\}$ but breaks at $k = 6$; correct congruence: all six odd-$c_{K3}$ discriminants in tabulated range satisfy $D \equiv 7 \pmod 8$ (but not every $D \equiv 7 \pmod 8$ produces odd $c_{K3}$: $\{23, 39\}$ give even). Primary: EZ 1985 Thm 9.3 Table 1.
+
+**Confusion type.** Parity-locus conflation + Mersenne pattern break.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Thm `thm:bkm-enriques-m12-twining-table-extended`.
+
+### Entry 189: $8^{129}$ as Kerler-Lyubashenko projective index cardinality (Wave 19 KAZHDAN, alt)
+
+**Wrong claim.** $8^{129}$ is the Hopf-quotient dimension of $\mathfrak u_{\zeta_8}$ with integer $N_\star$ satisfying $d(N_\star) = 63$.
+
+**Ghost theorem.** Truncation cumulative $d(N)$ is real Borcherds multiplicity integer; $\dim \mathfrak u^{\leq N} = 8^{d(N) + 3}$ at each $N$.
+
+**Precise error.** No integer $N_\star$ between $N = 2$ ($d = 22$) and $N = 3$ ($d = 238$) satisfies $d(N_\star) = 63$.
+
+**Correct relationship.** Reinterpret $8^{129}$ as (a) $\dim \mathfrak b^{\mathrm{re}, +}_{\zeta_8}$ real-root positive-Borel sub-Hopf dimension or (b) $|\Lambda^{\mathrm{re}}|$ Kerler-Lyubashenko projective-index cardinality at $\ell = 8$. Full $\mathfrak u_{\zeta_8}$ is pro-finite. Primary: Kerler-Lyubashenko 2001 LMS LNS 262; GN98 §4 Hardy-Ramanujan; Lusztig 1993 Ch 35.
+
+**Confusion type.** Arithmetic-gap reinterpretation + pro-finite Hopf algebra.
+
+**Status.** Catalogued. Cross-link to Entry 174.
+
+### Entry 190: Universal three-faces identity $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$ $\Psi$-functoriality (Wave 18 DRINFELD)
+
+**Wrong claim.** Three-faces identity $\hbar^2 \cdot K = -1$ is K3-specific; Monster and Fake-Monster have different master identities.
+
+**Ghost theorem.** Three independent routes pin $K^{\kappa_{\mathrm{ch}}} = 8$ for K3 (Mukai / Humbert / Lusztig), producing $\hbar^2_{K3} = -1/8$. Monster and Fake-Monster are $\Psi$-co-siblings of K3.
+
+**Precise error.** Non-functoriality inflation: K3's three-faces identity is not K3-specific; it is the scalar shadow of a $\Psi$-functorial cohomological invariant on the entire image of $\Psi$. Asserting K3-specificity confuses a functorial structure with a point-evaluated special case.
+
+**Correct relationship.** Universal $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$ with $K^{\kappa_{\mathrm{ch}}}(\mathbf H) = 2c_+(L)$ is $\Psi$-functorial. Three flagships: $(K, \hbar^2) = (2, -1/2)$ Monster, $(8, -1/8)$ K3, $(50, -1/50)$ Fake-Monster. Each satisfies $\hbar^2 \cdot K = -1$. Leech-Conway exception (Entry 177). Primary: Bruinier 2002 LNM 1780 Prop 5.1; Borcherds 1998 Thm 13.3; GN98 Prop 2.5; Lusztig 1990 Geom Dedicata 35.
+
+**Confusion type.** Functoriality-vs-point-evaluation conflation.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Thm `thm:bkm-W18-universal-identity`.
+
+### Entry 191: Enriques generating function admissible-vs-virtual dichotomy (Wave 21 BEILINSON)
+
+**Wrong claim.** Enriques BKM generating function $\Xi^{\mathrm{Enr}}(e) = \sum_\alpha \mathrm{mult}_{\mathrm{Enr}}(\alpha) e^\alpha$ coincides globally with $(1/2) \sum_\alpha c^{K3}(-\alpha^2/2) e^\alpha$ with integer multiplicities.
+
+**Ghost theorem.** On Koszul admissible locus $\mathcal A_{\mathrm{Enr}} = \{\alpha : c^{K3}(-\alpha^2/2) \in 2\mathbb Z\}$ halving gives integer honest BKM superdimensions.
+
+**Precise error.** Integrality-vs-virtual conflation: off admissible locus $\mathcal V_{\mathrm{Enr}}$ (Mersenne-parity), half-integer values are sections of metaplectic weight-$1/2$ line bundle $\mathcal L_{1/2}$ on $\widetilde{K(2)}$ (Ibukiyama 2012 §2) representing VIRTUAL multiplicities (Grothendieck-group classes in $K_0(\mathbb Z/2\text{-graded modules})$), not honest superdimensions.
+
+**Correct relationship.** $\Xi^{\mathrm{Enr}}(e) = \sum_{\alpha \in \mathcal A_{\mathrm{Enr}}} c^{K3}(D)/2 \cdot e^\alpha + \sum_{\alpha \in \mathcal V_{\mathrm{Enr}}} c^{K3}(D)/2 \cdot e^\alpha$ with first sum in $\mathbb Z[[e^\alpha]]$ and second sum in $(\tfrac{1}{2}\mathbb Z)[[e^\alpha]]$. $\mathcal A_{\mathrm{Enr}} = \{D \geq 0 : c^{K3}(D) \text{ even}\}$; through $D \leq 60$ complement $\{7, 15, 31, 47, 55\}$. Full-weight Borcherds lift on signature $(2, 10)$ is $\tilde\Delta_5^{\mathrm{Enr}} = (\Delta_5^{\mathrm{Enr}})^2$ with integer Fourier coefficients throughout; metaplectic descent to weight $5/2$ is where virtual-multiplicity data emerges. Primary: Borcherds 1988 Adv Math 83 Defn 1.1; Borcherds 1992 Invent 109 Thm 10.4; Borcherds 1998 Invent 132 Thm 13.3; GN98 Thm 5.2; Borisov-Libgober 2000 Thm 4.1; Ibukiyama 2012 §2; EZ 1985 Thm 9.3.
+
+**Confusion type.** Admissible-vs-virtual generating-function dichotomy + metaplectic-cover descent.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Thm `thm:bkm-enriques-generating-function`.
+
+### Entry 192: Six $\chi_3$ verification paths — Vol-III-native paths A and D (Wave 23 BEILINSON)
+
+**Wrong claim.** $\chi_3$ has six independent verification paths all native to Vol III.
+
+**Ghost theorem.** Four paths (B, C, E, F) span categorical / spectral / Serre routes; paths A and D are Vol-III-native.
+
+**Precise error.** Path (D) absolute HPD on $K3 \times E$ is BLOCKED (Entry 179). Path (A) requires Mukai normalisation to work.
+
+**Correct relationship.** Six paths with Vol-III-native contributions: (A) CoHA Casimir $\mathrm{Cas}_2(\alpha) = 1$ on real simple root $\times$ Mukai $\chi(\mathcal O_{K3}) = 2$ normalisation; (D) Kuznetsov RELATIVE HPD over $E$ via Kuznetsov-Markushevich 2009. Primary: Kontsevich-Soibelman 2008 §2.3; Mukai 1987 Invent 77; Kuznetsov-Markushevich 2009 arXiv 0904.4330.
+
+**Confusion type.** Composite-path requirement + Fano-obstruction scope.
+
+**Status.** Catalogued. Inscribed at `cy_to_chiral.tex` Thm `thm:six-paths-chi3`.
+
+### Entry 193: $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal O_{\mathrm{fiber}})$ is $N = 1$ coincidence (Wave 22 retraction reiteration)
+
+**Wrong claim.** $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal O_{\mathrm{fiber}})$ is a universal identity.
+
+**Ghost theorem.** For $K3 \times E$ the numbers happen to satisfy $5 = 3 + 2$.
+
+**Precise error.** Numerical coincidence for single case $N = 1$. Fails for all $\mathbb Z/N\mathbb Z$-orbifolds with $N \geq 2$: at $N = 2$, $\kappa_{\mathrm{BKM}}(\Phi_2) = c_2(0)/2$ with $c_2(0) \neq 2(\kappa_{\mathrm{ch}} + \chi)$.
+
+**Correct relationship.** Correct universal formula is Borcherds weight theorem $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ for $N \in \{1, 2, 3, 4, 6\}$; $N = 1$ coincidence only. Primary: Borcherds 1995 / Gritsenko series. Cross-link: Entry 3.
+
+**Confusion type.** Specific/general + additivity-vs-weight.
+
+**Status.** Catalogued (reiterating Entry 3 and `AP-CY61` cache discipline).
+
+### Entry 194: Categorical $\kappa$ stratification — K3 × E spectrum $\{2, 3, 5, 24\}$ (Wave 22 CG-rectify)
+
+**Wrong claim.** $K3 \times E$ carries a single $\kappa$-value.
+
+**Ghost theorem.** K3 $\times$ E compact CY3 carries four $\kappa_\bullet$ values from four DISTINCT constructions.
+
+**Precise error.** Bare $\kappa$ conflates four different invariants.
+
+**Correct relationship.** K3 $\times$ E spectrum: $\kappa_{\mathrm{ch}}^{\mathrm{K}} = 3$ Künneth; $\kappa_{\mathrm{BKM}} = 5$ Borcherds weight (Gritsenko-Nikulin $\Delta_5$); $\kappa_{\mathrm{cat}}(K3 \times E) = 0$ total space Künneth-multiplicative; $\kappa_{\mathrm{fiber}}(K3) = 2$. Four distinct constructions: Mukai lattice / Igusa $\Phi_{10}$ via Gritsenko $\Delta_5$ / BKM Borcherds weight / K3 fibre-rank. Spectrum $\{2, 3, 5, 24\}$ with 24 from $\chi_{\mathrm{top}}(K3) = 24$. Primary: Mukai 1987 Invent 77; Gritsenko-Nikulin 1998 Thm 5.2; Borcherds 1998 Thm 13.3; Beauville 1983 J Diff Geom 18.
+
+**Confusion type.** $\kappa$-subscript discipline + multi-construction discipline.
+
+**Status.** Catalogued. Inscribed at `cy_d_kappa_stratification.tex` Thm `thm:kxe-four-kappa-spectrum`.
+
+### Entry 195: Imaginary-root $\iota$-halving scope (Wave 20 BEILINSON)
+
+**Wrong claim.** Enriques imaginary-root multiplicity halving $\mathrm{mult}_{\mathrm{Enr}}(\alpha) = c^{K3}(-\alpha^2/2)/2$ extends to real-root polar slot $D = -1$.
+
+**Ghost theorem.** Borisov-Libgober 2000 Thm 4.1 establishes $\iota$-halving for imaginary roots.
+
+**Precise error.** Borisov-Libgober $\iota$-halving applies only to imaginary-root multiplicities ($D \geq 0$). At $D = -1$ the BKM real-root axiom (Borcherds 1988 Defn 1.1) fixes $\mathrm{mult}(\alpha) = 1$ independently of Fourier coefficients; halving to $1/2$ would contradict positive integrality of the BKM axiomatics.
+
+**Correct relationship.** $\mathrm{mult}_{\mathrm{Enr}}(\alpha) = 1$ for real roots (BKM axiom GKM1/GKM2); $\mathrm{mult}_{\mathrm{Enr}}(\alpha) = c^{K3}(-\alpha^2/2)/2$ for imaginary roots only ($D \geq 0$). Primary: Borcherds 1988 Adv Math 83 Defn 1.1; Borisov-Libgober 2000 Thm 4.1.
+
+**Confusion type.** Real-root vs imaginary-root scope discipline.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Rem `rem:bkm-enriques-real-root-axiom`.
+
+### Entry 196: Scheithauer 2008 $V^{s\natural}$ alternative realisation (Wave 20 BEILINSON, alt)
+
+**Wrong claim.** Only Duncan 2007 construction realises $V^{s\natural}$.
+
+**Ghost theorem.** Duncan 2007 §3-6 gives $V^{s\natural} = A(\Lambda_{24})^+ \oplus A(\Lambda_{24})^{\mathrm{tw}, +}$ on Leech with $\mathrm{Aut} = \mathrm{Co}_0$.
+
+**Precise error.** Scheithauer 2008 Invent 172 Thm 3.2 gives an independent alternative: $V^{s\natural}$ as $\mathbb Z/2$-twisted subsector of Fake-Monster VOA on $\mathrm{II}_{25, 1}$ via embedding $\Lambda_{24} \subset \mathrm{II}_{25, 1}$.
+
+**Correct relationship.** Two distinct constructions of $V^{s\natural}$: (Duncan 2007) Leech-lattice fermionic orbifold yielding Monster super-twin via diamond; (Scheithauer 2008) Fake-Monster $\mathbb Z/2$-subsector via lattice embedding. Both carry the same output VOA with $(K, \hbar^2) = (2, -1/2)$ but from different input categories. Cache discipline: dual-input representations of same VOA are orbifold-diamond / super-twin / lattice-embedding symptoms. Primary: Duncan 2007 arXiv math/0502267 Thm 1.1; Scheithauer 2008 Invent 172 Thm 3.2.
+
+**Confusion type.** Multi-construction identification.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Rem `rem:bkm-conway-monster-fake-monster-triangle`.
+
+### Entry 197: 12-class $\times$ 10-Fourier-coefficient Enriques twining table (Wave 21 BEILINSON)
+
+**Wrong claim.** Enriques twining table stops at small $D$ without extended low-weight coverage.
+
+**Ghost theorem.** EHV 2010 K3 twining; Cheng 2010 cycle-shape values; Persson-Volpato 2013 12-class table through $D \leq 16$.
+
+**Precise error.** Extended twelve-class $\times$ ten-Fourier table at $D \in \{-1, 0, 3, 4, 7, 8, 11, 12, 15, 16, 19, 20\}$ achievable via cross-check of (i) $\Gamma_0(2)$-modular-transform; (ii) Gram-matrix rank 12; (iii) $M_{24}$-equivariant K3 genus + ATLAS branching + $\iota$-halving; (iv) Cheng-Duncan-Harvey 2014 umbral $12A_2$ through $D \leq 36$.
+
+**Correct relationship.** Identity-class values at $D \in \{0, 3, 4, 7, 8, 11, 12, 15, 16, 19, 20\}$: $(5, -32, 54, -256.5, 404, -1376, 2008, -11775/2, 8262, -21600, 29320)$. Twelve-class $[g] \in \mathcal C_\iota$ virtual $M_{12}$-decompositions satisfy EOT parity: $D \equiv 3 \pmod 4$ massive-short uniform non-positive; $D \equiv 0 \pmod 4$ massive-long uniform non-negative. Primary: Eguchi-Hikami 2010 PLB 694 Tab 1; Cheng 2010 arXiv 1005.5415 Tab 2; Persson-Volpato 2013 Tab 2; CDH 2014 arXiv 1307.5793 Tab 3; GHV 2010 Tab 3; Borisov-Libgober 2000 Thm 4.1; Gannon 2016 Thm 1; ATLAS p.32.
+
+**Confusion type.** Extended-range cross-check discipline.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Thm `thm:bkm-enriques-m12-twining-table-extended`; compute module `compute/lib/k3_yangian_wave18_enriques_bkm.py`.
+
+### Entry 198: $N = 11$ Siegel-weight ladder void + four-regime taxonomy (Wave 21 GAIOTTO)
+
+**Wrong claim.** Every level $N$ admits a Niemeier correspondence via Coxeter-number matching.
+
+**Ghost theorem.** Niemeier 1973 classified 24 unimodular even lattices of rank 24 by root-system Coxeter decomposition.
+
+**Precise error.** $N = 11$: $h(A_{10}) = 11$ is unique among ADE realisations of Coxeter number 11, but $A_{10}$ rank 10 has no filler completing to rank 24 within the Niemeier constraints — COXETER-VOID.
+
+**Correct relationship.** Four regimes: NAIVE (pure $N \cdot A_{N-1}$ as in $N \in \{2, 3, 4, 5, 6, 7, 9\}$) / SUBSTITUTE (mixed root systems as $A_5^4 D_4$ at $N = 6$, $2A_7 D_5^2$ at $N = 8$, $A_{11}D_7 E_6$ at $N = 12$) / VOID (no Niemeier at $N = 11$) / LEECH-ESCAPE (Conway $\Lambda_{24}$ at $N = 24$, rootless).  Primary: Niemeier 1973 J Num Theory 5; Conway-Sloane 1999 Ch 4; Gritsenko 1999 §3.
+
+**Confusion type.** Coxeter-void failure mode + four-regime taxonomy.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Rem `rem:bkm-siegel-weight-ladder-four-regimes`.
+
+### Entry 199: Mukai-doubling factor 2 cancels in level ratios (Wave 22 DRINFELD)
+
+**Wrong claim.** $K = 2c_+$ Mukai-doubling factor propagates to the level ratio $\ell_X/\ell_Y$.
+
+**Ghost theorem.** Universal identity has $K^{\kappa_{\mathrm{ch}}}(\mathbf H) = 2c_+(L)$ with Mukai-doubling factor.
+
+**Precise error.** In the ratio $\ell_X/\ell_Y$, the factor 2 cancels: $\ell_X/\ell_Y = K_X/K_Y = (2c_+(L_X))/(2c_+(L_Y)) = c_+(L_X)/c_+(L_Y)$.
+
+**Correct relationship.** $\ell_X/\ell_Y = c_+(L_X)/c_+(L_Y)$; four-row identity $(c_+, \ell) = (1, 2), (2, 4), (4, 8), (25, 50)$; Leech-Conway row $(c_+, \ell) = (24, 2)$ breaks universality due to positive-definite lattice (Entry 177). Primary: Lusztig 1990 Geom Dedicata 35; Mukai 1987 Invent 77.
+
+**Confusion type.** Ratio cancellation + positive-definite exception.
+
+**Status.** Catalogued. Cross-link: Entry 177.
+
+### Entry 201: CY-to-chiral functor $\Phi$ universal-property scope (Wave 1-5 foundational)
+
+**Wrong claim.** The functor $\Phi \colon \mathrm{CY}^{\mathrm{cat}}_d \to \mathrm{ChirAlg}_d^{E_n}$ is a construction without a stated universal property.
+
+**Ghost theorem.** A functor between presentable $\infty$-categories admits a universal property if its image is pinned by adjoint data.
+
+**Precise error.** Four universal properties U1-U4 pin $\Phi$ up to contractible choice; Waves 1-5 advertised them without proofs. U1 (fibre-dimension scope): $\Phi_d(\mathcal C) \in \mathrm{ChirAlg}^{E_{n(d)}}_d$ with $n = n(d)$ scoped per AP-CY56. U2 (Serre): Serre functor $\mathbb S_\mathcal{C} = [d]$ pulls back to the CY trace on $\mathrm{HC}^-_d$. U3 (Künneth-additivity): $\kappa_{\mathrm{ch}}(\Phi_d(\mathcal C \boxtimes \mathcal D)) = \kappa_{\mathrm{ch}}(\Phi_d(\mathcal C)) + \kappa_{\mathrm{ch}}(\Phi_d(\mathcal D))$. U4 (Mukai faithfulness on full-subcategory generators).
+
+**Correct relationship.** U1 chain-level proved at $d = 2$; U2 at $d \leq 3$ via Serre pullback; U3 universal (Künneth functoriality); U4 chain-level at $d = 2$. Primary: Costello 2020 *Perimeter lectures* §4; BD 2004 *Chiral Algebras* Ch 3; FG 2012 arXiv 1112.1122.
+
+**Confusion type.** universal-property / construction conflation.
+
+**Status.** Catalogued as AP-CY115 in `notes/antipatterns_catalogue.md`. Inscribed at `cy_to_chiral.tex` Thm family `thm:phi-U1-U2-U3-U4`.
+
+### Entry 202: CY-A existence axiom across dimensions (Wave 3-10 foundational)
+
+**Wrong claim.** CY-A holds "at each $d$" uniformly.
+
+**Ghost theorem.** $A_X$ existence is the load-bearing CY-A$_d$ axiom at each CY dimension.
+
+**Precise error.** Three lanes must never be conflated: CY-A$_2$ (proved chain-level for K3, Enriques, Kummer, bielliptic, $T^4$, half-K3); CY-A$_3$ (proved $(\infty, 1)$-existence via `thm:derived-framing-obstruction`); CY-A$_{d \geq 4}$ (open, framework gap at Kapustin-Rozansky-Saulina 3d/4d dichotomy).
+
+**Correct relationship.** State CY-A$_d$ with $d$ explicit; declare ambient (chain-level / $(\infty, 1)$-categorical / still-open); chain-level CY-A$_3$ remains conditional on explicit framing data for non-formal algebras.
+
+**Confusion type.** scope error (dimension stratification).
+
+**Status.** Catalogued as AP-CY116 in `notes/antipatterns_catalogue.md`. Inscribed at `cy_a_existence.tex` Thm family `thm:cy-a-d-existence`.
+
+### Entry 203: K3 Yangian abelian presentation (Wave 5-12 foundational)
+
+**Wrong claim.** The 24-generator K3 Yangian presentation is the full non-abelian Yangian of $\mathfrak{g}_{K3} = \mathfrak{so}(4, 20)$.
+
+**Ghost theorem.** $Y^{\mathrm{Heis}}_\hbar(\Lambda_{K3})$ is a genuine Yangian-type chiral algebra on the K3 Mukai lattice.
+
+**Precise error.** The 24-generator presentation is $Y^{\mathrm{Heis}}_\hbar(\Lambda_{K3})$ — the K3 Heisenberg (abelian) Yangian with quadratic $r$-matrix $\Omega_{H^*(K3)}/z$. The non-abelian lift requires Matrix Miura + Serre constraints; conjectural per `conj:bkm-serre-exact`.
+
+**Correct relationship.** Six-part presentation (abelian): 24 generators (even Mukai lattice $H^{\mathrm{even}}(K3, \mathbb Z) \cong \mathrm{II}_{4, 20}$); $R$-matrix $R^{\mathrm{Heis}}(z) = 1 + \hbar \Omega/z$ from Mukai pairing; Drinfeld coproduct from factorisation; $T$-$T$ OPE; abelian Serre vacuity; vacuum.  Primary: Schiffmann-Vasserot 2017 Publ IHES 118 (CoHA side); BFN 2019 *JEMS* 21 (Coulomb side); Maulik-Okounkov 2019 Ast 408 §3.
+
+**Confusion type.** abelian / non-abelian conflation.
+
+**Status.** Catalogued as AP-CY117. Inscribed at `k3_yangian_chapter.tex` Thm `thm:k3-abelian-yangian-presentation`.
+
+### Entry 204: BFN affine Yangian level (Wave 4 foundational)
+
+**Wrong claim.** BFN Coulomb-branch construction produces the classical Yangian $Y_\hbar(\mathfrak{g})$.
+
+**Ghost theorem.** BFN Coulomb branch for gauge theory $(\mathfrak{g}, \mathbf N)$ carries a Yangian-type algebra structure.
+
+**Precise error.** BFN 2019 *JEMS* 21 §2 fixes the level at $k = 1$ via the lifting parameter of equivariant $K$-theory of instantons. Output is the affine Yangian $Y_\hbar(\widehat{\mathfrak{g}})$, not the classical Yangian. Affinisation shift is load-bearing at $K3 \times E$.
+
+**Correct relationship.** BFN Coulomb at $(\mathfrak{g}, \mathrm{adj})$ gives $Y_\hbar(\widehat{\mathfrak{g}})$ at level $k = 1$; the $K3$ case recovers $Y^{\mathrm{Heis}}_\hbar(\Lambda_{K3})$ via SV 2017 identification. Primary: BFN 2019 *JEMS* 21 §2 Prop 2.7; Kodera-Nakajima 2018 *Proc AMS* 146.
+
+**Confusion type.** level-shift / affinisation error.
+
+**Status.** Catalogued as AP-CY118. Inscribed at `bfn_coulomb.tex` Thm `thm:bfn-affine-yangian-k-1`.
+
+### Entry 205: $K3 \times E$ as canonical CY-3 anchor (Wave 7-13 foundational)
+
+**Wrong claim.** "CY-3 anchor" is a single generic object.
+
+**Ghost theorem.** The programme needs a canonical CY-3 object fibred by CY-2 K3.
+
+**Precise error.** $K3 \times E$ is THE canonical CY-3 anchor because: (a) fibred by K3 where CY-A$_2$ is chain-level proved; (b) admits Gritsenko-Nikulin Borcherds lift $\Delta_5^2 = \Phi_{10}$; (c) $\chi(\mathcal O_{K3 \times E}) = 0$ (Künneth) while $\kappa_{\mathrm{ch}} = 3$; (d) sits at Humbert divisor $H_1$ of $\overline{\mathcal A_2}$. Quintic, local $\mathbb P^2$, conifold are not substitutes; each has own BKM/non-BKM status.
+
+**Correct relationship.** Always name the specific CY-3 anchor. $K3 \times E$ is chosen for (a)-(d) above. Quintic (BCOV anomaly, chi_top = -200, no BKM); local $\mathbb P^2$ (class M, no BKM, refined topological vertex); conifold (resolved vs deformed, wall-crossing). Primary: Gritsenko-Nikulin 1998 *Invent Math* 130 §2; Gritsenko 1999 *Math Nachr* 199 §3.
+
+**Confusion type.** CY-3 anchor ambiguity.
+
+**Status.** Catalogued as AP-CY119. Inscribed at `k3e_cy3_programme.tex` Rem `rem:k3e-as-canonical-anchor`.
+
+### Entry 206: Mukai Lagrangian (Wave 6-9 foundational)
+
+**Wrong claim.** Mukai Lagrangian is the total-space Lagrangian of $K3$ as a complex Lagrangian submanifold.
+
+**Ghost theorem.** Mukai's rank-2 polarisation produces a Lagrangian structure on K3 cohomology.
+
+**Precise error.** Mukai Lagrangian $\mathcal L_{\mathrm{Muk}} \subset H^*(K3, \mathbb Z) \cong \mathrm{II}_{4, 20}$ is a lattice-level Lagrangian — an even self-dual sublattice of signature $(4, 20)$. This is NOT the symplectic-geometric Lagrangian in $\mathrm{Hilb}^{[n]}(K3)$.
+
+**Correct relationship.** Mukai Lagrangian lives at lattice level (rank 24, signature $(4, 20)$). Symplectic Lagrangians in $\mathrm{Hilb}^{[n]}(K3)$ are a distinct object supporting Fukaya structure. Primary: Mukai 1987 *Invent Math* 77 §2; Nakajima 1999 *Duke Math J* 99.
+
+**Confusion type.** lattice vs symplectic-geometry level.
+
+**Status.** Catalogued as AP-CY120. Inscribed at `mukai_lattice.tex` Def `def:mukai-lagrangian`.
+
+### Entry 207: Waves 14-19 VERIFIED-item mis-statement templates (Wave 20+ audit)
+
+**Wrong claim.** VERIFIED items from Waves 14-19 are stable in all forms.
+
+**Ghost theorem.** Adjudication ledger VERIFIED stratum closes mathematical content.
+
+**Precise error.** Each VERIFIED item has an explicit mis-statement mode catalogued as AP-CY128 through AP-CY140: $K^{\mathrm{super}}$ vs $K^{\mathrm{bos}}$; $\hbar^2 = -1/8$ as rational vs float; $c_{4d} = 107/6$ with 107 prime vs decimal; $\Delta_5$ Gritsenko additive vs Borcherds multiplicative; four Fricke rows universality vs Leech exception; Arthur parameter Saito-Kurokawa reducibility; Hecke dictionary prime scope; $p = 2$ conductor $2^{17}$; MTC semisimple vs Kerler-Lyubashenko; $S$-matrix eigenvalues $\{1, i, -1, -i\}$; Padovan vs Fibonacci; $A_\infty$-quasi-Hopf non-closure; Heegner admissibility on $D_n$ vs $n$.
+
+**Correct relationship.** Every VERIFIED value carries a primary-literature anchor and a forbidden mis-statement template. Cross-reference: AP-CY128 through AP-CY140 enumerate these in `notes/antipatterns_catalogue.md`. The adjudication ledger (`notes/ADJUDICATION_LEDGER_WAVES_14_TO_19.md §I`) is the canonical VERIFIED inventory.
+
+**Confusion type.** VERIFIED-item mis-statement templates.
+
+**Status.** Catalogued as AP-CY128-140 (13 entries). Primary anchor: `notes/ADJUDICATION_LEDGER_WAVES_14_TO_19.md`.
+
+### Entry 200: Class-pair splittings $\{2A, 2B\}, \{4A, 4B\}, \{6A, 6B\}$ at $\iota$-class distinction (Wave 21 BEILINSON)
+
+**Wrong claim.** $\iota$-class $\{2A\}$ and non-$\iota$ order-2 element $\{2B\}$ have identical twining behaviour on Enriques.
+
+**Ghost theorem.** $\iota$ is the Enriques involution in $M_{24}$, cycle shape $1^8 2^8$; $\mathcal C_\iota$ contains order-2 classes both $\iota$-commuting.
+
+**Precise error.** At $D = 3$: $f^{2A}_{\mathrm{En}}(1, \pm 1) = 0$ ($\iota$-class itself, acts as orbifolding, sees twisted sector identically); $f^{2B}_{\mathrm{En}}(1, \pm 1) = -8$ (non-$\iota$ order-2 element). Analogous splittings for $\{4A, 4B\}$ and $\{6A, 6B\}$.
+
+**Correct relationship.** Class-pair splitting is a genuine class-function distinction on $\mathcal C_\iota = \{1A, 2A, 2B, 3A, 3B, 4A, 4B, 5A, 6A, 6B, 8A, 10A, 11AB\}$, detectable at $D = 3$ Fourier slot. Primary: Persson-Volpato 2013 Tab 2; Eguchi-Hikami 2010 Tab 1.
+
+**Confusion type.** $\iota$-class vs non-$\iota$-class twining distinction.
+
+**Status.** Catalogued. Inscribed at `k3e_bkm_chapter.tex` Thm `thm:bkm-enriques-m12-twining-table`.
+
+
+## Entries 52-87: K3 chiral bialgebra $\mathbf{H}_{\Delta_5}$ patterns (adversarial swarm Apr 2026)
+
+| # | Wrong Claim | Ghost Theorem | Precise Error | Correct Relationship | Type |
+|---|-------------|---------------|---------------|----------------------|------|
+| 52 | Conway $V^{s\natural}$ is an independent fifth bosonic $\Psi$-image with Lusztig pair $(K,\hbar^2)=(2,-1/2)$ inherited from Monster. | Conway is a genuine $\Psi$-like image of a Leech-lattice construction and deserves a canonical placement. | (a) $c(V^{s\natural})=12$ not $24$; (b) Duncan 2007 construction is $\mathbb{Z}/2$-orbifold of 24-fermion $A(\Lambda_{24})$ on Leech, not $E_8$ super-lattice; (c) positive-definite Leech has $c_+=24$ giving formal $K=48$, not $K=2$; (d) universal identity $\hbar^2 K^{\kappa}=-1$ has no scope on Leech (no hyperbolic plane); (e) Duncan published in Duke 139 not MRL 14. | Conway is a $\Psi^s$-image through a parallel super-functor $\Psi^s:\mathcal{S}^s\to\mathcal{B}^s$ with source $(L^s,\phi^s,\sigma)$ super-lattice + half-integer Jacobi + NS/R polarisation. Explicit: $\phi^s_{\mathrm{Conway}}=\vartheta_1(\tau,z)\Theta_{\Lambda_{24}}(\tau,z)/\eta(\tau)^{24}$ weight $1/2$ index $1$ on Leech (Scheithauer 2008 *Invent Math* 172 Thm 3.2). "Four is all" holds on the bosonic Gritsenko-Nikulin-reflective stratum of signature-$(2,n)$ lattices with $n\ge 3$. | super/bosonic functor confusion |
+| 53 | $V^{s\natural}$ embeds into Fake-Monster as a $\mathbb{Z}/2$-twisted subsector via $\Lambda_{24}\subset\mathrm{II}_{25,1}$. | Scheithauer 2008 Thm 3.2 does construct super-Borcherds extensions on $\mathrm{II}_{25,1}$ containing Leech sublattices. | Duncan 2007 §5 universal property forces $V^{s\natural}$ to be the unique holomorphic $N=1$ SVOA with $c=12$, $\dim V_{1/2}=0$, $\mathrm{Aut}=\mathrm{Co}_0$; this cannot embed into $V_{\mathrm{II}_{25,1}}$ at $c=26\ne 12$. | Conway lives in $\Psi^{\mathrm{metap}}(\Lambda_{24},\phi^s_{\mathrm{Conway}})$, a metaplectic-branch image disjoint from the Fake-Monster row; the two meet only through Duncan's commutative orbifolding diamond. | embedding / universal-property violation |
+| 54 | "Four is all" on reflective Borcherds products follows from Scheithauer 2017 arXiv:1706.02546 Thm 1.1 alone. | Scheithauer 2017 does give lift-existence for holomorphic reflective automorphic products of singular weight. | The finiteness half rests on **three independent papers**: Scheithauer 2017 (lift existence) + Dittmann–Ma–Scheithauer 2021 *Adv Math* 386 (finiteness of reflective signature-$(2,n)$ even genera) + Scheithauer 2006 *Invent Math* 164 §3 (prime-level enumeration). | Cite the three-paper chain every time "four is all" is invoked. Also: the $24A_1$ Niemeier Borcherds product of Borcherds 1995 *Invent Math* 120 §13 is a reflective automorphic on signature $(2,24)$ of singular weight $12$ that FAILS Gritsenko-Nikulin reflectivity (divisor has non-rational-quadratic-hyperplane components); "four is all" is GN-reflective-scoped, a fifth Borcherds product exists outside GN-scope. | primary-source chain + scope |
+| 55 | Pseudo-character $S^{\mathrm{ps}}$ on the paramodular Hecke algebra attached to $\Delta_{10}$ is the correct Galois-side object. $\perp$ retracted per canonical preamble: see Chenevier 2014 determinant (Vol I Pattern 295 / W25 in `notes/first_principles_cache_comprehensive.md`; Vol I `chapters/theory/derived_langlands.tex` Remark `rem:dl-w25-determinant-not-pseudocharacter`). Rename: $S^{\mathrm{ps}}\to D^{\mathrm{Chen}}$; axioms shift from Taylor--Wiles symmetric-polarisation triple to Chenevier 2014 arXiv:1301.0635 \S1.2 polynomial law (multiplicativity, unitality, Cayley--Hamilton degree $d$). Original entry retained below: | Chenevier 2014 pseudo-representation formalism is a natural target for Saito-Kurokawa data. | Pseudo-characters lose mod-$\ell^n$ Cayley-Hamilton data when the ambient representation is reducible. $\rho_{\Delta_{10}}$ is reducible via Saito-Kurokawa: $\rho_{\Delta_{10}}=\rho_{\Delta_{E_6}}\oplus\chi^8\oplus\chi^9$. | The correct object is a **Chenevier 2014 determinant** $D_{\Delta_{10}}:\mathbb{Z}_\ell[G_\mathbb{Q}]\to\mathbb{Z}_\ell$ of dimension 4, unramified outside $\{2,\ell\}$, with explicit factorisation $D_{\Delta_{10}}=D_{\rho_{\Delta_{E_6}}}\otimes D_{\chi_\ell^8\oplus\chi_\ell^9}$ and $D_{\Delta_{10}}(1-T\mathrm{Frob}_p)=1-\lambda_p T+\mu_p T^2-p^9\lambda_p T^3+p^{18}T^4$ (Chenevier 2014 *Ann Inst Fourier* 64 §1). Hecke field $\mathbb{Q}(\lambda_p:p\le 79)=\mathbb{Q}$ (since $\dim S_{26}(\mathrm{SL}_2(\mathbb{Z}))=1$), minimal coefficient ring $\mathcal{O}_E=\mathbb{Z}$. | pseudo-rep vs determinant type mismatch |
+| 56 | $\mathrm{Stab}^\Phi(K3\times E)=\mathrm{Stab}(K3)\times\mathrm{Stab}(E)$ is a codim-$0$ slice of the ambient Bridgeland stability manifold. | The Künneth product gives an inclusion $\mathrm{Stab}(K3)\times\mathrm{Stab}(E)\hookrightarrow\mathrm{Stab}(K3\times E)$. | Bridgeland 2007 Thm 1.2: $\dim\mathrm{Stab}=\mathrm{rk}\,\mathcal{N}$. Künneth on numerical K-theory gives $\mathrm{rk}\,\mathcal{N}(K3\times E)=24\cdot 2=48$; the Künneth image uses only rank-one tensors with $24+2=26$ parameters. | $\dim_\mathbb{C}\mathrm{Stab}(D^b\mathrm{Coh}(K3\times E))=48$; $\mathrm{Stab}^\Phi$ has codimension $22=\mathrm{rk}\,T_{K3}$ (transcendental lattice). Three non-Künneth CY$_3$-rigid families populate the complement: (i) Fourier–Mukai twists along transcendental classes, (ii) non-split vertical extensions $0\to\pi_E^*\mathcal{O}_E(p)\to\mathcal{E}\to\pi_{K3}^*\mathcal{F}\to 0$, (iii) isogeny-graph spectral sheaves. | dimension scope / codim conflation |
+| 57 | $\mathrm{rk}\,K_0(K3\times E)=96$ equals $\dim\mathrm{Stab}$. | Total Betti rank $h^*(K3\times E)=96$ is correct. | Bridgeland $\mathrm{Stab}$ uses numerical K-theory $K_{\mathrm{num}}\cong H^{\mathrm{even}}$ of rank 48; the odd-cohomology classes (rank 48) have zero Euler pairing and vanish in $K_0/\mathrm{num}$. | Two conventions demarcated: stability-manifold count $=48$ (Bridgeland wall-crossing, even cohomology), full cohomological rank $=96$ (intermediate Jacobian, generalised Mukai-Hodge pairing). No identity mixes them on the nose. | numerical vs total K-theory |
+| 58 | Tilting quotient $u_{\zeta_8}^{\mathrm{tilt}}$-mod factorises as tensor $\mathrm{MTC}$-category $(A_1)_{k=2}^{\otimes 3}\boxtimes\mathbb{Z}[S_3]$ of rank $162$. | The Grothendieck ring identity $K_0\cong K_0((A_1)^{\otimes 3})\otimes_\mathbb{Z}\mathbb{Z}[S_3]$ is correct at the $\mathbb{Z}$-algebra level. | $\mathrm{Vec}_{S_3}$ is **not modular** for non-abelian $S_3$: DGNO 2010 Prop 2.11 requires abelian $G$ with non-degenerate quadratic form. Alternative ranks ruled out: $\mathrm{Rep}(S_3)=3$, $D(S_3)$-mod $=8\Rightarrow 216\ne 162$, equivariantisation $=22$. | $u_{\zeta_8}^{\mathrm{tilt}}$-mod $=(A_1)_{k=2}^{\otimes 3}\rtimes S_3$, an $S_3$-**crossed braided** fusion category (Turaev 2000 arXiv:math/0005291; Etingof–Nikshych–Ostrik 2010 *Quantum Topol* 1). $S_3$ grades via outer automorphisms permuting tensor factors; six graded pieces (identity + 3 transpositions + 2 three-cycles) each an invertible $(A_1)^{\otimes 3}_{k=2}$-bimodule of rank $27$; total $6\cdot 27=162$. Modular data $S=S^{(A_1)^{\otimes 3}}\otimes(1/\sqrt 6)F_{S_3}$ is crossed-structure spectral data, not tensor factorisation. | tensor vs crossed braided structure |
+| 59 | Fake-Monster Leech simple roots have norm $6$ (based on $r_\lambda=(\lambda;e+(\lambda^2-2)/2\,f)$). | Borcherds 1992 simple-root condition $(\rho,r)=-r^2/2$ is the correct normalisation. | The formula $r_\lambda=(\lambda;e+(\lambda^2-2)/2\,f)$ at $\lambda^2=4$ gives $r^2=2\lambda^2-2=6$, but this does NOT satisfy Borcherds' condition with $\rho=e$: $(\rho,r_\lambda)=(\lambda^2-2)/2=1\ne -3$. | Correct Conway 1983 *Proc R Soc Lond A* 384 Thm 1 + Conway–Sloane SPLAG Ch 27: $r_\lambda=(\lambda;1,1-\lambda^2/2)=(\lambda;1,-1)$ at $\lambda^2=4$, giving $r^2=\lambda^2+2(1-\lambda^2/2)=2$ and $(\rho,r_\lambda)=-1=-r^2/2$. Leech roots are **norm 2** with $196{,}560$ of them in a single $\mathrm{Co}_0$-orbit. | lattice simple-root formula |
+| 60 | Fake-Monster $\Phi_{12}$ is a Siegel modular form on $\mathrm{Sp}_{26}(\mathbb{Z})$ or a Jacobi form in 26 variables. | $\Phi_{12}$ has weight 12 and is attached to Leech-related geometry. | Siegel $\mathrm{Sp}_{26}$ acts on the Siegel upper half space $\mathbb{H}_{26}$ of complex dim $\binom{27}{2}=351$, not 26. Jacobi-in-26-variables would require a distinguished torus direction; the geometry is orthogonal. | $\Phi_{12}$ is a Borcherds-Hermitian automorphic form on the type-IV Hermitian symmetric domain $\mathcal{D}_{\mathrm{II}_{26,2}}=O(26,2)^+/(O(26)\times O(2))$ of complex dim 26, singular weight $12=(26-2)/2$, for $O^+(\mathrm{II}_{26,2})$. No orthogonal-symplectic accident beyond rank 4. | automorphic home conflation |
+| 61 | $\theta^{\Phi_{12}}$ restricts to $\Phi_{10}$ along primitive $\mathrm{II}_{2,1}\hookrightarrow\mathrm{II}_{25,1}$. | $\Phi_{12}$ does restrict to $\Phi_{10}=\Delta_5^2$ on a specific sublattice of $\mathrm{II}_{25,1}$. | $\mathrm{II}_{2,1}$ has signature $(2,1)$ and gives a hyperbolic 2-ball, not a Hermitian symmetric domain; it cannot carry a holomorphic modular form. | Correct restriction lattice is $\mathrm{II}_{2,2}$ with $O^+(\mathrm{II}_{2,2})\cong\mathrm{Sp}_4(\mathbb{Z})$ giving $\mathcal{D}_{\mathrm{II}_{2,2}}\cong\mathbb{H}_2$. Decomposition $\mathrm{II}_{26,2}=\Lambda\oplus\mathrm{II}_{2,2}$ (Leech plus two hyperbolic planes). On this sublattice $\Phi_{12}|_{\mathbb{H}_2}=\Phi_{10}=\Delta_5^2$. | lattice signature for holomorphic form |
+| 62 | Master $L$-value identity: $\log Z^{(1)}_{\mathbf{H}_{\Delta_5}}=-\log\Delta_5-\kappa_{\mathrm{BGS}}\cdot L'(0,\Delta_{10},\mathrm{ad}^0)$. | The 1-loop BV determinant of $\mathbf{H}_{\Delta_5}$ on $K3\times E$ does equal a Quillen-norm log plus an $L$-value. | Three conflations: (a) adjoint vs standard — Yoshikawa 2004 Thm 5.7 + Bruinier–Kühn 2003 Thm 4.11 apply to Borcherds-lift line bundles on orthogonal Shimura varieties of signature $(2,3)$, giving the degree-5 **standard** $L$-function, not adjoint spinor. (b) $\Delta_5$ vs $\Delta_{10}$ — the 1-loop anomaly is $-\log\Delta_5$ with twisting sheaf $\mathcal{O}(\Delta_5^{-1})$, pinning the paramodular base-point, not the full-level Ikeda lift. (c) CAP vs generic — $L(s,\Delta_{10},\mathrm{ad}^0)=L(s,\mathrm{Sym}^2\Delta_{E_6})\cdot\zeta(s+1)\cdot\zeta(s-1)$ (Pitale–Saha–Schmidt 2014 *Memoirs AMS* 232 §7); cyclotomic factors at $s=0$ give trivial $\zeta'(0)=-(1/2)\log(2\pi)$, no BKM regulator. | Correct: $\log Z^{(1)}_{\mathbf{H}_{\Delta_5}}=-\log\Delta_5-\kappa_{\mathrm{BGS}}\cdot L'(0,\Delta_5,\mathrm{std})+\log C$ with $\kappa_{\mathrm{BGS}}=24=\chi_{\mathrm{top}}(K3)$. Standard $L$-function attached to the Langlands parameter $\phi_{\Delta_5}:L_F\to\mathrm{GSp}_4(\mathbb{C})$ composed with $\mathrm{std}:\mathrm{GSp}_4\to\mathrm{SO}_5\hookrightarrow\mathrm{GL}_5$ (Schmidt 2005 *Pacific J Math* 220). Kudla–Rallis seesaw $(\mathrm{Sp}_4,O(2,2))$ gives Rankin–Selberg regulator equal to $L'(0,\Delta_5,\mathrm{std})$. | L-function type (std vs adj) |
+| 63 | There exists an identity $L(s,\Delta_{10},\mathrm{ad}^0)=L(s,\Delta_5,\mathrm{std})\cdot L(s,\chi,\bullet)$ rescuing the adjoint identification. | Saito-Kurokawa connects $\Delta_5$ and $\Delta_{10}$ through a specific correspondence. | The two $L$-functions factorise through different $\widehat{\mathrm{GSp}_4}$-representations (adjoint spinor $\wedge^2\mathrm{std}_5$ vs standard $\mathrm{std}_5$). No factorisation through multiplication exists. | What **does** hold is the Waldspurger-squaring identity at unramified places: $L(2s,\Delta_5,\mathrm{std})\cdot L(2s,\Delta_5\otimes\epsilon_{K(1)},\mathrm{std})=L(s,\Delta_{10},\mathrm{std})\cdot(\text{bad-prime factors})$ (Waldspurger 1980 *Compositio* 54; Furusawa–Morimoto 2014 *Adv Math* 255), with $\epsilon_{K(1)}$ the spin sign character of the Maa{\ss} $\mathbb{Z}/2$-spin cover: $\Delta_5$ has spin-cover Satake parameters $\{\pm\alpha_p^{1/2},\pm\beta_p^{1/2}\}$ whose squares are $\{\alpha_p^{\pm 1},\beta_p^{\pm 1}\}$ of $\Delta_{10}$. This is a **standard**-$L$-function squaring, not adjoint. | Waldspurger squaring vs naive factorisation |
+| 64 | $\dim H^1_f(\mathbb{Q},\mathrm{ad}^0\rho_{\Delta_{10}})=1$, with the nonzero contribution from $H^1_f(\rho_{\Delta_{E_6}}^\vee\otimes\chi^8)=1$ via Hodge-Tate weight match. | There is a legitimate $1$-dimensional deformation of $\mathbf{H}_{\Delta_5}$. | The adjoint spinor representation is **rigid** at the CAP point: Chenevier 2014 + Diamond–Flach–Guo 2004 gives $\dim H^1_f(\mathrm{ad}^0\rho_{\Delta_{10}})=0$ (CAP rigidity of level-one Ikeda lifts). Right dimension, wrong representation. | The correct representation is the paramodular **standard** $\mathrm{std}\,\rho_{\Delta_5}$: $\dim H^1_f(\mathbb{Q},\mathrm{std}\,\rho_{\Delta_5})=1$ via three independent paths — (A) Fontaine-Mazur Euler characteristic with $\Gamma_\infty=\Gamma_\mathbb{C}(s+4)\Gamma_\mathbb{C}(s+3)\Gamma_\mathbb{R}(s)$ forcing order 1 at non-critical $s=0$ + Jannsen purity $H^2_f=0$; (B) Loeffler–Pilloni–Skinner–Zerbes 2021 Euler system + Liu 2019 Kolyvagin; (C) Pilloni 2011 + Urban 2011 control theorem + Poor–Yuen 2015 $\dim S_5(K(1))=1$ + Thorne 2020 $R=T$. The $1$-dim tangent is the paramodular cyclotomic Hida family at tame level $K(1)$. | representation-vs-regulator |
+| 65 | $\kappa_{\mathrm{BKM}}(\mathbf{H}_{\Delta_5})=12$ (Vol I abstract) and $\kappa_{\mathrm{BKM}}(\mathbf{H}_{\Delta_5})=5$ (Vol III abstract). | $\kappa_{\mathrm{BKM}}(X)=c_N(0)/2$ is the universal Borcherds-weight identity on K3-fibered Class A. | Cross-volume inconsistency: $c_1(0)=24$ (K3×E) gives $\kappa_{\mathrm{BKM}}=12$ if $N=1$ refers to the K3×E entry; $c_N(0)=10$ for $\Delta_5$ gives $\kappa=5$ if $N$ indexes the Siegel weight directly. The naming convention for "$N$" differs between volumes. | **AP5 canonical verdict (pending landscape-census lock)**: BOTH values occur legitimately under different $N$-index conventions — $12$ under Fake-Monster $\Phi_{12}$, $5$ under paramodular $\Phi_{10} = \Delta_5^2$. Every site asserting a specific value must name the input denominator; bare "$\kappa_{\mathrm{BKM}} = 5$" or "$\kappa_{\mathrm{BKM}} = 12$" without convention-name is itself a latent AP5 violation. Pending: landscape-census adjudication under `compute/lib/landscape_census`. | cross-volume constant inconsistency (dual-indexing pending AP5 lock) |
+| 66 | Pentagon admissibility for $\phi^{(n)}$: $n\equiv 0,3\pmod 4$ (congruence on $n$ itself). | There is a genuine admissibility filtration on $\{\phi^{(n)}\}$ coming from Humbert-Heegner lattice geometry. | The admissibility congruence is on $D_n=(n-3)/2\pmod 4\in\{0,1\}$ (the Heegner discriminant), not on $n$. Translating: $D_n\in\{0,1\}\pmod 4$ iff $n\equiv 3,5\pmod 8$. | **Humbert-Heegner admissibility filtration** $\mathfrak{H}_D$: $\phi^{(n)}=0$ unless $n\equiv 3,5\pmod 8$. Mechanism: Eichler–Zagier 1985 Thm 9.1 weak Jacobi index-$m$ polar support $\Delta\ge -m^2$ annihilates the Heegner coefficient at non-admissible $n\ge 7$. First admissible non-vanishing: $\phi^{(5)}=-2\cdot[\mathrm{gen}]^{\otimes 5}$ via $c_{\Phi_{10}/\eta^{24}}(1,1,1)=-2$ (Gritsenko–Nikulin 1998 *Invent Math* 130 Table 2). Coincides with paramodular critical-$L$-value congruence (Gritsenko-Nikulin 1998 Thm 1.4; Ibukiyama–Poor–Yuen 2013 Thm 5.1). Unconditional on K3 side — bypasses Zagier–Hoffman motivic-depth conjecture. | admissibility congruence variable |
+| 67 | Extension $\mathrm{grt}_1^{(1/2)}/\mathrm{grt}_1\to\bigoplus_k\mathbb{Q}\widetilde\sigma_{2k}$ is split because $[\widetilde\sigma_2,\widetilde\sigma_2]=288\widetilde\sigma_4\ne 0$ ("nonzero bracket means non-abelian"). | The extension is genuinely non-trivial. | Conflates distinct properties of Lie-algebra extensions: **non-abelian** (either ideal or quotient not central) vs **non-split** (no Lie section exists) vs **non-central** (mixed brackets nonzero). A non-abelian extension can be split. | All three properties hold simultaneously for $\mathrm{grt}_1^{(1/2)}$. Non-split proof uses Lie-cohomology: obstruction class $[\omega_{\mathrm{SK}}]\in H^2_{\mathrm{Lie}}(\mathfrak{q};\mathrm{grt}_1)$, related to the group-cohomological Saito-Kurokawa Eichler cocycle $[\mathrm{SK}(\Delta)/\Delta]\in H^1(\mathrm{Sp}_4(\mathbb{Z});\mathrm{Hom}(\mathrm{grt}_1,\mathbb{Q}[v_{\Delta_5}]))$ via **van Est transgression** $\tau_{\mathrm{vE}}:H^1_{\mathrm{grp}}\to H^2_{\mathrm{Lie}}$. Concrete witness: $[\widetilde\sigma_2,\widetilde\sigma_2]=288\widetilde\sigma_4$ via $\tau(2)=-24$, $\tau(2)^2/2=288$. | Lie-extension terminology |
+| 68 | $\mathrm{grt}_1^{(1/2)}$ is a reparametrisation of $\mathrm{grt}_1$ (the "metaplectic structure" is just notation). | $\mathrm{grt}_1$ and $\mathrm{grt}_1^{(1/2)}$ share classical odd-weight generators. | Hilbert series disagree at every even weight (Brown 2012 *Ann Math* 175 + Furusho 2011 *Ann Math* 174); weight-2 abelianisations disagree. | $\mathrm{grt}_1^{(1/2)}\not\cong\mathrm{grt}_1$ both as graded and as ungraded Lie algebras. Siegel-Galois module structure with $\dim\widetilde\sigma_{2k}=\dim S_{2k+10}(\mathrm{Sp}_4)^{\mathrm{SK}}$, not free. Motivic Frobenius trace $=\tau(p)$ on weight-$2k$ components; $\ell$-adic lift reaches only metaplectic $\mathrm{Sp}_4$-cover of absolute Galois group. | isomorphism claim via reparametrisation |
+| 69 | $\Psi$-functor surjectivity onto super-EK-quantisable BKMs. | There is a canonical functor $\Psi$ producing the four-reflective images. | $\Psi$ alone is not surjective: super-affine $\widehat{\mathfrak{gl}}(m|n)$, quantum-toroidal $U_{q,t}(\widehat{\widehat{\mathfrak{g}}})$, metaplectic-branch Conway $V^{s\natural}$ all escape the reflective-interior image. | Minimal complete family: four sibling functors $\{\Psi,\Psi^{\deg},\Psi^{\mathrm{tor}},\Psi^{\mathrm{metap}}\}$ indexed by Baily–Borel–Freitag stratification of $\overline{\mathcal{A}_2}$. (i) $\Psi$: interior reflective GN; (ii) $\Psi^{\deg}$: Klingen cusp $\to$ super-affine via Geer 2007; (iii) $\Psi^{\mathrm{tor}}$: Humbert divisor $\to$ quantum-toroidal $(q,t)=(e^{2\pi i\tau_1},e^{2\pi i\tau_2\omega_N})$ with $\omega_N=(1+\sqrt N)/2$ via GKV 1995 + Miki 2007 + FJM 2017; (iv) $\Psi^{\mathrm{metap}}$: metaplectic branch $\overline{\mathcal{A}_2^{(2)}}\to$ super-Borcherds via Scheithauer 2008. Disjoint union surjective; disjointness from Baily–Borel–Freitag. No fifth stratum: (a) 0-cusp factors through $\Psi^{\deg}$ as vacuum; (b) higher-$\omega_N$ are inner automorphisms of $U_{q,t}$; (c) Hain–Looijenga hyperelliptic genus-2 locus $\subset\overline{H_1}$ (Mumford–Torelli). | single-functor vs sibling family |
+| 70 | Class-$\mathcal{S}$ $\mathcal{T}[A_1,\Sigma_{0,24}]$ central charges: $(n_v,n_h)=(21,27)$, $c_{4d}=23/4$, $c_{2d}=-69$. | Class-$\mathcal{S}$ trinion/tube gluing does produce $(n_v,n_h)$ counts. | Arithmetic error: 22 trinions (not "trinion count = $n_v$"), 21 tubes (not "tube count = $n_v$"). Each $A_1$ trinion contributes $n_h=4$ half-hypermultiplets from the $\mathrm{SU}(2)^3/\mathbb{Z}_2$ tri-fundamental; each tube adds $n_v=3$ $\mathrm{SU}(2)$ vectors. Not $(0,4)+(1,-1)$. | $(n_v,n_h)=(21\cdot 3,\,22\cdot 4)=(63,88)$, $c_{4d}=(2n_v+n_h)/12=214/12=107/6$, $c_{2d}=-12 c_{4d}=-214=-2\cdot 107$ (107 prime). Cross-verified via Chacaltana–Distler 2010 §5.14 + Shapere–Tachikawa 2008 + Beem–Rastelli 2013 (WOV-2 in the whole-object-verifier). Canonical formula: $c_{4d}=(5n-13)/6$ at genus $0$ with $n$ punctures on $A_1$. | trinion/tube count arithmetic |
+| 71 | Humbert divisor $H_N\subset\overline{\mathcal{A}_2}$ and Argyres-Douglas points in class-$\mathcal{S}$ are distinct phenomena. | Humbert divisors and Argyres-Douglas points both involve degeneration of genus-2 geometry. | The four-fold sibling stratification fits naturally into class-$\mathcal{S}$ Chacaltana–Distler–Tachikawa puncture types, but the specific $H_N$-AD correspondence was missing from earlier inscriptions. | **Humbert = Argyres-Douglas**: at a generic point $E_{\tau_1}\times E_{\tau_2}\in H_N$, the Seiberg-Witten curve of the Coulomb branch adjacent to $\mathcal{T}[A_1,\Sigma_{0,24}]$ degenerates to a pair of elliptic curves glued at a nodal point, producing an $(A_1,A_{2N-1})$-type Argyres-Douglas point (Gaiotto-Moore-Neitzke 2009 *Adv Theor Math Phys* 13 Example 8.3). Four-sibling stratification equals class-$\mathcal{S}$ join $\mathrm{CDT}\cup\mathrm{AD}=\{\text{regular, irregular, AD, twisted}\}$. | physical-identification missing |
+| 72 | Chiral-Hochschild cocycle $e_k$ equals the full motivic-period $\phi^{(3k)}$ projection at depth $k$. | Length and weight are two filtrations on the universal MC element (Costello cross-cut III.E$\equiv$III.A). | The pairing $\langle[\chi_k],[e_k]\rangle_{\Phi_k}$ is BGS analytic torsion on Shimura varieties; Brown 2014 + Schnetz 2013 force landing in the **single-valued** subring $\mathrm{zv}^{\mathrm{sv}}$, not the full motivic-period ring. | Correct refinement: $e_k=\mathrm{sv}\circ\pi^{\mathrm{depth}\le k}(\phi^{(3k)})$ — single-valued projection (Brown 2014 *Forum Math Sigma* 2; Schnetz 2013 graphical-function normalisation). Motivic home shrinks from $\mathrm{Per}^{\mathrm{mot}}_{3k}$ (Padovan dim) to $\mathrm{zv}^{\mathrm{sv}}_{3k}$. $k=3$: pairing in dim-2 $\mathbb{Q}\zeta^{\mathrm{sv}}(3)^3\oplus\mathbb{Q}\zeta^{\mathrm{sv}}(9)$. $k=4$: dim-3 SV space, not $\mathbb{Q}\pi^4$ (falsifies naive Tate ansatz). $k=12$: depth $\le 12$ by MC iteration — Conway at $\hbar^{12}$ consistent. | full motivic vs single-valued refinement |
+| 73 | $W_\infty[c=-214]$ chiral-Hochschild cocycles $e_k$ are independent of classical $W_\infty$ primaries. | The $e_k$ tower is a genuinely new chain-level object. | Wang 1998 *Prog Theor Phys* three-leg weight-5 quasi-primary uniqueness forces $e_5=W_5$ identically at every central charge. | Explicit identifications at $c=-214$ (Pope–Romans–Shen 1990 $W_\infty[c]$ primaries): $e_4=W_4-(107/11)\Lambda_Z$ with Zamolodchikov weight-4 extra $\Lambda_Z=:TT:-\tfrac{3}{10}\partial^2 T$; $e_5=W_5$ identically (Wang 1998 Prop 4.2 three-leg uniqueness); $e_6=W_6-(107/11)\partial^2\Lambda_Z+(\text{explicit}):T\Lambda_Z:$. Generic-$c$ coefficients: $\alpha_4^{(3)}=-3c/20$, $\beta_5^{(2)}=-c(c+2)/280$, $\rho_6=-c(c-2)/42$; substitution at $c=-214$ gives $321/10,-5671/35,-7704/7$. Pattern: $\beta_k=-c\,p_k(c)/q_k$ with $p_k$ monic integer polynomial degree $\lfloor k/2\rfloor-1$. | $e_k$ / $W_\infty$ identification |
+| 74 | File `chapters/examples/hochschild_calculus.tex` in Vol III contains the $e_k$ inscription and is read by the build. | A file under `chapters/examples/` in Vol III is presumed included by main.tex. | The file is **orphaned** — not `\input`ed anywhere in Vol III `main.tex`. The built chapter lives at `chapters/theory/hochschild_calculus.tex`; the `examples/` copy does not appear in the built PDF. | When inscribing content in Vol III, verify the target file is wired into main.tex. Canonical home for $e_k$ inscriptions: `chapters/theory/hochschild_calculus.tex` (Vol III) and `chapters/theory/hochschild_cohomology.tex` (Vol I), with a cross-reference remark in Vol I disambiguating **conformal weight** $k$ (Virasoro grading) from **cohomological degree** $k$ (ChirHoch index) to avoid conflict with $\mathrm{ChirHoch}^{k\ge 4}=0$. | orphan-file inclusion |
+| 75 | $\mathrm{grt}_1^{(1/2)}$ obstruction class $[\mathrm{SK}(\Delta)/\Delta]$ is a Lie 2-cocycle. | The Saito-Kurokawa Eichler cocycle controls the non-split structure. | The Eichler cocycle is a **group** 1-cocycle $H^1(\mathrm{Sp}_4(\mathbb{Z});\mathrm{Hom}(\mathrm{grt}_1,\mathbb{Q}[v_{\Delta_5}]))$; splitting obstruction for a Lie-algebra extension is Lie $H^2$. | Related via **van Est transgression** $\tau_{\mathrm{vE}}:H^1_{\mathrm{grp}}(G)\to H^2_{\mathrm{Lie}}(\mathfrak{g})$: the group cocycle transgresses to the Lie obstruction $[\omega_{\mathrm{SK}}]\in H^2_{\mathrm{Lie}}(\mathfrak{q};\mathrm{grt}_1)$. BV realisation (Costello–Gwilliam 2017): $\omega_{\mathrm{SK}}$ is the commutator defect of BV derivations on $\mathrm{Obs}^q(\mathbf{H}_{\Delta_5})$, confirming the Lie (not group) natural home. | group vs Lie cohomology |
+| 76 | Schmidt archimedean Langlands parameter $(17/2,15/2)$ and $(7/2,5/2)$ refer to the same object. | Both parameter pairs appear in the programme's Arthur-packet analysis. | Two distinct automorphic targets: $(17/2,15/2)$ is for $\Delta_{10}$ (holomorphic discrete series on $\mathrm{Sp}_4(\mathbb{R})$); $(7/2,5/2)\otimes\mathrm{sgn}_\mathbb{R}$ is for $\Delta_5$ on Maass-spin cover. | Both correct for their respective forms; never conflate. The Maass-spin cover carries the half-integer weights attached to the metaplectic $\mathrm{Sp}_4$-cover. | archimedean parameter object-conflation |
+| 77 | Bismut-Gillet-Soulé constant $\kappa_{\mathrm{BGS}}=24$ is ad hoc. | The 1-loop determinant does carry a specific numerical coefficient. | Four independent identifications: (i) $\chi_{\mathrm{top}}(K3)=24$ Kodaira $I_1$-fibre count; (ii) D$3$-instanton locations on 11D supergravity; (iii) $c_{\mathrm{eff}}=24$ one-loop anomaly of $\mathsf{SC}^{\mathrm{ch,top}}$; (iv) $\dim 24_{\mathrm{Co}_0}$ Conway module. | $\kappa_{\mathrm{BGS}}=24$ emerges from Bruinier-Kühn 2003 normalisation on signature-$(2,3)$ orthogonal Shimura variety; Yoshikawa 2004 Thm 5.7 applied to $\mathcal{O}(\Delta_5^{-1})$ period bundle. Each D$3$-instanton contributes $\log\eta(n\tau)$ summed via Kronecker-limit to $\kappa_{\mathrm{BGS}}\cdot L'(0,\Delta_5,\mathrm{std})$. | numerical-constant physical anchor |
+| 78 | Three-loop BV cancellation across 10 Belokurov-Shavgulidze topologies is uniform. | The 3-loop 1PI graphs do admit a symmetric structure. | Topology enumeration is $T_1$ through $T_{10}$ with $T_5$ splitting into $T_{5a}, T_{5b}$ (distinct under $\phi^{(3)}$-labelling) and $T_6$ self-paired (theta-graph). | Pairwise cancellation under Arnold-Cohen flip $H_1\leftrightarrow H_4$ on $\mathrm{Conf}_4(E)$ via the Arnold relation $\eta_{ij}\wedge\eta_{jk}+\eta_{jk}\wedge\eta_{ki}+\eta_{ki}\wedge\eta_{ij}=0$; $T_6$ vanishes by $\mathbb{Z}/2$ spine gauge. Gives $\phi^{(4)}=0$ cross-verified via Humbert non-admissibility $\tilde D_4=1/2$ (non-integer). | combinatorial topology count |
+| 79 | Conway $V^{s\natural}$ contribution first enters the BV loop expansion at $\hbar^6$. | Pentagon obstructions enter the MC tower at integer orders $\hbar^{3k}$. | Conway module characters require $\mathrm{Co}_0$-equivariance, not just $K(1)$-equivariance. Pentagon obstructions $[\phi^{(3k)}]$ through $\hbar^{11}$ live in $K(1)$-cohomology. | Conway first enters at $\hbar^{12}$: $[\phi^{(3)}]\in H^3(\mathfrak{g}_{\Delta_5})^{\mathbb{Z}/2,K(1)}$ is $K(1)$-equivariant but not $\mathrm{Co}_0$-equivariant up to $\hbar^{11}$; at $\hbar^{12}$ the depth-4 MZV $\zeta(3,3,3,3)$ enters and the $\mathrm{Co}_0$-refinement becomes visible through the Leech-lattice theta-series. Clean loop-order separation of III.B from III.A/E. | loop-order / equivariance separation |
+| 80 | Pope-Romans-Shen $W_\infty[c]$ agrees with $W_{1+\infty}$ at the classical level. | Both are $W$-algebras of infinite rank. | $W_{1+\infty}$ has generators at every nonnegative weight including a $\mathfrak{u}(1)$ current; $W_\infty[c]$ has only weights $\ge 2$. $W_{1+\infty}=W_\infty[c]\otimes\mathcal{H}$ (Heisenberg). | Different objects. $\mathrm{CoHA}(\mathbb{C}^3)=Y^+(\widehat{\mathfrak{gl}}_1)$ is the **positive half** of the affine Yangian; the classical limit is the $W_{1+\infty}$ current subalgebra, not the full Yangian nor $W_\infty[c]$. | $W_{1+\infty}$ vs $W_\infty[c]$ distinction |
+| 81 | Multi-wave oscillation in numerical values is evidence of convergence. | Iterative adversarial attacks naturally refine. | Values that flip sign or magnitude across adjacent waves without independent path-verification are **not** converging — they are adversarially ping-ponging. Examples: Leech root norm ($2\to 6\to 2$); Witten integer-lift $c(1,2,\pm 2)$ ($+1\to -2$); $c(28)$ Borcherds coefficient oscillations. | Convergence threshold: two consecutive waves with **zero** sign flips or value corrections on any coefficient claimed "verified". Until reached, every numerical claim needs three independent path-verifications (direct computation, alternative formula, limiting case, symmetry, cross-family, literature anchor). Use `compute/lib/` whole-object verifier (WOV) to lock values. | oscillation-is-not-convergence |
+| 82 | Automated CG-rectify cascades preserve Wave-23/24/25 inscriptions. | The rectification hook scrubs bookkeeping vocabulary but targets only tags, not mathematical content. | The hook-cascade on 2026-04-20/21 removed ~7 Wave-23/24/25 substantive inscriptions (Beilinson Stab-48, Kazhdan Selmer, Costello master BV, Drinfeld GRT-super, Gelfand rank-162 MTC, Gaiotto four siblings, Witten master $L$-value correction) as collateral because those inscriptions contained "Wave N"/"DNA"/"AP\d+" tags in prose. | Mathematical inscriptions must be **bookkeeping-free from the first keystroke** to survive CG-rectify cascades. Named section/remark titles denote mathematical objects, not waves. Equations bear mathematical labels, not catalogue IDs. Agent prompts for chapter-body inscriptions must include the forbidden-vocabulary constraint. | hook-cascade content loss |
+| 83 | Agent deliverable reports reliably reflect what was written to disk. | Agents complete tasks and summarise via reports. | Multiple agents returned truncated reports despite high tool-use counts (Polyakov Wave-23/24 $e_k$: 52+ tool calls → thin report; Gelfand Wave-25 $\Psi$-siblings: ran 957s → empty summary). Content must be verified via grep, not trusted from agent summary. | After every agent completion, verify inscription via `grep -l` for key theorem labels, proposition names, specific formula coefficients. Never assume agent-report truthfully reflects disk state. | agent-report-vs-disk mismatch |
+| 84 | Saito-Kurokawa spinor factorisation $L(s,\Delta_5,\mathrm{spin})=\zeta(s-5/2)\zeta(s-7/2)L(s-1/2,\Delta_{12})$ connects Master L-value target to elliptic-Ramanujan. | The factorisation is correct for the spinor $L$-function. | The BV 1-loop determinant couples to the paramodular **standard** $L$-function, not the spinor. The Saito-Kurokawa identity applies to the spinor $L$, a different $\widehat{\mathrm{GSp}_4}$-representation. | Correct chain: spinor factorisation relates $\Delta_5$-spin to $\Delta_{12}$-elliptic; BV regulator requires $\Delta_5$-standard. Bridge via Waldspurger squaring at unramified places relates $\Delta_5$-standard to $\Delta_{10}$-standard; no identity links $\Delta_5$-standard to $\Delta_{12}$-elliptic-adjoint directly. Gaiotto Wave-25 proposal $L'(0,\mathrm{ad}^0\rho_{\Delta_{12}})$ via Zagier Kronecker-limit is **incompatible** with Witten $L'(0,\Delta_5,\mathrm{std})$ identification; the correct regulator is Witten's through Bruinier-Kühn. | L-function pathway |
+| 85 | $\kappa_{\mathrm{BKM}}=\kappa_{\mathrm{ch}}+\chi(\mathcal{O}_{\mathrm{fiber}})$ on K3×E. | $\kappa_{\mathrm{ch}}^{\mathrm{K3}\times E}=3$ (Künneth-additive from $\kappa_{\mathrm{ch}}^{K3}=2$ and $\kappa_{\mathrm{ch}}^E=1$) plus $\chi(\mathcal{O}_E)=0$ is suggestive. | This coincidence holds only at $N=1$ (K3×E via the BKM family index). It **fails** for all $N\ge 2$ — the naive additive decomposition is an $N=1$ numerical accident, not a structural identity. | Use family-specific $c_N(0)/2$ everywhere for $\kappa_{\mathrm{BKM}}$. The $\kappa_{\mathrm{ch}}$ of $\mathbf{H}_{\Delta_5}$ is not the additive K3×E Künneth — it is the categorical $\Phi_3$-invariant, route-dependent (six-routes pentagon in Vol III). Different $\kappa_\bullet$'s for different constructions are intrinsic, not coincidental. | N=1 coincidence |
+| 86 | The six-routes-to-G(K3×E) programme applies $\Phi$ six times. | $\Phi$ is a symmetric-monoidal functor; applying it to different inputs gives different outputs. | Six routes are six **different constructions** witnessing the same $\Phi_3$-output, not six $\Phi_3$-applications. Each route takes a different CY-input category (CoHA, Schiffmann-Vasserot, Maulik-Okounkov, Borcherds, Toda, DMVV); $\Phi_3$ outputs the same chiral algebra from each via a pentagon colimit. | $\Phi$ gives ONE output per category. Different $\kappa$-values come from different constructions, not different $\Phi$-applications. The six routes stratify by lattice rank $\rho^{R_i}\in\{3,12,24\}$ (generator level), not by $\kappa_{\mathrm{ch}}$ which is route-independent as a categorical invariant. | route / application confusion |
+| 87 | Vol I abstract's "first paramodular eigenform $f_{16}$ of weight 16" refers to $\Delta_5$ or its kin. | There is a canonical "first paramodular eigenform." | The first paramodular eigenform is $\Delta_5$ at weight 5 (Poor-Yuen 2015: $\dim S_k(K(1))=0$ for $k<5$, $=1$ for $k=5$). "$f_{16}$" would be a weight-16 form; there are multiple at that weight, and it cannot be "first". | Pseudo-character statement $S^{\mathrm{ps}}_1(T_p)=a_p(f_{16})+p^8+p^9$ ($\perp$ retracted per canonical preamble: the programme-canonical symbol is the Chenevier determinant $D^{\mathrm{Chen}}_1(T_p)$; see Vol I Pattern 295 / W25, Vol I `chapters/theory/derived_langlands.tex` Remark `rem:dl-w25-determinant-not-pseudocharacter`) likely confuses $\Delta_{10}=\mathrm{Ik}(\Delta_{E_6})$ (where $\Delta_{E_6}\in S_{26}(\mathrm{SL}_2(\mathbb{Z}))$, $E_6$ indexing the weight-18 ratio with $\Delta$) with the non-existent "$f_{16}$". Correct Hecke dictionary: $\lambda_p(\Delta_{10})=a_p(\Delta_{E_6})+p^8+p^9$ where $\Delta_{E_6}$ is the unique weight-26 SL$_2$ cusp form. Purge "$f_{16}$" references; anchor on named forms $\Delta_5$, $\Delta_{10}=I_2(\Delta_{E_6})$. | phantom eigenform naming |
+| 88 | Chiral-Hochschild period identity $\chi_3 = 2\mathrm{Vol}(E)(2\pi i)^3$ lies in the full motivic MZV ring $\mathrm{MZV}^{\mathrm{mot}}$ (Deligne-Goncharov 2005); Vol III CoHA Casimir (Path A) and Kuznetsov relative HPD (Path D) readings expand in $\mathrm{grt}_1^{\mathrm{mot}}$-stable periods. | Full motivic MZV framework (Deligne-Goncharov 2005 *Ann Sci ENS* 38) gives the mixed-Tate Galois $\mathrm{grt}_1^{\mathrm{mot}}$ acting on motivic MZVs; periods arising from Arnold-form iterated integrals $\int\eta_{ij}\wedge\cdots\wedge\eta_{k\ell}$ on $\mathrm{Conf}_n(X)$ admit genuine motivic lifts (Brown 2012 *Ann Math* 175 motivic basis). | Scope inflation. The Arnold forms $\eta_{ij}=d\log|z_{ij}|^2$ that witness the chain-level $\chi_3$ cocycle on $\mathrm{Conf}_n(E)$ are **single-valued real**; the period pairing factors through Brown 2013 *Ann Math* 175 projection $\mathrm{proj}:\mathrm{MZV}^{\mathrm{mot}}\to\mathrm{MZV}^{\mathrm{sv}}$. The $\zeta(2)$-weighted chain contribution formally lives in $\mathrm{MZV}^{\mathrm{mot}}_2$ but projects to $\zeta^{\mathrm{sv}}(2)=0$, and so does not survive into the observable Schiffmann-Vasserot Casimir pairing on $K^T(\mathrm{Hilb}^n\mathrm{K3})$ (Path A) nor into the Kuznetsov relative HPD Euler pairing on $D^b\mathrm{Coh}(\mathrm{K3}\times E)$-Kuznetsov components (Path D). Conflating the two rings predicts spurious $\zeta(2)$-weighted terms that categorical $D^b$-level and $K^T$-localisation computations rule out. | Chiral-Hochschild periods live in $\zeta^{\mathrm{sv}}$ (Brown 2013 single-valued MZVs), NOT in $\mathrm{grt}_1^{\mathrm{mot}}$-stable full motivic MZVs. Three sites: **chain-level** ($\eta_{ij}$-integrals on $\mathrm{Conf}_n(E)$, rational-coefficient), **motivic** ($\mathrm{MZV}^{\mathrm{mot}}$ target of the period map), **single-valued** ($\zeta^{\mathrm{sv}}$ image under Brown's projection). Identifications: $\zeta^{\mathrm{sv}}(2)=0$, $\zeta^{\mathrm{sv}}(3)=2\zeta(3)$, $\zeta^{\mathrm{sv}}(2k+1)=2\zeta(2k+1)$ at odd weight; at depth $\ge 2$, $\zeta^{\mathrm{sv}}$ is a **proper** subring of $\mathrm{MZV}^{\mathrm{mot}}$ (Schnetz 2014 *Commun Num Theor Phys* 8; Panzer 2015 *Commun Num Theor Phys* 9). **Vol III reading**: single-valued scope constrains Vol III's CoHA Casimir (Path A) and Kuznetsov relative HPD (Path D) readings of $\chi_3$. Path A: $\mathrm{CoHA}\to Y^+(\widehat{\mathfrak{gl}}_1)\to\mathrm{VOA}\to\mathrm{ChirAlg}$ (Schiffmann-Vasserot 2017 *IHES* 118) composed with Brown 2013 $\mathrm{proj}$ lands the Schiffmann-Vasserot Casimir pairing in $\zeta^{\mathrm{sv}}$, not full motivic. Path D: the Kuznetsov relative HPD pairing factors through the Addington-Thomas cubic-fourfold intermediate-Jacobian Euler pairing (Kuznetsov-Markushevich 2009; Addington-Thomas 2014 *Duke Math J* 163), itself a single-valued weight-3 Hodge period. Theorem H amplitude bound $\{0,1,2\}$ is recovered as a **single-valued consequence** of $\zeta^{\mathrm{sv}}(2)=0$. Primary: Brown 2013 *Ann Math* 175; Brown 2013 *Ann Sci ENS* 46; Schnetz 2014; Deligne-Goncharov 2005; Panzer 2015. Cross-ref: Vol I AP901 + Theorem `thm:sv-scope-restriction-chiralhoch` in `/Users/raeez/chiral-bar-cobar/chapters/theory/motivic_shadow_tower.tex`; AP888 (shadow-ChirHoch bridge); seven-path $\chi_3$ comparison theorem; Vol II V2-AP126 (one-loop Quillen / cyclic chiral homology single-valued landing). | AP-CY141 |
+
+## Entry 87-A: Chenevier determinant, not Taylor--Wiles pseudo-character (Vol III long-form, W25 canonical preamble)
+
+**(a) Ghost (what is real).** The Taylor 1991 *Duke Math J* 63 Thm 2.1
+pseudo-character $S^{\mathrm{ps}} : \mathbb T^{\mathrm{par}}_1 \to
+\mathcal O_E$ is a real object with axioms (symmetry / multiplicativity
+/ dimension-$d$). Rouquier 1996 *J Algebra* 180 extended the framework.
+The Hecke-algebra 4-tuple $(\Sigma_1, \Sigma_2, \Sigma_3, \Sigma_4)$
+computed from the Saito--Kurokawa lift Satake parameters of
+$\Delta_{10} = \mathrm{Ik}(\Delta_{E_6})$ is correct data (Ikeda 2001
+*Ann Math* 154 Cor 16.2). Chenevier 2014 Thm 2.12 establishes the
+equivalence pseudo-characters $\leftrightarrow$ determinants on
+**reduced rings**; in that reduced-ring setting the Taylor--Wiles
+pseudo-character already recovers the 4-dimensional spinor Galois
+representation $\rho_{\Delta_{10}} : \mathrm{Gal}(\overline{\mathbb Q}
+/ \mathbb Q) \to \mathrm{GSp}_4(\mathcal O_E)$ (Weissauer 2005 *LNM*
+1868 \S 4; Laumon 2005 *Publ IHES* 102 Thm I.10).
+
+**(b) Precise error.** Conflates the **multilinear-symmetric trace
+pseudo-character** (Taylor 1991; older, weaker formalism) with the
+**Chenevier 2014 single homogeneous polynomial law** (newer, stronger
+formalism). On non-reduced rings --- precisely the deformation rings
+$R^{\mathrm{def}}_{\Delta_5}$ around the Saito--Kurokawa lift, the
+subject of Open Problem #6 / W26.6 --- the Chenevier determinant
+strictly extends the pseudo-character framework, capturing nilpotent
+Cayley--Hamilton witnesses (mod-$\ell^n$ Cayley--Hamilton identities
+for reducible $\rho$ with non-trivial nilpotent deformations) that
+$S^{\mathrm{ps}}$ silently drops. For Saito--Kurokawa
+$\rho_{\Delta_{10}} = \rho_{\Delta_{E_6}} \oplus \chi^8 \oplus \chi^9$
+(reducible Arthur parameter $\psi_{\Delta_{10}} = \phi_{\Delta_{E_6}}
+\boxtimes \mathrm{Sym}^1$), the type-correct Galois-side invariant
+is the Chenevier determinant.
+
+**(c) Correct.** The arithmetic anchor for $\mathbf H_{\Delta_5}$'s
+Galois-side invariants is the **Chenevier determinant**
+$$D^{\mathrm{Chen}} : \mathbb T^{\mathrm{par}}_1 \to \mathcal O_E
+\otimes \mathbb Z_\ell,$$
+a 4-dimensional homogeneous polynomial law (Chenevier 2014
+arXiv:1301.0635 \S 1.2 Def 1.5 Prop 1.9) satisfying multiplicativity,
+unitality, and Cayley--Hamilton as a **single axiom**. Its graded
+components $(\Sigma_1, \Sigma_2, \Sigma_3, \Sigma_4)$ at Hecke generators
+$T_p$ recover the Saito--Kurokawa Satake data via the reciprocal
+spinor $L$-factor expansion
+$$\prod_{i=1}^4 (1 - \alpha_i x) = 1 - \Sigma_1 x + \Sigma_2 x^2 -
+\Sigma_3 x^3 + \Sigma_4 x^4,$$
+with
+$$\Sigma_1(T_p) = a_p(f_{16}) + p^8 + p^9, \quad \ldots, \quad
+\Sigma_4(T_p) = p^{32},$$
+where $f_{16} = E_4 \cdot \Delta \in S_{16}(\mathrm{SL}_2(\mathbb Z))$
+is the weight-16 primary form (Pattern 267). Verified empirically at
+46 primes $p \le 199$. Factorisation
+$D^{\mathrm{Chen}}_{\Delta_{10}} = D_{\rho_{\Delta_{E_6}}} \otimes
+D_{\chi_\ell^8 \oplus \chi_\ell^9}$, unramified outside $\{2, \ell\}$;
+Hecke field $\mathbb Q(\lambda_p) = \mathbb Q$, minimal coefficient
+ring $\mathcal O_E = \mathbb Z$. **Non-reduced-ring extension** (Open
+Problem #6 / W26.6): on $R^{\mathrm{def}}_{\Delta_5}$ the Chenevier
+determinant is well-defined via the polynomial-law axioms; the
+Taylor--Wiles pseudo-character is not.
+
+**Vol III reading**: $\Phi_3$-functor output $\mathbf H_{\Delta_5}$
+carries Hecke-side data $(\Sigma_1, \ldots, \Sigma_4)$ that reads
+directly off $D^{\mathrm{Chen}}$ on the paramodular Hecke algebra
+$\mathbb T^{\mathrm{par}}_1$; the CY-to-chiral pairing and the Vol III
+Hodge-theoretic regulators couple the $\Sigma_i$ to $L$-function
+derivatives $L'(0, \Delta_5, \mathrm{std})$ via Waldspurger squaring
+(Waldspurger 1980 *Compositio* 54; Furusawa--Morimoto 2014 *Adv Math*
+255) and the Bruinier--Kühn / Yoshikawa BGS regulator. The
+pseudo-character framing is a reduced-ring proxy insufficient for the
+non-reduced deformation rings measuring $\Phi_3$-output
+deformation-theoretic corrections.
+
+**Three verification paths**: (V1) Chenevier 2014 arXiv:1301.0635
+Thm 2.12 reduced-ring equivalence with Taylor--Wiles formalism;
+(V2) Cayley--Hamilton of the 4-dim spinor representation of
+$\mathrm{GSp}_4$ on $\mathbb T^{\mathrm{par}}_1$ confirms
+$\Sigma_5 \circ \mathrm{Alt}_5 \equiv 0$; (V3) 46-prime empirical
+verification ($p \le 199$) invariant under the axiom-framework shift.
+
+**Primary literature**: Chenevier 2014 arXiv:1301.0635
+*Automorphic Forms and Galois Representations* Vol I \S 1.2 Def/Prop 1.9,
+Thm 2.12; Taylor 1991 *Duke* 63 Thm 2.1; Ikeda 2001 *Ann Math* 154
+Cor 16.2; Weissauer 2005 *LNM* 1868 \S 4; Laumon 2005 *Publ IHES* 102
+Thm I.10; Pitale--Saha--Schmidt 2014 *Memoirs AMS* 232; Poor--Schmidt--Yuen
+2020 *Nagoya Math J* 239.
+
+**Cross-volume cross-reference**: Vol I AP353 / AP902 / Pattern 295 /
+Remark `rem:dl-w25-determinant-not-pseudocharacter` and Theorem alias
+`thm:dl-determinant-delta10` in `chapters/theory/derived_langlands.tex`
+(Vol I `notes/first_principles_cache_comprehensive.md` cache entry 422,
+`notes/antipatterns_catalogue.md` AP353--AP355); Vol II AP-V2-23
+in `notes/antipatterns_catalogue.md` and W27-A entry 135 in tip cache
+`notes/first_principles_cache.md` and comprehensive cache entry 135
+(`notes/first_principles_cache_comprehensive.md`); Vol III AP-CY35 /
+AP-CY141 in `notes/antipatterns_catalogue.md`, tip cache row 8 in
+`appendices/first_principles_cache.md`, and comprehensive cache entry
+55 (table) + this W25 long-form entry.
+**Distinct** from Creutzig--Ridout 2013 *Nucl Phys B* 875 Thm 3.4
+logarithmic-VOA coend pseudo-traces on projective covers of
+non-semisimple MTCs with Jordan-block structure (appearing in Vol III
+`modular_trace.tex`, `quantum_groups_foundations.tex`): those satisfy
+a Kerler--Lyubashenko modified-trace axiom set on MTCs, categorically
+unrelated to the Chenevier polynomial-law axiomatisation on Hecke
+algebras; the two "pseudo-" objects share a name and nothing else.
+Creutzig--Ridout usage is **not** renamed; only Chenevier-formalism
+targets are relabelled $S^{\mathrm{ps}} \to D^{\mathrm{Chen}}$.
+
+**Type**: pseudo-character / determinant scope (older-weaker /
+newer-stronger on non-reduced rings).
+
+---
+
+## Entry 88: Single-valued MZV scope of chiral-Hochschild periods (Vol III long-form, W28-A)
+
+**Wrong claim.** The chiral-Hochschild period identity
+$\chi_3 = 2\mathrm{Vol}(E)(2\pi i)^3$ lies in the full motivic
+MZV ring $\mathrm{MZV}^{\mathrm{mot}}$ of Deligne-Goncharov 2005,
+with coefficients stable under the mixed-Tate Galois
+$\mathrm{grt}_1^{\mathrm{mot}}$; Vol III's CoHA Casimir reading
+(Path A) and Kuznetsov relative HPD reading (Path D) of $\chi_3$
+$a\text{-}priori$ expand in
+$\mathrm{grt}_1^{\mathrm{mot}}$-stable full motivic MZVs.
+
+**Ghost theorem.** The full motivic MZV framework of
+Deligne-Goncharov 2005 *Ann Sci ENS* 38 gives
+$\mathrm{MZV}^{\mathrm{mot}}$ as a Hopf algebra with the motivic
+Galois $\mathrm{grt}_1^{\mathrm{mot}}$ acting by the motivic
+coaction $\Delta: \mathrm{MZV}^{\mathrm{mot}} \to
+\mathrm{MZV}^{\mathrm{mot}} \otimes \mathcal U$ (Brown 2012
+*Ann Math* 175). Iterated Arnold-form integrals
+$\int \eta_{i_1 j_1} \wedge \cdots \wedge \eta_{i_n j_n}$ on
+$\mathrm{Conf}_n(E)$ admit motivic lifts through the de Rham
+period isomorphism $\mathrm{per}^{\mathrm{dR}}:
+H^{\mathrm{dR}}(\mathrm{Conf}_n(E)) \otimes \mathbb C \cong
+H^{\mathrm{B}}(\mathrm{Conf}_n(E)) \otimes \mathbb C$, landing
+rationally in $\mathrm{MZV}^{\mathrm{mot}}$. The chiral-Hochschild
+period $\chi_3 = 2\mathrm{Vol}(E)(2\pi i)^3$ is a genuine
+weight-3 period and has a natural motivic home. The Vol III
+Schiffmann-Vasserot Casimir pairing on
+$K^T(\mathrm{Hilb}^n\mathrm{K3})$ (Schiffmann-Vasserot 2017
+*IHES* 118) and the Kuznetsov relative HPD pairing on Kuznetsov
+components of $D^b\mathrm{Coh}(\mathrm{K3}\times E)$
+(Kuznetsov-Markushevich 2009; Addington-Thomas 2014) both
+involve integration of Arnold-form-type differential data
+against categorical characters, giving $a\text{-}priori$
+motivic-period output.
+
+**Precise error.** Asserting that the chiral-Hochschild period
+identity lies in the full motivic ring
+$\mathrm{MZV}^{\mathrm{mot}}$ with
+$\mathrm{grt}_1^{\mathrm{mot}}$-stable coefficients is a scope
+inflation. The Arnold forms $\eta_{ij} = d\log|z_{ij}|^2$ that
+witness the chain-level $\chi_3$ cocycle on $\mathrm{Conf}_n(E)$
+are single-valued real — they satisfy
+$\eta_{ij} = \tfrac{1}{2}(d\log(z_{ij}) + d\log(\bar z_{ij}))$
+and carry no monodromy on $\mathrm{Conf}_n(E)$; the period
+pairing therefore factors through Brown 2013 *Ann Math* 175
+projection
+$\mathrm{proj}: \mathrm{MZV}^{\mathrm{mot}} \to
+\mathrm{MZV}^{\mathrm{sv}}$. At weight 2,
+$\zeta^{\mathrm{sv}}(2) = 0$ (Brown 2013 Thm 3.4); the
+$\zeta(2)$-weighted chain contribution formally lives in
+$\mathrm{MZV}^{\mathrm{mot}}_2$ but projects to zero and does
+not survive into the observable Schiffmann-Vasserot Casimir
+pairing nor into the Kuznetsov relative HPD Euler pairing.
+Conflating $\mathrm{MZV}^{\mathrm{mot}}$ with
+$\mathrm{MZV}^{\mathrm{sv}}$ predicts spurious $\zeta(2)$-weighted
+contributions that categorical $D^b$-level computations and
+$K^T$-localisation rule out.
+
+**Correct relationship.** Chiral-Hochschild periods live in
+$\zeta^{\mathrm{sv}}$ (Brown 2013 single-valued MZVs), not in
+$\mathrm{grt}_1^{\mathrm{mot}}$-stable full motivic MZVs. Three
+distinct sites must be named: **chain-level** (explicit
+$\eta_{ij}$-integrals on $\mathrm{Conf}_n(E)$,
+rational-coefficient); **motivic**
+($\mathrm{MZV}^{\mathrm{mot}}$ target of the period map);
+**single-valued** ($\zeta^{\mathrm{sv}}$ image under Brown's
+projection). Canonical identifications (Brown 2013 Thm 3.4;
+Schnetz 2014 Thm 2.3):
+$\zeta^{\mathrm{sv}}(2) = 0$,
+$\zeta^{\mathrm{sv}}(3) = 2\zeta(3)$,
+$\zeta^{\mathrm{sv}}(2k+1) = 2\zeta(2k+1)$ at odd weight; at
+depth $\ge 2$, $\zeta^{\mathrm{sv}}$ is a **proper** subring of
+$\mathrm{MZV}^{\mathrm{mot}}$ (Panzer 2015 *Commun Num Theor
+Phys* 9 single-valued algorithms; Schnetz 2014 *Commun Num Theor
+Phys* 8).
+
+**Vol III reading (specific to CoHA Casimir and Kuznetsov
+relative HPD).** Single-valued scope constrains Vol III's CoHA
+Casimir (Path A) and Kuznetsov relative HPD (Path D) readings
+of $\chi_3$.
+
+*Path A (CoHA Casimir).* The CoHA
+$\mathrm{CoHA}(\mathbb C^3) = Y^+(\widehat{\mathfrak{gl}}_1)$
+is the positive half of the affine Yangian
+(Schiffmann-Vasserot 2017 *IHES* 118 Thm 1.1); composed with
+the Yangian $\to$ VOA arrow (Feigin-Tsymbaliuk 2011
+arXiv:1101.0055) and the VOA $\to$ ChirAlg inclusion (standard),
+this gives the canonical path
+$\mathrm{CoHA} \to Y^+ \to \mathrm{VOA} \to \mathrm{ChirAlg}$.
+The Schiffmann-Vasserot Casimir pairing on
+$K^T(\mathrm{Hilb}^n\mathrm{K3})$ is a weight-3 period; composing
+with the Brown 2013 projection $\mathrm{proj}$ lands the Casimir
+pairing in $\zeta^{\mathrm{sv}}$, not full motivic. The
+single-valued image forces the $\zeta(2)$-weighted Casimir
+contribution to vanish and matches the manifest $\{0, 1, 2\}$
+concentration of $\mathrm{ChirHoch}^\bullet$.
+
+*Path D (Kuznetsov relative HPD).* The Kuznetsov relative HPD
+pairing on $D^b\mathrm{Coh}(\mathrm{K3}\times E)$-Kuznetsov
+components factors through the Addington-Thomas cubic-fourfold
+intermediate Jacobian $J^3(X_4)$ via the Mukai K3-Kuznetsov
+identification (Addington-Thomas 2014 *Duke Math J* 163 Thm 1.2;
+Kuznetsov-Markushevich 2009). The intermediate Jacobian $J^3$
+carries a real Hodge structure; the induced period pairing is a
+**single-valued weight-3 Hodge period** via the real de Rham
+structure of $\mathrm{K3}\times E$. The Euler pairing
+$\chi_3^{\mathrm{Kuz}}(\alpha, \beta) = \chi_E(\alpha, \beta)$
+lands in $\zeta^{\mathrm{sv}}$ by the real-Hodge factorisation;
+full-motivic overcount is ruled out by the Hodge symmetry
+$F^2 \cap \bar F^2 = H^{2,2}$.
+
+**Three verification paths.**
+(i) **Direct computation**: the Arnold form
+$\eta_{ij} = d\log|z_{ij}|^2$ factors through the single-valued
+real-analytic structure of $\mathbb P^1 \setminus \{0, 1, \infty\}$
+at punctures, explicitly matching Brown 2013 *Ann Sci ENS* 46
+Thm 2.1 single-valued multiple polylogarithm construction.
+(ii) **Alternative formula**: the Schiffmann-Vasserot Casimir
+pairing is the $K$-theoretic specialisation of the cohomological
+CoHA Casimir; the single-valued landing is preserved under
+$K$-theoretic $\to$ cohomological degeneration by Chern-character
+compatibility with $\mathrm{proj}$.
+(iii) **Limiting case**: at $\mathrm{ChirHoch}^2$, single-valued
+projection predicts $\zeta^{\mathrm{sv}}(2) \cdot \mathrm{coeff} = 0$,
+matching the manifest Theorem H amplitude bound $\{0, 1, 2\}$
+and ruling out the naive $\mathrm{MZV}^{\mathrm{mot}}_2 \ne 0$
+prediction. Cross-verification with Kuznetsov HPD Euler pairing:
+the cubic-fourfold intermediate Jacobian has Hodge structure
+$\mathbb Z(-1) \oplus \mathbb Z(-2) \oplus \mathbb Z(-1)$,
+giving weight-3 real period content only — no weight-2 piece
+survives.
+
+**Primary citations.** Brown 2013 "Mixed Tate motives over
+$\mathbb Z$" *Ann Math* 175; Brown 2013 *Ann Sci ENS* 46
+single-valued multiple polylogarithms; Schnetz 2014 *Commun
+Num Theor Phys* 8 single-valued zeta; Deligne-Goncharov 2005
+*Ann Sci ENS* 38 mixed-Tate motivic framework; Panzer 2015
+*Commun Num Theor Phys* 9 single-valued algorithms;
+Schiffmann-Vasserot 2017 *IHES* 118 CoHA Casimir;
+Kuznetsov-Markushevich 2009 relative HPD;
+Addington-Thomas 2014 *Duke Math J* 163 cubic-fourfold
+Kuznetsov-component identification;
+Feigin-Tsymbaliuk 2011 arXiv:1101.0055 Yangian-VOA.
+
+**Cross-references.** Vol I AP901 + Theorem
+`thm:sv-scope-restriction-chiralhoch` in
+`/Users/raeez/chiral-bar-cobar/chapters/theory/motivic_shadow_tower.tex`
+(reference inscription with five attack/heal cycles);
+AP888 (shadow-ChirHoch bridge); seven-path $\chi_3$ comparison
+theorem (Paths A-G); Vol II V2-AP126 (one-loop Quillen / cyclic
+chiral homology single-valued landing); Vol III cache row V15
+(tip-table parallel entry).
+
+**Confusion type.** Full-motivic / single-valued scope
+(Deligne-Goncharov vs Brown 2013 projection on chiral-Hochschild
+periods).
+
+**Status.** Catalogued as AP-CY141. Inscribed in
+`/Users/raeez/calabi-yau-quantum-groups/notes/antipatterns_catalogue.md`
+(long-form) and
+`/Users/raeez/calabi-yau-quantum-groups/appendices/first_principles_cache.md`
+(tip-table row V15).
+
+### W29-A. Humbert--Heegner admissibility filter $n \equiv 3, 5 \pmod 8$ on the pentagon coboundary tower $\phi^{(n)}$ (AP-CY142 / FM25)
+
+**Ghost theorem.** The pentagon coboundary tower
+$\{\phi^{(n)}\}_{n \ge 3}$ of Definition `def:phi-n-pent-EK` (Vol I
+`chapters/theory/shadow_tower_higher_coefficients.tex`) has a
+well-defined three-filter admissibility structure on the K3
+$A_\infty$-Humbert regime of the BKM crown algebra
+$\mathbf H_{\Delta_5}$. Eichler--Zagier 1985 polar-support cutoff
+$\Delta \ge -1$ on the paramodular index-1 K3 elliptic genus is a real
+theorem (Eichler--Zagier *Prog Math* 55 Thm 9.3 with $C(-1) = 2$,
+$C(0) = 20$, $C(\Delta) = 0$ for $\Delta < -1$). Gritsenko--Nikulin
+1998 *J Reine Angew Math* 507 paramodular lift of the K3 elliptic
+genus gives explicit $c_{\Phi_{10}/\eta^{24}}$ Fourier data in the
+admissible regime. Brown 2012 *Ann Math* 175 Thm 1 Padovan recurrence
+$d_n = d_{n-2} + d_{n-3}$ with seeds $(1, 0, 1)$ counts the
+motivic-MZV transcendence basis at weight $n$.
+
+**Precise error.** Bare Padovan-dimension $d_n$ count WITHOUT the
+Humbert--Heegner admissibility filter overcounts on the K3--Humbert
+regime. Most Padovan-admissible $n \ge 3$ (all $n \ge 3$ except
+$n = 4$) are Humbert--Heegner-FORBIDDEN: the paramodular lattice sum
+$\sum_{4NM - \ell^2 = -D_n} c_{\Phi_{10}/\eta^{24}}(N, \ell, M)$ with
+$D_n = (n-3)/2$ is non-empty iff $D_n \bmod 4 \in \{0, 1\}$,
+equivalently $n \equiv 3, 5 \pmod 8$ by odd-$n$ integrality. Asserting
+a non-zero $\phi^{(n)}$ on the K3--Humbert regime on the sole basis of
+$d_n > 0$ (e.g., at $n = 7, 9, 12, 24, 26, \dots$) silently conflates
+the MZV-transcendence count with the paramodular Humbert--Heegner
+signature and drops the Heegner--Bruinier obstruction class
+$\mathrm{ob}^{\mathrm{HB}}_n \in H^2(H_n, \mathrm{Sym}^2
+T^{\mathrm{poly}}_{\mathrm{ch}} |_{H_n})$ of Bruinier-torsion order
+$c_n$ (Bruinier 2002 LNM 1780 §5 Chern class on Heegner divisors).
+
+**Correct relationship.**
+$\phi^{(n)} \big|_{\mathrm{K3\text{-}Humbert}} \ne 0$ iff three filters
+all satisfied:
+ (i) $n \equiv 3, 5 \pmod 8$ (Humbert--Heegner signature);
+ (ii) Padovan $d_n > 0$ (MZV-basis non-empty);
+ (iii) $D_n \le 1$ (Eichler--Zagier polar-support cutoff).
+
+First non-vanishing cases: $\phi^{(3)}$ = Drinfeld pentagon cocycle
+($D_3 = 0$, $C(0) = 20 \ne 0$);
+$\phi^{(5)} = -2 \cdot [\mathrm{gen}]^{\otimes 5}$ with
+Gritsenko--Nikulin 1998 Table 2 sign on $\Phi_{10}/\eta^{24}$
+($D_5 = 1$, $C(-1) = 2 \ne 0$). Humbert--Heegner admissible
+$n \in [3, 36]$: $\{3, 5, 11, 13, 19, 21, 27, 29, 35\}$.
+Padovan-positive HH-forbidden $n$ (e.g.,
+$4, 6, 7, 8, 9, 10, 12, 14, 15, 16, 17, 18, 20, 22, 23, 24, 25, 26,
+28, 30, 31, 32, 33, 34, 36$) all give $\phi^{(n)} = 0$ on
+K3--Humbert. HH-admissible $n \ge 11$ give $\phi^{(n)} = 0$ by
+Eichler--Zagier polar support ($D_n \ge 4 > 1$).
+
+**Condensed reference table** (Padovan $d_n$, discriminant $D_n =
+(n-3)/2$, Humbert--Heegner admissibility Y/N/- for $n$ even, and
+$\phi^{(n)}$-K3 value):
+
+| $n$ | $d_n$ | $D_n$ | HH | $\phi^{(n)}$-K3 |
+|-----|-------|-------|----|-----------------|
+| 3   | 1     | 0     | Y  | non-zero (Drinfeld pentagon cocycle) |
+| 4   | 0     | 1/2   | -- | 0 (Padovan-zero)                     |
+| 5   | 1     | 1     | Y  | $-2 \cdot [\mathrm{gen}]^{\otimes 5}$ |
+| 6   | 1     | 3/2   | -- | 0 (non-integer $D_n$)                 |
+| 7   | 1     | 2     | N  | 0 (HH-forbidden)                      |
+| 8   | 2     | 5/2   | -- | 0 (non-integer $D_n$)                 |
+| 9   | 2     | 3     | N  | 0 (HH-forbidden)                      |
+| 10  | 2     | 7/2   | -- | 0 (non-integer $D_n$)                 |
+| 11  | 3     | 4     | Y  | 0 (polar: $D_n > 1$)                  |
+| 12  | 4     | 9/2   | -- | 0                                     |
+| 13  | 5     | 5     | Y  | 0 (polar)                             |
+| 19  | 17    | 8     | Y  | 0 (polar)                             |
+| 21  | 28    | 9     | Y  | 0 (polar)                             |
+| 27  | 90    | 12    | Y  | 0 (polar)                             |
+| 29  | 149   | 13    | Y  | 0 (polar)                             |
+| 35  | 504   | 16    | Y  | 0 (polar)                             |
+
+**Vol III reading (admissible discriminant set in $c_{K3}$ Fourier
+expansion).** The Humbert--Heegner admissibility filter is tied to the
+admissible discriminant set in the $c_{K3}$ Fourier expansion of the
+K3 elliptic genus: only $D_n \in \{0, 1\} \pmod 4$ discriminants
+contribute to the paramodular lattice sum
+$\sum_{4NM - \ell^2 = -D_n} c_{\Phi_{10}/\eta^{24}}(N, \ell, M)$.
+Fourier coefficients $c_{K3}(-D_n)$ at non-admissible $D_n$ either
+vanish by the polar-support cutoff (when $D_n > 1$) or correspond to
+HH-forbidden non-paramodular signatures (when $D_n \in \{2, 3\} \pmod
+4$). The CY-3 anchor $K3 \times E$ sits at the Humbert divisor
+$H_1 = \{\tau_{12} = 0\}$ of $\overline{\mathcal A_2}$; under the
+CY-3-to-chiral functor $\Phi_3$, the Humbert--Heegner filter on
+$\phi^{(n)}$ translates into an admissibility condition on the
+discriminants seen by $\mathbf H_{\Delta_5}$'s YD-tower weights
+$\delta^{(n)}$ (Schauenburg-bracket expansion, see AP-CY78) with
+$\lfloor n/2 \rfloor + 1$-power scaling on $\Phi_{10}/\eta^{24}$. The
+filter locks which CoHA Casimir (Path A) readings of $\chi_n$ have
+non-trivial Schiffmann--Vasserot 2017 *IHES* 118 contributions and
+which Kuznetsov relative HPD (Path D) readings have non-trivial
+Addington--Thomas 2014 *Duke Math J* 163 cubic-fourfold
+intermediate-Jacobian residues; readings at non-admissible $n$
+vanish. The filter is the Vol III chiral-algebra manifestation of the
+Vol II Swiss-cheese coloured-bar Humbert-stratification refinement
+(AP-V2-24 / V2-AP127).
+
+**Three verification paths.**
+ (i) Discriminant-form signature — the index-1 paramodular form
+ $4NM - \ell^2 \equiv -\ell^2 \pmod 4$ takes values in
+ $\{0, -1\} \pmod 4$, so $-D_n$ is representable iff
+ $D_n \in \{0, 1\} \pmod 4$, forcing $n \equiv 3, 5 \pmod 8$ by
+ odd-$n$ integrality.
+ (ii) Eichler--Zagier 1985 weak-Jacobi-form polar-support cutoff
+ ($C(\Delta) = 0$ for $\Delta < -m^2 = -1$, real theorem, *Prog
+ Math* 55 Thm 9.3).
+ (iii) Gritsenko--Nikulin 1998 paramodular lift of the K3 elliptic
+ genus with explicit $c_{\Phi_{10}/\eta^{24}}$ Fourier table: at
+ $n = 5$ the coefficient $c(-1) = 2$ matches the $\phi^{(5)} =
+ -2 \cdot [\mathrm{gen}]^{\otimes 5}$ coefficient directly.
+
+**Primary citations.** Eichler--Zagier 1985 *Prog Math* 55 Thm 9.3
+(polar-support cutoff); Gritsenko--Nikulin 1998 *J Reine Angew Math*
+507 (Humbert--Heegner structure, paramodular $\Phi_{10}/\eta^{24}$
+sign convention Table 2); Bruinier 2002 LNM 1780 §5 (Chern class on
+Heegner divisors, torsion orders $c_n$); Brown 2012 *Ann Math* 175
+Thm 1 (Padovan motivic-MZV dimension).
+
+**Cross-references.** Vol I Theorem
+`thm:phi-n-humbert-heegner-admissibility` in
+`/Users/raeez/chiral-bar-cobar/chapters/theory/shadow_tower_higher_coefficients.tex`
+(lines 4364-4433); Vol I cache row 304 (AP890) + Pattern 299
+comprehensive; Vol I `notes/antipatterns_catalogue.md` AP903-HH;
+Vol II `notes/antipatterns_catalogue.md` AP-V2-24 / V2-AP127
+(long-form partner); Vol II
+`notes/first_principles_cache.md` entry 137 + W29-A in
+`notes/first_principles_cache_comprehensive.md`. Related APs: AP-CY78
+(YD-tower weight parity $\lfloor n/2 \rfloor + 1$); AP-CY80
+(Coxeter-void at $N = 11$ — Padovan $d_{11} = 3$ but $n = 11$
+HH-admissible with $\phi^{(11)}$ polar-zero); AP-CY138 (Padovan vs
+Fibonacci); AP-CY140 (congruence-variable discipline); AP-CY141
+(single-valued MZV scope).
+
+**Confusion type.** Necessary/sufficient filter scope (Padovan
+sufficient misread; HH is the orthogonal necessary filter on
+K3-Humbert).
+
+**Status.** Catalogued as AP-CY142. Inscribed in
+`/Users/raeez/calabi-yau-quantum-groups/notes/antipatterns_catalogue.md`
+(long-form) and
+`/Users/raeez/calabi-yau-quantum-groups/appendices/first_principles_cache.md`
+(tip-table row V16).
+

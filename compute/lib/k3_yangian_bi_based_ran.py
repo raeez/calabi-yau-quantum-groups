@@ -8,7 +8,7 @@ Tannakian fibre functor omega on Rep(H_{Delta_5}).
 
 Arithmetic is concrete (mpmath or Python complex); each function
 returns structured data, not a symbolic handle.  The test file
-`compute/tests/test_k3_yangian_wave14_bi_based_ran.py` pins the
+`compute/tests/test_k3_yangian_bi_based_ran.py` pins the
 function contracts against Fermat-type K3 reference data.
 
 Primary sources

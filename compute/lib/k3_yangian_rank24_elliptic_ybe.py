@@ -22,7 +22,7 @@ from __future__ import annotations
 import numpy as np
 import time
 
-from k3_yangian_wave2_elliptic_rmatrix import (
+from k3_yangian_elliptic_rmatrix import (
     make_perm, embed_12, embed_13, embed_23,
     weierstrass_zeta, mukai_casimir, elliptic_R_series,
 )

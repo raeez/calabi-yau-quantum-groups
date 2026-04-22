@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import pytest
 
-from compute.lib.k3_yangian_wave14_M24_umbral_cocycle_order6 import (
+from compute.lib.k3_yangian_M24_umbral_cocycle_order6 import (
     character_chi23_order6,
     cocycle_class_order6,
     cocycle_order_verification,

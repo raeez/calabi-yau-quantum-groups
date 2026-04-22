@@ -53,7 +53,7 @@ from __future__ import annotations
 import math
 import numpy as np
 
-from k3_yangian_wave2_elliptic_rmatrix import (
+from k3_yangian_elliptic_rmatrix import (
     make_perm,
     embed_12,
     embed_13,

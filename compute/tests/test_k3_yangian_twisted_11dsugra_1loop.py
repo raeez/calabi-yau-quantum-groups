@@ -31,7 +31,7 @@ from __future__ import annotations
 import unittest
 from fractions import Fraction
 
-from compute.lib.k3_yangian_wave14_twisted_11dsugra_1loop import (
+from compute.lib.k3_yangian_twisted_11dsugra_1loop import (
     bruinier_multiplicities_up_to_order,
     bruinier_prop_5_1_multiplicity,
     kodaira_i1_residue_weight_integer,
@@ -46,7 +46,7 @@ from compute.lib.k3_yangian_wave14_twisted_11dsugra_1loop import (
     wave15_summary,
     weight_derivation,
 )
-from compute.lib.k3_yangian_wave14_gritsenko_additive_explicit import (
+from compute.lib.k3_yangian_gritsenko_additive_explicit import (
     k3_elliptic_genus_coefficients,
     eta_9_theta_1_fourier_coefficients,
     gritsenko_additive_lift,

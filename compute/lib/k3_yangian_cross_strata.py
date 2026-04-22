@@ -41,7 +41,7 @@ from __future__ import annotations
 import math
 import numpy as np
 
-from k3_yangian_wave2_elliptic_rmatrix import (
+from k3_yangian_elliptic_rmatrix import (
     make_perm,
     embed_12,
     embed_23,
@@ -54,7 +54,7 @@ def embed_13(M: np.ndarray, N: int) -> np.ndarray:
     r"""Embed M (N^2 x N^2) acting on slots (1, 3) into V^{(x)3}.
 
     Vectorised via einsum; O(N^4) memory, O(N^4) time.  Overrides the
-    pure-Python implementation in k3_yangian_wave2_elliptic_rmatrix.py
+    pure-Python implementation in k3_yangian_elliptic_rmatrix.py
     for tractability at N = 24.
     """
     M4 = M.reshape(N, N, N, N)  # (i1, i3, j1, j3)
@@ -63,7 +63,7 @@ def embed_13(M: np.ndarray, N: int) -> np.ndarray:
     R = np.einsum('abcd,ef->aebcfd', M4, eye)
     return R.reshape(N ** 3, N ** 3)
 
-from k3_yangian_wave4_ade_gluing import (
+from k3_yangian_ade_gluing import (
     sl_n_generators,
     cartan_killing_casimir,
     so_n_generators_definite,

@@ -57,7 +57,7 @@ from typing import Iterable
 
 import numpy as np
 
-from k3_yangian_wave2_elliptic_rmatrix import (
+from k3_yangian_elliptic_rmatrix import (
     make_perm,
     embed_12,
     embed_13,
@@ -66,7 +66,7 @@ from k3_yangian_wave2_elliptic_rmatrix import (
     mukai_casimir,
 )
 
-from k3_yangian_wave4_ade_gluing import (
+from k3_yangian_ade_gluing import (
     sl_n_generators,
     cartan_killing_casimir,
     so_n_generators_definite,

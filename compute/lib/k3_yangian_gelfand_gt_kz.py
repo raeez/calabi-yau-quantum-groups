@@ -1,5 +1,5 @@
 """
-k3_yangian_wave6_gelfand_gt_kz.py
+k3_yangian_gelfand_gt_kz.py
 
 Gelfand Wave-6 compute module. Three attacks on the stratified K3 Yangian
 claim from Waves 1-5:

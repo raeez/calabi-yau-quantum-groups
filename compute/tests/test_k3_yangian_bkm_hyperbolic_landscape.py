@@ -25,7 +25,7 @@ from __future__ import annotations
 
 import pytest
 
-from compute.lib.k3_yangian_wave19_bkm_hyperbolic_landscape import (
+from compute.lib.k3_yangian_bkm_hyperbolic_landscape import (
     CARTAN_AE3,
     CARTAN_DELTA5_REAL,
     CARTAN_E10,
@@ -425,7 +425,7 @@ def test_f3_determinant_three_independent_routes() -> None:
     """Beilinson multi-path: det(F_3) = -32 by (i) row-reduction (the
     engine's internal route via _det_fraction), (ii) cofactor expansion,
     (iii) Newton-trace formula. All three must return -32."""
-    from compute.lib.k3_yangian_wave19_bkm_hyperbolic_landscape import _det_fraction
+    from compute.lib.k3_yangian_bkm_hyperbolic_landscape import _det_fraction
 
     route_row_reduction = int(_det_fraction(CARTAN_F3))
     route_cofactor = _det3x3_cofactor(CARTAN_F3)
@@ -439,7 +439,7 @@ def test_f3_determinant_three_independent_routes() -> None:
 
 def test_ae3_determinant_three_independent_routes() -> None:
     """Beilinson multi-path: det(AE_3) = -2 by three independent routes."""
-    from compute.lib.k3_yangian_wave19_bkm_hyperbolic_landscape import _det_fraction
+    from compute.lib.k3_yangian_bkm_hyperbolic_landscape import _det_fraction
 
     route_row_reduction = int(_det_fraction(CARTAN_AE3))
     route_cofactor = _det3x3_cofactor(CARTAN_AE3)

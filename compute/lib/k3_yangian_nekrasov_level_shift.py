@@ -1,5 +1,5 @@
 """
-k3_yangian_wave6_nekrasov_level_shift.py
+k3_yangian_nekrasov_level_shift.py
 ========================================
 
 Wave-6 Nekrasov compute module.  Author: Raeez Lorgat.
@@ -44,7 +44,7 @@ DOES exist is the non-equivariant Euler characteristic of Hilb^n(K3).
 
 This module makes that scope precise, numerically.
 
-Usage.  python3 k3_yangian_wave6_nekrasov_level_shift.py
+Usage.  python3 k3_yangian_nekrasov_level_shift.py
 """
 
 

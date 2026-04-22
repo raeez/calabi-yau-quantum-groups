@@ -1,5 +1,5 @@
 r"""
-k3_yangian_wave6_gaiotto_blfyr_schur.py
+k3_yangian_gaiotto_blfyr_schur.py
 ========================================
 
 Wave-6 Gaiotto compute module.  Author: Raeez Lorgat.
@@ -58,7 +58,7 @@ Three attack tests:
 
 Each test outputs a boolean pass/fail and a one-line diagnostic.
 
-Usage.  python3 k3_yangian_wave6_gaiotto_blfyr_schur.py
+Usage.  python3 k3_yangian_gaiotto_blfyr_schur.py
 """
 
 from __future__ import annotations

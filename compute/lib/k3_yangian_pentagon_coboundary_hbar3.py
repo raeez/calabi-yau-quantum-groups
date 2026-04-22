@@ -69,7 +69,7 @@ def c_Phi_10_coefficient_leading() -> int:
     negative sign via the singular-theta lift involution.
 
     Wave-15 extension: see
-      compute/lib/k3_yangian_wave15_pentagon_coboundary_hbar45.py
+      compute/lib/k3_yangian_pentagon_coboundary_hbar45.py
     for phi^(4), phi^(5), the obstruction-tower closure question,
     and the genus-g curved-Dunn bridge.
     """

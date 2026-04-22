@@ -20,7 +20,7 @@ from fractions import Fraction
 
 import pytest
 
-from compute.lib.k3_yangian_wave19_K_theoretic_coha import (
+from compute.lib.k3_yangian_K_theoretic_coha import (
     CY3_DIMENSION,
     KHACommutator,
     KHA_coproduct_coassociativity_status,

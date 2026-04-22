@@ -47,7 +47,7 @@ from __future__ import annotations
 from fractions import Fraction
 from typing import Dict, Iterable, Tuple
 
-from .k3_yangian_wave14_gritsenko_additive_explicit import (
+from .k3_yangian_gritsenko_additive_explicit import (
     k3_elliptic_genus_coefficients,
     _discriminant_value,
     eta_9_theta_1_fourier_coefficients,

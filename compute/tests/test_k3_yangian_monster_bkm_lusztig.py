@@ -17,7 +17,7 @@ from fractions import Fraction
 
 import pytest
 
-from compute.lib.k3_yangian_wave18_monster_bkm_lusztig import (
+from compute.lib.k3_yangian_monster_bkm_lusztig import (
     MONSTER_CLASS_LEVELS,
     cache_violation_audit,
     check_three_faces_identity_k3,

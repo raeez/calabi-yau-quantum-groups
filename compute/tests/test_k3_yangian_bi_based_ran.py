@@ -7,7 +7,7 @@ import math
 
 import pytest
 
-from compute.lib.k3_yangian_wave14_bi_based_ran import (
+from compute.lib.k3_yangian_bi_based_ran import (
     AbelianFourfold,
     K3HodgeData,
     NearbyCyclesSheaf,

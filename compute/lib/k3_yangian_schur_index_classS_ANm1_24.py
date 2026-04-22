@@ -37,7 +37,7 @@ remaining discrepancy may reflect a counting convention in the Wave-13
 derivation that we have not resolved here.
 
 This module supersedes and corrects the retraction recorded in Wave 14
-(k3_yangian_wave14_schur_index_classS_A1_24.py, expected_c4d()).
+(k3_yangian_schur_index_classS_A1_24.py, expected_c4d()).
 
 Primary references:
   - Chacaltana, Distler 2010 (arXiv:1008.5203) Tables 3, 5 (class-S anomalies)

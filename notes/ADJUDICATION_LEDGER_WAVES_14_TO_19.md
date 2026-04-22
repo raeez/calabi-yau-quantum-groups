@@ -185,6 +185,8 @@ Each item is an open mathematical conjecture with a named seed and named depende
 
 ### (III.C) Pseudo-character $S^{\mathrm{ps}}$ — Wave-19 Gelfand
 
+$\perp$ retracted per canonical preamble: the programme-canonical object is the Chenevier 2014 determinant $D^{\mathrm{Chen}}$, not a Taylor--Wiles pseudo-character; see Vol I Pattern 295 / W25 in `notes/first_principles_cache_comprehensive.md` and Vol I `chapters/theory/derived_langlands.tex` Remark `rem:dl-w25-determinant-not-pseudocharacter`. Original entry retained below.
+
 - **Status**: W19 Gelfand pseudo-character inscription listed as pending rerun completion in the synthesis; CONJECTURAL until resolution.
 - **Dependence**: Chenevier 2014 pseudo-representation formalism; Deligne-Serre pseudo-character extensions.
 
@@ -282,7 +284,7 @@ Convention-level or scope-level residua. Each is a **resolution**, not a conflic
 1. **$\phi^{(n\ge 13)}$** — Zagier-Hoffman depth-reduction (III.A).
 2. **Conway $V^{s\natural}$ independent cross-check** (III.B).
 3. **Explicit banding cocycle** for the $\mu_8$-gerbe on $\overline{\mathcal{A}_2}\setminus(H_1\cup H_4)$ — lift current $(\infty,1)$-level DNA to chain-level 2-cocycle.
-4. **Pseudo-character $S^{\mathrm{ps}}$** (III.C).
+4. **Pseudo-character $S^{\mathrm{ps}}$** (III.C) -- $\perp$ retracted per canonical preamble: the programme-canonical object is the Chenevier 2014 determinant $D^{\mathrm{Chen}}$; see Vol I Pattern 295 / W25, Vol I `derived_langlands.tex` Remark `rem:dl-w25-determinant-not-pseudocharacter`.
 5. **$\mathrm{GRT}_1$-transitivity on BKM** (III.F).
 6. **Exact PBW dimension of $\mathfrak{u}_{\zeta_8}$** (III.G).
 7. **Yetter-Drinfeld $A_\infty$-tower** $\delta^{(n\ge 4)}$ explicit formulas.

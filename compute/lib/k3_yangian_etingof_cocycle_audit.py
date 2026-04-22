@@ -379,7 +379,7 @@ def belavin_quasi_periodicity_test(tau: complex, h_params: list[complex],
       w_plus = theta_1(z + h) / (theta_1(z) theta_1(h))
     at z, z+1, z+tau, and check quasi-periodicity.
     """
-    from k3_yangian_wave5_belavin_elliptic import belavin_w_alpha
+    from k3_yangian_belavin_elliptic import belavin_w_alpha
     results = []
     for h in h_params:
         w0 = belavin_w_alpha(z_test, h, tau, n_trunc=40)
@@ -418,7 +418,7 @@ def belavin_ade_CYBE_with_default_h_params() -> dict:
     The arbitrary h_params DO NOT give Belavin's authentic form; their
     role in the theta-quotient is decorative.
     """
-    from k3_yangian_wave5_belavin_elliptic import (
+    from k3_yangian_belavin_elliptic import (
         cybe_residual_belavin_elliptic_sln,
     )
     u, v, tau = 2.3 + 0j, 1.7 + 0j, 0.5 + 1.2j

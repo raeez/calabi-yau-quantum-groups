@@ -87,13 +87,13 @@ from fractions import Fraction
 from typing import Dict, List, Tuple
 
 # Wave 14 predecessor imports
-from .k3_yangian_wave14_schur_index_classS_A1_24 import (
+from .k3_yangian_schur_index_classS_A1_24 import (
     MANUSCRIPT_FOURIER_COEFFICIENTS,
     schur_index_q_coefficients,
     verify_against_manuscript,
     plethystic_log_to_series,
 )
-from .k3_yangian_wave14_arthur_hecke_delta10 import (
+from .k3_yangian_arthur_hecke_delta10 import (
     DELTA_E6_AP,
     PRIMES,
     first_principles_a_p,
@@ -102,7 +102,7 @@ from .k3_yangian_wave14_arthur_hecke_delta10 import (
     ramanujan_petersson_check,
     spinor_satake_roots,
 )
-from .k3_yangian_wave14_gritsenko_additive_explicit import (
+from .k3_yangian_gritsenko_additive_explicit import (
     bkm_real_simple_roots,
     cross_check_gritsenko_nikulin_product,
     eta_9_theta_1_fourier_coefficients,
@@ -110,7 +110,7 @@ from .k3_yangian_wave14_gritsenko_additive_explicit import (
     k3_elliptic_genus_coefficients,
     _discriminant_value,
 )
-from .k3_yangian_wave14_twisted_11dsugra_1loop import (
+from .k3_yangian_twisted_11dsugra_1loop import (
     bruinier_prop_5_1_multiplicity,
     five_frame_consistency_check,
     kodaira_i1_residue_weight_integer,
@@ -119,15 +119,15 @@ from .k3_yangian_wave14_twisted_11dsugra_1loop import (
     wave15_summary,
     weight_derivation,
 )
-from .k3_yangian_wave14_bi_based_ran import (
+from .k3_yangian_bi_based_ran import (
     K3HodgeData,
 )
-from .k3_yangian_wave14_pentagon_coboundary_hbar3 import (
+from .k3_yangian_pentagon_coboundary_hbar3 import (
     c_Phi_10_coefficient_leading,
     twenty_five_thirds,
     zeta_3,
 )
-from .k3_yangian_wave14_humbert_monodromy_8 import (
+from .k3_yangian_humbert_monodromy_8 import (
     K_kappa_ch_Mukai_K3,
     bruinier_reciprocity_classes_coincide,
     c_plus_Mukai_K3,
@@ -137,17 +137,17 @@ from .k3_yangian_wave14_humbert_monodromy_8 import (
     lusztig_ell_specialisation,
     universal_identity_check,
 )
-from .k3_yangian_wave14_M24_umbral_cocycle_order6 import (
+from .k3_yangian_M24_umbral_cocycle_order6 import (
     schur_multiplier_M24,
     serre_cocycle_order_on_K3,
 )
 
 # Wave 15 predecessor imports
-from .k3_yangian_wave15_pentagon_coboundary_hbar45 import (
+from .k3_yangian_pentagon_coboundary_hbar45 import (
     phi10_over_eta24_leading_fourier_coefficient,
     k3_elliptic_genus_coefficient_c0_0,
 )
-from .k3_yangian_wave15_schur_index_classS_ANm1_24 import (
+from .k3_yangian_schur_index_classS_ANm1_24 import (
     central_charges,
     c_2d,
     class_s_counts,

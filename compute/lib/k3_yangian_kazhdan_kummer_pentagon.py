@@ -1,4 +1,4 @@
-"""k3_yangian_wave6_kazhdan_kummer_pentagon.
+"""k3_yangian_kazhdan_kummer_pentagon.
 
 Author: Raeez Lorgat (sole author).
 
@@ -248,7 +248,7 @@ def fiber_functor_obstruction():
 # ---------------------------------------------------------------------------
 
 def main():
-    print('=== k3_yangian_wave6_kazhdan_kummer_pentagon ===')
+    print('=== k3_yangian_kazhdan_kummer_pentagon ===')
     print()
     print('G1. Pentagon axiom for the candidate Kummer 3-cocycle on (Z/6)^2:')
     p = test_z6_z6_pentagon()

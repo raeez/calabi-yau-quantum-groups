@@ -501,7 +501,7 @@ def _discriminant_value(disc: int):
 # Wave 15: order-q^{10} Fourier expansion + BKM-denominator cross-check
 # --------------------------------------------------------------------
 
-def wave15_fourier_expansion_order_10() -> Dict[str, object]:
+def fourier_expansion_order_10() -> Dict[str, object]:
     """Fourier expansion of Delta_5 to order q_rho^{10} via two routes.
 
     Route A (additive, Gritsenko 1999): Grit(eta^9 theta_1).

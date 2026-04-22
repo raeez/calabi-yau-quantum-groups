@@ -11,7 +11,7 @@ this harness.  Each test asserts three things per module:
   3. one canonical constant matches a primary-literature / synthesis value.
 
 Several Wave-2-6 modules carry bare sibling imports
-  from k3_yangian_wave2_elliptic_rmatrix import (...)
+  from k3_yangian_elliptic_rmatrix import (...)
 that only resolve with ``compute/lib`` directly on ``sys.path`` (they do
 NOT resolve via the sanctioned ``compute.lib.X`` entry).  This harness
 patches ``sys.path`` at module load time so pytest can discover and
@@ -56,22 +56,22 @@ if str(_LIB) not in sys.path:
 # is passed; their canonical invariants are covered by the specialised
 # sub-tests in block III.
 WAVE_2_6_MODULES = [
-    ("k3_yangian_wave2_elliptic_rmatrix", "verify_wave2_rank4_signature_22", False),
-    ("k3_yangian_wave2_rank24_elliptic_ybe", "verify_elliptic_YBE_rank24_Mukai", True),
-    ("k3_yangian_wave3_Q_dressing", "run_wave3_rank4_analysis", False),
-    ("k3_yangian_wave4_ade_gluing", "main", False),
-    ("k3_yangian_wave5_belavin_elliptic", "main", True),
-    ("k3_yangian_wave5_cross_strata", "main", True),
-    ("k3_yangian_wave6_costello_fiveloop", "wave6_costello_fiveloop_report", False),
-    ("k3_yangian_wave6_costello_torsion", "wave6_costello_torsion_report", False),
-    ("k3_yangian_wave6_drinfeld_presentations", "run_wave6_drinfeld_panel", True),
-    ("k3_yangian_wave6_etingof_cocycle_audit", "main", False),
-    ("k3_yangian_wave6_gaiotto_blfyr_schur", "run_all", False),
-    ("k3_yangian_wave6_gelfand_gt_kz", "main", False),
-    ("k3_yangian_wave6_kazhdan_kummer_pentagon", "main", False),
-    ("k3_yangian_wave6_nekrasov_level_shift", "main", False),
-    ("k3_yangian_wave6_polyakov_automorphic", "main", False),
-    ("k3_yangian_wave6_witten_m5_anomaly", "run_all_checks", False),
+    ("k3_yangian_elliptic_rmatrix", "verify_wave2_rank4_signature_22", False),
+    ("k3_yangian_rank24_elliptic_ybe", "verify_elliptic_YBE_rank24_Mukai", True),
+    ("k3_yangian_Q_dressing", "run_wave3_rank4_analysis", False),
+    ("k3_yangian_ade_gluing", "main", False),
+    ("k3_yangian_belavin_elliptic", "main", True),
+    ("k3_yangian_cross_strata", "main", True),
+    ("k3_yangian_costello_fiveloop", "wave6_costello_fiveloop_report", False),
+    ("k3_yangian_costello_torsion", "wave6_costello_torsion_report", False),
+    ("k3_yangian_drinfeld_presentations", "run_wave6_drinfeld_panel", True),
+    ("k3_yangian_etingof_cocycle_audit", "main", False),
+    ("k3_yangian_gaiotto_blfyr_schur", "run_all", False),
+    ("k3_yangian_gelfand_gt_kz", "main", False),
+    ("k3_yangian_kazhdan_kummer_pentagon", "main", False),
+    ("k3_yangian_nekrasov_level_shift", "main", False),
+    ("k3_yangian_polyakov_automorphic", "main", False),
+    ("k3_yangian_witten_m5_anomaly", "run_all_checks", False),
 ]
 
 
@@ -122,7 +122,7 @@ def test_entrypoint_runs(mname, fname, is_slow, request):
 # ---------------------------------------------------------------------------
 
 def test_wave2_elliptic_rmatrix_permutation_is_involution():
-    import k3_yangian_wave2_elliptic_rmatrix as m
+    import k3_yangian_elliptic_rmatrix as m
     import numpy as np
     N = 4
     P = m.make_perm(N)
@@ -135,7 +135,7 @@ def test_wave2_rank24_elliptic_ybe_surface_symbol_available():
     ~2 minutes at any order because the cost is the 24^3 tensor contraction
     rather than the order-of-hbar expansion.  The full call is available
     under --run-slow via the entrypoint smoke test."""
-    import k3_yangian_wave2_rank24_elliptic_ybe as m
+    import k3_yangian_rank24_elliptic_ybe as m
     assert callable(m.verify_elliptic_YBE_rank24_Mukai)
     # Signature sanity: function accepts order, hbar, plus optional tau.
     import inspect
@@ -145,7 +145,7 @@ def test_wave2_rank24_elliptic_ybe_surface_symbol_available():
 
 
 def test_wave3_Q_dressing_Q_tensor_rank4():
-    import k3_yangian_wave3_Q_dressing as m
+    import k3_yangian_Q_dressing as m
     import numpy as np
     signs = np.array([1, 1, -1, -1])  # Mukai-like 2+2.
     Q = m.rf_Q_tensor(signs)
@@ -154,7 +154,7 @@ def test_wave3_Q_dressing_Q_tensor_rank4():
 
 
 def test_wave4_ade_gluing_enumerates_nonempty():
-    import k3_yangian_wave4_ade_gluing as m
+    import k3_yangian_ade_gluing as m
     ade = m.enumerate_primitive_ade_sublattices()
     assert isinstance(ade, list) and len(ade) > 0
     # ``E_8 + E_8`` saturates Lambda_Muk root contribution at rank 16.
@@ -162,7 +162,7 @@ def test_wave4_ade_gluing_enumerates_nonempty():
 
 
 def test_wave5_belavin_elliptic_theta1_is_odd():
-    import k3_yangian_wave5_belavin_elliptic as m
+    import k3_yangian_belavin_elliptic as m
     # Jacobi theta_1 is odd: theta_1(-z, tau) = -theta_1(z, tau).
     tau = 1j
     z = 0.3 + 0.1j
@@ -172,7 +172,7 @@ def test_wave5_belavin_elliptic_theta1_is_odd():
 
 
 def test_wave5_cross_strata_hv_universal_factor():
-    import k3_yangian_wave5_cross_strata as m
+    import k3_yangian_cross_strata as m
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         out = m.verify_12_hv_universal_factor()
@@ -180,7 +180,7 @@ def test_wave5_cross_strata_hv_universal_factor():
 
 
 def test_wave6_costello_fiveloop_report_returns_dict():
-    import k3_yangian_wave6_costello_fiveloop as m
+    import k3_yangian_costello_fiveloop as m
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
         report = m.wave6_costello_fiveloop_report()
@@ -188,7 +188,7 @@ def test_wave6_costello_fiveloop_report_returns_dict():
 
 
 def test_wave6_costello_torsion_k3_integral_cohomology():
-    import k3_yangian_wave6_costello_torsion as m
+    import k3_yangian_costello_torsion as m
     data = m.K3_integral_cohomology()
     assert isinstance(data, dict)
     # K3 is simply connected => H^0 = Z, H^4 = Z.
@@ -197,7 +197,7 @@ def test_wave6_costello_torsion_k3_integral_cohomology():
 
 
 def test_wave6_drinfeld_presentations_yang_r_involution_identity():
-    import k3_yangian_wave6_drinfeld_presentations as m
+    import k3_yangian_drinfeld_presentations as m
     import numpy as np
     N = 3
     P = m.make_perm(N)
@@ -205,7 +205,7 @@ def test_wave6_drinfeld_presentations_yang_r_involution_identity():
 
 
 def test_wave6_etingof_cocycle_audit_carry_is_integer():
-    import k3_yangian_wave6_etingof_cocycle_audit as m
+    import k3_yangian_etingof_cocycle_audit as m
     # Carry cocycle on Z_N is integer-valued in {0, 1}.
     for N in (3, 5, 7):
         for a in range(N):
@@ -215,7 +215,7 @@ def test_wave6_etingof_cocycle_audit_carry_is_integer():
 
 
 def test_wave6_gaiotto_blfyr_schur_p24_matches_OEIS_A006922():
-    import k3_yangian_wave6_gaiotto_blfyr_schur as m
+    import k3_yangian_gaiotto_blfyr_schur as m
     p = m.p_N(24, 10)
     # OEIS A006922 head: 1, 24, 324, 3200, 25650, 176256, 1073720, 5930496,
     # 30178575, 143184000, 639249300, ...
@@ -226,7 +226,7 @@ def test_wave6_gaiotto_blfyr_schur_p24_matches_OEIS_A006922():
 
 
 def test_wave6_gelfand_gt_kz_ade_chain_in_e8():
-    import k3_yangian_wave6_gelfand_gt_kz as m
+    import k3_yangian_gelfand_gt_kz as m
     chain = m.enumerate_ade_chain_in_e8()
     assert isinstance(chain, list) and len(chain) > 0
     # Chain contains A_1 through E_8 at the top.
@@ -235,7 +235,7 @@ def test_wave6_gelfand_gt_kz_ade_chain_in_e8():
 
 
 def test_wave6_kazhdan_kummer_pentagon_trivial_cocycle_vanishes():
-    import k3_yangian_wave6_kazhdan_kummer_pentagon as m
+    import k3_yangian_kazhdan_kummer_pentagon as m
     # Carry cocycle on Z_N is 0 when one argument is 0.
     for N in (4, 6, 8):
         for a in range(N):
@@ -243,7 +243,7 @@ def test_wave6_kazhdan_kummer_pentagon_trivial_cocycle_vanishes():
 
 
 def test_wave6_nekrasov_level_shift_p24_matches_A006922():
-    import k3_yangian_wave6_nekrasov_level_shift as m
+    import k3_yangian_nekrasov_level_shift as m
     ref = m.oeis_a006922_reference()
     assert ref[0] == 1
     assert ref[1] == 24
@@ -253,14 +253,14 @@ def test_wave6_nekrasov_level_shift_p24_matches_A006922():
 
 
 def test_wave6_polyakov_automorphic_phi01_positive_leading():
-    import k3_yangian_wave6_polyakov_automorphic as m
+    import k3_yangian_polyakov_automorphic as m
     coeffs = m.phi01_fourier_coefficients(d_max=12)
     assert isinstance(coeffs, dict)
     assert len(coeffs) > 0
 
 
 def test_wave6_witten_m5_anomaly_chi_k3_equals_24_all_paths():
-    import k3_yangian_wave6_witten_m5_anomaly as m
+    import k3_yangian_witten_m5_anomaly as m
     # chi(K3) = 24 via Hodge, Betti, Chern c_2.
     assert m.topological_euler_k3_hodge() == 24
     assert m.topological_euler_k3_betti() == 24

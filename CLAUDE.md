@@ -53,8 +53,12 @@ DIFFERENT constructions, NOT six $\Phi$ applications.
 | VII | Frontiers |
 
 **Five theorems** (shared with Vol I): A bar–cobar, B chiral Positselski,
-C derived-centre complementarity, D obstruction-tower universality,
-H Hochschild concentration.
+C derived-centre complementarity ($\kappa + \kappa^! \in
+\{0, 8, 13, 250/3, 98/3\}$ on the canonical five-archetype
+$\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ landmark
+ceiling; the $\mathsf{B}$-row $K^\kappa = 8$ is the Vol III Mukai-enhanced
+K3 Heisenberg witness via Bruinier Heegner Chern-class reciprocity),
+D obstruction-tower universality, H Hochschild concentration.
 
 Vol III-specific contributions: the CY-A_3 equivalence, the K3
 abelian-Yangian presentation, the ZTE $T$ computation, the CY-D
@@ -103,6 +107,29 @@ verification paths for numerics.
 5. Concordance (shared with Vol I / Vol II).
 6. This file.
 7. Memory.
+
+## The manuscript is self-complete, self-coherent, self-consistent
+
+The current version stands for itself and only itself. All LaTeX
+mathematical writing is standalone, up-to-date, consistent, coherent.
+The manuscript does not reference its own previous versions. There is
+no place in this research programme for references to previous
+versions, intermediate ansätze, earlier drafts, retracted values,
+superseded formulas, or any other drafting-history commentary. If a
+formula used to be $X$ and now it is $Y$, the manuscript says $Y$;
+it does not say "$Y$ (previously $X$, now retracted)", does not say
+"$Y$ supersedes the earlier $X$", does not explain how the author
+arrived at $Y$.  The mathematical argument proves $Y$; the drafting
+trajectory is not part of the mathematics.
+
+When a mathematical retraction is genuinely informative --- a proof
+that was attempted and failed, whose failure illuminates why the
+successful proof is forced --- state the failed argument and its
+flaw as mathematics: "the identity $[m_k, B^{(2)}] = 0$ fails
+per-$k$ because cyclic invariance controls adjacent contractions
+but not non-adjacent terms (Proposition~X)". Do not frame it as
+"the author initially attempted $X$ but retracted in favour of $Y$".
+The mathematics is the Gap/Flaw, not the drafting record.
 
 ## Writing standard: Chriss–Ginzburg north star
 
@@ -277,11 +304,18 @@ documented at their precise scope.
 
 ## Where the bookkeeping lives
 
+- **`notes/antipatterns_catalogue.md`** — the live Vol III AP-CY
+  catalogue (AP-CY1 through AP-CY49 plus cross-programme AP150--AP164
+  and formula-mechanical FM24--FM27). Every `/chriss-ginzburg-rectify`
+  invocation consults this at Gate 0 alongside the cache. Append new
+  AP-CYs here; the appendix-TeX version at
+  `appendices/antipatterns.tex` is the reader-facing mirror.
 - **`notes/claude_md_legacy_20260418.md`** — full prior CLAUDE.md,
-  899 lines, lossless. Contains the Vol III AP-CY catalogue (AP-CY1
-  through AP-CY67), detailed theorem status, HZ-3-11 independent
-  verification protocol, and the CY-specific cross-volume awareness.
-  Grep by index.
+  899 lines, lossless. Historical snapshot; the AP-CY catalogue has
+  moved to `notes/antipatterns_catalogue.md`. Still contains the
+  detailed theorem status, HZ-3-11 independent verification protocol,
+  and the CY-specific cross-volume awareness. Grep by index for
+  historical context.
 - **`notes/agents_md_legacy_20260418.md`** — full prior AGENTS.md,
   1508 lines.
 - **`notes/first_principles_cache_comprehensive.md`** (if present) —

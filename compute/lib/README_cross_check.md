@@ -1,7 +1,7 @@
 # Wave 17 Unified Cross-Check Engine
 
-Engine file: `k3_yangian_wave17_unified_cross_check.py`
-Test suite: `compute/tests/test_k3_yangian_wave17_unified_cross_check.py`
+Engine file: `k3_yangian_unified_cross_check.py`
+Test suite: `compute/tests/test_k3_yangian_unified_cross_check.py`
 
 End-to-end verification of the Wave-14 / Wave-15 / Wave-16 claims on the
 non-abelian K3 chiral bialgebra $\mathbf{H}_{\Delta_5}$.
@@ -23,10 +23,10 @@ non-abelian K3 chiral bialgebra $\mathbf{H}_{\Delta_5}$.
 
 ```bash
 # Engine demo (prints pass/fail table plus highlights)
-python3 -m compute.lib.k3_yangian_wave17_unified_cross_check
+python3 -m compute.lib.k3_yangian_unified_cross_check
 
 # Test suite (58 assertions across A-H plus cache audit and global consistency)
-python3 -m pytest compute/tests/test_k3_yangian_wave17_unified_cross_check.py -v
+python3 -m pytest compute/tests/test_k3_yangian_unified_cross_check.py -v
 ```
 
 Expected outputs: 8/8 cross-checks PASS; 58/58 tests PASS.
@@ -87,16 +87,16 @@ that the Wave-14/15/16 synthesis was constructed to avoid:
 
 Directly imported (10):
 
-- `k3_yangian_wave14_schur_index_classS_A1_24.py` (cross-check H)
-- `k3_yangian_wave14_arthur_hecke_delta10.py` (cross-check G)
-- `k3_yangian_wave14_gritsenko_additive_explicit.py` (cross-checks D, F)
-- `k3_yangian_wave14_twisted_11dsugra_1loop.py` (cross-checks D, E, F)
-- `k3_yangian_wave14_bi_based_ran.py` (dataclass import only)
-- `k3_yangian_wave14_pentagon_coboundary_hbar3.py` (Phi_10 leading value)
-- `k3_yangian_wave14_humbert_monodromy_8.py` (cross-check A)
-- `k3_yangian_wave14_M24_umbral_cocycle_order6.py` (Schur multiplier)
-- `k3_yangian_wave15_pentagon_coboundary_hbar45.py` (EOT normalisation)
-- `k3_yangian_wave15_schur_index_classS_ANm1_24.py` (cross-check B)
+- `k3_yangian_schur_index_classS_A1_24.py` (cross-check H)
+- `k3_yangian_arthur_hecke_delta10.py` (cross-check G)
+- `k3_yangian_gritsenko_additive_explicit.py` (cross-checks D, F)
+- `k3_yangian_twisted_11dsugra_1loop.py` (cross-checks D, E, F)
+- `k3_yangian_bi_based_ran.py` (dataclass import only)
+- `k3_yangian_pentagon_coboundary_hbar3.py` (Phi_10 leading value)
+- `k3_yangian_humbert_monodromy_8.py` (cross-check A)
+- `k3_yangian_M24_umbral_cocycle_order6.py` (Schur multiplier)
+- `k3_yangian_pentagon_coboundary_hbar45.py` (EOT normalisation)
+- `k3_yangian_schur_index_classS_ANm1_24.py` (cross-check B)
 
 ## Primary literature (aggregated across all cross-checks)
 

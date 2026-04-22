@@ -1442,6 +1442,16 @@ left side is $5$ while $\kappa_{\mathrm{ch}}(\cA_{\mathrm{K3}\times E}) +
 while $\kappa_{\mathrm{ch}}(\cA_{Z_2}) + \chi(\cO_{E_2}) = 1 + 0 = 1$.
 The correct universal formula is $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
 (Gritsenko 1999; Borcherds 1998), with no coincidence at any $N$.
+The indexing here is the \emph{Borcherds-weight indexing}
+$\kappa_{\mathrm{BKM}}^{(\mathrm{Borch})} := c_N(0)/2$; the
+\emph{three-faces crown indexing} of Vol~I records on the same K3-fibered
+family the shifted quantity
+$\kappa_{\mathrm{BKM}}^{(3\text{-faces})} = 2\kappa_{\mathrm{BKM}}^{(\mathrm{Borch})} + \chi(\cO_X) + 2$
+(at $X = \mathrm{K3}\times E$: $12 = 2\cdot 5 + 0 + 2$), so that the
+apparent mismatch between Vol~I's value $12$ and Vol~III's value $5$
+is the two sides of a single reconciliation identity
+(concordance Proposition on BKM cross-volume reconciliation,
+\texttt{chapters/connections/concordance.tex:5013}).
 \end{theorem}
 
 \begin{proof}
@@ -1617,16 +1627,15 @@ value but not on meaning, and for non-standard algebraizations the
 values can differ.
 \end{remark}
 
-\begin{remark}[What ``strengthening only'' means here]
+\begin{remark}[Scope of the dimension-uniform form]
 \label{rem:strengthening-only}
-The dimension-uniform strengthening supersedes the naive
-$d = 2$ formulation. The naive form
-(``$\kappa_{\mathrm{ch}} = \chi(\cO_X)$ at $d = 2$, conjectural
-at $d \geq 3$'') is subsumed by the supertrace form
-(``$\kappa_{\mathrm{ch}} = \sum_q (-1)^q h^{0,q}$ unconditionally''),
-which reduces to the previous $d = 2$ statement and gives the correct
-odd-$d$ vanishing. The only genuinely conjectural component is the
-identification of $\kappa_{\mathrm{ch}}(\cA_X)$ for
+The supertrace form
+$\kappa_{\mathrm{ch}} = \sum_q (-1)^q h^{0,q}$ is
+dimension-uniform and unconditional. At $d = 2$ with
+$h^{1,0} = 0$ it reduces to $\kappa_{\mathrm{ch}} = \chi(\cO_X)$,
+and at odd $d$ it gives the correct vanishing. The only genuinely
+conjectural component is the identification of
+$\kappa_{\mathrm{ch}}(\cA_X)$ for
 non-product, non-toric, non-local CY$_3$ (Remark
 \ref{rem:cy-strat-open-frontier}): in every known family,
 $\Xi(X) = \kappa_{\mathrm{ch}}(\cA_X)$ holds, but the verification
@@ -1865,7 +1874,8 @@ $\Lambda_{\mathrm{Muk}} = H^\star(K3,\mathbb Z) \cong \mathrm{II}_{4,20}$
 attached to the \emph{K3 direction}; the $E$-direction does not
 grade but instead supplies the bi-based Ran-factorisation parameter
 $\mathrm{Ran}(E^{\mathrm{nod},\mathrm{sm}}_{24})$ over
-$\overline{\mathcal A_2}$ (Beilinson--Drinfeld).  This respects the cache fact
+$\overline{\mathcal A_2}$ (Beilinson--Drinfeld).  This respects
+K\"unneth multiplicativity:
 $\kappa_{\mathrm{cat}}(K3\times E) = 0$ (fully vanishing on the
 product) and not $2$ (which is $\chi(\mathcal O_{K3})$ on the fibre
 alone): the product vanishing must be visible on the Tannakian side
@@ -1930,8 +1940,8 @@ are anchored on five compute-module functions:
 \texttt{k3\_torelli\_period},
 \texttt{nearby\_cycles\_at\_node},
 \texttt{bruinier\_prop\_5\_1\_check} in
-\texttt{compute/lib/k3\_yangian\_wave14\_bi\_based\_ran.py}, all
-exercised by \texttt{compute/tests/test\_k3\_yangian\_wave14\_bi\_based\_ran.py}
+\texttt{compute/lib/k3\_yangian\_bi\_based\_ran.py}, all
+exercised by \texttt{compute/tests/test\_k3\_yangian\_bi\_based\_ran.py}
 (22/22 passing).  The tests include six multi-path cross-checks:
 $\chi_{\mathrm{top}}(K3) = 24$ via Betti numbers;
 $j=1728$ at $g_3=0$ via Silverman AEC III Prop.~1.4; Bruinier order
@@ -1975,8 +1985,8 @@ $c_{4d}[A_1,\Sigma_{0,n},\text{all max}] = (19n-28)/24$ at $n=24$
 eq.~2.27; Chacaltana--Distler 2010 arXiv:1008.5203 Table~3 for $A_1$
 max regular with per-puncture coefficient $\tfrac{3}{4}$
 plus gauge-tube shifts), superseding the bulk-anomaly-only evaluation
-$c_{4d} = (12(g-1)+7n)/6 = 26$ used in the earlier inscription at
-\texttt{k3\_chiral\_bialgebra\_platonic.tex:1126,\,1181,\,2521}.
+$c_{4d} = (12(g-1)+7n)/6 = 26$ that appears earlier in
+\texttt{k3\_chiral\_bialgebra\_platonic.tex} (lines 1126, 1181, 2521).
 The two formulas differ because the bulk-only expression
 $(12(g-1)+7n)/6$ counts the global anomaly inflow from the $\mathcal N=2$
 superconformal index but omits the per-puncture max-regular
@@ -1987,10 +1997,7 @@ Rastelli 2015 eq.~2.27 records the full sum.  On the Beem--Rastelli
 Rastelli--van~Rees 2013 arXiv:1312.5344 eq.~3.14) this yields
 $c_{2d} = -12\cdot\tfrac{107}{6} = -214$.
 
-The integer $-214$ admits four independent factorisations parallel to
-the \emph{four-faces} factorisation of $-312$ in the earlier draft
-(Remark~\ref{rem:k3-312-factorisations} of
-Chapter~\ref{ch:k3-chiral-bialgebra-platonic}, now retracted):
+The integer $-214$ admits four independent factorisations:
 \begin{enumerate}
 \item \emph{Shapere--Tachikawa face.} $c_{2d} = -12\cdot (19n-28)/24$
       at $n=24$ evaluates to $-(19\cdot 24-28)/2 = -428/2 = -214$.

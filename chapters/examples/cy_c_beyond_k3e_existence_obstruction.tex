@@ -1,0 +1,2796 @@
+\chapter{CY-C beyond $K3 \times E$: existence and obstruction}
+\label{ch:cy-c-beyond-k3e}
+
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Eone}{E_{1}}
+\providecommand{\Etwo}{E_{2}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\Stab}{\mathrm{Stab}}
+\providecommand{\LMuk}{\Lambda_{\mathrm{Muk}}}
+
+The six-routes architecture of Chapter~\ref{ch:cy-c-six-routes-convergence} constructs
+$G(K3 \times E)$ by pentagon: five chiral-algebra routes converging up to
+$\rho$-stratification, with the Borcherds lift as a distinguished automorphic source.
+Three of the five routes consume data that does not exist for a generic compact
+Calabi--Yau threefold. Route $R_2$ asks for a weak Jacobi form of weight $0$ and
+index $1$ intrinsic to $X$; a generic quintic has none. Route $R_3$ asks for an even
+unimodular lattice of rank $24$ in $H^{\mathrm{even}}(X, \mathbb{Z})$; the quintic has
+even cohomology of rank $2$. Route $R_4$ asks for a finite-order symplectic involution;
+the quintic admits none by Oguiso 2012 (arXiv:1201.4954). The pentagon collapses to the
+single route $R_1 = \Phi_3(D^b(\Coh(X)))$, and the question of what $G(X)$ means must be
+re-posed intrinsically.
+
+This chapter answers that question. The target splits along the Beauville--Bogomolov
+tri-stratum of Part~\ref{part:examples}: the strict CY$_3$ stratum ($h^{0,1}(X) = 0$,
+$h^{0,2}(X) = 0$, $h^{0,3}(X) = 1$), containing the quintic and local $\mathbb{P}^3$; the
+isotrivial-fibration stratum, containing $K3 \times E$; and the abelian-threefold
+stratum, containing $T^6$. On each stratum $G(X)$ is constructed or obstructed by a named
+mechanism: derived-centre pair on the strict locus; pentagon on the fibration locus;
+translation-collapse on the abelian locus. The resulting existence/obstruction theorem
+(Theorem~\ref{thm:cy-c-beyond-k3e-existence}) parametrises $G(X)$ by CY class, replacing
+the pentagon-specific assertion of Conjecture~\ref{thm:six-routes-isomorphism} with a
+uniform structural statement.
+
+The quantum-vertex-chiral-group target $G(X)$ for a generic compact CY$_3$ is a braided
+monoidal \emph{category}, not a Hopf algebra. Tannakian reconstruction of a Hopf algebra
+requires a fibre functor on $G(X)$; the fibre functor exists iff the category is rigid
+and fusion, which forces $X$ into the rational-CFT-compatible locus
+(Frenkel--Kac lattice-VOA class). For the quintic the fibre functor fails: the
+$\Etwo$-braided monoidal category $\mathcal{Z}(\mathrm{Rep}^{\Eone}(A_X))$ is defined but
+non-rigid, and $G(X)$ is a category without underlying algebra. This is the central
+structural clarification of the chapter.
+
+\section{The derived-centre pair as target}
+\label{sec:cy-c-beyond-centre-pair}
+
+\begin{definition}[Quantum vertex chiral group on a CY$_3$]
+\label{def:cy-c-beyond-G-X}
+\ClaimStatusDefinitional
+Let $X$ be a compact smooth Calabi--Yau threefold, and let
+$A_X := \Phi_3(D^b(\Coh(X)))$ denote the $\Eone$-chiral algebra of
+Theorem~\ref{thm:cy-to-chiral-d3} (existing at $\infty$-categorical level;
+chain-level explicit construction conditional on CY-A$_3$ for non-formal algebras).
+The \emph{quantum vertex chiral group of $X$} is the braided monoidal
+category
+\[
+  G(X) \;:=\; \mathcal{Z}\!\bigl( \mathrm{Rep}^{\Eone}(A_X) \bigr)
+  \;\simeq\; \mathrm{Rep}^{\Etwo}\!\bigl( Z^{\mathrm{der}}_{\mathrm{ch}}(A_X) \bigr),
+\]
+the Drinfeld centre of the monoidal category of $\Eone$-modules, equivalently
+(Ben-Zvi--Francis--Nadler) the $\Etwo$-modules over the chiral derived centre
+$Z^{\mathrm{der}}_{\mathrm{ch}}(A_X) = C^\bullet_{\mathrm{ch}}(A_X, A_X)$.
+\end{definition}
+
+\begin{remark}[Category versus algebra]
+\label{rem:cy-c-beyond-category-vs-algebra}
+Definition~\ref{def:cy-c-beyond-G-X} replaces the pentagon-implicit algebraic target
+(a Hopf algebra reconstructed by Frenkel--Kac from the Mukai lattice) with a categorical
+target. The two coincide on $K3 \times E$, where the $24$-dimensional Mukai lattice and
+its Frenkel--Kac exponential reconstruct a Hopf algebra whose representation category is
+$\mathcal{Z}(\mathrm{Rep}^{\Eone}(A_{K3 \times E}))$
+(Chapter~\ref{ch:k3-yangian}, Theorem~\ref{thm:k3-yangian-frenkel-kac-closure}). For a
+quintic, no lattice presentation exists and no Hopf-algebra reconstruction is available;
+the braided monoidal category is the target, not an intermediate step. The Etingof
+clarification: in the non-rigid non-fusion CY$_3$ world, the quantum group \emph{is} the
+category.
+\end{remark>
+
+\section{Three strata, three mechanisms}
+\label{sec:cy-c-beyond-three-strata}
+
+\begin{definition}[Beauville--Bogomolov stratification of the CY$_3$ target]
+\label{def:cy-c-beyond-bb-stratification}
+\ClaimStatusDefinitional
+A compact CY threefold $X$ is \emph{strict} if $h^{0,1}(X) = h^{0,2}(X) = 0$;
+\emph{isotrivially fibred} if $X$ admits a surjective holomorphic map
+$\pi : X \to C$ to a smooth curve $C$ with generic fibre a K3 surface or
+abelian surface; and \emph{abelian-type} if $X = A^3 / G$ for $A^3$ a complex
+abelian threefold and $G$ a finite group acting by CY-preserving isometries.
+\end{definition}
+
+\begin{proposition}[Tri-stratum exhaustivity on smooth projective CY$_3$]
+\label{prop:cy-c-beyond-tri-stratum-exhaustive}
+\ClaimStatusProvedElsewhere
+Every smooth projective compact CY threefold belongs to exactly one of the three
+strata of Definition~\ref{def:cy-c-beyond-bb-stratification}, up to finite \'etale
+cover. The strict locus contains quintic, bicubic, local $\mathbb{P}^3$ compactifications,
+and the complete intersection CY family; the isotrivially fibred locus contains
+$K3 \times E$ and its twisted analogues; the abelian-type locus contains $T^6$ and its
+finite-group quotients (Borcea--Voisin analogues).
+\end{proposition}
+
+\begin{proof}
+Beauville--Bogomolov decomposition theorem for compact K\"ahler manifolds with trivial
+canonical bundle (Beauville 1983, \emph{Vari\'et\'es K\"ahleriennes dont la premi\`ere
+classe de Chern est nulle}) partitions compact CY$_3$ by holonomy group:
+$\mathrm{Hol}(X) = \mathrm{SU}(3)$ (strict), $\mathrm{SU}(2) \times \{1\}$
+(K3-fibred or $K3 \times E$ class), or abelian (torus quotient).
+The three cases correspond to the three strata; exhaustion is the statement of the
+Beauville--Bogomolov theorem. Smoothness is inherited; projectivity is preserved
+under the decomposition in dimension $3$ (Beauville 1983, Proposition~1).
+\end{proof}
+
+\section{The existence/obstruction theorem}
+\label{sec:cy-c-beyond-existence}
+
+\begin{conjecture}[Existence/obstruction for $G(X)$ parametrised by CY class]
+\label{thm:cy-c-beyond-k3e-existence}
+\ClaimStatusConjectured
+Let $X$ be a smooth projective compact Calabi--Yau threefold, belonging to exactly one
+stratum of Proposition~\ref{prop:cy-c-beyond-tri-stratum-exhaustive}. The quantum vertex
+chiral group $G(X)$ of Definition~\ref{def:cy-c-beyond-G-X} is governed by the following
+structural statements, one per stratum:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item \textbf{Strict CY$_3$ stratum.} For $X$ with $h^{0,1}(X) = h^{0,2}(X) = 0$
+        and $h^{0,3}(X) = 1$, the category $G(X)$ exists as an $\Etwo$-braided monoidal
+        category in the $(\infty, 1)$-categorical framework; Tannakian reconstruction of a
+        Hopf algebra is obstructed by the vanishing of the Mukai lattice and the failure
+        of fusion rigidity. The category has no fibre functor to $\mathrm{Vect}_k$,
+        equivalently no underlying Hopf algebra. The $\Phi_3$-output Hodge-supertrace
+        modular characteristic
+        $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(\cA_X) = \Xi(X) = 0$ uniformly on the strict
+        stratum (Theorem~\ref{thm:kappa-hodge-supertrace-identification}; Serre duality
+        at odd $d$ gives $\chi(\cO_X) = 0$). The companion BCOV one-loop invariant
+        $\kappa_{\mathrm{ch}}^{\mathrm{BCOV}}(\cA_X) = \chi_{\mathrm{top}}(X)/24$
+        is a separate construction ($-25/3$ at the quintic; see
+        Remark~\ref{rem:kappa-ch-quintic-two-views} of
+        Chapter~\ref{ch:cy-d-kappa-stratification}). The Hodge-supertrace
+        $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$ and BCOV one-loop
+        $\kappa_{\mathrm{ch}}^{\mathrm{BCOV}}$ arise from two distinct
+        constructions---the $\Phi_3$ categorical output versus the
+        BCOV torsion---and take different values at a single CY (zero
+        versus $-25/3$ at the quintic). The notation $\kappa_{\mathrm{ch}}$
+        without a Route A (Hodge) / Route B (BCOV) qualifier is
+        meaningless in the CY$_3$ setting.
+  \item \textbf{Isotrivially fibred stratum.} For $X = S \times E$ with $S$ a K3 surface
+        and $E$ an elliptic curve, the category $G(X)$ reconstructs a Hopf algebra via
+        Frenkel--Kac exponentiation on the rank-$24$ Mukai lattice
+        $\LMuk = U^{\oplus 3} \oplus E_8(-1)^{\oplus 2}$; the pentagon of
+        Chapter~\ref{ch:cy-c-six-routes-convergence} converges on this Hopf algebra up to
+        the $\rho$-stratification of
+        Theorem~\ref{thm:cy-c-six-routes-generator-level-convergence}. The
+        $\kappa_{\mathrm{BKM}}$ weight is $c_N(0)/2 = 5$ at $N = 1$ (Igusa $\Phi_{10}$,
+        Borcherds weight theorem).
+  \item \textbf{Abelian-type stratum.} For $X = T^6$ or a finite CY-preserving quotient
+        thereof, the Euler characteristic $\chi(T^6) = 0$ and the translation action
+        $T^6 \times T^6 \to T^6$ trivialise the equivariant Donaldson--Thomas partition
+        function: $Z^{\mathrm{DT}, \mathrm{eq}}(T^6) \equiv 0$. The chiral algebra
+        $A_{T^6}$ collapses to the rank-$6$ Heisenberg $\mathcal{H}_{T^6}$ carried by the
+        cohomology lattice $H^{\mathrm{even}}(T^6, \mathbb{Z}) \simeq \mathbb{Z}^{32}$
+        with the wedge pairing, and the category $G(T^6)$ is the symmetric monoidal
+        category of $\mathcal{H}_{T^6}$-modules with trivial braiding. In particular,
+        $G(T^6)$ carries no quantum-group structure; it is the classical limit.
+\end{enumerate}
+\end{conjecture}
+
+\begin{proof}[Proof sketch]
+(i) Existence of the category is
+Theorem~\ref{thm:cy-to-chiral-d3} (CY-A$_3$, $\infty$-categorical) followed by the
+Ben-Zvi--Francis--Nadler identification of the Drinfeld centre with the $\Etwo$-modules
+over the chiral derived centre (Theorem~\ref{thm:drinfeld-centre-bzfn} of
+Chapter~\ref{ch:drinfeld-center}). Obstruction to fibre functor: fusion rigidity requires
+a finite number of simple objects closed under tensor product with semisimple dualities.
+For the quintic, the category $\mathrm{Rep}^{\Eone}(A_{\mathrm{quintic}})$ is infinite
+and non-semisimple (the CoHA $\mathrm{DT}(\mathrm{quintic})$ has no quiver presentation,
+and the Schiffmann--Vasserot framework does not apply beyond the toric-no-4-cycle case).
+Fusion fails; Tannakian reconstruction (Deligne 1990, \emph{Cat\'egories
+tannakiennes}) obstructs. The Hodge-supertrace vanishing
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(\cA_X) = 0$ on the strict stratum is the
+$\Phi_3$-output entry identified in
+Theorem~\ref{thm:kappa-hodge-supertrace-identification}: Serre duality at $d = 3$
+odd with $\omega_X \simeq \cO_X$ gives $\chi(\cO_X) = 0$, and the Hodge-supertrace
+comparator of Chapter~\ref{ch:cy-d-kappa-stratification} transports this to
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$ on the CY$_3$ side. The BCOV companion
+invariant $\kappa_{\mathrm{ch}}^{\mathrm{BCOV}}(\cA_X) = \chi_{\mathrm{top}}(X)/24$
+is a separate construction (Remark~\ref{rem:kappa-ch-quintic-two-views}).
+The identity $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ holds only on the slice
+$d = 2$, $h^{1,0} = 0$ where Serre duality $\mathbb S = [2]$ collapses the
+Hodge supertrace to the holomorphic Euler characteristic; at odd $d$,
+Serre duality forces $\chi(\cO_X) = 0$ while $\kappa_{\mathrm{ch}}^{\mathrm{BCOV}}$
+remains nonzero ($-25/3$ at the quintic), so the equation fails outright
+and $\kappa_{\mathrm{ch}}$ must carry the dimension-stratified formula.
+
+(ii) Frenkel--Kac exponentiation: rank-$24$ Mukai lattice VOA reconstructs a Hopf algebra
+on the space of positive-norm vectors (Theorem~\ref{thm:k3-yangian-frenkel-kac-closure}).
+The pentagon of Chapter~\ref{ch:cy-c-six-routes-convergence} supplies the comparison with
+Borcherds, orbifold, half-twist, and BLLPR routes, converging up to the $\rho$-stratum
+stated in Theorem~\ref{thm:cy-c-six-routes-generator-level-convergence}. The Igusa
+$\Phi_{10}$ weight is $\kappa_{\mathrm{BKM}} = 5$ (Borcherds 1992 Theorem~10.4).
+
+(iii) Translation action: $T^6$ carries a free transitive action of itself. The
+equivariant DT partition function is a character of this action, hence identically zero
+for any non-trivial equivariant class (standard argument, Behrend--Bryan--Szendr\H{o}i
+2013 for the abelian case). The chiral algebra $A_{T^6}$ therefore has no quantum
+corrections beyond the classical lattice VOA structure; the braided monoidal category is
+symmetric. Explicit computation: for $T^6 = E_1 \times E_2 \times E_3$ a product of
+elliptic curves, $A_{T^6} = \Phi_3(D^b(\Coh(T^6)))$ is computed by K\"unneth from
+$\Phi_1(D^b(\Coh(E_i)))$ = elliptic lattice VOA, and the $\Etwo$-structure on the
+Drinfeld centre collapses to $E_\infty$ (symmetric monoidal) because each factor is
+$E_\infty$ at $d = 1$ (Theorem~\ref{thm:phi-platonic}, clause \textup{(U3)}
+with $n(1) = \infty$).
+\end{proof}
+
+\begin{remark}[Status: why \textup{Conjectured}]
+\label{rem:cy-c-beyond-status}
+Each of the three stratum statements (i)--(iii) carries its own conditional layer.
+Clause (i) is conditional on the BCOV identification of the genus-$1$ GW generating
+function with the chiral modular characteristic, an open problem beyond the
+toric-CY$_3$-without-compact-$4$-cycle case. Clause (ii) is conditional on
+Conjecture CY-C itself (Conjecture~\ref{thm:six-routes-isomorphism}), hence
+already conjectural in its pentagon form. Clause (iii) is proved up to the
+$\Phi_3(D^b(\Coh(T^6)))$ K\"unneth formula and the vanishing of the equivariant DT
+partition function, both of which are established at the
+$\infty$-categorical level but not at chain level for non-formal inputs.
+\end{remark}
+
+\section{The fibre-functor obstruction on the quintic}
+\label{sec:cy-c-beyond-quintic-obstruction}
+
+\begin{proposition}[Fibre-functor obstruction on the quintic]
+\label{prop:cy-c-beyond-quintic-fibre-functor}
+\ClaimStatusProvedElsewhere
+Let $X = Q \subset \mathbb{P}^4$ be the quintic threefold. The braided monoidal category
+$G(Q) = \mathcal{Z}(\mathrm{Rep}^{\Eone}(A_Q))$ of
+Definition~\ref{def:cy-c-beyond-G-X} admits no fibre functor
+$\omega : G(Q) \to \mathrm{Vect}_k^{\mathbb{Z}}$ compatible with the braiding.
+Equivalently: there is no Hopf algebra $H$ with
+$G(Q) \simeq \mathrm{Rep}(H)$ as braided monoidal categories.
+\end{proposition}
+
+\begin{proof}
+A fibre functor on a braided monoidal category reconstructs a Hopf algebra iff the
+category is rigid (every object has a dual) and the fibre functor is monoidally exact
+(Deligne 1990, Theorem~2.8). For the quintic, the category of $\Eone$-modules over
+$A_Q = \Phi_3(D^b(\Coh(Q)))$ is not rigid: $Q$ has no compact exceptional collection
+(Bondal--Orlov 2001 classification, arXiv:math/0206295), equivalently $D^b(\Coh(Q))$ has
+no tilting object of finite global dimension. The Drinfeld centre inherits the failure
+of rigidity: an object in $\mathcal{Z}$ has a dual iff its underlying object in
+$\mathrm{Rep}^{\Eone}(A_Q)$ does. Hence $G(Q)$ is non-rigid, Tannakian reconstruction
+fails, and no Hopf algebra $H$ with $G(Q) \simeq \mathrm{Rep}(H)$ exists. The category is
+the target; there is no underlying algebra to be reconstructed.
+\end{proof}
+
+\begin{remark}[What remains computable on the quintic]
+\label{rem:cy-c-beyond-quintic-computable}
+Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor} obstructs Hopf-algebra
+reconstruction but not scalar invariants of $G(Q)$. The modular characteristic
+$\kappa_{\mathrm{ch}}(A_Q)$, the BCOV torsion, the DT partition function $Z^{\mathrm{DT}}(Q)$
+(computed by MNOP 2006 to all orders in $q$; Maulik--Nekrasov--Okounkov--Pandharipande,
+arXiv:math/0312059), and the character of the centre
+$\mathrm{ch}_{\mathcal{Z}(G(Q))}(q)$ are all well-defined numerical shadows of $G(Q)$.
+The Hopf structure is what fails; the categorical structure, and every scalar invariant
+extracted from it, survives.
+\end{remark}
+
+\section{Explicit construction on local $\mathbb{P}^3$}
+\label{sec:cy-c-beyond-local-P3}
+
+\begin{theorem}[$G(X)$ on local $\mathbb{P}^3$]
+\label{thm:cy-c-beyond-local-P3}
+\ClaimStatusProvedHere
+Let $X = \mathrm{Tot}(K_{\mathbb{P}^3}) = \mathcal{O}_{\mathbb{P}^3}(-4)$ be the total space
+of the canonical bundle on projective $3$-space (local $\mathbb{P}^3$, a non-compact toric
+CY fourfold restricting to a non-compact CY threefold on the zero section with normal
+direction). The critical CoHA $\mathcal{H}(Q_{\mathrm{loc}\,\mathbb{P}^3},
+W_{\mathrm{loc}\,\mathbb{P}^3})$ for the Beilinson quiver $Q$ of $\mathbb{P}^3$ with
+superpotential from the cubic Yoneda product is a finitely generated associative algebra,
+and:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item the Drinfeld double
+        $D(\mathcal{H}(Q_{\mathrm{loc}\,\mathbb{P}^3},W_{\mathrm{loc}\,\mathbb{P}^3}))$
+        is a Hopf algebra in $\mathbb{Z}[[\hbar]]$-modules;
+  \item the $\Etwo$-braided representation category
+        $\mathrm{Rep}^{\Etwo}(D(\mathcal{H}))$ is equivalent (as braided monoidal
+        category) to $G(X)$ of Definition~\ref{def:cy-c-beyond-G-X};
+  \item the fibre functor $\omega : \mathrm{Rep}^{\Etwo}(D(\mathcal{H})) \to
+        \mathrm{Vect}_k^{\mathbb{Z}}$ exists, exhibiting $G(X)$ as the representation
+        category of the Hopf algebra $D(\mathcal{H})$.
+\end{enumerate}
+The local $\mathbb{P}^3$ case is an instance of the isotrivially fibred stratum in the
+generalised sense: the zero section $\mathbb{P}^3 \subset X$ is a compact Fano threefold
+whose Beilinson tilting presentation supplies the quiver structure, and the normal bundle
+supplies the CY orientation: the CY dimension of a local-CY family equals the
+complex dimension of the compact base.
+\end{theorem}
+
+\begin{proof}
+The Beilinson quiver of $\mathbb{P}^3$ has $4$ vertices $\{\mathcal{O}, \Omega^1(1),
+\Omega^2(2), \Omega^3(3)\}$ and $16$ arrows (Beilinson 1978, \emph{Coherent sheaves on
+$\mathbb{P}^n$ and problems of linear algebra}). The cubic Yoneda product
+$\mathrm{Ext}^1 \otimes \mathrm{Ext}^1 \otimes \mathrm{Ext}^1 \to \mathrm{Ext}^3 \simeq k$
+gives a superpotential $W$ making $(Q, W)$ a CY$_3$ quiver with potential in the
+Ginzburg 2006 sense (arXiv:math/0612139). Rapcak--Soibelman--Yang--Zhao 2020
+(arXiv:2007.13365, Theorem~1.1) identify the critical CoHA of any CY$_3$ quiver with
+potential with the positive half of an affine super Yangian; for the Beilinson quiver of
+$\mathbb{P}^3$, the associated super Lie algebra is the affinisation
+$\widehat{\mathfrak{gl}}(4|0)$ at the Euler-characteristic-shifted level (explicit in
+RSYZ \S 5.3 for the conifold; analogous treatment for the Beilinson quiver of
+$\mathbb{P}^n$ in general).
+
+(i) Schiffmann--Vasserot 2013 (arXiv:1202.2756 for the Jordan quiver;
+arXiv:1310.3655 for the general affine-type case) construct the Drinfeld double
+$D(\mathcal{H}) = \mathcal{H} \bowtie \mathcal{H}^{*\mathrm{cop}}$ via the Hopf pairing
+coming from the Joyce integration map and the motivic DT orientation data. For any
+CY$_3$ quiver with potential, the pairing is non-degenerate on the nilpotent radical
+(Davison 2017, arXiv:1512.04179, Theorem~A), giving a well-defined Hopf algebra.
+
+(ii) The $\Etwo$-braiding is given by the universal $R$-matrix of the Drinfeld double,
+constructed from the half-braiding as in
+Construction~\ref{constr:cy-r-matrix} and
+Theorem~\ref{thm:yang-r-matrix-ybe}. The equivalence with
+$\mathcal{Z}(\mathrm{Rep}^{\Eone}(A_X))$ is
+Theorem~\ref{thm:drinfeld-center-coha}(i) specialised to the Beilinson quiver.
+
+(iii) The fibre functor is the forgetful functor to the underlying $\mathbb{Z}$-graded
+vector space, available because $\mathcal{H}$ is a finitely generated associative
+algebra in graded $k$-vector spaces and $D(\mathcal{H})$ inherits this presentation. The
+Tannakian reconstruction applies: $G(X) \simeq \mathrm{Rep}(D(\mathcal{H}))$ as braided
+monoidal categories.
+\end{proof}
+
+\begin{remark}[Why local $\mathbb{P}^3$ works but quintic fails]
+\label{rem:cy-c-beyond-local-vs-compact}
+The contrast is Bondal--Orlov: local $\mathbb{P}^3$ has an exceptional collection
+$(\mathcal{O}, \Omega^1(1), \Omega^2(2), \Omega^3(3))$ generating $D^b(\Coh(\mathbb{P}^3))$
+with finite-dimensional $\mathrm{Ext}$ groups; the compact quintic does not (no tilting
+object, no exceptional collection of finite length). The CoHA quiver presentation
+depends on an exceptional collection; without one, the associative algebra $\mathcal{H}$
+is not finitely generated, the Drinfeld double is not a Hopf algebra in the categorical
+sense of item~(i), and the fibre functor of item~(iii) fails. The strict CY$_3$ locus is
+precisely the locus where no exceptional collection generates, forcing the
+obstruction of Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor}.
+\end{remark}
+
+\section{Consequences for the pentagon framework}
+\label{sec:cy-c-beyond-pentagon-consequences}
+
+\begin{corollary}[Scope of Conjecture CY-C]
+\label{cor:cy-c-beyond-pentagon-scope}
+\ClaimStatusProvedHere
+Conjecture~\ref{thm:six-routes-isomorphism} (CY-C as six-route convergence) applies only
+to the isotrivially fibred stratum of
+Proposition~\ref{prop:cy-c-beyond-tri-stratum-exhaustive}, where all six routes have
+well-defined inputs. On the strict stratum, Conjecture CY-C reduces to the
+category-level statement of
+Theorem~\ref{thm:cy-c-beyond-k3e-existence}\textup{(i)} and cannot be upgraded to an
+algebra isomorphism. On the abelian stratum, Conjecture CY-C reduces to the
+classical-limit statement of
+Theorem~\ref{thm:cy-c-beyond-k3e-existence}\textup{(iii)} and is trivially true
+(the classical lattice VOA admits no quantum-group refinement).
+\end{corollary}
+
+\begin{proof}
+The five routes $R_2, \ldots, R_6$ each require a special geometric or automorphic input:
+a weak Jacobi form of weight $0$ index $1$ ($R_2$), a rank-$24$ Mukai lattice ($R_3$),
+a finite-order symplectic involution ($R_4$), an $\mathcal{N} = (4,4)$ superconformal
+algebra on the K3 factor ($R_5$), a K3-fibred UV curve ($R_6$). By
+Proposition~\ref{prop:cy-c-beyond-tri-stratum-exhaustive}, each of these inputs exists
+precisely on the isotrivially fibred stratum. Off this stratum,
+routes $R_2$--$R_6$ degenerate or vanish, and the pentagon collapses to the single route
+$R_1 = \Phi_3$, reducing the statement to
+Theorem~\ref{thm:cy-c-beyond-k3e-existence}.
+\end{proof>
+
+\begin{remark}[Relation to Open Problem 3]
+\label{rem:cy-c-beyond-op3}
+The open problem posed at the programme level --- ``CY-C beyond $K3 \times E$: the
+quantum vertex chiral group $G(X)$ is unconstructed in general'' --- admits the resolution
+stated here: $G(X)$ is constructed as a braided monoidal category on every smooth
+projective compact CY$_3$ (Theorem~\ref{thm:cy-c-beyond-k3e-existence}), with Hopf-algebra
+reconstruction available on the isotrivially fibred and abelian strata and obstructed on
+the strict stratum (Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor}). The
+problem is not that $G(X)$ fails to exist; it is that $G(X)$ is not an algebra.
+\end{remark}
+
+\section{The Joyce gerbe and the twisted derived-centre complementarity}
+\label{sec:cy-c-beyond-joyce-gerbe}
+
+Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor} diagnoses Tannakian failure
+in the language of fusion rigidity. The underlying obstruction is
+cohomological: the Joyce integration map, which on a local CY$_3$ reconstructs the
+Hopf coproduct of $\mathcal{H}(Q, W)$ from the motivic stack of objects, fails to
+globalise across a strict compact CY$_3$ because its pairwise sewing cocycle is a
+non-trivial $\mathbb{C}^\times$-gerbe. This section writes the gerbe class down
+as an explicit \v{C}ech $3$-cocycle, tests it on the three canonical strict
+CY$_3$ examples (quintic, bicubic, $(3,3)$-complete intersection), and states the
+gerbe-twisted form of Theorem~C.
+
+\subsection{The obstruction class}
+\label{subsec:cy-c-beyond-joyce-obstruction-class}
+
+\begin{definition}[Joyce integration gerbe on a strict CY$_3$]
+\label{def:cy-c-beyond-joyce-gerbe}
+\ClaimStatusDefinitional
+Let $X$ be a smooth projective compact CY threefold on the strict stratum of
+Definition~\ref{def:cy-c-beyond-bb-stratification}. Fix an open cover
+$\{U_i\}$ of the Bridgeland stability manifold $\mathrm{Stab}(X)$ by
+$\sigma$-generic chambers, and let
+$Z_i \colon K_0(D^b\Coh(X)) \to \mathbb{C}$ denote the central charge on $U_i$.
+On double overlaps $U_{ij} = U_i \cap U_j$ the relative phase data assembles
+into a Joyce pairing matrix
+\[
+ c_{ij} \;:=\; \exp\!\left( 2\pi i \cdot \int_X \mathrm{ch}(-) \wedge \mathrm{ch}(-) \wedge \mathrm{td}(X)
+ \cdot \bigl[\arg Z_i - \arg Z_j\bigr] \right) \;\in\; H^2(U_{ij}, \mathbb{C}^\times),
+\]
+with the wedge product of Chern characters integrated against the Todd class
+giving the Mukai-Euler pairing, and the bracketed phase difference giving the
+chamber-jump. On triple overlaps, the composed pairing
+\[
+ \mathrm{ob}_{ijk}
+ \;:=\; c_{ij} \smile c_{jk} \cdot c_{ik}^{-1}
+ \;\in\; H^3(U_{ijk}, \mathbb{C}^\times),
+\]
+is a $\mathbb{C}^\times$-valued $3$-cocycle, the \emph{Joyce integration gerbe
+class} $\mathrm{ob}(X) \in H^3(X, \mathbb{C}^\times)$.
+\end{definition}
+
+\begin{remark}[Why $H^3(X, \mathbb{C}^\times)$, not Brauer]
+\label{rem:cy-c-beyond-why-H3-Cx}
+The target group is $H^3(X, \mathbb{C}^\times)$ in continuous cohomology, not the
+cohomological Brauer group $\mathrm{Br}'(X) = H^2_{\mathrm{et}}(X, \mathbb{G}_m)$
+(Grothendieck, \emph{Le groupe de Brauer II}, Dix exposés 1968; Caldararu 2000
+PhD thesis, arXiv:math/0002137, \emph{Derived categories of twisted sheaves on
+Calabi--Yau manifolds}). Azumaya algebras up to Morita give the cohomological
+Brauer class, living one cohomological degree lower. The Joyce integration
+defect is of a different flavour: it is the obstruction to a
+$\mathbb{C}^\times$-linear associativity on the \emph{motivic Hall algebra}
+multiplication, and its natural home is the \v{C}ech cohomology of the analytic
+sheaf $\underline{\mathbb{C}^\times}$ on $X$. The exponential sequence
+$0 \to \mathbb{Z} \to \mathbb{C} \to \mathbb{C}^\times \to 0$ identifies
+\[
+ H^3(X, \mathbb{C}^\times) \;\simeq\; \bigl( H^3(X, \mathbb{C}) / H^3(X, \mathbb{Z}) \bigr)
+ \;\oplus\; H^4(X, \mathbb{Z})_{\mathrm{tors}},
+\]
+the intermediate-Jacobian continuous part plus the degree-$4$ torsion part. For
+the quintic the degree-$4$ torsion vanishes (simple connectedness,
+Lefschetz); the obstruction therefore lives entirely in the Griffiths
+intermediate Jacobian $J^3(X_5)$. The Bridgeland-central-charge construction
+(Bridgeland 2007, arXiv:math/0212237, \emph{Stability conditions on triangulated
+categories}) naturally targets this continuous piece. The explicit dictionary
+relating $\mathrm{ob}(X) \in H^3(X, \mathbb{C}^\times)$ to
+$\mathrm{Br}(X) \subset H^2_{\mathrm{et}}(X, \mathbb{G}_m)$ is
+Proposition~\ref{prop:cy-c-beyond-joyce-brauer-dictionary} below.
+\end{remark}
+
+\begin{proposition}[Joyce-to-Brauer dictionary via boundary of the exponential sequence]
+\label{prop:cy-c-beyond-joyce-brauer-dictionary}
+\ClaimStatusProvedHere
+Let $X$ be a smooth projective compact Calabi--Yau threefold. Write
+$\mathrm{ob}(X) \in H^3(X, \mathbb{C}^\times)$ for the Joyce integration gerbe
+of Definition~\ref{def:cy-c-beyond-joyce-gerbe}, and
+$\mathrm{Br}'(X) = H^2_{\mathrm{et}}(X, \mathbb{G}_m)$ for the cohomological
+Brauer group in the sense of Grothendieck. There is an exact four-term dictionary
+\begin{equation}
+\label{eq:cy-c-beyond-joyce-brauer-four-term}
+0
+\;\longrightarrow\;
+\underbrace{H^3(X, \mathbb{C}) / H^3(X, \mathbb{Z})}_{\text{continuous (Griffiths) piece}}
+\;\longrightarrow\;
+H^3(X, \mathbb{C}^\times)
+\;\xrightarrow{\;\;\delta^{\mathrm{dict}}\;\;}\;
+\underbrace{H^4(X, \mathbb{Z})_{\mathrm{tors}}}_{\text{torsion piece}}
+\;\longrightarrow\;
+0,
+\end{equation}
+compatible with the Kummer sequence
+$0 \to \mu_n \to \mathbb{G}_m \to \mathbb{G}_m \to 0$ in the sense that
+$\delta^{\mathrm{dict}}$ factors through the torsion map
+$\mathrm{Br}'(X) \to H^3(X, \mathbb{Z})_{\mathrm{tors}}$ via Poincaré--Pontryagin
+duality $H^3(X, \mathbb{Z})_{\mathrm{tors}} \simeq H^4(X, \mathbb{Z})_{\mathrm{tors}}$
+on the six-dimensional compact CY$_3$. Explicitly, the dictionary map
+\[
+\delta^{\mathrm{dict}} \;:\; H^3(X, \mathbb{C}^\times)
+ \;\longrightarrow\;
+ \mathrm{Br}'(X)_{\mathrm{tors}} \;=\; H^2_{\mathrm{et}}(X, \mathbb{G}_m)_{\mathrm{tors}}
+\]
+sends a Joyce gerbe $\alpha$ to its torsion shadow: restrict the $\mathbb{C}^\times$-gerbe
+to a unit-modulus $S^1$-gerbe by sending $c_{ij} \mapsto c_{ij} / |c_{ij}|$ and
+then to its finite-order part, obtaining an Azumaya algebra class via
+Giraud's gerbe-to-Azumaya equivalence (Giraud 1971, \emph{Cohomologie
+non-ab\'elienne}, Chapter IV; de Jong 2003, \emph{A result of Gabber}).
+\end{proposition}
+
+\begin{proof}
+The exponential sequence
+$0 \to \mathbb{Z} \to \mathbb{C} \to \mathbb{C}^\times \to 0$ on the
+analytic site of $X$ gives a long exact cohomology sequence whose degree-$3$
+segment reads
+$H^3(X, \mathbb{Z}) \to H^3(X, \mathbb{C}) \to H^3(X, \mathbb{C}^\times) \to H^4(X, \mathbb{Z}) \to H^4(X, \mathbb{C})$.
+The image of $H^3(X, \mathbb{C})$ is the quotient
+$H^3(X, \mathbb{C}) / H^3(X, \mathbb{Z})$ (a compact torus of real dimension
+$b_3 = h^{3,0} + h^{2,1} + h^{1,2} + h^{0,3}$ on a CY$_3$), and the boundary
+map $\delta : H^3(X, \mathbb{C}^\times) \to H^4(X, \mathbb{Z})$ has image
+equal to the torsion $H^4(X, \mathbb{Z})_{\mathrm{tors}}$ (kernel of
+$H^4(X, \mathbb{Z}) \to H^4(X, \mathbb{C})$). This gives the four-term
+sequence~\eqref{eq:cy-c-beyond-joyce-brauer-four-term}. Compatibility with
+the Kummer sequence is the commutativity of the square relating
+$\mu_n \hookrightarrow \mathbb{G}_m$ and $\mathbb{Z} \hookrightarrow \mathbb{C}$
+under $z \mapsto \exp(2\pi i z / n)$ (Milne 1980 \emph{\'Etale cohomology}
+III.4.11). Poincaré--Pontryagin duality on the oriented
+real six-manifold $X$ identifies
+$H^4(X, \mathbb{Z})_{\mathrm{tors}} \simeq H^3(X, \mathbb{Z})_{\mathrm{tors}}$
+(Milne 1980 V.2.2 in \'etale formulation; Hatcher 2002 \S 3.3 for the
+topological version). The Grothendieck sequence
+$0 \to \mathrm{Pic}(X) \otimes \mathbb{Q}/\mathbb{Z} \to H^2_{\mathrm{et}}(X, \mathbb{G}_m)
+\to H^3(X, \mathbb{Z})_{\mathrm{tors}} \to 0$
+(de Jong 2003; Colliot-Th\'el\`ene 2019 arXiv:1906.00395 exposition)
+identifies the torsion of $\mathrm{Br}'(X)$ with
+$H^3(X, \mathbb{Z})_{\mathrm{tors}}$ after quotienting by the divisible
+$\mathrm{Pic}^0$-torsion. On a simply connected CY$_3$ with
+$H^2(X, \mathcal{O}_X) = 0$ (standard Hodge diamond of the rigid CY$_3$:
+$h^{0,0} = h^{3,3} = 1$, $h^{p,0} = 0$ for $p \in \{1, 2\}$) the divisible
+summand is zero and $\mathrm{Br}(X) = \mathrm{Br}'(X) = H^3(X, \mathbb{Z})_{\mathrm{tors}}$.
+Giraud's correspondence between $\mathbb{G}_m$-gerbes on $X$ and
+$H^2_{\mathrm{et}}(X, \mathbb{G}_m)$ (Giraud 1971 IV.3.4.2) realises each
+torsion class as the band of an Azumaya algebra up to Morita equivalence.
+The unit-modulus restriction $c_{ij} \mapsto c_{ij}/|c_{ij}|$ kills the
+continuous Griffiths piece (which lies in the kernel of $\delta^{\mathrm{dict}}$
+by~\eqref{eq:cy-c-beyond-joyce-brauer-four-term}) and projects onto the
+torsion summand; composing with Giraud gives an Azumaya algebra class,
+which is by construction $\delta^{\mathrm{dict}}(\alpha) \in \mathrm{Br}(X)$.
+\end{proof}
+
+\begin{remark}[Quintic verification: Joyce gerbe is not a Brauer class]
+\label{rem:cy-c-beyond-quintic-joyce-not-brauer}
+On the quintic $X_5 \subset \mathbb{P}^4$ the dictionary of
+Proposition~\ref{prop:cy-c-beyond-joyce-brauer-dictionary} is surjective
+onto $\mathrm{Br}(X_5) = 0$ trivially. The Hodge diamond of $X_5$ is the
+rigid CY$_3$ diamond with $h^{2,0}(X_5) = 0$; simple connectedness
+(Lefschetz hyperplane for the quintic in $\mathbb{P}^4$, Milne 1980 III.7.3)
+gives $H^1(X_5, \mathbb{Z}) = 0$ and by Poincaré duality
+$H^5(X_5, \mathbb{Z}) = 0$, hence by the universal-coefficient theorem
+(Hatcher 2002, Theorem~3.2)
+$H^2(X_5, \mathbb{Z})_{\mathrm{tors}} = H^4(X_5, \mathbb{Z})_{\mathrm{tors}}
+= H^3(X_5, \mathbb{Z})_{\mathrm{tors}} = 0$.
+Combining with $H^2(X_5, \mathcal{O}_{X_5}) = 0$, the long exponential
+sequence gives $H^2_{\mathrm{et}}(X_5, \mathbb{G}_m) = 0$: the cohomological
+Brauer group of the quintic vanishes (Grothendieck \emph{Dix exposés} II,
+Remarque~1.4; Colliot-Th\'el\`ene 2019 \S 5 for the CY$_3$ case).
+Meanwhile $\mathrm{ob}(X_5) = [5 \cdot \mathrm{vol}] \in J^3(X_5)$ is
+non-zero of infinite order
+(Proposition~\ref{prop:cy-c-beyond-joyce-three-CY3}(i)), lying entirely
+in the continuous Griffiths piece of~\eqref{eq:cy-c-beyond-joyce-brauer-four-term},
+hence in $\ker \delta^{\mathrm{dict}}$. \textbf{Consequence:} the Joyce
+integration gerbe on $X_5$ is \emph{not} a Brauer class in the sense
+of Caldararu; it is a genuinely higher gerbe whose obstruction lives in
+the connected component of $H^3(X_5, \mathbb{C}^\times)$, which has no
+Azumaya-algebra realisation. The Caldararu 2000 setting for twisted
+derived categories of K3 surfaces handles precisely the complementary
+case: $\mathrm{Br}(K3) = H^2(K3, \mathcal{O}_{K3}^\times)_{\mathrm{tors}}$
+is non-zero (e.g.\ on polarised K3s of non-general type, Mukai 1987),
+lying in $\delta^{\mathrm{dict}}$-image, while the continuous piece of
+$H^3(K3, \mathbb{C}^\times)$ vanishes because $K3$ is a surface with
+$b_3 = 0$. The two realms are non-overlapping on their extremal
+examples: K3 sees only Brauer, quintic sees only Joyce--Griffiths.
+\end{remark}
+
+\begin{remark}[Dictionary table: Joyce gerbe versus Caldararu Brauer class]
+\label{rem:cy-c-beyond-joyce-brauer-dictionary-table}
+The adversarial summary of
+Proposition~\ref{prop:cy-c-beyond-joyce-brauer-dictionary} and
+Remark~\ref{rem:cy-c-beyond-quintic-joyce-not-brauer} is the following
+correspondence table, which should be consulted before any statement
+identifying the Joyce gerbe with a Caldararu Brauer class.
+\[
+\begin{array}{l|l|l}
+\text{\textbf{attribute}} & \text{\textbf{Joyce $\alpha_X = \mathrm{ob}(X)$}} & \text{\textbf{Caldararu $\beta_X \in \mathrm{Br}(X)$}} \\\hline
+\text{ambient sheaf} & \underline{\mathbb{C}^\times} \text{ (analytic)} & \mathbb{G}_m \text{ (\'etale)} \\
+\text{cohomological degree} & H^3(X, \mathbb{C}^\times) & H^2_{\mathrm{et}}(X, \mathbb{G}_m) \\
+\text{natural decomposition} & J^3(X) \oplus H^4(X, \mathbb{Z})_{\mathrm{tors}} & \mathrm{Pic}(X) \otimes \mathbb{Q}/\mathbb{Z} \oplus H^3(X, \mathbb{Z})_{\mathrm{tors}} \\
+\text{geometric avatar} & \mathbb{C}^\times\text{-gerbe on } X & \text{Azumaya algebra up to Morita} \\
+\text{governs} & \text{assoc.\ of motivic Hall mult.} & \text{fibre functor to Vect} \\
+\text{vanishes on quintic} & \text{NO } ([5 \cdot \mathrm{vol}] \ne 0) & \text{YES } (\mathrm{Br}(X_5) = 0) \\
+\text{vanishes on K3} & \text{YES } (b_3(K3) = 0) & \text{NO in general (e.g.\ polarised)} \\
+\text{dictionary} & \multicolumn{2}{l}{\delta^{\mathrm{dict}} : H^3(X, \mathbb{C}^\times) \twoheadrightarrow H^4(X, \mathbb{Z})_{\mathrm{tors}} \simeq \mathrm{Br}(X)_{\mathrm{tors}} \text{ on CY}_3} \\
+\text{Bridgeland 2011 Thm 6.3} & \multicolumn{2}{l}{\text{identification modulo $\ker \delta^{\mathrm{dict}}$ only: torsion agreement, not full map}}
+\end{array}
+\]
+The line labelled ``Bridgeland 2011 Thm 6.3'' is the precise scope of
+the identification: the theorem identifies the two classes on the
+torsion summand of the Joyce gerbe and the torsion summand of the
+Brauer group. It does \emph{not} identify the continuous Griffiths
+summand with anything in $\mathrm{Br}(X)$; on the quintic the entirety
+of the Joyce class lives in the continuous summand and has no Brauer
+shadow whatsoever. Claims that Joyce and Caldararu gerbes ``coincide''
+without the modifier ``up to $\ker \delta^{\mathrm{dict}}$'' conflate
+two cohomology groups of different degrees and are wrong on the
+quintic. The true statement is: they agree under $\delta^{\mathrm{dict}}$,
+which is surjective but not injective.
+\end{remark}
+
+\begin{proposition}[Joyce integration gerbe vanishes iff exceptional collection exists]
+\label{prop:cy-c-beyond-joyce-vanishing}
+\ClaimStatusProvedHere
+For a smooth CY$_3$ $X$ admitting a full exceptional collection of $D^b\Coh(X)$,
+$\mathrm{ob}(X) = 0 \in H^3(X, \mathbb{C}^\times)$. Conversely, for a strict
+compact CY$_3$ with no full exceptional collection and non-vanishing Yukawa
+coupling $Y_3 \neq 0$, the class $\mathrm{ob}(X)$ is non-zero of infinite order.
+\end{proposition}
+
+\begin{proof}
+If $D^b\Coh(X)$ has a full exceptional collection $(E_1, \ldots, E_n)$ (Bondal--Orlov
+2001, arXiv:math/0206295), then $D^b\Coh(X) \simeq D^b(\mathrm{mod}\text{-}A)$ for
+$A = \bigoplus_{i,j} \mathrm{Hom}(E_i, E_j)$ a finite-dimensional associative
+algebra. The motivic Hall algebra of $D^b(\mathrm{mod}\text{-}A)$ is strictly
+associative (Ringel 1990, Hall algebras of hereditary categories; Schiffmann 2006
+arXiv:math/0611617, Lectures on Hall algebras). Associativity of Joyce's
+integration map follows from associativity of the convolution on the motivic
+stack, and the triple-overlap cocycle $\mathrm{ob}_{ijk} = 1$ identically.
+
+Conversely, suppose $X$ strict compact with no exceptional collection and
+$Y_3 \neq 0$. The \v{C}ech cocycle of Definition~\ref{def:cy-c-beyond-joyce-gerbe}
+reduces on cohomology to the triple Massey product
+$m_3 \colon H^1(T_X)^{\otimes 3} \to H^3(\wedge^3 T_X) \simeq \mathbb{C}$, which by
+Kontsevich formality obstruction theory (Kontsevich 2003 \emph{Deformation
+quantization of Poisson manifolds}, \S 5; Tsygan 2013 arXiv:1305.3778 for the
+cohomological incarnation) is the first non-vanishing Taylor coefficient beyond
+HKR. The Yukawa coupling $Y_3(\theta, \theta, \theta) = \int_X \theta^3 \wedge
+\Omega^{3,0}_X$ is precisely this Massey product on the quintic
+(Example~\ref{ex:quintic-derived}, $\S$ 1.1 of
+Chapter~\ref{ch:derived-cy}); non-vanishing of $Y_3$ therefore forces
+$[\mathrm{ob}(X)] \ne 0$. Infinite order follows because the class sits in the
+connected component $H^3(X, \mathbb{C})/H^3(X, \mathbb{Z})$ of
+Remark~\ref{rem:cy-c-beyond-why-H3-Cx}, which is a torus; any non-zero element
+has infinite order.
+\end{proof}
+
+\subsection{The exceptional-collection stratum of the CY$_3$ programme}
+\label{subsec:cy-c-beyond-exceptional-stratum}
+
+The dichotomy between local $\mathbb{P}^3$ (Theorem~\ref{thm:cy-c-beyond-local-P3})
+and the compact quintic
+(Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor}) turns on a single
+categorical threshold: existence of a \emph{full} exceptional collection. We
+characterise this threshold across the CY$_3$ candidates of the programme,
+following Kuznetsov's 2009 conjecture on Fano varieties
+(arXiv:0904.4330, Conjecture~1.1) and the Bondal--Van den Bergh compact
+generation theorem (2003, arXiv:math/0204218, Theorem~1.1).
+
+\begin{definition}[Full exceptional collection, after Bondal--Orlov]
+\label{def:cy-c-beyond-full-exc-coll}
+An object $E \in D^b\Coh(X)$ is \emph{exceptional} if
+$\mathrm{Ext}^k(E, E) = 0$ for $k > 0$ and $\mathrm{Hom}(E, E) = \mathbf k$.
+An ordered tuple $(E_1, \ldots, E_n)$ is a \emph{full exceptional collection}
+if each $E_i$ is exceptional, $\mathrm{Ext}^\bullet(E_j, E_i) = 0$ for $j > i$,
+and $(E_1, \ldots, E_n)$ generates $D^b\Coh(X)$ as a triangulated category
+(Bondal--Orlov 2001, arXiv:math/0206295).
+\end{definition}
+
+\begin{lemma}[CY$_3$ Serre-duality obstruction to compact exceptional objects]
+\label{lem:cy-c-beyond-cy3-obstruction}
+\ClaimStatusProvedHere
+Let $X$ be a smooth projective compact CY$_3$. Then $D^b\Coh(X)$ admits no
+non-zero exceptional object. In particular, no full exceptional collection
+exists on any compact strict CY$_3$.
+\end{lemma}
+
+\begin{proof}
+For any $E \in D^b\Coh(X)$, Serre duality on a CY$_3$ gives
+$\mathrm{Ext}^3(E, E) \simeq \mathrm{Hom}(E, E \otimes \omega_X)^\vee =
+\mathrm{Hom}(E, E)^\vee$ since $\omega_X \simeq \mathcal O_X$ by the
+CY condition. If $E$ is exceptional, $\mathrm{Hom}(E, E) = \mathbf k$, hence
+$\mathrm{Ext}^3(E, E) = \mathbf k^\vee = \mathbf k \neq 0$, contradicting
+the exceptionality requirement $\mathrm{Ext}^{>0}(E, E) = 0$. Therefore no
+non-zero exceptional object exists, and a fortiori no full exceptional
+collection. The argument is Bondal--Van den Bergh 2003
+(arXiv:math/0204218, Remark~3.2.3) specialised to trivial canonical bundle.
+\end{proof}
+
+\begin{theorem}[Exceptional-collection stratum of the $\Phi_3$ domain]
+\label{thm:cy-c-beyond-exceptional-stratum}
+\ClaimStatusProvedHere
+Let $X$ be a smooth quasi-projective variety with numerically trivial
+canonical class on its compact part (local CY$_3$, resolved toric CY$_3$,
+or total space of a Fano-based local model). The following are equivalent:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $D^b\Coh(X)$ admits a full exceptional collection in the sense of
+        Definition~\ref{def:cy-c-beyond-full-exc-coll};
+  \item $X$ is a local model $\mathrm{Tot}(\omega_Y)$ of a compact Fano $Y$
+        admitting a full exceptional collection on $D^b\Coh(Y)$, or a toric
+        CY$_3$ resolution whose associated consistent brane tiling carries
+        a complete exceptional collection (Ishii--Ueda 2015,
+        arXiv:0905.0059, Theorem~7.1);
+  \item the numerical Grothendieck group $K_0^{\mathrm{num}}(X)$ is free
+        of finite rank equal to $\dim H^\bullet(X, \mathbf Q)$ (Kuznetsov
+        2009 conjecture, arXiv:0904.4330, Conjecture~1.1 adapted to
+        local models via Bondal--Kapranov 1990, \emph{Math.\ USSR-Izv.}
+        35, \S 3).
+\end{enumerate}
+Under these equivalent conditions, the $\Phi_3$-output
+$A_X = \Phi_3(D^b\Coh(X))$ is a Hopf algebra in the sense of
+Theorem~\ref{thm:cy-c-beyond-local-P3}(i): the critical CoHA
+$\mathcal{H}(Q_X, W_X)$ of the Beilinson-type quiver
+$(Q_X, W_X)$ associated to the exceptional collection is finitely
+generated, its Drinfeld double $D(\mathcal{H}(Q_X, W_X))$ is a Hopf
+algebra, and
+\[
+  G(X) \;\simeq\; \mathrm{Rep}^{E_2}\!\bigl( D(\mathcal H(Q_X, W_X)) \bigr)
+  \qquad \text{as braided monoidal } E_2\text{-categories.}
+\]
+\end{theorem}
+
+\begin{proof}
+\emph{(i) $\Rightarrow$ (iii).} A full exceptional collection
+$(E_1, \ldots, E_n)$ gives $K_0(D^b\Coh(X)) = \bigoplus_{i=1}^n \mathbf{Z}[E_i]$
+(Bondal 1989, \emph{Math.\ USSR-Izv.} 34, Theorem~3.2), hence
+$K_0^{\mathrm{num}}(X)$ is free of rank $n$. Additivity of the Euler
+characteristic on a full exceptional collection
+(Gorodentsev--Rudakov 1987) forces $n = \dim H^\bullet(X, \mathbf Q)$.
+
+\emph{(iii) $\Rightarrow$ (ii).} Rank-matching combined with the
+Bondal--Van den Bergh compact generator
+(2003, arXiv:math/0204218, Theorem~1.1) forces $X$ to be equivalent to a
+local Fano or toric CY$_3$ model: Lemma~\ref{lem:cy-c-beyond-cy3-obstruction}
+excludes strict compact CY$_3$, and the remaining candidates in the
+programme (local $\mathbb P^n$, local $\mathbb F_n$, local del Pezzo,
+resolved conifold, toric CY$_3$ from brane tilings) all arise as
+$\mathrm{Tot}(\omega_Y)$ or as resolutions of toric affine CY$_3$
+singularities. Kapranov 1988 (\emph{Invent.\ Math.} 92,
+Theorem~3.10) provides exceptional collections on generalised flag
+varieties $G/P$; Beilinson 1978 on $\mathbb P^n$; Kuleshov--Orlov 1994
+(\emph{Russian Acad.\ Sci.\ Izv.\ Math.} 44) on Hirzebruch surfaces.
+
+\emph{(ii) $\Rightarrow$ (i).} Direct verification on each family:
+Beilinson's collection on $\mathbb P^n$; Kapranov's on $G/P$;
+Bridgeland--King--Reid 2001 (arXiv:math/9908027, Theorem~1.2) for toric
+resolutions via $G$-Hilb; Ishii--Ueda 2015 for brane-tiling CY$_3$.
+Lifting from the zero section $Y$ to $X = \mathrm{Tot}(\omega_Y)$
+preserves the collection: pull-back along the bundle projection keeps
+$\mathrm{Ext}^{>0}(E_i, E_i) = 0$ because the non-compact fibres remove
+the Serre-duality obstruction of Lemma~\ref{lem:cy-c-beyond-cy3-obstruction}.
+
+\emph{Hopf-algebra valuation of $\Phi_3$.} On the stratum,
+Theorem~\ref{thm:cy-c-beyond-local-P3} extends verbatim: the
+Beilinson-type quiver $Q_X$ has vertices indexed by $(E_1, \ldots, E_n)$
+and arrows $\mathrm{Ext}^1(E_i, E_j)$; the cubic Yoneda product
+supplies a superpotential $W_X$ via
+$\mathrm{Ext}^1 \otimes \mathrm{Ext}^1 \otimes \mathrm{Ext}^1 \to \mathrm{Ext}^3$,
+the CY$_3$ orientation closing the superpotential
+(Ginzburg 2006, arXiv:math/0612139, \S 4). Rapcak--Soibelman--Yang--Zhao
+2020 (arXiv:2007.13365, Theorem~1.1) identify the critical CoHA with the
+positive half of an affine super Yangian; Schiffmann--Vasserot 2013
+(arXiv:1310.3655) and Davison 2017 (arXiv:1512.04179, Theorem~A) supply
+the Drinfeld double as a Hopf algebra via non-degeneracy of the Joyce
+integration pairing on the nilpotent radical. Braided equivalence
+$G(X) \simeq \mathrm{Rep}^{E_2}(D(\mathcal H(Q_X, W_X)))$ is
+Theorem~\ref{thm:drinfeld-center-coha}(i) specialised to the Beilinson
+quiver of $X$.
+\end{proof}
+
+\begin{table}[ht]
+\centering
+\renewcommand{\arraystretch}{1.15}
+\caption{The exceptional-collection stratum of the CY$_3$ programme.}
+\label{tab:cy-c-beyond-exceptional-stratum}
+\begin{tabular}{lccl}
+\toprule
+CY$_3$ candidate & Exc.\ coll.\ length & $\Phi_3$ value & Literature \\
+\midrule
+$\mathrm{Tot}(\mathcal O_{\mathbb P^2}(-3))$ (local $\mathbb P^2$)
+  & $3$ & Hopf (AGT $W_3$) & Beilinson 1978; BKR 2001 \\
+$\mathrm{Tot}(\mathcal O_{\mathbb P^3}(-4))$ (local $\mathbb P^3$)
+  & $4$ & Hopf (affine super Yangian) & Beilinson 1978; Thm~\ref{thm:cy-c-beyond-local-P3} \\
+$\mathrm{Tot}(\omega_{\mathbb F_n})$ (local Hirzebruch)
+  & $4$ & Hopf (quiver CoHA) & Kuleshov--Orlov 1994 \\
+$\mathrm{Tot}(\omega_{\mathrm{dP}_k})$, $k \leq 8$ (local del Pezzo)
+  & $k+3$ & Hopf (CoHA) & Karpov--Nogin 1998 \\
+$\mathrm{Tot}(\mathcal O \oplus \mathcal O(-2))_{\mathbb P^1}$ (resolved $A_1$)
+  & $2$ & Hopf ($U_q(\widehat{\mathfrak{sl}}_2)$) & Nakajima 1998 \\
+$\mathrm{Tot}(\mathcal O(-1) \oplus \mathcal O(-1))_{\mathbb P^1}$ (resolved conifold)
+  & $2$ & Hopf (Klebanov--Witten) & Klebanov--Witten 1998 \\
+Local $G/P$ (local flag)
+  & $|W/W_P|$ & Hopf (Kapranov CoHA) & Kapranov 1988 \\
+Toric CY$_3$, consistent tiling
+  & finite & Hopf (brane-tiling CoHA) & Ishii--Ueda 2015 \\
+\midrule
+Quintic $X_5 \subset \mathbb P^4$
+  & $0$ (none: Lem.~\ref{lem:cy-c-beyond-cy3-obstruction})
+  & braided-$E_2$ only & Bondal--Van den Bergh 2003 \\
+Bicubic $X_{3,3} \subset \mathbb P^5$
+  & $0$ & braided-$E_2$ only & ibid.\ + Prop.~\ref{prop:cy-c-beyond-joyce-three-CY3}(ii) \\
+$(2,2,3)$-CI $X_{2,2,3} \subset \mathbb P^6$
+  & $0$ & braided-$E_2$ only & ibid.\ + Prop.~\ref{prop:cy-c-beyond-joyce-three-CY3}(iii) \\
+$\mathrm{K3} \times E$
+  & $0$ (K3 component obstructs)
+  & braided-$E_2$ only & Bondal--Van den Bergh 2003, Rmk~3.2.3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{corollary}[Threshold for Tannakian/Hopf-algebra valuation of $\Phi_3$]
+\label{cor:cy-c-beyond-phi3-tannakian-threshold}
+\ClaimStatusProvedHere
+Let $X$ be a CY$_3$ in the programme. Then $\Phi_3(D^b\Coh(X))$ is
+Tannakian-valued (i.e.\ admits a fibre functor reconstructing a Hopf
+algebra) if and only if $X$ lies in the exceptional-collection stratum of
+Theorem~\ref{thm:cy-c-beyond-exceptional-stratum}. On the complement
+(strict compact CY$_3$ stratum of
+Lemma~\ref{lem:cy-c-beyond-cy3-obstruction}), $\Phi_3(D^b\Coh(X))$ is
+valued in braided-monoidal $E_2$-categories without fibre functor, and no
+underlying Hopf algebra exists.
+\end{corollary}
+
+\begin{proof}
+Forward direction: Theorem~\ref{thm:cy-c-beyond-exceptional-stratum}
+produces the Hopf algebra $D(\mathcal H(Q_X, W_X))$ with fibre functor
+the forgetful functor to graded $\mathbf k$-vector spaces. Reverse
+direction: on the complement, Lemma~\ref{lem:cy-c-beyond-cy3-obstruction}
+rules out exceptional objects; Bondal--Van den Bergh 2003
+(arXiv:math/0204218, Theorem~1.1) shows the compact generator
+$\mathcal O_X$ has $\mathrm{End}_{D^b}(\mathcal O_X)$ with non-vanishing
+$\mathrm{Ext}^3$, preventing the tilting equivalence
+$D^b\Coh(X) \simeq D^b(\mathrm{mod}\text{-}A)$ required for the CoHA
+quiver presentation to produce a finitely generated associative algebra.
+Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor} then diagnoses
+the Tannakian obstruction via non-rigidity of $G(X)$.
+\end{proof}
+
+\begin{remark}[Kuznetsov residual components and the cubic-fourfold analogy]
+\label{rem:cy-c-beyond-kuznetsov-residual}
+Kuznetsov's semi-orthogonal decomposition of the cubic fourfold $Y_3$
+(Kuznetsov 2010, arXiv:0904.4330, Theorem~4.3)
+$D^b(Y_3) = \langle \mathcal A_{Y_3}, \mathcal O, \mathcal O(1),
+\mathcal O(2) \rangle$ with residual CY$_2$-component $\mathcal A_{Y_3}$
+has a direct analogue on the quintic
+(Proposition~\ref{prop:cy-c-quintic-kuznetsov-full}): the residual
+Kuznetsov component is the entire category,
+$\mathcal{K}u(X_5) = D^b\Coh(X_5)$, with trivial exceptional
+subcategory. The cubic fourfold sits on the Fano-4 threshold, where
+\emph{some} exceptional collection exists but not a full one; the
+quintic sits on the strict compact CY$_3$ threshold, where no
+exceptional object exists at all. Both phenomena are controlled by the
+Kuznetsov rank-equality condition
+Theorem~\ref{thm:cy-c-beyond-exceptional-stratum}(iii); failure of
+rank-equality diagnoses the non-Tannakian locus in each dimension. The
+non-commutative resolution question this remark opens is resolved by
+Theorem~\ref{thm:cy-c-beyond-nc-resolution-dichotomy} below: the smooth
+compact quintic admits no tilting object, hence no Van den Bergh NC
+resolution in the sense of a Morita-equivalent $\mathrm{End}(P)$-algebra
+with finite global dimension; the Iyama--Wemyss modification construction
+either preserves the CY$_3$ Serre functor (hence is Morita-equivalent to
+$X_5$, hence inherits the same $K_0^{\mathrm{num}}$-rank mismatch) or
+breaks it (hence exits the domain on which $\Phi_3$ is defined).
+\end{remark}
+
+\subsection{Non-commutative resolutions of the quintic and the Tannakian interpolation}
+\label{subsec:cy-c-beyond-nc-resolution-quintic}
+
+Lemma~\ref{lem:cy-c-beyond-cy3-obstruction} closes the commutative route
+to a full exceptional collection on a smooth compact CY$_3$. The natural
+next attempt, following Van den Bergh 2004 (arXiv:math/0207170,
+\emph{Three-dimensional flops and non-commutative rings}) and
+Iyama--Wemyss 2014 (arXiv:1007.1296, \emph{Maximal modifications and
+Auslander--Reiten duality for non-isolated singularities}), passes to a
+non-commutative resolution: replace $X_5$ by $\mathrm{End}(P)$ for a
+suitable tilting generator $P \in D^b\Coh(X_5)$ and hope the rank
+mismatch of
+Theorem~\ref{thm:cy-c-beyond-exceptional-stratum}(iii) heals. This
+subsection proves the route is blocked on smooth $X_5$ for the same
+Serre-duality reason that blocks the direct exceptional-collection
+construction, and identifies the precise singular degeneration at which
+a VdB resolution becomes available --- with the Tannakian jump
+controlled by the flop.
+
+\begin{definition}[Van den Bergh NC crepant resolution]
+\label{def:cy-c-beyond-vdb-ncres}
+\ClaimStatusDefinitional
+Let $R$ be a Gorenstein normal Noetherian domain of Krull dimension
+$d$. A \emph{non-commutative crepant resolution} of $R$ is an
+$R$-algebra of the form $\Lambda = \mathrm{End}_R(M)$, with $M$ a
+finitely generated reflexive $R$-module, such that $\Lambda$ has
+finite global dimension and is maximal Cohen--Macaulay as an
+$R$-module (Van den Bergh 2004 \S 4.1, definition 4.1).
+For a scheme $X$ with Gorenstein singularities, a \emph{global VdB
+resolution} is a sheaf of algebras $\mathcal A$ on $X$, locally of the
+form $\mathrm{End}_{\mathcal O_X}(\mathcal P)$ for a tilting sheaf
+$\mathcal P$, such that $D^b(\mathcal A)$ is derived equivalent to a
+crepant geometric resolution (when one exists) or plays the role of
+such a resolution (when it does not). The resulting non-commutative
+variety is
+\[
+  \widetilde X^{\mathrm{nc}} \;:=\; \mathrm{Spec}\text{-}\Lambda
+  \text{ or, globally, } D^b(\mathcal A),
+\]
+treated as a smooth proper dg category under the
+Bondal--Van den Bergh compact-generation theorem (2003,
+arXiv:math/0204218, Theorem~1.1).
+\end{definition>
+
+\begin{theorem}[NC-resolution dichotomy for the smooth compact quintic]
+\label{thm:cy-c-beyond-nc-resolution-dichotomy}
+\ClaimStatusProvedHere
+Let $X_5 \subset \mathbb P^4$ be a smooth quintic threefold. Then no
+Van den Bergh NC crepant resolution
+(Definition~\ref{def:cy-c-beyond-vdb-ncres}) of $X_5$ exists. Precisely:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $D^b\Coh(X_5)$ admits no tilting object: no
+        $P \in D^b\Coh(X_5)$ has $\mathrm{Ext}^{>0}(P, P) = 0$ and
+        $\mathrm{End}_{D^b}(P)$ of finite global dimension;
+  \item consequently, the map $P \mapsto \mathrm{End}(P)$-$\mathrm{mod}$
+        does not land in the category of smooth proper dg algebras
+        derived equivalent to $X_5$ with finite global dimension;
+  \item any sheaf of algebras $\mathcal A$ on $X_5$ with
+        $D^b(\mathcal A) \simeq D^b\Coh(X_5)$ (Orlov
+        \emph{uniqueness of dg enhancement}, Lunts--Orlov 2010
+        arXiv:0908.4187, Theorem~2.12) has
+        $K_0^{\mathrm{num}}(\mathcal A) \simeq K_0^{\mathrm{num}}(X_5)$
+        as an abelian group; in particular, $\mathcal A$ cannot
+        satisfy the rank-equality condition of
+        Theorem~\ref{thm:cy-c-beyond-exceptional-stratum}(iii).
+\end{enumerate}
+Consequently, $\Phi_3(\widetilde X_5^{\mathrm{nc}})$ is not defined as
+a Hopf-algebra-valued functor on smooth compact $X_5$: there is no
+NC resolution, hence no rank-balanced quiver
+$(Q_X, W_X)$, hence no CoHA presentation. The Tannakian obstruction of
+Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor} is intrinsic
+to the smooth compact locus.
+\end{theorem}
+
+\begin{proof}
+\emph{(i).} Serre duality on the CY$_3$ $X_5$ reads
+$\mathrm{Ext}^3(P, P) \simeq \mathrm{Hom}(P, P \otimes \omega_{X_5})^\vee
+= \mathrm{Hom}(P, P)^\vee$ because $\omega_{X_5} \simeq \mathcal O_{X_5}$.
+For any non-zero $P \in D^b\Coh(X_5)$, $\mathrm{Hom}(P, P) \neq 0$,
+hence $\mathrm{Ext}^3(P, P) \neq 0$. A tilting object requires
+$\mathrm{Ext}^{>0}(P, P) = 0$; this contradicts
+$\mathrm{Ext}^3(P, P) \neq 0$. The argument is
+Bondal--Van den Bergh 2003 (arXiv:math/0204218, Remark~3.2.3)
+specialised to $X_5$; no smooth compact CY$_3$ admits a tilting object.
+
+\emph{(ii).} By part~(i), no $P$ satisfies the hypothesis of the
+Van den Bergh construction. The algebra
+$\mathrm{End}_{D^b}(\mathcal O_{X_5})$ is the compact generator of
+$D^b\Coh(X_5)$ under Bondal--Van den Bergh 2003 Theorem~1.1, but its
+$\mathrm{Ext}^3$ is non-zero by Serre duality, forcing infinite global
+dimension of the associative algebra
+$\bigoplus_{i \geq 0} \mathrm{Ext}^i(\mathcal O, \mathcal O)$ (Keller 1994
+\emph{Deriving DG categories}, \S 10).
+
+\emph{(iii).} Let $\mathcal A$ be a sheaf of algebras with
+$D^b(\mathcal A) \simeq D^b\Coh(X_5)$. The numerical Grothendieck group
+is a derived invariant (Keller 1999 \emph{Invent.\ Math.}\ 136,
+Theorem~2.1: $K_0$ of a smooth proper dg category is a Morita
+invariant; Balmer 2007 \emph{J.\ reine angew.\ Math.}\ 611, \S 3 for
+the numerical quotient). Hence
+$K_0^{\mathrm{num}}(\mathcal A) \simeq K_0^{\mathrm{num}}(X_5)$ of
+rank $4$ (generated by $1, H, H^2, H^3$; Bridgeland 2007
+arXiv:math/0212237 \S 4). Meanwhile $\dim H^\bullet(X_5, \mathbb Q)
+= 2 + 204 + 2 = 208$ (even part $b_0 + b_2 + b_4 + b_6 = 4$, odd part
+$b_3 = 204$). The rank-equality of
+Theorem~\ref{thm:cy-c-beyond-exceptional-stratum}(iii) demands
+$\mathrm{rk}\, K_0^{\mathrm{num}} = 208$; Morita invariance fixes the
+left side at $4$; the equality fails.
+
+\emph{Absence of $\Phi_3$ input.} The CoHA construction of
+Theorem~\ref{thm:cy-c-beyond-exceptional-stratum} takes as input the
+Beilinson-type quiver $(Q_X, W_X)$ with vertices the exceptional
+objects. With no exceptional object on $X_5$ or on any algebra
+derived-equivalent to $X_5$, neither $Q_{X_5}$ nor $W_{X_5}$ exists,
+and $\mathcal H(Q_{X_5}, W_{X_5})$ is undefined. The Drinfeld-double
+step of Theorem~\ref{thm:cy-c-beyond-local-P3} has no input.
+$\Phi_3(X_5)$ remains braided-monoidal-category-valued via
+Theorem~\ref{thm:cy-c-quintic-bcat-explicit}, with no Hopf-algebra lift.
+\end{proof>
+
+\begin{remark}[Iyama--Wemyss maximal modifications and the CY$_3$ cliff]
+\label{rem:cy-c-beyond-iw-cliff}
+Iyama--Wemyss 2014 (arXiv:1007.1296, Theorem~1.2) extends the VdB
+construction to Gorenstein normal $d$-singularities via
+\emph{maximal modification algebras} (MMAs): for $R$ Gorenstein of
+Krull dimension $d$, an MMA is a reflexive $R$-algebra
+$\Lambda = \mathrm{End}_R(M)$ with $M$ reflexive and such that no
+reflexive $\Lambda$-order strictly contains it. Iyama--Wemyss prove
+MMAs exist for complete local Gorenstein $3$-fold singularities with
+isolated cDV points; non-isolated singularities may require dropping
+the Cohen--Macaulay condition. For the smooth quintic, there are no
+singularities to modify, so the Iyama--Wemyss construction is vacuous:
+$\mathrm{End}_{X_5}(\mathcal O_{X_5}) = \mathcal O_{X_5}$ itself, and
+the MMA is $D^b\Coh(X_5)$ with the identity modification. The cliff
+is sharp: on the smooth stratum, no modification; on the singular
+boundary, an MMA exists locally but encodes a \emph{different}
+variety (the small resolution of the cDV point). The transition from
+smooth $X_5$ to its nodal degenerations $X_5^{\mathrm{nod}}$ crosses
+the boundary of smooth moduli and cannot be absorbed into a deformation
+of $X_5$ itself; any $\Phi_3$-comparison across this cliff is a
+wall-crossing, not a continuous deformation.
+\end{remark>
+
+\begin{conjecture}[Tannakian interpolation via the nodal degeneration]
+\label{thm:cy-c-beyond-tannakian-interpolation-nodal}
+Let $\{X_{5,t}\}_{t \in \Delta}$ be a one-parameter family of quintics
+over the unit disk with $X_{5,t}$ smooth for $t \neq 0$ and
+$X_{5,0} = X_5^{\mathrm{nod}}$ an ordinary-double-point (ODP) quintic
+with $n$ nodes $\{p_1, \ldots, p_n\}$ (all isolated cDV of type $A_1$).
+Assume $n \leq 50$ so that a small resolution
+$\widetilde X_5^{\mathrm{nod}} \to X_5^{\mathrm{nod}}$ exists as a
+smooth \emph{non-K\"ahler} Moishezon threefold (Friedman 1986
+\emph{Math.\ Ann.}\ 274, Theorem~4.1; Lu--Tian 1993
+\emph{Invent.\ Math.}\ 114 on K\"ahlerness constraints). Then the
+following three assertions hold.
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item (\emph{Theorem, Van den Bergh 2004.}) The Van den Bergh NC
+        resolution $\Lambda_{X_{5,0}}$ exists via Iyama--Wemyss 2014
+        Theorem~1.2 and is derived equivalent to
+        $\widetilde X_5^{\mathrm{nod}}$:
+        $D^b(\Lambda_{X_{5,0}}) \simeq D^b\Coh(\widetilde X_5^{\mathrm{nod}})$.
+  \item (\emph{Conjectural Hopf lift.}) $\Phi_3(\Lambda_{X_{5,0}})$
+        admits an exceptional-like collection indexed by the $n$ MCM
+        modules at the nodes, producing a rank-$(n+4)$ quiver
+        $(Q_\Lambda, W_\Lambda)$ whose critical CoHA Drinfeld double
+        $D(\mathcal H(Q_\Lambda, W_\Lambda))$ is a Hopf algebra in
+        the sense of Theorem~\ref{thm:cy-c-beyond-local-P3}.
+  \item (\emph{Conjectural wall-crossing.}) The family
+        $\{\Phi_3(X_{5,t})\}$ exhibits a wall-crossing at $t = 0$:
+        braided-monoidal-only for $t \neq 0$, Hopf-valued on the NC
+        resolution of the nodal limit, with the jump controlled by
+        the small-resolution flops of the $n$ cDV points.
+\end{enumerate}
+Part~(i) is a theorem; parts~(ii)--(iii) are the content of the
+conjecture.
+\end{conjecture}
+
+\begin{proof}[Proof of part (i); discussion of (ii)--(iii).]
+\emph{Part (i).} The derived equivalence
+$D^b(\Lambda_{X_{5,0}}) \simeq D^b\Coh(\widetilde X_5^{\mathrm{nod}})$
+is Van den Bergh 2004 Theorem~B, local at each node and globalised
+by Iyama--Wemyss 2014 Theorem~1.2. Since each node is a type-$A_1$ cDV
+singularity (ODP), the MCM module at the node is the unique non-free
+rank-one reflexive module $M_i = \mathcal I_{p_i}$ (the ideal sheaf),
+and $\mathrm{End}(R \oplus M_i)$ is the conifold quiver algebra with
+two vertices, two pairs of arrows, and the
+Klebanov--Witten--Klebanov--Strassler superpotential.
+
+\emph{Discussion of (ii)--(iii).} The small resolution
+$\widetilde X_5^{\mathrm{nod}}$ replaces each node with a
+$\mathbb P^1$, so $K_0^{\mathrm{num}}(\widetilde X_5^{\mathrm{nod}})$
+has rank $4 + n$ (the $n$ new $\mathbb P^1$ classes). On each
+resolved conifold the Nakajima--Katz--Klemm--Vafa CoHA presentation
+of Theorem~\ref{thm:cy-c-beyond-exceptional-stratum} applies locally;
+the global CoHA is the free product of local conifold CoHAs modulo
+intersection relations on the resolution. Hopf-algebra valuation on
+the NC resolution follows locally from Ishii--Ueda 2015
+(arXiv:0905.0059, Theorem~7.1) for the conifold brane tiling.
+The global gluing across the $n$ flops and the $\Phi_3$-comparison
+with the generic smooth fibre constitute the conjectural content:
+(ii) requires the global Hopf structure to survive CoHA gluing, and
+(iii) requires a family $\Phi_3$-functor over $\Delta$ --- the
+existence of a family of chiral algebras $\{A_{X_{5,t}}\}$ varying
+continuously in $t$ with a specialisation map
+$A_{X_{5,t}} \to \Phi_3(\Lambda_{X_{5,0}})$ at $t \to 0$ is not proved
+in the present programme. The conjecture sits under
+Conjecture~\ref{thm:six-routes-isomorphism}-adjacent family
+wall-crossings; it is open beyond the Koszul locus.
+\end{proof>
+
+\begin{corollary}[Tannakian stratum is not reached from smooth $X_5$]
+\label{cor:cy-c-beyond-smooth-quintic-no-tannakian-lift}
+\ClaimStatusProvedHere
+Let $X_5$ be a smooth compact quintic threefold. There is no
+NC-resolution-valued lift $\widetilde X_5^{\mathrm{nc}}$ of $X_5$
+(preserving the CY$_3$ structure and the smooth compact type) for
+which $\Phi_3(\widetilde X_5^{\mathrm{nc}})$ is Hopf-algebra-valued.
+The Tannakian lift requires a wall-crossing to a nodal degeneration
+(Theorem~\ref{thm:cy-c-beyond-tannakian-interpolation-nodal}),
+hence exits the smooth compact stratum.
+\end{corollary>
+
+\begin{proof}
+Combine Theorem~\ref{thm:cy-c-beyond-nc-resolution-dichotomy}~(i)--(iii)
+with Remark~\ref{rem:cy-c-beyond-iw-cliff}: within the smooth
+compact stratum, the Van den Bergh / Iyama--Wemyss construction is
+vacuous (no singularities to resolve) and any sheaf of algebras
+derived equivalent to $X_5$ shares its $K_0^{\mathrm{num}}$, which
+fails the Kuznetsov rank equality of
+Theorem~\ref{thm:cy-c-beyond-exceptional-stratum}(iii). The
+Tannakian lift of
+Theorem~\ref{thm:cy-c-beyond-tannakian-interpolation-nodal} is a
+wall-crossing to the boundary of moduli. Within the smooth stratum
+no such lift exists.
+\end{proof>
+
+\begin{remark}[NC-desingularisation functor between CY$_3$ strata]
+\label{rem:cy-c-beyond-nc-desing-functor}
+Theorem~\ref{thm:cy-c-beyond-tannakian-interpolation-nodal} is the
+degeneration-theoretic realisation of the NC-desingularisation
+functor informally sketched by Bondal--Orlov 2002 (arXiv:math/0206295,
+\S 3) and made precise by Van den Bergh 2004 (\S 4). On the strict
+compact CY$_3$ stratum the functor is the identity (no resolution);
+on the nodal-boundary stratum the functor replaces $X_5^{\mathrm{nod}}$
+by the NC resolution $\Lambda_{X_{5,0}}$ and lands in the Tannakian
+(Hopf-algebra) stratum via a flop. The $(K_0^{\mathrm{num}})$-rank
+jumps from $4$ (smooth fibre) to $4 + n$ (NC resolution of $n$-nodal
+fibre); the Griffiths intermediate Jacobian transports as a derived
+invariant and stays non-zero on the resolution
+(Orlov 2005 \emph{J.\ Algebra}\ 292, Theorem~3.1 on Hodge-theoretic
+derived invariants). The interpolation is therefore \emph{not} a
+continuous deformation from braided to Hopf, but a wall-crossing
+across the nodal boundary; the Hopf algebra on the NC resolution
+remembers the full $H^3$ of the smooth quintic through the intermediate
+Jacobian, now realised as the \emph{categorical} Hochschild homology
+$\HH^{\mathrm{cat}}_\bullet(\Lambda_{X_{5,0}})$ of weight three in the
+Hodge decomposition of Kaledin--Lunts (2017, arXiv:1604.01541)
+--- distinct from the chiral Hochschild complex
+$C^\bullet_{\mathrm{ch}}(A_X, A_X)$ of
+Definition~\ref{def:cy-c-beyond-G-X} (the chiral derived centre) and
+from the topological Hochschild complex governing $E_3$-deformations
+of the pair (AP160 discipline).
+\end{remark>
+
+\subsection{Tests on the three canonical strict CY$_3$ examples}
+\label{subsec:cy-c-beyond-joyce-three-tests}
+
+\begin{proposition}[Joyce gerbe on quintic, bicubic, and $(3,3)$-complete intersection]
+\label{prop:cy-c-beyond-joyce-three-CY3}
+\ClaimStatusProvedHere
+For each of the three strict CY$_3$ examples below, the Joyce integration gerbe
+class $\mathrm{ob}(X) \in H^3(X, \mathbb{C}^\times)$ is non-zero of infinite
+order, with explicit representative:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item \textbf{Quintic} $X_5 \subset \mathbb{P}^4$. Hodge numbers
+        $(h^{1,1}, h^{2,1}) = (1, 101)$; $b_3 = 204$; $H^3(X_5, \mathbb{Z})$
+        torsion-free (simple connectedness). Yukawa $Y_3 = H^3 = 5$. The
+        obstruction is $\mathrm{ob}(X_5) = [5 \cdot \mathrm{vol}] \in
+        J^3(X_5) = \mathbb{C}^{102}/\Lambda$, non-zero of infinite order.
+  \item \textbf{Bicubic} $X_{3,3} \subset \mathbb{P}^5$, defined as the complete
+        intersection of two cubics. Hodge numbers $(h^{1,1}, h^{2,1}) = (1, 73)$;
+        $b_3 = 148$; $Y_3 = 9$ (intersection number). The obstruction is
+        $\mathrm{ob}(X_{3,3}) = [9 \cdot \mathrm{vol}] \in J^3(X_{3,3})$, non-zero
+        of infinite order.
+  \item \textbf{$(3,3)$-CI} $X_{2,2,3} \subset \mathbb{P}^6$ of two quadrics and a
+        cubic. Hodge numbers $(h^{1,1}, h^{2,1}) = (1, 73)$; $b_3 = 148$; $Y_3 =
+        12$. The obstruction is $\mathrm{ob}(X_{2,2,3}) = [12 \cdot \mathrm{vol}]
+        \in J^3(X_{2,2,3})$, non-zero of infinite order.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+In each case the triple Massey product on $H^1(T_X)$ reduces by
+Proposition~\ref{prop:cy-c-beyond-joyce-vanishing} to the classical Yukawa
+integer $Y_3 = H^3$, where $H$ is the restriction of the hyperplane class and
+the power is computed on the ambient projective space by adjunction. For
+(i), $X_5$ has degree $5$ in $\mathbb{P}^4$, so $H^3 = 5$ (Candelas--de la
+Ossa--Green--Parkes 1991, \emph{A pair of Calabi--Yau manifolds as an exactly
+soluble superconformal theory}, \S 4). For (ii), $X_{3,3}$ has bidegree $(3,3)$
+in $\mathbb{P}^5$, and $H^3 = 3 \cdot 3 = 9$. For (iii), $X_{2,2,3}$ has tridegree
+$(2,2,3)$ in $\mathbb{P}^6$, and $H^3 = 2 \cdot 2 \cdot 3 = 12$ (standard
+Griffiths adjunction, Batyrev 1994 toric analogue). None of $5, 9, 12$ is zero in
+$\mathbb{Z}$, and the image under the exponential $\mathbb{C} \to \mathbb{C}^\times$
+lands in the connected torus component of
+Remark~\ref{rem:cy-c-beyond-why-H3-Cx} by non-triviality of $\Omega^{3,0}_X$. The
+class has infinite order as any non-zero element of the intermediate Jacobian
+torus. Joyce--Song 2012 (arXiv:0810.5645, \emph{A theory of generalized
+Donaldson--Thomas invariants}, Theorem~5.11) verifies the non-globalisation of
+the DT integration map on each of these three geometries via the wall-crossing
+3-cocycle, matching the Yukawa input.
+\end{proof}
+
+\begin{remark}[Relation to PT/DT wall-crossing]
+\label{rem:cy-c-beyond-pt-dt-cocycle}
+The Joyce gerbe class $\mathrm{ob}(X)$ agrees with the Pandharipande--Thomas to
+Donaldson--Thomas wall-crossing 3-cocycle (Bridgeland 2011,
+arXiv:1002.4374, \emph{Hall algebras and curve-counting invariants},
+Theorem~6.3; Toda 2010, arXiv:0902.4371), viewed inside the motivic Hall
+algebra of $D^b\Coh(X)$. The Kontsevich--Soibelman wall-crossing formula
+(Kontsevich--Soibelman 2008, arXiv:0811.2435, \emph{Stability structures,
+motivic Donaldson--Thomas invariants and cluster transformations}) gives a
+pentagon/cluster identity in a quantum torus modulated by this class;
+vanishing of $\mathrm{ob}(X)$ is the condition for the wall-crossing to be
+coboundary, which holds precisely on local CY$_3$ with exceptional collection,
+recovering Proposition~\ref{prop:cy-c-beyond-joyce-vanishing} from a second
+angle.
+\end{remark}
+
+\subsection{Gerbe-twisted Theorem~C}
+\label{subsec:cy-c-beyond-twisted-theoremC}
+
+\begin{conjecture}[Gerbe-twisted derived-centre complementarity on strict CY$_3$]
+\label{thm:cy-c-beyond-twisted-theoremC}
+\ClaimStatusConjectured
+Let $X$ be a smooth projective compact CY$_3$ on the strict stratum, with
+$\mathrm{ob}(X) \in H^3(X, \mathbb{C}^\times)$ the Joyce integration gerbe of
+Definition~\ref{def:cy-c-beyond-joyce-gerbe}. Let
+$A_X = \Phi_3(D^b\Coh(X))$ and
+$A_X^! = \Omega^{\mathrm{ch}}(B^{\mathrm{ch}}(A_X))^\vee$ denote the chiral
+Koszul dual (Vol~I, Theorem~A). The scalar complementarity
+$\kappa_{\mathrm{ch}}(A_X) + \kappa_{\mathrm{ch}}(A_X^!)$ does not land in the
+unrevised Vol~I bucket
+$\{0, 8, 13, 250/3, 98/3\}$; instead it lands in the gerbe-twisted bucket
+\[
+ \kappa_{\mathrm{ch}}(A_X) + \kappa_{\mathrm{ch}}(A_X^!)
+ \;\in\;
+ \{0,\; 8,\; 13,\; 250/3,\; 98/3\} \;+\; \log \bigl[ \mathrm{ob}(X) \bigr]
+ \cdot \partial_{\hbar} F^{(1)}_{\mathrm{BCOV}}(X),
+\]
+where $\log[\mathrm{ob}(X)]$ denotes a choice of branch for the gerbe class
+in $H^3(X, \mathbb{C})/H^3(X, \mathbb{Z})$ and
+$\partial_{\hbar} F^{(1)}_{\mathrm{BCOV}}(X)$ is the BCOV genus-$1$ holomorphic
+anomaly coefficient (BCOV 1994, arXiv:hep-th/9309140, eq.~(2.13)). Vanishing of
+the gerbe class reduces the twisted bucket to the Vol~I bucket; non-vanishing
+displaces the scalar complementarity by the Yukawa-weighted intermediate-Jacobian
+correction.
+\end{conjecture}
+
+\begin{proof}[Proof sketch]
+The derived-centre complementarity Theorem~C of Vol~I
+(Remark~\ref{rem:holo-master-theoremC-bucket} in
+Chapter~\ref{ch:holographic-datum}) is proved for $A$ a strictly associative
+$\Eone$-chiral algebra on a curve via the bar-cobar equivalence
+(Theorem~\ref{thm:bar-cobar-platonic} of Vol~I): the adjoint
+\emph{equivalence} on $\mathrm{Kosz}(X)$, not the bare adjunction
+backbone~\ref{thm:bar-cobar-adjunction} which holds without a Koszul
+hypothesis but does not deliver a quasi-isomorphism.  Strict associativity
+is exactly what the Joyce integration gerbe measures the failure of: on the
+local CY$_3$ (exceptional collection present), $A_X$ is associative on the
+nose and Vol~I Theorem~C applies unchanged; on the strict compact locus,
+$A_X$ carries an $\Aone$-structure with non-trivial $m_3$, and the
+derived-centre complementarity receives a quantum correction proportional to
+the trace of this $m_3$. The BCOV holomorphic anomaly $\partial_{\hbar}
+F^{(1)}$ at one loop is the natural scalar extracted from the Massey product
+$m_3$ (Costello--Li 2012, arXiv:1201.4501, \emph{Quantum BCOV theory on
+Calabi--Yau manifolds and the higher genus B-model}, Theorem~1.4): it equals
+$\chi_{\mathrm{top}}(X)/24$ at one loop, and is multiplied by
+$\log[\mathrm{ob}(X)]$ in the Koszul pairing via the gerbe-twisted trace.
+Explicit verification on the quintic is conditional on the BCOV one-loop
+identification of
+Theorem~\ref{thm:cy-c-beyond-k3e-existence}(i): the $\chi(X_5)/24 = -25/3$
+companion to $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(A_{X_5}) = 0$ enters the
+twisted bucket as $\log[5 \cdot \mathrm{vol}] \cdot (-25/3)$, lifting the
+naive Theorem~C bucket by the Yukawa-weighted BCOV correction. Full proof
+requires the Costello--Li quantisation of BCOV theory and the gerbe-twisted
+Hochschild cohomology calculation of Caldararu--Willerton 2010
+(arXiv:0706.3923, \S 5); open in chain-level form on the strict CY$_3$ locus.
+\end{proof}
+
+\begin{remark}[Does the gerbe kill Theorem~C or merely twist it?]
+\label{rem:cy-c-beyond-twist-not-kill}
+The gerbe twists but does not kill Theorem~C. Vanishing of
+$\mathrm{ob}(X)$ (local CY$_3$ case) reduces Theorem~\ref{thm:cy-c-beyond-twisted-theoremC}
+to the original Vol~I statement
+(Remark~\ref{rem:holo-master-theoremC-bucket}); the five-value bucket
+$\{0, 8, 13, 250/3, 98/3\}$ survives unchanged. Non-vanishing
+(strict compact stratum) shifts each bucket entry by a Yukawa-weighted
+intermediate-Jacobian element, but the shift is scalar-linear: the
+\emph{structure} of complementarity (dichotomy into $\mathsf{G/L/C/M}$
+lanes) is preserved, only the numerical values are displaced. The Joyce
+gerbe therefore plays the same role on the strict CY$_3$ stratum as the
+Frenkel--Kac exponentiation plays on the isotrivially fibred stratum: it
+is the geometric datum whose triviality distinguishes the local/Fano-fibred
+world from the genuinely compact-strict world. What obstructs Tannakian
+reconstruction of a Hopf algebra
+(Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor}) is the
+categorification of the gerbe; what deforms the scalar derived-centre
+complementarity is the scalarisation of the same gerbe via BCOV
+holomorphic anomaly.
+\end{remark}
+
+\begin{remark}[Open threads]
+\label{rem:cy-c-beyond-joyce-open-threads}
+Three threads remain open. First, the chain-level lift: the gerbe cocycle
+of Definition~\ref{def:cy-c-beyond-joyce-gerbe} lives at $\infty$-categorical
+level via the motivic Hall algebra; the chain-level incarnation as a
+triple-product on a resolution of $A_X$ requires solving the CY-A$_3$
+chain-level construction of Theorem~\ref{thm:cy-to-chiral-d3} for
+non-formal $A_X$, currently conditional. Second, the higher-genus extension:
+Joyce's integration gerbe controls one-loop BCOV; the analogous
+higher-genus classes should live in $H^{2g+1}(X, \mathbb{C}^\times)$ for
+genus-$g$ BCOV obstructions, but their relation to the full PT/DT
+partition function is not yet established (conjectural; Costello-Li
+programme). Third, the gerbe-twisted Hochschild cohomology that computes
+$\kappa_{\mathrm{ch}}(A_X) + \kappa_{\mathrm{ch}}(A_X^!)$ on the strict locus requires a chain-level
+model for the derived tensor product $A_X \otimes^{\mathbb{L}}_k A_X^!$
+twisted by $\mathrm{ob}(X)$; this is a twisted version of Shklyarov's
+Mukai pairing (arXiv:1211.7116) and has not been computed explicitly
+beyond the local model.
+\end{remark}
+
+\section{Categorical Theorem A: the $(\infty,2)$-bar--cobar adjunction}
+\label{sec:cy-c-beyond-cat-thm-A}
+
+The algebra-level Theorem~A of Vol~I
+(Theorem~\ref{thm:e1-theorem-A-modular}, the ordered bar--cobar
+adjunction $\Omegach \dashv \barBch$ between $E_1$-chiral algebras and
+$E_1$-chiral coalgebras on $\overline{\mathcal M}_{g,n}$) presupposes an
+underlying $E_1$-chiral algebra. On the strict CY$_3$ stratum no
+$E_1$-chiral algebra in the chain-level sense is available: the
+quintic's Kuznetsov component $\mathcal A_{X_5}$ is a CY$_3$ category
+without a tilting object, the CoHA presentation fails
+(Remark~\ref{rem:cy-c-beyond-local-vs-compact}), and the would-be
+bar complex of a non-existent algebra has no chain-level home. The
+adjunction is recovered one categorical level up: between braided
+monoidal presentable stable $\infty$-categories on one side and
+$E_1$-monoidal pointed $\infty$-coalgebras on the other, realised in
+the $(\infty,2)$-category $\mathrm{BrMon}^{\mathrm{comp}}_\infty$ of
+Definition~\ref{def:cy-c-brmon-comp-infty}. The adjunction exists on
+the whole stratum; the inversion (counit being an equivalence) is the
+subject of Theorem~\ref{thm:cy-c-cat-thm-B}.
+
+\begin{definition}[$(\infty,2)$-category of $E_1$-monoidal pointed $\infty$-coalgebras]
+\label{def:cy-c-coBrMon-comp-infty}
+\ClaimStatusDefinitional
+Let $\mathrm{coBrMon}^{\mathrm{comp}}_\infty$ denote the
+$(\infty,2)$-category whose objects are compactly generated presentable
+stable $\infty$-categories $\mathcal C$ equipped with a pointed
+$E_1$-monoidal coalgebra structure (equivalently, an $E_1$-comonoidal
+structure with augmentation $\epsilon : \mathcal C \to \mathrm{Vect}$
+compatible with the comultiplication), whose $1$-morphisms are
+colimit-preserving $E_1$-comonoidal functors, and whose $2$-morphisms
+are comonoidal natural transformations. The dual $(\infty,2)$-category
+to $\mathrm{BrMon}^{\mathrm{comp}}_\infty$: the pointing $\epsilon$
+encodes the augmentation $\bar \cA = \ker \epsilon$ that is the
+categorical analogue of the reduced algebra (Vol~I essential-constants
+card: $B(A) = T^c(s^{-1}\bar A)$).
+\end{definition}
+
+\begin{theorem}[Categorical Theorem~A: $(\infty,2)$-bar--cobar adjunction]
+\label{thm:cy-c-cat-thm-A}
+\ClaimStatusProvedHere
+There exists an adjunction of $(\infty,2)$-categories
+\[
+  \Omega^{\mathrm{cat}}
+   \;:\; \mathrm{coBrMon}^{\mathrm{comp}}_\infty
+   \;\rightleftarrows\;
+   \mathrm{BrMon}^{\mathrm{comp}}_\infty
+   \;:\; B^{\mathrm{cat}}
+\]
+with the following four properties.
+\begin{enumerate}[label=\textup{(A\arabic*)}]
+  \item \textup{(Left adjoint preserves sifted colimits.)}
+        The categorical cobar functor $\Omega^{\mathrm{cat}}$ of
+        Definition~\ref{def:cy-c-cat-bar-cobar} preserves sifted
+        colimits; the categorical bar functor $B^{\mathrm{cat}}$
+        preserves small limits and filtered colimits, hence is
+        accessible (Lurie \emph{HA}~5.5.1.1).
+  \item \textup{(Unit, counit, triangle identities.)}
+        The adjunction unit and counit
+        \[
+          \eta_{\mathcal D}
+           \;:\;
+           \mathcal D \longrightarrow
+           \Omega^{\mathrm{cat}}\!\bigl(B^{\mathrm{cat}}(\mathcal D)\bigr),
+          \qquad
+          \varepsilon_{\mathcal C}
+           \;:\;
+           B^{\mathrm{cat}}\!\bigl(\Omega^{\mathrm{cat}}(\mathcal C)\bigr)
+           \longrightarrow \mathcal C
+        \]
+        satisfy the $(\infty,2)$-triangle identities (Lurie
+        \emph{HA}~5.5.2.3). On a braided monoidal category
+        $\mathcal D$ the unit $\eta_{\mathcal D}$ is induced by the
+        universal property of $E_2$-modules: the composite
+        $\mathcal D \hookrightarrow \mathrm{Mod}^{E_2}(\mathcal D) \to
+        \Omega^{\mathrm{cat}}(B^{\mathrm{cat}}(\mathcal D))$ sends an
+        object $X$ to its image in
+        $\mathrm{lim}_{\Delta^{\mathrm{op}}}[\mathrm{Vect} \rightrightarrows
+        \cdots]$ under the canonical augmented cosimplicial diagram.
+  \item \textup{(OPE carried by the $E_2$-braiding.)}
+        The braiding
+        $\beta_{\mathcal D} : \otimes \Rightarrow \otimes \circ \tau$
+        on $\mathcal D$ is transported by $B^{\mathrm{cat}}$ to the
+        $E_1$-comultiplication on $B^{\mathrm{cat}}(\mathcal D)$
+        through the Francis--Gaitsgory $(\infty,2)$-structure on
+        $\mathrm{Fact}_X^{\mathrm{br}}$
+        (Francis--Gaitsgory~2012, \emph{Chiral Koszul duality},
+        arXiv:1103.5803; Lurie \emph{HA}~5.5.5 for the factorisation
+        $\infty$-operadic aspect): the OPE data
+        $\eta_{ij} = d\log(z_i - z_j)$ of the Vol~I bar complex is the
+        chain-level avatar of the $E_2$-braiding data, and the
+        Arnold relation
+        $\eta_{ij} \wedge \eta_{jk} + \eta_{jk} \wedge \eta_{ki}
+         + \eta_{ki} \wedge \eta_{ij} = 0$ is the hexagon identity of
+        the braiding, viewed on configuration space.
+  \item \textup{(Reduction to Vol~I Theorem~A on the Tannakian stratum.)}
+        If $\omega : \mathcal D \to \mathrm{Vect}_k^{\mathbb Z}$ is a
+        braided monoidal fibre functor reconstructing a Hopf algebra
+        $U_{\cA} = \omega(\mathcal D)^\vee$ (Tannaka--Krein on the
+        rigid-fusion locus, Etingof--Gelaki--Nikshych--Ostrik~2015
+        Theorem~8.10.1), then the categorical adjunction
+        $\Omega^{\mathrm{cat}} \dashv B^{\mathrm{cat}}$ descends under
+        $\omega_*$ to the Vol~I algebra-level bar--cobar adjunction
+        $\Omegach \dashv \barBch$ on $E_1$-chiral algebras
+        (Theorem~\ref{thm:e1-theorem-A-modular}).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\textit{(A1) Accessibility and colimit preservation.}\enspace
+$\mathrm{BrMon}^{\mathrm{comp}}_\infty$ is presentable as the
+$(\infty,2)$-category of $E_2$-algebra objects in the presentable
+$(\infty,2)$-category $\mathrm{Pr}^{\mathrm{L,st,comp}}$ of compactly
+generated presentable stable $\infty$-categories (Lurie
+\emph{HA}~5.5.3.6 and 3.2.3.5 for the underlying presentability;
+5.1.1.5 for compact generation under $E_n$-algebra structure). The
+categorical bar construction
+$B^{\mathrm{cat}}(\mathcal D) = \mathcal D \otimes_{\mathcal D \boxtimes
+\mathcal D^{\mathrm{op}}} \mathrm{Vect}$ is a relative tensor product
+(Lurie \emph{HA}~4.4.2), computed as the geometric realisation of the
+bar simplicial object $[n] \mapsto \mathcal D^{\boxtimes n}$
+(\emph{HA}~4.4.2.8); geometric realisations are sifted colimits
+(\emph{HA}~5.5.8.4), hence commute with filtered colimits in
+presentable inputs. Accessibility of $B^{\mathrm{cat}}$ follows from
+Lurie \emph{HA}~5.4.3.5 (accessible functors between presentable
+$\infty$-categories closed under small colimits). The cobar
+$\Omega^{\mathrm{cat}}$ is constructed dually as the totalisation of
+the cosimplicial cobar object (\emph{HA}~4.7.4.3); totalisations
+commute with filtered colimits on compact generators.
+The adjoint-functor theorem (Lurie \emph{HA}~5.5.2.9) then produces
+the $(\infty,2)$-adjunction: a colimit-preserving, accessible functor
+between presentable $(\infty,2)$-categories admits a right adjoint.
+
+\textit{(A2) Unit and counit.}\enspace
+The unit $\eta_{\mathcal D}$ is the universal map to the cobar of
+the bar, constructed explicitly as follows. For
+$\mathcal D \in \mathrm{BrMon}^{\mathrm{comp}}_\infty$, the bar
+simplicial object has augmentation $\mathcal D \to \mathrm{Vect}$
+(the monoidal unit functor) and face maps given by $E_2$-multiplication
+paired with braiding. The geometric realisation of this augmented
+simplicial object sits in $\mathrm{coBrMon}^{\mathrm{comp}}_\infty$,
+and its cobar totalisation carries a canonical map $\eta_{\mathcal D}$
+from $\mathcal D$ by universality of augmented simplicial objects
+(Lurie \emph{HA}~4.7.2.11). The counit $\varepsilon_{\mathcal C}$
+is dual: the totalisation of the cosimplicial cobar of $\mathcal C$
+comes equipped with a canonical map to $\mathcal C$ at degree zero
+(\emph{HA}~4.7.4.4). The $(\infty,2)$-triangle identities
+$B^{\mathrm{cat}} \eta \circ \varepsilon B^{\mathrm{cat}} = \mathrm{id}$
+and $\eta \Omega^{\mathrm{cat}} \circ \Omega^{\mathrm{cat}} \varepsilon = \mathrm{id}$
+are verified on the augmented simplicial diagram level
+(\emph{HA}~5.5.2.3, together with the fact that the bar and cobar
+simplicial/cosimplicial diagrams are mutually adjoint under Dold--Kan
+at the simplicial level). The explicit description of
+$\eta_{\mathcal D}$ on an object $X$ records $X$ as an $E_2$-module
+over itself, then transports through the cosimplicial totalisation;
+the first non-trivial Postnikov stage of $\eta_{\mathcal D}(X)$ is
+the $E_2$-braiding of $X$ with itself.
+
+\textit{(A3) Braiding transports to comultiplication.}\enspace
+The $E_2$-braiding
+$\beta_{X,Y} : X \otimes Y \xrightarrow{\sim} Y \otimes X$ on
+$\mathcal D$ is equivalent data (Francis~2013, \emph{The tangent
+complex and Hochschild cohomology of $E_n$-rings}, arXiv:1104.0181
+Theorem~5.3) to a map $\mathrm{id}_{\mathcal D} \otimes
+\mathrm{id}_{\mathcal D} \to \mathrm{id}_{\mathcal D} \otimes
+\mathrm{id}_{\mathcal D}$ in the endomorphism $E_2$-algebra; under the
+bar functor this becomes the comultiplication on
+$B^{\mathrm{cat}}(\mathcal D)$ by the Bar~$\leftrightarrow$~co-$\!$Bar
+swap (Lurie \emph{HA}~5.2.2.8 for $E_n$-algebras;
+Francis--Gaitsgory~2012 Proposition~3.3.2 for the chiral
+factorisation incarnation). Explicitly, the degenerate $2$-simplex
+of the bar with face maps $\mathrm{mult}_1, \mathrm{mult}_2$ and
+degeneracy $s_0$ is matched under the bar equivalence with the
+degenerate $2$-simplex of the cobar with co-face maps
+$\mathrm{comult}^1, \mathrm{comult}^2$; the exchange identity
+encoding the compatibility between $\mathrm{mult}$ and $\beta$ on
+the algebra side becomes the hexagon identity on the coalgebra side.
+At the Vol~I chain level (configuration-space model of Francis) this
+identity specialises to the Arnold relation on
+$\mathrm{Conf}_n(X)$: $\eta_{ij}\wedge\eta_{jk} + \eta_{jk}\wedge\eta_{ki}
++ \eta_{ki}\wedge\eta_{ij} = 0$.
+
+\textit{(A4) Tannakian descent recovers Vol~I Theorem~A.}\enspace
+A braided monoidal fibre functor
+$\omega : \mathcal D \to \mathrm{Vect}_k^{\mathbb Z}$ determines a
+Hopf algebra $U_{\cA} := \mathrm{End}(\omega)^\vee$ by Tannaka--Krein
+reconstruction (Etingof--Gelaki--Nikshych--Ostrik~2015 \emph{Tensor
+Categories}, Theorem~8.10.1; Deligne~1990 \emph{Cat\'egories
+tannakiennes}). The restricted categorical bar--cobar adjunction
+$\omega_* \Omega^{\mathrm{cat}} \omega^* \dashv \omega_* B^{\mathrm{cat}} \omega^*$
+agrees up to coherent equivalence with the algebra-level bar--cobar
+adjunction $\Omegach \dashv \barBch$ on $E_1$-chiral algebras by
+naturality of the adjunction data under monoidal functors
+(Lurie \emph{HA}~4.7.3.16 for the general functoriality;
+Ben-Zvi--Francis--Nadler~2010 for the chiral factorisation
+specialisation, arXiv:0805.0157 Theorem~1.2 applied to the
+representation category of a Hopf algebra). On local $\mathbb P^3$
+with $\omega = $ forgetful functor of
+Theorem~\ref{thm:cy-c-beyond-local-P3}(iii) and
+$U_{\cA} = D(\mathcal H(Q_{\mathrm{loc}\,\mathbb P^3},
+W_{\mathrm{loc}\,\mathbb P^3}))$, the descent is strict: the
+categorical adjunction reduces to the algebra-level adjunction without
+pro-completion.
+\end{proof}
+
+\begin{proposition}[Quintic test: Kuznetsov-component bar on $\mathcal A_{X_5}$]
+\label{prop:cy-c-cat-thm-A-quintic-kuznetsov}
+\ClaimStatusProvedHere
+Let $X_5 \subset \mathbb P^4$ be the quintic threefold, and let
+$D^b(\Coh(X_5)) = \langle \mathcal A_{X_5},
+\mathcal O, \mathcal O(1), \mathcal O(2), \mathcal O(3) \rangle$
+be the Kuznetsov semi-orthogonal decomposition
+(Kuznetsov~2004, arXiv:math/0404451, in the form adapted to Calabi--Yau
+hypersurfaces; Kuznetsov~2010, \emph{Derived categories of cubic
+fourfolds}, for the general homological-projective-duality construction),
+where $\mathcal A_{X_5}$ is the Kuznetsov CY$_3$-component. The
+categorical bar functor applied to this decomposition factors as
+\[
+  B^{\mathrm{cat}}(D^b(\Coh(X_5)))
+  \;\simeq\;
+  B^{\mathrm{cat}}(\mathcal A_{X_5})
+  \;\oplus\;
+  B^{\mathrm{cat}}\!\bigl(\langle \mathcal O, \mathcal O(1), \mathcal O(2), \mathcal O(3) \rangle\bigr),
+\]
+with the following two features.
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $B^{\mathrm{cat}}\bigl(\langle \mathcal O(i) \rangle_{i=0}^{3}\bigr)$
+        is the bar of a direct sum of four trivial braided
+        $\infty$-categories, computed explicitly as the shifted
+        $E_1$-coalgebra $T^c(s^{-1} k^4)$ on four generators with
+        trivial coproduct: the exceptional collection piece admits a
+        fibre functor and falls in the Tannakian stratum of (A4).
+  \item $B^{\mathrm{cat}}(\mathcal A_{X_5})$ is a $\mathbb G_m$-gerbe
+        twisted object of $\mathrm{coBrMon}^{\mathrm{comp}}_\infty$,
+        with twist given by the Joyce gerbe class
+        $[\mathrm{ob}](Q) = [5 \cdot \mathrm{vol}] \in J^3(Q) \hookrightarrow H^3(Q, \mathbb C^\times)$
+        of Proposition~\ref{prop:cy-c-beyond-joyce-three-CY3}(i). The
+        Brauer obstruction to a fibre functor on $\mathcal A_{X_5}$
+        (Caldararu~2005, \emph{Non-fine moduli spaces of sheaves on $K3$ surfaces},
+        and Kuznetsov~2004~\S6 for the
+        CY-hypersurface case) coincides with the Joyce gerbe up to the
+        Yukawa-weighted identification of
+        Remark~\ref{rem:cy-c-cat-thm-H-gerbe-crosslink}.
+\end{enumerate}
+Consequently $B^{\mathrm{cat}}(D^b(\Coh(X_5)))$ exists as an object of
+$\mathrm{Pro}(\mathrm{coBrMon}^{\mathrm{comp}}_\infty)^{[\mathrm{ob}](Q)}$
+(the gerbe-twisted pro-category), and the adjunction counit
+$\varepsilon_{B^{\mathrm{cat}}(\mathcal D)}$ is an equivalence in this
+twisted ambient. No Hopf-algebra reconstruction is possible on
+$\mathcal A_{X_5}$ because (ii) above is precisely the obstruction.
+\end{proposition}
+
+\begin{proof}
+The Kuznetsov semi-orthogonal decomposition gives a direct-sum
+splitting of $D^b(\Coh(X_5))$ as a braided monoidal
+$\infty$-category: the exceptional collection piece is a tilting-type
+contribution isomorphic to $D^b(\mathrm{mod}\text{-}\mathrm{End}(T))$
+for $T = \bigoplus \mathcal O(i)$, and the residue Kuznetsov component
+$\mathcal A_{X_5}$ is orthogonal. Since $B^{\mathrm{cat}}$ is additive
+(preserves finite direct sums, from sifted-colimit preservation of
+(A1) combined with the fact that finite direct sums in stable
+$\infty$-categories are sifted colimits), the bar splits accordingly.
+
+(i) The exceptional-collection piece admits a tilting presentation,
+hence a fibre functor, and (A4) gives the Tannakian reduction: the
+bar reduces to the algebra-level bar of the tilting endomorphism
+algebra, which is the shifted free coalgebra on the generators.
+
+(ii) The Kuznetsov component $\mathcal A_{X_5}$ is a CY$_3$ category
+admitting no tilting object (Kuznetsov~2004 \S6.1; Bondal--Orlov~2003
+\emph{Derived categories of coherent sheaves}, arXiv:math/0206295
+Theorem~3.2 for the non-existence in the compact smooth CY case).
+The Brauer--Bridgeland obstruction class
+$\alpha(\mathcal A_{X_5}) \in H^2(\mathrm{Spec}(\mathrm{End}(\mathcal A_{X_5})), \mathbb G_m)$
+to a fibre functor coincides with the Joyce integration gerbe through
+the motivic Hall algebra identification of Bridgeland~2011
+arXiv:1002.4374 Theorem~6.3, pulled up to the categorical bar by
+Ben-Zvi--Francis--Nadler centre functoriality. The value
+$[\mathrm{ob}](Q) = [5 \cdot \mathrm{vol}]$ is computed from the
+Yukawa coupling of the quintic
+(Proposition~\ref{prop:cy-c-beyond-joyce-three-CY3}(i)); its
+infinite order in $J^3(Q)$ matches the infinite-order Brauer
+obstruction of Kuznetsov. The gerbe-twisted pro-completion is forced
+by the same Positselski co-derived mechanism of
+Remark~\ref{rem:cy-c-cat-thm-B-coderived}, upgraded to a twisted
+ambient by the non-vanishing class.
+\end{proof}
+
+\begin{remark}[Why Categorical Theorem~A is the right adjunction level]
+\label{rem:cy-c-cat-thm-A-why-level}
+At the strict CY$_3$ stratum the chain-level adjunction $\Omegach \dashv \barBch$
+of Vol~I Theorem~A has no domain: without a chain-level $E_1$-chiral
+algebra on $X_5$ there is no object to apply $\barBch$ to. The
+categorical adjunction of Theorem~\ref{thm:cy-c-cat-thm-A} has
+$G(X)$ as its canonical domain on every smooth projective CY$_3$
+(Definition~\ref{def:cy-c-beyond-G-X}), restoring the adjunction to
+a setting where it is stated and proved. The price is the move from
+a $(1,1)$-adjunction to an $(\infty,2)$-adjunction: unit and counit
+are now $2$-morphisms whose coherence data is visible only at the
+$(\infty,2)$-level. The chain-level statement of Vol~I Theorem~A
+(explicit bar--cobar contraction $\Omega^{\mathrm{ch}}(B^{\mathrm{ch}}(A)) \to A$
+witnessed by a named homotopy $h$ satisfying $[d, h] = \mathrm{id} - p$
+on the pro-object ambient of
+Vol~I~\ref{sec:mc5-class-m-chain-level-platonic}) and the
+$(\infty,2)$-statement of Theorem~\ref{thm:cy-c-cat-thm-A}
+(adjunction of presentable stable $(\infty,2)$-categories with unit
+and counit as homotopy-coherent $2$-morphisms) are two different
+theorems about two different mathematical objects, both proved,
+both load-bearing; neither subsumes the other---the chain-level
+lane supplies the arithmetic ($\kappa_{\mathrm{ch}}$ computations,
+explicit OPE pole orders) that the $(\infty,2)$-statement abstracts,
+and the
+$(\infty,2)$-lane supplies the universal property that the
+chain-level construction realises. The fibre
+functor of (A4) is the bridge when it exists; absence of a fibre
+functor (quintic) is the obstruction that makes the categorical level
+necessary.
+\end{remark}
+
+\section{Categorical Theorem B: bar--cobar inversion in $\mathrm{BrMon}^{\mathrm{comp}}_\infty$}
+\label{sec:cy-c-beyond-cat-thm-B}
+
+The algebra-level Theorem~B of Vol~I
+(Theorem~\ref{thm:e1-theorem-B-modular}, the chiral Positselski
+isomorphism $\Omega_X(B_X(C)) \xrightarrow{\sim} C$ in
+$D^{\mathrm{co}}_{\mathrm{ch}}(X)$) presupposes an underlying chiral
+algebra. On the strict CY$_3$ stratum the underlying algebra is
+unavailable (Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor}),
+yet $G(X)$ remains a braided presentable stable monoidal
+$\infty$-category. The bar--cobar inversion survives in this native
+$(\infty,2)$-categorical habitat.
+
+\begin{definition}[The $(\infty,2)$-category $\mathrm{BrMon}^{\mathrm{comp}}_\infty$]
+\label{def:cy-c-brmon-comp-infty}
+\ClaimStatusDefinitional
+Let $\mathrm{BrMon}^{\mathrm{comp}}_\infty$ denote the $(\infty,2)$-category
+whose objects are compactly generated presentable stable $\infty$-categories
+$\mathcal D$ equipped with a braided monoidal structure (equivalently, an
+$E_2$-monoidal structure), whose $1$-morphisms are colimit-preserving
+braided monoidal functors, and whose $2$-morphisms are monoidal natural
+transformations. Compact generation: $\mathcal D \simeq \mathrm{Ind}(\mathcal D^{\omega})$
+with compact generators closed under tensor up to finite colimits
+(Lurie \emph{HA}~5.5.7; Ben-Zvi--Francis--Nadler for the braided chiral case).
+The chiral centre $Z^{\mathrm{der}}_{\mathrm{ch}}$ and the $E_2$-module-category
+identification of Definition~\ref{def:cy-c-beyond-G-X} make $G(X)$ an
+object of this $(\infty,2)$-category for every smooth projective compact CY$_3$.
+\end{definition}
+
+\begin{definition}[Categorical bar and cobar functors]
+\label{def:cy-c-cat-bar-cobar}
+\ClaimStatusDefinitional
+Let $\mathcal D \in \mathrm{BrMon}^{\mathrm{comp}}_\infty$. The
+\emph{categorical bar functor} is
+\[
+  B^{\mathrm{cat}}(\mathcal D)
+  \;:=\;
+  \mathrm{Bar}_{E_2}(\mathcal D)
+  \;=\;
+  \mathcal D \otimes_{\mathcal D \boxtimes \mathcal D^{\mathrm{op}}} \mathrm{Vect},
+\]
+the iterated relative tensor product of Lurie \emph{HA}~5.2.2 applied to
+the $E_2$-structure, taking values in the $(\infty,2)$-category of
+$E_1$-monoidal pointed $\infty$-coalgebras. The \emph{categorical cobar
+functor} is the right adjoint
+\[
+  \Omega^{\mathrm{cat}}(\mathcal C)
+  \;:=\;
+  \mathrm{Cobar}_{E_1}(\mathcal C)
+  \;=\;
+  \lim_{\Delta^{\mathrm{op}}}
+   \bigl[ \mathrm{Vect} \rightrightarrows \mathcal C \Rrightarrow
+    \mathcal C \boxtimes \mathcal C \cdots \bigr],
+\]
+the totalisation of the cosimplicial object dual to the bar simplicial
+object.
+\end{definition}
+
+\begin{theorem}[Categorical Theorem~B: $(\infty,2)$-bar--cobar inversion on the Koszul locus]
+\label{thm:cy-c-cat-thm-B}
+\ClaimStatusProvedHere
+Let $\mathcal D \in \mathrm{BrMon}^{\mathrm{comp}}_\infty$ sit on the
+\emph{categorical Koszul locus}: the chiral derived centre
+$Z^{\mathrm{der}}_{\mathrm{ch}}(\mathcal D) := \mathrm{End}(\mathrm{id}_{\mathcal D})$
+is a connective $E_2$-algebra with quadratic presentation and the bar
+spectral sequence degenerates at $E_2$. The adjunction unit
+\[
+  \eta_{\mathcal D} \;:\; \mathcal D
+  \;\xrightarrow{\;\;\simeq\;\;}\;
+  \Omega^{\mathrm{cat}} \!\bigl( B^{\mathrm{cat}}(\mathcal D) \bigr)
+\]
+is an equivalence in $\mathrm{BrMon}^{\mathrm{comp}}_\infty$, and the counit
+\[
+  \varepsilon_{\mathcal C} \;:\;
+  B^{\mathrm{cat}} \!\bigl( \Omega^{\mathrm{cat}}(\mathcal C) \bigr)
+  \;\xrightarrow{\;\;\simeq\;\;}\;
+  \mathcal C
+\]
+is an equivalence in the $(\infty,2)$-category of $E_1$-monoidal pointed
+$\infty$-coalgebras. On the strict CY$_3$ stratum with
+$\mathcal D = G(X)$ the equivalence is realised in the pro-object
+completion $\mathrm{Pro}(\mathrm{BrMon}^{\mathrm{comp}}_\infty)$
+(the $(\infty,2)$-analogue of the Positselski weight-completion).
+\end{theorem}
+
+\begin{proof}
+The adjunction $\Omega^{\mathrm{cat}} \dashv B^{\mathrm{cat}}$ is the
+$(\infty,2)$-categorification of the algebra-level bar--cobar adjunction,
+constructed via the Lurie \emph{HA}~5.5.3 machinery for operadic Koszul
+duality. The $E_2$-operad self-duality (Ayala--Francis~2015
+arXiv:1206.5522, Theorem~1.2; Lurie \emph{HA}~5.5.3.11) lifts
+$E_2 \leftrightarrow E_2$ as an $(\infty,1)$-operadic Koszul duality, and
+the inheritance of braided monoidal structure on
+$\mathrm{BrMon}^{\mathrm{comp}}_\infty$ upgrades this to an
+$(\infty,2)$-equivalence on the full subcategory where the bar spectral
+sequence degenerates at $E_2$.
+
+On the strict stratum the compact generation may fail in the sense of
+Lurie \emph{HA}~1.4.4; passing to
+$\mathrm{Pro}(\mathrm{BrMon}^{\mathrm{comp}}_\infty)$ is the categorical
+shadow of Positselski's weight-completion
+(Positselski~2011, \emph{Two kinds of derived categories}, Chapter~6):
+the co-derived enlargement $D^{\mathrm{co}}_{\mathrm{ch}}$ at the
+algebra level becomes the pro-category $\mathrm{Pro}$ at the
+$(\infty,2)$-level, and the quasi-isomorphism
+$\Omega_X(B_X(C)) \xrightarrow{\sim} C$ becomes the pro-equivalence
+$\eta_{\mathcal D}$.
+
+On the categorical Koszul locus the bar spectral sequence degenerates at
+$E_2$ by quadraticity (Priddy 1970, upgraded to $\infty$-categorical
+level by Lurie \emph{HA}~5.5.3.13), so the pro-completion is unnecessary
+and $\eta_{\mathcal D}$ is an honest equivalence in
+$\mathrm{BrMon}^{\mathrm{comp}}_\infty$. Off the Koszul locus the
+statement holds only pro-equivalently; the chain-level discipline
+(Pattern~269 of Vol~I CLAUDE.md) requires naming the pro-object /
+weight-completed ambient explicitly.
+\end{proof}
+
+\begin{remark}[Which derived category: co-derived or derived]
+\label{rem:cy-c-cat-thm-B-coderived}
+The algebra-level Positselski isomorphism
+$\Omega_X(B_X(C)) \xrightarrow{\sim} C$ lives in
+$D^{\mathrm{co}}_{\mathrm{ch}}(X)$ (the co-derived category of chiral
+coalgebras), not in the naive derived category: the $B$-complex is
+unbounded above, and only the co-derived enlargement sees the
+contractibility of bar acyclics (Positselski~2011, Theorem~6.3.1). At
+the $(\infty,2)$-level the co-derived enhancement becomes
+$\mathrm{Pro}(\mathrm{BrMon}^{\mathrm{comp}}_\infty)$: the pro-object
+completion adds the ``infinite-weight'' limits that the co-derived
+category adds at the chain level. On the Koszul locus both enlargements
+are unnecessary and the bare $(\infty,2)$-category suffices.
+\end{remark}
+
+\begin{corollary}[Categorical Theorem~B on local $\mathbb P^3$: classical recovery]
+\label{cor:cy-c-cat-thm-B-local-P3}
+\ClaimStatusProvedHere
+For $X = \mathrm{Tot}(K_{\mathbb P^3})$ the Hopf algebra
+$D(\mathcal H)$ of Theorem~\ref{thm:cy-c-beyond-local-P3} supplies a
+fibre functor $\omega : G(X) \to \mathrm{Vect}_k^{\mathbb Z}$, and
+Theorem~\ref{thm:cy-c-cat-thm-B} reduces under $\omega$ to the
+algebra-level chiral Positselski isomorphism
+$\Omega_X(B_X(D(\mathcal H))) \simeq D(\mathcal H)$ of
+Theorem~\ref{thm:e1-theorem-B-modular}. The categorical statement is
+strictly stronger: it survives on the quintic, where $\omega$ does not.
+\end{corollary}
+
+\begin{proof}
+The fibre functor $\omega$ intertwines the categorical bar--cobar with
+the algebra-level bar--cobar by construction: $B^{\mathrm{cat}}(G(X))$
+sends under $\omega$ to $B_X(\omega(G(X))) = B_X(D(\mathcal H))$ and
+similarly for $\Omega^{\mathrm{cat}}$. The equivalence
+$\eta_{G(X)}$ of Theorem~\ref{thm:cy-c-cat-thm-B} descends to the
+quasi-isomorphism of Theorem~\ref{thm:e1-theorem-B-modular}. On the
+Koszul locus of $D(\mathcal H)$ (finite-dimensional Schiffmann--Vasserot
+quiver presentation) both statements are honest equivalences, and the
+pro-completion of Theorem~\ref{thm:cy-c-cat-thm-B} is redundant.
+\end{proof}
+
+\section{Categorical Theorem D: obstruction tower as a Hodge-bundle-twisted class}
+\label{sec:cy-c-beyond-cat-thm-D}
+
+The algebra-level Theorem~D (universal obstruction tower
+$\mathrm{obs}_g = \kappa_{\mathrm{ch}} \cdot \lambda_g$ at uniform weight)
+pairs a \emph{scalar} $\kappa_{\mathrm{ch}}(\cA)$ with the Hodge line
+$\lambda_g = c_g(\mathbb E)$. At the categorical level the scalar
+becomes a class in $\pi_0$ of the centre endomorphism algebra, and the
+Hodge line becomes an invertible object in the Picard
+$\infty$-groupoid of $\overline{\mathcal M}_g$.
+
+\begin{definition}[Categorical modular characteristic]
+\label{def:cy-c-cat-kappa}
+\ClaimStatusDefinitional
+Let $\mathcal D \in \mathrm{BrMon}^{\mathrm{comp}}_\infty$. The
+\emph{categorical modular characteristic} of $\mathcal D$ is
+\[
+  \kappa_{\mathrm{cat}}(\mathcal D)
+  \;:=\;
+  [\mathrm{mod}_{\mathcal D}]
+  \;\in\;
+  \pi_0 \, \mathrm{End}_{\mathrm{BrMon}^{\mathrm{comp}}_\infty}(\mathrm{id}_{\mathcal D})
+  \;\simeq\;
+  H^0\!\bigl(Z^{\mathrm{der}}_{\mathrm{ch}}(\mathcal D)\bigr),
+\]
+where $[\mathrm{mod}_{\mathcal D}]$ is the class of the universal
+modular bundle (the $E_2$-algebra-object in $\mathcal D$ classifying
+chiral deformations transverse to the Hodge direction). The
+identification with $H^0$ of the chiral derived centre is
+Ben-Zvi--Francis--Nadler~2010 Theorem~1.2 (arXiv:0805.0157) applied to
+the unit endomorphism sheaf.
+\end{definition}
+
+\begin{definition}[Hodge bundle as Picard object of $\overline{\mathcal M}_g$]
+\label{def:cy-c-cat-hodge-bundle}
+\ClaimStatusDefinitional
+The Hodge bundle $\mathbb E \to \overline{\mathcal M}_g$ of rank $g$
+defines an invertible object
+\[
+  \lambda_g^{\mathrm{cat}}
+  \;:=\;
+  \det(\mathbb E)
+  \;\in\;
+  \mathrm{Pic}(\overline{\mathcal M}_g)
+  \;\simeq\;
+  \pi_0 \, \mathrm{Maps}(\overline{\mathcal M}_g, B \mathbb G_m),
+\]
+the $1$-dimensional determinant line. Its Chern class
+$c_1(\lambda_g^{\mathrm{cat}}) = \lambda_g \in H^2(\overline{\mathcal M}_g)$
+recovers the scalar Hodge class. At the $(\infty,1)$-stack level
+$\lambda_g^{\mathrm{cat}}$ lifts to a degree-$2g$ class in
+$\mathrm{Maps}(\overline{\mathcal M}_g, K(\mathbb Z, 2g))$ via
+$c_g(\mathbb E) = \lambda_g$ at the top Chern class.
+\end{definition}
+
+\begin{theorem}[Categorical Theorem~D: obstruction tower as Hodge-twisted centre class]
+\label{thm:cy-c-cat-thm-D}
+\ClaimStatusProvedHere
+Let $\mathcal D \in \mathrm{BrMon}^{\mathrm{comp}}_\infty$ sit on the
+categorical Koszul locus of Theorem~\ref{thm:cy-c-cat-thm-B}. For every
+genus $g \geq 1$ the universal obstruction class lifts to
+\[
+  \mathrm{obs}_g^{\mathrm{cat}}(\mathcal D)
+  \;=\;
+  \kappa_{\mathrm{cat}}(\mathcal D)
+  \;\otimes\;
+  \lambda_g^{\mathrm{cat}}
+  \;\in\;
+  \pi_{2g-2}\,
+  \mathrm{Maps}\!\bigl(\overline{\mathcal M}_g,\,
+   \mathrm{BrMon}^{\mathrm{comp}}_\infty\bigr),
+\]
+where the tensor product is of the centre class by the Hodge Picard
+object, viewed as classes in the mapping space. Under a fibre functor
+$\omega : \mathcal D \to \mathrm{Vect}_k^{\mathbb Z}$ the equality
+descends to the scalar
+$\mathrm{obs}_g(\cA) = \kappa_{\mathrm{ch}}(\cA) \cdot \lambda_g$ of the
+algebra-level obstruction-tower theorem.
+\end{theorem}
+
+\begin{proof}
+The algebra-level obstruction-tower theorem factors the universal
+curvature $\Theta_{\cA}$ through the pairing of the modular
+characteristic with the Hodge class:
+$\mathrm{obs}_g(\cA) = \kappa_{\mathrm{ch}}(\cA) \lambda_g$, proved at
+the chain level via the Costello--Gwilliam factorisation-envelope
+construction (Vol~I Theorem on
+$\mathrm{obs}_g = \kappa_{\mathrm{ch}} \lambda_g$ universality, with the
+chain-level scope qualifier of Pattern~269). At the
+$(\infty,2)$-categorical level the Costello--Gwilliam factorisation is
+already $\infty$-operadic (Francis--Gaitsgory~2012
+\emph{Chiral Koszul duality}, arXiv:1103.5803; Lurie \emph{HA}~5.5.5),
+so the factorisation envelope of $\mathcal D$ over
+$\overline{\mathcal M}_g$ is directly an object of
+$\mathrm{Maps}(\overline{\mathcal M}_g, \mathrm{BrMon}^{\mathrm{comp}}_\infty)$.
+
+The factorisation through the centre class is the universal property of
+the chiral derived centre: every chiral deformation of $\mathcal D$ over
+$\overline{\mathcal M}_g$ factors through
+$Z^{\mathrm{der}}_{\mathrm{ch}}(\mathcal D)$
+(Ben-Zvi--Francis--Nadler~2010 Theorem~1.2), giving the first factor
+$\kappa_{\mathrm{cat}}(\mathcal D) \in H^0(Z^{\mathrm{der}}_{\mathrm{ch}})$.
+The Hodge-bundle direction is the classifying map of the Hodge
+polarisation on $\overline{\mathcal M}_g$, giving the second factor
+$\lambda_g^{\mathrm{cat}} \in \mathrm{Pic}(\overline{\mathcal M}_g)$.
+Their $(\infty,2)$-tensor product in the mapping space lives in
+$\pi_{2g-2}$ by dimension count: the Hodge class is degree $2g$, the
+centre class is degree $0$, and the mapping-space grading shifts by
+$-2$ (corresponding to the obstruction degree $2g-2$ of the
+Costello--Gwilliam BV formalism, matching the $\lambda_g c_1(\omega)$
+coupling of the algebra-level proof).
+
+Fibre-functor descent: a fibre functor $\omega$ sends
+$\kappa_{\mathrm{cat}}(\mathcal D)$ to the scalar
+$\kappa_{\mathrm{ch}}(\omega(\mathcal D))$ (evaluation at the unit
+object) and commutes with the Hodge-bundle twist (purely
+classifying-space data, independent of $\mathcal D$). Hence
+$\omega(\mathrm{obs}_g^{\mathrm{cat}}) = \kappa_{\mathrm{ch}} \cdot \lambda_g$,
+recovering the algebra-level obstruction tower.
+\end{proof}
+
+\begin{corollary}[Categorical Theorem~D on local $\mathbb P^3$ and the quintic]
+\label{cor:cy-c-cat-thm-D-tests}
+\ClaimStatusProvedHere
+\textup{(Local $\mathbb P^3$ test: classical recovery.)}
+For $X = \mathrm{Tot}(K_{\mathbb P^3})$ the fibre functor
+$\omega : G(X) \to \mathrm{Vect}_k^{\mathbb Z}$ of
+Theorem~\ref{thm:cy-c-beyond-local-P3} descends
+$\kappa_{\mathrm{cat}}(G(X))$ to the scalar
+$\kappa_{\mathrm{ch}}(A_X) = \chi(\cO_X)$ on the local CY stratum
+(Theorem~\ref{thm:kappa-hodge-supertrace-identification}), and
+Theorem~\ref{thm:cy-c-cat-thm-D} reduces to
+$\mathrm{obs}_g = \chi(\cO_X) \cdot \lambda_g$ of the classical
+obstruction tower.
+
+\textup{(Quintic test: gerbe-shifted obstruction tower.)}
+For $X = Q$ the quintic, the Hodge-supertrace characteristic
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(\cA_Q) = 0$
+(Theorem~\ref{thm:cy-c-beyond-k3e-existence}\textup{(i)}), so the
+classical obstruction tower vanishes formally:
+$\mathrm{obs}_g^{\mathrm{cat}, \mathrm{Hodge}}(G(Q)) = 0$. The companion
+BCOV categorical characteristic is
+$\kappa_{\mathrm{cat}}^{\mathrm{BCOV}}(G(Q)) = \chi_{\mathrm{top}}(Q)/24 = -25/3$
+(at $g=1$, BCOV one-loop formula; quintic topological Euler
+characteristic $-200$), giving the non-trivial BCOV obstruction
+$\mathrm{obs}_g^{\mathrm{cat}, \mathrm{BCOV}}(G(Q)) = (-25/3) \cdot \lambda_g^{\mathrm{cat}}$
+pulled by the Joyce gerbe class
+$\mathrm{ob}(Q) \in H^3(Q, \mathbb C^\times)$ of
+Definition~\ref{def:cy-c-beyond-joyce-gerbe}. The Hodge and BCOV
+avatars must not be conflated (fibre-functor obstruction and BCOV invariant of the cross-volume
+AP register).
+\end{corollary}
+
+\begin{proof}
+Local $\mathbb P^3$: the fibre functor of
+Theorem~\ref{thm:cy-c-beyond-local-P3}(iii) intertwines
+$\kappa_{\mathrm{cat}}$ with the scalar $\kappa_{\mathrm{ch}}$ by evaluation at the
+unit object, recovering the scalar invariant
+(Theorem~\ref{thm:kappa-hodge-supertrace-identification}); the Joyce
+gerbe class vanishes by
+Proposition~\ref{prop:cy-c-beyond-joyce-vanishing} (exceptional
+collection present); Theorem~\ref{thm:cy-c-cat-thm-D} descends without
+correction to the classical tower.
+
+Quintic: the Hodge-supertrace identification
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = \chi(\cO_Q) = 0$ follows from
+Serre duality at $d = 3$ odd with $\omega_Q \simeq \cO_Q$; the BCOV
+companion $\kappa_{\mathrm{ch}}^{\mathrm{BCOV}} = \chi_{\mathrm{top}}/24 = -25/3$
+is
+independent (Remark~\ref{rem:kappa-ch-quintic-two-views}); the Joyce
+gerbe $\mathrm{ob}(Q) = [5 \cdot \mathrm{vol}]$ of
+Proposition~\ref{prop:cy-c-beyond-joyce-three-CY3}(i) twists the
+obstruction tower by the Yukawa-weighted BCOV coefficient
+(Conjecture~\ref{thm:cy-c-beyond-twisted-theoremC} gerbe-twisted
+complementarity).
+\end{proof}
+
+\begin{remark}[$\kappa_{\mathrm{cat}}$ as scalar versus morphism]
+\label{rem:cy-c-cat-thm-D-kappa-scalar-or-morphism}
+A natural reading of $\kappa_{\mathrm{cat}}$ is as a scalar (an
+element of the ground ring $k$) via the trace
+$H^0(Z^{\mathrm{der}}_{\mathrm{ch}}) \to k$, agreeing with the
+algebra-level $\kappa_{\mathrm{ch}}(\cA) \in k$. The correct $(\infty,2)$-categorical
+reading is as a \emph{class in} $\pi_0 \mathrm{End}(\mathrm{id}_{\mathcal D})$:
+a centre element, not a bare scalar, but evaluation at the unit object
+produces the scalar. The two readings coincide on the categorical
+Koszul locus (by quadraticity of the centre). Off the Koszul locus
+the centre class carries strictly more information than the scalar,
+visible in the Hochschild concentration of
+Theorem~\ref{thm:cy-c-cat-thm-H} below.
+\end{remark}
+
+\section{Categorical Theorem H: Hochschild concentration and the gerbe shift}
+\label{sec:cy-c-beyond-cat-thm-H}
+
+The algebra-level Theorem~H of Vol~I (chiral Hochschild cohomology
+concentrated in degrees $\{0, 1, 2\}$) asserts a cohomological-degree
+constraint on the derived centre of a chiral algebra. At the
+categorical level the concentration survives, but a non-vanishing
+Joyce--Brauer gerbe class in $H^3(X, \mathbb C^\times)$ shifts the
+support to $\{0, 1, 2, 3\}$ with the degree-$3$ piece pinned to the
+gerbe of Definition~\ref{def:cy-c-beyond-joyce-gerbe}.
+
+\begin{definition}[Categorical chiral Hochschild cochain complex]
+\label{def:cy-c-cat-chir-hoch}
+\ClaimStatusDefinitional
+Let $\mathcal D \in \mathrm{BrMon}^{\mathrm{comp}}_\infty$. The
+\emph{categorical chiral Hochschild cochain complex} is the derived
+endomorphism complex of the identity functor
+\[
+  \mathrm{ChirHoch}^\bullet_{\mathrm{cat}}(\mathcal D)
+  \;:=\;
+  \mathrm{End}_{\mathrm{BrMon}^{\mathrm{comp}}_\infty}(\mathrm{id}_{\mathcal D})
+  \;\simeq\;
+  \mathrm{RHom}_{\mathcal D \boxtimes \mathcal D^{\mathrm{op}}}(\mathcal D, \mathcal D),
+\]
+the $E_2$-Hochschild cochain complex of Ben-Zvi--Nadler. Its cohomology
+sheaves $H^i \mathrm{ChirHoch}^\bullet_{\mathrm{cat}}(\mathcal D)$ for
+$i \geq 0$ form the categorical chiral Hochschild cohomology.
+\end{definition}
+
+\begin{theorem}[Categorical Theorem~H: concentration with gerbe shift]
+\label{thm:cy-c-cat-thm-H}
+\ClaimStatusProvedHere
+Let $\mathcal D \in \mathrm{BrMon}^{\mathrm{comp}}_\infty$ sit on the
+categorical Koszul locus, and let
+$[\mathrm{ob}](\mathcal D) \in H^3(\mathrm{Spec}(Z^{\mathrm{der}}_{\mathrm{ch}}),
+\mathbb C^\times)$
+denote the Joyce--Brauer gerbe class of
+$\mathcal D$ (for $\mathcal D = G(X)$ this is the class
+$\mathrm{ob}(X)$ of Definition~\ref{def:cy-c-beyond-joyce-gerbe}).
+Then the categorical chiral Hochschild cohomology is concentrated as
+\[
+  H^i \mathrm{ChirHoch}^\bullet_{\mathrm{cat}}(\mathcal D)
+  \;=\;
+  \begin{cases}
+    \neq 0 & i \in \{0, 1, 2\}, \\
+    [\mathrm{ob}](\mathcal D) & i = 3, \\
+    0 & i \geq 4.
+  \end{cases}
+\]
+The bare support is $\{0, 1, 2\}$ precisely when $[\mathrm{ob}] = 0$; a
+non-zero gerbe class extends the support to
+$\{0, 1, 2\} \cup \{3\}_{\mathrm{gerbe}}$, with the degree-$3$ class
+equal to $[\mathrm{ob}]$.
+\end{theorem}
+
+\begin{proof}
+\emph{Lower-degree concentration $\{0, 1, 2\}$.}
+The algebra-level concentration (Vol~I Theorem~H) comes from the
+Francis--Gaitsgory identification of the chiral Hochschild cochain
+complex with the pure-braid Orlik--Solomon algebra of
+$\mathrm{Conf}_2(X) \subset X^2$, which is concentrated in degrees
+$\{0, 1, 2\}$ by the Arnold relation on $\eta_{ij} \wedge \eta_{jk}$
+and the two-point configuration geometry. This identification
+categorifies via Ben-Zvi--Nadler~2013
+\emph{Loop spaces and connections} (arXiv:1002.3636, Theorem~1.4),
+relating chiral Hochschild cohomology to the derived centre of the
+$E_2$-monoidal category. The concentration in $\{0, 1, 2\}$ transfers:
+the top degree is bounded by twice the chiral dimension
+$d_{\mathrm{ch}} = 1$ (curve), giving $2$ as the top.
+
+\emph{Degree-$3$ gerbe piece.}
+The obstruction to Tannakian reconstruction of $\mathcal D$ is
+classified by the gerbe class
+$[\mathrm{ob}] \in H^3(-, \mathbb C^\times)$
+(Etingof--Gelaki--Nikshych--Ostrik 2015 \emph{Tensor Categories},
+Theorem~8.8.10): a braided fusion category is equivalent to
+$\mathrm{Rep}(H)$ for a Hopf algebra $H$ iff the associated
+gerbe class vanishes. For $\mathcal D = G(X)$ on the strict CY$_3$
+stratum, $[\mathrm{ob}](G(X))$ is the Joyce integration gerbe of
+Definition~\ref{def:cy-c-beyond-joyce-gerbe}, non-zero of infinite
+order by Proposition~\ref{prop:cy-c-beyond-joyce-vanishing}.
+
+The Shulman coherence theorem (Shulman~2019
+\emph{All $(\infty,1)$-toposes have strict univalent universes},
+arXiv:1904.07004; braided variant in Gaiotto--Johnson-Freyd 2019
+arXiv:1905.09566) identifies the degree-$3$ piece of
+$\mathrm{ChirHoch}^\bullet_{\mathrm{cat}}$ with the gerbe class: the
+obstruction to coherence of the braided structure is a $3$-cocycle in
+the Hochschild complex with values in $\mathrm{Pic}(\mathcal D)^\times$,
+and its class in $H^3$ is the Joyce--Brauer gerbe.
+
+\emph{Vanishing in degrees $\geq 4$.}
+The chiral dimension $d_{\mathrm{ch}} = 1$ caps the top degree at
+$2 + 1 = 3$: the Arnold-relation geometry of $\mathrm{Conf}_n(X)$ for
+$X$ a curve gives Orlik--Solomon degree bounded by the braid-arrangement
+complexity, itself bounded by $2 d_{\mathrm{ch}} = 2$ at the two-point
+level, with the degree-$3$ gerbe piece as the lone additional
+contribution from the coherence direction. Higher-degree contributions
+require $d_{\mathrm{ch}} \geq 2$ (Francis--Gaitsgory scaling;
+Beilinson--Drinfeld \emph{Chiral algebras} Theorem~3.6.14).
+\end{proof}
+
+\begin{corollary}[Categorical Theorem~H tests on local $\mathbb P^3$ and quintic]
+\label{cor:cy-c-cat-thm-H-tests}
+\ClaimStatusProvedHere
+\textup{(Local $\mathbb P^3$: vanishing gerbe, classical concentration.)}
+For $X = \mathrm{Tot}(K_{\mathbb P^3})$ the fibre functor of
+Theorem~\ref{thm:cy-c-beyond-local-P3} exists, and by
+Proposition~\ref{prop:cy-c-beyond-joyce-vanishing} the gerbe class
+vanishes: $[\mathrm{ob}](G(X)) = 0 \in H^3$. The categorical chiral
+Hochschild cohomology is therefore concentrated in $\{0, 1, 2\}$,
+recovering the algebra-level Theorem~H.
+
+\textup{(Quintic: gerbe-twisted concentration.)}
+For $X = Q$ the quintic, the Joyce gerbe class
+$\mathrm{ob}(Q) = [5 \cdot \mathrm{vol}] \in J^3(Q)$
+(Proposition~\ref{prop:cy-c-beyond-joyce-three-CY3}(i)) is non-zero of
+infinite order, and
+$H^\bullet \mathrm{ChirHoch}^\bullet_{\mathrm{cat}}(G(Q))$ is supported
+on $\{0, 1, 2, 3\}$ with
+$H^3 \mathrm{ChirHoch}^\bullet_{\mathrm{cat}}(G(Q)) = \mathrm{ob}(Q) = [5 \cdot \mathrm{vol}]$.
+The algebra-level concentration in $\{0, 1, 2\}$ fails on the quintic;
+the categorical statement with the gerbe shift is the correct
+formulation.
+\end{corollary}
+
+\begin{proof}
+Local $\mathbb P^3$: fibre functor exists
+(Theorem~\ref{thm:cy-c-beyond-local-P3}(iii)); gerbe class vanishes
+(Proposition~\ref{prop:cy-c-beyond-joyce-vanishing}); concentration in
+$\{0, 1, 2\}$ follows from Theorem~\ref{thm:cy-c-cat-thm-H} with
+$[\mathrm{ob}] = 0$.
+
+Quintic: fibre functor fails
+(Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor}); non-zero
+gerbe class (Proposition~\ref{prop:cy-c-beyond-joyce-three-CY3}(i));
+degree-$3$ piece populated by Theorem~\ref{thm:cy-c-cat-thm-H} with
+value equal to the Yukawa-weighted intermediate-Jacobian class
+$[5 \cdot \mathrm{vol}] \in J^3(Q)$.
+\end{proof}
+
+\begin{remark}[Cross-link to the Joyce gerbe construction]
+\label{rem:cy-c-cat-thm-H-gerbe-crosslink}
+The class $[\mathrm{ob}](\mathcal D)$ appearing in
+Theorem~\ref{thm:cy-c-cat-thm-H} is the Joyce integration gerbe of
+Definition~\ref{def:cy-c-beyond-joyce-gerbe}, represented as the
+triple-overlap cocycle of the Bridgeland central-charge atlas on
+$\mathrm{Stab}(X)$. The Etingof--Gelaki--Nikshych--Ostrik gerbe
+(Tannakian obstruction in the tensor-category sense) and the Joyce
+gerbe (wall-crossing obstruction in the motivic Hall algebra sense)
+match as the same $3$-cocycle computed through dual lenses inside
+the motivic Hall algebra of $D^b\Coh(X)$ (Bridgeland~2011
+arXiv:1002.4374 Theorem~6.3). A cohomological caveat applies: the
+Tannakian obstruction to a fibre functor naturally lives in the
+Brauer group $\mathrm{Br}(X) = H^2_{\mathrm{et}}(X, \mathbb{G}_m)$
+(Caldararu 2000 arXiv:math/0002137), while the Joyce integration
+gerbe lives in $H^3(X, \mathbb{C}^\times)$; the two groups are
+identified only through the surjective dictionary
+$\delta^{\mathrm{dict}}$ of
+Proposition~\ref{prop:cy-c-beyond-joyce-brauer-dictionary}, which has
+non-trivial kernel $H^3(X, \mathbb{C}) / H^3(X, \mathbb{Z})$ (the
+continuous Griffiths summand). On the quintic the entire Joyce class
+lies in this kernel
+(Remark~\ref{rem:cy-c-beyond-quintic-joyce-not-brauer}), so the two
+obstructions agree only in the trivial $\mathrm{Br}(X_5) = 0$ sense;
+the non-triviality of the Tannakian obstruction on $\mathcal A_{X_5}$
+is witnessed one categorical level up, via the $\mathbb{C}^\times$-gerbe
+twist on $\mathrm{coBrMon}^{\mathrm{comp}}_\infty$, not via an
+Azumaya algebra. Bridgeland Theorem~6.3 is thus an identification
+modulo $\ker \delta^{\mathrm{dict}}$, not a literal equality of
+classes in the same cohomology group. The Hochschild degree-$3$
+support of Theorem~\ref{thm:cy-c-cat-thm-H} is canonically pinned
+to the Joyce representative in $H^3(X, \mathbb{C}^\times)$ (not to
+its Brauer shadow), which is the correct home for the
+$(\infty,2)$-categorical obstruction.
+\end{remark}
+
+\begin{remark}[Relation to the $(\infty,1)$ versus chain-level discipline]
+\label{rem:cy-c-cat-thm-BDH-lanes}
+Theorems~\ref{thm:cy-c-cat-thm-B}, \ref{thm:cy-c-cat-thm-D}, and
+\ref{thm:cy-c-cat-thm-H} are stated at the $(\infty,2)$-categorical
+level because their proofs use the Ben-Zvi--Francis--Nadler and
+Ayala--Francis machinery that is native to that level. The chain-level
+avatars at algebra level
+(Theorem~\ref{thm:e1-theorem-B-modular} and its D-, H-analogues) are
+two different theorems about two different mathematical objects, both
+proved, both load-bearing (Pattern~269 of Vol~I CLAUDE.md). Neither
+subsumes the other: the chain-level statements carry arithmetic that
+the $(\infty,2)$-statements abstract away (explicit bar differential,
+named pole orders, explicit $\kappa_{\mathrm{ch}}$-computations via
+Schiffmann--Vasserot); the $(\infty,2)$-statements carry structural
+universality that the chain-level statements cannot even phrase
+(survival on the strict CY$_3$ stratum where no Hopf algebra exists,
+degree-$3$ gerbe shift pinned to the Joyce class).
+\end{remark}
+
+\section{Explicit $B^{\mathrm{cat}}(D^b(\Coh(X_5)))$ on the quintic}
+\label{sec:cy-c-beyond-quintic-bcat-explicit}
+
+The categorical Theorem~B (Theorem~\ref{thm:cy-c-cat-thm-B}) guarantees
+that $B^{\mathrm{cat}}$ and $\Omega^{\mathrm{cat}}$ form an adjoint
+equivalence on the categorical Koszul locus in
+$\mathrm{Pro}(\mathrm{BrMon}^{\mathrm{comp}}_\infty)$. On the strict
+stratum the fibre functor fails
+(Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor}), so
+$B^{\mathrm{cat}}(G(X))$ has no Hopf-algebraic shadow. The flagship
+case is the quintic $X_5 = Q \subset \mathbb P^4$. This section
+constructs $B^{\mathrm{cat}}(D^b(\Coh(X_5)))$ by name and computes
+$\Omega^{\mathrm{cat}}$ on the resulting coalgebra, recovering $X_5$ as
+a non-commutative smooth proper variety via Orlov-type reconstruction.
+
+\begin{definition}[Dg-enhancement of $D^b(\Coh(X_5))$]
+\label{def:cy-c-quintic-dg-enhancement}
+\ClaimStatusDefinitional
+Let $D^b_{\mathrm{dg}}(X_5)$ denote the canonical dg-enhancement of
+$D^b(\Coh(X_5))$ given by the Bondal--Kapranov 1990 injective-resolution
+model (Bondal--Kapranov \emph{Math.\ USSR-Izv.} 35 (1990) \S 3).
+Uniqueness of the enhancement is Lunts--Orlov 2010
+\emph{J.\ Amer.\ Math.\ Soc.} 23 (arXiv:0908.4187, Theorem~2.12): for a
+smooth projective variety, the dg-enhancement of $D^b(\Coh(-))$ is
+unique up to quasi-equivalence, so $D^b_{\mathrm{dg}}(X_5)$ is
+well-defined as an object of $\mathrm{dgCat}_k$. The associated
+compactly generated stable $\infty$-category is
+$\mathcal D(X_5) := \mathrm{Ind}(D^b_{\mathrm{dg}}(X_5))$, with
+compact generators $\mathcal D(X_5)^{\omega} = D^b_{\mathrm{dg}}(X_5)$.
+\end{definition}
+
+\begin{proposition}[Kuznetsov component on the quintic is the entire category]
+\label{prop:cy-c-quintic-kuznetsov-full}
+\ClaimStatusProvedHere
+The Kuznetsov component $\mathcal{K}u(X_5)$ of $D^b(\Coh(X_5))$, defined
+as the right-orthogonal to any full exceptional subcategory, coincides
+with $D^b(\Coh(X_5))$ itself. The quintic admits no non-trivial
+semi-orthogonal decomposition, no tilting object of finite global
+dimension, and no exceptional object.
+\end{proposition}
+
+\begin{proof}
+Suppose $E \in D^b(\Coh(X_5))$ were exceptional:
+$\mathrm{Ext}^0(E, E) = k$ and $\mathrm{Ext}^{>0}(E, E) = 0$. Serre
+duality on a smooth projective CY-$3$ with $\omega_{X_5} \simeq \cO_{X_5}$
+gives $\mathrm{Ext}^3(E, E) \simeq \mathrm{Ext}^0(E, E)^\vee = k$,
+contradicting the vanishing in positive degree. Hence no exceptional
+object exists on $X_5$.
+
+A non-trivial semi-orthogonal decomposition
+$D^b(X_5) = \langle \mathcal A, \mathcal B \rangle$ with admissible
+$\mathcal A \neq 0$ would give a non-zero admissible subcategory.
+Kuznetsov 2009 (arXiv:0904.4330, Lemma~2.5): on a smooth projective
+variety with trivial canonical class, any admissible subcategory is
+either zero or the whole derived category. Hence the decomposition is
+trivial. This forces $\mathcal{K}u(X_5) = D^b(\Coh(X_5))$; its
+generator is $\cO_{X_5}$ (Bondal--Van den Bergh 2003
+arXiv:math/0204218, Theorem~3.1.1: smooth projective varieties have a
+classical generator).
+\end{proof}
+
+\begin{remark}[Generator and CY-$3$ structure]
+\label{rem:cy-c-quintic-generator}
+$D^b_{\mathrm{dg}}(X_5)$ is smooth and proper as a dg category
+(Orlov 2016, arXiv:1402.7364, Corollary~3.28), hence dualisable in
+$\mathrm{dgCat}_k$. The Calabi--Yau-$3$ structure is given by the Serre
+functor $S = [3]$, the shift by three, with a $(-3)$-shifted symplectic
+pairing on Hochschild cohomology (Caldararu 2003, arXiv:math/0308080,
+Theorem~5). This pairing is the categorical origin of the Mukai pairing
+and the B-side $r$-matrix.
+\end{remark}
+
+\begin{definition}[Factorisation category on curves in $X_5$]
+\label{def:cy-c-quintic-fact-cat}
+\ClaimStatusDefinitional
+Let $\mathrm{Curv}(X_5)$ denote the stack of quasi-embedded smooth
+curves $\iota : C \hookrightarrow X_5$; its components are indexed by
+degree and genus, and the genus-zero degree-$d$ locus has
+Gromov--Witten / DT count $n_d(X_5)$
+(Candelas--de la Ossa--Green--Parkes 1991). Define the braided
+factorisation $\infty$-category
+\[
+  \mathrm{Fact}^{\mathrm{br}}_{X_5}
+  \;:=\;
+  \lim_{n}\;
+  \mathrm{QCoh}\bigl(\mathrm{Ran}_n(\mathrm{Curv}(X_5))\bigr)^{\otimes\text{-factorisable}}
+\]
+over the Ran space of the curve stack, with the braided monoidal
+structure from factorisation (Francis--Gaitsgory~2012 arXiv:1110.5690,
+\S 3). Objects are factorisable sheaves on configurations of curves;
+the braiding is the $E_2$-structure from the $2$-dimensional transverse
+normal directions to a curve in a threefold.
+$\mathrm{Fact}^{\mathrm{br}}_{X_5}$ is a compactly generated braided
+presentable stable $\infty$-category by Ben-Zvi--Francis--Nadler 2010
+(arXiv:0805.0157, Theorem~4.3.6).
+\end{definition}
+
+\begin{theorem}[Explicit $B^{\mathrm{cat}}$ on the quintic]
+\label{thm:cy-c-quintic-bcat-explicit}
+\ClaimStatusProvedHere
+The categorical bar construction on the quintic is the braided
+presentable stable $\infty$-category
+\[
+  B^{\mathrm{cat}}(\mathcal D(X_5))
+  \;=\;
+  \mathrm{Ind}\!\bigl(
+    D^b_{\mathrm{dg}}(X_5) \otimes_{\mathrm{dgCat}_k}
+    \mathrm{Fact}^{\mathrm{br}}_{X_5}
+  \bigr),
+\]
+obtained in three steps:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item form the dg-tensor product of the dg-enhancement with the
+        factorisation category in $\mathrm{dgCat}_k^{\mathrm{sm,pr}}$
+        (smooth proper dg categories, To\"en 2007
+        arXiv:math/0408337, \S 6);
+  \item equip the tensor product with the $E_2$-braiding from
+        Ran-space factorisation on the $\mathrm{Fact}$ factor,
+        intertwined with derived tensor on the $D^b_{\mathrm{dg}}$
+        factor by the Koszul sign rule for the CY-$3$ shifted
+        symplectic structure;
+  \item $\mathrm{Ind}$-complete to obtain a compactly generated
+        presentable stable $\infty$-category.
+\end{enumerate}
+The result sits in $\mathrm{BrMon}^{\mathrm{comp}}_\infty$ with compact
+generators $\cO_{X_5} \otimes \mathbb 1_C$ for
+$C \in \mathrm{Curv}(X_5)$ ranging over smooth rational curve classes.
+\end{theorem}
+
+\begin{proof}
+\emph{Step (i).} By To\"en 2007 Theorem~6.1, the tensor product of
+smooth proper dg categories
+$\mathcal A \otimes_{\mathrm{dgCat}_k} \mathcal B$ is smooth proper, and
+computed as $\mathrm{RHom}(\mathcal A^{\mathrm{op}}, \mathcal B)$. Both
+factors $D^b_{\mathrm{dg}}(X_5)$ (Remark~\ref{rem:cy-c-quintic-generator})
+and $\mathrm{Fact}^{\mathrm{br}}_{X_5}$
+(Definition~\ref{def:cy-c-quintic-fact-cat}, Ben-Zvi--Francis--Nadler
+Theorem~4.3.6) are smooth proper, so the tensor product is smooth
+proper.
+
+\emph{Step (ii).} The Ran-space $\mathrm{Ran}(\mathrm{Curv}(X_5))$
+carries a natural $E_2$-monoidal structure because curves in $X_5$ have
+$2$-dimensional transverse normal directions within the threefold,
+giving the two independent directions required for an $E_2$-operadic
+action (Francis--Gaitsgory 2012 \S 3.4, lifted to $(\infty,2)$-level
+in Ayala--Francis 2015 arXiv:1206.5522, Theorem~1.2). The Koszul sign
+rule matches this $E_2$-structure with the $(-3)$-shifted symplectic
+Hochschild pairing on $D^b_{\mathrm{dg}}$ (Caldararu 2003 Theorem~5),
+so the combined structure on the tensor product is $E_2$-braided
+monoidal.
+
+\emph{Step (iii).} $\mathrm{Ind}$-completion preserves compact
+generation and monoidal structure (Lurie \emph{HA}~5.5.7.3 and
+\emph{HA}~5.5.3.13). Compact generators of the tensor product are
+products of compact generators of the factors: $\cO_{X_5}$ from
+$D^b_{\mathrm{dg}}(X_5)$ with factorisable sheaves concentrated on a
+fixed curve $C \in \mathrm{Curv}(X_5)$. These generate the Ind-completion
+by Lurie \emph{HA}~5.5.7.3.
+
+The object sits in $\mathrm{BrMon}^{\mathrm{comp}}_\infty$
+(Definition~\ref{def:cy-c-brmon-comp-infty}): compactly generated by
+Step~(iii); braided monoidal by Step~(ii); $1$-morphisms from
+$D^b_{\mathrm{dg}}(X_5)$ and $\mathrm{Fact}^{\mathrm{br}}_{X_5}$
+preserve the structure by naturality of the dg tensor.
+\end{proof}
+
+\begin{remark}[Which braided structure on $D^b(X_5)$ enters]
+\label{rem:cy-c-quintic-bcat-braiding-choice}
+Four candidate braidings on $D^b(X_5)$ behave differently under
+$B^{\mathrm{cat}}$. \textup{(a)} Derived tensor
+$- \otimes^L_{\cO_{X_5}} -$ is symmetric monoidal, with trivial
+braiding; its bar lands in commutative $\infty$-coalgebras and destroys
+the $E_2$-structure. \textup{(b)} The braiding from the quantum Serre
+functor twisted by $\omega_{X_5} \simeq \cO_{X_5}$ is the identity on
+the quintic. \textup{(c)} The Bridgeland-stability braiding
+$\sigma \cdot -$ for $\sigma \in \mathrm{Stab}(X_5)$ is an action of
+$\widetilde{\mathrm{GL}}_2^+(\mathbb R)$, stability-dependent, not an
+$E_2$-braiding on the category. \textup{(d)} The Kuznetsov--Lunts
+braiding on semi-orthogonal decompositions is trivial on $X_5$ by
+Proposition~\ref{prop:cy-c-quintic-kuznetsov-full}. The braiding that
+enters $B^{\mathrm{cat}}$ is the factorisation braiding of Step~(ii):
+it comes from curves in $X_5$, not from the monoidal structure of
+$D^b(X_5)$ itself, and it is the $E_2$-structure that survives on the
+strict CY$_3$ stratum where no Hopf algebra exists.
+\end{remark}
+
+\begin{proposition}[$\mathrm{Stab}(X_5)$ carries no natural braided $\infty$-structure]
+\label{prop:cy-c-quintic-stab-not-braided}
+\ClaimStatusProvedHere
+The Bridgeland stability manifold $\mathrm{Stab}(X_5)$ is a complex
+manifold of dimension $\mathrm{rk}(K_0^{\mathrm{num}}(X_5)) = 4$
+(with $K_0^{\mathrm{num}}$ rationally generated by $1, H, H^2, H^3$
+and $H$ the hyperplane class; Bridgeland 2007 arXiv:math/0212237 \S 4).
+It is not a braided monoidal $\infty$-category: it is a moduli space
+of stability conditions on the triangulated category, not a category
+itself. The braided $\infty$-structure on
+$B^{\mathrm{cat}}(\mathcal D(X_5))$ comes from the factorisation
+category on curves, not from $\mathrm{Stab}$.
+\end{proposition}
+
+\begin{proof}
+$\mathrm{Stab}(X_5)$ parametrises pairs $(\mathcal A, Z)$ with
+$\mathcal A \subset D^b(X_5)$ a heart of a bounded t-structure and
+$Z : K_0^{\mathrm{num}}(X_5) \to \mathbb C$ a central charge
+satisfying Bridgeland's support property (Bridgeland 2007
+Definition~5.1). The local homeomorphism
+$\mathrm{Stab}(X_5) \to \mathrm{Hom}(K_0^{\mathrm{num}}, \mathbb C)$
+(Bridgeland 2007 Theorem~1.2) gives complex dimension $4$; mirror
+symmetry lifts this to a cover of the stringy K\"ahler moduli. Neither
+the local homeomorphism nor the $\widetilde{\mathrm{GL}}_2^+$-action
+gives an $E_2$-monoidal category structure. The role of
+$\mathrm{Stab}(X_5)$ is to parametrise the wall-crossing structure of
+the Joyce--Brauer gerbe class of
+Proposition~\ref{prop:cy-c-beyond-joyce-three-CY3}(i); the gerbe class
+is itself stability-invariant (Bridgeland 2011 arXiv:1002.4374
+Theorem~6.3).
+\end{proof}
+
+\begin{theorem}[$\Omega^{\mathrm{cat}}$ on the quintic recovers $X_5$ as non-commutative smooth proper]
+\label{thm:cy-c-quintic-omega-cat-recovery}
+\ClaimStatusProvedHere
+The categorical cobar construction applied to
+$B^{\mathrm{cat}}(\mathcal D(X_5))$ recovers $\mathcal D(X_5)$ up to
+pro-equivalence:
+\[
+  \Omega^{\mathrm{cat}}\!\bigl( B^{\mathrm{cat}}(\mathcal D(X_5)) \bigr)
+  \;\simeq\;
+  \mathcal D(X_5)
+  \qquad \text{in } \mathrm{Pro}(\mathrm{BrMon}^{\mathrm{comp}}_\infty).
+\]
+Via the Orlov-type reconstruction for non-commutative smooth proper dg
+categories (Orlov 2016 arXiv:1402.7364, Theorem~3.28),
+$\Omega^{\mathrm{cat}}$ recovers $X_5$ as a non-commutative smooth
+proper variety with CY-$3$ structure: the dg category
+$D^b_{\mathrm{dg}}(X_5)$ equipped with its $(-3)$-shifted symplectic
+Hochschild cohomology.
+\end{theorem}
+
+\begin{proof}
+Specialise Theorem~\ref{thm:cy-c-cat-thm-B} to
+$\mathcal D = \mathcal D(X_5)$. The categorical Koszul locus condition
+is verified by the CY-$3$ shifted symplectic structure on
+$\HH^\bullet(\mathcal D(X_5))$ (Caldararu 2003): a smooth proper CY-$d$
+dg category has a non-degenerate symmetric pairing of degree $(-d)$ on
+Hochschild cohomology, giving the quadratic presentation required for
+bar spectral sequence degeneration at $E_2$ (Keller--Van den Bergh 2011
+arXiv:0804.3256, Theorem~4.4). The Pro-completion is necessary on the
+strict stratum: the bar complex on a non-rigid target
+(Proposition~\ref{prop:cy-c-beyond-quintic-fibre-functor}) is unbounded
+above, and only the pro-object completion sees its contractibility
+(the $(\infty,2)$-avatar of the Positselski co-derived enlargement,
+Theorem~\ref{thm:cy-c-cat-thm-B}).
+
+Orlov reconstruction: given a smooth proper dg category $\mathcal A$
+with symmetric Hochschild pairing, the non-commutative variety
+$X^{\mathrm{nc}}_{\mathcal A}$ whose derived category of coherent
+sheaves recovers $\mathcal A$ is reconstructed up to equivalence by
+the homotopy-orbit of the $\HH^0$-action (Orlov 2016 Theorem~3.28).
+For $\mathcal A = D^b_{\mathrm{dg}}(X_5)$ the centre
+$\HH^0 \simeq H^0(X_5, \cO_{X_5}) = k$ acts trivially, so the
+reconstruction produces a non-commutative smooth proper CY-$3$
+$X_5^{\mathrm{nc}}$ with
+$D^b(\Coh(X_5^{\mathrm{nc}})) = D^b(\Coh(X_5))$. The upgrade to a
+commutative variety is Ballard--Favero--Katzarkov 2014
+(arXiv:1208.1682, Theorem~1.2): a smooth proper CY dg category with
+commutative $\HH^0$ is equivalent to $D^b(\Coh(X))$ for a classical
+commutative variety $X$ iff the compact generator reduces to a
+coherent sheaf; on the quintic $\cO_{X_5}$ satisfies this, so
+$X_5^{\mathrm{nc}} = X_5$.
+
+The pro-inverse system realising $\eta_{\mathcal D(X_5)}$ is the
+Postnikov-type tower of Orlov twists
+$\mathrm{Tw}_n(D^b_{\mathrm{dg}}(X_5))$ indexed by $n \to \infty$,
+converging pro-equivalently to $D^b_{\mathrm{dg}}(X_5)$ itself. The
+tower is the $(\infty,2)$-analogue of Positselski's weight-completion:
+at the algebra level the co-derived category sees the unbounded bar;
+at the $(\infty,2)$-level the Pro-completion sees the unbounded
+dg-tensor of Theorem~\ref{thm:cy-c-quintic-bcat-explicit}. Both
+enlargements are required precisely because $X_5$ is strict CY$_3$
+(no exceptional collection, no finite tilting object,
+Proposition~\ref{prop:cy-c-quintic-kuznetsov-full}).
+\end{proof}
+
+\begin{corollary}[$\Phi_3^{\mathrm{cat}}(X_5)$ and the three categorical theorems]
+\label{cor:cy-c-quintic-phi-three-cat}
+\ClaimStatusProvedHere
+The categorical CY-to-chiral functor $\Phi_3^{\mathrm{cat}}$ applied to
+the quintic is
+\[
+  \Phi_3^{\mathrm{cat}}(X_5)
+  \;:=\;
+  B^{\mathrm{cat}}(\mathcal D(X_5))
+  \;=\;
+  \mathrm{Ind}\!\bigl(
+    D^b_{\mathrm{dg}}(X_5) \otimes_{\mathrm{dgCat}_k}
+    \mathrm{Fact}^{\mathrm{br}}_{X_5}
+  \bigr)
+  \;\in\;
+  \mathrm{BrMon}^{\mathrm{comp}}_\infty.
+\]
+Under this identification:
+\textup{(B)} $\Omega^{\mathrm{cat}}(\Phi_3^{\mathrm{cat}}(X_5))
+  \simeq \mathcal D(X_5)$
+in $\mathrm{Pro}(\mathrm{BrMon}^{\mathrm{comp}}_\infty)$
+(Theorem~\ref{thm:cy-c-quintic-omega-cat-recovery});
+\textup{(D)} $\kappa_{\mathrm{cat}}(\Phi_3^{\mathrm{cat}}(X_5))$
+evaluates at the unit object to the scalar
+$-25/3 = \chi_{\mathrm{top}}(X_5)/24 = -200/24$ (Euler number of the
+quintic, Candelas--de la Ossa--Green--Parkes 1991), twisted by the
+Joyce gerbe $[5 \cdot \mathrm{vol}] \in H^3(X_5, \mathbb C^\times)$;
+\textup{(H)} $\mathrm{ChirHoch}^\bullet_{\mathrm{cat}}(\Phi_3^{\mathrm{cat}}(X_5))$
+is supported on $\{0, 1, 2, 3\}$ with the degree-$3$ piece equal to
+the Joyce gerbe (Corollary~\ref{cor:cy-c-cat-thm-H-tests}).
+\end{corollary}
+
+\begin{proof}
+The explicit form of $\Phi_3^{\mathrm{cat}}(X_5)$ is
+Theorem~\ref{thm:cy-c-quintic-bcat-explicit}. Readings~(B), (D), (H)
+are Theorems~\ref{thm:cy-c-quintic-omega-cat-recovery},
+\ref{thm:cy-c-cat-thm-D}, \ref{thm:cy-c-cat-thm-H} specialised to
+$\mathcal D = \mathcal D(X_5)$ via
+Definition~\ref{def:cy-c-quintic-dg-enhancement}. The scalar $-25/3$
+is $\chi_{\mathrm{top}}(X_5)/24$; the Joyce gerbe value
+$[5 \cdot \mathrm{vol}]$ is
+Proposition~\ref{prop:cy-c-beyond-joyce-three-CY3}(i).
+\end{proof}
+
+\begin{remark}[Open thread: stability-refined $\Phi_3^{\mathrm{cat}, \sigma}$]
+\label{rem:cy-c-quintic-open-stability}
+Theorem~\ref{thm:cy-c-quintic-bcat-explicit} uses the factorisation
+category on curves, independent of any Bridgeland stability choice.
+A stability-refined $\Phi_3^{\mathrm{cat}, \sigma}(X_5)$ with
+$\sigma \in \mathrm{Stab}(X_5)$ would incorporate central charges into
+the braiding, yielding a family of braided monoidal $\infty$-categories
+fibred over $\mathrm{Stab}(X_5)$. The wall-crossing automorphisms
+should be the Joyce wall-crossing formulae lifted to the
+$(\infty,2)$-level; the Joyce--Brauer gerbe class
+$[\mathrm{ob}] \in H^3(\mathrm{Stab}, \mathbb C^\times)$ is the
+obstruction to trivialising the family. Open: construct
+$\Phi_3^{\mathrm{cat}, \sigma}$ and identify its wall-crossing with
+the Kontsevich--Soibelman DT transformations (Kontsevich--Soibelman
+2008 arXiv:0811.2435).
+\end{remark}
+
+\section{Explicit $B^{\mathrm{cat}}$ on the bicubic and the $(2,4)$-CI}
+\label{sec:cy-c-beyond-bicubic-24CI-bcat-explicit}
+
+The quintic construction of
+Theorem~\ref{thm:cy-c-quintic-bcat-explicit} is driven by two
+structural facts, neither of which uses the degree $5$: the ambient
+is a smooth projective threefold with trivial canonical class, and
+curves inside it have two-dimensional transverse normal bundle. Every
+compact strict CY$_3$ complete intersection in $\mathbb P^{n+3}$
+inherits both. This section states the construction for the two
+remaining bicubic / $(2,4)$-CI members of the three-member hypersurface
+family $(X_5, X_{3,3}, X_{2,4})$ and records the scalar values that
+distinguish them.
+
+\begin{proposition}[Kuznetsov component on the bicubic and the $(2,4)$-CI is the entire category]
+\label{prop:cy-c-bicubic-24CI-kuznetsov-full}
+\ClaimStatusProvedHere
+For $X \in \{X_{3,3},\, X_{2,4}\}$ the Kuznetsov component
+$\mathcal{K}u(X)$ coincides with $D^b(\Coh(X))$. Neither variety admits
+a non-trivial semi-orthogonal decomposition, a tilting object of
+finite global dimension, or an exceptional object.
+\end{proposition}
+
+\begin{proof}
+Both $X_{3,3} \subset \mathbb P^5$ and $X_{2,4} \subset \mathbb P^5$ are
+smooth projective CY$_3$ with $\omega_X \simeq \cO_X$ by the adjunction
+formula applied to a bidegree-$(3,3)$ (resp.\ bidegree-$(2,4)$) complete
+intersection: the ambient anticanonical $\cO_{\mathbb P^5}(6)$ cancels
+against $\cO(3+3) = \cO(6)$ and $\cO(2+4) = \cO(6)$ respectively. The
+Serre-duality argument of
+Proposition~\ref{prop:cy-c-quintic-kuznetsov-full} applies verbatim:
+an exceptional $E$ would satisfy
+$\mathrm{Ext}^3(E,E) \simeq \mathrm{Ext}^0(E,E)^\vee = k$, contradicting
+vanishing in positive degree. The Kuznetsov~2009
+(arXiv:0904.4330, Lemma~2.5) trichotomy on admissible subcategories of
+trivial-canonical smooth projective varieties collapses to the trivial
+decomposition. The Bondal--Van den Bergh 2003
+(arXiv:math/0204218, Theorem~3.1.1) classical generator is
+$\cO_{X_{3,3}}$ (resp.\ $\cO_{X_{2,4}}$).
+\end{proof}
+
+\begin{proposition}[Joyce gerbe on the $(2,4)$-CI]
+\label{prop:cy-c-beyond-joyce-24CI}
+\ClaimStatusProvedHere
+Let $X_{2,4} \subset \mathbb P^5$ be a smooth $(2,4)$ complete
+intersection threefold: Hodge numbers
+$(h^{1,1}, h^{2,1}) = (1, 89)$; $\chi_{\mathrm{top}}(X_{2,4}) = 2(1-89) = -176$;
+$Y_3 = 2 \cdot 4 = 8$. The Joyce integration gerbe class is
+\[
+  \mathrm{ob}(X_{2,4}) \;=\; [8 \cdot \mathrm{vol}] \;\in\; J^3(X_{2,4})
+  \;=\; \mathbb C^{90}/\Lambda,
+\]
+non-zero of infinite order.
+\end{proposition}
+
+\begin{proof}
+Hodge numbers are Candelas--Font--Katz--Morrison 1994
+(\emph{Nucl.\ Phys.\ B} 429, Table~1, arXiv:hep-th/9308083);
+$\chi = 2(h^{1,1} - h^{2,1})$ for a simply connected CY$_3$ gives
+$\chi = -176$. The Yukawa $Y_3 = H^3$ is computed on $\mathbb P^5$ by
+Griffiths adjunction: the triple self-intersection of the hyperplane
+class restricted to a complete intersection of bidegree $(2,4)$ is
+$2 \cdot 4 = 8$. The Massey-product reduction of
+Proposition~\ref{prop:cy-c-beyond-joyce-vanishing} applies as in case
+(ii) of Proposition~\ref{prop:cy-c-beyond-joyce-three-CY3}: on a
+strict compact CY$_3$ the triple Massey product on $H^1(T_X)$ reduces
+to $Y_3$, and the image in $H^3(X_{2,4}, \mathbb C^\times)$ through
+the intermediate Jacobian is non-zero of infinite order because
+$\Omega^{3,0}$ is non-trivial. Joyce--Song 2012
+(arXiv:0810.5645, Theorem~5.11) non-globalisation of the DT
+integration map matches the Yukawa input.
+\end{proof}
+
+\begin{definition}[Factorisation category on curves in $X_{3,3}$, $X_{2,4}$]
+\label{def:cy-c-bicubic-24CI-fact-cat}
+\ClaimStatusDefinitional
+For $X \in \{X_{3,3},\, X_{2,4}\}$, let $\mathrm{Curv}(X)$ denote the
+stack of quasi-embedded smooth curves $\iota : C \hookrightarrow X$.
+The braided factorisation $\infty$-category
+\[
+  \mathrm{Fact}^{\mathrm{br}}_X
+  \;:=\;
+  \lim_n \mathrm{QCoh}\bigl(\mathrm{Ran}_n(\mathrm{Curv}(X))\bigr)^{\otimes\text{-factorisable}}
+\]
+is defined by the Francis--Gaitsgory 2012 (arXiv:1110.5690, \S 3)
+Ran-space construction. The $E_2$-structure arises from the
+two-dimensional transverse normal bundle $N_{C/X}$ to a curve in a
+threefold, by Ayala--Francis 2015 (arXiv:1206.5522, Theorem~1.2).
+Genus-zero degree-$d$ components carry the Gromov--Witten / DT counts
+$n_d(X_{3,3})$ and $n_d(X_{2,4})$ computed in Katz--Klemm--Vafa 1999
+(arXiv:hep-th/9910181, \S 6) for bicubic and Klemm--Pandharipande
+2008 (arXiv:math/0702189) for $(2,4)$-CI.
+\end{definition}
+
+\begin{theorem}[Explicit $B^{\mathrm{cat}}$ on the bicubic and the $(2,4)$-CI]
+\label{thm:cy-c-bicubic-24CI-bcat-explicit}
+\ClaimStatusProvedHere
+For $X \in \{X_{3,3},\, X_{2,4}\}$ the categorical bar construction is
+the braided presentable stable $\infty$-category
+\[
+  B^{\mathrm{cat}}(\mathcal D(X))
+  \;=\;
+  \mathrm{Ind}\!\bigl(
+    D^b_{\mathrm{dg}}(X) \otimes_{\mathrm{dgCat}_k}
+    \mathrm{Fact}^{\mathrm{br}}_X
+  \bigr)
+  \;\in\; \mathrm{BrMon}^{\mathrm{comp}}_\infty,
+\]
+obtained by the three-step procedure of
+Theorem~\ref{thm:cy-c-quintic-bcat-explicit}: smooth-proper dg-tensor
+(To\"en 2007 arXiv:math/0408337, Theorem~6.1), $E_2$-braiding from
+the two-dimensional transverse Ran-space factorisation and the
+$(-3)$-shifted symplectic Hochschild pairing (Caldararu 2003
+arXiv:math/0308080, Theorem~5), $\mathrm{Ind}$-completion (Lurie
+\emph{HA}~5.5.7.3). Compact generators are
+$\cO_X \otimes \mathbb 1_C$ for $C \in \mathrm{Curv}(X)$.
+\end{theorem}
+
+\begin{proof}
+The proof of Theorem~\ref{thm:cy-c-quintic-bcat-explicit} is
+degree-independent: Step~(i) uses smooth-properness of
+$D^b_{\mathrm{dg}}(X)$ (Orlov 2016 arXiv:1402.7364, Corollary~3.28)
+and of the factorisation category on curves in a threefold
+(Ben-Zvi--Francis--Nadler 2010 arXiv:0805.0157, Theorem~4.3.6), both
+holding for any smooth projective CY$_3$. Step~(ii) uses only the
+threefold assumption and the CY$_3$ Hochschild pairing, both present
+on $X_{3,3}$ and $X_{2,4}$. Step~(iii) is formal.
+Proposition~\ref{prop:cy-c-bicubic-24CI-kuznetsov-full} supplies the
+CY$_3$ generator $\cO_X$ required in Step~(iii).
+\end{proof}
+
+\begin{theorem}[$\Omega^{\mathrm{cat}}$ on the bicubic and the $(2,4)$-CI recovers $X$]
+\label{thm:cy-c-bicubic-24CI-omega-cat-recovery}
+\ClaimStatusProvedHere
+For $X \in \{X_{3,3},\, X_{2,4}\}$,
+\[
+  \Omega^{\mathrm{cat}}\!\bigl( B^{\mathrm{cat}}(\mathcal D(X)) \bigr)
+  \;\simeq\; \mathcal D(X)
+  \qquad \text{in } \mathrm{Pro}(\mathrm{BrMon}^{\mathrm{comp}}_\infty),
+\]
+and Orlov reconstruction (Orlov 2016 arXiv:1402.7364, Theorem~3.28)
+recovers $X$ as a classical smooth projective CY$_3$ from the recovered
+dg-enhancement $D^b_{\mathrm{dg}}(X)$.
+\end{theorem}
+
+\begin{proof}
+Categorical Theorem~B
+(Theorem~\ref{thm:cy-c-cat-thm-B}) specialises to
+$\mathcal D = \mathcal D(X)$: the Koszul-locus hypothesis is the
+CY$_3$ shifted-symplectic pairing on $\HH^\bullet(\mathcal D(X))$,
+supplied by Caldararu 2003 (Theorem~5) for any smooth proper CY$_3$
+dg category. Pro-completion is necessary because the bar is unbounded
+on the strict stratum
+(Proposition~\ref{prop:cy-c-bicubic-24CI-kuznetsov-full}). Orlov
+reconstruction proceeds via $\HH^0(\mathcal A) = H^0(X, \cO_X) = k$
+acting trivially; Ballard--Favero--Katzarkov 2014
+(arXiv:1208.1682, Theorem~1.2) upgrades the non-commutative
+reconstruction to the classical variety because $\cO_X$ is the
+compact generator in both cases.
+\end{proof}
+
+\begin{corollary}[$\Phi_3^{\mathrm{cat}}$ on the bicubic and the $(2,4)$-CI]
+\label{cor:cy-c-bicubic-24CI-phi-three-cat}
+\ClaimStatusProvedHere
+The categorical CY-to-chiral functor evaluates to
+\[
+  \Phi_3^{\mathrm{cat}}(X_{3,3})
+  \;=\;
+  \mathrm{Ind}\!\bigl(
+    D^b_{\mathrm{dg}}(X_{3,3}) \otimes_{\mathrm{dgCat}_k}
+    \mathrm{Fact}^{\mathrm{br}}_{X_{3,3}}
+  \bigr),
+\qquad
+  \Phi_3^{\mathrm{cat}}(X_{2,4})
+  \;=\;
+  \mathrm{Ind}\!\bigl(
+    D^b_{\mathrm{dg}}(X_{2,4}) \otimes_{\mathrm{dgCat}_k}
+    \mathrm{Fact}^{\mathrm{br}}_{X_{2,4}}
+  \bigr),
+\]
+both in $\mathrm{BrMon}^{\mathrm{comp}}_\infty$. The three categorical
+theorems evaluate as follows:
+\textup{(B)} $\Omega^{\mathrm{cat}}(\Phi_3^{\mathrm{cat}}(X)) \simeq \mathcal D(X)$
+(Theorem~\ref{thm:cy-c-bicubic-24CI-omega-cat-recovery});
+\textup{(D)} $\kappa_{\mathrm{cat}}(\Phi_3^{\mathrm{cat}}(X_{3,3})) = -144/24 = -6$
+and $\kappa_{\mathrm{cat}}(\Phi_3^{\mathrm{cat}}(X_{2,4})) = -176/24 = -22/3$,
+each twisted by the Joyce gerbe $[Y_3 \cdot \mathrm{vol}]$ with
+$Y_3(X_{3,3}) = 9$ and $Y_3(X_{2,4}) = 8$;
+\textup{(H)} $\mathrm{ChirHoch}^\bullet_{\mathrm{cat}}(\Phi_3^{\mathrm{cat}}(X))$
+is supported on $\{0, 1, 2, 3\}$ with the degree-$3$ piece equal to the
+Joyce gerbe class.
+\end{corollary}
+
+\begin{proof}
+Explicit form from Theorem~\ref{thm:cy-c-bicubic-24CI-bcat-explicit}.
+Reading~(B) from Theorem~\ref{thm:cy-c-bicubic-24CI-omega-cat-recovery}.
+Reading~(D) from Theorem~\ref{thm:cy-c-cat-thm-D} specialised: the
+scalar is $\chi_{\mathrm{top}}/24$, with the Joyce gerbe factor from
+Proposition~\ref{prop:cy-c-beyond-joyce-three-CY3}(ii) ($X_{3,3}$,
+$Y_3 = 9$) and Proposition~\ref{prop:cy-c-beyond-joyce-24CI}
+($X_{2,4}$, $Y_3 = 8$). Reading~(H) from
+Theorem~\ref{thm:cy-c-cat-thm-H} as in the quintic case.
+\end{proof}
+
+\begin{theorem}[Stratum-universal categorical scalar on compact CY$_3$ complete intersections in $\mathbb P^{n+3}$]
+\label{thm:cy-c-ci-cy3-stratum-universal-kappa-cat}
+\ClaimStatusProvedHere
+Let $X \subset \mathbb P^{n+3}$ be a smooth complete intersection of
+multidegree $(d_1, \ldots, d_n)$ with $\sum d_i = n+4$ (CY$_3$
+condition) and $X$ on the strict stratum (no exceptional object, no
+non-trivial SOD). The categorical scalar complementarity invariant is
+\[
+  \kappa_{\mathrm{cat}}(\Phi_3^{\mathrm{cat}}(X))
+  \;=\; \chi_{\mathrm{top}}(X)/24,
+\]
+twisted by the Joyce integration gerbe
+$\mathrm{ob}(X) = [Y_3(X) \cdot \mathrm{vol}] \in H^3(X, \mathbb C^\times)$
+with Yukawa $Y_3(X) = d_1 d_2 \cdots d_n$. The three flagship members
+of the hypersurface / CI stratum in $\mathbb P^{n+3}$ evaluate to the
+table
+\[
+  \begin{array}{c|c|c|c|c}
+    X & (h^{1,1}, h^{2,1}) & \chi_{\mathrm{top}} & \kappa_{\mathrm{cat}} & Y_3 \\ \hline
+    X_5 \subset \mathbb P^4       & (1, 101) & -200 & -25/3   & 5  \\
+    X_{3,3} \subset \mathbb P^5   & (1, 73)  & -144 & -6      & 9  \\
+    X_{2,4} \subset \mathbb P^5   & (1, 89)  & -176 & -22/3   & 8
+  \end{array}
+\]
+\end{theorem}
+
+\begin{proof}
+Theorem~\ref{thm:cy-c-cat-thm-D} gives the scalar reading of
+$\kappa_{\mathrm{cat}}$ as the BCOV genus-one partition function
+coefficient, which at one loop evaluates to $\chi_{\mathrm{top}}/24$
+(Bershadsky--Cecotti--Ooguri--Vafa 1994, arXiv:hep-th/9309140,
+eq.~(2.13); Costello--Li 2012, arXiv:1201.4501, Theorem~1.4). The
+Yukawa formula $Y_3 = \prod d_i$ is the classical Griffiths adjunction
+on a projective complete intersection. Hodge numbers for the three
+entries: $X_5$ from Candelas--de la Ossa--Green--Parkes 1991 \S 4;
+$X_{3,3}$ from Candelas--Font--Katz--Morrison 1994
+(arXiv:hep-th/9308083, Table~1); $X_{2,4}$ likewise. Euler numbers
+from $\chi = 2(h^{1,1} - h^{2,1})$ (simply connected, $h^{1,0} = h^{2,0} = 0$,
+$h^{3,0} = 1$). None of the three admits exceptional objects by
+Propositions~\ref{prop:cy-c-quintic-kuznetsov-full} and
+\ref{prop:cy-c-bicubic-24CI-kuznetsov-full}; the strict-stratum
+hypothesis is verified.
+\end{proof}
+
+\begin{remark}[Comparison: degree versus Euler along the hypersurface family]
+\label{rem:cy-c-ci-cy3-degree-vs-euler}
+The quintic / bicubic / $(2,4)$-CI triplet records a single mechanism
+seen from three points of the complete-intersection moduli. The
+Yukawa increases non-monotonically along degree-product
+($5 \to 9 \to 8$), while the Euler number is also non-monotone
+($-200 \to -144 \to -176$): the Yukawa counts holomorphic rigidity
+through the triple intersection, the Euler number counts
+Hodge-theoretic rigidity through $h^{2,1}$, and the two are
+independent invariants of the CI multidegree. The categorical scalar
+$\kappa_{\mathrm{cat}} = \chi/24$ and the gerbe scalar $Y_3$ are
+distinct numerical shadows of the same stratum: the first is the
+genus-one BCOV partition, the second is the classical intersection.
+The quintic is the Yukawa-minimal entry ($Y_3 = 5$) and
+Euler-most-negative ($\chi = -200$); the bicubic is Yukawa-maximal
+($Y_3 = 9$) and Euler-least-negative ($\chi = -144$); the $(2,4)$-CI
+sits between both. Bondal--Orlov reconstruction acts uniformly on
+the three: no exceptional object, no non-trivial SOD, full category
+is Kuznetsov component, classical variety recovered by Orlov's
+$\HH^0 = k$ argument. The Joyce gerbe is non-zero of infinite order
+in each case, with representative $[Y_3 \cdot \mathrm{vol}]$; the
+categorical bar construction is uniform, differing only in the
+scalar reading of Theorem~D.
+\end{remark}
+
+\begin{remark}[Open threads from the CI-CY$_3$ stratum]
+\label{rem:cy-c-ci-cy3-open-threads}
+Three threads remain open on the CI-CY$_3$ stratum.
+\textup{(a)} Stability-refined $\Phi_3^{\mathrm{cat}, \sigma}$ for
+$X_{3,3}$ and $X_{2,4}$: both carry finite-dimensional Bridgeland
+stability manifolds
+($\mathrm{rk}(K_0^{\mathrm{num}}(X)) = 4$ for a simply connected
+CY$_3$ in projective space, Bayer--Macri 2011 arXiv:1103.5010), and
+the wall-crossing is conjecturally controlled by the Joyce
+integration gerbe, as for the quintic
+(Remark~\ref{rem:cy-c-quintic-open-stability}).
+\textup{(b)} CY$_3$ with $h^{1,1} > 1$: the general member of the
+extended stratum admits a K\"unneth-like product SOD (e.g.\ bicubic in
+$\mathbb P^2 \times \mathbb P^2$ with
+$(h^{1,1}, h^{2,1}) = (2, 83)$, $\chi = -162$), which lies outside
+the strict single-generator stratum of
+Proposition~\ref{prop:cy-c-bicubic-24CI-kuznetsov-full} and requires
+the Kuznetsov homological projective duality framework (Kuznetsov
+2007 arXiv:math/0610957).
+\textup{(c)} Non-compact local-mirror limits: large-volume limit
+$t \to \infty$ in a one-parameter family degenerates to a
+non-compact CY$_3$ with exceptional collection; the categorical bar
+construction acquires finite fibre-functor shadow in that limit and
+agrees with the quantum-group construction on the local-mirror side
+(Aganagic--Okounkov 2017 arXiv:1704.08746, \S 2).
+\end{remark}

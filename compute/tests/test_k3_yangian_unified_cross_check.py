@@ -13,7 +13,7 @@ from fractions import Fraction
 
 import pytest
 
-from compute.lib.k3_yangian_wave17_unified_cross_check import (
+from compute.lib.k3_yangian_unified_cross_check import (
     cache_violation_audit,
     verify_all,
     verify_arthur_packet_delta10,
@@ -165,7 +165,7 @@ def test_D_gritsenko_nikulin_leading_key_exists():
     raw Fourier dicts do not match verbatim at (0,0,0) because the
     additive-lift algorithm excludes the gcd=0 vacuum monomial.
     This is a documented predecessor-module convention (see
-    normalisation_gap_note in wave15_fourier_expansion_order_10);
+    normalisation_gap_note in fourier_expansion_order_10);
     our Wave-17 role is to record the value, not to flip the sign.
     """
     D = verify_siegel_weight_five()

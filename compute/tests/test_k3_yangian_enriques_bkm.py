@@ -1,4 +1,4 @@
-"""Tests for k3_yangian_wave18_enriques_bkm.
+"""Tests for k3_yangian_enriques_bkm.
 
 Enriques BKM superalgebra g_{Delta_5}^{Enr}. Three verification paths:
   (a) Lattice signature / rank consistency (Nikulin 1979; BHPV 2004).
@@ -10,7 +10,7 @@ from fractions import Fraction
 
 import pytest
 
-from compute.lib.k3_yangian_wave18_enriques_bkm import (
+from compute.lib.k3_yangian_enriques_bkm import (
     enriques_cartan_description,
     enriques_elliptic_genus_fourier,
     enriques_lattice_rank,

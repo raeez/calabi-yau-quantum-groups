@@ -23,7 +23,7 @@ from fractions import Fraction
 
 import pytest
 
-from compute.lib.k3_yangian_wave19_nonsemisimple_S import (
+from compute.lib.k3_yangian_nonsemisimple_S import (
     FUSION_BOUND,
     LUSZTIG_ELL,
     RANK_REAL,

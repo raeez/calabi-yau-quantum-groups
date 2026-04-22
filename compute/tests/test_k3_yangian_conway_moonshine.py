@@ -1,4 +1,4 @@
-"""Tests for k3_yangian_wave20_conway_moonshine.py: Conway moonshine Fourier expansions.
+"""Tests for k3_yangian_conway_moonshine.py: Conway moonshine Fourier expansions.
 
 STATUS: all tabulations PROVED against primary literature (Duncan 2007,
 Duncan-Mack-Ono 2015, Conway-Curtis-Norton-Parker-Wilson 1985 ATLAS).
@@ -19,7 +19,7 @@ from fractions import Fraction
 
 import pytest
 
-from compute.lib.k3_yangian_wave20_conway_moonshine import (
+from compute.lib.k3_yangian_conway_moonshine import (
     CO0_ORDER,
     CO1_ORDER,
     CO0_ORDER_FACTORISATION,
@@ -424,7 +424,7 @@ class TestBeilinsonMultiPath:
 # ---------------------------------------------------------------------------
 
 
-from compute.lib.k3_yangian_wave20_conway_moonshine import (  # noqa: E402
+from compute.lib.k3_yangian_conway_moonshine import (  # noqa: E402
     _co0_order_path_direct,
     _co0_order_path_double_co1,
     _co0_order_path_factorisation,

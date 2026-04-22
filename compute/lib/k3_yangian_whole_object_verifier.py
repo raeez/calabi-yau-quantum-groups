@@ -81,7 +81,7 @@ from typing import Dict, List, Tuple
 # Imports from all 14 Wave-14/15/17 modules
 # =====================================================================
 
-from .k3_yangian_wave14_schur_index_classS_A1_24 import (
+from .k3_yangian_schur_index_classS_A1_24 import (
     schur_index_q_coefficients,
     verify_against_manuscript,
 )
@@ -92,7 +92,7 @@ MANUSCRIPT_FOURIER_COEFFICIENTS = [
     1, 72, 2678, 68474, 1351775, 21945390,
     304799105, 3720945220, 40716498035, 405322063500,
 ]
-from .k3_yangian_wave14_arthur_hecke_delta10 import (
+from .k3_yangian_arthur_hecke_delta10 import (
     DELTA_E6_AP,
     PRIMES,
     first_principles_a_p,
@@ -100,7 +100,7 @@ from .k3_yangian_wave14_arthur_hecke_delta10 import (
     lambda_p_from_delta_e6,
     ramanujan_petersson_check,
 )
-from .k3_yangian_wave14_humbert_monodromy_8 import (
+from .k3_yangian_humbert_monodromy_8 import (
     universal_identity_check,
     K_kappa_ch_Mukai_K3,
     humbert_H1_monodromy_order,
@@ -109,17 +109,17 @@ from .k3_yangian_wave14_humbert_monodromy_8 import (
     bruinier_reciprocity_classes_coincide,
     hbar_squared_at_specialisation,
 )
-from .k3_yangian_wave14_pentagon_coboundary_hbar3 import (
+from .k3_yangian_pentagon_coboundary_hbar3 import (
     c_Phi_10_coefficient_leading,
     zeta_3,
 )
-from .k3_yangian_wave17_pentagon_coboundary_hbar8_9_10 import (
+from .k3_yangian_pentagon_coboundary_hbar8_9_10 import (
     padovan_dimension,
     borcherds_leg_weight_total,
     borcherds_leg_asymptotic_dim,
     kz_denominator,
 )
-from .k3_yangian_wave17_cn_heegner_pattern import (
+from .k3_yangian_cn_heegner_pattern import (
     bv_obstruction_c_n,
     phi_minus2_1_fourier,
 )
@@ -300,7 +300,7 @@ def wov_3_siegel_weight_four_routes() -> Dict[str, object]:
     w_b = Fraction(5 * chi_K3, 24)
 
     # Route (c): paramodular anomaly sum (from twisted_11dsugra_1loop)
-    from .k3_yangian_wave14_twisted_11dsugra_1loop import (
+    from .k3_yangian_twisted_11dsugra_1loop import (
         paramodular_anomaly_sum_weight,
         kodaira_i1_residue_weight_integer,
     )

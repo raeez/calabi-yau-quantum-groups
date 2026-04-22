@@ -1,4 +1,4 @@
-"""k3_yangian_wave6_polyakov_automorphic.py
+"""k3_yangian_polyakov_automorphic.py
 
 Wave-6 Polyakov adversarial audit of the Wave-5 claim that the
 "BKM sector of the K3 Yangian is a scalar prefactor Phi_10(tau)^{-1/2}
