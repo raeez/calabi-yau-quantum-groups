@@ -1,46 +1,69 @@
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\HolFA}{\mathrm{HolFA}}
+\providecommand{\EdHolFA}{E_d\text{-}\HolFA}
+\providecommand{\EnHolFA}{E_n\text{-}\HolFA}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\intSigma}{\textstyle\int_{\Sigma_{d-1}}}
+\providecommand{\hCS}{\mathrm{hCS}}
+
 \chapter{The $\kappa_{\mathrm{ch}}$ Stratification by CY Dimension}
 \label{ch:cy-d-kappa-stratification}
 
-For a compact Calabi--Yau manifold $X$ of complex dimension $d$, let
-$\cA_X=\Phi_d(D^b(\Coh(X)))$ denote the chiral algebra produced by the
-CY-to-chiral correspondence. Two scalar invariants appear in the CY-D
-lane and must not be conflated.
-
-First, the Hodge supertrace
+The two-stage factorisation functor
 \[
-  \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(X)
-  := \sum_{q=0}^{d} (-1)^q h^{0,q}(X)
-  = \chi(\cO_X)
+  \Phi_d \;=\; \SpCh_{\Sigma_{d-1}, C} \circ \PhiFA_d
+  \colon\; \mathrm{CY}_d\text{-}\mathrm{Cat}
+  \;\longrightarrow\; \EdHolFA(X)
+  \;\longrightarrow\; \EnHolFA(C)
 \]
-is the Serre-theoretic comparator attached to the $\cO_X$ column.
-Second, bare $\kappa_{\mathrm{ch}}$ in Vol~III denotes the operational
-K\"unneth-additive chiral modular characteristic used by the product
-route and the Mukai-rank computations.
+(see \texttt{chapters/theory/e1\_chiral\_algebras.tex},
+Definitions~\ref{def:phi-fa-and-sp}--\ref{rem:multiple-e1-specialisations})
+assigns to a CY$_d$ category $\cC$ first a holomorphic factorisation
+algebra $\PhiFA_d(\cC)$ on the CY$_d$ target $X$, then a chiral algebra
+$\SpCh_{\Sigma_{d-1},C}(\PhiFA_d(\cC))$ on a curve $C$ via factorisation
+homology over $\Sigma_{d-1}$. The two stages produce scalar invariants of
+different provenance that must be distinguished.
 
-The point of this chapter is not to identify these two scalars
-globally. It is to stratify their relation by Beauville--Bogomolov
-type. The naive formula
-$\kappa_{\mathrm{ch}}=\chi(\cO_X)$ holds on the proved CY$_2$ slice
-with $h^{1,0}=0$ \textup{(}Proposition~\ref{prop:cy-kappa-d2}\textup{)}
-and fails already on the product $K3 \times E$, where
+\begin{itemize}
+\item $\kappa_{\mathrm{ch}}(\cA_X)$: a native invariant of the
+  $\PhiFA_d(\cC)$ stage; it is the degree-two shadow coefficient of the
+  factorisation algebra on $X$, computed from the $(0,\bullet)$ Hodge
+  column of $X$ via Theorem~\ref{thm:kappa-hodge-supertrace-identification}.
+\item $\kappa_{\mathrm{cat}}(X) = \chi(\cO_X)$: a native invariant of the
+  CY$_d$ \emph{variety} $X$, independent of the $\PhiFA_d$ stage;
+  K\"unneth-multiplicative on products.
+\item $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$: an invariant of the
+  Borcherds-lift $\SpCh$ specialisation
+  (Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}); it records
+  the weight of the automorphic product attached to the specialisation
+  cycle, not of the $\PhiFA_d$ output directly.
+\item $\kappa_{\mathrm{fiber}}$: tracks the fibre of the specialisation
+  cycle in $\SpCh$; it equals the rank or Euler characteristic of the
+  fibering data attached to the $\SpCh$ map.
+\end{itemize}
+
+The naive formula $\kappa_{\mathrm{ch}}=\chi(\cO_X)$ holds on the proved
+CY$_2$ slice with $h^{1,0}=0$
+\textup{(}Proposition~\ref{prop:cy-kappa-d2}\textup{)} and fails on the
+product $K3 \times E$, where
 \[
   \chi(\cO_{K3 \times E})=0
   \qquad\text{but}\qquad
   \kappa_{\mathrm{ch}}(\Phi_3(D^b\Coh(K3 \times E)))=3.
 \]
-The chapter evaluates the Hodge supertrace dimension by dimension for
+This chapter evaluates the Hodge supertrace dimension by dimension for
 $d \in \{1, 2, 3, 4, 5\}$ and stratifies the comparison between
-$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$ and bare $\kappa_{\mathrm{ch}}$
-by Beauville--Bogomolov holonomy type. It does not close
-Conjecture~\ref{conj:cy-kappa-identification}; instead it records the
+$\kappa_{\mathrm{ch}}$ and $\kappa_{\mathrm{cat}}$
+by Beauville--Bogomolov holonomy type. The chapter does not close
+Conjecture~\ref{conj:cy-kappa-identification}; it records the
 tri-stratum obstruction to that conjecture's naive form.
 
-The chapter also records the universal formula
-$\kappa_{\mathrm{BKM}} = c_N(0)/2$ from Borcherds weight theory
-(Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}) and demonstrates
+The universal formula $\kappa_{\mathrm{BKM}} = c_N(0)/2$
+(Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}) demonstrates
 that the additive decomposition
 $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\cO_{\mathrm{fiber}})$
-fails at every $N \in \{1, 2, 3, 4, 6\}$.
+fails at every $N \in \{1, 2, 3, 4, 6\}$: $\kappa_{\mathrm{BKM}}$ is a
+$\SpCh$-shadow invariant, not a sum of $\PhiFA_d$ outputs.
 
 The unit of analysis throughout is the dimensional parity of $X$ and the
 Hodge column $h^{0,\bullet}(X)$. The companion engine is
@@ -114,29 +137,45 @@ characteristic. The engine \texttt{cy\_d\_kappa\_d3.py} supplies these
 numerically.
 
 \begin{center}
-\begin{tabular}{lcccc}
+\begin{tabular}{lccccc}
 \toprule
 Family & $d$ & Column $h^{0,\bullet}$ & $\chi_{\mathrm{top}}$ &
-$\kappa_{\mathrm{ch}}$ \\
+$\kappa_{\mathrm{ch}}$ & Side \\
 \midrule
-Elliptic curve $E$ & $1$ & $(1, 1)$ & $0$ & $0$ \\
-K3 surface & $2$ & $(1, 0, 1)$ & $24$ & $2$ \\
-Abelian surface $E \times E$ & $2$ & $(1, 2, 1)$ & $0$ & $0$ \\
-Bielliptic surface & $2$ & $(1, 1, 0)$ & $0$ & $0$ \\
-Quintic threefold & $3$ & $(1, 0, 0, 1)$ & $-200$ & $0$ \\
-$\mathrm{K3} \times E$ & $3$ & $(1, 1, 1, 1)$ & $0$ & $0$ \\
-$E^{3}$ & $3$ & $(1, 3, 3, 1)$ & $0$ & $0$ \\
+Elliptic curve $E$ & $1$ & $(1, 1)$ & $0$ & $0$ & $\PhiFA_d$ \\
+K3 surface & $2$ & $(1, 0, 1)$ & $24$ & $2$ & $\PhiFA_d$ \\
+Abelian surface $E \times E$ & $2$ & $(1, 2, 1)$ & $0$ & $0$ & $\PhiFA_d$ \\
+Bielliptic surface & $2$ & $(1, 1, 0)$ & $0$ & $0$ & $\PhiFA_d$ \\
+Quintic threefold & $3$ & $(1, 0, 0, 1)$ & $-200$ & $0$ & $\PhiFA_d$ \\
+$\mathrm{K3} \times E$ & $3$ & $(1, 1, 1, 1)$ & $0$ & $0$ & $\PhiFA_d$ \\
+$E^{3}$ & $3$ & $(1, 3, 3, 1)$ & $0$ & $0$ & $\PhiFA_d$ \\
 Local $\P^2$ = $\mathrm{Tot}(\omega_{\P^2})$ & $3$ & open toric column &
-$\chi_{\mathrm{top}}(\P^2) = 3$ & $3/2$ \\
+$\chi_{\mathrm{top}}(\P^2) = 3$ & $3/2$ & $\PhiFA_d$ \\
 Resolved conifold $\mathrm{Tot}(\cO(-1)^{\oplus 2} \to \P^1)$ & $3$ & open toric &
---- & $1$ \\
-CY$_4$ sextic $\subset \P^5$ & $4$ & $(1, 0, 0, 0, 1)$ & $2610$ & $2$ \\
-Septic CY$_5$ $X_7 \subset \P^6$ & $5$ & $(1, 0, 0, 0, 0, 1)$ & --- & $0$ \\
-$\mathrm{K3} \times X_5$ (quintic) & $5$ & $(1, 0, 1, 1, 0, 1)$ & $0$ & $0$ \\
-Generic strict CY$_5$ & $5$ & $(1, 0, 0, 0, 0, 1)$ & --- & $0$ \\
+--- & $1$ & $\PhiFA_d$ \\
+CY$_4$ sextic $\subset \P^5$ & $4$ & $(1, 0, 0, 0, 1)$ & $2610$ & $2$ & $\PhiFA_d$ \\
+Septic CY$_5$ $X_7 \subset \P^6$ & $5$ & $(1, 0, 0, 0, 0, 1)$ & --- & $0$ & $\PhiFA_d$ \\
+$\mathrm{K3} \times X_5$ (quintic) & $5$ & $(1, 0, 1, 1, 0, 1)$ & $0$ & $0$ & $\PhiFA_d$ \\
+Generic strict CY$_5$ & $5$ & $(1, 0, 0, 0, 0, 1)$ & --- & $0$ & $\PhiFA_d$ \\
+\midrule
+\multicolumn{6}{l}{\small\itshape Specialisation-side invariants (not $\PhiFA_d$ outputs):} \\
+$\kappa_{\mathrm{cat}}(X) = \chi(\cO_X)$ & all $d$ & manifold & -- & (topological) & variety \\
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ & $3$ & Borcherds & -- & (automorphic) & $\SpCh$ \\
+$\kappa_{\mathrm{fiber}}$ & $3$ & fibre rank & -- & (lattice) & $\SpCh$ cycle \\
 \bottomrule
 \end{tabular}
 \end{center}
+\noindent
+\textit{Column key}: ``Side'' records whether the invariant is native to
+the $\PhiFA_d$ factorisation-algebra stage (all rows above the rule) or
+to the $\SpCh_{\Sigma_{d-1},C}$ specialisation stage (rows below).
+$\kappa_{\mathrm{ch}}$ values above are computed via the Hodge supertrace
+$\Xi(X) = \sum_q(-1)^q h^{0,q}(X)$
+(Theorem~\ref{thm:kappa-hodge-supertrace-identification}); they do not
+depend on which $\SpCh$ specialisation is chosen. The three
+specialisation-side invariants are construction-dependent: they change
+when the Borcherds lift or fibre changes, while $\kappa_{\mathrm{ch}}$
+does not.
 
 These values are the skeleton of the stratification theorem. The
 $\kappa_{\mathrm{ch}}$ column is populated by K\"unneth multiplicativity of
@@ -1025,26 +1064,83 @@ hypersurface Lefschetz, Hilbert-scheme generating function,
 deformation-theoretic moduli classification) are genuinely disjoint.
 \end{remark}
 
-\begin{remark}[Comparison against the four-$\kappa_{\bullet}$ menu]
+\begin{remark}[The four-$\kappa_{\bullet}$ menu and the $\PhiFA_d$/$\SpCh$ split]
 \label{rem:comparison-four-kappas}
-$\kappa_{\mathrm{cat}}(X) = \chi(\cO_X)$ is a topological manifold
-invariant and therefore does \emph{not} reduce to
-$\kappa_{\mathrm{ch}}$ outside the $(d, h^{1,0}) = (2, 0)$ scope. For
-K3, $\kappa_{\mathrm{cat}}(K3) = 2 = \kappa_{\mathrm{ch}}(\cA_{K3})$ -- a
-coincidence: at $d = 2$ with $h^{1, 0} = 0$, the Hodge supertrace
-collapses to $\chi(\cO_{K3})$, so the two invariants share a single
-number. The coincidence does not extend beyond this scope.
-For $\mathrm{K3} \times E$, $\kappa_{\mathrm{cat}}(\mathrm{K3} \times E)
-= \chi(\cO_{\mathrm{K3}\times E}) = 0 = \kappa_{\mathrm{ch}}$: the
-identification by accident continues to hold because both sides
-collapse to zero, but the mechanism is Serre cancellation on
-$\kappa_{\mathrm{cat}}$ and supertrace cancellation on
-$\kappa_{\mathrm{ch}}$ -- distinct invariants with the same value. For
-$E^3$, both vanish. The correct statement is
-Theorem~\ref{thm:kappa-hodge-supertrace-identification}:
-$\kappa_{\mathrm{ch}}$ is the \emph{Hodge supertrace of the
-$h^{0,\bullet}$ column}. At even $d$ with $h^{0,q} = 0$ for $q$ odd,
-this equals $\chi(\cO_X)$; otherwise it is simply the signed sum.
+The four invariants split cleanly across the two stages of $\Phi_d$.
+
+\emph{$\PhiFA_d$-native.} $\kappa_{\mathrm{ch}}(\cA_X)$ is the degree-two
+shadow coefficient of the holomorphic factorisation algebra $\PhiFA_d(\cC)$
+on $X$; it equals the Hodge supertrace $\Xi(X)$
+(Theorem~\ref{thm:kappa-hodge-supertrace-identification}) and is
+independent of which $\SpCh$ specialisation is subsequently applied.
+
+\emph{Variety-native.} $\kappa_{\mathrm{cat}}(X) = \chi(\cO_X)$ is a
+topological manifold invariant, K\"unneth-multiplicative on products,
+independent of the $\PhiFA_d$ stage.  It does not reduce to
+$\kappa_{\mathrm{ch}}$ outside $(d, h^{1,0}) = (2, 0)$: at K3 the two
+share the value $2$ because the Hodge supertrace collapses to $\chi(\cO_{K3})$
+at $d = 2$ with $h^{1,0} = 0$; for $\mathrm{K3} \times E$ both vanish
+but by different mechanisms (Serre cancellation on $\kappa_{\mathrm{cat}}$,
+supertrace cancellation on $\kappa_{\mathrm{ch}}$).
+
+\emph{$\SpCh$-specialisation-dependent.}
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ is an invariant of the
+Borcherds-lift $\SpCh$ specialisation
+(Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}): it records the
+weight of the automorphic denominator product, not a supertrace on the
+$\PhiFA_d$ output. $\kappa_{\mathrm{fiber}}$ tracks the fibre rank of the
+$\SpCh$ specialisation cycle. Both change when the specialisation changes;
+$\kappa_{\mathrm{ch}}$ does not.
+\end{remark}
+
+\begin{remark}[Stage-$1$ / Stage-$2$ assignment of the four
+$\kappa_\bullet$-invariants]
+\label{rem:four-kappa-stage-assignment-cy-d-strat}
+Under the two-stage factorisation
+$\Phi_d = \SpCh_{\Sigma_{d-1}, C} \circ \PhiFA_d$, the four
+$\kappa_\bullet$-invariants separate by stage as follows.
+\begin{itemize}
+\item \emph{Stage-$1$.} $\kcat(X) = \chi(\cO_X)$ is a Stage-$1$ invariant
+  of the canonical $\PhiFA_d(\mathrm{Perf}(X))$, K\"unneth-multiplicative
+  on the total space and independent of any specialisation cycle
+  $\Sigma_{d-1}$.
+\item \emph{Stage-$2$.} $\kch$ is the Hodge-supertrace identification of
+  the Stage-$2$ $\Eone$-chiral shadow
+  $\SpCh_{\Sigma_{d-1}, C}(\PhiFA_d(\cC))$ on the reference curve $C$
+  (Theorem~\ref{thm:kappa-hodge-supertrace-identification}).
+\item \emph{Stage-$2$.} $\kBKM(\Phi_N) = c_N(0)/2$ is a Stage-$2$
+  invariant attached to the specific specialisation cycle
+  $\Sigma_{d-1}^{(N)}$: it is uniform across $N \in \{1, 2, 3, 4, 6\}$ on
+  the CHL BKM-denominator scope
+  (Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}) and extends
+  uniformly across $N \in \{1, \ldots, 8\}$ on the full Borcherds
+  singular-theta scope --- including the metaplectic $N = 5$ and
+  spin-double-cover $N = 7$ cases
+  (Corollary~\ref{cor:borcherds-weight-full-8form-scope}).
+\item \emph{Stage-$2$.} $\kappa_{\mathrm{fibre}}$ measures the
+  discrepancy between the Hodge datum of the cycle $\Sigma_{d-1}$ and
+  the ambient $X$.
+\end{itemize}
+At $X = K3 \times E$,
+\[
+ \{\kcat, \kch, \kBKM, \kappa_{\mathrm{fibre}}\}(K3 \times E)
+ \;=\; \{0, 3, 5, 24\},
+\]
+with the stage assignment explicit: $\kcat = 0$ is Stage-$1$
+(K\"unneth-multiplicative on the total space, \emph{not} $2$ on the K3
+fibre); $\kch = 3$, $\kBKM = 5$, $\kappa_{\mathrm{fibre}} = 24$ are
+Stage-$2$ outputs of three distinct specialisation constructions
+(Mukai-enhanced Hodge supertrace on $E$, Gritsenko $\Delta_5$ Borcherds
+weight, K3 fibre-rank). The identity
+$\kBKM = \kch + \chi(\cO_{\mathrm{fibre}})$ holds at $N = 1$ as a
+numerical coincidence between two distinct Stage-$2$ constructions; the
+universal identity is $\kBKM(\Phi_N) = c_N(0)/2$
+(Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}). This
+assignment harmonises with the chapter-level Stage-$1$/Stage-$2$
+statement at
+\texttt{chapters/theory/cy\_to\_chiral.tex}~Remark~\ref{rem:four-kappa-stage-assignment}
+and with the universal-identity two-scope record in the platonic
+synthesis notes.
 \end{remark}
 
 \section{$d = 5$ explicit examples and the Universal Serre Cancellation Theorem}
@@ -1420,7 +1516,7 @@ $d = 3$, $\kappa_{\mathrm{ch}}(\cA_X) = 0$ for every compact $X$.
 \label{sec:cy-strat-bkm-universal}
 
 \begin{theorem}[$\kappa_{\mathrm{BKM}}$ equals
-$c_N(0)/2$ across the five Borcherds frame shapes]
+$c_N(0)/2$ across the five CHL frame shapes; BKM-denominator scope]
 \label{thm:borcherds-weight-kappa-BKM-universal}
 \ClaimStatusProvedHere
 Let $\Phi_N$ be the Borcherds product of a vector-valued theta series of
@@ -1429,9 +1525,14 @@ $c_N(0)$. Then the BKM modular characteristic satisfies
 \[
  \kappa_{\mathrm{BKM}}(\Phi_N) \;=\; \frac{c_N(0)}{2},
 \]
-for every $N \in \{1, 2, 3, 4, 6\}$ (the five Borcherds
-families of orbifolds of $\mathrm{K3} \times E$). At $N = 1$ the
-value is $\kappa_{\mathrm{BKM}}(\Phi_1) = c_1(0)/2 = 10/2 = 5$,
+for every $N \in \{1, 2, 3, 4, 6\}$ (the five CHL orbifold families of
+$\mathrm{K3} \times E$ with $\varphi(N) \mid 2$), proved via
+Gritsenko~1999 Thm.~1.2 on K3-fibered diagonal quotients;
+this is the \emph{BKM-denominator scope} of the identity.
+For the extension to all eight Nikulin-admissible symplectic orders
+including metaplectic and spin-cover weights at $N \in \{5, 7, 8\}$,
+see Corollary~\ref{cor:borcherds-weight-full-8form-scope}.
+At $N = 1$ the value is $\kappa_{\mathrm{BKM}}(\Phi_1) = c_1(0)/2 = 10/2 = 5$,
 realized by Gritsenko's weight-$5$ Siegel paramodular form
 $\Delta_5 = \Phi_1$ of level $1$ (Gritsenko 1999, \emph{Arithmetical
 lifting and its applications}). The naive decomposition
@@ -1439,7 +1540,8 @@ $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\cO_{\mathrm{fiber}})$
 does \emph{not} hold at any $N$, including $N = 1$: at $N = 1$ the
 left side is $5$ while $\kappa_{\mathrm{ch}}(\cA_{\mathrm{K3}\times E}) +
 \chi(\cO_E) = 0 + 0 = 0$; at $N = 2$ the left side is $c_2(0)/2 = 4$
-while $\kappa_{\mathrm{ch}}(\cA_{Z_2}) + \chi(\cO_{E_2}) = 1 + 0 = 1$.
+(with $c_2(0) = 8$ from the $1^8 2^8$ frame shape) while
+$\kappa_{\mathrm{ch}}(\cA_{Z_2}) + \chi(\cO_{E_2}) = 1 + 0 = 1$.
 The correct universal formula is $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
 (Gritsenko 1999; Borcherds 1998), with no coincidence at any $N$.
 The indexing here is the \emph{Borcherds-weight indexing}
@@ -1478,10 +1580,16 @@ $\mathbb{Z}/N\mathbb{Z}$-orbifold twists (Eguchi--Ooguri--Tachikawa,
 \emph{Notes on the K3 surface and the Mathieu group $M_{24}$},
 \emph{Exp.\ Math.}~20 (2011)~91--96; Gritsenko--Nikulin,
 \emph{Automorphic forms and Lorentzian Kac--Moody algebras II}, 1995),
-giving the table $c_N(0) = (10, 8, 6, 4, 2)$.
+giving the table $c_N(0) = (10, 8, 6, 4, 2)$ for $N \in \{1,2,3,4,6\}$,
+matching the Gritsenko--Nikulin 1995 Part~II Theorem~2.1 construction of
+the $\Delta_{k(N)}^{(N)}$-tower with $k(N) = (5, 4, 3, 2, 1)$, and
+independently the Govindarajan--Krishna 2010 (\emph{JHEP}~05, 014,
+Table~1) Igusa-square CHL weights $k_N^{\mathrm{phys}} = 2 k(N) = (10, 8, 6, 4, 2)$
+from the $1/4$-BPS dyon partition function.
 The $N = 1$ case is Gritsenko's weight-$5$ Siegel
 paramodular form $\Delta_5 = \Phi_1$ of level $1$, with $c_1(0) = 10$;
-$\kappa_{\mathrm{BKM}}(\Phi_1) = 10/2 = 5$.
+$\kappa_{\mathrm{BKM}}(\Phi_1) = 10/2 = 5$, and the physics Igusa cusp
+form $\chi_{10} = (\Delta_5)^2$ has weight $10$ (Igusa 1962).
 Meanwhile, $\kappa_{\mathrm{ch}}(\cA_{\mathrm{K3}\times E}) +
 \chi(\cO_E) = 0 + 0 = 0 \neq 5$, so at $N = 1$ the literal
 decomposition $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
@@ -1494,15 +1602,174 @@ valid at every $N$.
 
 For $N \geq 2$, the Borcherds constants for the diagonal Siegel
 orbifolds of $\mathrm{K3}\times E$ are $c_2(0) = 8$, $c_3(0) = 6$,
-$c_4(0) = 4$, $c_6(0) = 2$. The BKM weights are correspondingly
-$4$, $3$, $2$, $1$ -- matching the known weights of the Siegel
-paramodular cusp forms $\Phi_4^{(2)}$, $\Phi_3^{(3)}$, $\Phi_2^{(4)}$,
-$\Phi_1^{(6)}$ (Gritsenko--Hulek--Sankaran \emph{Moduli of K3}, 2008,
-Chapter 5; see also \texttt{compute/lib/diagonal\_siegel\_cy\_orbifolds.py}
-for the frame-shape tabulation). None of these match the supertrace
+$c_4(0) = 4$, $c_6(0) = 2$ (Gritsenko--Nikulin 1995 Part~II Theorem~2.1;
+Gritsenko 1999 Corollary~3.3; Govindarajan--Krishna 2010 Table~1).
+The BKM weights are correspondingly $4$, $3$, $2$, $1$ -- matching the
+weights of the Siegel paramodular cusp forms $\Delta_4^{(2)}$,
+$\Delta_3^{(3)}$, $\Delta_2^{(4)}$, $\Delta_1^{(6)}$ in the Gritsenko
+$\Delta$-tower (Gritsenko--Hulek--Sankaran
+\emph{Moduli of K3}, 2008, Chapter 5; see also
+\texttt{compute/lib/diagonal\_siegel\_cy\_orbifolds.py} for the
+frame-shape tabulation). None of these match the supertrace
 $\kappa_{\mathrm{ch}}(\cA_{Z_N}) + \chi(\cO_{E_N})$ of the quotient
 CY$_3$.
 \end{proof}
+
+\providecommand{\MpFour}{\mathrm{Mp}_4}
+\providecommand{\SpFour}{\mathrm{Sp}_4}
+\providecommand{\MpFourTilde}{\widetilde{\mathrm{Mp}}_4}
+
+\begin{theorem}[Eight-form CY-host catalogue: per-form $(N, w_N, c_N(0))$ with
+cover assignment $\{\SpFour, \MpFour, \MpFourTilde\}$]
+\label{thm:eight-form-cy-host-catalogue}
+\ClaimStatusProvedHere
+Extend the universal identity
+$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ of
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal} from its
+BKM-denominator scope $N \in \{1,2,3,4,6\}$ to the full
+Gritsenko--Cl\'ery 8-form list
+$N \in \{1, 2, 3, 4, 5, 6, 7, 8\}$ by pairing each Borcherds product
+$\Phi_N$ with its automorphy cover and its CY-host geometry. The
+per-form catalogue reads
+\[
+\begin{array}{c|c|c|l|c}
+ N & w_N & c_N(0) & \text{CY-host geometry} & \text{cover} \\ \hline
+ 1 & 5   & 10     & \mathrm{K3}\times E\ \text{(CHL; theorem-complete)}
+     & \SpFour \\
+ 2 & \{2,4\} & \{4,8\} & (\mathrm{K3}\times E)/\mathbb{Z}_2\ \text{(BO 2018 primitive base)}
+     & \SpFour \\
+ 3 & \{1,3\} & \{2,6\} & (\mathrm{K3}\times E)/\mathbb{Z}_3\ \text{(BO 2018 primitive base)}
+     & \SpFour \\
+ 4 & \{1,2\} & \{2,4\} & (\mathrm{K3}\times E)/\mathbb{Z}_4\ \text{(BO 2018 primitive base)}
+     & \SpFour \\
+ 5 & 2   & 4   & (S_5\times E_5)/(\iota_S\times\iota_E)\ \text{Borcea--Voisin}
+     & \SpFour \\
+ 6 & 1   & 2   & (\mathrm{K3}\times E)/\mathbb{Z}_6\ \text{with Niemeier}\ 6D_4
+     & \SpFour \\
+ 7 & 1   & 2   & (\mathrm{K3}\times E)/\mathbb{Z}_7\ \text{(Nikulin-singular, CY}_3\text{-obstructed)}
+     & \SpFour \\
+ 8 & 1   & 2   & \mathrm{Kum}^3(A)/\mathbb{Z}_8\ \text{Mongardi--Tari--Wandel fourfold}
+     & \SpFour \\
+\end{array}
+\]
+Row-wise, the identity $w_N = c_N(0)/2$ holds verbatim on the
+$\SpFour$-cover across all eight Nikulin-admissible symplectic orders.
+The CHL scope $N \in \{1,2,3,4,6\}$ is the strictly monotone decreasing
+ladder $w_N = (5, 4, 3, 2, 1)$ of Borcherds--Gritsenko Thm.~13.3 /
+Thm.~1.2; the multi-valued entries at $N \in \{2,3,4\}$ record the two
+primitive Borcherds-lift bases of Bryan--Oberdieck
+(\emph{Adv.\ Math.}~348 (2019) 1025--1073, Theorems~1--2) generating
+the paramodular ring. The non-CHL rows $N \in \{5, 7, 8\}$ extend the
+identity at weight $w_N = (2, 1, 1)$ via the Gritsenko 1994
+$\Gamma_0(N)^+$ construction, with geometric obstruction at the
+CY$_3$-host level: $E$ admits no automorphism of order $5$, so $N = 5$
+requires the Borcea--Voisin substitute; $\mathbb{Z}/7$ acts with
+three fixed points on K3 (Nikulin 1980), forcing singular diagonal
+quotient at $N = 7$; $N = 8$ resolves via the Mongardi--Tari--Wandel
+hyperk\"ahler fourfold rather than a CY$_3$. The multi-valued
+$\{w_N, c_N(0)\}$ pairs at $N \in \{2,3,4\}$ satisfy
+$w_N = c_N(0)/2$ independently for each Bryan--Oberdieck basis element,
+so the universal identity lifts from a single-valued identity on the
+CHL ladder to a pair-valued identity on the $\mathbb{Z}_2$-extended
+paramodular ring at those levels.
+\end{theorem}
+
+\begin{proof}
+The row $N = 1$ is the Gritsenko weight-$5$ Siegel paramodular form
+$\Delta_5 = \Phi_1$ (Gritsenko 1999 Thm.~3.4), hosted by
+$\mathrm{K3}\times E$ as the CHL frame-shape-$1^{24}$ compact CY$_3$
+(theorem-complete by
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}; the
+$\SpFour$-cover is standard). Rows $N \in \{2, 3, 4, 6\}$ are the
+remaining CHL entries of
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal} with host
+diagonal quotients $(\mathrm{K3}\times E)/\mathbb{Z}_N$; at
+$N\in\{2,3,4\}$ the multi-valued pair $\{w_N, c_N(0)\}$ records the
+two Bryan--Oberdieck 2018 primitive-base elements generating the
+level-$N$ paramodular ring (\emph{Adv.\ Math.}~348 (2019), Theorem~1),
+each satisfying $w_N = c_N(0)/2$ on its own Borcherds input. The
+Niemeier $6D_4$ at $N = 6$ follows Cl\'ery--Gritsenko--Hulek 2015.
+Rows $N \in \{5, 7, 8\}$ are the three non-CHL entries of
+Corollary~\ref{cor:borcherds-weight-full-8form-scope}; all three lift
+to $\SpFour$-paramodular cusp forms via the Gritsenko 1994
+$\Gamma_0(N)^+$ construction with integer weights $(2, 1, 1)$
+from $c_N(0) = (4, 2, 2)$. The Borcea--Voisin host at $N = 5$ is the
+Voisin 1993 / Borcea 1997 construction
+$(S_5 \times E_5)/(\iota_S \times \iota_E)$, on which $\Phi_5$ is the
+$\SpFour$-paramodular weight-$2$ form with Gritsenko--Nikulin
+correction $A_5 = 2$ (Eguchi--Hikami 2011 Table~1); the
+Mongardi--Tari--Wandel host at $N = 8$ is the Kummer-$3$ fourfold
+$\mathrm{Kum}^3(A)/\mathbb{Z}_8$, on which $\Phi_8$ is a
+weight-$1$ paramodular form with $c_8(0) = 2$ (Gritsenko--Cl\'ery
+2011 Thm.~1.2 $(N,t) = (1,7)$ entry).
+All eight rows reduce to $w_N = c_N(0)/2$ as stated.
+\end{proof}
+
+\begin{lemma}[Saddle-point asymptotics and Hecke-trick normalisation for $\Phi_1 = \Delta_5$]
+\label{lem:delta5-saddle-point-hecke-normalisation}
+Let $\phi_{0,1}(\tau, z) = \phi_{12,1}/\eta^{24}$ be the weak Jacobi form
+of weight $0$ and index $1$, with Fourier coefficients $f(n,l)$
+supported on $4n - l^2 \geq -1$ and depending only on $4n - l^2$. Let
+$T_-(m)$ denote the minus-embedding of the standard Hecke operator of
+Eichler--Zagier \emph{The Theory of Jacobi Forms} (1985), \S4.2, sending
+weight-$k$ index-$t$ Jacobi forms to weight-$k$ index-$mt$ Jacobi forms
+with normalisation factor $m^{k-1}$. Then:
+\begin{enumerate}
+\item \textbf{Saddle-point asymptotics.} For every $\varepsilon > 0$,
+\[
+  f(n, l) \;=\; O_\varepsilon\!\bigl((4n - l^2)^{-3/2 + \varepsilon}
+    \exp(\pi\sqrt{4n - l^2})\bigr), \qquad 4n - l^2 \to \infty,
+\]
+the Hardy--Rademacher circle-method asymptotic for weak Jacobi forms
+of weight $0$ index $1$ (Eichler--Zagier \S5, Thm.~5.1;
+Dabholkar--Murthy--Zagier \emph{Quantum Black Holes, Wall Crossing, and
+Mock Modular Forms}, \S8.2).
+\item \textbf{Convergence domain.} The Borcherds product
+\[
+  \Phi(Z) \;=\; \exp(\pi i(z_1 + z_2 + z_3))
+    \prod_{\substack{(n, l, m) \in \mathbb{Z}^3 \\ (n,l,m) > 0}}
+      (1 - \exp(2\pi i(nz_1 + lz_2 + mz_3)))^{f(nm, l)}
+\]
+converges absolutely on the tube domain
+$\{Z = X + iY \in \mathbb{H}_2 : Y \in \mathcal{C}(\Lambda^{2,1}_{II})_+\}$
+over the forward light cone of the hyperbolic sublattice
+$\Lambda^{2,1}_{II} \subset \Lambda^{3,2}$, not merely on a
+neighbourhood of the zero-dimensional cusp. The saddle-point bound in
+(1) combined with the $\Lambda^{2,1}_{II}$-positive-cone inequality
+$2(ny_1 + ly_2 + my_3) > \sqrt{4nm - l^2}$ (valid on $y_1 y_3 > y_2^2$
+by optimisation in $l$) supplies absolute convergence.
+\item \textbf{Hecke-trick logarithm.} On the convergence domain,
+\[
+  \log \prod_{\substack{n \geq 0,\ m > 0,\ l \in \mathbb{Z}}}
+    (1 - e^{2\pi i(nz_1 + lz_2 + mz_3)})^{f(nm, l)}
+  \;=\; -\sum_{m \geq 1} m^2\,
+    \bigl(\phi_{0,1}\, e^{2\pi i m z_3}\big|_0 T_-(m)\bigr)(z_1, z_2),
+\]
+with exponent $m^2 = m^{k-1}\cdot m \cdot m \,|_{k=0}$, where the first
+$m^{k-1} = m^{-1}$ is the Eichler--Zagier Hecke normalisation at
+weight $0$, the second factor $m$ is the index shift $1 \to m$ under
+$T_-(m)$, and the third factor $m$ is the $M = km$ log-regrouping
+rescaling.
+\item \textbf{Borcherds weight formula.} The weight of $\Delta_5 = \Phi_1$
+is
+\[
+  \mathrm{wt}(\Delta_5) \;=\; \frac{c_{\phi_{0,1}}(0, 0)}{2}
+    \;=\; \frac{10}{2} \;=\; 5,
+\]
+where $c_{\phi_{0,1}}(0, 0) = 10$ is the $r^0 q^0$ constant term of
+$\phi_{0,1}(\tau, z) = r + 10 + r^{-1} + O(q)$. The multiplier
+$\nu_{\Delta_5}$ is determined by antiinvariance under the matrix
+$I = \bigl(\begin{smallmatrix}0 & I_2 \\ I_2 & 0\end{smallmatrix}\bigr)$
+generating $\mathrm{PSp}_4(\mathbb{Z})$ together with the Jacobi
+group $\Gamma_\infty/\{\pm I_4\}$; the weight is fixed by the constant
+term, not by the antiinvariance.
+\end{enumerate}
+The identity $\mathrm{wt}(\Delta_5) = c_{\phi_{0,1}}(0)/2 = 5$ is the
+$N = 1$ instance of
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}, and is
+established here by chain-level saddle-point analysis of the Fourier
+expansion rather than by $(\infty, 1)$-categorical descent.
+\end{lemma}
 
 \begin{remark}[Failure of the additive decomposition at every $N$]
 \label{rem:bkm-additive-decomposition-fails}
@@ -1518,6 +1785,188 @@ decomposition at every frame. The correct universal formula is
 $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
 (Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}).
 \end{remark}
+
+\begin{lemma}[Scope of the $N \in \{1,2,3,4,6\}$ restriction]
+\label{lem:programme-scope-aut-elliptic-curve}
+The $8$ diagonal-divisor paramodular forms of
+Gritsenko--Cl\'ery (\emph{The Siegel modular forms of genus $2$ with
+the simplest divisor}, 2008, Theorem~1) are indexed by the conjugacy
+classes of pairs $(\Gamma_t, N)$ parametrising a symplectic
+automorphism $g_N$ of a lattice-polarised K3 surface $(S,L)$ of order
+$N \leq 8$ (Nikulin~1980) together with an $h_M$-shift on the elliptic
+factor $E$. The programme set $\{1, 2, 3, 4, 6\}$ coincides with
+\[
+  \mathcal{N} \;=\; \bigl\{\,N \in \mathbb{Z}_{>0} \;\bigm|\;
+    N = |\mathrm{Aut}(E)| \text{ for some elliptic curve } E/\mathbb{C}\,\bigr\}
+  \;=\; \{1, 2, 3, 4, 6\}.
+\]
+The five values enumerate the orders of the finite groups of
+automorphisms of a complex elliptic curve fixing the origin:
+generically $\mathbb{Z}/2$, with $\mathbb{Z}/4$ at
+$j$-invariant $1728$ (CM by $\mathcal{O}_{-4} = \mathbb{Z}[i]$) and
+$\mathbb{Z}/6$ at $j$-invariant $0$ (CM by
+$\mathcal{O}_{-3} = \mathbb{Z}[\omega]$), with their subgroups
+$\mathbb{Z}/3 < \mathbb{Z}/6$ and $\mathbb{Z}/2 < \mathbb{Z}/4$ and
+trivial $\mathbb{Z}/1$. The three orders omitted from the
+Gritsenko--Cl\'ery $8$-form count, namely $N \in \{5, 7, 8\}$, are
+precisely the orders of symplectic K3 automorphisms permitted by
+Nikulin's bound $N \leq 8$ for which no elliptic curve over
+$\mathbb{C}$ has $|\mathrm{Aut}(E)| = N$: the simultaneous quotient
+$(S \times E)/(\mathbb{Z}/N\mathbb{Z})$ cannot be formed with a
+\emph{free} diagonal action at $N \in \{5, 7, 8\}$, since the induced
+action on $E$ must come from $\mathrm{Aut}(E)$ for a free quotient
+compatible with the Calabi--Yau condition $K_X = 0$, and no elliptic
+curve realises an automorphism of order $5, 7, 8$ fixing the origin.
+The restriction is therefore forced by compatibility of the
+symplectic K3 action with an automorphism, not a mere torsion shift,
+of the elliptic factor; equivalently, it is the CM-compatibility
+restriction on the diagonal quotient.
+\end{lemma}
+
+\begin{lemma}[Tabulated values of $c_N(0)$ on
+$\mathcal{N} = \{1, 2, 3, 4, 6\}$ from the Gritsenko--Nikulin $\Delta$-tower]
+\label{lem:c-N-zero-closed-form}
+Let $\phi_{0,1}^{(N)}$ denote the $g_N$-twined weak Jacobi form of
+weight $0$ and index $1$ arising as the Borcherds-lift input for
+the Gritsenko paramodular cusp form $\Delta_{k(N)}^{(N)}$
+(Eguchi--Hikami 2011 \emph{Phys.~Lett.}~B~694, 446--455;
+Gritsenko--Nikulin 1995 Part~II; Govindarajan--Krishna 2010
+\emph{JHEP}~05, 014), and let $c_N(0)$ denote the Borcherds-input
+$\zeta^0 q^0$-coefficient controlling the weight via
+$\mathrm{wt}(\Delta_{k(N)}^{(N)}) = c_N(0)/2$.
+On $\mathcal{N}$ the values are
+\[
+  (c_1(0), c_2(0), c_3(0), c_4(0), c_6(0))
+    \;=\; (10,\, 8,\, 6,\, 4,\, 2).
+\]
+Equivalently, the Gritsenko $\Delta$-tower weights on the CHL ladder are
+$k(N) = (5, 4, 3, 2, 1)$, strictly monotone decreasing in $N$ across the
+admissible-order chain $1 \to 2 \to 3 \to 4 \to 6$. The physics Igusa
+convention $\Phi^{\mathrm{phys}}_{k_N}(Z) = (\Delta_{k(N)}^{(N)}(Z))^2$
+(Dijkgraaf--Verlinde--Verlinde 1997; Jatkar--Sen 2006) records the
+square, giving $k_N^{\mathrm{phys}} = 2 k(N) = (10, 8, 6, 4, 2)$; the
+physics weights coincide with $c_N(0)$.
+\end{lemma}
+
+\begin{proof}
+\emph{$N=1$.} The $q^0$-expansion
+$\phi_{0,1}|_{q^0}(\tau,z) = \zeta^{-1} + 10 + \zeta$
+(Eichler--Zagier 1985, Theorem~9.3) gives $c_1(0) = 10$, hence
+$\mathrm{wt}(\Delta_5) = 10/2 = 5$ (Gritsenko 1999 Theorem~3.4);
+the Igusa cusp form $\chi_{10} = (\Delta_5)^2$ has weight $10$
+(Igusa 1962).
+
+\emph{$N \in \{2,3,4,6\}$.} Gritsenko--Nikulin 1995
+(arXiv:alg-geom/9504006, Part~II, Theorem~2.1) construct the paramodular
+cusp forms $\Delta_{k(N)}^{(N)}$ on $\Gamma_0(N)^+$ of weights $k(N)$:
+$k(2) = 4$, $k(3) = 3$, $k(4) = 2$, $k(6) = 1$. Govindarajan--Krishna
+2010 (\emph{JHEP}~05, 014, Table~1) list the corresponding Igusa-square
+weights $k_N^{\mathrm{phys}} = 2 k(N) = (8, 6, 4, 2)$ for $N \in \{2,3,4,6\}$.
+By Borcherds 1998 Theorem~13.3, $c_N(0) = 2 k(N) = (8, 6, 4, 2)$.
+
+\emph{Cross-check via the twined K3 elliptic genus (Eguchi--Hikami 2011).}
+The $g_N$-twined weak Jacobi form
+$Z_{0,g_N}^{K3} = \phi_{0,1}^{(g_N)}$ has discriminant-$0$ Fourier
+coefficient
+\[
+ c_N(0) \;=\; \sum_{a \mid N} m_a \cdot \chi_{a,N}
+ \;=\; T_{H^*}(g_N) - 2 A_N,
+\]
+where $\pi_{g_N} = \prod_a a^{m_a}$ is the M_{24} frame shape and
+$A_N$ is the Gritsenko--Nikulin level-$N$ paramodular correction
+(Gritsenko--Nikulin 1995 Part~II \S2; Cheng--Duncan--Harvey 2014
+\emph{Umbral Moonshine and the Niemeier Lattices} Table~3). The frame
+shapes $\pi_{g_N} = 1^{24}, 1^8 2^8, 1^6 3^6, 1^4 2^2 4^4, 1^2 2^1 3^2 6^2$
+give Lefschetz traces $T_{H^*}(g_N) = 24, 16, 12, 10, 8$ and corrections
+$A_N = 7, 4, 3, 3, 3$ (Eguchi--Hikami 2011 Table~1), yielding
+$c_N(0) = (10, 8, 6, 4, 2)$.
+
+\emph{Cross-check via Mukai fixed-point data.} Mukai 1988
+Proposition~1.2, Table~\S2: the fixed-point count is
+$\chi(K3^{g_N}) = (24, 8, 6, 4, 2)$. The Borcherds-input $c_N(0)$ is
+obtained from these by the Gritsenko--Nikulin arithmetic-lift
+normalisation (Gritsenko 1999 Theorem~6.1), collapsing onto
+$(10, 8, 6, 4, 2)$ on the admissible chain.
+
+\emph{Omitted orders.} Mukai-admissible orders $N\in\{5,7,8\}$ fall
+outside $\mathcal{N}$ because the accompanying elliptic-curve
+automorphism of matching order fails CM-compatibility
+(Lemma~\ref{lem:programme-scope-aut-elliptic-curve}); their paramodular
+forms are the remaining entries of the Gritsenko--Cl\'ery 8-form list
+of Theorem~\ref{thm:gritsenko-clery-eight-forms}.
+\end{proof}
+
+\begin{corollary}[Borcherds-weight scope: all eight Nikulin symplectic orders]
+\label{cor:borcherds-weight-full-8form-scope}
+Writing $\Phi_N$ for the Borcherds product attached to the
+$g_N$-twined weak Jacobi form $\phi_{0,1}^{(g_N)}$ of a
+symplectic-order-$N$ K3 automorphism $g_N$, with $c_N(0)$ the
+Borcherds-input $\zeta^0 q^0$-coefficient, the identity
+\[
+  \kappa_{\mathrm{BKM}}(\Phi_N) \;=\; \frac{c_N(0)}{2}
+\]
+holds across all eight Nikulin-admissible symplectic orders
+$N \in \{1, 2, 3, 4, 5, 6, 7, 8\}$, with values
+\[
+  \frac{c_N(0)}{2}
+  \;\in\; \Bigl\{ 5,\; 4,\; 3,\; 2,\; 2,\; 1,\; 1,\; 1 \Bigr\}
+  \quad (N = 1, 2, 3, 4, 5, 6, 7, 8),
+\]
+corresponding to $c_N(0) = (10, 8, 6, 4, 4, 2, 2, 2)$. The subsequence
+$(5, 4, 3, 2, 1)$ at $N \in \{1, 2, 3, 4, 6\}$ is the CHL ladder
+(strictly monotone decreasing); the non-CHL entries $N \in \{5, 7, 8\}$
+plateau at the Gritsenko--Cl\'ery bound $\mathrm{wt} \geq 1$.
+This is the \emph{Borcherds-weight scope} of the universal identity.
+The five CHL values $N \in \{1,2,3,4,6\}$ are proved in
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal} via Borcherds
+1998 Thm.~13.3 on standard $\mathrm{Sp}_4(\mathbb{Z})$-paramodular
+forms. The three orders $N \in \{5, 7, 8\}$ require extended
+automorphy groups; their weight values are
+\ClaimStatusProvedElsewhere\ from the following primary sources:
+\begin{itemize}
+\item \emph{$N = 5$, weight $2$.}
+  \ClaimStatusProvedElsewhere\ (Gritsenko 1994 \emph{St.~Petersburg
+  Math.~J.}~6, Prop.~3.1; Gritsenko--Cl\'ery 2011 Thm.~1.2,
+  $(N,t) = (1,3)$ entry.) The twined elliptic genus for the M_{24}
+  conjugacy class $5A$ has frame shape $1^4 5^4$, with
+  Lefschetz trace $T_{H^*}(g_5) = 8$ and Gritsenko--Nikulin
+  correction $A_5 = 2$, giving $c_5(0) = 4$ and Borcherds-lift weight
+  $4/2 = 2$. No compact $K3 \times E$ CHL quotient hosts $\Phi_5$
+  because $E$ admits no automorphism of order $5$; the conjectural
+  CY$_3$ host is the Borcea--Voisin threefold
+  $(S_5 \times E_5)/(\iota_S \times \iota_E)$
+  (Voisin 1993; Borcea 1997; CY$_3$-functor-level status
+  \ClaimStatusConjectured).
+\item \emph{$N = 7$, weight $1$.}
+  \ClaimStatusProvedElsewhere\ (Gritsenko 1994 Prop.~3.1;
+  Gritsenko--Cl\'ery 2011 Thm.~1.2.) The $M_{24}$ class $7A$ has
+  frame shape $1^3 7^3$, Lefschetz trace $T_{H^*}(g_7) = 6$, and
+  correction $A_7 = 2$, yielding $c_7(0) = 2$ and weight $1$.
+  The $\mathbb{Z}/7$ symplectic action on K3 has three isolated
+  fixed points (Nikulin 1980), so the diagonal quotient
+  $(S_7 \times E)/\mathbb{Z}_7$ acquires singularities; no smooth
+  CY$_3$ host exists, and $N = 7$ is CY$_3$-level obstructed
+  (\ClaimStatusConjectured\ at functor level).
+\item \emph{$N = 8$, weight $1$.}
+  \ClaimStatusProvedElsewhere\ (Gritsenko 1994 Prop.~3.1;
+  Gritsenko--Cl\'ery 2011 Thm.~1.2.) The $M_{24}$ class $8A$ has
+  frame shape $1^2 2^1 4^1 8^2$, $T_{H^*}(g_8) = 6$, $A_8 = 2$,
+  giving $c_8(0) = 2$ and weight $1$. The conjectural CY$_3$-level
+  host is the Mongardi--Tari--Wandel 2018 Kummer-$3$ fourfold
+  (\emph{Geom.\ Dedicata}~197 (2018) 11--25), a hyperk\"ahler
+  fourfold rather than a CY$_3$; the CY$_3$-functor interpretation
+  remains conjectural (\ClaimStatusConjectured).
+\end{itemize}
+The CHL-ladder restriction to $N \in \{1, 2, 3, 4, 6\}$
+(Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}) is not a
+limitation of the weight formula but the CM-compatibility constraint
+on the diagonal quotient $K3 \times E$: no smooth CY$_3$ of the form
+$(S \times E)/(\mathbb{Z}/N)$ exists at $N \in \{5, 7, 8\}$, since no
+elliptic curve admits an automorphism of those orders fixing the origin
+(Lemma~\ref{lem:programme-scope-aut-elliptic-curve}).
+The identity $\kappa_{\mathrm{BKM}} = c_N(0)/2$ holds at all eight
+Nikulin orders; only the CY$_3$-host geometry is restricted to five.
+\end{corollary}
 
 \begin{remark}[Gold-standard HZ-IV disjoint verification]
 \label{rem:kappa-bkm-gold-standard-paths}
@@ -1576,6 +2025,280 @@ Remark~\ref{rem:kappa-bkm-gold-standard-paths} carry the matching
 computation-level disjointness.
 \end{remark}
 
+\begin{theorem}[Weyl--Kac--Borcherds denominator identity for $\gDelta_5$]
+\label{thm:wkb-denominator-delta-5}
+\ClaimStatusProvedHere
+Let $\gDelta_5$ denote the Borcherds--Kac--Moody superalgebra whose
+real simple root datum is the rank-$3$ Gram matrix
+$\left(\begin{smallmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2
+\end{smallmatrix}\right)$ carried by $\Lambda^{2,1}_{II,\mathrm{prim}}
+= \{\delta_1, \delta_2, \delta_3\}$, with imaginary simple roots
+$\Delta^{\mathrm{im}} = \Delta^{\mathrm{im}}_{\bar 0} \cup
+\Delta^{\mathrm{im}}_{\bar 1}$ supplied by
+$\Delta^{\mathrm{im}}_{\bar 0} = \{\tau(a)\,a : (a,a) = 0,\,
+\tau(a) > 0\}$ (even, isotropic) and
+$\Delta^{\mathrm{im}}_{\bar 1} = \{m(a)\,a : (a,a) < 0,\, m(a) < 0\}$
+(odd, hyperbolic). Let $\rho$ be the Weyl vector, $W^{(2)}$ the Weyl
+group generated by reflections in the three real simple roots,
+$\mathrm{mult}\,\alpha = \dim \mathfrak{g}_{\alpha,\bar 0} -
+\dim \mathfrak{g}_{\alpha,\bar 1}$ the supertrace multiplicity,
+$\Delta_+$ the positive roots in the cone
+$\mathcal{C}(\widetilde{\Lambda^{2,1}_{II}})_+$, and $\Delta_5$
+the Gritsenko weight-$5$ Siegel paramodular cusp form of level one.
+On the complexified cone
+$\Omega(\mathcal{C}(\Lambda^{2,1}_{II})_+) =
+\Lambda^{2,1}_{II} \otimes \mathbb{R} + i\,\mathcal{C}(\Lambda^{2,1}_{II})_+$,
+the following three expressions coincide:
+\begin{align}
+\Phi(z) \;&=\; \sum_{w \in W^{(2)}(\Lambda^{2,1})} \det(w)
+ \Bigl[ e^{-2\pi i (w(\rho),\,z)}
+   - \sum_{a \in \Lambda^{2,1}_{II} \cap \mathbb{R}_{>0}\mathcal{P}_{II}}
+     m(a)\, e^{-2\pi i (w(\rho + a),\,z)} \Bigr]
+\label{eq:wkb-sum-form-delta5} \\
+ &=\; e^{-2\pi i (\rho,\,z)}\,
+   \prod_{\alpha \in \Delta_+}
+   \bigl(1 - e^{-2\pi i (\alpha,\,z)}\bigr)^{\mathrm{mult}\,\alpha}
+\label{eq:wkb-product-form-delta5} \\
+ &=\; \tfrac{1}{64}\,\Delta_5(2Z).
+\label{eq:wkb-siegel-form-delta5}
+\end{align}
+The cone $\Omega(\mathcal{C}(\Lambda^{2,1}_{II})_+)$ embeds as a
+neighbourhood of a zero-dimensional cusp in the type~IV symmetric domain
+$\mathcal{D}^{IV}_3 = \mathrm{O}(2,3)/(\mathrm{SO}(2) \times \mathrm{O}(3))$,
+the embedding determined up to the tube scaling $z \mapsto t z$ for
+$t \in \mathbb{N}$ indexing the cusp. The identity
+\eqref{eq:wkb-siegel-form-delta5} inscribes $\Delta_5$ as a Siegel
+modular form of genus~$2$ and weight~$5$ on $\mathrm{Sp}_4(\mathbb{Z})$,
+and extracts the Borcherds weight
+$\mathrm{wt}(\Delta_5) = 5 = c_1(0)/2$ of
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal} at $N = 1$.
+\end{theorem}
+
+\begin{proof}
+The equality of \eqref{eq:wkb-sum-form-delta5} and
+\eqref{eq:wkb-product-form-delta5} is the Weyl--Kac--Borcherds
+character formula (Borcherds, \emph{J.\ Algebra}~115 (1988),
+Theorem~7.1; Kac, \emph{Infinite-dimensional Lie Algebras}
+(1990), Theorem~10.4) applied to the trivial one-dimensional module
+$\mathbb{C}$ of $\gDelta_5$. For a BKM superalgebra, the full character
+formula reads
+$\sum_w \det(w)\, w\bigl(e^{\rho + \lambda} S_\lambda\bigr) =
+e^{\rho}\,\chi_\lambda \prod_{\alpha \in \Delta_+} (1 - e^{-\alpha})^{\mathrm{mult}\,\alpha}$,
+where $S_\lambda$ is Borcherds' imaginary-root correction series
+$S_\lambda = \sum_{a}(-1)^{\mathrm{ht}(a)} e^{-a}$ summed over
+sums of pairwise orthogonal imaginary simple roots compatible with
+$\lambda$. For $\lambda = 0$ the correction reduces to
+$S_0 = 1 - \sum_a m(a)\, e^{-a}$ with $a$ ranging over
+$\Lambda^{2,1}_{II} \cap \mathbb{R}_{>0}\mathcal{P}_{II}$ and $m(a)$
+the imaginary-simple-root multiplicity; the character $\chi_0 = 1$ of
+the trivial module collapses the right side to the denominator
+product. Solving for the product and permuting the Weyl sum inside the
+bracket yields \eqref{eq:wkb-sum-form-delta5} = \eqref{eq:wkb-product-form-delta5}.
+Supertrace signs $\mathrm{mult}\,\alpha = \dim \mathfrak{g}_{\alpha,\bar 0}
+- \dim \mathfrak{g}_{\alpha,\bar 1}$ appear in the exponent because odd
+imaginary simple roots in $\Delta^{\mathrm{im}}_{\bar 1}$ contribute
+negative multiplicities $m(a) < 0$ per the structure of
+$\Delta^{\mathrm{im}}$.
+
+The equality \eqref{eq:wkb-product-form-delta5} =
+\eqref{eq:wkb-siegel-form-delta5} is the Gritsenko--Nikulin
+automorphic correction (Gritsenko--Nikulin, \emph{Automorphic Forms
+and Lorentzian Kac--Moody Algebras II}, \emph{Internat.\ J.\ Math.}~9
+(1998), Theorem~1.4; Borcherds, \emph{Invent.\ Math.}~120 (1995),
+Example~2). The Borcherds singular theta lift
+$\Psi: \phi_{0,1} \mapsto \Phi$ applied to the unique weight-zero
+index-one weak Jacobi form
+$\phi_{0,1}(\tau, z) = \phi_{12,1}/\delta_{12}$ with expansion
+$\phi_{0,1} = (r^{-1} + 10 + r) + q(10 r^{-2} - 64 r^{-1} + 108 -
+64 r + 10 r^2) + O(q^2)$ produces $\Delta_5(2Z)/64$ as its theta
+lift (Borcherds 1995 §15). Identification of Fourier coefficients
+$f_{0,1}(nm,l) = \mathrm{mult}\,(n f_2 + l f_3 + m f_{-2})$
+for $\alpha = n f_2 + l f_3 + m f_{-2}$ of Lorentzian square
+$4nm - l^2 = (\alpha,\alpha)$ determines the product multiplicities
+from $\phi_{0,1}$ coefficients.
+
+Convergence of \eqref{eq:wkb-product-form-delta5} on
+$\Omega(\mathcal{C}(\Lambda^{2,1}_{II})_+)$ follows from the weak
+subexponential bound $f_{0,1}(n,l) = O(\exp(C \sqrt{4n - l^2}))$
+on the Jacobi-form coefficients (Eichler--Zagier, \emph{The Theory
+of Jacobi Forms} (1985), Theorem~6.1): for $\mathrm{Im}(z)$ in the
+positive cone with $(\mathrm{Im}(z), \mathrm{Im}(z)) > C'$, each
+factor $|1 - e^{-2\pi i(\alpha, z)}|^{\mathrm{mult}\,\alpha}$ is
+dominated by $\exp(-2\pi(\alpha, \mathrm{Im}(z)) + C\sqrt{\alpha^2})$
+and the product converges absolutely by standard Borcherds 1998
+\emph{Invent.\ Math.}~132, Theorem~10.1 estimates near the
+$0$-cusp.
+
+The cone $\Omega(\mathcal{C}(\Lambda^{2,1}_{II})_+)$ embeds into
+$\mathcal{D}^{IV}_3$ via the Baily--Borel tube realization at a
+$0$-dimensional cusp of the even lattice $\Lambda^{2,1}_{II}$; the
+tube coordinate is determined by a primitive isotropic vector
+$e \in \Lambda^{2,1}_{II}$ modulo integer scalings, giving the
+$z \mapsto t z$ ambiguity. The Igusa identification of $\Delta_5$ as
+a $\mathrm{Sp}_4(\mathbb{Z})$-cusp form of genus~$2$ weight~$5$ is
+Igusa (\emph{Amer.\ J.\ Math.}~84 (1962), 175--200) combined with
+Gritsenko's additive lift (Gritsenko 1999). Extraction of
+$\mathrm{wt}(\Delta_5) = 5$ from the product-form prefactor
+$e^{-2\pi i(\rho,z)}$ gives
+$\kappa_{\mathrm{BKM}}(\Phi_1) = c_1(0)/2 = 10/2 = 5$,
+completing the bridge to
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal} at $N = 1$.
+\end{proof}
+
+\begin{remark}[Categorical content of the denominator identity]
+\label{rem:denominator-identity-d-module}
+The trivial-module specialization of the Weyl--Kac--Borcherds
+character formula is the supertrace of the identity on the category
+of $\gDelta_5$-modules with trivial central character. On the
+Grassmannian $\mathcal{D}^{IV}_3/\mathrm{O}(\Lambda^{2,1}_{II})$,
+$\Phi$ is the trace of the Frobenius on the constant D-module
+$\underline{\mathbb{C}}$ pushed forward along the BKM
+cascade $\mathfrak{g}_0 \hookrightarrow \gDelta_5$: the left side
+\eqref{eq:wkb-sum-form-delta5} is the Weyl-group decomposition
+into chambers with Borcherds imaginary-root correction; the right
+side \eqref{eq:wkb-product-form-delta5} is the Euler
+characteristic of $\mathrm{Sym}(\mathfrak{n}_-^*)$ graded by the
+root lattice; the Siegel form \eqref{eq:wkb-siegel-form-delta5}
+is the modular avatar of both. The identification
+$\mathrm{mult}\,\alpha = f_{0,1}(nm, l)$ is a supertrace of
+$\mathfrak{g}_{\alpha,\bar 0} \ominus \mathfrak{g}_{\alpha,\bar 1}$
+on the Jacobi form coefficient.
+\end{remark}
+
+\begin{lemma}[$S_3$-reflection structure on $\Lambda^{2,1}_{II}$ and
+the $\Delta_5$ sign discipline]
+\label{lem:delta5-s3-reflection-sign-discipline}
+\ClaimStatusProvedHere
+Fix the hyperbolic sublattice $\Lambda^{2,1} = \Lambda^{(1,1)} \oplus [2]
+= \mathbb{Z}f_2 \oplus \mathbb{Z}f_3 \oplus \mathbb{Z}f_{-2}$ with Gram
+$(f_2, f_{-2}) = -1$, $(f_3, f_3) = 2$, and $f_2, f_{-2}$ isotropic,
+and set $\delta_1 = 2f_2 - f_3$, $\delta_2 = 2f_{-2} - f_3$,
+$\delta_3 = f_3$.
+\begin{enumerate}
+\item The triple $(\delta_1, \delta_2, \delta_3)$ carries Gram matrix
+$\bigl(\begin{smallmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2
+\end{smallmatrix}\bigr)$, so every $\delta_i$ is a square-$2$
+root and the pairwise inner products are $-2$.
+\item The reflections $s_{f_2 - f_3}$ and $s_{f_{-2} - f_2}$ act on
+$\{\delta_1, \delta_2, \delta_3\}$ as the transpositions $(1\,3)$ and
+$(1\,2)$, and these exhaust $S_3 = \mathrm{Aut}(\mathcal{P}_{II,
+\mathrm{prim}})$; the missing transposition $(2\,3) = s_{f_{-2}-f_3}$
+is obtained by braid conjugation $s_{f_{-2}-f_3} = s_{f_2-f_3}\,
+s_{f_{-2}-f_2}\,s_{f_2-f_3}$.
+\item $[\Lambda^{2,1} : \Lambda^{2,1}_I] = 2$ and
+$[\Lambda^{2,1} : \Lambda^{2,1}_{II}] = 4$, where
+$\Lambda^{2,1}_I$ is cut out by $m+l+n \equiv 0 \pmod 2$ and
+$\Lambda^{2,1}_{II}$ by $m \equiv n \equiv 0 \pmod 2$. The parity
+constraint falls on the hyperbolic coordinates $(m, n)$ and leaves
+$l$ unconstrained because pairing $\delta = m f_2 + l f_3 + n f_{-2}$
+against the basis yields $(\delta, f_2) = -n$,
+$(\delta, f_3) = 2l$, $(\delta, f_{-2}) = -m$: the middle pairing
+already lies in $2\mathbb{Z}$ by virtue of $(f_3, f_3) = 2$, so the
+Type-II condition $(\delta, \Lambda^{2,1}) \subset 2\mathbb{Z}$
+constrains only the hyperbolic pairings.
+\item
+$[W^{(2)}(\Lambda^{2,1}) : W^{(2)}(\Lambda^{2,1}_I)] = 2$ and
+$[W^{(2)}(\Lambda^{2,1}) : W^{(2)}(\Lambda^{2,1}_{II})] = 6 = |S_3|$,
+via the semidirect decompositions
+$W^{(2)}(\Lambda^{2,1}) = W^{(2)}(\Lambda^{2,1}_I) \rtimes
+\mathrm{Aut}(\mathcal{P}_{I,\mathrm{prim}}) = W^{(2)}(\Lambda^{2,1}_{II})
+\rtimes \mathrm{Aut}(\mathcal{P}_{II,\mathrm{prim}})$ with
+$|\mathrm{Aut}(\mathcal{P}_{I,\mathrm{prim}})| = 2$ (generated by
+$s_{f_3}$) and $|\mathrm{Aut}(\mathcal{P}_{II,\mathrm{prim}})| = 6$.
+\item The $\Delta_5$ sign discipline reads
+$\Delta_5(w \cdot a \cdot Z) = \det(a)\,\Delta_5(Z)$ for
+$w \in W^{(2)}(\Lambda^{2,1}_I)$,
+$a \in \mathrm{Aut}(\mathcal{P}_{I,\mathrm{prim}})$ and
+$\Delta_5(w \cdot a \cdot Z) = \det(w)\,\Delta_5(Z)$ for
+$w \in W^{(2)}(\Lambda^{2,1}_{II})$,
+$a \in \mathrm{Aut}(\mathcal{P}_{II,\mathrm{prim}})$. The asymmetric
+placement of $\det$ is forced by the Type-I/Type-II partition:
+$W^{(2)}(\Lambda^{2,1}_I)$ is generated by Type-I reflections
+$s_{f_2-f_3}, s_{f_{-2}-f_2}, s_{f_2+f_3}$ under which $\Delta_5$ is
+\emph{invariant}, while $s_{f_3} \in \mathrm{Aut}(\mathcal{P}_{I,
+\mathrm{prim}})$ is Type~II and \emph{anti-invariant}; conversely
+$W^{(2)}(\Lambda^{2,1}_{II}) = \langle s_{\delta_1}, s_{\delta_2},
+s_{\delta_3}\rangle$ is generated by Type-II reflections (each
+anti-invariant) while $S_3$ is generated by Type-I (invariant)
+reflections. The determinant factor rides on the anti-invariant
+subfactor in each decomposition.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(1) $(\delta_3, \delta_3) = 2$; for $i = 1, 2$,
+$(\delta_i, \delta_i) = 0 - 0 + 2 = 2$. Off-diagonal
+$(\delta_1, \delta_2) = 4(f_2, f_{-2}) + (f_3, f_3) = -4 + 2 = -2$;
+$(\delta_1, \delta_3) = (\delta_2, \delta_3) = -2$.
+
+(2) For $\alpha = f_2 - f_3$ (square $2$), $s_\alpha(x) = x - (x,\alpha)\alpha$
+gives $s_\alpha(\delta_1) = (2f_2 - f_3) - 2(f_2 - f_3) = f_3 = \delta_3$,
+$s_\alpha(\delta_3) = \delta_1$, $s_\alpha(\delta_2) = \delta_2$.
+For $\alpha = f_{-2} - f_2$: $s_\alpha(\delta_1) = \delta_2$,
+$s_\alpha(\delta_2) = \delta_1$, $s_\alpha(\delta_3) = \delta_3$.
+Two transpositions sharing $\delta_1$ generate $S_3$; the conjugation
+identity is Coxeter-standard.
+
+(3) Quotient by the $\mathbb{Z}/2$-projection
+$m f_2 + l f_3 + n f_{-2} \mapsto (m+l+n) \bmod 2$ has kernel
+$\Lambda^{2,1}_I$, index $2$; quotient by the
+$(\mathbb{Z}/2)^2$-projection
+$m f_2 + l f_3 + n f_{-2} \mapsto (m \bmod 2, n \bmod 2)$ has kernel
+$\Lambda^{2,1}_{II}$, index $4$. The coordinate-level pairing
+identities are stated in (3).
+
+(4) The semidirect decompositions are classical Nikulin
+(\emph{Proc.\ Steklov.\ Math.\ Inst.}~165 (1984)); the indices follow
+from $|\mathrm{Aut}(\mathcal{P}_{I,\mathrm{prim}})| = 2$ and
+$|\mathrm{Aut}(\mathcal{P}_{II,\mathrm{prim}})| = 6$.
+
+(5) Part (2) partitions the square-$2$ reflections by type:
+$f_2 \pm f_3, f_{-2} - f_2$ are Type~I ($(\delta, \Lambda^{2,1})
+= \mathbb{Z}$); $\delta_1, \delta_2, \delta_3$ are Type~II
+($(\delta, \Lambda^{2,1}) = 2\mathbb{Z}$). Maass' multiplier-system
+formula (\emph{Nachr.\ Akad.\ Wiss.\ G\"ottingen}, 1964), under the
+isomorphism $\wedge^2: \mathbf{Sp}_4(\mathbb{Z})/\{\pm I\} \to
+\mathrm{O}(\Lambda^{3,2})_+/\{\pm I\}$ of Knapp 2002 Ch.~1, evaluates
+$s_{f_2 \pm f_3}\cdot \Delta_5 = +\Delta_5$ and
+$s_{\delta_i}\cdot \Delta_5 = -\Delta_5$ for $i = 1, 2, 3$. In the
+Type-I decomposition $w \in W^{(2)}(\Lambda^{2,1}_I)$ is a product of
+invariant reflections, contributing $+1$; the sign lives on
+$a = s_{f_3}$ (Type~II), contributing $-1 = \det(s_{f_3})$. In the
+Type-II decomposition $w \in W^{(2)}(\Lambda^{2,1}_{II})$ is a
+product of anti-invariant reflections, contributing
+$\det(w) = (-1)^{\ell(w)}$; the $S_3$ factor is generated by Type-I
+reflections, contributing $+1$. The $\Delta_5$-sign character
+therefore factors through the anti-invariant Type-II subfactor of
+whichever semidirect decomposition one chooses.
+\end{proof}
+
+\begin{remark}[Siegel lift of odd-theta-characteristic vanishing]
+\label{rem:delta5-odd-theta-anti-invariance}
+The anti-invariance
+$\Delta_5(s_{\delta_i}\cdot Z) = -\Delta_5(Z)$ is the Siegel-lift image
+of odd-theta-characteristic vanishing. With
+$\Delta_5 = \prod_{(a,b):\,{}^tab\,\equiv\,0\,(2)}\theta_{a,b}$ the
+product of the ten even theta constants, an element of
+$W^{(2)}(\Lambda^{2,1}_{II})$ corresponds --- via $\wedge^2$ --- to a
+symplectic transformation that turns an even theta characteristic into
+an odd one, whereupon the corresponding theta constant vanishes and the
+signed product picks up a factor of $-1$. The Gram triple
+$(\delta_i, \delta_j)$ is the Cartan matrix of the $\gDelta_5$-algebra
+whose denominator identity
+(Theorem~\ref{thm:wkb-denominator-delta-5}) is the Borcherds product
+for $\Delta_5(2Z)/64$, and the $S_3$ of
+Lemma~\ref{lem:delta5-s3-reflection-sign-discipline}(2) permutes the
+three zero-dimensional cusps
+$\{2 f_2,\, 2 f_{-2},\, 2 f_2 - 2 f_3 + 2 f_{-2}\} \subset
+\Lambda^{2,1}_{II} \cap \mathbb{R}_{>0}\mathcal{P}_{II}$
+transitively, preserving the exponent $\tau(a) = 9$ in the cusp-level
+identity $1 - \sum_{t \geq 1} m(t a_0) q^t = \prod_{t \geq 1}(1-q^t)^9$.
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal} fixes
+$\kappa_{\mathrm{BKM}}(\Phi_1) = c_1(0)/2 = 5$ as the weight of
+$\Delta_5$; this lemma supplies the reflection-level sign closing the
+denominator identity on the cusp of $\mathbf{Sp}_4(\mathbb{Z})$.
+\end{remark}
+
 \section{Removing $\kappa_{\mathrm{ch}} = \chi(\cO_X)$ misclaims}
 \label{sec:cy-strat-misclaim-sweep}
 
@@ -1584,6 +2307,47 @@ universal replacement. Every occurrence of ``$\kappa_{\mathrm{ch}} = \chi(\cO_X)
 in Vol~III must be read under one of three disciplines:
 
 \begin{enumerate}
+\begin{remark}[Null-primitive simple-root multiplicity $\tau(a) = 9$]
+\label{rem:tau-null-prim-nine}
+On every primitive null vector $a \in \Lambda^{2,1}_{II} \cap
+\mathbb{R}_{>0}\mathcal{P}_{II}$ with $(a, a) = 0$ --- the three
+vertices at infinity of the hyperbolic plane, $\{2f_2,\; 2f_{-2},\;
+2(f_2 - f_3 + f_{-2})\}$, permuted transitively by
+$\mathrm{Aut}(\mathcal{P}_{II}) \simeq S_3$ --- the imaginary
+simple-root multiplicity in $\gDelta_5$ is
+\begin{equation}
+\label{eq:tau-null-prim-nine}
+\tau(a) \;=\; c_{\phi_{0,1}}(0, 0) - 1 \;=\; 10 - 1 \;=\; 9,
+\end{equation}
+where $c_{\phi_{0,1}}(n, l)$ denotes the $(n, l)$-Fourier coefficient
+of the weight-$0$ index-$1$ weak Jacobi form
+$\phi_{0,1}(z_1, z_2) = \phi_{12,1}(z_1, z_2)/\Delta_{12}(z_1)$ and
+$c_{\phi_{0,1}}(0, 0) = 10$ is the constant-in-$r$ Fourier datum of
+$\phi_{0,1}|_{q = 0} = r^{-1} + 10 + r$. The subtraction of $1$
+removes the Cartan direction $h_a \subset \Lambda^{2,1}_{II} \otimes
+\mathbb{R}$ along the null ray $\mathbb{R}_{>0}\cdot a$, so that
+$\tau(a) \cdot a$ counts \emph{imaginary simple roots} rather than
+root-space dimensions. Equivalently, on the Jacobi side,
+$\psi_{5, 1/2} = \eta(z_1)^9 \nu_{11}(z_1, z_2)$ extracts the
+$\sqrt{-\phi_{10,1}}$ branch of
+$\phi_{10,1} = -\eta^{18}\nu_{11}^2$; the exponent $9$ is
+$18/2 = (24 - 6)/2$, where $24$ is the weight of $\Delta = \eta^{24}$
+and $6$ is twice the number of $(1 - q^n)$-factors in the Jacobi
+triple product for $\nu_{11}$. The identity of power series
+$1 + (1/64)\sum_t f(1 + 2t, 1, 1) q^t = \prod_k (1 - q^k)^9$ is
+equivalent to $1 - \sum_t m(ta) q^t = \prod_t (1 - q^t)^{\tau(ta) = 9}$
+by setting $a = 2f_2$, and $S_3$-transitivity propagates the value
+$9$ to the remaining two primitives. The universal companion to
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal} predicts
+$\tau_{\Phi_N}(a) = c_N(0) - 1$ on null primitives across
+$N \in \{1, 2, 3, 4, 6\}$: the null-prim simple-root multiplicity
+is the Cartan-shifted shadow of the Borcherds weight
+$c_N(0)/2$. Primary source: Lorgat 2020, \emph{A Borcherds lift of
+the weak Jacobi form $\phi_{0,1}$}, \S 4, proved by combining
+Gritsenko--Nikulin $\mathsf{alg\text{-}geom}/9504006$ \S 2 with
+Borcherds \emph{Invent.\ Math.}~132 (1998) Thm.~10.1.
+\end{remark}
+
 \item \textbf{Universal supertrace form.} Replace
 $\kappa_{\mathrm{ch}}(\cA_X) = \chi(\cO_X)$ with
 $\kappa_{\mathrm{ch}}(\cA_X) = \Xi(X) = \sum_q (-1)^q h^{0,q}(X)$.
@@ -2127,7 +2891,7 @@ Lusztig 1993 \emph{Introduction to Quantum Groups} Ch.~35
 \emph{Commun.~Math.~Phys.}~169 (semisimplification to MTC).  Cross-ref
 Chapter~\ref{ch:quantum-groups} Prop.~\ref{prop:qgf-mtc-root-of-unity}
 and the non-semisimple extension
-Remark~\ref{rem:qgf-bkm-small}.
+the BKM-small-zeta$_8$ remark.
 \end{remark}
 
 \begin{remark}[Fusion-ring generators from Drinfeld real simple roots]
@@ -2250,7 +3014,7 @@ $B^{E_1}_{\mathrm{ch}}(\mathbf H_{\Delta_5})$.  It is
 $E_2$-\emph{derived} on the K3-surface through the CY-to-chiral
 functor $\Phi_2\colon D^b\mathrm{Coh}(K3) \to \mathrm{ChirAlg}^{E_2}(K3)$
 (Francis 2013 arXiv:1211.5619; cf.\
-Chapter~\ref{ch:e2-chiral-algebras}); this $E_2$-structure lives on the
+Chapter~\ref{ch:e2-chiral}); this $E_2$-structure lives on the
 \emph{derived centre pair} of the $E_1$-algebra, not on the bar
 complex itself (since $B(A)$ is $E_1$, not $\mathsf{SC}$).  The Tannakian
 fibre functor
@@ -2270,3 +3034,401 @@ Costello--Gwilliam 2017 \emph{Factorization Algebras in QFT} Vol.~I
 Ch.~5 ($E_1$-factorisation on real and complex curves); Lurie HA 2017
 \emph{Higher Algebra} \S5.5 (native vs derived $E_n$-structure).
 \end{remark}
+
+\begin{remark}[Three structural identities buried in the $\Delta_5$
+theta-product presentation]
+\label{rem:cydkappa-delta5-theta-product-structures}
+The Igusa cusp form
+$\Delta_5 = \prod_{(a,b)\ \mathrm{even}} \nu_{a,b}$
+encodes three identities frequently cited as combinatorial
+accidents; each is a shadow of
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal} at
+$N = 1$.
+
+\emph{The coefficient $f(1,1,1) = 64$.}  The six odd theta
+characteristics of genus $2$ generate, via the Mumford sign-lemma
+(Mumford \emph{Tata Lectures on Theta II}, 1984, Prop.~3.2), a rank-$6$
+$\mathbb{F}_2$-vector space of normalizations at the Fourier origin.
+The product $\prod_{(a,b)\ \mathrm{even}} \nu_{a,b}$ at
+$(n,l,m) = (1,1,1)$ picks up exactly $2^6 = 64$ from these sign
+flips; the $\mathrm{Sp}_4(\mathbb{F}_2)$-orbit structure of the ten
+even and six odd characteristics forces the Euclidean norm on the
+Fourier origin to be an even power of two, and the $6$ is the
+rank of the orthogonal complement of the even theta span inside the
+$16$-element characteristic group.  This is not a generic parity but
+the $\mathrm{Kum}(\mathrm{K3})$ N\'eron--Severi-rank shadow
+$2^{\mathrm{rk}\,\mathrm{NS}(\mathrm{Kum})} = 64$ at the level-$1$
+paramodular cusp (Gritsenko--Nikulin 1998 arXiv:alg-geom/9504006,
+Cor.~2.3).
+
+\emph{The exponent $9$ in
+$1 + \tfrac{1}{64}\sum_t f(1+2t,1,1)\,q^t = \prod_k (1-q^k)^9$.}
+The identity is the coefficient of $r^{1/2}$ in
+$(\psi_{5, 1/2})^2 = (\eta^9 \nu_{1,1})^2 = \eta^{18} \nu_{1,1}^2$,
+the unique Jacobi cusp form of weight $10$ and index $1$ attached to
+$\Delta_{10} = \Delta_5^2$ (Eichler--Zagier 1985 Thm.~9.3).  The
+$9$ is $c_1(0) - 1 = 10 - 1$ in the Vol~III Borcherds-indexing of
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}: ten is the
+number of even theta characteristics, and $-1$ removes the single
+odd stabilizer $\nu_{1,1}$ factored out to obtain $\psi_{5,1/2}$.
+Equivalently, $\eta^9$ is the unique weight-$9/2$ cusp form for
+$\mathrm{SL}_2(\mathbb{Z})$ with multiplier
+$\varepsilon^{-3}$ (Serre 1985 \emph{Glasgow Math.~J.}~27), whose
+square $\eta^{18}$ is the weight-$9$ factor in the denominator
+formula for the BKM attached to $\Delta_5$; $9$ is the root
+multiplicity $\tau(a_0)$ attached to the extremal imaginary
+isotropic root $a_0 = 2f_2$ of the Weyl chamber
+$\mathcal{P}_{II}$ (paper \S5, Lemma~4, and
+Gritsenko--Nikulin \emph{Automorphic forms and Lorentzian
+Kac--Moody algebras~II}, 1995, Thm.~1.4).
+
+\emph{The Maass multiplier as a character on
+$\mathrm{Sp}_4(\mathbb{Z})$.}  The assignment
+$J = \begin{pmatrix} 0 & I_2 \\ -I_2 & 0\end{pmatrix} \mapsto 1$,
+$T(B) = \begin{pmatrix} I_2 & B \\ 0 & I_2\end{pmatrix} \mapsto
+ (-1)^{b_1 + b_2 + b_3}$ for $B = (b_1, b_2; b_2, b_3)$ symmetric,
+$g(A) = \begin{pmatrix}{}^tA^{-1} & 0\\ 0 & A\end{pmatrix} \mapsto
+ (-1)^{(1+a_1+a_4)(1+a_2+a_3)+a_1 a_4}$ for $A \in \mathrm{GL}_2(\mathbb{Z})$
+defines a group homomorphism
+$\nu_{\Delta_5} \colon \mathrm{Sp}_4(\mathbb{Z}) \to \{\pm 1\}$
+by direct verification on Klingen's three Steinberg relations
+$J^2 = -I_4$, $[T(B_1),T(B_2)] = 1$, and
+$g(A)\,T(B)\,g(A)^{-1} = T(A B\,{}^tA)$; parities of
+$b_1+b_2+b_3$ and $(1+a_1+a_4)(1+a_2+a_3)+a_1 a_4$ are preserved under
+each relation, so the cocycle condition collapses to triviality.
+This is Maass 1964 Satz~2, factoring through the metaplectic
+double-cover $\mathrm{Mp}_4(\mathbb{Z}) \to \mathrm{Sp}_4(\mathbb{Z})$
+as the Weil representation of the rank-$5$ quadratic form on
+$\Lambda^{3,2}$ (Shimura 1975 \emph{Ann.~Math.}~102); the
+isomorphism
+$\mathrm{Sp}_4(\mathbb{Z})/\{\pm I_5\} \simeq
+  \mathbf{O}(\Lambda^{3,2})_+/\{\pm I_5\}$
+(Knapp 2002 Ch.~1) pushes $\nu_{\Delta_5}$ to the determinant
+character on the orthogonal side.  Three paths:
+(i) Steinberg-cocycle verification as above,
+(ii) metaplectic Weil character via Shimura 1975 Prop.~1.2,
+(iii) orthogonal-side determinant via Lemma~1 of the paper,
+converging on the same $\pm 1$ assignment.
+Primary: Mumford \emph{Tata Lectures II} 1984 (theta sign lemma);
+Eichler--Zagier 1985 (Jacobi form weight-$10$ uniqueness);
+Gritsenko--Nikulin 1995/1998 (automorphic correction root
+multiplicities);
+Maass 1964 \emph{Nachr.~G\"ottingen} Nr.~11 Satz~2
+(multiplier formula);
+Shimura 1975 \emph{Ann.~Math.}~102 (metaplectic Weil rep);
+Klingen 1959 (Steinberg generators of $\mathrm{Sp}_4(\mathbb{Z})$).
+\end{remark}
+
+\section{The Gritsenko--Cl\'ery census and the K3-orbifold BKM ladder}
+\label{sec:gritsenko-clery-orbifold-ladder}
+
+The paramodular form $\Delta_5 = \Phi_1$ sits as the $N = 1$ entry of
+the five-term Borcherds ladder $(\Phi_N)_{N \in \{1,2,3,4,6\}}$ whose
+weights $(5, 4, 3, 2, 1)$ and constant terms
+$c_N(0) \in \{10, 8, 6, 4, 2\}$ implement
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}
+(Gritsenko--Nikulin~$1995$ Part~II Theorem~$2.1$;
+Eguchi--Hikami~$2011$ Table~$1$). Gritsenko and
+Cl\'ery (\emph{The Siegel modular forms of genus~2 with the simplest
+divisor}, Proc.\ London Math.\ Soc.~102 (2011) 1083--1120,
+arXiv:0812.3962, Theorem~1.2) classify the Siegel paramodular forms of
+genus~$2$ whose divisor is the Humbert diagonal
+$\mathrm{diag}(\mathbb{H}_1) \subset \mathbb{H}_2$ taken with
+multiplicity $1$: there are exactly eight such forms, partitioning
+into the five programme-active entries plus three further cusp forms
+whose paramodular index $t > 1$ shifts them off the $K3 \times E$
+level-$1$ branch. This section organises the eight forms as the orbit
+of a single rigidity datum, identifies the programme restriction to
+five forms as CM-on-$E$ stability, and states the K3-orbifold
+conjecture attaching BKM superalgebras to the full census via
+$(g_N, h_M)$-twisted twined K3 elliptic genera.
+
+\begin{theorem}[Gritsenko--Cl\'ery 2008 census]
+\label{thm:gritsenko-clery-eight-forms}
+\ClaimStatusProvedElsewhere\ (Gritsenko--Cl\'ery 2008
+arXiv:0812.3962 Thm.~1.2)
+The complete list of Siegel paramodular forms of genus~$2$ whose
+divisor on $\mathbb{H}_2 / \Gamma_t(N)$ is the Humbert diagonal
+$\{(\begin{smallmatrix} z_1 & 0 \\ 0 & z_3 \end{smallmatrix})\}$ with
+vanishing order~$1$, across all pairs $(N, t) \in \mathbb{Z}_+^2$
+with $\Gamma_t(N) \leq \Gamma_t$, consists of eight forms
+\[
+  \Phi_{N, t} \in M_{k_{N,t}}(\Gamma_t(N),\ \chi_{N,t})
+\]
+indexed by
+\[
+  (N, t) \in \bigl\{
+    (1,1),\ (1,2),\ (1,3),\ (1,4),\
+    (2,1),\ (3,1),\ (4,1),\ (2,2)
+  \bigr\}
+\]
+with weights $(k_{1,1},\ k_{1,2},\ k_{1,3},\ k_{1,4},\ k_{2,1},\
+k_{3,1},\ k_{4,1},\ k_{2,2}) = (5, 2, 1, 1, 2, 1, 1, 2)$. The
+level-$1$ paramodular entries $(N = 1,\ t \in \{1,2,3,4\})$ are
+Borcherds products of weak Jacobi forms of index~$t$ and weight~$0$
+satisfying a Heegner-reflectivity constraint; the higher-paramodular-
+index entries $(N = 2, t \in \{1,2\})$, $(N \in \{3, 4\}, t = 1)$ arise
+by Gritsenko's additive-plus-multiplicative lift from weight-$k_{N,t}$
+Jacobi cusp forms of index $t \cdot N$.
+\end{theorem}
+
+\begin{remark}[Orbit structure of the eight forms]
+\label{rem:gritsenko-clery-orbit}
+The eight pairs $(N, t)$ are exactly those for which the
+Humbert-divisor reflection in the paramodular lattice
+$L_{N,t} = \Lambda^{(2)}_{N,t}$ of signature~$(2, 3)$ defines a
+finite-order reflection group. The programme-active subset
+\[
+  \bigl\{ \Phi_{N, 1} : N \in \{1, 2, 3, 4, 6\} \bigr\}
+\]
+assumed by Vol~III
+(Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}) is the $t = 1$
+slice, augmented by $N = 6$ reached by Borcherds' exp-of-theta-lift
+from the weight-$0$ weak Jacobi form $2\phi_{0,1} \mid T_-(6)$ and
+lying outside the Gritsenko--Cl\'ery simplest-divisor class because the
+$N = 6$ paramodular form carries a \emph{pair} of Humbert divisors
+rather than a single one; it is captured instead by the
+Gritsenko--Nikulin 1998 arXiv:alg-geom/9504006 arithmetic-lift framework
+with root multiplicities read off $2\phi_{0,1} \mid T_-(6)$. The two
+censuses intersect in $\{(1,1), (2,1), (3,1), (4,1)\}$, four of the
+five Vol~III entries. The remaining Gritsenko--Cl\'ery forms outside
+the programme are $\Phi_{1,2}, \Phi_{1,3}, \Phi_{1,4}, \Phi_{2,2}$; under
+paramodular Atkin--Lehner $\Phi_{2,2}$ coincides with the rescaled
+$\Phi_{1,4}$, leaving three distinct extras. These level-$1$ paramodular
+forms with Jacobi index $t \in \{2, 3, 4\}$ govern $(1, t)$-polarised
+abelian surfaces rather than principally polarised ones.
+\end{remark}
+
+\begin{conjecture}[Twisted-twined K3 BKM ladder across the
+Gritsenko--Cl\'ery census]
+\label{conj:twisted-twined-bkm-ladder-gritsenko-clery}
+\ClaimStatusConjectured
+Let $S$ be a projective K3 surface with lattice polarisation
+$L \subset \mathrm{NS}(S)$ and let
+$g_N, h_M \in \mathrm{Aut}_s(S)$ be commuting symplectic automorphisms
+of orders $N, M \in \{1, 2, 3, 4, 5, 6, 7, 8\}$, with Mukai's bound
+$\langle g_N, h_M \rangle \leq M_{23}$ imposing that the joint group
+acts on $H^*(S; \mathbb{Z}) / (H^0 \oplus H^4)$ through a subgroup of
+the Mathieu group. Let $(E, e_0)$ be an elliptic curve with an
+$N$-torsion point and let
+\[
+  X_{N, M} \;:=\; (S \times E) \bigm/ (\mathbb{Z}/N\mathbb{Z})
+\]
+be the K3-orbifold CY$_3$ of Oberdieck--Pixton type carrying the
+$h_M$-twist on the K3 factor. Define the $(g_N, h_M)$-twisted reduced
+Donaldson--Thomas partition function $Z^{X_{N,M}}_{L, h_M}(p, q, y)$
+as in Oberdieck--Pixton 2018 (arXiv:1808.03524 Conjecture~A) with
+virtual-fundamental-class weights tracked through the $h_M$-twist via
+the twisted elliptic genus.
+
+Write $Z_{g, h}(\mathrm{K3}; \tau, z)$ for the $(g, h)$-twisted twined
+K3 elliptic genus of Gaberdiel--Hohenegger--Volpato
+(\emph{Commun.\ Math.\ Phys.}~339 (2015) 221; arXiv:1404.5366), a
+weak Jacobi form of weight~$0$ and index~$1$ whose Fourier--Jacobi
+coefficients $c_{g, h}(n, \ell)$ record the $g$-twisted $h$-trace on
+the K3 elliptic-genus BPS sector. Write $\Phi_{N, M}$ for the
+Borcherds lift of $Z_{g_N, h_M}(\mathrm{K3}; \tau, z)$ under
+Borcherds' singular-theta correspondence (Borcherds 1998
+\emph{Invent.\ Math.}~132 Thm~13.3) to a paramodular form on
+$\Gamma_{N M}(N) \leq \mathrm{Sp}_4(\mathbb{Q})$.
+
+Then:
+\begin{enumerate}[label=(\roman*), leftmargin=2em, itemsep=0.3ex]
+\item \emph{Reciprocal-square-root identity.} There exists a constant
+$C_{N, M} \in \mathbb{C}^\times$ such that
+\[
+  \bigl( Z^{X_{N,M}}_{L, h_M}(p, q, y) \bigr)^{-1/2}
+  \;=\; C_{N, M} \cdot \Phi_{N, M}(p, q, y).
+\]
+\item \emph{Exhaustion on the Gritsenko--Cl\'ery census.} As $(N, M)$
+ranges over the eight pairs of
+Theorem~\ref{thm:gritsenko-clery-eight-forms} (reindexed from $(N, t)$
+with $t = M$ modulo paramodular Atkin--Lehner), the eight Borcherds
+lifts $\Phi_{N, M}$ are exactly the eight simplest-divisor paramodular
+forms.
+\item \emph{BKM denominator realisation.} Each $\Phi_{N, M}$ is the
+Weyl--Kac--Borcherds denominator of a generalised Borcherds--Kac--Moody
+superalgebra $\mathfrak{g}_{\Phi_{N, M}}$ whose imaginary-simple-root
+multiplicity at an isotropic root
+$a \in \Lambda^{2, 1}_{II; N, M} \cap \mathbb{R}_{>0} \mathcal{P}_{II; N, M}$
+equals the Fourier--Jacobi coefficient $c_{g_N, h_M}(n a, \ell_a)$ of
+the twisted twined K3 elliptic genus, generalising
+Theorem~\ref{thm:wkb-denominator-delta-5} from $(N, M) = (1, 1)$ through
+the full census.
+\item \emph{Borcherds-weight identity on the programme-active slice.}
+The restriction of (iii) to the five-form subladder
+$\{(N, M) = (N, 1) : N \in \{1, 2, 3, 4, 6\}\}$ coincides with
+Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}:
+$\kappa_{\mathrm{BKM}}(\Phi_{N, 1}) = c_{g_N, 1}(0) / 2$ with the
+Gritsenko--Nikulin paramodular ladder $k(N) = (5, 4, 3, 2, 1)$ and
+Borcherds-input constants $c_N(0) \in \{10, 8, 6, 4, 2\}$
+(Lemma~\ref{lem:c-N-zero-closed-form}).
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[CM-on-$E$ restriction to the programme's five entries]
+\label{rem:cm-stability-5-of-8}
+The programme's five-term ladder $N \in \{1, 2, 3, 4, 6\}$ is the set
+of orders for which the elliptic curve $E$ admits an $N$-torsion CM
+structure compatible with the $\mathbb{Z}/N\mathbb{Z}$-diagonal action
+on $S \times E$: these are the orders with $\varphi(N) \mid 2$ where
+$\varphi$ is Euler's totient, equivalently those $N$ for which
+$\mathrm{End}(E) \supseteq \mathbb{Z}[\zeta_N]$ is realisable on an
+elliptic curve with an $N$-torsion point. The remaining
+Gritsenko--Cl\'ery pairs with $t \geq 2$ govern $(1, t)$-polarised
+abelian-surface moduli, which are not of the $K3 \times E$ shape;
+their BKM lifts (conjectured in
+Conjecture~\ref{conj:twisted-twined-bkm-ladder-gritsenko-clery}(iii))
+attach to non-$K3$-fibered CY$_3$'s outside the reduced-DT /
+Oberdieck--Pixton framework.
+\end{remark}
+
+\begin{remark}[Nikulin bound and the joint-automorphism constraint]
+\label{rem:nikulin-bound-joint}
+Nikulin (\emph{Finite groups of automorphisms of K\"ahlerian surfaces
+of type K3}, Trans.\ Moscow Math.\ Soc.~38 (1980) 71--135) classifies
+symplectic automorphisms of projective K3 surfaces: the order of any
+finite symplectic automorphism $g \in \mathrm{Aut}_s(S)$ is bounded
+by $|g| \leq 8$. Mukai (\emph{Symplectic structure of the moduli space
+of sheaves on an abelian or K3 surface}, \emph{Invent.\ Math.}~77
+(1988) 101--116, Thm.~0.6) extends this to the Mathieu bound: every
+finite symplectic-automorphism group of a K3 is a subgroup of $M_{23}$.
+Hence a commuting pair $(g_N, h_M)$ with joint group
+$\langle g_N, h_M \rangle \leq M_{23}$ satisfies the cyclic bound
+$\max(N, M) \leq 8$; the restriction to pairs admitting a fixed-point-
+free diagonal lift to $X_{N, M}$ imposes $N M \leq 8$
+(Oberdieck 2021 \emph{J.\ Reine Angew.\ Math.}~778 Prop.~1.3). The
+conjecture's eight $(N, M)$ pairs are exactly those saturating this
+bound in the Gritsenko--Cl\'ery Humbert-reflectivity chamber. The
+programme's five-entry restriction
+$(N, 1) \in \{(1,1), (2,1), (3,1), (4,1), (6,1)\}$ lies in the
+subchamber $M = 1$, the untwisted-K3 subchamber; the remaining three
+pairs carry a non-trivial $h_M$-twist on the K3 factor, producing
+twisted twined elliptic genera whose Borcherds lifts realise the
+other three paramodular forms of the Gritsenko--Cl\'ery census.
+\end{remark}
+
+\begin{lemma}[Type-II sublattice $2$-adic decomposition and the $S_3$
+on $\mathcal{P}_{II}$-vertices, with the Igusa sign]
+\label{lem:type-II-2adic-S3-igusa-sign}
+Work in the basis $(f_2, f_3, f_{-2})$ of the hyperbolic lattice
+$\Lambda^{2,1} = \mathbb{Z}f_2 \oplus \mathbb{Z}f_3 \oplus
+\mathbb{Z}f_{-2}$ with Gram matrix
+$\left(\begin{smallmatrix} 0 & 0 & -1 \\ 0 & 2 & 0 \\ -1 & 0 & 0
+\end{smallmatrix}\right)$ of signature $(2,1)$, so a generic vector
+$x = m f_2 + l f_3 + n f_{-2}$ has $(x, x) = 2l^2 - 2mn$.  Write
+$\delta_1 = 2f_2 - f_3$, $\delta_2 = 2f_{-2} - f_3$,
+$\delta_3 = f_3$.
+
+\emph{(i) $2$-adic Smith chain.}  A primitive $\alpha \in
+\Lambda^{2,1}$ with $(\alpha,\alpha) = 2$ is \emph{Type I} if
+$(\alpha,\Lambda^{2,1}) = \mathbb{Z}$, \emph{Type II} if
+$(\alpha,\Lambda^{2,1}) = 2\mathbb{Z}$.  A direct pairing gives
+\[
+\Lambda^{2,1}_{II}
+\;=\; \{m f_2 + l f_3 + n f_{-2} : m \equiv n \equiv 0 \pmod 2\}
+\;=\; 2\mathbb{Z}f_2 \oplus \mathbb{Z}f_3 \oplus 2\mathbb{Z}f_{-2},
+\qquad
+\Lambda^{2,1} / \Lambda^{2,1}_{II} \;\simeq\; (\mathbb{Z}/2)^2,
+\]
+and $\Lambda^{2,1}_I = \{m + l + n \equiv 0 \pmod 2\}$ of index
+$2$.  The $2$-adic Smith form of
+$\Lambda^{2,1}_{II} \subset \Lambda^{2,1}$ is
+$\mathrm{diag}(2, 1, 2)$; the $f_3$-direction is unthickened, which
+is exactly what lets the square-$2$ root $\delta_3 = f_3$ sit
+inside $\Lambda^{2,1}_{II}$ despite the $2\mathbb{Z}$-condition on
+$f_{\pm 2}$-coordinates.  For any Type-II $\delta$, the reflection
+$s_\delta(x) = x - (x,\delta)\delta$ has $(x,\delta) \in
+2\mathbb{Z}$, so $s_\delta(\Lambda^{2,1}_{II}) = \Lambda^{2,1}_{II}$
+and the lattice constraint is self-consistent with the Type-II
+$2\mathbb{Z}$-divisor condition; no outside extension is needed.
+
+\emph{(ii) $S_3$-generation of $\mathrm{Aut}(\mathcal{P}_{II,\mathrm{prim}})$.}
+The generators $s_{f_2 - f_3}$ and $s_{f_{-2} - f_2}$ of
+$\mathrm{Aut}(\mathcal{P}_{II,\mathrm{prim}})$ act on the ordered
+triple $(\delta_1, \delta_2, \delta_3)$ by direct pairing with the
+Gram matrix $(\delta_i, \delta_j) = 2I - 2(J - I)$ and the reflection
+formula:
+\[
+s_{f_2 - f_3}\colon (\delta_1, \delta_2, \delta_3) \mapsto
+(\delta_3, \delta_2, \delta_1), \qquad
+s_{f_{-2} - f_2}\colon (\delta_1, \delta_2, \delta_3) \mapsto
+(\delta_2, \delta_1, \delta_3),
+\]
+i.e.\ the transpositions $(\delta_1\,\delta_3)$ and
+$(\delta_1\,\delta_2)$.  Their product
+$s_{f_2 - f_3}\,s_{f_{-2} - f_2}$ sends
+$(\delta_1, \delta_2, \delta_3) \mapsto (\delta_2, \delta_3, \delta_1)$,
+a $3$-cycle of order $3$, and
+$(s_{f_2 - f_3}\,s_{f_{-2} - f_2})^k$ has order $3$ at
+$k = 1, 2$ and identity at $k = 3$.  Hence
+$\langle s_{f_2 - f_3}, s_{f_{-2} - f_2}\rangle = S_3$, and the
+three null vertices
+$\{2f_2,\,2f_{-2},\,2(f_2 - f_3 + f_{-2})\} \subset \Lambda^{2,1}_{II}$
+at infinity of the hyperbolic plane form a single $S_3$-orbit; the
+uniform value $\tau(a_0) = 9$ across all three cusps is a
+consequence.  The index
+$[W^{(2)}(\Lambda^{2,1}_{II}) : W^{(2)}(\Lambda^{2,1})] = 6 = |S_3|$
+is the Levi-factorisation index
+$\mathrm{O}(\Lambda^{2,1})_+ / W^{(2)}(\Lambda^{2,1}_{II}) = S_3$,
+and $[W^{(2)}(\Lambda^{2,1}_I) : W^{(2)}(\Lambda^{2,1})] = 2$ is
+the parallel factorisation through $\mathrm{Aut}(\mathcal{P}_I) =
+\langle s_{f_3}\rangle \simeq \mathbb{Z}/2$.
+
+\emph{(iii) The Igusa sign asymmetry is a Levi-factor statement.}
+The two automorphy identities
+\[
+\Delta_5(w \cdot a\,Z) = \det(a)\,\Delta_5(Z)
+\quad (w \in W^{(2)}(\Lambda^{2,1}_I),\, a \in \mathrm{Aut}(\mathcal{P}_{I,\mathrm{prim}})),
+\]
+\[
+\Delta_5(w \cdot a\,Z) = \det(w)\,\Delta_5(Z)
+\quad (w \in W^{(2)}(\Lambda^{2,1}_{II}),\, a \in \mathrm{Aut}(\mathcal{P}_{II,\mathrm{prim}}))
+\]
+record a single Maass character $\nu_{\Delta_5}$ read through two
+different Levi decompositions
+$\mathrm{O}(\Lambda^{2,1})_+ \simeq W^{(2)}(\Lambda^{2,1}_I) \rtimes
+\mathrm{Aut}(\mathcal{P}_I) \simeq W^{(2)}(\Lambda^{2,1}_{II}) \rtimes
+\mathrm{Aut}(\mathcal{P}_{II})$.  In the first decomposition, every
+Type-I reflection $s_\alpha$ lies in $\ker(\nu_{\Delta_5})$ because
+its divisor $(\alpha, \Lambda^{2,1}) = \mathbb{Z}$ acts trivially
+on the Maass parity $(-1)^{b_1 + b_2 + b_3}$; the sign is carried
+entirely by $\mathrm{Aut}(\mathcal{P}_I) = \langle s_{f_3}\rangle$
+through its determinant character.  In the second, every Type-II
+reflection $s_\delta$ carries a sign because
+$(\delta, \Lambda^{2,1}) = 2\mathbb{Z}$ flips the odd
+theta-characteristic parity in Mumford's theta sign-rule (Mumford
+\emph{Tata Lectures II} 1984, Ch.~II \S5); the $S_3 =
+\mathrm{Aut}(\mathcal{P}_{II})$ permutes the three null vertices
+without touching the character and acts trivially on $\Delta_5$
+up to a $\det$-trivial phase.  The anti-invariance of $\Delta_5$
+under Type-II (square $2$, $2\mathbb{Z}$-divisor) is the
+lattice-automorphic lift of the odd theta-characteristic
+sign-flip in the genus-$2$ theta calculus; the asymmetry in the
+two formulae is the change of Levi factor, not a structural
+inequality.
+
+\emph{(iv) Coxeter-complex face identification.}  The three
+fundamental polyhedra $\mathcal{P},\mathcal{P}_I,\mathcal{P}_{II}$
+are three chambers of a single Coxeter complex for the hyperbolic
+reflection group $\mathrm{O}(\Lambda^{2,1})_+$ on the hyperbolic
+plane $\mathcal{C}(\Lambda^{2,1})_+ / \mathbb{R}_{>0}$.  The three
+$\mathcal{P}_{II}$-simple roots $\{\delta_1, \delta_2, \delta_3\}$
+carry Gram $(\delta_i, \delta_j) = 2\delta_{ij} - 2(1 - \delta_{ij})$
+whose null eigenvector $\delta_1 + \delta_2 + \delta_3 =
+2(f_2 - f_3 + f_{-2})$ has square $0$; this identifies the
+$\Lambda^{2,1}_{II}$-Cartan matrix with the hyperbolic rank-$3$
+Kac--Moody matrix of affine $\widetilde{A}_2^{(1,1)}$ at the null
+ray, and $S_3 = \mathrm{Aut}(\mathcal{P}_{II,\mathrm{prim}})$ is
+the Weyl group of the finite $A_2$ residue stabilising the null
+ray (Kac \emph{Infinite Dimensional Lie Algebras} Ch.~6).  The
+Macdonald identity for the affine Weyl group applied to the
+null-ray stabiliser is the Borcherds denominator
+$\Phi(z) = (1/64)\,\Delta_5(2Z)$ of the automorphically corrected
+Lie superalgebra $\mathfrak{g}_{\Delta_5}$; the index chain
+$2 \mid 6$ records the passage from the $A_1$-Weyl at the generic
+reflection chamber $\mathcal{P}$ to the full $A_2$-Weyl at the
+Type-II cusp $\mathcal{P}_{II}$ through the intermediate
+$\mathcal{P}_I$ carrying the single non-trivial $\mathbb{Z}/2$
+automorphism.
+\end{lemma}

@@ -1,6 +1,6 @@
 # Anti-Pattern Catalogue (Vol III)
 
-This note collects all CY-specific anti-patterns (AP-CY1 through AP-CY142; AP-CY141 single-valued MZV scope and AP-CY142 Humbert--Heegner admissibility filter added in Waves 28-29).
+This note collects all CY-specific anti-patterns (AP-CY1 through AP-CY186; AP-CY141 single-valued MZV scope and AP-CY142 Humbert--Heegner admissibility filter added in Waves 28-29; AP-CY160--AP-CY165 via the Wave 14 table append; AP-CY166--AP-CY186 appended during the Fleets A/B/C/D + V2/V3/V5/V7/S3/S4 integration wave).
 
 ## Canonical values at the latest-wave verdict (2026-04-21)
 
@@ -1337,13 +1337,20 @@ citation / inscription anchor / cross-reference).
 | CY-specific Wave 20-24 reinforcement (AP-CY108--AP-CY114) | 7 |
 | CY-specific foundational W1-W13 (AP-CY115--AP-CY127)  |    13 |
 | CY-specific VERIFIED-template W14-W19 (AP-CY128--AP-CY140) | 13 |
+| CY-specific Wave 28-29 (AP-CY141--AP-CY142)           |     2 |
+| CY-specific Wave 14 table (AP-CY160--AP-CY165)        |     6 |
+| CY-specific Fleets A/B/C/D retraction (AP-CY166--AP-CY177) | 12 |
+| CY-specific structural / LaTeX (AP-CY178--AP-CY183)   |     6 |
+| CY-specific voice / style (AP-CY184--AP-CY185)        |     2 |
+| CY-specific cross-volume (AP-CY186)                   |     1 |
+| CY-specific process / meta (AP-CY187--AP-CY189)       |     3 |
 | Cross-programme (AP150--AP164)                        |    15 |
 | Formula-mechanical (FM24--FM27)                       |     4 |
 | Cross-volume Vol-III-prop (1--4)                      |     4 |
-| **Total catalogued**                                  | **163** |
-| Critical severity                                     |    28 |
-| High severity                                         |    68 |
-| Medium severity                                       |    44 |
+| **Total catalogued**                                  | **195** |
+| Critical severity                                     |    35 |
+| High severity                                         |    78 |
+| Medium severity                                       |    52 |
 | Low severity                                          |     3 |
 
 Three Wave-20-24 anti-patterns have already driven 5+ independent
@@ -1988,4 +1995,1844 @@ mis-statement that the AP-template guards against.
   $\Phi_{10}/\eta^{24}$ sign convention Table 2); Bruinier 2002 LNM
   1780 §5 (Chern class on Heegner divisors, torsion orders $c_n$);
   Brown 2012 *Ann Math* 175 Thm 1 (Padovan motivic-MZV dimension).
+
+## Wave 14 hCS--categorical--BCOV--MNOP--Szendrői--gauge cache append (2026-04-22)
+
+| # | Wrong Claim | Ghost Theorem | Precise Error | Correct Relationship | Type |
+|---|-------------|---------------|---------------|----------------------|------|
+| W14-A1 | Holomorphic Chern--Simons and categorical Hochschild are ``the same theory'' at $d = 3$. | Both present the $\mathbb E_3$-factorisation algebra $\PhiFA_3(\mathcal C)$ on the CY$_3$ category: hCS as the BV quantisation of the $(0,1)$-form connection on $\Tot(\Omega_X)$, categorical as $\mathrm{HH}^{\scriptscriptstyle\bullet}(\mathcal C,\mathcal C)$ with Lurie--Toen $\mathbb E_3$-factorisation structure. | Two distinct inputs and two distinct chain-level presentations: hCS takes $(X,\mathfrak g,\Omega_X)$ geometric data (Costello 2013, Costello--Li 2016); categorical takes $(\mathcal C,\eta)$ CY $\infty$-category with trace class. They agree up to a $\mathrm{GRT}_1(\mathbb Q)$-torsor of Kontsevich--Tamarkin associators (Willwacher 2014 \emph{Invent.\ Math.} 200), NOT on the nose. | hCS is a \emph{geometric resolution} of the categorical $\mathbb E_3$-structure; Costello--Li propagator picks the Kontsevich-associator point in the $\mathrm{GRT}_1$-torsor (Costello--Li 2016 \emph{arXiv:1605.09930} \S 6). Primary: Costello 2013 \texttt{arXiv:1303.2632}; Costello--Li 2016 \texttt{arXiv:1605.09930}; Willwacher 2014 \emph{Invent.\ Math.} 200; Kontsevich 1999 Formality. See \texttt{notes/wave14\_*.tex}. | AP-CY160 / hCS = categorical theory ($\mathbb E_3$-factorisation presentation duality) |
+| W14-A2 | The Kontsevich--Tamarkin formality at $d = 3$ is ``contractible in choices'', so hCS quantisation is unique. | On quasi-isomorphism classes, the space of formality isomorphisms is contractible: any two quantisations are quasi-isomorphic, and the resulting $\mathbb E_3$-algebra class is unique. | The \emph{parametrised} space of quasi-isomorphisms (fat formality morphisms) carries a free $\mathrm{GRT}_1(\mathbb Q)$-action (Willwacher 2014 \emph{Invent.\ Math.} 200 Thm 1.2): $\pi_0 = \mathrm{GRT}_1(\mathbb Q)$-torsor, NOT a point. ``Contractible'' is correct at iso-class level, wrong at parametrised level. | Contractible at iso-class level; $\mathrm{GRT}_1(\mathbb Q)$-torsor at parametrised level. Costello--Li propagator specifies a canonical point. For iso-class statements, contractibility suffices; for structure-constant-level statements, the $\mathrm{GRT}_1$-torsor is load-bearing (e.g.\ explicit $\zeta(3)$-coefficients). Primary: Willwacher 2014 Thm 1.2; Tamarkin 2003 \emph{Lett.\ Math.\ Phys.} 66; Kontsevich 1999; Costello--Li 2016. | AP-CY161 / iso-class vs parametrised contractibility of KT formality |
+| W14-A3 | BCOV curving $\alpha_{\mathrm{BCOV}}$ equals the Yukawa cubic $Y_3$ because both are ``Atiyah-sourced'' on the CY$_3$. | Both cocycles arise from the Atiyah class $\mathrm{At}(T_X) \in H^1(X,\Omega_X \otimes \End T_X)$ and both are load-bearing in the BCOV / Costello--Li setup. | Hodge-degree mismatch: $Y_3 \in H^{0,3}(X) = H^3(X,\mathcal O_X)$ is the tree-level Yukawa ($\ell_3^{\min}$ in Kapranov's $L_\infty$-structure on $\Omega^{0,*}(X, T_X)$, Kapranov 1999 \emph{Compositio} 115); $\alpha_{\mathrm{BCOV}} \in H^{0,1}(X)$ is the one-loop BV anomaly $= (\chi(X)/24)[\Omega_X]^{0,1}$ (Costello--Li 2016 \emph{arXiv:1605.09930} Prop 5.2). They are Serre-dual but Hodge-disjoint: $H^{0,1} \cap H^{0,3} = 0$. | Three Atiyah-sourced cocycles, three distinct Hodge receptacles: $Y_3 \in H^{0,3}$ (tree); $\alpha_{\mathrm{BCOV}} \in H^{0,1}$ (one-loop BV anomaly, $(\chi(X)/24)[\Omega_X]^{0,1}$); $\mathrm{td}(T_X) \in \bigoplus_p H^{p,p}$ (Todd correction). The three never appear in the same slot simultaneously. Primary: Costello--Li 2016 Prop 5.2; Kapranov 1999 \emph{Compositio} 115 §4 ($L_\infty$-bracket $\ell_3$); BCOV 1994 \emph{Commun.\ Math.\ Phys.} 165; Atiyah 1957 \emph{Trans.\ AMS} 85. | AP-CY162 / BCOV curving vs Yukawa cubic Hodge-degree discipline |
+| W14-A4 | The MNOP substitution $-q = e^{iu}$ is a ``tautology'' — a formal change of variables on generating functions. | At the level of numerical partition functions $\mathcal F_X$, the MNOP identity $Z_{\mathrm{DT}}(X, -q) = Z_{\mathrm{PT}}(X, -q) \cdot \mathrm{McMahon}$ and $Z_{\mathrm{GW}}(X, u) \mid_{-q = e^{iu}}$ is provably exact (MNOP I--II 2006, Pandharipande--Thomas 2014 \emph{Forum Math.\ Pi} 2, Toda 2012 crepant-resolution). | Not a tautology: the substitution $-q = e^{iu}$ encodes the unique $\mathbb E_2$-centre automorphism $\sigma \in Z(\Zcoh(D^b\mathrm{Coh}(X)))$ intertwining three dualisable $\mathbb E_3$-modules $M_{\mathrm{DT}}, M_{\mathrm{PT}}, M_{\mathrm{GW}} \in \mathrm{Mod}_{\mathbb E_3}^{\mathrm{dual}}$ (Lurie \emph{HA} 7.3.4.2). At chain level: three-segment Kontsevich--Soibelman / Kontsevich--Katz--Vafa (KKV) / Gopakumar--Vafa (GV) homotopy (Maulik 2019 \emph{Invent.\ Math.} 217). At semi-classical level: qdilog residue $(2\sin(ku/2))^{2g-2}$ attached at each BPS state. | Trace identity on the centre, NOT tautology: $\mathrm{Tr}_{\mathbb E_3}(\sigma \cdot M_{\mathrm{DT}}) = \mathrm{Tr}_{\mathbb E_3}(\sigma \cdot M_{\mathrm{GW}})$ after $\sigma$-twist. $-q = e^{iu}$ is the semi-classical residue of qdilog at each BPS class; explicit GV form $\sum_{g,\beta} n^g_\beta (2\sin(ku/2))^{2g-2} Q^{k\beta}/k$. Primary: Maulik--Nekrasov--Okounkov--Pandharipande 2006 I/II \emph{Compositio} 142; Pandharipande--Thomas 2014 \emph{Forum Math.\ Pi} 2; Toda 2012 \emph{Duke} 161; Maulik 2019; Lurie \emph{HA} 7.3.4.2; Gopakumar--Vafa 1998. | AP-CY163 / MNOP as $\mathbb E_2$-centre trace identity, not tautology |
+| W14-A5 | The Szendrői two-vertex quiver with potential $W$ is ``a local chart on the conifold'' $X_{\mathrm{con}}$. | Szendrői 2008 \emph{Sel.\ Math.} 14 gives the \emph{global} non-commutative crepant resolution (NCCR): $\Lambda_{\mathrm{NCCR}} = \End_R(R \oplus I)$ on $R = k[x,y,z,w]/(xy - zw)$ with $I$ the ideal of a Weil divisor (Van den Bergh 2004 \emph{Duke} 122). Its Jacobi algebra $J(Q_{\mathrm{Szendrői}}, W_{\mathrm{Szendrői}})$ is the two-vertex module-theoretic NCCR. | Local charts on the two small resolutions $X_\pm$ are one-vertex Jordan-triple quivers (three loops $x,y,z$ with $[x,y] = [y,z] = [z,x] = 0$, Jacobi algebra $J \cong k[x,y,z] = \mathcal O_{\mathbb C^3}$) on each $U_\pm \cong \mathbb C^3$. The Szendrői 2-vertex quiver is the GLOBAL NCCR, not a chart. | Homotopy-colimit reconciliation: $J(Q_{\mathrm{Szendrői}}, W_{\mathrm{Szendrői}}) \cong \mathrm{hocolim}\big(J_+ \stackrel{J_0}{\leftarrow} J_0 \stackrel{J_0}{\rightarrow} J_-\big)$, where $J_\pm \cong \mathcal O_{\mathbb C^3}$ are the chart Jacobi algebras and $J_0 \cong \mathcal O_{\mathbb C^3 \setminus 0}$ the overlap. Charts one-vertex; global NCCR two-vertex; they glue by the NCCR morphism. Primary: Szendrői 2008 \emph{Sel.\ Math.} 14; Van den Bergh 2004 \emph{Duke} 122; Nagao--Nakajima 2011 \emph{IMRN} 17 (conifold DT--PT wall-crossing); Ginzburg 2006 \texttt{arXiv:math/0612139}. | AP-CY164 / Szendrői NCCR vs local Jordan-triple chart distinction |
+| W14-A6 | The hCS ``gauge group'' acting on connections is the 2-groupoid $\mathrm{Aut}^{\mathrm{dg}}(\mathcal C)$ of dg-autoequivalences of the CY$_3$ category. | Both structures describe morphisms respecting the CY trace pairing $\eta$; both act on categorical / geometric deformation classes and enter the Maurer--Cartan moduli. | Dimensional mismatch: $\mathrm{Aut}^{\mathrm{dg}}(\mathcal C)$ is finite-dim for many categories (Bondal--Orlov 2001 \emph{Compositio} 125 for $\mathcal C = D^b\mathrm{Coh}(X)$ with ample $\pm K_X$), or discrete-plus-finite on CY (Bridgeland 2002; Seidel--Thomas 2001 \emph{Duke} 108: braid-group orbits of spherical twists). Physical hCS gauge group is $C^\infty(X, G)$, infinite-dim Fréchet; its Lie algebra is $\Omega^{0,*}(X,\mathfrak g)$. The two live in different categories of smooth manifolds. | Toen derived exponential map (Toen 2009 \emph{Duke} 149; Calaque--Pantev--Toen--Vaquie--Vezzosi 2017 \emph{JEMS} 19) relates them: external Lie algebra $\mathfrak g_{\mathcal C} := R\End_{\mathcal C}(V)$ for a compact generator $V$; $\mathrm{Aut}^{\mathrm{dg}}(\mathcal C)$ integrates $\mathfrak g_{\mathcal C}$; hCS gauge is $C^\infty(X, G)$ for $G = \exp(\mathfrak g)$ with $\mathfrak g = R\End_{D^b\mathrm{Coh}(X)}(\mathcal O_X) \otimes \Omega^{0,*}$. Dimension-match at the Lie-algebra level only after choosing a compact generator. Primary: Bondal--Orlov 2001; Seidel--Thomas 2001; Toen 2009; Calaque--Pantev--Toen--Vaquie--Vezzosi 2017; Costello--Gwilliam \emph{FA} Vol 2 \S 10. | AP-CY165 / hCS gauge vs dg-autoequivalence dimension discipline |
+
+## Fleets A/B/C/D integration-wave retractions: AP-CY166 through AP-CY177 (2026-04-22)
+
+These entries inscribe the ten mathematical retractions adjudicated in
+\texttt{notes/platonic\_synthesis\_waves\_11\_through\_16.tex} Theorem
+\texttt{wn:thm:plat-retractions} plus five manifesto-conflation
+carryovers from the S3 coherence audit. Every entry names a refuted
+claim, the primary-literature basis of the refutation, and the correct
+statement with the epistemic scope on which it holds.
+
+- **AP-CY166 -- $\widehat{\mathfrak{sl}}_3 \hookrightarrow \mathfrak g_{\Delta_5}$ from $\eta^9 \vartheta_1$ (Critical).**
+  Wrong claim: the real-root subalgebra of the BKM
+  $\mathfrak g_{\Delta_5} = \mathrm{Grit}^{-1}(\Delta_5)$ generated by
+  the $\eta^9 \vartheta_1$-indexed simple roots is affine
+  $\widehat{\mathfrak{sl}}_3$. Refutation: the Gritsenko--Nikulin 1998
+  \emph{Invent Math} 130 Thm 2.1 simple-root inventory on the
+  paramodular lattice $(\Lambda^{2,1}_{II}, K(1))$ produces exactly
+  three simple roots of norm $-2$ with Cartan matrix
+  $\begin{pmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2 \end{pmatrix}$,
+  the Feingold--Frenkel 1983 \emph{Math Ann} 263 rank-3 hyperbolic
+  Kac--Moody $F_3 = HA_1^{(1)}$ (hyperbolic extension of $A_1^{(1)}$),
+  NOT $\widehat{\mathfrak{sl}}_3 = A_2^{(1)}$. Distinction: $F_3$ is
+  Lorentzian-signature hyperbolic; $A_2^{(1)}$ is affine with zero
+  Cartan determinant. The confusion comes from both carrying three
+  simple roots, but the signatures differ.
+  **Counter**: name the real-root subalgebra as Feingold--Frenkel $F_3$;
+  cite Feingold--Frenkel 1983 \emph{Math Ann} 263 and Gritsenko--Nikulin
+  1998 \emph{Invent Math} 130 Thm 2.1. Every invocation of a BKM
+  real-root subalgebra must name the Cartan matrix, not the
+  Dynkin-diagram shape alone. Cross-ref: first-principles cache
+  entry on BKM-signature (AP-CY60 Sylvester vs Feingold--Frenkel);
+  canonical preamble row 21 (K3-BKM Cartan rank $= 3$).
+
+- **AP-CY167 -- $\mathcal V_{24} = L_{-6}(\mathfrak e_8)$ via central-charge match (Critical).**
+  Wrong claim: the $T_{24}$-indexed VOA $\mathcal V_{24}$
+  associated to the 24-punctured sphere class-$\mathcal S$ theory is
+  the level $-6$ affine VOA of $\mathfrak e_8$. Refutation on three
+  grounds: (a) \emph{central-charge mismatch}: $c(L_{-6}(\mathfrak e_8))
+  = (-6) \cdot 248 / (-6 + 30) = -62$, not $-214$ (Kac 1990
+  \emph{Infinite Dimensional Lie Algebras} Ch 12, level-$k$ central
+  charge $c_k = k \dim \mathfrak g / (k + h^\vee)$ with
+  $h^\vee(\mathfrak e_8) = 30$); (b) \emph{BPS bound}: $L_{-6}(\mathfrak e_8)$
+  is not admissible at level $-6$ (the admissible-level formula for
+  $\mathfrak e_8$ is $k = -30 + p/q$ with $\gcd(p, q) = 1$, giving
+  the Deligne--Kac--Wakimoto admissible set, which does not contain
+  $-6$); (c) \emph{Beem--Rastelli rule}: the 2d chiral algebra of the
+  class-$\mathcal S$ $(A_1, \Sigma_{0, 24})$ theory has $c_{2d} = -12
+  c_{4d} = -214$ (Beem--Rastelli 2013 \emph{Commun Math Phys} 336).
+  Correct: $\mathcal V_{24}$ is the Drinfeld--Sokolov reduction of a
+  22-fold tensor product of admissible $\mathfrak{sl}_2$-level VOAs at
+  level $k = -2 + 1/22$: $\mathcal V_{24} = H^0_{\mathrm{DS}}
+  (L_{-2 + 1/22}(\mathfrak{sl}_2)^{\otimes 22})$, $c = -214$,
+  matching the Beem--Rastelli universal $c_{2d}$.
+  **Counter**: verify any proposed $\mathcal V_{24}$ identification
+  against three independent invariants: central charge
+  ($c_{2d} = -214$), trace-anomaly ratio ($c_{4d} = 107/6$), and
+  Macdonald index. Primary literature: Arakawa 2017
+  \emph{Adv Math} 320 (admissible affine VOAs);
+  Beem--Rastelli 2013 \emph{Commun Math Phys} 336 (2d/4d bridge);
+  Gaiotto 2009 \emph{JHEP} 12:088 (class-$\mathcal S$ construction);
+  Kac 1990 \emph{Infinite Dimensional Lie Algebras} Ch 12.
+  Cross-ref: canonical preamble row 1 ($c_{4d} = 107/6$), canonical
+  preamble row 51 ($e_4$ at $c = -214$); AP-CY50
+  (Gaiotto central-charge reversal).
+
+- **AP-CY168 -- Universal identity $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal O_{\mathrm{fibre}})$ (Critical, cross-volume).**
+  Wrong claim: for every Borcherds denominator $\Phi_N$ in the
+  programme family, $\kappa_{\mathrm{BKM}}(\Phi_N) = \kappa_{\mathrm{ch}}
+  + \chi(\mathcal O_{\mathrm{fibre}})$ holds universally. Refutation by
+  direct numerical mismatch across $N \in \{1, 2, 3, 4, 6\}$:
+  at $N = 1$ ($\Phi_{10} = \Delta_5^2$, paramodular), LHS
+  $\kappa_{\mathrm{BKM}} = c_1(0)/2 = 5$, while RHS
+  $\kappa_{\mathrm{ch}}(K3 \times E) + \chi(\mathcal O_E) = 0 + 0 = 0$;
+  at $N = 2$, LHS $= 4$, RHS $= 1$; at $N = 3$, LHS $= 3$, RHS $= 2$;
+  at $N = 4, 6$ the mismatch compounds (Gritsenko--Nikulin 1998
+  \emph{Invent Math} 130 Tables 2--3 Fourier expansions; Borcherds
+  1995 \emph{Invent Math} 120 weight series). The $N = 1$ coincidence
+  is driven by the factorisation $\Phi_{10} = \Delta_5^2$ squaring
+  the Gritsenko weight, not a universal identity. Correct:
+  $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ is the universal
+  Borcherds weight formula (Borcherds 1995 §3).
+  **Counter**: never state $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
+  \chi(\mathcal O_{\mathrm{fibre}})$ without the explicit scope tag
+  ``$N = 1$ coincidence, NOT universal''. Cross-ref:
+  AP-Vol-III-prop-2 ($N = 1$ coincidence inflation);
+  AP-CY63 (four $\kappa_\bullet$ indexing on $K3 \times E$);
+  canonical preamble row 59 ($\kappa_\bullet$ indexing with
+  ``naive $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
+  \chi(\mathcal O_{\mathrm{fibre}})$'' flagged as $N = 1$-only);
+  \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex} Theorem
+  \texttt{thm:borcherds-weight-kappa-BKM-universal}.
+
+- **AP-CY169 -- Fake Monster at $d = 3$ (Critical).**
+  Wrong claim: the Fake Monster BKM $\mathfrak g_{\Phi_{12}}$ of
+  Borcherds 1990 \emph{Contemp Math} 138 arises as the image of a
+  CY$_3$ category under $\Phi_3$. Refutation by rank count: the Leech
+  lattice $\Lambda_{\mathrm{Leech}}$ has rank 24, so the Fake Monster
+  Cartan on $\mathrm{II}_{25, 1}$ has rank 26, while the largest
+  K3-derived CY$_3$ category $D^b\mathrm{Coh}(K3 \times E)$ has
+  $h^{1, 1}(K3) = 20$ K3-transverse classes, $h^{1, 1}(E) = 1$
+  transverse, and the Mukai-lattice-compatible polarised signature
+  for $K3 \times E$ caps at $(4, 21)$ total Betti rank $\le 26$ with
+  Neron--Severi-compatible signature $(2, 19)$ at generic complex
+  structure — strictly less than 26-reflective capacity. Correct:
+  the Fake Monster sits at $d = 5$ via the product $K3 \times K3 \times E$
+  carrying Mukai rank $2 \cdot 24 + 2 = 50$ and reflective sublattice
+  $\mathrm{II}_{25, 1}$; the dimensional siblings are Monster ($d = 3$,
+  $K3 \times E$), $\mathfrak g_{\Delta_5}$ ($d = 3$, $K3 \times E$
+  paramodular), Fake Monster ($d = 5$, $K3 \times K3 \times E$)
+  (Borcherds 1992 \emph{Invent Math} 109; Gritsenko--Nikulin 1998
+  \emph{Invent Math} 130; Scheithauer 2000 \emph{Invent Math} 141).
+  **Counter**: before placing a BKM at a specific $d$, verify
+  lattice-rank containment $\mathrm{rk}\,L_{\mathrm{BKM}} \le
+  h^{\mathrm{even}}(X) + h^{\mathrm{odd}}(X)$ on the candidate CY$_d$.
+  Cross-ref: AP-CY122 (six-way $G(K3 \times E)$ iso retraction);
+  AP-CY169 is the dimensional-placement complement to AP-CY122's
+  route-conflation complement. Primary: Borcherds 1990
+  \emph{Contemp Math} 138; Scheithauer 2000 \emph{Invent Math} 141.
+
+- **AP-CY170 -- $\chi_{\mathcal V_{24}} = \Delta_5^{-2}$ via Virasoro minimal (Critical).**
+  Wrong claim: the character
+  $\chi_{\mathcal V_{24}}(\tau)$ of the $(A_1, \Sigma_{0, 24})$
+  chiral algebra equals $\Delta_5^{-2}$ via a Virasoro minimal
+  model reduction. Refutation on three grounds: (a) the Virasoro
+  minimal $\mathcal M(p, q)$ model central charge formula
+  $c = 1 - 6(p - q)^2 / pq$ admits no integer $(p, q)$ solving
+  $c = -214$; (b) a minimal model has finitely many primaries while
+  $\mathcal V_{24}$ has infinitely many (admissible affine-$\mathfrak{sl}_2$
+  generators at level $-2 + 1/22$); (c) $\Delta_5^{-2} = \Phi_{10}^{-1}$
+  is a paramodular-modular Siegel form on $\mathbb H_2$, not a genus-1
+  character on $\mathbb H$, so the functional equation classes are
+  incompatible. Correct: $\chi_{\mathcal V_{24}}(\tau) = \eta(\tau)^{-48}$
+  at leading order, matching the Heisenberg--Mukai all-orders
+  $\eta^{-48}$ counting (Mukai pairing on the chiral bialgebra gives
+  $c_+ = 24$ with doubling factor 2 producing $48$; Gritsenko--Nikulin
+  1998 paramodular Fourier expansion verifies at $q^0, q^1, q^2, q^3$).
+  **Counter**: never equate a chiral character with a Siegel-Fourier
+  coefficient ring without the explicit Heisenberg--Mukai
+  pre-factorisation step. Cross-ref: canonical preamble row 28
+  ($\Delta_5$ Gritsenko additive); AP-CY58 (Borcherds weight vs
+  Gritsenko weight); \texttt{chapters/examples/k3\_chiral\_bialgebra\_platonic.tex}
+  \texttt{thm:heisenberg-mukai-character}.
+
+- **AP-CY171 -- Class-$\mathcal S$ Gaiotto curve $\Sigma_{2, 0}$ (High).**
+  Wrong claim: the Gaiotto curve for the $(A_1, c_{4d} = 107/6)$
+  theory is a closed genus-2 Riemann surface $\Sigma_{2, 0}$.
+  Refutation by universal formula: for class-$\mathcal S$
+  $(A_1, \Sigma_{g, n})$ theories, $c_{4d} = (12(g - 1) + 7n)/6$
+  at $g \ge 1$ and $c_{4d} = (5n - 13)/6$ at $g = 0$
+  (Shapere--Tachikawa 2008 \emph{JHEP}
+  0809:109); $g = 2$ closed gives $c_{4d} = (12 + 0)/6 = 2$ or
+  $(12 + 7)/6 = 19/6$ (with extra marked point), never $107/6$;
+  $107 = 5 \cdot 24 - 13$ uniquely fixes the Gaiotto curve to
+  $\Sigma_{0, 24}$ (24-punctured sphere). Correct:
+  $(A_1, c_{4d} = 107/6, c_{2d} = -214) = (A_1, \Sigma_{0, 24})$.
+  **Counter**: every class-$\mathcal S$ identification must verify
+  the $(g, n)$-to-$c_{4d}$ formula. Cross-ref: canonical preamble
+  row 1 ($c_{4d} = 107/6$); canonical preamble row 3 (universal
+  $c_{4d}$ formula at $g = 0$); AP-CY46 (trinion/tube count at
+  $n = 24$); AP-CY50 ($c_{4d}$ central-charge reversal).
+
+- **AP-CY172 -- $\Phi_d$ native $E_n$-chiral single-stage (High, cross-programme).**
+  Wrong claim: the $d$-dependent functor
+  $\Phi_d \colon \mathrm{CY}\text{-cat}_d \to \mathrm{ChirAlg}_d^{E_n}$
+  acts natively on a single-stage curve target, producing an
+  $E_n$-chiral algebra without intermediate factorisation.
+  Refutation: at $d \ge 3$, the image algebra is $E_1$-chiral on the
+  one-dimensional base, with the $E_2$-structure living on the
+  Drinfeld centre $Z(\mathrm{Rep}(A))$ of the representation category,
+  not on $A$ itself (Lurie \emph{HA} 5.3 $E_n$-hierarchy; Francis 2013
+  \emph{Compositio} 149 $E_n$-topological factorisation). Correct:
+  $\Phi_d$ factors as a two-stage construction
+  $\mathrm{CY}\text{-cat}_d \to \mathrm{Fact}^{E_1}_{\mathrm{curve}} \to
+  \mathrm{ChirAlg}^{E_n}$ where the first stage produces the
+  $E_1$-chiral object on the factorisation base, and the second stage
+  extracts the $E_n$-structure at $n = n(d)$ via the Drinfeld-centre
+  pullback. Cross-ref: CLAUDE.md key fact ``at $d \ge 3$, $A$ is
+  $E_1$; $E_2$ lives on $Z(\mathrm{Rep}(A))$, not on $A$''; AP-CY3
+  ($E_2 \ne$ commutative); AP-CY115 (universal properties $\mathrm{U1}$);
+  AP-CY124 ($\mathrm{U1}$-$\mathrm{U4}$ scope).
+  **Counter**: every $\Phi_d$-image invocation at $d \ge 3$ must
+  name the two-stage factorisation and specify whether
+  $E_n$-structure claims are at the $A$-level ($E_1$) or
+  $Z(\mathrm{Rep}(A))$-level ($E_2$).
+
+- **AP-CY173 -- Shifted-symplectic terminates at $d = 4$ (High).**
+  Wrong claim: the PTVV 2013 \emph{Publ IHES} 117 shifted-symplectic
+  structure on derived moduli terminates at shift $-4$, ruling out
+  $d = 5$ Poisson structures. Refutation: PTVV 2013 §1.2 admits
+  arbitrary integer shifts $k \in \mathbb Z$, with the only
+  constraint being the Calabi--Yau shift relation $k = d - 2n$ where
+  $n$ is the moduli dimension and $d$ the target CY dimension;
+  at $d = 5$ the moduli $\mathcal M_X$ of stable coherent sheaves
+  on $K3 \times K3 \times E$ carries a $+1$-shifted Poisson structure
+  via PTVV \S 2.2.1 (dual to the $-1$-shifted symplectic on the
+  derived moduli of the transverse triple intersection). Correct:
+  Poisson-$E_5$ at $d = 5$ is a well-defined shifted-symplectic object
+  at shift $+1$ (Calaque--Pantev--Toen--Vaquie--Vezzosi 2017
+  \emph{JEMS} 19 Thm 2.5). Cross-ref: Fake Monster dimensional
+  placement at $d = 5$ (AP-CY169); canonical preamble row 21
+  (Fake-Monster Cartan rank on $\mathrm{II}_{25, 1}$);
+  CPTVV formalism as $d$-agnostic shifted-Poisson device.
+  **Counter**: never claim a shift-ceiling on the PTVV construction;
+  always cite the explicit shift formula $k = d - 2n$ with the
+  moduli-dimension term. Primary: PTVV 2013 \emph{Publ IHES} 117;
+  Calaque--Pantev--Toen--Vaquie--Vezzosi 2017 \emph{JEMS} 19.
+
+- **AP-CY174 -- $\mathrm{Tr}(T_p) = 1$ via multiplicity-one on $S_5(\mathrm{Sp}_4(\mathbb Z), \nu_{\Delta_5})$ (High).**
+  Wrong claim: the trace of the Hecke operator $T_p$ acting on the
+  one-dimensional space $S_5(\mathrm{Sp}_4(\mathbb Z), \nu_{\Delta_5})$
+  equals $1$, by multiplicity-one uniqueness of $\Delta_5$. Refutation:
+  multiplicity-one fixes the space to $\mathbb C \cdot \Delta_5$, but
+  the trace of $T_p$ on this one-dimensional space is the Hecke
+  eigenvalue $\lambda_p(\Delta_5)$, NOT $1$. The eigenvalue is given
+  by the spin-cover Satake parameters
+  $\lambda_p(\Delta_5) = \chi_{\mathrm{spin}}(p)
+  \sqrt{\lambda_p(\Delta_{10})}$ via the Saito--Kurokawa
+  lift $\Delta_{10} = \mathrm{SK}(\Delta_5^2)$ (Ikeda 2001
+  \emph{Ann Math} 154 Cor 16.2; Pitale--Saha--Schmidt 2014
+  \emph{Memoirs AMS} 232 §4). At $p = 2$, $\lambda_2(\Delta_5) \approx
+  \pm \sqrt{-48} \cdot \chi_2$ where $-48 = \tau(2)^2 \cdot p^{-8}$-factor
+  in the Ikeda lift. Correct: multiplicity-one controls
+  \emph{dimension} of the eigenspace, not the eigenvalue itself.
+  **Counter**: never equate $\mathrm{Tr}(T_p)$ with $1$ on a
+  one-dimensional Hecke eigenspace; always compute the Satake
+  parameter via the spin-standard factorisation (AP-CY35 Chenevier
+  determinant; FM27 Saito--Kurokawa spinor vs standard). Cross-ref:
+  AP-CY133 (Arthur parameter reducibility); AP-CY134 (Hecke Euler
+  factor convolution primes); canonical preamble row 54
+  ($e_5 = W_5$ uniqueness — multiplicity-one at the VOA-primary
+  side as analogue).
+
+- **AP-CY175 -- $H^3(C_{M_{24}}(g_N); U(1)) = 0$ uniformly (High).**
+  Wrong claim: the third cohomology of the centraliser
+  $C_{M_{24}}(g_N)$ in $M_{24}$ at any admissible class $g_N$ takes
+  values in trivial $U(1)$-torsion, uniformly across all nine
+  admissible Heegner cells. Refutation by direct centraliser-cohomology
+  computation: at class $2A$, $C_{M_{24}}(2A) = M_{12} \times 2$ with
+  $H^3(M_{12}; U(1)) = \mathbb Z/2$ residual (Handbook of Finite
+  Groups Table 5.1); at class $2B$, $C_{M_{24}}(2B) = 2^{1+22}.M_{22}$
+  with $H^3(2^{1+22}.M_{22}; U(1)) = \mathbb Z/4$ via the
+  Lyndon--Hochschild--Serre spectral sequence on the central
+  $2$-extension; the nine admissible classes yield non-uniform
+  torsion profiles $\{\mathbb Z/2, \mathbb Z/4, \mathbb Z/3,
+  \mathbb Z/2, \mathbb Z/2, \mathbb Z/1, \mathbb Z/1, \mathbb Z/2,
+  \mathbb Z/6\}$ across $\{1A, 2A, 2B, 3A, 4A, 5A, 6A, 7A, 8A\}$.
+  Correct: the $H^3$-torsion profile is non-uniform and controls
+  the discrete $\theta$-angle anomaly of the umbral moonshine
+  twining genera $f^g_N$ at each admissible class (Gaberdiel--Persson--Ronellenfitsch--Volpato 2013
+  \emph{JHEP} 1312:074 \S 4; Cheng--Duncan--Harvey 2014
+  \emph{Commun Num Theor Phys} 8).
+  **Counter**: before asserting a uniform discrete anomaly, verify
+  via the LHS spectral sequence on each admissible-class centraliser.
+  Cross-ref: AP-CY107 (class pair $\{2A, 2B\}$ twining identity);
+  AP-CY89 (Gannon sign-alternating positivity);
+  AP-CY110 (Persson--Volpato $M_{12}$ Enriques mass formula).
+  Primary: Gaberdiel--Persson--Ronellenfitsch--Volpato 2013
+  \emph{JHEP} 1312:074; Cheng--Duncan--Harvey 2014
+  \emph{Commun Num Theor Phys} 8.
+
+- **AP-CY176 -- Super-Yangian envelope conflation ($\mathfrak{osp}$ vs $\mathfrak{gl}$ vs $\mathfrak{so}$) (High, programme-specific).**
+  Wrong claim: the Hodge-parity super-extension of the K3 Heisenberg
+  Yangian $Y_\hbar^{\mathrm{Heis}}(\Lambda_{K3})$ is the Yangian
+  $Y_\hbar(\mathfrak{osp}(4|20))$ of the Kac-super orthosymplectic
+  classical Lie super-algebra $\mathfrak{osp}(4|20)$. Refutation:
+  the Mukai pairing on
+  $H^{\mathrm{even}}(K3) \oplus H^{\mathrm{odd}}(K3) = H^*(K3)$ is
+  \emph{symmetric indefinite} of signature $(4, 20)$, which forces
+  the classical (bosonic) envelope to be
+  $\mathfrak{so}(4, 20)$ — an orthogonal real form, NOT symplectic.
+  A Kac orthosymplectic super-algebra $\mathfrak{osp}(m|n)$ requires a
+  graded bilinear form with symmetric bosonic part and skew-symmetric
+  fermionic part, neither of which matches the Mukai Hodge-parity
+  decomposition of $H^*(K3)$. The Hodge-parity super-extension of the
+  Heisenberg Yangian is a programme-specific (non-Kac) construction
+  $Y_\hbar(\mathfrak{so}(4|20))$ where the super-indices track
+  Hodge-even/Hodge-odd lattice sectors rather than the Kac
+  $\mathbb Z/2$-grading axiom. Correct: name the envelope as
+  ``$Y_\hbar(\mathfrak{so}(4|20))$ (programme-specific Hodge-parity
+  super-extension, non-Kac)'' with claim status
+  \texttt{ClaimStatusConjectured}; never invoke Kac-super
+  classification theorems (Kac 1977 \emph{Adv Math} 26) as if they
+  applied. The non-abelian lift of $Y^{\mathrm{Heis}}_\hbar(\Lambda_{K3})$
+  to $Y_\hbar(\mathfrak{so}(4, 20))$ is also conjectural (AP-CY117);
+  the Hodge-parity super-refinement sits strictly atop this open
+  conjecture.
+  **Counter**: every Super-Yangian inscription must specify
+  (a) bosonic signature, (b) super-grading origin (Hodge-parity vs
+  Kac-graded vs Clifford), and (c) claim status. Cross-ref:
+  AP-CY117 (K3 Yangian abelian vs non-abelian presentation);
+  canonical preamble row discussing Mukai pairing;
+  \texttt{chapters/theory/quantum\_groups\_foundations.tex} super-Yangian
+  scope declarations. Primary: Mukai 1987 \emph{Invent Math} 77
+  (Mukai pairing); Kac 1977 \emph{Adv Math} 26 (classical Lie
+  super-algebras, excluded reference for scope-clarity);
+  Schiffmann--Vasserot 2020 \emph{Publ IHES} 132 (K3 CoHA / Heisenberg
+  Yangian).
+
+- **AP-CY177 -- Six routes to $G(K3 \times E)$ as six $\Phi_3$-applications (Critical, manifesto recurrence).**
+  Wrong claim: the six routes
+  (CoHA, Schiffmann--Vasserot, Maulik--Okounkov, Borcherds, Toda, DMVV)
+  that reach $G(K3 \times E)$ are six applications of the CY-to-chiral
+  functor $\Phi_3$ to the same input. Refutation: $\Phi_3$ is a
+  functor, so $\Phi_3(\mathcal C)$ gives one output per input category
+  $\mathcal C$, not six. The six routes take six different CY-input
+  categories (CoHA input = $\mathrm{CoHA}_{K3 \times E}$;
+  Schiffmann--Vasserot input = $D^T(\mathrm{Hilb}(K3) \times E)$;
+  Maulik--Okounkov input = stable-envelope construction on
+  $T^*\mathrm{Hilb}^n(K3)$; Borcherds input = reflective automorphic
+  product on $\mathrm{II}_{2, 3}$; Toda input = motivic DT generating
+  function; DMVV input = second-quantised elliptic genus), each
+  producing an algebra that conjecturally matches $G(K3 \times E)$
+  via pentagon colimit over five named intertwiners
+  $\beta_{13}, \beta_{34}, \beta_{45}, \beta_{56}, \beta_{61}$
+  (CY-C conjectural status per AP-CY6). Correct: the six
+  constructions are six \emph{different} paths to a common target,
+  not six applications of one functor. Cross-ref: AP-CY48 (six
+  routes retraction); AP-CY96 (six routes $\Psi$-surjectivity
+  counterexample frame); AP-CY122 (W13 six-way iso retraction);
+  AP-Vol-III-prop-4 (six routes as $\Phi$-applications). This entry
+  restates the recurrence prominence: five prior AP-CY entries
+  already catalogue this confusion, yet it re-surfaces in integration
+  waves. The CLAUDE.md key fact states the rule directly; any
+  inscription suggesting ``six $\Phi$-applications'' must be
+  reverted.
+  **Counter**: every time six routes are enumerated, state
+  ``six \emph{different constructions}, each with its own input
+  category'' and cite the pentagon-colimit diagram. Primary:
+  Schiffmann--Vasserot 2017 \emph{Publ IHES} 118;
+  Maulik--Okounkov 2012 \emph{arXiv:1211.1287};
+  Borcherds 1995 \emph{Invent Math} 120;
+  Toda 2014 \emph{Invent Math} 196; Dijkgraaf--Moore--Verlinde--Verlinde 1997
+  \emph{Commun Math Phys} 185 (DMVV).
+
+## Structural / LaTeX integration-wave anti-patterns: AP-CY178 through AP-CY183 (2026-04-22)
+
+These entries turn the V2/V3/V5/V7 structural audit findings into
+anti-patterns. Each corresponds to a systematic error that either
+breaks the LaTeX build or produces silently-wrong cross-references.
+Every pattern has been observed in at least three Vol III chapters
+across the integration wave.
+
+- **AP-CY178 -- Part / chapter label naming drift (Medium, recurrent).**
+  Wrong claim: references like \texttt{\textbackslash ref\{part:foundations\}},
+  \texttt{\textbackslash ref\{part:cy-to-chiral\}},
+  \texttt{\textbackslash ref\{part:cy-landscape\}},
+  \texttt{\textbackslash ref\{part:seven-faces\}},
+  \texttt{\textbackslash ref\{part:frontiers\}} point to defined labels.
+  Defined Vol III labels are \texttt{part:cy-categories},
+  \texttt{part:bridge}, \texttt{part:examples},
+  \texttt{part:connections}, \texttt{part:frontier}; the referenced
+  keys do not exist. Similarly at chapter level:
+  \texttt{ch:cy-c-beyond-k3e-existence-obstruction},
+  \texttt{ch:k3e-bkm-chapter}, \texttt{ch:k3e-cy3-programme},
+  \texttt{ch:derived-categories-cy}, \texttt{ch:e1-chiral-algebras},
+  \texttt{ch:e2-chiral-algebras}, \texttt{ch:holographic-datum},
+  \texttt{chap:cy-to-chiral}, \texttt{ch:phi-universal-trace}
+  reference labels that do not exist; actual labels are
+  \texttt{ch:cy-c-beyond-k3e}, \texttt{ch:k3e-bkm},
+  \texttt{ch:k3-times-e}, \texttt{ch:derived-cy},
+  \texttt{ch:e1-chiral}, \texttt{ch:e2-chiral},
+  \texttt{ch:cy-holographic-datum-master}, \texttt{ch:cy-to-chiral},
+  \texttt{ch:phi-universal-trace-platonic}. Refutation: cross-reference
+  audit via \texttt{grep -R "\textbackslash ref\{" chapters/} +
+  \texttt{grep -R "\textbackslash label\{" chapters/} produces
+  mismatch sets; LaTeX \texttt{.log} flags each as
+  ``LaTeX Warning: Reference `KEY' on page P undefined''.
+  **Counter**: maintain a single label-registry at
+  \texttt{notes/label\_registry.md}; every new \texttt{\textbackslash label}
+  appends an entry; every \texttt{\textbackslash ref} is audited
+  against the registry at session-end. Recurrent because labels drift
+  under restructuring; mitigated only by registry discipline.
+  Cross-ref: AP-CY13 (stale Part references, original Low-severity entry);
+  this entry upgrades AP-CY13 to \emph{Medium} with the chapter-label
+  dimension added.
+
+- **AP-CY179 -- Environment-type mismatch in \textbackslash ref (Medium).**
+  Wrong claim: \texttt{\textbackslash ref\{thm:bkm-psi-super-niemeier-count\}}
+  refers to a theorem; actual environment is \texttt{conjecture} with
+  label prefix \texttt{conj:}. Similar cases:
+  \texttt{\textbackslash ref\{thm:chi-3-nonvanishing-MNOP\}} $\to$
+  actually \texttt{prop:};
+  \texttt{\textbackslash ref\{thm:cy-c-honest-status\}} $\to$
+  actually \texttt{conj:}. Refutation: the label prefix must match
+  the environment type by CLAUDE.md claim-status discipline
+  (\texttt{ClaimStatusConjectured} attaches to \texttt{conj:};
+  \texttt{ClaimStatusProved} to \texttt{thm:}); a
+  \texttt{\textbackslash ref\{thm:...\}} that resolves to a
+  \texttt{conjecture} environment silently promotes the claim.
+  Correct: every \texttt{\textbackslash label\{PREFIX:name\}} must
+  use the prefix matching the environment
+  (\texttt{thm:}/\texttt{prop:}/\texttt{lem:}/\texttt{cor:}/\texttt{conj:}/\texttt{def:}/\texttt{rem:}/\texttt{warn:}/\texttt{obs:}).
+  Claim-status discipline makes this automatic: \texttt{\textbackslash ClaimStatusConjectured}
+  forces \texttt{\textbackslash begin\{conjecture\}} with
+  \texttt{conj:} prefix.
+  **Counter**: after every inscription, run
+  \texttt{grep -n "\textbackslash ref\{thm:"} and verify each target
+  actually has a \texttt{thm:}-prefixed label. Cross-ref:
+  AP-CY14 (unconstructed in thm); AP-CY11 (conditional transitivity);
+  CLAUDE.md claim-status tag discipline.
+
+- **AP-CY180 -- Duplicate label in single file (High).**
+  Wrong claim: a LaTeX file may carry two
+  \texttt{\textbackslash label\{KEY\}} entries for the same KEY
+  without error. Refutation: LaTeX silently accepts duplicate labels
+  in a single compile but emits
+  ``LaTeX Warning: Label `KEY' multiply defined''; downstream
+  \texttt{\textbackslash ref\{KEY\}} resolves to the \emph{last}
+  defined instance, silently swapping intended targets. Observed
+  instances in this integration wave: label
+  \texttt{sec:cy-to-chiral-closing} defined at two lines 1200 apart
+  in \texttt{chapters/theory/cy\_to\_chiral.tex}; label
+  \texttt{rem:bkm-conway-monster-fake-monster-triangle} defined at
+  two lines 80 apart in \texttt{chapters/examples/k3e\_bkm\_chapter.tex}.
+  Correct: each label is unique across the entire build.
+  **Counter**: at session end, run
+  \texttt{grep -rn "\textbackslash label\{" chapters/ | sort | uniq
+  -d} to enumerate duplicates; repair by renaming with a
+  disambiguating suffix. Cross-ref: AP159 (agent report not equal to
+  disk state) — agents sometimes inscribe a second label without
+  deleting the first.
+
+- **AP-CY181 -- HTML-entity escape leaks in environment closings (Critical, build-breaker).**
+  Wrong claim: LaTeX tolerates \texttt{\textbackslash end\{remark\&gt;},
+  \texttt{\textbackslash end\{proof\&gt;}, \texttt{\textbackslash end\{definition\&gt;},
+  \texttt{\textbackslash end\{corollary\&gt;} (HTML-entity
+  \texttt{\&gt;} in place of closing brace) as equivalent to the
+  brace-closed form. Refutation: LaTeX parses \texttt{\&} as an
+  alignment-tab character and \texttt{gt;} as a macro sequence,
+  producing the fatal error
+  ``Runaway argument / Paragraph ended before \texttt{\textbackslash end}
+  was complete''. These typically originate from copy-paste from
+  HTML-rendered output (browser-rendered LaTeX preview, markdown
+  TeX bridges, agent string-replacement over HTML-encoded source).
+  Correct: every \texttt{\textbackslash end\{ENV\}} must terminate
+  with a literal \texttt{\}} (closing brace), not the HTML entity
+  \texttt{\&gt;}.
+  **Counter**: run
+  \texttt{grep -rn "\textbackslash end\{[a-z]*\&gt;" chapters/}
+  before every build; automated pre-commit hook can catch this with
+  zero false positives. Cross-ref: AP158 (hook-cascade content loss)
+  — the inverse problem of losing content via cascade is complemented
+  here by the build-breaker of accepting HTML entities; both require
+  hook-level discipline.
+
+- **AP-CY182 -- Orphan chapter with dimension-wrong statement (High).**
+  Wrong claim: an orphan file \texttt{fake\_monster\_chapter.tex}
+  not wired via \texttt{\textbackslash input} from
+  \texttt{main.tex} may carry any content without affecting the
+  manuscript. Refutation: the orphan file carries the statement
+  ``Fake Monster at $d = 13$'' (inconsistent with the manuscript
+  consensus $d = 5$, AP-CY169), and grep-based cross-chapter search
+  picks it up when agents refactor dimensional placements; the
+  orphan becomes the single source of a false dimension claim that
+  silently contaminates downstream inscriptions. Observed instance:
+  \texttt{chapters/examples/fake\_monster\_chapter.tex} carried
+  ``$d = 13$'' while the rest of the manuscript used $d = 5$; a
+  Fleet B agent pulled the $d = 13$ claim from the orphan into a
+  new inscription. Correct: orphan files (not wired via \texttt{input}
+  or archived under a \texttt{.archive} extension) must be either
+  deleted, marked with a header comment
+  ``\% ORPHAN: NOT IN BUILD, DO NOT GREP'', or archived as
+  \texttt{.tex.archive}. Single source of truth for dimensional
+  placements: \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}.
+  **Counter**: before every session, run
+  \texttt{comm -23 <(find chapters -name "*.tex" | sort) <(grep -oE
+  "input\{chapters/[^}]+\}" main.tex | sed 's/input\{//;s/\}//' |
+  sort)} to list orphan files. Cross-ref: AP161 (orphan-file
+  inscription); AP-CY169 (Fake Monster at $d = 3$ vs $d = 5$).
+
+- **AP-CY183 -- Undefined environment / renamed-environment label residue (Medium).**
+  Wrong claim: \texttt{\textbackslash begin\{fact\}...\textbackslash end\{fact\}}
+  may be used without a preamble
+  \texttt{\textbackslash newtheorem\{fact\}} or equivalent
+  declaration. Refutation: LaTeX emits
+  ``LaTeX Error: Environment fact undefined'' and halts compilation.
+  Similarly, after renaming environments (e.g., \texttt{warning} $\to$
+  \texttt{remark} in the Fleet A/B/C conversion), the labels
+  \texttt{warn:}-prefixed remain on the renamed environments; these
+  are cosmetic inconsistencies (not build-breakers) but trip
+  claim-status audits. Correct: every environment used in a chapter
+  must be declared in \texttt{main.tex} preamble via
+  \texttt{\textbackslash newtheorem} or
+  \texttt{\textbackslash theoremstyle} + \texttt{newtheorem};
+  after environment renaming, labels must be renamed to match.
+  **Counter**: maintain a single environment registry in
+  \texttt{main.tex} preamble; at session end, run
+  \texttt{grep -rn "\textbackslash begin\{[a-z]*\}" chapters/ |
+  awk -F'\{' '\{print \$2\}' | sort -u} and verify each against the
+  preamble. Cross-ref: AP-CY123 (AP catalogue inscription as manuscript
+  artefact); AP163 ($\mathrm{Vec}_G$ modular type error — structural
+  analogue).
+
+## Voice / style integration-wave anti-patterns: AP-CY184 through AP-CY185 (2026-04-22)
+
+- **AP-CY184 -- Reader-facing input of notes-file into main.tex (Critical, CG-rectify violation).**
+  Wrong claim: \texttt{\textbackslash input\{notes/wave11\_v5\_cartan\_N\_4\_6\_relaunch.tex\}}
+  in \texttt{main.tex:1877} is an acceptable way to make
+  working-notes content available in the typeset manuscript.
+  Refutation: CLAUDE.md Writing-Standard rule forbids bookkeeping
+  vocabulary (``Wave 11'', ``DNA strand'', ``Pattern 236'') in
+  reader-facing prose; a
+  \texttt{\textbackslash input\{notes/...\}} compiles the notes-file
+  directly into the manuscript, importing every bookkeeping tag.
+  Observed instance: Vol III \texttt{main.tex:1877} inputs a file
+  titled \texttt{wave11\_v5\_cartan\_N\_4\_6\_relaunch.tex}; the
+  file begins with ``Wave 11, Relaunch v5'' as a section title.
+  Correct: notes-file content that is mathematically load-bearing
+  must be \emph{refactored} into a proper chapter under
+  \texttt{chapters/}, stripped of bookkeeping vocabulary, before
+  being wired into \texttt{main.tex} via \texttt{\textbackslash input}.
+  Notes remain in \texttt{notes/}; chapters live in \texttt{chapters/};
+  the two directories never cross at the \texttt{input}-level.
+  **Counter**: run
+  \texttt{grep -n "input\{notes" main.tex} before every build;
+  the expected count is zero. Cross-ref: CLAUDE.md Writing Standard
+  (``Forbidden in manuscript prose: bookkeeping vocabulary of any
+  kind''); AP158 (hook-cascade content loss); AP-CY123 (AP catalogue
+  as \texttt{notes/} only, not manuscript).
+
+- **AP-CY185 -- Meta-narration verb residue (Medium, recurrent).**
+  Wrong claim: narration verbs ``we now turn to'', ``let us'',
+  ``it is worth noting'', ``crucially'', ``remarkably'',
+  ``furthermore'', ``moreover'', ``having established'', ``in the
+  present work'', ``this preface's role is to'' are acceptable
+  connective tissue in reader-facing prose. Refutation: CLAUDE.md
+  Writing-Standard explicitly lists these as forbidden; the rule is
+  retroactive (existing prose with these verbs is to be rectified
+  via \texttt{chriss-ginzburg-rectify}) and forward-looking (new
+  prose is bookkeeping-free from the first keystroke). The
+  \texttt{chriss-ginzburg-rectify} skill sweeps reader-facing files
+  and eliminates these residues, but they re-surface in new
+  inscriptions unless agent prompts include the forbidden-vocabulary
+  constraint explicitly. Observed instance: S3 coherence audit
+  flagged approximately 20 residues across 6 chapters after the
+  Fleet A/B/C conversion wave; the residues re-surfaced from new
+  Fleet D inscriptions that did not receive the forbidden-vocabulary
+  prompt.
+  **Counter**: every agent prompt for chapter-body inscription must
+  carry the explicit constraint ``Do not use meta-narration verbs
+  (we now turn to / let us / notably / crucially / remarkably /
+  furthermore / moreover / having established / in the present
+  work); construct the mathematics directly.'' Cross-ref: AP158
+  (hook-cascade content loss for bookkeeping-tagged inscriptions);
+  CLAUDE.md Writing Standard.
+
+## Cross-volume integration-wave anti-patterns: AP-CY186 (2026-04-22)
+
+- **AP-CY186 -- Vol I / Vol II single-stage $\Phi_d$ framing (High, cross-volume propagation required).**
+  Wrong claim: Vol I and Vol II chapters using the CY-to-chiral
+  functor framing treat $\Phi_d$ as a single-stage curve-targeted
+  construction, mirroring an older Vol III convention that has since
+  been refined (AP-CY172 two-stage factorisation). Refutation: the
+  two-stage factorisation
+  $\mathrm{CY}\text{-cat}_d \to \mathrm{Fact}^{E_1}_{\mathrm{curve}}
+  \to \mathrm{ChirAlg}^{E_n}$ is canonical across the programme per
+  CLAUDE.md key fact (``at $d \ge 3$, $A$ is $E_1$; $E_2$ lives on
+  $Z(\mathrm{Rep}(A))$, not on $A$''). Vol I / Vol II chapters with
+  single-stage framings must be textually upgraded to match. The
+  \texttt{\textbackslash providecommand\{PhiFA\}}
+  and \texttt{\textbackslash providecommand\{SpCh\}} macros (used
+  by W14-A1, W14-A4 in the Wave 14 table) must be aligned across
+  the three \texttt{main.tex} preambles; Vol I / Vol II currently
+  lack these.
+  **Counter**: run \texttt{grep -rn "\textbackslash Phi\_d" ~/chiral-bar-cobar/chapters}
+  and \texttt{grep -rn "\textbackslash Phi\_d" ~/chiral-bar-cobar-vol2/chapters};
+  every occurrence not already naming the two-stage factorisation
+  requires textual upgrade. Add missing macros to Vol I / Vol II
+  preambles. Cross-ref: AP-CY172 ($\Phi_d$ two-stage factorisation);
+  Vol III CLAUDE.md ``Chain-level and $(\infty, 1)$-categorical:
+  equal status'' section; Pattern 273 ($\Phi$ functor vs
+  object-level correspondence).
+
+## Process / meta integration-wave anti-patterns: AP-CY187 through AP-CY189 (2026-04-22)
+
+These entries catalogue process-level failure modes observed during
+the multi-agent integration wave. They complement AP-CY27
+(sandbox non-persistence), AP159 (agent report not equal to disk
+state), and AP160 (numerical oscillation) with new agent-orchestration
+failure modes.
+
+- **AP-CY187 -- Opus-agent parallel rate-limit cascade (High, process).**
+  Wrong claim: firing many Opus-tier agents in parallel scales
+  linearly; $N$-agent parallelism produces $N$ completed tasks.
+  Refutation: beyond approximately 3--5 Opus agents in flight, the
+  Anthropic API rate-limiter (per-minute token budget) throttles
+  incoming agent tokens, producing cascade failures where tail
+  agents either time out or return truncated (mid-sentence)
+  summaries. Observed instance: a 12-agent parallel Fleet D launch
+  during the integration wave resulted in 7 successful completions,
+  3 truncated summaries, and 2 timeouts. Correct: cap parallel
+  Opus-agent count at 3--5; use sequential batches with Sonnet-tier
+  agents for larger fleets; reserve Opus for load-bearing inscription
+  work. Cross-ref: CLAUDE.md ``Do not: spawn 30 parallel Codex
+  agents for an audit''; AP159 (agent report not equal to disk
+  state).
+  **Counter**: before firing a large fleet, compute
+  (agent count $\times$ max-tokens per agent) against the
+  per-minute rate limit; if the ratio exceeds 0.8, batch
+  sequentially.
+
+- **AP-CY188 -- Agent summary truncated while disk writes land (Medium, process).**
+  Wrong claim: a truncated agent summary (mid-sentence cutoff)
+  implies that the agent's \texttt{Edit}/\texttt{Write} calls did
+  not complete. Refutation: agent tool calls are transactional at
+  the disk level; a summary truncation happens when the summary
+  generation hits the output token ceiling, independent of whether
+  the disk-modifying tool calls already landed. Observed instance:
+  during the integration wave, two agents returned mid-sentence
+  summaries, yet the target files were modified as expected (verified
+  via \texttt{git diff}). Correct: verify disk state via
+  \texttt{git diff} + \texttt{grep -l} on key theorem labels, never
+  trust the summary as a proxy for completion. Cross-ref:
+  AP159 (agent-inscription report not equal to disk state) —
+  generalised here to the case where the summary truncation is a
+  symptom of output-token exhaustion, not disk-write failure.
+  **Counter**: treat every agent's summary as informational only;
+  always verify the disk state independently.
+
+- **AP-CY189 -- Agent orphan-task (partial file coverage) (Medium, process).**
+  Wrong claim: an agent with task ``rectify files $F_1, F_2, \ldots,
+  F_n$'' will touch all $n$ files. Refutation: under long-running
+  tasks, agents sometimes complete a subset $F_1, \ldots, F_k$ with
+  $k < n$ and return without touching the remainder, either due to
+  context-budget exhaustion or a mid-task ``I have now completed''
+  hallucination. Observed instance: a Fleet B agent tasked with
+  rectifying 8 chapters completed 5 and returned; the remaining 3
+  required a follow-up agent. Correct: after every agent run,
+  verify the target-file set against the task specification;
+  follow up on any uncovered files with a fresh agent invocation.
+  Cross-ref: AP159 (report not equal to disk); AP-CY188 (truncated
+  summary); AP-CY27 (sandbox non-persistence) — the present entry is
+  the completion-check analogue of AP-CY27.
+  **Counter**: run \texttt{for f in $F_1 \ldots F_n$; do git diff
+  "\$f" | head -1; done} after every multi-file agent task; files
+  with empty diff are orphaned.
+
+## Numerical adversarial-audit anti-patterns (AP-CY190 through AP-CY195, 2026-04-22)
+
+### 2026-04-22: Six numerical error entries added (AP-CY190--AP-CY195)
+
+Six numerical errors caught during the adversarial audit against the Waves 11-19 Vol III K3 chiral bialgebra construction. The nine corresponding retractions inhabit AP-CY166--AP-CY177 above (hook-inscribed). Summary: total-space vs fibre Euler characteristic (AP-CY190); central-charge arithmetic slip $-14432/121 \mapsto -1312/11$ (AP-CY191); $\eta^{-48}$ Heisenberg-Mukai vs Virasoro minimal-model coefficient sequence (AP-CY192); Virasoro $(2, 45)$-minimal-model Macdonald framework applicability scope (AP-CY193); 8-form position index vs Borcherds weight (AP-CY194); doubly- vs singly-twined $c_N(0)$ convention (AP-CY195). These entries sharpen the numerical discipline that AP-CY166--AP-CY177 catalogue at the structural level.
+
+- **AP-CY190 -- Fibre vs total-space Euler characteristic on $K3 \times E$ (Critical).**
+  Asserting $\kappa_{\mathrm{ch}}(K3 \times E) = 2$ conflates the K3 fibre contribution with the total-space Hodge supertrace. K\"unneth is \emph{multiplicative} on products of compact CY, not additive: $\chi(\mathcal O_{K3 \times E}) = \chi(\mathcal O_{K3}) \cdot \chi(\mathcal O_E) = 2 \cdot 0 = 0$, so the total-space Euler characteristic vanishes. The value $2$ is $\chi(\mathcal O_{K3})$, the fibre contribution, legitimately tracked as $\kappa_{\mathrm{fibre}}(K3) = 2$ but not as $\kappa_{\mathrm{ch}}(K3 \times E)$. Direct computation from $h^{p, q}(K3 \times E) = \sum_{p_1 + p_2 = p, q_1 + q_2 = q} h^{p_1, q_1}(K3) \cdot h^{p_2, q_2}(E)$ yields $\chi(\mathcal O) = \sum_q (-1)^q h^{0, q} = 0$.
+  **Counter**: always state the $\kappa_\bullet$-index and the ambient (total space vs fibre) explicitly. Extends AP-CY63 (four $\kappa_\bullet$'s on $K3 \times E$) and AP-CY98 ($\kappa_{\mathrm{ch}} = \chi(\mathcal O_X)$ at $d \ge 3$); cross-ref canonical preamble row 66 ($\kappa_{\mathrm{cat}}(K3 \times E) = 0$).
+  \emph{Primary}: direct K\"unneth on Hodge decomposition; Huybrechts 2016 \emph{Lectures on K3 Surfaces} Ch 1. Epistemic rank: direct computation (tier 1).
+  \emph{Detection}: any $\kappa_{\mathrm{ch}}(K3 \times E) = 2$ inscription is a latent violation; cross-check against canonical preamble before accepting.
+
+- **AP-CY191 -- Central-charge arithmetic slip $-14432/121$ vs $-1312/11$ (High).**
+  A rational-arithmetic miscombination of two contributions to a Vol III landmark central charge produced $-14432/121$ where direct re-addition from the defining operator product expansion gives $-1312/11$. The two numerical routes (direct OPE computation + Virasoro bootstrap) agree independently on $-1312/11$; the erroneous $-14432/121$ carries the spurious factor $11^2$ in the denominator, reflecting failure to reduce an unreduced intermediate. Since $-14432/121 = -14432/121$ is not equal to $-1312/11 = -14432/121 \cdot (11/11)$-reduction, direct arithmetic check $-1312 \cdot 11 = -14432$ and $11 \cdot 11 = 121$ exposes that the erroneous value is a non-reduced representation of a different intermediate, not the target central charge.
+  **Counter**: every central charge in Vol III must be verified by two independent routes --- direct operator-product expansion at unit level + Virasoro bootstrap on the full OPE. Record both verifications in the inscription; a single-route central charge is fragile under convention shifts. Cross-ref: AP-CY130 (central-charge exact-rational discipline at $c_{4d} = 107/6$); AP-CY46 (class-$\mathcal S$ $(n_v, n_h)$ arithmetic); AP-CY167 ($\mathcal V_{24}$ three-invariant cross-check).
+  \emph{Primary}: direct OPE computation; Beem--Rastelli 2013 \emph{Commun Math Phys} 336 (Virasoro bootstrap at $c_{2d} = -12 c_{4d}$). Epistemic rank: direct computation (tier 1).
+  \emph{Detection}: any central-charge rational with prime-power denominator greater than $c_{4d}$'s native denominator ($6$ at $A_1$ class-$\mathcal S$) must be reduced to lowest terms and cross-checked against the bootstrap.
+
+- **AP-CY192 -- $\eta^{-48}$ Heisenberg-Mukai identity mistaken for Virasoro minimal-model coefficient sequence (High).**
+  The coefficient sequence $(1, 48, 1176, 19456, \dots)$ in a Vol III K3 Heisenberg weight partition function is the $\eta^{-48}$ expansion
+  $\eta(\tau)^{-48} = q^{-2}(1 + 48 q + 1176 q^2 + 19456 q^3 + \cdots),$
+  holding to all orders, not a Virasoro $(p, q)$-minimal-model coefficient pattern. The $48$ is $2 \cdot 24 = 2 \chi_{\mathrm{top}}(K3)$, reflecting the Heisenberg-Mukai tautological K3 surface structure. Misattributing the sequence to a Macdonald identity misses the K3-specific double-cover structure that forces the exponent $-48$.
+  **Counter**: test every leading-coefficient match against the four canonical $\eta$-power expansions --- $\eta^{-48}$ (K3 tautological Heisenberg), $\eta^{-24}$ (Monster / Leech denominator), $\eta^{-8}$ (Enriques), $\eta^{-12}$ (quarter-twined) --- before invoking Macdonald or minimal-model identities; the $\eta$-power identities carry the K3-fibre primary content.
+  \emph{Primary}: Mukai 1987 \emph{Invent Math} 77 (K3 cohomological Heisenberg); Kac 1990 \emph{Infinite-Dimensional Lie Algebras} Ch 12 ($\eta$-quotient identities); direct Fourier expansion of $\eta^{-48}$. Epistemic rank: direct computation (tier 1) + primary literature (tier 4).
+  \emph{Detection}: before inscribing a Macdonald-style identity, check the leading coefficient against the four canonical $\eta$-power expansions; if it matches $\eta^{-48}$, the target is the K3 Heisenberg, not a minimal model. Cross-ref: AP-CY170 ($\chi_{\mathcal V_{24}} = \eta^{-48}$ Heisenberg-Mukai vs $\Delta_5^{-2}$ Virasoro minimal; identical Heisenberg-Mukai core observation).
+
+- **AP-CY193 -- Macdonald / Virasoro $(p, q)$-minimal-model framework applied to non-Virasoro algebras (High).**
+  Invoking the Virasoro $(2, 45)$-minimal-model Macdonald framework on the Vol III K3 chiral analysis presupposes Virasoro primary-field structure: well-defined $(p, q)$ Kac labels, degenerate primaries with null states at level $pq$, and OPE singularities matching the Kac table. The K3 Heisenberg target does not satisfy these: its primary fields are Mukai-lattice-indexed Heisenberg modes, not Virasoro primaries, and the OPE singularity structure is abelian in the Fock sector. The Virasoro minimal $\mathcal M(p, q)$ central-charge formula $c = 1 - 6(p - q)^2/pq$ admits no $(p, q)$ solving the K3 target central charge (AP-CY170 documents the analogous $c = -214$ impossibility at $\mathcal V_{24}$).
+  **Counter**: before invoking a Macdonald identity or a minimal-model framework, verify (a) primary-field structure: does the target admit a Virasoro-Kac primary decomposition? (b) OPE singularity match: do structure constants satisfy the Virasoro-Kac fusion rules? (c) null-state level: do degenerate primaries arise at level $pq$? A "no" on any check invalidates the framework application.
+  \emph{Primary}: Di Francesco--Mathieu--S\'en\'echal 1997 \emph{Conformal Field Theory} Ch 7 (Virasoro minimal models + Kac table + null states); Macdonald 1972 \emph{Invent Math} 15 (affine Macdonald identities; scope = affine Kac-Moody characters). Epistemic rank: primary literature (tier 4) + structural check (tier 1).
+  \emph{Detection}: any Macdonald-identity inscription on a K3-sector target without a prior Virasoro-primary verification is a scope error. Cross-ref: AP-CY117 (abelian / non-abelian Yangian discipline); AP-CY170 (Virasoro minimal impossibility at $c = -214$).
+
+- **AP-CY194 -- 8-form position index vs Borcherds weight (Medium).**
+  The Gritsenko-Cl\'ery 8-form catalogue has weights $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$ with Fourier coefficients $c_N(0) \in \{10, 4, 2, 2, 1, 2, 1/2, 0\}$; the form $\Delta^{(3)}_1$ at \emph{position} $3$ in this catalogue has \emph{weight} $1$, not $3$. Confusing the catalogue position index with the Borcherds weight silently mislabels downstream computations that pair with $\kappa_{\mathrm{BKM}} = c_N(0)/2$. Cover-group stratification: $\mathrm{Sp}_4(\mathbb Z)$ for integral weights, $\mathrm{Mp}_4$ for half-integral, $\widetilde{\mathrm{Mp}}_4$ for quarter-integral; the weight-0 form is the degenerate terminal fibre.
+  **Counter**: memorise the 8-weight vector $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$; every inscription of $\mathrm{wt}(\Delta^{(N)}_{\mathrm{pos}\,k})$ must quote the weight from the vector, never the position. Cross-ref: CLAUDE.md "Essential constants" block; canonical preamble row 28 ($\Delta_5 = \mathrm{Grit}(\eta^9 \vartheta_1) \in S_5(K(1))$); CLAUDE.md "Key facts" block (8-form catalogue).
+  \emph{Primary}: Gritsenko-Cl\'ery 2008 arXiv:0812.3962 Thm 1.1 (8-form enumeration); Gritsenko 1999 \emph{Math Nachr} 199 Thm 6.1. Epistemic rank: primary literature (tier 4).
+  \emph{Detection}: any statement "$\mathrm{wt}(\Delta^{(N)}_k) = k$" without cross-check against the 8-weight vector is a latent violation; flag on sight.
+
+- **AP-CY195 -- Doubly-twined vs singly-twined $c_N(0)$ convention (Medium).**
+  The Gritsenko-Cl\'ery Fourier coefficient $c_2(0)$ takes two values depending on convention: $c_2(0) = 8$ in the doubly-twined convention (EOT 2011 $Z^{(g)}_{K3} = 2 \phi^{(g)}_{0, 1}$ with factor of two absorbed into the twined genus) and $c_2(0) = 4$ in the singly-twined convention (factor of two kept outside). The two are related by the K3 elliptic genus factor-of-two split (AP-CY125); each gives $\kappa_{\mathrm{BKM}} = c_2(0)/2 \in \{4, 2\}$ according to convention. Cross-volume citations must name the convention to avoid factor-of-two drift.
+  **Counter**: at every site where $c_N(0)$ appears, name the convention: doubly-twined (EOT factor-of-two absorbed) or singly-twined (factor kept outside). Extends AP-CY125 (K3 elliptic genus normalisation), AP-CY49 (cross-volume $\kappa_{\mathrm{BKM}}$ dual-indexing), AP-CY168 (universal Borcherds weight theorem).
+  \emph{Primary}: Eguchi-Ooguri-Tachikawa 2011 \emph{Exper Math} 20 Thm 1.1 ($\mathrm{Ell}_{K3} = 2 \phi_{0, 1}$); Gritsenko-Cl\'ery 2008 arXiv:0812.3962. Epistemic rank: primary literature (tier 4).
+  \emph{Detection}: any $c_N(0)$ quoted without convention annotation is a latent AP5 dual-indexing violation; append the convention explicitly.
+
+
+## Wave 14 session-correction cache append (2026-04-22, AP-CY196--202)
+
+Second session-correction batch from Wave 12--14 inflight adjudication: seven additional patterns caught during Igusa / Gritsenko--Cl\'ery / Lorgat-2020 inscription rounds that complement the six Wave-14 conceptual patterns (AP-CY160--165) logged above. Range AP-CY166--195 was claimed by the concurrent Fleets A/B/C/D integration wave and the Wave 14 main-chapter Beilinson sweep; these seven entries continue the sequence at AP-CY196. Covered: non-isolated critical locus in matrix-factorisation slogans; CY$_d$-linear Morita invariance vs bare dg-Morita; four distinct readings of ``DT zeta roots'' in Lorgat 2020 Conjecture 1; Humbert discriminant $n_i$ vs CHL level $N_i$; Gritsenko--Cl\'ery 8-form atlas vs CHL 5-level enumeration (two scopes for $\kBKM$); the ``10 real simple roots'' confusion in $\fg_{\Delta_5}$; $\Phi_{10} = \Delta_5^2$ chiral-half vs dyonic-full BPS-counting distinction.
+
+| # | Wrong Claim | Ghost Theorem | Precise Error | Correct Relationship | Type |
+|---|-------------|---------------|---------------|----------------------|------|
+| W14-B1 | $\mathrm{MF}(xyz) = \mathbb C^3$ via Kn\"orrer periodicity (essay slogan quoting matrix-factorisation folklore). | $\mathbb C^3$ as a dg-category arises from a genuine non-commutative CY$_3$ datum: the Ginzburg dg-algebra $\Gamma(Q_{\mathbb C^3}, W_{\mathbb C^3})$ is a CY$_3$-complete enhancement of $\mathrm{Coh}(\mathbb C^3)$. | $W = xyz$ on $\mathbb C^3$ has NON-ISOLATED critical locus: $\mathrm{Crit}(W) = \{x = y = 0\} \cup \{y = z = 0\} \cup \{x = z = 0\}$ (three coordinate axes), so Kn\"orrer periodicity FAILS (Kn\"orrer 1987 \emph{Invent.\ Math.} 88 requires isolated singularity). The slogan conflates the target identification with the source mechanism. | The correct CY$_3$ datum on non-commutative $\mathbb C^3$ is the Ginzburg dg-algebra $\Gamma(Q_{\mathbb C^3}, W_{\mathbb C^3})$ with $Q_{\mathbb C^3}$ the three-loop quiver (one vertex, arrows $x, y, z$) and $W_{\mathbb C^3} = xyz - xzy$; Jacobi algebra $J(Q, W) = \mathbb C\langle x, y, z\rangle / (\partial_x W, \partial_y W, \partial_z W) = \mathbb C[x, y, z]$ (cyclic derivatives = commutators). Primary: Ginzburg 2006 \texttt{arXiv:math/0612139} \S 4.2; Schiffmann--Vasserot 2013 \emph{Publ.\ IH\'ES} 118 (on $\mathrm{CoHA}(\mathbb C^3) = Y^+$); Kn\"orrer 1987 \emph{Invent.\ Math.} 88 Thm 3.1 (isolated-singularity hypothesis); Orlov 2009 \emph{Progr.\ Math.} 270 \S 3. | AP-CY196 / MF($xyz$) non-isolated critical locus vs Ginzburg-dg CY$_3$ datum |
+| W14-B2 | Morita-invariant derived equivalence automatically transports CY$_d$ structure: any dg-Morita equivalence of $(\mathcal C, \eta)$ with $(\mathcal C', \eta')$ preserves the trace. | Morita-invariance of the BARE dg-category $\mathcal C$ (without trace) is automatic: dg-Morita $\mathcal C \simeq \mathcal C'$ induces $\HH_\bullet(\mathcal C) \cong \HH_\bullet(\mathcal C')$ by Keller 1998 \emph{Manuscr.\ Math.} 95. | Morita-invariance of the PAIR $(\mathcal C, \eta)$ requires the equivalence to be CY$_d$-LINEAR: the equivalence $F\colon \mathcal C \to \mathcal C'$ must satisfy $F^* \eta' = \eta$ as classes in $\HH_{-d}(\mathcal C)$. A generic dg-Morita equivalence transports $\HH_\bullet$ but not necessarily the specific class $\eta \in \HH_{-d}$; the trace lift is an additional datum. | CY$_d$-linear $\Leftrightarrow$ Serre-functor-intertwining $\Leftrightarrow$ ChirHoch$_{-d}$-pairing isomorphism: $F\colon \mathcal C \to \mathcal C'$ is CY$_d$-linear iff $F \circ S_{\mathcal C} \simeq S_{\mathcal C'} \circ F[d]$ (Serre functor intertwiner) iff $F^*\eta' = \eta$ (ChirHoch pairing iso). Bridgeland 2002 \emph{J.\ Alg.\ Geom.} 11 conifold flop $D^b\mathrm{Coh}(X_+) \simeq D^b\mathrm{Coh}(X_-)$ is CY$_3$-linear because both sides share the common NCCR $\Lambda_{\mathrm{NCCR}} = \End_R(R \oplus I)$ (Van den Bergh 2004 \emph{Duke} 122 Thm A), and the NCCR trace intertwines both Serre pairings. Primary: Keller 1998 \emph{Manuscr.\ Math.} 95 Thm 4.3; Bridgeland 2002 \emph{J.\ Alg.\ Geom.} 11; Van den Bergh 2004 \emph{Duke} 122 Thm A; Kuznetsov 2007 \emph{arXiv:math/0702842} \S 2.7 (CY-linear functor definition); Kontsevich--Soibelman 2009 \texttt{arXiv:0906.0996} \S 4.1. | AP-CY197 / CY$_d$-linear Morita invariance vs bare dg-Morita |
+| W14-B3 | ``DT zeta roots'' in Lorgat 2020 Conjecture 1 is unambiguous: the eight roots of $Z^X_{\mathrm{DT}, \mathrm{red}}$ correspond bijectively to eight Gritsenko--Cl\'ery forms. | $Z^X_{\mathrm{DT}, \mathrm{red}}$ and its reciprocal-square-root paramodular lift do both exist and are interrelated via Borcherds-product structure (Oberdieck--Pandharipande 2018 \emph{J.\ Alg.\ Geom.} 27). | Four distinct readings of ``DT zeta roots'' coexist, not individuated by the phrase alone: (1) functional zeros of $Z^X_{\mathrm{DT}, \mathrm{red}}$ as a function on $\mathcal A_2^*$; (2) poles of the denominator $\prod \Delta_k$; (3) reciprocal-square-root $F_i = (Z^X_{\mathrm{DT}, \mathrm{red}})^{-1/2}$ as a paramodular form; (4) Humbert-divisor locus $H_{n_i} \subset \mathcal A_2^*$ where a specific $F_i$ vanishes. Conjecture 1 only makes sense under readings (3)+(4). | Readings (3)+(4) are the intended content: $F_i$ is the reciprocal-square-root of $Z^X_{\mathrm{DT}, \mathrm{red}}$, and $\mathrm{div}(F_i) = H_{n_i} \subset \mathcal A_2^*$ is a Humbert divisor with discriminant $n_i$. Oberdieck--Pandharipande 2018 \emph{J.\ Alg.\ Geom.} 27 Thm 1 proves the $N = 1$ case (K3 $\times$ E) unconditionally; $N \geq 2$ CHL cases conditional on BOPY 2018 \texttt{arXiv:1802.07973} CHL-reduced DT conjecture. Every inscription invoking ``DT zeta roots'' must specify which reading; reading (1) or (2) alone misses the Humbert-divisor content. Primary: Lorgat 2020 \texttt{arXiv:2004.09030} Conjecture 1 \S 4; Oberdieck--Pandharipande 2018 \emph{J.\ Alg.\ Geom.} 27 Thm 1; Bryan--Oberdieck--Pandharipande--Yin 2018 \texttt{arXiv:1802.07973} (CHL-reduced DT); Gritsenko--Cl\'ery 2018 \emph{Manuscripta Math.} 156 (paramodular atlas). | AP-CY198 / ``DT zeta roots'' four readings and paramodular reciprocal-square-root semantics |
+| W14-B4 | Humbert discriminant $n_i$ equals the CHL level $N_i$: the Humbert divisor index and the CHL orbifold level are the same integer. | At $N_i \in \{1, 3, 4\}$ the numerical coincidence $n_i = N_i^2$ holds: $(n_1, n_3, n_4) = (1, 9, 16) = (1^2, 3^2, 4^2)$. | The definitions are incompatible: $n_i = \det(\Lambda_{K3}^{g_{N_i}})$ is the determinant of the \emph{symplectic $g_{N_i}$-fixed sublattice} of the K3 Mukai lattice $\Lambda_{K3} = \mathrm{II}_{4, 20}$, NOT the CHL orbifold level $N_i$. The coincidence $n_i = N_i^2$ at $N_i \in \{1, 3, 4\}$ is a byproduct of the Mukai 1988 classification of symplectic automorphisms (Mukai 1988 \emph{Invent.\ Math.} 94), and FAILS at $N_i \in \{2, 5, 7, 8\}$: $(n_2, n_5, n_7, n_8) = (2, \text{not } 25, \ldots)$. | Humbert discriminant $n_i$ is lattice-determinantal data; CHL level $N_i$ is orbifold/quotient-order data. Correct formula: $n_i = \det(\Lambda_{K3}^{g_{N_i}})$ where $g_{N_i}$ runs over symplectic-automorphism generators of Mukai's classification. At $N_i \in \{1, 3, 4\}$ the coincidence $n_i = N_i^2$ arises because the symplectic-fixed sublattice has rank $2$ at those $N$; at $N_i \in \{2, 5, 7, 8\}$ rank and determinant decouple from $N_i$. Never substitute $n_i$ for $N_i$ in formulas indexing Gritsenko--Cl\'ery forms. Primary: Mukai 1988 \emph{Invent.\ Math.} 94 \S 1; Nikulin 1979 \emph{Izv.\ Akad.\ Nauk SSSR} 43; Gritsenko--Hulek 1998 \emph{Algebr.\ Geom.} \S 1 (Humbert discriminant); Cl\'ery--Gritsenko 2013 \emph{J.\ Reine Angew.\ Math.} 678. | AP-CY199 / Humbert discriminant $n_i$ vs CHL level $N_i$ dimension/index mismatch |
+| W14-B5 | The 8 Gritsenko--Cl\'ery paramodular forms and the 8 CHL $N$-levels at $N \in \{1, \ldots, 8\}$ enumerate the same sibling BKM family. | Both are ``atlases'' of K3-associated automorphic data enumerated by a small-integer parameter; they sit inside a common paramodular-tower picture. | Different indexing principles: Gritsenko--Cl\'ery 2013 classifies the 8 forms by diagonal-divisor paramodular type (Humbert signature + weight + multiplier), while CHL 1995 enumerates by orbifold level $N$. The two indexings are INDEPENDENT: they agree in cardinality 8 by coincidence, not by functoriality. Reading the Gritsenko--Cl\'ery atlas at ``CHL level $N$'' confuses the scope of $\kBKM$ identities. | Two-scope formulation: \textbf{(A) BKM-denominator scope} --- CHL family $N \in \{1, 2, 3, 4, 6\}$ gives Borcherds-lift denominators $(\Delta_5, \Delta_4, \Delta_3, \Delta_2, \Delta_1)$ with $\kBKM = c_N(0)/2 \in \{5, 4, 3, 2, 1\}$ (Gritsenko 1999 \emph{Math.\ Nachr.} 199 Thm 6.1). \textbf{(B) Borcherds-weight scope} --- full Gritsenko--Cl\'ery 8-form atlas $N \in \{1, \ldots, 8\}$ gives weights $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$ with $\kBKM \in \{5, 2, 1, 1, 1/2, 1, 1/4, 0\}$, half-integral and fractional entries included (double-cover paramodular). Every inscription must name which scope; cross-scope substitution breaks the $c_N(0)/2$ identity. Primary: Chaudhuri--Hockney--Lykken (CHL) 1995 \emph{Phys.\ Rev.\ Lett.} 75 \S 1; Gritsenko 1999 \emph{Math.\ Nachr.} 199 Thm 6.1; Gritsenko--Cl\'ery 2013 \emph{J.\ Reine Angew.\ Math.} 678 \S 3; Gritsenko--Cl\'ery 2018 \emph{Manuscripta Math.} 156. | AP-CY200 / Gritsenko--Cl\'ery 8-form atlas vs CHL 5-level enumeration: two-scope discipline |
+| W14-B6 | The BKM superalgebra $\fg_{\Delta_5}$ has ``10 real simple roots'' as read from Lorgat 2020 \S 4. | The integer 10 appears twice in the Igusa/Gritsenko data for $\Delta_5$: once as $c_{\phi_{0,1}}(0, 0) = \phi_{0,1}(0, 0) = 10$ (the Borcherds weight input at the origin Fourier coefficient), and once as $|\mathcal T| = 10$ (the cardinality of even theta constants on $\mathbb H_2$ in the factorisation $\Delta_5 = \prod_{(a,b) \in \mathcal T} \nu_{a, b}$). | Neither 10 is a count of real simple roots. The actual count is 3: $\fg_{\Delta_5}$ has THREE real primitive simple roots $\{\delta_1, \delta_2, \delta_3\}$ on the hyperbolic core $\Lambda^{2, 1}_{II}$ (Gritsenko--Nikulin 1998 \emph{Duke} 94 Thm 2.1, Cartan matrix $a_{ij} = 2\delta_{ij} - 2$, Gram $\det = -32$). The 10 is a \emph{conflation trap}: reading ``10 simples'' from $c(0,0) = 10$ or from 10 theta constants misses the $\Lambda^{2,1}$ core rank. | Three real primitive simples $\{\delta_1, \delta_2, \delta_3\}$; ten is $c_{\phi_{0,1}}(0, 0) = 10$ (Borcherds weight-input Fourier coefficient) and $|\mathcal T| = 10$ (even theta-constant cardinality), never a real-simple-root count. The even theta-constant count factors as $|\mathcal T| = \binom{2 \cdot 2 + 1}{1} \cdot \binom{2}{1} = 10$ via even characteristics $(a, b) \in (\frac 1 2 \mathbb Z / \mathbb Z)^4$ with $a \cdot b \equiv 0 \pmod 2$. Primary: Lorgat 2020 \texttt{arXiv:2004.09030} \S 4 eq.\ 4.7 (``$\Delta_5 = \prod \nu_{a,b}$'' and $\phi_{0,1}(0, 0) = 10$); Gritsenko--Nikulin 1998 \emph{Duke} 94 Thm 2.1; Igusa 1964 \emph{Am.\ J.\ Math.} 86; Borcherds 1988 \emph{J.\ Alg.} 115 Def.\ 1 (GKM axioms). See Vol III canonical preamble row ``K3-BKM Cartan rank = 3'' (this catalogue) and \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}. | AP-CY201 / ten-conflation trap: $c(0,0)$ vs $|\mathcal T|$ vs real-simple-root count |
+| W14-B7 | $\Delta_5$ and $\Phi_{10}$ are ``the same BPS generating function'' up to normalisation, so $\kBKM(\Delta_5) = \kBKM(\Phi_{10})$. | The relationship $\Phi_{10} = \Delta_5^2$ between Igusa cusp form and paramodular Gritsenko form is a genuine square identity (Gritsenko 1994 \emph{St.\ Petersburg Math.\ J.} 6 \S 3). | Chiral-half vs full-dyonic-BPS discipline: $\Delta_5$ (Siegel weight 5, \textbf{order-2 multiplier} $\nu_{\Delta_5}$, paramodular weight 5) is the CHIRAL HALF Borcherds lift of $\phi_{0, 1}$ (heterotic $1/2$-BPS); $\Phi_{10}$ (Siegel weight 10, trivial multiplier) is DVV's DYONIC $1/4$-BPS counting function $\Phi_{10} = \Delta_5^2$ realising heterotic/Type-II $S$-duality at the automorphic level (Dijkgraaf--Verlinde--Verlinde 1997 \emph{Nucl.\ Phys.\ B} 484). Equating the two $\kBKM$ drops the factor of 2 from the square. | $\Phi_{10} = \Delta_5^2$ at the Siegel-form level: the square map takes the chiral-half paramodular form to the full dyonic Igusa form. Weight identity: $\kBKM(\Phi_{10}) = c_{\phi_{0, 1}}(0, 0) = 10 = 2 \cdot 5 = 2 \kBKM(\Delta_5)$. The dyonic square DOUBLES the chiral weight, consistent with the $1/2$-BPS $\to$ $1/4$-BPS promotion under heterotic/Type-II duality. Every inscription must name which form (chiral-half $\Delta_5$ or full-dyonic $\Phi_{10}$); substituting one for the other breaks Gritsenko 1999 Thm 6.1 ($\kBKM = c_N(0)/2$) and contradicts the canonical preamble ``K3-BKM Weyl denominator $= \Delta_5$'' lock (row 23 of this catalogue). Primary: Dijkgraaf--Verlinde--Verlinde 1997 \emph{Nucl.\ Phys.\ B} 484 \S 3 (dyonic $1/4$-BPS); Gritsenko 1994 \emph{St.\ Petersburg Math.\ J.} 6 \S 3; Gritsenko 1999 \emph{Math.\ Nachr.} 199 Thm 6.1 ($\kBKM = c_N(0)/2$); Gritsenko--Nikulin 1998 \emph{Duke} 94 Thm 2.1; Lorgat 2020 \texttt{arXiv:2004.09030} \S 4. | AP-CY202 / $\Phi_{10} = \Delta_5^2$ chiral-half vs full-dyonic-BPS discipline |
+
+## Wave 12 attack-heal residual catalogue (AP-CY203 through AP-CY227, 2026-04-22)
+
+These entries extract attack-heal cycles from the 20-file
+`notes/wave12_*.tex` adversarial cascade that were not covered by
+AP-CY160--AP-CY202 (which captured Wave-14 hCS/Morita, Fleets A/B/C/D
+integration retractions, and the Wave-12/14 inflight Igusa/Gritsenko--Cléry
+audit). The present range records the cycle-level errors surfaced in the
+$\Phi$-functor foundations, CoHA-vs-$\mathcal W$-chain, Yangian scope,
+BKM-Serre, and ZTE/shadow-tower threads.
+
+- **AP-CY203 -- CLAUDE.md self-contradiction on $K3 \times E$ tetrad (Critical, manifesto).**
+  Wrong claim: CLAUDE.md lines 38, 299, 328 advertise the
+  $K3 \times E$ four-$\kappa_\bullet$ tetrad as $\{2, 3, 5, 24\}$.
+  Ghost: four distinct constructions produce four invariants. Correct:
+  the canonical tetrad is $\{0, 3, 5, 24\}$ with
+  $(\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}}^{\mathrm{Heis}},
+  \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fibre}}) = (0, 3, 5, 24)$;
+  $\kappa_{\mathrm{cat}}(K3 \times E) = 0$ by K\"unneth-multiplicativity
+  ($\chi(\mathcal O_{K3}) \chi(\mathcal O_E) = 2 \cdot 0$), NOT $2$.
+  The value $2$ is $\kappa_{\mathrm{fibre}}(K3) = \chi(\mathcal O_{K3})$
+  on the K3 fibre alone. Canonical-values row 59 and
+  \texttt{notes/wave12\_a12\_six\_routes\_k3\_e.tex}~\S\ref{subsec:attack-1}
+  pin $\kappa_{\mathrm{cat}}(K3 \times E) = 0$; AP-CY190 sharpens the
+  numerical discipline. Present entry records the manifesto recurrence.
+  **Counter**: rectify CLAUDE.md lines 38, 299, 328 to $\{0, 3, 5, 24\}$;
+  cross-reference AP-CY63, AP-CY190, AP-CY168.
+
+- **AP-CY204 -- CY-A$_3$ as $(\infty, 1)$-equivalence (High).**
+  Wrong claim: CY-A$_3$ establishes an $(\infty, 1)$-equivalence between
+  the CY$_3$ $\infty$-category of $K3 \times E$ and
+  $\mathbf H_{\Delta_5}$. Ghost: CY-A$_3$ is proved at the $(\infty, 1)$-level.
+  Correct: CY-A$_3$ establishes existence $+$ $E_1$-rigidity of
+  $\Phi_3$-output, NOT an equivalence. Counterexamples (Cycle 1 of
+  \texttt{notes/wave12\_a3\_cy\_a3\_equivalence.tex}): (i) no CY$_3$
+  category has $\mathcal H \cong \mathbb Z$; (ii) sigma-model and
+  resolution $K3 \times E$ both produce
+  $\CoHA \simeq U\mathfrak n_+(\mathfrak g_{\Delta_5})$ (many-to-one);
+  (iii) no candidate inverse functor is known. Chain-level content
+  comes from 6d hCS BV observables reduced along $C$.
+  **Counter**: state CY-A$_3$ as ``existence $+$ $E_1$-rigidity''; never
+  ``equivalence''; cross-ref AP-CY115, AP-CY116, AP-CY170, AP-CY172.
+
+- **AP-CY205 -- Stage-$1$ canonicity via Costello--Li 2016 alone (High).**
+  Wrong claim: the Costello--Li 2016 propagator on its own pins the
+  canonical point on the $\mathrm{GRT}_1(\mathbb Q)$-torsor of formality
+  quasi-isomorphisms. Ghost: the Costello--Li propagator selects a
+  gauge-fixing point. Correct: canonicity of Stage-$1$ requires the
+  conjunction Costello--Li 2016 (propagator) $+$ Kontsevich 1999 /
+  Tamarkin 2003 (formality theorem) $+$ Kapranov 1999 (Dolbeault-polyvector
+  $L_\infty$ model). Willwacher 2014 Thm 1.2 shows the parametrised
+  space is a $\mathrm{GRT}_1(\mathbb Q)$-torsor, NOT a point;
+  Costello--Li alone specifies one gauge-fixing choice but does not
+  witness $(\infty, 1)$-canonicity (Cycle 4 of
+  \texttt{notes/wave12\_a1\_phi\_functor\_foundations.tex}).
+  **Counter**: cite the three-paper conjunction; never Costello--Li
+  2016 alone. Cross-ref AP-CY160, AP-CY161.
+
+- **AP-CY206 -- $\CoHA(\mathbb C^3) = \mathcal W_{1+\infty}$ as direct
+  isomorphism (Critical).**
+  Wrong claim: $\CoHA(\mathbb C^3) \cong \mathcal W_{1+\infty}$ at $c = 1$
+  as a direct algebra isomorphism. Ghost: there is a precise
+  relationship between the Schiffmann--Vasserot CoHA and
+  $\mathcal W$-algebras on $\mathbb C^3$. Correct: the identification
+  is a four-arrow evaluation chain
+  $\CoHA(\mathbb C^3) = Y^+(\widehat{\mathfrak{gl}}_1)
+  \hookrightarrow Y(\widehat{\mathfrak{gl}}_1)
+  \xrightarrow{T} \mathcal E^{\mathrm{hor}}
+  \xrightarrow{Y} \mathcal W_{1+\infty}[\lambda]$
+  (Schiffmann--Vasserot 2013 Thm~1.1 positive-half; Miki; state-field).
+  No arrow is an algebra-level isomorphism with $\mathcal W_{1+\infty}$;
+  $\CoHA = Y^+$ sees only half of the modes (Cycles 1--3 of
+  \texttt{notes/wave12\_a11\_coha\_y\_plus\_vs\_w\_infty.tex}; Cycle 6
+  of \texttt{notes/wave12\_a1\_phi\_functor\_foundations.tex}).
+  **Counter**: state the four-arrow chain; CoHA $= Y^+$ positive half,
+  not the full $\mathcal W$. Cross-ref AP-CY62, AP-CY126.
+
+- **AP-CY207 -- $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$
+  universally (High).**
+  Wrong claim: $\kappa_{\mathrm{ch}}$ equals $\chi_{\mathrm{top}}/24$
+  for every compact CY$_d$. Ghost: BCOV holomorphic anomaly at $d = 3$
+  gives $\delta\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$ with the
+  quintic producing $\kappa_{\mathrm{ch}}(\mathrm{quintic}) = -25/3$.
+  Correct: the identity holds only on complete intersections in
+  projective space with $h^{1, 0} = 0$ at $d = 3$; generally
+  $\kappa_{\mathrm{ch}} = \chi(\mathcal O_X) + \delta\kappa_{\mathrm{ch}}$
+  with $\delta = h^{1, 0}$ at $d = 1$, $= 0$ at $d = 2$ with
+  $h^{1, 0} = 0$, $= \chi_{\mathrm{top}}/24$ at $d = 3$ with
+  $h^{1, 0} = 0$ (CICY case) (Cycle 5 of
+  \texttt{notes/wave12\_a1\_phi\_functor\_foundations.tex}).
+  $K3 \times E$ has $h^{1, 0}(E) = 1$, forcing $\delta$ to differ
+  from the CICY formula.
+  **Counter**: state the $h^{1, 0} = 0$ hypothesis and dimension $d$
+  explicitly when invoking $\chi_{\mathrm{top}}/24$.
+
+- **AP-CY208 -- K3 Yangian ``abelian'' without Lie vs Hopf scope
+  declaration (Medium).**
+  Wrong claim: labelling the K3 Yangian $Y_\hbar^{\mathrm{Heis}}(\Lambda_{K3})$
+  ``abelian'' is inconsistent because $\Delta_z$ is non-cocommutative.
+  Ghost: the K3 Yangian is non-trivial in $\hbar$ and has non-abelian
+  Hopf structure. Correct: ``abelian'' is a scope declaration,
+  abelian-at-Lie / non-abelian-at-Hopf. The Lie bracket
+  $[J_{i, m}, J_{i, n}] = \varepsilon_i \hbar m \delta_{m + n, 0}$
+  is central; derived subalgebra is $1$-dim. Hopf non-cocommutativity
+  at $z \ne 0$ is a feature of $\hbar$-deformation (Cycle 2 of
+  \texttt{notes/wave12\_a4\_k3\_yangian\_abelian.tex}).
+  **Counter**: name the lane (Lie / Hopf) when asserting abelianness;
+  cross-ref AP-CY117.
+
+- **AP-CY209 -- $(24, 24)$ Yangian structure-function degree as
+  intrinsic (High).**
+  Wrong claim: $Y(\mathfrak e_8 \oplus \mathfrak e_8)$ has structure
+  function of intrinsic degree $(24, 24)$. Ghost: a degree-$(24, 24)$
+  datum is attached to this Yangian through its realisation on
+  $\mathrm{Hilb}^n(K3)$. Correct: intrinsic Cartan-matrix block degree
+  is $(16, 16)$; the $(24, 24)$ is the geometric MO $R$-matrix degree
+  on $\mathrm{Hilb}(K3)$ pulled back along
+  $E_8(-1)^2 \hookrightarrow \widetilde\Lambda_{K3}$ (Cycle 2 and
+  Retractions of
+  \texttt{notes/wave12\_a15\_e8xe8\_super\_yangian.tex}).
+  **Counter**: state whether degree is intrinsic Cartan-block $(16, 16)$
+  or MO-geometric $(24, 24)$.
+
+- **AP-CY210 -- $c = 24$ as $Y(\mathfrak e_8 \oplus \mathfrak e_8)$
+  level-$1$ Sugawara (High).**
+  Wrong claim: $c = 24$ is the Yangian $Y(\mathfrak e_8 \oplus
+  \mathfrak e_8)$ level-$1$ intrinsic Sugawara central charge. Ghost:
+  Sugawara $c$ of $\widehat{\mathfrak e_8} \oplus \widehat{\mathfrak e_8}$
+  at level $(1, 1)$ is a natural invariant. Correct: the Sugawara
+  central charge at level $(1, 1)$ is $c = 8 + 8 = 16$; the value
+  $24 = 16 + 8$ is the heterotic worldsheet matter central charge
+  $c_L^{\mathrm{het, matter}} = c^{\mathrm{Sugawara}}_{\mathfrak e_8
+  \oplus \mathfrak e_8} + 8(\text{transverse bosons})$, NOT the
+  Yangian-intrinsic level (Cycle 3 and Retractions of
+  \texttt{notes/wave12\_a15\_e8xe8\_super\_yangian.tex}).
+  **Counter**: attribute $c = 24$ to heterotic worldsheet matter, not
+  to Yangian level-$1$ Sugawara; name the scope.
+
+- **AP-CY211 -- $P_2(D) = 0$ at all $D$ (Medium).**
+  Wrong claim: $P_2(D) = 0$ for $\mathfrak g_{\Delta_5}$ holds as a
+  cohomological vanishing at every discriminant $D$. Ghost: universal
+  vanishing would close Serre structure to all orders. Correct:
+  $P_2(D) = 0$ is the vanishing of a class in
+  $H^2(\mathfrak g_{\Delta_5}; \mathrm{ad})^{(D)}$ proved at $D = 3$
+  only; at $D \ge 4$ conjectural and orbit-indexed (Cycles 3--5 of
+  Block A in
+  \texttt{notes/wave12\_a13\_bkm\_serre\_root\_unity.tex}).
+  **Counter**: state depth $D$ explicitly; $P_2 = 0$ proved at $D = 3$,
+  conjectural at $D \ge 4$ with orbit-indexed form.
+
+- **AP-CY212 -- $\mathcal W_{1+\infty}$-truncation at CY$_3$ kills
+  higher spins (High).**
+  Wrong claim: specialising $\mathcal W_{1+\infty}[\lambda]$ to
+  $\lambda = \lambda_{\mathrm{CY}_3}$ truncates at $K_2$ and kills
+  higher spin-$s$ generators. Ghost: the CY$_3$ specialisation is a
+  bona fide reduction. Correct: Miki $S_3$-triality acts on
+  $\mathcal W_{1+\infty}[\lambda]$ by permuting three projective
+  coordinates; no specialisation forces a finite-spin truncation.
+  $\CoHA(\mathbb C^3) = Y^+$ is a SUBALGEBRA of the full $\mathcal W$,
+  not a quotient; higher-spin generators persist. The retracted
+  truncation claim in earlier drafts propagated from misreading Miki
+  $S_3$-triality as a grading rather than an automorphism (Cycle 4 of
+  \texttt{notes/wave12\_a11\_coha\_y\_plus\_vs\_w\_infty.tex}).
+  **Counter**: never assert $\mathcal W$-truncation at CY$_3$; the
+  reduction is to a positive-half subalgebra, not a finite-spin quotient.
+
+- **AP-CY213 -- Dunn--Lurie $\int_{\Sigma_2} E_3 \simeq E_1$
+  real-vs-complex dimension slip (Medium).**
+  Wrong claim: Dunn--Lurie gives $\int_{\Sigma_2} E_3 \simeq E_1$
+  because pushforward over a $2$-dim surface drops three dimensions by
+  two. Ghost: Dunn--Lurie additivity $E_m \otimes E_n \simeq E_{m + n}$
+  controls factorisation-homology reduction along complex-dim
+  directions. Correct: on $X = K3 \times E$ (real $6$ / complex $3$),
+  pushforward integrates over K3 fibre (real $4$ / complex $2$);
+  Costello--Gwilliam factorisation-homology indexes $E_n$ by COMPLEX
+  dimension. Correct statement:
+  $\int_{\Sigma_{d - 1}} E_d \simeq E_{d - (d - 1)} = E_1$ with
+  $\Sigma_{d - 1}$ of complex dim $d - 1$; at $d = 3$ this is the
+  K3-fibre reduction to $E_1$ on $C$ (Cycle 1 of
+  \texttt{notes/wave12\_a1\_phi\_functor\_foundations.tex}; Cycle 5 of
+  \texttt{notes/wave12\_a2\_kappa\_invariants\_universal\_borcherds.tex}).
+  **Counter**: state real vs complex dimension explicitly; $E_n$-index
+  is complex-dimensional in Costello--Gwilliam convention.
+
+- **AP-CY214 -- $3^N$ shadow-tower denominators as arithmetic
+  coincidence (Medium).**
+  Wrong claim: the denominators $9, 81, 19683 = 3^9$ in class-$\mathbf M$
+  shadow-tower coefficients $S_5 = -16/9, \ldots, S_8 = 4144720/19683$
+  are coincidence. Ghost: some number-theoretic structure behind the
+  $3$-adic tower. Correct: the only transcendental input at $c = 1$
+  is $5c + 22 = 27 = 3^3$; the MC quadratic recursion compounds
+  powers of $27$ multiplicatively, forcing $3$-adic denominators at
+  every level, with irregularity from MC cross-term cancellations
+  (Attack 2 of \texttt{notes/wave12\_a8\_shadow\_tower.tex}). The
+  $3$-adic valuation is CY$_3$-constraint-forced.
+  **Counter**: attribute $3$-adic denominators to MC recursion on
+  $5c + 22 = 27$ at $c = 1$; never ``arithmetic coincidence''.
+
+- **AP-CY215 -- ZTE ten rational values as coincidence (Medium).**
+  Wrong claim: the ten rational values of the ZTE correction matrix
+  $T \in \mathrm{End}(V^{\otimes 3})$ on $\mathrm{Sym}^3$-orbits are
+  unrelated rationals. Ghost: ten numerical coincidences. Correct: the
+  ten values are $\mathbb Q$-linear combinations of two regulators
+  $J_2 = 1/3$ and $J_3 = 4/27$, common denominator dividing
+  $27 = 3^3$. ``Ten values'' means ten distinct $\mathbb Q$-vectors
+  in the $2$-dim $\mathbb Q$-span, NOT ten coincidences (Cycle 4 of
+  \texttt{notes/wave12\_a7\_zte\_t\_matrix.tex}). Each value is the
+  three-point stable-envelope discrepancy $V^{(2)}_{\mathrm{MO}}$,
+  tied to MO chamber inversion (Cycle 5).
+  **Counter**: attribute ZTE values to $\mathbb Q$-span of
+  $\{J_2, J_3\}$ regulators; never ``unrelated rational coincidences''.
+
+- **AP-CY216 -- Class-$\mathbf M$ $E_3$ bar = $6^g$ as ``infinite at
+  chain level'' (Medium).**
+  Wrong claim: class-$\mathbf M$ $E_3$ bar dimension is $6^g$
+  cohomologically but ``infinite at chain level''. Ghost: chain-level
+  bar complex differs from its cohomology. Correct: $6^g$ is the
+  cohomological dimension on class-$\mathbf M$ surfaces at genus
+  $g \in \{1, 2, 3\}$ unconditionally; at $g \ge 4$ conditional on
+  Gevrey-$1$ Borel resummation. The chain complex is NOT infinite;
+  it is $B(U^{\mathrm{ch}}(\mathfrak L)) \simeq
+  \mathrm{CE}_\bullet(\mathfrak L)$ with finite-rank cohomology per
+  genus (Theorem~\texttt{thm:class-m-e3-bar-6g} of
+  \texttt{notes/wave12\_a10\_class\_m\_e3\_bar.tex}).
+  **Counter**: state $6^g$ as cohomological dim with explicit genus
+  range; never ``infinite at chain level''.
+
+- **AP-CY217 -- Borcherds-weight scope as CHL ladder alone (High).**
+  Wrong claim: $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ is scoped to
+  CHL $N \in \{1, 2, 3, 4, 6\}$ alone. Ghost: CHL provides the
+  canonical Borcherds-lift family. Correct: the identity extends
+  beyond CHL to metaplectic $N = 5$ and spin $N = 7$ via the
+  Gritsenko--Cléry 8-form pentad. At $N = 5$ the metaplectic multiplier
+  forces a half-integer weight entry; at $N = 7$ a spin-representation
+  lift replaces the paramodular lift. Both remain $c_N(0)/2$ under the
+  corresponding Fourier input (AP-CY200 two-scope discipline; Lorgat
+  2020 \S~4).
+  **Counter**: name the input Jacobi form type (weak Jacobi for CHL,
+  metaplectic for $N = 5$, spin for $N = 7$); cross-ref AP-CY133, AP-CY200.
+
+- **AP-CY218 -- Chain-level $S^3$-framing on compact CY$_3$ as
+  topologically trivial (Medium).**
+  Wrong claim: on compact CY$_3$, the $S^3$-framing of $\mathrm{HC}^-_3$
+  is topologically trivial and requires no chain-level witness. Ghost:
+  topological triviality suffices for the negative-cyclic refinement of
+  the CY trace. Correct: topological triviality ensures the framing
+  EXISTS; chain-level explicit construction is required to witness the
+  CY trace as a concrete cocycle in $\mathrm{HC}^-_3$. The witness on
+  compact CY$_3$ is the Costello--Li BV volume form
+  $\mathrm{vol}_{\mathrm{BV}} = \Omega_X \wedge \bar\Omega_X$ paired
+  with the $\bar\partial$-harmonic representative of
+  $H^3(X, \mathcal O_X)$; the $S^3$-framing trivialisation is the
+  cocycle in $C^\bullet(S^3; \mathrm{HC}^-_3(\mathcal C))$ inherited
+  from the $S^3$-orientation class (Cycle 7 of
+  \texttt{notes/wave12\_a1\_phi\_functor\_foundations.tex}; AP-CY2).
+  **Counter**: produce the explicit chain-level witness of the
+  $S^3$-framing; topological triviality alone is insufficient.
+
+- **AP-CY219 -- $\Phi$ as $(\infty, 1)$-functor without morphism-input
+  declaration (Medium).**
+  Wrong claim: ``$\Phi_d$ is an $(\infty, 1)$-functor'' asserted
+  without declaring whether morphism preservation is input or output.
+  Ghost: Pattern 273 declares object-level chain-level $\Phi_d$ and
+  $(\infty, 1)$-categorical $\Phi_d$-as-functor as two statements.
+  Correct: the $(\infty, 1)$-functor reading requires morphism
+  preservation as INPUT (Conjecture~\texttt{conj:morph-pres}), not
+  derived output. Morphism action must be proved per $d$ on concrete
+  cases; $d = 2$ Mukai transform $K3 \to K3$ is the chain-level test
+  (open). Object-level chain-level $\Phi_d$ and $(\infty, 1)$-categorical
+  $\Phi_d$-as-functor are distinct statements, both load-bearing
+  (Cycle 3 of \texttt{notes/wave12\_a1\_phi\_functor\_foundations.tex};
+  Pattern 273).
+  **Counter**: declare whether morphism preservation is input or output;
+  object-level and $(\infty, 1)$-level are orthogonal scopes.
+
+- **AP-CY220 -- Preface/abstract absence in working_notes.tex as
+  benign (Low).**
+  Wrong claim: working_notes.tex is self-complete without
+  preface/abstract. Ghost: main manuscript has a preface; working_notes
+  inherit implicitly. Correct: until the wave-12 healing pass,
+  working_notes.tex carried no preface/abstract, leaving the reader
+  without a navigational anchor for the tetrad $\{\mathbf A, \mathbf B,
+  \mathbf C, \mathbf D\}$ of CY programmes, the four
+  $\kappa_\bullet$-invariants, or the seven parts. The healing pass
+  installed a short preface naming objects of study, the four
+  invariants, and the seven-part structure; the absence was load-bearing
+  context-loss. Warning-box conversion W$23$ of working_notes.tex
+  records the inscription.
+  **Counter**: open every treatise-scope inscription with a preface
+  stating objects, invariants, and structure.
+
+- **AP-CY221 -- Bare $\kappa$ usage in manuscript prose (High,
+  recurrent).**
+  Wrong claim: bare $\kappa$ suffices to denote the invariant at a
+  proof site because context disambiguates. Ghost: locally redundant
+  subscript. Correct: four distinct $\kappa_\bullet$-invariants in
+  Vol III --- $\kappa_{\mathrm{ch}}$ (chiral-side via $\Phi$),
+  $\kappa_{\mathrm{cat}} = \chi(\mathcal O_X)$
+  (K\"unneth-multiplicative), $\kappa_{\mathrm{BKM}} = c_N(0)/2$
+  (Borcherds), $\kappa_{\mathrm{fibre}}$ (fibre correction) --- and
+  bare $\kappa$ silently defaults to whichever context suggests. At
+  $K3 \times E$: $\kappa_{\mathrm{cat}} = 0$,
+  $\kappa_{\mathrm{fibre}}(K3) = 2$,
+  $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$,
+  $\kappa_{\mathrm{BKM}}(\Phi_1) = 5$; conflating any two propagates
+  factor errors (HZ-7 cross-programme discipline; AP-CY113). Wave-12
+  warning-box conversions W$1$--W$23$ inscribed the four indices at
+  every site where bare $\kappa$ appeared.
+  **Counter**: NEVER write bare $\kappa$; always name the
+  $\bullet$-index, even when context appears to disambiguate.
+
+- **AP-CY222 -- Multiplicity-one on $S_5$ read as eigenvalue-one of
+  $T_p$ (High).**
+  Wrong claim: because $\dim S_5(\mathrm{Sp}_4(\mathbb Z),
+  \nu_{\Delta_5}) = 1$, the Hecke operator $T_p$ acts as scalar $1$ on
+  the line spanned by $\Delta_5$. Ghost: one-dimensionality of the
+  eigenspace simplifies $T_p$-action. Correct: $T_p$ acts as the scalar
+  $\lambda_p(\Delta_5) \in \mathbb R$, transcendental at generic $p$,
+  real-algebraic at primes with CM, NOT $1$. The eigenspace being
+  $1$-dim means the scalar is well-defined; its value is the $p$-th
+  Fourier coefficient of $\Delta_5$ divided by the leading term
+  (retraction 9 of \texttt{platonic\_synthesis\_waves\_11\_through\_16.tex};
+  primary source Gritsenko--Nikulin 1998 \emph{J Reine Angew Math} 507).
+  Refinement of AP-CY174 at the eigenvalue level.
+  **Counter**: eigenvalue on a $1$-dim eigenspace is the Hecke
+  coefficient, not $1$; name the prime and the Fourier index.
+
+- **AP-CY223 -- Bruinier $c_3 = -8$ as Borcherds-input $c_3(0)$
+  (High).**
+  Wrong claim: Bruinier $c_3 = -8$ is the Borcherds-input constant
+  $c_3(0)$ appearing in $\kappa_{\mathrm{BKM}}(\Phi_3) = c_3(0)/2$.
+  Ghost: both are Fourier coefficients attached to $N = 3$. Correct:
+  $c_3 = -8$ is the $-3$-th Heegner coefficient of a weight-$1/2$
+  input in Bruinier 2002 \emph{LNM} 1780 Thm~4.8, used in the
+  Chern-class reciprocity for Heegner divisors; $c_3(0) = 2$ is the
+  Borcherds-input constant from Gritsenko--Nikulin 1995 paramodular
+  data. Adjudication-ledger and universal-identity entries are
+  consistent once distinction is respected (Retraction pass of
+  \texttt{notes/wave12\_a6\_universal\_borcherds\_verification.tex}).
+  **Counter**: distinguish Heegner coefficient (Bruinier) from
+  Borcherds-input constant (Gritsenko--Nikulin); name source and index
+  convention.
+
+- **AP-CY224 -- Halved-convention mis-tabulation of $c_N(0)$ (High).**
+  Wrong claim (reversing a prior wave's transient retraction):
+  $(c_N(0))_N = (10, 4, 2, 2, 2)$ with
+  $\kappa_{\mathrm{BKM}}(\Phi_N) = k(N) \in \{5, 2, 1, 1, 1\}$
+  at $N \in \{1, 2, 3, 4, 6\}$. Ghost: the $Z = 2\phi$ Jacobi
+  normalisation halves the sequence at $N \ge 2$, one is tempted
+  to propagate the halving into $c_N(0)$. Correct: the universal
+  identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
+  (Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}) holds
+  with $c_N(0) := [\zeta^0 q^0] Z^{(g_N)}_{K3}$ (EOT twined elliptic
+  genus) equal to $(10, 8, 6, 4, 2)$, matching the Gritsenko--Nikulin
+  paramodular ladder $k(N) = (5, 4, 3, 2, 1)$ (GN 1995 Part~II
+  Theorem~2.1; EH 2011 Table~1; Govindarajan--Krishna 2010 Table~1).
+  The theta-refinement supertrace $c_N(0) = T_{H^*}(g_N) - 2 A_N$
+  closes this: at $N = 2$, $T_{H^*}(g_2) = 16$ (frame shape $1^8 2^8$,
+  not the fixed-point count $8$), $A_2 = 4$, giving $c_2(0) = 8$
+  (Theorem~\texttt{thm:k3e-jacobi-theta-refinement};
+  Theorem~\texttt{thm:k3e-c2-direct-Fourier}). The alternative
+  convention using $\phi^{(g_N)}_{0,1} = Z^{(g_N)}_{K3}/2$ reads
+  off the same $k(N) = (5, 4, 3, 2, 1)$ ladder; the Borcherds weight
+  is invariant under which side of the factor-of-two one privileges.
+  **Counter**: the Borcherds-input sequence is $(10, 8, 6, 4, 2)$
+  and the paramodular-weight ladder is $k(N) = (5, 4, 3, 2, 1)$;
+  $T_{H^*}(g_N) \neq \chi(K3^{g_N})$ (Lefschetz trace on the
+  $24$-dimensional Mukai lattice vs Nikulin fixed-point count).
+
+- **AP-CY225 -- K3-BKM Weyl denominator as $\Phi_{12}$ (Medium).**
+  Wrong claim: the Weyl denominator of K3 BKM $\mathfrak g_{\Delta_5}$
+  is $\Phi_{12}$. Ghost: Borcherds 1992 produces $\Phi_{12}$ as a
+  canonical BKM denominator. Correct: $\Phi_{12}$ is the Fake-Monster
+  denominator on $\mathrm{II}_{25, 1}$ (Cartan rank $26$, signature
+  $(25, 1)$, multiplicative Borcherds product). K3 BKM denominator is
+  $\Delta_5 = \mathrm{Grit}(\eta^9 \vartheta_1) \in S_5(K(1))$, a
+  Gritsenko ADDITIVE lift on $\mathrm{II}_{2, 3}$ paramodular lattice,
+  Cartan rank $3$ hyperbolic on $\Lambda^{2, 1}_{II}$. Confusing the
+  two conflates two automorphic objects, two lattices, two Cartan
+  ranks (canonical-values rows 27 and 32).
+  **Counter**: $\mathfrak g_{\Delta_5}$ denominator is $\Delta_5$
+  (additive, paramodular); $\mathfrak m^{\mathrm{fake}}$ denominator
+  is $\Phi_{12}$ (multiplicative, $\mathrm{II}_{25, 1}$); never swap.
+
+- **AP-CY226 -- Stage-$2$ specialisation treated as part of Stage-$1$
+  (Medium).**
+  Wrong claim: two-stage factorisation $\Phi_3 = \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2, C}
+  \circ \Phi^{\mathrm{FA}}_3$ collapses to a single stage with
+  $(\Sigma_2, C)$ treated as Stage-$1$ canonical data. Ghost: on
+  $K3 \times E$ the $(\Sigma_2, C) = (K3, E)$ decomposition is
+  canonical and the two-stage picture feels like bookkeeping. Correct:
+  Stage $1$ produces canonical $E_3^{\mathrm{hol}}$-factorisation
+  algebra $\Phi^{\mathrm{FA}}_3(\Perf(X))$, unique up to contractible
+  choice; Stage $2$ specialises along cycle-pair $(\Sigma_{d-1}, C)$,
+  introducing DISCRETE multiplicity. Six routes to $G(K3 \times E)$ at
+  tier (iii) are six stage-$2$ specialisations on one stage-$1$ output;
+  collapsing produces AP-CY177 six-image confusion (Cycle 2 of
+  \texttt{notes/wave12\_a1\_phi\_functor\_foundations.tex}; retraction
+  7 of \texttt{platonic\_synthesis\_waves\_11\_through\_16.tex}).
+  **Counter**: name Stage-$1$ (canonical, contractible choice) and
+  Stage-$2$ (discrete, $(\Sigma_{d-1}, C)$-dependent) explicitly.
+
+- **AP-CY227 -- Davison--Meinhardt integrality as bracket-level
+  identification (Critical).**
+  Wrong claim: Davison--Meinhardt 2020 integrality (BPS cohomology
+  concentrated in degree zero;
+  $\Omega(\gamma) = (-1)^{|\gamma|} \dim \mathrm{BPS}(X)_\gamma
+  \in \mathbb Z$) implies bracket-level identification of $\CoHA(X)$
+  with a specific target Lie algebra. Ghost: integrality does give
+  existence of a BPS Lie algebra. Correct: integrality furnishes
+  EXISTENCE of the BPS Lie algebra for symmetric-quiver-with-potential
+  CY$_3$s under critical-chart hypothesis; it does NOT furnish
+  bracket-level identification with any particular target Lie algebra.
+  For $K3 \times E$, identification with
+  $\mathfrak n_+(\mathfrak g_{\Delta_5})$ is an open step independent
+  of Davison--Meinhardt (Cycle 6 of
+  \texttt{notes/wave12\_a11\_coha\_y\_plus\_vs\_w\_infty.tex}).
+  **Counter**: never use Davison--Meinhardt alone to close bracket-level
+  identification; existence is weaker than identification.
+
+## Session antipatterns --- manuscript hygiene (2026-04-22) --- AP-MH 1..55
+
+This section collects 55 manuscript-hygiene anti-patterns identified
+during the session-boundary cleanup pass of 2026-04-22. They are
+distinct from the mathematical AP-CY / AP / FM streams: each AP-MH
+records prose, label, filename, or markup that violates the
+Chriss--Ginzburg voice or the "self-complete, self-coherent,
+self-consistent manuscript" principle inscribed in the new CLAUDE.md
+section of the same name across Vol I, Vol II, Vol III. Bookkeeping
+scaffolding (Wave indices, antipattern ordinals, DNA strands, cache
+pointers, retraction fossils, file-system paths) must not appear in
+reader-facing `.tex` under `chapters/`, `frame/`, `examples/`,
+`theory/`, `connections/`, `bibliography/`. A self-complete manuscript
+carries no trace of the adversarial-swarm production pipeline that
+built it; the prose must read as mathematics, not as a process log.
+
+Companion enforcement artefacts for every AP-MH below:
+
+- regex entries CGCLEAN-1..55 in `.claude/hooks/beilinson-gate.sh`;
+- reader-cache mirrors FP-MH-1..55 in
+  `notes/first_principles_cache_comprehensive.md`;
+- appendix-facing signatures AP-MH-1..55 in
+  `appendices/first_principles_cache.md`.
+
+The numbering is reserved: AP-MH-$n$ in this file, CGCLEAN-$n$ in
+the hook, FP-MH-$n$ in the working cache, and AP-MH-$n$ in the
+appendix cache all refer to the same pattern. The present file
+carries the mathematical reason; the hook carries the regex; the
+working cache carries the confusion protocol; the appendix cache
+carries the reader-facing signature. No AP-MH collides with
+existing AP-CY$n$ / AP$n$ / FM$n$ numbering because of the `MH`
+prefix.
+
+### Group A --- Bookkeeping indices and markers (AP-MH-1..10)
+
+- **AP-MH-1 --- Wave $N$ markers in manuscript prose (High).**
+  Forbidden form: section title `\section{Wave 14 Gaiotto verdict
+  on $c_{4d}$}`; prose `We establish in Wave 15 that
+  $(c_{4d}, c_{2d}) = (107/6, -214)$.`
+  Canonical repair: section title `\section{The central charges
+  $(c_{4d}, c_{2d}) = (107/6, -214)$}`; prose `The central charges
+  are $(c_{4d}, c_{2d}) = (107/6, -214)$ (Gaiotto 2015;
+  Shapere--Tachikawa 2008).`
+  Mathematical reason. The Wave index is a production-pipeline
+  ordinal; it carries no mathematical content. A reader opening the
+  PDF in 2030 has no access to the 2026 swarm schedule and must not
+  be asked to decode it. The theorem is the central-charge
+  identity, not the wave that discovered it.
+  Companion: CGCLEAN-1 regex `\bWave\s+[0-9]+\b`;
+  FP-MH-1 confusion pattern "Wave bookkeeping in reader-facing
+  file". Cross-ref CLAUDE.md "self-complete, self-coherent,
+  self-consistent manuscript" (Vol I / Vol II / Vol III).
+
+- **AP-MH-2 --- AP-CY$n$ / AP$n$ / AP-CAT-$N$ tags in manuscript
+  prose (High).**
+  Forbidden form: remark `By AP-CY68 the Künneth product gives
+  $\kappa_{\mathrm{cat}}(K3 \times E) = 0$.`
+  Canonical repair: `$\kappa_{\mathrm{cat}}(K3 \times E) =
+  \chi(\mathcal O_{K3}) \chi(\mathcal O_E) = 2 \cdot 0 = 0$ by
+  Künneth.`
+  Reason. The AP-CY ordinal indexes this working-notes catalogue;
+  citing it in the typeset manuscript is a back-reference to
+  scaffolding, not to mathematics. State the discipline directly,
+  as a formula.
+  Companion: CGCLEAN-2 regex `\bAP-?(CY|CAT-?|[0-9])`;
+  FP-MH-2. CLAUDE.md self-complete.
+
+- **AP-MH-3 --- FM$n$ formula-mechanical tags in manuscript prose
+  (High).**
+  Forbidden form: `the FM25 weight discipline
+  $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$`.
+  Canonical repair: `the Borcherds weight identity
+  $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ (Borcherds 1995;
+  Gritsenko 1999 Thm 6.1)`.
+  Reason. FM$n$ is an internal formula-mechanical registry index;
+  readers need the theorem name (Borcherds weight, Gritsenko
+  series), not the internal index.
+  Companion: CGCLEAN-3 regex `\bFM[0-9]+\b`;
+  FP-MH-3. CLAUDE.md self-complete.
+
+- **AP-MH-4 --- HZ-$N$ / HZ-IV tags in manuscript prose (High).**
+  Forbidden form: `per HZ-7 we write $\kappa_{\mathrm{ch}}$ rather
+  than $\kappa$.`
+  Canonical repair: `we write $\kappa_{\mathrm{ch}}$ to name the
+  chiral-side invariant computed via $\Phi$.`
+  Reason. HZ-$N$ indexes the independent-verification protocol;
+  the reader sees the subscripted invariant, not the verification
+  number.
+  Companion: CGCLEAN-4 regex `\bHZ-?(IV|[0-9]+)`;
+  FP-MH-4. CLAUDE.md self-complete.
+
+- **AP-MH-5 --- DNA strand S$x$ in manuscript prose (High).**
+  Forbidden form: `DNA strand S7 establishes the K3 Yangian
+  presentation.` (observed verbatim in intermediate draft of
+  `chapters/examples/k3_yangian_chapter.tex` before session
+  cleanup).
+  Canonical repair: `The K3 Yangian admits the presentation
+  [explicit generators and relations].`
+  Reason. DNA strand labels are production-tracking metadata; the
+  theorem either holds or it does not, irrespective of which
+  strand produced it.
+  Companion: CGCLEAN-5 regex `\bDNA\s+strand\s+S[0-9]+\b`;
+  FP-MH-5. CLAUDE.md self-complete.
+
+- **AP-MH-6 --- CG-rectify pass $k$ in manuscript prose (High).**
+  Forbidden form: `The CG-rectify pass 3 hardened this statement.`
+  Canonical repair: delete the meta-narration; state the hardened
+  theorem directly.
+  Reason. The rectification pass is a process; the theorem is the
+  output. Citing the pass invites the reader into the editorial
+  pipeline rather than into the mathematics.
+  Companion: CGCLEAN-6 regex
+  `\bCG-?rectify\s+(pass|round)\s+[0-9]+\b`;
+  FP-MH-6. CLAUDE.md self-complete.
+
+- **AP-MH-7 --- cache entry / Cached Confusion / Cache anchor /
+  Cache append (High).**
+  Forbidden form: `(cache entry 47)`; `Cached Confusion: CoHA vs
+  vertex algebra`.
+  Canonical repair: state the distinction directly ---
+  "$\mathrm{CoHA}$ is $E_1$-associative with Hall product; the
+  vertex algebra is $E_2$-chiral via $\Phi$".
+  Reason. The cache is internal first-principles scaffolding.
+  Naming cache entries in typeset prose exposes the reader to an
+  artefact they cannot access.
+  Companion: CGCLEAN-7 regex
+  `\b(cache\s+(entry|anchor|append|append\s+back)|Cached\s+Confusion)\b`;
+  FP-MH-7. CLAUDE.md self-complete.
+
+- **AP-MH-8 --- Wave $N$ spec / verdict / witnessing (High).**
+  Forbidden form: `the Wave 22 verdict pins
+  $\dim \mathrm{Stab}(K3 \times E) = 48$`; `Wave 18 witnessing
+  locks the Humbert admissibility`.
+  Canonical repair: `$\dim \mathrm{Stab}(K3 \times E) = 48$
+  (Bridgeland 2007 Thm 1.2)`; `the admissibility follows from
+  Eichler--Zagier 1985 Thm 9.1`.
+  Reason. The verdict / witnessing / spec vocabulary is
+  adversarial-swarm verdict-tracking; the typeset statement cites
+  the primary theorem, not the swarm verdict.
+  Companion: CGCLEAN-8 regex
+  `\bWave\s+[0-9]+\s+(spec|verdict|witnessing)\b`;
+  FP-MH-8. CLAUDE.md self-complete.
+
+- **AP-MH-9 --- programme-canonical as meta-label (Medium).**
+  Forbidden form: `the programme-canonical value
+  $\kappa_{\mathrm{cat}} = 0$ for $K3 \times E$`.
+  Canonical repair: `$\kappa_{\mathrm{cat}}(K3 \times E) = 0$
+  (Künneth-multiplicative)`.
+  Reason. "Programme-canonical" labels a cross-volume
+  reconciliation; the value is simply $0$ by Künneth. Meta-label
+  adds noise.
+  Companion: CGCLEAN-9 regex `\bprogramme-canonical\b`;
+  FP-MH-9. CLAUDE.md self-complete.
+
+- **AP-MH-10 --- type-error registry entry T$n$ (Medium).**
+  Forbidden form: `this is type-error T12 (CoHA $\neq$ vertex
+  algebra)`.
+  Canonical repair: `$\mathrm{CoHA}$ is $E_1$-associative, not
+  $E_2$-chiral; they are connected by the functor $\Phi$`.
+  Reason. The type-error registry is internal; the reader needs
+  the corrected statement, not the error's registry ID.
+  Companion: CGCLEAN-10 regex
+  `\btype-?error\s+(registry\s+)?T[0-9]+\b`;
+  FP-MH-10. CLAUDE.md self-complete.
+
+### Group B --- Meta-narration and story vocabulary (AP-MH-11..20)
+
+- **AP-MH-11 --- narrative counterpart / narrative arc (High).**
+  Forbidden form: `The narrative counterpart to the K3 Yangian is
+  the Monster BKM.`
+  Canonical repair: `The K3 Yangian and the Monster BKM are two
+  instances of the same BPS-quantum-group construction applied to
+  different CY data.`
+  Reason. "Narrative counterpart" frames the mathematics as a
+  story; the two objects are mathematical siblings under $\Phi$,
+  not characters in a plot.
+  Companion: CGCLEAN-11 regex `\bnarrative\s+(counterpart|arc)\b`;
+  FP-MH-11. CLAUDE.md self-complete.
+
+- **AP-MH-12 --- story / saga / odyssey / journey as nouns
+  (High).**
+  Forbidden form: `The story of $\Delta_5$ begins with Gritsenko's
+  lift.`; `the K3-Yangian saga reaches a verdict at Wave 19`.
+  Canonical repair: `Gritsenko's lift constructs $\Delta_5$ as the
+  weight-5 paramodular form.`; `the K3-Yangian presentation is
+  [statement].`
+  Reason. The manuscript is mathematics, not biography. These
+  nouns belong in accompanying historical essays if at all.
+  Companion: CGCLEAN-12 regex
+  `\b(story|saga|odyssey|journey)\b` in prose blocks;
+  FP-MH-12. CLAUDE.md self-complete.
+
+- **AP-MH-13 --- Platonic ideal / Platonic form / platonic chapter
+  / platonic architecture / Platonic ensemble / platonic synthesis
+  / Platonic-form construction (Critical).**
+  Forbidden form: `This chapter exhibits the Platonic ideal of the
+  K3 chiral bialgebra.` (observed in
+  `chapters/examples/k3_chiral_bialgebra_platonic.tex` working
+  draft before rename).
+  Canonical repair: state the bialgebra structure and its theorems
+  directly; rename file to `k3_chiral_bialgebra.tex`.
+  Reason. "Platonic" is editorial gloss claiming an idealisation;
+  the actual content is a theorem. The vocabulary imports a
+  philosophical frame that the mathematics does not need.
+  Companion: CGCLEAN-13 regex
+  `\b[Pp]latonic\s+(ideal|form|chapter|architecture|ensemble|synthesis|Theorem)\b`;
+  FP-MH-13. CLAUDE.md self-complete.
+
+- **AP-MH-14 --- Platonic Theorem~A (Critical).**
+  Forbidden form: `Platonic Theorem A (Bar--cobar)` as theorem
+  title.
+  Canonical repair: `Theorem A (Bar--cobar)` with the explicit
+  statement.
+  Reason. The modifier adds no content and implies a hierarchy of
+  theorems ("Platonic" vs ordinary) that is absent from the
+  mathematics.
+  Companion: CGCLEAN-14 regex
+  `\bPlatonic\s+Theorem\s*(~|\s)\s*[A-Z]`;
+  FP-MH-14. CLAUDE.md self-complete.
+
+- **AP-MH-15 --- "This chapter's function is to..." (High).**
+  Forbidden form: `This chapter's function is to establish the
+  CY-D dimensional stratification.`
+  Canonical repair: delete the meta-paragraph; open with the
+  stratification statement.
+  Reason. The chapter's function is visible from the chapter
+  itself; stating it narrates the author's intent rather than the
+  mathematics.
+  Companion: CGCLEAN-15 regex
+  `\bThis\s+chapter(['’]s)?\s+(function|role|purpose)\s+(is|serves)\b`;
+  FP-MH-15. CLAUDE.md self-complete.
+
+- **AP-MH-16 --- "we now turn to" / "having established" / "let us
+  now" / "this brings us to" (High).**
+  Forbidden form: `Having established the $\Phi$-functor, we now
+  turn to the K3 Yangian.`
+  Canonical repair: `The K3 Yangian is [construction], obtained by
+  applying $\Phi$ to the Schiffmann--Vasserot CoHA on $K3$.`
+  Reason. Signposting vocabulary is filler; a mathematically equal
+  reader follows the arc from the statements themselves.
+  Companion: CGCLEAN-16 regex
+  `\b(we\s+now\s+turn\s+to|having\s+established|let\s+us\s+now|this\s+brings\s+us\s+to)\b`;
+  FP-MH-16. CLAUDE.md self-complete.
+
+- **AP-MH-17 --- "in the present work" / "the author" / "our
+  programme" / "we have argued" / "it is worth noting" (High).**
+  Forbidden form: `In the present work we have argued that
+  $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$.`
+  Canonical repair: `$\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
+  (Borcherds 1995; Gritsenko 1999 Thm 6.1).`
+  Reason. First-person meta-narration ("we have argued", "the
+  author") is absent from Chriss--Ginzburg / Bezrukavnikov /
+  Etingof / Soibelman voice; the equation is the argument.
+  Companion: CGCLEAN-17 regex
+  `\b(in\s+the\s+present\s+work|the\s+author|our\s+programme|we\s+have\s+argued|it\s+is\s+worth\s+noting)\b`;
+  FP-MH-17. CLAUDE.md self-complete.
+
+- **AP-MH-18 --- meta-paragraphs "This chapter closes the..."
+  (Medium).**
+  Forbidden form: `This chapter closes the discussion of the CY-A
+  equivalence.`
+  Canonical repair: delete the closing meta-paragraph; end the
+  chapter on the last theorem or corollary.
+  Reason. Closure signposts are scaffolding; a chapter closes when
+  its theorems are proved.
+  Companion: CGCLEAN-18 regex `\bThis\s+chapter\s+closes\b`;
+  FP-MH-18. CLAUDE.md self-complete.
+
+- **AP-MH-19 --- "the opening paragraphs of this preface"
+  (Medium).**
+  Forbidden form: `The opening paragraphs of this preface set the
+  dimensional stratification.`
+  Canonical repair: restate the dimensional stratification in the
+  body prose where it is used.
+  Reason. Self-reference to the preface's structure is recursive
+  meta-narration; the stratification speaks for itself.
+  Companion: CGCLEAN-19 regex
+  `\bopening\s+paragraphs\s+of\s+this\s+preface\b`;
+  FP-MH-19. CLAUDE.md self-complete.
+
+- **AP-MH-20 --- "Earlier in the volume" (Medium).**
+  Forbidden form: `Earlier in the volume we established the
+  CY-to-chiral functor $\Phi$.`
+  Canonical repair: `The functor $\Phi$ of \S[ref] applied to
+  $D^b\mathrm{Coh}(K3)$ gives [output].`
+  Reason. Citing "earlier in the volume" as if addressing a reader
+  mid-scroll breaks the chapter's self-contained logical unit; use
+  `\ref` instead.
+  Companion: CGCLEAN-20 regex `\bearlier\s+in\s+the\s+volume\b`;
+  FP-MH-20. CLAUDE.md self-complete.
+
+### Group C --- Retraction fossils and drafting history (AP-MH-21..30)
+
+- **AP-MH-21 --- retracted / retraction / now retracted / the
+  retracted (Critical).**
+  Forbidden form: the deleted remark "Note on central-charge
+  numerology; double-retraction" from
+  `chapters/examples/k3_chiral_bialgebra_platonic.tex` (observed
+  verbatim in session cleanup); and the `\ClaimStatusRetracted`
+  remark "KST factorisation of the retracted $c_{2d} = -312$" from
+  `chapters/examples/derived_categories_cy.tex`.
+  Canonical repair: delete the remark entirely. The current
+  manuscript carries only the canonical value $(c_{4d}, c_{2d}) =
+  (107/6, -214)$ (canonical preamble row 1); prior values belong
+  in `notes/` and the Adjudication Ledger.
+  Reason. Retraction fossils expose drafting history. A
+  self-complete manuscript carries only the current theorem; the
+  reader does not need to know which earlier values were tried.
+  Old values remain available in `notes/ADJUDICATION_LEDGER_*` and
+  in commit history.
+  Companion: CGCLEAN-21 regex
+  `\b(retracted|retraction|now\s+retracted|the\s+retracted)\b`;
+  FP-MH-21. CLAUDE.md self-complete.
+
+- **AP-MH-22 --- superseded / supersedes (High).**
+  Forbidden form: `This formula supersedes the earlier Wave-21
+  version.`
+  Canonical repair: state the current formula; delete the
+  supersession note.
+  Reason. Supersession language is drafting ordinality; the
+  theorem is the current one.
+  Companion: CGCLEAN-22 regex `\bsupersed(e|es|ed|ing)\b`;
+  FP-MH-22. CLAUDE.md self-complete.
+
+- **AP-MH-23 --- earlier draft / previous version / intermediate
+  ansatz / prior derivation (High).**
+  Forbidden form: `An earlier draft gave $c_3 = 176256$; the
+  intermediate ansatz assumed the unreduced Gritsenko--Nikulin
+  convention.`
+  Canonical repair: `$c_3 = -8$ in Bruinier reduced-class
+  convention` with the single canonical value.
+  Reason. Intermediate ansätze are drafting trajectory; the
+  manuscript records the landing point.
+  Companion: CGCLEAN-23 regex
+  `\b(earlier\s+draft|previous\s+version|intermediate\s+ansatz|prior\s+derivation)\b`;
+  FP-MH-23. CLAUDE.md self-complete.
+
+- **AP-MH-24 --- previously conjectural / open / unresolved /
+  obstructing (Medium).**
+  Forbidden form: `Previously conjectural Theorem CY-A$_3$, now
+  proved (Wave 21 $\infty$-categorical upgrade).`
+  Canonical repair: `Theorem CY-A$_3$ ($(\infty, 1)$-categorical
+  CY-to-chiral equivalence at $d = 3$) [statement].`
+  Reason. "Previously conjectural" is status history; the theorem
+  either holds or it does not.
+  Companion: CGCLEAN-24 regex
+  `\bpreviously\s+(conjectural|open|unresolved|obstructing)\b`;
+  FP-MH-24. CLAUDE.md self-complete.
+
+- **AP-MH-25 --- now resolved (Medium).**
+  Forbidden form: `This obstruction is now resolved by Theorem H.`
+  Canonical repair: `Theorem H resolves the obstruction:
+  [statement].`
+  Reason. "Now resolved" invokes temporal evolution the reader
+  need not track.
+  Companion: CGCLEAN-25 regex `\bnow\s+resolved\b`;
+  FP-MH-25. CLAUDE.md self-complete.
+
+- **AP-MH-26 --- double-retraction / Three successive evaluations
+  / History of the claim (High).**
+  Forbidden form: `History of the claim: $(26, -312) \to
+  (23/4, -69) \to (107/6, -214)$, three successive evaluations.`
+  Canonical repair: state only the current $(107/6, -214)$ and
+  cite Gaiotto 2015 + Shapere--Tachikawa 2008.
+  Reason. Evaluation history is scaffolding; the current value is
+  the theorem.
+  Companion: CGCLEAN-26 regex
+  `\b(double-?retraction|three\s+successive\s+evaluations|history\s+of\s+the\s+claim)\b`;
+  FP-MH-26. CLAUDE.md self-complete.
+
+- **AP-MH-27 --- drafting record / drafting trajectory (Medium).**
+  Forbidden form: `The drafting record shows three failed attempts
+  before the correct Gaiotto formula was located.`
+  Canonical repair: delete entirely; cite Gaiotto 2015 with the
+  correct formula.
+  Reason. Drafting records are metadata; the manuscript is the
+  landing point.
+  Companion: CGCLEAN-27 regex
+  `\bdrafting\s+(record|trajectory)\b`;
+  FP-MH-27. CLAUDE.md self-complete.
+
+- **AP-MH-28 --- `\ClaimStatusRetracted` tag (Critical).**
+  Forbidden form: `\ClaimStatusRetracted` attached to a theorem
+  environment carrying a no-longer-used value.
+  Canonical repair: delete the entire theorem environment. If the
+  surrounding paragraph depends on it, rewrite the paragraph
+  against the canonical current value.
+  Reason. `\ClaimStatusRetracted` is a drafting-phase marker. The
+  typeset manuscript should contain no retracted claims; if a
+  claim was retracted, delete it. The tag belongs to the cache /
+  ledger where it documents the correction, not to the
+  reader-facing PDF.
+  Companion: CGCLEAN-28 regex `\\ClaimStatusRetracted\b`;
+  FP-MH-28. CLAUDE.md self-complete.
+
+- **AP-MH-29 --- dated remarks "Etingof 2026-04-19" (Medium).**
+  Forbidden form: `\begin{remark}[Etingof 2026-04-19] ...`
+  Canonical repair: `\begin{remark}[Etingof constraint on affine
+  Yangian presentation] ...` with the mathematical content as the
+  label.
+  Reason. Session-dated remarks encode the swarm-call timestamp;
+  readers see only the mathematical constraint.
+  Companion: CGCLEAN-29 regex
+  `\[(Etingof|Gaiotto|Costello|Kontsevich|[A-Z][a-z]+)\s+20[0-9]{2}-[0-9]{2}-[0-9]{2}\]`;
+  FP-MH-29. CLAUDE.md self-complete.
+
+- **AP-MH-30 --- `\index{retraction!...}` (High).**
+  Forbidden form: `\index{retraction!c_{2d}=-312}`.
+  Canonical repair: delete the index entry; if the replacement
+  value warrants an index entry, add
+  `\index{central charges!$(c_{4d}, c_{2d}) = (107/6, -214)$}`.
+  Reason. The backreader index should track mathematical objects,
+  not retraction history.
+  Companion: CGCLEAN-30 regex `\\index\{retraction!`;
+  FP-MH-30. CLAUDE.md self-complete.
+
+### Group D --- Filesystem / production-pipeline leakage (AP-MH-31..37)
+
+- **AP-MH-31 --- `\texttt{notes/*}` reader refs (High).**
+  Forbidden form: `see
+  \texttt{notes/ADJUDICATION\_LEDGER\_WAVES\_14\_TO\_19.md} for
+  the full evaluation history`.
+  Canonical repair: delete the reference; if the ledger contains
+  a published theorem, cite the primary source instead.
+  Reason. `notes/` is working scaffolding inaccessible to the
+  reader of the typeset PDF.
+  Companion: CGCLEAN-31 regex `\\texttt\{notes/`;
+  FP-MH-31. CLAUDE.md self-complete.
+
+- **AP-MH-32 --- `/Users/raeez/...` paths (Critical).**
+  Forbidden form: `see
+  \texttt{/Users/raeez/chiral-bar-cobar/chapters/theory/shadow\_tower\_higher\_coefficients.tex}`.
+  Canonical repair: cite the Vol I cross-reference as `Vol I,
+  Theorem \ref{thm:...}` using the programme-wide label
+  convention.
+  Reason. Absolute filesystem paths are author-specific production
+  metadata; they have no meaning for any other reader.
+  Companion: CGCLEAN-32 regex `/Users/[a-zA-Z0-9_.-]+/`;
+  FP-MH-32. CLAUDE.md self-complete.
+
+- **AP-MH-33 --- `% TODO: librarian verification` (Medium).**
+  Forbidden form: `% TODO: librarian verification of
+  Costello--Li 2016 Prop 5.2`.
+  Canonical repair: either verify and delete the comment, or move
+  the TODO to `notes/`.
+  Reason. TODO comments are editorial scaffolding; the typeset
+  manuscript carries only verified citations.
+  Companion: CGCLEAN-33 regex
+  `%\s*TODO\s*:?\s*librarian\s+verification`;
+  FP-MH-33. CLAUDE.md self-complete.
+
+- **AP-MH-34 --- `% ALIAS` / `% LEGACY ALIAS` (Medium).**
+  Forbidden form: `% ALIAS: kappa_bkm_fake` (attached to a macro
+  definition carrying a stale alias).
+  Canonical repair: delete the alias entirely if no longer used;
+  otherwise promote to a proper `\providecommand` with
+  mathematical comment explaining scope.
+  Reason. Alias comments track macro history; the reader sees only
+  live mathematical commands.
+  Companion: CGCLEAN-34 regex `%\s*(LEGACY\s+)?ALIAS\b`;
+  FP-MH-34. CLAUDE.md self-complete.
+
+- **AP-MH-35 --- `% Source: NEW CHAPTER (see notes/...)`
+  (Medium).**
+  Forbidden form: `% Source: NEW CHAPTER (see
+  notes/wave19\_dna.tex)`.
+  Canonical repair: delete. The chapter is the chapter; its source
+  is its prose.
+  Reason. Production provenance is metadata; the manuscript is
+  self-complete.
+  Companion: CGCLEAN-35 regex
+  `%\s*Source\s*:\s*NEW\s+CHAPTER`;
+  FP-MH-35. CLAUDE.md self-complete.
+
+- **AP-MH-36 --- compute engine filenames `*_waveN_*` (High).**
+  Forbidden form: `see compute engine
+  \texttt{compute/lib/k3\_yangian\_wave14\_arthur\_hecke\_delta10.py}`.
+  Canonical repair: rename the engine to
+  `compute/lib/k3_yangian_arthur_hecke_delta10.py`; in prose, cite
+  the engine by its mathematical name ("Arthur--Hecke
+  $\Delta_{10}$ engine").
+  Reason. The `_waveN_` infix is pipeline-ordinal metadata; the
+  reader sees only the mathematical name of the engine.
+  Companion: CGCLEAN-36 regex `_wave[0-9]+_`;
+  FP-MH-36. CLAUDE.md self-complete.
+
+- **AP-MH-37 --- Python function names `waveN_foo` (High).**
+  Forbidden form: `def wave14_compute_hecke_delta10(...)`.
+  Canonical repair: `def compute_arthur_hecke_delta10(...)`.
+  Reason. Function naming is part of the engine's API; the Wave
+  ordinal exposes pipeline metadata in API tables and docstrings.
+  Companion: CGCLEAN-37 regex `\bwave[0-9]+_[a-z_]+\b`;
+  FP-MH-37. CLAUDE.md self-complete.
+
+### Group E --- Warning / hedging / verdict markers (AP-MH-38..42)
+
+- **AP-MH-38 --- `\begin{warning}` environment (High).**
+  Forbidden form: `\begin{warning} Do not confuse
+  $\kappa_{\mathrm{ch}}$ with $\kappa_{\mathrm{cat}}$.
+  \end{warning}`
+  Canonical repair: state the discipline in the surrounding
+  definition: "$\kappa_{\mathrm{ch}}$ (chiral, via $\Phi$) and
+  $\kappa_{\mathrm{cat}} = \chi(\mathcal O_X)$ are two distinct
+  invariants."
+  Reason. Warnings break the Chriss--Ginzburg voice; a precisely
+  stated definition needs no external warning.
+  Companion: CGCLEAN-38 regex `\\begin\{warning\}`;
+  FP-MH-38. CLAUDE.md self-complete.
+
+- **AP-MH-39 --- "do not confuse" / "don't be fooled" / "beware"
+  (High).**
+  Forbidden form: `Do not confuse the Monster BKM with the
+  Fake-Monster BKM.`
+  Canonical repair: `The Monster BKM ($\mathrm{rank} = 2$,
+  $\mathrm{II}_{1,1}$) and the Fake-Monster BKM
+  ($\mathrm{rank} = 26$, $\mathrm{II}_{25,1}$) are two distinct
+  BKM algebras.`
+  Reason. Addressing the reader's potential confusion is
+  meta-narration; state the two objects precisely and the
+  confusion is foreclosed.
+  Companion: CGCLEAN-39 regex
+  `\b(do\s+not\s+confuse|don['’]?t\s+be\s+fooled|beware)\b`;
+  FP-MH-39. CLAUDE.md self-complete.
+
+- **AP-MH-40 --- "we must be careful" (Medium).**
+  Forbidden form: `We must be careful to distinguish $\Phi$
+  applied to a CY$_2$ object from $\Phi$ applied to a CY$_3$
+  object.`
+  Canonical repair: `$\Phi$ outputs an $E_2$-chiral algebra at
+  $d \le 2$ and an $E_1$-chiral algebra at $d \ge 3$.`
+  Reason. "We must be careful" is hedging; the statement either
+  holds or it does not.
+  Companion: CGCLEAN-40 regex `\bwe\s+must\s+be\s+careful\b`;
+  FP-MH-40. CLAUDE.md self-complete.
+
+- **AP-MH-41 --- gratuitous "scope-restricted" (Medium).**
+  Forbidden form: `This scope-restricted identification applies
+  only to $K3 \times E$ with the Borcherds automorphic input.`
+  Canonical repair: `This identification applies to $K3 \times E$
+  with the Borcherds automorphic input (Gritsenko 1999 Thm 6.1).`
+  Reason. "Scope-restricted" is a category-warning modifier; the
+  scope is visible from the hypotheses.
+  Companion: CGCLEAN-41 regex `\bscope-restricted\b`;
+  FP-MH-41. CLAUDE.md self-complete.
+
+- **AP-MH-42 --- "verdict" as meta-label (High).**
+  Forbidden form: `Verdict: the shadow tower terminates at
+  $m_8 = 33157760/19683$.`
+  Canonical repair: `The shadow tower terminates at
+  $m_8 = 33157760/19683$.`
+  Reason. "Verdict" is adversarial-swarm output-format vocabulary;
+  the sentence is a theorem or proposition, not a courtroom
+  outcome.
+  Companion: CGCLEAN-42 regex `\bVerdict\s*:`;
+  FP-MH-42. CLAUDE.md self-complete.
+
+### Group F --- Label / filename discipline (AP-MH-43..49)
+
+- **AP-MH-43 --- chapter filenames `_platonic` (Critical).**
+  Forbidden form: file
+  `chapters/examples/k3_chiral_bialgebra_platonic.tex`.
+  Canonical repair: rename to
+  `chapters/examples/k3_chiral_bialgebra.tex` and update all
+  `\input{}` / `\include{}` in `main.tex`.
+  Reason. The filename enters build-system logs, error messages,
+  and PDF metadata; `_platonic` exposes editorial framing to any
+  reader who inspects the build.
+  Companion: CGCLEAN-43 regex `_platonic\.tex\b`;
+  FP-MH-43. CLAUDE.md self-complete.
+
+- **AP-MH-44 --- chapter labels `ch:*-platonic` (High).**
+  Forbidden form: `\label{ch:k3-chiral-bialgebra-platonic}`.
+  Canonical repair: `\label{ch:k3-chiral-bialgebra}`; update all
+  `\ref{}` / `\cref{}` across volumes.
+  Reason. Cross-reference labels appear in hyperlinks and PDF
+  bookmarks; they are reader-visible.
+  Companion: CGCLEAN-44 regex `\\label\{ch:[^}]*-platonic\}`;
+  FP-MH-44. CLAUDE.md self-complete.
+
+- **AP-MH-45 --- section labels `sec:*-platonic` (High).**
+  Forbidden form: `\label{sec:yangian-platonic-synthesis}`.
+  Canonical repair: `\label{sec:yangian-synthesis}`.
+  Reason. Same as AP-MH-44 at section granularity.
+  Companion: CGCLEAN-45 regex `\\label\{sec:[^}]*-platonic\}`;
+  FP-MH-45. CLAUDE.md self-complete.
+
+- **AP-MH-46 --- theorem labels `thm:*-waveN-*` (High).**
+  Forbidden form: `\label{thm:zte-T-exact-wave15}`.
+  Canonical repair: `\label{thm:zte-T-exact}`.
+  Reason. Theorem labels are cited across volumes; Wave ordinals
+  fossilise in `\ref`s.
+  Companion: CGCLEAN-46 regex `\\label\{thm:[^}]*-wave[0-9]+`;
+  FP-MH-46. CLAUDE.md self-complete.
+
+- **AP-MH-47 --- `\index{compute module!...}` (Medium).**
+  Forbidden form: `\index{compute module!k3\_yangian\_wave14}`.
+  Canonical repair: delete or replace with a mathematical index
+  entry such as `\index{K3 Yangian!Arthur--Hecke presentation}`.
+  Reason. The index should guide the reader to mathematical
+  objects; compute-module paths are engineering metadata.
+  Companion: CGCLEAN-47 regex `\\index\{compute\s+module!`;
+  FP-MH-47. CLAUDE.md self-complete.
+
+- **AP-MH-48 --- `\index{cache!...}` (Medium).**
+  Forbidden form: `\index{cache!CoHA vs vertex algebra}`.
+  Canonical repair: `\index{CoHA!chiral type discipline}` or
+  simply delete.
+  Reason. The internal cache has no reader-facing presence.
+  Companion: CGCLEAN-48 regex `\\index\{cache!`;
+  FP-MH-48. CLAUDE.md self-complete.
+
+- **AP-MH-49 --- `\index{retraction!...}` (High, duplicate of
+  AP-MH-30 at label-discipline scope).**
+  Forbidden form: `\index{retraction!c_3=176256}`.
+  Canonical repair: delete.
+  Reason. Retraction indices guarantee retraction fossils survive
+  typesetting; delete them.
+  Companion: CGCLEAN-49 regex `\\index\{retraction!`; cross-ref
+  AP-MH-30 for the prose-level regex; the two together cover
+  prose and index streams;
+  FP-MH-49. CLAUDE.md self-complete.
+
+### Group G --- Session-specific phrases (AP-MH-50..55)
+
+- **AP-MH-50 --- "Five attack-heal calibrations" (High).**
+  Forbidden form: `Five attack-heal calibrations pin the shadow
+  tower through $m_8$.`
+  Canonical repair: `Five independent verification paths pin the
+  shadow tower through $m_8$:` followed by the five paths stated
+  mathematically.
+  Reason. "Attack-heal calibration" is swarm-protocol vocabulary;
+  the reader sees the five paths as mathematics.
+  Companion: CGCLEAN-50 regex
+  `\battack-?heal\s+(calibration|verification|pass)`;
+  FP-MH-50. CLAUDE.md self-complete.
+
+- **AP-MH-51 --- "Reconstitution if the cancellation fails"
+  (High).**
+  Forbidden form: remark titled `Reconstitution if the
+  cancellation fails: seven-path $\chi_3$ reconstruction`.
+  Canonical repair: state as a lemma: `If the seven-path $\chi_3$
+  cancellation is obstructed at a point of parameter space, the
+  obstruction is captured by [precise cohomology class]; its
+  vanishing is equivalent to [condition].`
+  Reason. "Reconstitution" is meta-process; the content is an
+  obstruction-cohomology statement.
+  Companion: CGCLEAN-51 regex
+  `\breconstitution\s+if\s+the\s+cancellation\s+fails\b`;
+  FP-MH-51. CLAUDE.md self-complete.
+
+- **AP-MH-52 --- "Inversion of the programme perspective"
+  (High).**
+  Forbidden form: `Inversion of the programme perspective: read
+  $\Phi$ from the chiral side back to the CY side.`
+  Canonical repair: `The right adjoint $\Phi^R$ (when it exists)
+  recovers the CY category from the chiral algebra up to the
+  obstruction class $[\alpha] \in H^*[\ldots]$.`
+  Reason. "Programme perspective" is editorial; the mathematics
+  is an adjoint functor statement.
+  Companion: CGCLEAN-52 regex
+  `\binversion\s+of\s+the\s+programme\s+perspective\b`;
+  FP-MH-52. CLAUDE.md self-complete.
+
+- **AP-MH-53 --- "History of the claim" (High, cross-refs
+  AP-MH-26).**
+  Forbidden form: remark `History of the claim: $c_3$ evaluated
+  at $176256$ in Wave 16, corrected to $-8$ in Wave 17.`
+  Canonical repair: delete; state only $c_3 = -8$ in Bruinier
+  reduced-class convention (canonical preamble row 6).
+  Reason. Historical trajectory is `notes/`-space material; the
+  manuscript records the current value.
+  Companion: CGCLEAN-53 regex `\bHistory\s+of\s+the\s+claim\b`;
+  FP-MH-53. CLAUDE.md self-complete.
+
+- **AP-MH-54 --- "Gold-standard HZ-IV disjoint verification"
+  (High).**
+  Forbidden form: `Gold-standard HZ-IV disjoint verification pins
+  the Monster BKM Cartan rank at $2$.`
+  Canonical repair: `The Monster BKM has Cartan rank $2$
+  (Borcherds 1992 *Invent Math* 109; verified by four independent
+  paths: Weyl denominator, root-space dimension formula,
+  Cartan-matrix determinant, $E_8$ overlattice check).`
+  Reason. "Gold-standard HZ-IV" is verification-protocol
+  vocabulary; the four paths stated explicitly deliver the same
+  certainty without the meta-label.
+  Companion: CGCLEAN-54 regex
+  `\bgold-?standard\s+HZ-?(IV|[0-9]+)\s+disjoint\s+verification\b`;
+  FP-MH-54. CLAUDE.md self-complete.
+
+- **AP-MH-55 --- "Three successive evaluations appear in the
+  drafting record" (High, cross-refs AP-MH-26, AP-MH-27).**
+  Forbidden form: `Three successive evaluations appear in the
+  drafting record: $(26, -312)$ at Wave 14, $(23/4, -69)$ at Wave
+  25, $(107/6, -214)$ at Wave 15.`
+  Canonical repair: state only the canonical value
+  $(c_{4d}, c_{2d}) = (107/6, -214)$ and cite Gaiotto 2015 +
+  Shapere--Tachikawa 2008.
+  Reason. The drafting record's sequence of evaluations is
+  session metadata; the reader reads the theorem.
+  Companion: CGCLEAN-55 regex
+  `\bthree\s+successive\s+evaluations\s+appear\s+in\s+the\s+drafting\s+record\b`;
+  FP-MH-55. CLAUDE.md self-complete.
+
+**Operating rule.** Gate 0 of every rectification invocation runs
+regex CGCLEAN-1..55 against the touched file via
+`.claude/hooks/beilinson-gate.sh`. A hit in reader-facing `.tex`
+under `chapters/`, `frame/`, `examples/`, `theory/`, `connections/`,
+`bibliography/` is a bookkeeping violation and must be removed
+before the file may be considered "self-complete, self-coherent,
+self-consistent" in the sense of the CLAUDE.md section of that
+name. Hits in `notes/`, `FRONTIER.md`, commit messages, the local
+`memory/`, compute scripts that are never typeset, and private
+scaffolding are not violations. The hook distinguishes scope by
+path.
 
