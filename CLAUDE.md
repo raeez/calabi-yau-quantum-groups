@@ -35,10 +35,15 @@ forbidden; subscript always.
 
 **One K3-specific crystallisation**: the K3 $\times$ E compact
 Calabi–Yau threefold carries four $\kappa_\bullet$ values
-$\{2, 3, 5, 24\}$ from four **distinct constructions** (Mukai lattice,
-Igusa $\Phi_{10}$ via Gritsenko $\Delta_5$, BKM Borcherds weight, K3
-fibre-rank). Six routes to $G(K3 \times E)$ exist; they are six
-DIFFERENT constructions, NOT six $\Phi$ applications.
+$\{0, 3, 5, 24\}$ from four **distinct constructions**:
+$\kappa_{\mathrm{cat}}(K3 \times E) = 0$ (Künneth-multiplicative
+total space; the K3 fibre value $\kappa_{\mathrm{cat}}(K3) = 2$ is not
+the total-space value), $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$
+(chiral Heisenberg–Mukai specialisation), $\kappa_{\mathrm{BKM}}
+(\mathfrak{g}_{\Delta_5}) = 5$ (Borcherds weight via Gritsenko
+$\Delta_5$), and $\kappa_{\mathrm{fiber}} = 24$ (Mukai-lattice rank of
+K3). Six routes to $G(K3 \times E)$ exist; they are six DIFFERENT
+constructions, NOT six $\Phi$ applications.
 
 **Seven parts** hold the Vol III structure:
 
@@ -225,6 +230,57 @@ source Borcherds 1995 / Gritsenko series.
   Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}.
 - Class M $E_3$ bar $= 6^g$ at cohomology, NOT infinite.
 - At $d \geq 3$, $A$ is $E_1$; $E_2$ lives on $Z(\mathrm{Rep}(A))$, not on $A$.
+- Two-stage factorisation: $\Phi_d = \mathrm{Sp}_{\Sigma_{d-1}, C} \circ
+  \Phi^{FA}_d$. Stage~1 $\Phi^{FA}_d$ is canonical (Kontsevich–Tamarkin
+  $E_d$-formality + Costello–Gwilliam–Li locality); Stage~2
+  $\mathrm{Sp}_{\Sigma_{d-1}, C}$ is specialisation, not inversion. A
+  single CY$_d$ category admits a family of $E_1$-chiral shadows
+  parametrised by $(\Sigma_{d-1}, C)$.
+- Universal positive-geometry grammar: $Y^+(X) = H^\bullet_{\mathrm{eq}}(
+  \mathcal{M}^+_{\mathrm{eff}}(X), \phi_W)$, with $G(X) = D(Y^+(X))$
+  (Drinfeld double of the positive half). CoHA, Nakajima stable-envelope,
+  orbifold inertia, lattice-polarised period half-spaces all factor
+  through this grammar.
+- Four equivariance strata: (i) toric $T^d$ (local $\mathbb{P}^2$,
+  $\mathbb{C}^3$, resolved conifold); (ii) reduced $\mathbb{C}^\times$ +
+  $\mathrm{Aut}(X)$ (K3, K3 $\times$ E, abelian surface); (iii) orbifold
+  inertia $I(X/G)$ (Mathieu $M_{24}$, McKay $\Gamma \subset \mathrm{SU}(d)$);
+  (iv) lattice-polarised period domain (Borcherds lifts, Gritsenko
+  $\Delta_5$, Igusa $\Phi_{10}$). The stratum fixes the precise
+  equivariant cohomology in $Y^+(X)$.
+- 8-form Gritsenko–Clery catalogue: weights $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$
+  with Fourier coefficients $c_N(0) \in \{10, 4, 2, 2, 1, 2, 1/2, 0\}$
+  so that $\kappa_{\mathrm{BKM}} = c_N(0)/2$. Cover group stratification:
+  $\mathrm{Sp}_4(\Z)$ for integral weights, $\mathrm{Mp}_4$ for
+  half-integral, $\widetilde{\mathrm{Mp}}_4$ for quarter-integral. The
+  weight-0 form is the degenerate terminal fibre.
+- Maulik–Okounkov $R$-matrix is a gluing-cocycle residue:
+  $R^{MO}(u) = \mathrm{Res}_{u = u_\star} \phi^+_{\mathrm{UV}}(u)$
+  where $\phi^+_{\mathrm{UV}}$ is the UV positive half's gluing cocycle
+  across the equivariant chamber wall at $u_\star$. The MO axiom
+  (Yang–Baxter + unitarity) is the cocycle condition for
+  $\phi^+_{\mathrm{UV}}$.
+- K3 $\times$ E admits no global NCCR: five obstructions — (a) dualising
+  sheaf $\omega_{K3 \times E} = \mathcal{O}$ but $\omega$-structure not
+  reflexive-tilting; (b) derived McKay requires finite $\mathrm{Aut}$
+  fixing a point; (c) HPD self-dual not compatible with product polarisation;
+  (d) Mukai vanishing fails off the $K3$ factor; (e) no global CY-$3$
+  symmetric obstruction theory. The Serre-equivariant quasi-NCCR
+  substitutes: a locally-defined tilting object equivariant under the
+  Serre twist, gluing via the factorisation pushforward.
+- Dimension-stratified siblings of the Monster: at $d = 3$, the Monster
+  $\mathbb{M}$ from $V^\natural$ aligns with Igusa $\Phi_{10}$
+  (Gritsenko–Nikulin); at $d = 5$, the Fake Monster Lie algebra (Borcherds
+  1990) from the $\mathrm{II}_{25,1}$ lattice is the $d = 5$ sibling of
+  the same universal construction. Intermediate $d = 4$ (Conway /
+  Leech lattice) bridges both.
+- Non-abelian 5D hCS $\to$ Yangian VOA all-orders theorem for simply-laced
+  $\mathfrak{g}$: Costello–Gaiotto–Yagi 5D holomorphic Chern–Simons on
+  $\R \times \C^2$ quantises to the Yangian VOA $Y^{\mathrm{VOA}}(\mathfrak{g})$
+  to all orders in $\hbar$ for $\mathfrak{g}$ simply-laced; the
+  perturbative expansion converges (not merely asymptotic) by
+  Kontsevich–Tamarkin formality on the holomorphic factor. Non-simply-laced
+  requires twisted Yangian; open at all orders.
 
 **Proofs live in `chapters/**.tex`** with `\label{thm:...}` and
 `\begin{proof}...\end{proof}`. After every inscription the PostToolUse
@@ -245,7 +301,9 @@ cd ~/calabi-yau-quantum-groups && make fast
   supertrace identification on compact CY_d).
 - $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ for $N \in \{1,2,3,4,6\}$.
   $N=1$: Gritsenko $\Delta_5$ weight 5, $c_1(0) = 10$, $\kappa_{\mathrm{BKM}} = 5$.
-- K3 $\times$ E spectrum $\{2, 3, 5, 24\}$ (four distinct constructions).
+- K3 $\times$ E spectrum $\{0, 3, 5, 24\}$ (four distinct constructions):
+  $\kappa_{\mathrm{cat}} = 0$ (Künneth total space), $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$,
+  $\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = 5$, $\kappa_{\mathrm{fiber}} = 24$.
 - Local $\mathbb{P}^2$: $\kappa_{\mathrm{ch}} = 3/2$ (via McKay /
   direct shadow at $d = 3$).
 - Conifold is NOT a local surface at $d = 3$; $\kappa_{\mathrm{ch}} = 1$
@@ -274,7 +332,7 @@ Vol III in particular owes its content to *both* lanes simultaneously:
   for K3, K3 $\times$ E, local $\mathbb{P}^2$, the conifold; verify
   $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ for $N \in \{1, 2, 3, 4, 6\}$
   by direct Borcherds-product expansion; track the four constructions
-  in $\{2, 3, 5, 24\}$; check the Mukai-vanishing-bypass lemma
+  in $\{0, 3, 5, 24\}$; check the Mukai-vanishing-bypass lemma
   `lem:mo-bypass-local-to-global` against the actual product-Aut
   decomposition.
 - The $(\infty,1)$-categorical lane is what lets you state $\Phi$ as a
@@ -304,12 +362,18 @@ documented at their precise scope.
 
 ## Where the bookkeeping lives
 
-- **`notes/antipatterns_catalogue.md`** — the live Vol III AP-CY
+- **`notes/antipatterns_catalogue.md`** — the sole Vol III AP-CY
   catalogue (AP-CY1 through AP-CY49 plus cross-programme AP150--AP164
   and formula-mechanical FM24--FM27). Every `/chriss-ginzburg-rectify`
-  invocation consults this at Gate 0 alongside the cache. Append new
-  AP-CYs here; the appendix-TeX version at
-  `appendices/antipatterns.tex` is the reader-facing mirror.
+  and `/investigate` invocation consults this at Gate 0 alongside the
+  cache. Append new AP-CYs here. AP-CY vocabulary does not appear in
+  any reader-facing `.tex` under `chapters/`, `frame/`, `examples/`,
+  `theory/`, `connections/`, `bibliography/`, or `appendices/`.
+- **`appendices/first_principles_cache.md`** — confusion-pattern
+  registry with AP-CY triggers. Every `/chriss-ginzburg-rectify` and
+  `/investigate` consults this alongside the catalogue. Append new
+  patterns here with columns Wrong Claim / Ghost Theorem / Precise
+  Error / Correct Relationship / Type.
 - **`notes/claude_md_legacy_20260418.md`** — full prior CLAUDE.md,
   899 lines, lossless. Historical snapshot; the AP-CY catalogue has
   moved to `notes/antipatterns_catalogue.md`. Still contains the
@@ -318,8 +382,6 @@ documented at their precise scope.
   historical context.
 - **`notes/agents_md_legacy_20260418.md`** — full prior AGENTS.md,
   1508 lines.
-- **`notes/first_principles_cache_comprehensive.md`** (if present) —
-  confusion-pattern registry with AP-CY triggers.
 - **`~/chiral-bar-cobar/CLAUDE.md`** — Vol I manifesto (shared
   five-theorem core).
 - **`~/chiral-bar-cobar/chapters/examples/landscape_census.tex`** —

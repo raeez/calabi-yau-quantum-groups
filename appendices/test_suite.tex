@@ -35,42 +35,41 @@ run via \texttt{make test} (equivalently
   \texttt{verify\_shadow\_tower\_clean.py}.
 
 \item \textbf{Audit reports} (\texttt{compute/audit/}): Seven audit
-  reports documenting Beilinson-style audits, cross-consistency checks,
-  and status sweeps.
+  reports documenting cross-consistency checks and status sweeps.
 \end{itemize}
 
-\section{Anti-pattern compliance}
-\label{sec:test-ap-compliance}
+\section{Structural discipline tests}
+\label{sec:test-structural-discipline}
 
-Tests enforce the anti-pattern catalogue (Appendix~\ref{app:ap-catalogue})
+Tests enforce the following structural-discipline checks
 computationally:
 
 \begin{center}
 \begin{tabular}{@{}lll@{}}
 \toprule
-\textbf{Anti-pattern} & \textbf{Test mechanism} & \textbf{Engine(s)} \\
+\textbf{Check} & \textbf{Test mechanism} & \textbf{Engine(s)} \\
 \midrule
 $\kappa$-spectrum & Verify all four $\kappa_\bullet$ values &
   \texttt{kappa\_spectrum\_reconciliation} \\
- (CY dimension) & $d \neq$ complex dim &
+ CY dimension & $d \neq$ complex dim &
   \texttt{cy\_euler} \\
- ($\Etwo \neq \Einf$) & Braiding non-symmetry &
+ $\Etwo \neq \Einf$ & Braiding non-symmetry &
   \texttt{e2\_koszul\_heisenberg} \\
- (CoHA $\neq$ $\Eone$-chiral) & Structural comparison &
+ CoHA $\neq$ $\Eone$-chiral & Structural comparison &
   \texttt{coha\_e1\_sector\_engine} \\
- (flop $\neq$ Koszul) & $\kappa_{\mathrm{ch}}$ preservation &
+ flop $\neq$ Koszul & $\kappa_{\mathrm{ch}}$ preservation &
   \texttt{flop\_koszul\_duality} \\
- (shadow class) & Full tower computation &
+ shadow class & Full tower computation &
   \texttt{c3\_shadow\_tower}, \texttt{local\_p2\_shadow} \\
- (MF dimension) & $n-2$ not $n-1$ &
+ MF dimension & $n-2$ not $n-1$ &
   \texttt{matrix\_factorization\_e1\_engine} \\
- ($E_3$ bar class M) & $(1+t)^{3g}$ failure &
+ $E_3$ bar class M & $(1+t)^{3g}$ failure &
   \texttt{e3\_bar\_higher\_genus\_class\_m} \\
- ($R$-matrix extraction) & Half-braiding construction &
+ $R$-matrix extraction & Half-braiding construction &
   \texttt{k3\_rmatrix\_enhanced} \\
- (pole-unsafe test points) & Safe parameter selection &
+ pole-unsafe test points & Safe parameter selection &
   \texttt{k3\_structure\_function\_explicit} \\
- (ZTE failure) & $O(\kappa_{\mathrm{ch}}^2)$ obstruction &
+ ZTE failure & $O(\kappa_{\mathrm{ch}}^2)$ obstruction &
   \texttt{zamolodchikov\_tetrahedron\_engine} \\
 \bottomrule
 \end{tabular}
@@ -83,7 +82,8 @@ Key results are verified through multiple independent computational paths:
 
 \begin{itemize}[nosep]
 \item \textbf{$\C^3$ / $\cW_{1+\infty}$}: Five independent constructions
-  (cyclic $\Ainf$, Lie conformal, factorization envelope, CoHA, hCS)
+  (cyclic $\Ainf$, Lie conformal, factorization envelope, CoHA,
+  $\hCS$ stage-1 shadow)
   verified to agree: \texttt{c3\_grand\_verification} (104 tests).
 
 \item \textbf{K3 Yangian}: Three routes (Mukai lattice, BFN Coulomb

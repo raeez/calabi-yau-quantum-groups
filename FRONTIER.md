@@ -1,5 +1,98 @@
 # FRONTIER — Vol III Open Research Directions
 
+## Wave-12 synthesis frontier (2026-04-22/23)
+
+Wave 12 launched ~70 inscription agents across the CY-to-chiral frontier and closed its synthesis with a structured frontier inventory at `notes/wave12_frontier_inventory.tex`. The inventory organises the open programme along five cross-sections: the CY-A/B/C/D/H framework, the universal Borcherds weight identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$, structural conjectures (sharpened Lorgat 2020 Conjecture 1, chiral volume conjecture, class-$\mathbf{M}$ $E_3$ bar $= 6^g$ beyond $g = 3$), physics interweave (6d hCS on compact CY$_3$, line/surface operators, AdS$_3$ holography), and cross-volume bridges (Booth--Lazarev chiral instantiation, Vol~II iterated-Sugawara-ladder endpoint). The detailed frontier map — definitions, scope qualifiers, obstruction diagnostics, and pointers into the wave-12 working notes — is load-bearing in that inventory file; the body of this FRONTIER.md from the 2026-04-22 spine downward remains the status record against which wave-12 items are read.
+
+Five single-sentence targets carry the weight of the wave-12 frontier:
+
+1. **Chain-level $\mathrm{Sp}^{\mathrm{ch}}_{K3, E}$ on $\mathrm{Ran}(E)$ closing CY-A$_3$ stratum S$_3$.** Write the factorisation-homology equation on $\mathrm{Ran}(E)$ that realises $\mathrm{Sp}^{\mathrm{ch}}_{K3, E}(\Phi^{\mathrm{FA}}_3(K3 \times E)) \simeq U^{\mathrm{ch}}(\mathfrak{heis}_{\mathrm{Muk}}) \otimes U^{\mathrm{ch}}(\mathfrak{g}^{\mathrm{BPS}}_{K3})$ beyond a single reference curve, pulling back the K3-factor Maulik--Okounkov stable envelope through $\int_{K3} E_3 \simeq E_1$ along the global critical-chart hypothesis (see `notes/wave12_f5_programme_meta_audit.tex`, `notes/wave12_u1_two_stage_functor.tex`).
+
+2. **Sharpened Lorgat 2020 Conjecture 1.** Promote the structural identification $\mathrm{Sp}^{\mathrm{ch}}_{K3, E}(\Phi^{\mathrm{FA}}_3(\mathcal{F}_{K3 \times E})) \simeq \mathbf{H}_{\Delta_5}$ to a chiral-bialgebra isomorphism on $E$ with character $\Delta_5^{-2}$ and root multiplicities equal to $g_N$-twisted-twined K3 elliptic genera, healing the five named adversarial holes: the twisted-dimension citation $\dim S_5(\mathrm{Sp}_4(\mathbb{Z}), \nu_{\Delta_5}) = 1$, the $c = -214$ four-derivation convergence, Oberdieck--Pixton beyond $N = 1$ primitive K3-classes, BKM-denominator structure past Cléry--Gritsenko 2013 automorphy, and $H^3(\widetilde{M}_{24}, U(1)) = \mathbb{Z}/12 \oplus \mathbb{Z}/2$ as theorem (see `notes/wave12_d2_conj1_adversarial.tex`).
+
+3. **Booth--Lazarev chiral instantiation for Vol~I/III concordance.** Instantiate the Booth--Lazarev curved $A_\infty$ Quillen equivalence (arXiv:2304.08409) in the chiral lane on $\overline{M}_{g, n}$ at compact CY$_d$ with $\kappa_{\mathrm{ch}} \neq 0$, closing the Vol~I $\mathsf{B}$-row $K^{\kappa_{\mathrm{ch}}} = 8$ as a cross-volume witness through the $\mathcal{B}$-family Heisenberg on $K3 \times E$ (see `notes/wave12_b2_cross_volume_consistency.tex`).
+
+4. **Explicit Fake Monster $\Phi^{\mathrm{FA}}_5$ on $K3 \times K3 \times E$ yielding $\kappa_{\mathrm{BKM}}(\Phi_{\mathrm{FM}}) = 12$.** Construct the chain-level $\Phi^{\mathrm{FA}}_5$-image on $K3 \times K3 \times E$ realising the $E_5$-Poisson bracket (PTVV shift $+1$) on the degree-$(4, 20)$ sublattice of $\widetilde H^*(K3 \times K3) \oplus H^1(E)$ hosting the rank-$24$ Leech lattice, producing the Borcherds Fake-Monster denominator $\kappa_{\mathrm{BKM}}(\Phi_{\mathrm{FM}}) = 12$ at $d = 5$ (see `notes/wave12_f5_programme_meta_audit.tex`).
+
+5. **Non-abelian $\mathrm{Obs}^{\mathrm{q}, E}_{\mathrm{hCS}}(K3 \times E, \mathfrak{g}) \simeq \mathfrak{g}_{\Delta_5}$.** Compute the non-abelian Costello--Gwilliam quantum observable pushforward of 6d hCS on $K3 \times E$ along the $E$-projection and identify it with the Lorgat--Gritsenko GKM superalgebra $\mathfrak{g}_{\Delta_5}$ as a chiral algebra on $E$, the direct physical instantiation of the sharpened Conjecture 1 (see `notes/wave12_f1_6d_hcs_e3_generators.tex`, `notes/wave12_f3_feynman_coefficients_costello.tex`).
+
+These five targets sort onto the 2026-04-22 spine below as follows: target (1) sits on pillar $\alpha$'s Stage-1 / Stage-2 factorisation; (2) on pillar $\beta'$'s 8-row Gritsenko-Cléry catalogue at $N = 1$, sharpened to bialgebra level; (3) is the cross-volume Vol I bridge carrying pillar $\delta$'s three-tier hierarchy into Vol I Theorem C's $\mathsf{B}$-row; (4) extends the dimension-stratified sibling catalogue (Monster / Igusa $d = 3$, Conway $d = 4$, Fake Monster $d = 5$) at the Fake Monster row; (5) supplies the physics-side instantiation of the sharpened Conjecture 1 on the 6d hCS side. The spine below remains the arbiter of scope, subscript discipline, and the retractions that govern every historical entry in the document.
+
+---
+
+## DEFINITIVE STATUS AS OF 2026-04-22 (Waves 11-19 synthesis)
+
+This section supersedes the 2026-04-19 status below on every point where the two disagree; the 2026-04-19 text and all history below it are preserved in full. Waves 11-19 fixed five architectural pillars, retracted nine prior identifications in favour of their true hidden structure, unified the BKM dimension-sibling catalogue, and welded the cross-volume three-factor trace identity. The load-bearing cross-volume synthesis documents are `/Users/raeez/chiral-bar-cobar/adversarial_swarm_20260416/PLATONIC_MANIFESTO_VOL_III_UPGRADE_20260422.md` and the sister Vol~I / Vol~II manifestos, together with the supervisory rearchitecture notes `wave_supervisory_vol{I,II,III}_part_rearchitecture_UPGRADE_20260422.md`.
+
+### Pillar $\alpha$: two-stage factorisation of $\Phi_d$ (theorem)
+
+$\Phi_d = \mathrm{Sp}_{\Sigma_{d-1}, C} \circ \Phi^{\mathrm{FA}}_d$.
+
+Stage 1 $\Phi^{\mathrm{FA}}_d \colon \mathrm{CY}\text{-cat}_d \to \mathrm{FA}^{E_d}(X)$ is canonical: Kontsevich-Tamarkin $E_d$-formality on the holomorphic factor plus Costello-Gwilliam-Li locality produce an $E_d$-holomorphic factorisation algebra on the CY target $X$ with no external choice. Stage 2 $\mathrm{Sp}_{\Sigma_{d-1}, C} = \int_{\Sigma_{d-1}}$ is factorisation-homology specialisation along a $(d-1)$-dimensional slicing $\Sigma_{d-1}$ through $X$, landing on the chiral algebra on a curve $C$. Stage 2 is specialisation, not inversion: different $(\Sigma_{d-1}, C)$-specialisations of a single CY$_d$ category produce different $E_1$-chiral shadows. The slogan "many BKMs from one CY$_3$" becomes theorem-grade at this scope, and the downstream three-tier hierarchy on the seven faces of $r_{\mathrm{CY}}$ (CY-datum intrinsics / Stage-1 invariants / $(\Sigma_2, C)$-specialisations) reads every face through its proper tier.
+
+### Pillar $\beta$: universal positive-geometry grammar (theorem)
+
+$Y^+(X) = H^\bullet_{\mathrm{eq}}(\mathcal{M}^+_{\mathrm{eff}}(X), \phi_W)$, and $G(X) = D(Y^+(X))$ is its Drinfeld double. The grammar is universal across the CY landscape: CoHA on $\mathbb{C}^3$ and the resolved conifold, Nakajima stable envelopes on local $\mathbb{P}^2$, orbifold inertia $I(X/G)$ for Mathieu $M_{24}$ and McKay $\Gamma \subset \mathrm{SU}(d)$, and the lattice-polarised period half-space for Borcherds lifts all factor through the same formula. Four equivariance strata fix the equivariant cohomology precisely:
+(i) toric $T^d$ (local $\mathbb{P}^2$, $\mathbb{C}^3$, resolved conifold);
+(ii) reduced $\mathbb{C}^\times + \mathrm{Aut}(X)$ (K3, K3 $\times$ E, abelian surface);
+(iii) orbifold inertia $I(X/G)$ (Mathieu, McKay);
+(iv) lattice-polarised period domain (Gritsenko $\Delta_5$, Igusa $\Phi_{10}$, Borcherds lifts).
+
+The Maulik-Okounkov $R$-matrix reads as a gluing cocycle residue across chamber walls: $R^{MO}(u) = \mathrm{Res}_{u = u_\star} \phi^+_{\mathrm{UV}}(u)$, with the Yang-Baxter + unitarity MO axiom equal to the cocycle condition for $\phi^+_{\mathrm{UV}}$.
+
+### Pillar $\beta'$: 8-row Gritsenko-Cl\'ery catalogue (computation)
+
+Universal identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ across the eight Gritsenko-Cl\'ery forms. Weights $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$; Fourier constants $c_N(0) \in \{10, 4, 2, 2, 1, 2, 1/2, 0\}$; so $\kappa_{\mathrm{BKM}} \in \{5, 2, 1, 1, 1/2, 1, 1/4, 0\}$ row-by-row. Cover-group stratification by weight integrality: $\mathrm{Sp}_4(\mathbb{Z})$ for integral weights, $\mathrm{Mp}_4$ for half-integral, $\widetilde{\mathrm{Mp}}_4$ for quarter-integral. The weight-0 form is the degenerate terminal fibre of the catalogue. The universal identity subsumes the K3 $\times$ E crystallisation $\{2, 3, 5, 24\}$ as four distinct constructions (Mukai, Igusa-via-Gritsenko, BKM Borcherds, K3 fibre-rank), each landing at its own subscripted $\kappa_\bullet$.
+
+### Pillar $\gamma$: 6D hCS at Level 3 and the non-abelian 5D all-orders theorem (theorem)
+
+$\mathrm{Obs}^{\mathrm{cl}}_{\mathrm{hCS}_6}$ is an $E_3$-algebra on $\mathbb{C}^3$: Bochner-Martinelli propagator, sum-over-shuffles realises the $E_3$-product, BV-anomaly vanishes on $\mathbb{C}^3$ and on $K3 \times E$. Non-abelian 5D holomorphic Chern-Simons on $\mathbb{R} \times \mathbb{C}^2$ for simply-laced $\mathfrak{g}$ quantises to the affine Yangian VOA $Y_\hbar(\widehat{\mathfrak{g}})$ to all orders in $\hbar$: Kontsevich-Tamarkin formality on the holomorphic factor forces convergence (not merely asymptotic) of the perturbative expansion. Non-simply-laced requires twisted Yangian and remains open at all orders.
+
+### Pillar $\delta$: three-tier hierarchy on the seven faces of $r_{\mathrm{CY}}$ (theorem)
+
+Every face sorts into one of three tiers: CY-datum intrinsics (Mukai pairing, Hodge supertrace, categorical Euler $\kappa_{\mathrm{cat}}$); Stage-1 invariants of $\Phi^{\mathrm{FA}}_d$ ($\kappa_{\mathrm{ch}}$, $E_d$-centre, Kontsevich-Tamarkin formality class); $(\Sigma_2, C)$-specialisations ($\kappa_{\mathrm{BKM}}$ at the chosen Siegel cusp, MO $R$-matrix residue, Borcherds lift). The MO $R$-matrix equals $\mathrm{Res}_{u=u_\star} \phi^+_{\mathrm{UV}}(u)$, the gluing cocycle at walls of marginal stability; its unitarity-plus-YBE axiom is the positive-geometry cocycle condition.
+
+### Dimension-stratified sibling catalogue (theorem)
+
+Monster $\mathbb{M}$ from $V^\natural$ and Igusa $\Phi_{10}$ via Gritsenko-Nikulin are the $d=3$ siblings of a single universal construction. The Fake Monster Lie algebra of Borcherds 1990 on the $\mathrm{II}_{25,1}$ lattice is the $d=5$ sibling, not the $d=3$ sibling --- the rank-24 obstruction forces dimension 5, not 3. The $d=4$ bridge between the two is the Conway / Leech lattice datum. The sibling catalogue is ordered by dimension, not by moonshine narrative.
+
+### Three-factor Universal Trace Identity (computation, cross-volume)
+
+\[ \mathrm{tr}_{\mathrm{ghost}}(Q_{\mathrm{BRST}}^2) \;=\; \mathrm{tr}_{\mathrm{Pentagon}} \;=\; \omega_{\mathrm{Borcherds}} \;=\; c_N(0)/2. \]
+
+Verified at $N \in \{1, 2, 3, 4, 6\}$, the three traces yield $\{5, 4, 3, 2, 2\}$ row-by-row. The Vol~I ghost-trace reading (BRST ghost $Q^2$ in the Koszul reflection) sits on the left; the Vol~II Pentagon-trace reading (single-colour coherence of the $E_3$-algebra underlying 3D HT QFT at $d=3$) sits in the middle; the Vol~III Borcherds weight sits on the right. Two-factor forms of the identity (ghost $=$ Borcherds, Pentagon $=$ Borcherds) are corollaries.
+
+### Nine retractions with true hidden structure (retractions, labelled)
+
+1. $\widehat{\mathfrak{sl}_3}$ Gaiotto-shadow \emph{retracted}; the true structure is the $F_3$ Feingold-Frenkel real-root subalgebra of $\mathfrak{g}_{\Delta_5}$.
+2. $L_{-6}(\mathfrak{e}_8)$ for $V_{24}$ \emph{retracted}; the true structure is the iterated Drinfeld-Sokolov reduction $V_{24} = H^0_{\mathrm{DS}}(L_{-2+1/22}(\mathfrak{sl}_2)^{\otimes 22})$.
+3. $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal{O}_{\mathrm{fiber}})$ \emph{retracted} (fails at every $N$); the true structure is the universal $c_N(0)/2$ identity.
+4. Fake Monster at $d=3$ \emph{retracted}; the true structure sits at $d=5$ (rank-24 obstruction).
+5. Direct $\chi_{V_{24}}$ match \emph{retracted}; the true structure is the Heisenberg-Mukai $\eta^{-48}$ identity.
+6. Gaiotto curve $\Sigma_{2,0}$ \emph{retracted}; the true structure is $\Sigma_{0,24}$ (24-punctured sphere).
+7. $\Phi$ natively produces $E_n$-chiral on a curve \emph{retracted}; the true structure is the Pillar-$\alpha$ two-stage factorisation with Stage-2 specialisation.
+8. Shifted-symplectic table terminates at $d=4$ \emph{retracted}; the true structure carries a $d=5$ Poisson-$E_5$ row.
+9. Uniform $H^3$-vanishing \emph{retracted}; the true structure is class-dependent --- 2A carries $\mathbb{Z}/2$, 2B carries $\mathbb{Z}/4$.
+
+Each retraction is logged with its true theorem replacement; the earlier framing is preserved only as mathematical record of the flaw that illuminated the corrected structure.
+
+### Status of the eight named open frontier conjectures (conjectures)
+
+1. \emph{Bracket-level BPS $\cong$ BKM}: open. The Lie-bracket identification between BPS state-counting algebras and their BKM targets is proved on imaginary-root generators for the abelian Heisenberg-Miki core; the non-abelian extension remains a conjecture (V3-F19a above).
+2. \emph{Imprimitive DT partition function}: open. Wall-crossing on imprimitive classes requires the non-CHL hosts below.
+3. \emph{Non-CHL rigorous hosts}: open. CHL models at orders $\{2, 3, 4, 6\}$ admit rigorous Borcherds-host inscriptions; non-CHL hosts (prime-order $5, 7, \ldots$) remain open. Pillar-$\beta$ grammar is the correct language.
+4. \emph{Non-simply-laced ADE}: open. Simply-laced all-orders closed by Pillar $\gamma$; non-simply-laced requires twisted Yangian.
+5. \emph{Global NCCR substitute for K3 $\times$ E}: open. Five obstructions enumerated in CLAUDE.md; Serre-equivariant quasi-NCCR substitutes locally.
+6. \emph{Chiral-side $\Phi$ at non-CHL $N$}: open. Stage-2 specialisation at non-CHL Siegel cusps is uninscribed.
+7. \emph{Super-Yangian $Y_{osp}(4|20)$}: open. V3-F26 above; reflection-equation verification outstanding.
+8. \emph{K3 quantum toroidal $U_{q,t}(\widehat{\widehat{\mathfrak{g}_{K3}}})$}: open. V3-F27 above; gated on CY-A$_3$ chain-level data.
+
+### Cross-volume discipline
+
+FRONTIER text is a research-status document, but its body reads as mathematics: no "wave" or "round" vocabulary in the prose, only as section-level source citations. The Chriss-Ginzburg voice governs the prose. All $\kappa$ are subscripted. The two-stage factorisation, the positive-geometry grammar, the 8-row catalogue, the three-tier hierarchy, and the three-factor trace identity are the spine of the 2026-04-22 state; every historical entry below is read against this spine and every conflict is resolved by the spine winning.
+
+---
+
 ## DEFINITIVE STATUS AS OF 2026-04-19 (Beilinson-rectified, Waves 1–13 adversarial-audit-refined)
 
 This supersedes every prior status line. The 2026-04-16 closure wave, the 2026-04-17 Beilinson audit (`notes/rectification_map_beilinson_audit.md` cross-volume; Vol III `notes/beilinson_swarm_audit_vol3_2026_04_17.md`), and the 2026-04-19 Wave 13 synthesis (`notes/k3_nonabelian_yangian_swarm_wave13_20260419/SYNTHESIS_WAVE13.md`, especially §A/§C/§G/§I/§J) reconstitute the K3 / CY-C / BKM lane at the architectural level. The BKM-side object is the K3 chiral Hall–Drinfeld double; plain BKM-side "K3 Yangian" is retracted by Wave 13, see `SYNTHESIS_WAVE13.md` §C.5.

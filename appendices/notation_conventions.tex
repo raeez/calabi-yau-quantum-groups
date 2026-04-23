@@ -41,7 +41,7 @@ independent of algebraization):
 \textbf{Symbol} & \textbf{Name} & \textbf{Definition / Source} & \textbf{K3$\times E$} \\
 \midrule
 $\kappa_{\mathrm{cat}}$ & Categorical &
-  Holomorphic Euler characteristic $\chi(\cO_X)$ & 2 \\
+  Holomorphic Euler characteristic $\chi(\cO_X)$, Künneth-multiplicative & $\chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ \\
 $\kappa_{\mathrm{fiber}}$ & Fiber / lattice &
   Lattice rank or fiber-structure invariant
   (Mukai lattice rank for K3) & 24 \\
@@ -92,7 +92,7 @@ write $\kappa_\bullet$.
 \end{itemize}
 
 %% =====================================================================
-\section{The \texorpdfstring{$\En$}{E\_n} hierarchy}
+\section{The \texorpdfstring{$\En$}{E-n} hierarchy}
 \label{sec:nc-en}
 
 \begin{center}
@@ -326,9 +326,12 @@ $\MF(W)$ & Matrix factorization category of
 $\HH_*(A)$ & Hochschild homology of $A$ \\
 $\HC^-_d(\cC)$ & Negative cyclic homology: the CY trace target
  (not bare $\HH_d \to k$) \\
-$\Phi \colon \CY_d\text{-}\Cat \to \En\text{-}\mathrm{ChirAlg}$
-  & CY-to-chiral functor (Theorem CY-A) \\
-$A_\cC = \Phi(\cC)$ & Chiral algebra of CY category $\cC$ \\
+$\Phi_d = \SpCh_{\Sigma_{d-1},C} \circ \PhiFA_d$
+  & CY-to-chiral functor, two-stage factorisation (Theorem CY-A):
+    Stage~1 $\PhiFA_d$ assembles the $E_d$-holomorphic FA on $X$;
+    Stage~2 $\SpCh_{\Sigma_{d-1},C}$ specialises along a
+    codimension-one cycle to a chiral algebra on $C$ \\
+$A_\cC = \Phi_d(\cC)$ & Chiral algebra of CY category $\cC$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -436,12 +439,42 @@ $\otimes_{\Eone}$ & $\Eone$-factorization tensor:
 $\otimes_{\Einf}$ & $\Einf$ tensor (Kronecker product):
   kills quantum group structure \\
 $\int_M A$ & Factorization homology of $A$ over manifold $M$ \\
+\midrule
+\multicolumn{2}{@{}l}{\textbf{Two-stage factorisation $\Phi_d = \SpCh_{\Sigma_{d-1},C} \circ \PhiFA_d$}} \\
+\midrule
+$\PhiFA_d$ & Stage-1 functor: sends a CY$_d$ category $\cC$ to
+  an $E_d$-holomorphic factorisation algebra
+  $\PhiFA_d(\cC) \in \EdHolFA(X)$ on the CY$_d$ target $X$,
+  assembled from the Gerstenhaber bracket on $\HH^\bullet(\cC)$
+  via Costello--Gwilliam--Li locality \\
+$\SpCh_{\Sigma_{d-1},C}$ & Stage-2 specialisation functor:
+  pushes $\PhiFA_d(\cC) \in \EdHolFA(X)$ forward along a
+  codimension-one cycle $\Sigma_{d-1} \subset X$ and restricts
+  to a reference curve $C$, producing an $E_n$-chiral algebra
+  $\SpCh_{\Sigma_{d-1},C}(\PhiFA_d(\cC)) \in \EnHolFA(C)$;
+  explicitly $\SpCh_{\Sigma_{d-1},C}(\cF) = \bigl(\int_{\Sigma_{d-1}}\!\cF\bigr)\big|_C$ \\
+$\HolFA$ & Category of holomorphic factorisation algebras
+  on a fixed complex manifold \\
+$\EdHolFA(X)$ & $E_d$-holomorphic FA category on $X$:
+  the stage-1 target of $\PhiFA_d$;
+  carries $E_d$-factorisation over $d$-dimensional opens \\
+$\EnHolFA(C)$ & $E_n$-holomorphic FA category on the reference
+  curve $C$: the stage-2 target of $\SpCh_{\Sigma_{d-1},C}$;
+  native operadic level $n = n_{\mathrm{native}}(d)$ \\
+$\intSigma$ & Factorisation-homology pushforward
+  $\int_{\Sigma_{d-1}}$ along the specialisation cycle;
+  the integration appearing in the explicit formula for
+  $\SpCh_{\Sigma_{d-1},C}$ \\
+$\hCS$ & Holomorphic Chern--Simons theory: the geometric
+  input to $\PhiFA_d$ at $d = 2$ (3d hCS, Costello--Gwilliam)
+  and $d = 3$ (5d hCS, Costello 2013); produces the Kac--Moody
+  and affine Yangian chiral algebras respectively \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 %% =====================================================================
-\section{CY geometry: K3 and K3$\times E$}
+\section{CY geometry: K3 and K3\texorpdfstring{$\times E$}{x E}}
 \label{sec:nc-k3}
 
 \begin{center}
