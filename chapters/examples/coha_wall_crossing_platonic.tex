@@ -1,3 +1,11 @@
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\HolFA}{\mathrm{HolFA}}
+\providecommand{\EdHolFA}{E_d\text{-}\HolFA}
+\providecommand{\EnHolFA}{E_n\text{-}\HolFA}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\intSigma}{\textstyle\int_{\Sigma_{d-1}}}
+\providecommand{\hCS}{\mathrm{hCS}}
+
 \chapter{Wall-Crossing and CoHA: the Algebra-vs-Coalgebra Ledger}
 \label{ch:coha-wall-crossing-platonic}
 
@@ -50,12 +58,18 @@ precise hypothesis ledger of that assembly:
     of chiral endomorphisms of $A_X$ under the Gerstenhaber bracket
     (Chapter~\ref{ch:toric-coha},
     Theorem~\ref{thm:wall-crossing-mc} and surrounding prose). The
-    identification of these two dgLAs factors through the chiralization
-    correspondence $\Phi_3$ of Theorem~\ref{thm:cy-to-chiral-d3}
-    ($\infty$-categorical, chain-level for non-formal algebras conditional
-    on CY-A$_3$); the bridge $\Phi_*$ is proved for $\mathbb{C}^3$ (RSYZ
-    plus the conifold bar-complex engine) and conditional on CY-A$_3$
-    outside that case.
+    identification of these two dgLAs factors through the first stage
+    $\PhiFA_3$ of the two-stage factorisation
+    $\Phi_3 = \SpCh_{\Sigma_2,C} \circ \PhiFA_3$
+    (Theorem~\ref{thm:cy-to-chiral-d3};
+    $\infty$-categorical, chain-level for non-formal algebras conditional
+    on CY-A$_3$): the bridge $(\PhiFA_3)_*$ is proved for $\mathbb{C}^3$
+    (RSYZ plus the conifold bar-complex engine) and conditional on CY-A$_3$
+    outside that case. Wall-crossing automorphisms on
+    $\mathfrak{g}_{\mathrm{KS}}(X)$ therefore give automorphisms of
+    the canonical $\PhiFA_3$-stage output $A_X$, with the
+    $\SpCh$-specialisation inheriting those automorphisms after
+    factorisation-homology integration.
 \end{enumerate}
 
 % ========================================================================
@@ -141,11 +155,11 @@ Among (a)--(c) of Definition~\ref{def:three-coha-objects}:
     construction, but the output itself is a graded algebra, not a dg
     algebra.
 \end{itemize}
-Prose of the form ``$D^2 = 0$ in the CoHA differential'' is a
-\emph{category mistake} unless one means either (i) the
-Ginzburg dg algebra differential, or (ii) the bar differential on
-$B^{\mathrm{ord}}(\mathcal{H})$. Passages that mix these silently
-are the targets of Theorem~\ref{thm:coha-is-algebra-not-coalgebra}.
+The identity ``$D^2 = 0$ in the CoHA differential'' is a category
+mistake unless one means either (i) the Ginzburg dg algebra
+differential $\partial_W^2 = 0$, or (ii) the bar differential $d_B^2
+= 0$ on $B^{\mathrm{ord}}(\mathcal{H})$. Theorem~%
+\ref{thm:coha-is-algebra-not-coalgebra} enforces this separation.
 \end{remark}
 
 \begin{definition}[Bar complex of the CoHA]
@@ -165,7 +179,7 @@ $A_\infty$-operations at the level of definition, $b_k = 0$ for
 $k \geq 3$ and $b_2$ is the dual of the Hall product.
 \end{definition}
 
-\begin{remark}[Four inputs, four outputs, one confusion]
+\begin{remark}[Four objects attached to \texorpdfstring{$(Q, W)$}{(Q, W)}]
 \label{rem:four-inputs-four-outputs-platonic}
 The four objects on the table are:
 \begin{center}
@@ -181,11 +195,11 @@ $B^{\mathrm{ord}}(\mathcal{H})$ & dg coalgebra & yes (bar differential) \\
 \bottomrule
 \end{tabular}
 \end{center}
-The confusion of writing ``$D^2 = 0$ in the CoHA'' targets the wrong
-object: the CoHA is a graded algebra, not a dg object. The bar complex
-\emph{of} the CoHA is a dg coalgebra and does carry $D^2 = 0$. The
-Ginzburg dg algebra is a dg algebra with $\partial_W^2 = 0$. The
-three are linked by a chain of functors, not equated.
+The identity ``$D^2 = 0$ in the CoHA'' targets the wrong object: the
+CoHA is a graded algebra, not a dg object. The bar complex \emph{of}
+the CoHA is a dg coalgebra and does carry $D^2 = 0$. The Ginzburg dg
+algebra is a dg algebra with $\partial_W^2 = 0$. The three are linked
+by a chain of functors, not equated.
 \end{remark}
 
 % ========================================================================
@@ -401,17 +415,30 @@ $\mathfrak{g}_{\mathrm{KS}}^{\mathrm{cl}}(X)$: the semiclassical limit
 $\mathbb{L}^{1/2} \to 1$ of the quantum ambient (equivalently, the
 Euler-characteristic specialisation of the motivic Hall algebra), a
 $\mathbb{Z}$-graded Lie algebra with bracket
-$[e_\gamma, e_{\gamma'}] = \langle\gamma,\gamma'\rangle\,
- e_{\gamma+\gamma'}$
-where $\langle\gamma,\gamma'\rangle := \chi(\gamma,\gamma')
-- \chi(\gamma',\gamma)$ is the skew Euler form (antisymmetric because
-the CY$_3$ Euler form $\chi$ is symmetric, so
-$\langle\gamma,\gamma\rangle = 0$); its exponential is the classical
-symplectic torus $G_{\mathrm{KS}}^{\mathrm{cl}}(X)$ (KS 2008 Section~2.3,
-``semiclassical formula''; Bridgeland
-\textup{arXiv:1002.4372} (``Hall algebras and curve-counting
-invariants'', J.~Amer.~Math.~Soc.\ 24 (2011))
-Proposition~5.2 for the Euler-characteristic/Poisson-Hall
+$[e_\gamma, e_{\gamma'}] = (-1)^{\chi(\gamma,\gamma')}\,
+ \chi(\gamma,\gamma')\, e_{\gamma + \gamma'}$
+where the Euler pairing $\chi(\gamma,\gamma') = \sum_i (-1)^i
+\dim \mathrm{Ext}^i(\gamma, \gamma')$ on the CY$_3$ category
+$D^b\mathrm{Coh}(X)$ is itself \emph{antisymmetric}: Serre duality
+$\mathrm{Ext}^i(\gamma, \gamma') \simeq
+\mathrm{Ext}^{3 - i}(\gamma', \gamma)^\vee$
+yields
+$\chi(\gamma, \gamma') = \sum_i (-1)^i \dim \mathrm{Ext}^{3-i}(\gamma',
+\gamma) = \sum_j (-1)^{3-j} \dim \mathrm{Ext}^j(\gamma', \gamma) =
+- \chi(\gamma', \gamma)$,
+whence $\chi(\gamma, \gamma) = 0$ on the numerical Grothendieck group
+$K_0^{\mathrm{num}}(X) = K_0(D^b\mathrm{Coh}(X))/\ker(\chi)$ and the
+skew-symmetrisation $\langle\gamma, \gamma'\rangle = \chi(\gamma,
+\gamma') - \chi(\gamma', \gamma) = 2\chi(\gamma, \gamma')$ equals
+twice the Euler form. The motivic bracket then takes the form
+$[e_\gamma, e_{\gamma'}]_q = (\mathbb{L}^{\chi(\gamma,\gamma')} -
+\mathbb{L}^{-\chi(\gamma, \gamma')}) e_{\gamma + \gamma'}$
+with Laurent power $\mathbb{L}^{2\chi}$ in the associated commutator;
+its exponential is the classical symplectic torus
+$G_{\mathrm{KS}}^{\mathrm{cl}}(X)$ (KS 2008 Section~2.3,
+``semiclassical formula''; Bridgeland \textup{arXiv:1002.4372} (Hall
+algebras and curve-counting invariants, \emph{J.~Amer.~Math.~Soc.\ }
+24 (2011)) Proposition~5.2 for the Euler-characteristic / Poisson-Hall
 specialisation, with the classical torus obtained as
 $G_{\mathrm{KS}}^{\mathrm{cl}}(X) = G_{\mathrm{KS}}^{\mathrm{mot}}(X)
  \otimes_{\mathcal{R}} \mathbb{Q}$
@@ -478,16 +505,21 @@ Then, in each ambient, the following hold:
     $\exp(\mathrm{ad}_{\alpha_5}) \circ \cdots \circ
      \exp(\mathrm{ad}_{\alpha_1}) = \mathrm{id}$
     in $\mathfrak{g}_{\mathrm{KS}}^{\mathrm{mot}}(X)$ specialises to
-    the $A_2$ cluster-mutation five-cycle. It is the $q$-commutator
-    form of Faddeev--Kashaev (the quantum dilogarithm pentagon); its
-    Euler-characteristic specialisation is the classical dilogarithm
-    five-term relation on $\mathfrak{g}_{\mathrm{KS}}^{\mathrm{cl}}(X)$
-    (Rogers--Abel five-term identity). The ambient for ``pentagon in
-    the Hall Lie algebra'' is $\mathfrak{g}_{\mathrm{KS}}^{\mathrm{mot}}$,
-    NOT $\mathfrak{g}_{\mathrm{KS}}^{\mathrm{cl}}$: the classical limit
-    of the quantum dilogarithm $\mathbb{E}(x)$ degenerates to
-    $\exp(\mathrm{Li}_2(x))$, and the pentagon becomes the functional
-    equation of the Rogers dilogarithm.
+    the $A_2$ cluster-mutation five-cycle. It is the Faddeev--Kashaev
+    bound-state form
+    $\Psi(x_0)\Psi(x_1) = \Psi(x_1)\Psi(q^{-1/2} x_0 x_1)\Psi(x_0)$,
+    with middle factor the quantum variable of the non-split bound
+    state $[S_0 \oplus S_1]$, derived explicitly in clause (iv) of
+    the proof. Its Euler-characteristic specialisation is the
+    classical Rogers dilogarithm five-term relation on
+    $\mathfrak{g}_{\mathrm{KS}}^{\mathrm{cl}}(X)$. The ambient for
+    ``pentagon in the Hall Lie algebra'' is
+    $\mathfrak{g}_{\mathrm{KS}}^{\mathrm{mot}}$, not
+    $\mathfrak{g}_{\mathrm{KS}}^{\mathrm{cl}}$: the classical limit
+    $\mathbb{L}^{1/2} \to 1$ sends the quantum dilogarithm $\Psi(x)$
+    to $\exp(\mathrm{Li}_2(x))$ and sends the bound-state quantum
+    cocycle $q^{-1/2}$ to $1$, collapsing the pentagon to the Rogers
+    functional equation.
 \end{enumerate}
 This MC equation lives on the ALGEBRA side: each $\mathfrak{g}_{\mathrm{KS}}^\bullet$
 is a graded Lie algebra, the gauge action is algebra-preserving, and
@@ -511,12 +543,16 @@ Euler-characteristic Poisson Lie algebra on the charge lattice
 (Bridgeland 2016 Proposition~5.2). Both are nilpotent pro-finite
 after Harder--Narasimhan completion (KS 2008 Section~4.2).
 
-The skew Euler form is antisymmetric on a CY$_3$ category because
-$\chi$ is symmetric (Serre duality identifies
-$\mathrm{Ext}^i(\gamma,\gamma') \simeq \mathrm{Ext}^{3-i}(\gamma',\gamma)^\vee$
-and the alternating sum of dimensions is symmetric under
-$\gamma \leftrightarrow \gamma'$); hence
-$\langle\gamma,\gamma\rangle = 0$ and the diagonal bracket vanishes.
+The Euler form is antisymmetric on the CY$_3$ numerical Grothendieck
+group $K_0^{\mathrm{num}}(X)$: Serre duality
+$\mathrm{Ext}^i(\gamma, \gamma') \simeq \mathrm{Ext}^{3 -
+i}(\gamma', \gamma)^\vee$ gives $\chi(\gamma, \gamma') =
+\sum_i (-1)^i \dim \mathrm{Ext}^{3 - i}(\gamma', \gamma) = \sum_j
+(-1)^{3 - j} \dim \mathrm{Ext}^j(\gamma', \gamma) = - \chi(\gamma',
+\gamma)$ (the minus sign is $(-1)^3 = -1$, forced by the odd
+dimension $d = 3$). Hence $\chi(\gamma, \gamma) = 0$, the diagonal
+bracket vanishes, and the motivic commutator acquires the Laurent
+power $\mathbb{L}^{2\chi(\gamma, \gamma')}$.
 
 (ii)(a) is KS 2008 Theorem~3.1: the motivic wall-crossing is the
 equality of phase-ordered products
@@ -544,23 +580,48 @@ against the $q$-commutator Hall bracket (KS 2008 Section~4,
 ``no-pole'' theorem at the motivic level); on the classical side it
 is the numerical no-pole theorem of Joyce--Song 2011 Theorem~5.3.
 
-(iv) In $\mathfrak{g}_{\mathrm{KS}}^{\mathrm{mot}}(X)$, the pentagon
-is the quantum dilogarithm five-term relation
-$\mathbb{E}(x_{e_1}) \mathbb{E}(x_{e_2})
- = \mathbb{E}(x_{e_2}) \mathbb{E}(x_{e_1 + e_2}) \mathbb{E}(x_{e_1})$
-where
-$\mathbb{E}(x) = \prod_{k \geq 0} (1 - \mathbb{L}^{-(k+1/2)} x)^{-1}$
-is the KS quantum dilogarithm (Faddeev--Kashaev
-\textup{arXiv:hep-th/9310070}; Reineke 2011
-\textup{arXiv:0903.0261} Theorem~5.1 for the Hall-algebra
-formulation). Its Euler-characteristic specialisation is the
-Rogers dilogarithm five-term relation
+(iv) In $\mathfrak{g}_{\mathrm{KS}}^{\mathrm{mot}}(X)$ the pentagon
+is the Faddeev--Kashaev quantum-dilogarithm identity in its canonical
+bound-state form. Writing $q = \mathbb{L}$ for the quantum parameter
+and letting $x_0, x_1$ denote the motivic variables attached to two
+simple stable objects $S_0, S_1$ with $\langle S_0, S_1\rangle_{\mathrm{skew}}
+= +1$ (adjacent-vertex $A_2$ configuration), the pentagon reads
+\[
+ \Psi(x_0)\,\Psi(x_1)
+  \;=\;
+  \Psi(x_1)\;\Psi\!\bigl(q^{-1/2}\,x_0 x_1\bigr)\;\Psi(x_0),
+ \qquad
+ \Psi(x)
+  \;=\;\prod_{k \geq 0} \bigl(1 - q^{-(k + 1/2)} x\bigr)^{-1}
+\]
+(Faddeev--Kashaev \textup{arXiv:hep-th/9310070} Theorem~3;
+Kashaev--Nakanishi \textup{arXiv:1011.6131} Proposition~3.2;
+Reineke \textup{arXiv:0903.0261} Theorem~5.1 for the motivic-Hall
+formulation). The middle factor is the class of the \emph{bound
+state} $[S_0 \oplus S_1]$ formed in the cross-wall semistable
+category, not a detached lattice variable: it equals the motivic
+variable $x_{[S_0 \oplus S_1]} = q^{-1/2} x_0 x_1$ attached to the
+non-split extension class of $S_1$ by $S_0$ with the quantum cocycle
+$q^{-\langle S_0, S_1\rangle_{\mathrm{skew}}/2} = q^{-1/2}$. Replacing
+$q^{-1/2} x_0 x_1$ by $x_{e_1 + e_2}$ erases this quantum cocycle and
+is the classical shadow available only after sending
+$\mathbb{L}^{1/2} \to 1$. The Durfee-staircase product form of $\Psi$
+is forced by the generating function of partitions into distinct
+staircase parts: its logarithm $\log \Psi(x) = \sum_{k \geq 0}
+\log(1 - q^{-k-1/2}x)^{-1} = \sum_{n \geq 1} \frac{x^n}{n(q^{n/2} -
+q^{-n/2})}$ recovers the Faddeev--Kashaev quantum dilogarithm in
+Zagier's normalisation (Zagier, \textit{Frontiers in Number Theory,
+Physics and Geometry II}, Springer 2007, Ch.~1).
+
+Euler-characteristic specialisation $\mathbb{L}^{1/2} \to 1$
+degenerates $\Psi(x)$ to $\exp(\mathrm{Li}_2(x))$ and the pentagon
+becomes the Rogers five-term relation
 $L(x) + L(y) = L(xy) + L(x(1-y)/(1-xy)) + L(y(1-x)/(1-xy))$
-(Rogers 1907; see Kirillov 1995 \textup{math/9408113} for the
-Hall-Lie-algebra derivation). Algebraic verification of the
-$q$-commutator pentagon through height~$2$ is programmed in
-\texttt{compute/tests/test\_conifold\_wall\_crossing.py}
-(73 tests, at general $\mathbb{L}^{1/2}$).
+(Rogers 1907; Kirillov \textup{math/9408113} for the Hall-Lie
+derivation). Algebraic verification of the $q$-commutator pentagon
+through height~$2$ is programmed in
+\texttt{compute/tests/test\_conifold\_wall\_crossing.py} (73 tests, at
+general $\mathbb{L}^{1/2}$).
 \end{proof}
 
 \begin{remark}[The quantum/classical ambient distinction is load-bearing]
@@ -617,19 +678,22 @@ in $\mathfrak{g}^{\mathrm{mod}}_{A_X}$ (convolution dgLA of the chiral
 algebra $A_X$). The present Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}
 states it in $\mathfrak{g}_{\mathrm{KS}}(X)$ (motivic Hall dgLA). These
 are two MC equations on two different dg Lie algebras, linked by the
-chiralisation correspondence $\Phi_d$:
+first-stage map $(\PhiFA_3)_*$ of the two-stage factorisation
+$\Phi_3 = \SpCh_{\Sigma_2,C} \circ \PhiFA_3$:
 \[
-  \Phi_* \colon \mathfrak{g}_{\mathrm{KS}}(X)
+  (\PhiFA_3)_* \colon \mathfrak{g}_{\mathrm{KS}}(X)
    \longrightarrow \mathfrak{g}^{\mathrm{mod}}_{A_X}.
 \]
-The compatibility ``$\Phi_*(\Theta_{\zeta}^{\mathrm{KS}})
-= \Theta_\zeta^{\mathrm{mod}}$'' is the CONTENT of the
-CoHA-to-chiral bridge. The ingredients for $X = \mathbb{C}^3$ (the
-Schiffmann--Vasserot identification
+The compatibility ``$(\PhiFA_3)_*(\Theta_{\zeta}^{\mathrm{KS}})
+= \Theta_\zeta^{\mathrm{mod}}$'' is the content of the
+CoHA-to-chiral bridge: wall-crossing automorphisms on
+$\mathfrak{g}_{\mathrm{KS}}(X)$ induce automorphisms of the canonical
+$\PhiFA_3$-stage output $A_X$. The ingredients for $X = \mathbb{C}^3$
+(the Schiffmann--Vasserot identification
 $\mathcal{H}(\mathbb{C}^3) \simeq Y^+(\widehat{\mathfrak{gl}}_1)$ and
 the three-path Feynman / shuffle / $\mathcal{W}_{1+\infty}$ matches
 assembled in Section~\ref{sec:5d-cs}) are in place; the explicit
-chain-level map realising $\Phi_*$ on MC elements is constructed
+chain-level map realising $(\PhiFA_3)_*$ on MC elements is constructed
 for $\mathbb{C}^3$ and conjectural for toric CY$_3$ without compact
 $4$-cycles (conditional on the RSYZ identification plus the
 $\mathbb{C}^3$-local chart-gluing of
@@ -647,12 +711,27 @@ CY-A$_3$.
 \ClaimStatusConditional
 Let $X_{\mathrm{con}}$ be the resolved conifold
 $\mathcal{O}(-1) \oplus \mathcal{O}(-1) \to \mathbb{P}^1$ with
-Klebanov--Witten quiver $(Q_{\mathrm{con}}, W_{\mathrm{con}})$. Then:
+Klebanov--Witten quiver $(Q_{\mathrm{con}}, W_{\mathrm{con}})$. The
+Bridgeland stability manifold
+$\Stab(D^b\mathrm{Coh}(X_{\mathrm{con}}))$ has complex dimension
+\[
+  \dim_{\mathbb{C}} \Stab(D^b\mathrm{Coh}(X_{\mathrm{con}}))
+   \;=\; \mathrm{rk}\, K_0^{\mathrm{num}}(D^b\mathrm{Coh}(X_{\mathrm{con}}))
+   \;=\; 2,
+\]
+not the CY dimension $3$: Bridgeland's construction parametrises
+stability by a central charge $Z \colon K_0^{\mathrm{num}} \to
+\mathbb{C}$ on the numerical Grothendieck group, whose rank is
+determined by the representation-theoretic data of the quiver (two
+vertices of $Q_{\mathrm{con}}$), not by the geometric dimension of
+the target. The two classes $[S_0], [S_1]$ of Klebanov--Witten
+simples span $K_0^{\mathrm{num}}$ (Bridgeland \textup{arXiv:math/0507523}
+Section~3; Nagao--Nakajima \textup{arXiv:0809.2992} Section~2). Then:
 \begin{enumerate}[label=\textup{(\roman*)}]
   \item The motivic DT wall-crossing at the single wall
-    $\gamma_0 = (1, 0) - (0, 1) \in K_0(\mathrm{Coh}(X_{\mathrm{con}}))$
-    is the exponential gauge action of Theorem~%
-    \ref{thm:ks-wall-crossing-mc-on-coha-dgla}(ii).
+    $\gamma_0 = [S_0] - [S_1] \in K_0^{\mathrm{num}}(X_{\mathrm{con}})$
+    is the exponential gauge action of
+    Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}(ii).
   \item This wall-crossing matches the cluster-mutation structure of
     the $A_2$ cluster algebra: the two chambers of the stability space
     correspond to the two exchange paths around the $A_2$ pentagon.
@@ -676,29 +755,64 @@ Klebanov--Witten quiver $(Q_{\mathrm{con}}, W_{\mathrm{con}})$. Then:
 
 \begin{proof}
 (i) is Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}(ii) applied
-to the conifold quiver; the single wall class
-$\gamma_0 = (1, 0) - (0, 1)$ is the primitive wall in the unique
-two-dimensional stability space, and the wall-crossing generator
-is $\alpha_{\gamma_0}$ with Nagao--Nakajima BPS invariant
-$\Omega(\gamma_0) = 1$ (single rank-$1$ simple object crossing the wall).
-The self-pairing $\langle\gamma_0, \gamma_0\rangle$ under the skew
-Euler form vanishes automatically (CY$_3$ antisymmetry); the wall
-nontriviality is carried by $\Omega$, not by a diagonal Euler-form
-pairing.
+The stability-manifold dimension equals the numerical-Grothendieck
+rank by Bridgeland \textup{arXiv:math/0307164} Theorem~1.2: each
+stability condition $\sigma = (Z, \mathcal{P})$ is determined by its
+central charge $Z \in \Hom_{\mathbb{Z}}(K_0^{\mathrm{num}},
+\mathbb{C})$ modulo the discrete heart data, and
+$\Stab(\mathcal{C})$ is a complex manifold locally biholomorphic to
+$\Hom(K_0^{\mathrm{num}}, \mathbb{C}) \simeq \mathbb{C}^{\mathrm{rk}
+K_0^{\mathrm{num}}}$. For the Klebanov--Witten two-vertex quiver,
+$K_0^{\mathrm{num}}(X_{\mathrm{con}}) = \mathbb{Z}[S_0] \oplus
+\mathbb{Z}[S_1]$ has rank $2$; the CY dimension $d = 3$ does not
+enter. Applied to the conifold: the single wall class
+$\gamma_0 = [S_0] - [S_1]$ is the primitive wall in this
+two-dimensional stability space, and the wall-crossing generator is
+$\alpha_{\gamma_0}$ with Nagao--Nakajima BPS invariant
+$\Omega(\gamma_0) = 1$. The diagonal vanishing
+$\chi(\gamma_0, \gamma_0) = 0$ follows from CY$_3$ Euler-form
+antisymmetry (proof of
+Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}(i)); the wall
+nontriviality is carried by $\Omega$ and by the quantum cocycle
+$q^{-\chi([S_0], [S_1])/2} = q^{-1/2}$ arising from
+$\chi([S_0], [S_1]) = 1$ on the Klebanov--Witten pair.
 
-(ii) is Nagao--Nakajima 2011 \textup{arXiv:0809.2992} Theorem~3.5:
-the conifold stability space has two chambers related by a single
+(ii) is Nagao--Nakajima 2011 \textup{arXiv:0809.2992} Theorem~3.5: the
+conifold stability space has two chambers related by a single
 mutation, and the pentagon periodicity is the $A_2$ cluster algebra
-mutation class of rank $2$.
+mutation class of rank $2$. The derived equivalence underpinning the
+mutation is Keller--Yang \textup{arXiv:0906.0761} Theorem~3.2:
+mutation of the Klebanov--Witten quiver with potential at a vertex
+$i$ produces the flopped quiver $(Q^{\mathrm{fl}}_{\mathrm{con}},
+W^{\mathrm{fl}}_{\mathrm{con}})$, and the derived-Ginzburg functor
+$\Pi(Q_{\mathrm{con}}, W_{\mathrm{con}}) \dashrightarrow
+\Pi(Q^{\mathrm{fl}}_{\mathrm{con}}, W^{\mathrm{fl}}_{\mathrm{con}})$
+is a quasi-equivalence of dg categories. The flop of the resolved
+conifold is the Atiyah flop, and Keller--Yang quasi-equivalence
+realises $D^b\mathrm{Coh}(X_{\mathrm{con}}) \simeq
+D^b\mathrm{Coh}(X^{\mathrm{fl}}_{\mathrm{con}})$ as the chamber
+exchange.
 
 (iii) by direct bar-complex enumeration of the chamber subalgebras
 $\mathcal{H}_{\mathrm{I}}, \mathcal{H}_{\mathrm{II}} \subset
-\mathcal{H}(Q_{\mathrm{con}}, W_{\mathrm{con}})$ (Construction~%
-\ref{constr:conifold-bar} in Chapter~\ref{ch:toric-coha}, with the
-engine verification cited). The count $2^k$ in $\mathcal{H}_{\mathrm{I}}$
-reflects two stable simples in the resolved chamber; the $3^k$ in
-$\mathcal{H}_{\mathrm{II}}$ reflects three stable simples after the
-mutation; the ambient CoHA is unchanged across the wall.
+\mathcal{H}(Q_{\mathrm{con}}, W_{\mathrm{con}})$
+(Construction~\ref{constr:conifold-bar} in
+Chapter~\ref{ch:toric-coha}, with the engine verification cited). The
+count $2^k$ in $\mathcal{H}_{\mathrm{I}}$ reflects two stable simples
+in the resolved chamber; the $3^k$ in $\mathcal{H}_{\mathrm{II}}$
+reflects three stable simples after the mutation. Chamber-independence
+of the ambient CoHA is Davison--Meinhardt \textup{arXiv:1601.02479}
+Theorem~B: the motivic Donaldson--Thomas invariants decompose as
+$\mathcal{H}(Q, W) = \mathrm{Sym}\bigl(\bigoplus_\gamma
+\mathrm{BPS}_\gamma \otimes H^\bullet(B\mathbb{C}^\times)\bigr)$,
+and the $\mathrm{Sym}$-decomposition on the BPS sheaves is invariant
+under Bridgeland stability variation (Joyce--Song integration
+identity, \textup{arXiv:0810.5645} Theorem~5.8, lifts to the motivic
+Hall-algebra level); the two chamber subalgebras
+$\mathcal{H}_{\mathrm{I}}, \mathcal{H}_{\mathrm{II}}$ are therefore
+distinct subalgebras of a single chamber-independent Hall algebra
+$\mathcal{H}(Q_{\mathrm{con}}, W_{\mathrm{con}})$, exchanged by the
+pentagon mutation.
 
 (iv) conditional: the chiralisation of cluster algebras is a
 conjectural content of the programme; the local $\mathbb{C}^3$ chart
@@ -709,11 +823,478 @@ descent for $E_1$-chiral algebras
 Proposition~\textup{\ref{prop:mutation-e1-equivalence}}).
 \end{proof}
 
+\begin{proposition}[CoHA chamber-independence via Davison--Meinhardt]
+\label{prop:coha-chamber-independent-dm}
+\ClaimStatusProvedHere
+Let $X$ be a toric CY$_3$ without compact $4$-cycles, with quiver with
+potential $(Q_X, W_X)$. The critical cohomological Hall algebra
+$\mathcal{H}(Q_X, W_X)$ is independent of the Bridgeland stability
+condition $\sigma \in \Stab(D^b\mathrm{Coh}(X))$: for any two chambers
+$C_I, C_{II}$, the chamber-specific Hall subalgebras
+$\mathcal{H}^{C_I}, \mathcal{H}^{C_{II}} \subset \mathcal{H}(Q_X, W_X)$
+sit inside one common graded algebra, linked by the BPS decomposition
+\[
+  \mathcal{H}(Q_X, W_X)
+   \;\simeq\;
+   \mathrm{Sym}\Bigl(
+     \bigoplus_{\gamma \in K_0^{\mathrm{num}}(X)}
+     \mathrm{BPS}_\gamma(Q_X, W_X) \otimes H^\bullet(B\mathbb{C}^\times)
+   \Bigr)
+\]
+(Davison--Meinhardt \textup{arXiv:1601.02479} Theorem~B). The BPS
+sheaves $\mathrm{BPS}_\gamma$ are the vanishing-cycle cohomology of
+the intersection complex on the $\sigma$-semistable moduli, and while
+their individual stratification depends on $\sigma$ via the
+Harder--Narasimhan refinement, the total $\mathrm{Sym}$ reconstructs
+$\mathcal{H}$ independent of chamber.
+\end{proposition}
+
+\begin{proof}
+Davison--Meinhardt \textup{arXiv:1601.02479} Theorem~B establishes the
+$\mathrm{Sym}$-decomposition for any QP $(Q, W)$: the chamber-specific
+stratification produces a filtration on $\mathcal{H}(Q, W)$ whose
+associated graded is $\mathrm{Sym}(\bigoplus_\gamma \mathrm{BPS}_\gamma
+\otimes H^\bullet(B\mathbb{C}^\times))$. Joyce--Song
+\textup{arXiv:0810.5645} Theorem~5.8 supplies the integration-map
+compatibility: under wall-crossing $C_I \rightsquigarrow C_{II}$, the
+BPS cohomology sheaves transform by the motivic Hall algebra
+automorphism $\mathbb{E}(x_\gamma)^{\Omega^{\mathrm{mot}}(\gamma)}$,
+but the integration map $\mathcal{I} \colon \mathrm{SF}(\mathrm{MH})
+\to \mathfrak{g}_{\mathrm{KS}}^{\mathrm{cl}}$ descends this
+chamber-dependent data to a chamber-independent numerical DT
+generating series. The $\mathrm{Sym}$-decomposition lifts this to the
+motivic level: the algebra object $\mathcal{H}(Q_X, W_X)$ is
+chamber-invariant; only the choice of $\sigma$-semistable
+stratification subset $\mathcal{H}^{C_\sigma}$ depends on chamber.
+Schiffmann--Vasserot \textup{arXiv:1202.2756} Theorem~A gives the
+positive-half identification $\mathcal{H}(\mathbb{C}^3) \simeq
+Y^+(\widehat{\mathfrak{gl}}_1)$ intrinsically on
+$\mathcal{H}(\mathbb{C}^3)$ without reference to a chamber, confirming
+chamber-independence at the structural level.
+\end{proof}
+
+% ========================================================================
+\section{MNOP as three-segment homotopy of presentations of \texorpdfstring{$\cF_X$}{F-X}}
+\label{sec:mnop-three-segment-homotopy}
+
+The KS wall-crossing operator $\cT_\gamma$ of
+Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla} moves a chamber of
+$\Stab(\cC)$ to an adjacent chamber of $\Stab(\cC)$; it does not, by
+itself, reach the Gromov--Witten presentation, which lives outside
+Bridgeland stability space on the stable-map moduli
+$\overline{\mathcal{M}}_g(X,\beta)$. On a compact Calabi--Yau threefold
+$X$ the MNOP identification
+$Z^{\GW}_X(u, Q) = Z^{\DT\prime}_X(-q, Q)\big|_{-q = e^{iu}}$
+(Maulik--Nekrasov--Okounkov--Pandharipande,
+\emph{Compos.~Math.}~142, 2006, parts~I and~II) forces the full
+homotopy to carry three segments: a KS wall-crossing segment inside
+$\Stab(\cC)$, a Katz--Klemm--Vafa algebraic reorganisation, and a
+Gopakumar--Vafa summation. The three segments share a common ambient
+--- the canonical $E_3$-holomorphic factorisation algebra
+$\cF_X = \PhiFA_3(D^b\Coh(X))$ of
+Theorem~\ref{thm:cy-to-chiral-d3} --- and their composite exhibits the
+MNOP substitution $-q = e^{iu}$ as the semi-classical residue of the
+Faddeev--Kashaev quantum dilogarithm acting on $\cF_X$.
+
+\begin{theorem}[MNOP is a three-segment homotopy between presentations of \texorpdfstring{$\cF_X$}{F-X}]
+\label{thm:mnop-three-segment-homotopy}
+\ClaimStatusConjectured \emph{(theorem on toric $X$ for all three segments per
+MNOP~II Theorem~2; theorem on the resolved conifold per
+Okounkov--Pandharipande \textup{math/0411210}; theorem on the reduced
+primitive fibre of $K3\times E$ per Oberdieck--Pixton 2018
+\textup{arXiv:1706.10100}; conjecture on generic smooth projective CY$_3$)}
+Let $X$ be a smooth projective Calabi--Yau threefold and let
+$\cF_X = \PhiFA_3(D^b\Coh(X))$ be the canonical stage-one $E_3$-holomorphic
+factorisation algebra of Theorem~\ref{thm:cy-to-chiral-d3}. The MNOP
+identification
+$Z^{\GW}_X(u, Q) = Z^{\DT\prime}_X(-q, Q)\big|_{-q = e^{iu}}$
+factorises as a three-segment path in $\End^{E_2}_{\cF_X}(\mathbf{1})$
+between two chain-level presentations of the $E_3$-trace
+$\Tr^{E_3}(\cF_X) \in \End^{E_2}_{\cF_X}(\mathbf{1})$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Kontsevich--Soibelman wall-crossing.} A finite
+  path-ordered product
+  \[
+     U^{\rho}_{\DT \to \PT}
+     \;=\; \prod_{j=1}^{k} \cT_{\gamma_j}^{\Omega(\gamma_j)}
+     \qquad (\text{ordered along } \rho),
+  \]
+  of the semi-classical dilogarithm operators
+  $\cT_\gamma = \exp(\Li_2(e_\gamma))$ on the pro-nilpotent lattice Lie
+  algebra $\widehat{\mathfrak{g}}_{\Gamma}$ of
+  Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}, or their quantum
+  refinement, the Faddeev--Kashaev quantum dilogarithm
+  \[
+     \Psi^{q}_\gamma
+     \;=\; \prod_{n\geq 0}\bigl(1 - q^{n+1/2}\,\widehat{e}_\gamma\bigr)^{-1}
+     \qquad (\text{quantum; KS \textup{arXiv:1006.2706} \S3.3})
+  \]
+  on the quantum torus $\widehat{\mathfrak{g}}^{q}_{\Gamma}$ with
+  $\Psi^{q}_\gamma\big|_{q \to 1} = \cT_\gamma$ after KS sign-twist.
+  Segment~(i) moves the DT chamber of $\Stab(D^b\Coh(X))$ to the PT
+  chamber, implementing the Bridgeland--Toda identity
+  $Z^{\DT}_X(-q, Q) = \mathrm{M}(-q)^{\chi(X)} \cdot Z^{\PT}_X(-q, Q)$
+  by a single wall-crossing at the PT wall (Bridgeland 2011
+  \emph{Invent.~Math.} Theorem~1.3; Toda 2010 \emph{J.~AMS} Theorem~1.1).
+\item \emph{Katz--Klemm--Vafa reorganisation.} The PT generating series
+  rewrites in terms of integer BPS multiplicities
+  $n^{g}_\beta \in \mathbb{Z}$ as
+  \[
+     Z^{\PT}_X(-q, Q)
+     \;=\;
+     \prod_{\beta > 0,\,g\geq 0,\,k\geq 1}
+       \bigl(1 - (-q)^{k} Q^{k\beta}\bigr)^{\,k \cdot n^{g}_\beta \cdot (-1)^{g-1} \cdot (\cdots)}
+  \]
+  (Pandharipande--Thomas 2009 \textup{arXiv:0903.4155} Theorem~2 and
+  Conjecture~3; theorem on toric $X$ per Konishi 2006
+  \textup{arXiv:math/0608325}; theorem on primitive K3 fibre per
+  Pandharipande--Thomas \emph{Forum Math.~Pi} 4, 2016; Maulik--Toda 2018
+  \emph{Invent.~Math.} for projective KKV integrality). This is an
+  algebraic identity inside $\End^{E_2}_{\cF_X}(\mathbf{1})$, not a
+  Bridgeland chamber crossing.
+\item \emph{Gopakumar--Vafa summation.} The BPS data $n^{g}_\beta$
+  assemble into the connected GW exponential
+  \[
+     Z^{\GW}_X(u, Q)
+     \;=\;
+     \exp\!\Biggl(
+       \sum_{g\geq 0,\,\beta > 0,\,k\geq 1}
+         n^{g}_\beta \cdot \tfrac{1}{k}\,
+         \bigl(2\sin\tfrac{k u}{2}\bigr)^{2g-2}\,
+         Q^{k\beta}
+     \Biggr)
+  \]
+  (Gopakumar--Vafa \textup{hep-th/9812127} \S3; Katz--Liu
+  \textup{math/0103074} for the formal-trace setup).
+\end{enumerate}
+Under $-q = e^{iu}$ the composite of segments~(i), (ii), (iii) is
+the MNOP substitution automorphism $\sigma \in
+\mathrm{Aut}_{\mathbb{Q}}(\End^{E_2}_{\cF_X}(\mathbf{1}))$ of
+Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Theorem~\ref{thm:mnop-e3-trace-intertwiner}. Segment~(i) is KS
+wall-crossing in $\Stab(\cC)$ (a path in Bridgeland stability
+space); segments~(ii) and~(iii) are rewrites inside the single
+$E_2$-centre $\End^{E_2}_{\cF_X}(\mathbf{1})$ and are path-invariant
+rel endpoints.
+\end{theorem}
+
+\begin{proof}
+Segment~(i) is Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}(ii)
+applied to the wall sequence separating the DT chamber from the PT
+chamber in $\Stab(D^b\Coh(X))$; path-independence is KS
+\textup{arXiv:0811.2435} Theorems~2.1--2.2. Segment~(ii) is
+Pandharipande--Thomas 2009 Theorem~2 (on $Z^{\PT}$) combined with
+Conjecture~3 (on BPS integrality), upgraded to a theorem in the
+specific geometries indicated. Segment~(iii) is the Gopakumar--Vafa
+summation formula; its semi-classical verification
+$\bigl(2\sin\tfrac{u}{2}\bigr)^{2g-2} =$ semi-classical residue of
+$\log \Psi^{q}$ under $-q = e^{iu}$ is Lemma~\ref{lem:mnop-qdilog-u}
+below. The composite lands in the $E_2$-centre by Lurie,
+\emph{Higher Algebra}, Proposition~7.3.4.2 applied to the
+$E_3$-factorisation algebra $\cF_X$ (Costello--Gwilliam 2021 Vol.~II
+\S11 for the factorisation-algebra side; Ayala--Francis 2015 for the
+$\int_{X} \cF_X$ identification).
+
+That the two endpoints of the homotopy are in fact two chain-level
+presentations of $\cF_X$ rests on the Kontsevich--Tamarkin
+$E_3$-formality of the Hochschild complex of
+$\Omega^{0,\bullet}(X)$: the DT presentation is the motivic-Hall
+chain model of $\cF_X$ built on $\sigma_{\DT}$-semistable loci
+(Kontsevich--Soibelman 2010 \textup{arXiv:1006.2706} \S5), and the
+GW presentation is the Costello--Li quantisation of the abelian
+holomorphic Chern--Simons action on $\cF^{\mathrm{cl}}_X$
+(Costello--Li \textup{arXiv:1606.00365} \S5 for the non-compact
+case; Costello 2013 \textup{arXiv:1303.2632} Theorem~1.1 for
+quantum compatibility). By formality both are quasi-isomorphic
+$E_3$-factorisation algebras on $X$ in the homotopy category
+$\mathrm{Ho}(E_3\text{-}\HolFA(X))$; the three-segment chain above is
+a representative of the contractible space of quasi-isomorphisms
+connecting them.
+\end{proof}
+
+\begin{lemma}[The GV factor is the semi-classical qdilog residue]
+\label{lem:mnop-qdilog-u}
+Let $\Psi^{q}_\gamma = \prod_{n\geq 0}(1 - q^{n+1/2}\widehat{e}_\gamma)^{-1}$
+be the Faddeev--Kashaev quantum dilogarithm. Under the substitution
+$-q = e^{iu}$, the formal logarithmic expansion satisfies
+\[
+  \log \Psi^{q}_\gamma\big|_{-q = e^{iu}}
+   \;=\;
+   \sum_{k\geq 1} \frac{e_{k\gamma}}{k \cdot \bigl(2\sin\tfrac{ku}{2}\bigr)^{2}}
+\]
+to leading order in $u$, after subtracting the MacMahon zero-mode. For
+a BPS class $\gamma$ with Gopakumar--Vafa multiplicity $n^{g}_\beta$,
+the raised-power expansion gives
+\[
+  \log \bigl(\Psi^{q}_\gamma\bigr)^{n^{g}_\beta}\big|_{-q = e^{iu}}
+   \;=\;
+   n^{g}_\beta \cdot
+   \sum_{k\geq 1} \frac{1}{k}\,
+   \bigl(2\sin\tfrac{k u}{2}\bigr)^{2g-2}\, Q^{k\gamma}.
+\]
+In the semi-classical limit $u \to 0$ the factor
+$\bigl(2\sin\tfrac{ku}{2}\bigr)^{-2}$ produces $\Li_2(e_\gamma)$ up to
+scaling, recovering
+$\cT_\gamma = \exp(\Li_2(e_\gamma)) =
+ \lim_{u \to 0} u^{2} \cdot \log \Psi^{q}_\gamma(e^{iu})$.
+The substitution $-q = e^{iu}$ is therefore the exponential-to-trigonometric
+character of the quantum dilogarithm and not a formal shadow: it is the
+unique $E_2$-centre automorphism of
+$\End^{E_2}_{\cF_X}(\mathbf{1})$ intertwining integrality
+($q$-series on the DT side) with connected-map exponentiation
+($u$-series on the GW side).
+\end{lemma}
+
+\begin{proof}
+Faddeev--Kashaev \textup{arXiv:hep-th/9310070} Theorem~2;
+Kashaev--Nakanishi \textup{arXiv:1011.6131} Proposition~3.2; KS
+\textup{arXiv:1006.2706} \S3.3. The identity
+$\bigl(2\sin\tfrac{u}{2}\bigr)^{2} = (e^{iu/2} - e^{-iu/2})^{2}
+ = 2 - (e^{iu} + e^{-iu}) = -(1 - (-q))(1 - (-q)^{-1}) (-q)^{-1/2}$
+translates segment~(iii) of
+Theorem~\ref{thm:mnop-three-segment-homotopy} into segment~(ii) under
+$-q = e^{iu}$, and the composite with segment~(i) gives MNOP.
+\end{proof}
+
+\begin{proposition}[\texorpdfstring{$\mathbb{C}^{3}$}{C-3}: single-chamber tautology]
+\label{prop:mnop-c3-single-chamber}
+\ClaimStatusProvedHere
+At $X = \mathbb{C}^{3}$ the three-segment homotopy of
+Theorem~\ref{thm:mnop-three-segment-homotopy} collapses to: (i) empty
+KS segment (the $\mathbb{C}^{3}$ stability space has a single chamber,
+no wall to cross); (ii) Katz--Klemm--Vafa reorganisation with single BPS
+multiplicity $n^{0}_{0} = 1$ and all others vanishing; (iii)
+Gopakumar--Vafa summation producing
+$Z^{\GW}_{\mathbb{C}^{3}}(u) = \mathrm{M}(e^{-iu})$. The composite is
+the tautological identity
+$Z^{\GW}_{\mathbb{C}^{3}}(u) = Z^{\DT}_{\mathbb{C}^{3}}(q)\big|_{-q = e^{iu}}
+ = \mathrm{M}(-q)$
+(MacMahon), which matches the equivariant $T^{3}$-character of
+$\Obs^{q}_{\hCS}(\mathbb{C}^{3}, \mathfrak{gl}_{1})$ directly on
+$\cF_{\mathbb{C}^{3}}$.
+\end{proposition}
+
+\begin{proof}
+Segment~(i): the local $\mathbb{C}^{3}$ quiver is a single vertex
+with three loops and Klebanov--Witten superpotential
+$W = X_{1}[X_{2}, X_{3}]$; its $\Stab$ manifold has a single chamber
+(MNOP~II \S2). Segment~(ii): MNOP~I Theorem~1 identifies
+$Z^{\DT}_{\mathbb{C}^{3}}(q) = \mathrm{M}(-q)$, the MacMahon
+character of three-dimensional Young diagrams. Segment~(iii): the
+GV summation with $n^{0}_{0} = 1$ gives the Nekrasov partition
+function on the omega-background, which equals the MacMahon
+character under $-q = e^{iu}$
+(Nekrasov--Okounkov \textup{arXiv:hep-th/0306238} Theorem~1).
+\end{proof}
+
+\begin{proposition}[Conifold: two KS crossings and the Nagao pentagon]
+\label{prop:mnop-conifold-nagao-pentagon}
+\ClaimStatusProvedHere
+At $X_{\mathrm{con}} = \mathcal{O}(-1) \oplus \mathcal{O}(-1) \to \mathbb{P}^{1}$
+the three-segment homotopy of Theorem~\ref{thm:mnop-three-segment-homotopy}
+is:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item two KS chamber crossings
+  $\cT_{\gamma_{\alpha}}^{\Omega(\gamma_{\alpha})} \cdot
+   \cT_{\gamma_{\beta}}^{\Omega(\gamma_{\beta})}$
+  with $\Omega(\gamma_{\alpha}) = \Omega(\gamma_{\beta}) = 1$ and
+  $\gamma_{\alpha} + \gamma_{\beta} = [\mathbb{P}^{1}]$: the first
+  realises Nagao's noncommutative-DT to commutative-DT passage
+  (Nagao \textup{arXiv:0907.3784}), the second realises DT to PT
+  (Bridgeland--Toda) by removing the MacMahon vacuum factor
+  $\mathrm{M}(-q)^{\chi(X_{\mathrm{con}})} = \mathrm{M}(-q)^{2}$;
+  the two crossings compose via the Faddeev--Kashaev bound-state
+  pentagon
+  \[
+    \Psi(x_\alpha)\,\Psi(x_\beta)
+     \;=\;
+     \Psi(x_\beta)\;
+      \Psi\!\bigl(q^{-1/2}\, x_\alpha\, x_\beta\bigr)\;
+      \Psi(x_\alpha),
+  \]
+  whose middle factor is the quantum variable of the bound state
+  $[S_\alpha \oplus S_\beta]$ of Klebanov--Witten simples with
+  $\chi(S_\alpha, S_\beta) = 1$ (Nagao--Nakajima
+  \textup{arXiv:0809.2992} Theorem~3.5 for the $A_2$ cluster mutation
+  structure; the bound-state normalisation matches the canonical form
+  of Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}(iv)); the
+  semi-classical $\mathbb{L}^{1/2} \to 1$ specialisation recovers
+  $\cT_\alpha \cT_\beta = \cT_\beta \cT_{\alpha+\beta} \cT_\alpha$;
+\item KKV reorganisation with single BPS multiplicity
+  $n^{0}_{[\mathbb{P}^{1}]} = 1$, all other $n^{g}_\beta = 0$
+  (Bryan--Pandharipande \textup{arXiv:math/0411037});
+\item Gopakumar--Vafa summation yielding Bryan--Pandharipande's
+  closed form
+  $Z^{\GW}_{\mathrm{con}}(u, Q) = \exp\!\bigl(
+   \sum_{k\geq 1} Q^{k} / \bigl(k(2\sin\tfrac{ku}{2})^{2}\bigr)\bigr)
+   \cdot Z^{\GW,\mathrm{deg\,0}}_{\mathrm{con}}(u)$.
+\end{enumerate}
+Composed and restricted to $-q = e^{iu}$, the three segments give
+Okounkov--Pandharipande's theorem $Z^{\DT\prime}_{\mathrm{con}}(-q, Q)
+ = Z^{\GW}_{\mathrm{con}}(u, Q)$ on the toric resolved conifold
+(Okounkov--Pandharipande \textup{arXiv:math/0411210}). The common
+$E_3$-factorisation algebra is
+$\cF_{X_{\mathrm{con}}} = \Obs^{q}_{\hCS}(X_{\mathrm{con}}, \mathfrak{gl}_{1})$,
+and the Davison conifold CoHA
+$\mathcal{H}(X_{\mathrm{con}}) \simeq Y^{+}(\widehat{\mathfrak{gl}}_{2})$
+(Davison \textup{arXiv:1102.4367} Theorem~1.3) is the algebra-side
+input feeding segment~(i) via
+Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla} and
+Theorem~\ref{thm:conifold-cluster-wall-crossing}. The conifold
+pentagon of segment~(i) is the $A_{2}$ Faddeev--Kashaev quantum
+dilogarithm pentagon appearing in
+Theorem~\ref{thm:phys-pentagon-jacobi}.
+\end{proposition}
+
+\begin{proof}
+Nagao's NC-to-DT passage absorbs the factor
+$\prod_{k}(1 - Q^{-1}(-q)^{k})^{k}$ into the vacuum sector by one
+$\cT_{\gamma_\alpha}$, matching Szendr\H{o}i's noncommutative-DT
+generating series
+$Z^{\mathrm{NCDT}}_{\mathrm{con}}(q, Q) = \prod_{k \geq 1}(1 -
+Q(-q)^k)^{-k} (1 - Q^{-1}(-q)^k)^{-k}$
+(Szendr\H{o}i \textup{arXiv:0705.3419} Theorem~1.1; derived via the
+non-commutative Hilbert scheme of the Klebanov--Witten resolution
+algebra) to the Bryan--Morrison--Mozgovoy commutative-DT formula
+$Z^{\DT}_{\mathrm{con}}(q, Q) = \mathrm{M}(-q)^2 \prod_{k \geq 1}(1 -
+Q(-q)^k)^k$
+(Bryan--Morrison \textup{arXiv:0812.5007} Theorem~1.1;
+Morrison--Mozgovoy--Nagao--Szendr\H{o}i \textup{arXiv:1004.0198}
+Theorem~2.1). The DT-to-PT crossing removes the vacuum factor
+$\mathrm{M}(-q)^{\chi(X_{\mathrm{con}})} = \mathrm{M}(-q)^2$ (the
+conifold has $\chi(X_{\mathrm{con}}) = 2$ from the two torus-fixed
+points on the $\mathbb{P}^1$), producing
+$Z^{\PT}_{\mathrm{con}}(q, Q) = \prod_{k \geq 1}(1 - Q(-q)^k)^k$
+(Pandharipande--Thomas \textup{arXiv:0707.2348} Theorem~1). Each of
+the three intermediate generating series is the $E_2$-centre
+character of the chiral-factorisation algebra $\cF_{X_{\mathrm{con}}}$
+evaluated in the respective Bridgeland chamber, and the KS
+wall-crossing operators $\cT_{\gamma_\alpha}, \cT_{\gamma_\beta}$
+execute the two transitions (NCDT $\to$ DT and DT $\to$ PT).
+
+Segment~(ii) reads off a single genus-zero rational curve
+($\mathbb{P}^1$). Segment~(iii) substitutes $n^0_{[\mathbb{P}^1]} = 1$
+into Theorem~\ref{thm:mnop-three-segment-homotopy}(iii), recovering
+the Bryan--Pandharipande closed form. The conifold pentagon identity
+is the semi-classical specialisation of the Faddeev--Kashaev
+bound-state pentagon
+$\Psi(x_\alpha)\Psi(x_\beta) = \Psi(x_\beta)
+\Psi(q^{-1/2} x_\alpha x_\beta) \Psi(x_\alpha)$ under
+$\mathbb{L}^{1/2} \to 1$, via the two-vertex Klebanov--Witten
+conifold quiver.
+\end{proof}
+
+\begin{proposition}[\texorpdfstring{$K3 \times E$}{K3 x E}: reduced-primitive identity with Borcherds denominator]
+\label{prop:mnop-k3-times-e-reduced-primitive}
+\ClaimStatusProvedElsewhere
+At $X = K3 \times E$ on the reduced primitive K3-fibre class, the
+three-segment homotopy of
+Theorem~\ref{thm:mnop-three-segment-homotopy} runs through the
+reduced $E_3$-factorisation algebra
+$\cF^{\mathrm{red}}_{K3 \times E} =
+ \Obs^{q}_{\hCS}(K3 \times E, \mathfrak{gl}_{1})^{\mathrm{red}}$
+and gives the Oberdieck--Pixton reduced-DT identity
+\[
+  Z^{\DT, \mathrm{red}}_{K3 \times E, \beta}(q, \widetilde{q}, y)
+   \;=\;
+   \frac{-C}{\Phi_{10}(q, \widetilde{q}, y)}
+   \;=\;
+   \frac{-C}{\Delta_{5}(q, \widetilde{q}, y)^{2}}
+\]
+(Oberdieck--Pixton 2018 \textup{arXiv:1706.10100} Theorem~1), with
+$C = pqt$ the Weyl-vector prefactor and $\Delta_{5} = \mathrm{Bo}(\phi_{0,1})$
+the Borcherds lift of the K3 weak Jacobi form (Gritsenko 1999
+\emph{St.~Petersburg~Math.~J.}; Lorgat 2020
+\emph{J.~Algebra}~550). Segment~(i) is vacuous ($\chi(K3 \times E)
+ = \chi(K3) \cdot \chi(E) = 24 \cdot 0 = 0$, so the DT/PT MacMahon
+vacuum factor $\mathrm{M}(-q)^{\chi(X)} = 1$); segments~(ii)
+and~(iii) run through the K3-elliptic-genus BPS tower
+$\Omega^{\mathrm{red}}(\gamma_\beta) = c(\beta^{2}/2)$
+($c(n)$ the Fourier coefficient of $\phi_{0,1}$,
+$\phi_{0,1} = \sum_{n} c(n) q^{n} \cdot (\text{Jacobi factor})$,
+Mathieu-moonshine class $\mathbf{M}$), with the Borcherds lift
+$\mathrm{Bo}(\phi_{0,1}) = \Delta_{5}$ supplying the automorphic
+resummation and the squaring $\Delta_{5}^{2} = \Phi_{10}$
+(Gritsenko 1999 Theorem~6.1) producing the Igusa cusp form. The chiral
+half $\Delta_{5}$ carries Borcherds weight
+$\kappa_{\mathrm{BKM}}(\Delta_{5}) = c_{1}(0)/2 = 5$, the $N = 1$ entry
+of the universal
+$\kappa_{\mathrm{BKM}}(\Phi_{N}) = c_{N}(0)/2$ identity of
+Chapter~\ref{ch:cy-d-kappa-stratification}
+Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}. The chiral
+invariant
+$\kappa_{\mathrm{ch}}(A_{K3 \times E}) = \chi(\cO_{K3 \times E})
+ = \chi(\cO_{K3}) \cdot \chi(\cO_{E}) = 2 \cdot 0 = 0$
+is K\"unneth-multiplicative on the total space and is a different
+invariant from the Borcherds weight of the automorphic denominator;
+they share no numerical identification.
+\end{proposition}
+
+\begin{proof}
+The reduced-theory passage is Maulik--Pandharipande--Thomas
+\textup{arXiv:1007.3085} (the $E$-translation quotient produces the
+reduced obstruction theory). Oberdieck--Pandharipande
+\textup{arXiv:1411.1514} Theorem~1 computes the reduced-GW side on
+the primitive K3-fibre class; Oberdieck--Pixton
+\textup{arXiv:1706.10100} Theorem~1 extends to all reduced partition
+functions via the Igusa cusp conjecture and the BCOV
+holomorphic-anomaly equation. The Borcherds lift identity
+$\mathrm{Bo}(\phi_{0,1}) = \Delta_{5}$ is Lorgat 2020
+\emph{J.~Algebra}~550; the squaring $\Delta_{5}^{2} = \Phi_{10}$ is
+Gritsenko 1999 Theorem~6.1. The Borcherds-weight identity
+$\kappa_{\mathrm{BKM}}(\Delta_{5}) = c_{1}(0)/2 = 5$ uses the
+K3-elliptic-genus constant $f(0,0) = 10$ in the
+$r^{-1} + 10 + r$ expansion of $\phi_{0,1}$ at $z = 0$
+(Borcherds 1995 weight theorem;
+Chapter~\ref{ch:cy-d-kappa-stratification}
+Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}). The
+vanishing of segment~(i) follows from
+$\mathrm{M}(-q)^{\chi(X)}|_{\chi(X) = 0} = 1$; segments~(ii) and~(iii)
+compose through the Borcherds multiplicative lift of $\phi_{0,1}$ to
+$\Delta_{5}$, with the $-q = e^{iu}$ substitution realising the
+Igusa-period parameterisation of the reduced trace.
+\end{proof}
+
+\begin{remark}[Reading the three segments through \texorpdfstring{$\PhiFA_3$}{PhiFA-3}]
+\label{rem:mnop-three-segments-through-phi-fa}
+The three segments sit at precise places in the two-stage factorisation
+$\Phi_{3} = \SpCh_{\Sigma_{2}, C} \circ \PhiFA_{3}$ of
+Theorem~\ref{thm:cy-to-chiral-d3}.
+Segment~(i), KS wall-crossing, lives on the algebra side of
+Remark~\ref{rem:two-mc-equations}: automorphisms of
+$\mathfrak{g}_{\mathrm{KS}}(X)$ induce automorphisms of the canonical
+$\PhiFA_{3}$-stage output $A_{X}$ via $(\PhiFA_{3})_{*}$, and hence
+automorphisms of $\cF_{X}$. Segment~(ii), Katz--Klemm--Vafa, is an
+algebraic identity inside $\End^{E_2}_{\cF_X}(\mathbf{1})$; segment~(iii),
+Gopakumar--Vafa, is likewise an $E_2$-centre identity inherited from
+the $\SpCh_{\Sigma_{2}, C}$-specialisation along the topological-string
+loop variable $u$. The single unifier is the Faddeev--Kashaev quantum
+dilogarithm $\Psi^{q}_\gamma$: its $q$-series reading is the DT
+presentation, its $u$-expansion under $-q = e^{iu}$ is the GW
+presentation, and segment~(i) is the wall-crossing permutation of its
+arguments. The chain-level and $(\infty,1)$-categorical lanes read the
+same data: the chain-level lane gives the explicit denominator
+formulas, the Borcherds product for $K3 \times E$ primitive-reduced,
+and Bryan--Pandharipande's closed form for the conifold; the
+$(\infty,1)$-categorical lane reads the three segments as a
+contractible space of quasi-isomorphisms inside
+$\mathrm{Ho}(E_3\text{-}\HolFA(X))$ by Kontsevich--Tamarkin formality.
+The three-segment decomposition refines
+Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
+Theorem~\ref{thm:mnop-homotopy-three-segments} and
+Chapter~\ref{ch:k3e-bkm}
+Theorem~\ref{thm:op-kkv-gv-pt-identification}
+(Routes~A--C converging on $\prod (1 - p^{n} q^{m} t^{\ell})^{-c(nm, \ell)}$):
+Route~A is the Gopakumar--Vafa summation of segment~(iii), Route~B is
+the Borcherds multiplicative lift feeding segment~(ii), Route~C is the
+Pandharipande--Thomas stable-pairs DT endpoint of segment~(i).
+\end{remark}
+
 % ========================================================================
 \section{Positive half versus full Yangian}
 \label{sec:y-plus-vs-full-y}
 
-\begin{corollary}[$Y^+$ is not the full Yangian; Drinfeld double yields it]
+\begin{corollary}[\texorpdfstring{$Y^+$}{Y-+} is not the full Yangian; Drinfeld double yields it]
 \label{cor:y-plus-vs-full-Y}
 \ClaimStatusConditional
 \begin{enumerate}[label=\textup{(\roman*)}]
@@ -748,8 +1329,9 @@ Proposition~\textup{\ref{prop:mutation-e1-equivalence}}).
 \begin{proof}
 (i) is Schiffmann--Vasserot 2013 \textup{arXiv:1202.2756} Theorem~A,
 the statement that the Hall product on $\mathcal{H}(\mathbb{C}^3)$
-agrees with the Drinfeld coproduct's positive-half multiplication on
-$Y^+(\widehat{\mathfrak{gl}}_1)$ specialised at generic central charge.
+agrees with the product on the positive half
+$Y^+(\widehat{\mathfrak{gl}}_1)$ of the affine Yangian in its Drinfeld
+new-realization presentation, specialised at generic central charge.
 
 (ii) is Procha\'zka--Rap\v{c}\'ak 2018 Section~4. The Drinfeld double
 $D(Y^+)$ is constructed from $Y^+$ and its graded dual $(Y^+)^*$ via
@@ -875,12 +1457,12 @@ and Procha\'zka--Rap\v{c}\'ak 2018 (Drinfeld-double~$=\mathcal{W}_{1+\infty}$).
 \section{CoHA wall-crossing and the Hall--Drinfeld double}
 \label{sec:cwc-hall-drinfeld-double}
 
-\begin{remark}[CoHA wall-crossing for $K3 \times E$ and the Hall--Drinfeld double]
+\begin{remark}[CoHA wall-crossing for \texorpdfstring{$K3 \times E$}{K3 x E} and the Hall--Drinfeld double]
 \label{rem:cwc-k3xe-hall-drinfeld}
 The K3 chiral Hall--Drinfeld double $\mathcal{D}_\hbar(\mathcal{Y}^{\mathrm{Hall}}_\hbar(\mathrm{CoHA}_{K3 \times E}))$ extends Schiffmann--Vasserot $2012$ shuffle presentation to $K3 \times E$ via Davison $2017$ CY-$3$ integrality. Wall-crossing in $\mathrm{CoHA}_{K3 \times E}$ under Bridgeland stability variation maps via $\Phi$ to $R$-matrix gauge transformations of the Hall--Drinfeld double; the spectral $R$-matrix is the Siegel-elliptic dynamical $R_{\mathrm{Sieg,dyn}}$.
 \end{remark}
 
-\section{The K3 CoHA as $\Phi$-input}
+\section{The K3 CoHA as \texorpdfstring{$\Phi$}{Phi}-input}
 \label{sec:cwc-k3-coha-phi-input}
 
 The remark above records the composite $K3\times E$ threefold CoHA.
@@ -920,7 +1502,7 @@ construction specialises Schiffmann--Vasserot's elliptic Hall algebra
 Theorem~A) to a compact CY-$2$ with transcendental $H^{2,0}$.
 \end{remark}
 
-\begin{theorem}[$\Phi(\mathcal{H}_{K3})$ is the Mukai--Heisenberg chiral algebra]
+\begin{theorem}[\texorpdfstring{$\Phi(\mathcal{H}_{K3})$}{Phi(H-K3)} is the Mukai--Heisenberg chiral algebra]
 \label{thm:cwc-phi-k3-coha}
 \ClaimStatusProvedHere
 Under the CY-to-chiral functor
@@ -970,7 +1552,7 @@ supplies the negative modes via the Mukai pairing (non-degenerate Hopf
 pairing by Serre duality, Proposition~\ref{prop:serre-duality-cy}).
 \end{proof}
 
-\begin{remark}[Bridgeland wall-crossing and the $\hbar^2 = -1/8$ specialisation]
+\begin{remark}[Bridgeland wall-crossing and the \texorpdfstring{$\hbar^2 = -1/8$}{hbar-2 = -1/8} specialisation]
 \label{rem:cwc-k3-bridgeland-wall}
 \ClaimStatusConditional
 For each Bridgeland stability condition $\sigma\in\Stab(D^b\mathrm{Coh}(S))$
@@ -1023,7 +1605,7 @@ $\Phi_2$ is the content of the deformation-quantisation bridge
 of Chapter~\ref{ch:cy-to-chiral}.
 \end{remark}
 
-\section{The global Bridgeland $\leftrightarrow$ $R$-matrix dictionary}
+\section{The global Bridgeland \texorpdfstring{$\leftrightarrow$}{<->} \texorpdfstring{$R$}{R}-matrix dictionary}
 \label{sec:cwc-global-bridgeland-rmatrix}
 
 The KS-T\"oen discipline and the Etingof cyclic-$A_\infty$ machinery
@@ -1151,7 +1733,7 @@ $R^{(\sigma)}(u,Z_\sigma)=R_{\mathrm{Sieg,dyn}}(u;\tau_\sigma,
 The RTT relation is Theorem~\ref{thm:R-Sieg-YBE}.
 \end{proof}
 
-\begin{theorem}[Kontsevich--Soibelman wall-crossing as $R$-matrix gauge
+\begin{theorem}[Kontsevich--Soibelman wall-crossing as \texorpdfstring{$R$}{R}-matrix gauge
 conjugation]
 \label{thm:cwc-ks-r-conjugation}
 \ClaimStatusProvedHere
@@ -1230,7 +1812,7 @@ Igusa-compatible map $\iota$ used in
 Theorem~\ref{thm:cwc-global-dictionary}.
 \end{remark}
 
-\begin{theorem}[Global Bridgeland $\leftrightarrow$ $R$-matrix dictionary]
+\begin{theorem}[Global Bridgeland \texorpdfstring{$\leftrightarrow$}{<->} \texorpdfstring{$R$}{R}-matrix dictionary]
 \label{thm:cwc-global-dictionary}
 \ClaimStatusProvedHere
 The RTT factorisation
@@ -1316,7 +1898,7 @@ opposite direction and produces $R^{\mathrm{ell,dyn}}_{\mathrm{Felder}}$
 with $(\tau,\rho)$ swapped.
 \end{proof}
 
-\begin{remark}[Three-tier $R$-matrix degeneration along the Bridgeland
+\begin{remark}[Three-tier \texorpdfstring{$R$}{R}-matrix degeneration along the Bridgeland
 quotient]
 \label{rem:cwc-three-tier}
 \ClaimStatusProvedHere
@@ -1649,7 +2231,7 @@ Remark~\ref{rem:cwc-scope} together with:
 \end{enumerate}
 The open frontier is extension beyond the $g=2$ Bridgeland locus
 to the $\overline{\mathcal A_3}$ Noether--Lefschetz tower of Vol~I
-Definition~\textup{\ref{def:hgmk-nl-divisor-abar3}}, where the
+Definition~\textup{\texttt{chapters/theory/higher\_genus\_modular\_koszul.tex} (Vol~I)}, where the
 octachotomy closure predicts a thicker admissible
 Noether--Lefschetz stratification on
 $\overline{\mathcal A_3}$ of complex dimension $6$ (Vol~I
@@ -1667,4 +2249,601 @@ Bridgeland-shadow stratification tracks Humbert-type discriminants
 on the \emph{moduli} stack $\overline{\mathcal A_2}$, not the
 Koszul status of the chiral algebra --- shadow depth $r_{\max}$ and
 Koszulness are distinct invariants.
+\end{remark}
+
+% ======================================================================
+\section{The attractor mechanism as canonical Maurer--Cartan gauge}
+\label{sec:phys-wc-attractor}
+% ======================================================================
+
+The Kontsevich--Soibelman wall-crossing formula (Theorem~\ref{thm:wall-crossing-mc}) identifies wall-crossing with gauge equivalence of Maurer--Cartan elements. The \emph{attractor mechanism} of Ferrara--Kallosh--Strominger (1995) selects a canonical representative.
+
+\begin{definition}[Attractor MC element]
+\label{def:phys-attractor-mc}
+In $\mathcal{N}=2$ supergravity compactified on a CY3 $X$, the moduli $t \in \mathcal{M}_K(X)$ flow to an \emph{attractor point} $t_*(\gamma)$ determined by the charge $\gamma$:
+\begin{equation}\label{eq:phys-attractor-alignment}
+Z_{t_*(\gamma)}(\gamma') \;\in\; \mathbb{R} \cdot Z_{t_*(\gamma)}(\gamma)
+\quad \text{for all } \gamma' \text{ with } \langle \gamma, \gamma' \rangle \neq 0.
+\end{equation}
+At the attractor point all constituent central charges are aligned; the BPS index $\Omega_*(\gamma) = \Omega(\gamma; t_*(\gamma))$ is the single-centered (intrinsic) invariant. The \emph{attractor MC element} is
+\begin{equation}\label{eq:phys-attractor-mc}
+\Theta_A^* \;=\; \sum_{\gamma \in \Gamma_+} \Omega_*(\gamma) \cdot \Theta_\gamma^{\mathrm{prim}}\, x^\gamma
+\;\in\; \mathrm{MC}(\mathfrak{g}^{\mathrm{mod}}_A).
+\end{equation}
+This is the ``split'' gauge: the BKM root datum is diagonal, with each root space $(\mathfrak{g}_X)_\gamma$ of dimension $|\Omega_*(\gamma)|$ and no inter-charge mixing.
+\end{definition}
+
+\begin{proposition}[Attractor = canonical gauge representative]
+\label{prop:phys-attractor-canonical}
+At a generic moduli point $t \neq t_*$, the MC element $\Theta_A(t)$ is gauge-equivalent to $\Theta_A^*$ via
+\begin{equation}\label{eq:phys-binding-gauge}
+\Theta_A(t) \;=\; e^{\alpha(t, t_*)} \cdot \Theta_A^*,
+\end{equation}
+where $\alpha(t, t_*) \in (\mathfrak{g}^{\mathrm{mod}}_A)^0$ encodes the split attractor flow tree datum of Denef~2000. The gauge orbit $\exp((\mathfrak{g}^{\mathrm{mod}}_A)^0) \cdot \Theta_A^*$ is the space of all stability conditions compatible with the intrinsic BPS spectrum. Different attractor points for different total charges $\gamma$ give different canonical representatives, all in the same gauge orbit.
+\end{proposition}
+
+\begin{proof}[Attribution]
+Ferrara--Kallosh--Strominger~1995, \emph{Phys.\ Rev.\ D}~\textbf{52} R5412 (attractor flow equations); Denef~2000, \emph{JHEP} 08:050 (split attractor flow trees); MC gauge formulation: Theorem~\ref{thm:wall-crossing-mc}(ii) combined with the gauge element the wall-crossing gauge construction.
+\end{proof}
+
+\begin{remark}[Root multiplicities and gauge reshuffling]
+At the attractor point the root multiplicity function is $\mathrm{mult}_*(\gamma) = |\Omega_*(\gamma)|$. Away from $t_*$, the gauge transformation $e^{\alpha(t,t_*)}$ reshuffles multiplicities: composite charges $\gamma = \gamma_1 + \gamma_2$ acquire binding contributions $\ell_2(\Theta_{\gamma_1}, \Theta_{\gamma_2})$ to $\Theta_\gamma$; crossing a wall in the opposite direction removes them. The denominator form $\Phi_X$ (= Igusa cusp $\Delta_5$ for $K3 \times E$) is gauge-invariant throughout: it depends only on $[\Theta_A] \in \overline{\mathrm{MC}}(\mathfrak{g}^{\mathrm{mod}}_A)$.
+\end{remark}
+
+% ======================================================================
+\section{Shadow obstruction tower truncations are not gauge-invariant}
+\label{sec:phys-wc-shadow-jump}
+% ======================================================================
+
+The following proposition makes precise the physical intuition that finite-order BPS state counts are stability-condition dependent.
+
+\begin{proposition}[Shadow tower discontinuity at walls]
+\label{prop:phys-shadow-jump}
+For any $r < \infty$, the truncation $\Theta^{\leq r}_A(t)$ may be discontinuous at walls of marginal stability. In contrast, the full MC element $\Theta_A$ is continuous (gauge-equivalent on both sides of every wall).
+\end{proposition}
+
+\begin{proof}
+The gauge element $\alpha_{12}$ of the wall-crossing gauge construction has nonzero components at all degrees. The gauge action $e^{\alpha_{12}} \cdot \Theta_A$ mixes degrees: the degree-$r$ component of $e^{\alpha_{12}} \cdot \Theta_A$ depends on degrees $\leq r$ of both $\alpha_{12}$ and $\Theta_A$, plus cross-terms. Truncating at degree $r$ destroys gauge covariance. Concretely: at a wall $\mathcal{W}(\gamma_1, \gamma_2)$ with $|\gamma_1| + |\gamma_2| = |\gamma|$, the transformation shifts $\Theta^{(|\gamma|)}_A$ by $[\alpha^{(|\gamma_1|)}, \Theta^{(|\gamma_2|)}_A]$. If this bracket is nonzero (i.e., the BPS states bind or decay), then $\Theta^{\leq |\gamma| - 1}_A$ jumps.
+\end{proof}
+
+\begin{example}[Conifold: gauge terminates at order 1]
+\label{ex:phys-conifold-gauge}
+For $X = \mathcal{O}(-1) \oplus \mathcal{O}(-1) \to \mathbb{P}^1$ with two BPS hypermultiplets $\gamma_1, \gamma_2$ satisfying $\Omega(\gamma_1) = \Omega(\gamma_2) = 1$ and $\langle \gamma_1, \gamma_2 \rangle = 1$, the wall-crossing gauge element is
+\[
+\alpha_{12} = e_{\gamma_1 + \gamma_2}, \qquad [\alpha_{12}, \alpha_{12}] = 0.
+\]
+There is a single bound state of charge $\gamma_1 + \gamma_2$ with $\Omega(\gamma_1 + \gamma_2) = 1$, and no higher BCH corrections. The bar complex $B(A_{\mathrm{con}})$ has exactly three nonzero root-graded pieces (charges $\gamma_1$, $\gamma_2$, $\gamma_1 + \gamma_2$), each one-dimensional. Gauge termination at BCH order~1 is the shadow tower truncating at degree~3 (class $L$); for $K3 \times E$ (class $M$), the gauge transformation involves arbitrarily high BCH orders, matching the infinite degree tower.
+\end{example}
+
+\begin{remark}[Physical interpretation: renormalization-group analogy]
+The shadow tower truncation $\Theta^{\leq r}_A$ has the structure of a finite-energy-scale cutoff: it captures BPS states with at most $r$ constituents. Wall-crossing creates or destroys states with a specific constituent count; the finite-order truncation sees this as a discontinuity. The full $\Theta_A$ is the UV completion: gauge equivalence (wall-crossing invariance) is restored in the limit $r \to \infty$. This parallels the principle that the full renormalization group flow is scheme-independent while finite-order truncations are scheme-dependent.
+\end{remark}
+
+% ======================================================================
+\section{Two conventions and structural analogies}
+\label{sec:phys-wc-conventions-analogies}
+% ======================================================================
+
+\subsection{Reineke vs.\ fermionic KS conventions}
+\label{ssec:phys-reineke-fermionic}
+
+Two conventions for the KS automorphism $K_\gamma$ appear in the
+literature, and the pentagon identity is sign-sensitive.
+
+\begin{remark}[KS conventions; pentagon sign-sensitivity]
+\label{rem:phys-ks-conventions}
+\hfill
+\begin{itemize}
+\item \textbf{Reineke ($\Omega = +1$):}
+$K_\gamma = \exp\!\bigl(-\sum_{k \geq 1} e_{k\gamma}/k^2\bigr)$.
+Natural for rational DT invariants $\bar{\Omega}(\gamma)$ and the
+motivic Hall algebra.
+\item \textbf{Fermionic ($\Omega = -1$):}
+$K_\gamma = \prod_{k \geq 1} (1 - (-1)^k e_{k\gamma})^{k\,\Omega(k\gamma)}$.
+Natural for integer BPS degeneracies $\Omega(\gamma)$ in the physical
+(Joyce--Song) convention.
+\end{itemize}
+The pentagon identity through height $2$ is the $A_2$ five-cycle
+$K_{\gamma_1} K_{\gamma_2} = K_{\gamma_2} K_{\gamma_1 + \gamma_2}
+K_{\gamma_1}$, and is \emph{convention-dependent} for the resolved
+conifold at the given wall-ordering: at $\Omega = +1$ the Reineke
+dilogarithm product $\mathbb{E}(x_{\gamma_1}) \mathbb{E}(x_{\gamma_2})
+= \mathbb{E}(x_{\gamma_2}) \mathbb{E}(x_{\gamma_1 + \gamma_2})
+\mathbb{E}(x_{\gamma_1})$ of Faddeev--Kashaev
+(\textup{arXiv:hep-th/9310070}) closes the pentagon; at $\Omega = -1$
+the fermionic $K_\gamma$ with the same ordering produces a sign
+twist and the pentagon fails --- closure requires the opposite wall
+ordering or the dual $K_\gamma^{-1}$, reflecting the $(-1)^k$ parity
+of fermionic occupation numbers.
+Concretely: $\overline{\mathrm{MC}}(\mathfrak{g}^{\mathrm{mod}}_A)$
+is one gauge-equivalence class containing both
+$\Theta_\zeta^{\mathrm{Rei}}$ and $\Theta_\zeta^{\mathrm{ferm}}$,
+linked by the $\Omega \mapsto -\Omega$ sign twist on the wall
+generator $\alpha_W$. The pentagon statement
+``$\prod_{A_2} K_\gamma = 1$'' refers to the Reineke convention;
+the fermionic pentagon holds with the order-reversed product.
+\end{remark}
+
+\subsection{Chern--Simons analogy}
+\label{ssec:phys-cs-analogy}
+
+The MC gauge equivalence interpretation of wall-crossing is the BPS analogue of Chern--Simons theory.
+
+\begin{proposition}[Wall-crossing as Chern--Simons gauge equivalence]
+\label{prop:phys-wc-cs}
+The following dictionary holds:
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{ll}
+\hline
+\textbf{Chern--Simons on $M^3$} & \textbf{Wall-crossing} \\
+\hline
+dgLa $\Omega^\bullet(M, \mathfrak{g})$ & Modular convolution algebra $\mathfrak{g}^{\mathrm{mod}}_A$ \\
+Flat connections: $dA + \tfrac{1}{2}[A,A]=0$ & MC elements $\Theta_A$ \\
+Gauge equivalence of flat connections & Wall-crossing \\
+Chern--Simons invariant $\mathrm{CS}(A)$ & Denominator identity $\Phi_X$ (e.g., $\Delta_5$) \\
+\hline
+\end{tabular}
+\end{center}
+The modular convolution algebra $\mathfrak{g}^{\mathrm{mod}}_A$ is a factorization (chiral) analogue of $\Omega^\bullet(M, \mathfrak{g})$, where the 3-manifold $M$ is replaced by the moduli of curves $\overline{\mathcal{M}}_{g,n}$. In particular, the denominator identity $\Phi_X$ is gauge-invariant in the same sense as the Chern--Simons invariant: it is the unique (up to scalar) gauge-invariant formal power series on the MC moduli space $\overline{\mathrm{MC}}(\mathfrak{g}^{\mathrm{mod}}_A)$.
+\end{proposition}
+
+\subsection{Stokes phenomena analogy}
+\label{ssec:phys-stokes}
+
+Wall-crossing is also the BPS analogue of Stokes phenomena for irregular connections (Bridgeland~2019). The BPS degeneracies $\Omega(\gamma; t)$ are the Stokes multipliers; walls of marginal stability are the Stokes rays; the gauge-invariant $\Phi_X$ is the connection class. Bridgeland~2019 makes this precise for a class of CY3 categories by identifying $\mathrm{Stab}(\mathcal{C})$ with a space of irregular connections and the wall-crossing formula with the isomonodromic deformation equation.
+
+\subsection{Pentagon identity from the Jacobi identity}
+\label{ssec:phys-pentagon}
+
+\begin{theorem}[Pentagon = Jacobi at degree 3]
+\label{thm:phys-pentagon-jacobi}
+The Kontsevich--Soibelman pentagon identity (consistency of the scattering diagram at a codimension-2 joint where five BPS walls meet) is a consequence of $D^2 = 0$ in the modular convolution algebra $\mathfrak{g}^{\mathrm{mod}}_A$. More precisely:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The $L_\infty$ Jacobi identity $\sum_{i+j=n+1} \ell_i \circ \ell_j = 0$ (which is $D^2 = 0$ unpacked) implies scattering diagram consistency at every codimension-2 joint.
+\item The pentagon identity for five BPS rays in the upper half-plane is the Jacobi identity at degree $3$, projected onto the charge lattice. Verified explicitly for the resolved conifold.
+\item Higher consistency conditions (hexagons, etc.) arise from higher $L_\infty$-brackets at degrees $\geq 4$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Argument]
+At a joint where walls $\mathcal{W}(\gamma_i, \gamma_j)$ meet (five rays in general position), the consistency condition for the ordered product $\prod_{\text{rays}} U_\gamma^{\Omega(\gamma)}$ to be independent of reordering is precisely that $[\alpha_{ij}, \alpha_{kl}]$ satisfies the Jacobi relation at degree~3. This is $D^2 = 0$ of the $L_\infty$-structure projected to charge-lattice degree $|\gamma_i| + |\gamma_j| + |\gamma_k|$. Primary: Kontsevich--Soibelman~2008 \S~2; $L_\infty$ identification: the gauge the wall-crossing gauge construction.
+\end{proof}
+
+\begin{remark}[Scattering diagram as tropical \texorpdfstring{$L_\infty$}{L-inf} data]
+\label{rem:phys-scattering-tropical}
+A Kontsevich--Soibelman scattering diagram is a combinatorial object: a collection of walls $\mathfrak{d} = \{(\mathfrak{d}_i, f_{\mathfrak{d}_i})\}$ in $\Gamma_\mathbb{R}$ carrying attached Lie algebra elements, subject to the consistency (trivial monodromy) condition. This condition is \emph{exactly} the MC equation $D\Theta + \frac{1}{2}[\Theta, \Theta] = 0$ restricted to the tropical limit of the charge lattice: the ``walls'' are the tropical supports of the $L_\infty$-brackets, and the attached Lie algebra elements are the degree-graded components $\Theta^{(r)}_A$. Consistency = MC; inconsistency = nontrivial holonomy = MC obstruction. This is the chain-level explanation for why scattering diagrams in mirror symmetry (Gross--Siebert programme) are governed by MC equations on tropical dgLas.
+\end{remark}
+
+\begin{remark}[Miki \texorpdfstring{$\mathfrak{S}_3$}{S-3}-triality acts on \texorpdfstring{$\mathrm{CoHA}(\mathbb{C}^3) = Y^+(\widehat{\mathfrak{gl}}_1)$}{CoHA(C-3) = Y-+(widehatgl-1)}, not on \texorpdfstring{$\mathcal{W}_{1+\infty}$}{W-1+inf}]
+\label{rem:miki-triality-on-coha}
+The Calabi--Yau condition $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ cuts the Calabi--Yau subtorus $T_{\mathrm{CY}} \subset (\mathbb{C}^\times)^3$ out of the torus permuting the three coordinate axes of $\mathbb{C}^3$, and the symmetric group $\mathfrak{S}_3$ descends to the Calabi--Yau base. The Schiffmann--Vasserot cohomological Hall algebra $\mathrm{CoHA}(\mathbb{C}^3) = Y^+(\widehat{\mathfrak{gl}}_1)$ (positive half of the affine Yangian) carries an $\mathfrak{S}_3$-action by $\epsilon$-permutation whose shuffle kernel $f(x_1, x_2, x_3) = \prod_{i, j}(x_i - x_j + \epsilon_1)/(x_i - x_j)$ is symmetric in $(\epsilon_1, \epsilon_2, \epsilon_3)$. Miki's 2007 automorphism on the one-parameter family $\mathcal{W}_{1+\infty}[\lambda]$ (Proch\'azka--Rap\v{c}\'ak 2018) is the image of this $\mathfrak{S}_3$ under the Gaiotto--Rap\v{c}\'ak evaluation
+\[
+  \mathrm{ev}_\lambda \colon Y(\widehat{\mathfrak{gl}}_1) \;\longrightarrow\; \mathcal{W}_{1+\infty}[\lambda],
+\]
+surjective with $\lambda$-dependent kernel. The evaluation chain
+\[
+  \mathrm{CoHA}(\mathbb{C}^3) \;=\; Y^+(\widehat{\mathfrak{gl}}_1)
+  \;\hookrightarrow\; Y(\widehat{\mathfrak{gl}}_1)
+  \;\xrightarrow{\;\mathrm{ev}_\lambda\;}\;
+  \mathrm{End}\bigl(\mathcal{W}_{1+\infty}[\lambda]\text{-vacuum}\bigr)
+\]
+exhibits $\mathcal{W}_{1+\infty}[\lambda]$ as the evaluation image of the full Drinfeld-doubled Yangian, not as an isomorphic copy: the triality lifts to the CoHA via the positive half, and the identification $\mathrm{CoHA}(\mathbb{C}^3) = Y^+ \neq \mathcal{W}_{1+\infty}$ is preserved, with $\mathfrak{S}_3$ acting compatibly on the four layers $\mathrm{CoHA}(\mathbb{C}^3) = Y^+ \subset Y = Y^+ \otimes Y^0 \otimes Y^- \twoheadrightarrow \mathcal{W}_{1+\infty}[\lambda]$ via $\epsilon_i \leftrightarrow \lambda_i$ permutation. For generic CY$_3$ targets, the plane-partition triality of pit asymptotes on $\mathrm{Hilb}^n(\mathbb{C}^3)$ is the cohomological-Hall-algebra shadow of Miki's $\mathcal{W}$-algebra automorphism.
+\end{remark}
+
+% ========================================================================
+\section{Stable Gopakumar--Vafa invariants}
+\label{sec:stable-gopakumar-vafa}
+
+The three-segment homotopy of
+Theorem~\ref{thm:mnop-three-segment-homotopy} routes $Z^{\GW}$ through
+the Gopakumar--Vafa free energy
+\[
+  F^{\mathrm{GV}}(Y; \lambda, Q)
+  \;=\;
+  \sum_{g \geq 0,\, \beta > 0,\, k \geq 1}
+    n^{g}_\beta \cdot \frac{1}{k}
+    \bigl(2 \sinh\tfrac{k\lambda}{2}\bigr)^{2g - 2}
+    Q^{k\beta}
+\]
+(Gopakumar--Vafa \textup{hep-th/9812127} \S3; the trigonometric
+$\sinh$ replaces $\sin$ under $\lambda = iu$). The identity $\bigl(2
+\sinh \tfrac{\lambda}{2}\bigr)^{2} = e^{\lambda} - 2 + e^{-\lambda}$
+realises the fibre-class residue of the quantum dilogarithm at the
+BPS mass; the per-class kernel
+\[
+  \kappa^{\mathrm{GV}}_g(\lambda)
+  \;=\; \bigl(2\sinh\tfrac{\lambda}{2}\bigr)^{2g - 2}
+\]
+is the $sl_2$-character of the spin-$g$ Lefschetz representation on
+the BPS moduli space, with $n^{g}_\beta$ its multiplicity. At $g = 0$
+the kernel is the $sl_2$-singlet $(2\sinh\tfrac{\lambda}{2})^{-2}$,
+whose $\lambda \to 0$ expansion produces $\lambda^{-2}$, matching the
+$\Li_2$-exponential of Lemma~\ref{lem:mnop-qdilog-u} under $-q =
+e^{iu} = e^{-\lambda}$.
+
+\begin{theorem}[Stable pairs realise the Gopakumar--Vafa free energy as stable BPS invariants]
+\label{thm:stable-gv-pt-equivalence}
+\ClaimStatusConjectured
+\emph{(Theorem on toric $X$ and on the resolved conifold; theorem on
+the primitive reduced K3-fibre class of $K3 \times E$; conjecture on
+compact CY$_3$.)}
+Let $X$ be a smooth projective Calabi--Yau threefold. Define the
+\emph{stable Gopakumar--Vafa invariants} $\mathsf{n}^{g}_\beta \in \Z$
+as the unique integer sequence satisfying
+\[
+  \log Z^{\PT\prime}_X(-q, Q)
+  \;=\;
+  \sum_{\beta > 0,\, g \geq 0,\, k \geq 1}
+    \mathsf{n}^{g}_\beta \cdot \frac{1}{k}
+    \bigl(2 \sinh\tfrac{k \lambda}{2}\bigr)^{2g - 2} Q^{k\beta}
+\]
+under the substitution $-q = e^{i\lambda}$, where $Z^{\PT\prime}$
+denotes the reduced Pandharipande--Thomas stable-pairs partition
+function (\textup{arXiv:0711.3899}). Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Integrality.} Each $\mathsf{n}^{g}_\beta \in \Z$, and
+  $\mathsf{n}^{g}_\beta = 0$ for $g$ sufficiently large with $\beta$
+  fixed (MNOP~II \textup{arXiv:math/0406092} Theorem~1; PT~2009
+  \textup{arXiv:0903.4155} Conjecture~3; theorem in toric cases by
+  Konishi \textup{arXiv:math/0608325} and on primitive K3 reduced
+  classes by Pandharipande--Thomas \textup{arXiv:1206.5490}
+  Theorem~10).
+\item \emph{Stable identification with Gopakumar--Vafa.}
+  $\mathsf{n}^{g}_\beta = n^{g}_\beta$, the Gopakumar--Vafa BPS
+  multiplicity, when the BPS moduli space is smooth and the
+  Maulik--Toda sheaf-theoretic definition (Maulik--Toda
+  \textup{arXiv:1610.07303} \S2) applies. In general,
+  $\mathsf{n}^{g}_\beta$ is the sheaf-cohomology $\chi$ of the
+  $\mathrm{IC}$-extension of the BPS sheaf on $\overline{\cM}_g(X,
+  \beta)$.
+\item \emph{Bryan--Pandharipande primitive form on local
+  CY$_3$.} For $X$ a local surface or resolved conifold, the stable
+  GV sum is the logarithmic topological-vertex Pandharipande partition
+  function (Bryan--Pandharipande \textup{arXiv:math/0412005}
+  Theorem~4): the non-zero $\mathsf{n}^{g}_\beta$ along the
+  $\mathbb{P}^1$-fibre class $\beta = d[\mathbb{P}^1]$ are determined
+  by the equivariant $\chi_{-y}$-genus of the BPS moduli scheme. For
+  $X = \mathcal{O}(-1) \oplus \mathcal{O}(-1) \to \mathbb{P}^1$:
+  $\mathsf{n}^{0}_{[\mathbb{P}^{1}]} = 1$ and all others vanish, and
+  \[
+     F^{\mathrm{GV}}_{\mathrm{con}}(\lambda, Q)
+     \;=\;
+     \sum_{k \geq 1} \frac{Q^{k}}{k \bigl(2\sinh\tfrac{k\lambda}{2}\bigr)^{2}}.
+  \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) Integrality is MNOP~II Theorem~1 for $Z^{\DT\prime}_X /
+\mathrm{M}(-q)^{\chi(X)}$; passage through PT by Bridgeland
+\textup{arXiv:1002.4372} Theorem~1.3 and Toda
+\textup{arXiv:0902.4371} Theorem~1.1 preserves integrality, and the
+degree-$\beta$ finiteness inherits from the vanishing of high-genus
+PT contributions for fixed curve class. (ii) The identification of
+$\mathsf{n}^{g}_\beta$ with the sheaf-cohomology $\chi$ of the BPS
+sheaf uses Maulik--Toda \textup{arXiv:1610.07303} Theorem~A for the
+sheaf-theoretic definition and Davison \textup{arXiv:1312.4586}
+Theorem~A for BPS sheaf existence on compact $X$ via vanishing
+cycles. (iii) On the conifold, Bryan--Pandharipande
+\textup{arXiv:math/0412005} Theorem~4 computes
+$Z^{\GW}_{\mathrm{con}}(\lambda, Q)$ as the local topological vertex
+on a single tube; identification of Theorem~4's primitive form with
+the $\mathsf{n}^{0}_{[\mathbb{P}^1]} = 1$ stable GV invariant is
+Proposition~\ref{prop:mnop-conifold-nagao-pentagon}. Citation
+discipline: this is Bryan--Pandharipande \textup{arXiv:math/0412005}
+(local GW primitive form, 2005); \emph{not} Bryan--Pandharipande
+\textup{arXiv:math/0009025} (GW super-rigidity, 2001), nor
+Pandharipande \textup{arXiv:math/9902107} (Hodge integrals, 1999).
+Super-rigidity and Hodge-integral inputs enter
+Theorem~\ref{thm:super-rigidity-e2-centre} below, not the primitive
+form.
+\end{proof}
+
+\begin{remark}[The stable GV integer lift lands in the \texorpdfstring{$E_2$}{E-2}-centre]
+\label{rem:stable-gv-e2-centre}
+The integer sequence $\{\mathsf{n}^{g}_\beta\}$ of
+Theorem~\ref{thm:stable-gv-pt-equivalence} enumerates BPS sheaves;
+the generating function lands in
+$\End^{E_2}_{\cF_X}(\mathbf{1})\bigl[\!\bigl[\lambda, Q\bigr]\!\bigr]$
+via the MNOP homotopy of
+Theorem~\ref{thm:mnop-three-segment-homotopy}. The integer lift is
+the stable counterpart of the rational Gopakumar--Vafa invariants
+$n^{g,\mathrm{rat}}_\beta = \Omega(\gamma)$ of Kontsevich--Soibelman
+\textup{arXiv:0811.2435} \S6: the KS-rational $\Omega$ and the
+stable-integer $\mathsf{n}$ coincide on the primitive class of a
+smooth BPS moduli scheme, differing elsewhere by motivic sign twists
+$(-1)^{\dim_{\C} \cM}$ and multiplicative Aspinwall--Morrison
+corrections.
+\end{remark}
+
+\begin{remark}[Szendr\H{o}i NCDT and Bridgeland NCDT agree after wall-crossing]
+\label{rem:szendroi-bridgeland-ncdt-agree}
+Szendr\H{o}i's noncommutative Donaldson--Thomas invariants
+(\textup{arXiv:0705.3419}) on the resolved conifold count cyclic
+$\Pi(Q_{\mathrm{con}}, W_{\mathrm{con}})$-representations in the
+noncommutative phase $\zeta = (1, 1)$. Bridgeland's NCDT
+(\textup{arXiv:1002.4372} \S3) counts the same objects in Bridgeland
+stability. Szendr\H{o}i Theorem~2.6 and Bridgeland
+\textup{arXiv:1002.4372} Theorem~1.3 imply
+\[
+  Z^{\NCDT,\mathrm{Sz}}_{\mathrm{con}}(q, Q)
+   \;=\;
+   \mathrm{M}(-q)^{2} \prod_{k \geq 1}(1 - (-q)^{k} Q)^{k} (1 - (-q)^{k} Q^{-1})^{k}
+\]
+equals the Bridgeland NCDT after the Nagao pentagon wall-crossing
+$\cT_{\gamma_\alpha} \cT_{\gamma_\beta} = \cT_{\gamma_\beta}
+\cT_{\gamma_{\alpha + \beta}} \cT_{\gamma_\alpha}$ of
+Proposition~\ref{prop:mnop-conifold-nagao-pentagon}(i). Szendr\H{o}i's
+two-vertex quiver is a global NCCR presentation, not a Cartan chart;
+the atlas-of-charts perspective of
+Chapter~\ref{ch:toric-coha}~\S\ref{sec:conifold-two-chart-cech}
+recovers Szendr\H{o}i after \v{C}ech descent.
+\end{remark}
+
+% ========================================================================
+\section{Refined topological vertex on toric CY\texorpdfstring{$_3$}{-3}}
+\label{sec:refined-topological-vertex}
+
+The one-parameter Gopakumar--Vafa expansion of
+Theorem~\ref{thm:stable-gv-pt-equivalence} admits a two-parameter
+lift: the refined topological vertex of Iqbal--Kozcaz--Vafa
+\textup{hep-th/0701156} replaces $\lambda$ by the $\Omega$-background
+weights $(\epsilon_1, \epsilon_2)$.
+
+\begin{theorem}[Refined topological vertex on toric CY\texorpdfstring{$_3$}{-3}]
+\label{thm:refined-topological-vertex}
+\ClaimStatusProvedElsewhere
+Let $X$ be a toric Calabi--Yau threefold with toric fan $\Sigma_X$,
+trivalent vertices $v_1, \ldots, v_V$, and edges $e_1, \ldots, e_E$.
+The refined topological vertex of Iqbal--Kozcaz--Vafa
+\textup{hep-th/0701156} (9) assigns
+\[
+  C_{\lambda \mu \nu}(t, q)
+  \;=\;
+  q^{(\|\mu\|^{2} + \|\nu\|^{2})/2} t^{-\|\mu^t\|^{2}/2}
+  \widetilde{Z}_\nu(t, q)
+  \sum_{\eta} s_{\lambda^t / \eta}(t^{-\rho} q^{-\nu})
+  s_{\mu / \eta}(t^{-\nu^t} q^{-\rho})
+\]
+to each ordered triple of Young diagrams, with $s_{\lambda / \eta}$
+skew Schur polynomials, $\widetilde{Z}_\nu$ the
+MacMahon-normalised one-leg vertex, and $(t, q) = (e^{-\epsilon_1},
+e^{-\epsilon_2})$. The refined partition function
+\[
+  Z^{\mathrm{ref}}(X; t, q, \{Q_e\})
+  \;=\;
+  \sum_{\{\lambda_e\}}
+    \prod_v C_{\lambda_{e_1(v)} \lambda_{e_2(v)} \lambda_{e_3(v)}}(t, q)
+    \prod_e (-Q_e)^{|\lambda_e|} f_{\lambda_e}(t, q)^{n_e}
+\]
+(with $f_\lambda$ the framing factor) satisfies:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Self-dual slice.} At $t = q$ (equivalently $\epsilon_1 +
+  \epsilon_2 = 0$): $Z^{\mathrm{ref}}(X; q, q, Q) = Z^{\mathrm{top}}(
+  X; q, Q)$, the unrefined topological-vertex partition function of
+  Aganagic--Klemm--Mari\~no--Vafa \textup{hep-th/0305132} Theorem~2.
+\item \emph{Refined BPS expansion.} The logarithm admits a refined
+  Gopakumar--Vafa expansion
+  \[
+     \log Z^{\mathrm{ref}}(X; t, q, Q)
+     \;=\;
+     \sum_{\beta,\, j_L, j_R,\, k \geq 1}
+       N^{j_L, j_R}_\beta \cdot \frac{1}{k}
+       \cdot \chi_{j_L}\!\bigl((t/q)^{k/2}\bigr) \chi_{j_R}\!\bigl((tq)^{k/2}\bigr)
+       \cdot \frac{Q^{k\beta}}{(t^{k/2} - t^{-k/2})(q^{k/2} - q^{-k/2})}
+  \]
+  with $N^{j_L, j_R}_\beta \in \Z_{\geq 0}$ the refined BPS integers
+  (Iqbal--Kozcaz--Vafa \textup{hep-th/0701156} (16);
+  Choi--Katz--Klemm \textup{arXiv:1210.4403} Theorem~1.1 for
+  integrality), and $\chi_j$ the $sl_2$ character of the spin-$j$
+  representation.
+\item \emph{Nekrasov--Okounkov self-dual limit.} The self-dual $t =
+  q$ slice equals the Nekrasov partition function on the toric
+  Calabi--Yau threefold (Nekrasov \textup{hep-th/0206161} (13);
+  Nekrasov--Okounkov \textup{hep-th/0306238} Theorem~1) via the
+  $K$-theoretic Donaldson--Thomas identification $Z^{\mathrm{ref}} =
+  Z^{\mathrm{K\text{-}DT}}$ of Nekrasov--Okounkov 2014
+  \textup{arXiv:1404.6133} Theorem~1.
+\item \emph{CoHA refinement.} The refinement promotes
+  $\CoHA(\C^{3}) = Y^{+}(\widehat{\mathfrak{gl}}_1)$ to its
+  two-parameter cover, the refined affine Yangian
+  $Y^{+}_{\epsilon_1, \epsilon_2}(\widehat{\mathfrak{gl}}_1)$, whose
+  shuffle kernel is $(x_i - x_j + \epsilon_1)(x_i - x_j + \epsilon_2)
+  / (x_i - x_j)$ (Tsymbaliuk \textup{arXiv:1704.01645} \S2); the
+  self-dual slice $\epsilon_1 + \epsilon_2 = 0$ recovers the
+  Calabi--Yau shuffle kernel of the unrefined
+  $Y^+(\widehat{\mathfrak{gl}}_1)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}[Refined vertex as equivariant K-theoretic DT]
+\label{rem:refined-vertex-equivariant-k-dt}
+The refined topological vertex is the $T^{2}$-equivariant,
+$K$-theoretic Donaldson--Thomas invariant of $\C^{3}$ in the
+Nekrasov--Okounkov presentation: $C_{\lambda \mu \nu}(t, q) =
+\chi^{\mathrm{K}}_{T^2}\bigl(\mathrm{Hilb}^n(\C^3)^{T^2}_{(\lambda,
+\mu, \nu)}\bigr)$ for the fixed-point component indexed by the three
+partitions. The non-self-dual deformation $t \neq q$ restores the
+full $T^{2}$-action on $\C^{3}$; the self-dual $t = q$ slice restricts
+to the Calabi--Yau torus $T_{\mathrm{CY}} = \{\epsilon_1 + \epsilon_2
++ \epsilon_3 = 0\}$. On the chiral side, the Maulik--Okounkov
+$R$-matrix $R^{\mathrm{MO}}(u; t, q)$ on $\mathrm{Hilb}^n(\C^2)$
+acquires a second spectral parameter from the $\epsilon_1 +
+\epsilon_2$ anti-diagonal, intertwining the two-parameter Yangian
+(Aganagic--Okounkov \textup{arXiv:1604.00423} Theorem~5).
+\end{remark}
+
+% ========================================================================
+\section{Super-rigidity under the \texorpdfstring{$(\epsilon_1, \epsilon_2)$}{(epsilon-1, epsilon-2)}-deformation}
+\label{sec:super-rigidity-epsilon}
+
+The refined $Y^{+}_{\epsilon_1, \epsilon_2}(\widehat{\mathfrak{gl}}_1)$
+of Theorem~\ref{thm:refined-topological-vertex}(iv) carries a natural
+$\epsilon_+ = \epsilon_1 + \epsilon_2$ rescaling action, with
+Calabi--Yau slice $\epsilon_+ = 0$ as fixed locus. The next theorem
+identifies this rescaling as a rigidity statement on the $E_2$-centre
+of $\cF_{X_{\mathrm{con}}}$.
+
+\begin{theorem}[Super-rigidity of \texorpdfstring{$Y^+(\widehat{\mathfrak{gl}}(1|1))$}{Y-+(widehatgl(1|1))} under the refined deformation]
+\label{thm:super-rigidity-e2-centre}
+\ClaimStatusProvedHere
+Let $Y^{+}(\widehat{\mathfrak{gl}}(1|1))$ denote the affine super
+Yangian of $\mathfrak{gl}(1|1)$ (Feigin--Jimbo--Miwa--Mukhin 2017
+\textup{arXiv:1703.04029} \S5.4), identified on the chiral side with
+the $\mathfrak{gl}(1|1)$-super CoHA of the resolved conifold (RSYZ
+2020 \textup{arXiv:2004.07841} \S4.2). Under the refined
+$(\epsilon_1, \epsilon_2)$-deformation of
+Theorem~\ref{thm:refined-topological-vertex}:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Rigidity as an $E_2$-centre automorphism.} The refined
+  family
+  \[
+     Y^{+}_{\epsilon_1, \epsilon_2}(\widehat{\mathfrak{gl}}(1|1))
+     \;\subset\;
+     \End^{E_2}_{\cF_{X_{\mathrm{con}}}}(\mathbf{1})\bigl[\!\bigl[\epsilon_1, \epsilon_2\bigr]\!\bigr]
+  \]
+  is flat in $(\epsilon_1, \epsilon_2)$, and the $\epsilon_+$-rescaling
+  $\sigma_s \colon (\epsilon_1, \epsilon_2) \mapsto (s\epsilon_1,
+  s^{-1}\epsilon_2)$ lifts to an $E_2$-centre automorphism of
+  $\cF_{X_{\mathrm{con}}}$ intertwining $Y^{+}_{\epsilon_1, \epsilon_2}$
+  with $Y^{+}_{s\epsilon_1, s^{-1}\epsilon_2}$.
+\item \emph{Bryan--Pandharipande super-rigidity input.} Rigidity
+  of~(i) descends, on restriction to $\epsilon_1 + \epsilon_2 = 0$, to
+  super-rigidity of rational-curve contributions to
+  $Z^{\GW}_{X_{\mathrm{con}}}$: Bryan--Pandharipande
+  \textup{arXiv:math/0009025} Theorem~1 (2001) combined with
+  Pandharipande \textup{arXiv:math/9902107} Theorem~1 (1999). Every
+  isolated rational curve of degree $d$ in $X_{\mathrm{con}}$
+  contributes $1/d^{3}$ times the Aspinwall--Morrison multi-cover
+  factor, independently of how the curve deforms in families.
+\item \emph{Nekrasov--Okounkov $\epsilon_+$-rescaling as scheme of
+  rigidity.} The $\epsilon_+$-rescaling is the rigidity-preserving
+  quantisation scheme identified by Nekrasov--Okounkov
+  \textup{hep-th/0306238} \S7 (``$\epsilon_+$-deformation preserves
+  the Seiberg--Witten integrable system''): the refined partition
+  function factors as $Z^{\mathrm{ref}} =
+  Z^{\mathrm{pert}}_{\epsilon_1, \epsilon_2} \cdot
+  Z^{\mathrm{inst}}_{\epsilon_1, \epsilon_2}$, with
+  $Z^{\mathrm{pert}}$ carrying the Casimir rescaling and
+  $Z^{\mathrm{inst}}\bigl|_{\epsilon_1 + \epsilon_2 = 0}$ rigid under
+  $\sigma_s$. The rescaling $\sigma_s$ is the unique deformation
+  preserving this factorisation.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i) Flatness in $(\epsilon_1, \epsilon_2)$ is Tsymbaliuk
+\textup{arXiv:1704.01645} Theorem~5.1 applied to the super CoHA of
+the conifold (RSYZ \textup{arXiv:2004.07841} Theorem~4.1): the
+refined shuffle algebra $Y^{+}_{\epsilon_1, \epsilon_2}$ admits a
+free $\C[\![\epsilon_1, \epsilon_2]\!]$-module structure on BPS-lattice
+generators, and the rescaling $\sigma_s$ lifts via functorial
+$T^{2}$-equivariance of the moduli stack. The $E_2$-centre
+identification is Lurie, \emph{Higher Algebra}, Proposition~7.3.4.2
+applied to $\cF_{X_{\mathrm{con}}} = \PhiFA_3(D^b\Coh(X_{\mathrm{con}}))$
+of Theorem~\ref{thm:cy-to-chiral-d3}: the $\epsilon_+$-rescaling is
+the unique $E_2$-automorphism intertwining the refined Yangian
+modules.
+
+(ii) The $T_{\mathrm{CY}}$-slice $\epsilon_1 + \epsilon_2 = 0$
+restricts (i) to the Calabi--Yau torus; on the GW side,
+Bryan--Pandharipande \textup{arXiv:math/0009025} Theorem~1 proves
+super-rigidity for isolated rational curves in CY$_3$ threefolds,
+with multi-cover contributions $\sum_d n^{0}_\beta \cdot d^{-3}$
+(cover degree $d$), via Pandharipande \textup{arXiv:math/9902107}
+Theorem~1 for the Hodge integral $\int_{\overline{\cM}_{0,0}(
+\mathbb{P}^1, d)} c_{\mathrm{top}}(R^1 \pi_* f^* N)^{-1} = d^{-3}$ on
+$N = \mathcal{O}(-1) \oplus \mathcal{O}(-1)$. Citation discipline:
+Bryan--Pandharipande \textup{arXiv:math/0009025} (2001 super-rigidity)
+and Pandharipande \textup{arXiv:math/9902107} (1999 Hodge integrals)
+are distinct from Bryan--Pandharipande \textup{arXiv:math/0412005}
+(2005 local GW primitive form, used in
+Theorem~\ref{thm:stable-gv-pt-equivalence}); the three inputs enter
+distinct stages of the argument.
+
+(iii) Nekrasov--Okounkov \textup{hep-th/0306238} \S7 factorises
+$Z^{\mathrm{Nek}}(\epsilon_1, \epsilon_2) =
+Z^{\mathrm{pert}}_{\epsilon_1, \epsilon_2} \cdot
+Z^{\mathrm{inst}}_{\epsilon_1, \epsilon_2}$, with the perturbative
+factor proportional to $\exp\bigl(F_{\mathrm{pert}}(\epsilon_1 +
+\epsilon_2) / (\epsilon_1 \epsilon_2)\bigr)$ absorbing all
+$\epsilon_+$-dependence and the instanton factor
+$Z^{\mathrm{inst}}|_{\epsilon_1 + \epsilon_2 = 0}$ rigid under
+$\sigma_s$. Nekrasov--Okounkov \textup{hep-th/0306238}
+Corollary~7.2 singles out $\sigma_s$ as the unique rescaling
+preserving the factorisation. Composing (i) through~(iii) yields the
+three-way identification: $E_2$-centre automorphism of
+$\cF_{X_{\mathrm{con}}}$ (chiral side) $=$ super-rigidity of BPS
+counts on $X_{\mathrm{con}}$ (enumerative side) $=$
+$\epsilon_+$-rescaling of the Nekrasov partition function (physics
+side).
+\end{proof}
+
+\begin{remark}[Super-rigidity reads stable GV invariants]
+\label{rem:super-rigidity-reads-stable-gv}
+Theorem~\ref{thm:super-rigidity-e2-centre} expresses the stable GV
+invariants $\{\mathsf{n}^{g}_\beta\}$ of
+Theorem~\ref{thm:stable-gv-pt-equivalence} as fixed points of the
+$\sigma_s$-action: the coefficients $N^{j_L, j_R}_\beta$ of the
+refined BPS expansion are invariant under $(\epsilon_1, \epsilon_2)
+\mapsto (s\epsilon_1, s^{-1}\epsilon_2)$, and restrict at $\epsilon_1
++ \epsilon_2 = 0$ to $\mathsf{n}^{g}_\beta = \sum_{j_R} (-1)^{2j_R}
+(2j_R + 1) N^{j_L, j_R}_\beta|_{j_L + 1/2}$. The unrefined integer
+BPS multiplicity is the $j_R$-graded Euler characteristic of the
+refined BPS space; super-rigidity is the statement that $\sigma_s$
+acts trivially on the refined BPS sheaf and its cohomology.
+\end{remark}
+
+\begin{remark}[Super-rigidity across the CY\texorpdfstring{$_3$}{-3} landscape]
+\label{rem:super-rigidity-landscape}
+The super-rigidity of Theorem~\ref{thm:super-rigidity-e2-centre}
+extends beyond the conifold.
+\begin{itemize}
+\item \textbf{$\C^{3}$ / MacMahon locus.} The $\epsilon_+$-rescaling
+  acts on $\CoHA(\C^{3}) = Y^{+}(\widehat{\mathfrak{gl}}_1)$ by the
+  $\mathfrak{S}_3$-sub-rescaling $(\epsilon_1, \epsilon_2, \epsilon_3)
+  \mapsto (s\epsilon_1, s^{-1}\epsilon_2, \epsilon_3)$ preserving
+  $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$. The refined MacMahon
+  function $\mathrm{M}^{\mathrm{ref}}(t, q) = \prod_{k, l \geq 1}(1 -
+  t^{k - 1/2} q^{l - 1/2})^{-1}$ (Iqbal--Kozcaz--Vafa
+  \textup{hep-th/0701156} (19)) is $\sigma_s$-invariant; its
+  self-dual limit is $\mathrm{M}(q)$.
+\item \textbf{Local $\mathbb{P}^2$ / McKay locus.} The refined
+  $\CoHA(K_{\mathbb{P}^2}) = Y^{+}_{\epsilon_1, \epsilon_2}(
+  \widehat{\mathfrak{sl}}(3))$ (RSYZ \textup{arXiv:2004.07841}
+  Theorem~4.1) is rigid under $\sigma_s$; Choi--Katz--Klemm
+  \textup{arXiv:1210.4403} integrality of refined BPS on
+  $K_{\mathbb{P}^2}$ through degree $d = 10$ is the refined
+  counterpart of the Katz--Klemm--Vafa unrefined integers.
+\item \textbf{$K3 \times E$ / primitive locus.} Refined primitive-class
+  GV on $K3 \times E$ is Katz--Klemm--Vafa
+  \textup{hep-th/9910181}: the refined Igusa cusp form
+  $\Phi_{10}^{\mathrm{ref}}(t, q)$ specialises at $t = q$ to
+  $\Phi_{10}$, and super-rigidity reduces to the
+  Oberdieck--Pandharipande \textup{arXiv:1607.05220} Theorem~1
+  primitive-class GV/DT identification on the K3-fibre.
+\end{itemize}
+The chain-level lane supplies the explicit refined MacMahon /
+topological-vertex / Igusa denominator; the
+$(\infty, 1)$-categorical lane reads $\sigma_s$ as an $E_2$-centre
+automorphism of $\cF_X$ rigid under the refined Yangian deformation.
+
+The primary-literature triad (AP-CY318 discipline):
+Bryan--Pandharipande \textup{arXiv:math/0009025} (2001 super-rigidity)
+supplies isolated-curve super-rigidity used in
+Theorem~\ref{thm:super-rigidity-e2-centre}(ii); Bryan--Pandharipande
+\textup{arXiv:math/0412005} (2005 local GW primitive form) supplies
+the local topological-vertex computation used in
+Theorem~\ref{thm:stable-gv-pt-equivalence}(iii); Pandharipande
+\textup{arXiv:math/9902107} (1999 Hodge integrals) supplies the
+$d^{-3}$ Aspinwall--Morrison factor. Each enters a distinct step of
+Theorems~\ref{thm:stable-gv-pt-equivalence}--\ref{thm:super-rigidity-e2-centre}
+and cannot be substituted for another. The complementary
+Costello--Yagi / Costello--Gaiotto--Yagi triad (AP-CY319
+discipline): the $(\epsilon_1, \epsilon_2)$-sensitive holomorphic
+Chern--Simons anomaly of Costello--Yagi on CY$_3$ twisted M-theory is
+distinct from the simply-laced Yangian-VOA all-orders theorem of
+Costello--Gaiotto--Yagi, which is stated at the unrefined slice
+$\epsilon_+ = 0$ and supplies the conformal-limit baseline.
 \end{remark}
