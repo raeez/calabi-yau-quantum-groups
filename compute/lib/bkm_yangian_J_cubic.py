@@ -18,7 +18,7 @@ positive-root height N <= 3 by reducing to the orthogonal imaginary Jacobi
 identity and matching the cubic product formula of Gritsenko-Nikulin
 (1998, Amer. J. Math. 119, section 5).
 
-THIS ENGINE extends the verification to N = 4, 5, 6 by:
+THIS ENGINE extends the verification to N = 4, 5, 6, 7 by:
 
     (A) Expanding log Phi_10(Z) as a Fourier series on H_2 indexed by
         positive-semidefinite half-integral 2x2 matrices T = ((n, r/2),
@@ -146,6 +146,9 @@ except ImportError:  # pragma: no cover
 # 1. The Borcherds-exponent coefficient table 2 c(D)
 # ---------------------------------------------------------------------------
 
+_BORCHERDS_CACHE: Dict[int, Dict[int, int]] = {}
+
+
 def borcherds_exponent_table(D_max: int = 48) -> Dict[int, int]:
     """Return 2*c(D) for D in the range [-1, D_max], where c is the
     phi_{0,1} coefficient table.
@@ -155,10 +158,18 @@ def borcherds_exponent_table(D_max: int = 48) -> Dict[int, int]:
     2 c(D). This is the table that drives the cubic symbol.
 
     Source: Borcherds 1992 Section 7, Gritsenko-Nikulin 1998 Section 5.
+
+    Memoised so repeated calls at a given D_max (e.g., from height-N
+    batch drivers at N = 5, 6, 7) do not recompute the theta-lift.
     """
+    cached = _BORCHERDS_CACHE.get(D_max)
+    if cached is not None:
+        return cached
     max_n = D_max // 4 + 2
     c_table = phi01_by_discriminant(max_n)
-    return {D: 2 * v for D, v in c_table.items() if D <= D_max}
+    result = {D: 2 * v for D, v in c_table.items() if D <= D_max}
+    _BORCHERDS_CACHE[D_max] = result
+    return result
 
 
 # ---------------------------------------------------------------------------
@@ -529,17 +540,100 @@ FLAGSHIP_CUBIC_SYMBOLS = {
 }
 
 FLAGSHIP_HEIGHT_N_COEFFS = {
-    # All-equal D = 3 cone (heights N = 4, 5, 6):
-    (3, 3, 3, 3):           -8_388_608,    # C(4,3) *       -2,097,152
-    (3, 3, 3, 3, 3):       -20_971_520,    # C(5,3) *       -2,097,152
-    (3, 3, 3, 3, 3, 3):    -41_943_040,    # C(6,3) *       -2,097,152
-    # Mixed-discriminant cones:
+    # All-equal D = 3 cone (heights N = 4, 5, 6, 7):
+    (3, 3, 3, 3):                -8_388_608,    # C(4,3) *       -2,097,152
+    (3, 3, 3, 3, 3):            -20_971_520,    # C(5,3) *       -2,097,152
+    (3, 3, 3, 3, 3, 3):         -41_943_040,    # C(6,3) *       -2,097,152
+    (3, 3, 3, 3, 3, 3, 3):      -73_400_320,    # C(7,3) *       -2,097,152
+    # Mixed-discriminant cones at N = 4:
     #   "(1,1,1,2)"-style  == (D1, D2, D3, D4) = (3, 3, 3, 4)
     #     (3,3,3) +  3*(3,3,4) = -2,097,152 + 3*3,538,944 = 8,519,680
-    (3, 3, 3, 4):            8_519_680,
+    (3, 3, 3, 4):                 8_519_680,
     #   "(1,2,2,2)"-style == (D1, D2, D3, D4) = (3, 4, 4, 4)
     #     3*(3,4,4) + (4,4,4) = 3*(-5,971,968) + 10,077,696 = -7,838,208
-    (3, 4, 4, 4):           -7_838_208,
+    (3, 4, 4, 4):                -7_838_208,
+    # N = 5 mixed cones:
+    #   (3,3,3,3,4): triple-counts 4*(3,3,3)+6*(3,3,4)
+    #     = 4*(-2,097,152) + 6*(3,538,944) = -8,388,608 + 21,233,664 = 12,845,056
+    (3, 3, 3, 3, 4):             12_845_056,
+    #   (3,3,3,4,4): 1*(3,3,3)+6*(3,3,4)+3*(3,4,4)
+    #     = -2,097,152 + 21,233,664 - 17,915,904 = 1,220,608
+    (3, 3, 3, 4, 4):              1_220_608,
+    #   (3,3,4,4,4): 0*(3,3,3)+3*(3,3,4)+6*(3,4,4)+1*(4,4,4)
+    #     = 0 + 10,616,832 - 35,831,808 + 10,077,696 = -15,137,280
+    (3, 3, 4, 4, 4):            -15_137_280,
+    #   (3,4,4,4,4): 0*(3,3,3)+0*(3,3,4)+6*(3,4,4)+4*(4,4,4)
+    #     = 0 + 0 - 35,831,808 + 40,310,784 = 4,478,976
+    (3, 4, 4, 4, 4):              4_478_976,
+    # N = 6 mixed cones (Agent a471 + this engine extension):
+    #   (3,3,3,3,3,4): 10*(3,3,3) + 10*(3,3,4)
+    #     = -20,971,520 + 35,389,440 = 14,417,920
+    (3, 3, 3, 3, 3, 4):          14_417_920,
+    #   (3,3,3,3,4,4): 4*(3,3,3) + 12*(3,3,4) + 6*(3,4,4)
+    #     = -8,388,608 + 42,467,328 - 35,831,808 = -1,753,088 (corrected below)
+    #   Using count_triples: 4*(-2097152) + 12*(3538944) + 6*(-5971968)
+    #     = -8388608 + 42467328 - 35831808 = -1753088 -- but engine test gives 10190848
+    #   Let me recount: for tuple (3,3,3,3,4,4), C(4,3)=4 of (3,3,3);
+    #   C(4,2)*C(2,1)=12 of (3,3,4); C(4,1)*C(2,2)=4 of (3,4,4). TRIPLES=20=C(6,3).
+    #   Value: 4*(-2097152) + 12*(3538944) + 4*(-5971968) = -8388608+42467328-23887872
+    #       = 10190848.
+    (3, 3, 3, 3, 4, 4):          10_190_848,
+    #   (3,3,3,4,4,4): C(3,3)=1 of (3,3,3); C(3,2)*3=9 of (3,3,4);
+    #     C(3,1)*C(3,2)=9 of (3,4,4); C(3,3)=1 of (4,4,4). TRIPLES=20.
+    #     1*(-2097152)+9*(3538944)+9*(-5971968)+1*(10077696)
+    #     = -2097152 + 31850496 - 53747712 + 10077696 = -13916672
+    (3, 3, 3, 4, 4, 4):         -13_916_672,
+    #   (3,3,4,4,4,4): 0+C(2,2)*C(4,1)=4 of (3,3,4); C(2,1)*C(4,2)=12 of (3,4,4);
+    #     C(4,3)=4 of (4,4,4). TRIPLES=20.
+    #     4*3538944+12*(-5971968)+4*10077696
+    #     = 14155776 - 71663616 + 40310784 = -17197056
+    (3, 3, 4, 4, 4, 4):         -17_197_056,
+    #   (3,4,4,4,4,4): C(1,1)*C(5,2)=10 of (3,4,4); C(5,3)=10 of (4,4,4).
+    #     10*(-5971968)+10*10077696 = -59719680+100776960 = 41057280
+    (3, 4, 4, 4, 4, 4):          41_057_280,
+    #   (4,4,4,4,4,4): C(6,3)=20 of (4,4,4). 20*10077696 = 201553920.
+    (4, 4, 4, 4, 4, 4):         201_553_920,
+    #   (3,3,3,3,3,7): C(5,3)=10 of (3,3,3); C(5,2)=10 of (3,3,7).
+    #     10*(-2097152) + 10*(-16809984) = -20971520 - 168099840 = -189071360
+    (3, 3, 3, 3, 3, 7):        -189_071_360,
+    # N = 7 flagships:
+    #   (3,3,3,3,3,3,3): C(7,3)=35 of (3,3,3). 35*(-2097152) = -73400320
+    (3, 3, 3, 3, 3, 3, 3):      -73_400_320,
+    #   (3,3,3,3,3,3,4): C(6,3)=20 of (3,3,3); C(6,2)=15 of (3,3,4).
+    #     20*(-2097152) + 15*(3538944) = -41943040 + 53084160 = 11141120
+    (3, 3, 3, 3, 3, 3, 4):       11_141_120,
+    #   (3,3,3,3,3,4,4): C(5,3)=10 of (3,3,3); C(5,2)*C(2,1)=20 of (3,3,4);
+    #     C(5,1)*C(2,2)=5 of (3,4,4). TRIPLES=35.
+    #     10*(-2097152) + 20*3538944 + 5*(-5971968)
+    #     = -20971520 + 70778880 - 29859840 = 19947520
+    (3, 3, 3, 3, 3, 4, 4):       19_947_520,
+    #   (3,3,3,3,4,4,4): C(4,3)=4 of (3,3,3); C(4,2)*C(3,1)=18 of (3,3,4);
+    #     C(4,1)*C(3,2)=12 of (3,4,4); C(3,3)=1 of (4,4,4). TRIPLES=35.
+    #     4*(-2097152)+18*(3538944)+12*(-5971968)+1*(10077696)
+    #     = -8388608 + 63700992 - 71663616 + 10077696 = -6273536
+    (3, 3, 3, 3, 4, 4, 4):       -6_273_536,
+    #   (3,3,3,4,4,4,4): C(3,3)=1 of (3,3,3); C(3,2)*C(4,1)=12 of (3,3,4);
+    #     C(3,1)*C(4,2)=18 of (3,4,4); C(4,3)=4 of (4,4,4). TRIPLES=35.
+    #     1*(-2097152)+12*(3538944)+18*(-5971968)+4*(10077696)
+    #     = -2097152 + 42467328 - 107495424 + 40310784 = -26814464
+    (3, 3, 3, 4, 4, 4, 4):      -26_814_464,
+    #   (3,3,4,4,4,4,4): 0 of (3,3,3); C(2,2)*C(5,1)=5 of (3,3,4);
+    #     C(2,1)*C(5,2)=20 of (3,4,4); C(5,3)=10 of (4,4,4). TRIPLES=35.
+    #     5*3538944 + 20*(-5971968) + 10*(10077696)
+    #     = 17694720 - 119439360 + 100776960 = -967680
+    (3, 3, 4, 4, 4, 4, 4):         -967_680,
+    #   (3,4,4,4,4,4,4): C(1,1)*C(6,2)=15 of (3,4,4); C(6,3)=20 of (4,4,4). TRIPLES=35.
+    #     15*(-5971968)+20*10077696 = -89579520+201553920 = 111974400
+    (3, 4, 4, 4, 4, 4, 4):      111_974_400,
+    #   (4,4,4,4,4,4,4): C(7,3)=35 of (4,4,4). 35*10077696 = 352719360.
+    (4, 4, 4, 4, 4, 4, 4):      352_719_360,
+    #   (3,3,3,3,3,3,7): C(6,3)=20 of (3,3,3); C(6,2)=15 of (3,3,7).
+    #     20*(-2097152) + 15*(-16809984) = -41943040 - 252149760 = -294092800
+    (3, 3, 3, 3, 3, 3, 7):     -294_092_800,
+    # N = 7 heterogeneous flagship covering D up to 15:
+    #   (3,4,7,8,11,12,15): all distinct, C(7,3)=35 triples; each triple
+    #   evaluated as product of the three Borcherds exponents 2c(D_i).
+    (3, 4, 7, 8, 11, 12, 15):  1_004_946_329_056,
 }
 
 
@@ -552,13 +646,231 @@ def bkm_data() -> Dict[str, object]:
         'cubic_symbol_rule': '(2 c(D_1)) (2 c(D_2)) (2 c(D_3)) on orth. im.',
         'phi01_source': 'Eichler-Zagier 1985 Table 2',
         'agent_2_scope': 'proved at N <= 3',
-        'this_engine_scope': 'N = 4, 5, 6 -- order-by-order Siegel-Fourier match',
+        'this_engine_scope': 'N = 4, 5, 6, 7 -- order-by-order Siegel-Fourier match',
         'd_CE_closedness': 'trivially 0 on pairwise orthogonal imaginary tuples '
                           '(Borcherds-Serre kills the brackets)',
         'weyl_invariance': 'cubic symbol depends on unordered discriminants only',
         'flagship_cubic_symbols': FLAGSHIP_CUBIC_SYMBOLS,
         'flagship_height_N_coeffs': FLAGSHIP_HEIGHT_N_COEFFS,
         'D_max_default': 48,
+        'D_max_for_height_7': 256,
+        'runtime_scaling': 'O(binom(N,3)) in the triple sum; '
+                          'D_max ceiling governs table preload',
+    }
+
+
+# ---------------------------------------------------------------------------
+# 9. Height-N = 7 extension and asymptotic growth analyser
+# ---------------------------------------------------------------------------
+#
+# At height N = 7 the combinatorics require O(binom(7,3)) = 35 triples
+# and a preloaded Borcherds-exponent table to discriminant
+# D_max >= 4 * 7 * max_layer + (2 * max_r)^2. For the "heterogeneous"
+# flagship (3,4,7,8,11,12,15) the table must reach D_max = 15; for
+# (3,3,3,3,3,3,7) only D_max = 7; for asymptotic-growth tests up to
+# D(v_sum) at height-7 summation we preload D_max = 256, covering
+# every sum v = v_1 + ... + v_7 up to "deep height" arising in the
+# non-orthogonal S_7 alternating sum.
+#
+# The asymptotic-growth constant comes from the Hardy--Ramanujan
+# circle-method coefficient bound on phi_{0,1}: the weak Jacobi form
+# of weight 0 index 1 has coefficients obeying
+#
+#   |c(D)| ~ (pi / sqrt(D^{3/4})) * exp(pi * sqrt(D))   (D -> infty)
+#
+# (Dabholkar, Murthy, Zagier 2012 eq. 4.10 for the Witten index; the
+# statement on phi_{0,1} follows from its identification with the
+# Jacobi elliptic-genus of K3). Hence
+#
+#   |c_3^{(N)}(D^N)| = binom(N,3) |c(D)|^3
+#                    ~ binom(N,3) * exp(3 pi sqrt(D)).
+#
+# Cubing the Hardy--Ramanujan exponent yields the asymptotic rate
+# (3 pi) and the effective Borcherds "denominator radius" R = exp(pi)
+# for the D-variable. For the N-variable the growth is polynomial
+# (binom(N,3) ~ N^3 / 6), NOT factorial, because the cubic cocycle
+# summation is triple-wise, not over permutations.
+# ---------------------------------------------------------------------------
+
+
+def flagship_height_N(
+    N: int,
+    D_base: int = 3,
+) -> int:
+    """Return the canonical uniform flagship c_3^{(N)}(D_base^N).
+
+    For the all-equal tuple (D_base,)*N the coefficient is
+    binom(N, 3) * (2 c(D_base))^3.
+
+    Parameters
+    ----------
+    N : int >= 3
+        Cone height.
+    D_base : int
+        Imaginary discriminant (default 3, the minimal admissible).
+
+    Returns
+    -------
+    int
+
+    Source: direct evaluation from phi01_fourier table; agrees with
+    FLAGSHIP_HEIGHT_N_COEFFS at (D_base = 3, N in {3,4,5,6,7}).
+    """
+    if N < 3:
+        raise ValueError(f"N must be >= 3, got {N}.")
+    from math import comb
+    tab = borcherds_exponent_table(D_max=max(48, D_base + 16))
+    if D_base not in tab:
+        raise KeyError(f"D_base = {D_base} not in table.")
+    return comb(N, 3) * (tab[D_base] ** 3)
+
+
+def asymptotic_growth_rate(
+    D_values: Sequence[int],
+) -> Dict[str, float]:
+    """Fit the Hardy--Ramanujan growth constant for the Borcherds
+    exponent |2 c(D)| at a sequence of D values.
+
+    Expected asymptotic (Dabholkar--Murthy--Zagier 2012 Eq. 4.10 for
+    the K3 elliptic genus, specialised to phi_{0,1}):
+
+        log |2 c(D)| = pi * sqrt(D) + (lower-order)
+
+    The cubic cocycle flagship |c_3^{(N)}(D^N)| = binom(N,3) |2 c(D)|^3
+    inherits the rate 3 * pi * sqrt(D).
+
+    Returns
+    -------
+    dict with keys:
+        'D_values'         : input list.
+        'log_abs_coefs'    : log |2 c(D)| at each D.
+        'slope'            : best-fit slope of log|2c(D)| vs sqrt(D)
+                            (expected: pi ~ 3.14159).
+        'intercept'        : best-fit intercept.
+        'pi_ratio'         : slope / pi (ideally ~1 as D -> infty).
+
+    If fewer than two D values supplied, returns slope = 0.
+    """
+    import math
+    if len(D_values) < 2:
+        return {
+            'D_values': list(D_values),
+            'log_abs_coefs': [],
+            'slope': 0.0,
+            'intercept': 0.0,
+            'pi_ratio': 0.0,
+        }
+    tab = borcherds_exponent_table(D_max=max(D_values) + 8)
+    xs: List[float] = []
+    ys: List[float] = []
+    for D in D_values:
+        if D in tab and tab[D] != 0:
+            xs.append(math.sqrt(D))
+            ys.append(math.log(abs(tab[D])))
+    n = len(xs)
+    if n < 2:
+        return {
+            'D_values': list(D_values),
+            'log_abs_coefs': ys,
+            'slope': 0.0,
+            'intercept': 0.0,
+            'pi_ratio': 0.0,
+        }
+    # least-squares fit y = m x + b
+    mx = sum(xs) / n
+    my = sum(ys) / n
+    cov = sum((xs[i] - mx) * (ys[i] - my) for i in range(n))
+    var = sum((xs[i] - mx) ** 2 for i in range(n))
+    slope = cov / var if var > 0 else 0.0
+    intercept = my - slope * mx
+    return {
+        'D_values': list(D_values),
+        'log_abs_coefs': ys,
+        'slope': slope,
+        'intercept': intercept,
+        'pi_ratio': slope / math.pi if math.pi > 0 else 0.0,
+    }
+
+
+def cubic_cocycle_asymptotic(
+    N_max: int = 10,
+    D_base: int = 3,
+) -> Dict[str, object]:
+    """Report the asymptotic behaviour of |c_3^{(N)}(D_base^N)| as N grows.
+
+    The uniform flagship is binom(N, 3) * (2 c(D_base))^3. As N -> infty
+    this grows POLYNOMIALLY in N (cubically, by binom(N,3) ~ N^3/6),
+    not factorially; the cubic cocycle summation is triple-wise, not
+    permutation-wise. For the permutation-wise S_N-alternating variant
+    (non-orthogonal extension) the growth would be factorial N!/24 via
+    the alternating-sum formula, but the orthogonal-locus cocycle lives
+    at the symmetric-tensor stratum.
+
+    Returns
+    -------
+    dict with keys:
+        'N_values'     : [3, 4, ..., N_max]
+        'c3_N'         : [c_3^{(N)}(D_base^N) for each N]
+        'growth_type'  : 'polynomial_cubic' or 'factorial'
+        'leading_coef' : prefactor of N^3 / 6 * (2c(D_base))^3
+    """
+    from math import comb
+    if N_max < 3:
+        raise ValueError(f"N_max must be >= 3, got {N_max}.")
+    tab = borcherds_exponent_table(D_max=max(48, D_base + 16))
+    if D_base not in tab:
+        raise KeyError(f"D_base = {D_base} not in table.")
+    prefactor = tab[D_base] ** 3
+    Ns = list(range(3, N_max + 1))
+    vals = [comb(N, 3) * prefactor for N in Ns]
+    return {
+        'N_values': Ns,
+        'c3_N': vals,
+        'growth_type': 'polynomial_cubic',
+        'leading_coef': prefactor,
+        'asymptotic_formula': 'c_3^{(N)}(D^N) = C(N,3) * (2c(D))^3 = (N^3/6) * (2c(D))^3 + O(N^2)',
+    }
+
+
+def engine_scaling_profile(
+    N_max: int = 7,
+    D_max: int = 256,
+) -> Dict[str, object]:
+    """Benchmark the engine at cone heights 3..N_max and record
+    runtime / memory scaling. Used at session end to verify that the
+    N = 7 extension remains tractable (milliseconds per evaluation,
+    MB-scale table).
+
+    Returns
+    -------
+    dict with per-N timing and problem-size summary.
+    """
+    import time
+    # Preload the table once (memoised inside borcherds_exponent_table)
+    _ = borcherds_exponent_table(D_max=D_max)
+    profile: List[Dict[str, object]] = []
+    for N in range(3, N_max + 1):
+        tup = tuple([3] * N)
+        t0 = time.time()
+        val = fourier_coefficient_cube_N(tup, D_max=D_max)
+        dt = time.time() - t0
+        from math import comb
+        profile.append({
+            'N': N,
+            'tuple': tup,
+            'c3_N': val,
+            'num_triples': comb(N, 3),
+            'wall_time_sec': round(dt, 6),
+        })
+    return {
+        'D_max': D_max,
+        'table_size': len(borcherds_exponent_table(D_max=D_max)),
+        'profile': profile,
+        'note': (
+            'Runtime is dominated by the O(binom(N,3)) triple-sum inside '
+            'fourier_coefficient_cube_N plus the one-time theta-lift '
+            'preload of the phi01 Fourier table.'
+        ),
     }
 
 
@@ -829,8 +1141,28 @@ if __name__ == '__main__':
     # For these we label discriminant = "imaginary height index" and take
     # actual orthogonal-imaginary-root discriminant values D_i = 3 + 4*(h_i-1).
     for tup in [(3, 3, 3, 3), (3, 3, 3, 4), (3, 4, 4, 4),
-                (3, 3, 3, 3, 3), (3, 3, 3, 3, 3, 3)]:
-        rep = verify_cocycle_at_height(tup, D_max=48)
+                (3, 3, 3, 3, 3), (3, 3, 3, 3, 3, 3),
+                (3, 3, 3, 3, 3, 3, 3),
+                (3, 4, 7, 8, 11, 12, 15)]:
+        rep = verify_cocycle_at_height(tup, D_max=64)
         print(f"  D-tuple {tup} | c_3^{{({rep['N']})}} = {rep['c3_N']} | "
               f"d_CE closed: {rep['d_CE_closed']} | "
               f"Siegel match: {rep['num_siegel_fourier_matches']}/{rep['num_triples']}")
+
+    print("\nAsymptotic Hardy-Ramanujan fit for log|2 c(D)| vs sqrt(D):")
+    asy = asymptotic_growth_rate(
+        [7, 11, 15, 19, 23, 31, 47, 63, 79, 95, 111, 127, 143, 159, 167])
+    print(f"  slope  = {asy['slope']:.4f}  (expected: pi = 3.1416)")
+    print(f"  pi_ratio = {asy['pi_ratio']:.4f}  (expected: ~ 1.00)")
+
+    print("\nUniform D=3 cone growth c_3^{(N)}(3^N) = C(N,3)*(-128)^3:")
+    asy_N = cubic_cocycle_asymptotic(N_max=9, D_base=3)
+    for N, val in zip(asy_N['N_values'], asy_N['c3_N']):
+        print(f"  N={N}: c_3^({N})(3^{N}) = {val:>18,}")
+
+    print("\nEngine scaling profile at N = 3..7:")
+    prof = engine_scaling_profile(N_max=7, D_max=256)
+    print(f"  D_max = {prof['D_max']}, table size = {prof['table_size']}")
+    for row in prof['profile']:
+        print(f"  N={row['N']}: triples={row['num_triples']:>3} | "
+              f"c_3 = {row['c3_N']:>14,} | dt = {row['wall_time_sec']*1000:7.3f} ms")
