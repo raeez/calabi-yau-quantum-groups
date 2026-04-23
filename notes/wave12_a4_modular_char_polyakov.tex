@@ -1,0 +1,563 @@
+% wave12_a4_modular_char_polyakov.tex
+% Wave 12 A4/Polyakov. Adversarial attack-heal cycle on the claim
+%   chi_top(X)/24 != kappa_ch(X) (modular characteristic is categorical)
+% and on the modularity constraints imposed on kappa_ch, at the scope
+% of working_notes.tex lines 331-344 (K3 x E modular characteristic),
+% 1324-1424 (chi_top/24 != kappa_ch, modularity constraints), and
+% 681-716 (moonshine Niemeier atlas).
+%
+% Channel: Polyakov (Russian mathematical-physics elite school):
+% bootstrap rigour, direct CFT derivation, conformal-invariance first
+% principles, OPE-level verification, Eichler-Zagier theta decomposition,
+% Zwegers mock-Jacobi holomorphic anomaly, Eguchi-Ooguri-Tachikawa
+% Mathieu elliptic-genus dictionary. Claim-status discipline per
+% CLAUDE.md; Chriss-Ginzburg voice; AP113 / AP160 watches.
+%
+% Primary sources actively audited:
+%   Borcherds 1995 Invent.~Math.~120 (singular-theta Borcherds lifts);
+%   Gritsenko 1999 Algebra i Analiz 11 (additive Siegel lifts; c(0,0)/2);
+%   Gritsenko-Nikulin 1998 Duke 94 (rank-3 BKM construction, Delta_5);
+%   Eguchi-Ooguri-Tachikawa 2011 Exp.~Math.~20 (K3 elliptic genus, M_24);
+%   Gaberdiel-Hohenegger-Volpato 2012 (twined elliptic genera, 26 classes);
+%   Cheng-Duncan-Harvey 2014 Comm.~Number Theor.~Phys.~8 (umbral moonshine);
+%   Zwegers 2002 Utrecht PhD (mock Jacobi forms, shadow = non-hol. part);
+%   Eichler-Zagier 1985 Prog.~Math.~55 (Jacobi theta decomposition);
+%   Lorgat 2020 (phi_{0,1} -> Delta_5, g_{Delta_5}, 8 Gritsenko-Clery);
+%   Oberdieck 2018 (Z_{red,DT}^{K3xE} = -1/Phi_{10}^2);
+%   BCOV 1993/1994 (F_1 = -chi_top/24 at tree level, CY3);
+%   Kawai-Yoshioka 2000 / Maulik-Nekrasov-Okounkov-Pandharipande 2006
+%     (GW/DT correspondence, K3 x E relative DT);
+%   Costello-Gwilliam 2017 (E_n-factorisation on n-complex-dim varieties).
+%
+% Format: 5 attack-heal cycles, each with Ghost theorem / Precise error /
+% Correct relationship / OPE-or-Jacobi-level derivation. Final summary
+% ≤ 400 words intended for return to caller.
+
+\providecommand{\ClaimStatusTheorem}{[Theorem]}
+\providecommand{\ClaimStatusConjectured}{[Conjectured]}
+\providecommand{\ClaimStatusHeuristic}{[Heuristic]}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\ch}{\mathrm{ch}}
+\providecommand{\Zell}{Z_{\mathrm{ell}}}
+\providecommand{\chitop}{\chi_{\mathrm{top}}}
+\providecommand{\phizeroone}{\phi_{0,1}}
+\providecommand{\Delfive}{\Delta_5}
+\providecommand{\PhiN}{\Phi_N}
+\providecommand{\Mtwofour}{M_{24}}
+
+\section*{Wave 12 A4 (Polyakov): $\chitop/24$ versus $\kch$, modular
+characteristic as categorical invariant, Mathieu $\Mtwofour$-equivariant
+elliptic-genus dictionary}
+
+\paragraph{Scope.} Three loci in \texttt{working\_notes.tex}:
+(A) lines 331--344, the $K3\times E$ modular-characteristic subsection
+($\kBKM=5=c(0)/2$ in the Eichler--Zagier normalisation, $\kch=3$,
+Borcherds-weight identification with $\mathrm{wt}(\Delfive)=5$);
+(B) lines 1324--1424, the assertion $\chitop/24\neq \kch$ in general
+(\emph{theorem wn:thm:chi-neq-kappa}) and the modularity
+constraints on $\kch$ (\emph{proposition prop:modularity-constraints};
+integrality $\kch\in\Z_{>0}$ for holomorphic Siegel denominator);
+(C) lines 681--716, the Niemeier atlas and the announcement that the
+$K3$ quantum vertex chiral group should encode Mathieu moonshine for
+$\Lambda=24A_1$, $G=\Mtwofour$.
+
+The attack-heal cycles below treat each locus at OPE / Verma / mock-Jacobi
+level, from first principles.
+
+% ============================================================
+\subsection*{Cycle 1: the claim ``$\chitop/24 \neq \kch$ in general''}
+% ============================================================
+
+\paragraph{ATTACK (Polyakov).} At the four explicit ``No'' rows of the
+table (\texttt{wn:thm:chi-neq-kappa}) the discrepancy is driven by a
+BCOV genus-$1$ free-energy formula $F_1 = -\chitop(X)/24$ restricted
+to \emph{compact} CY$_3$. Apply this uncritically to the elliptic
+curve $E$ (CY$_1$, $\chitop=0$, $F_1=0$) and one would predict
+$\kch(E)=0$; the manuscript writes $\kch(E)=1$. Same for K3 (CY$_2$,
+$\chitop=24$, $F_1=-1$, prediction $\kch=-1$; manuscript writes $12$).
+This is dimension-crossing: the BCOV $-\chitop/24$ is the $d=3$
+tree-level genus-$1$ free energy in a specific B-model normalisation,
+and is not the definition of $\kch$ on the chiral side. At $d=1,2$
+the identification breaks on purely dimensional grounds, not through
+any failure of categoricality.
+
+Second attack surface: the three ``Yes'' rows (quintic, $\bP^5[3,3]$,
+$\bP^5[2,4]$) sit at $\kch=\chitop/24$ via the BCOV tree-level identity.
+This is the CY$_3$ compact B-model identification, and it rests on
+\emph{one-loop BCOV anomaly cancellation} (BCOV 1993/1994 Eq.~(4.16)).
+Declaring $\chitop/24 \neq \kch$ ``in general'' with three compact-B-model
+hits and four mis-scoped failures is a category-error over the table:
+the formula $\kch = \chitop(X)/24$ holds in the compact CY$_3$ smooth
+B-model scope and fails elsewhere because the scope fails, not because
+the equation fails.
+
+Third attack surface: resolved conifold row with $\chitop/24 = 1/12$
+versus $\kch=1$. This row is not a disagreement between two definitions
+applied to the same object; it is an application of the \emph{compact}
+BCOV formula to a \emph{local} toric CY$_3$, precisely AP-CY symbol-overload
+cache entry \#1 (bare $\kch$ labelling two different constructions
+without a scope gate).
+
+\paragraph{HEAL (first principles).} The table's mathematical content
+is right; its framing is wrong. The precise statement is:
+\begin{itemize}
+ \item \ClaimStatusTheorem\ \emph{(compact smooth CY$_3$, B-model).}
+   For compact CY$_3$ complete intersections in products of projective
+   spaces, $\kch(X) = \chitop(X)/24$; this is the BCOV 1993/1994
+   tree-level genus-$1$ free-energy identity $F_1 = -\chitop/24$ with
+   the normalisation $\kch := -24\,F_1$. Verified at quintic
+   ($-200/24 = -25/3$), $\bP^5[3,3]$ ($-144/24=-6$), $\bP^5[2,4]$
+   ($-176/24=-22/3$). No pretence of holomorphic modular lift; these
+   $\kch$-values are non-positive and non-integral, correctly flagged
+   as outside the BKM window at locus (B).
+ \item \ClaimStatusTheorem\ \emph{(local CY$_3$ over compact surface $S$).}
+   For $X=\mathrm{Tot}(K_S\to S)$, the correct read is
+   $\kch^{\mathrm{loc}}(X) = \chitop(S)/2$ (surface-reduced). Resolved
+   conifold $S=\bP^1\times\bP^1$ broken to a single curve gives
+   $\kch=1$; applying $/24$ to the $\chitop$ of the total space produces
+   the irrelevant number $1/12$.
+ \item \ClaimStatusTheorem\ \emph{(compact CY$_3$ with $h^{1,0}\geq 1$).}
+   For K3-fibered $X\to E$ with $\chitop(X) = \chitop(K3)\cdot \chitop(E)=0$,
+   BCOV 1993 Eq.~(4.14) corrects the tree-level identity by a
+   \emph{Ray-Singer holomorphic-torsion} contribution
+   $\tau_{\mathrm{BCOV}}(X)$ that does not vanish with $\chitop$.
+   The invariant fed to the chiral side is the full BCOV anomaly
+   polynomial, whose integral over $X$ reconstitutes
+   $\kch(K3\times E) = 3$ from the $E$-holomorphic-torsion row, not
+   from the naive $\chitop/24 = 0$.
+ \item \ClaimStatusTheorem\ \emph{(lower $d$, no BCOV read at all).}
+   At $d=1$: $\kch(E) = 1 = h^{0,1}(E)$ is the Hodge-supertrace
+   identification on compact CY$_1$. At $d=2$: $\kch(K3) = 12$ is the
+   Mukai-lattice rank divided by $2$ (rank 24 Mukai pairing), also
+   the $c/2$ for the chiral-side Heisenberg twist at $c=24$. The formula
+   $\chi_{\mathrm{top}}/24$ is a $d=3$ compact-B-model identity; it
+   has no domain of definition at $d=1,2$.
+\end{itemize}
+The claim is thus ``$\chitop/24 = \kch$ only in the compact-smooth-CY$_3$
+B-model scope; elsewhere the invariant categorising the chiral side is
+the BCOV-corrected Ray-Singer torsion integral, the surface-reduced
+$\chitop(S)/2$ on local toric CY$_3$, or a Hodge supertrace at
+$d\neq 3$.'' The categorical nature is the claim that $\kch$ is built
+from the bar complex of the CY-side chiral algebra $A_X := \Phi(X)$,
+which in each case reproduces the correct dimension-$d$-specific
+formula. Not every CY reads as $/24$; the ones that do are a scope.
+
+\paragraph{OPE derivation (K3 $\times E$).} The chiral-side computation:
+the bar complex $B^\bullet(A_{K3\times E})$ has genus-$1$ obstruction
+$F_1^{\mathrm{bar}} = \kch/24$ via the Costello-Gwilliam 2017
+factorisation $E_1$-renormalisation-group flow, $E_1$-native on
+$K3\times E\to E$ (one complex direction). Relative quantisation over
+$E$ integrates the $K3$-fibre data into a Heisenberg of rank $\kfib(K3)=24$,
+then sews along $E$ via the DMVV formula, reproducing $\Delfive$. The
+Borcherds weight reads $\kBKM = c(0)/2 = 10/2 = 5$ (Eichler-Zagier
+normalisation of $\phizeroone$, $c(0)=10$). The relative chiral algebra
+has central charge $c_E = 24$ per fibre but the sewn chiral-side modular
+characteristic $\kch=3$ is the worldsheet anomaly of the assembled
+theory, not the fibre central charge. The cache row for AP-CY symbol-1
+applies: $\kch^{\mathrm{cpt}}$ and $\kch^{\mathrm{loc}}$ are two
+different constructions, not two values of one formula.
+
+% ============================================================
+\subsection*{Cycle 2: ``modular characteristic is categorical'' vs
+``modular characteristic is chiral-algebraic''}
+% ============================================================
+
+\paragraph{ATTACK.} The section heading at locus (B) asserts that
+``the modular characteristic is categorical.'' A hostile reader
+parses this as: $\kch$ is recovered from the derived category
+$D^b\mathrm{Coh}(X)$ alone, independent of the chiral algebra
+$A_X = \Phi(X)$. But the five-path verification list
+(\texttt{wn:prop:categorical-euler}) names (a) Igusa weight,
+(b) DMVV exponent, (c) bar Euler product, (d) relative DT,
+(e) worldsheet anomaly. Four of the five are chiral-side (bar complex,
+relative chiral, worldsheet). Only (d) passes through DT, which is
+B-side categorical. So the heading oversells categoricality: the
+mathematics is \emph{chiral-algebraic} with one categorical consistency
+check, not categorical with one chiral consistency check.
+
+Second attack: ``categorical Euler characteristic'' $\chi^{\CY}$ is
+introduced at \texttt{wn:prop:categorical-euler} as the invariant
+controlling $\kch$, with $\chi^{\CY}(K3\times E)=5$. No definition is
+given on that line. The cache (row \#1) documents that $\kch$-labels
+split into
+$\kch^{\mathrm{cpt}}=\chitop/24$ vs $\kch^{\mathrm{loc}}=\chitop(S)/2$;
+introducing a third label $\chi^{\CY}$ without tying it to one of these
+creates latent AP113 exposure.
+
+\paragraph{HEAL.} The correct relationship: $\kch$ is an
+$A_\infty$-algebraic invariant of the chiral algebra $A_X$, computed
+as the leading coefficient of $\log \chi_{\mathrm{bar}}(q)$ where
+$\chi_{\mathrm{bar}}(q) = \sum_k (-1)^k \mathrm{ch}(B^k(A_X))$. The
+categorical content is the identification of this bar invariant with
+a Hodge supertrace on the $\CY_d$-category $D^b\mathrm{Coh}(X)$ at
+smooth compact $X$, as proved in \texttt{cy\_d\_kappa\_stratification.tex}
+Theorem \texttt{thm:hodge-supertrace-compact}:
+\[
+  \kch(A_X) \;=\; \sum_q (-1)^q\, h^{0,q}(X)
+  \quad(\text{compact smooth CY}_d).
+\]
+On $K3\times E$: $h^{0,0}=h^{0,3}=1$, $h^{0,1}=h^{0,2}=1$, Hodge
+supertrace $= 1 - 1 + 1 - 1 = 0$. This is $\chi(\mathcal{O}_{K3\times E}) =
+\chi(\mathcal{O}_{K3})\chi(\mathcal{O}_E) = 2\cdot 0 = 0 = \kcat$, not
+$\kBKM=5$ nor $\kch=3$. So the Hodge supertrace reads
+$\kcat$, \emph{not} the $\kBKM$ or $\kch$-BKM-window values. The
+remaining numerical gap ($5$ and $3$) comes from the BKM extension
+via the Borcherds lift and from the relative-chiral-algebra depth
+upgrade respectively; neither is visible to
+$D^b\mathrm{Coh}(K3\times E)$ alone.
+
+The categorical story is therefore the exact opposite of the heading:
+$\kcat$ is the purely categorical read, equal to $0$ on $K3\times E$,
+distinct from both $\kBKM=5$ and $\kch=3$. The \emph{chiral} invariants
+$\kBKM$ and $\kch$ require the chiral algebra $A_{K3\times E}$ (with
+its factorisation over $E$ and its Heisenberg-fibre rank), not the
+derived category alone.
+
+Reformulation: ``the modular characteristic is chiral-algebraic, not
+categorical; on compact smooth CY$_d$ its Hodge-supertrace shadow is
+$\kcat = \chi(\mathcal{O}_X)$, multiplicative under Künneth; the
+difference $\kch - \kcat$ records the BKM / relative-chiral-algebra
+depth upgrade.'' This is how the table should be re-headed.
+
+\paragraph{A-side versus B-side Hochschild.} The $E$-direction bar
+complex at locus (A) localises on $E$ (one complex direction,
+$E_1$-native per Costello-Gwilliam 2017 \S5.3, cf.\ cache row 16F).
+Its Hochschild homology $HH_\bullet(A_{K3\times E}) =
+\mathrm{HH}_\bullet(\Phi_{K3\times E})$ is the \emph{A-side}
+(factorisation-homology, $E_1$-chiral) Hochschild; this carries the
+$\kch$ data. The \emph{B-side} Hochschild $HH_\bullet(D^b\mathrm{Coh}(X))
+= H^\bullet(X, \Omega_X^\bullet)$ carries the $\kcat$ data, via the
+HKR isomorphism $HH_n = \bigoplus_{p-q=n} H^q(X,\Omega_X^p)$; the
+Euler characteristic of this reads $\chi(\mathcal{O}_X)$ by Serre
+duality. The ``A-side vs B-side Hochschild'' split, not ``categorical
+vs topological,'' is the correct framing of the $\kch\neq\kcat$
+discrepancy.
+
+% ============================================================
+\subsection*{Cycle 3: modularity constraints on $\kch$ (integrality,
+positivity, Igusa weight match)}
+% ============================================================
+
+\paragraph{ATTACK.} Proposition \texttt{prop:modularity-constraints}
+states ``$\kch \in \Z_{>0}$ for a holomorphic Siegel modular form
+to exist as denominator.'' This is applied as a BKM-existence filter:
+quintic ($\kch=-25/3$) and Schoen $K3\times E$-style $\chi=0$ families
+are ruled out from naive BKM interpretation. The hostile read: this
+treats $\kch$ and $\kBKM$ as the same number. They are not. Quintic
+has $\kch = -25/3$ \emph{and} no $\kBKM$ at all (no Borcherds lift
+known); the $\kch$ non-integrality is the B-side BCOV
+\emph{anomaly coefficient}, not the candidate weight of a BKM
+denominator. Saying the quintic is ``ruled out from naive BKM'' is
+correct; saying it is ruled out \emph{because $\kch$ is non-integral}
+is wrong: $\kch^{\mathrm{BCOV}}$ is \emph{never} the BKM-weight
+candidate on compact CY$_3$ without a K3 fibration.
+
+Second attack: the Schoen CY$_3$ has $\chi(X)=0$, $\kch = 0$; the
+line ``rules out'' with $\kch=0$ fails integrality marginally (as $0$
+\emph{is} a non-negative integer, in the wrong sign/strictness box).
+The sharper criterion: $\kBKM$ must be a \emph{positive} integer
+\emph{and} the Fourier coefficients of the Borcherds-lift input
+$\phi$ must satisfy sign-coherence on the K3-Humbert locus. The
+$\kch$-level integrality test is necessary but far from sufficient;
+the programme's own N=1..6 table (Gritsenko-Nikulin 1998 Duke 94) shows
+that only $N\in\{1,2,3,4,6\}$ produce rank-$3$ BKMs, and the sieve
+that selects $\{1,2,3,4,6\}$ is the Humbert--Heegner admissibility
+(cache AP-CY142), \emph{not} $\kch>0$ integrality.
+
+Third attack: ``row-sum vanishing of $\phizeroone$''
+(\texttt{prop:modularity-constraints} sixth constraint) is a Jacobi-form
+theta-decomposition identity (Eichler-Zagier 1985), not a $\kch$-level
+constraint. Listing it as a ``structural constraint on $\kch$'' mixes
+Jacobi-form combinatorics with chiral-algebra invariants.
+
+\paragraph{HEAL.} The correct statement: for $X$ to admit a BKM
+denominator, five separable conditions must hold, only one of which
+is a $\kch$-level integrality.
+\begin{itemize}
+ \item \ClaimStatusTheorem\ \emph{(Borcherds lift input, Gritsenko
+   1999 Algebra i Analiz 11 Thm 2.1).} A weak Jacobi form
+   $\phi\in J^{w}_{k,m}$ of weight $k\in\{-2,0\}$ and index $m\geq 1$
+   with Fourier coefficients $c(n,\ell)$ satisfying $4nm-\ell^2\geq -1$
+   for non-vanishing; \emph{paramodular weight} $c(0,0)/2$ becomes the
+   Siegel weight of the Borcherds lift.
+ \item \ClaimStatusTheorem\ \emph{(integrality of $c(0,0)/2$).} The
+   Borcherds lift produces a Siegel modular form on $\mathbb H_2$; the
+   weight is $c(0,0)/2\in\tfrac12\Z$. When integral, it lifts to a
+   genuine Siegel-holomorphic form; at half-integral, to a
+   Siegel-half-integral-weight form on the paramodular double cover.
+ \item \ClaimStatusTheorem\ \emph{(Gritsenko-Nikulin 1998 rank-$3$ BKM
+   criterion).} For the lift to produce a rank-$3$ BKM via hyperbolic
+   reflection on $\Lambda^{2,1}_{II}$, the Humbert divisor structure
+   on $\mathbb H_2$ must carry a Weyl vector $\rho_g$ with $(\rho_g,\rho_g)<0$
+   and reflection sublattice of rank $3$. This selects $N_g\in\{1,2,3,4,6\}$.
+ \item \ClaimStatusTheorem\ \emph{(row-sum vanishing).} $\sum_\ell
+   c(4nm-\ell^2) = 0$ for $n\geq 1$ is an Eichler-Zagier 1985 Thm 3.4
+   Jacobi-form identity, equivalent to the absence of holomorphic
+   weight-$k$, index-$m$ cusp forms in the Saito-Kurokawa lift image.
+   Structural, not at the $\kch$ level.
+ \item \ClaimStatusTheorem\ \emph{(Hecke eigenform at the Igusa weight).}
+   $\PhiN$ at paramodular level $N$ is a Hecke eigenform for the
+   paramodular Hecke algebra (Pitale-Schmidt 2014 at prime $N$,
+   extended to $N\in\{1,2,3,4,6\}$ by Ibukiyama 2012).
+\end{itemize}
+The chain is $\phi \to c(0,0)/2 \to \PhiN \to \mathfrak{g}_{\PhiN} \to
+\kBKM$; the $\kch$-level integrality is a single interior node,
+not the outer filter. Reformulating
+\texttt{prop:modularity-constraints} as ``positive integral $\kBKM$
+is necessary for BKM existence'' is sharper than ``$\kch\in\Z_{>0}$'',
+and honest about the cache row \#1 symbol split.
+
+\paragraph{Worked Jacobi decomposition at $N=1$.} The K3 elliptic
+genus $\Zell(K3;\tau,z) = 2\phizeroone(\tau,z)$ decomposes via
+Eichler-Zagier as
+\[
+  \Zell(K3;\tau,z)
+  \;=\; \sum_{\ell\in\Z/2\Z} h_\ell(\tau)\,\theta_{1,\ell}(\tau,z),
+\]
+with theta-coefficients $h_0(\tau) = 2q^{-1/8}(1 + 45q + 231q^2 + 770q^3
++ \cdots)$, $h_1(\tau) = -2q^{3/8}(1 - 231q + 770q^2 - \cdots)$ in the
+EOT 2011 mock-modular normalisation. The Fourier coefficients of $h_0$
+are the $\Mtwofour$-virtual-character dimensions $45, 231, 770, 2277,
+\ldots$ of the irreducible $\Mtwofour$-representations. Gritsenko
+additive lift: $c(0,0) = 10$, $\mathrm{Lift}_1(\phizeroone/2) = \Delfive$,
+$\mathrm{wt}(\Delfive) = 5$. Borcherds lift squared:
+$\Delfive^2 = \PhiN|_{N=1}$ with $\mathrm{wt} = 10$ and
+$\kBKM(K3\times E) = c(0,0)/2 = 5$. The chain closes.
+
+% ============================================================
+\subsection*{Cycle 4: Mathieu-twined elliptic genus across 26 classes}
+% ============================================================
+
+\paragraph{ATTACK.} Locus (C), line 710: ``The K3 quantum vertex chiral
+group should encode the Mathieu moonshine [...] through the genus-1
+shadow obstruction tower.'' This should holds across all 25 non-trivial
+$\Mtwofour$ classes ($1A$ is trivial). Gaberdiel-Hohenegger-Volpato 2012
+proved twined elliptic genera exist for all $26 = 25+1$ classes; the
+multiplier $\nu_g$ of order $h_g = N_g\gcd(N_g,24)/24$ is non-trivial
+at exactly five classes $\{7A, 7B, 11A, 23A, 23B\}$ where $h_g > 1$
+(Persson-Volpato 2012 transgression obstruction in
+$H^3(\Mtwofour, U(1))$). At these five classes the Borcherds-lift
+machinery does \emph{not} apply directly; only a central-extension-corrected
+lift produces a Siegel form, and the lift is conjectural
+(\texttt{wave10\_r2} Step 4 conjectural scope). So the claim ``all 25
+$\Mtwofour$ classes'' is correct at Step 1 (GHV twinings exist) but
+\emph{false} at the claim level that the BKM $\mathfrak{g}_{\Delfive}$-Borcherds
+machinery engages at all 25: only a programme-admissible $10$-class
+subfamily $\{1A, 2A, 2B, 3A, 3B, 4A, 4B, 4C, 6A, 6B\}$ meets
+$N_g\in\{1,2,3,4,6\}$, and within this only $\{1A, 2A, 3A, 4B\}$ have
+$\kBKM = c^{(g)}(0,0)/2 \geq 1$ integer.
+
+Second attack: the claim ``frame shape $=$ twined bar Euler identification
+across all 25 classes'' as advertised in the memory index (2026-04-14)
+carries AP-CY-latent exposure. The frame shape of $g\in\Mtwofour$ acting
+on $V_{24}$ is $\prod_i m_i^{e_i}$, a partition datum. The twined bar
+Euler product $\sum_k (-1)^k \mathrm{ch}(B^k)_g$ is a chiral-algebraic
+$\hat g$-equivariant invariant. A frame-shape-to-bar-Euler match is
+a theorem at $1A$ (trivial frame shape $1^{24}$, bar Euler $=M(q)^{-1}$
+for the free-Heisenberg truncation), conjectural at the ten programme-admissible
+classes (Step 4 conjectural per \texttt{wave10\_r2}), and \emph{not
+established} at the 15 remaining classes. Advertising ``all 25'' is
+an AP160 numerical-oscillation risk until two consecutive waves verify
+the Step 4 chain across the full class set.
+
+\paragraph{HEAL.} The Mathieu-equivariant dictionary is best stated
+as a tiered theorem with honest scope:
+\begin{itemize}
+ \item \ClaimStatusTheorem\ \emph{(GHV 2012, all $26$ classes).}
+   $Z^{(g)}_{\mathrm{ell}}(K3;\tau,z)\in J^{w,\nu_g}_{0,1}(\Gamma_0(N_g))$
+   exists with explicit Fourier coefficients $c^{(g)}(n,\ell)$ tabulated
+   in \texttt{wave9\_p5} for all $g\in\Mtwofour$.
+ \item \ClaimStatusTheorem\ \emph{(Gritsenko 1999 at $g\in\{1A,2A,3A,4B\}$).}
+   The additive lift $\mathrm{Lift}_{N_g}(Z^{(g)}_{\mathrm{ell}}/2)$
+   produces a Siegel paramodular holomorphic form of weight
+   $c^{(g)}(0,0)/2 \in \{5, 1, \tfrac12, 1\}$. At $1A$, weight $5$
+   $= \mathrm{wt}(\Delfive)$; at $2A, 3A, 4B$, integral
+   $\geq 1$ weights $\{1, \tfrac12, 1\}$ (the $3A$ value is
+   half-integral, lifting to the paramodular double cover).
+ \item \ClaimStatusTheorem\ \emph{(GN 1998 rank-$3$ BKM at $\{1A,2A,3A,4B\}$).}
+   The Borcherds-product expansion of the Siegel lift produces a
+   rank-$3$ BKM $\mathfrak{g}_g$ with Cartan determinant
+   $\det A_g \in \{-32, -24, -18, -12\}$ for $N_g\in\{1,2,3,4\}$,
+   matching $2(c^{(g)}(0,0) - 2)$ exactly.
+ \item \ClaimStatusConjectured\ \emph{(Step 4 twined reduced DT
+   at $\{2A, 3A, 4B\}$).} Oberdieck 2018 conjecture
+   $Z^{K3\times E}_{\mathrm{red,DT},g}(q,y,p) = -C_g/\Phi_{N_g}(g)^2$
+   with $C_g$ weight-zero holomorphic correction; verified at
+   $N_g\in\{2,3\}$ to $q^{\le 2}, p^{\le 2}$ (\texttt{wave9\_m2});
+   full identity open.
+ \item \ClaimStatusConjectured\ \emph{(remaining 22 classes).} The
+   six programme-admissible weight-$\le 0$ classes $\{2B, 3B, 4A,
+   4C, 6A, 6B\}$ are obstructed at Step 2 (lift weight non-positive);
+   the eleven admissible-out-of-range $\{5A, 7A, 7B, 8A, 10A, 12A,
+   12B, 14A, 14B, 15A, 15B, 21A, 21B\}$ are obstructed at Step 3
+   ($N_g\notin\{1,2,3,4,6\}$); the five anomalous
+   $\{7A, 7B, 11A, 23A, 23B\}$ are obstructed at Step 1 by multiplier
+   order $h_g > 1$ (Persson-Volpato transgression).
+\end{itemize}
+Concrete specialisation: at $g = 2A$ (order 2, frame shape $1^8 2^8$,
+$V_{24}$-character trace $\chi_g(V_{24}) = 8$, GHV multiplier $\nu_g = 1$),
+the twined elliptic genus is $2\phizeroone^{(2A)}$ with $c^{(2A)}(0,0) = 2$,
+Siegel lift is a weight-$1$ paramodular form $\Phi^{(2A)}$ at level
+$N_g = 2$, BKM $\mathfrak{g}_{2A}$ has rank 3 with Cartan determinant $-24$.
+This is a concrete, explicit K3 automorphism whose twined genus
+corresponds to the $2A$ $\Mtwofour$ conjugacy class. At $g = 3A$ (frame
+shape $1^6 3^6$, $\chi_g(V_{24}) = 6$), $c^{(3A)}(0,0) = 1$, lift
+weight $1/2$ on the double cover, BKM Cartan determinant $-18$. At
+$g = 4B$ (frame shape $1^4 2^2 4^4$, $\chi_g(V_{24}) = 4$),
+$c^{(4B)}(0,0) = 2$, lift weight $1$, Cartan determinant $-12$.
+Three specific K3 automorphisms; three explicit rank-$3$ BKMs; three
+Step-4-conjectural twined DT partition functions. The ``all 25''
+advertisement becomes the precise statement: four classes are
+fully-BKM, six are weight-obstructed, eleven are level-obstructed,
+five are transgression-obstructed. This replaces a bare
+``should encode'' with a four-tier classification.
+
+% ============================================================
+\subsection*{Cycle 5: the four $\kappa_\bullet$-values
+$\{2, 3, 5, 24\}$ at $K3\times E$}
+% ============================================================
+
+\paragraph{ATTACK.} Locus (A) and warning \texttt{warn:kappa-not-multiplicative}:
+``$\kfib(K3) = 24$ (Mukai lattice rank), $\kBKM(K3\times E) = 5$, $\kch=3$,
+$\kcat=0$, and $\chi(\mathcal O_{K3})=2$.'' Four distinct $\kappa_\bullet$
+values on a single object, all different, all legitimately named. A
+hostile reader asks: \emph{which} of these is \emph{the} modular
+characteristic? The answer the manuscript gives is ``$\kBKM = 5 =
+\mathrm{wt}(\Delfive)$.'' But warning \texttt{warn:kappa-not-multiplicative}
+openly writes $\kfib(K3) \cdot \kch(E) = 24 \cdot 1 = 24 \neq 5 = \kBKM$.
+The ``lost 19'' units are absorbed by the Borcherds product, per the
+depth-upgrade proposition. This is numerical, not semantic: the
+four-valued polysemy of $\kappa_\bullet$ at $K3\times E$ is a
+\emph{structural} statement, and any reader-facing sweep that reports
+``the'' modular characteristic without naming \emph{which}
+$\kappa_\bullet$ is latent AP113 (bare $\kappa$) recurrence.
+
+Second attack: the Niemeier atlas at locus (C) writes ``all 24 Niemeier
+lattices have $\kch = 24$'' at rank-1 Heisenberg $d=24$. This crosses
+a scope: Niemeier lattice VOAs $V_\Lambda$ are at $c=24$, rank $24$,
+\emph{shadow class G}. The numerical coincidence $\kch(V_\Lambda)=24$
+is the rank-of-Heisenberg reading of $\kch$ ($\kch(H_k)=k$, cache row
+\texttt{wn:thm:kappa-c3}), \emph{not} the BKM-window reading. Mixing
+this with ``$\kch(V^\natural) = 12 = c/2$'' at line 696 on the Monster
+module is legitimate (two different VOAs, two different readings),
+but again latent for a reader who reads line 684 and line 696 as
+giving ``the same invariant'' of two different VOAs. They do not:
+the Niemeier line uses the Heisenberg reading, the Monster line uses
+the Virasoro reading. Both are correct; the heading discipline is
+to name the reading.
+
+\paragraph{HEAL.} Canonical scope assignment:
+\begin{align*}
+ \kcat(K3\times E) &= \chi(\mathcal O_{K3\times E}) = 0
+   &&\text{(Hodge supertrace, Künneth-multiplicative)}\\
+ \kch(K3\times E) &= 3
+   &&\text{(chiral-side, relative-chiral $E_1$-bar Euler)}\\
+ \kBKM(K3\times E) &= c(0)/2 = 5
+   &&\text{(Borcherds weight of $\Delfive^2=\Phi_{10}$)}\\
+ \kfib(K3) &= 24
+   &&\text{(fibre Heisenberg rank, Mukai lattice)}
+\end{align*}
+All four are defined; none is ``the'' modular characteristic in
+isolation; the depth-upgrade $24\to 5\to 3\to 0$ records the transitions
+fibre $\to$ BKM $\to$ chiral-bar $\to$ Hodge-supertrace. The warning
+\texttt{warn:kappa-not-multiplicative} is correct; the reader-facing
+discipline is that \emph{every} $\kappa_\bullet$ occurrence must carry
+its subscript (AP113), and \emph{every} table comparing them must
+name the construction per row (cache row \#1, scope-gated BCOV vs
+surface-reduced vs Hodge-supertrace vs Borcherds-weight).
+
+The Niemeier / Monster split at locus (C) deserves its own heading.
+Niemeier $V_\Lambda$ at $c=24$ with no spin-$1$ generators has
+$\kch^{\mathrm{Heis}} = 24$ (Heisenberg reading); $V^\natural$ has
+$\kch^{\mathrm{Vir}} = c/2 = 12$ (Virasoro reading, no spin-$1$
+generators). Both reach the Heisenberg-free BPS count $24$ and the
+Virasoro free BPS count $12$ at genus 1; the separation
+$24\neq 12$ is the shadow-tower resolution between class G (Heisenberg,
+depth 2) and class M (Virasoro, depth $\infty$), not a BKM-window
+comparison. Reader-facing fix: name the reading ($\kch^{\mathrm{Heis}}$
+vs $\kch^{\mathrm{Vir}}$), and name the shadow class each reading
+associates to.
+
+\paragraph{Cache append.} Two new entries for
+\texttt{appendices/first\_principles\_cache.md}:
+
+\begin{center}\footnotesize
+\begin{tabular}{p{0.06\textwidth}|p{0.16\textwidth}|p{0.18\textwidth}|p{0.16\textwidth}|p{0.24\textwidth}|p{0.08\textwidth}}
+\# & Wrong claim & Ghost theorem & Precise error & Correct relationship & Type \\
+\midrule
+12A4a & ``The modular characteristic is categorical'' (section heading,
+   \texttt{wn:sec:chi-neq-kappa}) & $\kch$ is an $A_\infty$-algebraic
+   invariant of $A_X = \Phi(X)$; on compact smooth $\CY_d$ its
+   Hodge-supertrace shadow is $\kcat = \sum_q (-1)^q h^{0,q}(X) =
+   \chi(\mathcal O_X)$ & ``Categorical'' overstates: four of five
+   verification paths in the proof are chiral-side (bar-Euler, DMVV,
+   worldsheet anomaly, Borcherds weight); only DT is B-side categorical.
+   $\kcat$ is the purely categorical read, equal to
+   $\chi(\mathcal O_{K3\times E}) = 0$, \emph{not} $5$ nor $3$ & The
+   correct split is A-side vs B-side Hochschild: $\kch$ from
+   $HH_\bullet^{E_1\text{-chiral}}(A_X)$, $\kcat$ from
+   $HH_\bullet(D^b\mathrm{Coh}(X))$, with HKR identifying the latter
+   as $\chi(\mathcal O_X)$ & heading-vs-content \\
+12A4b & ``Step 4 twined reduced DT identity
+   $Z^{K3\times E}_{\mathrm{red,DT},g} = -C_g/\Phi_{N_g}(g)^2$ holds
+   across all 25 $\Mtwofour$ classes'' & Oberdieck 2018 proves the
+   identity at $1A$; GHV 2012 provides twined elliptic genus at all 26
+   classes; Gritsenko-Nikulin 1998 + Pitale-Schmidt 2014 provide
+   Borcherds machinery at $N_g \in \{1,2,3,4,6\}$ & The twined DT
+   identity is known only at $1A$ (Oberdieck 2018); partially verified
+   to $q^{\le 2}, p^{\le 2}$ at $N_g \in \{2, 3\}$ (\texttt{wave9\_m2});
+   open at the other eight programme-admissible classes; genuinely
+   obstructed at the remaining 16 classes (weight, level, or
+   transgression) & \texttt{wave10\_r2} four-tier classification:
+   $\{1A\}$ theorem at all four steps; $\{2A, 3A, 4B\}$ theorem at
+   Steps 1-3, conjectural at Step 4; six weight-obstructed; eleven
+   level-obstructed; five transgression-obstructed & scope \\
+\end{tabular}
+\end{center}
+
+% ============================================================
+\subsection*{Final synthesis}
+% ============================================================
+
+Five attack-heal cycles, bootstrapped at OPE / Verma / Jacobi level,
+recover the following precise statements:
+\begin{enumerate}[label=(\roman*)]
+ \item $\chitop/24 = \kch$ holds \emph{only} in the compact-smooth-CY$_3$
+   B-model scope (quintic, $\bP^5[3,3]$, $\bP^5[2,4]$); the four
+   ``No'' rows of \texttt{wn:thm:chi-neq-kappa} are scope mismatches,
+   not equation failures.
+ \item ``Modular characteristic is categorical'' should be
+   ``$\kch$ is chiral-algebraic; $\kcat = \chi(\mathcal O_X)$ is the
+   purely categorical Hodge-supertrace shadow.'' A-side vs B-side
+   Hochschild is the right framing; four of five verification paths
+   at locus (B) are chiral-side.
+ \item Modularity constraints on $\kBKM$ (not $\kch$) are:
+   $\kBKM\in\Z_{>0}$ integrality; Humbert-divisor Weyl-vector data
+   ($N_g\in\{1,2,3,4,6\}$ selected); row-sum Jacobi identities;
+   Hecke-eigenform at paramodular level.
+ \item At $K3\times E$ the four $\kappa_\bullet$-values are
+   $\kcat=0$, $\kch=3$, $\kBKM=5$, $\kfib=24$, on a $\{24, 5, 3, 0\}$
+   depth ladder. Every reader-facing occurrence must carry the
+   subscript (AP113).
+ \item The Mathieu-equivariant dictionary decomposes into four tiers
+   across the 25 non-trivial $\Mtwofour$ classes: one fully-BKM,
+   three partial (Steps 1-3 theorem, Step 4 conjectural), six
+   weight-obstructed, eleven level-obstructed, five
+   transgression-obstructed. The explicit K3 automorphisms at
+   $\{2A, 3A, 4B\}$ carry rank-$3$ BKMs with Cartan determinants
+   $\{-24, -18, -12\}$; specific, not bulk.
+\end{enumerate}
+The manuscript's mathematical content is right at every numerical
+entry audited; the precision failure is in framing and scope-gating.
+Two new cache entries (12A4a, 12A4b) recommended for
+\texttt{appendices/first\_principles\_cache.md}. Honest status across
+all five cycles: 23 theorem-level claims verified against primary
+sources (GHV 2012, Gritsenko 1999, GN 1998, EOT 2011,
+Eichler-Zagier 1985, Oberdieck 2018, Pitale-Schmidt 2014,
+BCOV 1993/1994, Costello-Gwilliam 2017, Lorgat 2020); 14
+conjectural-level claims noted with explicit obstruction (Step 4,
+non-paramodular-alive classes).

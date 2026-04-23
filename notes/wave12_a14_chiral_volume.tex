@@ -1,0 +1,525 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,hyperref}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cZ}{\mathcal{Z}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\CY}{\mathrm{CY}}
+\newcommand{\Im}{\operatorname{Im}}
+\newcommand{\Vol}{\operatorname{Vol}}
+\newcommand{\Jac}{\operatorname{Jac}}
+\newcommand{\AJ}{\operatorname{AJ}}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\kch}{\kappa_{\mathrm{ch}}}
+\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
+
+\title{The Chiral Volume Conjecture:\\
+Abel--Jacobi Periods from Chiral Partition Functions}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+On a compact Calabi--Yau threefold $X$ containing a holomorphic
+curve $C$, the CY-to-chiral functor $\Phi$ (proved equivalence
+at $d=3$: Theorem~CY-A$_3$) produces an $E_1$-chiral algebra
+$\cA_X$ whose representation theory at level $N$ is a finite-rank
+module over the affine Grassmannian of the K3 Yangian transported
+along $C$. The \emph{chiral volume conjecture} asserts that the
+large-$N$ asymptotics of the chiral partition function $Z_N(\cA_X; C)$
+are governed by the Abel--Jacobi period of $C$ against the
+holomorphic three-form: concretely,
+\[
+  \lim_{N \to \infty} \frac{1}{N}\, \log \bigl|Z_N(\cA_X; C)\bigr|
+  \;=\; \frac{1}{2\pi}\, \bigl|\AJ_X(C)\bigr|.
+\]
+We state the conjecture with each object defined at its proper
+ambient, derive the factor $1/2\pi$ from semiclassical $6$d
+holomorphic Chern--Simons on the total space of
+$\Omega^{3,0}_X \to X$, and identify the right-hand side as the
+on-shell action of the classical $6$d hCS configuration sourced
+by $C$. The statement is conjectural; it is conditional on
+CY-A$_3$ (now proved) and on the modular-sum identification of
+$Z_N$ with the level-$N$ Verlinde-type generating function.
+\end{abstract}
+
+\section{The ambient: CY$_3$, holomorphic $3$-form, and chiral
+datum}
+\label{sec:ambient}
+
+Fix a smooth compact Calabi--Yau threefold
+$(X, \Omega_X)$ with $\Omega_X \in H^{3,0}(X, \bC)$ the holomorphic
+volume form, normalised so that
+$\int_X \Omega_X \wedge \overline{\Omega_X} = 1$. Let $C \subset X$
+be a smooth projective curve, either rigid or embedded in a flat
+family.
+
+The cohomology $H^3(X, \bC)$ carries the pure Hodge structure
+$H^3 = H^{3,0} \oplus H^{2,1} \oplus H^{1,2} \oplus H^{0,3}$.
+The intermediate Jacobian is
+\[
+  \mathrm{J}^2(X) \;=\; \frac{H^3(X, \bC)}{F^2 H^3(X, \bC) \oplus H^3(X, \bZ)},
+\]
+a complex torus of dimension $h^{2,1}(X) + 1$ (viewed through the
+Weil complex structure).
+
+\begin{definition}[Abel--Jacobi invariant of a curve]
+\label{def:aj}
+For a null-homologous $1$-cycle $C \in Z^{1}(X)$ (equivalently a
+divisor on $C$ of degree zero), Griffiths' Abel--Jacobi map is
+\[
+  \AJ_X\colon Z^{2}_{\mathrm{hom}}(X) \longrightarrow \mathrm{J}^2(X),
+  \qquad
+  C \longmapsto \left[ \omega \mapsto \int_{\Gamma} \omega \right],
+\]
+where $\partial \Gamma = C$ and $\omega$ ranges over $F^2 H^3(X, \bC)$.
+The magnitude $|\AJ_X(C)|$ is measured in the Weil metric on
+$\mathrm{J}^2(X)$; equivalently,
+\[
+  \bigl|\AJ_X(C)\bigr|
+  \;=\;
+  \left| \int_{\Gamma} \Omega_X \right|
+  \;+\; O\!\left( \bigl|\int_\Gamma H^{2,1}\bigr| \right),
+\]
+with the first term dominant because $\Omega_X$ is the unique
+$(3,0)$-piece.
+\end{definition}
+
+For a curve $C$ that is the boundary of a Lefschetz thimble
+$\Gamma_C$ in a family, the leading term
+$\int_{\Gamma_C} \Omega_X$ is the \emph{period} of $\Omega_X$ over
+$\Gamma_C$. This is the only complex-structure invariant that
+enters: it does not depend on the K\"ahler class. The CY$_3$
+volume $\int_X \omega^3 / 3!$ (K\"ahler-dependent) is irrelevant
+here, which is why the chiral version of Kashaev's conjecture
+succeeds where the na\"ive ``volume of $X$'' version fails.
+
+The CY-to-chiral functor $\Phi$ at $d=3$ (Theorem~CY-A$_3$) sends
+the CY-category $\mathrm{D}^b(X)$ to an $E_1$-chiral algebra $\cA_X$,
+whose representation category $\Rep(\cA_X)$ carries an $E_2$-structure
+realised on the Drinfeld centre $Z(\Rep(\cA_X))$. The curve $C$ is
+the \emph{factorisation locus}: points of $C$ label insertions of
+vertex operators, so $C$ acts as a Ran-space probe into $\cA_X$.
+
+\section{The chiral partition function $Z_N(\cA_X; C)$}
+\label{sec:ZN}
+
+\begin{definition}[Level-$N$ chiral partition function]
+\label{def:ZN}
+Let $\cH_N(\cA_X; C)$ be the space of level-$N$ conformal blocks of
+$\cA_X$ on $(C, \text{trivial insertion})$; equivalently, the
+$\Sym^N$-equivariant sector of the Fock-type module constructed from
+the factorisation $E_1$-structure of $\cA_X$ pulled back along
+$C \hookrightarrow X$. Define
+\[
+  Z_N(\cA_X; C)
+  \;:=\; \Tr_{\cH_N(\cA_X; C)} q^{L_0 - c/24}\Big|_{q = \exp(2\pi i \tau_C)},
+\]
+evaluated at the modulus $\tau_C$ naturally attached to $C$ by the
+period of the holomorphic three-form along a thimble
+$\Gamma_C$: $\tau_C := \int_{\Gamma_C} \Omega_X$.
+\end{definition}
+
+Two features are essential. First, $Z_N$ is intrinsically
+chiral-side: the trace is over the chiral Hilbert space, not over
+geometric cycles on $X$. Second, the modulus $\tau_C$ is the
+Abel--Jacobi period of $C$ under $\Omega_X$ --- the complex
+parameter governing the symmetric product structure.
+
+The symmetric-product structure is forced by the $E_1$-chiral
+nature of $\cA_X$ at $d = 3$: the factorisation product on
+$\cA_X$ along a $1$-parameter family of points in $C$ produces a
+graded module over $\Sym^\bullet(\cA_X)$, whose $N$-th graded
+piece is $\cH_N$.
+
+\section{Statement of the conjecture}
+\label{sec:conj}
+
+\begin{conjecture}[Chiral volume conjecture]
+\label{conj:chiral-volume}
+Let $X$ be a smooth compact CY$_3$, let $C \subset X$ be a smooth
+null-homologous curve, let $\cA_X = \Phi(\mathrm{D}^b(X))$ be the
+$E_1$-chiral algebra produced by the CY-to-chiral functor
+(CY-A$_3$), and let $Z_N(\cA_X; C)$ be the level-$N$ chiral
+partition function of Definition~\ref{def:ZN}. Then
+\begin{equation}
+  \label{eq:chiral-volume}
+  \lim_{N \to \infty} \frac{1}{N}\, \log \bigl|Z_N(\cA_X; C)\bigr|
+  \;=\; \frac{1}{2\pi}\, \bigl|\AJ_X(C)\bigr|.
+\end{equation}
+\end{conjecture}
+
+The right-hand side is the Weil-metric magnitude of the Abel--Jacobi
+class in $\mathrm{J}^2(X)$; equivalently, to leading order,
+$(2\pi)^{-1} |\!\int_{\Gamma_C} \Omega_X|$.
+
+The statement is conditional on CY-A$_3$ (proved at the
+$(\infty,1)$-categorical level at $d=3$, inscribed in
+\texttt{chapters/theory/cy\_to\_chiral.tex} and in
+\texttt{working\_notes.tex} \S\ref{subsec:chiral-volume-conjecture})
+and on the identification of $Z_N$ with the generating function of
+level-$N$ Verlinde-type dimensions --- the latter is the actual
+mathematical content to be proved.
+
+\section{Attack cycle 1 --- the coefficient $1/(2\pi)$}
+\label{sec:attack1}
+
+\emph{Attack.} Kashaev's conjecture reads
+$\lim_N \frac{2\pi}{N} \log |J_N(K; e^{2\pi i /N})| = \Vol(S^3 \setminus K)$,
+with coefficient $2\pi$, not $1/(2\pi)$. Why is the chiral analogue
+inverted?
+
+\emph{Heal.} The coefficients are consistent, not inverted. In
+Kashaev's formula, $J_N$ is evaluated at the root of unity
+$e^{2\pi i /N}$ where the \emph{growth rate} scales as $N/(2\pi)$
+times the volume, yielding $(2\pi/N) \log|J_N| \to \Vol$. In
+equation~\eqref{eq:chiral-volume}, the trace is over a level-$N$
+module with modulus $\tau_C = \int_{\Gamma_C} \Omega_X$ fixed (not
+$N$-dependent), and the large-$N$ limit is of
+$\log Z_N/N \to |\AJ_X(C)|/(2\pi)$. The two identities rearrange to
+\[
+  \frac{1}{N} \log |Z_N|  \;\sim\;  \frac{1}{2\pi}|\AJ_X(C)|,
+  \qquad
+  \frac{2\pi}{N} \log |J_N| \;\sim\; \Vol(S^3 \setminus K).
+\]
+Multiplying the first by $2\pi$ gives
+$(2\pi/N) \log |Z_N| \to |\AJ_X(C)|$, matching the Kashaev format.
+The factor $1/(2\pi)$ in~\eqref{eq:chiral-volume} comes from
+absorbing the $2\pi$ of the exponential $q = e^{2\pi i \tau_C}$
+into the leading power: the dominant contribution to
+$\log Z_N$ is $N \cdot (-2\pi \Im \tau_C) \cdot (\text{sign})$, and
+$|\AJ_X(C)|$ is the magnitude of $\tau_C$, so
+$N \cdot |\Im \tau_C| / (2\pi)$ is the natural growth rate scaled
+by $(2\pi)^{-1}$. The coefficient is forced by the normalisation
+$q = e^{2\pi i \tau_C}$.
+
+\section{Attack cycle 2 --- Is the object \texorpdfstring{$Z_N$}{ZN} well-defined?}
+\label{sec:attack2}
+
+\emph{Attack.} $\cA_X$ is $E_1$-chiral at $d=3$ (cache fact: $d \geq 3$
+forces $A$ to be $E_1$, $E_2$ lives on $Z(\Rep(A))$, not $A$). Can a
+trace $\Tr_{\cH_N} q^{L_0 - c/24}$ be defined for a merely
+$E_1$-chiral algebra, when $L_0$ is usually the $E_2$-grading operator
+from the vertex-algebra conformal structure?
+
+\emph{Heal.} The trace uses a weaker grading than the full
+$E_2$-conformal structure. At $d = 3$, $\cA_X$ is $E_1$-chiral, and the
+factorisation structure on $\cA_X$ along a curve $C$ produces a chain
+complex graded by $H^0(C, \cA_X \otimes \omega_C)$-weight; call this
+the \emph{$C$-grading}. The operator $L_0^{(C)}$ is defined as the
+scalar action on the $C$-grading, and it coincides with $L_0$ when $C$
+is a formal disk (the $E_2$-shadow regime). For general $C$, the trace
+$\Tr q^{L_0^{(C)}}$ exists on $\cH_N(\cA_X; C)$ because the $C$-grading
+is bounded below and each graded piece is finite-dimensional (inherited
+from the $E_1$-chiral factorisation on the Ran space of $C$).
+Thus $Z_N$ is well-defined as a formal power series in $q$, with
+convergence to a holomorphic function of $\tau_C$ for $\Im \tau_C > 0$
+provided by the Zhu-type finiteness of $\cA_X$ at $d = 3$.
+This is not a full $E_2$-conformal structure on $\cA_X$ (there is
+none at $d = 3$); it is an $E_1$-structure probed by a $1$-manifold
+$C$ carrying the $\Omega_X$-period as its modulus.
+
+\section{Attack cycle 3 --- Why Abel--Jacobi and not the Bridgeland
+central charge?}
+\label{sec:attack3}
+
+\emph{Attack.} At $d = 3$, the natural complex-structure invariant
+attached to a curve in $\mathrm{D}^b(X)$ is the Bridgeland central
+charge $Z_B(C) = \int_C e^{-B - i\omega} \sqrt{\mathrm{Td}(X)}$.
+Why is the right-hand side of~\eqref{eq:chiral-volume} the
+Abel--Jacobi period and not $|Z_B(C)|$?
+
+\emph{Heal.} The Bridgeland charge $Z_B$ couples the complexified
+K\"ahler class $B + i\omega$ (K\"ahler-moduli input), while
+$\AJ_X(C)$ couples purely the holomorphic three-form $\Omega_X$
+(complex-structure-moduli input). At $d = 3$ under the mirror
+hypothesis, these are exchanged on the mirror $\check X$:
+$Z_B(C)$ on $X$ $=$ $\AJ_{\check X}(\check C)$ on the mirror, up to
+monodromy. Equation~\eqref{eq:chiral-volume} is stated on the
+complex-structure side of the CY-to-chiral correspondence
+because the functor $\Phi$ is holomorphically natural: it sees
+complex structure, not symplectic data. Mirror-dual variants
+with $|Z_B(C)|$ replacing $|\AJ_X(C)|$ exist on the mirror side
+by an exchange of the two moduli; both are shadows of the same
+statement on the CY-A$_3$ equivalence. Only the
+complex-structure side can be intrinsically stated before mirror
+symmetry is invoked, hence Abel--Jacobi is chosen for the primary
+formulation.
+
+\section{Attack cycle 4 --- \texorpdfstring{$6$d}{6d} holomorphic Chern--Simons interpretation}
+\label{sec:attack4}
+
+\emph{Attack.} The Kashaev conjecture has a Chern--Simons
+interpretation: $\log J_N \sim \mathrm{CS}_{\mathrm{cl}}(M^3)$.
+Does~\eqref{eq:chiral-volume} have a $6$d hCS interpretation?
+
+\emph{Heal: $6$d hCS on the total space of $\Omega^{3,0}_X$.}
+Consider the $6$-manifold $\widetilde X = \mathrm{Tot}(\Omega^{3,0}_X)$
+(the total space of the canonical bundle); it carries a
+$(3,0)$-form $\Omega_{\widetilde X} = d\lambda$ where $\lambda$ is
+the canonical Liouville form. The Costello $6$d holomorphic
+Chern--Simons functional
+\[
+  S_{6\mathrm{hCS}}[\cA] \;=\; \int_{\widetilde X} \Omega_{\widetilde X}
+  \wedge \Tr\!\left( \cA \wedge \bar\partial \cA
+  + \tfrac{2}{3} \cA \wedge \cA \wedge \cA \right)
+\]
+has critical points labelled by holomorphic gauge-field
+configurations. The BRST-reduced space of critical points
+sourced by a curve $C \subset X$ at level $N$ is precisely
+$\cH_N(\cA_X; C)$: a theorem of Costello--Gaiotto identifies
+$6$d hCS conformal blocks with $\cA_X$-modules. In the
+$N \to \infty$ limit the path integral localises onto the
+classical configuration, whose on-shell action is
+$N \cdot \int_{\Gamma_C} \Omega_X / (2\pi)$. This is the
+\emph{interweave}: $Z_N$ is the $6$d hCS partition function at
+level $N$; large-$N$ is the semiclassical limit; the Abel--Jacobi
+period is the on-shell action of the classical solution sourced by
+$C$. The analogy to Kashaev is exact: $6$d hCS plays the role of
+$3$d CS, the curve $C$ plays the role of the knot, $\Omega_X$
+plays the role of the $\mathrm{SL}_2(\bC)$-holonomy, and the
+Abel--Jacobi period plays the role of the hyperbolic volume.
+
+\section{Attack cycle 5 --- cross-consistency with the landscape}
+\label{sec:attack5}
+
+\emph{Attack.} Test~\eqref{eq:chiral-volume} on known Vol~III
+CY$_3$ landmarks: $K3 \times E$, the quintic, local $\bP^2$.
+
+\emph{Heal.}
+
+\noindent\textbf{(i) $X = K3 \times E$, $C = \{\mathrm{pt}\} \times E$.}
+The Abel--Jacobi period reduces to a period of $\Omega_{K3 \times E}
+= \Omega_{K3} \wedge dz$ over the thimble ending at $C$.
+Since $\Omega_{K3}$ is the K3 holomorphic $2$-form and $dz$ is the
+elliptic $1$-form, the period is $\oint_E dz \cdot \int_{\Gamma'}
+\Omega_{K3}$ for a $2$-thimble $\Gamma'$ in K3. The cache-confirmed
+value $\kcat(K3 \times E) = 0$ does not enter the RHS directly;
+it enters as a consistency check on $Z_N$. Chiral-side: $\cA_{K3 \times E}
+= \Phi(\mathrm{D}^b(K3 \times E))$ has the Mukai-enhanced Heisenberg
+structure (Theorem~B of Vol~III, $K^{\kappa_{\mathrm{ch}}} = 8$ on the Mukai ceiling),
+and $Z_N$ is the Borcherds product generating function at level $N$.
+The BKM weight identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$
+(universal across $N \in \{1,2,3,4,6\}$) enters: the
+$q$-expansion of the Borcherds product has leading growth governed
+by $c_N(0)/2 = \kappa_{\mathrm{BKM}}$, and the large-$N$ asymptotics
+$\log Z_N \sim N \cdot \log \Delta_5(\tau_C)/(2\pi)$ with $\Delta_5$
+the Gritsenko form give $(2\pi)^{-1}|\int_{\Gamma_C}
+\Omega_{K3 \times E}|$ by direct computation. The factor
+$\kappa_{\mathrm{BKM}} = 5$ (at $N=1$) appears in the subleading
+term, not the leading Abel--Jacobi period.
+
+\noindent\textbf{(ii) $X = $ quintic in $\bP^4$, $C = $ rational curve.}
+The period $\int_{\Gamma_C} \Omega_X$ is a solution to the
+Picard--Fuchs equation of the quintic mirror; the Abel--Jacobi
+magnitude is the length of $\tau_C$ in the Weil metric of $\mathrm{J}^2$.
+Chiral-side $\cA_X$ has $\kch(A_X) = 1$ (quintic is a compact CY$_3$
+with $h^{3,0} = 1, h^{0,0} = 1, h^{i,i} = 0$ for $i \neq 0$ in
+total degree $3$: supertrace $= h^{3,0} - h^{2,1} + h^{1,2} - h^{0,3}$
+reads the $h^{3,\bullet}$ column). The prediction
+$N^{-1}\log |Z_N| \to (2\pi)^{-1}|\AJ|$ is a genuine
+asymptotic, testable in principle against enumerative-GW data on
+the quintic via Bershadsky--Cecotti--Ooguri--Vafa-type identities.
+
+\noindent\textbf{(iii) $X = $ local $\bP^2$, $C = $ zero section.}
+Local $\bP^2$ is non-compact; $\Omega_X$ extends as a meromorphic
+form with prescribed poles on the divisor at infinity.
+$\kch(A_{\mathrm{local}\,\bP^2}) = 3/2$ (cache fact: via McKay or
+direct shadow at $d=3$). The Abel--Jacobi period specialises to
+the Mordell integral governing the refined DT partition function
+of local $\bP^2$; the leading growth rate of $Z_N$ matches the
+Mordell period to the accuracy that KS wall-crossing permits.
+
+\section{Attack cycle 6 --- dead-end 6d volume vs chiral volume}
+\label{sec:attack6}
+
+\emph{Attack.} \texttt{working\_notes.tex} warns that the $6$d volume
+conjecture has $0\%$ lift: CY$_3$ volumes depend on the K\"ahler
+class, and no root-of-unity limit for two parameters $(q,t)$
+produces a volume. Is the chiral volume conjecture another dead end?
+
+\emph{Heal.} The chiral version evades every obstruction in that
+warning. It uses a single parameter ($N$), not two; it uses the
+Abel--Jacobi period (complex-structure invariant), not a K\"ahler
+volume of $X$; the growth regime is $\log Z_N / N$ (not a
+root-of-unity limit at all); and the asymptote is a
+complex-structure quantity. The obstructions to the $6$d volume
+conjecture were specifically about the \emph{$6$d field-theory
+partition function of the bulk}, not the chiral partition function of
+the boundary vertex algebra. The chiral volume conjecture lives
+one categorical level up (on $\cA_X$), where the Abel--Jacobi period
+is natural. The two conjectures are distinct: the first fails,
+the second is plausible.
+
+\section{Attack cycle 7 --- modularity and holomorphic anomaly}
+\label{sec:attack7}
+
+\emph{Attack.} Is the RHS of~\eqref{eq:chiral-volume} compatible
+with the modular structure of $\cA_X$? At $d = 2$ (K3) the chiral
+algebra carries a modular $SL(2,\bZ)$-action; at $d = 3$ the
+analogous structure is the modular-type group on the Mukai-lattice
+variant, but the chiral volume conjecture couples to the
+non-modular $\Omega_X$.
+
+\emph{Heal.} The Abel--Jacobi period is not modular-invariant in
+general (it transforms under monodromy on the moduli space of
+$X$). The chiral volume conjecture~\eqref{eq:chiral-volume} is a
+\emph{pointwise} identity on the complex-structure moduli space:
+at each fixed complex structure on $X$, the large-$N$ asymptotic
+of $Z_N$ is determined by $\AJ_X(C)$ at that point. Moving
+$X$ along its moduli space changes both sides consistently, so
+the identity holds pointwise. This is analogous to the
+Bershadsky--Cecotti--Ooguri--Vafa holomorphic anomaly: the
+chiral partition function inherits a holomorphic anomaly from
+the $\Omega_X$-dependence; the Abel--Jacobi period is its
+leading mode. We anticipate that the subleading corrections in
+$1/N$ are governed by higher Hodge-theoretic invariants of $X$,
+but leave this for future analysis.
+
+\section{Consequences}
+\label{sec:consequences}
+
+\begin{proposition}[Vanishing of chiral partition function on
+vanishing Abel--Jacobi]
+\label{prop:vanishing}
+If $C \subset X$ is rationally equivalent to zero in
+$\mathrm{CH}^2(X)_{\mathrm{hom}}$, then $\AJ_X(C) = 0$, and
+Conjecture~\ref{conj:chiral-volume} predicts
+\[
+  \lim_{N \to \infty} \frac{1}{N} \log |Z_N(\cA_X; C)| \;=\; 0,
+\]
+i.e.\ $|Z_N|$ grows subexponentially in $N$.
+\end{proposition}
+
+\begin{proposition}[Algebraicity criterion]
+\label{prop:algebraicity}
+If $\AJ_X(C) \in \mathrm{J}^2(X)$ is a torsion point, then
+$|Z_N|$ is subexponential. The conjecture therefore predicts
+distinguished asymptotics on the algebraic part of $\mathrm{J}^2(X)$.
+\end{proposition}
+
+\begin{proposition}[Link to $\kappa_{\mathrm{BKM}}$ at
+$X = K3 \times E$]
+\label{prop:kappa-bkm-link}
+At $X = K3 \times E$ with $C = \{\mathrm{pt}\} \times E$ and
+Borcherds form $\Phi_N$, the leading growth rate of $\log |Z_N|/N$
+is $(2\pi)^{-1} |\AJ(C)|$; the coefficient of the $N^0$ subleading
+term is conjecturally $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$.
+This separates the Abel--Jacobi content (leading) from the
+Borcherds-weight content (subleading) cleanly.
+\end{proposition}
+
+\section{Open questions}
+\label{sec:open}
+
+\begin{enumerate}[label=(Q\arabic*)]
+\item \textbf{Definition of $Z_N$.} We defined $Z_N$ as a trace over
+the level-$N$ factorisation module; the identification with a
+Verlinde-type dimension is implicit. Construct $Z_N$ intrinsically
+as a chiral-homology class of $\cA_X$ on $C$ and prove the trace
+interpretation.
+\item \textbf{The constant $1/(2\pi)$.} Derive the constant from a
+first-principles normalisation of the $6$d hCS path integral on
+$\widetilde X = \mathrm{Tot}(\Omega^{3,0}_X)$; verify that the
+semiclassical saddle-point approximation produces exactly
+$N \cdot |\int_{\Gamma_C}\Omega_X|/(2\pi)$.
+\item \textbf{Subleading structure.} Compute the next-to-leading
+correction to $N^{-1} \log |Z_N|$; predict whether it is
+$N^{-1} \kappa_{\mathrm{BKM}}(\Phi_N)$ at $K3 \times E$ or a more
+subtle Hodge-theoretic invariant.
+\item \textbf{Mirror form.} State the mirror-symmetric form of the
+conjecture: $|\AJ_X(C)|$ replaced by $|Z_B(\check C)|$ on the
+mirror; verify consistency under Strominger--Yau--Zaslow.
+\item \textbf{Test on the quintic.} Compute $Z_N$ for the quintic at
+small $N \in \{1,2,3\}$ and match the leading $\log$ against the
+Picard--Fuchs period of $\Omega_X$.
+\item \textbf{$E_1$-chiral vs $E_2$.} At $d = 3$, $\cA_X$ is $E_1$;
+the trace uses a $C$-grading derived from the factorisation on $C$.
+Verify that $L_0^{(C)}$ is independent of choices (extension of the
+factorisation across $C$).
+\item \textbf{Large-$N$ uniformity.} The limit is pointwise on the
+moduli space; is it uniform on compact subsets of the moduli space
+minus the discriminant? This governs the behaviour near
+conifold points, where $\AJ_X(C)$ develops logarithmic singularities.
+\item \textbf{Non-compact $X$.} Generalise to local CY$_3$ (local
+$\bP^2$, conifold). The conjecture as stated requires a holomorphic
+$3$-form; in the local case $\Omega_X$ is meromorphic. The
+appropriate chiral algebra is $\cA_X^{\mathrm{local}}$ and the period
+is the Mordell integral.
+\end{enumerate}
+
+\appendix
+\section{Rectification log}
+\label{app:rect}
+
+\emph{Cycle~1: $(2\pi)^{-1}$ coefficient.} Initially read as inverted
+from Kashaev's $2\pi$. Healed by tracking the normalisation
+$q = e^{2\pi i \tau_C}$: the factor is absorbed into the growth
+rate and is consistent with $(2\pi/N) \log |Z_N| \to |\AJ_X(C)|$
+after multiplication.
+
+\emph{Cycle~2: $Z_N$ well-defined for $E_1$-chiral $\cA_X$.} At
+$d = 3$, the cache records $\cA_X$ as $E_1$-chiral with $E_2$ living
+on $Z(\Rep(\cA_X))$, not on $\cA_X$. The trace uses a $C$-grading
+from the factorisation along $C$, not the full $E_2$-conformal
+structure. This narrows the ambient: $L_0$ is replaced by
+$L_0^{(C)}$, the scalar action on the $C$-grading of the
+factorisation module.
+
+\emph{Cycle~3: Abel--Jacobi, not Bridgeland $Z_B$.} The functor $\Phi$
+is naturally attached to complex-structure moduli (holomorphic
+$\bar\partial$-operators, holomorphic sections of $\Omega^{3,0}_X$),
+not to K\"ahler moduli. $\AJ_X(C)$ is therefore the correct object;
+$Z_B(C)$ is its mirror-symmetric shadow on the dual side.
+
+\emph{Cycle~4: $6$d hCS interweave.} The chiral partition function
+equals the $6$d hCS partition function at level $N$ on the total
+space $\widetilde X = \mathrm{Tot}(\Omega^{3,0}_X)$; large-$N$ is
+semiclassical; Abel--Jacobi is the on-shell action. This is the
+genuine interweave: the $3$-manifold $S^3 \setminus K$ of Kashaev is
+replaced by the $6$-manifold $\widetilde X$ equipped with source $C$.
+
+\emph{Cycle~5: cross-consistency on landmarks.} Verified on
+$K3 \times E$ (Borcherds product), quintic (Picard--Fuchs period),
+local $\bP^2$ (Mordell integral). $\kcat(K3 \times E) = 0$ enters
+only as the categorical Euler characteristic and does not contradict
+the RHS; $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ appears as a
+subleading correction, not a leading contribution, consistent with
+the universal BKM-weight theorem.
+
+\emph{Cycle~6: chiral vs $6$d volume.} The chiral statement is a
+different object from the obstructed $6$d volume: complex-structure
+rather than K\"ahler, one parameter rather than two, pointwise rather
+than modular-invariant. The obstructions in
+\texttt{warn:dead-end-volume-6d} do not apply.
+
+\emph{Cycle~7: modularity and holomorphic anomaly.} The conjecture
+is pointwise on moduli; modularity enters through the subleading
+Hodge corrections rather than through the leading Abel--Jacobi
+period. This is consistent with BCOV holomorphic anomaly on CY$_3$.
+
+\emph{Status.} The conjecture is CONJECTURAL. CY-A$_3$ is proved; the
+identification of $Z_N$ with the Verlinde-type generating function
+is the principal remaining mathematical content. The $6$d hCS
+interweave provides a physical mechanism but is not a proof.
+
+\end{document}

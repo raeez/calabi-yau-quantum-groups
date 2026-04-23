@@ -1,0 +1,179 @@
+% Wave-18 E5/20: cluster-category viewpoint on positive-half gluing.
+% Primary sources, consulted in full:
+%   Keller, B., Yang, D., "Derived equivalences from mutations of quivers
+%     with potential", Adv. Math. 226 (2011) 2118--2168 (arXiv:0906.0761).
+%   Iyama, O., Yoshino, Y., "Mutation in triangulated categories and
+%     rigid Cohen--Macaulay modules", Invent. Math. 172 (2008) 117--168
+%     (arXiv:math/0607736).
+%   Amiot, C., "Cluster categories for algebras of global dimension 2
+%     and quivers with potential", Ann. Inst. Fourier 59 (2009) 2525--2590
+%     (arXiv:0805.1035).
+%   Fomin, S., Zelevinsky, A., "Cluster algebras II: finite type
+%     classification", Invent. Math. 154 (2003) 63--121 (arXiv:math/0208229).
+%   Ginzburg, V., "Calabi--Yau algebras" (arXiv:math/0612139).
+%   Kontsevich, M., Soibelman, Y., "Cohomological Hall algebra, exponential
+%     Hodge structures and motivic DT invariants" (arXiv:1006.2706).
+%   Nagao, K., "Donaldson--Thomas theory and cluster algebras",
+%     Duke Math. J. 162 (2013) 1313--1367 (arXiv:1002.4884).
+% Companion to wave17_b4 (gluing cocycle), wave17_c1 (conifold),
+% wave17_c2 (local P^2), wave17_c5 (K3 x E gluing).
+
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\Db}{D^{b}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Jac}{\mathrm{Jac}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\mod}{\mathrm{mod}}
+\providecommand{\fd}{\mathrm{fd}}
+\providecommand{\sC}{\mathcal{C}}
+\providecommand{\sD}{\mathcal{D}}
+\providecommand{\sT}{\mathcal{T}}
+\providecommand{\sH}{\mathcal{H}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\bZ}{\mathbb{Z}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\Yplus}{Y^{+}}
+\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles]}}
+
+\section*{Wave-18 E5/20: cluster categories and the $\Yplus$-gluing cocycle}
+\label{wn:sec:cluster-Yplus-gluing}
+
+The gluing cocycle of Wave-17 B4 attaches a CoHA-automorphism
+$g_{UV}:\CoHA(A_{U},W_{U})\to\CoHA(A_{V},W_{V})$ to every overlap of
+quiver-affine charts on $\mathrm{Stab}(X)$.  The claim of this section
+is sharper: $g_{UV}$ is not merely an automorphism compatible with
+wall-crossing, it is the CoHA avatar of a cluster mutation.  Amiot's
+cluster category organises all quiver presentations of a fixed CY$_{3}$
+category into a single orbit under mutation; Keller--Yang lift each
+mutation to a derived equivalence; pushing that equivalence through the
+CoHA functor is the overlap datum.
+
+\subsection*{Cycle 1: the cluster category of a CY$_{3}$ Jacobi algebra.}
+
+Let $(Q,W)$ be a Jacobi-finite quiver with potential and $A_{Q} =
+\Jac(Q,W)$ its Ginzburg CY$_{3}$ dg algebra (Ginzburg 2006,
+Theorem~3.6.4).  Write $\per(A_{Q})$ for the perfect derived category
+and $\sD_{\fd}(A_{Q})$ for the full subcategory of finite-dimensional
+dg modules.  Amiot 2009, Theorem~2.1, defines
+\[
+  \sC(Q,W)\;:=\;\per(A_{Q})\big/\sD_{\fd}(A_{Q}),
+\]
+the \emph{generalised cluster category}.  For $Q$ of finite
+representation type $(ADE)$ and $W = 0$ this recovers the
+Buan--Marsh--Reineke--Reiten--Todorov cluster category of
+Fomin--Zelevinsky type (arXiv:math/0208229);  Amiot's theorem shows
+$\sC(Q,W)$ is Hom-finite, $2$-Calabi--Yau as a triangulated category,
+and admits the canonical object $\pi(A_{Q})$ as a cluster tilting
+object.  The functor $\CoHA:(Q,W)\mapsto\CoHA(Q,W)$ factors through
+$\sC(Q,W)$ at the triangulated level because CoHA cohomology depends
+only on the stack of representations up to derived equivalence
+(Kontsevich--Soibelman 2010, Corollary~6.3).
+
+\subsection*{Cycle 2: cluster tilting classifies quiver presentations.}
+
+\ClaimStatusTheorem\ \emph{(Iyama--Yoshino 2008, Theorem~5.3.)}  In the
+$2$-CY triangulated category $\sC(Q,W)$ the cluster tilting objects
+$T$ --- maximal rigid objects with $\Ext^{1}_{\sC}(T,T) = 0$ and
+$|T| = n$ summands --- are precisely the basic tilting objects whose
+endomorphism algebras
+\[
+  A_{T}\;:=\;\End_{\sC(Q,W)}(T)
+\]
+are Jacobi algebras of quivers with potential $(Q_{T},W_{T})$ on the
+same vertex set as $Q$, satisfying $\sC(Q_{T},W_{T})\simeq\sC(Q,W)$.
+Two cluster tilting objects $T,T'$ in the same cluster category give
+two quiver presentations $A_{T}, A_{T'}$ of the \emph{same} CY$_{3}$
+category.  The collection of cluster tilting objects carries a free
+action of the mutation groupoid with $n$ generators
+$\mu_{1},\ldots,\mu_{n}$, one per vertex.  Translating to the CoHA side:
+a quiver-affine chart $U$ on $\mathrm{Stab}(X)$ records the choice of
+cluster tilting object $T_{U}\in\sC(Q,W)$, and the mutation groupoid
+acts on charts.
+
+\subsection*{Cycle 3: mutation as derived equivalence.}
+
+\ClaimStatusTheorem\ \emph{(Keller--Yang 2011, Theorem~3.2.)}  The
+mutation $\mu_{k}T = T'$ lifts to a pair of triangle equivalences
+\[
+  \mu_{k}^{+}:\per(A_{Q})\xrightarrow{\ \sim\ }\per(A_{Q'}),\qquad
+  \mu_{k}^{-}:\per(A_{Q'})\xrightarrow{\ \sim\ }\per(A_{Q}),
+\]
+restricting to equivalences $\sD_{\fd}(A_{Q})\simeq\sD_{\fd}(A_{Q'})$,
+hence descending to $\sC(Q,W)\simeq\sC(Q',W')$.  Explicitly, $\mu_{k}^{+}$
+is the left-twist along the spherical twist generated by the simple
+$S_{k}$ --- a derived tilt in the sense of Bondal--Kapranov --- and the
+potential transforms by the Derksen--Weyman--Zelevinsky mutation rule
+(arXiv:0704.0649, Definition~5.5).  Jacobi-finiteness is preserved
+when the pre-mutation contains no $2$-cycles, the regularity condition
+Keller--Yang impose throughout.
+
+\subsection*{Cycle 4: the induced CoHA map is a cohomological
+isomorphism.}
+
+\ClaimStatusDerivation\ Derived equivalence of CY$_{3}$ Ginzburg algebras
+is preserved by the CoHA construction at the cohomological level: the
+critical cohomology $H^{\bullet}(\sM(A_{Q},W_{Q}),\varphi_{\tr W_{Q}})$
+and its $\mu_{k}^{+}$-twisted counterpart are related by the Saito--Li
+thimble-base-change identity (Kontsevich--Soibelman 2010, Theorem~6.4),
+which yields a graded algebra isomorphism
+\[
+  \mu_{k}^{*}:\CoHA(Q,W)\xrightarrow{\ \sim\ }\CoHA(Q',W').
+\]
+The isomorphism is not canonical --- it depends on a framing of the
+spherical twist on critical loci --- but is canonical up to the
+Picard--Lefschetz monodromy, which acts on $\CoHA$ by inner
+automorphism.  Restricting to the positive half $\Yplus(Q,W)\subset
+\CoHA(Q,W)$ (the subalgebra of stable/semistable classes of positive
+degree, Soibelman 2014, \S 3) gives
+\[
+  \mu_{k}^{*}\big|_{\Yplus}:\Yplus(Q,W)\xrightarrow{\ \sim\ }\Yplus(Q',W'),
+\]
+a positive-half CoHA automorphism attached to each mutation step.
+Composing mutations along a walking path $T_{U}\to T_{V}$ in the
+cluster groupoid produces the overlap automorphism
+$g_{UV}:\Yplus(A_{U})\to\Yplus(A_{V})$ of Wave-17 B4; path
+independence up to inner automorphism is the cocycle condition.
+
+\subsection*{Cycle 5: conifold and local $\bP^{2}$ as cluster seeds.}
+
+\ClaimStatusDerivation\ The two examples of Wave-17 are explicit
+cluster-seed transitions.  The resolved conifold $\widetilde{Y} =
+\cO(-1)^{\oplus 2}\to\bP^{1}$ admits the Klebanov--Witten quiver
+$(Q_{\mathrm{KW}},W_{\mathrm{KW}})$ with two vertices, four arrows, and
+superpotential $W_{\mathrm{KW}} = a_{1}b_{1}a_{2}b_{2} -
+a_{1}b_{2}a_{2}b_{1}$.  The flop $\widetilde{Y}\to\widetilde{Y}^{+}$
+(Bridgeland 2002) is precisely the Iyama--Yoshino mutation
+$\mu_{1}$ at the first vertex; Nagao 2013, Theorem~5.2, identifies the
+induced derived equivalence with the flop functor, and the CoHA transfer
+is the conifold wall-crossing operator
+$\CoHA(\widetilde{Y}) \to \CoHA(\widetilde{Y}^{+})$ of
+Morrison--Mozgovoy--Nagao--Szendr\H{o}i (arXiv:1107.5017).  Local $\bP^{2}$
+carries the three-vertex Beilinson quiver $(Q_{\bP^{2}},W_{\bP^{2}})$
+with nine arrows and cubic potential; the three charts of Wave-17 C2
+correspond to the three cluster seeds in the orbit
+$\mu_{1}\mu_{2}\mu_{3}$, the minimal cycle of the affine $\widehat{A}_{2}$
+cluster algebra (Fomin--Zelevinsky 2003, Figure~4 bottom row).  The
+positive-half gluing of Wave-17 C2 is thus the orbit cocycle of the
+cluster-$\widehat{A}_{2}$ mutation sequence acting on
+$\Yplus(\mathrm{Tot}(\omega_{\bP^{2}}))$.
+
+\subsection*{Upshot.}
+
+\ClaimStatusDerivation\ The positive-half gluing cocycle $\{g_{UV}\}$
+on $\mathrm{Stab}(X)$ is the CoHA image of the cluster mutation
+cocycle on $\sC(Q,W)$: to each path in the cluster groupoid between
+cluster tilting objects is attached a $\Yplus$-automorphism, and
+path-independence-up-to-inner-automorphism is precisely the Ext-group
+cocycle condition of Iyama--Yoshino.  $\kappa_{\mathrm{ch}}(X)$ is
+invariant along the orbit because $\mu_{k}^{*}$ is a graded algebra
+isomorphism preserving the Euler supertrace.  Global $\Yplus(X)$ is the descent
+of local $\Yplus(Q_{T},W_{T})$ along the cluster groupoid, with
+conifold and local $\bP^{2}$ as explicit two- and three-seed
+descent data.

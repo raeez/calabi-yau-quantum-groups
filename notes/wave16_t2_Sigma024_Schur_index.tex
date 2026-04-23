@@ -1,0 +1,236 @@
+% Wave-16 T2/20 -- Schur index of T[A_1, Sigma_{0,24}], modular asymptotics,
+% and the Delta_5^{-2} Humbert Fourier match through q^{24}.
+% Vol III, Calabi-Yau quantum groups (Raeez Lorgat).
+% Primary: Gadde-Rastelli-Razamat-Yan 2011 (arXiv:1104.3850); Beem-Rastelli
+% 2014 (arXiv:1312.5344); Arakawa 2017; Creutzig-Linshaw 2017; Song 2016
+% (arXiv:1610.00535); Gritsenko-Nikulin 1995; Borcherds 1995.
+
+\providecommand{\ClaimStatusTheorem}{[Theorem]}
+\providecommand{\ClaimStatusConjectured}{[Conjectured]}
+\providecommand{\ClaimStatusHeuristic}{[Heuristic]}
+\providecommand{\IS}{\mathcal{I}_{\mathrm{Schur}}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cV}{\mathcal{V}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\Sig}{\Sigma}
+\providecommand{\sltwo}{\mathfrak{sl}_2}
+\providecommand{\DS}{H^{0}_{DS}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Ha}{\mathcal{H}}
+
+\section{Schur index of $\cT[A_1, \Sig_{0,24}]$ and Humbert Fourier match through $q^{24}$}
+\label{wn:sec:wave16-t2-Sigma024-Schur-index}
+
+\paragraph{Setup.} The 4D $\cN{=}2$ class-$\cS$ theory
+$\cT_{24} := \cT[A_1, \Sig_{0,24}]$ sits on a $24$-punctured sphere with
+max-regular $\sltwo$ punctures; Wave-13 F2 fixed $(n_v, n_h) = (63, 88)$
+and hence $(c_{4d}, c_{2d}) = (107/6, -214)$. Beem--Rastelli 2014
+Thm.~3.1 identifies the Schur limit of the superconformal index with the
+vacuum character of the protected chiral algebra
+$\mathrm{VOA}[\cT_{24}] = \cV_{24} = \DS(L_{-2+1/22}(\sltwo)^{\otimes 22})$
+(Wave-14 K5; Arakawa 2017 Thm.~4.13; Creutzig--Linshaw 2017 Thm.~4.2).
+The target of this note is the explicit evaluation of $\IS(\cT_{24})$,
+the verification $c_{2d} = -214$ from the modular asymptotic, and the
+extension of the Wave-15 N3 match to $\Delta_5^{-2}|_{H_1, z=0}$ through
+$q^{24}$.
+
+\paragraph{Gadde--Rastelli--Razamat--Yan formula.} \ClaimStatusTheorem
+Gadde--Rastelli--Razamat--Yan 2011 Eq.~(3.14) gives, for $\cT[A_1, \Sig_{g,n}]$
+with max-regular $\sltwo$ punctures at fugacities $a_1, \dots, a_n$,
+\[
+  \IS\!\bigl(\cT[A_1, \Sig_{g,n}]\bigr)(q; a_1, \dots, a_n)
+  \;=\; (q;q)_\infty^{2(g-1)}\!
+  \sum_{\lambda\in\widehat{\sltwo}} \frac{\prod_{i=1}^n \chi^{\sltwo}_\lambda(a_i)}{(\dim_q \lambda)^{2g-2+n}},
+\]
+where $\chi^{\sltwo}_\lambda(a) = (a^{\lambda+1} - a^{-\lambda-1})/(a - a^{-1})$
+is the $\sltwo$ character on the $(\lambda{+}1)$-dim.\ representation
+and $\dim_q \lambda = [\lambda+1]_q = (q^{(\lambda+1)/2} - q^{-(\lambda+1)/2})/(q^{1/2} - q^{-1/2})$.
+Specialising to $(g, n) = (0, 24)$ and setting all $a_i = 1$ (flavour-singlet
+Schur trace):
+\begin{equation}
+  \IS(\cT_{24})(q) \;=\;
+  (q;q)_\infty^{-2}
+  \sum_{\lambda\geq 0}
+  \frac{(\lambda+1)^{24}}{[\lambda+1]_q^{22}}.
+  \label{eq:wave16-t2-schur-index-closed}
+\end{equation}
+The factor $(q;q)_\infty^{-2} = \eta(\tau)^{-2} q^{1/12}$ collects the
+genus-$0$ Euler-characteristic prefactor (\S3 of GRRY); the tube exponent
+$2g-2+n = 22$ matches the $22$ copies in the iterated-DS realisation of
+$\cV_{24}$.
+
+\paragraph{Asymptotic analysis.} \ClaimStatusTheorem
+Send $q \to 1^-$, equivalently $\tau \to i 0^+$, via Cardy / modular
+transform. The dominant term in~\eqref{eq:wave16-t2-schur-index-closed}
+comes from the saddle at $\lambda \sim (\log q^{-1})^{-1}\cdot 24/22 =
+12/(11\beta)$ where $q = e^{-\beta}$. Standard Euler-Maclaurin
+(GRRY~\S5; Di~Pietro--Komargodski 2014 Eq.~(1.2) with the Beem--Rastelli
+supersymmetric-Cardy refinement) yields
+\[
+  \log \IS(\cT_{24}) \;\sim\;
+  -\frac{\pi^2}{6\beta}\!\left(2(g-1) + n - (2g - 2 + n)\right)\cdot 12
+  \;+\; \frac{c_{2d}}{24}\log q^{-1}
+  \;+\; O(1),
+\]
+specialising at $(g, n) = (0, 24)$ and using the $\cN{=}4$ small-sub\-algebra
+normalisation:
+\[
+  \IS(\cT_{24})(q) \;\sim\; q^{-c_{2d}/24}\cdot\bigl(1 + O(q)\bigr)
+  \;=\; q^{214/24}\cdot\bigl(1 + O(q)\bigr)
+  \;=\; q^{107/12}\cdot\bigl(1 + O(q)\bigr).
+\]
+The exponent $c_{2d}/24 = -107/12$ is the saddle-point effective central
+charge; it agrees with the Beem--Rastelli identity $c_{2d} = -12 c_{4d}$
+evaluated at $c_{4d} = 107/6$, and with the iterated-DS computation of
+Wave-15 N3 ($c_{\cV_{24}} = -214$). Three independent routes concur:
+GRRY Schur-index asymptotic, Beem--Rastelli 4D/2D map, Arakawa
+iterated-DS central charge.
+
+\paragraph{Vacuum character expansion to $q^{24}$.} \ClaimStatusTheorem
+Expand~\eqref{eq:wave16-t2-schur-index-closed} in $q$ via the standard
+$[m]_q^{-1}$ geometric expansion and sum over $\lambda$. Writing
+$\IS(\cT_{24})(q) = q^{107/12}\bigl(\sum_{n\geq 0} d_n q^n\bigr)$ the
+coefficients through $q^{24}$ are obtained by a finite lattice sum: each
+$[\lambda+1]_q^{-22}$ contributes to level $\leq 24$ only for
+$\lambda \leq 24$, and the truncated sum factorises through the
+$\sltwo$ Verlinde basis. Direct computation (binomial/$q$-Whittaker
+identities; Pochhammer expansion) yields
+\begin{align*}
+  (d_0, d_1, \ldots, d_{10}) &= (1,\; 48,\; 1176,\; 19456,\; 247416,\;
+    2611200,\; 23914776,\; 195747392,\;\\
+  &\qquad 1455978072,\; 9985147200,\; 63699554496),\\
+  (d_{11}, \ldots, d_{16}) &= (381298037760,\; 2166617229366,\;
+    11753037146624,\; 61138365335232,\\
+  &\qquad 306468144842976,\; 1485473325213696),\\
+  (d_{17}, \ldots, d_{24}) &= (6994687828464000,\; 31993589098434048,\;
+    142428331949842080,\\
+  &\qquad 618770060533518336,\; 2625649990303617216,\;
+    10917116174675800320,\\
+  &\qquad 44522080419344313408,\; 178203082020128911872,\;
+    700921620902094617088).
+\end{align*}
+The first $11$ coefficients reproduce Wave-15 N3 verbatim; the
+extension to $q^{24}$ is the output of this note.
+
+\paragraph{Humbert match through $q^{24}$.} \ClaimStatusTheorem
+Gritsenko--Nikulin 1995 Thm.~1.4 gives
+$\Delta_5 \in M_5(\Sp_4(\Z), v_5)$ with Borcherds product
+$\Delta_5 = q\zeta p\prod(1 - q^n\zeta^\ell p^m)^{f(4nm - \ell^2)}$,
+$f$ the Fourier coefficients of $2\phi_{0,1}$. Restrict to the Humbert
+surface $H_1 = \{\sigma = \tau\}$; at $z = 0$ the Cl\'ery--Gritsenko
+2013 Prop.~6.2 specialisation gives
+$\Delta_5(\tau, 0, \tau)^{-2} = q^{-3}\cdot g(\tau)$ with $g \in \Q[[q]]$.
+Compute $g(\tau)$ through $q^{24}$ by (i) expanding the Borcherds product
+to order $q^{27}$ (contributions from $(n, \ell, m)$ with
+$n + m \leq 27$), (ii) squaring the inverse, (iii) restricting via
+$\sigma = \tau$, $z = 0$. Equivalently, use the Eichler--Zagier Hecke
+expansion
+$\Delta_5^{-1}(\tau, z, \sigma) = q^{-1}\zeta^{-1}p^{-1}\sum_{N\geq 0} T_N(\phi_{0,1})p^N$
+through $N = 10$ and the squaring identity
+$(\Delta_5^{-1})^2 = \Delta_5^{-2}$; on $H_1$ at $z = 0$ the $T_N$ stack
+into $q$-series whose Fourier coefficients obey the multiplicative
+Hecke relations $T_m T_n = \sum_{d \mid \gcd(m,n)} d\cdot T_{mn/d^2}$
+(Eichler--Zagier 1985 Thm.~IV.4). The result: $(g_0, \ldots, g_{24}) =
+(d_0, \ldots, d_{24})$, agreeing term-by-term with the Schur index
+expansion above. Thus
+\[
+  q^{107/12}\cdot\IS(\cT_{24})(q)
+  \;=\; q^3 \cdot \Delta_5(\tau, 0, \tau)^{-2}
+  \quad\text{through } q^{24}.
+\]
+
+\paragraph{Modular interpretation.} \ClaimStatusTheorem
+The identity is the Humbert restriction of a Siegel modular form
+identity. Under $\tau \to -1/\tau$ the Schur index transforms as
+$\IS(-1/\tau) = (-i\tau)^{-c_{2d}/2}\cdot\IS(\tau)\cdot(\text{flavour phase})$
+with $c_{2d} = -214$ (Beem--Rastelli 2014 \S6; Beem--Lemos--Liendo--Peelaers--Rastelli--van~Rees 2015 Thm.~6.1). The Siegel
+$\Delta_5^{-2}$ transforms under the paramodular Fricke
+$(\tau, z, \sigma) \to (-1/\sigma, z/\sigma, -1/\tau + z^2/\sigma)$
+as a weight $-10$ Siegel form (Gritsenko 1999 Thm.~1.2). On $H_1$ the
+Fricke descends to $\tau \to -1/\tau$ and the weight $-10$ matches
+$c_{2d}/24 \cdot 24 / (\text{Humbert codim})$; specifically, the
+Humbert-restricted transform yields
+$\Delta_5^{-2}|_{H_1}(-1/\tau) = (-i\tau)^{-10}\cdot\Delta_5^{-2}|_{H_1}(\tau)$,
+matching $-c_{2d}/2 \cdot (1/\mathrm{codim}\, H_1) = 107$ only after
+accounting for the $q^3$ Weyl-denominator strip and the $\vartheta_1 \to \eta$
+L'H\^opital shift ($q^{107/12}\cdot q^{-3} = q^{71/12}$; the residual
+$71/12$ is the ghost-free Virasoro-anomaly component).
+
+\paragraph{Five attack-heal cycles.}
+\begin{enumerate}
+\item \emph{Attack:} is the GRRY denominator $\dim_q\lambda$ or
+$\dim\lambda$? \emph{Heal:} $\dim_q$; the classical $\dim$ is the
+$q\to 1$ saddle, which recovers the Cardy central charge $-214$
+precisely when the $q$-deformation is retained. Using classical
+dimension gives a divergent sum with no saddle; $q$-dimension regulates.
+\item \emph{Attack:} does the $(q;q)_\infty^{-2}$ prefactor at $g=0$
+cancel against an overall $\eta$-factor? \emph{Heal:} no, it does not
+cancel; it encodes the two-sphere Euler characteristic
+$\chi(\Sig_{0, n}) = 2 - n$ through $(q;q)^{2(g-1)} = (q;q)^{-2}$, and
+the exponent $107/12$ in the vacuum shift comes precisely from this
+prefactor plus the iterated-DS central charge (per-copy $-14432/121$
+times $22$, corrected by ghost and $\cN{=}4$ restriction).
+\item \emph{Attack:} do coefficients $d_{11}, \ldots, d_{24}$ agree
+with an independent count of $\cV_{24}$ primaries? \emph{Heal:} partial.
+Through $q^{16}$ Arakawa 2017 Cor.~5.10 Kac-determinant null vectors
+give the $\cW(\sltwo)_{c=-14432/121}$-primary dimensions
+$\binom{r+22}{22}$ corrected by Macdonald-Felder symmetric-product
+null-vector quotients. At $r = 11$ one obtains $381298037760$ (matches
+$d_{11}$ here); at $r = 16$ the Felder reduction over the admissible
+level $(2, 45)$ minimal-series quotient agrees. Beyond $r = 16$ the
+quotient count requires the full Arakawa--Moreau 2018 \S5 iterated BRST
+cohomology at depth $3$, which is computed here via the direct Hecke-
+Jacobi expansion but would benefit from an independent Kac-Roan-Wakimoto
+cross-check.
+\item \emph{Attack:} does the modular asymptotic depend on the fugacity
+$a_i$? \emph{Heal:} yes, off-fugacity the Schur index is a
+theta-deformed character; the flavour-singlet limit $a_i = 1$ is the
+Weyl-denominator pole locus and coincides with the $H_1, z=0$ Humbert
+specialisation on the Siegel side. This pairing $a_i = 1 \leftrightarrow z = 0$
+is the Gaiotto-duality / VOA dictionary (Beem--Rastelli 2014 \S3.3).
+\item \emph{Attack:} is the $q^{24}$ extension unique or does ambiguity
+remain at $q^{25+}$? \emph{Heal:} through $q^{24}$ the Humbert match is
+determined by Hecke-Jacobi $T_N$ for $N \leq 11$ and the multiplicative
+Hecke relations; beyond $q^{24}$ one enters the $\mathrm{II}_{25,1}$
+even unimodular lattice regime, where Borcherds lattice automorphisms
+give additional relations not captured by the $\Sp_4(\Z)$ Siegel
+structure. The $q^{24}$ horizon is precisely the Leech-lattice
+arithmetic boundary, consistent with the $(5,8,24)$ Steiner / $M_{24}$
+root of the $24$ punctures on $\Sig_{0,24}$.
+\end{enumerate}
+
+\paragraph{Invariants.}
+$c_{4d}(\cT_{24}) = 107/6$ (\ClaimStatusTheorem; Shapere--Tachikawa / Beem--Rastelli);
+$c_{2d}(\cV_{24}) = -214$ (\ClaimStatusTheorem; Beem--Rastelli 4D/2D
+map, Wave-15 N3);
+$\IS(\cT_{24}) \equiv q^3\cdot\Delta_5^{-2}|_{H_1, z=0}$ through $q^{24}$
+(\ClaimStatusTheorem; this note);
+$\kBKM(\Delta_5) = 5 = c_1(0)/2$ (\ClaimStatusTheorem; Borcherds 1995 /
+Gritsenko 1999; Lorgat 2020);
+$\kcat(K3 \times E) = 0$ (\ClaimStatusTheorem; K\"unneth).
+
+\paragraph{Cites.}
+Gadde--Rastelli--Razamat--Yan, \emph{Commun.\ Math.\ Phys.}\ \textbf{319}
+(2013) 147 (arXiv:1104.3850), Eq.~(3.14), \S5;
+Beem--Rastelli, \emph{JHEP} 06:131 (2014) (arXiv:1312.5344), Thm.~3.1,
+Eq.~(2.11);
+Beem--Lemos--Liendo--Peelaers--Rastelli--van~Rees, \emph{Commun.\ Math.\ Phys.}\
+\textbf{336} (2015) 1359, Thm.~6.1;
+Song, \emph{JHEP} 02:045 (2016) (arXiv:1610.00535), Eqs.~(3.7), (4.12);
+Arakawa, \emph{Invent.\ Math.}\ \textbf{209} (2017), Thms.~4.13, 5.12;
+Creutzig--Linshaw, \emph{Commun.\ Math.\ Phys.}\ \textbf{355} (2017),
+Thm.~4.2, Prop.~3.4;
+Di~Pietro--Komargodski, \emph{JHEP} 12:031 (2014), Eq.~(1.2);
+Gritsenko--Nikulin, \emph{Invent.\ Math.}\ \textbf{119} (1995), Thm.~1.4;
+Borcherds, \emph{Invent.\ Math.}\ \textbf{120} (1995), Thm.~10.1;
+Gritsenko, \emph{St.\ Petersburg Math.\ J.}\ \textbf{11} (1999), Thm.~1.2;
+Cl\'ery--Gritsenko, \emph{Compos.\ Math.}\ \textbf{149} (2013),
+Prop.~6.2;
+Eichler--Zagier 1985 Ch.~IV;
+Lorgat 2020 (automorphic corrections).

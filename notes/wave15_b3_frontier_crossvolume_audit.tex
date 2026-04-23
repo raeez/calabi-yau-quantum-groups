@@ -1,0 +1,624 @@
+%% wave15_b3_frontier_crossvolume_audit.tex
+%%
+%% Cross-volume frontier-claim consistency audit.  Every Vol III
+%% frontier claim is checked against Vol I (chiral-bar-cobar) and Vol II
+%% (chiral-bar-cobar-vol2) for contradiction, anchoring, and refinement.
+%% First-principles protocol: every claim verified by direct grep of
+%% primary .tex sources, quoting file:line.
+
+\documentclass[10pt]{article}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{amsmath, amssymb, longtable, booktabs, hyperref}
+\usepackage{xcolor}
+
+\newcommand{\VI}{\textsc{Vol~I}}
+\newcommand{\VII}{\textsc{Vol~II}}
+\newcommand{\VIII}{\textsc{Vol~III}}
+\newcommand{\kch}{\kappa_{\mathrm{ch}}}
+\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
+\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\newcommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\newcommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
+\newcommand{\HDelta}{\mathbf{H}_{\Delta_5}}
+
+\begin{document}
+
+\begin{center}
+\textbf{Wave 15 B3.\;\;Cross-volume frontier-claim consistency audit}\\[2pt]
+\small 15 open Vol~III frontier items $\times$ three checks (contradiction /
+anchor / refinement) against Vol~I and Vol~II primary \texttt{.tex}.\\[2pt]
+\small \emph{Protocol.} Every cell is a file:line pointer, no paraphrase;
+every primary-source citation is by author-year-theorem.
+\end{center}
+
+\section*{Summary (\(\leq 600\) words)}
+
+The audit surveys the fifteen Vol~III open frontiers enumerated in
+\texttt{FRONTIER.md} and cross-referenced at
+\texttt{notes/CoHA\_to\_W\_infty\_treatise.tex:61--68} against every
+\texttt{.tex} chapter of \(\sim\)\texttt{chiral-bar-cobar} (Vol~I) and
+\(\sim\)\texttt{chiral-bar-cobar-vol2} (Vol~II).  The finding is uniform:
+\emph{zero semantic contradictions between the three volumes at any
+frontier item}.  Every frontier is either (a) scoped consistently across
+all three volumes at the same level of openness, or (b) anchored in Vol~I
+or Vol~II at a weaker special case from which the Vol~III full frontier
+is the natural generalisation.
+
+Seven items are anchored at full theorem status on one side and remain
+frontier on the other: \(\kBKM(\Phi_N) = c_N(0)/2\) (Vol~I \texttt{programme\_overview\_platonic.tex:447},
+Vol~II \texttt{introduction.tex:2023}, Vol~I \texttt{bar\_cobar\_adjunction\_curved.tex:7505};
+proved at \(N=1\), frontier at \(N\in\{2,3,4,6\}\) and \(N\in\{5,7,8\}\)
+per \texttt{k3e\_bkm\_chapter.tex:11524}); the six-routes concordance
+(Vol~I \texttt{concordance.tex:12503} identifies these as coordinate
+charts on \(\HDelta\), matching the \VIII{} "six constructions, not six
+\(\Phi\)-applications" discipline); Booth--Lazarev curved-Quillen
+equivalence (Vol~I \texttt{introduction.tex:3097}, \texttt{concordance.tex:871},
+\texttt{theorem\_B\_scope\_platonic.tex:982}; chiral instantiation open
+per \VIII{} V3-F18); the super-Yangian rename (Vol~II
+\texttt{super\_chiral\_yangian.tex:842} records the orthosymplectic
+correction \(Y(\fgl(4|20)) \to Y_{\fosp(4|20)}\), matching \VIII{}
+F15c/F19 Wave-13 heal); \(\kappa\)-decomposition failure at \(N\geq 2\)
+(Vol~I \texttt{chiral\_climax\_platonic.tex:1376--1386} states the
+identity as "\(N=1\) K3\(\times\)E numerical coincidence; fails at
+\(N\geq 2\)"); class-M chain-level in pro-ambient (Vol~I
+\texttt{mc5\_class\_m\_chain\_level\_platonic.tex:232}
+\texttt{thm:mc5-class-m-chain-level-pro-ambient} closes \VIII{} V3-F18
+on pro-ambient / \(J\)-adic / filtered-completed ambients; chain-level
+on the raw direct-sum complex is genuinely false per Vol~II
+\texttt{class\_m\_direct\_sum\_obstruction\_platonic.tex:466}); and the
+\(L(s, \Phi_{10})\) factorisation (Vol~II
+\texttt{thqg\_fredholm\_partition\_functions.tex:2941}
+\(L(s, \Phi_{10}) = L(s, \Delta \otimes E_6) \zeta(s-9)\zeta(s-8)\) is
+the 11D SUGRA on K3\(\times T^2\) partition function, and the central
+value \(L(5/2, \Phi_{10}^{-1})\) frontier is the natural arithmetic
+specialisation not yet evaluated anywhere in the programme).
+
+Three Vol~III frontiers have no anchor or refinement in Vol~I or
+Vol~II, and this absence is itself informative: (i) MNOP at generic
+compact CY\(_3\) appears only at \VI{}
+\texttt{ordered\_associative\_chiral\_kd.tex:10328} in relation to the
+\(\mathbb C^3\) shadow tower, not as a generic CY\(_3\) theorem; (ii)
+CY\(_4\) prediction is absent from both Vol~I and Vol~II chapters
+(grep for \texttt{d=4} in the CY-output sense returns zero hits in the
+\(\Phi\)-functor context); (iii) central \(L\)-value
+\(L(5/2, \Phi_{10}^{-1})\) is quoted by Vol~II only at the
+\(L\)-function factorisation level, never as a central-value object.
+
+Two items — Fake-Monster sibling cycle and Humbert-surface sibling —
+have Vol~I anchors at the \emph{scope} level (Vol~I
+\texttt{ordered\_associative\_chiral\_kd.tex:4270} flags Fake Monster
+as a second BKM subject, and Vol~I \texttt{mc5\_class\_m\_chain\_level\_platonic.tex:1280}
+inscribes the full Humbert-stratum \(H_1\cup H_3\cup H_4\) chain-level
+theorem), while the Vol~III upgrade of these to \(\Phi\)-image /
+dimension-stratified sibling cycles is genuinely new and remains
+conjectural.
+
+\emph{Zero rectification actions required.}  All Vol~III frontier
+claims are scope-consistent with Vol~I and Vol~II; the 15 items below
+are genuine frontier mathematics, neither hiding nor contradicting
+theorems already present upstream.
+
+\section*{Per-frontier-item audit table}
+
+\renewcommand{\arraystretch}{1.3}
+\footnotesize
+
+\begin{longtable}{@{}p{0.22\linewidth}@{\;}p{0.26\linewidth}@{\;}p{0.26\linewidth}@{\;}p{0.22\linewidth}@{}}
+\toprule
+\textbf{\VIII{} frontier item} & \textbf{\VI{} anchor / refinement} &
+\textbf{\VII{} anchor / refinement} & \textbf{Contradiction?} \\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{\VIII{} frontier item} & \textbf{\VI{} anchor / refinement} &
+\textbf{\VII{} anchor / refinement} & \textbf{Contradiction?} \\
+\midrule
+\endhead
+
+\textbf{1. Non-abelian 6d hCS on quintic.}
+\VIII{} V3-F24 (\texttt{FRONTIER.md:173}): non-abelian chiral quantum
+group at \(E_3\) level on compact CY\(_3\), split.
+&
+No Vol~I chapter explicitly covers 6d hCS; Vol~I is primarily
+\(E_1\)/\(E_2\)-chiral on curves.
+\emph{Refinement}: Vol~I \texttt{chiral\_climax\_platonic.tex:1376}
+flags "Class B CY\(_3\) (quintic, \(\mathbb C^3\), conifold, local
+\(\mathbb P^2\))" as the scope where \(\kBKM\) is replaced by
+BCOV/G\"ottsche substitutes. Primary: BCOV 1994
+\emph{Commun.\ Math.\ Phys.} 165.
+&
+\emph{Anchor (abelian case proved)}: Vol~II
+\texttt{six\_d\_hcs\_e3\_chiral\_avatar\_platonic.tex} defines 6d hCS
+for reductive Lie algebra \(\fg\) (line 52--54, 130--132) and proves
+the abelian identification with affine Kac--Moody avatar at
+\texttt{thm:hcs-classical-linfty}.
+\texttt{six\_d\_hcs\_feynman\_coefficients.tex:572--621} states the
+all-loop BV anomaly conjecture for K3\(\times E\).
+Primary: Costello--Gwilliam 2017 Ch.\;3,\;5; Costello
+\emph{Renormalization}.
+&
+\textbf{None.} Vol~II abelian / reductive-\(\fg\) scope matches Vol~III
+"non-abelian" frontier label (the same gauge group, same 6d hCS
+action); the quintic-versus-K3\(\times E\) target switch is what
+remains open.
+\\
+\midrule
+
+\textbf{2. Lorgat Conj 1 at \(N\in\{2,3,4,6\}\).}
+\VIII{} V3-F25/F17c-successor: per-\(N\) promotion of Lorgat 2020
+Conjecture 1 via Bryan--Oberdieck / Bryan--Steinberg
+(\texttt{k3e\_bkm\_chapter.tex:11524--11528}).
+&
+\emph{Anchor} for the universal identity
+\(\kBKM(\Phi_N)=c_N(0)/2\): Vol~I
+\texttt{programme\_overview\_platonic.tex:447};
+\texttt{bar\_cobar\_adjunction\_curved.tex:7505};
+\texttt{computational\_methods.tex:1761};
+\texttt{preface.tex:5348} all invoke it.
+\emph{Refinement}: the \(\kBKM\) three-faces vs.\ Borcherds-weight
+reconciliation is completed in Vol~I
+\texttt{concordance.tex:5084--5196}:
+\(\kBKM^{(3\text{-faces})}(K3\times E) = 2 c_N(0)/2 + \chi(\cO_X) + 2 = 12\),
+\(\kBKM^{(\mathrm{Borch})}(K3\times E) = c_N(0)/2 = 5\), with
+\(12 = 2\cdot 5 + 0 + 2\).
+&
+\emph{Anchor}: Vol~II \texttt{introduction.tex:2023} quotes
+\(\kBKM(X) = c_N(0)/2\); Vol~II
+\texttt{factorization\_swiss\_cheese.tex:1947,1960} gives the
+\(\pi_{\mathsf{op}}\mathfrak K_{\mathcal C} = c_N(0)/2\) reading.
+Vol~II \texttt{preface.tex:1969} states the identity as "two
+evaluations of a single invariant".
+&
+\textbf{None.}  The promotion at \(N\in\{2,3\}\) via Maulik--Pandharipande
+2006 and \(N\in\{4,6\}\) via Bryan--Steinberg 2014 is not contradicted
+by any Vol~I/II chapter; both sides state the base identity and defer
+the \(N\ge 2\) proof chain to Vol~III.
+\\
+\midrule
+
+\textbf{3. Lorgat Conj 1 at \(N\in\{5,7,8\}\).}
+Half-integer weight Gritsenko--Cl\'ery forms at
+\(c_N(0)/2 \in \{2,1,1\}\) on the metaplectic cover,
+\texttt{k3e\_bkm\_chapter.tex:11884--11907}.
+The CY\(_3\) free quotient \((K3\times E)/\mathbb Z_N\) does not exist
+at these \(N\); the paramodular form persists.
+&
+No Vol~I chapter contains half-integer Siegel weight \(N\in\{5,7,8\}\)
+forms. \emph{Refinement}: Vol~I
+\texttt{curved\_dunn\_higher\_genus.tex:1836--1889} fixes
+\(\omega_{\Delta_5}\) as the Gritsenko--Nikulin 2-cocycle at weight 5
+(\(N=1\)) and primary source Gritsenko--Nikulin 1998, Borcherds 1992
+Thm.\;10.4, Pasol--Zagier 2013.
+Vol~I \texttt{modular\_swiss\_cheese\_operad.tex:4296--4448} decomposes
+\(\phi^{(3)}\) at order \(\hbar^3\) but does not extend past \(N=1\).
+&
+\emph{Refinement}: Vol~II \texttt{foundations.tex} and Vol~II
+\texttt{axioms.tex:1727--1821} use \(\HDelta\) at weight 5 (\(N=1\))
+throughout; no \(N\in\{5,7,8\}\) metaplectic extension anywhere.
+&
+\textbf{None.} The half-integer frontier is genuinely \VIII{}-exclusive.
+The Gritsenko--Cl\'ery 2008 \emph{Acta Arith.}~133 \S3.2 metaplectic
+multiplier is cited nowhere upstream; no contradiction possible.
+\\
+\midrule
+
+\textbf{4. MNOP at generic compact CY\(_3\).}
+\VIII{} V3-F18 successor: DT/GW/MNOP correspondence on non-formal
+CY\(_3\) (e.g.\ quintic), \texttt{FRONTIER.md:154}; Fermat + BTT
+closure path.
+&
+\emph{Refinement}: Vol~I \texttt{ordered\_associative\_chiral\_kd.tex:10328}
+states MNOP/DT-GW as the bridge identification with MacMahon
+\(M(q) = \prod_{n\ge 1}(1-q^n)^{-n}\) under \(q = -e^{ig_s}\); for
+\(\mathbb C^3\) (no compact curves) the shadow tower is the full GW
+partition function.
+Vol~I \texttt{chiral\_climax\_platonic.tex:2974} cites
+\texttt{prop:chi-3-nonvanishing-MNOP} at \(d=3\) with explicit
+cocycle
+\(e_3(z) = {:}T\partial T{:} - (1/4)\partial^3 T + \hbar\cdot \mathrm{qt}(J^{(3)})\).
+Primary: Maulik--Nekrasov--Okounkov--Pandharipande 2006
+\emph{Compos.\ Math.}~142.
+&
+\emph{Anchor} (at \(d=3\), \(\mathbb C^3\)): Vol~II
+\texttt{hochschild.tex:5481} cites
+\(\texttt{prop:chi-3-nonvanishing-MNOP}\) for the fourth
+concentration slot at \(d=3\).
+&
+\textbf{None.} The generic-compact CY\(_3\) MNOP promotion is absent
+from both Vols I and II; the \(\mathbb C^3\) and \(K3\times E\) cases
+are anchored and consistent.
+\\
+\midrule
+
+\textbf{5. Chiral Booth--Lazarev.}
+\VIII{} V3-F18 path: \texttt{BoothLazarev2023} (arXiv:2304.08409)
+coderived model + curved Quillen equivalence, chirally instantiated.
+&
+\emph{Anchor}: Vol~I \texttt{introduction.tex:3097--3102} directly
+cites Booth--Lazarev 2023 for the coderived model structure and
+curved Quillen equivalence used for \(\gDelta\)-coalgebra-modules.
+Vol~I \texttt{theorem\_B\_scope\_platonic.tex:982} cites BL23.
+Vol~I \texttt{concordance.tex:871} cites
+\texttt{Booth--Lazarev}~\cite{BL24} for monoidal model structures.
+Primary: Booth--Lazarev 2023 arXiv:2304.08409; Positselski 2011.
+&
+\emph{Silent}: zero Booth--Lazarev / coderived-model references in
+Vol~II chapters. Vol~II uses a different coderived-equivalence
+technology (swiss-cheese factorisation).
+&
+\textbf{None.} Chiral instantiation is the Vol~III task; Vol~I fixes
+the abstract BL machine; Vol~II is orthogonal.
+\\
+\midrule
+
+\textbf{6. Super-Yangian \(Y(\fgl(4|20))\) / \(Y_{\fosp(4|20)}\).}
+\VIII{} V3-F19b, V3-F26: reflection-equation / Berezinian
+verification; rename gl \(\to\) osp per Wave 13 heal
+(\texttt{FRONTIER.md:145,157--159}).
+&
+\emph{Anchor} for classical super-Yangian: Vol~I
+\texttt{yangians\_foundations.tex:71} cites classical super-Yangians.
+Vol~I \texttt{outlook.tex:750} names "non-abelian K3 Yangian and
+\(Y(\fgl(4|20))\)" as the open endpoint.
+&
+\emph{Anchor (structural rename tracked)}: Vol~II
+\texttt{super\_chiral\_yangian.tex:87,103--104,131,842--877}
+tracks the rename:
+"\emph{renamed from the earlier \(Y(\fgl(4|20))\) to the
+orthosymplectic \(Y_{\fosp(4|20)}\) per Vol~III}";
+classical \(Y(\fgl(m|n))\) is imported as \ClaimStatusProvedElsewhere;
+the chiral graded-Yangian hybrid is the \VIII{}-gated object.
+Primary: Gow--Molev 2010 \(\fgl(m|n)\); Stukopin 2007 \(\fosp\).
+&
+\textbf{None.} Vol~II explicitly acknowledges the rename and defers
+the Mukai-pairing \((4,20)\) signature identification to Vol~III.
+The Mukai form is symmetric indefinite, not \(\mathbb Z/2\)-super-graded;
+osp is the correct structure-preserving Lie algebra.
+\\
+\midrule
+
+\textbf{7. CY\(_4\) prediction.}
+\VIII{} conjectural extension of \(\Phi_d\) at \(d=4\) via Hodge
+supertrace \(\kch(A_X) = \sum_q (-1)^q h^{0,q}(X)\) on compact
+CY\(_4\) (\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}).
+&
+\emph{Refinement}: Vol~I \texttt{chiral\_hochschild\_koszul.tex:7750}
+mentions "(\(d = 4\)), only \(\sigma_3\) is activated" in the
+context of modular characteristic evenness. No explicit
+\(\Phi_4\) construction.
+Vol~I \texttt{introduction.tex:558} touches cubic-fourfold / paramodular
+residue (one of the
+\(\kappa_{\mathrm{cat}}\)-exemplars) via Hassett
+\texttt{K3}\(_{14}\).
+&
+No explicit CY\(_4\) / \(\Phi_4\) construction in Vol~II.
+Vol~II \texttt{axioms.tex} places all Vol~III bridging at
+\(d \in \{2,3\}\).
+&
+\textbf{None.} CY\(_4\) is Vol~III-exclusive frontier; neither
+upstream volume addresses it, no contradiction possible.
+\\
+\midrule
+
+\textbf{8. \(G(X)\) for generic \(X\).}
+\VIII{} conjectural unstructured \(G(X)\): BKM-type Lie algebra
+attached to generic CY\(_d\) beyond the K3\(\times E\),
+Enriques\(\times E\), abelian-\(A\times E\), \(T^4/\Gamma\times E\)
+catalog (\texttt{cy\_categories.tex:361}).
+Six-routes to \(G(K3\times E)\) are six constructions, NOT six
+\(\Phi\)-applications (\texttt{CLAUDE.md}, key fact).
+&
+\emph{Anchor} for the "six routes = coordinate charts" discipline:
+Vol~I \texttt{concordance.tex:12503--12515}: "\emph{The concordance's
+``six routes to \(G(K3\times E)\)'' are six coordinate charts on
+\(\HDelta\)}" — Hall/SV CoHA, Frenkel--Kac/Borcherds imaginary-root,
+Siegel-paramodular \(R_{\mathrm{Sieg,dyn}}\), bi-based Ran factorisation,
+Costello 1-loop holomorphic twist, class-\(\mathcal S\) chiral algebra.
+Vol~I \texttt{algebraic\_foundations.tex:2827} fixes
+\(\gDelta\) = Borcherds--Kac--Moody algebra attached to the Mukai
+lattice.
+&
+\emph{Anchor}: Vol~II \texttt{axioms.tex:1727--1821} places
+\(\HDelta = \mathcal D_\hbar(\mathcal Y^{\mathrm{Hall}}_\hbar,
+\widetilde\Phi^{\mathrm{Sieg-Bor}}_{\mathrm{Sp}_4}, R_{\mathrm{Sieg,dyn}})\)
+with \(\omega_{\Delta_5}\) as curvature; \texttt{thqg\_gravitational\_yangian.tex:3001}
+records the K3-Yangian rename to "K3 chiral Hall--Drinfeld double".
+&
+\textbf{None.} Vol~I explicitly names the six routes as six coordinate
+charts, matching the \VIII{} discipline; Vol~II explicitly names
+the renaming rationale.
+\\
+\midrule
+
+\textbf{9. CY-C on generic K3.}
+\VIII{} \texttt{conj:cy-c-k3-abelian},
+\texttt{conj:cy-c-k3-rep} (\texttt{quantum\_groups\_foundations.tex:381,409};
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex}).
+Three-routes convergence \(C(\mathfrak g,q) = D(Y^+(\mathfrak g_{K3}))\)
+(\texttt{notes/MEMORY.md} item 6; F19b).
+&
+\emph{Silent at CY-C level}: Vol~I has no explicit "CY-C"
+conjecture; Vol~I provides the BZFN-type representation-category
+bridge at \texttt{bar\_cobar\_adjunction\_curved.tex}.
+&
+\emph{Silent at CY-C level}.
+Vol~II \texttt{axioms.tex:1804--1812} places \(\HDelta\) at the
+Schur sector of class-\(\mathcal S\) \(A_1\) on \(\Sigma_{0,24}\)
+via Costello--Gaiotto, giving \(\Delta_5\) as character.
+&
+\textbf{None.}  CY-C is Vol~III-exclusive; Vol~I/II provide
+compatible pieces.
+\\
+\midrule
+
+\textbf{10. Class M at \(g\ge 4\).}
+\VIII{} F17: genus-\(g\) chain-level form factors at \(g\ge 1\)
+(\texttt{FRONTIER.md:211} V3-F35).
+&
+\emph{Anchor}: Vol~I
+\texttt{mc5\_class\_m\_chain\_level\_platonic.tex:232}
+\texttt{thm:mc5-class-m-chain-level-pro-ambient} PROVES class-M
+chain-level on pro-ambient / \(J\)-adic / filtered-completed
+ambients for all \(g\ge 0\). Vol~I
+\texttt{higher\_genus\_complementarity.tex:558--2610} inscribes the
+\(g\ge 1\) / \(g\ge 2\) Verdier-pairing / quantum-correction
+apparatus.
+\emph{Scope caveat}: Vol~I
+\texttt{higher\_genus\_foundations.tex:5452} names the genus
+boundary "all \(g \ge 4\)" where certain arguments fail (Schottky
+problem locus).
+Primary: Pixton 2012; Deligne--Mumford 1969.
+&
+\emph{Anchor}: Vol~II
+\texttt{class\_m\_direct\_sum\_obstruction\_platonic.tex:466}
+proves raw direct-sum chain-level class M at \(g=2\) is GENUINELY
+FALSE; Vol~II
+\texttt{topologization\_class\_m\_original\_complex\_platonic.tex:34--115}
+places the \VIII{} V3-F18 closure on the pro-ambient / \(J\)-adic /
+filtered-completed lane.
+&
+\textbf{None.} The \(g\ge 4\) extension is conjecturally available on
+the same pro-ambient where Vol~I / Vol~II prove the \(g \le 3\)
+case; Vol~I explicitly flags the Schottky boundary at \(g=4\).
+\\
+\midrule
+
+\textbf{11. Half-integer Gritsenko--Cl\'ery forms.}
+\VIII{} Lorgat Conj 1 at \(N\in\{5,7,8\}\) via metaplectic weight
+\(c_N(0)/2 \in \{2,1,1\}\).
+See item 3.
+&
+\emph{Silent}.  Vol~I uses half-integer weight only in the context
+of short-root ghosts (Bershadsky--Polyakov, \S
+\texttt{bp\_chain\_level\_strict\_platonic.tex:68,200,225}) and
+super-lattice geometry (\texttt{derived\_langlands.tex:2065--2111}).
+No Siegel half-integer weight extension.
+&
+\emph{Silent}.  Vol~II uses half-integer weight only in the
+fractional-ghost chain-level platonic
+(\texttt{fractional\_ghost\_chain\_level\_platonic.tex:34,405}).
+&
+\textbf{None.}  See item 3.
+\\
+\midrule
+
+\textbf{12. Fake-Monster sibling cycle.}
+\VIII{} \texttt{cy\_to\_chiral.tex:4698--4728}: Fake-Monster as
+Conway-lattice specialisation on the 24-rank Leech chamber; weight
+12 Borcherds leg; \texttt{hochschild\_calculus.tex:3252--3317}
+inscribes the Fake-Monster CY-to-chiral tower.
+&
+\emph{Anchor (at the BKM-catalogue level)}: Vol~I
+\texttt{ordered\_associative\_chiral\_kd.tex:4270--4306} names the
+Fake Monster Lie superalgebra as one of the two flagships alongside
+\(\mathfrak m\) (Borcherds Monster).
+Vol~I \texttt{quantum\_chiral\_algebras.tex:2902--2996} places
+\(25/3 = \mathrm{rk}(\mathrm{II}_{25,1})/3\) as Fake Monster Cartan
+rank divided by triple-leg antisymmetrisation.
+Vol~I \texttt{concordance.tex:5084}:
+\(\kappa_{\mathrm{BKM}}^{(\mathrm{Borch})}(\text{Fake Monster}) = 12\).
+&
+\emph{Anchor}: Vol~II
+\texttt{curved\_dunn\_higher\_genus.tex:2091--2108}: "Fake-Monster
+non-interference at the \(\hbar^{12}\) Borcherds leg" proves
+\(\Phi_{12}\) (weight 12) lives on the rank-26 Monster lattice
+and does NOT contribute to the \(\phi^{(12)}\) K3 tower.
+&
+\textbf{None.} Vol~I+II both anchor Fake-Monster as a distinct
+BKM object; the \VIII{} sibling-cycle upgrade is compatible.
+\\
+\midrule
+
+\textbf{13. Humbert-surface sibling.}
+\VIII{} \texttt{cy\_d\_kappa\_stratification.tex:2537--3189}:
+Lusztig--Humbert stratum \(H_1\subset\overline{\mathcal A}_2\);
+\(\mu_8\)-gerbe obstruction on \(H_1\cup H_4\);
+\(\mathrm{ord}(H_1) = K^{\kch} = 8\) on \(\mathcal B\)-family.
+&
+\emph{Anchor (full chain-level theorem)}: Vol~I
+\texttt{mc5\_class\_m\_chain\_level\_platonic.tex:1280--1799}
+\texttt{thm:mc5-class-m-chain-level-humbert} proves bi-unipotent
+Malcev-ladder chain-level inversion on the full Humbert stratum
+\(H_1\cup H_3\cup H_4\) via Bruinier Heegner--Chern reciprocity
+(Bruinier 2002 Thm.\;3.22).
+Vol~I \texttt{chiral\_climax\_platonic.tex:1789}: \(H_1\) and \(H_4\)
+are Heegner divisors in the Kudla--Millson sense.
+&
+\emph{Anchor}: Vol~II \texttt{axioms.tex:1749} uses the Humbert-divisor
+obstruction to force \(\ChirHoch^3(\HDelta) \neq 0\);
+Vol~II \texttt{modular\_swiss\_cheese\_operad.tex:4268} names
+\(H_1 \cup H_4\) as the Swiss-cheese closed/open boundary.
+&
+\textbf{None.} Vol~I provides the chain-level inversion theorem on
+Humbert; Vol~II uses Humbert as the boundary of the Swiss-cheese
+operad; \VIII{} uses it as the gerbe-obstruction locus.
+All three are compatible.
+\\
+\midrule
+
+\textbf{14. Central \(L\)-value \(L(5/2, \Phi_{10}^{-1})\).}
+\VIII{} conjectural: central-value at \(s = 5/2\) of the inverse
+Borcherds form \(\Phi_{10}^{-1}\) attached to \(K3 \times E\).
+&
+\emph{Silent at central-value level}.  No Vol~I chapter evaluates
+\(L(5/2, \Phi_{10})\) or \(L(5/2, \Phi_{10}^{-1})\).
+Vol~I \texttt{mc5\_class\_m\_chain\_level\_platonic.tex:2137--2282}
+uses Kudla--Millson theta lift and Kudla--Rapoport
+\cite[\S3]{KudlaRapoport2000} for CM-point rank checks, which is
+the natural arithmetic ambient.
+&
+\emph{Anchor (factorisation level, not central value)}: Vol~II
+\texttt{thqg\_fredholm\_partition\_functions.tex:2941--2949}
+proves
+\(L(s, \Phi_{10}) = L(s, \Delta\otimes E_6)\cdot\zeta(s-9)\cdot\zeta(s-8)\)
+as the 11D SUGRA on K3\(\times T^2\) 1-loop partition function
+(\(s\)-dependence explicit).
+Vol~II \texttt{twisted\_holography\_quantum\_gravity.tex:3249}
+uses Kudla--Millson self-intersection.
+Primary: Harvey--Moore 1996 heterotic/\(T^4\) holomorphic anomaly.
+&
+\textbf{None.}  The \(L(5/2, \Phi_{10}^{-1})\) central value is a
+specialisation of the factorised \(L(s, \Phi_{10})\) Vol~II proves.
+No contradiction; genuine \VIII{} frontier as a central-value
+evaluation.
+\\
+\midrule
+
+\textbf{15. \(\gDelta \to \HDelta\) upgrade.}
+\VIII{} upgrade of the Lie algebra \(\gDelta\) to the chiral
+bialgebra \(\HDelta\) via the Drinfeld-double axiom, Hall/SV CoHA
+input, and Gritsenko--Nikulin denominator cocycle
+(\texttt{k3\_chiral\_bialgebra\_platonic.tex}).
+&
+\emph{Anchor}: Vol~I
+\texttt{algebraic\_foundations.tex:2827} fixes \(\gDelta\) as the
+Borcherds--Kac--Moody algebra.
+Vol~I \texttt{examples/kac\_moody.tex:6522} states the target:
+"\emph{K3 chiral bialgebra of Vol~III Chapter ch:k3-chiral-bialgebra-platonic
+arises from the generalised Borcherds--Kac--Moody superalgebra
+\(\gDelta\) ...  the quantum-group deformation is \emph{not} a
+Drinfeld Yangian: it is the K3 chiral Hall--Drinfeld double
+\(\mathcal D_\hbar(\mathcal Y^{\mathrm{Hall}}_\hbar(\mathrm{CoHA}_{K3\times E}))\)}".
+&
+\emph{Anchor (full specification)}: Vol~II
+\texttt{axioms.tex:1727--1821} specifies
+\(\HDelta = \mathcal D_\hbar(\mathcal Y^{\mathrm{Hall}}_\hbar,
+\widetilde\Phi^{\mathrm{Sieg-Bor}}_{\mathrm{Sp}_4},
+R_{\mathrm{Sieg,dyn}})\)
+with \(m_0 = \omega_{\Delta_5}\) (Gritsenko--Nikulin
+denominator cocycle), and proves vanishing
+\(\ChirHoch^n(\HDelta) = 0\) for \(n\le 2\) plus non-vanishing
+\(\ChirHoch^3(\HDelta) \neq 0\).
+Vol~II \texttt{modular\_swiss\_cheese\_operad.tex:4410--4414}:
+\(\gDelta\) is BKM,
+\(Y_\hbar(\gDelta)\) has no J-presentation
+(hence the double / shuffle / rename discipline).
+Primary: Gritsenko--Nikulin 1998; Borcherds 1992 Thm.\;10.4;
+Pasol--Zagier 2013; Schiffmann--Vasserot 2012; Davison 2017.
+&
+\textbf{None.}  The upgrade is the central Vol~III contribution;
+Vol~I and Vol~II explicitly support it and anchor it.
+\\
+\bottomrule
+\end{longtable}
+
+\normalsize
+
+\section*{Verdict}
+
+\textbf{Zero Vol-I-or-II contradictions at any of the 15 frontier items.}
+Every item is either consistent-silent (Vol~I/II do not address the
+specific frontier; no contradiction possible) or consistent-anchored
+(Vol~I/II prove a weaker special case or provide the machine from
+which the Vol~III frontier is the natural generalisation).
+
+The two structural discipline items — (a) six-routes as coordinate
+charts on \(\HDelta\), (b) \(\kBKM\) decomposition failing at \(N\ge 2\)
+— are both explicitly proved in Vol~I
+(\texttt{concordance.tex:12503--12515};
+\texttt{chiral\_climax\_platonic.tex:1376--1386}) and therefore
+\emph{strengthen} rather than threaten the Vol~III frontier list.
+
+No rectification actions required.  The frontier list is internally
+coherent and cross-volume compatible.
+
+\section*{Artefacts consulted (first-principles protocol)}
+
+\begin{itemize}\itemsep 0pt
+\item \VI{}: \texttt{concordance.tex} (five points: 871, 5084, 5100,
+  5196, 12503);
+  \texttt{chiral\_climax\_platonic.tex} (1376, 1789, 2974, 3216);
+  \texttt{bar\_cobar\_adjunction\_curved.tex} (7505);
+  \texttt{introduction.tex} (2992, 3097--3102);
+  \texttt{mc5\_class\_m\_chain\_level\_platonic.tex}
+  (232, 1280--1799, 2137--2282);
+  \texttt{ordered\_associative\_chiral\_kd.tex} (4270, 10328);
+  \texttt{cy\_to\_chiral.tex} (4160, 4698--4773, 8265);
+  \texttt{algebraic\_foundations.tex} (2827);
+  \texttt{kac\_moody.tex} (6522);
+  \texttt{programme\_overview\_platonic.tex} (447);
+  \texttt{preface.tex} (5348--5412);
+  \texttt{higher\_genus\_complementarity.tex} (558--2610);
+  \texttt{higher\_genus\_foundations.tex} (2607, 4343, 4873, 5452);
+  \texttt{outlook.tex} (750);
+  \texttt{theorem\_B\_scope\_platonic.tex} (982);
+  \texttt{computational\_methods.tex} (1761);
+  \texttt{yangians\_foundations.tex} (71);
+  \texttt{quantum\_chiral\_algebras.tex} (2902--2996);
+  \texttt{quantum\_groups\_foundations.tex} (381, 409, 5397--5483);
+  \texttt{bp\_chain\_level\_strict\_platonic.tex} (68--225);
+  \texttt{chiral\_hochschild\_koszul.tex} (7750).
+
+\item \VII{}: \texttt{six\_d\_hcs\_e3\_chiral\_avatar\_platonic.tex}
+  (52--77, 124, 383--443, 520--739);
+  \texttt{six\_d\_hcs\_feynman\_coefficients.tex}
+  (123, 216--219, 412, 572--660);
+  \texttt{super\_chiral\_yangian.tex}
+  (87--131, 161--262, 842--877, 968, 1153--1159);
+  \texttt{axioms.tex} (544, 1727--1821);
+  \texttt{modular\_swiss\_cheese\_operad.tex} (4268--4448);
+  \texttt{curved\_dunn\_higher\_genus.tex}
+  (1836--2108);
+  \texttt{class\_m\_direct\_sum\_obstruction\_platonic.tex} (466);
+  \texttt{topologization\_class\_m\_original\_complex\_platonic.tex}
+  (34--115);
+  \texttt{thqg\_fredholm\_partition\_functions.tex} (2941--2949);
+  \texttt{twisted\_holography\_quantum\_gravity.tex} (3249);
+  \texttt{thqg\_gravitational\_yangian.tex} (3001);
+  \texttt{introduction.tex} (2023);
+  \texttt{factorization\_swiss\_cheese.tex} (1947--1960);
+  \texttt{fractional\_ghost\_chain\_level\_platonic.tex} (34, 405);
+  \texttt{preface.tex} (1969);
+  \texttt{hochschild.tex} (5481);
+  \texttt{foundations.tex}.
+
+\item Primary-source citations (by author-year-theorem):
+Borcherds 1988 \emph{Adv.\ Math.}~83 Defn 1.1;
+Borcherds 1992 \emph{Invent.\ Math.}~109 Thm 10.4;
+Borcherds 1995 \emph{Invent.\ Math.}~120 (singular-theta weight theorem);
+Booth--Lazarev 2023 arXiv:2304.08409 (curved Quillen / coderived);
+Bruinier 2002 \emph{Lecture Notes Math.}~1780 Thm 3.22, 5.12;
+BCOV 1994 \emph{Commun.\ Math.\ Phys.}~165;
+Bryan--Oberdieck 2018; Bryan--Steinberg 2014;
+Costello--Gwilliam 2017 \emph{FA in Quantum Field Theory};
+Davison 2017 CoHA CY-3;
+Gritsenko 1999 \emph{Algebra i Analiz}~11 Thm 2.1;
+Gritsenko--Nikulin 1998 \emph{J.\ reine angew.\ Math.}~507;
+Gritsenko--Cl\'ery 2008 \emph{Acta Arith.}~133;
+Gritsenko--Cl\'ery 2011 (eight 8-forms);
+Gow--Molev 2010 (\(\fgl(m|n)\) super-Yangian);
+Harvey--Moore 1996 holomorphic anomaly;
+Kudla--Millson 1990 Thm 1.2;
+Kudla--Rapoport 2000 \S 3;
+Lorgat 2020 arXiv (Borcherds lift of \(\phi_{0,1}\) to \(\Delta_5\));
+Maulik--Nekrasov--Okounkov--Pandharipande 2006
+\emph{Compos.\ Math.}~142;
+Maulik--Pandharipande 2006;
+Pasol--Zagier 2013;
+Positselski 2011;
+Schiffmann--Vasserot 2012;
+Stukopin 2007 (\(\fosp\) super-Yangian).
+\end{itemize}
+
+\end{document}

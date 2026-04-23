@@ -1,0 +1,758 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=1.1in]{geometry}
+
+% --- macros ---------------------------------------------------
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\KK}{\mathbb{K}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\gfrak}{\mathfrak{g}}
+\providecommand{\Lfrak}{\mathfrak{L}}
+\providecommand{\Afrak}{\mathfrak{A}}
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\gh}{\mathrm{gh}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\BRST}{\mathrm{BRST}}
+\providecommand{\KT}{\mathrm{KT}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\chCE}{\mathrm{CE}^{\mathrm{ch}}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\Loc}{\mathrm{Loc}}
+\providecommand{\Op}{\mathrm{Op}}
+\providecommand{\Fact}{\mathrm{Fact}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\Uch}{U^{\mathrm{ch}}}
+\providecommand{\Uop}{U^{\mathrm{op}}}
+\providecommand{\barB}{\mathsf{B}}
+\providecommand{\Omb}{\Omega_{\mathrm{b}}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\QME}{\mathrm{QME}}
+\providecommand{\CME}{\mathrm{CME}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+
+\title{From BV--BRST to Chiral Chevalley--Eilenberg:\\
+An Explicit Dictionary}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Classical BV--BRST is Chevalley--Eilenberg
+on a derived Lie algebra whose underlying complex is the Koszul--Tate
+resolution of the shell; that is the content of the Batalin--Fradkin--Vilkovisky
+theorem. We trace the identification at chain level and lift it to the
+chiral setting: on a smooth complex curve $C$, the factorisation chiral
+envelope $\Uch(\cL)$ of a sheaf $\cL$ of $L_\infty$-algebras in the
+Beilinson--Drinfeld sense has factorisation bar complex $\barB(\Uch(\cL))$
+quasi-isomorphic to the chiral Chevalley--Eilenberg chains
+$\chCE_*(\cL)$. The classical master equation on $\cL$ is the cocycle
+equation for the chiral CE differential; the quantum master equation is
+its $\hbar$-deformation weighted by Feynman diagrams on the Ran space.
+Applied to the boundary of six-dimensional holomorphic Chern--Simons on
+$\C^3$, the holomorphic reduction sends the BV complex of
+$\hCS(\C^3, \gfrak)$ to the chiral CE complex on a transverse curve
+$C$ of the sheaf $\gfrak\otimes\Omega^{0,\bullet}_c(C)[1]$; the
+$E_3$-factorisation algebra of bulk observables pushes forward to the
+$E_1$-chiral algebra of CE chains at the defect curve.
+Five ATTACK/HEAL cycles stress-test the dictionary:
+(i) exactness of BV $\leftrightarrow$ Koszul--Tate CE;
+(ii) strict vs $L_\infty$ gauge algebra;
+(iii) chiral locality of the envelope;
+(iv) $E_3 \to E_1$ holomorphic reduction;
+(v) quantum master equation $\leftrightarrow$ $\hbar$-deformed chiral CE.
+\end{abstract}
+
+\tableofcontents
+
+%==============================================================
+\section{The linear dictionary}\label{sec:linear}
+%==============================================================
+
+Fix a field $\KK$ of characteristic zero. A (finite-dimensional) Lie
+algebra $\Lfrak$ has Chevalley--Eilenberg chains
+\[
+  \CE_*(\Lfrak) \;=\; \bigl(\Sym(\Lfrak[1]),\; d_\CE\bigr),
+  \qquad
+  d_\CE(x\wedge y) \;=\; [x,y],\;\; x,y\in \Lfrak,
+\]
+extended as a coderivation of the cocommutative coalgebra
+$\Sym(\Lfrak[1])$. The cochains with coefficients in a module $M$ are
+\[
+  \CE^*(\Lfrak;M) \;=\; \bigl(\Sym(\Lfrak^*[-1])\otimes M,\; d_\CE\bigr),
+  \qquad d_\CE(f)(x\wedge y) \;=\; \pm f([x,y]) - \text{Lie action}.
+\]
+The identity $d_\CE^2 = 0$ is Jacobi.
+
+Now install a gauge theory. Let $X$ be a manifold, $\gfrak$ a Lie
+algebra, $F$ a space of classical fields carrying a $\gfrak$-action that
+is infinitesimal gauge. The BV graded manifold is the shifted cotangent
+of the gauge quotient:
+\[
+  \cE^\BV \;=\; T^*[-1]\bigl(F/\!/\gfrak\bigr)
+  \;=\;
+  \underbrace{\gfrak[1]}_{\text{ghosts } c}
+  \;\oplus\;
+  \underbrace{F}_{\text{fields }\phi}
+  \;\oplus\;
+  \underbrace{F^*[-1]}_{\text{antifields }\phi^\dagger}
+  \;\oplus\;
+  \underbrace{\gfrak^*[-2]}_{\text{antighosts }c^\dagger}.
+\]
+The ghost number $\gh$ reads off as $+1,0,-1,-2$ on the four summands.
+The degree $(-1)$ symplectic pairing $\omega_\BV$ is the natural
+contraction $F\otimes F^*[-1]\to \KK[-1]$ together with
+$\gfrak[1]\otimes\gfrak^*[-2]\to\KK[-1]$. The classical BV action is
+\[
+  S_{\mathrm{cl}} \;=\; S_0[\phi] + \phi^\dagger(X_c\cdot\phi)
+  + \tfrac12\,c^\dagger([c,c]),
+\]
+where $S_0$ is the gauge-invariant bare action and $X_c$ is the gauge
+vector field. The classical master equation
+$\{S_{\mathrm{cl}}, S_{\mathrm{cl}}\} = 0$ is equivalent to the pair
+(i) on-shell gauge invariance of $S_0$, (ii) Jacobi for $\gfrak$.
+
+\subsection{Koszul--Tate as derived shell}\label{subsec:KT}
+
+Denote by $\Sigma \subset F$ the shell $\{dS_0 = 0\}$ and by
+$\cO(\Sigma) = \cO(F)/I_\Sigma$ its function algebra, with
+$I_\Sigma = (\partial_i S_0)$. The Koszul--Tate complex
+\[
+  \KT_* \;=\; \Sym_{\cO(F)}\bigl(F^*[-1]\bigr),
+  \qquad d_\KT \phi^\dagger_i \;=\; \partial_i S_0,
+\]
+resolves $\cO(\Sigma)$: $H_0(\KT) = \cO(\Sigma)$, $H_{<0}(\KT) = 0$
+when $\Sigma$ is cut out by a regular sequence. The gauge action
+extends to $\KT$; Chevalley--Eilenberg on $(\gfrak\curvearrowright \KT)$
+gives the \emph{BRST--Koszul--Tate bicomplex}
+\[
+  \CE^*\bigl(\gfrak;\; \KT_*\bigr)
+  \;=\;
+  \Sym\!\bigl(\gfrak^*[-1]\bigr)\otimes\Sym\!\bigl(F^*[-1]\bigr)\otimes
+  \cO(F),
+\]
+whose total differential $d_\CE + d_\KT$ squares to zero by the
+gauge-invariance of $dS_0$.
+
+\begin{theorem}[BV = CE on the Koszul--Tate shell]\label{thm:bv-ce-ktshell}
+\ClaimStatusTheorem\
+Let $\gfrak$ act on $F$ by a gauge action, $S_0\in\cO(F)^{\gfrak}$ an
+invariant classical action, $\Sigma = \{dS_0=0\}$ a complete intersection,
+and $\cE^\BV$ the BV graded manifold above. Then the pair
+$(\cO(\cE^\BV), \{S_{\mathrm{cl}},-\})$ is quasi-isomorphic, as a
+differential graded commutative algebra, to the BRST--Koszul--Tate
+bicomplex
+\[
+  \bigl(\cO(\cE^\BV),\; \{S_{\mathrm{cl}},-\}\bigr)
+  \;\simeq\;
+  \bigl(\CE^*(\gfrak;\,\KT_*),\; d_\CE + d_\KT\bigr).
+\]
+In particular the cohomology in ghost number zero is
+$\cO(\Sigma)^{\gfrak}$, the algebra of gauge-invariant on-shell
+observables.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The Hamiltonian vector field of $S_{\mathrm{cl}}$ decomposes into the
+sum $\{S_0,-\} + \{c^\alpha X_\alpha\cdot,-\} + \{\tfrac12 c^\dagger[c,c],-\}$.
+The first is $d_\KT$ (pairing $\phi^\dagger$ with $\partial S_0$); the
+second is the CE differential valued in $\KT$ (the gauge action); the
+third is the CE differential on $\gfrak$. The anticommutation of $d_\KT$
+and $d_\CE$ is gauge-invariance of $S_0$; their separate nilpotencies
+are regularity of $\Sigma$ and Jacobi. See Henneaux--Teitelboim Ch.~10;
+Stasheff's derived-bracket formulation; Costello--Gwilliam Ch.~4.
+\end{proof}
+
+\begin{remark}[Derived Lie algebra]\label{rmk:derivedlie}
+Assembled from the two sides of the bicomplex, the data
+$(\gfrak\curvearrowright F,\; S_0)$ is equivalent to an
+$L_\infty$-algebra $\Lfrak$ with underlying complex
+$F^*[-1]\oplus \gfrak[1]$, binary bracket
+$\ell_2 = [-,-]_\gfrak + (\gfrak\text{-action on }F)$, ternary bracket
+$\ell_3$ recording the Hessian of $S_0$, and higher brackets
+encoding higher Taylor coefficients. BV is then
+$\CE^*(\Lfrak)$ up to a shift, and Theorem~\ref{thm:bv-ce-ktshell} is
+the statement that CE of this derived Lie algebra presents the derived
+stack $\mathbb{R}\mathrm{Crit}(S_0)/\gfrak$.
+\end{remark}
+
+%==============================================================
+\section{Chiral envelope and chiral Chevalley--Eilenberg}\label{sec:chiral}
+%==============================================================
+
+Let $C$ be a smooth complex curve, fix a sheaf
+$\cL$ of $L_\infty$-algebras on $C$, i.e.~a sheaf of
+$L_\infty$-algebras locally of the form $\gfrak\otimes\cO_C$ with
+Beilinson--Drinfeld chiral brackets; the base example is
+$\gfrak\otimes\Omega^{0,\bullet}_c(C)$ with $\dbar$-differential.
+
+\subsection{Chiral envelope}
+
+Beilinson--Drinfeld attach to $\cL$ a chiral algebra
+$\Uch(\cL)$ (a $\cD$-module on the Ran space $\mathrm{Ran}(C)$ with
+chiral operation $\mu_{\mathrm{ch}}$). On a disk $D\subset C$ with
+coordinate $z$, the sections of $\Uch(\cL)$ recover the factorisation
+enveloping algebra
+\[
+  \Uch(\cL)(D) \;\simeq\; U\!\bigl(\cL(D) \otimes \KK(\!(z)\!)\bigr)
+  \;/\; \text{BD chiral relations},
+\]
+so at a single point the fibre is the ordinary universal enveloping
+of the loop $L_\infty$-algebra $\cL\otimes\KK(\!(z)\!)$. In the Costello
+dictionary this is the factorisation algebra of classical observables
+for the associated free $E_1$-chiral theory.
+
+\subsection{Chiral CE chains}
+
+The chiral CE chains $\chCE_*(\cL)$ are defined as the factorisation
+bar of the chiral envelope: a $\cD$-module on $\mathrm{Ran}(C)$ whose
+fibre over a configuration $\{x_1,\ldots,x_n\}\subset C$ is
+$\Sym^n\bigl(\cL[1]\bigr)$ with differential the sum of the pointwise
+CE differential and the chiral fusion operations at coinciding points.
+Explicitly, over a single disk,
+\[
+  \chCE_*(\cL)(D) \;=\; \bigl(\Sym(\cL(D)[1]),\; d_\CE + d_{\mathrm{fus}}\bigr),
+  \qquad
+  d_{\mathrm{fus}} \;=\; \mu_{\mathrm{ch}}\text{-insertion at OPE poles}.
+\]
+\begin{theorem}[Factorisation bar = chiral CE]\label{thm:chce-bar}
+\ClaimStatusTheorem\
+There is a natural quasi-isomorphism of factorisation $\cD$-modules on
+$\mathrm{Ran}(C)$
+\[
+  \barB\bigl(\Uch(\cL)\bigr)
+  \;\simeq\;
+  \chCE_*(\cL),
+\]
+which on each disk $D\subset C$ reduces to the quasi-isomorphism
+$\barB(U(\Lfrak)) \simeq \CE_*(\Lfrak)$ of Quillen, applied
+loopwise to $\Lfrak = \cL(D)\otimes\KK(\!(z)\!)$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Quillen's result computes the bar complex of the universal enveloping
+algebra of a Lie algebra as its Chevalley--Eilenberg chains. The chiral
+envelope is defined so that its bar complex on each chart is, by
+construction, the chiral CE chains; the assertion is compatibility with
+the Ran gluing, i.e.~that the chiral operation
+$\mu_{\mathrm{ch}}$ on $\Uch(\cL)$ coincides with the fusion
+differential $d_{\mathrm{fus}}$ on $\chCE_*(\cL)$. This is
+Beilinson--Drinfeld \S 4 Proposition 4.2 in chain language;
+Francis--Gaitsgory give the factorisation-stack version. The $L_\infty$
+generalisation is Costello--Gwilliam Vol.~II Thm.~6.3.0.1.
+\end{proof}
+
+\begin{remark}[$E_1$ vs $E_2$ scope]\label{rmk:E1E2scope}
+On a curve, chiral algebras are $E_1$-chiral (chiral at one complex
+dimension, topological in zero transverse real dimensions). If $C$
+is replaced by a surface, $\cL$ a sheaf of $L_\infty$-algebras on
+the surface and $\Uch$ the corresponding two-dimensional chiral
+envelope, the factorisation bar becomes an $E_2$-chiral object;
+this is the surface version used at $d\leq 2$. On CY$_{d\geq 3}$,
+the observable algebra $A$ is $E_1$, so the factorisation bar in
+the curve direction is the structure that survives; this is
+recorded in Vol III as the output-scope stratification by $d$.
+\end{remark}
+
+%==============================================================
+\section{Classical and quantum master equations as CE cocycle equations}%
+\label{sec:master}
+%==============================================================
+
+\subsection{Classical master equation}
+
+A Maurer--Cartan element $\alpha\in\cL\otimes\Omb$ of an $L_\infty$-algebra
+$\cL$ (here $\Omb$ is any unital commutative dg algebra; the BV case
+uses $\Omb = \cO(\cE^\BV)$, the classical observables) satisfies
+\[
+  \MC(\alpha) \;=\; \sum_{k\geq 1}\frac{1}{k!}\,\ell_k(\alpha^{\otimes k}) \;=\; 0.
+\]
+The map $\alpha\mapsto \MC(\alpha)$ is the CE differential on
+$\CE^*(\cL;\Omb)$ evaluated on the identity bidegree component. Thus
+\emph{the classical master equation is the MC equation for the derived
+Lie algebra $\Lfrak$ of Remark~\ref{rmk:derivedlie}.} In the BV
+gauge-theory case, the identification reads
+\[
+  \{S_{\mathrm{cl}}, S_{\mathrm{cl}}\} \;=\; 0
+  \;\iff\;
+  S_{\mathrm{cl}} \in \MC\bigl(\Lfrak;\cO(\cE^\BV)\bigr).
+\]
+
+\subsection{Quantum master equation}
+
+Quantisation of BV introduces the BV Laplacian $\Delta_\BV$, a
+second-order differential operator of degree $+1$ satisfying
+$\Delta_\BV^2 = 0$ and the seven-term identity
+\[
+  \Delta_\BV(fg) \;=\; (\Delta_\BV f)\,g + (-1)^{|f|}\,f\,(\Delta_\BV g)
+  + (-1)^{|f|}\{f,g\}.
+\]
+The quantum master equation is
+\[
+  \{S, S\} + 2\hbar\,\Delta_\BV S \;=\; 0
+  \qquad\Longleftrightarrow\qquad
+  \Delta_\BV\exp(S/\hbar) \;=\; 0.
+\]
+On the derived Lie algebra side, $\Delta_\BV$ is the Feynman weight of
+binary contraction along the BV propagator $P_{\varepsilon,L}$, and the
+QME is the MC equation for the $\hbar$-deformed $L_\infty$-structure
+$\{\ell_k^\hbar\}$ produced by homological perturbation from
+$(\cL,\{\ell_k\}, P_{\varepsilon,L})$.
+
+\begin{theorem}[QME = $\hbar$-deformed CE cocycle]\label{thm:qme-hce}
+\ClaimStatusTheorem\
+Let $\cL$ be an $L_\infty$-algebra with brackets $\{\ell_k\}$ and
+$P$ a degree $-1$ contraction onto cohomology. Let
+$\{\ell_k^\hbar\}$ denote the homological-perturbation-produced
+$L_\infty[[\hbar]]$-structure on $H(\cL)$ with $\ell_k^\hbar$ a sum
+over connected trees with $k$ leaves weighted by $\hbar^{\text{loops}}$
+and $P$-edges. An $\hbar$-formal MC element $\alpha(\hbar)$ solves
+the QME for $(\cL,P,\Delta_\BV)$ if and only if its image
+$\bar\alpha(\hbar)\in H(\cL)[[\hbar]]$ solves the MC equation for
+$\{\ell_k^\hbar\}$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Homological perturbation lemma in the presence of a second-order
+Laplacian: Merkulov, Kontsevich--Soibelman, Costello's Wilsonian effective
+action construction. Each Feynman tree $T$ with $k$ leaves and
+$\ell(T)$ loops contributes $\hbar^{\ell(T)}$ to
+$\ell_k^\hbar$; convergent on cohomology by regularity of $P$. The
+equivalence QME $\Leftrightarrow$ MC of $\ell^\hbar$ is Costello
+\emph{Renormalization and Effective Field Theory}~Thm.~5.0.16.
+\end{proof}
+
+\subsection{Chiral avatar}
+
+On a curve $C$, the chiral QME is
+\[
+  \mu_{\mathrm{ch}}\!\bigl(e^{S/\hbar}, e^{S/\hbar}\bigr) \;=\; 0
+  \quad\text{in }\Uch(\cL)[[\hbar]],
+\]
+and Theorem~\ref{thm:qme-hce} gives a Feynman-weighted chiral CE
+cocycle condition on $\chCE_*(\cL)[[\hbar]]$. The Feynman graphs are
+coloured by configurations in $\mathrm{Ran}(C)$; the propagator is the
+chiral Green's kernel of $\dbar_C$; contractions are performed against
+this kernel. At genus zero this recovers the Costello--Gwilliam
+comparison of perturbative observables with chiral bar; at higher
+genus the BV Laplacian carries a curvature $\kappa_{\mathrm{ch}}\cdot\omega_g$
+visible in the Positselski-coderived bar complex of Vol I.
+
+%==============================================================
+\section{Holomorphic reduction: 6d hCS to 2d chiral CE}\label{sec:reduction}
+%==============================================================
+
+We apply the dictionary in the direction the programme cares about:
+boundary chiral algebras of six-dimensional holomorphic Chern--Simons.
+
+\subsection{The bulk BV complex}
+
+Let $X=\C^3$ with holomorphic volume form $\Omega=dz_1\wedge
+dz_2\wedge dz_3$. Six-dimensional holomorphic Chern--Simons on $X$ with
+structure Lie algebra $\gfrak$ (possessing non-degenerate invariant
+pairing $\tr$) is built from the Dolbeault complex
+$\Omega^{0,\bullet}(X,\gfrak)$. Its BV graded vector space is
+\[
+  \cE^\BV_{\hCS} \;=\; \Omega^{0,\bullet}(X,\gfrak[1])\;\oplus\;
+  \Omega^{0,\bullet}(X,\gfrak^*[-2]),
+\]
+with the ghost/field/antifield/antighost decomposition unwrapped from
+Dolbeault degree: $c\in\Omega^{0,0}$ at $\gh=+1$,
+$\cA\in\Omega^{0,1}$ at $\gh=0$, $\cA^\dagger\in\Omega^{0,2}$ at
+$\gh=-1$, $c^\dagger\in\Omega^{0,3}$ at $\gh=-2$. The degree $-1$
+symplectic pairing is
+$\omega(\alpha,\beta) = \int_X\Omega\wedge\tr(\alpha\wedge\beta)$. The
+classical action
+\[
+  S_{\mathrm{cl}} = \int_X\Omega\wedge\tr\!\Bigl(
+  \tfrac12\cA\dbar\cA + \tfrac16\cA[\cA,\cA]
+  + \cA^\dagger\dbar c + \cA^\dagger[\cA,c] + \tfrac12 c^\dagger[c,c]
+  \Bigr)
+\]
+satisfies CME (Proposition in \S\ref{sec:linear}, specialised to the
+Dolbeault resolution). The underlying derived Lie algebra is
+\[
+  \Lfrak_X \;=\; \gfrak\otimes\Omega^{0,\bullet}_c(X),\qquad
+  d = \dbar,\qquad \ell_2 = [-,-]_\gfrak\otimes\wedge,
+\]
+with no higher brackets: a strict dg Lie algebra.
+Theorem~\ref{thm:bv-ce-ktshell} specialises to
+\[
+  \bigl(\cO(\cE^\BV_{\hCS}),\;\{S_{\mathrm{cl}},-\}\bigr)
+  \;\simeq\;
+  \CE^*\!\bigl(\Lfrak_X\bigr).
+\]
+
+\subsection{Holomorphic reduction to a transverse curve}
+
+Choose a holomorphic projection $\pi: X = \C^3 \to C$ onto a transverse
+curve (take $C = \C$ with coordinate $z_1$, and integrate out
+$(z_2,z_3)$). Push the dg Lie algebra forward:
+\[
+  \pi_* \Lfrak_X \;=\; \gfrak \otimes
+  \pi_*\Omega^{0,\bullet}_c(X)
+  \;\simeq\;
+  \gfrak\otimes \Omega^{0,\bullet}_c(C)\otimes
+  H^{0,\bullet}_c\!\bigl(\C^2\bigr)[1],
+\]
+where we used the Künneth isomorphism and the fact that the transverse
+fibre $\C^2$ has compactly-supported Dolbeault cohomology concentrated
+in top degree. Writing $H^{0,2}_c(\C^2) \simeq \C\cdot\delta_0$ (class
+of the origin), the push-forward simplifies to
+$\cL_C = \gfrak\otimes\Omega^{0,\bullet}_c(C)$ with a shifted degree
+convention. The holomorphic chiral envelope of $\cL_C$ is
+$\Uch(\cL_C) = \gfrak\text{-Kac--Moody at the transverse level}$
+determined by the pairing $\tr$ and the transverse class $\delta_0$,
+and Theorem~\ref{thm:chce-bar} gives
+\[
+  \barB\!\bigl(\Uch(\cL_C)\bigr) \;\simeq\; \chCE_*(\cL_C).
+\]
+
+\subsection{Bulk/boundary matching}
+
+The bulk $E_3$-factorisation algebra of observables of
+$\hCS(\C^3,\gfrak)$ on a small ball reduces under $\pi$ to an
+$E_1$-chiral algebra on $C$ equivalent to $\chCE_*(\cL_C)$. The
+chain-level identity
+\[
+  \pi_*\!\bigl(\Obs^{q}_{\hCS}\bigr)
+  \;\simeq\;
+  \chCE_*\!\bigl(\gfrak\otimes\Omega^{0,\bullet}_c(C)\bigr)[[\hbar]]
+\]
+holds at classical level ($\hbar = 0$) by
+Theorems~\ref{thm:bv-ce-ktshell},~\ref{thm:chce-bar}, and at quantum
+level ($\hbar\neq 0$) by Theorem~\ref{thm:qme-hce}, with the Feynman
+weights computed by the Costello--Williams heat-kernel propagator on
+$\C^3$. This is the Costello 6d/4d correspondence in its chiral CE
+presentation.
+
+\begin{remark}[Scope]
+The identification $\barB(\Uch(\cL))\simeq\chCE_*(\cL)$ is classical
+Beilinson--Drinfeld / Francis--Gaitsgory / Costello--Gwilliam and is
+unambiguous. The holomorphic reduction step $\pi_*$ requires the
+transverse fibre to be a rational homology point of the appropriate
+Dolbeault flavour; for $\C^2$ with compact supports this is the
+Bochner--Martinelli computation of \S 3 of
+\emph{wave12\_b4\_6d\_hCS\_BV\_BRST\_Feynman.tex}. For compact
+transverse fibres (e.g.~a K3 surface in $K3\times E$) the reduction is
+not a simplification but a genuine chiral lift, and the $E_3$ output on
+$K3\times E$ does not trivially reduce to $E_1$ on $E$; instead one
+must compute the $E_2$ factorisation along $K3$, producing the
+K3 Yangian / quantum toroidal chiral envelope. This is the content of
+the Vol III K3 programme; the dictionary above provides the mechanism,
+not the full computation.
+\end{remark}
+
+%==============================================================
+\section{ATTACK/HEAL stress tests}\label{sec:ah}
+%==============================================================
+
+\begin{attack}[BV $\neq$ CE without Koszul--Tate]\label{atk:1}
+\emph{``The BV complex is just CE of $\gfrak$ on classical fields; the
+antifields are an artefact of gauge fixing.''} This is false. Without
+antifields one computes $\CE^*(\gfrak;\cO(F))$, which is gauge-invariant
+cohomology of \emph{all of $F$}, not of the shell $\Sigma$. The
+Koszul--Tate tower $\KT_*$ is what cuts down from $F$ to $\Sigma$; the
+antifields $\phi^\dagger$ are its generators, with $d_\KT\phi^\dagger_i =
+\partial_i S_0$.
+\end{attack}
+
+\begin{heal}[Exact BFV--BV identity]\label{heal:1}
+The BV complex is CE of the derived Lie algebra
+$\Lfrak = (F^*[-1]\oplus\gfrak[1], \ell_2, \ell_3, \ldots)$ of
+Remark~\ref{rmk:derivedlie}, equivalently CE of $\gfrak$ with
+coefficients in the Koszul--Tate resolution $\KT_*$ of $\cO(\Sigma)$.
+Theorem~\ref{thm:bv-ce-ktshell} is the precise statement; the
+Batalin--Vilkovisky original paper \emph{Phys.~Rev.~D~28 (1983)~2567}
+contains the chain-level proof for irreducible gauge algebras; Stasheff
+\emph{J.~Pure Appl.~Alg.~89 (1993)~231} gives the $L_\infty$ form;
+Henneaux--Teitelboim Ch.~10 is the exhaustive bosonic account;
+Costello--Gwilliam Vol.~I Ch.~4.3 is the $L_\infty$ formulation used in
+Vol III. The dictionary is \emph{exact}, not parallel.
+\end{heal}
+
+\begin{attack}[Strict Lie or $L_\infty$?]\label{atk:2}
+\emph{``The gauge algebra is a strict Lie algebra $\gfrak$; $L_\infty$
+decorations are cosmetic.''} False in general. Open gauge algebras
+(where the commutator of gauge transformations closes only on-shell, as
+in supergravity and in closed string field theory) require
+$L_\infty$ extensions. Even in closed gauge algebras, the interaction
+with the classical action generates ternary and higher derived brackets
+$\ell_k$, $k\geq 3$, whenever $S_0$ is non-quadratic (which is always,
+for interacting theories).
+\end{attack}
+
+\begin{heal}[$L_\infty$ is generic]\label{heal:2}
+The derived Lie algebra $\Lfrak$ of Remark~\ref{rmk:derivedlie} carries
+\[
+  \ell_k(\xi_1,\ldots,\xi_k) \;=\; \partial^k S_0 / \partial\phi^{k} \cdot
+  \prod_i \xi_i + (\text{gauge structure contributions}),
+\]
+with $\ell_3$ the Hessian, $\ell_4$ the cubic Taylor coefficient, etc.
+For a free theory ($S_0$ quadratic), $\ell_k = 0$ for $k\geq 3$ and
+$\Lfrak$ is strict. For interacting theories the full $L_\infty$ is
+needed and $\chCE_*$ of \S\ref{sec:chiral} automatically includes the
+higher brackets.
+In 6d hCS, $\Lfrak_X = \gfrak\otimes\Omega^{0,\bullet}_c$ with only
+$\ell_1=\dbar$ and $\ell_2=[-,-]$ because the classical action is
+Chern--Simons-cubic in $\cA$; all higher $\ell_k$ vanish. This is why
+\S\ref{sec:reduction} is clean at classical level. Interactions are
+re-introduced through the Feynman weights
+of Theorem~\ref{thm:qme-hce} at $\hbar\neq 0$.
+\end{heal}
+
+\begin{attack}[Chiral envelope vs ordinary envelope]\label{atk:3}
+\emph{``$\Uch(\cL)(D)$ on a disk is just $U(\cL(D)\otimes\KK(\!(z)\!))$;
+no chirality left.''} False at Ran-space level. On the disk the
+chiral structure \emph{reduces} to an ordinary associative structure,
+but the factorisation $\cD$-module $\Uch(\cL)$ on $\mathrm{Ran}(C)$ is
+determined by the chiral operations at colliding points, which do not
+reduce to the associative product; they determine how two points'
+operators OPE into one. The bar of $\Uch(\cL)$ on Ran is strictly more
+structure than the bar on a single disk.
+\end{attack}
+
+\begin{heal}[Factorisation is the right ambient]\label{heal:3}
+The correct formulation of Theorem~\ref{thm:chce-bar} is at the level of
+factorisation $\cD$-modules on $\mathrm{Ran}(C)$, not at the level of
+values on a single disk. The quasi-isomorphism is then a statement about
+cosimplicial factorisation objects: for each finite subset
+$I\subset C$, $\barB(\Uch(\cL))_I \simeq \chCE_*(\cL)_I$, compatibly
+with the unit and chiral fusion. This is Francis--Gaitsgory
+\emph{Chiral Koszul Duality}, Theorem 3.6.2. On a single disk one
+recovers the Quillen $\barB(U(\Lfrak))\simeq\CE_*(\Lfrak)$.
+\end{heal}
+
+\begin{attack}[$E_3\to E_1$ reduction genuinely sees bulk]\label{atk:4}
+\emph{``The boundary chiral algebra does not see the 6d bulk; the
+reduction loses everything except the Lie-algebra data.''} Partly true,
+partly false. The classical CE complex does depend only on the Lie
+data; but the \emph{quantum} chiral CE is weighted by Feynman diagrams
+with heat kernels on $\C^3$, and those kernels encode the transverse
+dimension. The central extension parameter (Kac--Moody level) at the
+boundary is determined by the bulk propagator normalisation; the
+$c_2$-anomaly of 6d hCS becomes the level shift on the boundary chiral
+algebra.
+\end{attack}
+
+\begin{heal}[Chiral CE sees bulk at loop level]\label{heal:4}
+The $\hbar$-deformed brackets $\{\ell_k^\hbar\}$ in
+Theorem~\ref{thm:qme-hce} are built from Feynman-tree contractions
+through the 6d Costello--Williams propagator
+$P_{\varepsilon,L} = \int_\varepsilon^L (\dbar^*\otimes\id)K_t\,dt$ on
+$\C^3$. These contractions include 6d degrees of freedom that the
+classical CE on the boundary curve $C$ cannot see. The end result is
+that the $\hbar$-deformed chiral CE complex
+$\chCE_*(\cL_C)[[\hbar]]$ carries a central extension by the transverse
+pairing, producing Kac--Moody at level $\tr$, and an anomaly controlled
+by $c_2(\gfrak)$ (the second Chern class of the gauge bundle). This
+central extension is the shadow of bulk 6d physics in the 2d chiral
+algebra.
+\end{heal}
+
+\begin{attack}[Quantum master equation as $\hbar$-deformed cocycle]\label{atk:5}
+\emph{``QME is an ad-hoc quantum correction to CME; it is not a
+CE-level statement.''} False. The QME
+$\{S,S\} + 2\hbar\Delta_\BV S = 0$ is precisely the MC equation on the
+$\hbar$-deformed $L_\infty$-structure $\{\ell_k^\hbar\}$, which is in
+turn the CE cocycle equation of the derived Lie algebra
+$(\Lfrak,\ell^\hbar)$. There is no gap between the homotopical and the
+Feynman formulations: they compute the same thing.
+\end{attack}
+
+\begin{heal}[Homological perturbation seals the gap]\label{heal:5}
+The identification is Theorem~\ref{thm:qme-hce}, whose proof is
+homological-perturbation-lemma applied to the contraction
+$P_{\varepsilon,L}$. Each Feynman graph has a canonical interpretation
+as a partial CE boundary operator on a tensor power of $\cL$; the sum
+over graphs is the perturbed $\ell_k^\hbar$. QME $\Leftrightarrow$
+$\ell^\hbar$-MC $\Leftrightarrow$ $\chCE_*(\cL)[[\hbar]]$ cocycle
+condition is a three-term identity, none of the three terms is
+privileged. References: Costello \emph{Renormalization and Effective
+Field Theory}~Thm.~5.0.16, Gwilliam--Rejzner 2019~\S 3,
+Costello--Gwilliam Vol.~II Thm.~8.4.0.1.
+\end{heal}
+
+%==============================================================
+\section{Cross-programme consistency}\label{sec:cross}
+%==============================================================
+
+Vol III claims that depend on or interlock with the dictionary above:
+
+\begin{itemize}
+\item \textbf{Class M $E_3$ bar $=6^g$}: the factorisation bar
+$\barB(\Uch(\mathrm{Vir}))$ on a genus-$g$ curve has rank $6^g$ at
+cohomology level; this is Theorem~\ref{thm:chce-bar} applied to
+$\cL = \mathrm{Vir}$-on-curve with the six-generator CE computation
+done per-genus.
+\item \textbf{CoHA$(\C^3) = Y^+$ (positive half)}: the cohomological
+Hall algebra of $\C^3$ is the positive half of the Yangian, not the
+full double. In the chiral CE language this is the statement that
+$\Uch(\gfrak\otimes\Omega^{0,\bullet}_c(\C^3))$ is $E_3$ but its
+chiral-CE-bar on a transverse curve produces only the positive
+Yangian; the negative half requires the opposite chirality (equivalently,
+the bar of the opposite envelope $\Uch_{\mathrm{op}}$). Six routes to
+$G(K3\times E)$ are six \emph{different} constructions, not six
+$\Phi$-applications.
+\item \textbf{$\kcat(K3\times E)=0$, not 2}: CE chains are
+Künneth-multiplicative, and $\kcat$ is the Euler characteristic of
+$\cO$ which multiplies across products; the fibre K3 has
+$\chi(\cO)=2$, the base $E$ has $\chi(\cO_E)=0$, so
+$\kcat(K3\times E)=2\cdot 0=0$. The chiral CE computation of
+\S\ref{sec:chiral} on $E$ alone with coefficients pulled back from the
+K3 fibre yields the same multiplicative zero; the BV complex on $X =
+K3\times E$ respects this Künneth split.
+\item \textbf{Bare $\kappa$ forbidden}: the dictionary produces
+$\kch$ (via $\Phi$, chain-level on the chiral CE side) and $\kcat$ (via
+$\chi(\cO)$, the $H^0$ of CE on $\mathrm{Sym}(T_X[-1])$) by two distinct
+mechanisms; they coincide on compact CY$_d$ by the Hodge supertrace
+identification $\kch(A_X) = \sum_q(-1)^q h^{0,q}(X) = \chi(\cO_X) = \kcat(X)$
+(compact CY$_d$) but this is a theorem, not a definition, and in
+singular or non-compact situations they differ.
+\item \textbf{At $d\geq 3$, $A$ is $E_1$}: chiral CE is
+$E_1$-chiral along the curve direction; factorisation bar along a
+surface is $E_2$; along a threefold $E_3$. The statement is that the
+output of $\Phi$ on a CY$_3$ category is an $E_1$-chiral algebra on the
+curve (not an $E_2$ or $E_3$ structure at that level), matching the
+Vol III dimensional stratification. The $E_2$ structure lives on
+$Z^{\mathrm{der}}(\mathrm{Rep}(A))$, not on $A$.
+\end{itemize}
+
+\section{Open questions}\label{sec:open}
+
+\textbf{Q1.} The push-forward $\pi_*\Lfrak_X$ of \S\ref{sec:reduction}
+is clean for $X=\C^3$ with transverse fibre $\C^2$. For
+$X = K3\times E$ with transverse fibre $K3$ (projection to $E$), the
+fibre cohomology $H^{0,\bullet}(K3)$ is non-trivial in three degrees,
+and the resulting sheaf $\pi_*\Lfrak_X$ on $E$ is no longer a strict
+dg Lie algebra: higher brackets $\ell_k$, $k\geq 3$, are generated by
+the wedge pairings on $H^{0,\bullet}(K3)$. What is the $L_\infty$
+presentation of this pushed-forward sheaf, and does it match the K3
+Yangian?
+
+\textbf{Q2.} The $\hbar$-deformed chiral CE of Theorem~\ref{thm:qme-hce}
+has a curvature $\kch\cdot\omega_g$ at genus $g$, per the Vol I
+Positselski coderived identification. Does the BV Laplacian
+$\Delta_\BV$ acting on 6d hCS observables carry a matching curvature at
+genus $g\geq 1$? The genus-zero case is clean (classical CE $=$ bar);
+the genus $\geq 1$ identification is MC5 of Vol I, which at the moment
+is conjectural at chain level.
+
+\textbf{Q3.} Beyond the classical/quantum master equation, is there a
+homotopy-coherent version of Theorem~\ref{thm:qme-hce} that captures
+the full $(\infty,1)$-categorical structure of the deformation? The
+Kontsevich--Soibelman stability-condition / wall-crossing
+machinery suggests yes, via the derived stack of MC elements.
+
+\textbf{Q4.} Does the chiral CE construction on the Ran space of a
+higher-dimensional base (e.g.~$\mathrm{Ran}(X)$ for a surface $X$)
+satisfy a factorisation analog of Theorem~\ref{thm:chce-bar}? This
+would extend the $E_1\to E_n$ chiral hierarchy of Vol III to produce
+explicit factorisation presentations of the $E_n$-chiral algebras on
+CY$_n$.
+
+%==============================================================
+\appendix
+\section{Rectification log}\label{app:rect}
+%==============================================================
+
+\noindent\textbf{Scope declaration.} This note is a technical companion,
+not a chapter. All five attack/heal pairs interrogate the BV-to-chiral-CE
+dictionary at chain level; the $(\infty,1)$-categorical upgrade is
+referenced but not rederived. Primary sources are
+Batalin--Vilkovisky~1983, Stasheff~1993, Beilinson--Drinfeld
+\emph{Chiral Algebras} (2004), Francis--Gaitsgory \emph{Chiral Koszul
+Duality} (2011), Costello--Gwilliam \emph{Factorization Algebras}
+Vol.~I--II (2017, 2021), Costello \emph{Renormalization and Effective
+Field Theory} (2011).
+
+\noindent\textbf{Attack/heal round 1 (exactness).} Initial draft asserted
+``BV is essentially CE'' without invoking Koszul--Tate. Rebuilt against
+Henneaux--Teitelboim Ch.~10 and Stasheff 1993: the identity
+BV $=$ CE requires specifying the Koszul--Tate resolution of the shell,
+which is the role of the antifields. Theorem~\ref{thm:bv-ce-ktshell}
+is the exact form; Remark~\ref{rmk:derivedlie} is the derived Lie
+algebra upgrade.
+
+\noindent\textbf{Attack/heal round 2 (strict vs $L_\infty$).} Initial
+draft wrote strict Lie algebra throughout. Rebuilt with $L_\infty$ as the
+generic framework, recording that 6d hCS happens to be strict at
+classical level (because the action is cubic), but the full theory
+including QME requires $L_\infty$ brackets from
+Theorem~\ref{thm:qme-hce}. Both lanes (strict and $L_\infty$) are
+load-bearing per the equal-status rule.
+
+\noindent\textbf{Attack/heal round 3 (chiral vs ordinary).} Initial
+draft conflated $\Uch(\cL)$ with the ordinary universal enveloping. The
+chiral envelope is a factorisation $\cD$-module on $\mathrm{Ran}(C)$;
+on a single disk it reduces to an ordinary enveloping algebra, but the
+Ran-level structure is strictly richer. Rebuilt with factorisation
+language; Theorem~\ref{thm:chce-bar} is the correct factorisation-level
+statement per Francis--Gaitsgory.
+
+\noindent\textbf{Attack/heal round 4 ($E_3\to E_1$ reduction).} Initial
+draft claimed the boundary chiral algebra trivialises the bulk 6d
+content. Rebuilt: the classical CE loses the bulk, but the
+$\hbar$-deformed CE with Feynman-weighted brackets retains the bulk
+propagator dependence (central extension, $c_2$-anomaly). The
+Kac--Moody level at the boundary encodes 6d pairing normalisation.
+
+\noindent\textbf{Attack/heal round 5 (QME).} Initial draft separated
+QME from CE cocycle condition. Rebuilt: QME is MC for the
+$\hbar$-deformed $L_\infty$-structure, which is the CE cocycle
+condition of the derived Lie algebra at $\hbar\neq 0$. Theorem~\ref{thm:qme-hce}
+formalises the three-term identity QME $=$ $\ell^\hbar$-MC $=$ $\hbar$-CE
+cocycle, a consequence of the homological perturbation lemma.
+
+\noindent\textbf{Cache discipline.} Six routes to $G(K3\times E)$: six
+different constructions, not six $\Phi$ applications (consistency
+remark in \S\ref{sec:cross}). $\kcat(K3\times E)=0$:
+Künneth-multiplicative, with K3 fibre $\chi(\cO)=2$ and $E$ base
+$\chi(\cO)=0$. CoHA$(\C^3)=Y^+$: positive half, not full double
+(consistency remark in \S\ref{sec:cross}). $\kBKM(\Phi_N)=c_N(0)/2$:
+Borcherds weight formula, not derivable from the BV-to-CE dictionary
+directly (a separate automorphic-side identity).
+
+\noindent\textbf{Author.} Raeez Lorgat.
+
+\end{document}

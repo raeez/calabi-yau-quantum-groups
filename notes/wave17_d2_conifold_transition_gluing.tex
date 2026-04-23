@@ -1,0 +1,219 @@
+% wave17_d2_conifold_transition_gluing.tex
+% Wave-17 D2/20 working note.
+% The conifold transition as a positive-half gluing phenomenon.
+% Voice: Strominger + Gopakumar, channeling Chriss--Ginzburg.
+
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.15in]{geometry}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\bS}{\mathbb{S}}
+\providecommand{\bT}{\mathbb{T}}
+\providecommand{\bY}{\mathbb{Y}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\Crit}{\operatorname{Crit}}
+\providecommand{\Tot}{\mathrm{Tot}}
+\providecommand{\Heis}{\mathrm{Heis}}
+\providecommand{\Fact}{\mathrm{Fact}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\hocolim}{\operatorname{hocolim}}
+\providecommand{\Ran}{\operatorname{Ran}}
+\providecommand{\BPS}{\mathrm{BPS}}
+\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kappafib}{\kappa_{\mathrm{fiber}}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The conifold transition as a positive--half gluing phenomenon}
+\author{Wave-17 D2/20 working note}
+\date{April 2026}
+
+\begin{document}
+\maketitle
+
+\section{Two smoothings of one singularity}
+
+The conifold $Y_0=\{xy-zw=0\}\subset\C^4$ is the ordinary double point of
+CY threefold geometry. It admits two distinct resolutions of crepant
+type: the deformation $Y_\epsilon=\{xy-zw=\epsilon\}$, topologically a
+rank--three bundle over $S^3$, and the small resolution
+$\widetilde{Y}=\Tot(\cO(-1)\oplus\cO(-1)\to\bP^1)$, whose exceptional
+locus is a rational curve. Strominger 1995 identifies the massless
+hypermultiplet of the type IIB string on $Y_\epsilon$ with the
+D3--brane wrapping the vanishing $S^3$; Gopakumar--Vafa 1998 identifies
+the M2--brane wrapping the exceptional $\bP^1$ of $\widetilde{Y}$ as
+the mirror BPS state. Both sides see the same wall in K\"ahler--complex
+moduli space from opposite asymptotics.
+
+We recast this wall as a gluing of positive halves. Write $Y^+(Z)$ for
+the critical CoHA $\CoHA(\cA_Z,W_Z)$ of a local Ginzburg presentation
+$(\cA_Z,W_Z)$ of the CY$_3$ $Z$ (Kontsevich--Soibelman 2008, Ch.~6;
+Szendr\H{o}i 2008, \S\S 2--3).
+
+\section{Deformation side: $S^3$ fibre and a Heisenberg positive half}
+
+The deformation $Y_\epsilon$ is diffeomorphic to $T^*S^3$; its
+Donaldson--Thomas theory has been computed in closed form
+(Szendr\H{o}i 2008, \S 4; Morrison--Mozgovoy--Nagao--Szendr\H{o}i 2012,
+Thm.~1.1). The relevant positive half is
+\begin{equation}\label{eq:Yplus-def}
+  Y^+(Y_\epsilon)\;=\;\CoHA(\cA_{\text{conifold}},W_{\text{conifold}})
+  \;\cong\;\Heis(H^\bullet(S^3,\Q)[-3]\oplus H^0(S^3,\Q)),
+\end{equation}
+the Heisenberg on the $S^3$ hypermultiplet cohomology shifted by the
+Calabi--Yau degree. The quiver is the Klebanov--Witten quiver with
+superpotential $W=\mathrm{Tr}(a_1b_1a_2b_2-a_1b_2a_2b_1)$
+(Szendr\H{o}i 2008, eq.~(1.1)); its critical CoHA collapses onto the
+$S^3$--cohomology Heisenberg by the localisation of
+Behrend--Bryan--Szendr\H{o}i 2013, Prop.~3.4. Physically, this is the
+3D $\cN=4$ hypermultiplet at the vanishing cycle: one complex scalar and
+one fermion, quantised as a rank--one Heisenberg.
+
+\section{Resolution side: $\bP^1$ fibre and the two--chart glue}
+
+The small resolution $\widetilde{Y}=\Tot(\cO(-1)\oplus\cO(-1)\to\bP^1)$
+admits a toric cover by two affine patches
+$U_+,U_-\cong\C^3$ whose intersection is
+$U_{+-}\cong\C^*\times\C^2$. Wave--17 C1
+(\texttt{wave17\_c1\_two\_chart\_glue.tex}) constructs
+\begin{equation}\label{eq:Yplus-res}
+  Y^+(\widetilde{Y})\;=\;\mathrm{holim}\Bigl(
+  Y^+(U_+)\times Y^+(U_-)\rightrightarrows Y^+(U_{+-})\Bigr),
+\end{equation}
+with $Y^+(\C^3)$ the Schiffmann--Vasserot affine Yangian
+$Y^+(\widehat{\fgl}_1)$ (SV 2013; SV 2020, Thm.~A) and
+$Y^+(\C^*\times\C^2)$ the Maulik--Okounkov stable--envelope analogue of
+the $\C^*$--equivariant rank--two Heisenberg (MO 2012, \S 6.6). The
+Koszul sign between the two charts is the $\cO(-1)\oplus\cO(-1)$ twist,
+matching the Gopakumar--Vafa genus--zero BPS integer $n^0_{[\bP^1]}=1$
+(GV 1998, Table 1).
+
+\section{The singular limit: collision of halves}
+
+Let $t\in\C$ parametrise a path in K\"ahler--complex moduli with $t=0$
+the conifold point, $t>0$ the deformation, $t<0$ the resolution. As
+$t\to 0^+$, the $S^3$ fibre of $Y_\epsilon$ contracts to a point; as
+$t\to 0^-$, the $\bP^1$ of $\widetilde{Y}$ contracts to the same point.
+
+\begin{proposition}[overlap collapse]\label{prop:overlap-collapse}
+On the resolution side, the overlap chart $U_{+-}\cong\C^*\times\C^2$
+degenerates at $t\to 0^-$ to a punctured neighbourhood of the nodal
+point. The $\C^*$ factor shrinks to a point, and the double
+Maulik--Okounkov envelope $Y^+(U_{+-})$ collapses onto the
+Gopakumar--Vafa rank--one Heisenberg of the vanishing $\bP^1$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The equivariant coordinate $z\in\C^*$ on $U_{+-}$ is the $\bP^1$--normal
+parameter; as the $\bP^1$ contracts, $|z|\to 0$ and the $\C^*$ torus
+degenerates to its unit. Stable envelopes over degenerating tori
+collapse onto the fixed locus (Maulik--Okounkov 2012, \S 3.4), which at
+the conifold point is the rank--one $\cO(-1)\oplus\cO(-1)$ normal
+bundle. Cohomology of the latter is one--dimensional, yielding a
+rank--one Heisenberg.
+\end{proof}
+
+\begin{theorem}[transition as gluing singularity]\label{thm:transition-glue}
+Let $Y^+_t$ denote the positive half along the path $t\in\C$. The
+transition $t\to 0$ is the collision
+\begin{equation}\label{eq:transition}
+  Y^+_0\;=\;Y^+(Y_\epsilon)\;\Big|_{\epsilon\to 0}
+  \;=\;Y^+(\widetilde{Y})\;\Big|_{\bP^1\to\mathrm{pt}}
+  \;=\;\Heis^{\text{rk}\,1}(\C^3_{\mathrm{node}}),
+\end{equation}
+the rank--one Heisenberg at the node. Both Heisenbergs of
+\eqref{eq:Yplus-def} and \eqref{eq:Yplus-res} degenerate to the same
+rank--one algebra; the overlap $\C^*$ of the resolution collapses onto
+the vanishing cycle of the deformation.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The left equality applies Szendr\H{o}i 2008, Prop.~4.2 (the
+conifold Heisenberg specialises to rank one as the $S^3$ volume tends
+to zero). The right equality is Prop.~\ref{prop:overlap-collapse}.
+Coincidence of the two limits is the Morrison--Mozgovoy--Nagao--Szendr\H{o}i
+wall--crossing identity (MMNS 2012, Thm.~1.2): the motivic DT
+partition functions agree at the wall up to a controlled shift, which
+dequantises to Heisenberg--rank agreement.
+\end{proof}
+
+\section{Kontsevich--Soibelman integrality from CoHA identity}
+
+The integrality of Gopakumar--Vafa invariants $n^g_\beta\in\Z$ emerges
+on the positive--half side as the statement that the CoHA structure
+survives the transition. Let $\BPS(t)=\sum_\beta n^0_\beta q^\beta$ be
+the genus--zero BPS generating series, and let $Y^+_t$ be as above.
+
+\begin{theorem}[KS wall identity, CoHA form]\label{thm:KS-wall}
+Along any path crossing the conifold wall,
+\begin{equation}\label{eq:KS-wall}
+  \DT^{+}_t\;=\;\prod_{\gamma\in\Gamma^+}\Phi(x_\gamma)^{\Omega(\gamma;t)}
+\end{equation}
+is invariant under the transition. The exponents $\Omega(\gamma;t)$
+are Kontsevich--Soibelman motivic DT invariants, piecewise constant on
+the two sides of the wall with the jump
+\begin{equation}\label{eq:KS-jump}
+  \Omega(\gamma;t_+)-\Omega(\gamma;t_-)
+  \;=\;\mathrm{BPS~spectrum~jump~at~the~conifold}
+  \;=\;\delta_{\gamma,[\bP^1]}
+\end{equation}
+recording the single massless hypermultiplet.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Kontsevich--Soibelman 2008, Thm.~6.1, states that the motivic DT
+partition function factors through the CoHA, and that the wall--crossing
+formula is an automorphism of the pro--quantum torus whose exponents are
+the BPS invariants. For the conifold wall the jump is concentrated on
+the class $[\bP^1]$ by the Strominger--Gopakumar--Vafa identification;
+integrality of $\Omega$ is the integrality of the CoHA graded
+dimensions (KS 2008, Thm.~7.1), and agreement with Prop.~\ref{prop:overlap-collapse}
+fixes the jump to $\delta_{\gamma,[\bP^1]}$.
+\end{proof}
+
+\section{Positive--half interpretation}
+
+The conifold transition is the gluing datum of Wave--17 C1 failing to
+extend across the node, with the failure exactly measured by the
+wall--crossing jump \eqref{eq:KS-jump}. The deformation side builds
+$Y^+$ from the $S^3$ Heisenberg; the resolution side builds $Y^+$ by
+gluing two $Y^+(\C^3)$ along a $\C^*\times\C^2$ overlap; at the wall
+the overlap shrinks and both halves collapse to the same rank--one
+Heisenberg. The Kontsevich--Soibelman wall--crossing formula is the
+CoHA identity asserting that the two constructions of $Y^+$ differ by
+a controlled automorphism whose exponent is an integer---the single
+BPS state predicted by Strominger.
+
+\begin{remark}[$\kappach$ accounting]
+The conifold is not compact; $\kappach$ via direct McKay on the local
+Ginzburg dg--algebra gives $\kappach(Y_0)=1$ (cf.\ \texttt{cy\_d\_kappa\_stratification.tex},
+local--CY$_3$ row). Neither $\kappacat$ nor $\kappafib$ is defined
+without a compactification. The transition preserves $\kappach$ because
+the rank--one Heisenberg limit is common to both sides.
+\end{remark}
+
+\end{document}

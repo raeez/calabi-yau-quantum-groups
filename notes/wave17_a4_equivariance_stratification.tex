@@ -1,0 +1,291 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage[margin=1.05in]{geometry}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\Pp}{\mathbb{P}}
+\providecommand{\hb}{\hbar}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\PT}{\mathrm{PT}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Tot}{\mathrm{Tot}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Gr}{\mathrm{Gr}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kappafib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Meff}{\cM^{+}_{\mathrm{eff}}}
+\providecommand{\Yp}{Y^{+}}
+\providecommand{\Yph}{Y^{+}(\widehat{\mathfrak{gl}}_1)}
+\providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
+\providecommand{\Phion}{\phi_{0,1}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Equivariance stratification for positive effective geometry
+across CY cases}
+\author{Wave-17 A4/20}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+The positive half $\Yp(X)$ of a Vol~III BPS quantum group is the
+equivariant cohomology of a positive effective moduli $\Meff(X)$:
+Hilbert schemes on a surface, relative Hilbert on a fibration, moduli
+of stable framed sheaves on a CY$_3$, or period images of a
+lattice-polarised Nikulin family. The equivariance type is not
+universal. Five geometric regimes stratify the positive generator
+category; each fixes a different localisation, a different fixed-locus
+combinatorics, and a different bridge to the chiral-side weight.
+
+\section{Cycle 1: toric CY$_d$ at $d\in\{1,2,3\}$}
+
+On $\C^d$ the torus $T^d = (\C^\times)^d$ acts by scaling. On
+$\Meff(\C^d) = \Hilb^\bullet(\C^d)$, Atiyah--Bott equivariant
+localisation (Atiyah--Bott 1984, Thm.\ 7.13) reduces integrals to
+$T^d$-fixed points, which are:
+\begin{itemize}
+\item $d=1$: partitions $\lambda$ of $n$; $\Hilb^n(\C)^T = $
+configuration of $n$ points at the origin; $|\Hilb^n(\C)^T|=1$.
+\item $d=2$: Young diagrams of size $n$;
+$\Hilb^n(\C^2)^T = $ set of monomial ideals; $|\Hilb^n(\C^2)^T|=p(n)$
+(Nakajima 1997, Thm.\ 4.1).
+\item $d=3$: plane partitions (3D Young diagrams);
+$\Hilb^n(\C^3)^T$ counts boxes in $3D$ partitions of volume $n$;
+$\sum q^n |\Hilb^n(\C^3)^T| = M(q) = \prod_{n\ge 1}(1-q^n)^{-n}$
+(MacMahon function, MNOP 2006).
+\end{itemize}
+The torus normalisation is CY: $\eps_1 + \cdots + \eps_d = 0$ on
+equivariant parameters.
+
+\begin{theorem}[Toric positive half]\label{thm:toric-positive}
+For $X = \C^d$ or $X$ a smooth toric CY$_d$ with fan $\Sigma$, the
+positive half admits the Nekrasov presentation
+\[
+\Yp(X)\;\cong\; H^*_T(\Meff(X))\;=\;\bigoplus_{\sigma\in\Sigma(d)}
+H^*_T(\Meff(U_\sigma))^{T\text{-fixed}},
+\]
+each chart contribution evaluating by residue at a monomial fixed
+ideal. For $\C^3$, this is the SV 2013 identification
+$\CoHA(\C^3)\simeq\Yph$ (positive half of the affine Yangian).
+\end{theorem}
+
+Primary sources: Nekrasov 2002 \emph{Adv.\ Theor.\ Math.\ Phys.}~7,
+Thm.\ 0.1 (partition function as equivariant integral);
+Schiffmann--Vasserot 2013 \emph{Publ.\ Math.\ IHES}~118, Thm.\ 1.1
+(CoHA of Jacobi algebra $\C Q/\partial W$ for $\C^3$ quiver).
+
+\section{Cycle 2: non-toric compact CY$_d$ (K3, $K3\times E$, quintic)}
+
+No $T^d$ acts on a compact CY$_d$; only discrete $\Aut(X)$ survives.
+The reduced virtual class replaces the equivariant integral.
+\begin{itemize}
+\item \emph{K3}: Mumford conjecture (Beauville 1983, Corollary 6.2)
+forces $[\Meff(K3)]^{\mathrm{vir}} = 0$; one passes to the
+\emph{reduced} class, with one twist insertion by the holomorphic
+symplectic form $\Omega_{K3}$ (Maulik--Pandharipande--Thomas 2010
+\emph{Alg.\ Geom.}~1, Thm.\ 1). Residual equivariance: the
+$\C^\times$ scaling of $\Omega_{K3}$ (a single $\hb$).
+\item \emph{$K3\times E$}: the elliptic fibre gives translation by
+$t\in E$, a free $E$-action on $\Meff$; reduced class on the K3
+factor plus $E$-translation (Oberdieck--Pandharipande 2016
+\emph{JEMS}~18, Thm.\ 2). Residual group $\C^\times\times E$.
+\item \emph{Quintic $X_5\subset\Pp^4$}: no continuous symmetry; the
+generic $\Aut(X_5)$ is trivial; one uses the Behrend function
+$\nu\colon\Meff\to\Z$ and Joyce--Song stable-pair wall-crossing
+(Joyce--Song 2012, Thm.\ 5.22). No equivariance; only motivic
+rigidification.
+\end{itemize}
+
+\begin{proposition}[Non-toric positive half via reduced class]
+\label{prop:nontoric-positive}
+For $X$ non-toric compact CY$_d$, $\Yp(X) = H^*(\Meff(X),
+\mathcal{I}^{\mathrm{red}})$ where $\mathcal{I}^{\mathrm{red}}$ is the
+reduced virtual structure sheaf (Maulik--Thomas 2018,
+arXiv:1610.04311, Def.\ 2.1). The generating function replaces the
+Nekrasov partition by the MPT reduced DT invariant.
+\end{proposition}
+
+\section{Cycle 3: orbifold CY$_d$ ($\C^3/G$, CHL, Leech)}
+
+A finite $G$ acting symplectically on a CY$_d$ gives an orbifold
+$[X/G]$; $\Meff([X/G])$ is equivariant with respect to the discrete
+$G$ and stratified by inertia sectors $\{I_g X\}_{g\in G}$
+(Chen--Ruan 2004 \emph{Commun.\ Math.\ Phys.}~248).
+\begin{itemize}
+\item \emph{$\C^3/G$} ($G\subset SL_3$): McKay quiver
+$Q_G$ with relations $\partial W$; $\Meff = $ framed
+representations. $G$-equivariant Hilbert scheme
+$G$-$\Hilb(\C^3)$ is a crepant resolution (Bridgeland--King--Reid
+2001, Thm.\ 1.2). Equivariance = $T^3\ltimes G$: toric fixed points
+$\times$ inertia sectors.
+\item \emph{CHL $(K3\times E)/\Z_N$}, $N\in\{1,2,3,4,6\}$: free
+$\Z_N$-action by $g_N\times t_N$ (Nikulin 1980; Chaudhuri--Hockney--Lykken
+1995). $\Meff$ on the quotient is $\Z_N$-invariant part of
+$\Meff(K3\times E)$; five symplectic conjugacy classes only.
+\item \emph{Leech orbifold $(\Lambda/\Z_N)^\natural$}: cyclic
+orbifolds of the Leech VOA $V^\Lambda$ (Frenkel--Lepowsky--Meurman
+1988) by $N\in\{1,2,3,4,6\}$ Conway-classes yield the Borcherds
+data for $\gDelta^{(N)}$; no geometric $\Meff$ but a $V$-algebra
+analogue (Borcherds 1992, Thm.\ 2.1).
+\end{itemize}
+
+\begin{proposition}[Orbifold inertia stratification]
+\label{prop:orbifold-inertia}
+For $X$ CY$_d$, $G\subset\Aut_s(X)$ finite,
+\[
+H^*_{\mathrm{CR}}(\Meff([X/G]))
+ \;=\;\bigoplus_{[g]\subset G}
+  H^*\bigl(\Meff(X^g)\bigr)^{C_G(g)},
+\]
+Chen--Ruan orbifold cohomology summed over conjugacy classes.
+For $X=\C^3$, $G=\Z_N$, each sector is toric (Cycle~1) and the sum
+is the wreath-product Fock space $(\cH_{\C^3})^{\otimes N}\rtimes
+\Z_N$ (Nakajima 1997 \S 8; Wang 2000).
+\end{proposition}
+
+\section{Cycle 4: lattice-polarised Nikulin families}
+
+Fix a primitive lattice embedding $M\hookrightarrow\Lambda_{K3}=
+E_8(-1)^{\oplus 2}\oplus U^{\oplus 3}$ of signature $(1,r-1)$.
+$M$-polarised K3 surfaces $(X,\iota)$ with $\iota\colon M\hookrightarrow
+\mathrm{Pic}(X)$ form a moduli $\cM_M$ of dimension $20-r$
+(Nikulin 1979 \emph{Izv.}~43, Thm.\ 3.1; Dolgachev 1996). The
+period map identifies $\cM_M$ with a Grassmannian orbit
+\[
+\cM_M\;=\;\Gamma_M\backslash\mathrm{Gr}^{II}(M^\perp\otimes\R),
+\]
+where $\mathrm{Gr}^{II}$ is the Type~IV symmetric domain of oriented
+negative-definite $2$-planes in $M^\perp\otimes\R$ and
+$\Gamma_M = O(M^\perp)$.
+Equivariance type: \emph{period-domain}, Shimura-variety.
+
+\begin{proposition}[Period-domain equivariance]
+\label{prop:period-equivariance}
+$\Yp(X_M)$ for the generic $M$-polarised K3 is a module over the
+Picard--Fuchs $\cD$-module on $\cM_M$; the $\Gamma_M$-action on the
+period domain lifts to $\Meff$. Localisation replaces $T^d$-fixed
+points by $\Gamma_M$-cusps of the Baily--Borel compactification.
+For $M = U\oplus E_8(-1)$, $r=10$, $\dim\cM_M=10$, Gritsenko--Nikulin
+1998 (\emph{Amer.\ J.\ Math.}~120, Thm.\ 1.1) give the explicit
+Borcherds lift $\Meff(X_M)\to\mathrm{paramodular}$ realising
+$\Phion^{(g_N)}\mapsto\Delta_5^{(N)}$.
+\end{proposition}
+
+\section{Cycle 5: the eight Gritsenko--Cl\'ery forms, equivariance-stratified}
+
+Gritsenko--Cl\'ery 2017 (\emph{Math.\ Z.}~286, Thm.\ 1.1) construct
+eight weight-$k$ Siegel paramodular forms $\{\Delta^{(i)}_k\}_{i=1}^8$
+with rational divisor on the paramodular group of level $t\in\{1,2,3\}$,
+together realising the $N\in\{1,2,3\}$ rank-$2$ extension slice of the
+$\{1,2,3,4,6\}$ CHL family. The eight forms stratify by the
+equivariance type of the underlying $\Meff$:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.18}
+\begin{tabular}{cllll}
+\toprule
+$i$ & Form & Weight $k$ & Equivariance & Geometric source \\
+\midrule
+1 & $\Delta_5$ & $5$ & residual $\C^\times\times E$
+   & $K3\times E$ reduced \\
+2 & $\Delta_2$ & $2$ & $\Z_2$-orbifold inertia
+   & $(K3\times E)/\Z_2$ CHL \\
+3 & $\Delta_1^{(3)}$ & $1$ & $\Z_3$-orbifold inertia
+   & $(K3\times E)/\Z_3$ CHL \\
+4 & $\Delta_1^{(4)}$ & $1$ & $\Z_4$-orbifold inertia
+   & $(K3\times E)/\Z_4$ CHL \\
+5 & $\Delta_1^{(6)}$ & $1$ & $\Z_6$-orbifold inertia
+   & $(K3\times E)/\Z_6$ CHL \\
+6 & $\Phi_{10}$ & $10$ & Igusa $\mathrm{Sp}_4(\Z)$
+   & principally polarised Ab.\ surface \\
+7 & $\Psi_{11}^{(2)}$ & $11$ & level-$2$ paramodular
+   & Gritsenko rank-2 lift \\
+8 & $\Psi_{11}^{(3)}$ & $11$ & level-$3$ paramodular
+   & Gritsenko rank-2 lift \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{theorem}[Equivariance-stratified $\kappaBKM$]
+\label{thm:gc-eight-equivariance}
+For each Gritsenko--Cl\'ery form $\Delta^{(i)}_{k_i}$,
+$\kappaBKM(\Delta^{(i)}_{k_i}) = c_{k_i}(0)/2$ with $c_{k_i}(0) =
+2k_i$ (Borcherds 1998 Thm.\ 13.3): the BKM weights on forms 1--5
+give $(5,2,1,1,1)$, reproducing the $c_N(0)/2$ tower (cache
+baseline; \texttt{cy\_d\_kappa\_stratification.tex}
+Thm.\ \texttt{thm:borcherds-weight-kappa-BKM-universal}). Forms 6--8
+sit outside the $\{1,2,3,4,6\}$ CHL slice at $(10,11,11)$: the
+Siegel $\Phi_{10}$ lives on the Ab.\ surface side
+(genuinely distinct $\Meff$, not a quotient of $K3\times E$);
+$\Psi_{11}^{(2)}, \Psi_{11}^{(3)}$ are rank-2 paramodular at
+level $2,3$.
+\end{theorem}
+
+\begin{remark}[The $N\in\{1,2,3\}$ rank-2 extension]
+\label{rem:rank-two-extension}
+Forms 2, 3, 7, 8 together realise a rank-2 extension of the
+$\{1,2,3\}$ slice: forms 2--3 from CHL orbifold inertia (Cycle~3),
+forms 7--8 from level-$\{2,3\}$ paramodular period-domain equivariance
+(Cycle~4). The chiral-side analogue is the twisted sector
+$\CE^*_{\dbar,\chir,g_N}$ paired with the period-domain automorphic
+fibration; the identification with $\gDelta^{(N)}$ remains conjectural
+(see \texttt{wave14\_i5\_equivariant\_K3E\_factorization.tex}
+Proposition~\ref{prop:scope-n} scope; \emph{ibid.}\ ingredient~(iii)).
+\end{remark}
+
+\begin{remark}[Propagation scope]\label{rem:prop-scope}
+Toric $T^d$-localisation (Cycle~1) applies only to toric charts;
+Cycles~2--4 use strictly weaker residual or discrete structure; Cycle~4
+uses no torus at all. A universal $\Yp(X)$-formula propagated from
+$\C^3$ to $K3\times E$ is false (CLAUDE.md key fact; AP-CY6). The
+stratification table localises each BKM weight to the admissible
+equivariance class.
+\end{remark}
+
+\paragraph{Provenance.}
+Nekrasov 2002 \emph{Adv.\ Theor.\ Math.\ Phys.}~\textbf{7} Thm.\ 0.1.
+Atiyah--Bott 1984 \emph{Topology}~\textbf{23} Thm.\ 7.13.
+Schiffmann--Vasserot 2013 \emph{Publ.\ Math.\ IHES}~\textbf{118}
+Thm.\ 1.1. Maulik--Pandharipande--Thomas 2010 \emph{Alg.\ Geom.}~1
+Thm.\ 1. Oberdieck--Pandharipande 2016 \emph{JEMS}~\textbf{18} Thm.\ 2.
+Van den Bergh 2004 \emph{Duke Math.\ J.}~\textbf{122} (non-commutative
+crepant resolution). Bridgeland--King--Reid 2001 \emph{JAMS}~\textbf{14}
+Thm.\ 1.2. Nikulin 1979 \emph{Izv.}~\textbf{43} Thm.\ 3.1; Nikulin 1980
+\emph{Izv.}~\textbf{44} Thm.\ 4.7. Chen--Ruan 2004
+\emph{Comm.\ Math.\ Phys.}~\textbf{248}. Gritsenko--Nikulin 1998
+\emph{Amer.\ J.\ Math.}~\textbf{120} Thm.\ 1.1. Gritsenko--Cl\'ery 2017
+\emph{Math.\ Z.}~\textbf{286} Thm.\ 1.1. Borcherds 1998
+\emph{Invent.\ Math.}~\textbf{132} Thm.\ 13.3.
+
+\end{document}

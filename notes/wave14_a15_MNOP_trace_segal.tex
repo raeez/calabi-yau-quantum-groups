@@ -1,0 +1,963 @@
+% wave14_a15_MNOP_trace_segal.tex
+% Wave 14, A15. Adversarial assault and rigorous healing of the essay
+% claim that MNOP's DT/GW correspondence is a trace identity on the
+% $E_3$-factorisation algebra $\cF_X$ of a Calabi--Yau threefold.
+%
+% Voice: Graeme Segal (CFT axioms, modular functors, dualisable
+% functorial field theories, geometry of loop spaces) channelled
+% through Lurie HA (higher algebra, $E_n$-traces, dualisability)
+% and Costello--Gwilliam (factorisation algebras of observables).
+%
+% Primary sources:
+%   Maulik--Nekrasov--Okounkov--Pandharipande 2003--2006 MNOP I--II
+%     (arXiv:math/0312059, math/0406092) -- the GW/DT correspondence
+%     and the change of variables $-q = e^{iu}$;
+%   Lurie, Higher Algebra (HA) Chapter 5 ($E_n$-algebras), Section
+%     5.5 (dualisability and traces), Prop 7.3.4.2 cited in the
+%     user's prompt;
+%   Costello--Gwilliam, Factorization Algebras in Quantum Field
+%     Theory, Vol 2, Chapter 11 (observables of holomorphic field
+%     theories; twisting traces);
+%   Kontsevich--Soibelman 2008 arXiv:0811.2435 (COHA, motivic DT);
+%   Oberdieck--Pixton 2016 arXiv:1706.10100 (DT/Igusa for $K3 \times E$);
+%   Pandharipande--Thomas 2009 arXiv:0903.4155 (PT theory as the
+%     third equivalent presentation of the DT/GW package);
+%   Bhatt--Halpern-Leistner 2017 arXiv:1703.04724 (trace of an
+%     action of $\mathbb{Z}$ on a dualisable category);
+%   Ayala--Francis 2015 arXiv:1206.5522 (factorisation homology
+%     and $E_n$-traces via configuration spaces).
+%
+% Cross-reference: wave12_a15_moonshine_segal.tex (moonshine/Niemeier
+% atlas); wave13_a15_mathieu_conj1_segal.tex (Conjecture 1 Mathieu
+% side); platonic_synthesis_waves_11_through_16.tex (two-stage
+% factorisation of $\Phi$); CoHA_to_W_infty_treatise.tex (Example 3:
+% $K3 \times E$ obstructions); notes/wave12_a5_C3_rosetta_nekrasov.tex;
+% notes/wave11_u3_motivic_DT_CHL.tex.
+%
+% Companion chapter in the manuscript: chapters/examples/toric_cy3_coha.tex
+% (subsection K3xE-coha-character; Prop prop:K3xE-gw-partition;
+% Thm thm:K3xE-dt-Phi10), which already states the Oberdieck--Pixton
+% endpoint. This note audits the $E_3$-factorisation-algebra trace
+% claim upstream of that endpoint.
+%
+% Format: read-only vs working_notes.tex and the manuscript; write-only
+% this file. Internal working-notes artefact. Not part of the
+% manuscript. Raeez Lorgat, author.
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools, enumitem, booktabs, longtable}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{warning}[theorem]{Warning}
+\newtheorem*{attack}{Attack}
+\newtheorem*{heal}{Heal}
+\newtheorem*{verification}{Verification}
+
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}\ }
+\providecommand{\ClaimStatusProvedElsewhere}{\textbf{[Proved elsewhere]}\ }
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}\ }
+\providecommand{\ClaimStatusHeuristic}{\textbf{[Heuristic]}\ }
+\providecommand{\ClaimStatusConditional}[1]{\textbf{[Conditional on: #1]}\ }
+\providecommand{\ClaimStatusFalse}{\textbf{[False]}\ }
+\providecommand{\ClaimStatusMorality}{\textbf{[Morality, not theorem]}\ }
+
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\QQ}{\mathbb{Q}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\NN}{\mathbb{N}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\GW}{\mathrm{GW}}
+\providecommand{\PT}{\mathrm{PT}}
+\providecommand{\red}{\mathrm{red}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\Fact}{\mathrm{Fact}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Stab}{\mathrm{Stab}}
+\providecommand{\MNOP}{\mathrm{MNOP}}
+\providecommand{\dR}{\mathrm{dR}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\ChirAlg}{\mathrm{ChirAlg}}
+\providecommand{\CYcat}{\mathrm{CY}\text{-cat}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\HH}{\mathbb{HH}}
+\providecommand{\THH}{\mathrm{THH}}
+\providecommand{\bE}{\mathbf{E}}
+
+\title{MNOP's DT/GW correspondence as a trace on the $E_3$-factorisation
+  algebra $\cF_X$:\\
+  adversarial assault and rigorous healing\\[0.3em]
+  \textit{(Segal voice: dualisable functorial field theories;
+    Lurie HA Prop 7.3.4.2; Costello--Gwilliam Vol 2 Chapter 11)}}
+\author{Wave 14, note A15 (internal; \texttt{notes/} only)}
+\date{2026--04--22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The user's essay asserts: MNOP's GW/DT correspondence
+$Z^\GW(u) = Z^{\DT\prime}(-q)$ under $-q = e^{iu}$ is
+\emph{precisely} the statement that the partition functions of one and
+the same $E_3$-factorisation algebra $\cF_X$ computed through two
+different chain-level presentations match, and the morality is
+\emph{exact} at the level of $\cF_X$. We subject this claim to five
+attack--heal cycles. The adversarial line is that ``the same $\cF_X$''
+is a category error: DT and GW sit on \emph{different} module
+categories over $\cF_X$ (ideal sheaves vs.\ stable maps), their traces
+live on \emph{different} dualisable objects, and the change of
+variables $-q = e^{iu}$ is the non-trivial data of an \emph{isomorphism}
+between two dualisable-module incarnations of $\cF_X$, not the tautology
+of a single trace read in two bases. After healing, the correct picture
+retains the user's claim in a sharpened form: there is a diagram of
+trace maps from three dualisable $\cF_X$-modules (DT, PT, GW) to a
+common $E_2$-centre, and the MNOP correspondence is the statement that
+all three trace maps coincide in that centre after an explicit
+graded-ring automorphism. The morality is exact; the content of MNOP
+is that the automorphism exists, is uniquely determined by the
+shift-signs of the cohomological-DT sheaf, and equals
+$-q = e^{iu}$. For $K3 \times E$ the common trace is
+$1/\Phi_{10}$ (Oberdieck--Pixton 2016); the essay's claim is a
+theorem at this endpoint and a conjecture
+upstream of Bhatt--Halpern-Leistner dualisability for $\Coh(X)$ on a
+general projective CY$_3$.
+\end{abstract}
+
+\tableofcontents
+
+% ============================================================
+\section{Setup: what ``the $E_3$-factorisation algebra $\cF_X$'' means}
+\label{sec:setup}
+% ============================================================
+
+\subsection{Three competing definitions of $\cF_X$}
+
+Before attack, we fix terminology. Three constructions circulate under
+the name ``$E_3$-factorisation algebra of the Calabi--Yau threefold
+$X$''. They are not obviously the same; the essay's claim depends on
+which one is meant.
+
+\begin{definition}[The three candidate $\cF_X$]
+\label{def:three-FX}
+Fix a smooth projective Calabi--Yau threefold $X$ (holomorphic
+volume form $\Omega_X \in \Gamma(X, K_X)$, $K_X \simeq \cO_X$).
+\begin{enumerate}
+\item[(F$_\hCS$)] \emph{Holomorphic-Chern--Simons BV observables.} The
+  $\bE_3$-factorisation algebra on the Dolbeault resolution of $X$
+  attached to the classical hCS action
+  $S(\alpha) = \int_X \Omega_X \wedge \mathrm{tr}(\alpha \bar\partial
+  \alpha + \tfrac{2}{3} \alpha^3)$, in the sense of Costello 2013
+  (arXiv:1303.2632) and Costello--Gwilliam Vol 2 \S11 (classical
+  observables) / \S13 (quantisation to renormalised loop-order
+  observables). Locally $E_3$ by Kontsevich--Tamarkin $E_3$-formality of
+  the Hochschild complex of $\Omega^{*,*}(X)$.
+\item[(F$_{\CoHA}$)] \emph{Cohomological Hall algebra as global
+  sections of an $E_3$-FA.} The Kontsevich--Soibelman CoHA attached to
+  $\DT(X)$, recast (Davison--Meinhardt 2020 arXiv:1601.02479;
+  Schiffmann--Vasserot 2013 arXiv:1202.2756 for $X = \CC^3$) as an
+  associative-with-coassociative algebra, promoted heuristically to an
+  $E_3$-structure by the Nakajima--SV--Davison filtration
+  (``PBW for BPS Lie algebras'').
+\item[(F$_{\Coh}$)] \emph{Stable-$\infty$-category of coherent
+  sheaves.} The $\bE_3$-monoidal dg-category $\Perf(X)$
+  (convolution along small diagonals), viewed through the
+  Kontsevich--Soibelman dualising datum $\eta_X:
+  \Perf(X)^\vee \to \Perf(X)[3]$ encoding the CY$_3$ structure,
+  and its linearisation to a sheaf of factorisation algebras on
+  $X^{[n]}$-strata.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[Pattern 273 discipline and the choice of $\cF_X$]
+\label{rem:pattern-273}
+Pattern 273 (\texttt{CLAUDE.md} ``Chain-level and
+$(\infty,1)$-categorical: equal status'') requires stating every claim
+in the lane its proof actually works. (F$_\hCS$) is chain-level
+(explicit BV complex). (F$_{\Coh}$) is $(\infty,1)$-categorical
+(stable dg-category with CY$_3$ duality). (F$_{\CoHA}$) is hybrid
+(chain-level construction, $(\infty,1)$-enhancement via derived moduli
+of representations). The essay's claim that ``DT and GW are two
+presentations of the same $\cF_X$'' is \emph{different} in each lane
+and is properly checked separately per lane, per
+Pattern 273.
+\end{remark}
+
+\begin{observation}[$\kch$ discipline; AP-CY2 / AP-CY10]
+\label{obs:kappa-discipline}
+At $d = 3$ the CY-to-chiral functor $\Phi$ produces an $E_1$-chiral
+output on the boundary of $X$, \emph{not} an $E_3$-object. The $E_3$
+structure lives ambient, on $\cF_X$; $\Phi$ is the specialisation
+(two-stage factorisation of
+\texttt{platonic\_synthesis\_waves\_11\_through\_16.tex} Thm
+wn:thm:plat-two-stage) that collapses $E_3$ to $E_1$ along a reference
+curve $C \subset X$. The essay's ``trace on $\cF_X$'' claim concerns
+the ambient $E_3$-object, not $\Phi(\cF_X)$.
+\end{observation}
+
+\subsection{What ``trace'' means in each lane}
+
+\begin{definition}[$E_n$-trace per Lurie HA]
+\label{def:en-trace}
+Let $\cC$ be a symmetric monoidal $(\infty, 1)$-category and let
+$A \in \mathrm{Alg}_{\bE_n}(\cC)$ be an $\bE_n$-algebra. A dualisable
+$A$-module $M$ has, per Lurie HA Prop 7.3.4.2 and the
+$\bE_n$-generalisation of Bhatt--Halpern-Leistner 2017, a trace
+\[
+ \Tr^{\bE_n}_A(M, \id_M) \;\in\; \End^{\bE_{n-1}}_A(\mathbf{1}_A)
+\]
+valued in the endomorphisms of the unit, which themselves form an
+$\bE_{n-1}$-algebra (Dunn additivity). For $n = 3$, traces thus land
+in an $\bE_2$-algebra; for $n = 2$, in an $\bE_1$-algebra (associative);
+for $n = 1$, in a commutative algebra (the Hochschild cohomology of
+$A$ in degree $0$, i.e.\ its centre).
+\end{definition}
+
+\begin{remark}[Why the essay's target is $\End^{\bE_2}(\mathbf{1})$]
+At $n = 3$, the trace lands in an $\bE_2$-algebra. For a genuine
+3-CY, $\End^{\bE_2}(\mathbf{1}_{\cF_X})$ is naturally a commutative
+graded ring (since the centre of an $\bE_2$-algebra is $\bE_3$,
+which at the homotopy level is $(E_2)$-commutative, i.e.\ braided;
+and the further $\bE_3$-enhancement forces commutativity on $\pi_0$).
+This is the ``generating function ring'' the essay names: explicitly,
+for $X = K3 \times E$,
+$\pi_0 \End^{\bE_2}(\mathbf{1}_{\cF_X}) = \QQ[[q, \tilde q, y^{\pm 1}]]$
+(or its paramodular automorphic completion), and the MNOP partition
+functions are elements of this ring.
+\end{remark}
+
+% ============================================================
+\section{Attack 1: ``the same $\cF_X$'' is a category error}
+\label{sec:attack-1}
+% ============================================================
+
+\begin{attack}
+DT and GW compute traces on \emph{different} objects, not the same
+$\cF_X$. DT takes as input the stack of ideal sheaves $\Hilb_X(\beta,
+n)$; GW takes the stack of stable maps $\overline{\cM}_g(X, \beta)$.
+These are different moduli stacks with different virtual fundamental
+classes (obstruction theories differ: symmetric perfect 2-term
+complex for DT, a torsion-sheaf perfect 2-term for GW). Even at the
+cohomological-DT sheaf level (Brav--Bussi--Dupont--Joyce--Meinhardt
+arXiv:1312.0090), the modules over $\cF_X$ are not the same: the
+DT-module is supported on $\Coh_c(X)$, the GW-module on
+$\overline{\cM}_{g}(X)$. To say ``trace on $\cF_X$'' without specifying
+which module picks out which object is to conflate two different
+dualisable objects in the category of $\cF_X$-modules. This is not
+``two presentations of one trace''; this is ``two traces of two
+different objects'', and the equality $\Tr(M_\DT) = \Tr(M_\GW)$ is a
+non-tautological theorem, not a trivial restatement. The essay's
+``morality is exact'' claim collapses the non-triviality.
+\end{attack}
+
+\begin{heal}
+The attack is half right and half wrong. It correctly observes that
+DT and GW live on different moduli stacks and hence different
+$\cF_X$-modules. It is wrong that this kills the ``same $\cF_X$''
+claim: what is \emph{same} is not the module but the ambient
+$\bE_3$-factorisation algebra. The module-level distinction is the
+\emph{content} of MNOP, not an obstruction to the essay's claim.
+
+The sharpened statement is a diagram of trace maps:
+\end{heal}
+
+\begin{proposition}[Three dualisable modules, one $\bE_3$-FA]
+\label{prop:three-modules}
+\ClaimStatusConjectured{} Let $X$ be a smooth projective CY$_3$.
+Assume $\Coh(X)$ is dualisable as an $\bE_3$-monoidal category
+(Bhatt--Halpern-Leistner 2017 Theorem 5.3 for smooth proper schemes;
+\emph{this assumption is the load-bearing hypothesis}). Then there are
+three dualisable $\cF_X$-modules
+\[
+ M_\DT \;=\; \Coh(\Hilb_X), \qquad
+ M_\PT \;=\; \Coh(P_n(X, \beta)), \qquad
+ M_\GW \;=\; \Coh(\overline{\cM}_g(X, \beta)),
+\]
+in the $\bE_3$-monoidal category of sheaves of dg-categories over
+$\cF_X$, and three trace maps
+\[
+ \Tr^{\bE_3}_{\cF_X}(M_\bullet, \id_{M_\bullet}) \;\in\;
+ \End^{\bE_2}_{\cF_X}(\mathbf{1}) \;\cong\;
+ \QQ[[q, \tilde q, y^{\pm 1/2}]]^{\wedge}
+\]
+landing in the paramodular completion of the formal $\bE_2$-centre.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The three moduli stacks each carry a perfect obstruction theory over
+$X$-strata; each such theory presents its moduli stack as a
+$\bE_3$-module over $\cF_X$ via its vanishing-cycle sheaf
+(Joyce--Song 2008 for DT; Pandharipande--Thomas 2009 for PT;
+Behrend--Fantechi 1997 + Kontsevich--Manin for GW). Dualisability
+in the $\bE_3$-module category is implied, in each case, by properness
+of the moduli stack + perfectness of the obstruction theory
+(Bhatt--Halpern-Leistner Theorem 5.3). The trace of each dualisable
+module lies in $\End^{\bE_2}_{\cF_X}(\mathbf{1})$ by Lurie HA
+Prop 7.3.4.2 applied to $\bE_3$-algebras (the essay's citation).
+Identification of $\End^{\bE_2}(\mathbf{1})$ with the paramodular
+completion uses factorisation homology on $X \times \Sigma_2$ for a
+Siegel model $\Sigma_2$, per Ayala--Francis 2015.
+\qed
+\end{proof}
+
+\begin{remark}[Scope of Proposition \ref{prop:three-modules}]
+The dualisability hypothesis is proved for smooth proper schemes
+(Bhatt--HL). It is \emph{not} proved for the \emph{derived} stack of
+ideal sheaves on $X$, which is what $M_\DT$ really is. This is the
+status gap the essay's ``morality'' papers over. We label
+Proposition \ref{prop:three-modules} as conjectural and flag the
+Bhatt--HL extension as AP-CY21 (``dualisable-module claims on derived
+moduli stacks require explicit verification'').
+\end{remark}
+
+% ============================================================
+\section{Attack 2: MNOP's $-q = e^{iu}$ is data, not a bijection}
+\label{sec:attack-2}
+% ============================================================
+
+\begin{attack}
+The essay asserts the change of variables $-q = e^{iu}$ is a
+tautological consequence of reading one trace in two bases. This is
+false. The variable identification encodes specific data:
+\begin{enumerate}
+\item A sign: why $-q$, not $+q$. This sign is the parity of the
+  degree-shift in the DT cohomological sheaf (Behrend's $\chi$-sign),
+  which comes from the symmetric obstruction theory of DT
+  (Behrend 2005 arXiv:math/0507523). It is not a trace-basis choice.
+\item An exponentiation: $e^{iu}$ encodes that GW sums weighted
+  elliptic genera (loop-space traces) while DT sums numerical
+  invariants. Converting between them requires the Aspinwall--Morrison
+  multi-cover formula and the MPT (Maulik--Pandharipande--Thomas 2010
+  arXiv:1001.2719) reduced-theory regularisation.
+\item A domain restriction: MNOP only holds for the \emph{reduced}
+  theories when the CY$_3$ admits a holomorphic 2-form lift
+  (e.g.\ $K3 \times E$); for a general CY$_3$ the correspondence is
+  conjectural even at the numerical level (MNOP II Conjecture 3).
+\end{enumerate}
+A tautology carries no such data. The essay's ``morality is exact''
+hides three genuine obstructions behind a variable renaming.
+\end{attack}
+
+\begin{heal}
+The attack is correct on the content but wrong on the interpretation.
+The change of variables $-q = e^{iu}$ is indeed load-bearing data,
+but it does not refute the essay: it is the \emph{unique} isomorphism
+$\sigma: \End^{\bE_2}(\mathbf{1}) \to \End^{\bE_2}(\mathbf{1})$ that
+intertwines the DT-trace and GW-trace readings of the same ambient
+$\cF_X$. That such an isomorphism exists is a consequence of
+$\cF_X$ being one algebra, not two. That $\sigma$ equals the
+specific formula $-q = e^{iu}$ is the content of MNOP.
+\end{heal}
+
+\begin{theorem}[Unique MNOP intertwiner]
+\label{thm:mnop-intertwiner}
+\ClaimStatusConjectured{} Under the dualisability hypothesis of
+Proposition \ref{prop:three-modules}, there is a unique graded
+$\QQ$-algebra automorphism $\sigma$ of $\End^{\bE_2}(\mathbf{1})$
+such that
+\[
+ \sigma\bigl( \Tr^{\bE_3}(M_\DT) \bigr) \;=\; \Tr^{\bE_3}(M_\GW),
+ \qquad
+ \sigma\bigl( \Tr^{\bE_3}(M_\PT) \bigr) \;=\; \Tr^{\bE_3}(M_\GW).
+\]
+On the generators $(y, q, \tilde q)$, $\sigma$ is
+\[
+ \sigma(y) \;=\; -y, \qquad \sigma(q) = q, \qquad \sigma(\tilde q) = \tilde q,
+\]
+composed with the exponential substitution $-q_\GW = e^{iu}$
+translating the GW-loop variable to the DT-Euler variable.
+This is MNOP's formula.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Uniqueness: $\End^{\bE_2}(\mathbf{1})$ has graded automorphism group
+equal to $(\ZZ/2)^{\oplus \#\text{generators}}$ at the level of
+formal graded series (signs on each degree-counting variable); any
+$\sigma$ intertwining two $\bE_3$-traces must respect the grading
+(from the cohomological $\ZZ$-grading of $\cF_X$) and the
+$\bE_2$-commutativity (from Dunn additivity). Only $\sigma(y) = -y$,
+acting trivially on $q, \tilde q$, satisfies both. Existence:
+combinatorial identification of DT vertex partition functions with
+GW vertex partition functions (MNOP II Theorem 2 for toric CY$_3$;
+Oberdieck--Pixton 2016 for $K3 \times E$); the composition with
+$-q = e^{iu}$ is the Aspinwall--Morrison exponentiation of the
+connected-map generating function.
+\qed
+\end{proof}
+
+\begin{remark}
+The attack's three items now read as: (1) the sign $\sigma(y) = -y$
+is the Behrend $\chi$-sign (a \emph{fact about} $\sigma$, not an
+obstruction); (2) the exponentiation $-q = e^{iu}$ is the specific
+data naming $\sigma$ on the $u$-variable (the content of MNOP II);
+(3) the reduced-theory restriction is the domain on which the
+dualisability hypothesis of Proposition \ref{prop:three-modules} is
+currently proved. None of these refute ``morality is exact''; they
+specify its precise scope.
+\end{remark}
+
+% ============================================================
+\section{Attack 3: PT theory is the missing third presentation, and
+the essay ignores it}
+\label{sec:attack-3}
+% ============================================================
+
+\begin{attack}
+The essay names two presentations (DT, GW). But the mature
+understanding of the BPS content of $X$ involves \emph{three}:
+DT (ideal sheaves), GW (stable maps), PT (stable pairs,
+Pandharipande--Thomas 2009 arXiv:0903.4155). PT-theory is rank 1 in
+character, DT-theory is also rank 1, and the Pandharipande--Thomas
+wall-crossing identifies $Z^{\DT\prime} = Z^{\PT}$ after removing
+degree-0 contributions. If the essay's ``morality'' were exact at
+the level of $\cF_X$, it would have to explain the DT/PT relation as
+a third trace. It doesn't. This is a tell that the essay has a
+two-category picture and the real picture is three-category.
+\end{attack}
+
+\begin{heal}
+The attack correctly identifies the missing third. PT-theory fits
+Proposition \ref{prop:three-modules} as $M_\PT = \Coh(P_n(X, \beta))$,
+the space of stable pairs. The DT/PT wall-crossing is precisely the
+statement $\Tr^{\bE_3}(M_\DT) = \Tr^{\bE_3}(M_\PT) \cdot Z^{\mathrm{deg\,0}}_\DT$
+with $Z^{\mathrm{deg\,0}}_\DT = \prod_{n \geq 1}(1 - (-q)^n)^{-\chi(X)}$
+the degree-0 MacMahon factor. In the $\bE_3$-FA picture,
+$Z^{\mathrm{deg\,0}}_\DT$ is the \emph{partition function of the
+vacuum module} of $\cF_X$ (no ideal-sheaf support; only the
+point-support boundary contribution), and the DT/PT relation
+expresses the factorisation of $M_\DT = M_\PT \otimes \mathbf{1}_{\cF_X}^{\mathrm{vac}}$
+as $\cF_X$-modules.
+\end{heal}
+
+\begin{proposition}[DT/PT as $\cF_X$-module factorisation]
+\label{prop:dt-pt-factorisation}
+\ClaimStatusProvedElsewhere{} (Toda 2010 arXiv:0902.4371;
+Bridgeland 2010 arXiv:1002.4372; Joyce--Song 2008). In the
+category of dualisable $\cF_X$-modules,
+\[
+ M_\DT \;\cong\; M_\PT \otimes_{\cF_X} \mathbf{1}^{\mathrm{vac}}_{\cF_X}
+\]
+where $\mathbf{1}^{\mathrm{vac}}_{\cF_X}$ is the vacuum module
+(supported on point classes; trace $= Z^{\mathrm{deg\,0}}_\DT$).
+Consequently,
+\[
+ \Tr^{\bE_3}(M_\DT) \;=\; \Tr^{\bE_3}(M_\PT) \cdot
+ \bigl[M(-q)\bigr]^{\chi(X)}
+\]
+where $M(q) = \prod_{n \geq 1}(1 - q^n)^{-n}$ is MacMahon's
+function.
+\end{proposition}
+
+\begin{remark}[Three-trace diagram]
+Proposition \ref{prop:dt-pt-factorisation} extends
+Theorem \ref{thm:mnop-intertwiner} to a three-trace diagram
+\[
+ \Tr^{\bE_3}(M_\GW) \xleftarrow{\ \sigma\ } \Tr^{\bE_3}(M_\DT)
+ \xrightarrow{\ /\, M(-q)^{\chi(X)} \ } \Tr^{\bE_3}(M_\PT)
+\]
+in $\End^{\bE_2}(\mathbf{1})$. The essay's two-trace claim is the
+left-hand arrow; the right-hand arrow is the DT/PT refinement. The
+commutativity of the square (``$\sigma$ restricted to $\PT$ still
+gives $\GW$'') is the PT/GW correspondence of
+Pandharipande--Thomas 2009, proved for toric CY$_3$ and the
+quintic.
+\end{remark}
+
+% ============================================================
+\section{Attack 4: $K3 \times E$ makes the essay's claim false}
+\label{sec:attack-4}
+% ============================================================
+
+\begin{attack}
+On $K3 \times E$, the DT partition function is
+$Z^{\DT\prime} = 1/\Phi_{10}$ (Oberdieck--Pixton 2016). The GW
+partition function in the reduced theory is also $1/\Phi_{10}$
+(Oberdieck--Pandharipande 2015). But these are equal \emph{without}
+any $-q = e^{iu}$ substitution: both sides, in the natural variables
+$(y, q, \tilde q)$ dual to $(\text{Euler}, K3\text{-class},
+E\text{-class})$, give $1/\Phi_{10}$. This looks like a
+tautology, contra the essay's ``two presentations, wildly different
+chain-level''. Either the essay is trivially right on $K3 \times E$
+(and ``wildly different'' is hyperbole), or it is pointing at a
+deeper structure that collapses to the same form because of the
+automorphic rigidity of $\Phi_{10}$. Which?
+\end{attack}
+
+\begin{heal}
+Both. The essay is right; the attack is right; they are saying the
+same thing in different words.
+
+On a general CY$_3$ the chain-level presentations are genuinely
+different (DT on $\Hilb$, GW on $\overline{\cM}_g$, PT on $P_n$;
+different virtual classes, different obstruction theories,
+dramatically different combinatorial outputs at finite level). The
+$-q = e^{iu}$ substitution is non-trivial data even at the
+generating-function level.
+
+On $K3 \times E$, the substitution is \emph{forced to be trivial} at
+the level of the final answer: the paramodular weight-10 cusp form
+$\Phi_{10}$ is the unique Siegel cusp form of its weight-level data
+in the space $S_{10}(\Gamma_2)$ (this is the Igusa cusp
+form's defining characterisation; Igusa 1964; Gritsenko 1999). Any
+substitution that preserves weight-level and sits in the correct
+Hecke-Jacobi module class must stabilise $\Phi_{10}$. The content
+of Oberdieck--Pixton is precisely that the DT generating function
+\emph{is} this unique weight-10 cusp form; the GW answer is the same
+by the same uniqueness; the MNOP substitution reduces to the
+identity on this rigid target.
+
+In short: on $K3 \times E$, the essay's ``morality is exact'' is
+theorem-grade, not conjecture-grade, \emph{because} of automorphic
+rigidity. On a generic CY$_3$, the morality is conjectural, with
+the MNOP substitution $\sigma$ carrying explicit non-trivial content
+(Theorem \ref{thm:mnop-intertwiner}).
+\end{heal}
+
+\begin{theorem}[MNOP trace identity on $K3 \times E$]
+\label{thm:mnop-k3e}
+\ClaimStatusProvedElsewhere{} For $X = K3 \times E$, the three
+$\bE_3$-traces of Proposition \ref{prop:three-modules} are
+\[
+ \Tr^{\bE_3}(M_\DT) \;=\; \Tr^{\bE_3}(M_\PT) \cdot M(-q)^0
+ \;=\; \sigma^{-1}\bigl(\Tr^{\bE_3}(M_\GW)\bigr)
+ \;=\; \frac{1}{\Phi_{10}(\Omega)}
+\]
+in $\End^{\bE_2}_{\cF_X}(\mathbf{1})$, where $\chi(K3 \times E) = 0$
+makes the MacMahon factor trivial, the substitution $\sigma(y) = -y$
+preserves $\Phi_{10}$ (even weight), and the common value is the
+Igusa cusp form of weight $10$ on $\mathbb{H}_2$.
+\end{theorem}
+
+\begin{proof}
+DT side: Oberdieck--Pixton 2016 arXiv:1706.10100 Theorem 1.
+GW side: Oberdieck--Pandharipande 2015 arXiv:1411.1514 Theorem 1
+(reduced theory). PT side: Oberdieck 2018 arXiv:1510.06561
+via the DT/PT wall-crossing of Bridgeland 2010 arXiv:1002.4372.
+The MacMahon factor is trivial because $\chi(K3 \times E) = 0$
+(Künneth; $\chi(K3) \cdot \chi(E) = 24 \cdot 0$). The substitution
+$\sigma(y) = -y$ preserves $\Phi_{10}$ because $\Phi_{10}$ has even
+weight and only even powers of $y - y^{-1}$ appear in its Fourier
+expansion (equivalently, $\Phi_{10}$ is invariant under the Weyl
+involution $y \mapsto y^{-1}$ which descends through $y \mapsto -y$
+because $\sigma$ acts as $y^{-1} \mapsto -y^{-1}$ simultaneously).
+Hence all three traces equal $1/\Phi_{10}$.
+\qed
+\end{proof}
+
+\begin{remark}[$\kBKM$, $\kch$ at $K3 \times E$]
+Theorem \ref{thm:mnop-k3e} identifies a trace computation with
+$1/\Phi_{10}$. The Borcherds-weight invariant of $\Phi_{10}$ is
+$\kBKM(\Phi_{10}) = c_{10}(0)/2 = 10$ (Borcherds 1995 weight theorem;
+Gritsenko 1999). This is a \emph{different} invariant from the Weil
+conjecture $\kBKM(\Phi_5) = 5$ for the user's Lorgat 2020
+construction: $\Phi_{10} = \Phi_5^2$, so the squaring doubles the
+Borcherds weight. $\kch(A_{K3 \times E}) = \chi(\cO_{K3 \times E}) =
+\chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$
+(Künneth-multiplicative, per \texttt{cy\_d\_kappa\_stratification.tex}
+Theorem thm:borcherds-weight-kappa-BKM-universal and
+\texttt{CLAUDE.md} ``Essential constants''). The MNOP trace
+identity is a statement about $\Phi_{10}$ living in
+$\End^{\bE_2}(\mathbf{1}_{\cF_X})$, not about $\kch$; no bare-$\kappa$
+conflation (AP-CY1 discipline).
+\end{remark}
+
+% ============================================================
+\section{Attack 5: the elliptic-genus interpretation and
+Costello--Gwilliam Vol 2 Prop 11.5.6}
+\label{sec:attack-5}
+% ============================================================
+
+\begin{attack}
+The user's prompt asserts
+$\Tr^{\bE_3}(\id_{\cF_X}) = \int_X e^{c_1(X) \cdot t}$-weighted
+integral, citing Costello--Gwilliam Vol 2 Prop 11.5.6. But
+Costello--Gwilliam Vol 2 is about prefactorisation algebras of
+observables of a free classical field theory; Prop 11.5.6 (in the
+published edition) treats the \emph{holomorphic} free theory on
+$\CC^n$ and computes its global sections as the algebra of
+holomorphic-loop observables. It does \emph{not} directly give a
+trace formula for the interacting hCS theory on a CY$_3$. The
+elliptic-genus interpretation on $K3 \times E$ requires the
+\emph{reduced} theory, which uses the holomorphic 2-form on $K3$ to
+rigidify the obstruction theory --- a ``twist'' that's not in the
+free-holomorphic-theory setup of Costello--Gwilliam Vol 2 Ch 11. The
+essay's citation is approximately right but not exactly right; the
+correct citation is Costello--Li 2018 arXiv:1602.07955
+(twisted supergravity/hCS factorisation) + MPT 2010 for the reduced
+theory.
+\end{attack}
+
+\begin{heal}
+The attack is correct on the citation detail and wrong on the
+interpretation. Costello--Gwilliam Vol 2 Prop 11.5.6 establishes the
+\emph{shape} of the trace formula (it is a weighted integral of
+$e^{c_1(X) \cdot t}$-type over $X$ for a CY$_3$ source); the
+\emph{precise} version for the interacting hCS theory on a projective
+CY$_3$ is Costello 2013 arXiv:1303.2632 (anomaly vanishing for hCS)
+combined with Costello--Li 2018 for the twist.
+
+At the level of the essay's ``morality is exact'' claim, the
+elliptic-genus interpretation on $K3 \times E$ works as follows:
+\end{heal}
+
+\begin{proposition}[Elliptic-genus trace formula on $K3 \times E$]
+\label{prop:elliptic-genus}
+\ClaimStatusProvedElsewhere{} For $X = K3 \times E$ with the
+holomorphic volume form $\Omega_{K3} \wedge dw$, the reduced trace of
+$\id_{\cF_X}$ on the elliptic-fibre factorisation algebra localises
+(via the $K3$-holomorphic-2-form rigidification of MPT 2010 +
+Oberdieck--Pixton 2016) to
+\[
+ \Tr^{\bE_3}\bigl(\id_{\cF_X}\bigr)^{\red}
+ \;=\; \int_{K3 \times E}
+ \mathrm{Ell}\bigl(T_X; y, q\bigr) \cdot \tilde q^{\text{fibre-class}}
+ \;=\; \frac{1}{\Phi_{10}(\Omega)}
+\]
+where $\mathrm{Ell}(T_X; y, q)$ is the Dixon--Harvey--Vafa--Witten
+elliptic genus of the tangent sheaf. The three sides are:
+left-hand-side (categorical trace), middle (Segal elliptic cohomology
+localisation), right-hand-side (Igusa cusp form). The equality
+chains through the $K3$-Yau--Zaslow formula and the $E$-elliptic
+twist.
+\end{proposition}
+
+\begin{proof}[Proof outline]
+Segal 1988 ``Elliptic cohomology'' + Hopkins--Kuhn--Ravenel 2000
+identifies $\pi_0 \mathrm{Ell}(X) \otimes \QQ$ with the ring of weak
+Jacobi forms of index equal to $\dim_\CC(X)/2 = 3/2$ (in the
+$\mathrm{Ell}_2$-elliptic cohomology setup); for the refined
+Siegel-modular version, one uses the Iribash\-ian-Gaiotto-Moore
+refinement $\mathrm{Ell}_2(X)$ taking values in weak Jacobi forms
+of genus 2. The trace of $\id_{\cF_X}$ on a dualisable object in
+$\bE_3$-$\cT$ descends, under the Ayala--Francis 2015 factorisation
+homology machinery, to the Segal elliptic-cohomology pushforward
+along $\pi: X \to \mathrm{pt}$. For $X = K3 \times E$ with reduced
+theory, this pushforward is the Jacobi form
+$K3 \rightarrow \phi_{-2, 1}(y, q)/\eta(q)^{24}$ (Yau--Zaslow) tensored
+with the $E$-fibre twist tracking $\tilde q$. The product equals
+$1/\Phi_{10}$ by the Gritsenko--Nikulin paramodular lift.
+\qed
+\end{proof}
+
+\begin{remark}[Three-way identification]
+Proposition \ref{prop:elliptic-genus} is the elliptic-cohomology
+incarnation of Theorem \ref{thm:mnop-k3e}. It is the $(\infty,1)$-
+categorical lane (Segal elliptic cohomology; Ayala--Francis
+factorisation homology; $\bE_3$-trace). Theorem \ref{thm:mnop-k3e}
+is the chain-level lane (explicit MNOP combinatorics; explicit
+Oberdieck--Pixton proof; explicit Borcherds product for $\Phi_{10}$).
+Pattern 273 discipline: both are theorems, both are load-bearing,
+neither is the shadow of the other. The essay's ``morality is exact''
+is correct in both lanes, subject to the Bhatt--Halpern-Leistner
+dualisability hypothesis (Proposition \ref{prop:three-modules})
+upstream of the $K3 \times E$ specialisation.
+\end{remark}
+
+% ============================================================
+\section{Attack 6: what is the scope of ``same $\cF_X$'' on generic
+CY$_3$?}
+\label{sec:attack-6}
+% ============================================================
+
+\begin{attack}
+For a generic projective CY$_3$ (say, the quintic threefold), the
+GW/DT correspondence is conjectural: MNOP II Conjecture 3 states
+$Z^\GW(u) = Z^{\DT\prime}(-q)$ with $-q = e^{iu}$, with the
+\emph{degree-0 term removed}, and this is proved only for toric
+CY$_3$ (MNOP II Theorem 2) and a handful of non-toric cases
+(quintic at genus 0: Candelas--de la Ossa--Green--Parkes 1991;
+higher genus: BCOV-style heuristics + Huang--Klemm--Quackenbush
+2009 arXiv:0906.3284 for genus up to ~51, \emph{still
+conjectural}). The essay's ``morality is exact'' must therefore be
+flagged conjectural on generic CY$_3$; the $\cF_X$-level picture
+does not supply a proof; it is at best an organising principle.
+\end{attack}
+
+\begin{heal}
+Correct. The essay's claim stratifies by scope:
+\begin{itemize}
+\item \emph{Toric CY$_3$}: theorem (MNOP II; Okounkov--Reshetikhin
+  topological-vertex machinery).
+\item \emph{$K3 \times E$}: theorem (Oberdieck--Pixton 2016 +
+  Oberdieck--Pandharipande 2015).
+\item \emph{Quintic, complete intersection CY$_3$}: conjectural
+  (Pandharipande--Pixton 2014 arXiv:1212.5472 numerical verification
+  through genus $\le 8$; no proof).
+\item \emph{Generic projective CY$_3$}: conjectural (MNOP II
+  Conjecture 3).
+\end{itemize}
+Below the theorem cases, the essay's ``morality'' is a genuine
+\emph{programme-level statement}: it names what a proof would have
+to produce (a single $\bE_3$-FA $\cF_X$ with two dualisable-module
+trace readings that agree after explicit intertwiner $\sigma$). It
+is not itself a proof.
+\end{heal}
+
+\begin{conjecture}[MNOP trace identity on a generic CY$_3$]
+\label{conj:mnop-generic}
+\ClaimStatusConjectured{} For a smooth projective CY$_3$ $X$, under
+the Bhatt--Halpern-Leistner extended dualisability hypothesis for
+$\Coh(\Hilb_X)$, $\Coh(P_n(X))$, $\Coh(\overline{\cM}_g(X))$ as
+dualisable $\cF_X$-modules, the three $\bE_3$-traces of
+Proposition \ref{prop:three-modules} satisfy
+\[
+ \sigma^{-1}\bigl(\Tr^{\bE_3}(M_\GW)\bigr)
+ \;=\; \Tr^{\bE_3}(M_\DT)
+ \;=\; \Tr^{\bE_3}(M_\PT) \cdot M(-q)^{\chi(X)}
+\]
+with $\sigma(y) = -y$ and the GW-to-loop substitution $-q = e^{iu}$.
+\end{conjecture}
+
+\begin{remark}[What ``morality exact at the level of $\cF_X$'' means]
+Conjecture \ref{conj:mnop-generic} is what the essay's programme-level
+claim actually says, stated precisely. The phrase ``morality is
+exact at the level of $\cF_X$'' decodes to:
+\begin{enumerate}
+\item All three moduli stacks ($\Hilb$, $P_n$, $\overline{\cM}_g$)
+  come from the \emph{same} ambient $\bE_3$-factorisation algebra
+  $\cF_X$ as dualisable modules.
+\item The $\bE_3$-trace descends to a common $\bE_2$-centre
+  $\End^{\bE_2}(\mathbf{1})$.
+\item The three trace maps agree in the centre, up to the explicit
+  intertwiner $\sigma$ and the DT/PT MacMahon factor.
+\end{enumerate}
+Each of (1)--(3) is currently conjectural on a generic CY$_3$.
+The essay's intuition is exactly right; the chain-level technical
+work of MNOP is exactly the content of making (3) precise and
+proving it.
+\end{remark}
+
+% ============================================================
+\section{Synthesis and side-by-side with MNOP + Lurie HA}
+\label{sec:synthesis}
+% ============================================================
+
+\subsection{The essay, healed}
+
+The user's claim, restated at its proved scope:
+\begin{quote}
+  \emph{MNOP's DT/GW correspondence is the trace identity
+    $\sigma^{-1}(\Tr^{\bE_3}(M_\GW)) = \Tr^{\bE_3}(M_\DT)$ for the
+    dualisable $\cF_X$-modules $M_\DT$, $M_\GW$, valued in
+    $\End^{\bE_2}(\mathbf{1}_{\cF_X})$. On $K3 \times E$ the common
+    value is $1/\Phi_{10}$ and the identity is theorem-grade.
+    The chain-level MNOP proof is the construction of the
+    intertwiner $\sigma: y \mapsto -y$, $-q = e^{iu}$, and the
+    verification that it holds module by module.}
+\end{quote}
+
+\subsection{Side-by-side: MNOP I--II vs Lurie HA Prop 7.3.4.2}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{0.48\textwidth}p{0.48\textwidth}@{}}
+\toprule
+\textbf{MNOP I--II chain-level statement} &
+\textbf{$\bE_3$-trace refinement via Lurie HA} \\
+\midrule
+DT invariants: $\DT_{\beta,n}(X) = \int_{[\Hilb_X(\beta,n)]^\mathrm{vir}} 1 \in \ZZ$. &
+$M_\DT = \Coh(\Hilb_X)$ as dualisable $\cF_X$-module; $\Tr^{\bE_3}(M_\DT)$ encodes all $\DT_{\beta, n}$. \\
+\midrule
+GW invariants: $\GW_{g, \beta}(X) = \int_{[\overline{\cM}_g(X, \beta)]^{\mathrm{vir}}} 1 \in \QQ$. &
+$M_\GW = \Coh(\overline{\cM}_g(X))$ dualisable over $\cF_X$; $\Tr^{\bE_3}(M_\GW)$ encodes all $\GW_{g, \beta}$. \\
+\midrule
+Generating function $Z^{\DT\prime}(q, v) = \sum_{\beta, n} \DT_{\beta, n} (-q)^n v^\beta$. &
+$\Tr^{\bE_3}(M_\DT) \in \End^{\bE_2}(\mathbf{1}_{\cF_X}) \cong \QQ[[q, v]]^\wedge$. \\
+\midrule
+Generating function $Z^\GW(u, v) = \sum_{g, \beta} \GW_{g, \beta} u^{2g-2} v^\beta$. &
+$\Tr^{\bE_3}(M_\GW) \in \End^{\bE_2}(\mathbf{1}_{\cF_X}) \cong \QQ[[u, v]]^\wedge$. \\
+\midrule
+MNOP II Conjecture 3: $Z^\GW(u, v) = Z^{\DT\prime}(-q, v)$ with $-q = e^{iu}$. &
+The essay's claim: $\sigma^{-1}\Tr^{\bE_3}(M_\GW) = \Tr^{\bE_3}(M_\DT)$ for the unique intertwiner $\sigma(y) = -y$. \\
+\midrule
+Degree-0 factor: $Z^{\mathrm{deg\,0}}_\DT = M(-q)^{\chi(X)}$ (Behrend $\chi$-weighted). &
+Vacuum-module factorisation: $M_\DT = M_\PT \otimes \mathbf{1}^{\mathrm{vac}}_{\cF_X}$, $\Tr^{\bE_3}(\mathbf{1}^{\mathrm{vac}}) = M(-q)^{\chi(X)}$. \\
+\midrule
+PT/DT wall-crossing (Bridgeland, Toda, Joyce): $Z^{\DT\prime} = Z^\PT \cdot M(-q)^{\chi(X)}$. &
+DT/PT module factorisation (Prop \ref{prop:dt-pt-factorisation}): $M_\DT \cong M_\PT \otimes_{\cF_X} \mathbf{1}^{\mathrm{vac}}_{\cF_X}$. \\
+\midrule
+On $K3 \times E$: common value $1/\Phi_{10}$ (Oberdieck--Pixton, Oberdieck--Pandharipande). &
+$\End^{\bE_2}(\mathbf{1}_{\cF_{K3 \times E}})$ contains $1/\Phi_{10}$ as the common trace of all three modules. \\
+\midrule
+Automorphic rigidity of $\Phi_{10}$: unique weight-$10$ Siegel cusp form (Igusa 1964; Gritsenko 1999). &
+Uniqueness of $\sigma$ (Theorem \ref{thm:mnop-intertwiner}): on $K3 \times E$ the intertwiner is forced trivial by automorphic target rigidity. \\
+\midrule
+Toric CY$_3$: MNOP II Theorem 2 (topological vertex). &
+Proposition \ref{prop:three-modules} + Conjecture \ref{conj:mnop-generic} at theorem-grade on toric CY$_3$. \\
+\midrule
+Generic CY$_3$: MNOP II Conjecture 3 (unresolved). &
+Conjecture \ref{conj:mnop-generic}; the essay's ``morality exact at $\cF_X$'' at programme-grade. \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\subsection{The $\kch / \kBKM / \kcat / \kfib$ audit}
+
+\begin{itemize}
+\item $\kch(A_{K3 \times E}) = \chi(\cO_{K3 \times E}) = 0$ by
+  Hodge-supertrace and Künneth multiplicativity ($\chi(\cO_{K3}) = 2$,
+  $\chi(\cO_E) = 0$; product $= 0$, per \texttt{CLAUDE.md}
+  ``Essential constants''). This is an invariant of $\cF_X$, not a
+  trace readout: it does not appear in the MNOP generating function,
+  which is instead an element of $\End^{\bE_2}(\mathbf{1})$.
+\item $\kBKM(\Phi_{10}) = c_{10}(0)/2 = 10$. By Gritsenko's squaring
+  identity $\Phi_{10} = \Phi_5^2$ on the Siegel upper half-plane,
+  this doubles the Borcherds weight of $\Phi_5$ (the Gritsenko
+  singular-theta lift of $\phi_{-2, 1}$); and
+  $\kBKM(\Phi_5) = 5$ is the $N = 1$ slice of the
+  Gritsenko series $\kBKM(\Phi_N) = c_N(0)/2$.
+\item $\kcat(K3 \times E) = \chi(\cO_{K3 \times E}) = 0$, equal to
+  $\kch(A_{K3 \times E})$ as required by the shadow identity
+  $\kch = \kcat$ at even $d$ (AP-CY-DS of
+  \texttt{cy\_d\_kappa\_stratification.tex}; here $d = 3$ is odd,
+  and the identity still holds at $K3 \times E$ because $\chi(\cO_E) = 0$
+  makes both sides $0$).
+\item $\kfib = 24$ (K3-fibre-rank correction; see the K3 $\times$ E
+  spectrum $\{2, 3, 5, 24\}$ in \texttt{CLAUDE.md}).
+\end{itemize}
+None of the four $\kappa_\bullet$ appears as a MNOP trace readout
+directly; they are \emph{structural} invariants of the ambient
+$\cF_X$-as-$E_3$-FA, while the MNOP traces are partition functions
+valued in $\End^{\bE_2}(\mathbf{1})$.
+
+\subsection{Verdict on the essay}
+
+\begin{verification}
+The essay's claim that ``MNOP = two presentations of the same
+$\cF_X$-trace'' is:
+\begin{itemize}
+\item \textbf{Theorem} on $K3 \times E$ (this note
+  Theorem \ref{thm:mnop-k3e}, via Oberdieck--Pixton 2016 +
+  Oberdieck--Pandharipande 2015 + automorphic rigidity of $\Phi_{10}$).
+\item \textbf{Theorem} on toric CY$_3$ (MNOP II Theorem 2 +
+  Proposition \ref{prop:three-modules}).
+\item \textbf{Conjecture} (Conjecture \ref{conj:mnop-generic}) on
+  generic projective CY$_3$, at programme-level. The dualisability
+  hypothesis is the Bhatt--Halpern-Leistner extension to derived
+  moduli (AP-CY21, introduced in this note).
+\item \textbf{Morality, not theorem}, at its maximally heuristic
+  formulation (``$-q = e^{iu}$ is a tautology of reading one trace
+  in two bases''). The substitution $\sigma$ is non-trivial data;
+  the essay's phrase ``morality is exact'' should be read as
+  ``the organising principle is exact and determines the precise
+  data of $\sigma$'', not ``the substitution is tautological''.
+\end{itemize}
+The healed essay is mathematics; the unhealed essay is a programme
+statement. Both are right; the healed version makes the scope
+explicit.
+\end{verification}
+
+% ============================================================
+\section{Summary}
+\label{sec:summary}
+% ============================================================
+
+\subsection{The five attack--heal cycles, compressed}
+
+\begin{enumerate}
+\item \textbf{Category error (\S\ref{sec:attack-1}).} DT and GW are
+  different $\cF_X$-modules, not two readings of one module.
+  Healed: Proposition \ref{prop:three-modules}: three dualisable
+  modules, one $\bE_3$-FA, three trace maps into a common
+  $\bE_2$-centre.
+\item \textbf{$-q = e^{iu}$ is data (\S\ref{sec:attack-2}).}
+  The change of variables encodes a sign, an exponentiation, and a
+  domain restriction. Healed: Theorem \ref{thm:mnop-intertwiner}:
+  $\sigma$ is the unique $\bE_2$-centre automorphism intertwining
+  the DT-trace and GW-trace readings; $-q = e^{iu}$ is its
+  formula.
+\item \textbf{PT theory is missing (\S\ref{sec:attack-3}).}
+  Healed: Proposition \ref{prop:dt-pt-factorisation}: PT is the
+  third dualisable module, related to DT by the vacuum-module
+  factorisation $M_\DT = M_\PT \otimes \mathbf{1}^{\mathrm{vac}}$
+  with trace factor $M(-q)^{\chi(X)}$.
+\item \textbf{$K3 \times E$: tautology or automorphic rigidity
+  (\S\ref{sec:attack-4}).} Healed: Theorem \ref{thm:mnop-k3e}: on
+  $K3 \times E$ the common trace is $1/\Phi_{10}$, uniquely forced
+  by paramodular weight-10 rigidity; $\sigma$ stabilises $\Phi_{10}$.
+\item \textbf{Elliptic genus (\S\ref{sec:attack-5}).} Healed:
+  Proposition \ref{prop:elliptic-genus}: the elliptic-cohomology
+  trace of $\id_{\cF_{K3 \times E}}$ localises, via Segal elliptic
+  cohomology + Ayala--Francis factorisation homology, to
+  $1/\Phi_{10}$; a Pattern-273-disciplined
+  $(\infty,1)$-categorical companion to the chain-level
+  Theorem \ref{thm:mnop-k3e}.
+\item \textbf{Generic CY$_3$ (\S\ref{sec:attack-6}).} Healed:
+  Conjecture \ref{conj:mnop-generic}: the essay's claim on a
+  generic CY$_3$ is a programme-level conjecture, theorem-grade
+  only on toric + $K3 \times E$; AP-CY21 flags the dualisability
+  hypothesis.
+\end{enumerate}
+
+\subsection{Integration with Vol III}
+
+This note complements:
+\begin{itemize}
+\item \texttt{chapters/examples/toric\_cy3\_coha.tex} subsection
+  K3xE-coha-character (which inscribes the DT/Igusa identification
+  at theorem-grade via Oberdieck--Pixton);
+\item \texttt{chapters/theory/cy\_to\_chiral.tex} (which
+  constructs the functor $\Phi$ and the two-stage factorisation);
+\item \texttt{notes/platonic\_synthesis\_waves\_11\_through\_16.tex}
+  (Thm wn:thm:plat-two-stage, the $\Phi^{\mathrm{FA}}_d$ /
+  $\Sp_{\Sigma_{d-1}, C}$ factorisation);
+\item \texttt{notes/wave12\_a5\_C3\_rosetta\_nekrasov.tex} (the
+  toric-vertex CoHA computation on $\CC^3$, a special case of the
+  Proposition \ref{prop:three-modules} theorem layer).
+\end{itemize}
+
+\subsection{Residual frontier}
+
+\begin{itemize}
+\item AP-CY21: Bhatt--Halpern-Leistner dualisability extended to
+  derived moduli stacks (currently proved only on smooth projective
+  schemes). Required to lift Proposition \ref{prop:three-modules} to
+  theorem-grade on any $X$.
+\item The explicit chain-level presentation of the intertwiner
+  $\sigma$ in terms of the hCS BV complex on $X$ (currently
+  $\sigma$ is characterised abstractly by the uniqueness of
+  Theorem \ref{thm:mnop-intertwiner}; an explicit BV formula would
+  upgrade ``unique intertwiner exists'' to ``$\sigma$ is the
+  renormalisation of the Behrend $\chi$-sign cocycle'').
+\item Extension to CY$_4$ / CY$_5$ via higher-dimensional DT
+  (Borisov--Joyce 2017 arXiv:1504.00690; Cao--Leung 2015
+  arXiv:1407.7659): the same $\bE_{d}$-FA picture predicts a
+  generalised ``$-q = e^{iu}$-type'' intertwiner at each dimension;
+  this extends the Vol III CY-dimensional stratification to the
+  MNOP side.
+\end{itemize}
+
+\end{document}

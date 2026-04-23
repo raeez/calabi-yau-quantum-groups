@@ -1,0 +1,151 @@
+% Wave~13 P2/20 --- Slides-Borcherds-lift extraction channel
+% Source: Lorgat 2020 slides at /tmp/automorphic-slides.txt (953 lines).
+% Focus: the BORCHERDS-LIFT MACHINERY (singular theta lift, regularized
+%   theta integral, principal part of input weak-Jacobi form, explicit
+%   lift of $\phi_{0,1}$ to $\Delta_5$). Distinct from prior Wave 8/10
+%   extractions (Wave 8 l1--l5 covered the Conjecture-1 proof sketch,
+%   DT N>=2 refinement, rank-3 BKM, simultaneous twining, N=5,7,8
+%   boundary; Wave 10 t3/t5 covered automorphic correction and final
+%   slide pages) and from Wave 12 which did not target the explicit
+%   lift mechanics.
+% Cross-check: primary literature Borcherds 1998 (Invent Math 132,
+%   arXiv:alg-geom/9609022), Gritsenko-Nikulin 1998, Eichler-Zagier
+%   1985 (Jacobi forms theta-decomposition).
+
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\HH}{\mathbb{H}}
+\providecommand{\Oo}{\mathrm{O}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Lat}{\Lambda}
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\ClaimStatusRemark}{\textbf{[Remark]}}
+
+\section*{Wave~13 P2/20 --- Slides' Borcherds-lift machinery: principal part, theta-decomposition, singular-theta kernel}
+\label{sec:wave13-p2-slides-borcherds-lift}
+
+\paragraph{Scope.} The Lorgat~2020 slide deck presents Gritsenko--Nikulin's
+identification $\tfrac{1}{64}\Delta_5(2z)=\Phi(z)$ (lines 716--722) as a
+Weyl--Kac--Borcherds denominator identity \emph{and} as a Borcherds
+multiplicative lift of the weak Jacobi form $\phi_{0,1}$ of weight $0$
+and index $1$ (lines 723--773). Prior Wave 8/10 extractions documented
+the denominator side and the Conjecture~1 statement. What they left on
+the table is the \emph{lift mechanics}: which Maass form has which
+principal part, which theta-decomposition produces $\phi_{0,1}$, how the
+singular-theta kernel against the $\Lat^{3,2}$-lattice theta series
+produces the automorphic form on the Siegel upper half-space. This
+extraction channel isolates that missing content.
+
+\subsection*{F1. Principal part of the input: $\phi_{0,1}$ as a lifting datum.}
+\ClaimStatusTheorem\ (slides lines 744--759; Borcherds 1998 Theorem~13.3;
+Gritsenko 1999).
+
+The slides give $\phi_{0,1}=\phi_{12,1}/\delta_{12}$ where
+$\delta_{12}=q\prod_{n\geq 1}(1-q^n)^{24}$ is the weight-$12$ cusp form on
+$\mathrm{SL}_2(\ZZ)$ and $\phi_{12,1}$ is the first Fourier--Jacobi
+coefficient of $\Delta_{12}=\Delta_5^2$. Expanding (line 747):
+\[
+\phi_{12,1} = (r^{-1} + 10 + r)q + (10r^{-2} - 88r^{-1} - 132 - 88r + 10r^2)q^2 + \cdots,
+\]
+\[
+\phi_{0,1} = (r^{-1} + 10 + r) + q\,(10r^{-2} - 64r^{-1} + 108 - 64r + 10r^2) + \cdots.
+\]
+The \emph{principal part} is the $q^0$-term $r^{-1}+10+r$: a polar Laurent
+polynomial in the elliptic variable $r=\mathrm{e}^{2\pi\mathrm{i} z_2}$ whose singular
+behaviour at the cusp $q=0$ is the lifting datum. In Borcherds~1998
+Theorem~13.3 this principal part is the input to the singular theta
+integral on the Grassmannian of $\Lat^{2,2}$; the exponents
+$(n,\ell)$ with $n=0,|\ell|=1,f(0,\ell)=1$ and $n=0,\ell=0,f(0,0)=10$
+(line 802) fix the orders of zero of the output Borcherds product
+along the rational quadratic divisors of the Siegel threefold.
+
+\subsection*{F2. Theta-decomposition: $\phi_{0,1}=\sum_{\mu\in\ZZ/2\ZZ}h_{\mu}(\tau)\vartheta_{\mu,1}(\tau,z)$.}
+\ClaimStatusTheorem\ (Eichler--Zagier 1985; slides lines 751--759 give
+$f(n,\ell)$ table; Borcherds 1998 \S 5).
+
+A weak Jacobi form $\phi$ of weight $k$ and index $m$ admits the
+$\vartheta$-decomposition $\phi(\tau,z)=\sum_{\mu\!\!\mod 2m}h_{\mu}(\tau)\vartheta_{\mu,m}(\tau,z)$
+where $\vartheta_{\mu,m}(\tau,z)=\sum_{\ell\equiv\mu(2m)}q^{\ell^2/(4m)}r^{\ell}$ and
+$(h_{\mu})_{\mu}$ is a vector-valued weak modular form of weight
+$k-\tfrac12$ for the Weil representation of $\mathrm{Mp}_2(\ZZ)$ on the
+discriminant group $\Lat_m^{\vee}/\Lat_m$ where $\Lat_m=\langle 2m\rangle$.
+For $\phi_{0,1}$ at weight $0$ index $1$, the discriminant group is
+$\ZZ/2\ZZ$ and the components $(h_0,h_1)$ form a weight $-\tfrac12$
+vector-valued weak Maass-type form whose polar part, read off lines
+751--759, is:
+\[
+h_0(\tau) = 10 + O(q),\qquad h_1(\tau) = q^{-1/4}(1 + O(q)).
+\]
+The $q^{-1/4}$ polar term in $h_1$ is the nontrivial lifting input; it
+is precisely the principal-part datum that Borcherds' singular theta
+integral against the $\Lat^{2,2}\oplus\Lat^{1,1}$-lattice theta series
+converts into a meromorphic Siegel modular form with Humbert-divisor
+zeros.
+
+\subsection*{F3. Singular theta kernel: regularized integral over $\Lat^{3,2}$.}
+\ClaimStatusTheorem\ (Borcherds 1998 Theorem~13.3 + Gritsenko--Nikulin
+1998 \S 2; slides lines 178--267 transfer $\Sp_4(\ZZ)\to\Oo(\Lat^{3,2})^+$).
+
+The slides (lines 207--268) establish the exceptional isomorphism
+$\Sp_4(\ZZ)/\{\pm I\}\simeq \Oo^+(\Lat^{3,2})/\{\pm I\}$ via the map $g\mapsto\wedge^2 g$
+on $\wedge^2(\ZZ^4)$, with $\Lat^{3,2}=(e_1\wedge e_3+e_2\wedge e_4)^{\perp}\simeq
+\Lat^{1,1}\oplus\Lat^{1,1}\oplus\langle 2\rangle$ (line 216). On this
+signature-$(3,2)$ lattice, Borcherds' singular theta integral takes the
+form
+\[
+\Psi(Z) = \int_{\mathcal{F}}^{\mathrm{reg}} F(\tau)\,\Theta_{\Lat^{3,2}}(\tau,Z)\,\mathrm{d}\mu(\tau),
+\]
+where $\mathcal{F}$ is the standard $\mathrm{SL}_2(\ZZ)$-fundamental
+domain, $F$ is a vector-valued weak Maass form of weight
+$1-\tfrac{b^+ - b^-}{2} = 1-\tfrac{3-2}{2}=\tfrac12$ input built from
+$(h_0,h_1)$, and $\Theta_{\Lat^{3,2}}$ is the Siegel lattice theta
+series. The regularisation subtracts the growing constant
+$\int_{\mathcal{F}_T}$ as $T\to\infty$ along the Borcherds prescription
+(cutting off at $\mathrm{Im}\,\tau\leq T$ and identifying the polar
+$\log T$ divergence with the principal part). The output $\Psi(Z)$ is
+the log of $\Delta_5(2z)/64$ up to an explicit constant, per slides
+lines 716--722.
+
+\subsection*{F4. Weyl-vector symmetry and cone-of-simple-roots input.}
+\ClaimStatusRemark\ (slides lines 429--461; Borcherds 1998 \S 10
+``Weyl vector'' interpretation).
+
+The slides' Weyl vector $\rho=\tfrac12\delta_1+\tfrac12\delta_2+\tfrac12\delta_3=f_2-\tfrac12 f_3+f_{-2}$
+(line 477) is the Borcherds-lift image of the weight-0 constant term
+$f(0,0)=10$ split across the three simple root directions. This
+realises Borcherds' assertion that the Weyl vector of the output BKM is
+determined by the \emph{negative-index principal part} of the input
+vector-valued modular form --- the slide's choice
+$\{\delta_1,\delta_2,\delta_3\}=\{2f_2-f_3,2f_{-2}-f_3,f_3\}$ is exactly the
+type-II primitive roots of $\Lat^{2,1}_{II}$, and their half-sum is the
+Borcherds-lift Weyl vector (slides line 457). The slides thus verify at
+the Weyl-vector level that $\phi_{0,1}$ with principal part
+$r^{-1}+10+r$ produces, under the Borcherds lift, the GBKM-algebra
+Weyl vector prescribed by Gritsenko--Nikulin.
+
+\subsection*{F5. Bridge to $\kappa_{\mathrm{BKM}}(\Phi_1)=c_1(0)/2=5$.}
+\ClaimStatusTheorem\ (slides line 718 $+$ Borcherds 1995 weight
+formula; cache Vol III essential constant).
+
+The slide identification $\tfrac{1}{64}\Delta_5(2z)=\Phi(z)$ (line 718)
+combined with Borcherds' weight theorem
+$\mathrm{wt}(\Psi)=\tfrac12 c_F(0,0)$ for the constant term $c_F(0,0)=10$
+of $F$ (read off line 802: $f(0,0)=10$) gives weight~$5$ for $\Delta_5$,
+matching $\kBKM(\Phi_1)=5$ per the Vol III universal identity
+$\kBKM(\Phi_N)=c_N(0)/2$ (N=1 entry). This is the three-way
+$\kBKM$-audit: (i) slides' Gritsenko--Nikulin identification
+$\Delta_5\leftrightarrow\Phi$; (ii) Borcherds' principal-part weight
+formula; (iii) Vol III universal $\kBKM$-identity. All three agree at
+$N=1$.
+
+\subsection*{Open frontier isolated by this extraction.}
+The slides do not display the full singular-theta regularisation; the
+principal-part input is given but the integral kernel is cited without
+Fourier coefficients. Wave 14+ objective: reconstruct the explicit
+$F(\tau)$ vector-valued weak Maass form of weight $\tfrac12$ whose
+Borcherds lift against $\Lat^{3,2}$ is $\Delta_5$, in closed form,
+cross-checked against Gritsenko--Clery 2008 explicit constructions.

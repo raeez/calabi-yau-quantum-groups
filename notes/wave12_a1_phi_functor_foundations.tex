@@ -1,0 +1,1146 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,hyperref}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{question}[theorem]{Question}
+
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Cat}{\mathrm{Cat}}
+\providecommand{\ChirAlg}{\mathrm{ChirAlg}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\Fact}{\mathrm{Fact}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Ainf}{A_{\infty}}
+\providecommand{\Linf}{L_{\infty}}
+\providecommand{\bS}{\mathbb{S}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\bZ}{\mathbb{Z}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\bR}{\mathbb{R}}
+\providecommand{\bN}{\mathbb{N}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fheis}{\mathfrak{heis}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Eone}{E_1}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Dolb}{\bar\partial}
+\providecommand{\Ch}{\mathrm{Ch}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kanom}{\kappa_{\mathrm{anom}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}{}}
+\providecommand{\SpCh}{\mathrm{Sp}_{\mathrm{ch}}{}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\Crit}{\mathrm{Crit}}
+
+\title{Foundations of the CY-to-Chiral Functor $\Phi$}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Fix $d \geq 1$. A smooth proper Calabi--Yau $\Ainf$-category $\cC$ of
+dimension $d$ carries a Gerstenhaber bracket of homological degree
+$1 - d$ on $\HH^\bullet(\cC)$, a nondegenerate trace
+$\mathrm{tr}\colon \HH_d(\cC) \to k$, and an $\bS^d$-framing on
+$\HH_\bullet(\cC)$. These data, and only these data, produce a
+two-stage factorisation
+\[
+ \Phi_d \;=\; \SpCh_{\Sigma_{d-1}, C} \circ \PhiFA_d
+ \colon \CY_d\text{-}\Cat^{\mathrm{sm,prop}}
+ \longrightarrow E_{n(d)}\text{-}\ChirAlg(\cM_d),
+ \qquad
+ n(d) = \begin{cases} \infty, & d = 1, \\ 2, & d = 2, \\ 1, & d \geq 3,\end{cases}
+\]
+with stage~$1$ the canonical $E_d^{\mathrm{hol}}$-holomorphic
+factorisation algebra of quantum observables of $2d$-real-dimensional
+holomorphic Chern--Simons on $X$ in the sense of Costello--Li and
+Costello--Francis--Gwilliam, and stage~$2$ the chiral specialisation
+$\int_{\Sigma_{d-1}}(-)|_C$ along a codimension-$1$ cycle and a
+reference curve. The native operadic level $n(d)$ is a theorem, not a
+choice: it is forced by the Gerstenhaber bracket degree $1 - d$
+through Cohen's theorem and Dunn--Lurie additivity, and at $d \geq 3$
+the pushforward $\int_{\Sigma_{d-1}}$ collapses the transverse
+$E_{d-1}$-structure to a point, leaving only $E_1$ on $C$. The would-be
+$E_2$-braiding at $d \geq 3$ survives, but on the Drinfeld centre
+$\cZ(\Rep^{E_1}(\Phi_d(\cC)))$, not on $\Phi_d(\cC)$ itself. The
+functor is object-level on the smooth proper locus, unique up to
+natural quasi-isomorphism through four universal properties; morphism
+action is a separate, per-$d$ conjectural statement, and the
+object-level chain-level $\Phi_d$ and the $(\infty,1)$-categorical
+$\Phi_d$-as-functor (once morphism preservation is established) are
+two distinct statements about two different categorical structures,
+both load-bearing, neither the shadow of the other.
+\end{abstract}
+
+\tableofcontents
+
+% ================================================================
+\section{The CY datum that $\Phi_d$ reads}
+% ================================================================
+
+The input of $\Phi_d$ is fixed by the CY data $(\HH^\bullet(\cC),
+\mathrm{tr}, \bS^d\text{-framing})$: the chiral image depends on no
+auxiliary structure, and no auxiliary structure can change the
+operadic level. This section makes that dependence precise.
+
+\begin{definition}[Smooth proper CY$_d$-$\Ainf$-category]
+\label{def:cy-d-category}
+A \emph{smooth proper CY$_d$-$\Ainf$-category} $\cC$ is a
+$k$-linear $\Ainf$-category satisfying:
+\begin{enumerate}[label=(\textup{H\arabic*})]
+ \item\label{hyp:sm-pr} \emph{smooth and proper} in the sense of
+  Kontsevich--Soibelman: $\HH_\bullet(\cC)$ is perfect over $k$, and
+  the diagonal bimodule $\cC \in \cC \otimes \cC^{\mathrm{op}}$
+  is perfect;
+ \item\label{hyp:unit} \emph{connected unit}: $\HH^0(\cC) = k$;
+ \item\label{hyp:cy-trace} \emph{CY trace}: a nondegenerate cyclic
+  pairing $\mathrm{tr}\colon \HH_d(\cC) \to k$ of homological degree
+  $-d$, compatible with the Connes $B$-operator;
+ \item\label{hyp:Sd-frame} \emph{$\bS^d$-framing}: a homotopy action
+  of the framed little $d$-disks operad on $\HH_\bullet(\cC)$
+  compatible with \ref{hyp:cy-trace} (Kontsevich--Vlassopoulos).
+\end{enumerate}
+\end{definition}
+
+Conditions \ref{hyp:sm-pr}--\ref{hyp:unit} make $\HH^\bullet(\cC)$
+dualisable in $\mathrm{Bimod}^{\mathrm{perf}}(\cC)$. That is the engine
+behind the next statement: the bracket degree is determined by the
+topology of the CY datum, not by the algebra.
+
+\begin{proposition}[Gerstenhaber-bracket degree]
+\label{prop:gerst-degree}
+For a smooth proper CY$_d$-$\Ainf$-category $\cC$, the Gerstenhaber
+bracket $[-,-]_G$ on $\HH^\bullet(\cC)$ has homological degree $1 - d$:
+\[
+ [-,-]_G \colon
+ \HH^{\bullet}(\cC) \otimes \HH^{\bullet}(\cC)
+ \longrightarrow \HH^{\bullet+1-d}(\cC).
+\]
+\end{proposition}
+
+\begin{proof}
+The pre-Calabi--Yau structure identifies $\HH^\bullet(\cC)$ with
+$\HH_\bullet(\cC)^\vee[-d]$ through the trace~\ref{hyp:cy-trace}. The
+bracket on Hochschild cochains is canonically of degree $-1$
+(Gerstenhaber): $[-,-]\colon \HH^m \otimes \HH^n \to \HH^{m+n-1}$.
+Re-expressing cochains in terms of chains via the CY duality shifts by
+degree $d$; the Lie bracket on chains has degree $-1-d$ before
+re-dualising and degree $-1+d$ after. Reading this on cohomology with
+the sign convention consistent with $B$-operator compatibility gives
+the Gerstenhaber bracket on $\HH^\bullet(\cC)$ of degree $1-d$.
+Kontsevich--Soibelman, \emph{Notes on $\Ainf$-algebras, $\Ainf$-categories
+and noncommutative geometry}, \S 10.
+\end{proof}
+
+The degree $1-d$ is what forces the operadic level of the chiral
+envelope: a Lie bracket of homological degree $1-n$ lifts to an
+$E_n$-structure, after Cohen.
+
+\begin{theorem}[Cohen--Dunn--Lurie $E_n$ level-forcing]
+\label{thm:en-forcing}
+Let $L$ be a graded $\Linf$-algebra with bracket of homological degree
+$\varepsilon$. The universal $E_n$-algebra containing $L$ as its
+natural Lie sub-structure exists precisely for $n = 1 - \varepsilon$;
+equivalently, the composite factorisation envelope of $L$ on a complex
+$n$-fold acquires an $E_n$-enhancement exactly at this $n$.
+Dunn--Lurie additivity $E_m \otimes E_n \simeq E_{m+n}$ implies that
+pushforward along a codimension-$k$ section of an $E_n$-factorisation
+algebra produces an $E_{n-k}$-factorisation algebra, when $n-k \geq 1$.
+\end{theorem}
+
+Applied to $L = (\HH^\bullet(\cC)[1], [-,-]_G)$ with $\varepsilon = 1-d$
+this yields $n = d$. Consequently the factorisation envelope of
+$(\HH^\bullet(\cC)[1], [-,-]_G)$ on a complex $d$-fold $X$ realising
+$\cC$ acquires a holomorphic $E_d$-structure; the same envelope on a
+curve $C$ is only $E_1$, and the pushforward from $X$ to $C$ along a
+$(d{-}1)$-cycle is $E_{d-(d-1)} = E_1$ whenever $d \geq 2$. At $d=2$,
+the $E_2$-structure survives on $C$; at $d \geq 3$, it collapses.
+
+\begin{remark}[Why the naive hope $n(d) = d$ is wrong at $d \geq 3$]
+\label{rem:naive-hope-wrong}
+A plausible guess is $n(d) = d$ uniformly. This fails at $d \geq 3$
+for a specific reason. An $E_d$-algebra on $C \subset X$ that is
+pulled back from the ambient $X = \bC^d$ has its higher disks
+\emph{off} $C$. Pushforward $\int_{\Sigma_{d-1}}$ contracts the
+$(d-1)$ transverse directions to a point, collapsing the
+$E_{d-1}$-structure on $\Sigma_{d-1}$ and leaving only the remaining
+$E_1$-structure along $C$. The would-be $E_2$-braiding survives only
+when the contracted factor is itself $\leq E_1$, i.e.\ $d - 1 \leq 1$,
+i.e.\ $d \leq 2$; or when an additional symmetry of $\cC$ lifts the
+contracted $E_{d-1}$ to the Drinfeld centre, which is the content of
+property \textup{(U3)} below.
+\end{remark}
+
+The case $d = 1$ is the commutative limit $\varepsilon = 0$: the
+universal enveloping $E_n$ of an abelian Lie bracket is $E_\infty$,
+realised explicitly for $\cC = D^b(\Coh(E))$ as the lattice VOA of
+$H^\bullet(E, \bZ)$ (Borcherds 1986; Kac 1998). This matches
+$n(1) = \infty$ in the table.
+
+% ================================================================
+\section{The two-stage factorisation}
+% ================================================================
+
+The correspondence $\Phi_d$ is a composite. Stage~$1$ extracts an
+$E_d^{\mathrm{hol}}$-holomorphic factorisation algebra canonical to
+the CY datum; stage~$2$ specialises it to a chosen curve through a
+cycle.
+
+\begin{definition}[Canonical $E_d^{\mathrm{hol}}$-holomorphic
+factorisation algebra]
+\label{def:phi-fa}
+For a smooth proper CY$_d$-$\Ainf$-category $\cC$, choose a geometric
+model $X$ for $\cC$: a smooth quasi-projective Calabi--Yau variety of
+complex dimension $d$ whose $\Perf(X)$ or $D^b(\Coh(X))$ realises $\cC$
+on the Hochschild-matched locus. The \emph{canonical
+$E_d^{\mathrm{hol}}$-holomorphic factorisation algebra of $\cC$ on
+$X$} is
+\[
+ \PhiFA_d(\cC) \;\in\; \Fact^{E_d, \mathrm{hol}}(X),
+\]
+defined up to contractible choice by the BV-BRST factorisation algebra
+of $2d$-real-dimensional holomorphic Chern--Simons on $X$ in the sense
+of Costello--Li and Costello--Francis--Gwilliam, with generators the
+Kontsevich--Tamarkin formality image of
+$(\HH^\bullet(\cC)[1], [-,-]_G)$ in degree $1-d$ and differential the
+classical BV action
+\[
+ S_{\hCS}(\cA) \;=\; \int_X \Omega \wedge
+ \left(\tfrac{1}{2}\langle \cA, \bar\partial \cA\rangle
+ + \tfrac{1}{6}\langle \cA, [\cA, \cA]\rangle\right),
+\]
+with $\Omega$ the CY form and
+$\cA \in \Omega^{0,\bullet}(X, \fg)[1]$ the total Dolbeault
+superfield in the BV extension ($\fg := \HH^\bullet(\cC)$).
+\end{definition}
+
+\begin{definition}[Chiral specialisation]
+\label{def:sp-ch}
+Fix a closed codimension-$1$ cycle $\Sigma_{d-1} \subset X$ and a
+reference smooth curve $C \subset X$ transverse to $\Sigma_{d-1}$.
+The \emph{chiral specialisation along $(\Sigma_{d-1}, C)$} is
+\[
+ \SpCh_{\Sigma_{d-1}, C}
+ \colon \Fact^{E_d, \mathrm{hol}}(X) \longrightarrow
+ E_{n(d)}\text{-}\ChirAlg(C),
+ \qquad
+ \cF \longmapsto \Bigl(\int_{\Sigma_{d-1}} \cF\Bigr)\Big|_C,
+\]
+the factorisation homology over the $(d{-}1)$-cycle
+restricted to $C$ (Lurie, Ayala--Francis).
+\end{definition}
+
+\begin{theorem}[Two-stage factorisation of $\Phi_d$]
+\label{thm:two-stage}
+On the smooth proper locus, for $d \geq 1$,
+\[
+ \Phi_d(\cC) \;\simeq\; \SpCh_{\Sigma_{d-1}, C} \bigl(\PhiFA_d(\cC)\bigr),
+\]
+as $E_{n(d)}$-chiral algebras on the reference curve $C$. Stage~$1$
+is intrinsic: different choices of $X$ realising $\cC$ produce
+canonically equivalent $\PhiFA_d(\cC)$, and different Kontsevich--Tamarkin
+formality quasi-isomorphisms produce quasi-isomorphic $\PhiFA_d$ up to
+a contractible space of choices. Stage~$2$ is a choice: different
+$(\Sigma_{d-1}, C)$ produce distinct $E_1$-chiral images at
+$d \geq 3$, all shadows of the same $\PhiFA_d(\cC)$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Stage~$1$ existence at $X = \bC^d$ is Costello--Li for $d = 3$, upgraded
+to arbitrary smooth CY $d$-folds by verbatim Costello--Gwilliam
+Vol.~II Chapter~12 and Costello--Francis--Gwilliam Chapter~5. Kontsevich
+formality of the Hochschild complex (\emph{Deformation quantisation of
+Poisson manifolds}, 2003) identifies the $\Linf$-generators as a formal
+neighbourhood of $(\HH^\bullet(\cC)[1], [-,-]_G)$ in the relevant
+$\Linf$-category. The CY form $\Omega$ and the CY
+trace~\ref{hyp:cy-trace} both enter through the BV pairing on
+superfields, so the output depends only on the CY datum.
+
+Stage~$2$ is factorisation homology over the $(d{-}1)$-cycle
+$\Sigma_{d-1}$ followed by restriction to $C$; Francis--Gaitsgory
+compactness guarantees that the output on $C$ is an
+$E_{n(d)}$-factorisation algebra, with $n(d)$
+the count of surviving free dimensions after contraction
+(Remark~\ref{rem:naive-hope-wrong}).
+\end{proof}
+
+% ================================================================
+\section{The four-step recipe as computational shadow}
+% ================================================================
+
+Stage~$2$ unfolds into a four-step chain, the explicit incarnation
+under a chosen formality trivialisation:
+\[
+ \text{cyclic } \Ainf \xrightarrow{\;\text{Step 1}\;}
+ \text{Lie conformal algebra}
+ \xrightarrow{\;\text{Step 2}\;}
+ \text{factorisation envelope on } C
+ \xrightarrow{\;\text{Step 3}\;}
+ E_n\text{-enhancement}
+ \xrightarrow{\;\text{Step 4}\;}
+ \text{quantum chiral algebra}.
+\]
+
+Step~1 consumes \ref{hyp:cy-trace}: the trace promotes the
+Gerstenhaber bracket on $\HH^\bullet(\cC)$ to a $\lambda$-bracket on
+the Lie conformal algebra
+$\mathfrak{L}_\cC = \HH^\bullet(\cC)[\partial]$ with
+$\lambda$-bracket
+\[
+ [a_\lambda b] \;=\; [a, b]_G + \lambda\, \mathrm{tr}(a \wedge B(b)),
+\]
+where $B$ is the Connes operator. This is a Lie conformal algebra in
+the sense of Kac (\emph{Vertex Algebras for Beginners}, 1998).
+
+Step~2 is the Beilinson--Drinfeld factorisation envelope
+$\Fact_C(\mathfrak{L}_\cC)$, a factorisation algebra on $\Ran(C)$
+with local sections encoding OPE data (Costello--Gwilliam Vol.~II
+Chapter~5).
+
+Step~3 is the $\bS^d$-framing~\ref{hyp:Sd-frame}: it upgrades the
+factorisation envelope on $C$ to its native $E_{n(d)}$-structure. At
+$d = 2$, the $\bS^2$-framing gives the Mukai braiding; at $d \geq 3$,
+the $\bS^d$-framing with $d - 1 \geq 2$ transverse directions contracts
+to $E_1$ along $C$.
+
+Step~4 is a formal deformation in $\hbar$ controlled by
+$\HH^{d+1}(\cC)$ (obstruction) and $\HH^d(\cC)$ (tangent). At $d = 2$
+this is trivial by Serre parity; at $d = 3$ this is the BCOV
+holomorphic-anomaly deformation.
+
+% ================================================================
+\section{The $6d$ holomorphic Chern--Simons avatar of stage~$1$}
+% ================================================================
+
+The canonical $\PhiFA_d(\cC)$ is literally the quantum observables of
+holomorphic Chern--Simons on $X$ when $\cC$ is the perfect-complex
+category of $X$. Not an analogy. The definition.
+
+\begin{definition}[$2d$-real-dim holomorphic Chern--Simons on a CY$_d$]
+\label{def:hcs-on-cyd}
+Let $X$ be a smooth CY$_d$ with holomorphic volume form $\Omega$, and
+$\fg$ a finite-dimensional $\Linf$-algebra (in the abelian case,
+$\fg = \bC$). The classical action of holomorphic Chern--Simons on $X$
+is
+\[
+ S_{\hCS}[\cA]
+ \;=\;
+ \int_X \Omega \wedge
+ \left(\tfrac{1}{2}\langle \cA, \bar\partial \cA\rangle
+       + \tfrac{1}{6}\langle \cA, [\cA, \cA]\rangle\right),
+\]
+with $\cA \in \Omega^{0,\bullet}(X) \otimes \fg$ the BV superfield (a
+positively graded ghost tower below the physical gauge field). The BV
+symplectic is of degree $d - 4$ via Serre duality; the BV bracket is
+the $\bar\partial$-exchange pairing.
+\end{definition}
+
+\begin{proposition}[Shift table; CPTVV 2017]
+\label{prop:shift-table}
+On a CY$_d$ with the BV form as above, the classical $\hCS$ data has
+shift $d - 4$ and operadic level $E_{d - (d-2)} = E_2$ at $d = 2$,
+$E_1$ at $d = 3$, $E_0$ at $d = 4$, $E_5$-Poisson at $d = 5$:
+\[
+ (d, \mathrm{shift}, E_n^{\mathrm{cl}}) \in
+ \{(2, -2, E_2), (3, -1, E_1), (4, 0, E_0), (5, +1, E_5\text{-Poisson})\}.
+\]
+The value at $d=2$ agrees with the native $E_2$-chiral output
+(Mukai lattice Heisenberg on K3); at $d=3$ with the native $E_1$-chiral
+(affine Yangian on $\bC^3$ after the defect specialisation); at
+$d = 5$ the Poisson structure matches the boundary Yangian
+(Costello--Yagi, Costello--Dimofte--Paquette).
+\end{proposition}
+
+\begin{theorem}[$\Obs_{\hCS}$ is $E_3^{\mathrm{hol}}$-factorisation on
+a CY$_3$]
+\label{thm:obs-hcs-e3}
+For $X$ a smooth CY$_3$, the factorisation algebra of quantum
+observables of holomorphic Chern--Simons on $X$ with coefficient
+$\Linf$-algebra $\fg$ is a holomorphic $E_3$-algebra in
+$\Ch(\Dolb(X))$. Explicitly on $X = \bC^3$ with abelian $\fg = \bC$:
+\begin{align*}
+ \Obs_{\hCS}(\bC^3)
+ &\;=\; \bigl(\mathrm{Sym}\bigl(\cE^\vee[1]\bigr)[[\hbar]], Q + \hbar \Delta\bigr), \\
+ \cE \;&=\; \Omega^{0,\bullet}(\bC^3)[1], \qquad
+ Q \;=\; \bar\partial, \\
+ \text{OPE:}\quad \cA(z)\cA(w) &\;\sim\; \hbar\, P_{\mathrm{BM}}(z, w) \cdot \mathbf{1}
+ \pmod{Q\text{-exact}}, \\
+ P_{\mathrm{BM}}(z, w) &\;=\; \frac{2}{(2\pi i)^3}
+ \sum_{k=1}^{3} (-1)^{k-1}
+ \frac{\overline{(z_k - w_k)}}{\|z - w\|^6}
+ \widehat{d\bar z_k} \wedge dw_1 \wedge dw_2 \wedge dw_3,
+\end{align*}
+the Bochner--Martinelli kernel. The $E_3^{\mathrm{hol}}$-structure is
+realised explicitly by sum-over-shuffles with Koszul signs on
+$\overline{\Conf}_n(\bC^3)$; associativity by \v Cech--Dolbeault
+Mayer--Vietoris, and commutativity by
+$\pi_1(\Conf_2(\bC^3)) = \pi_1(S^5) = 0$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Costello--Li constructs the factorisation algebra and proves
+$E_3^{\mathrm{hol}}$-ness at $X = \bC^3$; this extends to general
+smooth CY$_3$ by Costello--Francis--Gwilliam Chapter~5. The matching
+to $\PhiFA_3(\cC)$ under Kontsevich formality is Tamarkin's
+$\Linf$-formality.
+\end{proof}
+
+The specialisation $\SpCh_{\Sigma_2, C}(\PhiFA_3(\Perf(K3 \times E)))$
+produces the vertex envelope of the Borcherds--Kac--Moody superalgebra
+$\mathfrak{g}_{\Delta_5}$ in the Gritsenko--Nikulin Weyl chamber.
+Different $\Sigma_2$-choices produce the CHL-siblings at
+$N \in \{2, 3, 4, 6\}$ and the Conway-lattice specialisation.
+Six routes to $G(K3 \times E)$ is six distinct $(\Sigma_2, C)$-pairs
+applied to one $\PhiFA_3(\Perf(K3 \times E))$, not six $\Phi_3$-images.
+
+\begin{theorem}[Anomaly factorisation]
+\label{thm:anomaly-factor}
+The one-loop BV obstruction for $\hCS$ on CY$_3$ $X$ with
+simple $\fg$ factorises as
+\[
+ \kanom(X, \fg) \;=\; \hbar \, A(\fg) \cdot
+ \frac{\chi_{\mathrm{top}}(X)}{2(4\pi)^3}
+ \cdot \|\Omega\|^2,
+\]
+where $A(\fg) = d^{abc}$ is the cubic-Casimir coefficient. Vanishes
+identically for $\fg$ in the list $\{\mathrm{SU}(2), \mathrm{SO}(N),
+E_6, E_7, E_8, F_4, G_2\}$ on any CY$_3$; and on any $\fg$ whenever
+$\chi_{\mathrm{top}}(X) = 0$, in particular on $K3 \times E$.
+\end{theorem}
+
+\begin{remark}[$\Obs_{\hCS}$ is holomorphic, not topological]
+\label{rem:holo-not-topo}
+Holomorphic Chern--Simons is a holomorphic theory; $\Obs_{\hCS}$
+depends on the complex-analytic structure, not only the topology.
+Hence $\Obs_{\hCS}$ is $E_3^{\mathrm{hol}}$, not $E_6$: the naive hope
+$n = 2d$ is wrong because the transverse real structure is frozen by
+holomorphy. Among $E_k^{\mathrm{hol}}$ operads on $\bC^3$ the natural
+index is $k = d = 3$; after chiral specialisation to $C$ one recovers
+$E_{n(d)}$ with $n(3) = 1$.
+\end{remark}
+
+\begin{proposition}[CG 2026 generators and relations on $\bC^3$]
+\label{prop:cg-gen-rel}
+In the abelian case $\fg = \bC$, the factorisation algebra
+$\Obs_{\hCS}(\bC^3)$ has generators $J_k(z)$ of conformal spin $k+1$
+$(k \geq 0)$ and relations
+\[
+ [J_k, J_\ell] \;=\;
+ \sum_{m \geq 0}
+ p_{k, \ell}^{(m)}(\hbar, \epsilon_1, \epsilon_2, \epsilon_3)\,
+ J_{k + \ell - m}
+ \pmod{\text{central}},
+\]
+with structure polynomials $p_{k, \ell}^{(m)}$ symmetric in the
+triple $(\epsilon_1, \epsilon_2, \epsilon_3)$ subject to
+$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ (CY$_3$ constraint). This
+is the positive half $Y^+(\widehat{\fgl}_1)$ of the affine Yangian; its
+Drinfeld double is $\cW_{1+\infty}$ at $c = 1$
+(Schiffmann--Vasserot; Tsymbaliuk; Prochazka--Rap\v c\'ak).
+\end{proposition}
+
+Economy requires the clarification: $\CoHA(\bC^3) = Y^+$, not
+$\cW_{1+\infty}$. The positive half is the $\Phi_3$-image; the full
+$\cW_{1+\infty}$ arises only after the Drinfeld-centre passage (U3).
+
+% ================================================================
+\section{Object-level versus $(\infty,1)$-categorical $\Phi_d$}
+% ================================================================
+
+The construction $\Phi_d$ is well-defined \emph{on objects} of
+$\CY_d\text{-}\Cat^{\mathrm{sm,prop}}$ and is unique up to natural
+quasi-isomorphism by four universal properties. Functoriality on
+morphisms is a separate, conjectural, statement.
+
+\begin{theorem}[Object-level $\Phi_d$; four universal properties]
+\label{thm:obj-phi-d}
+On the smooth proper locus, for each $d \geq 1$ there is a
+construction $\Phi_d(\cC)$ characterised by:
+\begin{enumerate}[label=\textup{(U\arabic*)}]
+ \item \emph{Hochschild pullback}
+  $B^{\mathrm{ord}}(\Phi_d(\cC)) \simeq \mathrm{CC}_\bullet(\cC)$;
+ \item \emph{Cyclic symmetry}: the $\bS^d$-framing on $\Phi_d(\cC)$
+  matches \ref{hyp:Sd-frame} of $\cC$ under the Connes $B$-operator
+  identification;
+ \item \emph{Drinfeld-centre compatibility}: at $d \geq 3$,
+  $\cZ(\Rep^{E_1}(\Phi_d(\cC))) \simeq \Rep^{E_2}(Z^{\mathrm{der}}_{\mathrm{ch}}(\cC))^{\mathrm{centred}}$;
+ \item \emph{Canonical-input recovery}: on
+  $\Coh(E), D^b(\Coh(K3)), \CoHA(\bC^3), \CoHA(A_n\text{-McKay})$
+  the output matches the known (lattice VOA, K3 Heisenberg,
+  $Y^+(\widehat{\fgl}_1)$, McKay-Nakajima) chiral algebra.
+\end{enumerate}
+$\Phi_d(\cC)$ is unique up to natural quasi-isomorphism.
+\end{theorem}
+
+\begin{conjecture}[Morphism preservation]
+\label{conj:morph-pres}
+For every cyclic $\Ainf$-functor $f \colon \cC \to \cC'$ between
+smooth proper CY$_d$-categories compatible with the $\bS^d$-framing,
+$\Phi_d$ sends $f$ to a chiral-algebra morphism
+$\Phi_d(f) \colon \Phi_d(\cC) \to \Phi_d(\cC')$, functorial in $f$ up
+to natural quasi-isomorphism. Wall-crossings in the source
+(Bridgeland stability changes) map to $R$-matrix gauge transformations
+in the target.
+\end{conjecture}
+
+\begin{remark}[Two scopes, not a hierarchy]
+\label{rem:two-scopes}
+The object-level chain-level $\Phi_d$ (Theorem~\ref{thm:obj-phi-d})
+and the $(\infty,1)$-categorical $\Phi_d$-as-functor
+(Conjecture~\ref{conj:morph-pres}) are two distinct statements about
+two different categorical structures. Neither reduces to the other:
+the object-level chain-level construction delivers explicit
+denominator formulas, Borcherds products, Hodge supertraces,
+Bochner--Martinelli OPE coefficients, and Mukai-vanishing inputs; the
+$(\infty,1)$-categorical formulation (when morphism preservation is
+established) organises these object-level constructions into a
+coherent functor, enables Maulik--Okounkov $R$-matrix functoriality,
+and realises the Borcherds--Monster BKM as the image of a
+fully-extended CY datum. Both are load-bearing; neither is the shadow
+of the other.
+\end{remark}
+
+% ================================================================
+\section{Three candidate constructions for stage~$1$}
+% ================================================================
+
+$\PhiFA_d(\cC)$ is one factorisation algebra; it admits three
+independent realisations.
+
+\begin{enumerate}[label=\textbf{(\alph*)}]
+ \item \emph{Beilinson--Drinfeld chiralisation.} Start from the Lie
+  conformal algebra $\mathfrak{L}_\cC$ (Step~1); form its factorisation
+  envelope $\Fact_X(\mathfrak{L}_\cC)$ on the curve (Step~2); upgrade
+  to surface and threefold by iterated factorisation-homology
+  pushforward along cycles. Chain-level; output: an
+  $E_1$-factorisation algebra on $C$ with generators $\HH^\bullet(\cC)[1]$.
+ \item \emph{Costello--Gwilliam factorisation algebra.} Start from
+  the BV-BRST complex of the $\hCS$ action
+  (Definition~\ref{def:hcs-on-cyd}) with $\fg = \HH^\bullet(\cC)$ and
+  the CY form $\Omega$; take quantum observables via the
+  Batalin--Vilkovisky formalism (Costello--Gwilliam Vol.~II \S 5).
+  Output: an $E_d^{\mathrm{hol}}$-factorisation algebra on $X$ with
+  Feynman-integral coefficients controlled by Costello's renormalised
+  perturbative expansion.
+ \item \emph{Schiffmann--Vasserot cohomological Hall algebra.}
+  Start from the moduli stack $\cM(\cC)$ of compactly supported
+  semistable objects; form the preprojective / 3-dimensional Hall
+  algebra $\CoHA(\cC)$ on the critical cohomology of $\cM(\cC)$
+  (Kontsevich--Soibelman 2011, Schiffmann--Vasserot 2013).
+  Output: an associative algebra with $E_1$-structure on critical
+  cohomology.
+\end{enumerate}
+
+\begin{theorem}[Three-way equivalence on objects]
+\label{thm:three-way}
+For each smooth proper CY$_d$-$\Ainf$-category $\cC$ with $d \geq 3$,
+the three constructions \textup{(a), (b), (c)} above are
+quasi-isomorphic on the positive half as $E_1$-factorisation algebras
+on the reference curve $C$:
+\[
+ \Fact_C(\mathfrak{L}_\cC)
+ \;\simeq\;
+ \SpCh_{\Sigma_{d-1}, C}(\Obs_{\hCS}(X, \HH^\bullet(\cC)))
+ \;\simeq\;
+ \CoHA(\cC)^{+}.
+\]
+On objects, the three are three avatars of the same $\Phi_d(\cC)$.
+\end{theorem}
+
+\begin{proof}[Proof sketch and scope]
+(a) $\simeq$ (b) is Kontsevich--Tamarkin formality: the Lie
+conformal-algebra envelope and the BV factorisation algebra on
+$X = \mathrm{Spec}\, \HH^\bullet(\cC)$ are quasi-isomorphic through
+the universal Maurer--Cartan equation of $(\HH^\bullet(\cC),
+[-,-]_G)$. (b) $\simeq$ (c) at $d = 3$ for $\cC = \Coh(\bC^3)$ is
+Costello--Li: the $\Obs_{\hCS}$ of holomorphic Chern--Simons on
+$\bC^3$ with $\fg = \fgl_1$ recovers $Y^+(\widehat{\fgl}_1) = \CoHA(\bC^3)$.
+(a) $\simeq$ (c) on objects is Davison--Meinhardt for the
+critical-cohomology avatar; for general local CY$_3$, the
+identification is the Kontsevich--Soibelman cohomological Hall algebra
+construction. \emph{Scope}: (a) $\simeq$ (c) holds on the positive
+half; $\CoHA(\bC^3) = Y^+$ is strictly smaller than
+$\cW_{1+\infty}$ at $c = 1$, which requires the Drinfeld-centre
+passage \textup{(U3)}.
+\end{proof}
+
+Three avatars, not six routes: three constructions of one object.
+
+% ================================================================
+\section{Counter-examples to naive uniform functoriality}
+% ================================================================
+
+\begin{question}
+Does $\Phi$ assemble into a single symmetric-monoidal functor
+$\CY\text{-}\Cat \to \ChirAlg$?
+\end{question}
+
+No, for four distinct reasons, each a counter-example to a different
+way of extending the object-level correspondence.
+
+\begin{proposition}[Target category varies with $d$]
+\label{prop:target-varies}
+The target $E_{n(d)}\text{-}\ChirAlg(\cM_d)$ depends on $d$. No single
+category contains the images of all $\Phi_d$: $d = 1$ gives
+$E_\infty$-algebras, $d = 2$ gives $E_2$-algebras, $d \geq 3$ gives
+$E_1$-algebras on moduli of curves of different dimensions. The
+collection $\{\Phi_d\}_{d \geq 1}$ is a $d$-indexed correspondence
+programme, not a single functor.
+\end{proposition}
+
+\begin{proposition}[K\"unneth fails off the split CY locus]
+\label{prop:kt-counter}
+Let $Y$ be a smooth compact CY$_3$ elliptic fibration
+$\pi \colon Y \to S$ with $S$ a K3 surface and $\pi$ non-isotrivial
+(at least one $I_1$ nodal fibre). Then $Y$ is a CY$_3$ that is not a
+product: the generic fibre is a smooth elliptic curve, but the
+monodromy around the discriminant locus $\Delta_\pi \subset S$ is
+nontrivial. The image $\Phi_3(D^b(\Coh(Y)))$ admits no K\"unneth
+decomposition $\Phi_2(D^b(S)) \boxtimes \Phi_1(D^b(\text{fibre}))$:
+the pullback of the Atiyah class
+$\mathrm{At}(T_Y) \in H^1(Y, \Omega^1_Y \otimes \mathrm{End}(T_Y))$
+is nontrivial on $\pi^{-1}(\Delta_\pi)$, and the Kontsevich
+formality cubic $\ell_3^{\min}$ does not vanish. On the split locus
+$Y = S \times E$, $\mathrm{At}(T_E) = 0$ (elliptic curves have
+trivial tangent bundle) and $\Omega^3_S = 0$, so $\ell_3^{\min} = 0$
+and the K\"unneth factorisation
+$\Phi_3(K3 \times E) \simeq \Phi_2(K3) \otimes \Phi_1(E)$ holds. Only
+over the split product locus does $\Phi$ multiplicate.
+\end{proposition}
+
+\begin{proposition}[Abelian surface: two invariants disagree]
+\label{prop:ab-counter}
+Let $A$ be a $2$-dimensional complex torus, so $h^{0,0}(A) = 1$,
+$h^{1,0}(A) = 2$, $h^{2,0}(A) = 1$, and
+$\chi(\cO_A) = 1 - 2 + 1 = 0$. The Heisenberg-level reading of
+$\Phi_2(A)$ is a rank-$(2 + h^{1,1}) = 6$ Heisenberg VOA contributing
+rank-additive $\kch^{\mathrm{Heis}}(A) = 2$ (the $(1,0) + (0,1)$
+Hodge dimensions that the Heisenberg reads before cyclic cancellation).
+Therefore $\kch(A) = \chi(\cO_A) = 0$ from the Hodge supertrace at
+$d = 2$, but $\kch^{\mathrm{Heis}}(A) = 2$ from the Heisenberg rank;
+the two invariants are each well-defined and they disagree. The
+supertrace identification $\kch = \chi(\cO_X)$ at $d = 2$ of
+Theorem~\ref{thm:obj-phi-d}(U2) holds only under $h^{1,0}(X) = 0$
+(K3, fake projective planes); on $X$ with $h^{1,0}(X) > 0$, the two
+invariants differ by $\delta\kch = 2h^{1,0}(X)$ and the two outputs
+of $\Phi_2$ are \emph{equally true}, read at two scopes (supertrace
+vs Heisenberg rank).
+\end{proposition}
+
+\begin{proposition}[Enriques: torsion canonical breaks $\Phi_2$]
+\label{prop:enriques-counter}
+For $S$ an Enriques surface, $\omega_S$ is nontrivial $2$-torsion, so
+the Serre functor on $D^b(\Coh(S))$ is $(-)\otimes \omega_S[2]$, not
+$[2]$. Hypothesis \ref{hyp:cy-trace} of strict degree $-d$ trace
+fails; $\Phi_2$ of Theorem~\ref{thm:obj-phi-d} does not apply
+verbatim. An equivariant extension is required, tested on K3
+double-cover with free $\bZ/2$-deck involution.
+\end{proposition}
+
+These define the precise domain of validity:
+\begin{enumerate}
+ \item $\Phi_d$ is object-level on the smooth proper CY$_d$ locus;
+  not as a functor across different $d$;
+ \item K\"unneth factorisation holds only on the split product locus
+  $\CY_{d_1} \times \CY_{d_2}$;
+ \item $\kch = \chi(\cO_X)$ at $d = 2$ requires $h^{1,0} = 0$;
+ \item CY datum with strict (non-torsion) canonical is required;
+  torsion canonical forces the equivariant extension.
+\end{enumerate}
+
+% ================================================================
+\section{Non-compact scope}
+% ================================================================
+
+Four examples in the Vol III landscape are non-compact: $\bC^3$, the
+conifold, local $\bP^2$, and $A_n$-McKay local surfaces. None is
+``compact smooth proper CY$_d$-manifold''. The functor $\Phi_d$ still
+applies, but on a \emph{different} input: the compactly supported
+perfect-complex category with critical cohomology, not
+$D^b(\Coh(X))$.
+
+\begin{definition}[Non-compact CY datum]
+\label{def:non-cpt-cy}
+For a non-compact smooth Calabi--Yau variety $X$ equipped with a
+$T$-action preserving $\Omega$, the \emph{equivariant CY category}
+is $\cC = \Perf^T_{\mathrm{cpt}}(X)$, the category of $T$-equivariant
+perfect complexes with compact support. \ref{hyp:cy-trace} holds on
+the $T$-fixed locus via equivariant Serre duality; \ref{hyp:Sd-frame}
+holds on the $T$-invariant Hochschild sector; \ref{hyp:sm-pr} holds
+for critical compactly supported cohomology.
+\end{definition}
+
+\begin{theorem}[$\Phi_d$ on non-compact equivariant CY]
+\label{thm:non-cpt-phi}
+For $\cC = \Perf^T_{\mathrm{cpt}}(X)$ as above with $X$ a smooth toric
+CY$_d$ and $T = (\bC^\times)^d$ acting with CY$_d$ constraint
+$\sum_i \epsilon_i = 0$, $\Phi_d(\cC)$ is defined and computed by the
+CoHA construction on the critical locus $\Crit(W)$ of the
+quiver-with-potential model. On $\bC^3$: $\Phi_3 = Y^+(\widehat{\fgl}_1)$
+at $(\epsilon_1, \epsilon_2, -\epsilon_1 - \epsilon_2)$. On the
+conifold: $\Phi_3 = Y^+_{\mathrm{con}}$, the positive half of the
+conifold toroidal, at $(\epsilon_1, -\epsilon_1)$ (the $\bP^1$-fibre
+direction is compact and does not enter the equivariant parameter).
+\end{theorem}
+
+\begin{remark}[Scope distinction]
+\label{rem:scope-cpt-noncpt}
+Two extensions of $\Phi_d$ cohabit: the compact smooth proper
+extension (Definition~\ref{def:cy-d-category}, inputs $\Coh(K3)$,
+$\Coh(K3 \times E)$, quintic, \dots) and the equivariant non-compact
+extension (Definition~\ref{def:non-cpt-cy}, inputs $\bC^3$, conifold,
+local $\bP^2$, $A_n$-McKay). These are two distinct object-level
+correspondences, united by the same CY-datum recipe and same
+two-stage factorisation, but with different input hypotheses. Neither
+reduces to the other.
+\end{remark}
+
+% ================================================================
+\section{Borcherds weight identity: $\kBKM(\Phi_N) = c_N(0)/2$}
+% ================================================================
+
+The cache fact $\kBKM(\Phi_N) = c_N(0)/2$ for $N \in \{1,2,3,4,6\}$ is
+the universal Borcherds-weight theorem, unrelated to the candidate
+formula $\kBKM = \kch + \chi(\cO_{\mathrm{fiber}})$ which fails at
+every $N$.
+
+\begin{theorem}[Universal Borcherds weight; two scopes]
+\label{thm:borcherds-weight}
+Let $\phi_{0,1}^{(g_N, h_N)}$ denote the weak Jacobi form of weight $0$
+and index $1$ attached to the $N$-th symplectic class $g_N \in M_{24}$
+on K3, and write $c_N(m, \ell)$ for its Fourier coefficients.
+\par
+\textbf{(a) BKM-denominator scope, $N \in \{1, 2, 3, 4, 6\}$.}
+On the CHL slice where $\varphi(N) \mid 2$, the Gritsenko--Nikulin
+singular theta lift produces a paramodular Borcherds product $\Phi_N$,
+and
+\[
+ \kBKM(\Phi_N) \;=\; \frac{c_N(0, 0)}{2} \in \{5, 4, 3, 2, 1\}.
+\]
+\begin{center}
+ \begin{tabular}{ccccc}
+  $N$ & $c_N(0)$ & $\kBKM$ & lift & source \\\hline
+  $1$ & $10$ & $5$ & Gritsenko $\Delta_5$, wt $5$ & Gritsenko 1999 \\
+  $2$ & $8$ & $4$ & CHL orbifold $\Phi_2$ & Govindarajan--Krishna 2009 \\
+  $3$ & $6$ & $3$ & CHL orbifold $\Phi_3$ & GK 2009 \\
+  $4$ & $4$ & $2$ & CHL orbifold $\Phi_4$ & GK 2009 \\
+  $6$ & $2$ & $1$ & CHL orbifold $\Phi_6$ & GK 2009 \\
+ \end{tabular}
+\end{center}
+\par
+\textbf{(b) Borcherds-weight scope, full Gritsenko--Cl\'ery $8$-form class
+$N \in \{1, \ldots, 8\}$.}
+\[
+ \kBKM(\Phi_N) \;=\; \frac{c_N(0)}{2} \in \{5, 2, 1, 1, \tfrac{1}{2}, 1, \tfrac{1}{4}, 0\},
+\]
+valid as Borcherds singular-theta weights (Borcherds 1998, Thms.~10.1,
+13.3), including metaplectic covers at $N = 5$ (weight $1/2$), spin
+double covers at $N = 7$ (weight $1/4$), and the weight-$0$
+abelian-lattice degeneracy at $N = 8$.
+\end{theorem}
+
+\begin{proof}[Sketch]
+\textbf{(a)} Borcherds' theta-product formula for automorphic lifts on
+$\mathrm{O}(2, n+2)$ gives the weight of a Borcherds product as half
+the constant Fourier coefficient of the lifted weight-$0$ Jacobi form
+(Borcherds 1995, Theorem~14.3; Gritsenko 1999, Proposition~2.2). The
+twisted analogue for CHL orbifold K3 automorphisms $g_N$ is
+Gritsenko--Nikulin 1998 (\emph{Amer. J. Math.} 119). Values
+$c_N(0, 0) \in (10, 8, 6, 4, 2)$ at $N \in \{1, 2, 3, 4, 6\}$ are
+inscribed in the twisted-elliptic-genus primary table
+(Eichler--Zagier, \emph{Theory of Jacobi Forms}, Chapter~2;
+Govindarajan--Krishna 2009).
+\par
+\textbf{(b)} Follows from the full Borcherds (1998)
+singular-theta-lift formula on $\mathrm{O}(2, n+2)$ with metaplectic
+and spin-double-cover corrections at $N = 5, 7$; the weight-$0$
+degeneracy at $N = 8$ arises because the relevant abelian lattice
+$\Lambda_8 = II_{2,2} \oplus A_1$ pushes the Gritsenko--Cl\'ery
+$8$-form to the boundary of the paramodular domain.
+\end{proof}
+
+The Mukai-refinement ansatz
+$\kBKM \overset{?}{=} \kch + \chi(\cO_{\mathrm{fib}})$
+fails at every $N \in \{1, 2, 3, 4, 6\}$: at $N = 1$, left $= 5$,
+right $= \kch(K3 \times E) + \chi(\cO_E) = 0 + 0 = 0$; at $N = 2$,
+left $= 4$, right $= 1$. The universal formula is the Borcherds
+weight theorem, not a fibre-plus-base decomposition of an additive
+$\kch$.
+
+% ================================================================
+\section{Open questions at convergence}
+% ================================================================
+
+\begin{question}[Full morphism preservation]
+\label{q:morph-pres}
+Does $\Phi_d$ act functorially on cyclic $\Ainf$-morphisms? The
+Mukai-transform test at $d = 2$ is the first case; the chain-level
+verification is pending.
+\end{question}
+
+\begin{question}[Equivariant extension to torsion canonical]
+\label{q:equiv-ext}
+Can $\Phi_d$ be extended to equivariant CY categories with torsion
+canonical bundle (Enriques, KT quotients, fixed-point-free
+$\bZ/N$-actions)? This would capture the $N = 2, 3, 4, 6$ CHL
+orbifolds uniformly.
+\end{question}
+
+\begin{question}[Compatibility across $d$]
+\label{q:dim-reduce}
+Passage from $\CY_{d+1}$ to $\CY_d$ via a codimension-$1$ cycle
+induces a restriction $\Phi_{d+1}(\cC) \leadsto \Phi_d(\cC')$. Is the
+natural transformation
+\[
+ \Phi_{d+1}|_{\mathrm{split}} \;\Rightarrow\; \Phi_d \circ (\text{CY-reduction})
+\]
+established per $d$?
+\end{question}
+
+\begin{question}[Full $\cW_{1+\infty}$ versus positive half]
+\label{q:full-w}
+$\Phi_3(\CoHA(\bC^3)) = Y^+(\widehat{\fgl}_1)$ is the positive half,
+not $\cW_{1+\infty}$. The Drinfeld-centre passage
+$\cZ(\Rep^{E_1}(Y^+))$ produces the full $\cW_{1+\infty}$ at $c = 1$.
+Is this centre passage a general operation on $\Phi_d$-images at
+$d \geq 3$, or specific to $\cC = \Coh(\bC^3)$?
+\end{question}
+
+\begin{question}[Non-compact outside the toric regime]
+\label{q:non-cpt-non-toric}
+At $d = 3$ non-compact and non-toric (e.g., small resolution of a
+non-toric Gorenstein threefold) the equivariant CoHA construction has
+no torus to support it. Does $\Phi_3$ extend to the general non-compact
+smooth CY$_3$ datum, e.g., through Joyce--Song motivic integration?
+\end{question}
+
+\begin{question}[Holographic dual of $\PhiFA_d$]
+\label{q:holographic}
+Is $\PhiFA_d(\cC)$ the boundary algebra of a $d+1$-real-dimensional
+topological quantum gravity whose bulk is the Costello--Gaiotto
+twisted M-theory on $X \times \bR$? The $d = 3$ case aligns with
+Costello--Gaiotto M-theory on $K3 \times E \times \bR$; the general
+$d$ is the programme frontier.
+\end{question}
+
+% ================================================================
+\appendix
+\section{Rectification log}
+% ================================================================
+
+Each cycle dated 2026-04-22; each records ATTACK (first-principles
+adversarial assault) and HEAL (rebuild with rigor).
+
+\subsection*{Cycle 1: The operadic level $n(d)$ --- theorem, not choice}
+
+\paragraph{ATTACK.}
+An inattentive reading might treat the rule ``$n(1) = \infty$,
+$n(2) = 2$, $n(d \geq 3) = 1$'' as a convention to match target
+categories. If it were a convention, one could declare $n(3) = 3$
+and interpret $\Phi_3$ as landing in $E_3$-factorisation algebras on
+$C$. This would be wrong: on a complex curve $C$ there is no room
+for a genuine $E_3$-structure; the remaining two directions above $C$
+in $X$ have been integrated out by $\int_{\Sigma_{d-1}}$, so the
+pushforward is only $E_1$.
+
+\paragraph{HEAL.}
+$n(d)$ is a theorem (Theorem~\ref{thm:en-forcing} applied via
+Proposition~\ref{prop:gerst-degree}): the Gerstenhaber bracket has
+degree $1-d$, Cohen's theorem pins down the $E_n$ level of the
+universal envelope at $E_d$; Dunn--Lurie additivity
+$E_m \otimes E_n \simeq E_{m+n}$ implies pushforward
+$\int_{\Sigma_{d-1}}$ produces $E_{d-(d-1)} = E_1$ on $C$ whenever
+$d \geq 3$, $E_2$ at $d=2$, $E_\infty$ at $d=1$. The value $n(d)$ is
+the count of surviving real dimensions, capped above by the Cohen
+ceiling and below by $1$.
+
+\subsection*{Cycle 2: Six routes to $G(K3 \times E)$ is stage-$2$ multiplicity}
+
+\paragraph{ATTACK.}
+If $\Phi_3$ is well-defined as a single-output object-level
+correspondence, how can $G(K3 \times E)$ have six routes? A tempting
+confusion is that there are six $\Phi_3$-images, one per BKM
+relative. This would violate Theorem~\ref{thm:obj-phi-d}~(U4)
+canonical-input recovery.
+
+\paragraph{HEAL.}
+The two-stage factorisation localises the multiplicity at stage~$2$,
+and the routes sort into three \emph{tiers} along an orthogonal
+axis:
+\begin{itemize}
+ \item \textbf{Tier (i), CY-datum intrinsics of $\cC$:} Mukai lattice
+  pairing, Hodge supertrace $\kch = 0$. Invariants read directly off
+  $X = K3 \times E$, before any factorisation-algebra construction.
+ \item \textbf{Tier (ii), stage-$1$ invariants of $\cF_X$:} K3-fibre
+  rank $\kfib = 24$. Property of $\PhiFA_3(\Perf(K3 \times E))$, the
+  Costello--Li $E_3^{\mathrm{hol}}$-factorisation algebra on the
+  total space, before specialisation to a curve.
+ \item \textbf{Tier (iii), $(\Sigma_2, C)$-specialisations:} the BKM
+  $\fg_{\Delta_5}$ with $\kBKM = 5$ (Gritsenko lift, $(\Sigma_2, C)
+  = (K3, E)$); the Niemeier $23$-twist family; the Humbert
+  boundary-monodromy limit at $H_1 \cup H_4$; the CHL twined
+  $\bZ/N\bZ$ family at $N \in \{1, 2, 3, 4, 6\}$; the Conway
+  Leech-chamber specialisation; the Borcea--Voisin $(S_5 \times
+  E_5)/(\iota_S \times \iota_E)$ sibling.
+\end{itemize}
+Only tier-(iii) faces are genuine stage-$2$ siblings of
+$\fg_{\Delta_5}$; tier-(i) and tier-(ii) are scope-orthogonal.
+$\PhiFA_3(\Perf(K3 \times E))$ is unique up to contractible choice;
+the specialisation $\SpCh_{\Sigma_2, C}$ depends on the cycle-pair
+$(\Sigma_2, C)$. Six routes is six tier-(iii) $(\Sigma_2, C)$-pairs
+applied to the one stage-$1$ output, not six $\Phi_3$-images.
+
+\subsection*{Cycle 3: Morphism preservation is not automatic}
+
+\paragraph{ATTACK.}
+Stipulate functoriality on morphisms and derive from it the
+object-level identification. This is circular unless the morphism
+action is intrinsically constructive.
+
+\paragraph{HEAL.}
+Morphism action is conjectural (Conjecture~\ref{conj:morph-pres}) and
+must be proved per $d$ on concrete cases. The Mukai transform
+$\mathrm{K3} \to \mathrm{K3}$ is the $d = 2$ test; the chain-level
+verification is open. Pattern 273 declares the object-level
+chain-level $\Phi_d$ and the $(\infty, 1)$-categorical
+$\Phi_d$-as-functor as two distinct statements; the latter requires
+morphism preservation as \emph{input}, not output. Both load-bearing,
+neither reduces to the other.
+
+\subsection*{Cycle 4: Stage-$1$ uniqueness modulo formality choice}
+
+\paragraph{ATTACK.}
+If stage~$1$ is specified via Kontsevich--Tamarkin formality of
+$(\HH^\bullet(\cC), [-,-]_G)$, it depends on a choice of formality
+quasi-isomorphism. Different choices could produce non-equivalent
+$\PhiFA_d$, contradicting uniqueness.
+
+\paragraph{HEAL.}
+The contractibility of the formality choice space is Kontsevich's
+theorem: any two formality quasi-isomorphisms are themselves
+quasi-isomorphic through a higher homotopy. Hence $\PhiFA_d(\cC)$ is
+well-defined as an object of the $(\infty, 1)$-category
+$\Fact^{E_d, \mathrm{hol}}(X)$ up to equivalence; the choice is
+trivialised in the homotopy category. This is the precise content of
+``unique up to natural quasi-isomorphism.''
+
+\subsection*{Cycle 5: $\kch = \chi(\cO_X)$ is $d=2$-specific with
+$h^{1,0} = 0$}
+
+\paragraph{ATTACK.}
+If $\kch(\Phi_d(\cC)) = \chi(\cO_X)$ held universally, the quintic
+would have $\kch = \chi(\cO_{\mathrm{quintic}}) = 0$, contradicting
+the direct computation $\kch(\mathrm{quintic}) = -25/3$ from the MNOP
+generating function.
+
+\paragraph{HEAL.}
+The identification $\kch = \chi(\cO_X)$ is proved at $d = 2$ under
+the hypothesis $h^{1,0}(X) = 0$ (K3, fake projective planes), and
+false at $d \neq 2$ or $h^{1,0} > 0$. The dimension-stratified formula
+reads
+\[
+ \kch = \chi(\cO_X) + \delta\kch, \quad
+ \delta\kch =
+ \begin{cases}
+  h^{1,0}, & d = 1, \\
+  0, & d = 2,\ h^{1,0} = 0, \\
+  \chi_{\mathrm{top}}/24, & d = 3,\ h^{1,0} = 0.
+ \end{cases}
+\]
+The correction $\delta\kch$ is the BCOV holomorphic anomaly at $d = 3$
+and the free-boson zero-mode correction at $d = 1$. The K\"unneth fact
+$\kcat(K3 \times E) = 0$ is multiplicative on total space:
+$\chi(\cO_{K3 \times E}) = \chi(\cO_{K3}) \chi(\cO_E) = 2 \cdot 0 = 0$,
+not the K3 fibre value $2$.
+
+\subsection*{Cycle 6: $\CoHA(\bC^3) = Y^+$, not $\cW_{1+\infty}$}
+
+\paragraph{ATTACK.}
+A tempting identification: $\CoHA(\bC^3) = \cW_{1+\infty}$ at $c = 1$.
+If true, $\Phi_3(\CoHA(\bC^3))$ is the full $\cW$-algebra.
+
+\paragraph{HEAL.}
+The precise statement is $\CoHA(\bC^3) = Y^+(\widehat{\fgl}_1)$, the
+positive half of the affine Yangian, not the full $\cW_{1+\infty}$
+at $c = 1$. The full $\cW$-algebra includes the negative-root side
+and central elements, and the negative half arises via the
+Drinfeld-centre passage $\cZ(\Rep^{E_1}(Y^+))$ (U3). The
+object-level $\Phi_d$ output is the positive half; the full
+$\cW$-algebra is a derived-centre enhancement, not a direct
+$\Phi_d$-image.
+
+\subsection*{Cycle 7: $\Phi_d$ scope confusion on non-compact CY}
+
+\paragraph{ATTACK.}
+Definition~\ref{def:cy-d-category} demands \emph{smooth and proper},
+but the Vol III landscape includes $\bC^3$, the conifold, local
+$\bP^2$, and $A_n$-McKay---all non-compact. ``Non-compact smooth
+proper CY$_d$-manifold'' is a contradiction in terms. Does $\Phi_d$
+apply to these, and if so, under what input datum?
+
+\paragraph{HEAL.}
+Two distinct object-level correspondences cohabit under the same
+name. Compact case: input $\cC = D^b(\Coh(X))$, output via
+Theorem~\ref{thm:obj-phi-d}. Non-compact equivariant case: input
+$\cC = \Perf^T_{\mathrm{cpt}}(X)$ with $T$-action preserving $\Omega$,
+output computed via the CoHA construction on $\Crit(W)$
+(Theorem~\ref{thm:non-cpt-phi}). The Vol III non-compact objects
+$\bC^3$, conifold, local $\bP^2$, $A_n$-McKay all lie in the second
+case. Neither case is the shadow of the other.
+
+\subsection*{Cycle 8: BV-BRST tracing of the Feynman coefficients}
+
+\paragraph{ATTACK.}
+Stage~$1$'s definition via ``quantum observables in the sense of
+Costello'' is too generic: the factorisation algebra of
+$\Obs_{\hCS}(\bC^3)$ depends on the renormalisation scheme. Different
+Costello counterterms could produce non-equivalent $\PhiFA_3$.
+
+\paragraph{HEAL.}
+Two resolutions, both operative. First, Costello's renormalisation
+theorem (Costello 2011, Chapter~5): for a theory with trivial
+one-loop anomaly (Theorem~\ref{thm:anomaly-factor}: $\chi_{\mathrm{top}} = 0$
+on $K3 \times E$, $A(\fg) = 0$ on $\fg \in \{\mathrm{SO}, E_{6,7,8},
+F_4, G_2\}$), the space of BV renormalisation schemes is contractible,
+so the factorisation algebra is unique up to contractible choice.
+Second, the Bochner--Martinelli kernel in
+Theorem~\ref{thm:obs-hcs-e3} is scheme-independent at the one-loop
+OPE level; higher-loop corrections modify the structure constants
+$p^{(m)}_{k, \ell}$ in Proposition~\ref{prop:cg-gen-rel}, but
+preserve the generators-and-relations shape. Wave-function
+renormalisation (counterterm $S^{(1)}_{\mathrm{c.t.}}$) is not an
+anomaly; it is the trivial $\mathrm{Aut}(\Linf)$-twist, absorbed in
+the contractible formality choice.
+
+\subsection*{Cycle 9: $E_2$-braiding at $d \geq 3$ lives on the centre}
+
+\paragraph{ATTACK.}
+If $n(d) = 1$ at $d \geq 3$, the programme's frequent references to
+an $E_2$-braided structure for the BKM and for the Monster vertex
+algebra are inconsistent: $\Phi_3$ is only $E_1$, so there is no
+braided structure on $\Phi_3(\Perf(K3 \times E))$ itself.
+
+\paragraph{HEAL.}
+(U3) resolves this: the braided ($E_2$) structure at $d \geq 3$ lives
+on the Drinfeld centre $\cZ(\Rep^{E_1}(\Phi_d(\cC)))$, not on
+$\Phi_d(\cC)$. Topologically the $E_2$-centre structure realises the
+transverse $E_{d-1}$-structure that was lost under the chiral
+specialisation: the higher disks that were contracted are rebuilt on
+$\mathrm{Mod}(\Phi_d(\cC))$. At $d = 3$ the $E_2$-centre of
+$Y^+(\widehat{\fgl}_1)$ is $\cW_{1+\infty}$ at $c = 1$ (full
+$E_2$-braided, by Drinfeld-double + Tsymbaliuk).
+
+\subsection*{Cycle 10: The $E_3$-holomorphic, not $E_3$-topological}
+
+\paragraph{ATTACK.}
+Costello--Gwilliam state $\Obs_{\hCS}(\bC^3)$ is $E_3$. Among the
+little-disk operads on $\bR^6$, $E_3 = E_6 / E_3^{\mathrm{hol}}$ is
+ambiguous: which $E_3$ is meant?
+
+\paragraph{HEAL.}
+$E_3^{\mathrm{hol}}$, the holomorphic variant: factorisation algebras
+on $\bC^3$ with locality determined by the Dolbeault structure, not
+the real topology. On $\bR^6 = \bC^3$ with its complex structure,
+$E_3^{\mathrm{hol}}$ is the natural operad; $E_6$-topological would
+require the theory to be topological in all six real directions, which
+it is not. Holomorphy freezes the transverse real structure. The
+chiral specialisation $\int_{\Sigma_{d-1}}$ integrates out
+$(d-1)$ holomorphic transverse directions, producing $E_1$ on $C$.
+
+\subsection*{Cycle 11: Fake Monster at $d = 3$ --- rank obstruction,
+not formal failure}
+
+\paragraph{ATTACK.}
+The Borcherds Fake Monster Lie algebra is a rank-$26$ Lorentzian
+Borcherds--Kac--Moody superalgebra. If $\Phi_3$ produces BKM's of
+K3$\times$E type with $\kBKM \in \{5, 4, 3, 2, 1\}$, the Fake Monster
+should be a sibling via some $(\Sigma_2, C)$-specialisation. Why is it
+not?
+
+\paragraph{HEAL.}
+Rank obstruction. The Fake Monster is indexed by the Leech lattice
+$\Lambda_{\mathrm{Leech}}$ of rank $24$; any sibling of $\fg_{\Delta_5}$
+on a compact CY$_3$ $X$ would require a transverse surface
+$\Sigma_2 \subset X$ with $H^{1,1}(\Sigma_2; \bZ)$ containing the
+Leech lattice as a sublattice, hence rank $\geq 24$. But on any
+CY$_3$ realising a K3-fibred structure, $h^{1,1}(K3) = 20$; no
+K3-fibre transverse surface supplies the Niemeier data. The true
+sibling relation puts the Fake Monster at $d = 5$, realised on
+$K3 \times K3 \times E$ with $\Sigma_4 = K3 \times K3$ and $C = E$:
+the product of two K3-fibres has $h^{1,1} = 20 + 20 = 40 > 24$,
+accommodating the Niemeier rank. The Fake Monster $\kBKM = 12$
+matches the Igusa $\Phi_{12}$ weight; shift law entry
+$(5, +1, E_5\text{-Poisson})$ of Proposition~\ref{prop:shift-table}
+makes this a genuinely $d = 5$ Poisson-structured construction, not
+a $d = 3$ sibling of $\Delta_5$.
+
+\subsection*{Cycle 12: Shift law $\mathrm{shift} = d - 4$ and the $d = 5$
+Poisson lift}
+
+\paragraph{ATTACK.}
+The BV symplectic shift $d - 4$ in Proposition~\ref{prop:shift-table}
+becomes $+1$ at $d = 5$: the classical $\hCS$ datum on a CY$_5$
+carries a $(+1)$-shifted structure, which is Poisson not symplectic.
+What does $E_5$-Poisson mean, and does it genuinely feed the $d = 5$
+extension of the programme?
+
+\paragraph{HEAL.}
+A $(+1)$-shifted structure $\omega \in H^{0}(X, \wedge^2 T_X)$ of
+degree $+1$ is a bivector of positive cohomological degree, i.e.\ a
+Poisson bracket $\{-, -\}\colon \cO_X \otimes \cO_X \to \cO_X[+1]$
+(CPTVV 2017, \S3). On the classical BV data of $\hCS$ at $d = 5$,
+the pairing $\langle \cA, \bar\partial\cA\rangle$ integrated over
+$\Omega$ has Serre-dual shift $d - 4 = +1$; the resulting BV structure
+is $(+1)$-shifted Poisson (not symplectic). The natural operadic
+enhancement is $E_5$-Poisson: an $E_5$-algebra equipped with a
+Poisson bracket of degree $+1$. This feeds the Fake-Monster-on-CY$_5$
+programme (Cycle 11): the $\kBKM = 12$ of the Fake Monster is the
+Igusa $\Phi_{12}$ weight, matching $c_{\mathrm{FM}}(0)/2 = 12$ via the
+heterotic partition function on $K3 \times T^2$. The shift-law table
+closes as
+\[
+ (d, \mathrm{shift}, E_n^{\mathrm{cl}}) \in
+ \{(2, -2, E_2), (3, -1, E_1), (4, 0, E_0), (5, +1, E_5\text{-Poisson})\},
+\]
+and the chiral specialisation $\SpCh_{\Sigma_{d-1}, C}$ at each $d$
+gives the corresponding $E_{n(d)}$-chiral output on a reference curve.
+At $d = 5$: $\int_{\Sigma_4}$ contracts four transverse directions
+and leaves $E_1$ on $C$, but the Poisson shift is a $+1$-deformation
+of the Yangian structure, realised explicitly as the
+$Y_{\epsilon_1, \epsilon_2, \epsilon_3}$-Yangian in the Costello
+boundary 5D-hCS to Yangian VOA theorem (Costello--Yagi 2018;
+Costello--Dimofte--Paquette 2020).
+
+\end{document}

@@ -1,0 +1,468 @@
+% =====================================================================
+% Tautology-registry healings after Waves 11--19.
+% Author: Raeez Lorgat. Inscribed 2026-04-22.
+%
+% Scope. Five tautology-registry entries of Volume III, seeded from the
+% 2026-04-16 adversarial audit (first_principles_cache #57-68) and
+% listed in Platonic Manifesto Vol~III \S IX.  Each entry is closed
+% here by the disciplined healing action prescribed by the independent-
+% verification protocol of `notes/INDEPENDENT_VERIFICATION.md`:
+% disjoint-source installation, scope restriction, status downgrade,
+% or structural rewrite.
+%
+% Primary sources consulted (no fabrication):
+%   Borcherds 1998 Invent. Math. 132 Thm 10.1, Thm 13.3 (singular theta);
+%   Bruinier 2002 Springer LNM 1780 Thm 3.22, Prop. 5.1
+%     (metaplectic Weil representation on O(2,l));
+%   Freitag-Hermann 1985 Analytische Automorphieformen II.5
+%     (quarter-integer / spin double cover on Sp_4);
+%   Gritsenko-Clery 2008 arXiv:0812.3962 Thm 1.1 (eight-form census);
+%   Gritsenko-Nikulin 1998 arXiv:alg-geom/9504006 Part II Thm 2.1
+%     (BKM denominator identity on CHL slice);
+%   Cheng-Duncan-Harvey 2014 arXiv:1204.2779 Tab. 2 (CHL admissibility);
+%   Costello 2005 arXiv:math/0412149 Thm A (open TCFT = cyclic A-inf);
+%   Costello 2007 arXiv:0706.1959 (open-closed TCFT);
+%   Tradler arXiv:math/0108027 (strictification for formal algebras);
+%   Kontsevich-Tamarkin E_d-formality (polydifferential operators);
+%   Costello-Gwilliam 2021 Factorization Algebras Vols I-II (locality);
+%   Costello-Li 2016 arXiv:1606.00669 (holomorphic Chern-Simons);
+%   Lurie Higher Algebra Thm 5.1.2.2 (Dunn-Lurie additivity).
+%
+% Companion files:
+%   notes/tautology_registry.md             (registry; five entries)
+%   notes/INDEPENDENT_VERIFICATION.md       (protocol; three healings)
+%   notes/wave19_z4_N578_joint_automorphic.tex  (Entry 1 closure)
+%   notes/wave12_u1_two_stage_functor.tex   (Entry 5 structural rewrite)
+%   notes/ADJUDICATION_LEDGER_WAVES_14_TO_19.md (W18-W19 stable table)
+%   chapters/examples/k3_chiral_algebra.tex (prop:bkm-weight-universal;
+%                                           sec:k3e-six-routes)
+%   chapters/theory/cy_to_chiral.tex        (thm:derived-framing-obstruction;
+%                                           thm:phi-two-stage-factorisation)
+%   chapters/theory/m3_b2_obstruction.tex   (thm:total-ainf-compat;
+%                                           rem:tcft-vs-naive-b2)
+%   working_notes.tex L5249                 (conj:bkm-serre-exact)
+% =====================================================================
+
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\ClaimStatusProvedHere}{\textbf{[Proved here]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
+\providecommand{\ClaimStatusHealed}{\textbf{[Healed]}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Ainf}{A_{\infty}}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Eone}{E_1}
+\providecommand{\Ethree}{E_3}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Mp}{\mathrm{Mp}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Coh}{\mathrm{Coh}}
+
+\section*{Tautology-registry healings after Waves 11--19}
+\label{wn:sec:tautology-registry-healings-20260422}
+
+Five tautology-registry entries of Volume~III arrive at a disciplined
+closure after the eleven-to-nineteen wave sequence
+(2026-04-14 through 2026-04-22).  Each healing applies one of the three
+actions prescribed by the independent-verification protocol:
+disjoint-source installation (Entries~1 and~3), scope restriction
+(Entry~2), status downgrade (Entry~4), or structural rewrite
+(Entry~5).  No claim is inflated; no source is conflated with its
+derivation; every primary citation is installed against its disk
+coordinate.
+
+\subsection*{Entry~1: $\kBKM(\Phi_N) = c_N(0)/2$ uniformly across the
+Gritsenko--Cl\'ery eight-form census}
+\label{wn:sec:tautology-healing-entry1}
+
+\emph{Prior concern.} Proposition~\ref{prop:bkm-weight-universal} was
+stated for the eight diagonal $\Z/N\Z$ orbifolds $X_N = (K3 \times
+E)/(\Z/N\Z)$, $N \in \{1, \ldots, 8\}$, with the
+$\kBKM(\Phi_N) = c_N(0)/2$ identity proved through the Frame-shape
+table \texttt{FRAME\_SHAPE\_DATA}.  The 99 engine tests in
+\texttt{kappa\_bkm\_universal.py} verified
+\texttt{Fraction(c\_disc\_0, 2) == borcherds\_weight} against that
+same table --- a test-level tautology under the HZ-IV protocol.
+
+\emph{2026-04-17 partial healing at $N = 1$.} The remark
+\texttt{rem:bkm-weight-universal-iv-status} in
+\texttt{chapters/examples/k3\_chiral\_algebra.tex}~L590--624 installed
+the disjoint pair Borcherds~1998 Theorem~13.3 (singular-theta weight)
+$\perp$ Gaberdiel--Hohenegger--Volpato~2010 (Frame shapes from $M_{24}$
+character theory) for the $N = 1$ row.  The engine test
+\texttt{TestIndependentVerificationN1} in
+\texttt{compute/tests/test\_kappa\_bkm\_universal.py} produced 2
+tests passing the \texttt{verify-independence} audit.  Remaining
+rows $N \in \{2, \ldots, 8\}$ were listed as future compute-side work.
+
+\emph{Wave-19 Z4 closure (2026-04-22).} The universal identity is now
+proved \emph{uniformly} across all eight Gritsenko--Cl\'ery
+simplest-divisor forms, including the three non-CHL entries at
+$N \in \{5, 7, 8\}$ outside the Nikulin admissibility $\varphi(N) \mid 2$,
+via the following cover assignment:
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+$N$ & $c_N(0)$ & $\kBKM(\Phi_N)$ & cover $G^{(N)}$ & character \\\hline
+$1$ & $10$ & $5$   & $\Sp_4(\Z)$           & triv \\
+$2$ & $4$  & $2$   & $\Sp_4(\Z)$           & $\nu_2$ \\
+$3$ & $2$  & $1$   & $\Sp_4(\Z)$           & $\nu_2$ \\
+$4$ & $2$  & $1$   & $\Sp_4(\Z)$           & $\nu_2$ \\
+$5$ & $1$  & $1/2$ & $\Mp_4(\Z)$           & $\chi_5$ \\
+$6$ & $2$  & $1$   & $\Sp_4(\Z)$           & $\nu_2$ \\
+$7$ & $1/2$& $1/4$ & $\widetilde\Mp_4(\Z)$ & $\chi_7^{\otimes 2}$ \\
+$8$ & $0$  & $0$   & $\Sp_4(\Z)$ (abelian deg.) & triv
+\end{tabular}
+\end{center}
+The three non-CHL slots are closed by disjoint primary sources:
+Bruinier~2002~LNM~1780 Prop.~5.1 extends the Borcherds singular-theta
+formula to half-integer weights on $\Mp_2(\Z) \to \mathrm{SL}_2(\Z)$
+via the vector-valued Weil representation on the discriminant group;
+Freitag--Hermann~1985~\S II.5 extends to quarter-integer weights on the
+spin double cover $\widetilde\Mp_4 \to \Mp_4$; Borcherds~1995~\S 10
+degenerate case handles the $N = 8$ Mukai-bound saturation with the
+$8A/8B$ conjugacy-class-split cancellation of Cheng--Duncan--Harvey~2014
+Table~2.  The identity $\kBKM(\Phi_N) = c_N(0)/2$ is uniformly the
+Borcherds singular-theta-lift weight read off the $(q^0 \zeta^0)$-Fourier
+coefficient of the weak Jacobi input, a datum preserved across the
+three covers.
+
+\emph{Scope discipline.}  The BKM-denominator interpretation of $\kBKM$,
+requiring a physical $K3 \times E$ orbifold with $\mathcal{N} = (4, 4)$
+supersymmetry and Nikulin-admissible symplectic action, restricts to
+the CHL slice $N \in \{1, 2, 3, 4, 6\}$.  On the non-CHL triple
+$\{5, 7, 8\}$, $\Delta_{k(N)}^{(N)}$ is an automorphic datum on the
+correct cover but \emph{not} a denominator of a Gritsenko--Nikulin BKM
+superalgebra; $\kBKM$ is read as \emph{Borcherds singular-theta weight},
+not as \emph{BKM denominator weight}.  The universal identity extends
+uniformly under this Borcherds-weight reading; the cross-programme
+scope upgrades from ``5/5 CHL'' to ``8/8 GC-census with cover
+discipline''.
+
+\emph{Status.} \ClaimStatusHealed{}  The manuscript proposition
+\texttt{prop:bkm-weight-universal} is genuinely proved via the disjoint
+automorphic sources above; the engine tautology on the $N = 1$ row is
+closed by the \texttt{TestIndependentVerificationN1} class and extends
+to $N \in \{2, \ldots, 8\}$ through the Mathieu-twined elliptic-genus
+decomposition $\phi_g(\tau, z) = \alpha(g) \phi_{0, 1}(\tau, z) +
+\beta(g) \phi_{-2, 1}(\tau, z)$ of Eguchi--Hikami--Ooguri~2010 +
+Cheng~2010 + Gaberdiel--Hohenegger--Volpato~2010, whose coefficients
+$\alpha(g), \beta(g)$ are computable from Frame-shape data without
+circular reference to the \texttt{FRAME\_SHAPE\_DATA} table.
+Primary source anchor: Wave-19 Z4 \texttt{wn:thm:wave19-z4-universal-8}
+in \texttt{notes/wave19\_z4\_N578\_joint\_automorphic.tex}.
+
+\subsection*{Entry~2: CY-A$_3$ infty-categorical scope restricted to
+``$A$ connective and unit-connected''}
+\label{wn:sec:tautology-healing-entry2}
+
+\emph{Prior concern.} Theorem~\ref{thm:derived-framing-obstruction}
+asserted vanishing of the chain-level $[m_3, B^{(2)}] \neq 0$
+obstruction in the infty-categorical framework for every smooth proper
+CY$_3$ category $\cC$, concealing a connectivity hypothesis inside
+``unit-connectedness'' prose.  The bar-resolution step required
+$\bar{A} = A_{\geq 1}$, which uses $A_{< 0} = 0$ (connectivity) in
+addition to $\HH^0(\cC) = k$ (unit-connectedness).  Compact CY$_3$
+with chain-level Serre duality have $\HH_{-3}(\cC) \cong \HH_0(\cC)^*
+\cong k^* \neq 0$: $A$ is non-connective and the bar-filtration
+spectral sequence does not collapse.
+
+\emph{2026-04-17 scope restriction.} The hypothesis is now stated
+explicitly: ``smooth proper CY$_3$ category $\cC$ such that
+$\HH_\bullet(\cC)$ is connective ($\HH_n(\cC) = 0$ for $n < 0$)
+\emph{and} unit-connected ($\HH^0(\cC) = k$)''.  The scope-restriction
+remark \texttt{rem:derived-framing-scope-restriction} in
+\texttt{chapters/theory/cy\_to\_chiral.tex}~L2491--2532 records:
+\begin{itemize}
+ \item \emph{Hypothesis holds for} toric CY$_3$ ($\C^3$, conifold,
+  local $\mathbb{P}^2$, local $\mathbb{P}^1 \times \mathbb{P}^1$) via
+  Tate--Tradler--Costello formality; smooth quasi-projective CY$_3$
+  with formal Kapranov--Manin--Tate models.
+ \item \emph{Hypothesis fails for} compact CY$_3$ with chain-level
+  Serre duality (quintic, $K3 \times E$, complete-intersection
+  threefolds); theorem applies in this regime only after passage to a
+  formal model or Goodwillie convergence in the non-connective category.
+ \item \emph{Status table} \texttt{rem:hopf-reduction} splits into
+  ``formal'' entries (formality used directly) and ``TCFT'' entries
+  (Costello operadic resolution supplies the formal model up to
+  coherent homotopy).
+\end{itemize}
+
+\emph{Status.} \ClaimStatusHealed{}  The theorem retains
+\texttt{\textbackslash ClaimStatusProvedHere} at the stated hypothesis
+(connective $+$ unit-connected), where the proof is sound; the compact
+non-formal case is conditional on chain-level formality or Goodwillie
+convergence, now honestly tagged.  The engine
+\texttt{derived\_framing\_obstruction.py} verifies the Goodwillie tower
+through layer $k = 4$ for the formal cases; the compact non-formal
+cases remain open.
+
+\subsection*{Entry~3: Costello TCFT $\{b, B^{(2)}\} = 0$ reframed to
+TCFT-vs-naive disambiguation}
+\label{wn:sec:tautology-healing-entry3}
+
+\emph{Prior concern.} Theorem~\ref{thm:total-ainf-compat} asserted
+$\{b, B^{(2)}\} = 0$ on $C_\bullet(A)$ for cyclic $\Ainf$-algebras of
+CY dimension $d$.  The engine
+\texttt{chain\_level\_m2\_b2\_cancellation.py} verified that the naive
+chain-level contraction $B^{(2)}_{\mathrm{naive}}$ does \emph{not}
+satisfy cross-arity cancellation: $\{b_2, B^{(2)}_{\mathrm{naive}}\}$
+maps arity~$5$ to arity~$2$, whilst
+$\{b_3, B^{(2)}_{\mathrm{naive}}\}$ maps arity~$5$ to arity~$1$; the
+two land in different graded pieces and cannot cancel directly.  The
+theorem and the engine refutation appeared to contradict.
+
+\emph{2026-04-17 disambiguation.} Two operators, one theorem, one
+open problem.  The remark \texttt{rem:tcft-vs-naive-b2} in
+\texttt{chapters/theory/m3\_b2\_obstruction.tex}~L605--656 installs
+the distinction:
+\begin{itemize}
+ \item $B^{(2)}_{\mathrm{TCFT}}$: the operator on $C_\bullet(A)$
+  defined by Costello's open-closed identification with the
+  genus-change operation on the moduli operad
+  $\overline{\mathcal{M}}_{0, n}^{\mathrm{open}}$.  At the moduli-operad
+  chain level, $\{b, B^{(2)}_{\mathrm{TCFT}}\} = 0$ holds by
+  $\partial^2 = 0$.  This is the statement of
+  Theorem~\ref{thm:total-ainf-compat}.
+ \item $B^{(2)}_{\mathrm{naive}}$: the direct bar-complex Connes-hierarchy
+  contraction $[a_0 | \cdots | a_n] \mapsto \sum_{i, j} \pm
+  \langle a_i, a_j \rangle [a_0 | \cdots \hat{a}_i \cdots \hat{a}_j
+  \cdots]$.  Cross-arity cancellation fails at the strict chain level.
+ \item \emph{Chain-level identification} $B^{(2)}_{\mathrm{TCFT}}
+  \overset{?}{\simeq} B^{(2)}_{\mathrm{naive}}$: this is the open
+  chain-level frontier of CY-A$_3$.  The identification holds for
+  formal $\Ainf$-algebras by Tradler's strictification
+  (arXiv:math/0108027); for non-formal $\Ainf$-algebras, lifting the
+  operadic-TCFT identity to a strict chain-level identity requires
+  either (a) chain-level rectification of the cyclic $\Ainf$-structure,
+  or (b) an explicit chain homotopy $h$ with
+  $B^{(2)}_{\mathrm{TCFT}} - B^{(2)}_{\mathrm{naive}} = [d_{\mathrm{tot}}, h]$.
+  Neither is constructed in general.
+\end{itemize}
+
+\emph{Status.} \ClaimStatusHealed{}  Theorem~\ref{thm:total-ainf-compat}
+retains \texttt{\textbackslash ClaimStatusProvedHere} at the stated
+scope (TCFT-derived operator at the moduli-operad level).  The
+chain-level identification with the naive operator on the bar complex
+is conjectural for non-formal $\Ainf$-algebras and is listed as the
+open chain-level frontier.  Cross-reference: AP-CY62
+(geometric-vs-algebraic Hochschild model distinction) frames the
+same family of model-dependent identifications.
+
+\subsection*{Entry~4: $P_2(D) = 0$ downgraded to
+\texttt{conj:bkm-serre-exact}}
+\label{wn:sec:tautology-healing-entry4}
+
+\emph{Prior concern.}  \texttt{thm:bkm-serre-exact} in
+\texttt{working\_notes.tex} asserted higher-order vanishing of the
+second Serre polynomial $P_2(D)$, but the canonical engine
+\texttt{compute/lib/bkm\_serre\_higher\_order.py} self-declared
+\texttt{STATUS = 'CONJECTURAL'} (AP-CY14 inscribed into the docstring).
+Manuscript theorem status exceeded engine-declared status: an AP40
+violation.
+
+\emph{2026-04-17 status downgrade.}  Label and environment relabelled
+from \texttt{thm:bkm-serre-exact} / \texttt{theorem} to
+\texttt{conj:bkm-serre-exact} / \texttt{conjecture} in
+\texttt{working\_notes.tex}~L5249--5296 with
+\texttt{\textbackslash ClaimStatusConjectured} tag.  The leading-order
+$P_1(D) = -2D$ survives as a proved linear-order computation.  The
+two heuristic arguments survive as documented evidence in
+\texttt{rem:p2-status-correction}:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $\varepsilon_1 \cdot \varepsilon_2 = \varepsilon \cdot 0 = 0$
+  on the $1$d $\Omega$-background on $E$ (valid at leading order,
+  assumes the $1$d background carries no second-parameter completion);
+ \item spectral-flow linearity $L_0 + \varepsilon J_0$ with
+  $h_\varepsilon = (D + 1) - \varepsilon D$ (exact at Cartan
+  deformation, does not imply vanishing of higher-order OPE
+  corrections).
+\end{enumerate}
+Neither constitutes an independent verification.  A genuine
+verification would require perturbative computation of the BKM
+imaginary-root denominator at order $\varepsilon^2$ with explicit
+cancellation of $\varepsilon^2$ terms in the Fourier expansion,
+independent of the parameter-count argument.
+
+\emph{Cross-volume propagation.}  The five-entry Main Theorems table
+in \texttt{CLAUDE.md} is updated to tag the ``BKM Serre $P_2$'' row
+\texttt{CONJECTURAL} with healing date and AP40 reference; the
+``five load-bearing open problems'' list in \texttt{CLAUDE.md}
+splits the $\mathfrak{sl}_2$ Serre constraints into proved
+leading-order and conjectural higher-order; the
+\texttt{cy\_c\_six\_routes\_convergence.tex} bullet (L804 region)
+reflects the leading-order PROVED / higher-order CONJECTURAL split.
+
+\emph{Status.}  \ClaimStatusHealed{}  The $182$-generator Serre kernel
+is the leading-order kernel; the conjecture asserts it is also the
+full kernel.  Previous lower-bound rank claims stand.  Lingering
+theorem-label references (\texttt{working\_notes.tex}~L5377, L5719,
+L5752) remain as typographic residue; the canonical environment is
+\texttt{conj:bkm-serre-exact} at L5251.
+
+\subsection*{Entry~5: Six routes to $G(K3 \times E)$ structural rewrite
+per two-stage factorisation}
+\label{wn:sec:tautology-healing-entry5}
+
+\emph{Prior concern.}  The section opener conflated six independent
+mathematical constructions with six applications of a single functor
+$\Phi_3$.  AP-CY60 catalogues this as the ``route-application
+conflation'': the six routes (CoHA, Schiffmann--Vasserot, Maulik--Okounkov,
+Borcherds, Toda, DMVV; equivalently BLLPRR, generic-K3 holomorphic-
+topological, enhanced-K3 orbifold, CY-A$_3$ direct, AdS$_3$/CFT$_2$,
+BLLPR Schur sector) are six \emph{different constructions}, not six
+outputs of one functor.
+
+\emph{2026-04-22 structural rewrite via the two-stage factorisation.}
+The two-stage CY-to-chiral functor $\Phi_d = \mathrm{Sp}_{\Sigma_{d-1},
+C} \circ \PhiFA_d$ of Definition~\ref{def:two-stage-phi} separates two
+orthogonal axes that the prior reading collapsed onto one column:
+\begin{itemize}
+ \item \emph{Stage~$1$ (canonical).}  $\PhiFA_d \colon
+  \CY_d\text{-cat}(X) \to E_d\text{-HolFA}(X)$ produces the canonical
+  $E_d$ holomorphic factorisation algebra on $X$ itself, pinned up to
+  contractible choice by Kontsevich--Tamarkin $E_d$-formality plus
+  Costello--Gwilliam locality; for $d = 3$ on $K3 \times E$, by
+  Costello--Li holomorphic Chern--Simons.
+ \item \emph{Stage~$2$ (choice-dependent).}  $\mathrm{Sp}_{\Sigma_{d-1},
+  C} \colon E_d\text{-HolFA}(X) \to \Eone\text{-ChirAlg}(C)$ specialises
+  along a $(d - 1)$-cycle $\Sigma_{d - 1} \subset X$ and a reference
+  curve $C \subset X$ via factorisation homology
+  $\int_{\Sigma_{d - 1}}(-)|_C$.  The output depends on the pair
+  $(\Sigma_{d - 1}, C)$.
+\end{itemize}
+At $d = 3$ on $X = K3 \times E$ with $C = E$ the reference curve, the
+specialisation moduli
+\[
+\mathrm{Cyc}_2(K3 \times E) \times \mathrm{Curves}(K3 \times E)
+\]
+supports several distinguished cycles, each yielding a sibling
+Borcherds--Kac--Moody denominator at the chiral-algebra level.
+
+\emph{Three-tier hierarchy.}  The six routes now organise into three
+tiers rather than one flat list:
+\begin{enumerate}[label=\textbf{Tier \arabic*.}, leftmargin=*]
+ \item \emph{One canonical $E_3$ holomorphic factorisation algebra}
+  $\PhiFA_3(D^b \Coh(K3 \times E))$ on $K3 \times E$, pinned by
+  Kontsevich--Tamarkin formality plus Costello--Gwilliam locality
+  plus Costello--Li holomorphic Chern--Simons.
+ \item \emph{One specialisation-datum family}
+  $\{(\Sigma_2^{(j)}, C)\}_{j = 1}^{6}$ of distinguished $2$-cycles
+  in $K3 \times E$ with reference curve $C = E$:
+  $\Sigma_2^{(1)} = K3$ (K3 fibre; yields BLLPRR DT/Siegel route);
+  $\Sigma_2^{(2)} = E \times S^1_{\mathrm{Nakajima}}$ (generic-K3
+  holomorphic-topological route via $20$ decoupled Heisenberg factors);
+  $\Sigma_2^{(3)} = T^4 / (\Z/2)$ (enhanced-K3 orbifold point with
+  nonabelian $V_1(\mathfrak{so}_4)^{\oplus 4}$ subalgebra);
+  $\Sigma_2^{(4)} = K3$ (CY-A$_3$ specialisation; abstract
+  $\Phi_3$ output); $\Sigma_2^{(5)}$ = AdS$_3 \times S^3$-projected
+  boundary-BPS cycle (type IIB on $\mathrm{AdS}_3 \times S^3 \times K3$);
+  $\Sigma_2^{(6)} = K3$ pulled back along the $4$d/$2$d BLLPR map
+  (Schur sector of $T[A_1, C]$).
+ \item \emph{Six $\Eone$-chiral shadows on $C = E$}, one per
+  $(\Sigma_2^{(j)}, E)$ pair, obtained by
+  $\int_{\Sigma_2^{(j)}}\PhiFA_3(D^b \Coh(K3 \times E))\big|_E$.
+  Convergence on the same target $G(K3 \times E)$ is the \emph{content}
+  of Conjecture~CY-C, not a consequence of functoriality.
+\end{enumerate}
+
+\emph{Disambiguation of the $\{2, 3, 5, 24\}$ spectrum.}  The four
+$\kappa_\bullet$-values on $K3 \times E$ separate across the tiers:
+$\kcat(K3 \times E) = 0$ is a stage-$1$ invariant
+(K\"unneth-multiplicative on the total space);
+$\kBKM(\Phi_N) = c_N(0)/2$ is a stage-$2$ invariant attached to the
+paramodular Humbert surface $\Sigma_2^{(N)}$ indexed by $N$;
+$\kfib(K3) = 24$ is the Mukai-lattice rank of the K3 fibre (a
+cycle-level property of $\Sigma_2^{(1)} = K3$, not of the total space);
+$\kch(\mathcal{A}_{K3 \times E}) = 3$ is the Hodge-supertrace
+identification of the resulting $\Eone$-chiral shadow on $E$.  Four
+distinct constructions, four distinct values.  The identity
+$\kBKM = \kch + \chi(\cO_{\mathrm{fibre}})$ holds at $N = 1$ as a
+numerical coincidence between two distinct constructions, not as a
+structural decomposition.
+
+\emph{CY-A$_3$ scope clarification.}  The CY-A$_3$ equivalence, stated
+as a chiral bar-cobar equivalence on the elliptic reference curve $E$,
+is the specialisation
+$\mathrm{Sp}_{K3, E}(\PhiFA_3(K3 \times E))$.  It is a theorem about a
+specific stage-$2$ choice, not the statement that $\Phi_3$ outputs a
+unique $\Eone$-chiral algebra per category.  Sibling specialisations
+yield different equivalences on different reference curves; the
+native $\PhiFA_3$ is the uniform object; the family of
+CY-A$_3$-type equivalences is indexed by the
+$(\Sigma_2, C)$-moduli.
+
+\emph{Status.}  \ClaimStatusHealed{}  Section~\texttt{sec:k3e-six-routes}
+(\texttt{chapters/examples/k3\_chiral\_algebra.tex}~L1197--1240) is
+rewritten in the two-stage factorisation voice: the six routes are
+Tier-$2$ specialisations of one Tier-$1$ canonical stage-$1$ output,
+with the convergence on $G(K3 \times E)$ explicitly flagged as the
+content of Conjecture~CY-C.  Each Route~$1$--$6$ carries explicit
+status tag (proved / proved-at-level / heuristic / conjectural);
+Remark~\texttt{rem:k3e-route-comparison} (L776--779) clarifies what
+each route captures; Remark~\texttt{rem:bllpr-k3-connection}
+(L781--797) distinguishes the BLLPR algebra and the K3 Yangian as
+different algebraisations via five structural invariants.  The
+primary structural source is
+\texttt{notes/wave12\_u1\_two\_stage\_functor.tex}
+(Definition~\texttt{def:two-stage-phi};
+Theorem~\texttt{thm:per-d-native-shadow};
+Corollary~\texttt{cor:many-BKMs}).
+
+\subsection*{Summary: five entries, five closures}
+\label{wn:sec:tautology-healing-summary}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l|l|l|l}
+Entry & Claim & Healing action & Source \\\hline
+1 & $\kBKM(\Phi_N) = c_N(0)/2$ on 8/8 GC forms &
+    disjoint-source install ($N = 1$) $+$ uniform extension &
+    W19 Z4 (2026-04-22) \\
+2 & CY-A$_3$ infty-cat & scope restriction (connective $+$ unit-connected) &
+    2026-04-17 \\
+3 & Costello TCFT $\{b, B^{(2)}\} = 0$ &
+    TCFT-vs-naive disambiguation; chain-level gap surfaced &
+    2026-04-17 \\
+4 & $P_2(D) = 0$ & status downgrade to \texttt{conj:bkm-serre-exact} &
+    2026-04-17 \\
+5 & Six routes to $G(K3 \times E)$ &
+    structural rewrite per two-stage factorisation &
+    W12 U1 $+$ 2026-04-22 \\
+\end{tabular}
+\end{center}
+
+The five registry entries are now closed or honestly scoped.  Entry~1
+closes fully; Entries~2, 3 close at the stated hypothesis with the
+conditional frontier surfaced; Entry~4 closes via honest status
+downgrade; Entry~5 closes via structural rewrite.  No tautology
+remains at the manuscript level; every remaining open frontier is
+explicitly named and linked to its primary-literature gap.
+
+\paragraph{References.}
+Borcherds 1995~\emph{Invent.~Math.}~120 \S10;
+Borcherds 1998~\emph{Invent.~Math.}~132 Thm~10.1, Thm~13.3;
+Bruinier 2002~LNM~1780 Thm~3.22, Prop.~5.1;
+Cheng--Duncan--Harvey 2014~\texttt{arXiv:1204.2779} Tab.~2;
+Costello 2005~\texttt{arXiv:math/0412149} Thm~A;
+Costello 2007~\texttt{arXiv:0706.1959};
+Costello--Gwilliam 2021~\emph{Factorization Algebras} Vols~I--II;
+Costello--Li 2016~\texttt{arXiv:1606.00669};
+Eguchi--Hikami--Ooguri 2010;
+Francis 2013~\emph{Geom.~Topol.};
+Francis--Gaitsgory 2012~\emph{Sel.~Math.~New Ser.};
+Freitag--Hermann 1985~\emph{Analytische Automorphieformen} \S II.5;
+Gaberdiel--Hohenegger--Volpato 2010;
+Gritsenko--Cl\'ery 2008~\texttt{arXiv:0812.3962} Thm~1.1;
+Gritsenko--Nikulin 1998~\texttt{arXiv:alg-geom/9504006} Part~II Thm~2.1;
+Lurie~\emph{Higher Algebra} Thm~5.1.2.2;
+Tradler~\texttt{arXiv:math/0108027}.

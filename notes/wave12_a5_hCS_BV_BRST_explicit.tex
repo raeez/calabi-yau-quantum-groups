@@ -1,0 +1,214 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=1.1in]{geometry}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\gh}{\mathrm{gh}}
+\providecommand{\af}{\mathrm{af}}
+\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Abelian holomorphic Chern--Simons on $\C^3$:\\
+the BV--BRST complex, propagator, defect VOA}
+\author{Wave-12 A5/20}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+Let $X = \C^3$ with coordinates $(z_1, z_2, z_3)$ and holomorphic volume form
+$\Omega = dz_1 \wedge dz_2 \wedge dz_3$. Write $\mathcal{E} = \Omega^{0,\bullet}(X)$ as
+a graded vector space, the Dolbeault complex of the trivial line bundle.
+
+\section{The BV--BRST complex}
+
+\begin{construction}[Field content and degree data]
+\label{cons:bv-field}
+The BV superfield for Abelian hCS is
+\[
+\mathcal{A} \;=\; c \;+\; A_{0,1} \;+\; A^{\ast}_{0,2} \;+\; c^{\ast}_{0,3}
+\;\in\; \Omega^{0,\bullet}(\C^3).
+\]
+The assignment of ghost number $\gh$, antifield number $\af$, and total BV
+degree $\deg_{\mathrm{BV}} = \gh - \af$ is
+\[
+\begin{array}{c|cccc}
+ & c & A_{0,1} & A^{\ast}_{0,2} & c^{\ast}_{0,3} \\ \hline
+\text{Dolbeault } (0,q) & 0 & 1 & 2 & 3 \\
+\gh & +1 & 0 & -1 & -2 \\
+\af & 0 & 0 & 1 & 2 \\
+\deg_{\mathrm{BV}} & +1 & 0 & -2 & -4
+\end{array}
+\]
+\end{construction}
+
+The total BV grading is $\deg_{\mathrm{BV}} = (\text{Dolbeault degree}) - 1 - 2\af$,
+equivalently $\gh$ is $1$ minus Dolbeault degree on the physical
+pair $(c, A_{0,1})$ and the antifield pair is obtained by Koszul duality,
+shifted to satisfy the $(-1)$-shifted symplectic pairing of
+Costello--Gwilliam.
+
+\begin{construction}[$(-1)$-shifted symplectic pairing]
+\label{cons:bv-pairing}
+The BV antibracket arises from the non-degenerate pairing of cohomological
+degree $-1$
+\[
+\omega_{\mathrm{BV}}(\mathcal{A}_1, \mathcal{A}_2) \;=\;
+\int_{\C^3} \Omega \wedge \mathcal{A}_1 \wedge \mathcal{A}_2,
+\]
+which pairs $(c, c^{\ast}_{0,3})$ and $(A_{0,1}, A^{\ast}_{0,2})$ off-diagonally
+by Serre duality on $\Omega^{0,\bullet}$.
+\end{construction}
+
+\section{Abelian action and BRST differential}
+
+\begin{proposition}[Quadratic action]
+\label{prop:quadratic-action}
+For $G = U(1)$ the cubic term $\tfrac{2}{3} \mathcal{A} [\mathcal{A}, \mathcal{A}]$
+vanishes and
+\[
+S_{\mathrm{hCS}}(\mathcal{A}) \;=\; \int_{\C^3} \Omega \wedge \mathcal{A} \,\dbar\, \mathcal{A}.
+\]
+\end{proposition}
+
+\begin{proof}
+Abelian bracket $[\cdot,\cdot] = 0$. The residual kinetic term, restricted to
+the physical pair, recovers the Dolbeault action
+$\int \Omega \wedge A_{0,1} \dbar A_{0,1}$ of Costello 2013, §2
+(arXiv:1303.2632), with ghost $c$ implementing the gauge symmetry
+$A_{0,1} \mapsto A_{0,1} + \dbar c$.
+\end{proof}
+
+\begin{definition}[BRST differential $Q$]
+\label{def:Q-BRST}
+On generators, $Q$ is the classical BV differential associated to
+$S_{\mathrm{hCS}}$,
+\[
+Q c \;=\; 0, \qquad
+Q A_{0,1} \;=\; \dbar c, \qquad
+Q A^{\ast}_{0,2} \;=\; \dbar A_{0,1}, \qquad
+Q c^{\ast}_{0,3} \;=\; \dbar A^{\ast}_{0,2}.
+\]
+Equivalently $Q = \dbar$ on the total complex
+$(\Omega^{0,\bullet}(\C^3), \dbar)$ with the degree re-labelling of
+Construction~\ref{cons:bv-field}.
+\end{definition}
+
+$Q^2 = \dbar^2 = 0$. The Abelian BV complex is a shifted copy of the
+Dolbeault complex of $\C^3$; its cohomology is the polynomial ring of
+holomorphic functions placed in ghost number $+1$ (the $c$-sector).
+
+\section{Propagator}
+
+\begin{proposition}[Holomorphic propagator]
+\label{prop:propagator}
+The inverse of $\dbar$ on $\Omega^{0,\bullet}(\C^3)$, modulo harmonic
+representatives, is given by the Bochner--Martinelli kernel
+\[
+P(z, w) \;=\; \frac{(n-1)!}{(2\pi i)^{n}}
+\sum_{k=1}^{n}
+\frac{(-1)^{k-1} (\overline{z_k - w_k})\,
+d\bar{z}_1 \wedge \widehat{d\bar{z}_k} \wedge \cdots \wedge d\bar{z}_n}
+{|z - w|^{2n}}
+\]
+with $n = 3$, so that $\dbar_w P(z, w) = \delta_{z=w}$ as a current of
+Dolbeault bidegree $(n, n-1) = (3, 2)$ on the diagonal-complement.
+\end{proposition}
+
+\begin{proof}
+Bochner--Martinelli on $\C^n$; see Costello--Gwilliam 2017 Vol II §5.2.
+Contraction of $P$ against $\Omega$ produces the scalar two-point function
+$\langle A_{0,1}(z) A^{\ast}_{0,2}(w) \rangle$ governing perturbative
+hCS.
+\end{proof}
+
+\section{Observables}
+
+\begin{construction}[Classical observables at leading order]
+\label{cons:obs-classical}
+The classical observable algebra is
+\[
+\Obs^{\mathrm{cl}}(\C^3) \;=\; \Sym\bigl( \mathcal{E}^{\vee}[-1] \bigr),
+\]
+the free graded-commutative algebra on linear functionals of the
+BV fields, with differential induced by $\dbar$. The $H^0$ classes are
+Dolbeault-holomorphic functions of $A_{0,1}$; perturbative quantisation
+(Costello--Gwilliam Vol II, Theorem 5.4) deforms $\Obs^{\mathrm{cl}}$ to
+$\Obs^{\mathrm{q}}$ via the propagator of
+Proposition~\ref{prop:propagator}. For Abelian $G$ the quantum
+correction is Gaussian: $\Obs^{\mathrm{q}}$ is a free holomorphic boson
+on $\C^3$, i.e.\ the $E_1$-algebra of polynomial functionals of
+$A_{0,1}$ with Wick contractions governed by $P(z,w)$.
+\end{construction}
+
+\section{Line defect and defect VOA}
+
+\begin{construction}[Line defect on $\C_{z_1} \subset \C^3$]
+\label{cons:line-defect}
+Let $L = \C_{z_1} = \{z_2 = z_3 = 0\}$. A line defect is a morphism
+$\phi \colon \Obs^{\mathrm{q}}(\C^3 \setminus L) \to \mathcal{V}$ to a
+holomorphic factorisation algebra on $\C_{z_1}$. Restricting the
+Bochner--Martinelli propagator transversely to $L$ yields a $2$-dimensional
+holomorphic propagator in the normal $(z_2, z_3)$ directions, reducing the
+bulk field to a $\beta\gamma$-system on $L$:
+\[
+\beta(z_1) \;:=\; A_{0,1}|_{L}, \qquad \gamma(z_1) \;:=\; c|_{L},
+\qquad \langle \beta(z) \gamma(w) \rangle \;=\; \frac{1}{z-w}.
+\]
+The defect VOA is
+\[
+\mathcal{V}_L \;=\; \beta\gamma\text{-system on } \C_{z_1},
+\]
+with central charge $c = 2$. This recovers the Costello--Li 2016
+identification (arXiv:1606.00365, Theorem 1.1) of the Abelian hCS
+line-defect algebra as the rank-one symplectic boson.
+\end{construction}
+
+\begin{remark}[Non-Abelian extension]
+\label{rem:non-ab}
+For $G$ non-Abelian the cubic vertex $\tfrac{2}{3} \mathcal{A} [\mathcal{A}, \mathcal{A}]$
+reinstates and the defect VOA is the affine Kac--Moody vertex algebra
+at level determined by the one-loop anomaly; for
+$G = GL_n$ one recovers $V^{\mathrm{crit}}(\widehat{\g})$ (Costello 2013,
+Theorem 9.2.1). The Abelian case is the $n = 1$ free-field
+specialisation.
+\end{remark}
+
+\begin{remark}[$\kappach$-scope]
+\label{rem:kappa-scope}
+The BV pairing of Construction~\ref{cons:bv-pairing} computes
+$\kappach(\C^3) = \chi(\mathcal{O}_{\C^3}) = 1$ as the constant term of
+the Hodge supertrace, consistent with the $d=3$ stratification of
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}. The line
+defect selects a $d=1$ child whose supertrace matches the $\beta\gamma$
+central charge $c = 2 \equiv 2\kappach$.
+\end{remark}
+
+\paragraph{Provenance.}
+Costello 2013 (arXiv:1303.2632) §2--3: hCS on $\C^n$, BV formulation.
+Costello--Gwilliam 2017 Vol II §5.1--5.4: Abelian holomorphic
+factorisation algebras, Bochner--Martinelli propagator, free
+$\beta\gamma$-system.
+Costello--Li 2016 (arXiv:1606.00365) Theorems 1.1 and 3.2: defect VOA
+on line in $\C^3$.
+
+\end{document}

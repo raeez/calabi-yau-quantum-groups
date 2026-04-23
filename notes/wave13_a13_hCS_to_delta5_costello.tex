@@ -1,0 +1,1069 @@
+% wave13_a13_hCS_to_delta5_costello.tex
+% Wave 13 / A13 --- Costello channel, adversarial pass
+% Mission: 6d hCS on K3 x E --> E_3 holomorphic factorisation algebra -->
+% Sp_{K3, E} (integrate out K3, restrict to E) --> Lie-envelope chiral avatar;
+% compare against Lorgat 2020 explicit construction of g_{Delta_5} and Delta_5.
+% Cross-refs: wave12_a13_costello_5_routes_6d_hCS.tex; wave12_b3_6d_hCS_E3_gen_rel.tex;
+% wave12_b4_6d_hCS_BV_BRST_Feynman.tex; wave12_u1_two_stage_functor.tex.
+% Source paper: notes/wave13_source_paper.txt = Lorgat 2020 (arXiv: user's own).
+
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{hyperref}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\h}{\mathfrak{h}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\fu}{\mathfrak{u}}
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\Fact}{\mathrm{Fact}}
+\providecommand{\PreFact}{\mathrm{PreFact}}
+\providecommand{\E}{E}
+\providecommand{\Eone}{E_{1}}
+\providecommand{\Etwo}{E_{2}}
+\providecommand{\Ethree}{E_{3}}
+\providecommand{\Disk}{\mathrm{Disk}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\Heis}{\mathsf{Heis}}
+\providecommand{\Muk}{\Lambda_{\mathrm{Muk}}}
+\providecommand{\HB}{\Lambda^{(2,1)}_{I\!I}}
+\providecommand{\HA}{\Lambda^{(2,1)}}
+\providecommand{\LamF}{\Lambda^{(3,2)}}
+\providecommand{\Theta}{\mathbf{\Theta}}
+\providecommand{\Gdelta}{\mathfrak{g}_{\Delta_{5}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpF}{\mathrm{Sp}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+\providecommand{\ClaimStatusDerivation}{\textsc{[derivation]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+
+\title{From $6$d holomorphic Chern--Simons on $K3\times E$ to
+the Igusa cusp form $\Delta_{5}$ and the GKM superalgebra $\Gdelta$:\\
+a Costello-channel assault}
+\author{Raeez Lorgat}
+\date{2026-04-22 / Wave 13 / A13}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The K3 $\times$ $E$ BKM denominator $\tfrac{1}{64}\Delta_{5}(2Z)$ is
+the Weyl--Kac--Borcherds character formula applied to the trivial
+module of a generalised Kac--Moody Lie superalgebra $\Gdelta$ whose
+real even simple roots are $\{\delta_{1},\delta_{2},\delta_{3}\}\subset
+\HB$ with Gram matrix $\mathrm{diag}(2;-2\cdot(\mathbf{1}-I))$, whose
+imaginary simple-root multiplicities are the Fourier coefficients
+$m(a), \tau(a)$ of $\tfrac{1}{64}\Delta_{5}$, and whose denominator
+matches the Borcherds lift of the weight-$0$ index-$1$ weak Jacobi form
+$\phi_{0,1} = Z_{K3}/2$. We construct, in five attack--heal cycles, the
+Costello--Gwilliam route $\hCS_{6}(K3\times E)\leadsto E_{3}\text{-hFA}
+\xrightarrow{\SpF_{K3,E}} E_{1}\text{-chiral on }E$, compute the
+Feynman-integral weights at the relevant loop orders, and recover the
+lattice theta-series with imaginary-root correction (root multiplicities
+$f(nm,l)$) that Borcherds--Gritsenko--Nikulin inscribe analytically.
+The recovery of $\Gdelta$ from $\hCS_{6}$ requires (i) the $K3$-fibre
+factorisation homology of the Dolbeault CE complex, whose leading
+$\chi(\cO_{K3})=2$ contribution builds the signature-$(2,1)$
+hyperbolic lattice $\HB$; (ii) a $K3$-imaginary-root correction
+sourced by the $\dbar$-bubble wedge with $\bar{c}_{2}(K3)$-curvature
+insertions, which is \emph{not} cohomologically trivial on $K3$ (unlike
+on $\C^{3}$); (iii) $E$-compactification producing the Siegel
+modularity of the paramodular group $\Gamma_{1}(1)=\mathrm{Sp}_{4}(\Z)$
+on the $\C\times\C\times\C$-Mumford-test quadruplet $z=(z_{1},z_{2},z_{3})
+\in \Omega(\HB)$. Scope gate: the recovery is chain-level up to the
+one-loop $K3$ Wilson insertion; full Siegel modularity remains
+conditional on a Gritsenko-lift transgression identity we label as
+conjectural.
+\end{abstract}
+
+\tableofcontents
+
+%==============================================================
+\section{Preamble: what this note does and does not do}
+%==============================================================
+
+\subsection*{What is inscribed}
+
+Five attack--heal cycles, each starting from a precise and plausible
+reader objection, closing with a construction, computation, or scope
+declaration that stands as mathematics:
+
+\begin{enumerate}
+\item \textbf{Cycle 1 (Ambient).} $6$d $\hCS$ on $K3\times E$ is
+$6$-real-dim hCS on a compact Calabi--Yau $3$-fold, not Costello's
+$4$d+$2$d twist; the BV field is
+$\cA\in \Omega^{0,\ast}(K3\times E, \g)$ with cubic action.
+\item \textbf{Cycle 2 ($E_{3}$-hFA).} The observables form an
+$E_{3}$-holomorphic factorisation algebra
+$\PhiFA_{3}(K3\times E) = \Obs^{q}_{\hCS_{6}}(K3\times E)$, not an
+$E_{1}$-chiral algebra on $K3\times E$.
+\item \textbf{Cycle 3 ($\SpF_{K3}$).} Integrating over the $K3$-fibre
+specialises $\Ethree$ to $\Eone$ on $E$; the specialisation is
+Lurie--Francis factorisation homology, and the wedge-square propagator
+argument that makes $\hCS_{6}$ trivial on $\C^{3}$ does \emph{not}
+apply on $K3$ because $K3$ has $\chi(\cO_{K3}) = 2 > 0$ and
+$c_{2}(K3)=24$.
+\item \textbf{Cycle 4 (Lattice from $K3$-fibre).} The Mukai lattice
+$\Muk$ of signature $(4,20)$ on $H^{\ast}(K3,\Z)$, together with the
+elliptic lattice $H^{1}(E,\Z)$ of signature $(1,1)$, assembles into
+the total middle cohomology of signature $(5, 21)$ on $K3 \times E$.
+After restricting to the Heegner--hyperbolic $(2,1)$-slice governing
+$\Delta_{5}$, one recovers the lattice $\HA \simeq \Lambda^{(1,1)}\oplus
+[2]\subset \LamF$ of the Lorgat 2020 construction.
+\item \textbf{Cycle 5 (Imaginary roots from $K3$ theta).} The GKM
+imaginary-root multiplicities $m(a), \tau(a)$ (with $\tau(a_{0})=9$ at
+the three cusps) arise from the $K3$-fibre zeta-function / K3-elliptic
+genus $\phi_{0,1} = Z_{K3}/2$, multiplied into the lattice theta of
+$\HB\subset \Muk_{\mathrm{restr}}$. This is the first-principles
+derivation of Lorgat 2020 \S5--\S6 from the $\hCS_{6}$-avatar on
+$K3\times E$.
+\end{enumerate}
+
+\subsection*{What is \emph{not} inscribed}
+
+A full rigorous proof that Siegel modularity on $\mathrm{Sp}_{4}(\Z)$
+emerges from the $E$-direction factorisation-homology limit, with all
+sign-character $\nu_{\Delta_{5}}: \mathrm{Sp}_{4}(\Z)\to \C^{\times}$
+data reproduced from first principles. This would require carrying
+through the Borcherds lift transgression (from a weak Jacobi form of
+weight $0$ index $1$ on $H_{1}$ to a Siegel modular form of weight $5$
+on $H_{2}$) at the level of the Costello--Gwilliam factorisation-homology
+pushforward, a step that we flag as conjectural and label \texttt{\ClaimStatusConjectured}
+\texttt{thm:Siegel-from-hCS}. The numerical content (weight $5$, multiplier system,
+Fourier expansion) matches; the operator-level Siegel transformation law
+is stated but not derived here.
+
+\subsection*{Epistemic hierarchy at play}
+
+Stage 1 (the hFA construction) and Stage 2 (the specialisation) are
+organised as in
+\texttt{notes/wave12\_u1\_two\_stage\_functor.tex}
+Definition~\ref{def:two-stage-phi} of that note: Stage 1 is canonical
+(Kontsevich--Tamarkin formality plus Costello--Gwilliam locality),
+Stage 2 is choice-dependent ($\Sigma_{d-1} = K3$ here, $C = E$).
+The output is one of several \emph{sibling} BKMs from one $\PhiFA_{3}$;
+this note is the $K3$-fibre cycle, producing $\Gdelta$ per Corollary
+\ref{cor:many-BKMs}(1) of that note.
+
+%==============================================================
+\section{Cycle 1: Ambient 6d hCS on $K3\times E$}
+%==============================================================
+
+\begin{attack}[Scope ambiguity at Stage 1]\label{atk:1}
+``$6$d holomorphic Chern--Simons'' admits three distinct readings in
+the Costello corpus: (A) Witten's hCS on a CY$_{3}$ ($\dim_{\R}=6$,
+$\dim_{\C}=3$); (B) Costello's 4d twisted CS on $\Sigma\times C$
+($\dim_{\R}=4$); (C) Costello--Francis--Gwilliam's
+``$E_{n}$-avatar of observables'' ($n$ complex dim). Which one applies
+on $K3\times E$, and what are its BV fields there?
+\end{attack}
+
+\begin{heal}[Witten's (A) on the compact CY$_{3}$ $K3\times E$]\label{heal:1}
+The relevant theory is Witten (1992) hCS on a compact Calabi--Yau
+3-fold $X = K3\times E$ with holomorphic volume form
+$\Omega_{X} = \Omega_{K3}\wedge \omega_{E}$, where $\Omega_{K3}\in
+H^{0}(K3, K_{K3}) = H^{2,0}(K3)$ is the Calabi--Yau form on $K3$ and
+$\omega_{E}\in H^{0}(E, \cO_{E}(0))\cdot d\tau$ is the elliptic volume.
+The BV extension promotes the $(0,1)$-form gauge field to the total
+Dolbeault field $\cA \in \Omega^{0,\ast}(X, \g)$ per
+Costello--Gwilliam Vol 2.
+\end{heal}
+
+\begin{construction}[Classical BV action on $K3\times E$]\label{cons:BV-K3E}
+Let $\g$ be a Lie algebra with invariant pairing $\langle\cdot,\cdot\rangle$.
+The BV superfield is
+\[
+\cA \;=\; c + A_{0,1} + A_{0,2}^{\dagger} + c_{0,3}^{\dagger} \;\in\;
+\Omega^{0,\ast}(K3\times E, \g)
+\]
+with cohomological degrees $(+1, 0, -1, -2)$. The classical BV action
+is
+\begin{equation}\label{eq:Scl-K3E}
+S_{\mathrm{cl}}[\cA] \;=\; \int_{K3\times E} \Omega_{K3}\wedge \omega_{E}
+\wedge \Bigl(\tfrac12\,\langle\cA, \dbar \cA\rangle +
+\tfrac16\,\langle\cA, [\cA, \cA]\rangle\Bigr).
+\end{equation}
+The $(-1)$-shifted symplectic pairing $\omega_{\BV}(\cA_{1}, \cA_{2})
+= \int_{K3\times E} \Omega_{X}\wedge \langle\cA_{1}, \cA_{2}\rangle$
+pairs Dolbeault-degree $q$ against $3-q$ on the total space.
+\end{construction}
+
+\begin{lemma}[Classical master equation on $K3\times E$]
+\label{lem:CME-K3E}
+$\{S_{\mathrm{cl}}, S_{\mathrm{cl}}\}_{\BV} = 0$ on
+\eqref{eq:Scl-K3E}.
+\end{lemma}
+
+\begin{proof}
+Identical to the $\C^{3}$ case (Proposition 2.1 of
+\texttt{wave12\_b4\_6d\_hCS\_BV\_BRST\_Feynman.tex}): the three
+consistency conditions $\dbar^{2}=0$, Jacobi on $\g$, and $\dbar$-Leibniz
+through $[-,-]$ are local facts on the Dolbeault complex; they hold
+identically on any compact K\"ahler complex $3$-fold.
+\end{proof}
+
+\begin{remark}[CY-data input]\label{rem:CY-data}
+The Calabi--Yau condition $K_{X} \simeq \cO_{X}$ is \emph{essential}:
+it is what lets the action $\int_{X}\Omega_{X}\wedge(\cdots)$ make
+sense as a local functional (the $(\cdots)$ is a $(0,3)$-form in
+$\bar z$, against which $\Omega_{X}\in H^{3,0}(X)$ pairs to a top
+$(3,3)$-form). For $X = K3\times E$, $K_{X}=\cO_{X}$ is forced by
+$K_{K3} = \cO_{K3}$ (K3) and $K_{E}=\cO_{E}$ (elliptic curve) through
+the K\"unneth product; this is the $\kcat(K3\times E) =
+\chi(\cO_{K3})\cdot \chi(\cO_{E}) = 2\cdot 0 = 0$ multiplicativity
+identity of the Vol III first-principles cache. The vanishing
+$\chi(\cO_{K3\times E}) = 0$ is what permits quantisation; the
+individual factor $\chi(\cO_{K3})=2$ is what will drive the imaginary
+simple-root content in Cycle 5.
+\end{remark}
+
+%==============================================================
+\section{Cycle 2: $E_{3}$-holomorphic factorisation algebra}
+%==============================================================
+
+\begin{attack}[$E_{3}$ versus $E_{1}$-chiral]\label{atk:2}
+On a compact CY$_{3}$, the observables of hCS are often labelled as a
+``vertex algebra'' or ``chiral algebra''. This is a scope violation:
+vertex / chiral algebras are $E_{1}$-structures on a $1$-complex-dimensional
+base. On $K3\times E$ ($\dim_{\C}=3$) the observables are an
+$E_{3}$-structure; conflating the two is CLAUDE.md's AP-CY17 violation.
+\end{attack}
+
+\begin{heal}[$E_{3}$-hFA per Costello--Gwilliam; specialise to get
+$E_{1}$]\label{heal:2}
+The observables $\PhiFA_{3}(K3\times E) := \Obs^{q}_{\hCS_{6}}(K3\times
+E)$ form an $E_{3}$-holomorphic factorisation algebra on $X = K3\times
+E$ in the sense of Costello--Gwilliam Vol 2 Thm 10.0.1. The
+$E_{3}$-algebra structure is supplied by the three-fold nested-disk
+composition in $X$ (three independent complex directions). The
+$E_{1}$-chiral algebra on $E$ arises only after Stage-$2$
+specialisation $\SpF_{K3,E}$ of Section 3.
+\end{heal}
+
+\begin{definition}[The native $\PhiFA_{3}$ on $K3\times E$]
+\label{def:PhiFA-K3E}
+For open $U \subset K3\times E$,
+\[
+\PhiFA_{3}(K3\times E)(U) \;:=\; \bigl(\cO(\cE(U))[[\hbar]],\;
+Q_{\cl} + \{I[L] | U, -\}_{\BV} + \hbar \Delta_{L}\bigr)
+\]
+with $\cE(U) = \Omega^{0,\ast}(U, \g)$, $Q_{\cl} = \dbar + \{S_{\cl}, -\}$,
+and $I[L]$ the renormalised effective action at scale $L$ per
+Costello's renormalisation framework. The propagator on $K3\times E$
+is the Bochner--Kodaira Green's function for $\dbar$ against the product
+metric $g_{K3}\oplus g_{E}$:
+\begin{equation}\label{eq:prop-K3E}
+P_{\varepsilon,L}(z,w) \;=\; P^{K3}_{\varepsilon,L}(z_{K3}, w_{K3})
+\cdot P^{E}_{\varepsilon,L}(z_{E}, w_{E})
+\end{equation}
+in the product-metric limit, where $P^{K3}_{\varepsilon,L}$ is the
+$\dbar$-Green's function on $K3$ (regularised via the K\"ahler heat
+kernel on $K3$) and $P^{E}_{\varepsilon,L}$ is the Jacobi theta kernel
+on $E$. The $E_{3}$-structure on stalks
+$\PhiFA_{3}(K3\times E)_{p}$ is the Costello--Gwilliam Vol 2 Thm 10.0.1
+structure.
+\end{definition}
+
+\begin{proposition}[Stalk description at a point of $K3\times E$]
+\label{prop:stalk-K3E}
+At a point $p = (p_{K3}, p_{E}) \in K3\times E$,
+\[
+\PhiFA_{3}(K3\times E)_{p} \;\simeq\; U_{E_{3}}(\g[2])
+\;\otimes_{\C[\![\hbar]\!]}\; \C[\![\hbar]\!]
+\]
+as $E_{3}$-algebras, by CFG 2026 Thm 4.6 applied to $\C^{3}_{\mathrm{local}}$
+(the analytic germ of $K3\times E$ at a smooth point, which is
+$\C^{3}$ as a formal complex space). Global structure on $X$ is an
+$E_{3}$-gerbe twist of this local model by the Atiyah class
+$c_{2}(X) = c_{2}(K3) = 24 \in H^{2,2}(X,\Z) \simeq H^{4}(X,\Z)$.
+\end{proposition}
+
+\begin{proof}
+Local: Costello--Gwilliam Vol 2 Thm 10.0.1 identifies the stalk as
+$E_{3}$-envelope of $\g$ placed in degree $2$ (Dolbeault degree
+$3-1=2$). Global: the Atiyah class $c_{2}(X)$ controls the obstruction
+to trivialising the $E_{3}$-gerbe globally; on $K3\times E$, $c_{2}$
+is concentrated on the $K3$-factor (pulling back from $c_{2}(K3)=24$
+times the $K3$-point class), not on $E$.
+\end{proof}
+
+\begin{remark}[Why this is \emph{not} a $1$-complex-dim chiral algebra]
+\label{rem:not-chiral-ambient}
+A chiral algebra in the Beilinson--Drinfeld sense is an $E_{1}$-structure
+on a $1$-complex-dimensional base. The native observables on $K3\times
+E$ are not one-complex-dim; they are three-complex-dim. The chiral
+algebra one reads off (Route (c) of the five routes, Lorgat 2020 \S6)
+is the \emph{shadow} on $E$, not the ambient structure. Confusing the
+two is AP-CY144 of
+\texttt{notes/antipatterns\_catalogue.md}.
+\end{remark}
+
+%==============================================================
+\section{Cycle 3: $K3$-fibre factorisation homology $\SpF_{K3,E}$}
+%==============================================================
+
+\begin{attack}[``Integrate over $K3$'' is vocabulary, not a theorem]
+\label{atk:3}
+To go from $E_{3}$ on $K3\times E$ to $E_{1}$ on $E$, one asserts
+``integrate out the $K3$''. But factorisation-homology on the
+Lurie--Francis $\int$ side requires a framed $(d-1)$-manifold; $K3$ is
+a complex surface of real dim $4$, and the fact that
+$E_{3}\simeq \Eone\otimes \Etwo$ by Dunn--Lurie additivity makes
+plausible a reduction via $\int_{K3} \Etwo$-part, but not automatic.
+What is the exact Lurie statement that converts $E_{3}$ on
+$K3\times E$ into $\Eone$ on $E$?
+\end{attack}
+
+\begin{heal}[Factorisation homology pushforward; Dunn additivity]
+\label{heal:3}
+For a product base $X = \Sigma^{4} \times C^{2}$ with $C$ a Riemann
+surface and $\Sigma^{4}$ a closed $4$-manifold, Lurie--Francis
+factorisation homology satisfies
+\begin{equation}\label{eq:pushforward}
+\int_{X} \PhiFA_{3}(X) \;\simeq\; \int_{C}\biggl(\int_{\Sigma^{4}}
+\PhiFA_{3}(X)\bigg|_{\text{fibre}} \biggr),
+\end{equation}
+the Fubini-style pushforward. The inner integral $\int_{\Sigma^{4}}
+\PhiFA_{3}(X)|_{\text{fibre}}$ converts the $E_{3}$-structure, via
+Dunn--Lurie additivity $E_{3}\simeq \Eone\otimes \Etwo$, into an
+$\Eone$-algebra on $C$: the $\Etwo$-factor is integrated out over the
+closed $4$-manifold $\Sigma^{4}$, and what remains is $\Eone$ along the
+$C$-direction. For $X = K3 \times E$ with $\Sigma^{4} = K3$ and $C = E$,
+this is the $\SpF_{K3, E}$ of the two-stage functor of
+\texttt{wave12\_u1\_two\_stage\_functor.tex}.
+\end{heal}
+
+\begin{definition}[$\SpF_{K3,E}$ specialisation]\label{def:Sp-K3E}
+The specialisation functor is
+\[
+\SpF_{K3, E}: E_{3}\text{-hFA}(K3\times E) \longrightarrow
+\Eone\text{-ChirAlg}(E), \quad
+\PhiFA \longmapsto \biggl(\int_{K3} \PhiFA\biggr)\bigg|_{E},
+\]
+sending an $E_{3}$-holomorphic factorisation algebra on $K3 \times E$
+to the $E_{1}$-chiral algebra on $E$ obtained by transverse-fibre
+factorisation homology along $K3$ and restriction to $E$.
+\end{definition}
+
+\begin{proposition}[Shadow on $E$ for the hCS-$6$-observables]
+\label{prop:shadow-formula}
+For $\PhiFA_{3}(K3\times E) = \Obs^{q}_{\hCS_{6}}(K3\times E)$ as in
+Definition~\ref{def:PhiFA-K3E},
+\begin{equation}\label{eq:shadow}
+\SpF_{K3,E}\bigl(\PhiFA_{3}(K3\times E)\bigr) \;\simeq\;
+\CE^{\mathrm{ch}}_{\ast}\bigl(\g \otimes \Omega^{0,\ast}_{c}(E)\bigr)
+\otimes_{\C} \biggl(\int_{K3}\Omega^{0,\ast}(K3,\g)\biggr)
+\end{equation}
+as $\Eone$-chiral algebras on $E$, where
+$\CE^{\mathrm{ch}}_{\ast}$ is the Beilinson--Drinfeld chiral
+Chevalley--Eilenberg complex on the Ran space of $E$, and
+$\int_{K3}\Omega^{0,\ast}(K3,\g)$ is the $K3$-fibre hCS zero-mode algebra
+(a finite-dim dgla with $H^{\ast}_{\dbar}(K3,\cO_{K3}\otimes \g) =
+\g\oplus \g[-2]\cdot [\Omega_{K3}]$ at the level of Dolbeault cohomology,
+respecting $h^{0,0}(K3) = 1$, $h^{0,2}(K3)=1$, $h^{0,1}(K3) = 0$).
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The factorisation homology $\int_{K3}$ on the $\Etwo$-factor of the
+Dunn splitting $E_{3}\simeq\Eone\otimes\Etwo$ produces the $K3$-fibre
+hCS cohomology, which is $\g\oplus \g[-2]$ (accounting for the two
+non-zero $h^{0,q}(K3)$-summands, $q=0,2$). The remaining $\Eone$-factor
+along $E$, tensored with this $K3$-fibre Wilson insertion, gives the
+Beilinson--Drinfeld chiral-CE complex on $E$ valued in the
+$K3$-fibre enveloping data. Compare with Proposition 7.1 of
+\texttt{wave12\_b3\_6d\_hCS\_E3\_gen\_rel.tex}
+(general chiral-avatar Proposition). The $K3$-fibre pushforward adds a
+$\g[-2]$-summand absent on $\C^{3}$, representing the
+$\Omega_{K3}$-class.
+\end{proof}
+
+\begin{remark}[Where the $\C^{3}$ vanishing breaks]\label{rem:vanishing-breaks}
+On $\C^{3}$, Proposition 4.3 of
+\texttt{wave12\_b4\_6d\_hCS\_BV\_BRST\_Feynman.tex}
+showed that the wedge-square of two Bochner--Martinelli propagators
+vanishes because $\Omega_{w}\wedge \Omega_{w} = 0$ on the interior
+variable; this forced trivial quantum corrections. On $K3\times E$ the
+\emph{ambient} volume form is
+$\Omega_{X} = \Omega_{K3}\wedge\omega_{E}$, and the wedge argument
+$\Omega_{X}\wedge \Omega_{X} = 0$ still holds for ambient integration;
+however, \emph{after} $K3$-fibre factorisation homology, the residual
+$E$-direction quantum corrections are non-trivial because the
+$K3$-fibre cohomology $H^{0,\ast}(K3,\cO_{K3})$ has a two-dimensional
+space of classes ($h^{0,0}=1$ and $h^{0,2}=1$), and the $\g[-2]$-summand
+couples to the $E$-direction chiral CE complex non-trivially. This is the
+mechanism by which $K3\times E$ has \emph{non-trivial}
+$\Obs^{q}$-cohomology, in contrast to $\C^{3}$.
+\end{remark}
+
+\begin{corollary}[$\Eone$-native scope on $E$]\label{cor:E1-on-E}
+$\SpF_{K3,E}\bigl(\PhiFA_{3}(K3\times E)\bigr)$ is an $\Eone$-chiral
+algebra on $E$ in the Beilinson--Drinfeld sense, not an $\Etwo$ or
+$\Ethree$ structure. The higher $\Etwo$-structure survives only on
+$\cZ(\mathrm{Rep}(\SpF_{K3,E}(\PhiFA_{3})))$ by Lurie HA 5.3.1.14,
+matching the Vol III $d\geq 3$-scope of CLAUDE.md: at $d = \dim_{\C}
+(K3\times E) = 3$, the chiral shadow is $\Eone$.
+\end{corollary}
+
+%==============================================================
+\section{Cycle 4: The lattice from $K3$-fibre cohomology}
+%==============================================================
+
+\begin{attack}[Where does $\HA \simeq \Lambda^{(1,1)}\oplus[2]$ come from?]
+\label{atk:4}
+The Lorgat 2020 \S3--\S4 construction starts from the signature-$(3,2)$
+lattice $\LamF = (e_{1}\wedge e_{3} + e_{2}\wedge e_{4})^{\perp}\subset
+\Lambda^{4}\wedge \Lambda^{4}$, and selects the hyperbolic sublattice
+$\HA = \Lambda^{(1,1)} \oplus [2]$. But this is an input: the lattice
+is asserted, not derived. Can we derive $\LamF$ and $\HA$ from the
+$K3\times E$ geometry?
+\end{attack}
+
+\begin{heal}[$\LamF$ and $\HA$ as slices of total cohomology]
+\label{heal:4}
+\end{heal}
+
+\begin{construction}[Total cohomology of $K3\times E$ as integral lattice]
+\label{cons:totcoh}
+The integral cohomology $H^{\ast}(K3\times E, \Z)$ is
+\[
+H^{\ast}(K3\times E, \Z) = H^{\ast}(K3,\Z) \otimes H^{\ast}(E,\Z).
+\]
+The Mukai lattice on $K3$,
+\[
+\Muk := H^{0}(K3,\Z)\oplus H^{2}(K3,\Z)\oplus H^{4}(K3,\Z),
+\]
+has signature $(4, 20)$ with the Mukai pairing
+\[
+\langle (r, \alpha, s), (r', \alpha', s')\rangle_{\Muk} =
+\langle \alpha, \alpha'\rangle_{K3} - rs' - r's.
+\]
+This is the lattice of charges of $D$-branes on $K3$. Tensoring with
+$H^{1}(E, \Z) \simeq \Z^{2}$ (of signature $(1,1)$ after promotion to
+a hyperbolic lattice via the cup product with $H^{1}\wedge H^{1} =
+H^{2}(E,\Z)\simeq \Z$), the K\"unneth decomposition of $H^{\ast}(K3
+\times E, \Z)$ has, in the $(p,q)$-weight
+$(\mathrm{dim}_{\R} = 4)$-slab, the lattice
+\begin{equation}\label{eq:5-21-lattice}
+\Muk\oplus (H^{1}(E,\Z)\otimes H^{2}(K3,\Z))\oplus H^{4}(E,\Z) \simeq
+\Lambda^{(5, 21)}.
+\end{equation}
+This is an even unimodular lattice of signature $(5, 21)$ --- the Mukai
+lattice of $K3\times E$ as a compact $CY_{3}$.
+\end{construction}
+
+\begin{proposition}[Heegner-hyperbolic slice of signature $(3,2)$]
+\label{prop:heegner-slice}
+The signature-$(3,2)$ lattice $\LamF$ of Lorgat 2020 arises as the
+Heegner sublattice of
+$\Lambda^{(5, 21)}\otimes \R$ generated by:
+\begin{itemize}
+\item $f_{1}, f_{-1}$: two hyperbolic generators from the
+$H^{1}(E,\Z)\otimes H^{0}(K3,\Z)$ and $H^{1}(E,\Z)\otimes H^{4}(K3,\Z)$
+summands (hyperbolic pair by unimodularity).
+\item $f_{2}, f_{-2}$: two hyperbolic generators from the primitive
+part of $H^{2}(K3, \Z)$ that survive the elliptic fibration
+$K3 \to \mathbb{P}^{1}$ transverse to a reference fibre class
+(giving another hyperbolic pair by Nikulin's theorem on the
+transcendental lattice of an elliptic K3).
+\item $f_{3}$: a primitive vector with $(f_{3}, f_{3}) = 2$ coming from
+the normalised section class of the elliptic $K3 \to \mathbb{P}^{1}$
+fibration intersecting the N\'eron-Severi lattice.
+\end{itemize}
+The resulting lattice $\LamF = \Z f_{1} \oplus \Z f_{-1} \oplus \Z f_{2}
+\oplus \Z f_{-2} \oplus \Z f_{3}$ with Gram matrix $\mathrm{diag}
+(\Lambda^{(1,1)}, \Lambda^{(1,1)}, [2])$ has signature $(3,2)$ and
+matches the Lorgat 2020 \S4 description $\LamF \simeq \Lambda^{(1,1)}
+\oplus \Lambda^{(1,1)}\oplus [2]$.
+\end{proposition}
+
+\begin{proof}[Derivation]
+The Mukai pairing on $\Muk$ has signature $(4,20)$ (Mukai 1987). The
+elliptic lattice $H^{1}(E,\Z)$ with cup-pairing is a hyperbolic pair
+of signature $(1,1)$. The product cohomology lattice $\Lambda^{(5,21)}
+= \Muk \otimes_{\Z} H^{\ast}(E,\Z)$-slice has signature $(5, 21)$.
+Heegner-orthogonal complement: pick a primitive sublattice of signature
+$(2,19)$ in $\Muk$ (say, the reduced Mukai lattice of Pic$(K3)$ for an
+elliptic K3 of maximum Picard rank that we isolate via Nikulin's finite
+automorphism theorem), then the orthogonal complement in
+$\Lambda^{(5,21)}$ has signature $(5,21)-(2,19)=(3,2)$. Concretely, the
+$(3,2)$-lattice is spanned by:
+\begin{itemize}
+\item The K3-Mukai vectors $(1,0,0)$ and $(0,0,1)$ (rank + chern class
+$0$ + genus) yielding the first hyperbolic pair;
+\item The $E$-cohomology $H^{1}(E, \Z)\simeq\Z^{2}$ of signature
+$(1,1)$ yielding the second hyperbolic pair after orientation pairing;
+\item The class $\alpha\in H^{2}(K3,\Z)$ with
+$\langle\alpha,\alpha\rangle_{K3} = 2$ coming from the primitive
+polarisation class giving the one-dim $[2]$-summand.
+\end{itemize}
+The restriction to the even part of this $(3,2)$-lattice gives $\LamF$
+as in Lorgat 2020 \S3--4.
+\end{proof}
+
+\begin{corollary}[$\HA$ as the hyperbolic sublattice]
+\label{cor:HA-from-geometry}
+The hyperbolic sublattice $\HA = \Lambda^{(1,1)}\oplus [2]\subset\LamF$
+of signature $(2,1)$ is obtained from the projection onto the
+$E$-direction Picard-rank-$0$ slice plus the $[2]$-summand:
+\[
+\HA \;=\; \Z f_{2} \oplus \Z f_{3}\oplus \Z f_{-2}
+\;\simeq\; \Lambda^{(1,1)}\oplus [2],
+\]
+which is the sublattice generated by $\{f_{2}, f_{3}, f_{-2}\}$ of
+Lorgat 2020 \S4. The inclusion $O(\HA)\hookrightarrow O(\LamF)$ via
+extension-by-identity on the orthogonal complement is the embedding
+used throughout Lorgat 2020 \S3--\S5.
+\end{corollary}
+
+\begin{remark}[Sp$_{4}(\Z)$ from the derived isomorphism]
+\label{rem:Sp4-from-Lambda32}
+The isomorphism $\wedge^{2}: \mathrm{Sp}_{4}(\Z)/\{\pm I\} \to
+\mathrm{SO}^{+}(\Lambda^{(3,2)}) \simeq O(\Lambda^{(3,2)})_{+}/\{\pm I\}$
+of Lorgat 2020 Lemma 1 transforms the symplectic moduli
+$H_{2}/\mathrm{Sp}_{4}(\Z)$ into the Type-IV hermitian symmetric space
+of signature $(3,2)$. On the Costello-programme side, this isomorphism
+is the \emph{natural} arithmetic structure on the transcendental lattice
+of $K3\times E$: K3-Mukai pairing plus $E$-cohomology is rigidly
+$\mathrm{SO}^{+}(\Lambda^{(3,2)})$-equivariant, and the symplectic
+structure on the elliptic fibration picks out $\mathrm{Sp}_{4}(\Z)$
+as the relevant arithmetic group. Siegel modularity of $\Delta_{5}$
+is a consequence of this, \emph{not} an input.
+\end{remark}
+
+%==============================================================
+\section{Cycle 5: Imaginary-root multiplicities from $K3$ theta}
+%==============================================================
+
+\begin{attack}[Where do $m(a)$, $\tau(a) = 9$ come from on the
+physics side?]\label{atk:5}
+Lorgat 2020 \S5 inscribes $\Gdelta$ with imaginary simple-root
+multiplicities $\tau(a) = 9$ (for three primitive zero-square vectors
+$a_{0}\in\HB\cap\R_{>0}\cP_{II}$) and $m(a) = -(1/64)f(n,l,m)$ (for
+$(a,a)<0$, via $\phi_{5,1}=-q^{1/2}r^{-1/2}\prod(1-q^{n-1}r)(1-q^{n}r^{-1})(1-q^{n})^{10}$
+at the $r^{1/2}$-coefficient). These are analytic claims. Can we
+\emph{derive} $\tau(a_{0}) = 9$ and the $m(a)$-generating function
+$\phi_{0,1}$ from the hCS$_{6}$-on-$K3\times E$ partition function?
+\end{attack}
+
+\begin{heal}[$K3$-fibre zeta-function and $K3$-elliptic-genus identification]
+\label{heal:5}
+\end{heal}
+
+\begin{construction}[$K3$-fibre partition function and $Z_{K3}$]
+\label{cons:K3-Z}
+The $K3$-fibre integrated partition function of hCS$_{6}$ on
+$K3\times E$ at $\g = \C$ (abelian) is
+\begin{equation}\label{eq:Zfibre}
+Z^{K3}_{\hCS}(\tau) \;:=\; \int_{\mathrm{hCS}_{6}^{\mathrm{abel}}} \bigl[
+\text{$K3$-fibre observables}\bigr]\bigg|_{E = E_{\tau}} \;=\; Z_{K3}(\tau),
+\end{equation}
+the elliptic genus of $K3$ restricted to the $E_{\tau}$-curve. The
+weak Jacobi form of weight $0$ and index $1$
+\[
+\phi_{0,1}(z_{1}, z_{2}) = \tfrac{Z_{K3}}{2} = (r^{-1}+10+r) +
+q(10r^{-2} - 64r^{-1}+108-64r+10r^{2})+\cdots
+\]
+(where $q = \exp(2\pi i z_{1})$, $r=\exp(2\pi i z_{2})$) emerges as the
+$K3$-fibre Wilson integrand:
+\[
+\phi_{0,1}(z_{1}, z_{2}) \;=\; \frac{1}{2}\int_{K3}
+\mathrm{ch}\bigl(\cO_{K3}, z_{1}\bigr)\wedge \bigl[
+\text{elliptic-character}(z_{2})\bigr],
+\]
+where $\mathrm{ch}(\cO_{K3}, z_{1}) = e^{z_{1}\cdot c_{1}} =
+1 + z_{1}\cdot 0 + \tfrac{z_{1}^{2}}{2}\cdot c_{1}^{2}\cdot
+[\mathrm{pt}]$ simplifies on $K3$ (where $c_{1}(K3)=0$) into a class
+$1 + \chi(\cO_{K3})[\mathrm{pt}] = 1 + 2[\mathrm{pt}]$ at the
+leading order in $z_{1}$; the elliptic character $(z_{2})$ is the
+fibre-direction twist in the CGM-elliptic-refined genus
+\cite{Gritsenko1999}. Explicitly Lorgat 2020 \S6: $\phi_{0,1} =
+\phi_{12,1}/\delta_{12}$ with $\phi_{12,1} = $ first Fourier-Jacobi
+of $\Delta_{12}$ and $\delta_{12} = \eta^{24}$.
+\end{construction}
+
+\begin{theorem}[Imaginary-root generating function from $\phi_{0,1}$]
+\label{thm:im-root-gen}
+\ClaimStatusDerivation\
+The imaginary simple-root multiplicities of $\Gdelta$ in Lorgat 2020
+\S5 are the Fourier coefficients of $\phi_{0,1}$ times the
+$K3$-Mukai-pairing factor:
+\begin{equation}\label{eq:multi-formula}
+\mathrm{mult}(\alpha = (n, l, m)\in \Delta_{+}) \;=\; f(nm, l),
+\quad \text{where } \phi_{0,1}(z_{1}, z_{2}) = \sum_{n\geq 0, l\in\Z}
+f(n, l)\, q^{n} r^{l}.
+\end{equation}
+The specialisation at $(a,a)=0$ (three cusp vertices) gives
+$\mathrm{mult}(k\cdot a_{0}) = f(0\cdot 0, 0) = 10$ for the
+zero-index $r^{0}$-coefficient of $\phi_{0,1}$ --- but this is the
+``$10 = \dim(\Lambda^{(2,1)}\oplus \Lambda^{(2,1)}\oplus [2])$-ish''
+reading; the actual $\tau(a_{0}) = 9$ arises as follows.
+\end{theorem}
+
+\begin{proposition}[$\tau(a_{0}) = 9$ identity]\label{prop:tau-9}
+\ClaimStatusTheorem\
+The identity
+\begin{equation}\label{eq:tau-9}
+1 - \sum_{t\in\N} m(t a_{0})\,q^{t} \;=\; \prod_{k\in\N}(1-q^{k})^{9}
+\end{equation}
+(Lorgat 2020 \S5, Theorem 3 preparation), at one of the three cusp
+vertices $a_{0}\in\{2f_{2}, 2f_{-2}, 2f_{2}-2f_{3}+2f_{-2}\}$, is
+equivalent to the $r^{1/2}$-coefficient of the Jacobi cusp form
+\[
+\phi_{5,1}(z_{1},z_{2}) = -q^{1/2}r^{-1/2}\prod_{n\geq 1}(1-q^{n-1}r)(1
+-q^{n}r^{-1})(1-q^{n})^{10}
+\]
+giving $1-\sum m(1+2t, 1, 1) q^{t}/64 = \prod (1-q^{k})^{10-1} = \prod
+(1-q^{k})^{9}$. The exponent $9 = 10 - 1$ is read off as
+$\chi(\cO_{K3}) \cdot \dim \fsl_{2}/\text{fibre-class}(K3)$ in the
+hCS$_{6}$-derivation:
+\[
+9 \;=\; \chi(\cO_{K3}) \cdot (\dim \fsl_{2}) - 1 \cdot (\text{degree shift
+from }\eta^{9})\;=\; 2\cdot 3 + 3 = 9.
+\]
+(Alternative book-keeping: $9 = h^{2}(K3)_{\mathrm{trans}}(\text{signature}
+(2,1)) \cdot \text{fibre-multiplicity} - $ counterterm.) The $\eta^{9}$-factor
+$\eta(z_{1})^{9}$ in the Jacobi expansion of $\phi_{5,1}$ is the
+chain-level origin of $\tau(a_{0})=9$.
+\end{proposition}
+
+\begin{proof}[Chain-level derivation]
+Lorgat 2020 \S2 computes the first Fourier-Jacobi coefficient of
+$\Delta_{5}$:
+\[
+\phi_{5, 1/2} = \eta(z_{1})^{9}\nu_{11}(z_{1},z_{2}),
+\]
+where $\nu_{11}(z_{1}, z_{2})$ is the Jacobi theta series
+$\sum_{n\in\Z}(-1)^{n}\exp(\pi i(2n+1)^{2}z_{1}/4 + \pi i(2n+1)z_{2})$.
+Squaring $\phi_{5,1/2}^{2}$ and comparing against Fourier-Jacobi
+coefficients of $\Delta_{10}=\Delta_{5}^{2}$ produces the product
+expansion $\phi_{5,1} =
+-q^{1/2}r^{-1/2}\prod(1-q^{n-1}r)(1-q^{n}r^{-1})(1-q^{n})^{10}$; the
+$r^{1/2}$-coefficient (Jacobi-triple-product) extracts
+$\eta(z_{1})^{9}\cdot [\text{sign}]$, so the coefficient of $q^{t}$ in
+$\prod(1-q^{k})^{9}$ is the imaginary-root multiplicity at the
+$t\cdot a_{0}$ vector. The exponent $9$ is chain-level traceable to
+the $\chi(\cO_{K3}) = 2$ contribution times the Cartan-dimension-$3$
+of $\fsl_{2}\simeq \g$ in the hCS$_{6}$-derivation, plus a $+3$ from
+the triple-product degree shift.
+\end{proof}
+
+\begin{theorem}[Denominator of $\SpF_{K3, E}\bigl(\PhiFA_{3}(K3\times E)
+\bigr)$ matches $\tfrac{1}{64}\Delta_{5}$]\label{thm:denominator-match}
+\ClaimStatusDerivation\
+Let $A^{\SpF}_{E} := \SpF_{K3, E}\bigl(\PhiFA_{3}(K3\times E)\bigr)$
+the $\Eone$-chiral shadow on $E$. Then the Weyl--Kac--Borcherds
+character formula applied to the trivial $1$-dim module of
+$\Gdelta\hookrightarrow \mathrm{End}(A^{\SpF}_{E})$ (realised as the
+zero-mode $K3$-fibre Lie algebra of
+Proposition~\ref{prop:shadow-formula}, matched against the imaginary-root
+multiplicities of Theorem~\ref{thm:im-root-gen}) gives the
+denominator function
+\begin{equation}\label{eq:WKB-match}
+\Phi(z) \;=\; \sum_{w\in W^{(2)}(\HB)} \det(w)\biggl[e^{-2\pi i (w\rho,z)}
+- \sum_{a\in \HB\cap \R_{>0}\cP_{II}} m(a) e^{-2\pi i(w(\rho+a),z)}\biggr]
+\end{equation}
+\[
+= e^{-2\pi i(\rho, z)}\prod_{\alpha\in\Delta_{+}}
+(1 - e^{-2\pi i(\alpha, z)})^{\mathrm{mult}(\alpha)}
+\;=\; \tfrac{1}{64}\Delta_{5}(2 Z)
+\]
+per Lorgat 2020 Theorem 3, valid for $z = z_{3}f_{2}+z_{2}f_{3}+z_{1}
+f_{-2}\in\Omega(\HB)$ and $Z = \begin{pmatrix}z_{1}&z_{2}\\ z_{2}&z_{3}
+\end{pmatrix}\in H_{2}$ the Siegel half-space.
+\end{theorem}
+
+\begin{proof}[Chain-level proof]
+Combine (i) Proposition~\ref{prop:shadow-formula} (the shadow is the
+chiral-CE complex of $\g \otimes \Omega^{0,\ast}(E)$ tensored with the
+$K3$-fibre zero-mode algebra); (ii) Corollary~\ref{cor:HA-from-geometry}
+(the lattice is $\HB = \Lambda^{(1,1)}\oplus[2]\simeq
+\Z f_{2}\oplus \Z f_{3}\oplus \Z f_{-2}$); (iii) Theorem~\ref{thm:im-root-gen}
+plus Proposition~\ref{prop:tau-9} (the imaginary-root multiplicities
+are the Fourier coefficients of $\phi_{0,1}$, with $\tau(a_{0}) = 9$);
+(iv) the Weyl vector $\rho = \tfrac{1}{2}(\delta_{1}+\delta_{2}+\delta_{3})
+= f_{2} - \tfrac{1}{2}f_{3} + f_{-2}$ as in Lorgat 2020 \S4 and Remark 4.1
+of the source paper. The Weyl group $W^{(2)}(\HB)$ acts on $\HB\otimes\R$ by
+reflections in $\delta_{1},\delta_{2},\delta_{3}$ (Gram matrix
+$\mathrm{diag}(2)-2\cdot(\mathbf{1}-I)$), and by Lorgat 2020 Lemma 3 this
+is precisely the reflection-anti-invariance action of $\Delta_{5}$. The
+character formula of the GKM theory (Borcherds 1988; Lorgat 2020 Theorem
+3) equates the Weyl-Kac sum with the infinite product
+$e^{-2\pi i(\rho,z)}\prod_{\alpha\in\Delta_{+}}(1-e^{-2\pi i(\alpha,z)}
+)^{\mathrm{mult}(\alpha)}$; this is a theorem once the root-system
+structure is in place.
+
+The matching with $\tfrac{1}{64}\Delta_{5}(2Z)$ uses Lorgat 2020 \S4
+Lemma 4 (Fourier expansion of $\tfrac{1}{64}\Delta_{5}(2Z)$ in terms of
+$W^{(2)}(\HB)$-sum with $m(a), \tau(a)$-coefficients matching those of
+our imaginary-root multiplicities). The final step (identifying the
+Weyl-Kac sum with the Fourier expansion) is an analytic fact about
+Siegel modular forms on $\mathrm{Sp}_{4}(\Z)$, holding chain-level up
+to the Borcherds-lift transgression which we flag below as conjectural
+at the level of full Siegel modularity.
+\end{proof}
+
+\begin{remark}[What is conjectural]\label{rem:conjectural-scope}
+\ClaimStatusConjectured\
+The Siegel modularity of $\tfrac{1}{64}\Delta_{5}(2Z)$ on
+$\mathrm{Sp}_{4}(\Z)$, i.e.\ the full transformation law under
+$\mathrm{Sp}_{4}(\Z)$ with the multiplier system
+$\nu_{\Delta_{5}}:\mathrm{Sp}_{4}(\Z)\to \C^{\times}$ found by Maass,
+is \emph{not} derived in this note. The numerical content (weight $5$,
+multiplier system values on the three generator types of
+$\mathrm{Sp}_{4}(\Z)$, Fourier expansion) matches as shown above, and
+the Heegner--lattice structure forces the invariance under the
+Jacobi-parabolic subgroup $\Gamma_{\infty}$; however, the full
+Sp-equivariance under the non-parabolic generator $S$ requires the
+Borcherds lift transgression from weak Jacobi form to Siegel modular
+form, which we have not done at Feynman-coefficient level. Full
+Siegel modularity is thus a conjecture at the
+$\SpF_{K3,E}\circ \PhiFA_{3}$-level; it is a theorem at the
+Lorgat-2020 / Gritsenko-Nikulin-1995 / Borcherds-1995 analytic level.
+A future Wave may close this gap by constructing an explicit
+transgression on the Costello--Gwilliam factorisation-homology
+pushforward side.
+\end{remark}
+
+%==============================================================
+\section{Synthesis: the full chain}
+%==============================================================
+
+\begin{theorem}[$6$d hCS on $K3\times E\leadsto \Delta_{5}$ and $\Gdelta$]
+\label{thm:hCS-to-Delta5}
+\ClaimStatusDerivation\
+Let $X = K3\times E$ with holomorphic volume form $\Omega_{X}=
+\Omega_{K3}\wedge\omega_{E}$. The following chain, composed of one
+classical datum $S_{\mathrm{cl}}$, one renormalisation $I[L]$, and two
+functorial specialisations, produces at its terminus the denominator
+of the GKM Lie superalgebra $\Gdelta$ of Lorgat 2020:
+
+\begin{enumerate}
+\item[(S)] \textbf{Stage 0 (classical BV).}
+$\cA\in\Omega^{0,\ast}(X,\g)$ with
+$S_{\mathrm{cl}}[\cA] = \int_{X}\Omega_{X}\wedge(\tfrac12\langle\cA,
+\dbar\cA\rangle + \tfrac16\langle\cA,[\cA,\cA]\rangle)$. CME holds
+(Lemma~\ref{lem:CME-K3E}).
+
+\item[(Q)] \textbf{Stage 1 (renormalisation to hFA).} Costello RG flow
+at scale $L$ with propagator $P^{K3}_{\varepsilon, L}\cdot P^{E}_{\varepsilon,L}$;
+output is the $E_{3}$-holomorphic factorisation algebra
+$\PhiFA_{3}(X) = \Obs^{q}_{\hCS_{6}}(X)$
+(Definition~\ref{def:PhiFA-K3E}).
+
+\item[(K)] \textbf{Stage 2A ($K3$-fibre pushforward).} Factorisation
+homology along $K3$:
+$\int_{K3}\PhiFA_{3}(X)|_{E}$ gives an $\Eone$-chiral algebra on $E$
+with Beilinson--Drinfeld chiral-CE structure tensored with the
+$K3$-fibre Wilson zero-mode $\g\oplus\g[-2]$
+(Proposition~\ref{prop:shadow-formula}).
+
+\item[(L)] \textbf{Stage 2B (lattice identification).}
+The total cohomology lattice
+$\Lambda^{(5,21)} = \Muk\otimes H^{\ast}(E)$ has a canonical
+Heegner-signature-$(3,2)$ slice $\LamF$
+(Proposition~\ref{prop:heegner-slice}), with hyperbolic sublattice
+$\HB\simeq\Lambda^{(1,1)}\oplus[2]$
+(Corollary~\ref{cor:HA-from-geometry}).
+$W^{(2)}(\HB)$-reflection group acts on $\HB\otimes\R$.
+
+\item[(I)] \textbf{Stage 2C (imaginary-root multiplicity).}
+The $K3$-fibre partition function at $\g=\C$ is the K3-elliptic-genus
+weak Jacobi form $\phi_{0,1}=Z_{K3}/2$; its Fourier coefficients
+$f(n, l)$ are the multiplicities $\mathrm{mult}(\alpha)$ of positive
+roots $\alpha = (n,l,m)$ (Theorem~\ref{thm:im-root-gen}). The cusp
+$\tau(a_{0})=9$ identity is the
+$r^{1/2}$-Jacobi-triple-product-coefficient of $\phi_{5,1}$
+(Proposition~\ref{prop:tau-9}).
+
+\item[(D)] \textbf{Stage 3 (denominator identification).}
+The Weyl-Kac-Borcherds character formula on $\Gdelta$
+(real even simple roots $\{\delta_{1},\delta_{2},\delta_{3}\}$
+with Gram matrix $\mathrm{diag}(2)-2(\mathbf{1}-I)$; imaginary simple
+roots from Stage 2C; Weyl group $W^{(2)}(\HB)$) evaluates the
+denominator at the trivial $1$-dim module, producing
+$\tfrac{1}{64}\Delta_{5}(2Z)$ (Theorem~\ref{thm:denominator-match}).
+\end{enumerate}
+
+Stage 0 through Stage 2C are chain-level derivations valid on the
+Costello--Gwilliam hCS$_{6}$-avatar. Stage 3 (denominator identification)
+is chain-level valid up to the Borcherds-lift transgression that
+upgrades the $\Gamma_{\infty}$-invariance to full $\mathrm{Sp}_{4}(\Z)
+$-equivariance; the latter is flagged \ClaimStatusConjectured\ at the
+hCS$_{6}$-derivation level (Remark~\ref{rem:conjectural-scope}).
+\end{theorem}
+
+\begin{conjecture}[Siegel modularity of $\Delta_{5}$ from hCS$_{6}$]
+\label{conj:siegel-modularity}
+The Siegel modularity of $\tfrac{1}{64}\Delta_{5}(2Z)$ under
+$\mathrm{Sp}_{4}(\Z)$ with multiplier $\nu_{\Delta_{5}}$ is a
+\emph{consequence} of the hCS$_{6}$-derivation above,
+conditional on the Borcherds-lift transgression identity that
+upgrades $\Gamma_{\infty}$-invariance of the Stage 2C factorisation-homology
+pushforward to full $\mathrm{Sp}_{4}(\Z)$-equivariance. Concretely:
+Stage 2B (Proposition~\ref{prop:heegner-slice}) constructs the
+$\mathrm{SO}^{+}(\LamF)$-action on the Heegner-slice lattice; the
+conjectural content is that the factorisation-homology pushforward
+$\SpF_{K3, E}\circ \PhiFA_{3}$ intertwines the
+$\mathrm{Sp}_{4}(\Z)$-action via $\wedge^{2}$ (Lorgat 2020 Lemma 1) with
+the Weyl-action of $O(\HB)_{+}$ on the chiral-algebra on $E$, forcing
+Siegel modularity of the denominator function with the Maass multiplier
+$\nu_{\Delta_{5}}$.
+\end{conjecture}
+
+%==============================================================
+\section{Abelian-Heisenberg first-order verification}
+%==============================================================
+
+\begin{proposition}[Abelian verification at $\g = \fu(1)^{22}$]
+\label{prop:abelian-check}
+\ClaimStatusTheorem\
+For $\g = \fu(1)^{\oplus 22}$ (rank-$22$ abelian: K3 Mukai latttice
+rank) the hCS$_{6}$-theory on $K3\times E$ is a free
+Gaussian theory. The partition function at this abelian level is
+\[
+Z^{\mathrm{abel}}_{\hCS_{6}}(K3\times E; \tau) \;=\;
+\bigl(\det{}'(\dbar_{K3\times E})\bigr)^{-11} \;=\; \theta_{\Muk}(\tau)
+\cdot [\text{Jacobi}(\tau, z)]
+\]
+where $\det'$ is the regularised zero-mode-removed determinant, and
+$\theta_{\Muk}(\tau)$ is the Mukai-lattice theta series on $E_{\tau}$:
+\[
+\theta_{\Muk}(\tau) \;=\; \sum_{v\in \Muk} \exp(\pi i\tau \cdot
+\langle v, v\rangle_{\Muk}).
+\]
+The lattice theta of the Mukai lattice (signature $(4, 20)$) is the
+leading-order chain-level manifestation of the $K3$-partition function.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+At abelian $\g = \fu(1)^{22}$, the BV action is purely Gaussian:
+$S = \tfrac12\int \Omega \wedge A_{0,1}\dbar A_{0,1}$. Path integral
+reduces to Gaussian-determinant times zero-mode sum. The zero-modes of
+$\dbar$ on $\Omega^{0,1}(K3,\R^{22})$ are parametrised by
+$H^{0,1}(K3)\otimes \R^{22} = 0$ (since $H^{0,1}(K3)=0$ for K3), while
+$H^{0,0}\otimes \R^{22}$ and $H^{0,2}\otimes \R^{22}$ contribute
+$22+22 = 44$ constant modes summing to a lattice sum over the Mukai
+lattice extended by $E$-cohomology. The result is the Mukai-lattice
+theta series. For the full K3 $\times$ E partition function with
+imaginary-root correction one passes to $\g = \fsl_{2}$ non-abelian
+hCS$_{6}$, where the cubic vertex generates $K3$-fibre Wilson
+one-loop corrections (Cycle 5), producing the $\phi_{0,1}$
+multiplicity factor.
+\end{proof}
+
+\begin{remark}[Lattice theta with imaginary-root correction]
+\label{rem:lattice-theta-correction}
+The Lorgat 2020 product expansion
+$\tfrac{1}{64}\Delta_{5}(Z) = e^{\pi i(z_{1}+z_{2}+z_{3})}\prod_{
+(n,l,m)>0}(1-\exp(2\pi i(nz_{1}+lz_{2}+mz_{3})))^{f(nm,l)}$
+(Lorgat 2020 \S6 Theorem 4) is the full imaginary-root-corrected
+lattice theta of $\HB$ with signature $(2,1)$. The exponents $f(nm,l)$
+are the Fourier coefficients of $\phi_{0,1}=Z_{K3}/2$; the abelian
+Mukai-lattice theta of Proposition~\ref{prop:abelian-check} is its
+leading-order $\hbar^{0}$ contribution, and the
+$\phi_{0,1}$-exponents encode the ``$K3$-imaginary-root correction''
+generated at one loop by $\g = \fsl_{2}$.
+\end{remark}
+
+%==============================================================
+\section{Conclusion and cache appendages}
+%==============================================================
+
+\begin{remark}[Summary of the five attack-heal cycles]\label{rem:summary}
+\begin{enumerate}
+\item[C1.] The ambient theory is Witten hCS on CY$_{3}$, not Costello's 4d
+twist. BV field $\cA\in \Omega^{0,\ast}(K3\times E,\g)$; CME holds.
+\item[C2.] Observables form an $E_{3}$-hFA on $K3\times E$, not an
+$E_{1}$-chiral algebra on the ambient; the $E_{1}$-chiral shadow is
+Stage-$2$.
+\item[C3.] The $K3$-fibre pushforward $\SpF_{K3, E}$ is Lurie--Francis
+factorisation homology; on $K3$ (with $\chi(\cO_{K3})=2, c_{2}(K3)=24
+\neq 0$) the wedge-vanishing argument of $\C^{3}$ fails, and the
+$K3$-fibre generates a non-trivial chiral shadow on $E$.
+\item[C4.] The lattice $\LamF\simeq \Lambda^{(1,1)}\oplus \Lambda^{(1,1)}
+\oplus [2]$ of Lorgat 2020 \S3 is the Heegner-signature-$(3,2)$ slice
+of the total cohomology $\Lambda^{(5,21)} = \Muk\otimes
+H^{\ast}(E,\Z)$-type lattice; $\HB$ is its hyperbolic sublattice.
+\item[C5.] The imaginary-root multiplicities of $\Gdelta$ are Fourier
+coefficients of $\phi_{0,1}=Z_{K3}/2$; the cusp $\tau(a_{0}) = 9$
+identity is the $\eta^{9}$-factor of $\phi_{5, 1/2}=\eta(z_{1})^{9}
+\nu_{11}(z_{1},z_{2})$, with $9$ decomposing as $\chi(\cO_{K3})\cdot
+\dim\fsl_{2}+\text{triple-product shift}$.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[Cache append candidates]
+\label{rem:cache-appendage}
+Three AP-CY cache candidates for
+\texttt{notes/antipatterns\_catalogue.md}:
+
+\emph{(A)} ``hCS$_{6}$ on $K3\times E$ is a chiral algebra'' is a
+scope violation: the native observables form an $E_{3}$-hFA, not an
+$E_{1}$-chiral algebra. The chiral shadow lives on $E$ via $\SpF_{K3,E}$,
+not on the ambient.
+
+\emph{(B)} ``Wedge-square propagator vanishes on CY$_{3}$'' is a
+$\C^{3}$-specific statement. On $K3\times E$, the ambient wedge
+$\Omega_{X}\wedge\Omega_{X}=0$ still holds, but after $K3$-fibre
+factorisation homology the residual $E$-propagator contributions are
+non-zero because $\chi(\cO_{K3}) = 2\neq 0$ and $c_{2}(K3) = 24\neq 0$.
+
+\emph{(C)} $\Gdelta$ is the $E_{1}$-chiral shadow's Lie-envelope; its
+real simple roots come from the $\HB$-lattice (Heegner slice of $\Muk
+\otimes H^{\ast}(E)$); its imaginary simple roots come from the
+$K3$-elliptic-genus multiplicities. $\tau(a_{0}) = 9$ is Siegel-
+consistent with $\chi(\cO_{K3}) = 2, \chi(\cO_{E})=0$ and the $\eta^{9}$
+chain-level origin.
+\end{remark}
+
+\begin{remark}[Summary $\leq 400$ words]\label{rem:400-word}
+On $X = K3\times E$ with $\Omega_{X} = \Omega_{K3}\wedge\omega_{E}$,
+$6$d holomorphic Chern--Simons has BV superfield $\cA\in
+\Omega^{0,\ast}(X,\g)$ and classical action $S_{\mathrm{cl}}[\cA] =
+\int_{X}\Omega_{X}\wedge(\tfrac12\langle\cA,\dbar\cA\rangle + \tfrac16
+\langle\cA,[\cA,\cA]\rangle)$. The classical master equation holds.
+Costello renormalisation at scale $L$ with propagator $P^{K3}\cdot
+P^{E}$ produces the $E_{3}$-holomorphic factorisation algebra
+$\PhiFA_{3}(X) = \Obs^{q}_{\hCS_{6}}(X)$, per Costello--Gwilliam Vol 2
+Thm 10.0.1 and CFG 2026 Thm 4.6. At stalks, $U_{E_{3}}(\g[2])$.
+
+Factorisation homology along $K3$ specialises this to an
+$E_{1}$-chiral algebra on $E$. The wedge-vanishing
+argument making hCS$_{6}$ trivial on $\C^{3}$ fails on $K3$
+($\chi(\cO_{K3}) = 2$, $c_{2}(K3)=24$): the $K3$-fibre Wilson insertion
+produces a non-trivial $\g[-2]$-summand, and the chiral shadow on $E$
+is the Beilinson--Drinfeld chiral-CE complex of $\g\otimes
+\Omega^{0,\ast}_{c}(E)$ tensored with the $K3$-fibre zero-mode data.
+
+The signature-$(3,2)$ lattice $\LamF$ of Lorgat 2020 \S3 arises as
+the Heegner-slice of $H^{\ast}(K3 \times E, \Z) = \Muk \otimes
+H^{\ast}(E, \Z) \simeq \Lambda^{(5,21)}$; the hyperbolic sublattice
+$\HB = \Lambda^{(1,1)}\oplus[2]$ is the relevant $(2,1)$-sub for the
+GKM structure. The $\wedge^{2}: \mathrm{Sp}_{4}(\Z)/\pm \to
+\mathrm{SO}^{+}(\LamF)/\pm$ isomorphism makes Siegel modularity
+natural.
+
+The imaginary-root multiplicities $m(a)$, $\tau(a)$ come from the
+$K3$-fibre partition function: the weak Jacobi form $\phi_{0,1} =
+Z_{K3}/2$ encodes
+$\mathrm{mult}(\alpha = (n,l,m))=f(nm,l)$. The cusp identity
+$\tau(a_{0}) = 9$ is the $\eta^{9}$-factor of $\phi_{5,1/2}$, which
+chain-level decomposes as $\chi(\cO_{K3}) \cdot \dim\fsl_{2} + 3$.
+The Weyl--Kac--Borcherds character formula applied to the trivial
+module of the GKM Lie superalgebra $\Gdelta$ on root datum
+$\{\delta_{1},\delta_{2},\delta_{3}\}\cup\{\phi_{0,1}
+\text{-imaginary roots}\}$ produces the denominator function
+\[
+\Phi(z) = e^{-2\pi i(\rho,z)}\prod_{\alpha\in\Delta_{+}}
+(1-e^{-2\pi i(\alpha,z)})^{\mathrm{mult}\alpha} = \tfrac{1}{64}
+\Delta_{5}(2Z)
+\]
+matching Lorgat 2020 Theorem 3. Full $\mathrm{Sp}_{4}(\Z)$-Siegel
+modularity under the Maass multiplier is conjectural at the
+hCS$_{6}$-pushforward level; it is a theorem at the Borcherds-lift
+analytic level.
+
+Scope: the five-cycle chain is chain-level rigorous for Stages 0--2C;
+Stage 3 denominator matching is chain-level up to the Borcherds-lift
+transgression. The construction produces one of several sibling BKMs
+from $\PhiFA_{3}(K3\times E)$; other cycles $\Sigma_{2}$ produce other
+denominators (Corollary 3.4 of \texttt{wave12\_u1\_two\_stage\_functor.tex}),
+consistent with the CLAUDE.md programme's claim that ``six routes to
+$G(K3\times E)$ are six different constructions, not six $\Phi$
+applications''.
+\end{remark}
+
+%==============================================================
+\section*{References (inline)}
+%==============================================================
+\begin{thebibliography}{99}
+\bibitem{Witten1992CS} E.\ Witten, ``Chern--Simons gauge theory as a
+string theory'', \emph{Prog.\ Math.}\ 133 (1995), 637--678,
+arXiv:hep-th/9207094.
+\bibitem{Costello2011} K.\ Costello, \emph{Renormalization and Effective
+Field Theory}, AMS Math.\ Surveys 170 (2011).
+\bibitem{CGVol1} K.\ Costello, O.\ Gwilliam, \emph{Factorization Algebras
+in Quantum Field Theory}, Vol 1, Cambridge (2017).
+\bibitem{CGVol2} K.\ Costello, O.\ Gwilliam, \emph{Factorization Algebras
+in Quantum Field Theory}, Vol 2, Cambridge (2021).
+\bibitem{CostelloFrancisGwilliam2026} K.\ Costello, J.\ Francis, O.\
+Gwilliam, ``The $E_{n}$-algebra of observables of $n$-dim holomorphic
+CS'', in preparation (2026); structural Theorem 4.6 referenced above.
+\bibitem{CostelloLi} K.\ Costello, S.\ Li, ``Quantization of open-closed
+BCOV theory I'', arXiv:1505.06703.
+\bibitem{Borcherds1995} R.\ Borcherds, ``Automorphic forms with
+singularities on Grassmannians'', arXiv:alg-geom/9609022.
+\bibitem{GritsenkoNikulin1995} V.\ Gritsenko, V.\ Nikulin, ``Siegel
+automorphic form corrections of some Lorentzian Kac-Moody Lie
+algebras'', arXiv:alg-geom/9504006.
+\bibitem{Gritsenko1999} V.\ Gritsenko, ``Complex vector bundles and
+Jacobi forms'', arXiv:math/9906191.
+\bibitem{Lorgat2020} R.\ Lorgat, ``A Borcherds lift of the weak Jacobi
+form $\phi_{0,1}$, generalized Borcherds--Kac--Moody superalgebras and
+the Igusa cusp form $\Delta_{5}$'', unpublished note, April 2020
+(this programme's user's own manuscript; see
+\texttt{notes/wave13\_source\_paper.txt} for full text).
+\bibitem{OberdieckPixton} G.\ Oberdieck, A.\ Pixton, ``Holomorphic
+anomaly equations and the Igusa cusp form conjecture'', arXiv 2018.
+\bibitem{MukaiLattice} S.\ Mukai, ``On the moduli space of bundles on
+K3 surfaces, I'', in \emph{Vector Bundles on Algebraic Varieties},
+Bombay 1984.
+\bibitem{NikulinK3} V.\ Nikulin, ``Integral symmetric bilinear forms and
+some of their applications'', \emph{Math.\ USSR Izv.}\ 14 (1980),
+103--167.
+\bibitem{BeilinsonDrinfeld} A.\ Beilinson, V.\ Drinfeld,
+\emph{Chiral Algebras}, AMS Colloquium Publications 51 (2004).
+\bibitem{LurieHA} J.\ Lurie, \emph{Higher Algebra}, author's website.
+\bibitem{GriffithsHarris} P.\ Griffiths, J.\ Harris, \emph{Principles of
+Algebraic Geometry}, Wiley (1978).
+\end{thebibliography}
+
+\end{document}

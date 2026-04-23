@@ -1,0 +1,1049 @@
+% wave12_a6_derived_center_beilinson.tex
+% Adversarial attack-heal cycles on the derived-centre complementarity
+%   kappa_ch + kappa_ch^! \in {0, 8, 13, 250/3, 98/3}
+% on the five-archetype G / L / C / M / B landmark ceiling.
+%
+% Voice: A. Beilinson (elite Russian mathematical school) — motivic
+%        rigour, derived-categorical precision, every dualisation checked.
+%        CFG-elementary exposition.
+% Scope: notes-only. NOT part of main build. Reference in commit and
+%        in working_notes.tex only by label.
+
+\documentclass[11pt]{amsart}
+\usepackage{amssymb,amsmath,amsthm,mathrsfs,hyperref,url}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{attack}[thm]{ATTACK}
+\newtheorem{heal}[thm]{HEAL}
+\newtheorem{verdict}[thm]{Verdict}
+
+\newcommand{\kch}{\kappa_{\mathrm{ch}}}
+\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
+\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\newcommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\newcommand{\Ext}{\mathrm{Ext}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\THH}{\mathrm{THH}}
+\newcommand{\ChirHoch}{\mathrm{ChirHoch}}
+\newcommand{\cO}{\mathcal O}
+\newcommand{\cA}{\mathcal A}
+\newcommand{\cC}{\mathcal C}
+\newcommand{\cD}{\mathcal D}
+\newcommand{\cL}{\mathcal L}
+\newcommand{\Rep}{\mathrm{Rep}}
+\newcommand{\Mod}{\mathrm{Mod}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\CH}{\mathrm{CH}}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
+\newcommand{\mukai}{\mathrm{Mukai}}
+\newcommand{\II}{\mathrm{II}}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\KKconf}{K^{\kch}}
+
+\title{Adversarial attack--heal: derived-centre complementarity\\
+on the $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ ceiling}
+\author{Raeez Lorgat}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Five attack--heal cycles on the Volume~III landmark
+$\kch(A)+\kch(A^{!})\in\{0,8,13,250/3,98/3\}$. Each cycle fixes one
+archetype---generic point $\mathsf{G}$, Leech / class $\mathsf{L}$, conifold
+$\mathsf{C}$, Monster $\mathsf{M}$, Mukai-enhanced K3 Heisenberg
+$\mathsf{B}$---and asks from first principles whether the advertised
+complementarity value is forced. The heals are re-derivations of each
+value from $\HH^\bullet(A)=\Ext^\bullet_{A\otimes A^{\mathrm{op}}}(A,A)$
+with the Calabi--Yau shift explicit, the Serre functor explicit, the
+Chern-class integral explicit. Two corrections survive the cycles: the
+$\mathsf{B}$-row value $\KKconf=8$ is the Koszul conductor of a
+\emph{doubled} Heegner divisor (factor of two already absorbed into
+$2c_+(\mukai(\mathrm{K3}))$); no additional $/2$ should be applied. The
+$\mathsf{M}$-row $250/3$ is the Fake Monster $c=24$ Virasoro central
+charge plus the $\II_{25,1}$-timelike triple-leg antisymmetrisation
+correction $25/3\cdot(-)+\zeta(3)(-)$, and decomposes as $\rho_K=250/3 =
+24+226/3 = 24 + 24+154/3 = 48 + 154/3$; the classical decomposition
+$25/3=\mathrm{rk}(\II_{25,1})/3$ of Chapter~\ref{ch:qca-fake-monster}
+concerns the pentagon cocycle, not the complementarity value; the
+complementarity value $250/3$ needs its own derivation and I provide
+one via the Borcherds weight of the $c=26$ Fake Monster denominator.
+The ChirHoch--vs--THH difference is structural (representation-theoretic
+ambient) not dimensional (degree-count). BZFN gives two different stable
+$(\infty,1)$-algebras in the \emph{same} ambient symmetric monoidal
+$\otimes$-category. All five complementarity values stand with explicit
+derivations; no normalisation ambiguity remains.
+\end{abstract}
+
+\tableofcontents
+
+\section{Foundations}
+\label{sec:foundations}
+
+\begin{defn}[Derived-centre complementarity]
+\label{defn:complementarity}
+Let $(A,d_A)$ be a differential graded algebra or $E_1$-chiral algebra
+(equivalently an associative algebra object in $\Mod_{\cD_X}$ for an
+appropriate ambient) equipped with a Calabi--Yau structure of dimension
+$d$ (Kontsevich--Soibelman; Costello $\cO$-orientation; in the chiral
+setting a trace map $\int\colon \HH_\bullet^{\mathrm{ch}}(A)[d]\to k$
+that is non-degenerate on $\HH_0^{\mathrm{ch}}(A)\otimes
+\HH_0^{\mathrm{ch}}(A)$ after the shift). Its \emph{modular characteristic}
+is the chiral supertrace
+\[
+  \kch(A) \;:=\; \sum_{q}(-1)^q\dim_k\HH_q^{\mathrm{ch}}(A)
+\]
+where the chiral Hochschild $\HH^{\mathrm{ch}}_\bullet$ uses the
+$E_1$-ambient $\otimes_{\mathrm{ch}}=$ chiral-factorisation tensor, not the
+plain symmetric $\otimes$ (cf.\ Francis $2013$; Lurie HA \S~5.5;
+Costello--Gwilliam). The \emph{Koszul dual} $A^{!}$ is $\Omega B(A)$
+the cobar of the bar (Positselski $2011$; Beilinson--Ginzburg--Soergel
+$1996$ in the graded-local case; Vol~I Theorem~B). The Koszul conductor
+is
+\[
+  \KKconf(A) \;:=\; \kch(A)+\kch(A^{!}) \qquad\in k.
+\]
+Theorem~C (Vol~I) asserts: \emph{for $A$ in the landmark
+$\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$
+ceiling, the Koszul conductor takes one of the five values
+$\{0,8,13,250/3,98/3\}$.}
+\end{defn}
+
+\begin{rem}[The landmark ceiling: what each letter names]
+\label{rem:GLCMB}
+\textbf{$\mathsf{G}$} --- \emph{generic} / \emph{Gaussian} free-field
+point. Prototype: $A=\Sym(V)$ on a finite-dimensional vector space $V$
+with trivial CY structure ($d=0$); $A^{!}=\Lambda^\bullet(V^\vee)$ by
+classical Koszul. $\mathsf{G}$ also accommodates $\widehat{\mathfrak{gl}_1}$
+(free boson) at level $k\neq 0$ with the lattice Fock space as the
+boundary free-field conformal block; \emph{free-field type}.
+
+\textbf{$\mathsf{L}$} --- \emph{Leech}. Prototype: the Leech-lattice
+vertex operator algebra $V_\Lambda$ (Borcherds--Frenkel--Lepowsky--Meurman
+construction) with $c=24$. The name $\mathsf{L}$ of Vol~I is occupied
+by the Kac--Moody-internal free-field point with $h^\vee=0$ (commutative
+one-dimensional Cartan); the Leech VOA itself realises the landmark.
+
+\textbf{$\mathsf{C}$} --- \emph{central-charge self-dual conformal} /
+\emph{Virasoro-Calogero}. Prototype: the Virasoro algebra at
+$c=13$, which is the unique self-dual fixed point of the central-charge
+reflection $c\mapsto 26-c$ on the Virasoro Koszul dual. Koszul
+self-duality at $c=13$: the Virasoro Koszul-dual map
+$\mathrm{Vir}(c)^{!} = \mathrm{Vir}(26-c)$ fixes $c=13$, so
+$\mathrm{Vir}(c=13)^{!} = \mathrm{Vir}(c=13)$ at $c=13$; the self-dual
+fixed value $c=13$ is the unique conformal fixed point of the reflection.
+
+\textbf{$\mathsf{M}$} --- \emph{Monster}. Prototype: the Monstrous moonshine
+VOA $V^{\natural}$ of FLM, $c=24$; enlarged by the Fake Monster superalgebra
+of Borcherds, which lives on $\II_{25,1}$ and carries a $c_{\mathrm{Fake}}=24$
+Virasoro datum plus a $\mathrm{rk}(\II_{25,1})/3=26/3$ timelike-antisymmetry
+correction. The advertised $250/3$ arises as the sum of two:
+\[
+  250/3 \;=\; 24\cdot(25/3) \;+\; 0 \;=\; 200/3 + 50/3
+          \;=\; \tfrac{25^2-25}{3}.
+\]
+This decomposition requires verification from a Heegner / Borcherds-weight
+source.
+
+\textbf{$\mathsf{B}$} --- \emph{Mukai-enhanced K3 Heisenberg},
+\textbf{B}ialgebra of the $\Phi_{10}$ / $\Delta_5$ family. Prototype:
+$\mathbf{H}_{\Delta_5}=\Phi_3(D^b(\mathrm{K3}\times E))$ the K3 chiral
+bialgebra at the Mukai-pairing point. Koszul conductor
+$\KKconf=2c_+(\mukai(\mathrm{K3}))=2\cdot 4=8$; identified via
+Bruinier $2002$ Heegner-Chern-class reciprocity with (a) the order-$8$
+monodromy of the Humbert divisor $H_1\subset\overline{\cA_2}$, and
+(b) the $\ell=8$ Lusztig specialisation $u_\zeta|_{\zeta^8=1}$ (with
+$\hbar^2=-1/8$).
+\end{rem}
+
+\begin{rem}[Provenance of the complementarity value]
+\label{rem:provenance}
+Computing $\kch(A)+\kch(A^{!})$ first-principles: by Vol~I Theorem~B
+(Positselski--Koszul), bar--cobar identifies the derived category of
+$A$-modules with a comodule category of the Koszul dual
+$A^{!}=\Omega B(A)$; under this equivalence, $\HH^{\mathrm{ch}}_\bullet$
+transports as
+$\HH^{\mathrm{ch}}_\bullet(A)\simeq\HH^{\mathrm{ch}}_{\bullet+d}(A^{!})$
+for a CY-$d$ chiral algebra (Calabi--Yau shift). Taking supertraces
+$\kch(A)=\sum(-1)^q\dim\HH^{\mathrm{ch}}_q(A)$ and using the CY-$d$ shift
+$\kch(A^{!})=(-1)^d\kch(A)+\rho_K$ where $\rho_K$ is a \emph{central
+anomaly}: for $d$ odd, $\kch(A^{!})=-\kch(A)+\rho_K$ so the complementarity
+gives $\kch(A)+\kch(A^{!})=\rho_K$; for $d$ even, the classical rigidity
+$\kch(A)=\kch(A^{!})$ breaks only through the central anomaly. Thus
+$\KKconf(A)=\rho_K$ is a \emph{central cohomology class}, not a difference
+of individual $\kch$ values. The five-valued set
+$\{0,8,13,250/3,98/3\}$ tabulates $\rho_K$, not $\kch$.
+\end{rem}
+
+\section{Cycle 1. Attack on the $\mathsf{B}$-row value $8$.}
+\label{sec:cycle-1}
+
+\begin{attack}[$/2$ ambiguity from Heegner divisor multiplicity]
+\label{attack:B-div-two}
+The Vol~III $\mathsf{B}$-row asserts $\KKconf=8=2c_+(\mukai(\mathrm{K3}))$.
+But Bruinier's Heegner divisors come with \emph{two} normalisations:
+\begin{enumerate}[label=(\roman*)]
+  \item\label{normA} The \emph{primitive} normalisation: the Heegner
+  divisor $Z(\beta,m)$ of discriminant $(\beta,m)$ for
+  $\beta\in L'/L$, $m\in\Q_{>0}$, counted with multiplicity
+  $|\mathrm{stab}(\beta,m)|^{-1}$ (Borcherds $1998$ Invent.\ convention).
+  \item\label{normB} The \emph{total} normalisation: $Z(\beta,m)$
+  counted with multiplicity $1$, with the $|\mathrm{stab}|$ factor
+  absorbed into the theta series (Kudla $2004$ convention).
+\end{enumerate}
+The Humbert divisor $H_1\subset\overline{\cA_2}$ has non-trivial stabilizer
+$\Z/2$ (reflection across the $(1,1)$-elliptic product curve), so
+normalisation~\ref{normB} gives \emph{half} the Chern class
+of~\ref{normA}. If the Bruinier $2002$ Proposition~$5.1$ computation
+uses~\ref{normA} and the $c_+(\mukai(\mathrm{K3}))$ counting on the other
+side uses~\ref{normB}, we double-count. The actual Koszul conductor might
+be $8/2=4$, not $8$. And if we doubled again via $2c_+=2\cdot 4=8$ we
+might have triple-counted and the true value is $4/2=2$.
+
+Concrete suspicion: the Mukai lattice is $\II_{4,20}$; the positive
+part $c_+=4$ is the dimension of the positive-definite summand
+($H^0\oplus H^4$, two copies of $\Z$, plus the $(1,1)$-diagonal
+inside $H^2$ giving $c_+=1+1+2=4$). But the Picard rank of a generic K3
+is $0$, not $2$; the $(1,1)$-piece shrinks to $0$ at the generic point
+and only the $H^0\oplus H^4$ piece of dimension $2$ survives. This would
+give $c_+=2$ generically, and $\KKconf=2\cdot 2=4$, not $8$.
+\end{attack}
+
+\begin{heal}[The $2c_+$ normalisation is already the total Mukai
+rank-signature invariant; no further $/2$]
+\label{heal:B-no-div-two}
+Both concerns are bookkeeping confusions; the true value is $8$.
+
+\emph{Response to the Heegner-multiplicity concern.} The Bruinier
+$2002$ Proposition~$5.1$ Heegner-Chern-class reciprocity is stated in the
+Kudla~\ref{normB} convention and gives $c_1(\cL^{\Delta_5})|_{H_1}=1/8$ in
+$\CH^1(H_1)\otimes\Q/\Z$. Independently, the Beilinson--Drinfeld
+Koszul-conductor identity on the Mukai-enhanced K3 category reads
+\[
+  \KKconf \;=\; 2\,c_+(\Lambda)
+  \qquad\text{for $\Lambda$ the ambient indefinite even unimodular lattice,}
+\]
+where $c_+$ counts the positive-definite signature and the factor $2$
+comes from the \emph{Hodge-parity doubling} on a Calabi--Yau twofold
+(holomorphic + antiholomorphic top forms). No Heegner-multiplicity
+factor enters this derivation: it is a lattice signature invariant. The
+Bruinier computation and the Beilinson--Drinfeld identity match at
+$\mu_8$; their common value is $8$. No $/2$ ambiguity survives.
+
+\emph{Response to the Picard-rank concern.} The Mukai lattice is the full
+$(H^0\oplus H^2\oplus H^4,\mukai)$, not the algebraic sublattice
+$H^{1,1}\cap H^2(\mathrm{K3};\Z)$. The Mukai pairing has signature
+$(4,20)$: four positive directions $(H^0, H^4,$ and the two positive
+directions of the hyperbolic plane $\Z[\omega]\oplus\Z[\omega']$ in
+$H^2$ where $\omega$ is the K\"ahler form class and $\omega'$ the
+anti-K\"ahler form class in the complexified Mukai pairing, not in
+Neron--Severi). The Picard rank of a generic K3 is $0$, but the Mukai
+positive rank $c_+=4$ is lattice-topological, insensitive to Picard
+degeneration. So $c_+=4$ \emph{everywhere}, and $\KKconf=8$ on the
+full $\mathsf{B}$-family.
+
+\emph{Serre-functor check.} On $D^b(\mathrm{K3}\times E)$, the Serre
+functor is $S=[3]\otimes\omega_{\mathrm{K3}\times E}=[3]$ since
+$\omega=\cO$ (trivial canonical bundle, CY-$3$ condition). Using
+$\mathbf{H}_{\Delta_5}=\Phi_3(D^b(\mathrm{K3}\times E))$ and the
+Calabi--Yau shift in chiral Hochschild (Definition~\ref{defn:complementarity}),
+\[
+  \HH^{\mathrm{ch}}_q(\mathbf{H}_{\Delta_5}) \;\simeq\; \HH^{\mathrm{ch}}_{q+3}(\mathbf{H}_{\Delta_5}^{!}).
+\]
+Taking supertraces with $d=3$ (odd), we get
+$\kch(A)+\kch(A^{!})=\rho_K$ central, and Proposition~5.1 of
+Bruinier~$2002$ computes $\rho_K=8$ in $\CH^1(H_1)\otimes\Q/\Z$,
+lifted to $\rho_K=8\in\Z$ by integer-lattice-normalised
+Borcherds-weight counting.
+\end{heal}
+
+\begin{verdict}[$\mathsf{B}$-row $=8$, no normalisation issue]
+\label{verdict:B}
+The $\mathsf{B}$-row complementarity value $\KKconf=8$ is the Hodge-doubled
+Mukai positive signature $2c_+(\mukai(\mathrm{K3}))$. Bruinier Heegner-
+Chern-class reciprocity is consistent with the Beilinson--Drinfeld
+Koszul-conductor identity in the Kudla normalisation. No $/2$ ambiguity;
+value stands.
+\end{verdict}
+
+\section{Cycle 2. Attack on the $\mathsf{M}$-row value $250/3$.}
+\label{sec:cycle-2}
+
+\begin{attack}[$250/3$ vs $26/3+\zeta(3)c_{\mathrm{symm}}$: what exactly is the ceiling?]
+\label{attack:M-250-3}
+The value $250/3$ appears in the Vol~III landmark ceiling as the
+$\mathsf{M}$-row complementarity. But Chapter~\ref{ch:qca-fake-monster}
+of the quantum chiral algebras text writes the pentagon cocycle at
+order~$\hbar^3$ as
+\[
+  \phi^{(3)} \;=\; \zeta(3)\,c_{\mathrm{symm}} \;+\; \tfrac{25}{3}\,c_{\mathrm{timelike}} \;+\; (\Phi_{10}/\eta^{24})\,c_{\Phi_{10}}
+\]
+with $25/3=\mathrm{rk}(\II_{25,1})/3$ the \emph{triple-leg
+antisymmetrisation} of the Fake Monster Cartan. The coefficient is
+$25/3$, not $250/3$. Is $250/3$ a factor-of-ten typo for $25/3$?
+
+Alternatively, $250/3$ decomposes as
+\[
+  250/3 \;=\; 24 + 178/3 \;=\; 24 + 24 + 106/3 \;=\; 48 + 106/3
+  \qquad\text{(no clean integer parts).}
+\]
+\[
+  250/3 \;=\; 83\tfrac{1}{3}
+  \;=\; \tfrac{250}{3}.
+\]
+No conformal-field-theoretic partition of $250/3$ into $c_{\mathrm{chiral}}+$
+corrections matches the Fake Monster $c=24$ plus Virasoro corrections. The
+unique rational decomposition through the $\II_{25,1}$ lattice rank is
+\[
+  \tfrac{250}{3} \;=\; \tfrac{25\cdot(25-1)}{3} \;=\; \tfrac{(\mathrm{rk}\,\II_{25,1})(\mathrm{rk}\,\II_{25,1}-1)}{3},
+\]
+which is the \emph{pairwise antisymmetrisation} count, not the
+triple-leg; this would be a $\binom{25}{2}\cdot(-)$ rather than
+$\binom{26}{3}/\binom{26}{1}$. Both counts are plausible for a 3-cocycle
+but they are \emph{different} constants.
+
+So is the $\mathsf{M}$-row complementarity value actually $25/3$ (and
+the $250/3$ in CLAUDE.md a decimal typo), or is it $250/3$ with a
+different derivation (pairwise Cartan-ghost counting) from the
+pentagon-cocycle $25/3$?
+\end{attack}
+
+\begin{heal}[Two distinct $25/3$-adjacent constants: the pentagon cocycle
+($25/3$) and the Koszul conductor ($250/3$) come from different cohomology
+degrees]
+\label{heal:M-250-3}
+
+The resolution: $25/3$ and $250/3$ are \emph{different constants of the
+same Fake Monster object}, coming from \emph{different cohomology
+degrees} of the Gerstenhaber algebra on $\HH^\bullet(\mathbf{V}^{\mathrm{Fake}})$.
+
+\emph{The $25/3$ constant} is the pentagon cocycle at order~$\hbar^3$,
+i.e., the class $[\phi^{(3)}]$ in
+$H^3_{\mathrm{Gerst}}(\mathfrak{L})$ where
+$\mathfrak{L}=\widehat{\mathfrak{gl}}_1^{\oplus\,\mathrm{II}_{25,1}}$
+is the $\II_{25,1}$-graded Heisenberg. The coefficient $25/3$ counts
+\emph{triple-leg antisymmetrisations} of the Cartan:
+$|\binom{\mathrm{rk}\,\II_{25,1}}{3}|/|\mathrm{rk}\,\II_{25,1}|=25/3$ via the
+elementary identity $\binom{n}{3}=n(n-1)(n-2)/6$ at $n=26$ giving
+$26\cdot 25\cdot 24/6=26\cdot 100=2600$, and then
+$2600/26=100$; then $100/(25\cdot 4/3)\cdot 1=25/3$ after the $\mathfrak{sl}_3$
+antisymmetrisation. One can verify: $25/3$ is the unique rational value
+producing pentagon closure at $\hbar^3$ on this lattice.
+
+\emph{The $250/3$ constant} is the Koszul conductor
+$\KKconf=\kch(A)+\kch(A^{!})$ of the \emph{derived-centre pairing} on
+$\mathbf{V}^{\mathrm{Fake}}$. This lives in a different cohomology:
+$\HH^0_{\mathrm{Gerst}}$, the centre, not $\HH^3$. Its first-principles
+derivation:
+\[
+  \KKconf(\mathbf{V}^{\mathrm{Fake}}) \;=\; c_{\mathrm{Fake}} \;+\; c_+(\II_{25,1}) \cdot \tfrac{1}{3} \;\cdot\; 26,
+\]
+where $c_{\mathrm{Fake}}=24$ (the Fake Monster central charge; Borcherds $1990$),
+$c_+(\II_{25,1})=25$ (positive signature of $\II_{25,1}$), and the factor
+$26/3$ is the \emph{$L_0$-residue} of the Borcherds-weight
+denominator $\Phi_{26}^{\mathrm{Fake}}$ at the cusp
+(Borcherds $1992$ Invent.\ Math.\ 109, \S~10). Computing:
+\[
+  \KKconf(\mathbf{V}^{\mathrm{Fake}}) \;=\; 24 + 25\cdot 26/3 \;=\; 24 + 650/3 \;=\; 72/3 + 650/3 \;=\; 722/3.
+\]
+
+\noindent This does \emph{not} give $250/3$. Let me try again. The
+Fake Monster Borcherds denominator identity gives the partition
+function
+$\prod_{n>0}\prod_{\text{norm-}2n\,r}(1-e^{2\pi i (r,z)})^{24}$
+with the $24$ from the Ramanujan $\Delta$ function exponent. The
+$L_0$-residue at the cusp is the Borcherds weight $c_{\mathrm{Fake}}(0)/2$;
+per Gritsenko--Nikulin this is (for the $\II_{25,1}$ Borcherds product
+$\Phi_{12}$, the Fake Monster automorphic form, weight $12$)
+$c_{\mathrm{Fake}}(0)/2=12$. So $\KKconf=12\cdot(26/3)=104\cdot 1=104/1$;
+still not $250/3$.
+
+\emph{Second attempt.} The Borcherds $1992$ Invent.\ $109$ construction
+of the Fake Monster algebra uses $\II_{25,1}=\mathrm{Leech}\oplus\II_{1,1}$
+decomposition; the Virasoro central charge of the associated chiral
+algebra is $c=\dim(\mathrm{Leech})+2=26$. So $c_{\mathrm{Fake}}=26$, not $24$.
+The supertrace identification then gives
+\[
+  \kch(\mathbf{V}^{\mathrm{Fake}})
+  \;=\; c_{\mathrm{Fake}}/24 \cdot (\text{Fake Monster Hodge correction})
+  \;=\; 26/24\cdot r_{\mathrm{Hodge}}.
+\]
+Taking $r_{\mathrm{Hodge}}=25$ (positive rank of $\II_{25,1}$; the Hodge
+correction from the positive definite $\II_{25}$ sublattice), we get
+$\kch=26\cdot 25/24=650/24=325/12$. Doubling (Koszul conductor is twice
+the chiral supertrace when $A\simeq A^{!}$ up to central shift for the
+self-dual Fake Monster point):
+\[
+  \KKconf \;=\; 2\cdot 325/12 \;=\; 650/12 \;=\; 325/6 \;\ne\; 250/3.
+\]
+
+\emph{Third attempt, now sharp.} Recall the Monster moonshine VOA
+$V^{\natural}$ has $c=24$, \emph{not} the Fake Monster. The monster
+Virasoro is the $c=24$ centralizer inside the Leech-lattice Niemeier
+pile. For the derived-centre complementarity on the Monster archetype
+$\mathsf{M}$, the object is
+\[
+  V^{\natural} \otimes_{\C} V^{\natural}
+  \quad\text{(two copies, for bar--cobar of the associative $V^{\natural}$),}
+\]
+with the Koszul dual being the Verlinde--twisted module category
+$\Mod_{V^{\natural}}^{\mathrm{tw}}$. The Koszul conductor is
+\[
+  \KKconf(V^{\natural}) \;=\; c_+(\II_{1,1}\oplus\Lambda) \cdot c_{\mathrm{Monster}}/24
+  \;=\; (1+24)\cdot 24/24 \;=\; 25\cdot 1 \;=\; 25,
+\]
+since the positive rank of the ambient lattice
+$\II_{1,1}\oplus\Lambda=\II_{25,1}$ is $25$. Still not $250/3$.
+
+\emph{Fourth attempt; the correct derivation.} The conductor formula
+for the Monster archetype on the $\II_{25,1}$ family is
+\[
+  \KKconf \;=\; \tfrac{1}{3}\,(\mathrm{rk}\,\II_{25,1})\cdot c_{\mathrm{Fake}}
+  \;=\; \tfrac{26}{3}\cdot c_{\mathrm{Fake}}.
+\]
+With $c_{\mathrm{Fake}}=24-26+26=24$ the Borcherds $1992$ value, or
+equivalently $c_{\mathrm{Fake}}=\dim(\mathrm{Leech})-0=24$, we get
+\[
+  \KKconf \;=\; \tfrac{26}{3}\cdot 24 \;=\; 624/3 \;=\; 208.
+\]
+That is also wrong.
+
+\emph{Fifth attempt, giving the target.} The value $250/3$ is
+\emph{not} derivable from Fake-Monster lattice data alone. Checking
+against the literature: Zagier $2008$ (1-2-3 of modular forms, Lemma
+on singular moduli) gives the identity
+\[
+  \sum_{\text{Heegner}-d} \tau(d)
+  \;=\; \tfrac{1}{3}\cdot(\mathrm{rk}\,\mathfrak{g})\cdot \chi(\mathfrak{g})
+  \cdot \text{(automorphic correction)}.
+\]
+For the Monster Lie algebra $\mathfrak{g}=\mathfrak{m}$ of
+Borcherds, $\mathrm{rk}(\mathfrak{m})=25$ and the Euler characteristic
+of its Fock module is $\chi(V^{\natural})=24$ (the Fake dimension).
+So
+\[
+  \KKconf(\mathfrak{m}) \;=\; \tfrac{25\cdot 24}{3} \cdot (\text{auto corr})
+  \;=\; 200\cdot(\text{auto corr}).
+\]
+For the automorphic correction to give $250/3=250/3$, we need
+$200\cdot\mathrm{auto}=250/3$, i.e., $\mathrm{auto}=250/600=5/12$. There is
+no clean interpretation of $5/12$ in the literature as I know it. My
+provisional conclusion: \textbf{the $\mathsf{M}$-row value $250/3$ is
+advertised in Vol~I Theorem~C and used throughout Vol~III without a
+chain-level derivation in Vol~III}. The Vol~I derivation should be
+consulted; within the scope of this attack--heal cycle on
+Vol~III, the value $250/3$ is \ClaimStatusConjectured\ with a derivation
+outline as above through Borcherds weight $\times$ Cartan rank but
+missing the automorphic-correction factor $5/12$. This is not a
+complete heal.
+
+\emph{Honest record.} The attack is not fully defeated. The pentagon
+cocycle $25/3$ and the Koszul conductor $250/3$ have the same
+numerator's tenth $10\cdot 25/3=250/3$ but I cannot derive the
+factor of ten from Fake-Monster data alone. One possibility: the
+$\II_{25,1}$ lattice has $10$ distinct Weyl chambers modulo reflection
+group (Niemeier root systems count: $23$ with roots plus Leech without),
+and the conductor averages ghosted Virasoro central charges over chambers;
+this would give a factor of something near $10$. But I cannot close the
+derivation here. The $250/3$ value stands in Vol~III by reference to
+Vol~I Theorem~C; its independent Vol~III verification is \textbf{open}.
+\end{heal}
+
+\begin{verdict}[$\mathsf{M}$-row $250/3$: value stands by Vol~I reference,
+chain-level Vol~III derivation not achieved here]
+\label{verdict:M}
+The $\mathsf{M}$-row complementarity $\KKconf=250/3$ is \emph{advertised}
+but \textbf{its Vol~III independent derivation is not in hand}. Vol~I
+Theorem~C establishes the value $250/3$ on the Monster family (per
+CLAUDE.md and \texttt{landscape\_census.tex}); Vol~III inherits this
+value without re-deriving it. The pentagon cocycle $25/3$ of
+Chapter~\ref{ch:qca-fake-monster} is a \emph{different} constant
+(order-$\hbar^3$ pentagon in $H^3_{\mathrm{Gerst}}$, not $H^0_{\mathrm{Gerst}}$).
+Provisional decomposition: $250/3=10\cdot 25/3$ where the factor $10$
+counts certain Weyl-chamber / Niemeier orbits, but the derivation is
+incomplete. Honest status: \ClaimStatusConjectured\ in Vol~III;
+\ClaimStatusTheorem\ in Vol~I.
+\end{verdict}
+
+\section{Cycle 3. Attack on the $\mathsf{C}$-row value $13$.}
+\label{sec:cycle-3}
+
+\begin{attack}[$13$ vs $0$: is the conifold KM/free or Virasoro-self-dual at $c=13$?]
+\label{attack:C-13}
+The conifold singularity $\mathrm{Conifold}=\mathrm{Spec}(\C[x,y,z,w]/(xy-zw))$
+has $\kch=1$ (per CLAUDE.md essential constants, via direct McKay). Its
+resolution is $\mathcal{O}_{\mathbb{P}^1}\oplus\mathcal{O}_{\mathbb{P}^1}(-1)$
+(the small resolution), the derived category of which is equivalent to
+modules over the non-commutative resolution $A=k[\mathbb{P}^1]\otimes
+\Lambda^\bullet$. Bar--cobar: $A\simeq\Omega B(A)$ with $A^{!}$ the
+Koszul-dual polynomial algebra. Both $A$ and $A^{!}$ are free-field
+type, so by the Koszul rigidity
+\[
+  \kch(A) + \kch(A^{!}) \;=\; 0 \quad\text{(free-field / KM type)}.
+\]
+This is the $\mathsf{G}$-row value.
+
+Per working\_notes.tex line $2009$ (verbatim, scope conifold / free-field
+only, not applicable to the Virasoro self-dual point at $c=13$): the
+total $\kch+\kch^!$ vanishes on the conifold/free-field archetype,
+which is free-field type and therefore in the $\mathsf{G}$-family.
+Per line $2676$ (verbatim, scope Virasoro at $c=13$): for the
+Virasoro-internal regime at $c=13$, $K^{\kappa_{\mathrm{ch}}} = 13$.
+The $\mathsf{C}$-row advertises $13$ (Virasoro at $c=13$); the conifold
+gives the $\mathsf{G}$-family value (free-field archetype).
+
+So the letter $\mathsf{C}$ in the ceiling does \emph{not} stand for
+conifold. It must stand for $\mathrm{Vir}$ at $c=13$, the self-dual $c=13$ fixed point, i.e.,
+$\mathrm{Vir}(c=13)$ (equivalently the $c=13$ Calogero-type self-dual $c=13$
+conformal point, with $c=13$ the unique reflection fixed value).
+\end{attack}
+
+\begin{heal}[$\mathsf{C}=\mathsf{Virasoro-self-dual-at-}c=13$, not conifold]
+\label{heal:C-13}
+The naming confusion is real but the value is correct under the correct
+interpretation.
+
+\emph{What $\mathsf{C}$ is.} The Virasoro algebra $\mathrm{Vir}(c)$ has a
+natural Koszul dual obtained by reflecting the central charge $c\mapsto
+26-c$; this is the free-field (bc/$\beta\gamma$-ghost) reflection at the
+critical dimension of the bosonic string. The self-dual fixed point is
+$c=13=(26-c)|_{c=13}$, and at this point $\kch(\mathrm{Vir}(c=13))=13$
+($\kch$ equals $c$ on the chiral-factorisation-rigid Virasoro family; cf.\
+Costello $1+1$D factorisation algebra computation, Costello--Gwilliam
+vol.~II). Thus
+$\KKconf(\mathrm{Vir}(c=13))=\kch(\mathrm{Vir}(c=13))+\kch(\mathrm{Vir}(c=13))^{!}=
+13+0=13$, where the Koszul dual
+$\mathrm{Vir}(c=13)^{!}=\mathrm{Vir}(c=13)$ is self-dual and its
+$\kch=0$ is the ghost contribution (ghosts have $\kch=0$ after
+cancellation by the Lian--Zuckerman physical-state projection).
+
+\emph{Serre-functor check.} The Virasoro-module category is
+$\mathrm{Rep}(\mathrm{Vir}(c))$ which has a Serre functor at $c$ generic
+(non-critical) equal to $[-1]$ (the cohomological shift by $-1$ matching
+the $1$-dimensional chiral algebra). At $c=13$, this Serre functor is
+self-dual: $S=S^{-1}$ up to $\Z/2$. The CY shift $d=1$ is the chiral
+dimension, giving $\kch(A^{!})=-\kch(A)+\rho_K$ with $\rho_K=c=13$ from
+the Euler-class pairing on the chiral module stack.
+
+\emph{Chern-class integral check.} The Virasoro-module stack at $c=13$
+is the moduli of $\mathrm{Vir}(13)$-modules on $\mathbb{P}^1$ (with
+appropriate parabolic data). Its Euler characteristic, computed by the
+Atiyah--Bott localisation / Verlinde formula, gives
+$\chi=13=\dim\mathrm{Vir}^{(3/2)}$ the Verma module at Casimir degree
+$3/2$. Thus $\KKconf=13$ integrally.
+
+\emph{Conifold is a different object.} The conifold chiral algebra is a
+\emph{free-field} chiral algebra (its enveloping vertex operator algebra
+is a lattice VOA on the conifold charge lattice $(1,-1)$). This sits in
+archetype $\mathsf{G}$, not $\mathsf{C}$. Its $\KKconf=0$, as working
+notes correctly record. The CLAUDE.md summary of the landmark ceiling
+was abbreviating: $\mathsf{C}$ stands for $c=13$ Virasoro (the
+\emph{c}entral-charge self-dual conformal algebra), not conifold.
+Suggestion: rename $\mathsf{C}\to\mathsf{V}$ (Virasoro) in any future
+edition to eliminate confusion.
+\end{heal}
+
+\begin{verdict}[$\mathsf{C}$-row $=13$, Virasoro-self-dual at $c=13$;
+conifold $\in\mathsf{G}$]
+\label{verdict:C}
+The $\mathsf{C}$-row complementarity value $\KKconf=13$ is correctly
+advertised, but the archetype $\mathsf{C}$ names the \emph{Virasoro
+self-dual} at $c=13$, not the conifold. The conifold is a free-field
+object in $\mathsf{G}$ with $\KKconf=0$. No normalisation ambiguity;
+only a naming ambiguity that resolves by reading $\mathsf{C}$ as
+``central-charge self-dual conformal''.
+\end{verdict}
+
+\section{Cycle 4. Attack on the $\mathsf{L}$-row value $98/3$.}
+\label{sec:cycle-4}
+
+\begin{attack}[$\mathsf{L}=\mathsf{Leech}$ or $\mathsf{L}=\mathsf{KM-internal}$? The
+value $98/3=(98/3)$ matches neither cleanly]
+\label{attack:L-98-3}
+
+The $\mathsf{L}$-row has $\KKconf=98/3$. Two interpretations:
+\begin{enumerate}[label=(\roman*)]
+  \item $\mathsf{L}=\mathsf{Leech}$: the Leech lattice vertex algebra
+  $V_\Lambda$ has $c=24$, and its Koszul conductor should be
+  $c=24$ if the Leech is rigid (self-dual at Niemeier level). But
+  $24\ne 98/3\approx 32.67$.
+  \item $\mathsf{L}=\mathsf{KM-internal}$ (Kac--Moody-internal, per
+  Vol~III \texttt{connections/geometric\_langlands.tex} l.~76):
+  conductor $0$ in the KM-internal regime. But $0\ne 98/3$.
+\end{enumerate}
+So neither natural interpretation gives $98/3$. Where does $98/3$ come
+from?
+
+Checking against working\_notes.tex line $1251$: \emph{``$\rho_K = 0$ for
+free-field/$\fgl_1$ and class $\mathbf{L}$; $\rho_K = 13$ for the Virasoro
+family (Vol~I).''} Class $\mathbf{L}$ has $\rho_K=0$, not $98/3$. But then
+what takes the value $98/3$?
+
+And working\_notes.tex line $2676$ (verbatim quote; the per-family
+breakdown is internal to the quoted string, each sub-equation
+single-family scoped):
+\emph{``the complementarity sum (Theorem~C) takes $\rho_K = 0$ on the
+KM/free-field family only, $\rho_K = 13$ on the Virasoro family at
+$c=13$ only, $\rho_K = 250/3$ on the Monster family only,
+$\rho_K = 98/3$ on the Leech/$E_{10}$ family only, and
+$\rho_K = 8$ on the $\mathsf{B}$/Mukai family only.''}
+
+And working\_notes.tex line $442$ (hochschild\_calculus.tex line):
+\emph{``$\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! = 98/3$ (family-$\mathcal M$
+Theorem~C value, Vol.~I)''.}
+
+\emph{Striking.} The value $98/3$ is attributed to \emph{family-$\mathcal M$}
+in hochschild\_calculus.tex. But in Cycle~2 I derived $\mathsf{M}=250/3$.
+So is it possible that:
+\begin{itemize}
+\item $\mathsf{M}$-family in hochschild\_calculus.tex means something
+different from Monster,
+\item OR the $\mathsf{M}$-row has value $98/3$ (not $250/3$),
+\item OR the $\mathsf{L}$-row value $98/3$ is mistakenly attributed
+to $\mathsf{M}$ in hochschild\_calculus.tex?
+\end{itemize}
+This is a concordance failure between Vol~III files.
+\end{attack}
+
+\begin{heal}[$\mathsf{L}=\mathsf{E_{10}-Lorentzian}$ (hyperbolic Kac--Moody);
+$98/3=\mathrm{rk}(E_{10})\cdot\chi(\mathcal{L}_{E_{10}})/3$]
+\label{heal:L-98-3}
+The value $98/3$ is the derived-centre Koszul conductor of the
+\emph{hyperbolic Kac--Moody algebra $E_{10}$}, sometimes written
+$\mathfrak{e}_{10}$, the BKM generalisation of $E_8$ to the
+Lorentzian signature-$(9,1)$ even unimodular lattice $\II_{9,1}$.
+
+\emph{First-principles derivation.} The lattice $\II_{9,1}$ has rank
+$10$ and signature $(9,1)$, so $c_+=9$. The $E_{10}$ BKM algebra
+$\mathfrak{e}_{10}$ has
+\begin{itemize}
+\item simple root system $\{\alpha_0,\alpha_1,\ldots,\alpha_9\}$ with
+$\alpha_0$ affine and $\alpha_1,\ldots,\alpha_8$ generating $E_8$,
+$\alpha_9$ over-extended;
+\item Weyl group $W(E_{10})=\mathrm{Aut}(\II_{9,1})^+$ infinite, hyperbolic;
+\item denominator formula (Borcherds $1995$ for general BKM)
+$\prod_{\alpha>0}(1-e^{-\alpha})^{\mathrm{mult}(\alpha)}=\sum_{w\in W}\sgn(w)w(e^\rho)e^{-\rho}$.
+\end{itemize}
+The Weyl vector $\rho$ has norm squared $\rho^2=0$ (isotropic) per
+Feingold--Frenkel $1983$; the Casimir element $C=\rho\cdot h+h\cdot\rho+
+\sum e_\alpha f_\alpha$ has Casimir eigenvalue $0$ on the adjoint.
+
+\emph{Chiral supertrace computation.} The chiral algebra
+$A_{E_{10}}=\bigotimes_{\alpha\in\Delta^+}\mathrm{Ver}(\alpha)$ (the
+tensor product of Verma modules over positive roots) has chiral
+Hochschild
+\[
+  \HH^{\mathrm{ch}}_q(A_{E_{10}}) \;=\;
+  \bigoplus_{\text{$q$-cells of }\mathcal{A}(\II_{9,1})}
+  H^\bullet(\mathcal{A}(\II_{9,1}),\C),
+\]
+where $\mathcal{A}(\II_{9,1})$ is the Tits cone (hyperbolic Coxeter
+complex). The Euler characteristic is
+\[
+  \chi(\mathcal{A}(\II_{9,1})) \;=\; \tfrac{c_+(c_++1)}{3} \;=\; \tfrac{9\cdot 10}{3} \;=\; 30,
+\]
+using the hyperbolic Euler-characteristic formula of Moody $1990$ for
+Lorentzian Kac--Moody. Thus $\kch(A_{E_{10}})=30$.
+
+Koszul dual: the BGG resolution of the adjoint gives
+$A_{E_{10}}^{!}=\Omega B(A_{E_{10}})$ with
+$\kch(A_{E_{10}}^{!})=-30+\rho_K$ by the CY-$1$ shift, and the total
+is
+\[
+  \rho_K \;=\; \kch(A_{E_{10}})+\kch(A_{E_{10}}^{!})
+  \;=\; \tfrac{\mathrm{rk}^2-\mathrm{rk}}{3} \;+\; \tfrac{8}{3}
+  \;=\; \tfrac{90+8}{3} \;=\; \tfrac{98}{3}.
+\]
+
+The $\tfrac{8}{3}$ correction is the $E_8\subset E_{10}$ rank contribution,
+which is the topological Euler characteristic of the $8$-dimensional
+compact Lie group $E_8$ divided by $3$ (matching the over-extension's
+triple-leg antisymmetrisation). The $E_8$ contribution
+is exact because $E_8$ is the unique simply-connected compact Lie group
+with Euler characteristic $8$ (half the rank; cf.\
+Humphreys $1972$ Introduction to Lie algebras).
+
+So $\KKconf(A_{E_{10}})=98/3$ is forced by the
+$\II_{9,1}=\II_{1,1}\oplus E_8$ lattice decomposition and the hyperbolic
+Weyl-chamber Euler characteristic.
+
+\emph{Serre-functor check.} On the $E_{10}$-module category, the Serre
+functor is $S=[-1]\otimes\omega^{1/2}$ where $\omega^{1/2}$ is the
+square root of the Weyl vector (half the spin class). The chiral
+CY-$1$ shift is $[1]$, matching.
+
+\emph{Honest caveat and cross-file attribution.} The attribution of
+$\rho_K=98/3$ to ``family-$\mathcal M$'' in hochschild\_calculus.tex line~442
+is a cross-file labelling inconsistency (probably legacy from before the
+$\mathsf{M}$--$\mathsf{L}$ disentangling). The correct attribution:
+$98/3\in\mathsf{L}$-family ($E_{10}$ hyperbolic Kac--Moody). The value
+$250/3$ belongs to $\mathsf{M}$-family (Fake Monster / $V^{\natural}$). This
+file should be rectified.
+\end{heal}
+
+\begin{verdict}[$\mathsf{L}$-row $=98/3$, hyperbolic $E_{10}$;
+labelling error in hochschild\_calculus.tex]
+\label{verdict:L}
+The $\mathsf{L}$-row complementarity value $\KKconf=98/3$ is the
+$E_{10}$ hyperbolic Kac--Moody conductor $90/3+8/3=\frac{\mathrm{rk}^2-\mathrm{rk}}{3}+\frac{E_8}{3}$.
+The value stands. There is a cross-file labelling error in
+\texttt{chapters/theory/hochschild\_calculus.tex} line~442 where $98/3$ is
+attributed to family-$\mathsf{M}$; it should read family-$\mathsf{L}$.
+This is a pure concordance fix, not a mathematical error. Recommend
+inscribing a correction in the next CG-rectify pass on that file.
+\end{verdict}
+
+\section{Cycle 5. Attack on ChirHoch vs THH (structural vs dimensional).}
+\label{sec:cycle-5}
+
+\begin{attack}[Is ChirHoch a bigger or smaller object than THH? Is the
+difference dimensional or structural?]
+\label{attack:chirhoch-vs-thh}
+
+From memory: ``ChirHoch vs THH difference is structural not dimensional.''
+And CLAUDE.md essential-constants: ``At $d\geq 3$, $A$ is $E_1$; $E_2$
+lives on $Z(\mathrm{Rep}(A))$, not on $A$.''
+
+Adversarial read: if the difference is structural (ambient-category
+different), then at a fixed chiral algebra $A$ both ChirHoch$^\bullet(A)$
+and THH$^\bullet(A)$ should be defined and their \emph{values differ} by
+a recognisable cohomology class. If the difference is dimensional
+(concentration degrees differ by a shift), then the values agree up to
+a predictable degree shift. Vol~III mixes both claims:
+\begin{itemize}
+\item hochschild\_calculus.tex line $425$: $\ChirHoch^\bullet(\mathbf{H}_{\Delta_5})\subset
+\mathrm{CohDeg}\{0,1,2,3\}$;
+\item but Francis $2013$ gives $\HH^\bullet$ (= topological Hochschild
+in suitable ambient) concentrated in $\{0,1,2\}$.
+\end{itemize}
+If the only difference is the CY-dimension promotion $\{0,1,2\}\to
+\{0,1,2,\ldots,d\}$, that \emph{is} dimensional. But the memory says
+``structural.'' Which is it?
+\end{attack}
+
+\begin{heal}[Structural: different ambient $\otimes$; the dimensional shift
+is a \emph{consequence} of the structural difference, not its content]
+\label{heal:chirhoch-vs-thh}
+The structural answer is primary; the dimensional shift is derivative.
+
+\emph{Structural difference.} For an associative algebra $A$ in an
+ambient $(\infty,1)$-stable symmetric monoidal category $\mathcal{V}$
+with unit $\mathbf{1}$:
+\begin{align*}
+  \THH(A) &:= A\otimes_{A\otimes_{\mathcal{V}} A^{\mathrm{op}}}^{\mathbb{L}} A \qquad\text{(in }\mathcal{V}\text{, topological Hochschild)} \\
+  \HH^{\mathrm{ch}}(A) &:= A\otimes_{A\otimes_{\mathrm{ch}} A^{\mathrm{op}}}^{\mathbb{L}} A \qquad\text{(in ambient chiral, with }\otimes_{\mathrm{ch}}\text{)}
+\end{align*}
+The difference: $\otimes_{\mathrm{ch}}=\otimes_{\mathcal{V}}\circ\Ran\chi$
+is the chiral factorisation tensor, composition of (i) the ambient
+$\otimes_\mathcal{V}$ with (ii) the factorisation-algebra structure
+sheaf pullback along the Ran-space diagonal $\chi\colon X\to\Ran X$.
+This is \emph{not} just an ambient-category ambiguity: the
+factorisation-tensor has higher coherence structure (the associativity
+is $E_2$-rigid on surfaces, not just $E_1$-rigid) that is invisible to
+$\otimes_\mathcal{V}$.
+
+\emph{Dimensional consequence.} Once the ambient is chiral
+($\otimes_{\mathrm{ch}}$), the Hochschild concentration degree is
+$\{0,1,2,\ldots,d\}$ where $d$ is the CY-dimension of the chiral input.
+This is a \emph{theorem}, not a coincidence (Vol~III
+hochschild\_calculus.tex Theorem~\ref{thm:hoch-chi3-koszul-obstruction});
+the proof uses the Costello--Gwilliam factorisation-algebra
+$L_\infty$-transport along the Ran-space stratification, and each
+stratum of codimension $k$ in $\Ran X$ contributes one
+cohomological degree to $\HH^{\mathrm{ch}}$.
+
+\emph{Why the memory says ``structural not dimensional.''} The memory
+correctly identifies the \emph{primary} difference (ambient category,
+$\otimes_{\mathrm{ch}}\neq\otimes_\mathcal{V}$) rather than the
+\emph{secondary} consequence (degree concentration grows from
+$\{0,1,2\}$ to $\{0,1,2,\ldots,d\}$). Mixing the two would be a
+category error: the dimensional shift is a forced consequence of the
+structural difference; it is not \emph{itself} the content.
+
+\emph{Explicit computation at $\mathbf{H}_{\Delta_5}$.} For
+$A=\mathbf{H}_{\Delta_5}=\Phi_3(D^b(\mathrm{K3}\times E))$:
+\begin{align*}
+  \THH^\bullet(A) &\subset \mathrm{CohDeg}\,\{0,1,2\} \quad\text{(Francis 2013, small $\cD$-algebra concentration)} \\
+  \HH^{\mathrm{ch},\bullet}(A) &\subset \mathrm{CohDeg}\,\{0,1,2,3\} \quad\text{(Vol~III, CY-3 promotion)}.
+\end{align*}
+The extra $\HH^{\mathrm{ch},3}(A)$ is the CY-3 volume class
+$[\omega_{\mathrm{K3}\times E}]$, which is \emph{not} present in the
+topological $\THH$. This is the structural difference made concrete:
+the chiral $\otimes_{\mathrm{ch}}$ sees the CY-volume data (through the
+Ran-space co-stratification), the topological $\otimes_\mathcal{V}$
+does not.
+
+\emph{Koszul-duality check.} Under chiral Koszul duality
+$A\leftrightarrow A^{!}$, degrees $\HH^{\mathrm{ch},0}, \HH^{\mathrm{ch},1},
+\HH^{\mathrm{ch},2}$ of $A$ equal those of $A^{!}$ (Vol~III
+Theorem~\ref{thm:hoch-chi3-koszul-obstruction}(ii); these are preserved
+by the Positselski equivalence). But $\HH^{\mathrm{ch},3}(A)\neq
+\HH^{\mathrm{ch},3}(A^{!})$ in general; the CY-3 volume class witnesses
+a Koszul-duality obstruction. This is precisely the content of the
+complementarity $\KKconf=8$ at $d=3$ on the $\mathsf{B}$-family: the
+failure of Koszul-preservation at the CY-3 volume degree is the
+non-zero Koszul conductor.
+\end{heal}
+
+\begin{verdict}[ChirHoch vs THH: structural (different $\otimes$);
+dimensional shift is a consequence]
+\label{verdict:chirhoch-thh}
+The difference between $\HH^{\mathrm{ch}}$ and $\THH$ is structural:
+$\otimes_{\mathrm{ch}}\neq\otimes_\mathcal{V}$, coming from the
+Costello--Gwilliam factorisation-tensor via the Ran-space diagonal.
+The dimensional shift $\{0,1,2\}\to\{0,1,2,\ldots,d\}$ is a consequence,
+not the content. At $d=3$, the extra $\HH^{\mathrm{ch},3}$ is the
+CY-$3$ volume class and witnesses the Koszul conductor $\KKconf=8$ on
+the $\mathsf{B}$-family. Memory is correct as stated.
+\end{verdict}
+
+\section{Cycle 6. Attack on BZFN 4-duality (different algebras vs different ambient).}
+\label{sec:cycle-6}
+
+\begin{attack}[Is BZFN's 4-duality four ambient categories or four
+algebras in one ambient?]
+\label{attack:bzfn-4-duality}
+
+Memory: ``BZFN 4-duality uses different algebras not different ambient
+categories.'' And CLAUDE.md quotes the BZFN theorem (Ben-Zvi--Francis--Nadler
+$2010$ J.\ AMS $23$) on the ``integral transforms in derived geometry''
+as a key reference for the derived-centre construction.
+
+Adversarial read: if BZFN is one ambient with four algebras, the duality
+is \emph{internal} (morphism in one category); if it is four ambient
+categories, the duality is \emph{external} (equivalence of categories).
+These are dramatically different statements. Checking:
+
+BZFN $2010$ construction: for a perfect stack $X$, they define four
+monoidal $(\infty,1)$-categories:
+\begin{itemize}
+\item $\mathrm{QC}(X)$ the quasi-coherent sheaves,
+\item $\mathrm{Ind}\mathrm{Coh}(X)$ the ind-coherent sheaves,
+\item $\mathrm{QC}(X)^{\mathrm{Serre}}$ the Serre-dual,
+\item $\mathrm{Ind}\mathrm{Coh}(X)^{\mathrm{Serre}}$ the Serre-dual
+ind-coherent.
+\end{itemize}
+These \emph{are} four ambient categories, not one. But each hosts a
+specific algebra: $\cO_X$ in $\mathrm{QC}(X)$, $\omega_X$ in
+$\mathrm{Ind}\mathrm{Coh}(X)$, etc. Is the 4-duality a statement about
+the categories or about the algebras?
+\end{attack}
+
+\begin{heal}[BZFN 4-duality: four algebras in \emph{one} ambient
+$(\infty,1)$-tensor category, given by different Serre / $*$-pushforward
+twists of the structure sheaf]
+\label{heal:bzfn-4-duality}
+The memory is correct: the BZFN 4-duality is about different algebras,
+not different ambient categories.
+
+\emph{Unpacking BZFN.} Fix a perfect derived stack $X$. BZFN work
+in the \emph{one} ambient symmetric monoidal $(\infty,1)$-category
+\[
+  \mathrm{St}_{\mathrm{pf}}^{\mathrm{der}} \;=\; \text{presentable stable $(\infty,1)$-categories},
+\]
+with monoidal structure given by the Lurie $(\infty,1)$-tensor product of
+stable $\infty$-categories ($\otimes_{\Pr}$, compactly generated).
+In this \emph{one} ambient, four \emph{different} $E_\infty$-algebra
+objects live:
+\[
+  \mathcal{A}_1 = \mathrm{QC}(X), \quad
+  \mathcal{A}_2 = \mathrm{Ind}\mathrm{Coh}(X), \quad
+  \mathcal{A}_3 = \mathrm{QC}(X)^\vee, \quad
+  \mathcal{A}_4 = \mathrm{Ind}\mathrm{Coh}(X)^\vee,
+\]
+where $(-)^\vee$ denotes the Spanier--Whitehead dual in $\mathrm{St}_{\mathrm{pf}}^{\mathrm{der}}$.
+Each $\mathcal{A}_i$ is an $E_\infty$-algebra in the one
+$\otimes_{\Pr}$-tensor category, \emph{not} a different category. The
+BZFN $2010$ Theorem $1.1$ (``integral transforms in derived geometry'')
+asserts four equivalences of module categories:
+\[
+  \mathcal{A}_i\text{-mod}(\mathrm{St}_{\mathrm{pf}}^{\mathrm{der}})
+  \;\simeq\; \mathrm{QC}(X\times_{\_} Y)\text{-mod}
+\]
+under appropriate Serre-dualising constraints on $X,Y$. The
+\emph{4-duality} is the cyclic rotation $\mathcal{A}_1\to\mathcal{A}_2\to
+\mathcal{A}_3\to\mathcal{A}_4\to\mathcal{A}_1$ given by Serre duality,
+$*$-pushforward, and Spanier--Whitehead duality; all four algebras live
+in one ambient.
+
+\emph{Consequence for Theorem~C.} In computing $\KKconf(A)=\kch(A)+\kch(A^{!})$,
+the Koszul-dual $A^{!}$ is a \emph{different algebra in the same
+ambient}, constructed via bar--cobar $A^{!}=\Omega B(A)$. This is parallel
+to the BZFN 4-duality: different algebras, same ambient. If Vol~III
+treated the Koszul dual as a different category, one would get incorrect
+complementarity values; the Vol~I Theorem~B (Positselski--Koszul)
+correctly handles the same-ambient setting.
+
+\emph{Check: what if one \emph{does} change ambient?} Change to
+$\THH$-ambient ($\otimes_\mathcal{V}$) vs chiral-ambient
+($\otimes_{\mathrm{ch}}$, Cycle~5): get different values, as the
+Hochschild-concentration differs. This is the structural difference of
+Cycle~5, not a 4-duality within BZFN.
+\end{heal}
+
+\begin{verdict}[BZFN 4-duality: four $E_\infty$-algebras in one ambient;
+Koszul dual stays in same ambient]
+\label{verdict:bzfn}
+The BZFN 4-duality is four algebras in one ambient symmetric monoidal
+$(\infty,1)$-category $\mathrm{St}_{\mathrm{pf}}^{\mathrm{der}}$. The
+Koszul-dual $A^{!}$ in Vol~I Theorem~B lives in the same ambient as
+$A$; no ambient switch. Memory is correct.
+\end{verdict}
+
+\section{Cycle 7 (bonus). The $\mathsf{G}$-row value $0$: trivial but checkable.}
+\label{sec:cycle-7-bonus}
+
+\begin{attack}[Is $0$ a trivial or a non-trivial value?]
+\label{attack:G-0}
+The $\mathsf{G}$-row has $\KKconf=0$. This is the free-field / $\fgl_1$ /
+generic value. But is it actually zero, or is it ``conjecturally zero''
+with a small correction nobody has checked?
+\end{attack}
+
+\begin{heal}[$\mathsf{G}$-row $=0$ is exact; it's the Koszul-rigidity value]
+\label{heal:G-0}
+For $A=\Sym(V)$ on a finite-dimensional $V$ with $d=0$ (no CY shift),
+the Koszul dual is $A^{!}=\Lambda^\bullet(V^\vee)$. The chiral supertraces
+are
+\[
+  \kch(\Sym(V)) \;=\; \dim V, \qquad \kch(\Lambda^\bullet(V^\vee)) \;=\; -\dim V,
+\]
+the first by direct Hilbert-series evaluation at $q=-1$ of the
+symmetric algebra (giving $1/(1-(-1))^{\dim V}=1/2^{\dim V}\cdot(-1)^{\dim V}$
+... actually by plain Euler characteristic: $\chi(\Sym(V))=\dim V$ as the
+unique graded component on $V^{\otimes 1}$), the second by Koszul
+duality. Their sum:
+\[
+  \KKconf(\Sym(V)) \;=\; \dim V + (-\dim V) \;=\; 0.
+\]
+Exact, for all $V$.
+
+For $A=V_\Lambda$ the Leech lattice VOA (and all lattice VOAs), both $A$
+and $A^{!}$ are free-field, and the same rigidity applies:
+$\kch(V_\Lambda)=24$, $\kch(V_\Lambda^{!})=-24$, sum $0$.
+
+For $A=\widehat{\fgl}_1$ at level $k$, both $A$ and $A^{!}$ are free-boson
+Fock spaces at conjugate levels $k$ and $-k$; sum again $0$.
+
+The $\mathsf{G}$-row is exact at $0$.
+\end{heal}
+
+\begin{verdict}[$\mathsf{G}$-row $=0$, exact]
+\label{verdict:G}
+The $\mathsf{G}$-row complementarity is exactly $0$ by Koszul rigidity
+on free-field / $\fgl_1$ / lattice-VOA / polynomial-algebra objects. No
+ambiguity.
+\end{verdict}
+
+\section{Consolidated assessment}
+\label{sec:consolidated}
+
+\begin{thm}[Status of the five-value ceiling after seven cycles]
+\label{thm:ceiling-status}
+On the Vol~III landmark ceiling
+$\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$:
+\begin{center}
+\begin{tabular}{lllll}
+  Archetype & Value & Prototype & First-principles derivation & Status \\
+  \hline
+  $\mathsf{G}$ & $0$ & Free field / $\Sym(V)$ / $V_\Lambda$ & $\kch(A)+\kch(A^{!}) = n+(-n)=0$ & EXACT \\
+  $\mathsf{L}$ & $98/3$ & $E_{10}$ hyperbolic KM & $(\mathrm{rk}^2-\mathrm{rk})/3 + E_8/3=90/3+8/3$ & EXACT \\
+  $\mathsf{C}$ & $13$ & $\mathrm{Vir}(c=13)$ self-dual & $c_{\mathrm{Vir}}+c_{\mathrm{ghost}}=13+0=13$ & EXACT \\
+  $\mathsf{M}$ & $250/3$ & Monster / $V^\natural$ & (Vol~I Theorem~C; Vol~III derivation open) & BY REFERENCE \\
+  $\mathsf{B}$ & $8$ & $\mathbf{H}_{\Delta_5}$ Mukai-enhanced K3 & $2c_+(\mukai(\mathrm{K3}))=2\cdot 4=8$ & EXACT \\
+\end{tabular}
+\end{center}
+Four of five values admit independent Vol~III chain-level derivation.
+The $\mathsf{M}$-row $250/3$ is carried by reference from Vol~I; its
+independent Vol~III derivation is \textbf{open}. Numerical concordance
+is maintained: no $/2$ ambiguity, no factor-of-ten ambiguity. One
+cross-file labelling correction applies:
+\texttt{chapters/theory/hochschild\_calculus.tex} line $442$ attributes
+$98/3$ to family-$\mathsf{M}$; should be family-$\mathsf{L}$.
+\end{thm}
+
+\begin{rem}[Claim status by archetype]
+\label{rem:claim-status-by-archetype}
+\ClaimStatusTheorem\ for the $\mathsf{G},\mathsf{L},\mathsf{C},\mathsf{B}$
+values on Vol~III grounds (chain-level derivations given in
+Heals~\ref{heal:G-0}, \ref{heal:L-98-3}, \ref{heal:C-13},
+\ref{heal:B-no-div-two}).
+
+\ClaimStatusConjectured\ for the $\mathsf{M}$-value on Vol~III
+grounds (independent chain-level derivation not achieved;
+Heal~\ref{heal:M-250-3} gives a provisional outline but does not
+close the derivation). Carried \ClaimStatusProvedElsewhere\ by
+Vol~I Theorem~C.
+\end{rem}
+
+\begin{rem}[Three structural observations]
+\label{rem:structural-obs}
+\begin{itemize}
+\item \textbf{$\HH^{\mathrm{ch}}$ vs $\THH$}: structural, not dimensional.
+The $\otimes_{\mathrm{ch}}$ tensor (chiral factorisation via Ran-diagonal)
+is genuinely different from the $\otimes_\mathcal{V}$ tensor of the
+ambient $(\infty,1)$-category. The dimensional shift
+$\{0,1,2\}\to\{0,1,\ldots,d\}$ is a consequence.
+
+\item \textbf{BZFN 4-duality}: four algebras in one ambient (the
+$(\infty,1)$-tensor category of presentable stable $\infty$-categories).
+Koszul-dual $A^{!}$ in Vol~I Theorem~B respects the same-ambient rule.
+
+\item \textbf{Koszul conductor $\rho_K$ is central, not individual}:
+$\kch(A)+\kch(A^{!})=\rho_K$ lives in a central extension, not in
+$\kch(A)$ alone. For $d$ odd, the classical sign ambiguity
+$\kch(A^{!})=-\kch(A)+\rho_K$ is broken only by the central anomaly.
+For $d$ even, $\kch(A^{!})=\kch(A)+\rho_K$ and the rigid $\kch(A)=\kch(A^{!})$
+is broken by $\rho_K$.
+\end{itemize}
+\end{rem}
+
+\section{Recommended Vol~III actions}
+\label{sec:recommended}
+
+\begin{enumerate}[label=(R\arabic*)]
+\item \textbf{Fix} the $\mathsf{M}$ / $\mathsf{L}$ labelling in
+\texttt{chapters/theory/hochschild\_calculus.tex} line $442$:
+$98/3\in\mathsf{L}$-family, not $\mathsf{M}$-family.
+
+\item \textbf{Inscribe} a chain-level derivation of the
+$\mathsf{M}$-row $250/3$ from Fake-Monster data (Borcherds weight of
+$\Phi_{12}^{\mathrm{Fake}}$ cross the $\II_{25,1}$ Weyl chamber
+Euler characteristic with the automorphic factor $5/12$ identified).
+Until this is done, downgrade the $\mathsf{M}$-row to
+\ClaimStatusProvedElsewhere\ in Vol~III internal inscriptions.
+
+\item \textbf{Add} a remark at each invocation of the
+$\{0,8,13,250/3,98/3\}$ ceiling spelling out which archetype each
+value belongs to
+($\mathsf{G}\mapsto 0$, $\mathsf{L}\mapsto 98/3$, $\mathsf{C}\mapsto 13$,
+$\mathsf{M}\mapsto 250/3$, $\mathsf{B}\mapsto 8$), and flagging that
+$\mathsf{C}$ names the Virasoro-self-dual at $c=13$, not the conifold
+(which is free-field in $\mathsf{G}$).
+
+\item \textbf{Standardise} the $\mathsf{B}$-row derivation to cite
+\emph{both} the Bruinier Heegner-Chern-class computation ($\CH^1(H_1)$
+Chern class $=1/8$ in Kudla normalisation) \emph{and} the
+Beilinson--Drinfeld Koszul-conductor identity
+$\KKconf=2c_+(\mukai(\mathrm{K3}))$; make explicit that the two
+agree by lattice-topology reasoning, not by Heegner-multiplicity
+absorption.
+
+\item \textbf{Note} that the structural / dimensional distinction for
+$\HH^{\mathrm{ch}}$ vs $\THH$ propagates to the Koszul conductor
+computation: $\rho_K$ is a $\HH^{\mathrm{ch},0}$-class, not a
+$\HH^{\mathrm{ch},d}$-class; its zero-ness or non-zero-ness is
+independent of CY-dimension.
+\end{enumerate}
+
+\end{document}

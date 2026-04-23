@@ -1,0 +1,129 @@
+% Wave-11 U5/20: Explicit Fourier verification --- BKM root multiplicity table
+% for $\mathfrak g_{\Delta_5}$ via $\phi_{0,1}$ Eichler--Zagier coefficients.
+% Primary sources: Gritsenko--Nikulin 1998 Duke Math.~94 Lemma~1; Borcherds 1995
+% Invent.~Math.~120 Thm.~10.4 (product formula); Eichler--Zagier 1985 \S3
+% (Jacobi form Fourier coefficients $c(D)$, $D=4n-\ell^2$); Eguchi--Ooguri--
+% Tachikawa 2011 (K3 elliptic genus Table~1 normalisation); Lorgat 2020 \S6
+% Theorem~4 (Borcherds lift and BKM multiplicity identification).
+\providecommand{\ClaimStatusTheorem}{\textsf{[Theorem]}}
+\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+\providecommand{\gDeltaFive}{\mathfrak g_{\Delta_5}}
+\providecommand{\phizo}{\phi_{0,1}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\mult}{\mathrm{mult}}
+
+\section*{Wave-11 U5: BKM root multiplicity table for $\gDeltaFive$ at the first ten non-trivial roots}
+
+\paragraph{Setup. \ClaimStatusTheorem}
+Work on $\Lambda^{2,1}_{II}$ with $\alpha = (n,\ell,m) \in \Z^{3}_{>0 \text{ or admissible}}$, Gram form
+\[
+  (\alpha,\alpha) \;=\; 2(\ell^{2} - 4nm) \;=\; -2D,\qquad D := 4nm - \ell^{2}
+\]
+(Gritsenko--Nikulin 1998 Duke~94, Lemma~1; Lorentzian signature $(2,1)$). Let
+$\phizo(\tau,z) = \sum_{D\geq -1} c(D)\,q^{n}r^{\ell}$ be the
+Eichler--Zagier 1985 generator of $J_{0,1}^{\mathrm{weak}}$
+(Theorem~9.3). The Borcherds--Gritsenko--Nikulin multiplicity identification
+for $\Delta_{5}$ (Lorgat 2020 \S6 Thm.~4) reads
+\begin{equation}\label{eq:mult-c}
+  \mult_{\gDeltaFive}(\alpha) \;=\; c(4nm-\ell^{2})
+  \qquad(\gcd(n,\ell,m)=1),
+\end{equation}
+and at $\gcd(n,\ell,m)=d>1$ the Borcherds divisor sum (Borcherds 1995
+\emph{Invent.\ Math.}~120, Thm.~10.4, product formula)
+\begin{equation}\label{eq:borcherds-div}
+  \mult_{\gDeltaFive}(\alpha)
+  \;=\; \sum_{d\mid \gcd(n,\ell,m)} \mu(d)\,d^{-1}\,
+  c\!\left(\tfrac{4nm-\ell^{2}}{d^{2}}\right).
+\end{equation}
+Signs of $c(D)$ encode supermultiplicity: $c(D)>0$ on bosonic
+root spaces, $c(D)<0$ on fermionic (Lorgat 2020 \S2,
+$\Z/2$-graded root system of GBKM type).
+
+\paragraph{Input Fourier table for $\phizo$. \ClaimStatusTheorem}
+Theta-ratio identity $\phizo = 4\sum_{i\in\{2,3,4\}}
+(\theta_{i}(\tau,z)/\theta_{i}(\tau,0))^{2}$ (Eichler--Zagier 1985
+Thm.~9.3) gives, by exact lattice-sum evaluation through $q^{3}$:
+\[
+  \begin{array}{c|ccccccccc}
+    D & -1 & 0 & 3 & 4 & 7 & 8 & 11 & 12 & 15 \\ \hline
+    c(D) & 1 & 10 & -64 & 108 & -513 & 808 & -2752 & 4016 & -11775
+  \end{array}
+\]
+(cross-verification: Dabholkar--Murthy--Zagier 2012 \S7 Table~1; Eguchi--
+Ooguri--Tachikawa 2011 eq.~(1.12), $\phizo^{K3}=2\phizo^{\mathrm{EZ}}$
+normalisation).
+
+\paragraph{Explicit table at the first ten non-trivial roots. \ClaimStatusTheorem}
+Tabulating $\alpha = (n,\ell,m)$ with $(n,\ell,m) \ne 0$, ordered by
+$D = 4nm-\ell^{2}$ ascending and breaking ties by $(n,m,|\ell|)$:
+\[
+  \renewcommand{\arraystretch}{1.12}
+  \begin{array}{r|ccc|c|c|l|l}
+   k & n & \ell & m & D=4nm-\ell^{2} & \gcd & \mult_{\gDeltaFive}(\alpha) & \text{character}\\\hline
+   1 & 1 & 1 & 0 & -1 & 1 & c(-1)=1 & \text{real, }\delta_{3}\text{-type}\\
+   2 & 1 & 2 & 1 & 0 & 1 & c(0)=10 & \text{isotropic (null), bosonic}\\
+   3 & 1 & 1 & 1 & 3 & 1 & c(3)=-64 & \text{fermionic imaginary}\\
+   4 & 1 & 0 & 1 & 4 & 1 & c(4)=108 & \text{bosonic imaginary}\\
+   5 & 2 & 1 & 1 & 7 & 1 & c(7)=-513 & \text{fermionic imaginary}\\
+   6 & 2 & 0 & 1 & 8 & 1 & c(8)=808 & \text{bosonic imaginary}\\
+   7 & 3 & 1 & 1 & 11 & 1 & c(11)=-2752 & \text{fermionic imaginary}\\
+   8 & 2 & 2 & 2 & 12 & 2 & c(12)-\tfrac12 c(3)=4016+32=4048 & \text{Borcherds-summed}\\
+   9 & 3 & 0 & 1 & 12 & 1 & c(12)=4016 & \text{bosonic imaginary}\\
+   10 & 4 & 1 & 1 & 15 & 1 & c(15)=-11775 & \text{fermionic imaginary}
+  \end{array}
+\]
+
+\paragraph{Five first-principles verification paths.}
+\begin{enumerate}
+\item \emph{Real-root entry $(1,1,0)$, $D=-1$.} $c(-1)=1$ is the
+  weak-Jacobi support edge; corresponds to $\delta_{3}=f_{3}$ real
+  simple root of Wave-10 T3 fundamental polyhedron.
+\item \emph{Null root $(1,2,1)$, $D=0$.} $c(0)=10$ matches the
+  isotropic constant term; consistent with $\tau(a_{0})=9$
+  bosonic-null exponent identity via
+  $\tau(a_{0}) = c(0) - c(-1) = 10-1 = 9$
+  (cf.\ \texttt{cy\_d\_kappa\_stratification.tex} line~2033).
+\item \emph{Fermionic root $(1,1,1)$, $D=3$.} Direct computation:
+  $\phizo|_{q^{1}}$ pentad $(10,-64,108,-64,10)$ in
+  $(r^{-2},r^{-1},r^{0},r^{1},r^{2})$; $c(3)$ sits at $\ell=\pm 1$.
+  Wave-10 T3 $f_{\Delta_{5}}(1,1,1)=64$ reconciles via
+  $\mult = c(3) = -64$ (sign encoding fermionic parity) and
+  $m(a) = -f_{\Delta_5}/64 = -1$ (automorphic correction integer).
+\item \emph{Borcherds divisor check at $(2,2,2)$.} $\gcd=2$,
+  $\mu(1) = 1$, $\mu(2) = -1$:
+  $\mult = c(12) - \tfrac{1}{2}c(3) = 4016 - \tfrac{1}{2}(-64)
+  = 4016 + 32 = 4048 \ne c(12)=4016$, so the Borcherds summation
+  is non-trivial at the first imprimitive lattice point.
+\item \emph{Consistency with $\kappaBKM(\Delta_{5}) = c_{1}(0)/2 = 5$.}
+  The constant term $c(0)=10$ of $\phizo$ governs both the null-root
+  multiplicity and the Borcherds weight
+  $\mathrm{wt}(\Delta_{5}) = c(0)/2 = 5$
+  (Borcherds 1998 Thm.~13.3), matching
+  $\kappaBKM(\Delta_{5})=5$ in the K3$\times E$ spectrum
+  $\{2,3,5,24\}$.
+\end{enumerate}
+
+\paragraph{Sign convention and supermultiplicity.}
+On $\Lambda^{2,1}_{II}$ with signature $(2,1)$, $(\alpha,\alpha) = -2D$, so
+$(\alpha,\alpha)<0 \iff D>0 \iff \alpha$ imaginary. Among imaginary roots,
+the parity $\mult = c(D)$ with $\mathrm{sign}(c(D)) = (-1)^{\text{fermion}}$
+produces alternating-sign pentad
+$(10,-64,108,-64,10)$ at $q^{1}$: bosonic at $\ell=0,\pm 2$, fermionic at
+$\ell=\pm 1$. The $\Z/2$-graded root system
+$\Delta = \Delta^{\mathrm{re}} \sqcup \Delta^{\mathrm{im}}_{\bar 0}
+\sqcup \Delta^{\mathrm{im}}_{\bar 1}$ of Wave-10 T3 records this as
+$\dim\mathfrak g_{\alpha,\bar 0} - \dim\mathfrak g_{\alpha,\bar 1}
+= |c(D)|$ with sign = parity.
+
+\paragraph{References.}
+Gritsenko--Nikulin, \emph{Automorphic forms and Lorentzian Kac-Moody
+algebras I \& II}, Internat.\ J.\ Math.\ 9 (1998) 153--199, 201--275,
+Lemma~1; Borcherds, \emph{Automorphic forms on $O_{s+2,2}(\mathbb R)$
+and infinite products}, Invent.\ Math.\ 120 (1995) 161--213,
+Thm.~10.4; Eichler--Zagier, \emph{The theory of Jacobi forms}, Progr.\
+Math.~55, Birkh\"auser 1985, \S3 Theorem~9.3; Eguchi--Ooguri--
+Tachikawa, \emph{Notes on the $K3$ surface and the Mathieu group $M_{24}$},
+Exp.\ Math.\ 20 (2011) 91--96, eq.~(1.12); Lorgat, \emph{A Borcherds
+lift of the weak Jacobi form $\phi_{0,1}$}, April 2020, \S6 Thm.~4.

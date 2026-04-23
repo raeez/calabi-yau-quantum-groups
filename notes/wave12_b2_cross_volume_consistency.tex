@@ -1,0 +1,220 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,longtable,array}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\providecommand{\Etwo}{\mathsf{E}_2}
+\providecommand{\Eone}{\mathsf{E}_1}
+\providecommand{\Einf}{\mathsf{E}_\infty}
+\providecommand{\Ethree}{\mathsf{E}_3}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\ch}{\mathrm{ch}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\ChirHoch}{\mathrm{ChirHoch}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Ch}{\mathrm{Ch}}
+\providecommand{\mult}{\mathrm{mult}}
+\providecommand{\HC}{\mathrm{HC}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+
+\title{Cross-Volume Consistency Audit\\
+\large Vol~I (Modular Koszul) $\leftrightarrow$ Vol~II ($A_\infty$ Chiral \& 3D HT QFT) $\leftrightarrow$ Vol~III (CY Quantum Groups)}
+\author{Frontier consistency agent, channelling Beilinson--Drinfeld}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Target: \texttt{working\_notes.tex} lines 1700--1751 (cross-volume bridges) and 2334--2446 (content heatmap). Against: \texttt{\textasciitilde/chiral-bar-cobar/CLAUDE.md}, \texttt{\textasciitilde/chiral-bar-cobar/chapters/examples/landscape\_census.tex} lines 1760--1918, and \texttt{\textasciitilde/chiral-bar-cobar-vol2/CLAUDE.md}. Five attack--heal pairs; one cross-volume coherence table; $\geq 1$ primary-source citation per landmark; every detected tension resolved at the semantic level. No commits made.
+\end{abstract}
+
+\section*{Master cross-volume coherence table}
+
+\renewcommand{\arraystretch}{1.20}
+\begin{longtable}{@{}p{2.3cm}p{3.6cm}p{3.6cm}p{3.6cm}p{2.2cm}@{}}
+\toprule
+\textbf{Invariant} & \textbf{Vol~I statement} & \textbf{Vol~II statement} & \textbf{Vol~III statement} & \textbf{Status} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Invariant} & \textbf{Vol~I statement} & \textbf{Vol~II statement} & \textbf{Vol~III statement} & \textbf{Status} \\
+\midrule
+\endhead
+Thm~A (bar--cobar) & $\Omega^{\mathrm{ch}} \dashv B^{\mathrm{ch}}$ on $\mathrm{ChirAlg}^{\mathrm{ch}}_X$; $\Omega(B(A))=A$ is inversion, not Koszul duality. Primary: Positselski 2011; Lef\`evre-Hasegawa 2003. & Same adjunction, restated at $(\infty,1)$-level as inversion in a presentable $\infty$-stable category on $C \times \R$. & Imported as $\Phi_d$-domain structure; CY-A is not Thm~A but the CY-specific existence statement $\Phi_d\colon \mathrm{CY}_d \to \mathrm{E}_n\text{-}\mathrm{ChirAlg}$, $n = \infty, 2, 1$ for $d = 1, 2, \geq 3$. & Coherent \\[1.5ex]
+Thm~B (chiral Positselski) & $\Omega_X(B_X(C)) \xrightarrow{\sim} C$ in $D^{\mathrm{co}}_{\mathrm{ch}}(X)$ on Koszul locus, curved elsewhere. Primary: Positselski 2011, Theorem 6.5. & Used as the input for $\mathsf{SC}^{\mathrm{ch,top}}$ bar-differential as holomorphic factorisation. & CY-A$_2$ instantiation: $\Phi_2(D^b\Coh(K3))$ is the $\Etwo$-chiral K3 algebra whose bar complex lives in $D^{\mathrm{co}}_{\mathrm{ch}}$. & Coherent \\[1.5ex]
+Thm~C (complementarity ceiling) & $\kappa + \kappa^! \in \{0, 8, 13, 250/3, 98/3\}$; classical four-element subset $\{0, 13, 250/3, 98/3\}$ on $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}$; the $\mathsf{B}$-row value $8$ populates via Mukai doubling on $\mathcal{H}_{\mathrm{Muk}}(K3)$. Primary: Borcherds 1992, Bruinier 2002 LNM 1780 Prop.~5.1, Mukai 1987. & Same five-element set, restated identically (Vol~II CLAUDE.md line 50--54) on the $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype ceiling. & Same five-element set, with $\mathsf{B}$-row populated by $\mathbf{H}_{\Delta_5}$-chamber via Bruinier Heegner Chern-class reciprocity ($K^{\kappa_{\mathrm{ch}}} = 8$) on $K3 \times E$. & Coherent \\[1.5ex]
+Thm~D (obstruction-tower universality) & $\mathrm{obs}_g(\cA) = \kappa(\cA)\cdot\lambda_g$ on the uniform-weight lane. Primary: Faber--Pandharipande 2000. & Imported for the topologisation ladder $k$-tower. & CY-D: $\kappa_{\mathrm{ch}}$ stratification by dimension, $\kappa_{\mathrm{ch}}$ supertrace identification on compact CY$_d$. & Coherent at $g=1$; $g \geq 2$ is cross-family FP \\[1.5ex]
+Thm~H (Hochschild concentration) & $\ChirHoch^\bullet(A)$ concentrated in $\{0,1,2\}$ at non-critical level. Primary: derived from chiral Deligne conjecture. & $E_3$-rigidity: cohomological $\Ethree$-action all-chiral; chain-level on non-critical level. & Imports Thm~H; $\Phi_d$-image at $d \geq 3$ is $\Eone$-chiral, Drinfeld centre is the $\Etwo$-upgrade. & Coherent \\[1.5ex]
+$\kappa_{\mathrm{cat}}(K3 \times E)$ & Defined as $\chi(\cO_{K3 \times E})$, K\"unneth-multiplicative on products. & Not directly referenced. & $= \chi(\cO_{K3 \times E}) = 2 \cdot 0 = 0$; the total-space Euler characteristic, \emph{not} the K3 fibre value $2$. & Coherent: forbidden conflation is flagged AP-CY-style \\[1.5ex]
+$\kappa_{\mathrm{ch}}(K3 \times E)$ & $\Phi_3(D^b\Coh(K3 \times E))$ image. & Same construction, $d=3$, $\Eone$-output. & $=3$ (Mukai-refined Hodge supertrace; see \texttt{cy\_d\_kappa\_stratification.tex}). & Coherent \\[1.5ex]
+$\kappa_{\mathrm{BKM}}(\Phi_N)$ universal & Used as Borcherds weight of $\Phi_N$; $c_N(0)/2$. Primary: Borcherds 1995, Gritsenko 1999. & Not directly referenced in main text. & $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ across $N \in \{1,2,3,4,6\}$; $N=1$ gives $\Delta_5$ weight $5$. & Coherent \\[1.5ex]
+$K3 \times E$ spectrum $\{2,3,5,24\}$ & Not the Vol~I native landscape, but landscape\_census records $\mathcal{H}_{\mathrm{Muk}}(K3)$ with $\kappa_{\mathrm{fiber}} = 24$ / $K^{\kappa_{\mathrm{ch}}} = 8$; cross-ref to Vol~III. & Not native. & Four \emph{distinct constructions}: Mukai lattice (rank 24), Igusa $\Phi_{10}$ via Gritsenko $\Delta_5$ (weight 5), BKM Borcherds weight ($c_1(0)/2=5$), K3 fibre rank (2). \texttt{working\_notes.tex} \S2996, \S8020. & Coherent at the level of ``four distinct constructions''; see Attack--Heal \#2 below for the spectrum-set ambiguity. \\[1.5ex]
+$\mathsf{SC}^{\mathrm{ch,top}}$ Swiss-cheese & Invoked as Thm~H / factorisation-homology framework. & Primary object: two-coloured dioperad $\mathsf{SC}^{\mathrm{ch,top}}$, chain-level bar differential = holomorphic factorisation, coproduct = topological factorisation. Primary: Vol~II CLAUDE.md lines 21--27. & Imported as the operadic framework for the $\Etwo$-bar complex of working\_notes \S1728--1737. Three sectors $(B_{\Eone}, B_{\Etwo}, B_{\Einf})$. & Coherent; see Attack--Heal \#3 for the two-coloured-vs-three-sector reframing. \\[1.5ex]
+Costello--Francis--Gwilliam $E_3$ observables & Referenced as factorisation-algebra-of-observables machinery. & Treated as bulk $\Ethree$-topological factorisation structure on holomorphic-topological theories (\texttt{bar-cobar-review.tex}:4540). & Treated as the $\Ethree$-algebra of $6\mathrm{d}$ holomorphic observables on $\C^3$ (\texttt{quantum\_chiral\_algebras.tex}:227--243), \emph{not} the 3D HT $\Ethree$-topological bulk of Vol~II. & Coherent once the $n$-vs-$d$ scope is declared; see Attack--Heal \#1. \\
+\bottomrule
+\end{longtable}
+
+\section{Attack--Heal \#1: Costello--Francis--Gwilliam $E_3$ ambiguity}
+\label{sec:ah1-cfg}
+
+\paragraph*{Ghost theorem.} \textit{The CFG factorisation-homology programme assigns a single $\Ethree$-algebra to every theory of either $3$-real-dimensional topological type or holomorphic-topological type, and this $\Ethree$-algebra is the same object across Vol~II ($3$D HT QFT bulk) and Vol~III ($6$D holomorphic on $\C^3$).}
+
+\paragraph*{Precise error.} \textit{False as stated.} There are \emph{two} different $\Ethree$-structures, and they live on different objects:
+\begin{enumerate}
+\item Vol~II's $\Ethree$: \emph{topological} factorisation algebra of bulk observables on the $\R$-direction of a 3D HT theory on $C \times \R$, with the chiral direction $C$ forgotten. Reference: \texttt{chiral-bar-cobar-vol2/chapters/connections/brace.tex}:180--188 (``$\Ethree$-rigidity'' in two regimes), \texttt{bar-cobar-review.tex}:4540 (``bulk $\Ethree$-topological factorisation algebra''), \texttt{celestial\_holography.tex}:2018--2028.
+\item Vol~III's $\Ethree$: \emph{holomorphic-chiral} factorisation algebra on a $3$-complex-dimensional Calabi--Yau, each complex direction contributing one chiral level. Reference: \texttt{calabi-yau-quantum-groups/chapters/theory/en\_factorization.tex}:449--500, \texttt{quantum\_chiral\_algebras.tex}:227--243.
+\end{enumerate}
+
+The shared scope qualifier from Vol~III \texttt{en\_factorization.tex}:449 is explicit: ``The $\Eone$ stabilization theorem\dots concerns the CY-to-chiral correspondence programme $\{\Phi_d\}$ and shows that $d \geq 3$ produces at most $\Eone$-chiral algebras. A distinct source of higher $\En$ structure exists: the holomorphic Chern--Simons programme of Costello and Costello--Francis--Gwilliam, where the $\En$ level is set by the \emph{complex dimension of the ambient space}, not by the CY dimension of the category.''
+
+\paragraph*{Correct relationship.} The two $\Ethree$-structures \emph{both live on categories of observables, not on the chiral algebra $\cA_X$ itself}:
+\begin{itemize}
+\item Vol~II's $\Ethree$ acts on $\ChirHoch^\bullet(\cA)$ (higher Deligne), and records the topologisation ladder reaching $\Ethree$ from $N=2$ inner stress tensors (Vol~II CLAUDE.md line 32).
+\item Vol~III's $\Ethree$ acts on $\mathrm{Obs}(X)$ for $X = \C^3$ (complex-dimensional observables), and restricts to the $\Eone$-chiral $\Phi_3(\cC)$ only through the $\Ethree \to \Eone$ boundary-to-bulk projection.
+\end{itemize}
+
+\noindent They are compatible via the bulk-boundary correspondence: Vol~I Thm~H (derived-centre/Hochschild) and Vol~II bulk--boundary duality connect observables-side $\Ethree$ with algebra-side $\Eone$ (Vol~III \texttt{en\_factorization.tex}:449 final clause). Neither subsumes the other.
+
+\paragraph*{Resolution.} No edit to \texttt{working\_notes.tex} is required; \S1731 is already careful (``Swiss-cheese structure $\mathsf{SC}^{\mathrm{ch,top}}$ provides the operadic framework for the $\Etwo$ bar complex''). The potential tension is only at the level of labelling: the Vol~III $E_3$ passage at $\C^3$ is the CFG 6D-holomorphic construction, not the Vol~II 3D HT construction; both coexist with explicit scope qualifier.
+
+\section{Attack--Heal \#2: $K3 \times E$ spectrum — is $\{2,3,5,24\}$ the same as the Vol~I B-row witness $K^{\kappa_{\mathrm{ch}}}=8$?}
+\label{sec:ah2-k3xE}
+
+\paragraph*{Ghost theorem.} \textit{The Vol~III spectrum $\{2,3,5,24\}$ for $K3 \times E$ and the Vol~I Mukai-doubling witness $K^{\kappa_{\mathrm{ch}}} = 8$ on $\mathcal{H}_{\mathrm{Muk}}(K3)$ are both enumerations of the same underlying five-archetype complementarity data.}
+
+\paragraph*{Precise error.} \textit{False.} The Vol~I five-element set $\{0, 8, 13, 250/3, 98/3\}$ is the complementarity-sum range on the five-archetype ceiling $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$; the Vol~III set $\{2,3,5,24\}$ is the set of $\kappa_{\bullet}$-values attached to \emph{four different constructions} on the \emph{single geometry} $K3 \times E$. These are different mathematical sets with different meanings:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.20}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Entry & Vol~I $\{0, 8, 13, 250/3, 98/3\}$ & Vol~III $\{2, 3, 5, 24\}$ \\
+\midrule
+Type & Complementarity-sum $\kappa + \kappa^!$ & $\kappa_\bullet$ per construction \\
+Domain & Five archetype witnesses & One geometry $K3 \times E$ \\
+Witnesses & $\mathcal{H}/\widehat\fg_k/\beta\gamma/\mathrm{Vir}/\mathcal{H}_{\mathrm{Muk}}(K3)$ & Mukai/$\Delta_5$/BKM/fibre \\
+Entry $24$ & --- & $\kappa_{\mathrm{fiber}}$ (K3 Mukai rank) \\
+Entry $5$ & --- & $\kappa_{\mathrm{BKM}}(\Phi_1) = c_1(0)/2 = 5$ \\
+Entry $3$ & --- & $\kappa_{\mathrm{ch}}(\Phi_3(D^b\Coh(K3\times E)))$ \\
+Entry $2$ & --- & $\kappa_{\mathrm{cat}}(K3)=\chi(\cO_{K3})$ (K3 fibre) \\
+Entry $8$ & $K^{\kappa_{\mathrm{ch}}} = 2c_+(\mathrm{Mukai}(K3))$ & --- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph*{Correct relationship.} The two sets \emph{do} interact: $\mathrm{Mukai}(K3)$ has signature $(4, 20)$, so the K3 fibre rank $24 = 4 + 20$ feeds into the Mukai-doubling $K^{\kappa_{\mathrm{ch}}} = 2c_+ = 8$ of Vol~I's $\mathsf{B}$-row. The entry $8$ in $\{0, 8, 13, 250/3, 98/3\}$ is derived from the entry $24$ in $\{2, 3, 5, 24\}$ via
+\[
+K^{\kappa_{\mathrm{ch}}} = 2\,c_+\bigl(\mathrm{Mukai}(K3)\bigr) = 2 \cdot \tfrac{1}{2}(\kappa_{\mathrm{fiber}}(K3) - 16) = \kappa_{\mathrm{fiber}}(K3) - 16 = 24 - 16 = 8.
+\]
+Primary witnesses: Mukai 1987 \emph{Nagoya Math.\ J.}~81 (lattice doubling); Bruinier 2002 LNM 1780 Proposition 5.1 (Heegner divisor Chern-class reciprocity); Vol~I \texttt{landscape\_census.tex}:5282--5314; Vol~III \texttt{k3\_chiral\_bialgebra\_platonic.tex}:2828--2878 (Theorem \texttt{thm:humbert-order-K-kappa}, the ``three faces of $8$'').
+
+\paragraph*{Resolution.} The two sets are \emph{not} the same and should never be conflated. \texttt{working\_notes.tex} \S2996 writes ``$\mathrm{Spec}_{\kappa_{\mathrm{ch}}} = \{2, 3, 5, 24, \ldots\}$'' which is internally consistent with the four-constructions interpretation (the ``$\ldots$'' honestly admits non-closure). \S6395 and \S8020 record the spectrum at matching scope. Flag minor drift: \S19770 writes ``K3-fibre-rank entry of $\{2, 3, 5, 24\}$'' (correct attribution). No surface conflict against Vol~I, provided the Vol~III reader reads $\{2,3,5,24\}$ as ``four-constructions'' and not as ``five-archetype ceiling.''
+
+\section{Attack--Heal \#3: Swiss-cheese three-sector identification}
+\label{sec:ah3-swiss}
+
+\paragraph*{Ghost theorem.} \textit{Vol~II's Swiss-cheese $\mathsf{SC}^{\mathrm{ch,top}}$ is the three-sector $(\Eone, \Etwo, \Einf)$ bar complex of Vol~III \S1728--1737.}
+
+\paragraph*{Precise error.} \textit{False.} Vol~II CLAUDE.md lines 20--27 and 215--216 explicitly state:
+\begin{itemize}
+\item $\mathsf{SC}^{\mathrm{ch,top}}$ is a \emph{two-coloured dioperad} (bulk + boundary), not a three-sector stratification.
+\item ``$\mathsf{SC}^{\mathrm{ch,top}}$ is a 2-coloured dioperad with directional restriction; Dunn additivity does \emph{not} apply.''
+\end{itemize}
+Vol~III \texttt{working\_notes.tex} \S1731 reads the three-sector identification against it as
+\[
+B_{\Eone} \text{ (ordered)}, \quad B_{\Etwo} \text{ (braided, $R$-matrix)}, \quad B_{\Einf} \text{ (symmetric, Vol~I shadow tower)}.
+\]
+
+\paragraph*{Correct relationship.} These are compatible: $\mathsf{SC}^{\mathrm{ch,top}}$'s two colours stratify into three bar-complex flavours $(B_{\Eone}, B_{\Etwo}, B_{\Einf})$ via the open/boundary/closed decomposition the two-coloured structure induces on the factorisation data. The ``open sector $B_{\Eone}$'' and ``closed sector $B_{\Einf}$'' are the two colours of the dioperad; the ``boundary sector $B_{\Etwo}$'' is the interface data supplied by the directional restriction. Vol~II Pattern 277 declares this scope: ``$\mathsf{SC}^{\mathrm{ch,top}}$ vs $E_3$ conflation'' is a scope declaration, not a hierarchy.
+
+\paragraph*{Resolution.} The Vol~III bulletted three-sector dictionary at \S1731--1735 is faithful to the two-coloured structure provided one reads it as ``the three bar complexes each capture one graded piece of the two-coloured factorisation data.'' No edit needed, but the text would gain from the clarifying parenthetical ``three graded pieces of the two-coloured dioperad $\mathsf{SC}^{\mathrm{ch,top}}$''; pure bookkeeping, logged not-acted.
+
+\section{Attack--Heal \#4: Thm~C $\mathsf{B}$-row Mukai witness identity}
+\label{sec:ah4-thmC-B-row}
+
+\paragraph*{Ghost theorem.} \textit{Vol~I's $\{0, 8, 13, 250/3, 98/3\}$ ceiling is a closed list \emph{independent} of Vol~III's Mukai-K3 geometry.}
+
+\paragraph*{Precise error.} \textit{False.} The fifth element $8$ in the Vol~I ceiling is \emph{defined as} the Vol~III Mukai-K3 witness. Vol~I \texttt{landscape\_census.tex}:1804--1812 writes:
+
+\begin{quote}
+the $\mathcal{B}$-family entry records Mukai doubling on the Mukai-enhanced K3 category $D^b\mathrm{Coh}(K3)$ with rank-$24$ Mukai pairing of signature $(4,20)$, positive central charge $c_+(\mathrm{Mukai}(K3))=4$, and $K^{\kappa_{\mathrm{ch}}} = 2c_+(\mathrm{Mukai}(K3)) = 8$ via the Beilinson--Drinfeld Koszul-conductor identity; Vol~III Chapter \texttt{ch:k3-chiral-bialgebra-platonic} Remark \texttt{rem:mukai-doubling-K-kappa} pins $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$ to the Lusztig specialisation $\ell = 8$, matching the order-$8$ monodromy of the Humbert divisor $H_1 \subset \overline{\mathcal{A}_2}$.
+\end{quote}
+
+\paragraph*{Correct relationship.} The $\mathsf{B}$-row entry is a \emph{cross-volume theorem}: Vol~I asserts the entry exists; Vol~III supplies the actual witness via Bruinier's Heegner Chern-class reciprocity.
+\begin{itemize}
+\item Vol~III \texttt{k3\_chiral\_bialgebra\_platonic.tex}:2828--2878, Theorem \texttt{thm:humbert-order-K-kappa}: the three faces of $8$ (Mukai face: $8 = 2c_+(\mathrm{Mukai}(K3))$; monodromy face: order of local monodromy of $\mathcal{L}^{\Delta_5}|_{H_1}$; Lusztig face: $\ell = 8$ root-of-unity specialisation).
+\item Vol~III \texttt{k3\_chiral\_bialgebra\_platonic.tex}:1465--1481, Remark \texttt{rem:mukai-doubling-K-kappa}.
+\item Primary: Bruinier 2002 LNM 1780 Proposition 5.1, Theorem 3.22; Mukai 1987 \emph{Nagoya Math.\ J.}~81.
+\end{itemize}
+
+\paragraph*{Resolution.} This is a \emph{load-bearing} cross-volume dependency. Vol~III's Theorem \texttt{thm:humbert-order-K-kappa} is a primary-witness contribution to Vol~I's Thm~C five-archetype ceiling. Both sides agree verbatim. Coherent.
+
+\section{Attack--Heal \#5: CY-B $d$-dependence (scope \#8)}
+\label{sec:ah5-CY-B}
+
+\paragraph*{Ghost theorem.} \textit{Vol~III's CY-B ($\Etwo$-chiral Koszul duality, $\Phi_d$ output scope) and Vol~I's shadow-tower/denominator-identity are the same theorem.}
+
+\paragraph*{Precise error.} \textit{False.} CY-B is the Vol~III claim at the level of the motivic Hall algebra generating series: ``automorphic correction $=$ shadow obstruction tower; denominator identity $=$ bar Euler product.'' \texttt{working\_notes.tex}:190 reads: ``\emph{at the level of motivic Hall algebra generating series; naive series-level equality requires CY-A.}''
+
+Vol~I landscape\_census does not carry a ``CY-B'' label; it carries the shared shadow tower + denominator theorem as the $g=1$ instance of Theorem~D applied to the $B_\Einf$ Euler product. The identification ``shadow obstruction tower $=$ automorphic correction'' is a CY-specific reading of Vol~I's universal $\operatorname{obs}_g = \kappa_{\mathrm{ch}} \cdot \lambda_g$ formula, with the automorphic frame imposed only in Vol~III.
+
+Primary: Borcherds 1995 (Monstrous Moonshine and monstrous Lie superalgebras); Gritsenko 1999 (Modular Forms and Moonshine); Vol~I \texttt{higher\_genus\_complementarity.tex}:6590 which makes the identification explicit ($\Phi_{10}$ factorisation, $\kappa_{\mathrm{BKM}}(\mathfrak{g}_{\Delta_5}) = c_\Lambda(0)/2 = 5$).
+
+\paragraph*{Correct relationship.} CY-B \emph{refines} Thm~D at compact CY$_d$ with a BKM denominator: it asserts that the $\operatorname{obs}_g$ series is \emph{identified} with a specific Borcherds product, not merely of the shape $\kappa_{\mathrm{ch}} \cdot \lambda_g$. This is a CY-specific strengthening (at $K3 \times E$, $\operatorname{obs}_g = 1/\Phi_{10}$; at $\C^3$, $\operatorname{obs}_g = 1/M(q)$ MacMahon).
+
+\paragraph*{Status.} CY-B remains conjectural at the series-level equality: Vol~III \texttt{working\_notes.tex}:190 explicitly flags this. Coherent, but with downgraded claim status at the automorphic-equality level.
+
+\section{Attack--Heal \#6 (bonus): K\"unneth multiplicativity on $\kappa_{\mathrm{cat}}$}
+\label{sec:ah6-kunneth}
+
+\paragraph*{Ghost theorem.} \textit{$\kappa_{\mathrm{cat}}(K3 \times E) = \kappa_{\mathrm{cat}}(K3) = 2$ is a coherent reading.}
+
+\paragraph*{Precise error.} \textit{False.} $\kappa_{\mathrm{cat}}$ is defined as $\chi(\cO_X)$, which K\"unneth-multiplies, not adds, on products. $\chi(\cO_{K3 \times E}) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$. CLAUDE.md key fact flagged: ``$\kappa_{\mathrm{cat}}(K3 \times E) = 0$ (total space, K\"unneth-multiplicative), NOT 2 (fibre).''
+
+\paragraph*{Correct relationship.} The K3-fibre value $2$ appears in the Vol~III spectrum $\{2, 3, 5, 24\}$ precisely as $\kappa_{\mathrm{cat}}(K3)$, the \emph{fibre} datum --- not as $\kappa_{\mathrm{cat}}(K3 \times E)$. This is the origin of the four-constructions presentation: the entry $2$ is the K3-fibre categorical Euler, \emph{not} a total-space invariant of $K3 \times E$.
+
+Vol~III \texttt{k3e\_cy3\_programme.tex}:3773 nails this: ``K\"unneth multiplicativity for coherent cohomology (Hartshorne Ch.\ III Prop.\ 8.5) combined with $\chi(\cO_E) = 0$ (elliptic curve) and $\chi(\cO_{K3}) = 2$ (K3 Hodge diamond). This is the total-space categorical invariant.''
+
+\paragraph*{Status.} Vol~III flags this as AP-CY-5 (forbidden K\"unneth-additive conflation). Coherent.
+
+\section{Cross-volume citation-chain audit for \texttt{working\_notes.tex} \S1700--1751}
+
+\begin{itemize}
+\item \S1706--1726 ``Shadow tower identification'': Vol~I objects map to CY3 specialisations. Primary sources: Faber--Pandharipande 2000 (universality), Borcherds 1992, Gritsenko--Nikulin 1998 ($\Delta_5$), Kontsevich--Soibelman 2008 (DT series). Coherent.
+\item \S1728--1737 ``Swiss-cheese and the $\Etwo$ bar complex'': Vol~II $\mathsf{SC}^{\mathrm{ch,top}}$ is the operadic framework; three-sector reading is compatible with the two-coloured dioperad via open/boundary/closed stratification (Attack--Heal \#3). Primary: Costello--Gwilliam 2021, Francis--Gaitsgory 2012.
+\item \S1739--1748 ``Completed modular Koszul datum for CY3'': eight-fold datum $\Pi^{\mathrm{oc}}_X(A)$ specialises. Primary: Positselski 2011, Kapranov--Manin 2001, Kontsevich--Soibelman 2008.
+\item \S2334--2446 content heatmap: 16 Vol~III chapters mapped to Vol~I/II sources; proved/conjectural/heuristic status marked. Coherent with CLAUDE.md epistemic hierarchy.
+\end{itemize}
+
+\section*{Summary: cross-volume tensions detected and resolved}
+
+Six attack--heal pairs completed. Zero genuine theorem-level conflicts detected; five label/scope ambiguities resolved at the semantic level:
+
+\begin{enumerate}
+\item CFG $\Ethree$: Vol~II bulk topological vs Vol~III 6D holomorphic --- \emph{two different structures}, both load-bearing, scope declared via Vol~III \texttt{en\_factorization.tex}:449.
+\item $K3 \times E$ spectra: $\{0,8,13,250/3,98/3\}$ (Vol~I archetype ceiling) vs $\{2,3,5,24\}$ (Vol~III four constructions) --- different sets, bridged by Mukai doubling $K^{\kappa_{\mathrm{ch}}} = 2c_+ = 8$.
+\item Swiss-cheese: Vol~II two-coloured dioperad vs Vol~III three-sector bar complex --- two colours stratify into three graded pieces.
+\item Thm~C $\mathsf{B}$-row: load-bearing cross-volume witness; Vol~I ceiling supplied by Vol~III Theorem \texttt{thm:humbert-order-K-kappa} via Bruinier Heegner reciprocity + Mukai doubling.
+\item CY-B: refines Vol~I Thm~D with a CY-specific automorphic-equality strengthening; remains conjectural at the series-level.
+\item $\kappa_{\mathrm{cat}}(K3 \times E) = 0$ (total-space K\"unneth-multiplicative), not $2$ (fibre); the fibre value is a separate datum in the $\{2,3,5,24\}$ constructions.
+\end{enumerate}
+
+All six pairs reduce to \emph{scope qualifiers} in CLAUDE.md terms, not mathematical retractions. The five-theorem core A/B/C/D/H is stated identically across Vol~I (CLAUDE.md line 44--50) and Vol~II (CLAUDE.md line 48--54) and imported by Vol~III (CLAUDE.md ``Five theorems (shared with Vol~I)''). The five-element set $\{0, 8, 13, 250/3, 98/3\}$ matches verbatim across Vol~I landscape\_census.tex:1800, Vol~II CLAUDE.md:52, Vol~III CLAUDE.md. The $\mathsf{B}$-row witness is the Mukai-enhanced K3 Heisenberg with $K^{\kappa_{\mathrm{ch}}} = 8$ via Bruinier Heegner Chern-class reciprocity; both Vol~I and Vol~III state this identically.
+
+\section*{Cache append (per protocol)}
+
+\begin{itemize}
+\item AP-CY (candidate: AP-CY65) --- ``CFG $E_3$ scope: Vol~II bulk topological vs Vol~III 6D holomorphic --- two different $\Ethree$-structures, same CFG authors, scope-declared via complex-dimension vs R-dimension.''
+\item AP-CY (candidate: AP-CY66) --- ``$\{2,3,5,24\}$ vs $\{0,8,13,250/3,98/3\}$ --- Vol~III four-constructions spectrum vs Vol~I five-archetype ceiling; bridged by Mukai doubling $24 \to 8 - 16$ (matching test: $2 c_+ = 2\cdot 4 = 8$).''
+\item AP-CY (candidate: AP-CY67) --- ``Swiss-cheese two-coloured vs three-sector: different surface presentations of the same content; Vol~III three-bar-complex reading is the open/boundary/closed stratification of Vol~II dioperad.''
+\end{itemize}
+
+\end{document}

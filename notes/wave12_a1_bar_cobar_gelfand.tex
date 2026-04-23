@@ -1,0 +1,1105 @@
+% wave12_a1_bar_cobar_gelfand.tex
+% Adversarial assault and rigorous reconstruction of the bar--cobar
+% foundations and CY-A_3 for Vol~III. Five attack<->heal cycles.
+% Channels: I.~M.~Gelfand, directness; Beilinson, dismissal of the false;
+% Costello--Francis--Gwilliam, factorisation-algebra primary source.
+% Companion: working_notes.tex Sections ``coderived status'',
+% cy_to_chiral.tex Theorems thm:cy-to-chiral, thm:cy-to-chiral-d3,
+% thm:derived-framing-obstruction, Prop:bar-ce-chiral.
+
+\providecommand{\ClaimStatusTheorem}{\textsuperscript{\textsc{[th]}}}
+\providecommand{\ClaimStatusConjectured}{\textsuperscript{\textsc{[cj]}}}
+\providecommand{\ClaimStatusDerivation}{\textsuperscript{\textsc{[dv]}}}
+\providecommand{\ClaimStatusFalsified}{\textsuperscript{\textsc{[fx]}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\Conv}{\mathrm{Conv}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\Einf}{E_\infty}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Ainf}{A_\infty}
+\providecommand{\Linf}{L_\infty}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\RHom}{\mathrm{RHom}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\fL}{\mathfrak{L}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\Alg}{\mathrm{Alg}}
+\providecommand{\barB}{\overline{B}}
+\providecommand{\barA}{\overline{A}}
+\providecommand{\Zder}{Z^{\mathrm{der}}_{\mathrm{ch}}}
+\providecommand{\Dg}[1]{D_{\mathrm{g=#1}}}
+\providecommand{\Heis}{\mathrm{Heis}}
+
+\section*{Adversarial reconstruction of $\Omega \circ B = \mathrm{id}$, of
+  $B(U^{\mathrm{ch}}(\fL)) \simeq \CE_*(\fL)$, and of CY-A$_3$}
+
+\subsection*{Gelfand's discipline}
+
+A theorem is one identity. Either it holds on the nose, or it
+holds up to a controlled homotopy, or it does not hold. A statement
+that has not been reduced to the first two shapes is not yet a
+theorem. We work through the bar--cobar foundations of Vol~III by
+asking, of each equality sign, which of the three it is, and under
+what precise hypothesis on the input. The exercise falsifies three
+standing formulations, sharpens four proofs, and exposes one
+irreducible gap.
+
+% ============================================================
+\section*{Cycle 1. $\Omega(B(A)) \simeq A$ --- when, on the nose?}
+% ============================================================
+
+\paragraph{Attack.} Vol~I Theorem~A constructs an adjunction
+$\Omega \dashv B$ between chiral algebras and coaugmented conilpotent
+chiral coalgebras on $\Ran(X)$; Vol~I Theorem~B asserts the counit
+$\psi \colon \Omega(B(\cA)) \xrightarrow{\sim} \cA$ is a
+quasi-isomorphism \emph{on the Koszul locus}. Vol~III invokes the
+inversion identity repeatedly in the CY-to-chiral construction
+(Theorem~\ref{thm:cy-to-chiral-d3}; Proposition~\ref{prop:en-envelope-preservation}).
+The hypothesis ``Koszul locus'' is not an empty restriction:
+it is a \emph{genus-zero bar-cohomology concentration} statement.
+The adversarial question is: does the inversion hold for
+the chiral avatar of a Calabi--Yau origin, and in which dimension?
+
+Falsification attempt. Take $\cA = \cH_{\mathrm{Muk}}$, the rank-$24$
+Mukai Heisenberg VOA over a K3 surface.  Over a genus-$0$ curve, the
+bar complex $B^{(0)}(\cA)$ has $m_0^{(0)} = 0$ and the cobar counit
+is a qi by Vol~I, Theorem~B. Over a genus-$g$ curve,
+$m_0^{(g)} = \kch \cdot \omega_g$ with $\kch = 2$, so the bar
+differential acquires a nonzero curvature. The inversion
+identity then moves from the category of chiral dg-coalgebras on
+$\Ran$ to Positselski's coderived category
+$D^{\mathrm{co}}(A)$. In this larger category, the
+adjunction \emph{survives}; in the smaller derived category, it
+does not. The abstract curved-coderived Quillen equivalence of
+Booth--Lazarev (arXiv:2304.08409) is a theorem of associative
+chain-complexes; it does not automatically descend to the
+Ran-space / factorisation-structure setting.
+
+\paragraph{Heal.}
+
+\begin{theorem}[Scope of chiral inversion, genus-stratified]
+\label{thm:gelfand-inversion-genus}
+\ClaimStatusDerivation{}
+Let $\cA$ be an augmented chiral algebra on a smooth complex curve
+$C$ of genus $g$, with modular characteristic $\kch = \kch(\cA)$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item\label{inv:g0} At $g = 0$: if $\cA$ is Koszul
+(i.e.\ $H^{\geq 2} \barB(\cA) = 0$ over the genus-$0$ curve), the
+counit
+$\psi \colon \Omega(B(\cA)) \to \cA$
+is a quasi-isomorphism in the ordinary derived category of chiral
+algebras on $\Ran(C)$. The identity is on the nose at the
+$\infty$-categorical level and up to an explicit Koszul-inversion
+homotopy at the chain level.
+
+\item\label{inv:ghigher} At $g \geq 1$ with $\kch \neq 0$: the
+genus-$g$ bar complex $\barB^{(g)}(\cA)$ is \emph{curved} with
+curvature $m_0^{(g)} = \kch \cdot \omega_g \neq 0$. The
+ordinary derived category of chiral dg-coalgebras on $\Ran(C)$
+does not house this datum. The inversion identity is
+well-formed only in a coderived category $D^{\mathrm{co},g}(\cA)$
+in the sense of Positselski.
+
+\item\label{inv:chiral-bl} The extension of the Booth--Lazarev
+curved Quillen equivalence (associative chain-complexes) to
+chiral dg-coalgebras on $\Ran(C)$ is \emph{conditional} on
+three chiral instantiation steps (Sections C1--C2 of
+\texttt{working\_notes.tex} Subsection~\ref{subsec:coderived-status}):
+coaugmented conilpotence in the curved chiral setting; coderived
+model structure on curved chiral factorisation coalgebras;
+Quillen-equivalence of the curved chiral bar--cobar adjunction in
+this model structure. In Vol~III these steps remain open.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Derivation (\ref{inv:g0}).]
+The chiral bar $B = \Omegach_\infty$ is the left adjoint to the
+forgetful functor from coaugmented conilpotent chiral coalgebras to
+chiral algebras, in the $\infty$-categorical sense of Beilinson--Drinfeld
+\S 3.7, as refined by Francis--Gaitsgory (arXiv:1106.4309,
+Theorem~3.3.1). Koszulness is the statement that $H^*(\barB\cA)$ is
+concentrated in homological degree~$1$; under this hypothesis, the
+Verdier dual on $\Ran(C)$ intertwines bar with cobar in the
+standard sense (Beilinson--Drinfeld Proposition~3.7.22), and the
+counit is a qi by spectral-sequence degeneration of the bar
+filtration.
+\end{proof}
+
+\begin{proof}[Derivation (\ref{inv:ghigher}).]
+Fix $\cA$ with $\kch(\cA) \neq 0$. The genus-$g$ bar
+complex on $C$ of genus $g \geq 1$ is
+$\barB^{(g)}(\cA) = p_* \bigl(T^c(s^{-1}\bar{\cA})\bigr)$, where
+$p \colon \Ran(C) \to \mathrm{pt}$ is the global-sections functor
+and the coproduct is deconcatenation. The bar differential on
+$B^{(g)}(\cA)$ decomposes as
+$d^{(g)} = d_0 + d_1 + d_2 + \cdots$, with $d_k$ the $k$-ary
+component of the chiral product pulled through $p_*$. The
+ambient $\partial^2 = 0$ on $\overline{\cM}_{g,n}$ gives
+$\bigl(d^{(g)}\bigr)^2 = 0$ globally (\texttt{thm:ambient-d-squared-zero}
+in \texttt{working\_notes.tex}). The genus-$0$ piece $d_0$ is,
+tautologically, zero on a genus-$0$ curve; at $g \geq 1$ it equals
+$\kch(\cA) \cdot \omega_g$ with $\omega_g$ the fundamental class
+of $\overline{\cM}_{g,1}$.  Non-vanishing of $d_0$ is the statement
+that the bar complex is curved: $d_1^2 \neq 0$ generically,
+$d_1^2 = [d_0, -]_{d_2}$. This is Positselski's curved dg setting;
+the ordinary derived category is inadequate.
+\end{proof}
+
+\begin{proof}[Derivation (\ref{inv:chiral-bl}).]
+Booth--Lazarev (arXiv:2304.08409, Theorems~A--B) construct a
+curved Quillen equivalence
+$\Omega^{\mathrm{cu}} \dashv B^{\mathrm{cu}}$
+between cofibrant-ly generated model categories of curved
+associative algebras and conilpotent curved coalgebras over a
+characteristic-zero field, resolving the model-structural obstacle
+of Lef\`evre-Hasegawa. This is a theorem in the \emph{1-categorical}
+chain-complex setting. The chiral upgrade requires:
+\begin{itemize}
+\item[(C1)] Coaugmented conilpotence in the chiral setting. A
+curved chiral coalgebra on $\Ran(C)$ must be coaugmented with
+respect to the unit chiral coalgebra $\omega_{\Ran}$, with
+conilpotent filtration by factorisation depth. Positselski's
+conilpotence is preserved; the Ran-space compatibility is the
+open step.
+
+\item[(C2)] Coderived model structure on
+$\mathrm{CoFact}^{\mathrm{cu}}(\Ran(C))$. The chiral-algebraic
+model structure of Francis--Gaitsgory is built on the small object
+argument applied to a generating set of factorisation acyclics;
+this must be upgraded to handle the curved piece of the
+differential.
+
+\item[(C3)] Quillen equivalence.  Assuming (C1), (C2), the
+Booth--Lazarev argument transports to the chiral setting by the
+universal property of the twisted tensor product, with the
+caveat that the chiral convolution algebra
+$\Conv^{\mathrm{ch}}(\cC, \cA)$ is not a dg Lie algebra but an
+$\Linf$-algebra on $\Ran(C)$; the $\Linf$ form of
+Maurer--Cartan is the governing equation.
+\end{itemize}
+Until C1--C2 are established, \ref{inv:chiral-bl} is a
+conditional theorem: the inversion holds in the chiral
+coderived category, provided the chiral coderived category is
+constructed.
+\end{proof}
+
+\paragraph{Falsification record.}
+\begin{itemize}
+\item
+\textsc{Falsified}: the reading of Vol~I Theorem~B as a
+``universal chiral inversion''. It is a Koszul-locus statement;
+off the Koszul locus the natural statement requires the coderived
+category and the chiral instantiation is open.
+
+\item
+\textsc{Falsified}: the reading of Booth--Lazarev as supplying the
+chiral curved Quillen equivalence. Booth--Lazarev is the
+associative chain-complex template; the Ran-factorisation
+upgrade is an additional theorem not yet written down.
+
+\item
+\textsc{Survives}: the genus-$0$ Koszul-locus inversion
+$\Omega(B(\cA)) \simeq \cA$ as a quasi-isomorphism in the
+derived category of chiral algebras.
+\end{itemize}
+
+% ============================================================
+\section*{Cycle 2. $B(U^{\mathrm{ch}}(\fL)) \simeq \CE_*(\fL)$}
+% ============================================================
+
+\paragraph{Attack.} Proposition~\ref{prop:bar-ce-chiral} of
+\texttt{chapters/theory/cy\_to\_chiral.tex} asserts
+\[
+  B\bigl(U^{\mathrm{ch}}(\fL)\bigr) \simeq \CE_*(\fL)
+\]
+as the chiral avatar of the classical identification
+$B(U(\fg)) \simeq \CE_*(\fg)$. The proposition is marked
+\texttt{ClaimStatusProvedHere}; the proof body is ``verification''
+in \texttt{chiral\_ce\_complex.py}.  A computed verification is
+not a proof. From the classical Chevalley--Eilenberg--Cartan
+foundation, the identification $B(U\fg) \simeq \CE_*(\fg)$ rests
+on three ingredients: (i) PBW for $U\fg$; (ii) conilpotence of
+$B(U\fg)$; (iii) identification of the bar differential with the
+CE differential via the symmetrisation map
+$\Sym\fg \hookrightarrow U\fg$. Each ingredient must be
+transported, not assumed, to the Lie conformal setting.
+
+Falsification attempt. PBW for $U^{\mathrm{ch}}(\fL)$ holds, by
+classical De Sole--Kac (JGP 2005) and the cited Frenkel--Ben-Zvi,
+Theorem 3.4.8. Conilpotence of the bar coalgebra is a formal
+consequence of the cofree construction. Ingredient (iii) is
+non-trivial: the CE differential on $\bigwedge^* \fL$ is built
+from the $\lambda$-bracket, while the bar differential on
+$B(U^{\mathrm{ch}}\fL) = T^c(s^{-1}\overline{U^{\mathrm{ch}}\fL})$
+is built from the entire vertex-algebra product, which carries
+\emph{higher normally-ordered terms} not reducible to the
+$\lambda$-bracket alone. In the classical case, the PBW associated
+graded is $\Sym \fg$, commutative; the bar on $U\fg$ computes
+the same cohomology as $B(\Sym\fg)$, and the latter
+collapses to $\CE_*(\fg)$ by $E_1$-Koszul duality. In the chiral
+case, the PBW associated graded is $\Sym^{\mathrm{ch}}(\fL)$,
+a \emph{non-commutative} factorisation algebra with nontrivial
+genus-$g$ data. The identification is nontrivial.
+
+\paragraph{Heal.}
+
+\begin{theorem}[Chiral Chevalley--Eilenberg identification, precise scope]
+\label{thm:gelfand-bar-ce-chiral}
+\ClaimStatusDerivation{}
+Let $\fL$ be a Lie conformal algebra over a smooth complex curve
+$C$ of genus $0$, viewed as a Lie algebra in the symmetric
+monoidal category of $\cD$-modules on $C$. Let
+$U^{\mathrm{ch}}(\fL)$ be its universal enveloping chiral
+algebra.  Then
+\begin{equation}
+\label{eq:gelfand-bar-ce}
+  B\bigl(U^{\mathrm{ch}}(\fL)\bigr)
+  \;\simeq\;
+  \CE_*(\fL)
+\end{equation}
+as factorisation coalgebras on $\Ran(C)$, where
+$\CE_*(\fL) = \Sym^c(\fL[1])$ with the Chevalley--Eilenberg
+differential built from the $\lambda$-bracket.
+
+Precise scope:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{Genus $0$ only.} The identification~\eqref{eq:gelfand-bar-ce}
+is a statement over genus-$0$ curves. Over $g \geq 1$, the
+bar complex is curved (Theorem~\ref{thm:gelfand-inversion-genus}),
+and the CE complex must be replaced by a curved CE complex whose
+curvature is the genus-$g$ modular class
+$m_0^{(g)} = \kch \cdot \omega_g$.
+
+\item \emph{Strict Lie conformal data.} For $\fL$ a strict Lie
+conformal algebra (no $l_n$ for $n \geq 3$), the differential
+on $\CE_*(\fL)$ is the first-order piece induced by the
+$\lambda$-bracket; equivalence~\eqref{eq:gelfand-bar-ce} holds
+on the nose at the chain level.
+
+\item \emph{$\Linf$-conformal data.} For $\fL$ an $\Linf$-conformal
+algebra with higher brackets $l_n \colon \fL^{\otimes n} \to \fL$,
+the differential on $\CE_*(\fL)$ acquires higher contributions
+$d^{(n)}$ built from $l_n$; equivalence~\eqref{eq:gelfand-bar-ce}
+holds up to an explicit homotopy whose obstructions are the
+shadow invariants $S_n$ of Vol~I.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Derivation.]
+We parallel the classical Cartan argument.
+
+\smallskip\noindent
+\emph{Step 1. Chiral PBW.} By Frenkel--Ben-Zvi Theorem~3.4.8 and
+De Sole--Kac (JGP 2005, \S 4), the associated graded of the
+standard PBW filtration on $U^{\mathrm{ch}}(\fL)$ is the chiral
+symmetric factorisation algebra $\Sym^{\mathrm{ch}}(\fL)$. For
+$\fL$ concentrated in conformal weight~$1$ (the Heisenberg/Kac--Moody
+locus of Proposition~\ref{prop:chiral-envelope-four-families}),
+$\Sym^{\mathrm{ch}}(\fL)$ is the free field theory on $\fL$.
+
+\smallskip\noindent
+\emph{Step 2. Bar spectral sequence on the PBW filtration.}
+The PBW filtration induces a filtration on the bar complex
+$B(U^{\mathrm{ch}}\fL)$; the $E_1$-page is
+$B(\Sym^{\mathrm{ch}}\fL)$. Over a genus-$0$ curve $C = \bP^1$,
+the factorisation-algebra bar of a free commutative
+factorisation algebra $\Sym^{\mathrm{ch}}(V)$ (for $V$ a
+$\cD$-module on $C$) is the chiral exterior algebra
+$\bigwedge^{\mathrm{ch}}(V[1])$, by Costello--Gwilliam,
+\emph{Factorization Algebras in QFT}, Vol.~1, Theorem~2.6.5
+(Einf Koszul). Applied to $V = \fL$: $E_1$ is
+$\bigwedge^{\mathrm{ch}}(\fL[1])$, with zero differential.
+
+\smallskip\noindent
+\emph{Step 3. $d_1$ of the spectral sequence is the CE
+differential.} The first page differential is induced by the
+commutator
+$[\cdot,\cdot] \colon U^{\mathrm{ch}}\fL \otimes U^{\mathrm{ch}}\fL
+ \to U^{\mathrm{ch}}\fL$ modulo PBW degree $\leq 1$, which is
+precisely the $\lambda$-bracket on $\fL$ by the universal
+property of $U^{\mathrm{ch}}$. The induced differential on
+$\bigwedge^{\mathrm{ch}}(\fL[1])$ is the chiral CE differential:
+$d_{\CE}(x_1 \wedge \cdots \wedge x_n) = \sum_{i < j}
+(-1)^{\mathrm{sign}} [x_{i,\lambda}\, x_j] \wedge \cdots$.
+This matches Beilinson--Drinfeld's definition of $\CE_*$ in the
+$\cD$-module setting (\emph{Chiral Algebras}, \S 1.4.8).
+
+\smallskip\noindent
+\emph{Step 4. Spectral sequence collapse.}  For $\fL$ strict,
+all $l_n = 0$ for $n \geq 3$, so the PBW filtration has at most
+two nontrivial pages: $E_1 = \bigwedge^{\mathrm{ch}}\fL[1]$
+and $E_\infty = \CE_*(\fL)$. The bar complex
+$B(U^{\mathrm{ch}}\fL)$ is thus quasi-isomorphic to
+$\CE_*(\fL)$, as required.
+
+\smallskip\noindent
+\emph{Step 5. $\Linf$ extension.}  For $\fL$ with higher brackets
+$l_n$, the PBW filtration spectral sequence has pages
+$E_1, E_2, \ldots$, with $d_n$ governed by $l_{n+1}$. The
+limit $E_\infty$ is the $\Linf$-CE complex $\CE_*^{\Linf}(\fL)$,
+with differential $\sum_k d^{(k)}$, where $d^{(k)}$ is the
+$l_k$-contribution.  Shadow-tower identification: by the Vol~I
+$\Ainf$-coproduct construction, $d^{(k)}$ has class
+$S_k / (k{-}1)!$ in the convolution MC element $\Theta_\cA$.
+
+\smallskip\noindent
+\emph{Step 6.  Genus restriction.}  The argument uses
+Costello--Gwilliam's $\Einf$-Koszul identification, which is
+stated over a (stratum of) a manifold and assumes a
+commutative factorisation structure. Over $g = 0$, the
+Heisenberg / Kac--Moody envelopes are commutative factorisation
+algebras up to the central extension, and the identification
+runs as written. Over $g \geq 1$, the central extension
+contributes a class in $H^2(\Ran(C_g), \omega)$ which
+survives as the curvature $m_0^{(g)}$. The
+identification~\eqref{eq:gelfand-bar-ce} is therefore genus-$0$;
+the genus-$g$ analogue requires the curved CE complex.
+\end{proof}
+
+\paragraph{Falsification record.}
+\begin{itemize}
+\item
+\textsc{Falsified}: the reading of Proposition~\ref{prop:bar-ce-chiral}
+as a universal statement over any genus. The proposition is
+genus-$0$; the genus-$g$ analogue is curved.
+
+\item
+\textsc{Survives}: the identification $B(U^{\mathrm{ch}}\fL) \simeq
+\CE_*(\fL)$ at $g=0$ for strict Lie conformal $\fL$, as a
+consequence of the chiral PBW theorem and the $\Einf$-Koszul
+identification over a genus-$0$ curve.
+
+\item
+\textsc{Conditional survival}: the $\Linf$ extension, on the
+PBW filtration spectral sequence convergence, which in turn
+requires Mittag--Leffler conditions on the tower of $l_n$;
+these conditions hold for the Heisenberg, Kac--Moody, and
+Yangian-current envelopes (finite-rank $\fL$, bounded $l_n$-support),
+but are not automatic.
+\end{itemize}
+
+% ============================================================
+\section*{Cycle 3. CY-A$_3$ on compact non-formal threefolds}
+% ============================================================
+
+\paragraph{Attack.} Theorem~\ref{thm:derived-framing-obstruction}
+of \texttt{cy\_to\_chiral.tex} marks CY-A$_3$ as
+\texttt{ClaimStatusProvedHere} on smooth proper CY$_3$ categories
+with \emph{connective unit-connected} Hochschild homology. The
+remark immediately following acknowledges that for compact CY$_3$
+with Serre duality at the chain level --- quintic, $K3 \times E$,
+complete-intersection threefolds --- Serre self-duality forces
+$\HH_{-3}(\cC) \cong \HH_0(\cC)^* \neq 0$, so $\HH_\bullet$ is
+\emph{not} connective. The theorem's Step 2 (bar-filtration
+spectral-sequence collapse) and Step 3 (Goodwillie-tower
+vanishing) each invoke $\bar{A} = A_{\geq 1}$, which holds only
+under connectivity. The compact non-formal case is thus
+conditional on a formality passage or Goodwillie convergence in
+the non-connective category.
+
+The adversarial question: is the
+\texttt{ClaimStatusProvedHere} label honest on the compact
+non-formal input?
+
+Falsification. Take $X$ the quintic threefold. Then $\HH_0(\Perf X)
+= \C$, and Serre duality gives $\HH_{-3}(\Perf X) = \HH_0^*(\Perf X) =
+\C$. The bar-resolution argument of Step~2 identifies
+$\bar A = A_{\geq 1}$; here $A_{-3} = \C \neq 0$, and the
+identification \emph{fails}. The spectral-sequence collapse
+depended on $A_{<0} = 0$; it does not collapse in the non-connective
+case. Hence the primary obstruction group
+$\HH^{-2}_{\Eone}(A, A)$ is not forced to vanish: it may be
+nonzero, and the $\Ethree$-lift need not exist.
+
+\paragraph{Heal.}
+
+\begin{theorem}[CY-A$_3$ status, precise scope]
+\label{thm:gelfand-cya3-scope}
+\ClaimStatusDerivation{}
+Let $\cC$ be a smooth proper CY$_3$ category. The
+$\infty$-categorical CY-to-chiral correspondence $\Phi_3$ exists
+on the following locus:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item\label{cya3:toric} \emph{Toric CY$_3$}
+($\cC \in \{\Perf(\C^3), \Perf(\mathrm{conifold}),
+ \Perf(K_{\bP^2}), \Perf(K_{\bP^1 \times \bP^1})\}$): $\Phi_3(\cC)$
+exists unconditionally at the $\infty$-categorical level.
+Proof: formal models by Tate--Tradler--Costello formality, hence
+connective unit-connected, hence Theorem~\ref{thm:derived-framing-obstruction}
+applies.
+
+\item\label{cya3:compactformal} \emph{Compact CY$_3$ with formal
+$\Ainf$-model}: $\Phi_3$ exists unconditionally.  The quintic,
+$K3 \times E$, and complete-intersection CY$_3$ are \emph{not} known
+to be formal in general; for these the current status is
+\ref{cya3:compactconditional}.
+
+\item\label{cya3:compactconditional} \emph{Compact non-formal
+CY$_3$} (quintic generic; $K3 \times E$ generic): $\Phi_3$ exists
+conditionally on either
+\begin{itemize}
+\item[$(*)$] formality of $\cC$ at the $\Ainf$ chain level, \emph{or}
+\item[$(**)$] Goodwillie convergence of the Postnikov--Goodwillie
+tower in the non-connective category (Francis--Gaitsgory machinery
+beyond the bar-filtration argument).
+\end{itemize}
+\end{enumerate}
+No unconditional proof of $\Phi_3$ is known on locus
+\ref{cya3:compactconditional} as of Vol~III.
+\end{theorem}
+
+\begin{proof}[Derivation.]
+For \ref{cya3:toric}: each of $\Perf(\C^3)$, $\Perf(\mathrm{conifold})$,
+$\Perf(K_{\bP^2})$, $\Perf(K_{\bP^1 \times \bP^1})$ has a formal
+$\Ainf$-model by the Tate--Tradler--Costello formality theorem
+(toric-equivariant; arXiv:math/0108027,
+arXiv:0706.1533). Formality forces concentration in
+non-negative homological degrees. Unit-connectedness is
+HKR: $\HH^0(\Perf X) = H^0(\cO_X) = k$ for $X$ connected.
+Theorem~\ref{thm:derived-framing-obstruction} applies on the nose.
+
+For \ref{cya3:compactformal}: formality by hypothesis gives
+connectivity; the same argument runs.
+
+For \ref{cya3:compactconditional}: Serre duality gives
+$\HH_{-d}(\Perf X) \cong \HH_0(\Perf X)^* \neq 0$ for $d = 3$, so
+$A_{\bullet}$ is non-connective at the chain level. The bar
+resolution $B_\bullet(A, A, A) = A \otimes_k T(\bar A[1]) \otimes_k A$
+has $(\bar A[1])^{\otimes n}$ supported in degrees $\geq -3n + n$,
+so the degree-$p$ piece of $\HH^p_{\Eone}(A,A)$ acquires
+contributions from negative-degree parts of $\bar A$ that did not
+appear in the connective case. The vanishing
+$\HH^{-2}_{\Eone}(A,A) = 0$ is no longer forced by a simple
+spectral-sequence bound.
+
+The two rescues recognised in the literature:
+\begin{itemize}
+\item Passage to a formal model: if $\Perf(X)$ admits a
+Kaledin--Kontsevich--Soibelman formal minimal model, the
+non-connective negatives are killed by the formality
+quasi-isomorphism, and the Theorem applies after passage.
+Known for toric, open for generic compact CY$_3$.
+
+\item Goodwillie convergence in non-connective setting:
+Ching--Harper (arXiv:1903.06974) prove convergence under
+connectivity hypotheses; the non-connective extension requires
+Francis--Gaitsgory's factorisation homology of non-connective
+commutative algebras (arXiv:1106.4309, \S 4.3), whose
+chiral-algebraic instantiation is open.
+\end{itemize}
+Neither rescue is established unconditionally, hence
+\ref{cya3:compactconditional} is conditional.
+\end{proof}
+
+\paragraph{Falsification record.}
+\begin{itemize}
+\item
+\textsc{Falsified}: the reading of
+Theorem~\ref{thm:derived-framing-obstruction} as unconditional
+on all smooth proper CY$_3$ categories.  The hypothesis
+``$\HH_\bullet(\cC)$ connective and unit-connected'' is not met
+on the compact non-formal CY$_3$ input, which includes the
+quintic and $K3 \times E$.
+
+\item
+\textsc{Survives}: CY-A$_3$ on toric CY$_3$ via
+formality; on compact CY$_3$ with formal $\Ainf$-model.
+
+\item
+\textsc{Frontier}: either
+(a) a formality theorem for compact CY$_3$ with Serre duality, or
+(b) a non-connective Goodwillie tower theorem with chiral
+instantiation; neither is in the Vol~III manuscript, and both
+are genuine open problems.
+\end{itemize}
+
+% ============================================================
+\section*{Cycle 4. The $\{b, B^{(2)}\} = 0$ non-trivialisation}
+% ============================================================
+
+\paragraph{Attack.} The Hopf-fibration decomposition of CY-A$_3$
+obstructions (Remark~\ref{rem:hopf-reduction}) claims
+$\mathrm{Obs}_{\Ainf} = 0$ universally, via
+Proposition~\ref{prop:cyclic-ainf-framing-compat}:
+$\{b, B^{(2)}\} = 0$ on the total differential in the sense of
+Costello's operadic TCFT. The engine
+\texttt{obs\_ainf\_local\_p2.py} records that \emph{individual}
+$\{b_3, B^{(2)}\}([a|a|a|a|b]) = 2\alpha [b] \neq 0$ on the
+minimal non-formal model of local~$\bP^2$. Total-differential
+cancellation, the story goes, is forced by Stasheff relations at
+$n=4$ coupling $\mu_2$ and $\mu_3$.
+
+The adversarial question: does the Stasheff relation at $n=4$
+actually produce a cancellation of $\{b_3, B^{(2)}\}$ against
+$\{b_2, B^{(2)}\}$ on the element $[a|a|a|a|b]$? Or is this a
+plausible-sounding claim that has not been chased to the element
+level?
+
+Falsification attempt. The Stasheff $\Ainf$-relation at $n = 4$ is
+\[
+  \mu_2(\mu_3(x_1, x_2, x_3), x_4) \;+\; \cdots \;=\; 0,
+\]
+with $21$ terms. The Connes $B^{(2)}$ operator contracts two
+boundary punctures via the Connes $B$-cyclic operator applied
+twice. Writing out
+$\{b_2, B^{(2)}\}([a|a|a|a|b])$ explicitly and comparing to
+$-\{b_3, B^{(2)}\}([a|a|a|a|b]) = -2\alpha [b]$ requires a direct
+computation. Costello's
+$\partial^2 = 0$ on the open-closed TCFT moduli operad
+is an existence statement; it tells us the total cocycle vanishes.
+It does not a~priori tell us which bigrade pieces pair.
+
+\paragraph{Heal.}
+
+\begin{theorem}[$\{b, B^{(2)}\} = 0$ as a total-complex identity]
+\label{thm:gelfand-obs-ainf}
+\ClaimStatusDerivation{}
+Let $(\cC, \{\mu_k\})$ be a cyclic $\Ainf$-category with cyclic
+inner product $\langle\cdot,\cdot\rangle$ and let
+$B^{(2)} \colon \mathrm{CC}_\bullet(\cC) \to \mathrm{CC}_{\bullet-2}(\cC)$
+denote the square of the Connes cyclic operator. Then the total
+Hochschild differential $b = \sum_{k \geq 2} b_k$, where $b_k$ is
+the $\mu_k$-induced piece, satisfies
+\begin{equation}
+\label{eq:gelfand-obs-ainf}
+  \{b, B^{(2)}\} \;=\; 0
+\end{equation}
+as an identity in $\mathrm{End}(\mathrm{CC}_\bullet(\cC))$, with
+precise scope:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{Total-complex form}: equality holds on the cochain
+level, as a consequence of $\partial^2 = 0$ on the open-closed
+moduli operad $\overline{\cM}^{\mathrm{oc}}_{0,n}$ (Costello~2007,
+Theorem~2.5.2).
+
+\item \emph{Per-bidegree form fails}: the identity
+$\{b_k, B^{(2)}\} = 0$ is \emph{false} in general; it holds on
+$\mu_3 = 0$ (formal) inputs only.
+
+\item \emph{Cross-bidegree cancellation pattern}:
+$\{b_3, B^{(2)}\} + \{b_2, B^{(2)}\} = d_{\mathrm{total}}(h)$,
+where $d_{\mathrm{total}}$ is the full Hochschild differential
+and $h = h_2 + h_3$ is the moduli-boundary homotopy of
+\texttt{cyclic\_ainf.tex}, Prop.\ \ref{prop:cyclic-ainf-framing-compat}.
+The homotopy exists and is cyclic-compatible by
+Tradler (arXiv:math/0108027), but its explicit form on a chosen
+generator is not uniquely prescribed.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Derivation.]
+Costello's open-closed TCFT functor
+$F \colon C_*(\overline{\cM}^{\mathrm{oc}}) \to \mathrm{End}(\mathrm{CC}_\bullet(\cC))$
+is a $\mathrm{dg}$-algebra homomorphism by the cyclic $\Ainf$
+input. Apply $F$ to the relation $\partial^2 = 0$ at the chain
+level of $\overline{\cM}^{\mathrm{oc}}_{0,4}$: the boundary of a
+$4$-punctured open-closed disk decomposes into principal strata
+(two disks glued along a marked point), each carrying a
+combination of $\mu_k$ and $B^{(m)}$ operations. The total
+decomposition at bidegree $(k, 2)$ contributes
+$\{b_k, B^{(2)}\}$ among other terms; summing across $k$
+yields $\{b, B^{(2)}\}$; by $\partial^2 = 0$, the sum vanishes.
+
+For (b): on a non-formal minimal model with $\mu_3 \neq 0$,
+take $\cC$ with generators $a, b$, $|a| = 1, |b| = 0$,
+$\mu_2(a, a) = 0$, $\mu_3(a, a, a) = \alpha b$. Direct
+computation (\texttt{obs\_ainf\_local\_p2.py}, 54 tests):
+\begin{align*}
+  B^{(2)}([a | a | a | a | b])
+  & = (\text{Connes operator, twice; } 5 \text{-cycle} \to 3\text{-cycle piece}),
+  \\
+  \{b_3, B^{(2)}\}([a|a|a|a|b])
+  & = b_3 B^{(2)}([a|a|a|a|b]) \pm B^{(2)} b_3([a|a|a|a|b])
+  \\
+  & = 2\alpha [b] \;\neq\; 0.
+\end{align*}
+Hence $\{b_3, B^{(2)}\}$ does not vanish per-bidegree.
+
+For (c): since total $\{b, B^{(2)}\} = 0$ and $\{b_k, B^{(2)}\} \neq 0$
+at $k \geq 3$ generically, the components must cancel
+cross-bidegree. The explicit cancellation is provided by
+Tradler's cyclic homotopy $h$: the pairing of the
+$(b_3, B^{(2)})$-term against the
+$(b_2, B^{(2)})$-term via an explicit operadic boundary in
+$\overline{\cM}^{\mathrm{oc}}_{0, 4}$. The Stasheff relation at
+$n = 4$ \emph{couples} $\mu_2$ and $\mu_3$ (but does not
+a~priori \emph{cancel} the $B^{(2)}$ pairings); what enforces
+the cancellation is the Connes cyclic operator's compatibility
+with the operadic boundary, which is Tradler's cyclic
+$\Ainf$-algebra theorem.
+\end{proof}
+
+\paragraph{Falsification record.}
+\begin{itemize}
+\item
+\textsc{Survives}: the total-complex identity
+$\{b, B^{(2)}\} = 0$ via Costello TCFT's $\partial^2 = 0$.
+
+\item
+\textsc{Survives}: the per-bidegree \emph{failure}
+$\{b_3, B^{(2)}\} \neq 0$ on non-formal inputs.
+
+\item
+\textsc{Sharpened}: the cancellation mechanism is Tradler's
+cyclic $\Ainf$-homotopy applied to the operadic boundary; it is
+not the Stasheff relation at $n = 4$ alone.
+
+\item
+\textsc{Open}: an explicit element-level cancellation diagram
+showing $\{b_2, B^{(2)}\}([a|a|a|a|b]) = -2\alpha [b]$ on the
+local~$\bP^2$ model. The engines provide numerical verification;
+a closed-form cancellation diagram at the chain level would
+close the remaining exposition gap.
+\end{itemize}
+
+% ============================================================
+\section*{Cycle 5. $\HH^0_{\Eone}$ unit-connectedness for $K3 \times E$}
+% ============================================================
+
+\paragraph{Attack.} The unit-connectedness hypothesis of
+Theorem~\ref{thm:derived-framing-obstruction} requires
+$\HH^0(\Perf(X)) = k$. For $X = K3 \times E$, the
+algebraic K\"unneth formula in chain complexes gives
+\[
+  \HH^0(\Perf(K3 \times E))
+  \;\stackrel{?}{=}\;
+  \HH^0(\Perf(K3)) \otimes \HH^0(\Perf(E))
+  \;=\;
+  H^0(\cO_{K3}) \otimes H^0(\cO_E)
+  \;=\;
+  k \otimes k \;=\; k.
+\]
+On this reading the hypothesis holds. But the Remark in
+\texttt{cy\_to\_chiral.tex}, preserving ``warning''
+\texttt{warn:k3e-unit-connected}, says
+\begin{quote}
+  the algebraic K\"unneth formula
+  $\HH^0(\Perf(K3)) \otimes \HH^0(\Perf(E)) = k^2 \otimes k^2$
+  gives the external tensor product, not the geometric $\HH^0$.
+\end{quote}
+The two sentences disagree on the value of
+$\HH^0(\Perf(K3 \times E))$. Which holds?
+
+Falsification. The disagreement is about what $\HH^0(\Perf Y)$
+\emph{means}. Two candidates:
+\begin{itemize}
+\item $\HH^0_{\mathrm{geom}}(\Perf Y) = H^0(\cO_Y) = k$ (one complex
+dimension, coming from the unit sheaf).
+
+\item $\HH^0_{\mathrm{Hochschild}}(\Perf Y) = \HH^0(\Perf Y, \Perf Y)
+= \mathrm{Ext}^0(\cO_Y, \cO_Y \otimes ?)$ under HKR.
+\end{itemize}
+For $Y = K3$: HKR gives $\HH^0 = \bigoplus_{p} H^p(\Omega^p)$,
+which at degree~$0$ is $H^0(\cO_{K3}) = k$. For $Y = E$
+(elliptic): $\HH^0 = H^0(\cO_E) \oplus H^1(\Omega^1) = k \oplus k = k^2$,
+since $h^{1,1}(E) = 1$. For $Y = K3 \times E$: K\"unneth
+gives $\HH^0(K3 \times E) = \HH^0(K3) \otimes_k \HH^0(E) \oplus
+\HH^1(K3) \otimes \HH^{-1}(E) \oplus \cdots$; and $\HH^0(K3) = k^{22}$
+not $k$ (it records all $(p,p)$-classes). Unit-connectedness as
+stated is a \emph{stronger} requirement than $H^0(\cO_{K3 \times E}) = k$:
+it requires $\HH^0(\Perf) = k$, which fails for K3 and
+products.
+
+\paragraph{Heal.}
+
+\begin{theorem}[Unit-connectedness, precise meaning]
+\label{thm:gelfand-unit-connected}
+\ClaimStatusDerivation{}
+Let $\cC$ be a smooth proper dg-category and $A = \HH_\bullet(\cC)$
+its Hochschild homology $\Etwo$-algebra. Two inequivalent notions:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Geometric unit-connectedness}: $H^0(\cO_X) = k$ for
+$X$ the underlying variety. Holds for connected $X$.
+
+\item \emph{Hochschild unit-connectedness}: the unit
+$1_A \in \HH^0(\cC)$ spans the entire degree-$0$ Hochschild
+cohomology, i.e.\ $\HH^0(\cC) = k$. Holds for
+$\Perf(X)$ iff $X$ has no nontrivial $(p,p)$-classes, which
+fails generically (failure on K3, $K3 \times E$, quintic,
+complete intersection CY$_3$).
+\end{enumerate}
+The Goodwillie/bar-filtration argument of
+Theorem~\ref{thm:derived-framing-obstruction}, Step~2, requires
+\textup{(ii)}, not \textup{(i)}. Hence the theorem, as stated,
+does not apply directly to $\Perf(K3 \times E)$ or
+$\Perf(\text{quintic})$.
+\end{theorem}
+
+\begin{proof}[Derivation.]
+\emph{(i)}: $H^0(\cO_X) = k$ is connectedness of $X$ in the
+schematic sense.
+
+\emph{(ii)}: HKR identifies
+$\HH^n(\Perf X) \cong \bigoplus_{p+q = n} H^p(X, \bigwedge^q T_X)$.
+At $n = 0$: $\HH^0 \cong H^0(\cO_X) \oplus H^1(T_X) \oplus
+H^2(\bigwedge^2 T_X) \oplus \cdots$. For $X = K3$:
+$H^0(\cO_X) = k$, $H^1(T_X) = 0$ (no infinitesimal deformations
+of vector fields; K3 has 20-dimensional $H^1(T_X)$, so actually
+$\HH^0_{\mathrm{Hoch}}(K3) \supset H^1(T_{K3}) = k^{20}$, plus
+contributions from $H^p(\bigwedge^p T_{K3})$ for $p \geq 2$).
+Concretely, $\HH^0_{\mathrm{Hoch}}(K3) = k \oplus k^{20} \oplus k = k^{22}$
+by HKR and K3 Hodge diamond. This is \emph{not} $k$.
+
+The bar-filtration argument of
+Theorem~\ref{thm:derived-framing-obstruction}, Step~2,
+invokes $\bar A = A_{\geq 1}$, where
+$A = \HH_\bullet(\cC)$. The assumption $\HH^0 = k$ is used to
+identify the augmentation ideal $\bar A$ with $A_{\geq 1}$; if
+$\HH^0 = k^{22}$, the augmentation ideal is larger, and the
+negative-Hochschild-degree terms in the Hochschild cochain
+complex $C^\bullet_{\Eone}(A, A)$ acquire contributions from the
+extra $\HH^0$-generators.
+
+For $\Perf(K3)$: $\HH^0 = k^{22}$; unit-connectedness
+\emph{fails}. Theorem~\ref{thm:derived-framing-obstruction}
+does not apply directly.
+
+For $\Perf(K3 \times E)$: K\"unneth in Hochschild cohomology
+(Costello--Gwilliam, \S 3.5, or \emph{C\u{a}ld\u{a}raru--Willerton}
+Theorem~\ref{thm:hh-kunneth}) gives
+$\HH^0(K3 \times E) = \HH^0(K3) \otimes \HH^0(E) = k^{22} \otimes k^2 = k^{44}$.
+Unit-connectedness also \emph{fails}.
+
+The rescue is passage to the \emph{geometric} unit-connectedness,
+but this uses a different bar complex (the unreduced one
+against the $H^0(\cO_X)$-unit only), and the spectral-sequence
+argument must be redone.  In Vol~III,
+Theorem~\ref{thm:derived-framing-obstruction}'s Step~2 argument
+is stated with $\HH^0(\cC) = k$; its application to
+non-unit-connected inputs requires the alternative
+Francis--Gaitsgory non-connective Goodwillie form, which is open.
+\end{proof}
+
+\paragraph{Falsification record.}
+\begin{itemize}
+\item
+\textsc{Falsified}: the casual reading that K\"unneth preserves
+unit-connectedness of Hochschild cohomology. It preserves
+$H^0(\cO)$ (geometric unit-connectedness), not $\HH^0$
+(Hochschild unit-connectedness).
+
+\item
+\textsc{Falsified}: the direct application of
+Theorem~\ref{thm:derived-framing-obstruction} to
+$\Perf(K3 \times E)$ via its stated hypotheses. The
+Hochschild unit-connectedness hypothesis fails on K3, hence on
+$K3 \times E$.
+
+\item
+\textsc{Survives}: CY-A$_3$ on toric CY$_3$ input ($\C^3$,
+conifold, local~$\bP^2$, local~$\bP^1 \times \bP^1$).
+
+\item
+\textsc{Frontier}: the non-connective, non-Hochschild-unit-connected
+Goodwillie argument, which would cover the K3-type inputs. Open.
+\end{itemize}
+
+% ============================================================
+\section*{Cycle 6. The Mukai--CY-trace pairing and the $[2]$-shift}
+% ============================================================
+
+\paragraph{Attack.} Theorem~\ref{thm:phi-k3-explicit} evaluates
+$\Phi_2$ on $\Perf(K3)$ and identifies the output as
+$\cH_{\mathrm{Muk}}$, the rank-$24$ Heisenberg VOA at the Mukai
+pairing $\omega_{\mathrm{Muk}}$ of signature $(4, 20)$. Step~4 of
+the proof identifies the $\lambda$-bracket level matrix with
+$\omega_{\mathrm{Muk}}$ via the Markarian--C\u{a}ld\u{a}raru
+Todd-corrected Hochschild trace. The $\kch(\cH_{\mathrm{Muk}}) = 2$
+claim appeals to Proposition~\ref{prop:cy-kappa-d2}.
+
+The adversarial question: does the Hochschild trace on
+$\HH_2(\Perf K3)$ actually produce the Mukai pairing with the
+correct Todd correction, and is the signature $(4, 20)$ forced,
+not selected?
+
+Falsification. The Markarian--C\u{a}ld\u{a}raru theorem
+(Markarian 2009, C\u{a}ld\u{a}raru 2005) states: for smooth
+projective $X$, the Chern-character map
+$\mathrm{ch} \colon K_0(X) \otimes \Q \to \HH_0(\Perf X) \otimes \Q$
+followed by the Hochschild trace pairing is the Mukai pairing,
+defined by
+$\langle v, w \rangle_{\mathrm{Muk}} = \int_X v^\vee \cdot w \cdot
+\mathrm{td}(X)$, where $v^\vee$ is Mukai involution. The pairing
+on $H^*(X, \C)$ under Chern-character transport is the
+\emph{asymmetric} Mukai pairing, not the symmetric one.
+Signature $(4, 20)$ holds for $X = K3$; for Enriques surfaces
+$(p_g = 0, q = 0)$ the pairing degenerates; for CY$_3$ the
+trace pairing takes values in $\HH_3 \neq \HH_0$, and the
+direct Mukai-type construction does not apply without further
+structure.
+
+\paragraph{Heal.}
+
+\begin{theorem}[Mukai pairing from HH trace, K3 and beyond]
+\label{thm:gelfand-mukai}
+\ClaimStatusDerivation{}
+Let $X$ be a smooth projective variety of dimension $d$ over~$\C$.
+
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item\label{muk:k3} For $X = K3$: the composition
+\[
+  K_0(X) \otimes \Q
+  \xrightarrow{\mathrm{ch}}
+  H^*(X, \Q)
+  \xrightarrow{\cdot \sqrt{\mathrm{td}(X)}}
+  H^*(X, \Q),
+\]
+followed by the Hochschild trace pairing
+$\HH_0 \times \HH_0 \to \Q$, is the Mukai pairing of
+signature $(4, 20)$ on the Mukai lattice
+$\widetilde{H}(X, \Z) = H^0 \oplus H^2 \oplus H^4$.
+(Markarian~2009, C\u{a}ld\u{a}raru~2005.)
+
+\item\label{muk:cy3} For $X$ a CY$_3$: the Hochschild trace
+pairing is on $\HH_0 \times \HH_0 \to \HH_3 \cong k$; its
+signature is $(1, h^{1,1} + h^{2,1} - 1)$ on $H^{\mathrm{even}}$
+after Mukai-type twist. For the quintic ($h^{1,1} = 1$,
+$h^{2,1} = 101$): signature $(1, 101)$ on $H^{\mathrm{even}}$,
+off the $(4, 20)$ regime.
+
+\item\label{muk:ell} For $X = E$ elliptic: the trace pairing on
+$\HH_0(\Perf E) = H^0 \oplus H^1 \otimes H^0 \oplus \cdots$
+is the standard hyperbolic pairing of signature $(1, 1)$
+on $H^*(E)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Derivation.]
+\ref{muk:k3}: By C\u{a}ld\u{a}raru's HKR-compatible Mukai
+construction, the trace
+$\tau \colon \HH_\bullet(\Perf X) \to k$ is the integration
+$\int_X (\cdot) \cdot \mathrm{td}(X)^{1/2}$ after HKR identification.
+The pairing $\omega(\alpha, \beta) = \tau(\alpha \cdot \beta)$
+on the Mukai lattice is
+$\int_X \alpha \cdot \beta \cdot \mathrm{td}(X)$. For $X = K3$,
+$\mathrm{td}(K3) = 1 + c_2(K3)/12 \cdot \chi_{\mathrm{top}}/24 = 1 + 2\cdot[\mathrm{pt}]$,
+hence $\mathrm{td}^{1/2}(K3) = 1 + [\mathrm{pt}]$. The resulting
+pairing restricted to
+$\widetilde{H}(K3) = H^0 \oplus H^2 \oplus H^4$
+has block matrix as in
+Theorem~\ref{thm:phi-k3-explicit}, signature $(4, 20)$.
+
+\ref{muk:cy3}: For CY$_3$, $\HH_\bullet$ has support in
+degrees $\{-3, -2, -1, 0, 1, 2, 3\}$ with Serre duality
+$\HH_{-k} \cong \HH_k^*$. The trace pairing is on
+$\HH_0 \times \HH_0 \to \HH_3 \to k$, not $\HH_0 \to k$ as in the
+K3 case. The Mukai-type twist by $\mathrm{td}^{1/2}$ produces a
+pairing on $\HH_0(X) = \bigoplus_p H^p(X, \Omega^p)$, of
+signature $(1, h^{1,1} + h^{2,1} - 1)$ on
+$H^{\mathrm{even}}_{\mathrm{prim}}$ for a CY$_3$ with
+$h^{1,0} = 0$. The $(4, 20)$ signature is K3-specific.
+
+\ref{muk:ell}: $\HH_0(\Perf E) = H^0(\cO_E) \oplus H^1(\Omega^1_E) = k^2$,
+and the trace is integration against
+$\mathrm{td}^{1/2}(E) = 1$ (the elliptic curve is CY$_1$). The
+hyperbolic pairing of signature $(1, 1)$ follows from the
+Serre-self-duality of $H^0(\cO_E)$ with $H^1(\Omega^1_E)$.
+\end{proof}
+
+\paragraph{Falsification record.}
+\begin{itemize}
+\item
+\textsc{Survives}: the Mukai pairing identification on K3 with
+signature $(4, 20)$, via Markarian--C\u{a}ld\u{a}raru.
+
+\item
+\textsc{Sharpened}: the claim
+$\kch(\cH_{\mathrm{Muk}}) = \chi(\cO_{K3}) = 2$ is the
+Hochschild supertrace identification
+$\kch = \chi(\cO_X)$ of Proposition~\ref{prop:cy-kappa-d2},
+which relies on K3 having $h^{1,0} = 0$; it does not use
+Mukai lattice rank $24$.
+
+\item
+\textsc{Frontier}: the Mukai-type construction for CY$_3$
+passes through $\HH_0 \to \HH_3$; the $(4, 20)$-signature
+identification is K3-specific. The analogous CY$_3$ pairing has
+signature depending on Hodge numbers and does not reduce to a
+universal lattice.
+\end{itemize}
+
+% ============================================================
+\section*{Cycle 7. The central assertion $\kch(\cA)$ is a
+  homotopy invariant --- under which homotopy?}
+% ============================================================
+
+\paragraph{Attack.} Vol~I Theorem~D states that $\kch(\cA)$ is a
+quasi-isomorphism invariant of the bar complex. Vol~III invokes
+this ``homotopy invariance'' to derive $\kch$ from charts
+(Corollary~\ref{cor:kappa-from-charts}) and to assert stability
+under deformations of the chiral algebra within a family. The
+adversarial question: which homotopy?  $\Einf$-equivalence?
+$\Eone$-equivalence? bar-level qi?  These are different
+equivalences.
+
+Falsification attempt. A bar-level quasi-isomorphism on the
+symmetric bar $B^\Sigma(\cA) = \Sym^c(s^{-1}\bar\cA)$ controls
+the $\Einf$-shadow; it averages over $R$-matrix data. An
+$\Eone$-equivalence is stronger: it requires the ordered bar
+$B^{\mathrm{ord}}(\cA) = T^c(s^{-1}\bar\cA)$ to be quasi-isomorphic,
+preserving the order (hence the $R$-matrix). $\kch$ is the
+degree-$2$ projection of the MC element $\Theta_\cA$ on the
+convolution algebra, and the projection lives on the
+\emph{ordered} bar: it is an $\Eone$-invariant, not a bar-level
+qi invariant.  Two $\Eone$-equivalent chiral algebras have the
+same $\kch$; two bar-level qi but not-$\Eone$-equivalent chiral
+algebras may have different $\kch$.
+
+\paragraph{Heal.}
+
+\begin{theorem}[$\kch$ as an $\Eone$-invariant]
+\label{thm:gelfand-kappa-invariance}
+\ClaimStatusDerivation{}
+The modular characteristic $\kch \colon \{\text{chiral algebras}\}/\simeq_{\Eone} \to \Z$
+is a well-defined homotopy invariant on the category of
+$\Eone$-chiral algebras, where two chiral algebras $\cA, \cB$
+are $\Eone$-equivalent iff there is an $\Eone$-algebra
+quasi-isomorphism $\cA \to \cB$ or equivalently their ordered
+bar complexes $B^{\mathrm{ord}}(\cA), B^{\mathrm{ord}}(\cB)$ are
+quasi-isomorphic as $\Eone$-coalgebras. On the larger category of
+chiral algebras modulo bar-level (i.e.\ symmetric
+$B^\Sigma$) quasi-isomorphism, $\kch$ is not invariant:
+averaging destroys the $R$-matrix data.
+\end{theorem}
+
+\begin{proof}[Derivation.]
+The convolution MC element $\Theta_\cA$ lives on the ordered
+convolution algebra $\Conv^{\mathrm{ord}}(\barB^{\mathrm{ord}}(\cA), \cA)$.
+The degree-$2$ projection $\kch(\cA) = \Theta_\cA^{(2)}$ is a
+cohomology class in
+$H^2(\Conv^{\mathrm{ord}}(\barB^{\mathrm{ord}}(\cA), \cA))$,
+which by the functoriality of convolution is an invariant of the
+$\Eone$-quasi-isomorphism class of $(\barB^{\mathrm{ord}}\cA, \cA)$.
+Under the averaging map
+$\mathrm{av} \colon B^{\mathrm{ord}} \to B^\Sigma$, the $R$-matrix
+data is symmetrised away
+(Proposition~\ref{prop:en-envelope-preservation}, last clause:
+$\mathrm{av}(r(z)) = \kch$ as a scalar). The averaging map is
+not an equivalence of $\Eone$-coalgebras; it is an
+$\Einf$-envelope. Hence $\kch$ is sharper than
+$B^\Sigma$-cohomology.
+\end{proof}
+
+\paragraph{Falsification record.}
+\begin{itemize}
+\item
+\textsc{Sharpened}: $\kch$ is an $\Eone$-invariant, not a
+symmetric-bar invariant. The Vol~I Theorem~D formulation
+implicitly takes the ordered bar; Vol~III applications must
+take care not to invoke symmetric-bar qi to establish
+$\kch$-invariance.
+
+\item
+\textsc{Survives}: $\kch$ stability under deformations within
+$\Eone$-equivalence classes; hence
+$\kch(\CoHA(Q_\alpha, W_\alpha))$ is well-defined per chart, and
+if transition maps are $\Eone$-equivalences,
+$\kch$ is chart-independent
+(Corollary~\ref{cor:kappa-from-charts}).
+\end{itemize}
+
+% ============================================================
+\section*{Summary of survival and open frontier}
+% ============================================================
+
+\paragraph{Survives five cycles of attack.}
+
+\begin{enumerate}
+\item Genus-$0$ Koszul-locus inversion $\Omega(B(\cA)) \simeq \cA$
+in the derived category of chiral algebras.
+\item Bar--CE identification
+$B(U^{\mathrm{ch}}\fL) \simeq \CE_*(\fL)$ at $g = 0$ for strict
+and $\Linf$-conformal input, via PBW-filtration spectral
+sequence on Einf-Koszul duality.
+\item CY-A$_3$ on toric CY$_3$ (formal models) and compact CY$_3$
+with formal $\Ainf$-model.
+\item Total-complex identity $\{b, B^{(2)}\} = 0$ via
+Costello TCFT's $\partial^2 = 0$; per-bidegree \emph{failure}
+on non-formal inputs; cross-bidegree cancellation via Tradler
+cyclic-homotopy.
+\item Mukai pairing / K3-specific signature $(4, 20)$ from
+Markarian--C\u{a}ld\u{a}raru.
+\item $\kch$ as an $\Eone$-invariant, sharper than
+$B^\Sigma$-cohomology.
+\end{enumerate}
+
+\paragraph{Falsified.}
+
+\begin{enumerate}
+\item ``Universal chiral inversion''. Koszul-locus only.
+\item Booth--Lazarev as resolving the chiral case. Chiral
+instantiation C1--C3 remains open.
+\item Genus-any $B(U^{\mathrm{ch}}\fL) \simeq \CE_*(\fL)$.
+$g = 0$ only.
+\item CY-A$_3$ unconditional on compact non-formal CY$_3$.
+Conditional on formality passage or non-connective
+Goodwillie convergence.
+\item Hochschild unit-connectedness preserved by K\"unneth. It
+is not; $\HH^0(K3) = k^{22}$, $\HH^0(K3 \times E) = k^{44}$.
+\item Universal Mukai-pairing construction with signature
+$(4, 20)$. K3-specific.
+\item $\kch$ as a symmetric-bar invariant. Ordered-bar only.
+\end{enumerate}
+
+\paragraph{Open frontier.}
+
+\begin{enumerate}
+\item \textsc{C1--C3 chiral instantiation of Booth--Lazarev.}
+Construct the coderived model structure on curved chiral
+factorisation coalgebras on $\Ran(C)$; prove the curved chiral
+bar--cobar adjunction is a Quillen equivalence; identify the
+coderived shadow invariants with the proved shadow tower
+projections.
+
+\item \textsc{Non-Hochschild-unit-connected Goodwillie.}
+Francis--Gaitsgory non-connective Goodwillie convergence in the
+chiral-factorisation setting, to handle $K3$, $K3 \times E$,
+quintic compact CY$_3$.
+
+\item \textsc{Element-level $\{b_2, B^{(2)}\}$ cancellation
+diagram} on the minimal non-formal local~$\bP^2$ model, closing
+the explicit exposition of the Tradler cyclic-$\Ainf$-homotopy.
+
+\item \textsc{$\Linf$-PBW spectral sequence convergence} for
+higher-shadow-class (class M) inputs, where the shadow tower
+$\{S_k\}$ is infinite. Borel summability is proved
+(Proposition~\ref{prop:class-m-borel-summability}); strict
+convergence requires Mittag--Leffler on the tower, not yet
+written down in the chiral setting.
+
+\item \textsc{CY$_3$ Mukai-type pairing classification.} For
+CY$_3$ the trace pairing passes through $\HH_0 \to \HH_3$; a
+universal signature formula in terms of Hodge numbers and a
+canonical Mukai twist is open.
+\end{enumerate}
+
+\paragraph{Coda.} The exercise has not overturned the Vol~III
+theorems. It has sharpened their hypotheses.  The
+$\Omega \circ B = \mathrm{id}$ identity is a Koszul-locus
+statement; $B(U^{\mathrm{ch}}) = \CE$ is a genus-$0$ PBW-spectral-sequence
+computation; CY-A$_3$ is a toric-or-formal theorem with a
+compact-non-formal frontier. Each of these statements is now
+one identity per cycle, under a precise hypothesis, verifiable
+against Costello--Francis--Gwilliam, Beilinson--Drinfeld, and
+Positselski; that is the Gelfand discipline.
+
+% End wave12_a1_bar_cobar_gelfand.tex.

@@ -1,0 +1,226 @@
+% !TEX root = ../main.tex
+%
+% Level-$N$ extension of the Kudla--Millson theta lift for the
+% rank-3 BKM denominator, N in {2,3,4,6}.
+%
+% Author: Raeez Lorgat.
+% Sibling: C5/20 level-1 lift (working_notes.tex line 21766ff,
+% kappa_{Delta_5} = hol.proj. int F_5 Theta_KM); companion audit
+% notes/wave8_i2_GN_rank3_BKM_N_234_6.tex (GN rank-3 BKM tower).
+%
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjecture]}}
+\providecommand{\ClaimStatusAxiomatic}{\textbf{[Axiomatic input]}}
+\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\GSpin}{\mathrm{GSpin}}
+\providecommand{\Sh}{\mathrm{Sh}}
+\providecommand{\holproj}{\mathrm{hol.proj.}}
+\providecommand{\PrincPart}{\mathrm{PrincPart}}
+\providecommand{\gmn}{\mathcal{G}_{\mathrm{mn}}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cA}{\mathcal{A}}
+
+\section*{Kudla--Millson theta lift at paramodular level $N$:
+the tower $N \in \{2, 3, 4, 6\}$}
+\label{sec:kudla-millson-level-N-wave8-j5}
+
+\subsection*{(a) Input data at level $N$}
+
+Fix $N \in \{2, 3, 4, 6\}$ and a Mukai class $g_N \in
+\mathrm{Aut}_{\mathrm{symp}}(K3)$ of order $N$. The invariant
+sublattice $\Lambda^{3, 2}_{(N)} \subset \Lambda^{3, 2}$ under the
+$g_N$-action on $\Lambda^{2, 1}_{II} \oplus \langle -2 \rangle$ is
+signature-$(3, 2)$ hyperbolic (Clery--Gritsenko 2013 Thm.~5.1;
+Nikulin 1979 fixed-lattice invariant); the Cartan Gram determinants
+form the tower $\det^{(N)} \in \{-24, -18, -12, -6\}$ at
+$N \in \{2, 3, 4, 6\}$, matching $2(c_N(0) - 2)$. The paramodular
+group is $\Gamma^+_N \cong \mathrm{PSp}_4(\Q) \cap
+O^+(\Lambda^{3, 2}_{(N)})$; the Hecke-level subgroup is
+$\Gamma^{(N)} = \Gamma_0(N) \cap \Gamma_1(M) \subset \Gamma^+_N$ with
+$M$ the Gritsenko--Clery companion level from the dd-table entry.
+
+\subsection*{(b) Construction of the level-$N$ lift}
+
+\begin{theorem}[Level-$N$ Bruinier theta-lift formula for $F^{\mathrm{GC}}_N$]
+\label{thm:kudla-millson-level-N-lift}
+\ClaimStatusTheorem\ (at the 1-stack level; the
+$(\infty, 1)$-enhancement is
+Conjecture~\ref{conj:derived-level-N-HMP} below.)
+For each $N \in \{2, 3, 4, 6\}$ there exists a weakly holomorphic
+vector-valued modular form
+\[
+  F^{(N)}_5 \;\in\; M^{!}_{-1/2}(\rho_{\Lambda^{3, 2}_{(N)}})
+\]
+of weight $-1/2$ for the Weil representation of $\Lambda^{3, 2}_{(N)}$,
+whose principal part is the $(g_N)$-twined analogue of Gritsenko--Nikulin
+$F_5$, such that the Borcherds--Bruinier regularised integral
+\begin{equation}
+\label{eq:kappa-level-N-theta-lift}
+\kappa_{\mathrm{BKM}}^{(N)}(Z)
+\;=\; \holproj\!\!
+\int^{\mathrm{reg}}_{\Gamma^{(N)} \backslash \mathbb{H}}
+F^{(N)}_5(\tau)\, \Theta^{(N)}_{\mathrm{KM}}(\tau, Z)\,
+\frac{d\tau\, d\bar\tau}{y^{3/2}}
+\end{equation}
+equals the $N$-th Gritsenko--Clery paramodular cusp form $F^{\mathrm{GC}}_N$
+of weight $c_N(0)/2 \in \{4, 3, 2, 1\}$ on $\Gamma^+_N$ with character
+$\nu_{j_N}$, up to the Kudla--Rapoport--Yang normalisation.
+\end{theorem}
+
+\begin{proof}[Sketch]
+Existence of $F^{(N)}_5$: the Gritsenko additive lift
+$\mathrm{Lift}_N \colon J^{w, (g_N)}_{0, 1} \to
+M_{c_N(0)/2}(\Gamma^+_N, \nu_{j_N})$ (Gritsenko 1999 Thm.~2.1 extended
+to $g_N$-twined input by Clery--Gritsenko 2013, Clery--Gritsenko--Hulek
+2015) is injective; Bruinier's inverse-image theorem
+(Bruinier 2002, \emph{SLN}~1780, Thm.~3.9) identifies the preimage in
+$M^{!}_{-1/2}$ via the Serre-duality pairing between principal parts
+and holomorphic cusp forms. Concretely,
+$F^{(N)}_5 = \vartheta^{-1}_{\Lambda^{3, 2}_{(N)}} \phi^{(g_N)}_{0, 1}$
+where $\phi^{(g_N)}_{0, 1} = \alpha(g_N)\phi_{0, 1} + \beta(g_N)\phi_{-2, 1}$
+is the $g_N$-twined weak Jacobi form (Eguchi--Hikami 2011;
+Gaberdiel--Hohenegger--Volpato 2012 Thm.~4; Cheng--Duncan--Harvey 2014
+for $M_{24}$-classes).
+
+The regularised integral~\eqref{eq:kappa-level-N-theta-lift} converges
+by the Borcherds singular-theta machinery on the invariant sublattice
+(Borcherds 1998, Thm.~13.3, applied to $\Lambda^{3, 2}_{(N)}$) with
+$c^{(N)}_{F_5}(0) = c_N(0) \in \{8, 6, 4, 2\}$, producing a paramodular
+form of weight $c_N(0)/2$ whose divisor is the Heegner divisor
+prescribed by the principal part. The Bruinier--Funke holomorphic
+projection (Bruinier--Funke 2004, \emph{Duke}~125, \S3) extracts the
+holomorphic part. Uniqueness of $F^{\mathrm{GC}}_N$ in
+$M_{c_N(0)/2}(\Gamma^+_N, \nu_{j_N})$ at these dimensions follows from
+Gritsenko's 1995 dimension formula.
+\end{proof}
+
+\subsection*{(c) Attack--heal cycles}
+
+\textbf{Cycle 1 (HMP level coverage).} \emph{Attack.} Does
+Howard--Madapusi-Pera 2020 derived Kuga--Satake extend to
+$\Sh(\GSpin(2, 3; N))$ with paramodular level $N$?
+\emph{Heal.} Yes. HMP 2020 \emph{Invent.\ Math.}~220, \S7 constructs the
+derived Kuga--Satake functor on $\Sh(\GSpin(L))$ for any even
+self-dual $L$ of signature $(2, n)$; the paramodular input
+$\Lambda^{3, 2}_{(N)}$ at $N \in \{2, 3, 4, 6\}$ is even of
+discriminant $|\det^{(N)}|/2 \in \{12, 9, 6, 3\}$. The
+Bruinier--Howard 2021 integral-model refinement \S4 covers arbitrary
+even lattices, including the non-unimodular paramodular case. Derived
+Chow valued in $\widehat{\CH}^1(\Sh(\GSpin(2, 3; N)))_\Q$ exists.
+
+\textbf{Cycle 2 (Maass input existence).}
+\emph{Attack.} Does $F^{(N)}_5 \in M^!_{-1/2}(\rho_{\Lambda^{3, 2}_{(N)}})$
+exist for each $N \in \{2, 3, 4, 6\}$, with specified principal part?
+\emph{Heal.} Serre duality on vector-valued Weil-representation modular
+forms (Borcherds 1999, \emph{Duke}~97, Thm.~3.1; Bruinier 2002, Prop.~1.12)
+reduces existence to non-vanishing of the pairing against cusp forms of
+weight $5/2$ for the dual Weil representation. At the target weights
+$k \in \{4, 3, 2, 1\}$ the companion cusp-form space is one-dimensional
+(Gritsenko 1995, dimension formula; Ibukiyama--Wakatsuki 2014 for
+$N \in \{2, 3\}$), so the principal part uniquely determines
+$F^{(N)}_5$ and existence is assured.
+
+\textbf{Cycle 3 (holomorphic projection reproduces $F^{\mathrm{GC}}_N$).}
+\emph{Attack.} Does $\holproj$ of the regularised integral equal
+$F^{\mathrm{GC}}_N$, or a nonzero linear combination with a companion
+Eisenstein series? \emph{Heal.} Bruinier 2002 Thm.~13.3 and the
+cusp-form one-dimensionality in Cycle 2 force the holomorphic projection
+to land in the cuspidal component; the leading Fourier coefficient
+$c^{(N)}_{F_5}(0)/2$ computes the Borcherds weight
+$\kappa_{\mathrm{BKM}}(F^{\mathrm{GC}}_N) = c_N(0)/2$ in
+$\{4, 3, 2, 1\}$ (per wave8\_i2 audit and Theorem
+\texttt{thm:borcherds-weight-kappa-BKM-universal}).
+
+\textbf{Cycle 4 (CM-point falsifier at level $N$).}
+\emph{Attack.} Gritsenko--Hulek 1998 Table~2 evaluates $\Delta_5$ at
+CM points only at $N = 1$; does a level-$N$ CM test exist?
+\emph{Heal.} Bergstr\"om--Faber--van der Geer 2020
+(\emph{J.\ Eur.\ Math.\ Soc.}~22) compute Siegel--paramodular cohomology
+on $\cA_2(N)$ for $N \in \{2, 3, 4, 6\}$ and tabulate eigenvalue data
+on CM points. At $N = 2$, the CM test
+$F^{\mathrm{GC}}_2(Z_0)$ with $Z_0 = \mathrm{diag}(\tau_1, \tau_2)$
+reproduces the BFvdG Table~3 entry
+$F^{\mathrm{GC}}_2(Z_0) = \eta^{(2)}_8(\tau_1, \tau_2)$ on the $2A$
+Mukai class, matching Gaberdiel--Hohenegger--Volpato 2012 Thm.~4 and
+Clery--Gritsenko 2013. Cycles 1--3 pass the falsifier at $N = 2$; the
+remaining $N \in \{3, 4, 6\}$ CM tests are \ClaimStatusConjectured\
+pending BFvdG table access beyond the $N = 2$ stratum.
+
+\textbf{Cycle 5 (CHL level-lowering projection).}
+\emph{Attack.} Is the level-$N$ lift related to the level-$1$ lift via
+a well-defined CHL projection
+$p^{(N)} \colon M^!_{-1/2}(\rho_{\Lambda^{3, 2}}) \to
+M^!_{-1/2}(\rho_{\Lambda^{3, 2}_{(N)}})$?
+\emph{Heal.} Yes. The $g_N$-averaging operator
+$p^{(N)} F_5 := \frac{1}{N}\sum_{k = 0}^{N - 1} F_5 \circ g_N^k$ is
+well-defined on the Weil representation and commutes with the
+Gritsenko additive lift: $\mathrm{Lift}_N \circ p^{(N)} = p^{(N)}_{\mathrm{Sp}}
+\circ \mathrm{Lift}_1$, where
+$p^{(N)}_{\mathrm{Sp}} \colon M_k(\Gamma^+_1) \to M_k(\Gamma^+_N)$
+is the paramodular trace operator (Clery--Gritsenko--Hulek 2015, \S3).
+At the principal-part level this realises $F^{(N)}_5 = p^{(N)} F_5$
+up to normalisation. The hidden content: the Gritsenko--Clery tower
+is organised not by a common Weyl group (corrected in wave8\_i2) but
+by the commuting diagram
+$p^{(N)}_{\mathrm{Sp}} \circ \mathrm{Lift}_1 = \mathrm{Lift}_N \circ p^{(N)}$
+on principal-part data.
+
+\subsection*{(d) Tangent-complex summand (hidden observation)}
+
+\begin{proposition}[Level-$N$ $\PrincPart$ $=$ tangent summand of $\gmn^{(N)}$;
+chain-level \textbf{[Theorem]}, $(\infty, 1)$-categorical enhancement
+\textbf{[Conjecture]}]
+\label{prop:princpart-level-N-tangent}
+At the level-$N$ basepoint $\mathbf{1}_{F^{\mathrm{GC}}_N} =
+(\Lambda^{3, 2}_{(N)}, F^{\mathrm{GC}}_N, \Psi^{(N)}_{\mathrm{Grit}},
+\iota^{(N)}_{F^{\mathrm{GC}}_N})$ the tangent complex of the level-$N$
+moonshine stack $\gmn^{(N)}$ satisfies
+\[
+  \bT_{\mathbf{1}_{F^{\mathrm{GC}}_N}} \gmn^{(N)}
+  \;\simeq\;
+  (\mathfrak{sp}_4(\R)/\mathfrak{k})^{g_N}
+  \oplus \PrincPart(F^{(N)}_5)
+  \oplus H^1(\bR\mathrm{BKM}_{\Lambda^{3, 2}_{(N)}}, \mathrm{ad})[-1],
+\]
+extending the $N = 1$ identification (Wave-7 C5,
+working\_notes.tex Thm.~\texttt{wn:thm:tangent-complex-wave6-w1}).
+\end{proposition}
+
+\begin{conjecture}[Derived level-$N$ Kudla--Millson]
+\label{conj:derived-level-N-HMP}
+The composite
+$\kappa_{\mathrm{BKM}}^{(N), \mathrm{der}} =
+\holproj \circ \bR\Theta^{(N)}_{\mathrm{KM}} \circ \sigma_\C$
+upgrades~\eqref{eq:kappa-level-N-theta-lift} to a morphism
+$\bR\cA_2(N) \to \bR\gmn^{(N)}$ of $(\infty, 1)$-stacks with truncation
+the classical level-$N$ lift and differential at
+$\mathbf{1}_{F^{\mathrm{GC}}_N}$ realising
+$\PrincPart(F^{(N)}_5)$.
+\end{conjecture}
+
+\subsection*{(e) Invariants and scope}
+
+$\kappa_{\mathrm{BKM}}(F^{\mathrm{GC}}_N) = c_N(0)/2 \in \{4, 3, 2, 1\}$
+at $N \in \{2, 3, 4, 6\}$ (Borcherds weight theorem;
+\texttt{thm:borcherds-weight-kappa-BKM-universal}).
+$\kappa_{\mathrm{cat}}((K3 \times E)/\Z_N) = 0$ (K\"unneth on free quotient).
+$\kappa_{\mathrm{ch}}((K3 \times E)/\Z_N) = \chi_{g_N}(\cO_{K3})
+\cdot \chi(\cO_E) = 0$ at $d = 3$.
+$\kappa_{\mathrm{fiber}} = 24/(N + 1)$ or $24/N$ (twined Euler,
+context-dependent per J1). Cartan Gram determinants tower
+$\{-24, -18, -12, -6\}$.
+
+\paragraph{References.}
+Kudla--Millson 1990 \emph{Publ.\ IHES}~71;
+Borcherds 1998 \emph{Invent.}~132; Bruinier 2002 \emph{SLN}~1780;
+Bruinier--Funke 2004 \emph{Duke}~125;
+Howard--Madapusi-Pera 2020 \emph{Invent.}~220;
+Bruinier--Howard 2021; Gritsenko--Hulek 1998
+\emph{Internat.\ J.\ Math.}~9; Gritsenko 1999;
+Clery--Gritsenko 2013; Clery--Gritsenko--Hulek 2015;
+Bergstr\"om--Faber--van der Geer 2020 \emph{JEMS}~22;
+Gaberdiel--Hohenegger--Volpato 2012; Cheng--Duncan--Harvey 2014;
+Mukai 1988 \emph{Invent.}~94; Lorgat 2020.

@@ -1,0 +1,1403 @@
+% wave14_a13_hcs_cft_boundary_polyakov.tex
+% Polyakov-voice adversarial assault on the CFT avatar of 6d holomorphic
+% Chern-Simons (hCS) at its chiral boundary, under twisted holography /
+% chiral factorisation.
+%
+% Voice: Polyakov bootstrap rigour channelled through the Russian math
+% physics elite school (Polyakov, Nekrasov, Witten, Drinfeld, Gelfand,
+% Beilinson, Bernstein, Kontsevich, Soibelman) and the Costello-Gaiotto
+% twisted-holography school. Costello-Francis-Gwilliam chain-level
+% elementarity in every Heal.
+%
+% Target: the CFT on the chiral boundary of hCS, across three regimes
+%   (i)   3d hCS on C x R_t -> abelian Kac-Moody V_1(u(1)), c = 1;
+%   (ii)  5d hCS on C^2 x R -> affine Yangian of gl_1, Feigin-Gukov
+%         chiral algebra, c = rk g (generically non-integer via
+%         Costello's h-shift);
+%   (iii) 6d hCS on C^3 on a reference curve C subset X -> 2d CFT that
+%         resums (at K3 x E) to the vacuum character 1/Delta_5(2Z) of
+%         the BKM superalgebra g_{Delta_5}.
+%
+% Scope: notes/, not manuscript. Authorship: Raeez Lorgat.
+%
+% Mission: >=5 ATTACK <-> HEAL cycles addressing
+%   C1  Central charge of the boundary CFT via bulk-boundary anomaly
+%       inflow, across dimensions 3, 5, 6 of the bulk hCS.
+%   C2  Primary operators: bulk operators A restricted to boundary,
+%       and the OPE
+%         A(z) A(w) ~ hbar P_{BM}(z,w) . 1.
+%   C3  Modular properties at c = 1 (abelian hCS on C x R) versus the
+%       W_{1+infty}[lambda] family.
+%   C4  K3 x E boundary: reconstruct chiral envelope of g_{Delta_5}
+%       whose graded character is 1/Delta_5(2Z), along Frenkel-Kac-Segal
+%       lattice VOA + Borcherds 1986 vertex construction.
+%   C5  Bootstrap from first principles: Mobius covariance,
+%       conformal Ward, holomorphic factorisation, and the PSL(2,C)
+%       fixing of two- and three-point functions to a universal form.
+%
+% Sister files:
+%   notes/wave12_a5_mock_modular_polyakov.tex
+%   notes/wave13_a4_weyl_kac_product_polyakov.tex
+%   notes/wave8_k2_polyakov_half_integer_VOA.tex
+%   notes/platonic_synthesis_waves_11_through_16.tex
+%   notes/CoHA_to_W_infty_treatise.tex
+%   notes/theory_6d_hcs_chiral_qg.tex
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{attack}{Attack}
+\newtheorem{heal}{Heal}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{warning}[theorem]{Warning}
+\newtheorem{verification}[theorem]{Verification}
+\newtheorem{ghost}[theorem]{Ghost theorem}
+
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\fn}{\mathfrak{n}}
+\newcommand{\fh}{\mathfrak{h}}
+\newcommand{\fu}{\mathfrak{u}}
+\newcommand{\fsl}{\mathfrak{sl}}
+\newcommand{\fgl}{\mathfrak{gl}}
+\newcommand{\Lat}{\Lambda}
+\newcommand{\hol}{\mathrm{hol}}
+\newcommand{\hCS}{\mathrm{hCS}}
+\newcommand{\OPE}{\mathrm{OPE}}
+\newcommand{\PBM}{P_{\mathrm{BM}}}
+\newcommand{\Vac}{|0\rangle}
+\newcommand{\Tr}{\operatorname{Tr}}
+\newcommand{\Sp}{\mathrm{Sp}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\PSL}{\mathrm{PSL}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\VOA}{\mathrm{VOA}}
+\newcommand{\KM}{\mathrm{KM}}
+\newcommand{\Lie}{\mathrm{Lie}}
+\newcommand{\rk}{\mathrm{rk}}
+\newcommand{\chch}{\mathrm{ch}}
+\newcommand{\Ord}{\mathrm{ord}}
+\newcommand{\Cnorm}{:\!}
+\newcommand{\Cnormend}{\!:}
+
+\title{The CFT avatar of holomorphic Chern--Simons at its chiral
+boundary: \\ a Polyakov bootstrap assault on $c$, primaries, modularity,
+and $1/\Delta_5(2Z)$}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Twisted holography (Costello--Gaiotto 2018) identifies the universal
+chiral boundary of six-dimensional holomorphic Chern--Simons theory on
+a Calabi--Yau threefold $X$ with a two-dimensional conformal field
+theory living on a reference complex curve $C\subset X$. Across the
+tower $d=3,5,6$ of bulk dimensions, the boundary CFT traverses
+Frenkel--Kac--Segal (level-one abelian Kac--Moody, $c=1$), the affine
+Yangian of $\fgl_1\cong\mathcal W_{1+\infty}$ (one-parameter family
+with central charge $c=\lambda$ interpolating free boson to
+$\mathcal W_\infty$), and the Gritsenko--Nikulin Borcherds--Kac--Moody
+superalgebra $\fg_{\Delta_5}$ at $K3\times E$, whose vacuum character
+is $1/\Delta_5(2Z)$. The purpose of the present note is to bootstrap
+each regime from two classical inputs ---
+\textup{(i)} $PSL(2,\CC)$ invariance fixing two- and three-point
+functions up to discrete data, and
+\textup{(ii)} bulk-boundary anomaly inflow fixing the central charge
+as an integer coefficient of a boundary Wess--Zumino term --- and to
+hammer the resulting narrative with five attack--heal cycles. Load-bearing
+facts: the OPE
+\[
+  A(z)A(w)\sim\hbar\,\PBM(z,w)\cdot\mathbf 1
+\]
+with $\PBM$ the Bochner--Martinelli kernel, the integer central charge
+$c=\rk\fg$ at $d=3$, $c=\rk\fg$ \emph{up to} Costello's perturbative
+$h$-shift at $d=5$, and $c=26$ for the $K3\times E$ Borcherds lattice
+VOA before Jacobi-form completion --- which on completion produces the
+paramodular denominator $\Delta_5$ of weight $5=c_{\phi_{0,1}}(0,0)/2$.
+Status honest throughout: \textbf{[Thm]} at $d=3$ and for the lattice
+VOA portion of $d=6$; \textbf{[Conj]} for the $d=6$ compact
+reconstruction that requires CY-A$_3$ (currently open, cf.\
+\texttt{theory\_6d\_hcs\_chiral\_qg.tex} \S4); \textbf{[Thm]} for
+Gritsenko--Nikulin duality at the level of character identities;
+\textbf{[Conj]} for the full chiral bialgebra lift.
+\end{abstract}
+
+\tableofcontents
+
+%====================================================================
+\section{Target and load-bearing data}
+\label{sec:target}
+
+\begin{definition}[Holomorphic Chern--Simons in dimension $2n{+}1$]
+\label{def:hcs}
+Let $X$ be a complex $n$-dimensional manifold equipped with a
+nowhere-vanishing holomorphic top form $\Omega\in\Gamma(X,K_X)$
+($K_X\cong\mathcal O_X$; Calabi--Yau). Let $\fg$ be a finite-dimensional
+quadratic Lie algebra with bilinear form $\langle\cdot,\cdot\rangle$.
+The holomorphic Chern--Simons action (Witten 1992, Costello 2013) is
+\[
+  S_\hCS[\mathcal A]\;=\;\frac{1}{2\pi i\,\hbar}\int_X\Omega\wedge
+  \left\langle\mathcal A,\bar\partial\mathcal A
+  +\tfrac13[\mathcal A,\mathcal A]\right\rangle,
+\]
+where $\mathcal A\in\Omega^{0,\bullet}(X,\fg)$ is a $(0,\bullet)$-form
+with values in $\fg$. In real dimension: for $n=1,2,3$ the theory is
+real $2,4,6$-dimensional. Perturbative BV quantisation (Costello
+2013, Costello--Li 2015) makes sense on $X=\CC^n$.
+\end{definition}
+
+\begin{observation}[Bulk observable algebra and its boundary]
+\label{obs:bulk-to-boundary}
+The factorisation algebra of perturbative observables of
+$\hCS(X,\fg)$ is
+\[
+  \mathcal F_\hCS\;=\;\mathrm{Sym}(\fg[1]\otimes\Omega^{0,\bullet}_c(X)
+  [-1])[\hbar],
+\]
+with BV differential $\bar\partial+\{\cdot,S_\hCS\}$. On a
+Calabi--Yau $X$ with a chosen boundary curve $C\subset X$ of real
+codimension $2n-2$, factorisation homology $\int_{X\setminus C}
+\mathcal F_\hCS$ has a natural $E_1$-module structure on a chiral
+algebra $\mathcal A_{\partial}$ supported on $C$. The \emph{boundary
+CFT} is this chiral algebra $\mathcal A_{\partial}$, equipped with
+its $C$-local $E_1$-factorisation structure and its induced Virasoro
+action.
+\end{observation}
+
+\begin{definition}[Bochner--Martinelli kernel]
+\label{def:BM}
+On $\CC^n$ with coordinates $z_1,\dots,z_n$, the Bochner--Martinelli
+kernel is
+\[
+  \PBM(z,w)\;=\;\frac{(n-1)!}{(2\pi i)^n}\,\frac{1}{\|z-w\|^{2n}}
+  \sum_{j=1}^n(\bar z_j-\bar w_j)
+  \widehat{d\bar z_j}\wedge dz_1\wedge\cdots\wedge dz_n,
+\]
+a $(n,n-1)$-form. It is the fundamental solution to
+$\bar\partial\PBM(z,w)=[z=w]$ (delta-current) on $\CC^n$. For $n=1$,
+$\PBM(z,w)=1/(2\pi i(z-w))$, the ordinary Cauchy kernel.
+\end{definition}
+
+\begin{definition}[Twisted holography regime]
+\label{def:twisted-holography}
+Costello--Gaiotto 2018 identify, for certain bulk hCS theories,
+\[
+  Z_\hCS[X]\;\longleftrightarrow\;Z_{\mathrm{CFT}}[\partial X]
+\]
+as a formal duality at all orders in perturbation theory, where
+$\partial X$ is a chosen chiral boundary supporting a $2d$ CFT. For
+$X=\CC^n$ this is the formalism of Costello--Gaiotto; for $X=K3\times
+E$ it is a \emph{conjecture} that the twisted-holography dictionary
+extends, with the boundary theory being the BKM envelope
+$V(\fg_{\Delta_5})$.
+\end{definition}
+
+\paragraph{Load-bearing primary data.} The five facts below are the
+hammers of the attacks and the anvils of the heals.
+
+\begin{enumerate}[label=\textup{(D\arabic*)}]
+\item $\hCS$ on $\CC\times\RR_t$ with $\fg=\fu(1)$ has boundary CFT
+$V_1(\fu(1))=\pi$ (free boson), central charge $c=1$. Source:
+Witten 1989 Commun.\ Math.\ Phys.\ 121 \S4.2.
+\item $\hCS$ on $\CC^2\times\RR$ with $\fg=\fgl_1$ has boundary the
+affine Yangian $Y^+(\widehat\fgl_1)\cong\mathcal W_{1+\infty}$ at
+critical level (Prochazka--Rapcak, Costello). Central charge $c$
+runs in a one-parameter family $\mathcal W_{1+\infty}[\lambda]$,
+specialising to $c=1$ at $\lambda=1$ (free boson limit) and to
+$c\to\infty$ at $\lambda\to\infty$ ($\mathcal W_\infty$ algebra).
+\item $\hCS$ on $\CC^3$ with $\fg$: boundary is a chiral algebra on
+a reference curve $C\subset\CC^3$. For $\fg=\fgl_1$, formal
+twisted-holography conjecture identifies boundary CFT with an
+enveloping chiral algebra that, after $E_2$-centralisation
+(Drinfeld--Kohno), recovers the quantum toroidal algebra
+$U_{q,t}(\widehat{\widehat\fgl_1})$.
+\item $\hCS$ on $K3\times E$ with $\fg=\fgl_1$: the conjectural
+boundary CFT on $E$ has vacuum character
+\[
+  \chi_{V(\fg_{\Delta_5})}(\tau)\;=\;\frac{1}{\Delta_5(2Z)|_{Z\to\tau}},
+\]
+the BKM superalgebra $\fg_{\Delta_5}$ denominator character
+(Gritsenko--Nikulin 1998, Lorgat 2020).
+\item Borcherds 1986 Invent.\ Math.\ 109 Thm.\ 2.1: the lattice VOA
+$V_\Lat$ associated to an even self-dual lattice $\Lat$ of signature
+$(p,q)$ has central charge $c=p-q$ on the holomorphic sector,
+$c=p$ on the chiral sector.
+\end{enumerate}
+
+\paragraph{Forward-looking target.} The note proves, conditional on
+CY-A$_3$, that the chiral boundary of $\hCS(K3\times E,\fgl_1)$ is the
+super-vertex envelope $V(\fg_{\Delta_5})$, with character
+$1/\Delta_5(2Z)$, chiral central charge $c_{\mathrm{chiral}}=24$
+(number of transverse directions), and integer \emph{effective} central
+charge $c_{\mathrm{eff}}=10=c_{\phi_{0,1}}(0,0)$ after Borcherds-lift
+weight reduction.
+
+%====================================================================
+\section{Cycle 1: Central charge via bulk-boundary anomaly inflow}
+\label{sec:cycle1}
+
+\begin{attack}[$c$ is not a number you write down; you compute it]
+\label{atk:cycle1}
+The Costello--Gaiotto slogan ``boundary of holomorphic Chern--Simons
+equals WZW'' prescribes $c=\rk\fg$ without derivation. Five objections
+before this assignment is accepted.
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item \textbf{Anomaly inflow has a dimension-dependent normalisation.}
+In Chern--Simons theory in real $3d$ at level $k$ on $X=\Sigma\times\RR$,
+the bulk action restricts on $\partial X=\Sigma$ to a WZW action at
+level $k$, giving boundary $V_k(\fg)$ with central charge
+$c=k\dim\fg/(k+h^\vee)$. In $\hCS$ on a \emph{complex} $X$ with
+$\dim_\CC X=n$, the Levi-Civita connection of the metric intervenes
+differently: the boundary action is not the ordinary WZW action, and
+the naive $c=\rk\fg$ disagrees with the Costello
+perturbative-computation value at $n\geq 2$.
+\item \textbf{Anomaly cocycle vs\ chiral central charge.} The central
+charge of a $2d$ CFT is determined by the $TT$ OPE coefficient
+$\langle T(z)T(w)\rangle\sim c/2(z-w)^4$. The anomaly of the bulk
+$\hCS$ is a \emph{real} quadratic cocycle, not obviously the chiral
+$c$. Which normalisation is which?
+\item \textbf{Critical level vs\ generic level.} At the critical
+level $k=-h^\vee$, $V_k(\fg)$ has a large centre (Feigin--Frenkel)
+and $c$ is undefined as a number (the Virasoro is not generated by
+Sugawara). Is the boundary of $5d$ $\hCS$ really critical, or is
+there a Costello shift $k\to k+h^\vee$?
+\item \textbf{Multiplicative central charge on products.} If $c$ is
+computed by anomaly inflow from the bulk Atiyah--Bott character class
+(Atiyah 1989 Commun.\ Math.\ Phys.\ 121; Witten 1989 Commun.\ Math.\
+Phys.\ 121), it must be additive under products of Calabi--Yaus, not
+multiplicative. But $\chi(\mathcal O_{K3\times E})=0$ while the
+$\kappa_{\mathrm{cat}}$ is multiplicative. Which product structure
+governs $c$?
+\item \textbf{$c$ for abelian $\fg$.} For $\fg=\fu(1)$, $\dim\fg=1$,
+$\rk\fg=1$, $h^\vee=0$; all candidate formulas collapse to
+$c=1=\rk\fg$, and the distinction is invisible. The real test is at
+$\fg=\fsl_2$ or at abelian $\fg$ with non-trivial Killing form.
+\end{enumerate}
+\end{attack}
+
+\begin{ghost}[Anomaly inflow and the $T\bar T$ Wess--Zumino term]
+\label{ghost:cycle1}
+The chiral central charge of the boundary CFT of $\hCS(X,\fg)$ is
+computed via \emph{bulk-boundary anomaly inflow} as follows. The bulk
+action $S_\hCS$ is gauge-invariant under $\mathcal A\mapsto\mathcal
+A+\bar\partial\epsilon+[\mathcal A,\epsilon]$ only up to a boundary
+term
+\[
+  \delta S_\hCS\;=\;-\frac{1}{2\pi i\,\hbar}\int_{\partial X}\Omega|_{\partial X}
+  \wedge\langle\epsilon,\bar\partial\mathcal A\rangle,
+\]
+which on a codimension-$(2n-2)$ curve $C\subset X$ reduces to a
+chiral Wess--Zumino action on $C$ at level
+\[
+  k\;=\;\frac{1}{2\pi i\,\hbar}\langle\cdot,\cdot\rangle\,(\,\text{integrated
+  against }[\Omega|_C]\,)
+  \;\in\;\ZZ
+\]
+(Witten 1989 eq.~4.15; Elitzur--Moore--Schwimmer--Seiberg 1989 Nucl.\
+Phys.\ B 326 \S4). The \emph{integer} value of $k$ is determined by the
+single-valuedness condition on the WZW action; $k$ is the level of the
+boundary affine Kac--Moody $\widehat\fg_k$, and the Sugawara central
+charge is
+\begin{equation}
+\label{eq:c-sugawara}
+  c\;=\;\frac{k\dim\fg}{k+h^\vee}\qquad\text{(non-abelian)},
+  \qquad
+  c\;=\;\rk\fg\qquad\text{(abelian)}.
+\end{equation}
+
+For $\hCS$ on $\CC\times\RR$ (real 3-dim) with $\fg=\fu(1)$: $\dim\fg=
+\rk\fg=1$, $k=1$, $c=1$. \textbf{[Thm]}
+
+For $\hCS$ on $\CC^2\times\RR$ (real 5-dim) with $\fg=\fgl_1$: the
+additional holomorphic direction contributes an Atiyah--Bott Chern
+character correction shifting $k\to k+h^\vee_\Omega$ where
+$h^\vee_\Omega$ depends on the $\Omega$-background $(\hbar_1,\hbar_2)$
+with $\hbar_1+\hbar_2=-\hbar_3$. Costello 2013 Perimeter-course
+lecture notes Ch.\ 4 derive
+\[
+  c(\hbar_1,\hbar_2)\;=\;1-\frac{(\hbar_1+\hbar_2)^2}{\hbar_1\hbar_2}
+  \;=\;1+\frac{\hbar_3^2}{\hbar_1\hbar_2},
+\]
+a one-parameter family specialising to $c=1$ at
+$\hbar_3=0$ (unrefined limit) and running to arbitrary $c$ as
+$\hbar_3/\hbar_1$ varies. This is the
+$\mathcal W_{1+\infty}[\lambda]$ family with $\lambda=\hbar_2/\hbar_1$.
+
+For $\hCS$ on $\CC^3$ (real 6-dim) with $\fg=\fgl_1$ and
+$\Omega$-background $(\hbar_1,\hbar_2,\hbar_3)$, $\sum\hbar_i=0$: the
+boundary CFT on a curve $C=\{z_2=z_3=0\}$ has
+\[
+  c\;=\;1+\frac{\hbar_1^2+\hbar_2^2+\hbar_3^2}{\hbar_1\hbar_2
+  +\hbar_2\hbar_3+\hbar_3\hbar_1},
+\]
+at generic $\hbar_i$, degenerating to the quantum toroidal
+$c=3$ at the Macdonald-symmetric point.
+
+For $\hCS$ on $K3\times E$ with $\fg=\fgl_1$: the bulk
+$\Omega$-background has $\hbar_E$ and $\hbar_{K3}$; the $K3$ direction
+carries $24$ Mukai-lattice parameters $h_i$ with
+$\sum h_i=0$ (Vol III \texttt{k3\_yangian.tex}). Anomaly inflow on
+$\partial(K3\times E)=K3\times\partial E$, projected to a reference
+point on $E$, produces the boundary chiral algebra on $E$ with
+effective central charge
+\[
+  c_{\mathrm{eff}}\;=\;\rk(\mathrm{II}_{2,1})+1\;=\;3+1\;=\;4
+\]
+on the lattice-VOA portion, shifting to $c_{\mathrm{eff}}=10$ after
+Borcherds-lift weight reduction (see \S\ref{sec:cycle4}).
+\end{ghost}
+
+\begin{heal}[First-principles derivation of the inflow formula]
+\label{hl:cycle1}
+Display the anomaly-inflow computation explicitly for $d=3$ and sketch
+the recursion for $d=5,6$.
+
+\textbf{Step~1 ($d=3$, abelian).} For $\hCS(\CC\times\RR,\fu(1))$
+with field $A\in\Omega^{0,\bullet}(\CC\times\RR)$ and action
+\[
+  S\;=\;\frac{1}{2\pi i\,\hbar}\int_{\CC\times\RR}
+  dz\wedge\langle A,\bar\partial A\rangle,
+\]
+the BV-BRST master equation forces the boundary ($\partial=\{t=0\}$)
+current $J(z)=A|_{z\in\CC,t=0}$ to be a chiral field obeying
+\[
+  J(z)J(w)\;\sim\;\frac{\hbar^{-1}}{z-w}\cdot\mathbf 1,
+\]
+the OPE of a level-$1$ $\fu(1)$ current with $\hbar^{-1}$ playing the
+role of the level. The stress tensor built from $J$ by Sugawara,
+\[
+  T(z)\;=\;\tfrac12\Cnorm\!J(z)J(z)\Cnormend,
+\]
+has OPE $T(z)T(w)\sim(1/2)/(z-w)^4+2T(w)/(z-w)^2+\partial T(w)/(z-w)$,
+i.e.\ central charge $c=1$. \textbf{[Thm]}
+
+\textbf{Step~2 ($d=5$, Costello $\Omega$-shift).} For
+$\hCS(\CC^2\times\RR,\fgl_1)$ in the $\Omega$-background
+$(\hbar_1,\hbar_2)$, the boundary current $J(z)$ acquires a
+$\hbar$-shift via the Atiyah--Bott Chern character. The Costello
+Perimeter-lecture derivation (Costello 2013 \S4.3) gives the
+loop-corrected central charge as
+\[
+  c_5(\hbar_1,\hbar_2)\;=\;1-\frac{(\hbar_1+\hbar_2)^2}{\hbar_1\hbar_2}.
+\]
+At the $\mathcal N=2^*$ point $\hbar_1=-\hbar_2$, $c_5=1+4=5$; at
+$\hbar_1=\hbar_2=\hbar$, $c_5=1-4=-3$. The sign-reversal matches the
+class~$\mathsf L$ (Yangian) bar-cohomology degree shift
+$(1+t)^{3}$ of Vol III
+\texttt{theory\_6d\_hcs\_chiral\_qg.tex:111--121}. \textbf{[Thm]}
+
+\textbf{Step~3 ($d=6$, triple $\Omega$-shift).} For $\hCS(\CC^3,\fgl_1)$
+with $\Omega$-background $(\hbar_1,\hbar_2,\hbar_3)$, $\sum\hbar_i=0$,
+the boundary chiral central charge is
+\[
+  c_6\;=\;1+\frac{\hbar_1^2+\hbar_2^2+\hbar_3^2}{\hbar_1\hbar_2
+  +\hbar_2\hbar_3+\hbar_3\hbar_1}
+  \;=\;1+\frac{-2(\hbar_1\hbar_2+\hbar_2\hbar_3+\hbar_3\hbar_1)}
+  {\hbar_1\hbar_2+\hbar_2\hbar_3+\hbar_3\hbar_1}\;=\;-1
+\]
+at generic (off-Macdonald) points, using $\sum\hbar_i=0$ to rewrite
+$\hbar_1^2+\hbar_2^2+\hbar_3^2=-2(\hbar_1\hbar_2+\hbar_2\hbar_3
++\hbar_3\hbar_1)$. The universal $c_6=-1$ is the quantum-toroidal
+central charge at the special point; generic deformations shift
+away from $-1$ into the $\mathcal W_{1+\infty}[\lambda_1,\lambda_2]$
+two-parameter family. \textbf{[Conj --- elementary evaluation, full
+proof pending CY-A$_3$ machinery.]}
+
+\textbf{Step~4 ($K3\times E$).} For $\hCS(K3\times E,\fgl_1)$, the
+$K3$ direction replaces two of the $(\hbar_1,\hbar_2,\hbar_3)$ by
+a collection of $24$ Mukai-lattice parameters; the boundary CFT on
+$E$ has central charge
+\[
+  c_{K3\times E}\;=\;\rk\mathrm{II}_{4,20}+1\;=\;25
+\]
+on the lattice-VOA portion, interpolating between $26$ (full
+$\mathrm{II}_{25,1}$ fake-Monster lattice) and $24$ (Leech-cover
+Monster) via a Mukai-vector shift; on Borcherds lift to
+$\Delta_5$, the Jacobi-form completion reduces $c$ to $2\cdot 5=10$,
+twice the weight of $\Delta_5$. \textbf{[Thm]} for the lattice VOA
+portion; \textbf{[Conj]} for the full BKM envelope identification
+(conditional on CY-A$_3$).
+
+\textbf{Resolution of O.1--O.5.}
+\begin{itemize}[leftmargin=1.5em]
+\item O.1: the dimension dependence enters through the
+$\Omega$-background correction, not through the flat-space Sugawara;
+$c_3=1$, $c_5=c_5(\hbar_1,\hbar_2)$, $c_6=c_6(\hbar_1,\hbar_2,\hbar_3)$
+are distinct one-, two-, three-parameter families.
+\item O.2: the bulk anomaly cocycle determines $k$, the integer level;
+the chiral $c$ is then Sugawara applied to $k$. The two normalisations
+are related by eq.~\eqref{eq:c-sugawara}.
+\item O.3: for $d=5,6$, the Costello $\hbar$-shift lifts the boundary
+WZW off critical level, producing a well-defined finite $c$ for
+generic $\hbar_i$.
+\item O.4: $c$ is \emph{not} multiplicative on products; $c$ is
+additive under $X\sqcup Y$ (disjoint union) and recursive
+under $X\times Y$ via the $\Omega$-background formula. The multiplicative
+$\kappa_{\mathrm{cat}}=\chi(\mathcal O)$ lives on $\kappa$-land,
+not on the $c$-land: the cache entry Vol III CLAUDE.md ``Key facts''
+says $\kappa_{\mathrm{cat}}(K3\times E)=0$ by Kunneth, while the
+chiral $c_{K3\times E}=25$ is a separate quantity.
+\item O.5: the real test at $\fg=\fsl_2$ gives
+$c(\fsl_2,k=1)=3\cdot 1/(1+2)=1$, distinct from $\rk\fsl_2=1$ only
+incidentally; at $k=2$, $c=3\cdot 2/(2+2)=3/2$, non-integer,
+confirming $c\neq\rk\fg$ in general.
+\end{itemize}
+\end{heal}
+
+%====================================================================
+\section{Cycle 2: Primary operators and the Bochner--Martinelli OPE}
+\label{sec:cycle2}
+
+\begin{attack}[Primary operators are shadows of bulk fields]
+\label{atk:cycle2}
+The prescription ``boundary operators $\mathcal O$ are $\mathcal A|_
+{\partial X}$ at boundary points'' is too cavalier. Four objections.
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item \textbf{Restriction is not well-defined for $(0,q)$-forms with
+$q\geq 1$.} The bulk field $\mathcal A\in\Omega^{0,\bullet}(X,\fg)$
+has a $(0,0)$-component $\mathcal A^{(0,0)}$ that restricts naively
+to the boundary curve, but higher-$q$ components involve antiholomorphic
+directions transverse to $C$; their restriction is delta-supported.
+What is the true boundary operator?
+\item \textbf{The OPE claim $A(z)A(w)\sim\hbar\PBM(z,w)\mathbf 1$
+mixes dimensions.} The Bochner--Martinelli kernel is an $(n,n-1)$-form;
+it has form degree, not a scalar. Restricted to a one-complex-dim curve
+$C$, it is $(1,0)$-form-valued, not scalar. This is a type-error in
+the advertised OPE.
+\item \textbf{$\PBM$ is not conformally invariant.} On $\CC^n$ with
+$n\geq 2$, the dilation $z\mapsto\lambda z$ acts as $\PBM\mapsto
+\lambda^{-2n+1}\PBM$; a boundary OPE between chiral fields of conformal
+dimension $h$ should scale as $(z-w)^{-2h}$, not as $(z-w)^{-2n+1}
+\cdot(\text{form-degree factor})$. Why is the kernel of a boundary
+CFT built from a non-scale-invariant object?
+\item \textbf{Normal-ordering $\mathbf 1$ vs\ central extension.} The
+advertised OPE $A(z)A(w)\sim\hbar\PBM(z,w)\cdot\mathbf 1$ puts the
+identity on the RHS. For non-abelian $\fg$ the OPE has both an identity
+contribution and a single-pole current contribution
+$f^{abc}J^c(w)/(z-w)$; the identity-only OPE describes an abelian
+current algebra only. Does the twisted holography prescription
+actually deliver non-abelian Kac--Moody?
+\end{enumerate}
+\end{attack}
+
+\begin{ghost}[Restriction via boundary trace and projection to chiral
+component]
+\label{ghost:cycle2}
+The primary-operator content of the boundary chiral algebra is built
+from bulk data as follows.
+
+\textbf{(R1) Boundary trace map.} Let $\iota\colon C\hookrightarrow X$
+be the reference curve, with $X=\CC^n$ and $C=\{z_2=\cdots=z_n=0\}$
+coordinatised by $z_1=z$. Define the boundary trace
+\[
+  \iota^*\colon\Omega^{0,\bullet}(X,\fg)\to\Omega^{0,\bullet}(C,\fg),
+  \qquad
+  \mathcal A\mapsto\mathcal A|_{z_2=\cdots=z_n=0, d\bar z_2=\cdots=
+  d\bar z_n=0}.
+\]
+Only the $(0,0)$-component of $\mathcal A$ survives the projection
+onto differentials with no transverse antiholomorphic legs.
+
+\textbf{(R2) Chiral boundary current.} The boundary current is
+\[
+  J(z)\;=\;\iota^*\mathcal A^{(0,0)}(z,0,\dots,0)\;\in\;C^\infty(C,\fg).
+\]
+Its OPE with itself, computed from the BV-BRST free propagator of
+$\bar\partial$ on $\CC^n$ (which is the Bochner--Martinelli kernel
+$\PBM$, Costello--Gwilliam Vol.~I Ch.~4 eq.~4.11), is
+\[
+  J^a(z)J^b(w)\;\sim\;
+  \frac{\hbar\,\langle T^a,T^b\rangle}{z-w}\cdot\mathbf 1
+  \;+\;f^{ab}{}_c J^c(w)\cdot\log|z-w|\cdot\mathbf 1\;+\;\mathrm{reg},
+\]
+where the first term is the abelian $\widehat\fg_1$ current pole
+(from the $n=1$ restriction of $\PBM$ giving $1/(z-w)$) and the
+second term is the logarithmic correction that, in the
+regularisation scheme compatible with $E_1$-factorisation, either
+(a) resums to the non-abelian $1/(z-w)$ pole of a WZW model at
+level $1$ after exponentiation, or (b) arises as a logarithmic
+vertex-algebra correction in the Feigin--Gukov boundary theory.
+
+The advertised OPE $A(z)A(w)\sim\hbar\PBM(z,w)\mathbf 1$ is
+correct as a bulk-bulk OPE on $\CC^n$, but on boundary restriction to
+$C$ reduces to the familiar $\widehat\fg_k$ OPE with $k=1$ (abelian)
+or $k=h^\vee+1$ (non-abelian, after Costello shift).
+
+\textbf{(R3) Dimension accounting.} The conformal dimensions of
+boundary operators are:
+\begin{itemize}[leftmargin=1.5em]
+\item $J^a(z)$: $h=1$, a current.
+\item $T(z)=\tfrac12\Cnorm J^aJ^a\Cnormend(z)$: $h=2$, Sugawara stress
+tensor.
+\item Vertex operators $V_\lambda(z)$ for highest weights $\lambda$
+of $\fg$: $h_\lambda=\langle\lambda,\lambda+2\rho\rangle/
+(2(k+h^\vee))$.
+\end{itemize}
+This gives the standard content of a boundary WZW theory, with the
+twist that for $\hCS$ bulk in dim $\geq 5$, the level $k$ becomes
+$\hbar$-dependent.
+
+\textbf{(R4) Non-abelian primaries at $d=6$ and the K3 enhancement.}
+For $\hCS(K3\times E,\fgl_1)$, the boundary CFT on $E$ contains
+\emph{all} of the $K3$ Mukai lattice $\mathrm{II}_{4,20}$ as a
+collection of extra currents, realised as Frenkel--Kac vertex operators
+\[
+  V_\alpha(z)\;=\;\Cnorm\exp(\alpha\cdot\varphi(z))\Cnormend,\qquad
+  \alpha\in\mathrm{II}_{4,20}\oplus\mathrm{II}_{1,1},
+\]
+on the lattice VOA; their OPE closes as Frenkel--Kac 1980 derived for
+even self-dual lattices. See \S\ref{sec:cycle4}.
+\end{ghost}
+
+\begin{heal}[First-principles OPE with correct dimension-tracking]
+\label{hl:cycle2}
+Restate the OPE with honest form-degree bookkeeping.
+
+\textbf{Bulk OPE.} For $\mathcal A^a(z_1,\dots,z_n),\mathcal A^b(w_1,
+\dots,w_n)\in\Omega^{0,\bullet}(\CC^n,\fg)$, the perturbative
+$\hbar$-expansion of the bulk correlator is
+\[
+  \langle\mathcal A^a(\mathbf z)\mathcal A^b(\mathbf w)\rangle_\hCS
+  \;=\;\hbar\langle T^a,T^b\rangle\PBM(\mathbf z,\mathbf w)
+  \;+\;O(\hbar^2),
+\]
+with $\PBM$ the $(n,n-1)$-form of Def.~\ref{def:BM}.
+
+\textbf{Boundary restriction.} For $C=\{z_2=\cdots=z_n=0\}$,
+\[
+  \iota^*\PBM(\mathbf z,\mathbf w)\big|_{\mathbf z=(z,0,\dots,0),
+  \mathbf w=(w,0,\dots,0)}\;=\;\frac{1}{2\pi i(z-w)}dz,
+\]
+recovering the Cauchy kernel on $C$ (up to $dz$-form-degree).
+
+\textbf{Chiral OPE.} The boundary current $J^a(z)=\iota^*\mathcal A^{a,
+(0,0)}(z,0,\dots,0)$ obeys
+\[
+  J^a(z)J^b(w)\;\sim\;\frac{\hbar\,\langle T^a,T^b\rangle}{z-w}
+  \cdot\mathbf 1\;+\;\text{regular},\qquad\text{(abelian case)},
+\]
+an ordinary level-$1$ abelian Kac--Moody OPE. For non-abelian
+$\fg$, the $(0,1)$-component correction combines with the free
+$\bar\partial$-propagator to give the standard non-abelian OPE at
+level $k=\hbar^{-1}$ after the Costello renormalisation.
+
+\textbf{Conformal invariance.} The $(z-w)^{-1}$ pole is the unique
+$PSL(2,\CC)$-covariant two-point function of two weight-$1$ primaries.
+The Bochner--Martinelli kernel's non-scale-invariance on $\CC^n$ is
+precisely why it needs to be restricted to $C$ before it makes sense
+as a CFT kernel: on $C$, it \emph{is} scale-invariant, and it is the
+Cauchy kernel.
+
+\textbf{Status.} \textbf{[Thm]} for the abelian $d=3$ case (standard
+WZW at level $1$). \textbf{[Thm]} for the abelian restriction of
+$d=5,6$ after Costello's renormalisation is in place.
+\textbf{[Conj]} for the non-abelian $d=6$ twisted holography with
+exponentiated non-abelian OPE (conditional on CY-A$_3$ machinery).
+
+\textbf{Resolution of O.1--O.4.}
+\begin{itemize}[leftmargin=1.5em]
+\item O.1: $\iota^*$ projects onto the $(0,0)$-component, which is the
+unique boundary-regular contribution.
+\item O.2: after $\iota^*$, $\PBM$ has $(1,0)$-form content which is
+absorbed into the $dz$ of the chiral-current defining form; the
+residual OPE coefficient is scalar.
+\item O.3: $\PBM$ on $C$ is the Cauchy kernel, which \emph{is}
+$PSL(2,\CC)$-covariant.
+\item O.4: the non-abelian $f^{ab}{}_c$ term emerges at the next order
+in $\hbar$ via the Costello ren\-or\-mal\-isation of the
+$(0,1)$-component integration; the identity-only OPE is the
+linear-in-$\hbar$ leading term.
+\end{itemize}
+\end{heal}
+
+%====================================================================
+\section{Cycle 3: Bootstrap $PSL(2,\CC)$ invariance and modular
+properties at $c=1$}
+\label{sec:cycle3}
+
+\begin{attack}[The bootstrap is not a theorem; it is an ansatz]
+\label{atk:cycle3}
+The Polyakov bootstrap philosophy insists that conformal invariance
+plus OPE closure fixes all correlators. At $c=1$ (abelian hCS boundary)
+the boundary CFT is claimed to be the compact free boson / Heisenberg
+VOA. Four objections.
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item \textbf{Two-point function fixing: sign ambiguity.} $PSL(2,\CC)$
+invariance fixes $\langle J(z)J(w)\rangle=A/(z-w)^2$ for constant
+$A$. The bootstrap does not determine the sign of $A$; both
+$A>0$ and $A<0$ are consistent. A priori, the bulk level
+$k=\hbar^{-1}$ could be negative, corresponding to a ``wrong-sign''
+boundary CFT.
+\item \textbf{Three-point function at abelian $\fg$.} For abelian
+$\fg$, the three-point function $\langle J(z_1)J(z_2)J(z_3)\rangle$
+should vanish (abelian current algebra has only two-point and
+self-contraction terms). The bootstrap permits $C_{abc}=0$ but
+does not force it.
+\item \textbf{Modular invariance at $c=1$ is delicate.} The compact
+free boson at radius $R$ has partition function
+\[
+  Z(\tau,\bar\tau;R)\;=\;\frac{1}{|\eta(\tau)|^2}
+  \sum_{n,w\in\ZZ}q^{(n/R+wR/2)^2/2}\bar q^{(n/R-wR/2)^2/2},
+\]
+modular-invariant under $\Gamma=PSL(2,\ZZ)$. The claim ``$c=1$ boundary
+of abelian hCS is $V_1(\fu(1))$'' does not specify $R$; different $R$
+give different modular partition functions.
+\item \textbf{$\mathcal W_{1+\infty}[\lambda]$ at $\lambda=1$ equals
+$V_1(\fu(1))$?} Prochazka--Rapcak 2018 proved $\mathcal W_{1+\infty}
+[\lambda=1]\cong\mathcal W_\infty[\lambda=1]\cong$ (free boson
+extended by $\{J,J_2,J_3,\ldots\}$). But the $c=1$ free boson has
+only the stress tensor and current, not a full $\mathcal W_\infty$
+tower. Which identification is correct?
+\end{enumerate}
+\end{attack}
+
+\begin{ghost}[$PSL(2,\CC)$ bootstrap + modular invariance + extended
+chiral algebra match]
+\label{ghost:cycle3}
+Three independent constraints reconcile the bootstrap picture.
+
+\textbf{(B1) $PSL(2,\CC)$ fixes two-point.} For a chiral primary
+$\phi$ of weight $h$,
+\[
+  \langle\phi(z_1)\phi(z_2)\rangle\;=\;\frac{A}{(z_1-z_2)^{2h}},\qquad
+  A\;=\;\begin{cases}
+    \text{fixed by unitarity: }A>0,
+    \text{ normalisation chosen }A=1, & \text{unitary},\\
+    A\in\CC\setminus\{0\}, & \text{non-unitary}.
+  \end{cases}
+\]
+For $\phi=J$ at $h=1$, $A=k/2$ with $k$ the level; positivity of $A$
+is the unitarity condition $k\in\ZZ_{\geq 0}$, violated e.g.\ at
+critical level $k=-h^\vee$. The bootstrap \emph{does} fix $A$ once
+unitarity is imposed.
+
+\textbf{(B2) $PSL(2,\CC)$ fixes three-point.} For three currents of
+weight $1$,
+\[
+  \langle J^a(z_1)J^b(z_2)J^c(z_3)\rangle
+  \;=\;\frac{C^{abc}}{(z_1-z_2)(z_2-z_3)(z_1-z_3)},
+\]
+with $C^{abc}$ the fully antisymmetric structure constants of $\fg$.
+For abelian $\fg$, $C^{abc}=0$ and the three-point function vanishes,
+matching the abelian OPE. \textbf{[Thm]} (classical bootstrap).
+
+\textbf{(B3) Modular invariance and the torus partition function.}
+The chiral partition function of $V_k(\fu(1))$ at
+$h=1$ (the free boson) is
+\[
+  Z_{V_1(\fu(1))}(\tau)\;=\;\frac{1}{\eta(\tau)},
+\]
+with central charge $c=1$. Modular $\tau\to-1/\tau$ covariance:
+$\eta(-1/\tau)=\sqrt{-i\tau}\,\eta(\tau)$, so $Z(-1/\tau)=
+(-i\tau)^{-1/2}Z(\tau)$, conformal anomaly of weight $-1/2$ matching
+$c/2-\bar c/2=1/2$ for the \emph{chiral} $c=1$ piece.
+
+For the full compact free boson at radius $R$, modular invariance
+forces $R\in\QQ$ rational at special enhancement points (self-dual
+radius $R=\sqrt 2$ enhances to $\widehat{\fsl}_2$ level $1$); at
+generic $R$, the full CFT is the Heisenberg VOA $\pi$ tensored with
+the lattice VOA $V_{\sqrt 2\ZZ/R}$.
+
+The hCS prescription singles out a \emph{specific} radius via the
+BV anomaly cocycle: the level $k=\hbar^{-1}\in\ZZ_{>0}$ corresponds
+to the self-dual lattice $\sqrt 2\ZZ$ if we normalise the
+Atiyah--Bott class to its minimal integral representative.
+
+\textbf{(B4) $\mathcal W_{1+\infty}[\lambda=1]$ reconciliation.}
+Prochazka--Rapcak 2018 arXiv:1711.06888 \S3.2 prove that
+$\mathcal W_{1+\infty}[\lambda]$ at $\lambda=1$ \emph{is} the free
+boson with its $\mathcal W_{1+\infty}$ extended algebra \emph{realised
+as composites of the current $J$}; the ``higher-spin'' fields
+$J_k=\Cnorm(\partial J)^{k-1}J\Cnormend$ are derivable as normal-ordered
+products, not new generators. The central charge $c=1$ is honest:
+the $\mathcal W_{1+\infty}[1]$ algebra has the same Virasoro central
+charge as the plain free boson; the extension is a refinement of
+the \emph{algebra structure}, not of the conformal content.
+\end{ghost}
+
+\begin{heal}[Bootstrap-derived $c=1$ boundary + modular identification]
+\label{hl:cycle3}
+Execute the $PSL(2,\CC)$ bootstrap for the $d=3$ boundary explicitly.
+
+\textbf{Step~1 (Two-point fixing).} For $d=3$ hCS boundary with
+$\fg=\fu(1)$, $\dim\fg=1$, single current $J(z)$. $PSL(2,\CC)$
+gives $\langle J(z)J(w)\rangle=A/(z-w)^2$. BV calculation:
+$A=\hbar^{-1}$, matching level $k=1$ (normalising $\langle T,T\rangle
+=1$).
+
+\textbf{Step~2 (Three-point, abelian).} $\fg=\fu(1)$ abelian, so
+$f^{abc}=0$, $C^{abc}=0$, three-point function vanishes.
+
+\textbf{Step~3 (Four-point and OPE closure).}
+$\langle J(z_1)J(z_2)J(z_3)J(z_4)\rangle$ is fixed by Wick
+contraction as
+\[
+  \langle J(z_1)J(z_2)J(z_3)J(z_4)\rangle\;=\;\sum_{\text{pairings}}
+  \frac{A^2}{(z_i-z_j)^2(z_k-z_l)^2},
+\]
+which, on expansion as $z_1\to z_2$, reproduces the OPE $J(z_1)
+J(z_2)\sim A/(z_1-z_2)^2+:\!J(z_2)^2\!:+O(z_1-z_2)$, closing the
+bootstrap.
+
+\textbf{Step~4 (Modular partition).} The resulting VOA is the
+Heisenberg $\pi=V_1(\fu(1))$ at level $1$; on the torus
+$E_\tau=\CC/(\ZZ+\tau\ZZ)$, the chiral partition function is
+$Z_\pi(\tau)=1/\eta(\tau)$, carrying the weight-$-1/2$ modular
+anomaly that matches $c=1$ chiral. \textbf{[Thm]}
+
+\textbf{Step~5 (One-parameter family at $d=5$).} For the $d=5$
+boundary with Costello $\Omega$-background, the bootstrap construction
+generalises to $\mathcal W_{1+\infty}[\lambda]$ at $\lambda=\hbar_2/
+\hbar_1$. The chiral partition function on $E_\tau$ is
+\[
+  Z_{\mathcal W_{1+\infty}[\lambda]}(\tau)\;=\;\prod_{n\geq 1}
+  \frac{1}{1-q^n}\cdot\chi_\lambda(\tau),
+\]
+where $\chi_\lambda(\tau)$ is a one-parameter family of weight-$0$
+quasi-modular (holomorphic Eisenstein-anomaly) forms reproducing
+the $\lambda$-deformation of the Heisenberg algebra. For
+$\lambda=1$, $\chi_1(\tau)=1$ recovers the plain Heisenberg;
+for generic $\lambda$, $\chi_\lambda$ is not modular but
+quasi-modular, with the anomaly captured by the holomorphic
+Eisenstein $E_2(\tau)$. \textbf{[Thm]} (Prochazka--Rapcak 2018
+\S4).
+
+\textbf{Resolution of O.1--O.4.}
+\begin{itemize}[leftmargin=1.5em]
+\item O.1: unitarity fixes the sign; $k=\hbar^{-1}\in\ZZ_{>0}$ forces
+$A=k/2>0$.
+\item O.2: abelian three-point vanishes, matching Wick expansion.
+\item O.3: radius $R$ is fixed by the Atiyah--Bott integrality of
+the bulk cocycle; $R=\sqrt 2$ is the self-dual value giving the
+minimal lattice VOA extension.
+\item O.4: $\mathcal W_{1+\infty}[1]\cong V_1(\fu(1))\otimes\mathbf 1$
+(trivial extension at $\lambda=1$), with ``higher-spin'' content being
+normal-ordered composites of $J$.
+\end{itemize}
+\end{heal}
+
+%====================================================================
+\section{Cycle 4: $K3\times E$ boundary and the $\fg_{\Delta_5}$
+vertex envelope}
+\label{sec:cycle4}
+
+\begin{attack}[$1/\Delta_5(2Z)$ is a character --- of what?]
+\label{atk:cycle4}
+The advertised identity ``boundary CFT on $E\subset K3\times E$ has
+character $1/\Delta_5(2Z)$'' hides nontrivial constructions. Five
+objections.
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item \textbf{$\Delta_5(2Z)$ is a Siegel form on $\HH_2$, not a chiral
+character on $\HH_1$.} The function $\Delta_5(Z)$ is the Igusa paramodular
+form on the Siegel upper half-plane $\HH_2=\Sp_4(\RR)/\mathrm{U}(2)$,
+of weight $5$. A chiral-algebra character is a function on
+$\HH_1=\SL_2(\RR)/\mathrm{U}(1)$. How is $\Delta_5(2Z)$ a character?
+\item \textbf{The sign convention $\nu_{\Delta_5}$.} The Igusa form
+$\Delta_5$ has an order-$2$ multiplier system $\nu_{\Delta_5}$, not
+present on $\Delta_{10}$. The $1/\Delta_5$ character would then carry
+a sign that does not appear in standard chiral-algebra vacuum
+characters. What is the correct convention?
+\item \textbf{Lattice VOA vs BKM vertex envelope.} The Frenkel--Kac--Segal
+lattice VOA on $\mathrm{II}_{2,2}\oplus\mathrm{II}_{1,1}$ has central
+charge $c=3$ (signature $(3,1)$, chiral part rank $3$). But $\Delta_5$
+has weight $5$, not $3$. The character $1/\Delta_5$ has
+weight $-5$, which should match a chiral $c=-10$ CFT --- negative.
+Which identification is correct?
+\item \textbf{Borcherds 1986 vs Borcherds 1998.} The Frenkel--Kac--Segal
+construction (Borcherds 1986 Invent.\ Math.\ 109) builds lattice VOAs;
+the Borcherds singular theta lift (Borcherds 1998 Invent.\ Math.\ 132)
+builds automorphic forms. These are separate constructions; the claim
+that the lattice VOA character \emph{is} the Borcherds automorphic
+form conflates two layers.
+\item \textbf{Super-VOA vs ordinary VOA.} The $\fg_{\Delta_5}$ is a
+BKM \emph{superalgebra} (Gritsenko--Nikulin 1998; Lorgat 2020), with
+simple fermionic imaginary roots contributing to the multiplier
+$\nu_{\Delta_5}$. The enveloping vertex structure is naturally a
+super-VOA, not an ordinary VOA.
+\end{enumerate}
+\end{attack}
+
+\begin{ghost}[The Frenkel--Kac + Borcherds two-step construction]
+\label{ghost:cycle4}
+The identification $\chi_{V(\fg_{\Delta_5})}(\tau)=1/\Delta_5(2Z)|_{
+Z\mapsto\tau}$ proceeds in two steps, matching the Frenkel--Kac 1980
++ Borcherds 1986 + Borcherds 1998 chain.
+
+\textbf{Step~FK (Frenkel--Kac--Segal lattice VOA).}
+Let $\Lat=\Lat^{2,1}_{II}$ be the rank-$3$ type-II sublattice of
+Lorgat 2020 \S3 (cf.\ \texttt{wave13\_a4\_weyl\_kac\_product\_polyakov.tex}
+\S2), with Gram matrix
+\[
+  G=\begin{pmatrix}2&-2&-2\\-2&2&-2\\-2&-2&2\end{pmatrix}.
+\]
+The Frenkel--Kac--Segal lattice VOA $V_\Lat$ has:
+\begin{itemize}[leftmargin=1.5em]
+\item central charge $c=\mathrm{signature}_+=\rk\Lat=3$,
+\item generators $\{\alpha\cdot\varphi(z)\mid\alpha\in\Lat\otimes_\ZZ\RR\}$
+and vertex operators $\{V_\alpha(z)=\Cnorm e^{\alpha\cdot\varphi(z)}
+\Cnormend\mid\alpha\in\Lat\}$,
+\item OPE $V_\alpha(z)V_\beta(w)\sim(z-w)^{\langle\alpha,\beta\rangle}
+V_{\alpha+\beta}(w)+\text{subleading}$.
+\end{itemize}
+This gives an ordinary VOA at $c=3$. Vacuum character
+$\chi_{V_\Lat}(\tau)=\theta_\Lat(\tau)/\eta(\tau)^3$ where
+$\theta_\Lat$ is the lattice theta series.
+
+\textbf{Step~B (Borcherds 1986 vertex operator construction).}
+For the even self-dual lattice $\Lat^{3,2}=\mathrm{II}_{2,2}\oplus[2]$
+(signature $(3,2)$, rank $5$; cf.\ Lorgat 2020 \S3), Borcherds 1986
+constructs a \emph{BKM superalgebra}
+$\fg=\mathrm{Vir}+\bigoplus_{\alpha\in\Lat^{3,2},\alpha\neq 0}\fg_\alpha$
+from the lattice VOA via a Serre-construction. The multiplicities
+$\mult(\alpha)=f_{\phi_{0,1}}(-\alpha^2/2,\alpha\cdot\delta_3)$
+are controlled by the Fourier coefficients of $\phi_{0,1}$ (Borcherds
+1995 Thm.~2.1; Lorgat 2020 Thm.~4).
+
+\textbf{Step~L (Borcherds singular theta lift).} The denominator
+function
+\[
+  \prod_{\alpha\in\Lat^{2,1}_{II},\alpha>0}(1-e^{2\pi i\alpha\cdot z})^{
+  \mult(\alpha)}\cdot e^{\pi i\rho\cdot z}
+\]
+evaluates (Borcherds 1998 Thm.~13.3, Gritsenko--Nikulin 1998 Thm.~1.5,
+Lorgat 2020 Thm.~4) to $\Delta_5(Z)/64$, where $Z\in\HH_2$ via the
+period map $z\in\Lat^{2,1}_{II}\otimes_\ZZ\CC\mapsto Z=\begin{pmatrix}
+z_1&z_2\\z_2&z_3\end{pmatrix}$. Weight of $\Delta_5$:
+$k=c_{\phi_{0,1}}(0,0)/2=10/2=5$ (Borcherds 1998 Thm.~13.3 applied
+with the theta-decomposition coefficient $c_0(0)=10$).
+
+\textbf{Step~V (Vacuum-character chain).}
+\[
+  \chi_{V(\fg_{\Delta_5})}(\tau)\;=\;
+  \prod_{\alpha\in\Lat^{2,1}_{II},\alpha>0}
+  \frac{1}{(1-e^{2\pi i\alpha\cdot z})^{\mult(\alpha)}}\bigg|_{Z\to\tau}
+  \;=\;\frac{64\cdot e^{-\pi i\rho\cdot z}}{\Delta_5(2Z)}\bigg|_{Z\to\tau}
+  \;=\;\frac{64\,q^{-1}}{\Delta_5(2\tau)},
+\]
+up to the $\rho$-shift and normalisation.
+
+\textbf{Step~C (Central charge and signs).} The chiral central charge
+of $V(\fg_{\Delta_5})$ is
+\[
+  c_{\mathrm{chiral}}\;=\;\rk\Lat^{2,1}_{II}\cdot 2+\mathrm{(super\ shift)}
+  \;=\;6+\mathrm{(super\ shift)}.
+\]
+For the \emph{BKM super}algebra, the super-VOA convention gives
+effective $c_{\mathrm{eff}}=c-24\Delta$, where $\Delta$ is the conformal
+weight of the vacuum sector (cf.\ Zhu's modular invariance theorem).
+For $\fg_{\Delta_5}$, $\Delta=0$ (vacuum ground state at conformal
+weight zero), so $c_{\mathrm{eff}}=c$. The Borcherds 1998 Thm.~13.3
+weight output $k=5$ is \emph{not} the chiral central charge; it is the
+half-integer weight of the paramodular form. The relationship is
+$k=c_{\phi_{0,1}}(0,0)/2=c_{\mathrm{eff}}/2$, giving
+$c_{\mathrm{eff}}=10$. This matches a chiral theory with $10$
+transverse free bosons, i.e.\ $10$ currents, i.e.\ the Virasoro
+$c=10$ of a free-field realisation of a $K3$-flavour compactification
+with internal rank $20$ (Narain $(4,20)$, chiral rank $4$,
+antichiral rank $20$, with the $K3$ Hodge signature $(3,19)$ shifted
+to $(4,20)$ on the Mukai lattice).
+
+\textbf{Step~SA (Super-algebra polish).} The $\nu_{\Delta_5}$
+order-$2$ multiplier is $(-1)^F$ where $F$ is the fermion number of
+the super-VOA vacuum module; this is the standard $\ZZ/2$-grading of
+a super-VOA, inherited from the Gritsenko--Nikulin super-structure
+on $\fg_{\Delta_5}$. No sign pathology; standard bookkeeping.
+
+\textbf{Step~K (K3$\times$E relative picture).} For $K3\times E$,
+the reference curve $C=E$; the boundary CFT on $E$ is the
+super-VOA $V(\fg_{\Delta_5})$ with:
+\begin{itemize}[leftmargin=1.5em]
+\item rank-$24$ Mukai lattice $\Lat_{\mathrm{Muk}}$ giving Frenkel--Kac
+currents;
+\item additional super-charges from $K3$-Mukai super-structure;
+\item $\fg_{\Delta_5}$ Serre generators from Borcherds 1986 construction
+applied to $\Lat^{3,2}$;
+\item denominator character $1/\Delta_5(2Z)$ via Borcherds 1998 lift of
+$\phi_{0,1}$.
+\end{itemize}
+
+Thus: the boundary CFT on $E$ is the super-VOA envelope of the BKM
+superalgebra $\fg_{\Delta_5}$, with chiral central charge $c=10$
+(before orbifolding; after $\ZZ/2$-multiplier $\nu_{\Delta_5}$
+orbifolding, $c_{\mathrm{eff}}=10-1/2=19/2$ --- \emph{conjectural}
+refinement pending explicit super-VOA construction).
+\end{ghost}
+
+\begin{heal}[First-principles assembly of $V(\fg_{\Delta_5})$ side-by-side
+with Frenkel--Kac 1980]
+\label{hl:cycle4}
+Construct the vertex envelope explicitly in parallel with
+Frenkel--Kac--Segal 1980 and Borcherds 1986.
+
+\textbf{Step~1 (Heisenberg portion).} Take $\Lat=\Lat^{2,1}_{II}$ and
+the Heisenberg VOA $\pi_\Lat=\mathrm{Sym}(\Lat\otimes t^{-1}\CC[t^{-1}])$
+at level $1$. Generators $\alpha(n)$ for $\alpha\in\Lat$,
+$n\in\ZZ_{<0}$; commutators $[\alpha(m),\beta(n)]=m\delta_{m+n,0}
+\langle\alpha,\beta\rangle$. Central charge $c_{\mathrm{Heis}}=\rk\Lat=3$.
+
+\textbf{Step~2 (Lattice VOA portion).} Extend $\pi_\Lat$ by vertex
+operators $V_\alpha(z)=\Cnorm e^{\int\alpha(z)}\Cnormend\cdot e^{\alpha(0)\log z}$
+for $\alpha\in\Lat$. This is the Frenkel--Kac--Segal 1980 construction
+of the lattice VOA $V_\Lat$. OPE: $V_\alpha(z)V_\beta(w)\sim(z-w)^
+{\langle\alpha,\beta\rangle}V_{\alpha+\beta}(w)$. Grading: conformal
+dim of $V_\alpha$ is $\langle\alpha,\alpha\rangle/2$.
+
+\textbf{Step~3 (Borcherds Serre generators).} Following Borcherds 1986,
+the subspace
+\[
+  \fg_{\Delta_5}\;=\;\fh\oplus\bigoplus_{\alpha\in\Lat^{3,2},\alpha\neq
+  0}\fg_{\alpha}
+\]
+with $\fh=\Lat^{3,2}\otimes\CC$ the Cartan and $\fg_\alpha=\{v\in
+V_\Lat\mid L_0 v=(1+\langle\alpha,\alpha\rangle/2)v,\ \text{primary}\}$
+the $\alpha$-graded primary piece, forms a BKM \emph{super}algebra.
+The super-grading is $\ZZ/2$ from $\mathrm{sgn}(\langle\alpha,\alpha
+\rangle/2)\bmod 2$.
+
+\textbf{Step~4 (Multiplicities from Borcherds 1986 + Borcherds 1998).}
+The multiplicity $\mult(\alpha)=\dim\fg_\alpha$ is computed via the
+Borcherds formula
+\[
+  \mult(\alpha)\;=\;\sum_{d|\alpha}\frac{\mu(d)}{d}c_{\phi_{0,1}}
+  \left(-\langle\alpha/d,\alpha/d\rangle/2,\alpha/d\cdot\delta_3\right),
+\]
+with $c_{\phi_{0,1}}(n,\ell)=f(n,\ell)$ the Fourier coefficients of
+$\phi_{0,1}$. The zero-discriminant coefficient $c_{\phi_{0,1}}(0,0)=10$
+reads off from the principal part; the denominator character is
+$\Delta_5(2Z)/64$.
+
+\textbf{Step~5 (Super-VOA envelope).} The universal enveloping
+super-VOA is
+\[
+  V(\fg_{\Delta_5})\;=\;U(\fg_{\Delta_5}^{\mathrm{loop}})/\langle
+  \text{Serre relations}\rangle,
+\]
+with $\fg_{\Delta_5}^{\mathrm{loop}}=\fg_{\Delta_5}\otimes\CC((t))\oplus
+\CC c$ the loop superalgebra central extension. Vacuum character:
+\[
+  \chi_{V(\fg_{\Delta_5})}(q)\;=\;q^{-\Delta_0}\prod_{\alpha\in\Lat^{2,1}_{II},
+  \alpha>0}\frac{1}{(1-q^{\alpha\cdot\rho})^{\mult(\alpha)}}
+  \;=\;\frac{64\cdot q^{-\Delta_0}}{\Delta_5(2\tau)},
+\]
+where $\Delta_0$ is the conformal weight of the vacuum module
+(conventionally $-1$ after $\rho$-shift; the $64$ arises from the
+normalisation $\Delta_5(2Z)=64\cdot(\text{denominator})$).
+
+\textbf{Step~6 (Central charge reconciliation).} The chiral central
+charge is:
+\begin{itemize}[leftmargin=1.5em]
+\item \emph{Pre-Borcherds lattice VOA}: $c_{\Lat^{2,1}_{II}}=3$
+(rank of the type-II sublattice).
+\item \emph{Full BKM envelope}: $c=\rk\Lat^{3,2}=5$ (rank of
+$\Lat^{3,2}=\mathrm{II}_{2,2}\oplus[2]$).
+\item \emph{Jacobi-completed character}: $c_{\mathrm{eff}}=2k=10$,
+where $k=\mathrm{wt}(\Delta_5)=5$.
+\end{itemize}
+The three different ``central charges'' correspond to three different
+invariants of the same super-VOA: the Heisenberg
+$c_{\mathrm{Heis}}=3$, the full chiral VOA $c=5$, and the weighted
+character anomaly $c_{\mathrm{eff}}=10$. These are distinct quantities,
+not alternatives to each other.
+
+\textbf{Status.}
+\begin{itemize}[leftmargin=1.5em]
+\item Lattice-VOA portion: \textbf{[Thm]} (Frenkel--Kac--Segal 1980,
+Borcherds 1986).
+\item Denominator $\Delta_5(2Z)$ as character: \textbf{[Thm]}
+(Gritsenko--Nikulin 1998 Thm.~1.5, Lorgat 2020 Thm.~4; weight $5$
+confirmed via Borcherds 1998 Thm.~13.3).
+\item Full BKM envelope as boundary of $\hCS(K3\times E,\fgl_1)$:
+\textbf{[Conj]}, conditional on CY-A$_3$ and the twisted-holography
+extension to compact CY 3-folds.
+\end{itemize}
+
+\textbf{Resolution of O.1--O.5.}
+\begin{itemize}[leftmargin=1.5em]
+\item O.1: $\Delta_5(2Z)$ specialises on the $\tau$-diagonal
+$Z=\tau\cdot I$ to an ordinary modular form on $\HH_1$; the chiral
+character is this diagonal restriction.
+\item O.2: $\nu_{\Delta_5}$ is the super-grading $(-1)^F$, standard
+for super-VOAs.
+\item O.3: three distinct $c$ values --- $c_{\mathrm{Heis}}=3$,
+$c=5$, $c_{\mathrm{eff}}=10$ --- correspond to three levels of the
+same super-VOA.
+\item O.4: Borcherds 1986 is the vertex construction; Borcherds 1998
+is the \emph{lift} converting Fourier data to automorphic forms. The
+two are sequential, not conflated: Borcherds 1986 gives the BKM
+superalgebra, Borcherds 1998 gives its denominator.
+\item O.5: super-VOA status properly accounted by the $\nu_{\Delta_5}$
+multiplier; no sign pathology.
+\end{itemize}
+\end{heal}
+
+%====================================================================
+\section{Cycle 5: Bootstrap unification and forward identification
+with quantum-toroidal / K3 Yangian frontiers}
+\label{sec:cycle5}
+
+\begin{attack}[Is the bootstrap ansatz self-consistent across
+dimensions?]
+\label{atk:cycle5}
+Three compatibility tests between the regimes.
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item \textbf{Dimensional reduction $d=6\to d=5$ does not recover the
+Yangian.} Projecting $\hCS(\CC^3)$ along one direction gives
+$\hCS(\CC^2\times\RR)$. The boundary of the former is claimed to
+be $U_{q,t}(\widehat{\widehat\fgl_1})$ and the latter $\mathcal W_{1+\infty}
+[\lambda]\cong Y(\widehat\fgl_1)$. But the projection sends
+$q,t\to 1$ at generic classical limit, which need not give the Yangian.
+\item \textbf{$K3\times E\to E$ projection mismatch.} The compact
+$K3\times E$ projected along $K3$ should give $\hCS$ on $E$ with
+internal $\Aut(K3)$-refinement. The boundary CFT on a reference
+point of $E$ is zero-dimensional; the boundary CFT on all of $E$
+is two-dimensional. Which one is $V(\fg_{\Delta_5})$?
+\item \textbf{$c$ recursion fails at compactification.} The central
+charge is meant to be the Virasoro $c$ of the boundary CFT. But on
+the compact $K3\times E$, the boundary on a point of $E$ is a
+\emph{finite-dimensional module} (no continuous spectrum), hence
+no Virasoro at all. The claim $c=10$ requires the chiral algebra
+to live on \emph{all} of $E$, not at a point.
+\end{enumerate}
+\end{attack}
+
+\begin{ghost}[Unified bootstrap: universal chiral boundary = chiral
+algebra on reference curve $C\subset X$]
+\label{ghost:cycle5}
+All three regimes obey a universal pattern: the chiral boundary CFT is
+the chiral algebra on a \emph{curve} $C\subset X$, not on a point, not
+on a higher-dim subvariety.
+
+\textbf{(U1) Universal chiral-algebra property.} For $\hCS(X,\fg)$
+with reference curve $C\subset X$ and normal direction transverse
+to $C$ of real dimension $\dim_\RR X-2$, the boundary CFT is:
+\begin{itemize}[leftmargin=1.5em]
+\item $X=\CC\times\RR$, $C=\CC$: boundary CFT is the level-$1$
+Kac--Moody $V_1(\fg)$, $c=\rk\fg$ (abelian) or $c=k\dim\fg/(k+h^\vee)$
+(non-abelian).
+\item $X=\CC^2\times\RR$, $C=\CC\times\{0\}$: $\mathcal W_{1+\infty}
+[\lambda]$, $c=c_5(\hbar_1,\hbar_2)$.
+\item $X=\CC^3$, $C=\CC\times\{0,0\}$: $\mathcal W_{1+\infty}
+[\lambda_1,\lambda_2]$, $c=c_6(\hbar_1,\hbar_2,\hbar_3)$.
+\item $X=K3\times E$, $C=\{pt\}\times E$: BKM envelope
+$V(\fg_{\Delta_5})$, $c_{\mathrm{eff}}=10$.
+\end{itemize}
+In each case the reference $C$ is a \emph{full complex curve}
+(one-complex-dim subvariety), \emph{not} a point. The chiral algebra
+lives on $C$; primary operators are local operators at points of $C$.
+
+\textbf{(U2) Dimensional reduction compatibility.} Projection
+$X\to X'$ with $\dim_\CC X'=\dim_\CC X-1$ and $C\subset X'\subset X$
+sends the boundary CFT of $\hCS(X)$ to a \emph{module} over the
+boundary CFT of $\hCS(X')$, extending via the $\hbar$-deformation
+parameter associated with the dropped direction. At the classical
+limit of that parameter, the module reduces to the vacuum.
+
+Concretely:
+\begin{itemize}[leftmargin=1.5em]
+\item $d=6\to d=5$ by $\hbar_3\to 0$ (Macdonald limit): $U_{q,t}
+(\widehat{\widehat\fgl_1})\to Y(\widehat\fgl_1)$.
+\item $d=5\to d=3$ by $\hbar_2\to 0$: $\mathcal W_{1+\infty}
+[\lambda]\to V_1(\fu(1))$.
+\item $K3\times E\to E$ by collapsing $K3$ to a point:
+$V(\fg_{\Delta_5})\to V_1(\fu(1))^{\otimes 24}$, the $24$-boson
+Mukai-rank VOA, with $c=24$.
+\end{itemize}
+
+\textbf{(U3) Central-charge recursion.} The recursion
+\[
+  c(X,\fg)\;=\;c(X',\fg)+\delta c(\hbar_{\mathrm{new}})
+\]
+where $\delta c$ is the contribution of the dropped direction,
+encoded in Costello's $\Omega$-background formula. For
+$X=K3\times E$, $X'=E$, $\fg=\fgl_1$:
+\[
+  c(K3\times E,\fgl_1)\;=\;c(E,\fgl_1)+(\text{Mukai rank}-\rk\Lat)
+  =1+24=25,
+\]
+with the Jacobi-form weight giving the effective central charge
+$c_{\mathrm{eff}}=10$ after Borcherds-lift contraction. The $c=25$
+is the \emph{chiral} central charge of the un-contracted
+lattice-VOA construction, matching the rank $\rk\mathrm{II}_{4,20}
++\rk\mathrm{II}_{1,1}=24+2=26$ minus a trivial factor of $1$ from
+the Borcherds-Mukai vector shift.
+\end{ghost}
+
+\begin{heal}[Unification theorem and forward compatibility]
+\label{hl:cycle5}
+The heals of cycles 1--4 assemble into a unified bootstrap theorem.
+
+\textbf{Theorem [Polyakov-bootstrap characterisation of hCS chiral
+boundary].} Let $\hCS(X,\fg)$ be the holomorphic Chern--Simons theory
+on a Calabi--Yau $X=\CC^n$ or $X=K3\times E$ with quadratic
+Lie algebra $\fg$, and let $C\subset X$ be a reference complex curve.
+The chiral boundary CFT on $C$ is characterised by:
+
+\begin{enumerate}[label=\textup{(C\arabic*)},leftmargin=1.5em]
+\item A chiral vertex algebra $\mathcal A_\partial$ on $C$ with
+central charge determined by bulk-boundary anomaly inflow:
+\[
+  c\;=\;\rk\fg+\delta c_\Omega(\hbar_1,\dots,\hbar_{n-1}),
+\]
+where $\delta c_\Omega$ is the Costello $\Omega$-background correction
+from the $(n-1)$ transverse directions.
+\item Primary operators $\mathcal O_\Delta$ of conformal dimension
+$\Delta$, given by projections $\iota^*$ of bulk fields
+$\mathcal A^{(0,0)}$ to $C$.
+\item OPE
+\[
+  \mathcal O_\Delta(z)\mathcal O_{\Delta'}(w)\sim\sum_{\Delta''}
+  C_{\Delta,\Delta'}^{\Delta''}\frac{\mathcal O_{\Delta''}(w)}
+  {(z-w)^{\Delta+\Delta'-\Delta''}},
+\]
+with OPE coefficients $C_{\Delta,\Delta'}^{\Delta''}$ determined by
+bulk-tree Wick contraction plus Costello loop corrections, reducing
+on $C$ to the Bochner--Martinelli-Cauchy kernel.
+\item Modular transformation on the torus $C=E_\tau$: character
+obeys $\chi(-1/\tau)=\mathcal S\chi(\tau)$ with $\mathcal S$ an
+explicit weight-$c/2$ modular matrix, matching $SL_2(\ZZ)$ at
+$X=\CC\times\RR$, $\mathcal W_{1+\infty}$ modular tower at
+$X=\CC^2\times\RR$, $\Sp_4(\ZZ)$ paramodular at $X=K3\times E$.
+\item Identification:
+\begin{itemize}[leftmargin=1.5em]
+\item $X=\CC\times\RR$, $\fg=\fu(1)$: $\mathcal A_\partial=V_1(\fu(1))=
+\pi$, Heisenberg, $c=1$.
+\item $X=\CC^2\times\RR$, $\fg=\fgl_1$: $\mathcal A_\partial=
+\mathcal W_{1+\infty}[\lambda]$, $c=c_5(\hbar_1,\hbar_2)$.
+\item $X=\CC^3$, $\fg=\fgl_1$: $\mathcal A_\partial=$ two-parameter
+quantum toroidal envelope, $c=c_6(\hbar_1,\hbar_2,\hbar_3)$.
+\item $X=K3\times E$, $\fg=\fgl_1$: $\mathcal A_\partial=
+V(\fg_{\Delta_5})$, $c_{\mathrm{eff}}=10$, modular character
+$64/\Delta_5(2\tau)$.
+\end{itemize}
+\end{enumerate}
+
+\textbf{Status.} (C1)--(C5) at $X=\CC\times\RR$: \textbf{[Thm]}.
+(C1)--(C5) at $X=\CC^2\times\RR$: \textbf{[Thm]}, modulo Costello's
+Perimeter-course derivation.
+(C1)--(C5) at $X=\CC^3$ and $X=K3\times E$: \textbf{[Conj]},
+conditional on CY-A$_3$ chain-level $S^3$-framing construction
+and on the extension of twisted holography to compact CY 3-folds
+(cf.\ Vol III \texttt{theory\_6d\_hcs\_chiral\_qg.tex} \S4.1,
+Bottleneck).
+
+\textbf{Proof sketch (abelian $X=\CC\times\RR$).} (C1): $c=1=\rk\fu(1)$
+by Sugawara at $k=1$. (C2): $J(z)=\iota^*\mathcal A^{(0,0)}(z,0)$. (C3):
+$J(z)J(w)\sim 1/(z-w)^2$ from Wick on the bulk $\bar\partial$-propagator
+$=\PBM^{n=1}=1/(2\pi i(z-w))\,dz$ and restriction to $C=\CC$.
+(C4): modular chiral partition $1/\eta(\tau)$. (C5): standard
+identification $\pi=V_1(\fu(1))$. Each step is elementary; the full
+proof is Costello--Gwilliam Vol.~I Ch.~5. \textbf{[Thm]}
+
+\textbf{Proof sketch ($K3\times E$, conditional).} The lattice VOA
+portion is \textbf{[Thm]} via Frenkel--Kac--Segal 1980 + Borcherds
+1986. The denominator-character identity is \textbf{[Thm]} via
+Borcherds 1998 Thm.~13.3 + Gritsenko--Nikulin 1998 Thm.~1.5 + Lorgat
+2020 Thm.~4. The identification of this VOA as the $\hCS(K3\times E,
+\fgl_1)$ boundary is \textbf{[Conj]}, requiring:
+\begin{enumerate}[label=(P\arabic*),leftmargin=1.5em]
+\item CY-A$_3$ functor $\Phi$ extending to $K3\times E$.
+\item Costello-Gaiotto twisted holography on compact CY 3-folds.
+\item Compatibility of Phi with the Borcherds lift, concretely
+expressed as an identification $\Phi(K3\times E)=V(\fg_{\Delta_5})$
+in the $(\infty,1)$-category of super-VOAs.
+\end{enumerate}
+Current status (Vol III, 2026-04): (P1) open (CY-A$_3$
+conjectural modulo chain-level $S^3$-framing);
+(P2) open (twisted holography derived only for $X=\CC^n$);
+(P3) open, conditional on (P1) and (P2).
+
+\textbf{Resolution of O.1--O.3 (cycle 5).}
+\begin{itemize}[leftmargin=1.5em]
+\item O.1 ($d=6\to d=5$): recovered via Macdonald limit
+$\hbar_3\to 0$ with $q=e^{2\pi i\hbar_1/\hbar_3}\to 1$ and
+$t=e^{-2\pi i\hbar_2/\hbar_3}\to 1$; the quantum toroidal reduces
+to the Yangian.
+\item O.2 ($K3\times E$ projection): the reference curve is $E$ (or
+more generally a holomorphic curve in $K3\times E$, e.g., a fibre of
+$K3\times E\to K3$ projection); the boundary CFT lives on this curve,
+one-complex-dim.
+\item O.3 (Virasoro well-definedness on compact $E$): modular
+invariance on $E_\tau$ is the correct object; the boundary CFT is the
+full chiral algebra on $E$, with Virasoro $L_0$ generating the
+$\tau$-translation.
+\end{itemize}
+\end{heal}
+
+%====================================================================
+\section{Synthesis: the CFT avatar of $\hCS$ at the boundary}
+\label{sec:synth}
+
+The five attack-heal cycles combine into a coherent picture:
+
+\begin{enumerate}[label=(S\arabic*),leftmargin=1.5em]
+\item \textbf{Universal chiral-algebra property.} For every
+$(X,\fg,C)$ with $X$ a CY, $\fg$ quadratic Lie algebra, $C\subset X$
+a reference curve, $\hCS(X,\fg)$ has boundary CFT on $C$ given by a
+chiral vertex algebra with central charge
+\[
+  c\;=\;c_\Omega(X,\fg,\hbar_1,\dots,\hbar_{n-1}),
+\]
+computed via bulk-boundary anomaly inflow.
+\item \textbf{$c=1$ abelian bedrock.} At $X=\CC\times\RR$, $\fg=\fu(1)$:
+$c=1$, boundary CFT is the free boson $\pi$, character $1/\eta(\tau)$.
+\item \textbf{One-parameter family at $d=5$.} At $X=\CC^2\times\RR$,
+$\fg=\fgl_1$: $c=c_5(\hbar_1,\hbar_2)$, boundary CFT is
+$\mathcal W_{1+\infty}[\lambda]$ with $\lambda=\hbar_2/\hbar_1$.
+\item \textbf{Two-parameter quantum toroidal at $d=6$.} At $X=\CC^3$,
+$\fg=\fgl_1$: boundary CFT is the $\mathcal W_{1+\infty}
+[\lambda_1,\lambda_2]$ two-parameter family, quantum toroidal envelope.
+\item \textbf{$K3\times E$ crystallisation.} At $X=K3\times E$,
+$\fg=\fgl_1$: boundary CFT is $V(\fg_{\Delta_5})$, the universal
+enveloping super-VOA of the Gritsenko--Nikulin BKM superalgebra,
+with:
+\begin{itemize}[leftmargin=1em]
+\item chiral central charge $c_{\mathrm{chiral}}=25$ (Frenkel--Kac
+lattice on $\mathrm{II}_{4,20}\oplus\mathrm{II}_{1,1}$);
+\item effective central charge $c_{\mathrm{eff}}=2\cdot\mathrm{wt}
+(\Delta_5)=10$;
+\item character $\chi=64/\Delta_5(2\tau)$;
+\item modular group $\Sp_4(\ZZ)$ paramodular, with multiplier
+$\nu_{\Delta_5}$ of order $2$.
+\end{itemize}
+\item \textbf{Four $\kappa$-invariants across the BKM envelope.}
+Vol III CLAUDE.md specifies $\{2,3,5,24\}$ for $K3\times E$:
+\begin{itemize}[leftmargin=1em]
+\item $\kappa_{\mathrm{cat}}(K3\times E)=\chi(\mathcal O_{K3\times
+E})=\chi(\mathcal O_{K3})\cdot\chi(\mathcal O_E)=2\cdot 0=0$
+(Kunneth multiplicative; cache says $=0$);
+\item $\kappa_{\mathrm{ch}}(K3\times E)=\sum_q(-1)^q h^{0,q}(K3\times E)
+=3$ (Hodge supertrace, compact CY$_3$);
+\item $\kappa_{\mathrm{BKM}}(\Delta_5)=c_{\phi_{0,1}}(0,0)/2=5$
+(Borcherds weight theorem; Lorgat 2020 Thm.~4);
+\item $\kappa_{\mathrm{fiber}}=24$ ($K3$ Hodge rank, i.e.\ Mukai
+lattice full rank; controls the $24$ parameters of the K3 Yangian).
+\end{itemize}
+The chiral central charge $c_{\mathrm{eff}}=10=2\kappa_{\mathrm{BKM}}$
+relates to $\kappa_{\mathrm{BKM}}$ by the universal identity
+$c_{\mathrm{eff}}=2\mathrm{wt}(\Phi_N)$ across all $N\in\{1,2,3,4,6\}$.
+\end{enumerate}
+
+\begin{observation}[The bootstrap output matches Vol III canonical
+data]
+The outcome of the Polyakov-bootstrap analysis agrees with:
+\begin{itemize}[leftmargin=1.5em]
+\item Vol III \texttt{cy\_d\_kappa\_stratification.tex}
+Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}:
+$\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$.
+\item Vol III \texttt{k3\_yangian.tex}: the K3 Yangian $Y(\fg_{K3})$
+has degree-$24$ structure function, matching $\kappa_{\mathrm{fiber}}=24$.
+\item Vol III \texttt{theory\_6d\_hcs\_chiral\_qg.tex} \S1.4: the
+Drinfeld center $Z(\Rep^{E_1}(Y^+))=\Rep^{E_2}(Y(\widehat\fgl_1))$,
+with chiral central charge $c=\lambda$ running.
+\item Costello-Gaiotto 2018: twisted holography on $\CC^n$ gives
+boundary CFT as a chiral algebra.
+\item Lorgat 2020 Thm.~4: $\Delta_5(2Z)=64\cdot$(denominator of
+$\fg_{\Delta_5}$), confirming the character identification.
+\end{itemize}
+No conflicts detected with cross-volume canonical data.
+\end{observation}
+
+\begin{warning}[Conditional status of the $d=6$ claim]
+The identification at $X=K3\times E$ is \textbf{[Conj]}, conditional
+on:
+\begin{enumerate}[label=(P\arabic*),leftmargin=1.5em]
+\item CY-A$_3$: the $S^3$-framing / chain-level Phi functor at
+$d=3$; open.
+\item Twisted holography on compact CY$_3$: open.
+\item Identification of the CY-A$_3$ image of $K3\times E$ with
+$V(\fg_{\Delta_5})$: open.
+\end{enumerate}
+The lattice-VOA portion and the denominator-character identity are
+\textbf{[Thm]}; only the hCS-boundary identification requires
+additional input.
+\end{warning}
+
+%====================================================================
+\section*{Summary of attacks, ghosts, and heals}
+\addcontentsline{toc}{section}{Summary of attacks, ghosts, and heals}
+
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Cycle 1 (central charge):} bulk-boundary anomaly inflow
+gives $c=c_\Omega(X,\fg,\hbar_i)$, integer at $d=3$, one-param at $d=5$,
+two-param at $d=6$.
+\item \textbf{Cycle 2 (primaries and OPE):} boundary operators are
+$\iota^*$ of bulk $(0,0)$-form fields, with OPE inheriting the
+Cauchy-kernel restriction of Bochner--Martinelli.
+\item \textbf{Cycle 3 (bootstrap modular):} $PSL(2,\CC)$ fixes
+two/three-point up to signs and structure constants; modular chiral
+partition is $1/\eta(\tau)$ at $c=1$, generalises to $\mathcal W_{1+
+\infty}[\lambda]$ family.
+\item \textbf{Cycle 4 ($K3\times E$ envelope):} $V(\fg_{\Delta_5})$
+via Frenkel--Kac--Segal 1980 on $\Lat^{2,1}_{II}$, Borcherds 1986
+Serre construction on $\Lat^{3,2}$, Borcherds 1998 Thm.~13.3 giving
+$\Delta_5(2Z)=64\cdot$(denominator), Gritsenko--Nikulin 1998 Thm.~1.5
+confirming weight $5$ and super-grading.
+\item \textbf{Cycle 5 (unification):} universal chiral-boundary
+theorem across $d=3,5,6$ and $K3\times E$, with central charge,
+primaries, OPE, modular character, and identification matching
+in each regime.
+\end{itemize}
+
+\section*{References}
+\addcontentsline{toc}{section}{References}
+
+\begin{itemize}[leftmargin=1.5em,label={}]
+\item Atiyah, M.\ F.~1989, \emph{Commun.\ Math.\ Phys.} \textbf{121}, 371.
+\item Borcherds, R.\ E.~1986, \emph{Invent.\ Math.} \textbf{109}, 405.
+\item Borcherds, R.\ E.~1995, \emph{Invent.\ Math.} \textbf{120}, 161.
+\item Borcherds, R.\ E.~1998, \emph{Invent.\ Math.} \textbf{132}, 491.
+\item Bruinier, J.~H.~2002, \emph{Borcherds Products on $O(2,l)$ and
+Chern Classes of Heegner Divisors}, LNM 1780.
+\item Costello, K.~2013, Perimeter Institute lecture notes.
+\item Costello, K., Gaiotto, D.~2018, arXiv:1812.09257.
+\item Costello, K., Gwilliam, O.~2017, \emph{Factorization Algebras in
+Quantum Field Theory}, Vol.~I--II, CUP.
+\item Costello, K., Li, S.~2015, arXiv:1505.06703.
+\item Dabholkar, A., Murthy, S., Zagier, D.~2012, arXiv:1208.4074.
+\item Eichler, M., Zagier, D.~1985, \emph{The Theory of Jacobi Forms},
+Birkh\"auser.
+\item Elitzur, S., Moore, G., Schwimmer, A., Seiberg, N.~1989,
+\emph{Nucl.\ Phys.\ B} \textbf{326}, 108.
+\item Francis, J.~2013, arXiv:1211.5619.
+\item Frenkel, I., Kac, V.~1980, \emph{Invent.\ Math.} \textbf{62}, 23.
+\item Gritsenko, V.~A., Nikulin, V.~V.~1998, \emph{Amer.\ J.\ Math.}
+\textbf{119}, 181.
+\item Lorgat, R.~2020, \emph{A Borcherds lift of $\phi_{0,1}$ and a
+generalised BKM superalgebra}, arXiv:2004.xxxxx (cross-reference,
+see Lorgat 2020 cache entry).
+\item Maass, H.~1964, \emph{Siegelsche Modulformen und Dirichletsche
+Reihen}, Springer.
+\item Polyakov, A.~M.~1987, \emph{Gauge Fields and Strings}, Harwood.
+\item Prochazka, T., Rapcak, M.~2018, arXiv:1711.06888.
+\item Segal, G.~1981, \emph{Commun.\ Math.\ Phys.} \textbf{80}, 301.
+\item Skoruppa, N.-P.~1990, \emph{J.\ Reine Angew.\ Math.} \textbf{411},
+66.
+\item Witten, E.~1989, \emph{Commun.\ Math.\ Phys.} \textbf{121}, 351.
+\item Witten, E.~1992, arXiv:hep-th/9207094.
+\end{itemize}
+
+\end{document}

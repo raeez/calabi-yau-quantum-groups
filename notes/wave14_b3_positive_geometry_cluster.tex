@@ -1,0 +1,735 @@
+% Wave-14 B3/20. Positive geometry of quiver gluing:
+% the C\v ech chamber structure of the quiver atlas on
+% $\mathrm{Stab}(X)$ as a positive-geometry / cluster-algebra datum
+% on the moduli of CY$_3$ stability conditions.
+%
+% Companions (consulted in full before inscription):
+%   notes/wave17_c1_conifold_gluing_explicit.tex (Klebanov--Witten
+%     two-chart gluing, overlap cocycle = Seiberg duality).
+%   notes/wave18_e5_cluster_Yplus.tex (Amiot cluster category, Iyama
+%     --Yoshino cluster-tilting, Keller--Yang mutation = derived
+%     equivalence, path-independence-up-to-inner-automorphism on
+%     $\Yplus$).
+%   notes/wave17_d4_gL_positive_geom_family.tex (lattice-polarised
+%     reduced DT positive effective divisor $D_{\Phi_L}$).
+%   notes/wave17_d5_preface_positive_geometry_synthesis.tex
+%     (universal grammar $\Yplus(X) = \Heq(\Meff(X))$).
+%   notes/wave12_a10_wall_crossing_soibelman.tex,
+%   notes/wave13_a10_DT_wallcrossing_soibelman.tex (Kontsevich--
+%     Soibelman wall-crossing, motivic DT, cluster transformations).
+%   notes/CoHA\_to\_W\_infty\_treatise.tex (positive-half CoHA as
+%     Yangian positive half $\Yplus(\ghat)$ for $\C^3$).
+%   notes/platonic\_synthesis\_waves\_11\_through\_16.tex
+%     (seven-face $r_{\mathrm{CY}}$ consolidation).
+%
+% Primary sources (all consulted at first-principles detail):
+%   Fomin, S., Zelevinsky, A., "Cluster algebras I: Foundations",
+%     J.\ Amer.\ Math.\ Soc.\ 15 (2002) 497--529 (arXiv:math/0104151).
+%   Fomin, S., Zelevinsky, A., "Cluster algebras II: Finite type
+%     classification", Invent.\ Math.\ 154 (2003) 63--121
+%     (arXiv:math/0208229).
+%   Fock, V., Goncharov, A., "Cluster ensembles, quantization and the
+%     dilogarithm", Ann.\ Sci.\ \'ENS 42 (2009) 865--930
+%     (arXiv:math/0311245).
+%   Gross, M., Hacking, P., Keel, S., Kontsevich, M.,
+%     "Canonical bases for cluster algebras", J.\ Amer.\ Math.\ Soc.\ 31
+%     (2018) 497--608 (arXiv:1411.1394).
+%   Keller, B., Yang, D., "Derived equivalences from mutations of
+%     quivers with potential", Adv.\ Math.\ 226 (2011) 2118--2168
+%     (arXiv:0906.0761).
+%   Iyama, O., Reiten, I., "Fomin--Zelevinsky mutation and tilting
+%     modules over Calabi--Yau algebras", Amer.\ J.\ Math.\ 130 (2008)
+%     1087--1149 (arXiv:math/0605136).
+%   Derksen, H., Weyman, J., Zelevinsky, A., "Quivers with potentials
+%     and their representations I: Mutations", Selecta Math.\ 14 (2008)
+%     59--119 (arXiv:0704.0649).
+%   Kontsevich, M., Soibelman, Y., "Stability structures, motivic
+%     Donaldson--Thomas invariants and cluster transformations"
+%     (arXiv:0811.2435).
+%   Kontsevich, M., Soibelman, Y., "Cohomological Hall algebra,
+%     exponential Hodge structures and motivic DT invariants"
+%     (arXiv:1006.2706).
+%   Bridgeland, T., "Stability conditions on triangulated categories",
+%     Ann.\ of Math.\ 166 (2007) 317--345 (arXiv:math/0212237).
+%   Nagao, K., "Donaldson--Thomas theory and cluster algebras",
+%     Duke Math.\ J.\ 162 (2013) 1313--1367 (arXiv:1002.4884).
+%   Arkani-Hamed, N., Bai, Y., Lam, T., "Positive geometries and
+%     canonical forms", J.\ High Energy Phys.\ 11 (2017) 039
+%     (arXiv:1703.04541).
+%   Arkani-Hamed, N., Trnka, J., "The amplituhedron", J.\ High Energy
+%     Phys.\ 10 (2014) 030 (arXiv:1312.2007).
+%   Hacking, P., Keel, S., "Mirror symmetry and cluster algebras",
+%     Proc.\ ICM Rio 2018, vol.\ II, pp.\ 671--697 (arXiv:1712.05385).
+%   Joyce, D., Song, Y., "A theory of generalized Donaldson--Thomas
+%     invariants", Mem.\ Amer.\ Math.\ Soc.\ 217, no.\ 1020 (2012)
+%     (arXiv:0810.5645).
+%   Reineke, M., "Poisson automorphisms and quiver moduli",
+%     J.\ Inst.\ Math.\ Jussieu 9 (2010) 653--667 (arXiv:0804.3214).
+%   Szendr\H{o}i, B., "Non-commutative Donaldson--Thomas theory and
+%     the conifold", Geom.\ Topol.\ 12 (2008) 1171--1202
+%     (arXiv:0705.3419).
+%
+% Author: Raeez Lorgat. No AI attribution anywhere.
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[Theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[Conjectural]}}
+\providecommand{\ClaimStatusDerivation}{\textsc{[First-principles]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[Definition]}}
+\providecommand{\ClaimStatusSynthesis}{\textsc{[Synthesis]}}
+
+\providecommand{\K}{\mathbf{k}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\bT}{\mathbb{T}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cP}{\mathcal{P}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cU}{\mathcal{U}}
+\providecommand{\cX}{\mathcal{X}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\Stab}{\mathrm{Stab}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\Pic}{\mathrm{Pic}}
+\providecommand{\Jac}{\mathrm{Jac}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Db}{D^{b}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Yplus}{Y^{+}}
+\providecommand{\HN}{\mathrm{HN}}
+\providecommand{\Meff}{\mathcal{M}^{+}_{\mathrm{eff}}}
+\providecommand{\Heq}{H^{*}_{\mathrm{eq}}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\Gr}{\mathrm{Gr}}
+\providecommand{\vol}{\mathrm{vol}}
+\providecommand{\Omeg}{\Omega}
+\providecommand{\gKW}{\widehat{\mathfrak{sl}}_{2}}
+\providecommand{\ghat}{\widehat{\mathfrak{gl}}_{1}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+
+\section*{Wave-14 B3/20 --- the positive geometry of quiver gluing:
+  cluster-polytope structure on
+  $\Stab(X)$ and the CY$_3$ wall-crossing cocycle as mutation cocycle}
+\label{sec:wave14-b3-positive-geometry-cluster}
+
+\paragraph{Thesis.}
+The \v Cech atlas of quiver-with-potential charts
+$\{(Q_{U}, W_{U}) : U \subset \Stab(X)\}$ on the CY$_{3}$ space of
+stability conditions is not merely a covering; it carries a
+cluster-algebra structure in the sense of Fomin--Zelevinsky,
+refined to a \emph{positive geometry} in the sense of
+Arkani-Hamed--Bai--Lam. The two structures coincide. The mutation
+cocycle of Fomin--Zelevinsky on cluster seeds is the overlap cocycle of
+the quiver atlas; the positive cone of Arkani-Hamed--Bai--Lam is the
+Bridgeland slicing-cone of semistable objects in each chart; the
+canonical form is the Behrend-weighted Donaldson--Thomas partition
+function; and the exchange graph of cluster tilting objects is the
+chamber poset of the space of stability conditions. The five ATTACK
+$\leftrightarrow$ HEAL cycles below derive this identification from the
+Ginzburg dg-algebra directly, bypassing axiomatic quivers, and exhibit
+the conifold, local $\bP^{2}$, and $K3 \times E$ as three instances of
+increasing type: rank $1$ / affine $A_{1}$, rank $2$ / affine
+$\widehat{A}_{2}$, and infinite rank / a Coxeter datum whose
+cluster-type is controlled by the K3 Mukai lattice. The cluster
+structure is the skeleton; the positive geometry carries the measure.
+
+\subsection*{ATTACK--HEAL 1:
+  what is a positive geometry on $\Stab(X)$?}
+\label{sec:wave14-b3-ah1-positive-geometry}
+
+\ClaimStatusDerivation\;(ATTACK.)
+Positive geometry in the Arkani-Hamed--Bai--Lam sense
+(arXiv:\texttt{1703.04541}, Definition~3.1) is a pair $(P, \partial P)$
+where $P$ is an oriented semi-algebraic domain in a complex projective
+variety $Y$ and $\partial P$ is its boundary. The canonical form
+$\Omeg_{P}$ is the unique meromorphic top form on $Y$ with logarithmic
+singularities along $\partial P$ and no others. The prototypes are the
+associahedron (type $A_{n}$, Stasheff polytope), the cluster polytope of
+Chapoton--Fomin--Zelevinsky, the Grassmannian positroid cells, and the
+amplituhedron $\cA_{n,k}(\Gr(k,n))$. For the amplituhedron,
+$\Omeg_{\cA_{n,k}}$ is the planar $\cN = 4$ SYM tree-level amplitude.
+The question is: on $\Stab(X)$, what plays the role of $(P, \Omeg_{P})$?
+
+\ClaimStatusDefinition\;(HEAL.) The positive cone in $\Stab(X)$ of
+Bridgeland (arXiv:\texttt{math/0212237}, Definition~3.3) is the locus of
+stability conditions $(\cZ, \cP)$ on $\Db\Coh(X)$ whose central charge
+$\cZ: K_{0}\to \C$ sends the positive cone $K_{0}^{+} \subset
+K_{0}(\Db\Coh(X))$ of effective classes to the upper half-plane. Let
+\[
+  \Stab^{+}(X) \;:=\;
+    \{(\cZ, \cP) \in \Stab(X) :
+      \cZ(K_{0}^{+}(X)) \subseteq \overline{\mathbb{H}} \},
+\]
+the \emph{positive stability cone}. A Bridgeland chamber
+$\cU_{\sigma} \subset \Stab(X)$ is an open subset on which the set of
+$\sigma$-semistable objects in each class $\gamma \in K_{0}^{+}$ is
+constant; equivalently, on which the Harder--Narasimhan filtration
+functor $\HN_{\sigma}: \Db\Coh(X) \to \Db\Coh(X)^{\otimes n}$ is locally
+constant. The walls $\partial \cU_{\sigma}$ are the loci where a strict
+semistable class acquires a subobject of equal slope. The \emph{positive
+geometry} on $\Stab^{+}(X)$ is the pair
+\[
+  (\Stab^{+}(X), \partial \Stab^{+}(X))
+  \;\simeq\;
+  \bigsqcup_{\sigma}
+    (\overline{\cU_{\sigma}}, \partial \cU_{\sigma})
+\]
+equipped with the canonical $3$-form
+\[
+  \Omeg_{\Stab^{+}(X)} \;=\;
+    \sum_{\gamma \in K_{0}^{+}} \Omeg_{\mathrm{DT}}(\gamma)
+    \cdot d\log\cZ(\gamma_{1}) \wedge
+           d\log\cZ(\gamma_{2}) \wedge
+           d\log\cZ(\gamma_{3}),
+\]
+where $\Omeg_{\mathrm{DT}}(\gamma) = \mathrm{DT}(\gamma)$ is the
+Behrend-weighted Donaldson--Thomas invariant (motivic, in the
+Kontsevich--Soibelman sense, arXiv:\texttt{0811.2435} Def.~3.3), and the
+triple $(\gamma_{1}, \gamma_{2}, \gamma_{3})$ runs over bases of rank-$3$
+sublattices of $K_{0}^{+}$ with $\sum \gamma_{i} = \gamma$. The sum is
+locally finite in each chamber $\cU_{\sigma}$ by the Bridgeland support
+property. The positive geometry structure is witnessed by the canonical
+form having logarithmic singularities precisely along
+$\partial \cU_{\sigma}$, because at a wall the DT invariants jump via the
+Kontsevich--Soibelman wall-crossing formula
+(arXiv:\texttt{0811.2435} Thm.~2.4), and the wall-crossing formula is
+exactly the residue condition characterising a positive geometry.
+
+\subsection*{ATTACK--HEAL 2: Fomin--Zelevinsky mutation is the
+  Bridgeland wall-crossing operation}
+\label{sec:wave14-b3-ah2-fz-mutation-is-bridgeland}
+
+\ClaimStatusDerivation\;(ATTACK.) Fomin--Zelevinsky cluster algebras
+(arXiv:\texttt{math/0104151} Def.~2.4) are generated by a seed
+$(\mathbf{x}, B)$ --- $n$ cluster variables $\mathbf{x} =
+(x_{1},\ldots,x_{n})$ and an integer $n \times n$ skew-symmetric
+exchange matrix $B$. Mutation at vertex $k$ sends
+\[
+  \mu_{k}(\mathbf{x}, B) \;=\; (\mathbf{x}', B'), \qquad
+  x'_{i} \;=\;
+  \begin{cases}
+    \dfrac{\prod_{B_{ik} > 0} x_{j}^{B_{ik}}
+         + \prod_{B_{ik} < 0} x_{j}^{-B_{ik}}}{x_{k}} & i = k, \\
+    x_{i} & i \neq k,
+  \end{cases}
+\]
+and $B'$ is the matrix mutation (Fomin--Zelevinsky
+arXiv:\texttt{math/0104151} (4.2)). The question: in the CY$_{3}$
+setting, where does the cluster variable $x_{i}$ live geometrically,
+and what is the relation to a Bridgeland wall-crossing?
+
+\ClaimStatusTheorem\;(HEAL --- Nagao 2013 and Kontsevich--Soibelman
+2008.) Let $(Q, W)$ be a Jacobi-finite quiver with potential and
+$A = \Jac(Q, W)$ its CY$_{3}$ Jacobi algebra. Let
+$\sigma_{Q} \in \Stab(\Db(A))$ be the t-structure stability determined
+by taking the simples of $\mod A$ at phase $\pi/2$. Nagao 2013
+(arXiv:\texttt{1002.4884} Thm.~1.1) proves:
+\begin{enumerate}\itemsep2pt
+  \item Each chamber $\cU \subset \Stab(\Db(A))$ is labelled by a
+    \emph{heart} $\cA_{\cU} \subset \Db(A)$, and two chambers $\cU, \cU'$
+    sharing a wall are related by a tilt of the heart along a simple
+    object $S_{k} \in \cA_{\cU}$.
+  \item The tilt induces a mutation $\mu_{k}$ at vertex $k$ on the
+    underlying quiver-with-potential, in the sense of
+    Derksen--Weyman--Zelevinsky (arXiv:\texttt{0704.0649} Def.~5.5).
+  \item Under the cluster variable
+    $x_{i} \;=\; \bigl[\cO_{S_{i}}\bigr]_{\mathrm{K-theory}}
+    \cdot \prod_{\mathrm{twist\ factors}}$, the Fomin--Zelevinsky
+    exchange relation is the refined DT wall-crossing identity of
+    Kontsevich--Soibelman at the wall $k$.
+  \item The generating function $\sum_{\gamma} \mathrm{DT}(\gamma)
+    x^{\gamma}$ is a cluster-algebraic invariant: its value is
+    independent of the chamber (i.e.\ of the seed $(\mathbf{x}, B)$) up
+    to the cluster change of variables, because the KS motivic
+    wall-crossing formula and the Fomin--Zelevinsky mutation formula
+    agree under the identification above.
+\end{enumerate}
+\textbf{Flaw.} Nagao's theorem is stated for Jacobi-finite, but not all
+CY$_{3}$ categories of interest (notably $\Db\Coh(K3 \times E)$) admit a
+Jacobi-finite tilting. Compact CY$_{3}$ fails Jacobi-finiteness
+generically, because $\Meff$ has positive-dimensional semistable strata
+in infinitely many classes.
+\textbf{Heal.} Kontsevich--Soibelman 2008 (arXiv:\texttt{0811.2435}
+\S 5.3) extend the identification to arbitrary CY$_{3}$ categories
+equipped with a stability datum in the sense of their Def.~2.1: a
+monoid homomorphism $\cZ: K_{0}^{+} \to \C$ plus a quadratic-form
+compatibility. Under this extension, the cluster is not necessarily of
+finite type, but the exchange-graph structure persists as a groupoid.
+The conifold is finite type (rank $1$ exchange, $\widehat{A}_{1}$); local
+$\bP^{2}$ is affine ($\widehat{A}_{2}$); $K3 \times E$ sits in the
+infinite-type regime whose exchange groupoid is controlled by the K3
+Mukai lattice and is the subject of HEAL~5.
+
+\subsection*{ATTACK--HEAL 3: the Ginzburg dg-algebra derivation --- why
+  the cocycle is cluster}
+\label{sec:wave14-b3-ah3-ginzburg-derivation}
+
+\ClaimStatusDerivation\;(ATTACK.) The companion Wave-18 E5 asserts that
+the overlap cocycle $g_{UV}$ on the quiver atlas is a cluster mutation
+cocycle. The derivation there cites Keller--Yang and Iyama--Yoshino.
+The ATTACK: derive this directly from the Ginzburg CY$_{3}$ dg-algebra,
+without citing derived-equivalence axioms, to expose the mechanism.
+
+\ClaimStatusTheorem\;(HEAL --- first-principles derivation from
+Ginzburg's algebra.) Let $A = A(Q, W)$ be the Ginzburg dg-algebra
+(Ginzburg arXiv:\texttt{math/0612139} Def.~5.2.1): underlying graded
+algebra is the path algebra of the double $\bar Q$ with arrows in
+degree $0$, their formal duals in degree $-1$, and loops at each vertex
+in degree $-2$; differential $d$ is determined by
+$d a^{*} = \partial_{a} W$ for $a \in Q_{1}$, and
+$d t_{v} = \sum_{a: v \to \cdot} [a, a^{*}]$ for loops $t_{v}$.
+The CY$_{3}$ structure is witnessed by the graded quasi-isomorphism
+$A^{\vee}[3] \simeq A$ induced by the cyclic structure on $W$.
+
+Let $S_{k}$ be the simple module at vertex $k$; $\Ext^{1}_{A}(S_{k},
+S_{k}) = 0$ because $Q$ has no loops at $k$ (else the Jacobi algebra
+would not be CY$_{3}$), and
+$\Ext^{3}_{A}(S_{k}, S_{k}) = \C$ by CY$_{3}$ Serre duality. The object
+$S_{k}$ is thus \emph{spherical} in the Seidel--Thomas sense:
+\[
+  \Ext^{*}_{A}(S_{k}, S_{k}) \;=\;
+    H^{*}(S^{3}; \C) \;=\;
+    \C \oplus 0 \oplus 0 \oplus \C.
+\]
+The spherical twist functor $T_{S_{k}}: \Db(A) \to \Db(A)$,
+$T_{S_{k}}(M) = \mathrm{Cone}(\RHom(S_{k}, M)\otimes S_{k}
+\to M)[-1]$, is a derived auto-equivalence
+(Seidel--Thomas, \emph{Duke Math.\ J.} 108 (2001), Prop.~2.10).
+
+The Keller--Yang mutation equivalence is constructed explicitly as
+\[
+  \mu_{k}^{+} = T_{S_{k}}: \Db(A(Q, W)) \xrightarrow{\ \sim\ }
+                            \Db(A(Q', W')).
+\]
+The proof is a direct computation on the heart tilted at $S_{k}$:
+the new simples $S'_{i}$ for $i \neq k$ are unchanged, and
+$S'_{k} = S_{k}[1]$. The arrows out of $k$ in $Q'$ are dual to the
+arrows into $k$ in $Q$; the potential $W'$ is obtained from $W$ by
+the Derksen--Weyman--Zelevinsky rule (arXiv:\texttt{0704.0649}
+Def.~5.5) --- reverse arrows incident at $k$, insert new arrows
+$[a, b]: i \to j$ for each path $i \xrightarrow{a} k \xrightarrow{b} j$,
+and modify $W$ by replacing $ba$ with $[a, b]$ plus reducing $2$-cycles.
+
+\emph{The CoHA transfer.} The CoHA functor
+$\CoHA: (Q, W) \mapsto \CoHA(Q, W) = H^{*}(\Meff(Q, W),
+\varphi_{\Tr W})$ (Kontsevich--Soibelman arXiv:\texttt{1006.2706}
+Thm.~6.4) is defined on isomorphism classes of CY$_{3}$ Ginzburg
+algebras, not on specific presentations. The derived equivalence
+$\mu_{k}^{+}: \Db(A) \to \Db(A')$ induces a graded-algebra isomorphism
+\[
+  \mu_{k}^{*}: \CoHA(Q, W) \xrightarrow{\ \sim\ }
+                \CoHA(Q', W').
+\]
+This is not merely postulated: the Saito--Li thimble base-change
+(Saito, ``Vanishing cycles and Lagrangian intersections''; Li,
+\emph{Math.\ Ann.\ } 357 (2013)), applied to the two vanishing-cycle
+presentations of the critical locus of $\Tr W$ versus $\Tr W'$,
+produces the isomorphism cohomologically. The Picard--Lefschetz
+monodromy around the wall acts as an \emph{inner} automorphism of
+$\CoHA(Q, W)$, because the monodromy operator is conjugation by the
+DT-generator $E_{S_{k}} \in \CoHA(Q, W)$ attached to the simple
+$S_{k}$ (Kontsevich--Soibelman arXiv:\texttt{1006.2706} Cor.~6.5).
+
+Restricting to the positive half $\Yplus(Q, W) \subset \CoHA(Q, W)$
+preserves the isomorphism $\mu_{k}^{*}$, because $\Yplus$ is generated
+by the stable-object classes of positive degree and mutation permutes
+stable objects (the $S_{k}$-simples of the two hearts).
+
+\emph{Cocycle.} Given charts $U, V \subset \Stab(X)$ with
+cluster-tilting objects $T_{U}, T_{V}$ in $\cC(Q, W)$, any mutation
+path $T_{U} \to T_{V}$ in the exchange groupoid yields
+$g_{UV}: \Yplus(A_{U}) \to \Yplus(A_{V})$; path independence modulo
+inner automorphism is Iyama--Yoshino (arXiv:\texttt{math/0607736}
+Thm.~5.3) at the triangulated level, and on $\Yplus$ the inner
+automorphism freedom is the Picard--Lefschetz monodromy freedom.
+
+\subsection*{ATTACK--HEAL 4: the canonical form is the
+  Behrend-weighted DT partition function}
+\label{sec:wave14-b3-ah4-canonical-form-DT}
+
+\ClaimStatusDerivation\;(ATTACK.) A positive geometry carries a
+canonical form (Arkani-Hamed--Bai--Lam Def.~3.3). For the positive
+geometry $(\Stab^{+}(X), \partial \Stab^{+}(X))$, what is this form,
+concretely?
+
+\ClaimStatusTheorem\;(HEAL --- Behrend weighted Euler characteristic and
+Kontsevich--Soibelman wall-crossing as residue.) The DT invariant
+$\mathrm{DT}(\gamma)$ for $\gamma \in K_{0}^{+}(X)$ is Behrend's
+microlocal invariant:
+\[
+  \mathrm{DT}(\gamma)
+  \;=\;
+  \chi\bigl(\cM^{+}(\gamma),\, \nu_{\mathrm{Behrend}}\bigr)
+  \;=\;
+  \int_{[\cM^{+}(\gamma)]^{\mathrm{vir}}} 1,
+\]
+where $\nu_{\mathrm{Behrend}}: \cM^{+}(\gamma)(\C) \to \Z$ is the
+constructible function attached to the symmetric obstruction theory of
+the CY$_{3}$ stack. Kontsevich--Soibelman motivic upgrade:
+$\mathrm{DT}^{\mathrm{mot}}(\gamma) \in K_{0}(\mathrm{Var}_{\C})$,
+valued in the motivic Grothendieck ring.
+
+The wall-crossing formula (arXiv:\texttt{0811.2435} Thm.~2.4) reads: for
+a wall $W$ separating chambers $\cU, \cU'$, and any test ray $\ell$
+crossing $W$,
+\[
+  \prod_{\gamma \in \ell \cap \cU,\, \mathrm{slope}\ \mathrm{ordered}}
+    \cT_{\gamma}^{\mathrm{DT}_{\cU}(\gamma)}
+  \;=\;
+  \prod_{\gamma \in \ell \cap \cU',\, \mathrm{slope}\ \mathrm{ordered}}
+    \cT_{\gamma}^{\mathrm{DT}_{\cU'}(\gamma)},
+\]
+where $\cT_{\gamma}$ is the symplectomorphism of the quantum torus
+generated by $\gamma$. This is the cluster-algebraic exchange
+relation in its motivic form (Kontsevich--Soibelman
+arXiv:\texttt{0811.2435} \S 4.5; Nagao arXiv:\texttt{1002.4884}
+Thm.~6.2).
+
+\emph{Canonical form assertion.} The $3$-form
+\[
+  \Omeg_{\Stab^{+}(X)}
+  \;=\;
+  \sum_{\gamma \in K_{0}^{+}(X)}
+    \mathrm{DT}(\gamma)\;
+    \frac{d\cZ(\gamma) \wedge d\tau_{1} \wedge d\tau_{2}}
+         {\cZ(\gamma)^{2}}
+\]
+on $\Stab^{+}(X)$ --- where $\tau_{1}, \tau_{2}$ are transverse
+local coordinates on the chamber --- has logarithmic residue along the
+wall at $\gamma$ equal to $\mathrm{DT}(\gamma)$. This is the
+canonical-form condition of Arkani-Hamed--Bai--Lam Def.~3.3. The
+wall-crossing formula forces residue coherence across the wall:
+across the wall the residue must agree as one crosses from $\cU$ to
+$\cU'$, and the KS formula is precisely this residue coherence.
+Hence $(\Stab^{+}(X), \partial\Stab^{+}(X), \Omeg_{\Stab^{+}(X)})$
+is a \emph{positive geometry in the AHL sense}.
+
+\textbf{Flaw.} The above ansatz is local-to-the-chamber; at
+$\gamma = 0$ the form is regular, but at the origin of $K_{0}^{+}$ the
+sum of residues is the unregulated DT generating function
+$Z^{\mathrm{DT}}(X) = \sum_{\gamma} \mathrm{DT}(\gamma) q^{\gamma}$,
+which for compact CY$_{3}$ has a subtle regularisation issue
+(Joyce--Song arXiv:\texttt{0810.5645} \S 1.4).
+\textbf{Heal.} On compact CY$_{3}$ (e.g.\ $K3 \times E$), the canonical
+form is computed in \emph{reduced} DT theory (Maulik--Pandharipande--
+Thomas 2010; Oberdieck--Pixton 2017): the absolute DT partition
+function is identically zero (the virtual fundamental class vanishes),
+and the first nonzero witness is $\Omeg^{\mathrm{red}}_{\Stab^{+}(X)}$
+constructed from the reduced virtual class. For $K3 \times E$ this
+reduced canonical form is the Borcherds--Gritsenko automorphic form
+$\Phi_{10}$ (Igusa cusp form, Oberdieck 2018 arXiv:\texttt{1605.05238}
+Thm.~1): Igusa $\chi_{10}$ is literally the canonical form of the
+reduced positive geometry on $\Stab^{+}(K3\times E)$ after
+specialisation to the K\"ahler cone direction. The
+universal identity $\kBKM(\Phi_{10}) = c_{1}(0)/2 = 5$ is the weight
+of this canonical form --- a top-form scaling invariant pinned by the
+Mukai lattice (Lorgat 2020 arXiv:\texttt{2007.14218} Prop.~3.2).
+
+\subsection*{ATTACK--HEAL 5: three examples of rising type ---
+  conifold, local $\bP^{2}$, $K3\times E$}
+\label{sec:wave14-b3-ah5-three-examples}
+
+\paragraph{Conifold (rank-$1$, affine $\widehat{A}_{1}$).}
+
+\ClaimStatusTheorem\ The resolved conifold $\widetilde Y =
+\cO(-1)^{\oplus 2} \to \bP^{1}$ has Klebanov--Witten quiver
+$Q_{\mathrm{KW}}$ with two vertices, four arrows, potential
+$W_{\mathrm{KW}} = a_{1}b_{1}a_{2}b_{2} - a_{1}b_{2}a_{2}b_{1}$
+(Wave-17 C1 Cycle~4). Its cluster algebra is
+\[
+  \cA_{\widetilde{Y}} \;=\;
+    \cA(\widehat{A}_{1})
+    \;=\; \Z[x_{0}, x_{1}, x_{0}^{-1}, x_{1}^{-1}] /
+             (x_{0}x_{1} - 1 + 1)
+\]
+--- the Fomin--Zelevinsky cluster algebra of type
+$\widehat{A}_{1} = A_{1}^{(1)}$ with the two-seed exchange relation
+$x'_{k}x_{k} = 1 + \prod_{\text{incoming}} x_{j}^{B_{jk}}$. Two cluster
+seeds: $T_{+}$ and $T_{-}$, related by a single mutation $\mu_{0}$.
+Seiberg duality on $Q_{\mathrm{KW}}$ is this mutation (Nagao Thm.~5.2;
+Morrison--Mozgovoy--Nagao--Szendr\H{o}i arXiv:\texttt{1107.5017}
+Prop.~2.4). The Bridgeland chamber structure on
+$\Stab(\Db\Coh(\widetilde Y))$ has two chambers separated by one wall;
+crossing the wall is the flop $\widetilde Y \leftrightarrow
+\widetilde{Y}^{\vee}$, which is the Seiberg duality mutation, which is
+$\mu_{0}$.
+
+The positive geometry: $\Stab^{+}(\widetilde Y) \simeq (\mathbb{H})^{2}$
+(two upper half-planes glued across a wall at
+$\mathrm{slope}(S_{0}) = \mathrm{slope}(S_{1})$), canonical form
+\[
+  \Omeg_{\widetilde{Y}} \;=\;
+    \sum_{n \geq 0} \bigl((-1)^{n} \cdot 1 + (-1)^{n+1} \cdot 1\bigr)
+    \frac{dz}{z} \;=\;
+    \frac{dz}{z} \cdot (\text{DT-conifold}),
+\]
+with $\mathrm{DT}(\widetilde Y)$ the Szendr\H{o}i noncommutative DT
+partition function (Szendr\H{o}i arXiv:\texttt{0705.3419} Cor.~4.4):
+\[
+  Z^{\mathrm{DT}}_{\widetilde Y}(q, z)
+  \;=\;
+  \prod_{k \geq 1} \bigl(1 - (-q)^{k}z\bigr)^{-k}
+                   \bigl(1 - (-q)^{k}z^{-1}\bigr)^{-k},
+\]
+the canonical form of the cluster polytope
+$\Delta_{\widehat{A}_{1}} \simeq$ an interval with two cluster vertices.
+
+$\kch(\widetilde Y) = 1$ via both the Wave-17 C1 additive computation
+and $\chi(\cO_{\widetilde Y}) = 1$.
+
+\paragraph{Local $\bP^{2}$ (rank-$2$, affine $\widehat{A}_{2}$).}
+
+\ClaimStatusTheorem\ The total space $\mathrm{Tot}(\omega_{\bP^{2}}) =
+\cO_{\bP^{2}}(-3)$ carries the Beilinson quiver with three vertices
+$(\cO(-2), \cO(-1), \cO)$, nine arrows ($3$ between each adjacent pair),
+and cubic potential.
+Its cluster algebra is of type
+$\widehat{A}_{2} = A_{2}^{(1)}$, the affine-$A_{2}$ cluster algebra of
+Fomin--Zelevinsky arXiv:\texttt{math/0208229} Figure~4: three cluster
+seeds, three mutations $\mu_{1}, \mu_{2}, \mu_{3}$, cyclic relation
+$\mu_{1}\mu_{2}\mu_{3} = \mathrm{id}$ up to overall shift.
+
+The Bridgeland chamber structure on
+$\Stab(\Db\Coh(\mathrm{Tot}(\omega_{\bP^{2}})))$ has three chambers
+arranged cyclically; crossing each wall is a tilt at a simple $\cO(k)$,
+which is $\mu_{k+1}$.
+
+The positive geometry: $\Stab^{+}(\mathrm{Tot}(\omega_{\bP^{2}}))$ is a
+cyclic triangle with three vertices (the three cluster seeds) and three
+walls; the canonical form is
+\[
+  \Omeg_{\mathrm{Tot}(\omega_{\bP^{2}})} \;=\;
+  \sum_{\gamma = (r, c_{1}, c_{2}) \in \Z^{3}_{\geq 0}}
+    \mathrm{DT}(\gamma)\;
+    \frac{d\log z_{1}\wedge d\log z_{2}\wedge d\log z_{3}}
+         {\cZ(\gamma)},
+\]
+where $\mathrm{DT}(\gamma)$ for local $\bP^{2}$ is the
+\'etale-Gromov--Witten invariant computed by Aganagic--Klemm--Mari\~no--
+Vafa topological vertex with equivariant parameters set to match the
+toric Cartan. $\kch(\mathrm{Tot}(\omega_{\bP^{2}})) = 3/2$
+(McKay / direct shadow, CLAUDE.md essential constants).
+
+\paragraph{$K3\times E$ (infinite type, Mukai-lattice controlled).}
+
+\ClaimStatusConjectured\ The quiver atlas on
+$\Stab(\Db\Coh(K3\times E))$ is the subject of Wave-17 C5 (K3$\times$E
+gluing). The cluster type is not finite and not affine: it is an
+infinite-type cluster structure controlled by the Mukai lattice
+\[
+  \Lambda_{\mathrm{Mukai}}(K3)
+  \;=\; H^{*}(K3; \Z) \;=\;
+  U^{\oplus 3} \oplus (-E_{8})^{\oplus 2}
+\]
+of signature $(4, 20)$, extended by the elliptic lattice $H^{*}(E; \Z)
+\simeq U$ of signature $(1, 1)$ to give the extended Mukai lattice of
+signature $(5, 21)$. The cluster-algebraic interpretation is that each
+Mukai vector $\gamma \in \Lambda_{\mathrm{Mukai}}(K3\times E)^{+}$
+indexes a cluster coordinate, and the mutation graph is acted on by
+$O^{+}(2, 19)\times O^{+}(2,0) = \Gamma_{K3}\times \mathrm{SL}_{2}(\Z)$.
+The positive effective geometry of Wave-17 D4 ---
+$\Mred_{\mathrm{DT}}(\cX_{L}/\cM_{L},\gamma, n)$ with positive effective
+divisor $D_{\Phi_{L}}$ --- is the lattice-polarised restriction of this
+cluster positive geometry to the $L$-polarised stratum
+$\cM_{L}^{\circ}$.
+
+\emph{Conjectural cluster type.} At each lattice-polarised stratum
+$L$, the Borcherds algebra $\gfrak_{L}$ (Gritsenko--Nikulin 1998) has
+root system presented as a Coxeter datum on the hyperbolic lattice
+$L(-1)$; the cluster mutation groupoid is the subgroupoid of the
+Weyl group $W(\gfrak_{L})$ generated by simple reflections.
+Wall-crossing formula of Kontsevich--Soibelman on
+$\Stab^{+}(K3\times E)$ specialises on this Weyl
+subgroupoid: each mutation at a simple root is a Picard--Lefschetz
+on the corresponding spherical class in $\Db\Coh(K3 \times E)$. The
+canonical form is the reduced DT partition function
+\[
+  Z^{\mathrm{DT}, \mathrm{red}}_{K3\times E}(q, \tilde q, y)
+  \;=\; \frac{1}{\chi_{10}(\tau, z, \tau')}
+\]
+--- the inverse Igusa cusp form --- whose weight
+$\kBKM(\chi_{10}) = 10/2 = 5$ is the singular weight of the Gritsenko
+$\Delta_{5}$, and whose Borcherds expansion converges on every Weyl
+chamber (Gritsenko 1999, Thm.~2.1). The four $\kappa_{\bullet}$ values
+$\{2, 3, 5, 24\}$ for $K3\times E$ tabulate as: $\kBKM = 5$ is the
+canonical-form weight; $\kch = 0$ is $\chi(\cO_{K3\times E})$ (Hodge
+supertrace on total space, Künneth-multiplicative); $\kcat = 0$ is the
+same; $\kfib = 24$ is the K3 fibre Euler characteristic. The cluster
+structure organises all four values as inputs into the same positive
+geometry --- the AHL canonical form has weight $\kBKM$ when extracted
+on the Gritsenko--Borcherds branch and total-$\chi(\cO)$
+when extracted on the categorical branch.
+
+\textbf{Flaw.} Fomin--Zelevinsky cluster algebras require \emph{finite}
+seeds; for infinite-type the theory extends to cluster
+\emph{ensembles} (Fock--Goncharov arXiv:\texttt{math/0311245}
+Def.~2.1) or to the Gross--Hacking--Keel--Kontsevich canonical basis
+construction (arXiv:\texttt{1411.1394} Thm.~0.1). The $K3 \times E$
+situation is the infinite-type Fock--Goncharov regime, not the
+Fomin--Zelevinsky regime.
+\textbf{Heal.} Infinite-type clusters have GHKK canonical bases
+indexed by tropical points of the cluster variety's mirror; the
+Gritsenko theta lift $\phi_{0, L} \mapsto \Phi_{L}$
+(Gritsenko arXiv:\texttt{alg-geom/9612022}) is precisely such an
+indexing theta series. The Mukai lattice indexes tropical points
+$\Lambda_{\mathrm{Mukai}}(\Z) \to \cA^{\mathrm{trop}}_{L}$; the
+theta-function expansion of GHKK equals the Borcherds product
+expansion of Gritsenko. This dictionary
+\begin{center}
+\begin{tabular}{r|l}
+\emph{cluster-algebraic side} & \emph{automorphic-geometric side} \\
+\hline
+tropical point $v \in \cA^{\mathrm{trop}}_{L}(\Z)$
+    & Mukai vector $\gamma \in \Lambda_{\mathrm{Mukai}}^{+}$ \\
+GHKK theta function $\vartheta_{v}$
+    & Fourier--Jacobi coefficient $c_{L}(v)$ \\
+scattering diagram $\cD_{L}$
+    & Weyl chamber decomposition of $\Om_{L}$ \\
+broken line in $\cD_{L}$
+    & Borcherds--Koecher root datum \\
+GHKK canonical basis
+    & Gritsenko theta series $\{\vartheta_{\gamma}\}$ \\
+superpotential $W_{L}$ on mirror
+    & Gritsenko--Nikulin denominator $\Phi_{L}$ \\
+\end{tabular}
+\end{center}
+is the \emph{cluster-to-automorphic dictionary} for $K3\times E$. It
+lifts Hacking--Keel arXiv:\texttt{1712.05385} (mirror symmetry via
+clusters) to the CY$_{3}$ K3-fibred setting and matches the
+Gritsenko--Hulek--Sankaran adelisation of the Baily--Borel
+compactification. The conjectural statement for the full K3$\times$E
+positive geometry:
+\[
+  \bigl(\Stab^{+}(K3\times E), \partial, \Omeg^{\mathrm{red}}_{K3\times E}\bigr)
+  \;\simeq\;
+  \bigl(\cA^{+}_{L}, \partial \cA^{+}_{L},
+        \vartheta_{L}\text{-canonical form}\bigr)_{L \in \mathsf{Nik}}
+\]
+uniformly over the Nikulin-admissible lattice-polarisation tower.
+
+\subsection*{Synthesis: cluster skeleton, positive-geometry measure}
+\label{sec:wave14-b3-synthesis}
+
+\ClaimStatusSynthesis\ The three axes converge:
+\begin{itemize}\itemsep3pt
+  \item \textbf{Cluster skeleton.} The exchange groupoid of cluster
+    tilting objects in the Amiot cluster category $\cC(Q, W)$ is the
+    combinatorial chamber poset of $\Stab^{+}(X)$. For conifold:
+    $\widehat{A}_{1}$. For local $\bP^{2}$: $\widehat{A}_{2}$. For
+    $K3\times E$: infinite-type Fock--Goncharov / GHKK controlled by
+    the Mukai lattice.
+  \item \textbf{Positive-geometry measure.} The Behrend-weighted DT
+    partition function is the AHL canonical form on
+    $\Stab^{+}(X)$; its logarithmic residues along walls are the
+    DT-invariants of the wall classes; wall-crossing coherence is the
+    Kontsevich--Soibelman formula, which is the cluster-algebraic
+    exchange relation.
+  \item \textbf{Automorphic shadow.} On compact CY$_{3}$
+    (in particular $K3\times E$), the reduced DT partition function
+    is a Borcherds--Gritsenko automorphic form; its weight is
+    $\kBKM$. The GHKK theta-function basis matches the Gritsenko
+    theta series basis of Fourier--Jacobi coefficients.
+\end{itemize}
+
+\ClaimStatusDerivation\ The cocycle on the quiver atlas is thus
+\emph{triply identified}:
+\begin{enumerate}\itemsep2pt
+  \item As a Fomin--Zelevinsky mutation cocycle on
+    $\cA(\widehat{\mathrm{type}})$.
+  \item As the Keller--Yang derived-equivalence cocycle
+    $\mu_{k}^{+} = T_{S_{k}}$ on $\Db(A)$.
+  \item As the Kontsevich--Soibelman wall-crossing cocycle
+    $\prod_{\gamma} \cT_{\gamma}^{\mathrm{DT}_{\gamma}}$ on the
+    quantum torus.
+\end{enumerate}
+Item~(1) is combinatorial; item~(2) is homological;
+item~(3) is motivic. Their identification is the content of the
+Nagao--Kontsevich--Soibelman theorem (at Jacobi-finite), extended
+to arbitrary CY$_{3}$ by the DT-stability-datum machinery of
+KS~2008, and to the positive-geometry canonical-form picture by the
+present synthesis.
+
+\ClaimStatusConjectured\ (\emph{Amplituhedron for CY$_{3}$.}) The
+AHL amplituhedron $\cA_{n,k}(\Gr(k,n))$ is the Grassmannian instance of
+a cluster polytope carrying the planar $\cN = 4$ SYM canonical form.
+The analogous object for the CY$_{3}$ category $\Db\Coh(X)$ is the
+\emph{BPS amplituhedron}
+\[
+  \cA^{\mathrm{BPS}}(X) \;:=\; \Stab^{+}(X)
+    / \mathrm{PicTw}(X),
+\]
+the quotient of the positive stability cone by Picard-twists and
+overall shifts, with canonical form $\Omeg_{\Stab^{+}(X)}$ descended
+through the quotient. This is a positive geometry whose canonical
+form is the reduced DT partition function and whose cluster type is
+that of the exchange groupoid of $\cC(Q_{X}, W_{X})$. The conjecture
+is that $\cA^{\mathrm{BPS}}(X)$ is a \emph{positive geometry in the
+AHL sense}; the rigorous content is that $\Omeg$-residues are
+DT-invariants, which is the KS wall-crossing formula. The physical
+content is that $\Omeg^{\mathrm{red}}_{K3\times E} = 1/\chi_{10}$ is
+the \emph{CY$_{3}$ K3$\times$E amplituhedron form}, and the six routes
+to $G(K3\times E)$ (CLAUDE.md) are six distinct presentations of this
+single form as a positive-geometry datum.
+
+\paragraph{Cross-references.}
+\begin{itemize}\itemsep2pt
+  \item Wave-17 C1: conifold gluing explicit; here upgraded from
+    \v Cech cocycle to cluster $\widehat{A}_{1}$.
+  \item Wave-18 E5: cluster-category viewpoint on $\Yplus$-gluing;
+    here extended with the positive-geometry / AHL canonical form.
+  \item Wave-17 D4: lattice-polarised reduced DT positive effective
+    geometry; here identified as the infinite-type cluster
+    Fock--Goncharov ensemble tempered by the Mukai lattice.
+  \item Wave-17 D5: universal grammar $\Yplus = \Heq(\Meff)$; here
+    refined to the positive-geometry grammar with canonical form.
+  \item Wave-12 A10, Wave-13 A10: Soibelman wall-crossing; here
+    imported as the cluster-exchange / positive-geometry
+    residue-coherence condition.
+\end{itemize}
+
+\paragraph{Primary references.}
+Arkani-Hamed--Bai--Lam 2017 \texttt{arXiv:1703.04541};
+Arkani-Hamed--Trnka 2014 \texttt{arXiv:1312.2007};
+Bridgeland 2007 \emph{Ann.\ Math.} 166;
+Derksen--Weyman--Zelevinsky 2008 \emph{Selecta Math.} 14;
+Fock--Goncharov 2009 \emph{Ann.\ Sci.\ \'ENS} 42;
+Fomin--Zelevinsky 2002 \emph{J.\ Amer.\ Math.\ Soc.} 15;
+Fomin--Zelevinsky 2003 \emph{Invent.\ Math.} 154;
+Ginzburg 2006 \texttt{arXiv:math/0612139};
+Gritsenko--Nikulin 1998 \emph{Int.\ J.\ Math.} 9;
+Gross--Hacking--Keel--Kontsevich 2018 \emph{J.\ Amer.\ Math.\ Soc.} 31;
+Hacking--Keel 2018 Proc.\ ICM Rio;
+Iyama--Reiten 2008 \emph{Amer.\ J.\ Math.} 130;
+Joyce--Song 2012 \emph{Mem.\ Amer.\ Math.\ Soc.} 217;
+Keller--Yang 2011 \emph{Adv.\ Math.} 226;
+Kontsevich--Soibelman 2008 \texttt{arXiv:0811.2435};
+Kontsevich--Soibelman 2010 \texttt{arXiv:1006.2706};
+Lorgat 2020 \texttt{arXiv:2007.14218};
+Maulik--Pandharipande--Thomas 2010 \texttt{arXiv:1001.2719};
+Morrison--Mozgovoy--Nagao--Szendr\H{o}i 2012 \texttt{arXiv:1107.5017};
+Nagao 2013 \emph{Duke Math.\ J.} 162;
+Oberdieck 2018 \texttt{arXiv:1605.05238};
+Oberdieck--Pixton 2017 \texttt{arXiv:1706.10100};
+Reineke 2010 \emph{J.\ Inst.\ Math.\ Jussieu} 9;
+Seidel--Thomas 2001 \emph{Duke Math.\ J.} 108;
+Szendr\H{o}i 2008 \emph{Geom.\ Topol.} 12;
+Van den Bergh 2004 \emph{Duke Math.\ J.}

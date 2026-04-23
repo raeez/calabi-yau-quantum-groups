@@ -1,0 +1,272 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=1.1in]{geometry}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\gh}{\mathrm{gh}}
+\providecommand{\af}{\mathrm{af}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\BRST}{\mathrm{BRST}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Six-dimensional holomorphic Chern--Simons on $\C^3$:\\
+the BV--BRST complex, step by step}
+\author{Wave-13 E1/20}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+Fix $X = \C^3$ with coordinates $(z_1, z_2, z_3)$ and holomorphic volume form
+$\Omega = dz_1 \wedge dz_2 \wedge dz_3$. Fix a finite-dimensional Lie algebra
+$\g$ with invariant non-degenerate pairing $\tr(\cdot,\cdot)$. The Dolbeault
+complex $\mathcal{E} = \Omega^{0,\bullet}(X, \g)$, $(0,q)$-forms valued in $\g$,
+is the underlying graded vector space of every construction below.
+
+\section{Classical hCS action and the holomorphic flatness equation}
+
+\begin{definition}[Classical hCS action]
+\label{def:hCS-action}
+For $\mathcal{A} \in \Omega^{0,1}(X, \g)$ of pure Dolbeault degree $1$,
+\[
+S_\hCS(\mathcal{A}) \;=\; \int_{\C^3} \Omega \wedge \tr\!\Bigl(
+  \tfrac{1}{2}\, \mathcal{A} \wedge \dbar \mathcal{A}
+  \;+\; \tfrac{1}{3}\, \mathcal{A} \wedge \mathcal{A} \wedge \mathcal{A} \Bigr).
+\]
+Conventions: $\mathcal{A}\wedge\mathcal{A} = \tfrac{1}{2}[\mathcal{A},\mathcal{A}]$ in $\g$-valued
+forms; $\mathcal{A}^3 := \tr(\mathcal{A}\wedge[\mathcal{A},\mathcal{A}])/2$ is the cyclic cubic vertex.
+\end{definition}
+
+\begin{proposition}[Equation of motion]
+\label{prop:eom}
+Variation yields $\dbar\mathcal{A} + \mathcal{A}\wedge\mathcal{A} = 0$, equivalently the holomorphic
+flatness $F^{0,2} = 0$ for the $(0,1)$-connection $\dbar + \mathcal{A}$.
+\end{proposition}
+
+\begin{proof}
+$\delta S = \int \Omega\wedge\tr\bigl(\delta\mathcal{A}\wedge\dbar\mathcal{A}
++ \tfrac12 \mathcal{A}\wedge\dbar\delta\mathcal{A} + \delta\mathcal{A}\wedge\mathcal{A}\wedge\mathcal{A}\bigr)$.
+Cyclicity of $\tr$ plus $\dbar\Omega=0$ gives
+$\int\Omega\wedge\tr(\mathcal{A}\wedge\dbar\delta\mathcal{A}) = \int\Omega\wedge\tr(\delta\mathcal{A}\wedge\dbar\mathcal{A})$
+up to boundary, so the kinetic contribution symmetrises. The cubic
+variation exploits cyclicity directly. Setting the coefficient of
+arbitrary $\delta\mathcal{A}\in\Omega^{0,1}$ to zero gives
+$\dbar\mathcal{A} + \mathcal{A}\wedge\mathcal{A}=0$.
+\end{proof}
+
+\section{BV superfield and degree assignments}
+
+\begin{construction}[BV superfield]
+\label{cons:BV-field}
+Promote $\mathcal{A}$ to a full superfield living in $\mathcal{E}$:
+\[
+\mathcal{A} \;=\; c \;+\; A \;+\; A^\ast \;+\; c^\ast,
+\qquad
+(c, A, A^\ast, c^\ast) \in \Omega^{0,(0,1,2,3)}(X, \g).
+\]
+The cohomological degree (Costello--Gwilliam convention) is
+$\deg = (\text{Dolbeault degree}) - 1$, yielding
+\[
+\begin{array}{c|cccc}
+ & c & A & A^\ast & c^\ast \\ \hline
+\text{Dolbeault }(0,q) & 0 & 1 & 2 & 3 \\
+\gh & +1 & 0 & -1 & -2 \\
+\af & 0 & 0 & 1 & 2 \\
+\deg_\BV \;=\; q-1 & -1 & 0 & +1 & +2
+\end{array}
+\]
+Component $c$ is the ghost for the gauge symmetry $A\mapsto A+\dbar c + [A,c]$;
+the tower $(A^\ast, c^\ast)$ are the Koszul-dual antifields.
+\end{construction}
+
+\begin{remark}[Master action]
+Expanded in components the BV action is
+\begin{align*}
+S_\BV(\mathcal{A}) &= \int \Omega\wedge\tr\Bigl(
+  \tfrac12 A\,\dbar A + \tfrac13 A^3
+  \;+\; A^\ast\bigl(\dbar c + [A,c]\bigr)
+  \;+\; \tfrac12 c^\ast [c,c] \Bigr),
+\end{align*}
+i.e.\ the classical action plus the antifield-paired BRST variations.
+$S_\BV = \tfrac12 \int \Omega\wedge\tr(\mathcal{A}\,\dbar\mathcal{A} + \tfrac23 \mathcal{A}^3)$
+as a single integral over the full superfield.
+\end{remark}
+
+\section{BRST differential and $Q^2 = 0$}
+
+\begin{definition}[BRST differential]
+\label{def:Q}
+On generators,
+\[
+Q c = \tfrac12 [c,c], \qquad
+Q A = \dbar c + [A, c], \qquad
+Q A^\ast = \dbar A + A\wedge A + [A^\ast, c], \qquad
+Q c^\ast = \dbar A^\ast + [A, A^\ast] + [c^\ast, c].
+\]
+Equivalently $Q\mathcal{A} = \dbar\mathcal{A} + \mathcal{A}\wedge\mathcal{A}$ as a single superfield statement
+(Maurer--Cartan on the $L_\infty$-algebra $\mathcal{E}[1]$).
+\end{definition}
+
+\begin{proposition}[Nilpotency]
+\label{prop:Q2}
+$Q^2 = 0$.
+\end{proposition}
+
+\begin{proof}
+On the ghost: $Q^2 c = Q(\tfrac12[c,c]) = [c, Qc] = [c, \tfrac12[c,c]]
+=\tfrac12[[c,c],c]= 0$ by Jacobi.
+On $A$: $Q^2 A = Q(\dbar c + [A,c]) = \dbar Qc + [QA, c] - [A, Qc]
+= \tfrac12\dbar[c,c] + [\dbar c + [A,c], c] - \tfrac12[A,[c,c]]
+= [\dbar c, c] + [\dbar c, c] + [[A,c],c] - \tfrac12[A,[c,c]]$.
+The $\dbar c$ pieces cancel and the double-bracket pieces cancel by Jacobi.
+Identical calculation on $A^\ast, c^\ast$ uses Jacobi plus $\dbar^2 = 0$.
+\end{proof}
+
+\section{$(-1)$-shifted symplectic pairing}
+
+\begin{construction}[BV pairing]
+\label{cons:omega-BV}
+Define on $\mathcal{E} = \Omega^{0,\bullet}(X,\g)$
+\[
+\omega_\BV(\mathcal{A}_1, \mathcal{A}_2) \;:=\;
+\int_{\C^3} \Omega \wedge \tr(\mathcal{A}_1 \wedge \mathcal{A}_2).
+\]
+The integrand is a top form only when Dolbeault bidegrees sum to
+$(0,3)$; the nontrivial pairings are
+\[
+\omega_\BV(c, c^\ast) \;=\; \int \Omega\wedge\tr(c\, c^\ast), \qquad
+\omega_\BV(A, A^\ast) \;=\; \int \Omega\wedge\tr(A\wedge A^\ast),
+\]
+and their graded transpositions. In the cohomological grading $q-1$ of
+Construction~\ref{cons:BV-field} the pairing has degree $-1$: for example
+$\deg(c)+\deg(c^\ast) = -1 + 2 = 1 \;\not\!= -1$ as naive sum, but the
+degree of the integral functional is $-1$ because $\omega_\BV$ itself
+lowers total degree by $1$ relative to the tensor product (the top
+form $\Omega$ carries holomorphic degree $3 = n$).
+\end{construction}
+
+\begin{lemma}[Non-degeneracy and BRST-closure]
+\label{lem:omega-closed}
+$\omega_\BV$ is non-degenerate (Serre duality on $\Omega^{0,\bullet}$) and
+BRST-closed: for compactly supported $\mathcal{A}_1,\mathcal{A}_2$,
+$\omega_\BV(Q\mathcal{A}_1,\mathcal{A}_2) + (-1)^{|\mathcal{A}_1|}\omega_\BV(\mathcal{A}_1,Q\mathcal{A}_2) = 0$.
+\end{lemma}
+
+\begin{proof}
+Non-degeneracy: $\omega_\BV(c, c^\ast)$ pairs $\Omega^{0,0}$ against
+$\Omega^{0,3}$, which is Serre duality on $\C^3$; similarly for $(A,A^\ast)$.
+Closure: $\omega_\BV(\dbar\mathcal{A}_1, \mathcal{A}_2) + (-1)^{|\mathcal{A}_1|}\omega_\BV(\mathcal{A}_1,\dbar\mathcal{A}_2)
+= \int\Omega\wedge\dbar\tr(\mathcal{A}_1\mathcal{A}_2) = 0$ by Stokes and $\dbar\Omega=0$.
+The bracket pieces $[\mathcal{A},\cdot]$ vanish by $\tr$-invariance:
+$\tr([\mathcal{A}_3,\mathcal{A}_1]\mathcal{A}_2) = -\tr(\mathcal{A}_1[\mathcal{A}_3,\mathcal{A}_2])$ up to sign.
+\end{proof}
+
+\begin{remark}[Classical master equation]
+$\{S_\BV, S_\BV\}_\omega = 0$ is equivalent to Jacobi $+$ $\dbar^2=0$,
+verified by Proposition~\ref{prop:Q2}; this is the input to perturbative
+quantisation (Costello--Gwilliam 2017 Vol II, §5.1).
+\end{remark}
+
+\section{Propagator for $\g = \mathfrak{u}(1)$}
+
+For Abelian $\g$, brackets vanish and $Q = \dbar$. The Green's operator
+inverts $\dbar$ on $\Omega^{0,\bullet}(\C^3)$.
+
+\begin{proposition}[Bochner--Martinelli propagator]
+\label{prop:BM}
+On $\C^3 \setminus \{z = w\}$,
+\[
+P(z, w) \;=\; \frac{2}{(2\pi i)^3}
+\sum_{k=1}^{3} (-1)^{k-1}
+\frac{\overline{z_k - w_k}}{|z-w|^{6}}
+\; d\bar z_1 \wedge \widehat{d\bar z_k} \wedge \cdots \wedge d\bar z_3
+\]
+is a $(0,2)$-form in $z$ satisfying $\dbar_z P(z,w) = \delta_{z=w}$ as a
+$(0,3)$-current.
+\end{proposition}
+
+\begin{proof}
+On $\C^n$ the standard Bochner--Martinelli kernel $K_\BM$ is the
+Cauchy--Fantappi\`e form of the ball; $(n-1)!/(2\pi i)^n = 2/(2\pi i)^3$
+at $n=3$. Direct computation:
+$\dbar_z\bigl((\overline{z_k-w_k})/|z-w|^{2n}\bigr)
+= \sum_j \partial_{\bar z_j}(\cdots) d\bar z_j$; the $k=j$ diagonal
+gives $|z-w|^{-2n}$ and $k\ne j$ gives $-n(\overline{z_k-w_k})
+(\overline{z_j-w_j})/|z-w|^{2n+2}$. Summing against
+$(-1)^{k-1}\widehat{d\bar z_k}$ and wedging with the missing $d\bar z_j$
+produces $d\bar z_1\wedge d\bar z_2\wedge d\bar z_3$ coefficient
+$\sum_k |z_k-w_k|^2 / |z-w|^{2n+2} \cdot n = n/|z-w|^{2n}$. The
+off-diagonal contributions cancel pairwise. Integration against any
+test function on $\C^n$ returns its value at $z=w$ by spherical
+averaging over $|z-w|=\epsilon$ as $\epsilon\to 0$; the normalisation
+$(n-1)!/(2\pi i)^n$ is fixed by Stokes on the boundary sphere
+(Costello--Gwilliam 2017 Vol II, Lemma 5.2.1).
+\end{proof}
+
+\begin{remark}[Two-point function]
+Contracting $P$ against $\Omega$ pairs $A(z)\in\Omega^{0,1}$ with
+$A^\ast(w)\in\Omega^{0,2}$:
+\[
+\langle A(z) A^\ast(w) \rangle \;=\; P(z,w),
+\]
+the scalar two-point function of perturbative Abelian hCS. The ghost
+$c$--$c^\ast$ pair is similarly propagated, with the $(0,0)$--$(0,3)$
+Serre-dual kernel.
+\end{remark}
+
+\section{Summary diagram}
+
+The BV complex is the total complex of $(\Omega^{0,\bullet}(\C^3,\g),\dbar)$
+shifted to cohomological degree $q-1$:
+\begin{equation*}
+\begin{array}{ccccccc}
+\Omega^{0,0}(\C^3,\g) & \xrightarrow{\dbar} & \Omega^{0,1}(\C^3,\g) &
+  \xrightarrow{\dbar} & \Omega^{0,2}(\C^3,\g) & \xrightarrow{\dbar} &
+  \Omega^{0,3}(\C^3,\g) \\
+c & & A & & A^\ast & & c^\ast \\
+\deg = -1 & & 0 & & +1 & & +2 \\
+\gh = +1 & & 0 & & -1 & & -2
+\end{array}
+\end{equation*}
+with $(-1)$-shifted pairing $\omega_\BV$ coupling $(c,c^\ast)$ and
+$(A,A^\ast)$ by Serre duality, BRST $Q = \dbar + \tfrac12[-,-]$
+satisfying $Q^2 = 0$ (Proposition~\ref{prop:Q2}), and Bochner--Martinelli
+propagator $P(z,w)$ (Proposition~\ref{prop:BM}) inverting $\dbar$.
+
+\begin{remark}[$\kappach$-scope]
+The Hodge-supertrace over this BV complex recovers
+$\kappach(\C^3) = \chi(\mathcal{O}_{\C^3}) = 1$, consistent with the $d=3$
+row of \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}.
+\end{remark}
+
+\paragraph{Provenance.}
+Costello--Gwilliam 2017 Vol II (arXiv:1610.01500) §5.1--5.3: Abelian hCS
+as a free BV theory, Bochner--Martinelli propagator, classical master
+equation.
+Costello 2011, \emph{Renormalization and Effective Field Theory} (AMS):
+chapters 4--5 for the $(-1)$-shifted symplectic formalism and the BV
+antibracket.
+Costello 2013 (arXiv:1303.2632) §2--3: non-Abelian hCS on $\C^n$, the
+Maurer--Cartan equation $\dbar\mathcal{A}+\mathcal{A}^2=0$, and the BRST nilpotency
+calculation via Jacobi.
+
+\end{document}

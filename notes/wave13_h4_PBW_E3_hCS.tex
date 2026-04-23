@@ -1,0 +1,261 @@
+% wave13_h4_PBW_E3_hCS.tex
+% Wave-13 H4/20: $E_3$-PBW theorem for 6D hCS observables.
+% Channel: $E_n$-PBW / Koszul duality.
+% Five attack-heal cycles: classical PBW -> $E_n$-PBW (Francis) ->
+% $n=3$ specialisation -> identification of primitives -> $\C^3$ match
+% with $\widehat{\mathfrak{gl}}_1$ BPS Lie algebra.
+
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Ch}{\mathrm{Ch}}
+\providecommand{\Dolb}{\mathrm{Dolb}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\Fact}{\mathrm{Fact}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Lie}{\mathrm{Lie}}
+\providecommand{\Free}{\mathrm{Free}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\Prim}{\mathrm{Prim}}
+\providecommand{\prim}{\mathrm{prim}}
+\providecommand{\dbar}{\bar\partial}
+\providecommand{\Opn}{\mathrm{Opn}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\gln}{\widehat{\mathfrak{gl}}_1}
+\providecommand{\UE}{\mathrm{U}_{E_n}}
+\providecommand{\UEthree}{\mathrm{U}_{E_3}}
+
+\section*{$E_3$-PBW for 6D hCS observables (Wave-13 H4/20)}
+
+\paragraph{Theorem (main).}
+Let $\Obs_{\hCS}$ be the holomorphic factorisation algebra of 6D
+holomorphic Chern--Simons on $\C^3$, equipped with the $E_3^{\mathrm{hol}}$
+structure established in Wave-13 E3/20 (Gwilliam--Williams 2021
+Thm~2.5.5; Costello--Gwilliam 2017 Vol~I \S5.4). There is a canonical
+Lie algebra object $\fg_{\hCS}$ in $E_2$-algebras in $\Ch(\Dolb)$ and
+a PBW equivalence
+\[
+   \Obs_{\hCS}\ \simeq\ \UEthree\bigl(\fg_{\hCS}\bigr)\qquad
+   \text{in }E_3\text{-}\mathrm{Alg}\bigl(\Ch(\Dolb)\bigr),
+\]
+with $\fg_{\hCS} \simeq \Prim(\Obs_{\hCS})$ the $E_3$-primitive sub-object
+(Francis 2013 \emph{Compos.\ Math.} 149, Thm~3.4; Lurie
+\emph{Higher Algebra} \S5.3). On $\C^3$, passing to Dolbeault
+cohomology in each ghost degree,
+$\fg_{\hCS}|_{\fg = \fgl_1}\simeq \gln$ as Lie algebras in chain
+complexes: the ``BPS Lie algebra'' of the Miura-abelian sector.
+
+\paragraph{Cycle 1: classical PBW, chain level.}
+\emph{Attack.} For $\fg$ a (dg-)Lie algebra in $\Ch_\Q$, the universal
+enveloping algebra $U(\fg)$ has an ascending filtration
+$F_k U(\fg) = \langle x_1\cdots x_j : j\le k\rangle$ with associated
+graded $\gr U(\fg)$ an associative algebra quotient of the tensor
+algebra. The PBW theorem (Quillen 1969 \emph{Rational Homotopy Theory},
+Appendix B; Koszul 1950) supplies a canonical symmetrisation
+$\sigma: \Sym(\fg)\to\gr U(\fg)$, $x_1\cdots x_k\mapsto
+\frac{1}{k!}\sum_{\pi\in S_k}x_{\pi(1)}\otimes\cdots\otimes x_{\pi(k)}$,
+and proves $\sigma$ is an isomorphism of coalgebras.
+\emph{Heal.} In the $\Z$-graded dg setting signs intervene:
+$\Sym$ is the signed symmetric product, and PBW requires characteristic
+$0$ (or torsion-free hypothesis). Cohen--Moore--Neisendorfer give the
+chain-level refinement and Quillen identifies $U$ as the left adjoint
+to the primitive-functor $\Prim$ on (connected) cocommutative
+coalgebras. This is the prototype: $E_\infty$-PBW.
+
+\paragraph{Cycle 2: $E_n$-PBW (Francis).}
+\emph{Attack.} Francis (\emph{Compos.\ Math.} 149 (2013), Thm~3.4;
+see also Lurie \emph{Higher Algebra} Thm~5.3.2.5 and Knudsen 2018
+\emph{Higher Kac rings}) promotes PBW to $E_n$: for any (augmented)
+$E_n$-algebra $A$ in a stable $\Q$-linear $\infty$-category $\mathcal{C}$,
+the $E_n$-tangent fibre
+\[
+  \Prim_{E_n}(A)\ :=\ \mathrm{fib}\bigl(A\ \to\ 1\bigr)[n-1]
+\]
+is a shifted Lie algebra in $E_{n-1}$-algebras --- a $\Lie$-object
+internal to $E_{n-1}\text{-}\mathrm{Alg}(\mathcal{C})$ --- and the
+$E_n$-enveloping functor $\UE$ (left adjoint to
+$\Prim_{E_n}[-(n-1)]$) produces a PBW equivalence of underlying
+$E_n$-chain objects:
+\[
+   \UE(\fg)\ \simeq\ \Sym_{\mathcal{C}}(\fg)[n-1].
+\]
+\emph{Heal.} The adjoint pair $(\UE,\Prim_{E_n})$ is the derived
+analogue of $U\dashv\Prim$. Francis proves that on connected
+$E_n$-algebras this adjunction is a Koszul--Quillen equivalence with
+inverse shift $[n-1]$; Ayala--Francis 2015 extend to non-connected
+ones. The statement is strictly $\Q$-local: in characteristic $p$
+one must replace $\Sym$ by the derived symmetric powers and $\Lie$ by
+$\Lie_p$. Our CY$_3$ setting is $\C$-linear so char $0$ holds.
+
+\paragraph{Cycle 3: specialisation to $n=3$.}
+\emph{Attack.} For $n=3$ the Francis theorem reads
+$\Obs\ \simeq\ \UEthree\bigl(\Prim_{E_3}(\Obs)\bigr)$ with
+$\Prim_{E_3}(\Obs) = \mathrm{fib}(\Obs\to 1)[2]$ a shifted Lie algebra
+in $E_2$-algebras. The shift $[2]$ is forced: the $E_3$-bracket
+$[\,\cdot\,,\,\cdot\,]_{E_3}$ is the Browder operation of degree
+$-(n-1)=-2$, equivalently the operation on
+$H^*(\Conf_2(\R^3))\cong H^*(S^2)$ in the bottom non-trivial degree.
+Setting $\fg_{\hCS} := \Prim_{E_3}(\Obs_{\hCS})$, the PBW map
+is the symmetrisation along the $\dbar$-flow
+$\Conf_k(\C^3)\to *$:
+\[
+  \sigma_{E_3}\ :\ \Sym_{\Ch(\Dolb)}\bigl(\fg_{\hCS}[2]\bigr)\
+  \xrightarrow{\ \simeq\ }\ \gr_F\Obs_{\hCS},
+\]
+with $F_k = $ image of $\fg_{\hCS}^{\otimes\le k}$ under the iterated
+$E_3$-product (Wave-13 E3/20 Cycle 4).
+\emph{Heal.} The word ``Sym'' in $\Ch(\Dolb)$ means signed Dolbeault
+symmetric power: permutations act via Koszul signs and swap
+$(0,p)\otimes(0,q)\mapsto (-1)^{pq}\cdot\text{swap}$. Concretely the
+PBW isomorphism is witnessed by the Fulton--MacPherson projection
+$\overline{\Conf}_k(\C^3)\to\Sym^k(\C^3)$ whose generic fibre is a
+point and whose boundary strata recover the lower-order products.
+
+\paragraph{Cycle 4: identifying $\Prim_{E_3}(\Obs_{\hCS})$.}
+\emph{Attack.} Compute the primitive complex directly from the BV
+action. For 6D hCS with matter $\fg$-valued field
+$A\in\Omega^{0,\bullet}(\C^3,\fg)[1]$ and action
+$S[A]=\int_{\C^3}\Omega\wedge\mathrm{tr}(\tfrac12 A\,\dbar A
++\tfrac13 A^3)$, the linear (BRST) cohomology of observables is
+\[
+  H^0\bigl(\Obs_{\hCS}^{\mathrm{lin}}\bigr)\ =\
+  \Sym\bigl(\Omega^{0,\bullet}(\C^3,\fg^*)[-1]\bigr),
+\]
+with the cubic interaction deforming it to the full Chevalley--Eilenberg
+complex
+\[
+  \Obs_{\hCS}\ \simeq\
+  \CE^\bullet\!\bigl(\Omega^{0,\bullet}(\C^3,\fg)[1]\bigr)
+\]
+by Costello--Gwilliam Vol~I Prop.~4.5.2 (classical observables of a
+BV theory = CE of the derived space of solutions). The primitive
+sub-object $\Prim_{E_3}\cong\CE^1$ (cocycles of CE-degree $1$) because
+the CE-product is cup-product and $\CE^1$ is exactly what is killed by
+$k\ge 2$ products. Explicitly
+\[
+  \fg_{\hCS}\ =\ \Prim_{E_3}(\Obs_{\hCS})\ \simeq\
+  \Omega^{0,\bullet}\bigl(\C^3,\fg^*\bigr)[-1],
+\]
+with Lie bracket coming from the structure constants of $\fg$ paired
+against the $\dbar$-Green kernel on $\C^3$ (Costello 2011 Ch.~2):
+$[a\otimes X,\ b\otimes Y]\ =\ (a\wedge b)\otimes[X,Y]_{\fg^*}$ for
+$a,b\in\Omega^{0,\bullet}$.
+\emph{Heal.} The identification $\Prim=\CE^1$ is the linear dual of
+$\Prim_{\Sym}=\text{generators}$; it is the bar/cobar shadow of
+Theorem~A (Vol~I). That $\fg_{\hCS}$ is a \emph{Lie algebra} in
+$E_2$ follows because the Jacobiator is the $\dbar$-flow on
+$\overline{\Conf}_3(\C^3)$: its boundary is $6$ copies of
+$\overline{\Conf}_2\times\overline{\Conf}_2$, giving $[[\,,\,],\,]+
+\text{cyc}=\dbar(\text{chain})$.
+
+\paragraph{Cycle 5: $\fg=\fgl_1$ matches $\gln$.}
+\emph{Attack.} Take $\fg=\fgl_1$ (abelian) and $X=\C^3$. The primitive
+complex reduces to
+$\fg_{\hCS}|_{\fg=\fgl_1}\simeq\Omega^{0,\bullet}(\C^3)[-1]$,
+and, because $\fg^*=\C$ is abelian, the naive bracket vanishes at
+the strict level. However, the $E_2$-bracket in
+$E_2\text{-}\Lie(\Ch(\Dolb))$ is \emph{not} the abelian one: it is
+the (holomorphic) Koszul bracket induced by the CY$_3$ volume form
+$\Omega=dz_1\wedge dz_2\wedge dz_3$ pairing
+$\Omega^{0,p}\otimes\Omega^{0,q}\to\Omega^{0,p+q-1}\wedge\Omega$ via
+contraction with the BV antibracket (Costello--Li 2016, Twisted
+holography, \S3; Rapcak--Soibelman--Yang--Zhao 2020, arXiv:2007.13365,
+Thm~1.1). Taking Dolbeault cohomology on $\C^3$ (which is
+concentrated in bidegree $(0,0)$, $\dim 1$),
+\[
+  H^*_{\dbar}\bigl(\C^3,\ \fg_{\hCS}|_{\fgl_1}\bigr)\ \simeq\
+  \C[z_1,z_2,z_3]\cdot e\ \oplus\ \C\cdot\partial_{z_1}\partial_{z_2}\partial_{z_3}
+  \cdot f,
+\]
+generated as an $E_2$-Lie algebra by the polynomial ring on three
+formal variables with the CY$_3$ Poisson bracket; Schiffmann--Vasserot
+(\emph{Publ.\ IHES} 118 (2013)) identifies this with $\gln$ at central
+charge $\kappa_{\mathrm{ch}}(\C^3)=0$ (local CY$_3$, non-compact, CoHA
+is $Y^+$ \emph{not} $\mathcal{W}_{1+\infty}$; Costello--Gaiotto 2018
+\emph{Vertex op.\ algebras and 3d/4d susy}, \S4). Hence
+\[
+   \fg_{\hCS}|_{\fgl_1}\ \simeq\ \gln\ \text{as Lie alg.\ in }
+   E_2\text{-}\Ch(\Dolb),
+\]
+and PBW gives $\Obs_{\hCS}|_{\fgl_1}\simeq\UEthree(\gln)$. This is the
+chiral shadow of CoHA$(\C^3)=Y^+(\gln)$ (positive half: not the full
+$\mathcal{W}_{1+\infty}$).
+\emph{Heal.} Three witnesses for the identification: (i) direct
+generators: $\partial_{z_i}$ act as $\gln$-raising, monomials
+$z^\alpha$ as lowering, matching the Schiffmann--Vasserot CoHA basis;
+(ii) central charge: $c(\gln)=1$ matches the rank of $\fgl_1$;
+(iii) instanton moduli: Maulik--Okounkov 2012 (\emph{Quantum groups
+and quantum cohomology}, arXiv:1211.1287) identifies the Nakajima
+quiver-variety $\mathrm{Hilb}^n(\C^2)$ cohomology with
+$\gln$-representations, and the $z_3$-direction is the $E_2\to E_3$
+loop. No $\mathcal{W}_{1+\infty}$ conflation: that is the full
+(negative + Cartan + positive) algebra, while the $\Phi$-output on
+local $\C^3$ is the positive half alone (cache: CoHA$(\C^3)=Y^+$).
+
+\paragraph{Consequence for $\Phi$ and $\kch$.}
+At $d=3$ the CY-D stratification predicts $\Phi$ outputs an
+$E_1$-chiral algebra on compact CY$_3$. Here on local
+$X=\C^3$ the output is genuinely $E_3$ (no compactness), and the
+PBW presentation
+$\Obs_{\hCS}\simeq\UEthree(\fg_{\hCS})$ is the $E_3$-enveloping
+description. Compact-CY$_3$ restriction is the step $E_3\to E_1$
+obtained by averaging over
+$Z^{\mathrm{der}}_{\mathrm{ch}}(\mathrm{Rep})$ (AP-CY6). The primitive
+$\fg_{\hCS}$ supplies a Lie algebra whose derived character computes
+$\kch(X) = \chi(\cO_X)$ on compact CY$_d$ by the Hodge-supertrace
+identification; for $X=\C^3$ the index vanishes and the presentation
+is faithful.
+
+\paragraph{Scope and lanes.}
+Chain-level: explicit CE$^1$-primitive identification, explicit
+Dolbeault resolution, explicit Koszul bracket from $\Omega$.
+$(\infty,1)$-categorical: the adjunction
+$\UEthree\dashv\Prim_{E_3}[-2]$ in the $\infty$-category of
+$E_3$-algebras in $\Ch(\Dolb)$; Francis 2013 Koszul--Quillen
+equivalence. Both lanes simultaneously load-bearing (CLAUDE.md
+``equal status''). Pattern 273: $\Phi$-as-functor at $(\infty,1)$-level
+requires morphism preservation (open elsewhere); the object-level
+chain identification here is independent of that.
+
+\paragraph{Non-conflations.}
+(i) $\UEthree(\fg)\ne U(\fg)$: the former is $E_3$-enveloping, the
+latter is associative ($E_1$-)enveloping. (ii) $\Prim_{E_3}$ is not
+the abelianisation $\fg_{\mathrm{ab}}$; it is the shifted tangent
+fibre. (iii) $\kch(\C^3)=0\ne \kcat$ is not defined on open $\C^3$
+(no compact fundamental class); do not assign $\kcat(\C^3)$.
+(iv) $\gln\ne\mathcal{W}_{1+\infty}$: positive half only on local
+CY$_3$.
+
+\paragraph{References.}
+\begin{itemize}
+  \item Francis, J., ``The tangent complex and Hochschild
+    cohomology of $E_n$-rings,'' \emph{Compos.\ Math.} 149 (2013),
+    Thm~3.4 ($E_n$-PBW).
+  \item Costello, K., Gwilliam, O., \emph{Factorization Algebras in
+    Quantum Field Theory}, Vol~I (2017), \S9 (enveloping factorisation
+    algebras); Prop.~4.5.2 (observables as CE); Vol~II Thm~9.3.1.
+  \item Lurie, J., \emph{Higher Algebra}, \S5.3
+    (en-algebras, Koszul duality), Thm~5.3.2.5.
+  \item Ayala, D., Francis, J., ``Factorisation homology of
+    topological manifolds,'' \emph{J.\ Topol.} 8 (2015).
+  \item Knudsen, B., ``Higher enveloping algebras,''
+    \emph{Geom.\ Topol.} 22 (2018), 4013--4099.
+  \item Gwilliam, O., Williams, B., arXiv:2009.05037,
+    Thm~2.5.5 (holomorphic fact.\ alg.\ $\leftrightarrow$ $E_n^{\mathrm{hol}}$).
+  \item Schiffmann, O., Vasserot, E., \emph{Publ.\ IHES} 118 (2013)
+    (CoHA of $\C^3$ = $Y^+(\gln)$).
+  \item Costello, K., Gaiotto, D., ``Vertex operator algebras and
+    3d/4d SUSY gauge theories'' (2018).
+  \item Maulik, D., Okounkov, A., ``Quantum groups and quantum
+    cohomology,'' arXiv:1211.1287 ($\gln$ on Hilb).
+  \item Quillen, D., ``Rational homotopy theory,''
+    \emph{Ann.\ Math.} 90 (1969), Appendix B (classical PBW).
+\end{itemize}

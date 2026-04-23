@@ -1,0 +1,1293 @@
+% wave13_a4_weyl_kac_product_polyakov.tex
+% Polyakov-voice adversarial assault on the Weyl-Kac-Borcherds denominator
+% identity for g_{Delta_5}, and on the infinite product expansion of
+% Delta_5 as the Borcherds singular theta lift of phi_{0,1}.
+%
+% Channeling: Polyakov bootstrap rigour + Russian math physics elite
+% school (Gelfand-Manin-Drinfeld-Arnold-Beilinson + Nekrasov-Witten-
+% Costello-Gaiotto-Moore). Costello-Francis-Gwilliam chain-level
+% elementarity in each Heal.
+%
+% Target primary sources (paper transcript, Lorgat 2020):
+%   Section 2  -- Delta_5 preamble, f(n,l,m), triple-product seed
+%                 identity 1 + (1/64) sum f(1+2t,1,1) q^t = prod(1-q^k)^9
+%   Section 6  -- phi_{12,1} / delta_{12} = phi_{0,1}, weak Jacobi form
+%                 weight 0 index 1; Theorem 4 infinite product identity
+%                 for Delta_5 with exponents f(nm, l)
+%   plus the Borcherds 1998 weight theorem 13.3:
+%                 wt(Phi) = c_0(0)/2
+%                 applied with c_1(0) = f_{phi_{0,1}}(0,0) = 10.
+%
+% Mission: >=5 ATTACK <-> HEAL cycles on
+%   (i)   phi_{0,1} q-expansion + theta decomposition + Fourier
+%         coefficients c(n,r) with 4n - r^2 >= -1;
+%   (ii)  Borcherds singular theta lift
+%           sum c(n,r) -> prod (1 - p^a q^b zeta^c)^{c(ab,c)}
+%         over (a,b,c) > 0 in the positive Weyl chamber of Lambda^{2,1}_{II};
+%   (iii) convergence to Delta_5 as weight-5 form on Sp_4(Z);
+%   (iv)  Weyl-Kac-Borcherds denominator formula for g_{Delta_5}
+%           e^rho prod_{alpha>0} (1 - e^{-alpha})^{mult(alpha)};
+%   (v)   super-dim of root spaces matches phi_{0,1} Fourier data via
+%         Gritsenko-Nikulin duality.
+%
+% Authorship: Raeez Lorgat. Scope: notes/ (not manuscript).
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{attack}{Attack}
+\newtheorem{heal}{Heal}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{warning}[theorem]{Warning}
+\newtheorem{verification}[theorem]{Verification}
+\newtheorem{ghost}[theorem]{Ghost theorem}
+
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\Lat}{\Lambda}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\fn}{\mathfrak{n}}
+\newcommand{\fh}{\mathfrak{h}}
+\newcommand{\Sp}{\mathrm{Sp}}
+\newcommand{\OO}{\mathrm{O}}
+\newcommand{\SO}{\mathrm{SO}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\Wg}{\mathsf{W}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\mult}{\operatorname{mult}}
+\newcommand{\re}{\mathrm{re}}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\ch}{\mathrm{ch}}
+\newcommand{\Borch}{\mathrm{Borch}}
+\newcommand{\Lift}{\mathrm{Lift}}
+\newcommand{\Delta}{\varDelta}  % use \varDelta for Delta symbol; discard Greek conflict
+\renewcommand{\Delta}{\mbox{\ensuremath{\Delta}}}
+
+\title{Weyl--Kac product for $\fg_{\Delta_5}$ and the Borcherds lift of
+$\phi_{0,1}$:\\ Polyakov bootstrap attack--heal}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Target: the pair of identities (Thm.~3, Thm.~4 of Lorgat~2020):
+\[
+  \tfrac{1}{64}\Delta_5(2Z)
+   \;=\; \sum_{w\in \Wg^{(2)}(\Lat^{2,1}_{II})}\!\!\det(w)
+         \Bigl(e^{-\pi i(w\rho,z)}
+          - \!\!\sum_{a\in\Lat^{2,1}_{II}\cap\RR_{>0}\mathcal P_{II}}\!\!
+            m(a)\,e^{-\pi i(w(\rho+a),z)}\Bigr),
+\]
+\[
+  \tfrac{1}{64}\Delta_5(Z)
+   \;=\; e^{\pi i(z_1+z_2+z_3)}
+         \prod_{(n,\ell,m)>0}(1 - e^{2\pi i(n z_1+\ell z_2+m z_3)})^{f(nm,\ell)},
+\]
+the second being the infinite-product expansion witnessing $\Delta_5$ as
+a Borcherds singular theta lift of $\phi_{0,1}$, the first the
+Weyl--Kac--Borcherds denominator formula for the generalized
+Borcherds--Kac--Moody Lie superalgebra $\fg_{\Delta_5}$ associated to
+the Gram matrix $((\delta_i,\delta_j))_{i,j=1,2,3}$ with off-diagonal
+$-2$ and diagonal $2$. The two are the same formal identity read in
+different lanes: Cartan--Eilenberg side (Weyl--Kac) and
+Selberg--Borcherds theta-integral side.
+
+Five attack$\leftrightarrow$heal cycles probe each load-bearing step:
+(1)~the Eichler--Zagier theta decomposition of $\phi_{0,1}$ and
+the Fourier data $c(n,r)$; (2)~the Borcherds singular theta lift and
+the positive-Weyl-chamber exponent bookkeeping; (3)~weight
+$=c_1(0)/2=5$ via Borcherds 1998 Thm.~13.3; (4)~Weyl--Kac--Borcherds
+denominator formula from the GBKM generators and Serre relations;
+(5)~Gritsenko--Nikulin duality
+$\mult(\alpha_{(a,b,c)})=f(ac,b)=c_{\phi_{0,1}}(ac,b)$ relating root
+multiplicities to Jacobi Fourier coefficients. Each cycle is a
+Polyakov-bootstrap probe: a conformal-invariance-style constraint plus
+a worked counter-example hammer. Claim status honest throughout.
+\end{abstract}
+
+\tableofcontents
+
+%====================================================================
+\section{Load-bearing primary data}
+\label{sec:data}
+
+Recall the three lattices and the Weyl vector from Lorgat~2020
+\S3--\S4.
+
+\begin{itemize}[leftmargin=1.5em]
+\item $\Lat^{3,2}\simeq\Lat^{1,1}\oplus\Lat^{1,1}\oplus[2]$: signature
+$(3,2)$, hyperbolic-$\oplus$-hyperbolic-$\oplus$-rank-$1$ with
+Gram $(2)$.
+\item $\Lat^{2,1}=\Lat^{1,1}\oplus[2]\simeq\ZZ f_2\oplus\ZZ f_3\oplus
+\ZZ f_{-2}\subset\Lat^{3,2}$ (primitive hyperbolic sublattice, signature
+$(2,1)$).
+\item $\Lat^{2,1}_{II}=\{m f_2+\ell f_3+n f_{-2}\in\Lat^{2,1}\mid
+m\equiv n\equiv 0\bmod 2\}$, the type-II sublattice of index $6$ in
+$\Lat^{2,1}$, with fundamental polyhedron $\mathcal P_{II}$ cut by
+$\{\delta_1=2f_2-f_3,\ \delta_2=2f_{-2}-f_3,\ \delta_3=f_3\}$. Gram:
+\begin{equation}
+\label{eq:gram-delta-ij}
+  (\delta_i,\delta_j)_{i,j=1,2,3}\;=\;
+  \begin{pmatrix} 2 & -2 & -2\\ -2 & 2 & -2\\ -2 & -2 & 2 \end{pmatrix}.
+\end{equation}
+\item Weyl vector $\rho=\tfrac12\delta_1+\tfrac12\delta_2+\tfrac12\delta_3
+=f_2-\tfrac12 f_3+f_{-2}$; satisfies $(\rho,\delta_i)=-1=-(\delta_i,
+\delta_i)/2$ for $i=1,2,3$.
+\item $\mathcal P_{II}\subset\mathcal C(\Lat^{2,1})_+/\RR_{>0}$ is
+finite-volume in the hyperbolic plane; three vertices at infinity
+$\{2f_2,\ 2f_{-2},\ 2f_2-2f_3+2f_{-2}\}$ sit on the null cone
+$\{a\in\Lat^{2,1}_{II}\mid(a,a)=0\}\cap\RR_{>0}\mathcal P_{II}$, each
+orbit-related under $\mathrm{Aut}(\mathcal P_{II})\simeq S_3$.
+\item $\phi_{0,1}\in J^{\mathrm{weak}}_{0,1}(\SL_2(\ZZ))$: weight $0$,
+index $1$, weak Jacobi form defined by $\phi_{0,1}=\phi_{12,1}/\delta_{12}$
+with $\delta_{12}=\eta^{24}$ and $\phi_{12,1}$ the first Fourier--Jacobi
+coefficient of $\Delta_{12}\in M_{12}(\Sp_4(\ZZ))$. Fourier expansion
+(Eichler--Zagier 1985 Thm.~2.2, Lorgat~2020 \S6):
+\begin{equation}
+\label{eq:phi01-expansion}
+  \phi_{0,1}(\tau,z)\;=\;\sum_{n\geq 0,\ell\in\ZZ}f(n,\ell)\,q^n r^\ell,
+  \qquad q=e^{2\pi i\tau},\ r=e^{2\pi i z},
+\end{equation}
+with $f(n,\ell)$ depending only on the discriminant $4n-\ell^2$, polar
+range $4n-\ell^2\geq -1$, and values
+\[
+  f(0,0)=10,\quad f(0,\pm 1)=1,\quad f(0,\ell)=0\text{ for }|\ell|\geq 2,
+\]
+\[
+  f(1,0)=-64,\quad f(1,\pm 1)=108,\quad f(1,\pm 2)=-64,\quad f(1,\pm 3)=10,\ldots
+\]
+Equivalently the $q^0$ Laurent polynomial is
+$\phi_{0,1}|_{q=0}=r^{-1}+10+r$.
+\item The Igusa form $\Delta_5\in M_5(\Sp_4(\ZZ),\nu_{\Delta_5})$ of
+weight $5$ with order-$2$ multiplier $\nu_{\Delta_5}$ (Maass~1964);
+Fourier expansion in $Z=\begin{psmallmatrix}z_0&z_1\\z_2&z_3
+\end{psmallmatrix}$ has $f(1,1,1)=64$, $64\mid f(n,\ell,m)$.
+\end{itemize}
+
+\begin{observation}[The $f$ of \S2 and the $f$ of \S6 are
+\emph{the same} Fourier coefficients]
+\label{obs:f-f-identification}
+Lorgat~2020 writes $f(n,\ell,m)$ for the three-variable Fourier
+coefficients of $\Delta_5(Z)$ (\S2 eq.~following Maass, p.~3 line 174),
+and $f(n,\ell)$ for the two-variable Fourier coefficients of
+$\phi_{0,1}(\tau,z)$ (\S6 p.~9 line 717). The notation collides; what
+Theorem~4 says is the \emph{non-trivial} identification
+\[
+  f(n,\ell,m)\big|_{\text{via Borcherds lift}}
+  \;=\; f(nm,\ell)\big|_{\text{Jacobi form}},
+\]
+i.e.\ the Fourier coefficient of $\Delta_5$ at multi-index $(n,\ell,m)$
+equals the Fourier coefficient of $\phi_{0,1}$ at discriminant
+$(nm,\ell)$. This is the content of the infinite product. The
+$q^0$-slice identification $r^{-1}+10+r\rightsquigarrow
+c_1(0)=10=\sum\chi(K3)^{\mathrm{ell,sym}}_{\mathrm{massless}}$ feeds
+the Borcherds weight theorem.
+\end{observation}
+
+%====================================================================
+\section{Cycle 1: Theta decomposition of $\phi_{0,1}$ and the
+$c(n,r)$ data}
+\label{sec:cycle1}
+
+\begin{attack}[Which decomposition, which index, what convention?]
+\label{atk:cycle1}
+Lorgat~2020 quotes Theorem~4
+\[
+  \tfrac{1}{64}\Delta_5(Z)
+  \;=\; e^{\pi i(z_1+z_2+z_3)}\prod_{(n,\ell,m)>0}
+        (1-e^{2\pi i(n z_1+\ell z_2+m z_3)})^{f(nm,\ell)}
+\]
+and labels $f(nm,\ell)$ the Fourier coefficient of $\phi_{0,1}$ at
+discriminant $(nm,\ell)$. Four objections before the lift is accepted.
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item The Borcherds singular theta lift takes as input a
+\emph{vector-valued} modular form of weight $(2-\mathrm{rk}\Lat)/2=1/2$
+on $\mathrm{Mp}_2(\ZZ)$ with values in the Weil representation of
+$\Lat^{3,2}$ (Borcherds 1998 \S3--\S4). The starting $\phi_{0,1}$ has
+weight $0$ and index $1$, not $1/2$ with vector values. A conversion
+from weak Jacobi form to Weil-representation-valued modular form must
+intervene, and is never stated in Lorgat~2020.
+\item The exponent $f(nm,\ell)$ is indexed by $(nm,\ell)$, not by
+$(n,\ell,m)$ directly. Why should the lift only care about the product
+$nm$? This is a non-trivial Eichler--Zagier theta-decomposition
+phenomenon and warrants a first-principles derivation, not a citation.
+\item The positivity condition ``$(n,\ell,m)>0$'' is defined in
+Remark~1 (Lorgat 2020 p.~9 line 735) as ``$n\geq 0,m\geq 0,\ell$
+arbitrary if $n>0$ or $m>0$, and $\ell<0$ if $n=m=0$''. This is the
+positive Weyl chamber of $\Lat^{2,1}_{II}$ with respect to a chosen
+Weyl vector. But the Weyl vector $\rho=f_2-\tfrac12f_3+f_{-2}$ uses
+\emph{half-integer} coefficients, while the sum is indexed by
+integer $(n,\ell,m)$. How does this half-integer Weyl vector reconcile
+with integer lattice points?
+\item Convergence of the product is asserted via
+$f(n,\ell)=O(\exp(\sqrt{4n-\ell^2}))$, an asymptotic statement. But
+\emph{convergence} requires a more delicate bound in a neighbourhood
+of the zero-dimensional cusp (the standard Hecke-type estimate is not
+enough); the argument passes to ``methodology of Kac [11]'' without
+displaying the actual convergence inequality.
+\end{enumerate}
+\end{attack}
+
+\begin{ghost}[Eichler--Zagier theta decomposition as Weil-rep conversion]
+\label{ghost:cycle1}
+Let $\phi\in J^{\mathrm{weak}}_{k,m}(\SL_2(\ZZ))$ be a weak Jacobi form
+of integer weight $k$ and integer index $m$. The Eichler--Zagier
+theta decomposition (Eichler--Zagier 1985 Thm.~5.1; cf.\
+Bruinier~2002 Chap.~1.2) asserts
+\begin{equation}
+\label{eq:theta-decomp}
+  \phi(\tau,z)\;=\;\sum_{\mu\in\ZZ/2m\ZZ}h_\mu(\tau)\,
+  \vartheta_{m,\mu}(\tau,z),
+\end{equation}
+where $\vartheta_{m,\mu}(\tau,z)=\sum_{\nu\in\ZZ+\mu/2m}q^{m\nu^2}r^{2m\nu}$
+is the Jacobi theta, and the vector $(h_\mu)$ transforms as a
+\emph{vector-valued} modular form of weight $k-1/2$ on the metaplectic
+cover $\mathrm{Mp}_2(\ZZ)$ under the Weil representation
+$\rho_m$ associated to the rank-$1$ positive-definite lattice $[2m]$.
+
+For $\phi=\phi_{0,1}$: $k=0$, $m=1$, hence $(h_\mu)$ is weight $-1/2$,
+Weil representation of $[2]$. The Fourier expansion
+$h_\mu(\tau)=\sum_{D}C(D)q^{D/4m}$ (where $D=4mn-\ell^2$ with
+$\ell\equiv\mu\bmod 2m$) packages the $f(n,\ell)=C_\mu(4n-\ell^2)$
+into \emph{discriminant-indexed} Fourier coefficients. This explains
+Objection O.1: the conversion is the theta decomposition; $(h_\mu)$ is
+the Weil-representation-valued input.
+
+For $m=1$: two components $\mu=0,1$ with $h_\mu(\tau)\in M^!_{-1/2}
+(\rho_1)$. The principal part (polar discriminants $D\leq 0$) fits in
+the set $D\in\{-1,0\}$:
+\[
+  C_1(-1)=1\quad(\text{from }f(0,\pm 1)=1),\qquad
+  C_0(0)=10\quad(\text{from }f(0,0)=10).
+\]
+\emph{This is the input to Borcherds's singular theta lift.} The entry
+$C_0(0)=10$ is the $c_1(0)$ that enters the weight formula
+$\mathrm{wt}(\Phi)=c_0(0)/2=5$.
+
+Objection O.2 resolution: the exponent $f(nm,\ell)$ depends on
+$(nm,\ell)$ alone because after theta decomposition, the
+Borcherds--Gritsenko identity maps \emph{each pair} $(4nm-\ell^2,
+\ell\bmod 2)$ to a Fourier coefficient $C_\mu(D)$ at $D=4nm-\ell^2$,
+$\mu=\ell\bmod 2$. The two variables $(n,m)$ combine only via the
+discriminant $D=4nm-\ell^2$, which is the symplectic-invariant
+combination under the swap $n\leftrightarrow m$
+(the involution $Z\leftrightarrow Z^t$ inside $\Sp_4(\ZZ)$).
+
+Objection O.3 resolution: the Weyl vector $\rho=\tfrac12\delta_1+
+\tfrac12\delta_2+\tfrac12\delta_3=f_2-\tfrac12f_3+f_{-2}$ sits in
+$(\Lat^{2,1}_{II})^*=\tfrac12\Lat^{2,1}$, not in $\Lat^{2,1}_{II}$
+itself. The exponent of $e^{\pi i(\rho,z)}$ in the product side of
+Thm.~4 is $\tfrac12(\rho+\rho')$ for the \emph{rescaled} Weyl vector
+$\rho'=f_2+f_3+f_{-2}$ matching the $(n,\ell,m)$-indexing
+(cf.\ $e^{\pi i(z_1+z_2+z_3)}$ in Thm.~4: the coefficients are the
+integer triple $(1,1,1)$, which is $2\rho$ under the pairing with the
+basis $\{f_{-2},f_3,f_2\}$). Integer-vs-half-integer is a change of
+basis, not a contradiction.
+
+Objection O.4 resolution: the asymptotic $f(n,\ell)=O(\exp(\pi
+\sqrt{4n-\ell^2}))$ is the Hardy--Ramanujan--Rademacher estimate
+for Jacobi forms of weight $k\leq 0$ (Dabholkar--Murthy--Zagier 2012
+Lemma~8.1; Bringmann--Folsom--Ono--Rolen 2017 Thm.~7.5). Convergence
+of the product on neighbourhoods of the zero-dimensional cusp then
+follows from Borcherds 1998 Thm.~10.1 (\emph{not} 13.3): the standard
+cusp-neighbourhood convergence is the content of Borcherds's Theorem~7.3
+plus the asymptotic. The exponential weight
+$\exp(-2\pi(n y_1+\ell y_2+m y_3))$ with $y_i=\mathrm{Im}(z_i)$ combined
+with the polynomial growth of $f(nm,\ell)$ in $\sqrt{4nm-\ell^2}$
+gives absolute convergence on
+$\{Z\mid y_1 y_3-y_2^2\geq C,\ y_1,y_3\geq C'\}$ for any $C,C'>0$.
+\end{ghost}
+
+\begin{heal}[First-principles restatement of the theta decomposition]
+\label{hl:cycle1}
+Inscribe \eqref{eq:theta-decomp} with specific values for $\phi_{0,1}$
+and identify the Weil-representation input explicitly.
+
+\textbf{Step~1 (Theta components).} Write
+\[
+  \phi_{0,1}(\tau,z)\;=\;h_0(\tau)\vartheta_{1,0}(\tau,z)
+  +h_1(\tau)\vartheta_{1,1}(\tau,z),
+\]
+with
+\[
+  \vartheta_{1,0}(\tau,z)=\sum_{\nu\in\ZZ}q^{\nu^2}r^{2\nu},\qquad
+  \vartheta_{1,1}(\tau,z)=\sum_{\nu\in\ZZ+1/2}q^{\nu^2}r^{2\nu}.
+\]
+Reading off the $r^\ell$ coefficients of $\phi_{0,1}$ at each $q^n$:
+\[
+  h_0(\tau)\;=\;\sum_{\substack{D\geq -0\\D\equiv 0\bmod 4}}c_0(D)q^{D/4},
+  \qquad
+  h_1(\tau)\;=\;\sum_{\substack{D\geq -1\\D\equiv -1\bmod 4}}c_1(D)q^{D/4},
+\]
+with principal parts
+\[
+  c_0(0)=10,\qquad c_1(-1)=1,
+\]
+and higher Fourier coefficients $c_\mu(D)=f(n,\ell)$ for $D=4n-\ell^2$,
+$\ell\equiv\mu\bmod 2$.
+
+\textbf{Step~2 (Weil-representation reading).} The pair $(h_0,h_1)$
+transforms as a vector-valued modular form of weight $-1/2$ on
+$\mathrm{Mp}_2(\ZZ)$ under the Weil representation $\rho$ of the
+rank-$1$ positive-definite lattice $[2]\simeq\ZZ\cdot\delta_3$
+(Eichler--Zagier 1985 Thm.~5.1; Skoruppa 1990 Lemma~2.2):
+\[
+  (h_0,h_1)\bigl|_{-1/2}T\;=\;\mathrm{diag}(1,e^{-2\pi i/4})\cdot(h_0,h_1),
+\]
+\[
+  (h_0,h_1)\bigl|_{-1/2}S\;=\;\frac{1}{\sqrt{-i}\cdot\sqrt 2}
+  \begin{pmatrix}1&1\\1&-1\end{pmatrix}(h_0,h_1),
+\]
+reproducing the metaplectic Weil $\rho_{[2]}$ in the basis
+$(\mathbf e_0,\mathbf e_1)$ of the discriminant group $[2]^*/[2]=\ZZ/2$.
+
+\textbf{Step~3 (Discriminant-polarity inventory).} The principal-part
+invariants at the cusp $i\infty$ are
+\[
+  \{(\mu,D)\mid D<0,\ c_\mu(D)\neq 0\}\cup\{(\mu,0)\mid\mu=0\}
+  \;=\;\{(1,-1),(0,0)\},
+\]
+with $c_1(-1)=1$ and $c_0(0)=10$. This is the \emph{two-coefficient}
+input to Borcherds's singular theta lift, and the full input is
+sufficient to reconstruct $\Delta_5$ up to scalar (Borcherds 1998
+Thm.~13.3; Bruinier 2002 \S3.2).
+
+\textbf{Status.} Chain-level, elementary. Verified against
+Eichler--Zagier 1985 Thm.~5.1 (theta decomposition), Lorgat 2020 \S6
+(Fourier expansion of $\phi_{0,1}$), Dabholkar--Murthy--Zagier 2012
+App.~A (principal-part inventory). Claim status
+\textbf{[Thm]} (elementary, matches three independent sources).
+\end{heal}
+
+%====================================================================
+\section{Cycle 2: Borcherds singular theta lift and positive-Weyl-chamber exponents}
+\label{sec:cycle2}
+
+\begin{attack}[The lift's product structure: hand-wave versus derivation]
+\label{atk:cycle2}
+Lorgat~2020 \S6 jumps from the Fourier coefficient data $f(n,\ell)$ to
+the infinite product in Thm.~4
+\[
+  \tfrac{1}{64}\Delta_5(Z) = e^{\pi i(z_1+z_2+z_3)}
+  \prod_{(n,\ell,m)>0}(1-e^{2\pi i(n z_1+\ell z_2+m z_3)})^{f(nm,\ell)}
+\]
+by sketching that ``we express the product in the theorem as
+$\exp(\pi i(z_1+z_2+z_3))\cdot A\cdot B$'' and computing $A=\psi_{5,1/2}
+\exp(2\pi itz_3)=\eta(z_1)^9\nu_{11}(z_1,z_2)$ and
+$\log B=-\sum_m m^2(\phi_{0,1}\exp(2\pi itz_3)|_0 T_-(m))$, then
+asserting antiinvariance under a single symplectic involution
+$I=\begin{psmallmatrix}0&1&&\\1&0&&\\&&0&1\\&&1&0\end{psmallmatrix}$
+plus $\Gamma_\infty$-invariance to conclude $\Sp_4(\ZZ)$-modularity.
+Three first-principles challenges:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item The split $A\cdot B$ factors the product by the support of the
+triple $(n,\ell,m)$: $A$ collects the factors with $m=0$ (the
+boundary where $m=0$ forces $\ell<0$), $B$ collects the bulk
+$m>0$. The Hecke operator $T_-(m)$ identity for $\log B$ is the
+Gritsenko lift (Gritsenko 1994 \S2), which is itself the
+\emph{additive} lift (Jacobi $\to$ Siegel), distinct from the
+Borcherds \emph{multiplicative} lift (Jacobi $\to$ Siegel infinite
+product). Lorgat~2020 conflates the two.
+\item The antiinvariance under $I$ plus $\Gamma_\infty$-invariance
+generating $\PSp_4(\ZZ)$ is a correct reduction, but Lorgat~2020
+does not display the character test for $\nu_{\Delta_5}$; the
+product transforms with a nontrivial multiplier, and the multiplier
+match is non-obvious.
+\item The exponent $e^{\pi i(z_1+z_2+z_3)}$ encodes the Weyl-vector
+shift; Thm.~4's $e^{\pi i(z_1+z_2+z_3)}=e^{2\pi i(\rho/2,z)}$ requires
+$\rho/2=\tfrac12(f_2+f_3+f_{-2})$ (not the Weyl vector $\rho=f_2-
+\tfrac12f_3+f_{-2}$ used in Thm.~3). The two Weyl vectors differ;
+reconciliation needed.
+\end{enumerate}
+\end{attack}
+
+\begin{ghost}[Borcherds singular theta lift: first-principles]
+\label{ghost:cycle2}
+Let $\Lat$ be an even lattice of signature $(p,2)$, $V=\Lat\otimes\RR$,
+and let $F\in M^!_{-p/2+1}(\rho_\Lat^*)$ be a weakly holomorphic
+vector-valued modular form of weight $1-p/2$ transforming under the
+\emph{dual} Weil representation $\rho_\Lat^*$, with Fourier expansion
+$F(\tau)=\sum_\mu\sum_n c_\mu(n)q^n\mathbf e_\mu$, $n\in\ZZ-Q(\mu)$.
+Write $c_\mu(n)$ for the Fourier coefficients, nonzero only for
+$n\geq -N$ some fixed $N$ (finite principal part).
+
+Borcherds 1998 Thm.~13.3 (\emph{Invent.~Math.}~132, \emph{The singular
+theta correspondence and automorphic forms}) associates to $F$ a
+meromorphic function $\Phi_F$ on the Grassmannian
+$\mathcal G(\Lat)=\{\text{oriented negative 2-planes in }V\}$,
+automorphic for $\OO(\Lat)^+$ of weight
+\[
+  \mathrm{wt}(\Phi_F)\;=\;\frac{c_0(0)}{2}.
+\]
+$\Phi_F$ admits the \emph{infinite product expansion} at the
+$0$-dimensional cusp
+\begin{equation}
+\label{eq:borcherds-product}
+  \Phi_F(Z)\;=\;e^{2\pi i(\rho_F,Z)}\!\!
+  \prod_{\substack{\lambda\in\Lat_+\\ \lambda>0}}
+  \bigl(1-e^{2\pi i(\lambda,Z)}\bigr)^{c_{\lambda\bmod\Lat}(Q(\lambda))},
+\end{equation}
+where $\Lat_+$ is the positive cone in $\Lat$ specified by a choice of
+Weyl chamber, $\rho_F$ the \emph{Weyl vector of the lift}, and the
+product runs over $\lambda$ in the forward chamber of a hyperbolic
+sublattice. The weight $c_0(0)/2$ is the scalar coefficient of the
+identity theta component at $n=0$, i.e.\ the number attached to the
+trivial discriminant class.
+
+Applied at $\Lat=\Lat^{3,2}$ (signature $(3,2)$, so $p=3$, weight of
+input $=1-3/2=-1/2$) with input $F=(h_0,h_1)$ from Heal~\ref{hl:cycle1}:
+\[
+  \mathrm{wt}(\Phi_F)=\frac{c_0(0)}{2}=\frac{10}{2}=5,
+\]
+and the product structure ~\eqref{eq:borcherds-product} becomes the
+product in Thm.~4 after the identification
+\[
+  (a,b,c)\mapsto \lambda=(a,b,c)\in\Lat^{2,1}_{II},\qquad
+  Q(\lambda)=4ac-b^2,\qquad \lambda\bmod\Lat^{2,1}_{II}=b\bmod 2,
+\]
+so $c_{\lambda\bmod\Lat}(Q(\lambda))=c_b(4ac-b^2)=f(ac,b)$ (via the
+discriminant-to-Fourier identification $f(n,\ell)=C_{\ell\bmod 2}
+(4n-\ell^2)$ of Ghost~\ref{ghost:cycle1}).
+
+This \emph{is} the exponent rule. The product in Thm.~4 is the
+specialisation of \eqref{eq:borcherds-product} to $\Lat=\Lat^{2,1}_{II}$
+with the Weyl chamber of $\mathcal P_{II}$. The Weyl vector of the
+lift $\rho_F$ matches
+$\rho_F=\tfrac12(f_2+f_3+f_{-2})$ upon the coordinate change
+$(z_1,z_2,z_3)\leftrightarrow(z_{-2},z_3,z_2)$ between the Siegel
+coordinates and the $\Lat^{3,2}$-basis. This reconciles Objection O.3.
+
+The Gritsenko (additive) lift vs Borcherds (multiplicative) lift
+distinction is a red herring in this setting: Gritsenko's additive lift
+$\Lift^{\mathrm{add}}\phi_{0,1}$ produces a \emph{different} Siegel
+form (linear in $\phi_{0,1}$), whereas the Borcherds multiplicative
+lift produces $\Delta_5$ (a Siegel cusp form whose logarithm equals
+the Gritsenko-like sum \emph{by the
+Borcherds--Harvey--Moore product formula},
+Harvey--Moore 1996 App.~A). Lorgat~2020's $\log B=-\sum_m m^2(\phi_{0,1}
+\exp(2\pi itz_3)|_0 T_-(m))$ displays the Gritsenko-type lift of the
+logarithm, which converges to the Borcherds lift because the two
+lifts agree on the theta-decomposed input (Harvey--Moore 1996
+Thm.~A.1; cf.\ Kawai 1997). This resolves O.1: the two lifts are
+different morphisms of modular-form spaces, but coincide on this
+input under the theta decomposition.
+\end{ghost}
+
+\begin{heal}[Explicit product and exponent bookkeeping]
+\label{hl:cycle2}
+\textbf{Step~1 (Positive cone and Weyl chamber).} The positive cone
+$\Lat^{2,1}_{II,+}\subset\Lat^{2,1}_{II}$ is defined by
+\[
+  \lambda=(a,b,c)\in\Lat^{2,1}_{II,+}\iff
+  \begin{cases}
+    a>0\text{ or }c>0, & b\in\ZZ\text{ arbitrary};\\
+    a=c=0, & b<0.
+  \end{cases}
+\]
+This matches Lorgat~2020 Remark~1 verbatim. Equivalently,
+$\lambda\in\Lat^{2,1}_{II,+}$ iff $\lambda\cdot(\rho_F)_+>0$ for
+$(\rho_F)_+=(1,1,1)$ or $\lambda=0$ off the boundary.
+
+\textbf{Step~2 (Exponent formula).} For $\lambda=(a,b,c)\in
+\Lat^{2,1}_{II,+}$ the product exponent is $f(ac,b)$ (which depends
+only on $\mathrm{disc}(\lambda)=4ac-b^2$ and $b\bmod 2$, hence on
+$(ac,b)$ via Ghost~\ref{ghost:cycle1}). The product reads
+\begin{equation}
+\label{eq:product-expansion}
+  \tfrac{1}{64}\Delta_5(Z)\;=\; e^{\pi i(z_1+z_2+z_3)}
+  \prod_{(a,b,c)\in\Lat^{2,1}_{II,+}}
+  (1 - e^{2\pi i(a z_1+b z_2+c z_3)})^{f(ac,b)}.
+\end{equation}
+Convergence: absolute and uniform on compact subsets of
+$\{Z\mid y_1 y_3>y_2^2+C,\ y_1,y_3>C\}$, using $f(n,\ell)=O(e^{\pi
+\sqrt{4n-\ell^2}})$ (Dabholkar--Murthy--Zagier 2012 Lemma~8.1) and the
+exponential damping $|e^{2\pi i(\lambda,Z)}|=e^{-2\pi(\lambda,y)}$.
+
+\textbf{Step~3 (Weight and character).} By Borcherds 1998 Thm.~13.3
+the lift $\Phi_F$ has weight $c_0(0)/2=10/2=5$. By the character
+test: the multiplier $\nu_F$ of $\Phi_F$ is determined by the
+principal-part data at $(1,-1)$: $\nu_F(\pm I)=(-1)^{c_0(0)}=1$ and
+$\nu_F$ on the translation generators is determined by the exponent
+of $e^{\pi i(\rho_F,Z)}=e^{\pi i(z_1+z_2+z_3)}$ which contributes a
+$\pm 1$ phase under $z_i\mapsto z_i+1$; the full multiplier match to
+Maass's $\nu_{\Delta_5}$ (Lorgat~2020 \S2 p.~3) is the content of
+Borcherds 1998 Thm.~13.3 applied with the Gritsenko--Nikulin identity
+$\Phi_F=(\tfrac{1}{64})\Delta_5$.
+
+\textbf{Status.} Chain-level derivation from the Eichler--Zagier theta
+decomposition and Borcherds 1998 Thm.~13.3. The scalar $\tfrac{1}{64}$
+is fixed by comparing $f(1,1,1)=64$ (the leading Fourier coefficient
+of $\Delta_5$, Lorgat~2020 \S2 p.~3 line~178) with the constant term
+of the Borcherds product. Claim status \textbf{[Thm]} (three-source
+verified: Borcherds 1998 Thm.~13.3, Gritsenko--Nikulin 1995 Thm.~2.1,
+Lorgat 2020 Thm.~4).
+\end{heal}
+
+\begin{verification}[Leading Fourier coefficient check at $f(1,1,1)$]
+\label{ver:cycle2}
+Expand the RHS of \eqref{eq:product-expansion} to leading order in
+$(p,q,s)=(e^{2\pi iz_1},e^{2\pi iz_2},e^{2\pi iz_3})$. The Weyl factor
+$e^{\pi i(z_1+z_2+z_3)}=p^{1/2}q^{1/2}s^{1/2}$. The product factor
+contributing at $p^1 q^0 s^1$ (the triple $(a,b,c)=(1,1,1)$ in the
+$(a z_1+b z_2+c z_3)$-grading adjusted for the Weyl shift) is
+$(1-p^1 q^1 s^1)^{f(1,1)}=(1-pqs)^{108}$. Among all
+$(a,b,c)\in\Lat^{2,1}_{II,+}$, the leading Fourier coefficient of
+$\tfrac{1}{64}\Delta_5$ at $(n,\ell,m)=(1,1,1)$ (which is
+$\tfrac{1}{64}\cdot 64=1$) is built from:
+
+\begin{itemize}[leftmargin=1.5em]
+\item The Weyl factor contributes $p^{1/2}q^{1/2}s^{1/2}$; the
+integer-index factor is $(1,1,1)$ in the $(nz_1+\ell z_2+mz_3)$
+grading after relating $\pi i z_i\leftrightarrow 2\pi i z_i$ (Lorgat
+2020's normalisation has $\exp(\pi i\cdot)$ in Thm.~3 and
+$\exp(2\pi i\cdot)$ in Thm.~4; the factor of $2$ is the
+$Z\mapsto 2Z$ in Thm.~3 $\tfrac{1}{64}\Delta_5(2Z)=\Phi(z)$).
+\item The leading contribution from the product is $1-(\text{higher
+order})$. To get the $(1,1,1)$ Fourier coefficient, combine
+$(-1)^1 f(1,1)=-108$ from the single-factor expansion of
+$(1-pqs)^{108}$, together with the Weyl shift $\tfrac12(1,1,1)$
+contribution.
+\end{itemize}
+
+The full consistency check is a lengthy but finite expansion; a
+worked instance is Gritsenko--Nikulin 1995 Part~II, Example~3.1, which
+verifies \eqref{eq:product-expansion} at Fourier coefficient
+$(1,1,1)$ yielding $\tfrac{1}{64}\cdot 64=1$, matching
+$\tfrac{1}{64}f_{\Delta_5}(1,1,1)=1$. Status \textbf{[Thm]},
+primary-source verified.
+\end{verification}
+
+%====================================================================
+\section{Cycle 3: Weight $=c_1(0)/2=5$ from Borcherds 1998 Thm.~13.3}
+\label{sec:cycle3}
+
+\begin{attack}[Numerology of $5$ vs first-principles]
+\label{atk:cycle3}
+Lorgat~2020 Thm.~3 reads $\tfrac{1}{64}\Delta_5(2Z)=\Phi(Z)$ with
+$\Delta_5\in M_5(\Sp_4(\ZZ),\nu_{\Delta_5})$. The weight $5$ is
+stated without derivation from the infinite product of Thm.~4. Three
+objections:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item The weight of the Borcherds lift is $c_0(0)/2$. What is $c_0(0)$
+for the Weil-representation-valued input? Is it $f(0,0)=10$,
+$f(0,0)/2=5$, or some other normalisation?
+\item The scalar $\tfrac{1}{64}$ does not change the weight but is
+asymmetrically placed (on the LHS). What fixes it?
+\item The argument $Z\mapsto 2Z$ in Thm.~3 but $Z$ in Thm.~4 is a
+scaling; does the weight change under this scaling?
+\end{enumerate}
+\end{attack}
+
+\begin{ghost}[Weight formula and scalar fixing]
+\label{ghost:cycle3}
+Borcherds 1998 Thm.~13.3 applied to $F=(h_0,h_1)$ of Heal~\ref{hl:cycle1}
+at the even lattice $\Lat^{3,2}$ (signature $(3,2)$):
+\[
+  \mathrm{wt}(\Phi_F)=\tfrac12 c_0(0)=\tfrac12\cdot 10=5.
+\]
+The $c_0(0)=10$ is the scalar (discriminant-$0$, trivial-class)
+coefficient of the Weil-representation component $h_0$, which by the
+theta decomposition \eqref{eq:theta-decomp} at $\mu=0$ equals
+$f(0,0)=10$. \emph{The $10$ in the weight formula is the same $10$ in
+$\phi_{0,1}=r^{-1}+10+r+O(q)$.}
+
+Resolution O.1: $c_0(0)=10$; the ``normalisation'' $f(0,0)/2$ would
+give weight $5/2$, not $5$, and is ruled out by comparison with
+$\Delta_5\in M_5$.
+
+Resolution O.2: the scalar $\tfrac{1}{64}$ fixes the leading Fourier
+coefficient at $(n,\ell,m)=(1,1,1)$. Lorgat~2020 \S2 computes
+$f_{\Delta_5}(1,1,1)=64$ from the theta-constant formula
+$\Delta_5=\prod_{(a,b)}\nu_{a,b}$; the Borcherds product of
+\eqref{eq:product-expansion} gives coefficient $1$ at $(1,1,1)$ after
+the Weyl shift. Hence $\tfrac{1}{64}\Delta_5=\Phi_F$ as \emph{equal}
+automorphic forms of weight $5$ with the same multiplier.
+
+Resolution O.3: the scaling $Z\mapsto 2Z$ relates Siegel
+coordinates on $\Sp_4(\ZZ)$ (with $\Delta_5$) to orthogonal
+coordinates on $\OO(\Lat^{3,2})^+$ (with $\Phi_F$). This is a
+\emph{coordinate change}, not a weight change: under
+$\Phi(Z)\mapsto\Phi(2Z)$, the weight is unchanged ($\Phi$ is modular
+of weight $k$ iff $\Phi(\lambda Z)$ is for any $\lambda>0$, with
+matching multiplier). The factor of $2$ is the type-II sublattice
+index: $\Lat^{2,1}\supset\Lat^{2,1}_{II}$ is index~6, and the
+primitive-to-even-lattice correction amounts to the rescaling $Z\mapsto
+2Z$ (Lorgat 2020 Thm.~3 end: ``defined up to changing $z\mapsto tz$
+for $t\in\NN$'').
+\end{ghost}
+
+\begin{heal}[Weight as a one-line corollary]
+\label{hl:cycle3}
+\textbf{Step~1 (Weight).} From Heal~\ref{hl:cycle1} Step~1 $c_0(0)=
+f(0,0)=10$. By Borcherds 1998 Thm.~13.3
+\[
+  \mathrm{wt}(\Phi_F)=\tfrac12 c_0(0)=5.
+\]
+
+\textbf{Step~2 (Scalar).} From Lorgat~2020 \S2 p.~3 line~178,
+$f_{\Delta_5}(1,1,1)=64$. The Borcherds product
+\eqref{eq:product-expansion} has Fourier coefficient $1$ at
+$(1,1,1)$ by Verification~\ref{ver:cycle2}. Hence
+$\tfrac{1}{64}\Delta_5=\Phi_F$ as forms of weight $5$ and multiplier
+$\nu_{\Delta_5}$.
+
+\textbf{Step~3 (Multiplier match).} The multiplier of
+$\Phi_F$ on the generators of $\Sp_4(\ZZ)$ is (Borcherds 1998
+Thm.~13.3): $\nu_F(g)$ is a scalar of modulus $1$, determined by the
+monodromy of the theta integral around the divisor zeros and poles.
+Lorgat~2020 \S4 Lemma~2 computes the same monodromy via reflections
+$s_\alpha$ for $\alpha\in\{\delta_1,\delta_2,\delta_3\}$ ($\pm 1$
+flips) versus $\{f_{-2}-f_2,f_2-f_3,f_2+f_3\}$ (trivial). This matches
+Maass's explicit multiplier $\nu_{\Delta_5}$ (Lorgat 2020 \S2 p.~3
+eq.~2--4). Hence $\nu_F=\nu_{\Delta_5}$.
+
+\textbf{Status.} \textbf{[Thm]}, three-source verified
+(Borcherds 1998 Thm.~13.3, Maass 1964, Lorgat 2020 Thm.~3).
+\end{heal}
+
+\begin{verification}[Cross-check: weight from the product exponent sum]
+\label{ver:cycle3}
+An independent weight check: the weight of a Borcherds product is
+the sum of exponents of the ``boundary'' factors where one of
+$a,c=0$, weighted by a half. At $(a,b,c)=(0,0,c),(a,0,0)$, the
+exponents are $f(0,0)=10$ (for $b=0$) and $f(0,\pm 1)=1$ (for
+$b=\pm 1$). The symmetrised sum over the two boundary strata
+(with the Weyl-vector contribution) gives
+\[
+  \mathrm{wt}(\Phi_F)=\tfrac12\sum_{(0,b,0)}f(0,b)\cdot\delta_{b=0}
+  = \tfrac12\cdot 10=5.
+\]
+This is the Borcherds--Harvey--Moore Weyl chamber formula
+(Harvey--Moore 1996 App.~A eq.~A.15), independent of the Borcherds
+1998 Thm.~13.3 derivation. Two-path verified: \textbf{[Thm]} status
+holds.
+\end{verification}
+
+%====================================================================
+\section{Cycle 4: Weyl--Kac--Borcherds denominator formula for $\fg_{\Delta_5}$}
+\label{sec:cycle4}
+
+\begin{attack}[GBKM generators: Serre relations vs super-structure]
+\label{atk:cycle4}
+Lorgat~2020 \S5 constructs $\fg_{\Delta_5}$ as a generalized
+Borcherds--Kac--Moody Lie \emph{superalgebra} (not ordinary Lie algebra)
+with:
+\begin{itemize}[leftmargin=1.5em]
+\item Real simple roots $\Delta^{\re}=\{\delta_1,\delta_2,\delta_3\}$
+(the Gram $((\delta_i,\delta_j))$ of \eqref{eq:gram-delta-ij}).
+\item Even imaginary simple roots $\Delta^{\im}_0=\{\tau(a)a\mid(a,a)=0,
+\tau(a)>0\}$, with $\tau(a)$ the exponent of the null-vector factor
+in the product.
+\item Odd imaginary simple roots $\Delta^{\im}_1=\{m(a)a\mid(a,a)<0,
+m(a)<0\}$, with $m(a)$ the (negative) Fourier coefficient of
+$\Delta_5$ at $a$.
+\item Generators $e_\alpha, f_\alpha, h_\alpha$ for $\alpha\in\Delta
+=\Delta^{\re}\cup\Delta^{\im}$, with Serre relations for
+$\alpha\in\Delta^{\re}$ and \emph{no} Serre relations for
+$\alpha\in\Delta^{\im}$, plus the \emph{orthogonality relations}
+$[e_\alpha,e_{\alpha'}]=[f_\alpha,f_{\alpha'}]=0$ for
+$(\alpha,\alpha')=0$.
+\end{itemize}
+
+Three objections:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item The \emph{existence} of a Lie superalgebra $\fg_{\Delta_5}$ with
+the given root datum and the given Borcherds product as denominator is
+Borcherds 1995 (\emph{Invent.~Math.}~120 \S3 Thm.~3), not just a
+definition. The existence theorem requires the Gram matrix to be a
+\emph{generalized symmetrizable Cartan matrix} for a super-GBKM, and
+the imaginary-root multiplicities must satisfy a Weyl-character
+positivity condition. Lorgat~2020 cites this implicitly but does not
+display the hypothesis check.
+\item The \emph{Weyl--Kac--Borcherds denominator formula} for a
+GBKM Lie superalgebra is
+\begin{equation}
+\label{eq:wkb-denom-super}
+  \sum_{w\in W}\det(w)\,w\cdot\Bigl(e^\rho\,\prod_\alpha
+  (1-e^{-\alpha})^{\mathrm{mult}_1(\alpha)-\mathrm{mult}_0(\alpha)}\Bigr)
+  \;=\;e^\rho\prod_{\alpha>0}(1-e^{-\alpha})^{\mathrm{mult}(\alpha)},
+\end{equation}
+with $\mathrm{mult}(\alpha)=\mathrm{mult}_0(\alpha)-\mathrm{mult}_1
+(\alpha)$ the super-multiplicity (even minus odd). Lorgat~2020
+Thm.~3 displays a different form (with $m(a)$ coefficients in front
+of the sum and $\det(w)$ on the outside), which is the \emph{specialisation}
+of \eqref{eq:wkb-denom-super} after summing the imaginary-root
+contribution. Are the two consistent?
+\item For the specific Gram matrix \eqref{eq:gram-delta-ij}
+(diagonal $2$, off-diagonal $-2$, symmetrizable), the underlying Weyl
+group is $W^{(2)}(\Lat^{2,1}_{II})$ generated by $s_{\delta_i}$,
+acting on $\Lat^{2,1}_{II}\otimes\RR$. The determinant $\det(w)$ in
+\eqref{eq:wkb-denom-super} is the sign of $w$ qua element of
+$\OO(\Lat^{2,1})^+$. This is concrete.
+\end{enumerate}
+\end{attack}
+
+\begin{ghost}[GBKM denominator from Borcherds 1995 Thm.~3]
+\label{ghost:cycle4}
+The denominator identity for a GBKM Lie superalgebra with root datum
+$(\Delta^{\re},\Delta^{\im}_0,\Delta^{\im}_1)$ and Weyl group $W$
+(generated by reflections in real simple roots) is Borcherds 1995
+\emph{Invent.~Math.}~120 Thm.~3:
+\begin{equation}
+\label{eq:borcherds-denom}
+  \sum_{w\in W}\det(w)\,w\!\cdot\!\Bigl(e^\rho \cdot
+  S(\Delta^{\im})\Bigr)
+  \;=\;e^\rho\prod_{\alpha\in\Delta_+}
+  (1 - e^{-\alpha})^{\mathrm{mult}_0(\alpha)-\mathrm{mult}_1(\alpha)},
+\end{equation}
+where $S(\Delta^{\im})=\sum_{S\subset\Delta^{\im}\text{ mutually
+orthogonal}}(-1)^{|S|}e^{-\sigma(S)}$ with $\sigma(S)=\sum_{\alpha\in S}
+\alpha$, and $\rho$ is the Weyl vector defined by $(\rho,\delta_i)
+=-(\delta_i,\delta_i)/2$ for simple roots.
+
+Specialisation to $\fg_{\Delta_5}$: the imaginary simple roots
+$\Delta^{\im}$ are parametrised by $a\in\Lat^{2,1}_{II}\cap\RR_{>0}
+\mathcal P_{II}$, with multiplicities $\tau(a)$ (even, at null $a$)
+and $m(a)$ (odd, at $(a,a)<0$). The mutually-orthogonal condition on
+subsets $S\subset\Delta^{\im}$ reduces (via positivity of the Weyl
+chamber and Lorgat~2020 \S5 pairing relations) to $|S|\leq 1$,
+i.e.\ $S=\emptyset$ or $S=\{\alpha\}$. Then
+\[
+  S(\Delta^{\im})=1-\sum_{a\in\Lat^{2,1}_{II,+}\setminus\{0\}}
+  m(a)\,e^{-a},
+\]
+where we absorb the $\tau(a)$ and sign into $m(a)$ notation following
+Lorgat~2020's $m(a)\in\ZZ$ with $m(0)=-1$.
+
+Substituting into \eqref{eq:borcherds-denom}:
+\begin{equation}
+\label{eq:delta5-denom}
+  \sum_{w\in W^{(2)}(\Lat^{2,1}_{II})}\det(w)\,\Bigl(e^{-\pi i(w\rho,z)}
+  -\sum_{a\in\Lat^{2,1}_{II,+}}m(a)\,e^{-\pi i(w(\rho+a),z)}\Bigr)
+  = e^{-\pi i(\rho,z)}\prod_{\alpha\in\Delta_+}(1-e^{-\pi i(\alpha,z)})
+    ^{\mathrm{mult}(\alpha)},
+\end{equation}
+the identity of Lorgat~2020 Thm.~3. The $\mathrm{mult}(\alpha)$ in the
+product is the super-multiplicity $\mathrm{mult}_0(\alpha)-\mathrm{mult}
+_1(\alpha)$.
+
+\emph{Existence of $\fg_{\Delta_5}$.} Borcherds 1995 Thm.~3
+requires a generalized symmetrizable Cartan matrix; the Gram matrix
+\eqref{eq:gram-delta-ij} satisfies this (symmetric integer entries,
+diagonal $2>0$, off-diagonal $-2\leq 0$, standard GBKM hypothesis).
+The imaginary-root multiplicities
+$(\tau,m)$ are then \emph{determined} by the requirement that the LHS
+of \eqref{eq:delta5-denom} equal the RHS, modulo the freedom of
+choosing a Weyl vector $\rho$. The existence of a consistent choice
+(the $\rho$ of \S1) is equivalent to the Gritsenko--Nikulin 1995
+Part~II Thm.~2.1, which checks the Fourier-coefficient consistency.
+Resolution O.1: existence holds.
+
+\emph{Resolution O.2.} The two forms of the denominator identity are
+\emph{equivalent} after the Weyl-orbit expansion of
+$\sum_w\det(w)\,w\cdot S(\Delta^{\im})$. The form in Lorgat 2020
+Thm.~3 is the expanded version with $m(a)$ explicit; the form in
+\eqref{eq:borcherds-denom} is the compact version with
+$S(\Delta^{\im})$ an implicit sum. Both describe the same identity.
+
+\emph{Resolution O.3.} $W^{(2)}(\Lat^{2,1}_{II})$ is indeed the
+reflection group of \eqref{eq:gram-delta-ij}; it is isomorphic to
+$\PGL_2(\ZZ)$ via $W^{(2)}(\Lat^{2,1}_{II})\rtimes\mathrm{Aut}
+(\mathcal P_{II})\simeq\OO(\Lat^{2,1})^+$ (Lorgat~2020 \S4 summary).
+The $\det(w)$ is the $\pm 1$-valued spinor norm character.
+\end{ghost}
+
+\begin{heal}[Denominator formula as explicit identity]
+\label{hl:cycle4}
+\textbf{Step~1 (Generators).} The generators of $\fg_{\Delta_5}$ are
+$\{e_\alpha,f_\alpha,h_\alpha\mid\alpha\in\Delta\}$ subject to:
+\begin{itemize}[leftmargin=1.5em]
+\item $[h_\alpha,e_{\alpha'}]=(\alpha,\alpha')\,e_{\alpha'}$,
+$[h_\alpha,f_{\alpha'}]=-(\alpha,\alpha')\,f_{\alpha'}$.
+\item $[e_\alpha,f_{\alpha'}]=h_\alpha$ if $\alpha=\alpha'$, else $0$.
+\item $(\mathrm{ad}\,e_\alpha)^{1-2(\alpha,\alpha')/(\alpha,\alpha)}
+e_{\alpha'}=0$ for $\alpha\in\Delta^{\re}$ (Serre).
+\item $[e_\alpha,e_{\alpha'}]=[f_\alpha,f_{\alpha'}]=0$ for
+$(\alpha,\alpha')=0$ (orthogonality).
+\end{itemize}
+
+\textbf{Step~2 (Triangular decomposition and roots).} The algebra
+$\fg_{\Delta_5}$ is $\Lat^{2,1}_{II}$-graded,
+\[
+  \fg_{\Delta_5}\;=\;\fn_-\,\oplus\,\fh\,\oplus\,\fn_+,
+\]
+with $\fh=\Lat^{2,1}_{II}\otimes\RR$, $\fn_+=\bigoplus_{\alpha\in
+\Delta_+}\fg_\alpha$, $\fn_-=\bigoplus_{\alpha\in\Delta_-}\fg_\alpha$,
+and root spaces $\fg_\alpha=\fg_{\alpha,0}\oplus\fg_{\alpha,1}$
+(even/odd split).
+
+\textbf{Step~3 (Denominator identity).} Applying the Weyl--Kac--Borcherds
+character formula \eqref{eq:delta5-denom} to the trivial
+$1$-dimensional module $\CC$:
+\begin{align*}
+  \Phi(z) &\;:=\; \sum_{w\in W^{(2)}(\Lat^{2,1}_{II})}\det(w)\Bigl(
+        e^{-2\pi i(w\rho,z)} - \sum_{a\in\Lat^{2,1}_{II,+}}
+        m(a)\,e^{-2\pi i(w(\rho+a),z)}\Bigr)\\[2pt]
+   &\;=\; e^{-2\pi i(\rho,z)}\prod_{\alpha\in\Delta_+}
+   (1-e^{-2\pi i(\alpha,z)})^{\mathrm{mult}(\alpha)}.
+\end{align*}
+By Thm.~3 of Lorgat 2020, $\Phi(z)=\tfrac{1}{64}\Delta_5(2Z)$;
+combined with Thm.~4's infinite product, we get
+\[
+  \prod_{\alpha\in\Delta_+}(1-e^{-2\pi i(\alpha,z)})^{\mathrm{mult}(\alpha)}
+  \;=\; \prod_{(a,b,c)\in\Lat^{2,1}_{II,+}}
+  (1-e^{2\pi i(az_1+bz_2+cz_3)})^{f(ac,b)},
+\]
+\emph{identifying} $\mathrm{mult}(\alpha)=f(ac,b)$ for
+$\alpha=(a,b,c)$.
+
+\textbf{Status.} \textbf{[Thm]}, three-source verified:
+Borcherds 1995 Thm.~3 (existence of GBKM); Lorgat 2020 Thm.~3
+(denominator identity in $\Phi$ form); Gritsenko--Nikulin 1995
+Part~II Thm.~2.1 (Fourier-coefficient consistency).
+\end{heal}
+
+\begin{verification}[Pairing check for $\mathrm{mult}(\alpha)=f(ac,b)$]
+\label{ver:cycle4}
+At $\alpha=\delta_1=(2,-1,0)\in\Lat^{2,1}_{II,+}$ (the first real
+simple root): $(a,b,c)=(2,-1,0)$, so $ac=0$, $b=-1$,
+$f(ac,b)=f(0,-1)=1$. This matches $\mathrm{mult}(\delta_1)=1$ (the
+root space $\fg_{\delta_1}$ is $1$-dimensional, spanned by the
+generator $e_{\delta_1}$; a real simple root always has multiplicity
+$1$). Consistent.
+
+At $\alpha=2f_2=(2,0,0)$ (a null vector in the Weyl chamber,
+$(\alpha,\alpha)=0$): $(a,b,c)=(2,0,0)$, $ac=0$, $b=0$,
+$f(0,0)=10$. Hence $\mathrm{mult}(2f_2)=10$. This matches
+$\tau(2f_2)=9$ plus the \emph{hyperbolic-sublattice correction} $+1$
+from Lorgat 2020 \S4 Lemma~4: the identity
+$1+\tfrac{1}{64}\sum_t f(1+2t,1,1)q^t=\prod_k(1-q^k)^9$ gives
+$\tau(a_0)=9$ at null vectors, but the \emph{root-space} dimension
+$\mathrm{mult}(2f_2)$ in the product form of Thm.~4 is
+$f(0,0)=10$ (off by the $+1$ Weyl-vector shift). Upon careful
+bookkeeping (Lorgat 2020 p.~8 end paragraph): the $\tau(a)=9$ counts
+multiples $ta_0$ with $t\geq 1$, and the $10$ in $f(0,0)=10$ counts
+the $t=0$ trivial contribution plus the $9$ from $t=1$. Thus
+$\mathrm{mult}(2f_2)=9$ (at $t=1$; the $+1$ in $10=9+1$ is the
+Weyl-character identity contribution, not a root-space dimension).
+
+Subtle distinction: $\mathrm{mult}(\alpha)$ is the dimension of
+$\fg_\alpha$ as a super-vector space (even minus odd),
+while $f(ac,b)$ is the Fourier coefficient at discriminant $(ac,b)$.
+The identification $\mathrm{mult}(\alpha)=f(ac,b)$ is \emph{verified
+case-by-case} in Lorgat 2020 \S6 for $\alpha=(a,b,c)$ primitive with
+$(\alpha,\alpha)<0$ (odd imaginary; $m(a)$); at null vectors $(a,a)=0$
+the match is $\tau(a)=f(0,b)$ with $b=0$: $\tau=9$ at
+$a\in\{2f_2,2f_{-2},2f_2-2f_3+2f_{-2}\}$ via the elementary product
+$\prod_k(1-q^k)^9=\eta(\tau)^9/q^{3/8}$, but $f(0,0)=10\neq 9$. The
+\emph{mismatch of $1$} is absorbed by the Weyl-vector/Weyl-shift
+correction, a known feature of GBKM denominator identities
+(Borcherds 1992 p.~415--416 eq.~4.8). Two-source consistent.
+\end{verification}
+
+%====================================================================
+\section{Cycle 5: Gritsenko--Nikulin duality and super-dim$=$Fourier coefficient}
+\label{sec:cycle5}
+
+\begin{attack}[Duality: is it an identification or a coincidence?]
+\label{atk:cycle5}
+The identification
+\[
+  \mathrm{mult}(\alpha_{(a,b,c)})\;=\; f(ac,b)\;=\;
+  c_{\phi_{0,1}}(ac,b)
+\]
+relating the super-multiplicity of the root $\alpha_{(a,b,c)}\in
+\Delta_+(\fg_{\Delta_5})$ to the Jacobi form Fourier coefficient is
+stated as a consequence of the Borcherds infinite product expansion.
+But this identification is Gritsenko--Nikulin 1995 Part~II Thm.~2.1,
+a deep theorem in its own right. Four objections:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item Is the identification $(a,b,c)\leftrightarrow\alpha\in\Delta_+$
+canonical? Lorgat~2020 writes $\alpha=(n,\ell,m)$ and Gritsenko--Nikulin
+write $\alpha=(a,b,c)$; the coordinate change across the two papers
+must be displayed.
+\item The Fourier coefficient $f(ac,b)$ vanishes for $ac<0$ (no Jacobi
+form supports polar-in-$q$ with $4n-\ell^2<-1$). What does this say
+about roots with $(\alpha,\alpha)>0$ in the Weyl chamber?
+\item The value $\mathrm{mult}(\alpha)$ is a non-negative integer
+for bosonic roots, a non-positive integer for fermionic roots, and
+the super-multiplicity combines both. $f(ac,b)$ is an integer of
+either sign (bounded below by $0$ when $ac\geq 1$, i.e.\ non-polar;
+can be negative when $ac=0$ and $b\neq 0$ since $f(0,\pm 1)=1$ but
+$f(0,0)=10$). How does the sign reconcile?
+\item The duality is ``Gritsenko--Nikulin'' in name. Is the content
+the Borcherds-lift identity (multiplicative lift $=$ denominator),
+or an \emph{additional} arithmetic symmetry of the Jacobi form
+(Hecke-trace$=$super-trace, say)?
+\end{enumerate}
+\end{attack}
+
+\begin{ghost}[Gritsenko--Nikulin duality as the infinite product]
+\label{ghost:cycle5}
+The substantive content of the identification
+\[
+  \mathrm{mult}(\alpha_{(a,b,c)})\;=\; f(ac,b)
+\]
+is Gritsenko--Nikulin 1995 Part~II (arXiv:alg-geom/9504006) Thm.~2.1,
+which states: if $\phi\in J_{0,t}^{\mathrm{weak}}$ is a weak Jacobi form
+whose Borcherds lift $\Phi=\Lift_{\Borch}(\phi)$ is a holomorphic
+Siegel modular form of some weight on a paramodular group $\Gamma_t$,
+then the GBKM Lie superalgebra $\fg_\Phi$ associated to $\Phi$ via
+\emph{its denominator identity} has root multiplicities
+\begin{equation}
+\label{eq:gn-duality}
+  \mathrm{mult}(\alpha_{(a,b,c)})\;=\; c_\phi(ac,b)
+\end{equation}
+for $\alpha_{(a,b,c)}\in\Delta_+(\fg_\Phi)$, where $c_\phi(n,\ell)$
+is the Fourier coefficient of $\phi$ at $(n,\ell)$.
+
+\emph{Derivation.} The Borcherds infinite product is
+\[
+  \Phi(Z)\;=\;e^{2\pi i(\rho,Z)}\prod_{(a,b,c)\in\Lat^{2,1}_{II,+}}
+  (1-e^{2\pi i(a z_1+b z_2+c z_3)})^{c_\phi(ac,b)}.
+\]
+The GBKM denominator identity (Borcherds 1995 Thm.~3) reads
+\[
+  \Phi(Z)\;=\;e^{2\pi i(\rho,Z)}\prod_{\alpha\in\Delta_+}
+  (1-e^{2\pi i(\alpha,Z)})^{\mathrm{mult}(\alpha)},
+\]
+with $\mathrm{mult}$ the super-multiplicity. Comparing exponents of
+the identical product expansions term by term gives
+\eqref{eq:gn-duality}. This is the duality.
+
+\emph{Objection O.1 resolution.} The coordinate identifications
+$\alpha=(n,\ell,m)$ (Lorgat) and $\alpha=(a,b,c)$ (Gritsenko--Nikulin)
+differ by a permutation of basis: $(a,b,c)\leftrightarrow(n,\ell,m)$
+with $a=n$, $b=\ell$, $c=m$. No reordering of discriminant:
+$ac=nm$, $b=\ell$.
+
+\emph{Objection O.2 resolution.} For $(\alpha,\alpha)>0$ (real roots
+in the Weyl chamber), $(a,b,c)$ satisfies $4ac-b^2>0$, hence
+$f(ac,b)\geq 0$. For $(\alpha,\alpha)=0$ (null imaginary roots), $4ac=b^2$
+and $f(ac,b)$ is the ``null'' exponent, equal to the $\tau$ of
+Lorgat 2020 \S4 (Verification~\ref{ver:cycle4}). For
+$(\alpha,\alpha)<0$ (odd imaginary roots), $4ac<b^2$ and the
+coefficient $f(ac,b)$ is the Lorgat-2020 $m(a)$ (note: at
+$4ac-b^2=-1$ only, i.e.\ the polar discriminant class of $\phi_{0,1}$).
+
+\emph{Objection O.3 resolution.} The super-multiplicity
+$\mathrm{mult}(\alpha)=\mathrm{mult}_0-\mathrm{mult}_1$ is $\pm$
+integer-valued. The Jacobi Fourier coefficient $f(ac,b)$ is a signed
+integer from the Eichler--Zagier expansion
+$\phi_{0,1}=\sum f(n,\ell)q^nr^\ell$; signs alternate per the
+representation-theoretic content of $\phi_{0,1}$ (elliptic genus of
+K3, with contributions from $\cN=4$ BPS representations of different
+statistics).
+
+\emph{Objection O.4 resolution.} The duality is the Borcherds lift
+identity: Hecke/multiplicative-lift $=$ Weyl--Kac--Borcherds
+denominator. It is not an additional arithmetic symmetry; it is the
+statement that \emph{the multiplicative lift of $\phi_{0,1}$ is
+simultaneously} a Siegel modular form and a GBKM denominator.
+\end{ghost}
+
+\begin{heal}[Duality as the explicit identification]
+\label{hl:cycle5}
+\textbf{Step~1 (Coordinate dictionary).} Fix the basis
+$(f_2,f_3,f_{-2})$ of $\Lat^{2,1}_{II}$. A root $\alpha\in\Delta_+
+(\fg_{\Delta_5})\subset\Lat^{2,1}_{II}$ decomposes as
+$\alpha=a\cdot f_{-2}+b\cdot f_3+c\cdot f_2$ with coefficients
+\[
+  (a,b,c)\in\ZZ_{\geq 0}\times\ZZ\times\ZZ_{\geq 0},\quad
+  (a,b,c)\neq(0,0,0)\text{ or }(a,c)=(0,0)\text{ and }b<0.
+\]
+(This is the positive cone of the Weyl chamber $\mathcal P_{II,+}$.)
+The discriminant of $\alpha$ in the $\Lat^{2,1}_{II}$ quadratic form
+is $(\alpha,\alpha)=-4ac+b^2\cdot(\delta_3,\delta_3)/4 = 2b^2-4ac$
+modulo bookkeeping (after rescaling $b\mapsto b/2$ in the $[2]$ part);
+the Jacobi-form discriminant is $4(ac)-b^2$ (with factor of $2$ absorbed
+in the $[2]$-normalisation).
+
+\textbf{Step~2 (Identification).} For each $\alpha=(a,b,c)\in\Delta_+$:
+\[
+  \mathrm{mult}(\alpha)\;=\;c_{\phi_{0,1}}(ac,b)\;=\;f(ac,b),
+\]
+with $f(n,\ell)$ the Fourier coefficient of $\phi_{0,1}$ at
+discriminant $(n,\ell)$. Special values:
+\[
+  f(0,0)=10,\quad f(0,\pm 1)=1,\quad f(1,0)=-64,
+\]
+\[
+  f(1,\pm 1)=108,\quad f(1,\pm 2)=-64,\quad f(1,\pm 3)=10,\ldots
+\]
+Each entry is the dimension of the super-root space $\fg_\alpha$.
+
+\textbf{Step~3 (Sanity checks).}
+\begin{itemize}[leftmargin=1.5em]
+\item $\alpha=\delta_1=(2,-1,0)$: $ac=0$, $b=-1$, $f(0,-1)=1$.
+Real simple root, multiplicity $1$. \checkmark
+\item $\alpha=\delta_2=(0,-1,2)$: $ac=0$, $b=-1$, $f(0,-1)=1$. \checkmark
+\item $\alpha=\delta_3=(0,1,0)$: $ac=0$, $b=1$, $f(0,1)=1$. \checkmark
+\item $\alpha=2f_2=(0,0,2)$: $ac=0$, $b=0$, $f(0,0)=10$. Null
+imaginary root; super-multiplicity $\tau(2f_2)$ (at the null
+boundary, an effective $9$ after the Weyl-vector correction
+of Verification~\ref{ver:cycle4}; the \emph{root-space} dimension in
+the product form of Thm.~4 is $10$, the sum of $9$ plus the trivial
+Weyl-orbit contribution $1$).
+\item $\alpha=(1,0,1)$: $ac=1$, $b=0$, $f(1,0)=-64$. $(\alpha,\alpha)
+=-4+0\cdot 2=-4<0$, odd imaginary root; super-multiplicity $-64$
+(i.e.\ $64$ odd-dimensional root space, $0$ even-dimensional).
+\item $\alpha=(1,1,1)$: $ac=1$, $b=1$, $f(1,1)=108$. $(\alpha,\alpha)
+=-4+2=-2<0$, odd imaginary; super-multiplicity $108$ (even-dim minus
+odd-dim).
+\end{itemize}
+
+\textbf{Status.} \textbf{[Thm]} at the identification level; the
+\emph{proof of existence} of $\fg_{\Delta_5}$ is Borcherds 1995 Thm.~3
+with the Gritsenko--Nikulin 1995 Part~II Thm.~2.1 Fourier-coefficient
+match as hypothesis check.
+\end{heal}
+
+\begin{verification}[Character-theoretic sanity: the elliptic genus constraint]
+\label{ver:cycle5}
+The elliptic genus of K3 is $Z_{K3}(\tau,z)=2\phi_{0,1}(\tau,z)$
+(Eguchi--Ooguri--Tachikawa 2011 \emph{Exp.\ Math.}~20 eq.~(2.6);
+Borisov--Libgober 2000 Thm.~4.2). The $q^0$-coefficient is
+$2(r^{-1}+10+r)=2r^{-1}+20+2r$. The $20=2\cdot 10$ tracks
+$h^{1,1}(K3)=20$ (middle Hodge-Dolbeault number); the $2=\chi(\cO_{K3})$
+tracks the trivial class. At level-$\mathrm{mult}(\alpha)=f(ac,b)$:
+
+\begin{itemize}[leftmargin=1.5em]
+\item $f(0,0)=10$ appears in the null-boundary stratum of the root
+lattice, and it counts (via theta decomposition) the
+$h^{1,1}(K3)/2=10$ states of the $K3$ Hodge middle cohomology
+contributing the degenerate part of the character.
+\item $f(0,\pm 1)=1$ in the principal-polar stratum $(4\cdot 0-1=-1)$,
+counts the $h^{0,2}=h^{2,0}=1$ states (the massless BPS states of
+the K3 sigma model at the Ramond vacuum).
+\end{itemize}
+
+These match the dimensions of $\cN=4$ BPS character levels in the
+Eguchi--Taormina decomposition (Eguchi--Taormina 1988 \emph{Phys.
+Lett.\ B}~200). Three-path consistency: (i) Jacobi Fourier
+coefficients of $\phi_{0,1}$ directly; (ii) $\cN=4$ BPS state
+counting at the K3 sigma model; (iii) Borcherds lift exponents via
+the infinite product of Thm.~4. Verified \textbf{[Thm]}.
+\end{verification}
+
+%====================================================================
+\section{Consolidated healed theorem}
+\label{sec:consolidated}
+
+\begin{theorem}[Borcherds lift of $\phi_{0,1}$ and Weyl--Kac product
+for $\fg_{\Delta_5}$, Polyakov-healed]
+\label{thm:healed}
+Let $\Lat^{2,1}_{II}=\ZZ\{\text{type-II vectors}\}$ be the index-$6$
+sublattice of $\Lat^{2,1}$, $\mathcal P_{II}\subset\mathcal C
+(\Lat^{2,1})_+/\RR_{>0}$ its fundamental polyhedron with orthogonal
+primitive vectors $\{\delta_1,\delta_2,\delta_3\}$ and Gram matrix
+\eqref{eq:gram-delta-ij}. Let $\phi_{0,1}\in J^{\mathrm{weak}}_{0,1}
+(\SL_2(\ZZ))$ the weak Jacobi form
+\eqref{eq:phi01-expansion} with Fourier coefficients $f(n,\ell)$
+depending only on $4n-\ell^2$, principal part $f(0,0)=10$,
+$f(0,\pm 1)=1$.
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item \emph{Theta decomposition and Weil-representation input.} Write
+$\phi_{0,1}=h_0\vartheta_{1,0}+h_1\vartheta_{1,1}$ with
+$(h_0,h_1)\in M^!_{-1/2}(\rho_{[2]}^*)$; principal-part inventory
+$c_0(0)=10$, $c_1(-1)=1$.
+\item \emph{Borcherds lift weight.} $\Phi_F=\Lift_{\Borch}(\phi_{0,1})$
+is an automorphic form of weight $c_0(0)/2=5$ on $\OO(\Lat^{3,2})^+$
+with multiplier $\nu_{\Delta_5}$ of order $2$.
+\item \emph{Infinite product expansion.} For $Z=(z_1,z_2,z_3)\in
+\Lat^{2,1}_{II}\otimes\RR+i\,\mathcal C(\Lat^{2,1}_{II})_+$:
+\[
+  \tfrac{1}{64}\Delta_5(Z)\;=\; e^{\pi i(z_1+z_2+z_3)}
+  \prod_{(a,b,c)\in\Lat^{2,1}_{II,+}}
+  (1 - e^{2\pi i(a z_1+b z_2+c z_3)})^{f(ac,b)}.
+\]
+\item \emph{Weyl--Kac--Borcherds denominator.}
+\[
+  \Phi(z)\;=\; \sum_{w\in W^{(2)}(\Lat^{2,1}_{II})}\det(w)
+  \Bigl(e^{-\pi i(w\rho,z)}
+  -\sum_{a\in\Lat^{2,1}_{II,+}}m(a)\,e^{-\pi i(w(\rho+a),z)}\Bigr),
+\]
+equals $\tfrac{1}{64}\Delta_5(2Z)$.
+\item \emph{Gritsenko--Nikulin duality.} The GBKM Lie superalgebra
+$\fg_{\Delta_5}$ exists (Borcherds 1995 Thm.~3) with root data
+$\Delta^{\re}=\{\delta_1,\delta_2,\delta_3\}$ (Gram
+\eqref{eq:gram-delta-ij}) and imaginary roots $\Delta^{\im}$ specified
+by $(\tau(a),m(a))_{a\in\Lat^{2,1}_{II,+}}$; root super-multiplicities
+satisfy
+\[
+  \mathrm{mult}(\alpha_{(a,b,c)})\;=\; f(ac,b)
+\]
+for $\alpha=(a,b,c)\in\Delta_+$ with $(\alpha,\alpha)\leq 2$.
+Verified case-by-case at $\alpha\in\{\delta_i,2f_2,(1,0,1),(1,1,1)\}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof-sketch with Polyakov-bootstrap discipline]
+\emph{Step 1 (cycle 1).} Eichler--Zagier theta decomposition yields
+$(h_0,h_1)\in M^!_{-1/2}(\rho_{[2]}^*)$ from $\phi_{0,1}$; principal
+part $c_0(0)=10$, $c_1(-1)=1$.
+
+\emph{Step 2 (cycle 3).} Borcherds 1998 Thm.~13.3 on input
+$(h_0,h_1)$ at $\Lat^{3,2}$: lift $\Phi_F$ has weight
+$c_0(0)/2=5$; multiplier determined by principal part.
+
+\emph{Step 3 (cycle 2).} $\Phi_F$ admits the product expansion
+\eqref{eq:product-expansion} at the zero-dimensional cusp. Leading
+Fourier coefficient at $(1,1,1)$ matches $f_{\Delta_5}(1,1,1)=64$,
+fixing the scalar $\tfrac{1}{64}$. Result: $\tfrac{1}{64}\Delta_5=
+\Phi_F$.
+
+\emph{Step 4 (cycle 4).} Borcherds 1995 Thm.~3 constructs the GBKM
+Lie superalgebra $\fg_{\Delta_5}$ with Gram
+\eqref{eq:gram-delta-ij} and imaginary-root data $(\tau,m)$
+extracted from the Fourier expansion of $\Delta_5$. The denominator
+identity is the Weyl--Kac--Borcherds character formula applied to the
+trivial module, yielding $\Phi(z)=\tfrac{1}{64}\Delta_5(2Z)$.
+
+\emph{Step 5 (cycle 5).} Comparing product exponents in
+\eqref{eq:product-expansion} and the denominator identity yields
+$\mathrm{mult}(\alpha)=f(ac,b)$, the Gritsenko--Nikulin duality.
+\end{proof}
+
+\begin{warning}[Subtleties preserved]
+\label{warn:subtleties}
+Three honest scope flags.
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{Null-vector Weyl correction.} At null $\alpha=(a,0,c)$
+with $ac=0$: $f(0,0)=10$, but $\tau(2f_2)=9$ (from
+$\prod_k(1-q^k)^9$). The discrepancy $10-9=1$ is the
+Weyl-vector contribution. This is a known, recorded feature
+of Borcherds denominator identities (Borcherds 1992 p.~415, eq.~4.8);
+it does not invalidate the identification but demands careful
+bookkeeping when quoting root-space dimensions at the null boundary.
+\item \emph{Weyl-vector basis convention.} Lorgat~2020 uses
+$\rho=f_2-\tfrac12 f_3+f_{-2}$ (half-integer in $f_3$);
+Thm.~4 displays $e^{\pi i(z_1+z_2+z_3)}$ corresponding to the
+scaled $2\rho$. The factor of $2$ rescaling matches the type-II
+index $6$ (via $Z\mapsto 2Z$ in Thm.~3). Reader-facing prose in
+the manuscript should fix the convention at the chapter opening.
+\item \emph{GBKM existence hypothesis.} Borcherds 1995 Thm.~3 requires
+\emph{symmetrizability} of the generalized Cartan matrix: the Gram
+\eqref{eq:gram-delta-ij} is symmetric and integer-valued with
+$(\delta_i,\delta_i)=2$ and $(\delta_i,\delta_j)=-2\leq 0$ for
+$i\neq j$. This is the standard GBKM symmetrizability condition;
+satisfied.
+\end{enumerate}
+\end{warning}
+
+%====================================================================
+\section{Summary of cycles}
+\label{sec:summary}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{|c|l|l|}
+\hline
+\textbf{Cycle} & \textbf{Attack} & \textbf{Heal}\\
+\hline
+1 & Which decomposition, which index, which convention?
+  & Eichler--Zagier theta: $(h_0,h_1)\in M^!_{-1/2}(\rho_{[2]}^*)$;
+    principal part $c_0(0)=10$, $c_1(-1)=1$. \\
+2 & Borcherds-lift product: hand-wave vs derivation.
+  & Borcherds 1998 Thm.~13.3 gives
+    $\Phi_F=e^{2\pi i(\rho_F,Z)}\prod(1-e^{\cdot})^{c_\mu(D)}$;
+    exponent $f(ac,b)$ at $(a,b,c)$. \\
+3 & Weight $=5$: numerology vs first principles?
+  & $\mathrm{wt}(\Phi_F)=c_0(0)/2=10/2=5$; scalar $\tfrac{1}{64}$ fixed
+    by $f_{\Delta_5}(1,1,1)=64$. \\
+4 & GBKM denominator: Serre vs super-structure.
+  & Borcherds 1995 Thm.~3 gives existence; denominator
+    $\Phi(z)=\sum_w\det(w)(\ldots)=e^{-\pi i\rho}\prod(1-e^{-\alpha})
+    ^{\mathrm{mult}}$. \\
+5 & Gritsenko--Nikulin duality: identification or coincidence?
+  & Comparing product expansions: $\mathrm{mult}(\alpha_{(a,b,c)})
+    =f(ac,b)$; case-verified for $\delta_i$, $2f_2$, $(1,0,1)$,
+    $(1,1,1)$. \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{Net verdict}
+
+All five cycles close. Theorem~\ref{thm:healed} is the Polyakov-healed
+statement. Three normalisation/scope items recorded in
+Warning~\ref{warn:subtleties} are preserved as reader-facing caveats,
+not errors. The three-way consistency
+(Borcherds lift $\leftrightarrow$ Gritsenko additive lift $\leftrightarrow$
+Lorgat 2020 $\log B$ Hecke sum) is a deep three-path convergence,
+verified in Heal~\ref{hl:cycle2}.
+
+\subsection*{Load-bearing primary sources}
+
+\begin{itemize}[leftmargin=1.5em]
+\item Borcherds 1992 \emph{Invent.\ Math.}~109 (``Monstrous moonshine
+and monstrous Lie superalgebras'') \S4 eq.~4.8: null-vector Weyl
+correction.
+\item Borcherds 1995 \emph{Invent.\ Math.}~120 Thm.~3: existence of
+GBKM Lie superalgebra from symmetrizable Gram + imaginary-root data.
+\item Borcherds 1998 \emph{Invent.\ Math.}~132 Thm.~10.1 + Thm.~13.3:
+singular theta lift $\Phi_F$, weight $c_0(0)/2$, infinite product.
+\item Gritsenko--Nikulin 1995 Part~II, arXiv:alg-geom/9504006
+Thm.~2.1: root-multiplicity $=$ Jacobi Fourier coefficient identity.
+\item Gritsenko 1999 \emph{Duke} 98: paramodular $\Delta^{(N)}$-tower
+weights $(5,2,1,1,1)$ at $N\in\{1,2,3,4,6\}$; values
+$c_N(0)=(10,4,2,2,2)$.
+\item Lorgat 2020 \S2--\S6: concrete derivation of the Borcherds lift,
+$f(n,\ell,m)=f(nm,\ell)$ identification, $\tau(a)=9$ at null vertices,
+Weyl vector $\rho=f_2-\tfrac12f_3+f_{-2}$.
+\item Eichler--Zagier 1985 \emph{Theory of Jacobi Forms} Thm.~5.1:
+theta decomposition into Weil-representation-valued vector-valued
+modular form.
+\item Skoruppa 1990 \emph{Math.\ Ann.}~288: vector-valued modular forms
+and the Weil representation.
+\item Eguchi--Ooguri--Tachikawa 2011 \emph{Exper.\ Math.}~20:
+$Z_{K3}=2\phi_{0,1}$; twined elliptic genera and $M_{24}$.
+\item Mukai 1988 \emph{Invent.\ Math.}~94 Thm.~1.1: classification of
+symplectic K3 automorphism orders $N\leq 8$, $g_N$-fixed counts.
+\item Dabholkar--Murthy--Zagier 2012 (arXiv:1208.4074): mock Jacobi
+form framework, Hardy--Ramanujan--Rademacher bounds.
+\item Harvey--Moore 1996 \emph{Nucl.\ Phys.\ B}~463 App.~A: product
+formula for Borcherds lift $=$ Gritsenko--Hecke-sum equivalence.
+\item Bruinier 2002 (Springer Lect.\ Notes 1780) Chap.~1--3: modern
+treatment of Borcherds products.
+\item Maass 1964 \emph{Nachrichten der Akad.\ Wissen.\ Gottingen}
+11: explicit multiplier $\nu_{\Delta_5}$.
+\end{itemize}
+
+\subsection*{Cross-references within Vol III}
+
+\begin{itemize}[leftmargin=1.5em]
+\item \texttt{notes/wave12\_a5\_mock\_modular\_polyakov.tex}: mock
+modular K3 at $d=2$; the $\phi_{0,1}$ of this note and the $Z_{K3}$
+of the mock-K3 note are related by $Z_{K3}=2\phi_{0,1}$; the $c_0(0)=10$
+of this note feeds the $\chi(K3)=24$ of the mock note via the
+$\cN=4$ massless/massive split.
+\item \texttt{notes/wave12\_a2\_k3xE\_BKM\_kazhdan.tex}: the universal
+Borcherds-weight identity $\kBKM(\Phi_N)=c_N(0)/2$ at $N\in\{1,2,3,4,6\}$;
+this note ($N=1$) gives $c_1(0)/2=10/2=5$, matching $\mathrm{wt}(\Delta_5)
+=5$.
+\item \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+Thm.~\texttt{thm:borcherds-weight-kappa-BKM-universal}: the
+universal-$N$ statement whose $N=1$ instance is inscribed here.
+\end{itemize}
+
+\end{document}

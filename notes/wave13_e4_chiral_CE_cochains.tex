@@ -1,0 +1,210 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=1.1in]{geometry}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\chir}{\mathrm{chir}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Chiral Chevalley--Eilenberg cochains for 6D hCS}
+\author{Wave 13 E4/20}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{The target}
+For a dg Lie algebra $\g$ on a complex $3$-fold $X$, we construct a
+cochain complex $\CE^*_{\dbar,\chir}(\cL, \cM)$ computing derived
+deformations of $\cL$-modules in the chiral--Dolbeault bicomplex, and
+identify it with $\Obs_{\mathrm{hCS}}$ for the holomorphic Lie algebroid
+$\cE = \Omega^{0,\bullet}(\C^3, \g)$.
+
+\section{Cycle 1: Classical CE}
+For a Lie algebra $\g$ over $k$ with module $M$, classical CE cochains
+are
+\[
+ \CE^n(\g, M) = \Hom_k\!\bigl(\Lambda^n \g, M\bigr), \qquad
+ d_{\CE} f(x_1, \ldots, x_{n+1})
+  = \sum_{i<j} (-1)^{i+j} f\!\bigl([x_i, x_j], \ldots \widehat{x_i}
+     \ldots \widehat{x_j} \ldots\bigr)
+  + \sum_i (-1)^{i+1} x_i \cdot f(\ldots \widehat{x_i} \ldots).
+\]
+\textbf{Attack.} The extension to chiral requires replacing
+$\Lambda^n\g \subset \g^{\otimes n}$ by a structure supported on the
+Ran space, and the antisymmetrisation by a $\Sigma_n$-equivariant
+pushforward. \textbf{Heal.} This is exactly Beilinson--Drinfeld's
+chiral symmetric power $\Sym^n_{\chir}\cL$ on $\Ran X$
+(\cite[\S3.4]{BD04}).
+
+\section{Cycle 2: Chiral CE}
+Let $\cL$ be a chiral Lie algebra on a smooth curve (or product of
+curves) $X$: a right $\cD_X$-module with chiral bracket
+$\mu: j_*j^*(\cL \boxtimes \cL) \to \Delta_*\cL$ satisfying
+skew-symmetry and chiral Jacobi.
+\begin{definition}[Chiral CE cochains]
+\label{def:chiral-ce-cochains}
+Fix a chiral $\cL$-module $\cM$. The chiral CE cochain complex is
+\[
+ \CE^n_{\chir}(\cL, \cM)
+   := \Hom_{\cD_{X^n}}\!\bigl(\Sym^n_{\chir}\cL,\; \Delta^{(n)}_*\cM\bigr),
+\]
+where $\Sym^n_{\chir}\cL$ is the BD chiral symmetric power supported on
+pairwise-distinct configurations, and $\Delta^{(n)}: X \hookrightarrow
+X^n$ is the diagonal. The chiral differential
+$d_{\chir}: \CE^n_{\chir} \to \CE^{n+1}_{\chir}$ is
+\[
+ (d_{\chir} f)(l_0, \ldots, l_n)
+  = \sum_{i<j} (-1)^{i+j}\, f\!\bigl(\mu_{ij}(l_i, l_j),\,
+       \ldots \widehat{l_i} \ldots \widehat{l_j} \ldots\bigr)
+  \;+\; \sum_i (-1)^{i+1}\, \rho_i \cdot f(\ldots \widehat{l_i} \ldots),
+\]
+with $\mu_{ij}$ the chiral bracket on positions $(i,j)$ pushed to the
+diagonal and $\rho_i$ the chiral action on $\cM$. The Jacobi identity
+on $\Ran^{\leq 3}$ yields $d_{\chir}^2 = 0$.
+\end{definition}
+\textbf{Attack.} Does the $\cD$-module Hom detect sufficiently refined
+information? \textbf{Heal.} Yes: by
+\cite[Prop.~3.4.11]{BD04}, $\Sym^n_{\chir}\cL$ is a projective
+generator for chiral $n$-ary operations, and
+$\CE^*_{\chir}(\cL,\cL) \simeq \Hom_{\chir}(\cL[-1], \cL[-1])$ in the
+derived category of chiral Lie algebras. This recovers
+Beilinson--Drinfeld's chiral-envelope bar duality
+$\CE_*^{\chir}(\cL) \simeq B(U^{\chir}(\cL))$ upon dualising (compare
+\texttt{cy\_to\_chiral.tex}, \texttt{prop:bar-ce-chiral}).
+
+\section{Cycle 3: Holomorphic variant}
+On a complex $3$-fold $X$, replace $\cD_X$-modules by $\cD_X$-modules
+in Dolbeault degrees: take $\cL \in \Omega^{0,\bullet}(X, \g) \otimes
+\Omega^{\bullet}_{\mathrm{hol}}$, i.e.\ a graded sheaf carrying both a
+$\dbar$-differential and a chiral bracket along the holomorphic
+directions.
+\begin{definition}[Dolbeault--chiral CE]
+\label{def:dolbeault-chiral-ce}
+\[
+ \CE^*_{\dbar, \chir}(\cL, \cM)
+  := \Bigl(\,\bigoplus_{n \geq 0}\;
+     \Omega^{0, \bullet}\!\bigl(X^n,\; \Hom(\Sym^n_{\chir}\cL, \cM)\bigr)^{\Sigma_n}
+     ,\; \dbar + d_{\chir}\Bigr),
+\]
+a double complex with total differential $D = \dbar + d_{\chir}$.
+Totalisation yields a single complex; $D^2 = 0$ because $\dbar^2 = 0$,
+$d_{\chir}^2 = 0$, and $\dbar$ commutes with the chiral bracket (which
+is purely holomorphic).
+\end{definition}
+\textbf{Attack.} Compatibility $[\dbar, d_{\chir}] = 0$ is
+nontrivial when $\cL$ has nonholomorphic components of its bracket.
+\textbf{Heal.} For $\cL = \Omega^{0,\bullet}(X,\g)$ with pointwise
+$\g$-bracket on coefficients, the chiral bracket is the
+$\delta$-function bracket $\mu(\alpha \otimes \beta) =
+[\alpha,\beta]_\g \cdot \delta_\Delta$; both operations commute with
+$\dbar$ since the bracket acts on coefficients and $\dbar$ on
+differential form type.
+
+\section{Cycle 4: 6D hCS application}
+For holomorphic Chern--Simons on $\C^3$ with structure Lie algebra
+$\g$, the Costello BV theory (\cite{CostelloGaiotto}) has fields
+$\cA \in \Omega^{0,\bullet}(\C^3, \g)[1]$ and action
+$S = \int_{\C^3} \Omega \wedge \langle \cA, \dbar \cA + \tfrac{1}{3}
+[\cA,\cA] \rangle$ with $\Omega$ the holomorphic volume form.
+\begin{proposition}[hCS observables as chiral CE]
+\label{prop:hcs-obs-chiral-ce}
+Let $\cE := \Omega^{0,\bullet}(\C^3, \g)$ with $\dbar$-differential and
+pointwise bracket, viewed as a holomorphic Lie algebroid. Then
+\[
+ \Obs_{\mathrm{hCS}}^{cl}(\C^3)
+   \;\simeq\; \CE^*_{\dbar, \chir}\!\bigl(\cE,\; \cO_{\C^3}\bigr),
+\]
+and quantum observables are the BV-deformation computed by adding the
+Costello counterterm $\int \Omega \wedge \mathrm{tr}(\mathrm{ad}_\cA)$
+to $d_{\chir}$ in the leading $\hbar$-bracket.
+\end{proposition}
+\textbf{Attack.} Is $\cE$ really chiral in the BD sense on $\C^3$?
+\textbf{Heal.} $\C^3$ is not a curve, but BD's construction extends to
+higher-dimensional Ran spaces via Francis--Gaitsgory
+\cite[\S2]{FrancisGaitsgory} and the BD formalism on $X^n$ for $\dim
+X > 1$ yields an $E_3$-chiral structure (\texttt{CLAUDE.md}: at
+$d \geq 3$, $A$ is $E_1$; $E_2/E_3$ live elsewhere). Here the chiral
+bracket is $E_1$ along the holomorphic direction of each factor of
+$\C^3$, and the $\dbar$-enhanced complex captures the full $E_3$-chiral
+observable algebra. This matches Costello's original identification
+$\Obs \simeq \CE^*_{\dbar}(\cE)$ (E2 of this wave) and refines it by
+making the chiral structure explicit.
+
+\section{Cycle 5: Comparison with Francis 2013}
+Francis \cite[\S3]{Francis13} defines $E_n$-factorisation homology
+$\int_M A$ for an $E_n$-algebra $A$ and framed $n$-manifold $M$.
+\begin{proposition}[Koszul duality]
+\label{prop:koszul-factorisation}
+For $\cE = \Omega^{0,\bullet}(\C^3,\g)$,
+\[
+ \int_{\C^3} U^{\chir}(\cE)
+   \;\simeq\; \CE^*_{\dbar, \chir}(\cE, \C)^\vee
+\]
+as $E_3$-algebras, with $U^{\chir}$ the chiral envelope and $(-)^\vee$
+linear dual. This is the Francis--Ayala $E_n$-Koszul duality between
+$E_n$-enveloping algebras and $E_n$-CE cochains specialised to the
+chiral context of Kapranov--Vasserot \cite[\S5]{KapranovVasserot14}.
+\end{proposition}
+\textbf{Attack.} Francis' theorem requires $A$ augmented and
+connective. \textbf{Heal.} $U^{\chir}(\cE)$ is augmented via
+$\cE \to 0$ and connective in the Dolbeault grading; the pair
+$(U^{\chir}\cE, \CE^*_{\dbar,\chir}(\cE,\C))$ are Koszul duals
+(Francis--Gaitsgory proof, extended to $d = 3$ via the
+Kapranov--Vasserot chiral Hall category).
+
+\section{Consequence: $\kappa_{\mathrm{ch}}$ from CE cohomology}
+For compact CY$_3$ $X$ with $\cE = \Omega^{0,\bullet}(X,\g)$,
+\[
+ \kappa_{\mathrm{ch}}(A_X) = \chi\!\bigl(\CE^*_{\dbar,\chir}(\cE, \cO_X)\bigr)
+   = \sum_q (-1)^q h^{0,q}(X) \cdot \dim \CE^*(\g)_{\text{hor}},
+\]
+recovering the Hodge-supertrace identification on compact CY$_d$
+(CLAUDE.md essential constants). For $\g$ abelian and $X = \C^3$ the
+ghost-number weighted character matches
+\texttt{wave12\_a5\_hCS\_BV\_BRST\_explicit.tex}.
+
+\begin{thebibliography}{9}
+\bibitem{BD04} A.~Beilinson and V.~Drinfeld, \emph{Chiral Algebras},
+  AMS Colloquium Publications 51, 2004, \S3.4--3.7.
+\bibitem{Francis13} J.~Francis, \emph{The tangent complex and Hochschild
+  cohomology of $E_n$-rings}, Compositio Math.\ 149 (2013), 430--480,
+  \S3.
+\bibitem{KapranovVasserot14} M.~Kapranov and E.~Vasserot,
+  \emph{The cohomological Hall algebra of a surface and factorization
+  cohomology}, arXiv:1901.07641 / Kapranov--Vasserot notes 2014, \S5.
+\bibitem{FrancisGaitsgory} J.~Francis and D.~Gaitsgory,
+  \emph{Chiral Koszul duality}, Selecta Math.\ 18 (2012), 27--87.
+\bibitem{CostelloGaiotto} K.~Costello and D.~Gaiotto, \emph{Twisted
+  supergravity and its quantization}, arXiv:1812.01110.
+\end{thebibliography}
+
+\end{document}

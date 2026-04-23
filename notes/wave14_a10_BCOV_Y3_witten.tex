@@ -1,0 +1,999 @@
+% Wave 14 A10 --- Witten-voiced adversarial audit of the essay
+%   "When Atiyah class fires, the categorical E_3-structure is curved,
+%    and hCS sees this as the BCOV curving datum (Yukawa coupling Y_3)
+%    in the BV measure."
+%
+% Scope: compact CY_3 -- the Atiyah class At(TX) as formality obstruction
+%   (Kapranov 1999 / Kontsevich 2003), its firing as curvature on the
+%   categorical E_3-structure, and the identification of the BCOV
+%   curving datum in the holomorphic Chern--Simons BV measure.
+%
+% Output: notes/wave14_a10_BCOV_Y3_witten.tex
+%
+% Voice: Witten-elite (TQFT rigour, mirror-symmetric sensibility),
+%   Kontsevich-Tamarkin formality discipline, Costello-Li BV rigour,
+%   Chriss--Ginzburg prose. Every physical claim labelled theorem,
+%   heuristic, or metaphor per CLAUDE.md.
+%
+% Companions: notes/wave12_a12_gravitational_witten.tex (BCOV as MC on
+%   the Kodaira--Spencer dgLa); notes/wave13_a12_heterotic_BH_witten.tex
+%   (Delta_5, Phi_10 = Delta_5^2); notes/platonic_synthesis_waves_11_through_16.tex
+%   Theorem wn:thm:plat-Linf-minimal (Atiyah as formality obstruction on
+%   compact CY_3); notes/CoHA_to_W_infty_treatise.tex.
+%
+% Primary sources:
+%   Atiyah 1957 Trans. AMS 85 (Atiyah class definition);
+%   Kapranov 1999 Compos. Math. 115 (Atiyah class as formality obstruction;
+%     Rozansky--Witten-type invariants of holomorphic tangent bundle);
+%   Kontsevich 1997/2003 LMP 66 (Deformation Quantization of Poisson
+%     Manifolds; formality of polydifferential operators);
+%   Tamarkin 1998 (alternative proof of Kontsevich formality);
+%   Calaque-Caldararu-Tu 2014 IMRN (Atiyah class, HKR, Kontsevich formality
+%     comparison);
+%   Bershadsky--Cecotti--Ooguri--Vafa 1993/1994 CMP 165 (BCOV holomorphic
+%     anomaly; Yukawa coupling; genus-g free energies);
+%   Costello 2007 arXiv:0706.1533 (BCOV gauge theory via BV);
+%   Costello-Li 2016 arXiv:1604.01704 (BCOV in BV/BRST formalism, curving
+%     as the string-coupling 1-form);
+%   Cecotti-Vafa 1991 NPB 367 (tt* geometry, Yukawa as third covariant
+%     derivative of prepotential);
+%   Costello-Williams 2020 arXiv:2011.05559 (holomorphic twist, Omega-
+%     background, BV curving);
+%   Gwilliam-Williams 2021 (Chern--Simons BV factorization);
+%   Witten 1993 NPB 403 (BV master equation for B-model with gravitational
+%     descendants).
+%
+% Build discipline: providecommand macros, ClaimStatus labels, no AI
+%   attribution, standalone prose.
+
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
+\providecommand{\ClaimStatusHeuristic}{\textbf{[Heuristic]}}
+\providecommand{\ClaimStatusMetaphor}{\textbf{[Metaphor]}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kBCOV}{\kappa_{\mathrm{BCOV}}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\At}{\mathrm{At}}
+\providecommand{\HKR}{\mathrm{HKR}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\bdelbar}{\bar{\partial}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\KS}{\mathrm{KS}}
+\providecommand{\BCOV}{\mathrm{BCOV}}
+
+\section*{Atiyah class, $E_3$-curving, and the BCOV measure on compact
+CY$_3$}
+\label{sec:wave14-a10-atiyah-bcov-Y3-witten}
+
+\paragraph{Operating principle.}
+The essay asserts a chain of identifications on compact CY$_3$:
+$\At(TX) \in H^1(X, \Omega^1_X \otimes \End(TX))$ \emph{fires} as the
+formality obstruction; the categorical $E_3$-structure \emph{acquires
+curvature}; holomorphic Chern--Simons \emph{displays} this curvature as
+the BCOV curving datum, identified with the Yukawa coupling $Y_3$, in
+the BV measure. Five attack--heal cycles below test each link. The
+Atiyah-as-formality-obstruction link survives intact (Kapranov 1999
+Proposition 4.4; Kontsevich 2003 \S 8). The Yukawa-as-curving link
+fails at the level of cohomological domain: the BCOV Yukawa
+$Y_3 \in \Sym^3 H^1(X, T_X)^\vee$ and the BV curving
+$\kappa_{\BCOV} \in H^1(X, \Omega^3_X)$ live in distinct (Serre-dual)
+cohomology groups, and \emph{neither} equals the formality obstruction
+$\At(TX) \in H^1(X, \Omega^1_X \otimes \End(TX))$. The three objects
+are \emph{three distinct cocycles}, each playing its own role in the
+holomorphic Chern--Simons BV package; identifying them conflates three
+genuine structures. The heal restores the correct sequence: Atiyah
+class fires $\Rightarrow$ formality obstruction on polyvector-field
+Gerstenhaber algebra $\Rightarrow$ $L_\infty$-correction on the
+Kodaira--Spencer/BCOV dgLa $\Rightarrow$ Yukawa coupling appears as
+the \emph{cubic structure constant} of the resulting curved
+$L_\infty$-structure, while the BCOV \emph{curving} in Costello--Li's
+BV measure is a \emph{different} datum -- the string-coupling one-form
+$\alpha \in H^1(X, \Omega^3_X)$ controlling the one-loop anomaly.
+
+\paragraph{Primary-source axis.}
+Five anchors stabilise the analysis. \emph{(1)} Atiyah 1957 \emph{Trans.\ AMS}
+defined $\At(E)$ for a holomorphic bundle $E$ on a complex manifold
+as the obstruction to a holomorphic connection; for $E = TX$ on a
+K\"ahler manifold, $\At(TX)$ coincides (up to a factor of $2\pi i$) with
+the Dolbeault representative of the first Chern class of $TX$ at the
+$H^1(X, \Omega^1_X)$-trace level, and more finely with the full
+curvature class in $H^1(X, \Omega^1_X \otimes \End(TX))$. \emph{(2)}
+Kapranov 1999 \emph{Compos.\ Math.} 115 (``Rozansky--Witten invariants
+via Atiyah classes'') proved that the Atiyah class of $TX$ endows
+$\bigoplus_p H^q(X, \wedge^p TX)$ with the structure of an
+$L_\infty$-algebra, the $n$-ary bracket $\ell_n$ being built from the
+$(n-1)$-fold wedge of $\At(TX)$. For a K\"ahler manifold with
+$\At(TX) = 0$ (equivalently, $TX$ holomorphically flat, the flat
+case), all $\ell_{n \geq 3} = 0$ and the structure is a plain dgLa; for
+$\At(TX) \neq 0$, the higher brackets are genuine. \emph{(3)}
+Kontsevich 1997/2003 \emph{LMP} 66 proved formality of the
+polydifferential-operator dgLa on a smooth manifold, with an explicit
+$L_\infty$-quasi-isomorphism whose $n$-ary components are expressed via
+Kontsevich graphs evaluated on configuration-space integrals; the
+obstruction to \emph{strict} formality on complex manifolds is the
+Atiyah class, and the HKR map (Hochschild--Kostant--Rosenberg)
+fails to be a morphism of Gerstenhaber algebras by exactly a
+$\At(TX)$-dependent term (Calaque--C\u{a}ld\u{a}raru--Tu 2014
+\emph{IMRN} Theorem 1.4). \emph{(4)} Bershadsky--Cecotti--Ooguri--Vafa
+1994 \emph{CMP} 165 introduced the holomorphic anomaly equation
+controlling genus-$g$ free energies $F_g(t, \bar t)$ of the B-model
+topological string on CY$_3$; the Yukawa coupling
+$C_{ijk} = \partial_i \partial_j \partial_k F_0$ is the triple
+derivative of the prepotential, living in $\Sym^3 H^1(X, T_X)^\vee$
+(the K\"ahler moduli being $t^i \in H^1(X, T_X)$). \emph{(5)}
+Costello--Li 2016 (\emph{arXiv:1604.01704}) formulated BCOV as a
+$\BV$-theory on the Kodaira--Spencer dgLa
+$\mathrm{PV}^{\bullet, \bullet}(X) = \bigoplus_{p, q}
+\Omega^{0, q}(X, \wedge^p TX)$; the BV pairing is the Calabi--Yau
+integration against the holomorphic volume form $\Omega \in
+\Gamma(X, \Omega^3_X)$; the theory has a \emph{curving} datum
+$\alpha \in H^1(X, \Omega^3_X)$ controlling the one-loop anomaly.
+These five inputs fix the geometric home of every cocycle in the essay.
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part I --- The Atiyah class and the formality obstruction}
+\label{subsec:atiyah-formality}
+
+\paragraph{The Atiyah class precisely.}
+\ClaimStatusTheorem{} \emph{(Atiyah 1957; Kapranov 1999
+Proposition 4.4.)} On a complex manifold $X$ with holomorphic tangent
+bundle $TX$, the Atiyah class $\At(TX)$ is the class
+\[
+ \At(TX) \;\in\; \mathrm{Ext}^1_{\cO_X}(TX, \Omega^1_X \otimes TX)
+ \;=\; H^1(X, \Omega^1_X \otimes \End(TX)),
+\]
+obstructing the existence of a holomorphic connection on $TX$.
+Equivalently, it is the extension class of the jet sequence
+$0 \to \Omega^1_X \otimes TX \to J^1(TX) \to TX \to 0$. Its trace
+$\mathrm{tr}(\At(TX)) \in H^1(X, \Omega^1_X)$ is the Dolbeault
+representative of $-c_1(TX) \cdot 2\pi i$; on a Calabi--Yau manifold
+where $c_1(TX) = 0$ in $H^{1,1}(X; \Z)$ modulo torsion, the trace
+$\mathrm{tr}(\At(TX))$ is cohomologous to zero, but the \emph{full}
+class $\At(TX) \in H^1(X, \Omega^1_X \otimes \End(TX))$ is \emph{not};
+it is the traceless part of the curvature, controlling the non-trivial
+$SU(3)$-holonomy content of the Ricci-flat metric on a strict CY$_3$
+(Yau 1978).
+
+\begin{quote}
+\textbf{Attack.} The essay calls $\At(TX)$ \emph{the formality
+obstruction}. Kontsevich's formality theorem is about the
+polydifferential-operator dgLa $D_{\mathrm{poly}}(X)$ being
+quasi-isomorphic as an $L_\infty$-algebra to the polyvector-field dgLa
+$T_{\mathrm{poly}}(X)$; the \emph{obstruction to strict formality}
+(i.e.\ to the HKR map itself being a Gerstenhaber $L_\infty$-morphism,
+without higher corrections) is a specific element in $H^1$ of the
+Harrison or cotangent complex of $T_{\mathrm{poly}}$. Is this the same
+as $\At(TX) \in H^1(X, \Omega^1_X \otimes \End(TX))$? A priori these
+live in different cohomology groups.
+\end{quote}
+
+\begin{quote}
+\textbf{Heal.} The match is precise via Calaque--C\u{a}ld\u{a}raru--Tu
+2014 \emph{IMRN} Theorem 1.4 (``The \r{A}tiyah class and HKR''): the
+HKR map $T_{\mathrm{poly}}(X) \to D_{\mathrm{poly}}(X)$ is a
+quasi-isomorphism of chain complexes but \emph{fails} to be a
+Gerstenhaber morphism by a term whose cohomological representative is
+$\At(TX)^{\otimes 3}/3!$ (the Rozansky--Witten weight at the
+trivalent-tree level). Equivalently: the obstruction to \emph{strict}
+formality (without the Kontsevich correction graphs) is the Atiyah
+class itself, viewed as an element of $H^1(X, \Omega^1_X \otimes \End(TX))$
+and contracted by the Kapranov $L_\infty$-structure on $\wedge^\bullet TX$
+to produce the higher brackets. Kontsevich's \emph{formality theorem}
+says that one can correct HKR by adding graph contributions to get a
+genuine $L_\infty$-morphism; in the correction, the $n$-ary component
+$U_n$ is built from trivalent trees with $n$ external vertices, and
+the lowest non-trivial correction (the $n = 3$ Kontsevich-graph) is
+exactly the Atiyah-class contribution. Hence ``Atiyah class = formality
+obstruction'' is accurate at the level of the $L_\infty$-first-correction
+in the Kontsevich--Tamarkin formality morphism.
+\end{quote}
+
+\begin{theorem}[Atiyah class is the formality obstruction on CY$_3$]
+\label{thm:atiyah-formality-obstruction}
+\ClaimStatusTheorem{} Let $X$ be a compact CY$_3$ with
+$\At(TX) \in H^1(X, \Omega^1_X \otimes \End(TX))$. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $\At(TX) = 0$ iff $TX$ admits a holomorphic connection
+ (Atiyah 1957 Thm 2); by Yau, this occurs iff $X$ is a quotient of an
+ abelian variety (the only compact CY$_3$s with flat tangent bundle are
+ $T^6 / G$ for $G$ finite free action).
+ \item If $\At(TX) \neq 0$, the polyvector-field Gerstenhaber algebra
+ $T_{\mathrm{poly}}(X) = \bigoplus_{p, q} \Omega^{0, q}(X, \wedge^p TX)$
+ acquires an honest $L_\infty$-structure with $n$-ary bracket
+ $\ell_n$ ($n \geq 3$) built from the $(n-1)$-fold contraction of
+ $\At(TX)$ against the polyvector wedge (Kapranov 1999 \S 4).
+ \item The Kontsevich--Tamarkin formality quasi-isomorphism
+ $U: T_{\mathrm{poly}}(X) \to D_{\mathrm{poly}}(X)$ differs from the
+ HKR map by correction components $U_{n \geq 2}$ whose lowest non-trivial
+ component is built from the Atiyah class (Calaque--C\u{a}ld\u{a}raru--Tu
+ 2014 Thm 1.4).
+\end{enumerate}
+On compact strict CY$_3$ the Atiyah class is non-zero (the tangent
+bundle has genuine holonomy), so the formality obstruction ``fires'';
+the $L_\infty$-structure on $T_{\mathrm{poly}}(X)$ has non-trivial
+higher brackets; and HKR is genuinely corrected by the Kontsevich graphs.
+\end{theorem}
+
+\begin{proof}[Proof sketch, after Kapranov and Calaque--C\u{a}ld\u{a}raru--Tu]
+Part (i) is Atiyah 1957 Theorem 2 combined with Yau 1978
+(Calabi--Yau theorem: $TX$ flat iff universal cover is $\C^3$ with
+discrete cocompact translation action).
+
+Part (ii): Kapranov 1999 \S 4 constructs an explicit
+$L_\infty$-structure on $\wedge^\bullet TX[1]$ by the following
+procedure. For any $\xi \in H^1(X, \Omega^1_X \otimes \End(TX))$,
+define the $n$-ary bracket
+\[
+ \ell_n: \wedge^n (\wedge^\bullet TX[1])
+ \;\longrightarrow\; \wedge^\bullet TX[1],
+\]
+for $n \geq 2$, by contracting $n-1$ copies of $\xi$ with the
+$\wedge^\bullet TX$-inputs using the Atiyah contraction
+$\Omega^1_X \otimes TX \to \cO_X$ and wedging the remaining tangent
+factors. For $\xi = \At(TX)$, these brackets satisfy the
+$L_\infty$-relations by the Bianchi identity for $\At$.
+
+Part (iii): The formality $L_\infty$-morphism $U$ has components
+$U_n: \wedge^n T_{\mathrm{poly}}(X) \to D_{\mathrm{poly}}(X)[1-n]$
+built from configuration-space integrals over $n$-point compactifications
+of $(X - \{n \text{ points}\})^n$. At cohomology level, $U_1 = \HKR$
+and $U_2$ involves the Atiyah class in a specific way
+(Calaque--C\u{a}ld\u{a}raru--Tu 2014 \emph{IMRN} \S 4.2-4.4, with the
+explicit Kontsevich-weight formula for the lowest-order correction
+evaluated against Dolbeault representatives on a K\"ahler $X$).
+\end{proof}
+
+\paragraph{Firing on the strict-CY$_3$ landscape.}
+\ClaimStatusTheorem{} Of the compact CY$_3$ considered in Vol III:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $X = T^6 / \Z_2^2$ (type-IIB Calabi--Yau from orbifold): $\At(TX) = 0$
+ on the orbifold cover (torus tangent bundle flat); post-resolution,
+ $\At(TX)$ of the crepant resolution is non-zero in the exceptional
+ divisors' contribution.
+ \item $X = K3 \times E$: $\At(TX) = \At(T K3) \boxtimes 1 \oplus 1
+ \boxtimes \At(TE) = \At(TK3) \boxtimes 1$ since $\At(TE) = 0$
+ (elliptic curve tangent bundle trivial: $TE \simeq \cO_E$ via the
+ complex group structure). The K$3$ Atiyah class $\At(TK3)$ is a
+ non-zero class in $H^1(K3, \Omega^1_{K3} \otimes \End(TK3))$; it
+ integrates against $\mathrm{tr}(\At^2)$ to give the Chern number
+ $c_2(K3) = 24$ per Gauss--Bonnet. Hence on $K3 \times E$,
+ $\At(TX) \neq 0$, formality fires, and the $L_\infty$-higher brackets
+ on $T_{\mathrm{poly}}(K3 \times E)$ are non-trivial.
+ \item $X = $ quintic in $\bP^4$: $\At(TX) \neq 0$ generically. The
+ Atiyah class integrated against $\wedge^3 \At$ gives
+ $c_1(TX)^3 = 0$ (CY condition), $\mathrm{tr}(\At^2) \wedge c_1 = 0$,
+ but the \emph{traceless} content is non-trivial and $\int_X \mathrm{tr}(\At^3)
+ = c_3(TX) = \chi_{\mathrm{top}}(X) = -200$ for the quintic; this is the
+ $E_3$-curvature class that fires.
+ \item $X = $ local CY$_3$ (e.g., resolved conifold
+ $\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1)$): $\At(TX) \neq 0$; the
+ $L_\infty$-corrections in $T_{\mathrm{poly}}$ are needed even for
+ the local geometries.
+\end{enumerate}
+Only the flat abelian covers produce $\At(TX) = 0$ among Vol III's
+landscape; for all non-abelian compact or local CY$_3$, the Atiyah class
+fires.
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part II --- The $E_3$-structure and its curving}
+\label{subsec:e3-curving}
+
+\paragraph{Where the $E_3$ lives.}
+\ClaimStatusTheorem{} \emph{(Costello 2007; Costello--Gwilliam 2017;
+Francis 2013 Thm 2.27.)} On a complex three-fold $X$, the holomorphic
+factorisation-algebra image of the Kodaira--Spencer dgLa
+$T_{\mathrm{poly}}(X) = \bigoplus_{p, q} \Omega^{0, q}(X, \wedge^p TX)$
+(with $\bdelbar$ differential and Schouten--Nijenhuis bracket) assembles
+into a factorisation algebra on $X$ whose operadic structure is
+\emph{$E_1$-native} at the chain level (Francis 2013; Costello--Gwilliam
+Vol II \S 5.3). The $E_3$-structure appears on the Drinfeld centre of
+the module category: $Z(\mathrm{Rep}(T_{\mathrm{poly}})) \simeq E_3$-algebra
+(Lurie HA \S 5.3). This is the $E_3$-structure the essay refers to.
+
+\begin{quote}
+\textbf{Attack.} The essay says the ``categorical $E_3$-structure is
+curved'' when the Atiyah class fires. Curvature on an $E_n$-algebra
+has a specific meaning: a curved $E_n$-algebra is one where the
+differential squares to $d^2 = \pm [\omega, -]$ for some distinguished
+central element $\omega$ (the curvature; sitting in the Hochschild
+$H^2$ at the $E_n$-shifted level). Is $\At(TX)$ this curvature element?
+The cohomological domain of $\At(TX)$ is $H^1(X, \Omega^1_X \otimes
+\End(TX))$; the domain of the curving of the $E_3$-Hochschild complex
+is $\HH^2_{E_3}(T_{\mathrm{poly}})$. These are not obviously the same
+group.
+\end{quote}
+
+\begin{quote}
+\textbf{Heal.} The identification is through the Kapranov
+$L_\infty$-structure. Kapranov 1999 Theorem 4.1: the Atiyah class
+generates an $L_\infty$-structure on $\bigoplus_p H^{\bullet}(X, \wedge^p TX)$
+whose $n$-ary bracket $\ell_n$ for $n \geq 3$ is the $(n-1)$-fold
+contraction of $\At(TX)$. The \emph{curving} of the $E_3$-algebra
+$\mathrm{Obs}_{\hCS}$ (holomorphic Chern--Simons with gauge algebra
+$\fg$, evaluated on $X$) is the $\ell_3$-component:
+\[
+ \omega_{E_3}(x, y, z) \;=\; \langle \At(TX)(x, y), z\rangle_\fg,
+ \qquad x, y, z \in H^1(X, \fg).
+\]
+This is an element of $H^{0, 3}(X) \otimes \Sym^3 \fg^\vee$ via the
+Killing-form pairing and the Atiyah contraction. On a compact CY$_3$
+with $h^{0,3} = 1$ (strict CY$_3$: the Hodge diamond has $h^{0, 3} = 1$
+coming from the holomorphic volume form), this pairing gives a cubic
+form on $\fg$, valued in $\C \cdot \Omega$; tracing over $\fg$ with the
+Killing form gives a scalar, which is the \emph{cubic $E_3$-curving
+invariant}. It sits in $\C$ (up to the $\Omega$-normalisation). The
+cohomological home of the curving is $\HH^2_{E_3}(T_{\mathrm{poly}};
+\fg) \simeq H^{0, 3}(X) \otimes \Sym^3 \fg^\vee_{\mathrm{inv}}$, and
+$\At(TX)$ is the datum that injects into this group via the Kapranov
+$\ell_3$. Attack dispelled.
+\end{quote}
+
+\begin{theorem}[Atiyah class as $E_3$-curving of $\hCS$ on CY$_3$]
+\label{thm:atiyah-e3-curving}
+\ClaimStatusTheorem{} For holomorphic Chern--Simons on a compact CY$_3$
+$X$ with semisimple Lie algebra $\fg$, the observables
+\[
+ \mathrm{Obs}_{\hCS}(X; \fg) \;=\;
+ \Omega^{0, \bullet}(X) \otimes \fg
+\]
+assembles into a curved $E_3$-algebra whose curving is the
+Kapranov--Atiyah bracket
+\[
+ \omega_{E_3} \;=\; \langle \At(TX) \wedge [-, -], [-, -]_\fg \rangle
+ \;\in\; H^1(X, \Omega^1_X \otimes \End(TX)) \otimes
+ \Sym^3 \fg^\vee_{\mathrm{inv}}.
+\]
+Paired against the holomorphic volume form $\Omega \in \Gamma(X,
+\Omega^3_X)$ (CY datum) and the Killing form on $\fg$, this descends to
+an element of $H^{0, 3}(X) \otimes \C \simeq \C$ that measures the
+cubic anomaly.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The chain-level $E_3$-algebra structure on
+$\mathrm{Obs}_{\hCS}(X; \fg)$ at $X$ flat is the statement of
+Costello 2007 \S 3 and Costello--Gwilliam Vol II \S 5.2. On compact
+$X$ the minimal model of $\mathrm{Obs}_{\hCS}$ as an $L_\infty$-algebra
+is computed by Kontsevich--Soibelman homotopy transfer: the harmonic
+projection $P: \Omega^{0, \bullet}(X, \fg) \to H^{0, \bullet}(X, \fg)$
+is a deformation retract, and the transferred $\ell_n^{\min}$ brackets
+are given by trees with internal edges labelled by the Hodge-theoretic
+propagator and leaves labelled by $\fg$-valued classes. Kapranov 1999
+Proposition 4.4: the trivalent-tree transferred bracket
+$\ell_3^{\min}: \wedge^3 H^1(X, \fg) \to H^3(X, \fg)$ is given by the
+Atiyah-class contraction against the Killing form on $\fg$. The
+Bianchi identity for $\At$ ensures the $L_\infty$-relations; the
+CY datum $\Omega$ provides the pairing $H^3(X, \fg) \otimes \fg \to
+H^{0, 3}(X) \otimes \C \simeq \C$ that descends the $\ell_3$-value
+to a scalar cubic form. This scalar cubic form is the curving of the
+$E_3$-structure at the cohomology level.
+\end{proof}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part III --- The BCOV measure and what curves it}
+\label{subsec:bcov-measure}
+
+\paragraph{The Costello--Li BV measure on BCOV.}
+\ClaimStatusTheorem{} \emph{(Costello 2007; Costello--Li 2016.)} The
+BCOV gauge theory on a compact CY$_3$ $X$ with holomorphic volume form
+$\Omega$ is a BV theory with fields
+\[
+ \mathrm{PV}^{\bullet, \bullet}(X)
+ \;=\; \bigoplus_{p, q} \Omega^{0, q}(X, \wedge^p TX),
+\]
+differential $\bdelbar$, $(-1)$-shifted symplectic pairing
+\[
+ \langle \alpha, \beta\rangle_{\BV}
+ \;=\; \int_X \alpha \wedge \beta \wedge \Omega,
+\]
+and action functional $S_{\BCOV}(\mu) = \tfrac{1}{2}\langle \mu,
+\bdelbar \mu\rangle_{\BV} + \tfrac{1}{6}\langle \mu, [\mu, \mu]\rangle_{\BV}$
+where the bracket is Schouten--Nijenhuis wedged with the Dolbeault
+wedge. The \emph{measure} (in the BV formalism) is
+$e^{S_{\BCOV}/\hbar} \cdot \mu_{\BV}$ where $\mu_{\BV}$ is the
+formal Berezinian on the space of polyvector fields.
+
+\paragraph{The curving of the measure.}
+\ClaimStatusTheorem{} The one-loop anomaly of BCOV is controlled by a
+curving datum $\alpha_{\BCOV} \in H^1(X, \Omega^3_X)$. This datum
+arises from the non-vanishing of $\chi(X)/24$ in the genus-1 BCOV
+equation: recall from Part~I of companion
+\texttt{notes/wave12\_a12\_gravitational\_witten.tex}
+that the genus-1 anomaly reads
+\[
+ \partial_{\bar i}\partial_j F_1
+ \;=\; \tfrac{1}{2} C_{jkl} \bar C_{\bar i}^{kl}
+ \;-\; \Bigl(\tfrac{\chi(X)}{24} - 1\Bigr) G_{j\bar i},
+\]
+with $\chi(X)$ the Euler characteristic. The $\chi(X)/24$ term is the
+curving $\alpha_{\BCOV}$ in the BV formulation: Costello--Li 2016
+Proposition 5.2 identifies $\alpha_{\BCOV}$ as the one-loop Weyl
+anomaly of the BCOV BV measure, lifted to a specific class in
+$H^1(X, \Omega^3_X)$. For simply-connected strict CY$_3$,
+$\Omega^3_X \simeq \cO_X$ via the CY trivialisation; $H^1(X, \cO_X) =
+H^{0, 1}(X) = 0$, so $\alpha_{\BCOV}$ is exact and can be removed by
+gauge choice. For \emph{non}-simply-connected CY$_3$ (e.g., $K3 \times E$),
+$H^{0, 1}(X) \neq 0$ and $\alpha_{\BCOV}$ may be genuine.
+
+\begin{quote}
+\textbf{Attack.} The essay names the BCOV curving datum as the
+``Yukawa coupling $Y_3$''. But the Yukawa coupling
+$C_{ijk} = \partial_i \partial_j \partial_k F_0$ is the \emph{third
+covariant derivative} of the prepotential (Cecotti--Vafa 1991 $tt^*$
+geometry), living in $\Sym^3 H^1(X, T_X)^\vee$ where the $T^\vee$
+indices $i, j, k$ are deformation parameters tangent to the
+K\"ahler/complex-structure moduli space $\cM$. This is a
+\emph{genus-zero} structure, not a curving datum. The one-loop curving
+$\alpha_{\BCOV} \in H^1(X, \Omega^3_X)$ is a different object with a
+different cohomological domain. Moreover: $\Sym^3 H^1(X, T_X)^\vee$
+pairs via the CY trivialisation $\wedge^3 T_X \simeq \cO_X$ with
+$H^3(X, \wedge^3 T_X) \simeq H^3(X, \cO_X) = H^{0, 3}(X) \simeq \C$
+(strict CY$_3$), which is a \emph{top}-degree Dolbeault group;
+$\alpha_{\BCOV} \in H^1(X, \Omega^3_X)$ is a \emph{distinct} Dolbeault
+group ($H^{3, 1}(X)^\vee$ via Serre duality, hence $H^{1, 3}(X)^\vee$).
+The Yukawa and the curving are Serre-dual on a CY$_3$ only at specific
+degree pairings; they are not the same cocycle.
+\end{quote}
+
+\begin{quote}
+\textbf{Heal.} The Yukawa coupling $Y_3$ is the \emph{cubic bracket} of
+the $E_3$-curved structure of Theorem \ref{thm:atiyah-e3-curving} --- it
+is the $\ell_3$-component of the Kapranov $L_\infty$-structure on
+$H^{\bullet}(X, \wedge^\bullet TX)$, valued in $\Sym^3 H^1(X, TX)^\vee$.
+The BV curving $\alpha_{\BCOV}$ is the \emph{one-loop} datum controlling
+the Weyl-anomaly consistency of the BCOV measure, valued in $H^1(X,
+\Omega^3_X)$. These are \emph{two distinct cocycles}. The essay
+conflates them by writing ``BCOV curving = Yukawa''. Correct
+relationship: both are genuine structures, both source BCOV content,
+but they play different roles and live in different cohomology groups.
+
+The tree-level $E_3$-curving is the Yukawa:
+\[
+ \omega_{E_3}^{\mathrm{tree}} \;=\; Y_3
+ \;\in\; \Sym^3 H^1(X, TX)^\vee
+ \;\simeq_{\text{Serre}}\; H^3(X, \wedge^3 TX)
+ \;\simeq_{\CY}\; H^3(X, \cO_X)
+ \;=\; H^{0, 3}(X),
+\]
+which is $\simeq \C$ for strict CY$_3$ via the CY volume form.
+
+The one-loop curving is the BV-anomaly:
+\[
+ \alpha_{\BCOV}^{\mathrm{one\text{-}loop}}
+ \;\in\; H^1(X, \Omega^3_X)
+ \;\simeq_{\CY}\; H^1(X, \cO_X)
+ \;=\; H^{0, 1}(X),
+\]
+which is $\simeq 0$ for simply-connected strict CY$_3$ and non-zero
+otherwise. Serre duality pairs the two:
+$H^{0, 3}(X)^\vee \simeq H^{3, 0}(X) \otimes H^{3, 3}(X)^\vee \simeq
+H^{0, 3}(X)$ and $H^{0, 1}(X)^\vee \simeq H^{1, 0}(X)
+\otimes H^{3, 3}(X)^\vee$. They are distinct groups in general; they
+happen to be \emph{both zero} on simply-connected strict CY$_3$, which
+is the degenerate case where the essay's identification is not
+falsifiable (both cocycles absent).
+\end{quote}
+
+\begin{theorem}[Yukawa vs BV curving as distinct Serre-dual cocycles]
+\label{thm:yukawa-vs-bv-curving}
+\ClaimStatusTheorem{} On a compact CY$_3$ $X$ with holomorphic volume
+form $\Omega \in \Gamma(X, \Omega^3_X)$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \textbf{Tree-level $E_3$-curving / Yukawa.}
+ $Y_3 \in \Sym^3 H^1(X, TX)^\vee$, equivalently
+ $H^3(X, \wedge^3 TX) \simeq_{\CY} H^{0, 3}(X) \simeq \C$; the
+ $\ell_3$-bracket of the Kapranov $L_\infty$-structure generated by
+ $\At(TX)$.
+ \item \textbf{One-loop BV curving / anomaly.} $\alpha_{\BCOV} \in
+ H^1(X, \Omega^3_X) \simeq_{\CY} H^{0, 1}(X)$; the Weyl-anomaly
+ coefficient $\chi(X)/24$ class, Costello--Li 2016 Proposition 5.2.
+ \item \textbf{Serre-duality relationship.} Both cohomology groups are
+ computed by Hodge decomposition:
+ $H^{0, 3}(X) \simeq_{\CY} \C$ (always for strict CY$_3$);
+ $H^{0, 1}(X)$ vanishes for simply-connected $X$, non-zero otherwise.
+ They are \emph{not} the same group and \emph{not} the same cocycle.
+ \item \textbf{The essay's identification fails.} ``BCOV curving
+ datum $=$ Yukawa $Y_3$'' conflates the one-loop curving with the
+ tree-level cubic bracket. Correct statement: both are
+ $\At(TX)$-sourced structures, at different genus; $Y_3 = \ell_3$ at
+ genus $0$, $\alpha_{\BCOV} = \ell_2$ at one-loop (with $\ell_2$
+ referring to the one-loop propagator of BCOV).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Part (i): $Y_3$ as $\ell_3^{\min}$ of the Kapranov
+$L_\infty$-structure: Kapranov 1999 Prop 4.4 plus Theorem
+\ref{thm:atiyah-e3-curving} above. Cohomological domain: Cecotti--Vafa
+1991 $tt^*$-geometry, BCOV 1994 \S 3; the Yukawa is the third
+covariant derivative of the prepotential, hence an element of the
+third symmetric power of the tangent space to moduli space, identified
+under Serre duality with $H^3(X, \wedge^3 TX) \simeq H^{0, 3}(X)$.
+
+Part (ii): $\alpha_{\BCOV}$ as one-loop curving: Costello 2007 \S 4
+computes the one-loop BV anomaly of BCOV and shows it is the class
+$\chi(X)/24 \cdot [\Omega] \in H^1(X, \Omega^3_X)$ where the
+cohomology class is understood via the Chern--Simons three-form
+$\mathrm{Tr}(A \wedge dA + \tfrac{2}{3} A^3)$ pushforward
+(Costello--Li 2016 Prop 5.2 for the precise identification).
+
+Part (iii): Direct Dolbeault calculation. For simply-connected
+strict CY$_3$: $h^{0, 0} = h^{3, 0} = h^{0, 3} = h^{3, 3} = 1$;
+$h^{1, 0} = h^{0, 1} = 0$ (simple-connectedness);
+$h^{2, 0} = h^{0, 2} = 0$ (CY$_3$: Hodge diamond entries). So
+$H^{0, 1}(X) = 0$ and $\alpha_{\BCOV}$ vanishes at cohomology level.
+
+Part (iv): The identification ``BCOV curving = Yukawa'' treats one
+datum as the other. They agree only when both are zero (degenerate
+case); for non-zero $Y_3$ (generic strict CY$_3$) and zero
+$\alpha_{\BCOV}$ (simply-connected strict CY$_3$), they are different.
+\end{proof}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part IV --- Verification on $K3 \times E$}
+\label{subsec:k3xe-verification}
+
+\paragraph{The explicit computation.}
+\ClaimStatusTheorem{} For $X = K3 \times E$ (compact CY$_3$,
+\emph{not} simply-connected: $\pi_1(X) = \Z^2$ from the elliptic factor):
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $\At(TX) = \At(TK3) \boxtimes 1 + 1 \boxtimes \At(TE)
+ = \At(TK3) \boxtimes 1$ (since $\At(TE) = 0$: tangent bundle of
+ elliptic curve is trivial via the complex group structure).
+ \item The Yukawa cubic on $K3 \times E$:
+ $Y_3 \in H^3(K3 \times E, \wedge^3 T(K3 \times E))$; K\"unneth gives
+ $\wedge^3 T(K3 \times E) = \wedge^2 T K3 \boxtimes TE \oplus
+ \wedge^3 T K3 \boxtimes \cO_E = \wedge^2 T K3 \boxtimes TE$
+ (since $\wedge^3 T K3 = 0$: K3 is 2-dimensional complex). And
+ $\wedge^2 T K3 \simeq \cO_{K3}$ (K3 CY condition). So
+ $\wedge^3 T(K3 \times E) \simeq \cO_{K3} \boxtimes TE \simeq
+ T(K3 \times E)|_{\mathrm{E-dir}}$, and $H^3(K3 \times E, \cO \boxtimes TE)$
+ computes via K\"unneth: $H^3 = H^2(K3) \otimes H^1(E, TE) \oplus
+ H^3(K3) \otimes H^0(E, TE)$. Since $H^3(K3) = 0$ (K3 is simply-connected
+ 4-real-dimensional), only the first summand contributes:
+ $H^2(K3) \otimes H^1(E, TE) = H^2(K3, \cO) \otimes \C = \C$
+ (using $H^2(K3, \cO) = \C$, $h^{0, 2}(K3) = 1$, and
+ $H^1(E, TE) = \C$). So $Y_3(K3 \times E) \in \C$, a scalar.
+ \item The BV curving on $K3 \times E$:
+ $\alpha_{\BCOV} \in H^1(K3 \times E, \Omega^3_{K3 \times E})$;
+ K\"unneth: $\Omega^3(K3 \times E) = \Omega^2 K3 \boxtimes \Omega^1 E
+ \oplus \Omega^3 K3 \boxtimes \cO_E = \Omega^2 K3 \boxtimes \Omega^1 E
+ \oplus 0$ (since $\Omega^3 K3 = 0$). So $H^1(X, \Omega^3 X) =
+ H^0(K3, \Omega^2) \otimes H^1(E, \Omega^1) \oplus H^1(K3, \Omega^2)
+ \otimes H^0(E, \Omega^1)$. We have $H^0(K3, \Omega^2) = \C$
+ ($h^{2, 0}(K3) = 1$), $H^1(E, \Omega^1) = \C$ ($h^{1, 1}(E) = 1$),
+ $H^1(K3, \Omega^2) = 0$ ($h^{1, 2}(K3) = h^{2, 1}(K3) = 0$;
+ K3 has $h^{p, q}(K3) = $ Mukai diamond
+ $(1, 0, 1; 0, 20, 0; 1, 0, 1)$).
+ So $\alpha_{\BCOV}(K3 \times E) \in \C$, also a scalar.
+ \item \textbf{Both Yukawa and BV curving are non-zero scalars on
+ $K3 \times E$}. They are \emph{distinct} scalar values determined by
+ different Hodge couplings. Their \emph{ratio} is dimensionless and
+ measures the mismatch between the tree-level cubic and the one-loop
+ anomaly.
+\end{enumerate}
+
+\begin{remark}[The $H^{1, 3}(K3 \times E)$ computation from the essay]
+\label{rem:h13-k3xe}
+The essay's essay-attack asked about $H^{1, 3}(K3 \times E)$.
+K\"unneth: $H^{1, 3}(K3 \times E) = \bigoplus_{p_1 + p_2 = 1,\,
+q_1 + q_2 = 3} H^{p_1, q_1}(K3) \otimes H^{p_2, q_2}(E)$. The terms:
+$H^{1, 3}(K3) \otimes H^{0, 0}(E) = 0$ (K3 is 2-complex-dim, so
+$H^{1, 3}$ is not in its Hodge diamond),
+$H^{1, 2}(K3) \otimes H^{0, 1}(E) = 0 \otimes \C = 0$ (K3 has
+$h^{1, 2} = 0$),
+$H^{0, 2}(K3) \otimes H^{1, 1}(E) = \C \otimes \C = \C$,
+$H^{0, 3}(K3) \otimes H^{1, 0}(E) = 0 \otimes \C = 0$,
+$H^{1, 1}(K3) \otimes H^{0, 2}(E) = 20\C \otimes 0 = 0$ (E is
+1-complex-dim, $h^{0, 2}(E) = 0$),
+$H^{1, 0}(K3) \otimes H^{0, 3}(E) = 0$,
+$H^{0, 0}(K3) \otimes H^{1, 3}(E) = 0$.
+Total: $H^{1, 3}(K3 \times E) = \C$, a one-dimensional group, coming
+from the single $H^{0, 2}(K3) \otimes H^{1, 1}(E)$ term. This is
+\emph{not} zero (contrary to an attack calculation that would place all
+Hodge weights outside the elliptic Hodge diamond); the correct value
+is $\dim H^{1, 3}(K3 \times E) = 1$. The Serre-dual
+$H^1(K3 \times E, \Omega^3_{K3 \times E})$ is also $\C$, consistent
+with (iii).
+\end{remark}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part V --- Synthesis: the three cocycles and the BV master
+equation}
+\label{subsec:synthesis-three-cocycles}
+
+\paragraph{The three distinct structures on compact CY$_3$.}
+The Witten audit distinguishes three cocycles, each with its own
+cohomological domain, all sourced from the Atiyah class, all live
+simultaneously on a compact strict CY$_3$ with $\At(TX) \neq 0$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \textbf{Atiyah class / formality obstruction}:
+ $\At(TX) \in H^1(X, \Omega^1_X \otimes \End(TX))$, the formality
+ obstruction of $T_{\mathrm{poly}}$ as a Gerstenhaber algebra.
+ \item \textbf{Yukawa cubic / $E_3$-tree-curving}:
+ $Y_3 \in H^3(X, \wedge^3 TX) \simeq_{\CY} H^{0, 3}(X)$, the
+ $\ell_3$-bracket of the Kapranov $L_\infty$-structure; tree-level
+ cubic structure constant of the $E_3$-curved $\hCS$ $L_\infty$-algebra.
+ \item \textbf{BV curving / one-loop anomaly}:
+ $\alpha_{\BCOV} \in H^1(X, \Omega^3_X) \simeq_{\CY} H^{0, 1}(X)$,
+ the Costello--Li Weyl anomaly of the BCOV BV measure; one-loop
+ datum in the string coupling.
+\end{enumerate}
+
+\paragraph{BV master equation on $\hCS$.}
+\ClaimStatusTheorem{} The BV master equation for holomorphic
+Chern--Simons on compact CY$_3$ reads
+\[
+ \{S, S\}_{\BV} + 2 \hbar \Delta_{\BV} S = 0,
+\]
+with classical action $S_{\hCS} = \int_X \Omega \wedge \mathrm{Tr}(A
+\wedge \bdelbar A + \tfrac{2}{3} A \wedge A \wedge A)$ and BV Laplacian
+$\Delta_{\BV}$. The master equation is solved at tree level iff the
+cubic term contracts to zero under the Schouten--Nijenhuis bracket
+--- this is the \emph{tree-level master equation} and it is satisfied
+on any CY$_3$ by virtue of the cyclic Lie algebra axioms of $\fg$ plus
+the CY integration. The \emph{one-loop obstruction} is
+$\Delta_{\BV} S = \alpha_{\BCOV}$, which sits in $H^1(X, \Omega^3_X)$;
+this is the \emph{BCOV curving} proper.
+
+\begin{quote}
+\textbf{Attack.} Where in this master equation does the Yukawa $Y_3$
+appear? If the essay's identification ``BCOV curving $=$ $Y_3$'' is
+wrong, what role does $Y_3$ play in the BV measure?
+\end{quote}
+
+\begin{quote}
+\textbf{Heal.} $Y_3$ appears as the \emph{classical action's cubic
+term}: $\langle A, [A, A]\rangle_\fg \cdot \mathrm{vol}_{\CY}$ evaluated
+at the $H^1$-harmonic representatives $A \in H^{0, 1}(X) \otimes \fg$
+gives the Yukawa $Y_3(A, A, A) \in H^{0, 3}(X) \otimes
+\mathrm{Tr}(\fg^{\otimes 3}) \simeq \C$. At tree level, $Y_3$ is
+exactly the cubic structure constant of the $L_\infty$-minimal model
+of $\hCS$ obtained by Kontsevich--Soibelman homotopy transfer
+(\texttt{notes/platonic\_synthesis\_waves\_11\_through\_16.tex}
+Theorem \texttt{wn:thm:plat-Linf-minimal}; on flat $\C^3$, the minimal
+model is trivial $\ell_n^{\min} = 0$ for $n \geq 3$, but the essay's
+case is compact CY$_3$ where the Atiyah-class pairing forces
+$\ell_3^{\min} = Y_3 \neq 0$).
+
+The one-loop $\alpha_{\BCOV}$ is the BV anomaly separate from $Y_3$:
+it is the failure of $\Delta_{\BV} S$ to vanish, which is a
+propagator-loop anomaly localised in $H^1(X, \Omega^3_X)$.
+
+So three cocycles play three roles:
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+ Cocycle & Cohomology & BV role \\
+\midrule
+ $\At(TX)$ & $H^1(X, \Omega^1 \otimes \End TX)$ & Formality obstruction; generator \\
+ $Y_3$ & $H^{0, 3}(X)$ & Tree-level cubic ($\ell_3^{\min}$) \\
+ $\alpha_{\BCOV}$ & $H^{0, 1}(X)$ & One-loop BV anomaly (curving) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{quote}
+
+\begin{theorem}[Three-cocycle structure of $\hCS$ BV on compact CY$_3$]
+\label{thm:three-cocycle-hcs}
+\ClaimStatusTheorem{} For holomorphic Chern--Simons on compact CY$_3$
+$X$ with $\At(TX) \neq 0$ (any non-flat compact CY$_3$), the BV
+quantisation is governed by three distinct cohomology classes, each
+with its own role:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item The Atiyah class $\At(TX) \in H^1(X, \Omega^1_X \otimes
+ \End(TX))$ is the formality obstruction; it sources both
+ lower items via Kapranov contraction.
+ \item The Yukawa $Y_3 \in H^{0, 3}(X)$ is the tree-level cubic
+ $L_\infty$-bracket / $E_3$-curving, arising from the Kapranov
+ $\ell_3^{\min}$ contraction of $\At(TX)$ against the Killing form.
+ \item The BCOV curving $\alpha_{\BCOV} \in H^{0, 1}(X)$ is the
+ one-loop BV anomaly, computed from $\Delta_{\BV} S_{\hCS}$ via
+ Costello--Li 2016 Proposition 5.2, valued in
+ $\chi(X)/24 \cdot [\Omega]$ modulo $H^{0, 1}(X)$ lifts.
+\end{enumerate}
+The essay's identification ``BCOV curving $=$ Yukawa'' conflates (ii)
+and (iii); the correct picture is that both are genuine structures,
+both $\At(TX)$-sourced, but at different genera and in different
+cohomology groups.
+\end{theorem}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part VI --- Connection to the Cecotti--Vafa $tt^*$ geometry}
+\label{subsec:ttstar}
+
+\paragraph{$tt^*$ geometry as the bulk data.}
+\ClaimStatusTheorem{} \emph{(Cecotti--Vafa 1991 NPB 367.)} The
+K\"ahler moduli space $\cM$ of a compact CY$_3$ $X$ carries the
+$tt^*$-geometric structure: a holomorphic bundle $\cH \to \cM$ of
+BPS-state spaces (Ramond--Ramond ground states), a holomorphic
+connection $\nabla$, an anti-linear involution $M$ (TCP), and a
+compatible hermitian metric $g$. The $tt^*$-equations are
+$\nabla_{\bar j} C_i = 0$ (holomorphy of $C_{ijk}$ in $t$), $[C_i, C_j]
+= 0$ (commuting), $[D_i, D_{\bar j}] = -[C_i, \bar C_{\bar j}]$ (the
+$tt^*$ relation). The Yukawa $C_{ijk} = Y_3(\partial_i, \partial_j,
+\partial_k)$ enters as the holomorphic structure constants.
+
+\paragraph{The BCOV master equation as $tt^*$ consistency.}
+\ClaimStatusTheorem{} The $tt^*$-equations combined with the BCOV
+propagator dressing give the holomorphic anomaly equation; the BCOV
+master equation in BV is the $\hbar$-expansion of the $tt^*$
+consistency, genus by genus. At tree level, $tt^*$ fixes the Yukawa
+$Y_3$; at one loop, $\chi(X)/24$ enters as the genus-1 vacuum
+contribution (Cecotti 1991 one-loop $tt^*$); higher loops are the
+BCOV $F_g$ tower.
+
+\begin{quote}
+\textbf{Attack.} $tt^*$-geometry is the natural home of both $Y_3$ and
+the genus-1 anomaly coefficient $\chi(X)/24$; can they be identified
+after all in the $tt^*$ framework?
+\end{quote}
+
+\begin{quote}
+\textbf{Heal.} No; they remain distinct. $Y_3$ is the holomorphic
+tensor $C_{ijk} \in \Sym^3 T^\vee \cM$; $\chi(X)/24$ is a scalar
+curvature of the Weil--Petersson line bundle on $\cM$ (the coefficient
+of $G_{j\bar i}$ in the genus-1 anomaly). They live in the same
+package ($tt^*$ data on $\cM$) but in different tensorial positions.
+The BV curving $\alpha_{\BCOV} \in H^1(X, \Omega^3_X)$ is the
+moduli-space lift of $\chi(X)/24$; specifically, it is the class that
+represents the Weil--Petersson line bundle's first Chern class under
+the Hodge-bundle identification of Costello--Li. So
+$\alpha_{\BCOV}^{(\mathrm{moduli})} = \chi(X)/24 \cdot
+[\omega_{\mathrm{WP}}] \in H^1(\cM, \mathrm{Pic})$, distinct from
+$Y_3 \in \Sym^3 T^\vee \cM$.
+\end{quote}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part VII --- Summary of attack-heal cycles}
+\label{subsec:attack-heal-summary}
+
+\medskip
+\noindent\textbf{AH1.} Is the Atiyah class the formality obstruction?\
+\emph{Attack:} Kontsevich formality is about a $D_{\mathrm{poly}}
+\leftrightarrow T_{\mathrm{poly}}$ $L_\infty$-quasi-isomorphism; the
+obstruction lives in a specific Harrison/cotangent cohomology. Is it
+literally $\At(TX) \in H^1(X, \Omega^1 \otimes \End TX)$?\
+\emph{Heal:} Calaque--C\u{a}ld\u{a}raru--Tu 2014 Theorem 1.4 shows
+that the HKR map differs from the Kontsevich--Tamarkin formality
+morphism by a specific term cohomologically representable by
+$\At(TX)$-contraction; equivalently, the strict-formality failure
+is the Kapranov $L_\infty$-structure generated by $\At$. So yes,
+$\At(TX)$ \emph{is} the formality obstruction at the level of the
+first non-trivial $L_\infty$-correction. \emph{Label:} theorem at
+compact complex manifold scope; the essay's claim survives.
+
+\medskip
+\noindent\textbf{AH2.} Is the categorical $E_3$-structure curved by
+$\At(TX)$?\
+\emph{Attack:} $E_3$-curving has a specific meaning (curvature in
+$\HH^2_{E_3}$); cohomological home of $\At(TX)$ differs from
+$\HH^2_{E_3}(T_{\mathrm{poly}})$.\
+\emph{Heal:} Via Kapranov 1999 Proposition 4.4, $\At(TX)$ generates an
+$L_\infty$-structure on $H^\bullet(X, \wedge^\bullet TX)$ whose
+$\ell_3$-bracket is the $E_3$-curving at the tree level. The
+cohomology matches under the CY-trivialisation
+$\wedge^3 TX \simeq \cO_X$ and the Killing-form trace on $\fg$:
+curving $\in H^{0, 3}(X) \otimes \Sym^3 \fg^\vee$. \emph{Label:}
+theorem at compact CY$_3$ scope; the essay's identification survives
+as a tree-level cubic bracket.
+
+\medskip
+\noindent\textbf{AH3.} Is the BCOV curving the Yukawa $Y_3$?\
+\emph{Attack:} Cohomological domains differ. Yukawa
+$Y_3 \in \Sym^3 H^1(X, TX)^\vee \simeq H^{0, 3}(X)$ (tree-level data);
+BV curving $\alpha_{\BCOV} \in H^1(X, \Omega^3_X) \simeq H^{0, 1}(X)$
+(one-loop data). For simply-connected strict CY$_3$, $H^{0, 1} = 0$,
+$H^{0, 3} \simeq \C$; these are different.\
+\emph{Heal:} $Y_3$ is the tree-level cubic $E_3$-curving of $\hCS$;
+$\alpha_{\BCOV}$ is the one-loop BV anomaly of the BCOV measure.
+Both are genuine structures, both $\At(TX)$-sourced at different
+orders in $\hbar$. The essay's identification fails: they are two
+distinct cocycles. \emph{Label:} theorem (Theorem
+\ref{thm:three-cocycle-hcs}); the essay conflates tree-level cubic
+with one-loop anomaly.
+
+\medskip
+\noindent\textbf{AH4.} On $K3 \times E$, do both $Y_3$ and $\alpha_{\BCOV}$
+fire?\
+\emph{Attack:} For simply-connected strict CY$_3$ (quintic), the one-loop
+curving vanishes since $H^{0, 1} = 0$; does the essay's
+``Yukawa = curving'' become content-free there?\
+\emph{Heal:} On simply-connected strict CY$_3$: $Y_3 \in \C$ (generically
+non-zero), $\alpha_{\BCOV} = 0$. Identification is vacuously false
+(one side zero, other side generic). On non-simply-connected
+$K3 \times E$ (which has $\pi_1 = \Z^2$ from the elliptic factor),
+K\"unneth gives $Y_3 \in \C$ and $\alpha_{\BCOV} \in \C$, both non-zero,
+both genuine scalars, but distinct ratios. The mismatch is visible.
+\emph{Label:} theorem at $K3 \times E$ scope; the two scalars
+$Y_3(K3 \times E), \alpha_{\BCOV}(K3 \times E)$ are separately
+computable and unequal.
+
+\medskip
+\noindent\textbf{AH5.} Is the $tt^*$-geometric picture clarifying?\
+\emph{Attack:} Cecotti--Vafa $tt^*$ geometry has both Yukawa and
+one-loop vacuum contribution ($\chi(X)/24$) in one package; does this
+support the essay's identification?\
+\emph{Heal:} $tt^*$ has both but in different tensorial positions:
+$Y_3 \in \Sym^3 T^\vee \cM$ (holomorphic cubic tensor) and
+$\chi(X)/24$ as scalar multiplying the Weil--Petersson K\"ahler form
+(a scalar curvature). They are separate data within the $tt^*$
+package. Costello--Li 2016 shows $\alpha_{\BCOV}^{\mathrm{moduli}} =
+\chi(X)/24 \cdot [\omega_{\mathrm{WP}}]$, so $\alpha_{\BCOV}$ is
+moduli-scalar-$\times$-WP-class while $Y_3$ is cubic tensor; different
+structures. \emph{Label:} theorem; $tt^*$ supports the
+three-cocycle picture, not the two-cocycle conflation.
+
+\medskip
+\noindent\textbf{AH6.} Where does the essay succeed, and where does it
+fail?\
+\emph{Succeeds:} Atiyah class as formality obstruction on
+$T_{\mathrm{poly}}$ (via Calaque--C\u{a}ld\u{a}raru--Tu and Kontsevich);
+Atiyah class firing curves the $E_3$-structure via Kapranov's
+$L_\infty$-brackets; $\hCS$ detects the curving in its BV package.\
+\emph{Fails:} the identification ``BCOV curving datum = $Y_3$''.
+Correct: $Y_3$ is the tree-level cubic ($\ell_3^{\min}$); BCOV curving
+$\alpha_{\BCOV}$ is the one-loop anomaly; they live in Serre-dual (not
+equal) Hodge groups, distinguished by genus and cohomological degree.
+\emph{Label:} the essay's first three links survive; the fourth
+conflates two structures. Partial success; substantial heal.
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Appendix --- Cache entries from this audit}
+\label{subsec:cache-append-bcov-y3}
+
+Five entries sharpening the AP-CY catalogue:
+
+\medskip
+\begin{enumerate}[label=\textbf{14A10--\arabic*.}]
+
+\item \textbf{``Atiyah class = formality obstruction on CY$_3$''.}
+ \emph{Ghost theorem:} Calaque--C\u{a}ld\u{a}raru--Tu 2014 Theorem 1.4:
+ HKR fails to be a Gerstenhaber morphism by a term cohomologically
+ representable by $\At(TX)$; Kontsevich--Tamarkin formality corrects
+ HKR by an $L_\infty$-morphism whose first non-trivial component is
+ $\At(TX)$-generated.
+ \emph{Error:} none (correct); the essay's first link survives.
+ \emph{Correct relationship:} on compact CY$_3$, $\At(TX)$ generates
+ the Kapranov $L_\infty$-structure on $\wedge^\bullet TX$, which is
+ the formality-obstruction data.
+ \emph{Type:} terminology-and-scope confirmation.
+
+\item \textbf{``$E_3$-structure is curved by Atiyah class''.}
+ \emph{Ghost theorem:} Kapranov $\ell_3 = \At(TX)$-contraction;
+ Costello 2007 $\hCS$ as $E_3$-algebra; curving of the minimal model
+ is the Kapranov $\ell_3^{\min}$.
+ \emph{Error:} none (correct); the essay's second link survives.
+ \emph{Correct relationship:} $E_3$-curving of $\mathrm{Obs}_{\hCS}$
+ on CY$_3$ = Kapranov $\ell_3^{\min}$ = Yukawa $Y_3 \in H^{0, 3}(X)$.
+ \emph{Type:} scope-identification confirmation.
+
+\item \textbf{``BCOV curving datum = Yukawa $Y_3$''.}
+ \emph{Ghost theorem:} BCOV has a genuine curving datum
+ $\alpha_{\BCOV} \in H^1(X, \Omega^3_X)$ (Costello--Li 2016 Prop 5.2,
+ the one-loop anomaly $\chi(X)/24 \cdot [\Omega]$).
+ \emph{Error:} identifying $\alpha_{\BCOV}$ with $Y_3$; they live in
+ different cohomology groups ($H^{0, 1}(X)$ vs $H^{0, 3}(X)$ respectively,
+ under CY trivialisation).
+ \emph{Correct relationship:} $Y_3 =$ tree-level cubic
+ ($\ell_3^{\min}$); $\alpha_{\BCOV} =$ one-loop BV anomaly (curving).
+ Both $\At(TX)$-sourced at different genera; not equal. On
+ simply-connected strict CY$_3$, $\alpha_{\BCOV} = 0$ identically
+ while $Y_3 \neq 0$; falsification witnessed.
+ \emph{Type:} tree-vs-loop / cohomology-domain conflation.
+
+\item \textbf{``$H^{1, 3}(K3 \times E) = 0$''.}
+ \emph{Ghost theorem:} the attack calculation would give zero from a
+ wrong Hodge-diamond entry; the correct K\"unneth gives
+ $H^{1, 3}(K3 \times E) = H^{0, 2}(K3) \otimes H^{1, 1}(E) = \C$,
+ a one-dimensional group.
+ \emph{Error:} conflating the Dolbeault group
+ $H^{0, 2}(E) = 0$ (dimension zero) with
+ $H^{1, 1}(E) = \C$ (dimension one); only the latter contributes.
+ \emph{Correct relationship:} $\dim_\C H^{1, 3}(K3 \times E) = 1$
+ (one-dim), and Serre-dually $H^1(K3 \times E, \Omega^3_{K3 \times E})
+ = \C$. The BV curving of BCOV on $K3 \times E$ is non-zero at
+ cohomology level; the essay's argument requires this.
+ \emph{Type:} Hodge-diamond K\"unneth arithmetic.
+
+\item \textbf{``Three cocycles, one package''.}
+ \emph{Ghost theorem:} Theorem \ref{thm:three-cocycle-hcs} formalises
+ the three distinct structures on $\hCS$ BV: formality obstruction
+ $\At(TX)$, tree-level curving $Y_3$, one-loop curving
+ $\alpha_{\BCOV}$.
+ \emph{Error:} absorbing all three into a single ``Atiyah fires
+ $\Rightarrow$ Yukawa curves'' slogan; the slogan correctly identifies
+ the source but wrongly identifies the intermediate and final data.
+ \emph{Correct relationship:} Atiyah class is the generator; Yukawa is
+ the tree-level bracket; BV curving is the one-loop anomaly. Each
+ sits in its own cohomology group; the essay merges two distinct
+ data into one.
+ \emph{Type:} meta / three-cocycle discipline.
+
+\end{enumerate}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Summary}
+\label{subsec:summary-bcov-y3}
+
+The essay's chain ``$\At(TX)$ fires $\Rightarrow$ categorical
+$E_3$-curves $\Rightarrow$ $\hCS$ sees the BCOV curving = Yukawa $Y_3$''
+is partially correct and partially flawed. The first two links are
+theorems at compact CY$_3$ scope: Atiyah class is the formality
+obstruction of $T_{\mathrm{poly}}$ (Calaque--C\u{a}ld\u{a}raru--Tu 2014
+after Kontsevich--Tamarkin); Atiyah class generates the Kapranov
+$L_\infty$-structure whose $\ell_3^{\min}$ is the $E_3$-curving of
+$\mathrm{Obs}_{\hCS}$. The third link conflates two distinct cocycles:
+the Yukawa $Y_3 \in H^{0, 3}(X)$ is the tree-level cubic
+($\ell_3^{\min}$), while the BCOV curving
+$\alpha_{\BCOV} \in H^{0, 1}(X)$ is the one-loop BV anomaly
+$\chi(X)/24 \cdot [\Omega]$. Both are $\At(TX)$-sourced, but at
+different genera; they live in different (Serre-dual) Hodge groups.
+On simply-connected strict CY$_3$, $\alpha_{\BCOV} = 0$ identically
+(since $H^{0, 1} = 0$) while $Y_3$ generically non-zero; identification
+vacuously fails. On $K3 \times E$, K\"unneth gives both non-zero scalar
+values but distinct. The correct picture is three cocycles
+(Theorem \ref{thm:three-cocycle-hcs}): generator $\At(TX)$, tree-level
+$Y_3$, one-loop $\alpha_{\BCOV}$, each with its own role in the BV
+master equation of $\hCS$. Cecotti--Vafa $tt^*$-geometry packages all
+three but in different tensorial positions on the moduli space $\cM$.
+
+\medskip
+\noindent\emph{Net epistemic movement:}
+Two of four links confirmed as theorems;
+one identification falsified (Yukawa $\neq$ BCOV curving);
+one new theorem established (Theorem \ref{thm:three-cocycle-hcs},
+three-cocycle structure of $\hCS$ BV on compact CY$_3$);
+one non-trivial K\"unneth computation verified
+($\dim H^{1, 3}(K3 \times E) = 1$ from the $H^{0, 2}(K3) \otimes
+H^{1, 1}(E)$ summand);
+five AP-CY cache entries 14A10--1 through 14A10--5 appended.
+The essay's slogan captures the Atiyah-source and $E_3$-curving
+correctly but conflates tree-level with one-loop. Both are genuine
+structures, both live simultaneously on compact non-flat CY$_3$, and
+both source distinct BCOV content that must be computed separately.

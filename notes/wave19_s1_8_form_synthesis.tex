@@ -1,0 +1,197 @@
+% =====================================================================
+% Wave-19 S1/20 (relaunch after rate-limit). Drinfeld voice.
+% Cross-form synthesis across the eight Gritsenko-Clery paramodular
+% diagonal-divisor forms, indexed by N in {1,...,8}. Consolidates
+% W1-W2 (N=1), X1-X4 (N=2,3), Y1-Y4 (N=4,6), Z1-Z4 (N=5,7,8).
+% Subscripted kappa only. \providecommand macros. No AI attribution.
+%
+% Primary sources:
+%   Gritsenko--Clery 2008 arXiv:0812.3962 Thm 1.1 (eight-form census);
+%   Gritsenko--Nikulin 1998 arXiv:alg-geom/9504006 Part II Thm 2.1 (BKM);
+%   Borcherds 1998 Invent. Math. 132 Thm 13.3 (singular theta);
+%   Borcherds 1995 Invent. Math. 120 Thm 10.1 (multiplicative lift);
+%   Nikulin 1980 Trudy Mosk. Mat. Obs. 38 Thm 4.5 (admissible orders);
+%   Mukai 1988 Invent. Math. 94 (Mathieu/Niemeier attachments);
+%   Cheng--Duncan--Harvey 2014 arXiv:1307.5793 Table 2 (twined genera);
+%   Bryan--Oberdieck 2018 arXiv:1811.06102 (CHL CY3 DT/Siegel);
+%   Oberdieck 2018 Duke 167:3045 (Igusa cusp form, N=1);
+%   Davison--Meinhardt 2020 arXiv:1512.08898 (BPS Lie / CoHA);
+%   Borcea 1997 + Voisin 1993 (K3 x E involution resolution, N=5);
+%   Lorgat 2020 (Conjecture 1, full eight-form pairing).
+%
+% Author: Raeez Lorgat. Inscribed 2026-04-22.
+% =====================================================================
+
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
+\providecommand{\ClaimStatusDegenerate}{\textbf{[Degenerate]}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Mp}{\mathrm{Mp}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\BPS}{\mathrm{BPS}}
+\providecommand{\BKM}{\mathrm{BKM}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Yplus}{Y^{+}}
+\providecommand{\gBPS}{\mathfrak{g}_{\BPS}}
+\providecommand{\Delfnm}[2]{\Delta_{#1}^{(#2)}}
+\providecommand{\gDelfnm}[2]{\mathfrak{g}_{\Delta_{#1}^{(#2)}}}
+
+\section*{Wave-19 S1: the eight-form cross-form synthesis}
+\label{wn:sec:wave19-s1-eight-form-synthesis}
+
+One functor, four corners, eight indices. The Gritsenko--Cl\'ery
+census (GC 2008 Thm~1.1) enumerates eight paramodular cusp forms
+$\Delfnm{k(N)}{N}$ of simplest (diagonal) divisor, one per order
+$N \in \{1,\ldots,8\}$, with weights $k(N) \in \{5,2,1,1,\tfrac12,1,
+\tfrac14,0\}$. The synthesis below assembles the four-corner grammar
+--- geometry / CoHA / BPS / automorphic --- uniformly across all
+eight, stratified by three axes (geometric, automorphic, algebraic)
+and organised around the universal identity
+$\kBKM(\Phi_N) = c_N(0)/2$ (Borcherds 1998 Thm~13.3).
+
+\subsection*{Five attack--heal cycles}
+
+\emph{Cycle~1 (status matrix).} Collating W1-W2 ($N=1$), X1-X4
+($N=2,3$), Y1-Y4 ($N=4,6$), Z1-Z4 ($N=5,7,8$) into a single row-per-$N$
+inventory:
+\[
+\begin{array}{c|cccc|ccc|c}
+N & \text{host CY$_3$} & k(N) & c_N(0) & \kBKM &
+    \text{geom} & \text{CoHA} & \text{BPS} & \text{aut}\\\hline
+1 & K3\times E & 5 & 10 & 5 &
+   \text{Thm} & \text{Thm} & \text{Thm}^{\ast} & \text{Thm}\\
+2 & (K3\times E)/\Z_2\text{-CHL} & 2 & 4 & 2 &
+   \text{Thm} & \text{Thm}^{\ast} & \text{Conj} & \text{Thm}\\
+3 & (K3\times E)/\Z_3\text{-CHL} & 1 & 2 & 1 &
+   \text{Thm} & \text{Thm}^{\ast} & \text{Conj} & \text{Thm}\\
+4 & (K3\times E)/\Z_4\text{-CHL} & 1 & 2 & 1 &
+   \text{Thm} & \text{Thm}^{\ast} & \text{Conj} & \text{Thm}\\
+5 & X_5^{\mathrm{BV}} & \tfrac12 & 1 & \tfrac12 &
+   \text{Thm} & \text{Conj} & \text{Conj} & \text{Conj}\\
+6 & (K3\times E)/\Z_6\text{-CHL} & 1 & 2 & 1 &
+   \text{Thm} & \text{Thm}^{\ast} & \text{Conj} & \text{Thm}\\
+7 & \mu_4\text{-gerbe}/X_7 & \tfrac14 & \tfrac12 & \tfrac14 &
+   \text{Conj} & \text{Conj} & \text{Conj} & \text{Conj}\\
+8 & \text{abelian limit} & 0 & 0 & 0 &
+   \text{Degen} & \text{Degen} & \text{Degen} & \text{Degen}
+\end{array}
+\]
+Asterisks: primitive-$K3$ scope at $N=1$ (Oberdieck--Pixton 2017
+primitive Thm~1 + Pandharipande--Thomas 2014 KKV integrality);
+Davison--Meinhardt BPS Lie identification $\gBPS(X)\cong
+\gDelfnm{k(N)}{N}$ at graded-dimension level theorem for
+$N\in\{1,2,3,4,6\}$, at bracket level conjectural (AP-CY34: cyclic
+invariance of $[m_3,B^{(2)}]$ unresolved).
+
+\emph{Cycle~2 ($N=1$ theorem; $N\in\{2,3,4,6\}$ CHL conditional;
+$N\in\{5,7,8\}$ non-CHL conjectural).} The $N=1$ four-corner
+identification (Theorem~\ref{wn:thm:N1-four-corner} of W2) is
+unconditional on all four corners at primitive $K3$-classes; the
+bracket-level BPS$\cong$BKM isomorphism remains conjectural at all
+$N$. For $N\in\{2,3,4,6\}$, Bryan--Oberdieck 2018 Conj.~0.1
+$Z^{\mathrm{red}}_{\DT}(X_N) = -1/\Phi_N^{(N)}$ is proved at primitive
+square $\in\{-2,0\}$ only; the full denominator-identity-level
+identification of $\fg^{(N)}_{\BPS}$ with the Gritsenko--Cl\'ery
+BKM is conjectural away from primitive base cases. For
+$N\in\{5,7,8\}$ the CHL admissibility $\varphi(N)\mid 2$ fails
+($\varphi(5)=\varphi(8)=4$, $\varphi(7)=6$), the joint-diagonal
+$\Z/N$-action on $K3\times E$ does not exist, and the host CY$_3$
+is not a CHL quotient at all: at $N=5$ the Borcea--Voisin threefold
+$X_5^{\mathrm{BV}} = (S_5\times E_5)/(\iota_S\times\iota_E)$ with
+$\Z/5$ acting only on the K3 factor (Z1); at $N=7$ an order-$4$
+$\mu_4$-gerbe over the singular $Y_7=(K3\times E)/(\Z/7)$ with
+three $\C^3/(\Z/7)$ McKay points (Z2); at $N=8$ the degenerate
+limit where $\Delfnm{0}{8}$ is a weight-$0$ modular function and the
+superalgebra $\gDelfnm{0}{8}$ reduces to an abelian lattice algebra
+with all root multiplicities on the Weyl-chamber boundary (Wave-16
+V4 Cycle~3).
+
+\emph{Cycle~3 (universal identity $\kBKM(\Phi_N) = c_N(0)/2$).}
+Borcherds' singular-theta-lift weight formula (Borcherds 1998
+Thm~13.3) reads the weight of the lift directly from the
+$(q^0\zeta^0)$-Fourier coefficient of the weak Jacobi input:
+$\wt(\mathrm{Bor}(\psi_{0,N})) = \psi_{0,N}(q^0\zeta^0)/2$. Applied
+to the eight-form simple-diagonal inputs $\psi_{k(N),N}^{\mathrm{EZ}}$
+of GC~2008 Thm~1.1, this gives
+$\kBKM(\Delfnm{k(N)}{N}) = c_N(0)/2$ uniformly: the numeric pairs
+$(c_N(0), \kBKM) = (10,5), (4,2), (2,1), (2,1), (1,\tfrac12),
+(2,1), (\tfrac12,\tfrac14), (0,0)$ hold as Borcherds-weight
+identities at all eight $N$, including the metaplectic half-integer
+case $N=5$ (on $\Mp_4(\Z)$) and the spin-double-cover quarter-integer
+case $N=7$ (on the $2\Z$-graded Freitag--Hermann 1985 \S II.5 cover).
+The interpretation as the weight of a BKM-denominator identity
+survives only on $N\in\{1,2,3,4,6\}$; at $N\in\{5,7,8\}$ the
+$\gDelfnm{k(N)}{N}$ construction leaves the GN~1998 Part~II framework
+(metaplectic / quarter-cover / abelian-degenerate).
+
+\emph{Cycle~4 (three axes).} The eight rows stratify along three
+orthogonal axes, each recording a distinct obstruction.
+\begin{itemize}[leftmargin=1.8em]
+\item \emph{Geometric axis (CY$_3$ vs CY$_4$).} $N\in\{1,2,3,4,6\}$:
+host is a smooth CHL CY$_3$ with reduced DT moduli supplying the
+chain-level Borcherds product. $N=5$: host is the Borcea--Voisin
+CY$_3$ --- still dimension three, but a mirror-involution quotient
+rather than a cyclic-order-$N$ quotient, and the DT zeta enters as
+a fourth root $(\mathsf{Z}^{X_5^{\mathrm{BV}}})^{-1/4} = \Delfnm{1/2}{5}$
+(Z1). $N=7$: host is an order-$4$ gerbe on a singular quotient,
+not a smooth CY$_3$ at all; the positive-half is twisted $K$-theoretic
+(Mathai--Murray--Stevenson 2002 Thm~1.2). $N=8$: host degenerates
+to an abelian limit outside the CY$_3$ / CY$_4$ geometric category.
+\item \emph{Automorphic axis (integer / half-integer / quarter-integer
+/ degenerate).} Weights $k(N)\in\{5,2,1,1\}$ at $N\in\{1,2,3,4\}$:
+integer weights on $\Sp_4(\Z)$ paramodular subgroups; $k(6)=1$ likewise.
+$k(5)=\tfrac12$: half-integer, $\Mp_4(\Z)$ metaplectic.
+$k(7)=\tfrac14$: quarter-integer, spin-double-cover of $\Mp_4(\Z)$.
+$k(8)=0$: degenerate (Siegel modular function). The case cluster
+$\{1,2,3,5,7\}$ of slide line 943 reflects the cyclotomic uniformity
+at prime-power $N$ with $\gcd(r,N)$-decomposition through a single
+divisor pattern; $\{4\}, \{6\}, \{8\}$ each require composite-order
+orbit sums.
+\item \emph{Algebraic axis (Kac--Moody / superalgebra / abelian).}
+$N=1$: rank-$3$ generalised Kac--Moody superalgebra $\gDelfnm{5}{1}$
+(Gritsenko--Nikulin 1998 Thm~1.1). $N\in\{2,3,4,6\}$:
+Kac--Moody superalgebras $\gDelfnm{k(N)}{N}$ on rank-$3$ paramodular
+lattices of level $N$ with $\Z/N$-twisted simple-root data
+(Gritsenko--Nikulin 1995 Part~II Thm~2.1). $N\in\{5,7\}$: the
+``superalgebra'' is on a metaplectic / spin cover with half-integer /
+quarter-integer imaginary-simple-root multiplicities, outside the
+GN~1998 framework. $N=8$: the algebra reduces to an abelian lattice
+algebra (all real-simple-root sets empty, all positive-root
+multiplicities zero outside the Weyl interior).
+\end{itemize}
+
+\emph{Cycle~5 (residual frontier).} Three open problems close the
+eight-form picture. (a) \emph{Bracket-level BPS$\cong$BKM at
+$N\in\{2,3,4,6\}$.} Davison--Meinhardt gives the Lie-algebra
+structure on $\gBPS$; Gritsenko--Nikulin gives the BKM structure on
+$\gDelfnm{k(N)}{N}$. Matching brackets (not just graded dimensions)
+requires closing AP-CY34 at general $N$, for which the Wave-18 F3
+twisted cyclic invariance of Costello TCFT is a candidate input
+(Kontsevich--Soibelman 2008 motivic Hall variant). (b) \emph{Non-CHL
+chiral-side $\Phi_N$ at $N\in\{5,7,8\}$.} The $\Phi$-functor output
+at $N=5$ should be an $E_2$-chiral algebra on the Borcea--Voisin
+$X_5^{\mathrm{BV}}$ with metaplectic character; at $N=7$ an
+$E_2$-chiral gerbe module on the $\mu_4$-twisted sector; at $N=8$ the
+abelian chiral limit of a free-field realisation. None is constructed
+(Z1-Z2, W16 V4). (c) \emph{Harvey--Moore BPS $=\mathfrak{g}_{\BKM}$
+conjecture at non-primitive classes, $N\in\{2,3,4,6\}$.} The
+Bryan--Oberdieck 2018 primitive base case extends to arbitrary
+$K3$-fibre degree only under the Wave-11 W1 $\dim S_{k(N)}
+(\Gamma^{\mathrm{para}}_N,\nu_{k(N)}) = 1$ dimension formula;
+verified at $N=1$ (Igusa 1964, Wave-13 F3 Hole-1), open at
+$N\in\{2,3,4,6\}$.
+
+\paragraph{Reading paths.}
+N=1 anchors the table (W2). The CHL cluster $\{2,3,4,6\}$ shares
+the Bryan--Oberdieck 2018 grammar (X1, X3 + sibling X4/Y2).
+Non-CHL $\{5,7,8\}$ requires new geometry per row (Z1 Borcea--Voisin,
+Z2 gerbe, Wave-16 V4 abelian degeneration). The universal
+$\kBKM = c_N(0)/2$ threads all eight.

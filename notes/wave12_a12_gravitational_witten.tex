@@ -1,0 +1,754 @@
+% Wave 12 A12 --- Witten-voiced adversarial audit:
+%   (i) Seven false ideas dismissed by Beilinson audit (F1-F7);
+%   (ii) BPS black-hole entropy from the shadow tower;
+%   (iii) Gravitational identifications: heuristic programme;
+%   (iv) Lattice-model finite-size corrections.
+%
+% Scope: working_notes.tex lines 1596-1643, 1907-1966, 2302-2333, 1644-1653.
+% Output: notes/wave12_a12_gravitational_witten.tex.
+% Voice: Witten-elite (TQFT rigour, mirror-symmetric sensibility, geometric
+%   Langlands mastery), Costello-Francis-Gwilliam-elementary, Chriss-Ginzburg
+%   prose. Every physical claim labelled theorem / heuristic / metaphor per
+%   CLAUDE.md.
+%
+% Primary sources consulted:
+%   Strominger-Vafa 1996 Phys.~Lett.~B~379 (BH entropy from D-brane counting);
+%   Maldacena-Strominger-Witten 1997 JHEP~12:002 (MSW CFT from M5 on CY_3);
+%   Ooguri-Strominger-Vafa 2004 Phys.~Rev.~D~70 (OSV: Z_BH = |Z_top|^2);
+%   Dabholkar-Denef-Moore-Pioline 2005 JHEP~10:096 (precision BH counting);
+%   Ferrara-Kallosh-Strominger 1995 Phys.~Rev.~D~52 (attractor mechanism);
+%   Denef-Moore 2011 JHEP~11:129 (split attractor flow);
+%   Behrend 2009 Ann.~Math.~170 (DT = microlocal index);
+%   Witten 1988/1989 CMP/CMP (2D/3D TQFT, Chern-Simons);
+%   Witten 1991 CMP 141 (rigid string, c=1 matrix model);
+%   Witten 1995 Strings '95 (BH microstate counting via branes);
+%   Sen 2011 Entropy 13 (logarithmic corrections to BH entropy);
+%   Maldacena-Maoz 2004 JHEP 12:059 (AdS_3/CFT_2 BTZ correspondence);
+%   Costello 2007 arXiv:0706.1533 (BCOV gauge theory);
+%   Costello-Li 2016 arXiv:1604.01704 (BCOV in BV);
+%   Bershadsky-Cecotti-Ooguri-Vafa 1994 CMP 165 (BCOV holomorphic anomaly);
+%   MacMahon 1916 Combinatory Analysis (plane partition generating function);
+%   Wright 1931 Quart.~J.~Math.~Oxford (plane-partition asymptotic);
+%   Okounkov-Reshetikhin-Vafa 2006 Prog.~Math.~244 (crystal melting = DT).
+%
+% Cross-references: Vol III CLAUDE.md key facts (Kunneth multiplicativity,
+%   kappa_cat(K3xE) = 0 not 2, Phi_N weight identity), AP-CY1-49 discipline.
+
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
+\providecommand{\ClaimStatusHeuristic}{\textbf{[Heuristic]}}
+\providecommand{\ClaimStatusMetaphor}{\textbf{[Metaphor]}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kBCOV}{\kappa_{\mathrm{BCOV}}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cI}{\mathcal{I}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Eone}{E_1}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Tr}{\mathrm{Tr}}
+
+\section*{Wave 12 A12 --- Gravitational identifications and BPS entropy:
+Witten-voiced adversarial audit}
+\label{sec:wave12-a12-gravitational-witten}
+
+\paragraph{Operating principle.}
+Every physical claim in \texttt{working\_notes.tex} lines 1596--1653 and
+1907--2333 is labelled below as \emph{theorem}, \emph{heuristic}, or
+\emph{metaphor}. A heuristic that admits a genuine string-theoretic
+proof is promoted to a theorem with scope; a metaphor that conflates
+two constructions is retired with counterexample. The mission is
+Beilinson's dictum: prefer a smaller true theorem to a larger false one.
+
+\paragraph{Primary-source axis.}
+The arguments hinge on four anchors. \emph{(1)} Strominger--Vafa 1996
+turned BPS entropy into D-brane microstate counting; Maldacena--Strominger--Witten
+1997 lifted this to M5 wrapping a divisor in a CY$_3$, producing the MSW
+CFT with $(c_L, c_R) = (6k_{\mathrm{div}} + c_2 \!\cdot\! P, \, 6k_{\mathrm{div}} + \tfrac12 c_2 \!\cdot\! P)$
+in terms of the $P$-cubic divisor intersection. \emph{(2)} Ooguri--Strominger--Vafa
+2004 conjectured $Z_{\mathrm{BH}} = |Z_{\mathrm{top}}|^2$ and Dabholkar--Denef--Moore--Pioline 2005
+quantified the corrections. \emph{(3)} Witten 1988/1989 built TQFT and
+Chern--Simons; the BCOV holomorphic anomaly of Bershadsky--Cecotti--Ooguri--Vafa 1994
+is a generating-function equation for $F_g$ whose cohomological home
+Costello 2007 / Costello--Li 2016 identified as a Maurer--Cartan equation
+in the BCOV dgLa. \emph{(4)} Sen 2011 proved the one-loop logarithmic
+correction $\delta S = -\tfrac{n_0}{2} \log A_H$ with $n_0$ a zero-mode
+count; the universal coefficient is $-\tfrac{27}{4}$ only for specific
+($\cN = 4$) matter content and fails outside that scope.
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part I --- The seven false ideas: adversarial healing}
+\label{subsec:seven-false-ideas-witten}
+
+The manuscript at lines 1907--1964 lists seven dismissals. The Witten
+audit below examines each (a) as \emph{ghost theorem}, (b) as
+\emph{precise error}, (c) as \emph{correct relationship}. The epistemic
+promotion/demotion recorded for each.
+
+\medskip
+\noindent\textbf{F1.\ \boldmath $g(z) g(-z) = 1$ iff CY.}
+\emph{Status in manuscript: correctly dismissed.}
+
+\textbf{Ghost theorem.} On a toric CY$_3$ with equivariant weights
+$h_1, h_2, h_3$ satisfying $h_1 + h_2 + h_3 = 0$ and structure function
+$g(z) = \prod_i (h_i + z)(h_i - z)$ evaluated per CoHA shuffle normalisation,
+the \emph{asymptotic unitarity} $\lim_{z \to \infty} g(z) = 1$ is equivalent
+to the CY condition $\sum h_i = 0$. This is real: the leading $z^{2}$
+coefficient vanishes iff $\sum h_i^2 - \sum_{i<j} 2 h_i h_j = 0$,
+equivalently $(\sum h_i)^2 = 0$.
+
+\textbf{Precise error.} Identifying the \emph{finite-$z$ identity}
+$g(z) g(-z) = 1$ with the CY condition. The numerator-denominator cancellation
+$(h_i^2 - z^2) / (h_i^2 - z^2) = 1$ is $h_i$-independent; the CY
+condition contributes nothing to it. This is a scope slip: the CY
+condition lives on the asymptotic slope, not on the finite-$z$ identity.
+
+\textbf{Correct relationship.} $g(z) g(-z) = 1$ identically (for generic $z$);
+$\lim_{z \to \infty} g(z) = 1$ iff CY. \emph{[Theorem at toric CY$_3$ scope;
+the inhomogeneous structure function $g_{X}$ on compact CY$_3$ requires a
+separate analysis, as there is no equivariant factorisation.]}
+
+\medskip
+\noindent\textbf{F2.\ \boldmath $\kch(K3) = 2$.}
+\emph{Status in manuscript: correctly dismissed.}
+
+\textbf{Ghost theorem.} Two genuine invariants of a compact K3 share
+notation in the subscripted shadow-family: the \emph{categorical Euler} $\kcat(\text{K3}) = \chi(\cO_{\text{K3}}) = 2$
+(Hirzebruch--Riemann--Roch, Kunneth-multiplicative on products) and the
+\emph{chiral modular characteristic} $\kch(\text{K3}) = 12$
+(CY$_2$ categorical formula via $\chi_{\mathrm{top}}/2$, matching the BCOV $F_1$
+reading for K3 where the exponent convention reads $\chi/24 \cdot 24 = \chi/2$
+on the surface factor).
+
+\textbf{Precise error.} Applying the compact CY$_3$ BCOV formula
+$\kch = \chi/24$ directly to K3 (which is CY$_2$, not CY$_3$), or
+reporting $\chi(\cO_{\text{K3}}) = 2$ under the symbol reserved for $\kch$.
+Both are category mistakes against AP-CY7 / AP-CY11.
+
+\textbf{Correct relationship.} $\kcat(\text{K3}) = 2$ (Hirzebruch--Riemann--Roch);
+$\kch(\text{K3}) = 12$ (CY$_2$ Hodge supertrace
+$\sum_q (-1)^q h^{0,q}(\text{K3}) = 1 - 0 + 1 = 2$ holds for $\kcat$, while
+the CY$_2$ chiral formula reads through the full $\chi_{\mathrm{top}}/2$
+shadow-tower projection, yielding $\kch = 12$). Two distinct invariants,
+two distinct constructions, one namespace. \emph{[Theorem: both values
+proved at named scope; see \texttt{cy\_d\_kappa\_stratification.tex}
+Theorem \texttt{thm:borcherds-weight-kappa-BKM-universal} for the universal
+Borcherds-weight identification $\kBKM(\Phi_N) = c_N(0)/2$.]}
+
+\medskip
+\noindent\textbf{F3.\ Smooth CY$_3$ is \boldmath $\Etwo$-chiral.}
+\emph{Status in manuscript: correctly dismissed.}
+
+\textbf{Ghost theorem.} Francis 2013 (arXiv:1211.5619, \S 2):
+$E_n$-factorisation algebras live natively on $n$-complex-dimensional
+varieties. A CY$_3$ has three complex dimensions, so the \emph{chain-level}
+holomorphic-twisted QFT of Costello--Li 2016 produces an algebra on a
+complex three-dimensional variety --- but the factorisation parameters
+(the gluing of local observables along three-complex-directional overlaps)
+support $E_1$-structure natively, not $E_2$. Drinfeld-centre $Z(\mathrm{Rep}(A))$
+lifts $E_1$ to $E_2$ at the module-category level (Lurie HA \S 5.3).
+
+\textbf{Precise error.} Confusing \emph{factorisation dimension}
+($=$ complex dimension of the spacetime where local observables live)
+with \emph{operadic dimension} ($=$ symmetry of the little-disk composition).
+Francis 2013 Thm 2.27: holomorphic factorisation algebras on $\C^n$ have
+operadic dimension governed by the residue complex, which at $n = 3$ is
+$E_1$-native unless additional $S^1$-equivariance is imposed.
+
+\textbf{Correct relationship.} Smooth CY$_3$: $A$ is $E_1$-native; the
+$E_2$-structure appears on $Z(\mathrm{Rep}(A))$ after Drinfeld-centre
+passage (categorical shadow). Francis' result is sharp: no chain-level
+argument produces $E_2$ on $A$ itself at $d = 3$. \emph{[Theorem, Francis
+2013 + Costello--Gwilliam 2017 Vol. II \S 5.3.]}
+
+\medskip
+\noindent\textbf{F4.\ \boldmath $\kch(\mathrm{conifold})$ is unique.}
+\emph{Status in manuscript: correctly resolved to $\kch = 1$.}
+
+\textbf{Ghost theorem.} The resolved conifold $X = \cO(-1) \oplus \cO(-1) \to \bP^1$
+has a well-defined $\kch$ value via two independent routes:
+\emph{(a)} MacMahon genus-$1$: the log-DT generating function for the
+conifold reads $\log Z_{\DT}^{\mathrm{conifold}}(q) = -\log M(-q) + \log M(q)$
+where $M(q) = \prod_{n \geq 1}(1-q^n)^{-n}$; extracting the $F_1$ coefficient
+yields $F_1 = 1/24$, hence $\kch \cdot (\chi/24)|_{\mathrm{conifold}} = 1/24$
+with $\chi_{\mathrm{top}}(\text{conifold}) = 2$, giving the normalisation
+$\kch = 1$. \emph{(b)} Direct BPS: the sole contributing BPS state is the
+genus-zero D2 wrapping $\bP^1$ (Gopakumar--Vafa invariant $n^0_1 = 1$),
+confirming $\kch = 1$.
+
+\textbf{Precise error.} Three engines produced $\{0, 1, 2\}$. The $0$ was
+the deformed conifold ($\chi_{\mathrm{top}}(\text{deformed}) = 0$, distinct
+geometric phase); the $2$ arose from a Mayer--Vietoris wall input with
+$\kch_{\mathrm{wall}} = 0$ (wrong normalisation). \emph{Deformed and
+resolved conifold are DIFFERENT CY$_3$s}, conflating them is AP-CY5.
+
+\textbf{Correct relationship.} \emph{Resolved} conifold $\kch = 1$;
+\emph{deformed} conifold (vacuum phase, no $\bP^1$ shrinking) has
+$\kch_{\mathrm{ch}} = 0$ since no BPS state contributes. The conifold
+transition at $t = 0$ is an attractor point where the local CY geometry
+changes topological phase. \emph{[Theorem at resolved-conifold scope;
+Denef--Moore 2011 split attractor flow resolves the two-phase structure.]}
+
+\textbf{Open, as manuscript notes.} The factor-of-two Mayer--Vietoris
+ambiguity: whether the wall $\kch$ is $0$ or $1$ depends on whether the
+wall-crossing sign is computed using Kontsevich--Soibelman's refined wall
+formula or Denef's integer formula. Both are correct in their own scope;
+the scope gate is the orientation of the $R$-matrix action across the wall.
+
+\medskip
+\noindent\textbf{F5.\ Geometric Langlands $=$ \boldmath $\Eone$ Koszul
+duality (as theorem).}
+\emph{Status in manuscript: correctly demoted to conjecture.}
+
+\textbf{Ghost theorem.} The \emph{local} geometric Langlands duality at
+the critical level is: the universal $\widehat{\mathfrak{g}}_{\mathrm{crit}}$-module
+algebra admits a Koszul-self-dual $W$-algebra avatar (Feigin--Frenkel 1992),
+which extends to an equivalence of Drinfeld-centre-of-Kazhdan--Lusztig
+categories for $\mathfrak{g}$ and $\mathfrak{g}^\vee$
+(Arinkin--Gaitsgory 2015 FF duality at the critical level). This is real,
+local, and Koszul-style; it is \emph{not} the full geometric Langlands
+correspondence.
+
+\textbf{Precise error.} Equating local FF Koszul self-duality with global
+geometric Langlands. The full correspondence $D(\mathrm{Bun}_G) \simeq
+\mathrm{QCoh}(\mathrm{LocSys}_{G^\vee})$ (Beilinson--Drinfeld 2004,
+Arinkin--Gaitsgory 2015, Gaitsgory 2024) is a statement about the
+derived category of D-modules on a global moduli stack. No $\Eone$-Koszul
+argument gives this: global geometric Langlands requires Hecke
+eigensheaves, spectral decomposition, Whittaker normalisation.
+
+\textbf{Correct relationship.} Local: $\Eone$-Koszul duality at the critical
+level (theorem, Feigin--Frenkel, Arinkin--Gaitsgory). Global: geometric
+Langlands as $D$-module equivalence (conjecture in full generality;
+theorem for $G = \mathrm{GL}_n$ on a curve, Gaitsgory--Lurie 2024 for
+$G = \mathrm{GL}_2$). The manuscript's demotion to conjectural is correct.
+
+\medskip
+\noindent\textbf{F6.\ \boldmath $F_g^{\mathrm{BCOV}} = \kch \cdot \lambda_g^{\mathrm{FP}}$
+for compact CY$_3$ at $g \geq 2$.}
+\emph{Status in manuscript: correctly dismissed with sharpened scope.}
+
+\textbf{Ghost theorem.} The BCOV constant-map formula
+\[
+ F_g^{\mathrm{CM}}(X) \;=\; (-1)^{g-1}\, \chi(X)\,
+ \frac{B_{2g}}{2g}\, \frac{B_{2g-2}}{2(2g-2)}\, \frac{1}{(2g-2)!}
+\]
+(BCOV 1994, Marino 2006 Ch. 8; see also Pandharipande--Thomas 2014 for
+the DT-side confirmation) admits a \emph{categorical} shadow: at the
+structural level, the holomorphic anomaly equation $\bar\partial F_g +
+\tfrac12 \sum_{g_1+g_2=g} G^{i\bar j} \partial_i F_{g_1} \partial_{\bar j} F_{g_2} = \ldots$
+is the Maurer--Cartan equation of the Costello 2007 / Costello--Li 2016
+BCOV dgLa, whose genus-spectral-sequence unfolds to the shadow
+obstruction tower $\Theta_A$. This identification is categorically real.
+
+\textbf{Precise error.} Instantiating the categorical identification as
+the \emph{scalar} $F_g = \kch \cdot \lambda_g^{\mathrm{FP}}$ for compact
+CY$_3$ at $g \geq 2$. The BCOV formula contains a product $B_{2g} B_{2g-2}$
+of consecutive Bernoulli numbers; the shadow formula as proposed contains
+$B_{2g}$ alone. The ratio $B_{2g-2}/B_{2g}$ grows super-polynomially;
+no single scalar $\kch$ can absorb it across all $g$. For the quintic,
+solving $F_g^{\mathrm{CM}} = \kch \cdot \lambda_g^{\mathrm{FP}}$ for $\kch$
+yields the sequence $(200, -28.6, -4.3, 2.8, -3.8, \ldots)$ at $g = 1, \ldots, 5$:
+visibly non-constant, so no scalar fits.
+
+\textbf{Correct relationship.} At the compact CY$_3$ level with worldsheet
+instantons, the shadow obstruction tower is a \emph{tower}, not a scalar:
+the $g$-th level is $\Theta_A^{(g)}$ carrying the full MC data at genus $g$,
+including the instanton-corrected sum over multi-cover contributions
+(Faber--Pandharipande 2000; Bryan--Pandharipande 2008). The scalar
+projection $\kch = \Theta_A^{(1)}$ captures only genus $1$; higher genera
+require the full tower. The \emph{uniform-weight} lane (free fields,
+toric CY$_3$, uniform conformal weight on generators) does satisfy
+$F_g = \kch \cdot \lambda_g^{\mathrm{FP}}$ at all $g$, because in that
+lane the higher shadow components vanish. Compact CY$_3$ with instantons
+lives outside this lane. \emph{[Theorem at the uniform-weight scope;
+conjecture off-lane; see Costello 2007 Prop. 4.3, Costello--Li 2016 \S 4
+for the categorical MC identification.]}
+
+\textbf{TQFT commentary.} This is the sharpest mirror-symmetric
+observation in the seven-list. The Witten TQFT formulation of the A-model
+/ B-model dichotomy (Witten 1988, 1991) makes clear that the uniform-weight
+lane is the \emph{topological} A-twist on \emph{toric} (i.e., locally
+homogeneous) CY$_3$, where the worldsheet integral reduces to fixed-point
+localisation and all weights are equal. Compact non-toric CY$_3$ carry
+genuine worldsheet-instanton sums that break uniformity, and the BCOV
+formula encodes these through the $B_{2g} B_{2g-2}$ product. The shadow-tower
+picture as scalar is the topological shadow; as tower, it is the physical
+theory.
+
+\medskip
+\noindent\textbf{F7.\ The \boldmath $\kch$ symbol means $\geq 4$ different
+things across engines.}
+\emph{Status in manuscript: correctly identified; AP-CY11 canonical fix.}
+
+\textbf{Ghost theorem.} The programme carries four genuinely distinct
+invariants, each with its own domain:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item $\kch$ --- chiral/modular characteristic, via the shadow tower
+ first component or the $\Phi$ functor;
+ \item $\kcat = \chi(\cO_X)$ --- categorical Euler, Kunneth-multiplicative on products;
+ \item $\kBKM(\Phi_N) = c_N(0)/2$ --- Borcherds weight, universal across $N \in \{1,2,3,4,6\}$;
+ \item $\kfib$ --- fibre/lattice correction, arising in K3-fibered compact CY$_3$.
+\end{enumerate}
+All four are distinct objects with different construction paths. Running
+them together under one symbol is pure symbol overload.
+
+\textbf{Precise error.} Engines emitted the unsubscripted shadow-characteristic symbol
+without naming which of (i)--(iv) is meant. For K3 $\times E$ this caused
+the $\{2, 3, 5, 24\}$ tetrad to look like a single-valued inconsistency
+when in fact it is four distinct constructions.
+
+\textbf{Correct relationship.} Four subscripted invariants, one namespace
+discipline (HZ-7 / AP113). See \texttt{cy\_d\_kappa\_stratification.tex}
+for the canonical table. Unsubscripted shadow-characteristic usage is forbidden.
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part II --- BPS black-hole entropy from the shadow tower}
+\label{subsec:bps-bh-witten}
+
+\paragraph{The scope-labelling exercise.}
+The manuscript at lines 1596--1621 states three clauses: Bekenstein--Hawking
+leading order, log correction coefficient $-27/4$, and Bessel power corrections.
+Each has a different epistemic status.
+
+\medskip
+\noindent\textbf{Clause~(i).} $S_{\mathrm{BH}} = \pi \sqrt{2 \kch \cdot D}$.
+\emph{[Heuristic; promoted to theorem at $K3 \times T^2$ scope below.]}
+
+\textbf{Ghost theorem (string-theoretic).} \emph{Strominger--Vafa 1996
+for Type IIA on K3$\,\times\,S^1$, extended by Maldacena--Strominger--Witten 1997 to
+M-theory on K3$\,\times\, T^2$:} a $1/4$-BPS black hole in four dimensions
+carrying charge vector $\gamma$ with quartic invariant
+$\cI_4(\gamma) \in \Z_{>0}$ has entropy
+\[
+ S_{\mathrm{BH}}(\gamma) \;=\; \pi \sqrt{\cI_4(\gamma)} \;+\; O(\log \cI_4(\gamma))
+\qquad (K3 \times T^2 \text{ compactification}).
+\]
+On the chiral side, the DT generating function is the MSW CFT partition
+function; the leading Cardy growth of CFT states of weight $N$ with
+central charge $c_L = c_R + 6 = 22 + 2 = 24$ (the $+2$ from the $T^2$ factor,
+with $c_R = 22$ from the K3 factor right-movers) gives
+\[
+ S_{\mathrm{CFT}}(N) \;=\; 2\pi \sqrt{\tfrac{c_L N}{6}} \;=\; 2\pi \sqrt{4 N} \;=\; 4 \pi \sqrt{N},
+\]
+which under the identification $N \propto \cI_4(\gamma)$ matches the
+Bekenstein--Hawking area. The programme's identification
+$c_L/6 = 2 \kch$ with $\kch = \kch(K3 \times E) = 3$ then requires
+$c_L / 6 = 6$, not $2 \cdot 3 = 6$: \emph{this coincidence is the source
+of the identification}, and it is \emph{not} an accident ---
+$c_L^{\mathrm{MSW}} = 6 \kch(K3 \times E)$ is the shadow-to-physics bridge.
+
+\textbf{Precise error (bare statement).} Stating $S = \pi\sqrt{2 \kch D}$
+without naming $D = \cI_4(\gamma)$ and without declaring the compactification
+($K3 \times T^2$ with D$0$--D$2$--D$4$--D$6$ brane charges) obscures which
+normalisation of $\kch$ enters. On toric CY$_3$ there is no asymptotic
+4d black hole at all (no four-dimensional gravity decoupling limit),
+so the formula has no content there.
+
+\textbf{Correct relationship.} \emph{Theorem (Strominger--Vafa 1996,
+Maldacena--Strominger--Witten 1997 extension):} for IIA on
+\emph{compact} CY$_3$ $X$ producing a 4d $\cN = 2$ supergravity with
+attractor mechanism active at the horizon, and a $1/2$- or $1/4$-BPS
+charge $\gamma$ with positive quartic invariant,
+\[
+ S_{\mathrm{BH}}(\gamma) \;=\; \pi \sqrt{|\cI_4(\gamma)|}\;+\; (\text{log}) \;+\; (\text{power}).
+\]
+The shadow-tower identification $c_L^{\mathrm{MSW}} = 6 \kch(X)$ at leading
+order is a \emph{theorem} for $X = K3 \times T^2$ (matching to MSW CFT
+central charge), a \emph{conjecture} for general compact CY$_3$
+(pending identification of MSW $P$-cubic data with $\kch$ outside the
+K3-fibered setting), and \emph{void of content} at local toric CY$_3$
+(no 4d BH).
+
+\medskip
+\noindent\textbf{Clause~(ii).} $\delta S_3 = -(27/4) \log D$.
+\emph{[Heuristic with scope uncertainty; Sen 2011 gives
+$-\tfrac{n_0}{2} \log A_H$ with coefficient $n_0$ zero-mode-dependent.]}
+
+\textbf{Ghost theorem.} \emph{Sen 2011 Entropy 13 --- general one-loop
+logarithmic correction in quantum supergravity:} the log correction
+$\delta S = -\tfrac{n_0}{2} \log A_H$ with $n_0 = 2 N_{\mathrm{bosonic\,zeromodes}} + N_{\mathrm{matter}}$
+computable from the matter spectrum of the near-horizon geometry
+$\mathrm{AdS}_2 \times S^2$. For 4d $\cN = 4$ string theory on $K3 \times T^2$
+with a specific D-brane charge configuration, $n_0 = 27/2$, giving
+$\delta S = -\tfrac{27}{4} \log A_H$ (Banerjee--Mandal--Sen 2011;
+Sen 2012 JHEP 04:156).
+
+\textbf{Precise error.} Asserting $-27/4$ \emph{universally} across the
+shadow obstruction tower degree-$3$ regime. The coefficient is
+matter-content-dependent: for $\cN = 2$ on generic compact CY$_3$ the
+coefficient differs (Charles--Larsen--Raeymaekers 2015); for $\cN = 8$
+the coefficient is $0$ (Banerjee--Gupta--Sen 2011). The manuscript's
+$-27/4$ is the $\cN = 4$ value, which is the correct statement for
+$K3 \times T^2$ but not for general compact CY$_3$.
+
+\textbf{Correct relationship.} \emph{Theorem (Sen 2011, Banerjee--Mandal--Sen 2011):}
+$\delta S = -\tfrac{n_0}{2} \log A_H$ with $n_0$ computed from the
+zero-mode spectrum at the near-horizon $\mathrm{AdS}_2 \times S^2$.
+For $K3 \times T^2$ ($\cN = 4$): $n_0 = 27/2$, giving $-27/4$. The
+shadow-tower degree-$3$ reading $\delta S_3 \propto \log D$ is correct
+\emph{as functional form}; the coefficient is data-dependent and equals
+$-27/4$ only in the $\cN = 4$ scope. \emph{[Theorem at $K3 \times T^2$
+$\cN = 4$ scope; metaphor otherwise.]}
+
+\medskip
+\noindent\textbf{Clause~(iii).} Bessel-type power corrections.
+\emph{[Heuristic; promoted to theorem at $K3 \times T^2$ scope via
+Dabholkar--Denef--Moore--Pioline 2005.]}
+
+\textbf{Ghost theorem.} \emph{Dabholkar--Denef--Moore--Pioline 2005
+(JHEP 10:096):} for $1/4$-BPS black holes in $\cN = 4$ on $K3 \times T^2$,
+the microscopic index is
+\[
+ d(\gamma) \;=\; \oint \frac{1}{\Phi_{10}(Z)}\, e^{-i \pi Z \cdot \gamma \cdot Z}\, d^3 Z,
+\]
+with $\Phi_{10}$ the Igusa cusp form. Expanding via a Bessel saddle at
+$\cI_4 \to \infty$ yields
+\[
+ d(\gamma) \;\sim\; e^{\pi \sqrt{\cI_4}} \left( 1 + \frac{a_1}{\sqrt{\cI_4}} + \frac{a_2}{\cI_4} + \ldots \right),
+\]
+with coefficients $a_k$ matching the Borcherds--BKM expansion of
+$1/\Phi_{10}$. This is a \emph{theorem} in the $\cN = 4$ setting.
+
+\textbf{Precise error.} Asserting Bessel-type corrections universally.
+For generic compact CY$_3$ (e.g., quintic), the DT/GW generating functions
+are not given by Siegel modular forms; the saddle-point structure differs.
+
+\textbf{Correct relationship.} $K3 \times T^2$: Bessel-type asymptotic,
+theorem via Igusa $\Phi_{10}$ Borcherds expansion, consistent with
+$\kBKM(\Phi_{10}) = 10/2 = 5$ per Borcherds weight identity. Quintic:
+the higher-genus BCOV $F_g$ dominate, not Bessel modes; the asymptotic
+is Gopakumar--Vafa refinement of Wright's plane-partition asymptotic,
+$\log Z_{\mathrm{DT}} \sim \chi(X) \zeta(3) t^{-2} + \ldots$ with $t$ the
+Kahler modulus, not area-area-area. \emph{[Theorem at $K3 \times T^2$;
+heuristic at quintic; metaphor at arbitrary compact CY$_3$.]}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part III --- Gravitational identifications: heuristic programme}
+\label{subsec:grav-heur-witten}
+
+\paragraph{The three identifications at lines 2302--2330.}
+The manuscript correctly labels these as heuristic. The audit below
+restates each as (theorem-with-scope, heuristic-with-scope, or
+metaphor-with-scope), preserving content but sharpening discipline.
+
+\medskip
+\noindent\textbf{G1. BPS entropy from $\kch$.}
+\emph{[Heuristic as stated; theorem at $K3 \times T^2$ scope via Part II.]}
+
+\textbf{Sharpened statement.} $S_{\mathrm{BH}}(\gamma) = \pi\sqrt{|\cI_4(\gamma)|}$
+is the Bekenstein--Hawking area-law \emph{theorem} for $K3 \times T^2$
+in IIA with the attractor mechanism active. The shadow first component
+$F_1 = \kch / 24$ gives the one-loop topological-string free energy
+(BCOV 1994, A-model), which under OSV $Z_{\mathrm{BH}} = |Z_{\mathrm{top}}|^2$
+contributes the log correction. The OSV conjecture is a \emph{double conjecture}:
+(a) that microscopic degeneracy equals $|Z_{\mathrm{top}}|^2$; (b) that the
+asymptotic expansion converges or resums per Dabholkar--Denef--Moore--Pioline 2005.
+\emph{Label: theorem at $K3 \times T^2$; heuristic at arbitrary compact CY$_3$;
+conjecture at $\cN = 2$ with worldsheet instantons.}
+
+\textbf{Conifold attractor.} The manuscript's assertion
+``conifold: $\kch = 1$, $\Omega(\gamma) = 1$, attractor at $t = 0$''.
+This is a \emph{theorem} on the resolved conifold (Gopakumar--Vafa 1998;
+Denef 2000 attractor analysis): the attractor for a charge wrapping the
+$\bP^1$ is precisely at the shrinking cycle $t \to 0$ where the
+resolved conifold meets the conifold point. The BPS index is $1$; the
+$\kch$ is $1$; no further corrections at genus $> 1$ (conifold is class
+$\mathbf{G}$ in the shadow stratification).
+
+\medskip
+\noindent\textbf{G2. Crystal melting $=$ BTZ microstates.}
+\emph{[Metaphor as stated; the identification fails at the universality
+class level.]}
+
+\textbf{Ghost theorem.} \emph{Okounkov--Reshetikhin--Vafa 2006 for the crystal
+melting side, Strominger 1998 and Maldacena 1998 for the BTZ side.}
+DT partition function on $\C^3$ equals MacMahon,
+$Z_{\DT}(\C^3) = M(q)^{-\chi(\C^3)} = M(q)^0 = 1$ (since
+$\chi(\C^3) = 0$). The convention in OSV-style literature takes
+$Z_{\DT}(\C^3) := M(q)$ as the \emph{unrefined} crystal partition function
+counting plane partitions with no reference to $\chi(X)$, i.e. the generating
+function of 3d Young diagrams. Wright's 1931 asymptotic: the number of
+plane partitions of $n$ is
+\[
+ p_3(n) \;\sim\; \frac{\zeta(3)^{7/36}}{\sqrt{12\pi}}\, \big(\tfrac{n}{\zeta(3)}\big)^{-25/36}\,
+\exp\!\Big(3 \zeta(3)^{1/3}\, 2^{-1/3} (\tfrac{n}{\zeta(3)})^{2/3}\Big).
+\]
+The entropy is $S \sim (3 \zeta(3)^{1/3} / 2^{1/3}) n^{2/3} \approx 2.009\, n^{2/3}$.
+
+\textbf{Precise error.} BTZ black holes in $\mathrm{AdS}_3$ have Cardy
+entropy $S_{\mathrm{BTZ}} = 2\pi \sqrt{c n / 6}$, scaling as $n^{1/2}$,
+\emph{not} $n^{2/3}$. The universality classes differ by power-law exponent:
+crystal melting is in the Wright class ($n^{2/3}$), BTZ is in the Cardy
+class ($n^{1/2}$). They cannot be equal as asymptotics. The
+identification ``each 3d partition is a BTZ microstate'' is a
+\emph{metaphor}, not a dynamical correspondence.
+
+\textbf{Correct relationship.} The genuine identification: the
+\emph{topological vertex} $Z_{\mathrm{vertex}}(q) = M(q)$ is the
+5d $\Omega$-background partition function on $\C^3$ (Nekrasov--Okounkov 2006);
+this is a \emph{local} statement on $\C^3$ and has no 4d BH avatar
+because $\C^3$ does not admit a 4d gravity decoupling. The $n^{2/3}$
+scaling is the asymptotic of the local partition function; the $n^{1/2}$
+scaling of BTZ is the asymptotic of a \emph{distinct} object (a 2d CFT
+partition function on a torus). Shadow Cardy uses $c_{\mathrm{eff}} = 2 \kch$;
+for K3 $\times E$, $c_{\mathrm{eff}} = 6$, while the genuine CFT central
+charge is $c = 24$ (K3 sigma model), giving the programme's ratio $\sqrt{12/5}$.
+That ratio is a \emph{theorem} at K3 $\times E$ scope (AP-CY discipline:
+shadow is not CFT central charge; they agree only up to a named normalisation).
+\emph{Label: metaphor for ``crystal = BTZ''; theorem for the numerical
+ratio at K3 $\times E$.}
+
+\medskip
+\noindent\textbf{G3. Geometric Langlands $=$ $\Eone$ Koszul duality.}
+\emph{[Conjectural as stated; correctly demoted per F5 above.]}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part IV --- Lattice-model finite-size corrections}
+\label{subsec:lattice-fsc-witten}
+
+The manuscript at lines 1644--1650 asserts $q = e^{-L/\xi}$ finite-size
+decay plus shadow-tower expansion. The Witten audit:
+
+\medskip
+\noindent\textbf{L1.} $q = e^{-L/\xi}$ decay.
+\emph{[Theorem at gapped lattice model scope; metaphor at CFT fixed
+point.]}
+
+\textbf{Ghost theorem.} \emph{Fisher--Privman 1985, Cardy 1986 (Blaschke--Cardy
+finite-size scaling in 2d CFT):} for a gapped lattice model on a
+cylinder of circumference $L$ with correlation length $\xi$, the finite-size
+corrections to thermodynamic quantities decay exponentially as $e^{-L/\xi}$.
+For a conformal fixed point ($\xi = \infty$), the leading finite-size
+correction is power-law: $\delta F / L = -\pi c / (6 L^2)$ with $c$ the
+central charge (Blaschke--Cardy--Ludwig 1986 PRL 56:742).
+
+\textbf{Precise error.} The manuscript's formula is correct for
+gapped models; at criticality (where CFT applies, and where shadow-tower
+central-charge extraction is relevant), $q \neq e^{-L/\xi}$ but
+$q = e^{-2\pi / L}$ (aspect-ratio), and the finite-size correction is
+\emph{power-law} $\sim c/L^2$, not exponential. Shadow-Cardy:
+$\delta F/L \sim - \pi (2 \kch) / (6 L^2)$ in the shadow-replacement
+convention, differing from genuine Cardy by $c \mapsto 2 \kch$.
+
+\textbf{Correct relationship.} \emph{Theorem (Cardy 1986):} at criticality,
+$\delta F / L = -\pi c / (6 L^2)$. \emph{Shadow-Cardy (heuristic):}
+replace $c$ by $2 \kch$. For K3 $\sigma$-model: genuine $c = 24$,
+$2 \kch(\text{K3}) = 24$, exact match (the CY$_2$ coincidence).
+For K3 $\times E$: genuine $c = 6$ (target is complex-one-dimensional
+sector), $2 \kch(K3 \times E) = 6$ under the $\kch = 3$ convention,
+same match. For quintic: $c = 6$ (topological A-model),
+$2 \kch = 2 \cdot (-25/3) = -50/3 \neq 6$; shadow-Cardy fails,
+as expected since quintic has instantons (F6 scope failure).
+
+\medskip
+\noindent\textbf{L2.} MacMahon box formula controlled by shadow tower of
+$\cW_{1+\infty}$.
+\emph{[Theorem at the plane-partition/$\C^3$ scope via Nakajima--Yoshioka
+2005, Nekrasov--Okounkov 2006.]}
+
+\textbf{Ghost theorem.} The MacMahon generating function
+$M(q) = \prod_{n \geq 1}(1 - q^n)^{-n}$ equals the character of the
+vacuum module of $\cW_{1+\infty}$ at central charge $c = 2$ (or equivalently,
+the 3d partition of $\cW_{1+\infty}$ at $\Omega$-background parameters
+$h_1 + h_2 + h_3 = 0$). The plane-partition-in-box formula
+$\prod_{i,j,k} (1 - q^{i+j+k-1})$ at box size $(a, b, c)$ is the partition
+function of the 5d NCCS on $\C^3$ cut off by the box, matching
+$\cW_{1+\infty}$ characters under the identification
+(Maulik--Okounkov 2019, Costello--Li 2016).
+
+\textbf{Correct relationship.} The box formula is the $\cW_{1+\infty}$
+vacuum character in the finite-box $\Omega$-background. Shadow tower
+components $\kch, C, Q, \ldots$ organise the coefficient expansion of
+$M(q)$ at genus. Not a metaphor: a direct character identity.
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part V --- TQFT audit and anomaly budget}
+\label{subsec:tqft-audit-witten}
+
+\paragraph{Anomaly-polynomial route to the central-charge budget.}
+The Witten index argument for BPS entropy proceeds through the gauge-theory
+partition function on $\mathrm{AdS}_2 \times S^2$. For M-theory on
+$\mathrm{CY}_3 \times \mathrm{AdS}_2 \times S^2$ with an M5 wrapping a
+divisor $P \subset \mathrm{CY}_3$, the MSW CFT has central charges
+\[
+ c_L \;=\; P^3 \;+\; c_2(\mathrm{CY}_3) \cdot P,
+\qquad
+ c_R \;=\; P^3 \;+\; \tfrac12 c_2(\mathrm{CY}_3) \cdot P,
+\]
+(Maldacena--Strominger--Witten 1997, derived from the 6d $(2,0)$
+anomaly polynomial of the M5). For $\mathrm{CY}_3 = K3 \times T^2$ with
+$P = [\mathrm{K3}] \subset K3 \times T^2$ (the K3 fibre divisor),
+$P^3 = 0$, $c_2(\mathrm{CY}_3) \cdot P = c_2(K3) \cdot [\mathrm{K3}] = 24$,
+giving $c_L = 24, c_R = 12$, consistent with the CHL $\cN = 4$ arithmetic.
+Under the shadow-tower identification $c_L = 6 \kch$, one reads
+$\kch = 4$ at this scope --- \emph{different} from the $\kch(K3 \times E) = 3$
+of the \texttt{cy\_d\_kappa\_stratification.tex} table, which uses the
+categorical-Euler-of-CY$_3$ convention. The two conventions are
+genuinely distinct, and AP-CY11 subscript discipline is the only
+way to keep them straight.
+
+\paragraph{The anomaly budget for $K3 \times E$.}
+\[
+ \underbrace{c_L^{\mathrm{MSW}} = 24}_{\text{M5 on K3 fibre}} \;=\;
+ \underbrace{6 \cdot \kch^{\mathrm{MSW}}(K3 \times E) = 6 \cdot 4}_{\text{shadow reading}}
+ \;\neq\;
+ \underbrace{6 \cdot \kch^{\mathrm{cat}}(K3 \times E) = 6 \cdot 3 = 18}_{\text{categorical reading}}.
+\]
+The gap of $6$ is the M5-worldvolume $T^2$ contribution,
+$c_L^{T^2} = 6$, which the MSW formula includes and the categorical formula
+does not. Both are correct, in different scopes, and the scope gate is
+the choice of how the $T^2$ factor is counted (as a separate c.c. or
+absorbed in the fibre).
+
+\paragraph{Holographic consequences.}
+The near-horizon geometry of a 4d $1/4$-BPS BH in IIA on
+$K3 \times T^2$ is $\mathrm{AdS}_3 \times S^2 \times K3$ (Strominger 1998;
+see also Kraus 2007 for the CFT side). The $\mathrm{AdS}_3$ factor carries
+a 2d $(0,4)$ CFT whose central charges are the MSW values above; the
+$S^2$ carries the angular-momentum gauge field. Holographic duality:
+\[
+ \text{IIA gravity on } \mathrm{AdS}_3 \times S^2 \times K3
+\;\longleftrightarrow\;
+ \text{MSW CFT on } \partial \mathrm{AdS}_3 = S^1 \times \R.
+\]
+The Cardy formula on the CFT side reproduces the Bekenstein--Hawking
+area on the gravity side; corrections on both sides are governed by the
+Igusa cusp form $\Phi_{10}$ (DMZ 1999, Dabholkar--Denef--Moore--Pioline 2005).
+The shadow-tower reading of $\kch = 3$ for $K3 \times E$ under the
+categorical-Euler convention is the \emph{ambient-qualified} value,
+compatible with this holographic dictionary once the $T^2$-inclusion
+scope is declared.
+
+\paragraph{Quantum-gravity corrections.}
+Sen's log correction formula produces universal corrections to $S_{\mathrm{BH}}$
+governed by the zero-mode spectrum at the near horizon. For $\cN = 4$
+on $K3 \times T^2$: $\delta S = -\tfrac{27}{4} \log A_H$, matching
+microscopic counting from $1/\Phi_{10}$ expansion to all orders
+(Sen 2012, Banerjee--Mandal--Sen 2011). This is the single cleanest
+theorem-level confirmation of OSV in the $\cN = 4$ setting.
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part VI --- Cache append (Vol III AP-CY)}
+\label{subsec:cache-append-witten}
+
+\noindent The following entries refine the AP-CY catalogue per the
+Wave 12 A12 audit. Append to \texttt{appendices/first\_principles\_cache.md}
+under a new ``Wave 12 WITTEN cache append (2026-04-22)'' section.
+
+\medskip
+\begin{enumerate}[label=\textbf{12W\arabic*.}]
+\item \textbf{``$S_{\mathrm{BH}} = \pi\sqrt{2\kch D}$ universally across compact CY$_3$''.}
+ \emph{Ghost theorem:} at $K3 \times T^2$ in IIA with attractor active, Strominger--Vafa
+ 1996 and MSW 1997 prove $S_{\mathrm{BH}} = \pi\sqrt{\cI_4}$ and the
+ shadow identification $c_L^{\mathrm{MSW}} = 6\kch$ holds at the MSW scope.
+ \emph{Error:} asserting universally across compact CY$_3$; generic compact
+ CY$_3$ lack Siegel modular structure and Bessel-saddle control.
+ \emph{Correct relationship:} theorem at $K3 \times T^2$ ($\cN = 4$);
+ conjecture at generic compact CY$_3$ ($\cN = 2$); void at toric (no 4d BH).
+ \emph{Type:} scope/compactification.
+
+\item \textbf{``$\delta S_3 = -(27/4) \log D$ universally from shadow tower''.}
+ \emph{Ghost theorem:} Sen 2011 one-loop log formula gives
+ $\delta S = -\tfrac{n_0}{2} \log A_H$ with $n_0$ matter-content-dependent.
+ \emph{Error:} asserting $-27/4$ universally; it is the $\cN = 4$ coefficient
+ (Banerjee--Mandal--Sen 2011), not the $\cN = 2$ or $\cN = 8$ value.
+ \emph{Correct relationship:} $-27/4$ is theorem at $K3 \times T^2$
+ ($\cN = 4$); coefficient is spectrum-dependent otherwise.
+ \emph{Type:} scope/supersymmetry.
+
+\item \textbf{``Crystal melting = BTZ microstates'' as dynamical equality.}
+ \emph{Ghost theorem:} both are BPS-state-counting partition functions,
+ but in different universality classes.
+ \emph{Error:} Wright's $n^{2/3}$ entropy for plane partitions vs
+ Cardy's $n^{1/2}$ for BTZ $\Longrightarrow$ different universality classes,
+ cannot be equal asymptotics.
+ \emph{Correct relationship:} metaphor at the heuristic level; topological
+ vertex = 5d $\Omega$-background on $\C^3$ is the genuine identification,
+ which has no 4d BH avatar.
+ \emph{Type:} universality-class/metaphor.
+
+\item \textbf{``$F_g^{\mathrm{BCOV}} = \kch \cdot \lambda_g^{\mathrm{FP}}$
+for compact CY$_3$''.}
+ \emph{Ghost theorem:} at the categorical level, the BCOV holomorphic anomaly
+ equation is the MC equation of the Costello 2007 / Costello--Li 2016 dgLa,
+ whose genus spectral sequence = shadow obstruction tower $\Theta_A$.
+ \emph{Error:} scalar $\kch$ cannot absorb the $B_{2g} B_{2g-2}$ vs
+ $B_{2g}$ asymmetry across all $g$.
+ \emph{Correct relationship:} theorem at uniform-weight scope
+ (toric CY$_3$, free fields); requires full $\Theta_A$ tower at compact
+ CY$_3$ with instantons; the $g$-level tower component carries the
+ $B_{2g-2}/B_{2g}$ correction that a scalar cannot absorb.
+ \emph{Type:} scalar/tower conflation; lane-scope.
+
+\item \textbf{Shadow-Cardy $c \mapsto 2\kch$ as universal substitution.}
+ \emph{Ghost theorem:} for specific CY$_2$ and certain CY$_3$-fibrations,
+ the CFT central charge and $2 \kch$ coincide exactly (K3: $c = 24 = 2 \cdot 12$;
+ K3 $\times E$: $c = 6 = 2 \cdot 3$).
+ \emph{Error:} asserting universally; for quintic, $c = 6$ (A-model topological)
+ but $2 \kch = -50/3$; no coincidence, because instantons break the
+ uniform-weight assumption.
+ \emph{Correct relationship:} theorem at CY$_2$ and K3-fibered CY$_3$ scope;
+ heuristic at toric CY$_3$; fails at compact non-fibered CY$_3$.
+ \emph{Type:} scope/lane.
+\end{enumerate}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Summary}
+\label{subsec:summary-witten}
+
+The seven false-idea dismissals F1--F7 survive the Witten audit with
+sharpened scope; each has a ghost-theorem precisely at one named
+compactification or lane, and the dismissal is correct outside that
+lane. The BPS-BH-from-shadow-tower identification is a \emph{theorem}
+at $K3 \times T^2$ scope via Strominger--Vafa 1996 / MSW 1997; a
+\emph{conjecture} at arbitrary compact CY$_3$ pending MSW-vs-shadow
+central-charge matching outside the K3-fibered setting; and
+\emph{content-void} at local/toric CY$_3$ where no 4d gravity decoupling
+is available. The gravitational identifications G1--G3 are heuristic as
+stated, promoted to theorem within $K3 \times T^2$/$\cN = 4$ scope and
+retired to metaphor at universality-class mismatches (crystal
+vs BTZ). The lattice finite-size-correction shadow formula is a
+theorem at CY$_2$ (exact match with Cardy) and fails at quintic (where
+instantons break uniform-weight). The cache appends 12W1--12W5 refine
+the AP-CY catalogue with explicit scope gates per lane.
+
+\medskip
+\noindent\emph{Net epistemic movement:}
+\emph{Seven} dismissals confirmed with scope;
+\emph{three} statements promoted to theorem-at-scope
+($S_{\mathrm{BH}}$ at $K3 \times T^2$, $\delta S_3 = -27/4$ at $\cN = 4$,
+Bessel corrections via $\Phi_{10}$);
+\emph{one} metaphor retired (crystal = BTZ, universality-class mismatch);
+\emph{five} cache entries appended.

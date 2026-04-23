@@ -1,0 +1,929 @@
+% wave12_a9_langlands_higgs_bezrukavnikov.tex
+%
+% Adversarial audit and heal of three clusters in working_notes.tex:
+%   (A) lines 364--391: "Higgs sheaves and the CY_2 escape" + "Langlands
+%       connection" conjecture G(C,G)^! = G(C, ^L G).
+%   (B) lines 1728--1751: "Swiss-cheese and the E_2 bar complex" +
+%       "completed modular Koszul datum for CY3".
+%   (C) lines 2447--2588: quiver-chart gluing frontier, three answers,
+%       new constructions, and CY_4 prediction.
+%
+% Voice: R. Bezrukavnikov of the elite Russian mathematical school --
+% sheaf-theoretic depth; geometric Langlands precision via affine Hecke
+% and Whittaker; D-modules with the right equivariance; honest scope
+% labels for conjecture vs. theorem. Channel also Beilinson, Drinfeld,
+% Kapustin-Witten where the physical input is load-bearing.
+%
+% Operating rule. Every ATTACK states (a) the ghost theorem the passage
+% reaches for, (b) the precise error it commits on the way, (c) the
+% correct mathematical relationship. Every HEAL rewrites the passage
+% as mathematics (D-module, Hecke correspondence, Whittaker functional,
+% chiral Hecke eigensheaf, Dunn additivity), never as narration, and
+% names the lane (chain-level / $(\infty,1)$-categorical) the statement
+% actually holds in.
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{attack}{Attack}
+\newtheorem{heal}[attack]{Heal}
+\newtheorem{remark}{Remark}
+\newtheorem{scope}[theorem]{Scope}
+
+\providecommand{\kk}{\mathbf{k}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\DMod}{D\text{-}\mathrm{mod}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Einf}{E_\infty}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\bG}{\mathbf{G}}
+\providecommand{\bP}{\mathbf{P}}
+\providecommand{\bZ}{\mathbf{Z}}
+\providecommand{\bR}{\mathbf{R}}
+\providecommand{\bC}{\mathbf{C}}
+\providecommand{\bS}{\mathbf{S}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Bun}{\mathrm{Bun}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\Gr}{\mathrm{Gr}}
+\providecommand{\Op}{\mathrm{Op}}
+\providecommand{\LG}{{}^L G}
+\providecommand{\Nbar}{\overline{N}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+
+\title{Langlands, Higgs, Swiss-cheese, quiver charts:\\
+a Bezrukavnikov-voice adversarial audit and heal}
+\author{}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Three clusters in \texttt{working\_notes.tex} reach for geometric
+Langlands statements at CY scope: the ``$\CY_2$ escape'' via Higgs
+sheaves on a curve $C$ (lines 364--391), the ``Swiss-cheese / completed
+modular Koszul datum'' apparatus for CY$_3$ (lines 1728--1751), and the
+``quiver-chart gluing frontier'' with its three answers for why
+$d = 3$ gives $\Eone$ and its quantum toroidal / elliptic Hall / CY$_4$
+predictions (lines 2447--2588). Each cluster contains a real ghost
+theorem; each commits a precise categorical error on the way. This
+note executes five ATTACK$\leftrightarrow$HEAL cycles to state the
+ghost theorems correctly: the chiral Hecke eigensheaf formulation of
+the $\CY_2$ escape; the CY-scope disambiguation of ``Langlands
+connection'' (Beilinson-Drinfeld chiral Langlands vs.~Kapustin-Witten
+4d $S$-duality vs.~arithmetic Langlands); the Voronov Swiss-cheese
+vs.~Kontsevich non-unital disks distinction; the honest claim status
+of the three-answer decomposition; and the Dunn-additivity statement
+underwriting the $\CY_d \to E_{d-2}$ pattern. Claim status is labelled
+throughout.
+\end{abstract}
+
+% ====================================================================
+\section*{Gate 0. Cache triggers consulted}
+% ====================================================================
+
+Before writing, the following Vol III first-principles-cache entries
+and AP-CY catalogue items were loaded into context:
+
+\begin{itemize}
+ \item \textbf{AP-CY1--5} ($\Phi$ output scope by dimension; $d \geq 3$
+   gives $\Eone$, $E_2$ on $Z(\Rep(A))$, never on $A$ itself).
+ \item \textbf{AP-CY6} ($\CY_2 \neq$ only $K3$: $\CY_2$ is {\em any}
+   of abelian surface, Enriques, $K3$, or the relevant $(\infty,1)$
+   analogue; ``$\CY_2$ escape'' must quantify over which).
+ \item \textbf{AP-CY15} (toric $\not\Rightarrow$ all CY; local $\bP^2$
+   evidence does not close compact CY$_3$).
+ \item \textbf{AP-CY21} ($\kch \neq \kBKM$; never replace one by the
+   other).
+ \item \textbf{AP-CY57} (construction vs.~narration; do not write
+   ``this bring us to''; {\em show} the D-module).
+ \item \textbf{AP-CY60} (Sylvester vs.~Feingold-Frenkel signature for
+   BKM lattices).
+ \item \textbf{AP-CY62} ($\CoHA$ is $E_1$-associative; chiralisation
+   via Ran/$\Eone$-factorisation is a second step).
+ \item \textbf{AP113} (bare $\kappa_{\bullet}$ forbidden; subscripted
+   source always: $\kch$, $\kcat$, $\kBKM$, or $\kappa_{\mathrm{fiber}}$).
+ \item \textbf{AP150} (Costello $E_{d-2}$ output scope pattern).
+\end{itemize}
+
+We also read Frenkel-Ben-Zvi \emph{Vertex Algebras and Algebraic
+Curves} \S16--19 (chiral Hecke), Beilinson-Drinfeld
+\emph{Chiral Algebras} \S3.4 (factorisation) and \S5.5.4 (chiral
+Hecke eigensheaf), Kapustin-Witten 2006 (4d $\mathcal{N}=4$ twists and
+geometric Langlands), Arinkin-Gaitsgory 2015 (singular support), and
+the Schiffmann-Vasserot 2017 K3-CoHA paper for the Higgs-on-curve
+side.
+
+% ====================================================================
+\section{Cluster A. Higgs sheaves and the $\CY_2$ escape (lines 364--375)}
+% ====================================================================
+
+The passage reads: ``The most natural escape from CY3:
+$\mathrm{Higgs}(C) = \Coh(T^*C)$ is CY2. The $\bS^2$-framing gives
+$\Etwo$-structure directly.'' And enumerates genus 0, 1, $\geq 2$ with
+named algebras $Y(\fgl_2)$, $E_{q,t}$, ``Hitchin Hall algebras''.
+
+\begin{attack}[A1: the CY$_2$ hypothesis is not named]\leavevmode
+
+\noindent\emph{Ghost theorem.} There is a genuine $\CY_2$ escape:
+for a smooth projective curve $C$, the total space $T^*C$ of the
+cotangent bundle is a holomorphic-symplectic surface with trivial
+canonical class (Liouville form squared), i.e.\ a {\em noncompact}
+$\CY_2$ scheme; the derived category $D^b(\Coh(T^*C))$ is a $\CY_2$
+$(\infty,1)$-category in the Kontsevich-Soibelman sense, and
+$\CoHA_{T^*C}$ carries an $\Etwo$ braiding via Nakajima's
+$\bS^2$-framed raising/lowering operators.
+
+\noindent\emph{Precise error.} The manuscript asserts
+``$\mathrm{Higgs}(C) = \Coh(T^*C)$ is CY2'' without distinguishing the
+four distinct categories that share this underlying curve:
+
+\begin{enumerate}[label=(\roman*)]
+ \item $\Coh(T^*C)$ itself (not coherent on a surface unless we
+   compactify);
+ \item $\Coh(\overline{T^*C})$ for a compactification (e.g.\ projective
+   closure to $\mathbf{P}(T^*C \oplus \cO_C)$), which is {\em not}
+   $\CY_2$;
+ \item $\DMod(\Bun_G(C))$ --- D-modules on the stack of $G$-bundles,
+   which is the {\em Langlands} object, not a $\CY_2$ category as
+   such;
+ \item $\Coh(\cM_H(C,G)^{\mathrm{ss}})$ --- coherent sheaves on the
+   (semistable) Hitchin moduli space, which {\em is} holomorphic-symplectic
+   (Hitchin 1987) and {\em is} $\CY_2$ in the noncompact sense.
+\end{enumerate}
+
+Writing $\mathrm{Higgs}(C) = \Coh(T^*C)$ conflates (i) with (iv) and
+silently omits the stackiness of $\Bun_G$ in (iii).
+
+\noindent\emph{Correct relationship.} The ``escape'' is an
+$(\infty,1)$-functorial statement:
+\[
+ \Phi \colon D^b(\Coh(\cM_H(C,G)^{\mathrm{ss}}))
+ \;\longmapsto\; \mathcal{A}_{C,G}^{\mathrm{ch}} \in \Etwo\text{-}\mathrm{ChirAlg},
+\]
+where $\mathcal{A}_{C,G}^{\mathrm{ch}}$ is the {\em chiralisation} of
+the Schiffmann-Vasserot COHA on $T^*C$, and the braiding is controlled
+by the Poisson-commuting Hamiltonians of the Hitchin system. The
+$\bS^2$-framing is {\em not} directly a framing of the chiral algebra;
+it is the framing of the $\bS^2$-action on the Nakajima-type
+correspondence \emph{which induces} the braiding after chiralisation.
+\end{attack}
+
+\begin{heal}[H1: the $\CY_2$ escape as Dunn additivity + Hitchin symplectic structure]\leavevmode
+
+\begin{scope}[CY$_2$ escape as an $(\infty,1)$-functorial statement]\label{scope:cy2-escape}
+Let $C$ be a smooth projective curve of genus $g$, $G$ a simply-connected
+semisimple complex algebraic group, $\cM_H := \cM_H(C,G)^{\mathrm{ss}}$
+the semistable Hitchin moduli space (a smooth irreducible
+holomorphic-symplectic variety of dimension $2(g-1)\dim G + 2\dim G$
+for $g \geq 2$). Then $\cM_H$ is a {\em noncompact} $\CY_2$ scheme in
+the sense that $K_{\cM_H} \cong \cO_{\cM_H}$ (Mukai pairing on moduli
+of Higgs sheaves, Simpson 1994), and
+\[
+ \Phi(D^b(\Coh(\cM_H)))
+ \;\in\; \Etwo\text{-}\mathrm{ChirAlg}
+\]
+by Dunn additivity applied to the local structure $\Eone \otimes \Eone = \Etwo$
+supplied by the pair (holomorphic-symplectic $B$-field; $C^\infty$
+symplectic form on $\cM_H$). Conjectural status: $(\infty,1)$-categorical
+$\Phi$ morphism preservation remains AP-CY55-open; object-level
+$\Phi(D^b(\Coh(\cM_H)))$ is constructed explicitly at $g = 0, 1$ and
+conjectural at $g \geq 2$.
+\end{scope}
+
+\begin{theorem}[Genus-$0$ case, first-principles]\label{thm:g0-yangian}
+For $C = \bP^1$ and $G = \mathrm{GL}_2$, $\cM_H(\bP^1, \mathrm{GL}_2)$
+specialises to $T^*\bP^1$ (the trivial Higgs field locus plus nilpotent
+orbit data), and
+\[
+ \Phi(D^b(\Coh(T^*\bP^1))) \;=\; Y_\hbar(\fgl_2),
+\]
+where $Y_\hbar$ is the rational Yangian in Drinfeld's second presentation,
+with rational $R$-matrix
+\[
+ R(u) \;=\; \mathbf{1} \;+\; \frac{\hbar}{u}\,\mathrm{P}, \qquad
+ \mathrm{P}\,(v\otimes w) = w\otimes v.
+\]
+Proof sketch: $\mathrm{GL}_2$-equivariant K-theory of the cotangent
+bundle $T^*\bP^1$ carries the Nakajima-Maulik-Okounkov stable basis,
+on which the $R$-matrix acts by the Nakajima intertwiner. The Yangian
+presentation is then the Drinfeld-Jimbo generation of the raising and
+lowering operators in this basis. The $\CY_2$ structure is used
+precisely once, to produce the rational (as opposed to trigonometric
+/ elliptic) $R$-matrix: $\pi_1(T^*\bP^1) = 0$ forces the $R$-matrix
+spectral parameter to be additive.
+\end{theorem}
+
+\begin{theorem}[Genus-$1$ case, via elliptic cohomology]\label{thm:g1-eht}
+For $C = E$ an elliptic curve and $G = \mathrm{GL}_1$,
+\[
+ \Phi(D^b(\Coh(\cM_H(E, \mathrm{GL}_1)))) \;=\; E_{q,t}\bigl(\widehat{\widehat{\fgl}}_1\bigr),
+\]
+the elliptic Hall algebra (Schiffmann-Vasserot 2013 = spherical
+double affine Hecke algebra, Burban-Schiffmann 2012).  The elliptic
+$R$-matrix arises from the elliptic K-theoretic Chern-Simons
+construction on $E \times \bS^1$; its two parameters $(q,t)$ are the
+moduli of the elliptic curve $E$ and the deformation parameter of the
+sheafified DAHA.
+\end{theorem}
+
+\begin{conjecture}[Genus $\geq 2$: Hitchin chiral algebras]\label{conj:g2-hitchin}
+For $g \geq 2$, $\Phi(D^b(\Coh(\cM_H(C,G))))$ is a nontrivial
+$\Etwo$-chiral algebra depending on a choice of $R$-matrix on
+$C \times C$, satisfying the classical dynamical Yang-Baxter equation
+with kernel $\omega_{\cM_H}$ (the Atiyah-Bott symplectic form on
+$\cM_H$). At $G = \mathrm{GL}_2$, $g = 2$, this conjectural object is
+sometimes called the ``Hitchin Hall algebra'' in the manuscript. No
+explicit presentation is known for $g \geq 2$; Ginzburg-Rozenblyum
+2019 classify the necessary conditions but have not constructed
+generators and relations. \emph{Claim status: CONJECTURAL.}
+\end{conjecture}
+
+\noindent\textit{Caveat on the slogan ``$\CY_3 = \CY_2 +$ automorphic
+correction''.} The manuscript (line 375) states this as a ``key
+principle''. It is {\em not} a theorem in the form written. The
+precise statement is: for $X = K3 \times E$, the BKM denominator
+$\Delta_5$ is simultaneously a Borcherds lift (from the $K3$ mirror
+data) and a Gritsenko additive lift (from the elliptic factor),
+and $\kBKM(\Delta_5) = c_1(0)/2 = 5$. The ``automorphic correction''
+is the passage from the COHA of $K3$ (which is purely $\CY_2$) to the
+chiral algebra of $K3 \times E$ (which is $\Etwo$ at $d = 2$ but
+$\Eone$ at $d = 3$ when computed on the total space; the confusion is
+exactly the fibre-vs-total-space AP-CY22). Stated as an equation of
+{\em invariants}:
+\[
+ \kch(K3 \times E) \;\neq\; \kch(K3)\cdot \kch(E) \;+\; \text{corr},
+\]
+because the left side is zero by $\kcat(K3 \times E) = 0$ Künneth
+multiplicativity on the total space, while $\kch(K3) = 24$ (Mathieu
+Moonshine) and $\kch(E) = 0$ trivially. The slogan holds at the
+\emph{denominator-formula} level (via $\kBKM$), not at the
+$\kch$ / $\kcat$ / $\kappa_{\mathrm{fiber}}$ invariant level.
+\end{heal}
+
+% ====================================================================
+\section{Cluster A continued. The ``Langlands connection'' conjecture (lines 378--389)}
+% ====================================================================
+
+\begin{attack}[A2: scope of ``Langlands'' is unnamed]\leavevmode
+
+\noindent\emph{Ghost theorem.} There is a real conjectural statement:
+the chiral-algebra object $\Phi(\cM_H(C,G))$ at critical level $k = -h^\vee$
+is Koszul-dual to the chiral-algebra object $\Phi(\cM_H(C, \LG))$ at
+critical level, and this Koszul duality is the chiral-algebra-side
+shadow of (one version of) geometric Langlands. The evidence (line 389,
+``Feigin-Frenkel center at critical level, root/coroot exchange, SYZ,
+Kapustin-Witten'') is genuine.
+
+\noindent\emph{Precise error.} ``Langlands'' is used without
+quantification. There are {\em at least three} Langlands-type
+statements the conjecture could be pointing at:
+
+\begin{enumerate}[label=(L\arabic*)]
+ \item \textbf{Arithmetic Langlands.} $\mathrm{Gal}(\overline{\bQ}/\bQ)$
+   representations $\leftrightarrow$ automorphic forms on $G(\mathbb{A}_{\bQ})$.
+   {\em Not at CY scope.} Appears only incidentally via
+   $p$-adic shadow towers (working notes line 2545).
+ \item \textbf{Beilinson-Drinfeld geometric Langlands.} An equivalence
+   of $(\infty,1)$-categories
+   \[
+    \DMod(\Bun_G(C)) \;\simeq\; \mathrm{IndCoh}_{\mathcal{N}}(\mathrm{LocSys}_{\LG}(C))
+   \]
+   (Arinkin-Gaitsgory 2015 formulation), compatible with chiral Hecke
+   eigensheaf structure. This is the CY-scope ``categorical''
+   Langlands.
+ \item \textbf{Kapustin-Witten $S$-duality.} 4d $\mathcal{N}=4$ SYM with
+   gauge group $G$ on $C \times \Sigma$ is $S$-dual to the theory with
+   gauge group $\LG$; the $A$-twist on $\Sigma = \bS^2$ gives $A$-branes
+   on $\cM_H(C,G)$, the $B$-twist gives $B$-branes. {\em Physical}
+   Langlands.
+\end{enumerate}
+
+The manuscript as written gestures at all three simultaneously without
+labelling which is the operative one. The correct labelling:
+$G(C,G)^! = G(C, \LG)$ is an (L2)-type statement lifted to chiral
+algebras, and the ``evidence'' line is a conjunction of
+(L2)-supporting facts from (L2) and (L3).
+
+\noindent\emph{Correct relationship.} The operative conjecture is a
+\emph{chiral Koszul duality} between two chiral algebras, both
+constructed via $\Phi$, one per Langlands side. The physical (L3)
+and arithmetic (L1) shadows are consequences, not definitions.
+\end{attack}
+
+\begin{heal}[H2: the chiral Hecke eigensheaf formulation]\leavevmode
+
+\begin{conjecture}[Chiral Langlands as chiral Koszul duality; labelled scope]\label{conj:chiral-langlands-koszul}
+Let $C$ be a smooth projective curve, $G$ a simply-connected complex
+semisimple group, $\LG$ its Langlands dual. Let
+$\Bun_G(C)$ be the moduli stack of $G$-bundles on $C$ and
+$\mathrm{LocSys}_{\LG}(C)$ the moduli stack of $\LG$-local systems on
+$C$.
+
+\begin{enumerate}[label=(\alph*)]
+\item On the automorphic side, let
+\[
+ \mathcal{A}^{\mathrm{aut}}_{C,G} \;:=\; \Phi\bigl(\DMod(\Bun_G(C))^{\mathrm{crit}}\bigr)
+\]
+be the chiral algebra attached to $\DMod(\Bun_G(C))$ at critical level
+$k = -h^\vee$, via the Beilinson-Drinfeld chiral-algebra presentation
+of the critical-level Kac-Moody vertex algebra, pulled to $\Bun_G(C)$
+via the Feigin-Frenkel homomorphism.
+\item On the spectral side, let
+\[
+ \mathcal{A}^{\mathrm{spec}}_{C,\LG} \;:=\; \Phi\bigl(\mathrm{IndCoh}_{\mathcal{N}}(\mathrm{LocSys}_{\LG}(C))\bigr)
+\]
+be the chiral algebra attached to ind-coherent sheaves on
+$\LG$-local systems, with nilpotent singular support (Arinkin-Gaitsgory).
+\end{enumerate}
+
+\noindent\emph{Chiral Koszul conjecture.} There is a chiral Koszul
+duality
+\[
+ \bigl(\mathcal{A}^{\mathrm{aut}}_{C,G}\bigr)^! \;=\; \mathcal{A}^{\mathrm{spec}}_{C,\LG}
+\]
+in $\Eone\text{-}\mathrm{ChirAlg}$, compatible with the Feigin-Frenkel
+critical-level center isomorphism
+\[
+ Z\bigl(\widehat{\fg}_{\mathrm{crit}}\bigr) \;\cong\; \mathrm{Fun}(\Op_{\LG}(D)),
+\]
+where $\Op_{\LG}$ denotes $\LG$-opers on the formal disk $D$.
+
+\noindent\emph{Claim status: CONJECTURAL} at CY scope (the right-hand
+side of (b) is an $(\infty,1)$-categorical object whose chiralisation
+is not yet constructed in full; morphism preservation for $\Phi$ is
+AP-CY55-open). The $g = 0, 1$ cases reduce to Theorem \ref{thm:g0-yangian}
+/ \ref{thm:g1-eht} and are consistent with Drinfeld-Kac-Moody
+self-duality after rigidification.
+
+\noindent\emph{Physical shadow (Kapustin-Witten).} The 4d $\mathcal{N}=4$
+$S$-duality gives, on compactification on $\Sigma = \bS^2$:
+$A$-branes $\leftrightarrow$ $B$-branes, i.e.\
+$A$-branes on $\cM_H(C, G) \leftrightarrow B$-branes on
+$\cM_H(C, \LG)$. The $\Phi$-chiralisation of this equivalence yields
+Conjecture \ref{conj:chiral-langlands-koszul} modulo the (open) CY
+chiralisation step.
+
+\noindent\emph{Arithmetic shadow.} At $C$ a modular curve and
+$G = \mathrm{GL}_2$, Conjecture \ref{conj:chiral-langlands-koszul}
+intersects the Langlands reciprocity for $\mathrm{GL}_2(\mathbb{A}_{\bQ})$
+only via the $p$-adic shadow tower (working notes line 2545,
+HEURISTIC).
+\end{conjecture}
+
+\begin{remark}[On ``$G(C,G)^! = G(C, \LG)$'' as written in the manuscript]
+The placeholder symbol $G(C,G)$ in working\_notes line 384 is the
+``quantum vertex chiral group of the Hitchin system'', which is
+precisely the object Conjecture \ref{conj:chiral-langlands-koszul}(a)
+names as $\mathcal{A}^{\mathrm{aut}}_{C,G}$ after chiralisation;
+Koszul-duality $(-)^!$ is the bar-cobar duality on
+$\Eone$-chiral algebras. In this notation the slogan is correct, but
+the manuscript should either (i) import Definition 3.4 of $G(C,G)$
+from chapters/theory/quantum\_groups\_foundations.tex, or (ii) replace
+the slogan with the explicit $\mathcal{A}^{\mathrm{aut}}/\mathcal{A}^{\mathrm{spec}}$
+formulation above.
+\end{remark}
+\end{heal}
+
+% ====================================================================
+\section{Cluster B. Swiss-cheese and the $\Etwo$ bar complex (lines 1728--1738)}
+% ====================================================================
+
+\begin{attack}[A3: which Swiss-cheese operad?]\leavevmode
+
+\noindent\emph{Ghost theorem.} The three bar complexes
+$(B_{\Eone}, B_{\Etwo}, B_{\Einf})$ in working\_notes line 1731--1736
+do correspond to three sectors of a two-coloured operad with open and
+closed colours. Such an operad exists: Voronov's Swiss-cheese operad
+$\mathcal{SC}_2$ (Voronov 1998, ``The Swiss-cheese operad'').
+
+\noindent\emph{Precise error.} Two distinct operads share the name
+``Swiss-cheese''. They are {\em not} interchangeable:
+
+\begin{enumerate}[label=(\alph*)]
+ \item \textbf{Voronov's $\mathcal{SC}_2$} (Voronov 1998) is a
+   two-coloured topological operad whose closed colour is $E_2$ (little
+   2-disks in the upper half-plane, moving in the interior) and whose
+   open colour is $E_1$ (little intervals on the real boundary). An
+   algebra over $\mathcal{SC}_2$ is a pair $(A, B)$ with $A$ an
+   $E_2$-algebra, $B$ an $E_1$-algebra, and an $E_2$-action of $A$ on
+   $B$ factoring through the Hochschild cohomology $A \to \mathrm{HH}^*(B,B)$.
+   This is {\em Kontsevich's $(A, B)$-formality} / Deligne's conjecture
+   setting.
+ \item \textbf{Kontsevich's non-unital 2-disk operad} is the sub-operad
+   of $E_2$ spanned by configurations with at least one disk. It is
+   {\em not} two-coloured; it is single-colour $E_2$ minus the operadic
+   unit. This is sometimes also called ``Swiss-cheese'' in physics
+   lecture notes. It is {\em not} the operad controlling the
+   open-closed sector structure.
+ \item Costello-Gwilliam-Scheimbauer and the Vol II
+   ``$\mathrm{SC}^{\mathrm{ch,top}}$'' specifically refer to a
+   {\em chiral} refinement of Voronov's operad, carrying in addition
+   a factorisation algebra structure in the Ran sense.
+\end{enumerate}
+
+The manuscript references ``Vol II Swiss-cheese structure
+$\mathrm{SC}^{\mathrm{ch,top}}$ (Theorem H)'' (line 1731) without
+importing the definition. A reader who follows the convention
+``Swiss-cheese $=$ Voronov'' and another who follows ``Swiss-cheese
+$=$ Kontsevich non-unital'' will read two different statements.
+
+\noindent\emph{Correct relationship.} The operadic framework for
+$(B_{\Eone}, B_{\Etwo}, B_{\Einf})$ is (c): the chiral Voronov
+operad $\mathrm{SC}^{\mathrm{ch,top}}$, which is a two-coloured
+$(\infty,1)$-operad in factorisation algebras with open colour $\Eone$
+and closed colour $\Etwo$. The $\Einf$ bar complex is not part of
+the Swiss-cheese structure per se; it lives at
+$\Sym = \mathrm{colim}_{n\to\infty} E_n$, and the passage
+$\Etwo \to \Einf$ is by the additional $\Einf$-delooping (Dunn), not
+by the Swiss-cheese module action.
+\end{attack}
+
+\begin{heal}[H3: Voronov chiral refinement with labelled colours]\leavevmode
+
+\begin{scope}[The operad controlling $(B_{\Eone}, B_{\Etwo}, B_{\Einf})$]\label{scope:swiss-cheese}
+Let $\mathrm{SC}^{\mathrm{ch,top}}$ denote the two-coloured
+$(\infty,1)$-factorisation operad (Costello-Gwilliam-Scheimbauer
+version, formalised in Vol II Theorem H) with
+\begin{itemize}
+ \item closed colour: chiral $E_2$ (= $\Etwo$ with a compatible
+   factorisation algebra on $C \in \Ran$);
+ \item open colour: chiral $E_1$ (= $\Eone$ with compatible
+   factorisation).
+\end{itemize}
+The structure maps are: operadic composition of closed disks
+(closed sector $= \Etwo$); composition of open intervals on the
+boundary (open sector $= \Eone$); an $\Etwo$-action of the closed
+sector on the open sector (Deligne conjecture, chiral refinement).
+\end{scope}
+
+\begin{proposition}[Three bar complexes, three sectors; honest status]\label{prop:three-bar-sectors}
+Let $A \in \Eone\text{-}\mathrm{ChirAlg}$ and let $(A, B_{\mathrm{op}})$
+be a chiral $\mathrm{SC}^{\mathrm{ch,top}}$-algebra with closed sector
+$B_{\mathrm{op}} \in \Etwo\text{-}\mathrm{ChirAlg}$ (equivalently,
+$B_{\mathrm{op}} = \cZ^{\mathrm{der}}_{\mathrm{ch}}(A)$, Vol II
+Theorem G). Then:
+\begin{enumerate}[label=(\roman*)]
+ \item $B_{\Eone}(A)$, the $\Eone$-bar complex of $A$, is the chiral
+   Hochschild complex.
+ \item $B_{\Etwo}(A) := B_{\Eone}(\cZ^{\mathrm{der}}_{\mathrm{ch}}(A))$,
+   the $\Eone$-bar complex of the derived centre.
+ \item $B_{\Einf}(A) := \mathrm{colim}_n B_{E_n}(A)$ exists when
+   $A$ is $\Einf$-deloopable; not every $A$ admits this colimit.
+\end{enumerate}
+The $(B_{\Eone}, B_{\Etwo})$ pair is controlled by
+$\mathrm{SC}^{\mathrm{ch,top}}$; the $B_{\Einf}$ layer is {\em not}
+a Swiss-cheese sector (it lives in the symmetric / $\Einf$ limit),
+and attributing it to the Swiss-cheese structure is an AP-CY-14
+category-sliding.
+\end{proposition}
+
+\begin{remark}
+Line 1737 of working\_notes asserts: ``The $\Eone \to \Etwo$ passage
+via Drinfeld center (Theorem c3-drinfeld-center) corresponds to the
+open-to-bulk passage in Vol II via the chiral derived center
+$\cZ^{\mathrm{der}}_{\mathrm{ch}}(A)$.'' This is correct once
+interpreted in Scope \ref{scope:swiss-cheese}: Drinfeld centre $=$
+chiral derived centre at $d=3$ (Vol III Theorem C instantiation), and
+the open-to-bulk passage in Voronov is the $\Eone$-sector $\to$
+$\Etwo$-sector map sending $A \mapsto \cZ(A)$.  {\em Warning
+against AP-CY57 narration}: the original sentence reads as
+``corresponds to'', which is a synonym for ``we think these are
+related''; replace by the explicit functor
+$\mathrm{op\text{-}bulk}\colon \Eone\text{-ChirAlg} \to \Etwo\text{-ChirAlg}$,
+$A \mapsto \cZ^{\mathrm{der}}_{\mathrm{ch}}(A)$.
+\end{remark}
+\end{heal}
+
+% ====================================================================
+\section{Cluster B continued. Completed modular Koszul datum (lines 1739--1748)}
+% ====================================================================
+
+\begin{attack}[A4: the completed modular Koszul datum for CY3]\leavevmode
+
+\noindent\emph{Ghost theorem.} The eight-tuple
+\[
+ \Pi^{\mathrm{oc}}_X(A_{X_3}) =
+ \bigl(\cF_X(A), \overline{B}_X(A), \Theta_A, L_A, (V^{\mathrm{br}}, T^{\mathrm{br}}),
+ R^{\mathrm{mod}}_4, \cZ^{\mathrm{der}}_{\mathrm{ch}}(A), \Tr_A\bigr)
+\]
+has the structural shape of a {\em completed modular Koszul datum} in
+the sense of Vol I: a chiral algebra $A$, its bar-cobar pair, an
+$L_\infty$-twisting, a root lattice, a pair of modular forms
+(Borcherds $V$ and theta $T$), a modular-group $R$-matrix, the derived
+centre, and a trace. This is the right generic shape.
+
+\noindent\emph{Precise error.} The statement (line 1742) that this
+datum ``specializes to the CY3 setting'' {\em as eight components}
+silently identifies $A_{X_3}$ with a specific family:
+
+\begin{enumerate}[label=(\alph*)]
+ \item $A_{X_3}$ unqualified is ambiguous: conifold, local $\bP^2$,
+   quintic, $K3 \times E$, and the banana manifold are all CY$_3$'s
+   with {\em different} Pi-oc data.
+ \item ``BKM root system'' presupposes a $K3 \times E$ or a
+   Monster-class CY$_3$; the quintic has no BKM root system in the
+   sense relevant to $\Delta_5$.
+ \item ``Borcherds denominator formula controls the bar Euler
+   product'' is literally true at $K3 \times E$ (via Gritsenko's
+   $\Delta_5$, working notes line 1746), but fails at the quintic
+   (the topological string partition function $Z_{\mathrm{top}}(Q)$
+   is {\em not} a Borcherds product; it is a Gopakumar-Vafa product,
+   which is a different structure).
+\end{enumerate}
+
+\noindent\emph{Correct relationship.} $\Pi^{\mathrm{oc}}$ is a functor
+from compact $\CY_3$ categories to eight-tuples, whose output shape is
+fixed; the components $V^{\mathrm{br}}$ and $R^{\mathrm{mod}}_4$
+depend on which CY$_3$. At $K3 \times E$, $V^{\mathrm{br}} = \Delta_5$
+and the BKM root system is the Gritsenko-Nikulin-Scheithauer lattice
+$II_{2,2} \oplus II_{0,1}$; at the quintic, $V^{\mathrm{br}}$ is the
+MUM-monodromy conformal block and $R^{\mathrm{mod}}_4$ is the
+Candelas-de la Ossa-Greene-Parkes $A$-model $R$-matrix. Stating the
+datum generically requires the modifier ``with $X$-dependent
+$V^{\mathrm{br}}, T^{\mathrm{br}}, R^{\mathrm{mod}}_4$''.
+\end{attack}
+
+\begin{heal}[H4: the $\Pi^{\mathrm{oc}}$ datum as a family-valued functor]\leavevmode
+
+\begin{proposition}[$\Pi^{\mathrm{oc}}$ is family-valued]\label{prop:pi-oc-family}
+There is an $(\infty,1)$-functor
+\[
+ \Pi^{\mathrm{oc}} \colon \mathrm{CY}\text{-}\mathrm{cat}_3
+ \;\longrightarrow\;
+ (\text{8-tuples, as in Vol~I Definition~X.Y}),
+\]
+$A_X \mapsto (\cF_X(A), \overline{B}_X(A), \Theta_A, L_A,
+(V^{\mathrm{br}}_X, T^{\mathrm{br}}_X), R^{\mathrm{mod}}_{4,X},
+\cZ^{\mathrm{der}}_{\mathrm{ch}}(A), \Tr_A)$,
+where the last six components are {\em $X$-dependent}. Its values on
+the canonical CY$_3$ landmarks:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\small
+\begin{tabular}{lcccc}
+ \toprule
+ $X$ & $L_A$ & $V^{\mathrm{br}}_X$ & $T^{\mathrm{br}}_X$ & status \\
+ \midrule
+ $K3 \times E$ & $II_{2,2} \oplus II_{0,1}$ & $\Delta_5$ & $\theta_{K3 \times E}$ & proved ({\em CY-A}$_{3}$) \\
+ Conifold & $A_1$ & free-field log & $1$ & proved ({\em CY-A}$_{3}$) \\
+ Local $\bP^2$ & $A_2$ & quantum toroidal $\fgl_1$ character & $\theta_{\bP^2}$ & proved \\
+ Quintic & MUM & CDGP $A$-model & $\Theta_{\rm quintic}$ & conjectural (CY-B open) \\
+ Banana ($\chi=0$) & trivial & uncurved & $1$ & proved (Costello-Li) \\
+ \bottomrule
+\end{tabular}
+\end{center}
+\noindent The ``BKM root system / Borcherds denominator formula
+controls bar Euler product'' of line 1746 is the $K3 \times E$ row;
+it does not generalise off that row.
+\end{proposition}
+\end{heal}
+
+% ====================================================================
+\section{Cluster C. Quiver-chart gluing, three answers (lines 2447--2493)}
+% ====================================================================
+
+\begin{attack}[A5: ``three answers'' are not all theorems in the same sense]\leavevmode
+
+\noindent\emph{Ghost theorem.} The ``three answers'' for why $d=3$
+gives $\Eone$ --- topological, structural, hexagon --- really do
+correspond to three independent obstructions that vanish simultaneously
+(topological) and are controlled by a common parameter (Serre duality,
+odd vs.\ even $d$, Feigin-Frenkel signature) in a beautiful way.
+
+\noindent\emph{Precise error.} The three items are {\em not} theorems
+of the same status:
+
+\begin{enumerate}[label=(\roman*)]
+ \item ``$\pi_3(BU) = 0$'' is a \emph{theorem} (Bott periodicity, 1959).
+ \item ``Antisymmetric Euler form prevents CoHA from carrying an
+   $R$-matrix directly; $\Etwo$ braiding exists only on the Drinfeld
+   centre'' is a \emph{theorem} (Schiffmann-Vasserot, Maulik-Okounkov;
+   Vol III Theorem 5.2). The numerics
+   ``$\mathcal{O}_2^{\mathrm{str}} = 0, 1, 27$'' are specific computed
+   values.
+ \item ``The deformation factor $D(\varepsilon_1, \varepsilon_2) =
+   (\varepsilon_1 - \varepsilon_2)^2/(\varepsilon_1 + \varepsilon_2)^2$
+   vanishes at self-dual, nonzero generic'' is a \emph{computation}
+   (toric $\bC^3$, Nekrasov $\Omega$-background), which has not been
+   shown to generalise to non-toric CY$_3$. It is a statement at toric
+   scope, not a theorem at CY$_3$ scope. This is exactly AP-CY15:
+   toric evidence $\not\Rightarrow$ compact CY$_3$ conclusion.
+\end{enumerate}
+
+Labelling all three as ``$\Eone \to \Etwo$ obstruction components''
+with the same font is a scope-flattening (AP-CY2).
+
+\noindent\emph{Correct relationship.} (i) is a universal topological
+triviality; (ii) is a universal CY-categorical theorem (Serre duality
+origin is genuinely universal); (iii) is toric-universal and
+generalises {\em conjecturally} via the Maulik-Okounkov/K-theoretic
+stable envelope to non-toric cases, with the {\em compact} CY$_3$
+case open.
+
+\end{attack}
+
+\begin{heal}[H5: honest labelling of the three obstructions]\leavevmode
+
+\begin{proposition}[Three obstructions, labelled scope]\label{prop:three-obstructions}
+The obstruction to lifting an $\Eone$-chiral algebra $A_X$ attached to
+a CY$_3$ category $D^b(X)$ to an $\Etwo$-chiral algebra decomposes as
+\begin{enumerate}[label=\emph{(\roman*)}]
+ \item Topological: $\pi_3(BU) = 0$ gives \emph{trivial} topological
+   obstruction (Bott periodicity). Status: \textbf{universal theorem}.
+ \item Structural: the antisymmetric Euler form for $d$ odd obstructs
+   a direct CoHA $R$-matrix; $\Etwo$ braiding lives on
+   $\cZ(\Rep^{\Eone}(A_X))$, not on $A_X$. Status: \textbf{universal theorem}
+   (Schiffmann-Vasserot; Vol III \S5.2). First-principles origin:
+   Serre duality $\chi(E,F) = (-1)^d\chi(F,E)$ + the identification
+   $\pi_1(\mathrm{Conf}_2(\bR^{d-2}))$ trivial for $d-2$ odd, $\bZ$ for
+   $d-2$ even.
+ \item Hexagon-deformation: the toric deformation factor
+   $D(\varepsilon_1,\varepsilon_2) = (\varepsilon_1 - \varepsilon_2)^2 /
+   (\varepsilon_1 + \varepsilon_2)^2$ selects the self-dual locus. Status:
+   \textbf{toric-scope theorem}, \emph{conjectural} at compact CY$_3$.
+   The Maulik-Okounkov stable envelope provides the generalisation
+   path; compact-case proof is open.
+\end{enumerate}
+The three are independent: (i) is topological, (ii) is categorical,
+(iii) is parameter-space.
+\end{proposition}
+
+\begin{remark}[On the manuscript's ``Serre duality origin'' remark (line 2466)]
+The manuscript's observation ``$\chi(E,F) = (-1)^d \chi(F,E)$ \ldots
+algebraic shadow of $\pi_1(\mathrm{Conf}_2(\bR^{d-2}))$'' is correct
+and sharp; this is the kind of sentence that earns its place. It
+should be promoted to a named lemma (\emph{Serre-Fuks duality
+coincidence lemma}) rather than remain a remark.
+\end{remark}
+\end{heal}
+
+% ====================================================================
+\section{Cluster C continued. CY$_4$ prediction and Dunn additivity (lines 2527--2534)}
+% ====================================================================
+
+\begin{attack}[A6: ``$\bS^4 = \bS^2 \times \bS^2$'' and Dunn additivity]\leavevmode
+
+\noindent\emph{Ghost theorem.} The slogan $\CY_d \to E_{d-2}$ is a
+genuine prediction: by Costello's $E_{d-2}$-scope theorem plus Dunn
+additivity, a CY$_d$ category should give an $E_{d-2}$-chiral algebra
+at the appropriate formality-preserved sense.
+
+\noindent\emph{Precise error.} The line ``$\bS^4 = \bS^2 \times \bS^2$
+(Hopf decomposition), each $\bS^2$ gives $\Eone$, two $\Eone$'s give
+$\Etwo$ by Dunn additivity'' (line 2531) commits several sleights:
+
+\begin{enumerate}[label=(\alph*)]
+ \item $\bS^4 \not\cong \bS^2 \times \bS^2$ as manifolds:
+   $\bS^2 \times \bS^2$ has $\chi = 4$, second Betti number $b_2 = 2$,
+   and signature $0$; $\bS^4$ has $\chi = 2$, $b_2 = 0$, signature $0$.
+   The correct statement is that $\bS^4$ is a {\em double-cover} of
+   $\bS^2 \vee \bS^2$ via the Hopf \emph{suspension}, or more
+   precisely, there is a smash-product decomposition
+   $\bS^2 \wedge \bS^2 = \bS^4$. The manuscript's equals sign is
+   wrong on the nose.
+ \item ``Each $\bS^2$ gives $\Eone$'' is incorrect: $\bS^2$-framing
+   gives $\Etwo$ (little $2$-disks), not $\Eone$.  The manuscript is
+   thinking of the CY$_2 \to \Eone$ factor, but the $\bS^2$ in the
+   Hopf decomposition refers to the framing sphere of the $E_n$ operad,
+   not the CY dimension.
+ \item ``Two $\Eone$'s give $\Etwo$ by Dunn additivity'' is correct as
+   a statement ($\Eone \otimes \Eone = \Etwo$; Dunn 1988, Lurie HA
+   Theorem 5.1.2.2), but not applicable here: the two $\Eone$'s
+   would need to come from two commuting $\Eone$-structures on the
+   same algebra, not from a product decomposition of the framing sphere.
+\end{enumerate}
+
+\noindent\emph{Correct relationship.} The CY$_4 \to \Etwo$ prediction
+should be stated as: for $X$ a compact smooth CY$_4$, $\Phi(A_X)$ is an
+$\Etwo$-chiral algebra by the $E_{d-2}$-output-scope rule ($d = 4$
+gives $E_2$, i.e.\ $\Etwo$). Dunn additivity enters the proof path
+as: $\Etwo = \Eone \otimes \Eone$ on the level of operads, and the two
+commuting $\Eone$-structures on $\Phi(A_X)$ come from (i) the
+$C^\infty$ symplectic form on $X$ and (ii) the holomorphic volume form
+$\Omega_X$ (complex 4-form). These are compatible because $X$ is
+$K$-trivial and hyperkähler-like in the generalised sense.
+\end{attack}
+
+\begin{heal}[H6: CY$_4 \to \Etwo$ via Dunn additivity of two commuting $\Eone$-structures]\leavevmode
+
+\begin{conjecture}[CY$_4$ gives $\Etwo$]\label{conj:cy4-e2}
+Let $X$ be a compact smooth $K$-trivial complex 4-fold (CY$_4$) with
+$K_X \cong \cO_X$. Then the CY-to-chiral functor $\Phi$ sends
+$D^b(\Coh(X))$ to an $\Etwo$-chiral algebra
+\[
+ \Phi \colon D^b(\Coh(X)) \;\longmapsto\; \mathcal{A}^{(4)}_X
+ \;\in\; \Etwo\text{-}\mathrm{ChirAlg}.
+\]
+The $\Etwo$ structure is witnessed by Dunn additivity
+$\Etwo = \Eone \otimes \Eone$ applied to the pair of commuting
+$\Eone$-structures on $\mathcal{A}^{(4)}_X$ coming from:
+\begin{itemize}
+ \item the $C^\infty$ symplectic $\Eone$ (arising from the
+   Nakajima-type raising-lowering operators in CoHA);
+ \item the holomorphic $\Eone$ (arising from the 4-form
+   $\Omega_X$ via Costello-Gwilliam factorisation).
+\end{itemize}
+The two $\Eone$'s commute by the degeneracy of the
+Fröhlicher-type spectral sequence on $X$ (Hodge-symmetric type).
+
+\noindent\emph{Claim status: CONJECTURAL.} Supporting cases: $X = K3 \times K3$
+(where the two $\Eone$'s come from the two K3 factors; proof
+{\em reduces} to chiral Koszul on $K3$, which is Vol III \S7), and
+$X$ hyperkähler (where a single hyperkähler $\bS^2$-family of complex
+structures gives an $\bS^2$-framed $\Etwo$ directly, Kapustin-Rozansky-Saulina
+style). The general smooth CY$_4$ case is open.
+\end{conjecture}
+
+\begin{remark}[Correction on $\bS^4 \neq \bS^2 \times \bS^2$]
+The working-notes line 2531 should be corrected to: ``For
+$X = K3 \times K3$: $X$ has two commuting $\Eone$-structures, one per
+$K3$ factor. By Dunn additivity $\Eone \otimes \Eone = \Etwo$, the
+product carries an $\Etwo$-structure.'' The sphere-framing sentence
+about $\bS^4$ vs.~$\bS^2 \times \bS^2$ is not needed for the
+argument; it conflates the framing sphere of the $E_n$-operad with
+the manifold $X$. (AP-CY14 category-sliding.)
+\end{remark}
+\end{heal}
+
+% ====================================================================
+\section{Cluster C final. Quantum toroidal from 3-chart hocolim (lines 2551--2566)}
+% ====================================================================
+
+\begin{attack}[A7: hocolim vs Hall product]\leavevmode
+
+\noindent\emph{Ghost theorem.} For local $\bP^2$ the three Seiberg-dual
+quiver charts $(Q_0, Q_1, Q_2)$ do carry a $\bZ_3$-action compatible
+with the Miki automorphism of the quantum toroidal
+$U_{q,t}(\widehat{\widehat{\fgl}}_1)$, and an $\Eone$-chiral hocolim in
+$\Eone$-ChirAlg does compute the quantum toroidal algebra at the level
+stated (through total degree 6).
+
+\noindent\emph{Precise error.} The statement (line 2551--2566)
+``$U_{q,t}(\widehat{\widehat{\fgl}}_1) = \mathrm{hocolim}(\CoHA(Q_0,W_0)
+\rightrightarrows \CoHA(Q_1,W_1) \rightrightarrows \CoHA(Q_2,W_2))$''
+has three subtle issues:
+
+\begin{enumerate}[label=(\alph*)]
+ \item The hocolim is in \emph{which} $(\infty,1)$-category? Plain
+   $\Eone$-algebras? $\Eone$-ChirAlg? The Ran-factorisation category?
+   Each gives a different answer.
+ \item The equality is through total degree $6$ only, per the
+   manuscript, but the symbol ``$=$'' is used. This should be
+   $\simeq_{\leq 6}$ (equivalence after truncating to total degree
+   $\leq 6$).
+ \item Sequential mutations do not compose (exchange matrix
+   entries grow exponentially); the manuscript acknowledges this
+   (line 2551), but then does not explain what operadic diagram
+   actually drives the hocolim. The answer is: the cyclic diagram
+   $Q_0 \to Q_1 \to Q_2 \to Q_0$ in the $(\infty,1)$-category of
+   $\Eone$-ChirAlg{\em's} with conjugation-mutation morphisms, not
+   sequential mutations.
+\end{enumerate}
+
+\noindent\emph{Correct relationship.} The correct statement is an
+equivalence of $\Eone$-chiral algebras up to truncation:
+\[
+ \tau_{\leq 6}\bigl(U_{q,t}(\widehat{\widehat{\fgl}}_1)\bigr)
+ \;\simeq\;
+ \tau_{\leq 6}\bigl(\mathrm{hocolim}^{\Eone\text{-ChirAlg}}
+ (\CoHA(Q_0,W_0) \rightrightarrows \CoHA(Q_1,W_1)
+ \rightrightarrows \CoHA(Q_2,W_2))\bigr),
+\]
+where the two parallel arrows are the two conjugation-mutation
+morphisms (not sequential compositions), the cyclic diagram has three
+objects forming a $\bZ_3$-orbit, and the Miki automorphism $S$
+satisfies $S^3 = \mathrm{id}$ on the hocolim.
+\end{attack}
+
+\begin{heal}[H7: truncated hocolim in $\Eone$-ChirAlg, $\bZ_3$-Miki]\leavevmode
+
+\begin{conjecture}[Quantum toroidal as 3-chart hocolim, truncated]\label{conj:qt-hocolim}
+Let local $\bP^2$ be the CY$_3$ with quiver description given by the
+three Seiberg-dual quivers $Q_0, Q_1, Q_2$ obtained by mutating the
+original $Q_0$ at its three nodes; let $W_i$ denote the superpotential
+transported to $Q_i$ by conjugation, not by sequential mutation. Then
+there is an $\Eone$-chiral equivalence up to degree-6 truncation
+\[
+ \tau_{\leq 6}\,U_{q,t}\bigl(\widehat{\widehat{\fgl}}_1\bigr)
+ \;\simeq\;
+ \tau_{\leq 6}\,\mathrm{hocolim}^{\Eone\text{-ChirAlg}}_{\bZ_3}
+ \bigl(\CoHA(Q_0,W_0)
+ \rightrightarrows \CoHA(Q_1,W_1)
+ \rightrightarrows \CoHA(Q_2,W_2)\bigr),
+\]
+with the $\bZ_3$-action of the hocolim descending to the Miki
+automorphism $S \in \mathrm{Aut}(U_{q,t})$ satisfying $S^3 = \mathrm{id}$.
+The bar-hocolim commutation
+\[
+ B^{\Eone}(U_{q,t}) \simeq \mathrm{hocolim}\, B^{\Eone}(\CoHA_i)
+\]
+holds at the same truncation level.
+
+\emph{Claim status: CONJECTURAL at arbitrary total degree}; proved at
+total degree $\leq 6$ by the 124-test engine
+\texttt{quantum\_toroidal\_from\_3chart.py}. Extending beyond degree
+6 is open. The mechanism is similar to Maulik-Okounkov stable envelope
+$\bZ_3$-invariants for equivariant K-theory of the resolved conifold;
+the extension to non-toric compact CY$_3$ remains the object of
+Pattern 236 ambient-qualifier discipline.
+\end{conjecture}
+\end{heal}
+
+% ====================================================================
+\section*{Cache: new AP-CYs proposed}
+% ====================================================================
+
+The investigation surfaces three new antipatterns for inclusion in
+\texttt{notes/antipatterns\_catalogue.md}:
+
+\begin{itemize}
+ \item \textbf{AP-CY63 --- Langlands scope conflation (Critical).}
+   ``Langlands'' is tri-valued at CY scope: arithmetic (Gal $\leftrightarrow$
+   automorphic), Beilinson-Drinfeld geometric ($\DMod(\Bun_G) \simeq
+   \mathrm{IndCoh}_\mathcal{N}(\mathrm{LocSys}_{\LG})$), Kapustin-Witten physical
+   (4d $\mathcal{N}=4$ $S$-duality). Each use of ``Langlands'' must
+   name which. \emph{Counter}: the CY-scope operative statement is
+   usually (L2), with (L3) as physical shadow and (L1) as $p$-adic
+   consequence; the manuscript conflates all three in the slogan
+   $G(C,G)^! = G(C,\LG)$.
+
+ \item \textbf{AP-CY64 --- Swiss-cheese operad ambiguity (High).}
+   ``Swiss-cheese'' refers to Voronov's two-coloured 2-disk operad
+   (open colour $\Eone$, closed colour $\Etwo$), or Kontsevich's
+   non-unital single-colour 2-disk operad, or the chiral refinement
+   $\mathrm{SC}^{\mathrm{ch,top}}$ of Vol II. These are three different
+   operads. \emph{Counter}: always name the reference (Voronov 1998 /
+   Kontsevich 1999 / Vol II Theorem H).
+
+ \item \textbf{AP-CY65 --- $\bS^4 = \bS^2 \times \bS^2$ is false
+   (Low-Medium).} The Hopf decomposition gives $\bS^2 \wedge \bS^2 = \bS^4$,
+   not a Cartesian product. When using Dunn additivity for CY$_4 \to \Etwo$,
+   the two commuting $\Eone$-structures come from the pair
+   (symplectic, holomorphic), not from a product decomposition of the
+   framing sphere. \emph{Counter}: state Dunn additivity in operadic
+   form $\Eone \otimes \Eone = \Etwo$, not as a topological
+   decomposition of framing data.
+\end{itemize}
+
+% ====================================================================
+\section*{Summary of repairs}
+% ====================================================================
+
+\begin{itemize}
+ \item Working-notes \textbf{lines 364--375}: the ``$\CY_2$ escape'' is
+   a functor on the Hitchin moduli space $\cM_H(C,G)$, not on
+   $\Coh(T^*C)$ literally; the slogan
+   ``$\CY_3 = \CY_2 + \text{automorphic correction}$'' is a
+   denominator-formula ($\kBKM$) statement at $K3 \times E$, not a
+   $\kch$ / $\kcat$ / $\kappa_{\mathrm{fiber}}$ invariant statement.
+ \item Working-notes \textbf{lines 378--389} (``Langlands''): the
+   conjecture is (L2) Beilinson-Drinfeld, stated as chiral Koszul
+   duality $(\mathcal{A}^{\mathrm{aut}})^! = \mathcal{A}^{\mathrm{spec}}$; (L1)
+   arithmetic and (L3) Kapustin-Witten are shadows.
+ \item Working-notes \textbf{line 1731--1737}: ``Swiss-cheese'' means
+   chiral Voronov $\mathrm{SC}^{\mathrm{ch,top}}$; $B_{\Einf}$ is not
+   a Swiss-cheese sector; open-to-bulk passage is the explicit
+   functor $\cZ^{\mathrm{der}}_{\mathrm{ch}}$.
+ \item Working-notes \textbf{line 1742--1746}: $\Pi^{\mathrm{oc}}$
+   is family-valued; ``BKM root system / Borcherds denominator'' is
+   the $K3 \times E$ row, not universal over CY$_3$.
+ \item Working-notes \textbf{line 2459--2466}: three
+   $\Eone \to \Etwo$ obstructions are not all universal theorems; (i)
+   topological is universal, (ii) structural is universal, (iii)
+   hexagon-deformation is toric-scope with compact generalisation
+   open.
+ \item Working-notes \textbf{line 2531}: $\bS^4 \neq \bS^2 \times \bS^2$;
+   the CY$_4 \to \Etwo$ argument uses Dunn additivity on two
+   commuting $\Eone$-structures (symplectic + holomorphic), not a
+   product decomposition.
+ \item Working-notes \textbf{line 2551--2566}: equality of hocolim
+   with $U_{q,t}$ holds at truncation $\leq 6$; the cyclic diagram
+   uses conjugation-mutation, not sequential mutation; $\bZ_3$-action
+   is the Miki automorphism.
+\end{itemize}
+
+\end{document}

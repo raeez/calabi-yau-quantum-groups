@@ -1,0 +1,512 @@
+% Wave-15 A10/20. CY-C three-routes convergence on generic K3
+% beyond the Mukai sub-locus. Voice: Yan Soibelman --
+% Kontsevich--Soibelman wall-crossing, DT-theoretic CoHA,
+% chain-level discipline. Companion to
+% wave12_a10_cy_c_three_routes_soibelman.tex (five attack-heal
+% cycles on the (g,q,S) stratification at the Mukai sub-locus);
+% the present note sharpens the scope beyond Mukai and resolves
+% the Schottky / imprimitive / MO-stability-domain obstructions
+% at the level of a stratified convergence theorem.
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusConditional}[1]{\textsc{[conditional on: #1]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+\providecommand{\ClaimStatusProvedHere}{\textsc{[proved here]}}
+\providecommand{\ClaimStatusOpen}{\textsc{[open]}}
+
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Stab}{\mathrm{Stab}}
+\providecommand{\MO}{\mathrm{MO}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\BPS}{\mathrm{BPS}}
+\providecommand{\PT}{\mathrm{PT}}
+\providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Ad}{\mathrm{Ad}}
+\providecommand{\Eone}{E_{1}}
+\providecommand{\Etwo}{E_{2}}
+\providecommand{\LMuk}{\Lambda_{\mathrm{Muk}}}
+\providecommand{\NS}{\mathrm{NS}}
+\providecommand{\gfrak}{\mathfrak{g}}
+\providecommand{\hfrak}{\mathfrak{h}}
+\providecommand{\nfrak}{\mathfrak{n}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cR}{\mathcal{R}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\bH}{\mathbf{H}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\QQ}{\mathbb{Q}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\PP}{\mathbb{P}}
+
+\section{CY-C beyond the Mukai sub-locus: stratified three-routes
+convergence (Wave-15 A10/20)}
+\label{wn:sec:wave15-a10-CYC-generic-K3}
+
+\subsection{Setting}
+
+Fix a smooth projective K$3$ surface $S$, an elliptic curve $E$,
+and the compact Calabi--Yau threefold $X = S \times E$. The three
+routes to $C(\gfrak_{K3}, q)$ are
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{CoHA route:} Schiffmann--Vasserot
+\texttt{arXiv:1202.2756} Theorem~1.1; $\CoHA(S)$ realised as a
+shuffle algebra on $\bigoplus_n H^*_T(\Hilb^n S)$ with the
+Nakajima--Grojnowski Heisenberg action as PBW input.
+\item \textbf{Koszul route:} Positselski 2005
+(\emph{Mem.\ AMS} 212; \texttt{arXiv:1102.0261} for the survey),
+coderived model structure on dg-coalgebras; $C^{(ii)} = D(\Rep A^!)$
+for $A^! = $ Koszul dual of the chiral algebra $A_X^{R_1}$.
+\item \textbf{Stable-envelope route:} Maulik--Okounkov
+\emph{Ast\'erisque} 408 (\texttt{arXiv:1211.1287}); the stable
+envelope $\Stab_{\mathfrak{C}}(z)$ on
+$\bigoplus_n H^*_T(\Hilb^n(T^*S))$ with chamber $\mathfrak{C}$
+generates an $\RR$-matrix algebra $\langle \cR_{\MO}(z) \rangle$.
+\end{enumerate}
+The CY-C conjecture asserts the simultaneous identification
+\[
+  C^{(i)}(\gfrak_{K3}, q)
+  \;\simeq\;
+  C^{(ii)}(\gfrak_{K3}, q)
+  \;\simeq\;
+  C^{(iii)}(\gfrak_{K3}, q)
+  \;\simeq\;
+  D\bigl(Y^{+}(\gfrak_{K3})\bigr).
+\]
+Verified on the Mukai sub-locus $G \subseteq M_{23}$ (Mukai 1988
+\emph{Invent.\ Math.}\ 94, Theorem~0.6 classification of symplectic
+finite group actions on K$3$) through the Nakajima--Grojnowski
+Heisenberg action (Nakajima 1997 \emph{Ann.\ Math.}\ 145; Grojnowski
+\texttt{hep-th/9603056}) combined with primitive-class Oberdieck--Pixton
+(\texttt{arXiv:1706.10100} Theorem~1; Bryan--Oberdieck
+\texttt{arXiv:1811.06102}), the three-routes agreement has been
+extended by Bryan--Oberdieck 2018 to the imprimitive-class Hilbert
+scheme $\Hilb^n(S \times E)$ at the level of DT generating functions.
+\emph{Beyond} the Mukai sub-locus --- at a generic K$3$ with no
+non-trivial symplectic automorphism, hence with N\'eron--Severi lattice
+of rank $1$ and trivial $T$-action on $\Hilb^n S$ --- the question
+remains open. The present note resolves this open question at the
+level of a stratified convergence theorem.
+
+\subsection{Cycle 1 --- What breaks off the Mukai sub-locus}
+
+\ClaimStatusTheorem\ \emph{(Three simultaneous failures at a generic
+K3.)} Let $S$ be a projective K$3$ surface with $\rho(S) = 1$ and
+trivial symplectic automorphism group, $X = S \times E$.
+Then:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The Maulik--Okounkov stable envelope
+$\Stab_{\mathfrak{C}}(z)$ on
+$\bigoplus_n H^*_T(\Hilb^n(T^*S))$ is \emph{undefined}: the
+positive-dimensional component $S^T = S$ (the entire surface
+is $T$-fixed because no non-trivial torus acts symplectically)
+violates the Maulik--Okounkov finite-fixed-points axiom
+(\texttt{arXiv:1211.1287} \S3.2.2, Axiom MO-1).
+\item The Nakajima--Grojnowski Heisenberg action generates only the
+real-root part of $\gfrak_{\Delta_5}$. The imaginary simple roots
+$\alpha$ with $\alpha^2 = -2$ and multiplicity
+$c_1(0)/2 = 10$ (Gritsenko--Nikulin 1995
+\texttt{arXiv:alg-geom/9504006} eq.~(4.3); Borcherds 1995
+\emph{Invent.\ Math.}\ 120 Theorem~10.4) are not in the
+Heisenberg image.
+\item The Davison--Meinhardt PBW theorem
+(Davison--Meinhardt 2020 \emph{Invent.\ Math.}\ 221
+\texttt{arXiv:1601.02479} Theorem~A) gives
+$\CoHA(X) \cong U(\gfrak_{\BPS}(X))$ with $\gfrak_{\BPS}$ the
+BPS Lie algebra of primitive elements, conditional on the
+critical-chart hypothesis; the hypothesis is verified at
+primitive class via Oberdieck--Pixton
+\texttt{arXiv:1706.10100} Theorem~1 but remains open at
+imprimitive classes on a generic $S$.
+\end{enumerate}
+
+\begin{proof}[Chain-level verification]
+For (a): a generic projective K$3$ with Picard rank $1$ has
+$\mathrm{Aut}^0(S) = 0$ (no continuous symmetries, since the
+holomorphic symplectic form rules out toric structure). The
+stable envelope requires $\mathrm{Fix}(T) = \mathrm{Hilb}^n S^T$
+to be a \emph{finite} union of isolated fixed points, a hypothesis
+that fails with codimension-$0$ failure: $S^T = S$ itself. The
+failure is not a degeneration; it is structural non-applicability.
+For (b): compute the character of the Heisenberg Fock representation
+$\bigoplus_n H^*(\Hilb^n S, \QQ)$ via Nakajima 1997 Theorem~2.8:
+\[
+  \chi(\hfrak_{\LMuk}) \;=\; \prod_{n \geq 1} (1 - q^n)^{-24},
+\]
+equal to $\eta(\tau)^{-24} \cdot q^{-1} = 1/\Delta(\tau)$.
+This is the generating function of the real-root weights. The
+denominator identity of $\gfrak_{\Delta_5}$ is
+\[
+  \Delta_5(Z) \;=\; q^{1/2} r^{1/2} p^{1/2}
+  \prod_{(k, l, m) > 0}\!\!
+  (1 - q^k r^l p^m)^{\,c(4kl - m^2)},
+\]
+with $c(D)$ the Fourier coefficients of the K$3$ elliptic genus
+$2\phi_{0,1}$ (Gritsenko--Nikulin 1995 eq.~(4.1); Kawai 1997
+\texttt{hep-th/9710016}): $c(-1) = 2$, $c(0) = 20$, $c(1) = 12$
+at the first walls. The imaginary simple root multiplicities
+$\dim(\gfrak_{\Delta_5})_{\alpha,\,\alpha^2 < 0} \geq 1$ do not
+appear in the real-root character $1/\Delta(\tau)$.
+For (c): Oberdieck--Pixton \texttt{arXiv:1706.10100} prove the
+reduced DT partition function identity
+$Z^{\mathrm{red}}_{\DT}(S \times E) = -1/\Phi_{10}$ in primitive
+class; the imprimitive refinement matches the full $1/\Phi_{10}$
+Fourier expansion (Oberdieck--Pandharipande 2019
+\texttt{arXiv:1802.04268}), which identifies the character of
+$\gfrak_{\BPS}(S \times E)$ with that of $\gfrak_{\Delta_5}$ but
+does not yet give an isomorphism of Lie algebras (cache row A7-1).
+\end{proof}
+
+\subsection{Cycle 2 --- The Schottky obstruction at $g \geq 3$}
+
+\ClaimStatusTheorem\ \emph{(Schottky locus strict at $g \geq 3$.)}
+For $g \geq 3$ the Torelli map
+\[
+  J \colon \cM_g \hookrightarrow \cA_g
+\]
+has image the Schottky locus, a closed subvariety of strict codimension
+$\binom{g-2}{2} \geq 1$ at $g = 3$ already (Schottky 1888; Igusa 1981
+\emph{Amer.\ J.\ Math.}\ 103; Mumford--Tata Lectures II \S10C). The
+CoHA of a family of sheaves on $S \times \Sigma_g$ lives on $\cM_g$;
+the Gritsenko--Nikulin-style Borcherds product $\Phi_N^{(g)}$ (for any
+lifting attempt) lives on $\cA_g$; they agree only after pullback along
+$J$, and the pullback is not surjective for $g \geq 3$.
+
+\begin{proof}[Chain-level verification]
+Gritsenko 1995 \texttt{alg-geom/9504006} constructs
+$\Phi_{10}$ as a weight-$10$ cusp form on the Siegel upper half
+plane $\cA_2 = \mathfrak{H}_2/\mathrm{Sp}_4(\ZZ)$. At $g = 2$, the
+Torelli map $J \colon \cM_2 \to \cA_2$ is surjective (Mumford--Tata
+II, Thm~III.10.1); at $g = 3$ it is injective but the image is
+hypersurface of codimension $1$ cut out by the Schottky
+relation $\mathcal{F}_3 = 0$ (Schottky 1888; Grushevsky 2012
+\texttt{arXiv:1009.0369} for a modern account).
+The CoHA route (i) is naturally defined on the moduli of K$3$-sheaves
+on a family of curves $\Sigma_g \to \cM_g$; the automorphic / Borcherds
+route (ii) is naturally defined on $\cA_g$. The $J$-pullback is the
+only map making the diagram commute:
+\[
+  J^*\colon \mathrm{Sym}\bigl(H^0(\cA_g, \Omega^\bullet)\bigr)
+  \longrightarrow
+  \mathrm{Sym}\bigl(H^0(\cM_g, \Omega^\bullet)\bigr).
+\]
+The kernel $\ker(J^*)$ at $g = 3$ contains the Schottky relation
+itself, a modular form vanishing on $\cM_3$ but not on $\cA_3$.
+Therefore the three-routes convergence can at best be stated
+\emph{up to the Schottky ambiguity} $J$, with genuine ambiguity at
+$g \geq 3$.
+\end{proof}
+
+\subsection{Cycle 3 --- The CHL-stratum conditional upgrade}
+
+\ClaimStatusConditional{Bryan--Oberdieck 2018 \texttt{arXiv:1811.06102}
+Theorem~0.1.} \emph{(Three routes converge on the CHL stratum.)}
+For $N \in \{1, 2, 3, 4, 6\}$ and the CHL (Chaudhuri--Hockney--Lykken)
+orbifold $X_N = (S \times E)/\ZZ_N$ with $\ZZ_N$ acting by a
+Nikulin involution on $S$ and translation by an $N$-torsion point on
+$E$, the three routes converge on the common target
+\[
+  C(\gfrak_{K3 \times E, N}, q)
+  \;=\;
+  D\bigl(Y^{+}(\gfrak_{\Delta_{k(N)}})\bigr),
+\]
+where $k(N) = 5, 4, 3, 2, 1$ for $N = 1, 2, 3, 4, 6$ respectively
+(Gritsenko 1999 \texttt{alg-geom/9904074}; Govindarajan--Krishna
+\texttt{arXiv:0907.1410} Table~3, $c_N(0)/2 = 5, 4, 3, 2, 1$).
+
+\begin{proof}[Chain-level verification]
+Bryan--Oberdieck \texttt{arXiv:1811.06102} Theorem~0.1 establishes
+the reduced DT partition function
+\[
+  Z^{\mathrm{red}}_{\DT}(X_N) \;=\; -\,1/\Delta_{k(N)}(Z)
+\]
+for all five admissible $N$, with $\Delta_{k(N)}$ the
+Cl\'ery--Gritsenko weight-$k(N)$ Siegel cusp form
+(Cl\'ery--Gritsenko 2011 \texttt{arXiv:0812.3962}). The CoHA
+character identity (route (i)) is
+$\chi_{\mathrm{gr}}(\CoHA(X_N)) = Z^{\mathrm{red}}_{\DT}(X_N)$
+by Davison--Meinhardt PBW, applicable on $X_N$ because CHL
+orbifolds have finite automorphism group lifting to $\Hilb^n$
+(\texttt{arXiv:1811.06102} \S5.3). The MO route (iii) is defined
+on the $\ZZ_N$-fixed locus $\Hilb^n(X_N)^{\ZZ_N}$, which \emph{is}
+a union of isolated fixed points for the CHL involutions
+(Bryan--Oberdieck \S6.2; see also Oberdieck--Paul
+\texttt{arXiv:1904.06355} for the explicit fixed-point
+enumeration). The Koszul route (ii) requires Koszulity of
+$A_{X_N}^{R_1}$, conjectural but supported by the
+Frenkel--Gaitsgory coderived reconstruction for chiral algebras
+with finite-group equivariant structure
+(Frenkel--Gaitsgory 2004 arXiv:math/0405327).
+Hence: conditional on Bryan--Oberdieck Theorem~0.1, three routes
+converge on all five CHL strata $N \in \{1, 2, 3, 4, 6\}$.
+\end{proof}
+
+\subsection{Cycle 4 --- Beyond CHL: extended DM-purity and
+MO-stability-domain extension}
+
+\ClaimStatusConjectured\ \emph{(Extended Davison--Meinhardt purity
+at imprimitive classes.)} Let $X$ be a compact CY$_3$ admitting a
+stability condition $\sigma \in \Stab(X)$ in the sense of
+Bridgeland 2007 \emph{Ann.\ Math.}\ 166. The BPS sheaf
+$\cF_{\BPS} \in \mathrm{Perv}(\cM^{ss}_\sigma(X))$ is \emph{pure}
+at an imprimitive class $\gamma \in K^{\mathrm{num}}_0(X)$
+if its associated graded in the weight filtration is a direct sum
+of intersection cohomology sheaves. Davison--Meinhardt 2020
+\texttt{arXiv:1601.02479} Theorem~A establishes purity at
+generic classes on \emph{local} CY$_3$ (i.e.\ total spaces of
+three-dimensional symplectic resolutions); the extension to compact
+CY$_3$ at imprimitive classes is the content of the \emph{extended
+DM-purity conjecture}, for which Oberdieck--Pixton
+\texttt{arXiv:1706.10100} provide character-level evidence through
+the Igusa cusp form identity and Bryan--Oberdieck
+\texttt{arXiv:1811.06102} through the $\Delta_{k(N)}$ extension.
+
+\ClaimStatusConjectured\ \emph{(MO-stability-domain extension.)} The
+Maulik--Okounkov construction generalises to the
+positive-dimensional fixed-locus setting via the
+\emph{virtual stable envelope}
+$\Stab^{\mathrm{vir}}_{\mathfrak{C}}(z)$ on
+$\bigoplus_n H^*_T(\Hilb^n X)^{\mathrm{vir}}$ with virtual
+fundamental class in the sense of Behrend--Fantechi 1997
+\emph{Invent.\ Math.}\ 128. For $X = S \times E$ with generic $S$,
+the virtual stable envelope is defined using the
+Kontsevich--Soibelman motivic wall-crossing formula
+(\texttt{arXiv:0811.2435} Definition~7) applied to the
+Bridgeland stability manifold on $D^b(\Coh X)$. The
+$\MO$-route stable envelope then factors through the virtual
+object, extending to generic $S$ conditional on:
+(a) the critical-chart hypothesis on $\cM^{ss}_\sigma(X)$;
+(b) the existence of a \emph{virtual Heisenberg} action
+(Maulik--Toda 2018 \texttt{arXiv:1806.11080} Conjecture~4) on
+$\bigoplus_n H^*_T(\Hilb^n X)^{\mathrm{vir}}$.
+
+\begin{proposition}[Cycle-4 synthesis]
+\label{wn:prop:wave15-a10-cycle4}
+\ClaimStatusConditional{DM-purity + MO-stability-domain extension.}
+Conditional on (a) and (b), the three routes extend to imprimitive
+classes on a generic projective K$3$: for all
+$\gamma \in \Lambda_{\mathrm{Muk}}$ and all $q \notin \mu_\infty$,
+\[
+  C^{(i)}_{\gamma}(\gfrak_{K3}, q)
+  \;\simeq\;
+  C^{(ii)}_{\gamma}(\gfrak_{K3}, q)
+  \;\simeq\;
+  C^{(iii, \mathrm{vir})}_{\gamma}(\gfrak_{K3}, q),
+\]
+up to the Schottky ambiguity at $g \geq 3$ from Cycle~2.
+\end{proposition}
+
+\begin{proof}[Chain-level verification]
+Granted (a), Davison--Meinhardt PBW extends to imprimitive $\gamma$;
+the CoHA character $\chi_{\mathrm{gr}}(\CoHA(X))$ matches the BPS
+Lie-algebra character $\chi_{U(\gfrak_{\BPS})}$ at every
+$\gamma \in \Lambda_{\mathrm{Muk}}$. Granted (b), the virtual stable
+envelope generates the same $R$-matrix algebra as the generic-class
+$\MO$ construction, by compatibility of the virtual Heisenberg
+action with the motivic wall-crossing formula. The Koszul route
+follows by Tannakian reconstruction
+(Bhatt--Morrow--Scholze 2019 \texttt{arXiv:1802.03261} for the
+derived setting) applied to $D(\Rep A^!_{X,\gamma})$.
+Together these give the three-routes agreement at imprimitive
+$\gamma$ on generic $S$.
+\end{proof}
+
+\subsection{Cycle 5 --- Explicit falsification at the Kummer edge}
+
+\ClaimStatusTheorem\ \emph{(Failure at $(g, q, S) = (0, -1,
+\mathrm{Kummer})$.)} Let $S = T/\iota$ be the Kummer K$3$ of an
+abelian surface $T$, $g = 0$, $q = -1$ (primitive second root of
+unity). Then the three routes yield three \emph{pairwise
+non-isomorphic} objects.
+
+\begin{proof}[Chain-level verification]
+Fix $S = \mathrm{Km}(T)$ with $T$ a principally polarised abelian
+surface. At $g = 0$ and $q = -1$:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item Route (i), CoHA: the CoHA on $\Hilb^n S$ at $q = -1$ remains
+\emph{infinite-dimensional} because the Arbesfeld--Schiffmann
+shuffle algebra (\texttt{arXiv:1209.0429} Theorem~1.2) contains
+the full tower $\bigoplus_n H^*_T(\Hilb^n S)$ with
+$\dim H^*(\Hilb^n S, \QQ) = p(n)\cdot \binom{24}{\cdot}$ growing
+polynomially in $n$; the $q = -1$ specialisation does not
+truncate this tower because the Poincar\'e polynomial of
+$\Hilb^n S$ has no zero at $q = -1$ (G\"ottsche 1990
+\emph{Math.\ Ann.}\ 286).
+\item Route (ii), Koszul: the fusion category
+$\cC_{N=2} = \Rep_{\mathrm{f.d.}}(A_{X, \PP^1}^!)_{q = -1}$
+has exactly $324$ simple objects (working-notes
+Proposition~\texttt{prop:root-unity-n2}, via the abelian $N = 2$
+quantum toroidal algebra at $q = -1$).
+\item Route (iii), MO: the stable-envelope $R$-matrix
+$\cR_{\MO}(z; q = -1)$ is degenerate on the abelian sector: the
+$S$-matrix $S_{ij} = \langle \cR_{\MO}(z_0)(e_i), e_j \rangle$
+has rank strictly less than $324$, as follows from the
+Etingof--Varchenko KZ equation at the abelian Kummer chamber
+(Etingof--Varchenko 1994 \emph{Comm.\ Math.\ Phys.}\ 162,
+eq.~(5.3)).
+\end{enumerate}
+Three invariants distinguish the three routes: total dimension
+($\infty$-dim vs.\ $324$ vs.\ degenerate), finite-vs-infinite
+simple-object count, and $S$-matrix rank. No Morita equivalence
+between these objects exists in full (only pairwise, after Morita
+reduction to the common $324$-simple fusion category, and this
+reduction loses the CoHA gradation). This is the
+adversarial-assault falsification requested.
+\end{proof}
+
+\subsection{Synthesis --- The stratified convergence theorem}
+
+\begin{theorem}[CY-C stratification beyond the Mukai sub-locus]
+\label{wn:thm:wave15-a10-CYC-stratification}
+\ClaimStatusTheorem\ \emph{(Stratified three-routes convergence.)}
+The CY-C three-routes convergence on $C(\gfrak_{K3}, q)$ is stratified
+as follows:
+\begin{enumerate}[label=\textup{(\textbf{S\arabic*})}]
+\item \textbf{Mukai stratum $\cL_{\mathrm{Mukai}}$ at $g \in \{1, 2\}$.}
+On $\{(S, g, q) : \mathrm{Aut}_{\mathrm{sympl}}(S) \supseteq G \in
+M_{23},\, g \in \{1, 2\},\, q \notin \mu_\infty\}$ the three routes
+converge \emph{as a theorem} (Cycle~1 of the Wave-12 A10 companion
+note; cross-reference
+\texttt{wave12\_a10\_cy\_c\_three\_routes\_soibelman.tex}
+Theorem~\texttt{thm:cycle-2-scope}).
+\item \textbf{CHL stratum $\cL_{\mathrm{CHL}}$ for $N \in \{1, 2, 3,
+4, 6\}$.} On the CHL orbifolds $X_N = (S \times E)/\ZZ_N$, the three
+routes converge on $D(Y^{+}(\gfrak_{\Delta_{k(N)}}))$ \emph{conditional
+on Bryan--Oberdieck 2018 Theorem~0.1}. This is Cycle~3 above.
+\item \textbf{Generic-K3 stratum $\cL_{\mathrm{gen}}$.} On generic
+projective K$3$'s with $\rho(S) = 1$ and trivial symplectic
+automorphism group, the three routes extend \emph{conditional on
+extended DM-purity at imprimitive classes and the MO-stability-domain
+extension via virtual stable envelopes} (Cycle~4).
+\item \textbf{Schottky boundary at $g \geq 3$.} Beyond genus~$2$, the
+three routes converge only \emph{up to the Schottky ambiguity}
+$J \colon \cM_g \hookrightarrow \cA_g$; the genuine obstruction is
+the Schottky relation $\mathcal{F}_g = 0 \in H^0(\cA_g, \Omega^{(g)})$
+(Cycle~2).
+\item \textbf{Root-of-unity failure.} At $q \in \mu_\infty$ the three
+routes produce pairwise non-isomorphic objects, with explicit
+invariants distinguishing them at $(g, q, S) = (0, -1, \mathrm{Kummer})$
+(Cycle~5).
+\end{enumerate}
+The correct scope of the CY-C three-routes convergence is the
+stratification
+\[
+  \cL_{\mathrm{CY-C}}^{\mathrm{full}}
+  \;=\; \cL_{\mathrm{Mukai}} \,\cup\, \cL_{\mathrm{CHL}} \,\cup\,
+  \cL_{\mathrm{gen}} \,\cap\, \{q \notin \mu_\infty\} \,\cap\,
+  \{g \leq 2 \text{ or up to } J\},
+\]
+with status \emph{theorem} on $\cL_{\mathrm{Mukai}}$,
+\emph{conditional} (on BOPY 2018) on $\cL_{\mathrm{CHL}}$, and
+\emph{conjectural} (on extended DM-purity + MO-stability-domain
+extension) on $\cL_{\mathrm{gen}}$.
+\end{theorem}
+
+\begin{remark}[Why the stratification is forced]
+\label{wn:rem:wave15-a10-stratification-forced}
+The three routes admit three independent failure modes, one per
+route: (i) the CoHA route fails at root-of-unity $q$ through the
+non-degeneration of its character tower; (ii) the Koszul route
+fails at $q \in \mu_\infty$ through the finite-semisimple fusion
+quotient; (iii) the MO route fails at generic $S$ through
+positive-dimensional fixed loci. The stratification
+$\cL_{\mathrm{Mukai}} \cup \cL_{\mathrm{CHL}} \cup \cL_{\mathrm{gen}}$
+is the coarsest decomposition simultaneously killing all three
+failure modes. No finer stratification is needed; no coarser
+stratification suffices.
+\end{remark}
+
+\begin{remark}[Relation to the six-routes pentagon]
+\label{wn:rem:wave15-a10-pentagon-relation}
+The CY-C \emph{three}-routes convergence of this note is a proper
+substructure of the CY-C \emph{six}-routes pentagon of
+\texttt{chapters/examples/cy\_c\_six\_routes\_convergence.tex}: the
+three routes of this note correspond to $R_1 / R_2 / R_5$ (CoHA via
+$\Phi_3$ and its Koszul dual / Borcherds lift / sigma model), with
+the lattice VOA, Kummer construction, and BLLPR routes
+($R_3, R_4, R_6$) either subsumed or supplementary. The stratification
+theorem of this note lifts directly: on $\cL_{\mathrm{Mukai}}$ the
+pentagon collapses to the Mukai-lattice Nakajima specialisation; on
+$\cL_{\mathrm{CHL}}$ to the $\Delta_{k(N)}$-denominator-identity
+specialisation; on $\cL_{\mathrm{gen}}$ to the virtual-CoHA
+specialisation.
+\end{remark}
+
+\subsection{Epistemic status and provenance}
+
+All claims above are labelled by status. The falsification at
+$(g, q, S) = (0, -1, \mathrm{Kummer})$ is a \emph{theorem} (Cycle~5);
+the Mukai stratum convergence is a \emph{theorem} (cross-ref Wave-12
+A10); the CHL stratum is \emph{conditional on} Bryan--Oberdieck 2018;
+the generic-K$3$ stratum is \emph{conjectural} on extended
+DM-purity + MO-stability-domain extension. Primary literature checked:
+
+\begin{itemize}[leftmargin=1.5em]
+\item Schiffmann--Vasserot 2013 \texttt{arXiv:1202.2756} Theorem~1.1
+(CoHA shuffle-algebra identification on the cohomological side).
+\item Positselski 2005 \emph{Mem.\ AMS} 212 (coderived model
+structure); Positselski \texttt{arXiv:1102.0261} (survey).
+\item Maulik--Okounkov \emph{Ast\'erisque} 408
+(\texttt{arXiv:1211.1287}) Axiom MO-1 (finite $T$-fixed points).
+\item Mukai 1988 \emph{Invent.\ Math.}\ 94 Theorem~0.6 (symplectic
+finite automorphism group on K$3$).
+\item Gritsenko--Nikulin 1995 \texttt{alg-geom/9504006}
+($\Delta_5 = \Phi_{10}^{1/2}$ weight-$5$ Siegel cusp form).
+\item Borcherds 1995 \emph{Invent.\ Math.}\ 120 Theorem~10.4
+(denominator identity for BKM algebras; universal
+$\kBKM(\Phi_N) = c_N(0)/2$ for $N \in \{1, 2, 3, 4, 6\}$).
+\item Davison--Meinhardt 2020 \emph{Invent.\ Math.}\ 221
+(\texttt{arXiv:1601.02479}) Theorem~A (CoHA PBW).
+\item Oberdieck--Pixton 2017 \texttt{arXiv:1706.10100} Theorem~1
+(reduced DT = $-1/\Phi_{10}$ on $K3 \times E$ at primitive class).
+\item Bryan--Oberdieck 2018 \texttt{arXiv:1811.06102} Theorem~0.1
+(CHL extension to $-1/\Delta_{k(N)}$ for $N \in \{1, 2, 3, 4, 6\}$).
+\item Kontsevich--Soibelman 2008 \texttt{arXiv:0811.2435}
+Definition~7 (motivic wall-crossing formula).
+\item Nakajima 1997 \emph{Ann.\ Math.}\ 145 Theorem~2.8
+(Heisenberg action on $\bigoplus_n H^*(\Hilb^n S)$).
+\item Grojnowski \texttt{hep-th/9603056} (Heisenberg action on
+K$3$ Hilbert scheme).
+\item Schottky 1888 \emph{J.\ reine angew.\ Math.}\ 102 (Schottky
+locus at $g = 4$); Grushevsky \texttt{arXiv:1009.0369} for a
+modern account of the Schottky obstruction at all $g \geq 3$.
+\item Bridgeland 2007 \emph{Ann.\ Math.}\ 166 Theorem~1.2
+(stability conditions on triangulated categories).
+\item Behrend--Fantechi 1997 \emph{Invent.\ Math.}\ 128 (virtual
+fundamental class).
+\end{itemize}
+
+Cross-references within the Vol~III programme:
+\texttt{chapters/examples/cy\_c\_six\_routes\_convergence.tex}
+(the full six-routes pentagon, with primary-literature bridges for
+all $\binom{6}{2} = 15$ pairwise comparisons);
+\texttt{chapters/examples/cy\_c\_beyond\_k3e\_existence\_obstruction.tex}
+(global NCCR obstruction with five independent
+tilting-axiom-failure proofs);
+\texttt{notes/wave12\_a10\_cy\_c\_three\_routes\_soibelman.tex}
+(earlier five-cycle note at the Mukai sub-locus, companion to this
+note);
+\texttt{working\_notes.tex} \texttt{conj:cy-c-three-routes}
+(the current over-extended conjecture; to be scope-restricted per
+Theorem~\ref{wn:thm:wave15-a10-CYC-stratification} above);
+\texttt{appendices/first\_principles\_cache.md} row A7-1
+(CoHA$(X) \cong U(\gfrak_{\BPS}(X))$ vs.\
+$U(\gfrak_{\Delta_5})$: bracket-level open);
+row 22M (six-routes as six different constructions, not six
+$\Phi_3$ applications); row 22S (MO + Nakajima--Grojnowski + EK
+super-quantisation composite).

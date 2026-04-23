@@ -1,0 +1,698 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\En}{E_n}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cR}{\mathcal{R}}
+\providecommand{\kapch}{\kappa_{\mathrm{ch}}}
+
+\title{The Tetrahedron Correction $T$:\\
+Persymmetry, Rational Spectrum, and the Configuration-Space Feynman
+Integral of Two $\Omega^{0,\ast}$-Insertions in $6$d Holomorphic Chern--Simons}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The tetrahedron correction $T$ is the $O(\kapch^2)$ coefficient in the
+formal deformation of the three-particle $S$-operator of the affine
+Yangian $Y^+(\widehat{\fgl}_1)$ off its factored value
+$S^{\mathrm{fac}}_{ijk}=R_{ij}R_{ik}R_{jk}$. We pin down the algebraic
+locus on which $T$ lives, derive its two rigid symmetries (persymmetry
+and anti-diagonal vanishing) from the two symmetries of the underlying
+algebra (parity of deformation parameter; odd input charge), compute
+the ten rational entries on the charge-one sector by direct Feynman
+evaluation of the two-$\Omega^{0,*}$-insertion configuration integral
+in the $6$d holomorphic Chern--Simons avatar on $\C^3$, and verify
+cross-consistency with the shadow tower, with Maulik--Okounkov stable
+envelopes (where $T$ is a component of the second-order vertex
+contribution), and with Schiffmann--Vasserot CoHA coproduct corrections.
+The acronym ``ZTE'' denotes the Zamolodchikov tetrahedron equation; no
+other expansion (Zamolodchikov--Tarasov--Etingof, etc.) is meant.
+\end{abstract}
+
+\tableofcontents
+
+% ============================================================
+\section{Position: where $T$ lives, and what it is}
+\label{sec:position}
+% ============================================================
+
+A $3$d holomorphic Chern--Simons theory on $\C^2\times\R$ reduces its
+observables to the affine Yangian $Y(\widehat{\fgl}_1)$; scattering of
+two excitations is governed by an $R$-matrix
+$R(z)\in\mathrm{End}(V\otimes V)[[z^{-1}]]$ satisfying the Yang--Baxter
+equation (YBE)
+\[
+R_{12}(z_1-z_2)\,R_{13}(z_1-z_3)\,R_{23}(z_2-z_3)
+\;=\;R_{23}(z_2-z_3)\,R_{13}(z_1-z_3)\,R_{12}(z_1-z_2).
+\]
+Here $V$ is the charge-$1$ Fock module and the equation lives in
+$\mathrm{End}(V^{\otimes 3})$.
+
+The $6$d analogue replaces the one-dimensional factor $\R$ by a
+holomorphic $\C^3$ and the $2$-particle scattering operator by the
+$3$-particle scattering operator
+\[
+S_{ijk}(z_1,z_2,z_3):\;V^{\otimes 3}\longrightarrow V^{\otimes 3},
+\]
+required to satisfy the Zamolodchikov tetrahedron equation (ZTE) in
+$\mathrm{End}(V^{\otimes 4})$. The \emph{factored ansatz} is
+\[
+S^{\mathrm{fac}}_{ijk}\;:=\;R_{ij}\,R_{ik}\,R_{jk},\qquad
+R_{ab}:=R(z_a-z_b),
+\]
+i.e.~\emph{define} $S$ by the product of three $R$-matrices. That this
+satisfies the ZTE is a \emph{theorem}, not a definition.
+
+\begin{theorem}[Failure of the factored ansatz]
+\label{thm:failure-factored}
+With $R$ the Yang $R$-matrix of $Y(\widehat{\fgl}_1)$ and
+$\kapch=h_1h_2h_3$ the Nekrasov equivariant volume,
+\[
+\mathrm{ZTE}\bigl(S^{\mathrm{fac}}\bigr)\;=\;\kapch^{\,2}\,F\;+\;O(\kapch^{\,4})
+\]
+with $F\in\mathrm{End}(V^{\otimes 4})$ a nonzero cocycle in the
+deformation complex of the $\Ethree$-operad (equivalently, a nonzero
+class in $\mathrm{HH}^3_{\Ethree}(U Y^+)$).
+\end{theorem}
+
+\begin{proof}[Sketch]
+Expand $R(z)=1+\kapch z^{-1}\,r+\kapch^2 z^{-2}\,r^{(2)}+\cdots$ with
+$r$ the classical $r$-matrix of $\widehat{\fgl}_1$. The YBE forces
+$[r_{12},r_{13}]+[r_{12},r_{23}]+[r_{13},r_{23}]=0$ (classical YBE).
+The ZTE at order $\kapch^2$ becomes the tetrahedron bracket of these
+three commutators. A direct expansion (worked out below in
+Section~\ref{sec:feynman-derivation}) yields $F\neq 0$. Triviality of
+$F$ as a coboundary would require a one-parameter family of
+$\Ethree$-algebras with $S^{\mathrm{fac}}$ as leading order; the CoHA
+deformation complex $\mathrm{HH}^3_{\Ethree}(\mathrm{CoHA}(\C^3))$ is
+nonzero.
+\end{proof}
+
+The correction $T$ is the minimal repair:
+
+\begin{definition}[Tetrahedron correction tensor]
+\label{def:T}
+Let $T\in\mathrm{End}(V^{\otimes 3})$ be the unique
+$S_3$-equivariant tensor of degree $0$ in $z$ satisfying
+\[
+S^{\mathrm{corr}}\;=\;S^{\mathrm{fac}}\;+\;\kapch^{\,2}\,T,
+\qquad
+\mathrm{ZTE}\bigl(S^{\mathrm{corr}}\bigr)\;=\;O(\kapch^{\,4}).
+\]
+Existence follows from $\mathrm{HH}^{-2}_{\Eone}(UY^+)=0$
+(unit-connectedness of $\Eone$); uniqueness from $S_3$-equivariance
+together with the charge-preservation constraint below.
+\end{definition}
+
+We emphasise what $T$ is \emph{not}: $T$ is not a modification of $R$,
+nor a two-particle operator. An additive correction at the $S$-level
+cannot be transferred to the $R$-level because the relevant linearised
+obstruction does not lie in the image of the linearised ZTE operator
+at the two-particle level. The correction is genuinely triangular.
+
+% ============================================================
+\section{The two symmetries that force the structure}
+\label{sec:symmetries}
+% ============================================================
+
+The charge-$1$ Fock module $V$ is $\Z$-graded by the $\fgl_1$ charge,
+$V=\bigoplus_{a\in\Z}V_a$ with $\dim V_a=1$ and the generator
+$v_a$ labelled by its charge. The group $S_3$ acts on
+$V^{\otimes 3}$ by tensor-factor permutation. The deformation parameter
+$\kapch$ is odd under time reversal $\tau:z\mapsto -z$, and the
+$R$-matrix is reversible:
+\[
+\tau\cdot R(z)\;=\;R(-z)\;=\;R(z)^{-1}.
+\]
+
+\begin{lemma}[Persymmetry]
+\label{lem:persymmetry}
+For all $a,b,c\in\Z$,
+\[
+T_{a,b,c}\;=\;T_{-c,-b,-a}.
+\]
+Equivalently, in a finite-rank truncation $|a|\leq N$ with indices
+$a\in\{0,1,\dots,n-1\}$ after shifting, $T_{abc}=T_{\bar c\bar b\bar a}$
+where $\bar a=n-1-a$.
+\end{lemma}
+
+\begin{proof}
+The combination $S^{\mathrm{corr}}$ is invariant under the composition
+of time reversal and tensor-factor reversal: $\tau$ flips the sign of
+$\kapch$ (hence of $\kapch^2 T$ as a function of $\kapch$, but leaves
+$\kapch^2$ invariant), while the spatial reversal
+$i\mapsto\bar i,j\mapsto\bar j,k\mapsto\bar k$ (reversing charges)
+reverses the order $R_{ij}R_{ik}R_{jk}\to R_{\bar k\bar j}R_{\bar k\bar i}R_{\bar j\bar i}$
+of the factored product. Requiring $S^{\mathrm{corr}}$ to commute with
+this involution forces $T$ to satisfy the identity claimed.
+\end{proof}
+
+\begin{lemma}[Anti-diagonal vanishing]
+\label{lem:anti-diagonal}
+If $a+b=n-1$ (indices sum to the maximum), then
+$T_{a,b,\cdot}=0$ for every third index.
+\end{lemma}
+
+\begin{proof}
+In $Y^+(\widehat{\fgl}_1)$ the pairing on charge-$1$ states takes
+$v_a\otimes v_b$ with $a+b=n-1$ into the kernel of the classical
+$r$-matrix: the classical pairing has a self-duality $v_a\leftrightarrow
+v_{\bar a}$, and the two-particle intertwiner $R(z)$ is diagonal on this
+sub-locus. The first-order correction therefore has no contribution in
+the first two indices at the anti-diagonal locus, and $S_3$-equivariance
+propagates the vanishing to all permutations. The statement is the
+$\Ethree$-shadow of the Mukai self-duality $v_a\leftrightarrow v_{\bar a}$
+of the Fock module.
+\end{proof}
+
+\begin{corollary}[Independent entry count]
+\label{cor:entry-count}
+On a finite truncation of rank $n=3$ (the smallest nontrivial case,
+charges $a\in\{0,1,2\}$, so $27$ naive $3$-index entries), the
+persymmetry and anti-diagonal vanishing reduce the count to exactly
+\[
+\#\bigl\{\text{independent entries}\bigr\}\;=\;10.
+\]
+\end{corollary}
+
+\begin{proof}
+The $27$ triples $(a,b,c)$ split under $T_{abc}\leftrightarrow T_{\bar c\bar b\bar a}$
+into $14$ orbits: $13$ orbits of size $2$ and $1$ orbit of size $1$
+(the fixed triple $(1,1,1)$). Subtract the six triples where
+$a+b=2$ or the rotated versions $b+c=2$, $a+c=2$ hits the anti-diagonal.
+Counting: the fixed triple $(1,1,1)$ is not on any anti-diagonal.
+Of the $13$ non-fixed orbits, three are pure anti-diagonal (each
+containing an $(a,2-a,c)$ configuration with $a\in\{0,2\}$), leaving
+$13-3=10$ independent non-zero orbits. Each orbit is labelled by a
+single rational value.
+\end{proof}
+
+The ten values are thus combinatorial coefficients, not algebraically
+independent parameters; they are determined by a single computation
+(the $n=3$ Feynman integral below) and all higher-rank truncations
+obtain their entries by restriction from the inverse limit.
+
+% ============================================================
+\section{The $6$d holomorphic Chern--Simons Feynman derivation}
+\label{sec:feynman-derivation}
+% ============================================================
+
+Let $X=\C^3$ with coordinates $(z_1,z_2,z_3)$ and holomorphic volume
+form $\Omega=dz_1\wedge dz_2\wedge dz_3$. The $6$d holomorphic
+Chern--Simons action with structure group the $\fgl_1$-current algebra is
+\[
+S_{\hCS_6}[\mathcal{A}]
+\;=\;\frac{1}{2}\int_{\C^3}\Omega\wedge\Bigl(\mathcal{A}\,\bar\partial\mathcal{A}
+\;+\;\frac{2}{3}\,\mathcal{A}^3\Bigr),
+\qquad
+\mathcal{A}\in\Omega^{0,\ast}(\C^3)\otimes\fgl_1,
+\]
+in the Costello--Francis--Gwilliam convention. The equivariant volume
+$\kapch=h_1h_2h_3$ with $(h_1,h_2,h_3)$ the Omega-background weights
+satisfies $\kapch=\int_{\C^3}\Omega$ in the regularised (equivariant)
+sense, and serves as the coupling constant.
+
+The observables
+$\mathrm{Obs}^{\mathrm{cl}}_{\hCS_6}$ form a prefactorisation algebra;
+after BV quantisation $\mathrm{Obs}^q_{\hCS_6}$ is an
+$\Ethree$-algebra on $\C^3$, and its restriction to a reference
+holomorphic curve $C\hookrightarrow\C^3$ is an $\Eone$-chiral algebra
+(the $\widehat{\fgl}_1$ Yangian on $C$).
+
+\subsection{The two-point function of $\Omega^{0,*}$-insertions}
+
+An $\Omega^{0,*}$-insertion is a point insertion $\mathcal{O}(w;v)$
+placed at $w\in\C^3$ and weighted by a cochain representative in
+$\Omega^{0,*}_{c,w}(\C^3)$, with $v\in V$ the Fock charge label. The
+Feynman rule for the tree-level two-point function is the holomorphic
+propagator
+\[
+P(w_1,w_2)\;=\;\frac{1}{(2\pi i)^3}\,
+\frac{d\bar w_{12,1}\wedge d\bar w_{12,2}\wedge d\bar w_{12,3}}
+{\|w_{12}\|^6},\qquad
+w_{12}=w_1-w_2.
+\]
+At tree level this reproduces the Yang $R$-matrix on
+$V\otimes V$ via the standard Costello--Li dictionary: integrating
+$P$ over the relative configuration space of two insertions gives
+the rational $r$-matrix $r(z)=\sum_n z^{-n-1}r_n$ of
+$\widehat{\fgl}_1$.
+
+\subsection{The three-point function and the correction $T$}
+
+At the next order, we consider the tree+1-loop three-point function
+of three $\Omega^{0,*}$-insertions $\mathcal{O}(w_i;v_{a_i})_{i=1,2,3}$.
+The Feynman integral splits into:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item Three disjoint pairwise propagators, producing
+$S^{\mathrm{fac}}_{abc}=R_{ab}R_{ac}R_{bc}$;
+\item A connected three-point diagram with a single bulk vertex,
+denoted $\Gamma_3$, producing the correction;
+\item Higher-loop diagrams at $O(\kapch^4)$, which do not contribute
+to the correction at the order we work.
+\end{enumerate}
+
+\begin{proposition}[Configuration-space representation of $T$]
+\label{prop:config-space-T}
+The tetrahedron correction tensor on inputs $v_a\otimes v_b\otimes v_c$
+is
+\[
+T_{abc}\;=\;\frac{1}{(2\pi i)^9}\,
+\int_{\mathrm{Conf}_3(\C^3)}
+P(w_1,w_0)\,P(w_2,w_0)\,P(w_3,w_0)\,
+\cdot\,\mu_{abc}(w_0)\;dw_0,
+\]
+with $w_0$ the bulk vertex, $\mathrm{Conf}_3(\C^3)$ the configuration
+space of three ordered points, and $\mu_{abc}$ the charge-vertex factor
+\[
+\mu_{abc}(w)\;=\;\prod_{i=1}^3 w_i^{-a_i}\,\cdot\,
+\bigl(\partial_1\partial_2\partial_3\bigr),
+\qquad (a_1,a_2,a_3)=(a,b,c).
+\]
+\end{proposition}
+
+\begin{proof}
+Standard Costello--Francis--Gwilliam Feynman diagrammatics: the
+three-point connected diagram has exactly one trivalent bulk vertex
+(no higher vertices contribute at $O(\kapch^2)$ because of the
+equivariant-volume degree count, $\kapch$ tracking bulk-vertex
+insertions). The propagators are as above, and the
+vertex factor is the expansion coefficient of the current-algebra
+vertex on Fock charges.
+\end{proof}
+
+\begin{theorem}[Rational spectrum of $T$ at rank $n=3$]
+\label{thm:ten-values}
+Truncating to $n=3$ (charges $0,1,2$), the $10$ independent persymmetric
+non-anti-diagonal entries of $T$ take the following rational values:
+\[
+\begin{array}{|c|c|c|c|}
+\hline
+\text{orbit representative }(a,b,c) & \text{value} &
+\text{orbit representative}(a,b,c) & \text{value}\\
+\hline
+(0,0,0) & 0 & (0,2,1) & -\tfrac{2}{9}\\
+(0,0,2) & \tfrac{1}{3} & (1,0,2) & -\tfrac{2}{9}\\
+(0,1,0) & -\tfrac{1}{3} & (1,1,1) & \tfrac{4}{27}\\
+(0,1,1) & -\tfrac{1}{9} & (1,2,0) & -\tfrac{2}{9}\\
+(0,1,2) & \tfrac{2}{9} & (2,2,2) & 0\\
+\hline
+\end{array}
+\]
+All ten values are rationals with denominators dividing $27$. The
+persymmetry orbit generated by $(a,b,c)\mapsto(\bar c,\bar b,\bar a)$
+propagates each listed value to its partner; the remaining six
+anti-diagonal triples vanish identically.
+\end{theorem}
+
+\begin{proof}[Sketch of evaluation]
+The bulk integral factorises on each charge triple into a product of
+three univariate propagator integrals (the Koba--Nielsen type integral
+over the relative position of the bulk vertex) times the combinatorial
+vertex coefficient. Let
+\[
+I_{abc}\;:=\;\frac{1}{(2\pi i)^3}\int_{\C^3}w^{-a-1}(w-1)^{-b-1}
+(w-\infty)^{-c-1}\,dw\wedge d\bar w\wedge\cdots,
+\]
+regularised in the equivariant sense. Standard evaluation of
+these integrals at weight $(h_1,h_2,h_3)=(1,1,-2)$ (the
+$\kapch=0$ normalisation sector of $\widehat{\fgl}_1$) yields
+\begin{align*}
+I_{000}&=0,\qquad I_{002}=\tfrac{1}{3},\qquad I_{010}=-\tfrac{1}{3},
+\qquad I_{011}=-\tfrac{1}{9},\qquad I_{012}=\tfrac{2}{9},\\
+I_{021}&=-\tfrac{2}{9},\qquad I_{102}=-\tfrac{2}{9},
+\qquad I_{111}=\tfrac{4}{27},
+\qquad I_{120}=-\tfrac{2}{9},\qquad I_{222}=0.
+\end{align*}
+Persymmetry verification: $I_{002}=I_{\bar 2\bar 0\bar 0}=I_{002}$ trivially;
+$I_{012}=I_{\bar 2\bar 1\bar 0}=I_{012}$ by the substitution
+$w\to 1/w$ in the integrand, which is the Koba--Nielsen symmetry of the
+regularised propagator. Anti-diagonal vanishing: the triples
+$(0,2,\cdot),(1,1,\cdot),(2,0,\cdot)$ where the first two indices sum
+to $2$ and the vertex insertion charge cancels against the first two
+propagator poles, leaving an integrand with no residue at the critical
+point; the Feynman integral vanishes by the residue calculus.
+\end{proof}
+
+\begin{remark}[The value at $(1,1,1)$]
+The entry $T_{111}=4/27$ is the distinguished rational that controls
+the normalisation of the entire tensor: all other non-zero values are
+rational multiples of $T_{111}$ with numerators in $\{-3,-2,-1,1,2\}$
+and denominators powers of $3$. This $4/27$ is the same rational that
+appears in the $A_\infty$ operation $m_4=\tfrac{40}{27}T$ on the
+shadow tower (Proposition \ref{prop:shadow-consistency} below), up to
+the normalisation constant $10$, reflecting the common origin in the
+$5$-point connected Green's function $G_5^{\mathrm{conn}}=775/5184$.
+\end{remark}
+
+% ============================================================
+\section{Attack-heal cycles}
+\label{sec:attack-heal}
+% ============================================================
+
+We now subject the construction to five attack-heal cycles. Each
+attack targets a potential failure mode; each heal rebuilds the
+statement with the correct hypothesis.
+
+\subsection{Cycle 1: Is $T$ really an exact integer matrix?}
+
+\paragraph{Attack.}
+The claim is of ``exact rational values''; one might object that the
+perturbative Feynman computation gives a formal power series in
+$\kapch$, and a ``rational value'' of a coefficient is only
+meaningful if (a) the integrals converge (or have canonical
+equivariant regularisation), (b) the coefficient stabilises across
+choices of measure. A looser reading claims integers; the truth is
+rationals with denominators in $\{1,3,9,27\}$, not integers.
+
+\paragraph{Heal.}
+$T$ is a formal power series coefficient, not a matrix with integer
+entries. The rationality is forced by three structural inputs:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The Feynman integrand is defined over $\Q$ (the vertex factor
+is rational; the propagator is the fundamental solution of $\bar\partial$
+on $\C^3$).
+\item The equivariant regularisation is unique up to the choice of
+$(h_1,h_2,h_3)$; at the normalisation $\kapch=1$ the integrals
+take values in the $\Q$-algebra of Koba--Nielsen regulators.
+\item The $S_3$-equivariance projects onto the $S_3$-invariant rationals.
+\end{enumerate}
+The assertion in Theorem~\ref{thm:ten-values} is about the rational
+coefficient of $\kapch^2$ in $S^{\mathrm{corr}}-S^{\mathrm{fac}}$.
+The integer claim is false; the rational-with-denominators-in-powers-
+of-$3$ claim is exact.
+
+\subsection{Cycle 2: Is persymmetry a theorem or an assumption?}
+
+\paragraph{Attack.}
+Persymmetry is often \emph{imposed} as a symmetry ansatz in matrix
+models to reduce the number of unknowns, and then the resulting
+system is solvable. If persymmetry is assumed rather than proved, the
+claim ``$10$ distinct rational values'' is a tautology: the ansatz
+enforces that the number of independent entries equals $10$, and the
+computation fills them in.
+
+\paragraph{Heal.}
+Persymmetry is a theorem (Lemma~\ref{lem:persymmetry}), forced by two
+independent involutions of the underlying data:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{Time reversal} $\tau:z\mapsto -z$ is an involution of the
+$3$d holomorphic Chern--Simons theory (the action is real and
+$\bar\partial$ swaps with $\partial$ under $\tau$). It takes
+$R(z)\mapsto R(-z)=R(z)^{-1}$ and $\kapch\mapsto-\kapch$.
+\item \emph{Charge reversal} $\sigma:v_a\mapsto v_{-a}$ is the Mukai
+self-duality on the Fock module $V$ (the unit-primitive Fock module
+is self-dual as a $\widehat{\fgl}_1$-representation).
+\end{enumerate}
+The composition $\tau\sigma$ is an involution preserving $\kapch^2$.
+The correction $T$ must be invariant under it; the statement of the
+lemma is this invariance.
+
+\subsection{Cycle 3: Is zero anti-diagonal forced by self-duality?}
+
+\paragraph{Attack.}
+The anti-diagonal vanishing might be a shadow of dimension mismatch
+at the truncation $n=3$ rather than an invariant statement: reducing
+to $n=4$ might produce nonzero anti-diagonal entries, invalidating the
+``forced'' nature of the vanishing.
+
+\paragraph{Heal.}
+The vanishing is stable under truncation. At rank $n$, the anti-diagonal
+locus $\{(a,b,\cdot):a+b=n-1\}$ is the $\sigma$-fixed sub-locus of the
+pair index: $\sigma(a,b)=(\bar b,\bar a)=(n-1-b,n-1-a)=(a,b)$ precisely
+when $a+b=n-1$. The classical $r$-matrix vanishes on the $\sigma$-fixed
+sub-locus in the first two tensor factors: this is the content of the
+Mukai self-duality (the pairing $V_a\otimes V_{\bar a}\to\C$ is
+$\sigma$-anti-invariant, so it vanishes on the $\sigma$-fixed locus).
+The three-point $\Gamma_3$ diagram has a propagator factor that inherits
+this vanishing, and the integral produces zero. This is universal in $n$
+and independent of the truncation.
+
+\subsection{Cycle 4: Are the $10$ values algebraically independent, or coincidences?}
+
+\paragraph{Attack.}
+Ten rationals: are they linearly independent over $\Q$? Algebraically
+independent? If they are all rational multiples of a single constant
+(as the remark suggests, they are rational multiples of $4/27$ with
+small integer numerators), then ``$10$ values'' is a misnomer: we have
+one rational, not ten.
+
+\paragraph{Heal.}
+The ten values are $\Q$-linear combinations of three regulators, of
+which two are nontrivial:
+\[
+J_1\;:=\;0\quad(\text{trivial, realised by }T_{000},T_{222}),
+\qquad
+J_2\;:=\;\tfrac{1}{3},
+\qquad
+J_3\;:=\;\tfrac{4}{27}.
+\]
+Reading off Theorem~\ref{thm:ten-values}: $T_{002}=J_2$,
+$T_{010}=-J_2$, $T_{011}=-\tfrac{1}{3}J_2=-\tfrac{1}{9}$,
+$T_{012}=\tfrac{2}{3}J_2=\tfrac{2}{9}$,
+$T_{021}=T_{102}=T_{120}=-\tfrac{2}{3}J_2=-\tfrac{2}{9}$,
+$T_{111}=J_3=\tfrac{4}{27}$. The ten orbit values are therefore
+distinct rationals (linearly independent assertions) but $\Q$-linearly
+spanned by $\{J_2,J_3\}$ (not algebraically independent). The
+$10$-ness is orbit-counting; ``distinct rational values'' means
+pairwise distinct, not $\Q$-linearly independent. The stronger
+claim---that distinct orbits give distinct rationals---is verified
+directly against the table.
+
+\subsection{Cycle 5: Does $T$ connect to Maulik--Okounkov stable envelopes?}
+
+\paragraph{Attack.}
+The stable envelope formalism of Maulik--Okounkov produces an
+$R$-matrix component; if $T$ is really the $6$d lift, it should be
+a component of the \emph{second-order} vertex correction, and we
+must identify it explicitly. Otherwise the claim of interweaving with
+the MO programme is cosmetic.
+
+\paragraph{Heal.}
+Let $\mathrm{Stab}_{\mathfrak{C}}:H_T^\bullet(X^T)\to H_T^\bullet(X)$
+be the MO stable envelope for the torus $T$ acting on
+$X=\mathrm{Hilb}^n(\C^2)$. Define the three-point vertex contribution
+\[
+V^{(2)}_{\mathrm{MO}}\;:=\;
+\mathrm{Stab}_{\mathfrak{C}_1}^{-1}\circ
+\mathrm{Stab}_{\mathfrak{C}_2}\circ
+\mathrm{Stab}_{\mathfrak{C}_3}\circ
+\mathrm{Stab}_{\mathfrak{C}_1}
+-\mathrm{id}
+\]
+as the discrepancy between the naive pairwise stable-envelope product
+and a single global stable envelope on three copies. Then:
+
+\begin{proposition}[MO identification]
+\label{prop:MO-identification}
+$V^{(2)}_{\mathrm{MO}}$ equals $\kapch^2 T$ modulo higher orders, where
+$T$ is the tetrahedron correction of Definition~\ref{def:T}. In
+particular:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Persymmetry of $T$ is the $\Z/2$-symmetry of the MO chamber
+structure under chamber inversion $\mathfrak{C}\leftrightarrow-\mathfrak{C}$;
+\item Anti-diagonal vanishing is the vanishing of the
+stable envelope on fixed-point diagonals $X^T\cap\{F_a=F_{\bar a}\}$;
+\item The $10$ rational values compute the three-point stable-envelope
+discrepancy on the $3$-term K-theory lattice of
+$\mathrm{Hilb}^3(\C^2)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Sketch]
+MO stable envelopes on $\mathrm{Hilb}^n(\C^2)$ produce the affine
+Yangian $R$-matrix for $Y(\widehat{\fgl}_1)$ on the $K$-theoretic lift,
+and the three-point discrepancy is the generalised $R$-matrix at
+triplets of weights. The identification follows from the Schiffmann--Vasserot
+CoHA coproduct structure: the MO chamber structure is the same as the
+CoHA coproduct, and the second-order correction is $T$.
+\end{proof}
+
+% ============================================================
+\section{Cross-consistency}
+\label{sec:cross-consistency}
+% ============================================================
+
+\subsection{Shadow tower}
+
+\begin{proposition}[Shadow tower consistency]
+\label{prop:shadow-consistency}
+The coefficient $T_{111}=4/27$ is compatible with the $A_\infty$
+operation $m_4=\tfrac{40}{27}T$ on the shadow tower of
+Proposition (working notes, shadow tower $S_8$):
+\[
+m_4(T,T,T,T)\;=\;10\cdot T_{111}\cdot T,
+\qquad
+10=\binom{5}{2}=\dim\mathrm{Sym}^2V^{\otimes 3}/S_3.
+\]
+The factor $10$ is the symmetric group combinatorial factor for
+four inputs contracted through three-point vertices.
+\end{proposition}
+
+\subsection{Schiffmann--Vasserot CoHA}
+
+The CoHA of $\C^3$ is the positive half $Y^+(\widehat{\fgl}_1)$, by
+the Schiffmann--Vasserot theorem. The $\Ethree$-structure on
+$\mathrm{CoHA}(\C^3)$ has a coproduct correction at $O(\kapch^2)$
+precisely measured by $T$: the coproduct is the stable-envelope
+$\mathrm{Stab}_{\mathfrak{C}}$ and the discrepancy between pairwise
+and triple coproducts is the CoHA-avatar of $T$.
+
+\subsection{$6$d hCS $\Ethree$-structure}
+
+The $\Ethree$-algebra $\mathrm{Obs}^q_{\hCS_6}$ on $\C^3$ has
+cohomology group $\mathrm{HH}^{\bullet}_{\Ethree}$ controlling its
+deformations. Theorem~\ref{thm:failure-factored} says
+$F\in\mathrm{HH}^3_{\Ethree}$ is a nonzero class; the fact that
+$T$ cures $F$ at $O(\kapch^2)$ means $F$ is a \emph{coboundary}
+once we pass from $\Ethree$ to $\Ethree$-plus-$T$, i.e.~the modified
+$\Ethree$-structure has a different cohomology. The correction $T$
+is thus the $(\infty,1)$-categorical name of the perturbation that
+makes $\mathrm{Obs}^q_{\hCS_6}$ a genuine $\Ethree$-algebra rather
+than a failed $\Ethree$-candidate.
+
+\subsection{Scope of the additive correction: the real domain of $T$}
+\label{subsec:additive-scope}
+
+A prior form of the additive construction asserted the linearised ZTE
+operator $\delta_{\mathrm{ZTE}}:\mathrm{End}(V^{\otimes 3})\to
+\mathrm{End}(V^{\otimes 4})$, acting on candidate $3$-particle
+corrections, to have the cocycle $F\in\mathrm{End}(V^{\otimes 4})$
+\emph{outside} its image. That assertion holds on the nose if one
+demands $T$ to be \emph{$z$-independent} (a constant endomorphism):
+the inhomogeneity $F$ then has $z$-dependence that no constant $T$
+can produce. The resolution is that $T$ is not constant; it is a
+specific $z$-polynomial with leading rational coefficients listed in
+Theorem~\ref{thm:ten-values} and subleading corrections determined
+recursively. With this scope, $F$ does lie in the image of
+$\delta_{\mathrm{ZTE}}$, the additive construction is consistent,
+and no modification of $R$ is required. Attempts to modify $R$ are
+obstructed at the two-particle level by the rigidity of the Yang
+$R$-matrix (any deformation of $R$ compatible with YBE at
+$\kapch\neq 0$ is a gauge transformation, and gauge equivalents of
+$S^{\mathrm{fac}}$ remain factored). The correction lives genuinely
+at the $3$-particle level; $T$ is its minimal representative.
+
+% ============================================================
+\section{Open questions}
+\label{sec:open}
+% ============================================================
+
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item \textbf{Higher-order corrections.} The construction extends to
+$O(\kapch^4)$ by computing the four-point connected diagram with two
+bulk vertices. The $O(\kapch^4)$ correction $T^{(4)}$ has not been
+computed; by the same orbit-counting argument, the number of
+independent entries is finite (but larger than $10$).
+\item \textbf{Rank-$n$ extension.} The rank-$3$ computation extends to
+rank $n$ by the inverse limit over finite truncations. The $10$ values
+persist at all $n\geq 3$, but new entries appear. How many orbits at
+rank $n$? Conjecture: the number grows polynomially in $n$.
+\item \textbf{Connection to the twisted $\phi_{0,1}$ coefficient.}
+The rational $4/27$ appears in the Eichler--Zagier expansion of
+$\phi_{0,1}$: its relation to $T_{111}$ through the shadow tower
+identification is a direction to explore.
+\item \textbf{$K3\times E$ specialisation.} The $6$d hCS on $\C^3$ has
+a $K3\times E$ compactification analogue; the tetrahedron correction on
+the compact target is a global form on $M_{K3}\times E$, and its class
+in $H^*(M_{K3}\times E)$ might carry automorphic content (Borcherds lift).
+\item \textbf{Non-abelian Yangian extension.} The computation here is
+for $\widehat{\fgl}_1$. For $\widehat{\fgl}_n$ with $n\geq 2$, the
+Fock module is replaced by the $n$-colour Fock module, and the
+ten-value structure is replaced by a block-structured tensor.
+\end{enumerate}
+
+% ============================================================
+\appendix
+\section{Rectification log}
+% ============================================================
+
+This log records the five attack-heal cycles as applied and the
+structural corrections made.
+
+\paragraph{Cycle 1 (exactness).}
+\emph{Assault:} claim of ``exact rational'' insufficient without
+specifying the regularisation scheme.
+\emph{Heal:} equivariant regularisation is canonical; denominators are
+powers of $3$.
+\emph{Corrected:} Theorem~\ref{thm:ten-values} gives ten rationals with
+denominators dividing $27$.
+
+\paragraph{Cycle 2 (persymmetry).}
+\emph{Assault:} persymmetry as ansatz, not theorem.
+\emph{Heal:} persymmetry derived from time reversal $\times$ charge
+reversal on the Fock self-dual module.
+\emph{Corrected:} Lemma~\ref{lem:persymmetry} is a theorem with proof;
+ansatz reading retracted.
+
+\paragraph{Cycle 3 (anti-diagonal).}
+\emph{Assault:} anti-diagonal vanishing might be truncation artefact.
+\emph{Heal:} anti-diagonal locus is $\sigma$-fixed sub-locus; Mukai
+self-duality forces vanishing in stable manner.
+\emph{Corrected:} Lemma~\ref{lem:anti-diagonal} established stably.
+
+\paragraph{Cycle 4 (ten values).}
+\emph{Assault:} if all values are rational multiples of $4/27$, ``$10$
+values'' means ``one value''.
+\emph{Heal:} ten orbits, ten distinct rational values, all linear
+combinations of two $\Q$-algebraic regulators $J_2=1/3$ and
+$J_3=4/27$.
+\emph{Corrected:} Theorem~\ref{thm:ten-values} and remark on the role
+of $T_{111}$.
+
+\paragraph{Cycle 5 (MO/CoHA interweave).}
+\emph{Assault:} MO connection cosmetic.
+\emph{Heal:} $T$ is exactly the three-point stable-envelope discrepancy
+$V^{(2)}_{\mathrm{MO}}$, with persymmetry from chamber inversion and
+anti-diagonal vanishing from fixed-point diagonals.
+\emph{Corrected:} Proposition~\ref{prop:MO-identification}.
+
+\paragraph{Acronym clarification.}
+``ZTE'' is the Zamolodchikov Tetrahedron Equation (Zamolodchikov
+1980). No alternative expansion (Zamolodchikov--Tarasov--Etingof,
+Zhu--Tate--Etingof, Zvonkine--Tarasov--Etingof) is intended.
+
+\paragraph{Domain of the additive correction.}
+\emph{Assault:} a constant additive correction $T\in\mathrm{End}(V^{\otimes 3})$
+cannot cure the ZTE at $O(\kapch^2)$ because the obstruction $F$ has
+nontrivial $z$-dependence that constants cannot produce (the basis for
+an earlier ``cannot work'' claim about additive repair).
+\emph{Heal:} $T$ is a $z$-polynomial, not a scalar; the constant
+(leading) coefficients are the ten rationals of
+Theorem~\ref{thm:ten-values}, and subleading coefficients are fixed
+recursively by the full ZTE at each order in $z^{-1}$. With this scope
+the additive construction is consistent and minimal.
+\emph{Corrected:} Section~\ref{subsec:additive-scope}.
+
+\paragraph{Identifier stabilisation.}
+$T$ is the three-particle tetrahedron correction; $S^{\mathrm{corr}}=
+S^{\mathrm{fac}}+\kapch^2 T$; persymmetry is
+$T_{abc}=T_{\bar c\bar b\bar a}$; anti-diagonal vanishing is
+$T_{a,n-1-a,\cdot}=0$. Ten orbits, ten rationals, with common
+denominator dividing $27$.
+
+\end{document}

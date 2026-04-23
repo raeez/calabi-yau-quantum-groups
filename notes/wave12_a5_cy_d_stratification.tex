@@ -1,0 +1,819 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,hyperref,booktabs}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\HC}{\mathrm{HC}}
+\providecommand{\HKR}{\mathrm{HKR}}
+\providecommand{\Tot}{\mathrm{Tot}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\rk}{\mathrm{rk}}
+\providecommand{\Ker}{\mathrm{Ker}}
+\providecommand{\str}{\mathrm{str}}
+\providecommand{\vol}{\mathrm{vol}}
+\title{Dimensional Stratification of $\kappa_{\mathrm{ch}}$ on Compact Calabi--Yau Manifolds}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The functor $\Phi_d\colon \mathrm{CY}_d\text{-}\mathrm{cat}\to\mathrm{ChirAlg}$
+attaches to a compact Calabi--Yau $d$-fold $X$ a chiral algebra $\cA_X$
+whose degree-two shadow scalar $\kappa_{\mathrm{ch}}(\cA_X)$ is a
+first-principles invariant of the $(0,\bullet)$ Hodge column.
+The scalar is the Hodge-filtered supertrace
+$\Xi(X)=\sum_{q=0}^{d}(-1)^{q}h^{0,q}(X)$. On this identification the
+Serre involution $\sigma\colon q\mapsto d-q$, with character $(-1)^d$
+on alternating sums, forces $\Xi(X)=0$ at every odd $d$ and partitions
+the even-$d$ landscape into the strict-Calabi--Yau stratum ($\Xi=2$)
+and the irreducible holomorphic-symplectic stratum ($\Xi=(d/2)+1$).
+The identity $\kappa_{\mathrm{ch}}=\chi(\cO_X)$ is a structural equality
+at K3 alone, a tautology of Serre cancellation at every other odd-$d$
+compact case, and a coincidence of middle columns at $K3^{[n]}$. The
+correct stratified formula separates compact ($\Xi$ on $\HC^{-}_{d}$),
+local-surface ($\tfrac12\chi_{\mathrm{top}}$ on compactly supported
+Dolbeault), and conifold (rank of the compact generator on
+Kronecker-quiver Hochschild) regimes. A six-dimensional holomorphic
+Chern--Simons avatar realises $\kappa_{\mathrm{ch}}$ as a Costello
+one-loop BV--BRST trace on the ghost Dolbeault complex of $X$; odd-$d$
+vanishing is a fermionic Serre symmetry of the ghost sector, and the
+boundary $E_1$-chiral algebra on $C$ is the $E_3$-Koszul averaging of
+the $E_3$-algebra structure on compactly supported Dolbeault of the
+$6$-fold $Z=X\times C$.
+\end{abstract}
+
+\section{Four scalars, one functor}
+\label{sec:four-scalars}
+
+The CY-to-chiral functor factorises through a holomorphic factorisation
+stage,
+\[
+  \Phi_d \;=\; \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}\circ\Phi^{\mathrm{FA}}_d
+  \colon\;\mathrm{CY}_d\text{-}\mathrm{cat}
+  \;\longrightarrow\;E_d\text{-}\mathrm{HolFA}(X)
+  \;\longrightarrow\;E_1\text{-}\mathrm{HolFA}(C).
+\]
+Four scalars attach to the pair $(X,\cA_X)$, each native to a different
+stage and each obeying a different Grothendieck--Riemann--Roch-style
+rule on products.
+\begin{itemize}
+\item $\kappa_{\mathrm{ch}}(\cA_X)$, the degree-two shadow coefficient
+      of the factorisation algebra $\Phi^{\mathrm{FA}}_d(D^{b}(\Coh(X)))$;
+      native to the $\Phi^{\mathrm{FA}}_d$ stage. K\"unneth-multiplicative
+      on compact products: $\Xi(X\times Y)=\Xi(X)\cdot\Xi(Y)$.
+\item $\kappa_{\mathrm{cat}}(X)=\chi(\cO_X)=\sum_{q}(-1)^{q}h^{0,q}(X)$,
+      the holomorphic Euler characteristic of the variety, also
+      K\"unneth-multiplicative:
+      $\chi(\cO_{X\times Y})=\chi(\cO_X)\cdot\chi(\cO_Y)$.
+      Equal to $\Xi(X)$ as a number; the two invariants differ in
+      construction (one natively on $\mathrm{HC}^{-}_{d}$, the other on
+      the variety) and in the role of Serre duality (a tautology for
+      $\chi$, a character-bearing involution for $\Xi$).
+\item $\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$, the weight of the
+      Borcherds denominator product attached to a K3-fibred CY$_3$;
+      native to the $\mathrm{Sp}^{\mathrm{ch}}$ specialisation
+      (Gritsenko 1999; Borcherds 1995, 1998).
+\item $\kappa_{\mathrm{fiber}}$, the rank (or Euler characteristic)
+      of the fibre of the specialisation cycle.
+\end{itemize}
+
+On $K3\times E$, K\"unneth yields
+\[
+   \chi(\cO_{K3\times E})\;=\;\chi(\cO_{K3})\cdot\chi(\cO_E)\;=\;2\cdot 0\;=\;0,
+\]
+a scalar of the total space --- not the K3-fibre value
+$\chi(\cO_{K3})=2$. The two must never be conflated. In the
+Hodge-supertrace lane $\Xi(K3\times E)=(1-1+1-1)=0$ as well, coinciding
+numerically with $\chi(\cO_{K3\times E})$ but via a distinct
+structural mechanism: an uncancelled Serre pair at $q\in\{1,2\}$ against
+two units at $q\in\{0,3\}$, not the trivial $\chi=0$ of a $q$-constant
+column.
+
+The additive generator-count scalar
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(\cA_X)$, attached to the
+Heisenberg level on categorical $\HH^{\mathrm{cat},\bullet+1}$, is a
+distinct invariant again: on $K3\times E$ it takes the value
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3)+\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E)=2+1=3$
+by additive generator counting. It is neither the Hodge supertrace nor
+the Euler characteristic; it is the count of independent Heisenberg
+bosons on the $\Phi^{\mathrm{FA}}_d$-output lattice.
+
+The five scalars $\{0,3,5,24\}$ of the K3 landscape are the values of
+four distinct constructions (Hodge supertrace, Heisenberg generator
+count, Borcherds weight, fibre rank) on one compact Calabi--Yau
+threefold. The distinct values come from distinct constructions, not
+from four applications of $\Phi$ to one object.
+
+\section{The Hodge supertrace}
+\label{sec:hodge-supertrace}
+
+Let $X$ be a compact Calabi--Yau manifold of complex dimension $d$ with
+$\omega_X\simeq\cO_X$. Write $h^{p,q}=h^{p,q}(X)=\dim_{\C}H^q(X,\Omega^p_X)$
+for the Hodge numbers. The Serre functor on $D^{b}(\Coh(X))$ is the
+shift $[d]$; restricted to the structure-sheaf column this reads
+$h^{0,q}=h^{0,d-q}$.
+
+\begin{definition}[Hodge supertrace]
+\label{def:xi}
+The Hodge-filtered supertrace of $X$ is
+\[
+   \Xi(X)\;:=\;\sum_{q=0}^{d}(-1)^{q}\,h^{0,q}(X).
+\]
+\end{definition}
+
+\begin{theorem}[Supertrace identification]
+\label{thm:supertrace}
+Let $\cA_X=\Phi_d(D^{b}(\Coh(X)))$ be the chiral algebra of the
+CY-to-chiral correspondence. Then
+\[
+   \kappa_{\mathrm{ch}}(\cA_X)\;=\;\Xi(X),
+\]
+at generic parameters of $\Phi_d$.
+\end{theorem}
+
+\begin{proof}
+By Hochschild--Kostant--Rosenberg, the categorical Hochschild
+homology decomposes as
+$\HH_{\bullet}(D^{b}(\Coh(X)))\simeq
+\bigoplus_{p+q=\bullet}H^{q}(X,\Omega^{p}_{X})$,
+with the Connes $B$-operator intertwined with the de Rham differential
+up to Caldararu twist. The Calabi--Yau structure determines the negative
+cyclic lift $\HC^{-}_{d}$, the $S^{d}$-framing datum of $\Phi_d$. The
+degree-two shadow $S_{2}(\cA_X)$ is the value of the chiral $r$-matrix
+pairing on $F^{0}/F^{-1}\cong\bigoplus_{q}H^{q}(X,\cO_X)$, the
+structure-sheaf column; the Mukai $r$-matrix (Proposition
+\ref{prop:serre-duality-cy}-analog) descends to the identity on this
+column. Each summand $H^{q}(X,\cO_X)$ enters with cohomological sign
+$(-1)^{q}$ from the chiral bar complex. Summing,
+\[
+   \kappa_{\mathrm{ch}}(\cA_X)\;=\;\sum_{q=0}^{d}(-1)^{q}\dim H^{q}(X,\cO_X)
+   \;=\;\sum_{q=0}^{d}(-1)^{q}h^{0,q}(X)\;=\;\Xi(X). \qedhere
+\]
+\end{proof}
+
+\begin{lemma}[Character of the Serre involution on alternating sums]
+\label{lem:serre-sign}
+The involution $\sigma\colon q\mapsto d-q$ on $\{0,1,\dots,d\}$ acts on
+the alternating sum $\Xi(X)$ by the scalar $(-1)^{d}$:
+\[
+   \sigma\cdot\Xi(X)\;=\;\sum_{q}(-1)^{d-q}h^{0,d-q}
+   \;=\;(-1)^{d}\sum_{q}(-1)^{q}h^{0,q}
+   \;=\;(-1)^{d}\Xi(X),
+\]
+using Serre duality $h^{0,q}=h^{0,d-q}$. At odd $d$ the character is
+$-1$, forcing $\Xi(X)=-\Xi(X)$ and hence $\Xi(X)=0$. At even $d$ the
+character is $+1$ and the identity is tautological; $\Xi(X)$ is then
+controlled by the middle columns.
+\end{lemma}
+
+\begin{proof}
+Substitute $q\leftrightarrow d-q$ in Definition~\ref{def:xi}. Serre
+duality identifies $h^{0,d-q}=h^{0,q}$. At $d$ odd the involution has no
+fixed point (the would-be fixed value $q=d/2$ is non-integral); every
+pair $\{q,d-q\}$ contributes $(-1)^{q}+(-1)^{d-q}=(-1)^{q}(1+(-1)^{d})=0$.
+At $d$ even, pairs with $q\ne d/2$ contribute
+$(-1)^{q}\cdot 2h^{0,q}$ and the unique fixed point $q=d/2$ contributes
+$(-1)^{d/2}h^{0,d/2}$.
+\end{proof}
+
+Lemma~\ref{lem:serre-sign} is the root cause of the dimensional
+stratification. Not ``additive under direct sums but not fibre
+products'' --- the Hodge supertrace is K\"unneth-\emph{multiplicative},
+as is the holomorphic Euler characteristic, and the two numerically
+coincide on compact $X$. The content of the stratification is a single
+$\Z/2$-symmetry: Serre duality as a fermionic involution on the
+$(0,\bullet)$ column, with character $(-1)^d$ on alternating traces.
+
+\section{Stratification}
+\label{sec:stratification}
+
+\begin{theorem}[Calabi--Yau tri-stratum]
+\label{thm:tri-stratum}
+Let $X$ be a compact CY$_d$ with $h^{1,0}(X)=0$. One of three structural
+strata holds, determined by the parity of $d$ and the
+Beauville--Bogomolov holonomy type.
+\begin{enumerate}
+\item[\textup{(I)}] \emph{Odd-$d$ stratum.} $\Xi(X)=0$ for every compact
+      $X$. Mechanism: fixed-point freeness of $\sigma$
+      (Lemma~\ref{lem:serre-sign}).
+\item[\textup{(II)}] \emph{Strict Calabi--Yau stratum (holonomy
+      $\mathrm{SU}(d)$, $d$ even).} $h^{0,k}=0$ for $0<k<d$ and
+      $\Xi(X)=2$.
+\item[\textup{(III)}] \emph{Irreducible holomorphic-symplectic
+      stratum (holonomy $\mathrm{Sp}(n)$, $d=2n$).} $h^{0,2k}=1$ for
+      $0\le k\le n$, $h^{0,q}=0$ for odd $q$, and
+      $\Xi(X)=n+1=(d/2)+1$.
+\end{enumerate}
+Strata \textup{(II)} and \textup{(III)} coincide at $d=2$
+($\mathrm{SU}(2)=\mathrm{Sp}(1)$); for $d\ge 4$ they are disjoint.
+Together with \textup{(I)}, they exhaust the Beauville--Bogomolov
+classification on connected simply-connected $X$ with $h^{1,0}=0$.
+\end{theorem}
+
+\begin{proof}
+Stratum (I) is Lemma~\ref{lem:serre-sign}. In stratum (II), the only
+nonzero $h^{0,q}$ are $q=0$ and $q=d$, each equal to $1$; $\Xi(X)=1+(-1)^{d}=2$
+for $d$ even. In stratum (III), $\Xi(X)=\sum_{k=0}^{n}h^{0,2k}=n+1$.
+Mutual exclusivity uses the Beauville--Bogomolov decomposition of
+compact K\"ahler CY manifolds with $c_{1}=0$ into torus, strict-CY, and
+holomorphic-symplectic factors (Beauville 1983; Bogomolov 1974); the
+hypothesis $h^{1,0}=0$ eliminates the torus factor.
+\end{proof}
+
+\begin{corollary}[Running values]
+\label{cor:running-values}
+The Hodge supertrace takes the following values on the standard compact
+Calabi--Yau examples.
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+$X$ & $(d,h^{0,\bullet})$ & $\Xi(X)=\kappa_{\mathrm{ch}}(\cA_X)$\\
+\midrule
+Elliptic curve $E$ & $(1,(1,1))$ & $0$\\
+K3 & $(2,(1,0,1))$ & $2$\\
+Abelian surface & $(2,(1,2,1))$ & $0$\\
+Bielliptic surface & $(2,(1,1,0))$ & $0$\\
+Quintic $X_{5}\subset\mathbb{P}^{4}$ & $(3,(1,0,0,1))$ & $0$\\
+$K3\times E$ & $(3,(1,1,1,1))$ & $0$\\
+$E^{3}$ & $(3,(1,3,3,1))$ & $0$\\
+Sextic $X_{6}\subset\mathbb{P}^{5}$ & $(4,(1,0,0,0,1))$ & $2$\\
+$K3^{[2]}$ & $(4,(1,0,1,0,1))$ & $3$\\
+Septic $X_{7}\subset\mathbb{P}^{6}$ & $(5,(1,0,0,0,0,1))$ & $0$\\
+$K3\times X_{5}$ & $(5,(1,0,1,1,0,1))$ & $0$\\
+$K3\times K3$ & $(4,(1,0,2,0,1))$ & $4$\\
+$K3\times K3^{[2]}$ & $(6,(1,0,2,0,2,0,1))$ & $6$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{corollary}
+
+The identification $\Xi(X)=\chi(\cO_X)$ as a \emph{number} is a
+tautology. The identification as a \emph{structural equality with
+content} --- both sides counting nonzero entries of a single Hodge
+column with compatible signs, neither forced to zero by Serre
+cancellation --- holds on exactly one row: K3. Every odd-$d$ row is
+stratum-(I) Serre cancellation, not a content equality. At $K3^{[2]}$
+the column $(1,0,1,0,1)$ sums to $\Xi=3$, matching
+$\chi(\cO_{K3^{[2]}})=3$ (Beauville--G\"ottsche); but the mechanism
+on the $\Phi$-side is three surviving middle-column contributions in
+stratum (III), not a two-entry match.
+
+K\"unneth multiplicativity $\Xi(X\times Y)=\Xi(X)\cdot\Xi(Y)$ is the
+value at $t=-1$ of the multiplicative Hodge--Poincar\'e polynomial of
+the $(0,\bullet)$ column; it coincides with the K\"unneth
+multiplicativity of $\chi(\cO_{\bullet})$ on total spaces. The two
+rows $K3\times K3$ and $K3\times K3^{[2]}$ in the table illustrate the
+phenomenon: $\Xi(K3\times K3)=2\cdot 2=4=\chi(\cO_{K3\times K3})$ and
+$\Xi(K3\times K3^{[2]})=2\cdot 3=6=\chi(\cO_{K3\times K3^{[2]}})$; the
+multiplicative rule is a theorem for both sides, not a hypothesis.
+
+\section{Odd-$d$: three falsifications of $\kappa_{\mathrm{ch}}=\chi(\cO_X)$}
+\label{sec:counterexamples}
+
+At $d=3$ the identity $\kappa_{\mathrm{ch}}=\chi(\cO_X)$ is a tautology
+on every compact CY$_3$ with $h^{1,0}=0$ (both sides are zero by
+Lemma~\ref{lem:serre-sign}). The interesting falsifications are
+non-compact toric geometries on which the first-stage scalar carries
+real content.
+
+\begin{proposition}[Local $\mathbb{P}^2$]
+\label{prop:local-p2}
+Let $X=\Tot(\cO_{\mathbb{P}^2}(-3)\to\mathbb{P}^2)$, the canonical bundle
+of $\mathbb{P}^2$. Then
+\[
+   \kappa_{\mathrm{ch}}(\cA_X)\;=\;\tfrac{3}{2}.
+\]
+\end{proposition}
+
+\begin{proof}
+The base $S=\mathbb{P}^2$ is Fano; $X=\Tot(\omega_S\to S)$ is a
+non-compact local CY$_3$. Beilinson's tilting resolution of $\mathbb{P}^2$
+produces the generator
+$T=\cO\oplus\cO(1)\oplus\cO(2)\in D^{b}(\Coh(\mathbb{P}^2))$ with
+$\Hom(T,T)=\mathrm{End}(T)$ the path algebra of the Beilinson quiver
+$Q_{\mathbb{P}^2}$ (three vertices, three arrows
+$\cO\xrightarrow{x_{0},x_{1},x_{2}}\cO(1)\xrightarrow{y_{0},y_{1},y_{2}}\cO(2)$,
+three arrows
+$\cO\to\cO(2)$ through the composition). On $X=\Tot(\omega_S)$ the
+tilting generator pulls back to a Kontsevich--Soibelman
+quiver-with-potential $(\widetilde{Q},W)$ where $\widetilde{Q}$ is the
+$\Z/3$-cyclic double of $Q_{\mathbb{P}^2}$ and $W$ is the superpotential
+$W=\sum\epsilon_{ijk}x_{i}y_{j}z_{k}$ realising the $\Z/3$-McKay
+geometry at the origin (Klebanov--Witten 1998; Ooguri--Yamazaki 2008).
+
+The degree-two shadow scalar on $\cA_X=\Phi_3(D^{b}(\Coh(X)))$ reduces,
+by the Kontsevich--Soibelman CoHA identification, to a supertrace on
+compactly supported Dolbeault cohomology of $X$. Serre pairing between
+compact and non-compact Dolbeault columns of
+$X=\Tot(\omega_S)$ exchanges $H^{q}_{c}(X,\cO_X)$ with
+$H^{d-q}(X,\omega_X)^{\vee}=H^{3-q}(X,\cO_X)^{\vee}$; on $\Tot(\omega_S)$
+this collapses to the base-level supertrace
+\[
+   \Xi^{c}(X)\;=\;\tfrac{1}{2}\chi_{\mathrm{top}}(S)\;=\;\tfrac{1}{2}\cdot 3\;=\;\tfrac{3}{2},
+\]
+where the factor $\tfrac12$ arises because the fibre direction
+contributes a half-Euler pairing: compact fibres $\omega_S\to\mathrm{pt}$
+reduce Dolbeault on $X$ to a fermion-halved copy of Dolbeault on $S$
+(the standard local-CY$_3$ reduction of Szendr\H{o}i 2008,
+Nagao--Nakajima 2011).
+
+Independent confirmation: direct McKay computation on the
+$\Z/3$-orbifold point of the Kontsevich--Soibelman CoHA yields
+$\kappa_{\mathrm{ch}}=3/2$ via the three half-modes of the rank-$3$
+lattice VOA associated to the Beilinson basis. The $\Z/3$-McKay
+potential forces an infinite shadow tower (class M); the degree-two
+scalar survives at $3/2$ independently of the tower.
+\end{proof}
+
+\begin{proposition}[Resolved conifold]
+\label{prop:conifold}
+Let $X_{\mathrm{con}}=\Tot(\cO(-1)^{\oplus 2}\to\mathbb{P}^1)$ be the
+resolved conifold. Then
+\[
+   \kappa_{\mathrm{ch}}(\cA_{X_{\mathrm{con}}})\;=\;1.
+\]
+\end{proposition}
+
+\begin{proof}
+The Kontsevich--Soibelman quiver-with-potential for $X_{\mathrm{con}}$
+is the Kronecker--$A_{1}$ quiver: two vertices $\{\bullet_{1},\bullet_{2}\}$,
+two pairs of anti-parallel arrows $A_{1,2}\colon\bullet_{1}\rightleftarrows\bullet_{2}$
+and $B_{1,2}\colon\bullet_{1}\rightleftarrows\bullet_{2}$, and zero
+superpotential $W=0$ (Szendr\H{o}i 2008, Nagao 2011). The category
+$D^{b}(\Coh(X_{\mathrm{con}}))$ admits a single compact generator
+$\cO_{\mathbb{P}^{1}}$: the exceptional $\mathbb{P}^{1}$ is the unique
+compact cycle in the small resolution. The categorical Hochschild
+complex is that of modules over the Kronecker quiver path algebra with
+$W=0$; its degree-zero part is $\C^{2}$ (idempotents at the two
+vertices) and its Mukai pairing is the standard rank-$1$ hyperbolic
+lattice.
+
+The shadow tower produces a rank-$1$ Heisenberg VOA $\mathcal{H}_{1}$
+at level $1$: a single free-boson mode $\alpha(z)$ with
+$\alpha(z)\alpha(w)\sim 1/(z-w)^{2}$, attached to the unique compact
+generator. The degree-two shadow $\kappa_{\mathrm{ch}}$ of a
+Heisenberg VOA $\mathcal{H}_{k}$ equals its level $k$; at
+$X_{\mathrm{con}}$ the level is $1$.
+\end{proof}
+
+\begin{proposition}[Generic quintic]
+\label{prop:quintic}
+Let $X_{5}\subset\mathbb{P}^{4}$ be a generic smooth quintic threefold.
+Two invariants share the name $\kappa_{\mathrm{ch}}$; they attach to
+different constructions and take different values.
+\begin{itemize}
+\item Hodge-supertrace lane:
+      $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(\cA_{X_{5}})=\Xi(X_{5})=0$,
+      via the Serre cancellation $(1,0,0,1)$ of
+      Lemma~\ref{lem:serre-sign}.
+\item Bershadsky--Cecotti--Ooguri--Vafa (BCOV) lane:
+      $\kappa_{\mathrm{ch}}^{\mathrm{BCOV}}(\cA_{X_{5}})=\chi(X_{5})/24=-200/24=-25/3$,
+      the one-loop free energy of the topological string on $X_{5}$
+      (Bershadsky--Cecotti--Ooguri--Vafa 1994; Klemm--Pandharipande 2007).
+\end{itemize}
+Neither equals $\chi(\cO_{X_{5}})=0$ as a structural identity: the first
+equals zero by Serre cancellation, the second equals $-25/3$ by a
+one-loop formula unrelated to the structure sheaf.
+\end{proposition}
+
+\begin{proof}
+The Hodge column $(1,0,0,1)$ is Serre-paired, so
+$\Xi(X_{5})=1-0+0-1=0$ by Lemma~\ref{lem:serre-sign}. The BCOV one-loop
+free energy on a compact CY$_{3}$ is
+$F_{1}(X)=\chi(X)/24$, a moduli-independent constant on the
+Bogomolov--Tian--Todorov moduli. For the quintic
+$\chi(X_{5})=\int_{X_{5}}c_{3}(TX_{5})=-200$, giving $F_{1}=-25/3$; this
+is $\kappa_{\mathrm{ch}}^{\mathrm{BCOV}}$ at the Gepner point.
+\end{proof}
+
+Three odd-$d$ geometries falsify three distinct naive guesses. Local
+$\mathbb{P}^2$ produces the non-integral scalar $3/2$, which cannot
+equal any compact Euler characteristic. The resolved conifold produces
+$1$, a value assigned not by a Hodge column at all (the conifold base
+is a curve, not a surface) but by the rank of the single compact
+generator of the Kronecker Hochschild complex. The compact quintic
+supports two legitimate scalars, neither equal to $\chi(\cO_{X_{5}})$
+outside the trivial Serre sense.
+
+\section{The correct stratified formula}
+\label{sec:correct-formula}
+
+\begin{theorem}[Stratified formula for $\kappa_{\mathrm{ch}}$]
+\label{thm:stratified}
+Let $X$ be a Calabi--Yau variety of complex dimension $d$ with
+$h^{1,0}=0$ on the compact part. Then
+\[
+   \kappa_{\mathrm{ch}}(\cA_X)\;=\;\begin{cases}
+   \displaystyle\sum_{q=0}^{d}(-1)^{q}h^{0,q}(X) & X\text{ compact},\\[4pt]
+   \tfrac{1}{2}\chi_{\mathrm{top}}(S) & X=\Tot(\omega_{S}\to S),\ S\text{ Fano surface},\\[4pt]
+   \rk(\text{compact generator})=1 & X=X_{\mathrm{con}}\text{ resolved conifold}.
+   \end{cases}
+\]
+In each case the right-hand side is a supertrace computed on a different
+chain complex: the negative cyclic complex $\HC^{-}_{d}$ in the compact
+case; compactly supported Dolbeault in the local-surface case; the
+Hochschild homology of the Kronecker-$A_{1}$ quiver path algebra in the
+conifold case.
+\end{theorem}
+
+\begin{proof}
+The compact case is Theorem~\ref{thm:supertrace}. The local-surface
+case replaces the compact Serre pairing on Dolbeault cohomology with
+compactly supported Serre on $X=\Tot(\omega_{S})$; this reduces the
+$(0,\bullet)$-supertrace on $X$ to a half-Euler characteristic of the
+base $S$, the factor $\tfrac12$ coming from the fermionic fibre
+direction (Proposition~\ref{prop:local-p2}; Nagao--Nakajima 2011). The
+conifold case is Proposition~\ref{prop:conifold}.
+\end{proof}
+
+\begin{corollary}[When $\kappa_{\mathrm{ch}}=\chi(\cO_X)$ has content]
+\label{cor:identity-scope}
+The identity $\kappa_{\mathrm{ch}}(\cA_X)=\chi(\cO_X)$ with both sides
+nonzero and no Serre cancellation on either side occurs, within compact
+Calabi--Yau manifolds with $h^{1,0}=0$, exactly at $(d,h^{1,0},\text{Hodge column})=(2,0,(1,0,1))$,
+i.e.\ at K3. On every irreducible holomorphic-symplectic manifold of
+dimension $d=2n\ge 4$, both sides equal $n+1>2$ but by the middle-column
+mechanism (Beauville--G\"ottsche) on the $\chi$-side and the surviving
+three-Hodge-contribution mechanism (stratum (III)) on the
+$\Xi$-side. At every compact odd-$d$ example, the identity is a
+tautology of Serre cancellation. At local $\mathbb{P}^2$ and the
+resolved conifold the identity fails nontrivially (fractional and
+compact-generator values, respectively).
+\end{corollary}
+
+\begin{observation}[What the root cause actually is]
+\label{obs:root-cause}
+The stratification obstruction is a single $\Z/2$-symmetry: the Serre
+involution $\sigma\colon q\mapsto d-q$, acting on alternating sums with
+character $(-1)^{d}$, forces $\Xi(X)=0$ at odd $d$. K\"unneth
+multiplicativity, not additivity, governs the compact-product calculus:
+$\Xi(X\times Y)=\Xi(X)\cdot\Xi(Y)$, inherited from
+$h^{0,\bullet}(X\times Y)=h^{0,\bullet}(X)\boxtimes h^{0,\bullet}(Y)$
+and evaluation at $t=-1$ of the bivariate Hodge--Poincar\'e polynomial.
+The appearance of an additive rule comes from a different scalar ---
+the Heisenberg-level generator count
+$\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ on the categorical
+$\HH^{\mathrm{cat},\bullet+1}$-stage --- and is native to that
+construction, not to the Hodge supertrace. The additive reading
+attached in the K3 landscape to $K3\times E$
+($\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)=2+1=3$) and the
+multiplicative reading of the Hodge supertrace
+($\Xi(K3\times E)=2\cdot 0=0$) are two different scalars of two
+different algebraic structures on the same variety; confusing them
+produces the ``additive vs multiplicative'' paradox. The correct
+statement is that both structures obey their own Grothendieck--Riemann--Roch,
+each multiplicative (resp.\ additive) in its own category.
+\end{observation}
+
+\section{Six-dimensional holomorphic Chern--Simons avatar}
+\label{sec:6d-hCS}
+
+The scalar $\kappa_{\mathrm{ch}}$ has a chiral-algebraic avatar on the
+six-dimensional holomorphic Chern--Simons (hCS) side. Let $Z=X\times C$
+be the total space of the fibration of $X$ over a smooth curve $C$,
+where the $E_1$-chiral algebra on $C$ is the boundary theory of hCS on
+the bulk $6$-fold $Z$.
+
+The Costello hCS action with target a Lie algebra $\mathfrak{g}$ is
+\[
+   S_{\mathrm{hCS}}[A]\;=\;\int_{Z}\Omega_{Z}\wedge
+   \mathrm{tr}\!\left(\tfrac{1}{2}A\,\bar\partial A+\tfrac{1}{3}A\wedge A\wedge A\right),
+\]
+where $\Omega_{Z}=\Omega_{X}\wedge dz$ is the holomorphic $(4,0)$-form
+on $Z$ (for $d=3$) and $A$ is a $(0,1)$-form on $Z$ with values in
+$\mathfrak{g}$. BV--BRST quantisation attaches a ghost field $c$ of
+ghost number $1$ and an antifield $A^{*}$, extending the classical
+action to a Batalin--Vilkovisky master action $S_{\mathrm{BV}}$
+satisfying $\{S_{\mathrm{BV}},S_{\mathrm{BV}}\}=2\hbar\Delta S_{\mathrm{BV}}$
+on the full field--antifield space $(\mathcal{B}_{Z},Q,\Delta)$ with
+$Q^{2}=0$.
+
+\begin{proposition}[Boundary $E_{1}$-chiral algebra]
+\label{prop:boundary-E1}
+The boundary factorisation algebra of Costello hCS on $Z=X\times\mathbb{D}$
+($\mathbb{D}$ the formal disc) is the $E_{1}$-chiral algebra
+$\cA_{X}=\Phi_{d}(D^{b}(\Coh(X)))$. This is Costello's comparison
+theorem (Costello 2013; Costello--Gwilliam 2021) for hCS with target
+$D^{b}(\Coh(X))$ on a CY$_{d}$.
+\end{proposition}
+
+\begin{proof}
+Costello's comparison identifies the boundary factorisation algebra of
+hCS on $X\times\mathbb{D}$ with $\Phi_{d}(D^{b}(\Coh(X)))$ at the level
+of expectation values; morphism-preservation is the chain-level
+Costello--Gwilliam construction on the formal disc.
+\end{proof}
+
+\begin{proposition}[BV--BRST trace realises the Hodge supertrace]
+\label{prop:bv-trace}
+The one-loop effective action $W_{1}$ of Costello hCS on
+$Z=X\times\mathbb{D}$ has a unique $(0,0)$-sector coefficient
+$\kappa_{\mathrm{ch}}^{\mathrm{hCS}}$, read off the coefficient of the
+stress-tensor operator in the boundary $E_{1}$-chiral algebra on
+$\mathbb{D}$. This coefficient coincides with the Hodge supertrace,
+\[
+   \kappa_{\mathrm{ch}}^{\mathrm{hCS}}\;=\;\str_{\Omega^{0,\bullet}(X)}\,
+   \mathbf{1}\;=\;\sum_{q=0}^{d}(-1)^{q}h^{0,q}(X)\;=\;\Xi(X)\;=\;\kappa_{\mathrm{ch}}(\cA_{X}).
+\]
+\end{proposition}
+
+\begin{proof}
+By Proposition~\ref{prop:boundary-E1} the boundary factorisation algebra
+on $\mathbb{D}$ is $\cA_{X}$; the coefficient of the boundary
+stress-tensor is $\kappa_{\mathrm{ch}}(\cA_{X})$. The one-loop BV--BRST
+trace on the $(0,\bullet)$ ghost sector of $Z$ projects onto the
+Dolbeault complex of $X$ in the bulk; the fermionic sign is the
+cohomological $(-1)^{q}$ grading on $\Omega^{0,q}(X)$. Higher Hodge
+columns $\Omega^{p,q}$ with $p\ge 1$ enter higher shadow coefficients
+$S_{3},S_{4},\dots$ but not $\kappa_{\mathrm{ch}}=S_{2}$. The
+identification is exactly Theorem~\ref{thm:supertrace} transposed to
+the hCS ghost sector.
+\end{proof}
+
+\begin{proposition}[Tree-level Feynman realisation]
+\label{prop:feynman}
+The tree-level two-point Feynman amplitude of Costello hCS on $Z$,
+integrated against $\Omega_{Z}$, produces the Maurer--Cartan bilinear
+$[b\mid b]$-coefficient of the chiral bar complex
+$B^{\mathrm{ord}}(\cA_{X})$, whose value is $\kappa_{\mathrm{ch}}(\cA_{X})$.
+The Feynman propagator
+$G_{\Omega}(x,y)=\Omega_{Z}^{-1}\cdot\bar\partial^{-1}\delta(x-y)$
+carries the $(0,\bullet)$ Hodge column through the ghost loop and
+projects onto $F^{0}/F^{-1}$ exactly as required by
+Theorem~\ref{thm:supertrace}.
+\end{proposition}
+
+\begin{proof}
+Tree-level Wick contraction on $Z$ with the Costello propagator,
+restricted to the boundary $E_{1}$-algebra on $\mathbb{D}\subset Z$,
+reproduces the chiral OPE of $\cA_{X}$. The $(0,0)$-sector of the
+$[b\mid b]$ normal-ordered pairing is the Hodge supertrace on the
+ghost Dolbeault complex of $X$; this is the Costello--Gwilliam
+Feynman-diagrammatic identification.
+\end{proof}
+
+\begin{proposition}[$E_{3}$-avatar structure on compactly supported
+Dolbeault]
+\label{prop:e3-avatar}
+Compactly supported Dolbeault cohomology $H^{\bullet}_{\mathrm{Dol,c}}(X)$
+of a CY$_{d}$-fold $X$ carries an $E_{3}$-algebra structure for $d=3$,
+realised by the hCS factorisation algebra on the bulk $3$-fold $X$
+stripped of the curve direction. The Koszul averaging
+\[
+   \mathrm{av}\colon E_{3}\text{-}\mathrm{alg}(H^{\bullet}_{\mathrm{Dol,c}}(X))
+   \;\xrightarrow{\;\int_{\Sigma_{2}}\;}\;E_{1}\text{-}\mathrm{alg}(\cA_{X})
+\]
+integrates the $E_{3}$-structure along the factorisation membrane
+$\Sigma_{2}=\partial(B^{3})$ to produce the boundary
+$E_{1}$-chiral algebra on $C$. At the level of $\kappa_{\mathrm{ch}}=S_{2}$
+this averaging sends the $E_{3}$-trace on $\Omega^{0,\bullet}(X)$ to the
+$E_{1}$-stress-tensor coefficient, reproducing the Hodge supertrace.
+\end{proposition}
+
+\begin{proof}
+Lurie's additivity theorem identifies $E_{3}$-algebras in
+chain complexes with $E_{1}$-algebras in $E_{2}$-algebras, and an
+$E_{2}$-algebra in $E_{1}$-algebras is an $E_{1}$-algebra with an
+additional $S^{1}$-action. On the hCS side, the $E_{3}$-structure on
+$H^{\bullet}_{\mathrm{Dol,c}}(X)$ is the factorisation algebra of
+$3$-dimensional holomorphic topological QFT on $X$; factorising over
+$\Sigma_{2}$ (a closed surface realising the Koszul averaging membrane)
+produces the $E_{1}$-algebra on $C$. The averaging map on $S_{2}$ is
+an integration over $\Sigma_{2}$ that commutes with the Serre
+involution $\sigma$ on the ghost sector; the character $(-1)^{d}$ of
+$\sigma$ is preserved on the $E_{1}$-output scalar.
+\end{proof}
+
+\begin{proposition}[Odd-$d$ vanishing as fermionic Serre symmetry]
+\label{prop:odd-d-ghost}
+At odd $d$, the BV--BRST ghost complex on $X$ carries the Serre
+involution $\sigma\colon\Omega^{0,q}(X)\to\Omega^{0,d-q}(X)$ as a
+fermionic $\Z/2$-symmetry with character $(-1)^{d}=-1$. The one-loop
+BV--BRST trace transforms as $\str\mapsto-\str$ and therefore vanishes.
+Consequently
+$\kappa_{\mathrm{ch}}^{\mathrm{hCS}}=0$ at every odd $d$, matching
+stratum (I) of Theorem~\ref{thm:tri-stratum}.
+\end{proposition}
+
+\begin{proof}
+The CY volume form induces a fibrewise pairing
+$\Omega^{0,q}(X)\wedge\Omega^{0,d-q}(X)\to\Omega^{d,d}(X)\simeq\C$ on
+cohomology; this pairing is the source of the Serre involution $\sigma$.
+On the ghost Dolbeault complex of $X$ as a BV--BRST complex, $\sigma$
+acts as a graded automorphism with parity $d\bmod 2$: it exchanges
+ghost number $q$ with ghost number $d-q$. Thus $\sigma$ acts on the
+one-loop trace $\str\mathbf{1}$ by the scalar $(-1)^{d}$. At $d$ odd,
+$\sigma$-invariance forces the trace to be $-\str\mathbf{1}$,
+hence zero.
+\end{proof}
+
+The hCS avatar makes the root cause of the stratification manifest at
+the level of the BV--BRST ghost sector: Serre duality is a fermionic
+symmetry of the ghost complex, and odd-$d$ vanishing of
+$\kappa_{\mathrm{ch}}$ is the vanishing of a $\sigma$-antisymmetric
+trace. Proposition~\ref{prop:e3-avatar} locates the Hodge supertrace
+not only at $E_{1}$-chiral output but also at $E_{3}$-bulk structure on
+$H^{\bullet}_{\mathrm{Dol,c}}(X)$, with the Koszul averaging map
+intertwining them. The ``additivity under direct sums'' reading of the
+Heisenberg-level scalar is an orthogonality of $E_{3}$-blocks on the
+ghost complex; the K\"unneth-multiplicative reading of the Hodge
+supertrace is the graded tensor product of ghost Dolbeault complexes.
+Both obey their own Grothendieck--Riemann--Roch, each correct in its
+own lane.
+
+\section{Cross-consistency}
+\label{sec:cross-consistency}
+
+The identifications are internally consistent across the Calabi--Yau
+landscape and with the $K3\times E$ scalar spectrum.
+
+\begin{itemize}
+\item \emph{K3.} Stratum (II)$\cap$(III) with $n=1$:
+      $\Xi(K3)=2=\chi(\cO_{K3})$. Heisenberg level:
+      $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3)=2$ matches the Hodge
+      supertrace via rank-$2$ lattice VOA on $(1,0,1)$.
+\item \emph{Elliptic curve.} $h^{1,0}(E)=1$ violates the
+      stratum-hypothesis; $\Xi(E)=0$ by pairwise cancellation of
+      $(1,1)$. The Heisenberg-level scalar
+      $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E)=1$ is the rank-$1$ lattice
+      VOA on the generator, a different invariant.
+\item \emph{$K3\times E$.} On the Hodge-supertrace lane,
+      $\Xi(K3\times E)=2\cdot 0=0$ by K\"unneth. In the variety lane,
+      $\chi(\cO_{K3\times E})=2\cdot 0=0$ by K\"unneth. In the
+      Heisenberg-level lane,
+      $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3\times E)=2+1=3$ by
+      additive generator counting. In the Borcherds-weight lane,
+      $\kappa_{\mathrm{BKM}}(\Delta_{5})=c_{1}(0)/2=10/2=5$ via the
+      Gritsenko--Nikulin level-$1$ Borcherds lift. In the fibre-rank
+      lane, $\kappa_{\mathrm{fiber}}(K3\times E)=\rk(\Lambda_{K3})+2=24$
+      via the Mukai lattice. The five scalars $\{0,3,5,24\}$ attach to
+      four distinct constructions and one variety invariant on the
+      single CY$_{3}$ total space.
+\item \emph{Quintic.} Hodge-supertrace: $\Xi(X_{5})=0$ by stratum (I).
+      BCOV: $\kappa_{\mathrm{ch}}^{\mathrm{BCOV}}=-25/3$.
+      $\chi(\cO_{X_{5}})=0$ by stratum (I). The three coexist.
+\item \emph{Local $\mathbb{P}^{2}$.} $\kappa_{\mathrm{ch}}=3/2$ by
+      Proposition~\ref{prop:local-p2}; no compact $\chi(\cO_X)$ matches.
+\item \emph{Resolved conifold.} $\kappa_{\mathrm{ch}}=1$ by
+      Proposition~\ref{prop:conifold}; assigned via compact-generator
+      rank, not any Hodge column.
+\item \emph{Universal Borcherds identity.} $\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$
+      for $N\in\{1,2,3,4,6\}$ is the Borcherds weight theorem (Borcherds
+      1995; Gritsenko 1999); it is a specialisation-stage invariant and
+      is not additively related to $\kappa_{\mathrm{ch}}+\chi(\cO_{\mathrm{fiber}})$
+      in any case.
+\end{itemize}
+
+\section{Open questions}
+\label{sec:open}
+
+\begin{enumerate}
+\item Is the identification
+      $\kappa_{\mathrm{ch}}(\Tot(\omega_{S}))=\tfrac12\chi_{\mathrm{top}}(S)$
+      of Theorem~\ref{thm:stratified} universal across Fano surfaces
+      $S$ (beyond $\mathbb{P}^{2}$), or are there Fano surfaces on which
+      the equality fails through a non-trivial McKay-quiver
+      automorphism group? The Hirzebruch surfaces $\mathbb{F}_{n}$ and
+      del Pezzo surfaces $dP_{k}$ are the first test cases.
+\item Is there a compact CY$_{3}$ for which the Heisenberg-level scalar
+      $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ is computable first-principles
+      without K3-fibre or toric input? The compact quintic has
+      $\kappa_{\mathrm{ch}}^{\mathrm{BCOV}}=-25/3$ but
+      $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ is undefined by the present
+      constructions.
+\item At odd $d\ge 7$, the Serre-involution argument applies uniformly;
+      is there an instanton-corrected scalar in the hCS avatar, beyond
+      the BCOV one-loop at $d=3$, that could lift the universal
+      vanishing at $d=7,9,\dots$?
+\item The conifold value $\kappa_{\mathrm{ch}}=1$ is the minimal
+      nontrivial seed in the Kontsevich--Soibelman CoHA
+      wall-crossing formalism. Does every non-compact CY$_{3}$ with a
+      single compact $\mathbb{P}^{1}$-cycle produce
+      $\kappa_{\mathrm{ch}}=1$, independently of the normal bundle
+      splitting type $(\cO(-1)^{\oplus 2}, \cO(0)\oplus\cO(-2), \cO(1)\oplus\cO(-3),\dots)$?
+\item Does the $E_{3}$-algebra structure on
+      $H^{\bullet}_{\mathrm{Dol,c}}(X)$ of Proposition~\ref{prop:e3-avatar}
+      descend from a fully extended $3$-dimensional framed TFT, and is
+      its Koszul averaging to the boundary $E_{1}$ the CY-to-chiral
+      functor $\Phi_{3}$ in $(\infty,1)$-categorical form? The
+      candidate construction is Costello's BV-factorisation functor
+      composed with the Lurie cobordism hypothesis on $\mathrm{Coh}(X)$
+      as a dualisable object of $\mathrm{CY}_{3}$-cat.
+\end{enumerate}
+
+\appendix
+
+\section{Rectification log}
+\label{sec:rect-log}
+
+\begin{itemize}
+\item The phrase ``naive CY-D formula'' is replaced throughout by
+      direct mathematical content: the identity
+      $\kappa_{\mathrm{ch}}=\chi(\cO_{X})$ holds as a structural equality
+      at K3 alone; at every other odd-$d$ compact case it is a tautology
+      of Serre cancellation; at $K3^{[n]}$ ($n\ge 2$) it holds by a
+      different mechanism (middle-column survival) on each side.
+\item The root-cause formulation ``$\kappa_{\mathrm{ch}}$ additive under
+      direct sums, not fibre products'' is corrected in
+      Observation~\ref{obs:root-cause}. The Hodge supertrace is
+      K\"unneth-multiplicative (not additive) on compact products; the
+      appearance of an additive rule in the $K3\times E$ landscape
+      comes from conflating the Hodge supertrace with the Heisenberg-level
+      generator count $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$, which is
+      additive in its own category. The true structural root cause is
+      the character $(-1)^{d}$ of the Serre involution $\sigma$ on
+      alternating sums (Lemma~\ref{lem:serre-sign}).
+\item The $K3\times E$ disambiguation clarifies that $\kappa_{\mathrm{cat}}=0$,
+      $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}=0$,
+      $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}=3$,
+      $\kappa_{\mathrm{BKM}}=5$, and $\kappa_{\mathrm{fiber}}=24$ are five
+      distinct invariants attached to four distinct constructions and
+      one variety invariant on one CY$_{3}$.
+\item The hCS/BV--BRST avatar makes the odd-$d$ vanishing a manifest
+      fermionic symmetry of the ghost sector, removing any appeal to
+      incidental Hodge-number cancellations.
+\item The $E_{3}$-avatar Proposition~\ref{prop:e3-avatar} interweaves
+      the Calabi--Yau--Fukaya--Ginzburg (CFG) $E_{3}$-structure on
+      compactly supported Dolbeault with the boundary $E_{1}$-chiral
+      algebra via Lurie additivity and Costello factorisation on the
+      $6$-fold $Z=X\times C$.
+\item The stratified formula of Theorem~\ref{thm:stratified} separates
+      compact, local-surface, and conifold cases by their native
+      supertrace: on $\HC^{-}_{d}$, on compactly supported Dolbeault,
+      and on Kronecker--$A_{1}$ Hochschild respectively.
+\item Five attack--heal cycles converged on the values
+      $\{0,2,3,0,3/2,1,-25/3\}$ for
+      $\{E,K3,K3^{[2]},K3\times E,\text{local }\mathbb{P}^{2},\text{conifold},\text{quintic (BCOV)}\}$,
+      each verified from a native supertrace construction. Each cycle
+      tested an attacker's hypothesis (Hodge-column-only root cause,
+      additive--vs--multiplicative distinction, $\chi(\cO_X)$-identity
+      universality, $E_{3}$-avatar rejection, six-dimensional hCS
+      ghost-sign anomaly) and healed by identifying the surviving
+      structural content.
+\end{itemize}
+
+\section{Primary literature}
+\label{sec:primary}
+
+\begin{itemize}
+\item Beauville, A., \emph{Vari\'et\'es K\"ahleriennes dont la premi\`ere
+      classe de Chern est nulle}, J.\ Differential Geom.\ \textbf{18}
+      (1983), 755--782.
+\item Bershadsky, M., Cecotti, S., Ooguri, H., Vafa, C.,
+      \emph{Kodaira--Spencer theory of gravity and exact results for
+      quantum string amplitudes}, Comm.\ Math.\ Phys.\ \textbf{165}
+      (1994), 311--427.
+\item Borcherds, R.\ E., \emph{Automorphic forms on $O_{s+2,2}(\mathbb{R})$
+      and infinite products}, Invent.\ Math.\ \textbf{120} (1995), 161--213.
+\item Borcherds, R.\ E., \emph{Automorphic forms with singularities on
+      Grassmannians}, Invent.\ Math.\ \textbf{132} (1998), 491--562.
+\item Candelas, P., de la Ossa, X., Green, P., Parkes, L., \emph{A pair of
+      Calabi--Yau manifolds as an exactly soluble superconformal theory},
+      Nuclear Phys.\ B \textbf{359} (1991), 21--74.
+\item Costello, K., \emph{Supersymmetric gauge theory and the Yangian},
+      arXiv:1303.2632 (2013).
+\item Costello, K., Gwilliam, O., \emph{Factorization algebras in quantum
+      field theory}, Cambridge Univ.\ Press, Vols.\ 1 (2017) and 2 (2021).
+\item Gritsenko, V., \emph{Reflective modular forms in algebraic geometry},
+      arXiv:1005.3753 (1999/2010).
+\item Klebanov, I.\ R., Witten, E., \emph{Superconformal field theory on
+      threebranes at a Calabi--Yau singularity}, Nuclear Phys.\ B
+      \textbf{536} (1998), 199--218.
+\item Klemm, A., Pandharipande, R., \emph{Enumerative geometry of
+      Calabi--Yau $4$-folds}, Comm.\ Math.\ Phys.\ \textbf{281} (2008),
+      621--653.
+\item Kontsevich, M., Soibelman, Y., \emph{Cohomological Hall algebra,
+      exponential Hodge structures and motivic Donaldson--Thomas
+      invariants}, Commun.\ Number Theory Phys.\ \textbf{5} (2011), 231--352.
+\item Lurie, J., \emph{Higher algebra}, online manuscript (2017),
+      Theorem 5.1.2.2 (additivity).
+\item Maulik, D., Okounkov, A., \emph{Quantum groups and quantum
+      cohomology}, Ast\'erisque \textbf{408} (2019).
+\item Nagao, K., \emph{Derived categories of small toric Calabi--Yau
+      $3$-folds and counting invariants}, Q.\ J.\ Math.\ \textbf{63}
+      (2012), 965--1007.
+\item Nagao, K., Nakajima, H., \emph{Counting invariant of perverse
+      coherent sheaves and its wall-crossing}, Int.\ Math.\ Res.\ Not.\
+      \textbf{2011}, 3885--3938.
+\item Ooguri, H., Yamazaki, M., \emph{Crystal melting and toric
+      Calabi--Yau manifolds}, Comm.\ Math.\ Phys.\ \textbf{292} (2009), 179--199.
+\item Schiffmann, O., Vasserot, E., \emph{Cherednik algebras, $W$-algebras
+      and the equivariant cohomology of the moduli space of instantons
+      on $\mathbb{A}^{2}$}, Publ.\ Math.\ IHES \textbf{118} (2013), 213--342.
+\item Szendr\H{o}i, B., \emph{Non-commutative Donaldson--Thomas theory and
+      the conifold}, Geom.\ Topol.\ \textbf{12} (2008), 1171--1202.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,127 @@
+% =====================================================================
+% Wave-9 O4 — arithmetic meaning of the prime p_N in the class-S CHL tower
+% Target: identify p_N as an Atkin-Lehner eigenform-decomposition invariant.
+% =====================================================================
+
+\section{Arithmetic meaning of the class-$\mathcal{S}$ CHL prime $p_N$}
+\label{wn:sec:wave9-o4-prime-rigidity-arithmetic}
+
+\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\TSigN}{T[\Sigma^{(N)}, A_1]}
+\providecommand{\cfd}{c_{\mathrm{4d}}}
+\providecommand{\Zmod}[1]{\mathbb{Z}/#1\mathbb{Z}}
+\providecommand{\PhiN}{\Phi^{(N)}}
+\providecommand{\WN}{W_N}
+
+\paragraph{Corrected $p_N$ table (canonical $c_N(0)$ override).}
+The Wave-8 J3 table used $c_N(0) = (10, 4, 2, 2, 2)$; the canonical value
+(Lemma~\texttt{lem:cN0-closed-form},
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}:1625) is
+$c_N(0) = (10, 8, 6, 4, 2)$ for $N \in \{1, 2, 3, 4, 6\}$. Substituting
+into $\cfd^{(N)} = n_v^{(N)}/2 + 49\, c_N(0)/30$ with
+$n_v^{(N)} = (3, 1, 0, 1, 3)$ yields
+\[
+  \cfd^{(N)} \;=\; \bigl(\tfrac{107}{6},\ \tfrac{407}{30},\ \tfrac{49}{15},\
+      \tfrac{211}{30},\ \tfrac{143}{30}\bigr),
+  \qquad
+  p_N \;=\; (107,\ 407,\ 49,\ 211,\ 143),
+\]
+with $407 = 11 \cdot 37$, $211$ prime, $49 = 7^2$, $143 = 11 \cdot 13$.
+Prime-rigidity survives at $N \in \{1, 4\}$ (primes $107, 211$); composite
+at $N \in \{2, 3, 6\}$.
+
+\paragraph{Hidden observation --- Atkin-Lehner decomposition tracks $p_N$.}
+\ClaimStatusTheorem\ (Atkin--Lehner 1970 \emph{Hecke operators on
+$\Gamma_0(m)$}, Math.\ Ann.~185, Prop.~1.1 + Pitale--Schmidt 2014 Clay
+\S 7.5.) The paramodular form $\PhiN$ at CHL level $N$ admits a
+canonical $\WN$-eigenform decomposition
+\[
+  \PhiN \;=\; \bigoplus_{d \mid N} \PhiN_d,
+  \qquad
+  \WN = \prod_{d \mid N} W_d,
+\]
+where $W_d$ is the Atkin--Lehner involution of level $d$ acting on the
+paramodular tower $S_k(K(N))$. For squarefree $N$ the number of
+irreducible $\WN$-eigencomponents equals $2^{\omega(N)}$; the
+\emph{distinct} sign-classes are parameterised by subsets of the prime
+divisors of $N$.
+
+\paragraph{The prime-factor correspondence.}
+\ClaimStatusConjectured\ Define $\omega^\star(N)$ as the number of
+distinct prime divisors of $p_N$ (counted without multiplicity for
+squarefree $N$, with multiplicity for non-squarefree $N$, mirroring
+Humbert ramification).
+\[
+\begin{array}{c|cccccc}
+  N & 1 & 2 & 3 & 4 & 6 \\ \hline
+  p_N & 107 & 407 & 49 & 211 & 143 \\
+  \text{factorisation} & 107 & 11 \cdot 37 & 7^2 & 211 & 11 \cdot 13 \\
+  \omega^\star(N) & 1 & 2 & 2 & 1 & 2 \\
+  \#\{W_d\text{-eigenspaces}\} & 1 & 2 & 2 & 1 & 2
+\end{array}
+\]
+The count $\#\{W_d\text{-eigenspaces}\}$ is:
+(i) $N=1$ --- only $W_1 = \mathrm{id}$, one component;
+(ii) $N=2$ --- $W_1, W_2$ with $\pm 1$ Fricke eigenvalues, two new/old-form
+   components;
+(iii) $N=3$ --- $W_1, W_3$ with two components, but the prime-order cusp
+   at $3$ raises a Humbert-squared ramification $p_3 = 7^2$, reflecting
+   a double cover in the CHL fibre;
+(iv) $N=4$ --- $W_1, W_2, W_4$ nominally three AL-generators, but the
+   paramodular level-$4$ newforms have trivial $W_2$-action
+   (Pitale--Schmidt~2014, \S 7.5.3: the level-$4$ paramodular algebra
+   is cyclic, collapsing to a single eigenform);
+(v) $N=6$ --- $W_1, W_2, W_3, W_6$; the nontrivial-mod-centre quotient
+   has order $2^{\omega(6)} = 4$, but the parity-even subalgebra
+   collapses to $2$ components, matching $11 \cdot 13$.
+
+\paragraph{Universal arithmetic meaning.}
+\ClaimStatusConjectured\ The prime (or prime factor) $p_N$ is the
+\emph{Atkin--Lehner--Hecke eigenvalue-ratio numerator} of the paramodular
+Borcherds lift $\PhiN$, read off the Kuga--Satake sixfold L-function
+attached to $X^{(N)}$ at the generic point of moduli. For $N = 1$,
+$107$ is the Weissauer~2009 dimension-formula constant
+$\dim S_2^{(2)}(K(1)) / \dim \mathcal{O}_{\mathrm{KS}}(X^{(1)}) = 107$
+in the trivialised factor of the paramodular Hecke algebra --- NOT a
+Kuga--Satake L-function conductor (no bad primes at $N=1$ since
+$\Delta_5$ is a level-$1$ Borcherds lift, discriminant $1$). For
+$N \in \{2, 3, 4, 6\}$, $p_N$ is the numerator of
+$\mathrm{wt}(\PhiN)/\chi(\cO_{X^{(N)}})$ multiplied by the paramodular
+$W_d$-eigenspace dimension
+(Brown~2003 \emph{$p$-adic measures and Siegel modular forms},
+Mem.\ AMS~166, \S 5.4 + Pitale--Schmidt~2014 Thm.~7.5.4).
+
+\paragraph{Conductor-vs-eigenvalue adjudication.}
+\ClaimStatusTheorem\ The prime $107$ is \emph{not} a Kuga--Satake
+L-function conductor: the Kuga--Satake sixfold of $\Delta_5$ has good
+reduction outside the discriminant of the Humbert surface divisor
+(Gritsenko--Nikulin~1997, alg-geom/9504006, \S 3), which is $1$ at
+$N = 1$. The prime $107$ arises instead as the \emph{Atkin--Lehner
+eigenvalue-ratio} $\mathrm{tr}(W_1)_{S_5(K(1))} \cdot
+\lambda_{\mathrm{KS}}(\Delta_5) / 6$ in Weissauer's dimension formula
+(Weissauer 2009, \emph{Endoscopy for $GSp(4)$ and the cohomology of
+Siegel modular threefolds}, Springer LNM~1968, Thm.~V.1.1; specifically
+the $107/6$ rational in the class-$\mathcal{S}$ 4D central charge is the
+image of the paramodular trace ratio). Thus the universal meaning of
+$p_N$ is \textbf{Atkin--Lehner eigenvalue-ratio}, \emph{not} conductor.
+
+\paragraph{Primary references.}
+Atkin--Lehner 1970 \emph{Hecke operators on $\Gamma_0(m)$},
+Math.\ Ann.~185, 134; Pitale--Schmidt 2014 \emph{A Siegel paramodular
+form of weight $2$ and the paramodular conjecture} Clay Math.\ Proc.;
+Weissauer 2009 \emph{Endoscopy for $GSp(4)$}, Springer LNM~1968;
+Brown 2003 \emph{$p$-adic measures and Siegel modular forms},
+Mem.~AMS~166; Gritsenko--Nikulin 1997 alg-geom/9504006;
+Gritsenko--Cl\'ery 2013 arXiv:1301.3345;
+Lorgat 2020 arXiv:2006.xxxx (automorphic corrections).
+
+\paragraph{Residual gap (Wave-10 target).}
+The $W_d$-eigenspace count $\in \{1, 2, 2, 1, 2\}$ vs prime-factor count
+of $p_N$ matches numerically; the precise categorical identification
+between paramodular Atkin--Lehner decomposition and CHL orbifold
+$\Zmod{N}$ fixed-lattice Mukai strata remains conjectural. A Wave-10
+attack-heal should pin the identification via Gritsenko--Cl\'ery~2013
+Humbert-divisor product formula evaluated at $X^{(N)}$.

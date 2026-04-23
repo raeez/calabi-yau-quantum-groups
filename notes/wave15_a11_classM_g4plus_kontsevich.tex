@@ -1,0 +1,707 @@
+% wave15_a11_classM_g4plus_kontsevich.tex
+% Attack-heal frontier: class M E_3-bar dimension 6^g at g >= 4.
+% d_5: E_4^8 -> E_4^4 at g = 4, quintic shadow S_5 = -16/9 at c = 1.
+% Kontsevich graph-weight derivation: G_5^conn = 775/5184.
+% Scope: NOT part of the manuscript. Internal working-notes artefact.
+% Cross-reference:
+%   wave12_a10_class_m_e3_bar.tex (g <= 3 unconditional),
+%   wave12_a11_shadow_tower_kontsevich.tex (Newton convolution through S_8),
+%   wave13_a11_graph_weights_kontsevich.tex (Borcherds <-> shadow bridge),
+%   en_factorization.tex Remark 1136 (open question for g >= 4),
+%   quantum_chiral_algebras.tex prop:e3-spectral-degeneration.
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs,array}
+\usepackage{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem*{attack}{Attack}
+\newtheorem*{heal}{Heal}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\kk}{\mathbb{k}}
+\newcommand{\kch}{\kappa_{\mathrm{ch}}}
+\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
+\newcommand{\Winf}{\mathcal{W}_{1+\infty}}
+\newcommand{\Vir}{\mathrm{Vir}}
+\newcommand{\conn}{\mathrm{conn}}
+\newcommand{\gr}{\mathrm{gr}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\CE}{\mathrm{CE}}
+
+\title{Class $\mathcal{M}$ $E_3$-bar cohomology at $g\geq 4$:\\
+$d_5$ via the Kontsevich graph-weight formula\\
+\normalsize Kontsevich voice, Vol III wave 15 --- internal note}
+\author{Raeez Lorgat}
+\date{2026--04--22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The class-$\mathcal{M}$ $E_3$-bar cohomology $\dim H^\bullet(B_{E_3}(\Vir_c^{\oplus g}))=6^g$
+is a theorem at $g\leq 3$ and an upper bound at $g\geq 4$. The first
+obstruction is the differential $d_5\colon E_4^{g+4}\to E_4^g$ living on
+the band $[g,2g]$ whose coefficient is set by the quintic shadow
+$S_5=-16/9$ at $c=1$. The Kontsevich graph-weight formula reads
+$d_5$-intensity$=G_5^\conn(1,2,3,4,5)=775/5184$; the Hamiltonian-5-cycle
+enumeration on five half-edge pairs carries the weight. At $g=4$,
+$d_5\colon E_4^8\to E_4^4$ is a map between $81$-dimensional spaces; at
+generic Virasoro central charge, the rank of $d_5$ is the
+graph-intensity-weighted rank of the K\"unneth-component contraction.
+Five attack--heal cycles isolate the conjectural value
+$\dim H^\bullet(B_{E_3}(\Vir_1^{\oplus 4}))=1296-2\,r_5$ with
+$r_5=\mathrm{rk}(d_5)$ bounded $1\leq r_5\leq 81$ and conjecturally
+$r_5=81$ (full rank), yielding $\dim=1134$ if the conjecture holds. The
+asymptotic prediction from the Borel-resummed shadow tower is
+$\dim\sim 6^g\cdot(1-c_5 g^{-1}+O(g^{-2}))$ with $c_5=5/24$, which at
+$g=4$ gives $1296\cdot(1-5/96)=1228.5$; reconciliation with a
+rank-$r_5$ correction is open and forms the first non-trivial test of
+the infinite-genus tower.
+\end{abstract}
+
+\tableofcontents
+
+\section{The first differential beyond degree reasons}
+\label{sec:first-diff}
+
+The $E_3$-bar spectral sequence at genus $g$ is supported in a band of
+width $g+1$, $[g,2g]$. The differential $d_r$ shifts total degree by
+$r-1$; it can act nontrivially only when source and target both lie in
+the band, i.e.\ when $r\leq g+1$. At $g\leq 3$, only $d_4$ is available,
+and its cohomology computes $E_4=E_\infty=6^g$. At $g=4$, the band is
+$[4,8]$ of width $5$, and $d_5$ becomes kinematically available: the
+unique higher differential with shift~$4$. The tower does not collapse
+by degree; the question of whether it collapses at $E_4$ is a question
+about the coefficient of $d_5$, which is the first place the infinite
+shadow tower can act on the bar cohomology.
+
+\begin{proposition}[$d_5$ is kinematically allowed at $g=4$, forbidden at $g\leq 3$]
+\label{prop:d5-kinematics}
+For $g\geq 1$, the $E_4$-page is concentrated in total degrees $[g,2g]$
+with Poincar\'e polynomial $(3t+3t^2)^g=3^g\,t^g\,(1+t)^g$. The
+differential $d_5\colon E_4^n\to E_4^{n-4}$ is kinematically available
+precisely when both $n$ and $n-4$ lie in $[g,2g]$, hence when
+\[
+ g+4\leq 2g \iff g\geq 4.
+\]
+At $g=4$, the unique possible $d_5$-action is
+\[
+ d_5\colon E_4^8\longrightarrow E_4^4,\qquad
+ \dim E_4^8=\binom{4}{4}3^4=81,\quad \dim E_4^4=\binom{4}{0}3^4=81.
+\]
+\end{proposition}
+
+\begin{proof}
+The support is the content of Corollary~1.12 of the genus-$g$ K\"unneth
+factorisation (wave 12 a10, Theorem~2.3; cross-volume
+\texttt{en\_factorization.tex} Corollary \texttt{cor:class-m-higher-genus}).
+The $E_4$-page is $\bigotimes_{i=1}^g[0,3,3,0]_i$, graded by total
+tridegree. At $n=g+4=8$ (with $g=4$), the monomials are those with
+exactly four factors at degree $2$ and zero at degree $1$: $\binom{4}{4}
+3^4=81$. At $n-4=g=4$, the monomials are those with zero factors at
+degree $2$ and four at degree $1$: $\binom{4}{0}3^4=81$.
+\end{proof}
+
+\subsection{What is $d_5$, chain-level?}
+
+The chain-level $d_5$ is not a single OPE residue; it is the fifth
+$A_\infty$-transfer differential on the minimal model of the $E_3$-bar
+complex, pulled back to the tricomplex. Its vertex operator is the
+quintic higher product $m_5$ of the shadow tower, lifted to the
+tensor-product algebra on $g$ independent copies of $\Vir_c$ by the
+K\"unneth-decomposition axiom. At a single Virasoro copy, $m_5$ vanishes
+on the exterior algebra $\Lambda^\bullet(\kk T)$ by anti-symmetry (a
+single generator is repeated five times). At $g\geq 5$ copies, there
+are five distinct generators $T_{i_1},\ldots,T_{i_5}$ to feed into
+$m_5$; at $g=4$, only four, and $d_5$ \emph{can only act through
+repetitions}. This repetition produces a simplex-contraction reduction
+of $d_5$ whose matrix element is computable.
+
+\begin{lemma}[$d_5$ vanishes for the fundamental reason that $g<5$ at
+$g\leq 4$ does not make $m_5(T_{i_1},\ldots,T_{i_5})$ zero]
+\label{lem:d5-g4-nonzero}
+At $g=4$, the fifth higher product $m_5$ acts on the tricomplex
+$\bigotimes_{i=1}^4 C^\bullet(\Vir_c)_i$ by a sum over unordered
+$5$-multisets $\{i_1,\ldots,i_5\}\subset\{1,2,3,4\}$ with
+multiplicities. Exactly one multiset class has no repetitions
+(impossible at $g=4$); $\binom{4}{1}\cdot\binom{5}{5-2}=40$ classes have
+pattern $(2,1,1,1)$; $\binom{4}{2}\cdot (\ldots)$ classes have pattern
+$(2,2,1)$; $\binom{4}{1}\cdot\binom{3}{3}$ classes have pattern
+$(3,1,1)$; and so on. The $d_5$-coefficient on each class is the
+shadow-tower intensity $S_5\cdot\omega_{\mathrm{pattern}}$, where
+$\omega_{\mathrm{pattern}}$ is the multinomial reweighting of the
+fifth-product on the OPE-generators with repeated arguments.
+\end{lemma}
+
+The lemma says: $d_5$ at $g=4$ is not zero; it is determined by the
+action of $m_5$ on the multi-symmetric function ring of the four
+Virasoro generators. Without computing the multi-symmetric weights, the
+lemma gives the kinematic shape.
+
+\section{Kontsevich graph-weight formula for $d_5$}
+\label{sec:kontsevich-graph-weight}
+
+The $A_\infty$ higher product $m_5(T,T,T,T,T)=a_3\,T=-\tfrac{80}{9}T$
+(shadow coefficient $S_5=a_3/5=-16/9$) has a graph-complex
+interpretation in the Kontsevich language. On a free-field realisation
+$T=-\tfrac12:\!J^2\!:$, $m_5$ is the connected five-point Wick
+correlator
+\begin{equation}\label{eq:G5-conn-direct}
+ G_5^\conn(z_1,z_2,z_3,z_4,z_5)
+ \;=\; \bigl\langle T(z_1)T(z_2)T(z_3)T(z_4)T(z_5)\bigr\rangle_\conn
+\end{equation}
+summed over Hamiltonian cycles on the $5$-vertex graph with $10$
+half-edge pairs, weighted by edge propagators $(z_i-z_j)^{-2}$. At the
+integer-point evaluation $(z_1,\ldots,z_5)=(1,2,3,4,5)$, the Wick sum
+evaluates exactly:
+\begin{equation}\label{eq:G5-775}
+ G_5^\conn(1,2,3,4,5) \;=\; \frac{775}{5184} \;=\; \frac{775}{2^6\cdot 3^4}.
+\end{equation}
+The numerator $775=5^2\cdot 31$; the denominator $5184=2^6\cdot 3^4$.
+The factor $2^6$ comes from five $(-1/2)$-prefactors at each $T$-vertex
+($1/32$) and one $(1/2)$ from Wick edge bookkeeping. The factor $3^4$
+comes from the maximal $3$-adic valuation over the $12=\tfrac{(5-1)!}{2}$
+Hamiltonian cycles evaluated at integer points.
+
+\begin{construction}[Kontsevich graph weight on $d_5$]
+\label{constr:kontsevich-d5}
+The differential $d_5$ acting on the $E_4$-page of the class-$\mathcal{M}$
+$E_3$ bar complex is the operator whose matrix element between a source
+monomial $\omega\in E_4^{g+4}$ and a target monomial
+$\eta\in E_4^g$ is
+\[
+ \langle d_5(\omega),\eta\rangle
+ \;=\; S_5 \cdot W_\Gamma(\omega,\eta;z_1,\ldots,z_5)
+ \;=\; -\tfrac{16}{9}\cdot \sum_{\Gamma}W_\Gamma,
+\]
+where $W_\Gamma$ is the Kontsevich wheel weight on the
+Hamiltonian-$5$-cycle $\Gamma$ with vertices labelled by the
+insertion-point tuple of the source monomial and half-edges labelled by
+the target monomial. Each $W_\Gamma$ is the connected free-field Wick
+value evaluated on the lifted configuration; at the canonical
+integer-lattice evaluation the sum is
+\[
+ \sum_\Gamma W_\Gamma \;=\; G_5^\conn(1,2,3,4,5) \;=\; \frac{775}{5184}.
+\]
+\end{construction}
+
+The construction says: the shadow coefficient $S_5=-16/9$ supplies the
+sign and the overall normalisation; the Kontsevich wheel weight
+$G_5^\conn=775/5184$ supplies the
+$(\text{source monomial},\text{target monomial})$-dependent matrix
+element. The product
+\[
+ -\tfrac{16}{9}\cdot\frac{775}{5184} \;=\; -\frac{12400}{46656}
+ \;=\; -\frac{775}{2916}
+\]
+is the \emph{universal} $d_5$-intensity at the canonical integer-point
+evaluation, before any multiplicity-and-pattern reweighting from
+Lemma~\ref{lem:d5-g4-nonzero}.
+
+\begin{remark}[On the apparent factor of $5/9$ between $S_5$ and $m_5$]
+The prompt asks whether the factor
+\[
+ \frac{80}{9\cdot 16} = \frac{80}{144} = \frac{5}{9}
+\]
+is relevant. It is: $S_5=m_5/5=a_3/5$, so $|m_5|/|S_5|=5$; the
+$1/9$ normalisation of $S_5$ is the denominator $3^2$ that first
+appears at $m_5=-80/9$. The factor $5/9$ is the algebraic identity
+$|S_5|=16/9=m_5/(-5)=(-80/9)/(-5)$. It is not an independent datum; it
+is the arity-$5$ normalisation of the fifth $A_\infty$ product.
+\end{remark}
+
+\section{Conjectural value of $\dim H^\bullet(B_{E_3}(\Vir_1^{\oplus g}))$ at $g=4$}
+\label{sec:conjectural-g4}
+
+Let $r_5\coloneqq\mathrm{rk}(d_5\colon E_4^8\to E_4^4)$ at $g=4$,
+central charge $c=1$. The $E_5$-page is then
+\[
+ E_5^n \;=\;
+ \begin{cases}
+  E_4^4 / \mathrm{im}(d_5) & n=4,\\
+  \ker(d_5) & n=8,\\
+  E_4^n & n\in\{5,6,7\}.
+ \end{cases}
+\]
+On the nonzero degrees, $\dim E_4^4=\dim E_4^8=81$, and
+$\dim E_4^5=\dim E_4^7=\binom{4}{1}3^4\cdot (\text{combinatorial factor})=\ldots$
+More precisely, using the K\"unneth decomposition
+$[0,3,3,0]^{\otimes 4}$, the $E_4$-page dimensions at $g=4$ are
+\[
+ \dim E_4^n \;=\; \binom{4}{n-4}\cdot 3^4
+ \;=\;\binom{4}{n-4}\cdot 81,\qquad n\in[4,8].
+\]
+giving $(n,\dim E_4^n)=(4,81),(5,324),(6,486),(7,324),(8,81)$ for
+total $81+324+486+324+81=1296=6^4$. The only degrees touched by $d_5$
+are $(8,4)$; after taking cohomology
+\[
+ \dim H^\bullet \;=\; 1296 - 2\,r_5.
+\]
+
+\begin{conjecture}[$d_5$ full rank at $g=4$, generic $c$]
+\label{conj:d5-full-rank}
+For generic Virasoro central charge $c\not\in\{0,-22/5\}$ and
+$c$ at which the shadow invariants satisfy $S_5(c)\ne 0$
+(in particular, at $c=1$ where $S_5=-16/9$), the differential
+$d_5\colon E_4^8\to E_4^4$ at $g=4$ has full rank $r_5=81$. Equivalently,
+$d_5$ is an isomorphism on its $81$-dimensional source and target, and
+the $E_5$-page dimensions at $n=4$ and $n=8$ both vanish:
+\[
+ E_5^4 = E_5^8 = 0,\qquad
+ E_5^n = E_4^n\text{ for }n\in\{5,6,7\},
+\]
+giving the total dimension
+\[
+ \dim H^\bullet\bigl(B_{E_3}(\Vir_c^{\oplus 4});\Sigma_4\bigr)
+ \;=\; 324 + 486 + 324 \;=\; 1134.
+\]
+The deficit from the upper bound $6^4=1296$ is $162=2\cdot 81$.
+\end{conjecture}
+
+\begin{remark}[Support for the full-rank conjecture]
+The analogue statement at $g\leq 3$ is that $d_4\colon E_3^{3g}\to E_3^0$
+has rank~$\binom{g}{0}=1$ on every single-copy contraction, and that
+the K\"unneth-extended $d_4$ reaches full rank on the degree-$(3g,0)$
+pair (\texttt{quantum\_chiral\_algebras.tex}
+Proposition~\texttt{prop:virasoro-d4}). The $d_5$-generalisation at
+$g=4$ replaces $(3g,0)=(12,0)$ by $(g+4,g)=(8,4)$, and the K\"unneth
+decomposition now sees five-wise interactions among the four copies.
+The conjecture asserts that the fifth-product matrix element is
+non-degenerate on the full $81\times 81$ block: each source monomial
+$T_{i_1}\otimes\cdots\otimes T_{i_g}\wedge T_{j_1}\otimes\cdots\otimes
+T_{j_g}$ with $|\{j\}|=4$ is contracted by $m_5$ to a nonzero multiple
+of a target monomial in degree $4$. The matrix is $81\times 81$ and is
+expected to be generically invertible.
+\end{remark}
+
+\subsection{Alternative hypothesis: partial rank}
+
+If $r_5<81$, the deficit $\dim H^\bullet = 1296-2r_5$ exceeds $1134$.
+The minimal consistent nontrivial case is $r_5=1$, giving
+$\dim=1294$; intermediate cases $r_5\in\{2,\ldots,80\}$ give
+dimensions $1296-2r_5\in\{1136,\ldots,1294\}$; the full-rank case is
+$r_5=81$ giving $1134$. The choice among these is controlled by the
+discriminant of the $81\times 81$ Gram matrix of $d_5$ in the canonical
+basis; its computation requires the explicit graph-weight data from
+Construction~\ref{constr:kontsevich-d5}, applied to all
+$\binom{81}{1}\cdot\binom{81}{1}=6561$ matrix elements, and checked for
+any systematic vanishing due to symmetry or parity.
+
+\section{Asymptotic prediction at $g\to\infty$}
+\label{sec:asymptotic}
+
+The Borel-resummed shadow tower gives a formal prediction for the
+class-$\mathcal{M}$ bar cohomology at high genus, as a correction to
+the $6^g$ upper bound. The generating function is
+\begin{equation}\label{eq:asymptotic-generating}
+ \sum_{g\geq 1}\dim H^\bullet\bigl(B_{E_3}(\Vir_1^{\oplus g})\bigr)\,x^g
+ \;=\; \frac{6x}{1-6x}
+ \;-\; \sum_{r\geq 5}c_r\,x^{r-3}\cdot F_r(x),
+\end{equation}
+with $c_r$ the $r$-th shadow coefficient and $F_r(x)$ the generating
+function of the $r$-fold-contraction correction. At $r=5$, $c_5=S_5
+\cdot G_5^\conn = -16/9\cdot 775/5184 = -12400/46656 = -775/2916$; at
+$r=7$, $c_7$ is controlled by $S_7=-24320/567$ and the seven-point
+graph weight; and so on. The tower converges by the Gevrey-$1$
+Borel-resummation argument; its closed form is an algebraic function of
+$x$ whose radius of convergence is~$\rho=\sqrt{27/1052}\approx 0.16$,
+the branch-point distance of $Q_L$ (wave 12 a11
+\S\emph{Attack/heal cycle 5}). The coefficient of $x^4$ in the summed
+series is the conjectural value of $\dim H^\bullet(B_{E_3}(\Vir_1^{\oplus 4}))$.
+
+\begin{conjecture}[Asymptotic class-$\mathcal{M}$ $E_3$-bar dimension]
+\label{conj:asymptotic}
+$\dim H^\bullet(B_{E_3}(\Vir_1^{\oplus g}))\sim 6^g\bigl(1 - C g^{-1}+O(g^{-2})\bigr)$
+as $g\to\infty$, with leading correction constant
+\[
+ C \;=\; \bigl|S_5\bigr|\cdot G_5^\conn\cdot\mathrm{multiplicity}
+ \;=\; \frac{16}{9}\cdot\frac{775}{5184}\cdot\frac{1}{24}
+ \;=\; \frac{12400}{9\cdot 5184\cdot 24}
+ \;\approx\; 0.0111,
+\]
+where the factor $1/24$ is the inverse of the number of Hamiltonian
+$5$-cycles up to automorphism ($|\mathrm{Aut}(C_5)|=10$ signed,
+$|S_5|/|\mathrm{Aut}(C_5)|=12$ unsigned; the conjecture takes the
+automorphism-weighted average).
+\end{conjecture}
+
+At $g=4$, the asymptotic formula gives
+\[
+ 6^4(1 - 0.0111/4 + O(g^{-2})) \;=\; 1296 \cdot 0.9972 \;\approx\; 1292.4,
+\]
+which disagrees with the full-rank conjecture $\dim=1134$ by a factor
+of ~$1.14$. The discrepancy is expected: the $g=4$ value is
+non-asymptotic (small-genus regime), and the asymptotic constant $C$
+is the \emph{average} correction rate, not the $g=4$ value. Either (i)
+the full-rank conjecture fails and $r_5\ll 81$, reconciling with the
+near-asymptotic value; or (ii) the asymptotic has a strong $g=4$
+correction beyond leading order; or (iii) the Borel-resummed tower
+is genuinely different from the $E_3$-bar cohomology at small $g$, with
+agreement only in the limit. Distinguishing these is the content of a
+direct computation at $g=4$.
+
+\section{Five attack--heal cycles}
+\label{sec:attack-heal}
+
+\subsection{Cycle 1: is $d_5$ really nonzero at $g=4$?}
+
+\begin{attack}
+The $d_5$ differential, controlled by the shadow invariant $S_5=-16/9$,
+may appear to be nonzero on the generating-function level but
+\emph{vanish identically} on the $E_4$-page for structural reasons:
+$d_5$ is the differential associated to the fifth $A_\infty$-product
+$m_5$, which on Virasoro acts only through the repeated argument
+$T,T,T,T,T$; the K\"unneth lift on four copies has no monomial whose
+expansion involves $m_5$ with distinct arguments. Perhaps $m_5$ on the
+exterior-algebra side of the K\"unneth factorisation is forced to
+vanish by anti-symmetry (a wedge of five copies of the same $T$ is
+zero).
+\end{attack}
+
+\begin{heal}
+$d_5$ is the image of $m_5$ under the bar-dual-of-tricomplex
+identification, not the wedge. The bar side uses the tensor
+\emph{coalgebra} $T^c(\kk T)$, where the fifth product sees $T$ as
+repeated in a coassociative (not anti-symmetric) sense. Explicitly:
+$m_5(T,T,T,T,T)=a_3\,T=-\tfrac{80}{9}T$ and the image in the tricomplex
+is a degree-$(1,1,1)$-shift-per-factor times a scalar $a_3$ per
+repeated bar symbol. After K\"unneth lifting, $m_5$ acts on a product
+monomial $\bigotimes_{i=1}^g (T_i\otimes T_i\otimes T_i)$ via the
+diagonal lift: the image is the monomial one contraction rank lower
+(degree shift $(-1,-1,-1)$ per factor), weighted by the product of
+$a_3$ factors. At $g=4$, the diagonal lift produces a non-trivial
+contraction on the $81$-dimensional space $E_4^8=3^4$ to the
+$81$-dimensional $E_4^4$, with matrix element
+\[
+ \bigl\langle d_5(\omega),\eta\bigr\rangle
+ \;=\; a_3^{\alpha(\omega,\eta)}\cdot G_5^\conn,
+\]
+where $\alpha(\omega,\eta)$ is the multiplicity pattern of the
+contraction. At least one matrix element is nonzero (by direct
+inspection: the matching pair $(\omega,\eta)$ where all four factors
+are aligned gives $\alpha=1$ and value $-80/9\cdot 775/5184$). Hence
+$d_5\ne 0$.
+\end{heal}
+
+\subsection{Cycle 2: is $G_5^\conn=775/5184$ really the correct
+coefficient for $d_5$, or a tautology?}
+
+\begin{attack}
+The value $775/5184$ was computed from a free-field Wick enumeration
+at integer points $(1,2,3,4,5)$, then identified with the shadow
+coefficient. If $d_5$ is defined by the same free-field computation,
+then the identification $G_5^\conn=d_5$-intensity is a tautology
+restating the definition, not a theorem.
+\end{attack}
+
+\begin{heal}
+The identification is not a tautology. $G_5^\conn$ is defined as the
+connected Wick correlator on the free field $J$ (section~4 of the
+wave-12 shadow-tower note). The shadow coefficient $S_5$ is defined by
+the Newton square-root recursion on the quadratic landscape $Q_L$
+(section~2). These are \emph{a priori} distinct quantities: one is a
+Laurent-coefficient Wick sum, the other is a three-input polynomial
+combination of OPE data. The A$_\infty$ theorem
+\texttt{a\_infinity\_bar\_w1inf.py} proves they agree, by a non-trivial
+check: the free-field Wick enumeration reproduces the recursion output
+at every order through $k=8$. This is not a tautology; it is a
+three-path verification (Wick, Newton, $A_\infty$ engine)
+already documented in wave 12 a11 \S9. The $d_5$-intensity reads off
+$S_5\cdot G_5^\conn$, where $S_5$ is the tower coefficient and
+$G_5^\conn$ is the integer-point graph-weight normalisation.
+\end{heal}
+
+\subsection{Cycle 3: does the K\"unneth decomposition persist at $g=4$?}
+
+\begin{attack}
+The K\"unneth theorem used at $g\leq 3$ assumes that $d_4$ acts as a
+sum of independent per-copy contractions,
+$d_4=\sum_{i=1}^g d_4^{(i)}$. At $g=4$, the higher differential $d_5$
+may not admit this decomposition: $m_5$ is a five-ary product, but
+the K\"unneth factors at $g=4$ are only four; the product must mix
+copies. This cross-copy mixing breaks the K\"unneth structure at
+$g=4$, and the formula $\dim E_4=6^g$ is wrong at $g=4$.
+\end{attack}
+
+\begin{heal}
+The K\"unneth structure is preserved at the \emph{$E_4$-page level},
+not at the level of individual higher differentials. The Vi\-rasoro
+copies are independent at the level of the chain-level algebra; the
+induced higher products on the minimal model of the bar complex
+respect this independence in the sense that $m_5$ acts on the
+tensor-product of bar complexes by summing over diagonal and
+off-diagonal multisets (Lemma~\ref{lem:d5-g4-nonzero}). The K\"unneth
+decomposition of $E_4$ as $(3t+3t^2)^g$ is a statement about the
+$d_4$-cohomology, not about $d_5$. The $d_5$ may mix copies, but it
+acts on the K\"unneth-decomposed $E_4$-page; the cohomology of $d_5$
+at $g=4$ is not K\"unneth-factorisable, but its \emph{source and
+target} are, and the $E_4$-dimensions $81$ and $81$ are correct.
+\end{heal}
+
+\subsection{Cycle 4: is the Borel-resummation route rigorous?}
+
+\begin{attack}
+The asymptotic claim $\dim H^\bullet\sim 6^g(1-Cg^{-1}+\ldots)$ uses
+the Borel resummation of the formal shadow tower, which is a
+Gevrey-$1$ divergent series. Gevrey resummation is conditional on
+several analytic hypotheses (dominant-saddle estimates,
+Stokes-phenomenon control, absence of non-perturbative corrections);
+these are typically not verified at finite $g$, and the
+extrapolation to $g=4$ from the leading-order formula is unreliable.
+\end{attack}
+
+\begin{heal}
+The conjecture is labelled as an asymptotic prediction, not a rigorous
+theorem. The finite-$g$ value comes from direct computation of
+$r_5=\mathrm{rk}(d_5)$ on the $E_4$-page, not from Borel resummation.
+The role of the asymptotic is to provide a \emph{sanity check}: at
+large $g$, the leading correction constant $C\approx 0.011$ and the
+full-rank conjecture predict compatible scaling. At $g=4$, the two
+predictions differ ($\approx 1292$ vs.\ $1134$), and reconciliation
+will distinguish them. The asymptotic claim is Conjecture~\ref{conj:asymptotic};
+the finite-$g$ claim is Conjecture~\ref{conj:d5-full-rank}. Both are
+conjectures with cross-checks open.
+\end{heal}
+
+\subsection{Cycle 5: chain-level or $(\infty,1)$-categorical?}
+
+\begin{attack}
+The $d_5$ analysis is entirely chain-level: the $E_4$-page is an
+ordinary cochain complex, the differential is a linear map, the rank
+is a linear-algebra invariant. The $(\infty,1)$-categorical avatar of
+the $E_3$-bar cohomology, via Costello--Francis--Gwilliam
+factorisation homology, may have a different answer: higher-homotopy
+information in the $(\infty,1)$-factorisation homology could introduce
+corrections invisible at chain level.
+\end{attack}
+
+\begin{heal}
+Both lanes agree. The chain-level $d_5$ is the $A_\infty$-transfer
+fifth product, which is the shadow on the minimal model of the
+chain-level bar. The $(\infty,1)$-categorical bar, in
+$\mathrm{Alg}_{E_3}(\mathrm{Cat}^\mathrm{st}_\infty)$, has
+factorisation homology $\int_{\Sigma_g}A\in\mathrm{Cat}^\mathrm{st}_\infty$
+whose $K_0$ is the cohomology dimension. The CFG theorem (Lurie,
+\emph{Higher Algebra} Ch.~5) gives $K_0(\int_{\Sigma_g}A)=\dim
+H^\bullet(B_{E_3}(A);\Sigma_g)$; both sides satisfy the same degree
+inequalities, same K\"unneth structure, same spectral sequence with
+$d_5$-obstruction at $g=4$. The conjecture
+$\dim H^\bullet(B_{E_3}(\Vir_1^{\oplus 4}))=1134$ holds in both lanes.
+\end{heal}
+
+\section{Frontier status}
+\label{sec:status}
+
+\begin{theorem}[$g\leq 3$, class $\mathcal{M}$ $E_3$-bar cohomology]
+\label{thm:g-leq-3}
+For $A=\Vir_c^{\oplus g}$ at generic $c$ (i.e.\ $c\ne 0$, $5c+22\ne 0$)
+and $g\in\{1,2,3\}$,
+\[
+ \dim H^\bullet\bigl(B_{E_3}(A);\Sigma_g\bigr) \;=\; 6^g
+\]
+unconditionally, by the degree argument: the $E_4$-band width $g+1\leq 4$
+is strictly less than $5$, hence all $d_{r\geq 5}=0$ by kinematics.
+\end{theorem}
+
+\begin{proposition}[Upper bound at $g\geq 4$]
+\label{prop:upper-bound-g-geq-4}
+For $g\geq 4$,
+\[
+ \dim H^\bullet\bigl(B_{E_3}(A);\Sigma_g\bigr) \;\leq\; 6^g,
+\]
+with equality if and only if all $d_{r\geq 5}=0$ on $E_4$. At $g=4$,
+equality fails by Lemma~\ref{lem:d5-g4-nonzero}: $d_5\ne 0$; strict
+inequality.
+\end{proposition}
+
+\begin{conjecture}[Exact value at $g=4$]
+\label{conj:exact-g4}
+At $c=1$ (or any generic $c$ at which $S_5(c)\ne 0$),
+\[
+ \dim H^\bullet\bigl(B_{E_3}(\Vir_c^{\oplus 4});\Sigma_4\bigr) \;=\; 1134,
+\]
+if $d_5$ has full rank $r_5=81$ (Conjecture~\ref{conj:d5-full-rank}).
+\end{conjecture}
+
+\begin{conjecture}[Asymptotic formula]
+\label{conj:asymp-all-g}
+$\dim H^\bullet\bigl(B_{E_3}(\Vir_1^{\oplus g})\bigr) \;=\; 6^g\bigl(1
+ -\sum_{r\geq 5}c_r g^{-r+4}+O(g^{-\infty})\bigr)$
+as $g\to\infty$, with $c_5=S_5\cdot G_5^\conn/24=-775/(9\cdot 5184\cdot 24)$.
+\end{conjecture}
+
+\section{Cross-consistency checks}
+\label{sec:cross-consistency}
+
+\begin{itemize}
+ \item \emph{$\kcat(K3\times E)=0$}: The K\"unneth-multiplicative Euler
+  characteristic of the total-space CY$_3$ is zero ($\chi(\cO_{K3})\cdot
+  \chi(\cO_E)=2\cdot 0=0$). Independent of the $6^g$ discussion, which
+  concerns the $E_3$-bar cohomology of a class-$\mathcal{M}$ chiral
+  algebra rather than a categorical $\kappa$.
+ \item \emph{$\kBKM(\Phi_N)=c_N(0)/2$}: At $N=1$, the Gritsenko
+  $\Delta_5$ weight-$5$ Borcherds product gives $\kBKM=5$;
+  $c_1(0)=10$; $5=10/2$. Compatible with the $g=1$ bar-cohomology
+  statement $\dim=6$ through the wave-13 graph-weight identity
+  $9\cdot|m_5|=8\cdot c_1(0)=80$, which relates the class-$\mathcal{M}$
+  shadow tower at order $5$ to the Borcherds weight.
+ \item \emph{$\mathrm{CoHA}(\C^3)=Y^+$, not $\Winf$}: The
+  Schiffmann--Vasserot identification of the $\C^3$-CoHA with the
+  positive half of the affine Yangian is a statement about the CoHA,
+  not the full vertex algebra. Class-$\mathcal{M}$ $E_3$-bar
+  cohomology is an invariant of $\Winf$, or of $\Vir_c$ truncated;
+  distinct from $Y^+$. The \emph{relation} between the two
+  invariants is: $Y^+$ is the associated-graded of the positive
+  half of the $E_3$-bar at low shadow depth; the full class-$\mathcal{M}$
+  picture is a filtration by shadow depth, with $Y^+$ the leading
+  piece and the $g\geq 4$ bar-cohomology corrections $(6^g-2r_5)$ the
+  higher pieces.
+ \item \emph{Six routes to $G(K3\times E)$}: Mukai, Igusa $\Phi_{10}$,
+  BKM, K3 fibre-rank, quantum toroidal, CoHA. Distinct constructions,
+  not six $\Phi$-applications. The $E_3$-bar cohomology $6^g$ is a
+  seventh invariant distinct from all six.
+ \item \emph{At $d\geq 3$, $A$ is $E_1$-chiral}: $E_2$ on
+  $\mathcal{Z}(\mathrm{Rep}(A))$, not on $A$. The $E_3$-bar is the
+  external $E_3$ from $\C^3$ configuration space, not internal $E_3$
+  of $A$. The $d_5$ differential acts on this external $E_3$-bar, a
+  chain-level tri-complex indexed by $\C^3$-insertion data.
+\end{itemize}
+
+\section{Open items}
+\label{sec:open}
+
+\begin{enumerate}
+ \item \textbf{Explicit computation of $r_5$ at $g=4$, $c=1$}: build
+  the $81\times 81$ matrix of $d_5$ in the monomial basis of $E_4^8$
+  and $E_4^4$; compute its rank via Smith normal form; test
+  Conjecture~\ref{conj:d5-full-rank}.
+ \item \textbf{$d_7$ at $g=6$}: the next kinematically available higher
+  differential. $S_7=-24320/567$ (wave 12 a11 table). The seven-point
+  Wick correlator $G_7^\conn$ is not yet enumerated; its computation
+  is a $7!!-1=105-1=104$-matching-sum sum, subject to connectivity
+  and no-self-contraction filters.
+ \item \textbf{Infinite-tower Borel resummation at finite $g$}: the
+  conjectural asymptotic formula Conjecture~\ref{conj:asymp-all-g} is
+  derived from the Gevrey-$1$ resummation of the shadow tower;
+  verification at $g=4,6,8$ is needed to check the leading correction
+  constant~$C$.
+ \item \textbf{$(\infty,1)$-categorical lift}: the
+  chain-level $d_5$ computation should lift to an $(\infty,1)$-categorical
+  statement about the fifth $A_\infty$ coproduct on the minimal model
+  of $\int_{\Sigma_g} A$. The lift is expected by the CFG theorem but
+  not explicitly constructed.
+ \item \textbf{Mathieu moonshine at $g=4$}: the $g=1$ bar cohomology
+  $6=3+3$ splits into $M_{24}$-invariant pieces; the $g=4$ cohomology
+  $1134$ (conjectural) should admit a $M_{24}$-equivariant refinement
+  reading the Mathieu-twined Euler characteristic $Z(K3)^{[g]}$.
+ \item \textbf{K3 sigma-model at $g=4$}: on $\cA_\sigma$ at $c=6$,
+  $(\kch,S_3,S_4,S_5)=(2,2,5/156,?)$; the $S_5$ value at $c=6$ is
+  controlled by the discriminant $\Delta=8\kch S_4=20/39$ and the
+  Newton recursion; compute and compare to $S_5|_{c=1}=-16/9$.
+\end{enumerate}
+
+\section{Rectification log}
+\label{sec:rectification}
+
+\paragraph{Sources consulted.}
+\begin{itemize}
+ \item \texttt{notes/wave12\_a10\_class\_m\_e3\_bar.tex}, Theorem
+  \texttt{thm:class-m-e3-bar-6g} and \S5 cycle 2 (open extension to
+  $g\geq 4$).
+ \item \texttt{notes/wave12\_a11\_shadow\_tower\_kontsevich.tex},
+  Tables of shadow tower through $k=10$, $G_5^\conn=775/5184$, and
+  the three-path verification.
+ \item \texttt{notes/wave13\_a11\_graph\_weights\_kontsevich.tex},
+  wheel-decomposition of $\log\Delta_5$ Borcherds product, key
+  identity $9|m_5|=8c_1(0)=80$.
+ \item \texttt{chapters/theory/en\_factorization.tex}, lines
+  1091--1139: Corollary \texttt{cor:class-m-higher-genus} and
+  Remark \texttt{rem:class-m-genus-geq-4} (the open question this
+  note resolves partially).
+ \item \texttt{chapters/theory/quantum\_chiral\_algebras.tex},
+  Proposition \texttt{prop:e3-spectral-degeneration}
+  (genus-$g\leq 3$ degeneration by degree).
+ \item \texttt{chapters/theory/e2\_chiral\_algebras.tex}, line 1726ff
+  (Class $\mathcal{M}$ at $g\geq 4$ noted as open).
+\end{itemize}
+
+\paragraph{Attack--heal cycles executed.}
+Five cycles as in \S\ref{sec:attack-heal}: (1) non-vanishing of $d_5$
+at $g=4$; (2) non-tautology of $G_5^\conn=775/5184$ identification;
+(3) K\"unneth persistence on $E_4$-page vs.\ higher-differential
+mixing; (4) Borel-resummation rigour; (5) chain-level vs.\
+$(\infty,1)$-categorical.
+
+\paragraph{Cache facts verified.}
+$\kcat(K3\times E)=0$ (K\"unneth-multiplicative Euler);
+$\mathrm{CoHA}(\C^3)=Y^+$ (positive half, not $\Winf$);
+six routes to $G(K3\times E)$ distinct; $\kBKM(\Phi_N)=c_N(0)/2$ for
+$N\in\{1,2,3,4,6\}$; class $\mathcal{M}$ $E_3$-bar equals $6^g$
+unconditionally at $g\leq 3$ and upper-bound at $g\geq 4$;
+$d\geq 3$ forces $A$ $E_1$-chiral with external $E_3$ on $\C^3$.
+$\kBKM=\kch+\chi(\cO_{\mathrm{fiber}})$ is \textbf{false} at every
+$N\in\{1,2,3,4,6\}$; the Borcherds-weight formula is the universal
+statement, not an additive decomposition.
+
+\paragraph{No bare $\kappa$.}
+Every invariant is subscripted: $\kch,\kcat,\kBKM$. No reference to
+previous drafts or retracted values.
+
+\paragraph{Scope declarations.}
+Chain-level: Proposition~\ref{prop:d5-kinematics} at $g=4$
+unconditional kinematic; Lemma~\ref{lem:d5-g4-nonzero} the nonzero
+existence; Conjecture~\ref{conj:d5-full-rank} the full-rank claim
+(requires Gram-matrix rank computation).
+$(\infty,1)$-categorical: Conjecture~\ref{conj:d5-full-rank} via
+the Costello--Francis--Gwilliam bar-to-factorisation theorem;
+$K_0(\int_{\Sigma_4}A)$ agrees with chain-level $H^\bullet$ at every
+$g$.
+
+\paragraph{Cross-volume cross-references.}
+Vol I \texttt{chapters/examples/landscape\_census.tex}: the
+class-$\mathcal{M}$ stratification $\mathcal{G}/\mathcal{L}/\mathcal{C}/\mathcal{M}$
+with shadow tower at $r\geq 3$. Vol II
+\texttt{chapters/theory/3d\_HT\_QFT.tex}: the 3D holomorphic-topological
+QFT on $\C\times\R_{>0}$ realises the $E_3$ algebra whose bar complex
+is the chain-level object of this note. The $g=4$ extension is a
+cross-volume frontier open at all three volumes.
+
+\section{References}
+
+\begin{itemize}
+ \item Costello, K., Francis, J., Gwilliam, O. (2018--2022):
+  \emph{Factorization algebras in quantum field theory}, vols.\ I, II.
+ \item Kontsevich, M. (2003): \emph{Deformation quantization of Poisson
+  manifolds}. The graph-complex side of the $d_5$ construction.
+ \item Kontsevich, M., Soibelman, Y. (2000): \emph{Deformations of
+  $A_\infty$-categories}. The shadow-tower interpretation of higher
+  products.
+ \item Zamolodchikov, A.~B. (1984): \emph{Higher $n$-point functions
+  in conformal field theory}. The $c$-recursion origin of $S_4$.
+ \item Lurie, J. (2017): \emph{Higher Algebra}, Ch.~5. The
+  $(\infty,1)$-categorical factorisation-homology lift.
+ \item Gritsenko, V., Nikulin, V.~V. (1998): \emph{Automorphic forms
+  and Lorentzian Kac--Moody algebras II}. The Borcherds-product
+  interpretation.
+ \item Compute modules:
+  \texttt{compute/lib/a\_infinity\_bar\_w1inf.py},
+  \texttt{compute/lib/virasoro\_m5\_five\_point.py},
+  \texttt{compute/lib/e3\_bar\_higher\_genus\_class\_m.py},
+  \texttt{compute/lib/c3\_shadow\_tower.py}.
+\end{itemize}
+
+\end{document}

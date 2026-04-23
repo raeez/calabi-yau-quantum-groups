@@ -1,0 +1,117 @@
+% wave13_p3_slides_automorphic_corrections.tex
+% Extraction channel P3/20 — §4 automorphic corrections (Lorgat 2020 slides)
+% Source: /tmp/automorphic-slides.txt, slide blocks 601--722.
+% Cross-reference: reference_lorgat_2020_automorphic_corrections.md.
+
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\Delaf}{\Delta_5}
+\providecommand{\LamII}{\Lambda^{2,1}_{\mathrm{II}}}
+\providecommand{\gbkm}{\mathfrak{g}_{\Delta_5}}
+\providecommand{\mult}{\operatorname{mult}}
+
+\section*{Wave-13 P3/20: §4 automorphic corrections (slides)}
+
+\paragraph{Why corrections are needed.}
+Borcherds--Kac--Moody theory starting from the Cartan matrix
+$(\delta_i, \delta_j) = \bigl(\begin{smallmatrix}
+2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2
+\end{smallmatrix}\bigr)$
+of the $W^{(2)}(\LamII)$ reflection system generates an infinite-dimensional
+Lie algebra $\mathfrak{g}$ whose real simple roots are
+$\mathcal{P}_{\mathrm{II},\mathrm{prim}} = \ZZ\delta_1 \oplus \ZZ\delta_2 \oplus \ZZ\delta_3$.
+The Fourier expansion of $\Delaf$ --- specifically the Fourier
+coefficients $m(a) = -\tfrac{1}{64} f(n, l, m)$ indexed by
+$a = (n-1)f_2 - (l-1)\tfrac{1}{2}f_3 + (m-1)f_{-2} \in \tfrac{1}{2}\LamII$,
+together with an anomalous coefficient $\tau(a) = 9$ coming from the
+$\eta(z_1)^9$ factor in $A = \psi_{5,1/2}\exp(2\pi i t z_3) = \eta(z_1)^9
+\nu_{11}(z_1, z_2)$ --- forces the correction of $\mathfrak{g}$ by
+\emph{imaginary simple roots}. The modification is Borcherds's:
+introduce additional simple roots along isotropic and negative-norm
+directions of the even Lorentzian lattice $\LamII$.
+
+\paragraph{The correction term.}
+From the identity (slides 510--579)
+\[
+  \tfrac{1}{64}\Delaf(z)
+  = \sum_{w \in W^{(2)}(\LamII)} \det(w)
+    \Bigl(\exp(-\pi i (w(\rho), z))
+    - \sum_{a \in \LamII \cap \RR_{>0}\mathcal{P}_{\mathrm{II}}} m(a)\exp(-\pi i (w(\rho+a), z))\Bigr),
+\]
+the sum $\sum_{a} m(a)\exp(-\pi i (w(\rho+a), z))$ is the
+\emph{automorphic correction} to the naive Weyl denominator
+$\exp(-\pi i (w(\rho), z))$. Imaginary simple roots collect into
+\[
+  \Delta^{\mathrm{im}}_0 = \{\tau(a)\, a : (a,a)=0,\ \tau(a)>0\},\qquad
+  \Delta^{\mathrm{im}}_1 = \{m(a)\, a : (a,a)<0,\ m(a)<0\},
+\]
+with $\Delta^{\mathrm{im}} = \Delta^{\mathrm{im}}_0 \cup \Delta^{\mathrm{im}}_1$
+and $\Delta^{\mathrm{re}} = \mathcal{P}_{\mathrm{II},\mathrm{prim}}$ the real simple roots.
+The cone condition $(\rho+a, \delta_i) < 0$ with the vanishing
+$m(a) = 0$ when $(\rho+a, \delta_i) = 0$ restricts $a$ to
+$\RR_{>0}\mathcal{P}_{\mathrm{II}}$; transitivity of
+$\mathrm{Aut}(\mathcal{P}_{\mathrm{II}})$ on the three isotropic
+vertices $\{2f_2,\ 2f_{-2},\ 2f_2 - 2f_3 + 2f_{-2}\}$ fixes $\tau(a) = 9$
+for every isotropic multiple $a_0 \in \LamII \cap \RR_{>0}\mathcal{P}_{\mathrm{II}}$
+with $(a_0,a_0) = 0$ via
+\[
+  1 - \sum_{t \in \NN} m(t a_0) q^t
+  = \prod_{t \in \NN} (1 - q^t)^{\tau(t a_0)}.
+\]
+
+\paragraph{The generalised BKM superalgebra $\gbkm$.}
+Combine $\Delta = \Delta^{\mathrm{re}} \cup \Delta^{\mathrm{im}}$ into a
+root system: $(\alpha,\alpha)>0$ on $\Delta^{\mathrm{re}}$,
+$(\alpha,\alpha) \leq 0$ on $\Delta^{\mathrm{im}}$,
+$(\alpha,\alpha') \leq 0$ for distinct roots, and $2(\alpha,\alpha')/(\alpha,\alpha) \in \ZZ$.
+Generate $\gbkm$ by $\{e_\alpha, h_\alpha, f_\alpha : \alpha \in \Delta\}$
+with $\mathfrak{sl}_2$ relations, orthogonality cancellations for
+$(\alpha,\alpha')=0$, and Serre relations along the real roots.
+Grade by $\LamII$; the integral simple-root cone
+$\mathcal{C}_\Delta = \sum_{\alpha \in \Delta} \ZZ_+ \alpha \subset \LamII$
+gives the triangular decomposition
+$\gbkm = (\bigoplus_{\alpha \in \mathcal{C}_\Delta}\gbkm_\alpha)
+\oplus \LamII \oplus (\bigoplus_{\alpha \in -\mathcal{C}_\Delta}\gbkm_\alpha)$
+with super-multiplicity $\mult_\alpha = \dim \gbkm_{\alpha, 0} - \dim \gbkm_{\alpha, 1}$.
+
+\paragraph{Weyl--Kac--Borcherds denominator identity.}
+Applied to the trivial module, the GBKM character formula gives the
+automorphic-corrected product
+\[
+  \Phi(z)
+  = \sum_{w \in W^{(2)}(\LamII)} \det(w)
+    \Bigl(e^{-2\pi i (w\rho, z)} - \sum_{a \in \LamII \cap \RR_{>0}\mathcal{P}_{\mathrm{II}}} m(a) e^{-2\pi i (w(\rho+a), z)}\Bigr)
+  = e^{-2\pi i (\rho, z)} \prod_{\alpha \in \Delta_+}
+    (1 - e^{-2\pi i (\alpha, z)})^{\mult_\alpha}.
+\]
+
+\paragraph{Theorem (Borcherds--Gritsenko--Nikulin).}
+$\tfrac{1}{64} \Delaf(2z) = \Phi(z)$: the denominator of the
+automorphic-corrected $\gbkm$ is the Siegel cusp form of genus $2$
+and weight $5$.
+
+\paragraph{Multiplicities from $\phi_{0,1}$.}
+The Fourier--Jacobi expansion of $\Delta_{12}$ isolates a weight-$12$
+Jacobi cusp form $\phi_{12,1}$, and $\phi_{0,1} = \phi_{12,1}/\delta_{12}$
+with $\delta_{12} = q\prod_{n \geq 1}(1-q^n)^{24}$ has expansion
+$(r^{-1}+10+r) + q(10r^{-2} - 64r^{-1} + 108 - 64r + 10r^2) + \cdots$.
+The product identity
+\[
+  \tfrac{1}{64}\Delaf
+  = \exp(\pi i (z_1+z_2+z_3)) \prod_{\substack{n,l,m\in\ZZ \\ (n,l,m)>0}} (1 - \exp(2\pi i(nz_1+lz_2+mz_3)))^{f(nm,l)},
+\]
+identifies $\mult_\alpha = f(nm, l)$ with $f(n,l)$ the Fourier
+coefficients of $\phi_{0,1}$.
+
+\paragraph{Relation to CY3 Donaldson--Thomas.}
+The correction controls the denominator of
+$Z^{S \times E}(q,t,p) = -C/\Delaf^2$ for $N=1$ (Theorem, slide 912--919).
+The elliptic genus of K3 equals $2\phi_{0,1}$; the conjectural $N \geq 2$
+extension (slide 929--936) replaces $\phi_{0,1}$ with the twisted
+elliptic genus $F_L^{(g_N, h_M)}$ of K3, giving a GBKM subalgebra
+$\mathfrak{g}^{(g_N, h_M)}_L \subset \mathfrak{g}_L$ whose correction is
+read from the twisted expansion. This is the N=1 anchor for
+$\kappa_{\mathrm{BKM}}(\Delaf) = c_1(0)/2 = 10/2 = 5$ and extends to
+$N \in \{2, 3, 4, 6\}$ through the twisted elliptic genera
+$F_L^{(g_N, h_M)}$, matching Gritsenko--Nikulin's $\Phi_N$ hierarchy.

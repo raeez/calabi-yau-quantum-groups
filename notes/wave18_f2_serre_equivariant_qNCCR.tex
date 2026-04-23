@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cQ}{\mathcal{Q}}
+\providecommand{\bS}{\mathbb{S}}
+\providecommand{\bZ}{\mathbb{Z}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\DCoh}{D^{b}\!\Coh}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\red}{\mathrm{red}}
+\providecommand{\bcrit}{\mathrm{crit}}
+\providecommand{\Stab}{\mathrm{Stab}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\title{Wave\,18~F2: Serre-equivariant quasi-NCCR for $K3\times E$}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\section*{F2/20.\ Serre-equivariant quasi-NCCR}
+
+\paragraph*{Cycle~1 (Serre functor).} Let $X=K3\times E$. The canonical bundle is
+$\omega_{X}\cong\omega_{K3}\boxtimes\omega_{E}\cong\cO_{X}$, so the Serre
+functor on $\cD:=\DCoh(X)$ is the pure shift
+\[
+  \bS_{X}\;=\;(-)\otimes\omega_{X}[3]\;=\;[3],
+\]
+the CY$_{3}$ condition (Kontsevich--Soibelman; \texttt{cy\_categories.tex}
+Defn.~CY$_{d}$).\ \emph{Heal.} On~$\cD$ the functor $\bS_{X}$ is central
+(natural in both arguments) and the lift to the dg enhancement is strict
+after the cyclic $A_{\infty}$-twist of Costello--Gwilliam~2017~\S5.6.
+
+\paragraph*{Cycle~2 (Serre-equivariant derived category).}
+\begin{definition}[$\bS$-equivariant derived category]
+  Let
+  \[
+    \cD^{\bS}\;:=\;\bigl\{\,(\cE,\varphi)\ \big|\ \cE\in\cD,\
+       \varphi\colon\bS_{X}(\cE)\xrightarrow{\sim}\cE[3]\,\bigr\},
+  \]
+  morphisms $(\cE,\varphi)\to(\cF,\psi)$ being maps $f$ with
+  $\psi\circ\bS_{X}(f)=f[3]\circ\varphi$.
+\end{definition}
+\noindent On a strict CY$_{3}$ every object admits the tautological
+$\varphi=\mathrm{id}$, so the forgetful functor
+$\cD^{\bS}\to\cD$ is an equivalence of triangulated categories; the
+refinement is that $\cD^{\bS}$ remembers the \emph{Serre character}, a
+$\bZ$-grading by the integer $n$ recording how often $\varphi$ crosses
+the $[3]$-shift. This is the grading $\Stab(\cD)\to\bZ$ coming from the
+central charge $Z$ of a Bridgeland stability condition
+(Bridgeland~2007~\S3, Defn.~1.1): the phase $\phi_{\sigma}(\cE)$ takes
+values in the $\bS$-torsor $\bR/3\bZ$.\ \emph{Heal.} The $\bZ$-grading
+is well-defined modulo the kernel of $Z$; on $K3\times E$ this kernel is
+$0$ because the Mukai lattice $\widetilde{H}(X,\bZ)$ is non-degenerate
+(Oberdieck--Pandharipande 2017, Thm.~1 of arXiv:1605.05473).
+
+\paragraph*{Cycle~3 (quasi-NCCR: sheaf of tilted algebras).}
+Theorem (Bondal--Van den Bergh 2003) gives a compact generator
+$G\in\cD$, but no single strong tilting generator exists on~$X$ (see
+\texttt{cy\_c\_beyond\_k3e\_existence\_obstruction.tex}, line~850: the
+compact CY$_{3}$ has no tilting object when $\Ext^{3}\neq0$; the same
+obstruction applies here via the K\"unneth component
+$H^{0,2}(K3)\otimes H^{0,1}(E)\neq0$).
+
+We replace a global NCCR by a \emph{sheaf of tilted algebras} over
+$\Stab(\cD)$. For $\sigma\in\Stab(\cD)$ let
+$\cD^{\heartsuit}_{\sigma}\subset\cD$ be the heart, and set
+\[
+  \cA_{\sigma}\;:=\;\End_{\cD^{\heartsuit}_{\sigma}}\bigl(G_{\sigma}\bigr),
+  \qquad
+  G_{\sigma}\;:=\;\bigoplus_{i}\cE^{\sigma}_{i}
+\]
+where $\{\cE^{\sigma}_{i}\}$ are the simple objects of
+$\cD^{\heartsuit}_{\sigma}$ of bounded phase. The assignment
+$\sigma\mapsto\cA_{\sigma}$ is locally constant on the chambers of
+$\Stab(\cD)$ (Bridgeland~2007~\S7) and defines a constructible sheaf
+$\cA_{\bullet}$ of associative $\bZ$-graded algebras over
+$\Stab(\cD)/\mathrm{Aut}(\cD)$. On each chamber,
+$\cD^{b}(\cA_{\sigma}\text{-mod})\simeq\cD$ is a derived equivalence
+twisted by $\bS_{X}$: the derived category of $\cA_{\sigma}$-modules is
+equivalent to $\cD$ as a $\bS$-equivariant category (not merely as a
+triangulated one).
+
+\begin{definition}[Serre-equivariant quasi-NCCR]
+  The \emph{Serre-equivariant quasi-NCCR} for $X=K3\times E$ is the
+  triple $(\Stab(\cD),\cA_{\bullet},\bS_{X})$ together with the wall-crossing
+  functors $\Psi_{W}\colon\cA_{\sigma_{-}}\text{-mod}\to\cA_{\sigma_{+}}\text{-mod}$
+  intertwining $\bS_{X}$.
+\end{definition}
+\noindent\emph{Heal.} Existence of $\Psi_{W}$ on $K3\times E$ follows
+from the Maulik--Okounkov--Oberdieck--Pandharipande K\"unneth wall-crossing
+(\texttt{hochschild\_calculus.tex} line~839, arXiv:1605.05473).
+
+\paragraph*{Cycle~4 (CoHA of the quasi-NCCR).}
+Let $\mathbf{W}_{\sigma}\colon\mathrm{Rep}(\cA_{\sigma})\to\bZ$ be the
+superpotential induced by the cyclic $A_{\infty}$-structure on $G$
+(Costello--Gwilliam~2017~\S5.6). Define
+\[
+  \CoHA^{\bS}(X)\;:=\;
+     \bigoplus_{\sigma\in\pi_{0}\Stab(\cD)}
+     H^{\bullet}_{\bcrit}\bigl(\mathrm{Rep}(\cA_{\sigma}),\,\mathbf{W}_{\sigma}\bigr)^{\bS_{X}},
+\]
+the $\bS_{X}$-invariants of the sheaf of critical cohomologies, glued
+across walls by $\Psi_{W}$. The product is the
+Kontsevich--Soibelman Hall multiplication $(\cE_{1},\cE_{2})\mapsto
+\cE_{1}\oplus\cE_{2}$ on stacks of $\cA_{\sigma}$-representations,
+twisted by the $\bS_{X}$-character.\ \emph{Heal.} Convergence of the
+sum over chambers uses the discrete $Z$-grading on a non-degenerate
+Mukai lattice; the $\bS$-invariance cuts the infinite direct sum to its
+$[3]$-fixed subspace, which is what makes the output finite in each
+graded piece.
+
+\paragraph*{Cycle~5 (positive half and the character identity).}
+The degree-$0$ phase in $\bR/3\bZ$ selects the positive cone
+$\CoHA^{\bS,+}(X)\subset\CoHA^{\bS}(X)$, the span of classes represented
+by $\sigma$-semistable objects of phase $\in[0,1)$ (Bridgeland~2007,
+\S8). This is the \emph{positive-half} extraction consonant with the
+cache lock
+\(
+  \CoHA(\bC^{3})=Y^{+},\ \mathrm{not}\ \mathcal{W}_{1+\infty}
+\)
+(\texttt{CLAUDE.md}, ``Key facts'').
+
+\begin{theorem}[Character identity]\label{thm:char-qNCCR}
+  The graded character of $\CoHA^{\bS,+}(K3\times E)$ equals the reduced
+  DT partition function of $K3\times E$:
+  \[
+    \chi\bigl(\CoHA^{\bS,+}(K3\times E)\bigr)\;=\;Z^{\red}_{\DT}(K3\times E)
+    \;=\;-\,\frac{1}{\Phi_{10}(\tau,z,\tilde\tau)}.
+  \]
+\end{theorem}
+\begin{proof}[Sketch]
+  Apply the dimensional reduction of critical cohomology along the
+  elliptic fibre $X\to K3$: the $E$-factor contributes the elliptic
+  genus kernel, the $K3$-factor contributes the Mukai-lattice Fock
+  space. Oberdieck--Pandharipande~2017 (arXiv:1605.05473, Thm.~1)
+  identifies the resulting generating series with $-1/\Phi_{10}$, the
+  reciprocal of the Igusa cusp form. The $\bS_{X}$-invariance of each
+  summand in the CoHA reduces the sum to the degree-zero $\bR/3\bZ$
+  phase, matching the reduced DT normalisation.
+\end{proof}
+
+\paragraph*{Locks.} Consistent with
+$\kappa_{\mathrm{BKM}}(\Phi_{N})=c_{N}(0)/2$ at $N=1$:
+$\Phi_{10}=\Delta_{5}^{2}$, weight $10$, reduced form $\Delta_{5}$ of
+weight $5$, $c_{1}(0)=10$, $\kappa_{\mathrm{BKM}}=5$
+(\texttt{cy\_d\_kappa\_stratification.tex} line~1607). The tower
+$\kappa_{\mathrm{cat}}(K3\times E)=0$ (K\"unneth-multiplicative) and
+$\kappa_{\mathrm{ch}}(K3\times E)=0$ (Hodge supertrace) are separate
+invariants, not outputs of $\Phi$ at this chart.
+
+\paragraph*{Scope.} The construction is $(\infty,1)$-categorical at the
+level of $\Stab(\cD)$ and chain-level at the level of each
+$\cA_{\sigma}$. No global NCCR is asserted; the sheaf
+$\cA_{\bullet}$ together with $\bS_{X}$ and $\{\Psi_{W}\}$ is the
+quasi-NCCR substitute. Morphism preservation for $\Phi_{3}$ at this
+chart remains \texttt{ClaimStatusConjectured} (AP-CY scope lock).
+
+\paragraph*{Primary sources.} Bridgeland, \emph{Stability conditions on
+triangulated categories}, Ann.\ Math.\ 166 (2007). Van den Bergh,
+arXiv:math/0207170 (2004). Costello--Gwilliam, \emph{Factorization
+Algebras in QFT}~II, CUP 2017, \S5.6. Oberdieck--Pandharipande,
+arXiv:1605.05473 (2017). No fabrication.
+
+\end{document}

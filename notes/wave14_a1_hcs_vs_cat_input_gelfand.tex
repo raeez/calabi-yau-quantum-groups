@@ -1,0 +1,900 @@
+% wave14_a1_hcs_vs_cat_input_gelfand.tex
+% Channel: I. M. Gelfand. Merciless clarity on what the input data
+%   actually are. Ruthless directness; the equals sign is a theorem.
+% Mission: Adversarially assault and rigorously heal the claim
+%   "hCS and categorical Hochschild are two presentations of the same
+%    Stage-1 object $\Phi^{\mathrm{FA}}_3(\cC)$ but take genuinely
+%    different input data at the chain level."
+% Scope: internal working-notes artefact. NOT part of the manuscript.
+% Voice: Gelfand. Show the datum. No narration. No "Wave N" wording in
+%   .tex prose.
+% Depends on: notes/wave12_u1_two_stage_functor.tex (Stage-1/Stage-2),
+%   notes/wave14_a2_KT_formality_kontsevich.tex (GRT_1 torsor detail),
+%   notes/wave14_a5_HKR_atiyah_kapranov.tex (three Atiyah cocycles),
+%   notes/wave14_b5_hcs_vs_cat_synthesis.tex (CG side-by-side),
+%   notes/CoHA_to_W_infty_treatise.tex (subsection reconciliation).
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs, mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{observation}[theorem]{Observation}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{attack}{ATTACK}
+\newtheorem*{heal}{HEAL}
+\newtheorem*{ghost}{Ghost theorem}
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem, cited]}}
+\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles]}}
+\providecommand{\ClaimStatusScoped}{\textsc{[scoped]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cI}{\mathcal{I}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\Cx}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Eone}{\mathsf{E}_1}
+\providecommand{\Etwo}{\mathsf{E}_2}
+\providecommand{\Ethree}{\mathsf{E}_3}
+\providecommand{\Einf}{\mathsf{E}_\infty}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Ger}{\mathrm{Ger}}
+\providecommand{\Pois}{\mathrm{Pois}}
+\providecommand{\Tpoly}{T_{\mathrm{poly}}}
+\providecommand{\Dpoly}{D_{\mathrm{poly}}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\At}{\mathrm{At}}
+\providecommand{\Td}{\mathrm{Td}}
+\providecommand{\ch}{\mathrm{ch}}
+\providecommand{\FM}{\overline{\mathrm{FM}}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\GRT}{\mathrm{GRT}}
+\providecommand{\GRTone}{\mathrm{GRT}_1}
+\providecommand{\BCOV}{\mathrm{BCOV}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Map}{\mathrm{Map}}
+\providecommand{\Mod}{\mathrm{Mod}}
+\providecommand{\Alg}{\mathrm{Alg}}
+\providecommand{\Pre}{\mathrm{Pre}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Dolb}{\mathrm{Dolb}}
+\providecommand{\BM}{\mathrm{BM}}
+\providecommand{\Kos}{\mathrm{Kos}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\dbar}{\bar\partial}
+\providecommand{\kanom}{\kappa_{\mathrm{anom}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+
+\title{The two inputs of $\PhiFA_3$: holomorphic Chern--Simons and categorical
+Hochschild do \emph{not} feed on the same data, and that is the theorem.
+Five attack--heals in Gelfand voice.}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Two presentations, one output. The user's claim: holomorphic Chern--Simons
+and categorical Hochschild are two presentations of the same Stage-1 object
+$\PhiFA_3(\cC)$ yet take \emph{genuinely different input data} at the chain
+level. Read carefully, this is not a paradox but a dictionary. The hCS
+datum is a triple $(X, \fg, \Omega_X)$ with a geometric manifold, an external
+gauge Lie algebra, and a holomorphic volume form; the CY$_3$ categorical
+datum $(\cC, \eta)$ is Morita-invariant, internalises gauge as derived
+endomorphism structure, and pins the $\Ethree$-structure on $\HH^\bullet(\cC)$
+up to the $\GRTone$-torsor of Kontsevich--Tamarkin formality associators.
+Five attack--heal cycles below, in the Gelfand voice of merciless clarity,
+extract exactly where the two inputs differ, where they converge, and
+precisely which aspects of the output are input-specific rather than
+intrinsic to $\PhiFA_3(\cC)$. The complement to wave14\_b5 (synthesis)
+is input-asymmetry analysis: Yoneda asymmetry, the three Atiyah-sourced
+cocycles as a strict discriminator, and the precise status of
+``contractible choice'' (torsor versus point). No new theorems are claimed;
+sharp statements of known theorems are given, with input-type discipline
+imposed throughout.
+\end{abstract}
+
+\section{Standing conventions and the two input types}
+\label{sec:conventions}
+
+Throughout, $X$ is a smooth complex manifold of complex dimension three.
+$\PhiFA_3$ is the Stage-1 factorisation-algebra-valued functor of
+\texttt{wave12\_u1\_two\_stage\_functor.tex} Definition~3.1: source the
+category $\mathrm{CY}_3\text{-cat}(X)$ of Calabi--Yau threefold data,
+target the $\infty$-category of $\Ethree$ holomorphic factorisation
+algebras on $X$. Contraction to an $\Eone$-chiral algebra on a reference
+curve $C\subset X$ is Stage-2 and does not enter this note.
+
+\paragraph{hCS input.} A triple $(X, \fg, \Omega_X)$ where $X$ is as above,
+$\fg$ is a finite-dimensional complex Lie algebra (or $L_\infty$-algebra)
+with invariant non-degenerate pairing, and $\Omega_X \in H^0(X, K_X)$ a
+nowhere-vanishing section witnessing the CY condition. The data specify
+a classical BV theory, whose field is $\cA \in \Omega^{0,\bullet}(X,\fg)[1]$
+and whose action is
+\begin{equation}
+\label{eq:hcs-action-std}
+S_{\hCS}[\cA] \;=\; \int_X \Omega_X \wedge \mathrm{tr}\!\left(
+\tfrac{1}{2}\cA\,\dbar\cA \;+\; \tfrac{1}{3}\cA\wedge[\cA,\cA]\right).
+\end{equation}
+Costello~2011 and Costello--Li 2016 (\texttt{arXiv:1606.00365}) give the
+BV quantisation.
+
+\paragraph{CY$_3$ categorical input.} A pair $(\cC, \eta)$ where $\cC$ is
+a smooth proper $\Cx$-linear pre-triangulated dg-category (equivalently, a
+stable $\infty$-category with compact generation) and
+$\eta\colon \HH_\bullet(\cC)\to\Cx[-3]$ is a non-degenerate cyclic trace
+identifying the Serre functor with the $[3]$-shift (Kontsevich--Soibelman
+2008 \texttt{arXiv:0811.2435} \S3--4; PTVV 2013 \texttt{arXiv:1111.3209}
+Thm.~2.5). The geometric instance is $\cC=\Perf(X)$ with $\eta$ the Serre
+residue of $\Omega_X$.
+
+\paragraph{The claim to probe.} Both inputs produce the same $\Ethree$
+factorisation algebra on $X$ (at least on flat $\Cx^3$, proved;
+quasi-isomorphism on general compact CY$_3$, the content of KT formality
+with Calaque--Van den Bergh globalisation). But the input data are not
+the same data. The asymmetry is what this note studies.
+
+\medskip
+
+\textbf{Cache discipline carried.} (a) $\kappa$ always subscripted; bare
+$\kappa$ forbidden. (b) $\kcat(X) = \chi(\cO_X)$, K\"unneth-multiplicative
+on the total space; $\kcat(K3\times E)=0$ (not $2$). (c) Six routes to
+$G(K3\times E)$ are six distinct constructions, not six $\Phi$ applications.
+(d) At $d\geq 3$, $A$ is $\Eone$; $\Etwo$ lives on $Z(\Rep A)$, not on $A$.
+(e) $\Omega$-background is toric-specific, not universal. (f) $\CoHA(\Cx^3)
+= Y^+$, not $\cW_{1+\infty}$.
+
+% ==================================================================
+\section{Attack--heal 1: the two input species live in disjoint
+universes}
+\label{sec:ah1}
+% ==================================================================
+
+\begin{attack}
+User's claim elides a type-level distinction. An hCS datum
+$(X, \fg, \Omega_X)$ is a point in the moduli
+\[
+  \cM_{\hCS} \;=\;
+  \Bigl\{\text{complex } 3\text{-folds}\Bigr\} \times
+  \Bigl\{\text{finite-type } L_\infty\text{-algebras with pairing}\Bigr\}
+  \times \Bigl\{\text{nowhere-vanishing } \Omega\in H^{3,0}\Bigr\}.
+\]
+A CY$_3$ categorical datum $(\cC,\eta)$ is a point in the moduli
+\[
+  \cM_{\mathrm{cat}} \;=\;
+  \Bigl\{\text{smooth proper dg-categories with non-degenerate cyclic
+  trace }\eta\text{ of shift }-3\Bigr\}.
+\]
+These two moduli are not isomorphic. The obvious map
+$\cM_{\hCS}\to\cM_{\mathrm{cat}}$ sending $(X,\fg,\Omega_X)$ to
+$(\Perf(X)\otimes\fg\text{-}\mathrm{Mod}, \eta_{\Omega})$ forgets no
+data; the map in the opposite direction does not exist: a generic
+$(\cC,\eta)$ is not of the form $\Perf(X)$ for any $X$ (it may be a
+category of matrix factorisations, a Fukaya category of a symplectic
+manifold, a noncommutative resolution). If the two data are not
+equivalent, in what sense do they produce the \emph{same} factorisation
+algebra?
+\end{attack}
+
+\begin{ghost}
+There is a span of two forgetful maps:
+\[
+  \cM_{\hCS}\;\xrightarrow{\;p_1\;}\;\cM_{\mathrm{FA}_3}\;\xleftarrow{\;p_2\;}\;
+  \cM_{\mathrm{cat}},
+\]
+where $\cM_{\mathrm{FA}_3}$ is the moduli of $\Ethree$ holomorphic
+factorisation algebras on fixed $X$. The user's ``same Stage-1 object''
+is the assertion that the two fibres over a given
+$\cF\in\cM_{\mathrm{FA}_3}$ are coupled: for each point of
+$\cM_{\hCS}$ there is a point of $\cM_{\mathrm{cat}}$ with equivalent
+$\PhiFA_3$-image, and conversely (when $(\cC,\eta)$ is geometric).
+\end{ghost}
+
+\begin{heal}
+The precise relationship is that hCS data and categorical data are
+\emph{input-asymmetric presentations}. The presentations differ in what
+they make visible; they agree on what they output.
+
+\begin{theorem}[Span of input moduli over $\Ethree$-factorisation moduli]
+\label{thm:span-of-inputs}
+\ClaimStatusScoped\ Let $X$ be a smooth complex $3$-fold. There exist
+functors
+\begin{align*}
+  \PhiFA_{3,\hCS} &\colon \cM_{\hCS}(X) \longrightarrow \cM_{\mathrm{FA}_3}(X),
+  \quad (X,\fg,\Omega_X)\mapsto \Obs^{\mathrm{cl}}_{\hCS}(X,\fg,\Omega_X), \\
+  \PhiFA_{3,\mathrm{cat}} &\colon \cM_{\mathrm{cat}}(X) \longrightarrow
+  \cM_{\mathrm{FA}_3}(X), \quad (\cC,\eta) \mapsto \mathrm{FA}(\HH^\bullet(\cC),\eta).
+\end{align*}
+On the image of the geometric embedding $(X,\Omega_X)\mapsto(\Perf(X),\eta_{\Omega_X})$
+composed with a choice of framing $V\in\Perf(X)$ inducing gauge
+$\fg = H^0(R\End_{\Perf(X)}(V))$, the two functors coincide up to
+Kontsevich--Tamarkin $\Ethree$-formality:
+\[
+  \PhiFA_{3,\hCS}(X, \fg, \Omega_X) \;\simeq\;
+  \PhiFA_{3,\mathrm{cat}}(\Perf(X), \eta_{\Omega_X})
+\]
+as $\Ethree$-algebras in the $\infty$-category of holomorphic
+factorisation algebras on $X$, up to the $\GRTone$-torsor of formality
+associators.
+\end{theorem}
+
+\begin{proof}[Discussion, citations]
+The $\hCS$ branch is Costello--Gwilliam 2017 Vol.~II~\S10--11: the
+observables of the classical BV theory~\eqref{eq:hcs-action-std} form a
+pre-factorisation algebra; Costello--Li 2016 upgrade to a full
+$\Ethree$-factorisation algebra by heat-kernel regularisation. The
+categorical branch is Francis 2013 Thm.~1.1 together with the
+higher-Deligne construction for CY$_3$ categories: $\HH^\bullet(\cC)$
+is $\Ethree$. The identification on $\Cx^3$ is Caldararu-twisted HKR
+(\texttt{wave14\_a5} \S3 Thm.~3.2); globalisation to compact CY$_3$ uses
+Calaque--Van den Bergh 2007 with $c_1(X)=0$ trivialising the
+Duflo--Kontsevich $\Td(X)^{1/2}$. The scope clause ``up to $\GRTone$-torsor''
+is the parametrised statement of KT formality; up to isomorphism the
+identification is pinned.
+\end{proof}
+\end{heal}
+
+\begin{remark}[The user's sentence, type-corrected]
+\label{rmk:type-corrected}
+``Two presentations of the same Stage-1 object'' is parsed: both
+$\PhiFA_{3,\hCS}$ and $\PhiFA_{3,\mathrm{cat}}$ land in
+$\cM_{\mathrm{FA}_3}(X)$, and when their input data are \emph{compatibly
+framed} (an hCS triple aligned with a categorical pair by the
+$(X,\fg)\leftrightarrow(\Perf(X),V)$ correspondence) their images are
+quasi-isomorphic $\Ethree$-objects. The distinct input data is what
+the user correctly flags; the identical output object is the KT
+formality theorem. The sentence is correct once parsed; it is wrong
+if read as ``the two inputs are two descriptions of the same input''.
+\end{remark}
+
+% ==================================================================
+\section{Attack--heal 2: what ``Morita-invariance'' actually cuts away}
+\label{sec:ah2}
+% ==================================================================
+
+\begin{attack}
+User writes: ``$(\cC,\eta)$ is Morita-invariant; internalises gauge as
+derived structure.'' Adversarially: Morita invariance of $\cC$ is a
+discarding of data. Two Morita-equivalent dg-categories
+$\cC_1\simeq\cC_2$ have the same $\HH^\bullet$; in particular, given
+$(X,\Omega_X)$, the Morita class of $\Perf(X)$ forgets \emph{which bundle}
+$V$ one might frame by. The hCS triple $(X,\fg,\Omega_X)$ \emph{does not}
+forget $\fg$; a different $\fg$ is a different theory. So the two
+input species cannot be equivalent: the categorical one has a Morita
+quotient that the hCS one does not.
+\end{attack}
+
+\begin{ghost}
+The categorical datum $(\cC,\eta)$ carries a whole \emph{framing stack}
+$\cC^{\sim}$ of objects of $\cC$, together with their derived
+endomorphism complexes $R\End_\cC(V)$ varying over $V$. Choosing a
+specific framing $V$ reduces the categorical data to an
+$R\End_\cC(V)$-module structure, and $\fg = H^0(R\End_\cC(V))$ is the
+gauge Lie algebra of the corresponding hCS theory. The hCS datum
+$(X,\fg,\Omega_X)$ is, in this sense, \emph{one fibre} of the
+categorical datum's $\cC^{\sim}$-bundle; the categorical datum carries
+all fibres simultaneously, subject to the Fourier--Mukai autoequivalences
+of $\cC$.
+\end{ghost}
+
+\begin{heal}
+Precisely, the Yoneda asymmetry between object and framings:
+
+\begin{theorem}[Yoneda asymmetry of hCS vs categorical input]
+\label{thm:yoneda-asymmetry}
+\ClaimStatusScoped\ Fix $(\cC,\eta)$ CY$_3$. Let $\cC^{\sim}$ denote the
+groupoid of objects of $\cC$ modulo quasi-isomorphism. For each
+$V\in\cC^{\sim}$ define
+\[
+  R\End_\cC(V) \;\in\; \Alg_{\Eone}(\Cx\text{-dg}),
+  \qquad
+  \fg_V := H^0(R\End_\cC(V)).
+\]
+The assignment $V\mapsto \fg_V$ is a sheaf of (graded) Lie algebras over
+$\cC^{\sim}$. An hCS triple aligned with $(\cC,\eta)$ is the datum
+$(X, \fg_V, \Omega_X)$ for a specific $V\in\cC^{\sim}$. The categorical
+datum carries:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the whole sheaf $V\mapsto R\End_\cC(V)$ over $\cC^{\sim}$;
+\item the $2$-groupoid $\Aut^\otimes(\cC)$ of Fourier--Mukai autoequivalences
+(for geometric $\cC=\Perf(X)$: Bondal--Orlov 2001 \S5; Bridgeland 2002);
+\item the Morita equivalence class, i.e.\ the stable $\infty$-category
+up to equivalence.
+\end{enumerate}
+The hCS triple carries:
+\begin{enumerate}[resume,label=\textup{(\roman*$^{\prime}$)}]
+\item the single fibre $\fg = \fg_V$ at a chosen $V$;
+\item the explicit $X$ (not just its equivalence class of derived
+categories);
+\item the specific holomorphic volume form $\Omega_X$ (not just the
+Serre-trace Morita invariant $\eta$).
+\end{enumerate}
+The symmetric difference is the input asymmetry. Under the KT formality
+identification (Theorem~\ref{thm:span-of-inputs}), the
+$\Ethree$-factorisation-algebra output $\PhiFA_3$ depends on the
+\emph{intersection} $(X, \Omega_X)$ modulo compatible framing; the
+framing-dependent and Morita-quotient parts visible in one presentation
+are invisible to the other at the level of $\cF_X$.
+\end{theorem}
+
+\begin{proof}[Proof]
+The sheaf-of-algebras structure is Bondal--Orlov and the standard Morita
+theorem for dg-categories. The Fourier--Mukai autoequivalences at
+$\cC=\Perf(X)$ form a group acting on $\cC^{\sim}$ and on the tangent
+complex. The identification of $\fg_V$ with the gauge algebra in hCS
+is the $\End(V)$-internalisation of the matrix model: hCS with gauge
+$\fg_V$ is the theory of $V$-twisted $\dbar$-connections on $X$. The
+asymmetry of visible invariants is then tautological from the Yoneda
+embedding: the categorical datum sees \emph{all} $V$'s simultaneously
+(the sheaf $R\End_\cC(-)$ on $\cC^{\sim}$), while the hCS datum fixes
+one $V$.
+\end{proof}
+\end{heal}
+
+\begin{observation}[Consequence for the $\{2,3,5,24\}$ spectrum on $K3\times E$]
+\label{obs:K3E-spectrum-input}
+The four $\kappa_\bullet$-values on $K3\times E$ correspond to four
+different constructions, not to four framings of one hCS theory. The
+hCS description of $\PhiFA_3(K3\times E)$ is one input-triple:
+$(K3\times E, \fg, \Omega_{K3\times E})$ for a fixed $\fg$ and fixed
+volume form. The categorical description is one pair:
+$(\Perf(K3\times E), \eta)$. Each of
+$\kcat(K3\times E)=0$, $\kBKM(\Phi_1)=5$, $\kch(K3\times E) = 2$ on
+the $K3$ fibre, $\kfib(K3\times E)=24$ is a \emph{separate} invariant
+computed from \emph{distinct} ancillary data (Gritsenko lift,
+BKM weight, Hodge supertrace on the fibre, K\"ahler moduli), not a
+tensor decomposition of a single $\PhiFA_3$-output. The ``six routes
+to $G(K3\times E)$'' are sixteen-fold multiplicity across different
+cycles $\Sigma_2\subset K3\times E$ in the Stage-2 specialisation
+\texttt{wave12\_u1} Corollary 3.3; they do not reduce to six framings
+of a single hCS triple.
+\end{observation}
+
+% ==================================================================
+\section{Attack--heal 3: ``contractible choice'' is torsor-contractible
+in $\pi_0$, not literally contractible}
+\label{sec:ah3}
+% ==================================================================
+
+\begin{attack}
+User writes: ``intrinsic $\Ethree$ on $\HH^\bullet(\cC)$ pinned by
+Gerstenhaber $(1-3)$-bracket + Kontsevich--Tamarkin formality.
+Kontsevich--Tamarkin formality for $\cD_3$ says $\Ethree$-structure
+determined up to contractible choice.'' Adversarially: the space of
+$\Ethree$-formality quasi-isomorphisms $\Tpoly(V)\to\Dpoly(V)$ is a
+$\GRTone(\Q)$-torsor (Tamarkin 1998; Willwacher 2014), \emph{not} a
+literally contractible topological space. $\GRTone$ is a prounipotent
+algebraic group with positive-dimensional Lie algebra at each weight.
+Two associators differ by a non-trivial element. The phrase
+``contractible choice'' must be parsed: only the quotient by
+$\GRTone$-action gives a contractible iso-class groupoid; the
+parametrised space is $B\GRTone$-equivalent, with nontrivial homotopy.
+\end{attack}
+
+\begin{ghost}
+Two sharply different statements coexist:
+\begin{itemize}[itemsep=2pt]
+\item \emph{Iso-class contractibility.} The $\infty$-groupoid of
+isomorphism classes of $\Ethree$-formality quasi-isomorphisms between
+$\Tpoly(V)$ and $\Dpoly(V)$ is a point (Tamarkin 1998 existence plus
+standard rigidity of formality up to iso).
+\item \emph{Parametrised torsor.} The space of parametrised
+quasi-isomorphisms (as an $\infty$-groupoid whose morphisms are
+homotopies of formality maps) is a $\GRTone(\Q)$-torsor, rationally
+equivalent to $B\GRTone$.
+\end{itemize}
+The user's sentence refers to the first; the second is the precise
+refinement that \texttt{wave14\_a2} Prop.~3.2 and
+\texttt{wave14\_b5} Remark~4.2 make explicit.
+\end{ghost}
+
+\begin{heal}
+Costello--Li's BV propagator, read as Feynman weights via graph
+integrals on $\FM_3$, selects the Kontsevich associator: one specific
+point of $\GRTone$. The selection is not ``any associator''; it is the
+Kontsevich configuration-integral associator.
+
+\begin{theorem}[Torsor statement sharpened to point selection]
+\label{thm:torsor-point}
+\ClaimStatusTheorem\ The space of $\Ethree$-formality quasi-isomorphisms
+$\Tpoly(V)\to\Dpoly(V)$ for $V$ a finite-dimensional complex vector
+space is a $\GRTone(\Q)$-torsor; in particular it is non-empty, connected,
+and each point has a $\GRTone$-neighbourhood of alternative formality maps
+(Tamarkin 1998, Willwacher 2014). On $V = \Cx^3$ with the Costello--Li
+BV propagator $P(\epsilon, L)$ degenerating in the short-distance limit
+to the Bochner--Martinelli kernel, the hCS-induced formality
+quasi-isomorphism is the Kontsevich graph-integral formula
+\begin{equation}
+  U_\Gamma^{\mathrm{Kontsevich}}\bigl(\phi_1,\ldots,\phi_n\bigr)
+  = w_\Gamma\cdot B_\Gamma(\phi_1,\ldots,\phi_n),
+  \quad w_\Gamma = \int_{\FM_3(|V_\Gamma|)}\prod_{e\in E_\Gamma}\omega_e.
+\end{equation}
+Consequently, the Costello--Li BV path integral on $\Cx^3$ selects the
+Kontsevich point $\phi_{\mathrm{K}}\in\GRTone(\Q)$ of the formality
+torsor (Costello--Li 2016 \S4; \texttt{wave14\_a2} Thm.~6.1).
+\end{theorem}
+
+\begin{proof}[Discussion]
+The $\GRTone$-torsor structure is standard (Drinfeld 1990; Willwacher's
+identification of $\mathfrak{grt}_1$ with $H^0$ of the Kontsevich graph
+complex, \texttt{arXiv:1009.1654}). Costello--Li 2016 Thm.~4.1 computes
+each $\hCS$ Feynman weight as a $\FM_3$-configuration integral, which is
+by definition the Kontsevich $w_\Gamma$; therefore the effective action
+realises the Kontsevich associator.
+\end{proof}
+\end{heal}
+
+\begin{remark}[What ``formality for $\cD_3$'' means]
+\label{rmk:D3-vs-Dgeq3}
+The user's essay writes ``Kontsevich--Tamarkin formality for $\cD_3$''.
+Formality at $n=3$ is Tamarkin's theorem, valid for the little $n$-disks
+operad $\cD_n$ for $n\geq 2$ (Tamarkin 1998; Fresse Chapter 14 for the
+Koszul-duality lift from $\Ger$ to $\Ethree$; Lurie HA \S5.2). The
+$n=2$ case is Deligne's conjecture. The essay's phrasing is correct.
+What it does \emph{not} mean: ``formality holds for $\cD_n$ at $n=3$
+only''; it holds for $n\geq 2$ with $n$-specific torsors, and the $n=1$
+case is Deligne~proper (for $\Eone$ on associative Hochschild) which is
+already the McClure--Smith chain-level braces theorem, not a formality
+statement. For hCS we are at $n=3$ always.
+\end{remark}
+
+% ==================================================================
+\section{Attack--heal 4: the three Atiyah-sourced cocycles are \emph{not}
+one cocycle}
+\label{sec:ah4}
+% ==================================================================
+
+\begin{attack}
+User writes: ``Atiyah class $\At(T_X) \in H^1(X, \Omega^1_X \otimes
+\End(TX))$ is the formality obstruction; when it fires, categorical
+$\Ethree$ is curved, hCS sees BCOV curving datum.'' Adversarially:
+this is one sentence where three cocycles on three Hodge groups
+are conflated.
+
+The Atiyah class itself $\At(T_X)$ lives in $H^1(X, \Omega^1_X\otimes
+\End T_X)$ of Dolbeault bidegree $(1,1)$ with $\End T_X$-coefficients.
+The tree-level Yukawa $Y_3$, obtained from $\At^{\cup 3}$ paired against
+the CY trace, lives in $H^{0,3}(X) \simeq \Sym^3 H^1(X, T_X)^\vee$.
+The one-loop BCOV curving $\alpha_{\mathrm{BCOV}}$ (Costello--Li 2016
+Prop.~5.2) lives in $H^{0,1}(X)$ and equals $\chi(X)/24 \cdot
+[\Omega_X]^{0,1}$. Three distinct cocycles, same ancestral source;
+not one object.
+\end{attack}
+
+\begin{ghost}
+The three cocycles carry three different structural roles:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+\toprule
+Cocycle & Hodge group & Role \\
+\midrule
+$\At(T_X)$ & $H^1(X,\Omega^1_X\otimes\End T_X)$ & $L_\infty$ binary
+bracket $\ell_2$ on $T_X[-1]$ (Kapranov 1999 Prop.~2.3) \\
+$Y_3$ & $H^{0,3}(X)\simeq\Sym^3 H^1(X,T_X)^\vee$ & tree-level
+Yukawa coupling, BCOV cubic vertex \\
+$\alpha_{\BCOV}$ & $H^{0,1}(X)$ & one-loop BV anomaly, Costello--Li 2016
+Prop.~5.2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Each enters hCS and the categorical presentation at a different order:
+$\At$ as a minimal-model bracket, $Y_3$ as a classical action term,
+$\alpha_{\BCOV}$ as a quantum correction.
+\end{ghost}
+
+\begin{heal}
+The three cocycles are related by a chain of maps, all induced by the
+CY trace against $\Omega_X$.
+
+\begin{theorem}[Three Atiyah-sourced cocycles on compact CY$_3$]
+\label{thm:three-cocycles}
+\ClaimStatusTheorem\ Let $X$ be compact CY$_3$ with holomorphic volume
+$\Omega_X$ (\texttt{wave14\_a5} \S5 Thm.~5.3; treatise Thm.~5.1).
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The Atiyah class $\At(T_X)\in H^1(X,\Omega^1_X\otimes\End T_X)$
+is the first bracket $\ell_2$ of the Kapranov $L_\infty$-algebra
+$(T_X[-1], \{\ell_n\})$ (Kapranov 1999 Thm.~2.6). It is the
+obstruction to a global holomorphic splitting of the first jet
+sequence; it is the cochain-level defect of HKR being a Gerstenhaber
+morphism (Calaque--Caldararu--Tu 2009 \texttt{arXiv:0908.2336}).
+\item The Yukawa coupling $Y_3\in H^{0,3}(X)$ is the triple cup
+paired against $\Omega_X$:
+\[
+  Y_3(v_1,v_2,v_3) \;=\; \int_X \Omega_X \wedge [\At(v_1)\cup \At(v_2)
+\cup \At(v_3)],
+  \qquad v_i\in H^1(X,T_X).
+\]
+On a smooth minimal model, $Y_3$ is the arity-$3$ bracket
+$\ell_3^{\min}$ of the transferred $L_\infty$-structure on
+$\bigoplus_p H^\bullet(X,\wedge^p T_X)$ (Kapranov 1999 \S4;
+Goldman--Millson 1988).
+\item The BCOV one-loop curving $\alpha_{\BCOV}\in H^{0,1}(X)$ is the
+Costello--Li 2016 one-loop BV obstruction
+\[
+  \alpha_{\BCOV} \;=\; \frac{\chi(X)}{24}\cdot[\Omega_X]^{0,1}
+  \qquad\text{where }[\Omega_X]^{0,1}\text{ is the }(0,1)\text{-Hodge class}.
+\]
+\end{enumerate}
+All three cocycles are pullbacks (in different senses: cochain-level
+defect, triple cup-product pairing, one-loop anomaly) of one source,
+the Atiyah class; they are structurally distinct and live on distinct
+Hodge groups.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+(a) Kapranov 1999 Prop.~2.3. (b) The $L_\infty$-transfer computation
+combining Kapranov 1999 Thm.~2.6 with the Goldman--Millson 1988
+minimal-model formula for homotopy transfer (cf.\ \texttt{wave14\_a5}
+\S4 for details). (c) Costello--Li 2016 Prop.~5.2: the one-loop BV
+obstruction is $\chi_{\mathrm{top}}(X) = \int_X c_3(T_X)$ times the
+adjoint Casimir $h^\vee(\fg)$ times a universal constant, paired against
+the cohomology class of $\Omega_X$; the $\chi/24$ prefactor is Costello's
+normalisation of the regulator.
+\end{proof}
+
+\begin{remark}[The $K3\times E$ collapse]
+\label{rmk:K3E-three-cocycles}
+On $X = K3\times E$: $\chi_{\mathrm{top}}(X) = \chi(K3)\cdot\chi(E)
+= 24\cdot 0 = 0$, so $\alpha_{\BCOV} = 0$ as a coefficient but
+$[\Omega_X]^{0,1} \neq 0$ (pulls back to $d\bar z_E$ on $E$). The
+$Y_3$ coupling is generically non-zero: it pairs $\At(TK3)$ against
+$\Omega_{K3}$ on the fibre and against $dz_E$ on the base. The
+Atiyah class itself is $\At(T(K3\times E)) = p_1^*\At(TK3)$ (the
+elliptic factor is flat). Three cocycles, three different
+evaluations on $K3\times E$: $\At\neq 0$; $Y_3\neq 0$;
+$\alpha_{\BCOV} = 0$ (coefficient vanishes).
+\end{remark}
+\end{heal}
+
+\begin{observation}[The user's sentence, cocycle-corrected]
+\label{obs:three-cocycle-parse}
+``Atiyah class is the formality obstruction when it fires'' is correct
+when parsed as: $\At$ is the $\ell_2$-bracket of the Kapranov
+$L_\infty$-algebra, whose firing (non-triviality of $\ell_2$) is the
+Kapranov minimal-model obstruction; this is distinct from Kontsevich
+formality (of polydifferential operators on flat affine space, which
+holds unconditionally). ``Categorical $\Ethree$ is curved'' refers to
+the $\ell_3^{\min} = Y_3$ bracket on the transferred minimal model.
+``hCS sees BCOV curving datum'' refers to the one-loop $\alpha_{\BCOV}$
+correction. These are three theorems, not one. The essay's elision
+is a compression; the expanded form is Theorem~\ref{thm:three-cocycles}.
+\end{observation}
+
+% ==================================================================
+\section{Attack--heal 5: MNOP is an identity \emph{between traces},
+not between factorisation algebras}
+\label{sec:ah5}
+% ==================================================================
+
+\begin{attack}
+User writes: ``DT = categorical integration ($\sum_\gamma\Omega(\gamma)$);
+GW = geometric integration ($\sum_g\hbar^{2g-2}F_g$); MNOP $-q = e^{iu}$
+is the two presentations' partition functions matching.''
+Adversarially: DT and GW are not two presentations; they are two traces
+on one factorisation algebra $\cF_X = \PhiFA_3(X)$. The first
+presentation of the user's essay is hCS versus categorical Hochschild;
+the DT/GW identity is a \emph{separate} assertion, about a trace, not
+about a presentation. Conflating the two threads invites a type error:
+``hCS = GW, categorical = DT'' is \emph{wrong} --- each of hCS and
+categorical generates \emph{both} traces via different framings of the
+same $\cF_X$.
+\end{attack}
+
+\begin{ghost}
+DT, GW, and PT are three different \emph{framings} of the same $\Ethree$
+factorisation-homology trace $\int_X\cF_X$:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lll}
+\toprule
+Framing & Geometric data & Trace output \\
+\midrule
+DT & Ideal sheaves $\cI \subset \cO_X$, rank-$1$ & $Z_{\mathrm{DT}}(X;q) =
+\sum_n q^n \chi_{\mathrm{vir}}(\mathrm{Hilb}^n(X))$ \\
+GW & Stable maps $f\colon\Sigma_g\to X$ & $Z_{\mathrm{GW}}(X;u) =
+\sum_{g,\beta} u^{2g-2}q^\beta\langle 1\rangle^X_{g,\beta}$ \\
+PT & Stable pairs $[\cO_X\to F]$ & $Z_{\mathrm{PT}}(X;q) =
+\sum_{\beta,n} q^n q^\beta\chi_{\mathrm{vir}}(\mathrm{PT}(X,\beta,n))$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+These are three different moduli; the MNOP conjecture (Maulik--Nekrasov
+--Okounkov--Pandharipande 2006 \texttt{arXiv:math/0312059}) is the
+identity $Z'_{\mathrm{DT}}(X;q)|_{q=-e^{iu}} = Z_{\mathrm{GW}}(X;u)$ between
+the reduced DT and GW traces, proved for toric CY$_3$ by MNOP and
+Okounkov--Pandharipande, conjectural in general.
+\end{ghost}
+
+\begin{heal}
+The user's ``DT $=$ categorical, GW $=$ geometric'' association is a
+confusing shorthand: \emph{both} DT and GW are available in \emph{both}
+presentations.
+
+\begin{theorem}[Three traces on one $\Ethree$-factorisation algebra]
+\label{thm:three-traces}
+\ClaimStatusTheorem\ Let $\cF_X = \PhiFA_3(X)$ be the Stage-1
+$\Ethree$ holomorphic factorisation algebra on compact CY$_3$ $X$.
+Let $\int_X\cF_X$ denote its factorisation homology over the closed
+real $6$-manifold underlying $X$ (with CY complex structure),
+computed by Lurie's non-abelian Poincar\'e duality (HA~\S5.5.3;
+Ayala--Francis 2015 \texttt{arXiv:1212.5553} Thm.~2.4).
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item The DT framing (rank-$1$ ideal sheaves, $\mathrm{Hilb}^n(X)$)
+produces the trace $\mathrm{Tr}_{\mathrm{DT}}^{\Ethree}(\int_X\cF_X) =
+Z_{\mathrm{DT}}(X;q)$.
+\item The GW framing (stable maps, virtual dimension zero) produces
+the trace $\mathrm{Tr}_{\mathrm{GW}}^{\Ethree}(\int_X\cF_X) =
+Z_{\mathrm{GW}}(X;u)$.
+\item The PT framing (stable pairs) produces the trace
+$\mathrm{Tr}_{\mathrm{PT}}^{\Ethree}(\int_X\cF_X) = Z_{\mathrm{PT}}(X;q)$.
+\item MNOP: $Z'_{\mathrm{DT}}(X;q)|_{q=-e^{iu}} = Z_{\mathrm{GW}}(X;u)$
+as a trace identity, conjectural in general, proved for toric (MNOP
+2006; Okounkov--Pandharipande 2011 \texttt{arXiv:0809.3976}) and for
+primitive classes on $K3\times E$ by Oberdieck--Pixton 2017
+\texttt{arXiv:1706.10100}.
+\end{enumerate}
+Each framing is available in both the hCS and the categorical
+presentations of $\cF_X$: the DT framing reads ideal sheaves in $\Perf(X)$
+on the categorical side and rank-$1$ gauge configurations in hCS; the
+GW framing reads stable-map moduli on the categorical side and
+topological-string instanton configurations in hCS. The identity of
+traces is a property of $\cF_X$, not of the choice of presentation.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Three-trace structure on one $\Ethree$-factorisation homology is
+factorisation-homology formalism (Lurie HA~\S5.5.3; Ayala--Francis 2015).
+Specialisation to DT, GW, PT is the content of the MNOP conjecture and
+the DT/PT correspondence (Thomas 1998; MNOP 2006; Pandharipande--Thomas
+2009 \texttt{arXiv:0707.2348}; Bridgeland 2011 \texttt{arXiv:1002.4384};
+Toda 2010 \texttt{arXiv:0806.0062}). On $K3\times E$, Oberdieck--Pixton
+specialise reduced DT to the Gritsenko--Nikulin Igusa denominator
+$-C/\Phi_{10}$, linking the $\kBKM(\Phi_1)=5$ Borcherds weight to a
+specific trace moment.
+\end{proof}
+
+\begin{remark}[The user's sentence, MNOP-corrected]
+\label{rmk:MNOP-corrected}
+``DT $=$ categorical, GW $=$ geometric, MNOP $=$ partition-function match''
+is to be parsed as: DT, GW, PT are three different \emph{framings} of
+\emph{one} factorisation-homology trace on $\cF_X$. MNOP is a theorem
+identifying two of the three trace specialisations after a change of
+variables. Neither DT nor GW is specific to the categorical or the
+hCS presentation; both are intrinsic to $\cF_X = \PhiFA_3(X)$. The
+essay's wording is a compression and is structurally wrong as a
+\emph{classification}: there is no ``categorical = DT'' dichotomy.
+\end{remark}
+\end{heal}
+
+% ==================================================================
+\section{Synthesis: the two inputs, their intersection, and the
+Gelfand punchline}
+\label{sec:synthesis}
+% ==================================================================
+
+The user's essay captures one correct theorem and three compressions.
+The theorem:
+
+\begin{theorem}[hCS and categorical Hochschild as input-asymmetric
+presentations of $\PhiFA_3$]
+\label{thm:main-synthesis}
+\ClaimStatusScoped\ Let $X$ be a smooth complex threefold.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The moduli of hCS input data $(X,\fg,\Omega_X)$ and the moduli
+of CY$_3$ categorical input data $(\cC,\eta)$ are not equivalent;
+there is a span of forgetful maps to the moduli of $\Ethree$
+holomorphic factorisation algebras on $X$, with the hCS branch
+selecting a framed gauge datum and the categorical branch carrying
+Morita-invariant derived structure (Theorem~\ref{thm:span-of-inputs}).
+\item When the two inputs are compatibly aligned
+$(X,\fg,\Omega_X)\leftrightarrow(\Perf(X),V,\eta_{\Omega_X})$ with
+$\fg = \End(V)$ and $V\in\Perf(X)$ a framing, the two presentations
+produce quasi-isomorphic $\Ethree$-factorisation algebras, pinned up
+to the $\GRTone$-torsor of KT formality associators, pinned further
+to the Kontsevich point by the Costello--Li BV propagator
+(Theorem~\ref{thm:torsor-point}).
+\item Morita invariance on the categorical side erases the framing
+data and makes visible the whole sheaf $R\End_\cC(-)$ on $\cC^{\sim}$;
+the hCS side fixes one framing and sees the Lie algebra structure
+constants of $\fg$ (Theorem~\ref{thm:yoneda-asymmetry}).
+\item Three Atiyah-sourced cocycles --- generator $\At$, tree $Y_3$,
+one-loop $\alpha_{\BCOV}$ --- live on three Hodge groups and enter
+the presentations at three different orders; the user's ``formality
+obstruction'' refers specifically to $\At$ as the Kapranov
+$\ell_2$-bracket (Theorem~\ref{thm:three-cocycles}).
+\item DT, GW, PT are three framings of one $\Ethree$-factorisation-homology
+trace on $\PhiFA_3(X)$; MNOP is the change-of-variables identity between
+two of the framings; the three framings are available in both
+presentations (Theorem~\ref{thm:three-traces}).
+\end{enumerate}
+The user's slogan ``hCS is a geometric resolution of the $\Ethree$-
+factorisation structure the CY$_3$ category possesses intrinsically up
+to contractible choice'' is correct, under the refinements (i)--(v)
+above: the ``contractible choice'' is $\GRTone$-torsor-contractible
+(points in a prounipotent torsor differ by non-identity elements but
+all map to one iso-class); the ``geometric resolution'' is the selection
+of the Kontsevich point via the Costello--Li propagator; the
+``intrinsic'' categorical structure lives on the derived endomorphism
+sheaf $R\End_\cC(-)$ over $\cC^{\sim}$, with the hCS framing choosing
+one fibre.
+\end{theorem}
+
+\begin{remark}[The Gelfand punchline]
+\label{rmk:gelfand-punchline}
+Two inputs, one output. The two inputs are not two descriptions of
+one input. Writing ``hCS = categorical = same thing'' is wrong;
+writing ``hCS and categorical produce quasi-isomorphic $\Ethree$-algebras
+on $X$ when compatibly framed'' is right. The difference between
+``the same thing'' and ``quasi-isomorphic after compatible framing''
+is the entire mathematical content of $\GRTone$-torsoriality, Yoneda
+asymmetry, three Atiyah cocycles, and MNOP as trace identity.
+Compression erases distinctions; mathematics requires every
+distinction to be kept. The equals sign is a theorem. Preserve it.
+\end{remark}
+
+% ==================================================================
+\section{Cache appends and cross-references}
+\label{sec:cache-append}
+% ==================================================================
+
+\paragraph{First-principles cache entries (new or reinforced).}
+\begin{enumerate}[label=\textbf{C\arabic*.}]
+\item \emph{Input-type discipline for $\PhiFA_3$.} An hCS datum
+$(X,\fg,\Omega_X)$ is not a categorical datum $(\cC,\eta)$; the span
+of two functors into $\cM_{\mathrm{FA}_3}$ is the precise relationship.
+Writing ``hCS = categorical'' as input-level equality is a type error;
+writing ``hCS$\simeq$categorical as $\Ethree$-algebras on $X$ after KT
+formality'' is the theorem. Reinforces AP-CY53 (two-stage factorisation).
+\item \emph{Yoneda asymmetry of framings.} The categorical datum
+carries the sheaf $R\End_\cC(-)$ on $\cC^{\sim}$ plus $\Aut^\otimes(\cC)$;
+the hCS datum fixes one fibre. The hCS gauge $\fg$ is one fibre's
+endomorphism Lie algebra. AP-CY compatible with \texttt{wave14\_b5}
+Remark~8.2 (CG side-by-side).
+\item \emph{$\GRTone$-torsor vs contractible iso-class.} ``Contractible
+choice'' has two meanings: (A) iso-class groupoid is a point (Tamarkin
+existence + rigidity); (B) parametrised space is $B\GRTone$-equivalent.
+Costello--Li selects the Kontsevich point. Reinforces
+\texttt{wave14\_a2} Remark~3.3.
+\item \emph{Three Atiyah-sourced cocycles.} $\At \in H^1(X,\Omega^1_X
+\otimes\End T_X)$; $Y_3\in H^{0,3}(X)$; $\alpha_{\BCOV}\in H^{0,1}(X)$.
+Three different Hodge groups, three different structural roles. The
+essay's ``Atiyah = formality obstruction'' is specifically
+$\At = \ell_2$-bracket of Kapranov's $L_\infty$-algebra, not a
+classical formality obstruction. Reinforces \texttt{wave14\_a5}
+\S3 and treatise Thm.~5.1.
+\item \emph{MNOP is a trace identity, not a functor comparison.}
+DT, GW, PT are three framings of one $\Ethree$-factorisation-homology
+trace. Each is available in both presentations; MNOP is the
+change-of-variables identity between two. The essay's shorthand
+``DT = categorical, GW = geometric'' is structurally wrong.
+Reinforces \texttt{wave14\_b5} Theorem~5.1.
+\end{enumerate}
+
+\paragraph{Cross-references.}
+\begin{itemize}[itemsep=1pt]
+\item \texttt{notes/wave12\_u1\_two\_stage\_functor.tex} for the Stage-1/Stage-2
+decomposition $\Phi_3 = \mathrm{Sp}_{\Sigma_2, C}\circ\PhiFA_3$.
+\item \texttt{notes/wave14\_a2\_KT\_formality\_kontsevich.tex} for the
+$\GRTone$-torsor vs contractible-iso-class distinction and the
+Costello--Li identification of the Kontsevich associator.
+\item \texttt{notes/wave14\_a5\_HKR\_atiyah\_kapranov.tex} for the
+Kontsevich--Caldararu twist on HKR, the Kapranov $L_\infty$-algebra
+on $T_X[-1]$, and the precise formulation of the three Atiyah-sourced
+cocycles.
+\item \texttt{notes/wave14\_b5\_hcs\_vs\_cat\_synthesis.tex} for the
+Costello--Francis--Gwilliam side-by-side synthesis at
+CG-chain-level and Francis--Lurie $(\infty,1)$-categorical level.
+\item \texttt{notes/CoHA\_to\_W\_infty\_treatise.tex} \S\texttt{subsec:hcs-vs-cat-hochschild}
+for the reader-facing subsection in the treatise.
+\item \texttt{chapters/theory/cy\_to\_chiral.tex} for the $\Phi$ functor
+construction; \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+for the $\kappa$-invariant table on $K3\times E$.
+\end{itemize}
+
+% ==================================================================
+\section{Primary-source register}
+\label{sec:primary}
+% ==================================================================
+
+\begin{itemize}[leftmargin=1em,itemsep=1pt]
+\item Atiyah 1957. \emph{Complex analytic connections in fibre bundles}.
+\emph{Trans.\ AMS}~85, 181--207. (Extension class definition.)
+\item BCOV 1994. Bershadsky--Cecotti--Ooguri--Vafa. \emph{Kodaira--Spencer
+theory of gravity and exact results for quantum string amplitudes}.
+\emph{CMP}~165. (Tree $Y_3$; one-loop holomorphic anomaly.)
+\item Calaque--Van den Bergh 2007. \texttt{arXiv:0708.2725}. (Global
+HKR on smooth varieties; Duflo--Kontsevich twist; CY simplification.)
+\item Costello 2011. \emph{Renormalization and effective field theory}.
+AMS SURV~170. (BV quantisation framework.)
+\item Costello--Gwilliam 2017. \emph{Factorization algebras in QFT},
+Vols.~I--II. (Factorisation algebras, hCS as $\Ethree$ factorisation
+algebra, holomorphic locality.)
+\item Costello--Li 2015/2016. \texttt{arXiv:1606.00365}. (hCS on
+$\Cx^3$; BV propagator; Kontsevich quantisation; one-loop BV anomaly.)
+\item Drinfeld 1990. \emph{On quasi-triangular quasi-Hopf algebras \ldots}.
+\emph{Leningrad Math.\ J.}~2. ($\GRTone$; associators.)
+\item Francis 2013. \texttt{arXiv:1110.5442}. (Higher Deligne; $\Ethree$
+on categorical Hochschild of $\Etwo$-algebras.)
+\item Fresse 2017. \emph{Homotopy of Operads and Grothendieck--Teichm\"uller
+groups}. AMS SURV~217. (Koszul duality of $E_n$; Tamarkin's theorem
+reformulated.)
+\item Goldman--Millson 1988. \emph{Publ.\ Math.\ IHES}~67. (DGLA
+governing deformations; homotopy transfer.)
+\item Kapranov 1999. \texttt{arXiv:math/9704009}. (Atiyah class as
+$\ell_2$-bracket of $L_\infty$ on $T_X[-1]$.)
+\item Kontsevich 1997 / 2003. \texttt{arXiv:q-alg/9709040} /
+\emph{LMP}~66. ($L_\infty$-formality of polydifferential DGLA.)
+\item Kontsevich--Soibelman 2008. \texttt{arXiv:0811.2435}. (CY$_3$
+categories; cyclic structures.)
+\item Lurie. \emph{Higher Algebra}. (HA~\S5: $E_n$-algebras, Koszul
+duality, non-abelian Poincar\'e duality.)
+\item Maulik--Nekrasov--Okounkov--Pandharipande 2006.
+\texttt{arXiv:math/0312059}. (MNOP conjecture; DT/GW identification
+for toric CY$_3$.)
+\item Oberdieck--Pixton 2017. \texttt{arXiv:1706.10100}. (Reduced DT
+of $K3\times E$ equals $-C/\Phi_{10}$.)
+\item Okounkov--Pandharipande 2011. \texttt{arXiv:0809.3976}. (MNOP
+for toric CY$_3$.)
+\item Pandharipande--Thomas 2009. \texttt{arXiv:0707.2348}. (Stable
+pairs; PT invariants; DT/PT correspondence.)
+\item PTVV 2013. Pantev--To\"en--Vaqui\'e--Vezzosi.
+\texttt{arXiv:1111.3209}. (Shifted symplectic structures; CY$_n$
+cyclic structures from $n$-shifted symplectic.)
+\item Tamarkin 1998. \texttt{arXiv:math/9803025}. ($\Ger$-formality
+via Etingof--Kazhdan; lift to $\Ethree$.)
+\item Thomas 1998. \texttt{arXiv:math/9806111}. (DT invariants; Casson
+invariants; CY$_3$ virtual counts.)
+\item Willwacher 2014. \texttt{arXiv:1009.1654}. ($\mathfrak{grt}_1 =
+H^0(\mathrm{GC}_2)$; Kontsevich graph complex.)
+\item Yekutieli 2002. \texttt{arXiv:math/0007082}. (Explicit HKR at
+chain level; Duflo square root.)
+\end{itemize}
+
+\end{document}

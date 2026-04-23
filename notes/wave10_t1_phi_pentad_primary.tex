@@ -1,0 +1,104 @@
+% wave10_t1_phi_pentad_primary.tex
+% Pentad extraction channel: $\phi_{0,1}|_{q^1}$ pentad $(10,-64,108,-64,10)$
+% Primary audit: Eichler--Zagier 1985, Gritsenko 1999, Lorgat 2020, slides.
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+
+\section*{Wave-10 T1: $\phi_{0,1}$ pentad --- primary-literature audit}
+
+\paragraph{Claim (\ClaimStatusTheorem).}
+The weight-$0$ index-$1$ weak Jacobi form
+$\phi_{0,1}(\tau,z)\in J_{0,1}^{\mathrm{weak}}$
+(Eichler--Zagier 1985, Theorems~9.3--9.4) has Fourier expansion
+$\phi_{0,1}(\tau,z)=\sum_{n\ge 0,\,\ell\in\Z}\,c(4n-\ell^2)\,q^n r^\ell$
+with $q=e^{2\pi i\tau}$, $r=e^{2\pi iz}$, depending only on the
+discriminant $D=4n-\ell^2\ge -1$.  Through $q^2$:
+\[
+\phi_{0,1}(\tau,z)\;=\;
+\bigl(r^{-1}+10+r\bigr)
+\;+\;q\bigl(10 r^{-2}-64 r^{-1}+108-64 r+10 r^{2}\bigr)
+\;+\;q^{2}\bigl(r^{-3}+108 r^{-2}-513 r^{-1}+808-513 r+108 r^{2}+r^{3}\bigr)
+\;+\;O(q^{3}).
+\]
+Equivalently, on discriminants $D\in\{-1,0,3,4,7,8\}$:
+\[
+c(-1)=1,\quad c(0)=10,\quad c(3)=-64,\quad c(4)=108,\quad
+c(7)=-513,\quad c(8)=808.
+\]
+
+\paragraph{Pentad location.}
+The pentad $(10,-64,108,-64,10)$ is the $q^{1}$-coefficient
+$\phi_{0,1}(\tau,z)|_{q^{1}}\in\C[r,r^{-1}]$, read in $r$-powers
+$(r^{-2},r^{-1},r^0,r^1,r^2)$.  The $q^{0}$-coefficient is a
+\emph{triad} $(1,10,1)$ in $(r^{-1},r^0,r^1)$, not a pentad: the
+weak-Jacobi support bound $4n-\ell^2\ge -1$ at $n=0$ forces
+$\ell\in\{-1,0,1\}$.  Wave-6 Z1.2's attribution of the pentad to
+$q^{1}$ is correct.
+
+\paragraph{Normalisation reconciliation.}
+The slide expression (Lorgat 2020 p.~9; also `/tmp/automorphic-slides.txt'
+ll.~745--759)
+\[
+\phi_{12,1}\;=\;(r^{-1}+10+r)\,q\;+\;(10 r^{-2}-88 r^{-1}-132-88 r+10 r^{2})\,q^{2}+\cdots
+\]
+is the weight-$12$ index-$1$ Jacobi cusp form (first Fourier--Jacobi
+coefficient of $\Delta_{12}$), and the $-88,-132$ differ from the
+$-64,108$ of $\phi_{0,1}$ because $\phi_{0,1}=\phi_{12,1}/\delta_{12}$
+with $\delta_{12}(\tau)=q\prod_{n\ge 1}(1-q^n)^{24}=q-24q^{2}+\cdots$
+an $\mathrm{SL}_{2}(\Z)$ cusp form.  The division
+$(\phi_{12,1}/\delta_{12})$ shifts $q$-degree by $-1$ and, at depth
+$q^{1}$, produces
+\[
+\phi_{0,1}|_{q^{1}}
+=\bigl(\phi_{12,1}|_{q^{2}}\bigr)+24\bigl(\phi_{12,1}|_{q^{1}}\bigr)
+=(10,-88,-132,-88,10)+24\,(0,1,10,1,0)
+=(10,-64,108,-64,10),
+\]
+exactly reconciling the $\phi_{12,1}$ pentad
+$(10,-88,-132,-88,10)$ (slide verbatim) with the $\phi_{0,1}$ pentad
+$(10,-64,108,-64,10)$ (Eichler--Zagier 1985; Gritsenko 1999).
+
+\paragraph{Cross-normalisation.}
+The K3 elliptic genus is $\phi_{0,1}^{\mathrm{K3}}=2\phi_{0,1}^{\mathrm{EZ}}$
+(Eguchi--Ooguri--Tachikawa 2011 §3; cf.~`chapters/theory/quantum\_groups\_foundations.tex:997'),
+so the K3-normalised $q^{1}$-pentad is $(20,-128,216,-128,20)$; the
+Eichler--Zagier generator pentad is $(10,-64,108,-64,10)$.  Both appear
+in the literature; the BKM multiplicity identification
+$\mathrm{mult}(\alpha)=c_{\phi_{0,1}}(4nm-\ell^{2})$ uses the
+Eichler--Zagier normalisation for $\mathfrak g_{\Delta_5}$ (Lorgat 2020 §6
+Theorem~4; Borcherds 1995 \emph{Invent.\ Math.}\ 120 Thm.~10.4).
+
+\paragraph{Primary-source verification paths.}
+\begin{enumerate}
+ \item \emph{Theta-ratio identity} (Eichler--Zagier 1985 §3 Thm.~9.3):
+  $\phi_{0,1}=4\sum_{i\in\{2,3,4\}}(\theta_{i}(\tau,z)/\theta_{i}(\tau,0))^{2}$;
+  lattice-sum evaluation in
+  `compute/lib/phi01\_fourier.py' (exact rational arithmetic) yields
+  the pentad $(10,-64,108,-64,10)$ at $q^{1}$ and the
+  discriminant table $c\colon\{-1,0,3,4,7,8\}\to\{1,10,-64,108,-513,808\}$.
+ \item \emph{Igusa Fourier--Jacobi} (Gritsenko--Nikulin 1998
+  \emph{Duke Math.}~94; Gritsenko 1999 \emph{Abh.\ Math.\ Sem.\ Hamburg}~69):
+  $\Delta_{12}=\phi_{12,1}q+\cdots$ with $\phi_{12,1}$ as above;
+  division by $\delta_{12}$ reproduces $\phi_{0,1}$.
+ \item \emph{BKM multiplicity} (Lorgat 2020 §6 Theorem~4; Borcherds 1995
+  Thm.~10.4): $\mathrm{mult}(\alpha)=c_{\phi_{0,1}}(4nm-\ell^{2})$;
+  at $\alpha$ with $D=0$ gives $\mathrm{mult}=10$ and the isotropic
+  super-multiplicity identity $\tau(a)=c(0)-c(-1)=10-1=9$ (Lorgat 2020
+  §2, cf.~`chapters/theory/quantum\_groups\_foundations.tex:606').
+\end{enumerate}
+
+\paragraph{Consequence for $\kBKM$.}
+The identity $\kBKM(\Phi_{N})=c_{N}(0)/2$ at $N=1$ reads
+$\kBKM(\Delta_{5})=c_{1}(0)/2$; with $c_{1}=10$ (constant term of
+$\phi_{0,1}$ as weight-$5$ denominator weight, Gritsenko 1999 eq.~(1.5))
+this gives $\kBKM=5$, consistent with $\mathrm{wt}(\Delta_{5})=5$ and
+with the K3$\times E$ spectrum $\{2,3,5,24\}$.  No change to the
+$\kBKM=c_{N}(0)/2$ universal formula.
+
+\paragraph{Ruling.}
+Pentad $(10,-64,108,-64,10)$ lives at $q^{1}$ of the Eichler--Zagier
+generator $\phi_{0,1}$ of $J_{0,1}^{\mathrm{weak}}$; not at $q^{0}$ (where
+the support is the triad $(1,10,1)$).  Wave-6 Z1.2 stands verified.

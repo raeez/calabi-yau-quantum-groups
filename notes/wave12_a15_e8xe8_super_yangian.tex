@@ -1,0 +1,558 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,hyperref}
+\usepackage[margin=1in]{geometry}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The $E_{8} \times E_{8}$ Yangian and the conjectural
+Super-Yangian $Y(\mathfrak{gl}(4|20))$}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Two algebras sit across the K3 Mukai lattice $\widetilde\Lambda_{K3}
+\cong II_{4,20}$ of rank $24$: the Drinfeld Yangian
+$Y(\mathfrak g_{E_{8} \oplus E_{8}})$ attached to the
+even-unimodular sublattice $E_{8}(-1) \oplus E_{8}(-1) \hookrightarrow
+II_{4,20}$, and a super-Yangian $Y(\mathfrak{gl}(4|20))$ whose
+super-rank $(4, 20)$ matches the $(\text{holomorphic}|\text{algebraic})$
+splitting of $\widetilde\Lambda_{K3}$. The first is unconditional at
+the level of generators and Serre relations; its pole structure on
+Hilbert schemes of K3 is $(24, 24)$ through Maulik--Okounkov, not
+through $E_{8} \oplus E_{8}$ data alone. The second is conjectural:
+its embedding into the Drinfeld double $\mathbf D_\hbar(\mathfrak
+g_{\Delta_{5}})$ is the super-Yangian/BKM bridge through which the
+heterotic $E_{8} \times E_{8}$ theory on $K3 \times T^{2}$ couples to
+the K3 BPS algebra. We separate the two data sets, recover the
+$c = 24$ heterotic left-mover central charge from the sum
+$c(E_{8})_{1} + c(E_{8})_{1} + c_{T^{2}} = 8 + 8 + 8$, and state the
+stable-envelope route along which the super-Yangian embedding is
+provable.
+\end{abstract}
+
+
+\section{The $E_{8} \times E_{8}$ Drinfeld Yangian}
+\label{sec:e8-e8-yangian}
+
+The $E_{8}$ Dynkin diagram has $8$ nodes arranged $T_{2, 3, 5}$-style:
+a central branching node of valence three, one short branch of length
+$2$, and two longer branches of lengths $3$ and $5$.
+
+\begin{definition}
+\label{def:e8-yangian}
+Let $\mathfrak g = \mathfrak e_{8}$, rank $r = 8$, Cartan matrix
+$(a_{ij})_{1 \leq i, j \leq 8}$ with $a_{ii} = 2$ and $a_{ij} \in
+\{0, -1\}$ for $i \neq j$. The Drinfeld (new-realisation) Yangian
+$Y_{\hbar}(\mathfrak e_{8})$ is the $\mathbb C[\hbar]$-algebra with
+generators $x^{\pm}_{i, r}, \; h_{i, r}$ for $i \in \{1, \ldots, 8\}$,
+$r \in \mathbb Z_{\geq 0}$, subject to Drinfeld's relations
+$[D1]$--$[D5]$ of \emph{loc.\ cit.}, including the Serre relations
+\begin{equation}
+\label{eq:e8-serre}
+\mathrm{ad}(x^{\pm}_{i, 0})^{1 - a_{ij}}(x^{\pm}_{j, 0}) \;=\; 0
+\qquad (i \neq j, \; \text{all orderings of the loop parameter}).
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Serre relation count, $E_{8} \oplus E_{8}$]
+\label{prop:e8-serre-count}
+Let $\mathfrak g = \mathfrak e_{8} \oplus \mathfrak e_{8}$, realised
+on the even-unimodular rank-$16$ sublattice
+$E_{8}(-1) \oplus E_{8}(-1) \hookrightarrow II_{4, 20}$. The number
+of independent Serre relations in $Y_{\hbar}(\mathfrak g)$ is
+$14$, split as $7$ per factor.
+\end{proposition}
+
+\begin{proof}
+For a simply-laced simple Lie algebra $\mathfrak g$ of rank $r$ with
+Cartan matrix having $a_{ij} \in \{0, -1\}$ off-diagonal, the
+non-trivial Serre relation
+$\mathrm{ad}(x^{\pm}_{i})^{1 - a_{ij}}(x^{\pm}_{j}) =
+\mathrm{ad}(x^{\pm}_{i})^{2}(x^{\pm}_{j}) = 0$ is imposed for each
+unordered pair $\{i, j\}$ with $a_{ij} = -1$, i.e.\ for each edge of
+the Dynkin diagram. For $\mathfrak e_{8}$ the Dynkin diagram is a
+tree on $8$ vertices, hence has $8 - 1 = 7$ edges. Thus $E_{8}$
+contributes $7$ Serre relations. For $\mathfrak g = \mathfrak e_{8}
+\oplus \mathfrak e_{8}$ the two direct summands decouple: the Cartan
+matrix is block-diagonal with $a^{(12)}_{ij} = 0$ for $i$ in the
+first factor and $j$ in the second. No cross-factor Serre relation
+is imposed (the $1 - a^{(12)}_{ij} = 1$ order relation
+$\mathrm{ad}(x^{\pm}_{i})(x^{\pm}_{j}) = 0$ is equivalent to
+commutativity, which is already encoded in the orthogonality of the
+Cartan subalgebras). Total: $7 + 7 = 14$.
+\end{proof}
+
+\begin{remark}
+\label{rem:serre-cross-factor}
+The cross-factor relation $[Y_{\hbar}(\mathfrak e_{8}^{(1)}),
+Y_{\hbar}(\mathfrak e_{8}^{(2)})] = 0$ is \emph{not} a Serre relation;
+it is Lie-algebraic commutativity of the two Yangian factors as
+subalgebras of $Y_{\hbar}(\mathfrak e_{8} \oplus \mathfrak e_{8})$.
+This is part of the general theorem $Y_{\hbar}(\mathfrak g_{1}
+\oplus \mathfrak g_{2}) = Y_{\hbar}(\mathfrak g_{1})
+\otimes_{\mathbb C[\hbar]} Y_{\hbar}(\mathfrak g_{2})$ for direct
+sums of simple Lie algebras.
+\end{remark}
+
+
+\section{Structure function: intrinsic versus geometric}
+\label{sec:structure-function}
+
+The Drinfeld Yangian carries two distinct functions of the spectral
+parameter: the \emph{intrinsic} structure function $g_{ij}(u)$ coming
+from the $RTT$ presentation of $Y_{\hbar}(\mathfrak g)$, and the
+\emph{geometric} pole-and-zero datum of the universal $R$-matrix on a
+specific representation coming from Maulik--Okounkov stable envelopes.
+Only the second has degree $(24, 24)$ for K3.
+
+\begin{lemma}[Intrinsic structure function degrees]
+\label{lem:structure-function-intrinsic}
+For $Y_{\hbar}(\mathfrak g)$ with $\mathfrak g$ simple simply-laced of
+rank $r$, the intrinsic structure function is
+\begin{equation}
+\label{eq:intrinsic-structure}
+g_{ij}(u) \;=\; \frac{u + \hbar \, a_{ij}/2}{u - \hbar \, a_{ij}/2},
+\end{equation}
+of degree $(1, 1)$ per Cartan matrix entry; the product over the
+$r \times r$ Cartan matrix has total polynomial degree $(r^{2}, r^{2})$
+only if one counts every matrix slot separately, which is not the
+standard bookkeeping. For $\mathfrak e_{8}$, $r = 8$; for
+$\mathfrak e_{8} \oplus \mathfrak e_{8}$, $r = 16$.
+\end{lemma}
+
+\begin{proposition}[Geometric $R$-matrix degree on $\mathrm{Hilb}(K3)$]
+\label{prop:geometric-rmatrix-degree}
+The Maulik--Okounkov universal $R$-matrix of the Hilbert scheme
+$\mathrm{Hilb}^{n}(K3)$ of $n$ points on a K3 surface is a rational
+function of the spectral parameter $u$ (the equivariant weight of
+the $T = (\mathbb C^{*})^{2}$-action) with numerator and denominator
+polynomials of degree at most
+\begin{equation}
+\label{eq:mo-degree}
+\deg P(u) \;=\; \deg Q(u) \;=\; \dim H^{*}(K3, \mathbb Q) \;=\; 24,
+\end{equation}
+one root per cohomology class of $K3$. The sublattice
+$E_{8}(-1) \oplus E_{8}(-1) \hookrightarrow H^{2}(K3, \mathbb Z)$
+contributes $16$ of these $24$ roots; the remaining $8$ come from
+the $H^{0} \oplus H^{4}$ and the two hyperbolic $U \oplus U \oplus U$
+summands of $H^{*}(K3, \mathbb Z) = \widetilde\Lambda_{K3}$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The MO $R$-matrix on $T^{*}X$ for $X$ a smooth variety has poles and
+zeros governed by the torus-fixed loci of $\mathrm{Hilb}^{n}(X)$;
+for $X = K3$, the fixed locus of the induced $T^{2}$-action on
+$\mathrm{Hilb}^{n}(K3)$ is indexed by tuples of partitions, and the
+leading-order structure of the $R$-matrix on the two-point Fock
+module $F_{u_{1}} \otimes F_{u_{2}}$ is
+\begin{equation*}
+R_{\mathrm{MO}}(u_{1} - u_{2}) \;=\;
+\prod_{\alpha \in H^{*}(K3)} \frac{u_{1} - u_{2} + \hbar m_{\alpha}}
+{u_{1} - u_{2} - \hbar m_{\alpha}},
+\end{equation*}
+where $\alpha$ ranges over an integral basis of $H^{*}(K3)$ of total
+rank $24$ and $m_{\alpha} \in \mathbb Z$ encodes the Mukai pairing.
+Hence numerator and denominator are each of degree $24$ in $u$.
+\end{proof}
+
+\begin{proposition}[Intrinsic vs geometric reconciliation]
+\label{prop:e8-e8-structure}
+The statement ``$Y(\mathfrak g_{E_{8} \oplus E_{8}})$ has structure
+function of degree $(24, 24)$'' is precise in the following sense:
+the pullback of the Maulik--Okounkov $R$-matrix on
+$\mathrm{Hilb}^{n}(K3)$ along the inclusion
+$Y_{\hbar}(\mathfrak e_{8} \oplus \mathfrak e_{8}) \hookrightarrow
+Y_{\hbar}(\mathfrak g_{K3})$ (induced by the sublattice inclusion
+$E_{8}(-1) \oplus E_{8}(-1) \hookrightarrow \widetilde\Lambda_{K3}$)
+has numerator and denominator of degree $24$. The extra $8$ roots
+beyond the $16$ contributed by $E_{8} \oplus E_{8}$ encode the
+$H^{0} \oplus H^{4}$ pair and the three hyperbolic planes $U^{3}$ of
+the Mukai lattice. The intrinsic $Y_{\hbar}(\mathfrak e_{8} \oplus
+\mathfrak e_{8})$ structure function $g_{ij}$ of Lemma
+\ref{lem:structure-function-intrinsic} has Cartan-matrix block degree
+$(16, 16)$; the enlargement from $16$ to $24$ is the Mukai vector
+extension, not an intrinsic Yangian enlargement.
+\end{proposition}
+
+\begin{remark}
+\label{rem:degree-claim-scope}
+The frequently cited ``structure function of degree $(24, 24)$ matches
+the Mukai lattice rank'' is correct \emph{only} as the geometric
+(MO) $R$-matrix on $\mathrm{Hilb}(K3)$; it is \emph{not} the intrinsic
+$Y(\mathfrak e_{8} \oplus \mathfrak e_{8})$ datum in isolation. The
+two-column bookkeeping (intrinsic vs geometric) avoids the standing
+confusion.
+\end{remark}
+
+
+\section{Central charge $c = 24$: what carries it}
+\label{sec:central-charge}
+
+The number $c = 24$ appears three times in the vicinity of the
+$E_{8} \times E_{8}$ heterotic construction, and each appearance
+measures a different central charge.
+
+\begin{proposition}[Central charges, disambiguated]
+\label{prop:central-charges}
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \emph{Chiral-algebra central charge of the $E_{8}$ current
+algebra at level $1$}: $c(\widehat{\mathfrak e_{8}})_{k=1} =
+\frac{k \cdot \dim \mathfrak e_{8}}{k + h^{\vee}_{E_{8}}} =
+\frac{1 \cdot 248}{1 + 30} = 8$, since $E_{8}$ is rank-$8$ and
+even-unimodular and the level-$1$ WZW model is the theta series
+of $E_{8}$ (namely $E_{4}(\tau)$).
+\item \emph{Sum over the two $E_{8}$ factors at level $(1, 1)$}:
+$c(\widehat{\mathfrak e_{8}})_{1} + c(\widehat{\mathfrak e_{8}})_{1}
+= 8 + 8 = 16$.
+\item \emph{Heterotic left-moving worldsheet central charge}:
+$c_{L}^{\mathrm{het}} = 16 + 8 = 24$, decomposed as
+$16$ from $E_{8} \times E_{8}$ gauge currents and $8$ from the
+eight transverse target-space bosons $X^{\mu}(z)$ of critical
+heterotic string theory in $10$ dimensions.
+\item \emph{Schellekens class $c = 24$ holomorphic vertex operator
+algebras}: $71$ VOAs with Virasoro central charge $24$, of which one
+is the Moonshine module $V^{\natural}$ and one is the $E_{8}$-triple
+$(V_{E_{8}})^{\otimes 3}$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) Sugawara: $c = k \dim \mathfrak g / (k + h^{\vee})$, with
+$\dim \mathfrak e_{8} = 248$, $h^{\vee} = 30$. (ii) Additivity of
+central charge over tensor factors. (iii) Polyakov: critical
+heterotic string on $\mathbb R^{1, 9}$ has $c_{L} = 26$ (bosonic)
+with $\bar c_{R} = 15$ (superstring); subtracting the two reparametrisation
+ghosts yields $c_{L}^{\mathrm{matter}} = 24$, and the split
+$24 = 16_{\mathrm{gauge}} + 8_{\mathrm{transverse}}$ realises the
+$E_{8} \times E_{8}$ (or $\mathrm{Spin}(32)/\mathbb Z_{2}$) gauge
+group. (iv) Schellekens 1993.
+\end{proof}
+
+\begin{remark}
+\label{rem:c-24-scope}
+The central charge $c = 24$ is \emph{not} an intrinsic Yangian
+invariant of $Y(\mathfrak e_{8} \oplus \mathfrak e_{8})$ at level
+$(1, 1)$: that Yangian has Sugawara-level chiral central charge
+$16$. The $c = 24$ number is the heterotic worldsheet matter central
+charge, picked up by the eight transverse bosons that promote the
+$E_{8} \times E_{8}$ current algebra to a full worldsheet theory.
+\end{remark}
+
+
+\section{The Mukai lattice split $24 = 4 + 20$}
+\label{sec:mukai-split}
+
+The rank-$24$ Mukai lattice $\widetilde\Lambda_{K3} \cong U^{4}
+\oplus E_{8}(-1)^{2}$ carries two natural integer splittings relevant
+to the super-Yangian construction.
+
+\begin{definition}[Hodge-Mukai splitting]
+\label{def:hodge-mukai-split}
+The Mukai lattice of a K3 surface $X$ is $\widetilde H(X, \mathbb Z) =
+H^{0}(X, \mathbb Z) \oplus H^{2}(X, \mathbb Z) \oplus
+H^{4}(X, \mathbb Z)$, rank $2 + 22 + 0$ or $1 + 22 + 1 = 24$ depending
+on orientation. Over $\mathbb C$, its Hodge decomposition is
+\begin{equation*}
+\widetilde H(X, \mathbb C) \;=\;
+\widetilde H^{2, 0} \oplus \widetilde H^{1, 1} \oplus
+\widetilde H^{0, 2}, \qquad
+\widetilde h^{2, 0} = 2, \;\;
+\widetilde h^{1, 1} = 20, \;\;
+\widetilde h^{0, 2} = 2,
+\end{equation*}
+where the enlargement from $(1, 20, 1) = 22$ to $(2, 20, 2) = 24$ is
+by the shifted $H^{0}$ and $H^{4}$ contributions placed in bidegree
+$(2, 0) + (0, 2)$ via the Mukai vector $v = (\mathrm{rk}, c_{1},
+\mathrm{ch}_{2})$ grading convention.
+\end{definition}
+
+\begin{proposition}[$(4|20)$ superselection split]
+\label{prop:4-20-split}
+The $(4, 20)$ split of $\widetilde H(X, \mathbb R)$ is
+\begin{equation*}
+\widetilde H(X, \mathbb R) \;=\;
+\underbrace{(\widetilde H^{2, 0} \oplus \widetilde H^{0, 2})
+\oplus (H^{0} \oplus H^{4})}_{\text{super-odd, dimension } 4}
+\;\oplus\;
+\underbrace{\widetilde H^{1, 1}(X, \mathbb R)}_{\text{super-even,
+dimension } 20},
+\end{equation*}
+where the $(2, 2)$-dimensional transcendental-holomorphic piece plus
+the two rank-$1$ pieces $H^{0}, H^{4}$ account for the super-odd
+component, and the algebraic $(1, 1)$-component (generically of
+Picard rank ranging from $0$ to $20$, maximised to $20$ on the
+singular locus) accounts for the super-even component.
+\end{proposition}
+
+\begin{proof}
+The involution $\sigma \colon \widetilde H(X, \mathbb C) \to
+\widetilde H(X, \mathbb C)$ which acts by $+1$ on
+$\widetilde H^{1, 1}$ and by $-1$ on $\widetilde H^{2, 0} \oplus
+\widetilde H^{0, 2} \oplus H^{0} \oplus H^{4}$ is the Mukai Hodge
+involution (preserving the Mukai pairing). Its $\pm 1$-eigenspaces
+realise the $\mathbb Z / 2$-grading, and the dimensions match: the
+$-1$-eigenspace is of real dimension $2 + 2 + 1 + 1 = 4$ (after
+extending scalars through the reality structure $H^{2, 0}
+\oplus H^{0, 2}$, which has real dimension $2$, plus the two rank-$1$
+pieces as real lines; the transcendental $H^{2, 0} \oplus H^{0, 2}$
+contributes $2$ real dimensions directly, the $H^{0}, H^{4}$ pair
+contributes $2$ more, for total $4$). The $+1$-eigenspace is the
+real $(1, 1)$-part, of real dimension $20$.
+\end{proof}
+
+
+\section{The conjectural Super-Yangian $Y(\mathfrak{gl}(4|20))$}
+\label{sec:super-yangian}
+
+\begin{definition}[Super-Yangian, RTT presentation]
+\label{def:super-yangian}
+Let $V = V_{\bar 0} \oplus V_{\bar 1}$ be a $\mathbb Z / 2$-graded
+complex vector space with $\dim V_{\bar 0} = 4$, $\dim V_{\bar 1} = 20$.
+The super-Yangian $Y(\mathfrak{gl}(4 | 20))$ is the associative
+$\mathbb C[\hbar]$-superalgebra generated by
+$t^{(r)}_{ij}$, $i, j \in \{1, \ldots, 24\}$, $r \in \mathbb Z_{\geq 1}$,
+with $\mathbb Z / 2$-grading $|t^{(r)}_{ij}| = |i| + |j| \pmod 2$,
+subject to the graded $RTT$ relation
+\begin{equation}
+\label{eq:rtt-super}
+R(u - v) \, T_{1}(u) \, T_{2}(v) \;=\;
+T_{2}(v) \, T_{1}(u) \, R(u - v),
+\end{equation}
+where $T(u) = \sum_{r \geq 0} t^{(r)}_{ij} u^{-r} E_{ij}$ is the
+$24 \times 24$ super-monodromy matrix valued in $Y \otimes
+\mathrm{End}(V)$, and $R(u) = 1 + \hbar u^{-1} P_{\mathrm{super}}$ is
+the graded Yang $R$-matrix with $P_{\mathrm{super}}$ the super-flip.
+\end{definition}
+
+\begin{conjecture}[Super-Yangian/BKM bridge]
+\label{conj:super-yangian-bkm}
+There is an embedding of Hopf superalgebras
+\begin{equation}
+\label{eq:super-yangian-embedding}
+Y(\mathfrak{gl}(4 | 20)) \;\hookrightarrow\;
+\mathbf D_{\hbar}(\mathfrak g_{\Delta_{5}}),
+\end{equation}
+into the Drinfeld double of the Gritsenko--Nikulin BKM superalgebra
+$\mathfrak g_{\Delta_{5}}$, such that:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item the super-rank $(4, 20) = (\dim \widetilde H^{\mathrm{odd}}_{\mathrm{Mukai}},
+\dim \widetilde H^{\mathrm{even}}_{\mathrm{Mukai}})$ is the Mukai Hodge
+super-split of Proposition \ref{prop:4-20-split};
+\item the image is the Mukai-finite-rank (bounded BPS cone) subalgebra
+$\mathbf D_{\hbar}(\mathfrak g_{\Delta_{5}})^{\mathrm{fin}}$;
+\item the $T$-matrix of Definition \ref{def:super-yangian} is
+represented on the cohomological Hall algebra
+$\mathrm{CoHA}(K3)$ by the Maulik--Okounkov stable-envelope operator.
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[Status]
+\label{rem:super-yangian-status}
+At the level of characters and graded dimensions, the identification
+$Y(\mathfrak{gl}(4 | 20))_{\mathrm{char}} = \mathbf
+D_{\hbar}(\mathfrak g_{\Delta_{5}})^{\mathrm{fin}}_{\mathrm{char}}$ is
+tractable through Schiffmann--Vasserot stable-envelope $K$-theory on
+$\mathrm{Hilb}^{n}(K3)$. At the level of \emph{algebra-level}
+embedding \eqref{eq:super-yangian-embedding}, the identification
+remains conjectural: it would follow from the CY-C six-route
+convergence to $G(K3 \times E) = D(Y^{+}(\mathfrak g_{K3}))$
+together with the Maulik--Okounkov morphism-preservation for stable
+envelopes under products $K3 \times E \to K3$. Both are open.
+\end{remark}
+
+
+\section{Interweaving: 6d holomorphic Chern--Simons and heterotic}
+\label{sec:6d-hcs-heterotic}
+
+The ambient architecture connecting the two algebras of
+Sections \ref{sec:e8-e8-yangian} and \ref{sec:super-yangian} is a
+6d holomorphic Chern--Simons theory on $K3 \times \mathbb C^{2}$
+coupled to a heterotic boundary.
+
+\begin{definition}[6d hCS on $K3 \times \mathbb C^{2}$]
+\label{def:6d-hcs}
+Let $X = K3 \times \mathbb C^{2}$ with the $T^{2}$-action scaling
+the $\mathbb C^{2}$ coordinates with weights $(\epsilon_{1},
+\epsilon_{2})$, and let $G$ be a complex reductive group. The $6$d
+holomorphic Chern--Simons action
+\begin{equation}
+\label{eq:6d-hcs-action}
+S_{\mathrm{hCS}}[\mathcal A] \;=\;
+\int_{X} \Omega_{K3} \wedge dz_{1} \wedge dz_{2}
+\wedge \mathrm{tr} \left( \mathcal A \bar\partial \mathcal A
++ \tfrac{2}{3} \mathcal A^{3} \right)
+\end{equation}
+with $\Omega_{K3}$ the holomorphic symplectic form of the K3 factor
+defines the Costello--Gaiotto twisted holomorphic theory. The
+$\Omega$-background localisation to the $T^{2}$-fixed locus of
+$\mathbb C^{2}$ restricts the theory to the $K3$-slice.
+\end{definition}
+
+\begin{proposition}[Boundary algebra at heterotic coupling]
+\label{prop:boundary-algebra}
+Consider $6$d hCS on $K3 \times \mathbb C^{2}$ with gauge group
+$G = E_{8} \times E_{8}$ and a boundary condition at
+$\{z_{1} = 0\} \subset \mathbb C^{2}$ specified by a heterotic
+$E_{8} \times E_{8}$ worldsheet. The boundary chiral algebra
+$\mathcal A_{\partial}$ is:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item At level $(k_{1}, k_{2}) = (1, 1)$: the left-mover $E_{8}
+\times E_{8}$ current algebra, $c = 16$, with charge lattice
+$E_{8}(-1) \oplus E_{8}(-1)$.
+\item Extended by the transverse-boson sector of the heterotic
+worldsheet: $c = 24$, as in Proposition \ref{prop:central-charges}(iii).
+\item Carrying a Yangian symmetry $Y_{\hbar}(\mathfrak e_{8} \oplus
+\mathfrak e_{8})$ deformed by the $\Omega$-background parameter
+$\hbar = \epsilon_{1} + \epsilon_{2}$, in the Costello--Yamazaki
+framework.
+\end{enumerate}
+\end{proposition}
+
+\begin{remark}[Super-Yangian as enhanced observable algebra]
+\label{rem:super-yangian-enhanced}
+The conjectural enhancement of the boundary algebra
+$\mathcal A_{\partial}$ from a level-$(1, 1)$
+$E_{8} \times E_{8}$ current algebra to the full K3 BPS algebra
+$\mathfrak g_{\Delta_{5}}$ is achieved by allowing K3 fibre
+contributions from D-branes wrapping $2$-cycles of K3. The enhanced
+observable algebra is conjecturally $Y(\mathfrak{gl}(4 | 20))$
+(Conjecture \ref{conj:super-yangian-bkm}). The super-rank split
+$(4, 20)$ matches the Hodge split of the Mukai lattice; the $E_{8}
+\times E_{8}$ sublattice $E_{8}(-1)^{2} \hookrightarrow \widetilde
+H^{1, 1}_{\mathrm{alg}}(K3, \mathbb Z)$ gives the level-$(1, 1)$
+subsector of the super-even part.
+\end{remark}
+
+\begin{proposition}[Cross-consistency with cache]
+\label{prop:cross-consistency}
+The construction is consistent with the standing Vol III cache:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\mathcal O_{K3})
+\cdot \chi(\mathcal O_{E}) = 2 \cdot 0 = 0$ on the total space;
+the super-Yangian construction lives on $K3$, where
+$\kappa_{\mathrm{cat}}(K3) = \chi(\mathcal O_{K3}) = 2$, consistent.
+\item $\mathrm{CoHA}(\mathbb C^{3}) = Y^{+}(\widehat{\mathfrak
+{gl}}_{1})$ is the $\mathfrak{gl}_{1}$-case; the K3-case
+$\mathrm{CoHA}(K3)$ is conjecturally the positive Borel of
+$Y(\mathfrak{gl}(4 | 20))$ by Schiffmann--Vasserot analogy.
+\item The central charge split $8 + 8 + 8 = 24$ is not a $\Phi$-image
+computation; it is the heterotic worldsheet matter content and is
+independent of the six-route $G(K3 \times E)$ convergence.
+\item The degree-$(24, 24)$ Maulik--Okounkov structure function is
+the geometric $R$-matrix on $\mathrm{Hilb}^{n}(K3)$, not the
+intrinsic Drinfeld Yangian datum; Remark \ref{rem:degree-claim-scope}.
+\end{enumerate}
+\end{proposition}
+
+
+\section{Open questions}
+\label{sec:open-questions}
+
+\begin{enumerate}
+\item Does the embedding \eqref{eq:super-yangian-embedding} extend to
+an isomorphism of Hopf superalgebras onto the Mukai-finite subalgebra
+of $\mathbf D_{\hbar}(\mathfrak g_{\Delta_{5}})$?
+
+\item Is the geometric degree-$(24, 24)$ structure function of
+Proposition \ref{prop:geometric-rmatrix-degree} realised by a
+\emph{universal} $R$-matrix of $Y(\mathfrak{gl}(4 | 20))$ in the
+physical spectral parameter of the $\Omega$-background, or only by
+a representation-level $R$-matrix on specific Hilbert-scheme
+representations?
+
+\item Does the Costello--Yamazaki Yangian action at the heterotic
+boundary extend to the super-Yangian action in the presence of
+K3-fibre D-branes, and does it carry the full $\widetilde\Lambda_{K3}$
+Mukai lattice structure, or only the $E_{8}(-1)^{2}$ sublattice?
+
+\item Is there a natural level-$(1, 1)$ super-enhancement
+$Y(\mathfrak{gl}(4 | 20))_{k = (1, 1)}$ matching the heterotic
+worldsheet $c = 24$ constraint, and does it uniquely single out the
+K3 super-Yangian among all super-Yangians
+$Y(\mathfrak{gl}(m | n))$ with $m + n = 24$?
+\end{enumerate}
+
+
+\appendix
+
+\section{Rectification log}
+\label{sec:rectification-log}
+
+Five attack-heal cycles on the prose-level $E_{8} \times E_{8}$
+Yangian data.
+
+\paragraph{Cycle 1 (Serre count).}
+Attack: ``$7$ per $E_{8}$'' with no edge-count derivation.
+Heal: Proposition \ref{prop:e8-serre-count} derives $7$ from the
+$E_{8}$ Dynkin diagram having exactly $8 - 1 = 7$ edges (tree on $8$
+vertices), and $14$ total from direct-sum decoupling plus
+Remark \ref{rem:serre-cross-factor} flagging that cross-factor
+commutativity is not a Serre relation.
+
+\paragraph{Cycle 2 (structure function degree).}
+Attack: ``structure function of degree $(24, 24)$'' attributed to
+$Y(\mathfrak e_{8} \oplus \mathfrak e_{8})$ intrinsically.
+Heal: split into intrinsic (Lemma \ref{lem:structure-function-intrinsic},
+Cartan-matrix block degree $(16, 16)$) and geometric
+(Proposition \ref{prop:geometric-rmatrix-degree}, MO $R$-matrix degree
+$(24, 24)$ on $\mathrm{Hilb}(K3)$ from the $24$-dim cohomology);
+Remark \ref{rem:degree-claim-scope} states the scope.
+
+\paragraph{Cycle 3 (central charge).}
+Attack: ``$c = 24$'' attributed to the Yangian $Y(\mathfrak e_{8}
+\oplus \mathfrak e_{8})$ at level $1$.
+Heal: Proposition \ref{prop:central-charges} decomposes
+$c = 24 = 8 + 8 + 8$ as $E_{8}$ level-$1$ Sugawara + $E_{8}$ level-$1$
+Sugawara + $8$ transverse bosons, which is the heterotic worldsheet
+matter central charge, not the Yangian-intrinsic level;
+Remark \ref{rem:c-24-scope} states the scope.
+
+\paragraph{Cycle 4 (super-structure forcing).}
+Attack: Is $(4 | 20)$ really forced, or could it be $(22 | 2)$ or some
+other partition of $24$?
+Heal: Proposition \ref{prop:4-20-split} derives the $(4, 20)$-split as
+the $\pm 1$-eigenspaces of the Mukai Hodge involution (holomorphic
+$2$-form plus unit-and-volume vs algebraic $(1, 1)$-part), making the
+split canonical under the Hodge structure of $\widetilde\Lambda_{K3}$.
+Alternative splits $(22, 2)$ (by cohomological degree) or
+$(1 + 20 + 1 | 2)$ (by bidegree) do not match the super-Yangian
+involutive structure.
+
+\paragraph{Cycle 5 ($6$d hCS interweaving).}
+Attack: Is the super-Yangian actually realised as a boundary
+observable of a known physical theory?
+Heal: Section \ref{sec:6d-hcs-heterotic} places the $E_{8} \times
+E_{8}$ Yangian and the conjectural super-Yangian as two levels of
+the same $6$d hCS on $K3 \times \mathbb C^{2}$ with a heterotic
+boundary: the level-$(1, 1)$ base theory sees
+$Y(\mathfrak e_{8} \oplus \mathfrak e_{8})$ (unconditional), the
+K3-fibre-enhanced theory sees $Y(\mathfrak{gl}(4 | 20))$
+(conjectural). The $\Omega$-background parameter $\hbar = \epsilon_{1}
++ \epsilon_{2}$ plays the deformation role, and the Mukai super-split
+$(4, 20)$ is inherited from the K3 Hodge involution.
+
+\paragraph{Retractions.}
+\begin{itemize}
+\item The earlier claim (working notes, \S~5341) that
+$Y(\mathfrak g_{E_{8} \times E_{8}})$ has ``structure function of
+degree $(24, 24)$'' is \emph{retracted in the intrinsic reading} and
+\emph{retained in the geometric reading} (MO $R$-matrix on
+$\mathrm{Hilb}(K3)$ pulled back along the $E_{8}(-1)^{2}
+\hookrightarrow \widetilde\Lambda_{K3}$ inclusion). The intrinsic
+Cartan-matrix degree is $(16, 16)$.
+\item The earlier claim ``central charge $c = 24$'' attributed to
+the $E_{8} \times E_{8}$ Yangian is \emph{retracted}: $24$ is the
+heterotic worldsheet matter central charge
+$c_{L}^{\mathrm{het, matter}} = 16 + 8$; the Sugawara central charge
+of $\widehat{\mathfrak e_{8}} \oplus \widehat{\mathfrak e_{8}}$ at
+level $(1, 1)$ is $16$.
+\end{itemize}
+
+\end{document}

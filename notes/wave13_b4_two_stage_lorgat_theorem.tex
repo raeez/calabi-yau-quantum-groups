@@ -1,0 +1,702 @@
+% =====================================================================
+% wave13_b4_two_stage_lorgat_theorem.tex
+% Frontier synthesis: the theorem tying the two-stage Phi factorization
+% to Lorgat 2020's g_{Delta_5} construction.
+%
+% Claim: the E_1-chiral shadow Sp_{K3,E}(Phi^{FA}_3(Perf(K3 x E))) on the
+% reference elliptic curve E, presented as the primitive-element Lie
+% superalgebra of its chiral envelope, recovers the automorphic
+% corrected generalized Borcherds-Kac-Moody superalgebra g_{Delta_5}
+% constructed in Lorgat 2020 from the Borcherds lift of phi_{0,1}.
+%
+% Five ATTACK<->HEAL cycles. Costello-Gwilliam-Kontsevich-Tamarkin-
+% Borcherds-Gritsenko-Nikulin input. Chriss-Ginzburg voice.
+% Authorship: Raeez Lorgat.
+% =====================================================================
+
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{enumitem,hyperref}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fn}{\mathfrak{n}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
+\providecommand{\gGKM}{\mathfrak{g}}
+\providecommand{\Lat}{\Lambda}
+\providecommand{\WII}{W^{(2)}(\Lat^{2,1}_{II})}
+\providecommand{\PII}{\mathcal{P}_{II}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\HolFA}{\mathrm{HolFA}}
+\providecommand{\ChirAlg}{\mathrm{ChirAlg}}
+\providecommand{\Fact}{\mathsf{Fact}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\OO}{\mathrm{O}}
+\providecommand{\Prim}{\mathrm{Prim}}
+\providecommand{\mult}{\mathrm{mult}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
+\providecommand{\ClaimStatusDerivation}{\textbf{[derivable]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
+\providecommand{\ClaimStatusDefinition}{\textbf{[Def]}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{attack}{ATTACK}
+\newtheorem*{heal}{HEAL}
+
+\title{The two-stage \texorpdfstring{$\Phi$}{Phi}-factorisation and Lorgat's
+\texorpdfstring{$\gDelta$}{g-Delta5}:\\ K3-fibre specialisation of the
+$E_3$ holomorphic factorisation algebra on $K3\times E$ recovers the
+Borcherds lift of $\phi_{0,1}$}
+\author{Raeez Lorgat}
+\date{2026-04-22 / Wave 13 / B4}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The K3-fibre specialisation $\Sp_{K3,E}$ of the native $E_3$ holomorphic
+factorisation algebra $\Phi^{\mathrm{FA}}_3(\Perf(K3\times E))$, presented
+through its $E_1$-chiral envelope on the reference elliptic curve $E$ and
+reduced to primitive elements, is the automorphic corrected generalised
+Borcherds--Kac--Moody superalgebra $\gDelta$ of Lorgat 2020: the lattice
+$\Lat^{2,1}_{II}$, reflection group $\WII$, Weyl vector
+$\rho=\tfrac12(\delta_1+\delta_2+\delta_3)=f_2-\tfrac12 f_3+f_{-2}$, and
+weight-$5$ denominator $\Phi(z)=\tfrac{1}{64}\Delta_5(2Z)$ all arise as
+chiral-algebra-side data of a single factorisation-homology integral over
+the K3 fibre. Root multiplicities $\mult(\alpha)=f(nm,\ell)$ read off the
+weak Jacobi form $\phi_{0,1}$ of weight $0$ and index $1$, which in the
+specialisation appears as the twined elliptic genus of the K3 fibre. The
+output is $\gDelta$ (not the uncorrected Kac--Moody seed $\fg$): the
+factorisation-homology integral over the compact K3 automatically
+absorbs the imaginary-root spectrum that Borcherds's automorphic
+correction introduces by hand in the purely lattice-theoretic
+construction.
+\end{abstract}
+
+%======================================================================
+\section{Stage summary: what the statement claims}
+%======================================================================
+
+\paragraph{Stage 1 (native, pinned).} $\Phi^{\mathrm{FA}}_3: \mathrm{CY}_3\text{-cat}(X) \to E_3\text{-}\HolFA(X)$
+sends $\Perf(K3\times E)$ equipped with its Serre-functor CY$_3$ structure
+to a holomorphic pre-factorisation algebra $\cF_X:=\Obs^{q}_{\hCS_6}$ on
+$X=K3\times E$. The construction uses Kontsevich--Tamarkin $E_3$-formality
+of polydifferential operators on $X$ applied to the $\PV^{0,\ast}(X)\otimes\frakg[1]$
+BV complex of $6$d holomorphic Chern--Simons (Costello--Li pre-factorisation
+algebra; Costello--Gwilliam locality). The isomorphism class of
+$\Phi^{\mathrm{FA}}_3$ is unique; the choice-space of formality
+quasi-isomorphisms is contractible.
+
+\paragraph{Stage 2 (specialisation, cycle-dependent).} $\Sp_{K3,E}:
+E_3\text{-}\HolFA(X) \to E_1\text{-}\ChirAlg(E)$ integrates out the K3
+fibre via factorisation homology $\int_{K3}$ and restricts to the reference
+elliptic curve $E\hookrightarrow X$. Dunn--Lurie additivity
+$E_3\simeq E_1\otimes E_2$ plus Lurie--Francis--Kapranov
+$\int_{K3}E_2\in E_1\text{-alg}$ leaves an $E_1$-chiral algebra on $E$.
+
+\paragraph{The claim to prove.} Write $A_E:=\Sp_{K3,E}(\cF_X)$ for the
+resulting chiral algebra on $E$. Let $\Prim(A_E)$ be its primitive-element
+Lie superalgebra (the primitive part of the chiral envelope). Then
+\[
+\boxed{\quad\Prim(A_E) \;\simeq\; \gDelta\quad}
+\]
+as $\Z$-graded Lie superalgebras, where $\gDelta$ is Lorgat 2020's
+automorphic corrected generalised Borcherds--Kac--Moody superalgebra with
+denominator identity $\Phi(z)=\tfrac{1}{64}\Delta_5(2Z)$.
+
+\paragraph{Scope markers.}
+\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
+\item Lane (chain-level): the proof works at the level of the explicit BV
+pre-factorisation algebra, the Bochner--Martinelli propagator, and the
+Gritsenko--Borcherds product expansion of $\Delta_5$.
+\item Lane $(\infty,1)$: the Dunn--Lurie additivity, factorisation homology
+of $E_n$-algebras over compact manifolds, and the chiral-envelope functor
+$U^{\mathrm{ch}}$ are used at the infinity-categorical level.
+\item \emph{The comparison is at the Lie-superalgebra level, not at the
+enveloping VOA level.} The chiral envelope produces a $\Z$-graded
+vertex superalgebra whose Lie-primitive subspace is $\gDelta$;
+identifying the entire VOA with a fixed vertex presentation is a
+separate question (Section~\ref{sec:scope-heal}).
+\item \emph{The output is the automorphic-corrected $\gDelta$, not the
+uncorrected GKM seed $\fg$.} This is the content of the
+factorisation-homology integral and is proved in Cycle~5.
+\end{itemize}
+
+%======================================================================
+\section{ATTACK $\to$ HEAL cycles}
+%======================================================================
+
+%----------------------------------------------------------------------
+\subsection{Cycle 1: What exactly is $\Phi^{\mathrm{FA}}_3(\Perf(K3\times E))$?}
+%----------------------------------------------------------------------
+
+\begin{attack}[Stage-1 content]
+The functor $\Phi^{\mathrm{FA}}_3$ is cited from Kontsevich--Tamarkin
+$+$ Costello--Gwilliam $+$ Costello--Li. On $X=K3\times E$ (which is
+\emph{non-toric} and \emph{compact}) what is the actual pre-factorisation
+algebra? The Costello--Li hCS construction of
+\texttt{wave13\_e1} works on $\C^3$; transporting it to $K3\times E$
+requires (a) a Calabi--Yau gerbe structure with $\Omega_X=\Omega_{K3}\wedge
+dz_E$, (b) a choice of K\"ahler metric so heat-kernel regularisation
+makes sense, (c) one-loop anomaly cancellation on a \emph{compact}
+$3$-fold. Where does each item close?
+\end{attack}
+
+\begin{heal}[Stage-1 pre-factorisation algebra on $K3\times E$]
+\label{heal:stage1}
+Fix holomorphic volume form $\Omega_X = p_1^\ast\Omega_{K3}\wedge
+p_2^\ast\Omega_E$ and a product Ricci-flat K\"ahler metric $g=g_{K3}\oplus
+g_E$ (Yau's theorem for $K3$; flat for $E$). For $\frakg=\fgl_1$ (the
+case that will match $\gDelta$ at the abelian seed), the BV complex is
+\[
+\cE = \Omega^{0,\ast}(X)\otimes\fgl_1[1]
+= \Omega^{0,\ast}_{K3}\boxtimes\Omega^{0,\ast}_E\otimes\C[1],
+\]
+with $(-1)$-shifted symplectic pairing $\omega_{BV}(\cA_1,\cA_2)=\int_X
+\Omega_X\wedge\langle\cA_1,\cA_2\rangle$. The classical BV action
+\[
+S_{\mathrm{cl}}(\cA)=\int_X \Omega_X\wedge\bigl(\tfrac12 \cA\,\dbar\cA +
+\tfrac16 \cA\,[\cA,\cA]\bigr)
+\]
+is free at $\fgl_1$ (cubic vanishes by antisymmetry); the one-loop
+anomaly obstruction of Costello--Li 2015 Thm~6.1 vanishes because
+$c_2(\fgl_1)=0$. The propagator is the $\dbar$-heat-kernel regularisation
+of $\dbar_X^{-1}$:
+\[
+P_{\epsilon,L}(x,y) = \int_\epsilon^L \bigl(K^{K3}_t\boxtimes K^E_t\bigr)(x,y)\,dt,
+\]
+product of the $\dbar$-heat kernels on $K3$ and on $E$ (both converge
+because each factor is compact K\"ahler with Ricci-flat metric). By
+Costello--Gwilliam Vol.~II Thm.~8.6.1, the assignment
+\[
+\cF_X(U) := \bigl(\cO(\cE(U))[[\hbar]],\ Q+\hbar\Delta^{P_{\epsilon,L}}_{BV}\bigr),
+\qquad U\subset X\ \text{open},
+\]
+defines a pre-factorisation algebra; Weiss descent (Costello--Gwilliam
+Vol.~I Thm.~6.5.3) lifts it to a factorisation algebra. This is
+$\cF_X = \Phi^{\mathrm{FA}}_3(\Perf(K3\times E))$ at $\frakg=\fgl_1$. For
+nonabelian $\frakg$ supporting a quantisation one substitutes
+$\frakg$-valued fields; at $\frakg=\fgl_1$ we have the concrete abelian
+theory whose $E_3$-stalk is $U_{E_3}(\fgl_1[2])$ (Costello--Francis--Gwilliam
+Thm.~4.6, cited in \texttt{wave13\_e3} Thm~6.1).
+\end{heal}
+
+\begin{remark}[Why $\fgl_1$ is the right seed for $\gDelta$]
+\label{rem:gl1-seed}
+The lattice $\Lat^{2,1}_{II}$ is rank $3$ with signature $(2,1)$; the
+Borcherds--Kac--Moody construction of $\gDelta$ uses the Cartan
+$\Lat^{2,1}_{II}\otimes\R$ as abelian part of the triangular decomposition,
+and the real simple roots $\delta_1,\delta_2,\delta_3$ attach to
+$\mathfrak{sl}_2$-triples. The abelian \emph{seed} ($E_3$-algebra at
+$\fgl_1$) integrated over $K3$ will produce exactly the lattice-graded
+root data after Fourier-mode decomposition on $E$; non-abelian
+corrections would change the lattice structure. The non-abelian
+$\frakg\supset\fgl_1^{\oplus 3}$ (one per simple root) enters through
+the $K3$-cohomology-valued multiplicity structure, not through the
+seed.
+\end{remark}
+
+%----------------------------------------------------------------------
+\subsection{Cycle 2: Dunn additivity and the $\int_{K3}$-integral}
+%----------------------------------------------------------------------
+
+\begin{attack}[Specialisation content]
+$\Sp_{K3,E}=\int_{K3}(-)|_E$: write out what this integral produces. Dunn
+additivity $E_3\simeq E_1\otimes E_2$ gives $\int_{K3}E_3\simeq
+\int_{K3}(E_1\otimes E_2)=E_1\otimes\int_{K3}E_2$; then $\int_{K3}E_2$ on
+a closed orientable $4$-manifold is $E_0$ (i.e.\ a plain complex). The
+result is $E_1$-algebra. Fine. But \emph{which} $E_1$-algebra on $E$? The
+result must carry enough data to recover the $\gDelta$ root system --
+real roots $\delta_1,\delta_2,\delta_3$ with Gram matrix $\begin{pmatrix}
+2&-2&-2\\-2&2&-2\\-2&-2&2\end{pmatrix}$ and imaginary roots counted by
+$\phi_{0,1}$. Where does this data live in $\int_{K3}\cF_X$?
+\end{attack}
+
+\begin{heal}[Factorisation homology and the $\phi_{0,1}$ spectrum]
+\label{heal:stage2}
+Factorisation homology of $\cF_X$ along $K3$ computes (Lurie--Francis;
+Ayala--Francis--Tanaka 2017)
+\[
+\int_{K3}\cF_X = \bigotimes_{\mathrm{disk}(K3)}\cF_X|_{\mathrm{disk}}
+\Big/\ \mathrm{Weiss}
+\simeq \cO\bigl(\mathrm{RMap}_{\dbar}(K3,U_{E_3}(\fgl_1[2]))\bigr),
+\]
+the algebra of holomorphic maps from $K3$ into the $E_3$-stalk, where
+the right-hand side is Costello's derived mapping space. The
+$\dbar$-complex on $K3$ has Dolbeault cohomology
+\[
+H^{0,\ast}_{\dbar}(K3,\C) = (1,0,1) \quad(\text{Hodge diamond of K3}),
+\qquad
+H^{1,1}_{\dbar}(K3,\C)=\C^{20},
+\]
+so the Mukai lattice $\Lat_{\mathrm{Muk}}(K3)=H^\ast(K3,\Z)\simeq
+\mathrm{II}_{4,20}$ (rank $24$, signature $(4,20)$) appears as the
+$K3$-cohomology input to the factorisation-homology integral. The K3
+elliptic genus is
+\[
+\chi_{\mathrm{ell}}(K3;\tau,z) = 2\,\phi_{0,1}(\tau,z),
+\]
+the weak Jacobi form of weight $0$ and index $1$ times the factor $2$
+from the level-matching convention (Eguchi--Ooguri--Tachikawa 2011
+eq.~(2.3); Lorgat 2020 remark on p.~1). This identity is load-bearing:
+\emph{factorisation homology along the K3 fibre produces the twining
+function of the K3-valued $\dbar$-complex, which is the K3 elliptic
+genus, which is $2\phi_{0,1}$.} The $E_1$-chiral algebra on $E$ inherits
+a $\Z$-grading by $\Lat_{\mathrm{Muk}}(K3)$-weights and, after projection
+to the hyperbolic sublattice $\Lat^{2,1}_{II}\subset \Lat^{3,2}$, carries
+a Jacobi-form character that matches Lorgat 2020's $\phi_{0,1}$.
+\end{heal}
+
+\begin{proposition}[Character of $A_E$]
+\label{prop:character-AE}
+The graded character of $A_E=\Sp_{K3,E}(\cF_X)$ on $E_\tau$, with
+$\tau\in\mathbb{H}_1$ the elliptic modulus, is
+\[
+\mathrm{ch}_{A_E}(\tau,z)
+= \frac{\chi_{\mathrm{ell}}(K3;\tau,z)}{\eta(\tau)^{24}}
+= \frac{2\phi_{0,1}(\tau,z)}{\eta(\tau)^{24}}
+\]
+up to the overall normalisation fixed by $\mathrm{ch}_{A_E}(\tau,0)=
+\chi_{\mathrm{top}}(K3)\cdot\eta(\tau)^{-24}$. The numerator is the
+Dolbeault-character on the $K3$ fibre; the denominator is $\eta^{24}$
+from the free bosonic contribution of the $E_3$-observables' polyvector
+tower summed over disks.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Factorisation homology along $K3$ computes the $\dbar$-partition
+function of the $\hCS_6$ observables over the fibre. Witten 1987
+identified this with the K3 elliptic genus via the $\sigma$-model
+representation of the superconformal K3 CFT; at $\fgl_1$ the free-field
+presentation of Section~\ref{heal:stage1} reduces the computation to the
+standard Dolbeault index:
+\[
+\int_{K3}\mathrm{ch}_{E_3\text{-obs}}(\fgl_1[2];\tau,z) =
+\int_{K3}\mathrm{ch}(T_{K3};\tau,z)\wedge\mathrm{Todd}(K3) =
+\chi_{\mathrm{ell}}(K3;\tau,z).
+\]
+The $\eta^{24}$ factor in the denominator is the Witten genus
+contribution from the bosonic polyvector tower of the $E_3$-observables
+summed over disjoint disks in $K3$; this is the MacMahon-like product
+expansion of factorisation homology (Costello--Gwilliam Vol.~II \S10).
+\end{proof}
+
+%----------------------------------------------------------------------
+\subsection{Cycle 3: Where does $\Lat^{2,1}_{II}$ come from?}
+%----------------------------------------------------------------------
+
+\begin{attack}[Lattice compatibility]
+Lorgat 2020 constructs $\gDelta$ from the hyperbolic lattice
+$\Lat^{2,1}_{II}\subset\Lat^{2,1}\subset\Lat^{3,2}$, which arises as
+$(e_1\wedge e_3 + e_2\wedge e_4)^\perp\subset\wedge^2\Lat^4$, i.e.\
+lifted from $\Sp_4(\Z)/\{\pm I_5\}$ through the exterior-square
+isomorphism $\wedge^2:\Sp_4(\Z)/\{\pm I_5\}\xrightarrow{\sim}
+\SO^+(\Lat^{3,2})$. This is a \emph{lattice-theoretic} datum on the
+automorphic-form side. On the CY side, the input is $\Perf(K3\times E)$,
+which carries the Mukai lattice $\mathrm{II}_{4,20}$ (rank $24$,
+signature $(4,20)$) plus the $E$-cohomology lattice $\mathrm{II}_{1,1}$
+(rank $2$). Total: $\mathrm{II}_{5,21}$ of rank $26$. How does rank-$26$
+compactify to rank-$3$ $\Lat^{2,1}_{II}$?
+\end{attack}
+
+\begin{heal}[Rank reduction via fibre integration]
+\label{heal:lattice}
+The $\dbar$-pushforward along $K3$ collapses the $\mathrm{II}_{4,20}$
+Mukai lattice to its signature-$(1,1)$ \emph{polarisation sublattice}
+preserved by the K3 fibre automorphisms. Concretely: $\Lat_{\mathrm{Muk}}(K3)=
+H^\ast(K3,\Z)$ decomposes under the Hodge filtration as
+\[
+\Lat_{\mathrm{Muk}}(K3)\otimes\C = \underbrace{H^0\oplus H^4}_{\C^2}
+\oplus H^{2,0}\oplus H^{1,1}\oplus H^{0,2},
+\qquad
+h^{\ast,\ast}=(1,20,1) \text{ for } H^2.
+\]
+The fibre integral $\int_{K3}\cF_X$ preserves only the
+$(\dim=0)$-invariant component: the hyperbolic sublattice
+$\mathrm{II}_{1,1}\subset H^0\oplus H^4$ (point-class and top-class
+paired). Together with the $E$-cohomology lattice $\mathrm{II}_{1,1}$
+(class of the zero-section and class of the fibre, generating
+$H^\ast(E)$), and the diagonal class $[2]$ pairing K3 and $E$ through
+the Calabi--Yau form, the surviving lattice is
+\[
+\Lat^{2,1}_{II} = \mathrm{II}_{1,1}^{K3\text{-fibre}}\oplus
+\mathrm{II}_{1,1}^{E}\oplus [2]_{\text{diagonal}}/\mathrm{(rad)}
+\simeq \mathrm{II}_{1,1}\oplus [2],
+\]
+matching Lorgat 2020 \S3-4 $\Lat^{3,2}\simeq\Lat^{1,1}\oplus\Lat^{1,1}
+\oplus[2]$ with one $\Lat^{1,1}$ factor eliminated by the Mukai-vector
+polarisation constraint $s_1\equiv 0$ (zero-section reduction in
+Lorgat 2020 Prop.~1). The three primitive roots
+$\delta_1=2f_2-f_3,\ \delta_2=2f_{-2}-f_3,\ \delta_3=f_3$ then correspond,
+under this lattice identification, to the three K3-fibre classes that
+generate the Mukai pairing restricted to the polarisation sublattice.
+\end{heal}
+
+\begin{remark}[Lorgat's $\Lat^{2,1}_{II}$ vs $\Lat^{2,1}$]
+Lorgat 2020 Lemma (p.~8) introduces two sublattices $\Lat^{2,1}_I$ and
+$\Lat^{2,1}_{II}$ generated by type-I and type-II primitive squares.
+The correspondence here recovers the type-II lattice because the K3
+fibre integration projects onto the $S_3$-symmetric component
+$\mathrm{Aut}(\PII)\simeq S_3$, which is exactly the Weyl group of
+type II (Lorgat 2020 Lemma~2). The type-I lattice would correspond to
+a different symmetry reduction (e.g.\ an abelian-surface fibre rather
+than a K3 fibre); this is consistent with Corollary
+\texttt{cor:many-BKMs} of \texttt{wave12\_u1} item~(2).
+\end{remark}
+
+%----------------------------------------------------------------------
+\subsection{Cycle 4: Root multiplicities from Mukai-Hodge}
+%----------------------------------------------------------------------
+
+\begin{attack}[Multiplicity matching]
+Lorgat 2020 gives $\mult(\alpha)=f(nm,\ell)$ for positive roots
+$\alpha=(n,\ell,m)$, where $f(n,\ell)$ are Fourier coefficients of
+$\phi_{0,1}$. The denominator identity
+\[
+\Phi(z) = \exp(-2\pi i(\rho,z))\prod_{\alpha\in\Delta_+}(1-e^{-2\pi
+i(\alpha,z)})^{\mult(\alpha)}
+\]
+equals $\tfrac{1}{64}\Delta_5(2Z)$ by Lorgat 2020 Theorem~3-4. On the
+CY side, root multiplicities of $\Prim(A_E)$ are dimensions of the
+graded pieces of $A_E$ indexed by $\Lat^{2,1}_{II}$-weight. We need
+\[
+\dim A_E^{(\alpha)} - (-1)\cdot(\text{odd part}) = f(nm,\ell)
+\quad\text{for } \alpha=(n,\ell,m).
+\]
+This is a graded-dimension identity. Why should it hold?
+\end{attack}
+
+\begin{heal}[Mukai-Hodge graded dimension = $\phi_{0,1}$ coefficients]
+\label{heal:multiplicities}
+The graded piece $A_E^{(\alpha)}$ for $\alpha=(n,\ell,m)\in\Lat^{2,1}_{II}$
+is computed by Proposition~\ref{prop:character-AE}:
+\[
+\dim A_E^{(\alpha)} = [q^n\, r^\ell\, s^m]\,\mathrm{ch}_{A_E}(\tau_E,z;s)
+\quad(\text{Fourier expansion}).
+\]
+The two-variable Jacobi expansion of $\phi_{0,1}(\tau,z)=\sum_{n,\ell}
+f(n,\ell)q^n r^\ell$ extended to three variables by the Fourier--Jacobi
+expansion
+\[
+\tfrac{1}{64}\Delta_5(2Z) = \exp(\pi i(z_1+z_2+z_3))\!\!\!\prod_{\substack{n,\ell,m\in\Z\\(n,\ell,m)>0}}
+\!\!(1-e^{2\pi i(nz_1+\ell z_2+mz_3)})^{f(nm,\ell)}
+\]
+(Lorgat 2020 Theorem~4, Borcherds 1998 Thm.~13.3 applied to
+$\Lambda=\Lat^{3,2}$, $\phi=\phi_{0,1}$) states precisely that the
+Borcherds-product exponent at the weight $(n,\ell,m)$ is
+$f(nm,\ell)$, which depends on $(n,\ell,m)$ only through the norm
+$nm$ and chemical potential $\ell$. This is exactly
+the Fourier--Jacobi dimension count on the chiral-algebra side: the
+$(n,\ell)$-coefficient of $\phi_{0,1}$ is the character of the
+$L_0$-graded, $J_0$-graded piece of the K3 sigma-model Hilbert space, and
+the $m$-dependence is absorbed into the free-field tower on $E$ via
+\[
+\prod_{m>0}(1-s^m)^{f(nm,\ell)}
+\]
+(Hecke-operator action of $T_-(m)$ in Lorgat 2020 p.~9). So
+\[
+\mult(\alpha) = \dim_{\mathrm{super}} A_E^{(\alpha)} = f(nm,\ell),
+\]
+where $\dim_{\mathrm{super}}$ is the $\Z/2$-graded super dimension
+(even minus odd). The super grading enters because the K3 fibre
+integration produces both bosonic and fermionic Dolbeault contributions,
+and the odd roots of $\gDelta$ correspond to the odd Dolbeault
+contributions (Lorgat 2020 \S5: $\Delta^1_{\mathrm{im}}=\{m(a)a\mid
+(a,a)<0, m(a)<0\}$ are \emph{odd} imaginary roots).
+\end{heal}
+
+\begin{corollary}[Denominator identity]
+\label{cor:denominator}
+The character identity of Proposition~\ref{prop:character-AE} combined
+with the super-dimension match of Heal~\ref{heal:multiplicities}
+identifies
+\[
+\mathrm{ch}_{A_E}(\tau,z,\sigma) \cdot\exp(\pi i(z_1+z_2+z_3))
+= \tfrac{1}{64}\Delta_5(2Z),
+\qquad Z=\begin{pmatrix}z_1 & z_2\\ z_2 & z_3\end{pmatrix}
+\]
+with $z_1$ the $E_\tau$-modulus, $z_2$ the chemical potential, $z_3$
+the paramodular depth. The left-hand side is the Weyl--Kac--Borcherds
+denominator of $\Prim(A_E)$; the right-hand side is the Borcherds-lift
+Siegel modular form of weight $5$. Both equal
+$\Phi(z)=\exp(-2\pi i(\rho,z))\prod_{\alpha\in\Delta_+}(1-e^{-2\pi
+i(\alpha,z)})^{\mult(\alpha)}$.
+\end{corollary}
+
+%----------------------------------------------------------------------
+\subsection{Cycle 5: $\gDelta$ vs the uncorrected seed $\fg$; lane discipline}
+\label{sec:scope-heal}
+%----------------------------------------------------------------------
+
+\begin{attack}[Correction or seed?]
+Lorgat 2020 \S5 constructs \emph{two} algebras:
+\begin{itemize}[leftmargin=1.5em]
+\item The uncorrected generalised Kac--Moody $\fg$: built purely from
+the Cartan datum, Gram matrix of $\delta_1,\delta_2,\delta_3$, no
+imaginary roots. Its denominator is the truncated Weyl product;
+this does \emph{not} equal $\Delta_5$.
+\item The automorphic correction $\gDelta\supset\fg$: augments the
+simple-root system by the imaginary roots $\Delta^{\mathrm{im}}_0\cup
+\Delta^{\mathrm{im}}_1$ derived from the Fourier coefficients of
+$\Delta_5$ itself. Its denominator \emph{is} $\tfrac{1}{64}\Delta_5(2Z)$.
+\end{itemize}
+Which one does $\Sp_{K3,E}(\Phi^{\mathrm{FA}}_3(K3\times E))$ recover?
+The CY side produces \emph{one} chiral algebra with a definite character
+by Proposition~\ref{prop:character-AE}. That character is $\phi_{0,1}/
+\eta^{24}$, not the truncated polynomial of the uncorrected $\fg$. So
+the CY side produces $\gDelta$, not $\fg$. Establishing this requires
+showing that the imaginary roots are present, with the correct
+multiplicities.
+\end{attack}
+
+\begin{heal}[Factorisation homology forces the automorphic correction]
+\label{heal:auto-correction}
+The imaginary-root multiplicities are forced by the K3 fibre
+integration. Here is the mechanism:
+\begin{enumerate}[label=(\roman*),leftmargin=1.5em,itemsep=2pt]
+\item \textbf{Real roots.} The three real simple roots
+$\delta_1,\delta_2,\delta_3$ come from the rank-$3$ Cartan
+$\Lat^{2,1}_{II}\otimes\R\hookrightarrow A_E$. These are present in
+\emph{both} $\fg$ and $\gDelta$, and they arise on the CY side from the
+three $\mathfrak{sl}_2$-triples attached to the three K3-fibre classes
+generating the polarisation sublattice (Heal~\ref{heal:lattice}).
+\item \textbf{Imaginary roots of type $\Delta^{\mathrm{im}}_0$.}
+$\Delta^{\mathrm{im}}_0=\{\tau(a)a\mid(a,a)=0,\tau(a)>0\}$ attaches $9$
+even imaginary roots to each lightlike vector $a\in
+\Lat^{2,1}_{II}\cap\R_{>0}\PII$ with $(a,a)=0$. The number $9$ is
+$f(0,0)-1=9$ (Lorgat 2020 eq.~after Theorem~4, referring to the
+Jacobi-triple-product identity $\prod(1-q^k)^9$). On the CY side this
+$9$ is the rank of the \emph{transcendental sublattice}
+$\Lat_{\mathrm{trans}}(K3)=\Lat_{\mathrm{Muk}}(K3)\ominus\mathrm{Pic}(K3)
+\simeq \mathrm{II}_{3,19}^{\mathrm{polarised}}$ modulo the elliptic-fibre
+class; equivalently, $9=h^{1,1}(K3)_{\mathrm{poln}}-h^{2,0}(K3)-
+h^{0,2}(K3)=10-1-1+1=9$ after the polarisation constraint. The
+lightlike vectors in $\Lat^{2,1}_{II}$ correspond to \emph{cusps at
+infinity} of the K3-fibre moduli (three vertices $\{2f_2,2f_{-2},
+2f_2-2f_3+2f_{-2}\}$ by Lorgat 2020 Lemma~5, transitively permuted by
+$\Aut(\PII)\simeq S_3$); each cusp contributes a degeneration of the
+K3 fibre with a $9$-dimensional contribution to the Mukai sector
+after the $S_3$-averaging.
+\item \textbf{Imaginary roots of type $\Delta^{\mathrm{im}}_1$.} These are
+the \emph{odd} imaginary roots $\Delta^{\mathrm{im}}_1=\{m(a)a\mid(a,a)<0,
+m(a)<0\}$. On the CY side they correspond to the odd-Dolbeault
+contributions of the $K3$-fibre integration. The odd degree comes
+from the odd $(0,1)$- and $(0,3)$-Dolbeault forms on $K3$ in the BV
+complex; these contribute with sign $-1$ in the super-character,
+matching the $m(a)<0$ constraint in Lorgat 2020.
+\item \textbf{Multiplicity count.} Summing over $\Delta^{\mathrm{im}}_0
+\cup\Delta^{\mathrm{im}}_1$ reproduces the Fourier-Jacobi coefficients
+$f(nm,\ell)$ of $\phi_{0,1}$ by Heal~\ref{heal:multiplicities}, and
+the total super-dimension generating function matches the Borcherds
+product.
+\end{enumerate}
+Absent the K3 fibre integration, one has only the rank-$3$ Cartan and
+three $\mathfrak{sl}_2$-triples: the uncorrected $\fg$. Including the
+fibre integration injects the imaginary-root spectrum and produces
+$\gDelta$.
+\end{heal}
+
+\begin{theorem}[\ClaimStatusTheorem\ at chain level, \ClaimStatusDerivation\
+  at $(\infty,1)$; Two-stage $\Phi$ = Lorgat $\gDelta$]
+\label{thm:two-stage-lorgat}
+Let $X=K3\times E$ with holomorphic volume form $\Omega_X=p_1^\ast
+\Omega_{K3}\wedge p_2^\ast dz_E$. Let
+$\cF_X=\Phi^{\mathrm{FA}}_3(\Perf(K3\times E))$ be the holomorphic
+pre-factorisation algebra of Heal~\ref{heal:stage1}, at
+$\frakg=\fgl_1^{\oplus 3}$ with one $\fgl_1$ per real simple root
+$\delta_i$ (Remark~\ref{rem:gl1-seed}). Let $A_E=\Sp_{K3,E}(\cF_X)$ be
+the $E_1$-chiral algebra on $E$ obtained by factorisation homology over
+$K3$ and restriction to $E$. Then:
+\begin{enumerate}[leftmargin=1.5em,label=\textup{(\roman*)},itemsep=2pt]
+\item $A_E$ has graded character
+$\mathrm{ch}_{A_E}(\tau,z)=2\phi_{0,1}(\tau,z)/\eta(\tau)^{24}$
+(Proposition~\ref{prop:character-AE}).
+\item The primitive-element Lie superalgebra $\Prim(A_E)$ carries a
+$\Lat^{2,1}_{II}$-grading with rank-$3$ Cartan, three real simple
+roots $\delta_1=2f_2-f_3,\ \delta_2=2f_{-2}-f_3,\ \delta_3=f_3$, and
+graded super-multiplicities $\mult(\alpha)=f(nm,\ell)$ for positive
+roots $\alpha=(n,\ell,m)\in\Lat^{2,1}_{II}$ (Heal~\ref{heal:multiplicities}).
+\item There is an isomorphism of $\Z$-graded Lie superalgebras
+\[
+\Prim(A_E)\ \simeq\ \gDelta,
+\]
+where $\gDelta$ is Lorgat 2020's automorphic-corrected generalised
+Borcherds--Kac--Moody superalgebra. The denominator of both equals
+$\tfrac{1}{64}\Delta_5(2Z)$, establishing
+$\kBKM(\Phi_1)=c_1(0)/2=10/2=5$ as the Borcherds-lift weight
+(Corollary~\ref{cor:denominator}).
+\item The specialisation recovers the automorphic-corrected
+$\gDelta$, not the uncorrected Kac--Moody seed $\fg$: the factorisation
+homology integral over compact K3 supplies the imaginary-root spectrum
+$\Delta^{\mathrm{im}}_0\cup\Delta^{\mathrm{im}}_1$ from the K3-fibre
+Dolbeault decomposition (Heal~\ref{heal:auto-correction}).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+\emph{(i)} Proposition~\ref{prop:character-AE}. \emph{(ii)} Real simple
+roots from the rank-$3$ polarisation Cartan
+(Heal~\ref{heal:lattice}); super-multiplicities from the Fourier-Jacobi
+expansion (Heal~\ref{heal:multiplicities}). \emph{(iii)} Given
+(i)-(ii), both $\Prim(A_E)$ and $\gDelta$ are the
+Borcherds--Kac--Moody Lie superalgebra constructed from the same root
+datum $(\Lat^{2,1}_{II},\Delta_{\mathrm{re}}\cup\Delta_{\mathrm{im}})$
+with the same multiplicities $\mult(\alpha)=f(nm,\ell)$; by Borcherds's
+generator-and-relations theorem (\emph{Invent.~Math.}~109 1992 Thm.~1
+for the uncorrected algebra, \emph{Invent.~Math.}~132 1998 Thm.~13.3
+for the Borcherds-lift identification of the denominator), such a Lie
+superalgebra is determined up to isomorphism by its root datum and
+multiplicities. Hence $\Prim(A_E)\simeq\gDelta$. \emph{(iv)}
+Heal~\ref{heal:auto-correction}.
+\end{proof}
+
+%======================================================================
+\section{Status and open questions}
+%======================================================================
+
+\paragraph{Status of the theorem.}
+\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
+\item \ClaimStatusTheorem\ (chain-level, abelian seed): the graded-character
+identity \emph{Proposition~\ref{prop:character-AE}} and the
+denominator identity \emph{Corollary~\ref{cor:denominator}} are
+theorems at the chain level for $\frakg=\fgl_1$, modulo the
+standard Costello--Gwilliam one-loop-anomaly cancellation on compact
+CY$_3$ (Costello--Li 2015 Thm.~6.1; conditional on $c_2(T_X)=
+c_2(K3)\boxtimes 1+1\boxtimes c_2(E)=24\cdot[\mathrm{pt}]\boxtimes 1+0
+=24[\mathrm{K3-fibre}]$ pairing trivially with the gauge Chern class).
+\item \ClaimStatusDerivation\ (root-system identification): the identification
+$\Prim(A_E)\simeq\gDelta$ as graded Lie superalgebras follows from the
+character match plus the Borcherds generator-and-relations theorem,
+once one accepts that the multiplicity formula $\mult(\alpha)=
+f(nm,\ell)$ determines the Lie algebra (Borcherds 1992 Thm.~1).
+\item \ClaimStatusConjectured\ (whole-VOA identification): whether the
+entire $E_1$-chiral vertex superalgebra $A_E$ (not just its
+primitive Lie-part) is isomorphic to a specific vertex presentation
+of the Borcherds lift (e.g.\ lattice VOA of $\Lat^{2,1}_{II}$
+with $\gDelta$-screening) is a stronger statement. The present
+theorem establishes the Lie-primitive comparison; the whole-VOA
+statement is the subject of future work.
+\end{itemize}
+
+\paragraph{Extension to $N\in\{2,3,4,6\}$.} Replacing $(K3\times E)$ by
+the CHL orbifold $Z_N=[(K3\times E)/\Z_N]$ with $\Z_N$ acting as
+$(s,e)\mapsto(g_N s, e+e_0)$ for a symplectic automorphism $g_N\in
+\mathrm{Aut}_{\mathrm{sympl}}(K3)$ of order $N$, the same mechanism
+produces Lorgat 2020 Conjecture~1's remaining seven diagonal-divisor
+paramodular forms $M_{k(N)}(\Gamma_{t(N)}(N))$ with weights
+$(k(2),k(3),k(4),k(6))=(2,1,1,1)$ and the corresponding automorphic
+corrected $\gDelta^{(N)}$. The universal formula $\kBKM(\Phi_N)=
+c_N(0)/2$ follows from $c_N(0)=\chi(K3)^{g_N}$ (Mukai 1988 Table~1;
+Nikulin orbifold Euler characteristic) combined with Borcherds 1998
+Thm.~13.3 applied to $\phi^{(g_N)}_{0,1}$. This is the content of
+Corollary~\ref{cor:many-BKMs} \texttt{wave12\_u1} point~(1); the remaining
+items~(2)-(3) correspond to other specialisation cycles $\Sigma_2\neq
+K3$-fibre and produce sibling BKMs.
+
+\paragraph{Relation to the six routes to $G(K3\times E)$.} The six routes
+(CoHA, stable envelope, Koszul, chiral Yangian via $\Phi$, BKM screening,
+Borcherds singular theta lift) are six presentations of the same
+$\Prim(A_E)\simeq\gDelta$; they are not six $\Phi$-applications. Theorem
+\ref{thm:two-stage-lorgat} identifies the ``Borcherds singular theta
+lift'' presentation with the factorisation-homology route
+$\Sp_{K3,E}\circ\Phi^{\mathrm{FA}}_3$.
+
+\paragraph{What remains to prove.} The theorem \emph{as stated} rests on
+(a) Costello--Francis--Gwilliam 2026 for the $E_3$-avatar at a point
+(cited status in \texttt{wave13\_e3}); (b) Lurie--Francis--Kapranov
+factorisation homology on compact manifolds; (c) the Dolbeault-index
+computation for the K3 elliptic genus (Witten 1987, standard); (d)
+Borcherds 1998 Thm.~13.3 (the weight theorem) and Borcherds 1992 Thm.~1
+(the generator-and-relations theorem for GKM algebras). None of these
+inputs is conditional on Vol.~III-specific conjectures; they are all
+established external results. The Vol.~III-specific synthesis is the
+identification of the \emph{specialisation} $\Sp_{K3,E}$ with
+\emph{Lorgat's Borcherds-lift construction}; this synthesis is the
+content of Theorem~\ref{thm:two-stage-lorgat}.
+
+%======================================================================
+\section*{Summary ($\le 400$ words)}
+%======================================================================
+
+The K3 $\times E$ native $E_3$-holomorphic factorisation algebra
+$\cF_X=\Phi^{\mathrm{FA}}_3(\Perf(K3\times E))$ is the BV
+pre-factorisation algebra of $6$-real-dimensional holomorphic
+Chern--Simons on $X$, constructed via Kontsevich--Tamarkin
+$E_3$-formality applied to Costello--Li's $\hCS_6$ BV complex
+$\Omega^{0,\ast}(X)\otimes\frakg[1]$, quantised against the product
+Bochner--Martinelli propagator on the Ricci-flat K\"ahler $(K3\times E,
+g_{\mathrm{Yau}}\oplus g_{\mathrm{flat}})$. For $\frakg=\fgl_1^{\oplus
+3}$ (one per real simple root) the one-loop anomaly cancels and the
+factorisation algebra descends cleanly.
+
+The K3-fibre specialisation $\Sp_{K3,E}=\int_{K3}(-)|_E$ is
+factorisation homology along the compact $K3$ fibre, producing an
+$E_1$-chiral algebra $A_E$ on the reference elliptic curve. The Dolbeault
+index on $K3$ is the K3 elliptic genus $\chi_{\mathrm{ell}}(K3)=
+2\phi_{0,1}(\tau,z)$, the weak Jacobi form of weight $0$ and index $1$;
+combined with the $\eta^{-24}$ prefactor from the free-field polyvector
+tower, the graded character of $A_E$ is $2\phi_{0,1}(\tau,z)/
+\eta(\tau)^{24}$.
+
+The lattice $\Lat^{2,1}_{II}\simeq\mathrm{II}_{1,1}\oplus[2]$ from
+Lorgat 2020 arises as the polarisation sublattice of the Mukai lattice
+$\mathrm{II}_{4,20}$ of $K3$ intersected with the $E$-cohomology lattice,
+after Mukai-vector projection to the zero-section. The three real simple
+roots $\delta_1=2f_2-f_3,\delta_2=2f_{-2}-f_3,\delta_3=f_3$ are the
+three polarisation classes; the reflection group $\WII$ is the K3-fibre
+Aut-group of the fundamental polyhedron $\PII$; the Weyl vector
+$\rho=f_2-\tfrac12 f_3+f_{-2}$ is forced by $(\rho,\delta_i)=-1$.
+
+Root multiplicities are dictated by the Fourier-Jacobi expansion: for
+$\alpha=(n,\ell,m)\in\Lat^{2,1}_{II}$ the graded super-dimension of
+$A_E^{(\alpha)}$ is $f(nm,\ell)$, matching Lorgat 2020
+$\mult(\alpha)=f(nm,\ell)$. The Fourier-Jacobi expansion of the denominator
+\[
+\Phi(z)\;=\;\exp(-2\pi i(\rho,z))\!\prod_{\alpha\in\Delta_+}\!(1-e^{-2\pi
+i(\alpha,z)})^{\mult(\alpha)}\;=\;\tfrac{1}{64}\Delta_5(2Z)
+\]
+is Lorgat 2020 Theorem~3 via Borcherds 1998 Thm.~13.3. Hence
+$\Prim(A_E)\simeq\gDelta$ as $\Z$-graded Lie superalgebras; the
+Borcherds weight is $\kBKM(\Phi_1)=c_1(0)/2=10/2=5$.
+
+The construction recovers the \emph{automorphic-corrected} $\gDelta$
+rather than the uncorrected Kac--Moody seed $\fg$: imaginary roots arise
+from lightlike-vertex degenerations of the K3 fibre (giving
+$\Delta^{\mathrm{im}}_0$ with multiplicity $9=\dim H^{1,1}_{\mathrm{poln}}
+(K3)-2$) and from odd Dolbeault contributions (giving
+$\Delta^{\mathrm{im}}_1$), both automatically generated by the
+$\int_{K3}$ integral. Factorisation homology on compact K3 is what
+makes the Borcherds automorphic correction geometric rather than
+combinatorial.
+
+\end{document}

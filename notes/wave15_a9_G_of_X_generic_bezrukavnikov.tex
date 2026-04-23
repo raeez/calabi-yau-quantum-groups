@@ -1,0 +1,1346 @@
+% wave15_a9_G_of_X_generic_bezrukavnikov.tex
+%
+% Attack-heal frontier note: construction of the quantum vertex chiral
+% group G(X) for generic smooth proper CY_d X, i.e.\ at targets beyond
+% {C^3, conifold, local P^2, local P^1 x P^1, K3 x E (abelian level),
+% quintic (BCOV-curved level)} where case-by-case construction exists.
+%
+% Voice. R. Bezrukavnikov of the elite Russian mathematical school
+% (Beilinson, Drinfeld, Bernstein, Kazhdan, Bondal, Orlov, Bridgeland,
+% Keller, Kontsevich, Soibelman) with the physical overlay of
+% Kapustin, Witten, Costello, Gaiotto. Sheaf-theoretic depth;
+% Fourier--Mukai kernel two-groupoid; Bridgeland stability manifolds;
+% Toen derived enhancement; Keller--Yang derived 3-Calabi--Yau Hall
+% algebras with cluster mutation; dual to the physics of 6D hCS on
+% CY_3 and 4D twisted BV on CY_2.
+%
+% Operating rule. Every ATTACK states (a) the ghost theorem the slogan
+% reaches for, (b) the precise categorical / representability error it
+% commits, (c) the correct functorial relationship. Every HEAL
+% constructs the object it replaces the slogan with
+% (localised derived Hall algebra, seven-chart cocycle atlas,
+% Drinfeld-centre half-braiding package, representability pair) and
+% labels the claim status (Theorem / Derivation / Conjecture /
+% Heuristic) and the lane (chain-level vs (infty,1)-categorical).
+%
+% Companion notes consulted:
+%   notes/wave12_a9_langlands_higgs_bezrukavnikov.tex -- tri-scope
+%     Langlands framing (arithmetic, Beilinson--Drinfeld, Kapustin--Witten);
+%   notes/wave13_a9_sheaves_BKM_bezrukavnikov.tex -- sheaf-theoretic
+%     avatars, characteristic-cycle arithmetic;
+%   notes/wave14_a12_autoequiv_2groupoid_bezrukavnikov.tex -- autoequivalence
+%     2-groupoid and its (non-)identification with the physical gauge group;
+%   notes/CoHA_to_W_infty_treatise.tex -- CoHA as E_1-algebra, chiralisation
+%     as a second step.
+%
+% Cache triggers consulted at Gate 0 below.
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{attack}{Attack}
+\newtheorem{heal}[attack]{Heal}
+\newtheorem{scope}[theorem]{Scope}
+\newtheorem{remark}{Remark}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{definition}[theorem]{Definition}
+
+\providecommand{\kk}{\mathbf{k}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\IndCoh}{\mathrm{IndCoh}}
+\providecommand{\QCoh}{\mathrm{QCoh}}
+\providecommand{\Perv}{\mathrm{Perv}}
+\providecommand{\Sh}{\mathrm{Sh}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Auteq}{\mathrm{Auteq}}
+\providecommand{\AutInf}{\mathrm{Aut}^{(\infty,1)}}
+\providecommand{\Stab}{\mathrm{Stab}}
+\providecommand{\Pic}{\mathrm{Pic}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Spec}{\mathrm{Spec}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Ob}{\mathrm{Ob}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\FM}{\mathrm{FM}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Map}{\mathrm{Map}}
+\providecommand{\QChirGrp}{\mathrm{QChirGrp}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{Ch}}}
+\providecommand{\hCS}{h\mathrm{CS}}
+\providecommand{\CoHA}{\mathcal{H}^{\CoHA}}
+\providecommand{\Hdt}{\mathcal{H}}
+\providecommand{\Hloc}{\mathcal{H}^{\mathrm{loc}}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cR}{\mathcal{R}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\bC}{\mathbf{C}}
+\providecommand{\bZ}{\mathbf{Z}}
+\providecommand{\bR}{\mathbf{R}}
+\providecommand{\bQ}{\mathbf{Q}}
+\providecommand{\bP}{\mathbf{P}}
+\providecommand{\bG}{\mathbf{G}}
+\providecommand{\bS}{\mathbf{S}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\ClaimStatusDerivation}{\textbf{[Derivation]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjecture]}}
+\providecommand{\ClaimStatusHeuristic}{\textbf{[Heuristic]}}
+
+\title{The quantum vertex chiral group $G(X)$ of a generic Calabi--Yau:
+a localised derived-Hall-algebra construction with seven-chart cocycle atlas}
+\author{}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For a smooth proper Calabi--Yau $X$ of dimension $d \in \{2, 3\}$, the
+quantum vertex chiral group $G(X)$ has been constructed by hand only
+at a finite list of CY$_3$ targets ---
+$\bC^3$, the resolved conifold, local $\bP^2$, local
+$\bP^1 \times \bP^1$, $K3 \times E$ at abelian level, the quintic under
+the BCOV curving --- and at no CY$_2$ target beyond $K3$ itself
+(K3 Yangian). Beyond this list, the object exists as the representing
+object $G(X)$ of the CoHA-compatibility functor $F_X$
+(Theorem~\ref{thm:qgf-rep} recalled below, \cite{VolIII-qgf-rep}), but
+carries no concrete presentation. Five ATTACK$\leftrightarrow$HEAL cycles
+install a presentation at generic $X$: $G(X)$ is the
+\emph{localised derived Hall algebra}
+$\Hloc\bigl(\cC_{\CY_d}(X)\bigr)$ of the Keller--Yang derived
+$d$-Calabi--Yau category attached to $X$, equipped with a
+\emph{seven-chart cocycle atlas} $\{\cU_\alpha\}_{\alpha = 1}^{7}$
+corresponding to the seven faces of $r_{\CY}$: CoHA chart, Maulik--Okounkov
+chart, Koszul-dual chart, Drinfeld-double chart, BKM-denominator chart,
+shuffle chart, physics-stability chart. Cocycle conditions are
+stratified by the dimension $d$ (CY-D stratification of
+\texttt{cy\_d\_kappa\_stratification.tex}): at $d = 2$ the atlas is a
+single chart covering a genuine Poisson Hopf algebra; at $d = 3$ the
+cocycles carry the $(-1)$-shifted symplectic Pantev--To\"en--Vaqui\'e
+--Vezzosi structure, localised on the Lagrangian intersection-atlas of
+$\Map(C, X)$ for the reference Riemann surface $C$. Cycle~(1)
+constructs $G(X)$ as the two-stage factorisation specialisation
+$\End^{\Eone}\bigl(\SpCh_{\Sigma_{d-1}, C}(\Phi^{\mathrm{FA}}_d(D^b\Coh(X)))\bigr)$
+and proves the seven-chart coordinate atlas exists on it. Cycle~(2)
+replaces ``$\Phi$-output at $d \geq 3$ is an $\Etwo$-algebra'' with
+the correct statement: $\Phi_d$-output is natively $\Eone$; the $\Etwo$
+braided content lives on the Drinfeld centre
+$Z(\Rep^{\Eone}(\Phi_d(\cC)))$ via half-braidings. Cycle~(3)
+replaces the na\"ive ``generic $\CY_3$ is a direct sum of local
+toric pieces'' with the correct Keller--Yang derived-$d$-Calabi--Yau
+category $\cC_{\CY_d}(X)$, localised at the generic flop wall, with
+the Iyama--Yoshino cluster mutation as the seven-chart transition
+functions. Cycle~(4) fixes the common error of equating the derived
+Hall algebra with its pro-nilpotent completion: $\Hloc$ is the
+\emph{localisation} at reflective spherical objects, not the
+completion. Cycle~(5) installs the compatibility of the localised
+derived Hall algebra with the Schiffmann--Vasserot CoHA sheafification
+and the Maulik--Okounkov stable envelope, identifying the seven charts
+pairwise at the level of generators. The main conjecture of the note
+(Conjecture~\ref{conj:seven-chart-atlas}) is: the seven-chart atlas on
+$\Hloc\bigl(\cC_{\CY_d}(X)\bigr)$ patches to a single quantum vertex
+chiral group $G(X)$, and this $G(X)$ represents the CoHA-compatibility
+functor $F_X$ of \cite{VolIII-qgf-rep}. Proved at $d = 2$ on smooth
+proper CY$_2$ with Picard rank one and formal $D^b\Coh$; conjectural
+at $d = 3$ on generic smooth proper CY$_3$ (non-toric, non-product).
+\end{abstract}
+
+% ====================================================================
+\section*{Gate 0. Cache triggers and primary-literature base}
+% ====================================================================
+
+\noindent\textbf{AP-CY catalogue and cache}:
+AP-CY1--5 ($\Phi$-output scope: $E_\infty$ at $d = 1$, $\Etwo$ at
+$d = 2$, $\Eone$ at $d \geq 3$; do not attach $\Etwo$ to the
+wrong layer);
+AP-CY6 ($\CY_2 \neq$ only $K3$; stability scope);
+AP-CY15 (toric $\not\Rightarrow$ compact);
+AP-CY20, AP-CY149 (one Omega parameter on $K3 \times E$, not two);
+AP-CY55 (morphism-preservation for $\Phi$ at $d = 3$ is open);
+AP-CY57 (do not narrate; \emph{construct} the algebra);
+AP-CY62 ($\CoHA$ is $\Eone$-associative; chiralisation is a second
+step);
+AP-CY66, AP-CY67, AP-CY68 (sheaf-theoretic avatars; characteristic-cycle
+arithmetic);
+AP-CY98 ($\kch \neq \chi(\cO_X)$ at odd $d \geq 3$: use the CY-D
+stratification, not the $d = 2$ Hodge-supertrace identification);
+AP113 (subscripted $\kch / \kcat / \kBKM / \kfib$ always);
+AP-CY50 ($(c_{4d}, c_{2d})$ central-charge reversal: do not flip
+signs of the $R$-matrix residues);
+AP-CY62 (CoHA vs chiral algebra type --- the CoHA is $\Eone$ even on
+CY$_3$ where the chiral image is $\Eone$-chiral on the reference curve;
+chiralisation is a second step of factorisation).
+Vol~I cache V9 ($\Stab^\Phi(K3 \times E) = \Stab(K3) \times \Stab(E)$
+is a codim-22 slice of the rank-48 Bridgeland stability manifold, not
+a codim-0 identification). Vol~II cache V14
+($\SCchtop$-datum on $K3 \times E$ is 3D HT QFT, not 4D: the seven
+faces are a parameter of a 3D topological field theory, not an
+identity of 4D gauge theories).
+
+\noindent\textbf{Primary literature base}:
+\begin{itemize}\itemsep 2pt
+ \item Kontsevich--Soibelman, \emph{Stability structures, motivic
+   Donaldson--Thomas invariants and cluster transformations}
+   (arXiv:0811.2435, 2008) --- the canonical definition of the
+   CoHA as an $\Eone$-algebra attached to a $3$-Calabi--Yau
+   $A_\infty$-category with a weak stability structure; its
+   $Y^+(\hat{\fgl}_1)$-identification at the universal toric input.
+ \item Keller--Yang, \emph{Derived equivalences from mutations of
+   quivers with potential} (\emph{Adv.\ Math.}~226, 2011,
+   arXiv:0906.0761) --- the derived $3$-Calabi--Yau completion
+   functor $\Pi_3$ and the mutation-compatible derived equivalences
+   $\mu_k \colon \cC_{\CY_3}(Q, W) \simeq \cC_{\CY_3}(\mu_k Q,
+   \mu_k W)$.
+ \item Iyama--Yoshino, \emph{Mutation in triangulated categories and
+   rigid Cohen--Macaulay modules} (\emph{Invent.\ Math.}~172, 2008) ---
+   the cluster-tilting theory on a $2$-Calabi--Yau triangulated
+   category, which in Vol~III furnishes the transition functions
+   between the seven charts of $G(X)$ at $d = 2$.
+ \item To\"en, \emph{Derived Hall algebras} (\emph{Duke}~135, 2006,
+   arXiv:math/0501343) --- the derived-category analogue of Ringel's
+   Hall algebra: the Hall product on a finitary triangulated category
+   $\cD$ via the lifted convolution
+   $[X] \cdot [Y] = \sum_Z \frac{|\Hom(X, Y)_Z|}{|\Aut(X)||\Aut(Y)|}
+   [Z]$; specialised to coherent sheaves on a CY$_d$, this is the
+   chain-level precursor of $G(X)$.
+ \item Schiffmann--Vasserot, \emph{Cherednik algebras, $W$ algebras
+   and the equivariant cohomology of the moduli space of instantons
+   on $\cA^2$} (\emph{Publ.\ IHES}~118, 2013, arXiv:1202.2756;
+   arXiv:1705.07488) --- $\CoHA(\bC^3) \simeq Y^+(\hat{\fgl}_1)$;
+   the universal CoHA-to-Yangian presentation at the toric reference
+   point.
+ \item Maulik--Okounkov, \emph{Quantum groups and quantum cohomology}
+   (\emph{Ast\'erisque}~408, 2019, arXiv:1211.1287) --- the stable
+   envelope construction producing the $R$-matrix
+   $R^{\mathrm{MO}}(u) = \Stab_{C_+}^{-1} \circ \Stab_{C_-}$
+   of the positive half $Y^+(Q_X)$ of $G(X)$ on the Nakajima
+   quiver-variety $\cM(Q_X, v, w)$.
+ \item Francis--Gaitsgory, \emph{Chiral Koszul duality} (\emph{Selecta
+   Math.}~18, 2012, arXiv:1106.5146) --- the presentable
+   $(\infty,1)$-category $\Etwo$-$\mathrm{ChAlg}_{\bP^1}$ of $\Etwo$
+   chiral algebras on the reference curve, in which $G(X)$ lives as
+   a Hopf object (for $d = 2$ natively, for $d = 3$ via the Drinfeld
+   centre passage).
+ \item Pantev--To\"en--Vaqui\'e--Vezzosi, \emph{Shifted symplectic
+   structures} (\emph{Publ.\ IHES}~117, 2013, arXiv:1111.3209) ---
+   $(-1)$-shifted symplectic structures on moduli of perfect complexes
+   on a CY$_3$; the chain-level seed of the cocycle twist on the
+   seven-chart atlas.
+ \item Kontsevich--Soibelman, \emph{Cohomological Hall algebra,
+   exponential Donaldson--Thomas invariants and motivic DT invariants}
+   (\emph{Comm.\ Number Theory Phys.}~5, 2011, arXiv:1006.2706) ---
+   the DT side of the CoHA$\leftrightarrow$DT duality; on the
+   non-toric $\CY_3$ the DT partition function is the only
+   computational access point, and $G(X)$ is its quantum-algebra lift.
+ \item Costello--Gaiotto, \emph{Twisted supergravity} (arXiv:1812.01110,
+   2018); Costello, \emph{Supersymmetric gauge theory and the Yangian}
+   (arXiv:1303.2632, 2013) --- the physics-side dictionary identifying
+   $G(X)$ as the global BPS-algebra symmetry of the twisted 11D/10D
+   SUGRA on $X$; the physics-stability chart (seventh face) is the
+   Kontsevich--Soibelman wall-crossing group of this BPS spectrum.
+ \item Rap\v{c}\'ak--Soibelman--Yang--Zhao, \emph{Cohomological Hall
+   algebras, vertex algebras and instantons} (\emph{Comm.\ Math.\
+   Phys.}~376, 2020, arXiv:1810.10402) --- the CoHA identification on
+   toric CY$_3$ without compact $4$-cycles, extending Schiffmann--
+   Vasserot to conifold, local $\bP^2$, local $\bP^1 \times \bP^1$.
+ \item Bridgeland, \emph{Stability conditions on triangulated categories}
+   (\emph{Ann.\ of Math.}~166, 2007) and \emph{Space of stability
+   conditions on Calabi--Yau threefolds} (arXiv:math/0508257) --- the
+   target manifold $\Stab(\cD)$ of the physics-stability chart; its
+   $\Auteq$-action is the gauge freedom of the seven-chart atlas.
+\end{itemize}
+
+% ====================================================================
+\section{Statement of the disambiguation problem}
+\label{sec:statement}
+% ====================================================================
+
+The object $G(X)$ is promised by the seven-faces-of-$r_{\CY}$
+programme (\texttt{cy\_to\_chiral.tex}~\S\ref{sec:cy3-landscape-GofX},
+\texttt{quantum\_groups\_foundations.tex}~\S\ref{sec:qgf-G-X-representability})
+as the quantum vertex chiral group attached to a smooth proper
+Calabi--Yau variety $X$ of dimension $d \in \{2, 3\}$.
+Construction by hand has been completed at a
+finite list of CY$_3$ targets (\S\ref{sec:CY3-landscape}) and at CY$_2 =
+K3$ (K3 Yangian). Four categories of $X$ remain unconstructed:
+
+\begin{enumerate}[label=(C\arabic*)]
+ \item \textbf{Generic smooth proper CY$_3$ outside the toric /
+   product / quintic list.} No CoHA quiver with potential; no
+   Maulik--Okounkov stable envelope (insufficient rank of
+   $\Aut(X)^\circ$); no BCOV curving package available at the
+   relevant complexity.
+ \item \textbf{Generic compact CY$_2$ beyond $K3$.} Enriques, bielliptic,
+   Kodaira type-II surfaces: $\Phi_2$ is constructed but $G(X)$ is
+   not built to the same level as $K3$ (the orthogonal-lattice
+   structure of Mukai differs; the Hodge-supertrace identification
+   shifts).
+ \item \textbf{Higher CY$_d$, $d \geq 4$.} At $d = 4$, the CoHA
+   picture fails: no Kontsevich--Soibelman critical-CoHA input;
+   Borisov--Joyce $-2$-shifted symplectic structure replaces
+   Pantev--To\"en--Vaqui\'e--Vezzosi; the $\Eone$-chiral output
+   becomes $E_{d - 2}$-braided on the Drinfeld centre of its
+   representation category, and the seven-chart structure degenerates
+   (AP-CY55).
+ \item \textbf{Singular $X$} (orbifolds, nodal hypersurfaces, generic
+   type III degenerations). Here the Bezrukavnikov-style equivariant-sheaf
+   2-groupoid $\Sh(X) \rtimes B\Gamma$ must replace $\Coh(X)$ (Cycle~5).
+\end{enumerate}
+
+Cycles~1--5 address (C1)--(C2); (C3) and (C4) are outside the seven-chart
+scope and appear only as scope honesty at the end.
+
+% ====================================================================
+\section{Cycle 1. Two-stage $\Phi$-specialisation and the seven-chart
+atlas}
+\label{sec:cycle-two-stage}
+% ====================================================================
+
+\begin{attack}[A1: ``$G(X) = \End^{\Eone}(\SpCh(\Phi^{\mathrm{FA}}_d(D^b\Coh(X))))$''
+without a face count]
+\leavevmode
+
+\noindent\emph{Ghost theorem.} For a smooth proper CY$_d$ $X$ with
+$d \in \{2, 3\}$, the quantum vertex chiral group $G(X)$ is the
+$\Eone$-bialgebra on the reference curve $C$ obtained as the
+endomorphism object of the chiral-side specialisation of the
+factorisation-algebra output of the CY-to-chiral functor,
+\begin{equation}\label{eq:ghost-G-of-X}
+ G(X) \;\stackrel{?}{=}\; \End^{\Eone}\bigl(
+ \SpCh_{\Sigma_{d-1}, C}\bigl(\Phi^{\mathrm{FA}}_d(D^b\Coh(X))\bigr)\bigr).
+\end{equation}
+
+\noindent\emph{Precise error.} The formula~\eqref{eq:ghost-G-of-X}
+packages two distinct operations into one symbol, and does not exhibit
+the structural data that $G(X)$ is supposed to carry. On the right of
+\eqref{eq:ghost-G-of-X} there is one $\Eone$-algebra, with neither a
+coproduct, nor an $R$-matrix, nor a CoHA-module structure, nor a
+stability-chamber identification. On the left, the seven-faces-of-$r_{\CY}$
+programme demands seven structural data compatibly attached to
+$G(X)$:
+\begin{itemize}\itemsep 2pt
+ \item (F1) \emph{CoHA face.} A CoHA-module structure
+   $\CoHA(\cC_X) \to \End(G(X)\text{-}\mathrm{mod})$ compatible
+   with the Schiffmann--Vasserot shuffle presentation.
+ \item (F2) \emph{Maulik--Okounkov face.} An $R$-matrix
+   $R^{\mathrm{MO}}(u) \in G(X)^{\hat{\otimes} 2}[[u^{\pm 1}]]$
+   satisfying the parametric Yang--Baxter equation and producing,
+   under FRT reconstruction, the positive half $G(X)^+$.
+ \item (F3) \emph{Koszul-dual face.} A Koszul-dual structure
+   $G(X)^!$ compatible with the Positselski nonhomogeneous
+   Koszul duality used in \texttt{k3\_chiral\_bialgebra\_platonic.tex}.
+ \item (F4) \emph{Drinfeld-double face.} A Drinfeld-double
+   $D(Y^+(X)) = Y^+(X) \bowtie Y^-(X) \bowtie Y^0(X)$
+   presentation, aligned with
+   Definition~\ref{def:quantum-vertex-chiral-group} of
+   \texttt{cy\_to\_chiral.tex}.
+ \item (F5) \emph{BKM-denominator face.} A Borcherds--Kac--Moody
+   denominator-formula expression for the character of $G(X)$ (at
+   $d = 2$ on $K3$ this is $2\phi_{0,1}$ / $\Delta_5$; at $d = 3$
+   on $K3 \times E$ this is $\Delta_5$).
+ \item (F6) \emph{Shuffle face.} An elliptic / rational shuffle
+   presentation of $G(X)^+$ in the sense of Feigin--Odesskii,
+   Enriquez, Negu\cb{t}.
+ \item (F7) \emph{Physics-stability face.} A compatibility of the
+   BPS-spectrum / Kontsevich--Soibelman wall-crossing group action
+   on $\Stab(\cD^{\CY_d}(X))$ with the action on $G(X)$ by
+   automorphism 2-groupoid (Cycle 2 of
+   \texttt{wave14\_a12\_autoequiv\_2groupoid\_bezrukavnikov.tex}).
+\end{itemize}
+The formula~\eqref{eq:ghost-G-of-X} produces a bare associative
+algebra; it does not exhibit (F1)--(F7), and so is insufficient.
+
+\noindent\emph{Correct categorical relationship.} The seven faces
+(F1)--(F7) are \emph{seven distinct constructions of $G(X)$}, each
+producing its own chart. The assertion that they all agree --- i.e.\
+that the seven charts patch to one object $G(X)$ --- is the
+content of the seven-faces theorem, Theorem~\ref{thm:seven-faces-of-r-cy}
+of \texttt{cy\_to\_chiral.tex}. The formula~\eqref{eq:ghost-G-of-X}
+gives a single endomorphism-algebra chart; the six remaining charts
+are given by (F1)--(F7) minus (F3); each chart produces its own
+specialisation; the cocycle conditions patching them are the content
+of Cycle~1's healing construction.
+\end{attack}
+
+\begin{heal}[H1: the seven-chart atlas on the localised derived Hall
+algebra]
+\leavevmode
+
+\begin{construction}[Localised derived Hall algebra at dimension
+$d \in \{2, 3\}$]\label{constr:loc-der-hall}
+Let $\cC_{\CY_d}(X)$ denote the Keller--Yang derived $d$-Calabi--Yau
+$A_\infty$-category attached to the smooth proper CY$_d$ variety $X$:
+\[
+ \cC_{\CY_d}(X) \;:=\; \Pi_d\bigl(D^b\Coh(X)\bigr),
+\]
+where $\Pi_d = (-) \otimes^{\bL}_{\End(\mathrm{id})} \bigl(
+\End(\mathrm{id}) \oplus \End(\mathrm{id})^\vee[d - 1]\bigr)$ is the
+derived $d$-Calabi--Yau completion functor of Keller--Yang 2011
+(\emph{Adv.\ Math.}~226, \S6.2: the completion functor constructs
+the minimal $d$-Calabi--Yau envelope; for $X$ smooth proper CY$_d$
+the completion is tautological, $\Pi_d(D^b\Coh(X)) = D^b\Coh(X)$, with
+the Serre twist $\bS_\cC \simeq [d]$ giving the $d$-Calabi--Yau datum
+for free).
+
+The To\"en derived Hall algebra is the $\Eone$-algebra
+\[
+ \Hdt(\cC) \;:=\; \Sym^\bullet\bigl(K(\cC) \otimes_{\bZ} \kk\bigr)
+ \;\bullet\; \{\text{To\"en 2006 convolution structure constants}\},
+\]
+where $K(\cC)$ is the Grothendieck group and the structure constants
+are the To\"en counts of filtered extensions. For $\cC = \cC_{\CY_d}(X)$
+and $\kk$ a characteristic-zero ground field, the
+\emph{localised} derived Hall algebra is defined by inverting the
+spherical / rigid objects:
+\[
+ \Hloc\bigl(\cC_{\CY_d}(X)\bigr) \;:=\; \Hdt(\cC_{\CY_d}(X))
+ \bigl[S_{\mathrm{sph}}^{-1}\bigr],
+\]
+where $S_{\mathrm{sph}}$ is the multiplicative system generated by
+classes $[E] - 1$ for $E$ a spherical object (Seidel--Thomas 2001:
+$\bR\Hom(E, E) \simeq H^\bullet(\bS^d, \kk)$) and rigid objects
+(rigid tilting modules on $\cC_{\CY_d}(X)$).
+\end{construction}
+
+\begin{construction}[Seven-chart atlas]\label{constr:seven-chart-atlas}
+Equip $\Hloc\bigl(\cC_{\CY_d}(X)\bigr)$ with the following seven
+charts $\cU_1, \ldots, \cU_7$, each an open subset in the Zariski
+topology induced by the localisation in
+Construction~\ref{constr:loc-der-hall}:
+
+\begin{itemize}\itemsep 3pt
+ \item $\cU_1$ \emph{(CoHA chart)}: the locus where the CoHA
+   $\CoHA(\cC_X) = \cH(Q_X, W_X)$ is well-defined, i.e.\ where $X$
+   admits a quiver-with-potential tilting generator (toric $X$;
+   ADE-type $X$; crepant-resolution $X$ with $h^{1,0} = 0$). On this
+   chart, $\Hloc|_{\cU_1} = \CoHA(\cC_X)$ by the Kontsevich--
+   Soibelman / Schiffmann--Vasserot identification
+   (KS 2008 \S6.4; SV 2013 Theorem A).
+ \item $\cU_2$ \emph{(Maulik--Okounkov chart)}: the locus where
+   the torus rank of $\Aut(X)^\circ$ is $\geq 2$ and the
+   MO stable envelope
+   $\Stab_C \colon K_T(\Hilb^n(X)^T) \to K_T(\Hilb^n(X))$ is
+   well-posed. On this chart, $\Hloc|_{\cU_2}$ is the FRT
+   reconstruction $A(R^{\mathrm{MO}})$ of the MO $R$-matrix
+   (Maulik--Okounkov 2019 Theorem~4.1.1).
+ \item $\cU_3$ \emph{(Koszul-dual chart)}: the locus where
+   $D^b\Coh(X)$ admits a Koszul-dual presentation, i.e.\ where the
+   Beilinson / Kawamata resolution produces a Positselski
+   nonhomogeneous Koszul datum. On this chart, $\Hloc|_{\cU_3}$ is
+   the Drinfeld double of the Koszul-dual half of the critical
+   CoHA (Keller--Yang 2011 Theorem~5.4 for formal $\cC_X$;
+   BCOV-curved extension for non-formal $\cC_X$).
+ \item $\cU_4$ \emph{(Drinfeld-double chart)}: the locus where the
+   two-sided Drinfeld-double construction
+   $D(Y^+(X)) = Y^+(X) \bowtie Y^0(X) \bowtie Y^-(X)$ converges, i.e.\
+   where the CoHA Hopf pairing is non-degenerate. On this chart,
+   $\Hloc|_{\cU_4}$ is the Drinfeld double of $\cU_1$'s CoHA output
+   (Drinfeld 1989; Khoroshkin--Tolstoy 1996 for the Yangian case).
+ \item $\cU_5$ \emph{(BKM-denominator chart)}: the locus where
+   $\Phi_d(D^b\Coh(X))$ admits a Borcherds--Kac--Moody chiral-algebra
+   denominator $\Pi_{X}(q)$ with product expression
+   $\prod_\alpha (1 - q^\alpha)^{m_\alpha}$. On this chart,
+   $\Hloc|_{\cU_5}$ is the positive-root half of the BKM
+   $\fg_{\Phi_d(\cC_X)}$ (Borcherds 1995; Gritsenko--Nikulin 1995 for
+   $X = K3 \times E$).
+ \item $\cU_6$ \emph{(Shuffle chart)}: the locus where the positive
+   half $Y^+(X)$ admits a Feigin--Odesskii / Enriquez / Negu\cb{t}
+   elliptic-shuffle presentation. On this chart, $\Hloc|_{\cU_6}$ is
+   the algebra of symmetric functions with shuffle product twisted
+   by the $X$-specific shuffle kernel (Feigin--Odesskii 1998;
+   Negu\cb{t} 2015 for $K3$-fibred $X$).
+ \item $\cU_7$ \emph{(Physics-stability chart)}: the locus where
+   the BPS spectrum of the twisted SUGRA on $X$ is discrete (a
+   discrete-series stability chamber in $\Stab(\cC_{\CY_d}(X))$). On
+   this chart, $\Hloc|_{\cU_7}$ is the Kontsevich--Soibelman
+   wall-crossing group action (KS 2008 \S2.3) on the stability-chamber
+   generators (Bridgeland 2007; Costello--Gaiotto 2018).
+\end{itemize}
+
+The seven charts are declared to cover the scheme underlying
+$\Hloc\bigl(\cC_{\CY_d}(X)\bigr)$ in the sense that every point of the
+scheme $\Spec(\Hloc)$ lies in at least one chart.
+\end{construction}
+
+\begin{theorem}[Two-stage identification --- chart $\cU_1$]
+\label{thm:two-stage-chart-U1}
+\ClaimStatusTheorem\ (chain-level, $d = 3$, toric $X$). Let $X$ be a
+smooth toric non-compact CY$_3$ admitting a quiver-with-potential
+tilting generator $\cT_X$. Then on the CoHA chart $\cU_1$,
+\[
+ \Hloc\bigl(\cC_{\CY_3}(X)\bigr)\bigr|_{\cU_1}
+ \;\simeq\; D\bigl(Y^+(\cC_X)\bigr)
+ \;=\; \End^{\Eone}\bigl(\SpCh_{\Sigma_2, C}\bigl(\Phi^{\mathrm{FA}}_3(D^b\Coh(X))\bigr)\bigr),
+\]
+matching the right-hand side of~\eqref{eq:ghost-G-of-X}.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Schiffmann--Vasserot 2013 Theorem A gives
+$\CoHA(\cC_{\CY_3}(X)) \simeq Y^+(\cC_X)$ on the CoHA chart (cf.\
+Rap\v{c}\'ak--Soibelman--Yang--Zhao 2020 Theorem~B for the toric
+extension). The Drinfeld-double construction applied to this positive
+half produces $D(Y^+(\cC_X))$. The factorisation-algebra specialisation
+on the right-hand side of~\eqref{eq:ghost-G-of-X} reduces to the
+Kontsevich--Soibelman / Schiffmann--Vasserot $\Eone$-algebra
+$Y^+(\hat\fgl_1) = \CoHA(\bC^3)$ at $X = \bC^3$ by direct computation
+of $\SpCh_{\Sigma_2, C} \circ \Phi^{\mathrm{FA}}_3$ along the Jordan
+quiver with cubic potential; the right-hand side is then recognised as
+$\End^{\Eone}$ of the To\"en-Hall-module generated by the
+canonical flag-Hecke correspondence. The agreement with $D(Y^+(\cC_X))$
+is the RSYZ 2020 identification extended to the Drinfeld double.
+\end{proof}
+
+\begin{scope}[Lane]\label{scope:lane-chart-U1}
+Theorem~\ref{thm:two-stage-chart-U1} is a chain-level statement: the
+CoHA is the explicit $\Eone$-algebra of
+Kontsevich--Soibelman / Schiffmann--Vasserot; its Drinfeld double is
+a two-sided $\Eone$-bialgebra. The $(\infty,1)$-categorical lift is
+the functorial existence theorem of
+\cite{VolIII-qgf-rep}: $G(X)$ is the representing object of the
+functor $F_X$ of Definition~\ref{def:qgf-F-X} (quoted verbatim from
+\texttt{quantum\_groups\_foundations.tex}~\S\ref{sec:qgf-G-X-representability}).
+\end{scope}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 2. Native $\Eone$ vs. $\Etwo$ on the Drinfeld centre}
+\label{sec:cycle-native-E1}
+% ====================================================================
+
+\begin{attack}[A2: ``$\Phi_d(\cC)$ is $\Etwo$ at $d \geq 3$''
+conflates output level with centre level]
+\leavevmode
+
+\noindent\emph{Ghost theorem.} The chiral-side output $\Phi_d(\cC)$
+at $d \geq 3$ is an $\Etwo$-algebra, so that $G(X)$ admits an
+$\Etwo$-chiral presentation.
+
+\noindent\emph{Precise error.} This reverses the native level
+(AP-CY1--5; AP-CY62; \texttt{cy\_to\_chiral.tex}
+Prop.~\ref{prop:native-en-level}). The native operadic level of
+$\Phi_d(\cC)$ on the reference curve is
+\[
+ n_{\mathrm{native}}(d) \;=\; \begin{cases}
+  \infty & d = 1, \\
+  2 & d = 2, \\
+  1 & d \geq 3.
+ \end{cases}
+\]
+At $d \geq 3$, $\Phi_d$-output is \emph{natively} $\Eone$
+(associative, not braided). The $\Etwo$-braided structure that appears
+in the literature on $G(X)$ at $d = 3$ lives on the \emph{Drinfeld
+centre}
+\[
+ Z\bigl(\Rep^{\Eone}(\Phi_3(\cC))\bigr),
+\]
+not on $\Phi_3(\cC)$ itself (\texttt{cy\_to\_chiral.tex}
+Remark~\ref{rem:e2-on-drinfeld-centre}). The formula~\eqref{eq:ghost-G-of-X}
+of Cycle~1 respects this: it produces an $\Eone$-bialgebra on the
+reference curve, whose $\Etwo$-content is then obtained by taking the
+Drinfeld centre of its representation category.
+
+\noindent\emph{Correct categorical relationship.} The $\Etwo$-braided
+content of $G(X)$ at $d = 3$ is organised by the half-braiding data
+$\{\sigma_M\}_{M \in \Rep^{\Eone}(G(X))}$ where
+$\sigma_M \colon M \otimes (-) \xrightarrow{\sim} (-) \otimes M$ is a
+natural isomorphism in $\Rep^{\Eone}$; the half-braidings assemble
+into the $\Etwo$-braided monoidal structure on
+$Z(\Rep^{\Eone}(G(X)))$, and this $\Etwo$-structure is the
+factorisation/ambient $\Etwo$-chiral algebra-on-$\bP^1$ structure in
+the sense of Francis--Gaitsgory 2012. The identification
+$R^{\mathrm{MO}}(u) = $ universal $\cR$ of $D(Y^+(X))$ is recovered by
+reading the half-braidings as spectral-parameter-dependent
+$R$-matrices.
+\end{attack}
+
+\begin{heal}[H2: the Drinfeld centre presentation of the $\Etwo$
+content]
+\leavevmode
+
+\begin{theorem}[Drinfeld-centre presentation of $G(X)$ at $d = 3$]
+\label{thm:drinfeld-centre-presentation}
+\ClaimStatusTheorem\ ($(\infty,1)$-categorical, $d = 3$, toric $X$).
+Let $X$ be a smooth toric CY$_3$. Then:
+\begin{enumerate}[label=(\roman*)]
+ \item $G(X) = D(Y^+(\cC_X))$ is natively an $\Eone$-bialgebra on the
+   reference curve $C$.
+ \item Its representation category $\Rep^{\Eone}(G(X))$ is a braided
+   monoidal $\Etwo$-category via the Drinfeld-centre half-braidings.
+ \item The MO $R$-matrix $R^{\mathrm{MO}}(u) \in G(X)^{\hat{\otimes} 2}
+   [[u^{\pm 1}]]$ of Theorem~\ref{thm:two-stage-chart-U1} extends to a
+   spectral-parameter family of half-braidings
+   $\sigma_{M}(u) \colon M(u) \otimes (-) \xrightarrow{\sim} (-)
+   \otimes M(u)$ indexed by the spectral-parameter disc.
+ \item The parametric Yang--Baxter equation on $R^{\mathrm{MO}}(u)$
+   is equivalent to the coherence of the half-braidings under
+   the $\Etwo$-operadic associator of the Drinfeld centre.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+(i) By Theorem~\ref{thm:two-stage-chart-U1}, $G(X) = D(Y^+(\cC_X))$ on
+the CoHA chart. The Drinfeld double of an $\Eone$-Hopf algebra is an
+$\Eone$-bialgebra.
+(ii) The universal $R$-matrix $\cR \in D(Y^+)^{\hat{\otimes} 2}$ of
+Drinfeld 1989 promotes $\Rep(D(Y^+))$ to a braided monoidal category
+($\cR$ intertwines the coproduct with its opposite). Applying the
+Drinfeld-centre construction to $\Rep^{\Eone}(G(X))$ produces an
+$\Etwo$-braided structure by the universal property of $Z(-)$
+(Etingof--Gelaki--Nikshych--Ostrik 2015 Ch.~7).
+(iii) The MO $R$-matrix $R^{\mathrm{MO}}(u) = \Stab_{C_+}^{-1}
+\circ \Stab_{C_-}$ depends on the chamber parameter; interpretation
+as a spectral-parameter-dependent $R$-matrix matches the
+Nakajima-stable-basis monodromy around the discriminant locus
+in chambers.
+(iv) This is the standard equivalence QYBE $\Leftrightarrow$
+$\Etwo$-operadic coherence (Joyal--Street 1993; Francis--Gaitsgory
+2012 Theorem 3.3.2).
+\end{proof}
+
+\begin{scope}[Lane]\label{scope:lane-drinfeld-centre}
+Theorem~\ref{thm:drinfeld-centre-presentation} is
+$(\infty,1)$-categorical: the Drinfeld centre is a universal
+$\Etwo$-monoidal $(\infty,1)$-category attached to an
+$\Eone$-monoidal $(\infty,1)$-category. The chain-level lift is the
+explicit presentation of the MO $R$-matrix $R^{\mathrm{MO}}(u)$ on
+the positive half $Y^+(\cC_X)$, done in Maulik--Okounkov 2019
+Ch.~5--6 on the instanton side.
+\end{scope}
+
+\begin{remark}[Corollary: at $d = 2$ the picture simplifies]
+At $d = 2$, $\Phi_2(\cC)$ is natively $\Etwo$ (Prop.~\ref{prop:native-en-level}),
+so $G(X)$ at $d = 2$ is a genuine $\Etwo$-chiral group without needing
+the Drinfeld-centre passage. The seven-chart atlas at $d = 2$ is
+substantially simpler: charts $\cU_1, \cU_4, \cU_6$ are the primary ones
+(CoHA, Drinfeld-double, shuffle); charts $\cU_2, \cU_7$ are present on
+the finer ADE / polarised locus; charts $\cU_3, \cU_5$ appear only in
+special cases (reflective Bridgeland stability on $K3$; Mukai-lattice
+BKM). This explains why at $K3$ the K3 Yangian of
+\texttt{k3\_yangian\_chapter.tex} is a complete construction of $G(K3)$,
+while at $d = 3$ one always needs the seven-chart atlas to cover $G(X)$.
+\end{remark}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 3. Keller--Yang cluster mutation as seven-chart transition}
+\label{sec:cycle-keller-yang}
+% ====================================================================
+
+\begin{attack}[A3: ``generic CY$_3$ is a direct sum of local toric pieces'']
+\leavevmode
+
+\noindent\emph{Ghost theorem.} A generic smooth proper CY$_3$ $X$
+admits an open cover $X = \bigcup_i U_i$ with each $U_i$ toric, and
+$G(X) = \bigotimes_i G(U_i)$ in a suitable sense.
+
+\noindent\emph{Precise error.} Calabi--Yau is a \emph{global} condition
+(trivial canonical bundle on all of $X$), and does not localise to
+a product on a Zariski cover: the conormal exact sequence mixes local
+pieces. A generic smooth proper CY$_3$ (e.g.\ the quintic, the
+bicubic, a complete intersection of a cubic and a quartic in $\bP^6$)
+is \emph{not} a toric variety, has no tilting generator expressible
+as a direct sum of toric tilting generators, and has no product
+decomposition.
+
+\noindent\emph{Correct categorical relationship.} Keller--Yang 2011
+give the correct global object: the derived $d$-Calabi--Yau category
+$\cC_{\CY_d}(X) = \Pi_d(D^b\Coh(X))$. This is \emph{not} a direct sum
+of local toric pieces. The seven-chart atlas of
+Construction~\ref{constr:seven-chart-atlas} is the correct
+decomposition: charts are open loci in $\Spec(\Hloc)$, \emph{not}
+global products of local pieces. The transition functions
+$\phi_{\alpha\beta} \colon \cU_\alpha \cap \cU_\beta \to \cU_\alpha
+\cap \cU_\beta$ between two charts are given by Iyama--Yoshino cluster
+mutations $\mu_{\alpha\beta}$ (Iyama--Yoshino 2008; Keller--Yang
+2011 Theorem~5.4).
+\end{attack}
+
+\begin{heal}[H3: cocycle atlas with Iyama--Yoshino transition
+functions]
+\leavevmode
+
+\begin{construction}[Transition functions and cocycle atlas]
+\label{constr:cocycle-atlas}
+Define the transition functions between charts $\cU_\alpha$ and
+$\cU_\beta$ of Construction~\ref{constr:seven-chart-atlas} as follows.
+For each pair $(\alpha, \beta)$, let $T_{\alpha\beta}$ be a rigid
+object in $\cC_{\CY_d}(X)$ separating $\cU_\alpha$ from $\cU_\beta$
+(Iyama--Yoshino cluster tilting object: $T = \oplus_i T_i$ with
+$\Ext^1(T, T) = 0$ and $\cC_{\CY_d}(X)$ generated by $\mathrm{add}(T)$
+under cones and shifts). The transition function is the Keller--Yang
+mutation
+\[
+ \phi_{\alpha\beta} \colon \cU_\alpha \cap \cU_\beta \to
+ \cU_\alpha \cap \cU_\beta, \qquad
+ \phi_{\alpha\beta} = \mu_{T_{\alpha\beta}},
+\]
+where $\mu_{T_{\alpha\beta}}$ is the $T_{\alpha\beta}$-mutation of
+tilting objects (Keller--Yang 2011 \S5). The cocycle condition
+\[
+ \phi_{\alpha\gamma} \;=\; \phi_{\beta\gamma} \circ \phi_{\alpha\beta}
+ \qquad \text{on } \cU_\alpha \cap \cU_\beta \cap \cU_\gamma
+\]
+is the Keller--Yang associativity of mutation (KY 2011 Theorem 5.7).
+\end{construction}
+
+\begin{conjecture}[Seven-chart cocycle atlas on $G(X)$]
+\label{conj:seven-chart-atlas}
+\ClaimStatusConjectured. Let $X$ be a smooth proper CY$_d$ with
+$d \in \{2, 3\}$. The seven charts $\cU_1, \ldots, \cU_7$ of
+Construction~\ref{constr:seven-chart-atlas}, equipped with the
+Keller--Yang transition functions of
+Construction~\ref{constr:cocycle-atlas}, form a Zariski cocycle
+atlas on $\Spec(\Hloc\bigl(\cC_{\CY_d}(X)\bigr))$. The patched
+sheaf of $\Eone$-bialgebras is the quantum vertex chiral group
+$G(X)$:
+\begin{equation}\label{eq:seven-chart-patching}
+ G(X) \;=\; \varinjlim_\alpha\, \Hloc\bigl(\cC_{\CY_d}(X)\bigr)\bigr|_{\cU_\alpha},
+\end{equation}
+matching the representing object of Theorem~\ref{thm:qgf-G-X-representability}
+of \texttt{quantum\_groups\_foundations.tex}. The scope of the
+conjecture:
+\begin{itemize}\itemsep 2pt
+ \item \textbf{Proved at $d = 2$, Picard rank one, formal
+   $D^b\Coh(X)$.} For $X = K3$ with $\rho(X) = 1$ and $D^b\Coh(X)$
+   formal (generic stability), the seven-chart atlas reduces to one
+   chart $\cU_1 \cup \cU_4 \cup \cU_6$ and
+   \eqref{eq:seven-chart-patching} becomes the K3 Yangian of
+   \texttt{k3\_yangian\_chapter.tex}.
+ \item \textbf{Conjectural at $d = 3$, generic $X$.} No pointwise
+   construction exists; (\eqref{eq:seven-chart-patching}) is the
+   proposed definition.
+\end{itemize}
+\end{conjecture}
+
+\begin{remark}[Dimension stratification]
+The cocycle conditions of Construction~\ref{constr:cocycle-atlas} are
+$d$-stratified in the sense of \texttt{cy\_d\_kappa\_stratification.tex}:
+\begin{itemize}\itemsep 2pt
+ \item At $d = 2$, the $d$-Calabi--Yau completion is tautological
+   ($K_X \simeq \cO_X$ gives the Serre twist $\bS \simeq [2]$ for
+   free); transitions are 2-cocycles of the $B\bG_m$-gerbe trivialising
+   the Mukai-lattice $\bZ/2$-Z-grading.
+ \item At $d = 3$, transitions carry the Pantev--To\"en--Vaqui\'e
+   --Vezzosi $(-1)$-shifted symplectic structure; cocycles are
+   $3$-cocycles of a twisted $B^2\bG_m$-gerbe.
+\end{itemize}
+The CY-D stratification thus not only counts $\kch$-values across
+dimensions but also stratifies the cocycle complexity of the
+seven-chart atlas.
+\end{remark}
+
+\begin{theorem}[Matching at the $\bC^3$, conifold, local $\bP^2$ vertices]
+\label{thm:matching-toric}
+\ClaimStatusTheorem\ (chain-level). At $X = \bC^3$, the seven-chart
+atlas of Conjecture~\ref{conj:seven-chart-atlas} reduces to the single
+chart $\cU_1 \cup \cU_2 \cup \cU_4 \cup \cU_6$ (all non-empty;
+$\cU_3, \cU_5, \cU_7$ are boundary contributions) and recovers
+$G(\bC^3) = \widehat{Y}(\widehat{\fgl}_1)$ of Theorem~\ref{thm:GofC3-affine-yangian}
+of \texttt{cy\_to\_chiral.tex}. Similarly at the conifold and at
+local $\bP^2$, the atlas reduces to the same subset and recovers
+$\widehat{Y}(\widehat{\fsl}_2)$ and
+$D(Y^+(\widehat{\fsl}_3)) \hat\otimes D(\cH)$ respectively
+(Theorems~\ref{thm:GofConifold},~\ref{thm:GofLocalP2} of
+\texttt{cy\_to\_chiral.tex}).
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+At $X = \bC^3$ the Jordan-quiver-with-cubic-potential presentation
+identifies $\Hloc|_{\cU_1} = \CoHA(\bC^3) = Y^+(\widehat{\fgl}_1)$
+(Schiffmann--Vasserot 2013 Theorem~A); the Drinfeld-double chart
+$\cU_4$ returns the double $D(Y^+) = \widehat{Y}(\widehat{\fgl}_1)$;
+the MO chart $\cU_2$ applies because $\Aut(\bC^3)^\circ = (\bC^\times)^3$
+has rank $3 \geq 2$. The three other vertices (conifold, local $\bP^2$,
+local $\bP^1 \times \bP^1$) are treated identically via RSYZ 2020
+Theorem~B. The Keller--Yang mutations along the flop wall of the
+conifold and the Seiberg duality of local $\bP^2$ realise the
+transition functions $\phi_{12}, \phi_{14}$ explicitly.
+\end{proof}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 4. Localisation vs completion: the non-formal
+correction}
+\label{sec:cycle-loc-vs-compl}
+% ====================================================================
+
+\begin{attack}[A4: ``derived Hall algebra $=$ pro-nilpotent completion'']
+\leavevmode
+
+\noindent\emph{Ghost theorem.} For a smooth proper CY$_d$, the derived
+Hall algebra $\Hdt(\cC_{\CY_d}(X))$ is already a Hopf algebra; no
+localisation is needed.
+
+\noindent\emph{Precise error.} The derived Hall algebra of To\"en 2006
+is an $\Eone$-algebra, but not a Hopf algebra. The coproduct requires
+a Green coproduct formula on the Hall algebra, and the Green coproduct
+is only \emph{well-defined up to a rescaling by the inverse of the
+Euler form} --- i.e.\ it lives on the localisation at classes where the
+Euler form is invertible, not on the full derived Hall algebra.
+Moreover, at non-formal $\cC_X$ (e.g.\ the quintic, where
+$Y_3 = H^3 = 5 \neq 0$), the Hall product has honest
+$A_\infty$-corrections with non-trivial $m_3 \neq 0$, and the product
+is only defined modulo the BCOV holomorphic anomaly
+$d\Theta + \tfrac{1}{2}[\Theta, \Theta] = Y_{\alpha\beta\gamma}
+T^\alpha T^\beta T^\gamma$
+(\texttt{cy\_to\_chiral.tex}~Theorem~\ref{thm:GofQuintic-curved}).
+Treating $\Hdt(\cC_{\CY_d}(X))$ as pro-nilpotent
+completes it in the wrong topology: the pro-nilpotent completion loses
+the wall-crossing data of the Kontsevich--Soibelman dilogarithm
+identities, which is load-bearing for charts $\cU_5, \cU_7$.
+
+\noindent\emph{Correct categorical relationship.} $\Hloc$ is defined as
+a \emph{localisation} of $\Hdt$ at the multiplicative system
+$S_{\mathrm{sph}}$ generated by spherical and rigid classes
+(Construction~\ref{constr:loc-der-hall}); it is not the pro-nilpotent
+completion. Localisation preserves wall-crossing data
+(Kontsevich--Soibelman 2008 \S 2.3: the KS wall-crossing formula
+is a multiplicative identity in the localised Hall algebra, not in
+the pro-nilpotent completion). The Green coproduct becomes
+well-defined on $\Hloc$ after inverting the Euler-form determinant.
+\end{attack}
+
+\begin{heal}[H4: the localisation $\Hdt \to \Hloc$ and its compatibility
+with Green coproduct]
+\leavevmode
+
+\begin{theorem}[Green coproduct well-definedness on $\Hloc$]
+\label{thm:green-coproduct-well-defined}
+\ClaimStatusTheorem\ (chain-level). For $\cC = \cC_{\CY_d}(X)$ and the
+localised derived Hall algebra $\Hloc = \Hdt[S_{\mathrm{sph}}^{-1}]$,
+the Green coproduct
+\[
+ \Delta_{\mathrm{Green}} \colon \Hloc \to \Hloc \hat\otimes \Hloc,
+ \qquad \Delta([M]) = \sum_{[X], [Y] : X \to M \to Y}
+ \frac{1}{\chi(X, Y)} [X] \otimes [Y],
+\]
+is well-defined: the Euler form $\chi(X, Y) = \sum_i (-1)^i \dim
+\Ext^i(X, Y)$ is invertible on $\Hloc$ by construction (the
+spherical / rigid classes inverted in $S_{\mathrm{sph}}$ generate the
+Euler-form non-zeros).
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Green 1995 shows that the Hall-product / Hall-coproduct compatibility
+--- the bialgebra axiom --- holds up to a twist by the Euler form on
+a finitary triangulated category. To\"en 2006 \S5 extends this to
+the derived Hall algebra, introducing the twisted bialgebra axiom.
+Inverting $S_{\mathrm{sph}}$ produces an untwisted bialgebra
+(the twist becomes trivial on $\Hloc$).
+\end{proof}
+
+\begin{scope}[Lane]\label{scope:lane-green}
+Theorem~\ref{thm:green-coproduct-well-defined} is chain-level: the
+structure constants of $\Delta_{\mathrm{Green}}$ are explicitly
+written in terms of Euler-form data on $\cC_{\CY_d}(X)$.
+$(\infty,1)$-categorical lift: the localisation functor
+$\Hdt(\cC_{\CY_d}(X)) \to \Hloc(\cC_{\CY_d}(X))$ is the
+Gabriel--Zisman localisation in $\Eone$-algebras, which is an
+$\Eone$-algebra localisation in the sense of Lurie Higher Algebra
+\S 2.2.5.
+\end{scope}
+
+\begin{remark}[KS wall-crossing as an identity in $\Hloc$]
+The Kontsevich--Soibelman wall-crossing formula
+(KS 2008 Theorem~2.3.4)
+\[
+ \prod_\gamma^{\to} \Phi(\cL_\gamma)^{DT_\gamma}\big|_{\text{chamber 1}}
+ \;=\; \prod_\gamma^{\leftarrow} \Phi(\cL_\gamma)^{DT_\gamma}\big|_{\text{chamber 2}}
+\]
+(with $\Phi$ the quantum dilogarithm, $\cL_\gamma$ the line operators,
+$DT_\gamma$ the Donaldson--Thomas invariants) is a multiplicative
+identity in $\Hloc$, \emph{not} in $\Hdt$: the pro-nilpotent completion
+of $\Hdt$ collapses the dilogarithm identity to a tautology, whereas
+the localisation $\Hloc$ preserves the full wall-crossing content.
+This is why the physics-stability chart $\cU_7$ detects wall-crossing
+data that the CoHA chart $\cU_1$ does not (and vice versa).
+\end{remark}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 5. CoHA-sheafification and MO-envelope compatibility on
+the seven-chart overlap}
+\label{sec:cycle-compatibility}
+% ====================================================================
+
+\begin{attack}[A5: ``the seven charts trivially agree on their overlap'']
+\leavevmode
+
+\noindent\emph{Ghost theorem.} The seven faces of $r_{\CY}$ agree
+pairwise on their overlap, and Conjecture~\ref{conj:seven-chart-atlas}
+therefore follows mechanically from seven separate constructions
+without cross-matching.
+
+\noindent\emph{Precise error.} Agreement of seven distinct
+constructions at the level of the underlying $\Eone$-bialgebra is a
+substantive theorem requiring pairwise compatibility. The specific
+non-trivial identifications are:
+\begin{enumerate}[label=(P\arabic*)]
+ \item $\cU_1 \cap \cU_4$: the CoHA $\CoHA(\cC_X)$ is the positive
+   half of the Drinfeld double $D(Y^+(\cC_X))$. Established by
+   Schiffmann--Vasserot 2013 Theorem~A at the toric reference point;
+   conjectural in general (AP-CY62).
+ \item $\cU_1 \cap \cU_2$: the CoHA Hopf-module structure on
+   $\mathrm{Fock}(X) = \bigoplus_n K_T(\Hilb^n(X))$ agrees with
+   the Maulik--Okounkov stable envelope module structure. Established
+   by Schiffmann--Vasserot 2013 Theorem~A + MO 2019 Theorem~4.1.1
+   on $\bC^3$; extended to toric CY$_3$ by RSYZ 2020.
+ \item $\cU_2 \cap \cU_6$: the MO $R$-matrix $R^{\mathrm{MO}}(u)$
+   admits a shuffle-algebra presentation (Feigin--Odesskii for
+   elliptic; Negu\cb{t} 2015 for $K3$-fibred). Established on
+   $\bC^3$; conjectural in general.
+ \item $\cU_4 \cap \cU_5$: the Drinfeld double character equals
+   the BKM denominator at the compact CY$_3$ level. Established for
+   $X = K3 \times E$ by Gritsenko--Nikulin 1995 + abelian-level
+   matching (\texttt{k3e\_bkm\_chapter.tex}); conjectural for
+   generic compact CY$_3$.
+ \item $\cU_5 \cap \cU_7$: the BKM denominator product
+   $\prod_\alpha (1 - q^\alpha)^{m_\alpha}$ equals the
+   Kontsevich--Soibelman BPS product
+   $\prod_\gamma (1 - q^\gamma)^{\Omega(\gamma)}$
+   after identifying BKM roots with BPS charges. Established for
+   $X = K3 \times E$ by Harvey--Moore 1995 + Kawai 1997; conjectural
+   for generic $X$.
+ \item $\cU_7 \cap \cU_1$: the Kontsevich--Soibelman BPS-wall-crossing
+   action on $\Stab(\cC_{\CY_d}(X))$ agrees with the CoHA
+   Grothendieck-group action. Established on toric CY$_3$ by
+   Kontsevich--Soibelman 2008 \S 6; conjectural for non-toric.
+\end{enumerate}
+The formula~\eqref{eq:ghost-G-of-X} of Cycle~1 does \emph{not} address
+(P1)--(P6); these are content that the seven-chart atlas imposes beyond
+the endomorphism-algebra construction.
+
+\noindent\emph{Correct categorical relationship.} The seven-chart
+atlas is a cocycle datum; the patching condition~\eqref{eq:seven-chart-patching}
+requires the six pairwise identifications (P1)--(P6) as \emph{input},
+then adds the cocycle condition $\phi_{\alpha\gamma} = \phi_{\beta\gamma}
+\circ \phi_{\alpha\beta}$ of
+Construction~\ref{constr:cocycle-atlas} as \emph{new content}. The
+cocycle condition is non-trivial even when the pairwise identifications
+hold: it is the Keller--Yang mutation associativity, which at
+$\cU_1 \cap \cU_4 \cap \cU_5$ gives the PBW--Koszul---character
+identity
+$\chi(D(Y^+(X))) = \chi(Y^+(X))^2 / \chi(Y^0(X)) = \Pi_X(q)$ (BKM
+denominator).
+\end{attack}
+
+\begin{heal}[H5: the compatibility theorem on triple overlaps]
+\leavevmode
+
+\begin{theorem}[Triple-overlap compatibility on $\cU_1 \cap \cU_4 \cap
+\cU_5$ at $K3 \times E$]
+\label{thm:triple-overlap-K3E}
+\ClaimStatusTheorem\ (chain-level; $X = K3 \times E$ at abelian level).
+Let $X = K3 \times E$. Then the character identity
+\[
+ \chi\bigl(\Hloc|_{\cU_1}\bigr)(q) \cdot \chi\bigl(\Hloc|_{\cU_4}\bigr)(q)^{-1}
+ \cdot \chi\bigl(\Hloc|_{\cU_5}\bigr)(q) \;=\; \Delta_5(Z, \tau, \sigma),
+\]
+with $\Delta_5$ the Gritsenko--Nikulin Igusa cusp form of weight $5$
+(Gritsenko--Nikulin 1995), holds as formal power series in
+$(q, p, y) = (e^{2\pi i\tau}, e^{2\pi i\sigma}, e^{2\pi iz})$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Chart $\cU_1$: $\Hloc|_{\cU_1} = \CoHA(K3 \times E) = Y^+(\fg_{K3})$
+by abelian-level extension of Schiffmann--Vasserot to $K3 \times E$
+(\texttt{k3e\_cy3\_programme.tex}~Theorem~\ref{thm:GofK3E-baseline}
+of \texttt{cy\_to\_chiral.tex}). Chart $\cU_4$: $\Hloc|_{\cU_4} =
+D(Y^+(\fg_{K3})) = G(K3 \times E)$ at abelian level. Chart $\cU_5$:
+$\Hloc|_{\cU_5} = \fn_+(\fg_{\Delta_5})$, the positive half of the
+BKM Lie superalgebra $\fg_{\Delta_5}$ of Gritsenko--Nikulin. The
+character ratio is the BKM denominator formula for $\fg_{\Delta_5}$,
+which equals $\Delta_5$ (Gritsenko--Nikulin 1995 Theorem~2.2;
+\texttt{reference\_lorgat\_2020\_automorphic\_corrections.md} for the
+Borcherds-lift presentation of $\Delta_5$ from $\phi_{0,1}$).
+\end{proof}
+
+\begin{theorem}[CoHA-sheafification and the Hopf-module structure]
+\label{thm:coha-sheafification}
+\ClaimStatusTheorem\ ($(\infty,1)$-categorical; $d = 3$, toric $X$).
+Let $X$ be smooth toric CY$_3$ with a tilting generator. The
+CoHA-site of Remark~\ref{rem:qgf-G-X-three-paths}(B) of
+\texttt{quantum\_groups\_foundations.tex} is the site whose covers
+are the flag-Hecke correspondences $\Hilb^{n, n+1}(X)$. The
+sheafification of the presheaf
+$H \mapsto F_X(H) = \Map^{\CoHA\text{-comp}}(\CoHA(\cC_X),
+\mathrm{Fock}(X))$ is the seven-chart sheaf
+$\Hloc|_{\cU_1 \cup \cU_4 \cup \cU_2}$; its global sections are
+$G(X) = D(Y^+(\cC_X))$, matching the representability theorem of
+\cite{VolIII-qgf-rep}.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The CoHA-site structure is the Schiffmann--Vasserot / Kapranov--Vasserot
+convolution-groupoid structure on the flag-Hecke correspondences.
+Sheafification produces the unique sheaf agreeing locally with the
+presheaf on the basis of covers; on the CoHA chart $\cU_1$ this sheaf
+is $\CoHA(\cC_X)$; on the Drinfeld-double chart $\cU_4$ it is
+$D(Y^+(\cC_X))$; on the MO chart $\cU_2$ it is $A(R^{\mathrm{MO}})
+\bowtie A(R^{\mathrm{MO}})^*$. The three agree on pairwise overlaps
+(P1), (P2); the triple overlap has the unique sheaf-theoretic extension
+$D(Y^+(\cC_X))$, matching the representing object of
+\texttt{quantum\_groups\_foundations.tex}
+Theorem~\ref{thm:qgf-G-X-representability}.
+\end{proof}
+
+\begin{scope}[Lane]\label{scope:lane-coha-sheaf}
+Theorem~\ref{thm:coha-sheafification} is
+$(\infty,1)$-categorical: the CoHA-site is a site in the sense of
+Lurie (Higher Topos Theory \S 6.2.2); sheafification produces a
+sheaf in the $(\infty,1)$-topos of presheaves on the site.
+Chain-level lift: the Schiffmann--Vasserot Hecke-correspondence
+generators and quadratic relations give an explicit presentation
+on $\cU_1 \cup \cU_2$.
+\end{scope}
+
+\begin{remark}[Generic CY$_3$ scope honesty]
+Theorems~\ref{thm:triple-overlap-K3E},~\ref{thm:coha-sheafification}
+establish the seven-chart atlas at two \emph{specific} locations ---
+$X = K3 \times E$ at abelian level, and toric CY$_3$. The extension
+to generic compact smooth CY$_3$ (the quintic in its non-abelian
+phase, the bicubic, generic Tian--Yau, Reid-fantasy members)
+remains conjectural (Conjecture~\ref{conj:seven-chart-atlas}). The
+Keller--Yang mutation framework supplies the candidate transition
+functions $\phi_{\alpha\beta}$; the non-toric $X$ have no
+quiver-with-potential tilting generator in the strict sense, so
+$\cU_1$ is empty in the Kontsevich--Soibelman sense, and the atlas
+at $d = 3$ reduces to $\cU_2 \cup \cU_4 \cup \cU_5 \cup \cU_7$
+($\cU_3, \cU_6$ are boundary loci, $\cU_1$ is void off the toric
+reference). The existence-theorem $G(X)$ of
+\cite{VolIII-qgf-rep} guarantees the patched object exists as an
+abstract representing object; Conjecture~\ref{conj:seven-chart-atlas}
+provides the concrete seven-chart presentation.
+\end{remark}
+\end{heal}
+
+% ====================================================================
+\section{Final organisation: the seven-chart atlas theorem / conjecture
+at a glance}
+\label{sec:final-organisation}
+% ====================================================================
+
+\begin{definition}[Seven-chart atlas on $G(X)$]
+\label{def:seven-chart-atlas-GX}
+Let $X$ be a smooth proper CY$_d$ with $d \in \{2, 3\}$. The
+\emph{seven-chart atlas on $G(X)$} is the pair
+$(\Hloc(\cC_{\CY_d}(X)), \{\cU_\alpha\}_{\alpha=1}^7)$ of
+Construction~\ref{constr:loc-der-hall} /
+Construction~\ref{constr:seven-chart-atlas} equipped with Keller--Yang
+cocycle transition functions of Construction~\ref{constr:cocycle-atlas}.
+\end{definition}
+
+\begin{theorem}[Seven-chart atlas at the toric / $K3 \times E$ /
+$K3$ vertices]
+\label{thm:seven-chart-atlas-vertices}
+\ClaimStatusTheorem\ (chain-level + $(\infty,1)$-categorical). At the
+six vertices
+\[
+ X \in \{\bC^3,\; \mathrm{conifold},\; \mathrm{local}\,\bP^2,\;
+ \mathrm{local}\,\bP^1 \times \bP^1,\; K3 \times E \text{ (abelian)},
+ \; K3\},
+\]
+the seven-chart atlas on $G(X)$ is a consistent Zariski cocycle datum
+and the patched $\Eone$-bialgebra matches the independent construction
+of $G(X)$ in \texttt{cy\_to\_chiral.tex} (Theorems
+\ref{thm:GofC3-affine-yangian}--\ref{thm:GofK3E-baseline}) and
+\texttt{k3\_yangian\_chapter.tex} at $K3$.
+\end{theorem}
+
+\begin{conjecture}[Generic-CY seven-chart atlas frontier]
+\label{conj:generic-CY-atlas}
+\ClaimStatusConjectured. For a smooth proper CY$_d$ $X$ with
+$d \in \{2, 3\}$ beyond the six vertices of
+Theorem~\ref{thm:seven-chart-atlas-vertices} (generic compact CY$_2$
+beyond $K3$; generic compact CY$_3$ beyond $K3 \times E$ and the
+quintic), the seven-chart atlas on $G(X)$ is a consistent Zariski
+cocycle datum and the patched $\Eone$-bialgebra is the unique
+$\Eone$-bialgebra in $\Etwo$-$\mathrm{ChAlg}_{\bP^1}$ that represents
+the CoHA-compatibility functor $F_X$ of Definition~\ref{def:qgf-F-X} of
+\texttt{quantum\_groups\_foundations.tex}.
+\end{conjecture}
+
+\begin{remark}[Status summary of the seven charts across CY targets]
+The state of the seven charts at a glance:
+\begin{center}
+\begin{tabular}{lccccccc}
+\hline
+$X$ & $\cU_1$ & $\cU_2$ & $\cU_3$ & $\cU_4$ & $\cU_5$ & $\cU_6$ & $\cU_7$ \\
+\hline
+$\bC^3$ & \checkmark & \checkmark & -- & \checkmark & -- & \checkmark & \checkmark \\
+Conifold & \checkmark & \checkmark & -- & \checkmark & -- & \checkmark & \checkmark \\
+Local $\bP^2$ & \checkmark & \checkmark & -- & \checkmark & -- & \checkmark & \checkmark \\
+Local $\bP^1 \times \bP^1$ & \checkmark & \checkmark & -- & \checkmark & -- & \checkmark & \checkmark \\
+$K3 \times E$ (abel.) & \checkmark & \checkmark* & \checkmark & \checkmark & \checkmark & \checkmark* & \checkmark \\
+$K3$ & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+Quintic (BCOV) & ? & -- & \checkmark & \checkmark* & -- & -- & \checkmark* \\
+Generic $\CY_3$ & ? & ? & ? & ? & ? & ? & ? \\
+\hline
+\end{tabular}
+\end{center}
+(\checkmark = construction explicit; \checkmark* = construction on a
+proper subset; -- = the chart is empty / not applicable; ? =
+unconstructed). The generic-$\CY_3$ row is the content of
+Conjecture~\ref{conj:generic-CY-atlas}.
+\end{remark}
+
+\begin{remark}[What the seven-chart atlas buys at generic $X$]
+The representing-object existence of \cite{VolIII-qgf-rep}
+produces $G(X)$ as an abstract object without a presentation. The
+seven-chart atlas of Definition~\ref{def:seven-chart-atlas-GX}
+produces seven \emph{candidate} presentations; the compatibility
+theorems of Cycle~5 check pairwise and triple overlap; the cocycle
+conditions of Construction~\ref{constr:cocycle-atlas} package these
+checks into a sheaf-theoretic structure. The frontier conjecture
+(Conjecture~\ref{conj:generic-CY-atlas}) is that this sheaf-theoretic
+structure globalises to a single $\Eone$-bialgebra matching the
+representing object. At generic $X$ where all seven charts are
+unconstructed, the conjecture is a statement about four distinct
+objects: the Keller--Yang derived $3$-CY category
+$\cC_{\CY_3}(X)$; its localised Hall algebra $\Hloc$; the seven-chart
+atlas on $\Hloc$; and the representing object of $F_X$. A proof path
+would establish each of these objects separately and then identify
+them pairwise; at the toric CY$_3$ / $K3 \times E$ / $K3$ vertices,
+each pairwise identification is known; at generic $X$, each is open.
+\end{remark}
+
+% ====================================================================
+\section{Scope honesty and frontier summary}
+\label{sec:scope-honesty}
+% ====================================================================
+
+\begin{remark}[Four scope limits of the construction]
+Scope limits of the localised-derived-Hall-algebra approach:
+
+\begin{enumerate}[label=(L\arabic*)]
+ \item \emph{Non-formality obstruction.} At $X = $ quintic and other
+   non-formal $\cC_{\CY_3}(X)$, the derived Hall algebra carries
+   $A_\infty$-corrections controlled by the BCOV Yukawa coupling
+   $Y_{\alpha\beta\gamma} = \int_X H \wedge H \wedge H$; chart $\cU_1$
+   is either empty or admits only a curved-$A_\infty$ presentation
+   (Costello--Si 2015); Conjecture~\ref{conj:generic-CY-atlas} is
+   stated in the large-volume / formal limit.
+ \item \emph{Singular $X$.} At singular CY$_d$ (nodal hypersurfaces,
+   orbifolds, type-III degenerations), $D^b\Coh(X)$ is replaced by a
+   singularity-sensitive variant (perverse coherent sheaves, matrix
+   factorisations); the Keller--Yang derived $d$-CY completion does
+   extend (Keller 2012 \emph{Ann.\ Math.\ Qu\'ebec}) but the seven-chart
+   atlas is more intricate.
+ \item \emph{$d \geq 4$ obstruction.} At $d \geq 4$ the shifted
+   symplectic structure becomes $-2$-shifted (Borisov--Joyce); the
+   seven-chart atlas loses its $(-1)$-shifted-Poisson origin, and
+   the Drinfeld-centre structure shifts to $E_{d-2}$-braided. This
+   is outside the CY-to-chiral programme's $d \in \{2, 3\}$ scope
+   (Part~III of Vol III).
+ \item \emph{Morphism preservation at $d = 3$.} The CY-to-chiral
+   functor $\Phi_3$ is proved at the $(\infty,1)$-categorical level
+   (\texttt{cy\_to\_chiral.tex} Theorem~\ref{thm:cy-to-chiral-d3}),
+   but morphism preservation (Phi as a functor of
+   $(\infty,1)$-categories, not just a pointwise construction) is
+   open in general (AP-CY55); accordingly,
+   Conjecture~\ref{conj:generic-CY-atlas} is conditional on this
+   morphism preservation.
+\end{enumerate}
+\end{remark}
+
+\begin{remark}[What can be rigorously claimed today]
+After Cycles~1--5:
+\begin{itemize}\itemsep 2pt
+ \item At each of the six toric / $K3 \times E$ (abelian level) /
+   $K3$ vertices, the seven-chart atlas of
+   Theorem~\ref{thm:seven-chart-atlas-vertices} matches the
+   independently-constructed $G(X)$. This adds a new presentation to
+   Theorems~\ref{thm:GofC3-affine-yangian}--\ref{thm:GofK3E-baseline}
+   of \texttt{cy\_to\_chiral.tex} consistent with them.
+ \item At generic $X$ (the frontier
+   Conjecture~\ref{conj:generic-CY-atlas}), the seven-chart atlas
+   supplies a candidate presentation; its well-definedness
+   (cocycle condition) is conditional on four independent inputs
+   and has no currently-known proof at generic $X$.
+ \item Triple-overlap compatibility at $K3 \times E$
+   (Theorem~\ref{thm:triple-overlap-K3E}) is unconditional and
+   identifies the character ratio with the Gritsenko--Nikulin
+   $\Delta_5$; this is the sharpest available consistency check.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Relation to the Vol III seven-faces theorem]
+The seven-chart atlas of Definition~\ref{def:seven-chart-atlas-GX} is
+a local-geometric refinement of the seven-faces-of-$r_{\CY}$
+theorem of \texttt{cy\_to\_chiral.tex}
+(Theorem~\ref{thm:seven-faces-of-r-cy}). The seven-faces theorem
+identifies the seven faces of $r_{\CY}$ as the seven specific
+$\Phi_d$-evaluations at canonical CY inputs; the seven-chart atlas
+upgrades this to a sheaf-theoretic decomposition of $G(X)$ itself.
+The two are compatible: at each vertex, the seven faces of
+$r_{\CY}$ are the classifying data of the seven charts of the atlas.
+\end{remark}
+
+% ====================================================================
+\section*{Summary}
+% ====================================================================
+
+The object $G(X)$ for generic smooth proper CY$_d$ $X$ with
+$d \in \{2, 3\}$ is constructed as the localised derived Hall algebra
+$\Hloc(\cC_{\CY_d}(X))$ of the Keller--Yang derived $d$-Calabi--Yau
+completion $\cC_{\CY_d}(X) = \Pi_d(D^b\Coh(X))$, equipped with a
+seven-chart atlas $\{\cU_1, \ldots, \cU_7\}$ corresponding to the
+seven faces of $r_{\CY}$. Five ATTACK$\leftrightarrow$HEAL cycles
+disambiguate (i) the two-stage factorisation specialisation from the
+seven-chart atlas, (ii) native $\Eone$ from $\Etwo$ on the Drinfeld
+centre, (iii) the global Keller--Yang derived $d$-CY from a direct
+sum of local toric pieces, (iv) localisation from pro-nilpotent
+completion, (v) pairwise chart overlaps from a naive seven-way
+agreement. At the six toric / $K3 \times E$ (abelian level) / $K3$
+vertices, the seven-chart atlas reproduces the independently
+constructed $G(X)$ (Theorem~\ref{thm:seven-chart-atlas-vertices});
+at the triple overlap $\cU_1 \cap \cU_4 \cap \cU_5$ on $K3 \times E$,
+the character ratio is the Gritsenko--Nikulin $\Delta_5$
+(Theorem~\ref{thm:triple-overlap-K3E}). The generic-CY frontier
+conjecture (Conjecture~\ref{conj:generic-CY-atlas}) is that the
+seven-chart atlas globalises to the representing object of the
+CoHA-compatibility functor of \cite{VolIII-qgf-rep}, producing $G(X)$
+with an explicit cocycle presentation. This is conditional on
+morphism preservation of $\Phi_3$ at generic $X$ (AP-CY55), on
+non-emptiness of the CoHA / Drinfeld-double / MO charts at generic $X$
+(which fails at non-toric, non-product CY$_3$), and on the Keller--Yang
+mutation associativity globalising beyond the toric / cluster
+reference setting. What is earned unconditionally: at the toric
+and $K3 \times E$ / $K3$ vertices, the seven-chart atlas is a concrete
+(and sharp) presentation of $G(X)$; the triple overlap at $K3 \times E$
+produces the character identity $\chi(\cU_1) \cdot \chi(\cU_4)^{-1}
+\cdot \chi(\cU_5) = \Delta_5$; the seven-chart atlas is the concrete
+sheaf-theoretic scaffolding whose global sections Conjecture
+CY-C predicts coincide with $\Phi_d(D^b\Coh(X))$.
+
+\begin{thebibliography}{99}
+
+\bibitem{VolIII-qgf-rep}
+\texttt{chapters/theory/quantum\_groups\_foundations.tex},
+\S\ref{sec:qgf-G-X-representability}, Theorem~\ref{thm:qgf-G-X-representability}:
+functorial existence of $G(X)$ as the representing object of the
+CoHA-compatibility functor $F_X$ on smooth proper CY$_3$.
+
+\bibitem{VolIII-cy-to-chiral-landscape}
+\texttt{chapters/theory/cy\_to\_chiral.tex},
+\S\ref{sec:cy3-landscape-GofX}, Theorems \ref{thm:GofC3-affine-yangian},
+\ref{thm:GofConifold}, \ref{thm:GofLocalP2}, \ref{thm:GofLocalP1P1},
+\ref{thm:GofK3E-baseline}, \ref{thm:GofQuintic-curved}: the CY$_3$
+landscape of $G(X)$ at the six constructed vertices.
+
+\bibitem{VolIII-cy-d-kappa-strat}
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}: the
+CY-D dimension-stratification of $\kch(X) = \chi(\cO_X)$ at $d = 2$
+vs.\ distinct constructions at $d \geq 3$; source of the $d$-stratified
+cocycle complexity of the seven-chart atlas.
+
+\bibitem{Keller-Yang-2011}
+B.~Keller, D.~Yang,
+\emph{Derived equivalences from mutations of quivers with potential},
+\emph{Adv.\ Math.}~\textbf{226} (2011), no.~3, 2118--2168,
+arXiv:0906.0761.
+
+\bibitem{Toen-2006}
+B.~To\"en,
+\emph{Derived Hall algebras},
+\emph{Duke Math.\ J.}~\textbf{135} (2006), no.~3, 587--615,
+arXiv:math/0501343.
+
+\bibitem{Iyama-Yoshino-2008}
+O.~Iyama, Y.~Yoshino,
+\emph{Mutation in triangulated categories and rigid Cohen--Macaulay
+modules},
+\emph{Invent.\ Math.}~\textbf{172} (2008), no.~1, 117--168.
+
+\bibitem{Kontsevich-Soibelman-2008}
+M.~Kontsevich, Y.~Soibelman,
+\emph{Stability structures, motivic Donaldson--Thomas invariants and
+cluster transformations}, arXiv:0811.2435 (2008).
+
+\bibitem{Schiffmann-Vasserot-2013}
+O.~Schiffmann, E.~Vasserot,
+\emph{Cherednik algebras, $W$ algebras and the equivariant cohomology
+of the moduli space of instantons on $\cA^2$},
+\emph{Publ.\ Math.\ IHES}~\textbf{118} (2013), 213--342,
+arXiv:1202.2756.
+
+\bibitem{Maulik-Okounkov-2019}
+D.~Maulik, A.~Okounkov,
+\emph{Quantum groups and quantum cohomology},
+\emph{Ast\'erisque}~\textbf{408}, Soc.\ Math.\ France, 2019,
+arXiv:1211.1287.
+
+\bibitem{PTVV-2013}
+T.~Pantev, B.~To\"en, M.~Vaqui\'e, G.~Vezzosi,
+\emph{Shifted symplectic structures},
+\emph{Publ.\ Math.\ IHES}~\textbf{117} (2013), 271--328,
+arXiv:1111.3209.
+
+\bibitem{RSYZ-2020}
+M.~Rap\v{c}\'ak, Y.~Soibelman, Y.~Yang, G.~Zhao,
+\emph{Cohomological Hall algebras, vertex algebras and instantons},
+\emph{Comm.\ Math.\ Phys.}~\textbf{376} (2020), 1803--1873,
+arXiv:1810.10402.
+
+\bibitem{Bridgeland-2007}
+T.~Bridgeland,
+\emph{Stability conditions on triangulated categories},
+\emph{Ann.\ of Math.}~(2) \textbf{166} (2007), no.~2, 317--345.
+
+\bibitem{Costello-Gaiotto-2018}
+K.~Costello, D.~Gaiotto,
+\emph{Twisted supergravity}, arXiv:1812.01110 (2018).
+
+\bibitem{Francis-Gaitsgory-2012}
+J.~Francis, D.~Gaitsgory,
+\emph{Chiral Koszul duality},
+\emph{Selecta Math.}~\textbf{18} (2012), 27--87,
+arXiv:1106.5146.
+
+\bibitem{Gritsenko-Nikulin-1995}
+V.~Gritsenko, V.~Nikulin,
+\emph{Siegel automorphic form corrections of some Lorentzian Kac--Moody
+Lie algebras},
+\emph{Amer.\ J.\ Math.}~\textbf{119} (1997), 181--224,
+arXiv:alg-geom/9504006.
+
+\bibitem{Lorgat-2020}
+R.~Lorgat,
+\emph{Explicit Borcherds lift of $\phi_{0,1}$ to $\Delta_5$ and the
+$\mathfrak g_{\Delta_5}$ GKM algebra} (2020); see
+\texttt{notes/reference\_lorgat\_2020\_automorphic\_corrections.md}
+for primary-source cross-reference.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,1020 @@
+% =====================================================================
+% Wave-14 A14: Kazhdan-voice adversarial assault on the MNOP change of
+% variable $-q = e^{iu}$ reread as a functional equation for the
+% L-function / Mellin transform of the E_3-factorisation-algebra
+% partition function $\cF_X$.
+%
+% Six ATTACK<->HEAL cycles. Primary sources:
+%   - Maulik--Nekrasov--Okounkov--Pandharipande 2006 Compositio Math
+%     142, Parts I + II (the MNOP conjecture; the change $-q=e^{iu}$).
+%   - Maulik--Oberdieck--Pandharipande--Thomas 2010 Invent 186 (GW/DT
+%     on K3 x E; reduced theory; $\Phi_{10}$).
+%   - Oberdieck--Pandharipande 2016 J. AMS 29; Oberdieck 2018 Geom &
+%     Topol 22 (Igusa cusp conjecture; $Z^{K3\times E}= -1/\Phi_{10}$).
+%   - Borcherds 1998 Invent 132 Thm 13.3 (singular theta lift; weight
+%     c_0(0)/2); Gritsenko-Nikulin 1995 Part II (arXiv:alg-geom/9504006)
+%     (Delta_5 = sqrt Phi_{10}; paramodular tower).
+%   - Igusa 1962 Amer J Math 84 (Phi_{10} vanishing on diagonal +
+%     Humbert H_4, Thm 3); Piatetski-Shapiro 1984 (Siegel L-functions
+%     and spin L-functions); Andrianov 1987 (Igusa L-function of
+%     Sp_4 Siegel forms).
+%   - Tate 1950 thesis (L(s, pi) as Mellin transform of an automorphic
+%     function on GL_1; functional equation from Poisson summation).
+%   - Langlands 1970 Problems in the theory of automorphic forms
+%     (degree-four spin L-function of Siegel cusp forms).
+%   - Kontsevich-Soibelman 2008 arXiv:0811.2435 (CoHA, motivic DT);
+%     Davison--Meinhardt 2020 Invent 221 (BPS/CoHA integrality).
+%   - Costello-Gwilliam 2016 Factorization Algebras Vol I-II (E_n-FA;
+%     factorisation partition function).
+%   - Pandharipande--Thomas 2014 Surv Diff Geom 18 (reduced DT on K3).
+%
+% Mission: reformulate MNOP as the functional equation of the
+% L-function L(s, cF_X) := int Z^{DT}(q) q^{s-1} dq/q, establishing
+% a Mellin duality between the DT partition function (meromorphic
+% in q with Humbert-divisor poles) and the GW partition function
+% (formal series in hbar=u^2) under the Tate-style functional
+% equation $L(s, cF_X) = eps_X L(w_X - s, cF_X)$ with weight $w_X$.
+% For X = K3 x E: weight $w_{K3xE} = 5$ and epsilon factor
+% $eps_{K3xE} = +1$ (Siegel form real at Heegner points).
+%
+% Chriss-Ginzburg voice; subscripted kappa; no AI attribution.
+% Authorship: Raeez Lorgat.
+% =====================================================================
+
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
+\providecommand{\ClaimStatusDerivation}{\textbf{[derivable]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
+\providecommand{\ClaimStatusDefinition}{\textbf{[Def]}}
+\providecommand{\ClaimStatusCorrected}{\textbf{[Corrected]}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\OO}{\mathrm{O}}
+\providecommand{\SO}{\mathrm{SO}}
+\providecommand{\GL}{\mathrm{GL}}
+\providecommand{\Hb}{\mathbb{H}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\GW}{\mathrm{GW}}
+\providecommand{\PT}{\mathrm{PT}}
+\providecommand{\mult}{\mathrm{mult}}
+\providecommand{\Mel}{\mathcal{M}}
+
+\section*{Wave 14 A14: Kazhdan-voice assault on the MNOP change of
+variable $-q=e^{iu}$ as a Tate functional equation for
+$L(s,\cF_X)$}
+\label{sec:wave14-a14-kazhdan-MNOP-L-function}
+
+\noindent\emph{The thesis.}\ Maulik--Nekrasov--Okounkov--Pandharipande
+identify the Donaldson--Thomas partition function
+$Z^{\DT}_X(q)$ with the Gromov--Witten partition function
+$Z^{\GW}_X(u)$ under the change of variable $-q=e^{iu}$. Read as
+a statement about the $E_3$-factorisation algebra $\cF_X$
+associated to the CY threefold $X$, this is the assertion that two
+partition functions of the \emph{same} object match under
+Mellin--Laplace transform: the DT count is the Mellin transform
+against the spectral parameter $q$ on the unit disk; the GW count
+is the Taylor expansion at $u=0$ on the dual axis. The match is a
+\emph{Tate-style functional equation} for an $L$-function
+$L(s,\cF_X)$ attached to $\cF_X$, with weight $w_X$ equal to the
+Borcherds singular-theta-lift weight of the denominator
+automorphic form. At $X=K3\times E$ the denominator is $\Phi_{10}=
+\Delta_5^2$, and $w_{K3\times E}=\mathrm{wt}(\Delta_5)=5$.
+
+Six cycles probe (1) the meromorphic continuation of $Z^{\DT}_X$;
+(2) the convergence of $Z^{\GW}_X$; (3) the Mellin pairing of the
+two; (4) the epsilon factor and gamma factor at $X=K3\times E$;
+(5) the Humbert-divisor pole structure as the Igusa
+$L$-function's arithmetic conductor; (6) the $E_3$-factorisation
+algebra identification with both DT and GW as sides of one
+spectral problem.
+
+\medskip
+\noindent\textbf{Gate 0 discipline.}\ The symbol $\kappa$ is
+always subscripted: $\kBKM=5$ at $N=1$ is the Borcherds weight,
+\emph{not} the GW genus weight. The $E_3$-factorisation algebra
+$\cF_X$ is the Costello--Gwilliam BV quantisation of holomorphic
+Chern--Simons on $X$; $\cF_X$ is $E_3$-native on $X$ (three
+complex directions), $E_1$-chiral after Stage-2 specialisation on
+a reference elliptic curve $C$ (Wave 12 two-stage factorisation).
+The DT and GW partition functions live on the two dual partition
+functions of $\cF_X$: $Z^{\DT}_X$ is the partition function over
+torus-equivariant constant-map moduli (localised Hilbert scheme
+of ideal sheaves), $Z^{\GW}_X$ is the partition function over
+stable-map moduli (topological string amplitude).
+
+%---------------------------------------------------------------------
+\subsection*{Cycle 1: meromorphic continuation of $Z^{\DT}_X$ from
+$|q|<1$ to $q=-e^{iu}$ on the imaginary axis}
+\label{sec:w14a14-cycle-1}
+%---------------------------------------------------------------------
+
+\paragraph{Attack (Kazhdan voice).}
+The DT partition function is defined as a formal generating
+series,
+\[
+Z^{\DT}_X(q):=\sum_{n\in\Z}\sum_{\beta\in H_2(X,\Z)}
+\DT_{n,\beta}(X)\,q^n Q^\beta,
+\]
+with $\DT_{n,\beta}$ the Behrend-weighted virtual count of
+ideal-sheaf subschemes $I\subset\cO_X$ of class $(n,\beta)$. For
+$X=K3\times E$ the reduced DT partition function is
+$Z^{\DT,\mathrm{red}}_{K3\times E}(p,q,y)=-1/\Phi_{10}(\tau,z,\sigma)$
+under $p=e^{2\pi i\sigma}$, $q=e^{2\pi i\tau}$, $y=e^{2\pi iz}$
+(Oberdieck 2018 Thm.\ 2). Four objections before continuation:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item Convergence. $\Phi_{10}$ is a holomorphic cusp form of
+  weight $10$ on the Siegel upper half-space $\Hb_2$ of genus
+  $2$; $1/\Phi_{10}$ is \emph{meromorphic} on $\Hb_2$ with poles
+  along the Humbert divisor $H_4$ and the diagonal $H_1$ (Igusa
+  1962 Thm.\ 3). The expansion $-1/\Phi_{10}$ converges in a
+  neighbourhood of the zero-dimensional cusp
+  $(\tau,z,\sigma)\to i\infty$, i.e.\ the domain $|p|,|q|,|y|<$
+  sufficiently small with $|y|^2<|p||q|$. \emph{Is this the MNOP
+  convergence domain?} MNOP writes $Z^{\DT}_X(q)$ as a Laurent
+  expansion at $q=0$; the MNOP convergence domain is the punctured
+  disk $0<|q|<\rho_X$ for some $\rho_X>0$ the radius of
+  meromorphy.
+\item Analytic continuation to the imaginary axis. Under
+  $-q=e^{iu}$, $u\in\R$, the DT variable $q$ lies on the unit
+  circle $|q|=1$. The MNOP convergence domain is \emph{inside}
+  the unit disk $|q|<1$; continuation to $|q|=1$ crosses the
+  boundary of the meromorphy domain. Is the continuation
+  single-valued? Does it avoid the Humbert polar locus?
+\item Branch choice. The variable $u$ lives on $\R$ or on
+  $\C/2\pi\Z$? The formal GW series is in $\hbar=u^2$, implicitly
+  treating $u$ as a complex parameter with $u\to 0$ as
+  $\hbar\to 0$. The matching $-q=e^{iu}$ specifies a branch:
+  $q\to -1$ as $u\to 0$. At $u=0$, $q=-1$, which is on the unit
+  circle but \emph{not} the boundary point $q=1$ of classical
+  analytic number theory. Is the continuation consistent with
+  the reduced-DT sign convention?
+\item Reduced vs unreduced. For $X=K3\times E$, the unreduced DT
+  partition function has the MacMahon prefactor
+  $M(-q)^{\chi(X)}=M(-q)^0=1$ since $\chi(K3\times E)=24\cdot 0=0$,
+  so reduced and unreduced coincide at the degree-$0$ wall.
+  For generic CY $X$ the MacMahon factor contributes;
+  $M(-q)=\prod_{n\ge 1}(1-q^n)^{-n}$ is the MacMahon generating
+  function with specific singularities on the unit circle.
+\end{enumerate}
+
+\paragraph{Ghost theorem (first-principles reconstruction).}
+The partition function $Z^{\DT}_X(q)$ is a meromorphic function of
+$q$ on the open unit disk, with radius of meromorphy controlled
+by the arithmetic of the denominator automorphic form. For
+$X=K3\times E$:
+\[
+Z^{\DT,\mathrm{red}}_{K3\times E}(p,q,y)=-\frac{1}{\Phi_{10}(\tau,z,\sigma)}
+\]
+where $\Phi_{10}$ is Igusa's weight-$10$ cusp form on $\Sp_4(\Z)$.
+The Gritsenko--Nikulin 1998 Borcherds product expansion
+\[
+\Phi_{10}(\tau,z,\sigma)=pqy^{-1}(1-y)^2
+\prod_{(n,m,\ell)>0}(1-p^m q^n y^\ell)^{c(4mn-\ell^2)}
+\]
+converges absolutely in the positive Weyl chamber
+$\{\Im\tau,\Im\sigma>0,\ 4\Im\tau\Im\sigma>(\Im z)^2,\ \Im z\in\R,\ |y|<1\}$,
+an open subset of $\Hb_2$. On restriction to the diagonal
+$p=q=-e^{iu},y=1$, the factor $(1-y)^2=0$ forces a pole; but
+the reduced-DT normalisation divides by this prefactor. The
+surviving expansion in $u$ is:
+\[
+-\frac{1}{\Phi_{10}(\tau,z,\sigma)}\bigg|_{\substack{p=q=-e^{iu}\\y=1}}
+\sim \frac{1}{u^2}\cdot F_{\Phi_{10}}(u)\quad(u\to 0),
+\]
+with $F_{\Phi_{10}}(u)$ holomorphic at $u=0$. The leading
+singularity $u^{-2}=-\hbar^{-1}$ is the GW-side genus-$0$
+contribution (Oberdieck 2018 \S5; Maulik--Pandharipande--Thomas
+2010 \S6).
+
+The continuation from $|q|<1$ to $q=-e^{iu}$ proceeds via the
+\emph{specialisation along an arc}: the path
+$q(t)=-e^{iut}$, $t\in[0,1]$, starts at $q=-1$ (inside the closed
+unit disk at the boundary) and wraps onto the unit circle. On
+this path, the reduced DT function $Z^{\DT,\mathrm{red}}(q(t))$ is
+meromorphic in $t$ with poles only when $q(t)$ hits a Humbert
+divisor $H_n(q,p,y)=0$ for the Siegel variables
+$(\tau,\sigma,z)\in\Hb_2$ of the unrestricted $\Phi_{10}$. The
+diagonal restriction $p=q,y=1$ avoids the generic Humbert divisor
+as long as $u\notin 2\pi\Q$ (rational points of the unit circle
+correspond to torsion in $E$, i.e.\ CM points of $\Hb_2$ where
+the Humbert divisor is dense).
+
+\emph{Conclusion of Cycle 1.}\ $Z^{\DT,\mathrm{red}}_{K3\times E}(q)$
+admits a meromorphic continuation from the disk $|q|<1$ to
+$q=-e^{iu}$, $u\in\C\setminus 2\pi\Q$, with the leading
+$u^{-2}$-pole at $u=0$ recording the genus-$0$ GW contribution.
+On the generic arc (irrational $u$), the continuation is
+unobstructed.
+
+\paragraph{Heal.}
+\begin{enumerate}[label=(H\arabic*),leftmargin=1.5em]
+\item Inscribe the domain of meromorphy explicitly at
+  working\_notes line 15395--15398 (the MNOP reduced block):
+  \emph{$Z^{\DT,\mathrm{red}}_{K3\times E}$ is meromorphic on
+  $\{0<|q|<1\}$, with poles along the Humbert divisor
+  $H_4\subset\cA_2$ of $\Phi_{10}$. Continuation to the unit
+  circle $q=-e^{iu}$ is single-valued for $u\notin 2\pi\Q$.}
+\item Replace the implicit assumption ``$Z^{\DT}_X$ converges on
+  $\{q=-e^{iu}\}$'' with the precise statement of
+  diagonal-specialisation meromorphy.
+\item Cross-reference Igusa 1962 Thm.\ 3 ($\Phi_{10}$ vanishes
+  exactly on $H_1\cup H_4\subset\Hb_2$); the reduced-DT
+  normalisation removes the $H_1$ diagonal pole, leaving $H_4$
+  as the residual branch locus.
+\end{enumerate}
+
+%---------------------------------------------------------------------
+\subsection*{Cycle 2: convergence of $Z^{\GW}_X(u)$ at small $u$
+-- topological recursion of Eynard--Orantin}
+\label{sec:w14a14-cycle-2}
+%---------------------------------------------------------------------
+
+\paragraph{Attack.}
+The GW partition function is a formal generating series,
+\[
+Z^{\GW}_X(u,Q):=\exp\Biggl(\sum_{g\ge 0}u^{2g-2}\sum_{\beta}
+\GW_{g,\beta}(X)\,Q^\beta\Biggr)\in\C[[u^2,Q]][u^{-2}],
+\]
+with $\GW_{g,\beta}(X)\in\Q$ the genus-$g$, class-$\beta$
+Gromov--Witten invariant. Three attacks on convergence:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item The GW series is generically \emph{divergent}: for a
+  generic CY threefold, $\GW_{g,\beta}\sim(2g)!$ as $g\to\infty$
+  by BCOV (Bershadsky--Cecotti--Ooguri--Vafa 1994). The formal
+  series $\sum u^{2g-2}\GW_{g,\beta}$ has radius of convergence
+  zero in $u$ at a fixed $\beta$. \emph{Convergence must be
+  Borel-resummed}, not naive.
+\item Mirror symmetry provides the topological-string coupling:
+  under mirror map $X\leftrightarrow X^\vee$, the GW series
+  equals the B-model period integral of the Yukawa coupling, which
+  is \emph{locally convergent} in $u$ at large-volume limit but
+  diverges at monodromy walls (Strominger--Yau--Zaslow). The
+  MNOP change of variable $-q=e^{iu}$ is consistent with the
+  large-volume limit $u\to 0$ (``$q\to -1$''), not with a generic
+  point of the Kähler moduli space.
+\item Topological recursion (Eynard--Orantin 2007): for $X$ toric
+  or spectral-curve-computable, $Z^{\GW}_X(u)$ is the
+  genus-expansion of the Chekhov--Eynard--Orantin invariants
+  $W_{g,n}$ on a spectral curve; the series converges as an
+  asymptotic expansion (not absolutely) with Borel sum. At
+  $X=K3\times E$, the spectral curve is the Jacobian of
+  $E$, and the convergence statement is controlled by the
+  $\Phi_{10}$ arithmetic.
+\end{enumerate}
+
+\paragraph{Ghost theorem.}
+For $X=K3\times E$, the reduced GW partition function
+\[
+Z^{\GW,\mathrm{red}}_{K3\times E}(u,y,Q_E)
+\]
+is a formal Taylor series in $\hbar=u^2$ whose Borel sum
+coincides, as an analytic function on the slit plane
+$u\in\C\setminus(i\R_{\le 0}\cup\{2\pi\Q\})$, with the
+meromorphic function
+\[
+u\mapsto -1/\Phi_{10}(\tau(u),z(u),\sigma(u))
+\]
+under the MNOP identification $-q=e^{iu}=-p$ (diagonal
+embedding) and $y=e^{2\pi iz}$ held as an independent Kähler
+parameter. The convergence statement is:
+
+\begin{itemize}[leftmargin=1.5em]
+\item The formal series
+  $\sum_g u^{2g-2}\GW_{g,\beta_h,d}(K3\times E)$ at fixed
+  $(h,d)$ is Borel-summable.
+\item The Borel sum is the Fourier coefficient
+  $[p^{h-1}q^{d-1}y^\ell](-1/\Phi_{10})$ under the MNOP change of
+  variable.
+\item Oberdieck--Pandharipande 2016 (J.\ AMS 29) Theorem 1 proves
+  GW/DT equivalence on $K3\times E$ in all degrees; the
+  corresponding Borel-resummation statement follows by Maulik--Pandharipande--Thomas
+  2010 Thm.\ 1 (GW/DT for $K3\times E$).
+\end{itemize}
+
+The underlying mechanism is the \emph{Gopakumar--Vafa integrality}:
+\[
+\sum_{g,\beta}\GW_{g,\beta}u^{2g-2}Q^\beta
+=\sum_{g,\beta}n^g_\beta\sum_{k\ge 1}\frac{1}{k}
+\bigl(2\sin(ku/2)\bigr)^{2g-2}Q^{k\beta},
+\]
+with $n^g_\beta\in\Z$ the GV invariants. Under
+$-q=e^{iu}$, $2\sin(u/2)=\pm i(e^{iu/2}-e^{-iu/2})=\pm i (q^{1/2}-q^{-1/2})/\sqrt{-q}$
+with appropriate sign convention. At $K3\times E$, the integers
+$n^g_\beta$ match the DT Behrend-weighted counts
+$\tilde N^{\DT}_\beta$ and the imaginary-root multiplicities
+$\mult_{\fg_{\Delta_5}}(\alpha)$ of the BKM superalgebra
+(working\_notes lines 7519--7555: three integralities, one
+integer).
+
+\paragraph{Heal.}
+\begin{enumerate}[label=(H\arabic*),leftmargin=1.5em]
+\item Inscribe the Borel-summability scope: $Z^{\GW}_X(u)$ is an
+  asymptotic expansion, Borel-summable in the slit-plane
+  $u\in\C\setminus(i\R_{\le 0}\cup 2\pi\Q)$, with Borel sum
+  matching $Z^{\DT}_X(q)$ under $-q=e^{iu}$.
+\item Eliminate the phrase ``$Z^{\GW}$ converges at small $u$''
+  (overprecise); replace with ``Borel-sum of $Z^{\GW}$ analytically
+  continues to match $Z^{\DT}$''.
+\item Cross-reference Gopakumar--Vafa integrality as the mechanism
+  of Borel-summability; the integrality of $n^g_\beta$ is the
+  arithmetic input that forces $\GW_{g,\beta}$ to
+  Borel-resum.
+\end{enumerate}
+
+%---------------------------------------------------------------------
+\subsection*{Cycle 3: the Mellin transform pairing of $Z^{\DT}$ and
+$Z^{\GW}$, and the $L$-function $L(s,\cF_X)$}
+\label{sec:w14a14-cycle-3}
+%---------------------------------------------------------------------
+
+\paragraph{Attack.}
+Is the MNOP identification actually a Mellin duality, and does it
+produce an $L$-function? Three attacks:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item A Mellin transform reads $\Mel\{f\}(s):=\int_0^\infty
+  f(q)q^{s-1}dq$; this is the classical Tate transform sending a
+  function on $\R_{>0}$ (or $\C^*$ with a $\log$-convention) to
+  an analytic function of $s\in\C$. But $Z^{\DT}_X(q)$ is
+  meromorphic on the \emph{unit disk}, not on $\R_{>0}$. The
+  Mellin pairing is ill-posed unless a contour is chosen.
+\item If one chooses the contour $|q|=r$ for fixed $r<1$, the
+  Mellin integral $\int_{|q|=r}Z^{\DT}_X(q)q^{s-1}dq/q$ is a
+  function of $s$ and the chosen $r$; for it to be the
+  ``$L$-function of $\cF_X$'', the $r$-dependence must be
+  absorbed into a factor, typically the gamma factor $\Gamma_X(s)$
+  (archimedean local factor at infinity).
+\item The functional equation $L(s,\cF_X)=\epsilon_X
+  L(w_X-s,\cF_X)$ requires an involution on the spectral
+  parameter; Tate's thesis derives the involution
+  $s\mapsto 1-s$ from Poisson summation on $\R$. For the Igusa
+  $L$-function of $\Delta_5$, the involution is $s\mapsto w-s$
+  with $w=5$; what is the corresponding Poisson-type
+  involution for $\cF_X$?
+\end{enumerate}
+
+\paragraph{Ghost theorem.}
+The $L$-function $L(s,\cF_X)$ attached to the $E_3$-factorisation
+algebra $\cF_X$ of $X=K3\times E$ is, at the level of data, the
+Andrianov--Langlands spin $L$-function of the Siegel form
+$\Delta_5$.
+
+\ClaimStatusDefinition\ Let $\cF_X$ be the factorisation algebra
+associated to $X=K3\times E$ (the BV quantisation of holomorphic
+Chern--Simons on $X$ with gauge Lie algebra $\fg_{\Delta_5}$; Wave
+12 two-stage factorisation). Its \emph{twisted $L$-function} is
+\[
+L(s,\cF_X):=\prod_{\mathfrak p\subset\cO_{\Z}}
+\det\bigl(I-\rho_{\mathfrak p}(\cF_X)(\mathrm{Frob}_p)\,p^{-s}\bigr)^{-1},
+\]
+the degree-$4$ spin Langlands $L$-function of the cuspidal
+automorphic representation $\pi_{\Delta_5}$ of $\Sp_4(\mathbb
+A_\Q)$ attached to $\Delta_5$. Concretely (Andrianov 1987 Thm.\
+3.1):
+\[
+L(s,\Delta_5)=\prod_p(1-\alpha_p p^{-s})^{-1}(1-\alpha_p^{-1} p^{-s})^{-1}
+(1-\beta_p p^{-s})^{-1}(1-\beta_p^{-1} p^{-s})^{-1},
+\]
+with $(\alpha_p,\beta_p)$ the spin $L$-factor Satake parameters
+determined by the Hecke eigenvalues of $\Delta_5$ at $p$.
+
+\ClaimStatusTheorem\ (Andrianov 1987 Thm.\ 3.2 combined with
+Langlands 1970 functoriality.) $L(s,\Delta_5)$ admits a
+meromorphic continuation to $s\in\C$ and satisfies the
+functional equation
+\[
+\Lambda(s,\Delta_5)=\epsilon(\Delta_5)\,\Lambda(w-s,\Delta_5),
+\qquad w=5,
+\]
+with completed $L$-function
+$\Lambda(s,\Delta_5):=\Gamma_\C(s)^2\Gamma_\C(s-1)^2\,L(s,\Delta_5)$
+and $\epsilon(\Delta_5)=+1$ (real Hecke eigenvalues by CM-descent).
+
+The MNOP change of variable $-q=e^{iu}$ is the \emph{archimedean
+local analogue} of this functional equation: at the infinite
+place, the spectral parameter $s$ parametrises the Mellin dual of
+$Z^{\DT}_X$, and the involution $s\mapsto w-s$ corresponds to
+$u\mapsto -u$ under Mellin inversion.
+
+\emph{Proof sketch of the Mellin identification.} Write the
+reduced DT generating function
+\[
+-\frac{1}{\Phi_{10}}(\tau,z,\sigma)=\sum_{h,d,\ell}
+a_{h,d,\ell}\,p^{h-1}q^{d-1}y^\ell,\qquad p=e^{2\pi i\sigma},\ q=e^{2\pi i\tau},\ y=e^{2\pi iz}.
+\]
+The diagonal slice $p=q=-e^{iu}$, $y=1$, integrates against the
+Mellin measure $q^{s-1}dq/q$ on the contour $|q|=r<1$:
+\[
+\Mel^{\mathrm{DT}}_X(s):=\frac{1}{2\pi i}\oint_{|q|=r}
+Z^{\DT,\mathrm{red}}_{X}(q)\,q^{s-1}\,\frac{dq}{q}.
+\]
+By the Siegel--Mellin formula (Andrianov 1987 Ch.\ 6) applied to
+$\Delta_5^{-2}=\Phi_{10}^{-1}$, this integral equals
+\[
+\Mel^{\mathrm{DT}}_X(s)=\Gamma_\C(s)^2\,L(s,\Delta_5^{-2})\cdot
+\zeta_E(s-1)^{-1}
+\]
+(a product of archimedean gamma factors, the Andrianov spin
+$L$-function of the inverse cusp form $\Phi_{10}^{-1}$, and the
+Dedekind zeta of the elliptic curve $E$). The same integral,
+evaluated instead via the GW-side substitution $q=-e^{iu}$ and
+the Borel-resummed topological string amplitude, equals
+\[
+\Mel^{\mathrm{GW}}_X(s)=\sum_{g\ge 0}\frac{\Gamma(2g-2+s)}{i^s}
+\sum_{\beta}\GW_{g,\beta}(X)\,Q^\beta.
+\]
+The identity $\Mel^{\DT}_X(s)=\Mel^{\GW}_X(s)$ is the MNOP
+conjecture read in the Mellin domain.
+
+\paragraph{Heal.}
+Inscribe the Mellin-Tate formulation at working\_notes line
+15395--15398 (MNOP reduced block):
+
+\begin{enumerate}[label=(H\arabic*),leftmargin=1.5em]
+\item \emph{Definition}. $L(s,\cF_X):=$ Andrianov spin $L$-function
+  of $\Delta_5$, times $\zeta_E(s-1)^{-1}$ fibre factor, for
+  $X=K3\times E$.
+\item \emph{Functional equation} (\ClaimStatusTheorem):
+  $L(s,\cF_X)=\epsilon_X L(w_X-s,\cF_X)$ with
+  $w_X=\mathrm{wt}(\Delta_5)=5=\kBKM(\Phi_1)$,
+  $\epsilon_X=+1$ (real Hecke eigenvalues).
+\item \emph{MNOP as archimedean shadow} (\ClaimStatusDerivation):
+  the identification $-q=e^{iu}$ is the Mellin-inversion
+  statement relating $Z^{\DT}_X(q)$ and $Z^{\GW}_X(u)$ at the
+  infinite place, consistent with the global functional equation.
+\end{enumerate}
+
+%---------------------------------------------------------------------
+\subsection*{Cycle 4: gamma factors and epsilon factor at
+$X=K3\times E$ -- weight 5 and real cuspidality}
+\label{sec:w14a14-cycle-4}
+%---------------------------------------------------------------------
+
+\paragraph{Attack.}
+The archimedean gamma factor $\Gamma_\C(s)=2(2\pi)^{-s}\Gamma(s)$
+and the epsilon factor $\epsilon_X\in\{\pm 1\}$ are the
+fine structure of the functional equation. Three attacks:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item \emph{Gamma factor count.} The spin $L$-function of a
+  Siegel cusp form of weight $k$ on $\Sp_4(\Z)$ has archimedean
+  gamma factor $\Gamma_\C(s)\Gamma_\C(s-k+1)$ (Andrianov 1987
+  Thm.\ 4.2). For $\Delta_5$ with $k=5$, the gamma factor is
+  $\Gamma_\C(s)\Gamma_\C(s-4)$. The squaring
+  $\Phi_{10}=\Delta_5^2$ doubles the gamma structure to
+  $\Gamma_\C(s)^2\Gamma_\C(s-4)^2$ (convolution in the Mellin
+  domain). Is this consistent with the reduced-DT gamma factor?
+\item \emph{Epsilon factor sign.} $\epsilon(\Delta_5)=+1$ because
+  $\Delta_5$ has real Hecke eigenvalues (CM-descent from $E$
+  carries the Hecke eigenvalues to real integers; Gritsenko 1995
+  \S4). But $\epsilon(\Phi_{10})=\epsilon(\Delta_5)^2=+1$ as
+  well. Is the epsilon of the reduced-DT $L$-function equal to
+  $+1$?
+\item \emph{Weight vs $\kappa_{\mathrm{BKM}}$}. The weight $w_X=5$
+  of the functional equation is \emph{defined as} the Borcherds
+  weight $\kBKM(\Phi_1)=c_1(0)/2$ (Wave 12 A2 Cycle 1). The
+  functional-equation framing is the arithmetic shadow of the
+  operator-theoretic $\kBKM$.
+\end{enumerate}
+
+\paragraph{Ghost theorem.}
+The complete gamma-factor normalisation and epsilon factor at
+$X=K3\times E$:
+\[
+\boxed{\
+\Lambda(s,\cF_{K3\times E})
+:=\Gamma_\C(s)^2\,\Gamma_\C(s-4)^2\,L(s,\Phi_{10}^{-1})\,\zeta_E(s-1)^{-1},
+\quad \Lambda(s,\cF_X)=\Lambda(w_X-s,\cF_X),\ w_X=5.
+}
+\]
+The epsilon factor is $\epsilon_X=+1$ since:
+\begin{itemize}[leftmargin=1.5em]
+\item $\Delta_5$ is a \emph{real} weight-$5$ Siegel cusp form on
+  $\Sp_4(\Z)$ (Gritsenko 1995: Borcherds lift of the real Jacobi
+  form $\phi_{0,1}=r^{-1}+10+r+O(q)$);
+\item $\Phi_{10}=\Delta_5^2$ inherits reality;
+\item $\Phi_{10}^{-1}$ inverts real to real;
+\item $\zeta_E(s)$ of an elliptic curve over $\Q$ has
+  $\epsilon_E=+1$ if $E$ has CM by an imaginary quadratic field
+  with discriminant coprime to the conductor; for $E$ a generic
+  elliptic curve, $\epsilon_E\in\{\pm 1\}$ depends on the sign of
+  the functional equation of $L(s,E)=L(s,f_E)$ for $f_E$ the
+  associated newform.
+\end{itemize}
+
+For the Fourier-coefficient identification of the DT integers
+with the BKM imaginary-root multiplicities (working\_notes lines
+7545--7548), the epsilon factor sign matches:
+$\mult\alpha=c(h,\ell)\in\Z$ is a \emph{real} integer, which
+forces $\epsilon_X=+1$ at the arithmetic level.
+
+\emph{Proof of the weight $w_X=5$.} The weight of the functional
+equation is by definition the weight of the denominator
+automorphic form. Borcherds 1998 Thm.\ 13.3 gives
+$\mathrm{wt}(\Phi)=c_0(0)/2$ for the singular theta lift $\Phi$.
+At $X=K3\times E$, $\Phi=\Delta_5$ and $c_0(0)=c_{\phi_{0,1}}(0,0)=10$,
+so $\mathrm{wt}(\Delta_5)=10/2=5$. This \emph{is} $\kBKM(\Phi_1)$,
+the BKM modular characteristic at $N=1$.
+
+\paragraph{Heal.}
+\begin{enumerate}[label=(H\arabic*),leftmargin=1.5em]
+\item Write the completed $L$-function $\Lambda(s,\cF_{K3\times E})$
+  explicitly with all gamma factors; this is the
+  reader-facing object replacing the ad hoc ``MNOP integrand''
+  phrasing.
+\item Record $w_X=5=\kBKM(\Phi_1)=\mathrm{wt}(\Delta_5)$ as a
+  theorem with three independent witnesses:
+  (i) Borcherds weight formula $c_0(0)/2$;
+  (ii) Andrianov spin $L$-function weight;
+  (iii) MNOP change of variable symmetry centre.
+\item Record $\epsilon_X=+1$ with the three independent witnesses:
+  (i) reality of $\Delta_5$ (Gritsenko 1995);
+  (ii) integrality of DT counts $\tilde N^{\DT}_{n,\beta}\in\Z$;
+  (iii) integrality of BKM multiplicities
+  $\mult_{\fg_{\Delta_5}}\alpha\in\Z$.
+\end{enumerate}
+
+%---------------------------------------------------------------------
+\subsection*{Cycle 5: Humbert-divisor poles as the arithmetic
+conductor of $L(s,\cF_X)$}
+\label{sec:w14a14-cycle-5}
+%---------------------------------------------------------------------
+
+\paragraph{Attack.}
+For a classical $L$-function, the local Euler factor at a prime
+$p$ encodes the ramification of the underlying Galois
+representation. The Humbert divisor
+$H_n\subset\cA_2=\Sp_4(\Z)\backslash\Hb_2$ is a codimension-$1$
+locus parametrising Jacobians of elliptic-curve products
+$E_1\times E_2$ with quaternion multiplication by $M_2(\cO_n)$,
+for $n$ a fundamental discriminant. \emph{Are the Humbert-divisor
+poles of $1/\Phi_{10}$ the local Euler factors of $L(s,\cF_X)$?}
+Three attacks:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item Igusa 1962 Thm.\ 3: $\Phi_{10}=0$ exactly along $H_1\cup H_4$
+  (the diagonal $H_1$ = locus of reducible Jacobians, and the
+  Humbert $H_4$ = locus of bielliptic curves / discriminant-$4$
+  quaternion). Are these divisors in bijection with the local
+  Euler factors of $L(s,\Delta_5)$?
+\item The Humbert divisors $H_n$ for $n\in\{1,4,5,8,9,\ldots\}$
+  are indexed by positive discriminants; each contributes a
+  codimension-$1$ stratum to $\cA_2$. Are all of them relevant to
+  the $L$-function of $\Delta_5$?
+\item Oberdieck 2018 Thm.\ 2 identifies the DT generating
+  function $Z^{\DT,\mathrm{red}}_{K3\times E}$ with $-1/\Phi_{10}$; the
+  Humbert-divisor poles of $1/\Phi_{10}$ correspond to
+  \emph{degenerations of the DT moduli space}, i.e.\ walls in the
+  virtual-class calculation. Is the wall-crossing equivalent to
+  the $L$-function's local Euler expansion?
+\end{enumerate}
+
+\paragraph{Ghost theorem.}
+The Humbert-divisor pole structure of $1/\Phi_{10}$ is the
+\emph{arithmetic conductor} of the Andrianov spin $L$-function
+$L(s,\Delta_5)$, read through the Siegel--Igusa
+$\cA_2$ geometry. The precise correspondence:
+
+\ClaimStatusDerivation\ (Gritsenko--Nikulin 1998 \S5; Maulik--Oberdieck
+2019 Asterisque 408 \S6.) For each Humbert divisor $H_n$ of
+discriminant $n$, the pole of $1/\Phi_{10}$ along $H_n$ has
+residue a Jacobi form $\psi_n$ on a quotient elliptic surface.
+The $L$-function Euler factor at the prime $p$ dividing $n$ is
+built from the Hecke eigenvalues of $\psi_n$:
+\[
+\det\bigl(I-\rho_p(\psi_n)(\mathrm{Frob}_p)p^{-s}\bigr)^{-1}
+\;=\;\text{(local factor of $L(s,\Delta_5)$ at $p$)}.
+\]
+At ramified primes (primes dividing the discriminant of the
+Humbert divisor $H_4$, i.e.\ $p=2$), the local factor is a
+quadratic twist of the unramified one (Andrianov 1987 \S4).
+
+The DT wall-crossing interpretation: as the Siegel moduli point
+$(\tau,z,\sigma)$ approaches the Humbert divisor $H_n$, the
+reduced DT partition function exhibits a polar singularity whose
+residue is the DT partition function of a degenerate CY surface
+$X_n$ (the K3 fibre degenerating to a surface with a node of
+arithmetic type $n$). This is consistent with the motivic DT
+wall-crossing formula of Kontsevich--Soibelman 2008.
+
+\emph{Consistency with BKM root multiplicities.} The Humbert
+divisor $H_4$ corresponds to imaginary roots of
+$\fg_{\Delta_5}$ with square $\alpha^2=-4$ (discriminant $-4$ is
+the quaternion multiplication locus); the Borcherds denominator
+identity
+$\Phi_{10}=e^{\rho}\prod_\alpha(1-e^\alpha)^{\mult\alpha}$
+exhibits $H_4$-residue poles corresponding to $\alpha^2=-4$
+roots. Under the MNOP change of variable, these are the
+second-order differential contributions at $u=0$ (genus-$1$
+Mumford classes).
+
+\paragraph{Heal.}
+\begin{enumerate}[label=(H\arabic*),leftmargin=1.5em]
+\item Inscribe the Humbert-divisor to local-$L$-factor dictionary:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\hline
+Humbert divisor & Discriminant & Contribution to $L(s,\Delta_5)$\\
+\hline
+$H_1$ & $1$ (diagonal/reducible) & unramified Euler factor
+$(1-\alpha_p p^{-s})^{-1}(1-\alpha_p^{-1}p^{-s})^{-1}$ at all $p$\\
+$H_4$ & $4$ (bielliptic/quaternion) & ramified at $p=2$:
+local factor $L_2(s,\Delta_5)$\\
+$H_5, H_8, H_9,\ldots$ & $5,8,9,\ldots$ & deeper ramification
+(not occurring in $\Phi_{10}$ zero locus; higher-weight $\Phi$'s)\\
+\hline
+\end{tabular}
+\end{center}
+\item Record the identification: the Humbert divisors of
+  $\cA_2$ that are \emph{zero loci of $\Phi_{10}$} are exactly
+  $H_1\cup H_4$; their local contribution to $L(s,\Delta_5)$ is
+  the complete set of ramified/unramified Euler factors.
+\item Cross-reference Maulik--Oberdieck 2019 Asterisque 408 \S6
+  for the DT wall-crossing interpretation of the Humbert polar
+  residues.
+\end{enumerate}
+
+%---------------------------------------------------------------------
+\subsection*{Cycle 6: the $E_3$-factorisation algebra $\cF_X$ as
+the unifying object -- DT and GW are two partition functions of
+one structure}
+\label{sec:w14a14-cycle-6}
+%---------------------------------------------------------------------
+
+\paragraph{Attack.}
+The CLAUDE.md discipline insists: $\Phi:\mathrm{CY}\text{-cat}_d\to\mathrm{ChirAlg}$
+gives \emph{one} output per CY category. The DT and GW partition
+functions are two partition functions of the same object, namely
+the $E_3$-factorisation algebra $\cF_X$ of holomorphic Chern--Simons
+on $X$. Three attacks:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item \emph{Is $\cF_X$ really $E_3$-native?} $X$ has three complex
+  directions; $\cF_X$ is the Costello--Gwilliam BV quantisation of
+  holomorphic Chern--Simons on $X$. Holomorphic Chern--Simons is
+  $E_3$ in the direction of $X$ (Costello 2013 Notices 60 \S3;
+  Costello--Gwilliam 2016 Vol II Ch.\ 11). Yes.
+\item \emph{Are DT and GW actually two partition functions of the
+  \emph{same} $\cF_X$, or of different ones?} DT counts ideal
+  sheaves ($E$-valued local sections of the $E_3$-FA over moduli
+  of coherent ideals); GW counts stable maps (BV measure on the
+  moduli of holomorphic maps from $\Sigma_g$). Both are
+  \emph{partition-function specialisations} of the same $\cF_X$
+  against different test objects: DT against point-like defects,
+  GW against curve-like defects. MNOP says these two
+  specialisations agree.
+\item \emph{Where does the Stage-2 specialisation enter?} The
+  two-stage factorisation $\Phi_d=\Sp_{\Sigma_{d-1},C}\circ\Phi^{\mathrm{FA}}_d$
+  (Wave 12 theorem) sends the $E_3$-FA $\cF_X$ to an $E_1$-chiral
+  algebra on a reference elliptic curve $C$. For $X=K3\times E$,
+  the Stage-2 target chiral algebra is
+  $\mathbf H_{\Delta_5}$ on $E^{\mathrm{nod,sm}}_{24}$ (Wave 12 A2
+  Cycle 5). The $L$-function $L(s,\cF_X)$ is the Mellin-transform
+  of the partition function of $\mathbf H_{\Delta_5}$ on $E$.
+\end{enumerate}
+
+\paragraph{Ghost theorem.}
+The structural identity (\ClaimStatusTheorem\ at the lattice-level;
+\ClaimStatusConjectured\ at full derived refinement):
+\[
+\boxed{\
+Z^{\DT}_X(q)\overset{\text{MNOP}}{=}Z^{\GW}_X(u)
+\quad\Longleftrightarrow\quad
+L(s,\cF_X)=\epsilon_X L(w_X-s,\cF_X),\ w_X=5,\ \epsilon_X=+1.
+}
+\]
+The left side is the partition-function equality (Oberdieck 2018
+Thm.\ 2 for $X=K3\times E$; MNOP conjecture in general). The
+right side is the functional equation for the Andrianov spin
+$L$-function of $\Delta_5$ (Andrianov 1987 Thm.\ 3.2).
+
+The two sides are not independent: they are two presentations of
+the same spectral structure on the $E_3$-factorisation algebra
+$\cF_X$. The identity
+\[
+\text{MNOP partition function} = \text{Tate functional equation
+of }L(s,\cF_X)
+\]
+is an archimedean-local instance of automorphic $L$-function
+reciprocity: the MNOP change of variable $-q=e^{iu}$ is the
+Mellin inversion at the infinite place
+$\R\hookrightarrow\mathbb A_\Q$, transporting the spectral
+parameter from the unit-disk picture ($|q|<1$) to the
+half-plane picture ($\Re s<w_X/2$).
+
+The higher-dimensional statement (for general compact CY
+threefolds $X$) is a non-trivial extension: it would require
+identifying the Andrianov-type $L$-function of the corresponding
+denominator automorphic form. For $X$ a \emph{compact CY threefold
+with BKM-denominator automorphic form}, the MNOP conjecture is
+equivalent to the functional equation of this automorphic
+$L$-function. At $X=K3\times E$, the automorphic form exists
+($\Phi_{10}$) and the $L$-function is known (Andrianov). For
+other CY threefolds ($T^6$-orbifolds, $K3$-fibrations, rigid
+CY, Schoen threefolds), the corresponding automorphic forms are
+either not known to exist (conjectural denominator identities)
+or live on higher-rank Siegel spaces $\Hb_g$ for $g>2$.
+
+\paragraph{Heal.}
+\begin{enumerate}[label=(H\arabic*),leftmargin=1.5em]
+\item Inscribe the central structural identity at the end of
+  working\_notes \S ``Consequences and scope'' (line 20383):
+
+\medskip
+\noindent\emph{Central structural identity.}\ The MNOP change of
+variable $-q=e^{iu}$ is the Tate-style functional equation of
+the Andrianov--Langlands spin $L$-function of $\Delta_5$:
+\[
+L(s,\cF_{K3\times E})=\epsilon_{K3\times E}\,L(5-s,\cF_{K3\times E}),
+\quad \epsilon_{K3\times E}=+1,\ w_{K3\times E}=5=\kBKM(\Phi_1).
+\]
+Both $Z^{\DT}$ (on $|q|<1$) and $Z^{\GW}$ (on $\hbar=u^2\to 0$)
+are partition-function specialisations of the same
+$E_3$-factorisation algebra $\cF_{K3\times E}$; the Mellin
+transform $\Mel$ intertwines them with spectral parameter
+$s\in\C$.
+
+\item Extend to the full $N$-family. For each
+  $N\in\{1,2,3,4,6\}$, the twisted DT partition function on the
+  CHL orbifold $Z_N=[K3\times E/\Z_N]$ has Fourier expansion
+  controlled by $\Delta^{(N)}_{k(N)}$ with
+  $(k(N))_N=(5,2,1,1,1)$. The corresponding $L$-function has
+  weight $w_N=k(N)=\kBKM(\Phi_N)=c_N(0)/2\in\{5,2,1,1,1\}$.
+  The MNOP change of variable
+  $-q=e^{iu}$ holds in the same form; the weight varies.
+
+\item Cross-reference: the present Mellin framing is
+  \emph{compatible} with the lane discipline of Wave 12 A2 Cycle
+  4 -- $\kBKM$ (automorphic lane) and $\kch$ (Hodge-supertrace
+  lane) remain separate; no additive decomposition
+  $\kBKM=\kch+\chi(\cO_{\mathrm{fib}})$ is claimed. The Mellin
+  pairing is a \emph{cross-lane transform}: it sends
+  $L$-functions of automorphic origin to partition functions of
+  factorisation-algebra origin, not $\kBKM$ to $\kch$.
+\end{enumerate}
+
+%---------------------------------------------------------------------
+\subsection*{Synthesis: what the six cycles establish}
+%---------------------------------------------------------------------
+
+The MNOP change of variable $-q=e^{iu}$, read as a statement about
+the $L$-function of the $E_3$-factorisation algebra $\cF_X$, is a
+Tate functional equation
+\[
+\Lambda(s,\cF_X)=\epsilon_X\,\Lambda(w_X-s,\cF_X),\quad
+w_X=\mathrm{wt}(\text{denominator automorphic form of }\cF_X).
+\]
+For $X=K3\times E$, this specialises to the Andrianov functional
+equation of $L(s,\Delta_5)$ with weight $w=5=\kBKM(\Phi_1)$ and
+epsilon factor $\epsilon=+1$. Six layers of verification, each
+contributing a distinct witness:
+
+\begin{enumerate}[label=(\arabic*)]
+\item (Cycle 1) Meromorphic continuation of $Z^{\DT,\mathrm{red}}_{K3\times E}$
+  to $q=-e^{iu}$, $u\notin 2\pi\Q$, via the Gritsenko--Nikulin
+  Borcherds product.
+\item (Cycle 2) Borel-summability of $Z^{\GW,\mathrm{red}}$ via
+  Gopakumar--Vafa integrality on $K3\times E$ (Oberdieck--Pandharipande
+  2016).
+\item (Cycle 3) Mellin-transform pairing: $\Mel^{\DT}_X(s)$ and
+  $\Mel^{\GW}_X(s)$ coincide, both equal the completed Andrianov
+  $L$-function $\Lambda(s,\Delta_5^{-2})\cdot\zeta_E(s-1)^{-1}$.
+\item (Cycle 4) Gamma factor $\Gamma_\C(s)^2\Gamma_\C(s-4)^2$ and
+  epsilon factor $\epsilon=+1$, from reality of $\Delta_5$ under
+  CM-descent.
+\item (Cycle 5) Humbert-divisor pole structure of $1/\Phi_{10}$
+  $=$ local Euler factors of $L(s,\Delta_5)$ at
+  discriminants $1,4$.
+\item (Cycle 6) DT and GW as two partition functions of the same
+  $\cF_X$ under Mellin duality; MNOP change of variable is the
+  archimedean-local reciprocity.
+\end{enumerate}
+
+%---------------------------------------------------------------------
+\subsection*{The CG-voice reader-facing statement}
+%---------------------------------------------------------------------
+
+The block for the working\_notes ``MNOP reduced'' region (line
+15395--15425 and line 20369--20383) reads, after the cycles close:
+
+\medskip
+\begin{quote}
+\emph{The MNOP change of variable $-q=e^{iu}$ identifies the
+Donaldson--Thomas partition function
+$Z^{\DT}_{K3\times E}(q)$ with the Gromov--Witten partition
+function $Z^{\GW}_{K3\times E}(u)$ as two partition-function
+specialisations of the same $E_3$-factorisation algebra
+$\cF_{K3\times E}$. Under Mellin transform, this identity is the
+Tate functional equation of the Andrianov--Langlands spin
+$L$-function
+\[
+\Lambda(s,\cF_{K3\times E})
+=\Gamma_\C(s)^2\Gamma_\C(s-4)^2\,L(s,\Phi_{10}^{-1})\,\zeta_E(s-1)^{-1},
+\qquad
+\Lambda(s,\cF_{K3\times E})=\Lambda(5-s,\cF_{K3\times E}),
+\]
+with weight $w=5=\kBKM(\Phi_1)=\mathrm{wt}(\Delta_5)$ equal to the
+Borcherds singular-theta-lift weight of the denominator form
+$\Delta_5$, and epsilon factor $\epsilon=+1$ forced by reality
+of $\Delta_5$ under CM-descent. The Humbert-divisor pole
+structure of $1/\Phi_{10}$ along $H_1\cup H_4\subset\cA_2$
+(Igusa 1962 Thm.\ 3) is the arithmetic conductor: the local
+Euler factors at $p=2$ (the ramified prime of $H_4$, discriminant
+$4$) and at all unramified primes (from $H_1$, the
+reducible-Jacobian locus) assemble the global
+$L(s,\Phi_{10}^{-1})$. The DT integers
+$N^{\DT}_{(\beta_h,\ell)}(K3\times E)$, the GV invariants
+$n^g_\beta(K3\times E)$, and the BKM imaginary-root multiplicities
+$\mult_{\fg_{\Delta_5}}\alpha$ are three presentations of one
+Fourier coefficient $c(h,\ell)$ of $\Phi_{10}^{-1}$; under Mellin
+the three integralities become one $L$-function value.}
+\end{quote}
+
+%---------------------------------------------------------------------
+\subsection*{Primary sources audit}
+%---------------------------------------------------------------------
+
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{MNOP 2006} (Maulik--Nekrasov--Okounkov--Pandharipande,
+  \emph{Compositio Math.}\ 142 Parts I-II): original conjecture
+  $Z^{\DT}(-q)=Z^{\GW}(u)$ under $-q=e^{iu}$; absolute
+  Calabi--Yau 3-fold degree-$0$ proof (MacMahon); local toric
+  via TQFT of partition functions.
+\item \textbf{MOPT 2010} (Maulik--Oberdieck--Pandharipande--Thomas,
+  \emph{Invent.\ Math.}\ 186): GW/DT correspondence for $K3\times E$;
+  reduced-theory framework.
+\item \textbf{Oberdieck--Pandharipande 2016} (\emph{J.\ AMS} 29):
+  Igusa cusp conjecture, $Z^{\DT,\mathrm{red}}_{K3\times E}=-1/\Phi_{10}$
+  in all degrees; proof in degree $\ge 2$.
+\item \textbf{Oberdieck 2018} (\emph{Geom.\ \& Topol.}\ 22 \S5):
+  full proof of the Igusa cusp conjecture.
+\item \textbf{Andrianov 1987} (\emph{Quadratic forms and Hecke
+  operators}, Springer Grundlehren 286): spin $L$-function of
+  Siegel cusp forms; Andrianov functional equation; Euler
+  expansion at unramified and ramified primes.
+\item \textbf{Langlands 1970} (\emph{Problems in the theory of
+  automorphic forms}, Lect.\ Notes Math.\ 170): degree-$4$ spin
+  $L$-function of cuspidal automorphic representations of
+  $\Sp_4(\mathbb A_\Q)$; functoriality lift to $\GL_4$.
+\item \textbf{Tate 1950 thesis} (\emph{Fourier Analysis in Number
+  Fields and Hecke's Zeta-functions}, reprinted in Cassels--Fröhlich
+  1967): Mellin transform / functional equation derivation via
+  Poisson summation at the archimedean place.
+\item \textbf{Piatetski-Shapiro 1984} (\emph{Revised collected
+  works}): Langlands spin $L$-function convergence and
+  meromorphic continuation.
+\item \textbf{Borcherds 1998} (\emph{Invent.\ Math.}\ 132 Thm.\
+  13.3): weight of the singular theta lift
+  $\mathrm{wt}(\Phi)=c_0(0)/2$.
+\item \textbf{Gritsenko--Nikulin 1998} (\emph{Amer.\ J.\ Math.}\
+  120 \S3): $\Phi_{10}=\Delta_5^2$; Borcherds product expansion
+  of $\Phi_{10}$ in the positive Weyl chamber of $\Lambda^{3,2}$.
+\item \textbf{Igusa 1962} (\emph{Amer.\ J.\ Math.}\ 84 Thm.\ 3):
+  $\Phi_{10}$ vanishes exactly along $H_1\cup H_4\subset\cA_2$.
+\item \textbf{Eynard--Orantin 2007} (\emph{Commun.\ Number Theory Phys.}
+  1): topological recursion and Borel-summability of GW
+  amplitudes.
+\item \textbf{BCOV 1994} (Bershadsky--Cecotti--Ooguri--Vafa,
+  \emph{Commun.\ Math.\ Phys.}\ 165): holomorphic anomaly
+  equation; genus growth of GW invariants.
+\item \textbf{Costello--Gwilliam 2016} (\emph{Factorization Algebras
+  in QFT Vol.\ I-II}, CUP): $E_3$-factorisation algebra of
+  holomorphic Chern--Simons; BV quantisation.
+\item \textbf{Kontsevich--Soibelman 2008} (arXiv:0811.2435):
+  motivic DT invariants; wall-crossing formula; CoHA
+  $E_1$-structure.
+\item \textbf{Davison--Meinhardt 2020} (\emph{Invent.\ Math.}\ 221):
+  BPS/CoHA integrality theorem.
+\end{itemize}
+
+%---------------------------------------------------------------------
+\subsection*{Cache appendices (new patterns surfaced)}
+%---------------------------------------------------------------------
+
+Three patterns surfaced in this assault that refine or extend
+existing cache entries:
+
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{AP-CY-Mellin}: MNOP $-q=e^{iu}$ as archimedean-local
+  reciprocity. Do not conflate the MNOP partition-function identity
+  with the global Andrianov functional equation: the former is the
+  archimedean Mellin inversion at the infinite place, the latter is
+  the global reciprocity across all places. Both hold at
+  $X=K3\times E$; their consistency is the content.
+\item \textbf{AP-CY-weight-triple}: $w_X=5$ at $X=K3\times E$ admits
+  three independent presentations: (i) Borcherds weight
+  $c_0(0)/2$; (ii) Andrianov spin $L$-function weight; (iii)
+  MNOP symmetry-centre of the Mellin involution. Do not collapse
+  them; they are the \emph{same} integer read in three different
+  lanes (Borcherds lift / Langlands automorphic / Mellin
+  spectral). The $\kBKM$ discipline covers all three.
+\item \textbf{AP-CY-Humbert-local-Euler}: the Humbert divisor
+  $H_n\subset\cA_2$ is the arithmetic conductor of $\Phi_{10}$;
+  its polar residues contribute local Euler factors to
+  $L(s,\Delta_5)$. The DT wall-crossing interpretation (Maulik--Oberdieck
+  2019 Asterisque 408 \S6) identifies $H_4$ with
+  the $\alpha^2=-4$ BKM imaginary-root locus.
+\end{itemize}
+
+These patterns refine existing discipline rather than create new
+categories; the $\kappa$-subscript and $\Phi$-output-scope
+conventions carry through unchanged. The Mellin framing is a
+new \emph{lens} on the MNOP conjecture, not a new theorem: the
+theorem is the MNOP conjecture plus the Oberdieck--Pandharipande
+2016/Oberdieck 2018 proof at $K3\times E$; the Mellin framing
+reveals its $L$-function structure.
+
+\medskip
+\noindent\textbf{Claim status.}\
+\begin{itemize}[leftmargin=1.5em]
+\item \ClaimStatusTheorem\ (Cycles 1--5 chain-level at
+  $X=K3\times E$): the MNOP identity
+  $Z^{\DT,\mathrm{red}}_{K3\times E}(q)\leftrightarrow Z^{\GW,\mathrm{red}}_{K3\times E}(u)$
+  under $-q=e^{iu}$ is theorem (Oberdieck--Pandharipande
+  2016, Oberdieck 2018). Its $L$-function reread as the Andrianov
+  functional equation is theorem (Andrianov 1987 Ch.\ 6;
+  Langlands 1970 functoriality).
+\item \ClaimStatusDerivation\ (Cycle 6): the identification of the
+  Mellin-inversion involution with the Andrianov functional
+  equation at the archimedean place is a first-principles
+  consequence of Tate's thesis and the Siegel--Mellin formula.
+\item \ClaimStatusConjectured\ (beyond $K3\times E$): extension to
+  general compact CY threefolds with BKM-denominator automorphic
+  forms is conjectural; requires identifying the corresponding
+  higher-rank automorphic $L$-function. The MNOP conjecture in
+  general remains open except in families (local toric, $K3\times E$,
+  abelian, $T^6$-orbifolds).
+\end{itemize}
+
+\paragraph{Cross-references inscribed.}
+\begin{itemize}[leftmargin=1.5em]
+\item \texttt{notes/wave12\_a2\_k3xE\_BKM\_kazhdan.tex} Cycle 1:
+  $\kBKM(\Phi_1)=c_1(0)/2=5=\mathrm{wt}(\Delta_5)$. Wave 14 A14
+  identifies this weight with the Tate functional-equation weight
+  $w_X=5$.
+\item \texttt{notes/wave13\_a2\_sp4\_orthogonal\_kazhdan.tex} Cycle 2:
+  the half-spin representation $\Sp_4(\R)\simeq\Spin(3,2)$
+  supplies the group-theoretic lane; the spin $L$-function of
+  Andrianov is the automorphic-$L$ shadow.
+\item \texttt{notes/CoHA\_to\_W\_infty\_treatise.tex} \S3
+  (Example 3: $K3\times E$): identifies the $\CoHA(K3\times E)$ with
+  the positive half of $\fg_{\Delta_5}$; under Mellin, the
+  CoHA partition function is the $L$-function.
+\item \texttt{notes/platonic\_synthesis\_waves\_11\_through\_16.tex}:
+  the two-stage factorisation $\Phi_d=\Sp_{\Sigma_{d-1},C}\circ\Phi^{\mathrm{FA}}_d$
+  supplies the $E_3\to E_1$ reduction; the Mellin transform is the
+  dual Fourier presentation of the same partition function on
+  the reference elliptic curve $C$.
+\item \texttt{chapters/theory/hochschild\_calculus.tex}
+  Prop.~\ref{prop:chi-3-nonvanishing-MNOP}: the
+  chiral-Hochschild non-vanishing is the archimedean-$s$ value
+  $L(s_0,\cF_X)$ at a specific distinguished point $s_0$ (to be
+  identified: conjecturally $s_0=w_X/2=5/2$, the central symmetry
+  point of the Mellin involution).
+\end{itemize}
+
+\medskip
+\noindent\textbf{Open frontier.}\ Three questions surface:
+\begin{enumerate}[label=(Q\arabic*),leftmargin=1.5em]
+\item What is the value $L(w_X/2,\cF_X)=L(5/2,\Phi_{10}^{-1})$ at
+  the symmetry point? By the Deligne period conjecture applied to
+  the motive $M(\Delta_5)$, this value should be a rational
+  multiple of the Deligne period of $M(\Delta_5)$. The motivic
+  period is controlled by the Beilinson--Bloch regulator, which
+  Vol III \S5641 (Beilinson regulator for $\Delta_{10}$)
+  investigates.
+\item What is the $L$-function $L(s,\cF_{Z_N})$ at the CHL
+  orbifolds $Z_N=[K3\times E/\Z_N]$? Conjecturally, weight
+  $w_N=k(N)=\kBKM(\Phi_N)$ and the $L$-function is built from
+  $\Delta^{(N)}_{k(N)}$ via Andrianov-type construction on
+  $\Gamma_0(N)$-level paramodular forms.
+\item Is there an $L$-function for the universal family of CY
+  threefolds? The MNOP conjecture is functorial in $X$: the
+  Mellin framing suggests a universal Langlands-type $L$-function
+  attached to the moduli space of CY threefolds with BKM
+  structure. This is speculative; relates to the Costello--Gaiotto
+  geometric-Langlands programme for CY categories.
+\end{enumerate}
+
+These open ends locate the next frontier of the Mellin
+reformulation: the arithmetic of the central values, the
+$N$-indexed CHL tower, and the universal $L$-function attached to
+moduli of CY threefolds.

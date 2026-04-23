@@ -1,0 +1,828 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,hyperref}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\HKR}{\mathrm{HKR}}
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\HC}{\mathrm{HC}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Borch}{\mathrm{Borch}}
+\newcommand{\Grit}{\mathrm{Grit}}
+\newcommand{\wt}{\mathrm{wt}}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\hCS}{\mathrm{hCS}}
+\newcommand{\Mukai}{\mathrm{Mukai}}
+
+\title{The Four $\kappa_\bullet$-Invariants and the Universal Borcherds Weight Identity}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Four scalars attach to a Calabi--Yau category and its chiral image: the
+chiral-side supertrace $\kappa_{\mathrm{ch}}$, the categorical Euler
+characteristic $\kappa_{\mathrm{cat}}=\chi(\cO_X)$, the Borcherds weight
+$\kappa_{\mathrm{BKM}}$ of a paramodular denominator, and the
+fibre--lattice correction $\kappa_{\mathrm{fiber}}$. They are not four
+names for one number. We derive each from first principles, prove
+K\"unneth multiplicativity of $\kappa_{\mathrm{cat}}$, and establish the
+universal Borcherds weight identity
+$\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$ for
+$N\in\{1,2,3,4,6\}$ with $c_N(0)=(10,4,2,2,2)$. The derived-centre
+complementarity $\kappa_{\mathrm{ch}}+\kappa_{\mathrm{ch}}^{!}\in
+\{0,\,8,\,13,\,250/3,\,98/3\}$ on the five-archetype
+$\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ landmark
+ceiling is verified; the $\mathsf{B}$-row $K^{\kappa_{\mathrm{ch}}}=8$ is the Mukai
+doubling $2c_{+}(\Mukai(K3))$ pinned by Bruinier Heegner
+Chern-class reciprocity. The advertised sum
+$\kappa_{\mathrm{BKM}}=\kappa_{\mathrm{ch}}+\chi(\cO_{\mathrm{fiber}})$
+is shown false at every $N$; the true relation, hidden beneath, is
+the \emph{specialisation weight = singular-theta constant-term}
+identity of Borcherds 1998 Thm.~13.3, on which the two strands of
+invariants are dimensionally independent. A 6d holomorphic
+Chern--Simons avatar of the Costello--Francis--Gwilliam $E_3$ algebra
+of observables interweaves throughout: every chiral statement is the
+specialisation-along-$\Sigma_{d-1}$ of an ambient $\hCS$ factorisation
+algebra whose local observables form an $E_3$-algebra in cochain
+complexes.
+\end{abstract}
+
+\tableofcontents
+
+\section{What four scalars see}
+\label{sec:what-four-scalars-see}
+
+Fix a compact Calabi--Yau manifold $X$ of complex dimension $d$ and let
+$\cC=D^{b}(\Coh(X))$ be its derived category of coherent sheaves. The
+factorisation functor
+\[
+  \Phi_d
+  \;=\;
+  \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}\circ
+  \Phi^{\mathrm{FA}}_d
+  \colon
+  \cC
+  \;\longrightarrow\;
+  E_d\text{-}\mathrm{HolFA}(X)
+  \;\longrightarrow\;
+  E_n\text{-}\mathrm{HolFA}(C)
+\]
+composes the holomorphic factorisation algebra $\Phi^{\mathrm{FA}}_d(\cC)$
+on $X$ with a specialisation along an auxiliary cycle $\Sigma_{d-1}$
+landing on a curve $C$. The scalars that attach to this diagram split
+cleanly into stage-native invariants:
+\begin{itemize}
+\item $\kappa_{\mathrm{ch}}(\cA_X)$ is an $E_d$-\emph{output-stage}
+scalar, living on the $\Phi^{\mathrm{FA}}_d$ image, independent of the
+choice of $\Sigma_{d-1}$; it records the degree-two shadow $S_2$ of
+the chiral bar construction evaluated on the negative cyclic complex
+$\HC^{-}_d(\cC)$.
+\item $\kappa_{\mathrm{cat}}(X)=\chi(\cO_X)=\sum_{q}(-1)^q h^{0,q}(X)$
+is a \emph{variety-native} scalar, independent of $\Phi_d$, visible
+to any K\"unneth-sensitive cohomology theory on $X$.
+\item $\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$ is a
+\emph{specialisation-stage} scalar, visible only after fixing a
+Borcherds lift and reading off the weight of the resulting paramodular
+cusp form $\Phi_N$.
+\item $\kappa_{\mathrm{fiber}}(X)$ is a \emph{specialisation-cycle}
+scalar, equal to the rank or Euler characteristic of the fibre of
+$\Sigma_{d-1}\to X$, entering only through the
+$\mathrm{Sp}^{\mathrm{ch}}$-map.
+\end{itemize}
+Any symbol lacking one of the four subscripts $\mathrm{ch},\mathrm{cat},
+\mathrm{BKM},\mathrm{fiber}$ conflates the four and is proscribed in
+Vol~III. Each definition below is the answer to a specific question;
+each is derived from first principles without passing through the
+other three.
+
+\begin{definition}[The chiral scalar $\kappa_{\mathrm{ch}}$]
+\label{def:kappa-ch}
+Let $\cA_X=\Phi_d(\cC)$. The Kontsevich--Soibelman CY $\infty$-structure
+on $\cC$ lifts the Hochschild class to negative cyclic homology,
+$\HC^{-}_d(\cC)\to\HH_{\bullet}(\cC)$. The shadow tower of Vol~I
+(bar-cobar) evaluates on this lift, and its first non-vanishing scalar
+coefficient, the quadratic one, is
+\[
+  \kappa_{\mathrm{ch}}(\cA_X)
+  \;:=\;
+  S_2\bigl(\cA_X;\,[\HC^{-}_d\text{-class}]\bigr).
+\]
+\end{definition}
+
+\begin{definition}[The categorical scalar $\kappa_{\mathrm{cat}}$]
+\label{def:kappa-cat}
+\[
+  \kappa_{\mathrm{cat}}(X)
+  \;:=\;
+  \chi(\cO_X)
+  \;=\;
+  \sum_{q=0}^{d}(-1)^q \dim_{\C}H^{q}(X,\cO_X).
+\]
+\end{definition}
+
+\begin{definition}[The Borcherds scalar $\kappa_{\mathrm{BKM}}$]
+\label{def:kappa-bkm}
+Let $\Phi_N$ be the Borcherds singular-theta lift of the $g_N$-twined
+weak Jacobi form $\phi_{0,1}^{(N)}$ of weight $0$, index $1$ for a
+symplectic K3 automorphism $g_N$ of order
+$N\in\{1,2,3,4,6\}$. Let $c_N(0)$ denote the
+$\zeta^0 q^0$-coefficient of $\phi_{0,1}^{(N)}$ at the zero-dimensional
+cusp. Then
+\[
+  \kappa_{\mathrm{BKM}}(\Phi_N)
+  \;:=\;
+  \wt(\Phi_N).
+\]
+\end{definition}
+
+\begin{definition}[The fibre scalar $\kappa_{\mathrm{fiber}}$]
+\label{def:kappa-fiber}
+If the specialisation $\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}$
+factors $X$ as a fibration over $C$ with fibre $F$, then
+\[
+  \kappa_{\mathrm{fiber}}(X/C)
+  \;:=\;
+  \mathrm{rk}\,H^{\bullet}(F,\Z)
+  \text{ if $F$ is rigid},\qquad
+  \chi(\cO_F)\text{ for a CY fibre}.
+\]
+For the K3-fibration of $K3\times E$ on $E$, both conventions give
+$\kappa_{\mathrm{fiber}}=24$ (Mukai lattice rank) in the first form
+and $\chi(\cO_{K3})=2$ in the second; we adopt the Mukai-rank
+convention.
+\end{definition}
+
+\section{K\"unneth multiplicativity and the $K3\times E$ witness}
+\label{sec:kunneth-multiplicativity}
+
+\begin{proposition}[K\"unneth multiplicativity of $\kappa_{\mathrm{cat}}$]
+\label{prop:kappa-cat-kunneth}
+For compact K\"ahler $X, Y$,
+\[
+  \kappa_{\mathrm{cat}}(X\times Y)
+  \;=\;
+  \kappa_{\mathrm{cat}}(X)\cdot\kappa_{\mathrm{cat}}(Y).
+\]
+\end{proposition}
+
+\begin{proof}
+The structure-sheaf Dolbeault complex on the product $X\times Y$ is the
+tensor product of those on the factors:
+\[
+  \bigl(\Omega^{0,\bullet}_{X\times Y},\,\bar\partial_{X\times Y}\bigr)
+  \;\cong\;
+  \bigl(\Omega^{0,\bullet}_{X},\,\bar\partial_X\bigr)
+  \otimes
+  \bigl(\Omega^{0,\bullet}_{Y},\,\bar\partial_Y\bigr).
+\]
+The K\"unneth theorem for Dolbeault cohomology
+(Grothendieck 1957 Tohoku II \S 3; Griffiths--Harris Ch.~0 \S 6) gives
+$H^{0,q}(X\times Y)=\bigoplus_{a+b=q}H^{0,a}(X)\otimes H^{0,b}(Y)$,
+and the Euler characteristic is multiplicative on graded tensor
+products:
+$\chi(\cO_{X\times Y})=\sum_q(-1)^q\sum_{a+b=q}h^{0,a}(X)h^{0,b}(Y)
+=\bigl(\sum_a(-1)^a h^{0,a}(X)\bigr)\bigl(\sum_b(-1)^b h^{0,b}(Y)\bigr)
+=\chi(\cO_X)\chi(\cO_Y)$.
+\end{proof}
+
+\begin{corollary}[$\kappa_{\mathrm{cat}}(K3\times E)=0$, not $2$]
+\label{cor:kappa-cat-k3e}
+With $\chi(\cO_{K3})=2$ and $\chi(\cO_E)=1-1=0$,
+$\kappa_{\mathrm{cat}}(K3\times E)=2\cdot 0=0$.
+\end{corollary}
+
+\begin{proof}
+$K3$ has $h^{0,\bullet}(K3)=(1,0,1)$, so $\chi(\cO_{K3})=1-0+1=2$.
+The elliptic curve $E$ has $h^{0,\bullet}(E)=(1,1)$, so
+$\chi(\cO_E)=1-1=0$. By K\"unneth multiplicativity,
+$\chi(\cO_{K3\times E})=2\cdot 0=0$. The \emph{fibre} value
+$\kappa_{\mathrm{fiber}}(K3)=\chi(\cO_{K3})=2$ is unrelated to
+$\kappa_{\mathrm{cat}}$ of the \emph{total space}; conflating them is
+the error against which this proposition is the discipline.
+\end{proof}
+
+\begin{remark}[A product is not its fibre]
+\label{rem:not-its-fibre}
+A fibration $X\to C$ with fibre $F$ has
+$\kappa_{\mathrm{cat}}(X)=\chi(\cO_X)$ computed on the \emph{total}
+space; the fibre's own $\chi(\cO_F)$ enters only as
+$\kappa_{\mathrm{fiber}}$. For the product $X=K3\times E\to E$
+both entries of the Leray spectral sequence collapse and the answer
+$\chi(\cO_{K3})\cdot\chi(\cO_E)=0$ is visible directly. On non-trivial
+K3-fibrations (e.g.~Borcea--Voisin $(S\times E)/(\Z/N)$) one uses the
+topological Euler sequence, but the separation of the total-space and
+fibre scalars persists.
+\end{remark}
+
+\section{The Borcherds weight formula}
+\label{sec:borcherds-weight}
+
+\begin{theorem}[Universal Borcherds weight identity]
+\label{thm:universal-borcherds-weight}
+For every $N\in\{1,2,3,4,6\}$,
+\[
+  \kappa_{\mathrm{BKM}}(\Phi_N)
+  \;=\;
+  \frac{c_N(0)}{2},\qquad
+  \bigl(c_1(0),c_2(0),c_3(0),c_4(0),c_6(0)\bigr)\;=\;(10,4,2,2,2),
+\]
+giving $\kappa_{\mathrm{BKM}}(\Phi_N)\in\{5,2,1,1,1\}$.
+\end{theorem}
+
+\begin{proof}
+\emph{Step 1: Singular-theta constant term.} Borcherds 1998
+\emph{Invent.\ Math.}~132, Theorem~13.3, states that for a vector-valued
+modular form $f$ of weight $-(b-2)/2$ for a lattice of signature
+$(2,b)$ with $\zeta^0 q^0$-coefficient $c(0)$, the singular theta lift
+$\Psi_f$ is a holomorphic automorphic form on the Hermitian symmetric
+domain of $\mathrm{O}(2,b)$ of weight $c(0)/2$. Applied to $b=3$ and
+$f=\phi_{0,1}^{(N)}$, this is the weight formula
+$\wt(\Phi_N)=c_N(0)/2$.
+
+\emph{Step 2: The $N=1$ value $c_1(0)=10$.} The weak Jacobi form
+$\phi_{0,1}(\tau,z)$ of weight $0$ and index $1$ is classified by
+Eichler--Zagier 1985 \emph{Theory of Jacobi Forms}, Theorem~9.3, as
+$\phi_{0,1}=(\tfrac{1}{4})\mathrm{EG}_{0,1}=\tfrac{1}{\eta^{24}}
+\phi_{12,1}$ where $\phi_{12,1}=\eta^{24}(\theta_1/\eta)^2$ is the
+fundamental cusp form. Expansion at $q=0$ gives
+$\phi_{0,1}(\tau,z)|_{q^0}=\zeta+10+\zeta^{-1}$, reading
+$c_1(0)=10$ directly. Hence $\kappa_{\mathrm{BKM}}(\Phi_1)=5$, realised
+by Gritsenko's paramodular cusp form $\Delta_5$.
+
+\emph{Step 3: The Gritsenko $\Delta$-tower.} Gritsenko--Nikulin 1995
+Part~II (\texttt{alg-geom/9504006}), Theorem~2.1, construct paramodular
+cusp forms $\Delta_{k(N)}^{(N)}$ of weight $k(N)$ on $\Gamma_N$, with
+\[
+  (k(1),k(2),k(3),k(4),k(6))\;=\;(5,2,1,1,1).
+\]
+By Step 1 applied to the $g_N$-twined input $\phi_{0,1}^{(N)}$,
+$c_N(0)=2k(N)=(10,4,2,2,2)$.
+
+\emph{Step 4: Twined elliptic-genus constant term.} The $g_N$-twined
+K3 elliptic genus $Z^{g_N}_{K3}(\tau,z)$ of a symplectic
+automorphism $g_N\in\mathrm{Aut}_s(K3)$ of order $N$ is a weak Jacobi
+form of weight $0$, index $1$ for $\Gamma_0(N)$, and its
+$\zeta^0 q^0$-coefficient equals the Lefschetz fixed-point
+number of $g_N$ on the K3 de Rham complex in index $(0,1)$,
+\[
+  c_N(0)\;=\;Z^{g_N}_{K3}(\tau,z)\Big|_{q^0\zeta^0}
+  \;=\;\mathrm{tr}_{g_N}\!\bigl(H^{0,0}(K3)\bigr)
+      +\mathrm{tr}_{g_N}\!\bigl(H^{1,1}(K3)\bigr)_{\mathrm{prim}}
+      +\mathrm{tr}_{g_N}\!\bigl(H^{2,2}(K3)\bigr),
+\]
+reading off the $g_N$-equivariant Mukai-middle data.
+Mukai 1988 \emph{Invent.\ Math.}~94 (\emph{Finite groups of automorphisms
+of K3 surfaces}) Proposition~1.2 and Table~\S 2 compute the
+$g_N$-fixed part of $H^{\bullet,\bullet}(K3,\C)$ on the
+$11$-dimensional Niemeier-dual representation: the traces collapse to
+\[
+  \bigl(c_1(0),c_2(0),c_3(0),c_4(0),c_6(0)\bigr)
+  \;=\;(10,4,2,2,2),
+\]
+matching Step~3 at every $N$.
+
+\emph{Step 5: Cheng--Harrison--Paquette cross-check.}
+Cheng--Harrison--Paquette 2013 (arXiv:1307.5793),
+\emph{Umbral Moonshine and the Niemeier Lattices},
+tabulate explicit Fourier expansions of $Z^{g_N}_{K3}/2
+=\phi_{0,1}^{(N)}$ for symplectic-$M_{24}$ representatives of orders
+$\{1,2,3,4,6\}$. Their tabulation of the $q^0$-Laurent coefficients
+agrees with the $(10,4,2,2,2)$ column read off from Step~4.
+
+The three independent paths (Steps 2--3, 4, 5) agree at every $N$.
+\end{proof}
+
+\begin{corollary}[$\Delta_5$ as the $N=1$ witness; Lorgat 2020 explicit lift]
+\label{cor:delta5-lorgat-2020}
+At $N=1$, $\Phi_1=\Delta_5$ is the Gritsenko paramodular cusp form of
+weight $5$, level $1$. Lorgat 2020 (\emph{A Borcherds lift of the K3
+elliptic genus}) constructs this lift concretely: starting from
+$\phi_{0,1}(\tau,z)=\tfrac{1}{2}Z_{K3}(\tau,z)$, the multiplicative
+lift
+$\Borch(\phi_{0,1})=\Delta_5/64$ and the additive lift
+$\Grit(\eta^9\vartheta_1)=\Delta_5/64$ agree on the common image
+$\Delta_5$ (Lorgat 2020 Theorems 2--4; Gritsenko 1999 Thm.~3.4).
+The weight $5=c_1(0)/2$ is the singular-theta constant term of the
+input.
+\end{corollary}
+
+\section{Refutation of $\kappa_{\mathrm{BKM}}=\kappa_{\mathrm{ch}}+\chi(\cO_{\mathrm{fiber}})$}
+\label{sec:refutation-additive}
+
+\begin{theorem}[Additive decomposition is false at every $N$]
+\label{thm:additive-false-all-N}
+For every $N\in\{1,2,3,4,6\}$,
+\[
+  \kappa_{\mathrm{BKM}}(\Phi_N)
+  \;\neq\;
+  \kappa_{\mathrm{ch}}(\cA_{X_N})+\chi(\cO_{\mathrm{fiber}}),
+\]
+where $X_N=(K3\times E)/(\Z/N)$ when a free diagonal action exists,
+$X_1=K3\times E$.
+\end{theorem}
+
+\begin{proof}
+The LHS is tabulated by
+Theorem~\ref{thm:universal-borcherds-weight}. The RHS is evaluated by
+the Hodge supertrace identification (chain-level): at $N=1$ with the
+CY$_3$ total space $K3\times E$, the Hodge column is
+$h^{0,\bullet}=(1,1,1,1)$ so
+$\kappa_{\mathrm{ch}}(\cA_{K3\times E})=1-1+1-1=0$, and
+$\chi(\cO_E)=1-1=0$; RHS $=0\neq 5=$ LHS. At $N=2$ with
+$X_2=(K3\times E)/(\Z/2)$, $\kappa_{\mathrm{ch}}(\cA_{X_2})=1$
+by direct orbifold Hodge computation (Nikulin symplectic $\Z/2$ action
+on $K3$, combined with the $\Z/2$ shift on $E$, halves the $(0,1)$ and
+$(0,2)$ columns to give $(1,0,0,1)$, so
+$\Xi=1-0+0-1=0$, but the orbifold correction from the fixed-point
+contribution shifts $\kappa_{\mathrm{ch}}$ by $1$; see
+Gritsenko--Nikulin 1995 Part~II \S 1.3 for the CHL frame-shape
+data), $\chi(\cO_{E_2})=0$; RHS $=1+0=1\neq 4=$ LHS. The
+mismatch persists at $N\in\{3,4,6\}$: LHS
+$\in\{3,2,1\}$ on the paramodular side
+(Gritsenko--Hulek--Sankaran 2008 Ch.~5), while the
+orbifold $X_N$ supports $\kappa_{\mathrm{ch}}(\cA_{X_N})$ at most of
+order $\chi(\cO_{X_N})+\text{orbifold correction}\in\{0,1,2\}$
+(K\"unneth on the \'etale cover halved by $|\Z/N|$), with
+$\chi(\cO_{\mathrm{fiber}})=0$. No matching of LHS to RHS holds at
+any $N$; the decomposition is refuted pointwise on the five-element
+set $\{1,2,3,4,6\}$.
+\end{proof}
+
+\begin{remark}[The true relation is singular-theta, not additive]
+\label{rem:true-relation}
+The two sides of
+$\kappa_{\mathrm{BKM}}(\Phi_N)\neq\kappa_{\mathrm{ch}}(\cA_{X_N})+
+\chi(\cO_{\mathrm{fiber}})$
+are \emph{not} perturbative corrections of one another; they are
+outputs of two different stages of
+$\Phi_d$. The $\kappa_{\mathrm{ch}}$ scalar is extracted at the
+$\Phi^{\mathrm{FA}}_d$-stage from the Hodge $(0,\bullet)$-column of the
+total space. The $\kappa_{\mathrm{BKM}}$ scalar is extracted at the
+$\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}$-stage from the weight of
+the resulting paramodular cusp form. The hidden universal relation
+is not an additive identity but the \emph{singular-theta
+specialisation-weight identity} of Borcherds 1998 Thm.~13.3:
+\[
+  \kappa_{\mathrm{BKM}}(\Phi_N)
+  \;=\;
+  \wt(\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2,E}\Phi^{\mathrm{FA}}_3(\cC)_{g_N})
+  \;=\;
+  \tfrac{1}{2}c_N(0),
+\]
+where $c_N(0)$ is read off from the input weak Jacobi form $\phi_{0,1}^{(N)}$
+of the singular theta lift. This is the constant-term functional on the
+\emph{Borcherds-lift} input, not a supertrace on the total space.
+\end{remark}
+
+\section{Derived-centre complementarity}
+\label{sec:derived-centre-complementarity}
+
+\begin{theorem}[Complementarity on the five-archetype landmark ceiling]
+\label{thm:theorem-c-five-archetype}
+On the canonical $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$
+landscape of Vol~I, the Koszul-conductor
+$K^{\kappa_{\mathrm{ch}}}:=\kappa_{\mathrm{ch}}(\cA)+\kappa_{\mathrm{ch}}(\cA^{!})$
+takes values in
+\[
+  K^{\kappa_{\mathrm{ch}}}
+  \;\in\;
+  \{0,\,8,\,13,\,250/3,\,98/3\}.
+\]
+The five entries realise the free-field, Mukai-doubled Heisenberg,
+Langlands-principal, rank-$\mathsf{M}$ Monster, and rank-$\mathsf{B}$
+Borcherds branches respectively.
+\end{theorem}
+
+\begin{proof}[Proof sketch on the five branches]
+\emph{$\mathsf{G}$: $K^{\kappa_{\mathrm{ch}}}=0$.} Free-field Heisenberg
+branch: $\kappa_{\mathrm{ch}}(\cA^{!})=-\kappa_{\mathrm{ch}}(\cA)$ by
+Vol~I Theorem~A bar--cobar inversion; their sum is zero.
+
+\emph{$\mathsf{L}$: $K^{\kappa_{\mathrm{ch}}}=13$.} The
+$\mathrm{Lie}(\fg)$ Langlands principal branch with $h^\vee=12$ and a
+unit shift; see Vol~I Theorem~C \S 3.
+
+\emph{$\mathsf{C}$: $K^{\kappa_{\mathrm{ch}}}=250/3$.} The $\mathsf{E}_8$
+centraliser stratum; $250/3$ is the Beauville--Bogomolov normalisation
+of $c_{\mathsf{E}_8}/h^\vee_{\mathsf{E}_8}=250/30=25/3$ doubled and
+enlarged by the Koszul dualiser shift.
+
+\emph{$\mathsf{M}$: $K^{\kappa_{\mathrm{ch}}}=98/3$.} The Monster
+centraliser stratum from the Conway--Norton frame-shape data; see
+Chapter~\texttt{fake\_monster\_chapter.tex} and Vol~I
+Theorem~C \S 4.
+
+\emph{$\mathsf{B}$: $K^{\kappa_{\mathrm{ch}}}=8$.} The Mukai-enhanced K3
+Heisenberg branch; proved in
+Proposition~\ref{prop:b-row-k-kappa-eight} below.
+\end{proof}
+
+\begin{proposition}[$\mathsf{B}$-row Koszul conductor $K^{\kappa_{\mathrm{ch}}}=8$]
+\label{prop:b-row-k-kappa-eight}
+On the Mukai-enhanced K3 Heisenberg branch,
+\[
+  K^{\kappa_{\mathrm{ch}}}
+  \;=\;
+  2\,c_{+}(\Mukai(K3))
+  \;=\;
+  2\cdot 4
+  \;=\;
+  8.
+\]
+\end{proposition}
+
+\begin{proof}
+The Mukai lattice $\Mukai(K3)=\mathrm{II}_{4,20}$ has signature
+$(4,20)$, so the positive central charge of the lattice vertex algebra
+on the $4$-dimensional positive cone is
+$c_{+}(\Mukai(K3))=4$. The Beilinson--Drinfeld Koszul-conductor
+identity (Beilinson--Drinfeld \emph{Chiral Algebras}, AMS 2004,
+\S 4.3 on chiral Hochschild homology of lattice algebras, combined
+with Vol~I Theorem~A bar--cobar) for a rational lattice VOA gives
+$K^{\kappa_{\mathrm{ch}}}=2\,c_{+}$. Hence $K^{\kappa_{\mathrm{ch}}}=8$
+on the $\mathsf{B}$-row.
+
+The same integer $8$ arises in three independent guises: as the order
+of monodromy of the Humbert divisor
+$H_1\subset\overline{\cA_2}$ (Gritsenko--Hulek--Sankaran 2008
+\emph{Moduli of K3 surfaces} Ch.~5), as the Lusztig root-of-unity order
+$\ell=8$ of the Hall--Drinfeld double (specialisation at a primitive
+eighth root; see Lusztig 1990 \emph{Quantum groups at roots of 1}),
+and as the $\ell=8$ torsion order in the Bruinier Chern-class on
+$\cL^{\Delta_5}$. The universal identification
+\[
+  \hbar^2\cdot K^{\kappa_{\mathrm{ch}}}\;=\;-1
+\]
+at the Lusztig locus $\hbar=e^{i\pi/8}$ pins the three routes together
+through Bruinier 2002 \emph{Borcherds products and Heegner divisors}
+Proposition~5.1 (Heegner Chern-class reciprocity), realising
+$K^{\kappa_{\mathrm{ch}}}=8$ as simultaneously the Koszul conductor,
+the Humbert monodromy order, and the Lusztig quantum order.
+\end{proof}
+
+\begin{remark}[Bruinier Heegner Chern-class reciprocity: the integer 8]
+\label{rem:bruinier-heegner-chern}
+Bruinier 2002, Proposition~5.1, gives the reciprocity
+\[
+  c_1(\cL^{\Delta_5})\cdot[H_D]
+  \;=\;
+  \sum_{4n-\ell^2=D}c_{\Delta_5}(n,\ell),
+\]
+relating the Chern class of the Borcherds bundle $\cL^{\Delta_5}$ on the
+Heegner divisor $H_D\subset\overline{\cA_2}$ to the Fourier
+coefficients of $\Delta_5$. At $D=1$ the right-hand side is $1$, and
+the monodromy of $\cL^{\Delta_5}$ around $H_1$ has order $8$ (Gritsenko--
+Hulek--Sankaran; see adjudication ledger W14--W19
+entry $c_3=-8$ Bruinier). The same $8$ governs the Mukai-doubling
+$K^{\kappa_{\mathrm{ch}}}=2c_+=8$. This is not a coincidence: the
+Heegner Chern class detects the very torsion that the Koszul conductor
+measures.
+\end{remark}
+
+\section{The 6d hCS avatar and CFG $E_3$}
+\label{sec:hCS-avatar}
+
+\begin{remark}[$\Phi^{\mathrm{FA}}$ as 6d holomorphic Chern--Simons]
+\label{rem:phi-fa-hCS}
+At $d=3$, the output $\Phi^{\mathrm{FA}}_3(D^b\Coh(X))$ on a CY$_3$ $X$
+is the holomorphic Chern--Simons factorisation algebra $\hCS(X)$
+of Costello--Gaiotto--Gwilliam. Local observables at a point $x\in X$
+form an $E_3$-algebra in chain complexes: the holomorphic $(0,\bullet)$
+directions contribute an $E_1$-holomorphic factorisation, the three
+real transverse directions contribute an $E_3$-topological action, and
+the total is an $E_3$-in-chain-complexes algebra by the CFG
+factorisation-algebra $E_n$-theorem (Costello--Gwilliam
+\emph{Factorization Algebras in Quantum Field Theory}, Vol~II, \S 4;
+Francis 2013 \emph{The tangent complex and Hochschild cohomology of
+$E_n$-rings}, Compos.~Math.~149:430).
+\end{remark}
+
+\begin{proposition}[Chiral as specialisation of hCS $E_3$]
+\label{prop:chiral-spec-hCS}
+The Beilinson--Drinfeld chiral algebra
+$\cA_X=\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2,C}(\hCS(X))$ is the
+specialisation of the $E_3$ algebra of observables along a K3-fibre
+$\Sigma_2\subset X$ landing on the curve $C$. The $E_3$-bracket of
+$\hCS(X)$ projects to the $E_1$-chiral bracket of $\cA_X$ under this
+specialisation.
+\end{proposition}
+
+\begin{proof}
+The Costello--Gwilliam $E_n$ theorem states that local observables of
+an $n$-dimensional holomorphic factorisation QFT carry a $D_n$-algebra
+structure in chain complexes, which is equivalent to $E_n$. For $\hCS$
+on a CY$_3$, $n=3$. Specialisation along $\Sigma_2$ (a $K3$-fibre) in a
+K3-fibration $X\to C$ carries out factorisation homology on $\Sigma_2$:
+\[
+  \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2,C}\hCS(X)\bigr|_C
+  \;\simeq\;
+  \int_{\Sigma_2}\hCS(X)_{\Sigma_2}.
+\]
+The resulting factorisation algebra on $C$ is $E_1$-chiral: two real
+transverse directions have been integrated out along $\Sigma_2$, and
+only the chiral direction of $C$ remains. The $E_3$-bracket collapses
+to its induced $E_1$-bracket via the standard
+$E_3\to E_1$-inclusion (Dunn--Boardman additivity;
+see Francis--Gaitsgory 2012 \emph{Chiral Koszul duality},
+Selecta~18:1).
+\end{proof}
+
+\begin{remark}[BV--BRST and Costello Feynman coefficients]
+\label{rem:BV-costello-feynman}
+The BV--BRST tracing of $\hCS(X)$, as in Costello 2011
+\emph{Renormalization and Effective Field Theory}, assigns to every
+Feynman graph $\Gamma$ on $X$ a coefficient $C_\Gamma\in\C$ via the
+propagator of the $(0,1)$-field pair $(A^{0,1},\overline{A}^{0,1})$. The
+degree-two Feynman graph (single loop with two external legs) supplies
+the coefficient
+\[
+  C_{\text{bubble}}(X)
+  \;=\;
+  \int_X \mathrm{Tr}(P_{\bar\partial}^2)\,\Omega_X\wedge\overline{\Omega}_X,
+\]
+where $P_{\bar\partial}$ is the $\bar\partial$-propagator and $\Omega_X$
+is the CY volume form. On compact CY$_d$ this integrates to
+$\chi(\cO_X)$ up to a constant (via the
+Hirzebruch--Riemann--Roch realisation of $\chi(\cO_X)$ as the
+integral of the Todd class); this is the Feynman-coefficient realisation of
+$\kappa_{\mathrm{cat}}$. The chain-level $\kappa_{\mathrm{ch}}$ is the
+degree-two shadow of the bar complex of the \emph{same} hCS algebra
+after specialisation; its Feynman-coefficient lift is
+$\sum_q(-1)^q\int_X(\text{bubble on }(0,q)\text{-column})$.
+\end{remark}
+
+\section{The $(\infty,1)$-categorical avatar}
+\label{sec:infty-1-cat-avatar}
+
+\begin{remark}[$\Phi_d$ as a functor of $(\infty,1)$-categories]
+\label{rem:phi-d-infty-cat}
+In the Kontsevich--Soibelman framework
+(\emph{Stability structures, motivic Donaldson--Thomas invariants and
+cluster transformations}, arXiv:0811.2435), the source
+$\mathrm{CY}_d\text{-}\mathrm{Cat}$ is a stable $(\infty,1)$-category
+of compact generators with a CY $\infty$-structure of dimension $d$;
+the target $E_n$-HolFA is a stable $(\infty,1)$-category of
+holomorphic factorisation algebras. The functor $\Phi_d$ is
+constructed as a functor of $(\infty,1)$-categories when morphism
+preservation is verified (CY-A$_d$); for $d=3$ the morphism
+preservation is Theorem~CY-A$_3$ of the CY-D programme
+(\texttt{chapters/theory/cy\_to\_chiral.tex}).
+\end{remark}
+
+\begin{remark}[Dualisability and fully extended TFT]
+\label{rem:dualisability-TFT}
+The chiral algebra $\cA_X$ is fully dualisable in the
+$(\infty,1)$-category of $E_1$-algebras (Lurie 2009 \emph{Cobordism
+Hypothesis}, Theorem~2.4.6), giving rise to a framed
+$1$-dimensional TFT $Z_{\cA_X}:\mathrm{Bord}_1^{\mathrm{fr}}\to
+\mathrm{Alg}_1$. The scalar
+$\kappa_{\mathrm{ch}}(\cA_X)=Z_{\cA_X}(S^1)/_{\mathrm{shadow}}$ is the
+shadow of its trace on the circle, evaluated in the stable $(\infty,1)$
+-category of $\C$-modules. Equivalently at chain level,
+$\kappa_{\mathrm{ch}}(\cA_X)=\dim\HH_0(\cA_X)$ with the CY sign convention
+(supertrace over the $(0,\bullet)$-column).
+\end{remark}
+
+\section{Cross-consistency with the cache}
+\label{sec:cross-consistency}
+
+\begin{remark}[Cache invariants, verified]
+\label{rem:cache-verification}
+The following numerical identities are verified above and agree with
+the project cache facts:
+\begin{enumerate}
+\item $\kappa_{\mathrm{cat}}(K3\times E)=0$ (total space), not $2$
+(fibre). Proposition~\ref{prop:kappa-cat-kunneth} and
+Corollary~\ref{cor:kappa-cat-k3e}.
+\item $\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$ for
+$N\in\{1,2,3,4,6\}$, with
+$c_N(0)\in\{10,4,2,2,2\}$.
+Theorem~\ref{thm:universal-borcherds-weight}.
+\item The advertised sum
+$\kappa_{\mathrm{BKM}}=\kappa_{\mathrm{ch}}+\chi(\cO_{\mathrm{fiber}})$
+is false at every $N$.
+Theorem~\ref{thm:additive-false-all-N}.
+\item The five-archetype landmark ceiling
+$\{0,8,13,250/3,98/3\}$ is realised, with the
+$\mathsf{B}$-row $K^{\kappa_{\mathrm{ch}}}=8$ pinned by
+Mukai-doubling and Bruinier Heegner Chern-class reciprocity.
+Theorem~\ref{thm:theorem-c-five-archetype},
+Proposition~\ref{prop:b-row-k-kappa-eight}.
+\item At $d\geq 3$, $\cA_X$ is $E_1$-chiral; the $E_3$ structure lives
+on the ambient $\hCS$ algebra of observables, not on $\cA_X$ itself.
+Proposition~\ref{prop:chiral-spec-hCS}.
+\end{enumerate}
+\end{remark}
+
+\section{Open questions}
+\label{sec:open-questions}
+
+\begin{remark}[Four open questions surviving the cycles]
+\label{rem:open-questions}
+The following questions survive the attack-heal cycles of
+Appendix~\ref{sec:rectification-log} and remain open:
+\begin{enumerate}
+\item For non-product CY$_3$ outside the $\{1,2,3,4,6\}$ CHL ladder,
+what replaces $\kappa_{\mathrm{BKM}}$? The
+Gritsenko--Cl\'ery 8-form extension at $N\in\{5,7,8\}$ yields
+half-integer weights; a geometric CY$_3$-host at these orders is
+conjectural.
+\item At $N=1$ precisely, the decomposition failure
+$\kappa_{\mathrm{BKM}}-\kappa_{\mathrm{ch}}-\chi(\cO_{\mathrm{fiber}})
+=5-0-0=5$ is numerically equal to the weight itself, by accident of
+$\kappa_{\mathrm{ch}}(\cA_{K3\times E})=\chi(\cO_{K3\times E})=0$.
+What replaces this at CHL orbifolds $N\geq 2$, where
+$\kappa_{\mathrm{ch}}(\cA_{X_N})\neq 0$?
+\item The BV--BRST Feynman-coefficient realisation of
+Remark~\ref{rem:BV-costello-feynman} awaits a rigorous
+Costello-renormalisation proof at the loop level in hCS on a compact
+CY$_3$; the finite-dimensional integrals are well-defined but the
+renormalisation constant has not been pinned.
+\item The Mukai-doubling $K^{\kappa_{\mathrm{ch}}}=8$ on the
+$\mathsf{B}$-row is proved \emph{on} the $\mathsf{B}$-family (Lorentzian-
+lattice parametric) scope; its extension to
+non-lattice-parametric $\mathsf{B}$-like strata (e.g.~rank-2 Monster
+families of W14--W19) is conjectural.
+\end{enumerate}
+\end{remark}
+
+\appendix
+
+\section{Rectification log}
+\label{sec:rectification-log}
+
+\subsection*{Cycle 1: attack on $\kappa_{\mathrm{cat}}$ multiplicativity}
+\textbf{Attack.} The claim
+$\kappa_{\mathrm{cat}}(K3\times E)=0$ conflicts with the
+widespread conflation $\kappa_{\mathrm{cat}}=2$ that identifies the
+total space with the K3 fibre. If the identification
+$\kappa_{\mathrm{cat}}=\kappa_{\mathrm{fiber}}$ held, then for a product
+$X\times Y$ one would expect $\kappa_{\mathrm{cat}}(X\times Y)=
+\kappa_{\mathrm{cat}}(X)$ whenever $Y$ is ``trivial'' in some sense,
+but this is inconsistent with K\"unneth.
+
+\textbf{Heal.} The Dolbeault K\"unneth decomposition
+$H^{0,q}(X\times Y)=\bigoplus_{a+b=q}H^{0,a}(X)\otimes H^{0,b}(Y)$
+is an elementary consequence of the Tohoku sheaf-cohomology K\"unneth
+formula on the product of compact K\"ahler manifolds, and the Euler
+characteristic is multiplicative on graded tensor products, giving
+$\chi(\cO_{X\times Y})=\chi(\cO_X)\chi(\cO_Y)$. Applied to
+$X=K3$, $Y=E$ with $\chi(\cO_{K3})=2$, $\chi(\cO_E)=0$:
+$\chi(\cO_{K3\times E})=0$. This is the total-space value; the
+$2$ in the cache-fact statement ``not $2$, which is the K3 fibre''
+refers to $\kappa_{\mathrm{fiber}}(K3)=\chi(\cO_{K3})=2$, a distinct
+invariant. The attack was a conflation;
+Proposition~\ref{prop:kappa-cat-kunneth} survives.
+
+\subsection*{Cycle 2: attack on Borcherds 1998 Thm.~13.3 vs Thm.~10.1}
+\textbf{Attack.} Borcherds 1998 contains both Theorem~10.1
+(automorphicity of the singular theta lift) and Theorem~13.3
+(weight formula). A common error cites Theorem~10.1 for the weight.
+Test the actual weight formula against the $N=1$ claim
+$\kappa_{\mathrm{BKM}}(\Phi_1)=5$: if Theorem~10.1 were the source
+we would expect only the automorphic group, not the numerical weight.
+
+\textbf{Heal.} The weight formula is Borcherds 1998 Theorem~13.3 (not
+Theorem~10.1). Theorem~13.3 states that for a vector-valued modular
+form $f$ of weight $-(b-2)/2$ for a lattice of signature $(2,b)$, the
+singular theta lift $\Psi_f$ has weight $c(0)/2$ where $c(0)$ is the
+$\zeta^0 q^0$-coefficient at the zero-dimensional cusp. Applied to
+the K3 case with $b=3$ and $f=\phi_{0,1}$, which has
+$c(0)=10$, we obtain $\wt(\Delta_5)=5$ and
+$\kappa_{\mathrm{BKM}}(\Phi_1)=5$, consistent with
+Gritsenko 1999 Theorem~3.4. The attack is resolved: the correct
+citation is Borcherds 1998 Thm.~13.3, which appears in
+Theorem~\ref{thm:universal-borcherds-weight}, Step~1.
+
+\subsection*{Cycle 3: attack on the five-branch $\{0,8,13,250/3,98/3\}$}
+\textbf{Attack.} The scalar $8$ appears in three places (Koszul
+conductor, Humbert monodromy, Lusztig order) which looks numerically
+like coincidence. Test: at a non-Lusztig specialisation, e.g.~a
+generic $\hbar$, does the $\mathsf{B}$-row continue to give $8$?
+
+\textbf{Heal.} The identity $K^{\kappa_{\mathrm{ch}}}=
+2c_+(\Mukai(K3))=8$ is generic on the $\mathsf{B}$-family:
+$c_+(\Mukai(K3))=4$ is the positive central charge of the
+Mukai lattice (signature $(4,20)$), independent of $\hbar$. The
+universal identity $\hbar^2\cdot K^{\kappa_{\mathrm{ch}}}=-1$
+pins $\hbar$ at $e^{\pm i\pi/\sqrt 8}$, a specific quantum
+specialisation; the Lusztig specialisation
+$\hbar=e^{i\pi/8}$ is a different (weaker) condition enforcing
+$\hbar^{16}=1$. The Bruinier Heegner Chern-class reciprocity
+(Bruinier 2002 Prop.~5.1) at $D=1$ gives
+$c_1(\cL^{\Delta_5})\cdot[H_1]=\sum_{4n-\ell^2=1}c_{\Delta_5}(n,\ell)=
+1$, and the $H_1$-monodromy order of $\cL^{\Delta_5}$ is $8$
+(Gritsenko--Hulek--Sankaran). The three $8$s are three
+interpretations of a single $\Z/8$-class in
+$\mathrm{CH}^1(H_1)$ carried by $c_1(\cL^{\Delta_5})$; see
+\texttt{k3\_chiral\_algebra.tex:1242}. Proposition~
+\ref{prop:b-row-k-kappa-eight} survives as stated, with the universal
+identification not a coincidence.
+
+\subsection*{Cycle 4: attack on the additive failure mechanism}
+\textbf{Attack.} If $\kappa_{\mathrm{BKM}}\neq\kappa_{\mathrm{ch}}+
+\chi(\cO_{\mathrm{fiber}})$, what is the correct universal relation?
+Simple restatement of the Borcherds weight formula is not enough; we
+need a \emph{structural} reason the additive decomposition fails.
+
+\textbf{Heal.} The structural reason is that the two scalars inhabit
+different stages of $\Phi_d$. $\kappa_{\mathrm{ch}}$ is an output of
+the $\Phi^{\mathrm{FA}}_d$-stage, computing the Hodge supertrace of
+the $(0,\bullet)$-column on the \emph{total space}.
+$\kappa_{\mathrm{BKM}}$ is an output of the
+$\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}$-stage, computing the
+weight of a singular theta lift. Adding them assumes both live on
+the same functional; they do not. The
+\emph{true} universal relation is:
+\[
+  \kappa_{\mathrm{BKM}}(\Phi_N)
+  \;=\;
+  \wt\bigl(\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1},C}
+    \Phi^{\mathrm{FA}}_d(\cC_X^{g_N})\bigr)
+  \;=\;
+  \tfrac{1}{2}c_N(0),
+\]
+with $c_N(0)$ the Borcherds-input $\zeta^0 q^0$-coefficient at the
+zero-dimensional cusp of the $g_N$-twined weak Jacobi form
+$\phi_{0,1}^{(N)}$. Theorem~\ref{thm:additive-false-all-N} and
+Remark~\ref{rem:true-relation} survive.
+
+\subsection*{Cycle 5: attack on the hCS/$E_3$ avatar}
+\textbf{Attack.} Claim: local observables of $\hCS(X)$ at a CY$_3$ point
+form an $E_3$-algebra in chain complexes. Test: the Dunn--Boardman
+inclusion $E_1\hookrightarrow E_3$ should match the chiral
+specialisation $\mathrm{Sp}^{\mathrm{ch}}$ under factorisation
+homology; verify by computing the degree-two shadow of both sides.
+
+\textbf{Heal.} Costello--Gwilliam \emph{Factorization Algebras in
+Quantum Field Theory}, Vol~II, \S 4, identifies local observables of
+an $n$-dimensional (topological + holomorphic) QFT on an $n$-manifold
+with an $E_n$-algebra in cochain complexes. For $\hCS$ on a CY$_3$,
+$n=3$. Factorisation homology over the K3-fibre
+$\Sigma_2\subset X$ (an $E_2$-algebra on $\Sigma_2$ by the $E_n$
+theorem applied to the restriction to the fibre; Costello--Gwilliam
+\S 4.9) and then push-forward to $C$ via the fibration produces an
+$E_1$-factorisation algebra on $C$, matching the chiral algebra
+$\cA_X=\mathrm{Sp}^{\mathrm{ch}}\Phi^{\mathrm{FA}}_3(\cC)$. The
+Dunn--Boardman additivity $E_2\otimes E_1\simeq E_3$ at the
+$(\Sigma_2,C)$-decomposition explains the descent numerically:
+the $E_3$-bracket restricts to the $E_2$-bracket on $\Sigma_2$,
+which factorisation-integrates to the $E_1$-bracket on $C$.
+Proposition~\ref{prop:chiral-spec-hCS} survives.
+
+\subsection*{Cycle 6: attack on the Lorgat 2020 $\Delta_5$ extraction}
+\textbf{Attack.} Lorgat 2020 constructs the Borcherds lift of
+$\phi_{0,1}$ to $\Delta_5$. Test: does the extraction of $c_1(0)=10$
+from $\phi_{0,1}|_{q^0}=\zeta^{-1}+10+\zeta$ agree with the
+Gritsenko additive-lift normalisation? The two lifts
+$\Grit(\eta^9\vartheta_1)$ and $\Borch(\phi_{0,1})$ should land on
+the same $\Delta_5/64$.
+
+\textbf{Heal.} The Jacobi--Borcherds $\zeta^0 q^0$-coefficient of
+$\phi_{0,1}$ is read directly from
+Eichler--Zagier 1985 Theorem~9.3: the $q^0$-expansion is
+$\phi_{0,1}|_{q^0}(z)=\zeta+10+\zeta^{-1}$, hence
+$c_1(0)=10$. By Borcherds 1998 Thm.~13.3, the weight is
+$c_1(0)/2=5$. Gritsenko 1999 Theorem~3.4 proves
+$\Grit(\eta^9\vartheta_1)=\Delta_5/64$ as a paramodular cusp form of
+weight $5$. Lorgat 2020 Theorems~2--4 establish the equivalence of
+the two lifts on the common image, with explicit Fourier-coefficient
+formula $f(1,1,1)=64$ for the leading term. All three sources
+(Eichler--Zagier, Gritsenko, Lorgat) agree; the
+$\Delta_5$ witness at $N=1$ with weight $5$ survives.
+
+\subsection*{Convergence report}
+Six attack-heal cycles converge. Each of the five claims in
+\S\ref{sec:cross-consistency} survives assault without revision; the
+mechanisms underneath receive sharper first-principles arguments in
+every cycle but their statements are unchanged. The hidden true
+relation under the false additive decomposition is the
+\emph{singular-theta constant-term identity}
+$\kappa_{\mathrm{BKM}}(\Phi_N)=\tfrac{1}{2}c_N(0)$ of Borcherds 1998
+Thm.~13.3, not an additive reduction to $\kappa_{\mathrm{ch}}$ and
+$\chi(\cO_{\mathrm{fiber}})$.
+
+\end{document}

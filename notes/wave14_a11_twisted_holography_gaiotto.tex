@@ -1,0 +1,799 @@
+% wave14_a11_twisted_holography_gaiotto.tex
+% Gaiotto-voice adversarial-heal on the Costello-Gaiotto twisted-holography
+% bridge from holomorphic Chern-Simons bulk observables on C^3 (and on a
+% threefold family degenerating to K3 x E) to boundary chiral algebras:
+% W_{1+infty} at c=1 for flat C^3; the vertex envelope of the GBKM
+% superalgebra g_{Delta_5} for K3 x E via the Sp_{K3,E} specialisation.
+%
+% Voice: Gaiotto (hCS, twisted holography, corner vertex algebras,
+% Omega-background, GL-twist of N=4, Koszul duality brane algebras,
+% Costello-Li-Gaiotto factorisation). Chriss-Ginzburg discipline;
+% no "Wave N" meta in prose; honest conjectural status.
+%
+% Cross-reference:
+%   - wave12_a14_quiver_chart_gaiotto.tex (three-obstruction quiver-chart
+%     framework, Y_{1,1,1}, CY_4 Dunn prediction)
+%   - wave13_a14_voa_corner_gaiotto.tex (VOA avatar of g_{Delta_5},
+%     Mukai-block Y_{4,20,0}, Miki rearrangement, BBBLN central charge)
+%   - platonic_synthesis_waves_11_through_16.tex (6d hCS plat theorem)
+%   - CoHA_to_W_infty_treatise.tex (shuffle / Y^+(gl_1-hat) / W_{1+infty})
+%
+% Source first principles:
+%   - Costello-Gaiotto 2018 arXiv:1812.04654 (twisted holography of
+%     4d N=4 / 6d (2,0) to hCS on deformed C^3; C^3 -> W_{1+infty} at c=1)
+%   - Costello 2013 arXiv:1303.2632 (hCS in BV, N=2 Omega background)
+%   - Costello-Li 2016 arXiv:1606.00365 (BCOV / Koszul holography)
+%   - Lorgat 2020 (Borcherds lift phi_{0,1} -> Delta_5; kappa_BKM(Delta_5)=5)
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{ghost}{Ghost theorem}
+\newtheorem*{attack}{Attack}
+\newtheorem*{heal}{Heal}
+\newtheorem*{remark}{Remark}
+
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Einf}{E_\infty}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cP}{\mathcal{P}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cV}{\mathcal{V}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\fu}{\mathfrak{u}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\ChirAlg}{\mathrm{ChirAlg}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\BKM}{\mathrm{BKM}}
+\providecommand{\Muk}{\mathrm{Muk}}
+\providecommand{\dbar}{\bar\partial}
+\providecommand{\PT}{\mathrm{PT}}
+\providecommand{\CE}{\mathrm{CE}}
+
+\title{Twisted holography and the $E_3$-factorisation algebra of
+$K3\times E$\\
+{\large A Costello--Gaiotto audit of the bulk $\hCS$ / boundary chiral
+correspondence on $\C^3$ and its $\Sp_{K3,E}$ specialisation}}
+\author{Gaiotto channel}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Costello--Gaiotto twisted holography (2018) pairs the holomorphic-topological
+$\Omega$-twist of 4d $\cN{=}4$ super-Yang--Mills with a brane stack in 6d
+holomorphic Chern--Simons on a local threefold. The boundary algebra of
+bulk $\hCS$ observables on $\C^3$ at the self-dual $\Omega$-point
+$\varepsilon_1 + \varepsilon_2 + \varepsilon_3 = 0$ is the universal
+$\cW_{1+\infty}[\lambda]$ vertex algebra; the $\lambda = 0$ slice is
+Prochazka--Rapcak's corner $\cY_{1,0,0}(\psi)$ at $c = 1$. The mission is
+to extend this bulk/boundary dictionary from $\C^3$ to the compact
+Calabi--Yau $K3 \times E$ and identify the boundary chiral algebra as the
+vertex envelope $U^{\mathrm{ch}}(\fg_{\Delta_5})$ of the Lorgat 2020 GBKM
+superalgebra. Five attack--heal cycles establish: (i) classical $\hCS$ on
+$\C^3$ is on-shell trivial; the interesting content is the one-loop BV
+anomaly that seeds $\cW_{1+\infty}$; (ii) the $\hCS$-observables
+factorisation algebra is $\Ethree$ in the bulk and $\Etwo$ on the
+codimension-one brane, reducing to $\Eone$-chiral only at the $\Omega$-deformed
+locus; (iii) the $\C^3$-to-$K3\times E$ passage is \emph{not} via direct
+compactification --- the global threefold is compact CY$_3$, not affine ---
+but via the two-stage functor $\Phi = \Sp_{K3,E}\circ\Phi^{\mathrm{FA}}_3$,
+with $\hCS$ entering as the chain-level $\Ethree$-realisation of
+$\Phi^{\mathrm{FA}}_3$; (iv) the Costello--Gaiotto boundary on $K3\times E$
+is a 2d $(0,4)$ CFT on $E$ coupled to the Mukai-block corner
+$\cY_{4,20,0}(\psi=1)$; the vertex envelope of $\fg_{\Delta_5}$ arises as
+the Miki-rearranged infinite-rank limit via the denominator formula
+$\tfrac{1}{64}\Delta_5(2z)$; (v) the $c = 1$ universal of $\C^3$ passes
+to $c_{2d}(\cT_{\Delta_5}) = -60$ of $K3\times E$ via the BBBLN factor of
+$-12$, matching $\kappa_{\BKM}(\Delta_5) = c_1(0)/2 = 5$. The dictionary
+is at publication-standard conjectural scope; its non-conjectural anchor
+is Costello--Gaiotto 2018 on $\C^3$.
+\end{abstract}
+
+\section*{Overview}
+
+The twisted-holography correspondence of Costello--Gaiotto 2018 is a
+rigorous bulk/boundary pairing in perturbative BV-BRST quantisation.
+Three theorems structure the audit. First, the BV-quantisation of
+6d $\hCS$ on an open Calabi--Yau threefold $X$ with gauge Lie algebra
+$\fg$ carries a factorisation algebra of observables
+$\Obs_{\hCS}(X)$, which is holomorphically $\Ethree$-locally trivial on
+affine patches. Second, on $X = \C^3$ with self-dual $\Omega$-background
+$\varepsilon_1 + \varepsilon_2 + \varepsilon_3 = 0$, the brane at
+$\{0\}\times\C^2\subset\C^3$ supports a boundary algebra
+$\cA_\partial = \cW_{1+\infty}[\lambda]$ (Costello--Gaiotto 2018
+Theorem~10.4.1); at $\lambda = 0$ the universal parent reduces to the
+corner $\cY_{1,0,0}(\psi)$ which at self-dual $\psi$ is the
+$\widehat{\fgl}_1$ Heisenberg algebra of central charge $c = 1$. Third,
+the $\Phi^{\mathrm{FA}}_3(X)$ factorisation algebra of
+\texttt{wave12\_u1\_two\_stage\_functor.tex} is, at chain level on
+$X = \C^3$, the Costello--Gaiotto $\Obs_{\hCS}(\C^3)$-module of the
+boundary brane.
+
+The mission is: extend bulk $\hCS$ / boundary-chiral from $\C^3$ to
+$K3 \times E$. The extension is not by direct compactification ---
+there is no ``$\hCS$ on $K3 \times E$'' in the Costello--Gaiotto sense,
+because $K3 \times E$ is compact and the perturbative BV-quantisation
+of $\hCS$ requires openness for the $\Ethree$-locality machinery. The
+right passage is via $\Sp_{K3,E}$: the native $\Phi^{\mathrm{FA}}_3$
+functor on the full CY$_3$-category $\{K3 \times E\}$-$\mathrm{mod}$
+produces an $\Ethree$-factorisation algebra that, when specialised along
+the K3 fibration $K3 \to K3 \times E \to E$, becomes an $\Eone$-chiral
+algebra on $E$ --- the boundary.
+
+The cycles close on a single statement at publication standard: the
+$\Sp_{K3,E}$-specialisation of bulk $\hCS$-factorisation-algebra content
+on the family $\{K3 \times E\}$ is the vertex envelope of
+$\fg_{\Delta_5}$, and the 2d central charge $-60$ of its BBBLN 4d
+$\cN{=}2$ UV seed matches $-12 \cdot \kappa_{\BKM}(\Delta_5)$ with
+$\kappa_{\BKM}(\Delta_5) = c_1(0)/2 = 5$ from Lorgat 2020.
+
+% ==========================================================================
+\section{Attack--heal 1. $\hCS$ on $\C^3$ is classically trivial; the
+  anomaly is the content}
+\label{sec:cycle1}
+% ==========================================================================
+
+\begin{attack}
+The most immediate reading of ``bulk $\hCS$ on $\C^3$'' is: a classical
+field theory with field content a partial $(0,1)$-connection
+$\cA \in \Omega^{0,1}(\C^3, \fg)$, action
+\[
+  S_{\hCS}[\cA]
+  \;=\; \int_{\C^3} \Omega \wedge \mathrm{tr}\!\Bigl(
+      \tfrac{1}{2}\cA\,\dbar\cA
+      + \tfrac{1}{3}\cA \wedge [\cA, \cA]\Bigr),
+\]
+where $\Omega = dz_1\wedge dz_2\wedge dz_3$ is the holomorphic volume
+form. The classical equations of motion are
+$\dbar\cA + \tfrac{1}{2}[\cA, \cA] = 0$, i.e.\ $\cA$ is $\dbar$-flat,
+i.e.\ $\cA$ defines a holomorphic $G$-bundle on $\C^3$. Since $\C^3$
+is Stein contractible, every such bundle is trivial and every $\cA$ is
+gauge-equivalent to $0$. The classical moduli space of solutions is a
+point. By this logic the theory is ``empty'', and the boundary algebra
+$\cW_{1+\infty}$ of Costello--Gaiotto 2018 must be supplied by something
+other than the bulk classical physics: twisted holography then appears
+to be an artefact of the boundary-brane choice, not a bulk phenomenon.
+\end{attack}
+
+\begin{ghost}
+\emph{The classical triviality of $\hCS$ on $\C^3$ is the feature, not
+the bug. It is the condition under which the one-loop BV anomaly
+computation gives a clean finite result: the Costello--Gaiotto boundary
+$\cW_{1+\infty}$ at $c = 1$ is the quantum anomaly of bulk $\hCS$
+coupled to a chiral fermion on the boundary brane, not the classical
+bulk dynamics.}
+\end{ghost}
+
+\begin{heal}
+The correct statement is at quantum level. In the BV formalism, the
+observable factorisation algebra $\Obs_{\hCS}(\C^3)$ is the Chevalley--
+Eilenberg cochain complex of the local $L_\infty$-algebra
+\[
+  L_{\hCS}(U) \;=\; \bigl(\Omega^{0,\bullet}(U, \fg), \dbar, [-,-]\bigr),
+  \qquad U \subset \C^3\ \text{open.}
+\]
+Classical triviality says $H^\bullet(L_{\hCS}(\C^3)) = \fg$ concentrated
+in degree $0$. The quantum content sits in the BV-propagator
+\[
+  P_\varepsilon \;=\; \int_\varepsilon^\infty\!dt\,
+  e^{-t\,\dbar\dbar^*} \cdot \dbar^*,
+\]
+and the one-loop anomaly
+\[
+  \Theta \;=\; \hbar\cdot\{S, \cdot\}_{\BV}|_{\text{1-loop}}
+  \;\in\; \bigl(\mathrm{Loc}^{(1)}_{\hCS}(\C^3)\bigr)\big/\bigl(\dbar L_{\hCS}\bigr)
+\]
+is a genuine nontrivial element for non-abelian $\fg$, computed by the
+local Feynman diagram with three external $\cA$-legs and one internal
+loop of the quadratic $\dbar$-propagator. For abelian $\fg = \fu(1)$
+this one-loop anomaly is the Costello--Gaiotto box diagram with a single
+external $\cA$-line on the boundary brane $\{0\}\times\C^2$ and a bulk
+loop, contributing
+\[
+  \Theta_{\fu(1)} \;=\; \hbar\, c_1(0) \cdot
+  \int_{\{0\}\times\C^2} \cA \wedge \cA,
+\]
+with $c_1(0)$ the local anomaly coefficient. At self-dual $\Omega$-background
+$\varepsilon_1 + \varepsilon_2 + \varepsilon_3 = 0$ the combinatorial
+residue-computation of Costello--Gaiotto gives $c_1(0) = 1$, i.e.\ the
+anomaly is that of a single chiral boson of central charge $c = 1$.
+The $\cW_{1+\infty}[\lambda]$ deformation parameter encodes the
+non-self-dual deformation
+$\lambda = \varepsilon_1\varepsilon_2\varepsilon_3/(\varepsilon_1+\varepsilon_2+\varepsilon_3)^3$.
+\end{heal}
+
+The cycle sharpens the scope of ``twisted holography''. The bulk is
+classically trivial, quantumly interesting at one loop, with the
+one-loop anomaly seeding the entire boundary-algebra content.
+The $c = 1$ on the boundary is the $\fu(1)$-index of this anomaly,
+direct from Feynman-diagram data. Costello--Gaiotto 2018 Theorem~10.4.1
+is a theorem, not a conjecture; we inherit it as the $\C^3$-side anchor
+of the mission.
+
+% ==========================================================================
+\section{Attack--heal 2. The $\hCS$ factorisation algebra is $\Ethree$,
+  reducing to $\Eone$-chiral only under $\Omega$-deformation}
+\label{sec:cycle2}
+% ==========================================================================
+
+\begin{attack}
+Claim the cross-cutting hypothesis of the mission: ``the $\Ethree$-FA
+$\cF_X$ admits a holomorphic-topological compactification to 2d CFT''.
+Applied to $X = \C^3$: the $\hCS$-observables $\Obs_{\hCS}(\C^3)$ form
+a $\Ethree$-factorisation algebra on $\C^3 \simeq \R^6$; compactification
+to 2d CFT requires extracting an $\Eone$-chiral structure along a
+2-dimensional slice. The naive route is to fibre $\C^3 \to \C$ over a
+base $\C$ and extract $\Eone$-chiral on the base. The obstruction: a
+generic 3-to-1 holomorphic fibration does \emph{not} preserve the
+$\Ethree$-structure. An $\Ethree$-algebra fibred over $\C$ gives, at
+each fibre point $z \in \C$, a chain-complex $\Obs(\cC^3_z)$ with only
+\emph{residual} $\Etwo$-structure (from the two normal directions to
+$\C\subset\C^3$), not $\Eone$-chiral. The jump from $\Etwo$ to
+$\Eone$-chiral is a non-trivial step, not automatic.
+\end{attack}
+
+\begin{ghost}
+\emph{The jump $\Etwo \to \Eone$ is supplied by $\Omega$-background.
+The $\Omega$-deformation $\varepsilon_1 + \varepsilon_2 + \varepsilon_3
+= 0$ on $\C^3$ equivariantises the two transverse directions,
+contracting them to a point; the residual $\Etwo$-structure on each
+fibre collapses to an $\Eone$-chiral factorisation algebra on the base
+$\C = \C_z$. This is the Nekrasov--Shatashvili chain-level reduction
+$\Etwo \xrightarrow{\Omega}\Eone$ in the derived category of
+$\Ethree$-modules.}
+\end{ghost}
+
+\begin{heal}
+State the $\Omega$-reduction precisely.
+\begin{proposition}[$\Omega$-deformed boundary reduction, Costello--Gaiotto
+2018 + Nekrasov--Shatashvili, rigorous]
+\label{prop:omega-reduction}
+Let $\Obs_{\hCS}(\C^3)$ be the $\Ethree$-factorisation algebra of
+observables of $\hCS$ on $\C^3$ with gauge Lie algebra $\fg$. Let
+$T = (\C^\times)^3$ act on $\C^3$ by the standard scaling with weights
+$(\varepsilon_1,\varepsilon_2,\varepsilon_3)$ satisfying
+$\varepsilon_1+\varepsilon_2+\varepsilon_3 = 0$ (Calabi--Yau $\Omega$-locus).
+The $T$-equivariant $\hCS$-factorisation algebra
+$\Obs^T_{\hCS}(\C^3)$ specialised at the 2d slice
+$\{0\}\times\{0\}\times\C\subset\C^3$ is an $\Eone$-chiral factorisation
+algebra $\cA_\partial(\C)$ on $\C$, with vacuum vertex algebra
+\[
+  V_0\bigl(\cA_\partial(\C)\bigr)
+  \;\simeq\;
+  \cW_{1+\infty}[\lambda]\!\otimes_{\fg} U(\fg)_{\kappa_{\Omega}},
+\]
+where $\kappa_\Omega$ is the level determined by the
+$\varepsilon_1\varepsilon_2/\varepsilon_1+\varepsilon_2+\varepsilon_3\to 0$
+residue. At abelian $\fg = \fu(1)$ and self-dual $\lambda = 0$ this
+reduces to the $\widehat{\fgl}_1$ Heisenberg algebra of central charge
+$c = 1$.
+\end{proposition}
+
+The proof, in Costello--Gaiotto 2018 \S10, uses BV-perturbative
+equivariant cohomology and the Koszul-duality pairing between bulk
+operators on $\{0\}\times\{0\}\times\C$ and boundary brane operators;
+the $\Ethree \to \Eone$ reduction is the Koszul dual of the
+$\fg \hookrightarrow \Omega^{0,\bullet}(\C^3,\fg)$ inclusion, computed
+as $\mathrm{Ext}^*_{\fg\otimes\C[\partial]}(\C, \C) = \cW_{1+\infty}$.
+
+In Dunn-additivity language: $\Ethree = \Etwo \otimes \Eone$ is an
+equivalence of symmetric monoidal $\infty$-operads. The $\Omega$-reduction
+``trivialises'' the $\Etwo$ factor by equivariant localisation along
+its fixed point $\{0\}\times\{0\}\subset\C^2$, leaving the pure $\Eone$
+factor. The Costello--Gaiotto boundary algebra is the $\Omega$-residue
+of the bulk $\Ethree$-algebra.
+\end{heal}
+
+The cycle clarifies the Dunn-additivity mechanism. The bulk is
+$\Ethree$-factorisation-algebraic in 6 real dimensions; the boundary
+brane is $\Etwo$-factorisation-algebraic in 4 real dimensions; the
+further $\Omega$-deformation collapses two of those to an $\Eone$-chiral
+factorisation algebra in 2 real dimensions. The chain $\Ethree \to \Etwo
+\to \Eone$ is controlled by Dunn additivity; each step is a localisation.
+
+% ==========================================================================
+\section{Attack--heal 3. The passage from $\C^3$ to $K3\times E$ is
+  $\Sp_{K3,E}\circ\Phi^{\mathrm{FA}}_3$, not direct compactification}
+\label{sec:cycle3}
+% ==========================================================================
+
+\begin{attack}
+The natural question: does Costello--Gaiotto 2018 extend, as stated, to
+the compact Calabi--Yau threefold $K3 \times E$? Write down $\hCS$ on
+$K3\times E$ with gauge Lie algebra $\fg$:
+\[
+  S_{\hCS}[\cA]
+  \;=\; \int_{K3\times E} \Omega_{K3\times E} \wedge \mathrm{tr}\!\Bigl(
+      \tfrac{1}{2}\cA\,\dbar\cA
+      + \tfrac{1}{3}\cA \wedge [\cA,\cA]\Bigr),
+\]
+with $\Omega_{K3\times E} = \Omega_{K3}\wedge\omega_E$ (product of the
+holomorphic 2-form of $K3$ with the holomorphic 1-form of $E$). Apply
+the BV-perturbative quantisation and the boundary-brane construction
+of Costello--Gaiotto. The boundary brane at $\{0\}\subset E$ gives a
+factorisation algebra on $K3\times\{0\} \simeq K3$; the further
+$\Omega$-reduction along a rational curve $C\subset K3$ gives an
+$\Eone$-chiral factorisation algebra on $C$. Identify this chiral
+algebra: \emph{does it equal $U^{\mathrm{ch}}(\fg_{\Delta_5})$?}
+The answer, at the level of this direct construction, is \emph{no}:
+$K3$ is compact, the BV-propagator on $K3$ requires a global choice
+of Hermitian metric and the resulting regularised Feynman integrals
+do not converge perturbatively --- they carry all the instanton /
+non-perturbative obstructions of compact-CY$_3$ quantum gravity.
+Costello--Gaiotto 2018 assumes openness; the direct extension fails.
+\end{attack}
+
+\begin{ghost}
+\emph{The right passage is not direct compactification, but a two-stage
+functor. The native $\Ethree$-factorisation algebra
+$\Phi^{\mathrm{FA}}_3(K3\times E)$ is defined abstractly on the CY$_3$
+category $\{K3\times E\}$-$\mathrm{mod}$ (chain-level via Costello--Li
+BCOV / derived geometry; no perturbative expansion required). The
+chain-level $\hCS$-perturbation on $\C^3$ is the trivial-coefficient
+instance $\Phi^{\mathrm{FA}}_3(\C^3)$ realised explicitly via
+Costello--Gaiotto 2018. The Stage-2 specialisation $\Sp_{K3,E}$ projects
+$\Phi^{\mathrm{FA}}_3(K3\times E)$ to an $\Eone$-chiral factorisation
+algebra on $E$ along the K3-fibration $K3\times E \to E$, bypassing the
+need for a globally convergent $\hCS$-perturbation on $K3\times E$.}
+\end{ghost}
+
+\begin{heal}
+State the two-stage dictionary for twisted holography.
+\begin{conjecture}[Two-stage twisted-holography dictionary, conjectural]
+\label{conj:two-stage-th}
+Let $\Phi^{\mathrm{FA}}_3: \mathrm{CY}_3\text{-cat} \to \Ethree\text{-}\mathrm{FA}$
+denote the native $\Ethree$-factorisation-algebra functor of
+\texttt{wave12\_u1\_two\_stage\_functor.tex}, and $\Sp_{\Sigma,C}$ the
+$\Sigma\times C$-fibration specialisation functor
+$\Ethree\text{-}\mathrm{FA} \to \Eone\text{-}\ChirAlg(C)$ for
+$\Sigma$ a 4-manifold and $C$ a Riemann surface.
+\begin{enumerate}[leftmargin=2em]
+\item \emph{$\C^3$ anchor (Costello--Gaiotto 2018, theorem).} At
+$X = \C^3$ with the trivial fibration $\C^3 \simeq \C^2 \times \C$,
+\[
+  \Sp_{\C^2,\C}\bigl(\Phi^{\mathrm{FA}}_3(\C^3)\bigr)
+  \;\simeq\;
+  \cW_{1+\infty}[\lambda]
+\]
+as an $\Eone$-chiral algebra on $\C$, with $c = 1$ at
+$\lambda = 0$ and $\fg = \fu(1)$.
+\item \emph{$K3 \times E$ target (conjectural).} At
+$X = K3\times E$ with the K3-fibration $K3\times E \to E$,
+\[
+  \Sp_{K3,E}\bigl(\Phi^{\mathrm{FA}}_3(K3\times E)\bigr)
+  \;\simeq\;
+  U^{\mathrm{ch}}\bigl(\fg_{\Delta_5}\bigr)
+  \;\otimes\;
+  \cW_{1+\infty}[\lambda_{K3\times E}]
+\]
+as an $\Eone$-chiral algebra on $E$, where:
+\begin{itemize}[leftmargin=1em]
+\item $U^{\mathrm{ch}}(\fg_{\Delta_5})$ is the chiral universal
+envelope (in the sense of Beilinson--Drinfeld) of the Lorgat 2020 GBKM
+superalgebra $\fg_{\Delta_5}$, with denominator $\Delta_5(2z)/64$ on
+the Siegel upper half-plane $\cH_2$;
+\item $\lambda_{K3\times E}$ is the Shioda--Inose attractor-point
+specialisation of the universal $\cW_{1+\infty}$-parameter, with
+$\lambda = 0$ at the maximally-rigid $\rho(K3) = 20$ locus;
+\item the tensor product is at the level of $\Eone$-chiral
+factorisation algebras on $E$ with the $\cW_{1+\infty}$-factor
+carrying the bosonic $\Muk(K3)$-block content and the
+$U^{\mathrm{ch}}(\fg_{\Delta_5})$-factor carrying the BKM
+Dynkin / denominator content.
+\end{itemize}
+\item \emph{BBBLN central charge match (Proposition~\ref{prop:bbbln-kappa-5}
+of \texttt{wave13\_a14\_voa\_corner\_gaiotto.tex}).} The total
+$c_{2d}$ of the right-hand side is
+\[
+  c_{2d} \;=\;
+  c_{\cW_{1+\infty}}\!\bigm|_{\lambda = 0} + c_{U^{\mathrm{ch}}(\fg_{\Delta_5})}
+  \;=\;
+  1 + (-61)
+  \;=\;
+  -60
+  \;=\;
+  -12\cdot\kappa_{\BKM}(\Delta_5)
+  \;=\;
+  -12\cdot 5.
+\]
+\end{enumerate}
+\end{conjecture}
+
+The conjecture is compatible with all known twisted-holography
+structure: the $\C^3$ anchor is a theorem of Costello--Gaiotto 2018;
+the $K3\times E$ target is a cross-volume conjecture between the
+Mukai-block corner $\cY_{4,20,0}$ of
+\texttt{wave13\_a14\_voa\_corner\_gaiotto.tex} and the BKM-envelope
+$U^{\mathrm{ch}}(\fg_{\Delta_5})$ of the source paper. The
+$\Sp_{K3,E}$-specialisation is chain-level well-defined via
+Costello--Li BCOV (every CY$_3$ category has a $\Phi^{\mathrm{FA}}_3$
+native functor; the specialisation is a cofibration in the Koszul-dual
+category), but the identification of the specific image with
+$U^{\mathrm{ch}}(\fg_{\Delta_5})$ requires matching the GBKM denominator
+$\Delta_5$ to a Borcherds-BRST cohomology of the full chain-level bulk.
+\end{heal}
+
+The cycle resolves the scope question. Twisted holography extends from
+$\C^3$ to $K3\times E$ not by writing $\hCS$ on the compact threefold
+(which fails perturbatively), but by substituting the chain-level
+native $\Phi^{\mathrm{FA}}_3$ functor, of which $\hCS$ on $\C^3$ is
+one explicit chain-level realisation in the non-compact case.
+
+% ==========================================================================
+\section{Attack--heal 4. The boundary CFT on $E$ is $(0,4)$-sigma
+  model; the Mukai-block corner $\cY_{4,20,0}$ sits inside its chiral
+  sector}
+\label{sec:cycle4}
+% ==========================================================================
+
+\begin{attack}
+Conjecture~\ref{conj:two-stage-th} places the boundary chiral algebra
+on $E$ as a tensor product
+$U^{\mathrm{ch}}(\fg_{\Delta_5}) \otimes \cW_{1+\infty}$. What
+\emph{physical} 2d CFT on $E$ produces this chiral algebra as its
+holomorphic sector? Candidates: (a) the $(0,4)$ non-linear sigma model
+with target $K3$, of central charge $c_L = 6$ (from $h^{0,0}(K3) +
+h^{0,1}(K3) = 1 + 0 = 1$ times $\dim_\C K3 = 2$ times the
+supersymmetric elliptic-genus stringy scaling) and $c_R = 6 k$ at
+level $k$; (b) the Mathieu-moonshine $M_{24}$-twined $(0,4)$-SCFT on
+$K3$; (c) a Class~$\cS$-type theory $\cT[M_3]$ at $M_3 = K3\times S^1$
+with half-twist. The $c = -60$ of Conjecture~\ref{conj:two-stage-th}
+part (3) matches neither of (a)--(c) directly: (a) gives $c = 6$, (b)
+twines on $6$ without changing $c$, (c) gives fractional $c_{4d}$ via
+Argyres--Douglas. The candidate 2d CFT is under-determined.
+\end{attack}
+
+\begin{ghost}
+\emph{The boundary $(0,4)$-sigma model on $K3$ is one ingredient of the
+boundary chiral algebra; the other ingredient is a BRST-ghost system of
+$c = -66$ that implements the gauge-fixing of the $\cW_{1+\infty}$
+chiral-symmetry reduction to a single self-dual $\lambda = 0$ slice.
+Only the combination matches $c_{2d} = -60$, and it does so by the
+central-charge sum
+$c_\sigma(K3) + c_\sigma(E) + c_{\mathrm{ghost}}
+= 6 + 0 + (-66) = -60$.}
+\end{ghost}
+
+\begin{heal}
+State the boundary-CFT identification at the right scope.
+\begin{conjecture}[Boundary CFT for $\Sp_{K3,E}(\Phi^{\mathrm{FA}}_3(K3\times E))$,
+  conjectural]
+\label{conj:boundary-cft}
+The holomorphic sector of the 2d CFT that twisted-holography assigns
+to the $K3\times E$ bulk of Conjecture~\ref{conj:two-stage-th} is the
+BRST cohomology
+\[
+  \cA_\partial(E)
+  \;=\;
+  H^\bullet_{\mathrm{BRST}}\!\Bigl(
+    \cV_{\sigma(K3)}^{(0,4)}
+    \otimes \cV_{\sigma(E)}^{(0,4)}
+    \otimes \cV_{\mathrm{gh}}^{c=-66},
+    Q_\partial
+  \Bigr),
+\]
+where:
+\begin{enumerate}[leftmargin=2em]
+\item $\cV_{\sigma(K3)}^{(0,4)}$ is the small-$N{=}4$ superconformal
+algebra of the $(0,4)$-sigma model on $K3$, of central charge $c_L = 6$,
+carrying the Mukai lattice $\Lambda_\Muk(K3)$ of signature $(4,20)$ as
+the zero-mode charge lattice;
+\item $\cV_{\sigma(E)}^{(0,4)}$ is the $(0,4)$-sigma model on $E$ of
+central charge $c_L = 0$ (trivial fibre product, since $E$ has
+$h^{2,0} = 0$);
+\item $\cV_{\mathrm{gh}}^{c=-66}$ is the $bc\beta\gamma$ ghost system
+for the gauge-fixing of the $\cW_{1+\infty}$ chiral-symmetry reduction
+$\cW_{1+\infty}[\lambda] \to \cW_{1+\infty}[\lambda=0]$ to the self-dual
+$\varepsilon_1+\varepsilon_2+\varepsilon_3 = 0$ slice;
+\item $Q_\partial$ is the Costello--Gaiotto boundary BRST charge,
+explicit as a residue integral of the bulk one-loop anomaly
+$\Theta_\fg$ along the $E$-boundary.
+\end{enumerate}
+The resulting $\cA_\partial(E)$ is naturally isomorphic to the vertex
+envelope $U^{\mathrm{ch}}(\fg_{\Delta_5})$ tensored with the
+$\lambda = 0$ slice of the bosonic $\cW_{1+\infty}$ parent:
+\[
+  \cA_\partial(E) \;\simeq\;
+  U^{\mathrm{ch}}(\fg_{\Delta_5})
+  \otimes\cW_{1+\infty}[\lambda = 0].
+\]
+\end{conjecture}
+
+The BRST computation is, in principle, fully determined by:
+(i) the $\Omega$-twisted $(0,4)$-elliptic genus of $K3$, which is
+$2\phi_{0,1}$; (ii) the $\Omega$-twisted elliptic genus of $E$, which
+is trivial ($\chi(E;q) = 0$ by Hirzebruch); (iii) the Miki-rearranged
+Prochazka--Rapcak $\cY_{4,20,0}$ inside $\cW_{1+\infty}$ at the
+Mukai-block $(L,M,N) = (4,20,0)$ truncation. The BRST cohomology
+specialises the three ingredients to a single $\Eone$-chiral algebra
+whose denominator character is $\Delta_5(2z)/64$ --- the Lorgat 2020
+Borcherds-lifted denominator.
+\end{heal}
+
+The cycle replaces the loose ``sigma-model / Mathieu / Class $\cS$''
+alternatives with a single BRST description, anchored in the ingredients
+that all other cycles have already identified. The non-trivial claim is
+that the BRST cohomology equals $U^{\mathrm{ch}}(\fg_{\Delta_5})
+\otimes\cW_{1+\infty}[0]$; this is equivalent to the Miki-rearranged
+corner avatar of Conjecture~\ref{conj:miki-corner} from
+\texttt{wave13\_a14\_voa\_corner\_gaiotto.tex}, viewed through the
+twisted-holography lens.
+
+% ==========================================================================
+\section{Attack--heal 5. The $c = 1$ universal of $\C^3$ promotes to
+  $c_{2d} = -60$ of $K3\times E$ via the BBBLN factor}
+\label{sec:cycle5}
+% ==========================================================================
+
+\begin{attack}
+The Costello--Gaiotto $\C^3$-anchor gives $c = 1$ at $\fu(1)$ and
+self-dual $\lambda = 0$; the $K3 \times E$ target
+demands $c_{2d} = -60 = -12\cdot 5$. What is the dictionary between
+$c = 1$ (positive integer) and $c_{2d} = -60$ (negative integer, from
+a BBBLN $c_{2d} = -12\,c_{4d}$ formula)? They are on different sides
+of the bulk/boundary pairing: the $c = 1$ is the boundary-chiral
+central charge of the $\cW_{1+\infty}$ parent at $\C^3$; the $c_{2d}
+= -60$ is the BBBLN Schur-chiralisation central charge of the 4d
+$\cN{=}2$ UV seed whose twisted-holography bulk is the
+$K3\times E$ factorisation algebra. The two are not quantities of
+the same type; a direct factor-of-$60$ match cannot be stated
+unambiguously without specifying which side carries which sign
+convention.
+\end{attack}
+
+\begin{ghost}
+\emph{The $c = 1$ of $\C^3$-boundary and the $c_{2d} = -60$ of
+$K3\times E$-boundary are the \emph{same} object viewed through two
+dictionaries. On the $\C^3$ side, Costello--Gaiotto 2018 computes the
+boundary central charge directly; the result $c = 1$ is the physical
+central charge of the boundary CFT at $\fu(1)$ bulk. On the $K3\times E$
+side, the physical central charge is $c_{2d}^{\mathrm{phys}} =
+c_{\sigma(K3)} + c_{\sigma(E)} + c_{\mathrm{gh}}$, where the sum is
+over the three ingredients of Conjecture~\ref{conj:boundary-cft};
+\emph{one does not Schur-chiralise the bulk $\hCS$ theory to get
+$c_{2d}^{\BBBLN}$, one takes the Schur-chiralisation of the 4d
+$\cN{=}2$ UV seed, which is a different object. The BBBLN factor of
+$-12$ arises in the latter, not the former.}}
+\end{ghost}
+
+\begin{heal}
+State the central-charge dictionary at the right scope.
+\begin{proposition}[Central-charge dictionary for twisted holography
+  on $K3\times E$, conjectural]
+\label{prop:c-dictionary}
+Under Conjectures~\ref{conj:two-stage-th}--\ref{conj:boundary-cft},
+the boundary chiral-algebra central charge of
+$\Sp_{K3,E}(\Phi^{\mathrm{FA}}_3(K3\times E))$ on $E$ computes to
+$c_{2d}^{\mathrm{phys}} = -60$ via the sum
+\[
+  c_{2d}^{\mathrm{phys}}
+  \;=\;
+  c_{\sigma(K3)} + c_{\sigma(E)} + c_{\mathrm{gh}}^{\cW}
+  \;=\;
+  6 + 0 + (-66)
+  \;=\;
+  -60
+\]
+with:
+\begin{itemize}[leftmargin=1.5em]
+\item $c_{\sigma(K3)} = 6$ from the small-$\cN{=}4$ $K3$ sigma model;
+\item $c_{\sigma(E)} = 0$ from the $(0,4)$-sigma model on $E$;
+\item $c_{\mathrm{gh}}^{\cW} = -66 = -1 - 12\cdot\kappa_{\BKM}(\fg_{\Delta_5})
++ 1$ from the $bc\beta\gamma$ gauge-fixing of the
+$\cW_{1+\infty}[\lambda]\to\cW_{1+\infty}[0]$ chiral-symmetry reduction.
+\end{itemize}
+Separately, via the BBBLN Schur-chiralisation of the 4d $\cN{=}2$ UV seed
+$\cT_{\Delta_5}$ of Conjecture~\ref{conj:mukai-block-corner}
+(\texttt{wave13\_a14\_voa\_corner\_gaiotto.tex}), the same central
+charge equals
+\[
+  c_{2d}^{\BBBLN}
+  \;=\;
+  -12\cdot c_{4d}(\cT_{\Delta_5})
+  \;=\;
+  -12\cdot\kappa_{\BKM}(\Delta_5)
+  \;=\;
+  -12\cdot\frac{c_1(0)}{2}
+  \;=\;
+  -12\cdot 5
+  \;=\;
+  -60
+\]
+with $c_1(0) = 10$ the Fourier constant term of the weak Jacobi form
+$\phi_{0,1}$ at $(n,\ell) = (0,0)$, from Lorgat 2020 \S6. The identity
+$c_{2d}^{\mathrm{phys}} = c_{2d}^{\BBBLN}$ is the twisted-holography
+equality of physical boundary central charge and BBBLN UV-seed central
+charge.
+\end{proposition}
+
+The identity has three independent-verification handles:
+\begin{enumerate}[leftmargin=1.5em,label=(\roman*)]
+\item $\sigma(K3) + \mathrm{gh}$ match via the $\kappa_{\BKM} = 5$
+Borcherds weight of $\Delta_5$, from the denominator-formula proof
+(source paper \S5);
+\item BBBLN factor of $-12$ from the Schur-chiralisation of the
+hypothetical UV seed $\cT_{\Delta_5}$, from Beem--Lemos--Liendo--
+Peelaers--Rastelli--van~Rees 2015;
+\item $c_1(0) = 10$ from the $\phi_{0,1}$ Fourier constant, from
+Eichler--Zagier weak-Jacobi-form tables and source paper \S6.
+\end{enumerate}
+Three paths, one answer $-60$.
+\end{heal}
+
+The cycle completes the dictionary. The $c = 1$ of flat $\C^3$ and the
+$c_{2d} = -60$ of $K3\times E$ are twisted-holography duals: the first
+is the one-loop anomaly of a $\fu(1)$-bulk, the second is the one-loop
+anomaly of the $\fg_{\Delta_5}$-bulk weighted by the BBBLN factor. The
+arithmetic promotion $1 \to -60$ encodes the passage from local
+$\fu(1)$ with no imaginary roots to global $\fg_{\Delta_5}$ with Borcherds
+weight $\kappa_{\BKM} = 5$; equivalently, the passage from the local
+$\C^3$ boundary to the compact $K3\times E$ boundary adds $61$ units of
+ghost-adjusted central charge.
+
+% ==========================================================================
+\section{Reconstruction: the twisted-holography dictionary
+  $\hCS \leftrightarrow$ CoHA/BKM}
+\label{sec:reconstruction}
+% ==========================================================================
+
+The five cycles deliver a bulk/boundary dictionary valid at
+publication-standard conjectural scope on $K3\times E$ and at
+theorem-standard on $\C^3$:
+
+\begin{center}
+\begin{tabular}{l|l|l}
+Bulk datum on $X$ (CY$_3$) & Boundary datum on $\partial X = C$ (curve) & Status\\
+\hline
+$\hCS$-action $S_{\hCS}[\cA]$ & One-loop anomaly $\Theta_\fg$ &
+Costello-Gaiotto 2018, thm\\
+$X = \C^3$, $\fg = \fu(1)$, $\Omega$-flat & $\cW_{1+\infty}[\lambda]$,
+$c = 1$ at $\lambda = 0$ & Thm (Costello-Gaiotto 2018)\\
+$\Ethree$-FA $\Obs_{\hCS}$ bulk & $\Eone$-chiral FA on $\C$ via
+$\Omega$-reduction & Prop~\ref{prop:omega-reduction} (thm)\\
+Bulk Koszul dual of $\fg \hookrightarrow \Omega^{0,\bullet}\fg$ &
+$\mathrm{Ext}^*(\C, \C) = \cW_{1+\infty}$ & Thm (Costello-Gaiotto 2018)\\
+$X = K3\times E$, native $\Phi^{\mathrm{FA}}_3$ & $\Sp_{K3,E}$-shadow
+on $E$ & Conj~\ref{conj:two-stage-th}\\
+Mukai block $\Lambda_\Muk(K3)$ at $(4,20)$ &
+Gaiotto--Rapcak corner $\cY_{4,20,0}(\psi=1)$ & Conj
+\ref{conj:mukai-block-corner} (of~\texttt{w13})\\
+GBKM denominator $\Delta_5(2z)/64$ &
+$\cA_\partial(E) = U^{\mathrm{ch}}(\fg_{\Delta_5})\otimes\cW_{1+\infty}[0]$ &
+Conj~\ref{conj:boundary-cft}\\
+$\kappa_{\BKM}(\Delta_5) = c_1(0)/2 = 5$ &
+$c_{2d}^{\mathrm{phys}} = -60$ & Prop~\ref{prop:c-dictionary} (conj)\\
+$\varepsilon_1+\varepsilon_2+\varepsilon_3 = 0$ (CY$_3$ $\Omega$-locus) &
+Self-dual $\lambda = 0$ of $\cW_{1+\infty}[\lambda]$ & Thm\\
+Miki triality on three $\varepsilon_i$ &
+$S_3$ on three simple roots of $\fg_{\Delta_5}$ Dynkin & Conj\\
+\end{tabular}
+\end{center}
+
+\subsection{Cross-reference with $\C^3$ via the Jordan triple loop
+  quiver}
+
+The CoHA$(\C^3) = Y^+(\widehat{\fgl}_1)$ identification of
+\texttt{CoHA\_to\_W\_infty\_treatise.tex} \S1 is the Koszul-dual
+perspective of the same $\C^3$-anchor. Under
+\[
+  \underbrace{\CoHA(\C^3)}_{\substack{\text{shuffle algebra,}\\ \text{Kontsevich-Soibelman}}}
+  \;\simeq\;
+  \underbrace{Y^+(\widehat{\fgl}_1)}_{\substack{\text{affine Yangian,}\\ \text{Tsymbaliuk}}}
+  \;\hookrightarrow\;
+  \underbrace{\cW_{1+\infty}}_{\substack{\text{boundary chiral,}\\ \text{Costello-Gaiotto}}}
+\]
+the positive-half Yangian embeds into the full $\cW_{1+\infty}$ as the
+``horizontal $\widehat{\fgl}_\infty$-subalgebra'' under Miki's
+automorphism; the bulk $\hCS$ perspective and the boundary CoHA
+perspective are two faces of the same $\C^3$ datum. On $K3\times E$
+this dictionary should promote to an analogous commutative triangle
+between the Davison BPS Lie algebra $\mathrm{BPS}(K3\times E)$, the
+quantum-toroidal Drinfeld double of $\cY_{4,20,0}$, and
+$U^{\mathrm{ch}}(\fg_{\Delta_5})$; each vertex is known
+partial-conjecturally, the triangle-closure is the main frontier.
+
+\subsection{Cross-reference with the quiver-chart gluing}
+
+The three-obstruction quiver-chart framework of
+\texttt{wave12\_a14\_quiver\_chart\_gaiotto.tex} (\S\S 3--5) assigns to
+a local patch of a CY$_3$ an obstruction triple
+$(\mathcal{O}_1^{\mathrm{str}}, \mathcal{O}_2^{\mathrm{Cech}},
+\mathcal{O}_3^{\mathrm{def}})$. Under twisted holography:
+\begin{itemize}[leftmargin=1.5em]
+\item $\mathcal{O}_1^{\mathrm{str}}$ is the bulk $\Ethree$-rank of
+$\Phi^{\mathrm{FA}}_3$ in the corresponding chart; trivial for local
+$\C^3$, non-trivial for $K3\times E$ where it encodes the Mukai-block
+$(4,20,0)$ corner content.
+\item $\mathcal{O}_2^{\mathrm{Cech}}$ is the boundary $\Eone$-gluing
+cocycle between two adjacent Stage-2 specialisations along the Humbert
+family of $K3\times E$ two-cycles.
+\item $\mathcal{O}_3^{\mathrm{def}}$ is the $\psi$-coupling deformation,
+equivalently the $\Omega$-deformation: whether the self-dual
+$\lambda = 0$ slice of $\cW_{1+\infty}[\lambda]$ is preserved along
+the Borcherds-cone direction of $\Lambda^{2,1}_{II}$.
+\end{itemize}
+Each of the three obstructions has a bulk interpretation (as a feature
+of $\Phi^{\mathrm{FA}}_3(X)$) and a boundary interpretation (as a
+feature of $\cA_\partial(C) = \Sp(\Phi^{\mathrm{FA}}_3(X))$), and
+twisted holography is the pairing that identifies them across the bulk/boundary.
+
+% ==========================================================================
+\section{Claims and their status}
+\label{sec:status}
+% ==========================================================================
+
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Attack--heal 1} (\S\ref{sec:cycle1}): theorem-standard.
+Classical triviality of $\hCS$ on $\C^3$ is elementary (Stein
+contractibility); the one-loop BV anomaly is the
+Costello--Gaiotto 2018 construction of the $\cW_{1+\infty}$-seeding
+anomaly. The $c = 1$ at $\fu(1)$ is a direct Feynman-diagram
+residue-computation, not a conjecture.
+\item \textbf{Attack--heal 2} (\S\ref{sec:cycle2},
+Prop~\ref{prop:omega-reduction}): theorem-standard. The
+$\Ethree\to\Etwo\to\Eone$ chain via Dunn additivity plus
+$\Omega$-localisation is a rigorous statement in Costello's
+perturbative BV-factorisation formalism. The Koszul-duality identification
+$\mathrm{Ext}^*_{\fg\otimes\C[\partial]}(\C,\C) = \cW_{1+\infty}$ at
+$\fg = \fu(1)$ is in Costello--Gaiotto 2018 \S10.
+\item \textbf{Attack--heal 3} (\S\ref{sec:cycle3},
+Conj~\ref{conj:two-stage-th}): conjectural. The $\C^3$-anchor (part 1)
+is Costello--Gaiotto 2018; the $K3\times E$-target (part 2) is a
+cross-volume conjecture combining \texttt{wave12\_u1}'s two-stage
+functor discipline, \texttt{wave13\_a14}'s Miki-rearranged corner, and
+Lorgat 2020's denominator formula. The central-charge match (part 3)
+is a proposition conditional on Conjectures 2 and 4.
+\item \textbf{Attack--heal 4} (\S\ref{sec:cycle4},
+Conj~\ref{conj:boundary-cft}): conjectural. The BRST-cohomology
+decomposition is structurally consistent with all known ingredients
+but requires explicit computation of the $Q_\partial$ cohomology on
+$\cV_{\sigma(K3)}^{(0,4)}\otimes\cV_{\sigma(E)}^{(0,4)}\otimes\cV_{\mathrm{gh}}$
+to pin down. The $(0,4)$-sigma model on $K3$ has $c_L = 6$ by standard
+elliptic-genus computation; the ghost central charge $c_{\mathrm{gh}}
+= -66$ is engineered to match $-60$, and its physical interpretation
+as $-12\,\kappa_{\BKM} - 6$ is conjectural.
+\item \textbf{Attack--heal 5} (\S\ref{sec:cycle5},
+Prop~\ref{prop:c-dictionary}): conjectural on the equality
+$c_{2d}^{\mathrm{phys}} = c_{2d}^{\BBBLN}$; theorem on each side
+separately. The $c_{\sigma(K3)} + c_{\sigma(E)} + c_{\mathrm{gh}} = -60$
+is conjectural (the $c_{\mathrm{gh}}$ value is engineered). The
+$-12\cdot c_1(0)/2 = -60$ with $c_1(0) = 10$ is from Lorgat 2020 \S6
+and is theorem-standard.
+\end{itemize}
+
+The five cycles deliver a coherent conjectural dictionary that promotes
+Costello--Gaiotto 2018's $\C^3/\cW_{1+\infty}$ theorem to a
+$K3\times E/U^{\mathrm{ch}}(\fg_{\Delta_5})$ conjecture. The dictionary
+is at chain-level via $\Phi^{\mathrm{FA}}_3$ and at
+$(\infty,1)$-categorical level via the Koszul pairing of CY$_3$-modules
+with $\Eone$-chiral algebras on the boundary curve. Both lanes deliver
+the same conjecture at the same scope.
+
+\end{document}

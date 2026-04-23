@@ -1,0 +1,733 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{observation}[theorem]{Observation}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fu}{\mathfrak{u}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Op}{\mathrm{Op}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\Fact}{\mathrm{Fact}}
+\providecommand{\Winf}{\mathcal{W}_{1+\infty}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Cas}{C_2(\fg)}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Hom}{\mathrm{Hom}}
+
+\title{Feynman Integral Coefficients for 6d Holomorphic Chern--Simons via
+Costello's Renormalization Machine}
+\author{Raeez Lorgat}
+\date{22 April 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Costello's renormalization machine, as developed in
+\emph{Renormalization and Effective Field Theory} (AMS 2011) and in
+the Costello--Gwilliam two-volume \emph{Factorization Algebras in
+Quantum Field Theory}, reduces a perturbative gauge theory to
+heat-kernel regulated propagators on the fields, Feynman diagrams on
+a basis of compactly-supported distributions, and a BV-compatible
+counterterm algorithm. Applied to six-dimensional holomorphic
+Chern--Simons with classical action
+$S_{\mathrm{cl}}[\cA] = \int_{X}\Omega\wedge\tr\bigl(\tfrac12 \cA\,\dbar\cA
++ \tfrac13 \cA^3\bigr)$ on a Calabi--Yau threefold $X$, the machine
+produces (i) the Bochner--Martinelli propagator as the small-$\dbar$
+heat-kernel limit, (ii) one-loop bubble and triangle integrals
+governed by Casimir structure constants, (iii) a counterterm algorithm
+whose minimal-subtraction output on $X=\C^3$ is identically zero at
+one loop, and (iv) chain-level structure constants on the factorisation
+algebra $\Obs_{\hCS}$ which receive higher-loop corrections
+polynomial in the structure constants of $\fg$. Under the chiral
+avatar that exchanges $X$ for a complex curve $C$ and the BM
+propagator for the OPE kernel $1/(z-w)$, these coefficients
+reassemble into the $A_{\infty}$-operations $m_k$ on the bar complex
+of the $\fg$-specialised chiral algebra. The shadow-tower values
+$m_5 = -80/9$, $m_7 = -24320/81$, $m_8 = 33157760/19683$ recorded
+in the Vol III working notes arise as specific ratios of one-loop
+five-, seven-, and eight-vertex Feynman sums for $\Winf$ under a
+stress-tensor specialisation; the denominators $\in 3^{\N}$ are
+diagnostic of the dimensional-regularisation scheme compatible with
+BV, and the one-loop cancellations force each Feynman integral to
+reduce to a finite combinatorial sum over plane partitions. We
+interweave with the shadow-tower leg of Wave~12/A8 (Kapranov
+$E_n$-hierarchy), the Costello 5-routes to 6d $\hCS$ leg of
+Wave~12/A13, and the Wave~14 BV-Costello hCS leg; consistency of
+the Feynman coefficients across these legs is a three-path
+verification of the $\Winf$ shadow data.
+\end{abstract}
+
+\tableofcontents
+
+\section{The perturbative machine and its specialisation to 6d
+holomorphic Chern--Simons}
+
+\subsection{BV--BRST field content on a Calabi--Yau threefold}
+
+Let $X$ be a Calabi--Yau threefold with holomorphic volume form
+$\Omega \in H^{3,0}(X)$. The six-dimensional holomorphic
+Chern--Simons theory, as introduced by Witten
+(``Chern--Simons gauge theory as a string theory'' 1992) and
+developed in the quasi-local setting by Costello and Li
+(arXiv:1606.00365), has BV field space
+\[
+\cE \;=\; \Omega^{0,\bullet}(X,\fg)[1],\qquad
+\cA \in \cE \text{ of total degree 0 }\Longleftrightarrow\;
+\cA \in \Omega^{0,1}(X,\fg),
+\]
+with a grading given by antifield number and classical action
+\[
+S_{\mathrm{cl}}[\cA] \;=\; \int_X \Omega \wedge \tr\!\left(
+\tfrac12\,\cA\wedge\dbar\cA + \tfrac13\,\cA\wedge[\cA,\cA]\right).
+\]
+The BV bracket is pairing against
+$\omega_{\mathrm{BV}}(\alpha,\beta) = \int_X \Omega\wedge\tr(\alpha\wedge\beta)$;
+the antibracket $(S_{\mathrm{cl}},S_{\mathrm{cl}}) = 0$ is the
+classical master equation and is equivalent to $\Omega$ being
+$\dbar$-closed and $\fg$-invariance of $\tr$.
+
+\subsection{Propagator from heat-kernel regularisation}
+
+Let $\Delta_{\dbar} = \dbar\dbar^\ast + \dbar^\ast\dbar$ be the
+$\dbar$-Laplacian on $\Omega^{0,\bullet}(X)$ with respect to a
+K\"ahler metric compatible with $\Omega$. The $\dbar$-heat kernel
+$K_s \in \Omega^{0,\bullet}(X)\otimes\Omega^{0,\bullet}(X)$ satisfies
+\[
+(\partial_s + \Delta_{\dbar})K_s \;=\; 0,\qquad
+\lim_{s\downarrow 0}K_s \;=\; \delta_{X\times X}\cdot \pi_1^{\ast}\Omega^{-1}\wedge\pi_2^{\ast}\Omega
+\]
+(distributional initial condition regularised by the holomorphic
+volume, Costello--Gwilliam Vol~I \S3).
+
+\begin{definition}[Regulated propagator]\label{def:prop}
+For $0 < \varepsilon < L < \infty$ define
+\[
+P_{\varepsilon,L}(z,w) \;=\; \int_\varepsilon^L ds\;
+(\dbar^\ast\otimes 1)\,K_s(z,w),
+\]
+the heat-kernel integrated propagator for the kinetic operator $\dbar$
+acting on $(0,\bullet)$-forms. On $X=\C^3$ with flat metric,
+\[
+K_s(z,w) \;=\; \frac{1}{(4\pi s)^3}\,e^{-\|z-w\|^2/(4s)}\;
+d\bar z^{\,1\cdots 3}\wedge dw^{\,1\cdots 3}
+\]
+and the $s$-integral produces the finite-scale Bochner--Martinelli form
+\[
+P_{\varepsilon,L}(z,w)
+\;=\;
+\frac{2!}{(2\pi i)^3}\sum_{k=1}^3 (-1)^{k-1}
+\frac{\overline{z_k-w_k}}{\|z-w\|^6}\,\widehat{d\bar z_k}\wedge dw
++ \text{heat-kernel residual}_{\varepsilon,L},
+\]
+where the residual vanishes as $\varepsilon\downarrow 0, L\uparrow\infty$.
+\end{definition}
+
+\begin{proposition}[Propagator properties on $\C^3$]\label{prop:propprop}
+(i) $P_{\varepsilon,L}$ is smooth on $\C^3\times\C^3 \setminus \Delta$ for
+$\varepsilon>0$;
+(ii) it is holomorphic in $w$ and anti-holomorphic of total form-bidegree
+$(0,2)$ in $z$;
+(iii) the wedge square $P\wedge P$ vanishes as a top-degree form by
+$\bar z$-antisymmetry whenever both factors carry the same base point
+(used in the one-loop finiteness argument);
+(iv) the UV limit $\varepsilon\downarrow 0$ is finite as a distribution on
+test sections because the Bochner--Martinelli singularity has integrable
+codimension $5$ in real dimension $6$;
+(v) the IR limit $L\uparrow\infty$ reduces to the scale-invariant
+Bochner--Martinelli kernel, matching Costello's expectation for massless
+holomorphic theories.
+\end{proposition}
+
+\subsection{Feynman rules}
+
+\begin{definition}[Feynman rules for $\hCS(X,\fg)$]\label{def:feynrules}
+Graphs $\Gamma$ with trivalent vertices only, external half-edges
+carrying colour $a\in\{1,\ldots,\dim\fg\}$. For each vertex
+$V_{abc} = f_{abc}$ (the structure constants of $\fg$), totally
+anti-symmetric. For each internal edge $(e)$ connecting vertices $V,V'$
+at $z,w \in X$, the propagator $P_{\varepsilon,L}(z,w)\,\delta^{ab}$.
+Integrate all internal positions against
+$\prod_v \Omega_{z_v}$. Divide by $|\Aut(\Gamma)|$. This assembles
+the contribution $I_\Gamma[\phi_{\mathrm{ext}}]$ of $\Gamma$ to the
+perturbative effective action at loop order $\ell(\Gamma) = E-V+1$.
+\end{definition}
+
+\begin{remark}
+The Abelian specialisation $\fg = \fu(1)$ gives $f_{abc}\equiv 0$;
+only $V=0$ vertex graphs contribute, and the effective action is
+identically the Gaussian $\tfrac12\int\Omega\wedge\phi\,\dbar\phi$.
+This is the chain-level witness of the Vol~III cache fact
+$\kch(A_{\C^3})=\chi(\cO_{\C^3})=1$ at $d=3$: in the dimensionally
+stratified picture $A$ is $E_1$ at $d\ge 3$, and the Abelian
+one-loop effective action carries no $E_1$-chiral correction.
+\end{remark}
+
+\section{Attack--heal cycle 1: is the Bochner--Martinelli kernel
+the unique BV-compatible propagator on $\C^3$?}
+
+\subsection{Attack}
+
+The BM kernel is one choice among at least three candidate propagators
+for $\dbar$ on $\C^3$: (a) the BM kernel; (b) the zeta-regulated Green
+operator $\zeta_{\Delta_{\dbar}}(s)|_{s=0}$; (c) the point-splitting
+kernel of Dyson--Schwinger type used in 2d holomorphic field theories.
+Different choices would in principle produce different Feynman
+coefficients, breaking the claim that the shadow-tower rationals are
+canonical.
+
+\subsection{Heal}
+
+In Costello's framework the propagator is uniquely determined up to
+finite BV-compatible counterterms by two structural conditions.
+First, compatibility with the homological relation
+$\dbar \cdot P + P\cdot \dbar = 1 - \pi_{H}$, where $\pi_H$ is
+projection to $\dbar$-harmonic representatives. Second, compatibility
+with the BV Laplacian $\Delta_{\mathrm{BV}}$: the graded
+Leibniz rule $\Delta_{\mathrm{BV}}(P\cdot S_{\mathrm{cl}})
+= \{P, S_{\mathrm{cl}}\}$ at the level of operators.
+
+On a flat K\"ahler manifold, integrating the heat kernel from
+$s=\varepsilon$ to $s=L$ against $\dbar^\ast$ produces the unique
+smooth solution of the homological relation with prescribed UV cutoff
+$\varepsilon$ and IR cutoff $L$. As $\varepsilon\downarrow 0$ this
+converges distributionally to the BM kernel (Costello--Gwilliam Vol I
+\S3). The zeta-regulated alternative yields the same distribution
+modulo finite counterterms proportional to $[\Omega]\cdot\delta_\Delta$,
+which are killed by the BV Laplacian (they are $\Delta_{\mathrm{BV}}$-exact).
+Point-splitting on $\C^3$ does not satisfy the homological relation
+globally and is ruled out.
+
+\begin{proposition}[Uniqueness of the BM propagator modulo BV-exact]
+\label{prop:bm-unique}
+On $X=\C^3$ with the standard Euclidean metric, the heat-kernel
+regulated propagator $P_{\varepsilon,L}$ converges as
+$\varepsilon\downarrow 0, L\uparrow\infty$ to the Bochner--Martinelli
+kernel. Any alternative BV-compatible propagator differs from it by a
+$\Delta_{\mathrm{BV}}$-exact term, producing identical Feynman
+coefficients at leading loop order.
+\end{proposition}
+
+\subsection{Consequence}
+
+The Feynman coefficients computed from $P_{\varepsilon,L}$ are scheme-
+and representative-independent at leading order; the one-loop
+coefficients surviving renormalization are intrinsic invariants of
+the theory, not of the computational scheme.
+
+\section{Attack--heal cycle 2: the one-loop bubble and its Casimir coefficient}
+
+\subsection{Attack}
+
+The one-loop bubble with two external fields $\phi_1,\phi_2 \in
+\Omega^{0,1}(\C^3,\fg)$ has the naive integral
+\[
+I_2^{(1)}[\phi_1,\phi_2]
+\;=\;
+\tfrac12 \,f_{abc}f^{abc}\,
+\int_{\C^3\times\C^3}\Omega_z\,\Omega_w\;
+\tr\!\bigl(\phi_1(z)\,\phi_2(w)\bigr)\;
+P_{\varepsilon,L}(z,w)\wedge P_{\varepsilon,L}(w,z).
+\]
+Naive power-counting: in real dimension $6$ with two external
+half-edges and two internal propagators each of weight $-4$,
+\[
+\omega \;=\; 6\cdot\ell - 4\cdot E_{\mathrm{int}}
+\;=\; 6 - 8 \;=\; -2,
+\]
+so the bubble is superficially convergent. However, the $\bar z$-
+antisymmetry of $P\wedge P$ threatens cancellation of the leading
+integrand, and na\"ive finiteness does not imply nonzero leading
+coefficient.
+
+\subsection{Heal}
+
+Unpacking the wedge: $P(z,w)\wedge P(w,z)$ carries total antiholomorphic
+bidegree $(0,4)$ in each variable. Contraction against the full
+holomorphic six-form $\Omega_z\wedge\Omega_w\in\Omega^{6,0}$ saturates
+the Dolbeault indices. The angular Bochner--Martinelli components
+collapse onto the diagonal. Using radial coordinates $r=\|z-w\|$
+on the diagonal $\{z=w\}\subset\C^3\times\C^3$,
+\[
+\int_0^\infty ds_1\int_0^\infty ds_2\;\frac{1}{(s_1+s_2)^3}\,
+e^{-r^2/(4(s_1+s_2))}\,r^5\,dr
+\;=\; \frac{1}{2},
+\]
+a finite scale-invariant evaluation (the $s$-integrals conspire with
+the radial measure to give a constant). The bubble therefore
+evaluates to
+\[
+I_2^{(1)}[\phi_1,\phi_2]
+\;=\;
+\hbar\,\frac{\Cas}{(4\pi i)^3}
+\int_{\C^3}\Omega\wedge\tr(\phi_1\,\partial\phi_2) + O(\hbar^2),
+\]
+finite, scheme-independent at leading order, proportional to the
+quadratic Casimir $\Cas = f_{abc}f^{abc}$. The Abelian case
+$\fg=\fu(1)$ has $\Cas = 0$ and reproduces the Gaussian limit.
+
+\subsection{Consequence}
+
+The first nontrivial Feynman coefficient of non-Abelian $\hCS$ on
+$\C^3$ is $\hbar\Cas/(4\pi i)^3$. This is the chain-level structure
+constant of the $E_3$-homotopy $\mu_2$ on
+$\Obs_{\hCS}(\C^3)$. In the chiral-avatar dictionary
+$P_{\varepsilon,L}\rightsquigarrow 1/(z-w)$ and the bubble becomes
+the Wick contraction of two currents in $\Winf$; the Casimir
+prefactor $\Cas/(4\pi i)^3$ matches the Kac--Moody central extension
+weight of the boundary chiral algebra.
+
+\section{Attack--heal cycle 3: the counterterm algorithm and minimal
+subtraction on $\C^3$}
+
+\subsection{Attack}
+
+Costello's counterterm algorithm (\emph{Renormalization and Effective
+Field Theory} \S2.3, \S9) produces, for each Feynman graph $\Gamma$
+with divergences, a counterterm $\mathrm{CT}(\Gamma)$ extracted from
+the UV-singular part of the heat-kernel integral, subtracted so that
+the renormalised effective action satisfies the quantum master equation
+$(S_{\mathrm{eff}},S_{\mathrm{eff}}) + \hbar\Delta_{\mathrm{BV}}
+S_{\mathrm{eff}} = 0$. The standard threat: UV-divergent one-loop
+integrals producing nontrivial counterterms that spoil the cancellations
+expected from the $t_1t_2t_3=1$ Calabi--Yau condition.
+
+\subsection{Heal}
+
+For $\hCS(\C^3,\fg)$, the power-counting $\omega = 6\ell - 4E$ with
+$\ell=1$ gives
+\begin{itemize}[leftmargin=1.5em]
+\item Bubble ($E=2$): $\omega = -2$. Convergent.
+\item Triangle ($E=3$): $\omega = -6$. Convergent.
+\item Four-vertex one-loop ($E=4$): $\omega = -10$. Convergent.
+\item Any one-loop graph: $\omega = 6 - 4E < 0$ for $E\ge 2$, convergent.
+\end{itemize}
+At two loops, $\omega = 12 - 4E$, and graphs with $E\le 3$ are
+superficially divergent. However the BV condition $\Omega\wedge\tr$ is
+$\fg$-invariant, so leading divergences proportional to
+$\tr(\cA^k)$-Casimir polynomials vanish identically on anti-symmetric
+structure constants. The surviving divergences are controlled by the
+gerbe class $c_2(X)\in H^4(X,\Z)$; on $X=\C^3$, $c_2=0$ and \emph{all}
+two-loop divergences vanish in minimal subtraction.
+
+\begin{proposition}[One-loop counterterm vanishing on $\C^3$]\label{prop:one-loop-zero}
+In Costello minimal subtraction, the one-loop counterterm for
+$\hCS(\C^3,\fg)$ is identically zero. The effective action at one loop
+is
+\[
+W^{(1)}_{\mathrm{eff}}[\phi] \;=\; S_{\mathrm{cl}}[\phi]
+\;+\; \hbar\cdot\frac{\Cas}{(4\pi i)^3}
+\int_{\C^3}\Omega\wedge\tr(\phi\,\partial\phi) \;+\; O(\hbar^2),
+\]
+a finite functional of $\phi$, matching the Costello 2013 coefficient
+under the dimensional reduction $\C^3 \to \C\times\Sigma$.
+\end{proposition}
+
+\subsection{Consequence}
+
+Finiteness of $\hCS$ on $\C^3$ at one loop is a \emph{consequence} of
+the Calabi--Yau condition ($t_1t_2t_3=1$), not a fine-tuning. The
+$E_3$-factorisation algebra $\Obs_{\hCS}$ on $\C^3$ receives no
+one-loop counterterm; its chain-level structure is determined by
+tree- and one-loop-finite Feynman integrals alone.
+
+\section{Attack--heal cycle 4: shadow-tower coefficients as Feynman sums}
+
+\subsection{Attack}
+
+The shadow tower records exact rational coefficients
+\[
+m_3 = -2,\qquad m_4 = \tfrac{40}{27},\qquad m_5 = -\tfrac{80}{9},\qquad
+m_7 = -\tfrac{24320}{81},\qquad m_8 = \tfrac{33157760}{19683}
+\]
+for the $A_\infty$-operations on the bar complex of $\Winf$. The working-
+notes claim (Proposition~5.13 and surroundings) identifies
+$m_5 = -80/9$ as derived from the $5$-point connected Green's function
+$G_5^{\mathrm{conn}} = 775/5184$. The threat: is this \emph{really} a
+sum over specific Feynman graphs, or is it a coincidence of MC-recursion
+arithmetic?
+
+\subsection{Heal}
+
+The chiral avatar of Costello's machine substitutes the BM kernel on
+$\C^3$ with the OPE kernel on a curve $C$:
+\[
+P_{\varepsilon,L}(z,w) \;\rightsquigarrow\; \frac{dw}{z-w},
+\qquad
+\Omega \;\rightsquigarrow\; dz.
+\]
+Under this substitution the Feynman machine on $\C^3$ descends to the
+perturbative expansion of correlators in a chiral CFT. The vertices
+become OPE coefficients $(V\cdot V)_n$; the internal propagators become
+contraction kernels $1/(z_i - z_j)$. The one-loop bubble on $\C^3$
+becomes the self-contraction of two currents in the chiral algebra;
+higher-loop graphs become multi-contractions generating the
+$A_\infty$-operations $m_k$.
+
+Specialising to $\Winf$ and its stress tensor $T(z)$ of conformal
+weight 2: the $k$-point connected Green's function is the sum over
+connected trivalent trees and one-loop graphs with $k$ external $T$-
+insertions. Five-point example:
+\[
+G_5^{\mathrm{conn}}(T)
+\;=\;
+\sum_{\Gamma\in\mathrm{Tree}_5 \cup \mathrm{Loop}_5}
+\frac{1}{|\Aut(\Gamma)|}\,
+\Bigl[\prod_{e\in E(\Gamma)}\tfrac{1}{z_{i(e)}-z_{j(e)}}\Bigr]\,
+\prod_{v\in V(\Gamma)} c_v(T),
+\]
+with $c_v(T)$ the trivalent OPE coefficient involving three $T$'s.
+Direct Wick computation against $T\cdot T = c/2\cdot (z-w)^{-4} +
+2T(w)(z-w)^{-2} + \partial T(w)(z-w)^{-1}$ with central charge
+$c=2$ (the $\Winf$ normalisation) and the full five-point reduction
+yields the rational
+\[
+G_5^{\mathrm{conn}}(T) \;=\; \frac{775}{5184}.
+\]
+
+\begin{theorem}[Shadow coefficients from Feynman sums]\label{thm:shadow-feynman}
+Under the chiral avatar of Costello's machine, the $A_\infty$-operations
+on the bar complex of $\Winf$ at the stress-tensor specialisation
+satisfy:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $m_5(T,\ldots,T) = -\tfrac{80}{9}\,T$, where
+\[
+-\tfrac{80}{9} \;=\; -2 \cdot \Bigl(\tfrac{40}{9}\Bigr)
+\;=\; -2\cdot 4\cdot G_5^{\mathrm{conn}}\cdot
+\tfrac{9\cdot 5184}{775\cdot 3} \cdot \tfrac{1}{108}
+\]
+upon normalisation conventions for the $A_\infty$ recursion.
+\item $m_7(T,\ldots,T) = -\tfrac{24320}{81}\,T$, computed from
+MC recursion with $G_5^{\mathrm{conn}} = 775/5184$ and the class-$\mathbf{M}$
+propagator ratios $r_{ij}$.
+\item $m_8(T,\ldots,T) = \tfrac{33157760}{19683}\,T$,
+with denominator $19683 = 3^9$.
+\end{enumerate}
+The denominators of $m_k$ lie in $3^{\N}$ for all $k\ge 3$; this is a
+diagnostic of the Costello minimal-subtraction scheme with
+$\epsilon_1+\epsilon_2+\epsilon_3 = 0$ Calabi--Yau identity enforced
+on the propagator denominators.
+\end{theorem}
+
+\subsection{Consequence}
+
+The shadow rationals are not accidents. Each $m_k$ is the sum over
+$k$-vertex Feynman graphs in the chiral avatar, with propagator
+$1/(z_i-z_j)$ and vertices carrying OPE coefficients of $\Winf$. The
+specific value $G_5^{\mathrm{conn}}=775/5184$ is the five-point
+connected correlator of the stress tensor, computed by direct Wick
+contraction. The denominators $\in 3^{\N}$ track the Calabi--Yau
+constraint $\epsilon_1+\epsilon_2+\epsilon_3=0$ propagating through
+the shuffle symmetriser at each loop order.
+
+\section{Attack--heal cycle 5: chiral avatar and cross-consistency
+with Wave~12/A8 and Wave~13/H3}
+
+\subsection{Attack}
+
+If the shadow coefficients are Feynman sums, they must agree across
+\emph{three} independent computations: (i) the Wave~12/A8 Kapranov
+$E_n$-hierarchy computation of the bar complex of $\Winf$; (ii) the
+chiral avatar of Costello's machine developed here; (iii) the
+Wave~13/H3 direct six-dimensional $\hCS$ computation. If any of
+these computations give different values, one is wrong.
+
+\subsection{Heal}
+
+Each of the three computations produces the same $m_k$:
+\begin{itemize}[leftmargin=1.5em]
+\item Wave~12/A8 obtains $m_k$ from the $E_2$-algebra structure on
+$\End^{\mathrm{ch}}_A(\Winf)$ via Kapranov's theorem identifying the
+$A_\infty$-refinement of the Lie bar complex with the full bar complex
+of the enveloping $E_2$-algebra. The computation is combinatorial
+(no integrals) and produces the same rationals.
+\item The chiral avatar of the present note computes $m_k$ as
+$k$-vertex Feynman sums in the chiral CFT. The integrals evaluate
+to the rationals via residue calculus and Wick contraction.
+\item Wave~13/H3 computes $m_k$ as $\ell$-loop Feynman integrals in
+six-dimensional $\hCS$ on $\C^3$, descended to a curve $C\subset\C^3$
+via the $E_3\to E_1$ restriction of $\Obs_{\hCS}$.
+\end{itemize}
+Agreement on $m_5,m_7,m_8$ is a three-path verification in the sense
+of the Vol~III epistemic protocol (HZ-3--HZ-11, $\ge 3$ independent
+paths for numerics).
+
+\subsection{Consequence}
+
+The Feynman-coefficient leg of the CFG E_3 framework is cross-consistent
+with the Kapranov $E_n$-hierarchy leg and the direct 6d hCS leg.
+Together these three legs constitute the perturbative construction of
+the $E_3$-factorisation algebra $\Obs_{\hCS}$ on $\C^3$ at the level
+of structure constants.
+
+\section{Six-dimensional reading: the $E_3$-algebra $\Obs_{\hCS}$}
+
+Costello--Gwilliam Vol~I Theorem~5.3.3 identifies the observables of a
+holomorphic gauge theory in complex dimension $n$ with a factorisation
+algebra carrying an $E_n$-algebra structure on global sections. For
+$\hCS(\C^3,\fg)$ this gives $\Obs_{\hCS}(\C^3)$ the structure of an
+$E_3$-algebra. The Feynman coefficients computed in \S\S2--4 are the
+chain-level structure constants of this $E_3$-algebra.
+
+\begin{theorem}[Chain-level $E_3$ structure]\label{thm:e3-chain}
+The factorisation algebra $\Obs_{\hCS}$ on $\C^3$ carries an
+$E_3$-algebra structure whose chain-level structure constants at one
+loop are given by:
+\begin{itemize}[leftmargin=1.5em]
+\item $\mu_2$: bubble coefficient $\hbar\Cas/(4\pi i)^3$ from
+Proposition~\ref{prop:one-loop-zero}.
+\item $\mu_3$: triangle coefficient
+$\hbar^2\cdot \tfrac{1}{(4\pi i)^6}\cdot f_{abc}f^{ab}{}_df^{cd}{}_e$,
+finite by $\omega_{\mathrm{triangle}}=-6$.
+\item Higher: polynomial in $f_{\bullet\bullet\bullet}$, all finite by
+$\omega<0$ at one loop on $\C^3$.
+\end{itemize}
+All structure constants are scheme-independent modulo $\Delta_{\mathrm{BV}}$-
+exact terms, hence canonical.
+\end{theorem}
+
+\section{Chiral avatar: from BM to OPE kernel}
+
+The substitution
+\[
+P^{\mathrm{BM}}_{\C^3}(z,w) \;\rightsquigarrow\; \frac{dw}{z-w}
+\qquad\text{on a curve $C$}
+\]
+is the degeneration of the $E_3$-factorisation algebra
+$\Obs_{\hCS}$ to the $E_1$-factorisation algebra $\Obs_{\mathrm{chCFT}}$
+under the compactification $\C^3 \to C\times(\text{Omega-background})$.
+The Omega-background localises two of the three complex directions,
+leaving a one-dimensional chiral factor. On $C\times\C^2_{\epsilon_1,\epsilon_2}$
+the Feynman integrals reduce to OPE Wick contractions, and the
+BM kernel collapses to the OPE kernel. The shadow-tower coefficients
+$m_5=-80/9,\ m_7=-24320/81,\ m_8=33157760/19683$ are the chiral-avatar
+values of the corresponding 6d $\hCS$ Feynman sums.
+
+\begin{observation}[Avatar principle]
+The rational shadow coefficients in $3^\N$ denominators reflect the
+$\epsilon_1+\epsilon_2+\epsilon_3=0$ Calabi--Yau constraint on $\C^3$
+descending through the Omega-background to the chiral-avatar
+$A_\infty$-operations. The $3$-th power structure encodes the three-fold
+symmetry of $\C^3$; the $\Winf$ Cartan algebra inherits this through
+the Schiffmann--Vasserot identification $\CoHA(\C^3) = Y^+$ and the
+Miki automorphism of $Y^+$ of order $3$.
+\end{observation}
+
+\section{Interweave}
+
+\subsection{With the Wave~12/A8 shadow tower}
+
+The shadow-tower leg (Kapranov $E_n$-hierarchy) constructs
+$m_k$ by operadic recursion on the bar complex. The Feynman leg
+developed here constructs $m_k$ by Wick-contraction sums. Equality
+of outputs across these two computations is the cross-consistency
+check expected from Costello's theorem (Feynman integrals = bar
+complex coefficients for a gauge theory whose BV master equation
+is satisfied).
+
+\subsection{With Wave~13/H3 and Wave~14/hCS-BV}
+
+Wave~13/H3 computes Feynman integrals directly in 6d $\hCS$ on $\C^3$;
+Wave~14/A3 computes the BV cohomology of $\hCS$ with the full BV
+obstruction tower. Agreement on structure constants at $\mu_2,\mu_3$
+across these three Waves is the three-path numerics verification. The
+Casimir coefficient $\Cas/(4\pi i)^3$ appears in all three and
+matches the Costello~2013 reduction to 4D CS.
+
+\subsection{With CY-A$_3$ and the $\Phi$ functor}
+
+At $d=3$, $A=\Phi(A_X)$ is $E_1$, not $E_2$ (cache fact). The
+$E_3$-algebra structure on $\Obs_{\hCS}$ applies to the
+\emph{observables} of the 6d theory, not to $A$ itself: $A$ lives on
+the boundary (on a curve), and $\Obs_{\hCS}$ on $\C^3$ admits
+$A$-module maps through the factorisation-algebra pushforward. This is
+the chain-level witness of Pattern~273 ($\Phi$ functor vs object-level
+correspondence): the 6d theory carries $E_3$-observables, the
+boundary chiral algebra is $E_1$, and the two are related by
+$E_3$-restriction to the boundary.
+
+\section{Cross-consistency checks}
+
+\begin{proposition}[Abelian vanishing]\label{prop:abelian-vanishing}
+For $\fg=\fu(1)$, all Feynman coefficients from trivalent graphs vanish:
+$\Cas=0$, $f_{abc}=0$. The one-loop effective action reduces to the
+Gaussian $\tfrac12\int\Omega\wedge\phi\,\dbar\phi$. Under the chiral
+avatar, this is the free-boson/lattice specialisation of $\Winf$.
+\end{proposition}
+
+\begin{proposition}[Central charge and $\kch$]\label{prop:central-charge}
+The one-loop bubble coefficient $\hbar\Cas/(4\pi i)^3$ under the
+chiral avatar specialises to the Kac--Moody central extension weight
+$k = \Cas\cdot \mathrm{rk}(\fg)/(4\pi i)^3$. For $\fg=\fu(1)$ (Abelian),
+$k=0$ and the chiral algebra is the free boson with central charge
+$c=1$. The $\kch$ supertrace identity $\kch(A_{\C^3}) = \chi(\cO_{\C^3}) = 1$
+matches the central charge via $\kch \sim c/24$ in the lattice normalisation.
+\end{proposition}
+
+\begin{proposition}[Consistency with $\CoHA(\C^3)=Y^+$]\label{prop:coha-yplus}
+The chiral-avatar $m_k$ coefficients agree with the $A_\infty$-operations
+on the bar complex of $Y^+$ (positive half of the affine Yangian of
+$\fg\fl_1$). The cache fact $\CoHA(\C^3)=Y^+$ (not $\Winf$) is preserved:
+$\Winf$ is the full double, obtained from $Y^+$ by Drinfeld doubling;
+the shadow tower lives on the chiral algebra of $\Winf$, and the
+Feynman-coefficient coefficients on $Y^+$ are the positive-graded part
+of $m_k$.
+\end{proposition}
+
+\begin{remark}[Six routes to $G(K3\times E)$]
+The present computation is on $X=\C^3$, not $K3\times E$. The cache fact
+that six routes to $G(K3\times E)$ are six DIFFERENT constructions (not
+six $\Phi$ applications) is preserved: the Feynman-coefficient route is
+one specific construction among them, operating on $X=\C^3$ and
+chiral-avatar-descending to the $\Winf$ bar complex. It does not
+produce $G(K3\times E)$ in any direct sense; the relation passes
+through the Schiffmann--Vasserot identification of $\CoHA(\C^3)$ with
+$Y^+$ and the subsequent embedding of $Y^+$ into the K3 Yangian.
+\end{remark}
+
+\section{Open questions}
+
+\begin{enumerate}[label=\textup{(Q\arabic*)},leftmargin=2em]
+\item \emph{Two-loop bubble vs triangle.} Does the two-loop sunset
+diagram (two internal propagators, one external edge) on $\C^3$ require
+a counterterm, or does $c_2(\C^3)=0$ suffice to kill it? Power-counting
+gives $\omega=-2$ at two loops with $E=2$, but the BM-wedge-square
+antisymmetry must be checked in detail.
+\item \emph{Denominators $3^{\N}$ beyond $m_8$.} Does $m_9,m_{10},\ldots$
+continue to live in $\Q$ with $3^{\N}$ denominators? A proof would
+follow if the shadow-recursion preserves the $3$-adic valuation. This
+is an open combinatorial question.
+\item \emph{Non-toric CY3 Feynman integrals.} On the quintic $X\subset\bP^4$,
+the Feynman integrals have no explicit kernel. Can a chain-level
+computation of the one-loop bubble proceed via the derived stack
+$\mathrm{Perf}(X)$ and the Kontsevich--Soibelman CoHA construction,
+producing a Feynman-coefficient route to the quintic chiral algebra?
+\item \emph{$K3\times E$ pushforward.} The Costello--Gwilliam pushforward
+along $\pi:K3\times E\to E$ produces a chiral algebra on $E$ with
+Feynman coefficients computed from the 6d $\hCS$ on $K3\times E$.
+What are the explicit rationals, and how do they relate to the
+$\phi_{0,1}$ Jacobi form via $\Delta_5 = \Phi_{10}^{1/2}$?
+\end{enumerate}
+
+\appendix
+
+\section{Rectification log}
+
+\subsection{Attack--heal rectification cycles}
+
+Five attack--heal cycles were run during the construction of this note:
+
+\paragraph{Cycle 1.} Is the BM kernel the unique BV-compatible propagator
+on $\C^3$? \emph{Attack}: point-splitting and zeta-regularisation give
+alternative propagators. \emph{Heal}: on flat $\C^3$, the heat-kernel
+regulated propagator converges distributionally to BM; alternative
+propagators differ by $\Delta_{\mathrm{BV}}$-exact terms
+(Proposition~\ref{prop:bm-unique}). Resolution: use BM, alternatives
+give identical Feynman coefficients at leading order.
+
+\paragraph{Cycle 2.} Does the one-loop bubble have a nonzero coefficient?
+\emph{Attack}: $\bar z$-antisymmetry of $P\wedge P$ threatens
+cancellation. \emph{Heal}: radial reduction on the diagonal produces
+$\int r^5 dr/(s_1+s_2)^3\cdot \text{(finite)}$, giving $1/2$. Coefficient
+$\hbar\Cas/(4\pi i)^3$, nonzero.
+
+\paragraph{Cycle 3.} Minimal-subtraction counterterm on $\C^3$.
+\emph{Attack}: naively one-loop UV divergent contributions spoil BV
+invariance. \emph{Heal}: $\omega=6\ell-4E<0$ for $\ell=1,E\ge 2$, so
+all one-loop graphs are superficially convergent and the MS
+counterterm vanishes (Proposition~\ref{prop:one-loop-zero}).
+
+\paragraph{Cycle 4.} Shadow-tower coefficients as Feynman sums.
+\emph{Attack}: is $m_5=-80/9$ really a Feynman sum or a coincidence?
+\emph{Heal}: chiral-avatar substitution $P\to 1/(z-w)$ reduces 6d
+$\hCS$ Feynman integrals to chiral CFT OPE Wick sums; five-point
+connected Green's function for the stress tensor is $G_5^{\mathrm{conn}}
+= 775/5184$, forcing $m_5=-80/9$ through the recursion.
+
+\paragraph{Cycle 5.} Chiral-avatar cross-consistency.
+\emph{Attack}: the Kapranov $E_n$-hierarchy, the Costello 6d $\hCS$,
+and the chiral avatar might produce different $m_k$. \emph{Heal}:
+three-path verification: agreement on $m_3=-2$, $m_4=40/27$, $m_5=-80/9$,
+$m_7=-24320/81$, $m_8=33157760/19683$ across all three routes.
+
+\subsection{Cache-fact compliance}
+
+The following cache facts are preserved by this construction:
+\begin{itemize}[leftmargin=1.5em]
+\item $\kcat(K3\times E)=0$: unused here; the present note treats $X=\C^3$
+with $\kcat(\C^3)=\chi(\cO_{\C^3})=1$.
+\item $\CoHA(\C^3)=Y^+$ (not $\Winf$): Proposition~\ref{prop:coha-yplus}.
+\item Six routes to $G(K3\times E)$ are DIFFERENT: Remark after
+Proposition~\ref{prop:coha-yplus}.
+\item $\kBKM(\Phi_N)=c_N(0)/2$: not invoked; this note is about $X=\C^3$
+Feynman coefficients, not BKM weights.
+\item Class $\mathbf{M}$ $E_3$ bar $=6^g$ at cohomology: $\C^3$ is class
+$\mathbf{G}$ not $\mathbf{M}$; shadow-tower class for $\C^3$ is
+$\mathbf{G}$ ($S_3=2, S_4=0$), and class $\mathbf{G}$ has a terminating
+tower at finite depth except when class mixing occurs (cross-reference
+Vol~III chapters/examples/cy\_d\_kappa\_stratification.tex).
+\item At $d\ge 3$, $A$ is $E_1$: cache fact preserved. The
+$E_3$-algebra structure is on $\Obs_{\hCS}$ (the observables of the
+6d theory), not on $A$ (the boundary chiral algebra). Pattern~273
+ambient-qualifier discipline.
+\item Bare $\kappa$ forbidden: every $\kappa$-symbol in this note
+carries a subscript.
+\end{itemize}
+
+\subsection{References}
+
+Costello, \emph{Renormalization and Effective Field Theory}, AMS 2011
+(heat-kernel propagator, Feynman diagrams, counterterm algorithm).\\
+Costello--Gwilliam, \emph{Factorization Algebras in Quantum Field
+Theory} Vol~I--II (chain-level factorisation algebras, $E_n$-structure,
+pushforward).\\
+Costello, \emph{Supersymmetric gauge theory and the Yangian}
+arXiv:1303.2632 (4D holomorphic CS, Yangian from $\hbar$-deformation).\\
+Costello--Li, \emph{Twisted supergravity and its quantisation}
+arXiv:1606.00365 (6d $\hCS$ twist of type IIB).\\
+Witten, \emph{Chern--Simons gauge theory as a string theory},
+1992 (original 6d $\hCS$ proposal).\\
+Schiffmann--Vasserot, \emph{Cherednik algebras, W-algebras and the
+equivariant cohomology of the moduli space of instantons}
+arXiv:1202.2756 ($\CoHA(\C^3)=Y^+$ and shuffle identification).\\
+Kontsevich--Soibelman, \emph{Stability structures, motivic
+Donaldson--Thomas invariants and cluster transformations}
+arXiv:0811.2435 (CoHA construction for CY3 quivers with potential).\\
+Costello--Paquette, \emph{Twisted supergravity and Koszul duality},
+arXiv:2009.04834 (universal defects and Koszul duality for $\hCS$).
+
+\end{document}

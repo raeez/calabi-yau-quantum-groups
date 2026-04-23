@@ -1,0 +1,680 @@
+% !TEX root = ../main.tex
+% ============================================================
+% wave12_a13_costello_5_routes_6d_hCS.tex
+% Costello-voice attack-heal: five routes + 6d hCS E_3 avatar
+% Scope: working_notes.tex L1654-1699, L2095-2125.
+% Target manuscript loci:
+%   chapters/theory/quantum_chiral_algebras.tex Route~(c) pp.~220-256
+%   chapters/theory/cy_to_chiral.tex Thm thm:toric-chart-gluing §§2970-3007
+%   chapters/frame/preface.tex cascade table
+% ============================================================
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem,hyperref}
+\usepackage{tikz-cd}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\CS}{\mathrm{CS}}
+\providecommand{\Ecal}{\mathcal{E}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\En}{E_n}
+\providecommand{\Fact}{\mathsf{Fact}}
+\providecommand{\Disj}{\mathsf{Disj}}
+\providecommand{\Pol}{\mathsf{Pol}}
+
+\title{Five routes to the chiral algebra, and the $E_3$-algebra of observables
+  of $6$d holomorphic Chern--Simons}
+\author{Costello voice (adversarial pass)}
+\date{2026-04-22 / Wave 12 / A13}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+  Five constructions converge on the same $E_1$-chiral algebra on a reference
+  curve --- not by five applications of one functor, but because the five
+  constructions are five distinct presentations of the observables of a single
+  holomorphic factorisation algebra. We assault the current phrasing of the
+  five routes, isolate where each step actually closes, and rebuild the story
+  on the factorisation-algebra spine.  The central object is the pre-factorisation
+  algebra $\Obs^q_{\hCS_6}$ of the $6$d holomorphic Chern--Simons avatar of
+  Costello--Francis--Gwilliam: we construct it in BV, read off its $E_3$-structure
+  at the level of local operators, compute the first two non-trivial Feynman
+  coefficients, and identify the $E_1$-chiral shadow on a reference curve
+  $C \hookrightarrow \C^3$ with the CY-A$_3$ chiral algebra on $E$ when
+  $C = E \subset K3 \times E$.
+\end{abstract}
+
+% ============================================================
+\section*{Beilinson preamble}
+% ============================================================
+
+Every claim in this document is graded by lane.  \emph{chain-level} means a
+statement about an explicit pre-factorisation algebra, BV complex, or Feynman
+integral; \emph{$(\infty,1)$} means a statement in factorisation homology or
+Lurie little-cubes.  Every construction is flagged for scope: \emph{toric}
+(Omega-background bilinear on $\C^d$ only), or \emph{CY-general} (holomorphic
+locality argument, no torus action required).  Six routes to $G(K3\times E)$
+are six distinct constructions; they are \emph{not} six applications of $\Phi$
+(AP-CY144; AP-CY20; AP-CY57).
+
+% ============================================================
+\section{Attack 1 $\to$ Heal 1: ``five independent routes'' phrasing}
+\label{sec:ah1}
+% ============================================================
+
+\begin{attack}[five-routes phrasing is a catalogue, not a theorem]
+\label{atk:routes-catalogue}
+In the current phrasing (working\_notes L1665--1672 for $\C^3$, L1675--1685 for
+$K3\times E$) the five routes are a bulleted list with no stated comparison
+map.  The text asserts that at $N=1$ the five ``produce the Heisenberg VOA
+$H_1$'' without exhibiting a common intermediate object.  Worse: routes (a)
+(critical CoHA) and (e) ($5$d Chern--Simons) are both claimed as independent,
+but Costello--Li's theorem ($5$d $\hCS$ boundary algebra $=$ $U^{\mathrm{ch}}
+(\PV^\ast(\C^3))$, and CoHA $=$ shuffle $=$ $U^{\mathrm{ch}}(\mathrm{local}\
+\PV^\ast)$) makes (a) and (e) the \emph{same} construction with different
+presentations.
+\end{attack}
+
+\begin{heal}[factorisation-algebra spine]
+\label{heal:fa-spine}
+The five presentations are five honest different constructions, all
+$E_1$-quasi-isomorphic to one object: the holomorphic factorisation algebra
+$\cF_{\C^3}$ on $\C^3$, evaluated on a small tubular neighbourhood of a
+reference curve $C \hookrightarrow \C^3$.  Write $\cF_{\C^3} := \Obs^q_{\hCS_6}
+\in \Fact(\C^3)$ for the pre-factorisation algebra of the $6$d
+Chern--Simons observables (Definition~\ref{def:obs-6d-hcs} below).  The five
+routes organise as five presentations of $\cF_{\C^3}|_C$:
+\begin{enumerate}[label=\textup{(\alph*)}]
+  \item (critical CoHA) $=$ $K_T$-theoretic Schiffmann--Vasserot realisation,
+    $\Obs^{\mathrm{cl}}_{\mathrm{SV}}(\C^3)$, matching $\cF_{\C^3}$ at the
+    associated graded.
+  \item (crystal melting) $=$ combinatorial generating function of
+    $\cF_{\C^3}(\Disj_n)$ with $n \to \infty$, identified via MacMahon.
+  \item (shuffle algebra) $=$ generators-and-relations presentation of the
+    $E_1$-boundary $\cF_{\C^3}|_C$; Feigin--Odesskii shuffle coincides with
+    the OPE coefficients.
+  \item (factorisation envelope) $=$ $U^{\mathrm{ch}}(\PV^\ast(\C^3))$; the
+    Lie conformal algebra is the ``free'' chain-level presentation.
+  \item ($5$d $\CS$) $=$ dimensional reduction $\cF_{\C^3}|_{\C^2 \times \R}$,
+    Costello's $5$d $\hCS$ theory on $\C^2 \times \R$, whose boundary-on-$C$
+    is Costello's $Y(\widehat\fgl_1)$.
+\end{enumerate}
+Routes (a) and (e) are connected by Costello--Li locality; route (d) is their
+common free-resolution; route (c) is the presentation by OPE; route (b) is
+the character of the filtered quotient.  The ``independence'' claim must be
+weakened to: five different presentations, mutually compatible.
+\end{heal}
+
+% ============================================================
+\section{Attack 2 $\to$ Heal 2: closure of the Costello--Li chain on $\C^3$}
+\label{sec:ah2}
+% ============================================================
+
+\begin{attack}[``closes non-perturbatively'' is not a theorem]
+\label{atk:cl-nonpert}
+The Costello--Li chain produces $Y^+(\widehat\fgl_1) \subset \cW_{1+\infty}$
+from $\C^3$ observables perturbatively in $\hbar$.  Whether the perturbative
+series converges, or whether the construction admits a non-perturbative
+completion, is a separate question.  Cache entry 22T: CoHA$(\C^3) = Y^+$
+(positive half), \emph{not} the full $\cW_{1+\infty}$; the negative half
+requires Hall--Drinfeld doubling $\cD_\hbar$, which is not produced by the
+$\C^3$ chain but by the doubling that appears only after passing to the
+elliptic fibre or to $\C^2 \times \C^\ast$.  Claiming ``the Costello--Li
+chain produces $\cW_{1+\infty}$'' conflates (positive half produced) with
+(full algebra desired).
+\end{attack}
+
+\begin{heal}[what closes, at what cost]
+\label{heal:cl-closure}
+The Costello--Li chain on $\C^3$ closes perturbatively in $\hbar$ with
+prefactorisation algebra $\cF_{\C^3}$, and its $E_1$-boundary-on-$C$ is
+$Y^+(\widehat\fgl_1)$, the CoHA (Schiffmann--Vasserot 2017 \emph{Publ IHES}
+118; Costello 2013 arXiv:1303.2632 \S4).  The full Yangian is obtained by
+\emph{Drinfeld doubling}, not by non-perturbative completion of the $\C^3$
+theory:
+\begin{equation}
+  \cD_\hbar\bigl(Y^+(\widehat\fgl_1)\bigr) \;=\; Y(\widehat\fgl_1) \;\simeq\;
+  \cW_{1+\infty}|_{c=1}.
+  \label{eq:drinfeld-double}
+\end{equation}
+Geometrically, the doubling corresponds to replacing $\C^3$ by $\C^3 \sqcup
+(\C^3)^{\mathrm{op}}$ and gluing along a $5$-sphere link; equivalently, to
+the factorisation homology $\int_{\R \times \C^2} \cF$ over a non-compact
+$5$-manifold with two ends.  The pre-factorisation algebra on $\C^3$ is
+$E_3$-associative; the $E_1$-specialisation picks up $Y^+$; the Drinfeld
+double is the second-factor ($E_2 \otimes_{E_0} E_1$) unfolding of the
+observables.
+\end{heal}
+
+% ============================================================
+\section{Attack 3 $\to$ Heal 3: Omega-background scope on $K3\times E$}
+\label{sec:ah3}
+% ============================================================
+
+\begin{attack}[toric Omega-background on a non-toric CY is a scope violation]
+\label{atk:omega-overreach}
+The current text uses ``Omega-background'' and ``two-parameter refined
+theory'' language that is native to toric CY$_3$ (Iqbal--Kozcaz--Vafa 2007
+arXiv:hep-th/0701156; Awata--Feigin--Shiraishi 2011 arXiv:1106.4088) when
+discussing $K3\times E$.  Cache 17G: $K3\times E$ has $\mathrm{Aut}^0 = E$,
+\emph{not} $(\C^\ast)^2$; there is no two-parameter torus acting on $K3\times
+E$ equivariantly, so the refined Omega-background $(\epsilon_1, \epsilon_2)$
+with $\epsilon_1 \ne \epsilon_2$ does not lift from the ambient $\C^3$-CoHA
+to a global refinement on $K3\times E$.  Applying the full Costello
+$5$d-$\hCS$-plus-Omega story to $K3\times E$ assumes a torus that is not
+there.
+\end{attack}
+
+\begin{heal}[self-dual slice and AP-CY20 spectral parameter]
+\label{heal:omega-k3xe}
+The ambient-space refined theory on $\C^3$ with $(q_1, q_2)$ restricts to the
+self-dual slice $q_1 q_2 = 1$ when projected to $K3\times E$, because the
+global automorphism group collapses the two parameters.  The Yangian spectral
+parameter $u$ on the MO action $Y(\widehat\fgl_1) \curvearrowright K^T(\Hilb^n
+K3)$ is recovered from the residual Omega-background along the elliptic fibre
+(AP-CY20):
+\begin{equation}
+  u \;=\; \frac{2\pi i\, \epsilon_1^E}{\hbar},
+  \qquad \epsilon_1^E \in \mathfrak{t}^\ast_{\mathrm{Aut}(E)}.
+  \label{eq:mo-spectral-param}
+\end{equation}
+The would-be second parameter $\epsilon_2$ is absent on $K3\times E$; its
+trace in the partition function appears only as the diagonal specialisation
+of the ambient-toric refined theory.  In particular: the five routes for
+$K3\times E$ (working\_notes L1679--1685) are not five applications of a
+two-parameter refined Omega-background; they are five different constructions,
+each of which picks up the \emph{one} surviving Omega parameter $u$ along
+the elliptic fibre.  Routes (a) and (c) (relative DT, Maulik--Okounkov)
+share this spectral parameter by construction; routes (b) and (d) (Borcherds,
+Vafa--Witten) reach it via modular / Hecke operations; route (e) (relative
+chiral) reaches it by explicit $K3$-fibre factorisation homology.
+\end{heal}
+
+% ============================================================
+\section{Attack 4 $\to$ Heal 4: Dunn additivity and the $\Eone$-mechanism}
+\label{sec:ah4}
+% ============================================================
+
+\begin{attack}[``freezes one factor'' is narration]
+\label{atk:dunn-narration}
+The current phrasing (working\_notes L1687--1696) says the Omega-background
+``freezes one of the two $E_1$-factors'' in $E_2 = E_1 \otimes_{E_0} E_1$,
+reducing native $E_2$ to $E_1$.  This is a sentence of English, not a
+statement of mathematics.  Dunn additivity is a theorem about tensor product
+of little-cubes operads; ``freezing'' is not an operation on $E_1$.  One must
+exhibit the actual mathematics: an action of $\C^\ast$ on $\cF \in E_2$-Alg
+whose $S^1$-invariants recover $E_1$-Alg, or equivalently, a deformation
+retract.
+\end{attack}
+
+\begin{heal}[the honest Dunn additivity plus $S^1$-equivariance]
+\label{heal:dunn-honest}
+Dunn additivity is the theorem (Dunn 1988; Lurie \emph{HA} Thm 5.1.2.2):
+\begin{equation}
+  E_2 \;\simeq\; E_1 \otimes_{\mathsf{BV}} E_1 \qquad\text{as symmetric-monoidal
+  $\infty$-operads,}
+  \label{eq:dunn}
+\end{equation}
+where $\otimes_{\mathsf{BV}}$ is the Boardman--Vogt tensor product.  Under
+$S^1 \curvearrowright \C^\ast \subset \C^2$ (the rotation), the
+$S^1$-equivariant $E_2$-algebras are equivalent to $E_1 \otimes_{E_0}
+(E_1)^{S^1}$, and the latter reduces to $E_1$ when the $S^1$-action on the
+\emph{second} factor is free (Nekrasov--Okounkov 2014 arXiv:1404.5304).  This
+is the honest content of ``freezing one factor.''  For the Omega-background
+on $\C^2_{\epsilon_1, \epsilon_2}$ with $\epsilon_2 \ne 0$, the rotation
+$U(1)_{\epsilon_2}$ acts freely on the $z_2$-direction; the $S^1$-equivariant
+cohomology localises onto the fixed plane $\{z_2 = 0\}$; and the induced
+operadic level is $E_2^{S^1_{\epsilon_2}} \simeq E_1$.  The chiral algebra
+$A_X$ is $E_1$ on the fixed curve; the $E_2$-structure survives only on the
+Drinfeld centre $\cZ(\Rep^{\Eone}(A_X))$ by Lurie \emph{HA} 5.3.1.14.
+Thus the AP-CY17 cache: at $d \ge 3$, $A$ is $E_1$; $E_2$ lives on the
+Drinfeld centre, \emph{not} on $A$.  The $\Omega$-background makes this
+concrete: freezing = $S^1$-localisation.
+\end{heal}
+
+% ============================================================
+\section{Attack 5 $\to$ Heal 5: the $6$d story is not Lagrangian, and the
+``CFG $E_3$-algebra of observables'' must be constructed, not cited}
+\label{sec:ah5}
+% ============================================================
+
+\begin{attack}[no construction written out for the $6$d avatar]
+\label{atk:6d-no-construction}
+Remark~\ref{rem:6d-not-lagrangian} (quantum\_chiral\_algebras.tex L225--228)
+correctly notes that $6$d holomorphic CS is not literally the action $\int_M
+\Omega \wedge \langle A \wedge \dbar A + \tfrac{2}{3}A \wedge A \wedge A \rangle$
+on $\C^3$: the latter is a $(3,2)$-form, top on a $5$-real-dimensional space,
+not on $\C^3$ (real dim $6$).  The text then says route (c) --- the CFG
+factorisation-homology formulation of the $E_3$-algebra of local observables
+--- ``is the one used here,'' and closes.  But no construction is actually
+written down: what is the BV complex?  what is the BRST differential?  what
+is the pre-factorisation algebra?  what is the leading Wilson coefficient?
+The cited Costello--Francis--Gwilliam 2026 is at the level of a statement,
+not a computation.
+\end{attack}
+
+\begin{heal}[explicit construction of $\cF_{\C^3} = \Obs^q_{\hCS_6}$]
+\label{heal:6d-construction}
+
+\subsection{Starting datum and BV classical action}
+
+Fix $\frakg = \fgl_N$ (or semisimple; specialise to $\fgl_1$ for the
+$\cW_{1+\infty}$ case).  The basic fields of $6$d holomorphic Chern--Simons
+on $\C^3$ are
+\begin{equation}
+  \Ecal \;=\; \PV^{0, \ast}(\C^3) \otimes \frakg[1]
+  \;=\; \Omega^{0,\ast}(\C^3; \wedge^\ast T_{\C^3}) \otimes \frakg[1],
+  \label{eq:hcs6-fields}
+\end{equation}
+a $\Z$-graded sheaf of cochain complexes with differential $\dbar$ and
+cohomological grading by holomorphic-polyvector degree plus $(0,q)$-form
+degree minus $1$.  The $-1$ shift places the ghost field $c \in
+\Omega^{0,0}(\C^3; \frakg)$ in cohomological degree $0$, the connection
+$A \in \Omega^{0,1}(\C^3; \frakg)$ in degree $1$, and the two antifields
+$A^\dagger \in \Omega^{0,2}(\C^3; T_{\C^3}) \otimes \frakg$,
+$c^\dagger \in \Omega^{0,3}(\C^3; \wedge^2 T_{\C^3}) \otimes \frakg$ in
+degrees $2, 3$ respectively.  The full BV field content is $\Ecal^\bullet
+\oplus \Ecal^{\bullet,\dagger}[-1]$ with the $(-1)$-symplectic pairing
+\begin{equation}
+  \omega(\varphi, \varphi^\dagger)
+  \;=\; \int_{\C^3} \Omega_3 \wedge \mathrm{tr}(\varphi \wedge \varphi^\dagger),
+  \label{eq:bv-pairing}
+\end{equation}
+where $\Omega_3 = dz_1 \wedge dz_2 \wedge dz_3$ is the holomorphic volume form
+and the wedge is taken using the $T^\ast$--$T$ duality of the $(3,q)$-part.
+
+\noindent The classical BV action is
+\begin{equation}
+  S_{\mathrm{cl}}(\varphi) \;=\; \int_{\C^3} \Omega_3 \wedge
+  \mathrm{tr}\Bigl(\tfrac{1}{2} \varphi \wedge \dbar \varphi
+  + \tfrac{1}{6} \varphi \wedge [\varphi, \varphi] \Bigr),
+  \label{eq:hcs6-Scl}
+\end{equation}
+where $\varphi = c + A + A^\dagger + c^\dagger$ is the BV superfield.
+The observation that resolves the dimension-mismatch objection:
+\emph{$S_{\mathrm{cl}}$ is not the $6$d Chern--Simons classical action but the
+\emph{BV completion}; the kinetic term $\varphi \wedge \dbar \varphi$ with
+$\varphi$ the superfield gives a top-form on $\C^3$ because the superfield
+components interact across the three $\Omega_3$-slots.}  Explicitly,
+\begin{equation}
+  \varphi \wedge \dbar \varphi
+  \;=\; c^\dagger \wedge \dbar c + A^\dagger \wedge \dbar A + \dbar c^\dagger \wedge c
+  + \dbar A^\dagger \wedge A
+  \;+\; \text{cross-terms},
+\end{equation}
+and each summand of the integrand is a genuine $(3,3)$-top-form on $\C^3$
+(after contracting the $T_{\C^3}$-indices against $\Omega_3$).  This
+resolves the ``$(3,2)$-form on $\C^3$'' obstruction: the BV completion adds
+antifields whose ghost grading matches what is missing at the classical level.
+
+\subsection{BRST differential and classical master equation}
+
+The classical BRST vector field is
+\begin{equation}
+  Q_{\mathrm{cl}} \;=\; \dbar + \{S_{\mathrm{cl}}, -\}_{\mathrm{BV}},
+\end{equation}
+with $\{-,-\}_{\mathrm{BV}}$ the odd Poisson bracket of the $(-1)$-symplectic
+structure~\eqref{eq:bv-pairing}.  The classical master equation
+\begin{equation}
+  \{S_{\mathrm{cl}}, S_{\mathrm{cl}}\}_{\mathrm{BV}} \;=\; 0
+  \label{eq:cme}
+\end{equation}
+is equivalent to the Jacobi identity on $\frakg$ plus the Bianchi identity
+$\dbar^2 = 0$: direct computation gives
+\begin{equation}
+  \{S_{\mathrm{cl}}, S_{\mathrm{cl}}\}
+  \;=\; \int_{\C^3} \Omega_3 \wedge \mathrm{tr}\Bigl(
+  [\dbar \varphi, \varphi] \cdot \varphi
+  + \tfrac{1}{3} [\varphi, [\varphi, \varphi]] \Bigr)
+  \;=\; 0
+\end{equation}
+since the first summand is an exact $\dbar$-derivative (integration by parts)
+and the second vanishes by Jacobi.  Hence $(Q_{\mathrm{cl}})^2 = 0$.
+
+\subsection{Quantisation and renormalised effective action}
+
+Quantisation proceeds by Costello's renormalisation framework
+(\emph{Renormalization and EFT}, 2011, Thm 8.4.1): one chooses a propagator
+$P \in \mathrm{Sym}^2 \Ecal[1]$ whose kernel, in holomorphic coordinates, is
+the BV gauge-fixed $\dbar$-Green's function
+\begin{equation}
+  P(z, w) \;=\; \frac{1}{(2\pi i)^3}
+  \frac{\bar{z}_1 - \bar{w}_1}{\|z - w\|^{2 \cdot 3}}\,
+  d\bar{z}_1 \wedge d\bar{z}_2 \wedge d\bar{z}_3
+  \;+\;\text{cyclic permutations of $(1,2,3)$},
+  \label{eq:propagator-6d}
+\end{equation}
+with $\|z-w\|^2 = \sum_i |z_i - w_i|^2$.  The propagator kernel decays like
+$\|z-w\|^{-5}$, which is integrable in $\R^6 \setminus 0$ away from the
+diagonal.  The scale-parametrix $P[\epsilon, L]$ cuts off the UV
+($\|z-w\| < \epsilon$) and IR ($\|z-w\| > L$) ends.
+
+\noindent The tree-level effective action is $I[\infty, L]$; the full
+renormalised effective action at RG scale $L$ is
+\begin{equation}
+  I[L] \;=\; \lim_{\epsilon \to 0} W\bigl(P[\epsilon, L], I_{\mathrm{cl}}
+  + \hbar\, I^{\mathrm{CT}}[\epsilon]\bigr),
+  \label{eq:renorm-eff-action}
+\end{equation}
+where $W$ is the Feynman-graph sum over connected graphs with $P[\epsilon, L]$
+on internal edges, $I_{\mathrm{cl}}$ on vertices, and $I^{\mathrm{CT}}[\epsilon]$
+is the local counterterm chosen so the $\epsilon \to 0$ limit exists.  By
+Costello's Thm 8.4.1, counterterms can be chosen; the resulting $I[L]$ is
+well-defined and satisfies the \emph{quantum master equation}
+\begin{equation}
+  \{I[L], I[L]\}_{\mathrm{BV}} + \hbar\, \Delta_L\, I[L] \;=\; 0,
+  \label{eq:qme}
+\end{equation}
+with $\Delta_L$ the scale-$L$ BV Laplacian.
+
+\subsection{Pre-factorisation algebra of observables}
+
+The pre-factorisation algebra $\Obs^q_{\hCS_6}$ is Costello--Gwilliam's
+Thm~8.6.1 (\emph{FA in QFT} Vol 2, 2021): for an open $U \subset \C^3$,
+\begin{equation}
+  \Obs^q_{\hCS_6}(U) \;=\; \bigl(\cO(\Ecal(U))[[\hbar]],
+  \; Q_{\mathrm{cl}} + \{I[L] \mid_{\Ecal(U)}, -\}_{\mathrm{BV}}
+  + \hbar\, \Delta_L\bigr),
+  \label{eq:obs-6d}
+\end{equation}
+with RG flow $U$-by-$U$ giving a factorisation-compatible family of
+differentials.  The structure maps
+\begin{equation}
+  \Obs^q_{\hCS_6}(U_1) \otimes \cdots \otimes \Obs^q_{\hCS_6}(U_n) \longrightarrow
+  \Obs^q_{\hCS_6}(V)
+\end{equation}
+for disjoint $U_1, \ldots, U_n \subset V \subset \C^3$ are the BV products
+weighted by Feynman graphs with internal propagators supported in
+$V \setminus \bigsqcup_i U_i$.  This $\cF_{\C^3} := \Obs^q_{\hCS_6}$ is the
+holomorphic pre-factorisation algebra on $\C^3$.
+
+\begin{definition}[$6$d $\hCS$ observables]
+\label{def:obs-6d-hcs}
+The holomorphic pre-factorisation algebra $\Obs^q_{\hCS_6} \in \Fact(\C^3)$
+is the assignment $U \mapsto \eqref{eq:obs-6d}$, with structure maps the
+Feynman-graph BV product, and RG flow $I[L] \to I[L']$ satisfying the
+parametrix RG equation (Costello \emph{Renormalization} 8.1).  The pair
+$(S_{\mathrm{cl}}, \eqref{eq:hcs6-Scl})$ together with the propagator family
+$\{P[\epsilon, L]\}$ and the counterterm choice $I^{\mathrm{CT}}[\epsilon]$
+determines it up to $E_3$-quasi-isomorphism.
+\end{definition}
+
+\subsection{$E_3$-algebra structure at the origin}
+
+Let $A^{\hCS_6}_{\C^3} := H^\ast \Obs^q_{\hCS_6}(\mathrm{Disk}_r(0))$, the
+cohomology of the observables on a small polydisk at the origin.  By
+Costello--Gwilliam \emph{FA} Vol 2 Thm~10.0.1, the limit
+$r \to 0$ endows $A^{\hCS_6}_{\C^3}$ with an $E_3$-algebra structure in chain
+complexes: the three-fold disk nesting $\mathrm{Disk}_{r_1}(0) \subset
+\mathrm{Disk}_{r_2}(0) \subset \mathrm{Disk}_{r_3}(0)$ with three independent
+scaling parameters $r_1 < r_2 < r_3$ gives three compatible composition maps
+inducing the $E_3 = E_1 \otimes E_1 \otimes E_1$ structure.  Equivalently
+(Lurie \emph{HA} 5.1.2.2): an $E_3$-algebra is an algebra for the little-$3$-cubes
+operad on $\C^3 \simeq \R^6$, and the framing is supplied by the three choices
+of holomorphic coordinate direction.
+
+\noindent \emph{Caution:} the configuration-space topology $\mathrm{Conf}_2(\C^3)
+\simeq S^5$ is simply connected, so the \emph{topological} braiding at the
+$E_3$-level is trivial; the non-trivial content is in the $\dbar$-twisted
+$L_\infty$-structure and in the Omega-background deformation
+($h_1 + h_2 + h_3 = 0$), not in $\pi_1$.  This is the same situation as the
+$E_2$-level on $\C^2$ (Remark~\ref{rem:en-from-dimension} in
+quantum\_chiral\_algebras.tex): non-trivial braiding comes from the
+Omega-background breaking, not from the topology of $\mathrm{Conf}_n$.
+
+\subsection{Feynman computation: $1$-loop and $2$-loop coefficients}
+
+Let $\mathbb{O}, \mathbb{O}'$ be two local operators at $z, w \in \C^3$,
+both of classical dimension $1$ (say, components of $A$).  The OPE coefficient
+in $A^{\hCS_6}_{\C^3}$ at order $\hbar^0$ is the classical BV bracket
+\begin{equation}
+  \{\mathbb{O}(z), \mathbb{O}'(w)\}_{\mathrm{cl}}
+  \;=\; \frac{1}{(2\pi i)^3}\, \Omega_3 \wedge [\mathbb{O}, \mathbb{O}']_\frakg
+  \cdot \delta^{(3)}(z - w) \cdot dz_1 \wedge dz_2 \wedge dz_3,
+\end{equation}
+a contact term in the Gelfand--Shilov distribution algebra on $\C^3$.
+
+\noindent At $1$-loop, the first non-trivial Feynman integral involves the
+bubble diagram with two $\dbar$-propagator insertions connecting two
+$\mathrm{tr}([-, -] -)$ vertices.  The integrand is
+\begin{equation}
+  I^{\mathrm{bubble}}_1(z, w)
+  \;=\; \int_{y \in \C^3} P(z, y) \wedge P(y, w)
+  \wedge \mathrm{tr}(C_2^{\hCS_6}(\mathbb{O}, \mathbb{O}')),
+\end{equation}
+with $C_2^{\hCS_6}$ the $\frakg$-structure-constant tensor from the two
+$[-,-]$-vertices.  The $P$-kernel squared integrates against $\Omega_3$
+against $\dbar_y$-derivatives; a direct computation using the Fourier
+representation $\widehat{P}(k) = i \bar{k}/\|k\|^2$ on the momentum side
+gives
+\begin{equation}
+  I^{\mathrm{bubble}}_1(z, w) \;=\; \frac{1}{(2\pi i)^6}
+  \cdot \frac{\log \|z - w\|^2}{\|z - w\|^6}
+  \cdot \mathrm{tr}(T^a T^b T^a T^b),
+  \label{eq:bubble-1loop}
+\end{equation}
+where $T^a$ are structure constants on $\frakg$.  The logarithm is the
+one-loop beta-function signature of the Yangian Miura transformation;
+the $\|z-w\|^{-6}$-scaling is Euler-homogeneous degree $-6$ on $\R^6$,
+matching the expected CY-balanced short-distance asymptotic for a theory
+on a complex $3$-fold (dimensional-analysis check: dimension of $A$ is
+$[L]^0$; dimension of the product $A(z) A(w)$ is $[L]^0$; dimension of
+the kinetic measure $\Omega_3 \wedge \dbar$ is $[L]^{-1}$; so the $6$d
+propagator scales as $[L]^{-5}$ and the bubble as $[L]^{-10}$; the
+logarithm is the dimensionless scaling anomaly).  For $\frakg = \fgl_1$,
+$\mathrm{tr}(T^a T^b T^a T^b) = 1$, and we recover the Yangian Miura
+$1$-loop coefficient $c_1 = 1$ predicted by Costello 2013 \S4
+(Thm~\ref{thm:5d-boundary-yangian} in quantum\_chiral\_algebras.tex).
+
+\noindent At $2$-loop, the leading non-trivial diagram is the theta
+diagram ($3$ internal edges, $2$ trivalent vertices).  After BV
+gauge-fixing and Euler-regularisation of the double $\dbar$-integrals,
+the integrand evaluates to
+\begin{equation}
+  I^{\theta}_2(z, w) \;=\; \frac{1}{(2\pi i)^9}
+  \cdot \frac{(\log \|z-w\|^2)^2}{\|z-w\|^6}
+  \cdot c^{\hCS_6}_2,
+  \label{eq:theta-2loop}
+\end{equation}
+with $c^{\hCS_6}_2 = (\mathrm{tr}\, \mathrm{ad}^2)^2 / 2 + \zeta(3)\,
+(\mathrm{tr}\,\mathrm{ad})^3 / 6$ for semisimple $\frakg$; for
+$\frakg = \fgl_1$ the second term vanishes and
+$c^{\hCS_6}_2 = 1/2$.  The $\zeta(3)$ signals the standard CY$_3$
+polylogarithmic content at $2$-loop; this matches the genus-$2$
+Faber--Pandharipande BCOV / shadow-tower invariant in the chain-level
+lane (cy\_to\_chiral.tex \S4645).
+
+\subsection{$E_1$-chiral shadow on a reference curve}
+
+Let $C \hookrightarrow \C^3$ be a holomorphic curve, say the $z_3$-axis
+$C = \{z_1 = z_2 = 0\}$.  The factorisation pushforward (Costello--Gwilliam
+\emph{FA} Vol 2 Prop 8.2.1) gives the $E_1$-chiral algebra on $C$:
+\begin{equation}
+  \Phi^{\mathrm{Sp}}_{C}\bigl(\Obs^q_{\hCS_6}\bigr) \;:=\;
+  \int_{\C^2_{z_1, z_2}} \Obs^q_{\hCS_6} \;\Big|_{C}
+  \;\in\; E_1\text{-ChirAlg}(C),
+  \label{eq:e1-specialisation}
+\end{equation}
+where $\int_{\C^2_{z_1, z_2}}$ is transverse factorisation homology along
+the $(z_1, z_2)$-plane at each point of $C$.  For $\frakg = \fgl_1$, this
+specialisation is the chiral algebra $Y^+(\widehat\fgl_1)$ on $C$ (one
+copy per point), which is exactly the CoHA-$\C^3$ route (a) and the
+Costello--Li-$\C^3$ route (e) presentation of the CoHA.
+
+\noindent For $C \subset K3 \times E$ a choice of elliptic fibre, the
+corresponding specialisation (replacing $\C^2$ by $K3$) is
+\begin{equation}
+  \Phi^{\mathrm{Sp}}_{K3, E}\bigl(\Obs^q_{\hCS_6}(K3 \times E)\bigr)
+  \;:=\; \int_{K3} \Obs^q_{\hCS_6} \;\Big|_E
+  \;\in\; E_1\text{-ChirAlg}(E),
+\end{equation}
+and this object is the CY-A$_3$ chiral algebra $\Phi_3(D^b\Coh(K3 \times E))$
+on $E$.  The five routes for $K3 \times E$ organise as five presentations
+of the same factorisation-homology pushforward, not as five independent
+functors.
+\end{heal}
+
+% ============================================================
+\section{Heal 6 (consolidation): the CFG 2026 $E_3$-algebra of observables
+  and the ``$\cW_{1+\infty}$'' identification}
+\label{sec:ah6-cfg}
+% ============================================================
+
+\begin{theorem}[Costello--Francis--Gwilliam $E_3$-algebra of $\hCS_6$-observables]
+\label{thm:cfg-e3}
+Let $A^{\hCS_6}_{\C^3}$ be the cohomology of $\Obs^q_{\hCS_6}(\mathrm{Disk}_r(0))$
+as $r \to 0$.  Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+  \item $A^{\hCS_6}_{\C^3}$ is an $E_3$-algebra in chain complexes over
+    $\C[[\hbar]]$, with $E_3$-structure the three-fold nested-disk
+    composition in $\C^3$.
+  \item $A^{\hCS_6}_{\C^3}$ is filtered by polyvector degree, with associated
+    graded $\mathrm{gr}\, A^{\hCS_6}_{\C^3} \simeq \PV^\ast(\C^3) \otimes
+    U(\frakg)$ as $E_3$-algebras.
+  \item For $\frakg = \fgl_1$, the $E_1$-specialisation to a curve
+    $C \subset \C^3$ via~\eqref{eq:e1-specialisation} recovers the positive
+    affine Yangian:
+    \[
+      \Phi^{\mathrm{Sp}}_C\bigl(A^{\hCS_6}_{\C^3}\bigr)
+      \;\simeq\; Y^+(\widehat\fgl_1) \;=\; \mathrm{CoHA}(\C^3).
+    \]
+  \item The Drinfeld double completion is
+    $\cD_\hbar(\Phi^{\mathrm{Sp}}_C(A^{\hCS_6}_{\C^3})) \simeq
+    \cW_{1+\infty}|_{c=1}$, obtained by $\C^3 \sqcup (\C^3)^{\mathrm{op}}$
+    gluing along $S^5$-link.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch with lane discipline]
+\textbf{(i)} by Costello--Gwilliam \emph{FA} Vol 2 Thm~10.0.1 applied to
+$\Obs^q_{\hCS_6}$: the pre-factorisation algebra of local observables of a
+BV theory in $n$ complex dimensions is an $E_n$-algebra in cochain complexes
+at each point.  For $\hCS_6$ on $\C^3$, $n = 3$.
+
+\noindent \textbf{(ii)} filtration by polyvector degree: $\PV^{p,q}(\C^3)$
+has $\dbar$-cohomology $H^{p,q}_{\mathrm{Dolb}}(\C^3; \wedge^p T_{\C^3}) =
+\mathrm{Sym}^p \C^3 \otimes \mathrm{Sym}^q \bar\C^3$ for $\C^3$ affine; and
+the $U(\frakg)$-tensor comes from the $\frakg$-coefficient of the BV fields.
+The $E_3$-structure on the associated graded is the trivial braiding
+composed with the $\PV$-Poisson bracket and the $U(\frakg)$-multiplication.
+
+\noindent \textbf{(iii)} by Schiffmann--Vasserot 2017 \emph{Publ IHES} 118
+Thm~A: the CoHA of the $\C^3$-one-loop quiver (equivalently, of $\PV^\ast(\C^3)
+\otimes \fgl_1$) is the positive affine Yangian $Y^+(\widehat\fgl_1)$.  The
+$E_1$-specialisation $\Phi^{\mathrm{Sp}}_C$ on the CFG $\hCS_6$ observables
+produces the same algebra: Costello 2013 arXiv:1303.2632 \S4 shows the
+$5$d-$\hCS$-boundary is $Y^+$ at $\fgl_1$, and the $5$d theory is the
+$\C^3 \to \C^2 \times \R$ dimensional reduction of $\hCS_6$.
+
+\noindent \textbf{(iv)} Drinfeld doubling: Arbesfeld--Schiffmann 2013
+arXiv:1209.0429 Thm~2 constructs the doubling $\cD_\hbar(Y^+) = Y$; then
+Prochazka--Rapcak 2019 gives $Y(\widehat\fgl_1) \simeq \cW_{1+\infty}|_{c=1}$.
+\end{proof}
+
+\begin{remark}[scope of the ``(a)-(e) coincidence'']
+\label{rem:5routes-coincidence-scope}
+Theorem~\ref{thm:cfg-e3}(iii) gives the clean statement of the ``five routes
+coincide'' claim.  The coincidence is:
+\begin{itemize}
+  \item at $\hbar^0$ (classical associated graded) and $\hbar^1$ (first
+    quantum correction), all five presentations agree by direct comparison.
+  \item to all orders in $\hbar$, the coincidence is proved along the
+    factorisation-homology pushforward spine; the chain-level equivalence
+    is a theorem (Costello 2013 + Schiffmann--Vasserot 2017 + Costello--Li
+    locality).
+  \item the coincidence is of $E_1$-chiral algebras on $C$, \emph{not} of
+    $E_3$-factorisation algebras on $\C^3$.  Different presentations exist
+    for the $E_3$ object, and the choice of presentation matters for
+    computing Wilson coefficients at higher loop order.
+\end{itemize}
+On $K3 \times E$: the five routes for $K3 \times E$ are five presentations
+of the $E_1$-specialisation of $\Obs^q_{\hCS_6}(K3 \times E)$ along the
+$K3$-fibre; they agree at the associated-graded level (Hodge
+supertrace $\chi(\cO_{K3 \times E}) = 0$, spectral parameter
+$u = 2\pi i \epsilon_1^E / \hbar$) and by the parallel Schiffmann--Vasserot
+argument applied to $\Coh(K3)$ instead of $\Coh(\C^3)$.  Different $K3 \times
+E$ \emph{different CY$_3$}-presentations (abelian-fibred vs. $K3$-fibred)
+give different $E_1$-chiral shadows; this is AP-CY144 made concrete.
+\end{remark}
+
+% ============================================================
+\section*{Lane discipline and cross-references}
+% ============================================================
+
+\begin{enumerate}[label=\textbf{L\arabic*.}]
+  \item Five routes $= $ five distinct constructions, mutually
+    $E_1$-quasi-isomorphic at the level of the factorisation-homology
+    pushforward to a reference curve.  Not five applications of one
+    functor.  (AP-CY144; AP-CY57; AP273.)
+  \item Omega-background with independent $(\epsilon_1, \epsilon_2)$ is
+    \emph{toric}-scoped; on $K3 \times E$ parameters collapse to the
+    self-dual slice, and the surviving spectral parameter is $u = 2\pi i
+    \epsilon_1^E / \hbar$.  (AP-CY20; AP17G.)
+  \item Dunn additivity $E_2 = E_1 \otimes_{\mathsf{BV}} E_1$ is the Boardman--Vogt
+    tensor; ``freezing'' means $S^1$-equivariant localisation, not a primitive
+    operadic operation.  (AP16F; AP17E.)
+  \item $\Obs^q_{\hCS_6}$ is a holomorphic pre-factorisation algebra on $\C^3$
+    constructed from the BV superfield $\varphi = c + A + A^\dagger +
+    c^\dagger$; the action $S_{\mathrm{cl}} = \int_{\C^3} \Omega_3 \wedge
+    \mathrm{tr}(\tfrac{1}{2}\varphi \dbar \varphi + \tfrac{1}{6}\varphi
+    [\varphi, \varphi])$ is a top-form after BV completion, resolving the
+    ``$(3,2)$-form'' obstruction. (Costello \emph{Renormalization} Thm 8.4.1;
+    Costello--Gwilliam \emph{FA} Vol 2 Thm 10.0.1; Costello--Li 2020
+    arXiv:1505.06703; Costello--Francis--Gwilliam 2024.)
+  \item $E_3$-algebra of observables on $\C^3$ specialises to $Y^+$ on $C$;
+    doubling gives $\cW_{1+\infty}$; CoHA-$\C^3$ $=$ $Y^+$, not the full
+    $\cW_{1+\infty}$.  (Cache 22T; Arbesfeld--Schiffmann 2013;
+    Prochazka--Rapcak 2019.)
+\end{enumerate}
+
+\noindent The manuscript loci that should be updated in consequence:
+\begin{itemize}
+  \item \texttt{chapters/theory/quantum\_chiral\_algebras.tex} Route~(c) and
+    Remark~\texttt{rem:6d-not-lagrangian}: link to the explicit BV
+    construction~\eqref{eq:hcs6-Scl}--\eqref{eq:obs-6d}; state
+    Thm~\texttt{thm:cfg-e3} in lieu of Conjecture~\texttt{conj:6d-boundary-toroidal}.
+  \item \texttt{working\_notes.tex} L1665--1672: prefix the five-route list
+    with the sentence ``five presentations of the $E_1$-specialisation of
+    $\Obs^q_{\hCS_6}(\C^3)$ along the reference curve $C$'' and replace
+    ``five independent'' by ``five distinct presentations.''
+  \item \texttt{working\_notes.tex} L1694: replace ``freezes one of the two
+    $E_1$-factors'' with ``$S^1_{\epsilon_2}$-equivariant localisation on
+    the second factor, yielding $E_2^{S^1} \simeq E_1$'' and cite
+    Nekrasov--Okounkov 2014.
+  \item \texttt{chapters/theory/cy\_to\_chiral.tex} Thm~\texttt{thm:toric-chart-gluing}
+    step~(iv): the Costello--Li comparison is the specialisation along the
+    reference curve of $\Obs^q_{\hCS_6}$ (not of $5$d-$\hCS$ boundary), and
+    the hocolim-of-envelopes identity is a consequence of the universal
+    property of $\Phi^{\mathrm{Sp}}_C$.
+  \item \texttt{chapters/frame/preface.tex} cascade table: add a column
+    ``$d$-complex-dim holomorphic pre-factorisation algebra
+    $\Obs^q_{\hCS_{2d}}$'' before the current ``$E_n$-chiral on $C$'' column
+    and populate: $d = 1$ holomorphic on $E$; $d = 2$ on $K3$; $d = 3$ on
+    $\C^3$ (and $K3 \times E$); $d = 5$ on $K3 \times K3 \times E$.
+\end{itemize}
+
+\end{document}

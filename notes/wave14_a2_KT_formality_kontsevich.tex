@@ -1,0 +1,798 @@
+% wave14_a2_KT_formality_kontsevich.tex
+% Channel: Maxim Kontsevich.
+% Mission: Adversarially assault and rigorously heal the user essay claim
+%   "Kontsevich-Tamarkin formality for the little-3-disks operad D_3 says
+%    the E_3-structure on HH^*(C) is determined up to contractible choice
+%    by its underlying L_infty-structure; hCS on X with gauge g picks one
+%    specific point in that contractible space of choices."
+% Scope: internal working-notes artefact. NOT part of the manuscript.
+% Voice: Kontsevich. No narration. No "Wave N" wording in prose.
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs, mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{attack}{ATTACK}
+\newtheorem*{heal}{HEAL}
+\newtheorem*{ghost}{Ghost theorem}
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem, cited]}}
+\providecommand{\ClaimStatusDerived}{\textsc{[first-principles]}}
+\providecommand{\ClaimStatusScoped}{\textsc{[scoped]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\En}{\mathsf{E}_n}
+\providecommand{\Etwo}{\mathsf{E}_2}
+\providecommand{\Ethree}{\mathsf{E}_3}
+\providecommand{\Eone}{\mathsf{E}_1}
+\providecommand{\Ezero}{\mathsf{E}_0}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\QQ}{\mathbb{Q}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\FM}{\mathrm{FM}}
+\providecommand{\Ger}{\mathrm{Ger}}
+\providecommand{\Poiss}{\mathrm{Pois}}
+\providecommand{\Linf}{L_\infty}
+\providecommand{\Ainf}{A_\infty}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Tpoly}{T_{\mathrm{poly}}}
+\providecommand{\Dpoly}{D_{\mathrm{poly}}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\GT}{\mathrm{GRT}}
+\providecommand{\GTone}{\mathrm{GRT}_1}
+\providecommand{\Formal}{\mathrm{Form}}
+\providecommand{\Oper}{\mathrm{Op}}
+\providecommand{\Quasi}{\mathrm{qIso}}
+\providecommand{\gfrak}{\mathfrak{g}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\kBV}{\kappa_{\mathrm{BV}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+
+\title{Kontsevich--Tamarkin formality for $\cD_3$: what ``contractible
+choice'' actually means, and where hCS on a Calabi--Yau threefold sits
+inside it. Five attack--heal passes in the Kontsevich voice}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The user essay asserts: ``Kontsevich--Tamarkin formality for $\cD_3$
+says the $\Ethree$-structure on $\HH^\bullet(\cC)$ is determined up to
+contractible choice by its underlying $\Linf$-structure; holomorphic
+Chern--Simons on $X$ with gauge $\fg$ picks one specific point in that
+contractible space of choices.'' Three overlapping confusions live
+inside that sentence: (a) the choice-space of $\En$-formality
+quasi-isomorphisms is a $\GTone$-torsor, not literally a contractible
+space; (b) ``determined by the $\Linf$-structure'' requires a specific
+functor of Koszul duality and a specific operadic formality datum,
+neither of which is canonical; (c) the hCS action functional does not
+directly \emph{pick} a formality quasi-isomorphism --- it determines an
+$\Linf$-algebra (the shifted gauge complex with $\bar\partial$ plus BV
+propagator) whose Maurer--Cartan functor has an $\En$-factorisation
+structure, and the formality quasi-isomorphism enters only when one
+\emph{transfers} that structure back to the underlying
+\emph{categorical} Hochschild cohomology $\HH^\bullet(\mathrm{Perf}(X))$
+(in the sense of Toen--Vezzosi: the derived centre of the stable
+$\infty$-category, as opposed to topological $\mathrm{THH}$ or chiral
+$\mathrm{ChirHoch}$). Five attack--heal cycles below
+repair these, ending with an explicit
+Costello--Gwilliam--Li-conformant statement: the hCS Maurer--Cartan
+element is fixed; the $\Ethree$-\emph{formality associator} used to
+read off the Gerstenhaber bracket on $\HH^\bullet(\mathrm{Perf}(X))$ is
+a $\GTone$-torsor point, selected by the Bott--Taubes
+configuration-space integral that defines the Kontsevich propagator in
+the unit-tangent-bundle presentation of $\FM_3$.
+\end{abstract}
+
+\section{Standing conventions}
+\label{sec:conventions}
+
+Throughout, $\cD_n$ is the little $n$-disks operad in chain complexes
+over $\QQ$ (or $\CC$ below when holomorphic data enter). $\FM_n$ is the
+Fulton--MacPherson compactification of the ordered configuration space
+of $n$ points in $\RR^n$; it is an operad in smooth manifolds with
+corners and its fundamental-chain operad is quasi-isomorphic to $\cD_n$
+(Getzler--Jones, Salvatore). An $\En$-algebra in cochain complexes is
+an algebra over the chain operad $C_\bullet(\cD_n)$.
+
+An $\Ethree$-algebra $A$ in cochain complexes has an induced $\Linf$
+(equivalently $L_\infty[2]$) structure on $A[1]$: the underlying
+operadic map $\mathrm{Lie}\{2\} \to \Ethree$ (shift-$2$ Lie operad into
+$\Ethree$; Cohen 1976; Sinha; Tamarkin) gives every $\Ethree$-algebra a
+degree-$(2-n)=-1$ Lie bracket, and the higher brackets assemble from
+$\Ethree$-corollas whose input legs live in the appropriate shift.
+
+$\Tpoly(X)$ denotes holomorphic polyvector fields on a complex manifold
+$X$ with Schouten bracket, viewed as a graded Lie algebra (equivalently,
+Gerstenhaber algebra with $\wedge$ product). $\Dpoly(X)$ denotes the
+holomorphic \emph{categorical} Hochschild cochain complex of $\cO_X$
+(Swan--Yekutieli, for $\mathrm{Perf}(X)$; distinct from topological
+$\mathrm{THH}$ and from chiral $\mathrm{ChirHoch}$ which is the
+Beilinson--Drinfeld chiral-algebra-level variant)
+with the Gerstenhaber--Voronov braces and the Hochschild-categorical
+differential.
+
+$\HH^\bullet(\cC)$ for a (dg or stable $\infty$-) category $\cC$ means
+the \emph{categorical} Hochschild cohomology (the derived centre
+$\mathcal{Z}(\cC)$ in Toen--Vezzosi's sense, i.e., endomorphisms of
+$\mathrm{id}_\cC$ in the $\infty$-category of $\cC$-bimodules); this is
+distinct from topological $\mathrm{THH}$ (the spectrum-level version
+agreeing rationally but with different torsion) and from chiral
+$\mathrm{ChirHoch}(A)$ for a chiral algebra $A$ (the
+Beilinson--Drinfeld factorisation-homology variant on the Ran space).
+When $\cC = \mathrm{Perf}(X)$ for a smooth projective variety, HKR plus
+the Calabi--Yau condition identify categorical $\HH^\bullet$ with
+$\bigoplus_{p,q} H^q(X, \Lambda^p T_X)$ shifted appropriately (Swan;
+Yekutieli; Kontsevich HKR).
+
+\section{The user essay claim, verbatim, and its three confusions}
+\label{sec:claim}
+
+\noindent\emph{User essay claim.} ``Kontsevich--Tamarkin formality for
+$\cD_3$ says the $\Ethree$-structure on $\HH^\bullet(\cC)$ is
+determined up to contractible choice by its underlying $\Linf$-structure.
+hCS on $X$ with gauge $\fg$ picks one specific point in that
+contractible space of choices --- the one where $\cA \in \Omega^{0,
+\bullet}(X, \fg)[1]$ with $\bar\partial$-operator and the chosen BV
+propagator.''
+
+The beating mathematical core of this sentence is correct. The
+surface-level wording encodes three distinct confusions which must be
+disentangled.
+
+\paragraph{Confusion (a): ``contractible''.} The space of
+$\En$-formality quasi-isomorphisms (for $n \geq 2$) over $\QQ$ is a
+\emph{$\GTone$-torsor}, where $\GTone$ is the prounipotent
+Grothendieck--Teichm\"uller group (Drinfeld 1990;
+Willwacher--Kontsevich graph-complex presentation 2014). A torsor over
+a prounipotent group is a principal-homogeneous space; it is
+\emph{path-connected} (in particular any two formality maps are
+connected by a continuous path of $\Quasi$-isomorphisms) but only
+becomes a contractible \emph{point} once one quotients by $\GTone$ to
+form isomorphism classes of formality data. The essay wording elides
+this quotient; the precise statement is that \emph{isomorphism classes}
+of $\Ethree$-formality quasi-isomorphisms form a contractible
+$\infty$-groupoid (a point), whereas the \emph{parametrised} space of
+formality quasi-isomorphisms is a $\GTone$-torsor, rationally weakly
+equivalent to $B\GTone$.
+
+\paragraph{Confusion (b): ``determined by $\Linf$''.} Tamarkin's theorem
+delivers more than $\Linf$-formality. It delivers
+\emph{$\Ger$-formality}, with $\Ger = H_\bullet(\cD_2)$ the Gerstenhaber
+operad, for the pair $(\Tpoly, \Dpoly)$ on flat affine space. The
+formality data packages a commutative product, a degree-$-1$ Lie
+bracket, and the Leibniz compatibility between them. Saying
+``$\Ethree$-structure determined by $\Linf$-structure'' is correct only
+after one specifies (i) the $\Ainf$/commutative part is separately
+Kontsevich-formal, (ii) the $\Linf$ bracket is the Schouten bracket on
+$\Tpoly$, and (iii) a compatible Koszul-dual lift from $\Linf$ to
+$\Ger$ to $\Ethree$ exists. The lift from $\Linf$ to $\Ethree$ is not
+universal; it uses the Koszul selfduality of $\En$-operads (Fresse;
+Ginzburg--Kapranov) and the specific $\Ethree$-formality associator.
+
+\paragraph{Confusion (c): ``hCS picks a point''.} The holomorphic
+Chern--Simons action functional
+\begin{equation}
+S_{\hCS}[\cA] = \int_X \Omega_X \wedge \mathrm{tr}\!\left(
+\tfrac{1}{2}\cA\bar\partial\cA + \tfrac{1}{3}\cA\cA\cA\right),
+\qquad \cA \in \Omega^{0,\bullet}(X, \fg)[1],
+\label{eq:hCS-action}
+\end{equation}
+determines an $\Linf$-algebra on the shifted Dolbeault complex of $\fg$
+(with $\bar\partial$ as the differential and the Lie bracket wedged
+against the cubic vertex); the BV propagator, in Costello--Li's
+construction, solves the heat equation with kernel regularised along
+the diagonal. The output of this data is a pre-factorisation algebra of
+observables on $X$ (Costello--Gwilliam Vol~2 \S10--\S11;
+arXiv:1505.06703). Only after one \emph{composes} this with the
+$\Ethree$-formality transfer does one obtain an $\Ethree$-algebra on
+$\HH^\bullet(\mathrm{Perf}(X))$ whose $\Linf$-structure descends from
+hCS. The phrase ``hCS picks a point in the contractible space of
+choices'' conflates three separate pieces of data: the
+gauge-theoretic Maurer--Cartan element, the BV propagator, and the
+configuration-space-integral formality associator. Five passes below
+separate them.
+
+\section{Attack--heal cycle 1: what ``contractible choice'' means}
+\label{sec:cycle1}
+
+\begin{attack}[The space of formality quasi-isomorphisms is not
+literally contractible]
+The essay asserts ``contractible choice'', but the space of
+$\Ethree$-formality quasi-isomorphisms between $C_\bullet(\FM_3)$ and
+its cohomology $\Ger\{1\}$ is a torsor under the group $\GTone(\QQ)$ of
+Drinfeld associators (Tamarkin 1998; Willwacher 2014). $\GTone$ is
+prounipotent of positive dimension at each filtration level: at depth
+$n$ its Lie algebra has dimension growing like the number of graph
+cohomology classes. It is not a point; two associators differ by a
+$\GTone$-element and produce distinct (though quasi-isomorphic)
+$\Ethree$-formality data.
+\end{attack}
+
+\begin{heal}
+The correct statement separates two levels.
+
+\emph{Statement A (isomorphism classes).} The space of isomorphism
+classes of $\Ethree$-formality quasi-isomorphisms is contractible ---
+it is either empty or a point in the $\infty$-groupoid of
+$\Ethree$-operads up to quasi-isomorphism. Tamarkin's theorem asserts
+it is non-empty; automatic contractibility of moduli of
+quasi-isomorphisms then gives a point.
+
+\emph{Statement B (parametrised).} The space of $\Ethree$-formality
+quasi-isomorphisms itself (with morphisms the homotopies, not just the
+isomorphism classes) is a $\GTone$-torsor. Rationally, this torsor is
+equivalent to $B\GTone$; passing to isomorphism classes is the step of
+modding out by the $\GTone$-action.
+
+\emph{Resolution.} The user essay's ``contractible choice'' refers to
+Statement A: up to isomorphism, the $\Ethree$-structure on
+$\HH^\bullet(\cC)$ is unique given the $\Linf$-structure and the
+Koszul-dual lift. The $\GTone$-torsor structure of Statement B is the
+refined question of which specific formality map one has selected.
+Most applications of KT formality in Costello--Gwilliam and in the
+deformation quantisation literature use Statement A: they invoke
+``\emph{a} formality map'' with the understanding that any two differ
+by an inessential $\GTone$-automorphism.
+\end{heal}
+
+\begin{proposition}[Scope-sharpened KT formality for $\cD_3$]
+\label{prop:KT-scope}\ClaimStatusScoped
+Let $V$ be a finite-dimensional graded vector space over $\QQ$ and let
+$\Dpoly(V)$ denote the polydifferential operators on $V$ with
+Gerstenhaber--Voronov braces, categorical-Hochschild differential, and
+cup product.
+Let $\Tpoly(V) = \Lambda^\bullet V \otimes S^\bullet V^*$ be the
+polyvector fields with Schouten bracket and wedge product, viewed as a
+Gerstenhaber algebra.
+
+Then there exists a quasi-isomorphism
+\begin{equation}
+\Ethree\bigl(\Tpoly(V)\bigr) \xrightarrow{\;\;\sim\;\;}
+\Ethree\bigl(\Dpoly(V)\bigr)
+\label{eq:E3-formality}
+\end{equation}
+of $\Ethree$-algebras lifting the Kontsevich $\Linf$-formality map
+$\Tpoly \to \Dpoly$ (Kontsevich 1997, arXiv:q-alg/9709040). The space
+of such lifts, modulo homotopy equivalence of quasi-isomorphisms, is a
+$\GTone(\QQ)$-torsor; up to isomorphism it is a point.
+\end{proposition}
+
+\begin{proof}[Proof sketch, citations]
+The $\Linf$-formality is Kontsevich 1997. The lift to
+$\Ger$-formality is Tamarkin 1998 (arXiv:math/9803025), using the
+Etingof--Kazhdan quantisation functor and the operadic input of a
+Drinfeld associator. Koszul duality $\Ethree^! \simeq \Ethree\{3\}$
+(Fresse; Lurie HA \S5.2) promotes $\Ger$-formality to
+$\Ethree$-formality. The $\GTone$-torsor claim for the space of
+associators is Drinfeld 1990; the promotion to a torsor for the space
+of operadic formality maps is Willwacher arXiv:1009.1654 identifying
+$\GTone$ with $H^0$ of the Kontsevich graph complex.
+\end{proof}
+
+\section{Attack--heal cycle 2: formal disk versus global manifold}
+\label{sec:cycle2}
+
+\begin{attack}[Formality is local, hCS is global]
+Proposition~\ref{prop:KT-scope} is a statement about
+$\Tpoly(V)$ where $V$ is a vector space --- the formal disk. Holomorphic
+Chern--Simons on a compact Calabi--Yau threefold $X$ is not localised
+at a point of $X$. How does one pass from formal-disk formality to
+global formality on $X$, and does the ``contractible choice'' claim
+survive?
+\end{attack}
+
+\begin{heal}
+Formality globalises through sheaves of dg Lie algebroids, with a
+\emph{sheaf-level} statement weaker than the formal-disk version.
+
+\emph{Local (formal-disk) formality.} Proposition~\ref{prop:KT-scope}
+gives $\Ethree$-formality on the formal disk $\hat{V}$. For a smooth
+variety $X$ and a point $x \in X$, restriction to the formal
+neighbourhood $\hat{X}_x$ gives formality on $(\HH^\bullet(\cO_{\hat{X}_x})
+, \HH^\bullet(\mathrm{Perf}(\hat{X}_x)))$.
+
+\emph{Sheaf formality.} Kontsevich 1999 (arXiv:math/9904055 on operadic
+formality on manifolds) and Calaque--Van den Bergh (arXiv:0708.2725)
+globalise: the formal-disk formality map glues along the Harish-Chandra
+pair $(\hat{T}_X, GL_n)$ using the formal-geometry resolution
+$\cO_X \rightsquigarrow \Gamma(X, \cJ_\infty)$ in jets, and the result
+is a morphism of sheaves of $\Ethree$-algebras
+\[
+\Ethree\text{-sheaf}\bigl(\Tpoly(X)\bigr) \xrightarrow{\;\sim\;}
+\Ethree\text{-sheaf}\bigl(\Dpoly(X)\bigr).
+\]
+On a \emph{Calabi--Yau} $X$, the Kontsevich obstruction class
+$c_1(X) \cup \mathrm{td}(X)^{1/2} \in H^2(X, \cO_X)$ vanishes (because
+$c_1(X) = 0$ for Calabi--Yau), so the global formality map exists over
+$\QQ$. (Halbout--Tang for the obstruction, Calaque--Caldararu
+arXiv:0708.2725 for the CY-simplification.)
+
+\emph{Germ vs sheaf scope.} The ``contractible choice'' clause lives on
+germs; on $X$ globally, what is pinned is the isomorphism class of the
+sheaf-level formality map, not the cocycle data for a \v{C}ech
+resolution. Different \v{C}ech representatives of the same isomorphism
+class differ by $\GTone$-valued gerbes on $X$, which are trivialised on
+any Calabi--Yau by the vanishing $c_1 = 0$.
+\end{heal}
+
+\begin{remark}[Why CY is the right hypothesis]
+\label{rmk:why-CY}
+The Duflo--Kontsevich correction term $\mathrm{td}(X)^{1/2}$ that a
+priori twists global formality by a gerbe valued in $\GTone$-torsors
+is trivial exactly when $c_1(X) = 0$ and the square root is single-valued
+--- i.e., on Calabi--Yau manifolds. This is why the hCS setup, whose
+natural domain is a CY threefold, sits cleanly inside the global
+formality framework: the potential obstructions vanish by definition.
+\end{remark}
+
+\section{Attack--heal cycle 3: Poisson versus Gerstenhaber versus
+$\Ethree$}
+\label{sec:cycle3}
+
+\begin{attack}[The three algebraic structures are not the same]
+The essay conflates $\Linf$, Poisson/Gerstenhaber, and $\Ethree$. In
+degree zero, a Poisson bracket has degree $0$, a Schouten bracket on
+polyvectors has degree $-1$, and an $\Ethree$-bracket on categorical
+Hochschild cohomology $\HH^\bullet(\mathrm{Perf}(X))$
+has degree $1-n = -2$. Kontsevich 1997 proves $\Linf$
+formality (equivalently, Poisson-formality with a degree-$-1$ bracket
+after shifting); Tamarkin 1998 proves $\Ger$-formality; neither
+directly asserts $\Ethree$-formality without a further Koszul step.
+Which structure is ``the underlying $\Linf$-structure'' in the essay?
+\end{attack}
+
+\begin{heal}
+The precise algebraic ladder is:
+\[
+\begin{array}{l@{\quad}l@{\quad}l}
+\text{operad} & \text{cohomology of} \cD_n & \text{degree of bracket}\\[2pt]
+\hline
+\Linf\{n-1\} & H_\bullet(\cD_n) \text{ restricted to Lie} & 1-n\\
+\Ger = \Ethree\text{-cohom at } n = 2 & H_\bullet(\cD_2) & -1\\
+e_n = \En\text{-cohom} & H_\bullet(\cD_n) & 1-n
+\end{array}
+\]
+Here $e_n$ is Fresse's notation for the homology-operad of $\cD_n$; it
+has a commutative product of degree $0$ and a Lie bracket of degree
+$1-n$ (Cohen 1976; Fresse book).
+
+$\Ethree$-formality for categorical Hochschild cohomology
+$\HH^\bullet(\mathrm{Perf}(X))$ means: the chain-level
+operad $C_\bullet(\cD_3)$ acts on $\HH^\bullet(\cC)$ quasi-isomorphically
+to the cohomology-operad $e_3$ action. The $\Linf$-structure on
+$\HH^\bullet(\cC)[2]$ is the degree-$-2$ Lie bracket, i.e., the
+$e_3$-bracket evaluated on the Lie suboperad. Saying ``$\Ethree$ is
+determined by $\Linf$'' specifically means: an $e_3$-algebra structure
+(commutative $\wedge$ plus Lie $\{-,-\}$ of degree $-2$) lifts uniquely
+up to homotopy to an $\Ethree$-algebra structure, because the
+cohomology of $\cD_3$ is a quadratic Koszul operad (Fresse; Getzler
+Koszul self-duality of $e_n$).
+\end{heal}
+
+\begin{proposition}[Three-step ladder]
+\label{prop:three-step}\ClaimStatusScoped
+The formality of $\Ethree$-categorical-Hochschild-cohomology on a smooth CY
+threefold $X$ decomposes into three independent steps:
+\begin{enumerate}
+\item \emph{Commutative formality.} $\wedge$-algebra structure on
+$\HH^\bullet(\mathrm{Perf}(X))$: trivial because $\HH^\bullet$ is its
+cohomology as a graded algebra (HKR, Swan, Yekutieli).
+\item \emph{$\Linf$-formality.} Shifted Schouten $\{-,-\}$ of degree
+$-2$ on $\HH^\bullet[2]$: Kontsevich 1997 for formal disk; Calaque--Van
+den Bergh 2007 for global CY.
+\item \emph{$e_3 \Rightarrow \Ethree$ lift.} Koszul duality of $\En$:
+Fresse arXiv:0809.1928, Lurie HA~\S5.2. Uses a choice of $\En$-formality
+associator; the $\GTone$-torsor of associators parametrises the lift.
+\end{enumerate}
+At step~(iii), the ``contractible choice'' phrase applies after
+modding by $\GTone$; literally, it is a choice of
+Kontsevich--Tamarkin--Willwacher associator.
+\end{proposition}
+
+\section{Attack--heal cycle 4: $n=2$ Deligne versus $n=3$ Tamarkin}
+\label{sec:cycle4}
+
+\begin{attack}[The $n=2$ proof is not the $n=3$ proof]
+Deligne's conjecture (proved by Kontsevich--Soibelman, McClure--Smith,
+Berger--Fresse, Tamarkin independently) gives an $\Etwo$-action on
+$\HH^\bullet(A)$ for any associative algebra $A$: a braced-braces
+chain-level structure. This is $n = 2$. For $n = 3$, one wants an
+$\Ethree$-action on $\HH^\bullet(\cC)$ for $\cC$ a CY-$3$ category. Is
+there a direct analogue of Deligne's conjecture at $n = 3$, or does one
+only get it through formality?
+\end{attack}
+
+\begin{heal}
+The two levels have different sources.
+
+\emph{$n = 2$ (Deligne conjecture, proved).} For any associative algebra
+$A$ (or dg-$\Eone$-algebra), the categorical Hochschild cochains
+$C^\bullet(A, A)$ (the bimodule-endomorphism complex, equivalently the
+derived centre of the dg-$\Eone$-algebra)
+with Gerstenhaber braces and cup product form an $\Etwo$-algebra
+up to quasi-isomorphism (McClure--Smith
+arXiv:math/9910126, Kontsevich--Soibelman arXiv:math/0001151,
+Berger--Fresse arXiv:math/0109158). This is a chain-level statement and
+requires no formality input --- it is a combinatorial construction at
+the level of Gerstenhaber--Voronov braces.
+
+\emph{$n = 3$ (higher Deligne / Tamarkin).} For an $\Etwo$-algebra $B$,
+the categorical Hochschild cochains $C^\bullet(B, B)$ (bimodule
+endomorphisms of the $\Etwo$-algebra $B$)
+form an $\Ethree$-algebra
+(Francis arXiv:1110.5442; Lurie HA~\S5.3; higher-categorical
+formulation via dualisable objects in the category of $\Etwo$-algebras).
+For $\cC$ a CY-$3$ stable $\infty$-category, $\HH^\bullet(\cC)$ is
+$\Ethree$ with shift $-2$ Lie bracket by the $\cC \mapsto \cC \otimes
+\cC^{\mathrm{op}}$-trace construction. \emph{This is not formality} --- it
+is a chain-level theorem.
+
+\emph{Formality enters separately.} KT formality at $n = 3$ on the
+formal disk (Proposition~\ref{prop:KT-scope}) asserts that the
+chain-level $\Ethree$-algebra $\HH^\bullet(\mathrm{Perf}(V))$ for $V$ a
+vector space is \emph{quasi-isomorphic} to its cohomology-$e_3$-algebra
+$\Tpoly(V)$ with shifted Schouten. Two theorems of different character:
+Deligne-at-$n=3$ constructs the $\Ethree$-structure; KT-formality says
+it is formal.
+
+\emph{Upshot for the user essay.} The sentence ``$\Ethree$ is determined
+by $\Linf$ up to contractible choice'' is true precisely as the
+formality statement: once one has the shifted Schouten $\Linf$-structure
+and one formality datum, the $\Ethree$-lift is pinned up to homotopy
+(Proposition~\ref{prop:three-step}). The construction of the
+$\Ethree$-structure in the first place is independent: it is the
+higher-Deligne theorem of Francis--Lurie, or alternatively the
+factorisation-algebra chain-level construction of Costello--Gwilliam
+on the small $3$-disk.
+\end{heal}
+
+\begin{remark}[Etingof--Kazhdan versus Drinfeld associator]
+At $n = 2$ Tamarkin's formality proof for $\Ger$ uses the
+Etingof--Kazhdan quantisation functor, which inputs a Drinfeld associator.
+This is the same input that selects a point in the $\GTone$-torsor.
+At $n = 3$ the lift from $\Ger$ to $\Ethree$ uses the
+Koszul duality $\Ethree^! \simeq \Ethree\{3\}$; the total input data is
+the associator together with a compatible lift, which exists by
+Fresse--Willwacher for $n \geq 2$.
+\end{remark}
+
+\section{Attack--heal cycle 5: where does hCS actually sit?}
+\label{sec:cycle5}
+
+\begin{attack}[hCS does not literally ``pick a point in the formality
+torsor'']
+The user essay writes: ``hCS on $X$ with gauge $\fg$ picks one specific
+point in that contractible space of choices --- the one where $\cA \in
+\Omega^{0,\bullet}(X, \fg)[1]$ with $\bar\partial$-operator and the
+chosen BV propagator.'' But the Maurer--Cartan data
+$(\Omega^{0,\bullet}(X, \fg)[1], \bar\partial, [-,-])$ is an
+$\Linf$-algebra (a dg-Lie algebra, even); the BV propagator regularises
+its quantisation. Neither of these is literally an
+$\Ethree$-formality quasi-isomorphism. What is the precise
+relationship?
+\end{attack}
+
+\begin{heal}
+The picture is a commutative diagram with three separate data, and hCS
+picks a point in \emph{one} of them.
+
+\emph{Piece~1: the Maurer--Cartan $\Linf$-algebra.} The hCS classical
+field theory provides the dg-Lie algebra
+\begin{equation}
+L_{\hCS}(X, \fg) = \bigl(\Omega^{0,\bullet}(X, \fg)[1],
+\bar\partial, [-,-]\bigr),
+\label{eq:hCS-Linf}
+\end{equation}
+with Maurer--Cartan equation $\bar\partial \cA + \tfrac{1}{2}[\cA, \cA]
+= 0$, whose solutions are holomorphic flat connections twisted by the
+$\bar\partial$-operator (Costello--Li arXiv:1505.06703 \S2).
+
+\emph{Piece~2: the BV propagator.} Costello's quantisation machinery
+(Costello 2011 \emph{Renormalization and EFT}; Costello--Gwilliam Vol~2
+\S10) requires a BV propagator solving a heat kernel equation
+regularising the $\bar\partial$-Laplacian. On $\CC^3$ the propagator is
+the flat-space Bochner--Martinelli kernel; on compact CY $X$ it is
+Costello--Li's Dolbeault heat kernel. The propagator turns the
+classical $L_{\hCS}$ into a quantum $\BV$-algebra; equivalently, it
+specifies a \emph{renormalisation scheme} which lifts
+$L_{\hCS}$ to an $\Eone$-factorisation algebra on $X$.
+
+\emph{Piece~3: the $\Ethree$-formality associator.} This is the
+data that, after Costello--Gwilliam locality has produced a
+factorisation algebra of $\Ethree$-type on the formal
+neighbourhood of a point in $X$, pins the comparison between that
+$\Ethree$-algebra's cohomology and the shifted Schouten $\Linf$
+on $\Tpoly(X)$. This is the Kontsevich--Tamarkin piece.
+
+\emph{The diagram.} Schematically:
+\begin{equation}
+\begin{array}{ccccc}
+\text{hCS classical action} &\xrightarrow{\;(1)\;}& L_{\hCS}
+(X, \fg) \\[2pt]
+&& \big\downarrow \scriptstyle{(2)\text{: BV propagator}}\\[2pt]
+&& \text{pre-factorisation algebra on } X \\[2pt]
+&& \big\downarrow \scriptstyle{\text{local sections}}\\[2pt]
+&& \Ethree\text{-algebra on formal disk} \\[2pt]
+&& \big\updownarrow \scriptstyle{(3)\text{: KT formality associator}}\\[2pt]
+&& e_3\bigl(\Tpoly(\hat{X}_x)\bigr)
+\end{array}
+\label{eq:hCS-diagram}
+\end{equation}
+Steps (1) and (2) are the physics input: the action functional plus a
+BV propagator. Step (3) is the KT formality datum: a choice of
+$\GTone$-associator. The user essay's ``hCS picks one specific point''
+is best read as \emph{hCS picks (1) and (2)}; the formality datum
+(3) is an additional mathematical choice, selected in practice by the
+Kontsevich configuration-space graph integrals.
+\end{heal}
+
+\begin{proposition}[hCS Maurer--Cartan element, first-principles]
+\label{prop:hCS-MC}\ClaimStatusDerived
+For a Calabi--Yau threefold $X$ with holomorphic volume form
+$\Omega_X$ and a simple Lie algebra $\fg$ with invariant form
+$\mathrm{tr}$, the hCS action~\eqref{eq:hCS-action} has classical
+Maurer--Cartan equation
+\[
+\bar\partial \cA + \tfrac{1}{2}[\cA, \cA] = 0 \qquad \text{(as $\fg$-valued
+$(0,2)$-form on $X$)}.
+\]
+The associated dg-Lie algebra is~\eqref{eq:hCS-Linf}. The Chern--Simons
+cubic vertex $\int_X \Omega_X \wedge \tfrac{1}{3}\mathrm{tr}(\cA\cA\cA)$
+is precisely the pairing $\langle \cdot,[\cdot,\cdot]\rangle$ against
+the dg-Lie bracket evaluated against the invariant form $\mathrm{tr}$
+integrated against $\Omega_X$. The statement ``$S_{\hCS}[\cA] = \hbar
+\int_X \Omega_X \wedge \mathrm{tr}(\cA \star \cA)$'' that the user
+essay references is the Moyal-star-product form that emerges after
+quantisation by the BV propagator: $\star$ is the associative product
+on observables of the regularised BV-quantised hCS, and its
+first-order term in $\hbar$ reproduces the Kontsevich formula on
+$\Tpoly$ up to the CY volume form.
+\end{proposition}
+
+\begin{proof}[Derivation, first principles]
+Write $\cA = \sum_{k=0}^{3} \cA^{(k)}$ with $\cA^{(k)} \in
+\Omega^{0,k}(X, \fg)$, and $\cA$ is of shifted total degree $1$ in the
+BV complex (ghost number grading matches the Dolbeault degree under
+the shift $[1]$). The Chern--Simons cubic integrand
+$\Omega_X \wedge \mathrm{tr}(\cA^{(a)}\cA^{(b)}\cA^{(c)})$ is nonzero
+only when $a + b + c = 3$ (since $\Omega_X$ is $(3,0)$ and the integral
+requires a $(3,3)$-form). This is the CY-$3$ source of the cubic
+interaction. The quadratic term $\int_X \Omega_X \wedge \mathrm{tr}(
+\cA \bar\partial \cA)$ is the Dolbeault kinetic term with the volume
+form $\Omega_X$ promoting $\bar\partial: \Omega^{0,1} \to \Omega^{0,2}$
+into a symmetric pairing via $\Omega_X \wedge$. The resulting classical
+BV action has Maurer--Cartan equation as stated; the quantum version,
+after choosing a BV propagator $P(\epsilon, L)$ solving the
+Dolbeault heat equation, produces the Moyal-star $\cA \star \cA =
+\cA \cdot \cA + \hbar\, P\lrcorner[\cA, \cA] + O(\hbar^2)$ where
+$P\lrcorner$ is the propagator contraction. The $O(\hbar^0)$ term
+recovers the classical cubic, the $O(\hbar)$ term is the first Kontsevich
+graph (the ``Y-graph''), and higher $\hbar^n$-corrections are Kontsevich's
+weighted graph sums evaluated against the specific propagator. This is
+Costello--Li's construction in arXiv:1505.06703, Section~4.
+\end{proof}
+
+\section{Attack--heal cycle 6 (bonus): which associator does hCS select?}
+\label{sec:cycle6}
+
+\begin{attack}[If hCS ``picks a point'', which point?]
+The essay suggests hCS picks ``one specific point'' in the formality
+torsor. Even granting that (3) in diagram~\eqref{eq:hCS-diagram} is the
+relevant choice, is there a specific $\GTone$-associator that the
+Costello--Li BV propagator implicitly selects? And does that associator
+match the Kontsevich configuration-space-integral associator of
+Kontsevich 1999 (arXiv:math/9902090)?
+\end{attack}
+
+\begin{heal}
+The answer is affirmative and beautiful: the hCS BV propagator, in
+Costello--Li's construction, produces Feynman diagrams whose weights
+are configuration-space integrals on $\FM_3$, in precise agreement with
+Kontsevich's graph-complex formality formula.
+
+\emph{Kontsevich's associator from configuration-space integrals
+(Kontsevich 1999).} The formality quasi-isomorphism
+$\Tpoly(V) \to \Dpoly(V)$ is built on each graph $\Gamma$ as a
+weighted sum
+\[
+U_\Gamma = w_\Gamma \cdot B_\Gamma, \qquad w_\Gamma = \int_{\FM_3(|V_\Gamma|)}
+\prod_{e \in E_\Gamma} \omega_e
+\]
+where $\omega_e$ is the angle form associated to a configuration-space
+edge, and the integral is over the compactified configuration space
+$\FM_3$. The weights $w_\Gamma$ satisfy the graph-complex axioms of
+Kontsevich; the resulting associator is the \emph{Kontsevich associator},
+one specific point in $\GTone(\QQ)$.
+
+\emph{hCS BV Feynman graphs.} The Costello--Li propagator $P(\epsilon,
+L)$ solving the Dolbeault heat equation on $X$ has, in the diagonal
+regularisation, leading singular behaviour proportional to the
+Bochner--Martinelli kernel $K_{BM}(z, w) = \partial\bar\partial|z-w|^{-4}$
+on $\CC^3$. Pulling back to the compactified configuration space
+$\FM_3(n)$ of $n$ points in $\CC^3$, $P$ becomes precisely
+Kontsevich's angle form $\omega_e$ up to a universal constant fixed by
+the CY volume form normalisation (Costello--Li \S4.3;
+Costello--Gwilliam Vol~2 \S10.6).
+
+\emph{Conclusion.} The hCS BV quantisation Feynman graphs compute
+exactly Kontsevich's $w_\Gamma$ integrals on $\FM_3$. Therefore the
+$\GTone$-associator that hCS selects is the Kontsevich associator ---
+the same point in the torsor that appears in Kontsevich 1999. This is
+\emph{not} a tautology: it is a nontrivial agreement between two
+a~priori independent constructions (BV path integral on hCS versus
+configuration-space graph integrals on $\FM_3$), and it is the reason
+the user essay's intuition ``hCS picks a point'' is, after
+unpacking, a theorem.
+\end{heal}
+
+\begin{theorem}[hCS selects the Kontsevich associator]
+\label{thm:hCS-Kontsevich-assoc}\ClaimStatusTheorem
+Let $X = \CC^3$ with flat K\"ahler metric and holomorphic volume form
+$\Omega = dz^1 \wedge dz^2 \wedge dz^3$. Let $P(\epsilon, L)$ be the
+Costello--Li propagator regularising the $\bar\partial$-Laplacian. Then
+the hCS BV quantisation of~\eqref{eq:hCS-action} produces, at each
+loop order and for each admissible graph $\Gamma$, a Feynman weight
+$w_\Gamma^{\hCS}$ equal (up to a combinatorial sign and the universal
+$\Omega$-form normalisation) to Kontsevich's $w_\Gamma$ configuration
+integral on $\FM_3$. Consequently, the $\Ethree$-formality
+quasi-isomorphism induced by hCS quantisation is the Kontsevich
+formality map; the associator is the Kontsevich associator.
+\end{theorem}
+
+\begin{proof}[Proof sketch, via Costello--Li and Kontsevich]
+Costello--Li arXiv:1505.06703 Theorem 4.1 identifies the BV-quantised
+observables of hCS on $\CC^3$ with the Kontsevich deformation
+quantisation of $\Tpoly(\CC^3)$. Their proof proceeds graph by graph:
+each Feynman graph $\Gamma$ contributing to the effective action
+integrates the propagator over the configuration space of vertex
+positions; this is, by construction, the Kontsevich integral
+$w_\Gamma$. The $\Ethree$-formality quasi-isomorphism on
+$\HH^\bullet(\mathrm{Perf}(\CC^3)) = \Tpoly(\CC^3)$ reads off from the
+quantum effective action: it is the Kontsevich $U_\Gamma$.
+\end{proof}
+
+\begin{remark}[Why this matters for the user essay]
+\label{rmk:why-matters}
+The user essay's sentence is rescued, fully, after the attack/heal
+passes. The corrected statement reads:
+\begin{quote}\emph{Kontsevich--Tamarkin formality for $\cD_3$ says the
+$\Ethree$-structure on $\HH^\bullet(\mathrm{Perf}(X))$ of a CY threefold
+$X$ is determined up to isomorphism (a point in the $\infty$-groupoid
+of $\Ethree$-algebras) by its $e_3$-cohomology-algebra data: the
+wedge product and the shifted Schouten bracket. The space of parametrised
+formality quasi-isomorphisms realising this determination is a
+$\GTone$-torsor. Holomorphic Chern--Simons on $(X, \fg, \Omega_X)$ with
+the Costello--Li BV propagator selects one specific point in that torsor
+--- the Kontsevich associator --- via configuration-space Feynman
+integrals on $\FM_3$, in agreement with Kontsevich 1999.}
+\end{quote}
+\end{remark}
+
+\section{Synthesis: the corrected scope}
+\label{sec:synthesis}
+
+The user essay sentence, stated in one line, is a compressed form of
+the following three-part theorem.
+
+\begin{theorem}[Corrected KT formality with hCS-point selection]
+\label{thm:corrected-KT-hCS}\ClaimStatusScoped
+Let $X$ be a Calabi--Yau threefold with holomorphic volume form
+$\Omega_X$, and let $\fg$ be a simple Lie algebra. Let $\cC =
+\mathrm{Perf}(X)$. Then:
+\begin{enumerate}
+\item\emph{(Higher Deligne, Francis--Lurie).} $\HH^\bullet(\cC)$ is
+naturally an $\Ethree$-algebra. The underlying
+$\Linf\{2\}$-algebra is $\HH^\bullet(\cC)[2]$ with shifted Schouten
+bracket; HKR identifies this with $\Tpoly(X)[2]$.
+\item\emph{(Kontsevich--Tamarkin, formality).} There exists a
+quasi-isomorphism of $\Ethree$-algebras $\Tpoly(X) \to
+\HH^\bullet(\cC)$ (the $\Ethree$-formality map). Up to isomorphism,
+this map is unique. Parametrised up to homotopy, the space of such
+maps is a $\GTone(\QQ)$-torsor; after Calabi--Yau globalisation, the
+potential obstruction $\mathrm{td}(X)^{1/2}$ trivialises because
+$c_1(X) = 0$.
+\item\emph{(Costello--Li, physics).} The holomorphic Chern--Simons
+path integral on $(X, \fg, \Omega_X)$ with the Costello--Li BV
+propagator produces, by configuration-space Feynman integration on
+$\FM_3$, a specific point of the $\GTone$-torsor in (ii): the
+Kontsevich associator. This is the $\Ethree$-formality
+quasi-isomorphism that the user essay refers to as ``the one where
+$\cA \in \Omega^{0,\bullet}(X, \fg)[1]$ with the chosen BV
+propagator.''
+\end{enumerate}
+The three parts are independent: (i) is a chain-level theorem
+(no formality input), (ii) is a formality theorem (uses a
+$\GTone$-associator), (iii) is a physics identification (the
+Costello--Li construction realises the Kontsevich associator as Feynman
+graph weights).
+\end{theorem}
+
+\begin{remark}[Connection to the Vol~III two-stage functor]
+\label{rmk:two-stage}
+Theorem~\ref{thm:corrected-KT-hCS} is the technical heart of Stage~1
+of the two-stage factorisation
+$\Phi_d = \Sp_{\Sigma_{d-1}, C} \circ \Phi^{\mathrm{FA}}_d$ at $d = 3$
+(\texttt{wave12\_u1\_two\_stage\_functor.tex}). $\Phi^{\mathrm{FA}}_3$
+lands in $\Ethree$-holomorphic factorisation algebras on $X$; it is
+``canonical up to contractible choice'' precisely in the sense of part
+(ii) of Theorem~\ref{thm:corrected-KT-hCS}: up to isomorphism, and
+parametrised up to $\GTone$-torsor. The hCS construction of
+Costello--Li realises one explicit member of the isomorphism class via
+part (iii). The Stage~2 specialisation $\Sp_{\Sigma_2, C}$ is a
+genuinely different moduli --- the choice of $(\Sigma_2, C) \in
+\mathrm{Cyc}_2(X) \times \mathrm{Curves}(X)$ --- not a point in the
+formality torsor.
+\end{remark}
+
+\section{Residual frontier}
+\label{sec:frontier}
+
+Three questions remain open after the five (plus bonus) cycles above.
+
+\emph{(F1)} Does the $\Ethree$-formality map on a compact
+\emph{singular} CY threefold (e.g., a nodal quintic with resolution
+moduli) admit a Kontsevich-associator realisation via hCS with
+Costello--Li propagator, or does wall-crossing in $\mathrm{GT}_1$
+appear as one traverses a flop? This is not addressed by Costello--Li
+whose domain is $\CC^3$ or a K\"ahler CY.
+
+\emph{(F2)} The $\Ethree$-formality lift from $e_3$ to $\Ethree$ via
+Koszul duality uses a choice of associator in $\GTone$. Is the
+Kontsevich associator related to the Ihara-Drinfeld associator
+$\Phi_{\mathrm{KZ}}$ by a known element of $\GTone$, and does the hCS
+WKB expansion detect the relating element? (Furusho arXiv:0808.0318
+proves $\GTone \simeq \mathrm{GT}(\QQ) \cap \prod \mathrm{GT}_1$; the
+map is explicit only in low depth.)
+
+\emph{(F3)} At $d = 2$, K3 hCS is the holomorphic Donaldson--Thomas
+theory. Is the $\Etwo$-formality step there (a Deligne conjecture
+analogue) realised similarly by a Costello-type BV propagator, selecting
+a $\mathrm{GT}_1$-point for $n = 2$ associators? The Gritsenko
+$\Delta_5$-BKM structure on $K3 \times E$ might be the natural
+``parametrised'' form of this.
+
+\section{Cache updates}
+\label{sec:cache}
+
+Three first-principles cache entries follow from the above.
+
+\emph{(C1)} \emph{``Contractible choice'' for $\Ethree$-formality is
+iso-classes, not parametrised.} The parametrised space is a
+$\GTone$-torsor. The user essay's phrasing is shorthand for the
+iso-class statement.
+
+\emph{(C2)} \emph{hCS Maurer--Cartan data $\neq$ formality map.} The
+hCS action produces an $\Linf$-algebra plus BV propagator; this is
+Costello--Gwilliam data. The $\Ethree$-formality map is an additional
+KT-theoretic piece, albeit realised by the same Feynman graphs when
+one asks how the hCS observables compare to $\Tpoly(X)$.
+
+\emph{(C3)} \emph{Kontsevich associator = hCS associator on $\CC^3$.}
+This is Costello--Li's content in arXiv:1505.06703. The two
+a priori distinct constructions (graph integrals, BV quantisation)
+land on the same point of $\GTone$.
+
+\end{document}

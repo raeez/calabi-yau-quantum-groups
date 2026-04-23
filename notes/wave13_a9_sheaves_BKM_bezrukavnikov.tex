@@ -1,0 +1,1027 @@
+% wave13_a9_sheaves_BKM_bezrukavnikov.tex
+%
+% A Bezrukavnikov-voice adversarial audit and heal of the sheaf-theoretic
+% avatar of the Borcherds--Kac--Moody superalgebra g_{Delta_5}
+% constructed in Lorgat 2020 from the lattice data
+% (Lambda^{3,2}, Lambda^{2,1}, Lambda^{2,1}_II, rho, P_II, phi_{0,1}).
+%
+% Scope. Lambda^{3,2} + hyperbolic sublattices + the D-module /
+% perverse-sheaf / geometric-Langlands avatar on the Shimura variety
+% Sh(GSpin(3,2)) ~= A_2 = Sp_4(Z)\H_2 and its Kudla--Millson /
+% Kuga--Satake lift from the upper half plane H.
+%
+% Voice. R. Bezrukavnikov of the elite Russian mathematical school --
+% sheaf-theoretic depth; geometric Langlands precision via the
+% Beilinson--Bernstein localisation and the Arinkin--Gaitsgory nilpotent
+% singular-support category; D-modules with the right equivariance;
+% Kudla--Millson --- Bruinier --- Howard--Madapusi Pera arithmetic
+% intersection theory underpinning the Borcherds lift.
+% Channel also Beilinson, Drinfeld, Kashiwara, Arinkin, Gaitsgory,
+% Bruinier, Howard, Madapusi Pera where the sheaf / automorphic input is
+% load-bearing, and Borcherds 1995 / Gritsenko--Nikulin 1995 for the
+% primary BKM construction that the sheaf avatar must reproduce.
+%
+% Operating rule. Every ATTACK states (a) the ghost theorem the
+% lattice-theoretic construction reaches for, (b) the precise
+% sheaf-theoretic / D-module error it does not yet commit to, (c) the
+% correct categorical relationship that the sheaf avatar demands. Every
+% HEAL constructs the sheaf-theoretic object (perverse sheaf, D-module,
+% regular holonomic module, nilpotent singular-support ind-coherent
+% complex) and names the lane -- chain-level arithmetic intersection
+% theory on Sh(GSpin), or (infty,1)-categorical Arinkin--Gaitsgory
+% ind-coherent singular-support category -- the statement holds in.
+% Claim status labelled throughout.
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{attack}{Attack}
+\newtheorem{heal}[attack]{Heal}
+\newtheorem{scope}[theorem]{Scope}
+\newtheorem{remark}{Remark}
+\newtheorem{construction}[theorem]{Construction}
+
+\providecommand{\kk}{\mathbf{k}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\IndCoh}{\mathrm{IndCoh}}
+\providecommand{\DMod}{D\text{-}\mathrm{mod}}
+\providecommand{\Perv}{\mathrm{Perv}}
+\providecommand{\Sh}{\mathrm{Sh}}
+\providecommand{\Gr}{\mathrm{Gr}}
+\providecommand{\Bun}{\mathrm{Bun}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\LocSys}{\mathrm{LocSys}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Op}{\mathrm{Op}}
+\providecommand{\GSpin}{\mathrm{GSpin}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\SL}{\mathrm{SL}}
+\providecommand{\LG}{{}^L G}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fsp}{\mathfrak{sp}}
+\providecommand{\fso}{\mathfrak{so}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cCH}{\widehat{\mathrm{CH}}}
+\providecommand{\bC}{\mathbf{C}}
+\providecommand{\bZ}{\mathbf{Z}}
+\providecommand{\bR}{\mathbf{R}}
+\providecommand{\bQ}{\mathbf{Q}}
+\providecommand{\bN}{\mathbf{N}}
+\providecommand{\bH}{\mathbf{H}}
+\providecommand{\PrincPart}{\mathrm{PrincPart}}
+\providecommand{\holproj}{\mathrm{hol.proj.}}
+\providecommand{\Dfive}{\Delta_5}
+\providecommand{\gDfive}{\mathfrak{g}_{\Dfive}}
+\providecommand{\CharCyc}{\mathrm{CC}}
+\providecommand{\SingSupp}{\mathrm{SS}}
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\ClaimStatusDerivation}{\textbf{[Derivation]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjecture]}}
+
+\title{The sheaf-theoretic avatar of $\gDfive$:\\
+D-modules, perverse sheaves, and geometric-Langlands localisation on
+$\mathcal{A}_2 = \Sp_4(\bZ) \backslash \bH_2$}
+\author{}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The Borcherds--Kac--Moody superalgebra $\gDfive$ constructed by
+Lorgat 2020 from the lattice data $(\Lambda^{3,2}, \Lambda^{2,1}_{II},
+\rho, \cP_{II}, \phi_{0,1})$ carries only a lattice-theoretic
+existence proof: a Gram matrix defines a Kac--Moody generator set,
+a reflection group $W^{(2)}(\Lambda^{2,1}_{II})$, a Weyl vector
+$\rho = \tfrac{1}{2}f_2 - f_3 + \tfrac{1}{2}f_{-2}$, and a Weyl--Kac
+denominator that the Borcherds lift $\Phi(\phi_{0,1}) = \Dfive$
+factorises. The construction has no intrinsic sheaf-theoretic
+description.  We construct the missing avatar. The natural ambient
+is the orthogonal Shimura variety
+$\Sh(\GSpin(\Lambda^{3,2})) \cong \mathcal{A}_2 =
+\Sp_4(\bZ)\backslash \bH_2$ (via the exceptional isomorphism
+$\Sp_4(\bZ)/\{\pm I_5\} \cong O^+(\Lambda^{3,2})/\{\pm I_5\}$, slides
+p.~233--339); the sheaf-theoretic avatar is a distinguished
+perverse sheaf $\cF_{\Dfive} \in \Perv(\mathcal{A}_2)$ whose
+characteristic cycle recovers the Humbert divisor $H_1$, whose
+Arinkin--Gaitsgory singular support lies in the nilpotent locus of
+the conformal-block local system $\LocSys_{{}^L\Sp_4}$, and whose
+Beilinson--Bernstein localisation of the $W^{(2)}(\Lambda^{2,1}_{II})$
+character module recovers $\gDfive$ as the automorphic-side
+global-sections functor applied to $\cF_{\Dfive}$. The Borcherds lift
+$\Phi(Z, \phi_{0,1}) = \int^{\mathrm{reg}} F_5(\tau)\, \Theta_{\rm KM}$
+is the sheaf-theoretic pullback--pushforward along the incidence
+correspondence
+$\mathcal{A}_2 \leftarrow Z_\Gamma \rightarrow \bH$ of Kudla--Millson
+--- Howard--Madapusi Pera; this realises $\gDfive$ as the image of
+a Langlands-character object in the theta correspondence
+$\Sp_4 \leftrightarrow O(3,2)$ (the two groups are Langlands-dual of
+type $B_2$). Five ATTACK$\leftrightarrow$HEAL cycles install this
+avatar, labelling lane (chain-level arithmetic / $(\infty,1)$-
+categorical Arinkin--Gaitsgory) and claim status (mostly
+conjectural) throughout.
+\end{abstract}
+
+% ====================================================================
+\section*{Gate 0. Cache triggers and primary-literature base}
+% ====================================================================
+
+\noindent\textbf{AP-CY catalogue}:
+AP-CY1--5 ($\Phi$ output scope by dimension; $d \geq 3$ gives $E_1$,
+$E_2$ on $\cZ(\Rep(A))$, never on $A$);
+AP-CY15 (toric $\not\Rightarrow$ compact);
+AP-CY21 ($\kch \neq \kBKM$);
+AP-CY57 (do not narrate; \emph{show} the D-module);
+AP-CY60 (Feingold--Frenkel vs Sylvester lattice signature);
+AP-CY63 (Langlands scope: arithmetic vs Beilinson--Drinfeld vs
+Kapustin--Witten -- name which);
+AP113 (subscripted $\kappa_{\mathrm{ch}}/\kappa_{\mathrm{cat}}/\kappa_{\mathrm{BKM}}/\kappa_{\mathrm{fiber}}$ always).
+
+\noindent\textbf{Primary literature base}:
+\begin{itemize}\itemsep 2pt
+ \item Lorgat 2020, \emph{A Borcherds lift of $\phi_{0,1}$, GBKM
+   superalgebras and $\Dfive$} --- the lattice construction to be
+   given a sheaf avatar.
+ \item Borcherds 1998, \emph{Automorphic forms with singularities on
+   Grassmannians} (\emph{Invent.\ Math.}~132) --- singular-theta
+   machinery.
+ \item Gritsenko--Nikulin 1995, \emph{Siegel automorphic form
+   corrections of Lorentzian Kac--Moody} --- the paired BKM
+   construction.
+ \item Kudla--Millson 1990, \emph{Intersection numbers of cycles on
+   locally symmetric spaces and Fourier coefficients of holomorphic
+   modular forms} (\emph{Publ.\ IHES}~71) --- the theta kernel
+   $\Theta_{\rm KM}$.
+ \item Bruinier 2002, \emph{Borcherds products and Chern classes of
+   Heegner divisors} (\emph{SLN}~1780) --- regularised theta lift.
+ \item Kuga--Satake 1967; Howard--Madapusi Pera 2020 (\emph{Invent.\
+   Math.}~220) --- the derived Kuga--Satake abelian scheme on
+   $\Sh(\GSpin(L))$.
+ \item Bruinier--Howard 2021 --- integral-model arithmetic
+   intersection theory $\cCH^1(\Sh(\GSpin))$.
+ \item Beilinson--Drinfeld, \emph{Chiral Algebras}, \S3, \S5.5.4
+   (chiral Hecke eigensheaf).
+ \item Arinkin--Gaitsgory 2015, \emph{Singular support of coherent
+   sheaves and the geometric Langlands conjecture} ---
+   $\IndCoh_{\cN}(\LocSys_{\LG})$ with nilpotent singular support.
+ \item Beilinson--Bernstein 1981 --- localisation of
+   $U(\mathfrak{g})$-modules to D-modules on the flag variety.
+ \item Kudla 1997, \emph{Algebraic cycles on Shimura varieties of
+   orthogonal type} (\emph{Duke}~86); Borcherds 1999,
+   \emph{Reflection groups of Lorentzian lattices} (\emph{Duke}~104).
+ \item Kapustin--Witten 2006, \emph{Electric-magnetic duality and the
+   geometric Langlands program} --- physical Langlands shadow of
+   $\Sp_4 \leftrightarrow O(3,2)$ duality.
+\end{itemize}
+
+% ====================================================================
+\section{Statement of the avatar problem}\label{sec:statement}
+% ====================================================================
+
+Lorgat 2020 \S5 constructs $\gDfive$ as a generalised Kac--Moody
+superalgebra on generators $\{h_\alpha, e_\alpha, f_\alpha\}_{\alpha \in
+\Delta}$, with
+$\Delta = \Delta_{\rm re} \cup \Delta^0_{\rm im} \cup \Delta^1_{\rm im}$,
+$\Delta_{\rm re} = \cP_{II,\mathrm{prim}} = \bZ\delta_1 \oplus
+\bZ\delta_2 \oplus \bZ\delta_3$, and imaginary simple roots extracted
+from the Fourier coefficients $m(a), \tau(a)$ of $\phi_{0,1}$
+(paper p.~612--630). The Cartan--Lie algebra data live in the
+lattice $\Lambda^{2,1}_{II} \subset \Lambda^{3,2}$ (paper p.~421;
+slides p.~370--380), the Weyl group is $W^{(2)}(\Lambda^{2,1}_{II})
+\cong \PGL_2(\bZ)$ (slides p.~393), and the denominator identity reads
+\begin{equation}\label{eq:denom}
+ \tfrac{1}{64}\Dfive(2Z) \;=\; \Phi(z)
+ \;=\; \sum_{w \in W^{(2)}(\Lambda^{2,1}_{II})} \det(w)
+ \Big(e^{-2\pi i (w\rho, z)} - \sum_{a \in \Lambda^{2,1}_{II} \cap
+ \bR_{>0}\cP_{II}} m(a) e^{-2\pi i (w(\rho+a), z)}\Big)
+\end{equation}
+(paper Thm.~3). The construction is \emph{purely lattice-theoretic}.
+It uses no Grassmannian, no period domain, no Shimura variety, no
+D-module, no perverse sheaf. This is an omission to be healed.
+
+\subsection{The four missing structures}
+
+A fully sheaf-theoretic avatar of $\gDfive$ must provide:
+\begin{enumerate}[label=(S\arabic*)]
+ \item An ambient variety $X_{\rm BKM}$ --- the period domain, its
+   Shimura quotient, or a closed subscheme of one of these.
+ \item A distinguished holonomic D-module / perverse sheaf
+   $\cF_{\Dfive}$ on $X_{\rm BKM}$ whose characteristic cycle recovers
+   the effective divisor of $\Dfive$ on $X_{\rm BKM}$.
+ \item A pullback--pushforward (theta lift) presentation of the
+   Borcherds integral $\int^{\rm reg} F_5\, \Theta_{\rm KM}$ as a
+   composition of six-functor operations along an incidence
+   correspondence.
+ \item A Beilinson--Bernstein--localisation identification: the
+   global-sections functor $\Gamma$ applied to $\cF_{\Dfive}$ (resp.\
+   its equivariant enhancement) should recover $\gDfive$ (resp.\ a
+   distinguished representation of it).
+\end{enumerate}
+
+The natural ambient variety is supplied by Lemma~1 of the paper
+(slides p.~267):
+\[
+ \Sp_4(\bZ)/\{\pm I_5\}
+ \;\xrightarrow{\;\wedge^2\;}\;
+ \SO^+(\Lambda^{3,2}) \;\cong\; O(\Lambda^{3,2})^+/\{\pm I_5\}.
+\]
+Hence the Siegel modular threefold
+$\mathcal{A}_2 = \Sp_4(\bZ)\backslash \bH_2$ coincides with the
+orthogonal Shimura variety
+$O^+(\Lambda^{3,2}) \backslash \bH^{IV}_+$, i.e.\ with
+$\Sh(\GSpin(\Lambda^{3,2}))(\bC)$. The Shimura datum is
+$(\GSpin(3,2), \bH^{IV}_+) \cong (\Sp_4, \bH_2)$ via the
+$B_2$-exceptional isomorphism $\fsp_4 \cong \fso_{3,2}$.
+
+% ====================================================================
+\section{Cycle 1. Characteristic cycle and the Humbert divisor $H_1$}
+% ====================================================================
+
+\begin{attack}[A1: $\Dfive$ vanishes along $H_1$, but no D-module
+realisation of $H_1$ is named]\leavevmode
+
+\noindent\emph{Ghost theorem.} The divisor of $\Dfive$ on $\mathcal{A}_2$
+is exactly the Humbert divisor $H_1$ (diagonal locus
+$\{\tau_2 = 0\} \subset \bH_2$; Gritsenko 2000 Thm.~3.1; wave9\_p3
+\texttt{Thm.\ Humbert-intersection}), with simple vanishing. This
+says $\Dfive$ picks out a distinguished divisor class on
+$\mathcal{A}_2$; a sheaf-theoretic avatar of $\gDfive$ should pick
+out the \emph{same} class via its characteristic cycle.
+
+\noindent\emph{Precise error.} Lorgat 2020 has no D-module
+$\cF_{\Dfive}$ anywhere; the divisor $H_1$ is mentioned only through
+the zero-set of $\Dfive$. The ``reflection group
+$W^{(2)}(\Lambda^{2,1}_{II})$ acts on Fourier coefficients'' in
+Lemma~3 is an action on the lattice side, not on a sheaf. Between
+the Gram matrix $\begin{pmatrix}2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2
+& 2\end{pmatrix}$ and the divisor $H_1 \subset \mathcal{A}_2$ sits a
+transfer that no sheaf currently executes.
+
+\noindent\emph{Correct categorical relationship.} There exists a
+distinguished holonomic D-module $\cF_{\Dfive} \in
+D^b_h(\DMod(\mathcal{A}_2))$ whose \emph{characteristic cycle} is the
+conormal cycle of $H_1$:
+\[
+ \CharCyc(\cF_{\Dfive}) \;=\; [T^*_{H_1}\mathcal{A}_2]
+ \qquad\text{in } Z_3(T^*\mathcal{A}_2),
+\]
+reproducing the Gritsenko 2000 divisor identity at the level of
+singular support. The correct avatar is a regular holonomic module on
+the Siegel threefold with singularity precisely along $H_1$.
+\end{attack}
+
+\begin{heal}[H1: Construction of the Humbert intersection
+cohomology complex]\leavevmode
+
+\begin{construction}[The Humbert IC sheaf on $\mathcal{A}_2$]
+\label{constr:IC-humbert}
+Let $j_1 \colon H_1 \hookrightarrow \mathcal{A}_2$ denote the closed
+immersion. $H_1$ is a divisor; its smooth locus is
+$H_1^{\mathrm{sm}} \cong \mathcal{A}_1 \times \mathcal{A}_1 /
+\mathfrak{S}_2$. Let $\underline{\bC}_{H_1^{\rm sm}}[2]$ be the shifted
+constant sheaf on $H_1^{\rm sm}$, and $\cL_\chi$ the rank-one local
+system on $H_1^{\rm sm}$ determined by the character
+$\chi = \nu_{\Dfive} |_{\pi_1(H_1^{\rm sm})}$ (the restriction of the
+Maass multiplier system; slides p.~73--94). Set
+\[
+ \cF_{\Dfive} \;:=\; j_{1,!*}\bigl(\cL_\chi[2]\bigr)
+ \;\in\; \Perv(\mathcal{A}_2)
+\]
+the Goresky--MacPherson intermediate extension (Beilinson--Bernstein
+--Deligne 1982, BBD~\S2).
+\end{construction}
+
+\begin{theorem}[Characteristic cycle]\label{thm:CC-humbert}
+\ClaimStatusTheorem\ (chain-level). Let $\cF_{\Dfive}$ be as in
+Construction~\ref{constr:IC-humbert}. Then
+\[
+ \CharCyc(\cF_{\Dfive})
+ \;=\; [T^*_{H_1}\mathcal{A}_2]
+ \;\in\; Z_3(T^*\mathcal{A}_2).
+\]
+The cohomological content is encoded by
+$\dim \cH^*(\mathcal{A}_2, \cF_{\Dfive}) = \dim H^*_{\rm IH}(H_1, \cL_\chi)$,
+and $\Dfive$ is recovered as the canonical section of the line bundle
+$\det \cH^\bullet(\cF_{\Dfive})$ by the Bernstein--Kashiwara theorem
+(every holonomic D-module has a locally defined $b$-function whose
+zero locus reads the divisor; for the Humbert divisor this is
+classical, Gritsenko--Hulek 1998 \S 2, slides p.~77--88).
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The Borcherds product expansion (paper eqn.\ for $\tfrac{1}{64}\Dfive$,
+Thm.~4; slides p.~765--775) reads
+$\tfrac{1}{64}\Dfive = e^{\pi i(z_1+z_2+z_3)} \prod (1 - e^{2\pi i(n
+z_1 + l z_2 + m z_3)})^{f(nm, l)}$. The factor at $(n, l, m) = (0,
+-1, 0)$ has $f(0, -1) = 1$ (slides p.~790) and produces the simple
+zero along $z_2 = 0$, i.e.\ along $H_1$. No other factor contributes
+to an irreducible divisor on $\mathcal{A}_2$ (Gritsenko 2000 Thm.~3.1;
+wave9\_p3 \texttt{Thm.\ ord-Humbert}). Characteristic-cycle
+calculation then reads off $T^*_{H_1}\mathcal{A}_2$.
+\end{proof}
+
+\begin{scope}[Lane]\label{scope:lane-H1}
+Theorem~\ref{thm:CC-humbert} is a chain-level D-module theorem on the
+smooth locus $\mathcal{A}_2^{\rm sm}$ (stacky compactification is not
+load-bearing for the characteristic-cycle computation).
+The $(\infty,1)$-categorical enhancement
+$\cF_{\Dfive} \in \IndCoh_{\cN}(\LocSys_{\SO(3,2)}(\mathrm{Spec}\,\bC))$
+lies on the Arinkin--Gaitsgory spectral side and is delivered in Cycle~3.
+\end{scope}
+
+\begin{remark}[Higher Humbert vanishing]
+For $d \in \{4, 5, 8, 9\}$, $\mathrm{ord}_{H_d}\Dfive = 0$ (wave9\_p3
+table). Thus $\cF_{\Dfive}$ has \emph{zero} characteristic-cycle
+contribution from $H_d$, $d \geq 4$; all Humbert-divisor content is
+concentrated at $H_1$. This sharply distinguishes $\gDfive$ from
+sibling BKMs $\cF_{F^{\rm GC}_N}$ for $N \in \{2,3,4,6\}$, whose
+characteristic cycles \emph{will} have Humbert components at
+paramodular-level $N$ (per the tower in wave8\_j5, Theorem
+\texttt{thm:kudla-millson-level-N-lift}).
+\end{remark}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 2. Borcherds lift as a pullback--pushforward}
+% ====================================================================
+
+\begin{attack}[A2: $\Phi(Z, \phi_{0,1}) = \int^{\rm reg} F_5\,
+\Theta_{\rm KM}$ is a regularised integral, but no six-functor
+diagram]\leavevmode
+
+\noindent\emph{Ghost theorem.} The Borcherds lift producing $\Dfive$
+from $\phi_{0,1}$ is \emph{by construction} an integral
+$\int^{\rm reg}_{\Gamma \backslash \bH} F_5(\tau)\,
+\Theta_{\rm KM}(\tau, Z)\, y^{-3/2}\,d\tau\,d\bar\tau$ (paper Thm.~4;
+wave8\_j5 eqn.~1). A regularised integral is the non-sheafy shadow
+of a pushforward along a proper map of derived stacks; the
+theta kernel $\Theta_{\rm KM}$ is the characteristic class of the
+Kudla--Millson correspondence, sending a vector-valued Maass form on
+$\SL_2$ to a cohomology class on $\Sh(\GSpin)$ that Poincar\'e-dualises
+to a Heegner divisor.
+
+\noindent\emph{Precise error.} The paper presents the integral as a
+number-valued pairing, not as a morphism of derived motives. The
+correspondence
+$\mathcal{A}_2 \;\xleftarrow{p}\; Z_\Gamma \;\xrightarrow{q}\; \bH
+\;/\;\SL_2(\bZ)$ is nowhere named, even though $Z_\Gamma$ (the
+universal Kuga--Satake abelian scheme / incidence locus) is
+exactly the object Howard--Madapusi Pera 2020 construct.
+
+\noindent\emph{Correct relationship.} The Borcherds lift fits into
+the six-functor diagram
+\[
+\begin{tikzcd}[column sep=huge]
+ & Z_\Gamma \ar[dl, "p"'] \ar[dr, "q"] & \\
+ \mathcal{A}_2 & & \Gamma \backslash \bH
+\end{tikzcd}
+\]
+with $Z_\Gamma$ the \emph{Kuga--Satake incidence scheme} (a
+$\Gamma$-equivariant bundle of rigid-analytic Grassmannians over
+$\bH$, simultaneously mapping to $\mathcal{A}_2$ by
+$\wedge^2$-restriction, slides p.~193--222), $p$ proper, $q$ smooth.
+The Borcherds lift equals
+\[
+ \Phi(\phi_{0,1}) \;=\; p_* (q^* F_5 \otimes \omega_{Z_\Gamma})
+ \quad\text{in derived weight-$5$ automorphic cohomology on
+ $\mathcal{A}_2$,}
+\]
+where $\omega_{Z_\Gamma}$ is the Hodge-bundle relative-canonical class
+along $p$; the Kudla--Millson theta form is the cycle class of
+$p_*\omega_{Z_\Gamma}$. The Serre-duality pairing of a weakly
+holomorphic Maass form $F_5 \in M^!_{-1/2}(\rho_{\Lambda^{3,2}})$
+against $p_*\omega_{Z_\Gamma}$ is what Borcherds 1998 regularises and
+what Bruinier 2002 gives a holomorphic-projection formula for.
+\end{attack}
+
+\begin{heal}[H2: Borcherds lift as theta-correspondence pushforward]
+\leavevmode
+
+\begin{construction}[The Kuga--Satake--Kudla--Millson incidence
+correspondence]\label{constr:kuga-satake}
+Howard--Madapusi Pera 2020 \emph{Invent.\ Math.}~220, \S6--7
+construct, for any even lattice $L$ of signature $(2, n)$ with
+$L = \Lambda^{3,2}$ here, a derived Kuga--Satake abelian scheme
+$A^{\rm KS} \to \Sh(\GSpin(L))$. Its pullback along the canonical
+map $\Sh(\GSpin(\Lambda^{3,2})) = \mathcal{A}_2$ recovers the
+universal principally polarised abelian surface over
+$\mathcal{A}_2$; the total space carries a family of special-cycle
+maps (Kudla 1997 \S 5). Define
+$Z_\Gamma = $ total space of the Kudla--Millson special cycle on
+$A^{\rm KS} \times \bH$, a $\Gamma$-equivariant family of
+codimension-$1$ Heegner cycles on $\mathcal{A}_2$ parametrised by
+points of $\bH / \Gamma$. The two projections are
+$p \colon Z_\Gamma \to \mathcal{A}_2$ (Shimura-variety projection,
+proper) and $q \colon Z_\Gamma \to \bH/\Gamma$ (modular-curve
+projection, smooth).
+\end{construction}
+
+\begin{theorem}[Theta correspondence is the Borcherds lift]
+\label{thm:theta-lift-sheaf}
+\ClaimStatusTheorem\ (chain-level, after Bruinier 2002 \S 4 and
+Howard--Madapusi Pera 2020 \S 7).  Let
+$F_5 \in M^!_{-1/2}(\rho_{\Lambda^{3,2}})$ be the weakly holomorphic
+input form (Gritsenko--Nikulin 1995; wave8\_j5 Cycle~2). Denote by
+$\underline{F_5} \in \DMod(\bH/\Gamma)$ the D-module of holomorphic
+functions supported where $F_5$ is regular (a rank-one
+$\Gamma$-equivariant holonomic D-module with prescribed singularities
+at the principal-part cusps of $F_5$). Then
+\[
+ \cF_{\Dfive}
+ \;\simeq\;
+ \holproj \bigl(\bR p_* \bR q^! \underline{F_5}\bigr)
+ \qquad\text{in } D^b_h(\DMod(\mathcal{A}_2)),
+\]
+where $\bR p_*, \bR q^!$ are the six-functor pushforward and upper-shriek
+pullback, and $\holproj$ is Bruinier--Funke holomorphic projection.
+At the level of characteristic cycles, this reproduces
+Theorem~\ref{thm:CC-humbert}: $\CharCyc\bigl(\bR p_* \bR q^!
+\underline{F_5}\bigr) = p_*q^!\CharCyc(\underline{F_5}) =
+[T^*_{H_1}\mathcal{A}_2]$ by Kudla's modularity theorem
+(Borcherds 1999 Thm.~4.5; Kudla 1997 Thm.~5.1).
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The convergence and regularisation inside $\bR p_*$ follow Borcherds
+1998 Thm.~13.3 (singular-theta machinery on $\Lambda^{3,2}$) with
+$c_{F_5}(0) = 10$ (the principal-part constant, paper p.~790),
+yielding a Borcherds weight $\kBKM = c_1(0)/2 = 5$ consistent with the
+slides' weight declaration (slides p.~56--60). The modularity of the
+divisor class $p_*q^!\PrincPart(F_5)$ as a cohomology class on
+$\mathcal{A}_2$ is Borcherds 1999 Thm.~4.5. Holomorphic projection is
+Bruinier--Funke 2004 \S 3. The CC identity follows from the
+base-change formula for characteristic cycles along proper smooth
+correspondences (Kashiwara--Schapira 1990 Thm.~9.4.2).
+\end{proof}
+
+\begin{scope}[Chain-level \textbf{[Theorem]}; the $(\infty, 1)$-derived
+version is \textbf{[Conjecture]}]\label{scope:bruinier-deriv}
+Theorem~\ref{thm:theta-lift-sheaf} is proved at the level of
+$D^b_h(\DMod(\mathcal{A}_2))$ and the smooth locus of
+$\mathcal{A}_2$. The derived enhancement
+$\bR\Phi \colon \bR\cA_2 \to \bR\mathcal{G}_{\mathrm{mn}}$ sending
+$(\infty, 1)$-stacks of Siegel modular forms to
+$(\infty, 1)$-stacks of moonshine-class BKMs (Conj.~\ref{conj:derived-level-N-HMP}
+in wave8\_j5) upgrades $\cF_{\Dfive}$ to an object of
+$\IndCoh_{\cN}(\LocSys_{\SO(3,2)}(\mathrm{Spec}\,\bC))$. This is
+\ClaimStatusConjectured.
+\end{scope}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 3. Singular support and Arinkin--Gaitsgory}
+% ====================================================================
+
+\begin{attack}[A3: $\gDfive$ has no intrinsic geometric-Langlands
+localisation]\leavevmode
+
+\noindent\emph{Ghost theorem.} The exceptional isomorphism
+$\Sp_4 \cong \SO(3,2)$ of type $B_2$ is \emph{self-Langlands-dual}:
+${}^L\Sp_4 = \SO_5 = \SO(3,2)$ up to centre. Hence the Borcherds lift
+is, at the level of $L$-groups, a theta correspondence between a group
+and its own Langlands dual. For Beilinson--Drinfeld geometric
+Langlands on a \emph{zero-dimensional} ``curve'' (i.e.\ a
+$\mathrm{Spec}(\bC)$-point of moduli of bundles), this corresponds to
+a Koszul-dual pair
+$\DMod(\mathcal{A}_2) \leftrightarrow
+\IndCoh_{\cN}(\LocSys_{\SO(3,2)})$, and $\cF_{\Dfive}$ should land
+with controlled singular support.
+
+\noindent\emph{Precise error.} AP-CY63 applies: ``Langlands'' is
+ambiguous across (L1) arithmetic, (L2) Beilinson--Drinfeld,
+(L3) Kapustin--Witten. The paper invokes none; the sheaf avatar
+must pick one. The operative statement at CY scope for $\Dfive$ is
+(L2) Beilinson--Drinfeld, implemented on a single modular-curve
+Galois datum rather than on an algebraic-curve moduli of bundles: the
+local system side is ``$\SO(3,2)$-local systems on
+$\mathrm{Spec}(\bC)$'', i.e.\ representations of $\pi_1 = 1$ trivially,
+but \emph{with} adelic decoration giving the Galois side of the
+Kuga--Satake correspondence.
+
+\noindent\emph{Correct relationship.} Arinkin--Gaitsgory 2015 assigns
+to every object $\cE \in \DMod(\mathcal{A}_2)^{\mathrm{cons}}$ a
+singular-support subset $\SingSupp(\cE) \subset T^*(\mathrm{pt}/\SO_5)$
+(for a zero-dimensional curve). The
+$\cF_{\Dfive}$ constructed above has its singular support
+contained in the nilpotent cone $\cN_{\fso_5} \subset \fso_5^*$,
+because the Kudla--Millson theta kernel is a \emph{unipotent} cycle
+class (its generic stabiliser is a unipotent subgroup). Hence
+$\cF_{\Dfive} \in \IndCoh_{\cN}(\LocSys_{\SO(3,2)}(\mathrm{Spec}\,\bC))$
+in the Arinkin--Gaitsgory formulation.
+\end{attack}
+
+\begin{heal}[H3: $\gDfive$ as a Langlands-character object on
+$\LocSys_{\SO(3,2)}$]\leavevmode
+
+\begin{scope}[Sheafy Langlands avatar; Beilinson--Drinfeld
+(L2) scope]\label{scope:langlands-l2}
+The operative Langlands statement at CY scope for $\Dfive$ is (L2)
+Beilinson--Drinfeld: the sheaf $\cF_{\Dfive} \in
+\DMod(\mathcal{A}_2)^{\rm crit}$ at critical level is conjecturally
+matched with an object
+$\widetilde{\cF}_{\Dfive} \in \IndCoh_{\cN}(\LocSys_{\SO(3,2)}(C))$
+where $C = \mathrm{Spec}(\bC)$ is the ``arithmetic curve''. Morphism
+preservation for the full CY-to-chiral functor $\Phi$ remains
+AP-CY55-open; object-level matching is executed here.
+\end{scope}
+
+\begin{conjecture}[Langlands-character realisation of $\gDfive$]
+\label{conj:langlands-character-gDfive}
+\ClaimStatusConjectured.
+Let $G = \Sp_4 \cong \GSpin(3,2)$ up to isogeny, so $\LG = \SO_5 =
+\SO(3,2)$.
+\begin{enumerate}[label=(\alph*)]
+\item Under the Arinkin--Gaitsgory correspondence for the
+``zero-dimensional curve'' $\mathrm{Spec}(\bC)$,
+\[
+ \cF_{\Dfive} \;\in\; \IndCoh_{\cN}(\LocSys_{\SO_5}(\mathrm{Spec}(\bC)))
+ \;\simeq\; \IndCoh_{\cN}(\fso_5 / \SO_5),
+\]
+i.e.\ $\cF_{\Dfive}$ is a $\SO_5$-equivariant ind-coherent complex
+on the Lie algebra $\fso_5$ with nilpotent singular support
+(Arinkin--Gaitsgory 2015 Thm.~1.3).
+\item The Koszul dual (spectral-side) object is
+$\widetilde{\cF}_{\Dfive} = \Gamma(\mathcal{A}_2, \cF_{\Dfive})^{\rm KD}
+\in U(\gDfive)\text{-mod}^{\rm weight}_{\rho}$, the category of
+weight modules for $\gDfive$ with highest weight $\rho$ (the lattice
+Weyl vector).
+\item The Beilinson--Bernstein localisation
+$\Loc \colon U(\gDfive)\text{-mod} \to \DMod(\mathcal{A}_2)$
+sends the standard Verma module
+$M(\rho)$ to the intermediate extension $j_{1,!*}(\cL_\chi[2])$ of
+Construction~\ref{constr:IC-humbert}; equivalently,
+\[
+ \Loc(M(\rho)) \;\simeq\; \cF_{\Dfive}.
+\]
+\end{enumerate}
+\end{conjecture}
+
+\begin{remark}[Why ``nilpotent singular support'']
+The $\SO_5$-orbit structure on $\cN_{\fso_5}$ has five orbits
+(trivial; minimal; subregular; regular nilpotent; and the
+four-dimensional $\SO_5$-orbit $\cO_{\rm sub}$). The Humbert divisor
+$H_1$'s conormal cone $T^*_{H_1}\mathcal{A}_2$ pulled back along
+$\mathcal{A}_2 \to \mathrm{pt}/\SO_5$ projects to $\cO_{\rm min}$,
+the minimal $\SO_5$-orbit. This identification is the sheafy
+shadow of the statement ``$\gDfive$ is built on the
+$\Lambda^{2,1}_{II}$ lattice'' (paper \S 5): the minimal $\SO_5$-orbit
+corresponds, via the Kostant section, to the Lie-algebra subquotient
+$\Lambda^{2,1}_{II} \otimes \bR$ seen as a nilpotent subalgebra of
+$\fso_5$. This is a \emph{construction-level bridge} between the
+lattice-theoretic Lorgat 2020 and the Arinkin--Gaitsgory framework,
+AP-CY57-compliant (construction, not narration).
+\end{remark}
+
+\begin{remark}[$B_2$ self-duality]
+The exceptional isomorphism
+$\Sp_4 \cong \GSpin(3,2)$ and the coincidence $B_2 = C_2$ give
+$\LG = G$ up to finite centre. Hence Conjecture
+\ref{conj:langlands-character-gDfive} is a \emph{self-dual} instance
+of (L2) geometric Langlands; the automorphic side and the spectral
+side coincide up to a twist by the character $\nu_{\Dfive}$. This
+self-duality has a physical shadow in Kapustin--Witten 2006 for 4d
+$\mathcal{N}=4$ super Yang--Mills with gauge group $\Sp_4$ on
+$\mathcal{A}_2 \times S^2$: $S$-duality fixes $\Sp_4$ and the
+$A$-twist / $B$-twist coincide.  This explains why $\Dfive$ appears
+simultaneously as a Borcherds lift (automorphic, $A$-side) and as a
+BKM denominator (algebraic, $B$-side).
+\end{remark}
+
+\begin{scope}[Chain-level \textbf{[Derivation]} under Arinkin--Gaitsgory;
+full (L2) theorem \textbf{[Conjecture]}]
+Part (a) of Conjecture~\ref{conj:langlands-character-gDfive} is a
+\emph{derivation} using the standard Arinkin--Gaitsgory framework
+applied to our Construction~\ref{constr:IC-humbert}; the obstacle to
+upgrading ``derivation'' to ``theorem'' is the absence of an
+independent Howard--Madapusi Pera 2020 statement at
+$\SO_5$ for the Lorgat 2020 lift specifically. Parts (b) and (c) are
+\ClaimStatusConjectured; part (c) will reduce to existing
+Beilinson--Bernstein theory for the Kac--Moody algebra associated to
+the Cartan datum $\bigl(\begin{smallmatrix}2 & -2 & -2 \\ -2 & 2 & -2
+\\ -2 & -2 & 2\end{smallmatrix}\bigr)$ once a chiral-Langlands
+formulation is constructed (cf.\ wave12\_a9 Conj.~\ref{conj:chiral-langlands-koszul}).
+\end{scope}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 4. Theta correspondence $\Sp_4 \leftrightarrow
+\SO(3,2)$ and $\gDfive$ as its Langlands character}
+% ====================================================================
+
+\begin{attack}[A4: the theta correspondence is the Borcherds lift]
+\leavevmode
+
+\noindent\emph{Ghost theorem.} The $B_2$-exceptional isomorphism
+gives a classical dual reductive pair $(\Sp_4, O(3,2))$ in Howe's
+sense. The Howe correspondence matches automorphic representations of
+$\Sp_4(\bA)$ with automorphic representations of $O(3,2)(\bA)$; for
+the particular form $F_5 \in M^!_{-1/2}(\rho_{\Lambda^{3,2}})$ the
+theta lift is exactly the Borcherds lift of paper Thm.~3
+(Bruinier 2002 \S 4 makes this precise for Maass forms).
+
+\noindent\emph{Precise error.} The slides and paper never identify
+the construction with Howe's theta correspondence. This is a missed
+categorical identification: the lift
+$F_5 \mapsto \Phi(\phi_{0,1})$ from $\SL_2$-modular forms to
+$\Sp_4$-modular forms is exactly $\theta \colon \pi_{\SL_2} \mapsto
+\pi_{\Sp_4}$ for the reductive pair $(\SL_2, O(\Lambda^{3,2}))$. The
+generalised Kac--Moody superalgebra $\gDfive$ then arises as the
+\emph{Langlands character object} attached to the image
+$\pi_{\Sp_4}$ on the Galois / spectral side of the Beilinson--Drinfeld
+(L2) correspondence.
+
+\noindent\emph{Correct relationship.} Write the Howe dual pair
+$(G, G') = (\SL_2, O(\Lambda^{3,2}))$; the covers are
+$\widetilde{G} = \widetilde{\SL_2}$ (metaplectic) and
+$\widetilde{G'} = O^+(\Lambda^{3,2})$. The Weil representation is
+$\omega = \Theta_{\rm KM}$ (the Kudla--Millson realisation of the
+Schr\"odinger--Weil model). The theta lift
+\[
+ \theta \colon \pi^\vee_{\widetilde{G}} \mapsto
+ \theta(\pi^\vee_{\widetilde{G}}) \subset \omega|_{\widetilde{G'}}
+\]
+sends the weakly holomorphic form
+$F_5 \in M^!_{-1/2}(\rho_{\Lambda^{3,2}})$ (a vector in
+$\pi^\vee_{\widetilde{\SL_2}}$) to the Borcherds-lifted form
+$\Phi(\phi_{0,1}) = \tfrac{1}{64}\Dfive(2Z)$ on
+$\Sp_4 \cong O^+(\Lambda^{3,2})$ (after Serre-duality identification
+with $\phi_{0,1}$). The Langlands character of $\theta(F_5)$ is
+exactly the BKM denominator: $\mathrm{char}_\rho(\gDfive) = \Phi$.
+\end{attack}
+
+\begin{heal}[H4: $\gDfive$ is the Langlands character attached to
+$\theta(F_5)$]\leavevmode
+
+\begin{proposition}[Howe correspondence factorisation of the Borcherds
+lift]\label{prop:howe-factorisation}
+\ClaimStatusDerivation.
+The Borcherds lift of paper Thm.~3 factorises
+\[
+ F_5 \;\xmapsto{\ \theta\ }\; \theta(F_5)
+ \;\xmapsto{\ \mathrm{char}_\rho\ }\; \mathrm{char}_\rho(\theta(F_5))
+ \;=\; \tfrac{1}{64}\Dfive(2Z)
+\]
+where:
+\begin{itemize}
+ \item $\theta$ is the Howe theta correspondence for the dual pair
+   $(\SL_2, O(\Lambda^{3,2}))$, implemented by the Kudla--Millson
+   kernel $\Theta_{\rm KM}$;
+ \item $\mathrm{char}_\rho$ is the Langlands character with highest
+   weight $\rho \in \Lambda^{2,1}_{II} \otimes \bQ$ (the lattice
+   Weyl vector, paper p.~500);
+ \item the image $\theta(F_5)$ is the automorphic form
+   $\Phi \in M_5(\Sp_4(\bZ), \nu_{\Dfive})$.
+\end{itemize}
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The Borcherds singular-theta machinery (Borcherds 1998 Thm.~13.3)
+explicitly realises $\Phi$ as the regularised integral
+$\int^{\rm reg} F_5 \Theta_{\rm KM}$; this is the Kudla--Millson theta
+correspondence (Kudla--Millson 1990, esp.\ Thm.~4.1) for the dual
+pair $(\SL_2, O(2,3))$. Gritsenko--Nikulin 1995 identify the resulting
+$\Phi$ as a denominator function of a GBKM superalgebra with simple
+roots parametrised by $\Lambda^{2,1}_{II} \cap \bR_{>0}\cP_{II}$. The
+Weyl--Kac--Borcherds character formula for the trivial representation
+$\bC$ with highest weight $\rho$ (paper eqn.\ \eqref{eq:denom})
+returns exactly $\Phi$; this is the statement
+$\mathrm{char}_\rho(\gDfive) \cdot e^{-2\pi i(\rho, z)} = \Phi(z)$.
+\end{proof}
+
+\begin{corollary}[Sheafy Langlands portrait]
+\label{cor:sheafy-portrait-gDfive}
+\ClaimStatusDerivation.
+The lattice-theoretic $\gDfive$ of Lorgat 2020 coincides with the
+Langlands character of the Howe-theta image of
+$F_5 \in M^!_{-1/2}(\rho_{\Lambda^{3,2}})$ in the dual pair
+$(\SL_2, O(3,2))$. The coincidence is witnessed at the
+D-module / singular-support level by
+Theorems~\ref{thm:CC-humbert} and \ref{thm:theta-lift-sheaf} and
+Conjecture~\ref{conj:langlands-character-gDfive}.
+\end{corollary}
+
+\begin{scope}[Chain-level theorem with Howe and Borcherds as primary
+inputs; (L2) full localisation \textbf{[Conjecture]}]\label{scope:howe}
+Proposition~\ref{prop:howe-factorisation} and
+Corollary~\ref{cor:sheafy-portrait-gDfive} are chain-level
+\textbf{[Derivation]}s using Borcherds 1998 + Kudla--Millson 1990 +
+Gritsenko--Nikulin 1995 as primary inputs. Lifting to an
+$(\infty, 1)$-categorical Arinkin--Gaitsgory equivalence is
+Conjecture~\ref{conj:langlands-character-gDfive}.
+\end{scope}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 5. The Humbert tower at paramodular level
+$N \in \{1, 2, 3, 4, 6\}$}
+% ====================================================================
+
+\begin{attack}[A5: $\gDfive$ avatar extends to the full Gritsenko--Clery
+tower, but only if the sheaf-theoretic construction is functorial in
+$N$]\leavevmode
+
+\noindent\emph{Ghost theorem.} The level-$N$ Gritsenko--Clery tower
+$F^{\rm GC}_N \in M_{c_N(0)/2}(\Gamma_N^+, \nu_{j_N})$ for
+$N \in \{2, 3, 4, 6\}$ (wave8\_j5 Thm.~\texttt{thm:kudla-millson-level-N-lift})
+produces sibling BKMs $\mathfrak{g}_{F^{\rm GC}_N}$ with
+$\kBKM = c_N(0)/2 \in \{4, 3, 2, 1\}$. If the sheaf avatar is
+functorial in $N$ --- i.e.\ the construction
+$F^{\rm GC}_N \mapsto \cF_{F^{\rm GC}_N}$ extends to
+$N \in \{2, 3, 4, 6\}$ --- then the whole tower has a unified
+sheaf-theoretic description.
+
+\noindent\emph{Precise error.} The lattice $\Lambda^{3,2}$ depends on
+$N$: for $N \in \{2, 3, 4, 6\}$ the relevant lattice is the fixed
+sublattice $\Lambda^{3,2}_{(N)}$ under a Mukai symplectic
+automorphism $g_N \in \mathrm{Aut}_{\rm symp}(K3)$ (wave8\_j5 \S(a)).
+The Cartan Gram determinants tower $\det^{(N)} \in \{-24, -18, -12, -6\}$,
+matching $2(c_N(0) - 2)$. The sheaves $\cF_{F^{\rm GC}_N}$ live on
+different Shimura varieties $\Sh(\GSpin(\Lambda^{3,2}_{(N)}))$, not
+on $\mathcal{A}_2$. A uniform sheaf avatar needs a morphism between
+these Shimura varieties.
+
+\noindent\emph{Correct relationship.} The Clery--Gritsenko--Hulek 2015
+paramodular trace operator
+$p^{(N)}_{\Sp} \colon M_k(\Gamma_1^+) \to M_k(\Gamma_N^+)$
+(wave8\_j5 Cycle~5) has a sheaf-theoretic origin: the finite \'etale
+quotient
+\[
+ \Sh(\GSpin(\Lambda^{3,2}_{(N)})) \;\to\;
+ \Sh(\GSpin(\Lambda^{3,2}))^{g_N}
+ \;\hookrightarrow\; \Sh(\GSpin(\Lambda^{3,2}))
+\]
+(fixed-subvariety inclusion followed by a covering), under which the
+sibling sheaves $\cF_{F^{\rm GC}_N}$ are pullbacks / pushforwards of
+$\cF_{\Dfive}$ along the $g_N$-fixed locus. The functoriality in $N$
+is therefore automatic --- it is the sheaf-theoretic shadow of the
+Clery--Gritsenko--Hulek 2015 commutative diagram.
+\end{attack}
+
+\begin{heal}[H5: The Humbert-tower sheaf avatar]\leavevmode
+
+\begin{proposition}[Sheaf-theoretic paramodular tower]
+\label{prop:paramodular-tower-sheaves}
+\ClaimStatusDerivation\ (chain-level; $(\infty,1)$-categorical
+enhancement is Conjecture~\ref{conj:derived-level-N-HMP} imported
+from wave8\_j5).
+For each $N \in \{1, 2, 3, 4, 6\}$ there is a distinguished perverse
+sheaf $\cF_{F^{\rm GC}_N} \in \Perv(\Sh(\GSpin(\Lambda^{3,2}_{(N)})))$
+(with $\Lambda^{3,2}_{(1)} = \Lambda^{3,2}$ and
+$\cF_{F^{\rm GC}_1} = \cF_{\Dfive}$) obtained by the
+Construction~\ref{constr:IC-humbert} applied to the paramodular
+Humbert divisor $H_1^{(N)} \subset
+\Sh(\GSpin(\Lambda^{3,2}_{(N)}))$, satisfying:
+\begin{enumerate}[label=(\alph*)]
+\item $\CharCyc(\cF_{F^{\rm GC}_N}) = [T^*_{H_1^{(N)}}
+\Sh(\GSpin(\Lambda^{3,2}_{(N)}))]$;
+\item $\cF_{F^{\rm GC}_N} = \holproj\, \bR p^{(N)}_* \bR q^{(N),!}
+\underline{F^{(N)}_5}$, i.e.\ the level-$N$ Borcherds lift is the
+pullback--pushforward of the level-$N$ Maass input $F^{(N)}_5$ along
+the level-$N$ Kuga--Satake--Kudla--Millson incidence (wave8\_j5
+Thm.~\texttt{thm:kudla-millson-level-N-lift});
+\item Under the commutative diagram of wave8\_j5 Cycle~5,
+\[
+ \cF_{F^{\rm GC}_N} \;\simeq\;
+ \bigl(g_N\text{-trace}\bigr)_* \cF_{\Dfive}
+\]
+where $g_N$-trace is the $\pi_1$-averaging operator along the
+$g_N$-fixed-locus inclusion (Clery--Gritsenko--Hulek 2015 \S 3).
+\end{enumerate}
+The Borcherds weight along the tower is
+$\kBKM(\cF_{F^{\rm GC}_N}) = c_N(0)/2 \in \{5, 4, 3, 2, 1\}$ at
+$N \in \{1, 2, 3, 4, 6\}$ (Borcherds weight theorem
+\texttt{thm:borcherds-weight-kappa-BKM-universal}).
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Part (a) is immediate from Theorem~\ref{thm:CC-humbert} applied to
+$\Sh(\GSpin(\Lambda^{3,2}_{(N)}))$: the Borcherds product expansion
+of $F^{\rm GC}_N$ has a unique irreducible factor producing an
+irreducible divisor, namely the paramodular Humbert divisor
+$H_1^{(N)}$. Part (b) is Theorem~\ref{thm:theta-lift-sheaf} upgraded
+to level $N$ using wave8\_j5 Thm.~\texttt{thm:kudla-millson-level-N-lift}:
+the regularised integral
+$\int^{\rm reg}_{\Gamma^{(N)}\backslash \bH} F^{(N)}_5(\tau)
+\Theta^{(N)}_{\rm KM}$ at level $N$ equals
+$\bR p^{(N)}_* \bR q^{(N), !} \underline{F^{(N)}_5}$ by the same
+base-change argument as in the proof of
+Theorem~\ref{thm:theta-lift-sheaf}. Part (c) follows from the commuting
+diagram of Clery--Gritsenko--Hulek 2015, $p^{(N)}_{\Sp} \circ
+\mathrm{Lift}_1 = \mathrm{Lift}_N \circ p^{(N)}$ (wave8\_j5 Cycle~5):
+its sheaf-theoretic realisation is a $g_N$-trace of the full-level
+sheaf $\cF_{\Dfive}$, which equals the level-$N$ sheaf
+$\cF_{F^{\rm GC}_N}$.
+\end{proof}
+
+\begin{corollary}[Consolidated sheaf-theoretic portrait across the
+$N \in \{1, 2, 3, 4, 6\}$ tower]\label{cor:tower-portrait}
+\ClaimStatusDerivation.  The sheaves $\{\cF_{F^{\rm GC}_N}\}_{N \in
+\{1, 2, 3, 4, 6\}}$ provide a functorial sheaf-theoretic avatar of
+the full Gritsenko--Clery BKM tower of Conjecture~1 of Lorgat 2020
+(paper eqn.~$(1)$, conjecture p.~121). In particular:
+\begin{itemize}
+ \item every sibling BKM superalgebra $\mathfrak{g}_{F^{\rm GC}_N}$
+   has a Beilinson--Bernstein localisation on
+   $\Sh(\GSpin(\Lambda^{3,2}_{(N)}))$, subject to
+   Conjecture~\ref{conj:langlands-character-gDfive} functorially
+   upgraded in $N$;
+ \item the lift of $\phi^{(g_N)}_{0,1} = \alpha(g_N)\phi_{0,1}
+   + \beta(g_N)\phi_{-2,1}$ (paper p.~118; wave8\_j5 proof)
+   factors as theta correspondence $(\SL_2, O(\Lambda^{3,2}_{(N)}))$
+   followed by Langlands-character extraction with highest weight
+   $\rho^{(N)} = g_N$-image of $\rho$ in $\Lambda^{2,1}_{II,(N)}$;
+ \item $\kBKM$ respects the tower: $\kBKM(\cF_{F^{\rm GC}_N}) =
+   c_N(0)/2 \in \{5, 4, 3, 2, 1\}$, monotonically decreasing in $N$,
+   compatibly with wave8\_j5 Cycles~3--5 and
+   wave8\_j5 Theorem~\texttt{thm:kudla-millson-level-N-lift}(c).
+\end{itemize}
+\end{corollary}
+
+\begin{scope}[Chain-level \textbf{[Derivation]}; (c) Clery--Gritsenko
+--Hulek 2015 input is primary; $(\infty,1)$-enhancement is
+\textbf{[Conjecture]}]
+Proposition~\ref{prop:paramodular-tower-sheaves} is proved
+chain-level via Construction~\ref{constr:IC-humbert} +
+Theorem~\ref{thm:theta-lift-sheaf} + Clery--Gritsenko--Hulek 2015 \S3.
+The upgrade to a functor $\cCH^1(\Sh(\GSpin(\Lambda^{3,2}_{(N)})))$
+is delivered by wave8\_j5 Conj.~\texttt{conj:derived-level-N-HMP}.
+\end{scope}
+\end{heal}
+
+% ====================================================================
+\section{Consolidated sheaf-theoretic portrait and open problems}
+% ====================================================================
+
+\subsection{Portrait assembly}
+
+The five cycles assemble into a consolidated sheaf-theoretic avatar of
+$\gDfive$:
+\begin{itemize}\itemsep 2pt
+ \item \textbf{Ambient.} $X_{\rm BKM} = \mathcal{A}_2 \cong
+   \Sh(\GSpin(\Lambda^{3,2}))$ (Cycle~1, Lemma~1 of Lorgat 2020).
+ \item \textbf{Distinguished sheaf.} $\cF_{\Dfive} =
+   j_{1,!*}(\cL_\chi[2]) \in \Perv(\mathcal{A}_2)$; characteristic
+   cycle $= [T^*_{H_1}\mathcal{A}_2]$ (Cycle~1,
+   Theorem~\ref{thm:CC-humbert}).
+ \item \textbf{Pullback--pushforward.} $\cF_{\Dfive} \simeq \holproj
+   \bR p_* \bR q^! \underline{F_5}$ along the Kuga--Satake--Kudla
+   --Millson incidence $\mathcal{A}_2 \xleftarrow{p} Z_\Gamma
+   \xrightarrow{q} \bH/\Gamma$ (Cycle~2,
+   Theorem~\ref{thm:theta-lift-sheaf}).
+ \item \textbf{Arinkin--Gaitsgory realisation.} $\cF_{\Dfive} \in
+   \IndCoh_{\cN}(\LocSys_{\SO_5}(\mathrm{Spec}\,\bC))$; minimal-orbit
+   singular support (Cycle~3,
+   Conjecture~\ref{conj:langlands-character-gDfive}).
+ \item \textbf{Howe correspondence.} $\gDfive$ is the Langlands
+   character $\mathrm{char}_\rho(\theta(F_5))$ of the theta lift of
+   $F_5$ for the dual pair $(\SL_2, O(3,2))$ (Cycle~4,
+   Proposition~\ref{prop:howe-factorisation}).
+ \item \textbf{Tower.} $\cF_{F^{\rm GC}_N}$ for
+   $N \in \{1, 2, 3, 4, 6\}$ assembles a functorial paramodular
+   sheaf-theoretic tower of Borcherds--Humbert perverse sheaves
+   (Cycle~5, Proposition~\ref{prop:paramodular-tower-sheaves}).
+\end{itemize}
+
+\subsection{The hidden invariance: $\kBKM$ is a
+characteristic-cycle / arithmetic-intersection invariant}
+
+Bruinier--Howard--Yang 2009 (wave9\_p3 end) place
+$\hat{H}_1 \in \cCH^1(\mathcal{A}_2)$ in arithmetic Chow, with the
+arithmetic-intersection pairing $\langle \hat{H}_1, \hat{H}_1 \rangle$
+computing the Borcherds-weight constant. In the sheaf avatar,
+$\kBKM(\cF_{\Dfive}) = 5 = c_1(0)/2$ is the degree of the
+characteristic cycle of $\cF_{\Dfive}$ against the Heegner-divisor
+generating function of Bruinier--Howard 2021 (the modular generating
+function for $\cCH^1(\mathcal{A}_2)$). Hence:
+
+\begin{proposition}[$\kBKM$ as an arithmetic characteristic-cycle
+invariant]
+\label{prop:kBKM-arithmetic-cc}
+\ClaimStatusDerivation.
+$\kBKM(\cF_{\Dfive}) = 5$ equals
+\[
+ \kBKM \;=\; \tfrac{1}{2}\, \deg \bigl(\CharCyc(\cF_{\Dfive}) \cdot
+ \hat{\cL}_{\rm Heegner}\bigr)
+ \;=\; \tfrac{1}{2}\, c_1(0),
+\]
+where $\hat{\cL}_{\rm Heegner}$ is the arithmetic line bundle whose
+first Chern class is the Borcherds weight (Bruinier--Howard 2021
+\S 4), and $c_1(0) = 10$ is the constant Fourier coefficient of $F_5$
+(paper p.~790). This gives the \emph{universal Borcherds weight
+identity} $\kBKM(\cF_{F^{\rm GC}_N}) = c_N(0)/2$ an arithmetic
+characteristic-cycle interpretation across the whole $N$-tower.
+\end{proposition}
+
+\subsection{Open problems}
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{Morphism preservation of $\Phi$ at $d = 3$.} The
+object-level Langlands character $\gDfive = \mathrm{char}_\rho
+\theta(F_5)$ is established; morphism-level functoriality of
+$\Phi \colon D^b(\Coh(K3 \times E)) \to \Etwo\text{-ChirAlg}$ is
+AP-CY55-open. The sheaf avatar alone does not close this.
+\item \textbf{Derived level-$N$ lift.} Conjecture
+\texttt{conj:derived-level-N-HMP} of wave8\_j5 gives an
+$(\infty, 1)$-enhancement; tying it to
+Conjecture~\ref{conj:langlands-character-gDfive}
+(Arinkin--Gaitsgory avatar) requires an explicit tangent-complex
+computation at the level-$N$ basepoint.
+\item \textbf{Galois shadow.} (L1) arithmetic Langlands: the $p$-adic
+shadow of $\cF_{\Dfive}$ should match a Galois representation
+$\rho_{\Dfive} \colon \mathrm{Gal}(\overline{\bQ}/\bQ) \to
+\GSp_4(\bQ_p)$, per the Kuga--Satake correspondence's arithmetic
+realisation. A first-principles identification against the explicit
+Faltings--Chai model of $\mathcal{A}_2$ would close this.
+\item \textbf{Chiral version.} The $\Dfive$ sheaf avatar is
+holomorphic but not yet chiral-factorisation. A chiral-Hecke
+eigensheaf presentation (Beilinson--Drinfeld \S 5.5.4) would match
+the Vol~III CY-A$_3$ equivalence on the elliptic reference curve
+$E \subset K3 \times E$; the candidate is
+$\cF_{\Dfive} \otimes \cH^{\rm ch}_{\SO_5}(E)$ where the second
+factor is the chiral Hecke sheaf for the $\SO_5$-conformal block
+associated to $E$. This remains \ClaimStatusConjectured.
+\item \textbf{Physical shadow.} (L3) Kapustin--Witten: the
+self-dual $\Sp_4$ instance at $\Sigma = \bS^2$ with $A$-twist$=B$-twist
+predicts a category of BPS states on $\mathcal{A}_2 \times \bS^2$
+matching $\gDfive$-modules. A first-principles identification with
+the Witten-index Hilbert space of Costello--Gaiotto 4d
+$\mathcal{N}=4$ SYM with gauge group $\Sp_4$ would close the physical
+avatar.
+\end{enumerate}
+
+\subsection{AP-CYs proposed}
+
+\begin{itemize}
+ \item \textbf{AP-CY66 --- Sheaf avatar omission (High).} Every
+   lattice-theoretic BKM construction proposing a denominator
+   $\Phi_N = F^{\rm GC}_N$ should specify a Shimura-variety
+   sheaf $\cF_{F^{\rm GC}_N}$ with characteristic cycle on the
+   paramodular Humbert divisor; absent this, the
+   ``denominator formula'' is a formal identity without a
+   D-module / perverse-sheaf witness. \emph{Counter:} construct
+   $\cF_{F^{\rm GC}_N}$ via the level-$N$ Kuga--Satake--Kudla
+   --Millson incidence.
+ \item \textbf{AP-CY67 --- Howe correspondence as Borcherds lift
+   (High).} The Borcherds lift of a vector-valued Maass form for a
+   signature-$(2, n)$ lattice $L$ is a special case of the
+   Howe theta correspondence for the dual pair $(\SL_2, O(L))$ (or
+   $(\widetilde{\SL_2}, \widetilde{O(L)})$ metaplectically); every
+   ``Borcherds-product'' reference in the manuscript should either
+   invoke Howe's framework or commit to not doing so.
+   \emph{Counter:} Proposition~\ref{prop:howe-factorisation}.
+ \item \textbf{AP-CY68 --- Characteristic cycle as arithmetic
+   CC-invariant (Medium).} The Borcherds weight identity
+   $\kBKM = c_N(0)/2$ is not only a modular-form statement but an
+   arithmetic characteristic-cycle degree identity on
+   $\cCH^1(\Sh(\GSpin))$ (Proposition~\ref{prop:kBKM-arithmetic-cc}).
+   This is mentionable whenever $\kBKM$ is discussed.
+\end{itemize}
+
+% ====================================================================
+\section*{Summary}
+% ====================================================================
+
+The sheaf-theoretic avatar of the Borcherds--Kac--Moody superalgebra
+$\gDfive$ of Lorgat 2020 is the intermediate-extension perverse sheaf
+$\cF_{\Dfive} = j_{1,!*}(\cL_\chi[2]) \in \Perv(\mathcal{A}_2)$ with
+characteristic cycle $[T^*_{H_1}\mathcal{A}_2]$, realised as the
+derived pullback--pushforward $\holproj \bR p_* \bR q^! \underline{F_5}$
+of the weakly holomorphic Maass form $F_5 \in M^!_{-1/2}
+(\rho_{\Lambda^{3,2}})$ along the Kuga--Satake--Kudla--Millson
+incidence correspondence, placed in
+$\IndCoh_{\cN}(\LocSys_{\SO_5}(\mathrm{Spec}\,\bC))$ with minimal-orbit
+singular support and identified as the Langlands character of the
+Howe theta correspondence $\theta \colon \pi^\vee_{\widetilde{\SL_2}}
+\to \pi_{\Sp_4}$ of the dual pair $(\SL_2, O(3,2))$. The paramodular
+level-$N$ tower at $N \in \{1, 2, 3, 4, 6\}$ assembles functorially
+into a family of Humbert-IC sheaves $\cF_{F^{\rm GC}_N}$ whose
+Borcherds weight $\kBKM = c_N(0)/2$ is the degree of the
+characteristic cycle against the Bruinier--Howard arithmetic
+Heegner-divisor line bundle. The avatar is chain-level theorem at
+the $D^b_h(\DMod(\mathcal{A}_2))$ level; the $(\infty,1)$-categorical
+Arinkin--Gaitsgory enhancement and the Beilinson--Bernstein
+localisation $\Loc(M(\rho)) \simeq \cF_{\Dfive}$ are
+\ClaimStatusConjectured.
+
+\end{document}

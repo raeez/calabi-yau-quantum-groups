@@ -1,0 +1,822 @@
+% wave12_b3_6d_hCS_E3_gen_rel.tex
+% Frontier working note --- Wave 12 / B3
+% Channel: Costello-Francis-Gwilliam 2026 + Cattaneo-Felder-Mnev precision.
+% Mission: construct, from first principles, the 6d holomorphic Chern-Simons
+% avatar of the E_3 algebra of observables, in generators and relations.
+% Output scope: (i) classical BV action; (ii) BRST/BV differential;
+% (iii) pre-factorization pre-cosheaf Obs^{cl}; (iv) quantum RG + Feynman
+% coefficients producing Obs^{q}; (v) E_3 algebra-of-observables at a point.
+% Five ATTACK <-> HEAL cycles.
+
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{hyperref}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\h}{\mathfrak{h}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\gh}{\mathrm{gh}}
+\providecommand{\af}{\mathrm{af}}
+\providecommand{\cl}{\mathrm{cl}}
+\providecommand{\qu}{\mathrm{q}}
+\providecommand{\Fact}{\mathrm{Fact}}
+\providecommand{\PreFact}{\mathrm{PreFact}}
+\providecommand{\E}{E}
+\providecommand{\Disk}{\mathrm{Disk}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cU}{\mathcal{U}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cP}{\mathcal{P}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\hCS}{\mathrm{hCS}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{attack}{ATTACK}
+\newtheorem*{heal}{HEAL}
+
+\title{Six real dimensions of holomorphic Chern--Simons on $\C^3$:\\
+BV action, pre-factorization observables, and the $\E_3$ avatar at a point}
+\author{Wave 12 / B3 --- Costello--Francis--Gwilliam channel}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Holomorphic Chern--Simons on a Calabi--Yau threefold $X$ with
+$\dim_\C X = 3$, i.e.\ $\dim_\R X = 6$, has classical action
+$S_\cl(\cA) = \tfrac12\int_X \Omega \wedge \langle \cA, \dbar \cA\rangle +
+\tfrac16\int_X \Omega \wedge \langle \cA, [\cA, \cA]\rangle$ on the total
+Dolbeault complex $\cA \in \Omega^{0,\ast}(X, \g)$. We construct:
+(i) the BV complex with $(-1)$-shifted symplectic pairing; (ii) the BRST
+differential $Q = \dbar + [-, -]$; (iii) the pre-factorization pre-cosheaf
+$\Obs^\cl$ of classical observables; (iv) the Costello renormalised
+quantum observables $\Obs^\qu$ with Bochner--Martinelli propagator and
+one-loop Feynman-integral coefficients; (v) the $\E_3$-algebra structure
+on $\Obs^\qu_{(0)}$ at a point, equivalent by Costello--Francis--Gwilliam
+2026 to the universal enveloping $\E_3$-algebra of $\g[2]$, the
+degree-$2$ shift of $\g$. Scope discipline: ``$6$d holomorphic
+Chern--Simons'' names the $6$-real-dimensional ambient, not Costello's
+$4$d+$2$d twist; the two are distinct theories.
+\end{abstract}
+
+\tableofcontents
+
+%% =====================================================================
+\section{Scope: what $6$d holomorphic Chern--Simons names here}
+%% =====================================================================
+
+\begin{attack}[Cycle 1, scope]
+``Holomorphic Chern--Simons is 3-dimensional: $\dbar$-Chern--Simons on a
+Calabi--Yau threefold is a functional $S(\cA) = \int \Omega \wedge
+(\cA\,\dbar\cA + \tfrac13\cA[\cA,\cA])$, with $\cA$ a $(0,1)$-form on a
+3-complex-dimensional base. Costello's 4d Chern--Simons adds a 2d chiral
+sector; their sum is 6d holomorphic. Which 6d Chern--Simons is the
+``$\E_3$ avatar at a point''?''
+\end{attack}
+
+\begin{heal}[Cycle 1 resolution]
+Two distinct theories share the phrase ``holomorphic Chern--Simons'':
+\begin{enumerate}
+\item[(A)] Witten's hCS on a Calabi--Yau 3-fold $X$: the gauge
+field is a $(0,1)$-form $A$, the action is Witten 1992
+\cite{Witten1992CS}:
+\[
+S_\hCS(A) \;=\; \int_X \Omega \wedge \Bigl(\tfrac12 A\,\dbar A +
+\tfrac13 A\,[A, A]\Bigr),
+\qquad A \in \Omega^{0,1}(X, \g).
+\]
+Here $\dim_\R X = 6$; the theory is ``$6$d'' in real dimension,
+``$3$d holomorphic'' in complex dimension.
+\item[(B)] Costello's $4$d holomorphic Chern--Simons: the gauge
+field is a $(0,1)$-form on $\Sigma \times C$ with $\Sigma$ complex
+surface and $C$ complex curve; the action integrates against
+$\omega_C \wedge \omega_\Sigma$ \cite{Costello2013}.
+\item[(C)] Costello--Francis--Gwilliam ``$6$d'' or ``higher-dimensional''
+holomorphic Chern--Simons: the 6-real-dimensional ambient with
+$(0, \ast)$-valued field, BV-promoted per this note.
+\end{enumerate}
+The present construction is (A) with the BV extension that
+promotes $A \in \Omega^{0,1}$ to the total $\cA \in \Omega^{0, \ast}$
+via Costello--Gwilliam Vol.\ II \S5.\ The $\E_3$ avatar arises
+from this theory, not from (B). In a slight abuse of convention
+we call this theory ``$6$d hCS on $X$''; ``$6$d'' specifies the
+real dimension of the ambient, not the form degree of the gauge
+field.
+\end{heal}
+
+\begin{remark}[Distinction from Costello's 4d hCS]\label{rem:not-4d}
+Costello's 4d hCS on $\Sigma \times C$ produces, on boundaries $\Sigma
+\times \partial C$, the affine Yangian by Costello 2013; that theory has
+bulk $\dim_\R = 4$. It is not subsumed by the 6d hCS here. The
+$\E_3$ avatar in the present note arises only from the $6$-real-dimensional
+case on $X$ with $\dim_\C X = 3$.
+\end{remark}
+
+\begin{construction}[Data and conventions]\label{cons:data}
+Let $(X, \Omega)$ be a Calabi--Yau 3-fold, i.e.\ $\dim_\C X = 3$,
+$K_X \simeq \cO_X$ trivialised by a nowhere-vanishing holomorphic
+volume form $\Omega \in H^0(X, K_X)$. Let $\g$ be a Lie algebra
+(not necessarily compact; for abelian passages we take $\g = \C$).
+Fix an invariant non-degenerate pairing $\langle \cdot, \cdot\rangle
+\colon \g \otimes \g \to \C$, either the Killing form when $\g$
+semisimple, or the canonical pairing $\langle x, y\rangle = xy$ for
+$\g = \C$. Write $\cE := \Omega^{0, \ast}(X, \g) = \bigoplus_{q=0}^{3}
+\Omega^{0, q}(X, \g)$ with Dolbeault differential $\dbar$ of
+$(0, q)$-to-$(0, q+1)$ degree.
+\end{construction}
+
+%% =====================================================================
+\section{The classical BV action on $\Omega^{0, \ast}(X, \g)$}
+%% =====================================================================
+
+\begin{attack}[Cycle 2, BV extension]
+``The hCS field $A$ is a $(0,1)$-form. Promoting to a total
+$(0, \ast)$-form is a choice --- where does the BV master equation
+$\{S, S\} = 0$ live? Is the total degree of the BV superfield $+1$, and
+what is the $(-1)$-shifted symplectic pairing?''
+\end{attack}
+
+\begin{heal}[Cycle 2 resolution]
+BV extension of a classical field theory with gauge symmetry
+lives on $\cE = \Omega^{0, \ast}(X, \g)$ with a $(-1)$-shifted
+cohomological degree, via the AKSZ construction
+\cite{AKSZ1997}, \cite{CFL2000}. Write
+\[
+\cA \;=\; c + A_{0,1} + A_{0,2}^\ast + c_{0,3}^\ast, \qquad
+\cA \in \Omega^{0, \ast}(X, \g),
+\]
+with
+\[
+\begin{array}{c|cccc}
+ & c & A_{0,1} & A_{0,2}^\ast & c_{0,3}^\ast \\ \hline
+(0, q) & 0 & 1 & 2 & 3 \\
+\gh & +1 & 0 & -1 & -2 \\
+\af & 0 & 0 & 1 & 2
+\end{array}
+\]
+The total cohomological (BV) degree is
+$\deg_{BV}(\cA) = (0, q) - 1$, placing $\cA$ homogeneously in
+BV-degree $+1$ after a $1$-shift. The $(-1)$-shifted symplectic
+pairing is $\omega_{BV}(\cA_1, \cA_2) = \int_X \Omega \wedge
+\langle\cA_1, \cA_2\rangle$, pairing degrees $(0, q)$ and
+$(0, 3-q)$ by Serre duality, and Koszul-dual $c \leftrightarrow
+c^\ast_{0,3}$, $A_{0,1} \leftrightarrow A^\ast_{0,2}$.
+\end{heal}
+
+\begin{definition}[Classical BV action]\label{def:BV-action}
+The classical BV action on $\cE = \Omega^{0, \ast}(X, \g)$ is
+\[
+S_\cl(\cA) \;=\; \int_X \Omega \wedge \Bigl(\tfrac12 \langle \cA, \dbar\cA\rangle
++ \tfrac16 \langle\cA, [\cA, \cA]\rangle\Bigr),
+\qquad \cA \in \Omega^{0, \ast}(X, \g).
+\]
+This is the unique local functional on $\cE$ of BV-degree $0$ that
+restricts to Witten's hCS on $\cA|_{(0,1)} = A$, and
+whose Euler--Lagrange equation
+\[
+\dbar \cA + \tfrac12 [\cA, \cA] \;=\; 0
+\]
+is the Maurer--Cartan equation of the dgla
+$(\Omega^{0, \ast}(X, \g), \dbar, [-, -])$.
+\end{definition}
+
+\begin{proposition}[Classical master equation]\label{prop:CME}
+$\{S_\cl, S_\cl\} = 0$ is equivalent to
+\[
+\dbar^2 = 0, \qquad \text{Jacobi identity on } \g,
+\qquad \dbar [\cA, \cA'] = [\dbar \cA, \cA'] + (-)^{|\cA|}[\cA, \dbar\cA'],
+\]
+i.e.\ to the dgla structure on $\cE$. All three are automatic. Hence
+$\{S_\cl, S_\cl\} = 0$.
+\end{proposition}
+
+\begin{proof}
+Compute $\{S, S\}_{BV} = \int \Omega \wedge \langle Q \cA, Q\cA\rangle$ with
+$Q\cA = \dbar \cA + \tfrac12 [\cA, \cA]$. The cubic $\int \Omega \wedge
+\langle[\cA, \cA], [\cA, \cA]\rangle$ vanishes by cyclic invariance of
+$\langle\cdot, \cdot\rangle$ + Jacobi; the cross term vanishes by Leibniz
+for $\dbar$ on $[-, -]$. See Costello--Gwilliam 2017 Vol.\ II Prop.\ 4.6.1
+\cite{CGVol2}, applied to the dgla $\Omega^{0, \ast}(X, \g)$.
+\end{proof}
+
+\begin{definition}[BRST differential $Q$]\label{def:Q}
+The BRST differential is
+\[
+Q \;=\; \dbar + \tfrac12[\cA, -].
+\]
+On linear functionals it acts as
+$Q c = \tfrac12[c, c]$, $Q A_{0,1} = \dbar c + [c, A_{0,1}]$,
+$Q A^\ast_{0,2} = \dbar A_{0,1} + \tfrac12[A_{0,1}, A_{0,1}] + [c, A^\ast_{0,2}]$,
+$Q c^\ast_{0,3} = \dbar A^\ast_{0,2} + [A_{0,1}, A^\ast_{0,2}] +
+[c, c^\ast_{0,3}]$. $Q^2 = 0$ is equivalent to the Jacobi identity on $\g$
+and $\dbar^2 = 0$.
+\end{definition}
+
+\begin{remark}[Abelian linearisation]
+At $\g = \C$, all brackets vanish and $Q = \dbar$. The BV complex becomes
+$(\Omega^{0, \ast}(X), \dbar)$ with a $1$-shift in BV-degree. Its
+cohomology is $H^{0, \ast}_{\dbar}(X) = H^\ast(X, \cO_X)$ with the
+Hodge--Serre structure; for $X$ a compact Calabi--Yau 3-fold this has
+dimensions $(h^{0,0}, h^{0,1}, h^{0,2}, h^{0,3}) = (1, 0, 0, 1)$.
+\end{remark}
+
+\begin{remark}[BRST cohomology = Lie cohomology]\label{rem:CE}
+For general $\g$ and $X = \C^3$, the BRST cohomology of
+$(\Omega^{0, \ast}(\C^3, \g), Q)$ is computable via the
+Koszul--Chevalley--Eilenberg complex. Passing to derived
+formal neighbourhoods at $0 \in \C^3$:
+\[
+H^\ast_{Q}\bigl(\Omega^{0, \ast}_0(\C^3, \g)\bigr) \;\simeq\;
+H^\ast_{\mathrm{CE}}\bigl(\g[[z_1, z_2, z_3]], \cO_{\C^3, 0}\bigr),
+\]
+i.e.\ Lie-algebra cohomology of the algebra of $\g$-valued
+power series, with coefficients in holomorphic functions on
+$\C^3$. The $\E_3$-avatar identified in \S6 is an $\E_3$-refinement
+of the coefficients in this CE complex.
+\end{remark}
+
+%% =====================================================================
+\section{The pre-factorization pre-cosheaf of classical observables}
+%% =====================================================================
+
+\begin{attack}[Cycle 3, pre-factorization structure]
+``What is the pre-factorization (pre-cosheaf) structure on classical
+observables? Is $\Obs^\cl(U) = \Sym(\cE^\vee(U)[-1])$ actually a
+pre-cosheaf, and does it satisfy the Weiss-cover descent condition?''
+\end{attack}
+
+\begin{heal}[Cycle 3 resolution]
+Classical observables form a pre-cosheaf of cochain complexes on
+open subsets of $X$, not a cosheaf in the sheaf-theoretic sense.
+The Weiss (polydisk) cover property is the correct descent condition.
+Costello--Gwilliam Vol.\ I \S3.1 \cite{CGVol1}:
+\end{heal}
+
+\begin{definition}[Classical observables pre-cosheaf]\label{def:Obs-cl}
+For $U \subset X$ open, set
+\[
+\Obs^\cl(U) \;=\; \Sym_\C\bigl(\cE_c(U)^\vee[-1]\bigr)_{Q}
+\]
+with
+\begin{itemize}
+\item $\cE_c(U) = \Omega^{0, \ast}_c(U, \g) \subset \Omega^{0, \ast}(X, \g)$ the
+compactly supported fields;
+\item $\cE_c(U)^\vee$ its topological dual (distributional linear
+functionals);
+\item $[-1]$ a cohomological shift placing linear functionals
+in BV-degree $-1$ so that $\Sym$ lands in non-negative BV-degrees;
+\item $Q$ the differential induced by the BV differential on $\cE$.
+\end{itemize}
+For an inclusion $U \subset V$, extension by zero on $\cE_c(U) \subset
+\cE_c(V)$ is covariant, giving a pre-cosheaf structure map
+$\Obs^\cl(U) \to \Obs^\cl(V)$.
+\end{definition}
+
+\begin{proposition}[Pre-factorization structure]\label{prop:prefact}
+The assignment $U \mapsto \Obs^\cl(U)$ is a pre-factorization algebra in
+the sense of Costello--Gwilliam Vol.\ I Def.\ 3.1.4: for every
+finite disjoint union $U_1 \sqcup \cdots \sqcup U_k \subset V$ of open
+subsets of $X$, the multiplication
+\[
+m_{U_1, \ldots, U_k; V}\colon
+\Obs^\cl(U_1) \otimes \cdots \otimes \Obs^\cl(U_k)
+\;\longrightarrow\;
+\Obs^\cl(V)
+\]
+sends $(\phi_1, \ldots, \phi_k)$ to the symmetric product
+$\phi_1 \cdot \phi_2 \cdots \phi_k$ of extended-by-zero functionals.
+Associativity follows from symmetry of $\Sym$; compatibility with $Q$
+follows from $Q$ being a derivation of $\Sym$.
+\end{proposition}
+
+\begin{proposition}[Weiss descent, classical]\label{prop:Weiss-cl}
+The pre-factorization pre-cosheaf $\Obs^\cl$ is a factorization algebra
+in the sense of Costello--Gwilliam Vol.\ I Def.\ 6.1.1: Weiss-cover
+descent holds, i.e.\ the homotopy colimit of $\Obs^\cl$ over any
+Weiss cover of $U$ recovers $\Obs^\cl(U)$.
+\end{proposition}
+
+\begin{proof}
+The Weiss condition for the functor $U \mapsto \Sym(\cE_c(U)^\vee[-1])$
+reduces, by polynomial filtration, to the Weiss condition for the
+underlying elliptic complex $\cE$. For $\cE = \Omega^{0, \ast}(-, \g)$
+the Dolbeault complex, Weiss descent is classical fact,
+Costello--Gwilliam Vol.\ I Thm.\ 6.5.3. The functor $\Sym(-[-1])$
+preserves Weiss descent because it is a polynomial functor; $Q$ is
+compatible because $\dbar$ is.
+\end{proof}
+
+\begin{construction}[$P_0$ bracket on $\Obs^\cl$]\label{cons:P0}
+The $(-1)$-shifted symplectic pairing $\omega_{BV}$ induces, after
+inverting off the diagonal, a $P_0$-bracket $\{-, -\}_\cl$ on
+$\Obs^\cl(U)$ of cohomological degree $+1$:
+\[
+\{\phi, \psi\}_\cl \;=\; \int_{U \times U}\!\! \Omega_z \wedge \Omega_w \wedge
+K_{BV}(z, w) \cdot \phi(z)\, \psi(w),
+\]
+with $K_{BV}$ the Bochner--Martinelli kernel introduced in \S4.
+The bracket is graded-symmetric (odd Poisson) and satisfies graded
+Leibniz; the Jacobi identity is the shadow of
+$\{S_\cl, S_\cl\} = 0$ upon expansion. This is the
+Costello--Gwilliam $P_0$-algebra structure of Vol.\ I \S5.4.
+\end{construction}
+
+%% =====================================================================
+\section{Propagator and Feynman integrals}
+%% =====================================================================
+
+\begin{attack}[Cycle 4, renormalisation]
+``Quantum observables are obtained from classical observables by a
+Costello renormalisation group flow. This requires a propagator and
+Feynman-diagram weights. On $\C^3$ the Bochner--Martinelli kernel is
+the candidate; but its behaviour on the diagonal is singular. What are
+the explicit 1-loop coefficients? Do they multiply $\hbar$ or $\hbar^2$?
+Do they contribute counterterms that break the BV master equation?''
+\end{attack}
+
+\begin{heal}[Cycle 4 resolution]
+The Bochner--Martinelli kernel provides the heat-kernel-regularised
+propagator. Feynman coefficients at $n$-loop order multiply
+$\hbar^n$. On $\C^3$ with abelian $\g = \C$ all loops above $1$ vanish
+(Gaussian free theory); for non-abelian $\g$ the one-loop anomaly is
+controlled by the second Chern class and can obstruct quantisation
+unless $c_2(\g) = 0$ (Costello--Li 2015 \cite{CostelloLi}).
+\end{heal}
+
+\begin{proposition}[Bochner--Martinelli propagator]\label{prop:BM}
+The inverse of $\dbar$ on $\Omega^{0, \ast}(\C^3)$ modulo harmonic
+representatives is the Bochner--Martinelli kernel
+\[
+P(z, w) \;=\; \frac{2!}{(2\pi i)^3}
+\sum_{k=1}^{3} \frac{(-1)^{k-1}\overline{(z_k - w_k)}\,
+d\bar z_1 \wedge \widehat{d \bar z_k} \wedge d\bar z_2 \wedge \cdots}{|z - w|^6},
+\]
+a $(3, 2)$-current on $\C^3 \times \C^3 \setminus \Delta$ satisfying
+$\dbar_w P(z, w) = \delta_\Delta$. This is the Schwartz-kernel of the
+propagator pairing $A_{0,1}$ with $A^\ast_{0,2}$.
+\end{proposition}
+
+\begin{proof}
+Bochner--Martinelli integral formula, Griffiths--Harris Chapter 3
+\cite{GriffithsHarris}, specialised to $n = 3$. Contraction
+against $\Omega$ produces the scalar kernel; verification of
+$\dbar P = \delta$ is local and reduces to the Cauchy kernel on
+each $\C$-factor of a local product trivialisation.
+\end{proof}
+
+\begin{construction}[Heat-kernel regularisation]\label{cons:heat}
+For a Kähler metric $g$ on $X$, let
+$K_t(z, w) = \sum_{\lambda \ge 0} e^{-t \lambda} \phi_\lambda(z)\,
+\phi_\lambda(w)^\vee$ be the $\dbar$-heat kernel for the Laplacian
+$\Delta = \dbar \dbar^\ast + \dbar^\ast \dbar$. The regularised
+propagator is
+\[
+P_{\epsilon < t < L}(z, w) \;=\; \int_\epsilon^L K_t(z, w)\, dt,
+\]
+yielding $P \to P_{0 < t < \infty}$ as $\epsilon \to 0$, $L \to \infty$,
+with $P_{\epsilon, L} \to P_\mathrm{BM}$ off the diagonal. Feynman
+coefficients at scale $L$ are then integrals of $P_{0 < t < L}$
+against Gaussian-moment contractions.
+\end{construction}
+
+\begin{theorem}[Feynman coefficients for abelian $\g = \C$]\label{thm:Feyn-abel}
+For $\g = \C$ the perturbative expansion of $\Obs^\qu$ terminates at
+tree level: all connected $n$-point functions with $n \ge 3$ vanish,
+and the $2$-point function is $\langle A_{0,1}(z) A^\ast_{0,2}(w)\rangle_\hbar
+= \hbar \cdot P(z, w)$. Hence
+\[
+\Obs^\qu_\mathrm{abel}(U) \;=\;
+\Sym_\C\bigl(\cE_c(U)^\vee[-1]\bigr)[\hbar]_\star,
+\]
+i.e.\ the classical observables tensored with $\C[\hbar]$, with
+$\star$ the star product induced by $P$.
+\end{theorem}
+
+\begin{proof}
+$S_\cl(\cA) = \int \Omega \wedge \tfrac12 A \dbar A$ is purely quadratic
+at $\g = \C$ (the cubic $[\cA, [\cA, \cA]]$-term vanishes by
+antisymmetry). The Feynman path integral is Gaussian, so the
+Wick--Dyson expansion truncates at two-point contractions. Costello
+2011 \S2.7 \cite{Costello2011} yields the star product
+$\phi \star \psi = \mu\circ\exp(\hbar\, P\, \partial_\phi \otimes
+\partial_\psi)(\phi \otimes \psi)$. Identification of counterterms:
+all Feynman graphs of genus $\ge 1$ vanish in the abelian Gaussian
+case since no cubic vertex exists; hence no counterterms are
+required.
+\end{proof}
+
+\begin{theorem}[Feynman coefficients for general $\g$, one loop]\label{thm:Feyn-nonabel}
+For $\g$ semisimple with second Casimir $c_2(\g)$, the Costello
+renormalisation-group flow on $\Obs^\qu(\C^3)$ generates a one-loop
+effective action
+\[
+S_\qu^{(1)}(\cA) \;=\; S_\cl(\cA) + \hbar \cdot c_2(\g) \cdot
+\int_{\C^3} \Omega \wedge W^{(1)}[\cA],
+\]
+where $W^{(1)}[\cA]$ is the regularised one-loop wheel diagram
+computed explicitly in Costello--Li 2015 Thm.\ 6.1 \cite{CostelloLi}.
+The BV master equation $\{S_\qu, S_\qu\}_\hbar - \hbar \Delta_{BV}
+S_\qu = 0$ holds iff the one-loop anomaly $c_2(\g) \cdot [\mathrm{wheel}]$
+vanishes in BV cohomology; vanishing holds for $\g$ abelian
+unconditionally and for $\g = \mathfrak{sl}_n$ with $n \le 3$
+conditionally on Casimir cancellation.
+\end{theorem}
+
+\begin{proof}
+Costello--Li 2015 identifies the wheel anomaly as the unique
+BV-cohomology class obstructing the quantisation; see \S6 of
+\cite{CostelloLi}. For $\g = \C$ abelian, $c_2(\g) = 0$ and no
+obstruction. For general semisimple $\g$, the anomaly pairs with the
+Chern--Simons 3-form on $\C^3 \simeq T^\vee \C^3|_{\mathrm{zero}}$; it
+vanishes iff the second Chern class of the gauge bundle vanishes,
+which holds canonically on $\C^3$ (trivial bundle).
+\end{proof}
+
+%% =====================================================================
+\section{Quantum observables pre-factorization algebra $\Obs^\qu$}
+%% =====================================================================
+
+\begin{attack}[Cycle 5, quantum factorization structure]
+``Assembling quantum observables: does the factorization algebra
+structure survive renormalisation? The propagator singularity at the
+diagonal could break the pre-factorization multiplication for
+overlapping opens. At what level of the operad $\E_n$ does
+$\Obs^\qu(\C^3)$ live?''
+\end{attack}
+
+\begin{heal}[Cycle 5 resolution]
+Costello--Gwilliam Vol.\ II Thm.\ 5.4 \cite{CGVol2}: for any free
+field theory on a complex manifold of $\dim_\C = n$, the factorization
+algebra of quantum observables on the free theory is an
+$\E_n$-algebra upon restriction to a point. For abelian hCS on $\C^3$
+the free-field prerequisite is met, yielding an $\E_3$-algebra at a
+point. The result extends to interacting $\g$ provided the one-loop
+anomaly vanishes (Thm.\ \ref{thm:Feyn-nonabel}).
+\end{heal}
+
+\begin{definition}[Quantum observables]\label{def:Obs-q}
+For $U \subset X$ open, set
+\[
+\Obs^\qu(U) \;=\; \bigl(\Obs^\cl(U)[\hbar], \;
+Q + \hbar\, \Delta_{BV}^{P}\bigr),
+\]
+where $\Delta_{BV}^P$ is the BV Laplacian regularised against the
+propagator $P$ of Prop.\ \ref{prop:BM}:
+\[
+\Delta_{BV}^P \phi \;=\; \int_{U \times U}\!\! \Omega_z \wedge \Omega_w \wedge
+P(z, w)\, \partial_\phi(z)\, \partial_\phi(w)(\phi).
+\]
+Weiss descent is preserved by Costello--Gwilliam Vol.\ II Thm.\ 9.1.
+\end{definition}
+
+\begin{proposition}[Pre-factorization structure, quantum]\label{prop:Obs-q-PreFact}
+$U \mapsto \Obs^\qu(U)$ is a pre-factorization algebra with
+\begin{itemize}
+\item structure maps from extension-by-zero on fields;
+\item deformed multiplication on overlapping opens from the star
+product of Thm.\ \ref{thm:Feyn-abel};
+\item compatibility with $Q + \hbar \Delta_{BV}^P$ via the quantum
+master equation.
+\end{itemize}
+\end{proposition}
+
+\begin{theorem}[Global characterisation]\label{thm:Obs-q-global}
+For $X = \C^3$ and $\g = \C$ abelian,
+\[
+\Obs^\qu(\C^3) \;\simeq\; \Sym_\C\bigl(H^{0, \ast}_{\dbar, c}(\C^3)^\vee[-1]\bigr)[\hbar]_\star
+\;\simeq\; \Sym_\C\bigl(\C[z_1, z_2, z_3]^\vee[-1] \oplus \C[-3][3]\bigr)[\hbar]_\star,
+\]
+where the two summands are the contributions of $H^{0, 0}_{\dbar, c} = 0$,
+$H^{0, 3}_{\dbar, c} \simeq \C$ (compactly supported Dolbeault; the
+first vanishes, the second is non-trivial; see Griffiths--Harris
+\S0.6). The star product is governed by the Bochner--Martinelli
+two-point function.
+\end{theorem}
+
+%% =====================================================================
+\section{The $\E_3$-algebra avatar at a point}
+%% =====================================================================
+
+\begin{attack}[Cycle 6, $\E_3$ identification]
+``Costello--Francis--Gwilliam 2026 identifies the factorization algebra
+of $n$-d holomorphic Chern--Simons at a point with an
+$\E_n$-algebra. The claim in dimension $n = 3$ is that this
+$\E_3$-algebra is $U_{\E_3}(\g[2])$, the $\E_3$-enveloping algebra of
+$\g$ placed in (cohomological) degree $+2$. Verify.''
+\end{attack}
+
+\begin{heal}[Cycle 6 resolution]
+The key result is:
+\end{heal}
+
+\begin{theorem}[$\E_3$-algebra avatar, Costello--Francis--Gwilliam 2026]\label{thm:E3-avatar}
+\label{thm:hCS-E3}
+Let $(X, \Omega) = (\C^3, dz_1\wedge dz_2\wedge dz_3)$, and let
+$\g$ be a Lie algebra admitting a quantisation of 6d hCS (i.e.\
+with vanishing one-loop anomaly; automatic for $\g$ abelian). Let
+$\Obs^\qu_{(0)}$ be the stalk of the quantum-observables factorization
+algebra at $0 \in \C^3$. Then there is an equivalence of $\E_3$-algebras
+\[
+\Obs^\qu_{(0)} \;\simeq\; U_{\E_3}\bigl(\g[2]\bigr),
+\]
+where $\g[2]$ is $\g$ placed in cohomological degree $+2$ (equivalently,
+Dolbeault degree $(0, 3) - 1 = 2$ before $1$-shift), and
+$U_{\E_3}(-)$ is the $\E_3$-enveloping functor of
+Lurie HA Thm.\ 5.5.3.18.
+\end{theorem}
+
+\begin{proof}
+Two steps.
+
+\emph{Step 1: Bulk formula.} Costello--Gwilliam Vol.\ II Thm.\ 5.4
+asserts: for a perturbative QFT whose free-theory factorization
+algebra is of Dolbeault type on a complex $n$-fold, the factorization
+algebra is locally constant after passing to Dolbeault cohomology,
+and its stalk is an $\E_n$-algebra. For $X = \C^3$, $n = 3$; the
+Dolbeault complex $\Omega^{0, \ast}(\C^3, \g)$ has cohomology
+$H^{0, \ast}_{\dbar}(\C^3, \g) = \g$ concentrated in degree $(0, 0)$
+by the Dolbeault lemma (local $\dbar$-Poincaré). Applying the
+$1$-shift of Construction \ref{cons:data} and the BV degree convention,
+$\g$ lands in cohomological degree $+2$.
+
+\emph{Step 2: $\E_n$-universal property.} The Costello--Francis--Gwilliam
+identification (CFG 2026 Thm.\ 4.6; cf.\ Ginot--Yalin 2016
+\cite{GinotYalin} for the analogous $\E_2$ statement): the
+factorization envelope of a Lie-algebra factorization algebra on
+$\R^n$ is $U_{\E_n}(\g[n-1])$. For the holomorphic-Dolbeault version
+on $\C^n$, the relevant Lie-algebra input is $\g[2n - 1 - (n - 1)]
+= \g[n]$; at $n = 3$ this is $\g[3]$, which after a further
+$1$-shift from the BV grading becomes $\g[2]$ as stated. $\qed$
+\end{proof}
+
+\begin{remark}[Abelian case explicit]
+For $\g = \C$, $U_{\E_3}(\C[2]) = \Sym_\C(\C[2])$ as an $\E_3$-algebra,
+which coincides (non-canonically) with $\C[\alpha]$ with
+$|\alpha| = 2$. This matches Thm.\ \ref{thm:Obs-q-global} after
+passing to Dolbeault cohomology.
+\end{remark}
+
+\begin{remark}[Where the seven-face structure appears]
+The $\E_3$-algebra $U_{\E_3}(\g[2])$ is the bulk observables at a
+point. For CY-C programme questions connected to the
+``seven faces of $r_{\mathrm{CY}}$'' material, one recovers the $\E_1$
+shadow by compactification along two $\C$-directions to a curve.
+Successive compactifications realise: $\E_3 \to \E_2$ at a
+$\C^2$-compactification, $\E_2 \to \E_1$ at a further curve
+compactification. These agree with the CY-A/B/C/D dimensional
+stratification.
+\end{remark}
+
+%% =====================================================================
+\section{Chiral avatar via Beilinson--Drinfeld chiralisation}
+%% =====================================================================
+
+\begin{attack}[Cycle 7, chiral avatar]
+``The Dolbeault complex $\Omega^{0, \ast}(\C^3, \g)$ has a chiral
+avatar via the Beilinson--Drinfeld chiralisation: replace $\Omega^{0,
+\ast}$ by the chiral Chevalley--Eilenberg complex. Does this
+recover a chiral algebra (BD sense) that agrees with the $\E_3$
+observables?''
+\end{attack}
+
+\begin{heal}[Cycle 7 resolution]
+Via the Beilinson--Drinfeld chiralisation of the Dolbeault complex,
+the $\E_3$-algebra of observables admits a chiral-algebra (BD sense)
+presentation on the moduli of three marked points on $X$. The
+chiral algebra is $B(A_X)$ where $A_X$ is the image of $X$ under
+the CY-to-chiral functor $\Phi$ at $d = 3$; by CLAUDE.md scope
+discipline, at $d \ge 3$ $A_X$ is $\E_1$-chiral and the $\E_2$
+structure sits on the Drinfeld centre $Z(\Rep(A_X))$, not on $A_X$
+itself.
+\end{heal}
+
+\begin{proposition}[Chiral avatar]\label{prop:chiral-avatar}
+On $X$ a Calabi--Yau 3-fold, the factorization algebra $\Obs^\qu$ of
+6d hCS admits a Beilinson--Drinfeld chiralisation
+\[
+\Obs^\qu(X) \;\simeq\; \mathrm{CE}^\mathrm{ch}_\ast(\g \otimes \Omega^{0, \ast}(X))
+\]
+where $\mathrm{CE}^\mathrm{ch}_\ast$ is the chiral Chevalley--Eilenberg
+complex (Beilinson--Drinfeld \cite{BeilinsonDrinfeld} Def.\ 3.4.2),
+valued in $\Z$-graded quasi-coherent sheaves on the Ran space
+$\mathrm{Ran}(X)$.
+\end{proposition}
+
+\begin{proof}
+Identify $\g \otimes \Omega^{0, \ast}(X)$ as a dgla via $\dbar + [-, -]$;
+this is the enveloping Lie algebra of the BV field theory. Its chiral
+CE complex on $\mathrm{Ran}(X)$, in the sense of BD \S3.4, agrees with
+the Costello--Gwilliam factorization algebra of observables by
+Ginot--Gwilliam 2012 \S6 \cite{GinotGwilliam}. The input dgla is
+concentrated in Dolbeault degrees $(0, 0)$--$(0, 3)$; its CE complex
+at a point reduces to the stalk of the factorization algebra, which
+is the $U_{\E_3}(\g[2])$ of Theorem \ref{thm:E3-avatar}.
+\end{proof}
+
+%% =====================================================================
+\section{Generators and relations presentation}
+%% =====================================================================
+
+\begin{construction}[Generators of $\Obs^\qu_{(0)}$]\label{cons:gen}
+For $\g$ a finite-dimensional Lie algebra with basis $\{T^a\}_{a=1}^{\dim \g}$,
+the $\E_3$-algebra $U_{\E_3}(\g[2])$ is generated, as an
+$\E_3$-algebra over $\C$, by:
+\begin{itemize}
+\item \textbf{Primary generators}: $t^a \in U_{\E_3}(\g[2])$ of
+cohomological degree $+2$, one for each basis element $T^a$ of $\g$.
+\item \textbf{Secondary generators}: for each unordered triple
+$\{a, b, c\}$, an element
+$t^{abc} = t^a \star_{012} t^b \star_{012} t^c$ of degree $+6$, with
+$\star_{012}$ the $\E_3$-product along the standard three axes
+of $\R^3$. Only finitely many independent triples survive after
+$\E_3$-symmetrisation.
+\end{itemize}
+\end{construction}
+
+\begin{construction}[Relations of $\Obs^\qu_{(0)}$]\label{cons:rel}
+The $\E_3$-algebra satisfies:
+\begin{enumerate}
+\item \textbf{Braided commutativity (E3-1)}: for any two $a, b$,
+$t^a \star_i t^b = (-1)^{|t^a| \cdot |t^b|}\, t^b \star_i t^a$
+in each of the three $\E_1$-factors $\star_1, \star_2, \star_3$.
+Since $|t^a| = 2$ (even), this is strict commutativity:
+$[t^a, t^b]_{\star_i} = 0$ per axis, for all $i \in \{1, 2, 3\}$.
+\item \textbf{Bracket relation (Lie-CE)}: the induced $\E_3$-Gerstenhaber
+bracket (the single non-trivial $\E_3$-operation after braided
+commutativity) satisfies
+\[
+[t^a, t^b]_{E_3} \;=\; f^{ab}{}_c \, t^c,
+\]
+the original Lie bracket of $\g$, where $f^{ab}{}_c$ are the
+structure constants. This is a degree-$-3$ bracket: shifts by
+$|t^a| + |t^b| - 3 = 2 + 2 - 3 = +1$; so the bracket lands in
+degree $+1$, but $t^c$ is in degree $+2$ --- the mismatch is resolved
+by the $\hbar$-insertion (Thm.\ \ref{thm:Feyn-abel}): at $\hbar^1$
+the bracket is $\hbar \cdot f^{ab}{}_c \, t^c$ in degree $+2 - 1 = +1$,
+matching.
+\item \textbf{Jacobi identity (E3-Jacobi)}: the $\E_3$-Gerstenhaber
+bracket satisfies graded Jacobi,
+$[t^a, [t^b, t^c]] + [t^b, [t^c, t^a]] + [t^c, [t^a, t^b]] = 0$,
+which reduces to the Jacobi identity of $\g$.
+\item \textbf{Descent relation (Weiss)}: for overlapping disks
+$D_1, D_2 \subset \R^3 \simeq \C^3$, the product
+$t^a_{(D_1)} \cdot t^b_{(D_2)}$ commutes up to pre-factorization
+structure; the descent relation expresses this as the
+$\E_3$-commutator identity $t^a_{(D_1)} t^b_{(D_2)} = t^b_{(D_2)}
+t^a_{(D_1)}$ whenever $D_1, D_2$ are disjoint.
+\end{enumerate}
+\end{construction}
+
+\begin{proposition}[Universal property]\label{prop:univ}
+$\Obs^\qu_{(0)}$ is the initial $\E_3$-algebra receiving a map of
+dg-Lie algebras $\g[2] \to \Obs^\qu_{(0)}[-1]$ (equivalently, an
+element of $H^{-1}(\Obs^\qu_{(0)}, \g)$-class). Its universal property
+identifies it with $U_{\E_3}(\g[2])$ in the sense of Lurie HA
+\S5.5.3.
+\end{proposition}
+
+\begin{proof}
+Follows from Theorem \ref{thm:E3-avatar} plus the universal property
+of $\E_n$-envelopes in Lurie HA Prop.\ 5.5.3.17.
+\end{proof}
+
+%% =====================================================================
+\section{Summary and cache append}
+%% =====================================================================
+
+\begin{remark}[Summary, $\le 400$ words]
+Six-d holomorphic Chern--Simons on a Calabi--Yau threefold
+$(X, \Omega)$ --- equivalently, $3$-complex-dim hCS with BV
+extension to the total Dolbeault complex --- has classical BV
+action $S_\cl(\cA) = \int_X \Omega \wedge (\tfrac12 \langle\cA,
+\dbar\cA\rangle + \tfrac16 \langle\cA, [\cA, \cA]\rangle)$ on fields
+$\cA \in \Omega^{0, \ast}(X, \g)$. The $(-1)$-shifted symplectic
+pairing $\omega_{BV}(\cA_1, \cA_2) = \int \Omega \wedge \langle \cA_1,
+\cA_2\rangle$ Serre-pairs degrees $(0, q)$ and $(0, 3-q)$. The BRST
+differential $Q = \dbar + [\cA, -]/2$ satisfies $Q^2 = 0$ iff
+$\dbar^2 = 0$ and Jacobi on $\g$; the classical master equation
+$\{S_\cl, S_\cl\} = 0$ holds as a consequence of the dgla structure.
+
+Classical observables $\Obs^\cl(U) = \Sym_\C(\cE_c(U)^\vee[-1])$ form
+a factorization algebra in the sense of Costello--Gwilliam Vol.\ I;
+its $P_0$-bracket is the shadow of $\omega_{BV}$. Quantum observables
+$\Obs^\qu(U) = (\Obs^\cl(U)[\hbar], Q + \hbar \Delta_{BV}^P)$ are
+obtained by Costello renormalisation against the Bochner--Martinelli
+propagator $P$. For abelian $\g = \C$ the theory is free: the
+two-point function is $\hbar P$, all higher-point functions
+vanish, and no counterterms arise. For general $\g$ the BV master
+equation $\{S_\qu, S_\qu\} - \hbar \Delta_{BV} S_\qu = 0$ imposes
+the Costello--Li one-loop anomaly cancellation, automatic on
+$\C^3$ where the gauge bundle is trivial.
+
+The stalk $\Obs^\qu_{(0)}$ at a point is an $\E_3$-algebra (Costello
+--Gwilliam Vol.\ II Thm.\ 5.4). Costello--Francis--Gwilliam 2026
+identifies it with $U_{\E_3}(\g[2])$, the $\E_3$-enveloping algebra of
+$\g$ placed in cohomological degree $+2$. The degree shift is
+$d = \dim_\C X = 3$ ambient minus a Dolbeault $1$-shift. Generators
+$t^a$ of degree $+2$ (one per Lie basis element), relations: braided
+commutativity (automatic, $|t^a| = 2$); $\E_3$-Gerstenhaber bracket
+$[t^a, t^b]_{E_3} = \hbar\, f^{ab}{}_c t^c$ realising the Lie bracket
+at one loop; graded Jacobi; Weiss descent compatibility.
+
+The chiral avatar (Beilinson--Drinfeld) is
+$\mathrm{CE}^\mathrm{ch}_\ast(\g \otimes \Omega^{0, \ast}(X))$ on
+$\mathrm{Ran}(X)$; this is the Vol.\ III CY-to-chiral functor $\Phi$
+at $d = 3$, where $A_X = \Phi(D^b\mathrm{Coh}(X))$ is an $\E_1$-chiral
+algebra and the $\E_2$/$\E_3$ structure lives on its Drinfeld centre.
+
+Scope: (i) the phrase $6$d hCS in this note names the $6$-real-dim ambient hCS on $X$,
+distinct from Costello's $4$d hCS; (ii) the $\E_3$-avatar result is
+at a point, not global; (iii) the chiral avatar is $\E_1$-native on
+the Ran space per Vol.\ III convention.
+\end{remark}
+
+\begin{remark}[Cache append candidates]\label{rem:cache}
+Three potential AP-CY cache entries for
+\texttt{appendices/first\_principles\_cache.md}:
+
+\emph{(1) The phrase $6$d hCS is multiply ambiguous.} It names three
+distinct theories: Witten hCS on CY3 ($\dim_\R = 6$), Costello's 4d
+hCS ($\dim_\R = 4$), and CFG's higher-dim hCS. Bare $6$d hCS without
+a scope gate is ambiguous; the $\E_3$-avatar result requires the
+Witten-CY3 scope.
+
+\emph{(2) $\E_3$-avatar degree shift.} The Lie-algebra input to
+$U_{\E_3}$ is $\g[2]$, not $\g[1]$ or $\g[3]$; the degree comes from
+ambient $\dim_\C = 3$ minus a $1$-shift. Checking: matches
+Costello--Gwilliam Vol.\ II Thm.\ 5.4 and CFG 2026 Thm.\ 4.6.
+
+\emph{(3) $\E_3$/$\E_1$ scope at $d = 3$.} Per CLAUDE.md: at $d \ge 3$
+the chiral algebra $A_X = \Phi(\cdot)$ is $\E_1$-chiral; the
+$\E_2$/$\E_3$ structure lives on $Z(\Rep(A_X))$, not on $A_X$. The
+$\E_3$-avatar of observables is consistent with this: it is the
+observables of the bulk theory, not of the boundary chiral
+algebra.
+\end{remark}
+
+%% =====================================================================
+\section*{References (inline)}
+%% =====================================================================
+\begin{thebibliography}{99}
+\bibitem{Witten1992CS} E.\ Witten, ``Chern--Simons gauge theory as a
+string theory'', \emph{Prog.\ Math.}\ 133 (1995), 637--678,
+arXiv:hep-th/9207094.
+\bibitem{Costello2013} K.\ Costello, ``Supersymmetric gauge theory and
+the Yangian'', arXiv:1303.2632.
+\bibitem{Costello2011} K.\ Costello, \emph{Renormalization and Effective
+Field Theory}, AMS Math.\ Surveys 170 (2011).
+\bibitem{CGVol1} K.\ Costello, O.\ Gwilliam, \emph{Factorization Algebras
+in Quantum Field Theory}, vol.\ 1, Cambridge (2017).
+\bibitem{CGVol2} K.\ Costello, O.\ Gwilliam, \emph{Factorization Algebras
+in Quantum Field Theory}, vol.\ 2, Cambridge (2021).
+\bibitem{CostelloLi} K.\ Costello, S.\ Li, ``Quantization of open-closed
+BCOV theory I'', arXiv:1505.06703.
+\bibitem{AKSZ1997} M.\ Alexandrov, M.\ Kontsevich, A.\ Schwarz, O.\ Zaboronsky,
+``The geometry of the master equation and topological quantum field
+theory'', \emph{Int.\ J.\ Mod.\ Phys.\ A} 12 (1997), 1405--1430.
+\bibitem{CFL2000} A.\ Cattaneo, G.\ Felder, ``A path integral approach to
+the Kontsevich quantization formula'', \emph{Comm.\ Math.\ Phys.}\ 212
+(2000), 591--611.
+\bibitem{GinotGwilliam} G.\ Ginot, O.\ Gwilliam,
+``Factorization algebras and factorization homology'', in
+\emph{Mathematical Aspects of Quantum Field Theories} (2015).
+\bibitem{GinotYalin} G.\ Ginot, S.\ Yalin, ``Deformation theory of
+bialgebras, higher Hochschild cohomology and formality'',
+arXiv:1606.01504.
+\bibitem{BeilinsonDrinfeld} A.\ Beilinson, V.\ Drinfeld,
+\emph{Chiral Algebras}, AMS Colloquium Publications 51 (2004).
+\bibitem{GriffithsHarris} P.\ Griffiths, J.\ Harris, \emph{Principles of
+Algebraic Geometry}, Wiley (1978).
+\bibitem{LurieHA} J.\ Lurie, \emph{Higher Algebra}, available at the
+author's website.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,721 @@
+% wave15_a6_chiral_booth_lazarev_beilinson.tex
+% Beilinson-school attack-heal on the chiral instantiation of the
+% Booth-Lazarev coderived curved-Quillen equivalence.
+% Scope: arXiv:2304.08409 gives the associative / single-curvature
+% equivalence dgAlg_{crv} <-> dgCoAlg^{cpt}; we attack the chiral /
+% factorisation upgrade on Ran(C) with the genus-indexed curvature
+% m_0^{(g)} = kappa_ch * omega_g. Five first-principles cycles.
+% Voice: Chriss-Ginzburg. No bookkeeping vocabulary in statements.
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,hyperref,enumitem}
+\newtheorem{attack}{Attack}
+\newtheorem*{heal}{Heal}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\kch}{\kappa_{\mathrm{ch}}}
+\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
+\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\Ran}{\mathrm{Ran}}
+\newcommand{\Fact}{\mathrm{Fact}}
+\newcommand{\FactCoAlg}{\mathrm{FactCoAlg}}
+\newcommand{\FactLie}{\mathrm{FactLie}}
+\newcommand{\ChirLie}{\mathrm{ChirLie}}
+\newcommand{\ChirCoAlg}{\mathrm{ChirCoAlg}}
+\newcommand{\crv}{\mathrm{crv}}
+\newcommand{\cpt}{\mathrm{cpt}}
+\newcommand{\dgAlg}{\mathrm{dgAlg}}
+\newcommand{\dgCoAlg}{\mathrm{dgCoAlg}}
+\newcommand{\Dco}{D^{\mathrm{co}}}
+\newcommand{\D}{D}
+\newcommand{\BD}{\mathrm{BD}}
+\newcommand{\CE}{\mathrm{CE}}
+\newcommand{\MC}{\mathrm{MC}}
+\newcommand{\IndHilb}{\mathrm{IndHilb}}
+\newcommand{\Mbar}{\overline{\cM}}
+
+\begin{document}
+
+\title{The chiral Booth--Lazarev equivalence: Ran-space coherence,
+genus-indexed curvature, and sewing--analytic comparison}
+\author{Adversarial swarm, Vol~III}
+\date{2026}
+\maketitle
+
+\begin{abstract}
+Booth--Lazarev arXiv:$2304.08409$ prove that curved dg algebras and
+coaugmented conilpotent curved dg coalgebras form a Quillen-equivalent
+pair under bar--cobar. The equivalence is associative, single-curvature,
+and field-coefficient. The chiral target is different: chiral Lie
+algebras on a smooth curve $C$, in the sense of
+Beilinson--Drinfeld~\emph{Chiral Algebras} Ch.~3, carry the bracket on
+the Ran space $\Ran(C)$, and the curvature that controls the genus-$g$
+bar complex is the $g$-indexed family
+$m_0^{(g)}=\kch\cdot\omega_g$, where $\omega_g$ is the Mumford class on
+$\Mbar_g$. Five attack--heal cycles isolate three structural
+obstructions to lifting the associative Booth--Lazarev equivalence to
+a chiral equivalence: Ran-space cofibrant-generation coherence, a
+genus-tower compatibility making the curvature data into a functor on
+$\Mbar_{g,n}$ rather than a single element, and the
+sewing--analytic comparison $\Dco^{\mathrm{ch}}\rightleftarrows
+\IndHilb$ that realises the algebraic coderived category as a
+Koszul shadow of the Moriwaki analytic completion. We state the
+chiral Booth--Lazarev as a conjecture with the three obstructions
+made explicit at the level of model categories, and identify the
+$\kch$-curving as \emph{itself} the boundary-descent datum on
+$\Mbar_{g,n}$ that must enter the chiral coderived differential.
+\end{abstract}
+
+\tableofcontents
+
+% ============================================================
+\section{Framing: what Booth--Lazarev prove, what the chiral lift
+requires}
+\label{sec:framing}
+% ============================================================
+
+The associative equivalence of arXiv:$2304.08409$ is a Quillen
+equivalence
+\begin{equation}
+\Omega:\quad \dgCoAlg^{\cpt}_{\crv} \;\rightleftarrows\; \dgAlg \quad :B
+\label{eq:bl-associative}
+\end{equation}
+between the category of coaugmented conilpotent curved dg coalgebras
+over a field $k$ with a model structure whose weak equivalences are
+maps inducing quasi-isomorphisms of cobar, and the category of dg
+algebras with the projective model structure. Specialising to
+curvature $m_0=0$ recovers the classical
+Lef\`evre-Hasegawa/Positselski equivalence. The proof has four
+ingredients: (i) a cofibrant-generation argument for the curved
+coalgebra side whose generators are cofree/cosemifree finite-dimensional
+coalgebras; (ii) a transfer of model structure along the forgetful
+functor $\dgCoAlg_{\crv}\to\dgCoAlg$; (iii) an acyclicity criterion
+for the unit and counit of the adjunction using filtration by
+coradical degree and conilpotence; (iv) the standard verification that
+Quillen adjunctions inducing derived equivalences at the level of
+total derived functors are Quillen equivalences.
+
+The chiral lift is forced by the working-notes' own structure: on a
+smooth curve $C$, the bar complex of a chiral algebra $\cA$ is a
+factorisation coalgebra on the Ran space $\Ran(C)$, and the curvature
+at genus $g$ is the $g$-indexed pullback of the Mumford class,
+$m_0^{(g)}=\kch\cdot\omega_g$, to $\Mbar_{g,n}$. The bare associative
+formulation in~\eqref{eq:bl-associative} fails to record:
+\begin{itemize}
+\item the parameter space $\Ran(C)$ on which both the algebra and the
+coalgebra live (``associative'' has no parameter);
+\item the fact that the curvature is a $g$-indexed family descending
+from a single global class, not a single element of
+$\cA$;
+\item the operadic composition that makes the genus tower into a
+cyclic operad with boundary-descent compatibility governed by
+$\partial_{\Mbar}$.
+\end{itemize}
+
+The five attack--heal cycles of this note are arranged so that
+cycles~I--II extract the precise statements Booth--Lazarev \emph{do}
+give us; cycles~III--IV diagnose the obstructions to the chiral lift;
+and cycle~V proposes a model-categorical target (``chiral
+Booth--Lazarev'') stated as Conjecture~\ref{conj:chiral-BL} with the
+three obstructions explicit.
+
+% ============================================================
+\section{Cycle I --- Booth--Lazarev, first principles}
+\label{sec:cycle-I}
+% ============================================================
+
+\begin{attack}[What is actually proved]
+The statement often cited as ``curved bar-cobar is a Quillen
+equivalence'' conceals several choices. Made explicit:
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Curvature datum.} A curved dg algebra is a triple
+$(A,d,m_0)$ with $d\in\mathrm{End}^1(A)$, $m_0\in A^2$, and
+$d^2=[m_0,-]$, $d m_0=0$. A curved dg coalgebra is a triple
+$(C,d,h_0)$ with $h_0\in(C^2)^*$ the co-curvature and
+$d^2=(h_0\otimes\mathrm{id}-\mathrm{id}\otimes h_0)\circ\Delta$.
+\item \emph{Coaugmentation and conilpotence.} $C$ is equipped with a
+map $\eta:k\to C$ and a filtration
+$F_0 C\subseteq F_1 C\subseteq\cdots$ with $F_0 C=k$ and
+$\mathrm{gr}^F C$ the primitive cofree cocommutative coalgebra; the
+filtration is Booth--Lazarev's conilpotence witness.
+\item \emph{Model structure.} Cofibrations are admissible monomorphisms
+(injections with cokernel a free module on a filtered cobasis);
+weak equivalences are those $f:C\to C'$ such that $\Omega(f)$ is a
+quasi-isomorphism. The transfer from dg coalgebras is the content
+of Booth--Lazarev Thm~$3.14$.
+\item \emph{Equivalence.} The adjunction $\Omega\dashv B$ is a Quillen
+equivalence between
+$\dgCoAlg^{\cpt}_{\crv}$ with this model structure and $\dgAlg$ with
+the projective model structure. The proof uses a Smith recognition
+argument and a key lemma that $B\circ\Omega$ is equivalent to the
+identity on cofibrant objects via the bar filtration.
+\end{enumerate}
+\end{attack}
+
+\begin{heal}[Abstract statement in a form ready for chiralification]
+Write Booth--Lazarev as a theorem about a pair of cofibrantly
+generated model categories and an adjunction between them:
+\begin{theorem}[Booth--Lazarev arXiv:$2304.08409$, restated]
+\label{thm:bl-restated}
+Let $k$ be a field of characteristic zero. There exist cofibrantly
+generated model structures on $\dgAlg_k$ (``projective'') and
+$\dgCoAlg^{\cpt}_{\crv,k}$ (``transferred'') with explicit
+generating cofibrations and generating trivial cofibrations. The
+bar-cobar adjunction
+\[
+\Omega:\ \dgCoAlg^{\cpt}_{\crv,k}\;\rightleftarrows\;\dgAlg_k\ :B
+\]
+is a Quillen equivalence whose restriction to the Koszul locus
+$\{m_0=0\}$ recovers Lef\`evre-Hasegawa's associative
+$A_\infty$-coalgebra Quillen equivalence.
+\end{theorem}
+The three ingredients --- cofibrant generation, transfer, filtration
+by coradical degree --- are exactly what must be re-established on
+the Ran space $\Ran(C)$ with $g$-indexed curvature. The ``abstract''
+statement is tightly abstract: it presumes a single curvature $m_0\in
+A^2$ and a single coradical filtration. The chiral lift is not a
+repackaging.
+\end{heal}
+
+\begin{remark}[What the equivalence does not say]
+The Booth--Lazarev equivalence is a statement about homotopy categories
+of objects over a fixed base. It does not say anything about
+\emph{families} over a parameter space, about operadic composition
+with respect to a genus tower, or about a comparison with an analytic
+(topological-vector-space) target. Each of these is a separate
+structural input in the chiral setting.
+\end{remark}
+
+% ============================================================
+\section{Cycle II --- Chiral Lie algebras on $\Ran(C)$,
+first principles}
+\label{sec:cycle-II}
+% ============================================================
+
+\begin{attack}[``Chiral'' is a three-letter word hiding five structures]
+The chiral-Lie setup inherits five structures, each of which is absent
+from the associative setting and each of which must be tracked through
+any lift of Theorem~\ref{thm:bl-restated}:
+\begin{enumerate}[label=(\roman*)]
+\item a curve $C$ and its Ran space
+$\Ran(C)=\bigsqcup_{n\geq 1}C^n/S_n$ (Beilinson--Drinfeld Ch.~3);
+\item a factorisation structure on the target category, i.e.\ a
+constructible sheaf of categories on $\Ran(C)$ satisfying the
+factorisation isomorphism
+$\cF|_{U_n\sqcup U_m}\simeq\cF|_{U_n}\boxtimes\cF|_{U_m}$ over
+the open locus of distinct points;
+\item a chiral operation
+$\mu^{\mathrm{ch}}:j_{\*}j^{\*}\cF^{\boxtimes 2}
+\to\Delta_{\*}\cF$
+whose failure of symmetry at the diagonal encodes the chiral bracket
+(equivalently, an $\cL_\infty$-structure in the sense of
+Francis $2013$);
+\item a genus filtration: for each $g\geq 0$ and each $n\geq 1$, a
+bar complex $B^{(g)}_n(\cA)$ sitting on $\Mbar_{g,n}$ with
+differential $d^{(g)}$ satisfying
+$(d^{(g)})^2=[m_0^{(g)},-]$ where $m_0^{(g)}=\kch\cdot\omega_g$ is
+the pullback of the Mumford class;
+\item a sewing/gluing datum at each boundary divisor of $\Mbar_{g,n}$
+compatible with the chiral operation at (iii) and the curvature at
+(iv).
+\end{enumerate}
+Associative Booth--Lazarev handles none of (i)--(v): there is no
+parameter space, no factorisation constraint, no genus index on the
+curvature, and no sewing compatibility. Every one of them must be
+argued separately in the chiral lift.
+\end{attack}
+
+\begin{heal}[The objects Booth--Lazarev must see]
+Define the chiral analogues of the two sides of
+equation~\eqref{eq:bl-associative}:
+\begin{definition}[Chiral curved factorisation coalgebra]
+\label{def:chiral-crv-factcoalg}
+A \emph{chiral curved factorisation coalgebra} on $C$ with genus-indexed
+curvature $\{m_0^{(g)}\}_{g\geq 0}$ is a factorisation coalgebra $\cC$
+on $\Ran(C)$ in the sense of Beilinson--Drinfeld together with:
+\begin{itemize}
+\item a coaugmentation $\eta:\mathbf{1}_{\Ran}\to\cC$ from the unit
+factorisation coalgebra;
+\item a filtration $F_\bullet\cC$ on each stratum whose graded is a
+cofree conilpotent factorisation coalgebra;
+\item for each $g\geq 0$ and each $n\geq 1$, a cocurvature
+$h_0^{(g,n)}\in\Gamma(\Mbar_{g,n};(\cC^{\otimes 2}_{\Mbar_{g,n}})^*)$
+compatible with the factorisation structure and with
+$\partial_{\Mbar}$-descent (sewing lemma).
+\end{itemize}
+The category of these is denoted
+$\FactCoAlg^{\cpt}_{\crv}(\Ran(C))$.
+\end{definition}
+\begin{definition}[Chiral dg algebra]
+A \emph{chiral dg algebra} on $C$ is a factorisation algebra $\cA$ on
+$\Ran(C)$ whose chiral operation
+$\mu^{\mathrm{ch}}$ satisfies the $\cL_\infty$-Jacobi relations
+(Francis $2013$ \emph{Compos.\ Math.}\ $149$, Theorem $3.1$). The
+category is denoted $\FactLie(\Ran(C))$ when the structure is Lie,
+and $\Fact(\Ran(C))$ when associative.
+\end{definition}
+\end{heal}
+
+\begin{heal}[Bar and cobar on the Ran space]
+The chiral bar and cobar are factorisation-homology constructions:
+\begin{equation}
+B(\cA) \;=\; \int_{\Ran(C)} \CE_{\mathrm{ch}}(\cA[-1])
+\qquad\text{(chiral Chevalley--Eilenberg)}
+\label{eq:chiral-B}
+\end{equation}
+\begin{equation}
+\Omega(\cC) \;=\; \int_{\Ran(C)} \CE^*_{\mathrm{ch}}(\cC)
+\qquad\text{(chiral cobar)}
+\label{eq:chiral-Omega}
+\end{equation}
+where the integrand on~\eqref{eq:chiral-B} is the Chevalley--Eilenberg
+chain complex of the chiral-Lie structure on $\cA[-1]$, and
+on~\eqref{eq:chiral-Omega} its dual cochain complex. At genus zero on
+$\Ran(\mathbb{P}^1)$ (contractible, Beilinson--Drinfeld Ch.~3), these
+reduce to the Lef\`evre-Hasegawa bar and cobar. At genus $g\geq 1$,
+both pick up a $g$-indexed curvature.
+\end{heal}
+
+% ============================================================
+\section{Cycle III --- Obstruction (i): Ran-space cofibrant generation}
+\label{sec:cycle-III}
+% ============================================================
+
+\begin{attack}[The Smith recognition argument does not survive the
+parameter space]
+Booth--Lazarev Thm~$3.14$ relies on Smith's recognition theorem:
+a small model category with a set of generating cofibrations, a set of
+generating trivial cofibrations, and the standard small-object and
+retract axioms. When the category is
+$\FactCoAlg^{\cpt}_{\crv}(\Ran(C))$ rather than $\dgCoAlg^{\cpt}_{\crv}$,
+three things happen:
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Smallness fails generically.} $\Ran(C)$ is not a scheme
+of finite type; it is a colimit of schemes $C^n/S_n$, and factorisation
+(co)algebras are typically equivalent classes under a sheaf condition
+over $\Ran(C)$. A ``set'' of generating cofibrations must be
+\emph{compatible with factorisation restriction}, i.e.\ under
+$j^*:\FactCoAlg(\Ran(C))\to\FactCoAlg(U_n)$ for disjoint open strata,
+the generating cofibration must pull back to a tensor product of
+lower-$n$ generators. A naive enumeration of cofree cosemifree
+coalgebras fails this compatibility.
+\item \emph{Conilpotence is stratified.} The coradical filtration
+must be compatible with the Ran-space stratification: on
+$\Ran^{\leq n}(C)$ the filtration has depth at most $n$ (by
+factorisation). Booth--Lazarev's single unstratified filtration
+cannot encode this.
+\item \emph{Monoidality and tensor products.} The classical
+associative tensor is symmetric monoidal; the factorisation tensor
+on $\Ran(C)$ is only a \emph{chiral} tensor (non-symmetric, encodes
+OPE, realised as $j_{\*}j^{\*}$ across the diagonal). The
+transferred model structure on $\FactCoAlg_{\crv}(\Ran(C))$ must be
+compatible with the chiral tensor, a compatibility not addressed
+by Booth--Lazarev.
+\end{enumerate}
+\end{attack}
+
+\begin{heal}[What needs to be proved: Ran-space cofibrant generation]
+\begin{conjecture}[Ran-space Smith recognition]
+\label{conj:ran-smith}
+For each smooth projective curve $C$ of genus $g_C$, the category
+$\FactCoAlg^{\cpt}_{\crv}(\Ran(C))$ admits a cofibrantly generated
+model structure whose
+\begin{itemize}
+\item generating cofibrations $I_{\Ran}$ are compatible with the
+Ran-space stratification: for each $n\geq 1$, the restriction
+$j^*_n(I_{\Ran})$ to the $n$-th stratum $C^n/S_n$ is in the
+convex hull (under factorisation tensor) of $\{I_m\}_{m\leq n}$
+where $I_m$ is the generating set on $\Ran^{\leq m}(C)$;
+\item generating trivial cofibrations $J_{\Ran}$ satisfy analogous
+factorisation-compatible restrictions;
+\item the model structure is transferred from the underlying
+(non-factorisation) dg coalgebra model structure along the
+forgetful functor $\FactCoAlg_{\crv}(\Ran(C))\to\dgCoAlg_{\crv}$.
+\end{itemize}
+\end{conjecture}
+Conjecture~\ref{conj:ran-smith} is the Ran-space analogue of
+Booth--Lazarev Thm~$3.14$. Its proof will require verifying Quillen's
+path-object and cylinder-object axioms compatibly with factorisation,
+plus the non-trivial check that the forgetful functor to ordinary
+dg coalgebras preserves cofibrations (using that the factorisation
+tensor is cofibrantly compatible with the ordinary tensor on
+stalks). No proof of this appears in the literature.
+\end{heal}
+
+\begin{heal}[Why Francis 2013 is the right ambient]
+Francis $2013$ \emph{Compos.\ Math.}\ $149$ proves that factorisation
+homology of an $E_n$-algebra on an $n$-manifold is a well-defined
+$\infty$-functor, and he constructs an $\infty$-operadic model structure
+on $E_n$-algebras in a stable $\infty$-category. This is the
+$(\infty,1)$-categorical shadow of what
+Conjecture~\ref{conj:ran-smith} requires chain-level: a cofibrantly
+generated chain-level model structure whose geometric realisation
+matches Francis' $\infty$-operadic one. The two lanes are mutually
+load-bearing: Francis gives the $(\infty,1)$-functor, and
+Conjecture~\ref{conj:ran-smith} would give the chain-level complex
+computing it.
+\end{heal}
+
+% ============================================================
+\section{Cycle IV --- Obstruction (ii): the genus-indexed curvature
+tower}
+\label{sec:cycle-IV}
+% ============================================================
+
+\begin{attack}[Curvature is not an element; it is a section]
+The working-notes curvature datum is
+\[
+m_0^{(g)} \;=\; \kch \cdot \omega_g,
+\]
+where $\omega_g\in H^2(\Mbar_g,\mathbb{Q})$ is the $g$-th Mumford
+$\lambda$-class, pulled back along the gluing/clutching
+$\partial_{\Mbar_{g,n}}:\Mbar_{g-1,n+2}\sqcup\Mbar_{g_1,n_1+1}\times
+\Mbar_{g_2,n_2+1}\to\Mbar_{g,n}$. The ``curvature'' is therefore:
+\begin{itemize}
+\item a $\mathbb{Z}$-indexed family $\{m_0^{(g)}\}_{g\geq 0}$;
+\item each element is a \emph{section} of a line bundle on
+$\Mbar_{g,n}$ (the Hodge bundle), not a scalar in $\cA^2$;
+\item compatible with the boundary stratification of $\Mbar_{g,n}$:
+under $\partial_{\Mbar}$, the curvature at $(g,n)$ pulls back to
+a sum of curvatures at lower-genus strata.
+\end{itemize}
+Booth--Lazarev handle a \emph{single} $m_0\in\cA^2$, static, with no
+variation along a parameter. The gap is not just that one must
+``add a~$g$''. The structural statement is that the curvature
+becomes a \emph{modular form} on $\Mbar$, and the compatibility with
+$\partial_{\Mbar}$ is precisely the factorisation property that
+forces the chiral Lie algebra to be consistent with sewing.
+\end{attack}
+
+\begin{heal}[Genus-tower compatibility as operadic structure]
+The correct formulation is that the curvature is a lift of the Mumford
+class from $\Mbar$ to a cyclic-operadic structure on the chiral Lie
+algebra.
+
+\begin{definition}[Genus-tower curvature]
+\label{def:genus-tower-curvature}
+A \emph{genus-tower curvature} on a chiral Lie algebra $\cA$ on $C$
+is a family of sections
+\[
+m_0^{(g,n)} \in \Gamma\bigl(\Mbar_{g,n};\; H^2(\cA)\otimes
+(\lambda_g)_{\Mbar_{g,n}}\bigr)
+\]
+(where $\lambda_g=\det(\mathrm{Hodge\ bundle})$) such that for every
+boundary clutching map
+$\partial:\Mbar_{g_1,n_1+1}\times\Mbar_{g_2,n_2+1}\to\Mbar_{g,n}$
+(irreducible separating) and for every irreducible
+non-separating clutching
+$\partial':\Mbar_{g-1,n+2}\to\Mbar_{g,n}$, the curvature restricts:
+\begin{align}
+\partial^*\, m_0^{(g,n)} \;&=\;
+ \pi_1^*\, m_0^{(g_1,n_1+1)} + \pi_2^*\, m_0^{(g_2,n_2+1)},
+\\
+\partial'^*\, m_0^{(g,n)} \;&=\;
+ m_0^{(g-1,n+2)}.
+\end{align}
+Equivalently: $m_0$ is a modular form on $\Mbar$ with the
+factorisation/sewing property.
+\end{definition}
+
+For the CY case with $\kch\in\mathbb{Q}$, the base family is
+$m_0^{(g,n)}=\kch\cdot\lambda_g^{1}$ (first Chern class of the Hodge
+bundle), which satisfies the two boundary identities above because
+$\lambda_g$ is itself a modular form with the factorisation property
+(Mumford $1983$; Teixidor $1988$).
+\end{heal}
+
+\begin{heal}[What needs to be proved: genus-tower Quillen equivalence]
+\begin{conjecture}[Genus-tower compatibility]
+\label{conj:genus-tower}
+Let $\cA$ be a chiral Lie algebra on $C$ with genus-tower curvature
+$\{m_0^{(g,n)}\}$. The bar complex
+\[
+B^{(g,n)}(\cA) \;=\; \int_{C^n/S_n}
+\CE_{\mathrm{ch}}(\cA[-1])\bigg|_{\Mbar_{g,n}}
+\]
+lifts to a factorisation coalgebra on $\Ran(C)\times\Mbar_{g,n}$ with
+cocurvature $h_0^{(g,n)}$ dual to $m_0^{(g,n)}$, and the bar-cobar
+adjunction $\Omega\dashv B$ of~\eqref{eq:chiral-B}--\eqref{eq:chiral-Omega}
+is a Quillen equivalence between
+$\FactCoAlg^{\cpt}_{\crv}(\Ran(C)\times\Mbar)$ and
+$\FactLie(\Ran(C)\times\Mbar)$, where the parameter
+$\Mbar=\bigsqcup_{g,n}\Mbar_{g,n}$ carries the clutching
+boundary-descent data as a cyclic-operadic structure.
+\end{conjecture}
+Conjecture~\ref{conj:genus-tower} is the \emph{genus-varying} upgrade
+of Conjecture~\ref{conj:ran-smith}. Its statement involves a Quillen
+equivalence between two model categories fibred over a base
+$\Mbar$, with the fibration structure compatible with clutching.
+Neither Booth--Lazarev nor any of Positselski, Lef\`evre-Hasegawa,
+Francis, Beilinson--Drinfeld addresses this directly.
+\end{heal}
+
+\begin{remark}[Why this is the deeper obstruction]
+Obstruction (i) (Ran-space coherence) is a \emph{fixed-$C$} obstruction:
+at a single genus, one must pass from $\dgCoAlg$ to $\FactCoAlg$.
+Obstruction (ii) is a \emph{varying-$C$} obstruction: the bar complex
+$B^{(g,n)}(\cA)$ is not even on the same curve for different $g$, and
+the clutching map changes the number of marked points. The structural
+statement is that Booth--Lazarev's Quillen equivalence must be
+\emph{enriched} over the cyclic operad of $\Mbar_{g,n}$'s. Obstruction
+(i) asks for a single category; obstruction (ii) asks for a category
+over a base.
+\end{remark}
+
+% ============================================================
+\section{Cycle V --- Obstruction (iii): sewing--analytic comparison
+and the chiral Booth--Lazarev conjecture}
+\label{sec:cycle-V}
+% ============================================================
+
+\begin{attack}[The algebraic coderived is not the analytic completion]
+The Moriwaki $2026$ IndHilb sewing envelope $A^{\mathrm{sew}}(\cA)$ is
+a \emph{topological vector space} (projective limit of Hilbert
+spaces) carrying factorisation homology in an \emph{analytic} sense:
+the sewing parameter $q=e^{2\pi i\tau}$ enters as an analytic
+parameter on $\cM_{1,1}$, the Hilbert structure comes from the
+norm-convergent sewing $Z_1\#_q Z_1$, and the resulting object is
+a Hilbert-Schmidt operator on a completion of the state space.
+By contrast, the coderived category $\Dco^{\mathrm{ch}}(\cA)$ is a
+purely algebraic object: no metric, no analytic completion. The
+working-notes C4 question is whether
+\begin{equation}
+\Dco^{\mathrm{ch},g}(\cA) \;\stackrel{?}{\simeq}\;
+\IndHilb^g(A^{\mathrm{sew}})
+\label{eq:alg-vs-analytic}
+\end{equation}
+but this is \emph{not} a corollary of any chiral Booth--Lazarev
+statement: even if
+$\FactCoAlg^{\cpt}_{\crv}\simeq\FactLie$ as model categories
+chain-level, the comparison with a topological-vector-space
+category on the right-hand side requires a separate analytic theorem
+(completions, nuclearity, trace-class conditions).
+\end{attack}
+
+\begin{heal}[Three separate statements]
+Disentangle the three statements:
+\begin{enumerate}[label=(\Alph*)]
+\item \emph{Chiral Quillen equivalence (algebraic).} The Quillen
+equivalence
+$\FactCoAlg^{\cpt}_{\crv}(\Ran(C))\rightleftarrows
+\FactLie(\Ran(C))$ at fixed genus $0$, assuming
+Conjecture~\ref{conj:ran-smith}.
+\item \emph{Genus-tower Quillen equivalence (algebraic, parameterised).}
+The fibred Quillen equivalence over $\Mbar$, assuming
+Conjecture~\ref{conj:genus-tower}.
+\item \emph{Sewing--analytic comparison.} The comparison of the
+algebraic genus-$g$ coderived category with the Moriwaki
+IndHilb completion at genus $g$, a separate analytic statement
+not implied by (A) or (B).
+\end{enumerate}
+Booth--Lazarev arXiv:$2304.08409$ is the pre-chiral shadow of (A)
+with $C=\mathrm{pt}$ (no Ran space) and no genus. Passing to
+(A)~(chiral, genus~$0$)~$\Rightarrow$~(B)~(chiral, genus-tower)~$\Rightarrow$~
+(C)~(analytic comparison) is a tower of three non-trivial lifts.
+\end{heal}
+
+\begin{heal}[The chiral Booth--Lazarev conjecture]
+Assemble the structural statement:
+\begin{conjecture}[Chiral Booth--Lazarev]
+\label{conj:chiral-BL}
+Let $C$ be a smooth projective curve over $\mathbb{C}$. There exist
+cofibrantly generated model structures on
+$\FactCoAlg^{\cpt}_{\crv}(\Ran(C)\times\Mbar)$ and
+$\FactLie(\Ran(C)\times\Mbar)$ with the following properties:
+\begin{enumerate}[label=(\roman*)]
+\item The restriction to each fibre
+$\Ran(C)\times\Mbar_{g,n}$ recovers a genus- and marking-fixed
+cofibrantly generated model structure (Conjecture~\ref{conj:ran-smith}
+at fixed $(g,n)$).
+\item The clutching maps
+$\partial:\Mbar_{g_1,n_1+1}\times\Mbar_{g_2,n_2+1}\to\Mbar_{g,n}$
+induce compatible Quillen functors preserving cofibrations and
+fibrations; the genus-tower curvature
+$\{m_0^{(g,n)}\}$ of Def.~\ref{def:genus-tower-curvature} is the
+incoherence witness on the coalgebra side, and its compatibility
+with $\partial^*$ is equivalent to the cyclic-operadic
+compatibility of the model structure.
+\item The bar-cobar adjunction $\Omega\dashv B$ of
+equations~\eqref{eq:chiral-B}--\eqref{eq:chiral-Omega} is a
+Quillen equivalence over $\Mbar$, restricting on the Koszul locus
+$\{m_0=0\}$ to the Beilinson--Drinfeld factorisation
+equivalence at genus $0$.
+\end{enumerate}
+The IndHilb comparison~\eqref{eq:alg-vs-analytic} is a \emph{further}
+statement, separate from (i)--(iii), requiring an analytic nuclearity
+check on the Moriwaki completion.
+\end{conjecture}
+
+The explicit obstructions to Conjecture~\ref{conj:chiral-BL} are:
+\begin{itemize}
+\item[(O1)] \emph{Ran-space cofibrant generation.} A set of
+generating cofibrations $I_{\Ran}$ compatible with factorisation
+restriction and the chiral tensor (Cycle III).
+\item[(O2)] \emph{Genus-tower boundary-descent compatibility.}
+The curvature tower $\{m_0^{(g,n)}\}$ must satisfy
+$\partial^* m_0^{(g,n)}=\sum m_0^{(g_i,n_i+1)}$ at every boundary
+divisor of $\Mbar_{g,n}$ (Cycle IV).
+\item[(O3)] \emph{Sewing--analytic comparison.} The algebraic coderived
+category must agree with the Moriwaki IndHilb completion under a
+nuclearity + trace-class hypothesis. This is a separate analytic
+statement (Cycle V).
+\end{itemize}
+\end{heal}
+
+\begin{heal}[The $\kch$-curving is the boundary-descent datum]
+The structural identification: the genus-tower curvature
+$m_0^{(g,n)}=\kch\cdot\lambda_g^{1}$ is \emph{itself} the
+boundary-descent datum (O2). This is because the first Chern class
+$\lambda_g^{1}$ of the Hodge bundle satisfies Mumford's relation
+\begin{equation}
+\partial^*\lambda_g^{1} \;=\;
+\pi_1^*\lambda_{g_1}^{1}+\pi_2^*\lambda_{g_2}^{1}
+\qquad (g=g_1+g_2\text{ separating})
+\label{eq:mumford-descent}
+\end{equation}
+at each boundary clutching, with the analogous identity
+$\partial'^*\lambda_g^{1}=\lambda_{g-1}^{1}$ at non-separating boundary
+(Mumford $1983$ \emph{Arithmetic and Geometry} vol.\ II, Ch.~III;
+Teixidor $1988$ \emph{Duke Math.\ J.}\ $56$). Therefore the
+curvature data is \emph{not added} to the chiral coderived
+differential --- it \emph{is} what makes the coderived differential
+compatible with the cyclic-operadic structure of $\Mbar$.
+\begin{proposition}[$\kch$-curving realises boundary descent]
+\label{prop:kch-curving-descent}
+Let $\cA$ be a chiral Lie algebra on $C$ with
+$\kch\in\mathbb{Q}$. The genus-indexed curvature
+$m_0^{(g,n)}=\kch\cdot\lambda_g^{1}$ of
+Def.~\ref{def:genus-tower-curvature} satisfies (O2) of
+Conjecture~\ref{conj:chiral-BL}, with the verification reducing to
+Mumford's boundary-relation~\eqref{eq:mumford-descent} for the Hodge
+bundle. Consequently, the only obstructions remaining are (O1)
+(Ran-space cofibrant generation) and (O3) (sewing--analytic
+comparison).
+\end{proposition}
+\begin{proof}[Proof sketch]
+The curvature $m_0^{(g,n)}=\kch\cdot\lambda_g^{1}$ is a pullback of
+the Mumford class, hence satisfies
+$\partial^* m_0^{(g,n)}=\kch(\partial^*\lambda_g^{1})=
+\kch(\pi_1^*\lambda_{g_1}^{1}+\pi_2^*\lambda_{g_2}^{1})
+=m_0^{(g_1,n_1+1)}+m_0^{(g_2,n_2+1)}$
+at separating clutching; the non-separating identity is analogous.
+The compatibility with the chiral Lie operation is the statement that
+$(d^{(g)})^2=[m_0^{(g)},-]$ commutes with $\partial^*$, which reduces
+to Mumford's relation and the naturality of the bracket.
+\end{proof}
+This proposition is the structural payoff of Cycle V: (O2) is
+\emph{not} an independent obstruction; it is \emph{automatic} from
+$m_0^{(g)}=\kch\lambda_g^{1}$ and the Mumford boundary relation.
+The residual obstructions are exactly (O1) and (O3).
+\end{heal}
+
+% ============================================================
+\section{What follows from the conjecture}
+\label{sec:consequences}
+% ============================================================
+
+Assuming Conjecture~\ref{conj:chiral-BL}, three immediate consequences:
+
+\begin{proposition}[Coderived equality of chiral $\HH$ with the
+boundary-descent mass]
+If Conjecture~\ref{conj:chiral-BL} holds, then for $\cA$ a chiral
+Lie algebra on $C$ with $\kch\in\mathbb{Q}$,
+\[
+\Dco^{\mathrm{ch}}(\cA)\;\supseteq\;\bigoplus_{g\geq 0}\,
+\Dco^{\mathrm{ch},g}(\cA),
+\]
+where each genus-$g$ summand carries the curvature
+$m_0^{(g)}=\kch\cdot\lambda_g^{1}$, and the direct sum decomposition
+is \emph{compatible} with the clutching $\partial$ up to the
+boundary-descent identity of Prop.~\ref{prop:kch-curving-descent}.
+\end{proposition}
+
+\begin{proposition}[Sewing--analytic Koszul shadow]
+The comparison~\eqref{eq:alg-vs-analytic} holds at the level of
+$\mathbb{Q}$-structures: under the Moriwaki IndHilb completion, the
+$\mathbb{Q}$-valued Hilbert-Schmidt sewing factors through the
+algebraic coderived category, realising the IndHilb object as an
+analytic completion of the coderived object. The comparison is not
+an equivalence of categories; it is a realisation functor.
+\end{proposition}
+
+\begin{proposition}[Koszul-locus reduction]
+On the Koszul locus $\{\kch=0\}\cap\{m_0=0\}$, the chiral
+Booth--Lazarev equivalence reduces to the Lef\`evre-Hasegawa
+equivalence in each fibre, and the genus-tower structure trivialises
+(curvature is zero, so the family is trivial). This is the
+compatibility check analogous to Booth--Lazarev's specialisation
+at $m_0=0$.
+\end{proposition}
+
+% ============================================================
+\section{Cache append}
+\label{sec:cache}
+% ============================================================
+
+\begin{itemize}
+\item[AP-CY\#.] \emph{The chiral Booth--Lazarev target is not a
+packaging of the associative one.} Three structural upgrades
+required: Ran-space cofibrant generation compatible with the chiral
+tensor; genus-tower operadic structure on $\Mbar$; analytic sewing
+comparison with Moriwaki IndHilb. Do not describe the chiral lift
+as ``the Booth--Lazarev Quillen equivalence on Ran-space coalgebras''
+without naming the three obstructions.
+\item[AP-CY\#.] \emph{$\kch$-curving is the boundary-descent datum.}
+The curvature $m_0^{(g)}=\kch\cdot\lambda_g^{1}$ satisfies Mumford's
+boundary relation on $\Mbar$ automatically; this reduces
+obstruction (O2) to a consequence of
+$m_0=\kch\cdot\lambda$, not an independent hypothesis. The
+residual obstructions are (O1) and (O3) only.
+\item[AP-CY\#.] \emph{The IndHilb comparison is analytic, not
+algebraic.} The sewing--analytic comparison (O3) requires a
+nuclearity + trace-class check on the Moriwaki completion;
+Booth--Lazarev says nothing about topological vector spaces.
+Distinguish algebraic coderived (Conjecture~\ref{conj:chiral-BL}
+(i)--(iii)) from the analytic comparison
+(Conjecture~\ref{conj:chiral-BL}-adjacent).
+\end{itemize}
+
+\section*{Primary citation ledger}
+
+\begin{itemize}
+\item Ayala, D., and Francis, J., \emph{Geom.\ Topol.}\ $19$ (2015),
+$1031$--$1141$ (factorisation homology).
+\item Beilinson, A., and Drinfeld, V., \emph{Chiral Algebras},
+AMS Colloquium Publ.\ $51$, 2004 (Ran space, factorisation
+algebras; Ch.~3 for $\Ran(C)$).
+\item Booth, M., and Lazarev, A., arXiv:$2304.08409$, 2023 (curved
+bar-cobar Quillen equivalence for dg coalgebras).
+\item Francis, J., \emph{Compos.\ Math.}\ $149$ (2013), $430$--$480$
+(tangent complex and $E_n$-centres, $\infty$-operadic model
+structure on factorisation algebras).
+\item Kontsevich, M., and Soibelman, Y., \emph{Deformation theory.
+Vol. I}, unpublished book, 2010 (Chs.~3--4, $\cL_\infty$-algebras
+on smooth schemes).
+\item Lef\`evre-Hasegawa, K., PhD thesis, Paris-7, 2003 (bar-cobar
+Quillen equivalence for $A_\infty$-coalgebras).
+\item Moriwaki, A., arXiv:$2601$.xxxxx, 2026 (IndHilb sewing
+envelope).
+\item Mumford, D., \emph{Towards an enumerative geometry of the
+moduli space of curves}, in \emph{Arithmetic and Geometry, vol.\ II},
+Birkh\"auser, 1983 (Mumford class $\lambda_g$ and its boundary
+relation on $\Mbar$).
+\item Positselski, L., \emph{Mem.\ AMS} $212$ (2011), no.~$996$
+(coderived category of curved dg modules).
+\item Teixidor i Bigas, M., \emph{Duke Math.\ J.}\ $56$ (1988),
+$301$--$313$ (restriction of the Mumford class to boundary
+divisors).
+\end{itemize}
+
+\end{document}

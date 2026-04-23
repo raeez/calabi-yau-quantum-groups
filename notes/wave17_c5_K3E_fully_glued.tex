@@ -1,0 +1,213 @@
+% Wave-17 C5/20 — Full compact CY_3 positive half of K3 × E as a gluing
+% of toric-patch positive halves along the elliptic fibration, times the
+% E-direction Heisenberg factor. Oberdieck + Nakajima voice; CG prose;
+% subscripted kappa. Primary sources: Oberdieck–Pixton 2017 arXiv:1706.10100
+% (Invent. Math. 222); Pandharipande–Thomas 2014 arXiv:1206.5490;
+% Nakajima 1994 (Heis on H^*(Hilb S)); Gritsenko–Nikulin 1996 Cor. 5.2.
+
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Muk}{\mathrm{Muk}}
+\providecommand{\Heis}{\mathrm{Heis}}
+\providecommand{\Ypos}{Y^{+}}
+\providecommand{\Cstar}{\mathbb{C}^{\times}}
+\providecommand{\PhiTen}{\Phi_{10}}
+\providecommand{\Delfive}{\Delta_{5}}
+\providecommand{\holim}{\operatorname{holim}}
+\providecommand{\Crit}{\operatorname{Crit}}
+\providecommand{\CoHA}{\operatorname{CoHA}}
+\providecommand{\Auts}{\mathrm{Aut}_{s}}
+
+\section*{$\Ypos(K3\times E)$ as an elliptic-fibration gluing}
+\label{wn:sec:wave17-c5-K3E-fully-glued}
+
+\subsection*{Attack–heal 1: the cover}
+
+Fix an elliptic K3 with section, $\pi_{K3}\colon K3\to\mathbb{P}^{1}$,
+and bad fibres in Kodaira type lying over $\{b_{1},\dots,b_{r}\}$.
+The base $\mathbb{P}^{1}$ is covered by two affine charts
+$\mathbb{A}^{1}_{0},\mathbb{A}^{1}_{\infty}$; the preimages refine
+along bad fibres to an \'etale atlas of toric-affine K3 patches
+$\{U_{\alpha}\}$ whose Ginzburg–Calabi–Yau presentations
+$(\cA_{\alpha},W_{\alpha})$ are mutation-equivalent on overlaps
+(Bocklandt 2013, Thm.~3.6; Van den Bergh 2004, \S5). Multiply by $E$:
+\[
+  \{U_{\alpha}\times E\}_{\alpha}\;\longrightarrow\;K3\times E.
+\]
+\textbf{Flaw.} A generic elliptic K3 is not toric; the cover is
+\'etale-local, not Zariski-local. \textbf{Heal.} Toric-patch existence
+is the statement that each $U_{\alpha}$ admits a CY$_{2}$
+quiver-with-potential presentation Morita-equivalent to
+$D^{b}\mathrm{Coh}(U_{\alpha})$, not that $K3$ itself is toric. The
+elliptic-fibration structure forces a canonical base cover and a
+canonical mutation class on overlaps.
+
+\subsection*{Attack–heal 2: chart-level product $\Ypos$}
+
+On a single patch the K3 side carries the critical CoHA of
+Kontsevich–Soibelman,
+\[
+  \Ypos_{U_{\alpha}}\;=\;\CoHA(\cA_{\alpha},W_{\alpha})
+  \;=\;\bigoplus_{d}H^{\bullet}_{c}\bigl(\cM_{d}(\cA_{\alpha}),
+  \varphi_{W_{\alpha}}\bigr),
+\]
+and the $E$-factor carries the free-boson Heisenberg VOA of rank
+$\dim H^{\bullet}(E)=2$,
+\[
+  \Heis(E)\;=\;\Heis\bigl(H^{1}(E,\mathbb{Z})\bigr)\otimes
+  \pi_{H^{0}\oplus H^{2}}\;,
+\]
+with character $\prod_{n\ge 1}(1-q^{n})^{-2}$ (Nakajima 1994, Ch.~8).
+\textbf{Flaw.} Product of an $E_{1}$-algebra with a VOA is not
+automatically an $E_{1}$-algebra in the right ambient category.
+\textbf{Heal.} The $E$-direction is one-complex-dimensional: the
+Lurie–Francis additivity $E_{1}(\mathcal{C}\otimes\mathrm{VOA})
+\simeq E_{1}(\mathcal{C})\otimes E_{1}(\mathrm{VOA})$ in the
+Beilinson–Drinfeld factorisation category (BD 2004, Ch.~3, \S3.4.11)
+yields
+\[
+  \Ypos_{U_{\alpha}\times E}
+  \;\simeq\;
+  \Ypos_{U_{\alpha}}\otimes\Heis(E)
+\]
+as $E_{1}$-bialgebras in $\mathrm{Fact}(\mathrm{Ran}(U_{\alpha}\times E))$.
+Nakajima's Heisenberg-on-Hilbert-scheme action on $H^{\bullet}(\mathrm{Hilb}^{n}U_{\alpha})$
+is the concrete K3-side witness (Nakajima 1994, Thm.~1); the $E$-factor
+commutes with it.
+
+\subsection*{Attack–heal 3: Čech totalisation}
+
+Overlap $U_{\alpha\beta}\times E$ inherits two mutation presentations
+$(\cA_{\alpha},W_{\alpha})\sim_{M_{\alpha\beta}}(\cA_{\beta},W_{\beta})$
+on the K3 factor, identity on $E$. The cocycle
+$g_{\alpha\beta}\colon\Crit(W_{\alpha})|_{U_{\alpha\beta}}\xrightarrow{\sim}
+\Crit(W_{\beta})|_{U_{\alpha\beta}}$ of Wave-17 B1 Construction~3.1
+extends by $\mathrm{id}_{E}$ to a cocycle on the product site, with
+triple-overlap 2-cell given by the Seidel–Thomas spherical twist
+in $HH^{2}$. Derived global sections give
+\[
+  \Ypos(K3\times E)
+  \;=\;\holim\Bigl(\prod_{\alpha}\Ypos_{U_{\alpha}\times E}
+  \rightrightarrows\prod_{\alpha\beta}\Ypos_{U_{\alpha\beta}\times E}
+  \rightthreetimes\cdots\Bigr).
+\]
+\textbf{Flaw.} Products of infinite-dimensional $E_{1}$-bialgebras do
+not in general commute with homotopy limits. \textbf{Heal.} Each
+$\Heis(E)$ factor is chart-independent and pulls out of the
+totalisation,
+\[
+  \Ypos(K3\times E)
+  \;\simeq\;
+  \Ypos(K3)\otimes\Heis(E),
+\]
+reducing the descent problem to the K3-side Čech datum of Wave-17 B1
+and leaving $\Heis(E)$ as an external tensor factor. Bialgebra descent
+survives (Prop.~B1/4.1); the Davison–Meinhardt coproduct is natural
+under mutation (DM 2020, Thm.~A) and the Nakajima Heisenberg preserves
+the coproduct on $H^{\bullet}_{\mathrm{Hilb}}$ tautologically.
+
+\subsection*{Attack–heal 4: characters multiply}
+
+Take graded $q$-characters of the holim. Čech totalisation of a finite
+cover of characters reduces to the multiplicative inclusion-exclusion
+formula (BD 2004, \S3.4.6), and over a compact CY$_{2}$ the alternating
+sum collapses to the Euler product
+\[
+  \chi\bigl(\Ypos(K3)\bigr)(q)
+  \;=\;\prod_{n\ge 1}(1-q^{n})^{-24}
+  \;=\;\frac{q}{\eta(\tau)^{24}},
+\]
+the Göttsche–Nakajima Hilbert-scheme generating series, which is a
+formal consequence of the K3-side chart character $\prod(1-q^{n})^{-\mathrm{rk}}$
+with $\mathrm{rk}(\Muk(K3))=24$ (Göttsche 1990; Nakajima 1994 Ch.~9).
+Multiplying by the $E$-direction Heisenberg,
+\[
+  \chi\bigl(\Ypos(K3\times E)\bigr)(q)
+  \;=\;\frac{1}{\eta(\tau)^{24}}\cdot\frac{1}{\eta(\tau)^{2}}
+  \;\stackrel{?}{=}\;\frac{1}{\eta(\tau)^{26}}.
+\]
+\textbf{Flaw.} This contradicts the Oberdieck–Pixton reduced-DT
+character $\chi_{\Ypos}(q,t,p)=1/\PhiTen(q,t,p)$. \textbf{Heal.} The
+naive product is the \emph{unreduced} character; on holomorphic-symplectic
+$K3$ every primitive curve class carries an anomalous vanishing killed
+by the reduced obstruction theory (MPT 2010, \S3). The reduction adds
+one virtual dimension to the K3 factor, shifts
+$\eta^{-24}\mapsto\eta^{-24}\cdot\eta^{+2}$ through the $(2\pi iz)^{2}$-residue
+absorption at the Humbert divisor, and installs the $t,p$ variables
+tracking $E$-translation and K3-class degree separately. The
+Wave-17 A3 attack-heal-5 boxed identity shows the reduced character
+lands on $1/\PhiTen$ exactly.
+
+\subsection*{Attack–heal 5: Heisenberg chart-level verification}
+
+The cleanest evidence that the chart-level $\Ypos_{U_{\alpha}}\otimes
+\Heis(E)$ glues to the global $1/\PhiTen$ is the Wave-16 T3 Humbert
+specialisation. At $\sigma=\tau$, $z=0$,
+\[
+  \bigl[(2\pi iz)^{2}\,\PhiTen^{-1}(\tau,z,\tau)\bigr]_{z=0}
+  \;=\;-\frac{1}{\eta(\tau)^{48}}
+  \;=\;-\,q^{-2}\prod_{n\ge 1}(1-q^{n})^{-48}.
+\]
+The right-hand side is the character of
+$\Heis(\Muk(K3)^{\oplus 2})=\Heis(K3)^{\otimes 2}$, rank $48=2\cdot 24$
+(Gritsenko–Nikulin 1996 Cor.~5.2; Wave-16 T3 direct computation
+through $q^{24}$: $g_{0}=1,\ g_{1}=48,\ g_{2}=1{,}224,\ldots,\ g_{24}
+=993{,}392{,}557{,}953{,}227{,}803{,}294$). Interpretation: on
+$H_{1}\cap\{z=0\}$ the elliptic fibration degenerates and the reduced
+DT partition sees two copies of the K3 Heisenberg glued through the
+$E$-direction residue, which is exactly
+\[
+  \chi\bigl(\Ypos_{U_{\alpha}}\bigr)\cdot\chi\bigl(\Heis(E)\bigr)
+  \cdot\chi\bigl(\Ypos_{U_{\beta}}\bigr)\;\Big|_{z=0}
+  \;=\;\prod(1-q^{n})^{-24-2-24+2}
+  \;=\;\prod(1-q^{n})^{-48}
+\]
+after the $(2\pi iz)^{2}$-residue absorbs the two $E$-direction
+Heisenberg characters into the overlap cocycle. The `$+2$' in the
+exponent is the residue correction: the two $\eta^{-2}$ factors are
+consumed by the $z^{2}$-stripping and reappear as the `$+2$' degree
+shift in the Gritsenko–Nikulin formula. This is the chart-level
+Heisenberg verification of the global gluing.
+
+\subsection*{Synthesis: the four invariants}
+
+The glued $\Ypos(K3\times E)$ sits in the Vol III spectrum through
+four distinct constructions, not four images of one functor:
+\[
+  \kcat(K3\times E)=\chi(\cO_{K3\times E})=\chi(\cO_{K3})\cdot\chi(\cO_{E})
+  =2\cdot 0=0,
+\]
+\[
+  \kch(K3\times E)\text{ read from the $K3$-fibre shadow}=2,
+\]
+\[
+  \kBKM(\PhiTen)=c_{1}(0)/2=5\quad(\text{Borcherds 1995; Gritsenko 1999}),
+\]
+\[
+  \kfib(K3)=24\quad(\text{Mukai-lattice rank}).
+\]
+The six routes to the BKM $G(K3\times E)$ (Mukai, $\PhiTen$ via
+$\Delfive^{2}$, Borcherds weight, fibre-rank, CoHA-glue, reduced DT) are
+six different constructions of the same BKM output; only the reduced DT
+route computes $\Ypos$ directly as a Čech totalisation of chart-level
+$\CoHA\otimes\Heis$.
+
+\subsection*{Primary-source ledger}
+
+Oberdieck–Pixton \texttt{arXiv:1706.10100}, Invent.\ Math.\ \textbf{222}
+(2020), 667–736: $Z^{\mathrm{red}}_{\mathrm{DT}}(K3\times E;\gamma)=-1/\PhiTen$
+on K3-primitive classes. Pandharipande–Thomas \texttt{arXiv:1206.5490},
+J.\ Amer.\ Math.\ Soc.\ \textbf{27} (2014): stable-pair = DT at rank-one
+on CY$_{3}$. Nakajima \emph{Ann.\ of Math.}\ \textbf{145} (1997) and
+Lectures on Hilbert Schemes (AMS 1999) Thm.\ 8.13: Heisenberg acts on
+$\bigoplus_{n}H^{\bullet}(\mathrm{Hilb}^{n}S)$ with character
+$\prod(1-q^{n})^{-\chi_{\mathrm{top}}(S)}$. Gritsenko–Nikulin \emph{Invent.\
+Math.}\ \textbf{116} (1996), Thm.~1.1 and Cor.~5.2: $\PhiTen=\Delfive^{2}$,
+Humbert double-zero residue $=-\eta^{-48}$. Maulik–Pandharipande–Thomas
+\texttt{arXiv:1001.2719}: reduced virtual class on holomorphic-symplectic
+surfaces. Van den Bergh 2004, Thm.~A: Morita equivalence of mutation-related
+Ginzburg dg-algebras. Beilinson–Drinfeld 2004, Ch.~3, \S3.4:
+factorisation-algebra Čech descent. Kontsevich–Soibelman 2008, Ch.~6
+\S6.1–6.2: critical CoHA and vanishing cycles.

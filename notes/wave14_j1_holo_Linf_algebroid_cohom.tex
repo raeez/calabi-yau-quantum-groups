@@ -1,0 +1,244 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=1.1in]{geometry}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\gBPS}{\mathfrak{g}_{\mathrm{BPS}}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\CE}{\mathrm{CE}}
+\providecommand{\chir}{\mathrm{chir}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\Linf}{L_\infty}
+\providecommand{\Jet}{J^\infty}
+\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kappaBKM}{\kappa_{\mathrm{BKM}}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Chiral Chevalley--Eilenberg cohomology of a holomorphic
+$\Linf$-algebroid}
+\author{Wave 14 J1/20}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Target}
+Wave 13 E4/G4 constructed $\CE^*_{\dbar,\chir}$ for two special
+algebroids on $\C^3$: the tangent $\cT_{\C^3}$ and the current
+$\Omega^{0,\bullet}(\C^3,\g)$. The general case is a holomorphic
+$\Linf$-algebroid $\cL \to \cT_X$ over an arbitrary complex manifold
+$X$, with coefficient module $\cM$. We define
+$\CE^*_{\dbar,\chir}(\cL,\cM)$, prove $D^2 = 0$, witness its chiral
+locality via Francis--Gaitsgory on $\Ran X$, and compute it for
+$\cL = \Omega^{0,\bullet}(K3 \times E, \g)$ with $\cM = \cO_{K3\times E}$.
+
+\section{Cycle 1: Axioms (BD $\to$ Dolbeault)}
+\begin{definition}[Holomorphic $\Linf$-algebroid]\label{def:holLinf}
+A holomorphic $\Linf$-algebroid on $X$ is a graded $\cO_X$-module $\cL$
+with $\dbar$-differential, holomorphic anchor $\rho: \cL \to \cT_X$, and
+$\Linf$-brackets $\{l_n: \Lambda^n \cL \to \cL[2-n]\}_{n \geq 1}$
+satisfying the $\Linf$-Jacobi relations; $l_1 = \dbar$. The brackets are
+$\cO_X$-linear in the last slot up to anchor, and satisfy the Leibniz
+$l_2(x, f \cdot y) = \rho(x)(f)\,y + (-1)^{|x||f|} f\,l_2(x,y)$.
+\end{definition}
+\textbf{Attack.} Beilinson--Drinfeld \cite[\S3.3]{BD04} axiomatise chiral
+Lie algebras on curves through right $\cD$-modules with chiral bracket
+$\mu: j_*j^*(\cL \boxtimes \cL) \to \Delta_*\cL$. Does the Dolbeault
+setting admit the same axiomatic envelope when $\dim X > 1$?
+\textbf{Heal.} Yes. Replace $\cD_X$-modules by the Dolbeault
+$\cD_X^{1,0}$-modules (holomorphic differential operators along $T^{1,0}X$)
+and promote brackets to $\Linf$; Francis--Gaitsgory \cite[\S2--3]{FG12}
+show that chiral / factorisation structures on $\Ran X$ are robust under
+the higher-dimensional generalisation, provided operations are supported
+in infinitesimal neighbourhoods of the small diagonals. The $\Linf$-Jacobi
+is the Ran-space pullback of the chiral Jacobi on $\Ran^{\leq n+1}$.
+
+\section{Cycle 2: The bicomplex}
+\begin{definition}[$\CE^*_{\dbar,\chir}(\cL, \cM)$]\label{def:CE-bicomplex}
+For a holomorphic $\Linf$-algebroid $\cL$ and a chiral $\cL$-module $\cM$
+over $X$, set
+\[
+  \CE^{p,q}(\cL, \cM)
+    := \Hom_{\cO_X}\!\bigl(\Sym^p(\cL^\vee[1]),\;
+       \Omega^{0,q}(X, \cM)\bigr)^{\Sigma_p},
+\]
+with total differential $D = d_{\CE} + \dbar$; here $d_{\CE}$ is the
+Chevalley--Eilenberg differential built from the transpose brackets
+$l_n^\vee$ plus the anchor-induced $\cM$-action:
+\[
+ (d_{\CE} f)(x_0,\ldots,x_p)
+  = \sum_{n \geq 2}\, \sum_{I}\, \pm\, f\!\bigl(l_n(x_I),\,
+       x_{\{0,\ldots,p\}\setminus I}\bigr)
+  \;+\; \sum_i (-1)^{\varepsilon_i}\, \rho(x_i)\cdot f(\ldots \widehat{x_i}\ldots),
+\]
+$I$ ranging over $n$-element subsets. The total complex is
+$\CE^*_{\dbar,\chir}(\cL,\cM) := \mathrm{Tot}\bigoplus_{p+q=*}\CE^{p,q}$.
+\end{definition}
+\begin{proposition}[$D^2 = 0$]\label{prop:D2}
+$D^2 = d_{\CE}^2 + [d_{\CE}, \dbar] + \dbar^2 = 0$.
+\end{proposition}
+\begin{proof}
+$d_{\CE}^2 = 0$ is the $\Linf$-Jacobi (\cite[App.~A]{KV19}); $\dbar^2 = 0$
+is the holomorphic Dolbeault identity; $[d_{\CE}, \dbar] = 0$ because the
+$\Linf$-brackets are holomorphic (commute with $\dbar$) and the anchor is
+holomorphic. Cycle 2 of E4/20 is the $\Linf$-generalisation of the dg Lie
+special case.
+\end{proof}
+\textbf{Attack.} When $\cL$ has non-holomorphic bracket components --- e.g.
+a Kodaira--Spencer $l_2$ picking up $\dbar$-closed but not $\dbar$-exact
+data --- does $[d_{\CE},\dbar] = 0$ survive? \textbf{Heal.} Not per-term.
+The fix is to pass to the jet algebroid $\Jet\cL$ (Cycle 3), on which every
+bracket becomes holomorphic-polynomial in jet coordinates; the
+non-holomorphic obstruction is absorbed into the $\Linf$-curvature
+$l_0 \in \cL[-1]$, Kapranov--Vasserot \cite[\S4.2]{KV19}.
+
+\section{Cycle 3: Jets and $\Ran X$-locality}
+\begin{construction}[Jet algebroid]\label{con:jet}
+Let $\Jet\cL$ be the pro-finite holomorphic jet bundle: sections are
+formal Taylor expansions of sections of $\cL$ along $X$. The
+$\Linf$-brackets of $\cL$ lift canonically to $\Jet\cL$
+\cite[\S4]{FG12}, giving a chiral $\Linf$-algebroid in the
+Beilinson--Drinfeld sense whose operations on $\Ran X$ are
+$\cD$-polynomial.
+\end{construction}
+\begin{proposition}[Chiral locality]\label{prop:locality}
+$\CE^*_{\dbar,\chir}(\cL, \cM) \simeq \CE^*_{\dbar,\chir}(\Jet\cL, \Jet\cM)^{\mathrm{hor}}$
+as complexes, where $(-)^{\mathrm{hor}}$ denotes the horizontal
+$\cD_X$-cohomology along $\Ran X$. The right-hand side is manifestly a
+factorisation algebra on $\Ran X$.
+\end{proposition}
+\begin{proof}
+The jet isomorphism $\cL \simeq \Jet\cL/\mathrm{ker}$ restricts to a
+quasi-isomorphism on $\CE$ because the horizontal differential encodes
+exactly the non-jet relations. This is the holomorphic version of
+Gelfand--Kazhdan descent; Francis--Gaitsgory \cite[Thm.~6.4.2]{FG12}
+supplies the $(\infty,1)$-categorical promotion to a chiral Koszul
+equivalence.
+\end{proof}
+\textbf{Attack.} Does horizontal cohomology commute with the Dolbeault
+$\dbar$? \textbf{Heal.} Yes on $\Ran X$: the $\cD_X$-module structure is
+along $T^{1,0}X$, $\dbar$ is along $T^{0,1}X$, and the two directions are
+transverse; Kodaira--Hodge decomposition gives the commutation at the
+level of harmonic representatives, and chain-level commutation follows
+from the bicomplex structure of Definition~\ref{def:CE-bicomplex}.
+
+\section{Cycle 4: $K3 \times E$ current algebra}
+\begin{construction}[$K3\times E$ algebroid]\label{con:k3e}
+Let $X = K3 \times E$ (compact CY$_3$) and $\g$ a finite-dimensional
+complex Lie algebra. Set $\cL_X := \Omega^{0,\bullet}(X, \g)$ with
+$\dbar$-differential, trivial anchor $\rho = 0$, and $l_2$ the pointwise
+$\g$-bracket on coefficients; $l_n = 0$ for $n \geq 3$. Coefficient
+module $\cM = \cO_X$.
+\end{construction}
+\begin{proposition}[Total-space $\kappach$]\label{prop:k3e-kappa}
+\[
+ \CE^*_{\dbar,\chir}(\cL_X, \cO_X)
+   \;\simeq\; \CE^*_{\mathrm{Lie}}(\g, \C) \otimes \Omega^{0,\bullet}(X, \cO_X),
+\]
+and
+\[
+ \kappach\!\bigl(\CE^*_{\dbar,\chir}(\cL_X,\cO_X)\bigr)
+   = \chi\!\bigl(\CE^*_{\mathrm{Lie}}(\g,\C)\bigr) \cdot \chi(\cO_X)
+   = \chi(\CE^*_{\mathrm{Lie}}(\g,\C)) \cdot 0
+   = 0.
+\]
+\end{proposition}
+\begin{proof}
+The K\"unneth tensor decomposition holds because the pointwise bracket
+preserves the factorisation
+$\Omega^{0,\bullet}(X,\g) = \g \otimes_\C \Omega^{0,\bullet}(X)$. The
+$\Sym^p(\cL^\vee[1])$ piece splits as
+$\Sym^p(\g^\vee[1]) \otimes \Sym^p \Omega^{0,\bullet}(X)^\vee$, and
+$\dbar$ acts only on the second factor. The Euler characteristic factors
+by K\"unneth-multiplicativity of $\kappacat$ (CLAUDE.md essential
+constants); $\chi(\cO_{K3\times E}) = \chi(\cO_{K3})\chi(\cO_E) =
+2 \cdot 0 = 0$.
+\end{proof}
+\textbf{Attack.} Does $\kappach = 0$ contradict the K3$\times$E spectrum
+$\{2, 3, 5, 24\}$? \textbf{Heal.} No. The four values come from four
+different constructions (Mukai lattice, Igusa $\Phi_{10}$ via Gritsenko
+$\Delta_5$, BKM Borcherds weight $c_1(0)/2 = 5$, K3 fibre-rank), each
+tagged by subscript: $\kappacat(K3) = 2$, $\kappaBKM(\Phi_1) = 5$,
+fibre-rank $24$. Proposition~\ref{prop:k3e-kappa} is the total-space
+$\kappach$, which is multiplicative and hence vanishes on $K3\times E$;
+the fibre restriction $\CE^*_{\dbar,\chir}(\cL_X|_{K3}, \cO_{K3})$
+recovers $\kappacat(K3) = 2$.
+
+\section{Cycle 5: Equal-status lanes}
+\begin{proposition}[$(\infty,1)$-functoriality]\label{prop:inf1}
+The assignment $(\cL, \cM) \mapsto \CE^*_{\dbar,\chir}(\cL,\cM)$ extends
+to an $(\infty,1)$-functor
+\[
+ \CE^*_{\dbar,\chir}: \mathrm{hol}\Linf\text{-}\mathrm{Algd}(X)^{\mathrm{op}}
+   \times \mathrm{Mod} \;\longrightarrow\; \mathrm{ChirAlg}_{E_1}(\Ran X),
+\]
+with target the $\infty$-category of $E_1$-chiral algebras on $\Ran X$
+(Francis--Gaitsgory \cite[\S6]{FG12}). At $\dim X = 3$, the output is
+$E_1$ per CLAUDE.md: $E_2/E_3$ enhancements live on
+$Z(\mathrm{Rep}(\CE^*_{\dbar,\chir}))$, not on $\CE^*_{\dbar,\chir}$
+itself.
+\end{proposition}
+\textbf{Attack.} Does the chain-level bicomplex of
+Definition~\ref{def:CE-bicomplex} and the $(\infty,1)$-functor of
+Proposition~\ref{prop:inf1} carry the same information? \textbf{Heal.}
+Both are load-bearing (CLAUDE.md equal-status rule). The chain-level
+lane supplies the explicit $K3\times E$ computation of
+Proposition~\ref{prop:k3e-kappa}; the $(\infty,1)$-lane supplies
+functoriality, descent along $\Ran X$, and the Koszul equivalence with
+$U^\chir_{\dbar}(\cL)$. Neither subsumes the other.
+
+\section{Consequence}
+On compact CY$_d$ $X$ with $\cL = \Omega^{0,\bullet}(X, \g)$ and $\cM =
+\cO_X$,
+\[
+ \kappach(A_X)
+   = \chi\!\bigl(\CE^*_{\dbar,\chir}(\cL, \cO_X)\bigr)
+   = \chi(\CE^*_{\mathrm{Lie}}(\g,\C)) \cdot \sum_q (-1)^q h^{0,q}(X),
+\]
+reproducing the Hodge-supertrace identification of CLAUDE.md essential
+constants and specialising at $d=3$ to E4/G4.
+
+\begin{thebibliography}{9}
+\bibitem{BD04} A.~Beilinson and V.~Drinfeld, \emph{Chiral Algebras},
+  AMS Colloquium Publications 51, 2004, \S3.3--3.4.
+\bibitem{FG12} J.~Francis and D.~Gaitsgory, \emph{Chiral Koszul duality},
+  Selecta Math.\ 18 (2012), 27--87; \S2, \S3, \S6.
+\bibitem{KV19} M.~Kapranov and E.~Vasserot, \emph{The cohomological
+  Hall algebra of a surface and factorization cohomology},
+  arXiv:1901.07641, \S4--5; \cite{KV19} = Kapranov--Vasserot 2018
+  preprint.
+\bibitem{Borcherds95} R.~Borcherds, \emph{Automorphic forms on
+  $O_{s+2,2}(\R)$ and infinite products}, Invent.\ Math.\ 120 (1995),
+  161--213.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,155 @@
+% Wave-10 Q2/20 primary-literature forensic audit.
+% Target: settle whether EOT 2011 Table 1 supplies the $c_N(0)$ sequence for
+% the Borcherds-Gritsenko $\Phi_N$ hierarchy $(N \in \{1,2,3,4,6\})$, and
+% which of the two Wave-9 citations (M4: $(10,8,6,4,2)$ vs. N3: $(10,4,2,2,2)$)
+% is primary-source-correct.
+\providecommand{\ClaimStatusTheorem}{[\textsc{Theorem}]}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\Delm}[1]{\Delta_{#1}}
+\providecommand{\PhiGC}[1]{\Phi_{#1}^{\mathrm{GC}}}
+
+\section*{Wave-10 Q2: EOT 2011 Table~1 --- primary-source audit}
+\ClaimStatusTheorem
+
+\paragraph{Finding 0 (the content of EOT 2011 Table~1).}
+Eguchi--Ooguri--Tachikawa 2011 (\texttt{arXiv:1004.0956v2}, p.~6,
+Appendix~A) presents a \emph{single} Table~1: it is the $26\times 26$
+\emph{character table of the sporadic Mathieu group $M_{24}$} (rows =
+irreducible characters of dimensions $1, 23, 45, \ldots, 10395$;
+columns = conjugacy classes $1A, 2A, \ldots, 23B$). EOT Table~1
+contains neither a column of Fourier coefficients $A_n$ nor a column
+of twisted Euler numbers $\chi(g)$. The sequence $A_n = 45, 231,
+770, 2277, 5796, 13915, 30843, \ldots$ of EOT lives in equation
+(1.12), not in Table~1; the conjugacy-class-indexed data
+(twisted/twining) is \emph{absent} from EOT 2011 --- that paper
+predates the twining analysis.
+\textbf{Both Wave~9 agents M4 and N3 mis-cite EOT Table~1 as the
+source of a $c_N(0)$ sequence: EOT Table~1 does not contain one.}
+
+\paragraph{Finding 1 (the actual twining constant-term table is in Cheng 2010
+and GHV 2012).}
+The paper that supplies the $z=0$ constant terms of twisted elliptic
+genera as a function of $M_{24}$ conjugacy class is Cheng 2010
+(\texttt{arXiv:1005.5415}, p.~10, Table~1, equations (2.7)--(2.9)). Cheng
+states
+\[
+  \chi(g) \;:=\; Z_g(\tau, z=0) \;=\; \Tr_{\rho_1 \oplus \rho_{23}}(g),
+\]
+i.e., the twisted Euler number on $H^\ast(K3)$ as the $24$-dimensional
+permutation character. Cheng Table~1 lists, for the five
+\emph{Nikulin $\Z_N$-automorphism} conjugacy classes in $M_{23}
+\subset M_{24}$:
+\[
+  \chi(1A)=24,\quad \chi(2A)=8,\quad \chi(3A)=6,\quad \chi(5A)=4,
+  \quad \chi(7A)=3,
+\]
+following the universal Nikulin formula $\chi(g_N) = 24/(N+1)$ on
+$N \in \{1,2,3,5,7\}$. Gaberdiel--Hohenegger--Volpato 2010
+(\texttt{arXiv:1006.0221}, p.~7, eq.~(3.8)) records the companion
+relation
+\[
+  \phi_g(\tau, z=0) \;=\; 12\,\Tr_{\mathbf{23}\oplus \mathbf{1}}(g),
+\]
+for the half-index-normalised twining elliptic genus
+$\phi_g(\tau,z)$. The factor $12$ reflects GHV's $\phi_g = 2 Z_g$
+normalisation; \emph{both sources agree on the underlying character-theoretic
+quantity}, which is $\chi_{24}(g) = \chi_1(g) + \chi_{23}(g)$.
+
+\paragraph{Finding 2 (the $c_N(0)$ values entering the Borcherds weight formula
+are a distinct sequence).}
+The quantity entering Borcherds' weight theorem (Borcherds 1998,
+Theorem~13.3) for the Gritsenko--Nikulin paramodular form $\PhiGC{N}$
+attached to the Nikulin $\Z_N$-automorphism of $K3$ is \emph{not} the
+twisted Euler number $\chi(g_N)$. It is the $q^0 z^0$-Fourier
+coefficient $c_N(0)$ of the input weak Jacobi form
+$\phi_{0,1}^{(N)}(\tau,z)$ of weight $0$, index $1$ (Eichler--Zagier
+1985, Theorem~9.3; Gritsenko--Nikulin 1995 Part~II, Theorem~2.1). For
+$N=1$, $\phi_{0,1}^{(1)} = (r^{-1} + 10 + r) + O(q)$ so $c_1(0) = 10$;
+weight $\Delta_5 = c_1(0)/2 = 5$. The Gritsenko--Nikulin tabulation
+(1995 Part~II, Theorem~2.1; Gritsenko 1999) gives
+\[
+  \big(c_1(0),\ c_2(0),\ c_3(0),\ c_4(0),\ c_6(0)\big)
+  \;=\; (10,\ 4,\ 2,\ 2,\ 2),
+\]
+equivalently $\mathrm{wt}(\PhiGC{N}) = c_N(0)/2 = (5, 2, 1, 1, 1)$, which
+is the canonical sequence inscribed in
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+line~1481 and propagated as
+$\kBKM(\Phi_N) = c_N(0)/2$ (Theorem
+\texttt{thm:borcherds-weight-kappa-BKM-universal}, same file,
+lines~1423--1473).
+
+\paragraph{Finding 3 (the two Wave-9 tables).}
+\begin{itemize}
+\item \textbf{M4's table $(10, 8, 6, 4, 2)$}: this is the sequence of
+\emph{twisted Euler numbers} $\chi(g_N) = 24/(N+1)$ for the Nikulin
+automorphism conjugacy classes $(1A, 2A, 3A, 5A, 7A)$ --- i.e.,
+$(24, 8, 6, 4, 3)$ truncated/reindexed incorrectly, or the
+Gritsenko--Clery constant-factor-altered variant. It is \emph{not}
+$c_N(0)$; it is not in EOT Table~1. M4 misidentified both the source
+and the quantity.
+\item \textbf{N3's table $(10, 4, 2, 2, 2)$}: this is the correct
+Gritsenko--Nikulin $c_N(0)$ sequence on $N \in \{1,2,3,4,6\}$,
+producing the paramodular weights $(5, 2, 1, 1, 1)$ for
+$(\Delm{5}, \Delm{2}, \Delm{1}, \Delm{1}, \Delm{1})$. It is not in
+EOT Table~1; N3 mis-cited the source. The correct primary references
+are Gritsenko--Nikulin 1995 Part~II Theorem~2.1 (for general $N$),
+Gritsenko 1999 (for the extended list), Borcherds 1998
+Theorem~13.3 (for $\mathrm{wt}(\Phi_N) = c_N(0)/2$), and
+Eichler--Zagier 1985 Theorem~9.3 (for $N=1$).
+\end{itemize}
+
+\begin{theorem}[Definitive primary-source-verified table]
+\label{thm:wave10-q2-audit}
+\mbox{}\\[-2ex]
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{c|c|c|c|l}
+ $N$ & $c_N(0)$ & $\mathrm{wt}(\PhiGC{N}) = \kBKM$ & $\chi(g_N)$ & primary source \\
+\hline
+ $1$ & $10$ & $5$   & $24$ & $\phi_{0,1}$: Eichler--Zagier 1985 Thm~9.3 \\
+ $2$ & $4$  & $2$   & $8$  & GN95 Part~II Thm~2.1 \\
+ $3$ & $2$  & $1$   & $6$  & GN95 Part~II Thm~2.1 \\
+ $4$ & $2$  & $1$   & $4$  & GN95 Part~II Thm~2.1; Gritsenko 1999 \\
+ $6$ & $2$  & $1$   & $2$  & GN95 Part~II Thm~2.1; Gritsenko 1999
+\end{tabular}
+\end{center}
+The $\chi(g_N)$ column is the twisted Euler number (Cheng 2010
+\texttt{arXiv:1005.5415} Table~1, p.~10, eq.~(2.9); GHV 2012
+\texttt{arXiv:1006.0221} eq.~(3.8); directly readable off Cheng 2010
+Table~2, rows of dim~$1$ and dim~$23$). The $c_N(0)$ column governs
+the Borcherds weight $\mathrm{wt}(\PhiGC{N}) = c_N(0)/2$ and hence
+$\kBKM(\PhiGC{N})$ via Borcherds 1998 Theorem~13.3.
+\end{theorem}
+
+\paragraph{Adjudication.}
+N3 has the correct $c_N(0)$ sequence; M4 conflates it with $\chi(g_N)$.
+Neither source is in EOT Table~1. The correct primary source is
+Gritsenko--Nikulin 1995 Part~II Theorem~2.1 (for $N \in
+\{2,3,4,6\}$) and Eichler--Zagier 1985 Theorem~9.3 (for $N=1$), with
+the weight-coefficient identity $\mathrm{wt} = c_N(0)/2$ in Borcherds
+1998 Theorem~13.3. Canonical Vol III inscription:
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex} lines
+$1419$--$1499$.
+
+\paragraph{Notation audit (which $c_g(0)$).}
+The question ``is $c_g(0)$ the $q^0 z^0$-coefficient of $Z^{(g)}_{\mathrm{ell}}(K3)$,
+or the constant term at $z=0$ of $Z^{(g)}|_{\tau \to i\infty}$, or
+the leading Borcherds-weight coefficient of $F^{\mathrm{GC}}_{(g,\mathrm{id})}$?'':
+all three literatures use disjoint normalisations.
+(a) Cheng 2010 and GHV 2012 denote $\chi(g) = Z_g(\tau, 0) = \chi_{24}(g)$
+--- this is the $z=0$ value of the twisted elliptic genus, not a
+Borcherds-weight datum. (b) The Borcherds-weight $c_N(0)$ is the
+$q^0 z^0$-coefficient of the \emph{Jacobi input}
+$\phi_{0,1}^{(N)}(\tau,z)$, which equals $10$ at $N=1$ and
+$(10,4,2,2,2)$ at $N \in \{1,2,3,4,6\}$. (c) The ``leading coefficient
+of $F^{\mathrm{GC}}_{(g,\mathrm{id})}$'' is not a standard
+designation; in Lorgat 2020 and Clery--Gritsenko 2013, $F^{\mathrm{GC}}_N$
+denotes a paramodular form whose weight \emph{equals} $c_N(0)/2$.
+These are three \emph{different} quantities indexed by the same
+letter $c$; future Wave prose should adopt the subscript discipline
+$c_N^{\mathrm{Jac}}(0)$ for the Borcherds-weight input and
+$\chi_{24}(g)$ for the twisted Euler number, to prevent AP-CY-adjacent
+confusions.

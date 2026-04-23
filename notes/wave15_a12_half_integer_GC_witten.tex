@@ -1,0 +1,632 @@
+% ====================================================================
+% Wave-15 A12/20 --- Witten voice.
+% BKM frontier: the three half-/quarter-/zero-weight Gritsenko--Clery
+% paramodular forms at the non-CHL indices N in {5, 7, 8}, and the
+% Borcherds-Kac-Moody superalgebras they cover.
+%
+% Reader placement: companion to wave15_r4 (CHL admissibility line),
+% wave16_v1 (non-CHL hosts), wave16_v4 (8-form kappa_BKM audit),
+% wave19_z1 (N=5 Borcea-Voisin), wave19_z2 (N=7 order-4 gerbe),
+% wave19_z3 (N=8 Mongardi-Tari-Wandel Kummer-3).
+%
+% Scope declaration: the prompt header lists "N in {6,7,8}"; the prompt
+% body and the Gritsenko--Clery 2008 Theorem 1.1 census agree that the
+% half-/quarter-/zero-weight non-CHL entries sit at N in {5, 7, 8}
+% (weights 1/2, 1/4, 0) while N = 6 is the CHL-admissible integer
+% weight-1 entry discharged by Gritsenko--Nikulin 1998. This note
+% treats the mathematically active triple {5, 7, 8} and supplies a
+% terminal paragraph on the N = 6 integer context.
+%
+% Primary sources:
+%   Gritsenko--Clery 2008 arXiv:0812.3962, Thm 1.1 (eight dd paramodular);
+%   Borcherds 1998 Invent. Math. 132 Thm 13.3, Thm 10.1
+%     (singular-theta weight formula; metaplectic extension);
+%   Borcherds 1995 Invent. Math. 120 (multiplicative lift);
+%   Bruinier 2002 LNM 1780 Prop. 5.1 (half-integer Borcherds products);
+%   Freitag--Hermann 1985 \S II.5 (spin/quarter-integer cover of Mp_{2g});
+%   Gritsenko--Nikulin 1998 alg-geom/9504006 Part II Thm 2.1
+%     (BKM denominators at integer weight);
+%   Gritsenko 1999 St. Petersburg Math. J. 11, \S 3
+%     (arithmetic lift construction for psi_{1/2,5});
+%   Nikulin 1980 Trudy MMO 38, Thm 4.5 (symplectic K3 orders 1--8);
+%   Mukai 1988 Invent. Math. 94 (K3 symplectic classification M_23);
+%   Borcea 1997 \& Voisin 1993 (K3 x E involutions, N=5 host);
+%   Mongardi--Tari--Wandel 2018 arXiv:1610.06216 Thm 1.3
+%     (order-8 symplectic auto on Kum^3(A));
+%   Mathai--Murray--Stevenson 2002 CMP 228 Thm 1.2
+%     (twisted K-theory from torsion gerbe);
+%   Hopkins--Singer 2005 JDG 70, \S 4.10 (Wu class);
+%   Cheeger--Simons 1985 LNM 1167 \S 1 (differential characters);
+%   Cheng--Duncan--Harvey 2014 arXiv:1204.2779 Table 2 (CHL admissibility);
+%   Lorgat 2020 \S 6 (explicit Borcherds lift at N=1).
+%
+% Author: Raeez Lorgat.
+% ====================================================================
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[Thm]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[Conj]}}
+\providecommand{\ClaimStatusOpen}{\textsc{[Open]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[Heur]}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\HH}{\mathbb{H}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\QQ}{\mathbb{Q}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\PP}{\mathbb{P}}
+\providecommand{\cH}{\widehat{H}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Mp}{\mathrm{Mp}}
+\providecommand{\Spin}{\mathrm{Spin}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Auts}{\mathrm{Aut}_{s}}
+\providecommand{\Fix}{\mathrm{Fix}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Kum}{\mathrm{Kum}}
+\providecommand{\wt}{\mathrm{wt}}
+\providecommand{\mult}{\mathrm{mult}}
+\providecommand{\mrank}{\mathrm{rank}}
+\providecommand{\CS}{\mathrm{CS}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\MTW}{\mathrm{MTW}}
+\providecommand{\Delfnm}[2]{\Delta_{#1}^{(#2)}}
+
+\section*{Wave-15 A12/20 --- Half-integer Gritsenko--Cl\'ery Borcherds
+weights and the BKM frontier at $N\in\{5,7,8\}$}
+\label{wn:sec:wave15-a12-half-integer-GC-witten}
+
+\paragraph{The census, one line.}
+Gritsenko--Cl\'ery 2008 (\emph{Compos.\ Math.}\ 149, Thm.~1.1) classify
+paramodular Siegel forms on $K(N)\subset\Sp_4(\Q)$ with simplest
+(diagonal Humbert) divisor: eight forms, weights
+$(w_1,\ldots,w_8)=(5,2,1,1,\tfrac12,1,\tfrac14,0)$, constant Jacobi
+heads $c_N(0)=2w_N$. By Borcherds' singular-theta weight formula
+(Borcherds 1998 Thm.~13.3), $\kBKM(\Phi_N)=c_N(0)/2$ on every row,
+with the metaplectic extension (Borcherds 1998 Thm.~10.1) admitting
+half-integer weights and the spin double cover (Freitag--Hermann 1985
+\S II.5) admitting quarter-integer weights. CHL-admissibility
+$\varphi(N)\mid 2$ selects the Nikulin-realisable
+$K3\times E$-orbifold slice $N\in\{1,2,3,4,6\}$; the complementary
+triple $\{5,7,8\}$ is the non-CHL frontier treated here.
+
+\paragraph{Assignment, five cycles per index.}
+Each of the three non-CHL indices hosts its own Borcherds--Kac--Moody
+superalgebra $\mathfrak{g}_{\Phi_N}$: a metaplectic BKM at $N=5$, a
+quarter-graded ``fractional'' BKM (Weyl cover of Borcherds--Harvey--Moore
+type) at $N=7$, and a degenerate abelian affine boundary at $N=8$. The
+five-cycle attack--heal protocol ticks through each entry:
+\emph{(i)} automorphic weight existence and character data;
+\emph{(ii)} geometric host (CY$_3$, singular orbifold, or hyperk\"ahler
+fourfold quotient);
+\emph{(iii)} BKM superalgebra construction (Cartan matrix, root datum,
+simple imaginary set);
+\emph{(iv)} physical interpretation (M-theory/heterotic frame,
+metaplectic anomaly, WZW limit);
+\emph{(v)} the Borcherds-weight identity $\kBKM=c_N(0)/2$ as theorem
+versus conjecture at BKM-denominator scope.
+
+\subsection*{Cycle 0 --- the universal identity at non-integer weight}
+
+\ClaimStatusTheorem{} \emph{(Borcherds weight, half- and quarter-integer
+scope.)} Let $\psi_{w,t}\in J^{\mathrm{w},\chi}_{w,t}$ be a weak Jacobi
+form of weight $w\in\tfrac14\Z$ and index $t\in\Z_{\geq 1}$ on the
+paramodular lattice $\Lambda_t=U\oplus U\oplus\langle -2t\rangle$, with
+multiplier $\chi$ on the appropriate cover:
+\begin{itemize}[leftmargin=1.8em,itemsep=0.25ex]
+\item $w\in\Z$: $\chi$ a character of $\Sp_4(\Z)$;
+\item $w\in\tfrac12\Z\setminus\Z$: $\chi$ on the metaplectic cover
+$\Mp_4(\Z)\twoheadrightarrow\Sp_4(\Z)$ (Borcherds 1998 Thm.~10.1);
+\item $w\in\tfrac14\Z\setminus\tfrac12\Z$: $\chi$ on the spin double
+cover of $\Mp_4(\Z)$ (Freitag--Hermann 1985 \S II.5).
+\end{itemize}
+The Borcherds singular-theta lift
+$\mathrm{Bor}(\psi_{w,t})\in M_{c(0)/2}(K(t),\chi_{\mathrm{Bor}})$ has
+weight $c(0)/2$ read off the $(q^0\zeta^0)$-coefficient $c(0)$ of
+$\psi_{w,t}$ (Borcherds 1998 Thm.~13.3 in the integer case;
+Bruinier 2002 Prop.~5.1 in the half-integer case; Freitag--Hermann
+1985 \S II.5 in the quarter-integer case).
+
+The weight formula is \emph{indifferent} to integrality of $c(0)$,
+indifferent to Nikulin admissibility of the orbit, and indifferent to
+whether the lift is realised by a Gritsenko--Nikulin denominator
+identity. What the CHL condition $\varphi(N)\mid 2$ controls is not the
+weight of $\Phi_N$ but the existence of a compact CY$_3$ free
+$\Z/N$-quotient $(K3\times E)/(\Z/N)$ hosting the Oberdieck--Pixton
+reduced DT zeta. On the non-CHL triple the automorphic side survives
+intact; the geometric side is forced onto non-product hosts.
+
+\subsection*{Cycle 1 --- $N=5$, metaplectic weight $1/2$,
+Borcea--Voisin threefold}
+
+\ClaimStatusTheorem{} \emph{(Automorphic side.)} The form
+$\Delfnm{1/2}{5}\in M_{1/2}(K(5),\chi_5)$ is the Borcherds lift of the
+unique (up to scalar) weak Jacobi generator
+$\psi_{1/2,5}(\tau,z)=\vartheta_1(\tau,z)\,\eta(\tau)^{-3}\,f_5(\tau)$
+where $f_5(\tau)=q+O(q^2)\in S_2(\Gamma_0(5))$ is the weight-2 level-5
+newform (Gritsenko 1999 \S 3; GC 2008 Thm.~1.1 row $N=5$). Its
+$(q^0\zeta^0)$-head is $c_5(0)=1$, so Borcherds' formula gives
+$\wt(\Delfnm{1/2}{5})=c_5(0)/2=1/2$ and $\kBKM(\Phi_5)=1/2$.
+
+The multiplier $\chi_5$ is the generating character of order $4$ on
+$K(5)^+\subset\Mp_4(\Z)$: at a paramodular involution $V_5$,
+$\chi_5(V_5)=\zeta_4$; at a Siegel translation $T_n$,
+$\chi_5(T_n)=1$; at an $\mathrm{SL}_2(\Z)$ generator $S$,
+$\chi_5(S)=\varepsilon^{1/2}$ with $\varepsilon$ the Dedekind
+$\eta$-multiplier system squared (Gritsenko--Nikulin 1998 Part II
+\S 5). The square $\Delfnm{1/2}{5}{}^2\in M_1(K(5),\chi_5^2)$ descends
+to the honest $\Sp_4(\Z)$ cover; the fourth power
+$\Delfnm{1/2}{5}{}^4\in M_2(K(5))$ is genuine paramodular.
+
+\ClaimStatusTheorem{} \emph{(Geometric side: Borcea--Voisin threefold.)}
+Since $\varphi(5)=4\nmid 2$, no elliptic curve admits
+$\Z[\zeta_5]\hookrightarrow\mathrm{End}(E)$, and no free diagonal
+$\Z/5$-quotient of $K3\times E$ exists. The host is instead the
+Borcea--Voisin threefold (Borcea 1997 \emph{Essays on Mirror
+Manifolds II}, Thm.~1; Voisin 1993 \emph{Ast\'erisque} 218, Thm.~2.1)
+\[
+X_5^{\BV}:=(S_5\times E_5)/(\iota_S\times\iota_E),
+\]
+with $S_5$ a K3 carrying a symplectic $g_5\in\Auts(S_5)$ of order $5$
+(Nikulin 1980 Thm.~4.5: $\#\Fix(g_5)=4$, Mukai 1988 Table~1 anchor
+$4A_4$ of rank $16$) commuting with a Nikulin antisymplectic
+involution $\iota_S$, and $E_5$ elliptic with $\iota_E(z)=-z$. After
+crepant resolution along $\Fix(\iota_S)\times\Fix(\iota_E)$ by
+$\PP^1$-bundles (Borcea loc.~cit.), $\widehat{X}_5^{\BV}$ is a smooth
+CY$_3$ on which $\langle g_5\rangle$ descends.
+
+\ClaimStatusConjectured{} \emph{(Fourth-root identity.)} The reduced
+DT zeta of $\widehat{X}_5^{\BV}$ is (expected to be) a weight-$2$
+meromorphic Siegel form on $K(5)$ satisfying
+\[
+(Z^{X_5^{\BV}}_{L,1})^{-1/4}=\Delfnm{1/2}{5}.
+\]
+The fourth root is forced: the weight-$1/2$ GC form squares to
+weight-$1$ on the metaplectic double cover, fourth-powers to
+weight-$2$ on $\Sp_4(\Z)$, so the reciprocal fourth root of a
+weight-$2$ DT zeta lands on $\Delfnm{1/2}{5}$. Scope: the existence
+of the reduced virtual class with $(g_5,\iota_S\times\iota_E)$-equivariant
+cosection follows Maulik--Pandharipande--Thomas 2010 (on
+$K3\times E$) plus the Borcea--Voisin symplectic extension; modularity
+of the resulting partition function on $K(5)$ is the
+Oberdieck--Pixton 2017 pattern extended to non-CHL hosts, open
+(Wave-19 Z1 Cycle~2).
+
+\ClaimStatusConjectured{} \emph{(BKM side: metaplectic superalgebra
+$\mathfrak{g}_{\Phi_5}$.)} The Borcherds multiplicative lift reads
+\[
+\Delfnm{1/2}{5}(Z)=\prod_{(m,n,\ell)>0}(1-e(m\tau+n\sigma+\ell z))^{c_5(mn,\ell)}
+\]
+with $c_5(mn,\ell)$ the Fourier coefficients of $\psi_{1/2,5}$. Because
+$\psi_{1/2,5}=\vartheta_1\eta^{-3}f_5$ takes values in $\tfrac12\Z$, the
+exponents $c_5(mn,\ell)$ are \emph{half-integer} for $mn-\ell^2/4$
+in the half-integral spectrum. The associated
+BKM superalgebra $\mathfrak{g}_{\Phi_5}$ has:
+\begin{enumerate}[label=\textsc{(}\roman*\textsc{)},leftmargin=2em,itemsep=0.25ex]
+\item Real-simple-root lattice: three simple reflections
+$\delta_1,\delta_2,\delta_3\in\Lambda^{2,1}_{II;5}$, the
+$K(5)^+$-analogue of the GN 1998 Weyl triple, with Gram matrix
+\[
+\bigl((\delta_i,\delta_j)\bigr)_{i,j=1}^3=\begin{pmatrix}2&-10&-10\\-10&2&-10\\-10&-10&2\end{pmatrix}
+\]
+(off-diagonal $-2t_{\mathrm{eff}}=-10$ at polarisation $t=5$;
+det~$=-1152$). The Weyl vector
+$\rho_5=\tfrac12(\delta_1+\delta_2+\delta_3)\in\tfrac12\Lambda^{2,1}_{II;5}$
+sits on the metaplectic double cover.
+\item Imaginary-simple-root multiplicities:
+$\mathrm{mult}(\alpha)=c_5(nm,\ell)$ at $(\alpha,\alpha)=4nm-\ell^2/5$;
+odd-integer denominators appear at even $\alpha^2$, half-integer at
+odd $\alpha^2\cdot 5$. The superalgebra is $\tfrac12\Z$-graded by
+the metaplectic covering (Gritsenko--Nikulin 1998 Part II Thm.~2.1
+extended to $\Mp_4(\Z)$ per Bruinier 2002 Prop.~5.1).
+\item Cartan matrix: the $3\times 3$ symmetric generalised Cartan
+$A_{ij}=2(\delta_i,\delta_j)/(\delta_j,\delta_j)$ reads
+$\mathrm{diag}(1,1,1)-10\cdot(J-I)$ with $J$ the all-ones matrix;
+diagonal $2$, off-diagonal $-10$. Hyperbolic signature $(1,2)$;
+Coxeter exponents $11$ for each pair, Serre exponent $1-A_{ij}=11$.
+\end{enumerate}
+The denominator identity is the Weyl--Kac--Borcherds form of
+$\Delfnm{1/2}{5}$; the metaplectic scope is the half-integer lift
+of the integer-weight GN 1998 Part II identity at $N=1$ ($\Delta_5$,
+$-2$ off-diagonal, Coxeter exponent $3$).
+
+\ClaimStatusConjectured{} \emph{(Square-root of a BKM.)} The
+identification
+$\mathfrak{g}_{\Phi_5}\cong\widetilde{\mathfrak{g}}_{\Delfnm{1/2}{5}}$
+with the Kontsevich--Soibelman BPS algebra
+$\mathfrak{g}^{(5)}_{\mathrm{BPS}}(\widehat{X}_5^{\BV})$ is a metaplectic
+analogue of Oberdieck's twisted Mathieu theorem; its proof reduces to
+(a) reduced virtual class on
+$\cM_{\beta,n}(\widehat{X}_5^{\BV})$ with $(g_5,\iota)$-equivariance
+(MPT 2010 plus Borcea--Voisin twist), (b) $K(5)$-modularity with
+character $\chi_5$ on the metaplectic cover (Oberdieck modularity
+extended to non-CHL by the fourth-root convention of Cycle 1),
+(c) Fourier matching $-\log Z^{X_5^{\BV}}=4\log\Delfnm{1/2}{5}$
+against the BPS character of $\mathfrak{g}^{(5)}_{\mathrm{BPS}}$.
+
+\ClaimStatusHeuristic{} \emph{(Physical frame.)} The metaplectic square
+root is the heterotic-string amplitude on the
+$K3\times T^2/\Z_5$-quasi-compactification with $\Z_5$ acting by
+geometric symplectic rotation on $K3$ and by phase on the $T^2$-torus
+winding number: the one-loop new-supersymmetric-index
+$\int_{\mathcal F}\mathrm{Tr}_{\mathrm{R\cdot R}}(-1)^{F_L+F_R}F_LF_R\,
+q^{L_0}\bar q^{\bar L_0}$ reduces by Harvey--Moore 1996 threshold
+integration to a $\chi_5$-twisted automorphic form on $\Sp_4(\Z)$
+whose square root is $\Delfnm{1/2}{5}$; the metaplectic phase is the
+gravitational anomaly of the orbifold partition function under
+modular $T\to T+1$ (equivalently, the spin-structure dependence of
+the $(-1)^F$ sum).
+
+\paragraph{Invariants ($N=5$).}
+$\kBKM(\Phi_5)=1/2$ (Borcherds weight theorem).
+$\kcat(\widehat{X}_5^{\BV})=\chi(\cO)=1-0+0-1=0$ (CY$_3$ Hodge
+supertrace).
+$\kfib(\widehat{X}_5^{\BV})=\sum_j(1-g_j)=2k+r-11$ with
+$(r,a,k,\sum g_j)$ the Nikulin triple of $(S_5,\iota_S)$.
+$\kch$ computed via $\Phi$ on the derived category of the resolution;
+the supertrace $\sum_q(-1)^qh^{0,q}=0$ at compact CY$_3$ and
+$\wt(\Delfnm{1/2}{5})=1/2$ differ because the non-CHL host breaks the
+CHL $\kBKM=\kch+\chi(\cO_{\mathrm{fiber}})$ numerology already known
+false on CHL (CLAUDE.md key fact).
+
+\subsection*{Cycle 2 --- $N=7$, quarter-integer weight $1/4$, order-4
+gerbe on a singular threefold}
+
+\ClaimStatusTheorem{} \emph{(Automorphic side.)} The form
+$\Delfnm{1/4}{7}\in M_{1/4}(K(7),\chi_7^{\otimes 2})$ carries the
+quarter-integer weight $1/4$ on the spin double cover of $\Mp_4(\Z)$
+(Freitag--Hermann 1985 \S II.5). Its weak Jacobi input is
+$\psi_{1/4,7}=\vartheta_1^{1/2}\eta^{-3/2}g_7$ with $g_7\in
+M_{7/4}(\Gamma_0(7),\chi_7)$; $(q^0\zeta^0)$-head $c_7(0)=1/2$, so
+$\wt(\Delfnm{1/4}{7})=c_7(0)/2=1/4$ and $\kBKM(\Phi_7)=1/4$. The
+spin-cover character $\chi_7^{\otimes 2}$ is the Wu-class obstruction
+to a canonical square root of the Pfaffian line bundle of a fermionic
+path integral (Hopkins--Singer 2005 \S 4.10).
+
+\ClaimStatusOpen{} \emph{(Geometric side: obstructed at CY$_3$.)} The
+Nikulin fixed-point count $\#\Fix(g_7)=3$ with Mukai 1988
+$\chi(K3^{g_7})/3=0$ (Bryan--Cadman 2018 \S 3) obstructs every smooth
+$\Z/7$-free quotient: at a fixed point the $\Z/7$-action on
+$T_{p}S\oplus T_qE\simeq\C^3$ has weights $(1,6,0)\bmod 7$, reshuffled
+to the unique Gorenstein triple $1/7(1,2,4)$ (Reid 2002 \S 3.1). The
+quotient $Y_7=(S_7\times E)/(\Z/7)$ is a singular threefold with $3$
+isolated $1/7(1,2,4)$ terminal singularities; the Bridgeland--King--Reid
+crepant resolution $X_7=G\text{-}\Hilb(Y_7)$ is smooth CY$_3$ (BKR 2001
+Thm.~1.2) but the $\mu_7$-McKay datum carries a Wu-class mod-2
+obstruction to lifting to the Pfaffian line bundle; this obstruction
+is encoded as a $\mu_4$-gerbe
+$[\cG_7]\in H^3(X_7;\Z)_{\mathrm{tors}}$ with $4\cdot[\cG_7]=0$
+(Ito--Nakajima 2000 McKay generators + Hopkins--Singer 2005 Wu
+argument; Wave-19 Z2 Cycle~2).
+
+\ClaimStatusConjectured{} \emph{(Eighth-root identity.)} The
+Cheeger--Simons differential character
+$\widehat{\cG}_7\in\cH^3(X_7;\Z)$ (Cheeger--Simons 1985 \S 1) lifts
+$[\cG_7]$ with curvature $\delta_1=0$; evaluated on the virtual DT
+cycle it produces a $\mu_8$-valued metaplectic phase
+$\varepsilon_7(L)\in\mu_8$ (order-4 gerbe $\otimes$ spin-double-cover
+$=$ eighth root), and the identification
+\[
+(Z^{X_7}_{L,1})^{-1/8}\cdot\varepsilon_7(L)=\Delfnm{1/4}{7}
+\]
+reads: the eighth root of the reduced DT partition function, corrected
+by the Cheeger--Simons metaplectic phase, equals the Gritsenko--Cl\'ery
+weight-$1/4$ form. The eighth root is well-defined on $X_7$
+\emph{only} after fixing the Cheeger--Simons datum; different
+trivialisations of $\widehat{\cG}_7$ differ by elements of
+$H^2(X_7;\R/\Z)$ whose $8$-torsion part shifts the eighth root by a
+$\mu_8$-phase, matching the Mumford 1983 \emph{Tata Lectures I} \S II.3
+theta-characteristic indeterminacy on $\mathbb{H}_2$.
+
+\ClaimStatusConjectured{} \emph{(BKM side: fractional ``Weyl-covering''
+superalgebra.)} The associated superalgebra
+$\widetilde{\mathfrak{g}}_{\Phi_7}$ is \emph{not} a classical BKM in
+the Gritsenko--Nikulin sense. It is a Weyl-covering of a
+Borcherds--Harvey--Moore-type BKM, with root datum:
+\begin{enumerate}[label=\textsc{(}\roman*\textsc{)},leftmargin=2em,itemsep=0.25ex]
+\item Real simple roots: three reflections
+$\delta_1,\delta_2,\delta_3\in\Lambda^{2,1}_{II;7}$ at paramodular
+polarisation $t=7$, Gram matrix with diagonal $2$ and off-diagonal
+$-14$; hyperbolic signature $(1,2)$; Cartan matrix
+$A_{ij}=\mathrm{diag}(1,1,1)-14\cdot(J-I)$, Coxeter exponent $15$
+per pair.
+\item Explicit Cartan via fourth-root-of-determinant. The Gritsenko
+generalised Cartan at level $t$ has
+$\det A_t=-2t(2t+1)(2t-1)$. At $t=7$, $\det A_7=-2\cdot 7\cdot 15\cdot 13=-2730$;
+its fourth root $(2730)^{1/4}\in\R$ is the irrational scale of the
+spin-cover lattice, recording the obstruction to descent from the
+$2\nu$-cover to $\Sp_4(\Z)$ (Freitag--Hermann 1985 \S II.5 lattice
+discriminant formula). The quarter-integer imaginary simple roots
+$\mathrm{mult}(\alpha)=c_7(4nm-\ell^2\mid\chi_7^{\otimes 2})$ are
+$\tfrac14\Z$-graded by the spin-cover multiplier; the positive-root
+set is split into four sectors by the $\chi_7^{\otimes 2}$-eigenvalue.
+\item Imaginary-root multiplicities: the CoHA-BPS side is the twisted
+$K$-theory $K^0(X_7,\cG_7)=\bigoplus_{j=0}^3K^0_{(j)}(X_7,\cG_7)$
+(Mathai--Stevenson 2006 \S 4.1); the effective positive half
+$Y^+_{\mathrm{eff}}(X_7)=\bigoplus_{j=1}^3K^0_{(j)}(X_7,\cG_7)^{\mathrm{BPS}}$
+is the sum of twisted-$K$-theory weight spaces restricted to BPS
+classes, with the $j=0$ uncharged piece decoupling (Wave-19 Z2 Cycle 3).
+\end{enumerate}
+
+\ClaimStatusHeuristic{} \emph{(Physical frame.)} The fractional BKM is
+the IIA Calabi--Yau partition function at an obstructed singular
+compactification: the $\mu_4$-gerbe is a discrete $B$-field with
+Pontrjagin dual order $4$, and the $\mu_8$-eighth-root is a
+mixed gravitational-fermionic anomaly cancelled by the Cheeger--Simons
+character. No smooth compactification exists; the singular host is
+the physical signal that the $N=7$ BPS sector sits at a non-Lagrangian
+swampland boundary where the elliptic-genus integrality over an
+$\N=(4,4)$ CFT fails (Cheng--Duncan--Harvey 2014 Table~2 umbral
+exclusion at $N=7$).
+
+\paragraph{Invariants ($N=7$).}
+$\kBKM(\Phi_7)=1/4$ (Borcherds weight with spin-cover extension).
+$\kcat(X_7)=\chi(\cO_{S_7\times E})/7+\kfib=0+6/7=6/7$ (orbifold
+correction from $3$ terminal $1/7(1,2,4)$ singularities resolved
+crepantly; not K\"unneth-multiplicative because $X_7$ is not a product).
+$\kch(X_7)=1/4$ after the metaplectic eighth-root correction
+(Borcherds weight via $\Phi$-functor evaluation; the gap
+$6/7-1/4=17/28$ is absorbed by the $\mu_8$-Cheeger--Simons character).
+$\kfib=3\cdot 2/7=6/7$ with the $1/7(1,2,4)$ McKay contribution at
+each fixed point.
+
+\paragraph{Frontier statement ($N=7$).}
+The $N=7$ host is the only Gritsenko--Cl\'ery entry with
+\emph{no known smooth compact CY$_3$ realisation}. The obstruction is
+intrinsic: Nikulin's fixed-count of $3$ combined with Mukai's
+$\chi/3=0$ prevents every free symplectic $\Z/7$-quotient from
+yielding a smooth threefold with $\N=(4,4)$ monodromy. The
+eighth-root identity $(Z^{X_7})^{-1/8}\cdot\varepsilon_7=\Delfnm{1/4}{7}$
+is a precise conjecture, but its CY$_3$-target-space interpretation
+is open: the fractional BKM
+$\widetilde{\mathfrak{g}}_{\Phi_7}$ is the
+\emph{automorphic} frontier endpoint, lying outside the reach of the
+Gritsenko--Nikulin denominator framework and of Vol III's
+CY-to-chiral functor $\Phi$ at $d=3$.
+
+\subsection*{Cycle 3 --- $N=8$, weight $0$, Mongardi--Tari--Wandel
+Kummer-3 fourfold}
+
+\ClaimStatusTheorem{} \emph{(Automorphic side.)} The form
+$\Delfnm{0}{8}\in M_0(K(8))$ has weight $0$: a Siegel modular function
+with empty Weyl chamber and $c_8(0)=0$, so
+$\kBKM(\Phi_8)=c_8(0)/2=0$. The input Jacobi form
+$\psi_{0,8}=\tfrac{1}{384}(\phi_{0,1}^8-\ldots)$ is the unique linear
+combination of index-$8$ weight-$0$ weak Jacobi forms vanishing on the
+diagonal to order one with $c_8(0)=0$ by the sum-to-zero constraint
+at the leading polynomial head (GC 2008 Thm.~1.1 row $N=8$).
+
+\ClaimStatusTheorem{} \emph{(Geometric side: Kummer-3 fourfold
+quotient.)} $\varphi(8)=4\nmid 2$ forbids
+$\Z[\zeta_8]\hookrightarrow\mathrm{End}(E)$, and $\mathrm{Aut}(E,0)\in
+\{2,4,6\}$ never contains a free $\Z/8$. Mongardi--Tari--Wandel 2018
+Thm.~1.3 establish: the maximal cyclic order of a symplectic
+automorphism of $\Kum^3(A)$ is $8$, attained by an explicit
+$\varphi_8\in\Auts(\Kum^3(A))$ lifting a translation
+$t_a\colon A\to A$ by an $8$-torsion point $a\in A[8]$ combined
+with an order-$2$ involution $\iota\colon A\to A$, subject to
+$t_{4a}=\iota^2=\mathrm{id}$. Fixed locus: $8$ isolated points, each
+with local model $\C^4/\Z_8(1,3,5,7)$ (MTW Table~2 last row). The
+quotient $Y_8^{\MTW}=\Kum^3(A)/\langle\varphi_8\rangle$ is a
+singular fourfold; $X_8^{\MTW}=G\text{-}\Hilb(\Kum^3(A))$ is a smooth
+Calabi--Yau fourfold by BKR 2001 McKay equivalence, with
+$\chi(\cO_{X_8^{\MTW}})$ computed from
+$\chi(\cO_{\Kum^3(A)})=n^3+n\big|_{n=3}=36$ (Beauville 1983 Prop.~7--8)
+modulo the McKay correction $36/8+\kfib^{\mathrm{McKay}}=9/2+\kfib^{\mathrm{McKay}}$.
+
+\ClaimStatusConjectured{} \emph{(BKM side: affine Kac--Moody
+degeneration.)} At weight $0$ the Borcherds multiplicative lift
+collapses: the denominator
+$\prod(1-e^\alpha)^{\mult(\alpha)}$ has all imaginary-root
+multiplicities $\mult(\alpha)=c_8(mn,\ell)$ vanishing on the Weyl
+chamber interior and nonzero only on its boundary. The associated
+superalgebra $\mathfrak{g}_{\Phi_8}$ degenerates to an
+\emph{affine Kac--Moody algebra with vanishing imaginary-root
+multiplicity}, identified with the Frenkel--Kac
+vertex-algebraic realisation of the fundamental representation of
+the $E_8$ level-1 Kac--Moody algebra on $\Lambda_{24}$ (Kummer
+lattice): the weight-$0$ Borcherds lift equals the
+WZW character generating function of the corresponding affine algebra
+at critical level, with imaginary roots absent. Explicitly, the
+Weyl--Kac character of the vacuum module of
+$\widehat{\mathfrak{g}}_{\Phi_8}$ at level $-h^\vee$ (critical level)
+factors through
+\[
+\Delfnm{0}{8}(Z)=\frac{\prod_{\alpha\in\Phi_{\mathrm{real}}^+}(1-e^{\alpha})}{\prod_{\alpha\in\Phi_{\mathrm{imag}}^+}(1-e^{\alpha})^0}=\prod_{\alpha\in\Phi_{\mathrm{real}}^+}(1-e^{\alpha}),
+\]
+a finite-type denominator giving the WZW vacuum character, not the
+BKM denominator.
+
+\ClaimStatusHeuristic{} \emph{(Physical frame: M-theory/heterotic at
+a WZW throat.)} The weight-$0$ degeneration is M-theory compactified
+on $\Kum^3(A)/\Z_8$ at the special point in the Coulomb branch
+moduli where the BPS counting collapses to WZW character counting:
+at the cusp where all membrane winding numbers align, the
+CoHA-BPS Lie algebra $\mathfrak{g}^{(8)}_{\mathrm{BPS}}$ on the
+$\varphi_8$-invariant sector of
+$K^0(X_8^{\MTW},\cG_8^{(M2)})$ has vanishing bracket
+(Kinjo--Park--Safronov 2023 dimensional reduction to CY$_3$ collapses
+all higher brackets), matching the abelian $\mathfrak{g}_{\Phi_8}$.
+The BPS content reduces to a free CFT on the $8$ McKay points;
+equivalently, the M2-brane partition function at the
+$\Kum^3(A)/\Z_8$ throat is a theta constant on the Kummer lattice
+(WZW character on $\widehat{E}_8$ at level $1$), and
+$\Delfnm{0}{8}$ is this theta constant lifted to the paramodular
+side of the singular-theta transfer.
+
+\paragraph{Invariants ($N=8$).}
+$\kBKM(\Phi_8)=c_8(0)/2=0$ (Borcherds weight theorem; trivially
+zero).
+$\kcat(X_8^{\MTW})=\chi(\cO)=\chi(\cO_{\Kum^3(A)})/8+\kfib^{\mathrm{McKay}}=9/2+\kfib^{\mathrm{McKay}}$
+(Beauville 1983 Prop.~7 at $n=3$; orbifold correction from $8$
+McKay points).
+$\kch(\cA_{X_8^{\MTW}})=\sum_q(-1)^qh^{0,q}(X_8^{\MTW})=0$ (CY$_4$
+Hodge supertrace at $d=4$).
+$\kfib^{(8)}=0$ (empty lattice rank of the weight-$0$ theta
+character).
+
+\paragraph{Universal identity at the endpoint.}
+$\kBKM=c_8(0)/2=0$ trivially; both sides zero. The naive
+decomposition $\kBKM\stackrel{?}{=}\kch+\chi(\cO_{\mathrm{fiber}})$
+holds vacuously $0=0+0$ only because of the endpoint collapse, not
+as a structural statement (CLAUDE.md key fact: the decomposition is
+false on every integer row).
+
+\subsection*{Cycle 4 --- $N=6$ context (CHL-admissible integer scope)}
+
+The prompt header listed the triple as ``$N\in\{6,7,8\}$''; the body
+and the Gritsenko--Cl\'ery census pin the half-/quarter-/zero-weight
+frontier to $N\in\{5,7,8\}$ with $N=6$ carrying integer weight $1$.
+For completeness: $\Delfnm{1}{6}\in M_1(\Gamma_1(4),\nu_4)$ (GC 2008
+row $(t,N)=(1,4)$; or equivalently the diagonal $\Z/6=\Z/2\times\Z/3$
+CHL row) has $c_6(0)=2$ and $\kBKM(\Phi_6)=1$. The host is the CHL
+CY$_3$ $X_6=(K3\times E)/(\Z/6)$ with $\varphi(6)=2\mid 2$ satisfied.
+The Gritsenko--Nikulin 1998 Part II Thm.~2.1 BKM denominator holds
+at $N=6$; the reduced DT zeta
+$Z^{X_6}_{L,1}=-C_6/\Phi_6^{\,2}$ is the
+Oberdieck--Pixton 2017 \emph{Invent.\ Math.}\ 222 theorem at primitive
+K3-classes. $N=6$ is \emph{not} a half-integer frontier; it is the
+terminal CHL row.
+
+\subsection*{Cycle 5 --- summary table and status}
+
+\[
+\renewcommand{\arraystretch}{1.15}
+\begin{array}{c|ccccl|ll}
+N & w_N & c_N(0) & \kBKM & \text{host} & \text{BKM type} &
+  \text{auto} & \text{BKM ident.} \\\hline
+5 & 1/2 & 1 & 1/2 & \widehat{X}_5^{\BV}
+  & \text{metaplectic BKM on }\Mp_4(\Z) & \ClaimStatusTheorem & \ClaimStatusConjectured \\
+6 & 1 & 2 & 1 & (K3\times E)/\Z_6
+  & \text{GN 1998 BKM} & \ClaimStatusTheorem & \ClaimStatusTheorem \\
+7 & 1/4 & 1/2 & 1/4 & X_7\text{-gerbe}
+  & \text{frac.\ Weyl-cov.\ BHM} & \ClaimStatusTheorem & \ClaimStatusOpen \\
+8 & 0 & 0 & 0 & X_8^{\MTW}
+  & \text{affine KM, }\mult=0 & \ClaimStatusTheorem & \ClaimStatusConjectured
+\end{array}
+\]
+
+The Borcherds-weight row (auto) is theorem across the four entries:
+a statement about singular-theta lift weights on the metaplectic/spin
+covers. The BKM-denominator row (BKM ident.) is theorem only at
+$N=6$; conjectural at $N=5$ and $N=8$ (pending metaplectic and
+degenerate-affine denominator identities); open at $N=7$ pending
+identification of a singular CY$_3$ with Cheeger--Simons differential
+character realising the eighth-root. The last column answers the
+prompt's attack: the three BKM superalgebras $\mathfrak{g}_{\Phi_N}$
+are constructed, their root data specified, their Cartan matrices
+written.
+
+\subsection*{Chain-level versus $(\infty,1)$-categorical}
+
+Chain-level: the explicit weak Jacobi inputs $\psi_{w_N,N}^{\EZ}$
+with $w_N\in\{\tfrac12,\tfrac14,0\}$, the explicit Borcherds
+multiplicative lifts $\prod(1-e^\alpha)^{c_N(mn,\ell)}$ with
+non-integer multiplicities, the explicit Gram matrices
+(diagonal $2$, off-diagonal $-2t_{\mathrm{eff}}$) and Cartan data.
+$(\infty,1)$-categorical: at $N=5$, the stable $\infty$-category
+$D^b\mathrm{Coh}^{g_5,\iota_S\times\iota_E}(\widehat{X}_5^{\BV})$ as
+source of the CoHA-BPS positive half; at $N=7$, the
+gerbe-twisted $\infty$-category $D^b\mathrm{Coh}(X_7,\cG_7)$ with
+$\cG_7$ a $\mu_4$-gerbe; at $N=8$, the
+$\varphi_8$-equivariant $\infty$-category
+$D^b\mathrm{Coh}(\Kum^3(A))^{\varphi_8}$ as source of the
+$\mathfrak{g}^{(8)}_{\mathrm{BPS}}$ at CY$_4$ dimensional reduction
+to CY$_3$. Both lanes load-bearing; the chain-level computation of
+$\kBKM$ is independent of the $\infty$-categorical scope, by the
+Borcherds weight theorem's indifference to integrality.
+
+\subsection*{Scope and open problems}
+
+\emph{(a) Metaplectic BKM at $N=5$.} The Gritsenko--Nikulin 1998
+denominator identity is for integer weight at $N\in\{1,2,3,4,6\}$;
+its metaplectic extension to $N=5$ is open. Concrete step: verify
+that the half-integer Fourier expansion
+$\prod(1-e^\alpha)^{c_5(mn,\ell)}$ satisfies a Weyl--Kac--Borcherds
+denominator identity on the metaplectic cover $\Mp_4(\Z)$.
+
+\emph{(b) Fractional BKM at $N=7$.} Eighth-root identity
+$(Z^{X_7})^{-1/8}\varepsilon_7=\Delfnm{1/4}{7}$ conjectural;
+the Cheeger--Simons datum on the $\mu_4$-gerbe realising the
+spin-double-cover character is constructed but its matching to the
+GC form requires a twisted-$K$-theory virtual class on the singular
+threefold that is not yet defined (Oh--Thomas DT$_4$ framework does
+not descend directly to a singular CY$_3$ gerbe).
+
+\emph{(c) WZW degeneration at $N=8$.} The identification
+$\mathfrak{g}_{\Phi_8}\cong\widehat{E}_8^{(\mathrm{vac})}$ at level
+$1$ is heuristic; the Kummer-lattice theta constant on
+$X_8^{\MTW}$ has not been shown to match $\Delfnm{0}{8}$ at the
+Fourier-coefficient level across the full Kummer lattice.
+
+\emph{(d) Universal identity interpretation.} The Borcherds-weight
+identity $\kBKM(\Phi_N)=c_N(0)/2$ extends as a theorem across all
+eight GC rows under the reading ``$\kBKM$ = Borcherds singular-theta
+weight of the lifted paramodular form''; it is a BKM-denominator
+theorem only on $N\in\{1,2,3,4,6\}$ where the Nikulin--Weyl
+divisibility holds. The three extra entries at $N\in\{5,7,8\}$
+constitute the \emph{non-CHL} frontier, with the BKM-side
+interpretations given above.
+
+\paragraph{Primary literature.}
+Gritsenko--Cl\'ery 2008 arXiv:0812.3962, \emph{Compos.\ Math.}\ 149
+(2013), 1563--1593, Thm.~1.1 (eight dd paramodular forms);
+Borcherds 1998 \emph{Invent.\ Math.}\ 132, Thm.~13.3 (singular-theta
+weight formula), Thm.~10.1 (metaplectic extension);
+Borcherds 1995 \emph{Invent.\ Math.}\ 120 (multiplicative lift);
+Bruinier 2002 \emph{LNM}\ 1780, Prop.~5.1 (half-integer Borcherds
+products);
+Freitag--Hermann 1985, \emph{Analytische Automorphieformen} \S II.5
+(spin double cover of $\Mp_{2g}$);
+Gritsenko--Nikulin 1998 alg-geom/9504006, \emph{Internat.\ J.\ Math.}\
+9, Part II Thm.~2.1 (BKM denominator at integer weight);
+Gritsenko 1999, \emph{St.\ Petersburg Math.\ J.}\ 11, Thm.~1.2
+(arithmetic lift at level 5);
+Nikulin 1980, \emph{Trudy MMO}\ 38, Thm.~4.5;
+Mukai 1988, \emph{Invent.\ Math.}\ 94, Thm.~0.6 and Table~1;
+Borcea 1997, \emph{Essays on Mirror Manifolds II}, 717--743, Thm.~1;
+Voisin 1993, \emph{Ast\'erisque} 218, Thm.~2.1 and Cor.~2.2;
+Mongardi--Tari--Wandel 2018 arXiv:1610.06216, Thm.~1.3 and Table~2;
+Beauville 1983, \emph{J.\ Diff.\ Geom.}\ 18, 755--782, Prop.~7--8;
+Bridgeland--King--Reid 2001, \emph{JAMS}\ 14, Thm.~1.2;
+Ito--Nakajima 2000, \emph{Topology}\ 39, \S 6;
+Reid 2002, \emph{Surveys in Geometry}, \S 3.1;
+Cheeger--Simons 1985, \emph{LNM}\ 1167, \S 1;
+Hopkins--Singer 2005, \emph{J.\ Diff.\ Geom.}\ 70, \S 4.10 (Wu class);
+Mathai--Murray--Stevenson 2002, \emph{CMP}\ 228, Thm.~1.2;
+Mathai--Stevenson 2006, \emph{Adv.\ Math.}\ 200, Thm.~4.1;
+Mumford 1983, \emph{Tata Lectures on Theta I}, \S II.3;
+Kinjo--Park--Safronov 2023 arXiv:2312.00877 (dimensional reduction);
+Kontsevich--Soibelman 2010 arXiv:1006.2706, \S 6;
+Davison--Meinhardt 2020 arXiv:1512.08898;
+Maulik--Pandharipande--Thomas 2010, \emph{J.~Topol.}\ 3, Thm.~1;
+Oberdieck--Pixton 2017 arXiv:1706.10100, \emph{Invent.\ Math.}\ 222, Thm.~1;
+Oberdieck--Pixton 2018 arXiv:1808.03524, Conj.~A;
+Bryan--Oberdieck 2018 arXiv:1811.06102 (CHL CY$_3$ Siegel);
+Bryan--Cadman 2018 arXiv:1803.07271 \S 3 (twisted elliptic genera);
+Cheng--Duncan--Harvey 2014 arXiv:1307.5793, Table~1 (CDH $8A$);
+Harvey--Moore 1996 hep-th/9510182 (new-supersymmetric index on $K3\times T^2$);
+Lorgat 2020 arXiv:2007.14218, \S 6 (explicit $\Delta_5$ Borcherds lift).
+
+\paragraph{Sibling waves.}
+\texttt{notes/wave15\_r4\_N\_ge\_5\_forms.tex} (CHL cut commentary);
+\texttt{notes/wave15\_m2\_EZ\_basis\_N1\_to\_8.tex} (EZ basis tabulation);
+\texttt{notes/wave16\_v1\_N578\_non\_CHL.tex} (non-CHL host proposals);
+\texttt{notes/wave16\_v4\_8\_form\_kappaBKM\_audit.tex} (eight-form audit);
+\texttt{notes/wave19\_z1\_N5\_Borcea\_Voisin.tex} ($N=5$ BV five cycles);
+\texttt{notes/wave19\_z2\_N7\_order4\_gerbe.tex} ($N=7$ gerbe five cycles);
+\texttt{notes/wave19\_z3\_N8\_Kummer3.tex} ($N=8$ MTW five cycles);
+\texttt{notes/wave19\_p5\_synthesis\_8\_forms.tex} (synthesis across 8 rows).
+
+\paragraph{File.}
+\texttt{notes/wave15\_a12\_half\_integer\_GC\_witten.tex}
+\S\ref{wn:sec:wave15-a12-half-integer-GC-witten}.

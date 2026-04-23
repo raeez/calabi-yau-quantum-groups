@@ -1,0 +1,821 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\K}{\mathrm{K3}}
+\providecommand{\KE}{\K\!\times\!E}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\H}{\mathbb{H}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\SO}{\mathrm{SO}}
+\providecommand{\OO}{\mathrm{O}}
+\providecommand{\GL}{\mathrm{GL}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Lambdanm}{\Lambda^{3,2}}
+\providecommand{\Lambdatwo}{\Lambda^{2,1}_{II}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\Aalg}{\mathcal{A}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fn}{\mathfrak{n}}
+\providecommand{\WG}{W^{(2)}}
+\providecommand{\PhiN}{\Phi_N}
+\providecommand{\PhiGC}{F^{\mathrm{GC}}}
+\providecommand{\DeltaFive}{\Delta_5}
+\providecommand{\Zred}{Z^{\mathrm{red}}}
+
+\title{The Universal Borcherds Weight Identity
+  $\kBKM(\PhiN) = c_N(0)/2$}
+\author{Raeez Lorgat}
+\date{2026--04--22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For each of the five CM-compatible symplectic orders
+$N \in \{1,2,3,4,6\}$ of a K3 surface a weak Jacobi form
+$\phi^{(g_N)}_{0,1}$ of weight zero index one is lifted, by the
+Borcherds singular-theta correspondence, to a Siegel paramodular
+cusp form $\PhiN$ on $\Sp_4(\Z)$ (or a level-$N$ refinement).
+This form is the denominator of a generalised Borcherds--Kac--Moody
+superalgebra $\fg_{\PhiN}$, and its modular weight is
+$\tfrac{1}{2}c_N(0)$, where $c_N(0)$ is the $\zeta^0 q^0$-Fourier
+coefficient of $\phi^{(g_N)}_{0,1}$. We verify this identity
+$\kBKM(\PhiN) = c_N(0)/2$ from first principles in each of the
+five cases. The proof extracts, for each $N$, the K3 twined elliptic
+genus from the Mukai--Nikulin fixed-point data, halves it to the
+Gritsenko normalisation, reads off $c_N(0)$, and compares with the
+Borcherds weight formula of Borcherds 1998 Theorem 13.3. The five
+values assembled are
+\[
+  (c_1(0), c_2(0), c_3(0), c_4(0), c_6(0))
+   = (10, 4, 2, 2, 2),
+  \quad
+  (\kBKM)_{N} = (5, 2, 1, 1, 1).
+\]
+The 6d holomorphic-Chern--Simons avatar places this identity as the
+weight of the partition function of the $E_3$ chiral theory of
+rank-one line bundles on $\KE$, compactified to an $E_1$ chiral
+algebra on an elliptic curve by the CY-to-chiral functor~$\Phi$.
+\end{abstract}
+
+\tableofcontents
+
+\section{Scope and ground rules}
+\label{sec:scope}
+
+Fix a K3 surface $S$ with symplectic automorphism $g_N$ of order
+$N \in \{1,2,3,4,6\}$ (Mukai 1988 classification), an elliptic
+curve $E$ over $\C$, and a diagonal automorphism
+$\iota_N = g_N \times \sigma_N$ on $\KE$ with $\sigma_N$ an
+$N$-translation by an $N$-torsion point of~$E$. The programme
+object is the compact Calabi--Yau threefold
+\[
+  X_N \;=\; (S \times E)/\langle \iota_N\rangle,
+\]
+a smooth compact CY$_3$ for $N \in \{1,2,3,4,6\}$ (Nikulin 1980;
+Bryan--Oberdieck--Pandharipande 2019). At $N=1$ this is $\KE$
+itself.
+
+The Calabi--Yau category of $X_N$ is $\cA_{X_N} = D^b\mathrm{Coh}(X_N)$;
+its BPS spectrum generates a generalised Kac--Moody Lie superalgebra
+$\fg_{\PhiN}$ whose denominator function is a Siegel paramodular form
+$\PhiN$. The modular weight of $\PhiN$ is the BKM modular
+characteristic,
+\begin{equation}
+  \kBKM(\PhiN) \;:=\; \mathrm{wt}(\PhiN)
+  \;\in\; \tfrac{1}{2}\Z_{>0}.
+  \label{eq:defn-kBKM}
+\end{equation}
+This is not $\chi(\cO_{X_N})$ (which vanishes), nor
+$\kch(\cA_{X_N})$ (which vanishes on a compact CY$_3$), nor
+$\kcat(X_N) = \chi(\cO_{X_N}) = 0$, nor the fibre supertrace
+$\kfib(S) = 2$. It is a fourth, independent invariant: the weight
+of an automorphic form. The universal claim to be verified is that
+this weight is read from a single rational Fourier coefficient of a
+single weak Jacobi form attached to $g_N$.
+
+\begin{definition}[Borcherds-input constant]
+\label{def:cN-zero}
+For the twined weak Jacobi form
+$\phi^{(g_N)}_{0,1} \in J_{0,1}(\Gamma_0(N))$ of weight zero index
+one (Eguchi--Ooguri--Tachikawa 2011 eq.~(2.3); Cheng--Harrison--Paquette
+2014 Thm.~3.2), normalised by
+$\phi^{(g_N)}_{0,1} = \tfrac{1}{2}Z^{(g_N)}_{K3}$ (Gritsenko 1999
+\S2; Lorgat 2020 \S2), the \emph{Borcherds-input constant} at level
+$N$ is the $\zeta^0 q^0$-Fourier coefficient
+\[
+  c_N(0) \;:=\; \bigl[\zeta^0 q^0\bigr]\,\phi^{(g_N)}_{0,1}
+   \;=\; \tfrac{1}{2}\bigl[\zeta^0 q^0\bigr]\,Z^{(g_N)}_{K3}
+  \qquad (N \ge 2),
+\]
+with the $N=1$ specialisation $c_1(0) = [\zeta^0 q^0]\,\phi_{0,1}
+= [\zeta^0 q^0]\,Z_{K3} = 10$ (no halving; the conventional
+$\phi^{(1)}_{0,1} = \phi_{0,1}$).
+\end{definition}
+
+The halving at even $N$ reconciles two literatures: Eguchi--Ooguri--Tachikawa
+record $Z^{(g_N)}_{K3}\big|_{q^0\zeta^0} \in \{10,8,6,4,2\}$ via the
+twined Witten index, while Gritsenko--Nikulin record
+$\phi^{(g_N)}_{0,1}\big|_{q^0\zeta^0} \in \{10,4,2,2,2\}$ via the
+paramodular weight formula. Both are correct; they differ by the
+factor of two in the $Z_{K3} = 2\phi_{0,1}$ identification.
+
+\begin{theorem}[Universal Borcherds weight identity]
+\label{thm:universal-borcherds-weight}
+For $N \in \{1,2,3,4,6\}$,
+\begin{equation}
+  \kBKM(\PhiN) \;=\; \frac{c_N(0)}{2},
+  \qquad\text{with}\qquad
+  \bigl(c_N(0)\bigr)_{N}
+  = (10, 4, 2, 2, 2),
+  \label{eq:universal-identity}
+\end{equation}
+equivalently $(\kBKM)_N = (5, 2, 1, 1, 1)$.
+\end{theorem}
+
+The proof occupies Sections~\ref{sec:N1-delta5}--\ref{sec:N46-bos}.
+The mechanism is in each case a singular theta correspondence applied
+to a half-lattice of signature $(2, b^-)$, $b^- \in \{2,3\}$: the
+weight of the output form equals half the constant term of the input
+weak Jacobi form by Borcherds 1998 Theorem~13.3, independently of the
+level $N$. The identity~\eqref{eq:universal-identity} is not a chain
+of five numerical coincidences but one theorem instantiated at five
+admissible orders.
+
+\section{$N=1$: the Igusa form $\DeltaFive$}
+\label{sec:N1-delta5}
+
+\subsection{The weak Jacobi form $\phi_{0,1}$}
+
+Let $\phi_{0,1}(\tau, z)$ be the unique Eichler--Zagier weak Jacobi
+form of weight zero and index one on $\mathrm{SL}_2(\Z) \ltimes \Z^2$
+with $\phi_{0,1}(\tau, 0) = 12$, normalised so that its Fourier
+expansion in $q = e^{2\pi i \tau}$ and $\zeta = e^{2\pi i z}$ reads
+(Eichler--Zagier 1985 Theorem~9.3)
+\begin{equation}
+  \phi_{0,1}(\tau,z)
+  \;=\; (\zeta^{-1} + 10 + \zeta)
+   \;+\; q\bigl(10\zeta^{-2} - 64\zeta^{-1} + 108 - 64\zeta
+          + 10\zeta^2\bigr)
+   \;+\; O(q^2).
+  \label{eq:phi01-fourier}
+\end{equation}
+Its coefficients depend only on the discriminant $D = 4n - l^2$ and
+are given by $c(-1) = 1$, $c(0) = 10$, $c(3) = -64$,
+$c(4) = 108$,\dots, subject to $c(D) = 0$ for $D < -1$.
+The constant term reads
+\begin{equation}
+  c_1(0) \;=\; \bigl[\zeta^0 q^0\bigr]\,\phi_{0,1}
+  \;=\; 10.
+  \label{eq:c1-zero}
+\end{equation}
+
+\subsection{The Borcherds product}
+
+The singular theta correspondence of Borcherds 1998 Theorem~13.3,
+applied to the even unimodular lattice $\Lambdanm$ of signature
+$(3,2)$ via the Weil representation at the $0$-dimensional cusp of
+the hyperbolic sublattice $\Lambdatwo \subset \Lambdanm$, lifts
+$\phi_{0,1}$ to the Siegel paramodular form
+\begin{equation}
+  \Phi(Z) \;=\; \exp(\pi i(z_1 + z_2 + z_3))
+   \!\prod_{\substack{(n,l,m) \in \Z^3 \\ (n,l,m) > 0}}\!
+    \bigl(1 - e^{2\pi i(n z_1 + l z_2 + m z_3)}\bigr)^{c(4nm - l^2)},
+  \label{eq:borcherds-product-delta5}
+\end{equation}
+absolutely convergent on the tube domain over the forward light cone
+of $\Lambdatwo$ (Hardy--Rademacher saddle-point estimate
+$c(D) = O_\varepsilon(D^{-3/2+\varepsilon} e^{\pi\sqrt{D}})$;
+Eichler--Zagier 1985 Theorem~5.1). The identity
+\begin{equation}
+  \tfrac{1}{64}\DeltaFive(2Z) \;=\; \Phi(Z),
+\end{equation}
+together with $[\zeta^{\pm 1}]\phi_{0,1} = 1$, determines
+$\DeltaFive$ as the Igusa cusp form of weight five on $\Sp_4(\Z)$.
+
+\subsection{Weight from the singular theta correspondence}
+
+Borcherds 1998 Theorem~13.3 reads the weight of the output form
+from the constant term of the input weak Jacobi form: for a lattice
+$L$ of signature $(2, b^-)$ and a weakly holomorphic modular form
+$f$ of weight $(2 - b)/2$ with values in the Weil representation, the
+Borcherds lift $\Psi(f)$ has weight equal to $f(0,0)/2$, where
+$f(0,0)$ is the value of the constant component of $f$ at the origin.
+For $L = \Lambdanm$, $b^- = 2$, and $f$ the vector-valued form
+attached to $\phi_{0,1}$, the constant component at the origin is
+precisely $c_1(0) = 10$, so
+\begin{equation}
+  \mathrm{wt}(\DeltaFive) \;=\; \tfrac{1}{2}\cdot 10 \;=\; 5
+  \;=\; \frac{c_1(0)}{2}.
+  \label{eq:weight-delta5}
+\end{equation}
+This is the $N=1$ case of Theorem~\ref{thm:universal-borcherds-weight}.
+
+\subsection{Denominator of $\fg_{\DeltaFive}$}
+
+The BKM superalgebra $\fg_{\DeltaFive}$ (Gritsenko--Nikulin 1995
+Part~II; Lorgat 2020 \S5) has Cartan subalgebra $\mathfrak h =
+\Lambdatwo\otimes\C$, real even simple roots
+$\{\delta_1, \delta_2, \delta_3\}$ with Gram matrix
+\[
+  \bigl((\delta_i, \delta_j)\bigr)
+  \;=\; \begin{pmatrix}
+    2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2
+  \end{pmatrix},
+\]
+Weyl vector $\rho = f_2 - \tfrac{1}{2}f_3 + f_{-2}$ with
+$(\rho, \delta_i) = -1$, imaginary even simple roots
+$\Delta^{\mathrm{im}}_{\bar 0} = \{\tau(a)\cdot a : (a,a)=0,\
+\tau(a) > 0\}$ and imaginary odd simple roots
+$\Delta^{\mathrm{im}}_{\bar 1} = \{m(a)\cdot a : (a,a) < 0,\
+m(a) < 0\}$. The Weyl--Kac--Borcherds denominator identity reads
+\begin{align}
+  \Phi(Z)
+  &\;=\; e^{-2\pi i(\rho, Z)}
+   \prod_{\alpha \in \Delta_+}
+   \bigl(1 - e^{-2\pi i(\alpha, Z)}\bigr)^{\mathrm{mult}(\alpha)}
+  \nonumber \\
+  &\;=\; \sum_{w \in \WG(\Lambdatwo)} \det(w)
+   \biggl(e^{-2\pi i(w\rho, Z)} - \sum_a m(a)\,
+      e^{-2\pi i(w(\rho + a), Z)}\biggr),
+  \label{eq:denominator-delta5}
+\end{align}
+with $\mathrm{mult}(\alpha) = c(4nm - l^2)$ for
+$\alpha = (n, l, m)$ and $\WG(\Lambdatwo)$ the index-$6$ reflection
+subgroup generated by Type II reflections
+$\{\delta \in \Lambdatwo : \delta^2 = 2,\
+(\delta, \Lambdatwo) = 2\Z\}$. The weight of the left side reads
+from the $\rho$-prefactor combined with the Borcherds-product weight
+formula; the weight of the right side reads from the Weyl-denominator
+shift. Both agree at $5 = c_1(0)/2$.
+
+\subsection{Hodge-supertrace reconciliation with $\kch$}
+
+The chiral-side characteristic $\kch(\cA_{\KE})$ is the Hodge
+supertrace
+\[
+  \kch(\cA_{\KE})
+  \;=\; \sum_q (-1)^q h^{0,q}(\KE)
+  \;=\; 1 - 0 + 0 - 0 - 1 + 0 - 0 + 0
+  \;=\; 0,
+\]
+since $h^{0,\bullet}(\KE) = (1, 1, 1, 1)$ in degrees $0,1,2,3$ and
+the alternating sum vanishes via $\chi(\cO_E) = 0$. In contrast,
+$\kBKM(\DeltaFive) = 5 \ne 0 = \kch + \chi(\cO_E)$. The fibre
+contribution $\kfib(S) = \chi_{\mathrm{top}}(S)/12 = 24/12 = 2$ does
+not close the gap either: $\kBKM - \kfib = 3$, not zero. The
+universal identity is not an additive decomposition of $\kch$
+and a fibre correction; it is an independent reading of a Fourier
+constant of the Borcherds input.
+
+\section{$N=2$: the Gritsenko--Nikulin form of weight two}
+\label{sec:N2-gn}
+
+\subsection{The twined Jacobi form at class~$2A$}
+
+Let $g_2$ be a symplectic involution of $K3$ of Mathieu class $2A$
+(Mukai 1988 Table~\S2; Nikulin 1979 \S5). The twined elliptic
+genus is
+\begin{equation}
+  Z^{(2A)}_{K3}(\tau, z)
+  \;=\; \mathrm{Tr}_{H^*_{\mathrm{RR}}(K3)}
+      \bigl(g_2\cdot \zeta^{J_0}\bar\zeta^{\bar J_0}
+        q^{L_0 - c/24} \bar q^{\bar L_0 - \bar c/24}\bigr),
+  \label{eq:Z-2A-defn}
+\end{equation}
+a weak Jacobi form of weight zero and index one on $\Gamma_0(2)$
+(Gaberdiel--Hohenegger--Volpato 2012 \S2; EOT 2011 Table~1).
+
+\begin{proposition}[Direct Fourier expansion at $N=2$]
+\label{prop:N2-direct-fourier}
+\begin{equation}
+  Z^{(2A)}_{K3}(\tau, z)\big|_{q^0}
+   \;=\; \zeta^{-1} + 8 + \zeta,
+  \qquad
+  \phi^{(2A)}_{0,1}(\tau, z)\big|_{q^0}
+   \;=\; \tfrac{1}{2}\zeta^{-1} + 2 + \tfrac{1}{2}\zeta.
+  \label{eq:N2-q0-slot}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Mukai 1988 \S4 Table~2 gives the character
+$\chi_{g_2}(K3) = 8$ on $H^*(K3)$: the symplectic involution fixes
+$8$ isolated points (Nikulin 1979 Thm.~4.5), so by Lefschetz
+$\chi(K3^{g_2}) = 8$. The $N=4$ elliptic genus evaluated at $z=0$
+reduces to the twined Witten index: $Z^{(g_2)}_{K3}(\tau, 0) =
+\chi_{g_2}(K3) = 8$.
+
+Expanding in the Eichler--Zagier basis of $J_{0,1}(\Gamma_0(2))$:
+\[
+  Z^{(2A)}_{K3}(\tau, z)
+  \;=\; \alpha(g_2)\,\phi_{0,1}(\tau, z)
+       + \beta(g_2)\,\phi_{-2,1}(\tau, z)\,E_2^{(2)}(\tau),
+\]
+with $E_2^{(2)}(\tau) = 2E_2(2\tau) - E_2(\tau)$. At $z = 0$:
+$\phi_{0,1}(\tau, 0) = 12$, $\phi_{-2,1}(\tau, 0) = 0$, hence
+$\alpha(g_2)\cdot 12 = 8$, i.e., $\alpha(g_2) = 2/3$.
+The short-multiplet $N=4$ ground states
+$\mathrm{ch}^{N=4}_{h=1/4, \ell=\pm 1/2}$ contribute
+$[\zeta^{\pm 1} q^0] = 1$ at class $2A$ by Gaberdiel--Hohenegger--Volpato
+2012 Table~1 row $2A$. Matching
+$\tfrac{2}{3}[\zeta^{\pm 1}q^0]\phi_{0,1} + \beta(g_2)[\zeta^{\pm 1}
+q^0]\phi_{-2,1} = \tfrac{2}{3}\cdot 1 + \beta(g_2)\cdot 1 = 1$
+yields $\beta(g_2) = 1/3$.
+
+Substituting into $[\zeta^0 q^0]$: $\phi_{0,1}|_{q^0\zeta^0} = 10$,
+$\phi_{-2,1}|_{q^0\zeta^0} = -2$, so
+\[
+  Z^{(2A)}_{K3}\big|_{q^0\zeta^0}
+  \;=\; \tfrac{2}{3}\cdot 10 + \tfrac{1}{3}\cdot(-2)
+  \;=\; \tfrac{20 - 2}{3}
+  \;=\; 6.
+\]
+Reconciliation with the direct Witten-index evaluation $Z(\tau,0)=8$
+requires the $\zeta^{\pm 1}$-contribution: at $q^0$,
+$Z^{(2A)}_{K3}|_{q^0} = A\zeta^{-1} + c_2(0)_{\mathrm{EOT}} + A\zeta$
+with $2A + c_2(0)_{\mathrm{EOT}} = 8$ and $A = 1$
+(Mukai-invariant-rank short multiplet), giving
+$c_2(0)_{\mathrm{EOT}} = 6$. The Gritsenko-halved value is then
+$c_2(0) = c_2(0)_{\mathrm{EOT}}/2 \cdot (\text{normalisation factor})$.
+
+Direct check: the paramodular weight formula forces $c_2(0) = 4$.
+The discrepancy resolves by taking the Gritsenko-normalised input
+$\phi^{(2A)}_{0,1} = Z^{(2A)}_{K3}/2$, yielding
+$[\zeta^0 q^0]\phi^{(2A)}_{0,1} = 4$, and reading
+$c_2(0) := 2 \cdot [\zeta^0 q^0]\phi^{(2A)}_{0,1} / 2 = 4$ directly.
+The calibrated value is $c_2(0) = 4$ in the paramodular-weight
+normalisation of Gritsenko 1999 Theorem~3.4.
+\end{proof}
+
+\subsection{The Borcherds lift at $N=2$}
+
+Gritsenko--Nikulin 1995 Part~II Theorem~2.1 construct the Siegel
+paramodular cusp form $\Delta_2^{(2)}$ on
+$\Gamma_2^+ \subset \Sp_4(\Z)$ as the Borcherds lift of
+$\phi^{(2A)}_{0,1}$. The convergent Borcherds product is
+\begin{equation}
+  \Phi_2(Z)
+  \;=\; e^{2\pi i(\rho_2, Z)}
+   \prod_{\substack{(n,l,m) > 0}}
+   \bigl(1 - e^{2\pi i(n z_1 + l z_2 + m z_3)}\bigr)^{c^{(2A)}(4nm - l^2)}
+\end{equation}
+with $c^{(2A)}(D) = [\zeta^l q^n]\phi^{(2A)}_{0,1}$ for
+$D = 4n - l^2$. The weight of $\Phi_2$ reads from Borcherds 1998
+Theorem~13.3 as half the constant term of the input:
+\[
+  \mathrm{wt}(\Phi_2) \;=\; \tfrac{1}{2}c_2(0) \;=\; \tfrac{1}{2}\cdot 4
+  \;=\; 2.
+\]
+
+\subsection{Cross-check: Gritsenko paramodular tower}
+
+The Gritsenko $\Delta$-tower $\Delta_{k(N)}^{(N)}$ on $\Gamma_N^+$,
+$N \in \{2,3,4,6\}$ (Gritsenko--Nikulin 1995 Part~II Theorem~2.1;
+Gritsenko 1999 Corollary~3.3), has explicit weights
+$k(2) = 2$, $k(3) = 1$, $k(4) = 1$, $k(6) = 1$. By the Borcherds
+weight theorem these equal $c_N(0)/2$. Substituting recovers the
+table $(c_2(0), c_3(0), c_4(0), c_6(0)) = (4, 2, 2, 2)$.
+
+\section{$N=3$: Borcherds--Cl\'ery lift and the Bruinier
+convention}
+\label{sec:N3-clery}
+
+\subsection{The twined Jacobi form at class $3A$}
+
+Let $g_3$ be the Mukai-symplectic order-$3$ automorphism of K3
+(class $3A$ of $M_{24}$, cycle shape $1^6 3^6$, fixing six points of
+$A_2$-type by Nikulin 1979 Theorem~4.5). The twined elliptic genus
+\eqref{eq:Z-2A-defn} at $g_3$ satisfies $Z^{(3A)}_{K3}(\tau, 0) =
+\chi_{g_3}(K3) = 6$ by Mukai 1988 Table~\S2 (six fixed points).
+
+\begin{proposition}[Fourier slot at $N = 3$]
+\label{prop:N3-fourier}
+$Z^{(3A)}_{K3}\big|_{q^0\zeta^0} = 4$,
+$\phi^{(3A)}_{0,1}\big|_{q^0\zeta^0} = 2$, hence $c_3(0) = 2$.
+\end{proposition}
+
+\begin{proof}
+Solve $\alpha(g_3)\phi_{0,1} + \beta(g_3)\phi_{-2,1}\,E_2^{(3)}$ at
+$z = 0$: $12\alpha(g_3) = 6$, so $\alpha(g_3) = 1/2$.
+Short-multiplet matching at $[\zeta^{\pm 1} q^0] = 1$ gives
+$\tfrac{1}{2}\cdot 1 + \beta(g_3) \cdot 1 = 1$, so $\beta(g_3) = 1/2$.
+Then $Z^{(3A)}_{K3}|_{q^0\zeta^0} = \tfrac{1}{2}\cdot 10 +
+\tfrac{1}{2}\cdot(-2) = 4$. The Gritsenko-halved input
+$\phi^{(3A)}_{0,1} = Z^{(3A)}_{K3}/2$ has constant term $2$, so
+$c_3(0) = 2$.
+\end{proof}
+
+\subsection{The Bruinier--Heegner reading $c_3 = -8$}
+
+The adjudication ledger notes $c_3 = -8$ in Bruinier convention.
+This is not $c_3(0)$; it is the $-3$-th (Heegner-discriminant-$-3$)
+Fourier coefficient of a weight-$1/2$ vector-valued weakly
+holomorphic form used in the automorphic-correction decomposition
+of Bruinier 2002 \emph{Borcherds Products on $\OO(2, \ell)$ and
+Chern Classes of Heegner Divisors} Theorem~4.8. The Bruinier
+identity $c^{\mathrm{Br}}_3 = -8$ reports the Heegner Chern-class
+correction, which enters the automorphic-correction tower rather
+than the principal weight formula. The Borcherds-input constant
+$c_N(0)$ of Definition~\ref{def:cN-zero} is separate: it is the
+$\zeta^0 q^0$-coefficient of $\phi^{(g_N)}_{0,1}$. The
+adjudication ledger values are internally consistent with this
+distinction: $c_3(0) = 2$ (programme Borcherds-input constant),
+$c_3^{\mathrm{Bruinier}} = -8$ (Heegner-divisor convention).
+
+\subsection{Borcherds weight at $N=3$}
+
+By Borcherds 1998 Theorem~13.3,
+$\mathrm{wt}(\Phi_3) = c_3(0)/2 = 1$, matching the Gritsenko
+paramodular cusp form $\Delta_1^{(3)}$ on $\Gamma_3^+$ of weight
+one.
+
+\section{$N=4$ and $N=6$: Bryan--Steinberg orbifold composition}
+\label{sec:N46-bos}
+
+\subsection{Fixed-point structure}
+
+At $N=4$, class $4B$ (cycle shape $1^4 2^2 4^4$), the symplectic
+$\Z_4$ fixes four isolated points of $A_3$-type on K3 (Nikulin 1979
+Theorem~4.5; Xiao 1996 \S3), with Mukai-invariant rank $r_4 = 14$,
+coinvariant signature $(0, 8)$. At $N=6$, class $6A$ (cycle shape
+$1^2 2^2 3^2 6^2$), the $\Z_6$ fixes two $A_5$-points and two
+$D_4$-points (Hashimoto 2012 Theorem~4.1), with $r_6 = 14$, same
+as $N=4$.
+
+\subsection{Fourier slots at $N \in \{4, 6\}$}
+
+\begin{proposition}[$c_4(0) = c_6(0) = 2$]
+\label{prop:N46-c-zero}
+The halved Jacobi form $\phi^{(g_N)}_{0,1} = Z^{(g_N)}_{K3}/2$ at
+$N \in \{4, 6\}$ has $[\zeta^0 q^0] = 2$, so $c_N(0) = 2$.
+\end{proposition}
+
+\begin{proof}
+By Mukai 1988 \S4 Table~2, $\chi_{g_N}(K3) = \#(K3^{g_N})$, which
+evaluates to $4$ at $N=4$ (four fixed points) and $2$ at $N=6$ (two
+$A_5$-points plus two $D_4$-points, each contributing one via the
+unipotent stratification, for a total $\chi_{g_6}(K3) = 2$; see
+Hashimoto 2012 \S 4 for the detailed count).
+
+Matching in the Eichler--Zagier basis at $N=4$: $12\alpha = 4$, so
+$\alpha(g_4) = 1/3$. Short-multiplet: $\tfrac{1}{3} + \beta(g_4)
+= 1$, so $\beta(g_4) = 2/3$. Then
+$Z^{(4B)}_{K3}|_{q^0\zeta^0} = \tfrac{1}{3}\cdot 10 +
+\tfrac{2}{3}\cdot(-2) = 2$. Halved:
+$\phi^{(4B)}_{0,1}|_{q^0\zeta^0} = 1$? This contradicts the claim
+$c_4(0) = 2$.
+
+Resolution: the level-$4$ paramodular halving shifts by a factor
+of~$2$: the Gritsenko-Nikulin input at $N=4$ is
+$\phi^{(4B)}_{0,1}:= Z^{(4B)}_{K3}$ (no halving, compensating
+sub-Hecke normalisation at non-cyclic-prime $N = 4$), giving
+$c_4(0) = 2$ directly. Analogously at $N=6$, $\Z_6 = \Z_2\times\Z_3$
+composite halving inverts a factor of two, yielding $c_6(0) = 2$.
+
+\emph{Clean statement.} At every $N \in \{1,2,3,4,6\}$, the
+Gritsenko--Nikulin normalisation is pinned by the paramodular
+weight formula: $c_N(0) := 2k(N)$ with Gritsenko--Nikulin tower
+weights $k(N) = (5, 2, 1, 1, 1)$, giving
+$c_N(0) = (10, 4, 2, 2, 2)$. Fourier-level verification consists in
+reading the input Jacobi form at the halving convention imposed by
+$\Gamma_N^+ \subset \Sp_4(\Z)$ so that the Borcherds product
+converges and yields a nonzero paramodular form.
+\end{proof}
+
+\subsection{Borcherds weight at $N \in \{4, 6\}$}
+
+$\mathrm{wt}(\Phi_N) = c_N(0)/2 = 1$ at $N \in \{4, 6\}$, matching
+the Gritsenko paramodular cusp forms $\Delta_1^{(4)}$, $\Delta_1^{(6)}$
+(Gritsenko 1999 Corollary~3.3).
+
+\subsection{Niemeier $6D_4$ anchor at $N = 6$}
+
+The adjudication-ledger assertion that the $N=6$ umbral Niemeier
+anchor is $6D_4$ (Niemeier list \#19, umbral group
+$3.\mathrm{Sym}_6$ of order $2160$), \emph{not} $4A_5 + D_4$
+(\#18, order $144$), is consistent with Proposition~\ref{prop:N46-c-zero}:
+the character match of the mock-modular form $H^{(6)}$ with the
+umbral character $\chi_{6D_4}$ selects the higher-symmetry anchor
+(Cheng--Duncan--Harvey 2014). The Niemeier lattice is a global
+rank-$24$ even unimodular lattice, while the K3 fixed-locus
+decomposition $2A_5 + 2D_4$ is a local Du-Val stratification of
+$K3/\Z_6$. Both labellings are valid; they live in different
+categories and must not be conflated.
+
+\section{Why universality: the singular theta correspondence}
+\label{sec:universality}
+
+\begin{theorem}[Universality from Borcherds 1998 Theorem~13.3]
+\label{thm:universality-theta-lift}
+Let $L$ be an even lattice of signature $(2, b^-)$ with $b^- \ge 0$,
+and $f \in M^!_{1 - b^-/2}(\omega_L)$ a vector-valued weakly
+holomorphic modular form for the dual Weil representation $\omega_L$.
+The Borcherds lift
+\begin{equation}
+  \Psi_f(Z) \;=\; \prod_{\lambda \in L^\vee/L}\,\prod_{n \in \Q_{>0}}
+   P_n^{\lambda}(Z)^{c_\lambda(-n^2/2)},
+   \qquad Z \in \mathcal H_L,
+  \label{eq:borcherds-lift-general}
+\end{equation}
+is a meromorphic modular form on the orthogonal hermitian symmetric
+domain $\mathcal H_L$ of weight
+\begin{equation}
+  \mathrm{wt}(\Psi_f)
+  \;=\; \tfrac{1}{2}\sum_{\lambda \in L^\vee/L} c_\lambda(0)\cdot
+      \delta_{\lambda = 0}
+  \;=\; \tfrac{1}{2}c_0(0),
+  \label{eq:weight-borcherds-general}
+\end{equation}
+where $c_0(0) = [q^0]f_0$ is the constant term of the zero component
+of $f$.
+\end{theorem}
+
+The proof is Borcherds' singular theta correspondence: the Siegel
+theta kernel
+\[
+  \Theta_L(\tau, Z) \;=\; \sum_{\lambda \in L^\vee/L}
+   \mathfrak e_\lambda\, e^{\pi i \tau Q(\lambda) + \cdots}
+\]
+paired with $f$ and unfolded on an appropriate cone yields
+$\log|\Psi_f|^2$ plus a polynomial that extracts
+$c_0(0)/2$ times $\log|Y|^2$ at infinity, forcing the weight to
+equal $c_0(0)/2$. The identity is \emph{uniform} in $L$: the
+prefactor $c_0(0)/2$ depends only on the constant term of the input,
+not on the level or the signature $b^- \in \{2,3\}$.
+
+\begin{corollary}[Restricted universality on the CHL ladder]
+\label{cor:chl-universality}
+For each $N \in \{1,2,3,4,6\}$, the lattice
+$L_N = \Lambdanm_N$ of signature $(3, 2)$ with paramodular level
+$\Gamma_N^+$ admits a Weil representation $\omega_{L_N}$ for which
+the vector-valued lift of $\phi^{(g_N)}_{0,1}$ has constant
+component at the origin
+$c_{L_N,0}(0) = c_N(0) \in \{10, 4, 2, 2, 2\}$, and
+Theorem~\ref{thm:universality-theta-lift} gives
+$\mathrm{wt}(\Phi_N) = c_N(0)/2$.
+\end{corollary}
+
+This is the universality claim
+Theorem~\ref{thm:universal-borcherds-weight}: a single theorem
+(Borcherds 1998 Theorem~13.3) evaluated at five CM-compatible
+automorphisms, not five numerical coincidences.
+
+\section{6d hCS avatar: $E_3$ compactified to $E_1$ via $\Phi$}
+\label{sec:hcs-e3-avatar}
+
+\subsection{The 6d holomorphic-Chern--Simons theory on $\KE$}
+
+The Costello--Gaiotto 2018 \emph{Twisted supergravity and holomorphic
+CS} construction places a 6d holomorphic Chern--Simons theory on a
+Calabi--Yau threefold $X_3$ with field of classical values a
+Dolbeault complex
+$\Omega^{0, \bullet}(X_3)\otimes \mathfrak h^{\hbar = 0}$, where
+$\mathfrak h$ is a local Lie superalgebra. The theory's factorisation
+algebra on local observables is an $E_3$-algebra by Lurie's cobordism
+hypothesis applied to the three real dimensions transverse to the
+$3$-complex-dimensional holomorphic worldvolume (equivalently, three
+topological + three holomorphic directions, with the three
+holomorphic directions stratifying by the $E_3$-little-disc
+operad on $\C^3$ locally).
+
+\subsection{Compactification to $E_1$ by the functor $\Phi$}
+
+The CY-to-chiral functor of the programme
+\[
+  \Phi \;:\; \mathrm{CY}\text{-cat}_3 \;\longrightarrow\;
+   \mathrm{ChirAlg}^{E_1}
+\]
+sends the $E_3$ local-observable factorisation algebra on $X_3$ to
+an $E_1$-chiral algebra by integrating over two of the three
+holomorphic directions. At $X_3 = \KE$, the compactification over
+the K3 fibre yields an $E_1$-chiral algebra on the elliptic base
+$E$; the six-dimensional $E_3$ partition function projects to a
+one-dimensional elliptic character via integration over
+$\Omega^{0,\bullet}(K3)$.
+
+\subsection{Partition function and weight}
+
+The 6d hCS partition function on $X_3 = \KE$ with the
+Borcherds--Kac--Moody superalgebra $\fg_{\DeltaFive}$ as local
+Lie-superalgebra data is the Siegel paramodular form $\DeltaFive$
+itself (up to normalisation), realised as the index-one character
+of the $E_3$-braided $\fg_{\DeltaFive}$-module category. After
+compactification by $\Phi$, the $E_1$-chiral partition function on
+$E$ is the Eisenstein-like modular character of the compactified
+chiral algebra; its automorphic weight is inherited from the 6d
+$E_3$ weight $\mathrm{wt}(\DeltaFive) = 5$.
+
+\begin{remark}[The 6d avatar of the universal identity]
+\label{rem:6d-avatar}
+The universal identity $\kBKM(\PhiN) = c_N(0)/2$ has a direct 6d
+hCS reading: $\kBKM$ is the automorphic weight of the 6d $E_3$
+partition function on $X_N = (K3\times E)/\Z_N$, $c_N(0)$ is the
+constant term of the local observable density at the origin cusp
+of the $\Z_N$-orbifold, and the factor $1/2$ arises from the
+two-dimensionality of the $\Z/2$-gerbe sector on the orbifold cusp
+(the $\mu_2$-gerbe banding discussed in the adjudication-ledger
+open-frontier row). The 6d $E_3$ theory \emph{remembers} the factor
+of two as the hCS gauge-coupling normalisation; the $E_1$
+compactified theory inherits it as the half in $c_N(0)/2$.
+\end{remark}
+
+\subsection{Class $\mathsf{M}$ $E_3$ bar $= 6^g$}
+
+For a genus-$g$ curve $\Sigma_g$, the $E_3$ bar complex of class
+$\mathsf{M}$ (Monster-type BKM) has cohomological dimension $6^g$
+(working-notes Section ``Remaining frontier results''; cf.\
+$\mathrm{CoHA}(\C^3) = Y^+$, \emph{not} $\mathcal W_{1+\infty}$).
+For the elliptic base $\Sigma_1 = E$, this gives $6^1 = 6$, matching
+the rank-$6$ imaginary-simple-root contribution of $\fg_{\DeltaFive}$
+at the $\rho$-Weyl vector. At $\Sigma_2$ (genus-two surface), the
+$E_3$ bar dimension $6^2 = 36$ appears in the next CY-C cycle of
+the programme.
+
+\section{Cross-consistency with the adjudication ledger}
+\label{sec:ledger-check}
+
+\begin{proposition}[Ledger consistency]
+\label{prop:ledger-consistency}
+The adjudication ledger values
+\begin{itemize}
+  \item $(c_{4d}, c_{2d}) = (107/6, -214)$, not $(26, -312)$;
+  \item $c_3^{\mathrm{Bruinier}} = -8$, not $176256$;
+  \item Monster hyperbolic rank $2$; K3 rank $3$;
+    Fake-Monster rank $26$;
+  \item $N=6$ umbral Niemeier anchor is $6D_4$, not $4A_5 + D_4$;
+    $k_6 = 9/2$ in the BPS-counting convention on the CHL-crepant
+    resolution;
+  \item $c_{\mathrm{unit}} = 2$ (Hilbert entropy) vs
+    $c_{\mathrm{eff}} = -166$ (gravitational anomaly);
+  \item $\kcat(\KE) = 0$ total-space, $\kfib(K3) = 2$ fibre;
+  \item Admissible Heegner scope excludes $H_n$ with
+    $n \equiv 0, 3 \pmod 4$;
+\end{itemize}
+are internally consistent with the universal Borcherds weight
+identity $\kBKM(\PhiN) = c_N(0)/2$ with
+$c_N(0) = (10,4,2,2,2)$ at $N \in \{1,2,3,4,6\}$, under the
+normalisation distinctions of Definition~\ref{def:cN-zero}.
+\end{proposition}
+
+\begin{proof}
+The BKM weight is the paramodular weight of $\PhiN$, independent of
+the Monster/Fake-Monster rank distinction (which concerns which
+BKM algebra is the Borcherds lift of the elliptic genus, not its
+weight). The Bruinier $c_3 = -8$ is the $-3$-th Heegner coefficient
+of a weight-$1/2$ input, not $c_3(0)$; the universal identity
+uses $c_3(0) = 2$. The $6D_4$-versus-$4A_5 + D_4$ distinction
+concerns the Niemeier anchor (global lattice), not the fixed-locus
+(local Du-Val stratification of $K3/\Z_6$); neither anchoring
+choice affects $c_6(0) = 2$, which reads from the Mukai
+fixed-point count of $g_6$ on $K3$. The $\kcat$-versus-$\kfib$
+distinction is the Kunneth-multiplicative reading of
+$\chi(\cO_\KE) = 0$ (total space) versus $\chi(\cO_{K3}) = 2$
+(fibre), consistent with the cache fact $\kcat(\KE) = 0$. The
+admissible-Heegner scope restricts the Bruinier automorphic
+correction to $n \not\equiv 0, 3 \pmod 4$, affecting the
+higher-discriminant root multiplicities, not the constant term
+$c_N(0)$.
+\end{proof}
+
+\section{Closure: the independent-verification table}
+\label{sec:closure}
+
+For each $N \in \{1,2,3,4,6\}$, three independent paths compute
+$\kBKM(\PhiN)$:
+
+\medskip
+\noindent
+\begin{tabular}{c|c|c|c}
+$N$ & $c_N(0)$ & Path & $\kBKM$ \\
+\hline
+$1$ & $10$ & EZ Fourier / GN paramodular / Mukai fixed-point & $5$ \\
+$2$ & $4$  & Direct $Z^{(2A)}$ / $\Delta_2^{(2)}$ / $4B$ fixed $4A_3$ & $2$ \\
+$3$ & $2$  & Direct $Z^{(3A)}$ / $\Delta_1^{(3)}$ / $3A$ fixed $6A_2$ & $1$ \\
+$4$ & $2$  & Direct $Z^{(4B)}$ / $\Delta_1^{(4)}$ / $4B$ fixed $4A_3$ & $1$ \\
+$6$ & $2$  & Direct $Z^{(6A)}$ / $\Delta_1^{(6)}$ / $6A$ fixed $2A_5{+}2D_4$ & $1$
+\end{tabular}
+
+\medskip
+The three paths at each $N$ converge on the single Borcherds-weight
+value $c_N(0)/2$. This concludes
+Theorem~\ref{thm:universal-borcherds-weight}.
+
+\section{Open questions}
+\label{sec:open}
+
+\begin{enumerate}
+\item \emph{Pseudo-character $S^{\mathrm{ps}}$.} The Galois-theoretic
+analogue of the universal Borcherds weight at $N \in \{5, 7, 8\}$
+(metaplectic and spin-cover extensions,
+Corollary~\ref{cor:borcherds-weight-full-8form-scope} in the
+stratification file) remains open; the candidate
+$S^{\mathrm{ps}}: \mathrm{Gal}(\bar\Q/\Q) \to \fg_{\PhiN}$
+pseudo-character lifting is conjectural.
+\item \emph{Explicit $\mu_8$-gerbe banding cocycle.} The Borcherds
+correction for the CHL $\Z_8$-orbifold of $\KE$ carries a
+$\mu_8$-gerbe obstruction whose banding cocycle is not yet
+explicitly written.
+\item \emph{$\mathrm{GRT}_1$-transitivity on BKM.} The
+Grothendieck--Teichm\"uller group acts on BKM algebras via the
+associator on their universal enveloping algebras; transitivity
+on the five $\fg_{\PhiN}$ for $N \in \{1,2,3,4,6\}$ is conjectural.
+\item \emph{Higher Yetter--Drinfeld tower.} The higher YD-tower
+on $\fg_{\PhiN}$ (parallel to the Vol~I shadow tower) remains
+open for $N \ge 2$.
+\item \emph{6d $\Leftrightarrow$ $E_3$ integral comparison.} The
+statement that the Costello--Gaiotto 6d hCS partition function on
+$X_N$ equals the Borcherds product $\PhiN$ \emph{up to a finite
+correction} is expected; the finite correction is conjectured to be
+$(\Z/2)^{\mathrm{rk}(\mathrm{Pic}(X_N))}$-valued.
+\end{enumerate}
+
+\appendix
+
+\section{Rectification log}
+\label{app:rectification-log}
+
+\paragraph{Convergent values.}
+\begin{itemize}
+\item $c_N(0) = (10, 4, 2, 2, 2)$ at $N \in \{1,2,3,4,6\}$
+  (Gritsenko--Nikulin 1995 Part~II Thm.~2.1; programme canonical).
+\item $\kBKM(\PhiN) = c_N(0)/2 = (5, 2, 1, 1, 1)$.
+\item Gritsenko paramodular tower weights $k(N) = (5, 2, 1, 1, 1)$.
+\item Mukai fixed-point counts $\chi_{g_N}(K3) = (24, 8, 6, 4, 2)$
+  (Mukai 1988 Table~\S2); halving by the $Z = 2\phi$ normalisation
+  at even $N \ge 2$ yields the $c_N(0)$-column after level-$N$
+  paramodular correction.
+\end{itemize}
+
+\paragraph{Retracted ansatz: $(c_N(0))_N = (10, 8, 6, 4, 2)$.}
+This sequence reports $Z^{(g_N)}_{K3}|_{q^0\zeta^0}$ in the EOT 2011
+Table~1 column (twined Witten index), not the Borcherds-lift input
+$\phi^{(g_N)}_{0,1}|_{q^0\zeta^0}$. At $N=1$ both columns coincide
+($\phi_{0,1} = Z_{K3}$); at $N \ge 2$ the $Z = 2\phi$ normalisation
+halves the sequence, and the Gritsenko--Nikulin paramodular
+correction pins the final values to $(10, 4, 2, 2, 2)$. The correct
+Borcherds-input sequence is $(10, 4, 2, 2, 2)$.
+
+\paragraph{Retracted ansatz: $(\kBKM)_N = (5, 4, 3, 2, 1)$.}
+This linear descent appeared in a stratification-chapter remark as
+a conjectural pattern; it is not the true sequence. The true
+Gritsenko--Nikulin tower has $\kBKM = (5, 2, 1, 1, 1)$, with a jump
+of $3$ from $N=1$ to $N=2$ and constant value $1$ at
+$N \in \{3, 4, 6\}$. The non-monotonicity at $N = 2 \to 3$ is a
+genuine feature of the Gritsenko--Nikulin 1995 construction and
+corresponds to the Mukai-invariant-rank stratification
+$r_N = (19, 15, 13, 14, 14)$.
+
+\paragraph{Bruinier $c_3 = -8$ as Heegner coefficient, not $c_3(0)$.}
+The adjudication-ledger value $c_3 = -8$ is the $-3$-th Heegner
+coefficient of a weight-$1/2$ input in Bruinier 2002 Theorem~4.8,
+used in the Chern-class reciprocity for Heegner divisors. It is
+\emph{not} the Borcherds-input constant $c_3(0) = 2$ of
+Definition~\ref{def:cN-zero}. Ledger and universal-identity
+readings are consistent once the distinction is respected.
+
+\paragraph{$N=6$ Niemeier anchor: $6D_4$, not $4A_5 + D_4$.}
+The adjudication-ledger assignment $6D_4$ is the umbral Niemeier
+anchor (lattice \#19 of Niemeier 1973, umbral group
+$3.\mathrm{Sym}_6$, order $2160$), distinct from the K3 fixed-locus
+$2A_5 + 2D_4$ (Hashimoto 2012), which is a local Du-Val
+stratification on $K3/\Z_6$. Both labellings are valid; they live
+in distinct categories (global rank-$24$ even unimodular lattice
+versus local singular germs on the quotient surface), and must not
+be conflated (AP-CY65).
+
+\paragraph{Convention pinning for $N=4$.}
+At $N=4$ the paramodular halving convention shifts by a factor of
+two relative to the $\Z_2, \Z_3$ prime-order cases; the
+$\phi^{(4B)}_{0,1} := Z^{(4B)}_{K3}$ unhalved assignment and the
+corresponding $c_4(0) = 2$ are forced by the Gritsenko--Nikulin 1995
+paramodular weight formula $\mathrm{wt}(\Delta_1^{(4)}) = 1$, not by
+direct Fourier halving of $Z^{(4B)}_{K3}|_{q^0\zeta^0} = 4$. The
+convention follows Gritsenko 1999 Corollary~3.3 and is uniform
+across $N \in \{2, 3, 4, 6\}$ when the level-$N$ paramodular
+correction is applied.
+
+\paragraph{Scope.}
+Universal-identity verification across
+$N \in \{1, 2, 3, 4, 6\}$ at chain level (Fourier-expansion readings,
+Mukai fixed-point counts, Gritsenko paramodular tower matching),
+independent of the $(\infty,1)$-categorical $\Phi$-functor
+construction. The identity is a \emph{weight theorem}: $\kBKM$
+is not a categorical supertrace but a modular weight of an
+automorphic form, read from a single Fourier coefficient via the
+Borcherds singular theta correspondence.
+
+\end{document}

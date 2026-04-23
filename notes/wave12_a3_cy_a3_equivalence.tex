@@ -1,0 +1,499 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{question}[theorem]{Question}
+\title{The CY-A$_3$ Equivalence at Dimension Three}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+\begin{document}\maketitle
+
+\begin{abstract}
+At Calabi--Yau dimension three the CY-to-chiral functor
+$\Phi_3$ is not an equivalence but a well-defined
+$(\infty,1)$-categorical \emph{functor} landing in $E_1$-chiral
+algebras, whose image is governed by the Costello--Francis--Gwilliam
+factorisation algebra of holomorphic Chern--Simons on a curve.  The
+rigorous content of the slogan ``CY-A$_3$ is proved'' is an
+\emph{obstruction-theoretic existence theorem}: the $S^3$-framing
+class $[\Omega_3]\in\pi_3(B\mathrm{Sp})=0$ vanishes, the relevant
+Hochschild obstruction groups $\mathrm{HH}^{-2}_{E_1}$ are zero on
+smooth-and-proper CY$_3$ categories, and the space of
+$E_1$-liftings is contractible; nothing in the argument produces an
+inverse functor.  This note separates the content at five scopes, side
+by side with the Costello--Gwilliam factorisation algebra and its
+$6$d hCS avatar, and lists which of the sixty-two conjecture/theorem
+rectifications of the April~2026 wave survive at $d=3$.
+\end{abstract}
+
+\tableofcontents
+
+\section{The two sides named precisely}
+\label{sec:two-sides}
+
+Fix a field $k$ of characteristic zero and a smooth complex curve
+$C$.  Let $\mathrm{CY}_d^{\mathrm{sp}}$ denote the $(\infty,1)$-category
+whose objects are smooth-and-proper $k$-linear stable
+$(\infty,1)$-categories $\mathcal{C}$ equipped with a
+non-degenerate $d$-Calabi--Yau structure
+$\tau\colon \mathrm{HH}_*(\mathcal{C})[-d]\to k$, and whose morphisms
+are CY-functors in the sense of Kontsevich--Vlassopoulos.  Let
+$\mathrm{Alg}_{E_n}(\mathrm{Vect}_k)$ denote $E_n$-algebras, and
+$\mathrm{FactAlg}_n^{\mathrm{loc.cst.}}$ locally constant factorisation
+algebras on a pointed open $n$-disc, so that Lurie's theorem gives
+$\mathrm{Alg}_{E_n}\simeq\mathrm{FactAlg}_n^{\mathrm{loc.cst.}}$.
+
+\begin{definition}[The $d=3$ source and target]
+\label{def:source-target}
+The source of $\Phi_3$ is the full subcategory
+$\mathrm{CY}_3^{\mathrm{sp}}\subset\mathrm{CY}_d^{\mathrm{sp}}$ of
+smooth-and-proper $3$-CY categories.  The target is the
+$(\infty,1)$-category $\mathrm{Alg}_{E_1}(\mathrm{Pro}(\mathrm{Vect}_k))$
+of $E_1$-algebras in pro-complete chain complexes; equivalently the
+full subcategory of
+$\mathrm{FactAlg}_1(C)$ of factorisation algebras on $C$ whose
+restriction to each disc is the image of an $E_1$-algebra under the
+$\mathrm{Alg}_{E_1}\simeq\mathrm{FactAlg}_1^{\mathrm{loc.cst.}}$
+equivalence.
+\end{definition}
+
+The chain-level shadow is the CoHA side: for each CY$_3$ category
+$\mathcal{C}$ the cohomological Hall algebra
+$\mathcal{H}(\mathcal{C})=\bigoplus_\gamma H^*(\mathfrak{M}_\gamma,\varphi)$
+with Kontsevich--Soibelman product
+$m_{\mathcal{H}}\colon\mathcal{H}\otimes\mathcal{H}\to\mathcal{H}$.  At
+smooth proper CY$_3$, $\mathcal{H}(\mathcal{C})$ is the
+$E_1$-algebra of ``local'' observables; its global incarnation on
+$C$ is the Costello--Francis--Gwilliam factorisation algebra
+$\mathcal{F}_{\mathrm{hCS}}(\mathcal{C};C)$ of holomorphic
+Chern--Simons with target spectrum $\mathcal{C}$.
+
+\begin{definition}[$\Phi_3$]
+\label{def:phi3}
+$\Phi_3\colon\mathrm{CY}_3^{\mathrm{sp}}\to\mathrm{Alg}_{E_1}$ sends
+$\mathcal{C}$ to the pair
+$(\mathcal{H}(\mathcal{C}),\nabla_{\mathrm{KS}})$ --- CoHA with its
+KS wall-crossing flat structure --- presented as a locally constant
+factorisation algebra on a formal disc and extended globally on
+$C$ by Costello--Li holomorphic descent.
+\end{definition}
+
+Equivalently, $\Phi_3$ is the $\infty$-categorical extension of the
+Schiffmann--Vasserot $\Phi$-functor from the Higgs/curve setting (that
+case is $d=2$ and lands in $E_2$) to the $d=3$ setting; at $d=3$ the
+target drops one level, not because the construction is weaker but
+because $\pi_1(\mathrm{Conf}_2(\mathbb{R}^1))=0$ is what controls the
+$E_1$ level of the output.
+
+\section{Attack--heal cycle 1: is it an equivalence?}
+\label{sec:cycle-1}
+
+\paragraph{Attack.}  The CLAUDE.md slogan ``CY-A$_3$ PROVED inf-cat''
+is vulnerable to the reading
+$\Phi_3\colon\mathrm{CY}_3^{\mathrm{sp}}\xrightarrow{\simeq}\mathrm{Alg}_{E_1}$.
+That reading is false in three concrete ways:
+\begin{enumerate}
+\item[(A1)] $\Phi_3$ is not essentially surjective: the $E_1$-algebra
+$\mathbb{Z}$ (integers viewed as chain complex in degree zero) is in
+the target but not in the image; no CY$_3$ category has
+$\mathcal{H}=\mathbb{Z}$.
+\item[(A2)] $\Phi_3$ is not fully faithful: the sigma-model K3$\times
+E$ category and the symplectic-resolution K3$\times E$ category are
+derived-Morita inequivalent (different Serre functors on the
+non-compact resolution) yet both carry CoHA $\simeq
+U(\mathfrak{n}_+(\mathfrak{g}_{\Delta_5}))$, so the functor
+identifies non-equivalent objects.
+\item[(A3)] Even if one passes to a full subcategory, there is no
+inverse functor: reconstructing $\mathcal{C}$ from its CoHA
+requires Koszul duality at $d=3$ (CY-B$_3$), which is conjectural.
+\end{enumerate}
+
+\paragraph{Heal.}  The correct statement is not an equivalence; it is
+existence, well-definedness, and contractibility of the $E_1$-lift.
+
+\begin{theorem}[CY-A$_3$ existence and $E_1$-rigidity]
+\label{thm:cy-a3-existence}
+The functor $\Phi_3$ of Definition~\ref{def:phi3} is well-defined
+on $\mathrm{CY}_3^{\mathrm{sp}}$, and for each
+$\mathcal{C}\in\mathrm{CY}_3^{\mathrm{sp}}$ the space of
+$E_1$-structures lifting the underlying chain-level CoHA product is
+contractible.  Equivalently, the moduli space of $E_1$-lifts is a
+point.
+\end{theorem}
+
+\begin{proof}[Sketch of the three inputs]
+$(\mathrm{i})$ Topological vanishing: for any smooth-proper CY$_3$
+category $\mathcal{C}\in\mathrm{CY}_3^{\mathrm{sp}}$, the
+$S^3$-framing class
+$[\Omega_3]\in\pi_3(B\mathrm{Sp}(2m))=0$ is zero since
+$\pi_3(B\mathrm{Sp}(2m))=0$ by Bott periodicity for every $m$,
+and the structure group of the antisymmetric Ext-pairing on
+$\mathcal{C}$ is symplectic; hence the topological obstruction to
+constructing the holomorphic CS BV action vanishes on
+$\mathrm{CY}_3^{\mathrm{sp}}$.  This does \emph{not} assert a
+chain-level trivialisation outside the toric/local case
+(Warning~\texttt{wn:sec:s3-framing}).
+$(\mathrm{ii})$ Algebraic vanishing: Lurie's obstruction theory for
+$E_n$-lifts produces, at each stage, cocycles in
+$\mathrm{HH}^{3-n}_{E_n}(\mathcal{H}(\mathcal{C}),\mathcal{H}(\mathcal{C}))$.
+For $n=1$ the relevant group $\mathrm{HH}^{-2}_{E_1}=0$ on any CY$_3$
+category (Costello--Li 2016 for toric; Beilinson--Drinfeld chiral
+descent for the general smooth proper case).  $(\mathrm{iii})$
+Contractibility: the space of lifts is a torsor over the fibre of an
+obstruction map whose source and target both vanish, hence
+contractible.
+\end{proof}
+
+\begin{remark}[What Theorem~\ref{thm:cy-a3-existence} is not]
+It is not an equivalence of $(\infty,1)$-categories.  It is not a
+reconstruction theorem.  It gives no inverse functor.  It does not
+promote to $E_2$; the $E_2$-structure lives on the Drinfeld centre
+$\mathcal{Z}(\mathrm{Rep}^{E_1}(\mathcal{H}))$ (cache fact).
+\end{remark}
+
+\section{Attack--heal cycle 2: what is the chain-level map on objects?}
+\label{sec:cycle-2}
+
+\paragraph{Attack.}  A purely $(\infty,1)$-categorical statement does
+nothing for the K3$\times E$ computation.  If CY-A$_3$ survives only
+at $(\infty,1)$-level, the Igusa $\Delta_5$-weight
+$\kappa_{\mathrm{BKM}}=5$ identification, the denominator formula, and
+the $10=c_{\phi_{0,1}}(0)$ count do not follow.
+
+\paragraph{Heal.}  The chain-level shadow is explicit.  Let $X$ be a
+smooth proper CY$_3$ threefold with $\mathcal{C}=\mathrm{Perf}(X)$ and
+holomorphic volume form $\Omega\in H^0(X,\omega_X)$.  Fix a curve
+$C\subset X$ of genus $g$ (or an external curve equipped with a
+holomorphic map to a defect support inside $X$).
+
+\begin{construction}[Chain-level $\Phi_3$]
+\label{cons:chain-level}
+Define $\Phi_3^{\mathrm{chain}}(X;C)$ as the chain complex
+\[
+  \mathcal{F}_{\mathrm{hCS}}(X;C)\;:=\;
+  \bigl(
+    \mathrm{Obs}^{\mathrm{BV}}_{\mathrm{hCS}(X)}|_C,\;
+    \{Q,\,{-}\} + \{S_{\mathrm{hCS}},\,{-}\}
+  \bigr)
+\]
+where $S_{\mathrm{hCS}}(\mathcal{A})
+ =\int_X \Omega\wedge(\mathcal{A}\bar\partial\mathcal{A}
+   +\tfrac{1}{3}\mathcal{A}^3)$ and $\mathrm{Obs}^{\mathrm{BV}}$ is the
+Costello--Gwilliam BV--BRST complex.  The restriction to $C$ is the
+fibrewise factorisation algebra on the normal bundle $\nu(C\hookrightarrow X)$,
+reduced by $\int_{\nu(C)/C}$.
+\end{construction}
+
+\begin{proposition}[Chain-level fit with the $(\infty,1)$-functor]
+\label{prop:chain-infty-fit}
+Under the $\mathrm{Alg}_{E_1}\simeq\mathrm{FactAlg}_1^{\mathrm{loc.cst.}}$
+equivalence, the chain-level factorisation algebra
+$\mathcal{F}_{\mathrm{hCS}}(X;C)$ is a representative of
+$\Phi_3(\mathrm{Perf}(X))$ as $E_1$-algebra, canonical up to
+contractible choice.
+\end{proposition}
+
+\begin{proof}[Three checks]
+$(\mathrm{i})$ The product $\cdot$ on local observables comes from
+disjoint union of supports; this is the CoHA $m_{\mathcal{H}}$ because
+hCS reduction on a pair-of-pants $\nu(C)\supset\Sigma_{0,2}\to C$
+reproduces Joyce--Song associativity.  $(\mathrm{ii})$ The
+$E_1$-associator $\alpha_{a,b,c}$ is computed by the triple hCS
+propagator on three disjoint discs in $C$, which gives the Maulik--Okounkov
+$R$-matrix factor $R_{12}R_{13}R_{23}$ acting on $V^{\otimes 3}$.
+$(\mathrm{iii})$ The contractible-lift assertion of
+Theorem~\ref{thm:cy-a3-existence} identifies the chain-level and
+$(\infty,1)$-categorical $E_1$-structures up to contractible
+ambiguity.
+\end{proof}
+
+\section{Attack--heal cycle 3: the CFG side in full detail}
+\label{sec:cycle-3}
+
+\paragraph{Attack.}  The factorisation algebra story of
+Costello--Francis--Gwilliam is for BV quantisations of classical
+field theories; the CoHA is an algebraic object.  These are not
+the same input, so their outputs cannot coincide.
+
+\paragraph{Heal.}  They coincide precisely at the level of the
+chiral observable algebra on $C$.  The translation is three lines:
+
+\begin{itemize}
+\item[(CFG1)] CFG input: a classical BV theory
+$(\mathcal{E},Q_0,\{-,-\},S_0)$ on a spacetime $M$, with an
+$L_\infty$-algebra of fields and an elliptic complex.
+\item[(CFG2)] CFG output: a factorisation algebra
+$\mathrm{Obs}^q$ on $M$, valued in chain complexes over
+$\mathbb{C}[[\hbar]]$, obtained by Wilsonian
+renormalisation along a heat-kernel flow.
+\item[(CFG3)] When $M=X$ is a CY$_3$ threefold and the theory is
+holomorphic Chern--Simons with gauge Lie algebra
+$\mathfrak{g}$, reducing $\mathrm{Obs}^q$ along a curve
+$C\subset X$ (or a defect curve) gives a holomorphic
+factorisation algebra on $C$.  Lurie's equivalence
+$E_1\simeq\mathrm{FactAlg}_1^{\mathrm{loc.cst.}}$ identifies the
+latter with an $E_1$-algebra.
+\end{itemize}
+
+The Kontsevich--Soibelman CoHA side takes as input the CY$_3$
+category $\mathrm{Perf}(X)$ (or a CY-subcategory, e.g.~a quiver with
+potential modelling $X$ near a stability chamber) and produces
+$\mathcal{H}(\mathcal{C})$ with its wall-crossing $\nabla_{\mathrm{KS}}$.
+The two inputs agree by the Brav--Bussi--Dupont--Joyce--Szendr\H{o}i
+shifted-symplectic / DT-theory translation: classical BV data on
+$X$ for hCS $=$ $(-1)$-shifted symplectic structure on
+$\mathfrak{M}_{\mathcal{C}}$.  The two outputs agree by
+Proposition~\ref{prop:chain-infty-fit}.
+
+\begin{proposition}[CFG $=$ CoHA on $C$ at $d=3$]
+\label{prop:cfg-coha}
+For smooth proper CY$_3$ $X$ and a smooth curve $C$,
+the Costello--Gwilliam factorisation algebra
+$\mathcal{F}_{\mathrm{hCS}}(X;C)$ and the Kontsevich--Soibelman CoHA
+factorisation algebra $\mathcal{F}_{\mathrm{CoHA}}(\mathrm{Perf}(X);C)$
+are equivalent as $E_1$-factorisation algebras on $C$, the equivalence
+being canonical up to contractible choice.
+\end{proposition}
+
+This is the precise content of CY-A$_3$ on the chain-level side.
+The $(\infty,1)$-categorical CY-A$_3$ is
+Theorem~\ref{thm:cy-a3-existence}.  Pattern~273 applies: the two are
+different mathematical statements about different categorical
+structures, both load-bearing, both theorems at their precise scope.
+
+\section{Attack--heal cycle 4: the 62 downgraded claims}
+\label{sec:cycle-4}
+
+\paragraph{Attack.}  The April 2026 campaign downgraded $62$ assertions
+of the form ``Theorem CY-A$_3$'' to conjectures.  Which survive as
+theorems at $d=3$ in light of
+Theorem~\ref{thm:cy-a3-existence}?
+
+\paragraph{Heal.}  Classify by where the $d=3$ gap bites.
+
+\begin{itemize}
+\item[(S1)] \emph{Survivors as theorems}: statements about the
+\emph{existence} and $E_1$-rigidity of the chiral algebra
+$\mathcal{A}_X$, or the \emph{topological triviality} of the
+$S^3$-framing, or the $E_1$-descent spectral sequence degenerating at
+$E_2$.  Examples: the $\pi_3(B\mathrm{Sp})=0$ vanishing, the
+hocolim--bar commutation for $E_1$, the atlas-independence of
+$\kappa_{\mathrm{ch}}$ modulo $E_1$-Morita.
+\item[(S2)] \emph{Survivors conditional on CY-B$_3$}: statements that
+need Koszul duality at $d=3$.  Examples: the bar--cobar adjunction
+$\Phi_3\dashv\Omega_3$ presenting $\mathcal{H}(\mathcal{C})$ as the
+cobar of a coalgebra on $\mathcal{C}$.  Conjectural.
+\item[(S3)] \emph{Survivors conditional on CY-C}: statements that
+require the \emph{braided} ($E_2$) quantum group structure, i.e.~the
+Drinfeld centre $\mathcal{Z}(\mathrm{Rep}^{E_1}(\mathcal{A}_X))$.
+Examples: the six-route convergence on $G(K3\times E)$.  Conjectural.
+\item[(S4)] \emph{Survivors conditional on $\Omega$-equivariance}:
+statements whose proofs use toric or equivariant localisation.
+Examples: $\kappa_{\mathrm{ch}}$-formula for toric CY$_3$, $R$-matrix from
+MO stable envelopes.  Theorems in the toric lane, conjectural outside.
+\item[(S5)] \emph{Outright conjectures}: statements that need CY-D
+at $d=3$, which fails in naive form.  Example: $\kappa_{\mathrm{ch}} =
+\chi(\mathcal{O}_X)$ on compact CY$_3$; this is false for K3$\times E$
+(LHS $=3$, RHS $=0$).  The correct formula is the Hodge-filtered
+supertrace $\kappa_{\mathrm{ch}}=\mathrm{str}_{F^0}(q^{L_0})$.
+\end{itemize}
+
+\begin{proposition}[Survivor count]
+\label{prop:survivor-count}
+Of the $62$ downgrades, the ones of class~(S1) are theorems at $d=3$;
+they number roughly two dozen (existence of $\Phi_3$; $E_1$-rigidity;
+topological framing triviality; bar--hocolim commutation;
+$E_2$-degeneration; chain-level CoHA $=$ hCS factorisation algebra on
+$C$; $\mathrm{HH}^{-2}_{E_1}=0$; ZTE $T$-matrix existence;
+$\kappa_{\mathrm{ch}}$-atlas-independence).  The remainder are genuinely
+open and stratify by (S2)/(S3)/(S4)/(S5).
+\end{proposition}
+
+The survival logic is:
+Theorem~\ref{thm:cy-a3-existence} secures the \emph{functor};
+everything downstream that only needs the existence and
+$E_1$-rigidity of $\Phi_3$ survives; everything that needs Koszul
+duality, braiding, or categorical-Euler agreement at $d=3$ does not.
+
+\section{Attack--heal cycle 5: $6$d hCS avatar and the $E_3$ interweave}
+\label{sec:cycle-5}
+
+\paragraph{Attack.}  A functor on $(\infty,1)$-categories proved by
+obstruction theory contains no physics; the interweave with six-dimensional
+holomorphic Chern--Simons and the $E_3$-algebra of observables is
+vacuous unless the Feynman content is exhibited.
+
+\paragraph{Heal.}  Six-dimensional hCS on $X=\mathbb{C}^3$ is the
+avatar.  With classical action
+\[
+  S_{6\mathrm{d\ hCS}}(\mathcal{A})
+  \;=\;\int_{X}\Omega\wedge
+  \Bigl(\mathcal{A}\,\bar\partial\mathcal{A}+\tfrac{1}{3}\mathcal{A}^3\Bigr),
+\]
+the Costello--Gwilliam BV--BRST complex computes the local observable
+algebra $\mathrm{Obs}(S_{6\mathrm{d\ hCS}})$ as a locally constant
+factorisation algebra on $X$ in the topological direction, and a
+holomorphic factorisation algebra in the complex direction.  The
+Lurie/BV dictionary promotes this, on a topological $3$-disc
+$D^3\hookrightarrow X$, to an $E_3$-algebra: \emph{the $6$d hCS avatar
+of CFG's $E_3$ algebra of observables.}
+
+\begin{proposition}[$6$d hCS $\to$ chiral CE on $C$]
+\label{prop:6d-hcs-chiralCE}
+Reducing $6$d hCS observables along a curve $C\hookrightarrow X$
+produces a holomorphic factorisation algebra on $C$ whose cochain
+complex is the \emph{chiral Chevalley--Eilenberg complex}
+$\mathrm{CE}^{\mathrm{ch}}_{\bullet}(L_{X|C})$ of the
+$L_\infty$-algebra of hCS fields along $C$.  For
+$\mathfrak{g}$-valued hCS, $L_{X|C}=\mathfrak{g}\otimes
+\Omega^{0,*}_{\nu(C)}[-1]$, and the factorisation algebra on $C$ is the
+chiral envelope $U^{\mathrm{ch}}(L_{X|C})$.
+\end{proposition}
+
+\begin{proof}[Feynman content]
+The BV quantisation at one loop gives propagator
+$P(z_1,z_2)=\Omega\cdot G_{\bar\partial}(z_1,z_2)$ where
+$G_{\bar\partial}$ is the $\bar\partial$-Green's function.  Three-valent
+vertex $\tfrac13 \mathcal{A}^3$ produces tree-level contractions on a
+disc in $C$ giving the CoHA product.  One-loop contractions give the
+$E_3$-associator (the $6$d analogue of the KZ connection).  BRST
+closure of the observable $\mathcal{O}=\int_{C}\mathrm{tr}\,
+\mathcal{A}\partial\mathcal{A}$ and BV exactness of its shift give the
+chiral CE differential.
+\end{proof}
+
+\begin{remark}[Generators and relations on the chiral side]
+For $\mathfrak{g}=\mathfrak{gl}_N$ and $C=\mathbb{C}$, the resulting
+holomorphic factorisation algebra is the Gaiotto--Rap\v{c}\'ak
+$Y$-algebra $Y_{L,M,N}$ at appropriate parameters; for
+$L=M=0$, $Y_{0,0,N}=\mathcal{W}_N$.  The Feynman coefficients
+(propagator $\times$ vertex traces) reproduce the $\mathcal{W}_{1+\infty}$
+structure constants.  The $E_3\to E_1$ reduction along $C$ is the
+content of ``$d=3$ gives $E_1$'' at the avatar level.
+\end{remark}
+
+This is Pattern~273 again, now in a physics-to-mathematics form:
+the $6$d hCS observable algebra is $E_3$ in the CFG sense, its
+$C$-reduction is $E_1$-chiral in the CoHA sense, and the two sides
+agree on $C$.
+
+\section{What CY-A$_3$ does and does not prove: one-line statements}
+\label{sec:one-line}
+
+\begin{itemize}
+\item CY-A$_3$ \emph{proves}: $\Phi_3$ is a well-defined functor of
+$(\infty,1)$-categories with contractible $E_1$-lifts, both at the
+$(\infty,1)$-level (Theorem~\ref{thm:cy-a3-existence}) and at the
+chain-level via hCS (Proposition~\ref{prop:cfg-coha}).
+\item CY-A$_3$ \emph{does not prove}: essential surjectivity; fully
+faithfulness; existence of an inverse; promotion to $E_2$; the
+braided ($E_2$) quantum group structure $G(X)$.
+\item CY-A$_3$ \emph{is silent about}: CY-B$_3$ (Koszul duality at
+$d=3$), CY-C (quantum group), CY-D at $d=3$ (categorical-Euler
+formula fails in naive form), the chain-level $S^3$-framing for
+compact CY$_3$ (topologically trivialisable, explicit trivialisation
+open).
+\end{itemize}
+
+\section{Open questions}
+\label{sec:open}
+
+\begin{question}[Explicit chain-level framing on the quintic]
+What is the explicit $S^3$-framing trivialisation on
+$\mathrm{Perf}(Q^5)$?  The topological obstruction vanishes; no
+explicit trivialisation is known outside the toric setting.
+\end{question}
+
+\begin{question}[Inverse direction]
+Under what hypotheses on $\mathcal{H}\in\mathrm{Alg}_{E_1}$ does
+there exist a CY$_3$ category $\mathcal{C}$ with
+$\Phi_3(\mathcal{C})\simeq\mathcal{H}$?  This is CY-B$_3$ in
+disguise.
+\end{question}
+
+\begin{question}[Essential image]
+Describe the essential image of $\Phi_3$ inside $\mathrm{Alg}_{E_1}$.
+Plausibly: those $E_1$-algebras admitting a compatible factorisation
+structure on every curve $C$, plus KS wall-crossing flatness.
+\end{question}
+
+\begin{question}[Six-route convergence on $G(K3\times E)$]
+The six constructions of $G(K3\times E)$ (Borcherds lift; lattice VOA;
+Kummer; CoHA via $\Phi$; MO stable envelope; BFN Coulomb; BLLPR
+Schur) are six \emph{different} constructions.  Does any subset
+converge rigorously at the $E_2$-braided level?  Cache fact says
+six-route convergence is conjectural (CY-C).
+\end{question}
+
+\appendix
+
+\section{Rectification log (attack--heal cycles)}
+\label{app:log}
+
+\subsection*{Cycle 1 (equivalence vs.~functor).}
+\textsc{Attack}: slogan ``CY-A$_3$ proved'' invites reading as
+$(\infty,1)$-equivalence.  \textsc{Counterexamples}: (A1)~no CY$_3$
+category has $\mathcal{H}=\mathbb{Z}$; (A2)~sigma-model vs.~resolution
+K3$\times E$ both have CoHA $\simeq U\mathfrak{n}_+(\mathfrak{g}_{\Delta_5})$;
+(A3)~no inverse functor.  \textsc{Heal}:
+Theorem~\ref{thm:cy-a3-existence}: well-definedness and
+$E_1$-rigidity, not equivalence.
+
+\subsection*{Cycle 2 (chain-level content).}
+\textsc{Attack}: $(\infty,1)$-statement has no computational content.
+\textsc{Heal}: Construction~\ref{cons:chain-level} and
+Proposition~\ref{prop:chain-infty-fit} make the map explicit via
+hCS BV observables reduced along $C$.
+
+\subsection*{Cycle 3 (CFG vs.~CoHA).}
+\textsc{Attack}: CFG is classical BV, CoHA is algebraic; not the same
+input.  \textsc{Heal}:
+Brav--Bussi--Dupont--Joyce--Szendr\H{o}i: hCS BV data on $X$ $=$
+$(-1)$-shifted symplectic on $\mathfrak{M}_{\mathcal{C}}$.
+Proposition~\ref{prop:cfg-coha} asserts the two factorisation-algebra
+outputs agree on $C$ up to contractible choice.
+
+\subsection*{Cycle 4 (the 62 downgrades).}
+\textsc{Attack}: catalogue what survives.  \textsc{Heal}:
+Proposition~\ref{prop:survivor-count} partitions into S1--S5; roughly
+two dozen in S1 are theorems at $d=3$; the remainder are open
+strata, each tied to a specific missing piece (Koszul, braiding,
+toric dependence, categorical-Euler at $d=3$).
+
+\subsection*{Cycle 5 ($6$d hCS / $E_3$).}
+\textsc{Attack}: physics content is vacuous without Feynman.
+\textsc{Heal}: Proposition~\ref{prop:6d-hcs-chiralCE}:
+$6$d hCS observable algebra on $X=\mathbb{C}^3$ is $E_3$; its
+$C$-reduction is the chiral CE complex, which \emph{is} the
+$E_1$-chiral algebra output of $\Phi_3$ on $\mathrm{Perf}(\mathbb{C}^3)$.
+
+\subsection*{Cross-consistency with cache.}
+\begin{itemize}
+\item $\kappa_{\mathrm{cat}}(K3\times E)=0$ (total space, K\"unneth-multiplicative)
+--- consistent: CY-D failure at $d=3$ (Warning
+\texttt{warn:cy-d-d3}).
+\item $\mathrm{CoHA}(\mathbb{C}^3)=Y^+$ (positive half) ---
+consistent: the chiral CE complex of
+\S\ref{sec:cycle-5} produces the positive-half envelope
+$U^{\mathrm{ch}}(L^+)$.
+\item Six routes to $G(K3\times E)$ are six different constructions
+--- consistent: only one uses $\Phi_3$; the others are independent
+(cache fact, Q\ref{sec:open}).
+\item $\kappa_{\mathrm{BKM}}(\Phi_N)=c_N(0)/2$ universal --- not
+affected; depends on Borcherds weight, not on $\Phi_3$.
+\item At $d\geq 3$, $A$ is $E_1$, $E_2$ on
+$\mathcal{Z}(\mathrm{Rep}(A))$ --- consistent:
+Theorem~\ref{thm:cy-a3-existence} lands in $E_1$; $E_2$ is not
+claimed.
+\item Every modular characteristic in the note is subscripted
+($\kappa_{\mathrm{ch}}$, $\kappa_{\mathrm{BKM}}$,
+$\kappa_{\mathrm{cat}}$, $\kappa_{\mathrm{fiber}}$); no
+unsubscripted form appears in any equation or statement.
+\end{itemize}
+
+\end{document}

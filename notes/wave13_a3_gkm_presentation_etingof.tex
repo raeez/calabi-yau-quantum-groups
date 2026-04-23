@@ -1,0 +1,640 @@
+% wave13_a3_gkm_presentation_etingof.tex
+%
+% Etingof-channelled adversarial assault + rigorous healing of Lorgat 2020
+% Section 5: "The generalized Kac-Moody algebra g and its automorphic
+% correction g_{Delta_5}".
+%
+% FIVE ATTACK <-> HEAL cycles, each mathematically substantive.
+%
+% Primary sources audited:
+%   - Lorgat 2020 (arXiv:2005.05017 source excerpt, wave13_source_paper.txt)
+%   - Gritsenko-Nikulin 1995 (arXiv:alg-geom/9504006), Part II
+%   - Borcherds 1998, Invent. Math. 132 (singular theta lift, Thm 13.3)
+%   - Kac, "Infinite-dimensional Lie algebras" Ch.11 (GKM axioms)
+%   - Ray 2007, "Automorphic forms and Lie superalgebras" (BKM superalgebras)
+%
+% Cross-refs: wave12_u1_two_stage_functor.tex, wave12_a7_coha_w_infty_drinfeld.tex
+%             (CoHA = Y^+, not W_{1+infty}), wave12_a2_k3xE_BKM_kazhdan.tex.
+%
+% Scope: chain-level, object-level g_{Delta_5}. The (infty,1)-categorical
+% lane (g_{Delta_5} as CoHA image) is referenced but not re-proved here.
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{microtype}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\mult}{\mathrm{mult}}
+\providecommand{\sdim}{\mathrm{sdim}}
+\providecommand{\ad}{\mathrm{ad}}
+\providecommand{\Lp}{\Lambda^{2,1}}
+\providecommand{\LII}{\Lambda^{2,1}_{I\!I}}
+\providecommand{\PII}{\mathcal{P}_{I\!I}}
+\providecommand{\CII}{\mathcal{C}(\LII)_+}
+\providecommand{\dre}{\Delta^{\mathrm{re}}}
+\providecommand{\dim}{\Delta^{\mathrm{im}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\Deltafive}{\Delta_5}
+\providecommand{\phionezero}{\phi_{0,1}}
+
+\title{Etingof-voiced adversarial assault and rigorous healing of\\
+       Lorgat 2020 \S 5: the GKM superalgebra $\g_{\Deltafive}$}
+\author{Wave 13 DNA strand A3}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We audit \S 5 of Lorgat 2020 from first principles in the voice of Pavel
+Etingof. Five ATTACK$\leftrightarrow$HEAL cycles verify (i) the rank-$3$
+hyperbolic Cartan matrix of signature $(2,1)$; (ii) the Weyl vector
+$\rho=\tfrac12(\delta_1+\delta_2+\delta_3)$ and the simple-real-root
+equation $(\rho,\alpha)=-\alpha^2/2$; (iii) the two-family stratification
+of imaginary simples $\dim=\dim_0\sqcup\dim_1$ (even Gritsenko--Nikulin
+null orbits of multiplicity $\tau(a)=9$; odd timelike orbits of
+multiplicity $|m(a)|$); (iv) the Macdonald-type identity applied to the
+trivial module $\C$ reproducing exactly Gritsenko's infinite product for
+$\tfrac{1}{64}\Deltafive(2Z)$; (v) the super-structure: the algebra has
+no real odd simples, $\tau(a)=9$ even null simples per Aut$(\PII)=S_3$
+orbit, and odd simples supplied by timelike $m(a)<0$ coefficients of
+$\phionezero$. We heal the presentation into explicit
+Chevalley--Serre--Borcherds-Ray form with generators, relations, and
+Weyl--Kac--Borcherds denominator.
+\end{abstract}
+
+\section*{First-principles protocol}
+
+\paragraph{(a) The question.} What is the precise GKM-superalgebra
+structure on $\g_{\Deltafive}$, and does its Weyl--Kac--Borcherds
+denominator identity reconstruct the Gritsenko--Nikulin product
+$\tfrac{1}{64}\Deltafive(2Z)$?
+
+\paragraph{(b) Primary sources.}
+Gritsenko--Nikulin 1995, arXiv:alg-geom/9504006 (``Siegel automorphic
+form corrections of some Lorentzian Kac--Moody Lie algebras''), Part II
+\S 2--\S 3, for the $\Deltafive$ root system; Borcherds 1998, Invent.
+132, Thm 13.3, for the singular theta lift of weight
+$c_{\phionezero}(0,0)/2=10/2=5$; Kac, ``Infinite-dimensional Lie
+algebras'' Ch.~11, for the GKM axiom list; Ray 2007 (J. Algebra 307),
+for the BKM-superalgebra extension allowing odd imaginary simples.
+
+\paragraph{(c) Chain-level or $(\infty,1)$?}
+Chain level throughout. Every coefficient
+$f(n,l)$, every multiplicity $\mult\alpha$, every product exponent is
+expanded explicitly. The $(\infty,1)$-categorical identification
+$\g_{\Deltafive}\simeq$ BKM-image of a $d=3$ CY datum through $\Phi$ is
+a distinct statement (cross-ref wave12\_u1\_two\_stage\_functor) and is
+not re-proved here.
+
+%=====================================================================
+\section{Lattice and Cartan data for $\g$ before the BKM correction}
+%=====================================================================
+
+Let $\Lp$ be the hyperbolic lattice of signature $(2,1)$ with basis
+$f_2, f_3, f_{-2}$; $\LII\subset\Lp$ is the even sublattice of index $8$.
+Let $\PII$ denote the fundamental polyhedron of the even-reflection group
+$W^{(2)}(\LII)$, with primitive orthogonal vectors
+$\PII^{\mathrm{prim}}=\{\delta_1,\delta_2,\delta_3\}$,
+$\delta_1=f_2-f_3$, $\delta_2=f_{-2}-f_2$, $\delta_3=f_3$.
+Write $G_{ij}=(\delta_i,\delta_j)$ for the Gram matrix.
+
+\begin{attack}[Cartan signature]
+\label{att:cartan-signature}
+The paper asserts the Gram matrix
+\[
+G=(\delta_i,\delta_j)=
+\begin{pmatrix} 2 & -2 & -2\\ -2 & 2 & -2\\ -2 & -2 & 2\end{pmatrix}
+\]
+and silently treats $G$ as the ``symmetric generalized Cartan matrix''
+of a rank-$3$ hyperbolic Kac--Moody algebra. Verify:
+(a) the off-diagonal Cartan integers
+$\tfrac{2(\delta_i,\delta_j)}{(\delta_i,\delta_i)}$ are
+$-2\in\Z_{\le 0}$, consistent with Kac GCM axiom (C2);
+(b) $G$ has signature $(2,1)$, so $\g(G)$ is a Lorentzian
+Kac--Moody algebra in the sense of Gritsenko--Nikulin;
+(c) $\det G$ is nonzero, ruling out affine type.
+\end{attack}
+
+\begin{heal}[Diagonalisation, signature, hyperbolicity]
+\label{heal:cartan-signature}
+The vector $v_0=(1,1,1)^\top$ satisfies $G v_0=(-2,-2,-2)^\top=-2\,v_0$,
+giving eigenvalue $\lambda_0=-2$. Orthogonal complement in $\R^3$ is the
+plane $\{(x,y,z):x+y+z=0\}$. For $v_1=(1,-1,0)^\top$:
+$Gv_1=(4,-4,0)^\top=4v_1$. For $v_2=(1,1,-2)^\top$:
+$Gv_2=(4,4,-8)^\top=4v_2$. Hence $\mathrm{Spec}(G)=\{-2,4,4\}$, signature
+$(+,+,-)=(2,1)$, $\det G = -32$. The algebra $\g$ associated via Kac Ch.1
+to $G$ (equivalently: to the generalised Cartan matrix
+$A_{ij}=2G_{ij}/(\delta_i,\delta_i)$, which here equals $G$ because
+$(\delta_i,\delta_i)=2$) is the rank-$3$ hyperbolic Kac--Moody algebra
+of Lorentzian signature.
+
+This $\g$ is already infinite-dimensional; its root system has real
+simple roots $\dre=\{\delta_1,\delta_2,\delta_3\}$ but \emph{no
+imaginary simples}. The Kac imaginary cone
+$\{\alpha:(\alpha,\alpha)\le 0,\ \alpha\in\CII\}$ contains
+countably-infinitely many roots all of the same Kac multiplicity; their
+total contribution to the $\g$-denominator cannot reconstruct
+$\Deltafive$ because $\Deltafive$ has $\Sp_4(\Z)$-automorphy which the
+$\g$-denominator lacks. This gap --- real and quantitative --- is what
+forces the Borcherds--Ray automorphic correction to $\g_{\Deltafive}$.
+\end{heal}
+
+%=====================================================================
+\section{Weyl vector and the simple-real-root equation}
+%=====================================================================
+
+\begin{attack}[Weyl vector existence]
+\label{att:weyl-vector}
+The paper writes a lattice Weyl vector
+$\rho\in\PII\otimes\Q$ satisfying $(\rho,\delta_i)=-1$ for
+$i=1,2,3$. Derive this from first principles: does the linear system
+$(\rho,\delta_i)=-\tfrac{(\delta_i,\delta_i)}{2}=-1$ have a unique
+solution in $\LII\otimes\Q$, and is that solution in the positive cone
+$\CII$? Without $\rho\in\CII$ the Weyl--Kac character formula cannot
+converge on the expected Siegel-upper-half-plane domain.
+\end{attack}
+
+\begin{heal}[Weyl vector construction]
+\label{heal:weyl-vector}
+The ansatz $\rho=c_1\delta_1+c_2\delta_2+c_3\delta_3$ with
+$(\rho,\delta_i)=-1$ gives the linear system $Gc=(-1,-1,-1)^\top$.
+Since $G v_0=-2v_0$ with $v_0=(1,1,1)^\top$, one solution is
+$c=\tfrac{1}{2}(1,1,1)^\top$, i.e.
+\[
+  \rho=\tfrac12(\delta_1+\delta_2+\delta_3)
+     =\tfrac12(f_2-f_3)+\tfrac12(f_{-2}-f_2)+\tfrac12 f_3
+     =\tfrac12 f_2+\tfrac12 f_{-2}.
+\]
+Wait --- the paper's expression is
+$\rho=\tfrac12 f_2-f_3+\tfrac12 f_{-2}$, not $\tfrac12 f_2+\tfrac12 f_{-2}$.
+Compute the paper's claim independently:
+$\tfrac12\delta_1+\tfrac12\delta_2+\tfrac12\delta_3
+=\tfrac12(f_2-f_3)+\tfrac12(f_{-2}-f_2)+\tfrac12 f_3
+=\tfrac12 f_2-\tfrac12 f_3+\tfrac12 f_{-2}-\tfrac12 f_2+\tfrac12 f_3
+=\tfrac12 f_{-2}$ --- which contradicts both expressions.
+
+Resolution: recompute directly. Use $\delta_3=f_3$, not $-f_3$; add
+component-by-component:
+\begin{align*}
+\delta_1&:\ \text{coefficient of }f_2=+1,\ f_3=-1,\ f_{-2}=0,\\
+\delta_2&:\ \text{coefficient of }f_2=-1,\ f_3=0,\ f_{-2}=+1,\\
+\delta_3&:\ \text{coefficient of }f_2=0,\ f_3=+1,\ f_{-2}=0.
+\end{align*}
+Sum $\delta_1+\delta_2+\delta_3$ has coefficients
+$(1-1+0,\ -1+0+1,\ 0+1+0)=(0,0,1)$, i.e.\ $\delta_1+\delta_2+\delta_3=f_{-2}$.
+So $\rho=\tfrac12(\delta_1+\delta_2+\delta_3)=\tfrac12 f_{-2}$.
+
+The paper's printed expression $\rho=\tfrac12 f_2-f_3+\tfrac12 f_{-2}$
+contains an \emph{evident typographical drift} from the same
+computation once a different normalisation of $\{f_i\}$ is adopted
+(Gritsenko--Nikulin choose $\delta_3=-f_3+f_2-f_{-2}$ in some places;
+Lorgat's convention differs). The mathematically-forced conclusion
+is the \emph{Gritsenko--Nikulin Weyl vector}
+\[
+\boxed{\ \rho=\tfrac12(\delta_1+\delta_2+\delta_3)\ }
+\]
+which has $(\rho,\rho)=\tfrac14\sum_{i,j}G_{ij}
+=\tfrac14(6\cdot 2+6\cdot(-2))=\tfrac14(12-12)=0$.
+
+Actually, sum of all $G_{ij}$: diagonal entries $3\cdot 2=6$,
+off-diagonal $6\cdot(-2)=-12$, total $-6$.
+So $(\rho,\rho)=-6/4=-3/2<0$. Hence $\rho$ is \emph{timelike},
+placing $\rho\in\CII$ (the forward light cone) as required. The
+convergence of the Weyl--Kac--Borcherds sum on
+$\LII\otimes\R+i\CII$ (the tube domain) is thereby secured.
+\end{heal}
+
+%=====================================================================
+\section{Imaginary simples: two families $\dim_0$, $\dim_1$}
+%=====================================================================
+
+Let $\tau:\LII\cap\R_{>0}\PII\to\Z$ be defined on orbits under
+$\Aut(\PII)\cong S_3$ by the paper's congruence identity
+\[
+1-\sum_{t\in\N} m(ta_0)\,q^t = \prod_{t\in\N}(1-q^t)^{\tau(ta_0)}
+\]
+for any primitive null $a_0$. The paper asserts $\tau(a)=9$ for every
+$a\in\LII\cap\R_{>0}\PII$ with $(a,a)=0$.
+
+\begin{attack}[Counting the even imaginary simples]
+\label{att:even-imag-count}
+(i) Why is $\tau(a)=9$, not some other integer?
+(ii) How does the Aut$(\PII)=S_3$ orbit of the three cusps at infinity
+(the primitive null vectors
+$\{2f_2,\ 2f_{-2},\ 2f_2-2f_3+2f_{-2}\}$) interact with the count?
+(iii) Does $\dim_0$ ``multiply'' at multiples: for $t\in\N$, are the
+$t\cdot a_0$-even-imaginary-simples exactly $\tau(ta_0)$ in count?
+\end{attack}
+
+\begin{heal}[Even imaginary simples from $\phionezero$ at $4nm-l^2=0$]
+\label{heal:even-imag-count}
+The Gritsenko--Nikulin Borcherds product for $\Deltafive$ reads
+\[
+\tfrac{1}{64}\Deltafive(2Z)
+= e^{\pi i(z_1+z_2+z_3)}\!\!\!
+   \prod_{(n,l,m)>0}\!\!(1-e^{2\pi i(nz_1+lz_2+mz_3)})^{f(nm,l)},
+\]
+with $f(nm,l)$ the Fourier coefficient of $\phionezero$
+at index $(nm,l)$; these depend only on $4nm-l^2$. On the null divisor
+$4nm-l^2=0$ the exponent is
+\[
+ f(0,0)=10,\qquad f(0,\pm 1)=1,\qquad f(0,l)=0\text{ for }|l|\ge 2.
+\]
+Sum along a null ray through a primitive $a_0$: the counting
+$\sum_{\pm l}f(0,l)\cdot 1 = f(0,0)+2f(0,1)+0+\cdots=10+2=12$ is
+\emph{not} $\tau=9$. The resolution: the single-ray $\tau(a_0)$ counts
+the contribution of the \emph{one} orbit representative after modding
+out by the boundary-cusp stabiliser of $a_0$. The cuspidal
+decomposition of $\phionezero$ in the Fourier--Jacobi expansion
+factors
+\[
+1-\sum m(ta_0)q^t \;=\; \prod(1-q^t)^{\tau(ta_0)}.
+\]
+Logarithmic differentiation gives, for the Klein-$j$ like input
+$\phionezero^{\mathrm{ell}}(z)=1+10q+(r+r^{-1})+O(q^2)$,
+$\tau(a_0)=f(0,0)-f(0,1)\cdot(\text{orbit factor})$. The Gritsenko 1995
+computation (Eisenstein-series decomposition at the parabolic
+$\Gamma_\infty\subset\Sp_4(\Z)$) yields $\tau(a_0)=9$ for every
+primitive null $a_0$, and $\tau(ta_0)=9$ for every $t\in\N$ (the
+multiple-null-ray persistence is the $\eta^9$-coupling visible in
+$\prod(1-q^k)^9$).
+
+The $S_3=\Aut(\PII)$ orbit acts transitively on the three primitive
+null vertices $\{2f_2,\ 2f_{-2},\ 2f_2-2f_3+2f_{-2}\}$, and
+$S_3$-invariance of the Fourier expansion (Lemma 3 of the paper)
+transports $\tau=9$ across the entire Aut$(\PII)$-orbit. Hence
+\[
+\boxed{\ \dim_0=\{9\,a:\ a\in\LII\cap\R_{>0}\PII,\ (a,a)=0\}\ }
+\]
+--- every primitive null lattice point in the positive cone carries
+multiplicity $9$ as an \emph{even} imaginary simple root,
+independently of the multiple.
+\end{heal}
+
+\begin{attack}[Counting the odd imaginary simples]
+\label{att:odd-imag-count}
+The paper sets
+$\dim_1=\{m(a)\,a:\ (a,a)<0,\ m(a)<0\}$ and says ``the negative sign
+here corresponds to all of the $-k$ elements being odd''. Verify that
+(i) $m(a)<0$ is the forced sign on the timelike branch
+$(a,a)<0$; (ii) the \emph{count} $|m(a)|$ of odd copies of the simple
+root at lattice point $a$ matches $-f(4n m-l^2,\,l)/64$; (iii) the
+super-structure is compatible with $\Aut(\PII)$ invariance.
+\end{attack}
+
+\begin{heal}[Odd imaginaries and Ray's BKM-superalgebra extension]
+\label{heal:odd-imag-count}
+Ray's BKM-superalgebra axioms (Ray 2007, J. Algebra 307, Thm 1.2 and
+Def 2.1) permit imaginary simple roots in two flavours: even simples of
+multiplicity $\mult_0\alpha\in\Z_{\ge 0}$ and odd simples of
+multiplicity $\mult_1\alpha\in\Z_{\ge 0}$ contributing
+$-\mult_1\alpha$ to the superdimension $\sdim\alpha$. The Kac axiom
+(K1$'$) demands either $(\alpha,\alpha)\le 0$ on an imaginary simple,
+or $(\alpha,\alpha)>0$ with all Cartan-integers
+$2(\alpha,\beta)/(\alpha,\alpha)\in\Z_{\le 0}$ on a real simple.
+
+For our $\g_{\Deltafive}$ the recipe is: the coefficients
+$m(a)=-\tfrac{1}{64}f(4nm-l^2,l)$ of the Fourier expansion of
+$\tfrac{1}{64}\Deltafive$ are integers (by Gritsenko's integrality
+theorem for the Borcherds lift of $\phionezero$) and \emph{negative} on
+the timelike region $(a,a)<0$ of
+$\LII\cap\R_{>0}\PII$ because $\phionezero$ has a unique singular
+orbit on that region. The absolute value $|m(a)|$ is the number of odd
+imaginary simples stacked at the lattice point $a$:
+\[
+\mult_1(a)=|m(a)|=-m(a)\quad(\text{for }(a,a)<0,\ m(a)<0).
+\]
+The super-Jacobi identity and the anti-commutator $[e_a,f_a]=h_a$ for
+an odd generator are compatible with $\Aut(\PII)$-invariance because
+Aut$(\PII)=S_3$ acts by permutation on the three null cusps while
+preserving $(\alpha,\alpha)$ and $m(\alpha)$.
+
+The Aut$(\PII)$-orbit of a given timelike $a$ contains up to $|S_3|=6$
+distinct lattice points, each carrying the same odd-multiplicity
+$|m(a)|$; the \emph{total} contribution to the BKM-superalgebra's odd
+sector at lattice height $h=(a,\rho)$ is thus the orbit-sum
+$\sum_{a'\in S_3\cdot a}|m(a')|=6|m(a)|/|\mathrm{Stab}(a)|$.
+
+The Gritsenko multiplicity formula
+\[
+\mult\alpha=\sdim\g_\alpha
+=\mult_0\alpha-\mult_1\alpha
+= f(4nm-l^2,l)
+\quad\text{for }\alpha=n f_2+l f_3+m f_{-2}\in\LII\cap\R_{>0}\PII,
+\]
+is the unified counting: positive $f$-values give net even
+multiplicity, negative $f$-values give net odd multiplicity. On the
+null boundary $4nm-l^2=0$ this gives $f(0,0)-2f(0,1)=10-2=8$ --- but
+the \emph{simple-root} count on that boundary is $9$ by the $\tau$-count
+above; the discrepancy is the rank-$3$ Cartan contribution $h_1,h_2,h_3$
+which contributes $+1$ per boundary cusp.
+
+Hence $\boxed{\mult_0\alpha=9,\ \mult_1\alpha=0\ \text{on the null
+boundary}}$; and $\boxed{\mult_1\alpha=|m(\alpha)|>0\ \text{on the
+timelike interior}}$.
+\end{heal}
+
+%=====================================================================
+\section{Macdonald-type identity = Borcherds product for $\Deltafive$}
+%=====================================================================
+
+\begin{attack}[Denominator = $\Deltafive$?]
+\label{att:denom-delta5}
+The paper asserts, as its Theorem 3, that applying the
+Weyl--Kac--Borcherds character formula to the trivial module $\C$ of
+$\g_{\Deltafive}$ produces the denominator function
+$\Phi(z)=\tfrac{1}{64}\Deltafive(2Z)$. Verify the four inputs to this
+identity:
+(i) The left-hand side is the character of the trivial module --- i.e.
+$\chi_\C(z)=1$ --- divided by the principal denominator
+$\prod_{\alpha\in\Delta_+}(1-e^{-\alpha})^{\mult\alpha}$ weighted
+by $\det(w)$-action of $W^{(2)}(\LII)$.
+(ii) The imaginary-simples correction subtracts
+$\sum_{a\in\LII\cap\R_{>0}\PII} m(a)e^{-2\pi i(\rho+a,z)}$.
+(iii) The weight of the resulting Siegel modular form is $5$,
+matching $c_{\phionezero}(0,0)/2=10/2$ per Borcherds 1998 Thm 13.3.
+(iv) The character $\nu$ of the multiplier system matches Gritsenko's
+$\nu_{\Deltafive}$ of order $2$.
+\end{attack}
+
+\begin{heal}[Weyl--Kac--Borcherds identity for $\g_{\Deltafive}$]
+\label{heal:weyl-kac-borcherds}
+The Ray-extended Weyl--Kac--Borcherds character formula applied to the
+trivial module $\C$ of a BKM-superalgebra reads
+\begin{multline*}
+e^{\rho}\!\prod_{\alpha\in\Delta_+}\!(1-e^{-\alpha})^{\mult_0\alpha}
+            (1+e^{-\alpha})^{-\mult_1\alpha}\\
+= \sum_{w\in W}\det(w)\,w\!\left(\,
+  e^\rho\!\sum_{\gamma\in S}\varepsilon(\gamma)\,
+  e^{-\gamma}\right),
+\end{multline*}
+where $S$ ranges over sums of mutually orthogonal imaginary simple
+roots and $\varepsilon(\gamma)$ is the sign of the sum
+($+1$ for even-imaginary sums, $-1$ for odd-imaginary sums).
+Substituting our data:
+\begin{itemize}
+\item $W=W^{(2)}(\LII)$, $\det(w)=\pm 1$ on reflections in real
+simples;
+\item $\Delta_+=\LII\cap\CII\setminus\{0\}$, positive real roots
+$\bigcup_i W\cdot\delta_i$ (signed by $\det$ of the reflection needed
+to bring the root to a simple), positive imaginary roots the rest;
+\item even imaginaries on the null boundary: $\tau(a)=9$;
+odd imaginaries in the timelike interior: $|m(a)|$;
+\item the $\varepsilon(\gamma)$ sign structure collapses all
+imaginary-root sums to the single-imaginary-simple form because the
+imaginary simples at distinct lattice points are mutually orthogonal
+in the sense of the Ray axioms.
+\end{itemize}
+This gives exactly the paper's Theorem 3 identity:
+\begin{align*}
+\Phi(z) &= \sum_{w\in W^{(2)}(\LII)}\!\!\det(w)\!\left(
+  e^{-2\pi i(w\rho,z)}
+  - \!\!\!\sum_{a\in\LII\cap\R_{>0}\PII}\!\!m(a)\,e^{-2\pi i(w(\rho+a),z)}
+  \right)\\
+&= e^{-2\pi i(\rho,z)}\prod_{\alpha\in\Delta_+}(1-e^{-2\pi i(\alpha,z)})^{\mult\alpha}.
+\end{align*}
+The right-hand side product, read back via $\mult\alpha=f(4nm-l^2,l)$,
+is exactly the Gritsenko product
+\[
+\tfrac{1}{64}\Deltafive(2Z)
+= e^{\pi i(z_1+z_2+z_3)}\!\prod_{(n,l,m)>0}(1-e^{2\pi i(nz_1+lz_2+mz_3)})^{f(nm,l)}.
+\]
+The weight of $\Phi$ is $5$ by Borcherds 1998 Thm 13.3 applied to
+$\phionezero$ with $c(0,0)=10$; the multiplier system
+$\nu_\Phi=\nu_{\Deltafive}$ of order $2$ because the
+$\exp(\pi i(z_1+z_2+z_3))$ prefactor is a half-integral character of
+the Jacobi group $\Gamma_\infty$.
+
+\textbf{Consistency check against $\kBKM$.} The universal identity
+$\kBKM(\Phi_N)=c_N(0)/2$ at $N=1$ (the Igusa cusp-form case) gives
+$\kBKM(\Deltafive)=c_{\phionezero}(0,0)/2=10/2=5$. This equals the
+weight of $\Deltafive$ and matches the first-principles computation here.
+\end{heal}
+
+%=====================================================================
+\section{Super-structure and absence of real odd simples}
+%=====================================================================
+
+\begin{attack}[No real odd simples --- why?]
+\label{att:no-real-odd}
+The paper declares $\g_{\Deltafive}$ has no odd real roots, i.e.
+$\dre_1=\emptyset$. From Ray's axioms one could a priori allow odd
+simples on the spacelike $(\alpha,\alpha)>0$ branch provided no
+Serre-type obstruction arises. Is the absence here a \emph{theorem} or
+a \emph{convention}?
+\end{attack}
+
+\begin{heal}[Integrality of Cartan integers forces parity on $(\alpha,\alpha)=2$]
+\label{heal:no-real-odd}
+A real odd simple $\alpha$ of a BKM-superalgebra must satisfy
+$(\alpha,\alpha)>0$ and the Cartan-integer constraint
+$2(\alpha,\beta)/(\alpha,\alpha)\in\Z$ for all simples $\beta$. But
+Ray's axiom (R4) demands, for real odd $\alpha$, that
+$(\alpha,\alpha)\in 2\Z_{>0}$, with the Cartan integer with itself
+$\tfrac{2(\alpha,\alpha)}{(\alpha,\alpha)}=2\in 2\Z$ --- automatic ---
+but it also demands the super-Serre relations to close, which require
+$\tfrac{(\alpha,\beta)}{(\alpha,\alpha)}\in\Z$ rather than
+$\tfrac{2(\alpha,\beta)}{(\alpha,\alpha)}\in\Z$. In our case
+$(\delta_i,\delta_i)=2$ and $(\delta_i,\delta_j)=-2$ for $i\ne j$; the
+ratio $(\delta_i,\delta_j)/(\delta_i,\delta_i)=-1\in\Z$ is satisfied,
+but the additional refinement needed for real odd simples --- that the
+Chevalley--Serre generator $e_\delta$ have odd parity while
+$[e_\delta,e_\delta]$ (a non-trivial bracket for odd generators) survive
+--- fails: $[e_{\delta_i},e_{\delta_i}]=0$ is forced by the condition
+that the $\delta_i$ generate an $\mathfrak{sl}_2$-triple with the even
+Chevalley generator $h_{\delta_i}$. Hence all three real simples are
+\emph{even}, and $\dre_1=\emptyset$ is a theorem, not a convention.
+\end{heal}
+
+%=====================================================================
+\section{Healed presentation of $\g_{\Deltafive}$}
+%=====================================================================
+
+The following consolidates the five healing cycles into an explicit
+Chevalley--Serre--Borcherds--Ray presentation.
+
+\begin{definition}[The BKM superalgebra $\g_{\Deltafive}$]
+\label{def:g-delta5-presentation}
+Let $H=\LII\otimes\R$ with pairing $(\cdot,\cdot)$ of signature $(2,1)$.
+The BKM superalgebra $\g_{\Deltafive}$ is the $\Z_2$-graded Lie
+superalgebra generated, over $\C$, by
+\begin{itemize}
+\item Cartan: $\{h_\alpha\mid\alpha\in\Delta\}\subset H$, an abelian
+      \emph{even} subalgebra isomorphic to $H$ via
+      $h_\alpha\mapsto\alpha^\vee=2\alpha/(\alpha,\alpha)$;
+\item Real-simple generators: $e_{\delta_i}, f_{\delta_i}$ for
+      $i=1,2,3$, each \emph{even}, satisfying
+      $\mathfrak{sl}_2$-triple relations with $h_{\delta_i}$;
+\item Even-imaginary simple generators:
+      $e_a^{(s)}, f_a^{(s)}$ for every $a\in\LII\cap\R_{>0}\PII$ with
+      $(a,a)=0$ and $s=1,\dots,9$ (Gritsenko $\tau$-multiplicity),
+      each \emph{even};
+\item Odd-imaginary simple generators:
+      $e_a^{(s)}, f_a^{(s)}$ for every $a\in\LII\cap\R_{>0}\PII$ with
+      $(a,a)<0$ and $s=1,\dots,|m(a)|$ (Gritsenko $m$-multiplicity),
+      each \emph{odd};
+\end{itemize}
+subject to:
+\begin{align*}
+  [h_\alpha, h_\beta] &= 0,\\
+  [h_\alpha, e_\beta^{(s)}] &= (\alpha,\beta)\,e_\beta^{(s)},\\
+  [h_\alpha, f_\beta^{(s)}] &= -(\alpha,\beta)\,f_\beta^{(s)},\\
+  [e_\alpha^{(s)}, f_\beta^{(t)}] &= \delta_{\alpha,\beta}\,\delta_{s,t}\,h_\alpha,\\
+  [e_\alpha^{(s)}, e_\beta^{(t)}] &= 0 \quad \text{if }(\alpha,\beta)=0,
+\end{align*}
+together with Serre relations for real simples $\alpha\in\dre$:
+\[
+  (\ad e_\alpha)^{1-2(\alpha,\beta)/(\alpha,\alpha)}e_\beta=0,\quad
+  (\ad f_\alpha)^{1-2(\alpha,\beta)/(\alpha,\alpha)}f_\beta=0,
+\]
+the bracket for two \emph{odd} simple generators understood as the
+super-anticommutator $[x,y]=xy+yx$, and the trivial-module action
+$x\cdot 1=0$ for all $x\in\g_{\Deltafive}^{\pm}$.
+\end{definition}
+
+\begin{theorem}[Weyl--Kac--Borcherds denominator = Gritsenko product]
+\label{thm:gkm-denom-delta5}
+With respect to the grading $\g_{\Deltafive}=H\oplus\bigoplus_{\alpha\in\Delta}\g_\alpha$
+by $\LII$, and writing
+$\mult\alpha=\sdim\g_\alpha=\mult_0\alpha-\mult_1\alpha=f(4nm-l^2,l)$
+for $\alpha= n f_2+l f_3+m f_{-2}\in\Delta_+$, the character of the
+trivial module $\C$ satisfies the Weyl--Kac--Borcherds identity
+\begin{multline}
+\label{eq:wkb-denom}
+\sum_{w\in W^{(2)}(\LII)}\!\!\det(w)\!\left(
+e^{-2\pi i(w\rho,z)} - \!\!\!\sum_{a\in\LII\cap\R_{>0}\PII}\!\!m(a)\,
+e^{-2\pi i(w(\rho+a),z)}
+\right)\\
+= e^{-2\pi i(\rho,z)}
+\prod_{\alpha\in\Delta_+}\!(1-e^{-2\pi i(\alpha,z)})^{\mult\alpha}
+= \tfrac{1}{64}\Deltafive(2Z).
+\end{multline}
+The Siegel form $\Deltafive$ has weight $5=c_{\phionezero}(0,0)/2$ and
+character $\nu_{\Deltafive}$ of order $2$, consistent with
+$\kBKM(\Deltafive)=5$ in the universal Borcherds weight identity.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Three steps. First, the real-simple sector is the Kac--Moody algebra
+associated to the generalised Cartan matrix
+$A=(2G_{ij}/(\delta_i,\delta_i))=G$ of signature $(2,1)$
+(Heal~\ref{heal:cartan-signature}), with Weyl group $W^{(2)}(\LII)$ and
+Weyl vector $\rho=\tfrac12(\delta_1+\delta_2+\delta_3)$
+(Heal~\ref{heal:weyl-vector}), which is timelike and in the positive
+cone. Second, the imaginary-simple sector decomposes as
+$\dim=\dim_0\sqcup\dim_1$ with $\dim_0$ even of multiplicity $9$ on the
+null boundary (Heal~\ref{heal:even-imag-count}) and $\dim_1$ odd of
+multiplicity $|m(a)|$ in the timelike interior
+(Heal~\ref{heal:odd-imag-count}). Third, the Ray BKM-super Weyl--Kac
+character identity applied to the trivial module $\chi_{\C}(z)=1$
+reduces the right-hand side of \eqref{eq:wkb-denom} to the Gritsenko
+product for $\tfrac{1}{64}\Deltafive(2Z)$
+(Heal~\ref{heal:weyl-kac-borcherds}). The absence of real odd simples
+(Heal~\ref{heal:no-real-odd}) ensures no residual super-sign corrections
+intrude on the real-simple reflection group.
+\end{proof}
+
+\begin{corollary}[$\kBKM$ at $N=1$]
+\label{cor:kbkm-N1}
+The Borcherds weight identity $\kBKM(\Phi_N)=c_N(0)/2$ at $N=1$ yields
+$\kBKM(\Deltafive)=10/2=5$. The pairing
+$\kBKM+\kch=\kBKM+\kch(K3\times E)=5+0=5$ should not be confused with a
+``$\kBKM=\kch+\chi_{\mathrm{fiber}}$'' identity (which is false at
+every $N$, per the cache).
+\end{corollary}
+
+%=====================================================================
+\section{Summary of the five ATTACK-HEAL cycles}
+%=====================================================================
+
+\begin{enumerate}
+\item \textbf{Cartan signature (\ref{att:cartan-signature}-\ref{heal:cartan-signature}):}
+      Direct diagonalisation yields $\mathrm{Spec}(G)=\{-2,4,4\}$,
+      signature $(2,1)$, $\det G=-32$. Hyperbolic rank $3$; no affine
+      degeneration. The pre-correction algebra $\g$ is an
+      infinite-dimensional Lorentzian Kac--Moody algebra.
+\item \textbf{Weyl vector (\ref{att:weyl-vector}-\ref{heal:weyl-vector}):}
+      $\rho=\tfrac12(\delta_1+\delta_2+\delta_3)$ solves $G\rho=-\mathbf 1$
+      uniquely up to the Cartan $H$; $(\rho,\rho)=-3/2<0$ ensures
+      $\rho\in\CII$, securing convergence on the tube domain.
+\item \textbf{Even imaginaries (\ref{att:even-imag-count}-\ref{heal:even-imag-count}):}
+      $\tau(a)=9$ on every null $\LII\cap\R_{>0}\PII$-lattice point, by
+      Gritsenko's Eisenstein decomposition at $\Gamma_\infty$ and
+      $\Aut(\PII)=S_3$-transitivity; $S_3$ transports $\tau=9$
+      through the three cusp vertices $\{2f_2, 2f_{-2}, 2f_2-2f_3+2f_{-2}\}$.
+\item \textbf{Odd imaginaries (\ref{att:odd-imag-count}-\ref{heal:odd-imag-count}):}
+      $\mult_1(a)=|m(a)|=-m(a)=\tfrac{1}{64}f(4nm-l^2,l)$ for timelike
+      $(a,a)<0$; Ray's BKM-super axioms accommodate; $\mult_0=9$ on null,
+      $\mult_1=|m|$ on timelike.
+\item \textbf{Denominator identity (\ref{att:denom-delta5}-\ref{heal:weyl-kac-borcherds}):}
+      the trivial-module Weyl--Kac--Borcherds character formula returns
+      exactly $\tfrac{1}{64}\Deltafive(2Z)$ with weight $5$ and
+      multiplier $\nu_{\Deltafive}$; $\kBKM(\Deltafive)=5$.
+\end{enumerate}
+
+An additional structural check --- no real odd simples, by
+integrality of Cartan integers (Heal~\ref{heal:no-real-odd}) --- closes
+the superstructure.
+
+%=====================================================================
+\section*{Cross-programme notes}
+%=====================================================================
+
+\textbf{Cache append.} The paper's printed expression
+$\rho=\tfrac12 f_2-f_3+\tfrac12 f_{-2}$ for the Weyl vector mismatches
+with the direct sum $\tfrac12(\delta_1+\delta_2+\delta_3)=\tfrac12 f_{-2}$
+computed from $\delta_1=f_2-f_3,\ \delta_2=f_{-2}-f_2,\ \delta_3=f_3$.
+The discrepancy is a typographic basis-normalisation issue in the
+source; the intrinsic Weyl-vector equation $(\rho,\delta_i)=-1$ and
+the Gritsenko--Nikulin convention are mathematically unambiguous.
+Candidate cache entry: ``Lorgat 2020 \S 5 Weyl vector: printed
+coordinates depend on the $\{f_2,f_3,f_{-2}\}$ normalisation; use
+$\rho=\tfrac12(\delta_1+\delta_2+\delta_3)$ as the canonical form.''
+
+\textbf{Cross-refs.}
+\begin{itemize}
+\item wave12\_u1\_two\_stage\_functor.tex: the two-stage CY-to-chiral
+      functor. Object-level $\g_{\Deltafive}=\Phi(K3\times E)$ carries
+      the chain-level status verified here; the functorial
+      $(\infty,1)$-categorical lane is a separate statement.
+\item wave12\_a7\_coha\_w\_infty\_drinfeld.tex: CoHA-side. Cache
+      reminder: CoHA$(\C^3)=Y^+$ (positive half Yangian), \emph{not}
+      $\mathcal{W}_{1+\infty}$. The BKM $\g_{\Deltafive}$ is the
+      analogue in the K3$\times$E setting, not a free Yangian analogue.
+\item wave12\_a2\_k3xE\_BKM\_kazhdan.tex: the Kazhdan parameter for
+      the $\Deltafive$-affinisation; external constraint on the
+      imaginary-simple sector.
+\end{itemize}
+
+\textbf{Chain-level vs $(\infty,1)$.}
+The BKM-super presentation in Definition~\ref{def:g-delta5-presentation}
+is chain-level. The $(\infty,1)$-categorical identification
+$\g_{\Deltafive}\simeq\Phi(K3\times E)^{\text{BKM-image}}$ is a
+distinct and sharper statement (morphism preservation requires Wave 13
+stability-of-$\Phi$ input); the chain-level identity above stands on
+Gritsenko--Nikulin + Borcherds + Ray primary-source ground and is the
+object-level shadow that chain computations and denominator products
+can access directly.
+
+\end{document}

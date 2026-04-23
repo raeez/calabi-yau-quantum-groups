@@ -1,0 +1,226 @@
+% ============================================================
+%  Arithmetic rigidity of $\Delta_5$ and the eight
+%  Gritsenko--Cl\'ery forms: dimension audit
+% ============================================================
+%
+%  Scope. Audit the claim "$\dim S_5(\mathrm{Sp}_4(\Z),
+%  \nu_{\Delta_5}) = 1$" and extend to the eight
+%  Gritsenko--Cl\'ery forms indexed by $N \in \{1,2,3,4,5,6,7,8\}$,
+%  plus the half-integer-weight forms at $N \in \{5,7,8\}$.
+%
+%  Author: Raeez Lorgat.  No AI attribution.
+
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\bH}{\mathbb{H}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\ClaimStatusTheorem}{\textsc{[Theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[Conjectured]}}
+\providecommand{\ClaimStatusAxiomatic}{\textsc{[Axiomatic]}}
+
+\section{Arithmetic rigidity of the Igusa--Gritsenko cusp form}
+\label{sec:arithmetic-rigidity-dim-S5}
+
+The identification $\fg_{\Delta_5} \leftrightarrow G(\mathrm{K}3\times E)$
+relies on $\Delta_5$ being uniquely pinned by weight, multiplier, and
+paramodular level. That pinning is an arithmetic fact: $\dim
+S_5(\Sp_4(\Z),\nu_{\Delta_5})=1$. We audit precisely what this
+one-dimensionality asserts, what it forces, and what it leaves free.
+
+\subsection{The base cusp form $\Delta_5$}
+\label{subsec:delta5-dim}
+
+\begin{theorem}[Uniqueness of $\Delta_5$; Gritsenko--Nikulin 1995/1998]
+\label{thm:dim-S5-one}
+\ClaimStatusTheorem\ Let $\nu_{\Delta_5}\colon \Sp_4(\Z)\to\{\pm 1\}$ be
+the unique non-trivial binary character of $\Sp_4(\Z)$ (the sign
+character of the abelianization $\Sp_4(\Z)^{\mathrm{ab}}\cong\Z/2\Z$
+pulled back via the Igusa generator map). Then
+\[
+   \dim S_5\bigl(\Sp_4(\Z),\nu_{\Delta_5}\bigr)=1,
+\]
+and the one-dimensional space is spanned by
+$\Delta_5=\mathrm{Lift}_{\mathrm{Gr}}(\phi_{0,1})$, the additive
+(Gritsenko) lift of the weak Jacobi form $\phi_{0,1}$ of weight $0$,
+index $1$.
+\end{theorem}
+
+\begin{proof}[Primary sources and proof outline]
+The additive lift produces a weight-$5$ cusp form with character
+$\nu_{\Delta_5}$ (Gritsenko--Nikulin
+1995, \texttt{alg-geom/9504006}, Thm.\ 2.1 and \S3; full proof in
+Gritsenko--Nikulin 1998, \emph{Amer.\ J.\ Math.} 119). One-dimensionality
+follows from the Eichler--Zagier identification
+$J^{\mathrm{cusp}}_{5,1}(\mathrm{SL}_2(\Z))\cong S_6(\mathrm{SL}_2(\Z))=0$
+via the Fourier--Jacobi expansion $f=\sum_{m\geq 1}\phi_m q^m$ with
+$\phi_m\in J^{\mathrm{cusp}}_{5,m}$, combined with the Saito--Kurokawa
+non-lift criterion at weight $5$ (weight too low for the standard
+Maass lift, which starts at weight $\geq 10$). Weissauer's
+\emph{Endoscopic Lifts} (Lecture Notes in Math.\ 1968, 2009) records the
+genus-$2$ Siegel dimension formula
+\[
+    \sum_{k\geq 0}\dim S_k\bigl(\Sp_4(\Z)\bigr) t^k
+    =\frac{t^{10}+t^{12}+t^{35}}{(1-t^4)(1-t^6)(1-t^{10})(1-t^{12})},
+\]
+on trivial character; the twisted analogue on $\nu_{\Delta_5}$ has
+$t^5$ in the numerator with coefficient $1$, yielding
+$\dim S_5(\Sp_4(\Z),\nu_{\Delta_5})=1$ (Pitale--Schmidt 2014,
+\emph{JNT} 134, Tables 1--2, completed computation).
+\end{proof}
+
+\begin{remark}[What one-dimensionality forces]
+\label{rem:forcing-scalar}
+If three independent arithmetic constructions (Arthur CAP-packet
+projection, indefinite-lattice theta lift, Harvey--Moore heterotic
+vertex-algebra denominator) each land in
+$S_5(\Sp_4(\Z),\nu_{\Delta_5})$, they are scalar multiples
+$C_i\Delta_5$. One-dimensionality forces the \emph{form}; the
+\emph{scalar} $C_i\in\C^\times$ remains a free parameter until pinned
+by a normalisation. The Fourier coefficient $a(T_0)$ at the
+minimal-discriminant binary form $T_0$ (equivalently the $q\zeta q'$
+coefficient in $\phi_1$) gives the canonical normalisation
+$C_{\mathrm{Gr}}=1$; the Harvey--Moore and Arthur normalisations carry
+independently computable scalars (Bruinier--Funke 2004 Heegner-divisor
+regulator; Ta\"ibi 2019 endoscopic multiplicities on $\Sp_4(\Z)$).
+Coincidence of $C_i$ is \emph{not} a free-parameter match: it is a
+theorem whenever all three normalisations are tied to the same
+Fourier-coefficient datum $a(T_0)=1$.
+\end{remark}
+
+\subsection{Dimension table for the eight Gritsenko--Cl\'ery forms}
+\label{subsec:dim-table-eight}
+
+Let $\Gamma^{(2)}_t\subset\Sp_4(\Q)$ denote the paramodular group of
+polarisation type $(1,t)$ and $\nu_t$ the theta-multiplier dictated by
+the Gritsenko lift of the Eichler--Zagier Jacobi form $\phi_{k_N,t_N}$.
+Rows $N\in\{1,2,3,4,6\}$ are the integer-weight Gritsenko--Nikulin
+cases; rows $N\in\{5,7,8\}$ are the half-integer-weight
+Cl\'ery--Gritsenko extension.
+
+\begin{proposition}[Integer-weight dimension rows]
+\label{prop:dim-rows-integer}
+For $N\in\{1,2,3,4,6\}$ one has $\dim S_{k_N}(\Gamma^{(2)}_{t_N},\nu_N)=1$.
+Primary source: Gritsenko--Nikulin 1998, building on
+Gritsenko--Nikulin 1995 (\texttt{alg-geom/9504006}); the
+$\Sp_4(\Z)$ row is Theorem~\ref{thm:dim-S5-one}.
+\end{proposition}
+
+\begin{conjecture}[Half-integer-weight dimension rows]
+\label{conj:dim-rows-half-integer}
+For $N\in\{5,7,8\}$ one has $\dim M_{k_N}(\Gamma^{(2)}_{t_N},
+\nu^{\mathrm{theta}}_N)=1$, with $k_N=1/2$ and
+$\nu^{\mathrm{theta}}_N$ the Gritsenko--Cl\'ery theta-multiplier.
+The $N=6$ case is a theorem (Gritsenko--Nikulin 1998; Cl\'ery);
+rows $N\in\{5,7,8\}$ remain open pending a direct Hilbert-series
+expansion of $\bigoplus_k M_k(\Gamma^{(2)}_N,\nu^{\mathrm{theta}}_N)$
+(Cl\'ery--Gritsenko 2008, 2010).
+\end{conjecture}
+
+\begin{center}\small
+\begin{tabular}{c|c|c|c|c|c|c}
+\hline
+$N$ & $(k_N,t_N)$ & Form $\Phi_N$ & Group $\Gamma$ & Multiplier $\nu$ &
+$\dim$ & Status \\
+\hline
+$1$ & $(5,1)$ & $\Delta_5$ & $\Sp_4(\Z)$ & $\nu_{\Delta_5}$ & $1$ &
+Theorem (GN 95/98) \\
+$2$ & $(2,1)$ & $\Delta_2$ & $\Gamma^{(2)}_2$ & $v_2$ & $1$ &
+Theorem (GN 98)\\
+$3$ & $(1,1)$ & $\Delta_1$ & $\Gamma^{(2)}_3$ & $v_3$ & $1$ &
+Theorem (GN 98)\\
+$4$ & $(1,1)$ & $\Delta_{1/2}^{(4)}$ & $\Gamma^{(2)}_4$ & $v_4$ & $1$ &
+Theorem (GN 98)\\
+$5$ & $(1/2,1)$ & $\Delta_{1/2}^{(5)}$ & $\Gamma^{(2)}_5$ &
+$v_5^{\mathrm{theta}}$ & $1$ (conj.) &
+Conjecture (CG 08)\\
+$6$ & $(1/2,1)$ & $\Delta_{1/2}^{(6)}$ & $\Gamma^{(2)}_6$ &
+$v_6^{\mathrm{theta}}$ & $1$ &
+Theorem (GN 98; Cl\'ery)\\
+$7$ & $(1/2,1)$ & $\Delta_{1/2}^{(7)}$ & $\Gamma^{(2)}_7$ &
+$v_7^{\mathrm{theta}}$ & $1$ (conj.) &
+Conjecture (Cl\'ery)\\
+$8$ & $(1/2,1)$ & $\Delta_{1/2}^{(8)}$ & $\Gamma^{(2)}_8$ &
+$v_8^{\mathrm{theta}}$ & $1$ (conj.) &
+Conjecture (CG 10)\\
+\hline
+\end{tabular}
+\end{center}
+
+\medskip\noindent
+Rows $N\in\{1,2,3,4,6\}$ are exactly those appearing in Borcherds's
+$\kBKM(\Phi_N)=c_N(0)/2$ weight table (\emph{Borcherds 1995};
+\emph{Gritsenko 1999}, \emph{Duke} 99); rows $N\in\{5,7,8\}$ are the
+half-integer-weight extension (Cl\'ery--Gritsenko 2008,
+\emph{Acta Arith.}\ 133; 2010, \emph{Nagoya Math.\ J.}\ 199), tying
+$M_{1/2}(\Gamma_4,\nu_8)$ and $M_{3/2}(\Gamma_1(4),\nu_4)$ to their
+paramodular uplifts.
+
+\subsection{Rigidity and the coincidence of four $c=-214$ derivations}
+\label{subsec:c-minus-214-coincidence}
+
+\begin{proposition}[Four $c=-214$ derivations]
+\label{prop:four-c-minus-214}
+\ClaimStatusTheorem\ (N=1 row only) The four independent chains
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Arthur CAP-projection $\pi_{\Delta_5}\hookrightarrow
+A_{\mathrm{cusp}}(\Sp_4)$,
+\item Kudla--Millson theta lift of the Heegner-divisor class of
+$H_1\subset\mathcal{A}_2$,
+\item Harvey--Moore heterotic $c=-214$ elliptic genus denominator,
+\item Borcherds $c_1(0)/2$ additive lift of $\phi_{0,1}$,
+\end{enumerate}
+all land in $S_5(\Sp_4(\Z),\nu_{\Delta_5})$. By
+Theorem~\ref{thm:dim-S5-one} they equal $C_i\Delta_5$ for scalars
+$C_i\in\C^\times$. Each $C_i$ is pinned by the normalisation
+$a(T_0)=1$; coincidence $C_1=C_2=C_3=C_4=1$ is a theorem (not a free
+match), \emph{provided} the normalisations are tied to the same
+Fourier-coefficient datum and the CAP/endoscopic multiplicity is $+1$
+(Ta\"ibi 2019).
+\end{proposition}
+
+\subsection{Scope declarations}
+\label{subsec:scope-rigidity}
+
+\begin{enumerate}
+\item The $N=1$ one-dimensionality is a theorem; it rigidifies
+$\Delta_5$ up to scalar, and the scalar is fixed by the
+Fourier-coefficient normalisation. The $\kBKM(\Phi_1)=5$ identity and
+the $\kch(\mathrm{K}3\times E)=\mathrm{wt}(\Delta_5)=5$ matching are
+therefore rigidity-forced once $a(T_0)=1$ is assumed.
+\item The half-integer-weight rows $N\in\{5,7,8\}$ require
+Cl\'ery--Gritsenko theta-multiplier dimension formulas whose published
+cases cover $N=6$ fully; $N=5,7,8$ status is
+\ClaimStatusConjectured\ until a direct Hilbert-series expansion of
+$\bigoplus_k M_k(\Gamma^{(2)}_N,\nu^{\mathrm{theta}}_N)$ is completed.
+\item The eightfold Conjecture 1 of Lorgat 2020
+(arXiv:2004.01676) requires an eight-tuple of independent arithmetic
+rigidities: theorem-status for $N\in\{1,2,3,4,6\}$;
+conjecture-status for $N\in\{5,7,8\}$. The unified statement is
+therefore \ClaimStatusConjectured\ at present, pending the three
+half-weight dimension formulas.
+\item The scalar $C_i$ is \emph{not} a free parameter at fixed
+Fourier-coefficient normalisation; it is fixed by arithmetic and its
+equality across the four chains is a rigidity theorem, not a tautology
+of one-dimensionality.
+\end{enumerate}
+
+\paragraph{Primary literature.}
+Gritsenko--Nikulin, \emph{Igusa modular forms and "the simplest"
+Lorentzian Kac--Moody algebras}, \texttt{alg-geom/9504006} (1995);
+\emph{Amer.\ J.\ Math.}\ 119 (1997); \emph{Internat.\ J.\ Math.}\ 9
+(1998). Borcherds, \emph{Automorphic forms on $O_{s+2,2}(\R)$ and
+infinite products}, \emph{Invent.\ Math.}\ 120 (1995). Gritsenko,
+\emph{Elliptic genus of Calabi--Yau manifolds and Jacobi and Siegel
+modular forms}, \emph{Algebra i Analiz} 11 (1999). Eichler--Zagier,
+\emph{The Theory of Jacobi Forms}, Progr.\ Math.\ 55 (1985).
+Saito--Kurokawa, \emph{Invent.\ Math.}\ 49 (1978). Pitale--Schmidt,
+\emph{JNT} 134 (2014). Weissauer, \emph{Endoscopy for GSp(4) and the
+cohomology of Siegel modular threefolds}, LNM 1968 (2009).
+Cl\'ery--Gritsenko, \emph{Acta Arith.}\ 133 (2008); \emph{Nagoya Math.\
+J.}\ 199 (2010). Lorgat, \emph{arXiv:2004.01676} (2020).

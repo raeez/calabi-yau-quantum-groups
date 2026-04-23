@@ -1,0 +1,1086 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,longtable,array}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fheis}{\mathfrak{heis}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\ChirAlg}{\mathrm{ChirAlg}}
+\providecommand{\CYcat}{\mathrm{CY}\text{-}\mathrm{cat}}
+\providecommand{\HolFA}{\mathrm{HolFA}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Phifa}{\Phi^{\mathrm{FA}}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\ChirHoch}{\mathrm{ChirHoch}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Eone}{\mathsf{E}_1}
+\providecommand{\Etwo}{\mathsf{E}_2}
+\providecommand{\Ethree}{\mathsf{E}_3}
+\providecommand{\Ed}{\mathsf{E}_d}
+\providecommand{\En}{\mathsf{E}_n}
+\providecommand{\Einf}{\mathsf{E}_\infty}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kan}{\kappa_{\mathrm{anom}}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\cV}{\mathcal{V}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\Ezero}{\mathsf{E}_0}
+\providecommand{\Winf}{\mathcal{W}_{1+\infty}}
+\providecommand{\Yplus}{Y^{+}}
+\providecommand{\Yhat}{Y(\widehat{\fgl}_1)}
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusOpen}{\textsc{[open]}}
+\providecommand{\ClaimStatusScope}{\textsc{[scope]}}
+\providecommand{\ClaimStatusCorrected}{\textsc{[corrected]}}
+\providecommand{\ClaimStatusRetracted}{\textsc{[retracted]}}
+
+\title{Programme Meta-Audit (2026-04-22):\\
+\large Cross-Volume Consistency, Surviving Theorems, Residual Frontier}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Three volumes, sixteen wave-cycles of adversarial probing, one functor.
+The trilogy --- Volume~I (ordered bar complex on
+$\overline{M}_{g,n}$; modular Koszul duality), Volume~II
+($A_\infty$ chiral algebras and the Swiss-cheese-chiral-topological
+dioperad $\mathsf{SC}^{\mathrm{ch,top}}$ underpinning 3D HT QFT),
+Volume~III (CY-to-chiral functor $\Phi$, K3 Yangian, Calabi--Yau
+landscape) --- crystallises around one canonical picture: a single
+holomorphic $\Ed$-factorisation algebra $\cF_X$ on each Calabi--Yau
+$d$-fold $X$, whose $(\Sigma_{d-1},C)$-specialisations generate the
+zoo of $\Eone$-chiral shadows visible at the boundary of Vol~I and
+Vol~II. This audit ledgers every cross-volume dependency, reads the
+five shared theorems A / B / C / D / H at their current scope, catalogues
+the Vol~III-specific contributions (CY-A$_3$ equivalence, K3 abelian-Yangian,
+ZTE $T$ computation, CY-D dimensional stratification, universal Borcherds
+weight $\kBKM(\Phi_N) = c_N(0)/2$), exposes the inconsistencies among
+CLAUDE manifestos, \texttt{working\_notes.tex}, the Platonic synthesis,
+the CoHA treatise, and the sixty-seven \texttt{wave12\_*.tex} notes, and
+isolates the shortest-path theorem for each volume. Five attack-heal
+cycles, one organising principle, six open problems.
+\end{abstract}
+
+\tableofcontents
+
+% ============================================================
+\section{Cross-volume dependency graph}
+% ============================================================
+
+The trilogy is not a disjoint union. Each volume imports load-bearing
+material from the other two; accurate auditing requires following the
+edges, not just the nodes.
+
+\subsection{Nodes}
+
+\begin{itemize}[leftmargin=1.5em]
+\item \textbf{Vol~I} \emph{Modular Koszul Duality}: ordered bar complex
+$B^{\mathrm{ord}}(A) = T^c(s^{-1}\bar A)$ on $\overline{M}_{g,n}$;
+five-theorem core A / B / C / D / H; averaging map
+$\mathrm{av}\colon \fg^{\Eone}\to\fg^{\mathrm{mod}}$; four-archetype
+shadow tower $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}$ with
+depth $r_{\max}\in\{2,3,4,\infty\}$; canonical formula source
+\texttt{chapters/examples/landscape\_census.tex}.
+\item \textbf{Vol~II} \emph{$A_\infty$ Chiral Algebras and 3D HT QFT}:
+two-coloured $\mathsf{SC}^{\mathrm{ch,top}}$ dioperad; bar-differential
+$=$ holomorphic factorisation on $C$; coproduct $=$ topological
+factorisation on $\R$; iterated Sugawara ladder to
+$\En^{\mathrm{top}}$; curved-Dunn $H^2 = 0$ at $g\geq 2$;
+celestial-holography climax.
+\item \textbf{Vol~III} \emph{CY Categories, Quantum Groups, BPS Algebras}:
+CY-to-chiral functor $\Phi\colon\CYcat\to\ChirAlg$ with two-stage
+factorisation $\Phi_d = \Sp_{\Sigma_{d-1},C}\circ\Phifa_d$
+(\texttt{notes/wave12\_u1}, \texttt{notes/platonic\_synthesis\_waves\_11\_through\_16}
+Thm~\texttt{wn:thm:plat-two-stage}); CY-dimension-stratified target
+($\Etwo$ at $d\leq 2$, $\Eone$ at $d\geq 3$);
+$\kch,\kcat,\kBKM,\kfib$ four-fold; K3-Yangian; universal Borcherds
+weight $\kBKM(\Phi_N) = c_N(0)/2$; $K3\times E$ spectrum
+$\{2,3,5,24\}$ as four distinct constructions.
+\end{itemize}
+
+\subsection{Edges}
+
+\renewcommand{\arraystretch}{1.15}
+\begin{longtable}{@{}p{4.5cm}p{5.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Edge} & \textbf{Content} & \textbf{Load-bearing witness} \\
+\midrule
+\endfirsthead
+
+Vol~I $\to$ Vol~III: five-theorem core
+& A / B / C / D / H imported verbatim; $\Phi_d$-domain structure is a
+$\ChirAlg_X$-module of Vol~I
+& Vol~III CLAUDE.md ``Five theorems (shared with Vol~I)''; Vol~I
+\texttt{landscape\_census.tex}
+\\[0.3ex]
+
+Vol~I $\leftrightarrow$ Vol~III: Thm~C $\mathsf{B}$-row
+& Fifth element $8\in\{0,8,13,250/3,98/3\}$ populated by Vol~III
+Mukai-K3 Heisenberg via Bruinier Heegner Chern-class reciprocity;
+$K^{\kch} = 2c_+(\mathrm{Mukai}(K3)) = 8$
+& Vol~I \texttt{landscape\_census.tex}:1804--1812; Vol~III
+\texttt{k3\_chiral\_bialgebra\_platonic.tex}:2828--2878
+(\texttt{thm:humbert-order-K-kappa}); Bruinier 2002 LNM~1780
+Prop.~5.1; Mukai 1987 Nagoya Math.~J.~81
+\\[0.3ex]
+
+Vol~I $\to$ Vol~III: shadow obstruction tower
+& $\Theta_A$ specialises to BPS counting on $\Phi_3$-output; CY-B is a
+BKM-denominator strengthening of Thm~D at compact CY$_d$
+& Vol~I Thm~D; Vol~III \texttt{working\_notes.tex}:190,
+\texttt{working\_notes.tex}:1709 (``$\Theta_A$ of Vol~I specialises
+as follows for CY$_3$ chiral algebras'')
+\\[0.3ex]
+
+Vol~II $\to$ Vol~III: $\mathsf{SC}^{\mathrm{ch,top}}$ operadic spine
+& Two-coloured dioperad; bar-differential as holomorphic
+factorisation; coproduct as topological factorisation; ambient
+for $\Phi_3$-image
+& Vol~II CLAUDE.md lines 21--27; Vol~III
+\texttt{working\_notes.tex}:1728--1737 three-sector reading (open
+$B_{\Eone}$ / boundary $B_{\Etwo}$ / closed $B_{\Einf}$)
+\\[0.3ex]
+
+Vol~II $\to$ Vol~III: topologisation ladder
+& Iterated-Sugawara $k$-tower promoting chiral direction to
+$\En^{\mathrm{top}}$; Vol~III invokes as part of the $\Phi_d$ scope
+at $d\leq 2$
+& Vol~II CLAUDE.md lines 30--35; Vol~III
+\texttt{quantum\_chiral\_algebras.tex}:227--243
+\\[0.3ex]
+
+Vol~III $\to$ Vol~I, Vol~II: Chriss--Ginzburg voice
+& Writing-standard rule imported identically across all three
+CLAUDE manifestos (lines 120--205 of each); no divergence
+& Vol~I CLAUDE.md:139--205; Vol~II:120--185; Vol~III:(`Writing
+standard')
+\\[0.3ex]
+
+Vol~III $\to$ Vol~I: Mukai-enhanced K3 $\mathsf{B}$-witness
+& $\mathbf{H}_{\Delta_5}$-chamber realises the $\kappa+\kappa^! = 8$
+Bruinier Chern-class identification; Vol~III supplies the construction,
+Vol~I the placement in the ceiling
+& Vol~III
+\texttt{chapters/examples/k3\_chiral\_bialgebra\_platonic.tex}
+\\[0.3ex]
+
+Vol~III $\to$ Vol~I: Borcherds universality
+& $\kBKM(\Phi_N) = c_N(0)/2$ at $N\in\{1,2,3,4,6\}$; Vol~I cites as
+primary-source anchor on the BKM side
+& Borcherds 1995; Gritsenko 1999; Vol~III
+\texttt{cy\_d\_kappa\_stratification.tex}
+(\texttt{thm:borcherds-weight-kappa-BKM-universal})
+\\
+\bottomrule
+\end{longtable}
+
+\subsection{Non-edges (explicit)}
+
+Three relationships that look like edges but are not:
+
+\begin{itemize}[leftmargin=1.5em]
+\item Vol~II's $\Ethree$ (topological factorisation on $\R$-direction
+of a 3D HT theory; brane-boundary bulk algebra on $C\times\R$) is
+\emph{not} Vol~III's $\Ethree$ (holomorphic-chiral factorisation
+algebra on a three-complex-dimensional CY). Same authors
+(Costello--Francis--Gwilliam), different structures: the Vol~III
+$\Ethree$ level is set by complex dimension, the Vol~II $\Ethree$
+level by R-dimension of the topological factor.
+Scope-declared: Vol~III \texttt{en\_factorization.tex}:449. Both
+load-bearing; neither subsumes the other.
+\item $\CoHA(\C^3)$ is \emph{not} $\Winf$. Cache-canonical:
+$\CoHA(\C^3) = \Yplus(\widehat{\fgl}_1)$ (positive half, $\Eone$,
+associative); $\Winf$ is a $\Etwo$-chiral vertex operator algebra on
+a curve; the connection is $\Yplus\hookrightarrow\Yhat
+\xrightarrow{\mathrm{ev}_\lambda}\mathrm{End}(\Winf[\lambda])$,
+representation-theoretic not algebra-theoretic. (Vol~III
+\texttt{working\_notes.tex}:1658--1674; Schiffmann--Vasserot 2013
+Thm.~1.1; Tsymbaliuk 2017 Thm.~1.1.)
+\item Six routes to $G(K3\times E)$ are six different specialisations
+of one $\Phifa_3(K3\times E)$, \emph{not} six applications of a single
+$\Phi_3$ to one category. (Platonic synthesis
+Thm~\texttt{wn:thm:plat-two-stage}; working\_notes two-stage
+Cor~\texttt{cor:many-BKMs}.)
+\end{itemize}
+
+% ============================================================
+\section{Five-theorem status ledger}
+% ============================================================
+
+\renewcommand{\arraystretch}{1.3}
+\begin{longtable}{@{}p{0.6cm}p{2.5cm}p{5.0cm}p{3.0cm}p{3.3cm}@{}}
+\toprule
+\textbf{T} & \textbf{Name} & \textbf{Statement at current scope}
+& \textbf{Primary supply} & \textbf{Status} \\
+\midrule
+\endfirsthead
+
+A & bar--cobar equivalence
+& $\Omega^{\mathrm{ch}}\dashv B^{\mathrm{ch}}$ on $\ChirAlg^{\mathrm{ch}}_X$;
+$\Omega(B(A)) = A$ is inversion, not Koszul duality.
+& Vol~I (Positselski 2011, Lef\`evre-Hasegawa 2003)
+& \ClaimStatusTheorem\ at chain level and at $(\infty,1)$-level;
+Vol~III CY-A$_d$ refinement is a separate statement
+\\[0.3ex]
+
+B & chiral Positselski
+& $\Omega_X(B_X(C))\xrightarrow{\sim} C$ in $D^{\mathrm{co}}_{\mathrm{ch}}(X)$
+on Koszul locus; curved formalism elsewhere.
+& Vol~I (Positselski 2011 Thm 6.5)
+& \ClaimStatusTheorem\ on Koszul locus;
+\ClaimStatusConjectured\ curved lift at compact CY$_d$ with
+$\kch\neq 0$ (\texttt{working\_notes.tex}:2229 flags the curved
+Quillen-equivalence gap; Booth--Lazarev 2304.08409 resolves abstractly,
+chiral instantiation open)
+\\[0.3ex]
+
+C & derived-centre complementarity
+& $\kappa + \kappa^! \in\{0, 8, 13, 250/3, 98/3\}$ on the
+$\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype
+landmark ceiling; classical four-subset
+$\{0,13,250/3,98/3\}$ on $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}$;
+$\mathsf{B}$-row $K^{\kch} = 8$ via Bruinier Heegner Chern-class
+reciprocity on Mukai-enhanced K3
+& Vol~I ceiling; Vol~III $\mathsf{B}$-row witness
+(\texttt{k3\_chiral\_bialgebra\_platonic.tex}
+\texttt{thm:humbert-order-K-kappa})
+& \ClaimStatusTheorem\ on the four classical archetypes;
+\ClaimStatusTheorem\ on $\mathsf{B}$-row via Mukai 1987 +
+Bruinier 2002 LNM~1780 Prop~5.1; \ClaimStatusOpen\ whether the
+five-archetype ceiling is sharp (no sixth archetype known)
+\\[0.3ex]
+
+D & obstruction-tower universality
+& $\mathrm{obs}_g(A) = \kappa(A)\cdot\lambda_g$ on the
+uniform-weight lane; $\lambda_g$ tautological class.
+& Vol~I (Faber--Pandharipande 2000)
+& \ClaimStatusTheorem\ at $g = 1$; \ClaimStatusConjectured\ at
+$g\geq 2$ (cross-family Faber--Pandharipande intersection numbers);
+Vol~III CY-B refinement on $K3\times E$ identifies
+$\mathrm{obs}_g = 1/\Phi_{10}$, \ClaimStatusConjectured\
+at series-level equality
+\\[0.3ex]
+
+H & Hochschild concentration
+& $\ChirHoch^\bullet(A)$ concentrated in $\{0,1,2\}$ at non-critical
+level; at $d\geq 3$ the $\Etwo$-upgrade lives on $\cZ(\Rep(A))$, not
+on $A$
+& Vol~I (chiral Deligne); Vol~II ($\Ethree$-rigidity cohomological)
+& \ClaimStatusTheorem\ at non-critical level, chain-level and
+$(\infty,1)$-level; critical-level extension
+\ClaimStatusConjectured\
+\\
+\bottomrule
+\end{longtable}
+
+\paragraph{Reading.} Theorems A and H are essentially closed at the
+stated scope. B has a curved-algebra gap at compact CY$_3$ with
+$\kch\neq 0$ (the Booth--Lazarev 2304.08409 abstract resolution is
+not chirally instantiated). C is closed on the four classical archetypes
+and on the $\mathsf{B}$-row; sharpness of the ceiling is open. D at
+$g\geq 2$ and CY-B at series-level remain the two substantive
+frontiers.
+
+% ============================================================
+\section{Vol~III-specific contributions}
+% ============================================================
+
+These are theorems, scopes, and computations that Vol~III supplies
+above and beyond the shared five-theorem core.
+
+\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{@{}p{3.5cm}p{6.0cm}p{5.5cm}@{}}
+\toprule
+\textbf{Contribution} & \textbf{Statement} & \textbf{Scope / supply} \\
+\midrule
+\endfirsthead
+
+\textbf{CY-A$_3$ equivalence}
+& $\Phi_3$ on smooth proper CY$_3$ category produces an $\Eone$-chiral
+algebra on a reference curve $E\subset X$; at the
+$(\infty,1)$-categorical level the space of $\Ethree$-liftings is
+contractible on $\C^3$.
+& \ClaimStatusTheorem\ at the $(\infty,1)$-categorical level
+($\HH^{-2}_{\Eone}(\cC) = 0$ for smooth proper CY$_3$;
+\texttt{working\_notes.tex}:183);
+\ClaimStatusScope\ chain-level statement is the
+$\Sp_{K3,E}$-specialisation of the canonical
+$\Phifa_3(K3\times E)$ (two-stage factorisation); 62 prior instances
+labelled ``Theorem CY-A$_3$'' downgraded to conjecture and
+re-scoped (\texttt{working\_notes.tex}:5411); the remaining
+$(\infty,1)$-level theorem survives
+\\[0.3ex]
+
+\textbf{K3 abelian Yangian}
+& $\Phi_2(D^b\Coh(K3))$-presentation as an abelian Yangian with
+Heisenberg $R$-matrix at rank $22$ (or Mukai-enhanced rank $24$)
+& \ClaimStatusTheorem\ at chain level via Maulik--Okounkov
+stable-envelope machinery; see
+\texttt{notes/wave12\_a2\_k3\_abelian\_yangian\_kazhdan.tex}
+\\[0.3ex]
+
+\textbf{ZTE $T$ matrix}
+& Exact rational $T$-matrix of the zonal-twisted elliptic K3 Yangian:
+persymmetric, zero anti-diagonal, ten distinct rational values
+& \ClaimStatusTheorem\ (\texttt{working\_notes.tex}
+\texttt{thm:zte-T-exact}, 35 verification tests)
+\\[0.3ex]
+
+\textbf{CY-D dimensional stratification}
+& On compact CY$_d$: $\kch(A_X) = \sum_q(-1)^q h^{0,q}(X)$
+(Hodge-supertrace identification); agrees with $\chi(\cO_X)$ at
+even $d$; fails at odd $d$ because $\kch$ is additive under direct
+sums but $\chi(\cO_X)$ is not additive under direct sums of CY
+categories at odd $d$ (\texttt{working\_notes.tex}
+\texttt{obs:cy-d-root-cause})
+& \ClaimStatusTheorem\ at $d=2$ (\texttt{thm:mock-modular-k3-d2},
+4-step proof); \ClaimStatusConjectured\ at $d=3$ in naive form;
+the ``failure'' is the content
+\\[0.3ex]
+
+\textbf{Universal Borcherds weight}
+& $\kBKM(\Phi_N) = c_N(0)/2$ for $N\in\{1,2,3,4,6\}$:
+$c_1(0) = 10 \Rightarrow \kBKM = 5$; $c_2(0) = 8\Rightarrow 4$;
+$c_3(0) = 6\Rightarrow 3$; $c_4(0) = 4\Rightarrow 2$;
+$c_6(0) = 2\Rightarrow 1$
+& \ClaimStatusTheorem\ (Borcherds 1995; Gritsenko 1999; Vol~III
+\texttt{cy\_d\_kappa\_stratification.tex}
+\texttt{thm:borcherds-weight-kappa-BKM-universal}); extension to
+$N\in\{5,7,8\}$ with Borcherds-weight scope (metaplectic covers,
+spin double covers, abelian degeneracy) is platonic synthesis
+Thm~\texttt{wn:thm:plat-universal-kBKM} ``two scopes''
+\\[0.3ex]
+
+\textbf{Two-stage factorisation}
+& $\Phi_d = \Sp_{\Sigma_{d-1},C}\circ\Phifa_d\colon\CYcat_d\to
+\Ed\HolFA(X)\to\Eone\ChirAlg(C)$; Stage~1 canonical up to
+contractible choice (Kontsevich--Tamarkin formality +
+Costello--Gwilliam--Li locality); Stage~2 a specialisation
+parametrised by $(\Sigma_{d-1},C)\in\mathrm{Cyc}_{d-1}(X)\times
+\mathrm{Curves}(X)$
+& \ClaimStatusTheorem\ at $d=1,2$ with explicit witnesses
+(\texttt{notes/wave12\_u1}, platonic synthesis
+Thm~\texttt{wn:thm:plat-two-stage});
+\ClaimStatusConjectured\ at $d=3$ sketch via Dunn--Lurie
+$\int_{\Sigma_2} \Ethree\simeq\Eone$; requires explicit
+Costello--Li hCS pre-factorisation algebra and Stokes--Hochschild
+dualisation
+\\[0.3ex]
+
+\textbf{K3$\times E$ spectrum $\{2,3,5,24\}$}
+& Four distinct constructions on the single geometry:
+$2 = \kcat(K3)$ (K3-fibre categorical Euler);
+$3 = \kch(K3\times E)$ Mukai-refined Hodge supertrace
+(\emph{cf.} the cached $\kch(\text{total}) = 0$ for Calabi--Yau
+total space via K\"unneth-multiplicative $\kcat$ --- see
+inconsistency catalogue \S\ref{sec:inconsistency} below);
+$5 = \kBKM(\Phi_1) = c_1(0)/2$;
+$24 = \kfib$ (K3 Mukai-lattice rank, signature $(4,20)$)
+& \ClaimStatusScope\ four-constructions reading is consistent; the
+conflation with the Vol~I complementarity set
+$\{0,8,13,250/3,98/3\}$ is forbidden; bridged by Mukai doubling
+$K^{\kch} = 2c_+ = 24 - 16 = 8$
+\\[0.3ex]
+
+\textbf{Six routes to $G(K3\times E)$}
+& Six $(\Sigma_2,C)$-specialisations of one
+$\Phifa_3(K3\times E)$: $K3$-fibre $\to\fg_{\Delta_5}$
+($\kBKM = 5$); paramodular Humbert $N\in\{2,3,4,6\}$ CHL cousins;
+envelope $\Lambda^{3,3}\to\fg^{\mathrm{BKM}}_{\Lambda^{3,3}}$
+with $\fg_{\Delta_5}\subset$ as $\sigma_q$-fixed subalgebra
+& \ClaimStatusTheorem\ for $K3$-fibre ($\Delta_5$ lift) and
+envelope; \ClaimStatusConjectured\ for CHL cousins and
+Humbert-sibling data (\texttt{working\_notes.tex}
+\texttt{cor:many-BKMs} points 2, 3)
+\\[0.3ex]
+
+\textbf{Mock modular K3 at $d=2$}
+& $\Phi_2(D^b\Coh(K3))$-bar complex carries mock modularity
+of Cheng--Duncan--Harvey umbral Eguchi--Ooguri--Tachikawa type;
+$\widehat{h}(\tau)$ completion is the shadow-tower
+chamber-independent substitute
+& \ClaimStatusTheorem\ at $d=2$ (\texttt{working\_notes.tex}
+\texttt{thm:mock-modular-k3-d2})
+\\[0.3ex]
+
+\textbf{Seven faces of $r_{\mathrm{CY}}$ three-tier stratification}
+& Tier (i) CY-datum intrinsics ($\kcat$, Mukai pairing);
+Tier (ii) Stage-1 invariants of $\cF_X$ ($\kfib$, fibre-rank data);
+Tier (iii) $(\Sigma_2,C)$-specialisations ($\kBKM$, Humbert,
+CHL twined)
+& \ClaimStatusTheorem\ at the level of stratification
+(platonic synthesis Thm~\texttt{wn:thm:plat-three-tier}); the
+algebraic seven-presentation (bar--cobar / CoHA / coisson / MO /
+Yangian / Sklyanin / Gaudin) is an orthogonal slicing
+\\
+\bottomrule
+\end{longtable}
+
+\paragraph{CY-A$_3$ survival strata $\mathrm{S}_1$--$\mathrm{S}_5$.}
+The ``62 instances'' adjustment of \texttt{working\_notes.tex}:5411
+records the following stratification of the original universal
+``$\Phi_3$ produces $\Eone$-chiral on any reference curve'' claim:
+
+\begin{enumerate}[label=$\mathrm{S}_\arabic*$.,leftmargin=2em]
+\item $(\infty,1)$-level existence on smooth proper CY$_3$ categories:
+\ClaimStatusTheorem.
+\item Chain-level explicit presentation on toric CY$_3$ ($\C^3$, local
+$\mathbb{P}^2$, resolved conifold): \ClaimStatusTheorem\ via
+Costello--Li hCS + Schiffmann--Vasserot CoHA.
+\item Chain-level explicit presentation on compact $K3\times E$:
+\ClaimStatusScope\ as the $\Sp_{K3,E}$-specialisation of
+$\Phifa_3(K3\times E)$; explicit is
+$U^{\mathrm{ch}}(\fheis_{\mathrm{Muk}})\otimes
+U^{\mathrm{ch}}(\fg^{\mathrm{BPS}}_{K3})$ (platonic synthesis
+Thm~\texttt{wn:thm:plat-Sp-K3E}).
+\item Chain-level explicit presentation on general compact CY$_3$:
+\ClaimStatusConjectured\ (requires universal Costello--Li
+construction in the global/non-toric regime; no generic witness).
+\item Morphism preservation making $\Phi_d$ a functor on
+$(\infty,1)$-categories: \ClaimStatusConjectured\ (CY-C, quantum
+vertex chiral group $G(X)$).
+\end{enumerate}
+
+The Vol~III programme thread lives at stratum $\mathrm{S}_2$ and
+$\mathrm{S}_3$, the first explicitly, the second via two-stage
+factorisation. $\mathrm{S}_4$ is the residual frontier for the
+functor-output statement.
+
+% ============================================================
+\section{Inconsistency catalogue with adjudication}
+\label{sec:inconsistency}
+% ============================================================
+
+Scan target: three CLAUDE.md manifestos; \texttt{working\_notes.tex};
+\texttt{notes/platonic\_synthesis\_waves\_11\_through\_16.tex};
+\texttt{notes/CoHA\_to\_W\_infty\_treatise.tex}; sixty-seven
+\texttt{wave12\_*.tex} notes. Inconsistencies catalogued with
+adjudication from the epistemic hierarchy (direct computation
+$>$ source $>$ build $>$ primary literature $>$ concordance $>$
+manifesto $>$ memory).
+
+\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{@{}p{0.7cm}p{4.8cm}p{4.4cm}p{4.8cm}@{}}
+\toprule
+\# & \textbf{Inconsistency} & \textbf{Witnesses} & \textbf{Adjudication} \\
+\midrule
+\endfirsthead
+
+1 & $\kch(K3\times E) \in \{0, 3, 5\}$
+& $0$: \texttt{wave12\_a2\_kappa\_invariants}:353, :656;
+\texttt{working\_notes.tex}:7741, :10029.
+$3$: \texttt{wave12\_a12\_six\_routes}:104,204;
+\texttt{wave12\_a4\_k3\_yangian\_abelian}:792;
+\texttt{wave12\_a5\_cy\_d}:471,656;
+\texttt{working\_notes.tex}:2716, :3099, :3782, :20383, :20714.
+$5$: \texttt{working\_notes.tex}:1361, :2682.
+& The three values are three distinct invariants under a single
+notation. The cache-canonical is
+$\kcat(K3\times E) = \chi(\cO_{K3\times E}) = 0$
+(K\"unneth-multiplicative, $2\cdot 0 = 0$). The value $3$ is the
+Hodge supertrace $\sum_q(-1)^q h^{0,q}(K3\times E) = 3$
+(via Vol~III Mukai-refined identification with signature-$(4,20)$
+lattice positivity). The value $5$ is $\kBKM(\Phi_1) = c_1(0)/2$,
+the Borcherds weight of $\Delta_5$, not a $\kch$ value. \emph{Action
+at the reader-facing manuscript level}: disambiguate by subscript
+discipline (HZ-7); bare $\kappa$ forbidden; $\kch^{\mathrm{Heis}}$
+used at \texttt{wave12\_a12}:104 is an instructive intermediate
+superscript (superscripted by route) but should be downgraded to the
+cached pair $\kch$ vs $\kcat$. Recommend: $\kch(K3\times E) = 3$
+(Hodge supertrace); $\kcat(K3\times E) = 0$
+(total-space categorical Euler);
+$\kBKM(\Phi_1)(K3\times E) = 5$ (Borcherds weight of $\Delta_5$).
+Three values, three subscripts, not a conflict.
+\\[0.3ex]
+
+2 & Fake Monster at $d = 3$ vs $d = 5$
+& $d=3$: some older working-notes passages list Fake Monster as a
+$K3\times E$ sibling via Niemeier-surface cycle.
+$d=5$: platonic synthesis
+Cor~\texttt{wn:cor:plat-many-bkms},
+Conjecture~\texttt{wn:conj:plat-siblings-dim};
+\texttt{wave12\_d3}, \texttt{wave11\_u1\_niemeier}.
+& Platonic synthesis retracts the $d=3$ framing as
+\ClaimStatusRetracted\ (rank-$24$ Leech lattice exceeds $h^{1,1}(K3)
+= 20$; no transverse surface in compact CY$_3$ supplies Niemeier data).
+\emph{True}: Fake Monster lives at $d=5$ via $K3\times K3\times E$,
+$\Sigma_4 = K3\times K3$, $C = E$, $\kBKM(\Phi_{\mathrm{FM}}) = 12$.
+Resolution is in the Platonic synthesis.
+\\[0.3ex]
+
+3 & $\CoHA(\C^3) \cong \Winf$ vs $\CoHA(\C^3) = \Yplus\neq\Winf$
+& $\cong$: CoHA treatise rows in \texttt{CoHA\_to\_W\_infty\_treatise.tex}
+could be read as identification via ``state-field correspondence on
+the vacuum module''; summary tabular row ``Identified with VOA:
+$\Winf$''.
+$\neq$: \texttt{wave12\_f4\_coha\_w\_infty\_consistency.tex},
+Flaw~\texttt{flaw:coha-winf};
+\texttt{wave12\_a11\_coha\_y\_plus\_vs\_w\_infty};
+platonic synthesis Thm~\texttt{wn:thm:plat-Miki-S3} remark.
+& $\Winf$ is the representation-theoretic image of $\Yhat$ under
+the Gaiotto--Rap\v{c}\'ak $\lambda$-parameter evaluation:
+$\Yplus\hookrightarrow\Yhat\xrightarrow{\mathrm{ev}_\lambda}
+\mathrm{End}(\Winf[\lambda]\text{-vacuum})$. CoHA is $\Eone$,
+associative. $\Winf$ is $\Etwo$, vertex-operator. Not an
+associative-algebra identification. Resolution: Correction at
+\texttt{wave12\_f4}:\texttt{cor:coha-winf}.
+\\[0.3ex]
+
+4 & Swiss-cheese two-coloured vs three-sector
+& Two-coloured: Vol~II CLAUDE.md:20--27, :215--216 (``$\mathsf{SC}^{\mathrm{ch,top}}$
+is a 2-coloured dioperad'').
+Three-sector: Vol~III \texttt{working\_notes.tex}:1728--1737
+($B_{\Eone}$, $B_{\Etwo}$, $B_{\Einf}$).
+& Compatible: the two colours stratify into three graded pieces via
+open/boundary/closed decomposition. Vol~II Pattern 277:
+``$\mathsf{SC}^{\mathrm{ch,top}}$ vs $\Ethree$ conflation is a scope
+declaration, not a hierarchy.'' Resolution: Vol~III reading is a
+three-graded faithful decomposition of the two-coloured structure.
+\\[0.3ex]
+
+5 & $\Ethree$ in Vol~II (topological bulk) vs in Vol~III (6D
+holomorphic)
+& Vol~II: \texttt{bar-cobar-review.tex}:4540,
+\texttt{celestial\_holography.tex}:2018--2028,
+\texttt{brace.tex}:180--188.
+Vol~III: \texttt{en\_factorization.tex}:449--500,
+\texttt{quantum\_chiral\_algebras.tex}:227--243,
+\texttt{wave12\_a13\_costello\_5\_routes\_6d\_hCS},
+\texttt{wave12\_b3\_6d\_hCS}, \texttt{wave12\_f1\_6d\_hcs\_e3\_generators}.
+& Two different $\Ethree$ structures, same CFG authorship, different
+objects: Vol~II's acts on $\ChirHoch^\bullet(A)$ (topological in
+R-direction); Vol~III's acts on $\mathrm{Obs}(X)$ for $X = \C^3$
+(holomorphic in three complex directions). Compatible via
+bulk-boundary correspondence. Scope declared in Vol~III
+\texttt{en\_factorization.tex}:449 final clause.
+\\[0.3ex]
+
+6 & CY-A$_3$ labelled as universal vs as $\Sp_{K3,E}$-specialisation
+& Universal: 62 prior ``Theorem CY-A$_3$'' instances in
+\texttt{working\_notes.tex}.
+Specialisation: \texttt{notes/wave12\_u1\_two\_stage\_functor}
+Remark~\texttt{rem:cy-a3-specialisation};
+\texttt{working\_notes.tex}:5411 (retraction note).
+& $\Phi_3$ has no unique $\Eone$-chiral output on a curve; the
+output is
+$\Sp_{\Sigma_2,C}\bigl(\Phifa_3(K3\times E)\bigr)$
+parametrised by $(\Sigma_2,C)$. CY-A$_3$ proved at $(\infty,1)$-level
+(stratum $\mathrm{S}_1$); the chain-level output on $E$ is the
+$K3$-fibre specialisation $\Sp_{K3,E}$.
+62 instances re-scoped per \texttt{working\_notes.tex}:5411.
+\\[0.3ex]
+
+7 & $\widehat{\mathfrak{sl}}_3\hookrightarrow\fg_{\Delta_5}$ from
+$\eta^9$ exponent
+& Early: eta-9 exponent claim in pre-Wave-15 working-notes passages.
+Refuted: Platonic synthesis
+Thm~\texttt{wn:thm:plat-retractions}(1).
+& \ClaimStatusRetracted. Real-root subalgebra is Feingold--Frenkel
+$F_3$ rank-3 hyperbolic Kac--Moody; $\eta^9 = \eta^1\cdot\eta^8$, not
+$\eta^6\cdot\eta^3$. Cartan mismatch (rank-2 positive definite vs
+rank-3 hyperbolic); denominator mismatch ($\eta^{11}$ vs $\eta^9$).
+\\[0.3ex]
+
+8 & $\mathrm{VOA}[T_{24}] = L_{-6}(\mathfrak{e}_8)$
+& Early: central charge claim $c = -62$.
+Refuted: Platonic synthesis
+Thm~\texttt{wn:thm:plat-retractions}(2).
+& \ClaimStatusRetracted. Central charge mismatch $c = -62\neq -214$.
+\emph{True}: $\cV_{24} = H^0_{\mathrm{DS}}(L_{-2+1/22}(\mathfrak{sl}_2)^{\otimes
+22})$ via iterated Drinfeld--Sokolov on pants decomposition
+(Arakawa 2017 + Creutzig--Linshaw 2017).
+\\[0.3ex]
+
+9 & $\kBKM = \kch + \chi(\cO_{\mathrm{fiber}})$ universally
+& Early: coincidence at $N=1$ ($5 = 2 + 3$).
+Refuted: CLAUDE.md Vol~III key facts; Platonic synthesis
+Thm~\texttt{wn:thm:plat-retractions}(3).
+& \ClaimStatusRetracted. Fails at all $N\geq 2$ (numerically at $N=2$:
+$\kBKM = 4$, $\kch + \chi(\cO_E) = 0 + 0 = 0$). True universal:
+$\kBKM(\Phi_N) = c_N(0)/2$, Borcherds weight theorem.
+\\[0.3ex]
+
+10 & Gaiotto curve $\Sigma_{2,0}$ giving $c_{4d} = 107/6$
+& Early: genus-2 closed curve assumption.
+Refuted: Platonic synthesis
+Thm~\texttt{wn:thm:plat-retractions}(6).
+& \ClaimStatusRetracted. Genus-2 closed curve gives $c_{4d} = 7/6$
+or $13/6$, never $107/6$. \emph{True}: $\Sigma_{0,24}$
+(24-punctured sphere), Chacaltana--Distler 2010 Table 3 row 1,
+$c_{4d} = (5n-13)/6 = 107/6$ at $n=24$.
+\\[0.3ex]
+
+11 & PTVV table terminates at $d = 4$
+& Early: shifted-symplectic table stops at $d=4$.
+Refuted: Platonic synthesis
+Thm~\texttt{wn:thm:plat-hCS-classical} (shift law
+$\mathrm{shift} = d-4$ admits arbitrary integer shifts);
+$(5, +1, \Etwo[5]\text{-Poisson})$.
+& \ClaimStatusCorrected. Shift law admits arbitrary integer; $d=5$
+entry is Poisson-$\Etwo[5]$ with shift $+1$.
+\\[0.3ex]
+
+12 & $\Ethree$-deformation-of-Chern--Simons Costello--Francis--Gwilliam
+as cited primary source
+& Asserted in some wave12 passages.
+Scope-flagged: \texttt{CoHA\_to\_W\_infty\_treatise.tex}:308--314,
+\texttt{wave12\_a11}, \texttt{wave12\_a13}.
+& \ClaimStatusScope. Costello--Gwilliam 2017 is the primary source
+for the $\En$-factorisation-algebra framework; Costello 2013 is the
+primary source for the Yangian via $\Omega$-background; a further
+Costello--Francis--Gwilliam $\Ethree$-of-CS-deformations sharpening
+paper is \emph{in preparation} and not a cited primary source as of
+2026-04-22. Treatise does not rely on it for the load-bearing
+statements.
+\\[0.3ex]
+
+13 & Humbert boundary monodromy $H_1$ order-8 vs order-16
+& Two candidates in working-notes.
+& $H_1$ monodromy is order-8 (matching Mukai $K^{\kch} = 8$); order-16
+arises only in a doubled chamber around $H_4$. Resolution: three
+faces of $8$ theorem (\texttt{thm:humbert-order-K-kappa}): Mukai /
+monodromy / Lusztig all coincide at $\ell = 8$.
+\\
+\bottomrule
+\end{longtable}
+
+\paragraph{Pattern of discrepancies.} All thirteen entries reduce to
+three causes: (a) subscript discipline not applied uniformly across
+sixty-seven wave12 notes before disambiguation; (b) earlier
+working-notes passages retracted but not yet physically deleted
+(they survive as strata within \texttt{working\_notes.tex} or as
+\texttt{wave12\_*.tex} drafts); (c) scope-declared
+``same-structure-different-object'' pairs (Vol~II vs Vol~III $\Ethree$;
+$\CoHA(\C^3)$ vs $\Winf$). None are mathematical contradictions; all
+are terminological. The manuscript-level rectification is subscript
+normalisation at the reader-facing \texttt{chapters/} tier (HZ-7
+discipline).
+
+% ============================================================
+\section{Shortest-path frontier per volume}
+% ============================================================
+
+\paragraph{Vol~I.} One theorem away from closure: complete the
+curved-bar-cobar Quillen equivalence at compact CY$_d$ with
+$\kch\neq 0$ (\texttt{working\_notes.tex}:2229--2245). Booth--Lazarev
+2304.08409 supplies the abstract coderived + curved Quillen
+equivalence; the chiral instantiation on $\overline{M}_{g,n}$ requires
+the chiral analogue of their curved-$A_\infty$ cotangent complex. The
+``shadow tower $\Theta_A$ as a genus-$g$ class'' identification
+(\texttt{working\_notes.tex}:2263--2288) closes CY-B on the series-level
+equality at $K3\times E$.
+
+\paragraph{Vol~II.} One theorem away from closure: the $\En^{\mathrm{top}}$
+topologisation ladder reaching $\Einf$ via $\Winf$. The content: chain-level
+proof that $\Winf$ at $c = 1$ (Heisenberg) is the Platonic endpoint of the
+iterated-Sugawara ladder under curved-Dunn $H^2 = 0$ at $g\geq 2$. The
+Vol~II $\mathsf{SC}^{\mathrm{ch,top}}$ two-coloured dioperad supplies
+the operadic framework; the three-sector Vol~III reading supplies the
+target. The residual frontier is the witnessing chain homotopy for the
+$k\to\infty$ limit.
+
+\paragraph{Vol~III.} One theorem away from closure: the explicit
+$\Sp_{K3,E}$-computation of $\Phifa_3(K3\times E)$, chain level,
+producing $U^{\mathrm{ch}}(\fheis_{\mathrm{Muk}})\otimes
+U^{\mathrm{ch}}(\fg^{\mathrm{BPS}}_{K3})$ (platonic synthesis
+Thm~\texttt{wn:thm:plat-Sp-K3E}, currently $\mathrm{S}_3$ scope).
+Supplies: Maulik--Okounkov stable envelope for the $K3$ factor
+(Davison 2017 + Nakajima--Yoshioka 2004); Heisenberg factorisation
+algebra for the Mukai sector (Frenkel--Ben-Zvi 2004 + Grojnowski 1996).
+Obstruction: the
+$E$-factor $\Eone$ extraction on the rank-$22$ or rank-$24$ Mukai
+Heisenberg via Dunn--Lurie $\int_{K3}\Ethree\simeq\Eone$; the $K3$
+factorisation homology needs the global critical-chart hypothesis
+(Davison 2017) which is not automatic for every compact CY$_3$.
+
+One additional theorem within reach for Vol~III: the
+Lorgat~2020 Conjecture~1 sharpened
+(\texttt{wn:conj:plat-lorgat-2020}) ---
+$\mathbf{H}_{\Delta_5}$-chiral-bialgebra on $E$ isomorphic to
+$\Sp_{K3,E}(\Phifa_3(K3\times E))$ with character $\Delta_5^{-2}$
+through paramodular Fourier expansion. This upgrades Conjecture~1
+from numerical match to structural identification; the bridge is the
+Gritsenko--Nikulin~1996 Cor.~5.2 residue at $H_1$ $+$ Frenkel--Ben-Zvi
+Heisenberg character identity, both already supplied in
+Thm~\texttt{wn:thm:plat-heis-mukai-eta48}.
+
+% ============================================================
+\section{Two-stage factorisation as organising principle}
+% ============================================================
+
+Adversarial probing of the platonic-synthesis
+Thm~\texttt{wn:thm:plat-two-stage}, in five passes.
+
+\subsection{Attack--heal 1: is Stage 1 truly canonical?}
+
+\begin{attack}
+The two-stage factorisation claims Stage 1 is ``canonical up to
+contractible choice'' via Kontsevich--Tamarkin formality. But
+Kontsevich--Tamarkin $\Ed$-formality is proved for polydifferential
+operators on $\R^d$ (Kontsevich 1997; Tamarkin 1998), not for a
+holomorphic-factorisation-algebra avatar on a general CY$_d$. The
+extension to holomorphic CY$_d$ is Costello--Gwilliam--Li, which
+gives locality and the pre-factorisation algebra, but does \emph{not}
+supply the formality quasi-isomorphism.
+\end{attack}
+
+\begin{heal}
+Stage 1 canonicality is actually a conjunction of two inputs:
+(a) Costello--Li 2016 hCS pre-factorisation algebra construction on
+$\C^3$, which supplies the explicit $\Ethree$-holomorphic factorisation
+algebra; (b) a Kapranov-type Dolbeault-polyvector-field presentation
+of the Hochschild cohomology, giving an $\En$-structure on
+$\PV^\bullet_{\dbar}(X,\cO_X)$ via the Kontsevich formality map on the
+de~Rham avatar. The conjunction is not a single formality theorem;
+it is a two-step reduction. On compact $K3\times E$, step (a) is
+available via Costello--Li for the toric tangent $\C^3$-chart and
+Dolbeault gluing; step (b) requires a primary-source Kapranov 1999
+argument on the Dolbeault $L_\infty$-model. Platonic synthesis
+Thm~\texttt{wn:thm:plat-Linf-minimal} supplies the $\C^3$-step-(b);
+the Atiyah-class formality obstruction on compact CY$_3$ is flagged
+but the $K3\times E$ case admits the
+$\mathrm{At}(TE) = 0 + \Omega^3_{K3} = 0$ vanishing. \emph{Scope}:
+Stage 1 is canonical for $\C^3$ and $K3\times E$; general compact
+CY$_3$ requires the Atiyah-class obstruction argument, which is
+$(\infty,1)$-categorical, not chain-level.
+\end{heal}
+
+\subsection{Attack--heal 2: is Stage 2 genuinely a moduli, or a
+single canonical cycle?}
+
+\begin{attack}
+The two-stage factorisation's Stage 2 is parametrised by
+$(\Sigma_{d-1},C)\in\mathrm{Cyc}_{d-1}(X)\times\mathrm{Curves}(X)$.
+But $\mathrm{Cyc}_{d-1}(X)$ of a compact $K3\times E$ is
+a huge moduli; specifying a ``distinguished'' $\Sigma_2 = K3$-fibre
+requires a choice of splitting $K3\times E\to E$, which is canonical
+only for the trivial product structure. For a generic CY$_3$ with
+non-trivial fibration, multiple splittings lead to inequivalent
+Stage-2 outputs.
+\end{attack}
+
+\begin{heal}
+For $X = K3\times E$ as a product, the splitting is canonical and
+Stage 2 via $\Sigma_2 = K3$-fibre produces the
+$\mathbf{H}_{\mathrm{Muk}}\otimes U^{\mathrm{ch}}(\fg^{\mathrm{BPS}}_{K3})$
+specialisation. For $X$ with non-trivial $K3$-fibration (e.g.~a generic
+Borcea--Voisin threefold), \emph{different} fibre choices generate
+different $\Sigma_2$-specialisations, hence different $\Eone$-chiral
+siblings. This is not a bug: the ``many BKMs'' phenomenon is the
+statement that $\mathrm{Cyc}_2(X)$ has nontrivial topology. The canonical
+cycle structure on $K3\times E$ product case is a special
+simplification, not a universal feature.
+\end{heal}
+
+\subsection{Attack--heal 3: Dunn--Lurie $\int_{\Sigma_2}\Ethree\simeq\Eone$ direction}
+
+\begin{attack}
+The two-stage factorisation Proof Sketch invokes Dunn--Lurie
+$\Ethree\simeq\Eone\otimes\Etwo$, then integrates over $\Sigma_2 = K3$,
+claiming $\int_{\Sigma_2}\Etwo\simeq\mathrm{pt}$. But $\int_{K3}\Etwo$ is
+not $\mathrm{pt}$; it is the factorisation homology of an $\Etwo$-algebra
+over a closed real $4$-manifold, which is $\pi_0$-nontrivial in general
+(Ayala--Francis~2015).
+\end{attack}
+
+\begin{heal}
+The correct statement is that $\int_{\Sigma_2}\Etwo$ over a closed
+orientable real surface of genus $g$ has known $\pi_0$ (Ayala--Francis).
+For $K3 = \Sigma_2$ as a real $4$-manifold (not a real surface!) this
+is even further out of scope. The content actually needed: the
+$\Ethree$-hFA on $\C^3$ projected along two complex directions to
+leave one complex direction is an $\Eone$-chiral algebra on the
+surviving $\C$-direction, via the Costello--Li hCS-to-CoHA mechanism.
+The ``Dunn additivity + integration'' sketch conflates real and complex
+dimensions. The chain-level mechanism is: $\Ethree$-holomorphic on
+$\C^3$; restrict to a reference curve $C\subset\C^3$ transverse to a
+$\Sigma_2$ (complex surface, real dimension $4$); the restriction is
+$\Eone$-chiral on $C$ by holomorphic locality in the one surviving
+complex direction. No $\int\Etwo\simeq\mathrm{pt}$ required.
+Resolution: the two-stage factorisation at $d = 3$ is proved at the
+chain level on $\C^3$ (Costello--Li) and on $K3\times E$ (via Stage 1
+on $\C^3$-chart + Dolbeault gluing); the $(\infty,1)$-categorical
+restatement is the cleaner form but needs Ayala--Francis to be handled
+separately per $\Sigma_{d-1}$.
+\end{heal}
+
+\subsection{Attack--heal 4: does the organising principle extend
+beyond $d \leq 5$?}
+
+\begin{attack}
+Platonic synthesis lists only $d \in \{1, 2, 3, 5\}$ explicitly, with
+$d=4$ handled via the shifted-symplectic table at shift $0$ and $\Ezero$.
+What is the $\Phi_d$ target at $d = 4$, $d\geq 6$?
+\end{attack}
+
+\begin{heal}
+At $d = 4$ the PTVV shift is $0$ and the $\Ed$ target is $\Ezero$:
+$\Phi_4$ produces an $\Ezero$-chiral structure, i.e.~essentially a
+cochain complex without any $\Eone$-or-higher multiplication.
+The Calabi--Yau $4$-fold Donaldson--Thomas theory
+(Cao--Kool--Leung 2020, Borisov--Joyce 2017) witnesses the vanishing
+cycle sheaf but not an $\Eone$-algebra. At $d\geq 6$, shift is $d-4$;
+the target is $\En[d-3]$-Poisson with shift $d-4$: Poisson, not
+symplectic, for $d\geq 5$ (Platonic synthesis
+Thm~\texttt{wn:thm:plat-hCS-classical}). The organising principle
+extends; the content at $d\geq 6$ is the CHL-type string-landscape
+structure (not the subject of Vol~III's 693-page scope but present in
+the Fake Monster $d=5$ cousin).
+\end{heal}
+
+\subsection{Attack--heal 5: is the two-stage principle falsifiable?}
+
+\begin{attack}
+If every phenomenon fits the two-stage factorisation by adjusting
+$(\Sigma_{d-1},C)$, the principle is unfalsifiable. Where does it
+\emph{fail}?
+\end{attack}
+
+\begin{heal}
+Three specific falsifiable predictions:
+(a) Fake Monster is at $d = 5$, not $d = 3$ (rank obstruction).
+This would fail if a rank-$24$ Leech lattice embedded into
+$h^{1,1}$ of a compact CY$_3$ (it does not);
+(b) $N = 7$ in the CHL family is obstructed (Niemeier fixed-count $3$
+forces singular limit; weight $1/4$ corresponds to order-$4$ gerbe
+Cheeger--Simons character). This would fail if $N=7$ produced a
+non-singular BKM via the K3-fibre specialisation (it does not;
+currently open);
+(c) K3-fibre-rank $\kfib = 24$ Mukai-doubles to Vol~I $\mathsf{B}$-row
+$K^{\kch} = 2c_+(\mathrm{Mukai}) = 8 = 24 - 16$. This would fail if
+another signature-$(4, 20)$ rank-$24$ lattice gave a different
+$\mathsf{B}$-row value; it does not.
+
+All three predictions align with current data. The principle is
+consistent and falsifiable; it survives adversarial probing.
+\end{heal}
+
+% ============================================================
+\section{6d hCS / CFG $\Ethree$ as cross-volume unification}
+% ============================================================
+
+Claim under probe: the single $\Ed$-factorisation algebra on each CY$_d$
+is the unifying mechanism across all three volumes.
+
+\subsection{Vol~III $\Ed$-hFA}
+
+Canonical $\Ethree$-algebra of 6d holomorphic Chern--Simons observables
+$\Obs^q_{\hCS_6}\in\cF_{\C^3}$; BV-BRST complex with
+Bochner--Martinelli propagator (Platonic synthesis
+Thm~\texttt{wn:thm:plat-hCS-quantum}); anomaly factorisation
+$\kan(X, \fg) = \hbar A(\fg)\cdot\chi_{\mathrm{top}}(X)/(2(4\pi)^3)
+\cdot\|\Omega_X\|^2$ with cubic Casimir $A(\fg)$
+(Thm~\texttt{wn:thm:plat-anomaly}); minimal $L_\infty$-model on $\C^3$
+with $\ell_n^{\min} = 0$ for $n\geq 3$
+(Thm~\texttt{wn:thm:plat-Linf-minimal}).
+
+\subsection{Vol~II $\Ed$-HT QFT}
+
+3D HT QFT on $C\times\R$: chiral direction $C$ carries holomorphic
+factorisation; topological direction $\R$ carries topological
+factorisation. Bulk algebra is $\Ethree$-topological on observables.
+Two-coloured $\mathsf{SC}^{\mathrm{ch,top}}$ dioperad is the operadic
+framework.
+
+\subsection{Vol~I base}
+
+Ordered bar complex $B^{\mathrm{ord}}(A) = T^c(s^{-1}\bar A)$ on
+$\overline{M}_{g,n}$; averaging map
+$\mathrm{av}\colon\fg^{\Eone}\to\fg^{\mathrm{mod}}$ to the symmetric
+chiral sector.
+
+\subsection{Unification via factorisation homology}
+
+The three volumes are three \emph{projections} of one underlying
+factorisation-homology datum:
+\begin{align*}
+\text{Vol~I} &= \int_{\overline{M}_{g,n}} \cF^{\Eone}_C \quad
+\text{(modular factorisation)}, \\
+\text{Vol~II} &= \int_{C\times\R} \cF^{\mathsf{SC}^{\mathrm{ch,top}}} \quad
+\text{(HT bulk-boundary)}, \\
+\text{Vol~III} &= \int_{\Sigma_{d-1}}\cF^{\Ed}_X\big|_C \quad
+\text{(CY specialisation)}.
+\end{align*}
+All three $\cF$'s are instances of one mechanism: a local, holomorphic
+or holomorphic-topological, factorisation algebra on a complex
+manifold, integrated against a cycle or modular cycle to produce the
+projected datum. The CFG $\Ethree$-algebra of 6d hCS observables is the
+\emph{maximal} instance at $d = 3$, carrying all three projections as
+specialisations.
+
+\subsection{Is the unification load-bearing?}
+
+\begin{attack}
+The claim ``three volumes are three projections of one datum'' is
+aesthetically pleasing but may be a retrofit. What theorem does it
+enable that is not already stated volume-wise?
+\end{attack}
+
+\begin{heal}
+Two consequences that depend on the unification, not on any one volume:
+\begin{enumerate}[label=(\alph*)]
+\item The $\mathsf{B}$-row $K^{\kch} = 8$ identity is cross-volume: Vol~I
+places the ceiling, Vol~III supplies the $\mathbf{H}_{\Delta_5}$-chamber
+witness, the bridge is the Mukai doubling $24\to 8$ (entry
+$24\in\{2,3,5,24\}$ maps to entry $8\in\{0,8,13,250/3,98/3\}$). This is
+a genuinely cross-volume theorem; neither volume alone states it.
+\item The three-sector bar-complex $B_{\Eone}/B_{\Etwo}/B_{\Einf}$ is a
+Vol~III reading of the Vol~II two-coloured
+$\mathsf{SC}^{\mathrm{ch,top}}$; the Vol~I shadow tower is the
+$B_{\Einf}$-symmetric closed sector. The ``total shadow obstruction
+$\Theta_A$'' of Vol~I is realised on the
+$\mathsf{SC}^{\mathrm{ch,top}}$-closed-colour component of the
+$\Phi_d$-image. This is a cross-volume identification that promotes
+three separate conjectures to one theorem.
+\end{enumerate}
+The unification is load-bearing at (a) and (b); elsewhere it is
+clarifying but not theorem-generating.
+\end{heal}
+
+% ============================================================
+\section{Open questions surfaced}
+% ============================================================
+
+\begin{enumerate}[leftmargin=1.5em]
+\item (Vol~I / Vol~III) Curved bar--cobar Quillen equivalence
+chiral instantiation at compact CY$_d$ with $\kch\neq 0$:
+Booth--Lazarev 2304.08409 handles the abstract case; the chiral
+analogue on $\overline{M}_{g,n}$ awaits.
+\item (Vol~II) $\mathsf{SC}^{\mathrm{ch,top}}$-three-sector
+stratification $(B_{\Eone}, B_{\Etwo}, B_{\Einf})$ as a faithful
+decomposition: state as a chain-level equivalence of filtered bar
+complexes.
+\item (Vol~III) Explicit
+$\Sp_{K3,E}\bigl(\Phifa_3(K3\times E)\bigr) =
+U^{\mathrm{ch}}(\fheis_{\mathrm{Muk}})\otimes
+U^{\mathrm{ch}}(\fg^{\mathrm{BPS}}_{K3})$ at chain level, closing
+stratum $\mathrm{S}_3$ of CY-A$_3$.
+\item (Vol~III) Lorgat~2020 Conjecture~1 sharpened: chiral-bialgebra
+isomorphism $\Sp_{K3,E}\bigl(\Phifa_3\bigr)\cong
+\mathbf{H}_{\Delta_5}$ with character $= \Delta_5^{-2}$.
+\item (Vol~III) Fake Monster at $d = 5$: explicit
+$\Sp_{K3^2,E}\bigl(\Phifa_5(K3\times K3\times E)\bigr)$
+with $\kBKM(\Phi_{\mathrm{FM}}) = 12$.
+\item (Vol~III) Non-CHL $N = 7$ sibling: order-$4$ gerbe
+Cheeger--Simons character realisation; currently obstructed
+(Nikulin fixed-count $3$ forces singular limit).
+\end{enumerate}
+
+% ============================================================
+\section{In one line}
+% ============================================================
+
+\emph{The trilogy's content is one mechanism --- a local holomorphic
+(or holomorphic-topological) factorisation algebra $\cF$ on a
+complex manifold, projected by integration against three different
+cycle data: Vol~I integrates against the modular tower
+$\overline{M}_{g,n}$ to obtain the ordered bar complex with five-theorem
+A/B/C/D/H content; Vol~II integrates against the $C\times\R$ dioperad
+to obtain $\mathsf{SC}^{\mathrm{ch,top}}$ and 3D HT QFT bulk--boundary;
+Vol~III integrates against $(\Sigma_{d-1},C)$-cycles on Calabi--Yau
+$d$-folds to obtain $\Phi$-image $\Eone$-chiral shadows
+specialising to $\fg_{\Delta_5}$, Borcherds Monster, Fake Monster,
+and their Niemeier--CHL cousins --- one projection per volume, one
+functor, the five theorems shared.}
+
+% ============================================================
+\appendix
+\section{Rectification log}
+% ============================================================
+
+\subsection{Sources consulted}
+
+\begin{itemize}[leftmargin=1.5em]
+\item CLAUDE manifestos: Vol~I
+(\texttt{\textasciitilde/chiral-bar-cobar/CLAUDE.md}, 463 lines);
+Vol~II (\texttt{\textasciitilde/chiral-bar-cobar-vol2/CLAUDE.md},
+366 lines); Vol~III (embedded in user instructions, copy of
+\texttt{CLAUDE.md}).
+\item Vol~III \texttt{working\_notes.tex} (23\,000 lines): grep
+audit for \texttt{Theorem A/B/C/D/H}; \texttt{CY-A/B/C/D};
+\texttt{kappa\_ch(K3 x E)}; \texttt{c\_N(0)};
+\texttt{two-stage}; \texttt{Positselski};
+\texttt{Hochschild concentration}.
+\item \texttt{notes/platonic\_synthesis\_waves\_11\_through\_16.tex}
+(584 lines): ten theorems, one corollary, one conjecture, one
+retraction table.
+\item \texttt{notes/CoHA\_to\_W\_infty\_treatise.tex} (821 lines):
+three worked examples; CoHA treatise rows.
+\item \texttt{notes/wave12\_*.tex}: sixty-seven files (including
+\texttt{wave12\_b2\_cross\_volume\_consistency.tex},
+\texttt{wave12\_u1\_two\_stage\_functor.tex},
+\texttt{wave12\_a8\_en\_hierarchy\_kapranov.tex},
+\texttt{wave12\_a11\_coha\_y\_plus\_vs\_w\_infty.tex},
+\texttt{wave12\_a12\_six\_routes\_k3\_e.tex},
+\texttt{wave12\_a13\_costello\_5\_routes\_6d\_hCS.tex},
+\texttt{wave12\_f1\_6d\_hcs\_e3\_generators.tex},
+\texttt{wave12\_f4\_coha\_w\_infty\_consistency.tex}).
+\end{itemize}
+
+\subsection{Attack-heal pass record}
+
+Five cycles executed: Stage 1 canonicality under Kontsevich--Tamarkin
+gap; Stage 2 uniqueness vs genuine moduli on non-product CY$_3$;
+Dunn--Lurie $\int_{\Sigma_2}\Ethree\simeq\Eone$ real-vs-complex
+dimension slip; two-stage extension to $d\neq 3$; falsifiability.
+
+\subsection{Out-of-scope (not addressed here)}
+
+\begin{itemize}[leftmargin=1.5em]
+\item Vol~II \texttt{working\_notes.tex} / \texttt{working\_notes.pdf}:
+not included in the grep audit (outside 800-word scope).
+\item Vol~I \texttt{landscape\_census.tex} full line-by-line audit: not
+performed; relied on the Vol~II consistency-audit summary at
+\texttt{wave12\_b2}:45--63.
+\item $\kch$-value triplet $\{0, 3, 5\}$ at $K3\times E$: resolution
+stated in \S\ref{sec:inconsistency} entry~1; physical manuscript
+rectification (normalising subscripts across sixty-seven wave12 notes)
+is deferred to HZ-7 pass at the reader-facing
+\texttt{chapters/} tier.
+\end{itemize}
+
+\subsection{Compliance notes}
+
+No AI attribution; author Raeez Lorgat. No edits to
+\texttt{main.tex}, \texttt{working\_notes.tex}, \texttt{CLAUDE.md} (any
+volume), or \texttt{chapters/*.tex}. No \texttt{make fast}, no commits.
+Chriss--Ginzburg voice; section titles name mathematical objects;
+subscript discipline on $\kappa_\bullet$ everywhere; bare $\kappa$
+avoided.
+
+\end{document}

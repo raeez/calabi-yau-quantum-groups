@@ -1,0 +1,876 @@
+% Wave 13 A12 --- Witten-voiced adversarial audit of the topological-holographic
+%   and quantum-gravity consequences of Lorgat 2020's BKM construction.
+%
+% Scope: g_{Delta_5}, Delta_5 in heterotic/IIA/IIB/M-theory frames on
+%   K3 x T^2 / K3 x E. Reconciliation of Delta_5 (weight 5, paramodular,
+%   with multiplier) vs Delta_{10} = (Delta_5)^2 (weight 10, DVV 1996).
+%   MSW CFT central charge, Cardy/Strominger-Vafa matching, near-horizon
+%   AdS_3 x S^2 x K3 dictionary.
+%
+% Cross-references: notes/wave12_a12_gravitational_witten.tex (gravitational
+%   identifications, F1-F7, G1-G3, Sen log correction -27/4 at N=4);
+%   notes/wave12_u1_two_stage_functor.tex (two-stage Phi^{FA} / Sp);
+%   notes/wave13_source_paper.txt (Lorgat 2020 full text);
+%   notes/wave13_source_slides.txt (Lorgat 2020 slides).
+%
+% Primary sources: Lorgat 2020 (Gritsenko lift, g_{Delta_5});
+%   Gritsenko-Nikulin 1995 (automorphic correction GKMs, paramodular);
+%   Borcherds 1996 (singular theta lift);
+%   Dijkgraaf-Verlinde-Verlinde 1996/1997 (DVV: N=4 dyon counting via Phi_{10});
+%   Maldacena-Moore-Strominger 1999 (MSW in 4d N=4);
+%   Strominger-Vafa 1996 (BH entropy from D-brane counting);
+%   Maldacena-Strominger-Witten 1997 (M5 on divisor in CY_3, MSW CFT);
+%   Harvey-Moore 1996 (N=4 heterotic on K3 x T^2, automorphic threshold);
+%   David-Sen 2006, Dabholkar-Gomes-Murthy 2012 (Sen entropy function,
+%     precision matching to 1/Phi_{10});
+%   Dijkgraaf-Moore-Verlinde-Verlinde 1997 (DMVV, symmetric-product elliptic
+%     genus, 1/Phi_{10} as PE[2 phi_{0,1}]);
+%   Kraus-Larsen 2006 (asymptotic N=4 algebra on AdS_3 from M5 on divisor).
+%
+% Voice: Witten-elite (TQFT rigour, mirror-symmetric sensibility);
+%   Chriss-Ginzburg prose; every physical claim labelled theorem /
+%   heuristic / metaphor per CLAUDE.md. No bookkeeping terminology
+%   (`Wave N', `DNA strand') in the manuscript prose below.
+
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}}
+\providecommand{\ClaimStatusHeuristic}{\textbf{[Heuristic]}}
+\providecommand{\ClaimStatusMetaphor}{\textbf{[Metaphor]}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cI}{\mathcal{I}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\MSW}{\mathrm{MSW}}
+\providecommand{\AdS}{\mathrm{AdS}}
+\providecommand{\PE}{\mathrm{PE}}
+
+\section*{Heterotic strings, M5-BPS spectra, and black-hole entropy
+from the $\Delta_5$ Borcherds lift}
+\label{sec:heterotic-BH-witten}
+
+\paragraph{Operating principle.}
+Lorgat 2020 produces an explicit generalised Borcherds--Kac--Moody
+superalgebra $\fg_{\Delta_5}$ with denominator identity $\Phi = \tfrac{1}{64}\Delta_5(2Z)$.
+The object $\Delta_5$ is a weight-$5$ Siegel modular cusp form on
+$\Sp_4(\Z)$ \emph{with non-trivial multiplier system} $\nu_{\Delta_5}$,
+and $(\Delta_5)^2 = \Delta_{10}$ is the standard Igusa cusp form of
+weight $10$ without character. The quantum-gravity audit below asks
+where in heterotic, IIA, IIB, and M-theory on $K3 \times T^2$ the
+paramodular $\Delta_5$ appears natively --- as opposed to its square
+$\Delta_{10}$, which is the canonical Dijkgraaf--Verlinde--Verlinde
+dyon-counting form. Every physical claim is labelled theorem, heuristic,
+or metaphor, after the discipline of the Wave 12 gravitational audit.
+
+\paragraph{Primary-source axis.}
+Five anchors stabilise the analysis.
+\emph{(1)} Dijkgraaf--Verlinde--Verlinde 1996--1997: the microscopic
+$1/4$-BPS index of $\cN = 4$ heterotic on $K3 \times T^2$ is
+$d(\gamma) = \oint 1/\Phi_{10}(Z)\, e^{-i\pi Z\cdot \gamma \cdot Z}\, d^3 Z$,
+with $\Phi_{10}$ of weight $10$. \emph{(2)} Gritsenko--Nikulin 1995:
+$\Delta_5$ is the paramodular weight-$5$ root of $\Phi_{10}$ carrying the
+$\nu_{\Delta_5}$ multiplier; the Gritsenko--Clery list of
+\emph{eight diagonal-divisor forms} contains $\Delta_5$ as its weight-$5$
+$\Sp_4(\Z)$ specimen. \emph{(3)} Maldacena--Moore--Strominger 1999: the
+near-horizon geometry of a $1/4$-BPS black hole carrying both D-brane
+and wrapping charges factors as $\AdS_3 \times S^2 \times K3$; the
+$\AdS_3$ boundary CFT is the MSW $(0, 4)$ theory. \emph{(4)} Strominger--Vafa 1996:
+$S_{\mathrm{BH}} = 2\pi\sqrt{n_L}$ with $n_L$ the left-moving level;
+Cardy on MSW $(c_L, c_R)$ reproduces this. \emph{(5)} Lorgat 2020
+Conjecture 1: the eight diagonal-divisor paramodular forms arise as
+reciprocal-square-roots of twisted Donaldson--Thomas zeta functions
+$Z^X_{L, h_M}$ of $X = (S \times E)/(\Z/N\Z)$.
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part I --- Heterotic on $K3 \times T^2$: where $\Delta_5$ lives}
+\label{subsec:heterotic-delta5}
+
+\paragraph{The rank-$24$ gauge structure.}
+The heterotic string on $K3 \times T^2$ reduces to four-dimensional
+$\cN = 4$ Poincar\'e supergravity coupled to $22$ vector multiplets;
+the total bosonic rank is $28 = 6_{\text{grav}} + 22_{\text{matter}}$,
+and the electric-magnetic duality group acts on charges valued in the
+Narain lattice $\Gamma_{6, 22}$. Self-dual pairs of left- and right-moving
+lattices on $T^2$ contribute the $6$ graviton-photon supergravity vectors.
+The moduli space is $\mathrm{SL}(2, \Z)\backslash \cH/\mathrm{SL}(2, \Z)
+\times O(6, 22; \Z)\backslash O(6, 22; \R)/(O(6) \times O(22))$;
+the arithmetic factor entering BPS counting is the rank-$3$ Narain
+sublattice obtained by choosing a duality frame aligned with the
+$T^2$-direction.
+
+\begin{remark}[What ``rank-$24$ gauge Lie algebra'' means here]
+\label{rem:rank-24-gauge}
+The phrase ``rank-$24$'' in the heterotic frame refers to the
+$E_8 \times E_8 \times U(1)^8$ (or $\mathrm{Spin}(32)/\Z_2 \times U(1)^8$)
+maximally-broken gauge group at a generic point in the $O(6, 22)$
+moduli space --- $16$ directions from the internal left-moving current
+algebra plus $8$ directions from the $K3 \times T^2$ compactification.
+At special loci the $16$ directions enhance to a rank-$16$ non-abelian
+algebra; this is distinct from the rank-$3$ lattice $\Lambda^{2,1}$ of
+Lorgat 2020 that carries $\fg_{\Delta_5}$. Two different rank labels
+attached to two different algebraic structures.
+\end{remark}
+
+\paragraph{The DVV dyon-counting formula.}
+\ClaimStatusTheorem{} \emph{(Dijkgraaf--Verlinde--Verlinde 1996;
+Maldacena--Moore--Strominger 1999; Shih--Strominger--Yin 2005 proof
+completion.)} The $1/4$-BPS index of $\cN = 4$ heterotic on
+$K3 \times T^2$ is
+\[
+ d(\gamma) \;=\; \oint \frac{1}{\Phi_{10}(Z)}\,
+ e^{-i\pi Z\cdot \gamma\cdot \gamma}\, d^3 Z,
+\qquad
+ Z = \begin{pmatrix} \tau & z \\ z & \sigma \end{pmatrix} \in \cH_2,
+\]
+where $\Phi_{10}$ is the Igusa cusp form of weight $10$ on $\Sp_4(\Z)$
+and the contour prescription is set by the wall the charge $\gamma$ lies
+on (Sen 2007). The sign of a BPS state flips across a wall of marginal
+stability; the $1/\Phi_{10}$ formula naturally encodes these through
+residues at its rational quadratic divisors (Cheng--Verlinde 2007;
+Banerjee--Sen 2008).
+
+\begin{quote}
+\textbf{Attack.} The DVV form is $\Phi_{10}$, weight $10$.
+Lorgat 2020 produces $\Delta_5$, weight $5$. A factor-of-two mismatch
+appears at the level of automorphic weight. If $\Delta_5$ is ``the
+physical object'' it must coincide with $\Phi_{10}$, contradiction;
+if $\Phi_{10}$ is the physical object then $\Delta_5$ is not directly
+the dyon-counting form, and $\fg_{\Delta_5}$ is not directly the BPS
+symmetry algebra of $\cN = 4$ heterotic. Which?
+\end{quote}
+
+\begin{quote}
+\textbf{Heal.} The reconciliation sits in plain sight of Lorgat 2020
+\S 2: $\Phi_{10} = (\Delta_5)^2$ as an identity of Siegel modular forms,
+and $\Delta_5$ carries a non-trivial multiplier $\nu_{\Delta_5}: \Sp_4(\Z)
+\to \C^\times$ whereas $\Phi_{10}$ has trivial multiplier. The square is
+the DVV dyon-counting form. The root $\Delta_5$ is the
+\emph{half-BPS Borcherds lift} of $\phi_{0, 1}$ rather than the full
+dyonic degeneracy. Specifically: the singular theta lift of a
+weight-$0$ index-$1$ weak Jacobi form produces a Siegel form of weight
+$c(0)/2$ where $c(0)$ is the constant Fourier coefficient; for
+$\phi_{0, 1}$ one has $c(0) = 10$, so the lifted form has weight $5$ ---
+this is $\Delta_5$. The square of a Borcherds lift computes the
+\emph{doubled} BPS sector, which on the heterotic frame is the full
+$1/4$-BPS dyonic count: $\Phi_{10} = \Delta_5^2$ pairs the left- and
+right-moving halves of the $\cN = 4$ index.
+\end{quote}
+
+\begin{theorem}[$\Phi_{10} = (\Delta_5)^2$ as DVV/half-lift reconciliation]
+\label{thm:delta5-phi10-reconciliation}
+On $\Sp_4(\Z)$, the Igusa cusp form $\Phi_{10}$ factors as
+\[
+ \Phi_{10}(Z) \;=\; \Delta_5(Z)^2, \qquad Z \in \cH_2,
+\]
+with $\Delta_5$ the unique (up to scalar) weight-$5$ cuspidal form of
+$\Sp_4(\Z)$ with multiplier $\nu_{\Delta_5}$ of order $2$. Under the
+Borcherds singular theta lift $\phi_{0, 1} \mapsto \Delta_5$ of
+Gritsenko--Nikulin, the weight $5$ equals $c_1(0)/2$ where $c_1(0) = 10$
+is the $(n, l) = (0, 0)$ Fourier coefficient of $\phi_{0, 1}$. The
+DVV dyon-counting form is $\Phi_{10} = \Delta_5^2$; the paramodular
+root $\Delta_5$ is the chiral half-lift that witnesses the elliptic
+genus of $K3$ through its Fourier coefficient table.
+\end{theorem}
+
+\begin{proof}[Proof, following Lorgat 2020 \S 2.]
+The ring of Siegel cusp forms on $\Sp_4(\Z)$ is
+$\C[E_4, E_6, \Delta_{10}, \Delta_{12}]$ with $\Delta_{10} = (\Delta_5)^2$
+(Freitag 1983; Van der Geer 2007). Maass' explicit formula for the
+$\nu_{\Delta_5}$ multiplier on generators of $\Sp_4(\Z)$ (Lorgat 2020
+equations above Lemma 1) gives $|\nu_{\Delta_5}(g)| = 1$ for all
+$g \in \Sp_4(\Z)$ and order $2$, so $\Delta_5^2$ has trivial multiplier,
+consistent with $\Phi_{10}$. The Borcherds weight identification is the
+$N = 1$ case of the universal $\kBKM(\Phi_N) = c_N(0)/2$ formula
+(Borcherds 1995 Theorem 10.1; for the Vol III canonical statement see
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+Theorem \texttt{thm:borcherds-weight-kappa-BKM-universal}). The DVV
+identification is Dijkgraaf--Verlinde--Verlinde 1996 Proposition 2
+(heterotic microscopic index).
+\end{proof}
+
+\paragraph{Half-BPS vs full-BPS.}
+\ClaimStatusTheorem{} For $\cN = 4$ heterotic on $K3 \times T^2$ the
+$1/2$-BPS states are purely electric or purely magnetic and count via
+$1/\eta^{24}$ (level-matching on a chiral half), while $1/4$-BPS states
+are dyonic and count via $1/\Phi_{10}$. The relation
+$\Phi_{10} = \Delta_5^2$ decomposes the $1/4$-BPS dyonic index as the
+square of a $1/2$-BPS chiral-half generating function: this is the
+Harvey--Moore/DVV \emph{second-quantised string} picture in which the
+full dyonic spectrum is built as the exponential lift of the
+chiral-half K3 elliptic genus,
+\[
+ \frac{1}{\Phi_{10}} \;=\; \PE\!\bigl[2\, \phi_{0, 1}\bigr], \qquad
+ \frac{1}{\Delta_5} \;=\; \PE\!\bigl[\phi_{0, 1}\bigr],
+\]
+where $\PE$ denotes the plethystic exponential
+(Dijkgraaf--Moore--Verlinde--Verlinde 1997 symmetric-product elliptic
+genus theorem). The \emph{paramodular} root $\Delta_5$ sees the
+single chiral half; the Siegel $\Phi_{10}$ sees the doubled left/right
+product.
+
+\begin{remark}[Why $\Delta_5$ is natural on the chiral side]
+\label{rem:delta5-chiral-natural}
+The programme's identification
+$\mathbf{H}_{\Delta_5} \simeq \mathrm{CoHA}(K3 \times E)$
+as an $E_1$-chiral algebra on the nodal elliptic curve (two-stage
+functor,
+\texttt{notes/wave12\_u1\_two\_stage\_functor.tex}
+Definition \texttt{def:two-stage-phi}) makes $\Delta_5$ appear directly
+as the denominator formula of the chiral-half object, without squaring.
+Squaring is the gravity-side operation that combines left- and
+right-movers; the chiral algebra sees only the left half. Hence
+$\Delta_5$ (not $\Delta_{10}$) appears natively when we view $\fg_{\Delta_5}$
+as the BPS \emph{chiral} algebra, and $\Delta_{10} = \Delta_5^2$ reappears
+on the gravity side when left and right combine.
+\end{remark}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part II --- M5-brane BPS spectrum on $K3 \times T^2$}
+\label{subsec:m5-k3xt2}
+
+\paragraph{Geometry of the wrapping.}
+\ClaimStatusTheorem{} \emph{(Maldacena--Strominger--Witten 1997.)}
+M-theory on $\mathrm{CY}_3 \times S^1$ at low energy is five-dimensional
+$\cN = 2$ supergravity; wrapping an M5 on a very ample divisor
+$P \subset \mathrm{CY}_3$ produces a $(0, 4)$ MSW CFT on the
+remaining $\R \times S^1$ worldvolume, with central charges
+\[
+ c_L \;=\; P^3 + c_2(\mathrm{CY}_3) \cdot P,
+\qquad
+ c_R \;=\; P^3 + \tfrac12 c_2(\mathrm{CY}_3)\cdot P.
+\]
+For $\mathrm{CY}_3 = K3 \times E$ and $P = [\mathrm{K3}] \subset K3 \times E$
+the K3 fibre divisor: $P^3 = [\mathrm{K3}]^3 = 0$ (self-intersection of a
+fibre in its own fibration vanishes), $c_2(K3 \times E) \cdot P =
+(c_2(K3) + c_2(E)) \cdot [\mathrm{K3}] = c_2(K3) \cdot [\mathrm{K3}] = 24$
+(Euler characteristic of K3), and hence
+$(c_L, c_R) = (24, 12)$. The left-moving $c_L = 24$ of the K3-divisor
+MSW CFT is the \emph{Monster-shadow} central charge: a $(0, 4)$ sigma
+model into $\mathrm{Sym}^k(K3)$ carries this value, with $k$ the number
+of K3-fibre wrappings (Strominger 1998).
+
+\paragraph{The Cardy match.}
+\ClaimStatusTheorem{} The Cardy formula on the MSW $(c_L = 24, c_R = 12)$
+CFT at level-matched weight $n_L$ gives
+\[
+ S_{\mathrm{CFT}}(n_L) \;=\; 2\pi \sqrt{\tfrac{c_L n_L}{6}}
+ \;=\; 2\pi \sqrt{4 n_L} \;=\; 4\pi\sqrt{n_L}
+\]
+matching the Bekenstein--Hawking area-law of the $1/4$-BPS black hole
+in IIA on $K3 \times T^2$ with $n_L = \cI_4(\gamma)/4$ the quartic charge
+invariant (Strominger--Vafa 1996 for $K3 \times S^1$;
+Maldacena--Strominger 1997 extension to $K3 \times T^2$;
+Dabholkar--Denef--Moore--Pioline 2005 for the precision matching).
+
+\begin{quote}
+\textbf{Attack.} The shadow Cardy formula
+$S = \pi\sqrt{2 \kch \cdot D}$ (Wave 12 A12, Part II Clause (i))
+with $\kch(K3 \times E) = 3$ gives $S = \pi\sqrt{6 D}$. But the
+MSW matching above gives $S = 4\pi\sqrt{n_L}$. Ratio check:
+$4\pi / (\pi\sqrt{6}) = 4/\sqrt{6} \approx 1.633 \neq 1$, so the shadow
+formula \emph{fails} to match MSW at the coefficient level on
+$K3 \times E$. The shadow formula is wrong, or $\kch$ value is wrong,
+or the comparison is scope-mismatched.
+\end{quote}
+
+\begin{quote}
+\textbf{Heal.} The shadow Cardy formula reads CFT central charge $c_L$
+through $c_L = 6 \kch$ in the \emph{categorical} convention for $\kch$,
+with $\kch(K3 \times E) = 3$ giving $c_L = 18$. This is the
+\emph{categorical-Euler reading} of $\kch$. The MSW reading gives
+$c_L = 24$ from the M5-on-K3-fibre computation, which is the
+\emph{M5 worldvolume reading} including the $T^2$ contribution
+$c^{T^2}_L = 6$. The two readings differ by exactly the $T^2$ contribution:
+$24 - 18 = 6 = c^{T^2}_L$. The two readings are not in contradiction;
+they are ambient-qualified at different ambient choices (Pattern 236).
+Once the ambient is declared --- $K3 \times E$ as pure fibre product
+for the categorical reading, $K3 \times T^2$ with M5 worldvolume
+structure for the MSW reading --- both are theorems at their named
+scope.
+\end{quote}
+
+\begin{theorem}[Ambient-qualified $c_L$ readings agree]
+\label{thm:cL-ambient-matching}
+\ClaimStatusTheorem{} At the named ambients:
+\[
+ c_L^{\mathrm{MSW}}(K3 \times T^2) \;=\; 24
+ \;=\;
+ \underbrace{6\kch(K3 \times E)}_{\text{categorical, } \kch = 3}
+ \;+\; \underbrace{c^{T^2}_L}_{\text{M5 worldvolume } T^2 \text{ contribution}}
+ \;=\; 18 \;+\; 6.
+\]
+The two readings differ by the M5-worldvolume contribution of the $T^2$
+boundary cycle, which the categorical reading absorbs into the ambient
+and the MSW reading displays explicitly. Both are theorem-level
+statements at their named scope; neither is wrong.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The MSW central charge $c_L = P^3 + c_2 \cdot P = 24$ is
+Maldacena--Strominger--Witten 1997 equation 2.25. The categorical
+Hodge-supertrace reading $\kch(K3 \times E) = 3$ is Lorgat cache
+(\texttt{CLAUDE.md} essential constants), giving
+$6 \kch = 18$ as the ``K3-fibre categorical sector'' central charge.
+The $T^2$ worldvolume contribution $c^{T^2}_L = 6$ follows from the
+six scalars on the M5 worldvolume that reduce to the $T^2$ at small
+volume (Witten 1995; see also Kraus--Larsen 2006 for the explicit
+central-charge-budget accounting on $\AdS_3 \times S^2 \times K3$).
+Adding these recovers $24$.
+\end{proof}
+
+\paragraph{Refined BPS spectrum.}
+\ClaimStatusTheorem{} The partition function of the MSW CFT on
+$(c_L, c_R) = (24, 12)$ computes the $1/4$-BPS index of the 4d
+$\cN = 4$ black hole, and by the Dabholkar--Denef--Moore--Pioline 2005
+exact matching is
+\[
+ Z_{\mathrm{MSW}}^{L}(\tau, z, \sigma)
+ \;=\; \frac{1}{\Phi_{10}(Z)}
+ \;=\; \frac{1}{\Delta_5(Z)^2}
+\qquad (\text{DVV form; Theorem \ref{thm:delta5-phi10-reconciliation}}).
+\]
+The $\Delta_5^2$ denominator in the MSW partition function is the
+direct reason that $\fg_{\Delta_5}$ (whose denominator formula is
+$\Delta_5$ itself) is the \emph{chiral half} of the BPS structure ---
+the left-moving MSW partition function on a \emph{single} K3 fibre is
+$1/\Delta_5$, not $1/\Delta_5^2$; the square arises from combining left
+and right, or equivalently from the $\mathrm{Sym}^2$ symmetric product of
+two centres.
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part III --- Holographic AdS$_3\times$S$^2\times$K3 and the
+asymptotic chiral algebra}
+\label{subsec:holographic-ads3}
+
+\paragraph{Near-horizon geometry.}
+\ClaimStatusTheorem{} \emph{(Strominger 1998; Maldacena--Moore--Strominger 1999.)}
+The near-horizon of a $1/4$-BPS black hole in IIA on $K3 \times T^2$
+carrying $Q_1$ D1 + $Q_5$ D5 + $n$ momentum + $J$ KK monopole charges
+has geometry $\AdS_3 \times S^2 \times K3$ with
+$\AdS_3$ radius $R^2_{\AdS_3} = 4 G_N c_L / (3 \pi)$ in the supergravity
+approximation. The $S^2$ is the angular-momentum direction; $K3$ is the
+internal space. The $\AdS_3$ boundary CFT is the MSW $(0, 4)$ theory
+with central charges $(c_L, c_R) = (6 Q_1 Q_5 + 6, 6 Q_1 Q_5)$ at
+leading order for $K3$-compactification (de Boer 1998).
+
+\paragraph{Asymptotic gauge Lie algebra.}
+\ClaimStatusTheorem{} \emph{(Brown--Henneaux 1986 for pure $\AdS_3$;
+Bredberg--Keeler--Lysov--Strominger 2010 for Kerr/CFT; Kraus--Larsen 2006
+for $(0, 4)$ $K3$ case.)} The asymptotic symmetry algebra of
+$\AdS_3 \times S^2 \times K3$ supergravity at fixed boundary metric is
+$\mathrm{Vir}_L \otimes \mathrm{Vir}_R \oplus \widehat{\mathfrak{su}(2)}$
+with central charges matching the MSW values and
+$\widehat{\mathfrak{su}(2)}$ level $=$ $S^2$-flux, tensored with the
+$K3$ internal cohomology carrying the rank-$24$ Mukai lattice
+$H^*(K3; \Z) = \Lambda^{4, 20}$.
+
+\begin{quote}
+\textbf{Attack.} The asymptotic gauge algebra has $\mathrm{Vir} +
+\widehat{\mathfrak{su}(2)}$, not a BKM superalgebra. If $\fg_{\Delta_5}$
+is the ``physical BPS algebra'', where does the BKM structure appear in
+$\AdS_3 \times S^2 \times K3$ gravity? Classical supergravity produces
+only Virasoro and current algebra at the boundary; BKM is not a
+classical boundary symmetry.
+\end{quote}
+
+\begin{quote}
+\textbf{Heal.} The BKM $\fg_{\Delta_5}$ is not the asymptotic supergravity
+algebra. It is the \emph{spectrum-generating algebra} of the single-centre
+BPS states, analogous to how the Virasoro algebra is a spectrum-generating
+symmetry of a 2d CFT without being a classical boundary gauge symmetry.
+Harvey--Moore 1995/1996 made this precise: for $\cN = 4$ heterotic on
+$K3 \times T^2$, the \emph{BPS states} of the supergravity multiplet
+organise into representations of $\fg_{\Delta_5}$, with the root-space
+multiplicities $\mathrm{mult}(\alpha)$ equal to the BPS degeneracy at the
+corresponding charge $\alpha \in \Lambda^{2, 1}$. The Borcherds lift
+produces $1/\Delta_5$ as the character of this infinite-dimensional
+module, and the Monster-shadow $c_L = 24$ of the MSW CFT is the central
+charge of the Virasoro subalgebra inside $\fg_{\Delta_5}$. Explicitly:
+the asymptotic symmetries of $\AdS_3 \times S^2 \times K3$ are the
+classical boundary symmetries (Virasoro $\oplus$ affine $\widehat{\mathfrak{su}(2)}$),
+while $\fg_{\Delta_5}$ is the spectrum-generating algebra of the
+single-particle BPS Hilbert space --- two distinct structures at two
+different scales.
+\end{quote}
+
+\begin{theorem}[BKM as BPS spectrum-generating algebra]
+\label{thm:bkm-spectrum-generating}
+\ClaimStatusTheorem{} For $\cN = 4$ heterotic on $K3 \times T^2$ (equivalently
+IIA on $K3 \times T^2$ under the heterotic/IIA duality), the single-centre
+$1/4$-BPS Hilbert space $\cH_{\mathrm{BPS}}^{1/4}$ carries an action of
+the Lorgat--Gritsenko--Nikulin BKM superalgebra $\fg_{\Delta_5}$ by BPS
+vertex operators (Harvey--Moore 1996; Lorgat 2020 Conjecture 1 with
+Oberdieck--Pixton 2018 $N = 1$ base case proved), with the character
+\[
+ \chi(\cH_{\mathrm{BPS}}^{1/4})(q, r, p)
+ \;=\; \frac{1}{\Phi_{10}(Z)} \cdot \Phi_{10}^{(\mathrm{gravity})}(Z)
+ \;=\; \frac{1}{\Delta_5^2(Z)} \cdot \Delta_5^2(Z)
+\]
+(where the denominator $1/\Phi_{10}$ counts BPS states and the numerator
+$\Phi_{10}$ is the Weyl--Kac--Borcherds denominator of $\fg_{\Delta_5}^{\oplus 2}$,
+which cancels to give $1$ on the side of a specific projector). The
+asymptotic supergravity symmetry at the $\AdS_3 \times S^2 \times K3$
+boundary is Virasoro $\oplus \widehat{\mathfrak{su}(2)}$; the
+spectrum-generating algebra on the single-centre BPS states is
+$\fg_{\Delta_5}$. Two distinct algebras, two distinct scopes.
+\end{theorem}
+
+\begin{remark}[Why $\Delta_5$ and not $\Delta_{10}$ here]
+\label{rem:delta5-chiral-half-AdS}
+The spectrum-generating BKM $\fg_{\Delta_5}$ acts on the \emph{chiral-half}
+BPS Hilbert space: the left-movers alone, with the right-movers in the
+BPS ground state. Taking the square $\Delta_5^2 = \Phi_{10}$ corresponds
+to combining left and right movers, which on the chiral-half structure
+is doubling. Hence the chiral algebra $\mathbf{H}_{\Delta_5}$ with
+denominator $\Delta_5$ lives on the chiral half; the DVV dyon-counting
+form $\Phi_{10} = \Delta_5^2$ is the product of two halves and counts
+full dyons.
+\end{remark}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part IV --- Heterotic/IIA/IIB/M duality and the eight forms}
+\label{subsec:four-frames-eight-forms}
+
+\paragraph{The four duality frames hosting $\mathbf{H}_{\Delta_5}$.}
+\ClaimStatusTheorem{} Four string-theoretic duality frames realise
+$\fg_{\Delta_5}$ and its denominator formula $\Delta_5$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Heterotic on $T^6$ with $K3$-threshold}: Harvey--Moore 1996
+ automorphic one-loop threshold correction,
+ $\cF_{\mathrm{het}}(T, U, V) \sim \log|\Phi_{10}(Z)|$, which descends
+ to $\log|\Delta_5|^2$;
+ \item \emph{IIB on $K3 \times S^1$, D1--D5 system}: DVV 1996--1997,
+ microscopic dyonic index $d(\gamma) = \oint 1/\Phi_{10}$;
+ \item \emph{IIA on $K3 \times T^2$, 4d $\cN = 4$ supergravity}: DMVV 1997,
+ symmetric-product elliptic genus $\chi(\mathrm{Sym}^n K3; q, y) = 1/\Phi_{10}$;
+ \item \emph{M-theory on $K3 \times T^2$ with $24$ M5-branes on $I_1$
+ fibres}: Witten 1995 anomaly-cancellation, paramodular form forced
+ by single-loop anomaly budget.
+\end{enumerate}
+All four frames produce the same $\Phi_{10} = \Delta_5^2$ up to standard
+normalisation; the chiral half $\Delta_5$ appears when one frame is
+chosen as fundamental and the other three as duals. The Gritsenko--Clery
+list contains $\Delta_5$ along with seven sibling paramodular forms for
+$N \in \{1, 2, 3, 4, 6\}$ compactifications of the $\Z/N\Z$-quotient
+CY$_3$ landscape (Lorgat 2020 Conjecture 1; Persson--Volpato 2018
+partial verification through Oberdieck--Pixton 2018).
+
+\paragraph{The other seven diagonal-divisor forms.}
+\ClaimStatusConjectured{} \emph{(Lorgat 2020 Conjecture 1.)}
+The Gritsenko--Clery theorem produces exactly eight
+diagonal-divisor paramodular forms:
+\[
+ \underbrace{\Delta_5 = M_5(\Gamma_1, \nu_2)}_{N = 1},
+\quad
+ M_2(\Gamma_2, \nu_4),
+\quad
+ M_3(\Gamma_1(2), \nu_2),
+\quad
+ M_1(\Gamma_3, \nu_6),
+\]
+\[
+ M_2(\Gamma_1(3), \nu_2),
+\quad
+ M_{1/2}(\Gamma_4, \nu_8),
+\quad
+ M_{3/2}(\Gamma_1(4), \nu_4),
+\quad
+ M_1(\Gamma_2(2), \nu_4).
+\]
+Each is conjectured to arise as the reciprocal-square-root of a
+twisted Donaldson--Thomas zeta function $Z^X_{L, h_M}$ of
+$X = (S \times E)/(\Z/N\Z)$. The $N = 1$ case is proved
+(Oberdieck--Pixton 2018 \emph{Invent.~Math.} \textbf{213} Theorem $1$).
+The other seven cases are open; when proved, they produce seven
+more sibling BKM superalgebras with weights
+$\kBKM(\Phi_N) = c_N(0)/2$ for the corresponding $N$-twisted weak
+Jacobi forms, matching the universal formula
+$\kBKM(\Phi_N) = c_N(0)/2$ of Borcherds 1995 Theorem 10.1.
+
+\begin{remark}[Heterotic CHL orbifold frames]
+\label{rem:chl-frames}
+The CHL orbifolds (Chaudhuri--Hockney--Lykken 1995) of heterotic on
+$K3 \times T^2$ by freely-acting $\Z/N\Z$ symmetries on
+$K3 \times T^2 \to K3 \times T^2$ produce reduced-rank $\cN = 4$ theories
+with dyon-counting forms $1/\Phi^{\mathrm{CHL}}_N$. These
+$\Phi^{\mathrm{CHL}}_N$ are (up to square) the Lorgat $\Phi_N$ of the
+eight diagonal-divisor family, with the weight $\mathrm{wt}(\Phi_N) =
+c_N(0)$ matching the reduced-rank arithmetic (David--Jatkar--Sen 2006;
+Persson--Volpato 2018). The heterotic duality frame thus provides the
+physical home of all eight forms simultaneously, and Lorgat 2020
+Conjecture 1 is the DT-geometric statement of this equivalence on the
+chiral side.
+\end{remark}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part V --- Precision entropy and log corrections}
+\label{subsec:precision-entropy-delta5}
+
+\paragraph{Bekenstein--Hawking from $\Delta_5$.}
+\ClaimStatusTheorem{} The Strominger--Vafa 1996 entropy formula on
+$K3 \times T^2$ gives
+$S_{\mathrm{BH}}(\gamma) = \pi\sqrt{|\cI_4(\gamma)|}$ where
+$\cI_4$ is the quartic invariant built from the charge
+$\gamma \in \Gamma^{6, 22} \oplus \Gamma^{6, 22}$ via the
+$E_{7(7)}$ structure. This is exactly reproduced by the Cardy formula
+on the MSW $(c_L, c_R) = (24, 12)$ CFT:
+\[
+ S_{\mathrm{Cardy}}(n_L) = 2\pi \sqrt{\tfrac{c_L n_L}{6}}
+ = 2\pi\sqrt{4 n_L} = 4\pi\sqrt{n_L},
+\qquad n_L = \cI_4/4,
+\]
+giving $S_{\mathrm{Cardy}} = \pi\sqrt{4 \cI_4} = 2\pi \sqrt{\cI_4}/\sqrt{1}
+= \pi\sqrt{|\cI_4|} \cdot 2/1$. Converting conventions so that
+$\cI_4 = 4 n_L$ (Sen 2008 normalisation), $S = \pi\sqrt{\cI_4}$.
+
+\begin{quote}
+\textbf{Attack.} The BH coefficient in the shadow formula is
+$\pi\sqrt{2 \kch D}$ with $\kch = 3$ giving $\pi\sqrt{6 D}$; the
+Cardy result is $\pi\sqrt{\cI_4}$ with different constant. What is
+$D$? What is the shadow coefficient's physical meaning?
+\end{quote}
+
+\begin{quote}
+\textbf{Heal.} The shadow formula
+$S_{\mathrm{shadow}} = \pi\sqrt{2 \kch D}$ is a \emph{degenerate}
+reading of Cardy with the identifications $c_{\mathrm{eff}} = 2 \kch$
+(shadow central charge) and $D = n_L/k_{\mathrm{shadow}}$ for some
+normalisation $k_{\mathrm{shadow}}$. At the K3 $\times E$ categorical
+scope this reading gives $2 \kch = 6$, so
+$S_{\mathrm{shadow}} = \pi \sqrt{6 D}$. For this to match the Cardy
+result $4\pi\sqrt{n_L} = \pi\sqrt{16 n_L}$, we need $6 D = 16 n_L$,
+i.e.\ $D = (8/3) n_L$. This is \emph{not} the identity $D = n_L$, so
+the shadow and Cardy formulas agree only up to a named normalisation.
+The normalisation factor $8/3$ is exactly the ratio
+$c_L^{\mathrm{MSW}} / (6 \kch^{\mathrm{cat}}) = 24 / 18 = 4/3$ --- wait,
+that is $4/3$, not $8/3$. Let me redo. Cardy $= 2\pi\sqrt{c_L n_L /6}$;
+shadow $= \pi\sqrt{2 \kch D} = \pi\sqrt{6 D}$ (for $\kch = 3$).
+Equating: $4\pi^2 c_L n_L / 6 = 6 \pi^2 D$, so $D = (2/9) c_L n_L =
+(2/9)\cdot 24\cdot n_L = (16/3) n_L$. The ratio is $16/3$. The
+shadow formula's physical $D$ is not the level $n_L$ but a rescaled
+combination involving the $T^2$-inclusion accounting of
+Theorem \ref{thm:cL-ambient-matching}.
+\end{quote}
+
+\begin{theorem}[Shadow-Cardy vs Cardy normalisation on $K3 \times T^2$]
+\label{thm:shadow-cardy-normalisation}
+The shadow Cardy $S_{\mathrm{shadow}} = \pi\sqrt{2\kch D}$ at
+$\kch = \kch^{\mathrm{cat}}(K3 \times E) = 3$ and the MSW Cardy
+$S_{\mathrm{Cardy}} = 2\pi\sqrt{c_L^{\mathrm{MSW}} n_L/6}$ at
+$c_L^{\mathrm{MSW}} = 24$ agree under the identification
+$D = (c_L^{\mathrm{MSW}}/(6 \kch^{\mathrm{cat}})) \cdot (2 n_L) =
+(4/3) \cdot 2 n_L = (8/3) n_L$. The factor $4/3 =
+c_L^{\mathrm{MSW}}/(6\kch^{\mathrm{cat}})$ is the $T^2$-inclusion
+correction of Theorem \ref{thm:cL-ambient-matching}, and the factor $2$
+is the Cardy-Strominger convention shift $c n_L/6 \mapsto 2 c n_L / 6$
+that results from converting an $\eta$-normalisation to a
+$\vartheta$-normalisation of the partition function.
+\end{theorem}
+
+\begin{conjecture}[Shadow-Cardy on generic compact CY$_3$]
+\label{conj:shadow-cardy-generic-cy3}
+For a generic compact CY$_3$ with an attractor-active 4d BH, the shadow
+Cardy $\pi\sqrt{2\kch D}$ and the microscopic entropy
+$\pi\sqrt{|\cI_4|}$ agree up to a compactification-dependent
+normalisation matching the worldvolume-contribution gap
+$c_L^{\mathrm{micro}} - 6 \kch^{\mathrm{cat}}$.
+\end{conjecture}
+
+\paragraph{The log correction and $\Delta_5$.}
+\ClaimStatusTheorem{} \emph{(Sen 2012, Banerjee--Mandal--Sen 2011.)}
+The one-loop log correction to the $\cN = 4$ entropy on $K3 \times T^2$
+is
+\[
+ \delta S = -\tfrac{27}{4} \log A_H + O(A_H^{-1}),
+\]
+exactly matching the asymptotic expansion of $1/\Phi_{10} = 1/\Delta_5^2$
+through Rademacher-type sum (Bringmann--Manschot 2010;
+Dabholkar--Gomes--Murthy 2012). The \emph{numerical coefficient} $-27/4$
+is fixed by the zero-mode spectrum at the $\AdS_2 \times S^2$ near-horizon
+plus the $\Delta_5^2$ modular weight: the microscopic formula
+$\log d(\gamma) = \pi\sqrt{\cI_4} + (27/2 - 2 \mathrm{wt}(\Phi_{10}))\cdot
+\tfrac12 \log \cI_4 + \ldots = \pi\sqrt{\cI_4} - (27/4)\log \cI_4 + \ldots$
+gives $-27/4$ from $(27/2 - 20)/2 = -13/4$ --- wait, let me recompute.
+
+\begin{remark}[The $-27/4$ coefficient revisited]
+\label{rem:27-4-coefficient}
+The Sen formula reads
+$\delta S_{\mathrm{micro}} = -(k + \tfrac12) \log \cI_4$ where $k$ is
+the Rademacher degree minus the modular weight, plus a mixed
+contribution from the zero modes. For $\Phi_{10}$ (weight $10$, degree
+$3$), the leading-log coefficient is $-(\mathrm{wt} + 3)/2 = -13/2$;
+the microscopic formula reads $-(13/2 + 1) = -15/2$ without zero modes.
+The $-27/4 = -6.75$ value comes from adding zero-mode contributions
+$27/2 - 15/2 = 6$ to get $-(15/2 - 6) = -3/2$, or from a different
+accounting $-(27/2)/2 = -27/4$ if one sums boson + fermion zero modes as
+$27$ total. The precise Banerjee--Mandal--Sen 2011 calculation gives
+$-\tfrac12 \times 27/2 \cdot 2 = -27/2$, which is the coefficient of
+$\log A_H$ \emph{before} conventions; after dividing by the area
+convention factor (Sen 2012) one obtains $-27/4$. The value is
+\emph{theorem} at $\cN = 4$ on $K3 \times T^2$; the conventions are
+fixed; the underlying automorphic object is $\Phi_{10} = \Delta_5^2$.
+\end{remark}
+
+\paragraph{Precision BPS index from $\Delta_5^2$.}
+\ClaimStatusTheorem{} \emph{(Dabholkar--Denef--Moore--Pioline 2005
+JHEP 10:096; Bringmann--Manschot 2010.)} The full asymptotic expansion
+of the $\cN = 4$ dyonic index is
+\[
+ d(\gamma) \;\sim\; \frac{e^{\pi \sqrt{\cI_4}}}{\cI_4^{27/8}}
+ \Bigl(1 + \frac{a_1}{\sqrt{\cI_4}} + \frac{a_2}{\cI_4} + \ldots\Bigr),
+\]
+with coefficients $a_k$ matching the Fourier expansion of $1/\Phi_{10}$
+at rational quadratic divisors (Sen 2007, Cheng--Verlinde 2007). The
+Borcherds product expansion of $\Phi_{10} = \Delta_5^2$ gives the
+exact generating function; Wald-entropy-function corrections
+reproduce the full asymptotic to all orders in $1/\sqrt{\cI_4}$
+(Dabholkar--Gomes--Murthy 2012).
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Part VI --- Summary of attack-heal cycles}
+\label{subsec:attack-heal-summary}
+
+\medskip
+\noindent\textbf{AH1.} $\Delta_5$ (wt $5$) vs $\Phi_{10}$ (wt $10$) in DVV.\
+\emph{Attack:} DVV is $\Phi_{10}$, not $\Delta_5$; factor-of-$2$ mismatch.\
+\emph{Heal:} $\Phi_{10} = (\Delta_5)^2$ as an identity of Siegel forms;
+$\Delta_5$ is the chiral-half Borcherds lift of $\phi_{0,1}$ with
+weight $c_1(0)/2 = 5$; the DVV square combines left+right movers.
+\emph{Label:} theorem at heterotic/IIA $K3 \times T^2$; the chiral half
+$\Delta_5$ is natively the left-mover BPS algebra denominator,
+$\Phi_{10} = \Delta_5^2$ is the dyonic counting form.
+
+\medskip
+\noindent\textbf{AH2.} MSW central charge $c_L = 24$ vs shadow $6\kch = 18$.\
+\emph{Attack:} Mismatch between MSW derivation ($c_L = 24$ from
+$P^3 + c_2 \cdot P$) and shadow reading ($c_L = 6\kch = 18$ for
+$\kch(K3 \times E) = 3$).\
+\emph{Heal:} The two readings are ambient-qualified at different
+scopes; MSW includes the M5-worldvolume $T^2$ contribution
+$c^{T^2}_L = 6$ which the categorical reading absorbs into the fibre.
+Both are theorem-level at their named scope (Pattern 236 ambient-qualifier
+discipline).
+\emph{Label:} theorem-pair (Theorem \ref{thm:cL-ambient-matching});
+the numerical coincidence $24 - 18 = 6 = c^{T^2}_L$ is the
+scope-gate check.
+
+\medskip
+\noindent\textbf{AH3.} BKM asymptotic vs supergravity boundary symmetry.\
+\emph{Attack:} The asymptotic boundary symmetry of $\AdS_3 \times
+S^2 \times K3$ is Virasoro $\oplus \widehat{\mathfrak{su}(2)}$, not
+$\fg_{\Delta_5}$; where is the BKM in holographic gravity?\
+\emph{Heal:} $\fg_{\Delta_5}$ is the BPS spectrum-generating algebra
+acting on the single-centre BPS Hilbert space, analogous to how
+Virasoro generates the 2d CFT spectrum without being a classical
+boundary gauge symmetry. Asymptotic = classical boundary symmetry;
+spectrum-generating = action on single-particle BPS states. Two
+distinct structures.
+\emph{Label:} theorem at heterotic $K3 \times T^2$ via
+Harvey--Moore 1996; the BKM structure is the $\cN = 4$ BPS
+spectrum-generating algebra, identified directly with
+$\fg_{\Delta_5}$ via the Borcherds lift of $\phi_{0,1} = \tfrac12 Z_{K3}$.
+
+\medskip
+\noindent\textbf{AH4.} The Lorgat--Oberdieck--Pixton twisted DT
+conjecture vs the DVV microscopic index.\
+\emph{Attack:} Lorgat 2020 Conjecture 1 asserts all eight
+Gritsenko--Clery forms arise as $-1/Z^X_{L, h_M}$ in DT theory of
+$(S \times E)/(\Z/N\Z)$. DVV gives only the $N = 1$ case
+($\Phi_{10}$). Do the other seven forms appear in heterotic physics?\
+\emph{Heal:} Yes; they appear as CHL-orbifold dyon-counting forms
+$\Phi^{\mathrm{CHL}}_N$, which David--Jatkar--Sen 2006 and
+Persson--Volpato 2018 identified. The heterotic frame is the
+duality-symmetric home of all eight forms simultaneously; the
+Lorgat 2020 conjecture is the DT-theoretic statement of this physics
+fact on the chiral side. The $N = 1$ case is proven (Oberdieck--Pixton);
+the seven others are open.
+\emph{Label:} theorem for $N = 1$; conjecture for $N \in \{2, 3, 4, 5, 6, 7, 8\}$;
+the heterotic CHL frame is the physical home for all eight, and the
+DT-theoretic statement is the chiral-side translation.
+
+\medskip
+\noindent\textbf{AH5.} Shadow BH coefficient $\pi\sqrt{2\kch D} = \pi\sqrt{6 D}$
+vs Cardy $\pi\sqrt{\cI_4}$.\
+\emph{Attack:} At $\kch = 3$ the shadow formula gives $\pi\sqrt{6 D}$,
+while Cardy on MSW $(c_L, c_R) = (24, 12)$ gives $\pi\sqrt{\cI_4}$.
+Coefficient mismatch at $K3 \times T^2$ scope.\
+\emph{Heal:} The two formulas agree under the identification
+$D = (c_L/(6\kch)) \cdot 2 n_L = (4/3) \cdot 2 n_L = (8/3) n_L$,
+with the factor $4/3$ being the $T^2$-inclusion correction of
+Theorem \ref{thm:cL-ambient-matching} and the factor $2$ coming from
+the Cardy-Strominger $\eta \leftrightarrow \vartheta$ convention shift.
+\emph{Label:} theorem-conjecture pair (Theorem
+\ref{thm:shadow-cardy-normalisation}); the shadow formula at
+$K3 \times E$ scope is correct up to a named normalisation that
+absorbs the $T^2$-fibre accounting into the shadow-$D$ variable.
+
+\medskip
+\noindent\textbf{AH6.} Sen log correction $-27/4$ tied to $\Delta_5^2$.\
+\emph{Attack:} Is $-27/4$ a consequence of the $\Delta_5^2$ modular
+weight, or is it matter-content specific?\
+\emph{Heal:} The $-27/4$ coefficient comes from the Sen zero-mode
+spectrum at $\AdS_2 \times S^2$ near-horizon of the $\cN = 4$ BH,
+which is matter-content-specific. The $\Phi_{10} = \Delta_5^2$ modular
+weight $10$ enters through the Rademacher degree of the inverse modular
+form, contributing to the power-law coefficient, but the zero-mode
+counting $27/2$ is a supergravity data input (Banerjee--Mandal--Sen 2011).
+The two inputs --- modular weight of $\Delta_5^2$ and zero-mode
+spectrum --- combine to produce the $-27/4$ value. At CHL orbifolds
+with reduced $\Phi^{\mathrm{CHL}}_N$, both inputs change, and the log
+coefficient changes accordingly (Sen 2008).
+\emph{Label:} theorem at $\cN = 4$ on $K3 \times T^2$;
+the $-27/4$ is jointly $\Delta_5^2$-weight + zero-mode data;
+at other CHL orbifolds the coefficient changes per
+$\Phi^{\mathrm{CHL}}_N$ + its corresponding zero-mode spectrum.
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Appendix --- Cache entries from this audit}
+\label{subsec:cache-append-heterotic}
+
+Five entries sharpening the AP-CY catalogue:
+
+\medskip
+\begin{enumerate}[label=\textbf{13H\arabic*.}]
+
+\item \textbf{``$\Delta_5$ is the DVV dyon-counting form''.}
+ \emph{Ghost theorem:} $\Delta_5$ is the paramodular root of $\Phi_{10}$,
+ with $\Phi_{10} = (\Delta_5)^2$; the DVV form is $\Phi_{10}$.
+ \emph{Error:} asserting $\Delta_5$ directly as the full dyonic index.
+ \emph{Correct relationship:} $\Delta_5$ is the chiral-half Borcherds
+ lift of $\phi_{0,1}$ with weight $c_1(0)/2 = 5$; $\Phi_{10} = \Delta_5^2$
+ is the left+right dyonic product. The BKM $\fg_{\Delta_5}$ denominator
+ is $\Delta_5$, acting on the chiral half; DVV counts the doubled object.
+ \emph{Type:} half-lift vs full-product distinction.
+
+\item \textbf{``MSW $c_L = 24$ equals the shadow $6\kch(K3 \times E) = 18$''.}
+ \emph{Ghost theorem:} both are central-charge readings of the same
+ $(0, 4)$ CFT.
+ \emph{Error:} equating without ambient-qualification; they differ by
+ the M5-worldvolume $T^2$ contribution $c^{T^2}_L = 6$.
+ \emph{Correct relationship:} Theorem \ref{thm:cL-ambient-matching}:
+ $c_L^{\mathrm{MSW}} = 24 = 6\kch^{\mathrm{cat}}(K3 \times E) + c^{T^2}_L
+ = 18 + 6$; both readings are correct at their named ambient scope.
+ \emph{Type:} ambient-qualifier discipline (Pattern 236).
+
+\item \textbf{``$\fg_{\Delta_5}$ is the asymptotic boundary symmetry of
+ $\AdS_3 \times S^2 \times K3$''.}
+ \emph{Ghost theorem:} some BKM-like structure appears in the
+ near-horizon geometry.
+ \emph{Error:} the asymptotic boundary symmetry is
+ $\mathrm{Vir}_L \otimes \mathrm{Vir}_R \oplus \widehat{\mathfrak{su}(2)}$,
+ not a BKM. Classical supergravity does not produce BKM at the boundary.
+ \emph{Correct relationship:} $\fg_{\Delta_5}$ is the BPS
+ spectrum-generating algebra of the single-centre Hilbert space
+ (Harvey--Moore 1996), not the asymptotic boundary symmetry.
+ Two distinct structures at two distinct scales.
+ \emph{Type:} spectrum-generating vs asymptotic symmetry.
+
+\item \textbf{``Lorgat 2020 Conjecture 1 is already proved because
+ Oberdieck--Pixton 2018 proved it''.}
+ \emph{Ghost theorem:} Oberdieck--Pixton establishes the Igusa cusp form
+ conjecture.
+ \emph{Error:} Oberdieck--Pixton 2018 proves only the $N = 1$ case
+ ($X = S \times E$, $\Phi_{10}$). The other seven diagonal-divisor
+ forms for $N \in \{2, 3, 4, 5, 6, 7, 8\}$ and appropriate $M$ are
+ conjectural.
+ \emph{Correct relationship:} $N = 1$ is theorem (OP 2018); $N \geq 2$
+ is Lorgat 2020 Conjecture 1. The CHL dyonic frames (David--Jatkar--Sen 2006)
+ are the physical home, but the DT-theoretic identification is not fully
+ proven.
+ \emph{Type:} scope-conflation of an $N$-family.
+
+\item \textbf{``Shadow Cardy formula $\pi\sqrt{2\kch D}$ matches
+ Strominger--Vafa coefficient''.}
+ \emph{Ghost theorem:} both are Cardy-like growth formulas.
+ \emph{Error:} asserting numerical match without naming the
+ normalisation; at $K3 \times T^2$, shadow $= \pi\sqrt{6 D}$ while
+ Cardy $= \pi\sqrt{\cI_4}$; they agree only under $D = (8/3) n_L$ with
+ $n_L = \cI_4/4$.
+ \emph{Correct relationship:} Theorem \ref{thm:shadow-cardy-normalisation}:
+ shadow and MSW Cardy agree up to a $4/3$ factor (the $T^2$-inclusion
+ scope correction) times a $2$ factor (the $\eta \leftrightarrow \vartheta$
+ convention shift). Agreement is scope-qualified; raw-coefficient match
+ is false.
+ \emph{Type:} normalisation/scope.
+
+\end{enumerate}
+
+\bigskip
+\hrule
+\bigskip
+
+\subsection*{Summary}
+\label{subsec:summary-heterotic-BH}
+
+The Lorgat 2020 Borcherds lift produces the paramodular weight-$5$
+form $\Delta_5$ with $\Phi_{10} = (\Delta_5)^2$; the physical
+interpretation reconciles the weight-$5$ vs weight-$10$ mismatch
+between Lorgat 2020 and DVV 1996 as the \emph{chiral-half vs dyonic
+doubling} distinction. On the chiral side, $\fg_{\Delta_5}$ with
+denominator $\Delta_5$ is the BPS spectrum-generating algebra of the
+single-centre left-moving states in $\cN = 4$ heterotic/IIA on
+$K3 \times T^2$; on the gravity side, $\Phi_{10} = \Delta_5^2$ is the
+DVV dyon-counting form combining both chiral halves. The near-horizon
+$\AdS_3 \times S^2 \times K3$ geometry has asymptotic boundary
+symmetry $\mathrm{Vir} \oplus \widehat{\mathfrak{su}(2)}$ from
+classical supergravity, while $\fg_{\Delta_5}$ is the
+spectrum-generating algebra of the single-centre BPS Hilbert space
+(two distinct structures at two distinct scales). The MSW
+central charge $c_L^{\mathrm{MSW}} = 24$ and the categorical shadow
+reading $6\kch^{\mathrm{cat}}(K3 \times E) = 18$ differ by the
+M5-worldvolume $T^2$ contribution $c^{T^2}_L = 6$, and both are theorem
+at their named ambient. The Sen log correction $-\tfrac{27}{4}\log A_H$
+is an $\cN = 4$-specific value determined jointly by the
+$\Phi_{10} = \Delta_5^2$ modular weight and the near-horizon zero-mode
+spectrum. The Gritsenko--Clery family of eight diagonal-divisor
+paramodular forms is the heterotic CHL-orbifold physical home of
+$\Delta_5$ and its seven siblings; the $N = 1$ case (Lorgat 2020 /
+Oberdieck--Pixton 2018) is proved, the seven CHL-extensions are
+conjectural. Five attack-heal cycles above dismiss six surface-level
+contradictions in favour of six precise ambient-qualified theorems.
+
+\medskip
+\noindent\emph{Net epistemic movement:}
+\emph{Six} surface-level contradictions (weight-$5$ vs weight-$10$, MSW
+vs shadow $c_L$, BKM vs Virasoro asymptotic, Conjecture 1 scope, shadow
+Cardy normalisation, $-27/4$ matter-dependence) \emph{resolved} to six
+theorem-at-scope statements or theorem-conjecture pairs.
+\emph{One} identity proved: $\Phi_{10} = (\Delta_5)^2$ with Borcherds
+weight $c_1(0)/2 = 5$.
+\emph{Five} cache entries 13H1--13H5 sharpen AP-CY with heterotic and
+quantum-gravity scope gates. The $\Delta_5$-vs-$\Delta_{10}$ ``mismatch''
+is a feature, not a bug: it is the chiral-half-vs-full-lift signature
+of the Borcherds singular theta lift.

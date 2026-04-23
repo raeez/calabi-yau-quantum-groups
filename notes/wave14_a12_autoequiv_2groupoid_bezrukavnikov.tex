@@ -1,0 +1,1210 @@
+% wave14_a12_autoequiv_2groupoid_bezrukavnikov.tex
+%
+% Adversarial audit and heal of the essay claim
+%
+%   "the gauge group lives in the 2-groupoid of autoequivalences of
+%   D^b(Coh(X))"
+%
+% Voice. R. Bezrukavnikov of the elite Russian mathematical school
+% (Beilinson, Drinfeld, Bernstein, Kazhdan, Kashiwara, Bondal, Orlov,
+% Bridgeland, Kontsevich, Soibelman) with the physical overlay of
+% Kapustin, Witten, Costello, Gaiotto. Sheaf-theoretic depth.
+% Bondal--Orlov reconstruction; Fourier--Mukai kernels; Bridgeland
+% stability manifolds; Toen's derived enhancement of autoequivalence
+% groups; the difference between the automorphism 2-group of a tensor
+% category and the sheaf of gauge fields of a classical BV theory.
+%
+% Operating rule. Every ATTACK states (a) the ghost theorem the slogan
+% reaches for, (b) the precise categorical / physical error it commits,
+% (c) the correct 2-groupoid relationship. Every HEAL constructs the
+% object it replaces the slogan with (dg-enhancement, kernel transform,
+% Fourier--Mukai trace, stability-manifold action, derived-Toen
+% enhancement) and labels the claim status and the lane (chain-level
+% vs $(\infty,1)$-categorical).
+%
+% Companion notes consulted:
+%   notes/wave12_a9_langlands_higgs_bezrukavnikov.tex -- geometric
+%     Langlands tri-scope (L1 arithmetic, L2 Beilinson--Drinfeld,
+%     L3 Kapustin--Witten);
+%   notes/wave13_a9_sheaves_BKM_bezrukavnikov.tex -- sheaf-theoretic
+%     avatars, characteristic cycles, Arinkin--Gaitsgory singular support;
+%   notes/platonic_synthesis_waves_11_through_16.tex -- BV datum of
+%     6D hCS on CY$_3$ with its honest g-valued connection;
+%   notes/CoHA_to_W_infty_treatise.tex -- CoHA as E_1, chiralisation
+%     via Ran, gauge field = Maurer--Cartan datum.
+%
+% Cache triggers consulted at Gate 0 below.
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{attack}{Attack}
+\newtheorem{heal}[attack]{Heal}
+\newtheorem{scope}[theorem]{Scope}
+\newtheorem{remark}{Remark}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{definition}[theorem]{Definition}
+
+\providecommand{\kk}{\mathbf{k}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\IndCoh}{\mathrm{IndCoh}}
+\providecommand{\QCoh}{\mathrm{QCoh}}
+\providecommand{\DMod}{D\text{-}\mathrm{mod}}
+\providecommand{\Perv}{\mathrm{Perv}}
+\providecommand{\Sh}{\mathrm{Sh}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Auteq}{\mathrm{Auteq}}
+\providecommand{\Autdg}{\mathrm{Aut}^{\rm dg}}
+\providecommand{\AutInf}{\mathrm{Aut}^{(\infty,1)}}
+\providecommand{\AutMon}{\mathrm{Aut}^{\otimes}}
+\providecommand{\Stab}{\mathrm{Stab}}
+\providecommand{\Pic}{\mathrm{Pic}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Spec}{\mathrm{Spec}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Ob}{\mathrm{Ob}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\FM}{\mathrm{FM}}
+\providecommand{\hCS}{h\mathrm{CS}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cK}{\mathcal{K}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\bC}{\mathbf{C}}
+\providecommand{\bZ}{\mathbf{Z}}
+\providecommand{\bR}{\mathbf{R}}
+\providecommand{\bQ}{\mathbf{Q}}
+\providecommand{\bP}{\mathbf{P}}
+\providecommand{\bG}{\mathbf{G}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\LG}{{}^L G}
+\providecommand{\holproj}{\mathrm{hol.proj.}}
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\ClaimStatusDerivation}{\textbf{[Derivation]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjecture]}}
+\providecommand{\ClaimStatusHeuristic}{\textbf{[Heuristic]}}
+
+\title{The autoequivalence 2-groupoid of $D^b(\Coh(X))$ is not the gauge
+group: a Bezrukavnikov-voice adversarial audit}
+\author{}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The essay slogan ``the gauge group lives in the 2-groupoid of
+autoequivalences'' reaches for a real statement: the global
+categorical-symmetry group of the $B$-model on $X$ is the
+$\infty$-groupoid $\Autdg(D^b(\Coh(X)))$ whose 0-cells are
+Fourier--Mukai kernel autoequivalences, 1-cells are natural
+isomorphisms of kernels, 2-cells are homotopies. Five
+ATTACK$\leftrightarrow$HEAL cycles pin down where the slogan is
+correct and where it fails. The correct statement: $\Autdg(D^b(\Coh(X)))$
+is the $(\infty,1)$-categorical \emph{global tensor-symmetry
+2-groupoid} of the $B$-model, identified with
+$\Auteq(D^b(\Coh(X))) \ltimes B\bG_m[1]$ by Bondal--Orlov (ample
+canonical) or with the Bridgeland--Kontsevich extension
+$\Aut(X) \ltimes \Pic(X) \ltimes \bZ[1]$ in the Calabi--Yau case
+(trivial canonical), plus spherical twists. The false step: identifying
+this global tensor-symmetry 2-groupoid with the \emph{physical gauge
+group} of the 6D holomorphic Chern--Simons BV theory on a CY$_3$. The
+physical gauge group is the sheaf of local gauge transformations
+$C^\infty(X, G)$, infinite-dimensional over any positive-dimensional
+$X$; $\Autdg(D^b(\Coh(X)))$ is finite-dimensional as an algebraic
+group (Bondal--Orlov smooth-projective; Bridgeland CY$_3$; Kawamata
+K3). The two are genuinely different mathematical objects; they
+communicate through the derived Toen 2-functor of gauge
+transformations acting on branes via Fourier--Mukai kernel modulation,
+\emph{not} via an identification. Five cycles install this
+disambiguation: (1) Bondal--Orlov reconstruction and the kernel
+2-groupoid at smooth-projective scope; (2) the Calabi--Yau extension
+via spherical twists and Bridgeland stability-manifold actions;
+(3) the derived Toen enhancement that makes $\Autdg$ into an
+$(\infty,1)$-group; (4) the collision with the physical 6D hCS
+gauge group $C^\infty(X, G)$ and its correct translation (Maurer
+--Cartan elements of the $\fg$-valued Dolbeault complex); (5) the
+Kapustin--Witten categorical-symmetry interpretation on the
+$A$/$B$-model product and its relation to the chiral-algebra
+symmetry 2-groupoid of Vol~III.
+\end{abstract}
+
+% ====================================================================
+\section*{Gate 0. Cache triggers and primary-literature base}
+% ====================================================================
+
+\noindent\textbf{AP-CY catalogue and cache}:
+AP-CY1--5 ($\Phi$-output scope: $E_\infty$ at $d = 1$, $\Etwo$ at
+$d = 2$, $\Eone$ at $d \geq 3$; do not attach $\Etwo$ to the
+wrong layer);
+AP-CY6 ($\CY_2 \neq$ only $K3$; stability scope);
+AP-CY15 (toric $\not\Rightarrow$ compact);
+AP-CY20, AP-CY149 (one Omega parameter on $K3 \times E$, not two);
+AP-CY55 (morphism-preservation for $\Phi$ at $d = 3$ is open);
+AP-CY57 (do not narrate; \emph{construct} the 2-groupoid);
+AP-CY62 ($\CoHA$ is $\Eone$-associative; chiralisation is a second
+step);
+AP-CY66, AP-CY67, AP-CY68 (sheaf-theoretic avatars, Howe
+correspondence, characteristic-cycle arithmetic interpretation);
+AP113 (subscripted $\kch / \kcat / \kBKM / \kfib$ always).
+Vol~I cache V9 ($\Stab^\Phi(K3 \times E) = \Stab(K3) \times \Stab(E)$
+is a codim-22 slice of the rank-48 Bridgeland stability manifold, not
+a codim-0 identification).
+
+\noindent\textbf{Primary literature base}:
+\begin{itemize}\itemsep 2pt
+ \item Bondal--Orlov 2001, \emph{Reconstruction of a variety from
+   the derived category and groups of autoequivalences}
+   (\emph{Compositio Math.}~125) --- the smooth-projective
+   reconstruction theorem: $X$ smooth projective with ample
+   $\pm K_X$ implies
+   $\Auteq(D^b(\Coh(X))) \simeq \Aut(X) \ltimes (\Pic(X) \times \bZ)$.
+ \item Orlov 1997, \emph{Equivalences of derived categories and K3
+   surfaces} (\emph{J.\ Math.\ Sci.}~84) --- Fourier--Mukai kernel
+   presentation of every equivalence between derived categories of
+   smooth projective varieties.
+ \item Bridgeland 2002, \emph{Flops and derived categories}
+   (\emph{Invent.\ Math.}~147) and 2007
+   \emph{Stability conditions on triangulated categories}
+   (\emph{Ann.\ of Math.}~166) --- the stability manifold
+   $\Stab(\cD)$ on which $\Auteq(\cD)$ acts.
+ \item Seidel--Thomas 2001, \emph{Braid group actions on derived
+   categories of coherent sheaves} (\emph{Duke}~108) --- spherical
+   twists as the non-geometric autoequivalences of CY$_d$.
+ \item Huybrechts--Macr\`i--Stellari 2009, \emph{Derived equivalences
+   of $K3$ surfaces and orientation} (\emph{Duke}~149) --- the
+   orientation-preserving subgroup $\Auteq^+(D^b(\Coh(\mathrm{K3})))
+   \hookrightarrow O^+(\widetilde{H}(\mathrm{K3}, \bZ))$.
+ \item Kawamata 2002, \emph{D-equivalence and K-equivalence}
+   (\emph{J.\ Diff.\ Geom.}~61) --- DK-conjecture relating birational
+   geometry to autoequivalences.
+ \item Toen 2007, \emph{The homotopy theory of dg-categories and
+   derived Morita theory} (\emph{Invent.\ Math.}~167) --- the derived
+   mapping space / internal hom of dg-categories, producing the
+   $(\infty,1)$-enhancement of $\Auteq$.
+ \item Lurie 2017, \emph{Higher Algebra} Ch.~5 --- the tensor
+   $(\infty,1)$-category structure and the definition of
+   $\AutMon(\cC) \subset \AutInf(\cC)$.
+ \item Costello 2013, \emph{Supersymmetric gauge theory and the
+   Yangian} (arXiv:1303.2632) --- 6D hCS as the perturbative BV
+   theory whose classical field is $\cA \in \Omega^{0,\bullet}(X) \otimes
+   \fg[1]$; physical gauge group $C^\infty(X, G)$.
+ \item Costello--Gaiotto 2018, \emph{Twisted supergravity}
+   (arXiv:1812.01110) --- the categorical symmetry of a holomorphic
+   twist acts on branes via Fourier--Mukai modulation.
+ \item Kapustin--Witten 2006, \emph{Electric-magnetic duality and
+   geometric Langlands} --- the 4D $\mathcal{N} = 4$ super-Yang--Mills
+   categorical-symmetry story with $B$-branes on $\cM_H(C, G)$.
+ \item Rouquier 2006, \emph{Derived equivalences and finite
+   dimensional algebras} (ICM 2006); Chen--Krug 2018,
+   \emph{Hochschild cohomology of derived autoequivalence groups
+   of smooth projective varieties}
+   --- derived deformation theory of $\Auteq$ objects as
+   the Hochschild cohomology $\mathrm{HH}^\bullet(X)$.
+ \item Bondal--Kapranov 1990, \emph{Enhanced triangulated categories}
+   --- dg-enhancement making triangulated equivalences into
+   coherent functorial datum.
+\end{itemize}
+
+% ====================================================================
+\section{Statement of the disambiguation problem}
+\label{sec:statement}
+% ====================================================================
+
+The essay (and its echoes across Vol~III working notes,
+\texttt{working\_notes.tex} lines 2447--2588 and beyond) contains a
+slogan to the effect that
+
+\begin{quote}
+\textsl{``the gauge group lives in the 2-groupoid of autoequivalences
+of $D^b(\Coh(X))$.''}
+\end{quote}
+
+The slogan conflates two mathematical objects:
+
+\begin{enumerate}[label=(G\arabic*)]
+ \item The \emph{categorical global tensor-symmetry 2-groupoid} of
+   $D^b(\Coh(X))$: the $\infty$-groupoid core of
+   $\mathrm{Fun}^\otimes(D^b(\Coh(X)), D^b(\Coh(X)))$ built from
+   dg-autoequivalences, natural isomorphisms between them, and
+   homotopies between natural isomorphisms. This is
+   $\Autdg(D^b(\Coh(X)))$ in what follows.
+ \item The \emph{physical gauge group} of 6D holomorphic
+   Chern--Simons on $X$: the infinite-dimensional Fr\'echet--Lie group
+   $C^\infty(X, G)$ (or its smooth/complex variants) acting on the
+   Dolbeault BV field $\cA = c + A_{0,1} + A^*_{0,2} + c^*_{0,3} \in
+   \Omega^{0,\bullet}(X, \fg)[1]$ by the standard formula
+   $\cA \mapsto g^{-1}\cA g + g^{-1}\bar\partial g$.
+\end{enumerate}
+
+The slogan is correct at the level of (G1) and ambiguous at the level
+of (G2). A careful treatment demands a disambiguation: what is the
+autoequivalence 2-groupoid \emph{precisely}, and what is its precise
+(non-)relation to the physical gauge group of hCS on $X$?
+
+\subsection{Four structures to be installed}
+
+A rigorous treatment must provide:
+
+\begin{enumerate}[label=(S\arabic*)]
+ \item A precise $(\infty,1)$-categorical definition of
+   $\Autdg(D^b(\Coh(X)))$ as an $\infty$-groupoid, with 0/1/2/higher
+   cells specified.
+ \item A kernel-transform presentation:
+   $\Autdg(D^b(\Coh(X))) \hookrightarrow \Ob(D^b(\Coh(X \times X)))$
+   with the composition law inherited from convolution of
+   Fourier--Mukai kernels.
+ \item A reconstruction-vs-CY dichotomy: on smooth-projective $X$
+   with $\pm K_X$ ample, Bondal--Orlov gives
+   $\Autdg(D^b(\Coh(X))) \simeq \Aut(X) \ltimes (\Pic(X) \times \bZ)$;
+   on CY$_d$ with $K_X \simeq \cO$, this fails and the autoequivalence
+   group is strictly larger (spherical twists, flop functors,
+   Bridgeland extension).
+ \item A disambiguation of the physical gauge group $C^\infty(X, G)$:
+   a precise map (Toen enhancement) from the physical gauge-group
+   action on Dolbeault BV fields to the categorical action by kernel
+   modulation; the cokernel of this map is the non-geometric
+   autoequivalence content (spherical twists) the physics does
+   \emph{not} see by small gauge transformations.
+\end{enumerate}
+
+% ====================================================================
+\section{Cycle 1. Bondal--Orlov reconstruction and the kernel
+2-groupoid}
+\label{sec:cycle-BO}
+% ====================================================================
+
+\begin{attack}[A1: ``2-groupoid of autoequivalences'' without a
+(co)dim count]
+\leavevmode
+
+\noindent\emph{Ghost theorem.} $\Autdg(D^b(\Coh(X)))$ is a
+well-defined $(\infty,1)$-groupoid acting on $D^b(\Coh(X))$, and for
+many $X$ it admits an explicit presentation by classical geometric
+data ($\Aut(X)$, $\Pic(X)$, shift).
+
+\noindent\emph{Precise error.} The slogan gives no dimension count
+and no reconstruction scope. Without a scope declaration (smooth
+projective; Fano or general type; Calabi--Yau) the 2-groupoid can be
+anything from a finite-dimensional algebraic group
+(Fano, general type) to an extremely rich object with
+\emph{braid-group actions} and \emph{orientation-double-cover}
+structure (K3, abelian surface, CY$_d$). The difference is load-bearing
+for every downstream physical interpretation: a finite-dimensional
+autoequivalence group \emph{is} essentially visible to small local
+$C^\infty(X, G)$-gauge transformations, via the exponential of the
+$\fg$-valued gauge field; an infinite-complexity autoequivalence
+group \emph{is not}.
+
+\noindent\emph{Correct categorical relationship.} Bondal--Orlov 2001
+Thm.~3.1 furnishes the \emph{reconstruction} scope:
+
+\begin{theorem}[Bondal--Orlov reconstruction, exact statement]
+\label{thm:BO}
+Let $X, Y$ be smooth projective complex varieties. Assume the
+canonical bundle $K_X$ or the anti-canonical $-K_X$ is ample. Then
+any exact $\bC$-linear equivalence $F \colon D^b(\Coh(X))
+\xrightarrow{\sim} D^b(\Coh(Y))$ is isomorphic (as a triangulated
+functor) to a composite
+\[
+ F \;\simeq\; (-) \otimes \cL[n] \circ f_*
+\]
+for a unique isomorphism $f \colon X \xrightarrow{\sim} Y$, a unique
+line bundle $\cL \in \Pic(Y)$, and a unique integer $n \in \bZ$.
+Consequently
+\begin{equation}\label{eq:BO-auteq}
+ \Auteq(D^b(\Coh(X))) \;\cong\; \Aut(X) \ltimes
+ \bigl(\Pic(X) \times \bZ\bigr).
+\end{equation}
+\end{theorem}
+
+The slogan requires an analogous dimension count in each scope.
+At Fano or general-type scope, equation~\eqref{eq:BO-auteq} gives
+a finite-dimensional answer: $\Aut(X)$ is algebraic and
+finite-dimensional, $\Pic(X)$ is finitely generated modulo
+$\Pic^0(X)$ (which is an abelian variety, finite-dimensional), and
+$\bZ$ (shift) is discrete.
+
+The slogan's failure scope is the Calabi--Yau case
+($K_X \simeq \cO_X$, which violates both ample hypotheses). Cycle~2
+handles this.
+\end{attack}
+
+\begin{heal}[H1: the kernel 2-groupoid on smooth projective $X$]
+\leavevmode
+
+\begin{construction}[The autoequivalence 2-groupoid by Fourier--Mukai
+kernels]\label{constr:auteq-2gpd}
+Let $X$ be a smooth projective complex variety. Define the
+\emph{autoequivalence 2-groupoid} $\Autdg(D^b(\Coh(X)))$ by:
+
+\begin{enumerate}[label=(\roman*)]
+ \item \textbf{0-cells.} Objects of $D^b(\Coh(X \times X))$ whose
+   Fourier--Mukai transform
+   $\Phi_{\cK} \colon D^b(\Coh(X)) \to D^b(\Coh(X))$,
+   $\cF \mapsto \bR p_{2,*}(p_1^* \cF \otimes^{\bL} \cK)$,
+   is an equivalence of triangulated categories.
+
+ \item \textbf{1-cells.} For kernels $\cK, \cK'$ with 0-cells
+   $\Phi_{\cK}, \Phi_{\cK'}$ both equivalences, a 1-cell
+   $\cK \to \cK'$ is a natural isomorphism
+   $\varphi \colon \Phi_{\cK} \xrightarrow{\sim} \Phi_{\cK'}$.
+   By Orlov's kernel theorem (Orlov 1997 Thm.~3.2.1) this is
+   equivalent (up to unique isomorphism) to the data of a
+   quasi-isomorphism $\cK \simeq \cK'$ in $D^b(\Coh(X \times X))$.
+
+ \item \textbf{2-cells.} For 1-cells
+   $\varphi, \psi \colon \cK \to \cK'$, a 2-cell $\varphi \Rightarrow \psi$
+   is a homotopy of quasi-isomorphisms. In the dg-enhancement
+   (Bondal--Kapranov 1990) this is a degree-$(-1)$ element
+   $h \in \mathrm{Hom}^{-1}_{D^b(\Coh(X \times X))}(\cK, \cK')$
+   whose differential equals $\psi - \varphi$.
+
+ \item \textbf{$k$-cells, $k \geq 3$.} Higher homotopies in the
+   dg-enhancement of $D^b(\Coh(X \times X))$: iterated null-homotopies,
+   organised into the simplicial nerve of the mapping complex
+   $\mathrm{Hom}^\bullet_{\rm dg}(\cK, \cK')$.
+\end{enumerate}
+
+Composition of 0-cells is convolution of kernels:
+$\cK_1 \star \cK_2 := \bR p_{13,*}(p_{12}^* \cK_1 \otimes^{\bL}
+p_{23}^* \cK_2)$. The identity kernel is the diagonal
+$\Delta_* \cO_X$. The associator is the natural
+$\bR p_{14,*}$-coherence governing triple composition, i.e.\ the
+standard coherence of the Fourier--Mukai convolution $(\infty, 2)$
+-category of kernels (Ben-Zvi--Francis--Nadler 2010).
+\end{construction}
+
+\begin{theorem}[Bondal--Orlov 2-groupoid on Fano / general type]
+\label{thm:BO-2groupoid}
+\ClaimStatusTheorem\ (chain-level + $(\infty,1)$-categorical). Let $X$
+be smooth projective with $\pm K_X$ ample. Then the 2-groupoid
+$\Autdg(D^b(\Coh(X)))$ of Construction~\ref{constr:auteq-2gpd} has
+homotopy groups
+\begin{align*}
+ \pi_0\, \Autdg(D^b(\Coh(X))) \;&=\; \Aut(X) \ltimes (\Pic(X) \times \bZ),\\
+ \pi_1\, \Autdg(D^b(\Coh(X))) \;&=\; \bG_m(\bC) = \bC^\times,\\
+ \pi_{\geq 2}\, \Autdg(D^b(\Coh(X))) \;&=\; 0.
+\end{align*}
+The 2-groupoid is the 2-truncation of $B\bG_m \to B\Auteq$; higher
+cells vanish because $D^b(\Coh(X))$ is \emph{concentrated in
+classical-geometry autoequivalences} when $\pm K_X$ is ample.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+$\pi_0$ is Bondal--Orlov, Theorem~\ref{thm:BO}. $\pi_1$: for a fixed
+kernel $\cK$ inducing an equivalence $\Phi_{\cK}$, the automorphisms
+of $\Phi_{\cK}$ as a triangulated functor are the automorphisms of
+$\cK$ as a kernel, and these equal $H^0(\End_{D^b(\Coh(X\times X))}(\cK))^\times
+= \bC^\times$ because $\cK$ is a shifted invertible object (line
+bundle shifted by $n$, pushed by $f \in \Aut(X)$, hence
+$\End(\cK) = \cO_X$, global sections $\bC$). $\pi_{\geq 2}$: the
+mapping complex $\mathrm{Hom}^\bullet_{\rm dg}(\cK, \cK)$ is
+concentrated in degree $0$ for invertible kernels (line bundles push
+forward to have $\mathrm{Ext}^{i>0}(\cK, \cK) = 0$; the Bondal--Orlov
+geometric form forces $\cK$ to be $f_* \cL[n]$ for $f$ an isomorphism,
+and $\mathrm{Ext}^{> 0}$ between shifts of line bundles on the
+diagonal vanishes by Serre duality and ampleness of $\pm K_X$).
+\end{proof}
+
+\begin{scope}[Lane]\label{scope:lane-BO}
+Theorem~\ref{thm:BO-2groupoid} is an $(\infty,1)$-categorical
+theorem: 0-cells are Bondal--Orlov kernels, 1-cells are
+quasi-isomorphisms, 2-cells are dg-homotopies, the higher cells
+collapse by the triviality of the dg-mapping complex on shifted
+line bundles. The chain-level presentation is
+Construction~\ref{constr:auteq-2gpd} as written.
+\end{scope}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 2. The Calabi--Yau extension: spherical twists and
+Bridgeland}
+\label{sec:cycle-CY}
+% ====================================================================
+
+\begin{attack}[A2: the Calabi--Yau case is exactly where Bondal--Orlov fails]
+\leavevmode
+
+\noindent\emph{Ghost theorem.} On a CY$_d$, the autoequivalence
+2-groupoid contains non-geometric elements (spherical twists,
+Seidel--Thomas) reflecting the $K_X \simeq \cO_X$-Serre-duality
+reflection structure; these are the Kontsevich homological-mirror
+--symmetry autoequivalences corresponding to Dehn twists on the
+Fukaya mirror. The 2-groupoid is genuinely larger than
+$\Aut(X) \ltimes (\Pic(X) \times \bZ)$.
+
+\noindent\emph{Precise error.} The slogan, without scope, \emph{uses}
+Calabi--Yau examples ($X = K3$, $X = K3 \times E$, $X = $ quintic)
+where the Bondal--Orlov hypothesis ($\pm K_X$ ample) \emph{fails}. The
+$\pi_0$ count in Theorem~\ref{thm:BO-2groupoid} does not apply. The
+correct scope is a Bridgeland-type extension:
+\begin{equation}\label{eq:Br-extension}
+ 1 \;\to\; \mathrm{Br}_\infty\bigl\{T_{E_i}\bigr\} \;\to\;
+ \Auteq(D^b(\Coh(X))) \;\to\;
+ \Aut(X) \ltimes (\Pic(X) \times \bZ) \;\to\; 1,
+\end{equation}
+where $\mathrm{Br}_\infty\{T_{E_i}\}$ is the braid subgroup generated
+by Seidel--Thomas spherical twists $T_{E}$ associated to
+\emph{spherical objects} $E \in D^b(\Coh(X))$ (i.e.\ $\End^*_{D^b}(E)
+= H^*(S^d, \bC)$). On a K3, this braid part is \emph{infinite} --- the
+orientation-preserving part is identified with
+$O^+(\widetilde{H}(\mathrm{K3}, \bZ))$ by Huybrechts--Macr\`i--Stellari
+2009 Thm.~1.2.
+
+\noindent\emph{Correct categorical relationship.} The CY-scope
+2-groupoid fits into a three-step filtration:
+\[
+\begin{tikzcd}[column sep=large]
+ B\bC^\times \ar[r] & \Autdg(D^b(\Coh(X)))
+ \ar[r] & \pi_0\,\Autdg \ar[r, "\eqref{eq:Br-extension}"] &
+ \Aut(X) \ltimes (\Pic(X) \times \bZ),
+\end{tikzcd}
+\]
+with fibre of the second arrow generated by spherical twists and the
+associated braid groups. The CY structure manifests as the fact that
+\emph{every} spherical object gives an autoequivalence (via
+$T_E(\cF) = \mathrm{Cone}(\mathrm{Hom}^\bullet(E, \cF) \otimes E \to \cF)$),
+and on CY$_d$, skyscraper sheaves of points and line bundles
+are all spherical.
+\end{attack}
+
+\begin{heal}[H2: the CY$_d$ 2-groupoid and its Bridgeland action]
+\leavevmode
+
+\begin{theorem}[Seidel--Thomas spherical twist as autoequivalence]
+\label{thm:ST-twist}
+\ClaimStatusTheorem\ (chain-level). Let $X$ be a CY$_d$ and
+$E \in D^b(\Coh(X))$ a spherical object, i.e.\
+$\bR\mathrm{Hom}_{D^b(\Coh(X))}(E, E) \simeq H^\bullet(S^d, \bC)$
+as graded $\bC$-algebras. Then the kernel
+\[
+ \cT_E \;:=\; \mathrm{Cone}\bigl(E^\vee \boxtimes E \;\to\;
+ \Delta_* \cO_X\bigr) \;\in\; D^b(\Coh(X \times X)),
+\]
+defined by the natural evaluation map
+$E^\vee \boxtimes E \to \Delta_* \cO_X$, induces a Fourier--Mukai
+autoequivalence $T_E := \Phi_{\cT_E} \in \Auteq(D^b(\Coh(X)))$
+whose inverse is $T_E^{-1} = \Phi_{\cT_E[-1]}$ and which acts on
+objects by the cone formula
+\[
+ T_E(\cF) \;=\; \mathrm{Cone}\Bigl(\bR\mathrm{Hom}(E, \cF) \otimes E
+ \;\to\; \cF\Bigr).
+\]
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Seidel--Thomas 2001 Thm.~1.2 and Prop.~2.10 establish that $T_E$ is
+an equivalence. The adjoint-kernel description $\cT_E$ presents $T_E$
+as a Fourier--Mukai transform; its invertibility corresponds to the
+triangulated identity
+$T_E \circ T_E^{-1} \simeq \mathrm{id}_{D^b(\Coh(X))}$ via the
+dg-null homotopy $\cT_E \star \cT_E^{-1} \simeq \Delta_* \cO_X$ in
+$D^b(\Coh(X \times X))$.
+\end{proof}
+
+\begin{theorem}[Bridgeland stability-manifold action;
+equation~\eqref{eq:Br-extension} refined]\label{thm:bridgeland-action}
+\ClaimStatusTheorem\ (chain-level) on K3, abelian surface, and
+del~Pezzo; \ClaimStatusConjectured\ on general CY$_3$. Let
+$\Stab(\cD)$ be the Bridgeland stability-manifold of a triangulated
+category $\cD$. Then $\Auteq(\cD)$ acts on $\Stab(\cD)$ by
+pullback of stability data; for $\cD = D^b(\Coh(X))$ with $X$
+smooth projective:
+\begin{enumerate}[label=(\alph*)]
+\item $\Stab(\cD)$ is a complex manifold of dimension
+$\mathrm{rk}\,\cK_{\rm num}(\cD) = $ rank of numerical Grothendieck
+group (Bridgeland 2007 Thm.~1.2).
+\item The $\Auteq$-action is free on the open chamber of generic
+stability data.
+\item On K3: $\Stab^\dagger / \Auteq \simeq \cM_{\rm K3}$, the
+moduli space of (marked, complexified) K3 surfaces (Bridgeland 2008
+Thm.~1.1; Bayer--Macr\`i 2014).
+\item On $X = K3 \times E$:
+$\dim_\bC \Stab(D^b(\Coh(X))) = \mathrm{rk}\,\cK_{\rm num}(K3 \times E)
+= 24 \cdot 2 = 48$; the Künneth-product slice
+$\Stab^\Phi := \Stab(\mathrm{K3}) \times \Stab(E)$ has
+dimension $24 + 2 = 26$, codimension $22 = \mathrm{rk}\,
+T_{\mathrm{K3}}$ (Vol~I cache V9).
+\end{enumerate}
+\end{theorem}
+
+\begin{scope}[Lane]\label{scope:lane-bridgeland}
+Theorem~\ref{thm:bridgeland-action} is a chain-level statement about
+the complex-analytic stability manifold; the
+$(\infty,1)$-categorical enhancement --- an action of the full 2-groupoid
+$\Autdg$ on the nerve of $\Stab$ --- is Toen's derived mapping space
+(Cycle~3).
+\end{scope}
+
+\begin{remark}[Non-finiteness on CY$_d$]
+On a smooth projective CY$_d$, $\Auteq(D^b(\Coh(X)))$ is in general
+\emph{not} finite-dimensional. On K3: the image in
+$O(\widetilde{H}(\mathrm{K3}, \bZ))$ is an arithmetic group, infinite
+but discrete. On CY$_3$ with rich spherical content: the autoequivalence
+group contains braid groups of infinite order. This is the concrete
+sense in which ``2-groupoid of autoequivalences'' outgrows
+Bondal--Orlov: not by continuous deformation (the ``gauge degrees of
+freedom'' are zero in the Bondal--Orlov sense, $\pi_0$-moduli are
+discrete) but by \emph{discrete non-geometric content} (braid groups,
+spherical twists, Kontsevich mirror-symmetry autoequivalences).
+\end{remark}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 3. Toen's derived enhancement and the
+$(\infty,1)$-group structure}
+\label{sec:cycle-toen}
+% ====================================================================
+
+\begin{attack}[A3: ``2-groupoid'' suggests a strict 2-category, but
+the natural object is an $(\infty,1)$-group]
+\leavevmode
+
+\noindent\emph{Ghost theorem.} $\Autdg(D^b(\Coh(X)))$ is not just a
+2-groupoid but the $\infty$-groupoid core of the
+$(\infty,1)$-category of autoequivalences, i.e.\ an
+$(\infty,1)$-group. The higher homotopy is controlled by Hochschild
+cohomology $\mathrm{HH}^\bullet(X) := \mathrm{HH}^\bullet(D^b(\Coh(X)))$
+(Chen--Krug 2018; Block--Getzler 2010).
+
+\noindent\emph{Precise error.} Writing ``2-groupoid'' forecloses the
+higher simplicial structure. For a Fano variety or variety of general
+type the truncation to 2 levels is correct
+(Theorem~\ref{thm:BO-2groupoid}: $\pi_{\geq 2} = 0$), but for a
+Calabi--Yau the Hochschild cohomology encodes infinitesimal
+deformations of $\mathrm{id}_{D^b(\Coh(X))}$, and the corresponding
+formal $(\infty,1)$-group has nontrivial $\pi_{k \geq 2}$. The
+dg-enhancement is what makes the higher structure explicit.
+
+\noindent\emph{Correct categorical relationship.} Toen 2007 Thm.~8.15
+establishes that the derived mapping space
+\[
+ \mathrm{Map}_{\rm dg\text{-}cat}\bigl(D^b(\Coh(X)), D^b(\Coh(X))\bigr)
+\]
+is an $(\infty,1)$-category whose $\infty$-groupoid core
+$\Autdg(D^b(\Coh(X)))$ is an $(\infty,1)$-group. The tangent
+complex (Lie algebra) at the identity is
+\[
+ T_{\mathrm{id}}\, \Autdg(D^b(\Coh(X))) \;\simeq\;
+ \mathrm{HH}^\bullet(X)[1]
+\]
+where $\mathrm{HH}^\bullet(X) = \bR\Gamma(X, \bR\mathrm{Hom}_{\cO_{X\times X}}
+(\Delta_* \cO_X, \Delta_* \cO_X))$ is Hochschild cohomology. For
+$X$ smooth projective of dimension $d$:
+$\mathrm{HH}^\bullet(X) \simeq \bigoplus_{p + q = \bullet}
+H^p(X, \wedge^q T_X)$ by Hochschild--Kostant--Rosenberg.
+\end{attack}
+
+\begin{heal}[H3: the Toen $(\infty,1)$-group and its tangent
+complex]
+\leavevmode
+
+\begin{theorem}[Toen derived enhancement of $\Autdg$]
+\label{thm:toen-enhancement}
+\ClaimStatusTheorem\ ($(\infty,1)$-categorical). Let $X$ be a smooth
+projective complex variety. Then the internal hom of dg-categories
+$\mathrm{Fun}_{\rm dg}(D^b(\Coh(X)), D^b(\Coh(X)))$ is an
+$(\infty,1)$-category, and its $\infty$-groupoid of invertible
+objects
+\[
+ \Autdg(D^b(\Coh(X))) \;:=\;
+ \bigl(\mathrm{Fun}_{\rm dg}(D^b(\Coh(X)), D^b(\Coh(X)))^{\simeq}\bigr)^{\rm inv}
+\]
+is an $(\infty,1)$-group (= simplicial group up to weak equivalence).
+Its classifying space $B\Autdg(D^b(\Coh(X)))$ presents the
+derived moduli stack of dg-enhanced $D^b(\Coh(X))$-structures on a
+given triangulated category.
+\end{theorem}
+
+\begin{theorem}[Tangent complex and HKR identification]
+\label{thm:tangent-HKR}
+\ClaimStatusTheorem\ (chain-level + $(\infty,1)$-categorical). The
+tangent complex of $\Autdg(D^b(\Coh(X)))$ at the identity is the
+shifted Hochschild cohomology:
+\[
+ T_{\mathrm{id}}\, \Autdg(D^b(\Coh(X)))
+ \;\simeq\; \mathrm{HH}^\bullet(X)[1],
+\]
+and via Hochschild--Kostant--Rosenberg,
+\[
+ \mathrm{HH}^k(X)
+ \;\simeq\; \bigoplus_{p + q = k}
+ H^p\bigl(X, \wedge^q T_X\bigr).
+\]
+In particular, on a CY$_d$:
+\begin{align*}
+ \mathrm{HH}^0(X) &\simeq H^0(X, \cO_X) = \bC \quad \text{(scalar
+ automorphisms)};\\
+ \mathrm{HH}^1(X) &\simeq H^0(X, T_X) \oplus H^1(X, \cO_X) \quad
+ \text{(vector fields + Picard-tangent)};\\
+ \mathrm{HH}^2(X) &\simeq H^0(X, \wedge^2 T_X) \oplus H^1(X, T_X)
+ \oplus H^2(X, \cO_X) \quad \text{(Poisson + deformations + B-field)}.
+\end{align*}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Toen 2007 Thm.~8.15 gives the internal-hom $(\infty,1)$-category.
+The tangent complex identification is Kontsevich--Soibelman 2008 +
+Caldararu 2005: the Atiyah class of the Fourier--Mukai kernel
+$\Delta_* \cO_X$ in $D^b(\Coh(X \times X))$ computes the
+Hochschild cohomology, and the obstruction-theoretic structure of
+$\Autdg$ at the identity matches. HKR is Hochschild--Kostant
+--Rosenberg 1962 as lifted to schemes by Swan 1996, Yekutieli 2002,
+Caldararu 2005.
+\end{proof}
+
+\begin{corollary}[Infinitesimal 2-groupoid structure on CY$_d$]
+\label{cor:infinitesimal-2gpd}
+On a CY$_d$ with $\mathrm{HH}^2(X) \neq 0$ (e.g.\ $d = 2$, $X = K3$:
+$\mathrm{HH}^2(K3) \simeq H^0(K3, \wedge^2 T_{K3}) \oplus
+H^1(K3, T_{K3}) \oplus H^2(K3, \cO_{K3})$, each summand contributing
+$1 + 20 + 1 = 22$ dimensions), the autoequivalence
+$(\infty,1)$-group has nontrivial formal structure at the identity.
+This is the infinitesimal content of spherical twists: they are the
+discrete shadow of a continuous deformation space with tangent
+$\mathrm{HH}^\bullet(X)[1]$.
+\end{corollary}
+
+\begin{scope}[Lane]
+Theorem~\ref{thm:tangent-HKR} is $(\infty,1)$-categorical in its
+statement (tangent of an $(\infty,1)$-group) and chain-level in its
+proof (explicit Dolbeault representatives of
+$H^p(X, \wedge^q T_X)$, or Cech cochains on an open cover; Caldararu
+2005 gives explicit chain-level cocycles).
+\end{scope}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 4. Collision with the physical gauge group $C^\infty(X, G)$}
+\label{sec:cycle-gauge}
+% ====================================================================
+
+\begin{attack}[A4: the physical gauge group is not the autoequivalence
+2-groupoid]
+\leavevmode
+
+\noindent\emph{Ghost theorem.} There is a genuine relationship between
+the physical gauge group of 6D holomorphic Chern--Simons on a CY$_3$
+$X$ and the autoequivalence 2-groupoid $\Autdg(D^b(\Coh(X)))$: the
+former acts on branes (= objects of $D^b(\Coh(X))$ supported on
+complex-analytic subvarieties) by kernel modulation, and the
+exponential of the BV gauge-field $\cA \in \Omega^{0,\bullet}(X,
+\fg)[1]$ lands inside $\Autdg$.
+
+\noindent\emph{Precise error.} The physical gauge group of 6D hCS is
+\[
+ \cG_{\hCS}(X) \;=\; C^\infty(X, G),
+\]
+a \emph{Fr\'echet--Lie group}: infinite-dimensional over any
+positive-dimensional $X$, with Lie algebra
+$\mathrm{Lie}(\cG_{\hCS}) = C^\infty(X, \fg)$. The autoequivalence
+2-groupoid $\Autdg(D^b(\Coh(X)))$ is, at $\pi_0$, finite-dimensional
+(Fano / general type, Theorem~\ref{thm:BO-2groupoid}) or at worst
+\emph{discrete-plus-finite-dimensional} (CY scope,
+Theorem~\ref{thm:ST-twist}, where the spherical-twist component is
+discrete --- a subgroup of an arithmetic group --- and the continuous
+component is $\Aut(X) \ltimes \Pic^0(X) \times \bZ$ which is a
+finite-dimensional algebraic group times a lattice). Identifying
+$\cG_{\hCS}(X)$ with $\Autdg(D^b(\Coh(X)))$ would be a confusion
+of dimensionality: $\infty$-dimensional vs.\ finite-dimensional-plus
+-discrete.
+
+\noindent\emph{Correct categorical relationship.} The correct map is
+a \emph{derived exponential}:
+\[
+ \exp_{\rm Toen} \colon \MC(\Omega^{0,\bullet}(X, \fg), \bar\partial + [-, -])
+ \;\longrightarrow\; \Autdg(D^b(\Coh(X))),
+\]
+sending a Maurer--Cartan element (= BV on-shell gauge field, modulo
+small gauge) to the Fourier--Mukai kernel
+$\cK_{\cA} = \mathrm{Cone}(\Delta_* \cO_X \xrightarrow{\cA} \Delta_*
+\cO_X \otimes \fg)$ (in suitable scheme). The image is the
+\emph{small-gauge-connected component} of $\Autdg$; the discrete
+content (spherical twists, flops, non-geometric autoequivalences) is
+\emph{not} in the image, exactly because it is discrete and not
+Maurer--Cartan-accessible.
+\end{attack}
+
+\begin{heal}[H4: the Maurer--Cartan exponential and the cokernel
+discipline]
+\leavevmode
+
+\begin{definition}[Physical gauge group of 6D hCS]
+\label{def:hCS-gauge}
+Let $X$ be a CY$_3$, $G$ a complex semisimple Lie group with Lie
+algebra $\fg$. The \emph{physical gauge group} of 6D holomorphic
+Chern--Simons on $X$ is
+\[
+ \cG_{\hCS}(X, G) \;=\; \mathrm{Map}_{C^\infty}(X, G)
+\]
+(Fr\'echet--Lie group), acting on the Dolbeault BV field
+\[
+ \cA \;=\; c \;+\; A_{0,1} \;+\; A^*_{0,2} \;+\; c^*_{0,3}
+ \;\in\; \Omega^{0,\bullet}(X, \fg)[1]
+\]
+by the standard formula
+$\cA \mapsto g^{-1} \cA g + g^{-1} \bar\partial g$
+(Costello 2013 eq.~(2.4); Vol~III \texttt{platonic\_synthesis}
+\S\ref{sec:statement}).
+\end{definition}
+
+\begin{theorem}[Maurer--Cartan to Fourier--Mukai kernel]
+\label{thm:MC-FM}
+\ClaimStatusTheorem\ (chain-level). Let $\cA \in
+\Omega^{0,\bullet}(X, \fg)[1]$ be a Maurer--Cartan element of the
+Dolbeault dgla, i.e.
+\[
+ \bar\partial \cA \;+\; \tfrac{1}{2}[\cA, \cA] \;=\; 0
+ \qquad\text{in } \Omega^{0,\bullet}(X, \fg)[2].
+\]
+Let $\rho \colon \fg \to \End(V)$ be a representation of $\fg$ on a
+finite-dimensional $\bC$-vector space. Define the Fourier--Mukai
+kernel
+\[
+ \cK_\cA^\rho \;:=\; (\cO_X \otimes V, \;\bar\partial + \rho(\cA))
+ \;\in\; D^b(\Coh(X \times X))
+\]
+(via the diagonal, treating $V \otimes \cO_X$ as a graded
+$\cO_X$-module with twisted $\bar\partial$-operator). Then
+$\Phi_{\cK_\cA^\rho} \colon D^b(\Coh(X)) \to D^b(\Coh(X))$ is a
+well-defined dg-endofunctor, and if $\cA$ is suitably small (perturbative
+regime) it is an equivalence, defining
+\[
+ \exp_{\rm Toen}(\cA; \rho) \;\in\; \Autdg(D^b(\Coh(X))).
+\]
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The Maurer--Cartan condition is precisely the flatness of the
+twisted $\bar\partial$-connection
+$\bar\partial + \rho(\cA)$ on $V \otimes \cO_X$: the total
+differential squares to zero iff $\bar\partial \rho(\cA) +
+\rho(\cA)^2 = 0$, which by $\rho$ being a representation reduces to
+$\bar\partial \cA + \tfrac{1}{2}[\cA, \cA] = 0$. In the perturbative
+regime ($\|\cA\| < \varepsilon$) the kernel
+$\cK_\cA^\rho$ is quasi-isomorphic to a perturbation of the diagonal
+$\Delta_* \cO_X \otimes V$, hence invertible, hence an
+autoequivalence. The map $\cA \mapsto \cK_\cA^\rho$ descends to
+gauge-orbits: if $\cA' = g^{-1} \cA g + g^{-1} \bar\partial g$ for
+$g \in \cG_{\hCS}$, then $\cK_{\cA'} \simeq \cK_{\cA}$ by the
+gauge-transformation quasi-isomorphism $\rho(g)$.
+\end{proof}
+
+\begin{theorem}[Cokernel discipline]
+\label{thm:cokernel}
+\ClaimStatusDerivation. The image of $\exp_{\rm Toen}$ in
+$\pi_0\,\Autdg(D^b(\Coh(X)))$ is contained in the small-gauge
+connected component
+\[
+ \Autdg^0(D^b(\Coh(X))) \;:=\;
+ \ker\bigl(\pi_0\,\Autdg \to \pi_0\,\Autdg\bigr) \;=\;
+ \text{connected component of identity}.
+\]
+The cokernel
+\[
+ \pi_0\,\Autdg(D^b(\Coh(X))) \;/\; \mathrm{im}(\exp_{\rm Toen})
+ \;\supseteq\; \bigl\{\text{spherical twists, flops, non-geometric
+ autoequivalences}\bigr\}
+\]
+is the \emph{non-perturbative content} of the categorical symmetry:
+elements unreachable from the identity by continuous small-gauge
+deformation. On CY$_3$, this cokernel contains the Bridgeland / flop
+autoequivalences $T_E$ for $E$ a spherical sheaf.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+$\exp_{\rm Toen}$ is continuous in the Fr\'echet topology of
+$\Omega^{0,\bullet}(X, \fg)$ (the MC-moduli is a subspace of this
+Fr\'echet space modulo gauge) and lands by construction in the
+path-connected component of the identity kernel $\Delta_* \cO_X$.
+Spherical twists land in other components because $\cT_E \neq \Delta_*
+\cO_X$ at the level of cohomology (both rank and first Chern class
+differ: $\cT_E$ has rank $-\mathrm{rk}(E)$ on a neighbourhood of the
+diagonal, corresponding to the cone structure).
+\end{proof}
+
+\begin{scope}[Lane]
+Theorems~\ref{thm:MC-FM} and~\ref{thm:cokernel} are chain-level in
+statement (explicit Dolbeault complex, Fr\'echet topology) and
+$(\infty,1)$-categorical in target (Fourier--Mukai kernel in
+$D^b(\Coh(X \times X))$). The exp-map descends to the Toen derived
+mapping space (Cycle~3).
+\end{scope}
+
+\begin{corollary}[The slogan, rectified]
+\label{cor:slogan-rectified}
+The correct form of the essay slogan is:
+
+\begin{quote}
+\textsl{The \emph{global categorical tensor-symmetry 2-groupoid}
+of the $B$-model on $X$ is $\Autdg(D^b(\Coh(X)))$; the
+\emph{physical 6D hCS gauge group} $\cG_{\hCS}(X, G)$ is infinite
+-dimensional Fr\'echet; they are related by the derived exponential
+$\exp_{\rm Toen}$, which lands only in the small-gauge connected
+component of $\Autdg$, leaving discrete non-geometric content
+(spherical twists, flops) unreachable.}
+\end{quote}
+
+Writing ``the gauge group lives in the 2-groupoid of
+autoequivalences'' truncates this to a slogan that omits (a) which
+``gauge group'' (physical 6D hCS or categorical tensor-symmetry),
+(b) the dimension disparity (infinite-dim Fr\'echet vs.\
+discrete-plus-finite-dim), (c) the direction of the map (it is an
+exponential from the former into a component of the latter, not an
+identification).
+\end{corollary}
+\end{heal}
+
+% ====================================================================
+\section{Cycle 5. Kapustin--Witten and the chiral-algebra symmetry
+2-groupoid}
+\label{sec:cycle-KW}
+% ====================================================================
+
+\begin{attack}[A5: the $A$/$B$-model lift blurs which autoequivalence
+2-groupoid]
+\leavevmode
+
+\noindent\emph{Ghost theorem.} Kapustin--Witten 2006 identifies the
+categorical-symmetry content of $4$D $\mathcal{N} = 4$ super-Yang--Mills
+with the autoequivalence 2-groupoid of the appropriate target
+category: on compactification to $\Sigma = \bS^2$, $A$-branes on
+$\cM_H(C, G)$ (resp.\ $B$-branes on $\cM_H(C, \LG)$) are the objects
+and $S$-duality exchanges them. The 2-groupoid of brane-equivalences
+is the $(\infty,1)$-symmetry of the physical theory.
+
+\noindent\emph{Precise error.} Vol~III associates the chiral algebra
+$\mathcal{A}^{\rm aut}_{C, G}$ to $\DMod(\Bun_G(C))$ via
+$\Phi$ (chiralisation of Beilinson--Drinfeld). The
+\emph{chiral-algebra symmetry 2-groupoid} is \emph{not} directly
+$\Autdg(\DMod(\Bun_G(C)))$; it is the autoequivalence 2-groupoid of
+the target \emph{chiral category} under its factorisation structure
+(an $\Eone$-structure at $d \geq 3$, an $\Etwo$-structure at
+$d \leq 2$; AP-CY1--5, AP-CY62). The slogan's use of
+``autoequivalences'' does not distinguish the source CY-category
+autoequivalences from the target chiral-algebra autoequivalences.
+
+\noindent\emph{Correct categorical relationship.} There are
+\emph{three} autoequivalence 2-groupoids in the Vol~III picture of
+$\Phi$ on a CY$_d$ $X$:
+\begin{enumerate}[label=(E\arabic*)]
+ \item $\Autdg(D^b(\Coh(X)))$ --- source categorical symmetry
+   (Cycles~1--3).
+ \item $\Autdg(\Phi(D^b(\Coh(X))))$ --- target chiral-algebra
+   autoequivalences, an $E_k$-autoequivalence 2-groupoid with
+   $k$ determined by $d$ ($k = \infty$ at $d = 1$, $k = 2$ at $d = 2$,
+   $k = 1$ at $d \geq 3$).
+ \item $\AutMon(D^b(\Coh(X)))$ --- tensor-structure-preserving
+   subgroup of (E1): respects $\otimes^{\bL}$, shifts, and the
+   symmetric monoidal structure. This is the \emph{global form} of
+   the categorical Langlands duality in the Beilinson--Drinfeld
+   sense (L2 of companion \texttt{wave12\_a9}).
+\end{enumerate}
+\end{attack}
+
+\begin{heal}[H5: the three-2-groupoid disambiguation and the
+$\Phi$-functoriality]
+\leavevmode
+
+\begin{proposition}[Functorial compatibility of (E1) and (E2) for
+$\Phi$]
+\label{prop:E1-E2-phi}
+\ClaimStatusConjectured\ (AP-CY55-open). Assume $\Phi$ extends to a
+morphism preserving functor on the appropriate $(\infty,1)$-category
+of CY$_d$-categories. Then there is a commutative square of
+$(\infty,1)$-groups
+\[
+\begin{tikzcd}[column sep=huge]
+ \Autdg(D^b(\Coh(X)))
+   \ar[r, "\Phi_*"] \ar[d, "\exp_{\rm Toen}"', leftarrow] &
+ \Autdg^{E_{d-2}}(\Phi(D^b(\Coh(X))))
+   \ar[d] \\
+ \cG_{\hCS}(X, G)
+   \ar[r, "\Phi_{\hCS}"'] &
+ \cG^{\rm ch}_{\Phi(X)}(G)
+\end{tikzcd}
+\]
+where the bottom row is the physical 6D hCS gauge group mapped to its
+chiralised avatar on $\Phi(X)$, and the right-hand target is the
+$E_{d-2}$-autoequivalence 2-groupoid of the chiral algebra.
+
+\emph{Claim status.} Object-level compatibility is established at
+$d = 1$ (CY-A$_1$: abelian $\to$ $V_L$ lattice vertex algebra,
+autoequivalences $O(L) \to \Aut(V_L)$) and at $d = 3$ for
+$K3 \times E$ (CY-A$_3$ equivalence). Morphism-level
+compatibility is AP-CY55-open.
+\end{proposition}
+
+\begin{theorem}[Tensor-structure-preserving subgroup (E3)]
+\label{thm:tensor-preserving}
+\ClaimStatusTheorem\ (chain-level on smooth projective Fano or
+general-type; $(\infty,1)$-categorical structure via Toen).
+Let $X$ be smooth projective. The tensor-preserving autoequivalence
+2-groupoid
+\[
+ \AutMon(D^b(\Coh(X))) \;\subset\; \Autdg(D^b(\Coh(X)))
+\]
+consists of those autoequivalences preserving $\otimes^{\bL}$, the
+unit $\cO_X$, and the symmetric braiding; it satisfies
+\[
+ \pi_0\,\AutMon(D^b(\Coh(X))) \;\simeq\; \Aut(X).
+\]
+This follows because a symmetric monoidal autoequivalence preserves
+the unit $\cO_X$, its subquotients (skyscraper sheaves at closed
+points), and the scheme structure, hence comes from an
+automorphism of $X$. The shift $[1]$ and tensor with non-trivial
+line bundles do \emph{not} preserve the symmetric monoidal structure
+on the nose (they preserve only up to a 2-cocycle; they are
+\emph{pivotal} automorphisms, not symmetric-monoidal automorphisms).
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+A symmetric monoidal autoequivalence $F$ sends the unit $\cO_X$ to
+$\cO_X$ (up to unique iso), hence sends closed-point skyscrapers to
+closed-point skyscrapers (they are the objects $E$ with
+$\cO_X \otimes E \simeq E$ of minimal support), hence induces a
+bijection of closed points of $X$. Compatibility with
+$\otimes^{\bL}$ extends this bijection to a scheme automorphism.
+(Bondal--Orlov, see also Rouquier 2006.)
+\end{proof}
+
+\begin{theorem}[The three 2-groupoids on $X = K3 \times E$]
+\label{thm:K3E-three-2gpd}
+\ClaimStatusTheorem\ (chain-level on K3, $E$; chain-level
+Künneth product on $X$). Let $X = K3 \times E$. Then:
+\begin{enumerate}[label=(\alph*)]
+ \item $\pi_0\,\Autdg(D^b(\Coh(X)))$ contains the Künneth product
+   $\Auteq(D^b(\Coh(K3))) \times \Auteq(D^b(\Coh(E)))$ as a proper
+   subgroup; the full group includes mixed Fourier--Mukai kernels
+   supported on the diagonal of the $E$-factor only, producing
+   non-Künneth autoequivalences (e.g.\ compositions of
+   spherical twists with fibrewise dualities).
+ \item $\pi_0\,\AutMon(D^b(\Coh(X)))$: by
+   Theorem~\ref{thm:tensor-preserving},
+   $\pi_0\,\AutMon(D^b(\Coh(X))) \simeq \Aut(X) = \Aut(K3) \times
+   \Aut(E) \rtimes (\bZ/2)$ (the $\bZ/2$ swaps factors only when
+   they are isomorphic as schemes; for generic K3 and $E$, the
+   $\bZ/2$ is trivial).
+ \item The Vol~I cache V9 stability-manifold count:
+   $\dim_\bC \Stab(D^b(\Coh(K3 \times E))) = 48$;
+   Künneth slice $\Stab^\Phi = \Stab(K3) \times \Stab(E)$ has
+   dim $26$; codim $22$.
+\end{enumerate}
+The physical hCS gauge group is
+$\cG_{\hCS}(K3 \times E, G) = C^\infty(K3 \times E, G)$,
+infinite-dimensional, whose exponential lands inside the
+connected component of the identity in (a).
+\end{theorem}
+
+\begin{scope}[Lane]
+Parts (a) and (b) of Theorem~\ref{thm:K3E-three-2gpd} are chain-level
+$+$ $(\infty,1)$-categorical. Part (c) is chain-level (Bridgeland
+manifold count). The identification with the physical gauge group is
+Fr\'echet-analytic chain-level plus categorical $(\infty,1)$.
+\end{scope}
+
+\begin{remark}[Relation to CY-A$_3$ and the elliptic parameter]
+On $X = K3 \times E$, the spectral parameter $u$ along $E$
+(AP-CY20, AP-CY149) appears categorically as the
+$\Pic^0(E) = E(\bC)$ component of $\pi_0\,\Autdg$: translation by
+$u \in E(\bC)$ acts on $D^b(\Coh(K3 \times E))$ by
+$(\mathrm{id}_{K3}, t_u)_* \in \Autdg$, where $t_u$ is the elliptic
+translation. This is the categorical shadow of the Omega parameter
+surviving on $K3 \times E$. Iqbal--Kozcaz--Vafa-style two-parameter
+refinement \emph{requires} an ambient toric geometry; on $K3 \times E$
+only the $E$-parameter $u$ realises as an autoequivalence deformation.
+This matches the CLAUDE.md key-fact AP-CY149 and Vol~III cache entry
+V14.
+\end{remark}
+\end{heal}
+
+% ====================================================================
+\section{Consolidated portrait}
+\label{sec:portrait}
+% ====================================================================
+
+\subsection{Five-cycle assembly}
+
+The five cycles produce the following rectified portrait:
+
+\begin{itemize}\itemsep 2pt
+ \item \textbf{Cycle 1.} $\Autdg(D^b(\Coh(X)))$ on smooth
+   projective $X$ with $\pm K_X$ ample has
+   $\pi_0 = \Aut(X) \ltimes (\Pic(X) \times \bZ)$, $\pi_1 = \bC^\times$,
+   $\pi_{\geq 2} = 0$ (Theorem~\ref{thm:BO-2groupoid}).
+ \item \textbf{Cycle 2.} On CY$_d$ ($K_X \simeq \cO_X$),
+   Bondal--Orlov fails; the autoequivalence group extends by a
+   braid-group of Seidel--Thomas spherical twists
+   (Theorem~\ref{thm:ST-twist}); the Bridgeland stability manifold
+   has dimension $\mathrm{rk}\,\cK_{\rm num}$
+   (Theorem~\ref{thm:bridgeland-action}). On $K3 \times E$:
+   $\dim \Stab = 48$; Künneth slice is codim 22.
+ \item \textbf{Cycle 3.} The Toen derived enhancement makes
+   $\Autdg$ into an $(\infty,1)$-group with tangent complex
+   $\mathrm{HH}^\bullet(X)[1] = \bigoplus_{p+q} H^p(X, \wedge^q T_X)[1 - p - q]$
+   (Theorems~\ref{thm:toen-enhancement}, \ref{thm:tangent-HKR}).
+ \item \textbf{Cycle 4.} The physical 6D hCS gauge group
+   $\cG_{\hCS}(X, G) = C^\infty(X, G)$ is infinite-dimensional
+   Fr\'echet; the exponential map $\exp_{\rm Toen}$ lands in the
+   small-gauge connected component of $\Autdg$; the discrete
+   non-geometric content (spherical twists, flops) is the
+   cokernel (Theorems~\ref{thm:MC-FM}, \ref{thm:cokernel}).
+ \item \textbf{Cycle 5.} Three 2-groupoids coexist:
+   $\Autdg(D^b(\Coh(X)))$ (source),
+   $\Autdg^{E_{d-2}}(\Phi(D^b(\Coh(X))))$ (target, chiral),
+   $\AutMon(D^b(\Coh(X)))$ (tensor-preserving, $\simeq \Aut(X)$);
+   their $\Phi$-compatibility is AP-CY55-open at morphism level,
+   established at object level at $d = 1$ and $d = 3$ via CY-A$_3$
+   (Proposition~\ref{prop:E1-E2-phi}, Theorems
+   \ref{thm:tensor-preserving}, \ref{thm:K3E-three-2gpd}).
+\end{itemize}
+
+\subsection{The final rectified slogan}
+
+Corollary~\ref{cor:slogan-rectified} supplies the form the essay
+slogan must take: the 2-groupoid of autoequivalences is the
+\emph{categorical tensor-symmetry 2-groupoid} of the $B$-model;
+the physical gauge group is infinite-dimensional Fr\'echet; the
+exponential map relates them only in the small-gauge component.
+The discrete non-geometric content --- spherical twists, flops,
+Huybrechts--Macr\`i--Stellari orientation-preserving overgroup on K3,
+Bridgeland stability-manifold deck transformations --- is
+\emph{exactly} the content the physical hCS gauge group cannot see,
+and is \emph{exactly} where the Fourier--Mukai categorical structure
+becomes irreplaceable by BV-physics.
+
+\subsection{AP-CYs proposed}
+
+\begin{itemize}
+ \item \textbf{AP-CY69 --- Autoequivalence 2-groupoid vs.\ physical
+   gauge group (High).} Writing ``the gauge group lives in the
+   2-groupoid of autoequivalences'' without specifying (a) which gauge
+   group (physical 6D hCS or categorical tensor-symmetry), (b) the
+   dimensional disparity (infinite Fr\'echet vs.\ discrete-plus
+   -finite-dim), (c) the direction of the exp map, (d) the
+   cokernel content, is a slogan-level conflation.
+   \emph{Counter:} Corollary~\ref{cor:slogan-rectified}; invoke
+   Theorems~\ref{thm:MC-FM} and~\ref{thm:cokernel} to state
+   precisely.
+ \item \textbf{AP-CY70 --- Bondal--Orlov scope declaration (Medium).}
+   Any invocation of the ``autoequivalence 2-groupoid'' on a
+   Calabi--Yau $X$ must acknowledge that Bondal--Orlov
+   reconstruction fails (the ample-canonical hypothesis is violated)
+   and that the correct scope is Bridgeland / Seidel--Thomas with
+   spherical twists. The $\pi_0$-count is \emph{not}
+   $\Aut(X) \ltimes (\Pic(X) \times \bZ)$ on CY.
+   \emph{Counter:} Cycle~2, equation~\eqref{eq:Br-extension}.
+ \item \textbf{AP-CY71 --- Small-gauge vs non-geometric
+   autoequivalence (High).} In BV-theoretic contexts on a CY$_3$
+   (6D hCS, twisted supergravity), the gauge-field
+   $\cA \in \Omega^{0,\bullet}(X, \fg)[1]$ generates only the
+   identity-component of $\Autdg$ via $\exp_{\rm Toen}$; spherical
+   twists and flops are \emph{discrete} and not reached by any BV
+   gauge transformation.
+   \emph{Counter:} Theorem~\ref{thm:cokernel};
+   Costello--Gaiotto 2018 on twisted supergravity brane modulation.
+\end{itemize}
+
+\subsection{Open problems}
+
+\begin{enumerate}[label=(\arabic*)]
+\item \textbf{$\Phi$-morphism preservation at $d = 3$.} Does
+$\Phi \colon D^b(\Coh(K3 \times E)) \to \Etwo\text{-ChirAlg}$ --- or
+its $\Eone$-version per AP-CY1--5 at $d = 3$ ---
+factor through a 2-functor of autoequivalence 2-groupoids? The
+object-level piece is established (CY-A$_3$); the functoriality is
+AP-CY55-open.
+
+\item \textbf{Spherical-twist chiral shadow.} What is the image under
+$\Phi$ of a Seidel--Thomas spherical twist $T_E \in
+\Autdg(D^b(\Coh(K3)))$ inside
+$\Autdg^{\Etwo}(\Phi(D^b(\Coh(K3))))$?
+Conjecturally this should reproduce the Verlinde-algebra monodromy
+autoequivalence of the chiral algebra.
+
+\item \textbf{Bridgeland chamber decomposition as chiral-algebra
+stratification.} The Bridgeland stability manifold
+$\Stab(D^b(\Coh(K3)))$ has a wall-and-chamber decomposition
+(Bayer--Macr\`i 2014); under $\Phi$, this should descend to a
+stratification of the chiral-algebra moduli. Constructing this
+stratification is a chain-level first-principles computation still
+missing.
+
+\item \textbf{Kapustin--Witten shadow on $\Autdg$.} The
+$S$-duality of 4D $\mathcal{N}=4$ SYM on $\Sigma \times C$ predicts
+an action of $SL_2(\bZ)$ on the $A/B$-brane 2-groupoids of
+$\cM_H(C, G)$ / $\cM_H(C, \LG)$. The precise $\Autdg$ shadow on
+$D^b(\Coh(\cM_H(C, G)))$ is conjecturally constructed via the
+Hitchin fibration and Fourier--Mukai on abelian varieties (SYZ on
+the generic fibre); a first-principles identification remains open.
+\end{enumerate}
+
+% ====================================================================
+\section*{Summary}
+% ====================================================================
+
+$\Autdg(D^b(\Coh(X)))$ is the $(\infty,1)$-group of
+Fourier--Mukai kernel autoequivalences of $D^b(\Coh(X))$: 0-cells
+are kernels $\cK \in D^b(\Coh(X \times X))$ whose Fourier--Mukai
+transform is an equivalence, 1-cells are quasi-isomorphisms of
+kernels, 2-cells are dg-homotopies, higher cells are iterated
+simplicial-nerve homotopies, tangent complex at identity is
+$\mathrm{HH}^\bullet(X)[1] = \bigoplus H^p(X, \wedge^q T_X)[1 - p - q]$
+by Hochschild--Kostant--Rosenberg. On Fano or general-type $X$
+Bondal--Orlov gives $\pi_0 = \Aut(X) \ltimes (\Pic(X) \times \bZ)$
+and $\pi_{\geq 2} = 0$; on Calabi--Yau $X$ the group is
+extended by Seidel--Thomas spherical twists acting on the
+Bridgeland stability manifold $\Stab(D^b(\Coh(X)))$ of complex
+dimension $\mathrm{rk}\,\cK_{\rm num}(D^b(\Coh(X)))$. The physical
+6D holomorphic Chern--Simons gauge group on a CY$_3$
+$\cG_{\hCS}(X, G) = C^\infty(X, G)$ is an
+infinite-dimensional Fr\'echet--Lie group; its Lie algebra
+$\Omega^{0,\bullet}(X, \fg)[1]$ maps to $\Autdg(D^b(\Coh(X)))$
+by the Toen derived exponential, sending a Maurer--Cartan
+element $\cA$ to the Fourier--Mukai kernel $\cK_\cA =
+(\cO_X \otimes V, \bar\partial + \rho(\cA))$; the image lies in
+the small-gauge connected component, and the cokernel contains
+spherical twists and flops, the non-perturbative content
+unreachable by BV gauge. On $X = K3 \times E$ three autoequivalence
+2-groupoids coexist: the source $\Autdg(D^b(\Coh(X)))$ with
+stability-manifold dimension $48$ and codim-$22$ Künneth slice;
+the target chiral-algebra $\Autdg^{\Etwo}(\Phi(D^b(\Coh(X))))$ at
+$\Eone$ at $d = 3$ (AP-CY1--5); the tensor-preserving
+$\AutMon(D^b(\Coh(X))) \simeq \Aut(X) = \Aut(K3) \times \Aut(E)$.
+The elliptic spectral parameter $u$ along $E$ realises as the
+$\Pic^0(E)$-translation component of $\pi_0\,\Autdg$, matching
+AP-CY149 (one Omega parameter on $K3 \times E$, not two). The
+rectified slogan: the 2-groupoid of autoequivalences is the global
+categorical tensor-symmetry of the $B$-model; the physical gauge
+group is infinite-dimensional Fr\'echet; they meet through a Toen
+derived exponential whose image is the identity component of the
+categorical symmetry, leaving discrete non-geometric content
+(Seidel--Thomas, flops, Huybrechts--Macr\`i--Stellari
+orientation overgroup) as the cokernel.
+
+\end{document}

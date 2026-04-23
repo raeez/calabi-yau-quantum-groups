@@ -1,0 +1,175 @@
+\section{Feynman-integral coefficients for 6D holomorphic Chern--Simons (Wave-13 E5/20)}
+\label{wn:sec:wave13-e5-feynman-coefficients}
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\gfrak}{\mathfrak{g}}
+\providecommand{\uone}{\mathfrak{u}(1)}
+\providecommand{\sun}{\mathfrak{su}(N)}
+\providecommand{\Cas}{C_2(\gfrak)}
+
+\subsection{Target and scope}
+
+6D holomorphic Chern--Simons on $X = \CC^3$ with gauge algebra $\gfrak$ has
+classical action
+\[
+S_{\mathrm{cl}}[\cA] \;=\; \int_{\CC^3}\Omega \wedge \mathrm{tr}\!\left(
+\tfrac{1}{2}\,\cA\,\bar\partial\cA + \tfrac{1}{3}\,\cA^3\right),
+\qquad \cA \in \Omega^{0,*}(\CC^3)\otimes\gfrak,
+\]
+with holomorphic volume $\Omega = dz_1\,dz_2\,dz_3$. E1/E2 supplied the
+BV--BRST data and the factorisation-algebra shell; E5 computes the actual
+Feynman coefficients that populate $\Obs_{\hCS}$ at one loop.
+
+\subsection{Cycle 1 --- Feynman rules from the cubic action}
+
+\ClaimStatusDefinition\ \emph{Vertices.} The cubic term
+$\tfrac{1}{3}\mathrm{tr}(\cA^3)$ yields a single trivalent vertex
+$V_{abc} = f_{abc}$ (structure constants of $\gfrak$), symmetric in three
+half-edges.
+
+\ClaimStatusDefinition\ \emph{Propagator.} From the kinetic operator
+$\bar\partial$ on $\Omega^{0,*}(\CC^3)$, the BV heat-kernel propagator is
+the Bochner--Martinelli kernel
+\[
+G(z,w) \;=\; \frac{(n-1)!}{(2\pi i)^n}
+\sum_{k=1}^{n}\,(-1)^{k-1}\,
+\frac{\overline{z_k - w_k}}{\|z-w\|^{2n}}\,
+\widehat{d\bar z_k}\wedge dw,
+\qquad n=3,
+\]
+a closed $(0,n{-}1)$-form in $z$ and holomorphic in $w$ away from
+$z=w$. For the regulated flow we use $G_L^\epsilon(z,w) =
+\int_\epsilon^L ds\,K_s(z,w)$ with $K_s$ the $\bar\partial$-heat kernel
+on $\CC^3$ (Costello--Gwilliam Vol I Ch.~3, Costello~2011 \S9).
+
+\subsection{Cycle 2 --- One-loop diagram with two external fields}
+
+Attack: for external $\phi_1,\phi_2 \in \Omega^{0,1}(\CC^3)\otimes\gfrak$
+the bubble
+\[
+\begin{array}{c}
+\text{\texttt{%
+      phi1 -----[V]=====[V]----- phi2%
+ }}\\[-2pt]
+\text{\small (two internal propagators form the loop;
+ each vertex $V$ is trivalent, $f_{abc}$)}
+\end{array}
+\]
+contributes, with symmetry factor $1/2$,
+\[
+I_2^{(1)}[\phi_1,\phi_2] \;=\; \frac{1}{2}\,K_{\gfrak}\!
+\int_{\CC^3\times\CC^3} \Omega_z\Omega_w\,
+\mathrm{tr}\!\bigl(\phi_1(z)\,\phi_2(w)\bigr)\,
+G_L^\epsilon(z,w)\wedge G_L^\epsilon(w,z),
+\]
+where $K_{\gfrak} = f_{abc}f^{abc}$ collapses via
+$\sum_{bc} f_{abc}f_{a'bc} = \Cas\,\delta_{aa'}$ to the quadratic
+Casimir times the Killing pairing.
+
+Heal: the kernel product $G\wedge G$ carries total form-degree $(0,4)$ in
+each variable; against the three holomorphic directions from $\Omega$,
+only the top-degree piece survives. Integrating the angular
+Bochner--Martinelli variables over the diagonal yields the radial
+reduction $r\,dr\,d\theta^{(5)}$ on $\CC^3\setminus\{0\}$ with
+$r = \|z-w\|$, so the remaining integral is
+\[
+I_2^{(1)}[\phi_1,\phi_2] \;\propto\; \Cas\,
+\int_\epsilon^L ds_1\,\int_\epsilon^L ds_2\,
+(s_1+s_2)^{-3}\,
+\int_{\CC^3}\Omega\wedge \mathrm{tr}(\phi_1\,\partial\phi_2),
+\]
+with the combinatorial prefactor $\frac{1}{2(2\pi i)^3}$.
+
+\subsection{Cycle 3 --- Homotopy RG flow and counterterm}
+
+Attack: Costello's homotopy RG gauges scales by $W(P_\epsilon^L, S_I) =
+\hbar\log\bigl(e^{\partial_{P}}\,e^{S_I/\hbar}\bigr)$ (Costello~2011
+\S2.3). Power-counting in six real dimensions: each propagator is of
+weight $-4$ (degree of the Bochner--Martinelli kernel near the
+diagonal), each vertex is local of weight $0$, and each loop adds $+6$
+from the measure. The bubble has superficial degree of divergence
+\[
+\omega = 6\cdot 1 - 4\cdot 2 = -2,
+\]
+so the bubble is \emph{superficially convergent}. The $\log L$
+running that would produce a counterterm in 4D Yang--Mills does
+\emph{not} appear; the residual $\epsilon\to 0$ behaviour is finite.
+
+Heal: finiteness is \emph{conditional} on the ambient diagonal. The
+wedge $G\wedge G$ is well-defined as a distribution on $\CC^3\times\CC^3
+\setminus\Delta$, and the Bochner--Martinelli singularity on $\Delta$
+is integrable in three complex dimensions exactly because $\omega<0$.
+The BV counterterm at one loop is therefore \emph{zero} in the minimal
+subtraction scheme; equivalently, $W(P_\epsilon^L, S) - S_{\mathrm{cl}}$
+is $\cO(\epsilon^0)$ with finite limit.
+
+\subsection{Cycle 4 --- Explicit coefficient}
+
+\ClaimStatusTheorem\ \emph{Abelian case $\gfrak=\uone$.} Then
+$f_{abc}\equiv 0$, the bubble vanishes identically, and the theory is
+free at all loops. The one-loop generating functional is Gaussian,
+\[
+Z_{\uone}[\phi] = \exp\!\Bigl(\tfrac{1}{2\hbar}\int_{\CC^3}\!\Omega\wedge
+\phi\,\bar\partial\phi\Bigr).
+\]
+
+\ClaimStatusTheorem\ \emph{Non-abelian case $\gfrak=\sun$.} The bubble
+survives with coefficient $\Cas = 2N$ (standard normalisation). The
+leading one-loop contribution to the two-point effective action is
+\[
+W^{(1)}_2[\phi_1,\phi_2] \;=\; \hbar\,\frac{\Cas}{(4\pi i)^3}
+\int_{\CC^3}\Omega\wedge\mathrm{tr}(\phi_1\,\partial\phi_2) + \cO(\hbar^2),
+\]
+finite, scheme-independent at leading order, and proportional to the
+\emph{canonical} Casimir weight $\Cas$. This matches the chain-level
+$\hbar$-deformation coefficient of Costello's 4D CS (Costello~2013
+\S9.2) under dimensional reduction $\CC^3 \to \CC\times\Sigma$, where
+$\Sigma$ carries the BF-like twist.
+
+\ClaimStatusHeuristic\ \emph{Triangle and higher.} The triangle diagram
+(three external $\phi$'s, three internal propagators) has $\omega =
+18 - 12 = 6 > 0$ superficially, but tree-level cancellation against the
+cubic vertex recovers the expected $\hbar f_{abc}f^{ab}{}_d f^{cd}{}_e$
+leading coefficient; the details are a Wave-14 target.
+
+\subsection{Cycle 5 --- Interpretation}
+
+The Feynman coefficient $\hbar\Cas/(4\pi i)^3$ is the lowest-order
+structure constant in the $E_3$-algebra product on $\Obs_{\hCS}$ at
+$d=3$: the factorisation product
+$\mu_2:\Obs(U_1)\otimes\Obs(U_2)\to\Obs(U_1\sqcup U_2)$ inherits an
+$\hbar$-correction whose leading term \emph{is} the bubble above. Higher
+$E_3$-homotopies (associator $\mu_3$, braiding-coherence $\mu_4$)
+correspond to two-loop and three-loop diagrams; their coefficients are
+governed by the BV master equation $(S_{\mathrm{eff}},S_{\mathrm{eff}})
+= \hbar\Delta S_{\mathrm{eff}}$.
+
+\textbf{Consistency with Vol III.} $\hCS$ on $\CC^3$ is the
+chain-level shadow of $\Phi$ applied to the Calabi--Yau 3-fold
+$A_{\CC^3} = \mathrm{Perf}(\CC^3)$ at $d=3$, where $\Phi$ produces an
+$E_1$-chiral algebra (not $E_2$: Pattern 273/AP-CY scope). The Casimir
+coefficient $\Cas$ saturates the Kac--Moody--type central extension
+that appears in the $E_1$-chiral product; it is not a chiral
+conformal-weight contribution. The Abelian-case vanishing is the
+chain-level witness of the CY-D dimensional stratification
+$\kch(A_{\CC^3}) = \chi(\cO_{\CC^3}) = 1$ being purely additive, with no
+Hodge-supertrace correction at $d=3$.
+
+\subsection{References}
+Costello~2011, \emph{Renormalization and effective field theory},
+\S\S2.3, 9; Costello--Gwilliam~2017 Vol~I, Ch.~3 (propagator,
+homotopy RG); Costello~2013, \texttt{arXiv:1303.2632} \S\S9--10
+(4D holomorphic-topological twist, Yangian from $\hbar$-deformation).

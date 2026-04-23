@@ -1,0 +1,161 @@
+% Wave-13 G1/20 — Costello renormalization machine applied to 6D hCS
+% Channel: first-principles, elementary, side-by-side with Costello 2011.
+% Subscripted kappa discipline; \providecommand only.
+
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\Seff}{S_{\mathrm{eff}}}
+\providecommand{\CT}{\mathrm{CT}}
+\providecommand{\Loc}{\mathrm{Loc}}
+\providecommand{\Fields}{\mathrm{Fields}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\bracket}[2]{\{#1, #2\}}
+\providecommand{\kBV}{\kappa_{\mathrm{BV}}}
+\providecommand{\kct}{\kappa_{\mathrm{ct}}}
+
+\section{Costello's renormalization machine on 6D hCS}
+\label{sec:wave13-g1-costello-renorm-6dhcs}
+
+The theory. Six-dimensional holomorphic Chern--Simons on a Calabi--Yau
+threefold $X$: fields $A \in \Omega^{0,\bullet}(X, \mathfrak{g})[1]$,
+classical action
+\[
+  S_{\mathrm{cl}}[A] \;=\; \int_X \Omega_X \wedge \mathrm{tr}\!\left(
+  \tfrac{1}{2}\, A \,\bar\partial A \;+\; \tfrac{1}{6}\, A \,[A, A]
+  \right),
+\]
+with $\Omega_X$ the CY3 holomorphic volume form. BV antibracket
+$\bracket{-}{-}_{\mathrm{BV}}$ from the degree-$(-1)$ odd symplectic
+pairing induced by $\Omega_X$ on $\Omega^{0,\bullet}\otimes\mathfrak{g}$.
+
+\paragraph{Cycle 1: scale-dependent effective action.}
+Costello 2011 (Ch.~2, Def.~2.1.1) defines a family
+$\{\Seff[\Lambda]\}_{\Lambda > 0}$ of functionals on fields, indexed by
+a UV cutoff scale $\Lambda$, satisfying the renormalization-group
+equation
+\begin{equation}
+  \label{eq:costello-rg}
+  \hbar\, \partial_\Lambda \Seff[\Lambda]
+  \;=\; \tfrac{1}{2}\, \bracket{\Seff[\Lambda]}{\Seff[\Lambda]}_\Lambda
+  \;-\; \hbar\, \Delta_\Lambda\, \Seff[\Lambda],
+\end{equation}
+where $\{-,-\}_\Lambda$ is the regularized BV bracket and $\Delta_\Lambda$
+the regularized BV Laplacian (Costello 2011 Ch.~5, Lem.~5.3.2). For
+6D~$\hCS$ the propagator is the $\bar\partial$-Green kernel on $X$
+regularized by heat-kernel cutoff $e^{-\Lambda \bar\partial^*\bar\partial}$.
+
+\paragraph{Cycle 2: Feynman-graph expansion.}
+Costello 2011 (Thm.~2.3.0.1) expands the effective action as a sum over
+connected Feynman graphs $\Gamma$:
+\begin{equation}
+  \label{eq:costello-feynman-expansion}
+  \Seff[\Lambda]
+  \;=\; \sum_{\Gamma \text{ connected}}
+  \frac{\hbar^{L(\Gamma)}}{|\Aut(\Gamma)|}\,
+  \int_{\Gamma} \mathcal{A}_\Lambda(\Gamma),
+\end{equation}
+with $L(\Gamma) = E(\Gamma) - V(\Gamma) + 1$ the first Betti number and
+$\mathcal{A}_\Lambda(\Gamma)$ the amplitude: tensor product of vertex
+weights (Taylor coefficients of $S_{\mathrm{cl}}$) contracted against
+edge weights (the $\Lambda$-regulated propagator $P_\Lambda$). For
+$\hCS$ the only interaction vertex is cubic ($\tfrac{1}{6}\mathrm{tr}\,A[A,A]$),
+so $\Gamma$ ranges over trivalent connected graphs.
+
+\paragraph{Cycle 3: counterterms.}
+Let $P_{L,\Lambda} = P_0 - P_\Lambda$ be the UV-subtracted propagator.
+Costello 2011 (Ch.~3, Thm.~3.0.0.1 --- the \emph{renormalization theorem})
+asserts: at each loop order $L \geq 1$, the naive $\Lambda \to 0$ limit
+of $\mathcal{A}_\Lambda(\Gamma)$ is divergent; divergences are
+cancelled by adding local counterterms
+\begin{equation}
+  \label{eq:costello-ct}
+  \CT_L \;\in\; \Loc(\Fields),
+  \qquad
+  \Seff^{\mathrm{ren}}[\Lambda]
+  \;=\; \Seff[\Lambda] \;-\; \sum_{L \geq 1} \hbar^L \CT_L.
+\end{equation}
+Locality is crucial: $\CT_L$ is a \emph{local} functional (polynomial
+in fields and their jets, supported at a point), not a general
+distribution; this is the content of Costello's locality axiom
+(Costello--Gwilliam 2017 Vol.~I, Def.~3.5.1).
+
+\paragraph{Cycle 4: BV consistency (quantum master equation).}
+The renormalized $\Seff^{\mathrm{ren}}$ is required to satisfy the
+scale-$\Lambda$ quantum master equation
+\begin{equation}
+  \label{eq:qme}
+  \bracket{\Seff^{\mathrm{ren}}}{\Seff^{\mathrm{ren}}}_\Lambda
+  \;+\; 2\hbar\, \Delta_\Lambda \Seff^{\mathrm{ren}}
+  \;=\; 0.
+\end{equation}
+Expanding modulo $\hbar^2$, the 1-loop anomaly
+$\tfrac{1}{2}\bracket{S_{\mathrm{cl}}}{\CT_1}_{\mathrm{BV}} - \Delta_0 S_{\mathrm{cl}}$
+obstructs \eqref{eq:qme}; its class in $H^1$ of the local
+BV complex is the Costello anomaly
+$\kBV \in H^1(\Loc(\Fields), d_{\mathrm{BV}})$. Quantization exists
+iff $\kBV = 0$; then $\CT$ is unique up to BV-exact shifts
+(Costello 2011 Thm.~5.0.0.1, the \emph{uniqueness-up-to-BV-homotopy}
+statement).
+
+\paragraph{Cycle 5: 6D hCS specifics.}
+\emph{Abelian case} $\mathfrak{g} = \mathfrak{u}(1)$. The bracket
+$[A,A]$ vanishes identically, so the cubic vertex is zero and
+$S_{\mathrm{cl}}[A] = \tfrac{1}{2}\int_X \Omega_X \wedge A\,\bar\partial A$
+is Gaussian. Only the empty graph (one-loop determinant) contributes;
+no interaction vertex means no loop graph with $L \geq 1$ has nonzero
+amplitude beyond the free-field normalization. Hence
+\[
+  \Seff^{\mathrm{ren}}[\Lambda] \;=\; S_{\mathrm{cl}}
+  \qquad \forall\,\Lambda > 0,
+  \qquad \CT_L \equiv 0 \;\; (L \geq 1).
+\]
+The anomaly $\kBV$ vanishes trivially. Renormalization is trivial;
+no counterterm is needed.
+
+\emph{Nonabelian case.} The cubic vertex generates one-loop triangle
+and bubble diagrams. Costello's general analysis (Costello 2011
+Ch.~4, analysis of Chern--Simons-type theories; Costello--Li 2015 for
+the 4D twisted supersymmetric variant) shows the only local 1-loop
+divergence has external-field dependence $\int_X \Omega_X \wedge
+\mathrm{tr}(A\,\bar\partial A)$, multiplied by the quadratic Casimir
+$C_2(\mathfrak{g})$. Explicitly, the 1-loop counterterm takes the form
+\[
+  \CT_1 \;=\; \kct \cdot C_2(\mathfrak{g}) \cdot
+  \int_X \Omega_X \wedge \mathrm{tr}(A\,\bar\partial A),
+\]
+with $\kct$ a rational number depending only on the regularization
+scheme (heat kernel, dimensional, etc.; scheme-dependent, absorbed
+into the classical action by a finite wavefunction renormalization).
+
+The 1-loop BV anomaly for $\hCS$ on a CY3: in the Costello--Li
+treatment, the anomaly cocycle pulls back from the fundamental
+anomaly class on the local operators, and the CY3 condition
+($c_1(X) = 0$) is precisely what makes the box-graph anomaly cohomologous
+to zero. Thus on CY3, the nonabelian 6D $\hCS$ quantization exists
+at 1-loop, and by Costello's inductive step (2011 Thm.~5.4.0.3) extends
+to all orders with $\CT_L$ determined uniquely up to BV-homotopy.
+
+\paragraph{Output.} For 6D $\hCS$ on $\mathbb{C}^3$ with
+$\mathfrak{g} = \mathfrak{u}(1)$: renormalization is trivial, the
+effective action equals the classical action at every scale, all
+counterterms vanish, and the quantization is exact at tree level.
+This is the content of the statement that abelian 6D $\hCS$ is a
+free BV theory on CY3.
+
+For $\mathfrak{g}$ simple nonabelian: the 1-loop counterterm
+$\CT_1$ exists, is proportional to $C_2(\mathfrak{g})$, and is
+uniquely determined (up to BV-homotopy) by Costello's renormalization
+theorem. Higher-loop counterterms $\CT_L$ for $L \geq 2$ are
+controlled by the same inductive obstruction theory and vanish
+under the CY3 condition $c_1(X) = 0$, matching the Costello--Gwilliam
+result that 6D $\hCS$ on CY3 lifts to a quantum factorization algebra
+of observables --- the chiral-algebra image of $\Phi$.
+
+\paragraph{Citations.}
+Costello, K. \emph{Renormalization and Effective Field Theory},
+Mathematical Surveys and Monographs 170, AMS, 2011 (Chapters 2--5,
+Theorems 2.1.1, 2.3.0.1, 3.0.0.1, 5.0.0.1, 5.4.0.3).
+Costello, K.; Gwilliam, O. \emph{Factorization Algebras in Quantum
+Field Theory, Vol.~I}, Cambridge University Press, 2017 (Chapter 3,
+locality axiom Def.~3.5.1). Costello, K.; Li, S. arXiv:1201.4522,
+``Quantum BCOV theory on Calabi--Yau manifolds and the higher genus
+B-model'' (6D $\hCS$/BCOV renormalization on CY3).

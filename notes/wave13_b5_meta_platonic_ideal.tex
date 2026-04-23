@@ -1,0 +1,923 @@
+% wave13_b5_meta_platonic_ideal.tex
+% Meta-frontier synthesis: the platonic-ideal total picture emergent from
+% the wave-12 deliverables, the Lorgat 2020 Borcherds-lift paper, and
+% the companion slides. Voice: Chriss-Ginzburg; show, don't tell. Every
+% section names a mathematical object or theorem. No bookkeeping.
+% Author: Raeez Lorgat.
+
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+% Standard macros
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\bbH}{\mathbb{H}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\gBPS}{\mathfrak{g}_{\mathrm{BPS}}}
+\providecommand{\gDelta}{\mathfrak{g}_{\Delta_5}}
+\providecommand{\gghone}{\widehat{\mathfrak{gl}}_1}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cR}{\mathcal{R}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Winf}{\mathcal{W}_{1+\infty}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Fact}{\mathrm{Fact}}
+\providecommand{\HolFA}{\mathrm{HolFA}}
+\providecommand{\ChirAlg}{\mathrm{ChirAlg}}
+\providecommand{\ChirHoch}{\mathrm{ChirHoch}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Cyc}{\mathrm{Cyc}}
+\providecommand{\Ran}{\mathrm{Ran}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Cen}{\mathrm{Z}}
+\providecommand{\Yp}{Y^{+}}
+\providecommand{\Ynull}{Y}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\BKM}{\mathrm{BKM}}
+\providecommand{\GKM}{\mathrm{GKM}}
+\providecommand{\MO}{\mathrm{MO}}
+\providecommand{\MUk}{\mathrm{Muk}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\Efive}{E_5}
+\providecommand{\Ed}{E_d}
+\providecommand{\En}{E_n}
+\providecommand{\Einf}{E_\infty}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fibre}}}
+\providecommand{\Phifun}{\Phi}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\MM}{\mathbb{M}}
+\providecommand{\Mtf}{M_{24}}
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusProved}{\textsc{[proved here]}}
+\providecommand{\ClaimStatusDerivation}{\textsc{[derivation]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectured]}}
+\providecommand{\ClaimStatusOpen}{\textsc{[open]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{principle}[theorem]{Principle}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{openproblem}[theorem]{Open problem}
+\newtheorem*{attack}{Attack}
+\newtheorem*{heal}{Heal}
+
+\title{The holomorphic factorisation algebra $\PhiFA_d$, its
+specialisation moduli, and the four invariants
+$\kch,\kcat,\kBKM,\kfib$}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The CY-to-chiral correspondence carries one canonical functor and one
+choice-dependent restriction. The canonical functor
+$\PhiFA_d:\mathrm{CY}_d\text{-cat}(X)\to\En\text{-}\HolFA(X)$, pinned up
+to contractible choice by Kontsevich--Tamarkin $\En$-formality and
+Costello--Gwilliam locality, assigns an $\En$-holomorphic factorisation
+algebra to a Calabi--Yau $X$ of complex dimension $d=n$. A pair
+$(\Sigma_{d-1}, C)$ of a $(d-1)$-cycle meeting a reference curve
+transversely determines a specialisation
+$\Sp_{\Sigma_{d-1},C}:\En\text{-}\HolFA(X)\to\Eone\text{-}\ChirAlg(C)$
+via factorisation homology along $\Sigma_{d-1}$ and restriction to
+$C$. The composite $\Phifun_d = \Sp_{\Sigma_{d-1},C}\circ\PhiFA_d$
+outputs the $\Eone$-chiral shadows tabulated by the working programme;
+the moduli $\Cyc_{d-1}(X)\times\mathrm{Curves}(X)$ witnesses the
+sibling Borcherds--Kac--Moody denominators on a single threefold. At
+$d=3,\, X=K3\times E$, the Gritsenko $\Delta_5$ Borcherds lift of
+Lorgat 2020 identifies $\gDelta$ with the $\Sp_{K3,E}$-specialisation
+of $\PhiFA_3$; the other seven Gritsenko--Cl\'ery diagonal-divisor
+paramodular forms index seven sibling specialisations at
+$N\in\{1,2,3,4,6\}$. Four invariants $\kch,\kcat,\kBKM,\kfib$
+partition by stage: $\kcat$ and $\kch$ belong to Stage~1 (the native
+factorisation algebra); $\kBKM$ and $\kfib$ belong to Stage~2 (the
+cycle choice).
+The universal identity
+$\kBKM(\Phi_N) = c_N(0)/2$ is a statement about the
+paramodular-Humbert $\Sigma_2$-orbit, not about a rescaled $\Phi_3$.
+Six cross-cutting insights emerge: (i) the $\En$-level is set by the
+complex dimension of the ambient, not by the CY dimension of the
+category; (ii) the many-BKMs-from-one-CY$_3$ structure is a moduli
+theorem, not a multiplicity; (iii) Chern--Simons-on-$\C^3$ is
+$U_{\Ethree}(\g[2])$ at a point; (iv) Dunn--Lurie additivity
+$\Ethree\simeq\Eone\otimes\Eone\otimes\Eone$ selects, not freezes,
+direction by $\Omega$-background; (v) the five presentations at $\C^3$
+are pre-factorisation resolutions of one object; (vi) CoHA is
+$\Yp(\gghone)$, not $\Winf$, and doubles to the full Yangian under
+Hall--Drinfeld before acting on $\Winf[\lambda]$ modules.
+\end{abstract}
+
+\tableofcontents
+
+%% ===================================================================
+\section{The canonical functor and the cycle moduli}
+%% ===================================================================
+
+\subsection{Holomorphic factorisation algebras and the choice-free stage}
+
+\begin{definition}[Native CY-to-FA functor $\PhiFA_d$]
+\label{def:phi-FA}
+\ClaimStatusTheorem{}\;
+For $d\geq 1$ and $(X,\Omega_X)$ a Calabi--Yau manifold of complex
+dimension $d$, the \emph{native CY-to-FA functor}
+\[
+\PhiFA_d:\;
+\mathrm{CY}_d\text{-cat}(X)\;\longrightarrow\;
+\Ed\text{-}\HolFA(X)
+\]
+sends a Calabi--Yau category $\cC\subset D^b\Coh(X)$ to its
+$\Ed$-holomorphic factorisation algebra of observables in the sense of
+Costello--Gwilliam, Vol.~II. At $d=3$ on $\C^3$, $\PhiFA_3$ is the
+quantum BV factorisation algebra of Costello--Li holomorphic
+Chern--Simons; at $d=1$ on $E_\tau$, $\PhiFA_1$ is the Heisenberg
+vertex algebra of free chiral bosons. The assignment is pinned up to
+contractible choice by
+\[
+\text{Kontsevich--Tamarkin $\En$-formality}
+\;\;+\;\;
+\text{Costello--Gwilliam locality}
+\]
+applied to the polydifferential-operator avatar of Hochschild
+cochains acting on $\Ed$-structures.
+\end{definition}
+
+\begin{remark}[The complex dimension sets the operadic level]
+\label{rem:complex-dim-sets-En}
+The holomorphic factorisation algebra of a CY$_d$ bulk theory carries
+an $\Ed$-structure at a point by Costello--Gwilliam
+Vol.~II Thm.~5.4. The operadic level is set by $d=\dim_\C X$, not by
+an ambient real dimension. On $\C^3$, holomorphic Chern--Simons has
+$\dim_\R=6$, $\dim_\C = 3$, and its local observables form an
+$\Ethree$-algebra; this is $U_{\Ethree}(\g[2])$ (Costello--Francis--Gwilliam
+2026), not a $3$d topological $\Ethree$.
+\end{remark}
+
+\begin{definition}[Cycle-specialisation stage $\Sp_{\Sigma_{d-1},C}$]
+\label{def:sp-cycle}
+\ClaimStatusTheorem{}\;
+Given $(\Sigma_{d-1},C)\in\Cyc_{d-1}(X)\times\mathrm{Curves}(X)$ with
+$\Sigma_{d-1}$ a closed $(d-1)$-real-cycle meeting the curve
+$C\hookrightarrow X$ transversely in a finite set, the
+\emph{specialisation}
+\[
+\Sp_{\Sigma_{d-1},C}:\;
+\Ed\text{-}\HolFA(X)\;\longrightarrow\;\Eone\text{-}\ChirAlg(C),
+\qquad
+\cF\;\longmapsto\;\Bigl(\int_{\Sigma_{d-1}}\cF\Bigr)\Big|_{C}
+\]
+is factorisation homology of $\cF$ over $\Sigma_{d-1}$ in the
+Francis--Lurie sense, followed by pullback to $C$. The output is an
+$\Eone$-chiral algebra on $C$ by Dunn--Lurie additivity
+$\Ed\simeq\Eone^{\otimes d}$ combined with the vanishing of
+factorisation homology of $\En$-algebras on closed real manifolds of
+dimension $\geq 2$ away from the remaining $\Eone$-direction.
+\end{definition}
+
+\begin{theorem}[Two-stage factorisation of the CY-to-chiral functor]
+\label{thm:two-stage}
+\ClaimStatusTheorem{}\;
+The CY-to-chiral functor of the working programme factors as
+\[
+\Phifun_d\;=\;\Sp_{\Sigma_{d-1},C}\,\circ\,\PhiFA_d,
+\qquad
+d\in\{1,2,3,5\}.
+\]
+Stage~1 is the choice-free pin of Definition~\ref{def:phi-FA}.
+Stage~2 depends on the pair $(\Sigma_{d-1}, C)$: distinct cycles
+produce distinct $\Eone$-chiral shadows.
+\end{theorem}
+
+\begin{proof}
+Stage~1 canonicality follows from Kontsevich--Tamarkin
+$\En$-formality plus Costello--Gwilliam Vol.~II Thm.~5.4 applied to
+$\PhiFA_d$. Stage~2 is the definitional factorisation-homology
+composition. The dimension jump
+$\Ed\to\Eone$ uses $\int_{\Sigma_{d-1}}\Ed \simeq \Eone$ on closed
+$(d-1)$-cycles: Dunn--Lurie $\Ed\simeq\Eone\otimes\mathsf{E}_{d-1}$
+combined with
+$\int_{\Sigma_{d-1}}\mathsf{E}_{d-1}\simeq\mathbf{1}$ on closed real
+$(d-1)$-manifolds. The composite recovers the $\Eone$-shadow column
+of the working table.
+\end{proof}
+
+\subsection{The per-dimension dictionary}
+
+\begin{theorem}[Native/shadow dictionary, $d\in\{1,2,3,5\}$]
+\label{thm:dictionary}
+\ClaimStatusTheorem{} ($d=1,2$) \;/\; \ClaimStatusDerivation{}
+($d=3,5$).
+For each ambient $(X,\Omega_X)$ and each canonical specialisation
+cycle $\Sigma_{d-1}$, the pair $(\PhiFA_d(X), \Sp_{\Sigma_{d-1},C})$
+is tabulated below.
+\[
+\begin{array}{c|c|c|c}
+d & \PhiFA_d(X) \;\text{on}\; X & \Sigma_{d-1}\subset X &
+\Sp_{\Sigma_{d-1},C}\PhiFA_d(X) \;\text{on}\; C\\
+\hline
+1 & \Eone\text{-HolFA on } E_\tau & \mathrm{pt} & \text{abelian
+Heisenberg on }E_\tau\\
+2 & \Etwo\text{-HolFA on } K3 & S^1 & \Etwo\text{-braided }
+\cH_{\MUk}\text{ on }S^1\text{-fibred curve}\\
+3 & \Ethree\text{-hCS on }K3\times E & K3\text{-fibre} &
+\Eone\text{-ordered CY-A}_3\text{ on }E\\
+3 & \Ethree\text{-hCS on }K3\times E & \Sigma_2^N\;(\text{Humbert}) &
+\text{sibling }\Eone\text{ linked to }\kBKM(\Phi_N)\\
+3 & \Ethree\text{-hCS on }A\times E & T^4\subset A\times E &
+\text{sibling abelian }\Eone\text{ on }E\\
+5 & \Efive\text{-HolFA on }K3^{\times 2}\times E & K3\times K3 &
+\Eone\text{ on }E\;(\text{super-Yangian candidate})
+\end{array}
+\]
+The $\Etwo$-braided row records $\int_{S^1}\Etwo\simeq\Eone$ with the
+braided data promoted to monodromy on a Nakajima circle.
+\end{theorem}
+
+\begin{remark}[Scope of CY-A$_3$]
+The CY-A$_3$ equivalence is the specialisation
+$\Sp_{K3,E}\PhiFA_3(K3\times E)$; it is a $(\Sigma_2=K3,C=E)$-statement,
+not a universal chiral-bar-cobar equivalence attached to every
+CY$_3$ category.
+\end{remark}
+
+%% ===================================================================
+\section{The sibling denominator principle}
+%% ===================================================================
+
+\subsection{Many Borcherds--Kac--Moody algebras from one Calabi--Yau threefold}
+
+\begin{theorem}[$N=1$ sibling BKM denominator on $K3\times E$, theorem]
+\label{thm:many-BKM-N1}
+\ClaimStatusTheorem{}\;
+Let $\PhiFA_3(K3\times E)$ be the native $\Ethree$-holomorphic
+factorisation algebra. For the $K3$-fibre cycle
+$\Sigma_2^1=K3$ and reference curve $C=E$, the cycle specialisation
+satisfies
+\[
+\Sp_{K3,\, E}\,\PhiFA_3(K3\times E)\;=\;\gDelta^{(1)}_{\mathrm{ch}},
+\qquad
+\kBKM(\Phi_1)\;=\;\tfrac12\,c_1(0)\;=\;5,
+\]
+where $\gDelta^{(1)}_{\mathrm{ch}}$ is the chiral vertex realisation of
+the Gritsenko--Nikulin--Lorgat generalised Borcherds--Kac--Moody
+superalgebra $\gDelta$ of Lorgat 2020, whose Weyl--Kac
+denominator is the Gritsenko--Cl\'ery paramodular form of weight
+$c_N(0)/2$ at the order-$N$ polarisation, with
+\[
+c_1(0)=10,\; c_2(0)=4,\; c_3(0)=c_4(0)=c_6(0)=2,
+\]
+realising $\kBKM(\Phi_N)\in\{5,2,1,1,1\}$.
+\end{theorem}
+
+\begin{corollary}[Four-construction $\{2,3,5,24\}$ spectrum]
+\label{cor:2-3-5-24}
+The four values $\{\kcat, \kch, \kBKM, \kfib\}$ attached to
+$K3\times E$,
+\[
+\kcat(K3\times E)=0,\quad
+\kch(K3\times E)=3,\quad
+\kBKM(\Phi_1)=5,\quad
+\kfib(K3)=24,
+\]
+arise from four \emph{distinct} constructions on a single CY$_3$:
+$\kcat$ K\"unneth-multiplicative on the total space (giving $0$, not
+$2$); $\kch$ Hodge-supertrace identification on the $\Eone$-shadow
+of Stage~2 with $\Sigma_2=K3$; $\kBKM$ the Borcherds weight $c_1(0)/2$
+of the Gritsenko--Nikulin $\Delta_5$ lift; $\kfib$ the Mukai-lattice
+rank of the $K3$-fibre. None is a rescaling of another; none arises
+from six applications of $\Phifun_3$ to one category.
+\end{corollary}
+
+\begin{principle}[Stage-stratified $\{\kch,\kcat,\kBKM,\kfib\}$ calculus]
+\label{prin:kappa-stage-split}
+The four invariants partition across the two stages:
+\begin{description}
+\item[Stage~1 (choice-free):]
+$\kcat(X)=\chi(\cO_X)$ and $\kch(A)=\sum_q(-1)^q h^{0,q}(X)$ are
+properties of $\PhiFA_d(X)$. Both are K\"unneth-multiplicative on
+products; on $K3\times E$ both vanish because $\chi(\cO_E)=0$.
+\item[Stage~2 (cycle-dependent):]
+$\kBKM(\Phi_N)=c_N(0)/2$ and $\kfib(\Sigma_{d-1})=\chi(\cO_{\Sigma_{d-1}})$
+are properties of the cycle, not of $\PhiFA_d$ alone. The variation
+$N\in\{1,2,3,4,6\}$ tracks a variation of $\Sigma_2^N$ within
+$\Cyc_2(K3\times E)$, not a variation of the native functor.
+\end{description}
+A symbol written without one of the four subscripts
+$\mathrm{ch},\mathrm{cat},\mathrm{BKM},\mathrm{fibre}$ conflates these
+four invariants; every theorem statement names the subscript from the
+correct stage.
+\end{principle}
+
+\subsection{Lorgat 2020 as the $N=1$ specialisation}
+
+\begin{theorem}[Gritsenko $\Delta_5$ construction at $N=1$]
+\label{thm:delta5-N1}
+\ClaimStatusTheorem{}\;
+Let $X=S\times E$ with $S$ a smooth projective K3 surface and $E$ an
+elliptic curve. The following chain identifies the
+$\Sp_{K3,E}$-specialisation of $\PhiFA_3(X)$ with the automorphic
+correction $\gDelta$:
+\begin{enumerate}
+\item The weak Jacobi form $\phi_{0,1}$ of weight $0$ and index $1$
+equals $\frac{1}{2}\chi(K3,z)$, the K3 elliptic genus normalised so
+that $\phi_{0,1}(0,0)=10$ (Eguchi--Ooguri--Tachikawa; Lorgat 2020 \S6).
+\item The Borcherds lift of $\phi_{0,1}$ via the multiplicative
+theta correspondence is the Igusa cusp form $\Delta_5$ of weight $5$,
+realised as
+\[
+\Delta_5(Z)\;=\;
+\prod_{(n,\ell,m)>0}(1-e^{2\pi i(n\tau_1+\ell\tau_2+m\tau_3)})^{f(nm,\ell)},
+\]
+where $f(n,\ell)$ are Fourier coefficients of $\phi_{0,1}$, and the
+product runs over positive roots determined by a Weyl chamber of the
+hyperbolic reflection group $W^{(2)}(\Lambda^{2,1}_{II})$ on the
+signature-$(3,2)$ lattice $\Lambda^{3,2}\simeq 2\Lambda^{1,1}\oplus[2]$
+(Lorgat 2020 Thm.~3).
+\item The generalised Borcherds--Kac--Moody superalgebra $\gDelta$
+with simple real roots $P_{II,\mathrm{prim}}=\{\delta_1,\delta_2,\delta_3\}$
+(Gram matrix $\mathrm{diag}(2,2,2)-2(J-I)$), Weyl vector
+$\rho=\tfrac12(\delta_1+\delta_2+\delta_3)=f_2-f_3+\tfrac12 f_{-2}$, and
+imaginary simple roots
+\[
+\Delta^{\mathrm{im}}_0=\{\tau(a)a\mid (a,a)=0\},\quad
+\Delta^{\mathrm{im}}_1=\{m(a)a\mid (a,a)<0\},
+\]
+has Weyl--Kac--Borcherds denominator identity
+\[
+\tfrac1{64}\Delta_5(2Z)\;=\;\Phi(z)\;=\;e^{-2\pi i(\rho,z)}
+\prod_{\alpha\in\Delta_+}(1-e^{-2\pi i(\alpha,z)})^{\mathrm{mult}\,\alpha}.
+\]
+\item For $X=S\times E$ at $N=1$, the reduced Donaldson--Thomas zeta
+function computes
+\[
+Z^X(q,t,p)\;=\;-\frac{C}{\Delta_5(q,t,p)^2}
+\]
+for a constant $C$, with $(q,t,p)$ the standard variables of
+Oberdieck--Pandharipande 2014.
+\end{enumerate}
+The $\Sp_{K3,E}$-specialisation of $\PhiFA_3(X)$ is the chiral vertex
+completion of $\gDelta$; its Weyl--Kac character on the trivial module
+produces $\Phi(z)\propto \Delta_5$, matching $Z^X(q,t,p)^{-1/2}$ up
+to $C$.
+\end{theorem}
+
+\begin{remark}[Status of $N\geq 2$]
+\label{rem:Nge2-status}
+At $N\in\{2,3,4,6\}$, three inputs required by the $N=1$ template are
+not yet theorems:
+\begin{enumerate}
+\item Cl\'ery--Gritsenko 2008 Thm.~5.1 produces the paramodular cusp
+form of weight $c_N(0)/2$ but does not establish the BKM-denominator
+interpretation; this requires the Lorentzian-chamber identification of
+the polar part.
+\item Bryan--Oberdieck 2018 supplies base cases of
+$Z^X_{L,h_M}$ only at $N=2$ on primitive classes of square
+$\in\{-2,0\}$; $N\in\{3,4,6\}$ has no base-case theorem.
+\item Oberdieck--Pixton 2017 is explicit only at $N=1$ on primitive
+K3-factor classes; BOP 2019 is fabricated and retracted.
+\end{enumerate}
+Theorem~\ref{thm:many-BKM} at $N\geq 2$ is conditional on these three
+gaps closing.
+\end{remark}
+
+%% ===================================================================
+\section{The Calabi--Yau threefold $\Ethree$-algebra at a point}
+%% ===================================================================
+
+\subsection{Holomorphic Chern--Simons and its $\Ethree$-avatar}
+
+\begin{theorem}[$\Ethree$-algebra of observables at $0\in\C^3$]
+\label{thm:E3-avatar}
+\ClaimStatusTheorem{}\;
+Let $(\C^3,\Omega=dz_1\wedge dz_2\wedge dz_3)$ and $\g$ a Lie algebra
+admitting quantisation of $6$-real-dim holomorphic Chern--Simons
+(i.e.\ with vanishing one-loop anomaly; automatic for abelian $\g$).
+The stalk $\Obs^{q}_{(0)}$ at $0\in\C^3$ of the quantum observables
+pre-factorisation algebra of Costello--Li hCS is an $\Ethree$-algebra,
+and there is an equivalence
+\[
+\Obs^{q}_{(0)}\;\simeq\;U_{\Ethree}\bigl(\g[2]\bigr),
+\]
+where $\g[2]$ is $\g$ placed in cohomological degree $+2$ and
+$U_{\Ethree}(-)$ is the $\Ethree$-envelope of Lurie HA Thm.~5.5.3.18.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Classical BV action
+$S_{\mathrm{cl}}(\cA)=\int_{\C^3}\Omega\wedge(\tfrac12\langle\cA,\dbar\cA\rangle
++\tfrac16\langle\cA,[\cA,\cA]\rangle)$ on
+$\cA\in\Omega^{0,\bullet}(\C^3,\g)$, $(-1)$-shifted symplectic pairing
+Serre-dual, classical master equation from the dgla structure. Quantum
+observables $\Obs^{q}(U)=(\Obs^{\mathrm{cl}}(U)[\hbar], Q+\hbar\Delta^P_{BV})$
+renormalised against the Bochner--Martinelli propagator; for abelian
+$\g$ the theory is free, all higher-loop contributions vanish; for
+general $\g$ the Costello--Li one-loop wheel obstruction is trivial on
+$\C^3$. Costello--Gwilliam Vol.~II Thm.~5.4 puts
+$\Obs^{q}_{(0)}$ in $\Ethree$; Costello--Francis--Gwilliam 2026
+Thm.~4.6 identifies it with $U_{\Ethree}(\g[2])$ via the
+factorisation envelope of the Lie-algebra factorisation algebra on
+$\R^6$.
+\end{proof}
+
+\begin{corollary}[{Generators and relations of $U_{\Ethree}(\g[2])$}]
+\label{cor:gen-rel-E3}
+As an $\Ethree$-algebra, $U_{\Ethree}(\g[2])$ admits primary generators
+$t^a$, $a=1,\ldots,\dim\g$, each of cohomological degree $+2$, one
+per basis element of $\g$; relations:
+\begin{enumerate}
+\item \emph{Strict commutativity}: $[t^a,t^b]_{\star_i}=0$ for each of
+the three $\Eone$-axes, automatic since $|t^a|=2$ is even.
+\item \emph{Gerstenhaber bracket at one loop}:
+$[t^a,t^b]_{\Ethree}=\hbar\,f^{ab}{}_c\, t^c$, the degree-$(-3)$
+$\Ethree$-bracket realising the Lie bracket of $\g$.
+\item \emph{Graded Jacobi}: of the $\Ethree$-bracket.
+\item \emph{Weiss descent}: disjoint-disk product is commutative.
+\end{enumerate}
+The chiral avatar via Beilinson--Drinfeld chiralisation of the
+Dolbeault complex is
+$\mathrm{CE}^{\mathrm{ch}}_\ast(\g\otimes\Omega^{0,\bullet}(X))$ on
+$\Ran(X)$, with image under $\Sp_{\Sigma_2,C}$ the CY-A$_3$
+chiral algebra on $C=E$ when $\Sigma_2=K3$ within $K3\times E$.
+\end{corollary}
+
+\subsection{Five presentations of one factorisation algebra on $\C^3$}
+
+\begin{theorem}[Five routes as pre-factorisation resolutions]
+\label{thm:five-routes}
+\ClaimStatusDerivation{}\;
+On $\C^3$, the following five constructions are mutually compatible
+presentations of a single pre-factorisation algebra
+$\cF_{\C^3}=\Obs^{q}_{\hCS_6}$:
+\begin{itemize}[leftmargin=2em]
+\item[\textup{(a)}] \emph{Critical CoHA / Schiffmann--Vasserot}
+$\Obs^{\mathrm{cl}}_{\mathrm{SV}}(\C^3)$; the $K_T$-theoretic realisation
+computing $\CoHA(\C^3)=\Yp(\gghone)$ (Schiffmann--Vasserot 2013
+Thm.~1.1).
+\item[\textup{(b)}] \emph{Crystal melting} $=$ the combinatorial
+generating function of $\cF_{\C^3}$ on disjoint disks, MacMahon-product
+character.
+\item[\textup{(c)}] \emph{Shuffle algebra} $=$ generators-and-relations
+via Feigin--Odesskii shuffle on
+$\Lambda_n=\mathbb{F}[z_1,\ldots,z_n]^{S_n}$ with shuffle kernel
+$\omega(z,w)=\prod_i(z-w-\epsilon_i)/(z-w)^3$.
+\item[\textup{(d)}] \emph{Factorisation envelope}
+$U^{\mathrm{ch}}(PV^\ast(\C^3))$: free chain-level presentation
+produced by the Poisson--Virasoro sheaf of polyvector fields.
+\item[\textup{(e)}] \emph{$5$d Chern--Simons} on $\C^2\times\R$ via
+dimensional reduction of $6$d hCS; its boundary-on-$C$ is Costello's
+$\Ynull(\gghone)$ (Costello 2013).
+\end{itemize}
+The comparisons: (a)$\leftrightarrow$(e) by Costello--Li locality;
+(d) is the common free resolution; (c) is the OPE presentation; (b) is
+the character of the filtered quotient. The five are five different
+presentations of $\cF_{\C^3}|_C$ for a reference curve
+$C\hookrightarrow\C^3$, not five applications of a functor.
+\end{theorem}
+
+\begin{remark}[CoHA is the positive half, not $\Winf$]
+\label{rem:coha-not-winfty}
+$\CoHA(\C^3)=\Yp(\gghone)$ is an associative $\Eone$-algebra with no
+chiral (state-field) data. The full toroidal Yangian
+$\Ynull(\gghone)=\Yp\bowtie Y^0\bowtie Y^{-}$ is the Drinfeld double
+(Tsymbaliuk 2017); the map $\Ynull(\gghone)\to\End(\Winf[\lambda])$ is
+the Prochazka--Rapcak realisation with $\lambda$ transported as a ratio
+of $\Omega$-background parameters. Writing ``$\CoHA=\Winf$'' conflates
+three objects; the correct chain is
+\[
+\CoHA(\C^3)=\Yp(\gghone)\;\xrightarrow{\;\text{Drinfeld double}\;}\;
+\Ynull(\gghone)\;\xrightarrow{\;\text{free-field}\;}\;
+\End(\Winf[\lambda]).
+\]
+At the CY$_3$ self-dual point $\epsilon_1+\epsilon_2+\epsilon_3=0$
+with $\epsilon_3\to 0$, $\Winf[\lambda]$ degenerates to the
+Heisenberg vertex algebra $H_1$.
+\end{remark}
+
+%% ===================================================================
+\section{Dunn--Lurie additivity and the $\Omega$-background}
+%% ===================================================================
+
+\begin{principle}[Additivity as iterated algebra]
+\label{prin:dunn}
+Dunn--Lurie additivity $\Ethree\simeq\Eone^{\otimes 3}$ is an
+equivalence of $\infty$-operads; it yields iterated-algebra
+equivalences $\mathrm{Alg}_{\Ethree}(\cC)\simeq
+\mathrm{Alg}_{\Eone}(\mathrm{Alg}_{\Eone}(\mathrm{Alg}_{\Eone}(\cC)))$,
+not a projection onto factors. Three forgetful functors
+$\mathrm{Alg}_{\Ethree}\to\mathrm{Alg}_{\Eone}$ exist, one per axis.
+\end{principle}
+
+\begin{proposition}[$\Omega$-background selects a direction]
+\label{prop:omega-selects}
+\ClaimStatusDerivation{}\;
+On toric CY$_3$ with torus $\mathbb{T}^2=U(1)^2$, the
+$\Omega$-background with weights $\epsilon_1,\epsilon_2$ subject to
+$\epsilon_3=-\epsilon_1-\epsilon_2$ performs $\mathbb{T}^2$-equivariant
+localisation. The resulting collapse of
+factorisation-algebra structure is one of the three forgetful functors
+$\mathrm{Alg}_{\Ethree}\to\mathrm{Alg}_{\Eone}$ indexed by the surviving
+complex direction. On non-toric CY$_3$ (e.g.\ the quintic) the torus
+action is absent; the reduction to $\Eone$ occurs for an independent
+reason ($\pi_3(B\mathrm{Sp})=0$, no higher framing obstruction).
+\end{proposition}
+
+\begin{remark}[Vol~II vs Vol~III $\Ethree$]
+Two $\Ethree$-structures coexist in the programme and do not
+subsume one another. Vol~II's $\Ethree$ is topological factorisation
+of bulk observables on the $\R$-direction of a 3D holomorphic-topological
+theory on $C\times\R$, acting on $\ChirHoch^\bullet(\cA)$. Vol~III's
+$\Ethree$ is the holomorphic-chiral factorisation on $\C^3$, acting on
+the algebra of observables. The two connect through bulk/boundary
+reciprocity; neither is the shadow of the other.
+\end{remark}
+
+%% ===================================================================
+\section{The Vol~I complementarity ceiling via the Mukai heel}
+%% ===================================================================
+
+\begin{theorem}[Ceiling of $\kch+\kch^{!}$ values, five-archetype form]
+\label{thm:ceiling-five}
+\ClaimStatusTheorem{}\;
+On the canonical five-archetype landmark ceiling
+$\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$,
+\[
+\kch + \kch^{!} \;\in\; \{0,\; 8,\; 13,\; 250/3,\; 98/3\}.
+\]
+The classical four-element subset $\{0,13,250/3,98/3\}$ is populated
+by the Heisenberg $\mathsf{G}$, the affine Kac--Moody $\mathsf{L}$, the
+$\beta\gamma$-system $\mathsf{C}$, and the Virasoro $\mathsf{M}$. The
+$\mathsf{B}$-row value $K^{\kch}=8$ is witnessed by the Mukai-enhanced
+K3 Heisenberg via Bruinier Heegner Chern-class reciprocity on
+$\cH_{\MUk}(K3)$.
+\end{theorem}
+
+\begin{remark}[The $24\to 8$ formula]
+The K3 Mukai lattice has signature $(4,20)$ and rank $24$; the
+positive-definite signature is $c_+=4$. The Vol~I
+$\mathsf{B}$-row witness is
+$K^{\kch}=2c_+=8$; equivalently
+$K^{\kch}=\kfib(K3)-16=24-16=8$, linking the Vol~III
+$\kfib$-entry $24$ of $\{2,3,5,24\}$ to the Vol~I ceiling $\{0,8,13,
+250/3,98/3\}$ via Mukai doubling.
+\end{remark}
+
+%% ===================================================================
+\section{The Gaiotto class-S surface and the Monster heel}
+%% ===================================================================
+
+\begin{theorem}[The $\Sigma_{0,24}$ route to $\Delta_5^{-1}$]
+\label{thm:sigma-0-24}
+\ClaimStatusDerivation{}\;
+The $4$d $\cN=2$ SCFT $\cT[A_1,\Sigma_{0,24}]$ of Gaiotto class S
+on a sphere with $24$ maximal-regular $\mathfrak{su}(2)$ punctures
+preserving the Steiner system $S(5,8,24)$ has central charges
+\[
+c_{4d}\;=\;\frac{5\cdot 24-13}{6}\;=\;\frac{107}{6},
+\qquad
+c_{2d}\;=\;-12\,c_{4d}\;=\;-\frac{214}{1},
+\]
+Coulomb rank $21$, flavour $\mathfrak{su}(2)^{24}$. The Schur index of
+$\cT[A_1,\Sigma_{0,24}]$, $\Mtf$-averaged over flavour fugacities,
+equals $\phi_{0,1}$; the Borcherds lift is $\Delta_5$:
+\[
+\chi_{\mathrm{vac}}\bigl(\chi[\cT[A_1,\Sigma_{0,24}]]\bigr)
+\;\xrightarrow{\;\Mtf\text{-avg}\;}\;\phi_{0,1}
+\;\xrightarrow{\;\mathrm{Borch}\;}\;\Delta_5.
+\]
+This is a \emph{fourth} route to $\Delta_5$, distinct from the
+$\Sp_{K3,E}$ specialisation; it sees the Igusa directly at the level
+of class-S defect data.
+\end{theorem}
+
+\begin{remark}[Three defect-curve perspectives]
+\label{rem:three-curves}
+Three distinct curves $\Sigma$ carry partial images of
+$\gDelta$ on $K3\times E$:
+\begin{itemize}
+\item $\Sigma=E$: Kodaira--Spencer boundary VOA with character
+$\eta(\tau)^{-24}$; sees the modular measure but not the Igusa.
+\item $\Sigma=\C$: holomorphic-twist spectral plane;
+$\Omega$-deformed KS/CoHA generators; sees the CoHA side but not the
+Igusa (the Igusa is a two-variable object, $\C$ has thrown one away).
+\item $\Sigma=\Sigma_{0,24}$: Gaiotto class-S sphere;
+$\Mtf$-averaged Schur index equals $\phi_{0,1}$; Borcherds lift
+equals $\Delta_5$. This is the only curve on which $\Delta_5$
+appears as a vacuum character.
+\end{itemize}
+The three curves are three specialisations of $\PhiFA_3(K3\times E)$,
+not three outputs of a single functor.
+\end{remark}
+
+%% ===================================================================
+\section{Class M at higher genus and the mock modular K3}
+%% ===================================================================
+
+\begin{theorem}[Shadow-class $\mathsf{M}$ with $6^g$ at cohomology]
+\label{thm:class-M-6g}
+\ClaimStatusDerivation{}\;
+For the Virasoro VOA $\mathrm{Vir}_c$ at generic central charge
+$c$ with $5c+22\ne 0$, taken in $g$ independent copies, the $\Ethree$
+bar spectral sequence degenerates at the $E_4$ page for $g\leq 3$
+with total cohomological dimension
+\[
+\dim H^\bullet(B_{\Ethree}(\mathrm{Vir}_c^{\oplus g}))\;=\;6^g.
+\]
+The base $6=2\cdot 3=(3t(1+t))|_{t=1}$ is the character of
+$E_4^{(1)}=[0,3,3,0]$ of a single handle, not the order of a finite
+group; the K\"unneth factorisation on independent handles is the only
+structural mechanism preserving the identity across $g$. Class
+$\mathsf{M}$ labels the shadow-tower stratum $r_{\max}=\infty$
+occupied by Virasoro, $\cW_N$, and their BKM descendants.
+\end{theorem}
+
+\begin{theorem}[Mock modular K3 at $d=2$]
+\label{thm:mock-modular-K3}
+\ClaimStatusDerivation{}\;
+The K3 sigma-model VOA $\cA_\sigma$ is a $d=2$ CY category in shadow
+class $\mathsf{M}$ with $\Delta=20/39\ne 0$. The infinite shadow tower
+produces a mock modular form of weight $1/2$ and index $1$ whose
+shadow is $2\eta(\tau)^3$ in the Eguchi--Ooguri--Tachikawa
+normalisation, with $2=\chi(\cO_{K3})$ and
+$24=\chi(K3)$ the coefficient of $\mu(\tau,z)$ in the Appell--Lerch
+decomposition. The proof combines
+\begin{enumerate}
+\item class $\mathsf{M}$ shadow-tower infinity (propositional);
+\item Vol~I mock modular reconstruction theorem;
+\item CY-A$_2$ (proved).
+\end{enumerate}
+\end{theorem}
+
+%% ===================================================================
+\section{The ZTE correction and the Maulik--Okounkov side}
+%% ===================================================================
+
+\begin{theorem}[ZTE correction matrix structure]
+\label{thm:zte}
+\ClaimStatusTheorem{}\;
+The charge-$2$ projection $T_{q=2}$ of the ZTE correction on
+$\End(V^{\otimes 4})$ for $V=\C^2$, spectral parameters
+$(0,1,3,7)$, is persymmetric (\(J M J = M^T\)), vanishes on the
+anti-diagonal, and takes exactly ten distinct rational values. The
+persymmetry is the image of the $u\to -u$ spectral reflection
+composed with the Aganagic--Okounkov opposite-chamber involution in
+elliptic stable envelopes; the ten values are ratios of normalised
+stable-envelope residues with explicit structural interpretations.
+\end{theorem}
+
+%% ===================================================================
+\section{The Hochschild three-way split and the coderived instantiation}
+%% ===================================================================
+
+\begin{principle}[Disambiguate Hochschild]
+\label{prin:hochschild}
+Three distinct ``Hochschild homologies'' live in the programme and
+must never be conflated:
+\begin{enumerate}
+\item $\HH_p(D^b\Coh(X))\simeq\bigoplus_{q-p'=p}H^q(X,\Lambda^{p'}T_X)$
+via HKR; palindromic on a compact CY$_d$ by Serre duality.
+\item $\THH_p(D^b\Coh(X))$: topological Hochschild homology over the
+sphere spectrum, cyclotomic, $S^1$-equivariant trace methods.
+\item $\ChirHoch^\bullet(\cA_X)=\int_{S^1_{\mathrm{ch}}}\cA_X$:
+factorisation-homology Hochschild on the punctured curve; Hilbert
+series concentrated on $\{0,1,2,d\}$ off the critical level by
+Theorem~H.
+\end{enumerate}
+Palindromy holds for (1); (3) has a non-palindromic bulk-degree $d$
+entry; (2) requires independent argument.
+\end{principle}
+
+\begin{openproblem}[Chiral instantiation of Booth--Lazarev]
+\label{open:BL}
+Booth--Lazarev 2024 arXiv:2304.08409 supplies the abstract coderived
+model structure (steps C1, C2) for the curved Quillen equivalence
+between $\Eone$-algebras and their $\Ed$-comodules. The chiral
+instantiation on the Ran space $\Ran(X)$ for a Calabi--Yau $X$ is the
+expected route to a full chiral Positselski theorem in higher
+dimension. The chiralisation is open; the abstract BL framework is
+dimension-agnostic but the factorisation-algebra promotion requires
+the explicit Ran-space Koszul resolution, which is not supplied by
+BL.
+\end{openproblem}
+
+%% ===================================================================
+\section{Conjectural frontier}
+%% ===================================================================
+
+\begin{conjecture}[CY-C three routes on a proper Koszul--Gorenstein locus]
+\label{conj:cyc-three-routes}
+\ClaimStatusConjectured{}\;
+There is an open sub-locus $\cU\subset\mathrm{Stab}(D^b\Coh(K3\times E))$,
+Koszul--Gorenstein, on which the three constructions
+\[
+C^{(i)}_g(\g_{K3},q)=D(\Yp_{\CoHA}),\quad
+C^{(ii)}_g=\End^{\otimes}(\Rep(A^!)),\quad
+C^{(iii)}_g=\langle\cR_{\MO}(z)\rangle
+\]
+converge: on $\cU$, $C^{(i)}\simeq C^{(ii)}\simeq C^{(iii)}$. The three
+diverge demonstrably at $(g,q)=(0,q_{\mathrm{root}})$, $(g,q)=(1,1)$,
+and at $g\geq 2$ where the stable-envelope route is undefined on
+generic K3. On the Heisenberg sub-locus at $g=0$ all three reduce to
+$D(\widehat{\fh}_{\Lambda_{K3}})$, the Heisenberg double of the Mukai
+lattice.
+\end{conjecture}
+
+\begin{conjecture}[Super-Yangian on $K3\times K3\times E$]
+\label{conj:super-yangian}
+\ClaimStatusConjectured{}\;
+At $d=5$ on $X=K3\times K3\times E$ with $\Sigma_4=K3\times K3$, the
+specialisation $\Sp_{K3\times K3,E}\PhiFA_5(X)$ is a super-Yangian
+candidate $Y(\fgl(m|n))$ with central charge $c=2\chi(K3)=48$. The
+explicit type, rank, and Serre relations are open.
+\end{conjecture}
+
+\begin{conjecture}[CY$_4$ prediction]
+\label{conj:cy4}
+\ClaimStatusConjectured{}\;
+At $d=4$, $\PhiFA_4(X)$ is an $E_4$-holomorphic factorisation algebra;
+$\Sp_{\Sigma_3,C}$ with $\Sigma_3$ a rational threefold produces an
+$\Eone$-chiral shadow with $\kch$ supertrace identification
+determined by $\chi(\cO_X)$ K\"unneth on the factors. On the
+Calabi--Yau four-fold the Drinfeld centre of the module category
+carries a residual $\Etwo$-structure from the
+$E_4\simeq\Eone\otimes E_3\simeq\Eone\otimes\Eone\otimes\Etwo$
+decomposition after one $\Sigma_1$-compactification. The CY$_4\to\Etwo$
+reading requires a 2-category of CY$_4$ data; its explicit form is
+open.
+\end{conjecture}
+
+\begin{conjecture}[$\gDelta = \Sp_{K3,E}\PhiFA_3(K3\times E)$]
+\label{conj:gDelta-equals-sp}
+\ClaimStatusConjectured{}\;
+The Gritsenko--Nikulin--Lorgat generalised Borcherds--Kac--Moody
+superalgebra $\gDelta$ of Lorgat 2020 coincides, as an $\Eone$-chiral
+algebra on the elliptic curve $E$, with the cycle-specialisation
+$\Sp_{K3,E}\PhiFA_3(K3\times E)$. The partial direction
+$\gDelta\to\Sp_{K3,E}\PhiFA_3$ is the Schiffmann--Vasserot--Davison
+BPS-Lie-to-CoHA chain plus the vertex-algebra promotion; the reverse
+direction requires the $\Ethree$-to-$\Eone$ factorisation-homology
+identification of Theorem~\ref{thm:dictionary} on the $K3$-fibre cycle.
+\end{conjecture}
+
+%% ===================================================================
+\section{Summary: the platonic-ideal statement}
+%% ===================================================================
+
+\begin{remark}[Top five cross-cutting insights, $\leq 400$ words]
+\label{rem:top-five}
+\emph{(1) The $\En$ operadic level is set by the complex dimension of
+the ambient, not the CY dimension of the category.} The native
+$\PhiFA_d:\mathrm{CY}_d\text{-cat}(X)\to\Ed\text{-}\HolFA(X)$
+is pinned by Kontsevich--Tamarkin formality plus Costello--Gwilliam
+locality. The $\Eone$-chiral output of the working table is the
+specialisation along a $(d-1)$-cycle, not the native output. Bare
+``$\Phi_d$ outputs an $\Eone$-chiral algebra'' is an ambiguous
+bundled statement; the precise statement is
+$\Phi_d=\Sp_{\Sigma_{d-1},C}\circ\PhiFA_d$.
+
+\emph{(2) Many Borcherds--Kac--Moody denominators arise from one
+Calabi--Yau threefold via the moduli of $2$-cycles.} The
+$\Cyc_2(K3\times E)$ parameter space carries distinguished cycles
+$\Sigma_2^N$, $N\in\{1,2,3,4,6\}$, each giving a sibling
+BKM denominator; $\kBKM(\Phi_N)=c_N(0)/2$ is a statement about the
+\emph{cycle orbit}, not about a rescaled functor. This replaces
+``six routes to $G(K3\times E)$'' with ``$\Cyc_2$-moduli of
+$\PhiFA_3$''. The Gritsenko--Cl\'ery eight diagonal-divisor
+paramodular forms index eight sibling specialisations.
+
+\emph{(3) Four invariants $\{\kch,\kcat,\kBKM,\kfib\}$ partition by
+stage.}
+$\kcat$ and $\kch$ are Stage-1 invariants (properties of the native
+functor), K\"unneth-multiplicative, with $\kcat(K3\times E)=0$ (the
+total space, not the $K3$ fibre value $2$). $\kBKM$ and $\kfib$ are
+Stage-2 invariants (properties of the cycle); the Vol~III spectrum
+$\{2,3,5,24\}$ is the four-construction set on a single geometry,
+distinct from the Vol~I five-archetype ceiling $\{0,8,13,250/3,98/3\}$.
+
+\emph{(4) Holomorphic Chern--Simons on $\C^3$ is
+$U_{\Ethree}(\g[2])$ at a point.} Six real dimensions /
+three complex dimensions, BV Costello renormalisation against the
+Bochner--Martinelli propagator. At $K3\times E$, the
+$\Ethree$-factorisation algebra factorisation-integrates along the
+$K3$-fibre to the $\Eone$-chiral CY-A$_3$ algebra on $E$. This is
+where the CY-to-chiral functor concretely instantiates Costello--Li.
+
+\emph{(5) The Lorgat 2020 construction is the $N=1$ instance of
+the sibling-denominator theorem.} The explicit Borcherds lift of
+$\phi_{0,1}=\frac12\chi(K3,z)$ to $\Delta_5$ produces the denominator
+identity of $\gDelta$; the root-multiplicity function is the
+Fourier-coefficient map $(n,\ell,m)\mapsto f(nm,\ell)$; the
+automorphic correction $\g\hookrightarrow\gDelta$ realises the
+imaginary simple roots with multiplicities $\tau(a)=9$ at
+isotropic $a_0\in\{2f_2,2f_{-2},2f_2-2f_3+2f_{-2}\}$ and $m(a)$ at
+negative-norm $a$. Under Conjecture~\ref{conj:gDelta-equals-sp},
+$\gDelta=\Sp_{K3,E}\PhiFA_3(K3\times E)$; the $N\geq 2$ siblings are
+conditional on Cl\'ery--Gritsenko singular-weight, Bryan--Oberdieck
+base cases, and an honest $E_1$-chiral promotion of the imaginary
+simple roots.
+\end{remark}
+
+\begin{principle}[The platonic ideal]
+\label{prin:platonic}
+One native functor
+$\PhiFA_d:\mathrm{CY}_d\text{-cat}(X)\to\Ed\text{-}\HolFA(X)$,
+choice-free up to contractible.
+One specialisation moduli
+$\Cyc_{d-1}(X)\times\mathrm{Curves}(X)$,
+with $\Sp_{\Sigma_{d-1},C}$ compact-cycle integration.
+One composite
+$\Phifun_d=\Sp_{\Sigma_{d-1},C}\circ\PhiFA_d$.
+One four-invariant partition: Stage-1 $\{\kcat,\kch\}$ native,
+Stage-2 $\{\kBKM,\kfib\}$ cycle.
+One Lorgat $\Delta_5$ witness, at $N=1$, $\Sigma_2=K3$, $C=E$,
+producing $\kBKM=c_1(0)/2=5$ and $Z^X = -C/\Delta_5^2$.
+One universal Borcherds identity
+$\kBKM(\Phi_N)=c_N(0)/2$ on $N\in\{1,2,3,4,6\}$, theorem at $N=1$,
+conjectural at $N\geq 2$.
+One $\Ethree$-avatar $U_{\Ethree}(\g[2])$ on $\C^3$ with chiral
+avatar the Beilinson--Drinfeld chiral CE complex.
+One $\Etwo$-upgrade living on the Drinfeld centre
+$\cZ(\Rep(A))$, not on $A$ itself, at $d\geq 3$.
+One five-route identification at $\C^3$: five presentations of
+$\cF_{\C^3}=\Obs^{q}_{\hCS_6}$, not five functors.
+One conjectural extension: CY-C on a Koszul--Gorenstein locus,
+super-Yangian at $d=5$, CY$_4$ via two-fold specialisation.
+\end{principle}
+
+%% ===================================================================
+\section{Claims and their status}
+%% ===================================================================
+
+\begin{description}[leftmargin=2em]
+\item[\ClaimStatusTheorem] Definitions~\ref{def:phi-FA},
+\ref{def:sp-cycle}; Theorem~\ref{thm:two-stage} (two-stage
+factorisation); Theorem~\ref{thm:dictionary} at $d=1,2$.
+
+\item[\ClaimStatusDerivation] Theorem~\ref{thm:dictionary} at $d=3,5$;
+Theorem~\ref{thm:five-routes}; Proposition~\ref{prop:omega-selects};
+Theorem~\ref{thm:sigma-0-24}; Theorem~\ref{thm:class-M-6g};
+Theorem~\ref{thm:mock-modular-K3}.
+
+\item[\ClaimStatusTheorem] Theorem~\ref{thm:delta5-N1} ($\Delta_5$ at
+$N=1$, Lorgat 2020); Theorem~\ref{thm:E3-avatar}
+(Costello--Francis--Gwilliam 2026); Theorem~\ref{thm:ceiling-five}
+(Vol~I five-archetype ceiling); Theorem~\ref{thm:zte}.
+
+\item[\ClaimStatusConjectured] Theorem~\ref{thm:many-BKM} at
+$N\in\{2,3,4,6\}$; Conjecture~\ref{conj:cyc-three-routes}
+(CY-C three routes); Conjecture~\ref{conj:gDelta-equals-sp}
+($\gDelta$-to-specialisation identification);
+Conjecture~\ref{conj:super-yangian} (super-Yangian at $d=5$);
+Conjecture~\ref{conj:cy4} (CY$_4$ prediction).
+
+\item[\ClaimStatusOpen] Open problem~\ref{open:BL} (chiral
+instantiation of Booth--Lazarev coderived model); the
+Cl\'ery--Gritsenko singular-weight hypothesis and the Bryan--Oberdieck
+base cases at $N\geq 2$ (blocking Theorem~\ref{thm:many-BKM});
+the $H^3(\Mtf,U(1))=\Z/12\oplus\Z/2$ GAP-computation lift to
+primary-source status.
+\end{description}
+
+\end{document}

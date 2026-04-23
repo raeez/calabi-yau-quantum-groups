@@ -1,0 +1,181 @@
+% !TEX root = ../main.tex
+% Slides-extraction channel (Lorgat 2020 automorphic-corrections presentation,
+% /tmp/automorphic-slides.txt, lines 29-54 and 856-953).  Complements
+% wave8_j2_GHV_to_PV_simultaneous_twining.tex by anchoring the status matrix
+% to the explicit eight diagonal-divisor paramodular forms enumerated in the
+% slides, and extracting the (t, N)-product arithmetic compatibility that
+% explains "exactly eight".  Primary sources: Lorgat 2020; Gritsenko--Clery
+% 2008 arXiv:0812.3962; Gritsenko--Nikulin 1995 alg-geom/9504006; Persson
+% --Volpato 2012 arXiv:1208.4851; Gaberdiel--Hohenegger--Volpato 2012
+% arXiv:1106.5218 and arXiv:1211.7074; Cheng--Duncan--Harvey 2014
+% arXiv:1204.2779; Conway--Curtis--Norton--Parker--Wilson ATLAS 1985.
+
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjecture]}}
+\providecommand{\ClaimStatusAxiomatic}{\textbf{[Axiom]}}
+\providecommand{\ZellK}[2]{Z^{(#1,#2)}_{\mathrm{ell}}(K3)}
+\providecommand{\GCform}[1]{F^{\mathrm{GC}}_{#1}}
+\providecommand{\Paramod}[1]{\Gamma_{#1}}
+\providecommand{\Heckecong}[2]{\Gamma_{#1}(#2)}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\CM}{C_{M_{24}}}
+
+\section*{Commuting-pair anchor for the eight Gritsenko--Cl\'ery
+diagonal-divisor paramodular forms}
+
+\paragraph{Slides datum.}
+The Lorgat 2020 presentation (\texttt{/tmp/automorphic-slides.txt}
+l.~47--54) states as a theorem: \emph{for congruence subgroups
+$\Paramod{t}(N)<\Paramod{t}$ of the integral paramodular group of
+genus~$2$ and polarisation~$t$ there are exactly eight
+diagonal-divisor modular forms with trivial or quadratic character},
+enumerated as
+\begin{align*}
+\GCform{1}&=M_5(\Paramod{1},\nu_2)=\Delta_5, &
+\GCform{2}&=M_2(\Paramod{2},\nu_4),\\
+\GCform{3}&=M_3(\Heckecong{1}{2},\nu_2), &
+\GCform{4}&=M_1(\Paramod{3},\nu_6),\\
+\GCform{5}&=M_2(\Heckecong{1}{3},\nu_2), &
+\GCform{6}&=M_{1/2}(\Paramod{4},\nu_8),\\
+\GCform{7}&=M_{3/2}(\Heckecong{1}{4},\nu_4), &
+\GCform{8}&=M_1(\Heckecong{2}{2},\nu_4).
+\end{align*}
+The slides' Conjecture~1 (l.~929--936) identifies these eight forms,
+up to constants, with the reciprocal square roots
+$-1/Z^{X}_{L,h_M}(q,t,p)$ of refined/motivic DT zeta of
+$X=(S\times E)/(\Z/N\Z)$ for a $(g_N,h_M)$-twisted K3 data with
+lattice polarisation $L$, and with denominator functions of GBKM
+algebras $\mathfrak{g}\subset\mathfrak{g}_L$ whose root multiplicities
+are Fourier coefficients of the twisted-twined weak Jacobi form
+$F^{(g_N,h_M)}_L\in J_{0,1}(\Gamma^{(g_N,h_M)},\psi)$.
+
+\paragraph{Commuting-pair table ($N,M\leq 8$, $NM\leq 8$, $[g_N,h_M]=1$).}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{c|c|c|c|c}
+\toprule
+Form & Siegel data & Polarisation $t$ & $M_{24}$-pair
+$(g_N,h_M)$ & Status \\
+\midrule
+$\GCform{1}$ & $(5;\Paramod{1},\nu_2)$ & $t=1$ & $(1A,1A)$ &
+\ClaimStatusTheorem \\
+$\GCform{2}$ & $(2;\Paramod{2},\nu_4)$ & $t=2$ & $(1A,2A)$ &
+\ClaimStatusTheorem \\
+$\GCform{3}$ & $(3;\Heckecong{1}{2},\nu_2)$ & $t=1$ & $(2A,1A)$ &
+\ClaimStatusTheorem \\
+$\GCform{4}$ & $(1;\Paramod{3},\nu_6)$ & $t=3$ & $(1A,3A)$ &
+\ClaimStatusTheorem \\
+$\GCform{5}$ & $(2;\Heckecong{1}{3},\nu_2)$ & $t=1$ & $(3A,1A)$ &
+\ClaimStatusTheorem \\
+$\GCform{6}$ & $(1/2;\Paramod{4},\nu_8)$ & $t=4$ & $(1A,4A/4B)$ &
+\ClaimStatusConjectured \\
+$\GCform{7}$ & $(3/2;\Heckecong{1}{4},\nu_4)$ & $t=1$ & $(4A/4B,1A)$ &
+\ClaimStatusConjectured \\
+$\GCform{8}$ & $(1;\Heckecong{2}{2},\nu_4)$ & $t=2$ & $(2A,2A)$ &
+\ClaimStatusConjectured \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The Siegel datum is $(\text{weight};\text{group},\text{multiplier})$.
+The theorem rows $\GCform{1}$--$\GCform{5}$ are covered by
+Gritsenko--Nikulin 1995 and Gritsenko--Cl\'ery 2008 (each form is an
+exact Borcherds lift of a weight-$0$ index-$t$ weak Jacobi form, built
+from $\phi_{0,1},\phi_{-2,1}$ at integral levels).  The conjectural
+rows $\GCform{6}$--$\GCform{8}$ carry half-integer weights or the
+double-level group $\Heckecong{2}{2}$; their Borcherds-lift status is
+\ClaimStatusConjectured\ pending explicit verification of the
+Gritsenko product expansion at level~$4$ and simultaneous-twisting
+cocycle (Persson--Volpato 2012 \S 5).
+
+\paragraph{The arithmetic compatibility: $tN\leq 4$.}
+
+\emph{Exactly} the pairs $(t,N)$ with $1\leq t,N$ and $tN\leq 4$
+appear: the multiset of products is
+$\{tN\}=\{1,2,2,3,3,4,4,4\}$, eight values.  This is the hidden
+observation advertised by the slides' "there are exactly eight".
+First-principles reason.  A weak Jacobi form of weight~$0$ and
+index~$t$ contributes to a paramodular cusp form of weight
+$k=c_\phi(0)/2$ with Borcherds multiplier of order bounded by
+$\mathrm{lcm}(t,N)$; the diagonal-divisor condition
+$\mathrm{ord}_{\mathrm{diag}}=1$ and the
+$\mathcal{M}(\Gamma_t(N),\chi)=\{0\}$ vanishing criterion of
+Gritsenko--Cl\'ery 2008 Theorem~1.3 together cut the $(t,N)$-lattice
+down to the simplex $tN\leq 4$.  Equivalently, the product
+$g_N\cdot h_M$ of symplectic K3 auto's represents a distinct
+$M_{24}$-element of order dividing $NM=tN$, and the Mukai-lattice
+bound $\mathrm{rk}\,H^2(S/\langle g_N,h_M\rangle,\Q)\geq 3$ forces
+$NM\leq 4$ when both $g_N,h_M$ act freely on the holomorphic
+$2$-form.  This matches the Persson--Volpato 2012 Theorem~4.2
+low-order abelian-locus theorem (established subset of Conjecture~1)
+and explains why no $N=5,6,7,8$ form appears: the free-action
+constraint kills $NM\geq 5$.
+
+\paragraph{Attack-heal cycle.}
+
+\emph{Attack 1.}  Is $(g_N,h_M)=(2A,2A)$ with $NM=4$ a genuinely
+commuting $M_{24}$-pair?  \emph{Heal.}  $M_{24}$ class $2A$
+(cycle type $1^{8}2^{8}$) has centraliser of order
+$2^{8}\cdot(\text{Hol}\,\mathrm{AGL}_2(2))=21504$ (ATLAS 1985
+p.~96); $|C_{M_{24}}(2A)|=21504$ contains $2A\times 2A$ as a
+Klein-four subgroup.  Commuting: \ClaimStatusTheorem.
+
+\emph{Attack 2.}  $(g_N,h_M)=(2,3)$ and $(3,4)$ ---$[g,h]=1$?
+\emph{Heal.}  $M_{24}$ has classes $6A, 6B$ (orders $6$);
+$g\in 2A, h\in 3A$ with $gh\in 6A$ gives $|C(g)\cap C(h)|\neq 0$,
+so commuting pair: \ClaimStatusTheorem.  $(3,4)$:
+$M_{24}$ contains class $12A$ of order $12=3\cdot 4$, hence
+$[g_3,h_4]=1$ realised inside a cyclic $\langle g_3h_4\rangle\cong
+\Z/12$; but $NM=12>4$, so no $\GCform{}$ form attaches.
+
+\emph{Attack 3.}  Can $(4A,2A)$ with $NM=8$ correspond to a
+$\GCform{}$?  \emph{Heal.}  No.  Gritsenko--Cl\'ery 2008 exhaust
+the diagonal-divisor locus at $NM\leq 4$; the $(4,2)$ Siegel
+datum $(k;\Paramod{4}(2),\chi)$ fails the modular-form existence
+criterion (no weight-$0$ index-$8$ weak Jacobi form satisfying
+the Borcherds-lift diagonal-vanishing discriminant).
+
+\emph{Attack 4.}  Do the anomalous $M_{24}$-classes
+$\{7A,7B,11A,23A,23B\}$ (CDH 2014 \S 5) appear in the
+$\GCform{}$-table?  \emph{Heal.}  No: $NM\leq 4$ excludes
+$N\geq 7$.  The umbral $A_1^{24}$-gap lives outside the
+diagonal-divisor eight-form domain; it attaches instead to the
+non-diagonal paramodular locus.
+
+\emph{Attack 5.}  Is the Borcherds weight $\kBKM(\GCform{j})$
+predicted from the slides' $c_{\phi}(0)/2$ formula?  \emph{Heal.}
+Yes.  At $\GCform{1}=\Delta_5$, $c_1(0)=10$, $\kBKM=5$
+(slides l.~766--768 Borcherds-product theorem, Lorgat 2020 Thm~3).
+At $\GCform{4}$, weight~$1$, so $c_{\phi_{0,3}}(0)=2$; consistent.
+The universal identity $\kBKM(\GCform{j})
+=c_{F^{(g_N,h_M)}_L}(0)/2$ holds at all eight forms conditional on
+Step~3 (cocycle-vanishing) of \texttt{wave8\_j2}.
+
+\paragraph{Interlock with chapter content.}
+The $tN\leq 4$ arithmetic compatibility refines
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}: the
+universal $\kBKM(\Phi_N)=c_N(0)/2$ extends across
+$N\in\{1,2,3,4,6\}$, of which $N\in\{1,2,3,4\}$ admit the
+eight-form diagonal-divisor refinement; $N=6$ is visible in the
+GBKM table but not in the diagonal-divisor locus.  The fibre
+K3$\times E$ spectrum $\{2,3,5,24\}$ is unchanged; the eight-form
+count is an orthogonal datum carried by the paramodular polarisation
+rather than by the fibre Euler characteristic.
+
+\paragraph{Mukai-$M_{23}$ scope restriction.}
+The commuting-pair column above uses $M_{24}$-class labels; only the
+subset of $11$ classes realised as $\mathrm{Aut}_s(K3)$ (Mukai 1988,
+\emph{Invent.~Math.}~94 Thm.~0.1: $M_{23}\subset M_{24}$ fixing a
+point of the $24$-set, intersected with the symplectic subgroup) is
+geometric.  The five classes $1A, 2A, 3A, 4A, 4B$ appearing in
+$\GCform{1}$--$\GCform{8}$ all lie in Mukai's list; the anomalous
+classes $\{7A,7B,11A,23A,23B\}$ are excluded by the $tN\leq 4$ bound
+and cross-check against the umbral $A_1^{24}$-gap of CDH 2014 \S 5.
+Conjecture~1's target group is $\Paramod{tN}(N)<\mathrm{Sp}_4(\Q)$
+(paramodular at polarisation $tN$, level $N$), matching
+\texttt{appendices/first\_principles\_cache.md} entry V17 (AP-CY143)
+\emph{except} at $(N,M)=(1,1)$ where the target is
+$\mathrm{Sp}_4(\Z)$ and the form is $\Delta_5$ itself.

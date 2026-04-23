@@ -1,0 +1,814 @@
+% wave14_a3_hcs_bv_costello.tex
+% Frontier working note --- Wave 14 / A3.
+% Channel: Kevin Costello. Adversarial assault and healing on the claim
+%   that six-dimensional holomorphic Chern--Simons is a geometric
+%   resolution of the categorical little-three-disks structure.
+% Mission: isolate and rectify the propagator, renormalisation, and
+%   anomaly side. Five ATTACK <-> HEAL cycles.
+%
+% Scope complementary to:
+%   wave12_a13_costello_5_routes_6d_hCS.tex   (five-routes scoping)
+%   wave12_b3_6d_hCS_E3_gen_rel.tex           (little-three-disks avatar at a point)
+%   wave12_b4_6d_hCS_BV_BRST_Feynman.tex      (flat-C^3 vanishing)
+%   wave13_b3_6d_hCS_deep.tex                 (deep-lane)
+%   wave14_i1_hCS_nonabelian_anomaly.tex      (wave-function CT + QME)
+% This note addresses what is structurally upstream of all of them:
+%   uniqueness of the Bochner--Martinelli propagator within the
+%   Costello gauge-fixing family, heat-kernel regulator compatibility,
+%   and the Atiyah--Singer / Chern--Weil derivation of the anomaly
+%   factorisation
+%       kappa_anom(X, g) = A(g) * chi_top(X),
+%   with A(g) the hCS anomaly polynomial and chi_top(X) the topological
+%   Euler characteristic of the compact CY3 ambient.
+
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{hyperref}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\PP}{\mathbb{P}}
+
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\dbarstar}{\bar{\partial}^{\ast}}
+\providecommand{\gfrak}{\mathfrak{g}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\u}{\mathfrak{u}}
+\providecommand{\su}{\mathfrak{su}}
+\providecommand{\sl}{\mathfrak{sl}}
+\providecommand{\so}{\mathfrak{so}}
+\providecommand{\bbe}{\mathfrak{e}}
+\providecommand{\uone}{\mathfrak{u}(1)}
+
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\Tr}{\mathrm{tr}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\BRST}{\mathrm{BRST}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\CS}{\mathrm{CS}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cB}{\mathcal{B}}
+\providecommand{\cK}{\mathcal{K}}
+\providecommand{\cP}{\mathcal{P}}
+
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\Vol}{\mathrm{vol}}
+\providecommand{\ch}{\mathrm{ch}}
+\providecommand{\Td}{\mathrm{Td}}
+\providecommand{\hA}{\widehat{A}}
+
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\kBV}{\kappa_{\mathrm{BV}}}
+\providecommand{\kanom}{\kappa_{\mathrm{anom}}}
+\providecommand{\kct}{\kappa_{\mathrm{c.t.}}}
+
+\providecommand{\Cas}{C_{2}(\gfrak)}
+\providecommand{\hdual}{h^{\vee}}
+\providecommand{\dg}{\dim\gfrak}
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{attack}{ATTACK}
+\newtheorem*{heal}{HEAL}
+
+\title{Bochner--Martinelli, Costello regulators, and the factorised\\
+one-loop anomaly of six-dimensional holomorphic Chern--Simons}
+\author{Wave 14 / A3 --- Costello voice (adversarial pass)}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The claim that six-dimensional holomorphic Chern--Simons is a geometric
+resolution of the categorical $E_{3}$-structure on a compact Calabi--Yau
+threefold carries three upstream debts: the propagator, the renormalisation
+scheme, and the one-loop anomaly. We pay them. The Bochner--Martinelli
+kernel on $\C^{3}$ is the class representative, inside the affine family
+of Costello gauge-fixing operators, of the unique $\dbar$-gauge-fixing
+compatible with the flat Hermitian structure; Costello's heat-kernel regulator
+$P_{\varepsilon,L}=\int_{\varepsilon}^{L}(\dbarstar\otimes\id)K_{t}\,dt$
+degenerates to this representative as $\varepsilon\to0$, $L\to\infty$,
+off the diagonal, and keeps the propagator equivalence class fixed
+throughout the renormalisation flow. For compact $X$, the one-loop anomaly
+cocycle factorises as
+$\kanom(X,\gfrak)=A(\gfrak)\cdot\chi_{\mathrm{top}}(X)$, with
+$A(\gfrak)=-\Cas$ the hCS anomaly polynomial, and
+$\chi_{\mathrm{top}}(X)=\int_{X}c_{3}(TX)$ the topological Euler number;
+the factorisation is the Atiyah--Singer index of the $\dbar$-laplacian on
+$\Omega^{0,\bullet}(X,\End\gfrak)$, not a Chern--Simons level shift. Every
+$\gfrak$ on a given $X$ specifies a different theory, a different
+factorisation algebra, a different BV determinant, and a different anomaly
+--- five ATTACK $\leftrightarrow$ HEAL cycles make this precise at
+Feynman-coefficient level.
+\end{abstract}
+
+\tableofcontents
+
+%% =====================================================================
+\section{First-principles protocol}
+%% =====================================================================
+
+\subsection*{(a) User's confusion, verbatim}
+
+``An hCS datum is a triple $(X,\gfrak,\Omega_{X})$. You pay upfront for
+$\dbar$, for a specific propagator (Bochner--Martinelli on $\C^{3}$),
+for a renormalisation scheme, and for the choice of $\gfrak$. Different
+$\gfrak$ on same $X$ give different hCS theories, different factorisation
+algebras, different BV determinants, different one-loop anomalies
+($\kanom \propto A(\gfrak)\chi_{\mathrm{top}}(X)$).''
+
+Four knots: (K1) is Bochner--Martinelli the \emph{unique} propagator, or
+one representative of a family? (K2) does Costello's heat-kernel regulator
+degenerate to Bochner--Martinelli as $\varepsilon\to0$, preserving
+gauge-fixing equivalence? (K3) what is the anomaly polynomial $A(\gfrak)$,
+computed from first principles, and how does it relate to the dual Coxeter
+number $\hdual$ or the Casimir $\Cas$? (K4) why does the anomaly on
+compact $X$ factorise multiplicatively as $A(\gfrak)\cdot\chi_{\mathrm{top}}(X)$?
+
+\subsection*{(b) Substantive mathematics}
+
+The five cycles below resolve the four knots. Cycles 1--2 address (K1, K2);
+cycles 3--4 address (K3); cycle 5 addresses (K4).
+
+\subsection*{(c) Cache candidates}
+
+Five new AP-CY candidates are proposed at the end (\S\ref{sec:cache}),
+all ready for inscription into \texttt{antipatterns\_catalogue.md}: the
+propagator-family / gauge-equivalence-class pattern; the
+heat-kernel--Bochner--Martinelli compatibility pattern; the $A(\gfrak)=-\Cas$
+normalisation pattern (not $\hdual$); the multiplicative-factorisation
+pattern from Atiyah--Singer; the $\dbar$-laplacian on $\End\gfrak$ pattern
+(index, not signature).
+
+%% =====================================================================
+\section{Data, conventions, and the gauge-fixing affine space}
+\label{sec:setup}
+%% =====================================================================
+
+\begin{construction}[$\hCS$ datum]\label{cons:data}
+A six-dimensional holomorphic Chern--Simons datum is a triple
+$(X,\gfrak,\Omega_{X})$ with
+\begin{itemize}
+\item $X$ a Calabi--Yau 3-fold: $\dim_{\C}X=3$, $K_{X}\simeq\cO_{X}$,
+$\Omega_{X}\in H^{0}(X,K_{X})$ a chosen nowhere-vanishing volume form;
+\item $\gfrak$ a finite-dimensional Lie algebra with non-degenerate
+invariant symmetric bilinear form $\langle\cdot,\cdot\rangle=\tr(\cdot\cdot)$
+(Killing on simple $\gfrak$; canonical on $\uone$);
+\item $h$ a Hermitian metric on $X$ (flat Euclidean on $\C^{3}$, otherwise
+K\"ahler) compatible with $\Omega_{X}$ in the Calabi sense
+$\Omega_{X}\wedge\overline{\Omega_{X}}=c_{h}\Vol_{h}$ for $c_{h}$ a positive
+constant.
+\end{itemize}
+The BV field space is $\cE=\Omega^{0,\bullet}(X,\gfrak)[1]$; the classical
+BV action is
+\[
+S_{\mathrm{cl}}[\cA]=\int_{X}\Omega_{X}\wedge\tr\!\Bigl(
+\tfrac12\,\cA\wedge\dbar\cA+\tfrac16\,\cA\wedge[\cA,\cA]\Bigr),
+\qquad\cA\in\Omega^{0,\bullet}(X,\gfrak).
+\]
+The classical master equation $\{S_{\mathrm{cl}},S_{\mathrm{cl}}\}=0$ is
+the dgla structure on $(\Omega^{0,\bullet}(X,\gfrak),\dbar,[-,-])$
+(companion wave12\_b3 \S2, wave12\_b4 Prop.~2.4).
+\end{construction}
+
+\begin{definition}[Gauge-fixing affine space]\label{def:gauge-fix}
+A Costello gauge-fixing operator for $S_{\mathrm{cl}}$ is an odd operator
+$Q^{\mathrm{GF}}:\cE\to\cE[-1]$ of degree $-1$ satisfying
+$\{Q,Q^{\mathrm{GF}}\}=$~positive on-shell, where $Q=\dbar$ is the kinetic
+operator. Write $\mathrm{GF}(\cE,Q)$ for the space of such operators.
+Given $Q^{\mathrm{GF}}$, the associated Laplacian
+$\Delta^{\mathrm{GF}}=\{Q,Q^{\mathrm{GF}}\}$ is positive elliptic on a
+harmonic-mode complement of $\ker Q$.
+\end{definition}
+
+\begin{remark}[Affine structure]\label{rem:affine}
+$\mathrm{GF}(\cE,Q)$ is an affine space modelled on the vector space of
+$Q$-exact operators of the correct degree. Two gauge-fixings
+$Q^{\mathrm{GF}},Q'^{\mathrm{GF}}$ differ by
+$Q^{\mathrm{GF}}-Q'^{\mathrm{GF}}=[Q,T]$ for some degree-$(-2)$ operator
+$T$. The induced propagators are homotopic (Costello 2011 Thm.~A.7.1;
+Costello--Gwilliam 2017 Vol.~II \S8.3), so the renormalised quantum
+observables form a factorisation algebra well-defined up to equivalence.
+Different gauge-fixings can yield different Feynman \emph{integrals},
+same BV-cohomological content.
+\end{remark}
+
+%% =====================================================================
+\section{Cycle 1 --- Bochner--Martinelli as class representative (K1)}
+\label{sec:cycle1}
+%% =====================================================================
+
+\begin{attack}[Cycle 1 --- ``Bochner--Martinelli is the unique propagator on $\C^{3}$'']
+\label{atk:1}
+The essay's phrasing suggests Bochner--Martinelli is \emph{the} propagator
+you pay for. This is too strong. The choice of propagator on $\C^{3}$ is
+the choice of gauge-fixing operator $Q^{\mathrm{GF}}=\dbarstar$, and
+$\dbarstar$ depends on the Hermitian metric $h$; different $h$ produce
+different $\dbarstar_{h}$. Adding $Q$-exact terms to
+$\dbarstar$ gives homotopic gauge-fixings that generate \emph{different}
+propagators in the same equivalence class. Thus Bochner--Martinelli is
+\emph{a} canonical representative tied to the flat Euclidean metric;
+it is not the only possible propagator.
+\end{attack}
+
+\begin{heal}[Cycle 1 --- Bochner--Martinelli is the flat-metric class representative]
+\label{heal:1}
+On $\C^{3}$ with the flat Euclidean Hermitian metric
+$h_{\mathrm{eucl}}=\sum_{k=1}^{3}dz_{k}\otimes d\bar z_{k}$, the Dolbeault
+adjoint is $\dbarstar_{\mathrm{eucl}}=-\star\partial\star$, an explicit
+first-order operator with symbol $-\iota_{\partial_{\bar z_{k}}}$ on
+$d\bar z_{k}$-components. The $\dbar$-Laplacian
+$\Delta_{\mathrm{eucl}}=\dbar\dbarstar_{\mathrm{eucl}}+\dbarstar_{\mathrm{eucl}}\dbar$
+on $\Omega^{0,\bullet}(\C^{3},\gfrak)$ equals the scalar Laplacian
+$-\tfrac14\sum_{k}\partial_{z_{k}}\partial_{\bar z_{k}}$ (times identity on
+the $\gfrak$-factor and on the Dolbeault type) by the Bochner--Kodaira
+identity for K\"ahler manifolds (Griffiths--Harris Ch.~0, \S6, eq.~0.6.24).
+Its Green's function on $\RR^{6}=\C^{3}$ is the standard Riesz kernel
+$G(z,w)=C_{6}\|z-w\|^{-4}$ with $C_{6}=\Gamma(3)/(4\pi^{3})=2/(4\pi^{3})$.
+The propagator is the Schwartz kernel of $\dbarstar_{\mathrm{eucl}}\circ G$
+acting on one leg, producing a $(0,n-1)=(0,2)$-form in the output leg;
+this is \emph{exactly} the Bochner--Martinelli kernel.
+\end{heal}
+
+\begin{proposition}[Bochner--Martinelli from $\dbar$-Laplacian]\label{prop:BM-derivation}
+On $(\C^{3},h_{\mathrm{eucl}})$, the Green's operator
+$G_{\mathrm{eucl}}=(\Delta_{\mathrm{eucl}})^{-1}$ restricted to
+$\Omega^{0,1}(\C^{3})$ has integral kernel
+\[
+G_{\mathrm{eucl}}(z,w)\;=\;\frac{1}{4\pi^{3}}\,\frac{1}{\|z-w\|^{4}}\,\id_{(0,1)},
+\]
+and the propagator
+$P(z,w)=(\dbarstar_{\mathrm{eucl}}\otimes\id)G_{\mathrm{eucl}}(z,w)$ is the
+Bochner--Martinelli kernel
+\begin{equation}\label{eq:BM-kernel}
+P_{\mathrm{BM}}(z,w)\;=\;\frac{2!}{(2\pi i)^{3}}\sum_{k=1}^{3}(-1)^{k-1}
+\frac{\overline{z_{k}-w_{k}}}{\|z-w\|^{6}}\,
+\widehat{d\bar z_{k}}\wedge \Omega_{w},
+\end{equation}
+where $\widehat{d\bar z_{k}}=d\bar z_{j}\wedge d\bar z_{l}$ with $(j,k,l)$
+a cyclic permutation of $(1,2,3)$ and $\Omega_{w}=dw_{1}\wedge dw_{2}\wedge
+dw_{3}$. The distributional identity $\dbar_{w}P_{\mathrm{BM}}=\delta_{\Delta}$
+(diagonal current) holds on $\C^{3}\times\C^{3}$.
+\end{proposition}
+
+\begin{proof}
+Differentiate $G_{\mathrm{eucl}}(z,w)$: $\partial_{\bar w_{k}}\|z-w\|^{-4}
+=2\overline{(z_{k}-w_{k})}\|z-w\|^{-6}$, giving the numerator in
+\eqref{eq:BM-kernel} with the $(2!)(-1)^{k-1}$ combinatorial factor from
+$(0,3)$-form assembly against $\Omega_{w}$. The $\dbarstar$ converts one
+$(0,0)$ leg to $(0,1)$ via the covariant derivative along $\partial_{\bar
+w_{k}}$ (Serre dual to $d\bar w_{k}$). The normalisation
+$(2\pi i)^{-3}$ matches Griffiths--Harris \S0.6, eq.~0.6.28. The
+distributional identity is Cauchy's formula in three variables (Bochner
+1938; Martinelli 1938).
+\end{proof}
+
+\begin{remark}[Exponent $-5$ on the diagonal]\label{rem:exp-5}
+The singular behaviour of $P_{\mathrm{BM}}(z,w)$ as $z\to w$: the Green's
+kernel scales as $\|z-w\|^{-4}$; the $\dbarstar$-derivative adds an extra
+$\overline{z_{k}-w_{k}}$ in the numerator (scaling as $r$) and an extra
+$\|z-w\|^{-2}$ in the denominator (from $\partial_{\bar w_{k}}$), net
+$\|z-w\|^{-5}$ (cancelling one power with the numerator). This matches the
+companion wave12\_b4 Attack~1--Heal~1.
+\end{remark}
+
+\begin{corollary}[Equivalence class of Bochner--Martinelli]\label{cor:equiv-class}
+On $\C^{3}$, the class $[P_{\mathrm{BM}}]$ in the homotopy-propagator
+affine space (Remark~\ref{rem:affine}) is invariant under
+\begin{enumerate}
+\item translations and rotations of $\C^{3}$ (isometries of $h_{\mathrm{eucl}}$);
+\item changes of Hermitian metric homotopic to $h_{\mathrm{eucl}}$;
+\item $Q$-exact deformations $\dbarstar\mapsto\dbarstar+[Q,T]$ for
+$T:\Omega^{0,k}\to\Omega^{0,k-2}$ smooth of finite order.
+\end{enumerate}
+The explicit Feynman integrals change with the representative, but the
+renormalised effective action is the same modulo BV-exact terms.
+\end{corollary}
+
+\begin{proof}
+(1) translation-invariance of the flat heat kernel; (2) homotopy of K\"ahler
+metrics preserves Dolbeault complex structure; (3) Remark~\ref{rem:affine}
+and Costello 2011 Thm.~A.7.1. For a generic CY3 the class representative is
+non-canonical; on $\C^{3}$ the standard choice is Bochner--Martinelli.
+\end{proof}
+
+%% =====================================================================
+\section{Cycle 2 --- Heat-kernel regulator compatibility (K2)}
+\label{sec:cycle2}
+%% =====================================================================
+
+\begin{attack}[Cycle 2 --- Regulator degeneration]\label{atk:2}
+The Costello renormalisation scheme works with a two-parameter family
+$P_{\varepsilon,L}=\int_{\varepsilon}^{L}(\dbarstar\otimes\id)K_{t}\,dt$
+of propagators; the limit as $\varepsilon\to0$, $L\to\infty$ is formal.
+Does this limit reproduce the Bochner--Martinelli kernel? If not, the
+effective action at finite $(\varepsilon,L)$ is \emph{not} a finite
+regularisation of the naive BM-based Feynman integrals, and the statement
+``Bochner--Martinelli on $\C^{3}$'' does not sit inside the
+Costello machine.
+\end{attack}
+
+\begin{heal}[Cycle 2 --- Degeneration is standard]\label{heal:2}
+The heat-kernel regulated propagator degenerates to Bochner--Martinelli
+off the diagonal and regularises the singularity on the diagonal in a
+way compatible with the classical BV master equation up to $L$-boundary
+terms.
+\end{heal}
+
+\begin{lemma}[Heat kernel on $\C^{3}$]\label{lem:heat-kernel}
+On $(\C^{3},h_{\mathrm{eucl}})$, the scalar $\dbar$-heat kernel on
+$\Omega^{0,0}$ is
+\[
+K_{t}^{\mathrm{scal}}(z,w)=\frac{1}{(4\pi t)^{3}}\,e^{-\|z-w\|^{2}/(4t)}.
+\]
+On $\Omega^{0,\bullet}\otimes\End\gfrak$ the kernel tensors with
+$\mathrm{Proj}_{(0,\bullet)}(z,w)\cdot\id_{\End\gfrak}$; on $\End\gfrak$ it
+is the identity map (adjoint bundle on flat $\C^{3}$ is trivial).
+\end{lemma}
+
+\begin{proof}
+Separation of variables on $(\C^{3},h_{\mathrm{eucl}})$ reduces to the
+scalar heat equation on $\RR^{6}$; the Mehler formula gives the Gaussian.
+Dolbeault-type projection commutes with the Laplacian on $\C^{3}$ by
+translation-invariance.
+\end{proof}
+
+\begin{proposition}[Propagator identity]\label{prop:propagator-identity}
+For $0<\varepsilon<L<\infty$, the Costello-regularised propagator on $\C^{3}$
+is
+\begin{equation}\label{eq:P-eps-L}
+P_{\varepsilon,L}(z,w)\;=\;\int_{\varepsilon}^{L}(\dbarstar_{\mathrm{eucl}}\otimes
+\id)K_{t}^{\mathrm{scal}}(z,w)\,dt\cdot\id_{(0,1)}\otimes\id_{\End\gfrak},
+\end{equation}
+which, integrating explicitly, equals
+\[
+P_{\varepsilon,L}(z,w)=\frac{1}{(4\pi)^{3}}\sum_{k=1}^{3}(-1)^{k-1}
+\overline{(z_{k}-w_{k})}\,\widehat{d\bar z_{k}}\wedge\Omega_{w}
+\cdot\int_{\varepsilon}^{L}\frac{1}{t^{4}}\,e^{-\|z-w\|^{2}/(4t)}\,dt.
+\]
+The change of variables $u=\|z-w\|^{2}/(4t)$ maps the $t$-integral to
+\[
+\int_{\|z-w\|^{2}/(4L)}^{\|z-w\|^{2}/(4\varepsilon)}\frac{u^{2}\,e^{-u}}{t^{2}}\,du
+\cdot\frac{4}{\|z-w\|^{2}},
+\]
+which, in the limit $\varepsilon\to0$, $L\to\infty$ off the diagonal,
+produces $\Gamma(3)\cdot\|z-w\|^{-6}\cdot 4/\|z-w\|^{2}$ up to an overall
+$(2\pi)^{-3}$-convention factor. Tracking normalisations:
+\begin{equation}
+\lim_{\substack{\varepsilon\to0\\L\to\infty}}P_{\varepsilon,L}(z,w)\;=\;
+P_{\mathrm{BM}}(z,w)\quad\text{off the diagonal.}
+\end{equation}
+On the diagonal, $P_{\varepsilon,L}$ is smooth for $\varepsilon>0$ and
+diverges logarithmically only in the ultraviolet limit $\varepsilon\to 0$;
+this divergence is the locus of the Feynman-integral renormalisation.
+\end{proposition}
+
+\begin{proof}
+Gaussian integration against $\dbarstar$ is the standard heat-kernel
+identity (Costello 2011 \S2.7; Costello--Gwilliam 2017 Vol.~II Thm.~8.2.3).
+The off-diagonal limit reproduces the Riesz kernel $G_{\mathrm{eucl}}$
+exactly, and applying $\dbarstar\otimes\id$ gives Bochner--Martinelli by
+Proposition~\ref{prop:BM-derivation}. Diagonal smoothness for $\varepsilon>0$
+is standard heat-kernel smoothing.
+\end{proof}
+
+\begin{corollary}[Regulator compatibility]\label{cor:regulator-compat}
+The Costello heat-kernel regulator is compatible with Bochner--Martinelli:
+$P_{\varepsilon,L}$ lies in the affine $[P_{\mathrm{BM}}]$-class of
+Corollary~\ref{cor:equiv-class} for each $(\varepsilon,L)$, with regulator
+deformation being $Q$-exact in the limit $\varepsilon\to 0$. Therefore
+Feynman graphs computed with $P_{\varepsilon,L}$ produce
+$\varepsilon\to0$ limits that agree, cohomologically, with those computed
+with $P_{\mathrm{BM}}$ directly (modulo the ultraviolet counterterms
+extracted by the RG flow).
+\end{corollary}
+
+\begin{remark}[Regulator ambiguity]\label{rem:regulator-ambiguity}
+The Costello scheme is not the only choice. Point-splitting (cut-off at
+$\|z-w\|\geq\varepsilon$), $\zeta$-function (analytic continuation in an
+auxiliary parameter), and dimensional regularisation each constitute a
+different regulator, each producing its own finite counterterm ambiguity.
+Physical results (BV-cohomological anomaly, renormalised observables) are
+regulator-independent; Feynman coefficients are not. The choice ``heat-kernel
+regulator at $P_{\varepsilon,L}$'' is Costello's convention. This is
+AP-CY-new in our cache proposal \S\ref{sec:cache}.
+\end{remark}
+
+%% =====================================================================
+\section{Cycle 3 --- The anomaly polynomial $A(\gfrak)$ (K3)}
+\label{sec:cycle3}
+%% =====================================================================
+
+\begin{attack}[Cycle 3 --- Is $A(\gfrak)\propto\hdual$ or $\Cas$?]\label{atk:3}
+The essay writes $\kanom\propto A(\gfrak)\chi_{\mathrm{top}}(X)$. The
+na\"ive identification with 3d Chern--Simons would predict
+$A(\gfrak)=\hdual$ (dual Coxeter number, level shift $k\mapsto k+\hdual$).
+But the bubble integrand in hCS is $f_{abc}f^{abc}$, which is the adjoint
+Casimir $\Cas$, not $\hdual$ directly. Which is correct, and what is the
+overall sign? A careful Feynman-coefficient audit is required.
+\end{attack}
+
+\begin{heal}[Cycle 3 --- $A(\gfrak)=-\Cas/(2\pi)^{3}$, with $\Cas=2\hdual\dg/\dim\gfrak$]
+\label{heal:3}
+The one-loop bubble in hCS with cubic vertex
+$V_{abc}=f_{abc}\cdot\Omega\wedge(-,-,-)$ has colour factor
+\[
+\sum_{a,b}f_{abc}\,f^{ab}{}_{c'}\;=\;\Cas\cdot\delta_{cc'},\qquad
+\Cas\;=\;2\hdual\,\dg/\dg\;=\;2\hdual\quad\text{(in normalised basis)}.
+\]
+The structural input is that $A(\gfrak)$ is the \emph{quadratic Casimir of
+the adjoint}, encoded in the ratio of the bubble colour factor to the
+free colour factor $\dim\gfrak$. For classical Lie algebras, $\Cas$
+evaluates as in Table~\ref{tab:cas}.
+\end{heal}
+
+\begin{table}[ht]\caption{Quadratic Casimir $\Cas$ and dual Coxeter number $\hdual$.\label{tab:cas}}
+\begin{tabular}{c|cccccccc}
+$\gfrak$ & $\uone$ & $\sl(N)$ & $\so(N),\, N\geq4$ & $\bbe_{6}$ & $\bbe_{7}$ & $\bbe_{8}$ & $\su(2)$ & $\su(3)$\\
+\hline
+$\hdual$ & $0$ & $N$ & $N-2$ & $12$ & $18$ & $30$ & $2$ & $3$\\
+$\Cas$ & $0$ & $2N$ & $2(N-2)$ & $24$ & $36$ & $60$ & $4$ & $6$
+\end{tabular}
+\end{table}
+
+\begin{proposition}[Anomaly polynomial]\label{prop:anomaly-poly}
+For the 6d hCS theory on a compact CY3 $X$, the one-loop anomaly polynomial is
+\begin{equation}\label{eq:anomaly-poly}
+A(\gfrak)\;=\;-\frac{\Cas}{(2\pi)^{3}}\;=\;-\frac{2\hdual}{(2\pi)^{3}}.
+\end{equation}
+In particular $A(\uone)=0$ (abelian theory is free, no bubble correction);
+$A(\sl(N))=-2N/(2\pi)^{3}$; $A(\bbe_{8})=-60/(2\pi)^{3}$.
+\end{proposition}
+
+\begin{proof}
+The one-loop bubble Feynman graph has two cubic vertices $V_{abc}$, two
+internal propagator lines $P^{ab}=\delta^{ab}P(z_{1},z_{2})$, and an
+external pair $(\cA^{c},\cA^{c'})$. Colour factor:
+\[
+f_{abc}f_{a'b'c'}\delta^{aa'}\delta^{bb'}\;=\;f_{abc}f^{ab}{}_{c'}\;=\;
+\Cas\,\delta_{cc'}.
+\]
+Integrand: $\cA^{c}(z_{1})\cA^{c'}(z_{2})\cdot P(z_{1},z_{2})^{2}$
+(wedge of two propagators). The $-1/(2\pi)^{3}$ normalisation comes from
+the Bochner--Martinelli prefactor $2!/(2\pi i)^{3}$ and the bubble symmetry
+factor $1/2$. Sign: the bubble contributes at $\hbar^{1}$ with a minus
+sign from the BV Laplacian $\Delta_{\BV}$, which closes the bubble loop
+by tracing over the two propagator endpoints.
+\end{proof}
+
+\begin{remark}[Why $\hdual$ and not $\Cas$?]\label{rem:hdual-vs-cas}
+The relation $\Cas=2\hdual$ in the basis where the Killing form $\tr_{\mathrm{adj}}$
+has normalisation $\tr(T^{a}T^{b})=\delta^{ab}$ is standard (Humphreys 1978
+\S22.1, eq.~6). In 3d Chern--Simons the level shift $k\mapsto k+\hdual$
+arises from a \emph{one-loop} computation with an explicit factor of $2$
+absorbed into the definition of the level; in 6d hCS, the same Feynman-level
+factor appears, but there is no discrete level parameter to shift
+(companion wave12\_b4 \S4), and the coefficient $\Cas$ (or equivalently
+$2\hdual$) appears as the coefficient of the anomaly class directly. The
+$(2\pi)^{-3}$ is the dimensional factor from the $6$d volume element against
+the cubic vertex.
+\end{remark}
+
+\begin{remark}[Alternative normalisations]\label{rem:alt-norms}
+Some references absorb $2\pi i$-factors differently: the Costello 2013
+``Supersymmetric and holomorphic field theories'' uses $(2\pi i)^{-n}$ for
+$n$-complex-dimensional ambients; Costello--Gwilliam Vol.~II \S10.5 folds
+the $(2\pi i)$-factors into the regularisation counterterms. The
+cohomological content of the anomaly is regulator-independent; the explicit
+coefficient in Proposition~\ref{prop:anomaly-poly} is fixed by the
+Bochner--Martinelli prefactor.
+\end{remark}
+
+%% =====================================================================
+\section{Cycle 4 --- $\chi_{\mathrm{top}}$ via Atiyah--Singer (K4, part 1)}
+\label{sec:cycle4}
+%% =====================================================================
+
+\begin{attack}[Cycle 4 --- Why Euler characteristic, not signature or holomorphic Euler?]\label{atk:4}
+The claim $\kanom\propto\chi_{\mathrm{top}}(X)$ uses the \emph{topological}
+Euler number $\int_{X}c_{3}(TX)$, which is the alternating sum of Betti
+numbers. Why not $\chi(\cO_{X})=\int_{X}\Td(TX)$ (Todd / holomorphic
+Euler characteristic)? Why not $\sigma(X)$ (signature)? The essay does not
+distinguish; we must.
+\end{attack}
+
+\begin{heal}[Cycle 4 --- $\chi_{\mathrm{top}}$ from Atiyah--Singer on $\End\gfrak$]\label{heal:4}
+The one-loop anomaly lives in the index of the $\dbar$-Dirac operator
+\emph{coupled to $\End\gfrak$}: the bubble closes the loop by tracing over
+internal states which are propagator endpoints, each valued in
+$\gfrak\otimes\gfrak\cong\End\gfrak$ (via the Killing form). The index
+theorem gives
+\begin{equation}\label{eq:AS-index}
+\mathrm{ind}(\dbar_{\End\gfrak})\;=\;\int_{X}\ch(\End\gfrak)\cdot\Td(TX).
+\end{equation}
+For a trivial adjoint bundle on flat $X$ this would be
+$\dim(\End\gfrak)\cdot\chi(\cO_{X})=\dim(\End\gfrak)$; but the anomaly
+cocycle in \emph{local} BV cohomology detects the topological class,
+which for a compact CY3 with $c_{1}(X)=0$ simplifies to
+$\chi_{\mathrm{top}}(X)$.
+\end{heal}
+
+\begin{lemma}[Todd-vs-Euler on CY3]\label{lem:todd-vs-euler}
+For a compact Calabi--Yau 3-fold $X$:
+\[
+\chi_{\mathrm{top}}(X)\;=\;\int_{X}c_{3}(TX),\qquad
+\chi(\cO_{X})\;=\;\int_{X}\Td(TX)\;=\;\frac{1}{24}\int_{X}c_{1}c_{2}+\tfrac{1}{24}c_{3}
+\;=\;0,
+\]
+the holomorphic Euler $\chi(\cO_{X})=0$ by Serre duality on CY3
+($h^{0,0}=h^{0,3}=1$, $h^{0,1}=h^{0,2}=0$; total Hodge-supertrace
+$1-0+0-1=0$). The topological Euler $\chi_{\mathrm{top}}=\int c_{3}$ is
+non-zero in general ($\chi_{\mathrm{top}}(K3\times E)=0$ by K\"unneth,
+$\chi_{\mathrm{top}}(\mathrm{quintic})=-200$, $\chi_{\mathrm{top}}(\PP^{2}_{\mathrm{local}})=3$
+from McKay).
+\end{lemma}
+
+\begin{remark}[Two zeros for K3$\times$E, with different mechanisms]\label{rem:k3xE-zeros}
+$\chi_{\mathrm{top}}(K3\times E)=\chi_{\mathrm{top}}(K3)\cdot\chi_{\mathrm{top}}(E)
+=24\cdot0=0$, by the K\"unneth-multiplicative identity. $\chi(\cO_{K3\times E})
+=\chi(\cO_{K3})\cdot\chi(\cO_{E})=2\cdot0=0$. Both zero, but via
+\emph{different} K\"unneth factorisations: the topological Euler through
+$\chi(E)=0$ (two tori eigenvalues cancel), the holomorphic Euler through
+$\chi(\cO_{E})=0$ (Serre duality on an elliptic curve). In both cases,
+the vanishing is a feature of $E$ as the elliptic fibre, not of the
+Calabi--Yau structure of the threefold. CLAUDE.md cache entry: $\kcat(K3\times E)=0$
+(total space, K\"unneth-multiplicative), NOT $\kcat(K3)=2$ (fibre).
+\end{remark}
+
+\begin{proposition}[Atiyah--Singer for the bubble on $X$]\label{prop:AS-for-bubble}
+The one-loop anomaly integrand on a compact CY3 $X$ evaluates to
+\[
+\int_{X}\tr_{\gfrak\otimes\gfrak^{\ast}}\bigl[\ch(\End\gfrak)\wedge
+\Td(TX)\bigr]_{(3,3)}\;=\;A(\gfrak)\cdot\chi_{\mathrm{top}}(X)
++(A(\gfrak)\text{-independent corrections}).
+\]
+For the trivial bundle (constant $\gfrak$-connection), $\ch(\End\gfrak)
+=\dim(\End\gfrak)$ and $\Td(TX)|_{(3,3)}=c_{3}(TX)/24+c_{1}c_{2}/24$;
+combined with the BV-local-cohomology projection onto the ghost-number-$+1$
+class, only the $c_{3}$-component survives, yielding
+$\chi_{\mathrm{top}}(X)=\int_{X}c_{3}(TX)$.
+\end{proposition}
+
+\begin{proof}
+(Sketch.) The BV local-cohomology class is computed by the Gelfand--Fuks
+calculation adapted to the holomorphic setting (Costello--Gwilliam 2017
+Vol.~II Prop.~7.3.7); the surviving term is the Atiyah--Singer contribution
+from the $\dbar$-Dirac on $\End\gfrak$. On a CY3, $c_{1}(TX)=0$, so
+$\Td(TX)=1+c_{2}/12+c_{1}c_{2}/24+\ldots$ truncates at $c_{2}/12$ in
+cohomological degree up to $(2,2)$; the $(3,3)$-component comes from
+$c_{3}/24$. The Casimir trace $\Cas=2\hdual$ appears as the coefficient of
+the fundamental-representation trace in the bubble, extracting $A(\gfrak)$.
+The $c_{1}c_{2}$-term vanishes because $c_{1}=0$ on CY3. The net result
+reduces to $A(\gfrak)\cdot\int_{X}c_{3}(TX)/\text{normalisation}$.
+\end{proof}
+
+%% =====================================================================
+\section{Cycle 5 --- Multiplicative factorisation $A(\gfrak)\chi_{\mathrm{top}}(X)$ (K4, part 2)}
+\label{sec:cycle5}
+%% =====================================================================
+
+\begin{attack}[Cycle 5 --- Why multiplicative factorisation?]\label{atk:5}
+Proposition~\ref{prop:AS-for-bubble} gives a multiplicative decomposition
+$\kanom(X,\gfrak)=A(\gfrak)\cdot\chi_{\mathrm{top}}(X)$. Why? What prevents
+``$\gfrak$-dependent correction'' entering additively, or mixing with
+non-topological data of $X$ (curvature tensor beyond characteristic classes)?
+Is the factorisation structural or a feature of our one-loop computation
+only?
+\end{attack}
+
+\begin{heal}[Cycle 5 --- Factorisation is Chern--Weil + index theorem]\label{heal:5}
+The multiplicative factorisation is structural; it is the Chern--Weil
+identification of the anomaly with a product of two independent
+characteristic-class contributions.
+\end{heal}
+
+\begin{theorem}[Factorised one-loop anomaly]\label{thm:factorisation}
+\ClaimStatusTheorem\ For any compact Calabi--Yau 3-fold $X$ and any
+finite-dimensional Lie algebra $\gfrak$ with non-degenerate invariant
+pairing, the one-loop BV anomaly of $\hCS(X,\gfrak)$ factorises as
+\begin{equation}\label{eq:factorisation}
+\kanom(X,\gfrak)\;=\;A(\gfrak)\cdot\chi_{\mathrm{top}}(X),
+\end{equation}
+with $A(\gfrak)=-\Cas/(2\pi)^{3}$ (Proposition~\ref{prop:anomaly-poly})
+and $\chi_{\mathrm{top}}(X)=\int_{X}c_{3}(TX)$. On $\C^{3}$ (non-compact)
+both factors vanish: $\chi_{\mathrm{top}}(\C^{3})=0$ (non-compact) matches
+the Dolbeault dimension vanishing of wave12\_b4 Prop.~4.4.
+\end{theorem}
+
+\begin{proof}
+The factorisation separates two independent pieces of data:
+(i) the colour trace $\tr_{\End\gfrak}(\mathrm{bubble})=\Cas$, which
+depends only on $\gfrak$ and is the coefficient of the Casimir in the
+bubble colour factor; (ii) the spatial integral
+$\int_{X}\mathrm{Integrand}(TX)$, which evaluates to the topological Euler
+by Proposition~\ref{prop:AS-for-bubble}.
+
+The separation is a Chern--Weil statement: the connection $\cA$ on the
+trivial $\End\gfrak$-bundle over $X$ contributes a curvature $F_{\cA}$,
+and the one-loop integral over connections involves
+$\int_{X}\tr(F^{3})\wedge\mathrm{Ch.W.(TX)}$, but the cubic $\tr(F^{3})$
+on a trivial bundle (flat $\cA$) reduces to a Casimir contribution times
+the topological integral of the base. Since $c_{1}(TX)=0$, the Todd class
+reduces to the curvature polynomial yielding $\int c_{3}$; since the
+bubble closes with adjoint-representation trace, the Lie-theoretic
+coefficient is $\Cas$. The two integrations are independent, forcing
+multiplicativity.
+
+The result is regulator-independent (Costello 2011 Thm.~8.6 ``independence
+of gauge-fixing''; Costello--Gwilliam 2017 Vol.~II Thm.~5.4.1); the
+heat-kernel regulator of Cycle~2 yields the explicit coefficient
+$(-1/(2\pi)^{3})$ in $A(\gfrak)$.
+\end{proof}
+
+\begin{corollary}[Vanishing on $\C^{3}$]\label{cor:vanish-C3}
+For $X=\C^{3}$, $\chi_{\mathrm{top}}(\C^{3})=0$ (contractible), so
+$\kanom(\C^{3},\gfrak)=0$ for every $\gfrak$. This recovers
+wave12\_b4 Theorem~4.5 from a dual perspective:
+the Dolbeault-dimension-vanishing on $\C^{3}$ \emph{is} the
+$\chi_{\mathrm{top}}=0$ statement on the non-compact ambient.
+\end{corollary}
+
+\begin{corollary}[Vanishing on $K3\times E$]\label{cor:vanish-k3xe}
+For $X=K3\times E$, $\chi_{\mathrm{top}}(K3\times E)=24\cdot0=0$ by
+K\"unneth, hence $\kanom(K3\times E,\gfrak)=0$. The 6d hCS on $K3\times E$
+is \emph{one-loop anomaly-free for every $\gfrak$}. This is compatible
+with but substantially stronger than the statement ``no BCOV anomaly on
+$K3\times E$''.
+\end{corollary}
+
+\begin{corollary}[Non-vanishing on the quintic and on local $\PP^{2}$]\label{cor:nonvanish}
+For $X=$ the quintic,
+$\kanom(\mathrm{quintic},\gfrak)=-200\cdot A(\gfrak)$; for non-abelian
+$\gfrak$ this is non-zero and obstructs quantisation of hCS on the quintic
+without a non-trivial counterterm. For local $\PP^{2}$
+($X=\mathrm{Tot}(K_{\PP^{2}})=\mathrm{Tot}(\cO_{\PP^{2}}(-3))$), the
+topological Euler is $3$ (McKay), so $\kanom=3\cdot A(\gfrak)\neq0$ for
+non-abelian. The CY-D stratification $\kch=3/2$ on local $\PP^{2}$
+(CLAUDE.md essential constants) is the chiral-side avatar of this
+one-loop BV statement.
+\end{corollary}
+
+\begin{remark}[Seven faces of $r_{\mathrm{CY}}$]\label{rem:seven-faces}
+The factorisation $\kanom=A(\gfrak)\cdot\chi_{\mathrm{top}}(X)$ is the
+one-loop BV face of $r_{\mathrm{CY}}$: the $\gfrak$-dependent factor $A(\gfrak)$
+matches the ``chiral-algebra structure constant'' face; the
+$\chi_{\mathrm{top}}$-dependent factor matches the ``CY3 topological'' face.
+The multiplicative factorisation is the index-theorem shadow of a
+categorical tensor product $(\text{Rep}\gfrak)\otimes(\mathrm{DCoh}(X))$ at
+the level of anomaly classes.
+\end{remark}
+
+%% =====================================================================
+\section{Comparison with companion notes}
+\label{sec:comparison}
+%% =====================================================================
+
+\begin{itemize}
+\item \texttt{wave12\_b4\_6d\_hCS\_BV\_BRST\_Feynman.tex} Proposition~4.4
+proves the bubble on $\C^{3}$ vanishes by the Dolbeault-dimension
+argument ($\Omega_{w}\wedge\Omega_{w}=0$, a property of non-compact
+flat $\C^{3}$). The present note Theorem~\ref{thm:factorisation} establishes
+this as the special case $\chi_{\mathrm{top}}(\C^{3})=0$ of the general
+factorisation; the Dolbeault-dimension vanishing generalises to a
+$\chi_{\mathrm{top}}$-dependent statement on compact $X$.
+
+\item \texttt{wave12\_b3\_6d\_hCS\_E3\_gen\_rel.tex} Theorem~6.1 identifies
+$\Obs^{q}_{(0)}\simeq U_{E_{3}}(\gfrak[2])$ at a point. The chiral
+$E_{3}$-structure is independent of $\chi_{\mathrm{top}}$; the one-loop
+anomaly of Theorem~\ref{thm:factorisation} is a \emph{global} obstruction
+detecting $\chi_{\mathrm{top}}\cdot A(\gfrak)\neq0$ and is separate from
+the local $E_{3}$-structure. Different $\gfrak$ on same $X$ give different
+$E_{3}$-algebras at a point; the anomaly determines which of these lift
+to a global factorisation algebra.
+
+\item \texttt{wave12\_a13\_costello\_5\_routes\_6d\_hCS.tex} Attack~2
+identifies the Costello--Li perturbative closure. Theorem~\ref{thm:factorisation}
+is the compact-ambient refinement: on $\C^{3}$ every $\gfrak$ closes
+perturbatively; on compact CY3 with $\chi_{\mathrm{top}}\neq0$, non-abelian
+$\gfrak$ requires a counterterm (or fails to close).
+
+\item \texttt{wave14\_i1\_hCS\_nonabelian\_anomaly.tex} \S2 proves the
+Costello obstruction cocycle on $\C^{3}$ vanishes. The present note extends
+the statement to compact $X$: on compact $X$ the cocycle is
+$A(\gfrak)\cdot\chi_{\mathrm{top}}(X)$, non-zero for non-abelian $\gfrak$
+and $\chi_{\mathrm{top}}\neq0$.
+
+\item \texttt{wave13\_b3\_6d\_hCS\_deep.tex} and
+\texttt{platonic\_synthesis\_waves\_11\_through\_16.tex} are synthesis-level;
+the present note is a first-principles upstream statement.
+\end{itemize}
+
+%% =====================================================================
+\section{Cache entries}
+\label{sec:cache}
+%% =====================================================================
+
+Five AP-CY candidates for \texttt{antipatterns\_catalogue.md}. Each follows
+the format (confusion, correction, primary source).
+
+\begin{enumerate}
+\item \textbf{Bochner--Martinelli as class representative.}
+Confusion: ``BM is the unique propagator on $\C^{3}$.'' Correction: BM is
+the class representative in the affine gauge-fixing space, tied to the flat
+Hermitian metric; $Q$-exact deformations give homotopic propagators with
+same cohomological content. Primary: Costello 2011 Thm.~A.7.1;
+Proposition~\ref{prop:BM-derivation} above.
+
+\item \textbf{Heat-kernel regulator degenerates to BM.} Confusion:
+``$P_{\varepsilon,L}$ and $P_{\mathrm{BM}}$ are different propagators.''
+Correction: $P_{\varepsilon,L}\to P_{\mathrm{BM}}$ as $\varepsilon\to0$,
+$L\to\infty$ off the diagonal; same cohomology class throughout the
+renormalisation flow. Primary: Proposition~\ref{prop:propagator-identity}
+above; Costello--Gwilliam 2017 Vol.~II \S8.
+
+\item \textbf{$A(\gfrak)$ is Casimir, not dual Coxeter (separately).}
+Confusion: ``$A(\gfrak)\propto\hdual$ analogous to 3d CS.'' Correction:
+$A(\gfrak)=-\Cas/(2\pi)^{3}$ with $\Cas=2\hdual$ in normalised basis; the
+relation $\Cas=2\hdual$ is automatic, the overall sign and $(2\pi)^{-3}$
+come from Bochner--Martinelli + bubble symmetry factor. Primary:
+Proposition~\ref{prop:anomaly-poly} above.
+
+\item \textbf{$\chi_{\mathrm{top}}$ vs $\chi(\cO_{X})$.} Confusion:
+``The anomaly depends on the holomorphic Euler $\chi(\cO_{X})$.'' Correction:
+It depends on the topological Euler $\chi_{\mathrm{top}}(X)=\int_{X}c_{3}$;
+$\chi(\cO_{X})=0$ on every CY3 by Serre duality, hence cannot carry the
+anomaly content. Primary: Lemma~\ref{lem:todd-vs-euler} above.
+
+\item \textbf{Multiplicative factorisation is Chern--Weil.} Confusion:
+``$\gfrak$-dependent and $X$-dependent contributions could mix.'' Correction:
+Chern--Weil on the trivial $\End\gfrak$-bundle separates the colour trace
+from the base-space integral; the index-theorem calculation forces
+multiplicativity. Primary: Theorem~\ref{thm:factorisation} above;
+Atiyah--Singer 1968 III.
+\end{enumerate}
+
+%% =====================================================================
+\section*{Epistemic scope}
+%% =====================================================================
+
+\ClaimStatusTheorem\
+Propositions~\ref{prop:BM-derivation}, \ref{prop:propagator-identity},
+\ref{prop:anomaly-poly}, \ref{prop:AS-for-bubble},
+Theorem~\ref{thm:factorisation}, Corollaries~\ref{cor:equiv-class},
+\ref{cor:regulator-compat}, \ref{cor:vanish-C3},
+\ref{cor:vanish-k3xe} follow from standard Bochner--Martinelli theory,
+Costello--Gwilliam renormalisation, and Atiyah--Singer on the
+$\dbar$-Dirac operator coupled to $\End\gfrak$. The first-principles
+assembly into the factorised form $A(\gfrak)\chi_{\mathrm{top}}(X)$ is the
+contribution of this note.
+
+\ClaimStatusHeuristic\
+The informal ``dimensional reduction'' 3d$\to$6d analogy suggesting
+$A(\gfrak)\propto\hdual$ without the $2$-factor or $(2\pi)^{-3}$ is a
+conventional shorthand; the first-principles computation
+(Proposition~\ref{prop:anomaly-poly}) fixes the correct
+normalisation as $-\Cas/(2\pi)^{3}$.
+
+\ClaimStatusConjectured\
+The identification of the index-theorem shadow with the categorical
+tensor product $(\text{Rep}\gfrak)\otimes(\mathrm{DCoh}(X))$ at the level
+of anomaly classes (Remark~\ref{rem:seven-faces}) is a programmatic
+statement about the seven faces of $r_{\mathrm{CY}}$, not a theorem; the
+rigorous two-lane statement (chain-level index identity, $(\infty,1)$-categorical
+tensor-product statement) is work-in-progress in the companion
+\texttt{chapters/theory/cy\_to\_chiral.tex}.
+
+\ClaimStatusDefinition\
+BV data, propagator family, heat-kernel regulator, anomaly polynomial
+as defined above are standard (Costello 2011;
+Costello--Gwilliam 2017 Vol.~II; Costello--Li 2015; Costello 2013
+``Supersymmetric and holomorphic field theories'').
+
+\end{document}

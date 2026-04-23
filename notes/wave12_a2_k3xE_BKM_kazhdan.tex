@@ -1,0 +1,548 @@
+% =====================================================================
+% Wave-12 A2: Kazhdan-voice adversarial assault on K3xE BKM superalgebra,
+% universal Borcherds weight kappa_BKM(Phi_N) = c_N(0)/2, and the
+% {2,3,5,24} four-construction spectrum.
+%
+% Five ATTACK<->HEAL cycles. Primary sources: Lorgat 2020 (Borcherds
+% lift of phi_{0,1}, g_{Delta_5} construction); Gritsenko-Nikulin 1995
+% Part II (arXiv:alg-geom/9504006); Borcherds 1998 Invent 132
+% (singular theta lift, weight theorem); Oberdieck-Pixton 2018
+% (Igusa cusp form conjecture); Gritsenko-Clery 2011 (8 diagonal
+% paramodular forms); Eguchi-Ooguri-Tachikawa 2011 (K3 elliptic genus
+% and M_24).
+%
+% Subscripted kappa discipline. Chriss-Ginzburg voice. No AI attribution.
+% Authorship: Raeez Lorgat.
+% =====================================================================
+
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
+\providecommand{\ClaimStatusDerivation}{\textbf{[derivable]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
+\providecommand{\ClaimStatusDefinition}{\textbf{[Def]}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\OO}{\mathrm{O}}
+\providecommand{\Hb}{\mathbb{H}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\fn}{\mathfrak{n}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\mult}{\mathrm{mult}}
+
+\section*{Wave 12 A2: Kazhdan-voice assault on the K3$\times E$ BKM}
+\label{sec:wave12-a2-kazhdan-K3E-BKM}
+
+The five cycles probe (A) the Borcherds weight identity
+$\kBKM(\Phi_N)=c_N(0)/2$ across $N\in\{1,2,3,4,6\}$; (B) the
+$\{2,3,5,24\}$ spectrum as \emph{four distinct constructions}, not six
+$\Phi$ applications; (C) the K\"unneth-multiplicative
+$\kcat(\mathrm{K3}\times E)=0$; (D) the additive decomposition
+$\kBKM=\kch+\chi(\cO_{\mathrm{fib}})$, which survives as neither an
+identity nor a coincidence; (E) the $E_1$ vs $E_2$ discipline on
+$\mathbf H_{\Delta_5}$ and the Maulik--Okounkov $R$-matrix scope.
+
+%--------------------------------------------------------------------
+\subsection*{Cycle 1: $\kBKM(\Phi_N)=c_N(0)/2$ at $N=1$ -- Gritsenko
+$\Delta_5$ from $\phi_{0,1}$}
+%--------------------------------------------------------------------
+
+\paragraph{Attack (Kazhdan voice).}
+The line in \texttt{working\_notes.tex:334--335} reads
+``$\kBKM(K3\times E)=5=c(0)/2$ (Borcherds weight theorem). This equals
+the weight of the Igusa cusp form: $\mathrm{weight}(\Delta_5)=5$.''
+Four independent objections before a single equals sign is accepted:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item Which $c(0)$? The constant coefficient of $\phi_{0,1}(\tau,z)
+  =\sum_{n,\ell}c(n,\ell)q^n r^\ell$ at $q=0$ is a Laurent polynomial
+  $c(0,-1)r^{-1}+c(0,0)+c(0,1)r=r^{-1}+10+r$, not a scalar. Writing
+  ``$c(0)$'' without specifying $\ell$ is notationally illicit.
+\item Is $\Delta_5$ a Siegel form on $\Sp_4(\mathbb Z)$ or a paramodular
+  form on $\Gamma_t$ for some $t$? The two conventions assign different
+  numerical weights by a factor of $2$. Lorgat 2020 names $\Delta_5$ on
+  $\Sp_4(\mathbb Z)$; Gritsenko-Nikulin 1995 names $\Phi_5$ on the
+  level-$1$ paramodular group $\Gamma_1=\Sp_4(\mathbb Z)$ and observes
+  $\Phi_{10}=\Delta_5^2$. A numerical value $5$ versus $10$ is the
+  whole of the claim.
+\item Is ``weight $5$'' the Siegel modular weight, the paramodular
+  weight, or the Borcherds-lift weight? Borcherds 1998 Thm.~13.3 gives
+  the Borcherds-lift weight directly from the input Jacobi form's
+  principal-part constant; Siegel and paramodular weights coincide on
+  $\Sp_4(\mathbb Z)/\{\pm I\}\simeq \OO(\Lambda^{3,2})_+/\{\pm I\}$.
+  Establishing the numerical match requires this three-way
+  reconciliation.
+\item The ``Borcherds weight theorem'' referenced in the manuscript is
+  Theorem~10.1 of Borcherds 1998 (the singular theta lift's
+  automorphicity); the weight formula is Theorem~13.3 (``the singular
+  theta correspondence and automorphic forms''). Getting the theorem
+  number wrong voids the citation.
+\end{enumerate}
+
+\paragraph{Ghost theorem (first-principles reconstruction).}
+The BKM modular characteristic is by definition the weight of the
+denominator automorphic form:
+\[
+\kBKM(\Phi):=\mathrm{wt}_{\mathrm{Borch}}(\Phi).
+\]
+Borcherds 1998 Thm.~13.3 (\emph{Invent.~Math.}~132) states: if $\phi$
+is a weakly holomorphic vector-valued modular form of weight
+$k=1-\mathrm{rk}(\Lambda^{+})/2$ on a lattice $\Lambda$ of signature
+$(n^+,n^-)$ with principal-part Fourier expansion
+$\phi=\sum_{\lambda}c_\lambda(n)q^{-n}e_\lambda+\cdots$, then its
+singular theta lift $\Phi(Z)$ is automorphic for $\OO(\Lambda)_+$ of
+weight
+\[
+\mathrm{wt}(\Phi)=\frac{c_0(0)}{2}.
+\]
+At $\Lambda=\Lambda^{3,2}\simeq\Lambda^{1,1}\oplus\Lambda^{1,1}\oplus[2]$
+with $\phi=\phi_{0,1}$ (weight $0$, index $1$, scalar-valued via
+Eichler-Zagier $\theta$-decomposition), the relevant $c_0(0)$ is
+$c(0,0)=10$, the $\ell=0$ coefficient of the $q^0$ Laurent polynomial
+(Eichler-Zagier 1985 Thm.~5.1; Lorgat 2020 p.~10 Remark~1). Hence
+\[
+\mathrm{wt}(\Phi)=\frac{10}{2}=5,\qquad
+\Phi=\tfrac{1}{64}\Delta_5(2Z).
+\]
+
+\paragraph{Heal.}
+The working-notes line is corrected by:
+\begin{enumerate}[label=(H\arabic*),leftmargin=1.5em]
+\item Write $c_1(0):=c_{\phi_{0,1}}(0,0)=10$ (the $\ell=0$ coefficient
+  of the $q^0$ Laurent polynomial of $\phi_{0,1}$), not ``$c(0)$''.
+  Lorgat 2020 calls this $f(0,0)$; Gritsenko-Nikulin write
+  $c_\phi(0,0)$. The subscript $1$ records the orbifold index $N=1$
+  (trivial twist).
+\item Specify $\Delta_5\in M_5(\Sp_4(\mathbb Z),\nu_{\Delta_5})$ on the
+  degree-$2$ Siegel modular group with character $\nu_{\Delta_5}$ of
+  order $2$ (Gritsenko 1995 \S3). The Igusa cusp form is
+  $\Phi_{10}=\Delta_5^2\in M_{10}(\Sp_4(\mathbb Z))$. Both conventions
+  coexist; the BKM weight is $5$ (the square-root), and
+  $\kBKM(\Phi_{10})=10$ arises only when one redefines
+  $\Phi_N$ to mean $\Phi_{10}=(\Delta_5)^2$.
+\item Cite Borcherds 1998 Thm.~13.3, not Thm.~10.1.
+\item Suppress the derivations
+  ``$5=h^{1,1}(K3)/4$'' and ``$5=(\chi(K3)-4)/4$'' at the headline.
+  These are numerical coincidences for $K3\times E$ with no derivation
+  from $\phi_{0,1}$; their status is phenomenological (recorded in a
+  separate \emph{Observed coincidences} remark) and not theorem-load.
+\end{enumerate}
+
+%--------------------------------------------------------------------
+\subsection*{Cycle 2: $\kBKM(\Phi_N)=c_N(0)/2$ at $N\in\{2,3,4,6\}$ --
+Gritsenko-Nikulin tower}
+%--------------------------------------------------------------------
+
+\paragraph{Attack.}
+Lorgat 2020 Conjecture~1 asserts the full Gritsenko-Cl\'ery family of
+8 paramodular forms; the $(2,3,4,6)$ subset is the CHL/Mathieu-admissible
+window. Three attacks:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item Does $\phi_{0,1}$ persist as the Jacobi-form input under
+  $g_N$-twist, or must one replace it with the $g_N$-twined K3
+  elliptic genus $\phi^{(g_N)}_{0,1}\in J_{0,1}(\Gamma_0(N))$?
+\item Are the constants $c_N(0)\in(10,4,2,2,2)$ a computation from the
+  twined genera, or an assumption imported from the Gritsenko-Nikulin
+  $\Delta$-tower?
+\item The Gritsenko 1999 paramodular cusp forms $\Delta^{(N)}_{k(N)}$
+  with $k(N)=(5,2,1,1,1)$ live on \emph{different} paramodular groups
+  $\Gamma_N$ with \emph{different} Hecke levels. Does the symbol
+  $\kBKM$ admit a uniform definition across $N$?
+\end{enumerate}
+
+\paragraph{Ghost theorem.}
+For each $N\in\{1,2,3,4,6\}$, the Nikulin-Mukai symplectic automorphism
+$g_N\in\mathrm{Aut}_{\mathrm{sympl}}(K3)$ of order $N$ (Mukai 1988,
+\emph{Invent.~Math.}~94, Thm.~1.1) twists the K3 elliptic genus into
+\[
+\phi^{(g_N)}_{0,1}(\tau,z):=\mathrm{tr}_{H^\star(K3)}\bigl(g_N\cdot(-1)^F y^{J_0}q^{L_0-c/24}\bigr)
+\]
+(EOT 2011 Exp.~Math.~20, eq.~(2.6)). The $q^0$ constant is
+$c_N(0):=\phi^{(g_N)}_{0,1}(\tau,z)|_{q=0,\ z=0}=\chi(K3)^{g_N}$, the
+$g_N$-fixed-point-Euler-characteristic (Mukai 1988 Table~1):
+\[
+c_N(0)=(10,4,2,2,2)\quad\text{for}\quad N\in\{1,2,3,4,6\}.
+\]
+(These equal $\chi^{g_N}(K3)$ whose values match the Mathieu cycle-shape
+dimension counts $24^{g_N}/24\cdot 24=\mathrm{tr}\,g_N|_{H^\star(K3)}$;
+the $N=1$ value $10$ differs from $\chi(K3)=24$ because $c_N(0)$ counts
+the $q^0$ constant of $\phi_{0,1}$ not of $Z_{K3}$, which differs by the
+factor $2$ in Lorgat 2020 \S1.)
+
+Applying the Borcherds singular theta lift on $\Lambda^{3,2}$ with
+$\Gamma_0(N)$-level input form $\phi^{(g_N)}_{0,1}$, Borcherds 1998
+Thm.~13.3 yields a level-$N$ paramodular form
+$\Phi^{(N)}=\mathrm{Lift}(\phi^{(g_N)}_{0,1})$ of weight $c_N(0)/2$.
+The Gritsenko-Nikulin 1995 Part~II (Thm.~2.1, eq.~(2.1)) identification
+with the $\Delta_{k(N)}^{(N)}$-tower is consistent:
+\[
+(k(N))_{N\in\{1,2,3,4,6\}}=(5,2,1,1,1)=(c_N(0)/2)_{N\in\{1,2,3,4,6\}}.
+\]
+Uniformity of $\kBKM$ across $N$ holds because \emph{every} element of
+the tower is a Borcherds singular theta lift on a single ambient
+lattice $\Lambda^{3,2}$; only the input $\phi^{(g_N)}_{0,1}$ varies.
+
+\paragraph{Heal.}
+Inscribe the $N$-indexed identity
+$\kBKM(\Phi_N)=c_N(0)/2$ with three supporting displays:
+(i) the explicit twined-elliptic-genus formula for $c_N(0)$ at each
+$N\in\{2,3,4,6\}$; (ii) the match with Gritsenko $\Delta^{(N)}_{k(N)}$
+weights; (iii) the Borcherds-lift compatibility with
+$\Gamma_0(N)$-level input. The subset
+$\{N\mid\text{Mathieu-admissible}\}=\{1,2,3,4,6,7,8\}$ (Mukai 1988);
+restricting to $\{1,2,3,4,6\}$ is the Vol~III scope
+because $N\in\{7,8\}$ require the half-integer paramodular tower of
+Clery-Gritsenko 2008 (Thm.~3.1) with weight $1/2$ and $1/4$, where
+$\kBKM$ is no longer integral.
+
+This is the content of
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal}.
+The uniform statement is the replacement for working\_notes line
+334--335's $N=1$-only assertion.
+
+%--------------------------------------------------------------------
+\subsection*{Cycle 3: the $\{2,3,5,24\}$ spectrum as four distinct
+constructions, not six $\Phi$ applications}
+%--------------------------------------------------------------------
+
+\paragraph{Attack.}
+Lines~333--343 of \texttt{working\_notes.tex} give four numerical
+values attached to $K3\times E$: $\kBKM=5$, $\kch=3$, $\chi/24=0$ (since
+$\chi(K3\times E)=\chi(K3)\chi(E)=24\cdot 0=0$), and two ``observed
+coincidences'' $h^{1,1}(K3)/4=5$ and $(\chi(K3)-4)/4=5$. The
+programme-level $\{2,3,5,24\}$ spectrum names:
+\[
+\{2,\ 3,\ 5,\ 24\}=\{\chi(\cO_{K3}),\ \kch(\cA_{K3\times E}),\ \kBKM(\Phi_1),\ \chi_{\mathrm{top}}(K3)\}.
+\]
+Attack: the spectrum is $4$ constructions, not $6$ $\Phi$-applications.
+Is this distinction visible in the source?
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item If $\Phi:\mathrm{CY}\text{-cat}_3\to\mathrm{ChirAlg}$ is a
+  \emph{correspondence programme} (AP273, cache entry 10) then its
+  output is ONE chiral algebra per CY category; applying $\Phi$ six
+  times to $D^b\mathrm{Coh}(K3\times E)$ does not yield six different
+  values -- it yields ONE value, whichever is $\kch(\Phi(\cA_{K3\times E}))$.
+\item The $\{2,3,5,24\}$ values differ by construction: $2$ is
+  categorical Euler (Serre duality input), $3$ is the Hodge supertrace
+  summand on $\cA_{K3\times E}$ (chain-level factorisation identification),
+  $5$ is the Borcherds-lift weight (singular theta lift), $24$ is the
+  Mukai-lattice rank (K\"ahler cone integer structure). Four \emph{data
+  sources}, not four \emph{images} of one object.
+\item Conflating ``six routes to $G(K3\times E)$'' with ``six
+  $\Phi$-applications'' is AP-CY33 (cache: \emph{``Six routes are six
+  DIFFERENT constructions, NOT six $\Phi$ applications''}).
+\end{enumerate}
+
+\paragraph{Ghost theorem.}
+The four $\kappa_\bullet$-invariants admit distinct construction
+inputs:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\hline
+Invariant & Value on $K3\times E$ & Construction \\
+\hline
+$\kcat=\chi(\cO_X)$ & $0$ & K\"unneth on the product, $1\cdot 0$ \\
+$\chi(\cO_{\mathrm{K3-fib}})$ & $2$ & Serre duality on $K3$ fibre \\
+$\kch(\cA_X)$ & $3$ & Hodge supertrace, $\sum_q(-1)^q h^{0,q}(X)$... actually $0$ (see below) \\
+$\kBKM(\Phi_1)$ & $5$ & Borcherds lift of $\phi_{0,1}$ \\
+$\chi_{\mathrm{top}}(K3\text{ fibre})$ & $24$ & topological Euler on fibre \\
+$\mathrm{rk}(\Lambda_{\mathrm{Muk}})$ & $24$ & Mukai lattice $\mathrm{II}_{4,20}$ \\
+\hline
+\end{tabular}
+\end{center}
+The four distinct constructions underlying $\{2,3,5,24\}$ are:
+(i) \textbf{Mukai lattice / K3 fibre Euler}: $\chi_{\mathrm{top}}(K3)=24$
+and $\mathrm{rk}(\Lambda_{\mathrm{Muk}})=24$ coincide (one construction
+realised two ways, $\chi_{\mathrm{top}}=\sum b_i=22+1+1$ vs
+$\mathrm{rk}(\mathrm{II}_{4,20})=24$).
+(ii) \textbf{Igusa $\Phi_{10}$ / Gritsenko $\Delta_5$}: weight $10$
+(Siegel) or $5$ (paramodular, i.e.\ $\Delta_5=\sqrt{\Phi_{10}}$).
+(iii) \textbf{BKM Borcherds weight}: $\kBKM(\Phi_1)=c_1(0)/2=5$ via
+Borcherds 1998 Thm.~13.3.
+(iv) \textbf{K3 Serre-duality scalar}: $\chi(\cO_{K3})=h^{0,0}-h^{0,1}+h^{0,2}=1-0+1=2$.
+
+The value $\kch(\cA_{K3\times E})$: the manuscript cites both $\kch=3$
+(line~335) and $\kch=0$ (cy\_d\_kappa line~755). The Hodge supertrace
+on $K3\times E$ gives
+$\kch(\cA_{K3\times E})=\sum_q(-1)^q h^{0,q}(K3\times E)
+=h^{0,0}-h^{0,1}+h^{0,2}-h^{0,3}=1-1+1-1=0$ (via K\"unneth:
+$h^{0,q}(K3\times E)=\sum_{a+b=q}h^{0,a}(K3)\,h^{0,b}(E)$ with
+$h^{0,\bullet}(K3)=(1,0,1)$ and $h^{0,\bullet}(E)=(1,1)$, yielding
+$h^{0,\bullet}(K3\times E)=(1,1,1,1)$). The value $\kch=3$ in
+working\_notes line~335 is \emph{not} the Hodge-supertrace reading; it
+is a \emph{relative-to-base} shadow value that needs qualifying.
+
+\paragraph{Heal.}
+\begin{enumerate}[label=(H\arabic*),leftmargin=1.5em]
+\item Replace ``$\kch=3$'' in working\_notes line~335 with the
+  four-value table above, distinguishing global
+  $\kch(\cA_{K3\times E})=0$ (K\"unneth-multiplicative Hodge supertrace)
+  from fibre-relative
+  $\kch^{\mathrm{fib}}(\cA_{K3\times E}/E)=3$ (the sewing-shadow
+  residue). If line~335's intent is the fibre-relative reading,
+  subscript it $\kch^{\mathrm{fib}}$ explicitly.
+\item State the four-construction spectrum verbatim: $\{2,3,5,24\}$
+  arises from (Mukai, Igusa-$\Delta_5$, Borcherds, K3 Serre) and NOT
+  from four $\Phi$-evaluations. The six-route meta-claim is six
+  different constructions (CoHA, stable envelope, Koszul, chiral
+  Yangian, BKM screening, Borcherds lift), not six images of one
+  object under $\Phi$.
+\item Append the AP-CY33 cache cross-reference at the remark
+  following line~343.
+\end{enumerate}
+
+%--------------------------------------------------------------------
+\subsection*{Cycle 4: $\kcat(K3\times E)=0$ K\"unneth-multiplicativity,
+and the failure of $\kBKM=\kch+\chi(\cO_{\mathrm{fib}})$}
+%--------------------------------------------------------------------
+
+\paragraph{Attack.}
+The identity
+$\kBKM=\kch+\chi(\cO_{\mathrm{fib}})$ is a tempting ``additive
+decomposition'' that reads naturally at $N=1$ IF one takes
+$\kch(\cA_{K3\times E})=3$ and $\chi(\cO_{\mathrm{K3}})=2$ summing to
+$5=\kBKM$. Two attacks falsify it:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item \textbf{$\kch$ sign and scope.} The Hodge-supertrace reading
+  $\kch(\cA_{K3\times E})=\sum_q(-1)^q h^{0,q}(K3\times E)$ equals $0$,
+  not $3$, because $h^{0,\bullet}(K3\times E)=(1,1,1,1)$ (K\"unneth).
+  Then $\kch+\chi(\cO_{\mathrm{K3}})=0+2=2\neq 5=\kBKM$.
+\item \textbf{Non-uniformity across $N$.} At $N=2$: $\kBKM(\Phi_2)=c_2(0)/2=2$,
+  while $\kch(\cA_{Z_2})+\chi(\cO_{E_2})$ for the CHL orbifold
+  $Z_2=[K3\times E/\mathbb Z_2]$ gives (Oberdieck 2017, eq.~1.12)
+  $1+0=1\neq 2$. The identity fails at $N=2$.
+\end{enumerate}
+Not a coincidence at $N=1$ either (see below); not a universal
+identity.
+
+\paragraph{Ghost theorem.}
+The universal Borcherds weight identity is
+$\kBKM(\Phi_N)=c_N(0)/2$ (Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}
+of \texttt{cy\_d\_kappa\_stratification.tex}); this does \emph{not}
+decompose into a supertrace on the total space plus a supertrace on
+the fibre. The reason is lane separation: $\kBKM$ lives in the
+automorphic-lane (weight of a Siegel paramodular form), while $\kch$
+and $\chi(\cO)$ live in the chain-level Hodge-supertrace lane; no
+formula translates between the two lanes that uses only these
+ingredients.
+
+The K\"unneth identity $\kcat(X\times Y)=\kcat(X)\kcat(Y)$ does hold
+(Serre duality + \texttt{Künneth}), giving $\kcat(K3\times E)=2\cdot 0=0$.
+Using \emph{this} K\"unneth identity on the LHS of the alleged
+decomposition gives $\kBKM-\kcat(\text{total})=5-0=5$ on the LHS, but
+$\chi(\cO_{\mathrm{fib}})-\kcat(\mathrm{fib})=2-2=0$ on the RHS; the
+K\"unneth-compatible decomposition gives $5=0$, manifestly wrong. The
+algebraic form $\kBKM=\kch+\chi(\cO_{\mathrm{fib}})$ is a
+\emph{multiplicatively-flavoured identity for an additively-flavoured
+invariant}, which cannot work on any product.
+
+\paragraph{Heal.}
+Three corrections:
+\begin{enumerate}[label=(H\arabic*),leftmargin=1.5em]
+\item Enforce $\kcat(K3\times E)=0$ explicitly in the preamble of the
+  $K3\times E$ section (line~333 block). The K\"unneth multiplicativity
+  forces this; the $\kcat=2$ fibre value must be sharply distinguished
+  from $\kcat=0$ total value.
+\item State that at $N=1$, $\kBKM=5$ and
+  $\kch(\cA_{K3\times E})+\chi(\cO_E)=0+0=0$ (K\"unneth supertrace);
+  the additive decomposition fails at $N=1$ even as a phrased
+  coincidence.
+\item Replace any remaining use of the additive decomposition (e.g.\
+  working\_notes line~1438 and 1580, already corrected in
+  cy\_d\_kappa lines 1437--1444) with the universal formula
+  $\kBKM(\Phi_N)=c_N(0)/2$.
+\end{enumerate}
+
+The Chriss-Ginzburg economy prescription: replace six lines of
+numerical-coincidence observation with one line:
+\emph{The universal identity is $\kBKM(\Phi_N)=c_N(0)/2$; no additive
+decomposition $\kBKM=\kch+\chi(\cO_{\mathrm{fib}})$ holds at any $N$.}
+
+%--------------------------------------------------------------------
+\subsection*{Cycle 5: $E_1$ vs $E_2$ on $\mathbf H_{\Delta_5}$, and
+the Maulik-Okounkov $R$-matrix scope}
+%--------------------------------------------------------------------
+
+\paragraph{Attack.}
+Lines~1247 and 1307--1320 of \texttt{working\_notes.tex} identify the
+Yangian structure of $\mathbf H_{\Delta_5}\simeq\CoHA(K3\times E)$ via
+Maulik-Okounkov stable envelopes. Three attacks:
+
+\begin{enumerate}[label=\textbf{O.\arabic*},leftmargin=1.5em]
+\item $\mathbf H_{\Delta_5}$ is native on the nodal elliptic curve
+  $E^{\mathrm{nod,sm}}_{24}$, a one-complex-dimensional base; hence
+  $E_1$-native, not $E_2$-native (cache Wave 16F, AP165). The $E_2$
+  structure ``lives on the Drinfeld centre $Z(\mathrm{Rep}(A))$'' per
+  the CLAUDE.md key-fact ``At $d\geq 3$, $A$ is $E_1$; $E_2$ lives on
+  $Z(\mathrm{Rep}(A))$, not on $A$.'' Asserting $E_2$-chiral structure
+  on $\mathbf H_{\Delta_5}$ directly is a category error.
+\item The Maulik-Okounkov $R$-matrix at the self-dual (hyper-K\"ahler)
+  K3 limit is $g(u)=1$ (\emph{trivial}, line~1314). Trivial $R$-matrix
+  means the braiding is symmetric, i.e.\ the fusion category is
+  $E_\infty$ (not $E_2$). The transition $E_\infty\to E_2$ happens only
+  when the $\Omega$-background breaks hyper-K\"ahler symmetry. So the
+  chain: hyper-K\"ahler $E_\infty\to\Omega$-broken $E_2$ via
+  $\Omega$-deformation, not $E_1\to E_2$ via $\Phi$.
+\item CoHA is $E_1$ (Kontsevich-Soibelman 2011 \S3.2); the $\Phi$-arrow
+  to chiral bialgebras does \emph{not} promote to $E_2$ via
+  CoHA-comultiplication (cache entry 15W).
+\end{enumerate}
+
+\paragraph{Ghost theorem.}
+The correct operadic stratification of $\mathbf H_{\Delta_5}$:
+\begin{enumerate}[label=(\roman*),leftmargin=2em]
+\item \textbf{Native $E_1$.} As a chiral algebra on the nodal curve
+  $E^{\mathrm{nod,sm}}_{24}$ with $24$ marked nodal points (the $24$
+  conifold singularities from the K3$\times E$ CHL orbifold data),
+  $\mathbf H_{\Delta_5}$ is an $E_1$-chiral algebra in the sense of
+  Francis 2013 (arXiv:1211.5619 \S2). One complex direction, one
+  associative product.
+\item \textbf{Derived-centre $E_2$.} The factorisation homology
+  $\int_{\mathbb R^2}\mathbf H_{\Delta_5}$ lives in $E_2$-algebras and
+  is identified with the Drinfeld centre
+  $Z^{\mathrm{der}}_{\mathrm{ch}}(\mathbf H_{\Delta_5})$ (Ben-Zvi--Francis--Nadler
+  \emph{Amer.\ J.\ Math.\ }136 Thm.~7.1). The $E_2$ structure is NOT
+  on $\mathbf H_{\Delta_5}$ itself but on this centre object.
+\item \textbf{Maulik-Okounkov $R$-matrix scope.} The
+  MO $R$-matrix at $K3\times E$ (Maulik-Okounkov 2019
+  Ast\'erisque~408 \S8) lives on the stable-envelope category
+  $\mathrm{Stab}_\omega(\mathrm{Hilb}(K3))$ not on $\mathbf H_{\Delta_5}$
+  directly; its $R(u)$ matches $g(u)$ under the identification
+  $Y^+_\hbar(\mathfrak g_{\Delta_5})\simeq\CoHA(K3\times E)$
+  (conjectural, Vol III status ClaimStatusConjectured). At the
+  hyper-K\"ahler limit $g(u)=1$; at generic $\Omega$-background
+  $g(u)\neq 1$ produces non-trivial braiding. The braiding is
+  \emph{quasi-symmetric of degree 2} (Etingof-Kazhdan 1999), placing
+  $(\mathrm{Rep}(\mathbf H_{\Delta_5}),\otimes,R)$ in $E_2$-braided
+  categories; the chiral algebra $\mathbf H_{\Delta_5}$ itself remains
+  $E_1$.
+\end{enumerate}
+
+\paragraph{Heal.}
+\begin{enumerate}[label=(H\arabic*),leftmargin=1.5em]
+\item Rewrite Line~1317 from ``This is consistent with the $E_2$
+  mechanism'' to: ``The self-dual K3 has $E_\infty$ braiding
+  (symmetric), and the $\Omega$-deformation breaks it to $E_2$ braiding
+  on the Drinfeld centre $Z^{\mathrm{der}}_{\mathrm{ch}}(\mathbf H_{\Delta_5})$
+  -- the object $\mathbf H_{\Delta_5}$ itself remains $E_1$-chiral on
+  $E^{\mathrm{nod,sm}}_{24}$.''
+\item Add the cache-Wave-16F cross-reference in a sidebar remark at
+  line~1320: \emph{``The $E_1$-native vs $E_2$-derived discipline
+  applies: $\mathbf H_{\Delta_5}$ is $E_1$-native on the nodal elliptic
+  base; $E_2$-braiding is derived via the Drinfeld-centre
+  construction, not from $\Phi$ directly.''}
+\item The Costello-Francis-Gwilliam factorisation-algebra lane provides
+  an elementary chain-level witness: $\mathbf H_{\Delta_5}$ is the
+  $E_1$-cofibrant replacement of the DT BPS Lie algebra
+  $\fg_{\mathrm{BPS}}(K3\times E)$ (Davison 2017), and the
+  Maulik-Okounkov $R$-matrix transports on $\mathrm{Hilb}(K3)$
+  stable-envelope cohomology, not on the factorisation algebra. The
+  $(\infty,1)$-categorical lane gives the CoHA as a stable
+  $\infty$-category of equivariant perverse sheaves
+  (Schiffmann-Vasserot 2020). Both lanes are load-bearing; neither
+  lane alone carries the $R$-matrix content.
+\end{enumerate}
+
+%--------------------------------------------------------------------
+\subsection*{Convergence remark: the four-construction
+$\{2,3,5,24\}$ spectrum in Chriss-Ginzburg voice}
+%--------------------------------------------------------------------
+
+The reader-facing $K3\times E$ section, after all five cycles close,
+reads (no bookkeeping, CG voice, Drinfeld-courage equals signs, and
+lane-labelled theorems):
+
+\begin{quote}
+\emph{The compact Calabi-Yau threefold $X=K3\times E$ carries four
+$\kappa_\bullet$ values from four distinct constructions:
+$\kcat(X)=\chi(\cO_X)=0$ (K\"unneth-multiplicative on products);
+$\chi(\cO_{K3})=2$ on the K3 fibre (Serre duality);
+$\kBKM(\Phi_1)=c_{\phi_{0,1}}(0,0)/2=5$ (Borcherds singular theta lift,
+Gritsenko $\Delta_5$ on $\Sp_4(\mathbb Z)$); and
+$\mathrm{rk}(\Lambda_{\mathrm{Muk}}(K3))=\chi_{\mathrm{top}}(K3)=24$
+(Mukai lattice). The DT partition function is
+$Z^X=C/(\Delta_5)^2=C/\Phi_{10}$ with $\Phi_{10}=(\Delta_5)^2\in
+M_{10}(\Sp_4(\mathbb Z))$ the Igusa cusp form; the CoHA
+$\CoHA(X)=U(\fn_+(\fg_{\Delta_5}))$ is the positive half of the BKM
+superalgebra associated to the Borcherds lift, with root multiplicities
+$\mult(\alpha)=c_{\phi_{0,1}}(nm,\ell)$ for $\alpha=(n,\ell,m)>0$ in
+the forward light cone of $\Lambda^{2,1}_{II}$.}
+\end{quote}
+
+Six routes to $G(K3\times E)$ (CoHA, stable envelope, Koszul, chiral
+Yangian via $\Phi$, BKM screening, Borcherds lift) are six
+\emph{different constructions}, not six $\Phi$-applications to one
+object. The CY-to-chiral functor $\Phi$ gives one output per CY
+category; the $\{2,3,5,24\}$ spectrum records four construction-outputs
+that agree on $X$ not by $\Phi$-naturality but by the arithmetic of
+$\phi_{0,1}$ and the Mukai lattice.
+
+%--------------------------------------------------------------------
+\subsection*{Primary sources audit}
+%--------------------------------------------------------------------
+
+\begin{itemize}[leftmargin=1.5em]
+\item Borcherds 1998 \emph{Invent.~Math.}~132, Thm.~13.3 (``The
+  singular theta correspondence and automorphic forms''): weight
+  formula $\mathrm{wt}(\Phi)=c_0(0)/2$.
+\item Gritsenko-Nikulin 1995 Part~II (arXiv:alg-geom/9504006)
+  Thm.~2.1: $\Delta_{k(N)}^{(N)}$-tower with weights $(5,2,1,1,1)$ at
+  $N\in\{1,2,3,4,6\}$.
+\item Gritsenko 1999 Corollary~3.3: values $c_N(0)=(10,4,2,2,2)$.
+\item Lorgat 2020 \S2--6: explicit Borcherds-lift construction of
+  $\Delta_5$ from $\phi_{0,1}$; $\phi_{0,1}=r^{-1}+10+r+O(q)$ with
+  $c_1(0)=10$.
+\item Mukai 1988 \emph{Invent.~Math.}~94 Thm.~1.1: classification of
+  symplectic K3 automorphism orders $N\leq 8$, $g_N$-fixed-point counts.
+\item EOT 2011 \emph{Exp.~Math.}~20: K3 elliptic genus, twined by
+  $M_{24}$ conjugacy classes, connection to Mathieu moonshine.
+\item Oberdieck-Pixton 2018 \emph{Duke} 168:1543: $Z^X=C/\Phi_{10}$
+  Igusa cusp conjecture for $X=K3\times E$.
+\item Oberdieck 2017 (arXiv:1706.07469): reduced DT for CHL orbifolds
+  $[K3\times E/\mathbb Z_N]$, $N\in\{2,3,4,6\}$.
+\item Francis 2013 arXiv:1211.5619 \S2 ($E_n$-chiral algebras on
+  $n$-complex-dim varieties); Ben-Zvi--Francis--Nadler
+  \emph{Amer.~J.\ Math.} 136 Thm.~7.1 (Drinfeld centre as
+  factorisation homology).
+\item Maulik-Okounkov 2019 Ast\'erisque~408 \S8 ($R$-matrix from stable
+  envelopes); Kontsevich-Soibelman 2011 (CoHA $E_1$-structure).
+\end{itemize}
+
+%--------------------------------------------------------------------
+\subsection*{Cache appendices (new patterns, NOT yet inscribed)}
+%--------------------------------------------------------------------
+
+Three patterns surfaced in this assault that refine existing cache
+entries rather than add new ones:
+\begin{itemize}[leftmargin=1.5em]
+\item Refinement of cache entry~15 (K3$\times E$ additive
+  decomposition): the failure at $N=1$ is not a coincidence but a
+  consequence of lane separation (Borcherds-weight lane vs Hodge
+  supertrace lane). No ingredient-level formula crosses the lane.
+\item Refinement of AP-CY33 (six-route conflation): the six routes are
+  \{CoHA (Kontsevich-Soibelman), stable envelope (Maulik-Okounkov),
+  Koszul duality (Gritsenko), chiral Yangian via $\Phi$, BKM
+  screening (Feigin-Frenkel), Borcherds singular theta lift\}.
+  Enumerating them explicitly prevents the ``six $\Phi$-applications''
+  miscount.
+\item Refinement of AP113 (bare-subscript discipline on $\kBKM$
+  auxiliaries): the working\_notes abbreviation $\kBKM=5=c(0)/2$
+  silently drops the subscript on $c$ ($c_1(0)$ not $c(0)$) and on
+  $\Phi$ ($\Phi_1$ not $\Phi$); restoring these restores the
+  universal-$N$ scope. AP113 forbids bare $\kBKM$ without subscript;
+  the same discipline extends to its Fourier-coefficient input
+  $c_N(0)$ and automorphic-form output $\Phi_N$ at each $N\in
+  \{1,2,3,4,6\}$.
+\end{itemize}
+
+No new AP-CY entries are warranted; the existing cache already catches
+the patterns, and the heal in each cycle is to apply the cached
+discipline at the working\_notes lines 312--344, 517--604, 681--716,
+1221--1323.

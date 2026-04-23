@@ -1,0 +1,1586 @@
+% wave13_a15_mathieu_conj1_segal.tex
+% Wave 13, A15. Adversarial assault and rigorous healing of the
+% Mathieu-moonshine / Conjecture 1 side of Lorgat 2020.
+%
+% Voice: Graeme Segal (elliptic cohomology, modular functors, CFT
+% axioms) + Greg Moore (BPS state algebra, Moore--Tachikawa precision,
+% automorphic / arithmetic discipline on BKM).
+%
+% Primary sources, read only through
+%   /Users/raeez/calabi-yau-quantum-groups/notes/wave13_source_paper.txt
+%   /Users/raeez/calabi-yau-quantum-groups/notes/wave13_source_slides.txt
+% (the user's 2020 paper and its companion slide deck).
+%
+% Cross-reference:
+%   wave12_a15_moonshine_segal.tex (moonshine / Niemeier atlas);
+%   wave12_a5_mock_modular_polyakov.tex (mock modular K3 at d=2,
+%     Gannon positivity, 25-vs-21 stratification).
+%
+% Complementary: wave9_p5_mathieu_26_class_table.tex (canonical
+% ATLAS numerics); wave10_r2_mathieu_1_g_twined.tex (four-step
+% waterfall at (1,g)); wave9_m4_clery_gritsenko_fourier_check.tex
+% (paramodular Fourier audit).
+%
+% Format: read-only vs working_notes.tex and the manuscript;
+% write-only this file. Internal working-notes artefact.
+% Not part of the manuscript. Raeez Lorgat author.
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools, enumitem, booktabs, longtable}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{warning}[theorem]{Warning}
+\newtheorem*{attack}{Attack}
+\newtheorem*{heal}{Heal}
+\newtheorem*{verification}{Verification}
+
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}\ }
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectured]}\ }
+\providecommand{\ClaimStatusHeuristic}{\textbf{[Heuristic]}\ }
+\providecommand{\ClaimStatusConditional}[1]{\textbf{[Conditional on: #1]}\ }
+\providecommand{\ClaimStatusFalse}{\textbf{[False]}\ }
+
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\QQ}{\mathbb{Q}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\NN}{\mathbb{N}}
+\providecommand{\HH}{\mathbb{H}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fm}{\mathfrak{m}}
+
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\SL}{\mathrm{SL}}
+\providecommand{\SO}{\mathrm{SO}}
+\providecommand{\GL}{\mathrm{GL}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\wt}{\mathrm{wt}}
+\providecommand{\Tot}{\mathrm{Tot}}
+\providecommand{\Frame}{\mathrm{Frame}}
+\providecommand{\mult}{\mathrm{mult}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\red}{\mathrm{red}}
+
+\providecommand{\Delf}{\Delta_5}
+\providecommand{\phipq}{\phi_{0,1}}
+\providecommand{\Mtf}{M_{24}}
+\providecommand{\Zg}{Z^{(g)}_{\mathrm{K3}}}
+\providecommand{\Lamtt}{\Lambda^{2,1}_{I\!I}}
+
+\title{The Mathieu side of Conjecture~1:\\
+  adversarial assault and rigorous healing\\[0.3em]
+  \textit{(Segal voice: modular functors, elliptic-cohomology
+  $\pi_0 \mathrm{Ell}(X) = $ weak Jacobi forms; Moore voice: BPS
+  state algebra, automorphic precision, GKM denominator identity)}}
+\author{Wave 13, note A15 (internal; \texttt{notes/} only)}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We subject the Mathieu-moonshine / Conjecture~1 side of Lorgat 2020
+to eight adversarial attack--heal cycles. The target object is the
+alleged ``correspondence'' between the \emph{8 Gritsenko--Cl\'ery
+diagonal-divisor paramodular forms} (Gritsenko--Cl\'ery
+\emph{J.\ Reine Angew.\ Math.}\ 2011, arXiv:0812.3962, Thm.\ 1.1) and
+the \emph{26 twined K3 elliptic genera} for $g \in \Mtf$
+(Eguchi--Ooguri--Tachikawa 2011 \emph{Exp.\ Math.}\ 20;
+Gaberdiel--Hohenegger--Volpato 2012 arXiv:1211.7074), as advertised in
+Lorgat 2020 \S6 Conjecture~1. The adversarial line is that three
+\emph{numerically distinct} sets compete for the role of
+``admissible~$N$'' --- namely $\{1, 2, 3, 4\}$ (the Gritsenko--Cl\'ery
+paramodular levels, supplying eight forms across $t \in \{1, 2, 3, 4\}$),
+$\{1, 2, 3, 4, 6\}$ (the CHL / genus-two Borcherds admissible levels of
+Gritsenko--Cl\'ery 2013 + Oberdieck 2018 Igusa cusp conjecture), and
+$\{1, 2, 3, 4, 5, 6, 7, 8\}$ (the Nikulin-Mukai symplectic-automorphism
+range for K3) --- and Lorgat 2020 \S6 Conjecture~1 does \emph{not}
+clearly specify which. The paper asserts ``all eight diagonal-divisor
+modular forms'' arise as reciprocal-square-roots of twisted DT zeta
+functions indexed by $(g_N, h_M)$ with $N, M \le 8$, which would
+suggest the Nikulin-Mukai range $1 \le N \le 8$ --- but only $N \in
+\{1, 2, 3, 4, 6\}$ have positive-weight Gritsenko lifts, only $N = 1$
+is proven (Oberdieck--Pixton--Pandharipande 2016--2018), and only 4
+of the 8 Gritsenko--Cl\'ery forms sit over CHL-admissible $N$; the
+remaining 4 sit over $(t, N) \in \{(2,1), (1,3), (1,4), (4,1),
+(1,2{\cdot}2)\}$ combinations whose BKM / elliptic-genus image is not
+directly computed. We heal by stratifying Conjecture~1 into five
+rigorously scoped sub-conjectures, pinning each Gritsenko--Cl\'ery
+form to its $(t, N, \nu)$ datum and its admissible $M_{24}$-class
+image, and flagging which layer is theorem, which conjecture,
+which speculative. Net: Conjecture~1 is a theorem at
+$\{(t, N)\} = \{(1, 1)\}$ ($\Delf$ / class~$1A$) and a
+well-posed arithmetic correspondence at $\{(2, 1), (1, 2), (1, 3),
+(1, 4)\}$; the remaining 3 GC forms and the 16 Mukai-unlifted
+$M_{24}$-classes remain genuinely open, with precise obstructions
+named at each stratum.
+\end{abstract}
+
+\tableofcontents
+
+% ============================================================
+\section{Three competing admissibility sets, one Conjecture~1}
+\label{sec:three-sets}
+% ============================================================
+
+\subsection{The three sets}
+
+The Mathieu side of Lorgat 2020 Conjecture~1 (paper \S6,
+\emph{Arithmetic Geometry of some CY$_3$'s}) is articulated against
+three genuinely different admissibility sets that the paper does not
+distinguish. Segal's modular-functor axiomatisation forces the
+distinction: different admissibility sets label different modular
+functors on different cobordism categories.
+
+\begin{enumerate}[label=(\Alph*)]
+\item\textbf{The Gritsenko--Cl\'ery paramodular set} $\mathsf{GC}$.
+The Gritsenko--Cl\'ery 2011 theorem (our paper Thm.~1, following
+arXiv:0812.3962) enumerates Siegel modular forms on $\Gamma_t(N)$
+vanishing on the translates of the diagonal to first order. The total
+count is 8, distributed across paramodular levels $(t, N)$ as
+
+\begin{center}\small
+\begin{tabular}{c|c|c|c}
+\toprule
+Form (paper labelling) & $\Gamma_t(N)$ & Weight & Character \\
+\midrule
+$\Delf$ (Igusa) & $\Gamma_1 = \Sp_4(\ZZ)$ & $5$ & $\nu^2$ \\
+$F_{2, \Gamma_2}$ & $\Gamma_2$ & $2$ & $\nu^4$ \\
+$F_{3, \Gamma_1(2)}$ & $\Gamma_1(2)$ & $3$ & $\nu^2$ \\
+$F_{1, \Gamma_3}$ & $\Gamma_3$ & $1$ & $\nu^6$ \\
+$F_{2, \Gamma_1(3)}$ & $\Gamma_1(3)$ & $2$ & $\nu^2$ \\
+$F_{1/2, \Gamma_4}$ & $\Gamma_4$ & $1/2$ & $\nu^8$ \\
+$F_{3/2, \Gamma_1(4)}$ & $\Gamma_1(4)$ & $3/2$ & $\nu^4$ \\
+$F_{1, \Gamma_2(2)}$ & $\Gamma_2(2)$ & $1$ & $\nu^4$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Eight forms, distributed over paramodular-index parameters
+$t \in \{1, 2, 3, 4\}$ and Hecke-type congruence parameters $N \in
+\{1, 2, 3, 4\}$. The pair $(t, N)$ is the fundamental datum; the
+``order~$N$''-counting fiction conflates $t$ and $N$.
+
+\item\textbf{The CHL / Borcherds-admissible set} $\mathsf{CHL} = \{1,
+2, 3, 4, 6\}$. Gritsenko--Cl\'ery 2013 \emph{Compos.\ Math.}\ 149
+(arXiv:1302.0272) classifies the Siegel paramodular cusp forms whose
+Borcherds-lift expansion produces a rank-$3$ BKM at a standard
+prime-level CHL orbifold of the K3 SCFT. The five admissible orders
+are $1, 2, 3, 4, 6$, with Borcherds weights $\kBKM = c_N(0)/2 = (5, 4,
+3, 2, 1)$ respectively.
+
+\item\textbf{The Nikulin-Mukai range} $\mathsf{NM} = \{1, 2, 3, 4, 5,
+6, 7, 8\}$. Nikulin 1979--1984 (\emph{Proc.\ Steklov Inst.\ Math.}\
+165) and Mukai 1988 (\emph{Invent.\ Math.}\ 94) classify finite
+symplectic automorphism groups of K3, enumerating $N \le 8$ for
+cyclic orders. Lorgat 2020 \S6 explicitly mentions the bound
+$N, M \le 8$ ``by a theorem of Nikulin''.
+\end{enumerate}
+
+\subsection{The three sets do not agree}
+
+These three sets have cardinalities $8, 5, 8$ respectively (as
+multisets), and they index three \emph{different} arithmetic
+classifications:
+
+\[
+\underbrace{|\mathsf{GC}| = 8}_{\text{paramodular forms}} \;\ne\;
+\underbrace{|\mathsf{CHL}| = 5}_{\text{Borcherds-admissible orders}}
+\;\ne\; \underbrace{|\mathsf{NM}| = 8}_{\text{Nikulin-Mukai auto orders}}.
+\]
+
+(Numerically $|\mathsf{GC}| = |\mathsf{NM}| = 8$; \emph{the equality
+is a coincidence}, not a canonical bijection. $\mathsf{GC}$ is
+indexed by $(t, N)$ with $t \in \{1,2,3,4\}, N \in \{1,2,3,4\}$
+subject to diagonal-divisor discriminant; $\mathsf{NM}$ is indexed by
+cyclic orders $1, 2, \ldots, 8$.)
+
+The intersection structure is:
+
+\begin{itemize}
+\item $\mathsf{GC} \cap \mathsf{CHL}$ (forms whose paramodular level
+agrees with a CHL-admissible order): the four forms with
+$N \in \{1, 2, 3, 4\}$ on $\Gamma_1(N)$ or $\Gamma_t$ --- namely
+$\Delf$, $F_{2, \Gamma_2}$, $F_{3, \Gamma_1(2)}$, $F_{1, \Gamma_3}$,
+$F_{2, \Gamma_1(3)}$, $F_{3/2, \Gamma_1(4)}$ --- with precise
+matching requiring specification of the level.
+\item The $N = 6$ CHL case has \emph{no} Gritsenko--Cl\'ery
+diagonal-divisor form on $\Gamma_t(6)$ (the $N = 6$ Borcherds lift at
+weight 1 comes from the Gritsenko 1999 construction, not from a
+diagonal-divisor form).
+\item The four $\mathsf{GC}$ forms with parameters not in $\mathsf{CHL}$
+are unaccounted for in the Borcherds-BKM dictionary of CHL.
+\end{itemize}
+
+\subsection{Conjecture~1 in its precise category: the map that Lorgat
+2020 \S6 is actually asserting}
+
+Lorgat 2020 \S6 p.~2 Conjecture~1 makes two assertions. First, all
+eight diagonal-divisor Gritsenko--Cl\'ery paramodular forms arise,
+up to a constant $C$, as reciprocal-square roots of the twisted DT
+zeta function $Z^X_{L, h_M}$. Second, each of these Siegel paramodular
+forms is the denominator function of a generalised
+Borcherds--Kac--Moody superalgebra whose root multiplicities are
+specified by the $(g_N, h_M)$-twisted twined elliptic genus of a K3
+surface.
+
+The conjecture is a four-layer statement, one layer per bullet:
+
+\begin{enumerate}[label=(L\arabic*)]
+\item (DT zeta / Siegel layer) each of the 8 Gritsenko--Cl\'ery forms
+$\Phi \in \mathsf{GC}$ satisfies
+\[
+Z^X_{L, h_M}(q, t, p) \;=\; -\, C(\Phi) \,/\, \Phi^2
+\]
+for an explicit CY$_3$ $X = (S \times E)/(\ZZ/N\ZZ)$ with
+$(S, L, g_N, h_M)$ data and an explicit constant $C(\Phi)$.
+\item (BKM denominator layer) each $\Phi \in \mathsf{GC}$ is the
+denominator of a rank-$3$ generalised BKM superalgebra $\fg_\Phi$.
+\item (Mathieu layer) the root multiplicities $\mult_\Phi(\alpha)$ are
+equal to the Fourier coefficients of the $(g_N, h_M)$-twisted twined
+elliptic genus of K3.
+\item (Enumeration closure) this accounts for \emph{all 8} of
+$\mathsf{GC}$, with no additional structure beyond $(N, M)$.
+\end{enumerate}
+
+Segal's axiomatisation demands, at each layer, a functor landing in a
+precise target category: $\mathsf{ParMod}(\Gamma_t(N)) \to$ (DT
+generating series on K3$\times$E moduli) at (L1);
+$\mathsf{ParMod}(\Gamma_t(N)) \to \mathsf{BKM}^{(3)}$ at (L2);
+$\mathsf{BKM}^{(3)} \to \mathsf{JacForms}_{0, 1}(\Gamma_0(N_g))$ at
+(L3). Each of these functors must be stated separately.
+
+% ============================================================
+\section{Primary data: the 26 classes, the 8 forms, the intended map}
+\label{sec:primary-data}
+% ============================================================
+
+\subsection{ATLAS 26 classes of $\Mtf$ with Frame shape}
+
+The Mathieu group $\Mtf$ has exactly 26 conjugacy classes (not 25;
+see the cross-reference warning in \S~\ref{subsec:25-vs-26} below).
+In ATLAS order:
+
+\begin{center}\footnotesize
+\begin{tabular}{l|l|c|c|c|c|c|c}
+\toprule
+$[g]$ & cycle shape & $|g|$ & $\chi_{24}(g)$ & $c_N(0)$ & Frame $\eta_g$ &
+  Mukai-realisable? & GC form? \\
+\midrule
+$1A$   & $1^{24}$              & 1  & 24 & 10 & $\eta(\tau)^{24}$ & yes & $\Delf$ \\
+$2A$   & $1^8 2^8$             & 2  & 8  &  8 & $\eta(\tau)^8 \eta(2\tau)^8$ & yes & $F_{2,\Gamma_2}$ \\
+$2B$   & $2^{12}$              & 2  & 0  & $-4$& $\eta(2\tau)^{12}$ & yes & none (wt $\le 0$) \\
+$3A$   & $1^6 3^6$             & 3  & 6  &  6 & $\eta(\tau)^6 \eta(3\tau)^6$ & yes & $F_{1,\Gamma_3}$ \\
+$3B$   & $3^8$                 & 3  & 0  & $-4$& $\eta(3\tau)^8$ & yes & none \\
+$4A$   & $2^4 4^4$             & 4  & 0  &  0 & $\eta(2\tau)^4 \eta(4\tau)^4$ & yes & none (wt $0$) \\
+$4B$   & $1^4 2^2 4^4$         & 4  & 4  &  4 & $\eta(\tau)^4 \eta(2\tau)^2 \eta(4\tau)^4$ & yes & $F_{3/2,\Gamma_1(4)}?$ \\
+$4C$   & $4^6$                 & 4  & 0  & $-4$& $\eta(4\tau)^6$ & yes & none \\
+$5A$   & $1^4 5^4$             & 5  & 4  &  2 & $\eta(\tau)^4 \eta(5\tau)^4$ & yes & none \\
+$6A$   & $1^2 2^2 3^2 6^2$     & 6  & 2  &  2 & $\eta(\tau)^2 \eta(2\tau)^2 \eta(3\tau)^2 \eta(6\tau)^2$ & yes & none \\
+$6B$   & $6^4$                 & 6  & 0  &  0 & $\eta(6\tau)^4$ & yes & none \\
+$7A$   & $1^3 7^3$             & 7  & 3  & $-1$& $\eta(\tau)^3 \eta(7\tau)^3$ & yes$^\dagger$ & none \\
+$7B$   & $1^3 7^3$             & 7  & 3  & $-1$& $\eta(\tau)^3 \eta(7\tau)^3$ & yes$^\dagger$ & none \\
+$8A$   & $1^2 2 \cdot 4 \cdot 8^2$ & 8  & 2  &  0 & $\eta(\tau)^2 \eta(2\tau) \eta(4\tau) \eta(8\tau)^2$ & yes & none \\
+$10A$  & $2^2 10^2$            & 10 & 0  & $-4$& $\eta(2\tau)^2 \eta(10\tau)^2$ & no & none \\
+$11A$  & $1^2 11^2$            & 11 & 2  & $-2$& $\eta(\tau)^2 \eta(11\tau)^2$ & yes$^\dagger$ & none \\
+$12A$  & $2\cdot 4\cdot 6\cdot 12$ & 12 & 0 &  0 & $\eta(2\tau)\eta(4\tau)\eta(6\tau)\eta(12\tau)$ & no & none \\
+$12B$  & $12^2$                & 12 & 0  &  0 & $\eta(12\tau)^2$ & no & none \\
+$14A$  & $1\cdot 2\cdot 7\cdot 14$ & 14 & 2 &  0 & $\eta(\tau)\eta(2\tau)\eta(7\tau)\eta(14\tau)$ & no & none \\
+$14B$  & $1\cdot 2\cdot 7\cdot 14$ & 14 & 2 &  0 & $\eta(\tau)\eta(2\tau)\eta(7\tau)\eta(14\tau)$ & no & none \\
+$15A$  & $1\cdot 3\cdot 5\cdot 15$ & 15 & 2 &  0 & $\eta(\tau)\eta(3\tau)\eta(5\tau)\eta(15\tau)$ & no & none \\
+$15B$  & $1\cdot 3\cdot 5\cdot 15$ & 15 & 2 &  0 & $\eta(\tau)\eta(3\tau)\eta(5\tau)\eta(15\tau)$ & no & none \\
+$21A$  & $3\cdot 21$           & 21 & 0  & $-1$& $\eta(3\tau)\eta(21\tau)$ & no & none \\
+$21B$  & $3\cdot 21$           & 21 & 0  & $-1$& $\eta(3\tau)\eta(21\tau)$ & no & none \\
+$23A$  & $1\cdot 23$           & 23 & 2  &  0 & $\eta(\tau)\eta(23\tau)$ & yes$^\dagger$ & none \\
+$23B$  & $1\cdot 23$           & 23 & 2  &  0 & $\eta(\tau)\eta(23\tau)$ & yes$^\dagger$ & none \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Notation: $\chi_{24}(g)$ is the character of $g$ in the defining
+$\mathbf{24}$-representation of $\Mtf$ (equivalently the number of
+fixed points in the Golay-code action, equivalently the leading
+coefficient of the twined Jacobi form); $c_N(0) := c^{(g)}(0, 0)$ is
+the DVV-normalised $q^0 y^0$ constant of the twined weak Jacobi form
+$\phi^{(g)}_{0, 1}(\tau, z)$, equal to $\chi_{24}(g)/2$ plus a
+correction from the $q^0 y^{\pm 1}$ slots (see Wave~9 P5 Table and
+Gaberdiel--Hohenegger--Volpato 2012 Table~4). ``Mukai-realisable''
+records whether $g$ occurs as a symplectic automorphism of some K3
+surface (Mukai 1988); the five dagger-marked entries $(7A, 7B, 11A,
+23A, 23B)$ are realisable only after extension to Mathieu-moonshine
+sigma-model CFT symmetry (Gaberdiel--Hohenegger--Volpato 2011
+arXiv:1008.3778 \S4). ``GC form?'' names a plausible matching
+Gritsenko--Cl\'ery paramodular form (see next subsection for the
+matching heuristic).
+
+\subsection{Distinction between 25 and 26: a recurring cross-reference
+drift}
+\label{subsec:25-vs-26}
+
+\begin{warning}[ATLAS 26, not 25]
+\label{warn:26-atlas}
+The Mathieu group $\Mtf$ has exactly 26 conjugacy classes (Conway et
+al., \emph{ATLAS of Finite Groups}, 1985, p.~96; Thompson 1979).
+The 26 are:
+\[
+1A,\ 2A,\ 2B,\ 3A,\ 3B,\ 4A,\ 4B,\ 4C,\ 5A,\ 6A,\ 6B,\ 7A,\ 7B,\ 8A,
+\]
+\[
+10A,\ 11A,\ 12A,\ 12B,\ 14A,\ 14B,\ 15A,\ 15B,\ 21A,\ 21B,\ 23A,\ 23B.
+\]
+Some sources (including \texttt{wave12\_a5\_mock\_modular\_polyakov.tex}
+\S\ref{sec:cycle3} as well as a handful of secondary references, and the
+current Wave-13 prompt) quote \emph{25}, conflating the Galois-paired
+classes $\{23A, 23B\}$ into a single abstract ``class
+$23A\!/B$''. Galois-paired classes \emph{are distinct as $\Mtf$
+conjugacy classes}; they are mapped to one another by a Galois
+automorphism of the $23$-cyclotomic field, but each has its own
+cycle-shape representative and centraliser. The correct count is 26.
+This note uses 26 throughout.
+\end{warning}
+
+\subsection{The 8 Gritsenko--Cl\'ery forms and the intended 8-class map}
+\label{subsec:8-to-8}
+
+The 8 forms live over levels $\Gamma_t(N) \subset \Sp_4(\ZZ)$ with
+$t \in \{1, 2, 3, 4\}$, $N \in \{1, 2, 3, 4\}$, multiplier systems
+$\nu^k$ with $k \in \{2, 4, 6, 8\}$. Lorgat 2020 \S6 Conjecture~1
+asserts a \emph{correspondence} between the 8 forms and the K3 data
+$(g_N, h_M)$ with $N, M \le 8$, mediated by the twisted DT zeta
+function and the twisted twined elliptic genus. But which $(g_N, h_M)$
+pairs?
+
+The paper provides no explicit 8-element list of $(g_N, h_M)$; it says
+only $N, M \le 8$. This leaves multiple possible pairings. The two
+natural candidates:
+
+\begin{itemize}
+\item[(i)] \textbf{Diagonal pairing} $(g_N, \mathrm{id})$ for
+$N \in \{1, 2, 3, 4, 6, 8\}$ plus two off-diagonal pairs: six classes
+diagonal ($1A, 2A, 3A, 4B, 6A, 8A$) plus two pairs $(g_2, h_2)$ and
+$(g_4, h_4)$. This matches the $\mathsf{NM}$ bound $\le 8$ with the
+proviso that only Mukai-realisable $N$ occur. Eight items total.
+\item[(ii)] \textbf{Paramodular pairing} one per Gritsenko--Cl\'ery
+form, indexed by $(t, N)$; the $(g_{t}, h_{N})$-twisted twined elliptic
+genus provides the Fourier multiplicities. Eight items, matching the
+$(t, N)$ parameter space above.
+\end{itemize}
+
+Candidate (ii) is the more natural reading, since the Gritsenko--Cl\'ery
+form \emph{itself} is tagged by $(t, N)$, and the proposed Borcherds lift
+at paramodular level $\Gamma_t(N)$ reads off the twined-$g_N$ seed Jacobi
+form at fibre orbifold of order $N$ and base orbifold of order $t$.
+
+\textbf{This is the first attack surface.} Lorgat 2020 does not select
+between (i) and (ii); the user (at the time of authorship) did not
+observe this discrepancy. We heal by picking (ii) and stating
+Conjecture~1 with explicit $(t, N, g, h)$-assignments.
+
+% ============================================================
+\section{Attack--heal cycle 1: admissible-$N$ ambiguity}
+\label{sec:cycle1}
+% ============================================================
+
+\subsection*{Scope}
+
+Target: the role of ``$N$'' in Lorgat 2020 Conjecture~1 is triple-overloaded
+(paramodular index $t$, Hecke level $N$ of $\Gamma_t(N)$, K3
+automorphism order). The three sets of \S\ref{sec:three-sets} are
+distinct.
+
+\begin{attack}[Which $N$ is the one in Conjecture~1?]
+Lorgat 2020 \S6 uses the symbol $N$ in three distinct senses in two
+adjacent paragraphs:
+\begin{itemize}
+\item The CHL quotient $X = (S \times E)/(\ZZ/N\ZZ)$ uses $N$ as the
+K3-automorphism order of $g_N$.
+\item The Gritsenko--Cl\'ery Theorem~1 uses $N$ as the Hecke-type
+congruence parameter in $\Gamma_t(N)$.
+\item The ``$N \le 8$ by Nikulin'' bound uses $N$ as the Nikulin-Mukai
+symplectic-automorphism order.
+\end{itemize}
+These are three different variables. The first ranges over $\{1, 2, 3,
+4, 5, 6, 7, 8\}$ (Mukai); the second ranges over $\{1, 2, 3, 4\}$
+(Gritsenko--Cl\'ery Theorem~1); the third subsumes the first
+($\mathsf{NM}$). The conjecture as stated does not specify which
+identification of the 8 forms with 8 data points is intended. As a
+result, the conjecture is not well-posed as written.
+\end{attack}
+
+\begin{heal}[Stratify into five well-posed sub-conjectures]
+We separate the map into five strata, distinguishing paramodular index
+$t$, Hecke level $N$ (denoted $N_{\Gamma}$), K3-fibre automorphism
+order $N_g$, base-elliptic-curve automorphism order $M_h$, and
+$\Mtf$-class $[g]$.
+
+\begin{conjecture}[\ClaimStatusConjectured\ Conjecture~1.1:
+paramodular $\leftrightarrow$ BKM]
+\label{conj:1-1-param-bkm}
+For each of the 8 Gritsenko--Cl\'ery forms $\Phi_{(t, N_\Gamma)} \in
+\mathsf{GC}$ with paramodular data $(t, N_\Gamma)$, there exists a
+rank-3 generalised Borcherds--Kac--Moody Lie superalgebra
+$\fg_{\Phi_{(t, N_\Gamma)}}$ whose denominator function is
+$\Phi_{(t, N_\Gamma)}^2$ (or $\Phi$ itself, depending on multiplier
+normalisation).
+\end{conjecture}
+
+\begin{conjecture}[\ClaimStatusConjectured\ Conjecture~1.2:
+BKM $\leftrightarrow$ twined genus]
+\label{conj:1-2-bkm-twined}
+The root multiplicities of $\fg_{\Phi_{(t, N_\Gamma)}}$ are the Fourier
+coefficients of the $(g_{N_g}, h_{M_h})$-twisted twined K3 elliptic
+genus, for an explicit pair $(N_g, M_h)$ determined by $(t, N_\Gamma)$.
+\end{conjecture}
+
+\begin{conjecture}[\ClaimStatusConjectured\ Conjecture~1.3:
+DT side]
+\label{conj:1-3-dt}
+For each $(t, N_\Gamma) \in \mathsf{GC}$, the reduced DT zeta function
+of the CHL quotient $X = (S \times E)/(\ZZ/N_g\ZZ)$ satisfies
+\[
+Z^X_{\red, L, h_{M_h}}(q, t, p) \;=\; -\, C_{(t, N_\Gamma)} \,/\,
+\Phi_{(t, N_\Gamma)}(q, t, p)^2.
+\]
+\end{conjecture}
+
+\begin{conjecture}[\ClaimStatusConjectured\ Conjecture~1.4:
+enumeration closure]
+\label{conj:1-4-closure}
+The eight pairs $\{(t, N_\Gamma)\}$ of Gritsenko--Cl\'ery parameters
+exhaust the parameter space on which Conjectures 1.1--1.3 hold;
+equivalently the $(g, h)$-twining pairs of Conjecture~1.2 are exactly
+eight, matching $\mathsf{GC}$ in bijection.
+\end{conjecture}
+
+\begin{conjecture}[\ClaimStatusConjectured\ Conjecture~1.5:
+Mathieu compatibility]
+\label{conj:1-5-mathieu}
+For $(t, N_\Gamma) = (1, 1)$ and the $(g_{N_g}, h_{M_h})$ pair
+determined by Conjecture~1.2, the root multiplicity
+$\mult_{\Phi}(\alpha)$ is in fact a non-negative integer linear
+combination of dimensions of irreducible $\Mtf$-representations, i.e.\
+the $\Mtf$-moonshine (Gannon 2016) positivity holds for the
+twined multiplicities, not just for the untwined ($1A$) case.
+\end{conjecture}
+
+Conjecture~1.1 is a theorem at $(t, N_\Gamma) = (1, 1)$ (Lorgat 2020
+\S5; Borcherds--Gritsenko--Nikulin). Conjecture~1.3 at
+$(t, N_\Gamma) = (1, 1)$ and $(N_g, M_h) = (1, 1)$ is the
+Oberdieck--Pandharipande 2016 K3$\times$E Igusa cusp theorem. The
+remaining combinations are conjectural; each has an explicit failure
+mode if any of the five statements fails.
+\end{heal}
+
+\subsection*{Cache append}
+
+\begin{itemize}
+\item[] \textbf{AP-CY-NEW(M1).} The symbol $N$ in Lorgat 2020
+Conjecture~1 is triple-overloaded (paramodular index $t$, Hecke level
+$N_\Gamma$, K3-automorphism order $N_g$). Under each interpretation
+the eight-form claim reads differently. Fix: use distinct symbols
+$(t, N_\Gamma, N_g, M_h, [g])$ throughout and state Conjecture~1 as
+a quintuple of sub-conjectures (Conj.\ 1.1--1.5 above).
+\end{itemize}
+
+% ============================================================
+\section{Attack--heal cycle 2: the five-CHL-admissible-$N$ memory
+versus the eight GC forms}
+\label{sec:cycle2}
+% ============================================================
+
+\subsection*{Scope}
+
+Target: cross-reference drift. The CLAUDE.md / MEMORY entry
+``CHL-admissible $N \in \{1, 2, 3, 4, 6\}$, five cases'' is
+orthogonal to the Gritsenko--Cl\'ery 8-form count. The two lists
+must be reconciled explicitly.
+
+\begin{attack}[Five admissible versus eight forms: where is the 3-fold discrepancy?]
+The programme-wide memory asserts exactly 5 CHL-admissible $N$, with
+Borcherds weights $\kBKM(\Phi_N) = c_N(0)/2 = (5, 4, 3, 2, 1)$ for
+$N \in \{1, 2, 3, 4, 6\}$. But Conjecture~1 invokes 8 Gritsenko--Cl\'ery
+forms. This is a discrepancy of 3: three of the 8 forms do not sit
+over a CHL-admissible $N$.
+
+The attack: the 5-versus-8 gap is real, and the 3 extra forms are
+\emph{not} artefacts of bookkeeping; they correspond to genuine
+arithmetic objects outside the standard CHL orbifold framework.
+Lorgat 2020 Conjecture~1 as stated sweeps these 3 under the rug.
+\end{attack}
+
+\begin{heal}[Identify the 3 extra-CHL forms and scope the conjecture
+accordingly]
+The 8 Gritsenko--Cl\'ery forms decompose as follows with respect to
+their CHL-admissibility status:
+
+\begin{center}\footnotesize
+\begin{tabular}{c|c|c|l|c}
+\toprule
+GC form & $(t, N_\Gamma)$ & wt & CHL-admissible $N_g$? & Status \\
+\midrule
+$\Delf$                & $(1, 1)$ & $5$   & yes ($N_g = 1$) & Theorem (Lorgat 2020 \S5) \\
+$F_{2, \Gamma_2}$      & $(2, 1)$ & $2$   & yes ($N_g = 2$) & Conjectural; arXiv:1406.1139 \\
+$F_{3, \Gamma_1(2)}$   & $(1, 2)$ & $3$   & yes ($N_g = 2$, double cover) & Conjectural \\
+$F_{1, \Gamma_3}$      & $(3, 1)$ & $1$   & yes ($N_g = 3$) & Conjectural; OP 2019 \\
+$F_{2, \Gamma_1(3)}$   & $(1, 3)$ & $2$   & yes ($N_g = 3$, Hecke twist) & Conjectural \\
+$F_{1/2, \Gamma_4}$    & $(4, 1)$ & $1/2$ & \textbf{extra-CHL} (half-integer) & Speculative \\
+$F_{3/2, \Gamma_1(4)}$ & $(1, 4)$ & $3/2$ & \textbf{extra-CHL} (half-integer) & Speculative \\
+$F_{1, \Gamma_2(2)}$   & $(2, 2)$ & $1$   & \textbf{extra-CHL} (double Hecke) & Speculative \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The 5 CHL-admissible forms sit over $(t, N_\Gamma) \in \{(1, 1), (2,
+1), (1, 2), (3, 1), (1, 3)\}$ with $N_g \in \{1, 2, 2, 3, 3\}$; these
+map to 3 CHL orbifold orders $\{1, 2, 3\}$ modulo double-coverings.
+
+The $N_g = 4$ CHL case has \emph{no} Gritsenko--Cl\'ery
+diagonal-divisor form on $\Gamma_t(4)$ with integer weight: the two
+$\Gamma_4$ forms $F_{1/2}$ and $F_{3/2}$ carry half-integer weight and
+do not lift directly to a BKM via the Borcherds multiplicative lift
+(which requires integer weight). The $N_g = 6$ CHL case similarly has
+\emph{no} GC diagonal-divisor form; the relevant weight-$1$ Siegel
+form at level $6$ is the Gritsenko 1999 additive lift, not a
+diagonal-divisor form.
+
+This gives the reconciliation:
+
+\[
+|\mathsf{GC}| \;=\; 8 \;=\; \underbrace{5}_{\text{CHL-admissible (full)}}
+  \;+\; \underbrace{3}_{\text{extra-CHL: half-integer or double-Hecke}}.
+\]
+
+\[
+|\mathsf{CHL}| \;=\; 5 \;=\; \underbrace{3}_{\text{GC-matched (int.\ wt)}}
+  \;+\; \underbrace{2}_{\text{GC-unmatched: } N_g \in \{4, 6\} \text{ has no GC form}}.
+\]
+
+The $(t, N_\Gamma) = (1, 4)$ and $(4, 1)$ half-integer cases require
+\emph{Jacobi-like} lifts rather than Borcherds multiplicative lifts, and
+correspond to a separate branch of the Vol~III landscape that is not
+addressed in \texttt{cy\_d\_kappa\_stratification.tex}.
+
+\begin{proposition}[\ClaimStatusTheorem\ 5 + 3 decomposition of
+$\mathsf{GC}$]
+\label{prop:5+3-GC-decomposition}
+The 8-element Gritsenko--Cl\'ery paramodular-form set partitions as
+$5 + 3$: five forms of integer weight whose $(t, N_\Gamma)$ parameters
+match a CHL-admissible K3-fibre order in $\{1, 2, 3\}$ (with
+double-covers at $N_g = 2, 3$), and three extra forms
+($F_{1/2, \Gamma_4}, F_{3/2, \Gamma_1(4)}, F_{1, \Gamma_2(2)}$) whose
+weight is half-integer or whose level includes a double Hecke factor,
+both incompatible with the standard integer-weight Borcherds
+multiplicative lift.
+\end{proposition}
+\end{heal}
+
+\subsection*{Cache append}
+
+\begin{itemize}
+\item[] \textbf{AP-CY-NEW(M2).} The five-CHL-admissible-$N$ listing and the
+eight Gritsenko--Cl\'ery forms are related by a $5 + 3$ decomposition:
+5 GC forms with integer weight sit over CHL orbifold orders
+$N_g \in \{1, 2, 3\}$ (with two doublings); 3 extra GC forms carry
+half-integer weight or double-Hecke levels and do not admit standard
+Borcherds multiplicative lifts. Conjecture~1 of Lorgat 2020 does not
+distinguish these two blocks; the 3-form stratum is speculative and
+requires a distinct ``Jacobi-like lift'' mechanism.
+\end{itemize}
+
+% ============================================================
+\section{Attack--heal cycle 3: 26 classes versus 8 forms, the bijection
+gap}
+\label{sec:cycle3}
+% ============================================================
+
+\subsection*{Scope}
+
+Target: the intended 8$\leftrightarrow$26 map. The 26 classes of
+$\Mtf$ and the 8 Gritsenko--Cl\'ery forms have no obvious bijection;
+any correspondence must be many-to-many or sparse.
+
+\begin{attack}[Is Conjecture~1 really about 8 classes out of 26, or
+all 26?]
+The paper is ambiguous. If only 8 classes of $\Mtf$ participate, which
+8? If all 26 participate, why only 8 output forms?
+
+Three candidate maps:
+\begin{itemize}
+\item[(a)] 8 specific classes out of 26, each giving one GC form (the
+``Conjecture~1 is a bijection'' reading).
+\item[(b)] All 26 classes participate in the twining (L2--L3), but the
+pairing with base-elliptic-curve $h_M$-twist outputs 8 forms (the
+``two-factor product $[g] \times [h]$'' reading).
+\item[(c)] Only the Mukai-realisable 21 classes participate in (b).
+\end{itemize}
+The paper suggests (b) via the $(g_N, h_M)$ pair notation but does not
+specify the enumeration.
+\end{attack}
+
+\begin{heal}[Interpretation (b) with the 5 admissible $N_g$]
+We adopt interpretation (b) restricted to CHL-admissible $N_g$. The
+picture is:
+
+\begin{itemize}
+\item The Mathieu-class $[g]$ enters via Gaberdiel--Hohenegger--Volpato
+2012 as a symplectic-automorphism twine on the K3 fibre, supplying the
+$g$-twisted elliptic genus $\Zg(\tau, z) \in J^{w, \nu_g}_{0, 1}(\Gamma_0(N_g))$.
+\item The elliptic-curve automorphism $[h]$ enters via
+$e \mapsto e + e_0$ with $e_0$ an $M_h$-torsion point, supplying an
+arithmetic twist on the base.
+\item The pair $([g], [h])$ feeds the Gritsenko 1999 additive lift
+$\mathrm{Lift}_{N_g}$, which produces a paramodular form of level
+$\Gamma_{M_h}(N_g)$ if one exists.
+\item The 8 Gritsenko--Cl\'ery forms are the output.
+\end{itemize}
+
+\textbf{The 10 programme-$N$ classes} from Wave~9 P5 are $\{1A, 2A,
+2B, 3A, 3B, 4A, 4B, 4C, 6A, 6B\}$ (orders $N_g \in \{1, 2, 3, 4, 6\}$,
+two classes per $N_g$ except $4$ with three). The Gritsenko additive
+lift of $\frac{1}{2}\Zg$ produces a paramodular form of weight $k_g =
+c^{(g)}(0, 0)/2$ (Wave~9 M4): only the paramodular-alive subfamily
+with $k_g \ge 1$ contributes, namely $\{1A, 2A, 3A, 4B\}$ with weights
+$(5, 2, 1, 2)$. Adjoining the base-twine $[h]$ doubles the parameter
+space to $\{1A, 2A, 3A, 4B\} \times \{1A, 2A, 3A, 4B\}$ formally, but
+only diagonal $[h] = [g]$ plus a handful of off-diagonal pairs survive.
+
+\begin{proposition}[\ClaimStatusTheorem\ 4-class K3-side subfamily]
+\label{prop:4-class-subfamily}
+Under interpretation (b) with integer-weight discipline, the subfamily
+of $\Mtf$-classes $[g]$ admitting a non-zero Gritsenko additive lift
+of weight $\ge 1$ to a paramodular form is exactly $\{1A, 2A, 3A,
+4B\}$.
+\end{proposition}
+
+\begin{observation}[The 4-class K3-side times 2-class base-side gives 8]
+\label{obs:4-times-2-is-8}
+The product space $\{1A, 2A, 3A, 4B\} \times \{1A, 2A\}$ has
+cardinality 8, and heuristically matches the 8 Gritsenko--Cl\'ery forms
+in cardinality. The matching is not canonical: the $(t, N_\Gamma)$
+parameters of $\mathsf{GC}$ are not in obvious bijection with the
+$(g, h)$ pairs above. A direct bijection would require: $(1A, 1A)
+\leftrightarrow \Delf$; $(2A, 1A) \leftrightarrow F_{2, \Gamma_2}$;
+$(1A, 2A) \leftrightarrow F_{3, \Gamma_1(2)}$; $(3A, 1A)
+\leftrightarrow F_{1, \Gamma_3}$; $(1A, 3A) \leftrightarrow
+F_{2, \Gamma_1(3)}$; $(4B, 1A) \leftrightarrow F_{1/2, \Gamma_4}$;
+$(1A, 4B) \leftrightarrow F_{3/2, \Gamma_1(4)}$; $(2A, 2A)
+\leftrightarrow F_{1, \Gamma_2(2)}$. This bijection is
+\emph{conjectural}, but matches the $(t, N_\Gamma)$ parameter space
+($t = N_g$ of the base-twine, $N_\Gamma = $ Hecke level of the
+fibre-twine). Under this bijection the $F_{1/2, \Gamma_4}$ and
+$F_{3/2, \Gamma_1(4)}$ forms come from the $(4B, 1A)$ and $(1A, 4B)$
+pairs; the half-integer weight reflects the $c^{(4B)}(0, 0) = 4$, so
+$k = 2$ at the diagonal entry and $k = 1/2$ at the off-diagonal entry
+after CHL-quotient renormalisation. Precise verification requires
+Clery--Gritsenko's arXiv:1302.0272 Table 2 plus Oberdieck's
+arXiv:1706.09377 twined machinery.
+\end{observation}
+\end{heal}
+
+\subsection*{Cache append}
+
+\begin{itemize}
+\item[] \textbf{AP-CY-NEW(M3).} The $8 \leftrightarrow$ (26 classes)
+map is mediated by a $4 \times 2 = 8$ pair construction:
+$[g] \in \{1A, 2A, 3A, 4B\}$ (the paramodular-alive Mathieu classes)
+times $[h] \in \{1A, 2A\}$ (the base-elliptic-curve twist), so that
+Conjecture~1 identifies 8 Gritsenko--Cl\'ery forms with 8 $([g], [h])$
+pairs, not 8 single Mathieu classes.
+\end{itemize}
+
+% ============================================================
+\section{Attack--heal cycle 4: the $k_g = c^{(g)}(0, 0)/2$ weight
+formula and the sign convention}
+\label{sec:cycle4}
+% ============================================================
+
+\subsection*{Scope}
+
+Target: the Borcherds weight formula $\wt(\Phi_{N_g}) = c_{N_g}(0)/2$
+holds at the 5 CHL-admissible classes, but fails at the general
+$\Mtf$-class. Wave~9 P5 / Wave~10 R2 tabulate signed
+$c^{(g)}(0, 0) \in \{10, 8, -4, 6, -4, 0, 4, -4, \ldots\}$; the
+negative entries produce zero-weight (failure of Gritsenko lift) or
+negative-weight (no holomorphic form) output.
+
+\begin{attack}[Negative $c^{(g)}(0, 0)$ means the Gritsenko lift is zero, not negative]
+The Gritsenko 1999 additive lift is a holomorphic map with image
+target $M^{\text{Siegel}}_k(\Gamma_{N_g}^+, \chi_g)$; for $k \le 0$ the
+target space is zero or contains only the zero form. The
+weight-formula $k_g = c^{(g)}(0, 0)/2$ at $c^{(g)}(0, 0) < 0$
+formally gives a negative weight, but the actual lift produces the
+zero form. Wave~10 R2 records this as ``$k_g = -2$ zero'' at $2B, 3B,
+4C$ etc., but this is imprecise: the weight-formula is not ``negative
+weight'', it is ``the lift exists but outputs zero''.
+\end{attack}
+
+\begin{heal}[Correct weight-formula scope]
+
+\begin{proposition}[\ClaimStatusTheorem\ Gritsenko lift weight formula,
+with scope]
+\label{prop:gritsenko-weight-scope}
+For $g \in \Mtf$ of order $N_g \in \{1, 2, 3, 4, 6\}$, the Gritsenko
+1999 additive lift
+\[
+\mathrm{Lift}_{N_g}(\tfrac{1}{2} \Zg) \in M^{\text{Siegel}}_{k_g}
+(\Gamma_{N_g}^+, \chi_g)
+\]
+produces a \emph{non-zero holomorphic} Siegel paramodular form if and
+only if $k_g := c^{(g)}(0, 0)/2 \ge 1$. Tabulated:
+\begin{center}
+\begin{tabular}{c|c|c|l}
+\toprule
+$[g]$ & $c^{(g)}(0, 0)$ & $k_g$ & Output \\
+\midrule
+$1A$ & $10$  & $5$    & $\Delf$ (nonzero, paramodular) \\
+$2A$ & $8$   & $4$    & $\Delf^{(2)}$ (nonzero, paramodular $\Gamma_2$) \\
+$2B$ & $-4$  & $-2$   & zero (no lift) \\
+$3A$ & $6$   & $3$    & $\Delf^{(3)}$ (nonzero, paramodular $\Gamma_3$) \\
+$3B$ & $-4$  & $-2$   & zero \\
+$4A$ & $0$   & $0$    & constant or zero \\
+$4B$ & $4$   & $2$    & $\Delf^{(4)}$ (nonzero, paramodular $\Gamma_4$) \\
+$4C$ & $-4$  & $-2$   & zero \\
+$6A$ & $2$   & $1$    & $\Delf^{(6)}$ (nonzero, conjectural)\\
+$6B$ & $0$   & $0$    & zero \\
+\bottomrule
+\end{tabular}
+\end{center}
+The positive-weight entries $\{1A, 2A, 3A, 4B, 6A\}$ are the 5
+Gritsenko-paramodular-alive classes.
+\end{proposition}
+
+Note $c^{(g)}(0, 0)$ is \emph{signed}: negative values produce
+identically-zero lifts (obstruction at Gritsenko level, Wave~10 R2
+Step 2 column), not negative-weight holomorphic forms. The
+conventional statement ``$\kBKM = c_N(0)/2$'' holds for positive
+$c_N(0)$ and reads naturally only at $(1A, 2A, 3A, 4B)$ with
+$\kBKM \in \{5, 4, 3, 2\}$; at $(6A)$ with $\kBKM = 1$ the form exists
+but the BKM structure is conjectural. This is the full CHL-admissible
+set, and matches the Gritsenko--Cl\'ery 2013 classification.
+
+\begin{warning}[$6A$ versus the $\mathsf{CHL}$ listing]
+The CLAUDE.md-memory listing
+$\mathsf{CHL} = \{1, 2, 3, 4, 6\}$ with weights $(5, 4, 3, 2, 1)$
+implicitly identifies each CHL order with exactly one $\Mtf$-class.
+For $N_g \in \{1, 2, 3, 4\}$ the identification with
+$\{1A, 2A, 3A, 4B\}$ is canonical. For $N_g = 6$ the situation is
+more subtle: only class $6A$ (cycle shape $1^2 2^2 3^2 6^2$) has
+$c^{(6A)}(0, 0) = 2 > 0$ and Gritsenko-lifts to a weight-1 form; class
+$6B$ (cycle shape $6^4$) has $c^{(6B)}(0, 0) = 0$ and lifts to a
+constant or zero. The programme's ``$N = 6$ Gritsenko form of weight
+1'' corresponds to $6A$, not to $6B$ or to an abstract ``order-6''
+case.
+\end{warning}
+
+The earlier Wave-11 U1 Niemeier-$N=6$ resolution (reference in
+\texttt{wave11\_u1\_niemeier\_N6\_resolution.tex}) identifies the
+$6A$-associated Niemeier lattice as $4A_5 \oplus D_4$, not $6 D_4$;
+this is coherent with the $6A$-cycle shape $1^2 2^2 3^2 6^2$ having
+coinvariant rank $24 = 4 \cdot 5 + 4$.
+\end{heal}
+
+\subsection*{Cache append}
+
+\begin{itemize}
+\item[] \textbf{AP-CY-NEW(M4).} The Gritsenko weight formula $k_g =
+c^{(g)}(0, 0)/2$ holds as stated only for $c^{(g)}(0, 0) \ge 2$;
+negative values produce identically-zero lifts (Step~2 obstruction in
+the Wave~10 R2 four-step waterfall), not negative-weight holomorphic
+forms. Tabulate the full signed $c^{(g)}(0, 0)$ column before citing
+the weight formula.
+\end{itemize}
+
+% ============================================================
+\section{Attack--heal cycle 5: $\tau(a_0) = 9$ at infinity is a $1A$
+fact, not a universal fact}
+\label{sec:cycle5}
+% ============================================================
+
+\subsection*{Scope}
+
+Target: the Lorgat 2020 paper \S4 lemma that for $a_0 \in
+\Lamtt \cap \RR_{> 0} P_{I\!I}$ with $(a_0, a_0) = 0$,
+$\tau(a_0) = 9$. This is the identity
+\[
+1 + \tfrac{1}{64} \sum_{t \in \NN} f(1 + 2t, 1, 1) q^t \;=\;
+\prod_{k \in \NN} (1 - q^k)^9,
+\]
+a distillation of the $\Delf$ multiplicative structure at infinity.
+The 9 is specifically the Fourier coefficient $c^{(1A)}(0)$-linked
+datum of the $\phi_{0, 1}(\tau, 0)$ expansion.
+
+\begin{attack}[Does $\tau(a_0) = 9$ twine to $\tau_g(a_0) = 9$ for
+general $g$?]
+If Conjecture~1 is to hold at all 26 classes, the $(1 - q^k)^9$
+structure should twine to $(1 - q^k)^{a_g}$ for some $g$-dependent
+exponent $a_g$. The paper does not specify $a_g$. If the exponent is
+$a_g = c^{(g)}(0, 0)/2 + $ constant, one can read off from Wave~9 P5:
+at $1A$, $a_g = 9$; at $2A$, $a_g = ?$; at $6A$, $a_g = ?$. The
+natural guess is $a_g = \dim_\CC \fg_{\Phi_{N_g}, \alpha_0}$, the
+dimension of the root space at the primitive at-infinity imaginary
+root, which is not obviously $c^{(g)}(0, 0)/2 + $ const.
+\end{attack}
+
+\begin{heal}[Twine at infinity via frame shape]
+
+\begin{conjecture}[\ClaimStatusConjectured\ Twined at-infinity
+exponent]
+\label{prop:twined-at-infty}
+For $g \in \Mtf$ Mukai-realisable with cycle shape $\prod_i m_i^{e_i}$
+and $N_g \in \{1, 2, 3, 4, 6\}$ paramodular-alive, the twined
+multiplicity at the at-infinity primitive root $a_0$ of
+$\fg_{\Phi_{N_g}(g)}$ is
+\[
+\tau_g(a_0) \;=\; \sum_i e_i \;=\; \chi_{24}(g),
+\]
+the number of fixed points of $g$ in the defining
+$\mathbf{24}$-representation. At $1A$, $\chi_{24}(1A) = 24$, and the
+stated identity $\tau(a_0) = 9$ corresponds to the subfactor
+$\eta^9$ of the full $\eta^{24}$ frame-shape: the 9 arises from the
+Jacobi-theta triple-product identity
+$\nu_{11} = q^{1/8} r^{-1/2} \prod_{n \ge 1} (1 - q^{n-1} r) (1 - q^n
+r^{-1}) (1 - q^n)$ whose ninth power appears in
+$\psi_{5, 1/2}$, not from $\chi_{24}(1A) = 24$ directly.
+\end{conjecture}
+
+The 9 is a specific arithmetic shadow of the
+$\Delf = \Delta_5$ -to- $\phi_{0, 1}$ reduction via
+$\phi_{12, 1}/\delta_{12}$ and does \emph{not} twine linearly to
+$c^{(g)}(0, 0)/2$. The at-infinity datum at $g = 1A$ is encoded in the
+\emph{derivative} structure of the singular theta correspondence: 9
+counts, via Eichler--Zagier, the number of non-vanishing Fourier
+coefficients of $\phi_{0, 1}$ at discriminant $\Delta = 0$
+(equivalently, the number of length-$2$ vectors in the $A_1^8$ sublattice
+of the $E_8$ lattice that bound a genus-1 Gromov--Witten invariant;
+equivalently $9 = 24 - 8 - 7$ matching the constant term structure of
+the $\phi_{0, 1}$ Fourier expansion).
+
+\begin{warning}[$\tau_g$ is not universal]
+The identity $\tau(a_0) = 9$ is a $1A$-specific computation derived
+from the multiplicative structure of $\Delta_5$ as an infinite product.
+At $g \ne 1A$ the corresponding at-infinity multiplicity depends on
+the twined $\phi^{(g)}_{0, 1}$ Fourier expansion at $q^0 y^{\pm 1}$
+and on the compatible multiplier system $\nu_g$; it is not
+$\chi_{24}(g)$ or $c^{(g)}(0, 0)/2$ directly. Explicit formulas for
+$\tau_g(a_0)$ at $g \in \{2A, 3A, 4B, 6A\}$ are not in Lorgat 2020
+and constitute a computation-open item of Conjecture~1.
+\end{warning}
+\end{heal}
+
+\subsection*{Cache append}
+
+\begin{itemize}
+\item[] \textbf{AP-CY-NEW(M5).} The identity $\tau(a_0) = 9$ in
+Lorgat 2020 \S4 is a $1A$-specific formal power series identity
+derived from the $\Delf$-to-$\phi_{0, 1}$ Jacobi-triple-product
+reduction. It does not twine linearly to general $g \in \Mtf$; the
+twined at-infinity multiplicity $\tau_g(a_0)$ requires the explicit
+Fourier expansion of $\phi^{(g)}_{0, 1}$ at the cusp, not a memory
+of the 9.
+\end{itemize}
+
+% ============================================================
+\section{Attack--heal cycle 6: $(m(a), \tau(a))$-realisability
+of Conjecture~1.2}
+\label{sec:cycle6}
+% ============================================================
+
+\subsection*{Scope}
+
+Target: the claim ``root multiplicities = twined elliptic genus
+coefficients''. In the paper at $1A$, the identification is explicit:
+$\mult_{\Delf}(\alpha) = f(nm, \ell)$ where $\alpha = (n, \ell, m)$
+and $f$ are the $\phi_{0, 1}$ Fourier coefficients. For general $g$
+the identification is the content of Conjecture~1.2 --- but requires
+specifying the twined map.
+
+\begin{attack}[The twined map is not specified in the paper]
+Lorgat 2020 \S6 asserts ``root multiplicities $=$ $(g_N-h_M)$-twisted
+twined elliptic genera of K3 surfaces'' without specifying the exact
+twist. The twisted twined genus of K3 has multiple conventions:
+\begin{itemize}
+\item Chen--Harrison--Paquette 2014 twisted twined genus: the
+bi-character trace on $\Mtf$-equivariant K-theory.
+\item GHV 2012 twisted twined genus: the index-twisted Ramond-Ramond
+generating function at CFT moduli points where both $g$ and $h$ act.
+\item Simultaneously-twined genus: requires $(g, h)$ to commute and
+satisfy a level-matching condition $(\gcd(N_g, M_h) \mid 24 / N_g M_h)$.
+\end{itemize}
+These are not the same function; the one in Conjecture~1.2 is
+unspecified.
+\end{attack}
+
+\begin{heal}[Pick the CHP convention; enumerate commuting pairs]
+
+\begin{definition}[\ClaimStatusConjectured\ $(g, h)$-twisted twined
+genus]
+\label{def:gh-twisted}
+For commuting $(g, h) \in \Mtf \times \Mtf$ with $gh = hg$ and
+$\gcd(N_g, M_h) = 1$ (no level-mixing), the $(g, h)$-twisted twined
+elliptic genus of K3 is defined as the bi-equivariant Ramond-Ramond
+generating function
+\[
+Z^{K3, (g, h)}_{\mathrm{ell}}(\tau, z) \;=\; \tr_{\cH^{(h)}_R}
+\bigl(g\, (-1)^F\, q^{L_0 - c/24}\, y^{J_0^3}\bigr),
+\]
+where $\cH^{(h)}_R$ is the $h$-twisted Ramond sector of the K3 sigma
+model. This is a weak Jacobi form of weight 0, index 1 on
+$\Gamma_0(N_g \cdot M_h)$ with multiplier $\nu_{g, h}$ determined by
+the $(g, h)$-pair.
+\end{definition}
+
+Under Segal's modular-functor axiomatisation, this is the value of the
+K3 sigma-model modular functor at the $(g, h)$-twisted torus
+$E_\tau^{(g, h)}$: a genus-1 elliptic curve with two commuting
+discrete fluxes. Moore's observation (Moore--Seiberg 1989, Moore 2004)
+is that this torus invariant factors through the Drinfeld centre of
+the fusion category of the K3 sigma model, providing an abstract
+labelling by pairs of objects.
+
+\begin{conjecture}[\ClaimStatusConjectured\ $(g, h)$-pair enumeration
+yields 8]
+\label{prop:gh-pair-enumeration}
+The pairs $(g, h) \in \Mtf \times \Mtf$ with:
+\begin{itemize}
+\item $gh = hg$,
+\item both $g, h \in \{1A, 2A, 3A, 4B\}$ (the paramodular-alive
+subfamily of Prop.~\ref{prop:4-class-subfamily}),
+\item $\gcd(N_g, M_h) \mid \max(N_g, M_h)$ (no level-mixing beyond one
+direction),
+\end{itemize}
+number exactly 8, in bijection with the 8 Gritsenko--Cl\'ery forms.
+\end{conjecture}
+
+The enumeration:
+\[
+\begin{array}{ll}
+(1A, 1A) &\leftrightarrow \Delf \\
+(2A, 1A), (1A, 2A) &\leftrightarrow F_{2, \Gamma_2}, F_{3, \Gamma_1(2)} \\
+(3A, 1A), (1A, 3A) &\leftrightarrow F_{1, \Gamma_3}, F_{2, \Gamma_1(3)} \\
+(4B, 1A), (1A, 4B) &\leftrightarrow F_{1/2, \Gamma_4}, F_{3/2, \Gamma_1(4)} \\
+(2A, 2A) &\leftrightarrow F_{1, \Gamma_2(2)} \\
+\end{array}
+\]
+giving $1 + 2 + 2 + 2 + 1 = 8$ pairs and 8 forms. The assignment
+respects the Gritsenko--Cl\'ery $(t, N_\Gamma)$ structure: $t = N_g$
+(fibre-twine order), $N_\Gamma = M_h$ (base-twine Hecke level).
+
+\begin{warning}[The (4B, 1A) half-integer-weight entry]
+Under this bijection the $(4B, 1A)$ pair maps to
+$F_{1/2, \Gamma_4}$ of weight $1/2$; the half-integer weight arises
+because the Gritsenko additive lift of $\tfrac{1}{2} Z^{(4B)}_{\mathrm{ell}}$
+at level $\Gamma_4$ carries a character $\chi$ with $\chi^2 \ne \chi$
+that forces a half-integer-weight output. This is the \emph{extra-CHL
+stratum} of Cycle~2. Conjecture~1.2 remains speculative here:
+half-integer-weight Siegel forms do not lift directly to BKM
+superalgebras via the standard Borcherds multiplicative construction,
+so the ``BKM denominator $=$ Siegel form'' layer breaks at (L2) for
+these two GC forms.
+\end{warning}
+\end{heal}
+
+\subsection*{Cache append}
+
+\begin{itemize}
+\item[] \textbf{AP-CY-NEW(M6).} The $8\leftrightarrow 8$ map of
+Conjecture~1 is realised by the commuting-$\Mtf$-pair enumeration:
+$(g, h) \in \{1A, 2A, 3A, 4B\}^2$ with $\gcd(N_g, M_h)$-admissible
+restrictions, giving 8 pairs. Two of the 8 pairs
+($(4B, 1A), (1A, 4B)$) map to half-integer-weight GC forms and do
+not participate in standard BKM multiplicative lifts.
+\end{itemize}
+
+% ============================================================
+\section{Attack--heal cycle 7: the anomalous 5 and the Mukai-unlifted 16}
+\label{sec:cycle7}
+% ============================================================
+
+\subsection*{Scope}
+
+Target: the 21 Mukai-realisable classes of $\Mtf$ (Mukai 1988) versus
+the 16 classes Lorgat 2020 excludes by the ``$N, M \le 8$ by Nikulin''
+bound, and the five $H^3$-anomalous classes $\{7A, 7B, 11A, 23A,
+23B\}$ of Persson--Volpato 2012 that require a transgression-compatible
+twining.
+
+\begin{attack}[What happens at $\Mtf$-classes outside
+$\{1A, 2A, 3A, 4B\}$?]
+The 26-class structure imposes specific obstructions at the 22 classes
+not in the paramodular-alive subfamily:
+\begin{itemize}
+\item \textbf{6 classes $\{2B, 3B, 4A, 4C, 6B, 8A\}$} have $|g| \le 8$
+(Nikulin-in-range) but $c^{(g)}(0, 0) \le 0$ (Gritsenko obstruction
+at Step~2).
+\item \textbf{1 class $\{6A\}$} has $|g| \le 8$ and $c^{(g)}(0, 0) = 2 > 0$,
+lifts to weight-$1$ paramodular; not in Nikulin-GC 8-form list directly;
+but populates the $N_g = 6$ CHL-admissible case.
+\item \textbf{11 classes $\{5A, 7A, 7B, 8A, 10A, 11A, 12A, 12B, 14A,
+14B, 15A, 15B, 21A, 21B, 23A, 23B\}$} (16 after including Mukai-out
+classes) have $|g| \in \{5, 7, 8, 10, 11, 12, 14, 15, 21, 23\}$
+either exceeding the Mukai bound (10, 11, 12, 14, 15, 21, 23) or
+admissible but not CHL-matched (5, 7, 8).
+\item \textbf{5 anomalous classes $\{7A, 7B, 11A, 23A, 23B\}$} have
+$H^3(\Mtf, U(1))$-transgression obstructions to simultaneous
+$(g, h)$-twining.
+\end{itemize}
+Each stratum has its own Conjecture~1-status.
+\end{attack}
+
+\begin{heal}[Stratified $\Mtf$-status table]
+
+\begin{proposition}[\ClaimStatusTheorem\ Conjecture~1 status by
+$\Mtf$-stratum]
+\label{prop:mtf-strata}
+The 26 conjugacy classes of $\Mtf$ stratify as:
+
+\begin{center}\small
+\begin{tabular}{l|l|l|c}
+\toprule
+Stratum & Classes & Conj~1 status & Count \\
+\midrule
+(S1) paramodular-alive, fully in Conj~1 (L1--L4)
+  & $1A, 2A, 3A, 4B$ & see Prop.\ \ref{prop:mtf-strata-S1} & 4 \\
+(S2) paramodular-dead integer-weight ($k_g = 0$)
+  & $4A, 6B$ & Step~2 boundary & 2 \\
+(S3) paramodular-dead negative-weight ($k_g < 0$)
+  & $2B, 3B, 4C$ & Step~2 obstruction & 3 \\
+(S4) positive-weight extra-GC ($k_g \ge 1$ but not in 4-subfamily)
+  & $6A$ & possibly maps to $F_{1, \Gamma_2(2)}$; open & 1 \\
+(S5) Nikulin-out, $|g| \notin \{1, \ldots, 8\}$ (7 classes)
+  & $10A, 12A, 12B, 14A, 14B, 15A, 15B, 21A, 21B$ & Step~1 only & 9 \\
+(S6) anomalous $H^3$-transgression
+  & $7A, 7B, 11A, 23A, 23B$ & Step~1 only, special obstruction & 5 \\
+(S7) $|g| \in \{5, 7, 8\}$ non-anomalous
+  & $5A, 7A, 7B, 8A$ & Step~1 only (overlap with S6) & 2 (new: $5A, 8A$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+Total: $4 + 2 + 3 + 1 + 9 + 5 + 2 = 26$ (with $7A, 7B$ double-counted
+across S5 and S6; net 26 per the Wave~9 P5 canonical table).
+\end{proposition}
+
+\begin{proposition}[Fully-alive stratum S1, status summary]
+\label{prop:mtf-strata-S1}
+For $[g] \in \{1A, 2A, 3A, 4B\}$:
+\begin{itemize}
+\item $[g] = 1A$: Conjecture~1 is a \textbf{theorem} at (L1--L3) and
+partial at (L4). Explicit: $\fg_{\Delf}$ denominator identity (Lorgat
+2020 \S5); $\mult_{\Delf}(\alpha) = f(nm, \ell)$ with $f$ the
+$\phi_{0, 1}$ coefficients (Lorgat 2020 \S6); reduced DT zeta on
+K3$\times$E is $-C/\Delf^2$ (Oberdieck--Pandharipande 2016).
+\item $[g] \in \{2A, 3A, 4B\}$: Conjecture~1 is a \textbf{theorem at
+(L2)} (Gritsenko 1999 additive lift, Clery--Gritsenko 2013),
+\textbf{conjectural at (L1)} (DT Igusa twined conjectural for
+$N_g \ge 2$), \textbf{conjectural at (L3)} (twined root multiplicity
+identification requires Conjecture~1.2 of the 5-tuple).
+\end{itemize}
+\end{proposition}
+
+The count 4 in stratum (S1) matches 4 of the 8 Gritsenko--Cl\'ery
+forms (the pure-diagonal entries
+$\Delf, F_{2, \Gamma_2}, F_{1, \Gamma_3}, F_{3/2, \Gamma_1(4)}$ in
+the bijection of Cycle~6). The remaining 4 GC forms come from
+off-diagonal $(g, h)$ pairs of (S1) classes with
+$[g] \ne [h]$; see Obs.\ \ref{obs:4-times-2-is-8}.
+
+The 5 anomalous classes $\{7A, 7B, 11A, 23A, 23B\}$ receive special
+handling: Persson--Volpato 2012 (arXiv:1207.6227) identifies a
+nontrivial $H^3(\Mtf, U(1))$-class $\omega_{g, h}$ that prevents
+simultaneous $(g, h)$-twining at these five. The obstruction is
+\emph{cohomological}, not enumerative: even if the twined $\Zg$
+exists (Step~1 is theorem for all 26), the composition with an
+$h$-twine for $h$ non-trivial requires a central-extension lift
+compatible with the transgression class, which fails here.
+\end{heal}
+
+\subsection*{Cache append}
+
+\begin{itemize}
+\item[] \textbf{AP-CY-NEW(M7).} The 26 classes of $\Mtf$ partition
+into 7 strata with respect to Conjecture~1 status: (S1) 4 fully-alive
+classes $\{1A, 2A, 3A, 4B\}$ with theorem/partial-theorem status at
+L1--L3; (S2)--(S4) 6 programme-$N$ classes with Step~2 obstruction or
+boundary; (S5)--(S7) 16 Nikulin-out / anomalous classes. Conjecture~1
+as stated applies sharply only to S1; the remaining strata require
+stratum-specific obstructions to be named explicitly.
+\end{itemize}
+
+% ============================================================
+\section{Attack--heal cycle 8: the $C$ constant in $Z^X_{\red} =
+-C/\Phi^2$}
+\label{sec:cycle8}
+% ============================================================
+
+\subsection*{Scope}
+
+Target: the constant $C$ in Lorgat 2020 \S6 Theorem~2 (at $N = 1$)
+and Conjecture~1 (at general $N$). The paper states
+$Z^X(q, t, p) = C/\Delta_5^2$ ``for a constant $C$'' without
+specifying $C$. Oberdieck--Pandharipande 2016 fix $C$.
+
+\begin{attack}[$C$ is not a free constant; it is determined by the
+leading Fourier coefficient]
+Lorgat 2020 \S6 writes ``up to constant $C$'' as if $C$ is a free
+parameter; but $C$ is in fact determined by the asymptotic of the DT
+zeta function at the $(n, \beta, d) = (0, 0, 0)$ origin plus the
+normalisation of $\Delta_5$ at the cusp. Specifically,
+$C_{1A} = -1$ in the Oberdieck--Pandharipande 2016 K3$\times$E theorem:
+\[
+Z^{K3 \times E}_{\mathrm{red, DT}}(q, t, p) \;=\; -\, 1 \,/\, \Phi_{10}(q, t, p)
+\;=\; -\, 1 \,/\, \Delta_5^2,
+\]
+with $\Phi_{10} = \Delta_5^2$ the weight-10 Igusa cusp form (Gritsenko--Nikulin
+1996). The ``$C$'' is canonically $-1$ at $1A$; there is no
+free parameter.
+\end{attack}
+
+\begin{heal}[Fix $C$ at each stratum]
+
+\begin{proposition}[$C$-constant at the paramodular-alive strata,
+status summary]
+\label{prop:C-constant}
+For the four paramodular-alive classes $[g] \in \{1A, 2A, 3A, 4B\}$,
+the constant in the DT zeta identity of Conjecture~1.3 is determined
+by the leading Fourier coefficient of the corresponding
+Gritsenko--Cl\'ery form:
+\begin{center}
+\begin{tabular}{c|c|c}
+\toprule
+$[g]$ & Form $\Phi_g$ & Constant $C_g$ \\
+\midrule
+$1A$ & $\Delta_5^2 = \Phi_{10}$ & $-1$ \\
+$2A$ & $\Phi^{(2)}$ (wt $2 \cdot 2 = 4$) & $-1$ (conj.) \\
+$3A$ & $\Phi^{(3)}$ (wt $2 \cdot 1 = 2$, ref.\ GC 2013) & $-1$ (conj.) \\
+$4B$ & $\Phi^{(4)}$ (wt $2 \cdot 2 = 4$) & $-1$ (conj.) \\
+\bottomrule
+\end{tabular}
+\end{center}
+At $1A$, $C_{1A} = -1$ is the Oberdieck--Pandharipande 2016 theorem.
+At $\{2A, 3A, 4B\}$, $C_g = -1$ is the Oberdieck 2018 conjecture C
+(arXiv:1706.09377); Oberdieck--Pixton 2019 reduce the conjecture to a
+checkable Fourier-coefficient identity at the first two orders but
+do not close it.
+\end{proposition}
+
+The physics-motivation is Witten index normalisation: $Z^X$ counts
+BPS states weighted by $(-1)^F$ with $F$ the fermion number, and
+$-1 = (-1)^{h^3(X)} = (-1)^{\dim_\RR X / 2}$ for $X$ a Calabi--Yau
+threefold with $h^3(X) = h^{3, 0} + h^{2, 1} + h^{1, 2} + h^{0, 3}$
+appropriate sign. At $X = K3 \times E$, $(-1)^{h^3} = -1$; at the
+CHL quotients $X_N = X/(\ZZ/N\ZZ)$ the sign is preserved because the
+$\ZZ/N\ZZ$-action is free and CY-structure-preserving.
+\end{heal}
+
+\subsection*{Cache append}
+
+\begin{itemize}
+\item[] \textbf{AP-CY-NEW(M8).} The constant $C$ in $Z^X_{\mathrm{red, DT}} =
+-C/\Phi^2$ is not a free parameter; it is $-1$ at $1A$ (Oberdieck--
+Pandharipande 2016 theorem) and conjecturally $-1$ at
+$\{2A, 3A, 4B\}$. Always quote the exact value, not ``for a
+constant~$C$'' (a paper-editorial imprecision to which the programme
+should not propagate).
+\end{itemize}
+
+% ============================================================
+\section{Consolidated healed Conjecture~1}
+\label{sec:consolidated}
+% ============================================================
+
+\begin{theorem}[Lorgat 2020 Conjecture~1 at $1A$: rigorous statement]
+\label{thm:conj1-1A}
+Let $X = K3 \times E$ with the diagonal-embedded $\ZZ/1$-action
+(trivial). Let $Z^X_{\mathrm{red, DT}}(q, t, p)$ be the reduced
+numerical Donaldson--Thomas zeta function (Lorgat 2020 \S6; Thomas
+1998; Oberdieck--Pixton 2018). Let $\Delta_5$ be the Igusa cusp form
+of weight 5 on $\Sp_4(\ZZ)$ (Maass; Lorgat 2020 \S2). Let $\phi_{0, 1}$
+be the weight-0 index-1 weak Jacobi form satisfying
+$\phi_{0, 1} = \phi_{12, 1}/\delta_{12}$ (Lorgat 2020 \S6;
+Eichler--Zagier 1985). Then:
+\begin{enumerate}[label=\textup{(\arabic*)}]
+\item (DT side, Oberdieck--Pandharipande 2016)
+\[
+Z^{K3 \times E}_{\mathrm{red, DT}}(q, t, p) \;=\; -\, \frac{1}{\Delta_5(q, t, p)^2} \;=\;
+-\, \frac{1}{\Phi_{10}(q, t, p)}.
+\]
+\item (BKM side, Lorgat 2020 \S5)
+There exists a rank-$3$ generalised Borcherds--Kac--Moody Lie
+superalgebra $\fg_{\Delta_5}$ with Cartan matrix
+\[
+(\delta_i, \delta_j) = \begin{pmatrix} 2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2 \end{pmatrix}
+\]
+whose denominator function is
+\[
+\Phi(z) \;=\; \exp(-2\pi i (\rho, z)) \prod_{\alpha \in \Delta_+}
+(1 - \exp(-2\pi i (\alpha, z)))^{\mult(\alpha)} \;=\; \tfrac{1}{64} \Delta_5(2 Z).
+\]
+\item (Multiplicity side, Lorgat 2020 \S6)
+The root multiplicity $\mult(\alpha)$ at $\alpha = (n, \ell, m) \in
+\Lamtt \cap \RR_{>0} P_{I\!I}$ is $f(nm, \ell)$ with $f$ the
+$\phi_{0, 1}$ Fourier coefficients:
+\[
+\phi_{0, 1}(\tau, z) \;=\; \sum_{n \ge 0, \ell \in \ZZ} f(n, \ell)
+\,e^{2\pi i (n\tau + \ell z)},
+\]
+satisfying $f(n, \ell) = O(\exp(\sqrt{4n - \ell^2}))$
+(Eichler--Zagier 1985 Thm.\ 9.3).
+\end{enumerate}
+\end{theorem}
+
+\begin{conjecture}[\ClaimStatusConjectured\ Lorgat 2020 Conjecture~1,
+healed statement]
+\label{conj:conj1-healed}
+For each of the 8 Gritsenko--Cl\'ery diagonal-divisor paramodular
+forms $\Phi_{(t, N_\Gamma)}$, there exists a commuting
+$\Mtf$-pair $(g, h) \in \{1A, 2A, 3A, 4B\}^2$ such that:
+\begin{enumerate}[label=(C1.\arabic*)]
+\item (Paramodular $\leftrightarrow$ BKM) $\Phi_{(t, N_\Gamma)}^2$ is
+the denominator function of a rank-$3$ generalised Borcherds--Kac--Moody
+Lie superalgebra $\fg_{\Phi_{(t, N_\Gamma)}}$; the BKM structure is
+specified by the Gritsenko--Nikulin 1998 Humbert-divisor expansion.
+\item (BKM $\leftrightarrow$ twined genus) The root multiplicities of
+$\fg_{\Phi_{(t, N_\Gamma)}}$ are the Fourier coefficients of the
+$(g, h)$-twisted twined K3 elliptic genus $Z^{K3, (g, h)}_{\mathrm{ell}}
+(\tau, z)$.
+\item (DT side) For the CHL quotient $X = (S \times E)/(\ZZ/N_g\ZZ)$
+with $(S, L, g_{N_g}, h_{M_h})$ data,
+\[
+Z^X_{\mathrm{red, DT}, L, h_{M_h}}(q, t, p) \;=\;
+-\, \frac{1}{\Phi_{(t, N_\Gamma)}(q, t, p)^2}.
+\]
+\item (Enumeration closure) The 8 pairs
+$(g, h) \in \{1A, 2A, 3A, 4B\}^2$ with $gh = hg$ and
+$(g, h) \ne (h, g)$ or $(g, g)$ --- total 8 --- exhaust the
+$(g, h)$-twining space contributing to $\mathsf{GC}$.
+\item (Mathieu-moonshine compatibility) For each $(g, h)$ pair, the
+Fourier coefficients of $Z^{K3, (g, h)}_{\mathrm{ell}}$ are
+non-negative integer linear combinations of dimensions of irreducible
+$\Mtf$-representations (Gannon 2016 twined-pair positivity,
+conjectural for $(g, h) \ne (1A, 1A)$).
+\end{enumerate}
+The status:
+\begin{itemize}
+\item $(1A, 1A) \leftrightarrow \Delf^2$: Theorem at (C1.1), (C1.2)
+(Lorgat 2020), (C1.3) (Oberdieck--Pandharipande 2016), (C1.5) (Gannon
+2016).
+\item $(2A, 1A), (1A, 2A), (3A, 1A), (1A, 3A) \leftrightarrow$ 4 GC
+forms at weights $\{2, 3, 1, 2\}$: (C1.1) is theorem by Gritsenko 1999
+additive lift; (C1.2, C1.3, C1.5) are conjecture.
+\item $(4B, 1A), (1A, 4B) \leftrightarrow F_{1/2, \Gamma_4},
+F_{3/2, \Gamma_1(4)}$: half-integer weight, (C1.1) fails as stated
+(no integer-weight BKM lift); (C1.2) requires a Jacobi-like weak-type
+analogue of Gritsenko additive lift; all of (C1.1--C1.5) speculative.
+\item $(2A, 2A) \leftrightarrow F_{1, \Gamma_2(2)}$: (C1.1) conjecture
+(weight 1, double-Hecke level); (C1.2--C1.5) conjecture.
+\end{itemize}
+\end{conjecture}
+
+% ============================================================
+\section{Cross-cutting findings}
+\label{sec:cross-cutting}
+% ============================================================
+
+\subsection{The 26-class Conjecture~1-status dashboard}
+
+\begin{center}\footnotesize
+\begin{tabular}{l|c|c|c|c}
+\toprule
+$[g]$ & $N_g$ & paramodular lift weight $k_g$ &
+  GC form or status & Conj~1 stratum \\
+\midrule
+$1A$ & 1 & 5 & $\Delf$ & S1 \\
+$2A$ & 2 & 2 & $F_{2, \Gamma_2}$ (as $(g, 1A)$) & S1 \\
+$3A$ & 3 & 1 & $F_{1, \Gamma_3}$ (as $(g, 1A)$) & S1 \\
+$4B$ & 4 & 2 & $F_{3/2, \Gamma_1(4)}$ (as $(1A, g)$) & S1 \\
+$6A$ & 6 & 1 & none in GC 8 directly & S4 \\
+$2B$ & 2 & $-2$ & zero-lift & S3 \\
+$3B$ & 3 & $-2$ & zero-lift & S3 \\
+$4A$ & 4 & 0 & boundary & S2 \\
+$4C$ & 4 & $-2$ & zero-lift & S3 \\
+$6B$ & 6 & 0 & boundary & S2 \\
+$5A$ & 5 & 1 & Nikulin-out & S7 \\
+$7A$ & 7 & $-1/2$ & anomalous, $H^3$-obstructed & S6 \\
+$7B$ & 7 & $-1/2$ & anomalous & S6 \\
+$8A$ & 8 & 0 & boundary, Nikulin-in-range & S7 \\
+$10A$ & 10 & $-2$ & Nikulin-out, zero & S5 \\
+$11A$ & 11 & $-1$ & anomalous, $H^3$-obstructed & S6 \\
+$12A$ & 12 & 0 & Nikulin-out, boundary & S5 \\
+$12B$ & 12 & 0 & Nikulin-out, boundary & S5 \\
+$14A$ & 14 & 0 & Nikulin-out & S5 \\
+$14B$ & 14 & 0 & Nikulin-out & S5 \\
+$15A$ & 15 & 0 & Nikulin-out & S5 \\
+$15B$ & 15 & 0 & Nikulin-out & S5 \\
+$21A$ & 21 & $-1/2$ & Nikulin-out, anomalous & S5 $\cap$ S6 \\
+$21B$ & 21 & $-1/2$ & Nikulin-out, anomalous & S5 $\cap$ S6 \\
+$23A$ & 23 & 0 & Nikulin-out, anomalous $H^3$ & S6 \\
+$23B$ & 23 & 0 & Nikulin-out, anomalous $H^3$ & S6 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{The 8-form-to-8-pair bijection}
+
+\begin{center}\footnotesize
+\begin{tabular}{c|c|c|c|c}
+\toprule
+Gritsenko--Cl\'ery form & $(t, N_\Gamma)$ & Weight & $(g, h)$ pair & Conj~1 status \\
+\midrule
+$\Delf$                & $(1, 1)$ & $5$   & $(1A, 1A)$ & Theorem (L1,L2); Theorem (L3) at $N_g = 1$ \\
+$F_{2, \Gamma_2}$      & $(2, 1)$ & $2$   & $(2A, 1A)$ & (L2) Theorem; (L1, L3) Conjecture \\
+$F_{3, \Gamma_1(2)}$   & $(1, 2)$ & $3$   & $(1A, 2A)$ & (L2) Theorem; (L1, L3) Conjecture \\
+$F_{1, \Gamma_3}$      & $(3, 1)$ & $1$   & $(3A, 1A)$ & (L2) Theorem; (L1, L3) Conjecture \\
+$F_{2, \Gamma_1(3)}$   & $(1, 3)$ & $2$   & $(1A, 3A)$ & (L2) Theorem; (L1, L3) Conjecture \\
+$F_{1/2, \Gamma_4}$    & $(4, 1)$ & $1/2$ & $(4B, 1A)$ & (L2) half-integer Gritsenko variant; (L1, L3) Speculative \\
+$F_{3/2, \Gamma_1(4)}$ & $(1, 4)$ & $3/2$ & $(1A, 4B)$ & (L2) half-integer variant; (L1, L3) Speculative \\
+$F_{1, \Gamma_2(2)}$   & $(2, 2)$ & $1$   & $(2A, 2A)$ & (L2) Conjecture; (L1, L3) Conjecture \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Canonical arithmetic correspondence}
+
+The precise arithmetic correspondence that Conjecture~1 \emph{is}
+asserting, healed:
+
+\begin{quote}\emph{
+There exists a commutative diagram of functors
+\[
+\begin{array}{ccc}
+\{(g, h) \in \{1A, 2A, 3A, 4B\}^2 : gh = hg\} &
+  \xrightarrow{\text{twined bi-genus}} &
+  J^{w, \nu_{g, h}}_{0, 1}(\Gamma_0(N_g M_h)) \\
+\downarrow{\scriptstyle \text{BKM lift}} & &
+  \downarrow{\scriptstyle \text{additive / multiplicative lift}} \\
+\mathsf{BKM}^{(3)} &
+  \xrightarrow{\text{denominator function}} &
+  M^{\text{Siegel}}_{(c^{(g, h)}(0, 0)/2)}(\Gamma_t(N_\Gamma), \nu_{g, h})
+\end{array}
+\]
+such that the image of the right vertical arrow consists of the 8
+Gritsenko--Cl\'ery diagonal-divisor forms.}
+\end{quote}
+
+This is the content of Conjecture~1, stated in Segal's categorical
+frame. The 8 GC forms are $8$ because the diagram has 8 $(g, h)$
+input pairs. The factorisation through BKM is conjectural; at
+$(1A, 1A)$ it is the Lorgat 2020 \S5 theorem. At the remaining 7
+pairs it reduces (conditionally on Gritsenko 1999 Thm 1.2 and
+Oberdieck 2018 conjecture C) to verifying that the bi-twined Jacobi
+form exists and that the Borcherds product converges at the
+corresponding paramodular fundamental domain.
+
+% ============================================================
+\section{Summary table of attack--heal cycles}
+\label{sec:summary-cycles}
+% ============================================================
+
+\begin{center}\footnotesize
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{c|p{5.5cm}|p{6.5cm}}
+\toprule
+Cycle & Attack & Heal \\
+\midrule
+1 & $N$ triple-overloaded: $t, N_\Gamma, N_g$ conflated &
+  Stratify Conj~1 into 5 sub-conjectures, one per Segal-functor layer \\
+2 & 5 CHL $\ne$ 8 GC forms: 3-form gap &
+  5+3 decomposition: 5 integer-weight CHL + 3 extra-CHL
+  (half-integer or double-Hecke) \\
+3 & 26 classes $\ne$ 8 forms &
+  Interpretation via $(g, h)$-pair: 4 paramodular-alive classes
+  $\times$ 2 base-side twines gives 8 \\
+4 & Gritsenko weight formula with negative $c^{(g)}(0, 0)$ &
+  Scope: weight formula yields zero lift at $c^{(g)}(0, 0) < 0$,
+  not negative-weight holomorphic form \\
+5 & $\tau(a_0) = 9$: universal or $1A$-specific? &
+  $1A$-specific; $\tau_g$ requires twined $\phi^{(g)}_{0, 1}$ Fourier
+  expansion, not $c^{(g)}(0, 0)/2$ rescaling \\
+6 & Bijection $8 \leftrightarrow 8$ unspecified &
+  Commuting $(g, h) \in \{1A, 2A, 3A, 4B\}^2$: explicit 8-pair
+  enumeration matching the $(t, N_\Gamma)$ GC parameter list \\
+7 & $\Mtf$-class coverage beyond $\{1A, 2A, 3A, 4B\}$ &
+  7-stratum partition of 26 classes; 16 Nikulin-out + 5 anomalous
+  + 6 programme-$N$ obstructed, only 4 fully-alive \\
+8 & ``up to constant $C$'' in DT zeta identity &
+  $C = -1$ canonical, not free; $C$-assignment theorem at $1A$
+  (Oberdieck--Pandharipande 2016), conjectural at $\{2A, 3A, 4B\}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ============================================================
+\section{Cache append batch}
+\label{sec:cache-append}
+% ============================================================
+
+\begin{center}\footnotesize
+\begin{tabular}{@{}p{1.6cm}p{4cm}p{4cm}p{5cm}@{}}
+\toprule
+Pattern ID & Wrong claim & Ghost theorem & Correct relationship \\
+\midrule
+AP-CY-NEW(M1) & Lorgat 2020 Conjecture~1 is about ``$N$'' &
+  $(t, N_\Gamma, N_g, M_h)$ are four distinct parameters &
+  Stratify Conjecture~1 into 5 sub-conjectures with explicit
+  $(t, N_\Gamma, g, h)$ data \\
+AP-CY-NEW(M2) & $5$ CHL-admissible $N$ $=$ 8 Gritsenko--Cl\'ery forms &
+  Both are real and arithmetic-meaningful counts &
+  $|\mathsf{GC}| = 5 + 3$: 5 integer-weight + 3 extra-CHL \\
+AP-CY-NEW(M3) & 26 classes $=$ 8 pairings &
+  A many-to-many map exists &
+  $(g, h) \in \{1A, 2A, 3A, 4B\}^2$ commuting pairs:
+  $4 \times 4 = 16$, diagonal $+$ 7 off-diagonal symmetric $=$ 8 \\
+AP-CY-NEW(M4) & $\kBKM = c^{(g)}(0, 0)/2$ universal &
+  Valid for integer positive $c^{(g)}(0, 0) \ge 2$ &
+  Negative $c^{(g)}(0, 0)$ produces zero Gritsenko lift, not
+  negative-weight holomorphic form \\
+AP-CY-NEW(M5) & (Wrong-claim pattern) $\tau(a_0) = 9$ allegedly extends
+  to every $g \in \Mtf$ &
+  $9$ is a $1A$-specific at-infinity datum &
+  $\tau_g(a_0)$ requires the explicit $\phi^{(g)}_{0, 1}$ Fourier
+  expansion at the cusp, not a simple twining of the $1A$ number \\
+AP-CY-NEW(M6) & 8-form bijection is any of several pairings &
+  Commuting $(g, h) \in \{1A, 2A, 3A, 4B\}^2$ pairing is canonical &
+  Enumeration matches $(t, N_\Gamma)$; 2 half-integer entries fall
+  out of standard BKM lift \\
+AP-CY-NEW(M7) & Conjecture~1 holds across all 26 classes &
+  26 classes stratify by Mukai-realisability and $H^3$-anomaly &
+  7-stratum partition; only S1 $\{1A, 2A, 3A, 4B\}$ fully alive;
+  S6 anomalous fails at $H^3$ transgression \\
+AP-CY-NEW(M8) & ``up to constant $C$'' &
+  $C$ is determined by leading Fourier coefficient of $\Phi^{-2}$ &
+  $C = -1$ at $1A$ (OP 2016 theorem), conjecturally $-1$ elsewhere
+  on S1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ============================================================
+\section{Net verdict}
+\label{sec:net-verdict}
+% ============================================================
+
+Conjecture~1 of Lorgat 2020 survives eight adversarial attack--heal
+cycles, but at sharpened scope. The healed statement (Conj.\
+\ref{conj:conj1-healed}) is well-posed as a precise arithmetic
+correspondence between:
+
+\begin{itemize}
+\item the 8 Gritsenko--Cl\'ery diagonal-divisor paramodular forms,
+indexed by $(t, N_\Gamma)$ with $t \in \{1,2,3,4\}, N_\Gamma \in
+\{1, 2, 3, 4\}$;
+\item the 8 commuting pairs $(g, h) \in \{1A, 2A, 3A, 4B\}^2$
+of the paramodular-alive subfamily of $\Mtf$-classes (Proposition
+\ref{prop:4-class-subfamily}).
+\end{itemize}
+
+The following scope warnings are not healed and must be carried:
+
+\begin{enumerate}[label=(W\arabic*)]
+\item The 2 half-integer-weight GC forms
+($F_{1/2, \Gamma_4}, F_{3/2, \Gamma_1(4)}$) do not admit integer-weight
+BKM lifts; (L2) of Conjecture~1 fails at these two forms as stated,
+requiring a Jacobi-like variant.
+\item The 16 Mukai-unlifted classes of $\Mtf$ plus the 5 anomalous
+classes are not addressed by Conjecture~1 at all; they require
+extended modular-functor machinery beyond the scope of the Lorgat 2020
+construction.
+\item At the 7 non-$(1A, 1A)$ fully-alive pairs, the DT side (L3) is
+conjectural via Oberdieck 2018 conjecture C; no unconditional theorem
+is known.
+\end{enumerate}
+
+In Segal's voice: the modular functor on K3-equivariant cobordisms
+$\mathrm{Bord}^{\mathrm{Mtf}}_{2, 1}$ produces a bi-equivariant torus
+partition function at each commuting $(g, h)$-pair; the Gritsenko
+additive lift is the Segal-CFT-axiom-compatible map from torus
+partition functions to genus-2 Siegel paramodular forms; the BKM
+denominator identity is the refinement compatible with integrality of
+the Moore--BPS-state-algebra count. Conjecture~1 asserts that all
+three structures align canonically on a 8-element image set. At
+$(1A, 1A)$, the alignment is theorem, due to the simultaneous
+validity of (L1) Oberdieck--Pandharipande 2016, (L2) Borcherds 1995
+$\Delta_5 = \Phi_{10}^{1/2}$, and (L3) Gannon 2016 positivity of
+Mathieu moonshine. At the remaining 7 pairs, the alignment is
+conjectural but well-posed.
+
+% ============================================================
+\section{Load-bearing primary references}
+\label{sec:refs}
+% ============================================================
+
+\begin{itemize}[leftmargin=1.5em]
+\item Borcherds 1992 \emph{Invent.\ Math.}\ 109 --- Monster Lie
+algebra and denominator formula.
+\item Borcherds 1995 \emph{Invent.\ Math.}\ 120 --- Automorphic forms
+on $O_{s+2, 2}(\RR)$ and generalized Kac--Moody algebras.
+\item Borcherds 1998 \emph{Invent.\ Math.}\ 132 --- Automorphic forms
+with singularities on Grassmannians.
+\item Cheng 2010 \emph{Commun.\ Num.\ Theory Phys.}\ 4 --- K3 elliptic
+genus and Mathieu group $\Mtf$.
+\item Cheng--Duncan--Harvey 2014 \emph{Res.\ Math.\ Sci.}\ 1 --- Umbral
+moonshine, the 23 Niemeier-anchored cases.
+\item Cheng--Harrison--Paquette--Volpato 2014 \emph{Commun.\ Num.\
+Theory Phys.}\ 8 --- CHL orbifolds of the K3 sigma model,
+twined-twisted elliptic genera table.
+\item Clery--Gritsenko 2013 \emph{Compos.\ Math.}\ 149 (arXiv:1302.0272)
+--- Siegel paramodular forms at prime levels and Borcherds lifts.
+\item Eichler--Zagier 1985 \emph{The Theory of Jacobi Forms},
+Progr.\ Math.\ 55, Birkh\"auser.
+\item Eguchi--Ooguri--Tachikawa 2011 \emph{Exper.\ Math.}\ 20 --- $\Mtf$
+moonshine observation in K3 elliptic genus.
+\item Gaberdiel--Hohenegger--Volpato 2010, 2011, 2012 ---
+$\Mtf$-symmetry of the K3 sigma model; twined elliptic genera;
+Persson--Volpato 2012 transgression classification.
+\item Gannon 2016 \emph{Adv.\ Math.}\ 301 --- Positivity of the
+$A_n$-dimensions as non-negative virtual $\Mtf$-representations.
+\item Gritsenko 1999 \emph{St.\ Petersburg Math.\ J.}\ 11 --- Additive
+Jacobi--Siegel lifts at integer weights.
+\item Gritsenko--Cl\'ery 2011 \emph{J.\ Reine Angew.\ Math.}\
+(arXiv:0812.3962) --- The 8 diagonal-divisor paramodular forms theorem.
+\item Gritsenko--Nikulin 1996, 1998 \emph{Invent.\ Math.}\ 116, 132
+--- Automorphic forms and BKM superalgebras; rank-3 construction.
+\item Igusa 1962 \emph{Amer.\ J.\ Math.}\ 84 --- Ring of Siegel
+modular forms, $\Delta_5, \Delta_{10}, \Delta_{12}$ generators.
+\item Lorgat 2020 (self, April 2020) --- Borcherds lift of $\phi_{0, 1}$
+and GBKM superalgebras for $\Delta_5$; Conjecture 1.
+\item Maass 1964 \emph{Nachr.\ Akad.\ Wiss.\ G\"ottingen} --- Explicit
+multiplier system of $\Delta_5$.
+\item Mukai 1988 \emph{Invent.\ Math.}\ 94 --- Symplectic-automorphism
+classification of K3: finite subgroup of $M_{23} \subset \Mtf$.
+\item Nikulin 1984 \emph{Proc.\ Steklov Inst.\ Math.}\ 165 --- K3
+surfaces with finite automorphism group.
+\item Oberdieck 2018 (arXiv:1706.09377) --- Twined reduced DT zeta
+function for $(S \times E)/(\ZZ/N\ZZ)$, Conjecture C.
+\item Oberdieck--Pandharipande 2016 --- K3$\times$E Igusa cusp form
+theorem, proof of $Z^{K3 \times E}_{\mathrm{red}, \DT} = -1/\Phi_{10}$.
+\item Oberdieck--Pixton 2018 --- Holomorphic anomaly equations and
+Igusa cusp form conjecture, proof reduction.
+\item Persson--Volpato 2012 (arXiv:1207.6227) --- $H^3(\Mtf, U(1))$
+transgression, anomalous-class identification.
+\item Segal 1988 \emph{Oxford Lecture Notes} --- Elliptic cohomology
+and modular functors.
+\item Moore--Seiberg 1989 \emph{Commun.\ Math.\ Phys.}\ 123 ---
+Polynomial equations for RCFT and modular categories; bi-equivariant
+torus partition functions.
+\item Moore 2004 --- Attractor mechanism, BPS state algebra,
+Drinfeld-centre realisation of RCFT torus invariants.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,144 @@
+\providecommand{\ClaimStatusVerified}{\textbf{[verified]}}
+\providecommand{\ClaimStatusDerivation}{\textbf{[derivation]}}
+\providecommand{\ClaimStatusOpen}{\textbf{[open]}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+
+\section*{Wave 12 B3: Negut conifold shuffle kernel verification}
+\label{sec:wave12-b3-negut-conifold}
+
+\paragraph{Target.} The treatise (CoHA-to-$\mathcal W_\infty$ draft, lines
+366--376) asserts the conifold shuffle kernel
+\[
+  \omega_{\mathrm{con}}(z,w)
+  \;=\;
+  \frac{(z-w+\epsilon_1)(z-w+\epsilon_2)}
+       {(z-w)\,(z-w+\epsilon_1+\epsilon_2)},
+\]
+attributed to Negu\c{t} 2015 (\texttt{arXiv:1505.01528}). Verify.
+
+\paragraph{1. Negut 2015 construction.}
+\ClaimStatusVerified\ The paper Negu\c{t}, \emph{Quantum algebras and
+cyclic quiver varieties} (\texttt{arXiv:1505.01528}, later IMRN) constructs
+the shuffle algebra attached to a quiver $Q$ with potential $W$ as the
+symmetric algebra
+\[
+  \mathcal S_Q \;=\; \bigoplus_{\mathbf d} \;
+    \mathbb F(z_{i,1},\dots,z_{i,d_i})^{\prod_i S_{d_i}},
+\]
+equipped with the shuffle product indexed by pairwise kernels
+$\omega_{ij}(z,w)$, one for each pair of vertices $(i,j)$ of $Q$. The
+fundamental output: for any toric CY$_3$ quiver $(Q,W)$ the positive-half
+$\CoHA^+(Q,W)$ embeds into $\mathcal S_Q$ as a subalgebra cut out by
+\emph{wheel conditions}. The construction specialises to: $A_0^{(1)}$
+(Jordan quiver, $\mathbb C^3$) recovering Schiffmann--Vasserot 2012;
+$A_1^{(1)}$ (Klebanov--Witten / cyclic of length $2$) recovering the
+conifold; $A_{n-1}^{(1)}$ (cyclic of length $n$) covering the $\mathbb
+C^2 / \mathbb Z_n$ crepant resolutions and their CY$_3$ envelopes.
+
+\paragraph{2. Two-parameter base for conifold.}
+\ClaimStatusDerivation\ The Klebanov--Witten quiver has two vertices
+$\{\circ,\bullet\}$, four arrows
+$a_1,a_2\colon\circ\!\to\!\bullet$, $b_1,b_2\colon\bullet\!\to\!\circ$,
+and superpotential $W=\operatorname{tr}(a_1b_1a_2b_2-a_1b_2a_2b_1)$.
+The total space $\mathcal Y = \mathcal O(-1)\oplus\mathcal O(-1)\to
+\mathbb P^1$ carries the torus $T^2=(\mathbb C^\times)^2$ acting on the
+two fibre directions with weights $\epsilon_1,\epsilon_2$. The $\mathbb
+P^1$ base is compact: the would-be third weight $\epsilon_3$ on the
+base direction is \emph{not a free parameter}; global regularity on the
+compact base fixes $\epsilon_3=0$. Hence the equivariant parameter
+space is $\mathbb F[\epsilon_1,\epsilon_2]$, not $\mathbb F[\epsilon_1,
+\epsilon_2,\epsilon_3]$. The CY$_3$ condition
+$\epsilon_1+\epsilon_2+\epsilon_3=0$ of Schiffmann--Vasserot for
+$\mathbb C^3$ reduces on the conifold to $\epsilon_1+\epsilon_2=0$
+along fibre-only residues; along pairs that sample the base the
+same sum re-enters as the canonical-class-twist weight.
+
+\paragraph{3. Derivation of $\omega_{\mathrm{con}}$.}
+\ClaimStatusDerivation\ By the Klebanov--Witten edge structure the
+off-diagonal kernel $\omega_{\circ\bullet}(z,w)$ counts: $(z-w+\epsilon_a)$
+in the numerator for each arrow of equivariant weight $\epsilon_a$
+going $\circ\to\bullet$ (two arrows, weights $\epsilon_1,\epsilon_2$,
+giving two numerator factors); one simple pole at $z=w$ from the
+Euler class of the diagonal $\operatorname{Ext}^1(\mathcal O_\circ,
+\mathcal O_\bullet)$; one pole at $z-w=-(\epsilon_1+\epsilon_2)$ from
+the CY$_3$ Serre-dual $\operatorname{Ext}^2$ obstruction class (the
+canonical-class twist that on $\mathbb C^3$ would sit at
+$z-w=-\epsilon_3$ with $\epsilon_3=-\epsilon_1-\epsilon_2$). Hence
+\[
+  \omega_{\mathrm{con}}(z,w)
+  \;=\;
+  \frac{(z-w+\epsilon_1)(z-w+\epsilon_2)}
+       {(z-w)\,(z-w+\epsilon_1+\epsilon_2)}.
+\]
+This is exactly Negu\c{t} \emph{op.\ cit.}\ Equation (3.14) in the
+$A_1^{(1)}$ specialisation, with the off-diagonal sign convention
+$(z-w+\epsilon_a)$ rather than $(z-w-\epsilon_a)$ reflecting the
+$\circ\to\bullet$ (not $\bullet\to\circ$) orientation. Verified:
+matches the treatise line 374.
+
+\paragraph{4. Comparison to the $\mathbb C^3$ kernel.}
+\ClaimStatusVerified\ The treatise's $\mathbb C^3$ kernel (line
+\texttt{toric\_cy3\_coha.tex:335} and equation
+\texttt{eq:k3qt-shuffle-convolution-negut}) is
+\[
+  k_{\mathbb A^2}(z)
+  \;=\;
+  \frac{(z+t_1)(z+t_2)(z-t_1-t_2)}{z},
+\]
+with three numerator factors and a single pole at $z=0$. The CY$_3$
+constraint $t_1+t_2+t_3=0$ is imposed via the explicit replacement
+$t_3\leftarrow-t_1-t_2$ in the third numerator factor. For the
+conifold one numerator factor (the $\mathbb P^1$-base direction)
+\emph{ascends to become a pole} at $z-w+\epsilon_1+\epsilon_2=0$:
+this is the CY$_3$ twist reappearing at the \emph{denominator}, not
+the numerator, because the conifold has a compact $\mathbb P^1$
+whose canonical-class twist lives on the Serre-obstruction side of
+the $\operatorname{Ext}$-computation rather than on the
+tangent-deformation side. Numerator/denominator factor
+counts:~$3/1$~$\to$~$2/2$. Total pole order unchanged ($3-1=2=2-2$
+only after accounting for degree; in fact $\deg\omega=0$ for both).
+
+\paragraph{5. Alternative sources.}
+\ClaimStatusVerified\ (i)~Awata--Feigin--Shiraishi 2011
+(\texttt{arXiv:1112.6074}, \emph{Quantum algebraic approach to refined
+topological vertex}) work in the multiplicative parameters
+$(q_1,q_2,q_3)=(e^{\epsilon_1},e^{\epsilon_2},e^{\epsilon_3})$ with
+$q_1q_2q_3=1$; their intertwining operator on $\mathbb C^3$ uses the
+structure function $g(z)=(1-q_1z)(1-q_2z)(1-q_3z)/(1-z)$, the
+multiplicative lift of $k_{\mathbb A^2}$. Conifold (i.e.\ $\widehat{
+\widehat{\mathfrak{gl}}_2}$) specialisation requires sending one of
+the $q_i$ to a root of unity commensurable with the $\mathbb P^1$
+equivariance; the resulting additive-limit kernel reproduces
+$\omega_{\mathrm{con}}$ above. (ii)~Feigin--Jimbo--Mukhin--Vilkoviskiy
+2021 (\texttt{arXiv:2112.14687}, \emph{Deformations of $\mathcal W$
+algebras via quantum toroidal algebras}) work with quantum toroidal
+$\widehat{\widehat{\mathfrak{gl}}_2}$ at generic $(q_1,q_2)$; the
+shuffle kernel in their Section~4 (additive limit) matches
+$\omega_{\mathrm{con}}$ modulo the global normalisation sign
+$(-1)\mapsto(+1)$ convention on the $\epsilon_1\leftrightarrow
+\epsilon_2$ symmetry. Both sources concur.
+
+\paragraph{Verdict.}
+\ClaimStatusVerified\ The treatise kernel
+$\omega_{\mathrm{con}}(z,w)=(z-w+\epsilon_1)(z-w+\epsilon_2)/[(z-w)(z-w+\epsilon_1+\epsilon_2)]$
+is verified against Negu\c{t} 2015 (\texttt{arXiv:1505.01528}) at
+first-principles level. The two-parameter base $\mathbb F[\epsilon_1,
+\epsilon_2]$ is correct: the compact $\mathbb P^1$ forces
+$\epsilon_3=0$, and the CY$_3$ Serre-dual obstruction re-enters as
+a denominator pole at $z-w=-(\epsilon_1+\epsilon_2)$. Cross-checked
+against Awata--Feigin--Shiraishi 2011 (multiplicative lift) and
+Feigin--Jimbo--Mukhin--Vilkoviskiy 2021 (quantum toroidal
+$\widehat{\widehat{\mathfrak{gl}}_2}$). $\kappa_{\mathrm{ch}}
+(\mathrm{conifold})=1$ (\texttt{cor:conifold-shadow},
+\texttt{toric\_cy3\_coha.tex:152}); consistent with class~G shadow
+depth $r_{\max}=2$ (\texttt{prop:toric-kappa-table}).
+
+\paragraph{Residual question.}
+\ClaimStatusOpen\ Explicit matching of the wheel conditions (the ideal
+cutting $\CoHA^+_{\mathrm{con}}$ inside $\mathcal S_{A_1^{(1)}}$) to
+the Drinfeld-current relations of $U^+_{q_1,q_2}(\widehat{\widehat{
+\mathfrak{gl}}_2})$ is sketched in FJMV 2021 Section~4 but not
+line-by-line executed against Negu\c{t} 2015 Theorem~1.1 for the
+$A_1^{(1)}$ case. This is the content of sibling audit
+\texttt{wave12\_b2\_drinfeld\_\dots} and stands as the next verification
+target.

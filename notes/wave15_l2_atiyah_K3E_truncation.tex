@@ -1,0 +1,189 @@
+% wave15_l2_atiyah_K3E_truncation.tex
+% Wave-15 L2/20: Explicit Atiyah class of K3 x E and the L-infinity minimal-model truncation.
+% Voices: Kapranov + Kontsevich.
+% Five attack--heal cycles. No AI attribution. Do not commit.
+
+\providecommand{\At}{\mathrm{At}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Td}{\mathrm{Td}}
+\providecommand{\ch}{\mathrm{ch}}
+\providecommand{\dbar}{\bar\partial}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cK}{\mathcal{K}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+
+\section*{Atiyah class of $K3 \times E$ and $L_\infty$ truncation (Wave-15 L2/20)}
+
+\paragraph{Object.}
+Let $X = K3 \times E$ with projections $p_1, p_2$. The Atiyah class
+(Atiyah 1957 \emph{Trans.\ AMS}~85, Thm~2) is the extension class
+\[
+  0 \to \Omega^1_X \otimes TX \to J^1(TX) \to TX \to 0,
+  \qquad
+  \At(TX) \in H^1(X,\, \Omega^1_X \otimes \End(TX)),
+\]
+of the first-jet bundle of $TX$. Kapranov 2001 \emph{Compositio}~115,
+Thm~2.6 identifies $\At(TX)$ with the quadratic $L_\infty$-bracket
+$\mu_2$ of the Kapranov $L_\infty$-algebra on
+$T_X[-1] = \Omega^{0,\bullet}(X, TX)[-1]$, whose higher brackets
+$\mu_n$ are iterated Atiyah cup-products and whose Maurer--Cartan
+locus is the formal neighbourhood of $X$ in its deformation space
+(Kapranov \S4.3--4.6). Costello 2011 \emph{RenormalisationAndEFT} Ch.~5,
+Thm~5.0.1 realises the same class as the one-loop BV obstruction for
+holomorphic Chern--Simons on $X$.
+
+\paragraph{Cycle 1: K\"unneth decomposition of $\At(T(K3 \times E))$.}
+\emph{Attack.}
+For a product $X = Y_1 \times Y_2$ the tangent bundle splits as
+$TX = p_1^* TY_1 \oplus p_2^* TY_2$ and the first-jet sequence splits
+into the direct sum of the pulled-back first-jet sequences of each
+factor tensored with $\Omega^1$-contributions from the other factor.
+Naturality of $\At$ under pull-back (Atiyah 1957 \S 4) and the
+K\"unneth K\"ahler isomorphism yield
+\[
+  \At(T(K3 \times E)) \;=\; p_1^* \At(TK3) \otimes 1
+  \;\oplus\; 1 \otimes p_2^* \At(TE)
+  \;\in\; H^1(X, \Omega^1_X \otimes \End(TX)).
+\]
+\emph{Heal.}
+The sum is a direct sum in $\End(TX) = \End(p_1^*TK3) \oplus
+\End(p_2^*TE) \oplus p_1^* T^\vee K3 \otimes p_2^* TE \oplus
+p_1^* TK3 \otimes p_2^* T^\vee E$; the mixed off-diagonal blocks are
+zero because the jet extensions are pulled back from each factor
+separately and do not mix. Thus $\At(TX)$ is block-diagonal in the
+$\End(p_1^*TK3) \oplus \End(p_2^*TE)$ decomposition, with the two
+diagonal entries $p_1^* \At(TK3)$ and $p_2^* \At(TE)$ independent.
+
+\paragraph{Cycle 2: elliptic Atiyah class vanishes.}
+\emph{Attack.}
+$E = \C/\Lambda$ is a complex Lie group; the tangent bundle $TE$ is
+trivial, $TE = \cO_E$, with the invariant holomorphic flat connection
+$\nabla_0 = d$.
+\emph{Heal.}
+Atiyah 1957 Thm~1: $\At(TE) = 0$ if and only if $TE$ admits a
+holomorphic connection; equivalently (Atiyah Thm~2) the exponential
+sequence gives $c_1(TE) = -\mathrm{tr}(\At(TE))$ and more generally
+the Chern classes are tensor traces of powers of $\At$ modulo exact
+terms. For $E$ the Lie-group connection $d$ is holomorphic and flat,
+so $\At(TE) = 0$ on the nose (not merely a coboundary modulo
+cohomology: the representing extension splits globally). The higher
+Kapranov brackets $\mu_n^E = \At(TE)^{\cup n}$ vanish for all
+$n \geq 2$, so the Kapranov $L_\infty$-algebra on $E$ is the abelian
+strict Lie algebra $(\Omega^{0,\bullet}(E), \dbar, 0)$.
+
+\paragraph{Cycle 3: K3 Kuranishi cubic.}
+\emph{Attack.}
+On a K3 surface $\At(TK3) \in H^1(K3, \Omega^1 \otimes \End(TK3))$ is
+nonzero; the deformation-theoretic Kuranishi cubic is
+$\mu_3(\At) = \At \cup \At \cup \At$ viewed through the contraction
+\[
+  H^1(\Omega^1 \otimes \End(T))^{\otimes 3}
+  \xrightarrow{\cup}
+  H^3(\Omega^3 \otimes \End(T)^{\otimes 3})
+  \xrightarrow{\mathrm{tr}}
+  H^3(K3, \Omega^3_{K3}).
+\]
+\emph{Heal.}
+$\Omega^3_{K3} = 0$ because $K3$ has complex dimension~$2$, so
+$H^3(K3, \Omega^3_{K3}) = 0$. The cubic pairing is degenerate. The
+non-degenerate receptacle for the Kapranov cubic on K3 is the
+$(2,2)$-pairing
+$H^1(\Omega^1 \otimes TK3)^{\otimes 2} \xrightarrow{\cup}
+H^2(\Omega^2 \otimes \End(TK3))$; this is the Beauville--Bogomolov
+form paired with the Atiyah square (Beauville 1983
+\emph{J.\ Diff.\ Geom.}~18 \S 2) and is nonzero, witnessing that
+$\mu_2 = \At$ has nontrivial square. The Bogomolov--Tian--Todorov
+theorem (Bogomolov 1978; Tian 1987; Todorov 1989; clarified by
+Goldman--Millson 1988 and Iyengar--Manetti 2019) proves unobstructed
+deformations of K3: the Kuranishi family is smooth of dimension~$20$,
+equivalently the Kapranov $L_\infty$-algebra on $K3$ is formal, with
+$\mu_n^{\min} = 0$ for all $n \geq 3$. The cubic $\mu_3$ that might
+have obstructed is forced to vanish in cohomology, not because
+$\At^3 = 0$ as a cochain but because the target cohomology is zero
+and the Kuranishi cubic is the zero class in $H^2(TK3)$
+via the $H^0(\Omega^2_{K3})$-contraction.
+
+\paragraph{Cycle 4: total cubic on $K3 \times E$ and its vanishing.}
+\emph{Attack.}
+Combining Cycles~1--3, the total Kuranishi cubic on $X = K3 \times E$
+reads
+\[
+  \mu_3^X = \At(TX)^{\cup 3} = p_1^*\At(TK3)^{\cup 3} \otimes 1
+  + 3 p_1^*\At(TK3)^{\cup 2} \otimes p_2^*\At(TE)
+  + 3 p_1^*\At(TK3) \otimes p_2^*\At(TE)^{\cup 2}
+  + 1 \otimes p_2^*\At(TE)^{\cup 3}.
+\]
+\emph{Heal.}
+By Cycle~2 every factor of $\At(TE)$ is zero on the nose; the
+trinomial collapses to
+$\mu_3^X = p_1^*\At(TK3)^{\cup 3} \otimes 1$, supported entirely on
+the K3 factor. The K\"unneth pairing for the receptacle
+$H^3(X, \Omega^3_X) = \bigoplus_{p+q=3} H^p(K3, \Omega^p) \otimes
+H^q(E, \Omega^q)$ has four summands $(p,q) \in \{(0,3), (1,2), (2,1),
+(3,0)\}$: $(3,0)$ and $(0,3)$ both vanish by dimension
+($\Omega^3_{K3} = \Omega^2_E = 0$), and the surviving $(2,1)$ and
+$(1,2)$ pieces are $H^2(\Omega^2_{K3}) \otimes H^1(\Omega^1_E)
+= \C \otimes \C = \C$ and its conjugate. The K3 tangent cubic
+$\At(TK3)^{\cup 3}$ lands in $H^3(K3, \Omega^3_{K3}) = 0$, so its
+tensor with the $H^0(\cO_E) = \C$ class in the K\"unneth-$(3,0)$-slot
+is zero \emph{in the receptacle}. The Kuranishi cubic on
+$K3 \times E$ is trivial in $H^3(X, \Omega^3_X)$, consistent with
+Bogomolov--Tian--Todorov unobstructedness of $X$ (Tian 1987; Todorov
+1989).
+
+\paragraph{Cycle 5: why the minimal model truncates.}
+\emph{Attack.}
+Homotopy transfer (Kontsevich--Soibelman 2000 \S 6.4; Loday--Vallette
+2012 Thm~10.3.5) produces
+$\mu_n^{\min} = \sum_{T \in \mathrm{Tree}_n} p \circ (\bigotimes h
+\mu_2) \circ i^{\otimes n}$ on $H^\bullet_{\dbar}(X, TX[-1])$. The
+integrand consumes only $\dbar$-harmonic representatives $i(-)$ and
+pairs them against the Atiyah cup-square.
+\emph{Heal.}
+On $X = K3 \times E$ the K\"unneth $\dbar$-harmonics factor as
+$\cH_{X} = \cH_{K3} \otimes \cH_E$ (Hodge theory on K\"ahler products,
+Griffiths--Harris 1978 \S 0.6). Every tree integrand
+$\mu_n^{\min}(x_1, \ldots, x_n)$ carries at least one $\At(TE)$-edge
+or one $\At(TE)$-leg once $n \geq 2$ couples the E-factor; by Cycle~2
+every such edge is zero, reducing $\mu_n^{\min}$ to a sum over trees
+where \emph{every} internal line is pure-K3. These trees compute
+$\mu_n^{\min, K3}$ in the Kapranov $L_\infty$-algebra of K3, which by
+Bogomolov--Tian--Todorov / Beauville 1983 is formal: $\mu_n^{\min,K3}
+= 0$ for $n \geq 3$. Hence $\mu_n^{\min, X} = 0$ for $n \geq 3$ on
+$K3 \times E$: the minimal model truncates to the strict
+$\dbar$-cohomology Lie bracket. The global cancellation that made
+each K\"unneth mixed term vanish is governed by
+$\kcat(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 =
+0$ (K\"unneth-multiplicative on the total space); the factor
+$\chi(\cO_E) = 0$ is the cohomological shadow of $\At(TE) = 0$, and
+it is exactly this factor that suppresses every mixed tree. Formality
+of $K3 \times E$ follows from formality of each factor plus a Leray
+spectral-sequence collapse (Deligne--Griffiths--Morgan--Sullivan 1975
+Thm~5.15 for compact K\"ahler).
+
+\paragraph{Synthesis.}
+\ClaimStatusTheorem\ $\At(T(K3 \times E)) = p_1^*\At(TK3)$ in
+$H^1(X, \Omega^1_X \otimes \End(TX))$; the elliptic summand
+$\At(TE)$ vanishes because $TE$ is the trivial Lie-group bundle.
+The Kuranishi cubic $\At(TK3)^{\cup 3}$ lands in
+$H^3(K3, \Omega^3_{K3}) = 0$ by dimension and is therefore the zero
+class; Bogomolov--Tian--Todorov reads the same vanishing as
+unobstructed deformations (Beauville 1983). The Kapranov minimal
+model on $X = K3 \times E$ truncates to
+$\mu_n^{\min} = 0$ for $n \geq 3$, and
+$\kcat(K3 \times E) = 0$ is the K\"unneth shadow of the
+$\At(TE) = 0$ suppression. The $L_\infty$-truncation therefore is
+\emph{forced}: chain-level brackets are controlled by the Atiyah
+cup-product; the cup-product is supported on K3; the K3 cubic has
+trivial receptacle; the K3 cubic is zero; and the K\"unneth factor
+$\chi(\cO_E) = 0$ kills every mixed tree integrand tree-by-tree.

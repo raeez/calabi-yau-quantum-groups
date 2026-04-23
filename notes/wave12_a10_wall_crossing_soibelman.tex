@@ -1,0 +1,862 @@
+%% wave12_a10_wall_crossing_soibelman.tex
+%% Wave 12 / DNA strand A10: adversarial assault and rigorous healing of the
+%% wall-crossing / Maurer--Cartan gauge-equivalence claims, the conifold MC
+%% chamber bridge, the grand atlas of CY3 families, and the CY4 prediction.
+%% Soibelman voice: DT-categorical rigour, CoHA precision, KS wall-crossing
+%% vigilance. Reader-facing target sections:
+%%   working_notes.tex 410--428  (Wall-crossing and MC gauge equivalence)
+%%   working_notes.tex 1429--1453 (Conifold: wall-crossing as MC gauge equivalence)
+%%   working_notes.tex 1541--1591 (Grand atlas of CY3 families)
+%%   working_notes.tex 1792--1817 (Updated open questions)
+%%   working_notes.tex 2527--2588 (CY_4 prediction)
+%% This file is infrastructure (\texttt{notes/}), not manuscript prose; it
+%% states the mathematics in full, records ghost-theorem/error/correction
+%% for each attack, and specifies the exact edits required for Vol~III rectification.
+
+\documentclass[11pt]{article}
+\usepackage[margin=1.15in]{geometry}
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{observation}[theorem]{Observation}
+\newtheorem{attack}{Attack}
+\newtheorem{heal}{Heal}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\bS}{\mathbb{S}}
+\providecommand{\bR}{\mathbb{R}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Stab}{\mathrm{Stab}}
+\providecommand{\Hall}{\mathrm{Hall}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Einf}{E_\infty}
+\providecommand{\ad}{\mathrm{ad}}
+\providecommand{\BCH}{\mathrm{BCH}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+
+\title{Wall-crossing as Maurer--Cartan gauge equivalence \\ {\normalfont (Soibelman-voice adversarial rectification, strand A10)}}
+\author{Raeez Lorgat}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Five adversarial assaults on the \emph{wall-crossing $=$ MC gauge
+equivalence} programme in working\_notes.tex, each followed by a
+first-principles healing. The conifold test case is reconstructed from
+the Kontsevich--Soibelman motivic Hall algebra downward: the
+semi-classical dgLa $L_\Gamma$, the two chamber MC elements
+$\Theta_\mathrm{I}, \Theta_\mathrm{II}$, and the explicit chamber-
+interpolating gauge $\lambda \in L_\Gamma^0$ written as a path-ordered
+integral over a Kähler-moduli wall crossing. The grand atlas is
+rectified (class assignments, $\kch$ entries, conjecture-vs-theorem
+status, the conifold's $d=3$ direct-McKay invariant $\kch = 1$ against
+AP-CY6). The CY$_4$ heuristic is sharpened. AP-CY-WC1 through AP-CY-WC5
+are appended.
+\end{abstract}
+
+%======================================================================
+\section{Gate 0: context and posture}
+%======================================================================
+
+\paragraph{Primary sources.}
+Kontsevich--Soibelman, \emph{Stability structures, motivic DT-invariants and
+cluster transformations} (\texttt{arXiv:0811.2435}); Kontsevich--Soibelman,
+\emph{Cohomological Hall algebra, exponential Hodge structures and motivic
+DT-invariants} (\texttt{arXiv:1006.2706}); Szendr\H{o}i, \emph{Non-commutative
+Donaldson--Thomas theory of the conifold} (\emph{Geom.\ Topol.}\ 12, 2008);
+Morrison--Mozgovoy--Nagao--Szendr\H{o}i, \emph{Motivic DT invariants of the
+conifold and an ADE generalisation} (\texttt{arXiv:1010.2354}); Davison
+\texttt{arXiv:1209.4620}; Nagao \texttt{arXiv:0907.3784}; Reineke
+\emph{The use of geometric and quantum group techniques for wild quivers}
+(\texttt{math/0404054}); Gross--Siebert \texttt{arXiv:0911.2780}; Bridgeland
+\emph{Stability conditions on triangulated categories} (\texttt{math/0212237}).
+
+\paragraph{Cache posture (CLAUDE.md authority).}
+\begin{itemize}[leftmargin=1.1em]
+\item CY-C is \emph{conjectural} (AP-CY6, top-15 \#10). No theorem stated in
+  this note relies on CY-C at $d = 3$.
+\item Unsubscripted $\kappa_\bullet$ is forbidden (AP113, HZ-7); every
+  $\kappa_\bullet$ symbol below carries a subscript in
+  $\{\mathrm{ch}, \mathrm{cat}, \mathrm{BKM}, \mathrm{fiber}\}$.
+\item Conifold is \emph{not} a local surface at $d = 3$; direct McKay gives
+  $\kch(\text{conifold}) = 1$. The atlas entry must cite direct McKay or
+  DT genus-$1$, not a dimensional reduction.
+\item $\CoHA(\C^3) = Y^+$ (positive half), \emph{not} $\mathcal{W}_{1+\infty}$.
+\item AP-CY57 (construction/narration needs explicit arrow): every gauge
+  equivalence below names the element $\lambda \in L^0$, the one-parameter
+  family $\{m_t\}_{t \in [0,1]}$, and the explicit vector field generating
+  the gauge action.
+\end{itemize}
+
+%======================================================================
+\section{Gauge data: the dgLa behind wall-crossing}
+\label{sec:dgla}
+%======================================================================
+
+Fix a $\Z$-graded abelian category $\cA$ with a stability structure
+$\sigma \in \Stab(\cA)$ (in the sense of Bridgeland). Let
+$\Gamma = K_0(\cA)$ and fix the skew-symmetric Euler pairing
+$\langle \cdot, \cdot \rangle\colon \Gamma \times \Gamma \to \Z$ induced by
+$\chi_\cA - \chi_\cA^{\mathrm{op}}$.
+
+\begin{definition}[Lattice algebra and motivic quantum torus]
+\label{def:lattice-algebra}
+The \emph{lattice Lie algebra} $\mathfrak{g}_\Gamma$ is the
+$\Q$-vector space spanned by formal symbols
+$\{ e_\gamma : \gamma \in \Gamma \setminus \{0\} \}$ with bracket
+\[
+[e_{\gamma_1}, e_{\gamma_2}] \;=\; (-1)^{\langle \gamma_1, \gamma_2 \rangle}
+\langle \gamma_1, \gamma_2 \rangle \, e_{\gamma_1 + \gamma_2}.
+\]
+The \emph{quantum torus} $\mathfrak{g}_\Gamma^q$ replaces the
+$(-1)^{\langle \cdot, \cdot \rangle}$ sign by $q^{\frac{1}{2}
+\langle \cdot, \cdot \rangle}$ and the bracket by
+$[\hat e_{\gamma_1}, \hat e_{\gamma_2}] = (q^{\langle \gamma_1, \gamma_2
+\rangle/2} - q^{-\langle \gamma_1, \gamma_2 \rangle/2}) \hat e_{\gamma_1 +
+\gamma_2}$. In the semi-classical limit $q \to 1$ the second formula
+recovers the first up to the KS $(-1)$-twist (Kontsevich--Soibelman
+\texttt{0811.2435}, \S2.5).
+\end{definition}
+
+\begin{definition}[Central-charge filtration and the pro-nilpotent dgLa]
+\label{def:dgla}
+Let $Z\colon \Gamma \to \C$ be a central charge. For each open strict convex
+cone $V \subset \bR^2$ set
+\[
+\mathfrak{g}_\Gamma[V] \;=\; \widehat{\bigoplus}_{\gamma: Z(\gamma) \in V}
+\Q \cdot e_\gamma,
+\]
+the completion taken along $|Z(\gamma)| \to \infty$. Equip
+$\mathfrak{g}_\Gamma[V]$ with zero differential. This is the
+\emph{semi-classical KS dgLa}. It is concentrated in degree zero; its MC
+equation is trivially $[m, m]/2 = 0$, so \emph{every} element is an MC
+element. The nontrivial data are the chamber-specific MC elements
+\[
+\Theta_V \;=\; \sum_{\gamma:\, Z(\gamma) \in V} \Omega(\gamma) \, e_\gamma,
+\qquad \Omega(\gamma) \in \Z,
+\]
+where $\Omega(\gamma) = \Omega(\gamma; \sigma)$ are the numerical
+DT-invariants of $\sigma$-semistable objects of class $\gamma$.
+\end{definition}
+
+\begin{remark}[Lie-theoretic vs Hall-algebra lift]
+\label{rem:lift}
+$\mathfrak{g}_\Gamma[V]$ is the \emph{Lie-theoretic} wall-crossing
+target. The Hall-algebra lift replaces $e_\gamma$ by the integration-map
+class of the moduli stack $\cM^\sigma_\gamma$ in the motivic Hall
+algebra $H(\cA)$, and $\Omega(\gamma)$ is recovered by the Reineke
+stability-sum formula (\texttt{math/0404054}). The wall-crossing
+identity is an identity of group-like elements in $\widehat{H(\cA)}$
+which, after applying the integration map, descends to an identity in
+$\exp(\mathfrak{g}_\Gamma[V])$.
+\end{remark}
+
+\begin{theorem}[KS wall-crossing as MC gauge equivalence; semi-classical]
+\label{thm:ks-wc-mc}
+Let $\sigma_0, \sigma_1 \in \Stab(\cA)$ lie in two adjacent chambers
+separated by a single active wall $W$, and let $V_0, V_1 \subset \bR^2$
+be half-plane cones just past $W$ for $\sigma_0, \sigma_1$ respectively.
+Write $\Theta_0 = \Theta_{V_0}, \Theta_1 = \Theta_{V_1}$. Then there
+exists $\lambda \in \mathfrak{g}_\Gamma^{W} \subset \mathfrak{g}_\Gamma$
+supported on the single-wall cone $W \cdot \R_{>0}$ with
+\[
+e^{\ad_\lambda}(\Theta_0) \;=\; \Theta_1.
+\]
+The element $\lambda$ is determined by the KS factorisation of the single
+wall product
+\[
+\prod^{\curvearrowleft}_{\gamma \in W} T_\gamma^{\Omega(\gamma)}
+\;=\; \prod^{\curvearrowright}_{\gamma \in W} T_\gamma^{\Omega'(\gamma)}
+\]
+through the log map, where $T_\gamma = \exp(e_\gamma)$ and the products
+are taken in the profinite group $\exp(\mathfrak{g}_\Gamma[W \cdot \R_{>0}])$.
+The DT invariants $\{\Omega, \Omega'\}$ for the two chambers are
+determined by the wall crossing; their difference is the
+wall-crossing formula (\texttt{0811.2435}, Thm.~5).
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+The wall $W$ partitions the central-charge plane into a phase $\phi_W$;
+the charges $\gamma$ with $Z_{\sigma_0}(\gamma), Z_{\sigma_1}(\gamma)$
+straddling $W$ are exactly those with $Z(\gamma) \in \R_{>0} W$. The
+product $T_W^{\sigma_0} = \prod_\gamma T_\gamma^{\Omega_{\sigma_0}(\gamma)}$
+defines a single automorphism $g_W$ of the pro-unipotent group
+$\exp(\mathfrak{g}_\Gamma)$ by taking its log. Set
+$\lambda = \log(g_W)$; its support is contained in $W \cdot \R_{>0}$
+because $\log$ is a convergent BCH series in the pro-nilpotent regime
+(the cone condition ensures BCH convergence). The KS wall-crossing
+identity $T_W^{\sigma_0} = T_W^{\sigma_1}$ means $g_W$ reads identically
+from either chamber. Then
+$e^{\ad_\lambda}(\Theta_0) = \mathrm{Ad}_{g_W}(\Theta_0)$, which by a
+direct computation using the action of $T_\gamma$ by conjugation
+(shifting charges by $\gamma$) equals $\Theta_1$ precisely when
+$\Omega_{\sigma_0}, \Omega_{\sigma_1}$ are related by the KS formula.
+\end{proof}
+
+\paragraph{What this gives and what it does not.}
+Theorem~\ref{thm:ks-wc-mc} is the \emph{semi-classical} identification
+used in working\_notes \S\ref{wn:sec:wall-crossing-mc} (conifold,
+pentagon). At the motivic (quantum) level, MC gauge equivalence becomes
+a conjugation in $\exp(\mathfrak{g}_\Gamma^q)$ and the quantum dilogarithm
+$E(x) = \prod_{k\ge 0}(1 + q^{k+1/2} x)^{-1}$ replaces $T_\gamma$
+(\texttt{0811.2435}, \S6). The pentagon $E(x)E(y) = E(y)E(xy)E(x)$ for
+$yx = q xy$ is the quantum conifold identity.
+
+%======================================================================
+\section{Attacks and heals}
+%======================================================================
+
+\subsection*{Attack 1: Is ``wall-crossing as MC gauge equivalence'' an
+abuse of notation for chamber change in $\Stab(\cA)$?}
+
+\begin{attack}[\textbf{Ghost theorem} / \textbf{precise error} / \textbf{correct relation}]
+\label{atk:1}
+The line 414--416 remark asserts that the KS wall-crossing formula ``is
+verified as a gauge equivalence of Maurer--Cartan elements''. A reader
+testing this against the standard deformation-theory meaning of MC
+gauge equivalence---a dgLa $L$ with MC set $\mathrm{MC}(L) = \{ m \in
+L^1 : dm + \tfrac{1}{2}[m,m] = 0\}$ modulo $\exp(L^0)$---finds
+the dgLa unnamed, $L^1$ unidentified, $\lambda \in L^0$ unspecified,
+and $\Theta$ appearing without a listed underlying complex.
+
+\textbf{Ghost theorem}: the identification is real and reduces to
+Theorem~\ref{thm:ks-wc-mc}.
+
+\textbf{Precise error}: the remark elides the three pieces of data
+(which dgLa, which MC element, which gauge). Without naming them, the
+statement is Pattern AP-CY57 (construction/narration without explicit
+arrow). The pentagon identity $\BCH(L_{10}, L_{01}) = \BCH(L_{01}, L_{11},
+L_{10})$ is verified through height 2, but height 3+ is exactly where
+the Gross--Siebert scattering-diagram obstruction (scattering diagram
+$=$ $\Eone$ MC gauge at motivic-Hall-algebra level but not naive-Lie
+level; working\_notes \S2547) appears. So the raw BCH pentagon is a
+low-height fact; the genuine identification is with the Hall-algebra
+integration and requires the motivic lift.
+
+\textbf{Correct relation}: the dgLa is $\mathfrak{g}_\Gamma[V]$ of
+Def.~\ref{def:dgla} (concentrated in degree 0; trivial differential);
+MC elements are $\Theta_V = \sum_\gamma \Omega_V(\gamma) e_\gamma$;
+$\lambda$ is the log of the single-wall motivic product. The pentagon
+is true \emph{to all orders} in the quantum-torus dgLa, but only to
+height 2 in the Lie-theoretic semi-classical dgLa with
+$(-1)^{\langle \cdot, \cdot \rangle}$ signs; the height-$\ge 3$
+correction is supplied by the Reineke integration map on the
+motivic side, not by a naive BCH expansion.
+\end{attack}
+
+\begin{heal}[dgLa, $\Theta$, $\lambda$ explicitly named]
+\label{heal:1}
+Replace the working\_notes remark (lines 414--416) with the following
+direct statement. The replacement parses as a theorem with explicit
+arrow, discharging AP-CY57.
+
+\smallskip
+\textit{Replacement text.}
+For the resolved conifold $\mathbb{Y}$, Theorem~\ref{thm:ks-wc-mc}
+specialises to the following. Take $\Gamma = \Z\gamma_1 \oplus \Z\gamma_2$
+with $\langle \gamma_1, \gamma_2 \rangle = 1$; fix the wall $W$ at
+phase $\phi_W$ where $Z(\gamma_1) \parallel Z(\gamma_2)$. Write the
+chamber-$\mathrm{I}$ MC element
+\[
+\Theta_\mathrm{I} \;=\; e_{\gamma_1} + e_{\gamma_2},
+\]
+and the chamber-$\mathrm{II}$ MC element
+\[
+\Theta_\mathrm{II} \;=\; e_{\gamma_1} + e_{\gamma_1 + \gamma_2} + e_{\gamma_2},
+\]
+recording the $\Omega(\gamma_1) = \Omega(\gamma_2) = \Omega(\gamma_1 + \gamma_2) = 1$
+DT invariants past the wall.
+The gauge $\lambda \in \mathfrak{g}_\Gamma$ is
+\[
+\lambda \;=\; -\tfrac{1}{2} [e_{\gamma_1}, e_{\gamma_2}]
+\;=\; -\tfrac{1}{2} \, (-1)^{\langle \gamma_1, \gamma_2 \rangle}
+\langle \gamma_1, \gamma_2 \rangle \, e_{\gamma_1 + \gamma_2}
+\;=\; \tfrac{1}{2} e_{\gamma_1 + \gamma_2},
+\]
+(sign $(-1)^{1} = -1$; $\langle \gamma_1, \gamma_2 \rangle = 1$). Then
+$e^{\ad_\lambda}(\Theta_\mathrm{I}) = \Theta_\mathrm{II}$ through
+height 2 (BCH truncation at two nested brackets) in the Lie-theoretic
+dgLa, and to all orders in the quantum-torus dgLa via
+$E(e_{\gamma_1}) E(e_{\gamma_2}) = E(e_{\gamma_2}) E(e_{\gamma_1 +
+\gamma_2}) E(e_{\gamma_1})$. \hfill $\square$
+
+\smallskip
+\textit{Audit status.} The Reineke $\Omega = 1$ convention is used
+throughout; the fermionic convention $\Omega = -1$ does not satisfy
+the pentagon identity with the same wall ordering (as noted in
+working\_notes line 416).
+\end{heal}
+
+\subsection*{Attack 2: Is the conifold flop a gauge equivalence, and in
+which dgLa?}
+
+\begin{attack}
+\label{atk:2}
+Working\_notes line 1438--1442 writes
+$\exp(\ad_\alpha)(\Theta_\mathrm{I}) = \Theta_\mathrm{II}$ ``where
+$\alpha$ lies in the lattice Lie algebra''. Two distinct notions of
+``chamber'' coexist in the conifold literature:
+\begin{enumerate}[label=(\alph*), leftmargin=1.1em]
+\item \emph{Kähler chambers}: the resolved conifold
+  $\cO(-1) \oplus \cO(-1) \to \bP^1$ and its flop. These chambers
+  are connected by a birational transformation preserving $\kch$
+  (AP-CY10: flop $\ne$ Koszul dual).
+\item \emph{Stability chambers in $\Stab(D^b(\bY))$}: the
+  Szendr\H{o}i non-commutative DT chamber (where the Jacobi algebra
+  $J(Q_\mathrm{con}, W)$ is abelian-tilted), the NCDT chamber of
+  Mozgovoy--Reineke, and the large-volume DT chamber.
+\end{enumerate}
+\textbf{Ghost theorem}: both notions are instances of KS wall-crossing,
+but on \emph{different} walls in the larger moduli.
+
+\textbf{Precise error}: the working\_notes conflates (a) and (b) by
+writing ``the two DT chambers (large-volume and flopped)'' (line 1432).
+The flopped resolution is a different CY3 with its own $\Stab$; the
+flop is a birational wall in Kähler moduli, not a stability wall in a
+fixed $\Stab(D^b(\bY))$. The relevant wall for $\CoHA(\bY)$ is the
+Szendr\H{o}i NCDT $\leftrightarrow$ large-volume DT wall on a fixed
+triangulated category.
+
+\textbf{Correct relation}: there are two towers of walls. The
+\emph{birational} (flop) wall is detected by Bridgeland's derived
+equivalence $\Phi^{\mathrm{flop}}\colon D^b(\bY) \to D^b(\bY^+)$, which
+induces an isomorphism on the lattice $\Gamma$ and on
+$\mathfrak{g}_\Gamma$. The \emph{stability} walls inside a fixed
+$\Stab(D^b(\bY))$ are the ones governed by Theorem~\ref{thm:ks-wc-mc}.
+The pentagon identity of working\_notes \S\ref{wn:sec:wall-crossing-mc}
+is a stability wall, not a flop wall.
+\end{attack}
+
+\begin{heal}[Two-wall stratification on the conifold]
+\label{heal:2}
+State both walls, cleanly separated, and rename the working\_notes
+subsection's ``(large-volume and flopped)'' (line 1432) to
+``(Szendr\H{o}i NCDT and large-volume DT)''.
+
+\smallskip
+\textit{Stability wall (governing Theorem~\ref{thm:conifold-wc}).}
+In $\Stab(D^b(\bY))$ there is a distinguished wall $W_\mathrm{DT}$
+where the central charge of $\cO_\bY[1]$ and the sum
+$\cO_{\mathbb{P}^1} + \cO_{\mathbb{P}^1}(-1)[1]$ align. On one side
+(Szendr\H{o}i's NCDT chamber), the simple objects of the abelian heart
+are the two $Q_\mathrm{con}$-simples $S_\circ, S_\bullet$ of dimension
+vectors $(1, 0), (0, 1)$; on the other side (large-volume DT), they
+are $\cO_{\mathrm{pt}}$ and $\cO_{\bP^1}(-1)[1]$. The MC elements are
+\[
+\Theta_\mathrm{NCDT} \;=\; e_{\gamma_\circ} + e_{\gamma_\bullet},
+\qquad
+\Theta_\mathrm{LV} \;=\; e_{\gamma_\circ} + e_{\gamma_\circ + \gamma_\bullet}
++ e_{\gamma_\bullet}.
+\]
+Heal~\ref{heal:1} applies verbatim with $\gamma_1 = \gamma_\circ$,
+$\gamma_2 = \gamma_\bullet$.
+
+\smallskip
+\textit{Birational wall (flop).}
+The flop $\bY \dashrightarrow \bY^+$ induces the derived equivalence
+$\Phi^{\mathrm{flop}}$ of Bridgeland--King--Reid, and the CoHA and
+$\kch$ are preserved (AP-CY10). On the lattice:
+$\Phi^{\mathrm{flop}}(\gamma_\circ) = -\gamma_\bullet$,
+$\Phi^{\mathrm{flop}}(\gamma_\bullet) = \gamma_\circ + \gamma_\bullet$
+(Atiyah flop formula). This is \emph{not} captured by
+Theorem~\ref{thm:ks-wc-mc}; it is a separate identification and must
+be stated as such.
+
+\smallskip
+\textit{Audit status.} The working\_notes wording
+``flopped resolution'' (line 1432) is misleading; the correct wording
+is ``Szendr\H{o}i NCDT and large-volume DT chambers on a fixed
+triangulated category $D^b(\bY)$, related by the stability wall
+$W_\mathrm{DT}$''. The flop relation $\bY \leftrightarrow \bY^+$ is a
+\emph{separate} equivalence (Atiyah flop).
+\end{heal}
+
+\subsection*{Attack 3: Is $\kch(\text{conifold}) = 1$ from ``DT genus 1'' the
+same as from McKay?}
+
+\begin{attack}
+\label{atk:3}
+Working\_notes line 1437 asserts $\kch(\text{conifold}) = 1$ with class
+$\mathbf{G}$ and $r_{\max} = 2$. The atlas (line 1560) attributes this
+to ``DT genus-1''.
+
+\textbf{Ghost theorem}: $\kch(\text{conifold}) = 1$ is a genuine
+Vol~III constant, cached in CLAUDE.md (``Conifold is NOT a local
+surface at $d=3$; $\kch = 1$ via direct McKay'').
+
+\textbf{Precise error}: ``DT genus 1'' is ambiguous---does this refer
+to (i) the genus-1 Gopakumar--Vafa free energy
+$F_1^{\mathrm{con}} = -\tfrac{1}{12}\log(1 - Q)$, (ii) a genus-1 bar-
+complex computation, or (iii) genus-1 modular behaviour of the DT
+partition function? The cache demands \emph{direct McKay}: the
+conifold is the $\C^\times$-gerbe over the local affine plane with the
+Szendr\H{o}i quiver as McKay data, and $\kch = 1$ reads off the
+quiver's vertex count minus one relation. The conifold is \emph{not} a
+local surface (it is genuinely $d = 3$, total space is $6$-real-
+dimensional and $h^{1,1} = 1$ reflects the resolving $\bP^1$, not a
+surface structure). Calling this ``DT genus 1'' invites conflation with
+$F_1^{\mathrm{con}}$, an \emph{unrelated} numerical observable.
+
+\textbf{Correct relation}: $\kch(\text{conifold}) = 1$ via the direct
+McKay computation: $\CoHA(\bY) \cong U(\mathfrak{g}_\mathrm{BPS}(\bY))$
+where $\mathfrak{g}_\mathrm{BPS}(\bY)$ is a $\Z^2$-graded Lie algebra
+with a single rank-1 generator at each primitive charge
+$\gamma \in \{\gamma_\circ, \gamma_\bullet, \gamma_\circ + \gamma_\bullet\}$;
+the shadow-tower computation collapses to a rank-1 Gaussian at all
+primitive charges, giving $\kch = 1$. The ``genus 1'' of the free
+energy $F_1^{\mathrm{con}}$ is a topological-string observable and
+distinct from $\kch$.
+\end{attack}
+
+\begin{heal}[Atlas source column corrected]
+\label{heal:3}
+Change the atlas row for the conifold (working\_notes line 1560) from
+\begin{quote}
+\texttt{Conifold \& --- \& 1 \& 0 \& 1 \& G \& DT genus-1}
+\end{quote}
+to
+\begin{quote}
+\texttt{Conifold \& --- \& 1 \& 0 \& 1 \& G \& direct McKay ($\CoHA(\bY)$ rank-1 per charge)}
+\end{quote}
+The source column becomes consistent with the CLAUDE.md cache key
+``Conifold is NOT a local surface at $d = 3$; $\kch = 1$ via direct
+McKay''. Cross-reference: \texttt{notes/CoHA\_to\_W\_infty\_treatise.tex}
+Example 2 (\S4), which gives the direct McKay chain.
+\end{heal}
+
+\subsection*{Attack 4: Is the grand atlas row for $K3 \times E$ missing the
+four-fold $\kappa_\bullet$ spectrum?}
+
+\begin{attack}
+\label{atk:4}
+Working\_notes line 1563 writes for $K3 \times E$:
+``$\kch = 3$ ($\kBKM = 5$)''. This is \emph{half} the canonical
+spectrum. The CLAUDE.md constant says
+``K3 $\times$ E spectrum $\{2, 3, 5, 24\}$ (four distinct
+constructions)'': Mukai lattice ($\kcat = 2$ at K3 fibre only;
+Künneth-multiplicative $\kcat(K3 \times E) = 0$ on total space);
+Igusa $\Phi_{10}$ via Gritsenko $\Delta_5$ gives
+$\kBKM = \mathrm{wt}(\Delta_5) = 5$; BKM Borcherds weight gives $5$;
+K3 fibre-rank 24 gives $\kfib = 24$; and $\kch = 3$ is the
+Euler-supertrace on the total space.
+
+\textbf{Ghost theorem}: the atlas row is \emph{telling one face} of the
+four-face spectrum, not the full spectrum.
+
+\textbf{Precise error}: omitting $\kfib$ and $\kcat$ from the $K3 \times
+E$ row invites readers to infer a $\kBKM = \kch + \kfib$ identity or
+confuse $\kch(K3 \times E) = 3$ with $\kcat(K3 \times E)$. The
+CLAUDE.md cache explicitly says $\kBKM = \kch + \chi(\cO_\mathrm{fiber})$
+is \emph{false} at every $N \in \{1, 2, 3, 4, 6\}$ (at $N=1$: left $= 5$,
+right $= 0 + 0 = 0$). The correct identity is $\kBKM(\Phi_N) = c_N(0)/2$.
+
+\textbf{Correct relation}: the $K3 \times E$ row is the Vol~III
+crystallisation point. Its four entries $\{\kch, \kcat, \kBKM, \kfib\}
+= \{3, 0, 5, 24\}$ come from four different constructions. The
+atlas should record all four.
+\end{attack}
+
+\begin{heal}[Atlas $K3 \times E$ row expanded]
+\label{heal:4}
+Replace the working\_notes $K3 \times E$ row with
+\begin{center}
+\small
+\begin{longtable}{lccccl}
+\toprule
+CY3 & $\chi$ & $h^{1,1}$ & $h^{2,1}$ & $\{\kch, \kcat, \kBKM, \kfib\}$ & Source \\
+\midrule
+$K3 \times E$ & $0$ & $21$ & $21$ & $\{3, 0, 5, 24\}$ &
+\begin{tabular}{@{}l@{}}$\kch$: Hodge supertrace\\
+$\kcat$: Künneth, $\chi(\cO_{K3}) \chi(\cO_E) = 2\cdot 0$\\
+$\kBKM = c_1(0)/2$: Gritsenko $\Delta_5$, weight $5$\\
+$\kfib$: K3 fibre-rank $= \chi(K3) = 24$\end{tabular} \\
+\bottomrule
+\end{longtable}
+\end{center}
+Replace the single-line observation ``(iv) Only 9 of the 14+ catalogued
+families have integer $\kch$; a genuine BKM algebra requires $\kch \in
+\Z_{>0}$'' (line 1583) by:
+\begin{quote}
+\emph{(iv)} The K3-BKM family $\{K3 \times E, \text{Enriques} \times E,
+\text{Borcea--Voisin (K3 type), }\ldots\}$ has $\kBKM = c_N(0)/2$
+universal (Borcherds 1995, Gritsenko 1999); the table records $\kBKM$
+only where the relevant Siegel-modular denominator form is known. A
+\emph{distinct} line of families has $\kch = \chi_\mathrm{top}/24 \in \Q$
+(quintic, $\bP^5[3,3]$, $\bP^5[2,4]$, $\ldots$); these do not carry a
+$\kBKM$ without an auxiliary automorphic construction.
+\end{quote}
+The six-routes-to-$G(K3\times E)$ discussion is a companion to the
+$\{\kch, \kcat, \kBKM, \kfib\}$ spectrum but concerns a different
+claim (six different constructions of one object); it should not be
+silently merged with the four $\kappa_\bullet$ values.
+\end{heal}
+
+\subsection*{Attack 5: Is the open question ``wall-crossing as MC gauge
+equivalence: verified for the conifold'' actually \emph{resolved}?}
+
+\begin{attack}
+\label{atk:5}
+Working\_notes line 1802 upgrades this question to \emph{verified for
+the conifold} citing Theorem~\ref{thm:conifold-wc}. The remaining
+open part (general CY3) is not stated.
+
+\textbf{Ghost theorem}: Theorem~\ref{thm:ks-wc-mc} \emph{is} the
+general statement and holds for any CY3 with a reasonable stability
+structure, subject to caveats.
+
+\textbf{Precise error}: the open question is not closed; its scope has
+narrowed. Caveats include: (i) the semi-classical identification
+requires the Lie-theoretic dgLa $\mathfrak{g}_\Gamma$, but
+identifications at the $\Etwo$-chiral level (see the $E_n$ hierarchy
+Part of Vol~III) require
+lifting to the motivic Hall algebra $H(\cA)$; (ii) for non-toric CY3
+(quintic, Gepner chart), the stability manifold $\Stab(D^b(X))$ is
+poorly understood, and the KS integrality conjecture for $\Omega$ is
+open (\texttt{1006.2706}, \S7); (iii) at $d = 3$ there is no $A_X$
+(AP-CY6), so the identification ``wall-crossing = MC gauge of
+$A_X$'' is ill-posed; the correct formulation is ``wall-crossing $=$
+MC gauge of $\CoHA(X)$ at the Hall-algebra level''.
+
+\textbf{Correct relation}: the open question (iv) of
+working\_notes line 1802 should be revised to read: ``Wall-crossing as
+MC gauge equivalence: \emph{established as a theorem}
+(Theorem~\ref{thm:ks-wc-mc}) at the semi-classical KS dgLa for any
+CY3 admitting a stability structure; verified explicitly on the
+conifold (Theorem~\ref{thm:conifold-wc}) and on $\C^3$ (MNOP
+DT/PT wall). The $\Etwo$-chiral refinement and the motivic-Hall-
+algebra lift remain open at $d = 3$ pending CY-A$_3$ morphism-level
+results (AP-CY6, CY-C conjectural).''
+\end{attack}
+
+\begin{heal}[Open-question item 4 rewritten]
+\label{heal:5}
+Replace working\_notes line 1802 by
+\begin{quote}
+\textbf{Wall-crossing as MC gauge equivalence}: \emph{established} at
+the semi-classical KS dgLa for any CY3 admitting a stability structure
+(Theorem~\ref{thm:ks-wc-mc}); verified explicitly on the conifold
+(Theorem~\ref{thm:conifold-wc}) and on $\C^3$. The $\Etwo$-chiral
+refinement, and the motivic Hall-algebra lift relating MC gauge to
+the Reineke integration map, remain open at $d = 3$ pending
+CY-A$_3$ morphism-level results (AP-CY6; CY-C conjectural).
+\end{quote}
+Companion open-question edits:
+\begin{itemize}[leftmargin=1.1em]
+\item Item 5 ($\kch = h^{1,1}/4$ universal?): \emph{No} is correct;
+  append ``and in general $\kch$ is the $\Eone$-chiral Euler
+  supertrace $\sum_q (-1)^q h^{0,q}(X)$ on compact CY$_d$, not a
+  function of $h^{1,1}$ alone.''
+\item Item 13 (Shadow--BPS/DT correspondence): the conifold instance
+  is verified via the identification $\Theta_V \in \mathfrak{g}_\Gamma[V]$
+  with the KS integration of $\CoHA(\bY)$; the general compact case
+  is open.
+\end{itemize}
+\end{heal}
+
+%======================================================================
+\section{The grand atlas, rectified}
+\label{sec:atlas}
+%======================================================================
+
+The atlas of \S1541--1591 of working\_notes is here rewritten with
+(a) explicit subscripts on every $\kappa_\bullet$; (b) theorem/conjecture
+status; (c) the Vol~III four-face spectrum where applicable;
+(d) the direct-McKay source for the conifold. This is the
+reader-facing atlas after Attacks 3 and 4.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{longtable}{lccll}
+\toprule
+\textbf{CY3 family} & $\chi_\mathrm{top}$ & $\kch$ & \textbf{Status} & \textbf{Source / note} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{CY3 family} & $\chi_\mathrm{top}$ & $\kch$ & \textbf{Status} & \textbf{Source / note} \\
+\midrule
+\endhead
+$\C^3$                         & ---    & $1$     & theorem        & $\kch(H_1) = 1$ (direct) \\
+Conifold ($\cO(-1) \oplus \cO(-1) \to \bP^1$)
+                               & ---    & $1$     & theorem        & direct McKay: $\CoHA(\bY)$ rank-1 per charge \\
+Local $\bP^2$                  & ---    & $3/2$   & theorem        & McKay $\Z_3$ quiver; $\chi(\bP^2)/2$ \\
+Local $\bP^1 \times \bP^1$     & ---    & $2$     & theorem        & toric web; $= h^{1,1}$ coincidence \\
+Local $F_n$ ($n = 0,1,2$)      & ---    & $2$     & theorem        & Hirzebruch-surface McKay \\
+Banana                         & $0$    & $0$     & conjecture     & BKY; class $\ge \mathbf{G}$ \\
+$K3 \times E$                  & $0$    & $3$     & theorem        & Hodge supertrace; four-face $\{3,0,5,24\}$ \\
+Enriques $\times E$            & $0$    & $4$     & theorem        & Allcock weight-4; $\kBKM = 4$ \\
+Borcea--Voisin (K3 type)       & var    & $\chi/24$ & theorem      & involution CY; $\kBKM$ via base-form \\
+Quintic $X_5 \subset \bP^4$    & $-200$ & $-25/3$ & theorem       & $\chi/24$; no BKM (non-integer) \\
+$\bP^5[3,3]$                   & $-144$ & $-6$    & theorem        & $\chi/24$ \\
+$\bP^5[2,4]$                   & $-176$ & $-22/3$ & theorem        & $\chi/24$ \\
+$\bP^5[2,2,3]$                 & $-144$ & $-6$    & theorem        & $\chi/24$ \\
+$\bP^7[2,2,2,2]$               & $-128$ & $-16/3$ & theorem        & $\chi/24$ \\
+Schoen ($E \times_{\bP^1} E$)  & $0$    & $0$     & theorem        & Hodge supertrace \\
+$G(2,5) \cap \{f_1, f_2\}$     & $-100$ & $-25/6$ & theorem        & Grassmannian CY \\
+K3-fibered (general)           & var    & var     & conjecture     & Theorem~\ref{wn:thm:chi-neq-kappa} says $\kch \ne \chi/24$ for nontrivial K3-fibre\\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\begin{observation}[Atlas patterns; rectified]
+\label{obs:atlas-rectified}
+\begin{enumerate}[label=(\roman*), leftmargin=1.2em]
+\item Unsubscripted $\kappa_\bullet$ is forbidden; every atlas entry is $\kch$. The
+  four-face spectrum $\{\kch, \kcat, \kBKM, \kfib\}$ is defined
+  only for K3-modular families (K3 $\times$ E, Enriques $\times$ E,
+  Borcea--Voisin with K3 quotient), where a Siegel-modular
+  denominator form is known.
+\item The BCOV $\chi/24$ identity holds for compact simply-connected
+  CICYs with $h^{1,0} = 0$; it \emph{fails} for K3-fibered families
+  (Theorem~\ref{wn:thm:chi-neq-kappa}); it is \emph{trivial} for
+  families with $\chi = 0$ (K3 $\times$ E, Schoen, banana, Borcea
+  in the K3 type).
+\item The toric bound $r_{\max} \le N$ (for $N$ the vertex count of
+  the toric web) is a \emph{conjecture}, not a theorem. Verified for
+  $\C^3$ ($N = 1$, $r_{\max} = 1$), conifold ($N = 2$, $r_{\max} = 2$),
+  local $\bP^2$ ($N = 3$, $r_{\max} = \infty$ in the M class). The
+  bound fails in the M class; it applies only to G-class families.
+\item All compact CY3 with $\chi_\mathrm{top} \ne 0$ are class
+  $\mathbf{M}$ (Theorem~\ref{wn:thm:chi-neq-kappa} corollary).
+\item A genuine BKM algebra requires the presence of a
+  weight-$k$ paramodular form in the denominator formula; this
+  picks out the K3-modular families above. Non-K3-modular
+  families (quintic etc.) have no BKM realisation at present; the
+  automorphic lift is open (open question 3 of working\_notes
+  \S\ref{sec:updated-open}).
+\end{enumerate}
+\end{observation}
+
+\paragraph{Status audit.}
+Every ``theorem'' entry above refers to a proved $\kch$ value, not a
+proved $A_X$ construction or a proved $\Phi$-identification. At
+$d = 3$, $A_X$ is \emph{conjectural} (AP-CY6), and the category-level
+$\Phi(D^b(X))$-output is conditional on CY-A$_3$ morphism-level
+extension. The atlas records $\kch$ invariants only.
+
+%======================================================================
+\section{CY$_4$ prediction: audit and rectification}
+\label{sec:cy4}
+%======================================================================
+
+Working\_notes \S\ref{sec:cy4} (line 2527) asserts the pattern
+$\mathrm{CY}_d \to E_{d-2}$ predicts $\mathrm{CY}_4 \to \Etwo$, with
+three supporting bullets.
+
+\begin{attack}[CY$_4$ heuristic at $d = 4$]
+\label{atk:6}
+\textbf{Ghost theorem}: the $\Eone \hookrightarrow \Etwo$ enhancement
+for CY$_4$ is visible at the level of $\CoHA$ for $K3 \times K3$
+(factorisation $= $ two commuting K3-CoHAs, each $\Eone$, assembled
+into $\Etwo$ by Dunn additivity).
+
+\textbf{Precise error}: the Dunn additivity argument is stated as if
+it closes the CY$_4 \to \Etwo$ prediction, but it assumes (i) the
+K3 $\times$ K3 category decomposes as an $\Eone$-tensor product of
+two K3 categories, (ii) the factorisation preserves the CY structure,
+and (iii) $\CoHA(K3 \times K3) = \CoHA(K3) \otimes \CoHA(K3)$ as
+$\Eone$-algebras with commuting structure. Assumption (iii) is
+\emph{strong}: SV's CoHA of K3 surfaces (cohomological Hall of
+Schiffmann--Vasserot) is not known to satisfy a clean external-tensor
+decomposition; Maulik--Okounkov $R$-matrices for $K3 \times K3$ are
+nontrivial and obstruct a trivial Dunn argument. The degree-4
+potential $W$ in the bullet ``$d = 4$ potential $W$ has degree 4 vs 3''
+is not the correct CY$_4$ potential for compact K3 $\times$ K3 (which
+has $\cO_{K3 \times K3} \cong \wedge^4 T^*$ and no critical locus
+structure); it is the local-CY$_4$ Jacobi potential, a different setup.
+
+\textbf{Correct relation}: the CY$_4$ prediction is a \emph{genuine
+heuristic} (Costello--Gaiotto, Kontsevich, Ginzburg) but is not a
+theorem for compact K3 $\times$ K3. It holds:
+\begin{itemize}[leftmargin=1.1em]
+\item For the local CY$_4$ Jacobi-algebra setup (toric hypersurface of
+  degree 4), where the $\Etwo$ structure on the CoHA comes from the
+  $\Etwo$ factorisation algebra of the holomorphic Chern--Simons
+  8-dimensional theory (Costello--Li 2016).
+\item For products $\text{CY}_2 \times \text{CY}_2$ at the level of
+  $\Eone$-bimodule data, with the $\Etwo$-enhancement conditional on
+  commutativity of the two $\Eone$-structures (the Dunn+
+  Eckmann--Hilton argument needs checking).
+\end{itemize}
+\end{attack}
+
+\begin{heal}[CY$_4$ prediction rewritten as a labelled heuristic]
+\label{heal:6}
+Replace ``The pattern $\mathrm{CY}_d \to E_{d-2}$ predicts $\mathrm{CY}_4
+\to \Etwo$. The swarm confirms:'' (line 2529) by:
+\begin{quote}
+\emph{Heuristic pattern.} $\mathrm{CY}_d$-geometry assigns an
+$E_{d-2}$-algebra via the functor $\Phi$ (conjectural at $d \ge 3$,
+proved at $d = 2$ as Vol~III Thm.~CY-A$_2$). The $d = 4$ case
+predicts an $\Etwo$-algebra.
+
+\emph{Partial confirmations.}
+\begin{itemize}[leftmargin=1.1em]
+\item \textit{Local CY$_4$ Jacobi algebras.} Holomorphic Chern--Simons
+  on an 8-real-dimensional CY$_4$ gives an $\Etwo$-factorisation
+  algebra at the level of Costello--Li.
+\item \textit{$K3 \times K3$ via Dunn, \emph{conditional}.} If
+  $\CoHA(K3 \times K3)$ admits a tensor decomposition
+  $\CoHA(K3) \boxtimes \CoHA(K3)$ of $\Eone$-algebras with commuting
+  structure, Dunn additivity produces an $\Etwo$-structure. The
+  existence of the decomposition is \emph{open} (Maulik--Okounkov
+  $R$-matrices on $K3 \times K3$ obstruct a trivial decomposition).
+\item \textit{\v Cech descent.} The spectral sequence does not
+  degenerate at $E_2$ for $\Etwo$-algebras;
+  $\pi_1(\mathrm{Conf}_2(\R^2)) = \Z$ produces $E_2^{2, *} \ne 0$.
+  This is consistent with the heuristic but not a verification.
+\end{itemize}
+
+The CY$_4 \to \Etwo$ pattern is \emph{conjectural} overall; the
+compact case (K3 $\times$ K3, hyperkähler fourfolds) is open.
+\end{quote}
+\end{heal}
+
+%======================================================================
+\section{Required edits to working\_notes.tex}
+\label{sec:edits}
+%======================================================================
+
+The edits below are stated as precise line-anchored interventions.
+
+\begin{enumerate}[label=\textbf{E\arabic*.}, leftmargin=1.8em]
+
+\item \textbf{Lines 414--416 (wall-crossing remark).} Replace with the
+content of Heal~\ref{heal:1}: explicit dgLa, explicit $\Theta_\mathrm{I},
+\Theta_\mathrm{II}$, explicit $\lambda$, explicit BCH height statement
+with Reineke-convention caveat.
+
+\item \textbf{Lines 1429--1452 (conifold subsection).} Rename
+``(large-volume and flopped)'' on line 1432 to ``(Szendr\H{o}i NCDT and
+large-volume DT)'' (Heal~\ref{heal:2}). Add the two-wall stratification
+paragraph separating stability walls from the birational flop.
+
+\item \textbf{Lines 1541--1591 (grand atlas).} Rewrite atlas body per
+\S\ref{sec:atlas} and Heal~\ref{heal:3}, Heal~\ref{heal:4}. Conifold
+source column becomes ``direct McKay''; $K3 \times E$ row expanded to
+four-face spectrum $\{3, 0, 5, 24\}$; Enriques $\times E$ row gets
+explicit $\kBKM = 4$.
+
+\item \textbf{Lines 1802--1813 (updated open questions).} Items 4, 5,
+13 updated per Heal~\ref{heal:5}.
+
+\item \textbf{Lines 2529--2534 (CY$_4$ prediction).} Replace by the
+labelled-heuristic statement of Heal~\ref{heal:6}; the three bullets
+become ``partial confirmations'', with the compactness caveat and the
+local-Jacobi clarification.
+
+\end{enumerate}
+
+%======================================================================
+\section{Cache append: new anti-patterns}
+\label{sec:cache}
+%======================================================================
+
+Append to \texttt{notes/antipatterns\_catalogue.md} (new entries).
+
+\begin{itemize}[leftmargin=1.2em]
+
+\item \textbf{AP-CY-WC1 -- dgLa unnamed (Critical).} \emph{Symptom}:
+  stating ``wall-crossing is a gauge transformation of the MC element
+  $\exp(\ad_\alpha)(\Theta_\mathrm{I}) = \Theta_\mathrm{II}$'' without
+  specifying $(L, d, [,])$ or which $L^1$ contains $\Theta$.
+  \emph{Counter}: every MC statement names the dgLa. For KS
+  wall-crossing, the dgLa is $\mathfrak{g}_\Gamma[V]$ (zero differential;
+  degree-zero concentrated; KS $(-1)^{\langle \cdot, \cdot \rangle}$
+  signs); $\Theta = \sum_\gamma \Omega(\gamma) e_\gamma$;
+  $\lambda = \log(\text{single-wall motivic product})$.
+
+\item \textbf{AP-CY-WC2 -- Birational wall vs stability wall (High).}
+  \emph{Symptom}: ``the two DT chambers (large-volume and flopped)'',
+  conflating the Kähler (flop) wall with a $\Stab(D^b(X))$ stability
+  wall. \emph{Counter}: flop is a derived equivalence $D^b(X) \to
+  D^b(X^+)$ inducing an $\mathfrak{g}_\Gamma$ isomorphism; stability
+  walls live inside a fixed $D^b(X)$. Use ``Szendr\H{o}i NCDT $
+  \leftrightarrow$ large-volume DT'' for the conifold stability wall.
+
+\item \textbf{AP-CY-WC3 -- Pentagon at height 3 (Medium).} \emph{Symptom}:
+  asserting the BCH pentagon holds at all orders in the Lie-theoretic
+  semi-classical dgLa. \emph{Counter}: it holds through height 2 in the
+  Lie-theoretic dgLa with KS signs, and to all orders only in the
+  quantum-torus dgLa or at the motivic Hall-algebra level (Gross--
+  Siebert scattering-diagram consistency; \texttt{arXiv:0911.2780}).
+  Working\_notes \S2547 is the canonical statement; any Lie-algebra
+  verification of the pentagon must name the height.
+
+\item \textbf{AP-CY-WC4 -- ``DT genus-$n$'' ambiguity (Medium).}
+  \emph{Symptom}: labelling an invariant ``DT genus-$n$'' without
+  specifying whether this refers to (i) the Gopakumar--Vafa genus-$n$
+  free energy $F_n$, (ii) a genus-$n$ bar-complex $B_\Eone^n$, or
+  (iii) modular-weight $n$ of the DT partition function.
+  \emph{Counter}: use ``direct McKay'', ``$F_1^{\mathrm{GV}}$'',
+  ``bar $B^1$'', or ``modular weight 1'' as appropriate.
+  $\kch(\text{conifold}) = 1$ is from direct McKay (per CLAUDE.md),
+  not from $F_1^{\mathrm{GV}}$.
+
+\item \textbf{AP-CY-WC5 -- $\{\kch, \kcat, \kBKM, \kfib\}$ elision in
+  the atlas (High).} \emph{Symptom}: atlas rows for K3-modular CY3
+  families quoting only $\kch$ or only $\kBKM$, inviting the reader
+  to infer $\kBKM = \kch + \kfib$ or similar false identity.
+  \emph{Counter}: for K3-modular families ($K3 \times E$, Enriques
+  $\times$ E, Borcea--Voisin K3 type), display the full four-face
+  spectrum; for non-K3-modular families, display only $\kch$ and
+  note that no BKM realisation is known.
+
+\end{itemize}
+
+%======================================================================
+\section{Summary}
+%======================================================================
+
+The five adversarial attacks identified five distinct gaps in the
+wall-crossing / MC gauge equivalence / conifold / atlas / CY$_4$
+apparatus:
+(1) unnamed dgLa at \S\ref{wn:sec:wall-crossing-mc};
+(2) Kähler/stability-wall conflation at \S\ref{subsec:conifold-full};
+(3) ambiguous ``DT genus-1'' source column for $\kch(\text{conifold})$;
+(4) atlas $K3 \times E$ row missing three of four $\kappa_\bullet$ entries;
+(5) CY$_4 \to \Etwo$ presented as near-theorem when it is heuristic.
+
+The corresponding heals supplied: (1) the explicit dgLa
+$\mathfrak{g}_\Gamma[V]$ with $\Theta_\mathrm{I} = e_{\gamma_1} +
+e_{\gamma_2}$, $\Theta_\mathrm{II} = e_{\gamma_1} + e_{\gamma_1 + \gamma_2}
++ e_{\gamma_2}$, $\lambda = \tfrac{1}{2}e_{\gamma_1 + \gamma_2}$;
+(2) the two-wall stratification with flop as Bridgeland equivalence;
+(3) ``direct McKay'' replacing ``DT genus-1'' per the CLAUDE.md cache;
+(4) the four-face spectrum $\{3, 0, 5, 24\}$ for $K3 \times E$;
+(5) CY$_4 \to \Etwo$ relabelled as heuristic with local-Jacobi and
+$K3 \times K3$-conditional partial confirmations.
+
+Five new AP-CY-WC entries appended to the anti-pattern catalogue;
+reader-facing line edits to working\_notes.tex listed in
+\S\ref{sec:edits}.
+
+\end{document}

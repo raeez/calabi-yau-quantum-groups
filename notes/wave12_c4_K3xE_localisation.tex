@@ -1,0 +1,225 @@
+% Wave-12 C4/20 audit: three localisation strategies on K3 x E, tested
+% for compatibility with the CoHA / Drinfeld-double picture at d=3.
+% Graber--Pandharipande 1999 (Invent. Math. 135), "Localization of virtual classes"
+% Pandharipande--Thomas 2014 (Forum Math. Pi 2), "The Katz-Klemm-Vafa conjecture for K3 surfaces"
+% Maulik--Oberdieck--Pandharipande 2017 (arXiv:1605.05473), "Curves on K3 surfaces"
+% Oberdieck 2018, "Gromov-Witten invariants of the Hilbert schemes of points of a K3 surface"
+% Nakajima 1997, "Heisenberg algebra and Hilbert schemes of points on projective surfaces" (Ann. Math. 145)
+% Grojnowski 1996 (arXiv:alg-geom/9506020), "Instantons and affine algebras I"
+% Behrend--Fantechi 1997, "The intrinsic normal cone"
+
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Db}{D^{b}}
+\providecommand{\PT}{\mathrm{PT}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\cO}{\mathcal O}
+\providecommand{\cH}{\mathcal H}
+\providecommand{\cF}{\mathcal F}
+\providecommand{\bC}{\mathbb C}
+\providecommand{\bZ}{\mathbb Z}
+\providecommand{\bP}{\mathbb P}
+\providecommand{\bH}{\mathbb H}
+\providecommand{\vir}{\mathrm{vir}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kbkm}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+
+\section*{Wave-12 C4: three localisation strategies on $K3\times E$}
+
+The target threefold $X = K3\times E$ admits no generic algebraic
+torus action: $\mathrm{Aut}(X)^{\circ}=E$ contains no $\bC^{\times}$
+subgroup, so classical Atiyah--Bott / virtual localisation is
+unavailable (drinfeld\_center.tex, Lemma~\ref{lem:no-Gm-on-E}). Three
+substitute strategies are available; we develop each and test
+whether their outputs glue into one CoHA.
+
+\subsection*{Cycle 1: virtual $E[N]$ localisation.}
+
+The finite subgroup $E[N]\cong(\bZ/N)^{2}$ acts freely on $E$ and
+trivially on $K3$; the quotient $X^{(N)}:=(K3\times E)/E[N]=K3\times
+E_{N}$ with $E_{N}=E/E[N]$ isogenous to $E$. The $E[N]$-fixed locus
+on any moduli scheme $M_{v}(X)$ of stable sheaves with Mukai vector
+$v$ equals the $E[N]$-equivariant moduli $M_{v}^{E[N]}(X)$. Graber--
+Pandharipande 1999 Theorem~1 gives the virtual-class formula
+\[
+ [M_{v}(X)]^{\vir}
+ \;=\;
+ \iota_{*}\frac{[M_{v}^{E[N]}(X)]^{\vir}}
+               {e(N^{\vir}_{M^{E[N]}/M})}
+\]
+in $H_{*}^{E[N]}(M_{v}(X))\otimes_{R_{E[N]}}\mathrm{Frac}(R_{E[N]})$,
+where $R_{E[N]}=\bZ[E[N]^{\vee}]$ is the representation ring of the
+finite group, so the denominator is a product of $1-\chi$ for
+$\chi\in E[N]^{\vee}\setminus\{1\}$. This is \emph{finite-group}
+virtual localisation (Edidin--Graham 1998 \S5; the GP proof works
+verbatim for any finite group acting on a quasi-projective DM
+stack). The limitation is severe: $R_{E[N]}$ has no generic
+parameter $t\to\infty$, only $(N^{2}-1)$ discrete characters, so
+one recovers only the \emph{sum} of residues at the $N^{2}-1$
+nontrivial isotypic components. As $N\to\infty$ the tower
+$\{E[N]\}$ is dense in $E$, and the character-sum limit
+reconstructs the full ($E$-equivariant) integral only in the sense
+of a Riemann--Stieltjes average against Haar measure on $E$; no
+rational $R_{E[N]}$-parameter carries the modular $q$-dependence.
+
+\subsection*{Cycle 2: K3-fibre reduction.}
+
+Let $\pi\colon X\to E$ with $K3$-fibres. For a reduced
+Mukai-primitive class $v\in H^{*}(K3,\bZ)$ supported on fibres,
+Pandharipande--Thomas 2014 Theorem~1 (KKV for $K3$) computes the
+PT partition function on $K3$ in closed form,
+\[
+ Z^{\PT}_{K3}(y,q)
+ \;=\;
+ \sum_{n\in\bZ}\chi(\Hilb^{n}(K3))q^{n-1}
+ \;=\;
+ \prod_{k\geq 1}(1-q^{k})^{-24},
+\]
+the Yau--Zaslow / G\"ottsche formula. On the product $X=K3\times E$,
+Maulik--Oberdieck--Pandharipande 2017 Theorem~1 (MNOP reduced
+reduction) factorises the reduced DT generating series along the
+fibration as
+\[
+ Z^{\DT}_{X}(p,q,\tilde q)
+ \;=\;
+ \frac{\cC(p,q,\tilde q)}{\Delta_{5}(p,q,\tilde q)^{2}}
+\]
+(Oberdieck 2018 Geom.\ \& Topol.\ 22 \S5), where $p$ is the
+point-class variable, $q$ is the $K3$-primitive-class variable
+(descending to the $K3$-fibre), and $\tilde q$ is the $E$-modular
+variable. The $E$-direction appears \emph{only} through
+$\tilde q=e^{2\pi i\tilde\tau}$ in the modular factor
+$\Delta_{5}(p,q,\tilde q)$; the fibre-primitive integral over
+$K3$ contributes the Yau--Zaslow $\prod(1-q^{k})^{-24}$, and the
+$\tilde q$-dependence is supplied by winding sectors of curves
+wrapping $E$ (Oberdieck--Pixton 2018 Invent.\ Math.\ 213
+Theorem~1, the multiplicative holomorphic-anomaly factorisation).
+Modular dependence on $E$ factors because $E$ acts trivially
+on the fibre cohomology (the monodromy $\pi_{1}(E)\to
+\mathrm{Aut}(H^{*}(K3))$ is trivial for the trivial fibration);
+hence the $\tilde q$-expansion is a genus-one generating function
+with $E$ as the spectral curve, exactly the structure $\Phi_{3}$
+predicts for an $E_{1}$-chiral algebra on $E$ (\S
+hochschild\_calculus.tex, Remark on
+$\bH_{\Delta_{5}}$ as $E_{1}$-chiral boundary).
+
+\subsection*{Cycle 3: Nakajima--Grojnowski on $\Hilb^{n}(K3\times E)$.}
+
+Nakajima 1997 Theorem~1 and Grojnowski 1996 construct a Heisenberg
+algebra $\cH(S)$ acting on
+$\bigoplus_{n\geq 0}H^{*}(\Hilb^{n}(S),\bQ)$ for any quasi-projective
+smooth surface $S$; the creation operator
+$p_{-k}(\alpha)$ pushes $k$-points carrying class $\alpha\in
+H^{*}(S)$ onto the vacuum, and the commutator
+$[p_{k}(\alpha),p_{-\ell}(\beta)] =k\delta_{k,\ell}(\alpha,\beta)$
+reproduces the Heisenberg OPE. The construction is
+two-dimensional; the threefold $X=K3\times E$ is \emph{not} a
+surface. Two extensions are available: (i) the \emph{fibrewise}
+Nakajima algebra $\cH(K3)$ acting on
+$H^{*}(\Hilb^{n}(K3))$, tensored with $H^{*}(\Hilb^{m}(E))$ via
+the external K\"unneth decomposition, because
+$\Hilb^{n+m}(K3\times E)\neq\Hilb^{n}(K3)\times\Hilb^{m}(E)$ in
+general (the left side is the Hilbert scheme of the threefold,
+the right is a fibre product), so one obtains a proper
+\emph{sub}algebra $\cH(K3)\otimes\cH(E)$ of the full generator
+algebra; (ii) the G\"ottsche product-surface formula
+$\sum_{n}\chi(\Hilb^{n}(S_{1}\times S_{2}))q^{n}\neq
+(\sum\chi(\Hilb(S_{1}))q)\cdot(\sum\chi(\Hilb(S_{2}))q)$, so the
+tensor product of Nakajima Heisenbergs is insufficient to
+capture the full cohomology. The \emph{Mukai}-enhanced Heisenberg
+$H_{\mathrm{Muk}}(K3)$ (rank~$24$, Mukai lattice $\Lambda_{24}$;
+drinfeld\_center.tex line~1704) carries the correct fibre data;
+the elliptic direction supplies the spectral parameter
+$z\in E$ via the evaluation modules
+$\mathrm{ev}_{z}\colon H_{\mathrm{Muk}}(K3)_{\mathrm{aff}}
+\to H_{\mathrm{Muk}}(K3)$, and the affinisation
+$H_{\mathrm{Muk}}(K3)_{\mathrm{aff}}$ takes the role of the
+threefold Heisenberg.
+
+\subsection*{Cycle 4: integration test.}
+
+The three strategies produce different algebras: (1) the $E[N]$-
+equivariant integral on $M_{v}(X)$ extracts finite-character
+residues, which assemble (via $N\to\infty$) to the $E$-equivariant
+integral but do not carry Drinfeld-double comultiplication on the
+nose; (2) the $K3$-fibre reduction
+$Z^{\DT}_{X}=\cC/\Delta_{5}^{2}$ carries the full Igusa
+denominator, hence the full BKM, hence the full $E_{1}$-chiral
+algebra $\bH_{\Delta_{5}}$ on $E$; (3) the fibrewise Nakajima
+$\cH(K3)$ gives only the $E_{2}$-chiral $K3$-factor
+($d=2$ output of $\Phi_{2}$), and the $E$-direction must be
+re-adjoined by evaluation-module affinisation. The three are
+compatible but \emph{not} identical: (1) and (2) agree after
+summing the character residues (Riemann--Roch on the
+$N\to\infty$ tower reconstructs the $\tilde q$-modular integral),
+and (2) equals (3)-plus-affinisation after identifying
+$\bH_{\Delta_{5}}=(H_{\mathrm{Muk}}(K3))_{\mathrm{aff}}$ via the
+$E_{1}$-boundary of the
+$\mathrm{Hilb}^{\infty}(K3)\times\bR_{\geq 0}$ HT bulk
+(hochschild\_calculus.tex lines~1879--1884). No single
+strategy alone yields the Drinfeld double with comultiplication;
+only strategy~(2) supplies modular $\tilde q$-data intrinsically,
+only strategy~(3) supplies Heisenberg currents with explicit OPE,
+and only strategy~(1) supplies the virtual-class cycle-level
+denominator.
+
+\subsection*{Cycle 5: explicit charge-$(1,0,0)$ check.}
+
+At Mukai charge $v=(1,0,0)$ (ideal sheaf of a point on $X$), the
+moduli space is $M_{(1,0,0)}=X=K3\times E$; each strategy
+produces a CoHA generator:
+
+(1) The $E[N]$-virtual localisation contributes the equivariant
+class $[X]^{\vir}=[K3\times E]$ decomposed across $N^{2}$
+characters; the trivial-character component is
+$(24\cdot 0)\cdot[\text{pt}]=0$, consistent with
+$\chi(K3\times E)=0$ and $\kcat(K3\times E)=0$ (Lorgat CLAUDE.md
+key fact).
+
+(2) The $K3$-fibre reduction extracts the coefficient of $q^{0}$
+in $Z^{\DT}_{K3\times E}=\cC/\Delta_{5}^{2}$: this is the
+$24$-dimensional $K3$-cohomology-weighted vacuum of
+$\bH_{\Delta_{5}}$, i.e.\ the $24\times 24$ diagonal
+$R$-matrix $R(z)=\mathrm{diag}((z-h_{a})/(z+h_{a}))_{a=1}^{24}$
+of quantum\_groups\_foundations.tex line~387.
+
+(3) The Nakajima strategy produces the $24$ creation operators
+$p_{-1}(e_{a})$, $a=1,\dots,24$, of $H_{\mathrm{Muk}}(K3)$,
+which act on $H^{*}(\Hilb^{1}(K3))=H^{*}(K3)$; affinisation by
+evaluation at $z\in E$ gives the same $24$ currents
+$p_{-1}(e_{a};z)$ with OPE
+$[p_{-1}(e_{a};z),p_{1}(e_{b};w)]\sim\delta_{ab}\delta(z-w)$.
+
+The three generator sets coincide as the $24$-dimensional
+$K3$-cohomology basis, dressed by the elliptic spectral
+parameter. $\kch(K3\times E)=0$ (Hodge supertrace at $d=3$;
+cy\_d\_kappa\_stratification.tex), $\kbkm=5$ (Borcherds weight
+$c_{1}(0)/2=10/2$), $\kcat=0$ (K\"unneth-multiplicative on
+products), $\kfib=24$ (K3 second cohomology rank). The
+four values are route-independent: $\kbkm=5$ appears in all
+three strategies via the Borcherds weight of $\Delta_{5}$
+supplied by strategy~(2); the fibre-rank $24$ appears via the
+Nakajima generators of strategy~(3); $\kcat=0$ is
+$\chi(\cO_{K3\times E})=0$, route-free; $\kch=0$ is the
+supertrace of the $\Phi_{3}$-output, accessible only through
+$(\infty,1)$-categorical $\Phi_{3}$ on
+$\Db\Coh(K3\times E)$. The matrix of strategies against
+invariants is diagonal: each strategy produces one invariant
+cleanly.
+
+\subsection*{Audit verdict.}
+
+The three strategies are \emph{complementary}, not redundant.
+A single CoHA with Drinfeld-double comultiplication is produced
+by \emph{combining} strategies~(2) and~(3): fibre reduction
+supplies the modular $\tilde q$-weight, Nakajima supplies the
+Heisenberg currents, affinisation by $E$-evaluation glues them.
+Strategy~(1) is the virtual-class cycle-level counterpart
+consistent at every $E[N]$-isotypic
+component but does not on its own carry comultiplication.
+The outputs are compatible at charge $(1,0,0)$ and agree on the
+four $\kappa_{\bullet}$-invariants $(\kch,\kbkm,\kcat,\kfib)=(0,5,0,24)$
+tabulated in cy\_d\_kappa\_stratification.tex.

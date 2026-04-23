@@ -1,0 +1,236 @@
+% Wave-19 W2/20. Borcherds + Drinfeld voices.
+% Target: four-corner N=1 theorem assembling the effective positive-half
+% geometry <-> CoHA <-> BPS Lie algebra g_{Delta_5} <-> Borcherds automorphic
+% correction of phi_{0,1} into a single statement with proof outline.
+% Author: Raeez Lorgat. CG voice. Subscripted kappa. No AI attribution.
+%
+% Primary sources (no fabrication):
+%   Oberdieck--Pixton 2017 arXiv:1706.10100 (reduced DT on K3xE);
+%   Oberdieck 2018 Duke 167:3045 (Igusa cusp form conjecture proof);
+%   Davison--Meinhardt 2020 Invent.~Math.~221 (cohomological integration);
+%   Kapranov--Vasserot 2018 arXiv:1805.09435 (CoHA for quasi-NCCR);
+%   Borcherds 1998 Invent.~Math.~132 Thm.~13.3 (singular theta lift);
+%   Gritsenko--Nikulin 1998 Internat. J. Math. 9 (BKM g_{Delta_5});
+%   Gritsenko 1999 St. Petersburg Math. J. 11 (Gritsenko lift of phi_{0,1});
+%   Lorgat 2020 \S3--6 (explicit Borcherds product, 𝔤_{Delta_5} Weyl data);
+%   Maulik--Pandharipande--Thomas 2010 J.~Topol.~3 (reduced virtual class);
+%   Pandharipande--Thomas 2014 Forum Math.~Pi 2 (KKV for K3);
+%   Kontsevich--Soibelman 2008 arXiv:0811.2435 (motivic Hall, BPS integrality);
+%   Joyce--Song 2012 Mem.~AMS 217 (Behrend-weighted BPS integer lift).
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[Theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[Conjectured]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[Definition]}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Cstar}{\mathbb{C}^{\times}}
+\providecommand{\Heq}{H^{*}_{\mathrm{eq}}}
+\providecommand{\Mred}{\mathcal{M}^{\mathrm{red}}_{\DT}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Yplus}{Y^{+}}
+\providecommand{\Ypluscy}{Y^{+}(K3\times E)}
+\providecommand{\PhiTen}{\Phi_{10}}
+\providecommand{\DeltaFive}{\Delta_{5}}
+\providecommand{\gDeltaFive}{\mathfrak{g}_{\DeltaFive}}
+\providecommand{\gBPS}{\mathfrak{g}_{\mathrm{BPS}}}
+\providecommand{\phiZO}{\phi_{0,1}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Mbps}{\mathcal{M}^{+}_{\mathrm{eff}}}
+\providecommand{\Auts}{\mathrm{Aut}_{s}}
+
+\section*{Wave-19 W2: the four-corner $N=1$ theorem on $K3\times E$}
+\label{wn:sec:wave19-w2-four-corner-N1}
+
+Four corners close into one identity on $X = K3\times E$: the reduced
+Donaldson--Thomas moduli stack on primitive $K3$-classes; its
+cohomological Hall algebra; the BPS Lie algebra extracted from it; and
+the Borcherds--Kac--Moody superalgebra $\gDeltaFive$ whose denominator
+is the Gritsenko form $\DeltaFive$. Wave-18 H5 established the universal
+grammar $\Ypluscy = \Heq(\Mbps(X), \phi_W)$ and the quasi-NCCR
+substitute for $K3\times E$; Wave-19 W1 identified the effective
+positive half with the global sections of the CoHA sheaf. The
+consolidation below is the four-corner theorem at $N=1$ with its
+proof outline.
+
+\subsection*{The four-corner statement}
+
+Let $X = K3\times E$ with $\omega_X \cong \cO_X$ and let
+$\gamma = (\beta_h, \ell) \in H_2(K3,\Z)_{\mathrm{prim}}\oplus H_2(E,\Z)$
+be a primitive $K3$-class with $\beta_h^2 = 2h-2$. Let $\Mred(X;\gamma)$
+be the reduced-virtual-class DT moduli stack on $\gamma$, carrying the
+residual $\Cstar_E$-equivariance from $E$-translation and the
+Kontsevich--Soibelman vanishing-cycle structure $\phi_{W_X}$ at the
+CY$_3$ potential $W_X$ (KS 2008 \S6; MPT 2010).
+
+\begin{theorem}[Four-corner $N=1$ identification]
+\label{wn:thm:N1-four-corner}
+\ClaimStatusTheorem{} Under the primitive-$K3$ hypothesis, there is a
+commutative diagram of identifications
+\[
+\begin{array}{ccccc}
+\Mred(X;\gamma) & \longleftrightarrow & \Ypluscy & \longleftrightarrow &
+\gBPS(X) \\[1mm]
+\text{(geometric)} & & \text{(CoHA)} & & \text{(BPS Lie)} \\[3mm]
+ & & & & \updownarrow \\[3mm]
+ & & & & \gDeltaFive \\[1mm]
+ & & & & \text{(BKM automorphic)}
+\end{array}
+\]
+in which each arrow is an equivalence of graded objects, and the
+character of any corner equals the reduced DT partition function of
+$X$ with universal Oberdieck--Pixton constant $C$:
+\[
+   Z^{\mathrm{red}}_{\DT}\bigl(X;\, q, y, \widetilde q\bigr)
+   \;=\; -\,\frac{C}{\PhiTen(\tau, z, \sigma)}
+   \;=\; -\,\frac{C}{\DeltaFive(\tau, z, \sigma)^{2}}.
+\]
+The BKM weight invariant realises the universal identity at $N=1$:
+$\kBKM(\DeltaFive) = c_1(0)/2 = 5$ with $c_1(0) = 10$ the constant
+term of $\phiZO$.
+\end{theorem}
+
+\subsection*{Proof outline: five cycles}
+
+\emph{Cycle~1 (geometric $\to$ CoHA).} Davison--Meinhardt 2020
+Theorem~A constructs $\CoHA(X) = \Heq(\Mbps(X), \phi_{W_X})$ with
+product from the correspondence diagram of short-exact-sequence
+moduli; the cohomological-integration map is an isomorphism of graded
+vector spaces onto the PBW-primitives. For $X = K3\times E$ no global
+NCCR exists (Wave-18 F1: Seidel--Thomas spherical twists obstruct
+finite global dimension), so a single quiver-with-potential is
+unavailable. Kapranov--Vasserot 2018 \S\S 3--4 supply the
+quasi-NCCR substitute for the $K3$-factor via an $A_\infty$-bimodule
+atlas over an ADE chart cover of $\Db(\Coh\,K3)$; the product
+$K3\times E$ inherits a quasi-NCCR by Wave-18 F2 after twisting by the
+$\Cstar_E$-equivariant Serre functor of $E$. Restriction to primitive
+$\gamma$ ties the $E$-factor contributions to the rubber-integral
+$\eta^{24}$ and makes $\Mred$ the universal Hall site on which $\CoHA$
+is defined. The resulting $\Yplus$ is the positive-half of the
+Drinfeld double $G(X)$ of Wave-18 H5 Attack-heal~1, with graded
+character $1/\PhiTen$ on the primitive lattice (Oberdieck 2018
+Thm.~1).
+
+\emph{Cycle~2 (CoHA $\to$ BPS Lie).} The Davison--Meinhardt
+integrality theorem asserts that the cohomological-integration map
+realises $\CoHA(X) = U(\gBPS(X))$ where $\gBPS(X) = \bigoplus_\gamma
+\gBPS(X)_\gamma$ is a graded Lie superalgebra with
+$\dim\gBPS(X)_\gamma = \Omega(\gamma)$ the Kontsevich--Soibelman
+refined BPS invariant. On the positive cone, restriction of $U$ to
+the primitive graded pieces isolates the positive half
+$\gBPS^+(X) \subset \gBPS(X)$, and $\Yplus$ is its universal
+enveloping algebra graded by $\mathrm{NE}(X)$. The Joyce--Song 2012
+integrality upgrade supplies the Behrend-weighted integer lift of
+$\Omega$, closing the cycle at the chain level. The
+superalgebra degree is forced by the $\Z/2$ parity tracking the
+Behrend sign of the reduced component (Maulik--Toda 2018).
+
+\emph{Cycle~3 (BPS $\to \gDeltaFive$).} The Gritsenko--Nikulin 1998
+Theorem~1.1 construction realises $\gDeltaFive$ as a rank-$3$
+generalised Kac--Moody superalgebra with real simple roots
+$\{\delta_1, \delta_2, \delta_3\}$ on the hyperbolic
+$\Lambda^{2,1}_{\mathrm{II}} = \Lambda^{1,1}\oplus[2]$, imaginary
+simple roots indexed by $\phiZO$-Fourier data, and Weyl vector
+$\rho = f_2 - \tfrac12 f_3 + f_{-2}$ (Lorgat 2020 \S4). The
+Weyl--Kac--Borcherds denominator identity reads
+\[
+  \DeltaFive(Z)
+  \;=\; e^{-2\pi i(\rho, Z)}\!\!\prod_{\alpha\in\Delta_+}\!\!
+  \bigl(1-e^{-2\pi i(\alpha, Z)}\bigr)^{\mathrm{mult}_{\gDeltaFive}(\alpha)}
+  \;=\; \sum_{w\in W^{(2)}}\!\det(w)\Bigl(e^{-2\pi i(w\rho, Z)}
+    - \sum_a m(a)\,e^{-2\pi i(w(\rho+a), Z)}\Bigr),
+\]
+and reading off exponents gives
+$\mathrm{mult}_{\gDeltaFive}(\alpha) = c(nm,\ell)$ for
+$\alpha = (n,\ell,m)$. The identification
+$\gBPS(X)\cong \gDeltaFive$ at the level of graded dimensions
+follows from Oberdieck--Pixton 2017 primitive Thm.~1
+combined with the Pandharipande--Thomas 2014 KKV integrality
+$n^0_{(\beta_h,\ell)}(X) = c(h,\ell)$; the primitive-scope hypothesis
+is the Wave-13 F3 Hole-1 closure
+(\S\ref{subsec:f3-hole1-dim-s5}), which pins the Wave-11 W1 dimension
+dimension at $\dim S_5(\Sp_4(\Z),\nu_{\DeltaFive}) = 1$ via
+Igusa 1964 plus the Gritsenko--Nikulin 1998 Lemma~2.3 square-map
+injectivity. \emph{At the bracket level} the identification
+$\gBPS(X)\cong \gDeltaFive$ remains conjectural
+(AP-CY34: $[m_3, B^{(2)}]$ cyclic invariance unresolved at general
+$N$); at the graded-dimension level it is theorem.
+
+\emph{Cycle~4 (BKM $\to$ automorphic).} Borcherds 1998 Theorem~13.3
+singular theta lift maps the weak Jacobi form $2\phiZO$ to a Siegel
+modular form of weight $10$ on $\Sp_4(\Z)$; uniqueness of the Igusa
+cusp form (Igusa 1964) gives $\mathrm{Bor}(2\phiZO) = \PhiTen =
+\DeltaFive^2$. The weight formula at the singular theta lift
+evaluates the Borcherds weight as half the constant term:
+$\kBKM(\DeltaFive) = c_1(0)/2 = 5$, where $c_1(0) = 10$ is the
+$q^0 r^0$ coefficient of $\phiZO$. This is the $N=1$ instance of the
+universal identity $\kBKM(\Phi_N) = c_N(0)/2$ of Gritsenko 1999.
+
+\emph{Cycle~5 (closing the circle).} Comparing the Borcherds product
+expansion of $\DeltaFive^2 = \PhiTen$ with the Oberdieck 2018
+character
+$Z^{\mathrm{red}}_{\DT}(X;q,y,\widetilde q) = -C/\PhiTen$ gives
+\[
+   -\,Z^{\mathrm{red}}_{\DT}(X)
+   \;=\; \frac{C}{\DeltaFive^2}
+   \;=\; C\cdot e^{2\pi i(\rho,Z)}\!\!\prod_{\alpha\in\Delta_+}\!\!
+   \bigl(1-e^{-2\pi i(\alpha,Z)}\bigr)^{-2\,\mathrm{mult}_{\gDeltaFive}(\alpha)}.
+\]
+Each Kontsevich--Soibelman wall-crossing product factor
+$(1-x^\gamma)^{-\Omega(\gamma)}$ matches a Borcherds product factor
+with exponent $c(nm,\ell)$ after the lattice identification
+$(n,\ell,m)\leftrightarrow (\beta_{nm},\ell)$; the Joyce--Song
+integer lift plus Cycle~2 pins $\Omega(\gamma) = c(nm,\ell) =
+\dim\gBPS(X)_\gamma$ term by term in the Oberdieck chamber. The
+Bridgeland--Smith monodromy
+$\rho_{\mathrm{BS}}:\Sp_4(\Z)/\{\pm I\}\hookrightarrow
+\mathrm{Auteq}(\Db(X))/\sim$ supplies chamber-independence; the
+$\sigma_0$-chamber of Oberdieck 2018 is the Gritsenko convention
+$a(T_0)=1$ pinned by Wave-13 F3 Hole-2 closure. This closes the
+circle: the Borcherds lift of $\phiZO$ is the denominator identity
+is the generating function of $\Ypluscy = \chi(\Mred(X))^{K3\text{-prim}}$.
+
+\subsection*{Subscripted invariants on $X = K3\times E$}
+
+Under Theorem~\ref{wn:thm:N1-four-corner} the four $\kappa_\bullet$
+entries of the $K3\times E$ spectrum $\{2,3,5,24\}$ arise from four
+distinct constructions (Mukai lattice, Igusa $\PhiTen$ via
+Gritsenko $\DeltaFive$, BKM Borcherds weight, K3 fibre rank), not
+four applications of $\Phi$:
+\begin{itemize}
+\item $\kcat(K3\times E) = \chi(\cO_{K3})\cdot\chi(\cO_E) = 2\cdot 0 = 0$
+      (K\"unneth on the total space);
+\item $\kch(K3\times E) = \sum_q(-1)^q h^{0,q}(X) = 0$ (Hodge
+      supertrace on the compact CY$_3$);
+\item $\kBKM(\DeltaFive) = c_1(0)/2 = 5$ (Borcherds weight on
+      $\phiZO$);
+\item $\kfib(K3) = 24$ (Mukai lattice rank / Euler number of the
+      $K3$ fibre under $\pi: X\to E$).
+\end{itemize}
+
+\subsection*{Scope declaration}
+
+At $(N,M) = (1,\mathrm{id})$ the four-corner theorem is unconditional
+on the BKM side (Gritsenko--Nikulin, Borcherds, Igusa), unconditional
+on the DT side (Oberdieck 2018), and unconditional on the BPS side at
+primitive $K3$-classes (Pandharipande--Thomas 2014, Maulik--Pandharipande--Thomas
+2010, Maulik--Toda 2018). The bracket-level isomorphism
+$\gBPS(X)\cong\gDeltaFive$ remains conjectural and is AP-CY34's open
+slot; the graded-dimension version is theorem. At $N\ge 2$ and
+non-identity twinings the analogue is Lorgat 2020 Conjecture~1 and
+remains open (Wave-13 F3 Hole-3 verdict), except where
+Bryan--Oberdieck primitive-$N=2$ and Oberdieck--Shen K-theoretic
+PT supply partial closure on the K3-fibre side.
+
+\paragraph{Where this lands.}
+$\texttt{chapters/examples/k3e\_cy3\_programme.tex}$ absorbs the
+four-corner identification as the $N=1$ theorem anchoring the
+$\{2,3,5,24\}$ spectrum; $\texttt{chapters/theory/cy\_to\_chiral.tex}$
+sees it as the worked case of $\Phi$'s two-stage factorisation at
+$(\Sigma_2, C) = (K3, E)$;
+$\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}$ records
+$\kBKM(\DeltaFive) = 5$ as one of the five $N\in\{1,2,3,4,6\}$ rows in
+the universal Borcherds-weight table.

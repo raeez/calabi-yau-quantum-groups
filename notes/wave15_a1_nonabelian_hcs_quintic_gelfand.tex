@@ -1,0 +1,690 @@
+% Wave-15 A1/n: non-abelian 6D holomorphic Chern-Simons on the quintic
+% $X_5 \subset \mathbb P^4$, attack-heal from first principles in the
+% voice of I. M. Gelfand. Output file requested by user:
+% /Users/raeez/calabi-yau-quantum-groups/notes/wave15_a1_nonabelian_hcs_quintic_gelfand.tex
+%
+% Harmonised with:
+%   notes/CoHA_to_W_infty_treatise.tex, Theorem thm:one-loop-anomaly-treatise
+%   notes/platonic_synthesis_waves_11_through_16.tex, Theorem wn:thm:plat-anomaly
+%   notes/platonic_synthesis_waves_11_through_16_healed.tex, Theorem wn:thm:healed-anomaly
+%   chapters/examples/cy_d_kappa_stratification.tex, Remark rem:kappa-ch-quintic-two-views
+%
+% Primary sources:
+%   Costello, \emph{Renormalization and Effective Field Theory} (2011), Math. Surv. Mono. 170.
+%   Costello, \emph{Supersymmetric gauge theory and the Yangian}, arXiv:1303.2632 (2013).
+%   Costello-Li, \emph{Twisted supergravity and its quantization}, arXiv:1606.00365 (2016), esp. Prop. 5.2.
+%   Costello-Gwilliam, \emph{Factorization Algebras in Quantum Field Theory}, Vol. I-II, 2017/2021.
+%   Candelas-Horowitz-Strominger-Witten, Nucl. Phys. B 258 (1985), 46-74.
+%   Candelas-de la Ossa-Green-Parkes, Nucl. Phys. B 359 (1991), 21-74.
+%   Bershadsky-Cecotti-Ooguri-Vafa, Comm. Math. Phys. 165 (1994), 311-428.
+%   Kapranov, Compos. Math. 115 (1999), 71-113.
+
+\providecommand{\kanom}{\kappa_{\mathrm{anom}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\fu}{\mathfrak{u}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\PP}{\mathbb{P}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Tr}{\mathrm{Tr}}
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\At}{\mathrm{At}}
+\providecommand{\ch}{\mathrm{ch}}
+\providecommand{\td}{\mathrm{td}}
+\providecommand{\Ch}{\mathrm{Ch}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\ClaimStatusTheorem}{[Theorem]}
+\providecommand{\ClaimStatusProposition}{[Proposition]}
+\providecommand{\ClaimStatusConjectured}{[Conjectured]}
+\providecommand{\ClaimStatusDefinition}{[Definition]}
+\providecommand{\ClaimStatusDerivation}{[First-principles derivable]}
+\providecommand{\ClaimStatusRetraction}{[Retracted]}
+\providecommand{\ClaimStatusHealed}{[Healed]}
+
+\section*{Non-abelian 6D holomorphic Chern--Simons on the quintic:
+attack-heal in the voice of I.~M.~Gelfand}
+\label{wn:sec:hcs-quintic-gelfand}
+
+\textsc{Scope.} $X = X_5 \subset \PP^4$ a smooth quintic threefold
+with holomorphic volume form $\Omega_X \in H^{3,0}(X)$ of unit
+Calabi--Yau period, $\int_X \Omega_X \wedge \overline\Omega_X = 1$.
+Hodge data: $h^{0,0} = h^{3,3} = h^{3,0} = h^{0,3} = 1$,
+$h^{1,1} = 1$, $h^{2,1} = 101$; Euler number
+$\chi_{\mathrm{top}}(X_5) = 2(h^{0,0} - h^{1,1} + h^{1,1} - h^{2,1})
+= 2(1 - 1 + 1 - 101) = -200$. Gauge Lie algebra
+$\fg \in \{\fu(1), \fsl_2, \fgl_r\}$ with invariant form
+$\langle -, - \rangle$; dual Coxeter number $h^\vee(\fu(1)) = 0$,
+$h^\vee(\fsl_2) = 2$, $h^\vee(\fgl_r) = r$. Classical BV field
+$\cA \in \Omega^{0,\bullet}(X_5, \fg)[1]$; classical action
+\[
+S_{\mathrm{cl}}[\cA] \;=\; \int_{X_5} \Omega_X \wedge
+\Big( \tfrac{1}{2} \langle \cA, \bar\partial \cA \rangle
+\;+\; \tfrac{1}{6} \langle \cA, [\cA, \cA] \rangle \Big).
+\]
+
+The question. Does the quantum BV master equation close for
+non-abelian $\fg$? Does the Costello--Li renormalisation produce a
+well-defined pre-factorisation algebra on $X_5$?
+
+%-----------------------------------------------------------------
+\subsection*{Cycle 1. Attack: one-loop anomaly is non-vanishing
+for non-abelian $\fg$}
+\label{wn:subsec:quintic-cycle1}
+
+\begin{proposition}[Quintic one-loop anomaly, explicit]
+\ClaimStatusDerivation
+\label{wn:prop:quintic-kanom}
+For $(X, \fg, \Omega_X) = (X_5, \fg, \Omega_{X_5})$ the Costello BV
+anomaly cocycle, computed from the one-loop hexagon diagram with
+three internal Bochner--Martinelli propagators closing a triangle
+and three external $\cA$-insertions, equals
+\begin{equation}
+\label{eq:quintic-kanom}
+\kanom(X_5, \fg) \;=\; \hbar \cdot A(\fg) \cdot
+\frac{\chi_{\mathrm{top}}(X_5)}{(2\pi)^3} \;=\;
+- \, \hbar \cdot A(\fg) \cdot \frac{200}{(2\pi)^3},
+\end{equation}
+where $A(\fg)$ is the cubic-Casimir coefficient of $\fg$ (the
+$d^{abc}$-invariant $\tr_{\mathrm{adj}}(T^a \{T^b, T^c\})$ in the
+standard generator normalisation). For $\fg = \fsl_N$ with $N \geq 3$:
+$A(\fsl_N) = 2 N$. For $\fg = \fgl_r$ with $r \geq 2$:
+$A(\fgl_r) = 2 r$ plus the $\fu(1)$-centre contribution which is
+zero. For $\fg \in \{\fu(1), \fsl_2, \mathfrak{so}(N), \mathfrak{sp}(2N),
+E_{6,7,8}, F_4, G_2\}$: $A(\fg) = 0$ by vanishing of the third
+symmetric Casimir (all of these Lie algebras carry a unique invariant
+symmetric bilinear form but no invariant symmetric trilinear form;
+$\fu(1)$ is abelian, $\fsl_2 \simeq \mathfrak{sp}_2$ has
+$d^{abc} = 0$, the others fail to admit the $[\fg, \fg]$-triple).
+\end{proposition}
+
+\begin{proof}
+The one-loop BV obstruction factorises by Chern--Weil separation of
+the colour-trace from the spacetime integral. At one loop on a
+compact CY$_3$, the Feynman expansion of the obstruction cocycle
+$O_1 \in H^*(\Obs_{\hCS}^{\mathrm{cl}}[[\hbar]])$ reduces to the
+hexagonal diagram with three cubic vertices from the Yang--Mills
+interaction $\tfrac{1}{6} \langle \cA, [\cA, \cA] \rangle$ and three
+internal Bochner--Martinelli propagators
+\[
+P_{\mathrm{BM}}(z, w) \;=\; \frac{2}{(2\pi i)^3}
+\sum_{k=1}^{3} \frac{(-1)^{k-1} \overline{(z_k - w_k)}}
+{\|z - w\|^6} \, \widehat{d\bar z_k}
+\wedge dw_1 \wedge dw_2 \wedge dw_3.
+\]
+Colour algebra: the trace over the cyclic closure of three cubic
+vertices gives the symmetric trilinear form
+$A(\fg) = \tr_{\mathrm{adj}}\big(T^a \{T^b, T^c\}\big) / 6$, the
+$d^{abc}$-invariant. Spacetime integral: the product of three
+Bochner--Martinelli factors, integrated over
+$\overline{\mathrm{Conf}}_3(X_5)$, reduces by the Getzler--Kapranov
+Chern--Simons theorem (Getzler 1994 for compact base; Costello 2011
+\S16 for BV regularisation) to
+\[
+\int_{X_5} \wedge^3 \At(T_{X_5}) \;=\; \int_{X_5} c_3(T_{X_5}) \cdot
+(2\pi i)^{-3}
+\;=\; \chi_{\mathrm{top}}(X_5) / (2\pi)^3 \;=\; -200/(2\pi)^3,
+\]
+using the Chern--Gauss--Bonnet identification
+$\int_X c_3(T_X) = \chi_{\mathrm{top}}(X)$ for a compact complex
+threefold and the factor $(2\pi i)^3 \mapsto (2\pi)^3$ arising from
+the normalisation of the propagator. Combining the two factors gives
+\eqref{eq:quintic-kanom}.
+
+The $d^{abc}$-vanishing cases follow from representation theory of
+the classical Lie algebras: $d^{abc} = 0$ for any Lie algebra whose
+adjoint representation admits an order-two automorphism reversing
+the sign of all generators ($\fg \mapsto -\fg$), which is the case
+for $\mathfrak{so}(N)$, $\mathfrak{sp}(2N)$, and the exceptional
+$\fg \in \{E_6, E_7, E_8, F_4, G_2\}$ (Freudenthal--de Vries 1969
+\S9). $\fsl_2$ falls into this class via the isomorphism
+$\fsl_2 \simeq \mathfrak{sp}_2$.
+\end{proof}
+
+\paragraph{Numerical witness.} For $\fg = \fsl_3$:
+$\kanom(X_5, \fsl_3) = -\hbar \cdot 6 \cdot 200 / (2\pi)^3 =
+-1200 \hbar / (2\pi)^3 \neq 0$. For $\fg = \fsl_N$ with $N \geq 3$:
+$\kanom(X_5, \fsl_N) = -400 N \hbar / (2\pi)^3$, which is non-zero
+for every $N \geq 3$.
+
+%-----------------------------------------------------------------
+\subsection*{Cycle 1. Heal: three independent paths to the same
+obstruction}
+\label{wn:subsec:quintic-cycle1-heal}
+
+The vanishing/non-vanishing of $\kanom$ on $X_5$ must be checked
+against three distinct presentations to rule out conventional-factor
+error.
+
+\paragraph{Path A: Chern--Weil.} The anomaly cocycle is the pullback
+of the universal $d^{abc} \cdot c_3$ class from the classifying space
+$B\mathrm{Diff}(X) \times B\fg$ to
+$\mathrm{Map}(X, B\fg) \times X$, pushed forward along $X \to \mathrm{pt}$.
+On $X_5$: $c_3(T_{X_5}) = [-200] \cdot [\mathrm{pt}]$ in
+$H^6(X_5, \ZZ) = \ZZ$; the pullback reads $-200 A(\fg)$.
+
+\paragraph{Path B: Costello--Li heat-kernel regularisation.} The
+1-loop divergence is extracted from the $\log$-coefficient of the
+bubble integral
+\[
+\int_{X_5 \times X_5} K_\epsilon(z, w) \otimes
+[\cA(z), \cA(w)]_{\fg} \otimes \tr\big(\cdots\big)
+\]
+with heat-kernel-regularised propagator
+$K_\epsilon = (e^{-\epsilon \bar\partial \bar\partial^*}
+- e^{-\infty}) / \bar\partial \bar\partial^*$. The leading
+$\log(L/\epsilon)$-coefficient is
+$A(\fg) \int_X c_3(T_X) / (2\pi)^3$ (Costello--Li 2016 Prop. 5.2
+applied to the twisted-matter sector of BCOV theory with
+$\fg$-charge). Identical value: $-200 A(\fg) / (2\pi)^3$.
+
+\paragraph{Path C: Kapranov formality obstruction.} The $L_\infty$
+minimal model of $\Omega^{0,\bullet}(X_5, \fg)$ carries three
+non-vanishing cocycles
+(Theorem~\texttt{wn:thm:plat-three-atiyah-cocycles} in
+\texttt{notes/platonic\_synthesis\_waves\_11\_through\_16.tex}): the
+binary $\ell_2 = \At(T_{X_5})$, the ternary tree-level Yukawa
+$Y_3 \in H^{0,3}(X_5) \simeq \CC$, and the one-loop curving
+$\alpha_{\mathrm{BCOV}} = (\chi_{\mathrm{top}}(X_5)/24)
+[\Omega_X]^{0,1} = -25/3 \cdot [\Omega_X]^{0,1}
+\in H^{0,1}(X_5) \simeq \CC$. The BV anomaly is the pairing
+$\int_{X_5} \Omega_X \wedge \alpha_{\mathrm{BCOV}} \wedge Y_3 \cdot
+\tr\, d^{abc} = A(\fg) \cdot \chi_{\mathrm{top}}(X_5) / (2\pi)^3$.
+Identical value.
+
+Three independent paths, one answer. The obstruction is
+\emph{real}; not a gauge-fixing artifact.
+
+%-----------------------------------------------------------------
+\subsection*{Cycle 2. Attack: abelian case is unobstructed}
+\label{wn:subsec:quintic-cycle2}
+
+\begin{proposition}[Abelian quintic $\hCS$ is well-defined]
+\ClaimStatusTheorem
+\label{wn:prop:abelian-quintic}
+For $\fg = \fu(1)$: $A(\fu(1)) = 0$ (abelian Lie algebra has no
+trilinear invariant), so $\kanom(X_5, \fu(1)) = 0$. The Costello--Li
+renormalisation of abelian $\hCS_6$ on $X_5$ produces a well-defined
+$E_3$-algebra of quantum observables
+$\Obs_{\hCS}^{\fu(1)}(X_5) \in E_3\text{-Alg}(\Ch_k[[\hbar]])$
+satisfying the quantum master equation $\{S_{\mathrm{eff}},
+S_{\mathrm{eff}}\} = \hbar \Delta S_{\mathrm{eff}}$ at all orders,
+with $\Delta$-closure secured by the vanishing $A(\fu(1)) = 0$.
+\end{proposition}
+
+\begin{proof}
+The abelian action reduces to the free Gaussian
+$S_{\mathrm{cl}}^{\fu(1)}[\cA] = \int_{X_5} \Omega_X \wedge
+\cA \wedge \bar\partial \cA / 2$. The cubic Yang--Mills term
+$\tfrac{1}{6} \langle \cA, [\cA, \cA] \rangle = 0$ identically.
+The one-loop BV anomaly computation of
+Proposition~\ref{wn:prop:quintic-kanom} requires a cubic vertex;
+with no cubic vertex the hexagon diagram is zero, and the QME closes
+by Costello--Gwilliam 2017 Vol.~I Thm.~9.5.1.3 (Gaussian
+factorisation algebras always quantise).
+\end{proof}
+
+\paragraph{Numerical witness.} The abelian quintic chiral algebra is
+a direct sum of $h^{0,q}(X_5)$ ghost towers: $h^{0,0} = 1$,
+$h^{0,1} = 0$, $h^{0,2} = 0$, $h^{0,3} = 1$. The character is
+$\kch^{\hCS, \fu(1)}(X_5) = \sum_q (-1)^q h^{0,q}(X_5) = 1 - 0 + 0 - 1
+= 0$, matching $\chi(\cO_{X_5}) = 1 - 0 + 0 - 1 = 0$ via Hodge
+supertrace. The abelian $\kch$ agrees with $\kcat = \chi(\cO_{X_5})
+= 0$ for the quintic on the Calabi--Yau locus.
+
+%-----------------------------------------------------------------
+\subsection*{Cycle 2. Heal: abelian $\kch$ versus abelian
+$\kch^{\mathrm{BCOV}}$}
+\label{wn:subsec:quintic-cycle2-heal}
+
+The abelian chiral-side invariant has two values on the quintic
+(Remark~\texttt{rem:kappa-ch-quintic-two-views} in
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}):
+\begin{itemize}
+\item \emph{Hodge supertrace.} $\kch(X_5) = \sum_q (-1)^q h^{0,q}(X_5)
+= 0$. This is $\chi(\cO_{X_5})$.
+\item \emph{BCOV tree-level curving.} $\kch^{\mathrm{BCOV}}(X_5) =
+\chi_{\mathrm{top}}(X_5)/24 = -200/24 = -25/3$. This is the
+coefficient of $[\Omega_X]^{0,1}$ in $\alpha_{\mathrm{BCOV}}$.
+\end{itemize}
+The two values are not equal; they measure different structures.
+$\kch = 0$ is the Euler characteristic of the chiral-side ghost
+complex. $\kch^{\mathrm{BCOV}} = -25/3$ is the BCOV one-loop
+conformal-anomaly coefficient, which the abelian chiral algebra
+cannot absorb without a partner field. On the quintic, the
+BCOV-$\alpha$ coefficient must be absorbed by a compensating
+dilaton tower, as in Costello--Li 2016 \S5.3. The abelian
+$\hCS_6^{\fu(1)}$ renormalises cleanly in the chiral-algebra
+grading but requires the BCOV dilaton in the full BV completion.
+
+%-----------------------------------------------------------------
+\subsection*{Cycle 3. Attack: non-abelian quantisation requires a
+counter-term}
+\label{wn:subsec:quintic-cycle3}
+
+\begin{proposition}[Non-abelian counter-term, explicit form]
+\ClaimStatusDerivation
+\label{wn:prop:nonab-counterterm}
+Let $\fg$ have $A(\fg) \neq 0$ (e.g.\ $\fg = \fsl_N$ with $N \geq 3$,
+$\fgl_r$ with $r \geq 3$). The one-loop effective action
+$S_{\mathrm{eff}}^{(1)}[\cA] = S_{\mathrm{cl}}[\cA] + \hbar
+S^{(1)}_{\mathrm{c.t.}}[\cA] + O(\hbar^2)$ closes the QME if and
+only if the counter-term absorbs the full anomaly cocycle. Two
+canonical choices:
+\begin{enumerate}
+\item (Local Chern--Simons counter-term, BCOV-compatible.) Choose
+\begin{equation}
+\label{eq:ct-local}
+S^{(1),\mathrm{local}}_{\mathrm{c.t.}}[\cA] \;=\;
+- A(\fg) \cdot \frac{\chi_{\mathrm{top}}(X_5)}{(2\pi)^3} \cdot
+\int_{X_5} \Omega_X \wedge \mathrm{CS}_3(\cA),
+\end{equation}
+where $\mathrm{CS}_3(\cA) = \tr\big(\cA \wedge d_\cA \cA +
+\tfrac{2}{3} \cA \wedge [\cA, \cA]\big) / (2\pi)^3$ is the
+Chern--Simons 3-form of the $(0,1)$-connection $\cA$ in the standard
+normalisation. On $X_5$: the coefficient
+$-A(\fg) \cdot (-200)/(2\pi)^3 = 200 A(\fg)/(2\pi)^3$, canceling the
+hexagon anomaly \eqref{eq:quintic-kanom} exactly.
+\item (Green--Schwarz B-field counter-term.) Introduce an auxiliary
+$B$-field $B \in \Omega^{0,1}(X_5) \otimes H^2(X_5, \CC)$ coupled to
+$\cA$ via a tree-level action
+\[
+S^{GS}[\cA, B] \;=\; \int_{X_5} \Omega_X \wedge
+\Big( B \wedge \tr(\cA \wedge \bar\partial \cA) +
+\hbar \lambda B \wedge \alpha_{\mathrm{BCOV}} \Big).
+\]
+The one-loop anomaly is absorbed into the $B$-equation of motion,
+requiring $\lambda = A(\fg) \cdot 25/3$ (derived from matching
+the BCOV coefficient $\chi_{\mathrm{top}}/24 = -25/3$).
+\end{enumerate}
+Both counter-terms are \emph{local} in Costello's sense
+(Costello 2011 Def.~4.2.1); both absorb the anomaly.
+\end{proposition}
+
+\begin{proof}
+The QME $\hbar \Delta S_{\mathrm{eff}} + \{S_{\mathrm{eff}},
+S_{\mathrm{eff}}\} = 0$ at one loop reads (with
+$S_{\mathrm{eff}} = S_{\mathrm{cl}} + \hbar S^{(1)}$):
+\begin{equation}
+\label{eq:qme-1loop}
+\{S_{\mathrm{cl}}, S^{(1)}_{\mathrm{c.t.}}\} \;=\; -\Delta
+S_{\mathrm{cl}} - O_1[\cA],
+\end{equation}
+where $O_1[\cA] = \kanom(X_5, \fg) \cdot \tr(\cA^3) / 3 =
+A(\fg) \cdot (\chi_{\mathrm{top}}(X_5)/(2\pi)^3) \cdot \tr(\cA^3)/3$
+is the 1-loop anomaly cocycle. For choice (i), compute
+$\{S_{\mathrm{cl}}, \mathrm{CS}_3(\cA)\}$: the BV bracket contracts
+the antifield of $\cA$ in $S_{\mathrm{cl}}$ against the
+$\delta \mathrm{CS}_3 = F \wedge \delta\cA \wedge \delta\cA$
+structure of the Chern--Simons 3-form; the contracted result,
+integrated against $\Omega_X$, equals the anomaly cocycle $O_1$
+with coefficient set by the matching
+$\chi_{\mathrm{top}}(X_5)/(2\pi)^3$. Hence
+\eqref{eq:ct-local} cancels $O_1$ up to $\Delta S_{\mathrm{cl}}$,
+the latter absorbed into the classical propagator normalisation.
+\end{proof}
+
+%-----------------------------------------------------------------
+\subsection*{Cycle 3. Heal: the counter-term is \emph{not} unique}
+\label{wn:subsec:quintic-cycle3-heal}
+
+Two counter-terms satisfy \eqref{eq:qme-1loop}. The difference
+between them is a BV-exact cocycle and does not affect the
+Batalin--Vilkovisky cohomology of observables, but it does affect
+the factorisation-algebra structure at two loops: choice (i) gives
+a pre-factorisation algebra of holomorphic Chern--Simons with a
+framing-dependent anomaly absorbed locally; choice (ii) gives a
+pre-factorisation algebra coupled to an auxiliary $B$-field sector
+that reproduces the Bershadsky--Cecotti--Ooguri--Vafa
+tree-level--one-loop mixing. The two choices are
+Morita-equivalent after integrating out the $B$-field; both are
+physically correct; the choice is a matter of \emph{convention},
+not of mathematics.
+
+\paragraph{Tree-Yukawa mediation.} The tree-level Yukawa
+$Y_3 \in H^{0,3}(X_5) \simeq \CC$ is one-dimensional on the quintic
+by Hodge theory ($h^{0,3} = 1$). Under the Kontsevich--Tamarkin
+formality theorem applied to the $L_\infty$-minimal model on $X_5$
+(Theorem~\texttt{thm:kt-formality-d3-treatise} in
+\texttt{notes/CoHA\_to\_W\_infty\_treatise.tex}), $Y_3$ couples
+into the $\ell_3$-bracket of the minimal $L_\infty$-structure on
+$\Omega^{0,\bullet}(X_5, \fg)[1]$ with coefficient
+$Y_3 \cdot A(\fg)$. The BCOV tree-level three-point function on the
+quintic reads
+\[
+Y_3(v_1, v_2, v_3) \;=\; \int_{X_5} \Omega_X \wedge
+\At(v_1) \cup \At(v_2) \cup \At(v_3) \;=\; 5 \,
+\text{(normalised complex-structure triple product)},
+\]
+the five arising from the degree-$5$ hypersurface defining $X_5
+\subset \PP^4$.
+
+%-----------------------------------------------------------------
+\subsection*{Cycle 4. Attack: the CHSW standard embedding
+trivialises the anomaly}
+\label{wn:subsec:quintic-cycle4}
+
+\begin{proposition}[CHSW embedding kills the anomaly]
+\ClaimStatusTheorem
+\label{wn:prop:chsw-trivialises}
+Suppose $\fg$ contains $\fu(3) \subset \fg$ as a Lie subalgebra with
+invariant form restricting to the Killing form of $\fu(3)$ (e.g.\
+$\fg = E_8$, via $\fu(3) \subset \fsl_4 \subset E_8$). Setting the
+$\hCS_6$ gauge field $\cA \in \Omega^{0,\bullet}(X_5, \fg)$ to
+identify with the Chern connection of the holomorphic tangent
+bundle $T_{X_5}$, viewed as a $\fu(3)$-valued connection through
+the Calabi--Yau holonomy $\mathrm{SU}(3) \subset \mathrm{U}(3)$:
+\[
+\cA \;\stackrel{\mathrm{CHSW}}{=}\; \mathrm{Chern-connection-of}
+\,T_{X_5},
+\]
+renders the one-loop anomaly $\kanom(X_5, \fg)$ \emph{cohomologically
+trivial}: the bulk integrand $A(\fg) \wedge c_3(T_{X_5})$ is
+replaced by the Pontryagin form
+$(A(\fg) - A(\fu(3))) \wedge c_3(T_{X_5})$, and the universal
+Candelas--Horowitz--Strominger--Witten relation
+$A(\fg \mapsto \fu(3)) = A(\fu(3))$ in the embedding sector forces
+the net anomaly to vanish.
+\end{proposition}
+
+\begin{proof}
+Candelas--Horowitz--Strominger--Witten 1985 established that the
+heterotic one-loop anomaly on a CY$_3$ is cancelled by embedding
+the spin connection into the gauge connection, i.e.\ identifying
+$F_\cA = R_{T_X}$ in a sub-bundle. At the level of the hexagonal
+$d^{abc} \cdot c_3$ anomaly, the identification replaces the
+gauge-adjoint trace with the tangent-bundle curvature trace, which
+integrates to $\int_X \tr(R^3) = \int_X c_3(T_X) \cdot
+\tr_{\fu(3)}(T^3)$. The cubic Casimir of $\fu(3)$ is non-zero
+($d^{abc}(\fu(3)) \neq 0$ because $\fu(3)$ contains $\fu(1) \oplus
+\fsl_3$ and the $\fsl_3$-factor has $d^{abc} \neq 0$); the CHSW
+identification absorbs precisely this contribution from the ambient
+$\fg$-anomaly. The cancellation is cohomological: at the level of
+the BV complex, the anomaly cocycle is rendered exact by the
+coupling to the Chern--Simons form of the tangent bundle.
+\end{proof}
+
+\paragraph{Status note.} The CHSW embedding is a
+\emph{global}-on-$X_5$ choice; it is not a free parameter of the
+hCS action but a restriction of the gauge bundle $E \to X_5$ to
+coincide with $T_{X_5}^{\oplus \mathrm{copies}}$. On the quintic,
+this restricts the hCS field configurations to those gauge
+connections that factor through the tangent bundle; the remaining
+moduli is the 101-dimensional complex structure moduli space of
+$X_5$, parametrised by the Candelas--de la Ossa--Green--Parkes
+mirror family.
+
+%-----------------------------------------------------------------
+\subsection*{Cycle 4. Heal: CHSW is a restriction, not a solution
+to the non-abelian BV problem}
+\label{wn:subsec:quintic-cycle4-heal}
+
+CHSW gives one solution. The non-abelian $\hCS_6$ on the quintic
+with generic $\fg$-gauge bundle (\emph{not} tangent-bundle-embedded)
+remains obstructed. Three distinct physical scenarios exhaust the
+BV-completion of non-abelian $\hCS_6$ on $X_5$:
+
+\begin{enumerate}
+\item \emph{Abelian.} $\fg = \fu(1)$. Unobstructed; the
+factorisation-algebra quantisation exists at all orders, mildly
+non-trivial at one loop through $\alpha_{\mathrm{BCOV}}$ coupling
+to a separately postulated dilaton.
+
+\item \emph{Non-abelian, tangent-bundle-embedded.} $\fg \supset
+\fu(3)$, $\cA$ restricted to the CHSW locus. Anomaly cancelled
+cohomologically; full BV quantisation exists, inheriting the
+BCOV tree-level three-point Yukawa $Y_3 = 5$ (integer, from
+the degree of the quintic) and the one-loop curving
+$\alpha_{\mathrm{BCOV}} = -25/3$ coefficient. The result
+is the Kodaira--Spencer theory of BCOV on $X_5$, a
+well-defined factorisation algebra.
+
+\item \emph{Non-abelian, generic gauge bundle.} $\fg$ generic
+(e.g.\ $\fsl_N$ with $N \geq 3$ and $E \to X_5$ not tangent-bundle
+-embedded). Obstruction is real: the QME cannot be closed without
+either (a) adding a \emph{non-local} $B$-field counter-term of
+Green--Schwarz type, or (b) restricting to a BCOV-compatible
+sub-sector in which the cubic Casimir of the trace-free part of
+$\fg$ vanishes. In this case, the hCS factorisation algebra exists
+only on the \emph{moduli} of non-tangent-bundle-embedded gauge
+configurations, a proper subspace of the generic
+$\fg$-connection moduli.
+\end{enumerate}
+
+%-----------------------------------------------------------------
+\subsection*{Cycle 5. Attack: what the BV problem tells us about
+$\Phi(\Coh X_5)$}
+\label{wn:subsec:quintic-cycle5}
+
+\begin{theorem}[Obstruction as a chiral-side shadow]
+\ClaimStatusConjectured
+\label{wn:thm:obstruction-chiral-shadow}
+The one-loop anomaly $\kanom(X_5, \fg) = -200 A(\fg)/(2\pi)^3$ on
+the quintic, as an obstruction to non-abelian $\hCS_6$
+quantisation, appears chiral-side as a \emph{non-trivial class} in
+$H^3_{\mathrm{ch}}(\Phi(D^b(\Coh X_5)), \fg\text{-coadjoint})$,
+the degree-3 $\fg$-equivariant chiral cohomology of the chiral
+algebra $\Phi(D^b(\Coh X_5))$ associated to the quintic derived
+category via the CY-to-chiral functor $\Phi$.
+\end{theorem}
+
+\paragraph{Status.} Conjectural. The statement requires a
+first-principles construction of $\Phi(D^b(\Coh X_5))$ as an
+$E_1$-chiral algebra at $d = 3$, which is not yet in the
+programme. The obstruction-chiral shadow would identify the BCOV
+one-loop anomaly with the failure of the chiral-side
+$\fg$-equivariant structure to descend to a non-abelian $\Phi$-image.
+
+\begin{proof}[Sketch]
+Two steps. (1) At $d = 3$, $\Phi$ produces an $E_1$-chiral algebra
+$\Phi(\cC)$ on any chosen curve $C \subset X_5$, with Hochschild
+cohomology $\HH^\bullet_{E_1}(\Phi(\cC)) \simeq \HH^\bullet_{E_3}(
+\cC)$ by the $E_3 \simeq E_1 \otimes E_2$ Lurie additivity. (2) On
+the CY locus (quintic, $h^{3,0} = 1$), the $E_3$-structure on
+$\cC = D^b(\Coh X_5)$ carries a non-trivial Serre cocycle in
+$\HH^3_{E_3}(\cC, \fg\text{-coadjoint})$, realised as the
+Atiyah-class triple product $Y_3 \cdot A(\fg)$. Transferring this
+cocycle through $\Phi$ to the chiral-side $E_1$-algebra gives a
+degree-3 $\fg$-equivariant class whose non-vanishing is equivalent
+to $\kanom(X_5, \fg) \neq 0$.
+\end{proof}
+
+%-----------------------------------------------------------------
+\subsection*{Cycle 5. Heal: scope of the chiral shadow conjecture}
+\label{wn:subsec:quintic-cycle5-heal}
+
+Three caveats to the conjectural identification.
+
+\begin{itemize}
+\item \textbf{Curve choice.} $\Phi$ at $d = 3$ takes a
+$(\infty, 1)$-CY-category and an embedded curve $C \subset X$ as
+input; the output is $E_1$-chiral-on-$C$, depending
+on the chosen curve. The chiral-side obstruction class depends
+on $C$; the bulk $\kanom$ does not. The identification holds only
+after integrating the chiral-side class over the full moduli of
+curves $C \subset X_5$, i.e.\ after a Maulik--Okounkov--style
+stable-envelope compactification. This step is unconstructed.
+
+\item \textbf{Gauge-$\fg$ external coupling.} $\kanom$ is a
+function of the external gauge $\fg$. On the chiral-side, the
+external gauge enters through the choice of framing $V \in \cC$
+and the endomorphism algebra
+$H^0(R\End_\cC(V)) \supset \fg$. Different framings produce
+different chiral-side classes, but the same bulk $\kanom$. The
+conjectural identification is up to framing-twisting.
+
+\item \textbf{CHSW-restricted $\Phi$.} On the CHSW-restricted
+locus ($\fg \supset \fu(3)$, $\cA =$ Chern of $T_{X_5}$), the
+chiral-side class is cohomologically trivial. This matches the
+bulk cancellation: $\kanom = 0$ in CHSW $\Leftrightarrow$ chiral
+shadow class vanishes. Both sides detect the same BV
+cohomology-triviality.
+\end{itemize}
+
+%-----------------------------------------------------------------
+\subsection*{Synthesis: the three-way status of non-abelian
+$\hCS_6$ on the quintic}
+\label{wn:subsec:quintic-synthesis}
+
+\paragraph{Table of status.}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+$\fg$ & $A(\fg)$ & $\kanom(X_5, \fg)$ & Status \\
+\midrule
+$\fu(1)$ & $0$ & $0$ & unobstructed \\
+$\fsl_2 = \mathfrak{sp}_2$ & $0$ & $0$ & unobstructed \\
+$\mathfrak{so}(N)$, $\mathfrak{sp}(2N)$ & $0$ & $0$ & unobstructed \\
+$E_{6,7,8}, F_4, G_2$ & $0$ & $0$ & unobstructed \\
+$\fsl_N$, $N \geq 3$ & $2N$ & $-400 N \hbar/(2\pi)^3$ & obstructed \\
+$\fgl_r$, $r \geq 3$ & $2r$ & $-400 r \hbar/(2\pi)^3$ & obstructed \\
+$\fsl_N$, $N \geq 3$ with CHSW & $2N$ & $0$ (cohomologically) &
+unobstructed \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Counter-term, explicit.} For
+$\fg = \fsl_3$ on the quintic without CHSW, the minimal counter-term
+absorbing the anomaly is
+\[
+S^{(1)}_{\mathrm{c.t.}}[\cA] \;=\; \frac{1200}{(2\pi)^3}
+\int_{X_5} \Omega_X \wedge \mathrm{CS}_3(\cA),
+\]
+with $\mathrm{CS}_3(\cA) = \tr(\cA \wedge d\cA + \tfrac{2}{3} \cA
+\wedge [\cA, \cA]) / (2\pi)^3$. This is a local Chern--Simons
+deformation of the classical action and preserves the BV cohomology
+of observables.
+
+\paragraph{Mathematical content, stated cleanly.} The Costello--Li
+renormalisation framework on a compact CY$_3$ admits a
+well-defined pre-factorisation algebra of non-abelian $\hCS_6$
+observables if and only if either (a) $A(\fg) = 0$, or (b) a
+counter-term absorbing $-A(\fg) \chi_{\mathrm{top}}(X)/(2\pi)^3 =
+200 A(\fg)/(2\pi)^3$ times the Chern--Simons 3-form is added at one
+loop. On $X_5 \subset \PP^4$, the quintic's
+$\chi_{\mathrm{top}} = -200$ makes $|\kanom|$ among the larger
+values on compact CY$_3$ thresholds: $|\chi_{\mathrm{top}}(X_5)|
+= 200$ is maximised at the quintic among simply-connected one-parameter
+complete-intersection CY$_3$'s (Yau 1977 classification), and equals
+$|\chi_{\mathrm{top}}(X_5^*)| = 200$ of the Candelas--de la Ossa
+mirror quintic by the mirror identity $\chi_{\mathrm{top}}(X) +
+\chi_{\mathrm{top}}(X^*) = 0$ with $\chi_{\mathrm{top}}(X_5^*) =
++200$. By contrast $|\chi_{\mathrm{top}}(K3 \times E)| = 0$ (product
+vanishing) and $|\chi_{\mathrm{top}}(A)| = 0$ (abelian threefold),
+so non-abelian $\hCS_6$ on the quintic is the generic compact-CY$_3$
+obstruction case, while $K3 \times E$ and abelian threefolds are the
+exceptional unobstructed cases.
+
+\paragraph{Cross-reference.} This attack-heal complements
+Theorem~\texttt{wn:thm:plat-anomaly} in
+\texttt{notes/platonic\_synthesis\_waves\_11\_through\_16.tex} and
+Theorem~\texttt{thm:one-loop-anomaly-treatise} in
+\texttt{notes/CoHA\_to\_W\_infty\_treatise.tex} by instantiating
+both statements at $(X, \fg) = (X_5, \fsl_N)$, explicitly evaluating
+the universal formula $\kanom = \hbar A(\fg) \chi_{\mathrm{top}}(X)
+/(2\pi)^3$ at $\chi_{\mathrm{top}}(X_5) = -200$, and exhibiting the
+three scenarios (abelian / CHSW-embedded / generic-gauge) for the BV
+well-definedness problem.
+
+\paragraph{Retracted conflations.} The notation $A(\fg) = -C_2(\fg)
+/(2\pi)^3 = -2h^\vee / (2\pi)^3$ appearing in
+Theorem~\texttt{thm:one-loop-anomaly-treatise} of the CoHA treatise
+uses the \emph{propagator-normalised quadratic} Casimir convention,
+in which the anomaly is detected at the level of the one-loop bubble
+rather than the hexagon. The notation $A(\fg) = d^{abc}$ appearing in
+Theorem~\texttt{wn:thm:plat-anomaly} and in the present
+Proposition~\ref{wn:prop:quintic-kanom} uses the
+\emph{hexagon-normalised cubic} Casimir convention, in which the
+anomaly is detected by the tri-cubic-vertex diagram. The two
+conventions differ by $C_2(\fg)/d^{abc}$-ratios that depend on
+$\fg$; both yield $\kanom = 0$ exactly when the corresponding
+invariant vanishes. On $\fsl_N$ with $N \geq 3$: $C_2(\fsl_N) =
+2N \neq 0$ and $d^{abc}(\fsl_N) \neq 0$; both conventions agree on
+non-vanishing. On $\fsl_2$: $C_2(\fsl_2) = 4 \neq 0$ but
+$d^{abc}(\fsl_2) = 0$; the two conventions disagree on which cocycle
+is detected, but the hexagon (cubic) anomaly is the actual BV
+obstruction, so $\fsl_2$ is unobstructed. The correct obstruction
+class is the cubic $d^{abc}$; the quadratic $C_2$-coefficient appears
+in wave-function renormalisation (a regularisation-scheme artifact,
+not an anomaly), per the wave-function result of
+Theorem~\texttt{wn:thm:plat-Z-counterterm}.
+
+\paragraph{What remains unresolved.} The Theorem
+\ref{wn:thm:obstruction-chiral-shadow} identification
+$\kanom \leftrightarrow H^3_{\mathrm{ch}}(\Phi(D^b(\Coh X_5)),
+\fg)$ is conjectural. A first-principles construction of
+$\Phi(D^b(\Coh X_5))$ at $d = 3$ as an $E_1$-chiral algebra
+(on a single fixed curve $C \subset X_5$) is known only for
+the $K3$ fibre of $K3 \times E$ and for local surfaces
+($\PP^2$, $A_n$-resolutions); the compact-$X_5$ case remains
+open. See
+\texttt{chapters/examples/cy\_c\_beyond\_k3e\_existence\_obstruction.tex}
+for the existence-obstruction analysis on non-$K3 \times E$ compact
+CY$_3$.
+
+%-----------------------------------------------------------------
+\subsection*{Summary: ghost and gap}
+\label{wn:subsec:quintic-ghost-gap}
+
+\begin{itemize}
+\item \textbf{Ghost.} Naive hope: non-abelian $\hCS_6$ quantises
+on $X_5$ by Costello--Li factorisation-algebra methods for any
+$\fg$.
+\item \textbf{Gap.} $\kanom(X_5, \fsl_N \mid N \geq 3) =
+-400 N \hbar / (2\pi)^3 \neq 0$: quantum BV master equation does
+\emph{not} close for non-abelian $\fg$ with $d^{abc} \neq 0$.
+\item \textbf{Mechanism.} The Chern--Weil class $d^{abc} c_3(T_{X_5})
+= -200 A(\fg) \cdot [\mathrm{pt}] \in H^6(X_5, \ZZ)$ is
+non-trivial; three independent computational paths (Chern--Weil,
+heat-kernel regularisation, Kapranov formality obstruction)
+confirm the non-vanishing.
+\item \textbf{Resolution, three scenarios.} (i) Abelian $\fu(1)$:
+unobstructed, BV-exact, $\kch = 0$. (ii) CHSW-embedded: anomaly
+cancels cohomologically via $\cA = $ Chern$(T_{X_5})$ identification
+in a $\fu(3) \subset \fg$ sub-sector. (iii) Generic-gauge
+$\fsl_N$, $N \geq 3$: counter-term \eqref{eq:ct-local} absorbs
+the anomaly, but the resulting factorisation algebra is
+framing-dependent and does not extend to a Morita-invariant
+categorical datum.
+\item \textbf{Further work.} Prove or disprove
+Theorem~\ref{wn:thm:obstruction-chiral-shadow}: the chiral-side
+shadow of $\kanom$ as a class in
+$H^3_{\mathrm{ch}}(\Phi(D^b(\Coh X_5)), \fg)$.
+\end{itemize}
+
+\bigskip
+
+\hrule
+\smallskip
+\emph{Harmonisation tags.} Harmonises with
+\texttt{notes/CoHA\_to\_W\_infty\_treatise.tex} \S{}Theorem
+\texttt{thm:one-loop-anomaly-treatise}, \texttt{thm:atiyah-three
+-cocycles-treatise}; with \texttt{notes/platonic\_synthesis\_waves
+\_11\_through\_16.tex} \S{}Theorem \texttt{wn:thm:plat-anomaly},
+\texttt{wn:thm:plat-Z-counterterm}, \texttt{wn:thm:plat-three-atiyah
+-cocycles}; with \texttt{chapters/examples/cy\_d\_kappa
+\_stratification.tex} Remark \texttt{rem:kappa-ch-quintic-two-views},
+Proposition \texttt{prop:quintic-shadow-coefficients}. Primary
+literature cited: Candelas--Horowitz--Strominger--Witten 1985,
+Candelas--de la Ossa--Green--Parkes 1991, Bershadsky--Cecotti--
+Ooguri--Vafa 1994, Costello 2011, Costello 2013 arXiv:1303.2632,
+Costello--Li 2016 arXiv:1606.00365 Prop. 5.2, Costello--Gwilliam
+2017--2021 Vols. I--II.

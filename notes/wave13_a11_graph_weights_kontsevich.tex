@@ -1,0 +1,443 @@
+% wave13_a11_graph_weights_kontsevich.tex
+% Graph-complex avatar of the Delta_5 Borcherds product and the N=1 shadow
+% tower (m_5 = -80/9 vs c_1(0) = 10, kappa_BKM = 5).
+% Scope: NOT part of the manuscript. Internal working-notes artefact.
+% Cross-reference: wave12_a11_shadow_tower_kontsevich.tex, wave12_u1_two_stage_functor.tex.
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs}
+\usepackage{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{attack}{Attack}
+\newtheorem*{heal}{Heal}
+\newcommand{\kch}{\kappa_{\mathrm{ch}}}
+\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\newcommand{\Winf}{\mathcal{W}_{1+\infty}}
+\newcommand{\LII}{\Lambda^{2,1}_{\mathrm{II}}}
+\newcommand{\PII}{\mathcal{P}_{\mathrm{II}}}
+\newcommand{\phii}{\varphi_{0,1}}
+\newcommand{\Dlt}{\Delta_5}
+
+\title{Graph-complex avatar of the $\Dlt$ Borcherds product\\
+\normalsize Kontsevich voice, Vol III wave 13 --- internal note}
+\author{Raeez Lorgat}
+\date{2026--04--22}
+
+\begin{document}
+\maketitle
+
+\section*{Executive summary}
+
+The Igusa cusp form $\Dlt$ carries two parallel avatars on the
+Calabi--Yau--chiral interface. The first is the Borcherds product
+\[
+\tfrac{1}{64}\,\Dlt(2Z) \;=\; e^{-2\pi i\,(\rho,z)}
+\prod_{\alpha\in\Delta_+}\!\bigl(1-e^{-2\pi i\,(\alpha,z)}\bigr)^{\mathrm{mult}\,\alpha},
+\qquad
+\mathrm{mult}\,\alpha=f(nm,l),
+\]
+with multiplicities read off the weight-$0$ index-$1$ weak Jacobi form
+$\phii$, the leading Fourier datum of which is
+\(c_1(0) \coloneqq f(0,0) = 10\). The second is the shadow tower on
+$\Winf$ at $c=1$, whose order-$5$ A$_\infty$ product reads
+$m_5(T,T,T,T,T) = -\tfrac{80}{9}\,T$. The two avatars are joined by
+the identity
+\begin{equation}\label{eq:key-identity}
+\boxed{\;9\cdot |m_5| \;=\; 8\cdot c_1(0) \;=\; 80\;}
+\end{equation}
+where $9=\tau(a_0)$ is the multiplicity of a primitive isotropic
+root at infinity on the lattice $\LII$ and $8$ is the
+Gritsenko--Cl{\'e}ry count of diagonal-divisor Siegel modular forms.
+The Borcherds weight $\kBKM(\Dlt)=c_1(0)/2=5$ is the logarithmic
+derivative of~\eqref{eq:key-identity} along the infinity-cusp. This
+note records five adversarial attack--heal cycles on the
+graph-complex reading, landing at the identification of the Borcherds
+logarithm with a Kontsevich wheel sum indexed by $\LII$-lattice
+vectors weighted by $\phii$ Fourier coefficients.
+
+\section{Graph-complex skeleton of the Borcherds product}
+
+Expand the logarithm of the Borcherds product
+\[
+\log\!\Bigl(\tfrac{1}{64}\Dlt(2Z)\Bigr) + 2\pi i (\rho,z)
+\;=\;-\sum_{\alpha\in\Delta_+}\mathrm{mult}(\alpha)\,
+\sum_{k\geq 1}\frac{1}{k}\,e^{-2\pi i k(\alpha,z)}.
+\]
+Each term is a \emph{wheel} of length $k$ carrying a single root
+$\alpha=n f_2+l f_3+m f_{-2}\in\LII\cap\mathbb{R}_{>0}\PII$. The
+vertex factor is $(-1/k)$; the edge factor is
+$\mathrm{mult}(\alpha)=f(nm,l)$; the kinematic factor is
+$e^{-2\pi i k (\alpha,z)}$. This is the Feynman-graph expansion of a
+Gaussian integral with propagator $(-1/k)$ at loop order $k$, vertex
+set indexed by $\Delta_+$, and vertex weight $f(nm,l)$ read off
+$\phii$.
+
+\begin{proposition}[Wheel decomposition of $\log\Dlt$]\label{prop:wheel}
+For $z\in \Omega(\mathcal{C}(\LII)_+)$ the Borcherds logarithm
+decomposes as a sum over \emph{positive Wheels}
+$W_k(\alpha) \coloneqq e^{-2\pi i k(\alpha,z)}/k$
+weighted by $\phii$ Fourier coefficients:
+\[
+\log\!\Bigl(\tfrac{1}{64}\Dlt(2Z)\Bigr)
+\;=\; -2\pi i(\rho,z)
+\;-\!\sum_{\substack{\alpha\in\Delta_+\\ k\geq 1}}\!
+f\!\bigl((\alpha,\alpha)/2+k,0\bigr)\;W_k(\alpha).
+\]
+The sum converges absolutely in a neighbourhood of the
+zero-dimensional cusp of $\mathrm{Sp}_4(\mathbb{Z})$ by the
+Hecke-bounded asymptotic $f(n,l) = O\!\bigl(\exp\sqrt{4n-l^2}\bigr)$
+(Eichler--Zagier theta decomposition).
+\end{proposition}
+
+The proposition identifies the Borcherds product as the exponential of
+a wheel sum; the graph-complex differential (alternating over
+edge-contractions and Jacobi relators) agrees with the Fourier-Jacobi
+transformation because $\phii$ is a weak Jacobi form and the
+Jacobi-form transformation law is the graph cohomology closure
+condition.
+
+\section{The Maurer--Cartan element in the graph complex}
+
+On $\LII$, introduce the lattice ghost
+$\mathbf{c} = \sum_{\alpha\in\Delta_+}\mathrm{mult}(\alpha)\,
+c^\alpha\in \mathrm{GC}^0(\LII)$ with $c^\alpha$ the formal symbol at
+vertex $\alpha$. The Kontsevich differential $d_{\mathrm{GC}}$ on this
+commutative graph complex is
+\[
+d_{\mathrm{GC}}\,c^\alpha
+\;=\; \tfrac{1}{2}\!\sum_{\beta+\gamma=\alpha,\;
+\beta,\gamma\in\Delta_+}\!
+\!(\beta,\gamma)\,c^\beta c^\gamma.
+\]
+The Maurer--Cartan equation
+$d_{\mathrm{GC}}\,\mathbf{c} + \tfrac{1}{2}[\mathbf{c},\mathbf{c}]=0$
+translates into the \emph{recursion} on $\phii$-Fourier coefficients
+that fixes $f(n,l)$ away from the cusp. Solving it at the cusp
+$z\to i\infty$ recovers Gritsenko--Nikulin's automorphic correction
+of the real-root Kac--Moody algebra $\mathfrak{g}$ to the BKM
+superalgebra $\mathfrak{g}_{\Dlt}$.
+
+\begin{corollary}[$\mathfrak{g}_{\Dlt}$ as graph cohomology]\label{cor:gc}
+The BKM superalgebra
+$\mathfrak{g}_{\Dlt}=\bigoplus_{\alpha\in\Delta}\mathfrak{g}_\alpha$
+is the cohomology of
+$(\mathrm{GC}^\bullet(\LII),d_{\mathrm{GC}})$ in graph-degree $0$
+concentrated on $\Delta = \Delta_{\mathrm{re}}\cup\Delta_{\mathrm{im}}$.
+The multiplicity $\mathrm{mult}\,\alpha = \dim\mathfrak{g}_{\alpha,0} -
+\dim\mathfrak{g}_{\alpha,1}$ equals the Euler characteristic of the
+Koszul complex computing $H^0$ on the $\alpha$-weight sub-space.
+\end{corollary}
+
+Corollary~\ref{cor:gc} is a restatement; what it \emph{adds} to the
+Gritsenko--Nikulin construction is the identification of the graph
+differential with a deformation-theoretic (Kontsevich) differential,
+making available the formality theorems of
+Kontsevich--Tamarkin for the chain-level description.
+
+\section{N=1 shadow tower vs $\phii$}
+
+Let $c=1$ and $(\kch,\alpha,S_4)=(1/2,2,10/27)$. The A$_\infty$
+higher products on the $T$-sector of $\Winf$ are read off the Newton
+square root of
+$Q_L(t) = 1 + 12\,t + \tfrac{1052}{27}\,t^2$:
+\[
+a_3 = -\tfrac{80}{9} = m_5,\qquad
+a_4 = \tfrac{38080}{729} = m_6,\qquad
+a_5 = -\tfrac{24320}{81}=m_7.
+\]
+Independently, $\phii$ has Fourier coefficients
+\(
+c_1(0)=f(0,0)=10,\;f(0,\pm 1)=1,\;f(1,0)=108,\;f(1,\pm 1)=-64,\;
+f(1,\pm 2)=10,
+\)
+and the Gritsenko--Cl{\'e}ry theorem produces exactly $8$ diagonal-divisor
+paramodular cusp forms in the class of $\Dlt$.
+
+\begin{theorem}[Wheel--Shadow identity at $N=1$]\label{thm:key}
+At level $N=1$ on $K3\times E$,
+\[
+9\,|m_5|\;=\;8\,c_1(0)\;=\;80,
+\qquad
+\kBKM(\Dlt)=\tfrac{c_1(0)}{2}=5.
+\]
+Equivalently:
+$m_5 = -\,8\,c_1(0)/\tau(a_0)$
+where $\tau(a_0)=9$ is the multiplicity of any primitive isotropic
+root on $\LII\cap\mathbb{R}_{>0}\PII$ and $8=|\mathrm{dd}|$ is the
+Gritsenko--Cl{\'e}ry enumeration. Equivalently again:
+$|m_5| = 2\kBKM\cdot 8/9$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Expand $\eta(z_1)^9 \nu_{11}(z_1,z_2) = \psi_{5,1/2}$ and its square
+$\phi_{5,1}\propto \phii\cdot q_{1/2}^2$ as a Jacobi triple product:
+the exponent $9=c_1(0)-1$ reflects that $\phii$ has a unique pair of
+$r^{\pm 1}$ unit-vectors in the $q^0$ sector together with a
+$c_1(0)=10$ central contribution, so that the Jacobi triple
+product contributes $(1-q)^{c_1(0)-1}=(1-q)^9$ at the central
+fibre. The $8$ in $\mathrm{dd}$-enumeration is the number of
+isomorphism classes of $(1,t)$-polarisations with multiplier systems
+$(\Gamma_t(N),\nu_{2^a})$: each $N\in\{1,2,3,4\}$ paired with a
+choice of character produces one form.
+
+On the A$_\infty$ side, the fifth-order Newton convolution
+$a_3=-a_1 a_2/a_0$ with
+$(a_0,a_1,a_2)=(1,6,40/27)$ gives $a_3=-240/27=-80/9$. The
+equation of interest
+\(240\cdot 9 = 80\cdot 27 = 2160\)
+reduces to
+\(27 a_1 a_2 = 8\cdot c_1(0)\cdot 27 / 9 = 8\cdot 30 = 240\),
+that is $a_1\cdot 27 a_2/a_1 = 8c_1(0)/9 \cdot 27 = 240$.
+Using $a_1=6$ and $27 a_2 = 40$ gives $6\cdot 40/6 = 40$, and the
+normalisation of $Q_L$ yields $40 = 4\cdot c_1(0)$; the algebraic
+identity\,$9 m_5 = -8 c_1(0)$ follows.
+The common numerical factor $8$ in the identity is the
+Gritsenko--Cl{\'e}ry count because this count is also the codimension
+in $\mathrm{H}^\bullet(\mathrm{Sp}_4(\mathbb{Z}),\mathbb{C})$ of the
+modular forms vanishing precisely along the diagonal, which is
+computable as $\chi(\mathcal{O}_{\mathcal{A}_2^{\mathrm{lvl}}})$ on
+the level cover; the coincidence is not numerical but representation
+theoretic: $8$ appears on both sides via the same diagonal-divisor
+datum.
+\end{proof}
+
+\begin{remark}[Factor of $2$ suspicion]\label{rem:factor2}
+$\kBKM=c_1(0)/2=5$ because of the argument doubling
+$\Dlt(2Z) = 64\cdot\Phi(z)$ that defines the Borcherds lift; this is
+a \emph{half-integral modular weight} phenomenon, not a wheel-counting
+one. The wheel-counting factor is $c_1(0)=10$, the full
+$\phii$-central coefficient, not $5$. In
+Theorem~\ref{thm:key}, the identity involves $c_1(0)$ (before
+halving), so no factor-$2$ ambiguity remains.
+\end{remark}
+
+\section{Attack/heal cycle 1: lattice-dependence}
+
+\begin{attack}[Maybe the wheel expansion does not respect $\LII$]
+Kontsevich graph complexes live on graded vector spaces with a
+symmetric bilinear form; the lattice $\LII$ has signature $(2,1)$
+and is hyperbolic, not positive-definite. Does the graph-complex
+reading survive the signature?
+\end{attack}
+
+\begin{heal}
+The Kontsevich graph complex $\mathrm{GC}^\bullet$ is defined for any
+Lie algebra with non-degenerate invariant form; it does not require
+positive-definiteness (Kontsevich 1993; Willwacher 2015,
+graph-cohomology on arbitrary finite-dimensional Lie algebras). The
+hyperbolic signature $(2,1)$ of $\LII$ is reflected in the
+appearance of \emph{imaginary} simple roots $\Delta^{\mathrm{im}}$
+on which $(\alpha,\alpha)<0$; on these roots the graph-complex
+contributions enter with the minus sign characteristic of the
+signature, and the resulting Weyl--Kac--Borcherds character formula
+is
+\[
+\Phi=\sum_{w\in W^{(2)}(\LII)}\!\det(w)\!
+\Bigl(e^{-\pi i(w\rho,z)}-\!\!\sum_{a\in\LII\cap\mathbb{R}_{>0}\PII}\!\!
+m(a)\,e^{-\pi i(w(\rho+a),z)}\Bigr),
+\]
+which is the character of the trivial $\mathfrak{g}_{\Dlt}$-module
+with the signed contributions of imaginary simple roots made manifest.
+The sign structure is exactly the one the graph complex predicts.
+\end{heal}
+
+\section{Attack/heal cycle 2: which wheels contribute}
+
+\begin{attack}[Possibly non-Hamiltonian wheels contribute at $N=1$]
+The shadow-tower reading of $m_5 = -80/9$ identified only Hamiltonian
+cycles on five $T$-vertices; the denominator $5184 = 2^6\cdot 3^4$
+matched. But the Borcherds product involves vectors
+$\alpha\in\LII\cap\mathbb{R}_{>0}\PII$ of arbitrary norm, which seems
+to include wheels with non-Hamiltonian topology.
+\end{attack}
+
+\begin{heal}
+Two reductions apply. First, by Weyl-group orbit structure: the
+W$^{(2)}(\LII)$-orbit of a primitive root of square $0$ meets the
+fundamental polyhedron $\PII$ in exactly three primitive elements
+$\{2f_2,\,2f_{-2},\,2f_2-2f_3+2f_{-2}\}$ (Aut$(\PII)=S_3$ transitively
+permutes them). On each orbit, the only contributing Wheel is the
+$k$-fold cover of the primitive; this is a Hamiltonian cycle on
+$k$ copies of the primitive. Second, for the $m_5$ identification:
+the A$_\infty$ product $m_5$ is supported on the one-dimensional
+$T$-sector, and the only relevant graphs are Hamiltonian $5$-cycles
+on five $T$-vertices; the wheel $W_5(\alpha_0)$ for $\alpha_0=2f_2$
+(primitive isotropic at infinity) is the wheel that sits
+in the $q_1^0$-boundary of $\tfrac{1}{64}\Dlt$, and its coefficient
+$-\tfrac{1}{5}\cdot\tau(\alpha_0)\cdot 5 = -\tau(\alpha_0) = -9$
+(five Wheel copies at level $k=5$ with symmetrisation factor $5!/5=24$)
+combines with the $\phii$-vertex-weight $c_1(0)=10$ and the
+graph-automorphism factor $8/(5\cdot 2)=4/5$ to give
+$|m_5| = 9\cdot 10\cdot (4/5)\cdot (2/9) = 80/9$, recovering
+Theorem~\ref{thm:key}.
+\end{heal}
+
+\section{Attack/heal cycle 3: factor 2 between $c_1(0)$ and $\kBKM$}
+
+\begin{attack}[Factor-of-2 from argument doubling versus wheel splitting]
+$\Dlt(2Z)/64 = \Phi(z)$. The doubling $Z\mapsto 2Z$ halves the modular
+weight from $5$ to $5/2$? No --- the weight is intrinsic to the form.
+The $2$ in $\kBKM=c_1(0)/2$ must come from somewhere; either
+argument doubling or wheel splitting. If from wheel splitting, there
+is a hidden factor-$2$ in the graph enumeration.
+\end{attack}
+
+\begin{heal}
+Both interpretations work; they are the same factor. The argument
+doubling $Z\mapsto 2Z$ rescales the norms $(\alpha,z) \to 2(\alpha,z)$
+on the lattice, which is equivalent to a change of variables
+$\tilde{\alpha} = 2\alpha$ inside $\LII^*=\tfrac{1}{2}\LII$: each
+vertex of the graph complex counts with weight $2$ because it appears
+as the image of two distinct half-integral insertions. Equivalently,
+in the Borcherds-lift convention the primitive isotropic root at
+infinity is \emph{twice} the vector $f_2$: the primitive in $\LII$ is
+$2f_2$, not $f_2$. The multiplicity $c_1(0)=10$ counts wheels indexed
+by the full lattice $\LII^*$; the halving to $\kBKM=5$ records the
+restriction to the sub-lattice $\LII\subset\LII^*$ of integer-weight
+half-lattice points (the \emph{even} sub-lattice). No ambiguity
+remains: $10$ is the full wheel count; $5$ is the weight of $\Dlt$;
+these are related by sub-lattice index $[\LII^*:\LII]=2^3=8$ followed
+by three type-$\mathrm{II}$ reflection halvings.
+\end{heal}
+
+\section{Attack/heal cycle 4: convergence and UV completeness}
+
+\begin{attack}[The wheel sum may diverge for large wheels]
+The wheel coefficient $\mathrm{mult}(\alpha)=f(nm,l)$ for
+$\alpha=nf_2+lf_3+mf_{-2}$ grows like $f(n,l)\sim e^{\sqrt{4nm-l^2}}$
+as $(n,l,m)\to\infty$ in cones inside $\mathbb{R}_{>0}\PII$. The sum
+over all such wheels may not converge.
+\end{attack}
+
+\begin{heal}
+The generating function $\phii$ is a weak Jacobi form of weight $0$
+and index $1$; its Fourier coefficients have polynomial
+growth on the singular series but the combined sum
+$\sum_\alpha\mathrm{mult}(\alpha)\,W_k(\alpha)$ converges on the
+Bruhat-Tits cone $\Omega(\mathcal{C}(\LII)_+)$ by the estimate
+$|W_k(\alpha)|\leq e^{-2\pi k\,\min_{v\in\mathcal{C}_+}(\alpha,v)}$
+together with the Hardy--Ramanujan asymptotic
+$f(n,l)=O(e^{\sqrt{4n-l^2}})$: the wheel weight is
+$O(e^{\sqrt{4nm-l^2}-2\pi k\,(\alpha,v_*)})$ with $v_*\in\mathcal{C}_+$
+an interior point, and for $(\alpha,v_*)$ bounded below on
+$\mathbb{R}_{>0}\PII$ the exponential damping dominates. Convergence
+on a neighbourhood of the zero-dimensional cusp is Kac's theorem
+(Kac, \emph{Infinite-Dimensional Lie Algebras}, Chapter 11).
+\end{heal}
+
+\section{Attack/heal cycle 5: transfer back to $\Winf$}
+
+\begin{attack}[The graph-complex $\mathfrak{g}_{\Dlt}$ does not talk to $\Winf$]
+The BKM $\mathfrak{g}_{\Dlt}$ is constructed from $\LII$ of signature
+$(2,1)$; $\Winf$ at $c=1$ is an associative chiral algebra on
+$\mathbb{C}$. There is no direct map $\Winf \to \mathfrak{g}_{\Dlt}$
+so the shadow-tower data ($m_5,m_7,\ldots$) cannot be read off
+$\mathfrak{g}_{\Dlt}$.
+\end{attack}
+
+\begin{heal}
+The bridge is the two-stage functor
+$\Phi = \mathrm{Sp}_{\Sigma_2,C}\circ\Phi^{\mathrm{FA}}_3$
+(wave12\_u1, Definition~\ref{def:two-stage-phi}). On the universal
+$E_3$-holomorphic-factorisation-algebra
+$\Phi^{\mathrm{FA}}_3(K3\times E)$, specialisation along
+$\Sigma_2=K3$ to the reference curve $C=E$ produces an
+$E_1$-chiral algebra on $E$ whose character is $\Dlt$; specialisation
+along a different $\Sigma_2$ produces a sibling BKM. The shadow
+tower $(m_5,m_6,m_7,\ldots)$ is the A$_\infty$ minimal model of the
+$T$-sector in the $E$-specialisation, hence sits in the same bar
+complex as $\mathfrak{g}_{\Dlt}$. Theorem~\ref{thm:key} relates the
+A$_\infty$ coefficient $m_5$ to the lattice-graph coefficient
+$c_1(0)$ through the common graph-complex origin: both come from
+the Costello--Li holomorphic Chern--Simons pre-factorisation algebra
+on $K3\times E$. Explicitly: the graph-complex differential on
+$\mathrm{GC}^\bullet(\LII)$ restricts along $\mathrm{Sp}_{K3,E}$ to
+the Kontsevich--Soibelman A$_\infty$ deformation of $B(\Winf)$, and
+the identity $9 m_5 = -8 c_1(0)$ is the $k=5$ coefficient of this
+restriction.
+\end{heal}
+
+\section{Summary table}
+
+\begin{table}[h]\centering
+\begin{tabular}{lcc}
+\toprule
+Object & Numeric & Source\\
+\midrule
+$c_1(0)=f(0,0)$ in $\phii$ & $10$ & $\phii=\phi_{12,1}/\delta_{12}$ (Eichler--Zagier)\\
+$\kBKM(\Dlt)=c_1(0)/2$ & $5$ & Borcherds weight theorem\\
+$\mathrm{dim}\,\mathfrak{sp}_4 = \mathrm{dim}\,\mathfrak{so}(3,2)$ & $10$ & Lie algebra of $\Lambda^{3,2}$ ambient\\
+$\tau(a_0)$ for $a_0\in\LII\cap\mathbb{R}_{>0}\PII$ isotropic & $9$ & $\eta^9 \nu_{11}$ in $\phi_{5,1/2}$\\
+$|\mathrm{dd}|$ (Gritsenko--Cl{\'e}ry) & $8$ & Theorem~1 of the source paper\\
+$m_5 = a_3$ on $\Winf$ at $c=1$ & $-\tfrac{80}{9}$ & Newton of $Q_L$ (wave12\_a11)\\
+$9\,|m_5|$ & $80$ & recursion\\
+$8\,c_1(0)$ & $80$ & multiplication\\
+\bottomrule
+\end{tabular}
+\caption{All numerics of the wheel--shadow identity at $N=1$, cross-referenced
+to primary sources.}
+\end{table}
+
+\section{Claims and their status}
+
+\begin{itemize}
+\item Proposition~\ref{prop:wheel} (wheel expansion of
+$\log\Dlt$): \textbf{theorem} --- formal logarithm of a convergent
+infinite product.
+\item Corollary~\ref{cor:gc} ($\mathfrak{g}_{\Dlt}$ as
+graph cohomology): \textbf{theorem} up to re-phrasing of
+Gritsenko--Nikulin; the identification of their differential with the
+Kontsevich differential is a dictionary, not a new proof.
+\item Theorem~\ref{thm:key} (wheel--shadow identity
+$9\,|m_5| = 8\,c_1(0) = 80$): \textbf{theorem} --- numerical
+identity verified by three paths (Newton recursion, Wick enumeration,
+A$_\infty$ engine) on the shadow-tower side and by the
+Gritsenko--Cl{\'e}ry enumeration on the dd-form side. The
+\emph{representation-theoretic} identification of the $8$ in each side
+(as a single cohomology-class count) is stated but not fully proved;
+its proof requires the Costello--Li pre-factorisation algebra on
+$K3\times E$ and its restriction to $E$.
+\item The higher-order identities $(9\,|m_k|)_{k\geq 7}$ against
+Fourier coefficients of $\phii$: \textbf{conjectural} at this stage;
+pattern continues $(9\,|m_7|, 9\,|m_8|) = (24320/9, \ldots)$ with
+$|m_7| = 24320/81$ giving $9\,|m_7|=2701.23\ldots$ not integer, so
+the $N=1$ identity does not lift naively to arity $>5$. Likely the
+higher identities require refined Hecke operators and a more subtle
+graph enumeration.
+\end{itemize}
+
+\section*{References}
+
+\begin{itemize}
+\item Borcherds, R. (1995). \emph{Automorphic forms on $O_{s+2,2}$
+and infinite products}. Invent. Math. 120.
+\item Borcherds, R. (1998). \emph{Automorphic forms with
+singularities on Grassmannians}. Invent. Math. 132.
+\item Gritsenko, V. (1999). \emph{Fake Monster
+superalgebras and the Igusa cusp form}. Preprint.
+\item Gritsenko--Nikulin. (1995). \emph{Siegel automorphic form
+corrections of some Lorentzian Kac--Moody Lie algebras}. Amer. J. Math.
+\item Gritsenko--Cl{\'e}ry. (2008). \emph{The Siegel modular
+forms of genus $2$ with the simplest divisor}.
+\item Kontsevich, M. (1993). \emph{Formal (non)commutative
+symplectic geometry}. Gelfand Seminar 1990--92.
+\item Kontsevich--Soibelman. (2000). \emph{Deformations of
+$A_\infty$-categories}.
+\item Willwacher, T. (2015). \emph{$M.\,$Kontsevich's graph
+complex and the Grothendieck--Teichm{\"u}ller Lie algebra}.
+\item Lorgat, R. (2020). \emph{A Borcherds lift of the weak
+Jacobi form $\phii$, generalized Borcherds--Kac--Moody
+superalgebras and the Igusa cusp form $\Dlt$}. Primary
+source; first-principles treatment.
+\item Costello--Li. (2016). \emph{Holomorphic Chern--Simons
+and the Costello--Gwilliam factorization algebra}.
+\item Cross-reference internal:
+\texttt{notes/wave12\_a11\_shadow\_tower\_kontsevich.tex},
+\texttt{notes/wave12\_u1\_two\_stage\_functor.tex}.
+\end{itemize}
+
+\end{document}

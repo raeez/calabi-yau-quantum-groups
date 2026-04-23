@@ -1,0 +1,164 @@
+% Wave-14 Q4/20 --- Kapranov voice --- slides 723-852 extraction
+% Primary source: /tmp/automorphic-slides.txt (Lorgat 2020 presentation).
+% Cross-reference: Lorgat 2020 paper; Gritsenko-Clery 2008; Oberdieck-Pixton 2017.
+
+\providecommand{\LII}{\Lambda^{2,1}_{\mathrm{II}}}
+\providecommand{\Dfive}{\Delta_5}
+\providecommand{\phizo}{\phi_{0,1}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\gDfive}{\mathfrak{g}_{\Dfive}}
+
+\section*{Slides 723--852: the $\phizo$-Borcherds lift to $\Dfive$}
+
+Lines $723$--$852$ of the automorphic-corrections presentation execute a
+single argument: the Borcherds-product proof that the denominator of the
+GKM superalgebra $\gDfive$ equals $\tfrac{1}{64}\Dfive(2z)$. The block
+opens where $\Dfive(2z) = 64\,\Phi(z)$ is announced (Borcherds--Gritsenko--Nikulin) and
+closes just before the Jacobi-group + $S$-involution generate
+$\mathrm{PSp}_4(\mathbb{Z})$. The interval is the \emph{engine room} of
+$N=1$ in the universal weight identity $\kBKM(\Phi_N) = c_N(0)/2$, not
+the Conjecture~1 assembly floor.
+
+\subsection*{The master denominator}
+
+Fourier--Jacobi expansion of $\Delta_{12} = \phi_{12,1}/\delta_{12}$ through the
+genus-two cusp form gives the weak Jacobi form
+\[
+  \phizo(z_1, z_2) \;=\; (r^{-1} + 10 + r) + q(10r^{-2} - 64 r^{-1} + 108 - 64 r + 10 r^2) + \cdots
+  \qquad (q = e^{2\pi i z_1},\ r = e^{2\pi i z_2}),
+\]
+with Fourier coefficients $f(n, l)$, $\phizo = \sum f(n,l)\,e^{2\pi i (n z_1 + l z_2)}$.
+The slide-723 theorem is the product
+\[
+  \tfrac{1}{64}\,\Dfive(2z) \;=\; \exp\!\big(\pi i (z_1 + z_2 + z_3)\big)
+  \prod_{\substack{(n,l,m) \succ 0}} \big(1 - \exp(2\pi i (n z_1 + l z_2 + m z_3))\big)^{f(nm, l)},
+\]
+with the standard positivity convention: $n \geq 0$, $m \geq 0$, $l$ arbitrary
+when $n > 0$ or $m > 0$; and $l < 0$ when $n = m = 0$. Matching exponents
+$\operatorname{mult} \alpha = f(nm, l)$ to the Weyl--Kac--Borcherds numerator is
+the root-superdimension content of $\gDfive$.
+
+\subsection*{Convergence: Kac asymptotics}
+
+Expressing Fourier coefficients of $\phi_{12,1}$ as a linear combination of
+Jacobi theta functions pins
+\[
+  f(n, l) \;=\; O\!\big(\exp(\sqrt{4n - l^2})\big),
+\]
+which, via the Kac estimate on infinite-dimensional Lie-algebra characters,
+forces convergence of the Borcherds product on a neighbourhood of the
+zero-dimensional cusp of $\mathrm{Sp}_4(\mathbb{Z})$. The asymptotic is
+sharp: $4nm - l^2$ is the Lorentzian norm on $\LII$, and positivity of
+this form at imaginary roots is the $(\alpha, \alpha) < 0$ input to the
+Borcherds character formula.
+
+\subsection*{Factorisation $A \cdot B$}
+
+The product splits along the cusp-decomposition of $\LII \cap \mathbb{R}_{>0}\mathcal{P}_{\mathrm{II}}$:
+\[
+  A \;=\; \prod_{\substack{n > 0,\ l \in \mathbb{Z} \\ \text{or } n = 0,\ l < 0}}
+    \big(1 - e^{2\pi i(n z_1 + l z_2)}\big)^{f(0, l)}, \qquad
+  B \;=\; \prod_{n \geq 0,\, m > 0,\, l \in \mathbb{Z}} \big(1 - e^{2\pi i(n z_1 + l z_2 + m z_3)}\big)^{f(nm, l)}.
+\]
+The constant-term data is $f(0, 0) = 10$, $f(0, -1) = 1$, $f(0, l) = 0$ for
+$l < -1$: the $10$ is the $\kBKM(\Phi_1) = c_1(0)/2 = 5$ Borcherds weight doubled,
+and the $1$ at $l = -1$ is the odd-simple-root imaginary generator that
+forces $\gDfive$ to be a Lie \emph{super}algebra.
+
+\subsection*{Hecke-minus structure on $B$}
+
+Let $T_-(m)$ denote the $\mathrm{GL}_2(\mathbb{Z})$-minus-embedding Hecke
+operator on Jacobi forms: $\phi\ \text{weight }k\ \text{index }t \mapsto (\phi \mid_k T_-(m))$
+of index $mt$. The slide gives
+\[
+  \log B \;=\; -\sum_{m \geq 1} \frac{1}{m^2}\,\big(\phizo\, e^{2\pi i t z_3} \mid_0 T_-(m)\big),
+\]
+exhibiting $B$ as the exponential of a $\Gamma_\infty$-invariant sum. The
+$1/m^2$ weighting is the Borcherds-lift signature at weight zero; it is the
+arithmetic incarnation of the logarithmic derivative $\partial \log \Phi$
+through the maximal parabolic.
+
+\subsection*{Factor $A$: Dedekind $\eta^9$ times Jacobi theta}
+
+Explicit closed form:
+\[
+  A \;=\; \psi_{5, \frac{1}{2}}\,\exp(2\pi i t z_3) \;=\; \eta(z_1)^9\,\nu_{1,1}(z_1, z_2),
+\]
+with $\eta(\tau) = e^{\pi i \tau / 12}\prod_{n \geq 1}(1 - e^{2\pi i n \tau})$ and
+\[
+  \nu_{1,1}(z_1, z_2) \;=\; \sum_{n \in \mathbb{Z}} (-1)^n\,\exp\!\Big(\tfrac{\pi i}{4}(2n+1)^2 z_1 + \pi i (2n+1) z_2\Big).
+\]
+Weight $\tfrac{9}{2} + \tfrac{1}{2} = 5$ matches $\Dfive$. The $\eta^9$
+exponent is the $c_1(0) - 1 = 9$ combinatorics encoded in the $\tau$-invariant.
+
+\subsection*{Modularity: $\Gamma_\infty \cdot S = \mathrm{PSp}_4(\mathbb{Z})$}
+
+Slide-840 reads off: $A \cdot B$ transforms as a Jacobi-group modular form with a
+specified character $\nu_\infty : \Gamma_\infty / \{\pm I\} \to \{\pm 1\}$; testing
+against the symplectic involution
+\[
+  S \;=\; \begin{pmatrix} 0 & I_2 \\ I_2 & 0 \end{pmatrix}
+\]
+yields anti-invariance of the product --- exactly the $\Dfive$-character.
+Since $\Gamma_\infty$ and $S$ generate $\mathrm{PSp}_4(\mathbb{Z})$, the product is
+automorphic for the full modular group. The slide cuts at 852 before the
+weight-5-character conclusion is stated; lines 853--854 close it.
+
+\subsection*{Cycle~2: 8 Gritsenko--Cl\'ery forms?}
+
+\textbf{Not enumerated in this block.} Gritsenko--Cl\'ery 2008
+(arXiv:0812.3962) exhibits exactly $8$ paramodular forms of weight~$5$
+on diagonal-divisor types with even character; this interval only
+handles the $N=1$ diagonal $\Dfive$. The remaining $7$ forms (levels
+$N \in \{2, 3, 4, 6, 7, 8, \ldots\}$ in the Gritsenko--Cl\'ery
+classification) enter the Conjecture~$1$ block beyond line 852.
+
+\subsection*{Cycle~3: bridges to CY$_3$}
+
+No explicit CY$_3$ bridge is stated in 723--852. The implicit bridge
+--- present in the Fourier coefficient $f(0, 0) = 10$, the weight $5$,
+and the $1/64$ prefactor --- is Oberdieck--Pixton 2017: the
+refined/motivic DT zeta of $K3 \times E$ is $C/\Dfive^2$. This is the
+$\kch(K3 \times E) = 0$ (Calabi--Yau, K\"unneth-multiplicative) versus
+$\kBKM(\Phi_1) = 5$ (Borcherds weight) non-coincidence captured in the
+universal identity. The bridge is \emph{data} in this block, not theorem.
+
+\subsection*{Cycle~4: Conjecture~1 setup}
+
+Not present in 723--852. Conjecture~1 requires (i) the full 8-form list
+and (ii) the $g_N$-twisted K3 elliptic-genus coefficients as root
+multiplicities --- both live after line 852.
+
+\subsection*{Cycle~5: Vol~III frontier hiding here}
+
+Three frontier extractions not yet folded into Waves 11--13:
+
+(a) \textbf{$\eta^9 \nu_{1,1}$ as the $\gDfive$ real-root generator.} The
+factor $A$ is the character of the $\mathrm{rk}\,3$ real-root lattice
+$\mathbb{Z}\delta_1 \oplus \mathbb{Z}\delta_2 \oplus \mathbb{Z}\delta_3$;
+the $\eta^9$ is the $9 = \dim \mathfrak{sl}_3 = \dim \mathrm{adjoint}(\mathrm{SL}_3)$
+connection, which suggests a chiral-side identification of the real-root
+sector of $\gDfive$ with a level-$1$ $\widehat{\mathfrak{sl}}_3$ piece modulo
+$\nu_{1,1}$ corrections. This is the $\kBKM$-side decomposition the
+universal theorem promises but does not yet spell out.
+
+(b) \textbf{The $\log B$ Hecke-minus expression as a CoHA shadow.} The
+$\sum_m m^{-2}\,\phizo \mid_0 T_-(m)$ structure is the exponentiated
+trace of a Hecke-operator action; under $\Phi$ at $d = 2$, this is the
+$K3$-cohomological-Hall-algebra tower. The $1/m^2$ weighting is the
+Schiffmann--Vasserot shuffle normalisation; confirming this
+identification would give a first-principles chiral-side construction
+of $\log(B)$.
+
+(c) \textbf{The $f(0, -1) = 1$ odd imaginary simple root.} This single
+coefficient is responsible for $\gDfive$ being a \emph{super}algebra
+rather than an ordinary BKM. It is the $\mathbb{Z}/2$-grading input to
+the K3 Yangian (\ref{part:k3-yangian}) and the super-Yangian
+$Y(\mathfrak{gl}(4 \mid 20))$ conjecture; every other Gritsenko--Cl\'ery form $\Phi_N$ with $N > 1$
+may or may not carry this extra odd simple root --- a case-by-case
+computation is \emph{required} to read off the super/ordinary
+dichotomy. This is the Wave~14 frontier: for each $N \in \{2,3,4,6\}$,
+determine whether $\mathfrak{g}_{\Phi_N}$ is a superalgebra or a
+plain BKM, and whether the odd-root count matches the
+$g_N$-twisted K3 elliptic genus singular coefficient.

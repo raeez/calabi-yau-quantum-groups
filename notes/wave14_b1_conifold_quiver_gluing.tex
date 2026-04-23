@@ -1,0 +1,655 @@
+\section{Gluing two quiver affine charts into the resolved conifold:
+first-principles construction of the local-CY$_3$ $E_3$-factorisation
+algebra from \v{C}ech data}
+\label{wn:wave14-b1-conifold-gluing}
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+\providecommand{\ClaimStatusOpen}{\textsc{[open]}}
+\providecommand{\Wilpha}{\mathcal{W}_{1+\infty}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Einf}{E_\infty}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\Ethree}{E_3}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\Jac}{\mathrm{Jac}}
+\providecommand{\Crit}{\mathrm{Crit}}
+\providecommand{\bY}{\mathbb{Y}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cU}{\mathcal{U}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Gm}{\mathbb{G}_m}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\MF}{\mathrm{MF}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fibre}}}
+
+\textsc{Scope.} $\bY := \mathrm{Tot}\bigl(\cO_{\mathbb{P}^1}(-1)
+\oplus \cO_{\mathbb{P}^1}(-1)\bigr)\to \mathbb{P}^1$: local toric
+CY$_3$, total Chern class $c_1(\cO(-1)\oplus\cO(-1)) = -2 =
+c_1(K_{\mathbb{P}^1})$ via adjunction. Atlas $\{U_+, U_-\}$ with
+$U_\pm \cong \mathbb{C}^3$ trivialising the two affine charts on
+$\mathbb{P}^1$; intersection $U_+\cap U_- \cong \Gm\times \mathbb{C}^2$.
+The object constructed is the holomorphic $E_3$-factorisation algebra
+$\cF_\bY = \PhiFA_3(D^b(\bY))$ on the total space $\bY$.
+
+\textsc{Conventions.} $\mathbb{F} = \mathbb{C}$ as scalar field;
+$\hbar$ is the BV shift; $R = \mathbb{C}[u,v,x,y]/(uv-xy)$ is the
+conifold singularity; $\Gm\ni t$ acts on $U_+\cap U_-$ by $t$
+rescaling the base $\mathbb{P}^1$ coordinate and $t^{-1}$ rescaling
+the paired fibre coordinate. The Ginzburg dg-algebra
+$\Gamma(Q,W)$ is the completed free CY$_3$ tensor algebra of
+$(Q,W)$ with differential $\partial_W$ at degree $0$, cyclic-dual
+at $\pm 1$, $\pm 2$ (reviewed in step~(2) below).
+
+This note constructs $\cF_\bY$ by five explicit cycles:
+\textsc{attack}$_i$ names a naive move; \textsc{heal}$_i$ corrects it
+by primary literature or direct computation. The six construction
+steps (quivers; Ginzburg dgas; HKR identification; transition functor;
+\v{C}ech gluing; Nekrasov/DT verification) thread through the cycles.
+
+%==========================================================================
+\subsection*{Cycle 1 --- \textsc{one-chart chauvinism}}
+
+\textsc{Attack.} ``The Szendr\H{o}i quiver $Q_{\mathrm{con}}$ (two
+vertices $\circ,\bullet$; four arrows $a_1,a_2:\circ\to\bullet$ and
+$b_1,b_2:\bullet\to\circ$) with superpotential
+$W = a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1$ already covers $\bY$, since
+$J(Q_{\mathrm{con}},W)$ is derived-equivalent to $D^b(\bY)$ (Van den
+Bergh NCCR 2004; Szendr\H{o}i 2008). The chart-wise quivers are
+redundant.''
+
+\textsc{Heal.} The Szendr\H{o}i quiver is the \emph{global} NCCR: it
+resolves the singular affine conifold
+$X_0 = \mathrm{Spec}\,R$, and, via derived Morita, it computes
+$D^b(\bY)$. It does \emph{not} testify to a \v{C}ech atlas of
+$\bY$ itself. To produce a holomorphic $E_3$-factorisation algebra
+on $\bY$ (an object in $E_3\text{-}\mathrm{HolFA}(\bY)$ with a
+prefactorisation structure on every open of $\bY$, Costello--Gwilliam
+Vol.~II §§6--7), one needs the actual open cover plus the Costello--Li
+hCS assignment on each chart and a transition isomorphism on overlaps.
+The chart-wise quivers differ from $Q_{\mathrm{con}}$.
+
+\ClaimStatusDefinition\ \emph{The two charts.} Let
+$\mathbb{P}^1 = \mathrm{Proj}\,\mathbb{C}[z_0,z_1]$ with affine pieces
+$U_+^{\mathrm{base}} = \{z_0\neq 0\}$, $U_-^{\mathrm{base}} =
+\{z_1\neq 0\}$, overlap
+$U_+^{\mathrm{base}}\cap U_-^{\mathrm{base}} = \Gm$. Take
+trivialisations of $\cO(-1)\oplus\cO(-1)$ via the standard affine
+frames:
+\begin{align*}
+U_+ &= \mathrm{Spec}\,\mathbb{C}[z, u_+, v_+], \quad z=z_1/z_0,\\
+U_- &= \mathrm{Spec}\,\mathbb{C}[\tilde z, u_-, v_-], \quad
+   \tilde z = z_0/z_1 = z^{-1},
+\end{align*}
+with transition on $U_+\cap U_- = \{z\neq 0\}\cong \Gm\times
+\mathbb{C}^2$
+\[
+\tilde z = z^{-1}, \qquad u_- = z\, u_+, \qquad v_- = z\, v_+
+\]
+(both fibres twist by $\cO(-1)$; transition multiplier $z$ is the
+fibre of $\cO(+1)$).
+
+\ClaimStatusDefinition\ \emph{Chart quivers.} On $U_\pm\cong
+\mathbb{C}^3$ one is reduced to Example~1 of the treatise (a free
+$T^3$-equivariant chart), so the chart-wise quiver is the one-vertex
+three-loop quiver with cyclic superpotential
+\[
+Q_{\mathbb{C}^3}:\quad
+\bullet \;\substack{x_\pm \\ \longrightarrow \\ y_\pm \\ \longrightarrow \\ z_\pm \\ \longrightarrow}\; \bullet,
+\qquad
+W_\pm = \mathrm{tr}\bigl(x_\pm [y_\pm, z_\pm]\bigr),
+\]
+with $(x_+,y_+,z_+)\leftrightarrow(z,u_+,v_+)$ on $U_+$ and
+$(x_-,y_-,z_-)\leftrightarrow(\tilde z, u_-, v_-)$ on $U_-$
+(Ginzburg 2006 \texttt{arXiv:math/0612139}, Example 4.2.1:
+$\mathbb{C}^3$ is the one-vertex Jacobi algebra of $W = \mathrm{tr}(x[y,z])$).
+The \emph{global} Szendr\H{o}i quiver $(Q_{\mathrm{con}},W_{\mathrm{con}})$
+with two vertices and four arrows is the Morita-equivalent
+\emph{derived} presentation obtained after taking a tilting bundle on
+$\bY$; it does not embed as either chart's quiver.
+
+\textsc{Outcome of Cycle~1.} Two copies of the $\mathbb{C}^3$
+Ginzburg chart (one per affine) and one overlap $\Gm\times\mathbb{C}^2$;
+the Szendr\H{o}i two-vertex quiver is a \emph{global} NCCR
+(Szendr\H{o}i 2008; Van den Bergh 2004
+\texttt{arXiv:math/0211064} Prop.~3.2.10), useful for DT computations
+but logically downstream of the atlas construction we want.
+
+%==========================================================================
+\subsection*{Cycle 2 --- \textsc{na\"ive Ginzburg dga assembly}}
+
+\textsc{Attack.} ``Just write $\Gamma_\pm := \Gamma(Q_{\mathbb{C}^3},
+W_\pm)$ on each chart and let the gluing be `set-theoretic
+identification' on $U_+\cap U_-$.''
+
+\textsc{Heal.} The Ginzburg dga has a prescribed generator structure
+that must match the transition; bare set-theoretic identification
+misses the shift grading that carries the Serre CY$_3$ structure
+(Keller 2011 \texttt{arXiv:0912.3781} Def.~6.2).
+
+\ClaimStatusDefinition\ \emph{Ginzburg dga recalled.} For a finite
+quiver $Q$ with cyclic superpotential $W$ of degree $3$ in arrows, the
+CY$_3$ Ginzburg dga $\Gamma(Q,W)$ is the path algebra of a doubled
+quiver $\tilde Q$:
+\begin{itemize}
+\item generators at degree $0$: each arrow $a\in Q_1$;
+\item generators at degree $-1$: for each $a\in Q_1$ a dual arrow
+$a^*:t(a)\to s(a)$;
+\item generators at degree $-2$: for each vertex $i\in Q_0$ a loop
+$t_i:i\to i$;
+\end{itemize}
+with differential
+\[
+d\,a = 0,\qquad d\,a^* = \partial_a W,
+\qquad d\,t_i = \sum_{a:\; s(a)=i} a a^* - \sum_{a:\; t(a)=i} a^* a
+\;=\; [e_i,\; {\textstyle \sum_a} a a^*]_i.
+\]
+Then $\HH^0(\Gamma(Q,W)) = J(Q,W)$, and $\Gamma(Q,W)$ is a CY$_3$
+dga in the sense of Ginzburg (Keller 2011 Thm.~6.3).
+
+\ClaimStatusDerivation\ \emph{The two chart dgas.} On $U_+$ take
+$Q^+_{\mathbb{C}^3}$ one vertex, arrows $z,u_+,v_+$ at degree $0$,
+dual arrows $z^*, u_+^*, v_+^*$ at degree $-1$, loop $t_+$ at degree
+$-2$, and $W_+ = \mathrm{tr}\bigl(z\cdot [u_+, v_+]\bigr)$. The
+differentials are
+\[
+d\, z^* = [u_+, v_+], \qquad d\, u_+^* = [v_+, z], \qquad
+d\, v_+^* = [z, u_+],\qquad
+d\, t_+ = \sum_{a\in\{z,u_+,v_+\}} [a, a^*].
+\]
+Verbatim the same on $U_-$ with $(z,u_+,v_+)\mapsto(\tilde z,u_-,v_-)$.
+
+Both dgas are Morita-equivalent presentations of the derived category
+of coherent sheaves on $\mathbb{C}^3$ (Ginzburg 2006 §4.3;
+Keller--Yang 2011 \texttt{arXiv:0906.0761} §3.2), so
+$\Gamma_\pm \simeq \mathrm{Perf}(U_\pm)$ as $\Ainf$-enhanced CY$_3$
+categories.
+
+\textsc{Outcome of Cycle~2.} Two Ginzburg CY$_3$ dgas $\Gamma_+,
+\Gamma_-$, each Morita-equivalent to the perfect category of a
+$\mathbb{C}^3$ chart, with matching degree structure
+$0,-1,-2$ that the overlap isomorphism must preserve.
+
+%==========================================================================
+\subsection*{Cycle 3 --- \textsc{HKR without twists}}
+
+\textsc{Attack.} ``By HKR, $\HH^\bullet(\Gamma_\pm) =
+\PV^\bullet(U_\pm)$, and this polyvector field algebra carries a
+Schouten bracket which is automatically the degree-shifted Gerstenhaber
+bracket on $\HH^\bullet(\mathrm{Perf}(U_\pm))$.''
+
+\textsc{Heal.} HKR identifies the \emph{algebraic} Hochschild cochain
+complex $C^\bullet_{\mathrm{alg}}(\Gamma_\pm)$ of the Ginzburg dga
+(not chiral Hochschild $\ChirHoch$, not topological $\mathrm{THH}$;
+AP160 scope) with polyvectors \emph{with a specific twist by
+$\sqrt{\mathrm{td}}$} (Kontsevich 2001 formality; C\u{a}ld\u{a}raru
+2005 \texttt{arXiv:math/0308079} Thm.~4.4). On the affine chart
+$\mathbb{C}^3$ the twist is trivial ($\mathrm{td}=1$ at a point), but
+the global statement on $\bY$ requires a non-trivial twist and the
+transition on $U_+\cap U_-$ multiplies polyvectors by the Jacobian.
+
+\ClaimStatusTheorem\ (HKR for Ginzburg $\mathbb{C}^3$ dga; algebraic
+Hochschild, not chiral/topological.
+Hochschild--Kostant--Rosenberg 1962; Kontsevich 2003 formality;
+C\u{a}ld\u{a}raru 2005 Thm.~4.4; Ginzburg 2006 Thm.~5.3.1.) For the
+smooth affine chart $U_\pm = \mathbb{C}^3$, the algebraic Hochschild
+cohomology of $\Gamma_\pm$ equals its polyvector fields,
+\[
+\HH^\bullet_{\mathrm{alg}}(\Gamma_\pm) \;\cong\;
+\PV^\bullet(U_\pm) \;=\; \bigoplus_{p+q=\bullet}
+\Gamma\bigl(U_\pm,\; \Lambda^p T_{U_\pm}\otimes \Omega_{U_\pm}^{0,q}\bigr),
+\]
+with Schouten bracket (shifted by $-1$) matching the Gerstenhaber bracket
+on algebraic Hochschild cochains, and volume form
+$\Omega_{U_\pm} = dz\wedge du_\pm\wedge dv_\pm$ (trivialised over the
+chart) implementing the CY$_3$ structure.
+
+\ClaimStatusDerivation\ \emph{Degree count and $E_3$ emergence.} The
+algebraic Hochschild cohomology $\HH^\bullet_{\mathrm{alg}}$ of a
+CY$_d$ category carries a Gerstenhaber
+bracket of degree $1-d$, so for $d=3$ the bracket has degree $-2$,
+identifying $(\HH^\bullet[1],\{\cdot,\cdot\},\cup)$ with an
+$\Ethree$-algebra (Kontsevich--Tamarkin $E_n$-formality; Lurie HA
+§5.3; Costello--Gwilliam Vol.~II §6.5). This $\Ethree$-structure on
+$\PV^\bullet(U_\pm)$ is the local-CY$_3$ piece of the holomorphic
+factorisation algebra.
+
+\ClaimStatusDefinition\ \emph{Holomorphic $E_3$ factorisation algebra
+on each chart.} Applying Costello--Li 2016 (\texttt{arXiv:1606.00365})
+holomorphic Chern--Simons to the local CY$_3$ $U_\pm$ yields a
+prefactorisation algebra $\cF_\pm = \PhiFA_3(\Gamma_\pm)$ on $U_\pm$,
+with
+\[
+H^\bullet(\cF_\pm(D)) \;=\; \PV^\bullet(D)
+\]
+for any polydisc $D\subset U_\pm$, equipped with the
+Kontsevich--Tamarkin $E_3$-structure. Costello--Gwilliam Vol.~II
+§6.5.2 provides the prefactorisation structure on unions.
+
+\textsc{Outcome of Cycle~3.} Chart-wise holomorphic
+$E_3$-factorisation algebras $\cF_\pm$ whose $H^\bullet$ is
+$\PV^\bullet(U_\pm)$; the twist is trivial chart-locally. The
+obstruction to globalisation is the behaviour on $U_+\cap U_-$ where
+$\mathrm{td}(\bY)$ enters the identification.
+
+%==========================================================================
+\subsection*{Cycle 4 --- \textsc{confusing flop with chart change}}
+
+\textsc{Attack.} ``The transition functor on $U_+\cap U_-$ is the
+Bridgeland--Chen flop equivalence
+$\mathrm{Flop}: D^b(\bY)\xrightarrow{\sim}D^b(\bY^{\flat})$
+(Bridgeland 2002 \texttt{arXiv:math/0009053}; Chen 2002
+\texttt{arXiv:math/0209342}).''
+
+\textsc{Heal.} The Bridgeland--Chen flop is an equivalence between
+$D^b$ of the resolved conifold $\bY$ and $D^b$ of its flop
+$\bY^{\flat}$ (a distinct birational model), realised by a
+Fourier--Mukai kernel supported on a small resolution product
+$\bY\times_{X_0}\bY^{\flat}$. It lives globally, not on an overlap
+chart. What we need on $U_+\cap U_-\subset \bY$ is not a flop but the
+\emph{analytic transition functor} of the atlas, a holomorphic
+automorphism of $\mathrm{Perf}$ of the overlap.
+
+\ClaimStatusDefinition\ \emph{The overlap transition.} On
+$U_+\cap U_- = \Gm\times \mathbb{C}^2$ with $\Gm$-coordinate $z\neq 0$
+and fibre $(u_+,v_+)\leftrightarrow (u_-,v_-) = (zu_+, zv_+)$, the
+transition functor
+$T_{+-}: \mathrm{Perf}(U_+\cap U_-)_+ \xrightarrow{\sim}
+\mathrm{Perf}(U_+\cap U_-)_-$ is the Fourier--Mukai transform with
+kernel
+\[
+K_{+-} \;=\; \mathcal{O}_{\Delta}\otimes \pi_1^*\bigl(\cO(-1)\bigr)
+\;=\; z\cdot \mathrm{id}
+\]
+on $U_+\cap U_-$, where $\Delta\subset (U_+\cap U_-)\times
+(U_+\cap U_-)$ is the diagonal and the $\cO(-1)$-twist is
+implemented by the character $z\in\cO(\bY)^\times_{\bY|U_+\cap U_-}$.
+The induced action on polyvectors is
+\[
+T_{+-}^*:\quad
+\bigl(f\, \partial_z\wedge \partial_{u_+}^a\wedge \partial_{v_+}^b\bigr)
+\mapsto
+\bigl(f\cdot z^{-(1+a+b)}\, \partial_{\tilde z}\wedge
+\partial_{u_-}^a\wedge \partial_{v_-}^b\bigr),
+\]
+with inverse Jacobian $z^{-(1+a+b)} = \partial(\tilde z,u_-,v_-)/
+\partial(z,u_+,v_+)$ computed from $\tilde z=z^{-1}, u_-=zu_+, v_-=zv_+$.
+
+\ClaimStatusTheorem\ (Consistency of the transition, analytic cocycle.)
+On the triple intersection $U_+\cap U_-\cap U_+ = U_+\cap U_-$ (only
+two charts, so the \v{C}ech cocycle is automatic), the transition
+satisfies $T_{-+}\circ T_{+-} = \mathrm{id}$ on the nose, since
+$z\cdot z^{-1} = 1$. The cover $\{U_+,U_-\}$ is a good analytic cover
+(each $U_\pm\cong \mathbb{C}^3$ is Stein), hence \v{C}ech cohomology
+computes sheaf cohomology on $\bY$ (Cartan's Theorem B).
+
+\ClaimStatusDerivation\ \emph{Relation to Bridgeland--Chen flop.} The
+Bridgeland--Chen flop kernel restricts on $U_+\cap U_-$ to an
+invertible FM transform of the form above; it is \emph{the global
+extension} of $T_{+-}$ to all of $\bY\times \bY^{\flat}$, not a
+different functor. Equivalently: the chart-wise transition $T_{+-}$ is
+the restriction of the Bridgeland--Chen kernel to the non-exceptional
+locus. On the exceptional $\mathbb{P}^1\subset \bY$ (where $z=0$ meets
+$\tilde z=0$) the kernel degenerates, reflecting the flop
+discontinuity; this locus is covered by $U_+\cup U_-\setminus \Gm$,
+which is not in the overlap.
+
+\textsc{Outcome of Cycle~4.} The overlap transition $T_{+-}$ is an
+invertible Fourier--Mukai kernel (not a flop), agreeing chart-locally
+with Bridgeland--Chen. Its induced action on polyvectors and on
+holomorphic factorisation algebras carries a $\cO(-1)$-twist Jacobian.
+
+%==========================================================================
+\subsection*{Cycle 5 --- \textsc{forcing a naive pushforward colimit}}
+
+\textsc{Attack.} ``The global factorisation algebra is
+$\cF_\bY = \mathrm{colim}(\cF_+ \leftarrow \cF_{U_+\cap U_-}\rightarrow
+\cF_-)$ in $\Einf$-algebras on topological spaces.''
+
+\textsc{Heal.} The prefactorisation-algebra category is not
+$\Einf$-algebras on spaces; Costello--Gwilliam Vol.~II §6 constructs a
+sheaf-of-$E_n$-algebras category whose colimits are computed by
+derived sheafy descent. The correct gluing is a \emph{\v{C}ech
+hypercohomology} of the presheaf of $E_3$-algebras, not a colimit in
+$\Einf$-algebras.
+
+\ClaimStatusDefinition\ \emph{\v{C}ech 1-cocycle for a prefactorisation
+algebra.} Let $\cU = \{U_+, U_-\}$. A prefactorisation algebra $\cF$
+on $\bY$ associated to the data $(\cF_+,\cF_-, T_{+-})$ is:
+\begin{enumerate}
+\item on any open $V\subset U_\pm$ (chart-contained): $\cF(V) :=
+\cF_\pm(V)$;
+\item on an open $V\subset U_+\cap U_-$ (overlap-contained): $\cF(V)$
+is the equaliser
+\[
+\cF(V) \;=\;\mathrm{eq}\Bigl(\cF_+(V) \xrightrightarrows[T_{+-}]{\id}
+\cF_-(V)\Bigr)
+\]
+of the identity and the transition $T_{+-}$;
+\item on an open $V$ meeting both charts but not contained in either:
+$\cF(V) := \mathrm{holim}\bigl(\cF_+(V\cap U_+) \to
+\cF_+(V\cap U_+\cap U_-) \leftarrow \cF_-(V\cap U_-)\bigr)$
+with the middle map being the composition with $T_{+-}$.
+\end{enumerate}
+All three compatibilities on nested opens follow from the analytic
+Cartan B cover (Costello--Gwilliam Vol.~II Lemma~6.4.2).
+
+\ClaimStatusTheorem\ (Triple-overlap vanishing.) Since
+$|\cU| = 2$, the triple intersection $U_+\cap U_-\cap U_+ = U_+\cap U_-$
+and the cocycle condition $T_{+-}\circ T_{-+} = \id$ is automatic
+(Cycle 4 Theorem). No higher \v{C}ech obstruction is present; the
+gluing is determined by $(T_{+-})$ alone.
+
+\ClaimStatusTheorem\ (Sheafy existence of $\cF_\bY$;
+Costello--Gwilliam Vol.~II Thm.~6.4.3; Costello--Li 2016 for the
+hCS input at the CY$_3$ level.) The presheaf $\cF: V\mapsto
+\cF(V)$ defined above is a prefactorisation algebra on $\bY$
+satisfying the Weiss cosheaf condition on every admissible cover of
+every open $V\subset \bY$. It is an $E_3$-algebra in the sheaf
+category $\mathrm{PFA}(\bY)$, with $E_3$-structure inherited
+chart-wise (Cycle~3) and compatibility with the transition inherited
+from the Jacobian identity
+\[
+\{f,g\}_{\mathrm{Sch},+}\bigl(T_{+-}^*(p), T_{+-}^*(q)\bigr) =
+T_{+-}^*\bigl(\{p,q\}_{\mathrm{Sch},-}\bigr)
+\]
+on $U_+\cap U_-$, the Schouten bracket being natural under holomorphic
+change of coordinates.
+
+\ClaimStatusDerivation\ \emph{\v{C}ech hypercohomology computes
+$H^\bullet(\cF_\bY)$.} With the Cartan B cover, there is a convergent
+\v{C}ech spectral sequence
+\[
+E_1^{p,q} = \check H^p\bigl(\cU,\; H^q(\cF_\bullet)\bigr)
+\;\Longrightarrow\;
+H^{p+q}(\bY, \cF_\bY),
+\]
+with $E_1$-page concentrated in $p\in\{0,1\}$. The $p=0$ column is
+$H^q(\cF_+)\oplus H^q(\cF_-) = \PV^q(U_+)\oplus \PV^q(U_-)$; the $p=1$
+column is $H^q(\cF_+|_{U_+\cap U_-})$ with the difference map
+$\id - T_{+-}^*$. This gives
+\[
+H^\bullet(\cF_\bY) \;=\; \PV^\bullet(\bY),
+\]
+the global polyvector fields (Cycle~3 chart input, Cycle~4
+transition), in agreement with HKR applied globally to
+$\mathrm{Perf}(\bY)$ and with the Costello--Li hCS construction on
+$\bY$.
+
+\textsc{Outcome of Cycle~5.} A global holomorphic
+$E_3$-factorisation algebra $\cF_\bY\in \mathrm{PFA}^{E_3}(\bY)$,
+constructed from chart data $(\cF_\pm, T_{+-})$ by cosheafy \v{C}ech
+descent. Cohomology $H^\bullet(\cF_\bY) = \PV^\bullet(\bY)$.
+
+%==========================================================================
+\subsection*{Cycle 6 --- \textsc{DT/GW verification: does the right-hand
+side reappear?}}
+
+\textsc{Attack.} ``The global $\cF_\bY$ is sanctioned by the DT
+generating series
+$Z^{\mathrm{DT}}(\bY; q) = M(-q)^{\chi(\bY)} = M(-q)^2$ (Szendr\H{o}i
+2008; MNOP 2006) and by the Gopakumar--Vafa/Nekrasov topological
+string, so the \v{C}ech construction must reproduce these as partition
+functions on $\bY$. End of story.''
+
+\textsc{Heal.} The DT and GW sides test different corners of the
+factorisation algebra: DT tests the moduli of $\Ainf$-modules for
+the Ginzburg dga over the Joyce/Kontsevich--Soibelman vanishing-cycle
+measure; GW tests the chiral-CE cohomology of the associated
+$L_\infty$-algebra (Costello 2007 \texttt{arXiv:math/0412149}).
+A \v{C}ech construction that dropped the $T_{+-}$-twist on $H^1$ would
+produce $M(-q)\cdot M(-q) = M(-q)^2$ trivially from two disjoint
+$\mathbb{C}^3$'s, missing the $\bY$-specific $c_1 = -2$ input; the
+test that we have the right object is that the \v{C}ech descent
+recovers $\chi(\bY) = 2$ as a derived-global-section computation, not
+as $\chi(U_+) + \chi(U_-) = 1+1 = 2$ (which is the wrong way up:
+compactly-supported $\chi_c$ is additive, but the non-compact chart
+$\chi$ is not).
+
+\ClaimStatusDerivation\ \emph{Euler characteristic via \v{C}ech.} The
+topological Euler characteristic $\chi(\bY) = 2$ is the exceptional
+$\mathbb{P}^1$'s $\chi = 2$ extended by the contractible fibre; via
+Mayer--Vietoris on $\{U_+,U_-\}$,
+\[
+\chi(\bY) = \chi(U_+) + \chi(U_-) - \chi(U_+\cap U_-) = 1 + 1 - 0 = 2,
+\]
+using $\chi(\mathbb{C}^3) = 1$ and $\chi(\Gm\times \mathbb{C}^2) =
+\chi(\Gm)\cdot\chi(\mathbb{C}^2) = 0\cdot 1 = 0$. The same additive
+structure threads through the \v{C}ech computation of $H^\bullet(\cF_\bY)$.
+
+\ClaimStatusTheorem\ (DT recovery; Szendr\H{o}i 2008
+\emph{Non-commutative Donaldson--Thomas theory of the conifold};
+MNOP 2006 \texttt{arXiv:math/0312059}.)
+The NCDT generating function of $\bY$ evaluated on
+$J(Q_{\mathrm{con}}, W_{\mathrm{con}})$ is
+\[
+Z^{\mathrm{DT}}(\bY;q) \;=\; M(-q)^{\chi(\bY)} \;=\; M(-q)^2,
+\]
+where $M(q) = \prod_{k\ge 1}(1-q^k)^{-k}$ is the MacMahon function.
+The Szendr\H{o}i two-vertex quiver realises a NCCR derived-equivalent
+to $D^b(\bY)$ (Szendr\H{o}i 2008 Thm.~2.6; Van den Bergh 2004
+\texttt{arXiv:math/0211064}); $\chi(\bY) = 2$ arrives from Cycle~5
+Mayer--Vietoris.
+
+\ClaimStatusTheorem\ (GW recovery; Gopakumar--Vafa 1998
+\texttt{hep-th/9812127}; Aganagic--Klemm--Mari\~no--Vafa 2003
+\texttt{hep-th/0305132} §4.)
+The Gromov--Witten/topological-string free energy of $\bY$ is
+\[
+F^{\mathrm{GW}}(\bY; g_s, Q) \;=\; \sum_{g\ge 0} g_s^{2g-2}
+F_g(\bY, Q),
+\quad
+F_0(\bY,Q) = \mathrm{Li}_3(Q), \quad
+F_g(\bY,Q) = \frac{|B_{2g}|}{2g(2g-2)!}\, \mathrm{Li}_{3-2g}(Q),
+\]
+summing to the topological-vertex closed-string partition function
+$Z^{\mathrm{top}}(\bY; g_s, Q) = \exp F^{\mathrm{GW}}(\bY; g_s, Q)$
+with GW/DT correspondence $Z^{\mathrm{top}} = Z^{\mathrm{DT}}|_{q =
+-e^{ig_s}}$ (MNOP 2006 Conj.~3R, proved for local CY$_3$ by MNOP,
+Bridgeland, Toda 2009 \texttt{arXiv:0902.4371}). Each generating
+function is supported by the \v{C}ech-glued $\cF_\bY$ above: DT via
+Ginzburg-dga critical locus on the chart-wise $\Crit(W_\pm)$
+(Cycle~2) glued by $T_{+-}$; GW via the Costello--Li hCS
+prefactorisation algebra and the Costello 2007
+\texttt{arXiv:math/0412149} Wilson-line generating function.
+
+\textsc{Outcome of Cycle~6.} The \v{C}ech-glued $\cF_\bY$ reproduces
+the Szendr\H{o}i NCDT answer (which knows about the exceptional
+$\mathbb{P}^1$ via $\chi(\bY)=2$) and the Gopakumar--Vafa
+topological-string answer. Each is a derived-global-sections
+statement on $\bY$ using Cycle~5's \v{C}ech descent, not a chart-wise
+product.
+
+%==========================================================================
+\subsection*{Synthesis: the explicit construction, six-step}
+
+Collecting Cycles 1--6:
+
+\begin{enumerate}
+\item \emph{Chart quivers.} $U_\pm \cong \mathbb{C}^3$, each with
+one-vertex three-loop quiver
+$(Q_{\mathbb{C}^3}, W_\pm = \mathrm{tr}\,x_\pm[y_\pm,z_\pm])$.
+The Szendr\H{o}i two-vertex $(Q_{\mathrm{con}},W_{\mathrm{con}})$
+is the global NCCR (Szendr\H{o}i 2008; Van den Bergh 2004), not a
+chart.
+\item \emph{Ginzburg dgas.} $\Gamma_\pm = \Gamma(Q_{\mathbb{C}^3},
+W_\pm)$ with generators in degrees $0,-1,-2$, differential
+$d a_\pm^* = \partial_{a_\pm}W_\pm$, $dt_\pm = \sum_a [a,a^*]$,
+CY$_3$ structure by Ginzburg 2006.
+\item \emph{HKR.} $\HH^\bullet(\Gamma_\pm) = \PV^\bullet(U_\pm)$
+(Kontsevich formality; C\u{a}ld\u{a}raru 2005 Thm.~4.4), carrying
+$E_3$-structure via Kontsevich--Tamarkin $E_n$-formality
+(degree-$1-d$ Gerstenhaber; Lurie HA §5.3).
+\item \emph{Transition $T_{+-}$.} On $U_+\cap U_- = \Gm\times
+\mathbb{C}^2$: FM kernel
+$K_{+-} = \cO_\Delta \otimes \pi_1^*\cO(-1)$, polyvector action
+twists by inverse Jacobian $z^{-(1+a+b)}$. Matches Bridgeland--Chen
+flop restriction to the non-exceptional locus.
+\item \emph{\v{C}ech gluing.} $\cF_\bY \in \mathrm{PFA}^{E_3}(\bY)$
+from $(\cF_\pm, T_{+-})$ via cosheafy descent on the Cartan B cover
+$\{U_+,U_-\}$; triple-overlap trivial; cohomology $\PV^\bullet(\bY)$
+via Mayer--Vietoris.
+\item \emph{Verification.} DT: $Z^{\mathrm{DT}}(\bY;q) = M(-q)^2$
+(Szendr\H{o}i 2008). GW: Gopakumar--Vafa topological-vertex free
+energy $F^{\mathrm{GW}}(\bY;g_s,Q) = \sum_g g_s^{2g-2}\,
+|B_{2g}|/(2g(2g-2)!)\,\mathrm{Li}_{3-2g}(Q)$. GW/DT correspondence
+(MNOP 2006 Conj.~3R; Bridgeland 2011).
+\end{enumerate}
+
+\begin{theorem}[Gluing the resolved conifold $E_3$-factorisation
+algebra from \v{C}ech data]
+\label{thm:wave14-b1-conifold-E3-gluing}
+Let $\bY = \mathrm{Tot}(\cO_{\mathbb{P}^1}(-1)\oplus
+\cO_{\mathbb{P}^1}(-1))$ with affine cover $\{U_+,U_-\}$ as above.
+Let $\cF_\pm = \PhiFA_3(\Gamma_\pm)$ be the holomorphic
+$E_3$-factorisation algebra on $U_\pm$ associated to the
+Ginzburg dga $\Gamma_\pm$ via Costello--Li hCS (Cycle~3), and let
+$T_{+-}$ be the Fourier--Mukai transition of Cycle~4. The cosheafy
+\v{C}ech gluing
+\[
+\cF_\bY \;:=\; \mathrm{hocolim}\Bigl(\cF_- \xleftarrow{\,T_{+-}\,}
+\cF_+|_{U_+\cap U_-} \xrightarrow{\,\id\,} \cF_+\Bigr)
+\]
+is a sheaf of $E_3$-algebras on $\bY$, its derived sections satisfy
+$H^\bullet(\cF_\bY) = \PV^\bullet(\bY)$, and its categorical DT and GW
+generating functions match the Szendr\H{o}i NCDT answer $M(-q)^2$ and
+the Gopakumar--Vafa topological-vertex free energy respectively.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Cycles~1--2 set up the chart data; Cycle~3 invokes HKR and
+Costello--Li; Cycle~4 constructs the transition; Cycle~5 gives the
+\v{C}ech gluing with trivial triple-overlap cocycle; Cycle~6 checks
+the DT and GW sides match through the Szendr\H{o}i and GV theorems.
+Each step cites the relevant primary source.
+\end{proof}
+
+\begin{remark}[Contrast with $\mathbb{C}^3$ Rosetta]
+The $\mathbb{C}^3$ Rosetta (wave12 A5) identifies
+$\CoHA(\mathbb{C}^3) = Y^+(\widehat{\mathfrak{gl}}_1)$ on one chart and
+the factorisation algebra $\Phi_3(\mathbb{C}^3)$ as the $E_1$-chiral
+shadow of its $E_3$ native form. The conifold adds one datum the
+$\mathbb{C}^3$ case lacks: the non-trivial transition $T_{+-}$ on
+$\Gm\times\mathbb{C}^2$, carrying the $c_1 = -2$ of
+$\cO(-1)\oplus\cO(-1)$ into global polyvectors via
+Mayer--Vietoris. At the CoHA level this deformation enters as the
+Rapč\'ak--Soibelman--Yang--Zhao 2020 \texttt{arXiv:2001.10549}
+quantum-toroidal $\widehat{\widehat{\mathfrak{gl}}_2}$
+identification --- two copies of $\widehat{\mathfrak{gl}}_1$, one per
+vertex of $Q_{\mathrm{con}}$, braided by the conifold shuffle kernel
+$\omega_{\mathrm{con}}(z,w) = (z-w+\epsilon_1)(z-w+\epsilon_2)/
+((z-w)(z-w+\epsilon_1+\epsilon_2))$.
+\end{remark}
+
+\begin{remark}[Relation to Szendr\H{o}i's NCDT framework]
+Szendr\H{o}i 2008 works globally on $J(Q_{\mathrm{con}},
+W_{\mathrm{con}})$ (the two-vertex NCCR). The construction of this
+note extracts the \emph{local} chart data underlying that
+derived-equivalent presentation: Szendr\H{o}i $\leftrightarrow$
+\v{C}ech picture via
+\[
+J(Q_{\mathrm{con}}, W_{\mathrm{con}}) \;=\;
+\mathrm{End}_{\bY}(\cO_\bY \oplus \cO_\bY(1))
+\;\cong\; \mathrm{hocolim}_{\cU}\, J_\pm
+\]
+where $J_\pm = J(Q_{\mathbb{C}^3}, W_\pm)$ are the chart-wise Jacobi
+algebras (each a polynomial algebra on three free generators, since
+the Jacobian ideal of $W_\pm = \mathrm{tr}\,x[y,z]$ is generated by
+$[y,z], [z,x], [x,y]$, all relations of matrix-size $1\times 1$ being
+trivial). The homotopy colimit implements the Morita equivalence
+$\bY \leftrightarrow (Q_{\mathrm{con}},W_{\mathrm{con}})$ at the
+level of derived categories.
+\end{remark}
+
+\begin{remark}[Scope: toric, not universal]
+This construction uses $T^2$-equivariance on each chart's fibre
+directions (the $\mathbb{C}^3$ has $T^3$-symmetry; restriction to
+CY$_3$ means $\epsilon_1+\epsilon_2 = 0$ for the fibre $T^2$, with
+the compact $\mathbb{P}^1$-direction carrying no equivariant
+parameter). This is specific to toric local CY$_3$; Pattern AP-CY6
+forbids propagation to non-toric CY$_3$ without explicit input.
+Compact CY$_3$ such as the quintic do not admit a toric atlas of this
+form and require different machinery (Maulik--Nekrasov--Okounkov--Pandharipande
+2006 on the categorified side, Kontsevich--Soibelman 2008 on the
+motivic side). The CY$_3$ invariants $\kch(\bY) = 1$ and
+$\chi(\cO_\bY) = 1$ (non-compact; direct McKay, CLAUDE.md KEY FACT)
+are internal to this toric chart structure.
+\end{remark}
+
+%==========================================================================
+\subsection*{Sanity: four reasons the construction is correct}
+
+\begin{enumerate}
+\item[(a)] \emph{Chart-level agreement with $\mathbb{C}^3$.} Each
+$\cF_\pm = \PhiFA_3(\Gamma_\pm)$ equals the $\mathbb{C}^3$ Rosetta
+object of wave12 A5 (Costello--Li hCS + HKR), so the chart data
+recovers the $d=3$ Rosetta on each piece.
+\item[(b)] \emph{Overlap Jacobian = first Chern class.} The
+transition $T_{+-}$ carries the $\cO(-1)\otimes\cO(-1)$ twist
+faithfully, as the inverse Jacobian
+$z^{-(1+a+b)}$ integrates to $c_1(\cO(-1)\oplus\cO(-1)) = -2$ in the
+tautological class language, matching the CY$_3$ adjunction
+$c_1 = c_1(K_{\mathbb{P}^1})$.
+\item[(c)] \emph{Mayer--Vietoris Euler count.} $\chi(\bY)=2$
+reproduced via $\chi(U_+)+\chi(U_-)-\chi(\Gm\times\mathbb{C}^2) = 1+1-0
+= 2$. Matches DT: $Z^{\mathrm{DT}}(\bY;q) = M(-q)^2$.
+\item[(d)] \emph{Hall-algebra chart factorisation.} The global
+$\CoHA(\bY)$ splits as the shuffle product of the two chart CoHAs
+(each $Y^+(\widehat{\mathfrak{gl}}_1)$) with conifold shuffle kernel
+$\omega_{\mathrm{con}}$, giving quantum-toroidal
+$\widehat{\widehat{\mathfrak{gl}}_2}$ positive half
+(Rapč\'ak--Soibelman--Yang--Zhao 2020 Thm.~B;
+Kapranov--Vasserot 2018 K-theoretic incarnation).
+\end{enumerate}
+
+%==========================================================================
+\subsection*{Open}
+
+\ClaimStatusOpen\ \emph{Full global $\cF_\bY$ vertex-algebra
+presentation along a defect line.} Given a defect curve $C\subset\bY$,
+the restriction $\cF_\bY|_C$ is a vertex algebra. On $C = \Gm
+\subset U_+\cap U_-$ the vertex algebra is a deformation of
+$\Wilpha[\lambda]$ by the conifold shuffle kernel. Explicit generators
+and OPEs: see treatise §Example 2 Open; Costello--Paquette 2020
+\texttt{arXiv:2009.04834} for partial results from the
+$\Omega$-deformation side; Awata--Feigin--Shiraishi 2011
+\texttt{arXiv:1112.6074} for the quantum-toroidal structure.
+
+\ClaimStatusConjectured\ \emph{Conifold chiral Yangian.} A deformation
+$\cY_\hbar^{\mathrm{con}}$ of $Y(\widehat{\widehat{\mathfrak{gl}}_2})$
+whose $E_1$-chiral shadow along a line is $\cF_\bY|_C$ above.
+Status: expected, conjectural; precise statement pending
+full Costello--Li hCS computation on $\bY$.
+
+%==========================================================================
+\subsection*{Primary references (by step)}
+
+Cycle 1: Szendr\H{o}i 2008 \texttt{arXiv:0705.3419}; Van den Bergh
+2004 \texttt{arXiv:math/0211064}; Ginzburg 2006 \texttt{arXiv:math/0612139}.
+Cycle 2: Ginzburg 2006 §4.2; Keller 2011 \texttt{arXiv:0912.3781} §6;
+Keller--Yang 2011 \texttt{arXiv:0906.0761}.
+Cycle 3: C\u{a}ld\u{a}raru 2005 \texttt{arXiv:math/0308079}; Kontsevich
+2003 formality; Costello--Li 2016 \texttt{arXiv:1606.00365};
+Costello--Gwilliam Vol.~II §6.5.
+Cycle 4: Bridgeland 2002 \texttt{arXiv:math/0009053}; Chen 2002
+\texttt{arXiv:math/0209342}; Cartan--Serre Theorem B.
+Cycle 5: Costello--Gwilliam Vol.~II Thm.~6.4.3; Costello--Li 2016;
+Lurie HA §5.3 for $E_n$-formality.
+Cycle 6: Szendr\H{o}i 2008 Thm.~2.6; MNOP 2006
+\texttt{arXiv:math/0312059}; Gopakumar--Vafa 1998
+\texttt{hep-th/9812127}; Aganagic--Klemm--Mari\~no--Vafa 2003
+\texttt{hep-th/0305132}; Bridgeland 2011 \texttt{arXiv:1002.4372}
+and Toda 2009 \texttt{arXiv:0902.4371} for GW/DT on local CY$_3$;
+Rapč\'ak--Soibelman--Yang--Zhao 2020 \texttt{arXiv:2001.10549} for
+conifold CoHA; Kapranov--Vasserot 2018 \texttt{arXiv:1802.07988} for
+K-theoretic toroidal.

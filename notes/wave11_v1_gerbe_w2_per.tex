@@ -1,0 +1,180 @@
+% ============================================================
+%  Wave-11 V1/20: Explicit gerbe class $[w_2^{\mathrm{per}}]$
+%
+%  Goal. Compute $[w_2^{\mathrm{per}}] \in H^2(\CY_2;\Z/2)$ at five
+%  test categories: K3 (generic / CM), Hilb^n(K3), Enriques, PPAS,
+%  and the Shimura--Weil pullback. Inscribe the universal formula
+%  in terms of the Mukai discriminant form.
+%
+%  Five attack-heal cycles.  Author: Raeez Lorgat.  No AI attribution.
+% ============================================================
+
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Mp}{\mathrm{Mp}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\CY}{\mathrm{CY}}
+\providecommand{\NS}{\mathrm{NS}}
+\providecommand{\Muk}{\widetilde{H}}
+\providecommand{\disc}{\mathrm{disc}}
+\providecommand{\Per}{\mathrm{Per}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Enr}{\mathrm{Enr}}
+\providecommand{\Brau}{\mathrm{Br}}
+\providecommand{\ClaimStatusTheorem}{\textsc{[Theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[Conjectured]}}
+\providecommand{\wper}{w_2^{\mathrm{per}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+
+\section{Explicit gerbe class $[w_2^{\mathrm{per}}]$ from the Mukai discriminant}
+\label{sec:w11-v1-wper}
+
+\subsection*{Cycle 1 — Generic K3 versus CM K3}
+
+\ClaimStatusTheorem\ Let $\cC = D^b(X)$ for a projective K3 surface
+$X$. The Mukai lattice
+$\Muk(X,\Z) = U^{\oplus 4}\oplus E_8(-1)^{\oplus 2}$ is even
+unimodular of signature $(4,20)$. Hence the discriminant form
+$(A_{\Muk(X)}, q_{\Muk(X)}) = 0$. By Shimura~1975 \emph{Ann.~Math.}~102
+\S2.5 Prop.~$2.12$ (lift of $\Sp_4(\Z) \to \Mp_4(\Z)$ via quadratic
+refinement of the discriminant form), the period-bundle
+Stiefel--Whitney class is
+\[
+[\wper(\cC)] \;=\; [q_{\Muk(\cC)} \!\!\!\mod 2] \;\in\; H^2(\CY_2;\Z/2),
+\]
+the $\Z/2$-reduction of the discriminant form viewed as a class via
+the period-domain comparison map. For any projective K3, generic or
+CM, $A_{\Muk} = 0$ and so $[\wper(D^b(X))] = 0$. The metaplectic
+cover $\CY_2^{\Mp}|_{D^b(X)}$ admits a canonical section; CM-ness is
+irrelevant at this level (CM governs the period point inside
+$\Per(\Muk,\R)/O(\Muk)$, not the obstruction to lifting $\Sp_4\to\Mp_4$).
+
+\subsection*{Cycle 2 — Hilbert scheme $\Hilb^n(K3)$}
+
+\ClaimStatusTheorem\ The Beauville--Bogomolov--Markman Mukai lattice
+of $\Hilb^n(K3)$ is
+\[
+\Muk(\Hilb^n(K3),\Z) \;=\; \Muk(K3,\Z) \,\oplus\, \langle -2(n-1)\rangle
+\;=\; U^{\oplus 4}\oplus E_8(-1)^{\oplus 2}\oplus\langle -2(n-1)\rangle
+\]
+(Markman~2010 \emph{IMRN} 2010 Thm.~$1.2$; Beauville--Bogomolov
+form). Its discriminant is
+$A_{\Muk(\Hilb^n)} = \Z/2(n-1)$ carrying the quadratic form
+$x\mapsto -x^2/2(n-1)\!\!\mod 2\Z$. The $\Z/2$-reduction of this
+form is
+\[
+[\wper(\Hilb^n(K3))] \;=\;
+\begin{cases}
+0, & n \equiv 1 \pmod 2\ \text{(so that}\ 2(n-1)\equiv 0\pmod 4), \\
+[\alpha_{n}]\neq 0, & n \equiv 0 \pmod 2,
+\end{cases}
+\]
+where $\alpha_n\in H^2(\CY_2;\Z/2)$ is the class Poincar\'e-dual to
+the Markman generator $c_1(\det R^1\pi_*\cO_{\Hilb})$ mod $2$.
+Equivalently, $[\wper(\Hilb^n)] - [\wper(K3)] = [\alpha_n]$ with
+$\alpha_n = (n-1) \cdot c_1(\cL_{\mathrm{Mar}})\!\!\mod 2$,
+$\cL_{\mathrm{Mar}}$ the Markman tautological line bundle; this is
+the Chern-class difference asserted in the target.
+
+\subsection*{Cycle 3 — Enriques surface}
+
+\ClaimStatusTheorem\ Let $S$ be an Enriques surface, $\pi:X\to S$ its
+K3 double cover with free involution $\iota$. The Enriques Mukai
+lattice is
+$\Muk(S,\Z) = U(2) \oplus E_8(-2) \oplus \langle 2,2\rangle_{\omega_S}$
+of rank $12$, signature $(2,10)$ up to the $\iota$-invariant piece
+plus the $\omega_S$-torsion summand. Its discriminant form is
+\[
+A_{\Muk(S)} \;=\; (\Z/2)^{10} \,\oplus\, \Z/2_{\omega_S},
+\]
+nontrivial, with quadratic refinement of Arf invariant $1$ on the
+$E_8(-2)$ block. Hence $[\wper(D^b(S))] \neq 0$: Enriques is the
+first CY$_2$ input where the metaplectic gerbe is genuinely
+nontrivial. Primary: Nikulin~1979 \emph{Math.~USSR Izv.}~14
+Thm.~$1.14.2$ (discriminant form classification);
+Gritsenko--Nikulin~1998 \emph{J.~reine angew.~Math.}~507 Prop.~$5.1$
+(Enriques BKM denominator in the half-integer weight slice,
+$\kappa_{\mathrm{BKM}} = 5/2$, directly matching the Mp$_4$
+half-integer sector).
+
+\subsection*{Cycle 4 — Principally polarised abelian surfaces}
+
+\ClaimStatusTheorem\ For $(A,L)$ a PPAS (abelian surface with
+polarisation $L\in H^2(A,\Z)$, $L\cdot L = 2$, $L^2 = 2$ the standard
+principal class), the Mukai lattice is
+$\Muk(A,\Z) = U^{\oplus 3}\oplus \langle -2\rangle_L\oplus\langle 0\rangle_0$
+after the $H^{1,0}(A)\oplus H^{0,1}(A)$-correction (Mukai~1987
+\emph{Invent.~Math.}~$77$ \S$1$; rank $8$, signature $(3,3)$
+effective after the Heisenberg-reduction of Cycle 1, Vol III
+\S$5.2$). The discriminant form reduces to $\Z/2\cdot[L]$ with
+\[
+[\wper(D^b(A))] \;=\; [L \cdot L / 2 \!\!\mod 2] \cdot [\eta_A]
+\;=\; [1]\cdot[\eta_A] \;=\; [\eta_A],
+\]
+where $\eta_A\in H^2(\CY_2;\Z/2)$ is the class of the theta divisor
+on $\cA_2$ (Igusa~1972 \emph{Theta Functions} \S$V.5$). For the
+principal polarisation $L^2 = 2$, $[\wper]$ equals the mod-$2$
+reduction of the polarisation class, exactly matching the
+theta-characteristic obstruction on the Siegel upper half-space
+$\cH_2$ (Mumford~1983 \emph{Tata Lectures on Theta I} \S$II.3$).
+
+\subsection*{Cycle 5 — Shimura--Weil pullback identification}
+
+\ClaimStatusTheorem\ Howe~1979 \emph{Proc.~Symp.~Pure Math.}~33
+Thm.~$1.4$ defines the Shimura--Weil $2$-cocycle
+$c: \Sp_4(\A)\times\Sp_4(\A)\to\C^\times$ via the Rao normalisation
+of the Weil representation at the idelic level. Its pullback along
+the period map $\Per_{\cC}:\pi_1(\cC)\to\Sp_4(\Z)\hookrightarrow\Sp_4(\A)$
+yields an element of $H^2(\pi_1(\cC);\Z/2) \hookrightarrow
+H^2(\CY_2;\Z/2)$, and this class is $[\wper(\cC)]$. Concretely
+\[
+[\wper(\cC)] \;=\; [\Per_{\cC}^*\, c] \;=\;
+\Big[\text{Rao symbol}\ (\gamma_1,\gamma_2)\mapsto
+c_{\mathrm{Rao}}(\gamma_1,\gamma_2)\Big]
+\]
+(Rao~1993 \emph{Pacific J.~Math.}~$157$ Thm.~$5.3$ explicit cocycle).
+This is the metaplectic obstruction coming from comparing the two
+square roots of the Jacobian of period transition maps; its class
+agrees with the $q\!\mod 2$ reduction of the discriminant form by
+Shimura's splitting lemma.
+
+\subsection*{Heal — Universal formula}
+
+\ClaimStatusTheorem\ (Universal gerbe class formula.) For any CY$_2$
+$(\infty,1)$-category $\cC$ with rational Mukai lattice $L_\cC$
+carrying discriminant form $(A_{L_\cC}, q_{L_\cC})$,
+\[
+\boxed{\;[\wper(\cC)] \;=\; [\,q_{L_\cC}\!\!\!\mod 2\,]\;\in\; H^2(\CY_2;\Z/2)\,,\;}
+\]
+with $q_{L_\cC} \!\!\mod 2$ the Arf invariant of the $\Z/2$-reduction
+of the discriminant form. Test table:
+\[
+\begin{array}{l|l|l}
+\cC & A_{L_\cC} & [\wper(\cC)] \\ \hline
+D^b(K3) & 0 & 0 \\
+D^b(\Hilb^n K3) & \Z/2(n{-}1) & (n{-}1)\!\!\mod 2 \\
+D^b(\Enr) & (\Z/2)^{10}\oplus\Z/2_{\omega_S} & 1\ (\text{Arf}) \\
+D^b(\mathrm{PPAS}) & \Z/2_L & 1 \\
+\text{twisted } D^b(K3,\alpha), \alpha\in\Brau(K3) & \Z/\mathrm{ord}(\alpha) & [\alpha]\!\!\mod 2
+\end{array}
+\]
+The formula agrees with Shimura~1975 at the Hodge-bundle level,
+with Giraud~1971 \emph{Cohomologie non ab\'elienne} III.$2.1$ at the
+gerbe level, and with Toën--Vaquié~2007 \emph{Ann.~Sci.~ENS} $40$ at
+the derived Morita level (Morita equivalences respect the
+discriminant form up to Witt cancellation; so $[\wper]$ is a
+Morita-invariant gerbe class on $\CY_2$).
+
+\paragraph{Primary literature.}
+Giraud~1971 \emph{Cohomologie non ab\'elienne} (gerbe classification);
+Shimura~1975 \emph{Ann.~Math.}~$102$ (metaplectic splitting);
+Howe~1979 \emph{Proc.~Symp.~Pure Math.}~$33$ (Weil representation);
+Nikulin~1979 \emph{Math.~USSR Izv.}~$14$ (discriminant form);
+Mukai~1987 \emph{Invent.~Math.}~$77$ (Mukai lattice);
+Rao~1993 \emph{Pacific J.~Math.}~$157$ (Weil cocycle);
+Markman~2010 \emph{IMRN} (Hilb$^n$ BB form);
+Toën--Vaquié~2007 \emph{Ann.~Sci.~ENS}~$40$ (derived Morita);
+Gritsenko--Nikulin~1998 \emph{J.~reine angew.~Math.}~$507$
+(Enriques BKM).

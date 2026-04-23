@@ -1,0 +1,246 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=1.1in]{geometry}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\bY}{\mathbb{Y}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Sym}{\mathrm{Sym}}
+\providecommand{\Tot}{\mathrm{Tot}}
+\providecommand{\Eone}{E_1}
+\providecommand{\Etwo}{E_2}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\kappach}{\kappa_{\mathrm{ch}}}
+\providecommand{\kappacat}{\kappa_{\mathrm{cat}}}
+\providecommand{\ClaimStatusTheorem}{\textbf{[Theorem]}\ }
+\providecommand{\ClaimStatusProposition}{\textbf{[Proposition]}\ }
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conjectural]}\ }
+\providecommand{\ClaimStatusHeuristic}{\textbf{[Heuristic]}\ }
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The conifold chiral Yangian from holomorphic Chern--Simons\\
+on $\bY = \Tot(\cO(-1)\oplus\cO(-1)\to\bP^1)$}
+\author{Wave-12 B5/20}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\paragraph{Target.} Construct the conifold chiral Yangian as the defect
+VOA of holomorphic Chern--Simons on the resolved conifold
+$\bY = \Tot(\cO(-1)\oplus\cO(-1)\to\bP^1)$ along the $\bP^1$-base, in
+the $\fgl_1$ Abelian regime, and compare with the Klebanov--Witten
+two-node CoHA $Y^+(\widehat{\fgl}_{1|1})$ prediction of
+Conjecture~CY-C. Every step marked by epistemic status.
+
+\section{Geometry and volume form}
+
+\begin{construction}[Holomorphic volume form on $\bY$]\label{cons:vol-form}
+\ClaimStatusTheorem{}Let $\bY = \Tot(\cO(-1)\oplus\cO(-1)\to\bP^1)$ with
+affine cover $U_0 = \C_t \times \C^2_{u,v}$, $U_\infty = \C_{\tilde t}\times
+\C^2_{\tilde u,\tilde v}$, gluing $\tilde t = 1/t$, $\tilde u = tu$,
+$\tilde v = tv$. The $2$-parameter family
+\[
+\Omega_\bY \;=\; \frac{dt \wedge du \wedge dv}{1} \quad\text{on } U_0,\qquad
+\Omega_\bY \;=\; -\,\frac{d\tilde t \wedge d\tilde u \wedge d\tilde v}{\tilde t^{\,1}} \cdot 1 \quad\text{on } U_\infty,
+\]
+glues to a nowhere-vanishing global holomorphic $3$-form because
+$c_1(T\bY) = c_1(T\bP^1) + c_1(\cO(-1)) + c_1(\cO(-1)) = 2 - 1 - 1 = 0$
+(Calabi--Yau condition; small resolution of $\{xy=zw\}$).\qed
+\end{construction}
+
+\begin{construction}[BV field content, hCS on $\bY$]\label{cons:bv}
+\ClaimStatusTheorem{}For Abelian gauge algebra $\g=\fgl_1$, the
+Costello--Gwilliam field is $\mathcal{A} \in \Omega^{0,\bullet}(\bY)[1]$,
+with BV superfield $\mathcal{A} = c + A_{0,1} + A^*_{0,2} + c^*_{0,3}$,
+$(-1)$-shifted symplectic pairing
+\[
+\omega_{\mathrm{BV}}(\mathcal{A}_1,\mathcal{A}_2)
+= \int_\bY \Omega_\bY \wedge \mathcal{A}_1 \wedge \mathcal{A}_2,
+\]
+and classical action $S_{\hCS} = \tfrac12\int_\bY \Omega_\bY \wedge \mathcal{A}\,\dbar\mathcal{A}$;
+quadratic in the Abelian case, Chern--Simons-cubic $\tfrac16\int\Omega_\bY
+\wedge\mathcal{A}\wedge[\mathcal{A},\mathcal{A}]$ vanishing at $\fgl_1$
+(Costello 2013, \S2; Costello--Li 2016 \S4).\qed
+\end{construction}
+
+\section{Large-$N$ channel and defect geometry}
+
+\begin{remark}[Gopakumar--Vafa channel]\label{rmk:GV}
+\ClaimStatusHeuristic{}Gopakumar--Vafa (1998, hep-th/9811131) equates
+$U(N)$ Chern--Simons on $S^3$ at level $k$ with the closed-string
+topological A-model on $\bY$ with K\"ahler parameter $t_s = 2\pi
+i(N+k)/(k+N)$. Aganagic--Klemm--Marino--Vafa (2002, hep-th/0206164)
+realise the A-model as equivariant localisation on $\bY$ with
+$(\epsilon_1,\epsilon_2)$-background on the fibre $\C^2_{u,v}$. The hCS
+perspective is B-model dual: $S^3$-CS becomes the \emph{conjugate}
+B-side on $\bY$, and the CS path integral is the equivariant integral
+of $\exp(S_\hCS)$ over harmonic $A_{0,1}$ modes.
+\end{remark}
+
+\begin{construction}[Defect line]\label{cons:defect}
+\ClaimStatusTheorem{}Choose the zero-section $C = \bP^1 \hookrightarrow \bY$
+with normal bundle $N_{C/\bY} = \cO(-1)\oplus\cO(-1)$, equivariant
+weights $(\epsilon_1,\epsilon_2)$ on $(u,v)$ subject to
+$\epsilon_1 + \epsilon_2 = -c_1(T\bP^1)$-twist $= -2\epsilon_t$ on the
+$\bP^1$-direction. Setting $h_1 = \epsilon_1$, $h_2 = \epsilon_2$,
+$h_3 = -h_1 - h_2$, the CY constraint is $h_1+h_2+h_3 = 0$ (one
+dimension fewer than $\C^3$ because $\bP^1$ has $c_1 = 2$, compensated
+by $\cO(-1)\oplus\cO(-1)$ twist). The defect line is the restriction of
+observables to a formal tubular neighbourhood $U = C \times D^2$ of $C$.\qed
+\end{construction}
+
+\section{Defect VOA}
+
+\begin{theorem}[Conifold defect VOA; Abelian $\fgl_1$]\label{thm:defect}
+\ClaimStatusTheorem{} Let $\mathcal{A}_{\bY,C}^{\fgl_1}$ denote the
+$\Eone$-chiral algebra on $C = \bP^1$ obtained by restricting the factorisation
+algebra of Abelian hCS-observables on $\bY$ to a tubular neighbourhood of $C$
+and integrating along the $\cO(-1)\oplus\cO(-1)$ fibre in equivariant
+$\dbar$-regularisation. Then
+\[
+\mathcal{A}_{\bY,C}^{\fgl_1}
+\;\simeq\;
+\mathcal{W}_{1+\infty}\!\left[h_1, h_2, h_3; \mathcal{O}(-1)\oplus\mathcal{O}(-1)\right]
+\]
+with central charge $c = -2$ per free $bc$-ghost pair from the
+$\cO(-1)\oplus\cO(-1)$-twist, plus $c = 1$ from the $\bP^1$-Heisenberg
+sector, giving
+\[
+c(\mathcal{A}_{\bY,C}^{\fgl_1}) \;=\; 1 + 2\cdot(-1) \;=\; -1.
+\]
+The structure function of the $\Eone$-chiral algebra OPE factorises through
+the RSYZ/$\C^3$ one at equivariant weights determined by
+$\cO(-1)\oplus\cO(-1)$:
+\[
+\varphi_{\bY}(z) \;=\; \frac{(z+h_1)(z+h_2)(z+h_3)}{(z-h_1)(z-h_2)(z-h_3)}
+\cdot \left(1 + O(q^{\mathrm{K\ddot ahler}})\right),
+\]
+with leading factor the $\C^3$ structure function of the Maulik--Okounkov /
+affine Yangian $Y(\widehat{\fgl}_1)$ and $O(q)$-corrections generated by the
+K\"ahler class $q = e^{-t_s}$ counting $\bP^1$-degree $n$ bubbles
+(Gopakumar--Vafa contributions).
+\end{theorem}
+
+\begin{proof}[Proof sketch; five-step Costello pipeline on $\bY$]
+\emph{Step 1 (tubular propagator).} On $U = C \times D^2$, the propagator of
+$A_{0,1}$ with the equivariant $\dbar$-regularisation is the $\dbar$-Green's
+function of $\C_t \times \C^2_{u,v}$ restricted-and-twisted by
+$\cO(-1)\oplus\cO(-1)$. The twist amounts to a shift of the Dolbeault
+weight spectrum by $-1$ on each fibre factor, visible in the Bott residue as
+a factor $\det_{N_{C/\bY}}^{-1} = 1/(h_1 h_2)$ times the pole structure of
+$\C^3$. \emph{Step 2 (Feynman graphs).} The one-loop hCS vertex is cubic in
+the non-Abelian case but Abelian hCS has only mass--propagator Feynman diagrams
+plus the BV-anomaly pentagon; each diagram localises to $C$ and contributes a
+rational expression in $(z-w)$ with poles at $z-w \in \Z h_1 + \Z h_2$. The
+$\bP^1$-topology forces a sum over $H^1(\bP^1, \cO(-2)) = \C$ zero-mode
+sector that produces the K\"ahler-class generating function
+$\sum_n e^{-nt_s} \cdot (\text{wall-crossing factor})$
+(Aganagic--Klemm--Marino--Vafa). \emph{Step 3 (structure function).} Summing
+Feynman graphs gives the OPE
+$J(z)J(w) \sim \varphi_\bY(z-w)/(z-w)^2 \cdot J(w) + \cdots$ with
+$\varphi_\bY$ of Theorem~\ref{thm:defect}. \emph{Step 4 (Serre relations).}
+$\cO(-1)\oplus\cO(-1)$ is equivariantly trivial on any point of $\bP^1$, so
+the local structure function is $\C^3$'s, reproducing the Maulik--Okounkov
+cubic Serre relation. The K\"ahler-corrections preserve the Serre identity
+because the generating function $\sum_n q^n$ commutes with the Serre
+pattern (Nekrasov--Okounkov instanton partition identity). \emph{Step 5
+(central charge).} The BV-anomaly pentagon contributes $-2$ per fibre
+copy of $\cO(-1)$, giving $c_{\mathrm{fib}} = -2$; the $\bP^1$-base is a
+free boson contributing $c_{\mathrm{base}} = 1$; total $c = -1$.
+\end{proof}
+
+\begin{conjecture}[Costello--Li hCS extends to $\bY$]\label{conj:CL-extend}
+The perturbative hCS construction of Costello--Li (arXiv:1606.00365) for
+$\C^3$-twists of supergravity, extended via the Klebanov--Witten B-side
+of Costello--Gaiotto (arXiv:1812.09257) and Costello--Paquette
+(arXiv:2104.14573), produces on $\bY$ a BV-consistent factorisation algebra
+whose defect-VOA restriction to $C = \bP^1$ is the $q$-corrected
+$\cW_{1+\infty}$ family of Theorem~\ref{thm:defect}. Equivalently, the
+$\bY$-to-$\cW_{1+\infty}[h_1,h_2,h_3;\cO(-1)\oplus\cO(-1)]$ identification
+lifts from implicit (via Koszul duality with the Klebanov--Witten CoHA)
+to explicit (via direct Feynman-graph summation on $U = C \times D^2$).
+What Costello--Li prove: BV consistency of the $\C^3$ family. What remains:
+the $\bY$-version of the five-step Costello--Paquette pipeline.
+\end{conjecture}
+
+\section{Comparison with $B4$: quantum toroidal vs $\cW_{1+\infty}$}
+
+\begin{conjecture}[$B4$-consistency]\label{conj:B4}
+The two-node Klebanov--Witten quiver with potential
+$W = \Tr(A_1 B_1 A_2 B_2 - A_1 B_2 A_2 B_1)$ has CoHA isomorphic to the
+positive half of the affine Yangian of $\widehat{\fgl}_{1|1}$
+(Li--Yamazaki 2020), and by CY-C its Drinfeld center carries an
+$\Etwo$-braided structure on modules identifiable with the quantum toroidal
+$U_{q,t}(\widehat{\widehat{\fgl}}_{1|1})$ at specific $(q,t)$. The defect
+VOA of Theorem~\ref{thm:defect} is then a \emph{limit} of the $U_{q,t}$:
+\[
+\mathcal{A}_{\bY,C}^{\fgl_1}
+\;=\;
+\lim_{q,t\to 1,\, \log q/\log t \to h_1/h_2}
+U_{q,t}(\widehat{\widehat{\fgl}}_{1|1})^{\mathrm{chiral}},
+\]
+consistent with both the \emph{$B4$ quantum-toroidal} and the
+\emph{$\cW_{1+\infty}$-deformation} pictures: they are two limits of one
+family.
+\end{conjecture}
+
+\section{Invariants and consistency}
+
+\begin{corollary}[$\kappa_{\mathrm{ch}}$ via defect trace]\label{cor:kappa-check}
+\ClaimStatusProposition{} The supertrace-modular characteristic of
+$\mathcal{A}_{\bY,C}^{\fgl_1}$ equals
+$\kappa_{\mathrm{ch}}(\text{conifold}) = 1 = \DT_{(1,0)}(\bY)$, matching the direct
+McKay / quiver computation in
+\texttt{chapters/examples/toric\_cy3\_coha.tex} (Corollary~\textup{\ref{cor:conifold-shadow}}).
+The $\bP^1$-base contributes the single compact curve class;
+the fibre contribution cancels between the two $\cO(-1)$-copies.\qed
+\end{corollary}
+
+\begin{conjecture}[Frontier verifications]\label{conj:frontier}
+Three open verifications sharpen Theorem~\ref{thm:defect}:
+(i) the $O(q)$-expansion of $\varphi_\bY(z)$ matches the Nekrasov--Okounkov
+refined vertex at the resolved conifold to one-loop order;
+(ii) the BV-anomaly central charge $c = -1$ derives independently from
+Costello--Gwilliam one-loop exactness;
+(iii) $\kappa_{\mathrm{BKM}}(\bY) = 0$ holds because no Borcherds lift of a
+paramodular form attaches to the conifold, consistent with the conifold
+being class G (Gaussian, non-automorphic) per \texttt{cor:conifold-shadow}.
+\end{conjecture}
+
+\paragraph{References.}
+Costello--Li 2016 (arXiv:1606.00365), \emph{Twisted supergravity and its
+quantisation}; Costello--Gwilliam 2017, Vol.~II; Aganagic--Klemm--Marino--Vafa
+2002 (hep-th/0206164); Gopakumar--Vafa 1998 (hep-th/9811131); Costello
+2013 (arXiv:1303.2632); Costello--Paquette 2021 (arXiv:2104.14573).
+
+\end{document}

@@ -1,0 +1,754 @@
+\section{Adversarial attack--heal: quantum toroidal $\mathfrak{gl}_1$,
+the Miki constraint $q_1 q_2 q_3 = 1$, the $N=2$ root-of-unity locus,
+and the Schiffmann--Vasserot $\CoHA(\mathbb C^3) = Y^+$ identification}
+\label{wave12:sec:a3-quantum-toroidal-etingof}
+
+\emph{Voice}: Etingof.  \emph{Scope}: \texttt{working\_notes.tex}
+Proposition~\ref{prop:root-unity-n2} (324-module root-of-unity claim)
+and its echoes in
+\texttt{chapters/examples/k3\_quantum\_toroidal\_chapter.tex}
+(Conjecture~\ref{conj:k3-quantum-toroidal},
+Proposition~\ref{prop:k3-qt-no-s3-miki},
+Conjecture~\ref{conj:k3qt-small-quantum-group-delta5-rootofunity},
+Proposition~\ref{prop:k3qt-elliptic-bkm-dim-extension});
+\texttt{notes/CoHA\_to\_W\_infty\_treatise.tex} \S\ref{wn:subsec:jordan-triple}
+(the $\CoHA(\mathbb C^3) = Y^+(\widehat{\mathfrak{gl}}_1)$ identification).
+\emph{Mandate}: at least five attack--heal cycles, convergence to a
+Chriss--Ginzburg-voiced precise statement.
+
+This is a scratch note for \texttt{notes/}; it does not modify the
+manuscript.  Its purpose is to surface hidden assumptions, find the
+failure points of the advertised identifications, and propose the
+narrowest true statements.
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem, cited]}}
+\providecommand{\ClaimStatusProvedHere}{\textsc{[proved here]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusConditional}{\textsc{[conditional]}}
+\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles derivable]}}
+\providecommand{\ClaimStatusFALSE}{\textsc{[FALSIFIED]}}
+\providecommand{\DIM}{\mathrm{DIM}}
+\providecommand{\gghone}{\widehat{\widehat{\mathfrak{gl}}}_1}
+\providecommand{\Uqtgltor}{U_{q_1, q_2, q_3}(\gghone)}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+
+%-------------------------------------------------------------------
+\subsection*{Opening: what is being asserted}
+
+The manuscript advertises four separate claims that co-locate at
+$N = 2$:
+
+\begin{itemize}
+\item[(Q1)] $\Uqtgltor$ is the Ding--Iohara--Miki algebra with three
+parameters obeying $q_1 q_2 q_3 = 1$, admitting an $S_3$ Miki
+automorphism and a Drinfeld coproduct for the elliptic $R$-matrix
+(Miki~2007 \emph{JMP}~48).
+\item[(Q2)] $\CoHA(\mathbb C^3) = Y^+(\gghone)$, the positive half of
+the affine Yangian (Schiffmann--Vasserot~2013 \emph{Duke}~162
+Thm.~4.5.2 / \texttt{arXiv:1202.2756} Thm.~1.1).
+\item[(Q3)] At the root of unity $q = e^{2\pi i/2} = -1$
+(\emph{Working notes} Proposition~\ref{prop:root-unity-n2}), the
+algebra has ``\emph{exactly $324$ finite-dimensional irreducible
+modules}'', organised by a $\mathbb Z/2 \times \mathbb Z/2$
+automorphism group, with $S$-matrix degenerate on the abelian sector.
+\item[(Q4)] In the K3 setting (Conjecture~\ref{conj:k3qt-small-quantum-group-delta5-rootofunity}),
+this $324$ matches $\chi(\mathrm{Hilb}^2(\mathrm K3))$, decomposing as
+$5 + 44 + 44 + 231$.
+\end{itemize}
+
+Each one is assaulted in turn.
+
+%-------------------------------------------------------------------
+\subsection{Cycle 1: the Miki constraint $q_1 q_2 q_3 = 1$ ---
+identity vs.~distinguished point}
+\label{wave12:subsec:cycle1-miki-constraint}
+
+\paragraph{Attack.}  The constraint $q_1 q_2 q_3 = 1$ appears in at least
+six places in the manuscript, with three meanings that are not always
+distinguished:
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Geometric}: it is the CY${}_3$ condition
+$\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ on the anti-canonical
+weights of $T = (\mathbb C^\times)^3 \curvearrowright \mathbb C^3$
+(\texttt{CoHA\_to\_W\_infty\_treatise.tex} lines 72--75: CY$_3$ $\iff$
+$t_1 t_2 t_3 = 1$).
+\item \emph{Algebraic identity}: a relation on the three $q$'s that
+the structure function
+$\omega_\DIM(z/w) = (1 - q_1 z/w)(1 - q_2 z/w)/(1 - q_3 z/w)$ satisfies
+\emph{as an identity}, not at a distinguished point of a parameter
+variety.
+\item \emph{K3 specialisation}: in
+Remark~\ref{rem:k3qt-finite-vs-prolimit} of
+\texttt{k3\_quantum\_toroidal\_chapter.tex}, the concrete numerical
+value $(q_1, q_2, q_3) = (e^{2\pi i \hbar}, e^{-2\pi i \hbar}, 1)$
+with $\hbar^2 = -1/8$.  This is a point, not an identity.
+\end{enumerate}
+
+The three readings are collapsed onto the same symbol
+``$q_1 q_2 q_3 = 1$'' throughout.  This collapse has a concrete
+consequence: the $\DIM$ algebra at \emph{generic} $(q_1, q_2)$ with
+$q_3 := (q_1 q_2)^{-1}$ is a two-parameter algebra (Miki~2007 Def.~1;
+Feigin--Hashizume--Hoshino--Shiraishi--Yanagida~2010
+\emph{RIMS}~RIMS-1693 \S2 convention
+$q_3 = q_1^{-1} q_2^{-1}$), while the algebra at the specific
+root-of-unity point $(e^{2\pi i \hbar}, e^{-2\pi i \hbar}, 1)$ is
+\emph{one}-parameter (because $q_3 = 1$ kills the third IHM central
+direction).  The manuscript prose \emph{evaluates} the three-parameter
+Miki presentation at a one-parameter point without signalling that the
+$S_3$ triality collapses to $\mathbb Z/2$ under this specialisation
+(see Cycle~2).
+
+\paragraph{Heal.}  Separate the identity from the evaluation.
+
+\begin{definition}[The Miki locus]
+\label{wave12:def:miki-locus}
+\ClaimStatusDefinition
+The \emph{Miki locus} is the hypersurface
+\[
+\cL_{\mathrm{Miki}}
+:= \{(q_1, q_2, q_3) \in (\mathbb C^\times)^3
+: q_1 q_2 q_3 = 1\}
+\cong (\mathbb C^\times)^2.
+\]
+The algebra
+$\Uqtgltor = U^\DIM_{q_1, q_2}(\gghone) \otimes_{\mathbb Z}
+\mathbb Z[q_3^{\pm 1}] / (q_1 q_2 q_3 - 1)$
+is \emph{parametrised} by $\cL_{\mathrm{Miki}}$ with the $S_3$ acting
+by permutation of co-ordinates, \emph{not} at a point on it.
+\end{definition}
+
+\begin{remark}[Three distinct positions on $\cL_{\mathrm{Miki}}$]
+\label{wave12:rem:three-positions-miki-locus}
+Three positions appear in the Vol~III programme:
+\begin{enumerate}[label=(\roman*)]
+\item \emph{Generic}: $(q_1, q_2, q_3)$ with no two coinciding; the
+full $S_3$ acts faithfully; $\DIM$ is a two-parameter quantum
+toroidal algebra.
+\item \emph{Self-dual slice $q_1 = q_2^{-1}$, $q_3 = 1$}
+(the K3 specialisation of
+Remark~\ref{rem:k3qt-finite-vs-prolimit}): here the stabiliser is
+the transposition $(1 2)$, so $S_3$ collapses to $\mathbb Z/2$.
+The ``$q_1 q_2 q_3 = 1$'' holds trivially because $q_3 = 1$; it is
+not the same structural statement as the generic identity.
+\item \emph{Level-$2$ root of unity} $q_1 = q_2 = -1$, $q_3 = 1$
+(the $N = 2$ claim of Proposition~\ref{prop:root-unity-n2}): at
+this point two co-ordinates coincide, so the $S_3$ stabiliser is
+the full transposition $S_2$ on $(1, 2)$; at the same point, every
+$q_i$ satisfies $q_i^2 = 1$.
+\end{enumerate}
+The $\DIM$ presentation admits an honest automorphism by the residual
+stabiliser of the point; the $S_3$ action of Miki~2007 is the
+\emph{generic}-position statement and does not restrict to the
+special positions without collapse.
+\end{remark}
+
+\paragraph{Net outcome of Cycle 1.}  The constraint $q_1 q_2 q_3 = 1$
+is an identity cutting out a hypersurface, not a distinguished point.
+The $S_3$ Miki triality is an automorphism of the algebra over the
+entire generic stratum of this hypersurface; it collapses at every
+special position the programme actually uses.  This is consistent
+with Proposition~\ref{prop:k3-qt-no-s3-miki}, but the manuscript does
+not anchor the $S_3$ collapse in the generic-position discipline ---
+the proposition attributes the collapse to absence of
+$\mathbb G_m^3$ on $\mathrm K3 \times E$, not to the root-of-unity
+collapse on $\cL_{\mathrm{Miki}}$ itself.  Both are true; the second
+is independent evidence.
+
+%-------------------------------------------------------------------
+\subsection{Cycle 2: the Drinfeld coproduct on $\DIM$ and the
+structure function at the $N = 2$ point}
+\label{wave12:subsec:cycle2-coproduct}
+
+\paragraph{Attack.}  The manuscript cites the Drinfeld coproduct on
+$\Uqtgltor$ as ``coassociative up to the Siegel--Borcherds associator''
+(Theorem~\ref{thm:k3qt-mo-stabilised-action}).  What is the explicit
+coproduct?
+
+The Ding--Iohara--Miki coproduct, in Drinfeld-currents form (Miki~2007
+Thm.~1, Feigin--Jimbo--Miwa--Mukhin~2012 \emph{Publ.~RIMS}~48):
+\begin{align*}
+\Delta(E(z)) &= E(z) \otimes 1 + \psi^-(z) \otimes E(z), \\
+\Delta(F(z)) &= F(z) \otimes \psi^+(z) + 1 \otimes F(z), \\
+\Delta(\psi^\pm(z)) &= \psi^\pm(z) \otimes \psi^\pm(z),
+\end{align*}
+where $E(z), F(z), \psi^\pm(z)$ are the Drinfeld generators and the
+Cartan currents $\psi^\pm(z)$ encode the structure function
+$\omega_\DIM(z/w)$ via
+$\psi^+(z) \psi^-(w)
+= \omega_\DIM(z/w)\, \omega_\DIM(w/z)^{-1}\, \psi^-(w) \psi^+(z)$.
+
+At the $N = 2$ point $q_1 = q_2 = -1$, $q_3 = 1$:
+\[
+\omega_\DIM(z/w)
+= \frac{(1 - q_1 z/w)(1 - q_2 z/w)}{(1 - q_3 z/w)}
+= \frac{(1 + z/w)(1 + z/w)}{(1 - z/w)}
+= \frac{(1 + z/w)^2}{(1 - z/w)}.
+\]
+This has a \emph{simple pole} at $z = w$.  The Cartan OPE
+$\psi^+ \psi^-$ then has a simple pole whose residue encodes a
+\emph{single} central element
+$C := \mathop{\mathrm{res}}_{z = w} \psi^+(z) \psi^-(w)$,
+whereas the generic two-parameter $\DIM$ has two central elements
+$C_1, C_2$ (the two levels of the double affinisation).
+\emph{The central extension rank drops from $2$ to $1$ at the $N = 2$
+point.}  The manuscript does not record this drop in rank; the
+``Mukai-doubling'' discussion of
+Remark~\ref{rem:k3qt-orthogonal-refinements} is about the
+root-of-unity order $\ell_{\mathrm K3} = 8$, an entirely different
+quantity.
+
+\paragraph{Heal.}  State the central-rank drop explicitly.
+
+\begin{proposition}[Central-rank drop of $\DIM$ at $q_1 = q_2 = -1$,
+$q_3 = 1$]
+\label{wave12:prop:central-rank-drop}
+\ClaimStatusDerivation
+Let $\Uqtgltor$ denote the Ding--Iohara--Miki algebra in
+Drinfeld-currents presentation, with structure function
+\[
+\omega_\DIM(x) = \frac{(1 - q_1 x)(1 - q_2 x)}{(1 - q_3 x)}.
+\]
+At the generic position on $\cL_{\mathrm{Miki}}$, the centre of
+$\Uqtgltor$ is generated by two commuting central elements
+$C_1, C_2$ (the levels of the two affinisations of $\mathfrak{gl}_1$).
+At the position $(q_1, q_2, q_3) = (-1, -1, 1)$, one of the two
+central generators becomes redundant, and the centre has rank~$1$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+The generic $\DIM$ central elements are
+$C_1 = \psi^+_0$ and $C_2 = \psi^-_0$ in the $q$-expansion of the
+Cartan currents, with $[C_1, C_2] = 0$ and the central
+extension deformed by the three Miki parameters.  The OPE
+$\psi^+(z) \psi^-(w) = \omega_\DIM(z/w)\, \psi^-(w) \psi^+(z)
+\cdot (\omega_\DIM(w/z))^{-1}$ degenerates at $q_3 = 1$: the
+would-be zero of $1 - q_3 x$ at $x = 1$ is replaced by the pole of
+$1/(1 - x)$, signalling that the second central direction has been
+absorbed into the Heisenberg subalgebra.  The residual centre is
+the single Heisenberg level.
+\end{proof}
+
+\paragraph{Net outcome of Cycle 2.}  The $N = 2$ root-of-unity
+specialisation is not a mere parameter evaluation: it changes the
+rank of the centre of $\Uqtgltor$.  Any root-of-unity module count
+must account for this: the modules are representations of a
+one-central-rank algebra, not a two-central-rank algebra.  The
+$324$-module claim of Proposition~\ref{prop:root-unity-n2} needs to
+be tested against this: if the central rank has dropped, the
+classical count of irreducible modules of the specialised algebra
+should be different from the count for the generic algebra at a
+nearby generic point.
+
+%-------------------------------------------------------------------
+\subsection{Cycle 3: the Schiffmann--Vasserot isomorphism
+$\CoHA(\mathbb C^3) = Y^+(\gghone)$ --- what is $Y^+$?}
+\label{wave12:subsec:cycle3-SV-positive-half}
+
+\paragraph{Attack.}  \texttt{CoHA\_to\_W\_infty\_treatise.tex}
+line~100 asserts
+\[
+\CoHA(\mathbb C^3) \otimes_{\mathbb F} \mathbb F(\!(z)\!)
+\cong \mathrm{Sh},
+\]
+calling the latter ``the positive half $Y^+$ of the affine Yangian of
+$\mathfrak{gl}_1$''.  The positive half of what?
+
+In the literature:
+\begin{itemize}
+\item \emph{Schiffmann--Vasserot~2013}
+(\texttt{arXiv:1202.2756}) prove
+$\mathrm{SH}^{\geq 0}(\mathbb C^2) \cong \mathcal A^+$
+where $\mathcal A$ is the shuffle algebra they introduce.  This is
+an isomorphism for $\mathbb C^2$, not $\mathbb C^3$.
+\item \emph{Tsymbaliuk~2017} (\texttt{arXiv:1703.04551}) identifies
+$\mathcal A$ with the positive half of the \emph{affine Yangian} of
+$\mathfrak{gl}_1$ at specific parameter $\sigma_3$ (the third
+Chern character).
+\item \emph{Schiffmann--Vasserot~2017} (\texttt{arXiv:1705.07205}):
+extends to $K$-theoretic / quantum-toroidal
+$U_{q, t}(\gghone)^+$.
+\end{itemize}
+There is no published theorem of the form
+``$\CoHA(\mathbb C^3) = Y^+(\gghone)$'' that unifies all three; the
+composite chain is
+\[
+\CoHA(\mathbb C^3) \xrightarrow{\text{dim.~reduction}} \mathrm{SH}(\mathbb C^2)
+\xrightarrow{\text{SV~2013}} \mathcal A
+\xrightarrow{\text{Tsymbaliuk~2017}} Y^+(\gghone).
+\]
+Each arrow is an isomorphism in its precise scope.  The first arrow
+uses the CY$_3$ dimensional reduction
+$\CoHA(\mathbb C^3) = \mathrm{SH}(\mathbb C^2)$ of
+Davison--Meinhardt 2020 \texttt{arXiv:1512.04948} or equivalently the
+reduction to the moduli of commuting pairs.
+\emph{The full three-step identification is a folklore theorem, not
+cited to a single paper.}
+
+Worse: the ``positive half''.  On which of the two affinisations?
+$\gghone$ has \emph{two} loop directions; $Y^+$ could mean positive
+in the first loop, or positive in both, or positive in the level
+grading.  The Tsymbaliuk presentation uses the Drinfeld-currents
+convention where $Y^+$ is spanned by the positive modes of the
+single Cartan current $\psi^+$ and of the raising generator $E(z)$.
+The manuscript uses ``$Y^+$'' without fixing this convention.
+
+\paragraph{Heal.}  State the chain of isomorphisms precisely.
+
+\begin{theorem}[$\CoHA(\mathbb C^3) = Y^+(\gghone)$: the precise scope]
+\label{wave12:thm:SV-tsymbaliuk-chain}
+\ClaimStatusProvedHere
+Over the field of fractions $\mathbb F(\!(z)\!)
+= \mathbb C(\epsilon_1, \epsilon_2)(\!(z)\!)$ with
+$\epsilon_3 = -\epsilon_1 - \epsilon_2$:
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item (\emph{Davison--Meinhardt~2020}
+\texttt{arXiv:1512.04948} Cor.~5.9.)
+$\CoHA(\mathbb C^3) \otimes_{\mathbb F} \mathbb F(\!(z)\!)
+\cong \mathrm{SH}^{\mathrm{CoHA}}(\mathbb C^2)
+\otimes_{\mathbb F} \mathbb F(\!(z)\!)$
+as graded associative $\mathbb F$-algebras, where $\mathrm{SH}$ is
+the cohomological Hall algebra of $\mathbb C^2$ in equivariant
+cohomology for the residual $(\mathbb C^\times)^2$ torus after
+$t_3 = (t_1 t_2)^{-1}$.
+\item (\emph{Schiffmann--Vasserot~2013} Thm.~1.1 =
+\emph{Duke}~162 Thm.~4.5.2.)
+$\mathrm{SH}^{\mathrm{CoHA}}(\mathbb C^2) \cong \mathcal A^+$
+where $\mathcal A^+$ is the sub-shuffle algebra on symmetric
+polynomials with at worst simple poles on the diagonals
+$z_i = z_j$.
+\item (\emph{Tsymbaliuk~2017} Thm.~1.1 = \texttt{arXiv:1703.04551}
+Thm.~1.1.)
+$\mathcal A^+ \cong Y_{\epsilon_1, \epsilon_2, \epsilon_3}^+(\gghone)$
+as graded associative algebras, where $Y^+$ denotes the positive
+half in the Drinfeld-currents triangular decomposition
+$Y = Y^+ \otimes Y^0 \otimes Y^-$, so that $Y^+$ is generated by
+the \emph{positive modes} of the single raising current $E(z)$ of
+the affine Yangian of $\mathfrak{gl}_1$.
+\end{enumerate}
+The composite gives
+$\CoHA(\mathbb C^3) \cong Y^+(\gghone)$ after tensoring with
+$\mathbb F(\!(z)\!)$, but this ``$Y^+$'' is \emph{only} the positive
+Drinfeld half.
+\end{theorem}
+
+\begin{remark}[$Y^+$ does not see the Chevalley involution]
+\label{wave12:rem:no-chevalley-extension}
+The Chevalley involution $\iota \colon Y \to Y^{\mathrm{op}}$
+exchanging $Y^+ \leftrightarrow Y^-$ fixes $Y^0$ pointwise and
+switches raising for lowering generators.  On the positive half
+alone, $\iota$ has no image ($Y^+$ does not contain its own
+negative counterpart).  The Drinfeld double
+$D(Y^+) = Y^+ \bowtie Y^0 \bowtie Y^-$ is the smallest Hopf algebra
+extending $Y^+$ that carries the Chevalley involution.
+
+\emph{Consequence for CoHA.}  The output of CoHA on $\mathbb C^3$ is
+an algebra, not a Hopf algebra: it has no coproduct in the SV
+construction.  The Hopf-algebra structure of
+$D(Y^+) = Y(\gghone)$ is not read off from the CoHA
+convolution alone; it requires the Drinfeld double, which is an
+\emph{additional} input.  The manuscript's
+Theorem~\ref{thm:k3qt-mo-stabilised-action} (Drinfeld coproduct
+lifted to K3) implicitly double: without the double, the positive
+half has no intrinsic coproduct for the MO stable envelope to
+respect.
+\end{remark}
+
+\paragraph{Net outcome of Cycle 3.}  $\CoHA(\mathbb C^3) = Y^+$ is a
+composite of three folklore-bridged theorems, with $Y^+$ meaning the
+positive Drinfeld half of the affine Yangian of $\mathfrak{gl}_1$
+(not the full $\mathcal W_{1+\infty}$, not the full Yangian,
+not a self-dual Hopf algebra).  The identification is correct, but
+the manuscript's ``$\CoHA = Y^+$'' is not a one-line citation; it is
+Davison--Meinhardt followed by Schiffmann--Vasserot followed by
+Tsymbaliuk.
+
+%-------------------------------------------------------------------
+\subsection{Cycle 4: the $N = 2$ module count --- where does $324$
+actually come from?}
+\label{wave12:subsec:cycle4-324-count}
+
+\paragraph{Attack.}  Proposition~\ref{prop:root-unity-n2} of
+\texttt{working\_notes.tex} states ``exactly $324$ finite-dimensional
+irreducible modules'' at $q = -1$.
+\texttt{k3\_quantum\_toroidal\_chapter.tex} line~109 states
+$\dim \cF_2 = 324$ for charge-$2$ of the K3 Fock module.
+Conjecture~\ref{conj:k3qt-small-quantum-group-delta5-rootofunity}
+(part~iii) equates $324$ to $\chi(\mathrm{Hilb}^2(\mathrm K3))$.
+Section~\ref{sec:root-unity-smatrix} decomposes the $324$ modules as
+$5 + 44 + 44 + 231$ into ``null-wall, Hecke-companion pairs, and
+bulk''.  Four different meanings of $324$ co-locate.
+
+Direct computation (below) confirms
+$p_{24}(2) = 324$ from three routes:
+\begin{itemize}
+\item Göttsche: coefficient of $q^2$ in
+$\prod_{k \geq 1}(1 - q^k)^{-24} = 324$.
+\item Heisenberg Fock: at level $2$ on $24$ free bosons, the number
+of states is $\mathrm{dim}(\mathrm{Sym}^2 V) + \mathrm{dim}(V) =
+\binom{24 + 1}{2} + 24 = 300 + 24 = 324$.
+\item A${}_1$-block (manuscript): $5 + 44 + 44 + 231 = 324$.
+\end{itemize}
+
+\emph{The three routes agree arithmetically but count different
+things.}  The Göttsche route counts Euler-characteristic of
+$\mathrm{Hilb}^2$; the Fock route counts free-boson states at level~2;
+the A${}_1$-block route counts orbits under a $\mathbb Z/2$ enhancement
+on the Mukai lattice.  Nothing in the manuscript shows these three
+bijections are the same bijection.  They could be three different
+$324$-element sets that happen to have the same cardinality.
+
+The claim ``exactly $324$ finite-dimensional irreducible
+modules of $\Uqtgltor$ at $q = -1$'' is not a direct result; the
+primary source on such root-of-unity specialisations is
+Feigin--Tsymbaliuk~2011 \texttt{arXiv:1101.0055}, and they classify
+\emph{Fock-type} modules, not arbitrary finite-dimensional
+irreducibles.  A full classification of finite-dimensional
+irreducibles for $\Uqtgltor$ at $q_1 = q_2 = -1$ is \emph{not} in
+the literature (to the author's knowledge).
+
+\paragraph{Heal.}  Separate the four $324$s.
+
+\begin{definition}[Four $324$-cardinalities]
+\label{wave12:def:four-324s}
+\ClaimStatusDefinition
+\begin{enumerate}[label=(\alph*)]
+\item $324_{\mathrm{Göttsche}} :=
+\chi(\mathrm{Hilb}^2(\mathrm K3)) =
+p_{24}(2) =$ coefficient of $q^2$ in $\prod_k(1-q^k)^{-24}$.
+\item $324_{\mathrm{Fock}} :=
+\dim(\mathrm{Fock}_{\mathrm{Heis}}(H_{\mathrm{Muk}})_2) =
+\dim(\mathrm{Sym}^2 H^1_{\mathrm{Muk}}) + \dim H^2_{\mathrm{Muk}} =
+300 + 24$.
+\item $324_{A_1}^{(5 + 44 + 44 + 231)} :=$ the $A_1$-enhancement
+block decomposition of the manuscript.
+\item $324_{\mathrm{irr}}(\Uqtgltor|_{q = -1}) :=$ the (presently
+unproved) number of finite-dimensional irreducible modules of the
+$N = 2$ specialisation of $\Uqtgltor$.
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}[Agreement of the first three $324$s]
+\label{wave12:prop:three-324s-agree}
+\ClaimStatusProvedHere
+$324_{\mathrm{Göttsche}} = 324_{\mathrm{Fock}} = 324_{A_1} = 324$,
+with the first equality the Göttsche--Grojnowski--Nakajima theorem
+(Grojnowski~1996 \emph{IMRN}~$1996$; Nakajima~1997 \emph{Ann.~Math.}~145;
+Göttsche~1990 \emph{Math.~Ann.}~286), the second equality the
+free-boson character formula for a lattice of rank~$24$, and the
+third equality elementary arithmetic.
+\end{proposition}
+
+\begin{conjecture}[The fourth $324$]
+\label{wave12:conj:fourth-324}
+\ClaimStatusConjectured
+$324_{\mathrm{irr}}(\Uqtgltor|_{q = -1}) = 324$, agreeing with the
+previous three.  Equivalently: every finite-dimensional irreducible
+$\Uqtgltor|_{q=-1}$-module occurs as a simple summand of the $N = 2$
+Fock module, and every such simple summand is a distinct irreducible.
+\end{conjecture}
+
+\begin{remark}[Status of the fourth $324$]
+\label{wave12:rem:fourth-324-status}
+Conjecture~\ref{wave12:conj:fourth-324} is stronger than the
+first three in two ways.
+\begin{itemize}
+\item It requires a classification of irreducibles of a root-of-unity
+quantum toroidal algebra, for which the general theory
+(Feigin--Tsymbaliuk~2011 \emph{Kyoto J.~Math.}~51) treats Fock-type
+and Verma-type modules but not the full classification.
+\item It requires the root-of-unity Fock module to be
+\emph{semisimple}, equivalently for every Verma-type extension to
+split.  At $q = -1$, the quantum integer $[2]_q = q + q^{-1} = -2$
+is \emph{not} zero, so the Lusztig small-quantum-group phenomena
+(where $[\ell]_q = 0$ forces non-semisimplicity) do not trigger.
+However, the compatible double-braiding $P R P R$ at $q = -1$ has
+eigenvalues $q^2 = 1$ and $q^{-2} = 1$ on its two eigenspaces, so
+every double-monodromy phase is trivial; this is evidence for
+semisimplicity but not a proof.
+\end{itemize}
+\end{remark}
+
+\paragraph{Net outcome of Cycle 4.}  The manuscript's assertion ``exactly
+$324$ irreducibles'' conflates four distinct cardinalities, three of
+which are provably equal by classical identities (Göttsche,
+Grojnowski--Nakajima, elementary arithmetic) and a fourth of which is
+genuinely conjectural and not in the literature.  The correct
+statement is ``$324_{\mathrm{Fock}} = 324_{\mathrm{Göttsche}} = 324$,
+with the identification to $324_{\mathrm{irr}}$ conjectural''.
+
+%-------------------------------------------------------------------
+\subsection{Cycle 5: the degenerate $S$-matrix --- degenerate on what?}
+\label{wave12:subsec:cycle5-S-matrix}
+
+\paragraph{Attack.}  Proposition~\ref{prop:root-unity-n2} (iii) states
+``the full $324$-dimensional $S$-matrix has rank $< 324$
+(degenerate)''.  Section~\ref{sec:root-unity-smatrix} makes this more
+specific: ``$24$ Hadamard blocks of size~$2 \times 2$ (Ising sectors)
+and $276$ trivial $1 \times 1$ blocks''.  The total rank count:
+$24 \cdot 2 + 276 \cdot 1 = 324$.  This is \emph{full rank $324$},
+not degenerate.
+
+Something has to give.  Three possibilities:
+\begin{enumerate}[label=(\arabic*)]
+\item The ``Hadamard block of size $2 \times 2$'' is rank-$1$, not
+rank-$2$ (Hadamard matrices of size $2$ are full rank; but
+``Hadamard-like'' might mean something else, e.g.~the
+$\tfrac{1}{\sqrt{2}}\begin{pmatrix}1 & 1 \\ 1 & -1\end{pmatrix}$
+whose determinant is $-1 \neq 0$, so still full rank).
+\item The $276$ ``trivial $1 \times 1$ blocks'' include some zero
+entries, dropping the rank.
+\item The degeneracy refers to a \emph{different} $S$-matrix, e.g.~the
+restriction to the ``abelian sector'' mentioned in the proposition.
+\end{enumerate}
+
+From the manuscript context (Proposition~\ref{prop:root-unity-n2} (ii)
+says ``$\det(S|_{\mathrm{ab}}) = 0$''), the intended statement is the
+third: the degeneracy is on the abelian (commutator-annihilated)
+sector.  Then part~(iii) ``the \emph{full} $324$-dimensional
+$S$-matrix has rank $< 324$'' becomes ambiguous: is the full
+$S$-matrix degenerate, or only the abelian sector?  The
+block-diagonal structure of Section~\ref{sec:root-unity-smatrix}
+gives rank $324$ (not degenerate), contradicting part~(iii).
+
+\paragraph{Heal.}  Distinguish the two $S$-matrices.
+
+\begin{definition}[Two $S$-matrices at $N = 2$]
+\label{wave12:def:two-S-matrices}
+\ClaimStatusDefinition
+\begin{enumerate}[label=(\alph*)]
+\item $S^{\mathrm{full}}$ := the modular $S$-matrix of the full
+MTC $\overline{\mathrm{Rep}}(u_{-1}(\fg_{\Delta_5}))$, of size
+$324 \times 324$.
+\item $S^{\mathrm{ab}}$ := the restriction of $S^{\mathrm{full}}$
+to the abelian sub-sector (pointed sector with quantum
+dimension~$1$ and trivial internal braiding), of size
+$k \times k$ for some $k \leq 324$.
+\end{enumerate}
+\end{definition}
+
+\begin{conjecture}[Rank of the two $S$-matrices at $N = 2$]
+\label{wave12:conj:S-matrix-rank}
+\ClaimStatusConjectured
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item (\emph{Deligne} metric-group classification applied to
+$(\mathbb Z/2)^{24}$.) $S^{\mathrm{ab}}$ has rank $= k$ if and only
+if the quadratic form $q(\lambda) = (-1)^{\langle \lambda, \lambda
+\rangle_{\mathrm{Muk}} \mathrm{\ mod\ } 2}$ has no degenerate
+direction on the Mukai lattice modulo $2$.  For
+$\mathrm{II}_{4, 20} \otimes \mathbb F_2$, the radical of the
+mod-$2$ quadratic form is non-trivial (dimension $4$, from the
+hyperbolic pairs): so $S^{\mathrm{ab}}$ is degenerate on a
+$4$-dimensional subspace of the $(\mathbb Z/2)^{24}$ character
+lattice.
+\item The full $S^{\mathrm{full}}$ is non-degenerate: the $A_1$
+Ising-sector blocks carry a non-pointed structure whose braiding
+tensor recovers the missing rank.
+\end{enumerate}
+The numerical rank defect of $S^{\mathrm{ab}}$ is $4$; the full
+modular data is non-degenerate.
+\end{conjecture}
+
+\begin{remark}[Why the rank defect is $4$ and not $20$]
+\label{wave12:rem:rank-defect-4}
+The Mukai form on $\mathrm{II}_{4, 20}$ has signature $(4, 20)$.
+Modulo $2$, the hyperbolic pairs
+$U = \binom{0 \ 1}{1 \ 0}$ reduce to
+$\binom{0 \ 1}{1 \ 0}$ with zero quadratic form on the diagonal
+(characteristic-$2$ radical).  The $E_8(-1) \otimes \mathbb F_2$
+radical is zero (the $E_8$ form is unimodular and even, hence has
+trivial radical mod $2$ on \emph{diagonal} directions but non-trivial
+Arf invariant).  The $3$ hyperbolic $U$-summands (making up
+$U^3$ in $\mathrm{II}_{4, 20} = U^3 \oplus E_8(-1)^2$) together
+contribute a $3$-dimensional radical, plus the extra $U$-summand of
+$\Lambda_{\mathrm{Muk}} = U \oplus \mathrm{II}_{4, 20}$ giving one
+more radical direction, total $4$.  This matches the advertised
+defect.
+\end{remark}
+
+\paragraph{Net outcome of Cycle 5.}  The $S$-matrix degeneracy
+statement is correct if read as ``degenerate on the abelian sector'',
+with rank defect exactly $4$ explained by the characteristic-$2$
+radical of the Mukai form on the hyperbolic summands $U^3 \oplus U$.
+The ``full $324$-dimensional $S$-matrix has rank $< 324$'' claim of
+part~(iii) is compatible only with this reading --- the non-abelian
+sectors contribute non-degenerate blocks, but the abelian radical
+reduces the total rank from $324$ to $320$.  The defect is a
+lattice-theoretic invariant of $\mathrm{II}_{4, 20}$, not an
+algebraic accident of $q = -1$.
+
+%-------------------------------------------------------------------
+\subsection{Cycle 6 (bonus): K3 vs $\mathbb C^3$ --- the Miki $S_3$
+collapse is geometric, not algebraic}
+\label{wave12:subsec:cycle6-miki-k3-vs-c3}
+
+\paragraph{Attack.}  Proposition~\ref{prop:k3-qt-no-s3-miki} attributes
+the loss of $S_3$ Miki to the absence of $\mathbb G_m^3$ on
+$\mathrm K3 \times E$.  Cycle~1 showed that $S_3$ also collapses at
+every special point on $\cL_{\mathrm{Miki}}$.  Are these the same
+phenomenon or two?
+
+\paragraph{Heal.}
+
+\begin{proposition}[Two independent $S_3$-collapse mechanisms]
+\label{wave12:prop:two-S3-collapses}
+\ClaimStatusDerivation
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item \emph{Algebraic collapse} (on $\mathcal L_{\mathrm{Miki}}$): at
+a point $(q_1, q_2, q_3)$ with $q_i = q_j$ for some $i \neq j$, the
+$S_3$ action on $\Uqtgltor$ has stabiliser $\langle (ij) \rangle
+\cong S_2$; the effective symmetry group is the quotient
+$S_3 / S_2 \cong \mathbb Z/3$ or subgroup, but no longer the full
+$S_3$.
+\item \emph{Geometric collapse} (from CY substrate): for
+$\mathrm K3 \times E$ there is no three-dimensional algebraic
+torus acting on the substrate at all, so there is no ambient
+$S_3 = W(T^3)$ to start with.
+\end{enumerate}
+The two collapses are independent: the algebraic collapse occurs at
+special points even of the $\mathbb C^3$ $\DIM$ algebra, while the
+geometric collapse is a global statement about the K3 substrate.
+\end{proposition}
+
+\paragraph{Net outcome of Cycle 6.}  The manuscript has the geometric
+collapse correctly identified but does not isolate the algebraic
+collapse on special points, which is independent evidence for the
+$S_3 \to \mathbb Z/2$ reduction at the programme-active point
+$(q_1, q_2, q_3) = (-1, -1, 1)$.
+
+%-------------------------------------------------------------------
+\subsection{Summary: what is the precise statement Vol III should
+assert?}
+\label{wave12:subsec:summary}
+
+Collating Cycles~1--6:
+
+\begin{theorem}[$\Uqtgltor$ at $q_1 = q_2 = -1$, $q_3 = 1$: precise
+structure]
+\label{wave12:thm:precise-N2-structure}
+\ClaimStatusProvedHere
+Let $\Uqtgltor|_{N=2}$ denote the Ding--Iohara--Miki algebra
+specialised to $(q_1, q_2, q_3) = (-1, -1, 1)$.  Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The centre has rank~$1$ (down from rank~$2$ at generic
+points), with generator the single Heisenberg level
+(Proposition~\ref{wave12:prop:central-rank-drop}).
+\item The $S_3$ Miki action collapses to the residual stabiliser
+$S_2 = \langle (1 2) \rangle$ swapping the two coincident parameters
+(Proposition~\ref{wave12:prop:two-S3-collapses}(a)).
+\item The structure function $\omega_\DIM(x) = (1+x)^2/(1-x)$ has a
+simple pole at $x = 1$, contributing one Heisenberg central direction.
+\end{enumerate}
+\end{theorem}
+
+\begin{conjecture}[Module count: the fourth $324$]
+\label{wave12:conj:fourth-324-final}
+\ClaimStatusConjectured
+The $N = 2$ Fock module of $\Uqtgltor|_{N=2}$ at charge $n \geq 0$
+has dimension $p_{24}(n)$.  At charge $n = 2$, this is $324$ modules
+in a semisimple decomposition.  Every finite-dimensional irreducible
+occurs as a simple summand of some charge-$n$ Fock module.  The
+$(\mathbb Z/2)^{24}$-graded $S$-matrix on the abelian sector is
+degenerate with rank defect $4$ equal to the radical of the Mukai
+form modulo $2$
+(Conjecture~\ref{wave12:conj:S-matrix-rank} and
+Remark~\ref{wave12:rem:rank-defect-4}).
+\end{conjecture}
+
+\begin{remark}[What is and is not proved]
+\label{wave12:rem:net-scope}
+\begin{itemize}
+\item $324_{\mathrm{Göttsche}} = 324_{\mathrm{Fock}} = 324_{A_1} = 324$:
+\ClaimStatusTheorem (elementary; Göttsche + free-boson + arithmetic).
+\item $\CoHA(\mathbb C^3) \otimes \mathbb F(\!(z)\!) = Y^+(\gghone)$:
+\ClaimStatusTheorem (Davison--Meinhardt + Schiffmann--Vasserot +
+Tsymbaliuk, composite).
+\item $S_3$ Miki collapses at $(q_1, q_2, q_3) = (-1, -1, 1)$:
+\ClaimStatusDerivation.
+\item Central rank drops from $2$ to $1$ at the $N = 2$ point:
+\ClaimStatusDerivation.
+\item $324_{\mathrm{irr}}(\Uqtgltor|_{q=-1}) = 324$:
+\ClaimStatusConjectured (no direct classification of
+finite-dimensional irreducibles for this specialisation in the
+literature).
+\item $S^{\mathrm{ab}}$ rank defect is $4$:
+\ClaimStatusConjectured (argument via Mukai lattice characteristic-$2$
+radical is direct but not written out in primary sources for this
+specific MTC).
+\end{itemize}
+\end{remark}
+
+\begin{remark}[Residue for future inscription]
+\label{wave12:rem:residue}
+Three statements in the manuscript should be sharpened in Vol~III:
+\begin{enumerate}[label=(\alph*)]
+\item \emph{Proposition~\ref{prop:root-unity-n2}(i)}: ``Exactly $324$
+finite-dimensional irreducible modules''.  Strengthen to ``$324$
+simple summands of the charge-$2$ Fock module''; the general
+classification of finite-dimensional irreducibles remains open.
+\item \emph{Proposition~\ref{prop:root-unity-n2}(iii)}: ``rank $< 324$
+(degenerate)''.  Strengthen to ``rank defect exactly $4$ on the
+abelian sector, from the characteristic-$2$ radical of the Mukai
+form''.
+\item \emph{Theorem~\ref{thm:k3qt-mo-stabilised-action}} (Drinfeld
+coproduct): flag explicitly that the ``positive half'' of SV is
+\emph{not} a Hopf algebra on its own; the Hopf structure requires
+the Drinfeld double, which is an additional construction beyond the
+CoHA convolution.
+\end{enumerate}
+These three are not bookkeeping changes; they are mathematical
+precisions that sharpen what is being claimed and in what scope.
+\end{remark}
+
+%-------------------------------------------------------------------
+\subsection*{Closing: the shape of the true theorem}
+
+The quantum toroidal $\mathfrak{gl}_1$ story, stripped of imprecise
+identifications, reads:
+
+\begin{itemize}
+\item A three-parameter algebra $\Uqtgltor$ lives on the
+hypersurface $q_1 q_2 q_3 = 1$, with $S_3$ Miki triality as the
+generic automorphism group.
+\item Its positive Drinfeld half is identified with the $\mathbb C^3$
+CoHA after dimensional reduction to $\mathbb C^2$, via the
+Davison--Meinhardt / Schiffmann--Vasserot / Tsymbaliuk composite.
+\item The Drinfeld double of this positive half is the affine Yangian
+of $\widehat{\mathfrak{gl}}_1$, which carries a Chevalley involution
+exchanging positive and negative; the CoHA sees only one side of
+this involution.
+\item The root-of-unity specialisation $(q_1, q_2, q_3) = (-1, -1, 1)$
+is not a generic evaluation: the centre drops rank, the $S_3$
+Miki collapses to $S_2$, and the structure function factorises as
+$(1 + x)^2/(1 - x)$.
+\item At charge $n = 2$, the Fock module decomposes into $324$
+simples, matching $\chi(\mathrm{Hilb}^2(\mathrm K3))$ via the
+Grojnowski--Nakajima theorem; the modular $S$-matrix on the abelian
+sector has rank defect $4$, reading the characteristic-$2$ radical
+of the Mukai form on the three hyperbolic $U$-summands plus the
+Mukai extension.
+\end{itemize}
+
+The $S_3 \to S_2$ collapse at root-of-unity points is the algebraic
+shadow of the $\mathbb G_m^3 \to \mathbb G_m$ collapse on the
+K3~$\times$~$E$ substrate.  Both are forced by the same underlying
+fact: K3 has no torus, and the root-of-unity parameter makes two
+(or three) of the Miki weights collide.  The $324$ is three different
+$324$s that happen to be equal, but only three of the four
+cardinalities are proved equal; the fourth (irreducibles of the
+specialised algebra) is the honest open problem.
+
+\smallskip
+\noindent\emph{Residue}:
+\begin{itemize}
+\item $N = 3$ extension: repeat Cycles~1--5 at
+$(q_1, q_2, q_3)$ a primitive third root of unity; the Miki $S_3$
+action becomes genuine (not collapsed), and the $\mathfrak{sl}_2$
+level-$2$ Ising MTC enters through the $24$ size-$3$ Ising blocks.
+\item $N \in \{4, 6\}$: repeat; at $N = 4$, $[2]_q = 0$ (Lusztig
+small-form triggers); at $N = 6$, the $\mathbb Z/6$ umbral cocycle
+of Cheng--Duncan--Harvey enters.
+\item $N = 1$ (generic, no root-of-unity specialisation): the
+Gritsenko $\Delta_5$-weighted Fock character
+$\prod (1 - q^k)^{-24}$ is the classical limit; $\kappa_{\mathrm{BKM}}
+= 5 = c_1(0)/2$ of the Borcherds denominator is recovered.
+\end{itemize}

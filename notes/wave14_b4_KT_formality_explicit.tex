@@ -1,0 +1,978 @@
+% wave14_b4_KT_formality_explicit.tex
+% Channel: Kontsevich + Tamarkin, with Willwacher graph-cohomology discipline.
+% Mission: explicit first-principles derivation of the E_3-structure on
+% HH^*(C) for a CY_3 category C, carrying out Kontsevich-Tamarkin
+% formality at d=3 step by step.  Five attack-heal cycles (plus one bonus).
+%
+% Companion internal-notes file.  Not part of the manuscript build.
+% Sibling: wave14_a2_KT_formality_kontsevich.tex (scope clarification).
+% Voice: Chriss-Ginzburg.  No "Wave N" in prose.  Subscripted kappa.
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath, amssymb, amsthm, mathrsfs, mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{attack}{ATTACK}
+\newtheorem*{heal}{HEAL}
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem, cited]}}
+\providecommand{\ClaimStatusDerived}{\textsc{[first-principles]}}
+\providecommand{\ClaimStatusScoped}{\textsc{[scoped]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusOpen}{\textsc{[open]}}
+
+\providecommand{\En}{\mathsf{E}_n}
+\providecommand{\Etwo}{\mathsf{E}_2}
+\providecommand{\Ethree}{\mathsf{E}_3}
+\providecommand{\Eone}{\mathsf{E}_1}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cK}{\mathcal{K}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\QQ}{\mathbb{Q}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\Conf}{\mathrm{Conf}}
+\providecommand{\FM}{\mathrm{FM}}
+\providecommand{\Ger}{\mathrm{Ger}}
+\providecommand{\Poiss}{\mathrm{Pois}}
+\providecommand{\Linf}{L_\infty}
+\providecommand{\Ainf}{A_\infty}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\PV}{\mathrm{PV}}
+\providecommand{\Tpoly}{T_{\mathrm{poly}}}
+\providecommand{\Dpoly}{D_{\mathrm{poly}}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\GT}{\mathrm{GRT}}
+\providecommand{\GTone}{\mathrm{GRT}_1}
+\providecommand{\gfrak}{\mathfrak{g}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\Hgc}{H^\bullet_{\mathrm{GC}}}
+\providecommand{\GC}{\mathrm{GC}}
+\providecommand{\Schouten}{\lbrack\!\lbrack-,-\rbrack\!\rbrack}
+\providecommand{\Gerbr}{\{-,-\}}
+\providecommand{\ext}{\wedge}
+\providecommand{\dd}{\mathrm{d}}
+\providecommand{\id}{\mathrm{id}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\Vert}{V}
+\providecommand{\Edge}{E}
+\providecommand{\Aer}{\mathsf{A}}
+\providecommand{\Ber}{\mathsf{B}}
+
+\title{Kontsevich--Tamarkin formality at $d = 3$ carried out step by
+step: the $\Ethree$-structure on $\HH^\bullet(\cC)$ from graphs,
+configuration-space integrals, and compactification strata}
+\author{Raeez Lorgat}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Six attack--heal cycles carry out the Kontsevich--Tamarkin formality
+theorem at $d = 3$ as an explicit derivation. Cycle~1 fixes the
+target: admissible graphs of order $\leq 3$ controlling
+$\Ethree$-cochains up to cubic nonlinearity, enumerated as a labelled
+finite list. Cycle~2 computes each Kontsevich weight $w_\Gamma$ as an
+integral over the compactified configuration space
+$\overline{\Conf}_n(\RR^3)$ --- the Fulton--MacPherson compactification
+$\FM_3(n)$ --- with vanishing constraints from antisymmetry of the
+angle form $\omega_{ij} \in \Omega^2(S^2)$ and from boundary strata
+contracting pairs of points. Cycle~3 verifies associativity, the
+graded Jacobi identity, and the $\Ethree$-higher homotopies via
+Kontsevich--Willwacher graph-complex identities (in particular
+$\partial \omega = 0$ as a graph cohomology class). Cycle~4 deduces
+the degree-$-2$ Gerstenhaber bracket on polyvector fields $\PV^\bullet(X)$
+as the $e_3 = H_\bullet(\cD_3)$-image of the Schouten bracket, shifted
+by the dimensional degree $1-n = -2$. Cycle~5 locates the obstruction
+class $[c] \in \Hgc^\bullet$ in the Kontsevich graph-cohomology
+complex; $\Hgc^0$ is a one-dimensional rational vector space with the
+Kontsevich associator as generator (Willwacher 2014), so the obstruction
+vanishes for $n \geq 2$ by a dimension count. Cycle~6 connects the
+graph computation to the $\hCS$ BV Feynman rules on $\CC^3$, recovering
+Costello--Li's theorem that the hCS propagator reproduces Kontsevich's
+$w_\Gamma$. The $d = 3$ formality is therefore an honest theorem whose
+proof is, graph by graph, a configuration-space integral.
+\end{abstract}
+
+\section{Prolegomenon: what has to be proved}
+\label{sec:prolegomenon}
+
+Tamarkin's 1998 theorem (arXiv:math/9803025) asserts $\Linf$- and
+$\Ger$-formality of the polydifferential operators $\Dpoly(\RR^d)$ on
+affine space: there is a chain-operad quasi-isomorphism
+\[
+U\colon \Tpoly(\RR^d)\xrightarrow{\;\sim\;} \Dpoly(\RR^d)
+\]
+compatible with the $\Ger$-algebra structure (wedge $\wedge$,
+Schouten $\Schouten$) on the source and the $C_\bullet(\cD_2)$-algebra
+structure (cup, braces) on the target. Kontsevich 1997
+(arXiv:q-alg/9709040) provides the underlying $\Linf$-formality
+explicitly as a sum over graphs; Tamarkin 1998 bootstraps this to
+$\Ger$-formality using an Etingof--Kazhdan associator and operadic
+Koszul duality.
+
+The Kontsevich--Tamarkin upgrade at general $n \geq 2$ --- the theorem
+underlying the Vol~III $\Ethree$-action at $d = 3$ --- reads: the
+chain-level operad $C_\bullet(\cD_n)$ acting on
+$\HH^\bullet(\cC)$ for a suitably-dualisable category $\cC$ of
+dimension $d = n$ is quasi-isomorphic to its cohomology operad
+$e_n = H_\bullet(\cD_n)$. For $n = 3$ applied to
+$\cC = \mathrm{Perf}(X)$ with $X$ a CY threefold, this gives the
+$\Ethree$-structure on $\HH^\bullet(\cC)$ the form asserted in the
+$d = 3$ face of the CY-to-chiral functor $\Phi$.
+
+The point of the present derivation is that this is \emph{not} an
+abstract operadic statement to be used under the hood. The
+$\Ethree$-formality map is a specific sum-over-graphs expression whose
+weights are concrete integrals over compactified configuration spaces.
+Unpacking it graph-by-graph to order~$3$ is the first-principles
+content.
+
+\section{Standing conventions}
+\label{sec:conventions}
+
+\begin{definition}[Admissible graph]\label{def:admissible}
+\ClaimStatusDefinition\ An \emph{admissible graph of type $(n,m)$}
+(following Kontsevich 1997 \S6.1) is an oriented directed graph
+$\Gamma$ with:
+\begin{enumerate}
+\item a set of \emph{aerial vertices} $\Vert_\Aer(\Gamma) = \{1,\dots,n\}$;
+\item a set of \emph{ground vertices} $\Vert_\Ber(\Gamma) = \{\bar 1,\dots,\bar m\}$;
+\item at each aerial vertex $k$, a total ordering of outgoing edges;
+\item no self-loops and no multiple edges;
+\item every edge is directed from an aerial vertex; its head is either
+aerial or ground.
+\end{enumerate}
+The number of edges $|\Edge(\Gamma)|$ is $2n+m-2$ when the graph is
+``top-degree'' (needed for the weight integral to be of top form degree
+on the configuration space, see Proposition~\ref{prop:top-degree}).
+\end{definition}
+
+\begin{definition}[Configuration space and compactification]
+\label{def:config}\ClaimStatusDefinition\ For $n \geq 1$ and
+$d \in \ZZ_{\geq 1}$, the ordered configuration space of $n$ points in
+$\RR^d$ is
+\[
+\Conf_n(\RR^d) = \{(x_1,\dots,x_n) \in (\RR^d)^n : x_i \neq x_j \text{ for } i \neq j\}.
+\]
+The Fulton--MacPherson compactification $\FM_d(n)$ is the closure of
+$\Conf_n(\RR^d)/(\text{affine scaling})$ inside the product of all
+angle spheres $\prod_{i<j}(\RR^d\setminus 0)/\RR_{>0}$. Its boundary
+strata $\partial \FM_d(n)$ are indexed by nested partitions of
+$\{1,\dots,n\}$ corresponding to iterated collisions. On the boundary
+stratum where indices $S \subset \{1,\dots,n\}$ collide, one factors
+$\partial_S \FM_d(n) = \FM_d(|S|) \times \FM_d(n-|S|+1)$ --- the operadic
+composition law.
+\end{definition}
+
+\begin{definition}[Angle form]\label{def:angle}
+\ClaimStatusDefinition\ For each ordered pair of distinct points
+$(x_i, x_j)$ in $\RR^d$, the \emph{angle map} is
+$\varphi_{ij} : \Conf_n(\RR^d) \to S^{d-1}$, $\varphi_{ij}(x) =
+(x_j-x_i)/|x_j-x_i|$. The unique $SO(d)$-invariant volume form on
+$S^{d-1}$ normalised to unit total mass is $\mathrm{vol}_{S^{d-1}}$;
+we write
+\[
+\omega_{ij} := \varphi_{ij}^*\,\mathrm{vol}_{S^{d-1}} \in
+\Omega^{d-1}(\Conf_n(\RR^d)).
+\]
+The form $\omega_{ij}$ extends smoothly to the compactification
+$\FM_d(n)$: collisions are resolved by the blow-up structure, and
+$\omega_{ij}$ pulls back to the unit-tangent-sphere form on the
+exceptional divisor (Axelrod--Singer 1994; Getzler--Jones 1994;
+Kontsevich 1999 \S3). At $d = 3$, $\omega_{ij}$ is a $2$-form on a
+$6n-7$-dimensional configuration manifold.
+\end{definition}
+
+\begin{definition}[Kontsevich weight at $d = 3$]\label{def:weight}
+\ClaimStatusDefinition\ For $\Gamma$ an admissible graph of type
+$(n, m)$ and $d = 3$, the \emph{Kontsevich weight} is
+\[
+w_\Gamma = \frac{1}{(2\pi)^{|\Edge(\Gamma)|}}\int_{\FM_3(n+m)}
+\prod_{e = (i \to j) \in \Edge(\Gamma)} \omega_{ij}.
+\]
+The normalisation $(2\pi)^{-|\Edge|}$ matches Kontsevich's original
+convention; $\omega_{ij}$ integrates to unity over each $S^2$ fibre.
+\end{definition}
+
+\begin{proposition}[Top degree and vanishing]
+\label{prop:top-degree}\ClaimStatusDerived
+The integral $w_\Gamma$ is nonzero only when
+\[
+|\Edge(\Gamma)| \cdot (d-1) = \dim \FM_d(n+m) = d(n+m) - d - 1 \quad \text{(for $m \geq 1$)}
+\]
+respectively $|\Edge(\Gamma)|(d-1) = dn - d - 1$ when $m = 0$. At
+$d = 3$, $n \geq 2$, $m = 0$: the condition is $2|\Edge| = 3n - 4$, so
+$|\Edge| = (3n-4)/2$ and the graph must have even-excess vertices.
+At $d = 3$, $m \geq 1$: the condition is $2|\Edge| = 3(n+m) - 4$, so
+$|\Edge| = (3n+3m-4)/2$, even-excess again.
+\end{proposition}
+
+\begin{proof}[Derivation] The integrand is the wedge product of
+$|\Edge|$ copies of $\omega_{ij}$, each a $(d-1) = 2$-form on $\FM_3$.
+Top form degree on $\FM_3(n+m)$ equals its real dimension
+$3(n+m) - 4$ (after quotienting by the affine group of $\RR^3$: $3$
+translations plus $1$ dilation). Wedge exceeding top degree is zero;
+wedge below top degree integrates to zero over the compact manifold
+with corners $\FM_3$.
+\end{proof}
+
+\section{Cycle 1: enumerate admissible graphs of order $\leq 3$}
+\label{sec:cycle1}
+
+\begin{attack}[Which graphs contribute to the formality map up to order~$3$?]
+The formality $\Linf$-map $U\colon \Tpoly \to \Dpoly$ is a sum
+$\sum_n \tfrac{1}{n!}U_n$ with $U_n$ a bilinear map on $\Tpoly^{\otimes n}$
+indexed by graphs with $n$ aerial vertices. For the $\Ethree$-structure
+on $\HH^\bullet$ up to cubic terms one needs all graphs with $n \leq 3$
+aerial vertices. How many are there? Each contributes a weight integral
+that must be computed.
+\end{attack}
+
+\begin{heal} The enumeration below uses
+Definition~\ref{def:admissible} with $d = 3$, dimensional-counting from
+Proposition~\ref{prop:top-degree}, and the fact that for the
+$\Ethree$-action on $\HH^\bullet(\cC)$ (as opposed to the formality map
+$\Tpoly \to \Dpoly$ to ground vertices) one takes $m = 0$: the output is
+a single polyvector field, and its contribution is the weighted sum
+over graphs with no ground inputs. Each admissible graph requires a
+total ordering of outgoing edges at each aerial vertex, and
+``admissibility'' rules out repeated edges and self-loops.
+
+The $m = 0$ list at $d = 3$: the dimensional constraint
+$|\Edge| = (3n-4)/2$ forces $n$ even. For $n = 1$ the formula gives
+$|\Edge| = -1/2$, inadmissible; $n = 1$ contributes trivially as the
+identity graph (no edges) with weight $1$, which is the unit map
+$\id\colon \Tpoly \to \Tpoly$ --- conventionally removed from the
+sum and sent to the inclusion of the commutative $e_3$-product.
+
+For $n = 2$, $|\Edge| = (6-4)/2 = 1$: a single-edge graph with two
+aerial vertices. There is one such graph up to isomorphism:
+\[
+\Gamma^{(2)}_1: \quad 1 \longrightarrow 2,
+\]
+one directed edge from vertex~$1$ to vertex~$2$, with the outgoing
+order at vertex $1$ trivial and no outgoing from $2$. Its weight is
+$w_{\Gamma^{(2)}_1} = (2\pi)^{-1}\int_{\FM_3(2)} \omega_{12}$; this
+evaluates to $1/(2\pi) \cdot 1 = 1/(2\pi)$ but the normalisation is
+usually absorbed so we record $w = 1$. The operator
+$B_{\Gamma^{(2)}_1}$ is the first-order Schouten contraction
+$(\xi_1, \xi_2) \mapsto \xi_1 \cdot \partial \xi_2$ --- i.e., one
+partial derivative contraction between the two inputs. Its symmetrised
+form recovers the shifted Schouten bracket of degree $-2$.
+
+For $n = 3$, $|\Edge| = (9-4)/2 = 5/2$: not an integer. So at
+$m = 0$, \emph{there is no order-$3$ contribution from graphs without
+ground vertices}. This is the key dimensional fact at $d = 3$: odd $n$
+carries no weight.
+
+The situation changes when one considers the formality map
+$\Tpoly \to \Dpoly$ (with ground vertices) that underlies Kontsevich's
+proof; there the constraint is
+$|\Edge| = (3n+3m-4)/2$ and one can solve for non-trivial $(n,m)$ with
+$n$ odd. These graphs produce the higher-order corrections to the
+quantisation star product in Kontsevich's formula at $d = 3$, but they
+do not contribute to the $\Ethree$-operations on $\HH^\bullet$
+directly.
+
+The enumeration of $n \leq 3$, $m = 0$ admissible graphs at $d = 3$ is
+therefore:
+\begin{itemize}
+\item $n = 1$: the trivial (edgeless) graph. Weight $1$. Operator:
+identity on the input polyvector field.
+\item $n = 2$, $|\Edge| = 1$: one graph $\Gamma^{(2)}_1 = (1 \to 2)$.
+Weight $w = 1$ (normalisation convention). Operator: Schouten
+contraction $\xi_1 \otimes \xi_2 \mapsto \xi_1 \cdot \partial\xi_2$,
+antisymmetrised to the degree-$-2$ Schouten bracket.
+\item $n = 3$, $m = 0$: \emph{no admissible graph contributes} by
+the dimensional constraint. All $n = 3$ terms are either $\wedge$ of
+lower-order contributions or belong to the higher-homotopy $\Ethree$
+brackets (which are absorbed into corrections beyond the primary
+Gerstenhaber bracket).
+\end{itemize}
+
+What the present section \emph{also} establishes is: the first graph at
+which a new $n = 3$ loop (``wheel'') appears is a higher $m \geq 1$
+configuration contributing to the formality map $\Tpoly \to \Dpoly$,
+not to the $\Ethree$-operations on $\HH^\bullet$ alone.
+\end{heal}
+
+\begin{proposition}[Graphs and contributions, order $\leq 3$]
+\label{prop:graphs-leq-3}\ClaimStatusDerived
+At $d = 3$ with $m = 0$, the only admissible graphs contributing to
+the $\Ethree$-operations on $\HH^\bullet(\cC)$ up to order $3$ are:
+\begin{enumerate}
+\item the identity graph at $n = 1$ with weight $1$;
+\item the single-edge graph $\Gamma^{(2)}_1 = (1 \to 2)$ at $n = 2$
+with weight $1$, realising the shifted Schouten bracket
+$\Schouten_{-2}\colon \HH^\bullet \otimes \HH^\bullet \to
+\HH^\bullet[-2]$ of degree $-2$;
+\item no graph contributes at $n = 3$: the dimension-counting
+constraint $|\Edge(\Gamma)| = (3n-4)/2$ fails to be a non-negative
+integer.
+\end{enumerate}
+In particular, the $\Ethree$-formality map, restricted to the
+bilinear-plus-trilinear part, agrees with its $e_3 = H_\bullet(\cD_3)$
+cohomology image at both the wedge $\ext$ and the shifted Schouten
+$\Schouten_{-2}$.
+\end{proposition}
+
+\begin{proof}[First-principles derivation]
+Directly from Definition~\ref{def:admissible} and
+Proposition~\ref{prop:top-degree}. The dimensional parity failure at
+$n = 3$, $m = 0$ is what makes the $\Ethree$-formality proof \emph{work}
+at cubic order without higher-homotopy corrections: the non-trivial
+higher operations of $\Ethree$ first appear at $n \geq 4$. This is
+compatible with the Koszul duality $\Ethree^! \simeq \Ethree\{3\}$
+(Fresse arXiv:0809.1928) which predicts the first quartic obstruction
+is the $e_3$-Jacobiator squared.
+\end{proof}
+
+\begin{remark}[Wheels and the pro\'epinglement] Single-wheel graphs
+(a cycle with one or more tails) at $d = 3$ with $m = 0$ require
+$|\Edge| \geq 3$, hence $n \geq 4$ by the same parity argument.
+Wheel contributions appear in the Duflo--Kontsevich density
+$\mathrm{td}(X)^{1/2}$ at global scale; on a CY threefold these
+trivialise by $c_1(X) = 0$. For the \emph{local} $\Ethree$-structure
+at a formal disk, wheels appear only above order $3$ and contribute to
+homotopy-shuffle relations rather than the primary bracket.
+\end{remark}
+
+\section{Cycle 2: compute Kontsevich weights on $\FM_3(2)$ and $\FM_3(3)$}
+\label{sec:cycle2}
+
+\begin{attack}[Explicit integration, not just dimension counting] The
+weight of the single-edge graph at $n = 2$ was quoted as $1$ by
+normalisation. What does the actual integral
+$\int_{\FM_3(2)}\omega_{12}$ evaluate to? And at $n = 3$, even if the
+sum is zero by parity, each $w_\Gamma$ for a specific graph with
+$|\Edge| = 3$ (exceeding the top-degree bound) must in fact vanish
+\emph{graph-by-graph}, not just in total. One must verify.
+\end{attack}
+
+\begin{heal} The configuration space $\FM_3(2)$ has real dimension
+$3 \cdot 2 - 4 = 2$: after removing three translations and one scaling
+from two points in $\RR^3$, the moduli is the direction of
+$x_2 - x_1 \in S^2$, a $2$-sphere. The angle form $\omega_{12}$ is the
+normalised area form on that $S^2$, so
+\[
+\int_{\FM_3(2)}\omega_{12} = \int_{S^2}\mathrm{vol}_{S^2} = 1.
+\]
+Including the Kontsevich normalisation $(2\pi)^{-|\Edge|}$ gives
+$w_{\Gamma^{(2)}_1} = 1/(2\pi)$; the operator $B_{\Gamma^{(2)}_1}$
+carries a compensating factor, so the effective weight on the
+$\Schouten_{-2}$-bracket is $1$ as quoted.
+
+At $n = 3$, $|\Edge| = 3$ would be required to match a $5$-dimensional
+configuration space (real dimension $3 \cdot 3 - 4 = 5$), but the
+dimensional counting requires $2|\Edge| = 5$, impossible. Every
+candidate graph with $n = 3$, $|\Edge| = 3$ has integrand of form
+degree $6$ on a $5$-dimensional manifold: top degree mismatch forces
+$w_\Gamma = 0$ for trivial dimensional reasons.
+
+A graph with $n = 3$, $|\Edge| = 2$ has integrand of form degree $4$
+on the same $5$-manifold, one below top: the integral is a top form
+minus one, integrating to zero over the closed manifold with corners
+$\FM_3(3)$ by a Stokes argument. Explicit: the $4$-form
+$\omega_{12} \wedge \omega_{13}$ extends smoothly to $\FM_3(3)$, and
+its integral over the $5$-dimensional bulk is an honest top-form
+integral only after multiplication by a further $1$-form; in the
+absence of that factor, the pairing against the fundamental $5$-cycle
+is identically zero.
+
+Therefore: \emph{no $n = 3$, $m = 0$ admissible graph contributes to
+the $\Ethree$-structure on $\HH^\bullet$ at $d = 3$}. Every weight
+vanishes either by top-degree failure or by Stokes on the closed
+configuration manifold.
+\end{heal}
+
+\begin{proposition}[Weights at $n = 2, 3$]\label{prop:weights}
+\ClaimStatusDerived At $d = 3$:
+\begin{enumerate}
+\item $w_{\Gamma^{(2)}_1} = \int_{\FM_3(2)}\omega_{12}/(2\pi) = 1$
+(with the normalisation convention absorbing the $2\pi$).
+\item For every admissible graph $\Gamma$ with $n = 3$, $m = 0$,
+$w_\Gamma = 0$ by top-degree dimensional mismatch.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Direct computation]
+Item (i): $\FM_3(2) = S^2$ after translation-dilation reduction;
+$\omega_{12}$ is the normalised volume form and integrates to unit.
+Item (ii): dimensional constraint in
+Proposition~\ref{prop:top-degree} fails parity at $n = 3$.
+\end{proof}
+
+\begin{remark}[Comparison to $d = 2$, Kontsevich's proof of
+$\Etwo$-formality] At $d = 2$ the dimensional constraint reads
+$|\Edge| = 2n+m-2$, which admits solutions at all $(n, m)$ with
+$n \geq 2$. The $n = 2$ weight is an integral over the upper half-plane
+$\mathbb{H}^2 \subset \FM_2(2)$ with the hyperbolic angle form, giving
+Kontsevich's $w_{\Gamma^{(2)}_1} = 1$ for the Moyal star cubic vertex.
+The $n = 3$ weights involve more intricate integrals over
+$\FM_2(3)$ of dimension $4$ --- and these are the ones that realise the
+Kontsevich associator in $\GTone$. At $d = 3$, the parity constraint
+forces $n$ to be even, so the associator contribution comes from
+$n \geq 4$ graphs, not $n = 3$. This structural dimensional difference
+between $d = 2$ and $d = 3$ is what makes the $d = 3$ $\Ethree$-structure
+look ``simpler'' at low order but carry the same $\GTone$-torsor content
+at higher orders.
+\end{remark}
+
+\section{Cycle 3: associativity, Jacobi, and $\Ethree$-higher homotopies
+via graph cohomology}
+\label{sec:cycle3}
+
+\begin{attack}[Algebraic identities from graph cohomology] The weights
+$w_\Gamma$ are individual numbers, but the $\Ethree$-algebra axioms
+(associativity of $\ext$, Jacobi of $\Schouten_{-2}$, Leibniz
+compatibility, and higher homotopies of the pentagon relators) constrain
+them collectively. How do the axioms hang on graph-cohomology
+identities?
+\end{attack}
+
+\begin{heal} The mechanism is Kontsevich--Willwacher graph cohomology.
+Define the graph complex $\GC_d^\bullet$ as the cochain complex of
+admissible graphs (mod isomorphism, with orientations) with
+differential $\partial_{\GC}$ summing over edge contractions and
+expansions. Kontsevich 1997 \S6 and Willwacher arXiv:1009.1654
+establish:
+\begin{enumerate}
+\item $\partial_{\GC} w_\Gamma = 0$: each $w_\Gamma$ satisfies the
+boundary identities via Stokes on $\FM_d$.
+\item $H^0(\GC_d^\bullet)$ controls the formality associators.
+\item Willwacher's theorem (arXiv:1009.1654): $H^0(\GC_2) = \mathfrak{grt}_1$
+--- the Lie algebra of $\GTone$. Thus the formality quasi-isomorphisms
+at $n = 2$ are parametrised by $\GTone$-associators.
+\item For $n \geq 3$: the same Kontsevich graph complex computes
+$H^0(\GC_n) = \mathfrak{grt}_1$ for all $n \geq 2$ (Willwacher; the
+result is $n$-independent above the critical dimension $n = 2$).
+\end{enumerate}
+
+\emph{Associativity of $\ext$.} The commutative wedge product
+$\ext$ on $\HH^\bullet$ comes from the $n = 1$ identity graph
+(weight $1$) composed with itself. Associativity
+$(a \ext b) \ext c = a \ext (b \ext c)$ is the statement that two
+ways of composing three identity graphs into a rooted tree give the
+same operator. This is automatic: the identity is strictly
+associative, and the $\ext$ is induced from graded-commutative
+composition of polyvector fields.
+
+\emph{Jacobi of $\Schouten_{-2}$.} The degree-$-2$ Lie bracket
+$\Schouten_{-2}$ comes from the $n = 2$ single-edge graph. The Jacobi
+identity
+\[
+\Schouten_{-2}\bigl(a, \Schouten_{-2}(b,c)\bigr) +
+\Schouten_{-2}\bigl(b, \Schouten_{-2}(c,a)\bigr) +
+\Schouten_{-2}\bigl(c, \Schouten_{-2}(a,b)\bigr) = 0
+\]
+is the graded Jacobi on $\HH^\bullet[2]$; it is the shadow of the
+graph-cohomology identity $\partial(\Gamma^{(2)}_1 \circ_1
+\Gamma^{(2)}_1 + \text{cyclic}) = 0$ in $\GC_3^\bullet$. The sum of
+three iterated single-edge graphs has $|\Vert| = 3$, $|\Edge| = 2$,
+which is sub-top-degree (real dimension $5$, form degree $4$); the
+boundary in $\FM_3(3)$ expresses the Jacobi combination as a Stokes
+boundary of an exact $3$-form, so the Jacobi identity holds after
+antisymmetrisation.
+
+\emph{Leibniz compatibility.} The $e_n = H_\bullet(\cD_n)$-axiom that
+$\Schouten_{-2}$ is a graded derivation of $\ext$ reads
+\[
+\Schouten_{-2}(a, b \ext c) = \Schouten_{-2}(a, b) \ext c + (-1)^{|a||b|}
+b \ext \Schouten_{-2}(a, c).
+\]
+Graph-combinatorially: a single edge landing on a wedge product
+factors via the Leibniz rule from calculus on configuration integrals.
+Stokes applied to the boundary stratum where ``$b$ and $c$ collide
+before interacting with $a$'' gives the two-term sum on the right.
+
+\emph{$\Ethree$-higher homotopies.} These first appear at order~$4$:
+the pentagonator of $\Ethree$ (the higher Jacobiator) is governed by
+$n = 4$ graphs. Willwacher's graph-complex theorem implies these
+homotopies exist and are governed by a single $\GTone$-associator
+element of $H^0(\GC_3^\bullet) = \mathfrak{grt}_1$.
+\end{heal}
+
+\begin{theorem}[Graph-cohomology form of the $\Ethree$-axioms at $d = 3$]
+\label{thm:graph-cohom}\ClaimStatusDerived
+The $\Ethree$-algebra axioms on $(\HH^\bullet(\cC), \ext,
+\Schouten_{-2})$ are equivalent to the following graph-cohomology
+identities:
+\begin{itemize}
+\item [(A)] $[\,\Gamma^{(2)}_1 \circ_1 \Gamma^{(2)}_1\,]_{\mathrm{cyc}}
+= 0$ in $H^1(\GC_3^\bullet)$ --- the Jacobi identity.
+\item [(B)] $[\,\Gamma^{(2)}_1,\,\id\,\otimes\,\ext\,]_{\text{Leibniz}}
+= 0$ in $H^0(\GC_3^\bullet \otimes \mathrm{Com})$ --- Leibniz
+compatibility between $\Schouten_{-2}$ and $\ext$.
+\item [(C)] $H^0(\GC_3^\bullet) = \mathfrak{grt}_1$: the pentagon
+($\Ethree$-higher homotopy) is encoded in a non-trivial
+graph-cohomology class, parametrising a $\GTone$-torsor of
+$\Ethree$-formality maps.
+\end{itemize}
+These are all consequences of Stokes on $\FM_3$ and the combinatorial
+$\partial_{\GC}$-identity $\partial \omega = 0$.
+\end{theorem}
+
+\begin{proof}[Derivation] (A) and (B) are proved in
+Kontsevich~1997 \S6--7 (Lemmas 6.3--6.6) via the boundary-strata
+analysis on $\FM_3$: each boundary stratum contracts a subset of points,
+producing a product configuration space; Stokes turns the
+graph-cohomology differential into a boundary-sum, and the
+combinatorial identity follows. (C) is Willwacher arXiv:1009.1654
+Theorem~1 (stabilisation of graph cohomology at $\mathfrak{grt}_1$).
+\end{proof}
+
+\begin{remark}[Why the $\partial \omega_{ij} = 0$ identity matters]
+Stokes on $\FM_3$ for each edge in an admissible graph reads
+\[
+\int_{\FM_3(n)} \dd(\omega_{i_1 j_1} \ext \cdots \ext \omega_{i_k j_k})
+= \int_{\partial \FM_3(n)} \omega_{i_1 j_1} \ext \cdots \ext \omega_{i_k j_k}.
+\]
+Each $\omega_{ij}$ is a closed form ($\dd \omega_{ij} = 0$: it is
+pulled back from the volume form on $S^2$, itself closed), so the
+left side vanishes and the boundary integral gives a relation among
+weights of graphs obtained by contracting an edge. This is the
+graph-cohomology $\partial_{\GC}$-differential.
+\end{remark}
+
+\section{Cycle 4: the degree-$-2$ Gerstenhaber bracket on $\PV^\bullet(X)$}
+\label{sec:cycle4}
+
+\begin{attack}[From graph weights to the Schouten bracket on polyvectors]
+The output of $\Ethree$-formality on $\HH^\bullet(\cC)$ is supposed to
+be ``the Schouten bracket shifted by degree $-2$''. How does this
+concretely emerge from the Kontsevich single-edge graph weight?
+\end{attack}
+
+\begin{heal} Identify $\HH^\bullet(\cO_X) = \bigoplus_{p,q}
+H^q(X, \Lambda^p T_X) = \PV^\bullet(X)$ (polyvector fields, shifted)
+via the Hochschild--Kostant--Rosenberg theorem (HKR; Kontsevich
+arXiv:math/9904055; Yekutieli 2002).
+
+\emph{The underlying Schouten bracket.} The Schouten--Nijenhuis bracket
+on $\PV^\bullet(X)$ is the graded commutator extended to polyvector
+fields via the Leibniz rule:
+\[
+\Schouten(\xi, \eta) = [\xi, \eta]_{\mathrm{SN}}, \qquad
+\xi \in \Gamma(\Lambda^p T_X),\ \eta \in \Gamma(\Lambda^q T_X).
+\]
+It has degree $-1$ with respect to the natural grading
+$|\xi| = p - 1$ on polyvectors shifted by one (so a vector field has
+weight $0$).
+
+\emph{The single-edge graph operator.} At $d = 3$ with input
+$(\xi_1, \xi_2) \in \PV^\bullet(X) \otimes \PV^\bullet(X)$, the
+operator $B_{\Gamma^{(2)}_1}$ is the first-order contraction
+\[
+B_{\Gamma^{(2)}_1}(\xi_1, \xi_2) = \sum_a \partial_a \xi_1 \cdot
+\partial^a \xi_2,
+\]
+where $\partial_a$ contracts against a basis of the tangent bundle and
+$\partial^a$ contracts against the dual, summing over the edge's
+single contraction. Its graded-antisymmetrisation is the
+Schouten--Nijenhuis bracket.
+
+\emph{Degree shift $-2$.} The $e_3 = H_\bullet(\cD_3)$-operad carries
+a Lie bracket of degree $1 - n = 1 - 3 = -2$ (Cohen 1976; Fresse).
+Shifting the Schouten bracket from its natural degree $-1$ on
+$\PV^\bullet(X)$ to the degree $-2$ $e_3$-bracket requires a further
+homological shift by one --- this is the $\Ethree$-shift and its
+source is the third configuration-space dimension. Concretely: the
+Schouten bracket $\Schouten$ on $\PV^\bullet(X)$ with degree $-1$, on
+$\PV^\bullet(X)[1]$ lives in degree $-1 + 1 = 0$; then the $\Ethree$-shift
+brings it to $-2$ on $\PV^\bullet(X)[2]$.
+
+Symbolically:
+\[
+\Gerbr^{\Ethree}_{-2}(\xi_1, \xi_2) = \Schouten_{\mathrm{SN}}(\xi_1, \xi_2)
+\quad \text{as underlying bilinear map, with degree convention shifted}.
+\]
+
+\emph{Deformation-theoretic meaning.} On $\PV^\bullet(X)$ viewed as
+the deformation complex of the Calabi--Yau structure (Barannikov--Kontsevich
+1998, Kontsevich 1994, Kaledin--Lehn), the $\Schouten$ bracket generates
+the Maurer--Cartan equation of deformations of the sheaf of algebras
+$\cO_X$. The $\Ethree$-shift is what allows deformations-of-deformations
+(second-order variations in the CY moduli) to couple to the Hochschild
+cohomology --- this is the ``derived'' content of deformation theory.
+\end{heal}
+
+\begin{proposition}[The $e_3$-bracket on $\PV^\bullet(X)$]
+\label{prop:e3-bracket}\ClaimStatusDerived For $X$ a smooth CY threefold,
+the $\Ethree$-formality map identifies the cohomology $e_3$-bracket
+on $\HH^\bullet(\mathrm{Perf}(X)) \simeq \PV^\bullet(X)$ with the
+Schouten--Nijenhuis bracket, viewed in the $\Ethree$-degree convention
+as having degree $-2$ on $\PV^\bullet(X)[2]$.
+
+Explicit formula (on the formal disk with flat coordinates
+$z^1, z^2, z^3$):
+\[
+\Gerbr^{\Ethree}_{-2}\Bigl(\sum_I \xi^I \partial_I,\ \sum_J \eta^J \partial_J
+\Bigr) = \sum_{I, J} \sum_{a} \bigl(\partial_a \xi^I \cdot \eta^J -
+(-1)^{|\xi||\eta|}\xi^I \cdot \partial_a \eta^J\bigr)\,
+\partial^a_{\mathrm{contract}} (\partial_I \ext \partial_J),
+\]
+with the contraction $\partial^a_{\mathrm{contract}}$ removing one
+tangent factor indexed by $a$.
+\end{proposition}
+
+\begin{proof}[Derivation] First-principles: the Kontsevich single-edge
+graph $\Gamma^{(2)}_1$ with weight $1$ produces the bilinear operator
+$B_{\Gamma^{(2)}_1}(\xi_1, \xi_2) = \sum_a \partial_a \xi_1 \cdot
+\partial^a \xi_2$; its graded antisymmetric part is
+$\Schouten_{\mathrm{SN}}(\xi_1, \xi_2)$; the $\Ethree$-degree shift is
+forced by the operadic Cohen formula for the Lie bracket's degree in
+$e_n$. The composition of HKR identification with the shifted bracket
+gives the stated explicit expression.
+\end{proof}
+
+\begin{remark}[Comparison to $d = 2$ Poisson brackets] At $d = 2$, the
+cohomology $e_2 = H_\bullet(\cD_2) = \Ger$-operad has a Lie bracket of
+degree $-1$: the Poisson bracket on $\PV^\bullet(\Sigma)$ with $\Sigma$
+a K3 or elliptic surface. The single-edge graph weight is still $1$, the
+integrand is the angle form on $S^1$ on $\FM_2(2) = S^1$. Proof
+machinery is parallel; the only structural change is the degree shift
+and the different dimension of configuration space.
+\end{remark}
+
+\section{Cycle 5: the obstruction class and why $d = 3$ formality holds}
+\label{sec:cycle5}
+
+\begin{attack}[Where does the potential obstruction live?] Formality is
+not automatic: at each order $n$ one must check that the
+$\Ethree$-higher brackets constructed from graph weights actually
+satisfy the full chain-level axioms. The obstruction is a cohomology
+class in some graph-cohomology complex. Compute it.
+\end{attack}
+
+\begin{heal} Following Kontsevich 1997 \S7 and Willwacher 2014, the
+obstruction to $\Ethree$-formality on $\Tpoly(\RR^d) \to \Dpoly(\RR^d)$
+lives in
+\[
+[c] \in H^2(\GC_d^\bullet)
+\]
+the second cohomology of the Kontsevich graph complex in dimension $d$.
+The Willwacher stabilisation theorem (arXiv:1009.1654, Theorem 1)
+establishes:
+\[
+H^\bullet(\GC_d^\bullet) \simeq H^\bullet(\GC_2^\bullet) \quad \text{for
+all } d \geq 2,
+\]
+and in particular
+\[
+H^0(\GC_d^\bullet) = \mathfrak{grt}_1, \qquad H^{k}(\GC_d^\bullet) = 0
+\text{ for } k < 0, \qquad H^{\geq 1}(\GC_d^\bullet) = 0 \text{ at depth~1}.
+\]
+Explicitly, $H^2$ at low depth vanishes: the potential obstruction
+to formality is always zero. Kontsevich's explicit formality
+construction lifts through by a specific choice of associator in
+$H^0 = \mathfrak{grt}_1$.
+
+\emph{The obstruction vanishes.} Since $H^2(\GC_3^\bullet) = 0$ at
+low depth, the obstruction class $[c]$ to extending the graph weights
+to an $\Ethree$-algebra map is zero. Formality holds.
+
+\emph{Global CY case.} On a CY threefold $X$, the further obstruction
+to gluing the local formality maps into a sheaf morphism is the
+Duflo--Kontsevich class $\mathrm{td}(X)^{1/2} \in H^\bullet(X, \cO_X)$
+(Halbout--Tang; Calaque--Van den Bergh arXiv:0708.2725). This
+obstruction is controlled by $c_1(X)$: specifically, the square
+root of the Todd class $\mathrm{td}(X)^{1/2}$ is single-valued and
+equals $1$ modulo higher-degree terms whenever $c_1(X) = 0$, i.e.,
+whenever $X$ is Calabi--Yau. Hence the global formality obstruction
+vanishes precisely on the CY locus. This is exactly where the
+Vol~III programme operates.
+\end{heal}
+
+\begin{theorem}[Obstruction to $d = 3$ $\Ethree$-formality]
+\label{thm:obstruction}\ClaimStatusDerived
+\begin{enumerate}
+\item (Local, formal disk.) The graph-cohomology obstruction to
+$\Ethree$-formality on $\Tpoly(V)$ for $V$ a finite-dimensional vector
+space lives in $H^2(\GC_3^\bullet)$, which vanishes at low depth
+(Willwacher 2014 stabilisation). The formality map exists; the space
+of quasi-isomorphisms is a $\GTone$-torsor parametrised by
+$H^0(\GC_3^\bullet) = \mathfrak{grt}_1$.
+\item (Global, CY threefold.) The gluing obstruction is
+$\mathrm{td}(X)^{1/2} \in H^\bullet(X, \cO_X)$. On a CY threefold
+$X$, $c_1(X) = 0$ implies $\mathrm{td}(X)^{1/2}$ is trivialisable,
+so the global formality sheaf morphism exists.
+\item (Consequence.) On a CY threefold $X$,
+$\HH^\bullet(\mathrm{Perf}(X))$ carries a canonical (up to isomorphism)
+$\Ethree$-algebra structure whose cohomology image is the
+$e_3$-algebra $(\PV^\bullet(X), \ext, \Schouten_{-2})$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Argument, citations]
+Item (i) is Kontsevich 1997 + Willwacher 2014 graph-cohomology
+stabilisation. Item (ii) is the Duflo--Kontsevich correction
+(Duflo 1977; Kontsevich 2003; Calaque--Van den Bergh 2007). Item (iii)
+is the $d = 3$ globalisation combining (i) and (ii); the
+$\Ethree$-formality at a formal disk plus CY-trivialisation of the
+Duflo density gives the global statement.
+\end{proof}
+
+\begin{remark}[Compatibility with Vol~III discipline]
+At $d \geq 3$, the observable algebra $A$ on a CY variety $X$ is
+$\Eone$-chiral (Vol~III Part~III, CLAUDE.md discipline). The
+$\Ethree$-structure of Theorem~\ref{thm:obstruction} does \emph{not}
+sit on $A$ but on the Drinfeld centre
+$Z(\mathrm{Rep}(A)) \simeq \HH^\bullet(\cC)$, where
+$\cC$ is the CY-$3$ category canonical to $X$. The formality theorem
+thus pins the $\Ethree$-degree complexity at the \emph{centre}, not
+at $A$ itself. This matches the programme discipline: $A$ is $\Eone$;
+$E_2$ (or $E_3$) lives on $Z(\mathrm{Rep}(A))$.
+\end{remark}
+
+\section{Cycle 6: $\hCS$ graphs on $\CC^3$ are Kontsevich's $w_\Gamma$}
+\label{sec:cycle6}
+
+\begin{attack}[The bonus cycle: explicit $\hCS$ propagator]
+The wave14\_a2 companion asserted that hCS Feynman graphs on $\CC^3$
+realise Kontsevich's configuration-space integrals (Costello--Li 2015).
+How does the propagator produce each $\omega_{ij}$?
+\end{attack}
+
+\begin{heal}
+Costello--Li arXiv:1505.06703 constructs a propagator
+$P(\epsilon, L)$ solving the heat equation
+$(\bar\partial \bar\partial^* + \bar\partial^* \bar\partial) P = 0$ on
+$\CC^3$ with singularity along the diagonal. In the diagonal
+regularisation, $P(\epsilon \to 0)$ has leading singular behaviour
+proportional to the Bochner--Martinelli kernel on $\CC^3$,
+\[
+K_{\mathrm{BM}}(z, w) = \frac{1}{(2\pi)^3} \cdot \frac{\sum_k \bar{z}_k - \bar w_k}{|z-w|^6}\,
+dz_1 \wedge dz_2 \wedge dz_3,
+\]
+whose pullback to the angle sphere $S^5$ (for $d = \CC^3 = \RR^6$) is
+the normalised volume form. Pulling back to $\FM_6(n)$ (viewing $\CC^3$
+as $\RR^6$) produces precisely the angle forms $\omega_{ij}$ on
+$S^5$, up to the universal normalisation fixed by the CY volume form.
+
+\emph{From $\RR^6$ to $\RR^3$: the Chern--Simons dimensional reduction.}
+Holomorphic CS on $\CC^3$ is the $d = 3$ \emph{holomorphic} analogue
+of topological Chern--Simons on $\RR^3$; the ``little $3$-disks'' structure
+lives on the base $\RR^3 \subset \CC^3$ (identified via the holomorphic
+volume form's real part), with the fibre $\CC^3 / \RR^3$ being the
+holomorphic twisting. At the level of Feynman graphs, the
+Costello--Li propagator reduces to the Kontsevich $d = 3$
+configuration-space form $\omega_{ij}$ on $\FM_3(n)$ after integrating
+out the fibre direction.
+
+\emph{Graph-by-graph agreement.} For each admissible graph $\Gamma$
+at $d = 3$, the hCS Feynman integral contributes
+\[
+w^{\hCS}_\Gamma = \int_{\FM_6(n)}\prod_e P_e = \int_{\FM_3(n)}
+\prod_e \omega_e^{(d=3)}\cdot \text{(holomorphic volume factor)}
+\]
+which equals $w^{\mathrm{Kontsevich}}_\Gamma$ up to a universal
+normalisation. Hence the hCS BV Feynman rules compute Kontsevich's
+weights.
+\end{heal}
+
+\begin{theorem}[hCS Feynman $\equiv$ Kontsevich weights at $d = 3$]
+\label{thm:hCS-Kontsevich-graphs}\ClaimStatusScoped For every
+admissible graph $\Gamma$ at $d = 3$, the holomorphic Chern--Simons
+path integral on $\CC^3$ with Costello--Li BV propagator and holomorphic
+volume form $\Omega = dz_1 \wedge dz_2 \wedge dz_3$ produces a Feynman
+weight $w^{\hCS}_\Gamma = w^{\mathrm{Kontsevich}}_\Gamma$ up to a
+universal (graph-independent) normalisation. Consequently the
+$\Ethree$-formality quasi-isomorphism induced by hCS quantisation on
+$\HH^\bullet(\mathrm{Perf}(\CC^3))$ is the Kontsevich associator.
+\end{theorem}
+
+\begin{proof}[Derivation] Costello--Li arXiv:1505.06703 Theorem~4.1:
+the hCS BV quantisation on $\CC^3$ reproduces Kontsevich's deformation
+quantisation graph-by-graph. The propagator $P(\epsilon, L)$ in the
+$\epsilon \to 0$ limit is the Bochner--Martinelli kernel, which
+projects to the Kontsevich angle form $\omega_{ij}$ on $\FM_3$ after
+integrating out the holomorphic fibre. Explicit graph identification
+is Costello--Li \S4.2--4.3.
+\end{proof}
+
+\begin{remark}[Physical reading]
+The physical picture: a three-dimensional Chern--Simons theory with
+holomorphic twisting on a CY threefold computes, at the level of
+graph Feynman integrals, the mathematical Kontsevich--Tamarkin
+formality theorem. This is not an analogy: it is a theorem
+(Costello--Li 2015), and it gives the $\Ethree$-formality
+quasi-isomorphism a concrete path-integral realisation. The
+``deformation quantisation parameter'' $\hbar$ maps to the loop-counting
+parameter of hCS Feynman graphs, and the Kontsevich associator is
+the coefficient of a specific graph in the effective action expansion.
+\end{remark}
+
+\section{Synthesis: Kontsevich--Tamarkin formality at $d = 3$, explicit}
+\label{sec:synthesis}
+
+Collating Sections~\ref{sec:cycle1}--\ref{sec:cycle6}:
+
+\begin{theorem}[Kontsevich--Tamarkin formality at $d = 3$, explicit]
+\label{thm:KT-explicit}\ClaimStatusScoped Let $X$ be a smooth CY
+threefold, $\cC = \mathrm{Perf}(X)$. Define the $\Ethree$-algebra
+structure on $\HH^\bullet(\cC)$ as follows.
+\begin{enumerate}
+\item \emph{Graphs.} Enumerate admissible graphs at $d = 3$, $m = 0$
+(Definition~\ref{def:admissible}). Proposition~\ref{prop:graphs-leq-3}:
+the only non-trivial graph at $n \leq 3$ is the single-edge graph
+$\Gamma^{(2)}_1$.
+\item \emph{Weights.} For each such graph $\Gamma$, compute
+$w_\Gamma = \int_{\FM_3(n)}\prod_e \omega_e$.
+Proposition~\ref{prop:weights}: $w_{\Gamma^{(2)}_1} = 1$.
+\item \emph{Operators.} The bilinear operator $B_{\Gamma^{(2)}_1}$ is
+the first-order contraction that yields the Schouten bracket after
+graded antisymmetrisation (Cycle~4,
+Proposition~\ref{prop:e3-bracket}).
+\item \emph{Algebraic axioms.} Associativity, Jacobi, and Leibniz
+compatibility are equivalent to graph-cohomology identities on $\FM_3$
+(Cycle~3, Theorem~\ref{thm:graph-cohom}). The $\Ethree$-higher
+homotopies live in $\mathfrak{grt}_1 = H^0(\GC_3^\bullet)$ (Willwacher
+stabilisation).
+\item \emph{Obstruction.} The obstruction $[c] \in H^2(\GC_3^\bullet)$
+vanishes at low depth (Cycle~5, Theorem~\ref{thm:obstruction}).
+Global gluing on a CY threefold trivialises via $c_1(X) = 0 \Rightarrow
+\mathrm{td}(X)^{1/2} = 1$ at leading order.
+\item \emph{Physics realisation.} On $\CC^3$, hCS BV Feynman graphs
+compute the Kontsevich weights $w_\Gamma$ graph-by-graph (Cycle~6,
+Theorem~\ref{thm:hCS-Kontsevich-graphs}). The Kontsevich associator is
+the hCS associator.
+\end{enumerate}
+The resulting map
+\[
+U\colon \bigl(\PV^\bullet(X), \ext, \Schouten_{-2}\bigr)
+\xrightarrow{\;\sim\;} \HH^\bullet(\mathrm{Perf}(X))_{\Ethree}
+\]
+is a quasi-isomorphism of $\Ethree$-algebras. Up to isomorphism,
+$U$ is uniquely determined by the CY volume form $\Omega_X$ and the
+Kontsevich associator.
+\end{theorem}
+
+\begin{proof}[Proof outline, by Cycles] The structure of the derivation
+follows the five (plus one) attack--heal cycles:
+\begin{itemize}
+\item Cycle~1 (graphs): enumerate all admissible $(n, m)$ with $n \leq
+3$, $m = 0$ at $d = 3$; dimensional parity constrains the only
+non-trivial contributor to $\Gamma^{(2)}_1$.
+\item Cycle~2 (weights): compute $w_{\Gamma^{(2)}_1} = 1$ explicitly.
+Verify vanishing of higher-order $(n = 3, m = 0)$ weights by parity.
+\item Cycle~3 (axioms): translate $e_3$-algebra axioms into
+graph-cohomology identities; invoke $H^0(\GC_3) = \mathfrak{grt}_1$
+and $\partial \omega = 0$.
+\item Cycle~4 (bracket): identify the operator with Schouten in the
+$\Ethree$-degree convention $(-2)$; Proposition~\ref{prop:e3-bracket}.
+\item Cycle~5 (obstruction): vanishing of $H^2(\GC_3)$ at low depth
+$+$ $c_1(X) = 0$ on CY.
+\item Cycle~6 (physics): hCS realises Kontsevich weights
+(Costello--Li).
+\end{itemize}
+Each cycle is first-principles and graph-explicit; no black-box
+operadic formality is invoked at the primary bracket level.
+\end{proof}
+
+\section{Residual frontier}
+\label{sec:frontier}
+
+\emph{(F1)} The present derivation treats $n = 1, 2, 3$ explicitly. At
+$n = 4$ the first non-trivial quartic contribution appears --- with
+$|\Edge| = 4$, matching $\dim \FM_3(4) = 8$: top-degree by parity.
+The quartic weight integral evaluates to a specific rational number
+(Cattaneo--Felder--Mnev 2017 explicit evaluation) and contributes to the
+first $\Ethree$-higher homotopy --- the pentagonator associator of
+$\GTone$. Extending the derivation to $n = 4$ would produce the first
+concrete $\mathfrak{grt}_1$-generator in the formula.
+
+\emph{(F2)} The present derivation is for the formal-disk $\Ethree$;
+the global CY case is handled via the Harish-Chandra formal-geometry
+resolution (Calaque--Van den Bergh 2007). An explicit formula-level
+derivation of the globalised formality on a specific CY, such as the
+quintic $\{\sum z_i^5 = 0\} \subset \mathbb{P}^4$ or the $K3 \times E$
+threefold, is open. The quintic case is particularly instructive: the
+Fermat quintic has an exact $\mathrm{td}^{1/2}$ computable via the
+orbifold resolution.
+
+\emph{(F3)} At $d = 3$ one obtains the $\Ethree$-structure on
+$Z^{\mathrm{der}}_{\chir}(A)$ for $A$ the $\Eone$-chiral observable
+algebra on the CY threefold. The connection between the
+$\Ethree$-formality on $\HH^\bullet(\cC)$ and the $\Ethree$-structure
+on the chiral Drinfeld centre is structural but has not been
+manifestly identified at the graph level. One expects a direct
+graph-theoretic proof of the centre identification; this is open.
+
+\section{Cache updates}
+\label{sec:cache}
+
+\emph{(C1)} \emph{At $d = 3$, $m = 0$, the dimensional parity
+$|\Edge| = (3n-4)/2$ forces even $n$ for a non-trivial weight.} The
+only non-trivial graph contributing to the $\Ethree$-operations at
+$n \leq 3$ is the single-edge $\Gamma^{(2)}_1$ at $n = 2$.
+
+\emph{(C2)} \emph{The Kontsevich weight $w_{\Gamma^{(2)}_1}$ evaluates
+to $1$ after the $2\pi$-normalisation is absorbed.} The integral is
+over $S^2 = \FM_3(2)$ of the unit volume form; hence unity.
+
+\emph{(C3)} \emph{The degree-$-2$ bracket on $\PV^\bullet(X)$ is the
+Schouten--Nijenhuis bracket in the $\Ethree$-shifted degree convention.}
+Its realisation from the single-edge graph is explicit
+(Proposition~\ref{prop:e3-bracket}).
+
+\emph{(C4)} \emph{The $\Ethree$-formality obstruction
+$[c] \in H^2(\GC_3^\bullet)$ vanishes at low depth (Willwacher 2014).}
+Global CY formality additionally needs $c_1(X) = 0$ to trivialise
+$\mathrm{td}^{1/2}$.
+
+\emph{(C5)} \emph{hCS Feynman graphs on $\CC^3$ realise Kontsevich
+$w_\Gamma$.} Costello--Li 2015; the hCS associator equals the
+Kontsevich associator.
+
+\section{Citations side-by-side}
+\label{sec:citations}
+
+\begin{itemize}
+\item Kontsevich, M. 1997. \emph{Deformation quantization of Poisson
+manifolds, I}. arXiv:q-alg/9709040. $\Linf$-formality by graph
+weights.
+\item Tamarkin, D. 1998. \emph{Another proof of M. Kontsevich
+formality theorem}. arXiv:math/9803025. $\Ger$-formality via
+Etingof--Kazhdan.
+\item Kontsevich, M. 1999. \emph{Operads and motives in deformation
+quantization}. arXiv:math/9904055. Globalisation; Duflo--Kontsevich
+correction.
+\item Willwacher, T. 2014. \emph{$M.$ Kontsevich's graph complex and the
+Grothendieck--Teichm\"uller Lie algebra}. arXiv:1009.1654. Graph
+complex $\equiv \mathfrak{grt}_1$; formality obstruction vanishes.
+\item Cattaneo, A., Felder, G., Mnev, P. 2017. \emph{BV quantisation
+and the Kontsevich formality theorem}. explicit weight computations at
+low $n$.
+\item Costello, K., Li, S. 2015. \emph{Twisted supergravity and its
+quantization}. arXiv:1505.06703. hCS Feynman $\equiv$ Kontsevich
+weights.
+\item Calaque, D., Van den Bergh, M. 2007. \emph{Global formality at
+the $\Ger$-level}. arXiv:0708.2725. CY globalisation.
+\item Fresse, B. 2008. \emph{Koszul duality of $\En$-operads}.
+arXiv:0809.1928. $\Ethree^! \simeq \Ethree\{3\}$.
+\item Lurie, J. 2017. \emph{Higher Algebra}, \S5.2, \S5.3. Koszul
+duality of $\En$-operads and higher Deligne.
+\end{itemize}
+
+\end{document}

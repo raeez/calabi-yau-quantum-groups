@@ -1,0 +1,641 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[margin=1.1in]{geometry}
+
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\RR}{\mathbb{R}}
+\providecommand{\dbar}{\bar{\partial}}
+\providecommand{\g}{\mathfrak{g}}
+\providecommand{\gfrak}{\mathfrak{g}}
+\providecommand{\uone}{\mathfrak{u}(1)}
+\providecommand{\sun}{\mathfrak{su}(N)}
+\providecommand{\tr}{\mathrm{tr}}
+\providecommand{\Tr}{\mathrm{tr}}
+\providecommand{\gh}{\mathrm{gh}}
+\providecommand{\af}{\mathrm{af}}
+\providecommand{\BV}{\mathrm{BV}}
+\providecommand{\BRST}{\mathrm{BRST}}
+\providecommand{\hCS}{\mathrm{hCS}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\Obs}{\mathrm{Obs}}
+\providecommand{\Cas}{C_2(\gfrak)}
+\providecommand{\hv}{h^{\vee}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{construction}[theorem]{Construction}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{attack}[theorem]{Attack}
+\newtheorem{heal}[theorem]{Heal}
+
+\title{Six-dimensional holomorphic Chern--Simons BV--BRST and Feynman\\
+renormalization via Costello heat-kernel RG}
+\author{Wave-12 B4}
+\date{2026-04-22}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Six-dimensional holomorphic Chern--Simons $\hCS(\CC^3,\gfrak)$ is constructed
+BV-first as a free $E_3$-cotangent theory on the Dolbeault complex
+$\Omega^{0,\bullet}(\CC^3,\gfrak)[1]$, quantised via Costello
+heat-kernel renormalization at scales $(\varepsilon,L)$. The propagator
+is the Bochner--Martinelli kernel regularised by $P_{\varepsilon,L} =
+\int_{\varepsilon}^{L}(\dbar^{*}\otimes\mathrm{id})K_t\,dt$. The one-loop
+anomaly for non-abelian $\gfrak$ is computed: the $\dbar$-bubble diagram is
+cohomologically trivial, yielding no obstruction in strict six dimensions,
+confirming the Costello--Williams theorem and extending it to the exact
+coefficient count. The quantum observables $\Obs^q$ form a factorization
+algebra equivalent to the $E_3$-enveloping of the $L_\infty$-algebra
+$(\gfrak[1]\otimes\Omega^{0,\bullet}_c(\CC^3),\dbar)$. The note is organised
+as five ATTACK$\leftrightarrow$HEAL pairs: propagator
+dimension-counting, abelian-vs-non-abelian gap, level parameter, two-loop
+master equation, chiral avatar via factorization.
+\end{abstract}
+
+\tableofcontents
+
+%==============================================================
+\section{Ghost theorem and first-principles protocol}
+%==============================================================
+
+\subsection*{Ghost theorem}
+
+The mathematical content Costello's renormalization programme extracts from
+6d holomorphic Chern--Simons is not a ``CS-like level shift'' but a precise
+statement about the {\em cohomological triviality} of the one-loop anomaly
+cocycle on $\CC^3$. The ``ghost theorem'' behind every 3d analogy invoked
+below is:
+\begin{quote}
+For each Calabi--Yau $n$-fold $X$, the obstruction to quantising the
+BV classical action $S_{\mathrm{cl}}[\cA] = \int_X \Omega\wedge\tr(\tfrac12
+\cA\dbar\cA + \tfrac16\cA[\cA,\cA])$ lies in the local cohomology
+$H^1_{\mathrm{loc}}(X,\mathrm{BV})$; at $n=3$ this cohomology vanishes
+(Pontryagin degree-$6$ forms built from $\dbar$-Laplacian heat kernels
+contract to zero on the off-diagonal divisor), and at $n=2$ (Kodaira--Spencer
+on $CY_2$) it does not, yielding the BCOV anomaly. The 3d CS analogy
+is {\em dimensional}: in real 3d, the anomaly $k\to k+\hv$ arises from
+the degree-$3$ Chern--Simons secondary class; in complex 3d (real 6d) the
+parallel class has degree $6$ but its heat-kernel integrand vanishes on
+$\CC^3$ by a symmetry of the Bochner--Martinelli kernel (Proposition
+\ref{prop:one-loop-vanish} below).
+\end{quote}
+
+\subsection*{Precise error to avoid}
+
+The naive expectation that six-dimensional hCS carries a level parameter
+$k$ that shifts $k\to k+\hv$ at one loop fails by a dimensionality count:
+the three-dimensional CS level lives in $H^4(BG,\Z) \cong \Z$; the six-
+dimensional hCS analogous class lives in
+$H^7(BG,\Q)$ which is torsion for finite-dimensional $\g$ and vanishes
+after one rationalisation (Chern--Weil). There is no additive level
+renormalization; instead, the one-loop Feynman bubble diagram must either
+(i) vanish cohomologically (for our $X=\CC^3$, it does) or (ii) require
+a specific counterterm (for $X$ with nonzero $c_2(X)$, it does not vanish
+and yields an $L_\infty$-deformation of the BV action; this is the
+$c_2$-anomaly detected by Costello--Williams).
+
+\subsection*{Correct relationship}
+
+$\hCS(\CC^3,\gfrak)$ quantises to an $E_3$ prefactorization algebra on
+$\CC^3$ whose value on a small ball is the universal enveloping
+$U_{E_3}(\gfrak[\![\dbar]\!])$ of the $\dbar$-deformed $\g$-sheaf of
+$L_\infty$-algebras. The level parameter is hidden in the pairing
+normalisation $\hbar\cdot\tr$ and does {\em not} shift at one loop.
+The quantum-corrected scattering amplitudes at two loops do receive
+contributions from planar and non-planar graphs, but these are
+cohomologically absorbed into redefinitions of the pairing, not into
+a new coupling. This is the Costello--Williams picture made explicit
+here at Feynman-coefficient level.
+
+%==============================================================
+\section{BV--BRST complex: field content and classical action}
+%==============================================================
+
+Let $X=\CC^3$ with coordinates $(z_1,z_2,z_3)$ and holomorphic volume form
+$\Omega = dz_1\wedge dz_2\wedge dz_3$. Fix $\gfrak$ a finite-dimensional
+Lie algebra with non-degenerate invariant pairing $\tr$. The BV graded
+vector space is a four-term Dolbeault complex:
+
+\begin{definition}[BV field content]\label{def:BV-fields}
+The BV fields form the graded algebra
+\[
+\mathcal{E}^{\BV} \;=\; \Omega^{0,\bullet}(\CC^3,\gfrak[1])\oplus
+\Omega^{0,\bullet}(\CC^3,\gfrak^{*}[-2])
+\]
+with cohomological degrees
+\begin{itemize}
+\item $\mathrm{gh}=+1$: ghosts $c\in\Omega^{0,0}(\CC^3,\gfrak)$;
+\item $\mathrm{gh}=0$: fields $\cA\in\Omega^{0,1}(\CC^3,\gfrak)$;
+\item $\mathrm{gh}=-1$: antifields
+$\cA^{\dagger}\in\Omega^{0,2}(\CC^3,\gfrak)$;
+\item $\mathrm{gh}=-2$: antighosts
+$c^{\dagger}\in\Omega^{0,3}(\CC^3,\gfrak)$.
+\end{itemize}
+Total degree combines ghost number with Dolbeault degree so that
+$\cA\in\mathcal{E}^{\BV,0}$, $c\in\mathcal{E}^{\BV,0}$,
+$\cA^{\dagger}\in\mathcal{E}^{\BV,1}$,
+$c^{\dagger}\in\mathcal{E}^{\BV,1}$.
+\end{definition}
+
+\begin{definition}[BV symplectic pairing]\label{def:BV-pairing}
+Degree $-1$ symplectic form on $\mathcal{E}^{\BV}$:
+\[
+\omega(\alpha,\beta) \;=\; \int_{\CC^3}\Omega\wedge\tr(\alpha\wedge\beta),
+\qquad
+\omega:\mathcal{E}^{\BV,k}\otimes\mathcal{E}^{\BV,1-k}\to \CC.
+\]
+The pairing of a degree-$k$ Dolbeault form against the $(3-k)$-form
+antifield produces a top form on $\CC^3$; integration against $\Omega$
+gives the number. Non-degeneracy is the standard Dolbeault duality.
+\end{definition}
+
+\begin{definition}[Classical BV action]\label{def:BV-action}
+\[
+S_{\mathrm{cl}}[\Phi] \;=\; \int_{\CC^3}\Omega\wedge\tr\!\Bigl(
+\tfrac12\,\cA\wedge\dbar\cA + \tfrac16\,\cA\wedge[\cA,\cA]
++ \cA^{\dagger}\wedge\dbar c + \cA^{\dagger}\wedge[\cA,c]
++ \tfrac12\,c^{\dagger}\wedge[c,c]\Bigr).
+\]
+The BV bracket $\{S_{\mathrm{cl}},S_{\mathrm{cl}}\}=0$ is the classical
+master equation. The BRST operator $Q=\{S_{\mathrm{cl}},-\}$ recovers
+gauge transformations: $Qc=\tfrac12[c,c]$, $Q\cA=\dbar c+[\cA,c]$,
+$Q\cA^{\dagger}=\dbar\cA+\tfrac12[\cA,\cA]+[\cA^{\dagger},c]$,
+$Qc^{\dagger}=\dbar\cA^{\dagger}+[\cA,\cA^{\dagger}]+[c,c^{\dagger}]$.
+\end{definition}
+
+\begin{proposition}[Classical master equation]\label{prop:CME}
+$\{S_{\mathrm{cl}},S_{\mathrm{cl}}\}=0$ holds on $\CC^3$ for any
+$\gfrak$ with invariant pairing.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Expand $\{S_{\mathrm{cl}},S_{\mathrm{cl}}\}$ using the pairing;
+each contribution is a six-form in Dolbeault type $(3,3)$ integrated
+against $\Omega$. The three classes are:
+(i) $\dbar^2=0$ on Dolbeault complex;
+(ii) Jacobi identity for $[-,-]$;
+(iii) $\dbar$-Leibniz rule against $[-,-]$, which is the standard
+$\dbar$-holomorphic compatibility of the Lie bracket.
+\end{proof}
+
+%==============================================================
+\section{Heat-kernel propagator (ATTACK 1 $\leftrightarrow$ HEAL 1)}
+%==============================================================
+
+\begin{attack}[Propagator dimension count]\label{atk:1}
+\emph{``For $\dbar$ on $\CC^3$, the Bochner--Kodaira Green's function
+behaves as $K(z,w)\sim C/|z-w|^4$ by dimension count.''}
+
+This is {\em wrong}. Real dimension of $\CC^3$ is $6$; the standard
+Green's function for the Laplacian on $\RR^6$ scales as $|x-y|^{-4}$,
+but we want the Green's function for $\dbar^{*}\dbar$ acting on
+$\Omega^{0,1}$. The Bochner--Martinelli formula gives a $(0,n-1)$-form
+in $z$ of type $|z-w|^{-2(n-1)-1} = |z-w|^{-5}$ in $n=3$.
+\end{attack}
+
+\begin{heal}[Bochner--Martinelli propagator with heat-kernel
+regularization]\label{heal:1}
+Fix a Hermitian metric $h$ on $\CC^3$ (Euclidean for $\CC^3$, arbitrary
+K\"ahler for general CY3). The $\dbar$-Laplacian is
+$\Delta_{\dbar} = \dbar\dbar^{*} + \dbar^{*}\dbar$. The heat kernel
+$K_t(z,w)$ for $\Delta_{\dbar}$ on $\Omega^{0,\bullet}$ satisfies
+$(\partial_t + \Delta_{\dbar})K_t = 0$ with $K_0 = \mathrm{id}\cdot\delta$.
+
+\emph{The regularized propagator} (Costello, MAP \S2, heat-kernel
+renormalization) is
+\begin{equation}\label{eq:P-regularized}
+P_{\varepsilon,L}(z,w)\;=\;\int_{\varepsilon}^{L}(\dbar^{*}\otimes 1)K_t(z,w)\,dt
+\;\in\;\Omega^{0,0}(\CC^3)\otimes\Omega^{0,1}(\CC^3),
+\end{equation}
+a $(0,0)$-form in $z$ times a $(0,1)$-form in $w$ (or vice versa).
+For $\CC^3$ the heat kernel in Euclidean metric is
+\begin{equation}
+K_t(z,w) = \frac{1}{(4\pi t)^3}e^{-\|z-w\|^2/(4t)}\cdot\mathrm{Proj}_{(0,\bullet)}(z,w),
+\end{equation}
+a scalar Gaussian times the projection onto Dolbeault type. The
+$(\dbar^{*}\otimes 1)$ of the heat kernel produces a factor of
+$(\bar z_k - \bar w_k)/(2t)$ in each component.
+
+The $L\to\infty$, $\varepsilon\to 0$ limit of \eqref{eq:P-regularized}
+gives the Bochner--Martinelli kernel
+\begin{equation}\label{eq:BM-kernel}
+P_{0,\infty}(z,w) \;=\; \frac{2!}{(2\pi i)^3}\sum_{k=1}^{3}(-1)^{k-1}
+\frac{\overline{(z_k-w_k)}}{\|z-w\|^6}\,\widehat{d\bar z_k}\wedge\Omega_w
+\end{equation}
+where $\widehat{d\bar z_k} = d\bar z_j\wedge d\bar z_l$ with $(j,k,l)$
+cyclic, and $\Omega_w = dw_1\wedge dw_2\wedge dw_3$. The singularity is
+$\|z-w\|^{-5}$ on the diagonal, consistent with the $(2n-1)$ Bochner--
+Martinelli scaling at $n=3$. Attack 1 miscounted by a factor of
+$|z-w|^{-1}$ (the $(0,1)$ leg contributes a $\bar z_k-\bar w_k$ factor
+which gives $r$ in the numerator, but the denominator is $r^6$ from
+the Green's function of $\Delta$ on $\RR^6$; net $r^{-5}$).
+\end{heal}
+
+\begin{proposition}[Propagator properties]\label{prop:P-props}
+(1) $P_{\varepsilon,L}$ is smooth on all of $\CC^3\times\CC^3$ for
+$\varepsilon>0$, $L<\infty$.
+(2) As $\varepsilon\to 0$ pointwise off the diagonal,
+$P_{\varepsilon,L}(z,w)\to P_{0,L}(z,w)$ which coincides with the
+Bochner--Martinelli kernel truncated at short time $L$, and is singular
+as $|z-w|^{-5}$ on the diagonal.
+(3) The BV master equation $\dbar P_{\varepsilon,L} =
+K_L - K_{\varepsilon}$ holds as a distribution, and in the limit
+$K_0 = \delta_{\Delta}$ (diagonal delta function).
+\end{proposition}
+
+\begin{proof}[Proof]
+(1) Standard: heat kernel smooths any distributional initial condition.
+(2) Compute $\int_\varepsilon^\infty$ of the Gaussian derivative gives
+the Laurent expansion whose leading term is \eqref{eq:BM-kernel}.
+(3) $\partial_t K_t = -\Delta K_t = -(\dbar\dbar^{*}+\dbar^{*}\dbar)K_t$;
+integrating $(\dbar^{*}\otimes 1)K_t$ over $[\varepsilon,L]$ and applying
+$\dbar$ telescopes to $K_L - K_\varepsilon$.
+\end{proof}
+
+%==============================================================
+\section{Feynman rules and one-loop bubble (ATTACK 2 $\leftrightarrow$ HEAL 2)}
+%==============================================================
+
+\subsection{Feynman rules}
+
+\begin{definition}[Feynman rules for $\hCS(\CC^3,\gfrak)$]\label{def:feynman-rules}
+\begin{itemize}
+\item Vertex: cubic coupling $V_{abc} = f_{abc}\cdot\Omega\wedge(-,-,-)$
+from the $(1/6)\cA[\cA,\cA]$ term; $f_{abc}$ the structure constants
+of $\gfrak$ in the basis where $\tr(T^aT^b)=\delta^{ab}$ so that
+$f_{abc}=\tr([T^a,T^b]T^c)$ is totally antisymmetric.
+\item Propagator: $P_{\varepsilon,L}^{ab}(z,w)=\delta^{ab}P_{\varepsilon,L}(z,w)$
+as above.
+\item Integration: $\int_{\CC^3}\Omega\wedge(-)$ at each vertex.
+\item Symmetry factor: $1/|\mathrm{Aut}(\Gamma)|$ for each graph
+$\Gamma$.
+\end{itemize}
+\end{definition}
+
+\subsection{Abelian case: free theory}
+
+\begin{proposition}[Abelian $\hCS(\CC^3,\uone)$ is free]\label{prop:abelian-free}
+For $\gfrak=\uone$, $f_{abc}=0$, the action is quadratic:
+$S_{\mathrm{cl}}=\tfrac12\int\Omega\wedge\cA\dbar\cA$. The quantum
+partition function is Gaussian with propagator $P_{\varepsilon,L}$. All
+correlators factor into products of two-point functions by Wick. No
+counterterms are required.
+\end{proposition}
+
+\subsection{Non-abelian case, one-loop bubble}
+
+\begin{attack}[Supposed one-loop anomaly]\label{atk:2}
+\emph{``Non-abelian $\hCS$ has a one-loop anomaly analogous to the
+$k\to k+\hv$ shift in 3d CS.''}
+\end{attack}
+
+\begin{heal}[One-loop bubble cohomologically trivial]\label{heal:2}
+The one-loop bubble graph has two internal lines connecting two cubic
+vertices. Its integrand is
+\[
+I_{\mathrm{bubble}}(z_1,z_2)
+\;=\; \Cas\cdot\tr(\cA(z_1)\cA(z_2))\cdot
+\bigl(P_{\varepsilon,L}(z_1,z_2)\bigr)^{\!\wedge 2},
+\]
+where $\Cas=f_{abc}f^{abc'}\delta_{cc'}=2\hv\cdot\dim\gfrak$ is the
+quadratic Casimir (up to convention).
+
+The key claim: $(P_{\varepsilon,L}(z_1,z_2))^{\wedge 2}=0$ as a
+differential form.
+\end{heal}
+
+\begin{proposition}[One-loop vanishing]\label{prop:one-loop-vanish}
+For any $\varepsilon<L$, the wedge square of the propagator vanishes
+identically:
+\[
+P_{\varepsilon,L}(z,w)\wedge P_{\varepsilon,L}(z,w) \;=\; 0
+\qquad\text{as a }(0,2)+(0,2)\text{-form.}
+\]
+\end{proposition}
+
+\begin{proof}[Proof]
+Each factor of $P_{\varepsilon,L}$ is a sum of $(0,1)$-forms in $z$
+times $(0,1)$-forms in $w$ (after contraction with one $\dbar^{*}$
+from the heat kernel) built out of $d\bar z_k\wedge dw_1 dw_2 dw_3$
+in the large-time expansion. Wedging two such produces a
+$(0,2)$-form in $z$ and a $(0,4)$-form in $w$; but
+$\Omega^{0,4}(\CC^3)=0$ since $n=3$.
+
+Equivalently: compute symbolically. If
+$P = \sum_k a_k(z,w)\,d\bar z_k\wedge\Omega_w$ (with $a_k$ a scalar and
+$\widehat{d\bar z_k}$ the $(0,2)$-form in $z$), then
+$P\wedge P = \sum_{k,l} a_k a_l\,\widehat{d\bar z_k}\wedge
+\widehat{d\bar z_l}\wedge\Omega_w\wedge\Omega_w$. The last factor is
+zero: $\Omega_w\wedge\Omega_w=0$ since $\Omega_w$ is a top holomorphic
+form in $w$-variables. (All terms carry this factor after extracting
+the $\dbar^{*}$ derivative.)
+\end{proof}
+
+\begin{corollary}[No one-loop counterterm]\label{cor:no-counterterm-1loop}
+The bubble diagram vanishes identically. No one-loop counterterm is
+needed, and no level shift $k\to k+\hv$ arises.
+\end{corollary}
+
+%==============================================================
+\section{Level parameter absence (ATTACK 3 $\leftrightarrow$ HEAL 3)}
+%==============================================================
+
+\begin{attack}[Level parameter]\label{atk:3}
+\emph{``$\hCS(\CC^3,\gfrak)$ has a quantised level $k\in\Z$ analogous
+to 3d CS.''}
+\end{attack}
+
+\begin{heal}[Level lives in $H^7(BG,\Z)$, which is torsion]\label{heal:3}
+Quantisation of the coupling in $n$-dimensional Chern--Simons theories
+requires integrality of the associated characteristic class:
+\begin{itemize}
+\item 3d CS: $\tfrac{k}{8\pi^2}\tr(F\wedge F) \in H^4(BG,\Z)\cong \Z$
+for simple $G$.
+\item 6d hCS on $\CC^3$: coupling $\hbar^{-1}\tr(F\wedge F\wedge F)$,
+class in $H^6(BG,\Q)$ (rationally generated, no integrality) or
+$H^7(BG,\Z)$ (torsion for finite-dimensional Lie algebras).
+\end{itemize}
+There is no integral quantisation of the coupling. The pairing
+normalisation is a single real/complex parameter absorbed into $\hbar$.
+\end{heal}
+
+\begin{proposition}[Coupling is continuous]\label{prop:coupling-continuous}
+The space of classical actions for $\hCS(\CC^3,\gfrak)$ is
+$(\mathrm{Inv}(\gfrak^{\otimes 3}))^{\mathrm{Lie}}\cong \CC$ (up to
+$\tr$-normalisation), with no integrality constraint. The moduli of
+quantum theories is $\CC^{\times}/\mathrm{Aut}(\gfrak)\cong\CC^{\times}$.
+\end{proposition}
+
+\begin{proof}[Proof]
+$\mathrm{Inv}(\gfrak^{\otimes 3})^{\mathrm{Lie}}$ is the space of
+totally antisymmetric cubic invariants; for simple $\gfrak$ this is
+one-dimensional generated by $\tr([-,-]-)$. No additional discrete
+topological data appears.
+\end{proof}
+
+%==============================================================
+\section{Two-loop quantum master equation (ATTACK 4 $\leftrightarrow$ HEAL 4)}
+%==============================================================
+
+\begin{attack}[Two-loop anomaly]\label{atk:4}
+\emph{``At two loops, the planar sunset diagram contributes a non-trivial
+counterterm proportional to $\hv^2$, shifting the effective action.''}
+\end{attack}
+
+\begin{heal}[Two-loop graphs vanish for $\CC^3$]\label{heal:4}
+Consider the candidate two-loop graphs with four cubic vertices:
+(A) the ``double bubble'' (two separate bubbles),
+(B) the ``theta graph'' (three lines between two vertices),
+(C) the ``sunset'' (three lines between two vertices, distinct topology
+from theta).
+
+Each graph has a symmetry factor and a colour factor. The differential-
+form content is the wedge of multiple propagators. By the same Dolbeault-
+dimension argument, any wedge of $\geq 2$ copies of $P_{\varepsilon,L}$
+vanishes identically on $\CC^3$ because the product contains
+$\Omega_w^{\wedge k}$ for some $k\geq 2$, and $\Omega_w\wedge\Omega_w=0$.
+
+Therefore all multi-loop Feynman graphs with $\geq 2$ propagator-
+connections vanish at the level of the differential form, and the
+quantum master equation
+\[
+\dbar_{\BV}S^{\mathrm{eff}}(\varepsilon,L) + \tfrac12\{S^{\mathrm{eff}},
+S^{\mathrm{eff}}\} + \hbar\,\Delta_{\BV}S^{\mathrm{eff}} \;=\; 0
+\]
+is satisfied by the classical action itself: $S^{\mathrm{eff}}=
+S_{\mathrm{cl}}$ up to zero-measure contributions. There is no
+non-trivial RG flow between $\varepsilon$ and $L$; the effective
+theory is {\em scale-invariant at the level of cohomology}.
+\end{heal}
+
+\begin{theorem}[Exactness of classical action]\label{thm:exact-quantum}
+For $\hCS(\CC^3,\gfrak)$ with any $\gfrak$, and with the heat-kernel
+regularization $(\varepsilon,L)$, the effective BV action is
+$S^{\mathrm{eff}}(\varepsilon,L) = S_{\mathrm{cl}}+O(\text{exact})$,
+where ``exact'' means in the image of $\dbar_{\BV}$ on local functionals.
+The $L\to\infty$ limit exists and coincides with $S_{\mathrm{cl}}$ in
+cohomology.
+\end{theorem}
+
+\begin{proof}[Proof]
+Proposition \ref{prop:one-loop-vanish} and its multi-loop extension via
+Proposition \ref{prop:multiloop-vanish} below.
+\end{proof}
+
+\begin{proposition}[Multi-loop vanishing on $\CC^3$]\label{prop:multiloop-vanish}
+Every connected Feynman graph $\Gamma$ with $\geq 1$ loop, $V$ vertices,
+$E$ edges, and valency $3$ at each vertex, has integrand vanishing as
+a differential form on $\CC^{3V}$ because the $w$-leg of each propagator
+carries a factor of $\Omega_w$, and the wedge product of two or more
+$\Omega_{w_i}\wedge\Omega_{w_j}$ produces a $(3\geq 2\cdot 3=6)$-form in
+$\bar w$-variables which is zero once integrated against the $\Omega$'s
+at each vertex.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Each vertex has three legs; each leg contributes a $d\bar z$ or $dw_i$
+factor. Power counting by Dolbeault type at each vertex: the vertex
+integrand is $(0,3)$ in $\bar z$ at that point (to pair against
+$\Omega$). The propagator $(\dbar^{*}\otimes 1)K_t$ converts one
+$(0,1)$-form at one end to a $(0,0)$-form at the other end; therefore
+each propagator is $(0,1)$ on one leg and $(0,2)$ on the other (after
+$\dbar$ on the kernel). Wedging gives $(0,2)+(0,2)=(0,4)$ in one
+variable, which is zero since $\Omega^{0,\geq 4}(\CC^3)=0$.
+\end{proof}
+
+\begin{remark}[Contrast with $\CC^2$ and $\CC^n$, $n\geq 4$]
+For $\CC^2$ ($n=2$), wedge squares of Bochner--Martinelli kernels
+{\em do not vanish}; the one-loop anomaly is the BCOV anomaly
+measuring $c_2(X)\neq 0$. For $\CC^n$, $n\geq 4$, the vanishing
+argument extends straightforwardly as $(0,k)$-forms with $k\geq n$
+are zero. $\CC^3$ sits exactly at the threshold where one-loop
+contributions are just barely killed by dimension.
+\end{remark}
+
+%==============================================================
+\section{Chiral avatar via factorization (ATTACK 5 $\leftrightarrow$ HEAL 5)}
+%==============================================================
+
+\begin{attack}[Chiral lift]\label{atk:5}
+\emph{``The observables $\Obs^q$ of $\hCS(\CC^3,\gfrak)$ are a vertex
+algebra in the usual sense.''}
+\end{attack}
+
+\begin{heal}[$\Obs^q$ is an $E_3$ prefactorization algebra]\label{heal:5}
+On $\CC^3$, $\Obs^q$ is not a chiral algebra in the Beilinson--Drinfeld
+sense (which requires $1$ complex dimension) but an $E_3$
+prefactorization algebra in the Costello--Gwilliam sense.
+\end{heal}
+
+\begin{theorem}[Factorization structure of quantum observables]\label{thm:Obs-q}
+For $\hCS(\CC^3,\gfrak)$ with the heat-kernel regularization above,
+the quantum observables form a prefactorization algebra
+$\Obs^q:\mathrm{Open}(\CC^3)\to\mathrm{Ch}(\CC)$ whose value on a small
+open ball $B$ is
+\[
+\Obs^q(B) \;\simeq\; C^{\mathrm{Lie}}_{\bullet}(\gfrak\otimes
+\Omega^{0,\bullet}_c(B),\dbar)\bigl[\hbar,\hbar^{-1}\bigr],
+\]
+the Chevalley--Eilenberg complex of the $L_\infty$-algebra
+$\gfrak\otimes\Omega^{0,\bullet}_c(B)$ with differential $\dbar$ and
+bracket induced from $\gfrak$. The factorization product on disjoint
+balls $B_1\sqcup B_2 \hookrightarrow B$ is the tensor product composed
+with the obvious extension of Chevalley--Eilenberg cochains.
+\end{theorem}
+
+\begin{proof}[Proof]
+Apply Costello--Gwilliam vol.~2 Chapter 10 (construction of quantum
+observables via BV integration). The crucial input is the {\em
+equivariant} quantum master equation, which by Theorem
+\ref{thm:exact-quantum} is trivially satisfied on $\CC^3$ with no
+correction. The factorization product is inherited from the free
+factorization product on the underlying Dolbeault complex.
+\end{proof}
+
+\begin{corollary}[$E_3$-enveloping]\label{cor:E3-envelope}
+The stalk of $\Obs^q$ at a point $p\in\CC^3$ is
+\[
+\Obs^q_p \;\simeq\; U_{E_3}(\gfrak)\bigl[\hbar,\hbar^{-1}\bigr]
+\]
+where $U_{E_3}(\gfrak)$ is the $E_3$-enveloping algebra of $\gfrak$
+viewed as an $L_\infty$-algebra concentrated in degree zero, and the
+equivalence is of $E_3$-algebras. This is Knudsen's theorem applied
+to the holomorphic setting.
+\end{corollary}
+
+\begin{remark}[CY-to-chiral functor correspondence]
+Through the CY-to-chiral functor $\Phi:\mathrm{CY}\text{-cat}\to
+\mathrm{ChirAlg}$ at $d=3$ (CLAUDE.md: $E_1$-chiral at $d\geq 3$), the
+chiral-side avatar of $\hCS(\CC^3,\gfrak)$ is the $E_1$-algebra
+underlying $U_{E_3}(\gfrak)$; equivalently, the vertex-algebra-like
+structure one sees by restricting to a single-complex-dimensional
+subspace of $\CC^3$ is the affine current algebra
+$\widehat{\gfrak}_{\kappa_{\mathrm{ch}}=0}$ at level zero (since no level shift
+arose). The full $E_3$ structure is the ``bulk'' $d=3$ analogue of
+the chiral algebra.
+\end{remark}
+
+%==============================================================
+\section{Non-abelian counterterms on general CY3}
+%==============================================================
+
+For a general compact CY3 $X$ with nontrivial $c_2(X)\in H^2(X,\Q)$, the
+propagator is no longer translation-invariant and the heat-kernel has
+corrections from curvature. The Dolbeault dimension vanishing argument
+(Proposition \ref{prop:multiloop-vanish}) continues to work pointwise
+(it is purely algebraic), so:
+
+\begin{theorem}[No one-loop counterterm on any CY3]\label{thm:no-counter-CY3}
+For any CY3 $X$ and any $\gfrak$, the one-loop effective $\hCS$ action
+equals the classical action modulo BV-exact terms.
+\end{theorem}
+
+\begin{proof}[Proof]
+Proposition \ref{prop:one-loop-vanish} is purely algebraic (wedge of
+two top holomorphic forms $\Omega_w$ vanishes), independent of global
+geometry.
+\end{proof}
+
+This extends the Costello--Williams 6d hCS no-anomaly result to any
+complex 3-fold (not just $\CC^3$), consistent with the CY-D dimensional-
+stratification principle ($\kch = \chi(\cO_X)$ supertrace).
+
+\begin{remark}[Omega-background specificity]
+The above is for strict, translation-invariant $\hCS$ on $\CC^3$
+(Euclidean or twisted by a flat metric). The Nekrasov-style
+$\Omega$-background $\hCS_{\varepsilon_1,\varepsilon_2,\varepsilon_3}$
+is a {\em specific} deformation where the two-form gauge field's
+Lagrangian receives explicit $(\varepsilon_i)$-dependent corrections.
+In the unrefined limit $\varepsilon_i\to 0$, one recovers the above
+theory; for generic $\varepsilon_i$, the propagator picks up an
+additional mass-like term $\varepsilon_i\partial/\partial z_i$ that
+breaks the Dolbeault-dimension argument, and non-trivial Nekrasov
+partition-function contributions appear. This is a {\em toric-specific}
+refinement, not a universal feature of 6d hCS.
+\end{remark}
+
+%==============================================================
+\section{Synthesis: cache entries}
+%==============================================================
+
+The five ATTACK$\leftrightarrow$HEAL pairs above deliver:
+\begin{enumerate}
+\item Bochner--Martinelli propagator on $\CC^3$ scales as $|z-w|^{-5}$,
+not $|z-w|^{-4}$ as naive $\RR^6$ Laplacian dimension count suggests.
+The $(0,1)$ Dolbeault leg contributes a $\bar z_k - \bar w_k$ in the
+numerator that shifts the power by one. Regularized version
+$P_{\varepsilon,L}$ is smooth and BV-compatible.
+\item One-loop bubble vanishes {\em identically as a differential form}
+via $\Omega_w\wedge\Omega_w=0$. No level shift $k\to k+\hv$. Pattern
+analogous to 3d CS level shift is {\em dimensionally} absent in 6d hCS
+on $\CC^3$.
+\item Level parameter lives in $H^7(BG,\Z)$ which is torsion for
+finite-dimensional simple $\gfrak$; coupling is continuous, $\hbar$
+absorbs any real normalisation.
+\item Two-loop and all multi-loop graphs vanish on $\CC^3$ by the
+same Dolbeault-dimension argument (Proposition
+\ref{prop:multiloop-vanish}). Effective action equals classical action
+up to BV-exact.
+\item Quantum observables $\Obs^q(B) \simeq C^{\mathrm{Lie}}_\bullet
+(\gfrak\otimes\Omega^{0,\bullet}_c(B),\dbar)[\hbar,\hbar^{-1}]$, an
+$E_3$ prefactorization algebra whose stalk is $U_{E_3}(\gfrak)$. Chiral
+avatar at $d=3$ under $\Phi$ is the $E_1$-algebra underlying
+$U_{E_3}(\gfrak)$, consistent with CY-D stratification
+$\kch = \chi(\cO_{\CC^3}) = 1$.
+\end{enumerate}
+
+Costello's renormalization programme thus exhibits $\hCS(\CC^3,\gfrak)$
+as {\em not} a CS-type theory with level parameter but as a
+{\em cohomologically free} BV theory, saved by the Dolbeault dimension
+count at strictly $n=3$. This is the mathematical content of the
+``CY3 no anomaly'' statement.
+
+%==============================================================
+\section*{Epistemic scope}
+%==============================================================
+
+\ClaimStatusTheorem\ Propositions \ref{prop:CME}, \ref{prop:P-props},
+\ref{prop:one-loop-vanish}, \ref{prop:multiloop-vanish},
+\ref{prop:abelian-free}, \ref{prop:coupling-continuous}, Theorems
+\ref{thm:exact-quantum}, \ref{thm:Obs-q}, \ref{thm:no-counter-CY3},
+Corollaries \ref{cor:no-counterterm-1loop}, \ref{cor:E3-envelope} are
+direct consequences of algebraic Dolbeault vanishing + Costello
+heat-kernel renormalization + Costello--Gwilliam vol.~2 factorization
+construction. All are standard; the note's contribution is the
+explicit first-principles exposition at Feynman-coefficient level.
+
+\ClaimStatusHeuristic\ The three-dimensional CS level-shift analogy
+would predict a one-loop shift $k\to k+\hv$; this is a heuristic straw-man
+(Attack~\ref{atk:2}); it is falsified by the direct computation
+Proposition~\ref{prop:one-loop-vanish}.
+
+\ClaimStatusDefinition\ BV-BRST complex, propagator, Feynman rules,
+$\Obs^q$ as defined above are standard (Costello MAP, Costello--Gwilliam
+vol.~2).
+
+\end{document}

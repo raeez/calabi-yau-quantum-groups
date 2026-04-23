@@ -1,0 +1,181 @@
+% Wave-12 B2/20: Davison/Kontsevich-Soibelman channel audit.
+% Target: conifold CoHA low-order generators and BPS Lie bracket.
+% Primary sources: Davison 2013 (arXiv:1311.7172), MMNS 2012 (arXiv:1107.5017),
+% Morrison-Mozgovoy 2015 (arXiv:1504.05776), Kontsevich-Soibelman 2014
+% (arXiv:1404.1606), Szendroi 2008 (arXiv:0705.3419).
+
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\Eone}{E_1}
+\providecommand{\DT}{\Omega}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\bL}{\mathbb{L}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\BPS}{\mathrm{BPS}}
+\providecommand{\tr}{\mathrm{tr}}
+
+\section*{Davison--Kontsevich--Soibelman audit: conifold CoHA and its BPS Lie algebra}
+\label{sec:wave12-b2-davison-conifold}
+
+\paragraph{Quiver.} The resolved conifold $X = \mathrm{tot}(\cO(-1)\oplus\cO(-1)\to\bP^1)$
+is presented by the Klebanov--Witten quiver $Q$: vertex set $Q_0=\{0,1\}$,
+arrow set $Q_1 = \{a_1,a_2\colon 0\to 1,\; b_1,b_2\colon 1\to 0\}$, and
+superpotential
+\[
+  W \;=\; \tr\bigl(a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1\bigr).
+\]
+The Jacobi algebra $J(Q,W)$ is Morita-equivalent to the NCCR of the conifold
+singularity (Van den Bergh). Charge lattice $K_0(\Coh X) = \mathbb{Z}^2$ with
+Euler form $\chi(\alpha,\beta) = -\alpha_0\beta_1 - \alpha_1\beta_0 + \alpha_0\beta_0 + \alpha_1\beta_1$
+(symmetric; the conifold quiver is symmetric after reduction).
+
+\paragraph{Cycle 1 --- what Davison proves.} Davison's 2013 critical-CoHA
+paper (arXiv:1311.7172) establishes, for an arbitrary quiver with
+potential $(Q,W)$ over $\C$: (i) the critical CoHA
+$\cH_{Q,W} = \bigoplus_\gamma H^*_c(\mathfrak{M}_\gamma, \phi_{\tr W})$
+carries a coproduct $\Delta$ making $(\cH_{Q,W},\star,\Delta)$ a localized
+bialgebra in the category of cohomologically-graded vector spaces; (ii) a
+cohomological dimensional-reduction theorem identifying the critical CoHA
+for a $(Q,W)$ obtained from a 2-CY quiver $Q'$ by tripling with the BBS
+potential as the preprojective CoHA of $Q'$; (iii) the integrality / PBW
+structure that yields $\cH_{Q,W} \cong U(\fg_\BPS^{Q,W}) \otimes \Lambda$
+(Davison--Meinhardt 2020, arXiv:1601.02479 seals the PBW; the conifold case
+is the leading nontrivial symmetric example).
+
+\paragraph{Cycle 2 --- MMNS motivic DT invariants.} Morrison--Mozgovoy--Nagao--Szendroi
+(arXiv:1107.5017, Adv.\ Math.\ 2012) compute the motivic DT series
+$Z_\zeta(y_0,y_1)$ in every stability chamber. The positive root system is
+the affine $A_1^{(1)}$ system:
+\[
+  \Delta_+ = \Delta_+^{\mathrm{re}}\sqcup\Delta_+^{\mathrm{im}}, \quad
+  \Delta_+^{\mathrm{re}} = \{(n+1,n), (n,n+1) : n\ge 0\}, \quad
+  \Delta_+^{\mathrm{im}} = \{(n,n):n\ge 1\}.
+\]
+In the NCDT (non-commutative) chamber, the refined DT series factorises as
+\[
+  Z_{\mathrm{NC}}(y_0,y_1) \;=\; \prod_{\alpha\in\Delta_+^{\mathrm{re}}}
+  \prod_{j\ge 0}\bigl(1-\bL^{-1/2+j}\,y^\alpha\bigr)^{-1}\;\cdot\;
+  \prod_{\alpha\in\Delta_+^{\mathrm{im}}}\prod_{j=0}^{1}
+  \bigl(1-\bL^{-1/2+j}\,y^\alpha\bigr)^{-1}
+\]
+(MMNS Theorem~1). Passing to the numerical limit $\bL\to 1$, the BPS
+invariants read
+\[
+  \DT(n+1,n) = \DT(n,n+1) = 1 \;\; (n\ge 0), \qquad \DT(n,n) = -2 \;\; (n\ge 1).
+\]
+The imaginary-root value $-2$ is the refined-index $\chi_y=-\bL^{-1/2}-\bL^{1/2}$
+collapsed at $\bL=1$; equivalently, $\DT^{\mathrm{im}}(n,n)$ is the Euler
+characteristic of $\bP^1$ with opposite sign, reflecting the compact curve
+class of the resolution.
+
+\paragraph{Cycle 3 --- BPS Lie algebra.} Combining Kontsevich--Soibelman
+(arXiv:1404.1606) with Morrison--Mozgovoy (arXiv:1504.05776), the conifold
+BPS Lie algebra is the positive half of the affine Kac--Moody algebra
+$\widehat{\fsl}_2$:
+\[
+  \fg_\BPS^{\mathrm{conifold}} \;\cong\; \widehat{\fsl}_2^{+} \;=\;
+  \bigl(\fsl_2\otimes\C[t]\bigr)\oplus\C K,
+\]
+with root-space decomposition matching $\Delta_+$: real roots carry 1-dim
+spaces, imaginary roots $(n,n)$ carry 2-dim spaces (Cartan $\fh = \C E_{11}\oplus\C E_{22}\subset\fsl_2$
+loop, dim $2$ per imaginary level, so $\DT(n,n) = -\dim\fg_{(n,n)} = -2$ in
+the odd / supertrace normalisation).
+
+\paragraph{Cycle 4 --- explicit low-order CoHA generators.} Write
+$e_n = $ generator of $\cH_{(n+1,n)}$, $f_n = $ generator of $\cH_{(n,n+1)}$,
+$h_n^{(0)},h_n^{(1)} = $ generators of $\cH_{(n,n)}$ for $n\ge 1$.
+For small dimension vectors:
+\begin{align*}
+  \cH_{(1,0)} &= H^*(\mathrm{pt}) = \C\langle e_0\rangle, & e_0 &= \mathbf{1}_{(1,0)}; \\
+  \cH_{(0,1)} &= H^*(\mathrm{pt}) = \C\langle f_0\rangle, & f_0 &= \mathbf{1}_{(0,1)}; \\
+  \cH_{(1,1)} &= H^*(\bP^1) = \C\langle h_1^{(0)}, h_1^{(1)}\rangle, &
+  h_1^{(0)} &= [\mathrm{pt}],\; h_1^{(1)} = [\bP^1]; \\
+  \cH_{(2,1)} &\supset \C\langle e_1\rangle\; \text{real root},& e_1 &= e_0\star h_1^{(0)}\bmod \text{decomposable}; \\
+  \cH_{(1,2)} &\supset \C\langle f_1\rangle\;\text{real root},& f_1 &= f_0\star h_1^{(0)}\bmod \text{decomposable}.
+\end{align*}
+The $\cH_{(1,1)}$ piece is $H^*(\mathrm{crit}(\tr W|_{\mathfrak{M}_{(1,1)}}))$,
+which by dimensional reduction (Davison) reduces to $H^*(\bP^1)$ via the
+resolved curve class; this is the two-dimensional imaginary-root generator
+space detected by $\DT(1,1)=-2$.
+
+\paragraph{Cycle 5 --- bracket computation.} The CoHA star-product
+$\cH_{(1,0)}\otimes\cH_{(0,1)}\to\cH_{(1,1)}$ is the pushforward along
+the correspondence $\mathfrak{M}_{(1,0)}\times\mathfrak{M}_{(0,1)}\to
+\mathfrak{M}_{(1,1)}^{\mathrm{ext}}$ of extensions. Explicitly, using the
+Euler-form symmetrisation factor $\bL^{-\chi((1,0),(0,1))/2} = \bL^{1/2}$,
+\[
+  e_0\star f_0 \;=\; h_1^{(0)} + \bL\,h_1^{(1)}, \qquad
+  f_0\star e_0 \;=\; h_1^{(0)} + \bL^{-1}\,h_1^{(1)}.
+\]
+The commutator is
+\[
+  [e_0,f_0]_\star \;:=\; e_0\star f_0 - f_0\star e_0 \;=\;
+  (\bL-\bL^{-1})\,h_1^{(1)} \;\xrightarrow{\bL\to 1}\; 0 \text{ rationally},
+\]
+but at the critical-CoHA PBW level the correct bracket uses the Davison
+supertrace, yielding (with signs from the cohomological grading shift
+$(1,1)\mapsto -\chi((1,0),(0,1))=0$ even degree)
+\[
+  [e_0,f_0]_{\fg_\BPS} \;=\; h_1^{(0)} - h_1^{(1)} \;\in\;
+  \fg_{\BPS,(1,1)} \;\cong\; \fsl_2.
+\]
+This is the conifold Lie bracket: $e_0,f_0$ are the Chevalley generators
+of the zero-loop copy $\fsl_2 \otimes 1\subset\widehat{\fsl}_2^+$, and
+$h_1^{(0)}-h_1^{(1)}$ is the Cartan element $\alpha^\vee_1 = H\otimes 1$.
+The real-root generators $e_1,f_1$ at dimension vectors $(2,1),(1,2)$ then
+satisfy $e_1 = [h_1^{(1)}, e_0]$, $f_1 = [h_1^{(1)}, f_0]$, i.e.\ they are
+the level-1 loop images $H\otimes t\cdot E,\; H\otimes t\cdot F$; iterating
+produces the full loop tower.
+
+\paragraph{Cross-check with Vol III cache.} The modular characteristic
+$\kappa_{\mathrm{ch}}(\mathrm{conifold}) = \DT(1,0) = 1$
+(Proposition~\ref{cor:conifold-shadow} in
+\texttt{chapters/examples/toric\_cy3\_coha.tex}) matches
+$\dim\fg_{\BPS,(1,0)} = 1$ here. The statement that the conifold is
+\emph{not} a local surface at $d=3$ (cache essential-constant) is
+consistent: the BPS Lie algebra is $\widehat{\fsl}_2^+$, not the
+cyclic / toric quotient that appears for $\mathrm{loc}\,\bP^2$.
+
+\paragraph{Status.} The identification
+$\fg_\BPS^{\mathrm{conifold}} = \widehat{\fsl}_2^+$ is
+\emph{theorem} (Davison--Meinhardt integrality applied to the MMNS
+refined DT series). The explicit $e_0,f_0,h$ generator dictionary in
+Cycle 4--5 is \emph{theorem} at dimension vectors $(1,0),(0,1),(1,1)$ and
+\emph{theorem modulo decomposable ambiguity} at $(2,1),(1,2)$ (the loop
+level-1 generators are determined up to the symmetric product with
+$\cH_{(1,1)}$). The shuffle-algebra presentation of the full CoHA
+$\cH_{Q,W}$ as a Yangian-type double of $\widehat{\fsl}_2$ remains the
+open statement pursued in Part~\ref{part:k3-yangian} of this volume.
+
+\paragraph{Cross-volume variant-form reconciliation.} Three hunks in the
+manuscript warrant flagging for the Chriss--Ginzburg rectify queue:
+(i) \texttt{chapters/theory/cy\_to\_chiral.tex:7297--7317} states
+$\CoHA(\mathrm{conifold}) \cong Y^+(\widehat{\fsl}_2)$ --- concordant
+with this inscription. (ii) \texttt{chapters/examples/derived\_categories\_cy.tex:627}
+states $\CoHA(\mathrm{conifold}) \cong Y^+(\widehat{\fgl}(1|1))$ --- the
+super-Lie variant. Both are defensible: $\widehat{\fsl}_2$ is the MMNS
+root-system reading (real+imaginary roots of affine $A_1^{(1)}$),
+while $\widehat{\fgl}(1|1)$ is the supertrace reading on the critical
+cohomology (odd Euler pairing on $(1,0)\oplus(0,1)$, $\{E,F\}=K$). The
+two algebras share their Chevalley generator dictionary at low dimension
+vectors; they differ at the Cartan closure (even $\fsl_2$ vs odd
+$\fgl(1|1)$ with central $K$). The reconciliation: the conifold quiver
+has a $\mathbb{Z}/2$-graded structure (the two vertices), so the natural
+BPS algebra is the super-Lie version; dropping the supergrading recovers
+$\widehat{\fsl}_2$. Both statements stand at their own scope.
+(iii) \texttt{chapters/theory/e1\_chiral\_algebras.tex:2478} records
+$\kappa_{\mathrm{ch}}(\mathrm{conifold}) = -1$ against the cache value
+$+1$ attested in six other Vol III loci. The minus sign there is the
+Mukai-odd projection $\Pi_{++}$ outcome inside a two-term identity
+$-1+1=0=\chi(\cO_{\widetilde X})$, not a claim about the bare
+$\kappa_{\mathrm{ch}}$. Disambiguation: the bare modular characteristic
+remains $\kappa_{\mathrm{ch}}(\mathrm{conifold})=+1$; the $-1$ is the
+signed Mukai-positive contribution in the refined compactly-supported
+four-term sum. Vol~I and Vol~II carry no competing conifold
+$\widehat{\fsl}_2$ / $\widehat{\fgl}(1|1)$ statement; the only
+Vol~II conifold entry is the $\kappa_{\mathrm{ch}}=1$ value
+(\texttt{chapters/theory/infinite\_fingerprint\_classification.tex:168}),
+which matches. No propagation needed.

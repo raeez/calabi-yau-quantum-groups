@@ -1,0 +1,231 @@
+% Wave-19 P5/20 (relaunch) --- meta-synthesis of the 8-form picture.
+% Drinfeld voice. Chriss--Ginzburg prose. Subscripted $\kappa$.
+% \providecommand only; no AI attribution.
+% Primary sources:
+%   Gritsenko--Cl\'ery 2008 arXiv:0812.3962 (Compos.\ Math.\ 149 (2013) 1563--1593,
+%     Thm.\ 1.1: eight dd-paramodular forms, weights $(5,2,1,1,\tfrac12,1,\tfrac14,0)$);
+%   Gritsenko--Nikulin 1998 alg-geom/9504006 (Internat.\ J.\ Math.\ 9, Part II Thm.\ 2.1):
+%     rank-$3$ BKM tower at $N\in\{1,2,3,4,6\}$;
+%   Borcherds 1998 Invent.\ Math.\ 132, Thm.\ 13.3 (singular-theta weight formula);
+%     Thm.\ 10.1 (metaplectic extension);
+%   Bruinier 2002 LNM 1780, Prop.\ 5.1 (half-integer Borcherds products);
+%   Freitag--Hermann 1985 Analytische Automorphieformen II \S II.5 (spin double cover);
+%   Nikulin 1980 Trudy Mosk.\ Mat.\ Obs.\ 38, Thm.\ 4.5 (admissible K3 orders);
+%   Oberdieck--Pixton 2017 arXiv:1706.10100 (Invent.\ Math.\ 222, Thm.\ 1, primitive DT);
+%   Oberdieck 2018 arXiv:1808.03524 (twisted-twined DT; CHL Conj.\ A);
+%   Bryan--Oberdieck 2018 arXiv:1811.06102 (corrected; CHL CY$_3$ Siegel);
+%   Davison--Meinhardt 2020 arXiv:1512.08898 (cohomological integration; BPS Lie);
+%   Borcea 1997 + Voisin 1993 ($K3\times E$ mirror involutions, $N=5$ host);
+%   Mongardi--Tari--Wandel 2018 arXiv:1610.06216, Thm.\ 1.3 (Kummer-type, $N=8$);
+%   Cheng--Duncan--Harvey 2014 arXiv:1204.2779, Table 2 (CHL admissibility);
+%   Lorgat 2020 arXiv:2007.14218 (explicit $\Delta_5$ Borcherds lift, Conj.\ 1).
+% Wave-19 inputs: W1/W2 (N=1), X1-X4 (N=2,3), Y1-Y4 (N=4,6), Z1-Z4 (N=5,7,8),
+% S1 (structural table), P1-P4 (slide + physical synthesis),
+% Wave-16 V1/V4 (foundational audits, Freitag--Hermann / MTW).
+% Author: Raeez Lorgat. Inscribed 2026-04-22.
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[Thm]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[Conj]}}
+\providecommand{\ClaimStatusOpen}{\textsc{[Open]}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\HH}{\mathbb{H}}
+\providecommand{\Sp}{\mathrm{Sp}}
+\providecommand{\Mp}{\mathrm{Mp}}
+\providecommand{\wt}{\mathrm{wt}}
+\providecommand{\Aut}{\mathrm{Aut}}
+\providecommand{\Auts}{\mathrm{Aut}_{s}}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Kum}{\mathrm{Kum}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\Delfnm}[2]{\Delta_{#1}^{(#2)}}
+\providecommand{\gBPS}{\mathfrak{g}_{\mathrm{BPS}}}
+\providecommand{\gD}[2]{\mathfrak{g}_{\Delta_{#1}^{(#2)}}}
+\providecommand{\Yplus}{Y^{+}}
+\providecommand{\K}{K3}
+\providecommand{\BorLift}{\mathrm{Bor}}
+\providecommand{\BPS}{\mathrm{BPS}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\CHL}{\mathrm{CHL}}
+
+\section*{Wave~19 P5/20: the 8-form picture at programme grade}
+\label{wn:wave19-p5-synthesis-8-forms}
+
+\subsection*{The tableau}
+
+The Gritsenko--Cl\'ery census (2008, Thm.~1.1) lists eight paramodular
+cusp forms $\Delfnm{w_N}{N}$ of simplest (diagonal) divisor, one per
+order $N\in\{1,\ldots,8\}$, with weights
+$(w_1,\ldots,w_8)=(5,2,1,1,\tfrac12,1,\tfrac14,0)$ and constant Jacobi
+heads $c_N(0)=2w_N$. Against the universal Borcherds identity
+$\kBKM(\Phi_N)=c_N(0)/2$, the census separates into a theorem slice
+$N\in\{1,2,3,4,6\}$ (CHL-admissible, $\varphi(N)\mid 2$) and a
+conjectural slice $N\in\{5,7,8\}$ (non-CHL), the two slices resting on
+structurally different CY hosts.
+
+\[
+\begin{array}{c|cccc|llll}
+N & w_N & c_N(0) & \kBKM & \text{host} &
+    \text{geom} & \text{CoHA} & \text{BPS} & \text{auto}\\\hline
+1 & 5     & 10  & 5     & \K\times E                             & \ClaimStatusTheorem     & \ClaimStatusTheorem     & \ClaimStatusConjectured & \ClaimStatusTheorem\\
+2 & 2     & 4   & 2     & (\K\times E)/\Z_2\text{-}\CHL           & \ClaimStatusTheorem     & \ClaimStatusTheorem     & \ClaimStatusConjectured & \ClaimStatusTheorem\\
+3 & 1     & 2   & 1     & (\K\times E)/\Z_3\text{-}\CHL           & \ClaimStatusTheorem     & \ClaimStatusTheorem     & \ClaimStatusConjectured & \ClaimStatusTheorem\\
+4 & 1     & 2   & 1     & (\K\times E)/\Z_4\text{-}\CHL           & \ClaimStatusTheorem     & \ClaimStatusTheorem     & \ClaimStatusConjectured & \ClaimStatusTheorem\\
+5 & 1/2   & 1   & 1/2   & X_5^{\mathrm{BV}}                       & \ClaimStatusConjectured & \ClaimStatusConjectured & \ClaimStatusOpen        & \ClaimStatusTheorem\\
+6 & 1     & 2   & 1     & (\K\times E)/\Z_6\text{-}\CHL           & \ClaimStatusTheorem     & \ClaimStatusTheorem     & \ClaimStatusConjectured & \ClaimStatusTheorem\\
+7 & 1/4   & 1/2 & 1/4   & X_7\text{-gerbe}                        & \ClaimStatusOpen        & \ClaimStatusOpen        & \ClaimStatusOpen        & \ClaimStatusTheorem\\
+8 & 0     & 0   & 0     & X_8^{\mathrm{MTW}}                      & \ClaimStatusConjectured & \ClaimStatusConjectured & \ClaimStatusOpen        & \ClaimStatusTheorem
+\end{array}
+\]
+
+Four corners: \emph{geom} = reduced DT moduli on
+$\gamma\in H_2(X;\Z)_{\mathrm{prim}}$ hosting the Borcherds product
+(MPT~2010, Oberdieck--Pixton 2017, Bryan--Oberdieck 2018);
+\emph{CoHA} = Davison--Meinhardt identification
+$\Yplus(X)=H^{\bullet}_{\mathrm{eq}}(\cM^{+}_{\mathrm{eff}}(X),\phi_W)$;
+\emph{BPS} = bracket-level isomorphism
+$\gBPS(X)\cong\gD{w_N}{N}$; \emph{auto} = Borcherds singular theta
+lift $\BorLift(\psi_{w_N,N}^{\mathrm{EZ}})=\Phi_N$.
+
+\subsection*{The universal identity}
+
+\ClaimStatusTheorem{} \emph{(Borcherds-weight identity across all
+eight rows.)} The identity $\kBKM(\Phi_N)=c_N(0)/2$ holds for
+$N\in\{1,\ldots,8\}$ when $\kBKM$ is read as the weight of the
+singular theta lift. The weight reads directly from the
+$(q^0\zeta^0)$-coefficient of the weak Jacobi input
+$\psi_{w_N,N}^{\mathrm{EZ}}$ by Borcherds 1998 Thm.~13.3, independently
+of integrality of $c_N(0)$ and independently of whether the lift
+carries a BKM denominator. Integer rows $N\in\{1,2,3,4,6\}$ live on
+$\Sp_4(\Z)$ paramodular $\Gamma_t(N)$; the half-integer row $N=5$
+invokes Borcherds 1998 Thm.~10.1 plus Bruinier 2002 Prop.~5.1 on the
+metaplectic cover $\Mp_4(\Z)$; the quarter-integer row $N=7$ sits on
+the Freitag--Hermann 1985 \S II.5 spin double cover; the
+weight-$0$ row $N=8$ is a Siegel modular function with empty
+Weyl chamber. What bifurcates across the CHL horizon is the
+BKM-side \emph{reading} of the identity, not the identity itself.
+
+\subsection*{Structural stratification}
+
+Two obstructions separate the CHL slice from the non-CHL slice.
+
+\emph{Nikulin admissibility.} Symplectic finite-order K3 automorphisms
+are classified by lattice embeddings $\Z/N\hookrightarrow O(L_{K3})$
+(Nikulin 1980 Thm.~4.5); admissible orders are $N\in\{1,\ldots,8\}$.
+The CHL orbifold $(K3\times E)/(\Z/N)$ requires a compatible diagonal
+action on $E$, forcing $\Z[\zeta_N]\hookrightarrow\mathrm{End}(E)$ and
+hence $\varphi(N)\mid 2$, which selects the subset
+$N\in\{1,2,3,4,6\}$. This is the cut not present in the slide material
+(P1): the slides enumerate the full GC family without imposing CHL.
+
+\emph{Character integrality.} The GC character $\chi_N$ is $\Z$-valued
+on the CHL slice; $\chi_5$ on the metaplectic cover takes values in
+$\{\pm 1,\pm i\}$; $\chi_7^{\otimes 2}$ lives on the spin double
+cover; $\chi_8$ reduces to the trivial character.
+
+On the CHL slice the four corners of the status matrix close
+simultaneously. The reduced DT partition function of
+Oberdieck--Pixton, as extended by Bryan--Oberdieck 2018 to the
+CHL quotient, computes
+$Z^{X_N}_{L,1}=-C_N/\Phi_N^{\,2}$ at primitive $K3$-classes
+(theorem; bracket-level BPS $\cong$ BKM away from these classes
+is conjectural, pending AP-CY34 closure of
+$[m_3,B^{(2)}]$-cyclic invariance). The CoHA of Davison--Meinhardt
+recovers $\Yplus(X_N)$ with the correct graded character; the
+primitive Lie subalgebra matches $\gD{w_N}{N}$ at the level of
+root multiplicities. On the non-CHL slice the automorphic corner
+survives but the geometric host deforms.
+
+\emph{$N=5$} (Borcea 1997, Voisin 1993): host is the
+Borcea--Voisin threefold
+$X_5^{\mathrm{BV}}=(S_5\times E_5)/(\iota_S\times\iota_E)$,
+with $\Z/5$ acting on $S_5$ only and $E_5$ carrying an order-two
+involution; the identification
+$(Z^{X_5^{\mathrm{BV}}})^{-1/4}=\Delfnm{1/2}{5}$
+is forced by the square of weight $1/2$ landing on $\Sp_4(\Z)$
+weight $2$ under the Borcherds transfer (Wave-19 Z1).
+
+\emph{$N=7$}: Nikulin's fixed count $\#\,\mathrm{Fix}(g_7)=3$ with
+$\chi(\K^{g_7})/3=0$ obstructs every smooth free $\Z/7$-quotient
+CY$_3$; the host is forced to be singular. Wave-19 Z2 identifies the
+candidate as an order-$4$ gerbe carrying a Cheeger--Simons
+differential character, with the eighth root
+$(Z^{X_7})^{-1/8}=\Phi_7$ realised as a twisted-$K$-theoretic index
+(Mathai--Murray--Stevenson 2002 Thm.~1.2). No smooth compact CY$_3$
+realisation exists.
+
+\emph{$N=8$}: host is the Mongardi--Tari--Wandel Kummer-type fourfold
+quotient $X_8^{\mathrm{MTW}}=\Kum^{3}(A)/(\Z/8)$ (MTW 2018 Thm.~1.3);
+the $(\Z/8)$-action exists only on Kummer-type holomorphic-symplectic
+fourfolds, not on $K3\times E$. The weight-$0$ form $\Delfnm{0}{8}$
+is a Siegel modular function; its associated ``superalgebra''
+collapses to an abelian lattice algebra, all positive-root
+multiplicities on the Weyl-chamber boundary (Wave-16 V4 Cycle~3).
+
+\subsection*{Remaining frontier}
+
+Three problems close the eight-form picture.
+
+\emph{(a) Bracket-level BPS $\cong$ BKM at every $N$.}
+Davison--Meinhardt supplies the Lie bracket on $\gBPS$;
+Gritsenko--Nikulin supplies the BKM bracket on $\gD{w_N}{N}$.
+Matching brackets, not just graded dimensions, requires
+algebraic orientation data on $D^b(\mathrm{Coh}(X_N))$
+(Bojko--Kuhn--Liu) and the strong-orientation PBW theorem for
+compact $3$-CY categories (Kinjo--Park--Safronov 2024
+arXiv:2406.12838). AP-CY34 on cyclic invariance of $[m_3,B^{(2)}]$
+(Wave-18 F3 Costello TCFT input) is the blocker at every $N$.
+
+\emph{(b) $N=7$ singular host.} The obstruction is geometric: no
+smooth compact CY$_3$ admits a free symplectic $\Z/7$-action
+compatible with an elliptic fibre. The quarter-integer character
+$\chi_7^{\otimes 2}$ on the spin double cover is the
+automorphic shadow of a gerbe with differential-character data on
+a singular degeneration. No target-space interpretation of the
+eighth root of the DT zeta is known; the swampland conjecture
+status of the associated throat is open (Wave-19 P4 Cycle~5).
+
+\emph{(c) $N=8$ CY$_4$ scope.} The MTW host $\Kum^{3}(A)$ is a
+holomorphic-symplectic fourfold, not a CY$_3$; its natural
+enumerative object is the Kummer-type DT$_4$ count (Oh--Thomas),
+with the $(\Z/8)$-quotient producing a CY$_3$ only after resolution.
+Whether $\Delfnm{0}{8}$ arises from a CY$_4$ DT$_4$ generating
+function or from the CY$_3$-resolution reduced class is the open
+scope question. Both are consistent with $c_8(0)=0$ and
+$\Delfnm{0}{8}$ degenerating to a modular function.
+
+\subsection*{Preface-grade summary}
+
+The Gritsenko--Cl\'ery census inscribes exactly eight paramodular
+forms $\Delfnm{w_N}{N}$ of simplest diagonal divisor, weights
+$(5,2,1,1,\tfrac12,1,\tfrac14,0)$; by Borcherds's singular-theta weight
+formula, each carries the invariant $\kBKM(\Phi_N)=c_N(0)/2$ extracted
+directly from the $(q^0\zeta^0)$-head of its weak Jacobi precursor,
+producing the sequence
+$\kBKM\in\{5,2,1,1,\tfrac12,1,\tfrac14,0\}$ uniformly across the
+full census. On the Nikulin-admissible CHL slice $N\in\{1,2,3,4,6\}$
+the geometry, CoHA, BPS, and automorphic corners close on a single
+CHL CY$_3$ host $X_N=(K3\times E)/(\Z/N)$: Oberdieck--Pixton reduced
+DT computes $Z^{X_N}_{L,1}=-C_N/\Phi_N^{\,2}$ at primitive classes;
+the Davison--Meinhardt CoHA recovers $\Yplus(X_N)$; its primitive
+Lie subalgebra matches the Gritsenko--Nikulin BKM superalgebra
+$\gD{w_N}{N}$ at the level of root multiplicities; each $\Phi_N$
+arises as the Borcherds singular theta lift. On the non-CHL slice
+$N\in\{5,7,8\}$ the automorphic corner remains a theorem via the
+metaplectic/spin/degenerate extensions, but the geometric host
+deforms: $N=5$ lands on the Borcea--Voisin threefold
+$X_5^{\mathrm{BV}}$ with half-integer root multiplicities, $N=7$
+resists every smooth free $\Z/7$-quotient and requires an
+order-$4$ gerbe on a singular degeneration, $N=8$ lands on the
+Mongardi--Tari--Wandel Kummer fourfold quotient at the degenerate
+weight-$0$ endpoint. The unifying statement is the universal
+identity $\kBKM(\Phi_N)=c_N(0)/2$ for $N\in\{1,\ldots,8\}$; the
+three frontier problems --- bracket-level PBW at every $N$, the
+$N=7$ singular host, the $N=8$ CY$_4$ scope --- locate exactly
+where the four-corner picture requires structure beyond the
+singular theta lift to close.

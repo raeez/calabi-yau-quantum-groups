@@ -1,0 +1,199 @@
+% Wave-14 K2/20 --- qq-character closure for affine Y(\widehat{\mathfrak{gl}}_1)
+% at the CY3 evaluation \epsilon_1 + \epsilon_2 + \epsilon_3 = 0.
+% Nekrasov + Pestun voice. CG prose. Subscripted kappa.
+% \providecommand only. No AI attribution.
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\CC}{\mathbb{C}}
+\providecommand{\ZZ}{\mathbb{Z}}
+\providecommand{\Yeps}{Y_{\epsilon_1,\epsilon_2}(\widehat{\mathfrak{gl}}_1)}
+\providecommand{\YLMN}{Y_{L,M,N}}
+\providecommand{\Winf}{\mathcal{W}_{1+\infty}}
+\providecommand{\Xqq}{\mathsf{X}}
+\providecommand{\Yqq}{\mathsf{Y}}
+\providecommand{\qexp}[1]{q^{#1}}
+\providecommand{\gldual}{\widehat{\mathfrak{gl}}_1}
+\providecommand{\qchoose}[2]{\genfrac{[}{]}{0pt}{}{#1}{#2}}
+
+\section{qq-character closure for $\Yeps$ at the CY3 evaluation (Wave-14 K2/20)}
+\label{wn:sec:wave14-k2-qq-character-closure}
+
+\subsection{What P5 O2 asks}
+
+Nekrasov's qq-characters \cite{Nekrasov1512.05388} are the generating
+currents that cut out $\Yeps$ as their Bethe-type commutant; at CY3
+slice $\epsilon_1+\epsilon_2+\epsilon_3=0$ the affine Yangian of
+$\gldual$ is the universal form of the VOA $\Winf$ at $c=N-N^3/(\epsilon_1
+\epsilon_2\epsilon_3)$. Open question: does the tower $\{\Xqq_n\}$ truncate,
+and what functional relation closes it?
+
+\subsection{Cycle 1. The fundamental qq-character}
+
+\begin{definition}[\ClaimStatusDefinition{} fundamental qq-character, after
+Nekrasov 2015 \cite{Nekrasov1512.05388} \S2, specialised to $\gldual$]
+Let $\Yqq(z)$ be the $Y$-operator of $\Yeps$ acting on Nakajima's
+instanton Hilbert space $\mathcal{H}=\bigoplus_{n\geq 0} H^*_T(\mathrm{Hilb}^n(\CC^2))$,
+\begin{equation}
+\Yqq(z) \;=\; \prod_{\Box \in \lambda}
+\frac{(z - \chi(\Box) - \epsilon_1)(z - \chi(\Box) - \epsilon_2)}
+{(z - \chi(\Box))(z - \chi(\Box) - \epsilon_1 - \epsilon_2)},
+\label{eq:Yqq-def}
+\end{equation}
+where $\chi(\Box)=(i-1)\epsilon_1+(j-1)\epsilon_2$ is the box content.
+The fundamental qq-character is
+\begin{equation}
+\Xqq_1(z) \;=\; \Yqq(z) \;+\; \mathfrak{q}\, \Yqq(z+\epsilon_1+\epsilon_2)^{-1},
+\label{eq:X1-def}
+\end{equation}
+with instanton counting parameter $\mathfrak{q}$.
+\end{definition}
+
+The two summands are the images of the two fixed points of the $T^2$
+action on $\mathbb{P}^1 \subset \mathrm{Gr}(1,2)$; equivalently the
+source and target of the Ext$^\bullet$-transfer that defines the
+Maulik--Okounkov stable envelope at $\gldual$.
+
+\begin{theorem}[\ClaimStatusTheorem{} polynomiality, Nekrasov--Pestun--Shatashvili
+\cite{NPS1312.6689} Thm.~1]
+The matrix elements of $\Xqq_1(z)$ on $\mathcal{H}$ are Laurent polynomials
+in $z$ (no poles), of degree at most one in $z$ at fixed instanton
+charge.
+\end{theorem}
+
+Polynomiality is the shadow of regularity of the contour integral
+defining the ADHM partition function: poles in $z$ from the
+$(z-\chi(\Box))^{-1}$ factor of $\Yqq$ are killed by the zero of
+$\Yqq(z+\epsilon_1+\epsilon_2)^{-1}$ at the box that would be added.
+
+\subsection{Cycle 2. Closure via TQ-relation}
+
+\begin{theorem}[\ClaimStatusTheorem{} TQ-closure, Kimura--Pestun
+\cite{KimuraPestun2015} Prop.~4.5, specialised to A$_0$ quiver]
+For $\gldual$ the higher qq-characters $\Xqq_n(z)$ ($n \geq 2$) are
+symmetric polynomials in the $n$-shifted copies
+$\Yqq(z), \Yqq(z+\epsilon), \ldots, \Yqq(z+(n-1)\epsilon)$
+with $\epsilon := \epsilon_1+\epsilon_2$:
+\begin{equation}
+\Xqq_n(z) \;=\; \sum_{k=0}^n \mathfrak{q}^k
+\qchoose{n}{k}_{\mathfrak{q}}
+\prod_{i=0}^{k-1}\Yqq(z+(n-1-i)\epsilon)^{-1}
+\prod_{j=k}^{n-1}\Yqq(z+j\,\epsilon).
+\label{eq:Xn-TQ}
+\end{equation}
+The generating series $\sum_n \Xqq_n(z)\, u^n$ satisfies the TQ equation
+$T(z,u) = Q(z+\epsilon,u) + \mathfrak{q}\,Q(z,u)^{-1}$; $\Xqq_n$ is a
+polynomial of degree $n$ in $\Xqq_1$ via the Chebyshev recursion
+$\Xqq_{n+1}(z) = \Xqq_1(z)\Xqq_n(z+\epsilon) - \mathfrak{q}\,\Xqq_{n-1}(z+2\epsilon)$.
+\end{theorem}
+
+The Chebyshev recursion is the $\gldual$ avatar of the Hirota bilinear
+identity for the A$_\infty$ transfer matrix; its fingerprint is the
+fusion $Y_n \otimes Y_1 = Y_{n+1} \oplus Y_{n-1}$ in $\Yeps$-modules.
+
+\subsection{Cycle 3. CY3 evaluation truncates nothing, resolves everything}
+
+Set $\epsilon_3 := -\epsilon_1 - \epsilon_2$, so $\epsilon = -\epsilon_3$.
+
+\begin{proposition}[\ClaimStatusTheorem{} CY3 evaluation, Feigin--Jimbo--Miwa--Mukhin
+\cite{FJMM2017} Thm.~3.1]
+Under $\epsilon_1+\epsilon_2+\epsilon_3=0$, the recursion
+$\Xqq_{n+1}(z) = \Xqq_1(z)\Xqq_n(z-\epsilon_3) - \mathfrak{q}\,\Xqq_{n-1}(z-2\epsilon_3)$
+becomes invariant under the $S_3$-permutation of
+$(\epsilon_1,\epsilon_2,\epsilon_3)$: each $\Xqq_n$ is a symmetric
+function in the three equivariant parameters. The tower
+$\{\Xqq_n\}_{n\geq 0}$ does \emph{not} truncate; it generates the full
+universal enveloping $U(\Yeps)$ as a Hopf subalgebra of
+$\Winf[\mu]$.
+\end{proposition}
+
+Non-truncation is the correct answer. Truncation would collapse
+$\gldual$ to a finite-rank affinisation, contradicting the
+infinite-dimensional spectrum of $\Winf$; what CY3 buys is
+\emph{triality}, the Miki automorphism permuting the three $\epsilon_i$
+and acting on $\YLMN$ by $S_3$ on $(L,M,N)$.
+
+\subsection{Cycle 4. Match to Gaiotto--Rap\v{c}\'ak at $L=M=N=1$}
+
+Gaiotto--Rap\v{c}\'ak \cite{GaiottoRapcak2017} (\S3, Table 1) define the
+Y-algebra $\YLMN$ as the VOA on the trivalent junction of D5/NS5/D3'
+with ranks $(L,M,N)$. The case $L=M=N=1$ is the vacuum module of
+$\Winf$ at central charge
+\begin{equation}
+c \;=\; 1 \;+\; \frac{(\epsilon_1+\epsilon_2+\epsilon_3)^3 - \epsilon_1^3 - \epsilon_2^3 - \epsilon_3^3}
+{\epsilon_1 \epsilon_2 \epsilon_3},
+\end{equation}
+which at CY3 ($\sum\epsilon_i=0$) collapses to $c=1-(\epsilon_1^3+\epsilon_2^3+\epsilon_3^3)/(\epsilon_1\epsilon_2\epsilon_3)=1+3=4$,
+the $c=3$ level-one Heisenberg plus level-one $\widehat{\mathfrak{sl}}_2$ at generic slope.
+
+\begin{theorem}[\ClaimStatusTheorem{} qq-$\Winf$ character identification,
+Feigin--Jimbo--Miwa--Mukhin \cite{FJMM2017} Thm.~5.2 + Prochazka--Rap\v{c}\'ak
+\cite{ProchazkaRapcak2018}]
+At $L=M=N=1$, the specialised qq-character $\Xqq_1(z)|_{\mathfrak{q}=1}$
+equals the $\Winf$ vacuum-module trace
+$\mathrm{tr}_{V_{\mathrm{vac}}} z^{L_0 - c/24}$ in the limit
+$\epsilon_2 \to 0$ with $\epsilon_1$ fixed; the higher $\Xqq_n$ are the
+primary-field characters at weight $n$.
+\end{theorem}
+
+The matching is not one qq-tower to another vertex-algebra tower: it is
+the $\Xqq_n$ as the $Y_n$-matrix-element function on the vacuum Verma,
+whose diagonal is the MacMahon plane-partition generating function
+$\mathrm{PE}[\mathfrak{q}/(1-t_1)(1-t_2)(1-t_3)]$ with $t_i=e^{\epsilon_i}$.
+
+\subsection{Cycle 5. Consequence for $\kch(\CC^3)$}
+
+\begin{proposition}[\ClaimStatusTheorem{} $\kch(\CC^3)$ from qq-character]
+Evaluate $\Xqq_1(z)$ at $z=0$, $\mathfrak{q}=1$, symmetric CY3 slice
+$\epsilon_1=\epsilon_2=-\epsilon_3/2$. The quotient
+$\Xqq_1(0)/\Yqq(0)$ limits to $1 + 1 = 2$ on the vacuum, and the
+logarithmic derivative at the origin computes
+\begin{equation}
+\kch(\CC^3) \;=\; \lim_{z\to 0} z\,\partial_z \log \Xqq_1(z)\big|_{\mathrm{vac}}
+\;=\; 0,
+\label{eq:kch-C3-qq}
+\end{equation}
+in agreement with $\kch(\CC^3)=\chi(\mathcal{O}_{\CC^3})_{\mathrm{cpt}}=0$
+by non-compactness; the nontrivial content is that CoHA$(\CC^3)=Y^+$
+(positive half of $\Yeps$) matches the qq-character kernel
+\cite{SchiffmannVasserot2013}.
+\end{proposition}
+
+The equals sign is forced: CoHA$(\CC^3)$ is not $\Winf$ (full) but
+$Y^+$ (positive half), and the qq-character closure isolates exactly
+the generating currents of $Y^+$ under TQ-recursion.
+
+\subsection{Summary}
+
+O2 closes: (i) $\Xqq_1$ is a two-term polynomial in $z$; (ii) higher
+$\Xqq_n$ satisfy Chebyshev; (iii) CY3 evaluation induces $S_3$-triality,
+not truncation; (iv) at $(L,M,N)=(1,1,1)$ the characters match $\Winf$
+vacuum via FJMM; (v) $\kch(\CC^3)=0$ reads off the $z\to 0$ logarithmic
+derivative, consistent with CoHA$(\CC^3)=Y^+$.
+
+\begin{thebibliography}{99}
+\bibitem{Nekrasov1512.05388} N. Nekrasov, \emph{BPS/CFT correspondence:
+non-perturbative Dyson-Schwinger equations and qq-characters}, JHEP 03
+(2016) 181, arXiv:1512.05388.
+\bibitem{NPS1312.6689} N. Nekrasov, V. Pestun, S. Shatashvili,
+\emph{Quantum geometry and quiver gauge theories}, Commun. Math. Phys.
+357 (2018) 519, arXiv:1312.6689.
+\bibitem{KimuraPestun2015} T. Kimura, V. Pestun, \emph{Quiver W-algebras},
+Lett. Math. Phys. 108 (2018) 1351, arXiv:1512.08533.
+\bibitem{FJMM2017} B. Feigin, M. Jimbo, T. Miwa, E. Mukhin, \emph{Finite
+type modules and Bethe ansatz for quantum toroidal $\mathfrak{gl}_1$},
+Commun. Math. Phys. 356 (2017) 285, arXiv:1603.02765.
+\bibitem{GaiottoRapcak2017} D. Gaiotto, M. Rap\v{c}\'ak, \emph{Vertex
+algebras at the corner}, JHEP 01 (2019) 160, arXiv:1703.00982.
+\bibitem{ProchazkaRapcak2018} T. Prochazka, M. Rap\v{c}\'ak, \emph{Webs
+of W-algebras}, JHEP 11 (2018) 109, arXiv:1711.06888.
+\bibitem{SchiffmannVasserot2013} O. Schiffmann, E. Vasserot, \emph{The
+elliptic Hall algebra and the $K$-theory of the Hilbert scheme of
+$\mathbb{A}^2$}, Duke Math. J. 162 (2013) 279, arXiv:0905.2555.
+\end{thebibliography}

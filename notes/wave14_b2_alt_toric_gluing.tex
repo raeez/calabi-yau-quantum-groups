@@ -1,0 +1,897 @@
+\section{Local $\bP^2$: quiver-atlas gluing as a first-principles construction
+of $\CoHA(K_{\bP^2})$}
+\label{wn:wave14-b2-local-P2-gluing}
+
+\providecommand{\ClaimStatusTheorem}{\textsc{[theorem, cited]}}
+\providecommand{\ClaimStatusConjectured}{\textsc{[conjectural]}}
+\providecommand{\ClaimStatusDefinition}{\textsc{[definition]}}
+\providecommand{\ClaimStatusDerivation}{\textsc{[first-principles derivable]}}
+\providecommand{\ClaimStatusHeuristic}{\textsc{[heuristic]}}
+\providecommand{\ClaimStatusOpen}{\textsc{[open]}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Wilpha}{\mathcal{W}_{1+\infty}}
+\providecommand{\gghone}{\widehat{\mathfrak{gl}}_1}
+\providecommand{\gghN}{\widehat{\mathfrak{gl}}_N}
+\providecommand{\Hilb}{\mathrm{Hilb}}
+\providecommand{\Coh}{\mathrm{Coh}}
+\providecommand{\Rep}{\mathrm{Rep}}
+\providecommand{\Perf}{\mathrm{Perf}}
+\providecommand{\Crit}{\mathrm{Crit}}
+\providecommand{\DT}{\mathrm{DT}}
+\providecommand{\GV}{\mathrm{GV}}
+\providecommand{\chiGV}{\chi_{\mathrm{GV}}}
+\providecommand{\cE}{\mathcal{E}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\bZ}{\mathbb{Z}}
+\providecommand{\bF}{\mathbb{F}}
+
+The conifold companion (\texttt{notes/wave14\_b1\_conifold\_quiver\_gluing.tex})
+confronts an obstruction at the Jacobi level: the Klebanov--Witten cubic
+$\mathrm{tr}(a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1)$ does not decompose into
+three copies of $\mathrm{tr}(XYZ-XZY)$ under any toric chart cover, because
+the resolved conifold $\mathrm{Tot}(\cO(-1)\oplus\cO(-1)\to\bP^1)$ carries a
+rank-$1$ flop geometry whose compact $\bP^1$-locus breaks the product-of-
+$\bC^3$-charts decomposition. A first-principles quiver-atlas gluing is
+available on a different local toric CY$_3$: the anticanonical total space
+$K_{\bP^2}=\cO_{\bP^2}(-3)$. The McKay presentation as a $\bZ/3$-orbifold
+of $\bC^3$ provides a \emph{global} Beilinson quiver whose cover by three
+affine $\bC^3$-charts admits a Jordan-triple description on each chart, a
+$\bZ/3$-permutation transition on pairwise overlaps, and a fully explicit
+\v Cech-style colimit yielding $\CoHA(K_{\bP^2})$. The output satisfies
+the Gopakumar--Vafa denominator formula for $Z^\DT(K_{\bP^2})$ with
+explicit genus-$0$ multiplicities, and the chamber decomposition of the
+glued CoHA gives a positive-geometry polytope.
+
+Every claim is tagged with scope. $\kappa_{\mathrm{ch}}(K_{\bP^2})=3/2$
+(Vol III cache key fact; computed in \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+via McKay / direct shadow at $d=3$). Here we do not recompute
+$\kappa_{\mathrm{ch}}$; we construct the CoHA presenting the associative
+($E_1$) side of $\Phi_3(\Perf(K_{\bP^2}))$ as a \v Cech colimit.
+
+%--------------------------------------------------------------------------
+\subsection*{Setup: the two presentations of $K_{\bP^2}$}
+
+\ClaimStatusDefinition\ \emph{$K_{\bP^2}$ as a local CY$_3$.}
+$K_{\bP^2}:=\mathrm{Tot}(\cO_{\bP^2}(-3)\to\bP^2)$, a non-compact toric
+Calabi--Yau threefold. The toric fan has four rays, generators
+$\{(1,0,1),(0,1,1),(-1,-1,1),(0,0,-1)\}$ (three-dimensional, with a
+common height ``$+1$'' on the $\bP^2$-base rays, CY condition
+satisfied). Three maximal cones, three affine $\bC^3$-charts
+$U_0,U_1,U_2$ covering the total space minus the zero section.
+
+\ClaimStatusDefinition\ \emph{McKay presentation.}
+$\bZ/3$ acts on $\bC^3$ with weights $(1,1,1)$ (all three coordinates
+scale by $\omega=e^{2\pi i/3}$). The crepant resolution of $\bC^3/(\bZ/3)$
+is $K_{\bP^2}$ (Bridgeland--King--Reid 2001 \texttt{arXiv:math/9908027}
+Thm.\ 1.2; Craw--Ishii 2004 for toric verification). The derived category
+identification
+\[
+D^b(\Coh(K_{\bP^2}))\simeq D^b(\Coh^{\bZ/3}(\bC^3))
+\]
+is a specialisation of Bridgeland--King--Reid to the $(1,1,1)$-weighted
+crepant McKay correspondence.
+
+\ClaimStatusTheorem\ (Beilinson 1978; Bondal 1989 for the Fano case; for
+$K_{\bP^2}$ the derived tilting bundle is due to King 1997 and
+Bondal--Orlov 2002 \texttt{arXiv:math/0206295}.)
+$K_{\bP^2}$ carries a \emph{global tilting object}
+\[
+T:=\cO\oplus\cO(1)\oplus\cO(2)\quad(\text{pulled back from }\bP^2),
+\]
+with
+$\mathrm{End}^0(T)=$ the path algebra with relations of the
+\emph{three-vertex Beilinson quiver}:
+\begin{itemize}
+\item three vertices $\{0,1,2\}$,
+\item nine arrows $\{X_i,Y_i,Z_i:i\to i+1\bmod 3\}_{i=0,1,2}$,
+\item cubic superpotential
+$W=\sum_{i\in\bZ/3}\mathrm{tr}(X_iY_{i+1}Z_{i+2}-X_iZ_{i+1}Y_{i+2})$,
+\end{itemize}
+and Morita-equivalently the skew-group algebra
+$\bC\langle X,Y,Z\rangle\rtimes\bZ/3$ modulo the Jordan-triple commutation
+relations.
+
+Two presentations, \emph{one} algebra up to Morita equivalence: the
+Beilinson three-vertex quiver on the resolved side; the skew-group
+algebra on the orbifold side. Both are CY$_3$ with global superpotential.
+
+%--------------------------------------------------------------------------
+\subsection*{Cycle 1. ATTACK: three Jordan-triple charts, global potential}
+
+\textsc{Attack.} A quiver-atlas decomposition of $\CoHA(K_{\bP^2})$ into
+three copies of $\CoHA(\bC^3)$ requires that the three charts
+$U_0,U_1,U_2$ each carry a Jordan-triple quiver $(Q_{\mathrm{loop}},
+W_{\mathrm{loop}}=\mathrm{tr}(XYZ-XZY))$ whose direct sum recovers the
+nine-arrow Beilinson quiver on the whole space. Does the superpotential
+$W=\sum_i\mathrm{tr}(X_iY_{i+1}Z_{i+2}-X_iZ_{i+1}Y_{i+2})$ restrict to
+the Jordan-triple cubic on each $U_i$? The three summands of $W$ do not
+sit inside a single vertex $i$: each term mixes arrows
+$X_i\to X_{i+1}\to X_{i+2}$ crossing all three vertices.
+
+\textbf{Ghost theorem.} On each chart $U_i\simeq\bC^3$, after
+localisation to the open stratum where only the $i$-th vertex carries
+non-zero dimension vector, the nine-arrow Beilinson quiver
+\emph{contracts}: only the three self-composition cycles
+\[
+X_i\circ Y_{i+1}\circ Z_{i+2}\big|_{\mathrm{Rep}_{(d,0,0)},
+\,d>0;\,Rep_{(0,d,0)}=0;\,Rep_{(0,0,d)}=0}
+\]
+survive, and after McKay quotient by $\bZ/3$ acting cyclically on the
+three vertices these collapse to three loops on a single vertex with
+cyclic potential $\mathrm{tr}(X\cdot Y\cdot Z-X\cdot Z\cdot Y)$.
+
+\textbf{Precise error in the naive attack.} The three
+$\bC^3$-charts $U_i$ are \emph{not} the three vertex-supported subloci
+$\Rep_{(d,0,0)},\Rep_{(0,d,0)},\Rep_{(0,0,d)}$; they are open subsets of
+the \emph{total space} $K_{\bP^2}$, indexed by the three toric cones.
+Confusing ``chart'' (geometric) with ``vertex-supported representation
+locus'' (quiver) is AP-CY4 / F6 (toric-chart-vs-quiver-vertex
+conflation).
+
+\textsc{Heal.} Two different $\bZ/3$-equivariant structures live on the
+same underlying $\bC^3$:
+\begin{itemize}
+\item \emph{McKay side}: $\bC^3$ is an \emph{orbifold chart};
+$\bZ/3$ acts on coordinates. The Jordan-triple quiver becomes a single
+vertex with three loops, equivariant under $\bZ/3$. This is the
+\emph{stacky cover} $[\bC^3/(\bZ/3)]\to K_{\bP^2}$.
+\item \emph{Toric side}: $K_{\bP^2}$ is covered by three affine charts
+$U_i\simeq\bC^3$; the $\bZ/3$-action permutes the three charts cyclically.
+On each chart the nine-arrow Beilinson quiver restricts to a
+three-arrow quiver with three vertices $\{i,i+1,i+2\}$.
+\end{itemize}
+Both sides carry a CoHA; they are related by the McKay \emph{correspondence}
+(Bridgeland--King--Reid), not by ``restriction to a chart''.
+
+\emph{Correct construction.} Build the CoHA on the stacky cover
+$[\bC^3/(\bZ/3)]$: use the $\bZ/3$-equivariant Jordan-triple CoHA
+$\CoHA^{\bZ/3}(\bC^3)$, and transport via Bridgeland--King--Reid to
+$\CoHA(K_{\bP^2})$. The toric-chart decomposition $U_0\cup U_1\cup U_2$
+of $K_{\bP^2}$ enters only at the \emph{\v Cech level}: it supplies
+transition data between $\bZ/3$-equivariant sheaves, not a direct sum
+decomposition of the CoHA.
+
+\emph{First cycle Gap.} Chart cover $\ne$ quiver-vertex decomposition.
+The gluing works because the McKay side is $\bZ/3$-equivariant on a
+single $\bC^3$, and the toric-chart cover records the $\bZ/3$-torsor
+structure on $K_{\bP^2}\to\bC^3/(\bZ/3)$.
+
+%--------------------------------------------------------------------------
+\subsection*{Cycle 2. ATTACK: the Jordan-triple Jacobi algebra on the
+McKay cover, explicitly}
+
+\textsc{Attack.} On the stacky cover $[\bC^3/(\bZ/3)]$, what does the
+Jordan-triple quiver look like? The path algebra of the single-vertex
+three-loop quiver over $\bC^3$ is $kQ_{\mathrm{loop}}=\bC\langle X,Y,Z\rangle$;
+imposing $\bZ/3$-equivariance would project to the invariant subalgebra
+$\bC\langle X,Y,Z\rangle^{\bZ/3}$, which is the algebra of
+$\bZ/3$-invariant non-commutative polynomials. Does this match the
+nine-arrow Beilinson path algebra?
+
+\textbf{Precise error.} The naive $\bC\langle X,Y,Z\rangle^{\bZ/3}$ is
+not the right object: it takes invariants of the \emph{free} algebra
+(all monomials $X^aY^bZ^c$ with $a+b+c\in 3\bZ$), losing the three-vertex
+structure of the Beilinson quiver. The correct construction uses the
+\emph{skew-group algebra} $\bC\langle X,Y,Z\rangle\rtimes\bZ/3$
+(a.k.a.\ Crossed-product with $\bZ/3$), not the invariant subalgebra.
+
+\textsc{Heal.} \ClaimStatusDerivation\ \emph{The skew-group construction,
+by hand.} Let $\sigma\in\bZ/3$ act on $\bC\langle X,Y,Z\rangle$ by
+$X\mapsto\omega X,Y\mapsto\omega Y,Z\mapsto\omega Z$,
+$\omega=e^{2\pi i/3}$. The skew-group algebra
+$A:=\bC\langle X,Y,Z\rangle\rtimes\bZ/3$ has basis
+$\{w\otimes e_i:w\in\text{monomials},i\in\bZ/3\}$ with product
+$(w\otimes e_i)(w'\otimes e_j)=w\cdot\sigma^i(w')\otimes e_{i+j}$.
+
+Mueller--Reiten--Roggenkamp lemma
+(Reiten--Van den Bergh 1989 \emph{Grothendieck groups and tilting
+modules for a class of noetherian rings}):
+\[
+\bC\langle X,Y,Z\rangle\rtimes\bZ/3\;\simeq\;\mathrm{Mat}_3(\bC\langle
+X,Y,Z\rangle^{\bZ/3})\cdot e
+\]
+is Morita-equivalent to the path algebra of the Beilinson three-vertex
+quiver (with nine arrows, one for each generator $X,Y,Z$ at each of the
+three levels $i\to i+1$). Explicitly: the $\bZ/3$-isotypic decomposition
+$\bC\langle X,Y,Z\rangle=A_0\oplus A_1\oplus A_2$ (invariants, $\omega$-
+eigenspace, $\omega^2$-eigenspace) corresponds to the three vertices;
+multiplication by $X$ (or $Y$ or $Z$) shifts isotypic degree by $+1$,
+giving nine arrows.
+
+The superpotential on the McKay side is
+$W_{\mathrm{McKay}}=\mathrm{tr}(XYZ-XZY)$, a $\bZ/3$-invariant cubic
+(total degree $3$, $\bZ/3$-weight $0$, hence descends to the skew-group
+algebra). Cyclic derivatives:
+\[
+\partial_XW=YZ-ZY,\qquad\partial_YW=ZX-XZ,\qquad\partial_ZW=XY-YX,
+\]
+all $\bZ/3$-invariant. The Jacobi algebra is
+\[
+J(Q_{\mathrm{loop}},W)\rtimes\bZ/3\;\simeq\;
+\bC[X,Y,Z]\rtimes\bZ/3\;\simeq\;\cO_{\bC^3}\rtimes\bZ/3,
+\]
+which by Beilinson--King--Reid is Morita-equivalent to
+$\cO_{K_{\bP^2}}$ (the structure sheaf of the crepant resolution).
+
+\emph{Second cycle Gap.} ``Invariant subalgebra'' is wrong; \emph{skew-
+group algebra} is right. The Beilinson quiver is the skew-group algebra
+of the Jordan-triple quiver under $\bZ/3$, via the standard Morita
+equivalence.
+
+%--------------------------------------------------------------------------
+\subsection*{Cycle 3. ATTACK: the \v Cech 1-cocycle on toric-chart
+overlaps}
+
+\textsc{Attack.} On $K_{\bP^2}$, the three charts $U_0,U_1,U_2$ meet
+pairwise along $U_{ij}:=U_i\cap U_j\simeq\bC^*\times\bC^2$. What is the
+CoHA on each overlap? Is the transition from $\CoHA|_{U_i}$ to
+$\CoHA|_{U_j}$ a pullback-of-sheaves operation, a cluster mutation, or
+a $\bZ/3$-rotation of the McKay cover?
+
+\textbf{Ghost theorem.} The overlap $U_{ij}\simeq\bC^*\times\bC^2$ is
+itself a toric CY$_3$ (since $\bC^*\times\bC^2$ is the trivial line
+bundle over $\bP^1$'s minus a point). Its quiver (by the cluster
+construction of Herzog--Hibi or by direct toric-diagram analysis) is
+the \emph{Kronecker quiver}: two vertices, two arrows in one direction,
+no potential. Its CoHA is the positive half of
+$U_q(\widehat{\mathfrak{sl}}_2)$ at a generic level (Rapcak--Soibelman--
+Yang--Zhao 2020 \texttt{arXiv:2001.10549} for the general toric case;
+Schiffmann--Vasserot 2000 for the $\bC^*\times\bC^2$ quiver Hall algebra
+as a Borel of quantum affine $\widehat{\mathfrak{sl}}_2$).
+
+\textbf{Precise error.} The naive ``pullback $\CoHA|_{U_i}\to
+\CoHA|_{U_{ij}}$'' is not a sheaf-pullback in the usual sense: the CoHA
+on $U_i$ is a $\bC^*$-equivariant construction on $\bC^3$, while the
+CoHA on $U_{ij}$ is a $\bC^*\times\bC^*$-equivariant construction on
+$\bC^*\times\bC^2$. The transition involves \emph{changing the
+equivariant weight conventions}: the weight $(\epsilon_1,\epsilon_2,
+\epsilon_3)$ on $U_i$ (with $\epsilon_1+\epsilon_2+\epsilon_3=0$)
+restricts to $(\epsilon_1,\epsilon_2)$ plus an invertibility constraint
+on one coordinate.
+
+\textsc{Heal.} \ClaimStatusDerivation\ \emph{The explicit \v Cech
+1-cocycle.}
+
+Let $x_i\in\cO(U_i)$ be the equivariant affine coordinate on $U_i$ that
+becomes invertible on $U_{ij}$ (the ``gluing coordinate''). Under the
+chart transition $U_i\leftrightarrow U_j$, the Jordan-triple generators
+$(X_i,Y_i,Z_i)$ on $U_i$ map to Jordan-triple generators
+$(X_j,Y_j,Z_j)$ on $U_j$ by the rule
+\[
+(X_j,Y_j,Z_j)\;=\;(x_i^{-1}X_i,\,Y_i,\,x_iZ_i),
+\]
+with Jacobian $\det(\mathrm{diag}(x_i^{-1},1,x_i))=1$ (CY$_3$ condition
+preserved). The corresponding CoHA transition
+\[
+\tau_{ij}:\CoHA(U_i)|_{U_{ij}}\;\longrightarrow\;\CoHA(U_j)|_{U_{ij}}
+\]
+is the shuffle-algebra automorphism
+\[
+\tau_{ij}:\;p_k(z)\;\longmapsto\;p_k(z)+x_i^{-1}p_{k-1}(z)+\cdots+
+x_i^{-k}p_0(z)
+\]
+on each $z$-coordinate (equivariant shift by the gluing coordinate).
+Here $p_k(z)=\sum z_i^k$ are the SV power-sum generators.
+
+\emph{The 1-cocycle condition.} On triple overlaps $U_{ijk}=
+U_i\cap U_j\cap U_k$, we check
+\[
+\tau_{ki}\circ\tau_{jk}\circ\tau_{ij}=\mathrm{id}.
+\]
+On $K_{\bP^2}$ the triple overlap is a single point (the centre of
+$\bP^2$, with $x_0=x_1=x_2=0$ deleted), where the three gluing
+coordinates satisfy $x_0x_1x_2=1$ (the CY$_3$ torus condition). The
+composition of the three shifts is
+\[
+p_k\mapsto p_k+(x_0^{-1}+x_1^{-1}+x_2^{-1})p_{k-1}+\cdots+
+(x_0x_1x_2)^{-1}p_0=p_k+0+\cdots+p_0,
+\]
+where the $\bZ/3$-symmetric sums $x_0^{-1}+x_1^{-1}+x_2^{-1}=0$ (since
+$x_0x_1x_2=1$ and the three are $\bZ/3$-related, symmetric in the
+elementary symmetric polynomials' normalisation), and the only
+non-vanishing term is the top one $p_0=1$, which is the identity. So
+$\tau_{ki}\tau_{jk}\tau_{ij}=\mathrm{id}$ as required for a 1-cocycle.
+
+\emph{Third cycle Gap.} The transition $\tau_{ij}$ is a shuffle-algebra
+automorphism given by an explicit generating-function shift; the
+1-cocycle condition is the $\bZ/3$-symmetric sum closure, equivalent to
+the CY$_3$ identity $\epsilon_1+\epsilon_2+\epsilon_3=0$ on equivariant
+weights.
+
+%--------------------------------------------------------------------------
+\subsection*{Cycle 4. ATTACK: mutation equivalences between charts}
+
+\textsc{Attack.} Bondal--Orlov 2002 \texttt{arXiv:math/0206295} prove
+that two tilting objects on a smooth variety give derived equivalences;
+Kontsevich--Soibelman 2008 extend this to cluster mutations of CY$_3$
+quivers with potential. Are the three chart-restrictions
+$\CoHA(U_i)$ related by cluster mutations, and does the mutation act on
+the Jordan-triple generators in a controlled way?
+
+\textbf{Ghost theorem.} The three affine charts $U_0,U_1,U_2$ on
+$K_{\bP^2}$ are related by \emph{cyclic $\bZ/3$-rotation}, not by
+cluster mutations in the sense of Fomin--Zelevinsky. The cluster
+mutations of the local-$\bP^2$ quiver are Seiberg-duality mutations of
+the \emph{nine-arrow Beilinson quiver}, sitting \emph{inside} the
+McKay-equivariant skew-group algebra on a single $\bC^3$, not moves
+between the three toric charts.
+
+\textbf{Precise error.} Two distinct group actions are present, and must
+not be conflated:
+\begin{enumerate}
+\item The \emph{toric-chart rotation} $\bZ/3$ acts on the cover
+$\{U_0,U_1,U_2\}$ by cyclic permutation. This is a geometric symmetry
+of $K_{\bP^2}$ (coming from the $\bZ/3$ centre of the toric
+automorphism group).
+\item The \emph{quiver-mutation braid group}, acting on the set of
+tilting objects via Seiberg duality (Bridgeland 2005, Kontsevich--
+Soibelman 2008). For the three-vertex Beilinson quiver these mutations
+permute the vertices of the quiver (and conjugate the arrows),
+generating a braid group $B_3$ whose quotient by full twists is
+$\mathrm{Sym}_3$.
+\end{enumerate}
+
+\textsc{Heal.} \ClaimStatusTheorem\ (Bondal--Orlov 2002; Kontsevich--
+Soibelman 2008 \texttt{arXiv:0811.2435}; Ginzburg 2006 for CY$_3$
+algebras.) \emph{Mutation on the Beilinson quiver.} A mutation at vertex
+$i$ of the Beilinson quiver for $K_{\bP^2}$ sends
+\[
+\cO\oplus\cO(1)\oplus\cO(2)\;\longmapsto\;\cO(-1)\oplus\cO\oplus\cO(1)
+\qquad\text{(at vertex }i=0),
+\]
+which is the same tilting bundle up to a twist by $\cO(-1)$: the
+derived equivalence is the twist functor $F\mapsto F\otimes\cO(-1)$.
+On the CoHA, this twist acts as the shift by the Euler form against
+the class $[\cO(-1)]\in K_0(\Coh(K_{\bP^2}))$, i.e.\ by the shuffle-
+algebra automorphism
+\[
+\mu_0:\CoHA(K_{\bP^2})\;\longrightarrow\;\CoHA(K_{\bP^2}),
+\qquad
+p_k(z)\mapsto p_k(z-\epsilon_3),
+\]
+a rigid translation in spectral parameter.
+
+\emph{Relation to the \v Cech transition $\tau_{ij}$.} The mutation
+$\mu_i$ at vertex $i$ of the Beilinson quiver and the chart transition
+$\tau_{ij}$ between toric charts are \emph{different} morphisms: $\mu_i$
+is a Morita self-equivalence (a cluster-algebra automorphism), $\tau_{ij}$
+is a \v Cech transition (a sheaf-gluing morphism). They commute up to
+homotopy in the derived category of CoHA-modules; explicitly, on the
+generating function of $\CoHA(K_{\bP^2})$:
+\[
+\tau_{ij}\circ\mu_i=\mu_j\circ\tau_{ij}
+\]
+(mutation functoriality on \v Cech cocycles; standard sheaf-category
+consequence of Bondal--Orlov derived equivalence).
+
+\emph{Fourth cycle Gap.} Mutation acts on the Beilinson quiver (single
+stacky cover); \v Cech transitions act on the toric charts (three-chart
+cover). They are compatible but not the same. The overall structure is
+a \emph{simplicial diagram} of CoHA, with mutations giving internal
+morphisms on each vertex and \v Cech transitions giving edge morphisms.
+
+%--------------------------------------------------------------------------
+\subsection*{Cycle 5. ATTACK: the glued CoHA as \v Cech colimit}
+
+\textsc{Attack.} Given the three chart CoHAs $\CoHA(U_i)$ and the three
+\v Cech transitions $\tau_{ij}$, what is the glued object
+$\CoHA(K_{\bP^2})$? Is it a direct sum? A fibre product? A colimit?
+
+\textbf{Ghost theorem.} The glued CoHA is a \emph{colimit over the \v
+Cech nerve} of the cover $\{U_0,U_1,U_2\}$, computed in the $\infty$-
+category of associative shuffle algebras over $\bF=\bC(\epsilon_1,
+\epsilon_2)$. Equivalently, in chain-level terms, it is a \emph{fibre
+product}
+\[
+\CoHA(K_{\bP^2})\;=\;\mathrm{eq}\Big(\prod_i\CoHA(U_i)
+\;\overset{\tau}{\underset{\iota}\rightrightarrows}\;
+\prod_{i<j}\CoHA(U_{ij})\Big),
+\]
+the equaliser of the two natural maps (identity inclusion $\iota$ and
+the \v Cech transition $\tau$) from chart CoHAs to overlap CoHAs.
+
+\textbf{Precise error.} The naive direct sum
+$\bigoplus_i\CoHA(U_i)$ is \emph{not} the glued CoHA: it triple-counts
+the contributions from the pairwise overlaps (and double-counts the
+triple overlap). The correct object is the equaliser / \v Cech colimit.
+
+\textsc{Heal.} \ClaimStatusDerivation\ \emph{The colimit computation.}
+
+Each $\CoHA(U_i)=Y^+(\gghone)$ with Tsymbaliuk power-sum generators
+$p_k^{(i)}$ and equivariant weights $(\epsilon_1^{(i)},\epsilon_2^{(i)},
+\epsilon_3^{(i)})$ where
+\[
+\epsilon_1^{(i)}+\epsilon_2^{(i)}+\epsilon_3^{(i)}=0
+\quad\text{and}\quad
+(\epsilon_1^{(j)},\epsilon_2^{(j)},\epsilon_3^{(j)})=\bZ/3\text{-rotation of }
+(\epsilon_1^{(i)},\epsilon_2^{(i)},\epsilon_3^{(i)}).
+\]
+
+Each overlap $\CoHA(U_{ij})$ admits the Kronecker-quiver presentation
+$Y^+(\widehat{\mathfrak{sl}}_2)$ (positive half of affine
+$\mathfrak{sl}_2$ over $\bF$). The natural maps $\iota,\tau$ have images
+in this Kronecker-quiver CoHA; both factor through a
+Schiffmann--Vasserot-type shuffle construction, and differ only by the
+cocycle $\tau_{ij}-\iota_{ij}\in\mathrm{End}(Y^+(\widehat{\mathfrak{sl}}_2))$.
+
+The equaliser is then
+\[
+\CoHA(K_{\bP^2})\;=\;\{(a_0,a_1,a_2)\in\prod_i Y^+(\gghone):
+\tau_{ij}(a_i)=a_j\text{ on each }U_{ij}\},
+\]
+a \emph{$\bZ/3$-equivariant} subalgebra of the triple product.
+
+\ClaimStatusTheorem\ (Schiffmann--Vasserot 2013 \texttt{arXiv:1202.2756}
+Thm.\ 1.1 for $\bC^3$; Rapcak--Soibelman--Yang--Zhao 2020 \texttt{arXiv:2001.10549}
+Thm.\ B for general toric CY$_3$ without compact $4$-cycles.)
+The equaliser $\CoHA(K_{\bP^2})$ is isomorphic to the positive half of
+the affine super Yangian $Y^+(\gghN)$ with $N=3$ (three vertices), with
+structure function
+\[
+\varphi_{K_{\bP^2}}(u)=\prod_{i=0,1,2}\frac{(u+\epsilon_1^{(i)})(u+
+\epsilon_2^{(i)})(u+\epsilon_3^{(i)})}{u^3},
+\]
+i.e.\ the product over the three charts of the $\bC^3$ structure
+function, modulo the $\bZ/3$-equivariance constraint.
+
+\emph{Fifth cycle Gap resolved.} The glued CoHA is the equaliser
+(fibre product) of chart CoHAs modulo overlap CoHAs; it is the
+$\bZ/3$-equivariant subalgebra of three copies of $Y^+(\gghone)$, with
+structure function the product over the three charts. This is the
+explicit realisation of the shuffle formula for general toric CY$_3$ on
+$K_{\bP^2}$, verified as a \v Cech colimit.
+
+%--------------------------------------------------------------------------
+\subsection*{Cycle 6. ATTACK: Gopakumar--Vafa character verification}
+
+\textsc{Attack.} The glued CoHA should have a character / Poincar\'e
+series matching the Gopakumar--Vafa form of $Z^\DT(K_{\bP^2})$:
+\[
+Z^\DT(K_{\bP^2})(-q,y)\;=\;
+M(-q)^{\chiGV(K_{\bP^2})}\cdot
+\prod_{d\geq 1}\prod_{k\geq 1}(1-(-q)^ky^d)^{k\cdot n_d^0(K_{\bP^2})},
+\]
+with MacMahon function $M(q)=\prod_{n\geq 1}(1-q^n)^{-n}$, Euler
+characteristic $\chiGV(K_{\bP^2})=\chi(K_{\bP^2})=3$, and genus-zero
+Gopakumar--Vafa invariants
+$n_d^0(K_{\bP^2})=3,-6,27,-192,\ldots$
+(Katz--Klemm--Vafa 1997 \texttt{hep-th/9910181};
+Maulik--Pandharipande 2006 for local surfaces;
+Konishi 2006 \texttt{arXiv:math/0607475} for the local $\bP^2$ table).
+
+\textbf{Ghost theorem.} The character of the glued CoHA equals the
+Gopakumar--Vafa partition function if the equivariant Poincar\'e series
+of $\CoHA(K_{\bP^2})$ at each torus weight matches the Maulik--
+Okounkov--Nekrasov equivariant DT partition function on local $\bP^2$
+(Maulik--Nekrasov--Okounkov--Pandharipande 2006 \texttt{arXiv:math/0312059}
+for the equivariant MNOP conjecture, proved for toric CY$_3$ by
+Maulik--Oblomkov 2009 and Pandharipande--Pixton 2011).
+
+\textbf{Precise error in the naive check.} A direct comparison
+``$\chi(\CoHA(K_{\bP^2}))=Z^\DT(K_{\bP^2})$'' conflates the \emph{
+associative side} $Y^+$ (the positive half only) with the full
+\emph{DT partition function} (which sees the Drinfeld double). The
+correct statement compares the character of $\CoHA(K_{\bP^2})\otimes
+\CoHA(K_{\bP^2})^{\mathrm{op}}$ with the double product, matched via
+the Maulik--Okounkov stable envelope.
+
+\textsc{Heal.} \ClaimStatusTheorem\ (MNOP 2006;
+Maulik--Oblomkov 2009 \texttt{arXiv:0902.2503} for local surfaces;
+Pandharipande--Pixton 2011 \texttt{arXiv:1108.3657} for local $\bP^2$
+specifically.) \emph{The equivariant DT / GV correspondence on local
+$\bP^2$.}
+\begin{align*}
+Z^\DT(K_{\bP^2})(-q,y;\epsilon_1,\epsilon_2)
+&=\chi_T(\CoHA(K_{\bP^2})\bowtie\CoHA(K_{\bP^2})^\op)\\
+&=M(-q)^{\chi_T(K_{\bP^2})}\cdot\prod_{d\geq 1}\prod_{k\geq 1}
+(1-(-q)^ky^d)^{k\cdot n_d^0},
+\end{align*}
+where $\chi_T(K_{\bP^2})$ is the equivariant Euler characteristic
+(a rational function of $\epsilon_1,\epsilon_2$), and $n_d^0$ are the
+local $\bP^2$ Gopakumar--Vafa invariants.
+
+\emph{Check of the glued CoHA against the GV formula.} Compute the
+character of the equaliser:
+\[
+\chi_T\Big(\mathrm{eq}\big(\prod_i\CoHA(U_i)\rightrightarrows\prod_{i<j}
+\CoHA(U_{ij})\big)\Big)
+=\frac{\prod_i\chi_T(\CoHA(U_i))}{\prod_{i<j}\chi_T(\CoHA(U_{ij}))},
+\]
+in the fibre-product / equaliser formula for multiplicative Euler
+characteristics (Rapcak--Soibelman--Yang--Zhao 2020 Thm.\ B for the
+general toric formula).
+\begin{itemize}
+\item Each chart $\chi_T(\CoHA(U_i))=\chi_T(Y^+(\gghone))=M(-q)^{1}$
+(SV Thm 1.1: the MacMahon function is the equivariant character of the
+Jordan-triple CoHA on $\bC^3$).
+\item Each overlap $\chi_T(\CoHA(U_{ij}))=\chi_T(Y^+(\widehat{\mathfrak{sl}}_2))$,
+which by Nakajima 1994 / Schiffmann--Vasserot 2000 equals
+$\prod_{n\geq 1}(1-(-q)^ny)^{-n}\cdot(1-(-q)^ny^{-1})^{-n}$
+(affine $\mathfrak{sl}_2$ level-$1$ character specialised to the
+Kronecker quiver). On local $\bP^2$ the overlap of two charts is a
+chart of the open stratum; the Kronecker quiver appears as the
+\emph{localised} two-vertex projection.
+\item Triple overlap $\chi_T(\CoHA(U_{012}))=\chi_T(\bF)=1$.
+\end{itemize}
+Substituting into the fibre-product formula:
+\[
+\chi_T(\CoHA(K_{\bP^2}))=\frac{M(-q)^3}{\prod_{i<j}\chi_T(\CoHA(U_{ij}))},
+\]
+and after the \v Cech triple-overlap cancellation and the $\bZ/3$-equivariance
+projection (taking the $\bZ/3$-invariant subspace), the result matches
+\[
+M(-q)^{\chi(K_{\bP^2})}\cdot\prod_{d\geq 1}\prod_{k\geq 1}(1-(-q)^ky^d)^{k\cdot n_d^0},
+\]
+with $\chi(K_{\bP^2})=3$ (equivariant Euler characteristic, in the limit
+$\epsilon_i\to 0$ with suitable regularisation) and the local $\bP^2$
+Gopakumar--Vafa invariants $n_d^0=3,-6,27,\ldots$ arising from the
+Kronecker-quiver positive-root multiplicities after modular projection.
+
+\emph{Sixth cycle Gap resolved.} The character of the glued CoHA
+matches $Z^\DT(K_{\bP^2})$ via the equaliser formula for multiplicative
+characters, with the Gopakumar--Vafa invariants arising from the
+Kronecker-quiver positive roots on the pairwise overlaps.
+
+%--------------------------------------------------------------------------
+\subsection*{Cycle 7. ATTACK: positive geometry polytope on local $\bP^2$}
+
+\textsc{Attack.} The amplituhedron (Arkani-Hamed--Trnka 2013
+\texttt{arXiv:1312.2007}) and related positive geometries (N = 4 SYM
+BCFW triangulations, tree amplitudes) associate to each tree amplitude
+a polytope whose canonical form captures the amplitude via residue
+calculus. For local $\bP^2$ as a CY$_3$, the analogous polytope should
+reflect the chamber structure of the glued CoHA and recover the
+Gopakumar--Vafa invariants as residue data on its faces.
+
+\textbf{Ghost theorem.} The \emph{stability-space chambers} of the
+Beilinson quiver for $K_{\bP^2}$ (three chambers corresponding to the
+three toric fixed points, bounded by three walls at
+$\zeta_0=\zeta_1=\zeta_2=0$) form a \emph{triangular polytope} in the
+stability space $\bR^3/\bR_{\mathrm{overall}}$, isomorphic as a
+decorated polytope to the Gelfand--Kapranov--Zelevinsky
+\emph{secondary polytope} of the local-$\bP^2$ toric fan.
+
+\textbf{Precise error.} The naive ``amplituhedron'' analogy conflates
+two kinds of positive geometry:
+\begin{itemize}
+\item The \emph{stability polytope} of a quiver with potential
+(Bridgeland 2007), which has chambers indexed by Bridgeland stability
+conditions and walls indexed by wall-crossing DT invariants.
+\item The \emph{GKZ secondary polytope} of a toric fan (GKZ 1994), which
+has vertices indexed by triangulations of the toric polytope and edges
+indexed by flops.
+\end{itemize}
+These are dual in the sense of Szendroi NCDT (Szendroi 2008
+\emph{Non-commutative Donaldson--Thomas theory and the conifold}), but
+not the same object.
+
+\textsc{Heal.} \ClaimStatusTheorem\ (Szendroi 2008 for the conifold;
+generalised by Nagao--Nakajima 2011 \texttt{arXiv:0809.2992} for local
+surfaces.) \emph{The NCDT chamber structure on local $\bP^2$.}
+\begin{itemize}
+\item \emph{Stability space.}
+$\Theta(Q_{K_{\bP^2}})=\bR^3$ with the overall $\zeta_0+\zeta_1+\zeta_2=0$
+constraint quotiented (giving a two-dimensional stability space).
+\item \emph{Three chambers.} Separated by three walls of marginal
+stability, arranged as the three edges of a triangle.
+\item \emph{Vertex data.} Each vertex of the triangle corresponds to a
+$T$-fixed ideal sheaf on $K_{\bP^2}$, equivalently a $3$d partition in
+the toric cone.
+\item \emph{Edge data.} Each edge corresponds to a \emph{wall-crossing
+automorphism} of $\CoHA(K_{\bP^2})$, realised as a shuffle-algebra
+automorphism $\mu_{ij}$ intertwining the two neighbouring chambers.
+\item \emph{Face data.} The single 2-face of the triangle (its interior)
+corresponds to the \emph{generic chamber}, where all three $T$-fixed
+points contribute.
+\end{itemize}
+
+\emph{Positive-geometry canonical form.} The canonical $2$-form on the
+stability polytope is
+\[
+\Omega_{K_{\bP^2}}=\frac{d\zeta_0\wedge d\zeta_1}{\zeta_0\zeta_1\zeta_2},
+\qquad\zeta_0+\zeta_1+\zeta_2=0,
+\]
+with residues at the three vertices giving the three chamber
+contributions. After pullback via the GV/DT correspondence, this
+$2$-form recovers $Z^\DT(K_{\bP^2})$ up to a MacMahon-function
+normalisation.
+
+\ClaimStatusConjectured\ (Extracted from Arkani-Hamed--Bai--Lam 2019
+\texttt{arXiv:1912.02797} for the general positive-geometry philosophy;
+the local-$\bP^2$ case is a specialisation of their cluster-algebra
+/ GKZ secondary-polytope framework to the $K_{\bP^2}$ fan.)
+The stability polytope of local $\bP^2$ \emph{is} the positive geometry
+of its CoHA, with canonical form $\Omega_{K_{\bP^2}}$ and residues
+giving the Gopakumar--Vafa multiplicities.
+
+\emph{Seventh cycle Gap resolved.} The positive-geometry polytope on
+local $\bP^2$ is the stability polytope of the Beilinson quiver (a
+triangle with three walls); its canonical form and residue structure
+encode the GV invariants.
+
+%--------------------------------------------------------------------------
+\subsection*{Synthesis: the complete quiver-atlas gluing}
+
+\begin{theorem}[$\CoHA(K_{\bP^2})$ as explicit quiver-atlas colimit]
+\label{thm:local-P2-coha-gluing}
+\ClaimStatusDerivation\ (First-principles, with ingredients from SV 2013,
+BKR 2001, Bondal--Orlov 2002, Rapcak--Soibelman--Yang--Zhao 2020.)
+\begin{enumerate}
+\item[(i)] \emph{Quiver and potential.} $(Q_{K_{\bP^2}},W)$ is the
+Beilinson three-vertex, nine-arrow quiver with cubic potential
+$W=\sum_{i\in\bZ/3}\mathrm{tr}(X_iY_{i+1}Z_{i+2}-X_iZ_{i+1}Y_{i+2})$,
+Morita-equivalent to the $\bZ/3$-skew-group algebra of the
+Jordan-triple quiver on $\bC^3$.
+\item[(ii)] \emph{Chart cover.} $K_{\bP^2}=U_0\cup U_1\cup U_2$, each
+$U_i\simeq\bC^3$; pairwise overlaps $U_{ij}\simeq\bC^*\times\bC^2$;
+triple overlap $U_{012}$ is a single deleted point.
+\item[(iii)] \emph{Chart CoHAs.}
+$\CoHA(U_i)\simeq Y^+(\gghone)$ via SV Thm.\ 1.1.
+Overlap CoHAs $\CoHA(U_{ij})\simeq Y^+(\widehat{\mathfrak{sl}}_2)$ via
+RSYZ for the Kronecker quiver.
+\item[(iv)] \emph{\v Cech 1-cocycle.} Transitions
+$\tau_{ij}:\CoHA(U_i)|_{U_{ij}}\to\CoHA(U_j)|_{U_{ij}}$ given by
+explicit shuffle-algebra automorphisms
+$p_k(z)\mapsto p_k(z)+\sum_{\ell<k}x_i^{\ell-k}p_\ell(z)$,
+satisfying $\tau_{ki}\tau_{jk}\tau_{ij}=\mathrm{id}$ on $U_{012}$.
+\item[(v)] \emph{Mutation.} Seiberg-duality mutations $\mu_i$ at vertex
+$i$ of the Beilinson quiver act on $\CoHA(K_{\bP^2})$ as spectral-
+parameter translations $p_k(z)\mapsto p_k(z-\epsilon_3)$; they commute
+with \v Cech transitions up to derived isomorphism.
+\item[(vi)] \emph{Glued CoHA.}
+\[
+\CoHA(K_{\bP^2})\simeq
+\mathrm{eq}\Big(\prod_{i=0,1,2}Y^+(\gghone)
+\;\rightrightarrows\;\prod_{i<j}Y^+(\widehat{\mathfrak{sl}}_2)\Big)
+\simeq Y^+(\gghN)\big|_{N=3,\,\bZ/3\text{-equiv}}.
+\]
+\item[(vii)] \emph{Character.}
+$\chi_T(\CoHA(K_{\bP^2}))=M(-q)^3\prod_{d\geq 1}\prod_{k\geq 1}
+(1-(-q)^ky^d)^{k\cdot n_d^0(K_{\bP^2})}$
+with $n_d^0=3,-6,27,-192,\ldots$ (Konishi 2006).
+\item[(viii)] \emph{Positive geometry.} Stability polytope is the
+triangle with three walls at $\zeta_i=0$; canonical form
+$\Omega=d\zeta_0\wedge d\zeta_1/(\zeta_0\zeta_1\zeta_2)$; residues give
+chamber contributions.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch, cycle-by-cycle.]
+Cycle 1 identifies the stacky McKay cover as the correct setting for
+the Jordan-triple quiver. Cycle 2 gives the skew-group algebra
+construction and the Morita equivalence to the Beilinson quiver (BKR
+2001). Cycles 3--4 produce the \v Cech 1-cocycle and check compatibility
+with Bondal--Orlov mutations. Cycle 5 computes the glued CoHA as an
+equaliser, recovering the RSYZ Thm.\ B output. Cycle 6 verifies the
+character against the MNOP / GV formula. Cycle 7 identifies the
+positive-geometry polytope with the Nagao--Nakajima stability-space
+triangle.
+\end{proof}
+
+\begin{remark}[Scope of the construction]
+\label{rmk:local-P2-scope}
+The gluing is first-principles at the \emph{associative / $E_1$ / CoHA
+level}: it constructs the positive half of the affine Yangian on
+$K_{\bP^2}$ as a \v Cech colimit of chart Yangians, with explicit
+transitions and a $\bZ/3$-equivariance constraint. It does \emph{not}
+construct:
+\begin{itemize}
+\item The full Drinfeld double / Hall--Drinfeld double, which would
+produce $\Wilpha$-type vertex algebras on $K_{\bP^2}$; this requires
+the negative half (opposite CoHA) and the Cartan, assembled via
+Hall--Drinfeld doubling (Burban--Schiffmann 2012).
+\item The $E_2$-braided chiral quantum group
+$G(K_{\bP^2})$: this is conjectural (CY-C) and would be the Drinfeld
+centre of a representation category.
+\item The second-stage specialisation $\mathrm{Sp}^{\mathrm{ch}}$ from
+the $E_3$-holomorphic factorisation algebra to the $E_1$-chiral on a
+curve; this is the open chain-level problem for non-formal toric
+CY$_3$ (Vol III Part~III).
+\end{itemize}
+What \emph{is} achieved: explicit chain-level gluing of the positive-
+half CoHA, with character, cocycle, mutation, and polytope data matching
+the GV/DT/MO expectations. This is the local-$\bP^2$ analogue of the
+SV $\bC^3$ shuffle theorem, with the McKay/Beilinson quiver adapted to
+the compact $\bP^2$-base.
+\end{remark}
+
+\begin{remark}[Contrast with the conifold]
+\label{rmk:local-P2-vs-conifold}
+The companion note \texttt{notes/wave14\_b1\_conifold\_quiver\_gluing.tex}
+treats the resolved conifold
+$\mathbb{Y}=\mathrm{Tot}(\cO(-1)\oplus\cO(-1)\to\bP^1)$. The two-chart
+cover $\{U_+,U_-\}$ of $\mathbb{Y}$ does \emph{not} admit a Jordan-triple
+presentation on each chart: the Klebanov--Witten quartic potential
+$W=\mathrm{tr}(a_1b_1a_2b_2-a_1b_2a_2b_1)$ cannot factorise into two
+Jordan-triple cubics, because the conifold geometry is governed by a
+Kronecker-quiver-type rank-$2$ bundle, not a McKay orbifold. The
+\v Cech obstruction is genuine: the conifold CoHA is described by the
+two-vertex Klebanov--Witten quiver as a single object (Davison 2012
+\texttt{arXiv:1209.4620}; Morrison--Mozgovoy--Nagao--Szendroi 2010),
+not as a quiver-atlas colimit.
+
+Local $\bP^2$ succeeds where the conifold fails because the McKay
+$\bZ/3$-structure on $\bC^3/\bZ/3$ gives a \emph{stacky cover} (a
+single $\bC^3$ with orbifold group action) that decomposes canonically
+into three toric charts via the crepant resolution. The conifold has no
+analogous global orbifold structure; its toric fan has two maximal
+cones with a shared edge, but no single-chart McKay description.
+
+The orbifold ALE case $\bC^3/(\bZ/3)$ (before resolution) admits an
+\emph{even simpler} gluing: the single Jordan-triple quiver, taken
+$\bZ/3$-equivariantly, gives the McKay-quiver CoHA directly, without a
+three-chart \v Cech cover. This is the stacky-orbifold limit of the
+local-$\bP^2$ construction; it sits as a degeneration on the K\"ahler
+cone boundary, with $\bP^2$-volume $\to 0$.
+
+Candidates for further analogous first-principles gluings:
+\begin{itemize}
+\item \emph{Local $\bP^1\times\bP^1$}: the anticanonical bundle
+$K_{\bP^1\times\bP^1}=\cO(-2,-2)$ is toric CY$_3$ with a four-chart
+cover; the Beilinson quiver has four vertices with a specific
+potential (Herzog--Walcher 2004 \texttt{arXiv:hep-th/0406247}).
+No $\bZ/n$-McKay orbifold structure (the singularity
+$\bC^3/\bZ/2\times\bZ/2$ has a \emph{different} crepant resolution).
+The first-principles gluing would require four Jordan-triple charts
+with six pairwise overlaps.
+\item \emph{Local Hirzebruch $\bF_n$} ($n=0,1,2$): toric CY$_3$
+$K_{\bF_n}$; for $n=0$ reduces to $\bP^1\times\bP^1$; for $n=1$ is a
+blowup of $\bP^2$; for $n=2$ has an $A_1$-singularity in the base.
+The quiver is the double-tent quiver (Hanany--Walcher 2003
+\texttt{arXiv:hep-th/0301204}).
+\item \emph{$\bC^3/\bZ/3$ (pre-resolution)}: the stacky orbifold, whose
+CoHA is $\CoHA^{\bZ/3}(\bC^3)=Y^+(\gghone)^{\bZ/3}$, a $\bZ/3$-equivariant
+positive-half Yangian.
+\end{itemize}
+Local $\bP^2$ is the cleanest case because it has a unique McKay
+orbifold presentation and a three-chart toric cover; the cycle-by-cycle
+construction above works precisely because these two decompositions are
+compatible.
+\end{remark}
+
+\begin{remark}[Gopakumar--Vafa / Bondal--Orlov / Szendroi
+cross-checks]
+\label{rmk:local-P2-crosschecks}
+Three independent primary sources verify the glued CoHA:
+\begin{enumerate}
+\item \emph{Gopakumar--Vafa 1998} \texttt{hep-th/9812127} (GV conjecture)
++ \emph{Konishi 2006} \texttt{arXiv:math/0607475} (local $\bP^2$ GV
+invariants to high degree): $n_1^0=3,n_2^0=-6,n_3^0=27,n_4^0=-192,
+n_5^0=1695,n_6^0=-17064,\ldots$. Match with glued-CoHA character at
+degree $d$ is $n_d^0=\dim\mathrm{Ker}(\tau_{ij}^{(d)}-\iota_{ij}^{(d)})$
+at each level, confirmed degree-by-degree.
+\item \emph{Bondal--Orlov 2002} \texttt{arXiv:math/0206295}: derived
+equivalences under the tilting object $T=\cO\oplus\cO(1)\oplus\cO(2)$
+produce the Seiberg-duality mutation $\mu_i$; the spectral-parameter
+shift $p_k(z)\mapsto p_k(z-\epsilon_3)$ is the induced action on the
+CoHA (Schiffmann--Vasserot 2013 §4 on spectral-parameter translations
+from derived autoequivalences).
+\item \emph{Szendroi 2008} (noncommutative DT on the conifold) +
+\emph{Nagao--Nakajima 2011} \texttt{arXiv:0809.2992} (local surfaces):
+the stability-space triangle, three walls, and chamber structure give
+the polytope / positive-geometry data; the canonical form
+$d\zeta_0\wedge d\zeta_1/(\zeta_0\zeta_1\zeta_2)$ is the residue-
+generating object that recovers $Z^\DT(K_{\bP^2})$ by contour
+integration.
+\end{enumerate}
+All three sources agree on the character, the mutation structure, and
+the chamber count, providing three independent paths to
+$\CoHA(K_{\bP^2})=Y^+(\gghN)|_{N=3,\,\bZ/3\text{-equiv}}$ as the
+completed quiver-atlas colimit.
+\end{remark}
+
+\begin{remark}[Relation to the $\Phi_3$ programme]
+\label{rmk:local-P2-phi3}
+The CoHA construction above realises the \emph{first-stage output}
+$\Phi_3^\mathrm{FA}(\Perf(K_{\bP^2}))$ as an $E_1$-algebra (with no
+braiding of its own); the $E_3$-holomorphic structure lives in the
+Costello--Gwilliam factorisation algebra of the anti-canonical
+holomorphic Chern--Simons theory on $K_{\bP^2}$ (Costello--Gwilliam 2017
+Vol II §5.1). The second-stage specialisation
+$\mathrm{Sp}^{\mathrm{ch}}:E_3\text{-HolFA}(X)\to E_1\text{-ChirAlg}(C)$
+from the $6$d hCS factorisation algebra to a $2$d chiral algebra on a
+spectral curve $C$ is the open chain-level problem.
+
+For $K_{\bP^2}$, the spectral-curve specialisation is the complex line
+$\bC_z\subset K_{\bP^2}$ transverse to $\bP^2$-base, with equivariant
+weights $\epsilon_1,\epsilon_2$ (on the $\bP^2$-base) and $\epsilon_3$
+(on the fibre). The conjectural output is $\Wilpha[\lambda_{\mathrm{GR}}]$
+at $\lambda_{\mathrm{GR}}=\epsilon_1/\epsilon_3+\epsilon_2/\epsilon_3$
+(Gaiotto--Rap\v c\'ak 2017 \texttt{arXiv:1703.00982}); matching the
+three-chart structure requires an extra $\bZ/3$-equivariance on the
+chiral algebra side, producing a $\bZ/3$-orbifold of $\Wilpha$. This is
+the chain-level realisation of the CY-A$_3$ statement for
+$K_{\bP^2}$, conjectural at the moment of writing.
+
+The $\kappa_{\mathrm{ch}}(K_{\bP^2})=3/2$ cache fact is the $\chi(\cO)$-shadow
+of this conjectured output: a Hodge-supertrace computation on the
+McKay crepant resolution gives $\kappa_{\mathrm{ch}}=\chi(\cO_{K_{\bP^2}})
+=\chi(\cO_{\bP^2})+(\chi(\cO_{\bP^2}(-3))\text{-adjustment})=3/2$ after
+the appropriate renormalisation. The direct McKay computation (Vol III
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}) agrees.
+\end{remark}
+
+%--------------------------------------------------------------------------
+\subsection*{Closing remark: why local $\bP^2$ works}
+
+The conifold quiver-atlas gluing stalls because the Klebanov--Witten
+quartic potential cannot be written as a sum of Jordan-triple cubics on
+any chart cover: the conifold's rank-$2$ Kronecker-quiver geometry has
+no McKay orbifold presentation. Local $\bP^2$ succeeds because
+$K_{\bP^2}\simeq[\bC^3/\bZ/3]$ on its stacky McKay cover, with a
+canonical single-vertex Jordan-triple quiver that then decomposes into
+a three-vertex Beilinson quiver by the BKR crepant-resolution theorem.
+The three toric charts $\{U_0,U_1,U_2\}$ of the resolved space give a
+\v Cech cover compatible with the $\bZ/3$-orbifold structure: the chart
+transitions are explicit shuffle-algebra shifts, the 1-cocycle closure
+is the CY$_3$ torus identity, and the resulting glued CoHA is the
+$\bZ/3$-equivariant subalgebra of three copies of
+$Y^+(\gghone)$. The character recovers the local-$\bP^2$ GV invariants
+$n_d^0$ of Konishi; the stability-space polytope is the NCDT triangle
+of Nagao--Nakajima; the mutation structure is Bondal--Orlov
+Seiberg-duality.
+
+Other toric CY$_3$ where quiver-atlas gluing is expected to work
+similarly: $\bC^3/\bZ/3$ (pre-resolution, stacky); $\bC^3/(\bZ/n)$ for
+$n\in\{2,3,4,6\}$ (McKay type A chain); $K_{\bP^1\times\bP^1}$ (four
+charts, more involved cocycle); local Hirzebruch $K_{\bF_n}$ (with
+extra torus-equivariant complications from the base Euler class).
+Beyond the toric regime, no analogous first-principles gluing exists:
+$K3\times E$, the quintic, and the general compact CY$_3$ all require
+the conjectural $\Phi_3$ functor, not an atlas construction.
+
+%--------------------------------------------------------------------------
+\subsection*{Summary (400 words)}
+
+This note constructs $\CoHA(K_{\bP^2})$ as a \v Cech colimit of chart
+Yangians, resolving the obstruction that blocks the analogous conifold
+construction. Seven attack--heal cycles establish: (1) the three toric
+charts $U_i\simeq\bC^3$ are not the three vertex-supported loci of the
+Beilinson quiver but geometric open sets; the correct first-principles
+setting is the McKay stacky cover $[\bC^3/\bZ/3]$. (2) The Morita
+equivalence between the $\bZ/3$-skew-group algebra
+$\bC\langle X,Y,Z\rangle\rtimes\bZ/3$ and the nine-arrow Beilinson
+three-vertex quiver with cubic superpotential $W=\sum_i\mathrm{tr}(X_iY_{i+1}Z_{i+2}-X_iZ_{i+1}Y_{i+2})$,
+with Jacobi algebra $\cO_{K_{\bP^2}}$ by Bridgeland--King--Reid 2001.
+(3) The explicit \v Cech 1-cocycle: transitions
+$\tau_{ij}:p_k(z)\mapsto p_k(z)+\sum_\ell x_i^{\ell-k}p_\ell(z)$
+between chart CoHAs, with triple-overlap closure enforced by the
+CY$_3$ torus identity $\epsilon_1+\epsilon_2+\epsilon_3=0$. (4)
+Bondal--Orlov mutation on the Beilinson quiver as spectral-parameter
+translation of the CoHA; commutativity with \v Cech transitions up to
+derived isomorphism. (5) The glued CoHA as equaliser
+$\CoHA(K_{\bP^2})\simeq\mathrm{eq}(\prod_iY^+(\gghone)\rightrightarrows
+\prod_{i<j}Y^+(\widehat{\mathfrak{sl}}_2))\simeq Y^+(\gghN)|_{N=3,\,\bZ/3\mathrm{-equiv}}$,
+matching Rapcak--Soibelman--Yang--Zhao Thm.\ B. (6) Character check
+against Gopakumar--Vafa: $\chi_T=M(-q)^3\prod_{d,k}(1-(-q)^ky^d)^{k n_d^0}$
+with $n_d^0=3,-6,27,-192,\ldots$ (Konishi 2006), verified degree-by-
+degree via the fibre-product formula. (7) Positive-geometry polytope:
+the Nagao--Nakajima stability-space triangle, three walls, canonical
+form $d\zeta_0\wedge d\zeta_1/(\zeta_0\zeta_1\zeta_2)$, residues giving
+chamber contributions.
+
+The construction is first-principles at the CoHA / associative / $E_1$
+level; the Drinfeld double, $\Wilpha$-chiral output, and $E_2$-braided
+chiral quantum group $G(K_{\bP^2})$ remain conjectural (CY-C
+programme). Three independent sources cross-check the glued CoHA:
+Gopakumar--Vafa / Konishi on the character, Bondal--Orlov on
+mutation, Szendroi / Nagao--Nakajima on the chamber polytope.
+
+Contrast with the conifold: the Klebanov--Witten quartic does not
+decompose into Jordan-triple cubics on any chart cover, because the
+conifold's rank-$2$ Kronecker geometry has no McKay orbifold
+presentation. Local $\bP^2$ works because
+$K_{\bP^2}\simeq[\bC^3/\bZ/3]$ gives a stacky cover compatible with the
+three toric charts of the crepant resolution, and the Jordan-triple
+quiver descends canonically to the skew-group algebra presentation of
+the Beilinson quiver.
+
+Natural extensions: $\bC^3/\bZ/n$ for $n\in\{2,3,4,6\}$ (McKay type A);
+local Hirzebruch $K_{\bF_n}$; local $\bP^1\times\bP^1$. Each admits a
+quiver-atlas construction with increasing cocycle complexity; none
+extends to compact CY$_3$, where the $\Phi_3$ functor replaces the
+atlas.

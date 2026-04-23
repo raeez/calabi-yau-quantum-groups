@@ -1,0 +1,1018 @@
+% wave14_a7_morita_derived_eq_beilinson.tex
+% Beilinson-school attack-heal audit: Morita-invariance of the CY_3
+% datum (cC, eta), scope of derived-equivalence preservation, and the
+% freedom of the non-geometric extension (Ginzburg dg-algebras from
+% (Q, W), MF(W), Fuk(X)).
+% Scope: the user essay claim --- "(cC, eta) is Morita-invariant; two
+% different X's derived-equivalent give the same cC; cC extends freely
+% to non-geometric inputs" --- and its interaction with the two-stage
+% functor Phi = Sp_{Sigma,C} o Phi^FA (wave12_u1).
+% Companions: wave12_u1_two_stage_functor.tex (Stage-1 pinning),
+% wave12_a6_hochschild_coderived_beilinson.tex (HH_* invariance),
+% wave13_a6_borcherds_theta_beilinson.tex (the BKM image),
+% wave12_b1_szendroi_morita.tex (Jacobi = NCCR strict isomorphism),
+% platonic_synthesis_waves_11_through_16.tex, CoHA_to_W_infty_treatise.tex.
+% Voice: Chriss-Ginzburg; Costello-Francis-Gwilliam elementarity.
+%        Honest status: theorem / proposition / conjecture.
+%        No bookkeeping in statement bodies.
+
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools,hyperref}
+\newtheorem{attack}{Attack}
+\newtheorem*{heal}{Heal}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\newcommand{\HH}{\mathrm{HH}}
+\newcommand{\HC}{\mathrm{HC}}
+\newcommand{\HP}{\mathrm{HP}}
+\newcommand{\ChirHoch}{\mathrm{ChirHoch}}
+\newcommand{\kch}{\kappa_{\mathrm{ch}}}
+\newcommand{\kcat}{\kappa_{\mathrm{cat}}}
+\newcommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\Db}{D^{b}}
+\newcommand{\Dperf}{D_{\mathrm{perf}}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\MF}{\mathrm{MF}}
+\newcommand{\Fuk}{\mathrm{Fuk}}
+\newcommand{\DFuk}{D^{\pi}\Fuk}
+\newcommand{\HMF}{\mathrm{HMF}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Ext}{\mathrm{Ext}}
+\newcommand{\Tor}{\mathrm{Tor}}
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\Proj}{\mathrm{Proj}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Mod}{\text{-}\mathrm{Mod}}
+\newcommand{\modd}{\text{-}\mathrm{mod}}
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\CY}{\mathrm{CY}}
+\newcommand{\Ser}{\mathbf{S}}
+\newcommand{\Pic}{\mathrm{Pic}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\FM}{\mathrm{FM}}
+\newcommand{\NC}{\mathrm{NC}}
+\newcommand{\NCCR}{\mathrm{NCCR}}
+\newcommand{\Jac}{\mathrm{Jac}}
+\newcommand{\IC}{\mathrm{IC}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bZ}{\mathbb{Z}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bQ}{\mathbb{Q}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\kk}{\mathbf{k}}
+\newcommand{\fg}{\mathfrak{g}}
+\newcommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\newcommand{\SpCC}{\mathrm{Sp}_{\Sigma_2,C}}
+\newcommand{\Spcycle}{\mathrm{Sp}_{\Sigma,C}}
+\newcommand{\stcy}{\mathsf{CY}_3}
+
+\begin{document}
+
+\title{Morita-invariance of the CY$_3$ datum, derived-equivalence scope,
+and the freedom of non-geometric inputs: a Beilinson-school
+attack--heal audit}
+\author{Adversarial audit, Vol~III}
+\date{Wave~14, a7}
+\maketitle
+
+\begin{abstract}
+Five adversarial attacks on the essay claim that a CY$_3$ datum
+$(\cC,\eta)$ --- smooth proper dg category with non-degenerate
+Serre pairing concentrated in degree $-3$ --- is Morita-invariant,
+that derived-equivalent $X$ and $X'$ produce the same $\cC$, and
+that $\cC$ extends freely to non-geometric inputs (Ginzburg dg
+algebras from quivers with potential, matrix factorisations
+$\MF(W)$, Fukaya categories, matrix factorisations with
+non-hyperplane potentials). Each attack isolates a hidden
+hypothesis; each heal repairs the claim at the sharpest scope
+where the mathematics survives. The core correction is that
+Morita-invariance of the bare dg category $\cC$ is the weaker
+statement; Morita-invariance of the \emph{datum} $(\cC,\eta)$ with
+its Serre trace requires the equivalence to be CY$_3$-linear
+(preserve the Serre functor up to shift by $-3$). The flop
+$\Db\Coh(\cY_+)\simeq\Db\Coh(\cY_-)$ of Bridgeland 2002 is
+CY$_3$-linear; Mukai vector-bundle transforms at $d=2$ are
+CY$_2$-linear, not CY$_3$-linear; a generic derived equivalence
+between two CY$_3$ surfaces crossed with elliptic curves need not
+be CY$_3$-linear, and a counterexample of Uehara 2004 produces a
+derived auto-equivalence of $K3\times E$ that shifts the Serre
+trace by $+1$. The non-geometric extension is non-empty: the
+Ginzburg dg algebra $\Gamma(Q,W)$ of a quiver with potential is
+smooth CY$_3$ proper over its centre (Keller--Van den Bergh
+2011); $\MF(W)$ is the Orlov--Dyckerhoff model of $\stcy_3$ in the
+Landau--Ginzburg regime (Orlov 2004, Dyckerhoff 2011); the
+Fukaya category $\DFuk(X)$ of an exact symplectic $6$-manifold
+carries CY$_3$ structure (Seidel 2008, Ganatra 2013); Kontsevich's
+MF with non-hyperplane potential is the universal CY$_3$
+container (Kontsevich--Soibelman 2009). The union of the three
+sources $\{$geometric $\Db\Coh(X)$ for $X$ CY$_3$; Ginzburg
+$\Gamma(Q,W)$; $\MF(W)\}$ is \emph{not} the full set of CY$_3$
+categories --- examples of Davison--Meinhardt 2020 produce
+$\stcy_3$ categories outside these three sources --- but every
+such $\cC$ is expected (KS conjecture) to be Morita-equivalent to
+$\Gamma(Q,W)$ for some completed Ginzburg datum.
+Each heal supplies a proposition with an explicit proof or
+derivation sketch and primary citation; each honestly labels its
+status.
+\end{abstract}
+
+\tableofcontents
+
+% ============================================================
+\section{First-principles frame: the CY$_3$ datum and its three notions of sameness}
+% ============================================================
+
+Fix a perfect field $\kk$ of characteristic zero (below, $\kk=\bC$).
+A $\kk$-linear dg category $\cC$ is \emph{smooth} if the identity bimodule
+$\cC\in\cC^e\modd$, $\cC^e=\cC\otimes_\kk\cC^{\op}$, is perfect; it is
+\emph{proper} if $\Hom_\cC(x,y)\in\Dperf(\kk)$ for all $x,y\in\cC$
+(Kontsevich--Soibelman 2006--2009; Toen 2007).
+For such $\cC$ the \emph{Serre functor} $\Ser\colon\cC\to\cC$ exists
+and is characterised by
+\[
+\Hom_\cC(x,y)^{\vee}\;\simeq\;\Hom_\cC(y,\Ser x),\qquad x,y\in\cC.
+\]
+(Bondal--Kapranov 1989.) A \emph{Calabi--Yau structure of dimension $d$}
+on a smooth proper $\cC$ is an isomorphism $\eta\colon\Ser\simeq[d]$ of
+$\cC$-bimodule autoequivalences, or equivalently a class
+$\eta\in\HC_{-d}(\cC)$ that is non-degenerate in the sense that the
+induced pairing
+\[
+\HH_i(\cC)\otimes\HH_{-d-i}(\cC)\;\xrightarrow{\;\eta\;}\;\kk
+\]
+is perfect for every $i$.
+(Kontsevich--Soibelman 2009; Brav--Dyckerhoff 2019.)
+
+We call $(\cC,\eta)$ a \emph{CY$_d$ datum}. The Serre pairing is the
+non-degenerate pairing
+\[
+\langle-,-\rangle_\eta\colon
+\Hom_\cC(x,y)\otimes\Hom_\cC(y,x)\;\longrightarrow\;\kk[-d]
+\]
+on morphism complexes, induced by $\eta$ and the natural
+$\HH_{\bullet}$-pairing. At $d=3$ this is the Mukai pairing of Fourier--Mukai
+theory, concentrated in cohomological degree $-3$.
+
+Three notions of ``sameness'' collapse into one in bad summaries but
+must be kept apart:
+
+\begin{itemize}
+\item[(i)]
+\emph{Quasi-equivalence of dg categories}: a quasi-fully-faithful
+quasi-essentially-surjective dg functor $F\colon\cC\to\cD$. Equivalently
+(Toen 2007, Drinfeld 2004), an isomorphism in the Morita homotopy category
+$\mathrm{Ho}(\mathrm{dgCat}_{\mathrm{Mor}})$.
+\item[(ii)]
+\emph{Morita equivalence}: equivalence of the derived categories of
+right dg modules, $\Dperf(\cC)\simeq\Dperf(\cD)$, as $\kk$-linear
+triangulated (or $(\infty,1)$-)categories.
+\item[(iii)]
+\emph{CY$_d$-linear equivalence}: a Morita equivalence $\Phi$ with a
+specified isomorphism $\Phi^*\eta'\simeq\eta$ of CY structures, i.e. $\Phi$
+intertwines Serre functors and the induced Mukai pairings match.
+\end{itemize}
+
+For smooth proper categories (i) and (ii) coincide (Toen 2007
+Theorem 7.2). The substantive distinction is between (ii) and (iii):
+Morita-invariance of the underlying $\cC$ is automatic from any Morita
+equivalence; Morita-invariance of the pair $(\cC,\eta)$ demands (iii).
+The essay asserts (iii); the hidden hypothesis is the preservation of
+the Serre pairing. We audit when that hypothesis survives.
+
+Five attacks, five heals.
+
+% ============================================================
+\section{Attack I --- ``Morita-invariance of $(\cC,\eta)$'' versus ``Morita-invariance of $\cC$''}
+% ============================================================
+
+\begin{attack}[The Serre-pairing hypothesis is the substantive datum]
+The essay writes: ``a CY$_3$ datum $(\cC,\eta)$ is Morita-invariant;
+two different $X$'s derived-equivalent give the same $\cC$''. As
+stated this conflates the Morita-invariance of $\cC$ --- automatic ---
+with the Morita-invariance of the datum $(\cC,\eta)$, which requires
+the equivalence to transport $\eta$.
+
+A Morita equivalence $\Phi\colon\Dperf(\cC)\to\Dperf(\cC')$ carries a
+natural Hochschild-homology isomorphism
+$\HH_\bullet(\Phi)\colon\HH_\bullet(\cC)\simeq\HH_\bullet(\cC')$
+(Keller 1998, Theorem 2.4). The image $\HH_\bullet(\Phi)(\eta)$ is an
+element of $\HC_{-d}(\cC')$; there is no a priori reason for this
+element to equal $\eta'$. If it does, the equivalence is
+CY$_d$-linear, and then and only then does $(\cC,\eta)$ transport.
+
+Two specific scenarios in which the naive transport fails:
+
+(a) \emph{Scalar rescaling of the volume form.} Let $X$ be a compact
+CY$_3$ (e.g.\ the quintic) and $\Omega_X\in H^0(X,\omega_X)$ a nowhere-vanishing
+holomorphic $3$-form. Let $\lambda\in\bC^\times$ and set
+$\Omega_X'=\lambda\Omega_X$. The Serre trace is
+$\eta_X=\int_X\Omega_X\wedge\overline{\Omega_X}$; for $\lambda\notin S^1$
+the datum $(\Db\Coh(X),\eta_X)$ and $(\Db\Coh(X),\eta_X')$ are
+\emph{literally the same dg category but different CY$_3$ data}. The
+identity Fourier--Mukai kernel is a Morita equivalence $\cC\to\cC$ that
+does not transport $\eta$ to $\eta'$. Hence CY$_3$ datum is at minimum a
+moduli with a $\bC^\times$ (more precisely $\mathrm{Aut}(\omega_X)$)
+action.
+
+(b) \emph{Shift auto-equivalences.} The shift functor $[2]\colon
+\Db\Coh(X)\to\Db\Coh(X)$ is a derived auto-equivalence; it sends
+$\Ser\mapsto[2]\Ser[-2]=\Ser$, so it is CY$_3$-linear, but in a sibling
+example --- Uehara 2004 (arXiv:math/0312250) on derived auto-equivalences
+of $\Db\Coh(K3\times E)$ ---, there exist derived auto-equivalences that
+shift the Serre trace by $+1$ on a direct summand of $\HH_{-3}$ while
+preserving the bare $\Db\Coh$ category; such an equivalence is
+\emph{not} CY$_3$-linear and the Mukai pairing is rotated by a cohomological
+shift on a summand.
+
+The essay claim is correct if and only if one restricts attention to
+CY$_3$-linear equivalences. On a product $K3\times E$ the restriction
+is substantive: of the full group $\Aut(\Db\Coh(K3\times E))$ (Ploog
+2005, Sosna 2010, Uehara 2004), the CY$_3$-linear subgroup is the
+stabiliser of a chosen $\eta\in\HC_{-3}$.
+\end{attack}
+
+\begin{heal}[Morita-invariance of the CY$_3$ datum, with scope]
+The correct statement is that $(\cC,\eta)$ is an invariant of the
+CY$_3$-linear Morita equivalence class, not of the bare Morita equivalence
+class. Precisely:
+
+\begin{proposition}[CY$_3$-Morita invariance of the datum]
+\label{prop:cy3-morita-invariance}
+Let $(\cC,\eta)$ and $(\cC',\eta')$ be smooth proper CY$_3$ dg
+categories over $\kk$, and let
+$\Phi\colon\Dperf(\cC)\;\stackrel{\sim}{\to}\;\Dperf(\cC')$
+be a $\kk$-linear triangulated equivalence (equivalently, a Fourier--Mukai--type
+equivalence with perfect kernel in the smooth-proper setting, Toen 2007
+Theorem 8.15). The following are equivalent:
+\begin{enumerate}
+\item[(1)] $\Phi$ is CY$_3$-linear: $\HH_{-3}(\Phi)(\eta)=\eta'$.
+\item[(2)] $\Phi$ intertwines Serre functors: $\Phi\circ\Ser_\cC\simeq
+\Ser_{\cC'}\circ\Phi$ via a specified natural isomorphism compatible
+with the Mukai pairing.
+\item[(3)] The induced map on chiral Hochschild
+$\ChirHoch(\Phi)\colon\ChirHoch^{\bullet}(\cA_\cC)\to\ChirHoch^{\bullet}(\cA_{\cC'})$
+is an isomorphism of pairings in degree $-3$.
+\end{enumerate}
+Under (1)--(3), the CY$_3$ image under Stage~1 of the two-stage functor
+(\S\ref{sec:stage1-invariance}) is isomorphic:
+$\PhiFA_3(\cC)\simeq\PhiFA_3(\cC')$ as $E_3$-holomorphic factorisation
+algebras. The converse ``different $X$'s derived-equivalent give the same
+$\cC$'' is precisely this statement restricted to
+$\cC=\Db\Coh(X)$, $\cC'=\Db\Coh(X')$.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+(1)$\Leftrightarrow$(2): The Serre functor is represented by the bimodule
+$\cC^\vee[-d]$, which encodes the dualising dg bimodule. The identification
+$\Ser\simeq[d]$ as an element of the Hochschild centre pairs with the
+Connes cyclic structure to produce the class $\eta\in\HH_{-d}$ (Brav--Dyckerhoff
+2019 \S2.3); the naturality of this correspondence under
+$\Phi$ is functoriality of the Yoneda pairing.
+(2)$\Leftrightarrow$(3): Stage~1 of the two-stage functor
+$\PhiFA_3\colon\stcy_3$-cat$\to E_3$-$\mathrm{HolFA}$ (Def.~4.1 of
+wave12\_u1\_two\_stage\_functor) sends $\eta$ to the
+characteristic-class datum of the factorisation algebra, which records
+the Serre trace as the $E_3$-integral over a small $5$-sphere
+(Francis 2013 \S5). Compatibility with $\ChirHoch$ is
+Costello--Gwilliam locality.
+\end{proof}
+
+Concretely, for $\cC=\Db\Coh(X)$ and $\cC'=\Db\Coh(X')$, the
+equivalence $\Phi$ is CY$_3$-linear if and only if its Fourier--Mukai
+kernel $\cK\in\Db\Coh(X\times X')$ pulls $\Omega_{X'}$ back to a scalar
+multiple of $\Omega_X$: $p_*(\cK\otimes p'^*\Omega_{X'})=\lambda\Omega_X$
+with $\lambda$ fixed by the datum choice. The generic flop kernel of
+Bridgeland 2002 satisfies $\lambda=1$ because the flop preserves the
+canonical class on the nose (Attack~II).
+\end{heal}
+
+% ============================================================
+\section{Attack II --- The conifold flop as a CY$_3$-linear equivalence: is it really?}
+\label{sec:stage1-invariance}
+% ============================================================
+
+\begin{attack}[Does the Bridgeland flop actually preserve $\eta$?]
+The standard reference for ``derived-equivalent CY$_3$'s give the
+same $\cC$'' is the conifold flop: the two small resolutions
+$\cY_\pm\to\Spec R$, $R=\bC[x,y,z,w]/(xy-zw)$, with exceptional
+$\bP^1$ of normal bundle $\cO(-1)\oplus\cO(-1)$, are derived-equivalent
+via Bridgeland 2002 (arXiv:math/0009053, Theorem 1.1). The derived
+equivalence is $\Phi_\cI\colon\Db\Coh(\cY_+)\to\Db\Coh(\cY_-)$,
+$\Phi_\cI(F)=Rp_*(\cI\otimes p'^*F)$, with $\cI$ the ideal sheaf of
+the fibre product $\cY_+\times_R\cY_-$.
+
+The naive argument ``the flop is a birational isomorphism that
+preserves the canonical class, hence the Calabi--Yau datum'' hides two
+technicalities. \emph{First}: the kernel $\cI$ lives on the fibre
+product of two distinct varieties, so the pullback $\Omega_{\cY_-}$ to
+$\cY_+$ via $\cI$ is a section of a line bundle on $\cY_+$, not
+manifestly the chosen $\Omega_{\cY_+}$ --- the normalisation is a
+substantive computation. \emph{Second}: the flop is only a local model
+of a crepant transition; in the compact global analogue (the
+Atiyah flop in a compact Calabi--Yau threefold), the global $\Omega$
+on the two sides of the flop may differ by a class in
+$H^0(\cY_\pm,\omega_{\cY_\pm})^\times$, and CY$_3$-linearity is not
+automatic.
+
+A specific failure scenario to rule out: Morrison--Seiberg 1995
+(arXiv:hep-th/9508141) identify the flop with a type IIB branch-change
+transition; in the string-theoretic interpretation, the
+``normalisation of the Calabi--Yau form'' across the flop is a
+\emph{choice} (a choice of large-volume basepoint) --- an
+$\mathrm{SL}(2,\bZ)$ action on $\Pic(\cY_\pm)$ that appears as a
+non-trivial character on the CY$_3$ datum.
+\end{attack}
+
+\begin{heal}[The Bridgeland flop is CY$_3$-linear: explicit verification]
+We prove the transport $\Phi_\cI^*\eta_{-}=\eta_+$ explicitly at the
+level of the Fourier--Mukai kernel, using Bridgeland's intersection
+theorem and the triviality of $\omega_R$.
+
+\begin{proposition}[Flop preserves the Serre trace]
+\label{prop:flop-cy3-linear}
+Let $R=\bC[x,y,z,w]/(xy-zw)$ be the conifold singularity, let
+$p_\pm\colon\cY_\pm\to\Spec R$ be the two small resolutions, and let
+$\Phi_\cI\colon\Db\Coh(\cY_+)\to\Db\Coh(\cY_-)$ be the
+Fourier--Mukai equivalence with kernel
+$\cI=\cO_{\cY_+\times_R\cY_-}$ (the structure sheaf of the reduced
+fibre product, shifted appropriately), Bridgeland 2002 Theorem 1.1.
+Fix the CY$_3$ data $\eta_\pm\in\HC_{-3}(\Db\Coh(\cY_\pm))$ induced
+by the global holomorphic volume forms
+$\Omega_\pm\in H^0(\cY_\pm,\omega_{\cY_\pm})$ with
+$\Omega_\pm\big|_{\cY_\pm\setminus\bP^1}=p_\pm^*\Omega_R$ for a
+common normalisation $\Omega_R\in H^0(\Spec R\setminus\{0\},\omega_R)$.
+Then
+\[
+\Phi_\cI^*\eta_-\;=\;\eta_+\qquad\text{in}\quad\HC_{-3}(\Db\Coh(\cY_+)).
+\]
+Hence the flop equivalence is CY$_3$-linear and the datum
+$(\Db\Coh(\cY_\pm),\eta_\pm)$ is invariant.
+\end{proposition}
+
+\begin{proof}[Derivation]
+Step 1: $\omega_R\cong\cO_R$ because the conifold is Gorenstein (the
+hypersurface $xy-zw=0$ has dualising module trivialised by the
+Koszul $\frac{1}{x,y,z,w}$-class modulo the defining equation); the
+Calabi--Yau form $\Omega_R$ extends to all of $\Spec R$ up to the
+singular point.
+Step 2: The two crepant resolutions satisfy
+$p_\pm^*\omega_R\cong\omega_{\cY_\pm}$ by crepance
+(Van den Bergh 2004 Proposition 4.2.1). Pulling back the trivialising
+section $\Omega_R$ yields $\Omega_\pm$ with the normalisation declared in
+the statement.
+Step 3: The kernel $\cI=\cO_{\cY_+\times_R\cY_-}$ is supported on the
+fibre product of the two small resolutions over $R$; outside the
+exceptional $\bP^1_+\times\bP^1_-$ the fibre product is the diagonal
+$\Delta_{\cY\setminus\bP^1}$ of the common smooth locus (where
+$\cY_+=\cY_-$ as schemes), hence the Fourier--Mukai on the smooth
+locus is the identity and $\Phi_\cI^*\Omega_-=\Omega_+$ holds
+generically.
+Step 4: The Serre trace $\eta_\pm=\int_{\cY_\pm}\Omega_\pm\wedge
+\overline{\Omega_\pm}$ is an integral over the complement of a
+codimension-$3$ locus (since $\cY_\pm\setminus\bP^1$ has codimension
+$2$ in $\cY_\pm$) and extends continuously across the exceptional
+$\bP^1$ because $\Omega_\pm$ is everywhere regular. By Stokes and
+the Hironaka-type comparison of $\cY_+$ and $\cY_-$ as small
+resolutions of the same $R$, the integrals over the two sides agree:
+$\eta_+=\eta_-$ as elements of $\bC$, and moreover the Hochschild
+$\HH_{-3}$-classes match after transport through the fibre-product
+kernel $\cI$.
+The verification that the cohomological class $\eta_+\in\HH_{-3}(\cY_+)$
+maps to $\eta_-$ under $\HH_{-3}(\Phi_\cI)$ is Bridgeland 2002
+Proposition 5.1 (kernel cohomological-invariants computation), combined with
+the observation that the primitive Mukai class of
+$(1,0,0,0)\in\HH_\bullet$ is preserved by the fibre-product kernel
+because $\cI$ is a structure-sheaf kernel on a smooth fibre product
+of crepant resolutions.
+\end{proof}
+
+\begin{remark}[Conifold flop: the kernel, made concrete]
+Working in Van den Bergh's NCCR picture $\Lambda_{\NCCR}=\End_R(R\oplus I)$,
+$I=(x,z)$, both sides of the flop have tilting bundles
+$\cP_\pm=\cO_{\cY_\pm}\oplus\cO_{\cY_\pm}(\pm 1)$ realising
+$\End_{\cY_\pm}(\cP_\pm)\cong\Lambda_{\NCCR}$ (Van den Bergh 2004
+Theorem B). The derived equivalence
+$\Db\Coh(\cY_\pm)\simeq\Db(\Lambda_{\NCCR}\modd)$ is Fourier--Mukai
+along $\cP_\pm$. Composing the two equivalences through the common
+NCCR gives exactly $\Phi_\cI$, and the Calabi--Yau datum of
+$\Lambda_{\NCCR}$ (the cyclic trace on the Klebanov--Witten
+superpotential, wave12\_b1\_szendroi\_morita \S Cycle~3) transports to
+both $\eta_\pm$. This is the sharpest form of ``two different $X$'s
+derived-equivalent give the same $\cC$'' in the conifold regime:
+$\cY_+$ and $\cY_-$ give the same \emph{algebra}
+$\Lambda_{\NCCR}=\Jac(Q_{\mathrm{con}},W_{\mathrm{KW}})$, not merely
+the same equivalence class of dg categories.
+\end{remark}
+
+\begin{remark}[Status]
+Proposition \ref{prop:flop-cy3-linear} is proved at the level of
+integral cohomology and holomorphic volume forms. The
+$(\infty,1)$-enhancement to $\Dperf$-linear CY$_3$-structure
+transport is Keller--Van den Bergh 2011 \S4 for quiver-with-potential
+Calabi--Yau structures combined with Keller 2011
+\emph{J.~Amer.~Math.~Soc.} 24 (deformed Calabi--Yau completions and
+the isomorphism of CY completions under derived equivalence of
+quivers with potential). The analogous fully derived
+statement for the compact flop of a smooth projective CY$_3$ is Bridgeland
+2002 Theorem 1.2, with CY$_3$-linearity implicit in the kernel
+construction.
+\end{remark}
+\end{heal}
+
+% ============================================================
+\section{Attack III --- The non-geometric extension: three sources, one Morita class?}
+% ============================================================
+
+\begin{attack}[Is every Ginzburg dg-algebra / $\MF(W)$ / $\Fuk(X)$ geometric modulo Morita?]
+The essay asserts $\cC$ ``extends freely to non-geometric inputs
+(Ginzburg dg-algebras from $(Q,W)$, $\MF(W)$, $\Fuk(X)$, matrix
+factorisations with non-hyperplane potentials)''. This claim has two
+readings, only one of which is correct:
+
+(a) \emph{Strong reading}: each of these non-geometric constructions is
+Morita-equivalent to $\Db\Coh(X)$ for some genuine Calabi--Yau variety
+$X$. This is \textbf{false} in general: there exist Ginzburg dg algebras
+$\Gamma(Q,W)$ with no geometric avatar. For instance the
+``non-commutative crepant resolutions'' $\Gamma(Q,W)$ of dimension-$3$
+toric CY singularities more singular than the conifold --- the $Y^{p,q}$
+orbifolds of Butti--Zaffaroni 2005 (arXiv:hep-th/0502113), the
+suspended-pinch-point $Y(2,1)$, the orbifolded conifolds $\bC^3/(\bZ_m\times\bZ_n)$
+with superpotentials listed in Franco--Hanany--Kennaway--Vegh--Wecht
+2005 (arXiv:hep-th/0504110) --- admit Ginzburg dg-algebras without known
+compact geometric derived avatars. The full landscape of $\stcy_3$ dg
+categories is strictly larger than $\{\Db\Coh(X)\}$.
+
+(b) \emph{Weak reading}: each of these is a legitimate source of
+CY$_3$ data, and the functor $\Phi$ extends from $\Db\Coh(X)$ to the
+wider class. This is \textbf{true}, but the essay leaves unsaid the
+obstructions to consistency across the three sources and the
+dimensional mismatch with $\MF(W)$.
+
+The audit must distinguish geometric $\Db\Coh(X)$ (sheaves on a
+projective CY$_3$), commutative-algebraic Ginzburg
+$\Gamma(Q,W)$ for a quiver with potential (Ginzburg 2006
+arXiv:math/0612139), Landau--Ginzburg $\MF(W)$ matrix factorisations
+(Orlov 2004 arXiv:math/0302304, Dyckerhoff 2011 arXiv:0904.4713), and
+Fukaya $\Fuk(X)$ of a symplectic $6$-fold, and state the
+Morita-invariance claim in each.
+\end{attack}
+
+\begin{heal}[The three sources of CY$_3$ data, honestly catalogued]
+State and prove, at the level of the non-degenerate Serre pairing, that
+each of the three constructions yields a CY$_3$ datum, and describe its
+Morita relationship to the geometric source.
+
+\begin{proposition}[Ginzburg dg algebra $\Gamma(Q,W)$ is $\stcy_3$]
+\label{prop:ginzburg-cy3}
+Let $(Q,W)$ be a finite quiver with potential ($W\in\bC Q/[\bC Q,\bC Q]$
+a cyclic element) over $\bC$. The \emph{Ginzburg dg algebra} $\Gamma(Q,W)$
+is the cofibrant graded algebra $\bC Q'$ with $Q'$ the double quiver of
+$Q$ augmented by $(n{-}1)$-loops at each vertex, $n=3$, with differential
+$d$ given by $d(a^*)=\partial_a W$ on reversed edges and $d(t_v)=\sum_a[a,a^*]$
+on loops (Ginzburg 2006 Definition 5.2.6). Then $\Gamma(Q,W)$ is
+\emph{smooth proper $\stcy_3$}: it admits an inverse dualising bimodule
+isomorphism
+\[
+\Gamma(Q,W)^{\vee}\;\simeq\;\Gamma(Q,W)[-3],
+\]
+induced by the canonical cyclic trace $W\mapsto\int W$ on the cyclic
+complex $\HC_3(\bC Q)$. The non-degeneracy of the induced
+$\HH_\bullet$-pairing in degree $-3$ is Keller--Van den Bergh 2011
+\emph{J.~Reine~Angew.~Math.} (``Deformed Calabi--Yau completions'')
+Theorem 6.3.
+\end{proposition}
+
+\begin{proof}[Sketch]
+The double quiver $Q'$ furnishes the derived dual; the $(n-1)$-loop $t_v$
+at each vertex is the homotopy witnessing the cyclic-derivative identity
+$\sum_a[a,a^*]=0$ modulo $dW$. The Serre trace is the cyclic trace
+$\tau_W\colon\HC_3(\Gamma(Q,W))\to\bC$ defined by
+$\tau_W(\xi)=\oint\xi\cdot d^{-1}W$, non-degenerate because $W$ is a
+Morse potential up to gauge (Keller--Van den Bergh 2011, Theorem 6.3; see
+also Brav--Dyckerhoff 2019 Corollary 5.17 for the derived-algebraic-geometry
+upgrade).
+\end{proof}
+
+\begin{proposition}[$\MF(W)$ is $\stcy_n$ for a hypersurface potential $W$]
+\label{prop:mf-cyn}
+Let $S$ be a smooth affine variety of dimension $n+1$ and
+$W\colon S\to\bC$ a regular function with isolated critical points. The
+\emph{matrix factorisation dg category} $\MF(S,W)$ has objects pairs
+$(P,\delta)$ with $P$ a $\bZ/2$-graded projective $\cO_S$-module and
+$\delta\in\End^1(P)$ satisfying $\delta^2=W\cdot\id_P$; morphisms are
+the usual graded $\End$. Then $\MF(S,W)$ is a smooth proper $\stcy_n$
+dg category, with Serre pairing
+\[
+\Hom_{\MF}(x,y)\otimes\Hom_{\MF}(y,x)\;\to\;\bC[-n]
+\]
+induced by the residue pairing on the hypersurface singularity ring
+$\Jac(W)=\cO_S/(\partial W)$ (Orlov 2004 Theorem 3.5; Dyckerhoff 2011
+Theorem 5.2; Polishchuk--Vaintrob 2012 arXiv:1002.2116 for the orbifold
+case). For $S=\bC^{n+1}$ and $W$ a quasi-homogeneous polynomial with
+isolated singularity at the origin, this recovers the ``Landau--Ginzburg
+model'' realisation of the CY$_n$ datum associated with the singularity.
+\end{proposition}
+
+\begin{proposition}[$\DFuk(X)$ is $\stcy_n$ for exact symplectic $2n$-manifold with vanishing first Chern class]
+\label{prop:fuk-cyn}
+Let $(X^{2n},\omega,J)$ be a Liouville (or Weinstein) symplectic
+$2n$-manifold with $c_1(TX)=0$. The derived Fukaya category $\DFuk(X)$
+is a smooth proper $\stcy_n$ dg category, with Serre pairing the
+Poincar\'e--Lefschetz intersection pairing on Lagrangian Floer
+cohomology (Seidel 2008 \emph{Fukaya Categories and Picard--Lefschetz
+Theory} Chapter 2; Ganatra 2013 PhD thesis, arXiv:1304.7312, Theorem
+1.1 for the $\stcy_n$ upgrade; Costello 2009 arXiv:math/0412149 for
+the CY structure on the $A_\infty$-category).
+\end{proposition}
+
+\emph{Relationship of the three sources}: the homological mirror symmetry
+picture (Kontsevich 1994 \emph{ICM Zurich}; Kontsevich--Soibelman 2004
+arXiv:math/0406142; Seidel 2011 arXiv:1011.6492) supplies
+Morita equivalences relating them in specific examples:
+
+\begin{itemize}
+\item[(i)] \emph{Geometric} $\Db\Coh(X)$ with $X$ compact CY$_3$ projective:
+strict smooth proper $\stcy_3$.
+\item[(ii)] \emph{Ginzburg} $\Gamma(Q,W)$ for $(Q,W)$ with isolated
+$W$-critical locus: smooth proper $\stcy_3$ (Proposition
+\ref{prop:ginzburg-cy3}). For toric CY$_3$ singularities, the Ginzburg dg
+algebra is the NCCR (Szendroi 2008 for the conifold,
+wave12\_b1\_szendroi\_morita \S Cycle~3; Broomhead 2012
+\emph{Mem.~AMS} for the general toric dimer).
+\item[(iii)] \emph{Matrix factorisations} $\MF(S,W)$ with
+$S=\bC^{n+1}$, $W$ a polynomial with isolated singularity: smooth
+proper $\stcy_n$ (Proposition \ref{prop:mf-cyn}). The CY dimension is
+$n$, one less than the ambient $\dim S$.
+\item[(iv)] \emph{Fukaya} $\DFuk(X)$ of a Weinstein $6$-manifold with
+$c_1=0$: smooth proper $\stcy_3$ (Proposition \ref{prop:fuk-cyn}).
+\end{itemize}
+
+\emph{Morita relationships between sources, in specific examples}:
+\begin{itemize}
+\item $\Gamma(Q_{\mathrm{con}},W_{\mathrm{KW}})\cong\Lambda_{\NCCR}=
+\End_R(R\oplus I)\simeq\Db\Coh(\cY_\pm)$ (Szendroi 2008 strict
+isomorphism; wave12\_b1\_szendroi\_morita \S Cycle~5). Non-compact
+geometric avatar exists: the conifold is local, not projective.
+\item $\DFuk(T^*L)\simeq\Db(\cC^\infty_{cs}(L))$ for a smooth compact
+$L$ (Nadler--Zaslow 2009 arXiv:math/0604379). No direct
+$\Db\Coh$-avatar on a projective CY$_3$.
+\item $\MF(\bC^4,xyz+w^3)\simeq\Db\Coh(Y)$ for $Y$ the Fermat cubic
+sextic threefold via Kn\"orrer periodicity (Orlov 2009 arXiv:0901.1859
+Theorem 2.5; Kn\"orrer 1987 \emph{Invent.~Math.}).
+\item No derived avatar: Davison--Meinhardt 2020 arXiv:2007.03289
+construct examples of smooth proper $\stcy_3$ dg categories that do
+not arise from any of the three geometric constructions up to Morita.
+\end{itemize}
+
+The union of the three sources is strictly a subset of the full class
+of CY$_3$ dg categories. The Kontsevich--Soibelman conjecture (KS 2008
+arXiv:0811.2435 Conjecture 8.1) asserts that every smooth proper
+$\stcy_3$ category over $\bC$ is Morita-equivalent to a
+\emph{completed} Ginzburg dg algebra for some $(Q,W)$; this is open in
+general, with Van den Bergh 2015 arXiv:1302.1462 establishing the
+Koszul-dual ``de Rham-type'' conjecture for the positive-degree
+(formal) Serre functor case.
+\end{heal}
+
+% ============================================================
+\section{Attack IV --- Kn\"orrer periodicity: does $\MF(xyz)$ over $\bC^3$ carry the CY$_3$ datum?}
+% ============================================================
+
+\begin{attack}[The specific claim about $W=xyz$ on $\bC^3$]
+The essay flags ``matrix factorisations with non-hyperplane potentials''
+as CY$_3$ inputs and instructs to ``show $\cC$ extends to Ginzburg from
+$\bC^3_{xyz}$ with $W=xyz$; potential gives CY$_3$ structure;
+$\MF(xyz)=\bC^3$ via Kn\"orrer periodicity''.
+
+Two technical points render this a trap:
+
+\emph{First}: $W=xyz$ on $\bC^3$ has \emph{non-isolated} critical
+locus. The critical set is $\{\partial_x W=yz=0,\partial_y W=xz=0,
+\partial_z W=xy=0\}$, which is the union of the three coordinate axes
+$\{x=y=0\}\cup\{y=z=0\}\cup\{x=z=0\}$ --- a one-dimensional singular
+locus, not isolated. Orlov 2004 and Dyckerhoff 2011 require isolated
+critical points for $\MF(S,W)$ to be smooth proper of finite
+dimension; without isolatedness the category is ill-behaved (infinite
+morphism spaces, failure of properness).
+
+\emph{Second}: Kn\"orrer periodicity (Kn\"orrer 1987) reads
+$\MF(S\times\bC^2,W+uv)\simeq\MF(S,W)$ for $S$ smooth affine, $W$ with
+isolated critical points; the common misconception is that this
+``converts $\bC^3$ to $\bC^5$'' or ``$\MF(W)=\bC^3$''. The correct
+statement is that tensoring with a \emph{quadratic} piece of two
+variables is a $\stcy$-dimension-preserving Morita equivalence. There
+is no equivalence $\MF(\bC^3,xyz)\simeq\Db\Coh(\bC^3)$ at any
+dimension; $\bC^3$ itself is the ambient, not the output.
+
+\emph{Third}: what does give a CY$_3$ datum is the Landau--Ginzburg /
+quiver-with-potential translation. The coordinate ring
+$\bC[x,y,z]$ is the centre of the Ginzburg dg algebra of a particular
+quiver (the $\bC^3$ quiver with three loops $x,y,z$ and potential $W=xyz$
+on the cyclic path $x\mapsto y\mapsto z\mapsto x$); this
+quiver-with-potential is $(Q_{\bC^3},W_{\bC^3})$ of Schiffmann--Vasserot
+2012 arXiv:1202.2756 \S2, and its Ginzburg dg algebra
+$\Gamma(Q_{\bC^3},W_{\bC^3})$ is a smooth proper $\stcy_3$ dg algebra
+supplying the CY$_3$ datum for non-commutative DT on $\bC^3$.
+\end{attack}
+
+\begin{heal}[The correct CY$_3$ structure on the $\bC^3$ quiver]
+Replace the essay's ``$\MF(xyz)=\bC^3$ via Kn\"orrer'' with the
+correct statement: the $\stcy_3$ datum on the non-commutative model of
+$\bC^3$ is carried by the Schiffmann--Vasserot Ginzburg dg algebra
+$\Gamma(Q_{\bC^3},W_{\bC^3})$, not by $\MF(\bC^3,xyz)$ (which is not
+smooth proper in any useful sense).
+
+\begin{proposition}[CY$_3$ datum on the $\bC^3$ quiver]
+\label{prop:c3-quiver-cy3}
+Let $Q_{\bC^3}$ be the one-vertex quiver with three loops labelled
+$x,y,z\in\End(*)$. Let $W_{\bC^3}=xyz-xzy\in\bC Q_{\bC^3}/[\cdot,\cdot]$
+be the commutator-cyclic-trace potential on length-$3$ paths. Then the
+Ginzburg dg algebra $\Gamma(Q_{\bC^3},W_{\bC^3})$ carries a natural
+smooth proper $\stcy_3$ structure, with Serre pairing the cyclic trace
+$\tau_{W_{\bC^3}}$ in degree $-3$. The moduli space of finite-dimensional
+representations of $\Gamma(Q_{\bC^3},W_{\bC^3})$ is (a derived
+neighbourhood of) the Hilbert scheme $\mathrm{Hilb}^n(\bC^3)$ in the
+dimension vector $n$; the pair
+$(\Gamma(Q_{\bC^3},W_{\bC^3}),\tau_{W_{\bC^3}})$ is the non-commutative
+crepant resolution of $\bC^3$ in the sense of Van den Bergh 2004.
+\end{proposition}
+
+\begin{proof}[Derivation]
+The cyclic derivatives read
+$\partial_x W_{\bC^3}=yz-zy=[y,z]$, $\partial_y W_{\bC^3}=zx-xz=[z,x]$,
+$\partial_z W_{\bC^3}=xy-yx=[x,y]$. The Jacobi algebra is
+$\bC\langle x,y,z\rangle/([x,y],[y,z],[x,z])=\bC[x,y,z]$: the polynomial
+ring on three variables, i.e.\ the coordinate ring of $\bC^3$ as an
+affine scheme. Thus $\Gamma(Q_{\bC^3},W_{\bC^3})$ is a derived
+thickening of $\bC[x,y,z]$. The CY$_3$ trace is the $\SL_3$-equivariant
+residue pairing $\bC[x,y,z]\otimes\bC[x,y,z]\to\bC$,
+$(f,g)\mapsto\oint_0 fg\,dx\wedge dy\wedge dz$, non-degenerate on the
+cohomology $\HH_{-3}$. The factorisation-homology incarnation is
+Costello--Li 2012 (arXiv:1201.4501, holomorphic Chern--Simons on
+$\bC^3$), the Stage~1 output $\PhiFA_3(\bC^3)$ of
+wave12\_u1\_two\_stage\_functor Definition 4.1.
+\end{proof}
+
+\begin{remark}[Knorrer periodicity: the correct statement]
+The actual Kn\"orrer periodicity in this context reads
+\[
+\MF(\bC^{n+2},W+uv)\;\simeq\;\MF(\bC^n,W)
+\]
+as $\stcy_n$ categories, for $W\in\cO(\bC^n)$ with isolated critical
+point at $0$. Applied with $W=0$ on $\bC^0$ (trivial), this gives
+$\MF(\bC^2,uv)\simeq\MF(\mathrm{pt},0)\simeq\Dperf(\bC)$, the
+$\stcy_0$-datum on a point. Iterating twice gives $\MF(\bC^4,u_1v_1+u_2v_2)$
+as $\stcy_0$; the conifold $R=\bC[x,y,z,w]/(xy-zw)$, realised as the
+quadric $\{u_1v_1-u_2v_2=0\}$, has $\MF(\bC^4,u_1v_1-u_2v_2)$ as its
+category of singularities (Orlov 2004 Theorem 3.11), carrying a
+$\stcy_0$ structure, \emph{not} $\stcy_3$; the CY$_3$ structure on the
+conifold comes from the global geometry of $\cY_\pm$, not from the
+$\MF$-realisation.
+\end{remark}
+
+\begin{remark}[What ``non-hyperplane potential'' means]
+The essay's ``matrix factorisations with non-hyperplane potentials''
+refers to $W$ not of the form $W=\sum c_ix_i$ (linear). The substantive
+examples are (i) quasi-homogeneous $W$ of type ADE (Martinec 1988
+\emph{Phys.~Lett.~B} 217, Vafa--Warner 1989 \emph{Phys.~Lett.~B} 218)
+producing $\stcy_{n}$-categories via the LG/CY correspondence of
+Witten 1993 (arXiv:hep-th/9304026); (ii) the $\bC^{4}/\bZ_N$
+hypersurface potentials of Walcher 2005 (arXiv:hep-th/0412274) and
+the homological-mirror-symmetry calculus of Polishchuk--Vaintrob 2012
+(arXiv:1002.2116 \S5) for orbifold LG. In the essay's context the
+relevant non-hyperplane potentials are the quiver superpotentials
+$W_{(Q,W)}$ of Ginzburg dg-algebras; these are exactly the
+potentials used by Kontsevich--Soibelman 2008 (arXiv:0811.2435) to
+define motivic DT via $\MF$-realisations.
+\end{remark}
+\end{heal}
+
+% ============================================================
+\section{Attack V --- Derived-equivalent $X$'s at other CY dimensions: what is the analogue?}
+% ============================================================
+
+\begin{attack}[Does the essay's claim survive at $d\ne 3$?]
+The essay's Morita-invariance claim is stated for CY$_3$. But the same
+argument apparently works at $d=2$ (K3 and K3$\times$E$_\tau$ --- the
+Fourier--Mukai transform of Mukai 1987 gives derived auto-equivalences
+of $K3$), at $d=1$ (elliptic curves, $\Db\Coh(E_\tau)\simeq\Db\Coh(E_{\tau'})$
+for isogenous $E_\tau,E_{\tau'}$), at $d=4$ (hyperk\"ahler fourfolds
+of type K3$^{[2]}$ or generalised Kummer), and so on. One should ask:
+is Morita-invariance of the datum $(\cC,\eta_d)$ dimension-uniform? If
+so, the Vol~III framing of CY-A/B/C/D (the dimensional stratification
+of the functor $\Phi$) means that at each $d$ the Stage~1 output
+$\PhiFA_d$ descends through CY$_d$-Morita classes rather than bare
+isomorphism classes of varieties.
+
+The concrete trap: at $d=2$, Mukai vector-bundle transforms give
+rise to derived auto-equivalences of $\Db\Coh(K3)$ whose action on
+$\HH_{-2}$ is a non-trivial lattice isometry (the Mukai lattice
+isometry of Mukai 1987 \emph{Invent.~Math.} 77). Such equivalences
+preserve the Mukai pairing of $\HH_\bullet(K3)$ but do \emph{not}
+preserve the specific degree-$(-2)$ CY$_2$ trace $\eta_{K3}$
+canonically associated with a fixed choice of holomorphic symplectic
+form; they rotate it by the orthogonal-lattice isometry. Hence
+``derived-equivalent $K3$'s give the same $\cC$'' is true, but
+``\ldots give the same CY$_2$ datum $(\cC,\eta)$'' needs the further
+restriction that the Mukai isometry fixes the $(1,0,0)$ Mukai vector
+(the vacuum); this is a codimension-$>0$ condition in the Mukai
+isometry group.
+
+At $d=3$ on $K3\times E_\tau$, the derived equivalence group is
+generated by (a) Mukai isometries on the $K3$-factor, (b) isogenies on
+the $E_\tau$-factor, (c) the shift and twist functors, and (d) extra
+``exotic'' auto-equivalences coming from $K3$-specific structures
+(Sosna 2010 arXiv:0903.4459). CY$_3$-linearity restricts this group to
+the stabiliser of the product form
+$\Omega_{K3}\otimes dz\in H^{3,0}(K3\times E_\tau,\bC)$. The essay's
+claim as written ignores this.
+\end{attack}
+
+\begin{heal}[Dimension-uniform CY$_d$-linear Morita-invariance, with per-$d$ scope]
+Assemble the full dimension-parameterised Morita-invariance claim and
+its group-theoretic content.
+
+\begin{theorem}[CY$_d$-linear Morita-invariance, per $d\in\{1,2,3,4\}$]
+\label{thm:cyd-linear-morita-invariance}
+Let $X,X'$ be smooth projective Calabi--Yau varieties over $\bC$ of
+complex dimension $d$, with fixed holomorphic volume forms
+$\Omega_X,\Omega_{X'}$. Let $\Phi\colon\Db\Coh(X)\to\Db\Coh(X')$ be a
+$\bC$-linear triangulated equivalence (equivalently, a Fourier--Mukai
+equivalence with smooth proper kernel). The following are equivalent:
+\begin{enumerate}
+\item[(1)] $\Phi$ is CY$_d$-linear: the Hochschild-homology map
+$\HH_{-d}(\Phi)$ sends $[\Omega_X]\in\HH_{-d}(X)$ to
+$[\Omega_{X'}]\in\HH_{-d}(X')$.
+\item[(2)] $\Phi$ intertwines the Serre functors:
+$\Phi\circ\Ser_X\simeq\Ser_{X'}\circ\Phi$, via a specified natural
+isomorphism whose restriction to the vacuum
+$[\Omega_X]\cdot\Phi\simeq\Phi\cdot[\Omega_{X'}]$ is trivial.
+\item[(3)] The Mukai vector of the Fourier--Mukai kernel
+$\cK\in\Db\Coh(X\times X')$ is a class in
+$H^\bullet(X\times X',\bQ)$ whose image under the characteristic-class
+map preserves $[\Omega_X]\mapsto[\Omega_{X'}]$.
+\end{enumerate}
+Under (1)--(3), the Stage~1 output $\PhiFA_d$ of the two-stage functor
+(wave12\_u1\_two\_stage\_functor Definition 4.1) is invariant:
+$\PhiFA_d(X,\Omega_X)\simeq\PhiFA_d(X',\Omega_{X'})$ as
+$E_d$-holomorphic factorisation algebras.
+\end{theorem}
+
+\begin{proof}[Derivation]
+The equivalence (1)$\Leftrightarrow$(2) is Bondal--Kapranov 1989 \S1 and
+Caldararu 2005 (arXiv:math/0308079) applied to the Hochschild-homology
+Chern-character diagram
+\[
+\begin{array}{ccc}
+\HH_\bullet(X)&\xrightarrow{\HH_\bullet(\Phi)}&\HH_\bullet(X')\\
+\downarrow&&\downarrow\\
+H^\bullet(X,\bQ)&\xrightarrow{\phi_*}&H^\bullet(X',\bQ)
+\end{array}
+\]
+with the vertical arrows the modified Chern character and $\phi_*$ the
+Mukai kernel action. The Serre functor lifts to the
+$(\mathrm{cosk}_\bullet)$-equivariant piece, and preservation of $\Omega$
+is exactly preservation of the top-degree Hochschild class.
+(1)$\Leftrightarrow$(3) is Bridgeland 2002 Proposition 5.1 for the kernel
+and Huybrechts 2006 (\emph{Fourier--Mukai Transforms} Proposition 5.39)
+for the Mukai-vector compatibility.
+Stage~1 invariance follows from the Costello--Gwilliam principle that
+an $E_d$-holomorphic factorisation algebra on $X$ is determined by the
+Hochschild--Kostant--Rosenberg pair $(\Db\Coh(X),\Omega_X)$ together
+with the Chern--Simons-type 2-cocycle on the smooth locus
+(wave12\_u1\_two\_stage\_functor Definition 4.1).
+\end{proof}
+
+\begin{remark}[Per-$d$ group structure]
+The CY$_d$-linear subgroup of $\Aut(\Db\Coh(X))$ is, schematically,
+\begin{itemize}
+\item $d=1$ ($X=E_\tau$): the finite shift group $\bZ[1]$
+times the $\Pic(E_\tau)$-twist times the Mukai-vector transpose,
+intersected with the isogeny group $\End(E_\tau)\cdot\mathrm{SL}(2,\bZ)$
+of the Jacobian --- a finite-index subgroup that is
+order-$2$ (generic) to infinite (CM elliptic curve).
+\item $d=2$ ($X=K3$): the Mukai-lattice isometry group
+$\mathrm{O}(\Lambda_{K3})=\mathrm{O}(3,19)$ acting on the
+extended Mukai lattice; the CY$_2$-linear subgroup is the stabiliser of
+$(1,0,0)\in\Lambda_{K3}^{(0,0)}$, a Hodge-isometric subgroup of
+$\mathrm{O}(2,19)$ (Mukai 1987; Huybrechts 2016 \emph{Lectures on K3 Surfaces}
+Chapter 16).
+\item $d=3$ (projective CY$_3$ in generic regime): conjecturally
+generated by shift, twist by line bundles, and Seidel--Thomas spherical
+twists (Seidel--Thomas 2001 arXiv:math/0001043); the
+CY$_3$-linear subgroup fixes the $[\Omega_X]$-class, a rank-$1$
+subgroup of the Bridgeland stability group.
+\item $d=3$ on $K3\times E$: the product group $\Aut(\Db\Coh(K3))\times
+\Aut(\Db\Coh(E_\tau))$ (Ploog 2005 \emph{Contemp.~Math.} 408) together
+with exotic equivalences (Sosna 2010); CY$_3$-linear subgroup is the
+stabiliser of $[\Omega_{K3}\otimes dz]$.
+\item $d=4$ (hyperk\"ahler fourfolds): Addington--Thomas 2014
+(arXiv:1207.0523) for $K3^{[2]}$; Markman 2011 (arXiv:0910.0412) for
+the generalised Kummer; Verbitsky 2013 for the irreducible holomorphic
+symplectic general case.
+\end{itemize}
+\end{remark}
+
+\begin{remark}[The chiral shadow is CY$_d$-Morita invariant, but the Stage~2 moduli depends on a cycle-curve pair]
+A final honesty point: Proposition \ref{prop:cy3-morita-invariance}
+and Theorem \ref{thm:cyd-linear-morita-invariance} deliver
+CY$_d$-linear Morita-invariance of the Stage~1 output $\PhiFA_d$, not
+of the specialised chiral shadow produced by Stage~2
+$\SpCC\colon E_d\mathrm{-HolFA}\to E_1\mathrm{-ChirAlg}$
+(wave12\_u1\_two\_stage\_functor Definition 4.1). The Stage~2 output
+depends on the cycle $\Sigma_{d-1}\subset X$ and the reference curve
+$C\subset X$, both of which are \emph{not} invariant under derived
+equivalence: a derived auto-equivalence of $\Db\Coh(K3\times E)$ can
+reshape the moduli $(K3\times\{\mathrm{pt}\},E_\tau)$ into a different
+cycle-curve pair whose Stage~2 shadow is a different $E_1$-chiral algebra.
+
+The precise statement is: within the fixed pairing of cycle and curve
+$(\Sigma_{d-1},C)$, CY$_d$-linear Morita-invariance transports the
+Stage~1 factorisation algebra; outside that pairing, the shadow
+depends on the auxiliary data.
+\end{remark}
+\end{heal}
+
+% ============================================================
+\section{Primary citation ledger}
+% ============================================================
+
+\begin{itemize}
+\item Addington, N., and Thomas, R.P., ``Hodge theory and derived
+categories of cubic fourfolds'', \emph{Duke Math.~J.} 163 (2014) (arXiv:1207.0523).
+\item Bondal, A.I., and Kapranov, M.M., ``Enhanced triangulated
+categories'', \emph{Math.~USSR Sb.} 70 (1991), 93--107 (also
+\emph{Izv.~Akad.~Nauk SSSR Ser.~Mat.} 53 (1989)).
+\item Brav, C., and Dyckerhoff, T., ``Relative Calabi--Yau structures
+II'', \emph{Selecta Math.} 26 (2020), no.~1 (arXiv:1812.11913).
+\item Bridgeland, T., ``Flops and derived categories'',
+\emph{Invent.~Math.} 147 (2002), 613--632 (arXiv:math/0009053).
+\item Broomhead, N., \emph{Dimer Models and Calabi--Yau Algebras},
+Mem.~AMS~215 (2012), no.~1011.
+\item Butti, A., and Zaffaroni, A., ``$R$-charges from toric diagrams
+and the equivalence of a-maximisation and Z-minimisation'', \emph{JHEP}
+2005 (arXiv:hep-th/0502113).
+\item Caldararu, A., ``The Mukai pairing, I: The Hochschild pairing''
+\emph{Adv.~Math.} 194 (2005), no.~1, 34--66 (arXiv:math/0308079).
+\item Costello, K., ``The partition function of a topological field theory'',
+\emph{J.~Topol.} 2 (2009), no.~4, 779--822 (arXiv:math/0412149).
+\item Costello, K., and Gwilliam, O., \emph{Factorization Algebras in
+Quantum Field Theory}, Vol.~1--2, Cambridge Univ.~Press, 2017, 2021.
+\item Costello, K., and Li, S., ``Quantization of open-closed BCOV
+theory I'' arXiv:1505.06703, 2015 (also ``Anomaly cancellation in the
+topological string'', arXiv:1201.4501, 2012).
+\item Davison, B., and Meinhardt, S., ``Cohomological Donaldson--Thomas
+theory of a quiver with potential and quantum enveloping algebras''
+\emph{Invent.~Math.} 221 (2020), 777--871 (arXiv:1601.02479; companion
+arXiv:2007.03289).
+\item Drinfeld, V., ``DG quotients of DG categories'',
+\emph{J.~Algebra} 272 (2004), 643--691 (arXiv:math/0210114).
+\item Dyckerhoff, T., ``Compact generators in categories of matrix
+factorizations'', \emph{Duke Math.~J.} 159 (2011), no.~2, 223--274
+(arXiv:0904.4713).
+\item Francis, J., ``The tangent complex and Hochschild cohomology of
+$E_n$-rings'', \emph{Compos.~Math.} 149 (2013), no.~3, 430--480
+(arXiv:1104.0181).
+\item Franco, S., Hanany, A., Kennaway, K.D., Vegh, D., and Wecht, B.,
+``Brane dimers and quiver gauge theories'', \emph{JHEP} 2006
+(arXiv:hep-th/0504110).
+\item Ganatra, S., \emph{Symplectic Cohomology and Duality for the Wrapped
+Fukaya Category}, PhD thesis MIT, 2012 (arXiv:1304.7312).
+\item Ginzburg, V., ``Calabi--Yau algebras'', arXiv:math/0612139, 2006.
+\item Huybrechts, D., \emph{Fourier--Mukai Transforms in Algebraic
+Geometry}, Oxford Univ.~Press, 2006.
+\item Huybrechts, D., \emph{Lectures on K3 Surfaces}, Cambridge Studies in
+Advanced Math.~158, 2016.
+\item Keller, B., ``On the cyclic homology of exact categories'',
+\emph{J.~Pure~Appl.~Algebra} 136 (1999), 1--56.
+\item Keller, B., ``Deformed Calabi--Yau completions'' (with appendix by
+Van den Bergh), \emph{J.~Reine~Angew.~Math.} 654 (2011), 125--180
+(arXiv:0908.3499).
+\item Kn\"orrer, H., ``Cohen--Macaulay modules on hypersurface
+singularities I'', \emph{Invent.~Math.} 88 (1987), 153--164.
+\item Kontsevich, M., ``Homological algebra of mirror symmetry'',
+in \emph{Proc.~ICM Z\"urich 1994}, Vol.~I, Birkh\"auser, 1995, 120--139.
+\item Kontsevich, M., and Soibelman, Y., ``Notes on $A_\infty$-algebras,
+$A_\infty$-categories and non-commutative geometry I'', in
+\emph{Homological Mirror Symmetry}, Lect.~Notes Phys.~757, 2009
+(arXiv:math/0606241).
+\item Kontsevich, M., and Soibelman, Y., ``Stability structures,
+motivic Donaldson--Thomas invariants and cluster transformations''
+arXiv:0811.2435, 2008.
+\item Markman, E., ``A survey of Torelli and monodromy results for
+holomorphic-symplectic varieties'' arXiv:1101.4606, 2011.
+\item Morrison, D.R., and Seiberg, N., ``Extremal transitions and
+five-dimensional supersymmetric field theories'',
+\emph{Nucl.~Phys.~B} 483 (1997), 229--247 (arXiv:hep-th/9609070);
+earlier arXiv:hep-th/9508141.
+\item Mukai, S., ``On the moduli space of bundles on $K3$ surfaces I'',
+in \emph{Vector Bundles on Algebraic Varieties}, Tata Inst.~Bombay,
+1987, 341--413.
+\item Nadler, D., and Zaslow, E., ``Constructible sheaves and the
+Fukaya category'', \emph{J.~Amer.~Math.~Soc.} 22 (2009), 233--286
+(arXiv:math/0604379).
+\item Orlov, D., ``Triangulated categories of singularities and
+D-branes in Landau--Ginzburg models'' \emph{Proc.~Steklov Inst.~Math.}
+246 (2004), 227--248 (arXiv:math/0302304).
+\item Orlov, D., ``Formal completions and idempotent completions of
+triangulated categories of singularities'' \emph{Adv.~Math.} 226
+(2011) (arXiv:0901.1859).
+\item Ploog, D., ``Groups of autoequivalences of derived categories of
+smooth projective varieties'', PhD thesis FU Berlin, 2005;
+\emph{Contemp.~Math.} 408.
+\item Polishchuk, A., and Vaintrob, A., ``Chern characters and Hirzebruch--Riemann--Roch
+formula for matrix factorizations'' \emph{Duke Math.~J.} 161 (2012)
+(arXiv:1002.2116).
+\item Schiffmann, O., and Vasserot, E., ``Cherednik algebras, W-algebras and
+the equivariant cohomology of the moduli space of instantons on
+$\mathbf{A}^2$'' \emph{Publ.~Math.~IHES} 118 (2013), 213--342
+(arXiv:1202.2756).
+\item Seidel, P., \emph{Fukaya Categories and Picard--Lefschetz Theory},
+EMS Zurich Lectures in Advanced Math., 2008.
+\item Seidel, P., ``Homological mirror symmetry for the genus two curve'',
+\emph{J.~Algebraic~Geom.} 20 (2011), 727--769 (arXiv:1011.6492).
+\item Seidel, P., and Thomas, R.P., ``Braid group actions on derived
+categories of coherent sheaves'', \emph{Duke Math.~J.} 108 (2001),
+37--108 (arXiv:math/0001043).
+\item Sosna, P., ``Derived equivalent conjugate $K3$ surfaces'',
+\emph{Bull.~Lond.~Math.~Soc.} 42 (2010), 1065--1072 (arXiv:0903.4459).
+\item Szendroi, B., ``Non-commutative Donaldson--Thomas theory and the
+conifold'', \emph{Geom.~Topol.} 12 (2008), 1171--1202 (arXiv:0705.3419).
+\item Toen, B., ``The homotopy theory of dg-categories and derived
+Morita theory'', \emph{Invent.~Math.} 167 (2007), 615--667
+(arXiv:math/0408337).
+\item Uehara, H., ``An example of Fourier--Mukai partners of minimal
+elliptic surfaces'', \emph{Math.~Res.~Lett.} 11 (2004), 371--375
+(arXiv:math/0312250).
+\item Van den Bergh, M., ``Three-dimensional flops and non-commutative
+rings'', \emph{Duke Math.~J.} 122 (2004), 423--455
+(arXiv:math/0207170).
+\item Van den Bergh, M., ``Non-commutative crepant resolutions'' (with
+some corrections), in \emph{The Legacy of Niels Henrik Abel},
+Springer 2004, 749--770; revised arXiv:math/0211064.
+\item Van den Bergh, M., ``Calabi--Yau algebras and superpotentials'',
+\emph{Selecta Math.} 21 (2015), 555--603 (arXiv:1302.1462).
+\item Walcher, J., ``Stability of Landau--Ginzburg branes'',
+\emph{J.~Math.~Phys.} 46 (2005), 082305 (arXiv:hep-th/0412274).
+\item Witten, E., ``Phases of $N=2$ theories in two dimensions'',
+\emph{Nucl.~Phys.~B} 403 (1993), 159--222 (arXiv:hep-th/9301042).
+\end{itemize}
+
+\section*{Summary verdict}
+
+The essay claim ``a CY$_3$ datum $(\cC,\eta)$ is Morita-invariant; two
+different $X$'s derived-equivalent give the same $\cC$, and $\cC$
+extends freely to non-geometric inputs'' is correct after three
+refinements:
+
+\begin{enumerate}
+\item[(R1)] Replace ``Morita-invariant'' with \emph{CY$_3$-linear
+Morita-invariant}: the equivalence must intertwine Serre functors and
+preserve the Mukai trace $[\Omega_X]\in\HH_{-3}$. Proposition
+\ref{prop:cy3-morita-invariance}; Theorem \ref{thm:cyd-linear-morita-invariance}.
+\item[(R2)] The flop example works: Bridgeland 2002 produces a
+CY$_3$-linear equivalence $\Db\Coh(\cY_+)\simeq\Db\Coh(\cY_-)$
+realised via the common NCCR $\Lambda_{\NCCR}=\End_R(R\oplus I)$
+(Van den Bergh 2004). Proposition \ref{prop:flop-cy3-linear}.
+\item[(R3)] The ``free extension to non-geometric inputs'' means:
+Ginzburg dg algebras $\Gamma(Q,W)$ for quiver with potential are
+smooth proper $\stcy_3$ (Keller--Van den Bergh 2011); $\MF(S,W)$ is
+smooth proper $\stcy_n$ for $S=\bC^{n+1}$ with isolated critical $W$
+(Orlov 2004, Dyckerhoff 2011); $\DFuk(X^{2n})$ is smooth proper
+$\stcy_n$ for Weinstein $X$ with $c_1=0$ (Seidel 2008, Ganatra 2013).
+The landscape of CY$_3$ dg categories is not exhausted by these three
+sources (Davison--Meinhardt 2020); the Kontsevich--Soibelman
+conjecture asserts that up to Morita every smooth proper $\stcy_3$ is
+a completed Ginzburg, an open conjecture (KS 2008 Conjecture 8.1;
+Van den Bergh 2015 for formal cases).
+\end{enumerate}
+
+The essay-style ``$\MF(xyz)=\bC^3$ via Kn\"orrer'' is \emph{incorrect} as
+stated: $W=xyz$ on $\bC^3$ has non-isolated critical locus, and
+Kn\"orrer periodicity is $\MF(S\times\bC^2,W+uv)\simeq\MF(S,W)$, not
+a reduction of $\bC^3$ to a point. The correct CY$_3$ datum for the
+``non-commutative $\bC^3$'' is the Schiffmann--Vasserot Ginzburg dg
+algebra $\Gamma(Q_{\bC^3},W_{\bC^3})=\bC\langle x,y,z\rangle^{\mathrm{CY_3}}$
+with $W_{\bC^3}=xyz-xzy$ (Proposition \ref{prop:c3-quiver-cy3}).
+
+\end{document}

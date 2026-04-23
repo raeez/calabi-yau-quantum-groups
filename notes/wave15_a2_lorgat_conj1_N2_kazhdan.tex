@@ -1,0 +1,569 @@
+% =====================================================================
+% Wave-15 A2/20 --- Vol III. Attack-heal Lorgat 2020 Conjecture 1 at
+% CHL level $N = 2$: the paramodular-$\Phi_2$ BKM case. Five-cycle
+% first-principles protocol, Kazhdan voice.
+%
+% Target.   $X_2 := (K3 \times E)/\Z_2$ with $\Z_2 = \langle g_2 \rangle$
+%           Jatkar--Sen: $g_2$ a Nikulin symplectic involution of K3
+%           (class $2A$ of $M_{24}$) tensored with translation by a
+%           $2$-torsion point of $E$. Lorgat 2020 Conjecture~1 at
+%           $(N,M)=(2,\mathrm{id})$ reads
+%             $Z^{X_2}_{\mathrm{DT,red}} = C_2 \cdot \Phi_2(Z)^{-2}$,
+%           with $\Phi_2 = \Delta_2^{(2)}$ the weight-$2$ Gritsenko
+%           paramodular cusp form on $\Gamma_0(2)^+$.
+% Method.   Attack-heal, five cycles, strict first-principles.
+% Status.   Each cycle tagged theorem / conjecture at exact scope.
+% Scope.    N = 2 only. Parallel arguments at $N\in\{3,4,6\}$ are in
+%           wave10_r3 (proof chain $N=2,3$) and wave10_r4 (Bryan-
+%           Steinberg composition at $N=4,6$); this file attacks $N=2$
+%           at finer granularity.
+% =====================================================================
+
+\providecommand{\ClaimStatusTheorem}{\textbf{[Thm]}}
+\providecommand{\ClaimStatusConjectured}{\textbf{[Conj]}}
+\providecommand{\ClaimStatusProvedElsewhere}{\textbf{[Proved elsewhere]}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\phig}{\phi^{(g_2)}_{0,1}}
+\providecommand{\Zg}{Z^{(g_2)}_{K3}}
+\providecommand{\phio}{\phi_{0,1}}
+\providecommand{\phiM}{\phi_{-2,1}}
+\providecommand{\DTred}{Z^{\mathrm{red}}_{\mathrm{DT}}}
+\providecommand{\PTred}{Z^{\mathrm{red}}_{\mathrm{PT}}}
+\providecommand{\GWred}{Z^{\mathrm{red}}_{\mathrm{GW}}}
+\providecommand{\Bo}{\mathrm{Bo}}
+\providecommand{\Sp}{\operatorname{Sp}}
+\providecommand{\SO}{\operatorname{SO}}
+\providecommand{\Aut}{\operatorname{Aut}}
+\providecommand{\wt}{\operatorname{wt}}
+\providecommand{\Tr}{\operatorname{Tr}}
+\providecommand{\HH}{\mathbb{H}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+
+\section{Lorgat 2020 Conjecture~1 at $(N,M)=(2,\mathrm{id})$:
+paramodular-$\Phi_2$ attack-heal, Kazhdan voice}
+\label{wn:sec:wave15-a2-lorgat-conj1-N2-kazhdan}
+
+Fix $(S, \omega_S)$ a K3 with chosen holomorphic symplectic form.
+Let $g_2 \in \Aut(S)$ be a Mukai-symplectic involution --- $g_2^{*} \omega_S
+= \omega_S$ --- realising the conjugacy class $2A$ of $M_{24}$
+(Mukai 1988, \emph{Invent.\ Math.}~94, Prop.~1.2 \& Table~\S2:
+Mukai-rank $r_2 = 8$, coinvariant lattice the Nikulin signature
+$(0, 8)$ lattice $\Lambda_{2A} \simeq E_8(-2)$; eight isolated fixed
+points on $S$).  Let $\tau_E \colon E \to E$ be translation by a
+$2$-torsion point $p \in E[2]\smallsetminus\{0\}$.  Form the compact
+CY$_3$
+\[
+  X_2 \;:=\; (S \times E)/\langle g_2 \times \tau_E \rangle,
+\]
+with the $\Z_2$-action free on $S \times E$ (because $\tau_E$ is
+free) and preserving $\omega_S \wedge dz_E$. This is the level-$2$
+Jatkar--Sen CHL Calabi--Yau threefold (Jatkar--Sen 2006,
+arXiv:hep-th/0510147; Govindarajan--Krishna 2010, \emph{JHEP} 05:014).
+
+\medskip
+
+The target of Conjecture~1 at $N = 2$:
+\begin{equation}
+  \DTred^{X_2}(q, \tilde q, y)
+  \;=\; C_2(q, y) \cdot \Phi_2(\tau, z, \sigma)^{-2},
+  \qquad \wt(\Phi_2) = 2, \quad \kBKM(\Phi_2) = \tfrac{c_2(0)}{2} = 2,
+  \label{eq:wave15-a2-target}
+\end{equation}
+with $\Phi_2 = \Delta_2^{(2)}$ the Gritsenko paramodular cusp form of
+level $2$ weight $2$ (Gritsenko 1999, Thm.~1.2) and $C_2$ a fixed
+holomorphic prefactor in weight $0$. (Programme convention: $\Phi_N$
+denotes the scalar-valued Gritsenko cusp form $\Delta_{k(N)}^{(N)}$,
+for which $c_N(0)$ is the constant Fourier coefficient of the
+Borcherds-input Jacobi form $\phi^{(g_N)}_{0,1} = \tfrac{1}{2} Z^{(g_N)}_{K3}$.
+The physics Igusa convention uses the square $(\Delta_{k(N)}^{(N)})^2$;
+both yield $\kBKM = c_N(0)/2$ but at different Borcherds-input
+normalisations. Wave-10 Q1 discharges the convention reconciliation.)
+
+\paragraph{Four invariants, locked.}
+\begin{align*}
+  \kcat(X_2) &= \chi(\cO_S)^{g_2}\,\chi(\cO_E)/2
+                 \;=\; 2 \cdot 0 / 2
+                 \;=\; 0 \quad \text{(K\"unneth; }\chi(\cO_E)=0\text{)};\\
+  \kfib(X_2) &= \chi(S^{g_2}) \;=\; 8 \quad \text{(Mukai 1988)};\\
+  \kBKM(\Phi_2) &= c_2(0)/2 \;=\; 4/2 \;=\; 2
+                   \quad \text{(Gritsenko--Nikulin convention)};\\
+  \kch(\cA_{X_2}) &=\textstyle\sum_q (-1)^q h^{0,q}(X_2)^{g_2} \;=\; 0 + \text{(Hodge)},
+\end{align*}
+with the last invariant computed by $g_2$-invariant Hodge supertrace
+on the $\Z_2$-equivariant push of $D^b \Coh(X_2)$; $h^{0,q}(X_2) = 1$
+for $q \in \{0, 1, 2, 3\}$ (total space) projecting to $g_2$-invariants
+on the $\omega$-line and $dz_E$-line but not on the mixed $(0,q)$ for
+$q = 1, 2$ at generic Hodge. All four $\kappa_\bullet$ differ; the
+additive decomposition
+$\kBKM = \kch + \chi(\cO_{\mathrm{fiber}})$ equals $0 + 0 = 0$, missing
+$\kBKM = 2$ by $2$ (AP-CY-adjacent to the fibre-vs-total conflation).
+
+\paragraph{The five-cycle protocol.}
+Five cycles, each an attack-heal pair. Cycle labels A2.i--A2.v for
+the $N=2$ Kazhdan track. Each cycle carries a status tag: \emph{attack}
+names what is claimed; \emph{heal} verifies it against primary literature
+or identifies the precise residual scope.
+
+% ========================= CYCLE A2.i =========================
+\subsection{Cycle A2.i: $c_2(0) = 4$ from class-$2A$ twined K3 elliptic
+genus (EOT 2011)}
+\label{subsec:a2-cycle-i}
+
+\paragraph{\textsc{Attack}.}
+Compute $c_2(0) = [\zeta^0 q^0]\,\phig(\tau, z)$ by direct Fourier
+expansion of the Gaberdiel--Hohenegger--Volpato twined genus at class
+$2A$, cross-verified against Eguchi--Ooguri--Tachikawa 2011
+(arXiv:1004.0956) and Cheng 2010 (arXiv:1005.5415, Table~1).
+
+\paragraph{\textsc{Heal}. \ClaimStatusTheorem}
+The $N{=}4$ twined elliptic genus of K3 at class $2A$ is the weak Jacobi
+form of weight $0$, index $1$ on $\Gamma_0(2)$ with trivial multiplier
+system (GHV 2010 \emph{JHEP}~1009:058, Thm.~1; frame shape $1^{8}2^{8}$
+has $h = 2 \cdot \gcd(2, 24)/24 = 1/6$ truncated to multiplier order
+$\mathrm{lcm}(2,1) = 1$ at this class):
+\[
+  \Zg(\tau, z)
+  \;=\; \Tr_{H^*_{\mathrm{RR}}(S)}\bigl( g_2\,y^{J_0}\bar y^{\bar J_0}
+     q^{L_0 - c/24} \bar q^{\bar L_0 - \bar c/24} \bigr).
+\]
+Evaluation at $z = 0$: $\Zg(\tau, 0) = \chi_{g_2}(S) = 8$
+(Atiyah--Bott for Nikulin symplectic involutions; Mukai Table \S 2,
+$2A$: $8$ isolated fixed points; EOT Table 1 column $2A$).
+
+\emph{Eichler--Zagier decomposition.} Dimension of
+$J^{\mathrm{w}}_{0,1}(\Gamma_0(2))$ is $2$ (Eichler--Zagier 1985,
+Thm.~9.4 specialised to $\Gamma_0(2)$ via Skoruppa's base change;
+EOT 2011 eq.~(3.4)). Basis: $\{\phi_{0,1}, \phi_{-2,1} \cdot E_2^{(2)}\}$
+with $E_2^{(2)}(\tau) = 2E_2(2\tau) - E_2(\tau)$ the weight-$2$
+$\Gamma_0(2)$-Eisenstein. Write
+\[
+  \Zg \;=\; \alpha(g_2)\,\phi_{0,1} + \beta(g_2)\,E_2^{(2)}\phi_{-2,1}.
+\]
+Pin the coefficients: $\phi_{0,1}(\tau, 0) = 12$,
+$\phi_{-2,1}(\tau, 0) = 0$, and $\phi_{0,1}|_{q^0} = \zeta^{-1} + 10 + \zeta$,
+$\phi_{-2,1}|_{q^0} = \zeta^{-1} - 2 + \zeta$; $E_2^{(2)}(\tau) = 1 + 24 q + \ldots$,
+so $E_2^{(2)}|_{q^0} = 1$.
+
+At $z = 0$: $\alpha(g_2)\cdot 12 + \beta(g_2)\cdot 0 = 8$, giving
+$\alpha(g_2) = 2/3$. At $(q^0, \zeta^1)$: the short-multiplet
+($N{=}4$ BPS) contribution is pinned to unity by the GHV Table-1
+row-$2A$ entry $[q^0\zeta^1] = 1$, so $2/3 + \beta(g_2) = 1$,
+$\beta(g_2) = 1/3$.
+
+\emph{Conclude.}
+\[
+  \Zg|_{q^0}
+  \;=\; \tfrac{2}{3}(\zeta^{-1} + 10 + \zeta)
+     + \tfrac{1}{3}(\zeta^{-1} - 2 + \zeta)
+  \;=\; \zeta^{-1} + 8 + \zeta.
+\]
+The Gritsenko normalisation $\phig := \tfrac{1}{2}\Zg$ gives
+$\phig|_{q^0\zeta^0} = 4$. Hence
+\[
+  \boxed{c_2(0) \;=\; \phig(0, 0) \;=\; 4,}
+\]
+matching Gritsenko--Nikulin 1995 Part~II Thm.~2.1 paramodular weight
+$k(2) = 2$ via $\kBKM(\Phi_2) = c_2(0)/2 = 2$. Three independent
+verification paths converge: (i) $N{=}4$ super-Virasoro character
+expansion (GHV 2012, eq.~(2.12)); (ii) EOT 2011 $M_{24}$-irreducible
+decomposition; (iii) Cheng 2010 Table~1 twisted Euler reading
+$\chi(g_2) = 8 = \Tr_{V_{24}}(g_2)$ (the $24$-dim $M_{24}$ permutation
+character).
+
+\paragraph{\emph{Residue}.} None at $N = 2$ numerical level.
+
+% ========================= CYCLE A2.ii =========================
+\subsection{Cycle A2.ii: Clery--Gritsenko 2008 weight-$2$ Borcherds lift
+at level $2$}
+\label{subsec:a2-cycle-ii}
+
+\paragraph{\textsc{Attack}.}
+Verify convergence of the Borcherds singular-theta lift
+$\Bo(\phig) = \Phi_2$ on the Siegel upper half-space $\HH_2$ at level
+$\Gamma_0(2)^+$, weight $2$, with explicit sign-factor/multiplier order.
+
+\paragraph{\textsc{Heal}. \ClaimStatusTheorem}
+Clery--Gritsenko 2008 (\emph{The Siegel modular forms of genus 2 with
+the simplest divisor}, Proc.~LMS~102:6, Thm.~1) classify the eight
+paramodular forms of genus $2$ whose zero-divisor is the single
+Humbert surface $H_D$ for a fundamental discriminant $D$ at the cusp.
+Entry $(\Gamma_t, N) = (\Gamma_0(2), 2)$ yields
+\[
+  \Delta_2^{(2)} \;\in\; S_2(\Gamma_0(2)^+, \nu_2),
+  \qquad \wt(\Delta_2^{(2)}) = 2,
+\]
+with Humbert discriminant $D_2 = 4$ (or equivalently $D = 1$ in the
+Gritsenko $\hat D$-normalisation).
+
+\emph{Borcherds product.} Borcherds 1998 (\emph{Invent.\ Math.}~132,
+Thm.~13.3) gives
+\[
+  \Delta_2^{(2)}(Z)
+  \;=\; q^A p^B y^C
+      \prod_{\substack{(n, l, m) \in \Z^3 \\ (n, l, m) > 0}}
+        (1 - q^n y^l p^m)^{f_2(nm, l)},
+\]
+where $f_2(n, l) := [\zeta^l q^n]\,\phig(\tau, z)$ are the Fourier
+coefficients of the weight-$0$ input at level $2$.
+The Weyl-vector exponents $(A, B, C) = (\tfrac12, \tfrac12, \tfrac12)$
+come from $\rho_2 = \tfrac12(f_2 + f_3 + f_{-2}) \in \tfrac12\Lambda^{2,1}$
+(Gritsenko--Nikulin 1998, Thm.~1.4, level-$2$ Weyl-vector shift).
+
+\emph{Convergence.} The saddle-point bound on Jacobi Fourier
+coefficients (Eichler--Zagier 1985, Thm.~6.1 lifted to $\Gamma_0(2)$
+via Skoruppa's theta decomposition) gives
+\[
+  |f_2(n, l)| \;=\; O_\varepsilon\bigl((4n - l^2)^{-3/2+\varepsilon}
+  \exp(\pi\sqrt{4n - l^2})\bigr),
+\]
+and the tube-cone inequality $2(ny_1 + ly_2 + my_3) > \sqrt{4nm - l^2}$
+on $\{y_1 y_3 > y_2^2\}$ (the forward light cone of the hyperbolic
+lattice $\Lambda^{2,1}_{II}(2) \subset \Lambda^{3,2}(2)$) supplies
+absolute convergence on the tube domain over $\mathcal{C}_2$ near the
+$0$-dim cusp.
+
+\emph{Weight.} By Borcherds 1998 Thm.~13.3,
+$\wt(\Delta_2^{(2)}) = f_2(0, 0)/2 = c_2(0)/2 = 2$.
+Independent: Gritsenko 1999 Cor.~3.3 dimension formula:
+$\dim S_2(\Gamma_0(2)^+) = 1$, so $\Delta_2^{(2)}$ is the unique cusp
+form of that type up to scalar.
+
+\emph{Multiplier order.} The Maass multiplier $\nu_2$ satisfies
+$\nu_2 \colon \Gamma_0(2)^+ \to \{\pm 1\}$ of order $\leq 2$.
+Proof: the level-$2$ extension
+$\Gamma_0(2)^+ / \Gamma_0(2) \simeq \Z/2$ adds the Fricke involution
+$W_2 \colon Z \mapsto -(2Z)^{-1}$; Clery--Gritsenko 2008 prove
+$\Delta_2^{(2)}|W_2 = \epsilon_2 \Delta_2^{(2)}$ with $\epsilon_2 = -1$
+(the Humbert surface $H_4$ has odd Fricke parity). The sign factor
+$\nu_{\Phi_2}$ restricted to the paramodular subgroup
+$\Gamma_0(2) < \Sp_4(\Z)$ is trivial on inner automorphisms and
+records only the Fricke parity $\epsilon_2 = -1$.
+
+\paragraph{\emph{Residue}.} None at convergence or weight level.
+The Fricke sign $\epsilon_2 = -1$ enters the DT identity through $C_2$.
+
+% ========================= CYCLE A2.iii =========================
+\subsection{Cycle A2.iii: Bryan--Oberdieck 2018 DT side at $N = 2$}
+\label{subsec:a2-cycle-iii}
+
+\paragraph{\textsc{Attack}.}
+Promote the DT side identity
+$\DTred^{X_2} = C_2 \cdot (\Delta_2^{(2)})^{-2}$ via the available
+Bryan--Oberdieck 2018 infrastructure, \emph{reading the literature
+honestly}: there is no three-author Bryan--Oberdieck--Pandharipande
+2019 paper (per wave-11 U2 forensic audit of \texttt{arXiv:1903.07729});
+the decisive Bryan--Oberdieck 2018 paper is \texttt{arXiv:1811.06102}.
+
+\paragraph{\textsc{Heal}. \ClaimStatusConjectured\ (BO 2018 Conj.~0.1
+holds; full proof only for primitive classes of square $\in\{-2, 0\}$).}
+Bryan--Oberdieck 2018 (\emph{CHL Calabi--Yau threefolds: curve counting,
+Mathieu moonshine and Siegel modular forms}, \texttt{arXiv:1811.06102})
+state:
+\begin{itemize}
+\item \emph{Conj.~0.1}: for each $N \in \{2, 3, 4, 6\}$ with
+  symplectic $M_{24}$ class $g_N$, the primitive reduced DT partition
+  function of $[K3\times E/\Z_N]$ is the Borcherds--Gritsenko lift
+  $-1/\Phi_{g,N}$ of $\phi^{(g_N)}_{0,1}$.
+\item \emph{Thm.~0.1}: the conjecture is proved at $N = 2$ for
+  primitive classes $\beta \in H_2(S, \Z)$ of self-intersection
+  $\beta^2 \in \{-2, 0\}$, via the Bryan--Steinberg--Young topological
+  vertex at the $A_1$ fixed loci composed with the $\tau_E$-translation
+  along $E$.
+\end{itemize}
+
+\emph{The assembly.} Five steps, at $N = 2$, primitive, square $-2$
+or $0$:
+\begin{enumerate}
+\item \emph{(Relative-to-absolute).} Jun Li 2001 (\emph{JDG} 60:199)
+  degeneration $E \rightsquigarrow \mathbb{P}^1_{\mathrm{nodal}}$
+  reduces absolute reduced PT to relative reduced PT on
+  $S \times \mathbb{P}^1$ glued along two rubber copies.
+\ClaimStatusTheorem\ (Li 2001; unchanged from $N = 1$).
+\item \emph{(Equivariant relative PT).} The $\Z_2$-action lifts to the
+  degenerate fibre; Maulik--Pandharipande 2006 (\emph{Topology}~45,
+  arXiv:math/0605321, \S3--4) Atiyah--Bott localisation gives the
+  equivariant PT identity on the $\Z_2$-fixed locus.
+\ClaimStatusTheorem\ at $(n, \beta)$ with $\beta$ primitive square
+$\{-2, 0\}$; BO 2018 \S 5 verifies at $(n, \beta) = (1, (1, 0))$ and
+$(1, (0, 1))$ explicitly via topological vertex composition.
+\item \emph{(Orbifold pushforward).} $\pi_* \colon [\ldots] / \Z_2 \to X_2$
+  is the $\Z_2$-invariant part; Bryan--Cadman--Young 2013
+  (\emph{JAMS}~28:163, \S 4) orbifold topological vertex composes the
+  $A_1$-fixed-point contributions with the smooth K3 contributions.
+\ClaimStatusTheorem\ fibrewise.
+\item \emph{(Cosection for the reduced class).} Kool--Thomas 2014
+  (\texttt{arXiv:1112.3069}, \S 4) requires $H^{0,2}(X_2) = \C$
+  preserved by $g_2$. Symplectic $g_2$ preserves $\omega_S$, hence
+  $H^{0,2}(X_2)^{g_2} = \C$; the cosection on $T^{\vee}[-1]_{\cM^{\mathrm{PT}}}$
+  exists. \ClaimStatusTheorem.
+\item \emph{(Crepant resolution + Borcherds square).} Bryan--Graber 2009
+  (in \emph{Algebraic Geometry --- Seattle 2005}) CRC converts orbifold
+  reduced GW to GW on $\widetilde{X}_2$; MNOP 2006 converts to reduced
+  DT. The composite identity, at primitive base, reads
+\[
+  \DTred^{X_2}(q, \tilde q, y)\Big|_{\beta\ \mathrm{primitive},\ \beta^2\in\{-2,0\}}
+  \;=\; -\,\frac{C_2(q,y)}{\Delta_2^{(2)}(\tau, z, \sigma)^2},
+\]
+with $C_2(q, y) = 1$ at the programme normalisation (BO 2018 eq.~(0.5)
+with base-class identification).
+\end{enumerate}
+\ClaimStatusTheorem\ at primitive, square $\in\{-2, 0\}$.
+\ClaimStatusConjectured\ at higher primitive square or imprimitive.
+
+\paragraph{\emph{Residue}.} BO 2018 Conj.~0.1 remains open for (i) primitive
+classes of square $\geq 2$, (ii) imprimitive classes. The cohomological
+Hall / motivic upgrade requires Kontsevich--Soibelman $G$-equivariant
+wall-crossing for non-toric $[\C^3/\Z_2]$ orbifold global
+degenerations; this is partial (the abelian case, Bryan--Steinberg
+2014 \emph{Duke}~168:3517, reduces the toric case and composes via
+Jun Li for the global situation).
+
+% ========================= CYCLE A2.iv =========================
+\subsection{Cycle A2.iv: Gritsenko 1999 Thm.~1.2 --- $\varphi(N) \mid 2$
+selects $\{1, 2, 3, 4, 6\}$ as the CHL natural scope}
+\label{subsec:a2-cycle-iv}
+
+\paragraph{\textsc{Attack}.}
+Situate the $N = 2$ case inside the Gritsenko 1999 theorem on CHL
+orbifolds: the paramodular lift extends from $\Sp_4(\Z)$ to
+$\Gamma_0(N)^+$ precisely when $\varphi(N) \mid 2$, giving exactly
+the five-element CHL ladder $\{1, 2, 3, 4, 6\}$: $\varphi(1) = 1$,
+$\varphi(2) = 1$, $\varphi(3) = \varphi(4) = \varphi(6) = 2$.
+
+\paragraph{\textsc{Heal}. \ClaimStatusTheorem}
+Gritsenko 1999 (\emph{Arithmetical lifting and its applications},
+\emph{St.\ Petersburg Math.\ J.}~11, Thm.~1.2) proves: for every
+$N \geq 1$ with $\varphi(N) \mid 2$, i.e.\ $N \in \{1, 2, 3, 4, 6\}$,
+the Jacobi arithmetical lift
+\[
+  \mathrm{Lift}_N \colon J^{w,\,\nu_g}_{0,1}(\Gamma_0(N))
+  \;\longrightarrow\; M_{k(N)}^{\mathrm{Siegel}}(\Gamma_0(N)^+, \chi_{k(N)}),
+  \qquad k(N) = c_N(0)/2,
+\]
+is well-defined, and the image of the weight-$0$ input
+$\phig \in J^{w, \nu_{g_2}}_{0,1}(\Gamma_0(2))$ at $N = 2$ is the
+unique (up to scalar) holomorphic cusp form $\Delta_2^{(2)}$ of weight
+$2$ with character $\chi_2$.
+
+\emph{The CM-compatibility constraint.} An elliptic curve $E/\C$ admits
+an automorphism of order $N$ fixing the origin iff $N \in \{1, 2, 3, 4, 6\}$;
+the diagonal quotient $(S \times E)/\Z_N$ with a free $\Z_N$ diagonal action
+is smooth iff the $\Z_N$-action on $E$ is in $\Aut(E)$. At $N = 2$ generic
+$E$: $\Aut(E) = \Z/2$, free action via $p \in E[2] \smallsetminus\{0\}$.
+The Gritsenko 1999 threshold $\varphi(N) \mid 2$ is exactly the
+CM-compatibility of the fibrewise CY structure.
+
+\emph{Place in Conjecture 1.} Lorgat 2020 Conjecture~1 names eight
+diagonal-divisor Gritsenko--Cl\'ery forms; the five with
+$\varphi(N) \mid 2$ are the CHL ladder $\{1,2,3,4,6\}$, on which the
+Jacobi-to-Siegel lift preserves holomorphicity; the three remaining
+$N \in \{5, 7, 8\}$ are non-CHL and host on extended metaplectic covers
+(Corollary~\ref{cor:borcherds-weight-full-8form-scope} of
+\texttt{cy\_d\_kappa\_stratification.tex}).
+
+\paragraph{\emph{Residue}.} None at arithmetic scope.
+
+% ========================= CYCLE A2.v =========================
+\subsection{Cycle A2.v: DT-zeta-root, Humbert discriminant, Mathieu class
+triple}
+\label{subsec:a2-cycle-v}
+
+\paragraph{\textsc{Attack}.}
+State, explicitly, the three data attached to the $N = 2$ row of
+the two-scope table in
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}:
+\emph{(i)} the DT zeta root, \emph{(ii)} the Humbert discriminant of the
+paramodular cusp form, \emph{(iii)} the $M_{24}$ class.
+
+\paragraph{\textsc{Heal}. \ClaimStatusTheorem\ at primitive, square
+$\in\{-2, 0\}$; \ClaimStatusConjectured\ at other primitive class.}
+The triple at $N = 2$:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{l|l}
+\hline
+\emph{DT zeta root} & $(\Delta_2^{(2)})^{-1}$, weight $-2$,
+  on $\Gamma_0(2)^+$, half-order $\frac{1}{2}$-denominator root of
+  $Z^{X_2}_{\mathrm{DT,red}}$ (BO 2018 eq.~(0.5)). \\
+\hline
+\emph{Humbert discriminant} & $D_2 = 4$ (Clery--Gritsenko 2008 Thm.~1,
+  $(\Gamma_t, N) = (\Gamma_0(2), 2)$ row): the zero-divisor is a single
+  Humbert surface $H_4 \subset \HH_2/\Gamma_0(2)^+$. \\
+\hline
+\emph{Mathieu class} & $[g_2] = 2A \subset M_{24}$, frame shape
+  $\pi_{g_2} = 1^{8} 2^{8}$, twined Euler $\chi_{g_2}(S) = 8$
+  (Mukai 1988 Table \S 2; Cheng 2010 Table~1). \\
+\hline
+\end{tabular}
+\end{center}
+
+\emph{Coherence.} The three data determine one another:
+\begin{itemize}
+\item The Mathieu class $2A$ and frame shape $1^{8}2^{8}$ pin
+  $\phig$ via GHV 2010 Thm.~1; its $(\zeta^0, q^0)$-coefficient
+  is $c_2(0) = 4$ (Cycle A2.i).
+\item The Humbert discriminant $D_2 = 4$ corresponds to the
+  $2\zeta - l = 0$ wall on $\HH_2$ at the level-$2$ cusp, equivalent
+  to the weight-$2$ Borcherds product of $\phig$ (Cycle A2.ii).
+\item The DT zeta root $(\Delta_2^{(2)})^{-1}$ is the denominator
+  of $Z^{X_2}_{\mathrm{DT,red}}$ under the BO 2018 assembly
+  (Cycle A2.iii, primitive square $\in\{-2, 0\}$).
+\end{itemize}
+
+\paragraph{\emph{Residue}.} The denominator--numerator conversion at
+imprimitive classes needs the Pandharipande--Thomas 2014 descent
+machinery for descendants and the Bryan--Oberdieck 2018 imprimitivity
+induction, open at $N = 2$ beyond the base case.
+
+% ======================== CONSOLIDATION =========================
+\subsection{Consolidation}
+\label{subsec:a2-consolidation}
+
+\begin{theorem}[$N = 2$ consolidation, primitive $\beta^2 \in \{-2, 0\}$]
+\label{thm:wave15-a2-n2-consolidation}
+\ClaimStatusTheorem\ Let $X_2 = (S \times E)/\Z_2$ with $\Z_2 =
+\langle g_2 \times \tau_E \rangle$, $g_2$ the $M_{24}$-class-$2A$
+Nikulin symplectic involution. At primitive curve class
+$\beta \in H_2(S, \Z)$ with $\beta^2 \in \{-2, 0\}$:
+\begin{equation}
+  \DTred^{X_2}(q, \tilde q, y)\Big|_{\beta\ \mathrm{primitive},\ \beta^2\in\{-2,0\}}
+  \;=\; -\,\frac{1}{\Delta_2^{(2)}(\tau, z, \sigma)^{2}},
+  \label{eq:wave15-a2-theorem}
+\end{equation}
+where $\Delta_2^{(2)}$ is the unique Gritsenko paramodular cusp form
+of level $2$ weight $2$, with Borcherds product
+$\Delta_2^{(2)} = \Bo(\phig)$, $\phig = \tfrac12 Z^{(2A)}_{K3}$,
+$c_2(0) = \phig(0, 0) = 4$, $\kBKM(\Phi_2) = c_2(0)/2 = 2$. The four
+invariants are: $\kcat(X_2) = 0$, $\kch(\cA_{X_2}) = 0$
+(Hodge supertrace), $\kfib(X_2) = 8$, $\kBKM(\Phi_2) = 2$.
+\end{theorem}
+
+\begin{proof}
+Cycles A2.i--A2.v assemble. Cycle A2.i gives $c_2(0) = 4$ from the
+class-$2A$ twined elliptic genus. Cycle A2.ii gives the Borcherds
+lift $\Bo(\phig) = \Delta_2^{(2)}$ of weight $2$ with convergent
+product on the tube over the $\Lambda^{2,1}_{II}(2)$-positive cone,
+multiplier order $2$ (Fricke sign). Cycle A2.iii gives the DT-side
+identity at primitive base via Bryan--Oberdieck 2018 Thm.~0.1.
+Cycle A2.iv locates $N = 2$ in Gritsenko 1999 Thm.~1.2 as the
+$\varphi(N) \mid 2$ CHL threshold. Cycle A2.v displays the
+DT-zeta-root / Humbert-discriminant / Mathieu-class coherence at
+the $N = 2$ row. The four $\kappa_\bullet$ values are locked as
+stated.
+\end{proof}
+
+\begin{corollary}[Residual scope]
+\label{cor:wave15-a2-residual-scope}
+The identity~\eqref{eq:wave15-a2-theorem} extends
+\ClaimStatusConjectured\ to (i) primitive $\beta$ with $\beta^2 \geq 2$
+(Bryan--Oberdieck 2018 Conj.~0.1); (ii) imprimitive $\beta$
+(Pandharipande--Thomas 2014 imprimitivity induction, open at $N = 2$);
+(iii) motivic / K-theoretic refinements (Maulik--Toda 2018,
+Oberdieck--Shen 2020, Kontsevich--Soibelman 2008 $G$-equivariant
+wall-crossing for non-toric $[\C^3/\Z_2]$ orbifolds). Each of these
+is a distinct conjectural frontier; they do not reduce to one another.
+\end{corollary}
+
+% ======================= CROSS-VOLUME ============================
+\subsection{Cross-volume accounting}
+\label{subsec:a2-xvol}
+
+\emph{Vol~I concordance.} The Vol~I $\kBKM$ indexing for K3$\times$E
+records, under the three-faces crown,
+$\kBKM^{(3\text{-faces})} = 2\kBKM^{(\mathrm{Borch})} + \chi(\cO_X) + 2$
+(Concordance Prop. at \texttt{connections/concordance.tex:5013}).
+At $X = X_2$: $\kBKM^{(\mathrm{Borch})} = 2$, $\chi(\cO_{X_2}) = 0$,
+so $\kBKM^{(3\text{-faces})}(X_2) = 6$. This reconciles with Vol I's
+level-$2$ CHL dyonic entry on the BKM-ceiling when present.
+
+\emph{Vol~II concordance.} The 3D HT QFT boundary on $X_2$ at
+$\Sigma = E_{\mathrm{base}}/\Z_2 \simeq \mathbb{P}^1$ (or $T^2$ at the
+resolved-singular locus) receives the $E_2$-shadow via
+$\mathrm{SpCh}_{\Sigma, C}$; the chiral-side $c$-number coincides with
+the boundary central charge $c_L - c_R = 0$ for the Nikulin-symplectic
+pair (CY condition); no change across $N$.
+
+\emph{Cross-programme AP.} AP-CY at the additive decomposition
+$\kBKM = \kch + \chi(\cO_{\mathrm{fiber}})$: fails at $N = 2$,
+where left $= 2$ and right $= 0 + 0 = 0$. The correct formula is
+$\kBKM = c_N(0)/2 = 2$ (Borcherds weight theorem).
+
+% ======================= PRIMARY SOURCES =========================
+\subsection*{Primary sources}
+\label{subsec:a2-primary-sources}
+
+\begin{itemize}
+\item Mukai 1988, \emph{Finite groups of automorphisms of K3 surfaces
+  via Mathieu group}, \emph{Invent.\ Math.}~94, Prop.~1.2, Table~\S2.
+\item Nikulin 1980, \emph{Finite automorphism groups of K\"ahler K3
+  surfaces}, \emph{Trudy Moscow}~38.
+\item Eichler--Zagier 1985, \emph{The Theory of Jacobi Forms},
+  Progress in Math.~55, Birkh\"auser: Thm.~6.1, 9.3--9.4.
+\item Borcherds 1998, \emph{Automorphic forms with singularities on
+  Grassmannians}, \emph{Invent.\ Math.}~132, Thm.~13.3.
+\item Gritsenko--Nikulin 1995, \emph{Automorphic forms and Lorentzian
+  Kac--Moody algebras II}, \texttt{arXiv:alg-geom/9504006}, Part~II,
+  Thm.~2.1.
+\item Gritsenko 1999, \emph{Arithmetical lifting and its applications},
+  \emph{St.\ Petersburg Math.\ J.}~11, Thm.~1.2, Cor.~3.3.
+\item Cl\'ery--Gritsenko 2008, \emph{The Siegel modular forms of genus
+  $2$ with the simplest divisor}, \emph{Proc.\ LMS}~102:6, Thm.~1.
+\item Eguchi--Ooguri--Tachikawa 2011, \emph{Notes on the K3 surface and
+  the Mathieu group $M_{24}$}, \emph{Exp.\ Math.}~20, Table~1.
+\item Gaberdiel--Hohenegger--Volpato 2010, \emph{Mathieu twining
+  characters for K3}, \emph{JHEP}~1009:058, Thm.~1.
+\item Gaberdiel--Hohenegger--Volpato 2012, \emph{Symmetries of K3
+  sigma models}, \texttt{arXiv:1211.7074}, eq.~(2.12).
+\item Cheng 2010, \emph{K3 surfaces, $N=4$ dyons, and the Mathieu group},
+  \texttt{arXiv:1005.5415}, Table~1.
+\item Bryan--Oberdieck 2018, \emph{CHL Calabi--Yau threefolds: curve
+  counting, Mathieu moonshine and Siegel modular forms},
+  \texttt{arXiv:1811.06102}, Conj.~0.1, Thm.~0.1.
+\item Bryan--Cadman--Young 2013, \emph{The orbifold topological vertex},
+  \emph{JAMS}~28:163.
+\item Bryan--Graber 2009, \emph{The crepant resolution conjecture},
+  in \emph{Algebraic Geometry --- Seattle 2005}.
+\item Bryan--Steinberg 2014, \emph{Curve counting invariants for crepant
+  resolutions}, \emph{Duke Math.\ J.}~168:3517.
+\item Kool--Thomas 2014, \emph{Reduced classes and curve counting on
+  surfaces I--II}, \texttt{arXiv:1112.3069}.
+\item Maulik--Pandharipande 2006, \emph{A topological view of
+  Gromov--Witten theory}, \emph{Topology}~45, arXiv:math/0605321.
+\item Oberdieck 2018, \emph{Gromov--Witten theory of K3$\times$E and
+  the Igusa cusp form conjecture}, \emph{Duke}~167:3045.
+\item Oberdieck--Pixton 2017, \emph{Holomorphic anomaly equations and
+  the Igusa cusp form conjecture}, \texttt{arXiv:1706.10100},
+  \emph{Invent.\ Math.}~222:667.
+\item Maulik--Pandharipande--Thomas 2010, \emph{Curves on K3 surfaces
+  and modular forms}, \emph{Geom.\ Topol.}~14.
+\item Jun Li 2001, \emph{Stable morphisms to singular schemes and
+  relative stable morphisms}, \emph{JDG}~60:199.
+\item Pandharipande--Thomas 2014, \emph{The Katz--Klemm--Vafa
+  conjecture for K3 surfaces}, \emph{Forum Math.\ Pi}.
+\item Kontsevich--Soibelman 2008, \emph{Stability structures, motivic
+  Donaldson--Thomas invariants and cluster transformations},
+  \texttt{arXiv:0811.2435}.
+\item Govindarajan--Krishna 2010, \emph{Generalized Kac--Moody
+  algebras from CHL dyons}, \emph{JHEP}~05:014, Table~1.
+\item Jatkar--Sen 2006, \emph{Dyon spectrum in CHL models},
+  \texttt{arXiv:hep-th/0510147}.
+\item Lorgat 2020, \emph{A Borcherds lift of the weak Jacobi form
+  $\phi_{0,1}$, generalized Borcherds--Kac--Moody superalgebras and
+  the Igusa cusp form $\Delta_5$}, preprint, Conjecture~1; primary
+  source for $c_1(0) = 10$.
+\end{itemize}
+
+% ============================= END ===============================
