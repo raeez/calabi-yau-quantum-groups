@@ -1,16 +1,24 @@
 \chapter{Modular Koszul Duality and CY Geometry}
 \label{ch:modular-koszul-bridge}
 
-This chapter bridges the CY-geometric world of Volume~III to the modular-algebraic world of Volume~I.  The central question: given a CY category $\cC$, what do the five theorems of Volume~I (bar-cobar inversion, Verdier intertwining, complementarity, the genus tower, and the holographic datum) say about the geometry of $\cC$?
+The central question: given a CY category $\cC$, what do the five theorems of Volume~I (bar-cobar inversion, Verdier intertwining, complementarity, the genus tower, and the holographic datum) say about the geometry of $\cC$?
 
-A CY category $\cC$ produces, via the CY-to-chiral correspondence programme $\{\Phi_d\}$ of Chapter~\ref{ch:cy-to-chiral}, a chiral algebra $A_\cC$; the bar complex $B(A_\cC) = T^c(s^{-1}\overline{A_\cC})$, built on the augmentation ideal $\overline{A_\cC} = \ker(\varepsilon)$, is a factorization coalgebra on $\Ran(C)$. Three Volume~I structures act on $B(A_\cC)$:
+The two-stage factorisation
+\[
+  \Phi_d \;:\; \mathrm{CY}_d\text{-}\mathrm{Cat}
+  \;\xrightarrow{\;\PhiFA_d\;}
+  \EdHolFA(X)
+  \;\xrightarrow{\;\SpCh_{\Sigma_{d-1},C}\;}
+  \EnHolFA(C)
+\]
+produces first a canonical $\EdHolFA$ object $\PhiFA_d(\cC)$ on the source CY datum (stage~1), then specialises it to a chiral algebra $A_\cC = \SpCh_{\Sigma_{d-1},C}(\PhiFA_d(\cC))$ on a curve $C$ (stage~2). The bar complex $B(A_\cC) = T^c(s^{-1}\overline{A_\cC})$, built on the augmentation ideal $\overline{A_\cC} = \ker(\varepsilon)$, is a factorization coalgebra on $\Ran(C)$. Three Volume~I structures act on $B(A_\cC)$:
 \begin{itemize}
  \item \emph{Verdier intertwining} (Theorem~A): $D_{\Ran}(B(A)) \simeq B(A^!)$ is Koszul duality, not bar-cobar inversion, and not the chiral derived center.
  \item \emph{Complementarity} (Theorem~C): splits the genus-$g$ shadow complex into Verdier eigenspaces and, on the uniform-weight lane, equates the scalar sum of Koszul-dual modular characteristics to a family-dependent Koszul conductor.
  \item \emph{The genus tower} (Theorem~D): identifies $\mathrm{obs}_g$ with $\kappa_{\mathrm{ch}} \cdot \lambda_g$ on the uniform-weight lane at genus $1$ unconditionally, with a cross-channel correction $\delta F_g^{\mathrm{cross}}$ at $g \geq 2$ for multi-weight algebras.
 \end{itemize}
 
-Transporting these structures to the CY side reveals three deficiencies.  First, the convolution dg Lie algebra living on $\overline{\cM}_{g,n}$ has no existing CY-side habitat. Second, the Vol~I scalar complementarity (Vol~I Theorem~C$_2$, with its family-dependent Koszul conductor; see Remark~\ref{rem:cy-complementarity-kappa-zero} below) has no CY translation stating which Koszul conductor $K_X$ applies at $d \in \{2, 3\}$. Third, the Vol~I CohFT promotion (Theorem~D$+$H) has no CY restatement tracking the flat identity axiom through $\Phi$. Seven sections address these deficiencies: \S\ref{sec:modular-conv-cy} builds the CY modular convolution algebra; \S\ref{sec:cy-complementarity-bridge} transports complementarity with explicit (C1) versus (C2) scoping and explicit $d = 2$ versus $d = 3$ conditionality; \S\ref{sec:cy-shadow-cohft} upgrades the shadow tower to a CohFT on $\overline{\cM}_{g,n}$ and records how the Borcherds lift converts the $K3 \times E$ tower into the genus-$2$ Igusa cusp form $\Phi_{10}$; \S\ref{sec:hochschild-bridge} establishes the bridge between the three Hochschild theories (categorical, chiral, derived-center) through $\Phi$; \S\ref{sec:cy-bridge-examples} collects the principal examples with their $\kappa_\bullet$-spectra; \S\ref{sec:pixton-cy-bar} connects the shadow tower to the Pixton ideal in the tautological ring; \S\ref{sec:form-factor-shadow-pf} identifies the integrated form factor generating function with the shadow partition function; and \S\ref{sec:stokes-wallcrossing} identifies the Stokes automorphism of the resurgent shadow tower with the Kontsevich--Soibelman wall-crossing automorphism.
+Transporting these structures to the CY side reveals three deficiencies.  First, the convolution dg Lie algebra living on $\overline{\cM}_{g,n}$ has no existing CY-side habitat. Second, the Vol~I scalar complementarity (Vol~I Theorem~C$_2$, with its family-dependent Koszul conductor; see Remark~\ref{rem:cy-complementarity-kappa-zero} below) has no CY translation stating which Koszul conductor $K_X$ applies at $d \in \{2, 3\}$. Third, the Vol~I CohFT promotion (Theorem~D$+$H) has no CY restatement tracking the flat identity axiom through $\Phi$. Section~\ref{sec:modular-conv-cy} builds the CY modular convolution algebra on the stage-1 $\PhiFA_d(\cC)$ object; Section~\ref{sec:cy-complementarity-bridge} transports complementarity with explicit (C1) versus (C2) scoping and explicit $d = 2$ versus $d = 3$ conditionality; Section~\ref{sec:cy-shadow-cohft} upgrades the shadow tower to a CohFT on $\overline{\cM}_{g,n}$ and records how the Borcherds lift converts the $K3 \times E$ tower into the genus-$2$ Igusa cusp form $\Phi_{10}$; Section~\ref{sec:hochschild-bridge} establishes the bridge between the three Hochschild theories (categorical, chiral, derived-center) through $\Phi$; Section~\ref{sec:cy-bridge-examples} collects the principal examples with their $\kappa_\bullet$-spectra; Section~\ref{sec:pixton-cy-bar} connects the shadow tower to the Pixton ideal in the tautological ring; Section~\ref{sec:form-factor-shadow-pf} identifies the integrated form factor generating function with the shadow partition function; and Section~\ref{sec:stokes-wallcrossing} identifies the Stokes automorphism of the resurgent shadow tower with the Kontsevich--Soibelman wall-crossing automorphism.
 
 
 %% ===================================================================
@@ -20,7 +28,41 @@ Transporting these structures to the CY side reveals three deficiencies.  First,
 \section{The modular convolution algebra for CY categories}
 \label{sec:modular-conv-cy}
 
-Let $\cC$ be a smooth proper cyclic $A_\infty$-category of CY dimension $d$ and let $A_\cC = \Phi_d(\cC)$ denote the image under the CY-to-chiral correspondence $\Phi_d$ of Chapter~\ref{ch:cy-to-chiral} (Theorem~CY-A$_2$ for $d = 2$; Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}, for $d = 3$). The bar coalgebra $B(A_\cC)$ is a factorization coalgebra on $\Ran(C)$ for a fixed smooth projective curve $C$, with bar differential $d_B = d_1 + d_2 + \cdots$ where $d_k$ lowers bar degree by $k - 1$.
+Let $\cC$ be a smooth proper cyclic $A_\infty$-category of CY dimension $d$. The stage-1 object $\PhiFA_d(\cC) \in \EdHolFA(X)$ (Chapter~\ref{ch:cy-to-chiral}, \S\ref{def:phi-fa-and-sp}) is the canonical $E_d$-holomorphic factorization algebra on the CY source; its stage-2 specialisation to a smooth projective curve $C$ via $\SpCh_{\Sigma_{d-1},C}$ yields the chiral algebra $A_\cC$ (Theorem~CY-A$_2$ for $d = 2$; Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}, for $d = 3$). The modular convolution algebra is built from the stage-2 data: the bar coalgebra $B(A_\cC)$ is a factorization coalgebra on $\Ran(C)$ for a fixed smooth projective curve $C$, with bar differential $d_B = d_1 + d_2 + \cdots$ where $d_k$ lowers bar degree by $k - 1$.
+
+\begin{remark}[Modular convolution, two stages of input]
+\label{rem:modular-conv-two-stages}
+Modular convolution on $\overline{\cM}_{g,n}$ has two natural points of
+contact with the $\Phi_d$-factorisation.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Stage-$1$ hypothesis: factorisation over algebraic curves
+and surfaces.} The natural input of modular convolution at stage~$1$ is
+the canonical $\EdHolFA(X)$ object $\PhiFA_d(\cC)$ evaluated on families
+of curves inside $X$; the modular parameter records the base of the
+family $(C_t)_{t \in \overline{\cM}_{g,n}}$ over which the stage-$1$
+factorisation structure is organised. This is the home of the
+Beilinson--Drinfeld framework for factorisation over $\overline{\cM}_{g,n}$
+and of the stage-$1$ CohFT promotions of
+\S\ref{sec:cy-shadow-cohft}.
+\item \textbf{Stage-$2$ hypothesis: complementarity transport at shadow
+level.} Complementarity (Theorem~C, both scalar and eigenspace) and the
+scalar Koszul conductor are invariants of the stage-$2$ chiral algebra
+$A_\cC$ on the reference curve $C$; their transport under modular
+convolution is a statement at stage~$2$ shadow level, acting on the Vol~I
+shadow complex $Q_g^n(A_\cC)$ on $\overline{\cM}_{g,n}$.
+\end{enumerate}
+The convolution dg Lie algebra of
+Definition~\ref{def:cy-modular-convolution} below is a stage-$2$ object:
+its underlying hom space $\Hom_{\Ran(C)}(B(A_\cC), A_\cC \otimes \omega^\bullet_{\overline{\cM}_{g,n}})$
+is built from the stage-$2$ ordered bar $B(A_\cC)$ and the stage-$2$
+algebra $A_\cC$, with the stage-$1$ input visible only through the
+identification $B(A_\cC) \simeq \mathrm{CC}_\bullet(\cC)$ of
+Proposition~\ref{prop:bar-dictionary}. Statements below that require
+varying $\cC$ in a family (the CohFT promotion of the shadow tower, the
+Pixton-ideal identification of \S\ref{sec:pixton-cy-bar}) are
+stage-$1$ hypotheses; statements that fix $\cC$ and vary the modular
+curve $C$ are stage-$2$ hypotheses.
+\end{remark}
 
 \begin{definition}[CY modular convolution algebra]
 \label{def:cy-modular-convolution}
@@ -32,7 +74,7 @@ The \emph{CY modular convolution algebra} of the pair $(B(A_\cC), A_\cC)$ is the
 equipped with the convolution bracket induced by the deconcatenation coproduct on $B(A_\cC)$ (dual to $T^c$ on $s^{-1}\overline{A_\cC}$) and the binary product of $A_\cC$, twisted by the modular convolution kernel from $\overline{\cM}_{g,n}$. The differential is $\delta = d_B^\vee + d_{A_\cC} + d_{\overline{\cM}}$, where $d_{\overline{\cM}}$ is the log Fulton--MacPherson ambient boundary differential of Mok~\cite{Mok25}.
 \end{definition}
 
-\begin{proposition}[Strict dg Lie structure on $\mathrm{Conv}_{\mathrm{str}}$]
+\begin{proposition}[Strict dg Lie structure on \texorpdfstring{$\mathrm{Conv}_{\mathrm{str}}$}{Conv-str}]
 \label{prop:cy-conv-dglie}
 \ClaimStatusProvedElsewhere
 On the Koszul locus of $A_\cC$, the convolution bracket $[\cdot, \cdot]_{\mathrm{Conv}}$ on $\mathrm{Conv}_{\mathrm{str}}(B(A_\cC), A_\cC)$ satisfies the graded Jacobi identity strictly, and $\delta$ is a derivation of this bracket. The pair $(\mathrm{Conv}_{\mathrm{str}}, \delta, [\cdot, \cdot])$ is a dg Lie algebra; it is a strict model of an $L_\infty$ algebra $\mathrm{Conv}_{\infty}(B(A_\cC), A_\cC)$, and the two share the same Maurer--Cartan moduli space (Vol~I, three-pillar constraint, \S MC3).
@@ -79,7 +121,7 @@ For a smooth proper CY$_d$ category $\cC$, the \emph{categorical modular charact
 where the last expression is for $\cC = D^b(\Coh(X))$ with $X$ a smooth projective CY$_d$ manifold. In the abstract categorical setting, $\chi^{\CY}(\cC)$ is the Hodge-filtered trace on Hochschild homology: it extracts the $F^0$-graded piece via the HKR filtration. This is \emph{not} the raw alternating sum $\sum_i (-1)^i \dim \HH_i(\cC)$: the latter gives $24$ for K3 (HKR: $\dim \HH_0(K3) = h^{0,0} + h^{1,1} + h^{2,2} = 1 + 20 + 1 = 22$, $\dim \HH_{\pm 1} = 0$, $\dim \HH_{\pm 2} = h^{0,2} = h^{2,0} = 1$, so $\sum (-1)^i \dim \HH_i = 22 + 1 + 1 = 24$), not $\chi(\cO_{\mathrm{K3}}) = 1 + 1 = 2$. The invariant $\kappa_{\mathrm{cat}}$ is distinct \emph{a priori} from the chiral modular characteristic $\kappa_{\mathrm{ch}}(A_\cC)$ of the chiral algebra $A_\cC = \Phi(\cC)$; the two coincide at $d = 2$ (Proposition~\ref{prop:kappa-cat-chi-cy}) but differ at $d \neq 2$ in general: $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 1 \neq 0 = \kappa_{\mathrm{cat}}(E)$ at $d = 1$, and $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3 \neq 0 = \kappa_{\mathrm{cat}}(K3 \times E)$ at $d = 3$ (see Conjecture~\ref{conj:cy-kappa-identification} and Remark~\ref{rem:kappa-cat-vs-kappa-ch} below for the corrected dimension-stratified formula; for the Heisenberg-level subscript see Remark~\ref{rem:beauville-kappa-formula-subscript-split}).
 \end{definition}
 
-\begin{proposition}[$\kappa_{\mathrm{cat}} = \kappa_{\mathrm{ch}}$ under $\Phi$ at $d = 2$]
+\begin{proposition}[\texorpdfstring{$\kappa_{\mathrm{cat}} = \kappa_{\mathrm{ch}}$}{kappa-cat = kappa-ch} under \texorpdfstring{$\Phi$}{Phi} at \texorpdfstring{$d = 2$}{d = 2}]
 \label{prop:kappa-cat-chi-cy}
 \ClaimStatusProvedHere
 For $\cC$ a smooth proper CY$_2$ category with chiral algebra $A_\cC = \Phi(\cC)$ (CY-A at $d = 2$, PROVED),
@@ -98,7 +140,7 @@ at genus $g \geq 2$ for multi-weight algebras the scalar formula receives a nonv
 The free-field argument: the generating space of $A_\cC$ is $\HH^{\bullet+1}(\cC)$, and $\kappa_{\mathrm{ch}}$ equals the supertrace of the identity on this generating space, which is $\chi^{\CY}(\cC) = \kappa_{\mathrm{cat}}(\cC)$. The quantization step in the construction of $\Phi$ (CY-A, Step~4) preserves $\kappa_{\mathrm{ch}}$ at $d = 2$: the holomorphic anomaly cancellation at $d = 2$ (Serre duality $\mathbb{S}_\cC \simeq [2]$) guarantees that no quantum correction shifts the supertrace. The genus-$g$ obstruction formula is Vol~I Theorem~D applied to $A_\cC$; the substitution $\kappa_{\mathrm{ch}} = \kappa_{\mathrm{cat}}$ follows from the first part.
 \end{proof}
 
-\begin{remark}[$\kappa_{\mathrm{cat}}$ versus $\kappa_{\mathrm{ch}}$]
+\begin{remark}[\texorpdfstring{$\kappa_{\mathrm{cat}}$}{kappa-cat} versus \texorpdfstring{$\kappa_{\mathrm{ch}}$}{kappa-ch}]
 \label{rem:kappa-cat-vs-kappa-ch}
 The categorical modular characteristic $\kappa_{\mathrm{cat}}(\cC)$ is a topological invariant of the CY category $\cC$ (it depends on the Hodge-filtered piece of Hochschild homology, i.e.\ the $h^{0,q}$ Hodge numbers, not on the raw $\HH$ dimensions). The chiral modular characteristic $\kappa_{\mathrm{ch}}(A_\cC)$ is an analytic invariant of the chiral algebra $A_\cC$ (it depends on the OPE structure and the generating field content). Proposition~\ref{prop:kappa-cat-chi-cy} identifies them at $d = 2$; at $d \neq 2$ they \emph{differ in general}: $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 1 \neq 0 = \kappa_{\mathrm{cat}}(E)$ at $d = 1$, and $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3 \neq 0 = \kappa_{\mathrm{cat}}(K3 \times E)$ at $d = 3$. The root cause is that $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ is additive under products while $\kappa_{\mathrm{cat}} = \chi(\cO_X)$ is multiplicative (K\"unneth); cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}. Conjecture~\ref{conj:cy-kappa-identification} provides the corrected dimension-stratified formula at $d = 3$. Both are distinct from $\kappa_{\mathrm{BKM}}$ (the BKM algebra weight) and $\kappa_{\mathrm{fiber}}$ (the lattice rank); the four values constitute the $\kappa_\bullet$-spectrum (Remark~\ref{rem:cy3-kappa-polysemy}).
 \end{remark}
@@ -117,9 +159,9 @@ Volume~I Theorem~C has two components. The eigenspace statement (C1) asserts tha
 \]
 where $K$ is the Koszul conductor and $\rho$ the anomaly ratio; this holds only on the \emph{uniform-weight lane} (all generators of $A$ of equal conformal weight), and at $g \geq 2$ multi-weight algebras incur a nonvanishing cross-channel correction $\delta F_g^{\mathrm{cross}}$. This section transports both statements to CY categories via the correspondence programme $\{\Phi_d\}$.
 
-\subsection{The $d = 2$ theorem}
+\subsection{The \texorpdfstring{$d = 2$}{d = 2} theorem}
 
-\begin{theorem}[CY complementarity at $d = 2$]
+\begin{theorem}[CY complementarity at \texorpdfstring{$d = 2$}{d = 2}]
 \label{thm:cy-complementarity-d2}
 \ClaimStatusProvedHere
 Let $\cC$ be a smooth proper cyclic $A_\infty$-category of CY dimension $d = 2$ with Serre duality $\mathbb{S}_\cC \simeq [2]$, and let $A_\cC = \Phi(\cC)$ be its quantum chiral algebra (CY-A at $d = 2$, PROVED). Let $\cC^!$ denote the Koszul dual CY$_2$ category (for $\cC = D^b(\Coh(X))$ with $X$ a K3 surface, $\cC^! \simeq \Fuk(X)$ under homological mirror self-duality). Then:
@@ -160,9 +202,9 @@ Proposition~\ref{prop:kappa-cat-chi-cy} allows the scalar complementarity (C2$^{
 On the free-field/KM branch (which includes K3 under the Mukai self-duality), $K_{\mathrm{cat}} = 0$: the Koszul dual categorical characteristic is $\kappa_{\mathrm{cat}}(\cC^!) = -\kappa_{\mathrm{cat}}(\cC)$. For K3 specifically, $\kappa_{\mathrm{cat}}(D^b(\Coh(K3))) = 2$ and $\kappa_{\mathrm{cat}}(\Fuk(K3)) = -2$ under the Mukai-HMS involution, yielding $K_{\mathrm{cat}} = 0$. Away from the free-field class, $K_{\mathrm{cat}}$ is nonzero and family-dependent (see Vol~I, Theorem~C2).
 \end{remark}
 
-\subsection{The $d = 3$ conjecture}
+\subsection{The \texorpdfstring{$d = 3$}{d = 3} conjecture}
 
-\begin{conjecture}[CY complementarity at $d = 3$]
+\begin{conjecture}[CY complementarity at \texorpdfstring{$d = 3$}{d = 3}]
 \label{conj:cy-complementarity-d3}
 \ClaimStatusConjectured
 Let $X$ be a compact Calabi--Yau threefold and $\cC = D^b(\Coh(X))$ its bounded derived category, with cyclic $A_\infty$ structure from the Serre trace. By CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}), the chiral algebra $A_X = \Phi_3(\cC)$ exists as an $\Eone$-chiral algebra. Let $\cC^!$ denote the Koszul dual CY$_3$ category, conjectured (under homological mirror symmetry) to be $\Fuk(X^\vee)$ for the mirror threefold $X^\vee$. Then:
@@ -182,7 +224,7 @@ Let $X$ be a compact Calabi--Yau threefold and $\cC = D^b(\Coh(X))$ its bounded 
 \end{enumerate}
 \end{conjecture}
 
-\begin{remark}[Why $d = 3$ is a conjecture, not a theorem]
+\begin{remark}[Why \texorpdfstring{$d = 3$}{d = 3} is a conjecture, not a theorem]
 \label{rem:d3-conjecture-rationale}
 Two independent obstructions block upgrading Conjecture~\ref{conj:cy-complementarity-d3} to a theorem: (a) the uniform-weight hypothesis fails for compact CY$_3$ (chiral de Rham is multi-weight, so gives $\delta F_g^{\mathrm{cross}} \neq 0$ at $g \geq 2$); (b) the BKM automorphic correction at $d = 3$ generates infinitely many imaginary root generators (\S\ref{sec:cy-shadow-cohft} below), so even stating the Koszul conductor $K_X$ requires resolving the degree-$r$ shadow identification of theory\_automorphic\_shadow. Obstruction~(a) is independent of existence of $A_X$ (supplied by Theorem~CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}): uniform-weight is a property of the generating content of $A_X$, not of its existence.
 \end{remark}
@@ -223,9 +265,68 @@ Vol~I Theorem~D+H constructs the CohFT structure on the shadow tower of a chiral
 The flat identity hypothesis is conditional and must be stated at every cross-reference. Three scenarios where it fails: (i) CY categories without a categorical unit (rare but possible for nonunital $A_\infty$ models); (ii) vertex algebras where the vacuum does not lie in the generating space (e.g.\ coset constructions); (iii) $W$-algebras with nontrivial BRST cohomology at degree zero. Every theorem that invokes Theorem~\ref{thm:cy-shadow-cohft} downstream (e.g.\ the Igusa cusp form recovery below) inherits this hypothesis.
 \end{remark}
 
-\subsection{The $K3 \times E$ CohFT and the Igusa cusp form}
+\subsection{The \texorpdfstring{$K3 \times E$}{K3 x E} CohFT and the Igusa cusp form}
 
-\begin{theorem}[$K3 \times E$ shadow CohFT and $\Phi_{10}$]
+\begin{remark}[Igusa \texorpdfstring{$\Phi_{10}$}{Phi-10} lives on tier-(iii); two scopes for \texorpdfstring{$\kappa_{\mathrm{BKM}}$}{kappa-BKM}]
+\label{rem:modkos-k3e-cohft-three-tier}
+The Borcherds lift at $K3 \times E$ is a tier-(iii)
+specialisation in the sense of
+Remark~\ref{rem:cy-seven-face-three-tier-opener} of
+Chapter~\ref{ch:cy-holographic-datum-master}: the single stage-$1$
+object $\PhiFA_3(D^b\Coh(K3 \times E))$ admits a family of
+$(\Sigma_2, C)$-specialisations indexed by admissible automorphism
+classes. Two distinct atlases realise the universal Borcherds-weight
+identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$, recorded with
+Scope~(A)/(B) discipline as antipattern AP-CY334 of
+\texttt{notes/antipatterns\_catalogue.md}.
+\begin{description}
+ \item[Scope~(A) --- CHL-averaged paramodular ladder.] On
+  $N \in \{1, 2, 3, 4, 6\}$ (the Gritsenko--Nikulin~1995 Part~II
+  Theorem~$2.1$ ladder), $\bigl(c_N(0)\bigr) = (10, 8, 6, 4, 2)$ and
+  $\bigl(\kappa_{\mathrm{BKM}}(\Phi_N)\bigr) = (5, 4, 3, 2, 1)$. Each
+  $\Phi_N$ lives on the paramodular group
+  $\Gamma_{\mathrm{para}}^{(N)} \subset \mathrm{Sp}_4(\mathbb{Z})$.
+ \item[Scope~(B) --- Gritsenko--Cl\'ery 8-form atlas.] On paramodular
+  indices $m \in \{1, 2, 3, 4, 5, 6, 1/2, 3/2\}$
+  (Gritsenko--Cl\'ery~2013 \S3), $\bigl(c_m(0, 0)\bigr) =
+  (10, 4, 2, 2, 1, 2, 1/2, 0)$ and
+  $\bigl(\kappa_{\mathrm{BKM}}(\Phi_m)\bigr) =
+  (5, 2, 1, 1, 1/2, 1, 1/4, 0)$. The cover stratification assigns
+  integer weights to $\mathrm{Sp}_4(\mathbb{Z})$, half-integer to
+  $\mathrm{Mp}_4$, quarter-integer to $\widetilde{\mathrm{Mp}}_4$;
+  the weight-$0$ entry at $m = 3/2$ is the degenerate terminal fibre.
+\end{description}
+Both scopes agree at $N = 1$ (both giving $\kappa_{\mathrm{BKM}} = 5$
+on $\Delta_5$) and diverge elsewhere: Scope~(A) is the doubly-twined
+reading ($Z^{(g)}_{K3} = 2\,\phi^{(g)}_{0, 1}$, EOT factor absorbed),
+Scope~(B) is the singly-twined reading with the factor kept outside.
+Every invocation of $\kappa_{\mathrm{BKM}}$ must name which scope.
+Primary: Gritsenko--Nikulin~1995 Pt~II Theorem~$2.1$; Eguchi--Hikami~2011
+at $N = 2$; Govindarajan--Krishna~2010 at $N \in \{3, 4, 6\}$;
+Gritsenko--Cl\'ery~2013 \S3 for Scope~(B); Borcherds~1998
+Theorem~$13.3$ for the singular-theta weight formula;
+\texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+Theorem~\texttt{thm:borcherds-weight-kappa-BKM-universal} for the
+canonical table and
+\texttt{chapters/examples/k3e\_bkm\_chapter.tex}
+Theorem~\texttt{thm:k3e-universal-kBKM-two-scopes} for the chapter
+statement. The
+$K3$-fibre rank $\kappa_{\mathrm{fiber}} = 24$ is a stage-$1$
+invariant — a Kodaira count on the elliptic K3 underneath
+$\PhiFA_3(\cC)$ — and does \emph{not} move under
+$(\Sigma_2, C)$-specialisation; the Hodge supertrace
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(K3 \times E) = 0$ is a tier-(i)
+intrinsic. The modular Koszul bridge reads: the stage-$1$
+factorisation CohFT of Theorem~\ref{thm:cy-shadow-cohft} pushes
+forward along the Borcherds singular theta correspondence to the
+tier-(iii) paramodular form $\Phi_{10}$ (or $\Phi_N$ more generally),
+whose weight $\mathrm{wt}(\Phi_{10}) = 10 = 2 \kappa_{\mathrm{BKM}}(\Delta_5)$
+is the doubling of the chiral-half BKM weight under the
+Saito--Kurokawa lift target $\Phi_{10} = \Delta_5^2$ (AP-CY335; rescale
+factor $4$, not $2$).
+\end{remark}
+
+\begin{theorem}[\texorpdfstring{$K3 \times E$}{K3 x E} shadow CohFT and \texorpdfstring{$\Phi_{10}$}{Phi-10}]
 \label{thm:k3xe-shadow-cohft-igusa}
 \ClaimStatusProvedElsewhere
 Let $X = K3 \times E$, with chiral algebra $\cA_{K3} \otimes H_1$ (chiral de Rham complex of K3 tensored with the Heisenberg algebra of $E$), $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3$ by rank-additivity (Proposition~\ref{prop:kappa-non-multiplicative}; K3-1 of \S\ref{sec:k3e-cross-volume}). Assume the flat identity hypothesis. Then:
@@ -246,14 +347,14 @@ Let $X = K3 \times E$, with chiral algebra $\cA_{K3} \otimes H_1$ (chiral de Rha
 Parts (i), (iii), (iv) are Vol~I/II results (\S\ref{sec:k3e-cross-volume}, items K3-1 through K3-13, proved in the K3 modular-tower chapter of Vol~I and in the holography part of Vol~II). Part (ii) is the Borcherds lift of Borcherds (1998); its use as a modular characteristic is the observation of, not a theorem of Vol~III. The conditionality propagates from Theorem~\ref{thm:cy-shadow-cohft}.
 \end{proof}
 
-\begin{remark}[Kappa-spectrum verification for $K3 \times E$]
+\begin{remark}[Kappa-spectrum verification for \texorpdfstring{$K3 \times E$}{K3 x E}]
 \label{rem:kappa-spectrum-k3xe-bridge}
-Substitute $d = 2$ for $K3$ into the CY-D formula $\kappa_{\mathrm{ch}}(A_\cC) = \chi^{\CY}(\cC)$: this gives $\kappa_{\mathrm{ch}}(\cA_{K3}) = 2$. Tensor-product additivity (Proposition~\ref{prop:kappa-non-multiplicative}) for the chiral de Rham complex then determines $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3 \times E) = 3$ (namely, the value $2$ for $K3$ combined additively with the value $1$ for the elliptic curve $E$ yields $3$; cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}). Note: this is additivity of the modular characteristic under product factorization, not the Koszul-dual scalar sum of Theorem~\ref{thm:cy-complementarity-d2} (C2$^{\mathrm{CY}}$); the two operations are distinct and should not be confused. The value $\kappa_{\mathrm{BKM}} = 5$ is the Borcherds weight, independently equal to half the weight of $\Phi_{10}$; this corresponds to the BKM superalgebra $\mathfrak{g}_{\Delta_5}$, not to the chiral algebra of $K3 \times E$. The five members of the $K3 \times E$ spectrum $\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{cat}}^{\mathrm{fiber}}, \kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{0, 2, 3, 5, 24\}$ each arise from a distinct mathematical source: $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3 \times E}) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ is the total-space holomorphic Euler characteristic; $\kappa_{\mathrm{cat}}^{\mathrm{fiber}} = \chi(\cO_{K3}) = 2$ is the K3 \emph{fiber} value. Both $\kappa_{\mathrm{cat}}$ and $\kappa_{\mathrm{fiber}}$ are manifold invariants (topological), while $\kappa_{\mathrm{ch}}$ (from~$\Phi$) and $\kappa_{\mathrm{BKM}}$ (from the Borcherds lift) are construction-dependent.
+Substitute $d = 2$ for $K3$ into the CY-D formula $\kappa_{\mathrm{ch}}(A_\cC) = \chi^{\CY}(\cC)$: this gives $\kappa_{\mathrm{ch}}(\cA_{K3}) = 2$. Tensor-product additivity (Proposition~\ref{prop:kappa-non-multiplicative}) for the chiral de Rham complex then determines $\kappa_{\mathrm{ch}}(K3 \times E) = 3$ (the canonical Stage-2 Heisenberg--Cartan rank: $2$ for $K3$ combined additively with $1$ for the elliptic curve $E$; cf.\ Remark~\ref{rem:beauville-kappa-formula-subscript-split}). Note: this is additivity of the modular characteristic under product factorization, not the Koszul-dual scalar sum of Theorem~\ref{thm:cy-complementarity-d2} (C2$^{\mathrm{CY}}$); the two operations are distinct and should not be confused. The value $\kappa_{\mathrm{BKM}} = 5$ is the Borcherds weight, independently equal to half the weight of $\Phi_{10}$; this corresponds to the BKM superalgebra $\mathfrak{g}_{\Delta_5}$, not to the chiral algebra of $K3 \times E$. The four total-space members of the $K3 \times E$ spectrum $\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{0, 3, 5, 24\}$ each arise from a distinct mathematical source: $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3 \times E}) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ is the total-space holomorphic Euler characteristic (the K3-fibre $\chi(\cO_{K3}) = 2$ is the per-fibre value, not a fifth total-space entry). Both $\kappa_{\mathrm{cat}}$ and $\kappa_{\mathrm{fiber}}$ are manifold invariants (topological); $\kappa_{\mathrm{ch}}$ (from~$\Phi$) and $\kappa_{\mathrm{BKM}}$ (from the Borcherds lift) are construction-dependent.
 \end{remark}
 
-\subsection{Toric CY$_3$ and the DT CohFT}
+\subsection{Toric CY\texorpdfstring{$_3$}{-3} and the DT CohFT}
 
-\begin{conjecture}[Toric CY$_3$ shadow CohFT]
+\begin{conjecture}[Toric CY\texorpdfstring{$_3$}{-3} shadow CohFT]
 \label{conj:toric-cy3-shadow-cohft}
 \ClaimStatusConjectured
 Let $X_\Sigma$ be a smooth toric CY$_3$ with fan $\Sigma$. Conditional on CY-A$_3$, the shadow CohFT $\Omega_{g,n}(A_{X_\Sigma})$ exists and satisfies:
@@ -311,7 +412,7 @@ Part (i) is Proposition~\ref{prop:bar-dictionary}. For (ii): the Gerstenhaber br
 The categorical Hochschild $\HH_\bullet(\cC)$ controls the deformation theory of $\cC$ as a CY category: $\HH^2(\cC)$ parametrizes first-order deformations, $\HH^1(\cC)$ the infinitesimal automorphisms. The chiral Hochschild $\ChirHoch^*(A_\cC)$ controls the shadow tower of $A_\cC$: the obstruction classes $\mathrm{obs}_g$ live in $\ChirHoch^2(A_\cC) \otimes H^\bullet(\overline{\cM}_{g,n})$. The derived center $\cZ^{\mathrm{der}}_{\mathrm{ch}}(A_\cC)$ is the bulk algebra of the holographic datum: its elements are the operators that commute with all boundary insertions. Theorem~\ref{thm:hochschild-bridge} guarantees that the categorical deformation data of $\cC$ is faithfully transmitted, through $\Phi$, to the chiral obstruction data of $A_\cC$.
 \end{remark}
 
-\begin{conjecture}[Hochschild bridge at $d = 3$]
+\begin{conjecture}[Hochschild bridge at \texorpdfstring{$d = 3$}{d = 3}]
 \label{conj:hochschild-bridge-d3}
 \ClaimStatusConjectured
 For $\cC$ a smooth proper CY$_3$ category with $A_\cC = \Phi_3(\cC)$ (CY-A$_3$, Theorem~\ref{thm:cy-to-chiral-d3}, proved), the maps (i)--(iii) of Theorem~\ref{thm:hochschild-bridge} extend to $d = 3$. The $(-1)$-shifted Poisson structure on $\HH^\bullet(\cC)$ (Pantev--To\"en--Vaqui\'e--Vezzosi) maps to the genus-$0$ contribution of the convolution bracket on $\ChirHoch^*(A_\cC)$; the genus-$g \geq 1$ components of the convolution bracket have no direct categorical-Hochschild source and arise from the curve geometry of $\Ran(X)$ through $\Phi$.
@@ -327,18 +428,17 @@ For $\cC$ a smooth proper CY$_3$ category with $A_\cC = \Phi_3(\cC)$ (CY-A$_3$, 
 
 The modular Koszul bridge produces concrete numerical data for each CY category: the $\kappa_\bullet$-spectrum, the shadow class, and the genus-$g$ obstruction tower. This section collects the principal examples.
 
-\subsection{$K3 \times E$}
+\subsection{\texorpdfstring{$K3 \times E$}{K3 x E}}
 \label{subsec:k3xe-bridge-example}
 
-The product $K3 \times E$ (K3 surface times an elliptic curve) is CY$_3$ with independently computable chiral algebra $\cA_{K3} \otimes H_1$. The $\kappa_\bullet$-spectrum (five distinct invariants arising from distinct mathematical sources: manifold invariants and construction-dependent invariants) is:
+The product $K3 \times E$ (K3 surface times an elliptic curve) is CY$_3$ with independently computable chiral algebra $\cA_{K3} \otimes H_1$. The four total-space $\kappa_\bullet$-invariants arise from four distinct constructions; the K3-fibre per-fibre datum $\chi(\cO_{K3}) = 2$ appears separately as a per-fibre annotation, not a fifth total-space entry:
 
 \begin{center}
 \begin{tabular}{llll}
  \textbf{Subscript} & \textbf{Source} & \textbf{Value} & \textbf{Derivation} \\
  \hline
  $\kappa_{\mathrm{cat}}$ & $\chi(\cO_{K3 \times E})$ (total space) & $0$ & K\"unneth: $\chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ \\
- $\kappa_{\mathrm{cat}}^{\mathrm{fiber}}$ & $\chi(\cO_{K3})$ (K3 fiber) & $2$ & Hodge diamond: $h^{0,0} - h^{1,0} + h^{2,0} = 1 - 0 + 1$ \\
- $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ & $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(\cA_{K3} \otimes H_1)$ & $3$ & Additivity: $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(K3) + \kappa_{\mathrm{ch}}^{\mathrm{Heis}}(E) = 2 + 1$ \\
+ $\kappa_{\mathrm{ch}}$ & $\mathrm{rank}_\mathrm{Cartan}(\cA_{K3} \otimes H_1)$ & $3$ & Beauville: $\kappa_{\mathrm{ch}}(K3) + \kappa_{\mathrm{ch}}(E) = 2 + 1$ \\
  $\kappa_{\mathrm{BKM}}$ & $\mathrm{wt}(\Phi_{10})/2$ & $5$ & BKM superalgebra weight \\
  $\kappa_{\mathrm{fiber}}$ & $\mathrm{rank}(\Lambda_{K3})$ & $24$ & K3 lattice rank \\
 \end{tabular}
@@ -353,7 +453,7 @@ For the full $\cN = 4$ algebra (multi-weight, generators at conformal weights $\
 
 The complementarity data: $\kappa_{\mathrm{ch}}(\cA_{K3}) + \kappa_{\mathrm{ch}}(\cA_{K3}^!) = 0$ on the free-field/KM branch (Theorem~\ref{thm:cy-complementarity-d2}, (C2$^{\mathrm{CY}}$)).
 
-\subsection{$\mathbb{C}^3$ and $\cW_{1+\infty}$}
+\subsection{\texorpdfstring{$\mathbb{C}^3$}{C-3} and \texorpdfstring{$\cW_{1+\infty}$}{W-1+inf}}
 \label{subsec:c3-bridge-example}
 
 The noncompact CY$_3$ category $\cC = D^b(\Coh(\mathbb{C}^3))$ produces, on the CY side, the $\mathrm{CoHA}(\mathbb{C}^3) \simeq Y^+(\widehat{\mathfrak{gl}}_1)$ (the positive half of the affine Yangian of $\widehat{\mathfrak{gl}}_1$). The chiral algebra is $\cW_{1+\infty}$ at $c = 1$ (Schiffmann--Vasserot, Maulik--Okounkov). The $\kappa_\bullet$-values:
@@ -378,7 +478,7 @@ For the full multi-spin $\cW_{1+\infty}$ (generators at conformal weights $\{1, 
 
 \begin{remark}[Shadow depth versus Koszulness]
 \label{rem:c3-depth-vs-koszul}
-$\cW_{1+\infty}$ at $c = 1$ is Koszul (PBW degree concentration in the bar complex) but has class~M (infinite shadow depth: all $m_k^{\mathrm{shadow}} \neq 0$). Koszulness is a cohomological property of the bar complex; shadow depth measures the vanishing pattern of the obstruction tower. The two invariants are independent: Koszulness reflects concentration of bar cohomology in PBW degree, while SC-formality (vanishing of the Swiss-cheese higher operations $m_k^{\mathrm{SC}} = 0$ for $k \geq 3$) is the stronger operadic condition that controls shadow-tower vanishing. SC-formality on the standard landscape is equivalent to class~$G$ (Vol~I, Proposition~\ref{prop:sc-formal-iff-class-g}); every class~$L$, class~$C$, and class~$M$ member of the standard landscape is Koszul but not SC-formal (Vol~I, Proposition~\ref{prop:swiss-cheese-nonformality-by-class} and Remark~\ref{rem:sc-formal-parametrised-scope}).
+$\cW_{1+\infty}$ at $c = 1$ is Koszul (PBW degree concentration in the bar complex) but has class~M (infinite shadow depth: all $m_k^{\mathrm{shadow}} \neq 0$). Koszulness is a cohomological property of the bar complex; shadow depth measures the vanishing pattern of the obstruction tower. The two invariants are independent: Koszulness reflects concentration of bar cohomology in PBW degree, while SC-formality (vanishing of the Swiss-cheese higher operations $m_k^{\mathrm{SC}} = 0$ for $k \geq 3$) is the stronger operadic condition that controls shadow-tower vanishing. SC-formality on the standard landscape is equivalent to class~$G$ (Vol~I, Proposition~\texttt{chapters/theory/chiral\_koszul\_pairs.tex} (Vol~I)); every class~$L$, class~$C$, and class~$M$ member of the standard landscape is Koszul but not SC-formal (Vol~I, Proposition~\texttt{chapters/theory/chiral\_koszul\_pairs.tex} (Vol~I) and Remark~\texttt{chapters/theory/ftm\_seven\_fold\_tfae\_platonic.tex} (Vol~I)).
 \end{remark}
 
 
@@ -462,12 +562,12 @@ $M$ (mixed) & $r_{\max} = \infty$ & Full: all Pixton generators accessed \\
 For class~$M$: the shadow CohFT generates the full image of the restriction $\mathrm{res} \colon S_*(\mathrm{Sp}(2g,\bZ)) \to R^*(\overline{\cM}_g)$ from the ring of Siegel modular forms to the tautological ring (extending Conjecture~\ref{conj:shadow-taut-projection}).
 \end{conjecture}
 
-\begin{remark}[The $K3$ case: class~$L$, Pixton at $g = 2$]
+\begin{remark}[The \texorpdfstring{$K3$}{K3} case: class~\texorpdfstring{$L$}{L}, Pixton at \texorpdfstring{$g = 2$}{g = 2}]
 \label{rem:k3-pixton-genus2}
 For the $K3$ lattice VOA ($\kappa_{\mathrm{ch}} = 2$, class~$L$, Mukai rank $24$): the genus-$2$ amplitude $F_2 = 2 \cdot 7/5760 = 7/2880$ satisfies the Faber--Zagier relation by the CohFT axioms. The cubic shadow $S_3 \neq 0$ (from the $\cN = 4$ SCA noncommutativity) produces a cross-channel correction at genus~$2$, but the tower terminates at depth~$3$: higher Pixton generators ($\kappa_j^{\mathrm{taut}}$ for $j \geq 3$) are not accessed. This is CY$_2$: unconditional.
 \end{remark}
 
-\begin{remark}[The Virasoro case: class~$M$, full generation at $g = 2$]
+\begin{remark}[The Virasoro case: class~\texorpdfstring{$M$}{M}, full generation at \texorpdfstring{$g = 2$}{g = 2}]
 \label{rem:virasoro-pixton-genus2}
 For the Virasoro algebra at $c = 1$ ($\kappa_{\mathrm{ch}} = 1/2$, class~$M$): the shadow tower is infinite ($S_2 = 1/2$, $S_3 = 2$, $S_4 = 10/27$, \ldots). At genus~$2$: the unique Pixton relation is a nontrivial check. The ratio $S_3/S_2 = 4$ enters the cross-channel correction $\delta F_2^{\mathrm{cross}}$, and the Faber--Zagier coefficients constrain this ratio. For class~$M$, the infinite depth ensures that all higher tautological generators are reached.
 \end{remark}
@@ -580,7 +680,7 @@ The shadow tower diverges because the Borel plane has singularities; the singula
 
 The analytic side treats $\Theta_A(t)$ as a resurgent formal power series: the Borel transform $\hat{\Theta}_A$, its analytic continuation, the alien derivative $\Delta_\zeta$ at each singularity, and the Stokes automorphism $\mathfrak{S}_\ell$ across each ray are the four objects that encode the non-perturbative data of the tower.
 
-\begin{definition}[Shadow generating function and Gevrey-$1$ type]
+\begin{definition}[Shadow generating function and Gevrey-\texorpdfstring{$1$}{1} type]
 \label{def:shadow-generating-gevrey}
 Let $A$ be a chiral algebra with shadow invariants $\{S_k\}_{k \geq 2}$ (Vol~I, Chapter~\ref{ch:modular-trace}).  The \emph{shadow generating function} is the formal power series
 \[
@@ -618,7 +718,7 @@ The \emph{Laplace integral} inverts the Borel transform: the \emph{Borel sum} al
 defined provided $\hat{\Theta}_A(\zeta)$ admits analytic continuation along the ray $\arg(\zeta) = \theta$ without obstruction.  If $\hat{\Theta}_A$ has a singularity on the ray, the integral is obstructed and one must use \emph{lateral Borel summation}: the integral slightly above ($\theta + \epsilon$) and slightly below ($\theta - \epsilon$) the ray give different results, and the discrepancy is the \emph{Stokes discontinuity}.
 \end{definition}
 
-\begin{example}[Virasoro at $c = 1$: explicit Borel analysis]
+\begin{example}[Virasoro at \texorpdfstring{$c = 1$}{c = 1}: explicit Borel analysis]
 \label{ex:virasoro-borel}
 The Virasoro algebra at $c = 1$ has $\kappa_{\mathrm{ch}} = 1/2$, cubic shadow $\alpha = 2$, and quartic shadow $S_4 = 10/27$.  The shadow generating function begins
 \[
@@ -635,7 +735,7 @@ which converges on a disc of radius $R > 0$.  The shadow quadratic $Q_L(\zeta) =
 Both satisfy $\Re(\omega_\pm) = t_c < 0$ (left half-plane).  The positive real axis is singularity-free, so $\cS_0[\Theta_{\mathrm{Vir}}]$ is unambiguous; the Stokes lines at $\theta_\pm = \arg(\omega_\pm)$ lie in the second and third quadrants.
 \end{example}
 
-\begin{proposition}[Borel summability of class~$M$ shadow towers]
+\begin{proposition}[Borel summability of class~\texorpdfstring{$M$}{M} shadow towers]
 \label{prop:class-m-borel-summability-bridge}
 \ClaimStatusProvedElsewhere
 Let $A$ be a chiral algebra of class~$M$ with $\kappa_{\mathrm{ch}} > 0$, cubic shadow $\alpha > 0$, and quartic shadow $S_4 > 0$ \textup{(}e.g.\ the Virasoro at $c = 1$; see Example~\textup{\ref{ex:virasoro-borel}}\textup{)}.  The Borel transform $\hat{\Theta}_A(\zeta)$ extends to an analytic function on $\C \setminus \{\omega_+, \omega_-\}$, where $\omega_\pm = t_c \pm i\delta$ are complex-conjugate Borel singularities, the roots of the shadow quadratic $Q_L(\zeta) = q_0 + q_1 \zeta + q_2 \zeta^2$ with
@@ -855,7 +955,7 @@ The five shared structural properties of the Stokes and KS automorphisms are ver
 
 The resolved conifold $X = \cO(-1) \oplus \cO(-1) \to \bP^1$ is the simplest CY$_3$ with nontrivial wall-crossing.  It has charge lattice $\Gamma = \Z^2$ with $\langle \gamma_1, \gamma_2 \rangle = 1$, and a single wall of marginal stability (the flop wall).
 
-\begin{theorem}[Stokes $=$ WC for the conifold]
+\begin{theorem}[Stokes \texorpdfstring{$=$}{=} WC for the conifold]
 \label{thm:stokes-wc-conifold}
 \ClaimStatusProvedHere
 For the resolved conifold, the Stokes automorphism of the resurgent DT partition function is the KS wall-crossing automorphism.  Specifically:
@@ -887,13 +987,13 @@ The conifold has finitely many BPS states (two per chamber plus one bound state)
 The pentagon identity $E(X)E(Y) = E(Y)E(XY)E(X)$ has appeared in three different contexts in these volumes: as a wall-crossing identity (KS, 2008), as a Stokes factorisation (this section), and as a cluster mutation relation (Vol~I, \S bar-cobar involution).  The identification of this section explains why the same identity recurs: the pentagon identity is the \emph{unique} wall-crossing/Stokes/mutation identity for a two-dimensional charge lattice with a single wall.  Any CY$_3$ with exactly one wall must exhibit the pentagon identity in all three guises.
 \end{remark}
 
-\subsubsection{$K3 \times E$}
+\subsubsection{\texorpdfstring{$K3 \times E$}{K3 x E}}
 \label{subsubsec:k3e-verification}
 \index{K3 x E@$K3 \times E$!Stokes--wall-crossing}%
 
 For $K3 \times E$, the BKM root system of $\mathfrak{g}_{\Delta_5}$ produces infinitely many walls (one per positive root) and infinitely many Stokes lines (one per Borel singularity of the shadow tower).  The identification is stratified by the BKM discriminant $D = 4nm - l^2$.
 
-\begin{conjecture}[Stokes $=$ WC for $K3 \times E$]
+\begin{conjecture}[Stokes \texorpdfstring{$=$}{=} WC for \texorpdfstring{$K3 \times E$}{K3 x E}]
 \label{conj:stokes-wc-k3e}
 \ClaimStatusConjectured
 For $K3 \times E$ with the BKM root system of $\mathfrak{g}_{\Delta_5}$, the Stokes automorphism of the shadow trans-series \textup{(}Conjecture~\textup{\ref{conj:shadow-resurgence})} is the KS wall-crossing automorphism.  The identification is stratified by discriminant:
@@ -928,7 +1028,7 @@ The global stitching of these infinitely many local identifications requires the
 \smallskip\noindent Verification: $84$~tests in \texttt{stokes\_wallcrossing\_identification.py}, functions \texttt{k3e\_discriminant\_identification}, \texttt{k3e\_stokes\_wall\_count\_matching}, \texttt{k3e\_real\_root\_is\_conifold}, \texttt{k3e\_imaginary\_root\_stokes\_structure}.
 \end{proof}
 
-\begin{example}[Explicit discriminant table for $K3 \times E$]
+\begin{example}[Explicit discriminant table for \texorpdfstring{$K3 \times E$}{K3 x E}]
 \label{ex:k3e-discriminant-table}
 The Fourier coefficient $f(n, l)$ of the weak Jacobi form $\phi_{0,1}$ of weight $0$, index $1$ depends only on $D = 4n - l^2$, and the valid discriminants are $D \in \{-1\} \cup \{D \geq 0 : D \equiv 0 \text{ or } 3 \pmod 4\}$. Writing $c(D) = f(n, l)$ for any $(n, l)$ with $4n - l^2 = D$ (per-discriminant convention), the first several values, computed exactly from the theta-ratio identity $\phi_{0,1} = 4\sum_{i = 2, 3, 4} (\theta_i(\tau, z)/\theta_i(\tau, 0))^2$ in \texttt{compute/lib/phi01\_fourier.py}, are:
 \begin{center}
@@ -949,7 +1049,7 @@ $8$ & $808$ & Imaginary (bound) & $808$ & $808$ & $\geq 3$ \\
 The column ``$\#$~Stokes lines'' counts $|c(D)|$ Borel singularities at the BPS mass scale $|Z_D|$; the sign of $c(D)$ tracks the fermion number of the BPS multiplet. The absence of $D = 1, 2, 5, 6$ reflects the index-$1$ parity constraint $D \equiv 0, 3 \pmod 4$ (for $D \geq 0$). The exponential growth $|c(D)| \sim e^{4\pi\sqrt{D}}/D^{3/4}$ (Rademacher) ensures that the shadow tower has infinite depth (class~$M$), and the accumulation of Stokes lines in the Borel plane mirrors the accumulation of walls in the stability manifold. The shadow contribution from discriminant $D > 0$ at degree $k$ is $\Delta S_k = c(D) \cdot D^{k-2}/k!$; summing over all admissible $D$ reconstructs the full shadow tower.
 \end{example}
 
-\begin{remark}[Why the conifold is a theorem and $K3 \times E$ is a conjecture]
+\begin{remark}[Why the conifold is a theorem and \texorpdfstring{$K3 \times E$}{K3 x E} is a conjecture]
 \label{rem:conifold-vs-k3e}
 The logical status differs because the conifold has \emph{finitely many} BPS states (the pentagon identity is an exact algebraic identity in the quantum torus), while $K3 \times E$ has \emph{infinitely many} BPS states (the BKM root system is infinite). For the conifold, the identification requires no unconstructed objects: the DT partition function and its resurgent structure are explicit. For $K3 \times E$, the chiral algebra $A_{K3 \times E}$ exists by Theorem~CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}); the remaining obstacle is the identification of the bar Euler product with the Borcherds denominator, together with the infinite stitching of local conifold-type identifications across the full BKM root system.
 \end{remark}
@@ -964,7 +1064,7 @@ For a class~$M$ chiral algebra $A$, let $F_g^{\mathrm{sh}}$ denote the genus-$g$
 %% Closing cross-reference
 %% ===================================================================
 
-The seven sections transport the Vol~I modular Koszul machine into the CY geometric realm: the convolution algebra of \S\ref{sec:modular-conv-cy} is the working surface, the complementarity of \S\ref{sec:cy-complementarity-bridge} is the duality statement, the CohFT of \S\ref{sec:cy-shadow-cohft} is the genus tower, the Hochschild bridge of \S\ref{sec:hochschild-bridge} identifies which Hochschild theory controls which invariant, the examples of \S\ref{sec:cy-bridge-examples} verify the $\kappa_\bullet$-spectrum against independent computations, the Pixton ideal of \S\ref{sec:pixton-cy-bar} connects the shadow tower to tautological classes, and the Stokes--wall-crossing identification of \S\ref{sec:stokes-wallcrossing} reveals the non-perturbative content of the Gevrey-$1$ divergence.  The $d = 2$ case is unconditional (CY-A proved, Theorem~\ref{thm:cy-complementarity-d2}); the $d = 3$ case is the Vol~III programme (Conjecture~\ref{conj:cy-complementarity-d3}, Conjecture~\ref{conj:toric-cy3-shadow-cohft}, Conjecture~\ref{conj:hochschild-bridge-d3}, Conjecture~\ref{conj:stokes-wc-k3e}). Verification of every $\kappa_\bullet$-value uses the independent paths of compute/lib/modular\_cy\_characteristic.py and compute/lib/cy\_euler.py, cross-checked against the $K3 \times E$ spectrum $\{\kappa_{\mathrm{cat}}^{\mathrm{fiber}}, \kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{2, 3, 5, 24\}$, with $\kappa_{\mathrm{cat}}^{\mathrm{fiber}} = \chi(\cO_{K3}) = 2$ the fibre value; the K\"unneth-multiplicative total-space value is $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$.
+The seven sections transport the Vol~I modular Koszul machine into the CY geometric realm: the convolution algebra of \S\ref{sec:modular-conv-cy} is the working surface, the complementarity of \S\ref{sec:cy-complementarity-bridge} is the duality statement, the CohFT of \S\ref{sec:cy-shadow-cohft} is the genus tower, the Hochschild bridge of \S\ref{sec:hochschild-bridge} identifies which Hochschild theory controls which invariant, the examples of \S\ref{sec:cy-bridge-examples} verify the $\kappa_\bullet$-spectrum against independent computations, the Pixton ideal of \S\ref{sec:pixton-cy-bar} connects the shadow tower to tautological classes, and the Stokes--wall-crossing identification of \S\ref{sec:stokes-wallcrossing} reveals the non-perturbative content of the Gevrey-$1$ divergence.  The $d = 2$ case is unconditional (CY-A proved, Theorem~\ref{thm:cy-complementarity-d2}); the $d = 3$ case is the Vol~III programme (Conjecture~\ref{conj:cy-complementarity-d3}, Conjecture~\ref{conj:toric-cy3-shadow-cohft}, Conjecture~\ref{conj:hochschild-bridge-d3}, Conjecture~\ref{conj:stokes-wc-k3e}). Verification of every $\kappa_\bullet$-value uses the independent paths of compute/lib/modular\_cy\_characteristic.py and compute/lib/cy\_euler.py, cross-checked against the $K3 \times E$ total-space spectrum $\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{fiber}}\} = \{0, 3, 5, 24\}$, with $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ (K\"unneth-multiplicative).
 
 
 %% ===================================================================
@@ -978,14 +1078,14 @@ This chapter sits at five named bridges to Vols~I--II. We list the explicit arro
 
 \begin{remark}[Bridge to Vol~I Koszul Reflection]
 \label{rem:modular-koszul-bridge-koszul-reflection}
-Vol~I \texttt{thm:koszul-reflection} \textup{(}Platonic Theorem~A\textup{)} establishes that the bar-cobar adjunction $(\Omega_X, \bar B_X)$ on $\mathrm{Kosz}(X)$ defines an involutive Koszul reflection $\mathfrak{K}_A \colon A \mapsto A^!$ with $\mathfrak{K}^2 \simeq \mathrm{id}$.  Under the CY-to-chiral correspondence $\Phi_d$ \textup{(}CY-A$_2$ proved at $d = 2$; CY-A$_3$ proved at $d = 3$, Theorem~\ref{thm:cy-to-chiral-d3}\textup{)}, the Koszul reflection lifts to a categorical involution on the source CY category:
+Vol~I \texttt{thm:koszul-reflection} \textup{(}Theorem~A\textup{)} establishes that the bar-cobar adjunction $(\Omega_X, \bar B_X)$ on $\mathrm{Kosz}(X)$ defines an involutive Koszul reflection $\mathfrak{K}_A \colon A \mapsto A^!$ with $\mathfrak{K}^2 \simeq \mathrm{id}$.  Under the CY-to-chiral correspondence $\Phi_d$ \textup{(}CY-A$_2$ proved at $d = 2$; CY-A$_3$ proved at $d = 3$, Theorem~\ref{thm:cy-to-chiral-d3}\textup{)}, the Koszul reflection lifts to a categorical involution on the source CY category:
 \[
   \mathfrak{K}_{A_\cC} \;=\; \Phi_*\bigl(\mathfrak{K}_\cC^{\mathrm{cat}}\bigr),
 \]
 where $\mathfrak{K}_\cC^{\mathrm{cat}}$ is the Mukai/HMS involution on $\cC$ \textup{(}$\mathfrak{K}_\cC^{\mathrm{cat}}$ is a manifold-level involution, while $\mathfrak{K}_{A_\cC}$ is the chiral algebra-level reflection; the two coincide under $\Phi$ at $d = 2$, conjecturally at $d = 3$\textup{).} At the level of complementarity \textup{(}\S\ref{sec:cy-complementarity-bridge}\textup{),} this is exactly Theorem~\ref{thm:cy-complementarity-d2}~(C1$^{\mathrm{CY}}$): the eigenspace decomposition of the genus-$g$ shadow complex under Verdier duality. The $d = 3$ analogue is Conjecture~\ref{conj:cy-complementarity-d3}~(C1$^{\mathrm{CY}_3}$).
 \end{remark}
 
-\begin{remark}[Bridge to Vol~I climax \textup{(}$\bar\partial = \mathrm{KZ}^*(\nabla_{\mathrm{Arnold}})$, $\kappa_{\mathrm{ch}} = -c_{\mathrm{ghost}}(\mathrm{BRST})$\textup{)}]
+\begin{remark}[Bridge to Vol~I climax \textup{(}\texorpdfstring{$\bar\partial = \mathrm{KZ}^*(\nabla_{\mathrm{Arnold}})$}{bard = KZ-*(nabla-Arnold)}, \texorpdfstring{$\kappa_{\mathrm{ch}} = -c_{\mathrm{ghost}}(\mathrm{BRST})$}{kappa-ch = -c-ghost(BRST)}\textup{)}]
 \label{rem:modular-koszul-bridge-climax}
 Vol~I \texttt{chap:climax-platonic} establishes the climax identity
 \[
@@ -1030,19 +1130,19 @@ Vol~II \texttt{thm:universal-holography-master} establishes universal celestial 
 \section{Humbert monodromy and the universal identity}
 \label{sec:modular-koszul-humbert-identity}
 
-The $\mathcal{B}$-family of Chapter~\ref{ch:cy-complementarity-bridge} has Koszul conductor $K^{\kappa_{\mathrm{ch}}}=2c_+(\mathrm{Mukai}(K3))=8$ on $K3$ input. This value emerges on the parameter side~$(\gamma)$ of the bi-based datum (Definition~\ref{def:bar-cobar-bi-based-ran-datum}) as the \emph{order of local monodromy} of the holonomic $\mathcal{D}$-module $\mathcal{L}^{\Delta_5}$ around the Humbert divisor $H_1\subset\overline{\mathcal{A}_2}$, and simultaneously on the quantum-group side as the \emph{order $\ell=8$ of a Lusztig root-of-unity specialisation}. Bruinier's Heegner-divisor Chern-class reciprocity is the single identity that makes these three numbers coincide. One identity, three faces.
+The $\mathcal{B}$-family of \S\ref{sec:cy-complementarity-bridge} has Koszul conductor $K^{\kappa_{\mathrm{ch}}}=2c_+(\mathrm{Mukai}(K3))=8$ on $K3$ input. This value emerges on the parameter side~$(\gamma)$ of the bi-based datum (Definition~\ref{def:bar-cobar-bi-based-ran-datum}) as the \emph{order of local monodromy} of the holonomic $\mathcal{D}$-module $\mathcal{L}^{\Delta_5}$ around the Humbert divisor $H_1\subset\overline{\mathcal{A}_2}$, and simultaneously on the quantum-group side as the \emph{order $\ell=8$ of a Lusztig root-of-unity specialisation}. Bruinier's Heegner-divisor Chern-class reciprocity is the single identity that makes these three numbers coincide. One identity, three faces.
 
 \subsection{The Humbert divisors and their Heegner structure}
 
-\begin{definition}[Humbert divisors in $\overline{\mathcal{A}_2}$]
+\begin{definition}[Humbert divisors in \texorpdfstring{$\overline{\mathcal{A}_2}$}{overlineA-2}]
 \label{def:humbert-divisors}
 The Humbert surfaces $H_D\subset\overline{\mathcal{A}_2}$, indexed by positive discriminants $D>0$, are the Heegner loci parametrising principally polarised abelian surfaces admitting real multiplication by the real quadratic order $\mathbb{Z}[\tfrac{1+\sqrt{D}}{2}]$ for $D\equiv 1\pmod 4$, resp.\ $\mathbb{Z}[\sqrt{D}]$ for $D\equiv 0\pmod 4$ (Humbert, \emph{Sur les surfaces algébriques dans l'espace de Hilbert}, J.~Math.~Pures Appl.~9, 1899; modern treatment: van der Geer, \emph{Hilbert modular surfaces}, Springer 1988, Ch.~IX). Each $H_D$ is a codimension-one Heegner divisor in $\overline{\mathcal{A}_2}$; the low-discriminant cases $H_1$ (product of two elliptic curves) and $H_4$ (product of CM elliptic curves) are both load-bearing for $\Delta_5$.
 \end{definition}
 
-\begin{fact}[Vanishing orders of $\Delta_5$ on Humbert divisors]
+\begin{remark}[Vanishing orders of \texorpdfstring{$\Delta_5$}{Delta-5} on Humbert divisors]
 \label{fact:delta5-vanishing-humbert}
 By Gritsenko--Nikulin, \emph{Automorphic forms and Lorentzian Kac--Moody algebras~II}, Int.~J.~Math.~9, 1998, Theorem~2.1: the Borcherds form $\Delta_5 = \mathrm{Grit}(\eta^9\vartheta_1)$ vanishes on $H_1$ to order $1$ and on $H_4$ to order $2$. Its square $\Delta_{10}=\Delta_5^2$ therefore vanishes to orders $2$ and $4$ respectively, and $\Phi_{10} = \Delta_{10}|_{\mathrm{Sp}_4(\mathbb{Z})}$ (Igusa's genus-two cusp form) to the same orders.
-\end{fact}
+\end{remark}
 
 \subsection{The monodromy identities}
 
@@ -1084,10 +1184,10 @@ For $H_1$ (discriminant $1$, so $\varepsilon_1=2$), the Fourier expansion of $\D
 
 The regular-singular holonomic $\mathcal{D}$-module $\mathcal{L}^{\Delta_5}$ is constructed via the Riemann--Hilbert correspondence from the locally constant sheaf of rank-one solutions of the Picard--Fuchs type equation satisfied by log$(\Delta_5)$; regular singularity along $H_D$ follows from $\Delta_5$ being a section of a line bundle in good position, and the local monodromy matrix around $H_D$ is multiplication by a root of unity of order equal to the Chern-class order of the restriction (Deligne, \emph{Équations différentielles à points singuliers réguliers}, Springer LNM~163, 1970, Thm.~II.1.9; Kashiwara, \emph{The Riemann--Hilbert problem for holonomic systems}, Publ.~RIMS~20, 1984). Therefore the monodromy orders are $8$ and $16$ on $H_1$ and $H_4$.
 
-The Koszul-conductor identity $K^{\kappa_{\mathrm{ch}}}=2c_+(\mathrm{Mukai}(K3))=8$ is the Mukai-lattice computation of Section~\ref{sec:mukai-doubling}: Mukai$(K3)$ has signature $(4,20)$, positive part $c_+=4$, and the Koszul conductor on a CY-2 category doubles this to $K=8$ by the $\mathbb{Z}/2$-Serre-duality symmetrisation of the bar differential across the Mukai pairing (Theorem~CY-C$_2$, Section~\ref{sec:cy-complementarity-bridge}).
+The Koszul-conductor identity $K^{\kappa_{\mathrm{ch}}}=2c_+(\mathrm{Mukai}(K3))=8$ is the Mukai-lattice computation of the Mukai-doubling section: Mukai$(K3)$ has signature $(4,20)$, positive part $c_+=4$, and the Koszul conductor on a CY-2 category doubles this to $K=8$ by the $\mathbb{Z}/2$-Serre-duality symmetrisation of the bar differential across the Mukai pairing (Theorem~CY-C$_2$, Section~\ref{sec:cy-complementarity-bridge}).
 \end{proof}
 
-\begin{proposition}[Lusztig specialisation $\ell=8$ and the universal identity]
+\begin{proposition}[Lusztig specialisation \texorpdfstring{$\ell=8$}{l=8} and the universal identity]
 \label{prop:lusztig-l8-universal-identity}
 \ClaimStatusProvedHere
 The Lusztig specialisation at order $\ell=8$ of the Hall--Drinfeld double
@@ -1119,7 +1219,7 @@ Section~\ref{sec:k3-24miki-presentation}.
 
 \subsection{One identity, three faces}
 
-\begin{remark}[The trinity of faces of the number $8$]
+\begin{remark}[The trinity of faces of the number \texorpdfstring{$8$}{8}]
 \label{rem:trinity-of-eight}
 The universal identity $\hbar^2\cdot K^{\kappa_{\mathrm{ch}}}=-1$ arises because the integer $8$ appears simultaneously in three a-priori unrelated mathematical settings.
 \begin{itemize}
@@ -1138,19 +1238,19 @@ The identity $\hbar^2\cdot K^{\kappa_{\mathrm{ch}}}=-1$ is established on the Lo
 \begin{remark}[Cross-reference to bi-based architecture]
 \label{rem:humbert-bi-based-anchor}
 The monodromy side of the universal identity lives on the parameter base~$(\gamma)$ of Definition~\ref{def:bar-cobar-bi-based-ran-datum}. The Koszul-conductor side lives on the chiral base~$(\alpha)$ through the Mukai-doubling computation. The averaging morphism~$(\delta)$, $\mathrm{av}=\mathrm{Torelli}_{K3}\circ\mathrm{KS}\circ j_{\mathrm{Kodaira}}$, is what transports the monodromy data at each Humbert divisor on $\overline{\mathcal{A}_2}$ back to the nearby-cycles data at each of the $24$ Kodaira nodes on $E^{\mathrm{nod}}_{24}$; the universal identity is the arithmetic witness that both transports agree.
-\end{remark>
+\end{remark}
 
-\section{Vol~I $\leftrightarrow$ Vol~III modular Koszul bridge at the K3 base}
+\section{Vol~I \texorpdfstring{$\leftrightarrow$}{<->} Vol~III modular Koszul bridge at the K3 base}
 \label{sec:mkbridge-supplement}
 
-\begin{remark}[Vol~I $\leftrightarrow$ Vol~III modular Koszul bridge at the K3 base]
+\begin{remark}[Vol~I \texorpdfstring{$\leftrightarrow$}{<->} Vol~III modular Koszul bridge at the K3 base]
 \label{rem:mkbridge-1}
 The modular Koszul bridge between Vol.~I (modular Koszul duality on
 curves and $\bar{\mathcal M}_{g,n}$) and Vol.~III (CY-to-chiral functor
 $\Phi$ on CY$_n$ landscapes) crystallises at the K3 base point
 in the following way: the higher-genus modular Koszul pair
 $(B^{(2)}_{\mathrm{ch}}(A), \Omega^{(2)}_X)$ on $\bar{\mathcal A}_2$
-(Vol.~I, \S\ref{sec:hgfnd-supplement}) is matched with the CY-2
+(Vol.~I, \S\texttt{chapters/theory/higher\_genus\_foundations.tex} (Vol~I)) is matched with the CY-2
 Koszul pair $(\mathrm{Per}^b\mathrm{Coh}(K3), D^b\mathrm{Coh}(K3)^!)$
 via the Gritsenko-additive lift $\Delta_5$ of the Vol.~I Jacobi cusp
 form. The commutativity of
