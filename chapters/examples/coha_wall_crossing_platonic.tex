@@ -381,7 +381,35 @@ presupposes a dg Lie algebra and an MC element; $\mathcal{H}$ itself
 carries no differential, so the wall-crossing MC equation must live on
 a dgLA constructed \emph{from} $\mathcal{H}$. Kontsevich--Soibelman
 supply this dgLA as the motivic Hall Lie algebra
-$\mathfrak{g}_{\mathrm{KS}}(X)$.
+$\mathfrak{g}_{\mathrm{KS}}(X)$. The antisymmetry $\chi(\gamma,
+\gamma') = -\chi(\gamma', \gamma)$ on $K_0^{\mathrm{num}}$ that
+underpins the Lie-bracket structure is a three-line Serre derivation,
+recorded first.
+
+\begin{lemma}[Serre antisymmetry of the Euler form on CY$_3$]
+\label{lem:serre-antisymmetry-cy3}
+\ClaimStatusProvedHere
+Let $\mathcal{C}$ be a Calabi--Yau triangulated category of dimension
+$d = 3$ (Serre functor $S_{\mathcal{C}} = [3]$), and
+$\chi(\gamma, \gamma') = \sum_{i \in \mathbb{Z}} (-1)^i \dim
+\mathrm{Ext}^i(\gamma, \gamma')$ the Euler form on
+$K_0^{\mathrm{num}}(\mathcal{C})$. Then $\chi(\gamma, \gamma') = -
+\chi(\gamma', \gamma)$ and hence $\chi(\gamma, \gamma) = 0$.
+\end{lemma}
+
+\begin{proof}
+Serre duality for $\mathcal{C}$ gives
+$\mathrm{Ext}^i(\gamma, \gamma') \simeq \mathrm{Ext}^{3 - i}(\gamma',
+\gamma)^\vee$ as $\mathbb{C}$-vector spaces; substituting and
+reindexing $j = 3 - i$:
+\[
+  \chi(\gamma, \gamma')
+   \;=\; \sum_i (-1)^i \dim \mathrm{Ext}^{3-i}(\gamma', \gamma)
+   \;=\; \sum_j (-1)^{3-j} \dim \mathrm{Ext}^j(\gamma', \gamma)
+   \;=\; -\chi(\gamma', \gamma).
+\]
+The sign is $(-1)^3 = -1$, forced by the odd CY dimension.
+\end{proof}
 
 \begin{theorem}[KS wall-crossing is MC gauge on the motivic Hall dgLA]
 \label{thm:ks-wall-crossing-mc-on-coha-dgla}
@@ -416,20 +444,12 @@ $\mathbb{L}^{1/2} \to 1$ of the quantum ambient (equivalently, the
 Euler-characteristic specialisation of the motivic Hall algebra), a
 $\mathbb{Z}$-graded Lie algebra with bracket
 $[e_\gamma, e_{\gamma'}] = (-1)^{\chi(\gamma,\gamma')}\,
- \chi(\gamma,\gamma')\, e_{\gamma + \gamma'}$
-where the Euler pairing $\chi(\gamma,\gamma') = \sum_i (-1)^i
-\dim \mathrm{Ext}^i(\gamma, \gamma')$ on the CY$_3$ category
-$D^b\mathrm{Coh}(X)$ is itself \emph{antisymmetric}: Serre duality
-$\mathrm{Ext}^i(\gamma, \gamma') \simeq
-\mathrm{Ext}^{3 - i}(\gamma', \gamma)^\vee$
-yields
-$\chi(\gamma, \gamma') = \sum_i (-1)^i \dim \mathrm{Ext}^{3-i}(\gamma',
-\gamma) = \sum_j (-1)^{3-j} \dim \mathrm{Ext}^j(\gamma', \gamma) =
-- \chi(\gamma', \gamma)$,
-whence $\chi(\gamma, \gamma) = 0$ on the numerical Grothendieck group
-$K_0^{\mathrm{num}}(X) = K_0(D^b\mathrm{Coh}(X))/\ker(\chi)$ and the
+ \chi(\gamma,\gamma')\, e_{\gamma + \gamma'}$,
+the Euler form $\chi$ antisymmetric on
+$K_0^{\mathrm{num}}(X) = K_0(D^b\mathrm{Coh}(X))/\ker(\chi)$ by
+Lemma~\ref{lem:serre-antisymmetry-cy3}, and the
 skew-symmetrisation $\langle\gamma, \gamma'\rangle = \chi(\gamma,
-\gamma') - \chi(\gamma', \gamma) = 2\chi(\gamma, \gamma')$ equals
+\gamma') - \chi(\gamma', \gamma) = 2\chi(\gamma, \gamma')$ equal to
 twice the Euler form. The motivic bracket then takes the form
 $[e_\gamma, e_{\gamma'}]_q = (\mathbb{L}^{\chi(\gamma,\gamma')} -
 \mathbb{L}^{-\chi(\gamma, \gamma')}) e_{\gamma + \gamma'}$
@@ -543,16 +563,10 @@ Euler-characteristic Poisson Lie algebra on the charge lattice
 (Bridgeland 2016 Proposition~5.2). Both are nilpotent pro-finite
 after Harder--Narasimhan completion (KS 2008 Section~4.2).
 
-The Euler form is antisymmetric on the CY$_3$ numerical Grothendieck
-group $K_0^{\mathrm{num}}(X)$: Serre duality
-$\mathrm{Ext}^i(\gamma, \gamma') \simeq \mathrm{Ext}^{3 -
-i}(\gamma', \gamma)^\vee$ gives $\chi(\gamma, \gamma') =
-\sum_i (-1)^i \dim \mathrm{Ext}^{3 - i}(\gamma', \gamma) = \sum_j
-(-1)^{3 - j} \dim \mathrm{Ext}^j(\gamma', \gamma) = - \chi(\gamma',
-\gamma)$ (the minus sign is $(-1)^3 = -1$, forced by the odd
-dimension $d = 3$). Hence $\chi(\gamma, \gamma) = 0$, the diagonal
-bracket vanishes, and the motivic commutator acquires the Laurent
-power $\mathbb{L}^{2\chi(\gamma, \gamma')}$.
+Antisymmetry of $\chi$ on $K_0^{\mathrm{num}}(X)$ is
+Lemma~\ref{lem:serre-antisymmetry-cy3}; hence $\chi(\gamma, \gamma) =
+0$, the diagonal bracket vanishes, and the motivic commutator acquires
+the Laurent power $\mathbb{L}^{2\chi(\gamma, \gamma')}$.
 
 (ii)(a) is KS 2008 Theorem~3.1: the motivic wall-crossing is the
 equality of phase-ordered products
@@ -582,17 +596,39 @@ is the numerical no-pole theorem of Joyce--Song 2011 Theorem~5.3.
 
 (iv) In $\mathfrak{g}_{\mathrm{KS}}^{\mathrm{mot}}(X)$ the pentagon
 is the Faddeev--Kashaev quantum-dilogarithm identity in its canonical
-bound-state form. Writing $q = \mathbb{L}$ for the quantum parameter
-and letting $x_0, x_1$ denote the motivic variables attached to two
-simple stable objects $S_0, S_1$ with $\langle S_0, S_1\rangle_{\mathrm{skew}}
-= +1$ (adjacent-vertex $A_2$ configuration), the pentagon reads
+bound-state form. Write $q = \mathbb{L}$ for the quantum parameter and
+let $x_0, x_1$ denote the motivic variables attached to two simple
+stable objects $S_0, S_1$ with $\langle S_0, S_1\rangle_{\mathrm{skew}}
+= +1$ (adjacent-vertex $A_2$ configuration). The Kontsevich--Soibelman
+quantum dilogarithm is the Durfee-staircase generating function for
+partitions into distinct half-integer-staircase parts,
+\[
+  \Psi(x)
+   \;=\; \prod_{k \geq 0}
+     \bigl(1 - \mathbb{L}^{k + 1/2}\, x\bigr)^{-1}
+   \;=\; \sum_{n \geq 0}
+     \frac{\mathbb{L}^{n^{2}/2}}{\prod_{j=1}^{n}(\mathbb{L}^{j} - 1)}
+     \, x^{n}
+\]
+(KS \textup{arXiv:0811.2435} \S6.3; the second equality is the Durfee
+bijection between partitions with distinct staircase parts and Young
+diagrams indexed by Durfee size $n$, and $\mathbb{L}^{n^{2}/2}$ is the
+motivic class of the Durfee square of side $n$). Its logarithm
+\[
+  \log \Psi(x)
+   \;=\; \sum_{k \geq 0} -\log\bigl(1 - \mathbb{L}^{k + 1/2}\, x\bigr)
+   \;=\; \sum_{n \geq 1}
+     \frac{x^{n}}{n\bigl(\mathbb{L}^{n/2} - \mathbb{L}^{-n/2}\bigr)}
+     \,\mathbb{L}^{n/2}
+\]
+matches Zagier's normalisation (\textit{Frontiers in Number Theory,
+Physics and Geometry II}, Springer 2007, Ch.~1) after the
+symmetrisation $\mathbb{L}^{n/2} \to 1$ that converts Durfee staircase
+to Zagier staircase. The pentagon then reads
 \[
  \Psi(x_0)\,\Psi(x_1)
   \;=\;
-  \Psi(x_1)\;\Psi\!\bigl(q^{-1/2}\,x_0 x_1\bigr)\;\Psi(x_0),
- \qquad
- \Psi(x)
-  \;=\;\prod_{k \geq 0} \bigl(1 - q^{-(k + 1/2)} x\bigr)^{-1}
+  \Psi(x_1)\;\Psi\!\bigl(q^{-1/2}\,x_0 x_1\bigr)\;\Psi(x_0)
 \]
 (Faddeev--Kashaev \textup{arXiv:hep-th/9310070} Theorem~3;
 Kashaev--Nakanishi \textup{arXiv:1011.6131} Proposition~3.2;
@@ -605,13 +641,7 @@ non-split extension class of $S_1$ by $S_0$ with the quantum cocycle
 $q^{-\langle S_0, S_1\rangle_{\mathrm{skew}}/2} = q^{-1/2}$. Replacing
 $q^{-1/2} x_0 x_1$ by $x_{e_1 + e_2}$ erases this quantum cocycle and
 is the classical shadow available only after sending
-$\mathbb{L}^{1/2} \to 1$. The Durfee-staircase product form of $\Psi$
-is forced by the generating function of partitions into distinct
-staircase parts: its logarithm $\log \Psi(x) = \sum_{k \geq 0}
-\log(1 - q^{-k-1/2}x)^{-1} = \sum_{n \geq 1} \frac{x^n}{n(q^{n/2} -
-q^{-n/2})}$ recovers the Faddeev--Kashaev quantum dilogarithm in
-Zagier's normalisation (Zagier, \textit{Frontiers in Number Theory,
-Physics and Geometry II}, Springer 2007, Ch.~1).
+$\mathbb{L}^{1/2} \to 1$.
 
 Euler-characteristic specialisation $\mathbb{L}^{1/2} \to 1$
 degenerates $\Psi(x)$ to $\exp(\mathrm{Li}_2(x))$ and the pentagon
@@ -754,28 +784,32 @@ Section~3; Nagao--Nakajima \textup{arXiv:0809.2992} Section~2). Then:
 \end{theorem}
 
 \begin{proof}
-(i) is Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}(ii) applied
-The stability-manifold dimension equals the numerical-Grothendieck
-rank by Bridgeland \textup{arXiv:math/0307164} Theorem~1.2: each
-stability condition $\sigma = (Z, \mathcal{P})$ is determined by its
-central charge $Z \in \Hom_{\mathbb{Z}}(K_0^{\mathrm{num}},
-\mathbb{C})$ modulo the discrete heart data, and
-$\Stab(\mathcal{C})$ is a complex manifold locally biholomorphic to
-$\Hom(K_0^{\mathrm{num}}, \mathbb{C}) \simeq \mathbb{C}^{\mathrm{rk}
-K_0^{\mathrm{num}}}$. For the Klebanov--Witten two-vertex quiver,
-$K_0^{\mathrm{num}}(X_{\mathrm{con}}) = \mathbb{Z}[S_0] \oplus
-\mathbb{Z}[S_1]$ has rank $2$; the CY dimension $d = 3$ does not
-enter. Applied to the conifold: the single wall class
-$\gamma_0 = [S_0] - [S_1]$ is the primitive wall in this
-two-dimensional stability space, and the wall-crossing generator is
-$\alpha_{\gamma_0}$ with Nagao--Nakajima BPS invariant
-$\Omega(\gamma_0) = 1$. The diagonal vanishing
-$\chi(\gamma_0, \gamma_0) = 0$ follows from CY$_3$ Euler-form
-antisymmetry (proof of
-Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}(i)); the wall
-nontriviality is carried by $\Omega$ and by the quantum cocycle
-$q^{-\chi([S_0], [S_1])/2} = q^{-1/2}$ arising from
-$\chi([S_0], [S_1]) = 1$ on the Klebanov--Witten pair.
+The dimension assertion $\dim_{\mathbb{C}} \Stab =
+\mathrm{rk}\, K_0^{\mathrm{num}} = 2 \neq d = 3$ is Bridgeland
+\textup{arXiv:math/0307164} Theorem~1.2: each stability condition
+$\sigma = (Z, \mathcal{P})$ is determined by its central charge $Z
+\in \Hom_{\mathbb{Z}}(K_0^{\mathrm{num}}, \mathbb{C})$ modulo the
+discrete heart data, and $\Stab(\mathcal{C})$ is a complex manifold
+locally biholomorphic to $\Hom(K_0^{\mathrm{num}}, \mathbb{C}) \simeq
+\mathbb{C}^{\mathrm{rk} K_0^{\mathrm{num}}}$. The
+Klebanov--Witten two-vertex quiver gives $K_0^{\mathrm{num}}(
+X_{\mathrm{con}}) = \mathbb{Z}[S_0] \oplus \mathbb{Z}[S_1]$ of rank
+$2$; the CY dimension $d = 3$ does not enter the parametrisation of
+$\Stab$. The dimensional stratification of stability-space rank and
+CY dimension is therefore orthogonal: $\dim \Stab$ reads the
+Grothendieck rank of the heart, $d$ reads the Serre-functor shift of
+the ambient category.
+
+(i) Theorem~\ref{thm:ks-wall-crossing-mc-on-coha-dgla}(ii) applied to
+the single wall class $\gamma_0 = [S_0] - [S_1]$ — the primitive
+wall in the two-dimensional stability space — identifies the
+wall-crossing generator $\alpha_{\gamma_0}$ with Nagao--Nakajima BPS
+invariant $\Omega(\gamma_0) = 1$. The diagonal vanishing
+$\chi(\gamma_0, \gamma_0) = 0$ is
+Lemma~\ref{lem:serre-antisymmetry-cy3}; wall nontriviality comes
+entirely from $\Omega$ and from the quantum cocycle
+$q^{-\chi([S_0], [S_1])/2} = q^{-1/2}$ arising from $\chi([S_0],
+[S_1]) = 1$ on the Klebanov--Witten pair.
 
 (ii) is Nagao--Nakajima 2011 \textup{arXiv:0809.2992} Theorem~3.5: the
 conifold stability space has two chambers related by a single
@@ -856,16 +890,34 @@ stratification produces a filtration on $\mathcal{H}(Q, W)$ whose
 associated graded is $\mathrm{Sym}(\bigoplus_\gamma \mathrm{BPS}_\gamma
 \otimes H^\bullet(B\mathbb{C}^\times))$. Joyce--Song
 \textup{arXiv:0810.5645} Theorem~5.8 supplies the integration-map
-compatibility: under wall-crossing $C_I \rightsquigarrow C_{II}$, the
-BPS cohomology sheaves transform by the motivic Hall algebra
-automorphism $\mathbb{E}(x_\gamma)^{\Omega^{\mathrm{mot}}(\gamma)}$,
-but the integration map $\mathcal{I} \colon \mathrm{SF}(\mathrm{MH})
-\to \mathfrak{g}_{\mathrm{KS}}^{\mathrm{cl}}$ descends this
-chamber-dependent data to a chamber-independent numerical DT
-generating series. The $\mathrm{Sym}$-decomposition lifts this to the
-motivic level: the algebra object $\mathcal{H}(Q_X, W_X)$ is
-chamber-invariant; only the choice of $\sigma$-semistable
-stratification subset $\mathcal{H}^{C_\sigma}$ depends on chamber.
+compatibility. Let
+$\mathcal{I} \colon \mathrm{SF}_{\mathrm{al}}^{\mathrm{ind}}(\mathcal{M}(X))
+\to \mathfrak{g}_{\mathrm{KS}}^{\mathrm{cl}}(X)$
+denote the Joyce integration map from constructible stack functions
+to the classical Hall Lie algebra (Joyce--Song Definition~5.13);
+Theorem~5.8 (the ``integration identity'') proves that $\mathcal{I}$
+is a Lie algebra homomorphism, and that the wall-crossing operator
+\[
+  U_W \;=\; \mathbb{E}\bigl(x_{\gamma_W}\bigr)^{\Omega^{\mathrm{mot}}
+  (\gamma_W)}
+   \;\in\; G_{\mathrm{KS}}^{\mathrm{mot}}(X)^{\times}
+\]
+acts by conjugation
+$\mathrm{Ad}_{U_W} \colon \mathrm{MH}(X) \to \mathrm{MH}(X)$ as an
+inner automorphism of the motivic Hall bialgebra
+$(\mathrm{MH}(X), \star_{\mathrm{Hall}}, \Delta_{\mathrm{Hall}})$,
+preserving both the Hall multiplication $\star$ and the
+topologically-defined Yang--Zhao coproduct $\Delta$. Chamber change
+$C_I \rightsquigarrow C_{II}$ is conjugation by $U_W$, so
+$\mathcal{H}(Q_X, W_X)$ — the sub-bialgebra of
+$\mathrm{MH}(X)$ generated by vanishing-cycle-stable objects —
+is stable under $\mathrm{Ad}_{U_W}$. The integration map descends
+this chamber-dependent motivic data to a chamber-independent numerical
+DT generating series (Joyce--Song Theorem~5.3, ``no-pole theorem'').
+The $\mathrm{Sym}$-decomposition lifts this to the motivic level:
+the algebra object $\mathcal{H}(Q_X, W_X)$ is chamber-invariant as a
+graded algebra; only the choice of $\sigma$-semistable stratification
+subset $\mathcal{H}^{C_\sigma}$ depends on chamber.
 Schiffmann--Vasserot \textup{arXiv:1202.2756} Theorem~A gives the
 positive-half identification $\mathcal{H}(\mathbb{C}^3) \simeq
 Y^+(\widehat{\mathfrak{gl}}_1)$ intrinsically on
@@ -2437,30 +2489,49 @@ exhibits $\mathcal{W}_{1+\infty}[\lambda]$ as the evaluation image of the full D
 
 The three-segment homotopy of
 Theorem~\ref{thm:mnop-three-segment-homotopy} routes $Z^{\GW}$ through
-the Gopakumar--Vafa free energy
+the Gopakumar--Vafa free energy in its per-genus ansatz
 \[
-  F^{\mathrm{GV}}(Y; \lambda, Q)
+  F^{\mathrm{GV}}(X; \lambda, Q)
   \;=\;
   \sum_{g \geq 0,\, \beta > 0,\, k \geq 1}
-    n^{g}_\beta \cdot \frac{1}{k}
-    \bigl(2 \sinh\tfrac{k\lambda}{2}\bigr)^{2g - 2}
-    Q^{k\beta}
+    n^{g}_\beta \cdot \frac{1}{k}\,
+    K^{\mathrm{GV}}_{g}(k\lambda)
+    \, Q^{k\beta},
+  \qquad
+  K^{\mathrm{GV}}_{g}(\lambda)
+  \;=\; \bigl(2 \sinh\tfrac{\lambda}{2}\bigr)^{2g - 2}
 \]
 (Gopakumar--Vafa \textup{hep-th/9812127} \S3; the trigonometric
-$\sinh$ replaces $\sin$ under $\lambda = iu$). The identity $\bigl(2
-\sinh \tfrac{\lambda}{2}\bigr)^{2} = e^{\lambda} - 2 + e^{-\lambda}$
-realises the fibre-class residue of the quantum dilogarithm at the
-BPS mass; the per-class kernel
+$\sinh$ replaces $\sin$ under $\lambda = iu$). The per-class
+kernel $K^{\mathrm{GV}}_{g}(\lambda)$ is the $\mathfrak{sl}_2$-character
+of the spin-$g$ Lefschetz representation on the BPS moduli space, with
+$n^{g}_\beta$ its multiplicity; the BPS-state-counting hypothesis of
+Gopakumar--Vafa is that the per-genus ansatz $(n^{g}_\beta, g, \beta)$
+parametrises $F^{\mathrm{GV}}$ uniquely with $n^{g}_\beta \in \Z$.
+The identity $\bigl(2\sinh\tfrac{\lambda}{2}\bigr)^{2} = e^{\lambda} -
+2 + e^{-\lambda}$ realises the fibre-class residue of the quantum
+dilogarithm at the BPS mass; at $g = 0$ the kernel is the
+$\mathfrak{sl}_2$-singlet $K^{\mathrm{GV}}_{0}(\lambda) =
+(2\sinh\tfrac{\lambda}{2})^{-2}$, whose $\lambda \to 0$ expansion
+produces $\lambda^{-2}$, matching the $\Li_2$-exponential of
+Lemma~\ref{lem:mnop-qdilog-u} under $-q = e^{iu} = e^{-\lambda}$.
+
+The MNOP triangle
 \[
-  \kappa^{\mathrm{GV}}_g(\lambda)
-  \;=\; \bigl(2\sinh\tfrac{\lambda}{2}\bigr)^{2g - 2}
+  \begin{tikzcd}[row sep=small]
+    & Z^{\DT\prime}_X(-q, Q)
+      \arrow[ld, "\text{MNOP~II Thm.~2}"'{description}, leftrightarrow]
+      \arrow[rd, "\text{Bridgeland--Toda wall-crossing}"{description}, leftrightarrow] & \\
+    Z^{\GW}_X(u, Q)
+      \arrow[rr, "\text{GV summation}"'{description}, leftrightarrow, dashed]
+      & & Z^{\PT}_X(-q, Q)
+  \end{tikzcd}
 \]
-is the $sl_2$-character of the spin-$g$ Lefschetz representation on
-the BPS moduli space, with $n^{g}_\beta$ its multiplicity. At $g = 0$
-the kernel is the $sl_2$-singlet $(2\sinh\tfrac{\lambda}{2})^{-2}$,
-whose $\lambda \to 0$ expansion produces $\lambda^{-2}$, matching the
-$\Li_2$-exponential of Lemma~\ref{lem:mnop-qdilog-u} under $-q =
-e^{iu} = e^{-\lambda}$.
+closes the three equivalences $Z^{\GW} \leftrightarrow Z^{\DT\prime}
+\leftrightarrow Z^{\PT}$ under the substitution $-q = e^{iu}$; the
+stable Gopakumar--Vafa theorem below supplies the dashed arrow
+$Z^{\GW} \leftrightarrow Z^{\PT}$ via the integer $n^{g}_\beta$
+lift.
 
 \begin{theorem}[Stable pairs realise the Gopakumar--Vafa free energy as stable BPS invariants]
 \label{thm:stable-gv-pt-equivalence}
@@ -2739,12 +2810,27 @@ the conifold (RSYZ \textup{arXiv:2004.07841} Theorem~4.1): the
 refined shuffle algebra $Y^{+}_{\epsilon_1, \epsilon_2}$ admits a
 free $\C[\![\epsilon_1, \epsilon_2]\!]$-module structure on BPS-lattice
 generators, and the rescaling $\sigma_s$ lifts via functorial
-$T^{2}$-equivariance of the moduli stack. The $E_2$-centre
-identification is Lurie, \emph{Higher Algebra}, Proposition~7.3.4.2
-applied to $\cF_{X_{\mathrm{con}}} = \PhiFA_3(D^b\Coh(X_{\mathrm{con}}))$
-of Theorem~\ref{thm:cy-to-chiral-d3}: the $\epsilon_+$-rescaling is
-the unique $E_2$-automorphism intertwining the refined Yangian
-modules.
+$T^{2}$-equivariance of the moduli stack. For the $E_2$-centre
+identification, Lurie \emph{Higher Algebra} Proposition~7.3.4.2
+constructs the $E_2$-centre of the $E_3$-algebra
+$\cF_{X_{\mathrm{con}}} = \PhiFA_3(D^b\Coh(X_{\mathrm{con}}))$ of
+Theorem~\ref{thm:cy-to-chiral-d3} as
+$\End^{E_2}_{\cF_{X_{\mathrm{con}}}}(\mathbf{1}) = \mathrm{Z}_{E_2}
+(\cF_{X_{\mathrm{con}}})$; the universal property of the $E_2$-centre
+(Lurie HA 7.3.4.2: any $E_2$-algebra endomorphism of the identity
+module factors uniquely through the $E_2$-centre). The family
+$Y^{+}_{\epsilon_1, \epsilon_2}(\widehat{\mathfrak{gl}}(1|1))$
+defines a three-parameter system of $E_1$-modules
+$\{M_{\epsilon_1, \epsilon_2}\}$ over $\cF_{X_{\mathrm{con}}}$ and
+$\sigma_s$ is required to act as a natural transformation
+$M_{\epsilon_1, \epsilon_2} \to M_{s \epsilon_1, s^{-1} \epsilon_2}$
+compatible with all $E_1$-multiplications. The Lurie universal
+property then identifies $\sigma_s$ with a unique element of
+$\mathrm{Z}_{E_2}(\cF_{X_{\mathrm{con}}})^{\times}$; the
+$\mathbb{G}_m$-action on $(\epsilon_1, \epsilon_2)$ via
+$s \mapsto (s \epsilon_1, s^{-1} \epsilon_2)$ lifts to an
+$E_2$-centre automorphism by functoriality of the centre
+construction.
 
 (ii) The $T_{\mathrm{CY}}$-slice $\epsilon_1 + \epsilon_2 = 0$
 restricts (i) to the Calabi--Yau torus; on the GW side,

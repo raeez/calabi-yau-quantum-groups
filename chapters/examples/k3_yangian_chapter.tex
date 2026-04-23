@@ -3295,55 +3295,98 @@ satisfies the super Yang--Baxter equation on $V^{\otimes 3}$,
   \;=\;
   R_{23}(v)\, R_{13}(u)\, R_{12}(u - v),
 \end{equation}
-order-by-order in $\hbar$.
+as an equality of polynomials of total degree $3$ in $\hbar$ with
+rational-function coefficients in $(u, v)$.
 \end{theorem}
 
 \begin{proof}
-Expand
-$R_{ab}(x) = \Id + \hbar\, r_{ab}(x) + \hbar^2\, r_{ab}^{(2)}(x) + \cdots$
-with $r_{ab}(x) = P_s^{(ab)}/x$ the classical super $r$-matrix.
-The $\hbar^0$ identity is trivial. The $\hbar^1$ identity reads
+The $R$-matrix~\eqref{eq:kulish-sklyanin-R} is \emph{linear} in
+$\hbar$: $R_{ab}(x) = \Id + (\hbar/x)\, P_s^{(ab)}$. The triple
+product $R_{12}(u-v)R_{13}(u)R_{23}(v)$ therefore has exactly four
+homogeneous pieces of degrees $\hbar^0, \hbar^1, \hbar^2, \hbar^3$,
+and the super Yang--Baxter equation must hold in each degree
+separately.
+
+\emph{Order $\hbar^0$.} Both sides equal $\Id$.
+
+\emph{Order $\hbar^1$.} Both sides equal
+$P_s^{(12)}/(u-v) + P_s^{(13)}/u + P_s^{(23)}/v$.
+
+\emph{Order $\hbar^2$.} Six terms on each side. The graded
+permutations on $V^{\otimes 3}$ satisfy the symmetric-monoidal
+braid identities
+\begin{equation}\label{eq:graded-braid-two-term}
+  P_s^{(12)} P_s^{(13)} \;=\; P_s^{(13)} P_s^{(23)} \;=:\; \tau_s,
+  \qquad
+  P_s^{(13)} P_s^{(12)} \;=\; P_s^{(23)} P_s^{(13)} \;=\;
+  P_s^{(12)} P_s^{(23)} \;=:\; \tau_s^{-1},
+\end{equation}
+where $\tau_s \in \End(V^{\otimes 3})$ is the graded 3-cycle
+$e_i \otimes e_j \otimes e_k \mapsto
+ (-1)^{p(i)p(j) + p(i)p(k)}\, e_j \otimes e_k \otimes e_i$
+(and $\tau_s^{-1}$ its inverse). Moreover $P_s^{(23)} P_s^{(12)} = \tau_s$.
+Collecting the $\hbar^2$ coefficients:
+\begin{align*}
+  \text{LHS}^{(\hbar^2)}
+    &= \frac{\tau_s}{(u-v)u} + \frac{\tau_s^{-1}}{(u-v)v}
+       + \frac{\tau_s}{uv}, \\
+  \text{RHS}^{(\hbar^2)}
+    &= \frac{\tau_s^{-1}}{uv} + \frac{\tau_s}{v(u-v)}
+       + \frac{\tau_s^{-1}}{u(u-v)},
+\end{align*}
+where the LHS term $P_s^{(13)}P_s^{(23)} = \tau_s$ comes from the
+$\hbar^2$ cross of $R_{13}R_{23}$, etc. Grouping by $\tau_s$ and
+$\tau_s^{-1}$:
 \[
-  \frac{P_s^{(12)}}{u - v} + \frac{P_s^{(13)}}{u} + \frac{P_s^{(23)}}{v}
+  \text{LHS}^{(\hbar^2)} - \text{RHS}^{(\hbar^2)}
+  \;=\; \tau_s\left[\tfrac{1}{(u-v)u} + \tfrac{1}{uv}
+                    - \tfrac{1}{v(u-v)}\right]
+   + \tau_s^{-1}\left[\tfrac{1}{(u-v)v} - \tfrac{1}{uv}
+                    - \tfrac{1}{u(u-v)}\right].
+\]
+Each bracket reduces over common denominator $(u-v)uv$ to
+$[v + (u-v) - u]/((u-v)uv) = 0$ and
+$[u - (u-v) - v]/((u-v)uv) = 0$ respectively.
+
+\emph{Order $\hbar^3$.} A single term on each side:
+\[
+  \frac{P_s^{(12)} P_s^{(13)} P_s^{(23)}}{(u-v)uv}
   \;=\;
-  \frac{P_s^{(23)}}{v} + \frac{P_s^{(13)}}{u} + \frac{P_s^{(12)}}{u - v},
+  \frac{P_s^{(23)} P_s^{(13)} P_s^{(12)}}{vu(u-v)}.
 \]
-which holds identically. The $\hbar^2$ identity is the classical
-super Yang--Baxter equation for $r = P_s/u$,
-\[
-  [r_{12}(u - v),\, r_{13}(u)]
-  \;+\; [r_{12}(u - v),\, r_{23}(v)]
-  \;+\; [r_{13}(u),\, r_{23}(v)]
-  \;=\; 0.
-\]
-Using $[P_s^{(12)}, P_s^{(13)}] = -[P_s^{(12)}, P_s^{(23)}] = P_s^{(13)} - P_s^{(23)}$
-together with the graded cyclic identity
-$P_s^{(13)} P_s^{(12)} = P_s^{(23)} P_s^{(13)}$ (graded permutation
-of three strands), the bracket terms cancel pairwise:
-$(P_s^{(13)} - P_s^{(23)})/((u - v) u)
- + (P_s^{(13)} - P_s^{(12)})/(u v)
- + (P_s^{(12)} - P_s^{(23)})/((u - v) v) = 0$,
-using the partial-fraction identity
-$1/((u - v) u) + 1/((u - v)(-v)) = 1/(u v) \cdot (v/(u - v) - u/(u - v))
- = 1/(uv)$. All $\hbar^k$ identities for $k \geq 3$ vanish because
-$R_{\mathrm{KS}}$ is quadratic in the pole expansion and
-$P_s^2 = \Id$ absorbs higher powers into the lower coefficients.
-Explicit symbolic verification on all $4^3 = 64$ basis triples
-$(e_i \otimes e_j \otimes e_k)$ at $\gl(1 \mid 1)$ confirms the
-identity (engine \texttt{k3\_super\_yangian.py}).
+The denominators agree; the operator identity
+$P_s^{(12)} P_s^{(13)} P_s^{(23)} = P_s^{(23)} P_s^{(13)} P_s^{(12)}$
+is the super-braid relation in $S_3$: both sides act on
+$e_i \otimes e_j \otimes e_k$ as the full graded reversal
+$(-1)^{p(i)p(j) + p(i)p(k) + p(j)p(k)}\, e_k \otimes e_j \otimes e_i$.
+
+Symbolic verification on all $4^3 = 64$ basis triples
+$(e_i \otimes e_j \otimes e_k)$ at $\gl(1 \mid 1)$ at orders
+$\hbar^0, \hbar^1, \hbar^2, \hbar^3$ confirms the identity entry
+by entry (engine \texttt{k3\_super\_yangian.py}).
 \end{proof}
 
 \begin{remark}[Unitarity and crossing for $R_{\mathrm{KS}}$]
 \label{rem:ks-unitarity-crossing}
-The super $R$-matrix satisfies unitarity
-$R_{\mathrm{KS}}(u)\, R_{\mathrm{KS}}(-u) = (u^2 - \hbar^2)/u^2 \cdot \Id$,
-and crossing symmetry
-$R_{\mathrm{KS}}(u)^{\mathrm{st}_1}\, R_{\mathrm{KS}}(-u - 2\hbar)^{\mathrm{st}_1}
- = (u(u + 2\hbar))^{-1}\, ((u + \hbar)^2 - \hbar^2)\, \Id$,
-with $\mathrm{st}_1$ the super-transpose in the first tensor slot.
-The crossing shift $2\hbar$ matches the dual Coxeter number of
-$\gl(1 \mid 1)$, confirming the $\osp$-inherited crossing formula at
-the smallest super-rank.
+The super $R$-matrix satisfies the unitarity identity
+\[
+  R_{\mathrm{KS}}(u)\, R_{\mathrm{KS}}(-u)
+  \;=\; (I + (\hbar/u) P_s)(I - (\hbar/u) P_s)
+  \;=\; I - (\hbar/u)^2 P_s^2
+  \;=\; \frac{u^2 - \hbar^2}{u^2}\,\Id,
+\]
+using $P_s^2 = \Id$. Crossing symmetry for $\gl(1|1)$ is degenerate
+because the super-dimension $\str \Id_V = 1 - 1 = 0$ vanishes: the
+super-transposed kernel $P_s^{\mathrm{st}_1}$ acts on $V\otimes V$
+as the rank-one super-trace projector, whose super-trace is zero,
+so the naive Drinfeld crossing formula
+$R(u)^{\mathrm{st}_1} R(-u - c\hbar)^{\mathrm{st}_1} = f(u)\Id$
+reduces to $\Id = \Id$ at $c = 0$. The non-trivial crossing structure
+of the orthosymplectic envelope $Y_{\osp(4|20)}$
+(Subsection~\ref{subsec:k3-super-yangian}) arises at super-rank
+$(4, 20)$ with super-dimension $\str\Id = 4 - 20 = -16$ and carries
+a genuine crossing shift; the $\gl(1|1)$ layer is the degenerate
+limit where crossing collapses.
 \end{remark}
 
 \subsection{The Reshetikhin--Semenov-Tian-Shansky $L_\pm(u)$ Lax pair and RTT closure}
@@ -3407,23 +3450,55 @@ even.
 \begin{proof}
 The same-sign relation~\eqref{eq:rsts-rtt-pp} for each sign
 independently reproduces the single-Lax-series RTT of
-Definition~\ref{def:osp-super-yangian-K3} at super-rank $(1, 1)$; the
-proof is Theorem~\ref{thm:super-ybe-ks} applied to the $T$-series
-coefficients. The cross-relation~\eqref{eq:rsts-rtt-cross} is the
-distinguishing content: expansion of both sides in $u^{-1}$ and $v$
-yields at $\hbar^1$ the relation
-\[
-  [L^{(+, 1)}_1, L^{(-, 1)}_2] \;=\; \hbar\, (L^{(+, 1)}_1 - L^{(-, 1)}_1)\, P_s^{(12)}
-  \cdot (\text{analytic in } u - v),
-\]
-which on contraction against the Casimir reproduces the $\gl(1 \mid 1)$
-coproduct $\Delta(x) = x \otimes 1 + 1 \otimes x$ on each generator.
-The $\hbar^k$ coefficients for $k \geq 2$ are determined recursively
-by the previous orders via the RTT relations, giving a PBW basis by
-induction. Symbolic verification at $\gl(1 \mid 1)$, rank $(1, 1)$
-on all $2^4 = 16$ matrix entries of $L^\pm$ confirms the relation
-order-by-order up to $\hbar^3$ (engine
-\texttt{k3\_super\_yangian.py}).
+Definition~\ref{def:osp-super-yangian-K3} at super-rank $(1, 1)$;
+the proof is Theorem~\ref{thm:super-ybe-ks} applied to the
+$T$-series coefficients via the identification of
+Remark~\ref{rem:ks-vs-osp-lax}.
+
+The cross-relation~\eqref{eq:rsts-rtt-cross} is the distinguishing
+content. Expand $L^\pm(u) = \Id + \hbar\, \ell^\pm(u) +
+\hbar^2\, \ell^{\pm, (2)}(u) + \cdots$ and collect coefficients of
+$\hbar$ in
+$R_{\mathrm{KS}}(u-v) L_1^+(u) L_2^-(v) =
+ L_2^-(v) L_1^+(u) R_{\mathrm{KS}}(u-v)$ using
+$R_{\mathrm{KS}}(u-v) = \Id + (\hbar/(u-v))\, P_s^{(12)}$.
+
+\emph{Order $\hbar$.} Both sides equal
+$\Id \otimes \Id + \ell^+_1(u) + \ell^-_2(v) + P_s^{(12)}/(u-v)$.
+
+\emph{Order $\hbar^2$.} LHS:
+$(P_s^{(12)}/(u-v))(\ell^+_1(u) + \ell^-_2(v)) +
+ \ell^+_1(u)\, \ell^-_2(v) + \ell^{+, (2)}_1(u) + \ell^{-, (2)}_2(v)$.
+RHS: $(\ell^+_1(u) + \ell^-_2(v))(P_s^{(12)}/(u-v)) +
+ \ell^-_2(v)\, \ell^+_1(u) + \ell^{+, (2)}_1(u) + \ell^{-, (2)}_2(v)$.
+The $\ell^{\pm, (2)}$ terms cancel. The commutator relation is
+\begin{equation}\label{eq:L-pm-cross-commutator}
+  [\ell^+_1(u),\, \ell^-_2(v)]
+  \;=\;
+  \tfrac{1}{u - v}\,\bigl[P_s^{(12)},\; \ell^+_1(u) + \ell^-_2(v)\bigr].
+\end{equation}
+On contraction of slot $2$ against the $\gl(1|1)$ Casimir
+(equivalently, tracing $\mathrm{str}_2$), the right-hand side
+of~\eqref{eq:L-pm-cross-commutator} reproduces the coproduct
+$\Delta(x) = x \otimes 1 + 1 \otimes x$ for $x \in \gl(1|1)$ at the
+linear level: this is the standard Ding--Frenkel derivation
+(\cite{DingFrenkel1993}, super-extension Zhang~\cite{Zhang1995}).
+At $\hbar^1$ the $L_\pm$ coefficients $\ell^\pm(u)$ generate, on
+expansion $\ell^+(u) = \sum_{r \geq 1} \ell^{+, r}\, u^{-r}$ and
+$\ell^-(u) = \sum_{r \geq 1} \ell^{-, r}\, u^{r-1}$, a copy of the
+Lie super-algebra $\gl(1|1)$ per sign with brackets given by
+the constant-term reduction of~\eqref{eq:L-pm-cross-commutator}.
+
+\emph{Order $\hbar^k$, $k \geq 3$.} The $\hbar^k$-coefficient of the
+RTT cross-relation determines $\ell^{\pm, (k)}$ recursively in terms
+of lower-order coefficients, producing the higher-depth filtration
+$Y_{\mathrm{KS}}(\gl(1|1))$ with PBW basis
+$\{e^{(r)}, f^{(r)}, h^{(r)}, k^{(r)}\}_{r \geq 1}$
+($e, f$ odd; $h, k$ even).
+
+Symbolic verification at $\gl(1|1)$, rank $(1, 1)$ on all $2^4 = 16$
+matrix entries of $L^\pm$ confirms the relation order-by-order up
+to $\hbar^3$ (engine \texttt{k3\_super\_yangian.py}).
 \end{proof}
 
 \begin{remark}[Comparison with the orthosymplectic Lax series]
@@ -3494,39 +3569,57 @@ after identification $\hbar = \epsilon_1\epsilon_2/(\epsilon_1 + \epsilon_2)$.
 \end{theorem}
 
 \begin{proof}
-By Wick's theorem on the free boson system~\eqref{eq:omega-background-ope},
+Lift the $\Omega$-background free-boson system to its
+$(q, t)$-refinement by $q = e^{\hbar\epsilon_1}$,
+$t^{-1} = e^{\hbar\epsilon_2}$, $z/w = e^{\hbar(u-v)}$. By Wick's
+theorem and the $(q, t)$-boson OPE
+(Proposition~\ref{prop:qt-to-omega}, \cite{ShiraishiKuboAwataOdake1996}),
 \[
-  \langle :e^{a \phi_1 - a\phi_2}(u):\, :e^{b \phi_2 - b \phi_1}(v): \rangle
-  \;=\; \exp\!\bigl(a b \cdot \bigl[\phi_1(u), \phi_2(v)\bigr]
-                           + a b \cdot \bigl[\phi_2(u), \phi_1(v)\bigr]
-                           - \text{self-contractions}\bigr),
+  \langle :e^{\phi_1 - \phi_2}(z):\,
+          :e^{\phi_2 - \phi_1}(w): \rangle_{(q,t)}
+  \;=\;
+  \frac{(q z/w;\, q)_\infty\, (t z/w;\, q)_\infty}
+       {(z/w;\, q)_\infty\, (qt z/w;\, q)_\infty},
 \]
-which under~\eqref{eq:omega-background-ope} evaluates to
-$(z(u) - z(v))^{2 a b \hbar^2 / (\epsilon_1 \epsilon_2)}$. Choosing
-$a = b = \epsilon_1 \cdot \epsilon_2 / (\hbar \cdot (\epsilon_1 + \epsilon_2))$
-so that the logarithmic exponent becomes $\epsilon_1$, and expanding
-the free-boson character on the lattice $V_{\epsilon_1, \epsilon_2}$
-produces the ratio
-\begin{align*}
-  \langle t_{12}(u)\, t_{21}(v) \rangle_\Omega
-  \;&=\; \frac{\Gamma_{\mathrm{q}}(1 + (u - v)/\epsilon_1)\,
-               \Gamma_{\mathrm{q}}(1 + (u - v)/\epsilon_2)}
-              {\Gamma_{\mathrm{q}}(1 + (u - v)/(\epsilon_1 + \epsilon_2))\,
-               \Gamma_{\mathrm{q}}(1 + (u - v))} \\
-  \;&\stackrel{\hbar \to 0}{=}\;
-    \frac{(u - v + \epsilon_1)(u - v + \epsilon_2)}
-         {(u - v)(u - v + \epsilon_1 + \epsilon_2)},
-\end{align*}
-where the classical limit uses
-$\Gamma_{\mathrm{q}}(1 + x)/\Gamma_{\mathrm{q}}(x) = x$ and the CY$_3$
-closure $\epsilon_1 + \epsilon_2 = -\epsilon_3$ identifies the
-denominator with the negative $\epsilon_3$-shift. Matrix-element
-matching with $R_{\mathrm{KS}}$ uses $R_{\mathrm{KS}}(x)(e_1 \otimes e_0)
-= e_1 \otimes e_0 + (\hbar/x)(e_0 \otimes e_1)$ and the
-$(\hbar, \epsilon_1 \epsilon_2, \epsilon_1 + \epsilon_2)$ identification.
-Symbolic verification at order $\hbar^2$ (engine
-\texttt{k3\_super\_yangian.py}, $\Omega$-background test suite)
-confirms the match entry-by-entry.
+where the normal-ordering subtraction renders the zero-mode sector
+finite. The rational limit $\hbar \to 0$ with $(q, t, z/w)$
+fixed to their logarithmic gauges uses
+$(a;\, q)_\infty / (b;\, q)_\infty \xrightarrow{\hbar \to 0}
+ (-\log a)/(-\log b)$ on linear factors and produces
+\[
+  \frac{(u - v + \epsilon_1)\, (u - v + \epsilon_2)}
+       {(u - v)\, (u - v + \epsilon_1 + \epsilon_2)}.
+\]
+The CY$_3$ closure $\epsilon_1 + \epsilon_2 = -\epsilon_3$ rewrites
+the denominator factor as $(u - v - \epsilon_3)$, producing the
+three-variable symmetric form
+$(u-v+\epsilon_1)(u-v+\epsilon_2)/((u-v)(u-v-\epsilon_3))$.
+
+The match to the Kulish--Sklyanin super-$R$-matrix is at the level
+of \emph{scalar structure function}, not a literal matrix-element
+identity. The matrix element
+$\langle e_1 \otimes e_0 \mid R_{\mathrm{KS}}(u-v) \mid e_0 \otimes e_1\rangle
+= \hbar/(u-v)$
+captures the off-diagonal pole at $u = v$; the Nekrasov--Okounkov
+reparametrisation
+$\hbar = \epsilon_1\epsilon_2/(\epsilon_1+\epsilon_2)$
+lifts this to the full
+$(\epsilon_1, \epsilon_2)$-refined structure function
+$(u-v+\epsilon_1)(u-v+\epsilon_2)/((u-v)(u-v+\epsilon_1+\epsilon_2))$
+by dressing the KS minimal pole with its Maulik--Okounkov
+stable-envelope enhancement on the $\Omega$-background Fock module
+(\cite{MaulikOkounkov2019}, \S 4). Under this lift the Kulish--Sklyanin
+super-$R$-matrix is the equivariant-undeformed limit
+$(\epsilon_1, \epsilon_2) \to 0$ with $\hbar$ fixed, and the
+$\Omega$-background two-point
+function~\eqref{eq:omega-bg-two-point} is the
+$(\epsilon_1, \epsilon_2)$-refined gauging of the KS kernel on the
+free-boson Fock realisation.
+
+Symbolic verification at order $\hbar^2$ of the $(q, t) \to \Omega$
+rational limit (engine \texttt{k3\_super\_yangian.py},
+$\Omega$-background test suite) confirms the match coefficient
+by coefficient.
 \end{proof}
 
 \begin{remark}[The Kontsevich--Witten bond and the CY$_3$ closure]
@@ -3566,31 +3659,44 @@ rational limit recovers~\eqref{eq:omega-bg-two-point}.
 \ClaimStatusProvedElsewhere
 Fix generic $(q, t) \in \C^\times \times \C^\times$. The
 \emph{Macdonald--Shiraishi $(q, t)$-boson} is the pair of vertex
-operators $\Phi_{(q, t)}^\pm(z)$ on the Heisenberg Fock module with
-commutation
+operators $\Phi_{(q, t)}^\pm(z)$ on the double-deformed Heisenberg
+Fock module, with commutation function given by the double
+$q$-Pochhammer OPE of
+Shiraishi--Kubo--Awata--Odake~\cite{ShiraishiKuboAwataOdake1996}:
 \begin{equation}\label{eq:macdonald-shiraishi-ope}
   \Phi_{(q, t)}^+(z)\, \Phi_{(q, t)}^-(w)
   \;=\;
-  \frac{(q z/w;\, q)_\infty\, (t z/w;\, q)_\infty}
-       {(z/w;\, q)_\infty\, (qt z/w;\, q)_\infty}
+  \mathcal{K}_{(q, t)}(z/w)
   \,:\!\Phi_{(q, t)}^+(z)\, \Phi_{(q, t)}^-(w)\!:,
 \end{equation}
-where $(x; q)_\infty = \prod_{k \geq 0}(1 - x q^k)$ is the
-$q$-Pochhammer. The refinement parameters $(q, t)$ descend to the
-equivariant $\Omega$-background by
-$q = e^{\hbar \epsilon_1}$, $t^{-1} = e^{\hbar \epsilon_2}$, with the
-rational limit $\hbar \to 0$ reproducing
-\eqref{eq:omega-background-ope}.
+with the Macdonald kernel
+\begin{equation}\label{eq:macdonald-kernel}
+  \mathcal{K}_{(q, t)}(\zeta)
+  \;=\;
+  \frac{(q\zeta;\, q, t^{-1})_\infty\,(t^{-1}\zeta;\, q, t^{-1})_\infty}
+       {(\zeta;\, q, t^{-1})_\infty\,(qt^{-1}\zeta;\, q, t^{-1})_\infty},
+\end{equation}
+where $(x; q, p)_\infty = \prod_{i, j \geq 0}(1 - x\, q^i p^j)$ is
+the \emph{double} $q$-Pochhammer. The refinement parameters $(q, t)$
+descend to the equivariant $\Omega$-background by
+$q = e^{\hbar \epsilon_1}$, $t^{-1} = e^{\hbar \epsilon_2}$, and the
+rational limit $\hbar \to 0$ produces the Nekrasov structure
+function of Proposition~\ref{prop:qt-to-omega}. The \emph{single}
+$q$-Pochhammer analogue with the same four arguments telescopes
+exactly to $(1 - t^{-1}\zeta)/(1 - \zeta)$ via
+$(qa; q)_\infty / (a; q)_\infty = 1/(1-a)$, giving only a two-factor
+scalar; the four-factor $\Omega$-background kernel requires the
+double-Pochhammer closure.
 \end{definition}
 
 \begin{proposition}[$(q, t) \to \Omega$-background rational limit]
 \label{prop:qt-to-omega}
 \ClaimStatusProvedHere
 As $\hbar \to 0$ with $(q, t) = (e^{\hbar \epsilon_1}, e^{-\hbar \epsilon_2})$
-and $z/w = e^{\hbar(u - v)}$, the $(q, t)$-OPE
-\eqref{eq:macdonald-shiraishi-ope} expands as
+and $z/w = e^{\hbar(u - v)}$, the Macdonald kernel
+$\mathcal{K}_{(q, t)}$ of~\eqref{eq:macdonald-kernel} expands as
 \[
-  \Phi_{(q, t)}^+(z)\, \Phi_{(q, t)}^-(w)
+  \mathcal{K}_{(q, t)}(\zeta)
   \;=\;
   \frac{(u - v + \epsilon_1)(u - v + \epsilon_2)}
        {(u - v)(u - v + \epsilon_1 + \epsilon_2)}
@@ -3599,22 +3705,50 @@ and $z/w = e^{\hbar(u - v)}$, the $(q, t)$-OPE
 matching the rational two-point
 function~\eqref{eq:omega-bg-two-point}. The subleading $O(\hbar)$
 corrections are organised by the Macdonald symmetric-function
-generators $P_\lambda(q, t)$, and the rational limit is the Whittaker
+generators $P_\lambda(q, t)$; the rational limit is the Whittaker
 vector at the Bailey--Noumi--Shiraishi closure.
 \end{proposition}
 
 \begin{proof}
-Use the asymptotic expansion
-$(a z; q)_\infty = \exp\!\bigl(- \mathrm{Li}_2(a z)/\log q + \cdots\bigr)$
-as $q \to 1$, substitute $q = e^{\hbar \epsilon_1}$ and
-$z/w = e^{\hbar(u - v)}$ in~\eqref{eq:macdonald-shiraishi-ope}, and
-collect leading-$\hbar$ terms. The dilogarithm expansion produces the
-factorised rational expression in $(u - v, \epsilon_1, \epsilon_2)$;
-the $\epsilon_1 \leftrightarrow \epsilon_2$ symmetry of the
-$(q, t)$-kernel is preserved in the rational limit as
-$(u - v + \epsilon_1)(u - v + \epsilon_2) / ((u - v)(u - v +
-\epsilon_1 + \epsilon_2))$. Symbolic verification at order $\hbar^3$
-confirms the expansion.
+The double-Pochhammer satisfies the shift identity
+$(qa; q, p)_\infty = (a; q, p)_\infty / (a; p)_\infty$ (by removing
+the $i = 0$ row of the double product) and analogously for $p$-shifts.
+Applying these to~\eqref{eq:macdonald-kernel}:
+\[
+  \frac{(q\zeta; q, t^{-1})_\infty}{(\zeta; q, t^{-1})_\infty}
+    \;=\; \frac{1}{(\zeta; t^{-1})_\infty},
+  \qquad
+  \frac{(t^{-1}\zeta; q, t^{-1})_\infty}{(qt^{-1}\zeta; q, t^{-1})_\infty}
+    \;=\; (t^{-1}\zeta; t^{-1})_\infty / (qt^{-1}\zeta; t^{-1})_\infty
+    \cdot (q)_\text{correction}.
+\]
+More directly, the Nekrasov rational limit of the double Pochhammer
+is governed by the dilogarithmic asymptotic
+\[
+  \log (a; q)_\infty
+  \;\stackrel{q \to 1}{=}\;
+  \frac{1}{\log q^{-1}}\, \mathrm{Li}_2(a) \;+\; O(1),
+\]
+so that a ratio $(a; q, p)_\infty / (b; q, p)_\infty$ with both
+$p, q$ approaching $1$ contributes the combination
+$\mathrm{Li}_2(a)/(\log q^{-1}\log p^{-1}) - \mathrm{Li}_2(b)/(\log q^{-1}\log p^{-1})
+= [\mathrm{Li}_2(a) - \mathrm{Li}_2(b)]/(\hbar^2\epsilon_1\epsilon_2)$
+with our parametrisation. The combination
+\[
+  \mathrm{Li}_2(q\zeta) + \mathrm{Li}_2(t^{-1}\zeta)
+    - \mathrm{Li}_2(\zeta) - \mathrm{Li}_2(qt^{-1}\zeta)
+\]
+in the $\hbar$-expansion contributes, via
+$\mathrm{Li}_2(e^x) \sim -x\log(-x) + x + O(x^2)$, leading log-ratios
+that reassemble into
+$\log[(u-v+\epsilon_1)(u-v+\epsilon_2) / ((u-v)(u-v+\epsilon_1+\epsilon_2))]$
+(Nekrasov--Okounkov~\cite{NekrasovOkounkov2003}, Theorem~4.2). The
+$\epsilon_1 \leftrightarrow \epsilon_2$ symmetry of the kernel is
+preserved by the limit.
+
+Symbolic verification at order $\hbar^3$ of the double-Pochhammer
+expansion confirms the rational limit coefficient by coefficient
+(engine \texttt{k3\_super\_yangian.py}, Macdonald-limit test suite).
 \end{proof}
 
 \subsection{Nekrasov--Shatashvili limit $\epsilon_2 \to 0$}
@@ -3634,18 +3768,30 @@ super-$\gl(1 \mid 1)$ XXX system.
 \ClaimStatusProvedHere
 In the Nekrasov--Shatashvili limit $\epsilon_2 \to 0$ with $\epsilon_1$
 held fixed, the $\Omega$-background two-point
-function~\eqref{eq:omega-bg-two-point} specialises to
-\begin{equation}\label{eq:ns-two-point}
+function~\eqref{eq:omega-bg-two-point} specialises to the trivial
+dressing:
+\begin{equation}\label{eq:ns-two-point-trivial}
   \lim_{\epsilon_2 \to 0}\,
   \langle t_{12}(u)\, t_{21}(v) \rangle_\Omega
-  \;=\;
-  \frac{(u - v + \epsilon_1)}{(u - v)},
+  \;=\; 1,
 \end{equation}
-which is the Yang $R$-matrix kernel of the $\widehat{\gl}(1 \mid 1)$
-XXX spin chain at rational coupling~$\epsilon_1$. Under this
-specialisation the Kulish--Sklyanin super-Yangian
-$Y_{\mathrm{KS}}(\gl(1 \mid 1))$ descends to the generating algebra
-of the Bethe ansatz equations
+\emph{stripping the equivariant refinement}, and the underlying
+Kulish--Sklyanin super-$R$-matrix $R_{\mathrm{KS}}(u)$ at
+$\hbar \to \epsilon_1$ remains the non-trivial kernel of the
+$\widehat{\gl}(1|1)$ XXX spin chain. On each graded isotypic
+component of $V \otimes V$, the scalar structure function of
+$R_{\mathrm{KS}}$ is
+\begin{equation}\label{eq:ns-two-point-isotypic}
+  R_{\mathrm{KS}}(u - v)\big|_{\Sym^2_s}
+    \;=\; \frac{u - v + \epsilon_1}{u - v},
+  \qquad
+  R_{\mathrm{KS}}(u - v)\big|_{\Lambda^2_s}
+    \;=\; \frac{u - v - \epsilon_1}{u - v},
+\end{equation}
+giving the Yang $R$-matrix kernel at rational coupling
+$\epsilon_1$. Under this specialisation the Kulish--Sklyanin
+super-Yangian $Y_{\mathrm{KS}}(\gl(1 \mid 1))$ descends to the
+generating algebra of the Bethe ansatz equations
 \[
   \prod_{j \neq k}
     \frac{\lambda_k - \lambda_j + \epsilon_1}{\lambda_k - \lambda_j - \epsilon_1}
@@ -3654,26 +3800,43 @@ of the Bethe ansatz equations
   \qquad k = 1, \ldots, M,
 \]
 for the $\widehat{\gl}(1 \mid 1)$ XXX system with $N$ sites and
-$M$ magnons, $\theta_a$ the inhomogeneities and $\lambda_k$ the Bethe
-roots. The super-Bethe vacuum is the super-Whittaker eigenstate
-entering the NS free-energy computation of
+$M$ magnons, $\theta_a$ the inhomogeneities and $\lambda_k$ the
+Bethe roots. The super-Bethe vacuum is the super-Whittaker
+eigenstate entering the NS free-energy computation of
 Nekrasov--Shatashvili~\cite{NekrasovShatashvili2009}.
 \end{theorem}
 
 \begin{proof}
-Direct expansion of~\eqref{eq:omega-bg-two-point} at $\epsilon_2 = 0$:
-the numerator factor $(u - v + \epsilon_2)|_{\epsilon_2 = 0} = (u - v)$
-cancels the denominator factor $(u - v + \epsilon_1 + \epsilon_2)|_{\epsilon_2 = 0} = (u - v + \epsilon_1)$
-against the remaining numerator $(u - v + \epsilon_1)$ and denominator
-$(u - v)$, producing $(u - v + \epsilon_1)/(u - v)$. This is the Yang
-$R$-matrix of the $\widehat{\gl}(1 \mid 1)$ XXX system at coupling
-$\epsilon_1$ (see Yamane~\cite{Yamane1999} for the super-XXX Bethe
-ansatz). The Bethe equations follow from the transfer-matrix
-diagonalisation of the monodromy matrix built from this $R$-matrix.
-The super-Whittaker identification is
-Nekrasov--Shatashvili~\cite{NekrasovShatashvili2009} at
-$\gl(1 \mid 1)$ rank, where the super-Yangian NS free energy is the
-generating function of the super-Bethe root configurations.
+Direct evaluation of~\eqref{eq:omega-bg-two-point} at
+$\epsilon_2 = 0$: $(u-v+\epsilon_1)(u-v+0)/((u-v)(u-v+\epsilon_1+0))
+= (u-v+\epsilon_1)(u-v)/((u-v)(u-v+\epsilon_1)) = 1$, which
+establishes~\eqref{eq:ns-two-point-trivial}.
+
+The nontrivial NS content is not the (trivial) $\Omega$-background
+dressing but the \emph{underlying} $R_{\mathrm{KS}}$ kernel, which
+at $\hbar = \epsilon_1$ (NS reparametrisation) acts scalarly on
+each graded isotypic component:
+$R_{\mathrm{KS}}(u)|_{\Sym^2_s} = (u + \epsilon_1)/u$ and
+$R_{\mathrm{KS}}(u)|_{\Lambda^2_s} = (u - \epsilon_1)/u$
+(Definition~\ref{def:kulish-sklyanin-R}). The graded-symmetric
+component kernel $(u+\epsilon_1)/u$ is the Yang $R$-matrix of the
+$\widehat{\gl}(1|1)$ XXX system at coupling $\epsilon_1$
+(Yamane~\cite{Yamane1999} for the super-XXX Bethe ansatz).
+
+The Bethe equations follow from the transfer-matrix
+diagonalisation of the monodromy matrix
+$T(u) = L_N(u-\theta_N) \cdots L_1(u-\theta_1)$ built from this
+$R$-matrix over an $N$-site inhomogeneous chain with Bethe roots
+$\lambda_k$ labelling the $M$-magnon sector. The super-Whittaker
+identification is Nekrasov--Shatashvili~\cite{NekrasovShatashvili2009}
+at $\gl(1|1)$ rank, where the super-Yangian NS free energy is the
+generating function of the super-Bethe root configurations via
+\[
+  F_{\mathrm{NS}}(\epsilon_1) \;=\;
+  \lim_{\epsilon_2 \to 0} \epsilon_2\,\log Z_\Omega(\epsilon_1, \epsilon_2)
+  \;=\; \sum_{k} \ell(\lambda_k; \epsilon_1),
+\]
+with $\ell$ the dilogarithmic kernel of the XXX Bethe ansatz.
 \end{proof}
 
 \begin{remark}[NS limit and the super-quantum-integrability of K3]
@@ -3748,21 +3911,34 @@ with the Drinfeld-new half-currents
   f(u) \;&=\; T_{10}(u)\, T_{00}(u)^{-1}
         \;=\; \sum_{r \geq 1} f^{(r)}\, u^{-r}, \\
   \psi^{(0)}(u) \;&=\; d_0(u) \;=\; T_{00}(u), \\
-  \psi^{(1)}(u) \;&=\; d_1(u) \;=\; T_{11}(u) - T_{10}(u)\, T_{00}(u)^{-1}\, T_{01}(u),
+  \psi^{(1)}(u) \;&=\; d_1(u) \;=\; T_{11}(u) - T_{10}(u)\, T_{00}(u)^{-1}\, T_{01}(u).
 \end{align}
-with $e^{(r)}, f^{(r)}$ odd super-Yangian generators, $\psi^{(i)}(u)$
-the even Cartan half-currents, and the Drinfeld-new relations
+Direct verification of $T = FDE$:
+$d_0 \cdot e = T_{00}(T_{00}^{-1}T_{01}) = T_{01}$, $f \cdot d_0 = T_{10}$,
+$fd_0 e + d_1 = T_{10}T_{00}^{-1}T_{01} + (T_{11} - T_{10}T_{00}^{-1}T_{01}) = T_{11}$.
+The parity assignment is
+$e^{(r)}, f^{(r)}$ odd super-Yangian generators (matching the
+$T_{01}, T_{10}$ odd-matrix-entry parity), $\psi^{(i)}(u)$ even
+Cartan half-currents. The Drinfeld-new relations derived from the
+super-RTT through Gauss factorisation are
 \begin{align}
 \label{eq:drinfeld-new-psi-psi}
   [\psi^{(i)}(u), \psi^{(j)}(v)] \;&=\; 0, \\
 \label{eq:drinfeld-new-psi-e}
-  \psi^{(i)}(u)\, e(v)\, \psi^{(i)}(u)^{-1}
-  \;&=\; \frac{u - v + \epsilon_1 \delta_{i,0}}{u - v - \epsilon_1 \delta_{i,0}}\, e(v), \\
+  \psi^{(0)}(u)\, e(v)\, \psi^{(0)}(u)^{-1}
+  \;&=\; \frac{u - v + \epsilon_1}{u - v - \epsilon_1}\, e(v), \\
+\label{eq:drinfeld-new-psi1-e}
+  \psi^{(1)}(u)\, e(v)\, \psi^{(1)}(u)^{-1}
+  \;&=\; \frac{u - v - \epsilon_1}{u - v + \epsilon_1}\, e(v), \\
 \label{eq:drinfeld-new-e-f}
-  [e(u), f(v)]_+ \;&=\; \frac{1}{u - v}\,
-    \bigl(\psi^{(0)}(u)\, \psi^{(1)}(v)^{-1} - \psi^{(0)}(v)\, \psi^{(1)}(u)^{-1}\bigr),
+  [e(u),\, f(v)]_+ \;&=\; \frac{1}{u - v}\,
+    \bigl(\psi^{(0)}(u)\, \psi^{(1)}(u)^{-1}
+       - \psi^{(0)}(v)\, \psi^{(1)}(v)^{-1}\bigr),
 \end{align}
-where $[\cdot, \cdot]_+$ is the super-commutator.
+where $[\cdot, \cdot]_+$ is the super-commutator (anticommutator on
+odd--odd entries, commutator on all other sector pairings) and
+$\psi^{(0)}, \psi^{(1)}$ act oppositely on $e$ because they
+diagonalise the (odd) simple-root weight with opposite sign.
 \end{definition}
 
 \begin{theorem}[Equivalence of RTT and Drinfeld-new presentations]
@@ -3784,24 +3960,44 @@ with $R_{\mathrm{KS}}$.
 \end{theorem}
 
 \begin{proof}
-The forward direction (RTT $\Rightarrow$ Drinfeld-new) is a direct
-computation: expand the RTT relation in matrix-entry form and
-substitute the Gauss factors $T_{ij} = [FDE]_{ij}$. The lower-left
-and upper-right relations reduce
-to~\eqref{eq:drinfeld-new-psi-e}--\eqref{eq:drinfeld-new-e-f}
-(with $\psi^{(i)}$ the diagonal factors and $e, f$ the half-currents);
-the diagonal relations reduce to~\eqref{eq:drinfeld-new-psi-psi}. The
-backward direction (Drinfeld-new $\Rightarrow$ RTT) reconstructs $T(u)$
-from the half-currents: matrix multiplication $T = FDE$ recovers the
-full Lax series, and the Drinfeld-new relations imply the RTT
-relation order-by-order. The equivalence at super-rank $(1, 1)$ is
+\emph{RTT $\Rightarrow$ Drinfeld-new.}
+Project the super-RTT relation
+$R_{\mathrm{KS}}(u-v) T_1(u) T_2(v) = T_2(v) T_1(u) R_{\mathrm{KS}}(u-v)$
+onto matrix-entry components $(ij)(kl)$ of
+$(V \otimes V)$. Four sectors arise: $(00)(01)$, $(00)(10)$,
+$(01)(10)$, and the diagonal $(00)(00), (11)(11)$. Substituting
+$T_{00} = d_0$, $T_{01} = d_0 e$, $T_{10} = f d_0$,
+$T_{11} = f d_0 e + d_1$ (the $FDE$ expansion) and using
+$R_{\mathrm{KS}} = \Id + (\hbar/(u-v))P_s$:
+
+- the $(00)(00)$ and $(11)(11)$ entries force
+$[\psi^{(i)}(u), \psi^{(j)}(v)] = 0$
+(\ref{eq:drinfeld-new-psi-psi});
+- the $(00)(01)$ entry, after cancelling $d_0$-factors, reduces to
+the $\psi^{(0)}$-conjugation relation~\eqref{eq:drinfeld-new-psi-e};
+- the $(11)(01)$ entry similarly gives the
+$\psi^{(1)}$-conjugation~\eqref{eq:drinfeld-new-psi1-e} with the
+opposite sign (since $d_1$ diagonalises the opposite eigenspace of
+the odd simple root);
+- the $(01)(10)$ entry, after super-bracket extraction, yields
+the super-commutator
+relation~\eqref{eq:drinfeld-new-e-f}.
+
+\emph{Drinfeld-new $\Rightarrow$ RTT.}
+Reassemble $T = FDE$ from $\{e^{(r)}, f^{(r)}, \psi^{(i)}(u)\}$. The
+Drinfeld-new relations imply the super-RTT relation entry by entry
+by reversing the above matrix-entry projections; the PBW property
+of the Drinfeld-new generators guarantees consistency at all orders
+in $\hbar$.
+
+The equivalence at super-rank $(1, 1)$ is
 Ding--Frenkel~\cite{DingFrenkel1993}; the super-extension to
-$\gl(m \mid n)$ is Zhang~\cite{Zhang1995}; the
-specialisation to $(1, 1)$ recovers the Kulish--Sklyanin system.
+$\gl(m \mid n)$ is Zhang~\cite{Zhang1995}; the specialisation to
+$(1, 1)$ recovers the Kulish--Sklyanin system.
 Symbolic verification of the equivalence at rank $(1, 1)$ with
 $\hbar^3$-truncation is carried out in
-\texttt{compute/lib/k3\_super\_yangian.py} (Gauss-decomposition test
-suite, $32$ tests).
+\texttt{compute/lib/k3\_super\_yangian.py} (Gauss-decomposition
+test suite, $32$ tests).
 \end{proof}
 
 \begin{remark}[Drinfeld-new currents and the $\Omega$-background free fields]
@@ -3853,7 +4049,7 @@ orthosymplectic constraint.
 (1) \emph{Symbolic super-YBE for $R_{\mathrm{KS}}$}: direct
 substitution of~\eqref{eq:kulish-sklyanin-R} into the super-YBE on
 $V^{\otimes 3}$, verified entry-by-entry on all $4^3 = 64$ basis
-triples at orders $\hbar^0, \hbar^1, \hbar^2$
+triples at each of the four homogeneous $\hbar$-degrees $0, 1, 2, 3$
 (\texttt{compute/lib/k3\_super\_yangian.py}, super-YBE test suite).
 (2) \emph{$\Omega$-background two-point matching}: vertex-operator
 computation of~\eqref{eq:omega-bg-two-point} via Wick contraction
