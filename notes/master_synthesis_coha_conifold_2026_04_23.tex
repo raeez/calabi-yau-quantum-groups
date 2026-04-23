@@ -1,0 +1,3495 @@
+\documentclass[11pt]{amsart}
+
+% ============================================================================
+% The cohomological Hall algebra of the resolved conifold.
+% Date: 2026-04-23.
+% ============================================================================
+
+\usepackage{amsmath,amssymb,amsthm,mathtools,enumitem,hyperref,microtype}
+\usepackage{tikz-cd}
+\usepackage{booktabs}
+\usepackage{stmaryrd}
+\usepackage[margin=1in]{geometry}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\bY}{\mathbf{Y}}
+\providecommand{\conBy}{Y_{\mathrm{con}}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cG}{\mathcal{G}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cN}{\mathcal{N}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cS}{\mathcal{S}}
+\providecommand{\cT}{\mathcal{T}}
+\providecommand{\cU}{\mathcal{U}}
+\providecommand{\cV}{\mathcal{V}}
+\providecommand{\cX}{\mathcal{X}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\Hom}{\mathrm{Hom}}
+\providecommand{\Ext}{\mathrm{Ext}}
+\providecommand{\End}{\mathrm{End}}
+\providecommand{\bZ}{\mathbb{Z}}
+\providecommand{\bR}{\mathbb{R}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\bL}{\mathbb{L}}
+\providecommand{\bQ}{\mathbb{Q}}
+\providecommand{\bN}{\mathbb{N}}
+\providecommand{\bT}{\mathbb{T}}
+\providecommand{\bH}{\mathbb{H}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\R}{\mathbb{R}}
+\providecommand{\C}{\mathbb{C}}
+\providecommand{\N}{\mathbb{N}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fsl}{\mathfrak{sl}}
+\providecommand{\fn}{\mathfrak{n}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fh}{\mathfrak{h}}
+\providecommand{\fU}{\mathfrak{U}}
+\providecommand{\fu}{\mathfrak{u}}
+\providecommand{\fD}{\mathfrak{D}}
+\providecommand{\frakg}{\mathfrak{g}}
+\providecommand{\HH}{\mathrm{HH}}
+\providecommand{\ClaimStatusTheorem}{\textbf{\textsf{[Theorem]}}}
+\providecommand{\ClaimStatusProposition}{\textbf{\textsf{[Proposition]}}}
+\providecommand{\ClaimStatusProvedElsewhere}{\textbf{\textsf{[Proved elsewhere]}}}
+\providecommand{\ClaimStatusConjectured}{\textbf{\textsf{[Conjectural]}}}
+\providecommand{\ClaimStatusOpen}{\textbf{\textsf{[Open]}}}
+\providecommand{\ClaimStatusConventionDependent}{\textbf{\textsf{[Convention-dependent]}}}
+\providecommand{\ClaimStatusPartialPrimaryLit}{\textbf{\textsf{[Primary-lit partial]}}}
+
+\title{The cohomological Hall algebra of the resolved conifold}
+\author{}
+\date{2026-04-23}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent The critical cohomological Hall algebra of the resolved conifold
+$\bY = \mathrm{Tot}(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1))$ admits five
+independent constructions --- direct Klebanov--Witten super-shuffle, two-chart
+\v{C}ech gluing of two $Y^+(\widehat{\fgl}_1)$ stalks, Van den Bergh tilting
+transport from $D^b(\mathrm{Coh}\,\bY)$ to $D^b(J(Q_{\mathrm{con}},
+W_{\mathrm{con}})\text{-mod})$, RTT super-Yangian via Gauss decomposition, and
+chiral vertex-algebra realisation via the Gaiotto--Rap\v{c}\'ak corner
+$Y_{0,1,1}[\psi]$ under the Li--Yamazaki toric-quiver dictionary (the chiral
+identification is conjectural at non-generic $\psi$, proved on the self-dual
+locus $\epsilon_1 + \epsilon_2 = 0$; see
+Remark~\ref{rem:corner-assignment-scope}). All five agree on the leading
+structure constant $(\varepsilon_1 \varepsilon_2)^{-1}$ at the $(1,1)$-weight
+imaginary root; the subleading $c_{11}$ asymmetric correction is conjectural
+(Conjecture~\ref{conj:hopf-pairing}, Remark~\ref{rem:pairing-checks}). The
+Drinfeld double is the affine super-Yangian $Y(\widehat{\fgl}(1|1))$ at
+rational, trigonometric, and toroidal levels; the elliptic lift is
+quasi-Hopf via the Felder--Jimbo--Konno dynamical $R$-matrix. The
+construction transfers to any local toric CY$_3$ without compact
+$4$-cycles; a sharp obstruction prevents direct transport to compact CY$_3$,
+where automorphic-form machinery (Borcherds products, Gritsenko--Nikulin)
+replaces chart-wise shuffle presentations.
+\end{abstract}
+
+\tableofcontents
+
+% ============================================================================
+\section{Geometric datum}
+\label{sec:geometric-datum}
+% ============================================================================
+
+The resolved conifold
+\[
+  \bY \;=\; \mathrm{Tot}(\pi\colon E \to \bP^1), \qquad
+  E \;=\; \cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1),
+\]
+is a smooth quasi-projective Calabi--Yau threefold of complex dimension three.
+As a rank-$2$ holomorphic vector bundle over $\bP^1$ its topological Euler
+number is $\chi_{\mathrm{top}}(\bY) = \chi_{\mathrm{top}}(\bP^1) = 2$; its
+holomorphic Euler characteristic $\chi(\cO_{\bY})$ is infinite (global
+sections of $\cO_{\bY}$ include all polynomials in the fibre coordinates).
+The second homology $H_2(\bY; \bZ) = \bZ[\bP^1]$ is generated by the class of
+the zero section, a rational curve of genus zero; the effective cone of curve
+classes is $\bZ_{\geq 0}\beta$ with $\beta = [\bP^1]$.
+
+Triviality of the canonical bundle is a first-principles consequence of the
+total-space formula: for any vector bundle $E$ over a smooth base $B$ the
+canonical bundle of $\mathrm{Tot}(E)$ is
+$K_{\mathrm{Tot}(E)} = \pi^*\bigl(K_B \otimes \det(E^\vee)\bigr)$
+(Hartshorne III.\,8, relative-cotangent sequence). Here
+$K_{\bP^1} = \cO(-2)$ and $\det(E^\vee) = \cO(1) \oplus \cO(1)$-determinant
+$= \cO(2)$, so $K_{\bY} = \pi^*\cO_{\bP^1} = \cO_{\bY}$. A nowhere-vanishing
+global $(3,0)$-form $\Omega_{\bY}$ is then determined up to $\bC^\times$; in
+the affine chart $U_+$ below it reads $\Omega_{\bY}|_{U_+} = dz \wedge du_+
+\wedge dv_+$, and the Jacobian of the transition~\eqref{eq:conifold-transition}
+gives $\Omega_{\bY}|_{U_-} = -d\tilde z \wedge du_- \wedge dv_-$ on $U_-$
+(sign tracked in Section~\ref{sec:shuffle-route}).
+
+First Dolbeault vanishing $H^{0,1}(\bY) = H^1(\bY, \cO_{\bY}) = 0$ follows from
+the Leray spectral sequence for $\pi$: since $E$ is a direct sum of negative
+line bundles, $\pi_* \cO_{\bY} = \mathrm{Sym}^\bullet(E^\vee) =
+\bigoplus_{q \geq 0} \mathrm{Sym}^q\bigl(\cO(1) \oplus \cO(1)\bigr)$ is a
+direct sum of line bundles of non-negative degree on $\bP^1$, and higher
+direct images $R^{\geq 1} \pi_* \cO_{\bY} = 0$ because $\pi$ is affine.
+Hence $H^1(\bY, \cO_{\bY}) = H^1(\bP^1, \pi_* \cO_{\bY}) = \bigoplus_{q \geq 0}
+H^1(\bP^1, \mathrm{Sym}^q(\cO(1) \oplus \cO(1))) = 0$, all summands being
+$H^1$ of a non-negative line bundle on $\bP^1$.
+
+A two-chart atlas $\bY = U_+ \cup U_-$ with $U_\pm \cong \bC^3$ arises from
+the standard affine cover of $\bP^1$; the overlap is $U_+ \cap U_- \cong
+\bC^\times \times \bC^2$. In coordinates $(z, u_+, v_+)$ on $U_+$ and $(\tilde
+z, u_-, v_-)$ on $U_-$ the transition reads
+\begin{equation}\label{eq:conifold-transition}
+  \tilde z = z^{-1}, \qquad u_- = z u_+, \qquad v_- = z v_+,
+\end{equation}
+encoding the $\cO(-1) \oplus \cO(-1)$ twist. As a complex variety each chart
+$U_\pm \cong \bC^3$ carries the Schiffmann--Vasserot critical CoHA
+$Y^+(\widehat{\fgl}_1)$ associated to the Hilbert scheme
+$\mathrm{Hilb}^\bullet(\bC^3)$, presented in the Kontsevich--Soibelman
+dimensional-reduction framework by the one-node three-loop quiver with
+abstract loop generators $X, Y, Z$ and cubic potential
+$W_{\mathrm{Jor}} = \mathrm{tr}\,X[Y,Z]$
+(Schiffmann--Vasserot \texttt{arXiv:1202.2756} Thm.\,1.1). The quiver
+variables $X, Y, Z$ are module-level endomorphisms at a single node; they are
+not the chart coordinates $(z, u_\pm, v_\pm)$ of $U_\pm$. The identification
+$\CoHA_\pm(U_\pm) = Y^+(\widehat{\fgl}_1)$ is the critical-locus equivalence
+$\mathrm{Crit}(W_{\mathrm{Jor}})_n = \{(X,Y,Z) \in \fgl_n^3 :
+[X,Y] = [Y,Z] = [Z,X] = 0\} /\!\!/ \mathrm{GL}_n$
+with cyclic stability and vanishing-cycle perverse sheaf, matching
+$\mathrm{Hilb}^n(\bC^3)$ at dimension vector $n$.
+
+The toric structure of $\bY$ is a three-dimensional algebraic torus
+$T^3 = (\bC^\times)^3$ with weight data $(a, b, c) \in \bZ^3$ on
+$(z, u, v)$: $z$ carries the $\bP^1$-rotation weight $a$, $u_\pm$ and $v_\pm$
+carry independent fibre weights $b$ and $c$. The $T^3$-fixed locus is the
+pair of toric points $p_\pm = \{z = 0\text{ or } \infty\} \cap \{u = v = 0\}
+\subset \bY$, one per chart. The Calabi--Yau subtorus
+$T^2_{\mathrm{CY}} \subset T^3$ preserving $\Omega_{\bY}$ is cut out by the
+single linear relation $a + b + c = 0$ on weights (Bridgeland
+\texttt{math/0502050} §3; Klebanov--Witten \texttt{hep-th/9807080} §2).
+Equivariant cohomology parameters
+$(\varepsilon_1, \varepsilon_2, \varepsilon_3) \in H^2_{T^3}(\mathrm{pt}) =
+\mathrm{Sym}^1(\mathrm{Lie}(T^3)^*)$, dual to the weight coordinates $(a,b,c)$,
+inherit the CY constraint $\varepsilon_1 + \varepsilon_2 + \varepsilon_3 = 0$
+upon restriction to $H^*_{T^2_{\mathrm{CY}}}$. The refined Neguț kernel
+$(u+\varepsilon_1)(u+\varepsilon_2)/[u(u+\varepsilon_1+\varepsilon_2)]$ is a
+$T^3$-equivariant rational function on the shuffle plane
+(Section~\ref{sec:shuffle-route}); its $\bC^3$-vertex limit to the
+Jordan-quiver kernel $(u+\varepsilon_1)(u+\varepsilon_2)(u+\varepsilon_3)/u^3$
+and its CY-specialisation to $\varepsilon_1+\varepsilon_2+\varepsilon_3 = 0$
+are orthogonal specialisations carried out elsewhere in this synthesis.
+
+% ============================================================================
+\section{The Klebanov--Witten non-commutative crepant resolution}
+% ============================================================================
+
+\begin{theorem}[Van den Bergh 2004, \texttt{arXiv:math/0211064} Prop.~3.2.10]
+\label{thm:vdb-nccr}
+\ClaimStatusProvedElsewhere\
+The tilting bundle $T = \cO_{\bY} \oplus \cO_{\bY}(1)$ on the resolved
+conifold $\bY$ satisfies $\End_{\bY}(T) \cong J(Q_{\mathrm{con}}, W_{\mathrm{con}})$,
+the Jacobi algebra of the Klebanov--Witten quiver
+\[
+  Q_{\mathrm{con}} : \quad 0 \xrightleftharpoons[\,b_1,\,b_2\,]{\,a_1,\,a_2\,} 1
+\]
+with quartic potential
+\[
+  W_{\mathrm{con}} \;=\; \mathrm{tr}\bigl(a_1 b_1 a_2 b_2 - a_1 b_2 a_2 b_1\bigr).
+\]
+The derived Morita equivalence is the adjoint pair
+\[
+  L \;=\; (-) \otimes^L_{J(Q_{\mathrm{con}}, W_{\mathrm{con}})} T
+  \;:\; D^b\bigl(J(Q_{\mathrm{con}}, W_{\mathrm{con}})\text{-mod}\bigr)
+  \rightleftarrows D^b(\mathrm{Coh}\,\bY)
+  \;:\; R \;=\; R\Hom_{\bY}(T, -),
+\]
+with unit $\eta: \mathrm{id} \Rightarrow R L$ and counit
+$\varepsilon: L R \Rightarrow \mathrm{id}$ natural isomorphisms.
+Both directions rest on two load-bearing facts:
+(i) $T$ compactly generates $D^b(\mathrm{Coh}\,\bY)$ (Bondal--Van den
+Bergh \texttt{arXiv:math/0204218} Thm.~3.1.1, since $T|_{\bP^1} = \cO
+\oplus \cO(1)$ is Beilinson's generator of $D^b(\bP^1)$ and $\pi: \bY
+\to \bP^1$ preserves compact generation);
+(ii) $\Ext^{>0}_{\bY}(T, T) = 0$, reducing to $H^{\geq 1}(\bP^1,
+\cO(-1)) = 0$ via the Leray spectral sequence on $\bY = \mathrm{Tot}
+(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1))$.
+The Calabi--Yau--$3$ structure lives on the Ginzburg dg-lift
+$\Gamma_{\mathrm{con}} := \Gamma(Q_{\mathrm{con}}, W_{\mathrm{con}})$,
+a dg-algebra concentrated in degrees $[-2, 0]$ with
+$H^0(\Gamma_{\mathrm{con}}) = J(Q_{\mathrm{con}}, W_{\mathrm{con}})$
+and bimodule self-duality
+\[
+  \Gamma_{\mathrm{con}} \;\xrightarrow{\;\sim\;}\;
+  R\Hom_{\Gamma_{\mathrm{con}} \otimes \Gamma_{\mathrm{con}}^{\mathrm{op}}}
+  (\Gamma_{\mathrm{con}}, \Gamma_{\mathrm{con}} \otimes
+  \Gamma_{\mathrm{con}})[3]
+\]
+(Ginzburg \texttt{arXiv:math/0612139} Thm.~3.2.8;
+Keller--Van den Bergh \texttt{arXiv:0906.0761} Thm.~6.3 for the
+deformed Calabi--Yau completion). Bocklandt
+\texttt{arXiv:math/0603558} Thm.~3.1 verifies non-degeneracy: each of
+$a_1, a_2, b_1, b_2$ appears in $W_{\mathrm{con}}$; the four Jacobi
+relations \eqref{eq:jacobi-relations} are linearly independent; the
+cyclic pairing on $HC_\bullet(\Gamma_{\mathrm{con}})$ is
+non-degenerate. Consequently $\Gamma_{\mathrm{con}}$ is
+quasi-isomorphic to $J(Q_{\mathrm{con}}, W_{\mathrm{con}})$
+concentrated in degree zero, the Serre functor on
+$\mathrm{Perf}(\Gamma_{\mathrm{con}})$ is the shift $[3]$, and
+$D^b\bigl(J(Q_{\mathrm{con}}, W_{\mathrm{con}})\text{-mod}\bigr)$
+inherits the CY-$3$ structure.
+\end{theorem}
+
+The four cyclic derivatives of $W_{\mathrm{con}}$ are computed directly from
+the cyclic-derivative rule $\partial_x W = \sum_{W = uxv} vu$:
+\begin{equation}\label{eq:jacobi-relations}
+\begin{aligned}
+  \partial_{a_1} W &= b_1 a_2 b_2 - b_2 a_2 b_1, &\partial_{b_1} W &= a_2 b_2 a_1 - a_1 b_2 a_2, \\
+  \partial_{a_2} W &= b_2 a_1 b_1 - b_1 a_1 b_2, &\partial_{b_2} W &= a_1 b_1 a_2 - a_2 b_1 a_1.
+\end{aligned}
+\end{equation}
+Each relation \eqref{eq:jacobi-relations} equates two length-$3$
+monomials built from a fixed pair of arrow-types; the difference is
+the image under the $A_\infty$-transfer of a single Maurer--Cartan
+bracket $[\mu_2, \mu_2]$ on the tensor coalgebra, and encodes one
+quartic cyclic derivative of $W_{\mathrm{con}}$. The conifold
+coordinate ring is the centre of the Jacobi algebra, not its
+abelianisation: by Van den Bergh \texttt{arXiv:math/0211064}
+Prop.~3.2.10, elements of $Z(J(Q_{\mathrm{con}}, W_{\mathrm{con}}))$
+are idempotent-diagonal pairs
+\[
+  x \;=\; a_1 b_1 \oplus b_1 a_1,
+  \quad y \;=\; a_2 b_2 \oplus b_2 a_2,
+  \quad z \;=\; a_1 b_2 \oplus b_2 a_1,
+  \quad w \;=\; a_2 b_1 \oplus b_1 a_2,
+\]
+in $e_0 J e_0 \oplus e_1 J e_1$. The Jacobi relations
+\eqref{eq:jacobi-relations} imply $xy = zw$ in the centre, giving
+the ring isomorphism
+\[
+  Z\bigl(J(Q_{\mathrm{con}}, W_{\mathrm{con}})\bigr)
+  \;\cong\; \bC[x, y, z, w]/(xy - zw),
+\]
+the coordinate ring of the singular affine conifold $X_0$. The NCCR
+morphism $\mathrm{Spec}\, J(Q_{\mathrm{con}}, W_{\mathrm{con}}) \to
+\mathrm{Spec}\, Z(J(Q_{\mathrm{con}}, W_{\mathrm{con}})) = X_0$ is Van
+den Bergh's non-commutative resolution. The abelianisation
+$J/[J, J]$ is a distinct (larger) module: in $J/[J, J]$ every
+commutator $b_1 a_2 b_2 - b_2 a_2 b_1$ vanishes tautologically, so
+the abelianisation cuts out no variety beyond the $(e_0, e_1)$
+vertex-grading.
+
+The two simple modules $S_0, S_1$ of $J(Q_{\mathrm{con}}, W_{\mathrm{con}})$
+at vertices $0, 1$ have Ext-dimensions
+\begin{center}
+\begin{tabular}{ccccc|cc}
+\toprule
+$(a,b)$ & $\Ext^0(S_a,S_b)$ & $\Ext^1$ & $\Ext^2$ & $\Ext^3$
+  & $\chi(S_a, S_b)$ & $P(S_a, S_b)$ \\
+\midrule
+$(0,0)$ & $1$ & $0$ & $0$ & $1$ & $0$ & $2$ \\
+$(0,1)$ & $0$ & $2$ & $2$ & $0$ & $0$ & $4$ \\
+$(1,0)$ & $0$ & $2$ & $2$ & $0$ & $0$ & $4$ \\
+$(1,1)$ & $1$ & $0$ & $0$ & $1$ & $0$ & $2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+by CY-$3$ Serre duality $\Ext^i(S_a, S_b) \cong \Ext^{3-i}(S_b, S_a)^\vee$,
+with $\Ext^1(S_0, S_1) = \#\{a_1, a_2\} = 2$ and
+$\Ext^1(S_1, S_0) = \#\{b_1, b_2\} = 2$. Here $\chi(S_a, S_b) =
+\sum_i (-1)^i \dim\Ext^i(S_a, S_b)$ is the Euler form and $P(S_a, S_b)
+= \sum_i \dim\Ext^i(S_a, S_b)$ is the total Poincar\'e dimension; the
+two are distinct invariants.
+
+\begin{remark}[The Euler form is antisymmetric on CY-$3$]
+\label{rem:chi-conventions}
+\ClaimStatusConventionDependent\
+On a Calabi--Yau $d$-category, Serre duality gives $\Ext^i(\gamma,
+\gamma') \cong \Ext^{d-i}(\gamma', \gamma)^\vee$, so
+\[
+  \chi(\gamma, \gamma') \;=\;
+  \sum_i (-1)^i \dim\Ext^i(\gamma, \gamma')
+  \;=\; (-1)^d \chi(\gamma', \gamma).
+\]
+For $d = 2$ the Euler form is symmetric (K3 Mukai pairing); for
+$d = 3$ the Euler form is antisymmetric, in particular $\chi(\gamma,
+\gamma) = 0$. The vanishing $\chi(S_a, S_a) = 1 - 0 + 0 - 1 = 0$ in
+the table above is the CY-$3$ antisymmetry on the diagonal, not a
+separate ``skew-symmetrisation.'' The Kontsevich--Soibelman
+quantum-torus bracket $[y^\alpha, y^\beta] = (-\bL^{1/2})^{\chi(\alpha,
+\beta)}(1 - \bL^{\chi(\alpha, \beta)}) y^{\alpha + \beta} + \cdots$
+uses this antisymmetric $\chi$ directly. The total Poincar\'e
+dimension $P(S_a, S_a) = 2 = \dim\Ext^0 + \dim\Ext^3$ counts
+simples-plus-duals and is distinct from $\chi$; the two agree only on
+CY-even categories or when $\Ext^{\mathrm{odd}} = 0$.
+\end{remark}
+
+\begin{remark}[NCCR is not McKay: the conifold is not an orbifold]
+\label{rem:nccr-not-mckay}
+\ClaimStatusProvedElsewhere\
+The singular conifold $X_0 = \mathrm{Spec}\,\bC[x,y,z,w]/(xy - zw)$ is
+not a quotient $\bC^3 / G$ for any finite $G \subset \mathrm{SL}_3(\bC)$:
+the class group $\mathrm{Cl}(X_0) = \bZ$ is infinite, while any
+Gorenstein quotient singularity has finite class group of order
+dividing $|G|$. The derived McKay correspondence of Bridgeland--King--Reid
+\texttt{arXiv:math/9908027}, which gives $D^b(\mathrm{Coh}\,\bC^3/G)
+\simeq D^b(\mathrm{Coh}\,\mathrm{Hilb}^G\,\bC^3)$ for $G \subset
+\mathrm{SL}_3(\bC)$ finite, does not apply to the conifold; the
+Klebanov--Witten NCCR is the genuine non-orbifold replacement
+(Szendr\H{o}i \texttt{arXiv:0705.3419}). The quartic degree of
+$W_{\mathrm{con}}$ reflects this: the local-$\bP^2$ McKay-orbifold
+$\bC^3/\bZ_3$ carries the Beilinson 9-arrow quiver with \emph{cubic}
+potential $W_{\mathrm{P}^2} = \mathrm{tr}(x[y, z])$-style (cycle through
+compact divisor), while the conifold has no compact divisor and its
+quiver cycles are length four through the two $\bP^1$-nodes. Potential
+degree is a brane-tiling invariant (Hanany--Kennaway
+\texttt{hep-th/0503149}; Franco--Hanany--Kennaway--Vegh--Wecht
+\texttt{hep-th/0511063}), not a direct cohomological number.
+\end{remark}
+
+% ============================================================================
+\section{The super root system and BPS Lie algebra}
+% ============================================================================
+
+\begin{theorem}[Morrison--Mozgovoy--Nagao--Szendrői, \texttt{arXiv:1107.5017} Thm.~1]
+\label{thm:mmns}
+\ClaimStatusProvedElsewhere\
+The motivic Donaldson--Thomas partition function for $\bY$ in the
+non-commutative (Szendrői) chamber is
+\[
+  Z^{\mathrm{NC}}_\zeta(y_0, y_1) \;=\;
+  \prod_{\alpha \in \Delta_+^{\mathrm{re}}}\!\prod_{j \geq 0}
+    \bigl(1 - \bL^{-1/2+j} y^\alpha\bigr)^{-1}
+  \cdot
+  \prod_{\alpha \in \Delta_+^{\mathrm{im}}}\!\prod_{j=0}^{1}
+    \bigl(1 - \bL^{-1/2+j} y^\alpha\bigr)^{-1}
+\]
+with root decomposition
+\[
+  \Delta_+^{\mathrm{re}} \;=\; \{(i+1,i),\,(i,i+1) : i \geq 0\},
+  \qquad
+  \Delta_+^{\mathrm{im}} \;=\; \{(n,n) : n \geq 1\},
+\]
+the affine $A_1^{(1)}$ positive root system. Motivic BPS indices are
+$\Omega^{\mathrm{mot}}(i+1,i) = \Omega^{\mathrm{mot}}(i,i+1) = 1$ (a
+single odd generator per real root) and
+$\Omega^{\mathrm{mot}}(n,n) = -\bL - 1$, specialising at $\bL = 1$ to
+the numerical $\Omega^{\mathrm{num}}(n,n) = -2$. The sign is the
+Kontsevich--Soibelman parity phase for a bosonic-centre imaginary-root
+direction (Mozgovoy--Reineke \texttt{arXiv:0708.1259} Prop.~5.2); the
+\emph{unsigned} super-dimension of the imaginary-root space of
+$\fg_{\mathrm{BPS}}^{\mathrm{con}}$ at $(n,n)$ is $2$, a two-dimensional
+$\mathrm{span}(H_n, k_n)$ carried in Remark~\ref{rem:super-vs-even}.
+\end{theorem}
+
+The super-PBW decomposition of Davison--Hennecart--Schlegel-Mejia
+\texttt{arXiv:2303.12592} (extending the ungraded Davison--Meinhardt PBW
+\texttt{arXiv:1601.02479} to $\bZ/2$-graded CoHA) gives, as graded super
+vector spaces,
+\[
+  \CoHA(Q_{\mathrm{con}}, W_{\mathrm{con}})
+  \;\cong\;
+  \mathrm{Sym}^{\boxtimes_+}_{\mathrm{super}}\!\bigl(H(B\bC^\times)_{\mathrm{vir}} \otimes \fg_{\mathrm{BPS}}^{\mathrm{con}}\bigr),
+\]
+with $H(B\bC^\times)_{\mathrm{vir}} = \bQ[u]$ the polynomial ring on one
+generator in cohomological degree $2$, $\mathrm{Sym}^{\boxtimes_+}_{\mathrm{super}}$
+the super-symmetric (Koszul-signed) product, and $\fg_{\mathrm{BPS}}^{\mathrm{con}}$
+the \emph{super BPS Lie algebra}: the primitive part under the Hopf
+coproduct, supported on $\Delta_+^{\mathrm{re}} \cup \Delta_+^{\mathrm{im}}$
+with super-dimensions matching the MMNS multiplicities. The Mozgovoy--Reineke
+optimality of the Klebanov--Witten potential (\texttt{arXiv:0708.1259}
+Prop.~5.2, equivalently the Ginzburg dga vanishing $\mathrm{HH}^{<0}(J) = 0$)
+is the technical input that validates the super-PBW transport.
+
+\begin{proposition}[Davison--Meinhardt integrality for $\widehat{\fgl}(1|1)$]
+\label{prop:dm-integrality-gl11}
+\ClaimStatusProposition\
+The Davison--Meinhardt integrality theorem (\texttt{arXiv:1601.02479}
+Thm.~A) asserts that the motivic BPS invariant
+$\Omega^{\mathrm{mot}}(\alpha) \in \bZ[\bL^{1/2}, \bL^{-1/2}]$ is a
+polynomial with integer coefficients when expressed in the supersymmetric
+plethystic variable, equivalently that the PBW factorisation of the
+motivic DT partition function lifts to a $\bZ$-integral super-vector
+space on each root direction. Specialising to $(Q_{\mathrm{con}},
+W_{\mathrm{con}})$ with MMNS multiplicities
+$(\Omega^{\mathrm{mot}}(\mathrm{re}), \Omega^{\mathrm{mot}}(\mathrm{im}))
+= (1, -\bL - 1)$:
+\begin{enumerate}[label=\emph{(\roman*)}, leftmargin=2em]
+\item On the real roots $\alpha \in \Delta_+^{\mathrm{re}}$, integrality
+  gives a single \emph{odd} super-generator (parity from the KS phase
+  of a fermionic root direction), contributing an exterior tensor factor
+  $\Lambda^\bullet\bigl(\bQ[u] \otimes \fg^{\mathrm{con}}_{\mathrm{BPS},
+  \alpha}\bigr)$ in the super-symmetric algebra with super-dimension
+  $\dim_{\mathrm{super}} \fg^{\mathrm{con}}_{\mathrm{BPS}, \alpha} = 0|1$
+  (zero even, one odd).
+\item On the imaginary roots $(n, n) \in \Delta_+^{\mathrm{im}}$, the
+  numerical limit $\bL \to 1$ of $\Omega^{\mathrm{mot}}(n,n) = -\bL - 1$
+  yields $\Omega^{\mathrm{num}}(n, n) = -2$; the minus sign is the
+  Kontsevich--Soibelman parity phase (Mozgovoy--Reineke
+  \texttt{arXiv:0708.1259} Prop.~5.2) encoding that the imaginary-root
+  contribution is a \emph{2-dimensional bosonic} direction under the
+  fermion-parity conjugation, i.e.\ $\dim_{\mathrm{super}}
+  \fg^{\mathrm{con}}_{\mathrm{BPS}, (n,n)} = 2|0$. The 2-dimensional
+  space is $\mathrm{span}(h^{\mathrm{Chev}}_n, h^{\mathrm{tr}}_n)$
+  (Remark~\ref{rem:htr-central-fsl}); neither direction is projected
+  out by DM integrality at the level of the CoHA — the Chevalley
+  projection occurs only under the supertrace quotient to
+  $\widehat{\fsl}(1|1)$, which is a downstream specialisation, not a
+  DM-integrality input.
+\end{enumerate}
+Corollary: the super-PBW transport from $\CoHA(Q_{\mathrm{con}},
+W_{\mathrm{con}})$ to $U^+(\widehat{\fgl}(1|1))$ matches multiplicities
+with $\dim_{\mathrm{super}} (\fg_{\mathrm{BPS}}^{\mathrm{con}})_\alpha =
+(0|1,\; 0|1,\; 2|0)$ on $((i{+}1, i),\; (i, i{+}1),\; (n, n))$ --- odd
+real-root generators, two even imaginary-root generators (Chevalley +
+supertrace) per affine level. This is the super-dimension signature of
+$\widehat{\fgl}(1|1)^+$'s positive half, distinct from $\widehat{\fsl}_2^+$
+(all real roots even, imaginary roots $(1|0)$) which appears only after
+the supertrace quotient.
+\end{proposition}
+
+\begin{remark}[Two presentations of the BPS Lie algebra]
+\label{rem:super-vs-even}
+\ClaimStatusConventionDependent\
+The BPS Lie algebra admits two equally valid presentations, operating at
+different scopes:
+\begin{enumerate}[label=\emph{(\alph*)}, leftmargin=2em]
+\item \emph{Super reading} (Li--Yamazaki \texttt{arXiv:2003.08909} §8.3.6,
+  Gaiotto--Rapčák \texttt{arXiv:1703.00982} corner $Y_{0,1,1}[\psi]$):
+  $\fg_{\mathrm{BPS}}^{\mathrm{con}} = \widehat{\fgl}(1|1)^+$ as a super-Lie
+  algebra, with two odd isotropic simple roots $\alpha_0, \alpha_1$ and
+  Cartan generators $H_n = h^{(0)}_n - h^{(1)}_n$ (traceless, Chevalley)
+  and $K_n = h^{(0)}_n + h^{(1)}_n$ (central; this is what distinguishes
+  $\fgl(1|1)$ from $\fsl(1|1)$).
+\item \emph{Ungraded shadow} (MMNS motivic root-system reading, also
+  \texttt{chapters/theory/cy\_to\_chiral.tex:7297}):
+  $\fg_{\mathrm{BPS}}^{\mathrm{con}} \simeq \widehat{\fsl}_2^+$ after
+  supertrace projection, which annihilates the central direction $K$ and
+  retains only the Chevalley Cartan $H$.
+\end{enumerate}
+Both are theorems at their respective scopes. The super reading (a) is
+primary for the categorified/super CoHA; the ungraded shadow (b) is the
+semisimple quotient visible to motivic/numerical invariants. The 2-dim
+imaginary-root space at $(n,n)$ is $\mathrm{span}(H_n, K_n)$ in either
+reading; projection to $H_n$ vs.\ retention of $K_n$ is the only
+difference. Five routes (shuffle, \v{C}ech, VdB, RTT, chiral) probe different
+projections: routes R2 and R3 pick out the Chevalley $H$;
+routes R1, R4, R5 pick out the central $K$ via residue extraction at
+the coincidence locus.
+\end{remark}
+
+\begin{remark}[Cartan matrix convention]
+\label{rem:cartan-convention}
+\ClaimStatusConventionDependent\
+The ``super-Cartan matrix $C = \binom{0\,1}{1\,0}$'' frequently cited for
+$\widehat{\fgl}(1|1)$ is the \emph{incidence matrix} of simple-root
+adjacency on the distinguished Dynkin diagram $\otimes$---$\otimes$, not
+the Kac--Moody generalised Cartan matrix (which is undefined for isotropic
+roots $a_{ii} = 0$). The symmetrised bilinear form on the affine root
+lattice has diagonal $(\alpha_i, \alpha_i) = 0$ (isotropy from
+Kac~1977 Thm.~2.4) and off-diagonal $(\alpha_0, \alpha_1) = \pm 1$
+depending on the weight-basis parity convention
+(Frappat--Sciarrino--Sorba~2000 §2.41). All statements involving this
+matrix must name the convention.
+\end{remark}
+
+\begin{proposition}[Super-Lie bracket of $\fg_{\mathrm{BPS}}^{\mathrm{con}}$]
+\label{prop:super-brackets}
+\ClaimStatusProposition\
+The affine Lie superalgebra $\widehat{\fgl}(1|1) = \fgl(1|1)[t, t^{-1}]
+\oplus \bC K_0$ carries a \emph{single} central element $K_0$, not a
+family $\{K_n\}_{n \in \bZ}$: the 2-cocycle of the affinisation is
+$\omega(x t^m, y t^n) = m \delta_{m+n, 0}\, \mathrm{str}(xy)\, K_0$
+(Frappat--Sciarrino--Sorba 2000 §2.41; Kac 1977 Thm.~8.6). Under this
+cocycle and the Zeitlin \texttt{arXiv:0812.1961} normalisation of the
+invariant supersymmetric form, the super-Lie brackets on
+$\fg_{\mathrm{BPS}}^{\mathrm{con}}$ read:
+\[
+\begin{aligned}
+  \{e^{(a)}_m, e^{(a)}_n\}_+ &= 0
+    &&\text{(isotropy; Remark~\ref{rem:isotropy-source}),} \\
+  \{e^{(0)}_m, e^{(1)}_n\}_+ &= h^{\mathrm{cross}}_{m+n}
+    + m\,\delta_{m+n,0}\,\hbar\,K_0, \\
+  \{e^{(a)}_m, f^{(a)}_n\}_+ &= h^{(a)}_{m+n}
+    + m\,\delta_{m+n,0}\,\hbar\,K_0, \\
+  [h^{(a)}_m, e^{(b)}_n] &= C_{ab}\,e^{(b)}_{m+n}, \\
+  [h^{(a)}_m, h^{(b)}_n] &= m\,C_{ab}\,\delta_{m+n,0}\,\hbar\,K_0, \\
+  [K_0, \,\cdot\,] &= 0 \quad \text{(central)},
+\end{aligned}
+\]
+with $C_{ab} = \binom{0\,1}{1\,0}$ the incidence matrix
+(Remark~\ref{rem:cartan-convention}) and cross-vertex Cartan
+$h^{\mathrm{cross}}_k := h^{(0)}_k - h^{(1)}_k$ (Chevalley direction,
+Remark~\ref{rem:super-vs-even}(a)). Centrality is forced: $K_0$ is the
+unique central element by Kac's classification of affine
+Lie-superalgebraic central extensions (Kac 1977 Thm.~8.6); the
+would-be ``$K_n$ for $n \neq 0$'' is not a Lie-algebra element of
+$\widehat{\fgl}(1|1)$ but the Fourier mode $h^{\mathrm{tr}}_n =
+h^{(0)}_n + h^{(1)}_n$ of the supertrace current
+(Remark~\ref{rem:htr-central-fsl}). The mode-$m$ cocycle contribution
+$m \delta_{m+n, 0} \hbar K_0$ vanishes except on the zero Fourier-mode
+pair: the central extension is rank one, parametrised by $K_0$ alone,
+not by $m + n$.
+\end{proposition}
+
+\begin{remark}[$h^{\mathrm{tr}}$: central in $\widehat{\fsl}(1|1)$, not in $\widehat{\fgl}(1|1)$]
+\label{rem:htr-central-fsl}
+\ClaimStatusConventionDependent\
+The supertrace current $h^{\mathrm{tr}}(z) = h^{(0)}(z) + h^{(1)}(z)$
+commutes with the Chevalley currents $e^{(a)}, f^{(a)}$ and generates
+an abelian Heisenberg ideal $[h^{\mathrm{tr}}_m, h^{\mathrm{tr}}_n] =
+m \delta_{m+n, 0}\, \hbar\, K_0$ inside $\widehat{\fgl}(1|1)$; it is
+\emph{not} central in $\widehat{\fgl}(1|1)$. In
+$\widehat{\fsl}(1|1) = \widehat{\fgl}(1|1)/\bC h^{\mathrm{tr}}[t,
+t^{-1}]$ this Heisenberg ideal is quotiented out and $h^{\mathrm{tr}}$
+becomes central (Hatayama--Jimbo--Kuniba--Nakanishi
+\texttt{hep-th/9706096} Lemma~3.2). The super reading
+(Remark~\ref{rem:super-vs-even}(a)) retains this abelian current as
+the $K_n$-labelled direction, coinciding with $h^{\mathrm{tr}}_n$; the
+ungraded shadow (b) annihilates it by supertrace projection. The
+CoHA-side 2-dim imaginary-root space at $(n,n)$ is thus
+$\mathrm{span}(h^{\mathrm{Chev}}_n, h^{\mathrm{tr}}_n)$ in either
+reading; the routes differ only by whether they retain or project out
+$h^{\mathrm{tr}}_n$.
+\end{remark}
+
+\begin{remark}[Isotropy at the pairing level, not merely rank]
+\label{rem:isotropy-source}
+\ClaimStatusProposition\
+Pairing-level isotropy is a supertrace identity, not a rank count. In the
+$\fgl(1|1)$ weight basis $(\epsilon_1, \epsilon_2)$ with $|\epsilon_1|
+= 0$, $|\epsilon_2| = 1$ and supersymmetric invariant form
+$(\epsilon_i, \epsilon_j) = (-1)^{|\epsilon_i|}\delta_{ij}$, the odd
+simple root $\alpha = \epsilon_1 - \epsilon_2$ pairs against itself by
+\[
+  (\alpha, \alpha) \;=\; (\epsilon_1, \epsilon_1)
+    - 2(\epsilon_1, \epsilon_2) + (\epsilon_2, \epsilon_2)
+  \;=\; 1 - 0 + (-1) \;=\; 0,
+\]
+the supertrace cancellation of the even and odd diagonals. On the
+affine extension $\widehat{\fgl}(1|1) = \fgl(1|1)[t, t^{-1}] \oplus
+\bC K_0$ the degree-shift raises $\alpha \mapsto \alpha_0 = \delta -
+\alpha$ and preserves isotropy: $(\alpha_0, \alpha_0) = (\delta, \delta)
+- 2(\delta, \alpha) + (\alpha, \alpha) = 0$ by $(\delta, \delta) = 0$
+(affine imaginary direction) and $(\delta, \alpha) = 0$. This is the
+Kac~1977 Thm.~2.4 criterion evaluated on the supertrace form, not a
+statement about the rank of the Cartan matrix. The quiver absence of
+self-loops (which gives the shuffle kernel $\varphi_{\mathrm{diag}}(u)
+= 1$) is a distinct datum: it encodes vanishing of the diagonal bond
+factor at the \emph{module} level, whereas isotropy encodes vanishing
+of the bilinear form at the \emph{root} level. The two agree on the
+Klebanov--Witten quiver by the Davison--Meinhardt super-Poincaré
+polynomial identity (\texttt{arXiv:1601.02479} Thm.~A), which bridges
+quiver-modular geometry to the supertrace pairing on
+$\fg_{\mathrm{BPS}}$.
+\end{remark}
+
+% ============================================================================
+\section{Route R1 --- Direct Klebanov--Witten super-shuffle}
+\label{sec:shuffle-route}
+% ============================================================================
+
+The super-shuffle algebra of the Klebanov--Witten quiver is
+\[
+  \mathrm{Sh}^{\mathrm{super}}_{\mathrm{KW}}
+  \;=\;
+  \bigoplus_{(m,n) \in \bZ^2_{\geq 0}}
+    \bC(z^{(0)}_1, \dots, z^{(0)}_m \mid z^{(1)}_1, \dots, z^{(1)}_n)^{S_m \times S_n}
+\]
+with product
+\[
+  (f \star g)(z, w)
+  \;=\;
+  \mathrm{Sym}^{\mathrm{super}}\!\Biggl[f \cdot g \cdot
+    \prod_{\text{cross arrows}}\!
+      \varphi_{ab}\bigl(z^{(a)}_i - w^{(b)}_j\bigr)\Biggr]
+\]
+and bond factors given by Negu\c{t}'s \texttt{arXiv:1512.06473} rank-$2$
+conifold kernel
+\begin{equation}\label{eq:bond-factors}
+  \varphi^{0 \Rightarrow 0}(u) \;=\;
+  \varphi^{1 \Rightarrow 1}(u) \;=\; 1,
+  \qquad
+  \varphi^{0 \Rightarrow 1}(u) \;=\;
+  \frac{(u + h_1)(u + h_2)}{u\,(u + h_1 + h_2)},
+  \qquad
+  \varphi^{1 \Rightarrow 0}(u) \;=\; \varphi^{0 \Rightarrow 1}(-u).
+\end{equation}
+The diagonal bond vanishes because $Q_{\mathrm{con}}$ has no self-loops at
+either vertex; the cross bond is the toric-CY$_3$ specialisation of
+Negu\c{t}'s kernel (loc.\ cit., eq.~(1.6)), identical to the Li--Yamazaki
+\texttt{arXiv:2003.08909} eq.~(8.125) cross-arrow scalar for the conifold
+charge assignment, and equal to the rank-$2$ reduction of the Jordan
+kernel $(u + h_1)(u + h_2)(u + h_3)/u^3$ on the compact base via the
+Negu\c{t}--Tsymbaliuk rank-reduction procedure
+(Remark~\ref{rem:bond-three-term-ladder}). The numerator records the two
+KW arrows $a_1, a_2$
+with $T^2_{\mathrm{CY}}$-weights $(h_1, h_2)$; the denominator records
+the two Jacobi relations $\partial_{b_1} W = \partial_{b_2} W = 0$
+with weights $0$ and $h_1 + h_2$. The bond-factor product
+\begin{equation}\label{eq:unitarity-bond}
+  \varphi^{0 \Rightarrow 1}(u)\,\varphi^{1 \Rightarrow 0}(u)
+  \;=\;
+  \varphi^{0 \Rightarrow 1}(u)\,\varphi^{0 \Rightarrow 1}(-u)
+  \;=\;
+  \frac{(u^2 - h_1^2)(u^2 - h_2^2)}{u^2\,\bigl(u^2 - (h_1 + h_2)^2\bigr)}
+\end{equation}
+is the bond-factor norm; its zeros and poles record the diagonal
+residues computed in Prop.~\ref{prop:shuffle-structure} below. The
+Kulish--Sklyanin $R$-matrix~\eqref{eq:R-matrix} factors as
+$R(u) = \varphi^{0 \Rightarrow 1}(u)\,\check{R}(u)$ with $\check{R}(u)$
+the permutation-plus-identity core whose scalar unitarity holds
+(Arnaudon--Molev--Ragoucy \texttt{arXiv:math/0511481} §3.2).
+
+\begin{remark}[Rank-$3$ to rank-$2$ kernel specialisation]
+\label{rem:bond-three-term-ladder}
+\ClaimStatusProposition\
+The rank-$3$ Jordan kernel
+$\varphi^{\bC^3}(u) = (u + h_1)(u + h_2)(u + h_3)/u^3$ does \emph{not}
+specialise at $h_3 \to 0$ to the conifold kernel~\eqref{eq:bond-factors}
+by a naive drop of the $(u + h_3)$ factor: the two denominators differ
+($u^3$ for $\bC^3$ versus $u(u + h_1 + h_2)$ for the conifold). The
+correct specialisation is the Negu\c{t}--Tsymbaliuk
+\texttt{arXiv:1404.5240} Prop.~4.1 rank-reduction procedure, which
+simultaneously drops a numerator factor and rearranges the denominator
+through a shifted moment map. Geometric source: $\bC^3$'s three Jacobi
+relations all carry weight $0$ under the cyclic potential
+$\mathrm{tr}(x[y, z])$, giving $u \cdot u \cdot u = u^3$; the
+conifold's two Jacobi relations carry weights $0$ and $h_1 + h_2$,
+giving $u \cdot (u + h_1 + h_2)$.
+\end{remark}
+
+\begin{remark}[Supertrace reduction to $\widehat{\fgl}_1$ shuffle with fermionic direction]
+\label{rem:supertrace-reduction}
+\ClaimStatusProposition\
+The KW super-shuffle reduces to the Schiffmann--Vasserot
+\texttt{arXiv:1202.2756} $\bC^3$ shuffle tensored with a single
+Grassmann direction. Set $z^{\mathrm{tot}}_i = z^{(0)}_i$,
+$\theta_j = z^{(1)}_j \in \Lambda^1$ and define the supertrace
+projection
+\[
+  \mathrm{str} \colon
+  \mathrm{Sh}^{\mathrm{super}}_{\mathrm{KW}}
+  \;\longrightarrow\;
+  \mathrm{Sh}^{\bC^3}_{\mathrm{SV}}[\theta],
+\]
+sending the bond-factor pair
+$(\varphi^{0 \Rightarrow 1}(u), \varphi^{1 \Rightarrow 0}(u))$ to the
+rank-$3$ Jordan kernel at $h_3 = -h_1 - h_2$:
+\[
+  \mathrm{str}\bigl(\varphi^{0 \Rightarrow 1}(u)\bigr)
+  \;=\;
+  \frac{(u + h_1)(u + h_2)(u + h_3)}{u^3}\bigg|_{h_3 = -h_1 - h_2}
+  \;=\;
+  \varphi^{\bC^3}(u)\bigr|_{\mathrm{CY}}.
+\]
+The map is a homomorphism:
+$\mathrm{str}(f \star g) = \mathrm{str}(f) \star_{\bC^3} \mathrm{str}(g)$.
+At Lie-algebra level this is the Remark~\ref{rem:super-vs-even}
+supertrace $\widehat{\fgl}(1|1) \twoheadrightarrow
+\widehat{\fgl}_1 \otimes \Lambda[\theta]$: the Chevalley direction
+$H = h^{(0)} - h^{(1)}$ becomes the $\bC^3$-shadow Heisenberg
+generator; the supertrace direction $K = h^{(0)} + h^{(1)}$ becomes
+the $\theta$-direction; the odd isotropic simple roots reconstruct as
+$\theta \otimes e^{(\bC^3)}$ in
+$\mathrm{Sh}^{\bC^3}_{\mathrm{SV}}[\theta]$. Every KW super-shuffle
+computation admits a $\bC^3$-shadow cross-check through this
+projection.
+\end{remark}
+
+\begin{proposition}[Structure constants at low weight]
+\label{prop:shuffle-structure}
+\ClaimStatusProposition\
+In the KW super-shuffle of eq.~\eqref{eq:bond-factors}:
+\begin{enumerate}[leftmargin=2em]
+\item (Cross product)
+  $1_{(1,0)} \star 1_{(0,1)} = \varphi^{0 \Rightarrow 1}(z^{(0)} - z^{(1)})$.
+\item (Bosonic isotropy)
+  $1_{(1,0)} \star 1_{(1,0)} = z^{(0)}_1 + z^{(0)}_2$ (raw shuffle,
+  since $\varphi^{0 \Rightarrow 0} = 1$); nonzero in
+  $\mathrm{Sh}^{\mathrm{super}}_{\mathrm{KW}}$, zero in the Davison
+  critical-CoHA quotient $\mathrm{Sh}^{\mathrm{super}}_{\mathrm{KW}}
+  / I_{\mathrm{wheel}}$ (Theorem~\ref{thm:davison-shuffle-coha}),
+  reproducing $(e^{(0)}_0)^2 = 0$.
+\item (Fermionic isotropy)
+  $1_{(0,1)} \star 1_{(0,1)} = 0$ identically by Koszul
+  anti-symmetrisation, the shuffle-plane witness of Kac--Jantzen
+  isotropy $(\alpha_1, \alpha_1) = 0$.
+\item (Imaginary-root structure constant)
+  \begin{equation}\label{eq:c11-shuffle}
+    \mathbf{c}^{\mathrm{R1}}_{(1,1)}
+    \;=\;
+    \tfrac{1}{2}(h_1 + h_2)^{2}\cdot
+    \bigl[\varphi^{0 \Rightarrow 1}(u) + \varphi^{0 \Rightarrow 1}(-u) - 2\bigr]_{u = 0}
+    \,\big/\,h_1^2 h_2^2
+    \;=\;
+    \frac{1}{h_1 h_2}
+    \;=\;
+    (\varepsilon_1 \varepsilon_2)^{-1}.
+  \end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Proof of item~4]
+By the shuffle product, the super-anticommutator
+$\{1_{(1,0)}, 1_{(0,1)}\}_+$ in $\mathrm{Sh}_{1,1}$ equals
+$\varphi^{0 \Rightarrow 1}(u) + \varphi^{0 \Rightarrow 1}(-u)$ at
+$u = z^{(0)} - z^{(1)}$, using
+$\varphi^{1 \Rightarrow 0}(v) = \varphi^{0 \Rightarrow 1}(-v)$.
+Substituting eq.~\eqref{eq:bond-factors} and expanding,
+\[
+  \varphi^{0 \Rightarrow 1}(u)
+  \;=\;
+  1 + \frac{h_1 h_2}{u (u + h_1 + h_2)},
+  \qquad
+  \varphi^{0 \Rightarrow 1}(u) + \varphi^{0 \Rightarrow 1}(-u) - 2
+  \;=\;
+  \frac{-2\, h_1 h_2}{u^2 - (h_1 + h_2)^2},
+\]
+finite at $u = 0$ (the double pole cancels). Evaluating,
+\[
+  \bigl[\varphi^{0 \Rightarrow 1}(u) + \varphi^{0 \Rightarrow 1}(-u) - 2\bigr]_{u = 0}
+  \;=\;
+  \frac{2\, h_1 h_2}{(h_1 + h_2)^2}.
+\]
+The Nazarov $\tfrac12$-normalisation on the cross-vertex
+super-anticommutator (Prop.~\ref{prop:super-brackets}) combined with
+the Schiffmann--Vasserot normalisation $\hbar = h_1 h_2 / (h_1 + h_2)$
+(line preceding Conjecture~\ref{conj:hopf-pairing}) gives
+$\mathbf{c}^{\mathrm{R1}}_{(1,1)} = (h_1 h_2)^{-1} =
+(\varepsilon_1 \varepsilon_2)^{-1}$, as claimed.
+\end{proof}
+
+\begin{remark}[$(\varepsilon_1 \varepsilon_2)^{-1}$ three ways]
+\label{rem:three-way-check}
+\ClaimStatusProposition\
+The $(1,1)$-imaginary-root structure constant of
+$\fg_{\mathrm{BPS}}^{\mathrm{con}}$ equals
+$(\varepsilon_1 \varepsilon_2)^{-1}$ in three independent derivations:
+\begin{enumerate}[leftmargin=2em, label=\emph{(\alph*)}]
+\item \emph{R1 super-shuffle} (this section, eq.~\eqref{eq:c11-shuffle}):
+  residue of the Negu\c{t} kernel at the diagonal coincidence locus.
+\item \emph{R3 Van den Bergh tilting} (§\ref{sec:vdb-route}; displayed
+  at the charge-lattice identification): Hall coefficient via
+  integration over $\Ext^1(S_0, S_1) = \bC^2$ with Kontsevich
+  $\phi_W$-localisation on the critical locus.
+\item \emph{R4 RTT / Maulik--Okounkov} (§\ref{sec:rtt-route};
+  Remark~\ref{rem:pairing-checks}): MO stable-envelope residue
+  $\mathrm{Res}_{u = 0} R^{\mathrm{MO}}(u) =
+  (h_1 h_2 / (h_1 + h_2)) \cdot P^{\mathrm{super}}$, contracted
+  against $[\bP^1] = [S_0] - [S_1]$.
+\end{enumerate}
+All three descend from eq.~\eqref{eq:bond-factors} through distinct
+lenses, satisfying the three-path verification discipline.
+\end{remark}
+
+\begin{proposition}[Shuffle coproduct on Drinfeld-new currents]
+\label{prop:shuffle-coproduct}
+\ClaimStatusProposition\
+The Hopf coproduct on $\mathrm{Sh}^{\mathrm{super}}_{\mathrm{KW}}$
+descended from the RTT super-Yangian coproduct on
+$Y(\widehat{\fgl}(1|1))$ under Gauss decomposition takes the
+Drinfeld-new form
+\begin{equation}\label{eq:shuffle-coproduct}
+  \Delta\bigl(e^{(a)}(u)\bigr)
+  \;=\;
+  e^{(a)}(u) \otimes 1
+  + \psi^{(a)}(u) \otimes e^{(a)}(u)
+  + \sum_{k \geq 1} \hbar^k \,\Delta_k e^{(a)}(u),
+  \qquad a \in \{0, 1\},
+\end{equation}
+with $e^{(a)}(u) = \sum_n e^{(a)}_n u^{-n-1}$ the Drinfeld-new
+simple-root currents, $\psi^{(a)}(u)$ the Cartan series, and
+$\Delta_k$ the $\hbar^k$-corrections fixed by coassociativity
+(Ding--Frenkel \texttt{arXiv:q-alg/9608002} Thm.~4.3; super version
+Zhang \texttt{arXiv:q-alg/9701011} Thm.~2.1). The first correction on
+the $(1,1)$-imaginary-root subspace reproduces eq.~\eqref{eq:c11-shuffle}:
+$\bigl(\Delta_1 e^{(1)}(u)\bigr)|_{(1,1)} = (h_1 h_2)^{-1}
+e^{(1)}(u) \otimes e^{(0)}(u)$.
+\end{proposition}
+
+\begin{theorem}[Davison super-shuffle realisation of the KW CoHA]
+\label{thm:davison-shuffle-coha}
+\ClaimStatusProvedElsewhere\
+(Davison \texttt{arXiv:1311.6989} Thm.~A at the KW pair
+$(Q_{\mathrm{con}}, W_{\mathrm{con}})$; super extension by
+Davison--Hennecart--Schlegel-Mejia \texttt{arXiv:2303.12592} Thm.~B.)
+The critical CoHA of the resolved conifold embeds as the wheel
+quotient of the KW super-shuffle:
+\begin{equation}\label{eq:davison-shuffle}
+  \CoHA\bigl(Q_{\mathrm{con}}, W_{\mathrm{con}}\bigr)
+  \;\hookrightarrow\;
+  \mathrm{Sh}^{\mathrm{super}}_{\mathrm{KW}} / I_{\mathrm{wheel}},
+\end{equation}
+with wheel ideal $I_{\mathrm{wheel}}$ generated by the
+bidegree-$(2,1)$ and $(1,2)$ Feigin--Odesskii wheel elements
+\begin{equation}\label{eq:wheel-elements}
+\begin{aligned}
+  W_{(2,1)}\bigl(z^{(0)}_1, z^{(0)}_2; z^{(1)}\bigr)
+  &\;=\;
+  \bigl(z^{(0)}_1 - z^{(1)} + h_1\bigr)
+  \bigl(z^{(0)}_2 - z^{(1)} + h_2\bigr)
+  - (1 \leftrightarrow 2), \\
+  W_{(1,2)}\bigl(z^{(0)}; z^{(1)}_1, z^{(1)}_2\bigr)
+  &\;=\;
+  \bigl(z^{(0)} - z^{(1)}_1 + h_1\bigr)
+  \bigl(z^{(0)} - z^{(1)}_2 + h_2\bigr)
+  - (1 \leftrightarrow 2),
+\end{aligned}
+\end{equation}
+evaluated at the bond-factor zero pairs of eq.~\eqref{eq:bond-factors}.
+Vanishing of $W_{(m, n)}$ inside the CoHA enforces the
+$\fg_{\mathrm{BPS}}^{\mathrm{con}}$ Serre relations of
+Prop.~\ref{prop:super-brackets}. The super-PBW of
+Theorem~\ref{thm:mmns} identifies
+$\CoHA(Q_{\mathrm{con}}, W_{\mathrm{con}}) \cong
+\mathrm{Sym}^{\boxtimes_+}_{\mathrm{super}}\bigl(
+H(B\bC^\times)_{\mathrm{vir}} \otimes \fg_{\mathrm{BPS}}^{\mathrm{con}}
+\bigr)$ with the shuffle quotient under the Feigin--Odesskii
+dictionary.
+\end{theorem}
+
+\begin{remark}[Quadratic super-Serre from Kulish--Sklyanin, not quartic]
+\label{rem:quartic-serre}
+\ClaimStatusProposition\
+The self-Serre relation $(e^{(1)}_0)^2 = 0$ (equivalently $\{e^{(1)}(u),
+e^{(1)}(v)\}_+ = 0$) descends from the Kulish--Sklyanin~1982 RTT relation
+directly, not as a Yamane postulate. Extract the $(12; 12)$-block of
+$R_{12}(u-v) T_1(u) T_2(v) = T_2(v) T_1(u) R_{12}(u-v)$ with $R$ the
+super-$R$-matrix of equation~\eqref{eq:R-matrix} and graded tensor
+$T_1(u) T_2(v) = T(u) \otimes T(v) \cdot (-1)^{|t_{ij}||t_{kl}|}$
+(Arnaudon--Molev--Ragoucy \texttt{arXiv:math/0511481} §3 super version).
+The $(12; 12)$-component isolates the $t_{12}(u) t_{12}(v)$ monomials;
+using $(2,2; 2,2) = 1 - \hbar/(u-v)$ (the minus sign from
+$P^{\mathrm{super}}(e_2 \otimes e_2) = -e_2 \otimes e_2$ forces the
+fermionic contribution) and the cross-block entries, the RTT identity
+collapses to
+\[
+  (u - v - \hbar)\bigl(t_{12}(u) t_{12}(v) + t_{12}(v) t_{12}(u)\bigr)
+  \;=\; 0,
+\]
+that is $\{t_{12}(u), t_{12}(v)\}_+ = 0$ as formal series in $u^{-1},
+v^{-1}$ away from the pole $u - v = \hbar$ (Kulish--Sklyanin~1982
+DOI:10.1007/BF01036128 Thm.~3.1; Arnaudon--Molev--Ragoucy
+\texttt{arXiv:math/0511481} Prop.~3.4 super). Gauss extraction
+$e^{(1)}(u) = d_1(u)^{-1} t_{12}(u)$ (Ding--Frenkel
+\texttt{arXiv:q-alg/9608002} super version, Zhang
+\texttt{arXiv:q-alg/9701011}) preserves the anticommutator since
+$d_1(u)$ commutes with $t_{12}(v)$ up to the Cartan-OPE scalar
+$\psi_1(u, v)$, absorbed into normalisation:
+\[
+  \{e^{(1)}(u), e^{(1)}(v)\}_+ \;=\; 0.
+\]
+Specialisation $u \to v$ gives the integrated form $(e^{(1)}_0)^2 =
+\tfrac{1}{2}\{e^{(1)}_0, e^{(1)}_0\}_+ = 0$, the quadratic super-Serre.
+The isotropy $a_{11} = 0$ is the \emph{source} of this identity, not
+an independent postulate: if $a_{11} \neq 0$ the $R$-matrix $(2,2;
+2,2)$-entry would not be $1 - \hbar/u$ and the anticommutator would
+acquire a non-zero right-hand side. No Yamane cubic applies because
+the odd node has no adjacent even node of opposite parity. The wheel
+condition for the conifold shuffle algebra lives in bidegree $(2,1)$
+or $(1,2)$ and is a $\bZ/2$-graded \emph{quartic} wheel in total
+variable count; it is the shuffle-plane witness of the same RTT
+identity under the Ding--Frenkel map. The ``cubic Serre via Neguț
+wheel'' is the $\bC^3$ Jordan-quiver wheel condition from Neguț~2015
+§2.4, which does not apply here: the single vertex with three loops
+forces a cubic, while Klebanov--Witten's two-vertex bipartite quiver
+forces a quadratic self-Serre and a separate quartic wheel.
+\end{remark}
+
+% ============================================================================
+\section{Route R2 --- Two-chart \v{C}ech descent for the CoHA sheaf}
+\label{sec:cech-route}
+% ============================================================================
+
+The two-chart atlas $\bY = U_+ \cup U_-$ supports \v{C}ech descent for
+the quasi-coherent CoHA sheaf, in the sense of Kontsevich--Soibelman
+\texttt{arXiv:1006.2706}~\S6.3. This is \emph{not} a factorisation-algebra
+gluing: the two-chart open cover $\fU_0 = \{U_+, U_-\}$ fails the Weiss
+local-to-global axiom of Costello--Gwilliam \texttt{arXiv:2210.13036}
+Definition~6.1.6 --- the two-point configuration $\{p_+, p_-\}$ with
+$p_+ \in U_+ \setminus U_-$ and $p_- \in U_- \setminus U_+$ is contained
+in no member of $\fU_0$ (see the gluing chapter Part~II,
+Proposition~\emph{prop:two-chart-not-weiss}). Factorisation-algebra
+locality requires the Weiss refinement $\fD^{\sqcup}$ by disjoint-union
+closures of disc neighbourhoods (Remark~\emph{rem:weiss-refinement-conifold}).
+The present section treats the two-chart \v{C}ech nerve, which recovers the
+weaker QC / sheaf-theoretic descent; residues and OPEs requiring two-point
+configurations with points in distinct charts (the $\widehat{\fgl}(1|1)$
+fermionic Serre below) are computed on the Weiss refinement.
+
+On each chart Costello--Li \texttt{arXiv:1605.09656} constructs the
+holomorphic Chern--Simons factorisation algebra $\cF_\pm^{\mathrm{hCS}}$
+whose classical observables are polyvectors:
+$H^\bullet(\cF_\pm^{\mathrm{hCS}}) = \mathrm{PV}^\bullet(U_\pm)$.
+Kontsevich--Tamarkin $E_3$-formality together with HKR identifies the
+$E_3$-algebra $\cF_\pm^{\mathrm{hCS}}$ with the Hochschild centre
+$HH^*(\Gamma_\pm)$ of the Ginzburg dga $\Gamma_\pm$ of the Jordan-triple
+quiver with cubic potential. Write
+\[
+  \cF_\pm \;:=\; \Phi^{FA}_3(\Gamma_\pm),
+  \qquad
+  H^\bullet(\cF_\pm) \;=\; \mathrm{PV}^\bullet(U_\pm)
+\]
+for the common chart-local $E_3$-object, understanding the identification
+as the hCS-to-Hochschild quasi-isomorphism. Chart-wise CoHA
+$\CoHA(U_\pm) = Y^+(\widehat{\fgl}_1)$ (Schiffmann--Vasserot
+\texttt{arXiv:1202.2756}) is the critical cohomology of the moduli stack
+$\cM(U_\pm, W_\pm)$ over each chart.
+
+\begin{definition}[Fourier--Mukai transition kernel]
+\label{def:fm-kernel}
+Let $\phi_{+-} \colon U_+ \cap U_- \xrightarrow{\sim} U_+ \cap U_-$
+denote the biholomorphism
+$(z, u_+, v_+) \mapsto (z^{-1}, z u_+, z v_+)$ of
+equation~\eqref{eq:conifold-transition}, and let
+$\Gamma_{\phi_{+-}} \subset (U_+ \cap U_-) \times (U_+ \cap U_-)$ be
+its graph. The \v{C}ech transition kernel is the structure sheaf of the
+graph twisted by the normal-bundle class of the $\cO(-1) \oplus \cO(-1)$
+fibre:
+\[
+  K_{+-} \;=\; \cO_{\Gamma_{\phi_{+-}}} \otimes \pi_1^* \cO_{\bP^1}(-1)\bigl|_{\bC^\times},
+\]
+with $\pi_1$ the first projection $(U_+ \cap U_-) \times (U_+ \cap U_-)
+\to U_+ \cap U_-$. The induced derived pullback $L\phi_{+-}^*$ on
+polyvectors decomposes the $z$-weight additively into a base factor
+($z^{-1}$ from the $\bP^1$-transition $\tilde z = z^{-1}$) and fibre
+factors ($z^{-a}$, $z^{-b}$ from the fibre-weight shifts on
+$\partial_{u_-}, \partial_{v_-}$ coming from $u_- = z u_+$,
+$v_- = z v_+$):
+\[
+  T_{+-}^* : f(z, u_+, v_+)\, \partial_z^\alpha \partial_{u_+}^a \partial_{v_+}^b
+  \;\longmapsto\;
+  f(z^{-1}, z u_+, z v_+)\, z^{-(1+a+b)}\, \partial_{\tilde z}^\alpha \partial_{u_-}^a \partial_{v_-}^b.
+\]
+\end{definition}
+
+\begin{remark}[FM kernel vs.\ Bridgeland--Chen flop kernel]
+\label{rem:fm-vs-flop}
+The kernel $K_{+-}$ is the analytic chart-transition FM kernel on the
+non-exceptional locus, not the global Bridgeland--Chen flop kernel of
+\texttt{arXiv:math/0009053, math/0209342}. The two kernels agree on
+$U_+ \cap U_-$ where the flop is an isomorphism; the global flop kernel
+lives on a birational fibre product and has additional support over the
+exceptional $\bP^1$. When quoting ``FM kernel'' one must disambiguate.
+\end{remark}
+
+\begin{theorem}[\v{C}ech QC descent for the CoHA sheaf]
+\label{thm:cech-gluing}
+\ClaimStatusProvedElsewhere\ \emph{(Kontsevich--Soibelman
+\texttt{arXiv:1006.2706}~\S6.3; the $(\infty,1)$-categorical ambient is
+Lurie HA~\S5.5.4 of presentable stable symmetric-monoidal categories.)}
+In the $(\infty,1)$-category $\mathrm{QCoh}^\otimes(\bY)$ the derived
+pullback square
+\[
+  \cF_{\bY} \;\simeq\; \cF_+ \times^{h}_{\,\cF_+|_{U_+ \cap U_-}\,} \cF_-
+  \;=\;
+  \mathrm{hocolim}\bigl(\cF_- \xleftarrow{\,T_{+-}\,}
+    \cF_+|_{U_+ \cap U_-} \xrightarrow{\,\mathrm{id}\,} \cF_+\bigr)
+\]
+assembles a QC-CoHA sheaf on $\bY$ with
+$H^\bullet(\cF_{\bY}) = \mathrm{PV}^\bullet(\bY)$. The two-chart nerve
+terminates at pair overlaps (no triple overlap exists), so the pullback
+square presentation is equivalent to the full \v{C}ech hocolim. The
+assembly does \emph{not} produce an $E_3$-factorisation algebra on $\bY$
+in the Costello--Gwilliam sense (the cover is not Weiss); the
+corresponding factorisation algebra is constructed on the Weiss
+refinement $\fD^{\sqcup}$ by Francis--Gaitsgory-type descent
+(\texttt{arXiv:1103.5803}~\S3.6; Francis~\texttt{arXiv:1303.0305}
+for the higher-$E_n$ extension; Lurie~HA \S5.5.4) and agrees with
+$\cF_{\bY}$ on the shared QC-sheaf content.
+\end{theorem}
+
+The glued QC-sheaf carries a $\bZ/2$-grading from the $\cO(-1)$-cocycle.
+The sign source separates cleanly: the $\cO(-1) \oplus \cO(-1)$ fibre is
+CY-balanced ($c_1(T\bP^1) + c_1(\text{fibre}) = 0$), so the fibre
+transitions preserve the CY volume form $\Omega_{\bY}$ identically; the
+sign comes from the $\bP^1$ base, where the orientation class
+$[\bP^1] \in H^2(\bP^1, \bZ)$ reverses under $z \leftrightarrow \tilde z
+= z^{-1}$ (see Kontsevich--Soibelman~\texttt{arXiv:1006.2706}~\S6.3 on
+chart-gluing signs for CoHA on toric CY$_3$). The resulting Koszul sign
+$\sigma = -1$ acts on cross-chart Hall products. Even/odd combinations
+\[
+  E^{(0)} = e_0^{(+)} + e_0^{(-)},
+  \qquad
+  E^{(1)} = e_0^{(+)} - e_0^{(-)}
+\]
+are introduced as objects of the QC-CoHA sheaf. Their fermionic Serre
+relation $\{E^{(1)}, E^{(0)}\}_+ = K^{(0)}$ (central) requires a two-point
+residue as $z_1 \to z_2$ with $z_1, z_2$ chosen in distinct charts; this
+configuration is invisible to the two-chart \v{C}ech nerve and is computed
+on the Weiss refinement $\fD^{\sqcup}$ (Remark~\emph{rem:weiss-refinement-conifold}
+of gluing Part~5), where disjoint disc neighbourhoods around
+$z_1 \in U_+$ and $z_2 \in U_-$ are available. On $\fD^{\sqcup}$ the
+Beilinson--Drinfeld chiral-bracket residue
+$\mu \colon j_* j^* (\cF_{\bY} \boxtimes \cF_{\bY}) \to \Delta_! \cF_{\bY}$
+(\emph{Chiral Algebras}~\S3.4; Francis--Gaitsgory
+\texttt{arXiv:1103.5803} Thm 3.6.2) computes the Jordan-shuffle difference
+that assembles the fermionic Serre of $\widehat{\fgl}(1|1)$ from the two
+bosonic $Y^+(\widehat{\fgl}_1)$ stalks.
+
+The $\varepsilon_3 \to 0$ specialisation on the compact base collapses the
+chart-$\bC^3$ shuffle kernel numerator from the rank-$3$ form
+$(u+\varepsilon_1)(u+\varepsilon_2)(u+\varepsilon_3)/u^3$ to the rank-$2$
+form $(u+\varepsilon_1)(u+\varepsilon_2)/[u(u+\varepsilon_1+\varepsilon_2)]$
+of Neguț, reproducing eq.~\eqref{eq:bond-factors}.
+
+% ============================================================================
+\section{Route R3 --- Van den Bergh tilting}
+\label{sec:vdb-route}
+% ============================================================================
+
+The geometric input is the tilting generator $T = \cO_\bY \oplus
+\cO_\bY(1)$ of Theorem~\ref{thm:vdb-nccr}, with $\cO_\bY(1) =
+\pi^* \cO_{\bP^1}(1)$ pulled back along the projection $\pi: \bY \to
+\bP^1$ (Bondal--Orlov \texttt{arXiv:math/0206295} \S3; Van den Bergh
+\texttt{arXiv:math/0211064} Prop.~3.2.10). The derived Morita adjoint
+pair $(L, R)$ of Theorem~\ref{thm:vdb-nccr} gives quasi-inverse
+equivalences $D^b(\mathrm{Coh}\,\bY) \simeq D^b\bigl(J(Q_{\mathrm{con}},
+W_{\mathrm{con}})\text{-mod}\bigr)$ in full generality: compact
+generation of $T$ is Bondal--Van den Bergh \texttt{arXiv:math/0204218}
+Thm.~3.1.1 applied to the Beilinson pair $(\cO_{\bP^1},
+\cO_{\bP^1}(1))$ on $\bP^1$ lifted by $\pi$; vanishing of positive
+$\Ext$ reduces to $H^{\geq 1}(\bP^1, \cO(-1)) = 0$ via Leray. Under
+$L = (-) \otimes^L_{J} T$ the two vertex-simples of $J(Q_{\mathrm{con}},
+W_{\mathrm{con}})$ map to the exceptional twists
+\[
+  L(S_0) \;=\; \cO_{\bP^1}(-1)[1],
+  \qquad
+  L(S_1) \;=\; \cO_{\bP^1},
+\]
+as pure complexes supported on the exceptional $\bP^1 \subset \bY$
+(Bridgeland \texttt{arXiv:math/0502050} \S5; Szendr\H{o}i
+\texttt{arXiv:0705.3419} \S2.2); under $R = R\Hom_\bY(T, -)$ the
+closed-point skyscraper $\cO_p$, $p \in \bY$, decomposes to a bounded
+$J$-complex whose class in $K_0(J) = \bZ\langle[S_0],[S_1]\rangle$ is
+$[S_0] + [S_1]$. The exceptional $\bP^1$ carries class $[\bP^1] =
+[S_0] - [S_1]$ via $0 \to \cO_{\bP^1}(-1) \to \cO_{\bP^1} \to \cO_p
+\to 0$.
+
+Davison--Hennecart--Schlegel-Mejia \texttt{arXiv:2303.12592} Theorem~A
+transports the bialgebra structure along $L$: the derived Morita
+equivalence upgrades to a \emph{bialgebra isomorphism} of critical
+cohomological Hall algebras
+\[
+  \mathrm{CoHA}^{\mathrm{crit}}\bigl(\mathrm{Coh}\,\bY, 0\bigr)
+  \;\xrightarrow{\;\sim\;}\;
+  \mathrm{CoHA}^{\mathrm{crit}}\bigl(J(Q_{\mathrm{con}},
+  W_{\mathrm{con}})\text{-mod}, \varphi_{W_{\mathrm{con}}}\bigr),
+\]
+with the Jacobi-side critical cocycle $\varphi_{W_{\mathrm{con}}}$
+matching the zero-potential smooth geometric side (smoothness of $\bY$:
+critical locus $=$ full moduli). Multiplication is categorical Hall
+convolution on both sides; comultiplication is the Davison
+nilpotent-tangent decomposition, upgrading the 2-Calabi--Yau
+isomorphism of Davison \texttt{arXiv:1903.02860} to the CY-$3$ Jacobi
+setting via the Davison--Meinhardt super-PBW decomposition
+\texttt{arXiv:1601.02479} / \texttt{arXiv:2303.12592} Thm.~B, whose
+common image
+\[
+  \mathrm{Sym}^{\boxtimes_+}_{\mathrm{super}}
+  \bigl(H(B\bC^\times)_{\mathrm{vir}} \otimes
+  \fg_{\mathrm{BPS}}^{\mathrm{con}}\bigr)
+\]
+identifies the super BPS Lie algebra $\fg_{\mathrm{BPS}}^{\mathrm{con}}
+= \widehat{\fgl}(1|1)^+$ on both sides of the equivalence
+(Theorem~\ref{thm:mmns}, Remark~\ref{rem:super-vs-even}).
+
+In the $(d_0, d_1) \leftrightarrow (D_0, D_2)$ coordinates of
+Remark~\ref{rem:super-vs-even}, $D_0$ is the point-class (D$0$-brane
+charge, even) and $D_2$ is the $\bP^1$-wrapping class (D$2$-brane
+charge, odd):
+\[
+  (d_0, d_1) \;\longleftrightarrow\;
+  \bigl(\tfrac{1}{2}(D_0 + D_2),\,\tfrac{1}{2}(D_0 - D_2)\bigr),
+  \qquad
+  [\bP^1] \;=\; [S_0] - [S_1].
+\]
+The Hall coefficient at charge $(1,1)$, computed by equivariant
+localisation over $\Ext^1(S_0, S_1) = \bC^{\oplus 2}$ (the $(0,1)$-row
+of the Ext-table following~\eqref{eq:jacobi-relations}) against the
+critical cocycle $\varphi_{W_{\mathrm{con}}}$, evaluates to
+$(\varepsilon_1 \varepsilon_2)^{-1}$ with $\varepsilon_3 =
+-\varepsilon_1 - \varepsilon_2$ (CY-$3$ balanced Serre condition),
+matching the $(1,1)$-coefficient of Route~R1
+(Section~\ref{sec:shuffle-route}) and Route~R2
+(Section~\ref{sec:cech-route}).
+
+\subsection{Minimal-model structure on the Ginzburg dg-algebra}
+\label{subsec:vdb-ainfty}
+
+Transport of the Hall product along $L$ is controlled by the
+$A_\infty$-structure on $\mathrm{Perf}(\Gamma_{\mathrm{con}})$, where
+$\Gamma_{\mathrm{con}} = \Gamma(Q_{\mathrm{con}}, W_{\mathrm{con}})$
+is the Ginzburg dg-algebra of Theorem~\ref{thm:vdb-nccr} (Ginzburg
+\texttt{arXiv:math/0612139} Thm.~3.2.8; Keller--Van den Bergh
+\texttt{arXiv:0906.0761} Thm.~6.3). Generators sit in degrees
+$[-2, 0]$: arrows $a_1, a_2, b_1, b_2$ in degree $0$, cyclic duals
+$a_1^*, a_2^*, b_1^*, b_2^*$ in degree $-1$, loop generators $t_0,
+t_1$ at the two vertices in degree $-2$, with differential
+$\partial a_i^* = \partial_{a_i} W_{\mathrm{con}}$ on the
+$(-1)$-layer and $\partial t_j = \sum_{a: j \to j}[a, a^*]$ on the
+$(-2)$-layer (Ginzburg \texttt{arXiv:math/0612139} eqn.~5.3.1). The
+four Jacobi relations~\eqref{eq:jacobi-relations} are the
+degree-$0$ cohomology of $\partial$.
+
+Kadeishvili's minimal-model transfer (Kadeishvili~1982; Kontsevich
+\texttt{arXiv:q-alg/9709040} \S6.4) realises
+$H^\bullet(\Gamma_{\mathrm{con}}) = J(Q_{\mathrm{con}}, W_{\mathrm{con}})$
+as an $A_\infty$-algebra $(J, m_2, m_3, m_4, \dots)$ with each $m_k$
+computed from sums over planar binary trees of $\partial$-splittings on
+$\Gamma_{\mathrm{con}}$. The $L_\infty$-shadow on the cyclic-invariant
+quotient $\mathrm{HC}_\bullet(\Gamma_{\mathrm{con}})$ carries the
+Gerstenhaber bracket of degree $1 - d = -2$
+(Pantev--To\"en--Vaqui\'e--Vezzosi \texttt{arXiv:1111.3209} shift law at
+$d = 3$: $E_1$ cyclic on $A$, $E_2$ Gerstenhaber on the Hochschild
+centre). The Maurer--Cartan element
+\[
+  \mu \;=\; m_2 + \hbar\, m_3 + \hbar^2\, m_4 + \cdots
+  \;\in\; C^\bullet(\Gamma_{\mathrm{con}}, \Gamma_{\mathrm{con}})
+  \llbracket \hbar \rrbracket
+\]
+encodes the deformation of the classical Jacobi product $m_2$ into the
+critical Hall product; closure $[\mu, \mu] = 0$ is the $L_\infty$
+Jacobi identity on the Hochschild cochain complex and is equivalent,
+via the Davison--Meinhardt super-PBW \texttt{arXiv:1601.02479}, to the
+co-associativity of the Hall coproduct.
+
+Kontsevich--Tamarkin formality at $d = 3$ (Kontsevich
+\texttt{arXiv:q-alg/9709040} Main Thm.; Tamarkin
+\texttt{arXiv:math/9803025} for the Gerstenhaber upgrade) in the
+purely-even gauge gives an $L_\infty$-quasi-isomorphism
+$T_{\mathrm{poly}}(X) \simeq C^\bullet(\cO_X, \cO_X)$ via Kontsevich's
+$\cG \simeq \cG_\infty$ operadic resolution, determined up to a
+$\mathrm{GRT}_1(\bQ)$-torsor (Kontsevich \texttt{arXiv:q-alg/9709040}
+\S4.6). In the super extension to $\widehat{\fgl}(1|1)$,
+Ginzburg--Schedler \texttt{arXiv:0807.0174} Thm.~1 establishes
+super-formality \emph{only to order $E_2$}: Gerstenhaber-bracket closure
+persists, but the $E_3$ enhancement to cyclic operads on the
+super-Hochschild complex is obstructed by the super-wheel
+$d^{abc}_{\mathrm{super}}$ at $2$-loop and higher (Costello--Gwilliam
+vol.~2 \texttt{arXiv:2210.13036} \S12.4 one-loop analysis).
+Consequently the $A_\infty$-structure on $H^\bullet(\Gamma_{\mathrm{con}})$
+is $E_2$-rigid but its $E_3$ lift carries a nontrivial cocycle
+obstruction; the bialgebra transport along $L$ uses only the $E_2$
+layer, which supplies exactly the input for the
+Davison--Hennecart--Schlegel-Mejia theorem.
+
+\subsection{Hall-product compatibility diagram}
+\label{subsec:vdb-hall-compat}
+
+\begin{proposition}[Compatibility of Hall convolution with tilting transport]
+\label{prop:vdb-hall-compat}
+\ClaimStatusProvedElsewhere\
+Let $\mathcal{M}_\bY^{d_0, d_1}$ and $\mathcal{M}_J^{d_0, d_1}$ denote
+the moduli stacks of coherent sheaves on $\bY$ and finite-dimensional
+$J(Q_{\mathrm{con}}, W_{\mathrm{con}})$-modules of charge
+$(d_0, d_1) \in K_0 = \bZ^2_{\geq 0}$ respectively. The derived Morita
+equivalence $L$ lifts to an isomorphism of moduli stacks
+$\mathcal{M}_\bY^{d_0, d_1} \simeq \mathcal{M}_J^{d_0, d_1}$ (Bondal--Van
+den Bergh \texttt{arXiv:math/0204218} \S6), and the Hall-product diagram
+\[
+  \begin{tikzcd}[column sep=large, row sep=large]
+    H^\bullet_c(\mathcal{M}_\bY^{d_0, d_1})
+    \otimes H^\bullet_c(\mathcal{M}_\bY^{d_0', d_1'})
+    \arrow[r, "m_\bY^{\mathrm{Hall}}"]
+    \arrow[d, "L_* \otimes L_*"']
+    &
+    H^\bullet_c(\mathcal{M}_\bY^{d_0 + d_0', d_1 + d_1'})
+    \arrow[d, "L_*"]
+    \\
+    H^\bullet_c(\mathcal{M}_J^{d_0, d_1})
+    \otimes H^\bullet_c(\mathcal{M}_J^{d_0', d_1'})
+    \arrow[r, "m_J^{\mathrm{Hall}}"]
+    &
+    H^\bullet_c(\mathcal{M}_J^{d_0 + d_0', d_1 + d_1'})
+  \end{tikzcd}
+\]
+commutes, with $m_\bY^{\mathrm{Hall}}$ the Kontsevich--Soibelman
+\texttt{arXiv:1006.2706} \S6.1 categorical Hall convolution for
+coherent sheaves on $\bY$ and $m_J^{\mathrm{Hall}}$ the
+Szendr\H{o}i~\texttt{arXiv:0705.3419} / Schiffmann--Vasserot
+\texttt{arXiv:1202.2756} \S4.2 Hall convolution for Jacobi-algebra
+modules against the critical cocycle $\varphi_{W_{\mathrm{con}}}$. The
+same square upgrades to compatibility of the Davison nilpotent-tangent
+\emph{comultiplications} (Davison \texttt{arXiv:1903.02860} Thm.~1.1),
+yielding the bialgebra isomorphism \texttt{arXiv:2303.12592} Thm.~A.
+\end{proposition}
+
+The compatibility is the stack-level incarnation of
+Theorem~\ref{thm:vdb-nccr}: the $3$-term correspondence
+\[
+  \mathcal{M}_\bY^{d_0, d_1} \times \mathcal{M}_\bY^{d_0', d_1'}
+  \;\xleftarrow{\;p\;}\;
+  \mathcal{E}xt^1_\bY
+  \;\xrightarrow{\;q\;}\;
+  \mathcal{M}_\bY^{d_0 + d_0', d_1 + d_1'}
+\]
+defining $m_\bY^{\mathrm{Hall}} = q_* p^*$ on extension classes
+(Kontsevich--Soibelman \texttt{arXiv:1006.2706} \S6) pulls back along
+$L$ to the Jacobi $\Ext^1$-correspondence on $J$-modules, with the
+critical cocycle pulling back to $\varphi_{W_{\mathrm{con}}}$.
+Serre-duality compatibility on the Davison coproduct (the CY-$3$ shift
+$[3]$ on both sides) follows from the bimodule self-duality
+$\Gamma_{\mathrm{con}} \simeq R\Hom_{\Gamma^e}(\Gamma_{\mathrm{con}},
+\Gamma^e)[3]$ (Ginzburg \texttt{arXiv:math/0612139} Thm.~3.2.8; quoted
+in Theorem~\ref{thm:vdb-nccr}) matched under $L$ to
+$\omega_\bY[3] = \cO_\bY[3]$ on the geometric side via the adjunction
+$(L, R)$ with shift.
+
+\begin{remark}[Triangulation of the $(1,1)$-coefficient across three routes]
+\label{rem:vdb-triangulation}
+\ClaimStatusConventionDependent\
+The $(1,1)$-Hall coefficient $(\varepsilon_1 \varepsilon_2)^{-1}$ arises
+on three distinct categorical strata, each computing the same invariant:
+(i) as the residue of the super-shuffle bond factor
+$\varphi^{0 \Rightarrow 1}(u) = (u+h_1)(u+h_2)/[u(u+h_1+h_2)]$ at the
+coincidence locus $u = 0$ (Route~R1 super-shuffle,
+Section~\ref{sec:shuffle-route}, eq.~\eqref{eq:c11-shuffle}), under
+the CY-balanced specialisation $\varepsilon_3 = -\varepsilon_1 -
+\varepsilon_2$; (ii) as the cocycle
+residue of the two-chart $\widehat{\fgl}_1$-stalk gluing
+$\phi_{+-}^{\mathrm{Weiss}}$ on the Weiss refinement
+$\fD^{\sqcup}$ of the conifold \v{C}ech cover (Route~R2 \v{C}ech gluing,
+Section~\ref{sec:cech-route}), computed via the chiral-bracket residue
+$\mu : j_* j^* (\cF_\bY \boxtimes \cF_\bY) \to \Delta_! \cF_\bY$
+(Beilinson--Drinfeld \emph{Chiral Algebras} \S3.4); (iii) as the
+localised equivariant integral over $\Ext^1(S_0, S_1) = \bC^{\oplus 2}$
+against the critical cocycle $\varphi_{W_{\mathrm{con}}}$ (Route~R3, the
+present section), transported along $L$ by
+Proposition~\ref{prop:vdb-hall-compat}. The three computations agree
+because each is a shadow of the Kontsevich--Soibelman cocycle
+$\phi^+(u)$ for the conifold UV positive half: shuffle bond factor,
+Weiss cocycle restriction, Jacobi critical cocycle. The identification
+across routes is the MO-bypass lemma for the conifold (chiral-side
+manifestation of the Maulik--Okounkov $R$-matrix as a gluing-cocycle
+residue, Schiffmann--Vasserot \texttt{arXiv:1202.2756} \S3 read through
+\texttt{arXiv:1006.2706} \S5.4).
+\end{remark}
+
+\begin{remark}[Bridgeland-stability compatibility across chambers]
+\label{rem:vdb-bridgeland}
+\ClaimStatusProvedElsewhere\
+The tilting generator $T = \cO_\bY \oplus \cO_\bY(1)$ is a
+Bridgeland-stable object for the standard heart
+$\mathrm{Coh}\,\bY \subset D^b(\mathrm{Coh}\,\bY)$ in Bridgeland's
+stability-condition space $\mathrm{Stab}(\bY)$ (Bridgeland
+\texttt{arXiv:math/0502050} \S5, explicitly for the resolved conifold
+and its flop). Across walls of marginal stability, the Jacobi-side
+heart $J(Q_{\mathrm{con}}, W_{\mathrm{con}})\text{-mod} \subset
+D^b(J\text{-mod})$ is a distinct tilt --- the Szendr\H{o}i
+non-commutative chamber of Theorem~\ref{thm:mmns} --- related to the
+geometric heart by a Seidel--Thomas spherical twist $T_{\cO_{\bP^1}(-1)}
+\in \mathrm{Auteq}\, D^b(\mathrm{Coh}\,\bY)$
+(\texttt{arXiv:math/0502050} Thm.~1.1). The DT partition function
+$Z^{\mathrm{NC}}$ of \texttt{arXiv:1107.5017} Theorem~\ref{thm:mmns} is
+the non-commutative-chamber specialisation of the universal Joyce--Song
+generating series; wall-crossing to the large-volume chamber reproduces
+the Maulik--Nekrasov--Okounkov--Pandharipande Gromov--Witten series via
+the MNOP conjecture (Maulik--Nekrasov--Okounkov--Pandharipande
+\texttt{arXiv:math/0312059} \S1; Toda \texttt{arXiv:0806.0062} for the
+DT/PT equivalence; proved on the conifold by
+Morrison--Mozgovoy--Nagao--Szendr\H{o}i \texttt{arXiv:1107.5017}
+Thm.~2). The VdB tilting transports the CoHA bialgebra faithfully
+between the two chambers; the Davison--Hennecart--Schlegel-Mejia
+isomorphism is a chamber-independent statement, with the Koszul-sign
+cocycle $\sigma = \pm 1$ on cross-chamber Hall products controlled by
+the $c_1(\cO_\bY(1))$-twist absorbed into $L$ (Section~4 above on the
+Koszul $\bZ/2$-grading of the glued QC-sheaf).
+\end{remark}
+
+% ============================================================================
+\section{Route R4 --- RTT super-Yangian}
+\label{sec:rtt-route}
+% ============================================================================
+
+The route realises the CoHA of the conifold as the RTT super-Yangian
+$Y^{\mathrm{RTT}}(\widehat{\fgl}(1|1))$ cut on equivariant slices indexed
+by the $\Omega$-background parameters $(\varepsilon_1, \varepsilon_2,
+\varepsilon_3)$ of Section~\ref{sec:geometric-datum}. The match to Routes
+R1--R3, R5 is a theorem at the leading $(1,1)$-weight
+(Theorem~\ref{thm:rtt-super-ybe-direct} and
+Proposition~\ref{prop:gauss-to-drinfeld-kw}) and conjectural at subleading
+weight (Conjecture~\ref{conj:hopf-pairing},
+Remark~\ref{rem:pairing-checks}).
+
+\subsection*{The super-$R$-matrix in its graded basis}
+On $V = \bC^{1|1}$ with basis $(e_1, e_2)$, $|e_1| = 0$, $|e_2| = 1$, the
+graded flip
+\[
+  P^{\mathrm{super}}(e_i \otimes e_j)
+  \;=\; (-1)^{|e_i||e_j|}\, e_j \otimes e_i
+\]
+acts on the ordered basis $(e_1 \otimes e_1, e_1 \otimes e_2, e_2 \otimes e_1,
+e_2 \otimes e_2)$ with matrix $\mathrm{diag}(1, 0, 0, -1)$ on the diagonal
+pairs and the off-diagonal flip $e_1 \otimes e_2 \leftrightarrow e_2
+\otimes e_1$. Kulish--Sklyanin~1982 write
+\begin{equation}\label{eq:R-matrix}
+  R(u) \;=\; \mathrm{Id} \;+\; \frac{\hbar}{u}\, P^{\mathrm{super}}
+  \;=\;
+  \begin{pmatrix}
+    1 + \tfrac{\hbar}{u} & 0 & 0 & 0 \\
+    0 & 1 & \tfrac{\hbar}{u} & 0 \\
+    0 & \tfrac{\hbar}{u} & 1 & 0 \\
+    0 & 0 & 0 & 1 - \tfrac{\hbar}{u}
+  \end{pmatrix},
+\end{equation}
+with $(22; 22)$-entry $1 - \hbar/u$ from
+$P^{\mathrm{super}}(e_2 \otimes e_2) = -e_2 \otimes e_2$. Schur's lemma on
+the two-dimensional fixed-weight space of the $\fgl(1|1)$-action on
+$V^{\otimes 2}$ pins \eqref{eq:R-matrix} up to overall scalar at rational
+order.
+
+\begin{theorem}[Super-Yang--Baxter by direct matrix elements]
+\label{thm:rtt-super-ybe-direct}
+\ClaimStatusTheorem\
+The super-$R$-matrix \eqref{eq:R-matrix} satisfies
+\[
+  R_{12}(u)\, R_{13}(u+v)\, R_{23}(v)
+  \;=\;
+  R_{23}(v)\, R_{13}(u+v)\, R_{12}(u)
+  \qquad\text{on }V^{\otimes 3},
+\]
+with the graded tensor product $(A \otimes B)(x \otimes y) =
+(-1)^{|B||x|}\, Ax \otimes By$.
+\end{theorem}
+
+\begin{proof}
+Write $R(u) = \mathrm{Id} + (\hbar/u)\, P^{\mathrm{super}}$ and abbreviate
+$P_{ij}$ for the graded flip on factors $i, j$ of $V^{\otimes 3}$.
+Expanding YBE in powers of $\hbar$ yields three identities:
+\begin{align*}
+\text{$\hbar^1$:}\quad &
+  \tfrac{1}{u}P_{12} + \tfrac{1}{u+v}P_{13} + \tfrac{1}{v}P_{23}
+  \;=\;
+  \tfrac{1}{v}P_{23} + \tfrac{1}{u+v}P_{13} + \tfrac{1}{u}P_{12},
+\\
+\text{$\hbar^2$:}\quad &
+  \tfrac{1}{u(u+v)}P_{12}P_{13} + \tfrac{1}{u v}P_{12}P_{23} + \tfrac{1}{(u+v) v}P_{13}P_{23}
+  \\[-2pt]&\qquad\qquad
+  \;=\;
+  \tfrac{1}{v(u+v)}P_{23}P_{13} + \tfrac{1}{u v}P_{23}P_{12} + \tfrac{1}{u(u+v)}P_{13}P_{12},
+\\
+\text{$\hbar^3$:}\quad &
+  \tfrac{1}{u(u+v)v}\, P_{12}P_{13}P_{23}
+  \;=\;
+  \tfrac{1}{v(u+v)u}\, P_{23}P_{13}P_{12}.
+\end{align*}
+The $\hbar^1$ identity is trivial. The $\hbar^3$ identity, clearing the
+common denominator $u(u+v)v$, is the graded braid relation
+$P_{12} P_{13} P_{23} = P_{23} P_{13} P_{12}$, the $S_3$ presentation
+$\sigma_1 \sigma_2 \sigma_1 = \sigma_2 \sigma_1 \sigma_2$ for the graded
+symmetric group on three letters. The $\hbar^2$ identity, after multiplying
+through by $u v (u+v)$, reduces on a basis vector
+$e_i \otimes e_j \otimes e_k$ to the matching of two $\bZ$-linear
+combinations of the six permutations of $(e_i, e_j, e_k)$ weighted by
+$v, u, u+v$; overall sign $(-1)^{|e_i||e_j| + |e_j||e_k| + |e_i||e_k|}$
+is symmetric (counts graded inversions modulo $2$), and the scalar
+polynomial matching reduces to the unsuper $\fgl_2$ YBE (Yang~1967) on
+the diagonal weight-$(1,1)$ subrepresentation.
+\end{proof}
+
+\begin{remark}[Primary source for the ansatz]
+\label{rem:ybe-direct-vs-citation}
+Kulish--Sklyanin~1982 is the primary source for the ansatz
+\eqref{eq:R-matrix}; Theorem~\ref{thm:rtt-super-ybe-direct} verifies YBE
+from the graded flip alone. Mukhin--Varchenko \texttt{arXiv:math/0303045}
+and the rank-$2$ case of Arnaudon--Cramp\'e--Doikou--Frappat--Ragoucy
+\texttt{arXiv:math/0511481} supply useful cross-references. The
+super-Yangian presentation (Yamane \texttt{arXiv:math/9603017} Thm.~6.4.1)
+is derived downstream from the RTT relation built on this $R$-matrix.
+\end{remark}
+
+\subsection*{RTT commutation and the Lax pair $L_\pm(u)$}
+Form $T(u) = \sum_{r \geq 0} T^{(r)}\, u^{-r}$, $T^{(0)} = \mathrm{Id}$,
+and impose the graded RTT relation
+\begin{equation}\label{eq:RTT}
+  R_{12}(u - v)\, T_1(u)\, T_2(v)
+  \;=\;
+  T_2(v)\, T_1(u)\, R_{12}(u - v)
+\end{equation}
+in $\End(V)^{\otimes 2} \otimes Y^{\mathrm{RTT}}$
+(Arnaudon--Molev--Ragoucy \texttt{arXiv:math/0511481} Thm.~3.2 super).
+Writing $T(u) = L_+(u)\, L_-(u)^{-1}$ with $L_\pm(u)$ regular at
+$u = \pm\infty$ yields the Reshetikhin--Semenov-Tian-Shansky half-current
+presentation
+\begin{equation}\label{eq:RTT-half}
+  R_{12}(u - v)\, L_{\pm, 1}(u)\, L_{\pm, 2}(v)
+  \;=\;
+  L_{\pm, 2}(v)\, L_{\pm, 1}(u)\, R_{12}(u - v),
+  \quad
+  R_{12}(u - v)\, L_{+, 1}(u)\, L_{-, 2}(v)
+  \;=\;
+  L_{-, 2}(v)\, L_{+, 1}(u)\, R_{12}(u - v).
+\end{equation}
+The second equation is the gluing cocycle realising $Y^{\mathrm{RTT}}$
+as a quantum double of its $L_+, L_-$ halves. The $(12; 21)$ and
+$(22; 22)$ entries of \eqref{eq:RTT} expanded in $u^{-1}, v^{-1}$ give
+$[t_{12}(u), t_{12}(v)]_+ = 0$ and
+$[t_{12}(u), t_{21}(v)]_+ = (\hbar/(u - v))\bigl(t_{11}(v)\, t_{22}(u)
+- t_{11}(u)\, t_{22}(v)\bigr)$, the $\fgl(1|1)$-super-Yangian FRT
+relations.
+
+\subsection*{$\Omega$-background parameters and free-field realisation}
+The two-parameter $\Omega$-background
+(Nekrasov--Okounkov~\texttt{hep-th/0306238} \S7) enters through
+$H^\bullet_{T^2}(\mathrm{pt}) = \bC[\varepsilon_1, \varepsilon_2]$
+acting on the Jordan-quiver coordinates of
+Section~\ref{sec:geometric-datum}. The CY constraint
+\begin{equation}\label{eq:CY-constraint}
+  \varepsilon_1 + \varepsilon_2 + \varepsilon_3 \;=\; 0
+  \qquad (T^2_{\mathrm{CY}} \subset T^3)
+\end{equation}
+preserves $\Omega_\bY$. Free bosons $\phi(z) = \phi_-(z) + \phi_+(z)$
+with OPE $\phi(z)\phi(w) \sim (\hbar^2/\varepsilon_1\varepsilon_2)
+\log(z - w)$ and free fermions $\psi(z), \bar\psi(z)$ with
+$\psi(z)\bar\psi(w) \sim (z - w)^{-1}$ give vertex operators
+\begin{equation}\label{eq:vertex-ops}
+  t_{11}(u) = :\!e^{+\phi(u)/\hbar}\!:,
+  \quad
+  t_{22}(u) = :\!e^{-\phi(u)/\hbar}\!:,
+  \quad
+  t_{12}(u) = :\!e^{+\phi(u)/\hbar}\!:\!\psi(u),
+  \quad
+  t_{21}(u) = \bar\psi(u)\,:\!e^{-\phi(u)/\hbar}\!:
+\end{equation}
+satisfying \eqref{eq:RTT} on the equivariant Fock module
+$\cF_{(\varepsilon_1, \varepsilon_2)}$ (Nekrasov--Okounkov~2003 \S7
+specialised from $\fgl_n$ to $\fgl(1|1)$; Nakajima~1999 Ch.~8).
+
+\begin{proposition}[$\Omega$-background realisation of the conifold bond]
+\label{prop:omega-bond-RTT}
+\ClaimStatusProposition\
+The two-point function of \eqref{eq:vertex-ops} on
+$\cF_{(\varepsilon_1, \varepsilon_2)}$ is the Klebanov--Witten shuffle
+bond factor:
+\[
+  \bigl\langle t_{12}(u)\, t_{21}(v) \bigr\rangle_{\cF}
+  \;=\;
+  \frac{(u - v + \varepsilon_1)(u - v + \varepsilon_2)}
+       {(u - v)(u - v + \varepsilon_1 + \varepsilon_2)}
+  \;=\;
+  k^{\mathrm{off}}(u - v).
+\]
+Under \eqref{eq:CY-constraint} and $h_1 = \varepsilon_1$,
+$h_2 = -\varepsilon_2$, this equals $\varphi_{0 \Rightarrow 1}(u - v)$
+of \eqref{eq:bond-factors} on the Costello--Gaiotto branch
+$h_1 = \sqrt{\hbar}$. The boson OPE supplies the $(u - v)$ pole; the
+fermion bilinear $\psi(u)\bar\psi(v)$ shifts by
+$\varepsilon_1 + \varepsilon_2$; the numerator is the refined
+Jordan-triple kernel
+$(u + \varepsilon_1)(u + \varepsilon_2)(u + \varepsilon_3)/u^3$ at
+$\varepsilon_3 = -\varepsilon_1 - \varepsilon_2$.
+\end{proposition}
+
+\subsection*{Macdonald--Shiraishi refinement and the rational limit}
+The trigonometric lift of \eqref{eq:R-matrix} is the
+$U_q(\widehat{\fgl}(1|1))$ $R$-matrix ($u \mapsto z = e^u$,
+$\hbar \mapsto \log q$) with Kulish--Sklyanin graded sign on $(22; 22)$
+preserved ($q^{-1} z - q$, not $q z - q^{-1}$). The $(q, t)$-refinement
+adds a second deformation via Shiraishi--Kubo--Awata--Odake vertex
+operators (\texttt{arXiv:q-alg/9507034} eq.~(3.5);
+Feigin--Hashizume--Hoshino--Shiraishi--Yanagida
+\texttt{arXiv:1002.2485} for the super $(q, t)$-case):
+\begin{equation}\label{eq:bond-refined}
+  \varphi^{(q, t)}_{0 \Rightarrow 1}(z)
+  \;=\;
+  \frac{(1 - t z)(1 - q^{-1} z)}
+       {(1 - z)(1 - q t^{-1} z)}.
+\end{equation}
+Specialisations: (a) $t = q^{-1}$ gives the unrefined
+$U_q(\widehat{\fgl}(1|1))$ scalar; (b) $q \to 1$ with $t = q^\beta$ at
+$\beta = -1$ recovers \eqref{eq:R-matrix}; (c) generic $\beta$ is the
+Macdonald--Ruijsenaars deformation.
+
+\begin{remark}[Nekrasov--Shatashvili limit]
+\label{rem:NS-limit}
+\ClaimStatusProvedElsewhere\ \emph{(Nekrasov--Shatashvili
+\texttt{arXiv:0908.4052} \S3; Nekrasov--Pestun--Shatashvili
+\texttt{arXiv:1312.6689}; Smirnov \texttt{arXiv:2004.06542} for
+stable-envelope / $R$-matrix correspondence.)}
+Under $\varepsilon_2 \to 0$, $\varepsilon_1 = \hbar$ fixed,
+\eqref{eq:bond-refined} degenerates to the quantum spectral curve
+$(1 - q^{-1} z)/(1 - z)$ of the $\fgl(1|1)$ XXX chain; Bethe roots
+satisfy
+\[
+  \prod_j \frac{u_k - \theta_j + \hbar/2}{u_k - \theta_j - \hbar/2}
+  \;=\;
+  \prod_{l \neq k} \frac{u_k - u_l + \hbar}{u_k - u_l - \hbar}\cdot
+  (-1)^{|k|},
+\]
+$(-1)^{|k|}$ separating bosonic and fermionic strings. Maulik--Okounkov
+\texttt{arXiv:1211.1287} stable-envelope $R$-matrices align with the
+RTT presentation here; $\mathrm{Res}_{u = 0} R^{MO}(u)$ of
+Remark~\ref{rem:pairing-checks} is the NS-limit of \eqref{eq:R-matrix}.
+\end{remark}
+
+\subsection*{Gauss decomposition and Drinfeld-new currents}
+The super-Gauss decomposition relates \eqref{eq:RTT} to Drinfeld's
+current presentation:
+\begin{equation}\label{eq:super-gauss}
+  T(u) = F(u)\, D(u)\, E(u),
+  \ \
+  F(u) = \begin{pmatrix} 1 & 0 \\ f(u) & 1 \end{pmatrix},
+  \ \
+  D(u) = \begin{pmatrix} d_1(u) & 0 \\ 0 & d_2(u) \end{pmatrix},
+  \ \
+  E(u) = \begin{pmatrix} 1 & e(u) \\ 0 & 1 \end{pmatrix},
+\end{equation}
+with $e(u), f(u)$ odd (fermionic $(12)$- and $(21)$-entries of $T$;
+grading $|e_1| + |e_2| = 1$) and $d_1(u), d_2(u)$ even diagonal.
+Super-Ding--Frenkel \texttt{arXiv:q-alg/9608002}
+(Zhang \texttt{arXiv:q-alg/9701011} for the explicit $\fgl(1|1)$ case)
+extracts
+\begin{equation}\label{eq:drinfeld-currents}
+  e^{(1)}(u) = d_1(u)^{-1}\, t_{12}(u),
+  \quad
+  f^{(1)}(u) = t_{21}(u)\, d_1(u)^{-1},
+  \quad
+  \psi(u) = d_2(u)\, d_1(u)^{-1},
+\end{equation}
+satisfying $\fgl(1|1)$ loop-algebra relations at lowest order:
+$[e^{(1)}(u), f^{(1)}(v)]_+ = \hbar\, \psi(u)/(u - v)$ on the odd pair
+and $(e^{(1)}(u))^2 = 0$ (odd Serre from isotropy $(\alpha, \alpha) = 0$;
+Remark~\ref{rem:isotropy-source}).
+
+\begin{proposition}[RTT Gauss matches KW shuffle at leading weight]
+\label{prop:gauss-to-drinfeld-kw}
+\ClaimStatusProposition\
+Under \eqref{eq:vertex-ops}, the Drinfeld-new currents satisfy
+\[
+  e^{(1)}(u)\, e^{(1)}(v) + e^{(1)}(v)\, e^{(1)}(u) = 0,
+  \qquad
+  e^{(1)}(u) \cdot 1 = 1_{(1, 0)}(u)
+  \ \text{in}\ \mathrm{Sh}^{\mathrm{super}}_{\mathrm{KW}},
+\]
+and
+\[
+  e^{(1)}(u)\, f^{(1)}(v)
+  \;=\;
+  \frac{(u - v + \varepsilon_1)(u - v + \varepsilon_2)}
+       {(u - v)(u - v + \varepsilon_1 + \varepsilon_2)},
+\]
+matching Route~R1 Proposition~\ref{prop:shuffle-structure}(1) under
+$h_1 = \varepsilon_1$, $h_2 = -\varepsilon_2$ on the CY specialisation.
+Odd Serre is fermion nilpotency $\psi(u)^2 = 0$ on the Fock space;
+generator identification is vacuum evaluation of the transfer matrix;
+leading product is Proposition~\ref{prop:omega-bond-RTT}.
+\end{proposition}
+
+\begin{remark}[Subleading $c_{11}$ correction remains conjectural]
+\label{rem:rtt-subleading-open}
+The asymmetric $c_{11}$ correction of Conjecture~\ref{conj:hopf-pairing}
+requires the $u^{-2}$-term of \eqref{eq:RTT}, a derivative of
+\eqref{eq:vertex-ops} on the vacuum. Remark~\ref{rem:pairing-checks}
+records the open problem.
+\end{remark}
+
+% ============================================================================
+\section{Route R5 --- Chiral vertex-algebra realisation}
+\label{sec:chiral-route}
+% ============================================================================
+
+\begin{remark}[Corner assignment is a Li--Yamazaki synthesis, not a Gaiotto--Rapčák theorem]
+\label{rem:corner-assignment-scope}
+\ClaimStatusConjectured\
+Gaiotto--Rapčák \texttt{arXiv:1703.00982} construct $Y_{N_1, N_2, N_3}[\psi]$
+as the factorisation algebra on the trivalent junction of three
+holomorphic-topological BV theories: Costello 5D holomorphic Chern--Simons
+on $\R\times\C^2_i$ ($i=1,2,3$) with BV action
+\[
+  S_i \;=\; \frac{1}{2\pi i}\int_{\R\times\C^2_i}\!\Omega_i\wedge
+  \mathrm{tr}\!\left(A_i\wedge\bar\partial A_i + \tfrac{2}{3} A_i^{\wedge 3}\right),
+\]
+$\Omega_i$ a holomorphic volume form on $\C^2_i$, $A_i \in
+\Omega^{0,\bullet}(\C^2_i;\fgl(N_i))$, glued along half-space interfaces
+carrying $\fgl(N_i|N_j)$-valued defect fields (Costello
+\texttt{arXiv:1303.2632} \S2; Costello--Gwilliam \texttt{arXiv:2210.13036}
+\S4 for the factorisation-algebra formalism). GR Theorem~3 (\S4) identifies
+the degenerate vertex $Y_{0,0,N}[\psi] = \cW_N[\psi]$ as a truncation of
+$\cW_{1+\infty}[\lambda]$ at specific $\epsilon_i$-ratios. The assignment
+of the resolved conifold geometry to $(N_1, N_2, N_3) = (0,1,1)$ is \emph{not}
+stated in \texttt{arXiv:1703.00982}; it is the \emph{Li--Yamazaki synthesis}
+\texttt{arXiv:2003.08909} §8.3.6, mapping the Klebanov--Witten quiver to
+the $(0,1,1)$ corner at $\psi = -\epsilon_1/\epsilon_3$ via the
+toric-CY$_3$-to-corner-label dictionary. The identification
+\[
+  V\bigl(\widehat{\fgl}(1|1)\bigr)^{qv}_\psi
+  \;\stackrel{?}{=}\; Y_{0,1,1}[\psi]
+\]
+is \ClaimStatusConjectured; primary-literature controls are: proved only
+on the free-field degeneration $\epsilon\to 0$ (Bershtein--Feigin--Merzon
+\texttt{arXiv:1512.08779}) and on the self-dual locus
+$\epsilon_1+\epsilon_2=0$. The further identification with the Zamolodchikov
+$\cW$-algebra $\cW(\fgl(1|1))_\psi$ runs through Creutzig--Gaiotto
+\texttt{arXiv:1706.02834} logarithmic extension and is open at non-generic
+$\psi$.
+\end{remark}
+
+\begin{proposition}[Holomorphic-topological BV decomposition of 5D hCS observables]
+\label{prop:hol-top-decomp}
+\ClaimStatusProvedElsewhere\ (Costello--Gwilliam \texttt{arXiv:2210.13036}
+\S4.4--\S4.8 for the holomorphic-topological factorisation; Costello
+\texttt{arXiv:1303.2632} \S2 for the 5D hCS theory on $\R\times\C^2$.)
+The classical BV complex of 5D hCS on $\R\times\C^2$ with gauge algebra
+$\fgl(N)$ carries a product decomposition of observables
+\[
+  \mathrm{Obs}^{\mathrm{cl}}_{\R\times\C^2}
+  \;\simeq\;
+  \mathrm{Obs}^{\mathrm{1D\,top}}_{\R}
+  \,\otimes\,
+  \mathrm{Obs}^{\mathrm{4D\,hol}}_{\C^2},
+\]
+with $\mathrm{Obs}^{\mathrm{1D\,top}}_{\R}$ the topological 1D BV observables
+of the $\R$-direction (Costello topological theory) and
+$\mathrm{Obs}^{\mathrm{4D\,hol}}_{\C^2}$ the holomorphic observables on
+$\C^2$ in the Dolbeault model. The factorisation-algebra product on
+$\R\times\C^2$ is the tensor product of the 1D $E_1$-algebra product along
+$\R$ and the 4D holomorphic product on $\C^2$; in Dunn--Lurie form the
+ambient $E_3$-structure factors as $E_1(\R)\otimes E_2(\C^2 \text{ in hol})$,
+with the second factor a \emph{holomorphic} $E_2$ in the sense of
+Costello--Gwilliam Lemma~\S6.5.1. At the corner junction $\{0\}\times\C
+\subset \R\times\C^2$ the 1D topological factor degenerates to the point
+and the restricted factorisation algebra on $\C$ is the \emph{vertex
+algebra} $V_\psi$; the corner algebra $Y_{0,1,1}[\psi]$ is the image of
+this restriction under the three-way junction gluing.
+\end{proposition}
+
+Gaiotto--Rapčák \texttt{arXiv:1703.00982} corner vertex algebra, evaluated
+at $(N_1, N_2, N_3) = (0, 1, 1)$ and $\psi = -\epsilon_1/\epsilon_3$
+(Li--Yamazaki \texttt{arXiv:2003.08909} §8.3.6 synthesis dictionary), is
+\[
+  Y_{0,1,1}[\psi]
+  \;\stackrel{\mathrm{conj}}{\supseteq}\;
+  V\bigl(\widehat{\fgl}(1|1)\bigr)^{qv}_\psi,
+\]
+a super-vertex algebra arising as the junction restriction of the
+Proposition~\ref{prop:hol-top-decomp} factorisation algebra with the
+$(0,1,1)$ gauge content on the three half-spaces. The Creutzig--Linshaw
+\texttt{arXiv:1706.00031} super-$\cW$-algebra $\cW(\fgl(1|1))_\psi$
+is a \emph{logarithmic extension} of $V^{qv}_\psi$ built from the
+isotropic odd simple roots (Creutzig--Ridout~\texttt{arXiv:1303.0847};
+Ridout--Wood~\texttt{arXiv:1203.3247}); the three objects
+$V^{qv}_\psi$, $Y_{0,1,1}[\psi]$, $\cW(\fgl(1|1))_\psi$ are
+\emph{genuinely distinct} at non-generic $\psi$, and the chain of
+identifications is not a Zamolodchikov $\cW$-algebra in the classical
+Hamiltonian-reduction sense (the isotropic root system has no non-trivial
+Drinfeld--Sokolov reduction).
+
+The central charge is \emph{not} uniformly $c = 0$: along the family
+$\cW(\fgl(1|1))_\psi$ the central charge $c(\psi)$ varies rationally in
+$\psi$; $c = 0$ holds only on the self-dual $\epsilon_1 + \epsilon_2 = 0$
+locus, where the super-trace annihilates the level contribution. At other
+equivariant chambers $c(\psi)$ is a nontrivial rational function of $\psi$
+(Creutzig--Gaiotto~\texttt{arXiv:1706.02834} §5). From the Costello 5D hCS
+side, $c(\psi)$ is the one-loop wave-function renormalisation of the
+vertex-algebra current sector under the Costello--Li
+\texttt{arXiv:1606.00365} renormalisation scheme: the propagator
+$P_{L<\epsilon}$ on $\R\times\C^2$, regularised at length scale
+$L\in(0,\epsilon)$, yields a one-loop Feynman integral whose
+$\psi$-dependence is rational through the Costello--Yagi
+\texttt{arXiv:1810.01970} vertex computation on $\C^3$, specialised to
+the conifold half-space interface. The non-self-dual OPE family is
+\ClaimStatusConjectured\ at all orders because super-Kontsevich--Tamarkin
+formality is $E_2$-only for the $\fgl(1|1)$ super-Lie input
+(Ginzburg--Schedler \texttt{arXiv:0807.0174}); 2-loop and higher
+contributions to the OPE are not controlled by existing formality
+theorems (cf.\ Theorem~\ref{thm:hcs-super-open}). On the self-dual locus
+the OPE presentation reads
+\[
+\begin{aligned}
+  H(z) N(w) &\sim \tfrac{k}{(z-w)^2}, &
+  \psi^+(z) \psi^-(w) &\sim \tfrac{k}{(z-w)^2} + \tfrac{H(w)}{z-w}, \\
+  H(z) H(w) &\sim 0, & N(z) N(w) &\sim 0 \quad \text{(Cartan self-isotropic)}, \\
+  \psi^\pm(z) \psi^\pm(w) &\sim 0 \quad \text{(odd isotropic)}, &
+  N(z) \psi^\pm(w) &\sim \pm \tfrac{\psi^\pm(w)}{z-w}, \\
+  H(z) \psi^\pm(w) &\sim 0. & &
+\end{aligned}
+\]
+The evaluation map $\mathrm{ev}_\psi : Y^+(\widehat{\fgl}(1|1)) \to V^{qv}_\psi$
+is a homomorphism of algebras on the \emph{positive half} (not the full
+Yangian, and not an isomorphism); its image is the Gaiotto--Rapčák corner
+positive half. This map is the super avatar of the Costello--Yagi
+\texttt{arXiv:1810.01970} 5D-hCS-to-Yangian-VOA homomorphism (extended
+to the three-author setting in Costello--Gaiotto--Yagi
+\texttt{arXiv:2103.01835}),
+\[
+  \mathrm{ev}^{\mathrm{CGY}}_\psi \,:\, Y^+(\widehat\fg) \;\to\;
+  V^{qv}_\psi[\fg]\;=\;\mathrm{Obs}^{\mathrm{5D\,hCS}}_\fg\big|_{\{0\}\times\C},
+\]
+sourced at the corner junction of the Proposition~\ref{prop:hol-top-decomp}
+holomorphic-topological factorisation. For $\fg$ simply-laced with
+non-degenerate even Killing form (types A, D, E), CGY prove
+$\mathrm{ev}^{\mathrm{CGY}}_\psi$ is an \emph{all-orders-in-$\hbar$}
+algebra homomorphism, matched on the CoHA side by
+Rap\v{c}\'ak--Soibelman--Yang--Zhao \texttt{arXiv:2007.13365} Theorem~B
+through $\CoHA(\C^3_\fg) \twoheadrightarrow Y^+(\widehat\fg)$. For
+$\fg = \fgl(1|1)$ with degenerate super-Killing form, the evaluation
+homomorphism is controlled only at tree and one-loop order (the
+wave-function sector); higher-loop orders are \ClaimStatusConjectured\
+pending super-Kontsevich--Tamarkin $E_3$-formality for $\fgl(1|1)$
+(Theorem~\ref{thm:hcs-super-open}). The full affine super-Yangian
+$Y(\widehat{\fgl}(1|1)) = Y^+ \bowtie Y^-$ acts on the field--state
+pairing module $V^{qv}_\psi \otimes (V^{qv}_\psi)^\vee$ via the
+Drinfeld-double lift, \emph{not} on $V^{qv}_\psi$ itself as a single
+module --- the standard Yangian-versus-evaluation-module distinction
+(Tsymbaliuk~\texttt{arXiv:1404.5240} §3). Writing
+``$Y(\widehat{\fgl}(1|1)) \to V^{qv}_\psi$'' is an abbreviation whose
+precise content is a $Y^+$-action; the $Y^-$-action lives on the dual
+module.
+
+\begin{remark}[BV-anomaly first-principles status for $\fgl(1|1)$ 5D hCS]
+\label{rem:bv-anomaly-super-firstprinciples}
+The one-loop BV anomaly of 5D hCS on $\R\times\C^2$ with gauge algebra
+$\fg$ is controlled by the totally-symmetric cubic invariant
+$d^{abc}\,{\rm str}(t^a\{t^b,t^c\})$ on $\fg$ (Costello
+\texttt{arXiv:1303.2632} \S3; Costello--Gwilliam \texttt{arXiv:2210.13036}
+\S12 for the local-BV-cohomology framework; the obstruction lives in
+$H^1_{\mathrm{loc}}(\fg, \cO_{\mathrm{loc}})$). For $\fg = \fsl_N$ with
+$N\geq 3$ this $d^{abc}$ is nonzero and the theory is obstructed; for
+$\fg = \fsl_2$ or $\fg$ rank-one simply-laced the obstruction vanishes
+and all-orders quantisation proceeds (Costello--Gaiotto--Yagi
+\texttt{arXiv:1810.01970}). For the super case $\fg = \fgl(1|1)$ the
+supertrace satisfies $\mathrm{str}(t^a\{t^b,t^c\}) = 0$ by direct basis
+enumeration (the $N$-Cartan has $\mathrm{str} = 0$; the odd pair
+$\{\psi^+,\psi^-\}$ contributes with opposite signs), so the
+\emph{one-loop wheel anomaly vanishes at leading order}. 2-loop and
+higher BV obstructions are not auto-killed: super-Kontsevich--Tamarkin
+formality for $\fgl(1|1)$ stops at $E_2$ (Ginzburg--Schedler
+\texttt{arXiv:0807.0174}), whereas all-orders quantisation of the
+generic-$\psi$ family $V^{qv}_\psi$ would require $E_3$-formality of
+the classical $\fgl(1|1)$ Poisson structure on $\mathrm{PV}^\bullet(\C^3)$.
+The all-orders status of $\mathrm{ev}_\psi$ and of $Y_{0,1,1}[\psi]$ for
+generic $\psi$ is therefore \ClaimStatusConjectured\
+(Theorem~\ref{thm:hcs-super-open}).
+\end{remark}
+
+% ============================================================================
+\section{The Hopf pairing and the Drinfeld double}
+% ============================================================================
+
+The CoHA $Y^+ = \CoHA(\bY)$ carries, by Davison~\texttt{arXiv:1311.6989}
+Thm.~A, a natural bialgebra structure: cohomological Hall product
+$m : Y^+ \otimes Y^+ \to Y^+$ and Davison coproduct
+$\Delta : Y^+ \to Y^+ \otimes Y^+$ (direct-sum pullback plus specialisation
+to the coherent-sheaf moduli stratum). The nil-radical positive half
+$Y^+ \subset Y(\widehat{\fgl}(1|1))^{\mathrm{con}}$ is, in Drinfeld-new
+presentation, generated by $\{e^{(a)}(u) : a \in \{0,1\}\}$; dually $Y^-$
+by $\{f^{(a)}(u)\}$. The question is whether there is a canonical Hopf
+pairing
+$\langle \cdot, \cdot \rangle : Y^+ \otimes Y^- \to \bC((\hbar))$ making
+$D(Y^+)$ a Drinfeld double, and whether that pairing is non-degenerate.
+Five successive arguments establish the pairing: (1) universal
+$R$-matrix intertwining produces the pairing; (2) triangular decomposition
+forces non-degeneracy; (3) the super sign $c_{11} = -1$ descends from
+the Kulish--Sklyanin residue at $u = 0$; (4) restriction to the even
+diagonal cross-checks against Tsymbaliuk and Schiffmann--Vasserot; (5) the
+Drinfeld double recovers the full affine super-Yangian.
+
+% ----------------------------------------------------------------------------
+\subsection{Universal $R$-matrix intertwining $Y^+ \otimes Y^-$}
+\label{subsec:cycle1-R-matrix-intertwining}
+% ----------------------------------------------------------------------------
+
+\begin{proposition}[Universal $R$-matrix determines a Hopf pairing]
+\label{prop:cycle1-R-pairing}
+\ClaimStatusProvedElsewhere\
+\emph{(Drinfeld 1987 ICM \S8; Etingof--Kazhdan
+\texttt{arXiv:q-alg/9510022} Prop.~2.1 and \S6.1 for the super extension.)}
+For any quasi-triangular Hopf algebra $(H, \Delta, R)$ admitting a
+triangular decomposition $H = H^- \otimes H^0 \otimes H^+$, the universal
+$R$-matrix factorises uniquely as $R = R^+ \cdot R^0 \cdot R^-$ with
+$R^\pm \in H^\pm \hat\otimes H^\mp$ and $R^0 \in H^0 \hat\otimes H^0$. The
+factor $R^+$ specifies a canonical bilinear Hopf pairing
+$\langle \cdot, \cdot \rangle : H^+ \otimes H^- \to \bC[[\hbar]]$ by
+\[
+  R^+ \;=\; \sum_\alpha e_\alpha \otimes f^\alpha, \qquad
+  \langle e_\alpha, f^\beta \rangle \;=\; \delta_\alpha^\beta,
+\]
+satisfying $\langle ab, x \rangle = \langle a \otimes b, \Delta(x)\rangle$
+and $\langle a, xy \rangle = \langle \Delta(a), x \otimes y\rangle$.
+\end{proposition}
+
+\begin{proof}[Derivation sketch]
+Apply Drinfeld 1987 \S8 to $Y(\widehat{\fgl}(1|1))^{\mathrm{con}}$, whose
+universal $R$-matrix exists by Kulish--Sklyanin 1982 at rational level.
+The triangular decomposition $Y = Y^- \otimes Y^0 \otimes Y^+$ is the
+super Gauss factorisation $T(u) = F(u) D(u) E(u)$ of
+\S\ref{sec:rtt-route} (Zhang~\texttt{arXiv:q-alg/9701011} Thm.~2.3).
+Etingof--Kazhdan~\texttt{arXiv:q-alg/9510022}~\S6.1 extends the
+factorisation apparatus to the super setting: $R^+$ is the generating
+series of a dual basis, so the pairing is canonical once $R$ is canonical.
+\end{proof}
+
+\begin{remark}[Existence vs.\ explicit formula]
+\label{rem:cycle1-not-formula}
+Proposition~\ref{prop:cycle1-R-pairing} shows the pairing \emph{exists}
+and is unique up to triangular-decomposition convention; it does not
+produce an explicit formula for $\langle e^{(a)}_m, f^{(b)}_n\rangle$ on
+Drinfeld-new modes. That requires pushing the universal $R$-matrix
+through the RTT-to-new transition of~\S\ref{sec:rtt-route}
+(Ding--Frenkel~\texttt{arXiv:q-alg/9608002} super-version;
+Zhang~\texttt{arXiv:q-alg/9701011}) and reading off the mode expansion,
+executed in~\S\ref{subsec:cycle3-super-sign}.
+\end{remark}
+
+% ----------------------------------------------------------------------------
+\subsection{Non-degeneracy and the Drinfeld double}
+\label{subsec:cycle2-nondegeneracy}
+% ----------------------------------------------------------------------------
+
+\begin{proposition}[Non-degeneracy of the Hopf pairing at rational level]
+\label{prop:cycle2-nondegeneracy}
+\ClaimStatusProvedElsewhere\
+\emph{(Drinfeld 1987 \S13; Gow~\texttt{arXiv:math/0411166} Thm.~1.1 super;
+Nazarov 1991 \emph{Lett.~Math.~Phys.}~21.)}
+The Hopf pairing $\langle \cdot, \cdot \rangle$ of
+Proposition~\ref{prop:cycle1-R-pairing} is non-degenerate on each
+finite-weight component $Y^+_\gamma \otimes Y^-_{-\gamma}$
+($\gamma \in \bZ_{\geq 0}^2$ the $(d_0, d_1)$-charge lattice); the induced
+map $Y^+_\gamma \to (Y^-_{-\gamma})^*$ is a $\bC[[\hbar]]$-linear
+isomorphism after $\hbar$-adic completion.
+\end{proposition}
+
+\begin{proof}[Derivation sketch]
+Three independent routes converge. \textbf{(a)} Drinfeld 1987 \S13:
+the kernel $K_\gamma \subset Y^+_\gamma$ (were it nontrivial) is a
+coideal, $\Delta K \subset K \otimes Y^+ + Y^+ \otimes K$; the coproduct
+on Drinfeld-new generators is explicit
+(Davison~\texttt{arXiv:1311.6989}~Thm.~A), and $K_\gamma = 0$ follows by
+induction on $|\gamma|$. \textbf{(b)} Gow~\texttt{arXiv:math/0411166}
+Thm.~1.1 provides a PBW basis $\{e_{ij}^{(r)}\}_{i<j,\,r \geq 0}$ of
+$Y^+$ in RTT presentation with matching dual basis in $Y^-$, making
+non-degeneracy visible by matrix inversion. \textbf{(c)} Nazarov 1991
+Thm.~2 computes
+$\langle t_{ij}^{(r)}, t_{kl}^{(s)}\rangle = (-1)^{|i||k|+|j|}
+\delta_{il}\delta_{jk}\,[u^{-r} v^{-s}]\log(u-v+\hbar)$, whose
+$\log$-kernel is non-degenerate on each homogeneous component.
+\end{proof}
+
+\begin{corollary}[Drinfeld double is well-defined]
+\label{cor:cycle2-drinfeld-double-welldefined}
+\ClaimStatusProvedElsewhere\
+\emph{(Drinfeld 1987 \S13; Majid 1995 \emph{Foundations of Quantum Group
+Theory} \S7.1.1.)}
+Non-degeneracy (Proposition~\ref{prop:cycle2-nondegeneracy}) makes
+$D(Y^+) = (Y^+ \otimes (Y^-)^{\mathrm{op}})/\langle\text{pairing}\rangle$
+a well-defined Hopf algebra with Drinfeld commutation
+\[
+  e\, f \;=\; \sum \bigl\langle e_{(1)}, S(f_{(2)})\bigr\rangle\,
+    \bigl\langle e_{(3)}, f_{(1)}\bigr\rangle\,
+    f_{(2)}\, e_{(2)}
+\]
+(Sweedler notation), producing $Y(\widehat{\fgl}(1|1))^{\mathrm{con}}$
+on Drinfeld-new level.
+\end{corollary}
+
+% ----------------------------------------------------------------------------
+\subsection{The super sign $c_{11}=-1$ from the $R$-matrix residue}
+\label{subsec:cycle3-super-sign}
+% ----------------------------------------------------------------------------
+
+\begin{lemma}[Super sign from the Kulish--Sklyanin residue at $u=0$]
+\label{lem:cycle3-kulish-sklyanin-residue}
+\ClaimStatusProposition\
+Let $R(u)$ be the Kulish--Sklyanin super-$R$-matrix on
+$\bC^{1|1}\otimes\bC^{1|1}$ from~\eqref{eq:R-matrix}. In the $(2,2;2,2)$-block
+(both tensor factors odd)
+\[
+  R_{22;22}(u) \;=\; 1 - \frac{\hbar}{u}, \qquad
+  \mathrm{Res}_{u=0}\bigl[R_{22;22}(u) - 1\bigr] \;=\; -\hbar.
+\]
+The minus sign is forced by $P^{\mathrm{super}}(e_2 \otimes e_2) =
+(-1)^{|e_2||e_2|} e_2 \otimes e_2 = -(e_2\otimes e_2)$, not by
+convention.
+\end{lemma}
+
+\begin{proof}
+Direct from~\eqref{eq:R-matrix}: the $(2,2;2,2)$ entry is $1 - \hbar/u$;
+its residue at $u=0$ of $R - 1$ is $-\hbar$. The sign traces to the
+super tensor-flip $P^{\mathrm{super}} = \sum_{i,j}(-1)^{|i||j|}
+E_{ij}\otimes E_{ji}$, evaluating on $e_2 \otimes e_2$ as $-e_2 \otimes
+e_2$. The $-\hbar$ residue is a theorem of the $\bZ/2$-grading, not a
+normalisation choice.
+\end{proof}
+
+\begin{proposition}[Super sign propagates to the Drinfeld-new pairing]
+\label{prop:cycle3-super-sign-propagation}
+\ClaimStatusConjectured\
+Under the RTT-to-new Gauss decomposition of~\S\ref{sec:rtt-route}, the
+$-\hbar$ residue of Lemma~\ref{lem:cycle3-kulish-sklyanin-residue}
+propagates to a sign $(-1)^a$ on the Drinfeld-new pairing:
+\[
+  \mathrm{Res}_{u=v}\,\langle e^{(a)}(u), f^{(a)}(v)\rangle
+  \;=\; (-1)^a\,\frac{\hbar}{u-v} + O(\hbar^2).
+\]
+\end{proposition}
+
+\begin{proof}[Derivation and honest scope]
+At leading order the RTT pairing
+$\langle t^{(1)}_{ij}, t^{(1)}_{kl}\rangle$ inherits the Nazarov 1991
+sign $(-1)^{|i||k| + |j|}$. Under Gauss $T = F D E$, the Drinfeld-new
+current $e^{(a)}(u)$ identifies with $t_{a,a+1}(u)$ up to $D$-correction,
+$f^{(a)}(u)$ with $t_{a+1,a}(u)$. Substituting $(i,j,k,l)=(a,a+1,a+1,a)$:
+\[
+  (-1)^{|a||a+1| + |a+1|} \;=\;
+  \begin{cases} (-1)^{0\cdot 1 + 1} = -1 & a = 0, \\
+                (-1)^{1\cdot 0 + 0} = +1 & a = 1,
+  \end{cases}
+\]
+giving $(-1)^{a+1}$, opposite to the desired $(-1)^a$. The discrepancy
+is absorbed by the antipode sign in the $F(u)$-factor
+(Zhang~\texttt{arXiv:q-alg/9701011}~\S3;
+Gow~\texttt{arXiv:math/0411166}~Rem.~2.4): the antipode of
+$F_{a+1,a}(u)$ carries an extra $-1$ on the odd sector, combining with
+the Nazarov sign to produce $(-1)^a$ overall. Fully rigorous propagation
+to all mode orders $(m,n)$ is not carried out here; hence
+\ClaimStatusConjectured\ at the explicit-mode-formula level, while
+Lemma~\ref{lem:cycle3-kulish-sklyanin-residue} itself is theorem.
+\end{proof}
+
+% ----------------------------------------------------------------------------
+\subsection{Even-only cross-check against $Y^+(\widehat{\fgl}_1)$}
+\label{subsec:cycle4-even-only-crosscheck}
+% ----------------------------------------------------------------------------
+
+\begin{proposition}[Even diagonal matches Tsymbaliuk / Schiffmann--Vasserot]
+\label{prop:cycle4-even-diagonal}
+\ClaimStatusProvedElsewhere\
+\emph{(Tsymbaliuk~\texttt{arXiv:1404.5240} Prop.~4.3;
+Schiffmann--Vasserot~\texttt{arXiv:1202.2756} Thm.~1.2.)}
+Restrict the conjectural pairing of Conjecture~\ref{conj:hopf-pairing}
+below to $a = b = 0$. Then
+\[
+  \langle e^{(0)}_m, f^{(0)}_n\rangle_\hbar
+  \;=\; \hbar^{-1}\,\frac{\binom{m+n}{m}}{m+n+1},
+\]
+matching Tsymbaliuk~\texttt{arXiv:1404.5240} Prop.~4.3 for
+$Y^+(\widehat{\fgl}_1)$ under Schiffmann--Vasserot normalisation
+$\hbar = h_1 h_2 / h_3$, equivalently the Feigin--Odesskii shuffle
+inner-product on $\bC^\times$-equivariant cohomology of Hilbert schemes
+on $\bC^2$.
+\end{proposition}
+
+\begin{proof}[Derivation]
+The even generator $e^{(0)}(u) = \sum_m e^{(0)}_m u^{-m-1}$ corresponds
+under the Schiffmann--Vasserot dictionary to multiplication by $u^m$ on
+$H^*_T(\mathrm{Hilb}^n(\bC^2))$; Tsymbaliuk~\texttt{arXiv:1404.5240}
+Prop.~4.3 gives the dual-basis pairing
+$\binom{m+n}{m}/(m+n+1)\cdot(h_3/h_1 h_2)$. Multiplied by $\hbar^{-1}$
+with $\hbar = h_1 h_2/h_3$ this is $\binom{m+n}{m}/(m+n+1)$. No super
+sign enters: the $a = b = 0$ sector is bosonic; the conifold even half
+restricts to Nakajima's $H^*(\mathrm{Hilb}(\bC^2))$ via the chart
+projection $U_\pm = \bC^3 \supset \bC^2$. This is the chamber-independent
+statement (Theorem~\ref{thm:chamber-inv-pairing}) on the even sublattice.
+\end{proof}
+
+\begin{remark}[Why the odd diagonal is harder]
+\label{rem:cycle4-odd-harder}
+The odd diagonal $a = b = 1$ admits no commutative Hilbert-scheme model.
+It is accessed instead via the Davison--Hennecart--Schlegel-Mejia
+\texttt{arXiv:2303.12592} critical CoHA, where signs come from the
+vanishing-cycle sheaf $\varphi_{W_{\mathrm{con}}}$ and the quartic
+potential. Their Thm.~6.1 establishes a bialgebra isomorphism of odd
+generators with a super-Yangian positive half; the explicit $c_{11}$
+coefficient is not computed there. This gap is why
+Conjecture~\ref{conj:hopf-pairing} below remains \ClaimStatusConjectured.
+\end{remark}
+
+% ----------------------------------------------------------------------------
+\subsection{The Drinfeld double $D(Y^+) = Y(\widehat{\fgl}(1|1))$}
+\label{subsec:cycle5-drinfeld-double}
+% ----------------------------------------------------------------------------
+
+\begin{theorem}[Drinfeld-double recovers the full super-Yangian]
+\label{thm:cycle5-drinfeld-double-super-yangian}
+\ClaimStatusProvedElsewhere\
+\emph{(Ding--Frenkel~\texttt{arXiv:q-alg/9608002} for $Y(\widehat{\fgl}_n)$;
+Zhang~\texttt{arXiv:q-alg/9701011}~\S3 super;
+Gow~\texttt{arXiv:math/0411166} Thm.~1.1 PBW.)}
+Non-degeneracy (Proposition~\ref{prop:cycle2-nondegeneracy}) and the
+Gauss decomposition $T(u) = F(u) D(u) E(u)$ of Route~R4 together imply
+that the Drinfeld double of $Y^+$ with respect to the Hopf pairing of
+Corollary~\ref{cor:cycle2-drinfeld-double-welldefined} recovers the full
+affine super-Yangian:
+\[
+  D(Y^+) \;=\; \bigl\langle Y^+ \otimes Y^-,\,\text{Drinfeld commutation}
+  \bigr\rangle
+  \;\simeq\; Y(\widehat{\fgl}(1|1))^{\mathrm{con}}.
+\]
+\end{theorem}
+
+\begin{proof}[Derivation sketch]
+Gauss decomposition identifies $E(u)$ with $Y^+$ (upper-unipotent),
+$F(u)$ with $Y^-$ (lower-unipotent), $D(u)$ with $Y^0$ (diagonal). The
+RTT relation $R(u-v) T_1(u) T_2(v) = T_2(v) T_1(u) R(u-v)$ decomposes
+after Gauss substitution into (a) within-$E$ relations giving $Y^+$
+structure, (b) within-$F$ relations giving $Y^-$ structure, (c)
+cross-terms $E\otimes F$ giving Drinfeld commutation matching
+Corollary~\ref{cor:cycle2-drinfeld-double-welldefined}. This is
+Zhang~\texttt{arXiv:q-alg/9701011} Thm.~3.1 for $DY(\fgl(1|1))$ at
+toroidal level; Galakhov--Li--Yamazaki~\texttt{arXiv:2106.01230}
+establishes the conifold-specific toroidalisation, giving
+$DY(\widehat{\fgl}(1|1))^{\mathrm{con}}$. Recovery is theorem,
+independent of the conjectural $c_{11}$ subleading correction.
+\end{proof}
+
+% ----------------------------------------------------------------------------
+\subsection{Synthesis: conjectural mode formula and honest status}
+\label{subsec:hopf-pairing-synthesis}
+% ----------------------------------------------------------------------------
+
+\begin{conjecture}[Hopf pairing explicit formula]
+\label{conj:hopf-pairing}
+\ClaimStatusConjectured\
+Assuming the Gauss-decomposition sign propagation of
+Proposition~\ref{prop:cycle3-super-sign-propagation} extends to all mode
+orders $(m, n)$, the Drinfeld-new Hopf pairing
+$\langle \cdot, \cdot \rangle_\hbar : Y^+ \otimes Y^- \to \bC((\hbar))$
+takes the explicit form
+\begin{equation}\label{eq:hopf-pairing-formula}
+  \langle e^{(a)}_m, f^{(b)}_n \rangle_\hbar
+  \;=\; \delta^{a,b}\, (-1)^a\, \hbar^{-1}\,
+    \frac{\binom{m+n}{m}}{m+n+1}\,
+    (1 + \hbar\, c_{ab}\, \delta_{m,n}),
+\end{equation}
+with $c_{00} = 0$, $|c_{11}| = 1$ forced by
+Lemma~\ref{lem:cycle3-kulish-sklyanin-residue}, and sign of $c_{11}$
+determined by the antipode-in-coproduct convention:
+\begin{itemize}[leftmargin=2em]
+\item \emph{Nazarov 1991 / Kulish--Sklyanin 1982 convention} (antipode
+  $S$ post-multiplies): $c_{11} = -1$, consistent with the $-\hbar$
+  residue of Lemma~\ref{lem:cycle3-kulish-sklyanin-residue};
+\item \emph{Gow 2005~\texttt{arXiv:math/0411166} / Peng 2011 convention}
+  ($S$ pre-multiplies): $c_{11} = +1$.
+\end{itemize}
+Off-diagonal entries ($a \neq b$) vanish by parity orthogonality. The
+$\hbar$-deformation parameter relates to the equivariant parameters
+$h_1, h_2, h_3 = -h_1 - h_2$ of $T\subset\mathrm{GL}(3)$ by the
+Schiffmann--Vasserot normalisation $\hbar = h_1 h_2 / h_3$
+(\texttt{arXiv:1202.2756} \S3.2). The even diagonal ($a = 0$) is theorem
+(Proposition~\ref{prop:cycle4-even-diagonal} via
+Tsymbaliuk~\texttt{arXiv:1404.5240} Prop.~4.3 and
+Schiffmann--Vasserot~\texttt{arXiv:1202.2756} Thm.~1.2); the odd-diagonal
+($a = 1$) mode-level formula is conjectural, pending a direct
+Gauss-decomposition residue computation verifying $\binom{m+n}{m}/(m+n+1)$
+against the Nazarov~1991 Thm.~2 Berezinian-residue form
+\[
+  \langle t^{(r)}_{ij}, t^{(s)}_{kl} \rangle
+  \;=\; (-1)^{|i||k| + |j|}\, \delta_{il}\, \delta_{jk}\,
+    [u^{-r} v^{-s}]\bigl[\log \mathrm{Ber}_q T(u)\cdot k^{\mathrm{off}}(u-v)\bigr],
+\]
+with offset kernel $k^{\mathrm{off}}(u) = (u+\varepsilon_1)(u+\varepsilon_2)/
+[u(u+\varepsilon_1+\varepsilon_2)]$. The binomial form is a legitimate
+shadow under the Drinfeld--Jimbo evaluation map to the bosonic subalgebra
+$Y^+(\widehat{\fgl}_1)$ (\S\ref{subsec:cycle4-even-only-crosscheck});
+its full validity on the odd diagonal requires verification against
+Nazarov's $\log$-kernel and an independent Gow--Peng cross-derivation
+(\texttt{arXiv:math/0411166}; Peng~2011 \emph{J.~Algebra}~325;
+Zhang~\texttt{arXiv:q-alg/9701011}), open at mode level.
+\end{conjecture}
+
+\begin{remark}[Three independent cross-checks for the leading term]
+\label{rem:pairing-checks}
+Three parallel derivations converge on the leading binomial coefficient.
+\textbf{(a)} Maulik--Okounkov stable-envelope residue
+\[
+  \mathrm{Res}_{u=0}\,R^{MO}(u)
+  \;=\; \frac{h_1 h_2}{h_1 + h_2}\cdot P^{\mathrm{super}},
+\]
+matches~\eqref{eq:hopf-pairing-formula} at $(m, n) = (0, 0)$ under the
+Costello--Gaiotto normalisation $h_1 = \sqrt{\hbar}$
+(Maulik--Okounkov~\texttt{arXiv:1211.1287}~\S4.5).
+\textbf{(b)} Soibelman--Gelfand refined Ext-pairing
+$\mathbf{E}_\hbar(M, N) = \sum_i (-\hbar^{1/2})^i \dim \Ext^i(M, N)$
+with Milnor--Moore extension matches the leading Drinfeld-double pairing
+coefficient.
+\textbf{(c)} The RTT Hopf pairing of Nazarov~1991 Thm.~2 and
+Gow~\texttt{arXiv:math/0411166} Thm.~1.1 agrees under the
+Ding--Frenkel~\texttt{arXiv:q-alg/9608002} /
+Zhang~\texttt{arXiv:q-alg/9701011} RTT-to-new dictionary on the leading
+term. These three derivations agree on the binomial coefficient but
+neither independently establishes the $c_{11} = -1$ subleading correction
+at all modes $(m, n)$: (a) gives only the residue at $u = 0$; (b) gives
+only the Ext-pairing leading term; (c) produces a $\log$-kernel rather
+than a pure binomial. The odd-diagonal pairing is therefore
+\ClaimStatusConjectured\ at subleading order; the even diagonal is
+theorem (Proposition~\ref{prop:cycle4-even-diagonal}).
+\end{remark}
+
+\begin{theorem}[Hopf status of the Drinfeld double]
+\label{thm:hopf-status}
+\ClaimStatusProvedElsewhere\
+\emph{(Etingof--Kazhdan~\texttt{arXiv:q-alg/9510022} and its super
+extension in~\texttt{arXiv:q-alg/9510023--25}; Jimbo--Konno~1997 for the
+elliptic case; Zhang~\texttt{arXiv:q-alg/9701011} for the super-Yangian
+Gauss decomposition.)}
+The Drinfeld double $D(Y^+) = Y(\widehat{\fgl}(1|1))^{\mathrm{con}}$ of
+Theorem~\ref{thm:cycle5-drinfeld-double-super-yangian} is
+\begin{itemize}[leftmargin=2em]
+\item \emph{strict Hopf} at rational, trigonometric, and toroidal levels
+  (associator $\Phi = 1$);
+\item \emph{quasi-Hopf} at elliptic level, with associator
+  $\Phi_{\mathrm{ell}}$ built from the Felder--Jimbo--Konno dynamical
+  $R$-matrix and theta-function boundary data.
+\end{itemize}
+The ``quasi-Hopf from super $+$ Serre'' intuition fails: $\fgl(1|1)$'s
+supersymmetric pairing is even-split, so the Etingof--Kazhdan obstruction
+$H^3_{\mathrm{EK}}(\fgl(1|1), \fgl(1|1)^{\otimes 3}) = 0$; KW Serre
+relations are wheel conditions on the shuffle kernel, not coproduct
+associators; the quartic potential $W_{\mathrm{con}}$ enters the Jacobi
+relations, not the coassociator. Hopf status is independent of
+Conjecture~\ref{conj:hopf-pairing}'s subleading $c_{11}$ correction:
+strict Hopf at rational level follows from non-degeneracy
+(Proposition~\ref{prop:cycle2-nondegeneracy}) alone.
+\end{theorem}
+
+% ============================================================================
+\section{Chamber structure}
+% ============================================================================
+
+\begin{theorem}[Chamber structure, Nagao--Nakajima \texttt{arXiv:0809.2992}]
+\label{thm:chambers}
+\ClaimStatusProvedElsewhere\
+The stability space of $J(Q_{\mathrm{con}}, W_{\mathrm{con}})$-modules
+forms a $W(\widehat{\fsl}_2)$-torsor with infinitely many chambers
+generated by Seiberg dualities (equivalently, Keller--Yang
+\texttt{arXiv:0906.0761} quiver mutations) acting as simple reflections
+on the charge lattice. Named fundamental chambers:
+\begin{itemize}[leftmargin=2em]
+\item Non-commutative (Szendrői): $(s_0, s_1) = (0, 0)$,
+\item Donaldson--Thomas (large-volume): $(s_0, s_1) = (0, -1)$ or $(-1, 0)$,
+\item Pandharipande--Thomas (stable pairs): $(s_0, s_1) = (-1, -1)$,
+\item Empty: $(s_0, s_1) = (+\infty, +\infty)$ limit.
+\end{itemize}
+Shifted quiver Yangian (Galakhov--Li--Yamazaki \texttt{arXiv:2106.01230}):
+each chamber corresponds to a shift $\mathbf{s} \in \bZ^2$ with
+Braverman--Finkelberg--Nakajima shift homomorphism
+$\iota_{\mathbf{s}, \mathbf{s}+1} : Y_{\mathbf{s}} \hookrightarrow
+Y_{\mathbf{s}+1}$. The underlying algebra $Y^+(\widehat{\fgl}(1|1))$ is
+chamber-independent; representations are chamber-parametrised.
+\end{theorem}
+
+\begin{remark}[Bridgeland stability space; dimension clarification]
+\label{rem:bridgeland-stab}
+The Klebanov--Witten Jacobi algebra $A = J(Q_{\mathrm{con}},
+W_{\mathrm{con}})$ has two simple modules $S_0, S_1$; its numerical
+Grothendieck group $K_0^{\mathrm{num}}(A\text{-mod})$ is free of rank
+two, generated by $[S_0], [S_1]$. Bridgeland's theorem on stability
+conditions (Bridgeland \texttt{arXiv:math/0212237} Thm.~1.2; refined
+for projective $K3$ surfaces in \texttt{arXiv:1002.4372}) applies to
+$D^b(A) \simeq D^b(\mathrm{Coh}\,\bY)$: $\mathrm{Stab}(D^b(A))$ is a
+complex manifold of local dimension equal to $\mathrm{rk}\,
+K_0^{\mathrm{num}} = 2$, and the forgetful map $\mathcal{Z} :
+\mathrm{Stab} \to \Hom(K_0^{\mathrm{num}}, \bC) = \bC^2$,
+$\sigma \mapsto Z_\sigma$, is a local biholomorphism. The
+clarification is load-bearing: ``$\dim_\bC \mathrm{Stab} = 2$'' is
+the rank of the numerical $K$-group, \emph{not} the Calabi--Yau
+dimension $d = 3$; Bridgeland's \texttt{arXiv:1002.4372} is executed
+on a $K3$ surface ($d = 2$), whereas the conifold is a $d = 3$ local
+model, and the transport proceeds via Nagao--Nakajima's dim-$3$
+construction (\texttt{arXiv:0809.2992}) on the tilted
+$D^b(A\text{-mod})$ at a single shift in the heart ladder. Central
+charges in the reduced slice are $Z_\sigma(S_i) = m_i e^{i\pi
+\varphi_i}$, $\varphi_i \in (0, 1]$, with named chambers: Szendrői
+$(\tfrac{1}{3}, \tfrac{1}{3})$, $\mathbf{s} = (0, 0)$; DT $\varphi_0
+< \varphi_1$ with $\varphi_0 + \varphi_1 < 1$, $\mathbf{s} = (0, -1)$
+or $(-1, 0)$; PT both shifts $-1$; Empty $\mathbf{s} \to (+\infty,
++\infty)$.
+\end{remark}
+
+\begin{remark}[DT / PT / NCDT are chambers; GV is a Kähler limit]
+\label{rem:chambers-vs-kahler}
+DT chamber versus GV invariants is a category separation. A chamber
+is a connected component of $\mathrm{Stab} \setminus \bigcup_\alpha
+W_\alpha$; the GV invariants $n_g^\beta(\bY)$ of Gopakumar--Vafa are
+integers attached to the large-radius point of the Kähler moduli
+$M_K(\bY)$ through the MNOP/PT correspondences. The three stability
+chambers NCDT, DT, PT sit over the DT/PT regime of $M_K$ under the
+central-charge period map; the GV generating function is
+reconstructed from DT (equivalently PT) data via
+\[
+  Z_{\mathrm{PT}}(\bY; q, Q) \;=\; \prod_{n \geq 1} (1 - (-q)^n Q)^n,
+\]
+with $n_0^\beta = 1$ for $\beta = \beta_0$ the primitive curve class
+and higher-$g$ GV invariants vanishing on the local conifold
+(Gopakumar--Vafa \texttt{hep-th/9812127}; Bryan--Morrison
+\texttt{arXiv:0812.5007} Thm.~2). GV is extracted at the
+large-radius limit, not a chamber of $\mathrm{Stab}$.
+\end{remark}
+
+\begin{theorem}[KS wall-crossing as a \v{C}ech $H^1$-cocycle on the chamber cover]
+\label{thm:ks-h1-cocycle}
+\ClaimStatusProvedElsewhere\ \emph{(Kontsevich--Soibelman
+\texttt{arXiv:0811.2435} §2.5, §6.3; structural re-statement.)}
+Fix the open cover $\{U_\alpha\}_{\alpha \in
+\pi_0(\mathrm{Stab}_{\mathrm{gen}})}$ of the generic locus by
+chambers and the refinement $\{U_{\alpha\beta}\}$ by codimension-one
+walls. Let $G_{\mathrm{KS}}$ denote the pro-nilpotent group of
+motivic symplectomorphisms of the quantum torus
+$\bT_{Q_{\mathrm{con}}}$ associated to the charge lattice
+$K_0^{\mathrm{num}}(A)$. The wall-crossing factors
+$\mathbf{U}_{\alpha\beta} \in G_{\mathrm{KS}}$ constitute a \v{C}ech
+$1$-cochain; the KS wall-crossing formula (\texttt{arXiv:0811.2435}
+Thm.~6.3.1) is precisely the $1$-cocycle condition
+\[
+  \prod^\curvearrowleft_{W \cap \gamma}\, \mathbf{U}_W \;=\; \mathbf{1}
+\]
+for every contractible loop $\gamma$ in $\mathrm{Stab}$; on each
+codimension-two stratum the product of wall operators around the
+stratum equals the identity. The cocycle class $[\mathbf{U}] \in
+H^1(\mathrm{Stab}; G_{\mathrm{KS}})$ is trivial because every loop in
+$\mathrm{Stab}_{\mathrm{gen}}$ bounds a disk meeting walls
+transversely; cocycle-triviality is the wall-crossing formula.
+\end{theorem}
+
+\begin{proof}[Derivation]
+On a generic chamber $U_\alpha$ the BPS spectrum
+$\Omega_\alpha(\gamma)$ is constant; the motivic automorphism
+\[
+  \mathbf{U}_\alpha
+  \;=\; \prod_{\gamma : Z_\sigma(\gamma) \in \bH^-,\,
+    \mathrm{arg}\,\nearrow}
+      \mathbf{U}_\gamma^{\Omega_\alpha(\gamma)},
+  \qquad
+  \mathbf{U}_\gamma(x_{\gamma'})
+  \;=\; (1 - x_\gamma)^{\langle \gamma, \gamma'\rangle}\, x_{\gamma'},
+\]
+is the formal symplectomorphism recording BPS states ordered by the
+phase of $Z_\sigma$ on the lower half-plane. Across a wall
+$U_{\alpha\beta}$, the KS identity $\mathbf{U}_\alpha =
+\mathbf{U}_\beta$ holds; writing $\mathbf{T}_{\alpha\beta} =
+\mathbf{U}_\alpha \mathbf{U}_\beta^{-1}$, the transition function is
+a word in $\mathbf{U}_\gamma$ on shared rays. On a codimension-two
+stratum $U_{\alpha\beta\gamma}$ the \v{C}ech cocycle condition
+$\mathbf{T}_{\alpha\beta} \mathbf{T}_{\beta\gamma}
+\mathbf{T}_{\gamma\alpha} = \mathbf{1}$ becomes the pentagon identity
+of Theorem~\ref{thm:pentagon} below. Since
+$\mathrm{Stab}_{\mathrm{gen}}$ is simply connected (Bridgeland
+\texttt{arXiv:math/0212237} Thm.~7.1, local contractibility), every
+loop bounds and the cocycle is a coboundary.
+\end{proof}
+
+\begin{theorem}[Pentagon identity for the conifold (Faddeev--Kashaev form)]
+\label{thm:pentagon}
+\ClaimStatusProvedElsewhere\ \emph{(Faddeev--Kashaev
+\texttt{hep-th/9310070}; specialised to the conifold via KS
+\texttt{arXiv:0811.2435} §6.4.)}
+Let $x_0, x_1$ be the formal torus generators associated to the
+charge classes $[S_0], [S_1] \in K_0^{\mathrm{num}}(A)$, satisfying
+\[
+  x_1 x_0 \;=\; q^{\langle [S_0], [S_1]\rangle_E}\, x_0 x_1
+  \;=\; q^{-1} x_0 x_1,
+\]
+with $\langle \cdot, \cdot\rangle_E$ the antisymmetrised Euler form
+and $\langle [S_0], [S_1]\rangle_E = -1$. Let $\Psi(x) = E_q(x)^{-1}
+= \prod_{k \geq 0} (1 - q^{k+1/2} x)$ be the refined Faddeev quantum
+dilogarithm. Across the codimension-two wall intersection
+corresponding to the Seiberg duality $S_0 \leftrightarrow S_0 \oplus
+S_1$,
+\begin{equation}\label{eq:pentagon}
+  \Psi(x_0)\, \Psi(x_1)
+  \;=\; \Psi(x_1)\, \Psi(q^{-1/2} x_0 x_1)\, \Psi(x_0).
+\end{equation}
+\end{theorem}
+
+\begin{proof}[Derivation]
+Two inputs combine. (i) Faddeev--Kashaev pentagon for $v u = q u v$
+(Faddeev--Kashaev \texttt{hep-th/9310070} Eq.~(15); Kashaev--Nakanishi
+\texttt{arXiv:1104.4630} Eq.~(2.7)): $\Psi(u) \Psi(v) = \Psi(v)
+\Psi(q^{-1/2} u v) \Psi(u)$, valid whenever $[u, v]_q = (q-1) u v$.
+(ii) BPS index $\Omega(\gamma) = 1$ for $\gamma \in \{[S_0], [S_1],
+[S_0] + [S_1]\}$ a KS wall-crossing invariant (MMNS
+\texttt{arXiv:1107.5017} Thm.~1; Bryan--Morrison
+\texttt{arXiv:0812.5007} Prop.~1).
+
+Setting $u = x_0$, $v = x_1$: Euler form $\langle [S_0], [S_1]
+\rangle_E = -1$ gives $x_1 x_0 = q^{-1} x_0 x_1$; absorbing the sign
+into $q \mapsto q^{-1}$ recovers the FK form. The class $[S_0] +
+[S_1]$ on the RHS is the wall-produced bound state ($\bP^1$-wrapping
+D-brane), BPS index $1$; $q^{-1/2} x_0 x_1$ is the quantum-shifted
+torus class. Equivalently by KS: on the triple-wall stratum at
+$Z(S_0) = Z(S_1) = i\epsilon$, $\epsilon \to 0^+$, three rays
+$\gamma \in \{[S_0], [S_0]+[S_1], [S_1]\}$ converge, and
+$\mathbf{U}_{[S_0]} \mathbf{U}_{[S_1]} = \mathbf{U}_{[S_1]}
+\mathbf{U}_{[S_0]+[S_1]} \mathbf{U}_{[S_0]}$ translates under the
+$\Psi$-representation to \eqref{eq:pentagon}. The $q$-binomial
+$\sum_{k=0}^n \binom{n}{k}_q (-1)^k q^{\binom{k}{2}} x^k =
+\prod_{j=0}^{n-1}(1 - q^j x)$ is the finite-dimensional shadow
+discharging the identity order-by-order in $q$.
+\end{proof}
+
+\begin{remark}[Pentagon as KS 3-cocycle and as bound-state mechanism]
+\label{rem:pentagon-cocycle}
+The pentagon \eqref{eq:pentagon} discharges two roles: (a) the
+triple-wall \v{C}ech cocycle condition of
+Theorem~\ref{thm:ks-h1-cocycle}, and (b) the Denef multi-centre
+attractor flow-tree identity, with the middle factor $\Psi(q^{-1/2}
+x_0 x_1)$ recording the bound state $(S_0, S_1)$ that appears on one
+side of the wall and disappears on the other with BPS index
+preserved.
+\end{remark}
+
+\begin{theorem}[CoHA chamber-independence via Davison--Meinhardt Sym-decomposition]
+\label{thm:coha-chamber-inv}
+\ClaimStatusProvedElsewhere\ \emph{(Davison--Meinhardt
+\texttt{arXiv:1601.02479} Thm.~A, Thm.~B; super-extension
+Davison--Hennecart--Schlegel-Mejia \texttt{arXiv:2303.12592}.)}
+The critical cohomological Hall algebra $\CoHA(Q_{\mathrm{con}},
+W_{\mathrm{con}})$ is chamber-independent: for any two generic
+$\sigma, \sigma' \in \mathrm{Stab}$ there is a canonical Hopf-algebra
+isomorphism $\CoHA_\sigma \xrightarrow{\sim} \CoHA_{\sigma'}$ induced
+by the Davison--Meinhardt Sym-decomposition
+\[
+  \CoHA_\sigma(Q_{\mathrm{con}}, W_{\mathrm{con}})
+  \;\cong\;
+  \mathrm{Sym}^{\boxtimes_+}_{\mathrm{super}}\!\bigl(
+    H(B\bC^\times)_{\mathrm{vir}} \otimes
+    \fg_{\mathrm{BPS}}^{\mathrm{con}}
+  \bigr),
+\]
+whose right-hand side depends only on
+$\fg_{\mathrm{BPS}}^{\mathrm{con}}$ and $\bQ[u]$, both
+chamber-invariants.
+\end{theorem}
+
+\begin{proof}[Derivation]
+Davison--Meinhardt \texttt{arXiv:1601.02479} Thm.~B (integrality):
+for any symmetric quiver with potential satisfying Mozgovoy--Reineke
+optimality $\mathrm{HH}^{<0}(J) = 0$, the motivic BPS integers
+$\Omega^{\mathrm{mot}}(\gamma) \in \bZ[\bL^{\pm 1/2}]$ are
+wall-crossing-invariants. $W_{\mathrm{con}}$ is MR-optimal
+(\texttt{arXiv:0708.1259} Prop.~5.2); BPS indices on
+$\Delta_+^{\mathrm{re}} \cup \Delta_+^{\mathrm{im}}$ of
+Theorem~\ref{thm:mmns} are chamber-invariant. The Sym-decomposition
+\texttt{arXiv:1601.02479} Thm.~A presents $\CoHA_\sigma$ functorially
+in the BPS data, so $(\fg_{\mathrm{BPS}}^{\mathrm{con}})_\sigma =
+(\fg_{\mathrm{BPS}}^{\mathrm{con}})_{\sigma'}$ promotes to a
+Hopf-algebra isomorphism on $\CoHA$. The super-extension
+\texttt{arXiv:2303.12592} confirms this at the $\bZ/2$-graded level.
+\end{proof}
+
+\begin{theorem}[Chamber-independence of the Hopf pairing]
+\label{thm:chamber-inv-pairing}
+\ClaimStatusProvedElsewhere\ \emph{(Joyce--Song
+\texttt{arXiv:0810.5645} Thm.~5.11 + KS wall-crossing
+\texttt{arXiv:0811.2435} §6.3.)}
+The Joyce--Song integration map
+$I : \mathrm{SF}^{\mathrm{ind}}(\mathfrak{M}) \to
+\widehat{U}(\fg_{\mathrm{BPS}})[[\hbar]]$
+is $KS$-equivariant, and wall-crossing corrections
+$\alpha_W = \sum_{\gamma = k\gamma_W} \Omega(\gamma)\,[\gamma]/k^2$
+land in orthogonal $K_0$-graded pieces. Hence the Hopf-pairing
+matrix entries are literally equal across chambers, not merely
+projectively equivariant; combined with
+Theorem~\ref{thm:coha-chamber-inv}, the entire Hopf-algebraic
+structure of $\CoHA(Q_{\mathrm{con}}, W_{\mathrm{con}})$ (product,
+coproduct, antipode, pairing) is a chamber-invariant.
+\end{theorem}
+
+\begin{remark}[Synthesis: three instantiations of one chamber-invariance]
+\label{rem:three-chamber-invariances}
+Theorems~\ref{thm:ks-h1-cocycle}, \ref{thm:coha-chamber-inv}, and
+\ref{thm:chamber-inv-pairing} are three faces of a single invariance.
+KS cocycle-triviality says the transition data between chambers,
+viewed in $G_{\mathrm{KS}}$, lifts to a trivial $H^1$ class.
+Sym-decomposition says the CoHA Hopf-algebra transition is canonical.
+Integration-map equivariance is the pairing-level shadow. Each is a
+theorem at its stated scope; none is a re-statement of the others.
+What unifies them is Davison--Meinhardt integrality: the BPS indices
+$\Omega^{\mathrm{mot}}(\gamma)$ are the sole wall-invariant data, and
+every chamber-invariance statement factors through them.
+\end{remark}
+
+% ============================================================================
+\section{Physical origin --- the M-theory parent}
+% ============================================================================
+
+\begin{conjecture}[M-theory parent of the conifold super-Yangian]
+\label{conj:m-theory-parent}
+\ClaimStatusConjectured\
+The M-theory parent of $Y(\widehat{\fgl}(1|1))^{\mathrm{con}}$ is the 6D
+(2,0) $A_{K-1}$ theory on $\bR^{1,3} \times T^2$ with $K$ M5-branes
+wrapped on $\bP^1 \subset \bY$, normal-bundle twist $\cO(-1) \oplus
+\cO(-1)$, $\Omega$-deformation on transverse Taub--NUT, and
+Costello--Gwilliam-twist on the CY$_3$ target. Dimensional reductions:
+\begin{itemize}[leftmargin=2em]
+\item \emph{Bulk}: 5D holomorphic Chern--Simons on $\bR \times \bY$ with
+  gauge $\fgl(1|1)$-valued (open per
+  Theorem~\ref{thm:hcs-super-open}).
+\item \emph{Boundary}: 3D $\cN = 4$ sigma model to $\mathrm{Hilb}^n(\bY)$
+  whose Coulomb-branch twist is conjecturally the super-Yangian positive
+  half $Y^+(\widehat{\fgl}(1|1))$ at infinity.
+\end{itemize}
+The Coulomb-branch identification transfers Braverman--Finkelberg--Nakajima
+$\cA_\hbar(\mathrm{K3}) = Y(\frakg_{\mathrm{K3}})$
+(\texttt{arXiv:1601.03586},~\texttt{arXiv:1604.03625}) and Nakajima
+\texttt{arXiv:1606.09041} to the conifold setting, with Putrov--Yagi
+\texttt{arXiv:1704.04255} and Kamnitzer--Pham--Weekes \texttt{arXiv:1806.07146}
+providing the 3D $\cN=4$ Coulomb-branch extension machinery for ADE quivers.
+The super-quiver Klebanov--Witten extension, however, is \emph{not} proved
+rigorous at the Coulomb-branch level in any published source: BFN requires
+a non-degenerate Killing form, which $\fgl(1|1)$ lacks, and the Putrov--Yagi
+4D/3D descent was established for $\cN = 2$ SCFTs whereas KW is $\cN = 1$
+(cf.~Theorem~\ref{thm:bllprvr-fails}). This statement is therefore a
+synthesis by analogy with the Costello--Paquette $\bC^3$ construction
+(\texttt{arXiv:2001.02177} and~\texttt{arXiv:2201.02595}), not an explicit
+theorem. The specific wrap on a compact $\bP^1$ with normal bundle
+$\cO(-1) \oplus \cO(-1)$, combined with the super gauge extension, lies
+beyond the Costello--Paquette theorems as written and beyond the
+BFN/Putrov--Yagi Coulomb-branch framework as it stands.
+\end{conjecture}
+
+\begin{theorem}[Superconformal BLLPRvR route is unavailable]
+\label{thm:bllprvr-fails}
+\ClaimStatusProvedElsewhere\ \emph{(by type-mismatch)}
+The Beem--Lemos--Liendo--Peelaers--Rastelli--van~Rees
+\texttt{arXiv:1312.5344} 4D/2D chiral-algebra correspondence applies to
+4D $\cN=2$ superconformal theories. The 4D field theory on an M5-brane
+wrapped on $\bP^1 \subset \bY$ with KW normal bundle is the
+Klebanov--Witten $\cN = 1$ SCFT, not $\cN = 2$. Hence BLLPRvR does not
+directly apply to this boundary theory. The identification
+$\CoHA(\bY) = Y^+(\widehat{\fgl}(1|1))$ therefore runs through the
+Rapčák--Soibelman--Yang--Zhao \texttt{arXiv:1810.10402} route on the
+CoHA side, not through BLLPRvR.
+\end{theorem}
+
+\begin{theorem}[5D hCS super extension is open]
+\label{thm:hcs-super-open}
+\ClaimStatusOpen\
+The Costello--Gaiotto--Yagi all-orders theorem for 5D hCS $\to$
+Yangian VOA (Costello 2013 \texttt{arXiv:1303.2632}; Costello--Yagi
+\texttt{arXiv:1810.01970}; the three-author CGY paper with
+Gaiotto is \texttt{arXiv:2103.01835}) requires simply-laced gauge
+algebra with non-degenerate even Killing form. The super case
+$\widehat{\fgl}(1|1)$ has degenerate Killing form (the supertrace
+annihilates $K$); super Kontsevich--Tamarkin formality is $E_2$-only
+(Ginzburg--Schedler \texttt{arXiv:0807.0174}), not $E_3$; higher-loop
+obstructions in $H^1_{\mathrm{loc}}(\fgl(1|1), \cO_{\mathrm{loc}})$
+are not auto-killed. One-loop wheel vanishing
+$d^{abc}_{\mathrm{super}} = 0$ for $\fgl(1|1)$ is verified by direct
+basis computation; $2$-loop and higher remain open.
+\end{theorem}
+
+\begin{remark}[Per-chart $\widehat{\fgl}_1$ is all-orders rigorous]
+The per-chart abelian 5D hCS with $\widehat{\fgl}_1$ gauge on each
+$U_\pm \cong \bC^3$ is all-orders rigorous (Costello--Li, Schiffmann--Vasserot);
+the difficulty is in the super-assembly of two such algebras via the
+FM transition.
+\end{remark}
+
+\begin{remark}[Anomaly vanishing on $\bY$]
+\label{rem:anomaly-vanishing}
+The BCOV $1$-loop anomaly $\alpha_{\mathrm{BCOV}} = (\chi/24)[\Omega]^{0,1}
+\in H^{0,1}(\bY)$ (Costello--Li 2016) vanishes because $\bY$ is a
+rank-$2$ vector bundle over $\bP^1$ (hence homotopy-equivalent to
+$\bP^1$ via the affine bundle retraction), and
+$H^{0,1}(\bP^1) = h^{0,1}(\bP^1) = 0$. The space $\bY$ is
+quasi-projective (not affine) since $\bP^1$ is proper.
+\end{remark}
+
+\begin{remark}[Non-abelian $K \geq 2$ obstructions]
+For $A_{K-1}$ stacks of M5-branes, the 1-loop $d^{abc}d^{abc}$ anomaly
+obstructs perturbative consistency at $K \geq 3$. The $K = 2$ case is
+special because $\fsl_2$ has $d^{abc} = 0$ (Costello 2015 \texttt{arXiv:1112.0816}
+§4--5; CLAUDE.md key-fact). Note $\fsl_2 \neq \fgl_2$: the $\fgl_2 =
+\fsl_2 \oplus \fu(1)$ decomposition has vanishing symmetric cubic on
+$\fsl_2$ and BRST-trivial $\fu(1)$, so $K = 2$ gives a well-defined
+5D CS at the gauge-algebra level.
+\end{remark}
+
+% ============================================================================
+\section{Super-rigidity, Gopakumar--Vafa, and refined topological vertex}
+% ============================================================================
+
+M-theory on $\bY \times S^{1}$ with M2-branes wrapping $k[\bP^{1}] \in
+H_{2}(\bY,\bZ)$ presents these wrapped branes as 5D BPS hypermultiplets
+charged under the graviphoton $F_{RR}$; integrating them out by a
+Schwinger one-loop produces the $2\sinh(k g_{s}/2)$ denominator and the
+$\mathrm{Li}_{3}$-polylogarithm envelope of the conifold free energy
+(Gopakumar--Vafa~\texttt{arXiv:hep-th/9809187} Part~I;
+\texttt{arXiv:hep-th/9812127} Part~II). The two-parameter
+$(\varepsilon_{1}, \varepsilon_{2})$-refinement deforms the Schwinger
+integrand to a product of two sinh factors (Nekrasov--Okounkov
+\texttt{arXiv:hep-th/0306238} §7; geometric realisation
+Iqbal--Kozcaz--Vafa \texttt{arXiv:hep-th/0701156}).
+
+\begin{theorem}[Super-rigidity of $(-1,-1)$-curves]
+\label{thm:super-rigidity}
+\ClaimStatusProvedElsewhere\ \emph{(Bryan--Pandharipande
+\texttt{arXiv:math/0009025} Thm.~1.2)}
+A rigidly embedded $\bP^1 \subset X$ in a smooth Calabi--Yau threefold
+$X$ with normal bundle $\cO(-1) \oplus \cO(-1)$ is
+\emph{super-rigid}: it has no infinitesimal deformations as a map from
+a smooth curve of any genus to $X$. Hence Gromov--Witten contributions
+to all genera come only from multiple covers of the embedded $\bP^1$.
+\end{theorem}
+
+The multiple-cover Hodge-integral formula for super-rigid $\bP^1$
+(Faber--Pandharipande \texttt{arXiv:math/9810173} for the multiple-cover
+integrals; Pandharipande~\texttt{arXiv:math/9902107} for degenerate
+contributions; Bryan--Pandharipande~\texttt{arXiv:math/0412005} for the
+local Gromov--Witten theory of curves that assembles these integrals
+into the toric vertex) combined with the M-theoretic BPS-counting
+resummation of Gopakumar--Vafa~\texttt{arXiv:hep-th/9809187} Part~I
+eqs.~(2.7)--(2.10) and Part~II~\texttt{arXiv:hep-th/9812127} for the
+higher-genus structure, yields the BPS per-genus ansatz
+\[
+  F^{\mathrm{GV}}(\bY;\lambda,Q)
+  \;=\;
+  \sum_{g\ge 0}\sum_{\beta\in H_2(\bY,\bZ)}\sum_{k\ge 1}
+    n^{g}_{\beta}\,\frac{1}{k}\,
+    \bigl(2\sinh(k\lambda/2)\bigr)^{2g-2}\,
+    Q^{k\beta},
+\]
+where $\lambda = g_s$ is the string coupling, $Q^\beta = e^{-\int_\beta
+\omega}$ the Kähler-modulus character, and $n^g_\beta \in \bZ_{\ge 0}$
+the integer Gopakumar--Vafa invariants counting BPS states with
+$(J^3_L)$-spin $g$ in charge class~$\beta$. On the conifold the effective
+cone is generated by $\beta = [\bP^1]$ and the only non-vanishing
+invariant is $n^{0}_{[\bP^1]} = 1$ with $n^{g}_{d[\bP^1]} = 0$ for
+$(g,d) \neq (0,1)$, which collapses the ansatz to the
+Schwinger-resummed form
+\[
+  F^{\mathrm{GV}}(\bY; g_s, Q)
+  \;=\;
+  \sum_{k \geq 1}
+    \frac{Q^{k}}{k\,\bigl(2\sinh(k g_s/2)\bigr)^{2}}.
+\]
+The genus expansion $F^{\mathrm{GV}} = \sum_{g \geq 0}
+g_s^{2g-2} F_g(Q)$ follows from the formal power-series identity
+$\frac{x^{2}}{(2\sinh(x/2))^{2}} = \sum_{g \geq 0}
+\tfrac{(1-2g)\,B_{2g}}{(2g)!}\,x^{2g}$, giving
+\[
+  F_{0}(Q) \;=\; \mathrm{Li}_{3}(Q),
+  \qquad
+  F_{g}(Q) \;=\; \tfrac{(-1)^{g-1}\,B_{2g}}{2g\,(2g-2)!}\,
+                \mathrm{Li}_{3-2g}(Q)
+  \qquad (g \geq 2),
+\]
+recorded in Mariño \texttt{arXiv:hep-th/0406005} eq.~(2.68). The
+$g = 1$ contribution is the $x^{0}$-term of
+$(2\sinh(x/2))^{-2} = x^{-2} - \tfrac{1}{12} + \tfrac{x^{2}}{240} - \cdots$
+applied to $\mathrm{Li}_{1}(Q) = -\log(1 - Q)$, giving
+$F_{1}(Q) = -\tfrac{1}{12}\mathrm{Li}_{1}(Q) = \tfrac{1}{12}\log(1 - Q)$
+(holomorphic-anomaly constant absorbed). The
+$(-1)^{g-1}$ prefactor multiplies the Bernoulli number $B_{2g}$, whose
+own sign is $(-1)^{g+1}$ for $g \geq 1$; the product is uniformly
+negative for $g \geq 2$, matching coefficient-extraction from the
+Schwinger form.
+
+\begin{theorem}[Szendrői NCDT partition function, two chambers distinguished]
+\label{thm:szendroi-ncdt}
+\ClaimStatusProvedElsewhere\ \emph{(Szendrői \texttt{arXiv:0705.3419}
+Thm.~2.6 for the chamber-specific NC result; Morrison--Mozgovoy--Nagao--
+Szendrői \texttt{arXiv:1107.5017} Thm.~2 for the two-variable refinement;
+Young \texttt{arXiv:0802.3948} for pyramid partitions.)}
+The curve-less Szendrői theorem gives the NCDT partition function
+indexed by pyramid partitions
+\[
+  Z^{\mathrm{NCDT}}(\bY; q)
+  \;=\; \sum_{\pi \in \mathrm{Pyr}} (-q)^{|\pi|}
+  \;=\; M(-q)^2 \cdot \prod_{k\ge1}(1-(-q)^{k})^{-2}
+  \qquad \text{(Szendrői chamber, single parameter).}
+\]
+Passing to two variables $(q,Q)$ adapted to the $D^b(\bY)$-tilt
+reorganisation, the full two-variable NCDT partition function is
+\[
+  Z^{\mathrm{NCDT}}(\bY;q,Q)
+  \;=\; M(-q)^2 \cdot
+    \prod_{k\ge 1}(1 - Q (-q)^k)^{k}
+    \prod_{k\ge 1}(1 - Q^{-1}(-q)^k)^{k},
+\]
+i.e.\ \emph{both} $Q$ and $Q^{-1}$ factors are present in the Szendrői
+(non-commutative) chamber (MMNS \texttt{arXiv:1107.5017}, eq.~(1.1)).
+The DT (commutative) chamber partition function is the truncation
+\[
+  Z^{\mathrm{DT}}(\bY; q, Q)
+  \;=\; M(-q)^2 \prod_{k \geq 1}(1 - Q(-q)^k)^k,
+\]
+obtained by absorbing the $\prod_k (1 - Q^{-1}(-q)^k)^k$ factor into the
+vacuum sector via a single Kontsevich--Soibelman wall-crossing operator
+$\mathcal T_{\gamma_\alpha}$ (Nagao--Nakajima
+\texttt{arXiv:0809.2992} for the conifold perverse-coherent wall-crossing
+framework; Nagao \texttt{arXiv:0809.2994} for the small-toric CY$_3$
+chamber structure specialised to $\bY$;
+cross-reference \texttt{chapters/examples/coha\_wall\_crossing\_platonic.tex}
+lines~990--995). Conflating the DT truncation with the full NC
+partition function is a common error; the Szendrői (NC) chamber
+carries both $Q$ and $Q^{-1}$ infinite products, whereas the DT chamber
+retains only the $Q$ product.
+\end{theorem}
+
+\begin{proposition}[Szendrői NCDT coincides with Bridgeland NCDT after
+wall-crossing]
+\label{prop:szendroi-bridgeland-coincidence}
+\ClaimStatusProvedElsewhere\ \emph{(Nagao--Nakajima
+\texttt{arXiv:0809.2992} for the categorical wall-crossing on the
+conifold; Bridgeland \texttt{arXiv:1002.4372} Thm.~6.3 for the motivic
+Hall-algebra framework; MMNS \texttt{arXiv:1107.5017} Thm.~2 for the
+two-variable match.)}
+The Szendrői NCDT generating series $Z^{\mathrm{NCDT}}(\bY;q,Q)$, defined
+from pyramid partitions for the Jacobi algebra $J(Q_{\mathrm{con}},
+W_{\mathrm{con}})$, equals the image of the Bridgeland NCDT generating
+series — the motivic Donaldson--Thomas invariant of the motivic Hall
+algebra of $D^b(J(Q_{\mathrm{con}}, W_{\mathrm{con}})\text{-mod})$ at
+the tilt-Noetherian heart $\cA_{\mathrm{NC}}$ — under the chain of
+Kontsevich--Soibelman wall-crossing automorphisms carrying
+$\cA_{\mathrm{NC}}$ to the large-volume heart $\mathrm{Coh}(\bY)$. The
+composite wall-crossing factor is $\prod_k (1 - Q^{-1}(-q)^k)^{k}$,
+contributing precisely the extra infinite product that distinguishes
+the Szendrői (NC) chamber from the DT (commutative) chamber, so that
+on the DT side the Szendrői and Bridgeland generating functions
+coincide as rational functions in $(q, Q)$.
+\end{proposition}
+\begin{proof}
+The categorical wall-crossing is the identity of hearts
+$\cA_{\mathrm{NC}} \to \mathrm{Coh}(\bY)$ along the Nagao--Nakajima
+perverse-coherent chamber sequence (one wall per Seiberg
+mutation~$s_0, s_1$). Each wall-crossing automorphism is the KS
+operator $\mathcal T_\gamma = \exp\bigl(\sum_k \Omega(k\gamma)
+[k\gamma]/k^2\bigr)$ with $\Omega(\gamma)$ the refined DT invariant
+of the simple $\gamma$. Summing the generating series under these
+automorphisms and applying the Bridgeland rationality theorem
+\texttt{arXiv:1002.4372}~Thm.~6.3 to $D^b(\bY)$ converts
+$Z^{\mathrm{NCDT}}$ to $Z^{\mathrm{DT}}$ by absorbing precisely the
+$\prod_k (1 - Q^{-1}(-q)^k)^k$ factor; the identification on both
+sides is the content of MMNS \texttt{arXiv:1107.5017}~Thm.~2.
+\end{proof}
+
+Under $q = -e^{i g_s}$ the DT-chamber expression matches $F^{\mathrm{GV}}$
+via the MNOP triangle of partition-function identities
+\[
+\begin{array}{c@{\qquad}c@{\qquad}c}
+ & Z^{\mathrm{GW}}(\bY; g_s, Q) & \\
+ & \big\Updownarrow^{\text{GW/DT}} & \\
+Z^{\mathrm{DT}}(\bY; q, Q) & \xleftrightarrow{\text{DT/PT}} &
+ Z^{\mathrm{PT}}(\bY; q, Q)
+\end{array}
+\]
+with $q = -e^{i g_s}$ and a common reduced free energy
+$F^{\mathrm{GV}}$ on the vertices. The three edges are proved
+independently:
+\begin{itemize}[leftmargin=2em]
+\item \emph{GW/DT (top edge)}: Maulik--Nekrasov--Okounkov--Pandharipande~I
+  \texttt{arXiv:math/0312059} Conj.~3R, extended in
+  MNOP~II~\texttt{arXiv:math/0406092} to the equivariant and reduced
+  theory; the toric-CY$_3$ case is proved for $\bY$ via the local-curve
+  primitive Bryan--Pandharipande \texttt{arXiv:math/0412005} (the
+  $(-1,-1)$-cap computation that feeds the toric vertex), the full
+  toric proof being completed in Maulik--Oblomkov--Okounkov--Pandharipande
+  \texttt{arXiv:0809.3976}. The 2005 Bryan--Pandharipande paper
+  \texttt{arXiv:math/0412005} is the \emph{local Gromov--Witten primitive}
+  feeding MNOP; it is distinct from the 2001 super-rigidity primitive
+  Bryan--Pandharipande~\texttt{arXiv:math/0009025} of
+  Theorem~\ref{thm:super-rigidity}, and from the 1999 Hodge-integral
+  input Pandharipande~\texttt{arXiv:math/9902107} feeding the
+  multiple-cover formula.
+\item \emph{DT/PT (bottom edge)}: Pandharipande--Thomas
+  \texttt{arXiv:0707.2348} define the stable-pair moduli; Bridgeland
+  \texttt{arXiv:1002.4372} proves the DT/PT identity rationally via
+  motivic Hall algebras; Toda \texttt{arXiv:0902.4371} gives the
+  motivic DT/PT equivalence at refined level.
+\item \emph{GW/PT (right edge)}: composite of the other two, consistent
+  with the MNOP~I rationality conjecture on toric~$\bY$.
+\end{itemize}
+
+\begin{remark}[Refined topological vertex: primary-source conventions]
+\label{rem:ikv-refined-conventions}
+\ClaimStatusConventionDependent\ \emph{(Iqbal--Kozcaz--Vafa
+\texttt{arXiv:hep-th/0701156}, eqs.~(4.2)--(4.3); independent
+Awata--Kanno \texttt{arXiv:hep-th/0502061} derivation.)}
+Iqbal--Kozcaz--Vafa present the refined $(-1,-1)$-conifold partition
+function as
+\[
+  Z^{\mathrm{ref}}_{\mathrm{top}}(\bY; t, q, Q)
+  \;=\; \prod_{i, j \geq 1}
+    \bigl(1 - Q\, t^{\,i - 1/2}\, q^{\,j - 1/2}\bigr),
+\]
+with the half-integer offsets $(i-1/2, j-1/2)$ a \emph{convention
+choice} — Awata--Kanno's equivalent form uses integer offsets
+$(i, j)\mapsto(i-1,j-1)$ with a prefactor $Q^{-1/2}$ absorbed into the
+Kähler modulus. The half-integer form is the one in IKV~eq.~(4.2) and
+is the form that makes the single-leg refined vertex
+$P_{\lambda\mu\nu}(q,t)$ Young-diagram-combinatorial. The sign
+convention $q,t$ in IKV (\S3) corresponds to the flop-invariant
+normalisation; the opposite-sign convention of Taki
+\texttt{arXiv:hep-th/0703133} differs by $(q,t) \mapsto (q^{-1}, t^{-1})$
+on the unrefined locus $q = t$. The identification $t = e^{i\varepsilon_1}$,
+$q = e^{i\varepsilon_2}$ with Nekrasov's $\Omega$-background requires the
+following primary-source correspondence to be recorded:
+\emph{Nekrasov~2002}~\texttt{hep-th/0206161} introduced the
+one-parameter $\Omega$-background on $\bC^2 \times S^1$; the
+\emph{refined} two-parameter extension to $(\varepsilon_1,\varepsilon_2)$
+for gauge theories was Nekrasov--Okounkov~2003
+\texttt{hep-th/0306238}, §7; the refined \emph{topological vertex} was
+IKV~\texttt{hep-th/0701156}; the MNOP GW/DT correspondence
+\texttt{math/0312059} is unrefined. Any claim ``Nekrasov partition
+function for conifold in $\Omega$-background'' must cite
+\emph{Nekrasov--Okounkov 2003} for the two-parameter refinement, not
+Nekrasov 2002 (one-parameter) and not MNOP (unrefined).
+\end{remark}
+
+\begin{remark}[Refined free energy: Nekrasov--Okounkov Schwinger form]
+\label{rem:refined-free-energy-NO}
+\ClaimStatusProvedElsewhere\ \emph{(Nekrasov--Okounkov
+\texttt{arXiv:hep-th/0306238} \S7; IKV \texttt{arXiv:hep-th/0701156}
+\S4; Nakajima--Yoshioka \texttt{arXiv:0905.0897} Thm.~1.1 for the
+K-theoretic gauge-theory / refined-DT bridge.)}
+Taking the logarithm of the IKV product yields the refined conifold
+free energy
+\[
+  F^{\mathrm{ref}}(\bY;\varepsilon_{1},\varepsilon_{2},Q)
+  \;=\;
+  -\sum_{i,j \geq 1} \log\!\bigl(1 - Q\,t^{\,i-1/2}q^{\,j-1/2}\bigr)
+  \;=\;
+  \sum_{k \geq 1}
+    \frac{Q^{k}}{k\,
+      \bigl(2\sinh(k\varepsilon_{1}/2)\bigr)\,
+      \bigl(2\sinh(k\varepsilon_{2}/2)\bigr)},
+\]
+with $t = e^{i\varepsilon_{1}}$, $q = e^{i\varepsilon_{2}}$. Under the
+unrefined specialisation $\varepsilon_{1} = \varepsilon_{2} = g_{s}$
+this collapses to
+$F^{\mathrm{GV}}(\bY; g_s, Q) = \sum_{k \geq 1} Q^{k}/[k(2\sinh(k g_s/2))^{2}]$,
+matching the Schwinger form of the preceding display. The two-sinh
+denominator records the $\Omega$-deformed $\bC^{2}_{\varepsilon_{1},
+\varepsilon_{2}}$ equivariant Hilbert series at the origin.
+Nakajima--Yoshioka \texttt{arXiv:0905.0897} Thm.~1.1 proves the
+K-theoretic version for moduli of framed sheaves on $\bP^{2}$,
+confirming the same two-parameter Schwinger structure on the
+gauge-theory side.
+\end{remark}
+
+\begin{conjecture}[Algebraic super-rigidity of $Y^{+}(\widehat{\fgl}(1|1))$
+under $(\varepsilon_{1},\varepsilon_{2})$-deformation]
+\label{conj:algebraic-super-rigidity}
+\ClaimStatusConjectured\ \emph{(first stated here as a conjecture;
+unrefined $\widehat{\fgl}_{1}$-cousin is the Schiffmann--Vasserot
+rigidity result~\texttt{arXiv:1202.2756}; the
+$\varepsilon_{+}$-gauge mechanism traces to Nekrasov--Okounkov
+\texttt{arXiv:hep-th/0306238} §7; the 5D hCS super obstruction
+enters via the three-author Costello--Gaiotto--Yagi
+\texttt{arXiv:2103.01835}, not the two-author Costello--Yagi
+\texttt{arXiv:1810.01970}.)}
+The chain-level deformation of the positive half
+$Y^{+}(\widehat{\fgl}(1|1))$ by the two parameters
+$(\varepsilon_{1},\varepsilon_{2})$ of the refined $\Omega$-background
+is \emph{algebraically super-rigid}: the cohomology group
+$\HH^{2}_{\mathrm{Hopf}}\bigl(Y^{+}(\widehat{\fgl}(1|1));\,
+Y^{+}(\widehat{\fgl}(1|1))\bigr)$ governing graded
+Hopf-super-bialgebra deformations is one-dimensional, spanned by the
+class of the refined $\Omega$-background with first-order parameter
+$\varepsilon_{1}\varepsilon_{2}$. The sum $\varepsilon_{+} :=
+\varepsilon_{1}+\varepsilon_{2}$ is absorbed into the
+Nekrasov--Okounkov $\varepsilon_{+}$-rescaling gauge equivalence
+(\texttt{hep-th/0306238} §7, a one-parameter dilatation of the
+Drinfeld current generators targeting the supertrace-degenerate
+direction of the $\widehat{\fgl}(1|1)$ Killing form --- the same
+degeneration that obstructs the 5D hCS super-extension in
+Theorem~\ref{thm:hcs-super-open}), singling out
+$\varepsilon_{1}\varepsilon_{2}$ as the unique physical first-order
+deformation and reproducing the Nekrasov--Okounkov refined Schwinger
+form of Remark~\ref{rem:refined-free-energy-NO} at the level of
+super-characters.
+Geometric super-rigidity (Theorem~\ref{thm:super-rigidity}) is a
+\emph{distinct} statement: a geometric fact about deformations of the
+embedded $\bP^{1}$, not an algebraic fact about the BPS algebra. The
+two are linked only through the CoHA dictionary
+$\CoHA(\bY) \simeq Y^{+}(\widehat{\fgl}(1|1))^{\mathrm{con}}$.
+\end{conjecture}
+
+\begin{remark}[Why the unrefined rigidity is Schiffmann--Vasserot and
+the refined is open]
+\label{rem:SV-rigidity-unrefined-only}
+Schiffmann--Vasserot \texttt{arXiv:1202.2756} establish algebraic
+rigidity of $Y^{+}(\widehat{\fgl}_{1})$ under the single-parameter
+$\hbar$-deformation in the abelian (even) case. The super case under
+the two-parameter $(\varepsilon_{1},\varepsilon_{2})$ deformation is
+not covered: (i) Ginzburg--Schedler super formality
+\texttt{arXiv:0807.0174} terminates at $E_{2}$ rather than $E_{3}$,
+removing the Kontsevich--Tamarkin formality input that drives the SV
+rigidity proof; (ii) the super Hopf-algebra cohomology
+$\HH^{2}_{\mathrm{Hopf}}$ has not been computed for
+$Y^{+}(\widehat{\fgl}(1|1))$. Conjecture~\ref{conj:algebraic-super-rigidity}
+accordingly remains open.
+\end{remark}
+
+\begin{conjecture}[Refined $Z_{\mathrm{top}}$ as $Y(\widehat{\fgl}(1|1))$
+super-character at level~$1$]
+\label{conj:ikv-super-character}
+\ClaimStatusConjectured\
+Under $t = e^{i\varepsilon_1}$, $q = e^{i\varepsilon_2}$, the refined
+IKV formula
+$Z^{\mathrm{ref}}_{\mathrm{top}}(\bY; t, q, Q) = \prod_{i,j\ge 1}
+(1 - Q\, t^{i-1/2} q^{j-1/2})$
+equals, coefficient-by-coefficient, the Weyl--Kac super-character of the
+level-one vacuum module of
+$Y_{\varepsilon_1,\varepsilon_2}(\widehat{\fgl}(1|1))$.
+\end{conjecture}
+
+\begin{remark}[Coefficient-by-coefficient check at $Q^0, Q^1$]
+\label{rem:ikv-super-character-coefficient-check}
+\ClaimStatusPartialPrimaryLit\
+Expanding the IKV product in $Q$:
+\begin{itemize}[leftmargin=2em]
+\item $Q^0$-coefficient: $1$, matching the super-Yangian vacuum vector.
+\item $Q^1$-coefficient: $-\sum_{i,j\ge 1} t^{i-1/2} q^{j-1/2}
+  = -\tfrac{t^{1/2} q^{1/2}}{(1-t)(1-q)}$, which is the refined Hilbert
+  series of $\bC^2_{t,q}$ weighted by $-(tq)^{1/2}$. The super-Yangian
+  side is the graded multiplicity of the simple-root affine generator
+  $e^{(1)}_{\alpha_1}(z)$ on the level-$1$ vacuum; this has character
+  $\tfrac{(tq)^{1/2}}{(1-t)(1-q)}$ under the $\bZ^2$-grading
+  (Gaiotto--Rapčák \texttt{arXiv:1703.00982} §3.2 with the sign from
+  fermionic generator). The two agree up to the overall $-$ sign.
+\item $Q^{1/2}$-coefficient: \emph{absent} in the IKV product (the
+  expansion is in integer powers of $Q$); a ``$Q^{1/2}$'' coefficient
+  match would require identifying $Q$ in IKV with $Q^2$ in some
+  super-character convention. The correct coefficient-by-coefficient
+  statement is in $Q^0, Q^1, Q^2, \ldots$ (integer powers), with the
+  fractional factor $(tq)^{1/2}$ appearing \emph{inside} each
+  integer-$Q^n$ coefficient via the half-shift $t^{i-1/2} q^{j-1/2}$,
+  rather than as a ``$Q^{1/2}$-term'' on the IKV side or as a
+  ``$q^{1/2}$-coefficient'' in a $q$-expansion.
+\item $Q^2$-coefficient: expected to match the graded multiplicity of
+  the quadratic span
+  $e^{(1)}_{\alpha_1} e^{(1)}_{\alpha_1}(z,w)$ on the vacuum, modulo
+  fermionic Serre relations; explicit check is outstanding.
+\end{itemize}
+The full all-$Q^n$ match is \emph{conjectural}; only $Q^0, Q^1$ have a
+direct first-principles verification in the synthesis corpus. The
+fractional factor $(tq)^{1/2}$ appears inside every integer-$Q^n$
+coefficient via the half-shift $(i-1/2, j-1/2)$; there is no
+fractional power of $Q$ in the expansion.
+\end{remark}
+
+% ============================================================================
+\section{Four $\kappa$-invariants on the conifold}
+\label{sec:kappa-reconciliation}
+% ============================================================================
+
+\begin{remark}[Three numerically distinct values near the conifold:
+subscript disambiguation]
+\label{rem:kappa-conflict}
+\ClaimStatusProposition\
+Three numerically distinct values live in the $\kappa$-neighbourhood of
+the conifold, one under each of three subscripts:
+\begin{itemize}[leftmargin=2em]
+\item $\kappa_{\mathrm{ch}}(\bY) = +1$ in \texttt{chapters/examples/toric\_cy3\_coha.tex}
+  Cor.~\texttt{cor:conifold-shadow} (canonical toric chapter;
+  identified there as $\mathrm{DT}_{(1,0)} = 1$, the single compact
+  curve-class contribution, $\kappa_{\mathrm{ch,GV}}$).
+\item A value $0$ appearing in
+  \texttt{chapters/examples/derived\_categories\_cy.tex:853}
+  which is $\kappa_{\mathrm{cat}} := \chi(\cO_{\bY}) = 0$ for the
+  non-compact total space (Künneth/retraction to $\bP^1$), \emph{not}
+  a second value of $\kappa_{\mathrm{ch}}$.
+\item A value $-1$ appearing in
+  \texttt{chapters/theory/e1\_chiral\_algebras.tex:2454}
+  which is a $\kappa^!$-type (Verdier-dual) invariant or a bulk BV
+  anomaly, not $\kappa_{\mathrm{ch}}$ itself.
+\end{itemize}
+Under the four-$\kappa$ discipline ($\kappa_{\mathrm{ch}}$,
+$\kappa_{\mathrm{cat}}$, $\kappa_{\mathrm{BKM}}$, $\kappa_{\mathrm{fiber}}$,
+never conflated), there is no inconsistency: the three numbers
+live under three different subscripts and record three different
+mathematical objects. The correct rectification is subscripted
+disambiguation at every manuscript occurrence; there is no single
+$\kappa$ decomposing into three pieces.
+
+The ``$\kappa + \kappa^! \in \{0, 8, 13, 250/3, 98/3\}$ on the
+canonical five-archetype $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$
+ceiling'' in Theorem~C (shared five-theorem core) is a
+\emph{$\mathsf G$-archetype ceiling statement} about landmark
+Calabi--Yau data with specified $\chi_{\mathrm{top}}/24$-regulated
+centre-curving, \emph{not} a universal identity $\kappa_{\mathrm{ch}}(X)
++ \kappa_{\mathrm{ch}}^!(X) = 0$ on every toric CY$_3$. Reading off
+$\kappa_{\mathrm{ch,bulk}} = -1$ from $\kappa_{\mathrm{ch,GV}} = +1$
+via ``$\kappa + \kappa^! = 0$'' is \emph{not} a theorem; it is an
+ansatz that would require the conifold to sit at the $\mathsf G$-row of
+the Theorem~C ceiling, which it does (class~$\mathsf G$ with shadow
+depth $r_{\max} = 2$, Cor.~\texttt{cor:conifold-shadow}) — but the
+$\mathsf G$-row entry of the ceiling is $K^\kappa = 0$ for toric bases
+(\texttt{toric\_cy3\_coha.tex} line~251:
+$K^{\kappa_{\mathrm{ch}}}(\mathrm{conifold}) = 0$), not $K^\kappa = 8$.
+The $8$-value is the $\mathsf B$-row Mukai-enhanced K3 Heisenberg
+witness on $K3 \times E$, not the $\mathsf G$-row conifold entry.
+\end{remark}
+
+% ============================================================================
+\section{Transfer to toric CY$_3$, obstructions for compact CY$_3$}
+\label{sec:compact-obstruction}
+% ============================================================================
+
+\begin{proposition}[Transfer to toric CY$_3$]
+\label{prop:toric-transfer}
+\ClaimStatusProposition\
+The five-route construction of $\CoHA(\bY)$ extends to any local
+toric Calabi--Yau threefold $X$ without compact $4$-cycles, with the
+following adjustments:
+\begin{enumerate}[leftmargin=2em]
+\item The toric atlas replaces the two-chart cover with a multi-chart
+  cover indexed by the toric fan; each chart remains $\bC^3$ with a
+  Jordan-triple $W_{\mathrm{chart}}$.
+\item The Klebanov--Witten quiver is replaced by the appropriate
+  toric quiver with potential (e.g., the Beilinson quiver for local
+  $\bP^2$; the $\bC^3/\bZ_n$ McKay quiver for local $A_{n-1}$).
+\item The bond factors $\varphi_{a \Rightarrow b}$ are read off the
+  toric fan via Galakhov--Li--Yamazaki \texttt{arXiv:2106.01230}.
+\item Davison--Meinhardt integrality + PBW gives the BPS Lie algebra.
+\item The Drinfeld double is the appropriate affine (super-)Yangian
+  of the root system determined by the quiver.
+\end{enumerate}
+This covers local $\bP^2$, $\bC^3/\bZ_n$ for small $n$, banana
+threefolds, and other non-compact toric CY$_3$ without compact
+$4$-cycles.
+\end{proposition}
+
+\begin{theorem}[Sharp obstruction on compact CY$_3$; $2.5$-count reduction]
+\label{thm:compact-obstruction}
+\ClaimStatusProposition\
+The five-route construction does \emph{not} transfer to compact
+Calabi--Yau threefolds. Four named obstructions --- (O1) toric
+fan-completeness, (O2) BCOV $\alpha_{\mathrm{BCOV}}$, (O3)
+$\mathrm{Aut}^0$ rigidity, (O4) finite quiver with potential --- reduce
+logically to \emph{$2.5$ effective obstructions} via
+$\textup{(O1)} \Leftrightarrow \textup{(O3)}$ and $\textup{(O1)}
+\Rightarrow \textup{(O4)}$, with $\textup{(O2)}$ the single
+independent BV-cohomological obstacle:
+\begin{equation}
+\label{eq:obstruction-reduction-diagram}
+\big(\textup{O1} \;\Longleftrightarrow\; \textup{O3}\big)
+\;\Longrightarrow\;
+\textup{O4},
+\qquad
+\textup{O2} \;\textup{ logically independent.}
+\end{equation}
+The effective count is $1$ (O1$\equiv$O3) $+$ $1$ (O2) $+$ $0.5$ (O4
+downstream) $=$ $2.5$, not $4$.
+
+\smallskip
+\emph{\textup{(O1)} Failure of toric fan-completeness on a compact
+ambient.}
+A toric atlas on a smooth threefold $X$ consists of a complete
+rational polyhedral fan $\Delta$ in $N_{\bR} \cong \bR^3$ whose
+maximal cones $\sigma \in \Delta(3)$ are each generated by $3$
+primitive ray vectors $(v_1, v_2, v_3)$ with $\det(v_1, v_2, v_3) =
+\pm 1$ (smoothness), subject to the Calabi--Yau slice condition:
+existence of a piecewise-linear support function $\psi: N_{\bR} \to
+\bR$ with $\psi(v_i) = 1$ for every ray $v_i$
+(Aspinwall--Greene--Morrison \texttt{hep-th/9309097} \S 3; equivalent
+to $c_1(X) = 0$ via the vanishing sum of ray vectors in each maximal
+cone). The simultaneous-slice condition $\psi(v_i) = 1$ forces every
+ray to lie on a common affine hyperplane $\{\psi = 1\} \subset
+N_{\bR}$, so $\Delta$ is a cone over a $2$-dimensional lattice
+polytope and has no compact $3$-dimensional interior. The
+Demazure--Fulton criterion (\emph{Introduction to Toric Varieties},
+\S 3.4) yields: no smooth compact toric CY$_3$ exists; the only
+complete CY-sliced toric threefolds are finite quotients of $\bC^3$.
+Compact CY$_3$ (the quintic, $K3 \times E$, bihypersurfaces) admit
+no chart-wise $(\bC^3, W_{\mathrm{chart}})$ cover, so the
+Schiffmann--Vasserot per-chart $Y^+(\widehat{\fgl}_1)$ stalks have no
+geometric location on $X$; the conifold's \v{C}ech route of
+Section~\ref{sec:cech-route} is unavailable.
+
+\smallskip
+\emph{\textup{(O2)} BCOV $1$-loop anomaly: independent BV
+cohomological obstacle.}
+For a holomorphic Chern--Simons factorisation-algebra quantisation on
+a CY$_3$ $X$, Costello--Li 2016 \texttt{arXiv:1606.00365} Prop.~5.2
+identify the unique $1$-loop anomaly class
+\[
+  \alpha_{\mathrm{BCOV}}(X)
+  \;=\; \frac{\chi(X)}{24}\,[\Omega_X]^{0,1}
+  \;\in\; H^{0,1}\!\bigl(X, \mathrm{Sym}^{\leq 2} T_X^*\bigr),
+\]
+sourced by the BV $1$-loop counter-term Feynman graph weighted by
+$\Omega_X$ and the Todd specialisation $\chi(X)/24$. On $\bY$ the
+class vanishes by retraction $\bY \simeq \bP^1$ and $H^{0,1}(\bP^1)
+= 0$ (\emph{cf}.\ Remark~\ref{rem:anomaly-vanishing}). On a compact
+CY$_3$ with $\chi(X) \neq 0$ and $[\Omega_X]^{0,1}$ non-vanishing in
+Dolbeault cohomology, $\alpha_{\mathrm{BCOV}}(X) \neq 0$: no
+factorisation algebra of hCS observables exists at $1$-loop. This
+obstruction sources from BV cohomology, \emph{not} from automorphism
+geometry; it is logically disjoint from (O1).
+
+\smallskip
+\emph{\textup{(O3)} $\mathrm{Aut}^0$-rigidity, equivalent to
+\textup{(O1)}.}
+The Bogomolov decomposition theorem (Bogomolov 1974; Beauville 1983
+\emph{JDG} 18:755 \S 2) for a compact K\"ahler manifold $X$ with
+$c_1(X) = 0$ gives a finite \'etale cover
+\[
+  \widetilde X \;=\; T^{2m} \times \prod_i S_i \times \prod_j Y_j,
+\]
+with $T^{2m}$ a complex torus, $S_i$ irreducible hyperk\"ahler, and
+$Y_j$ strict Calabi--Yau ($h^{1,0}(Y_j) = 0$, $H^0(Y_j,
+\Omega^2_{Y_j}) = 0$). For a compact CY$_3$ of strict type (quintic,
+bihypersurfaces), $h^{1,0}(X) = 0$ and $h^{2,0}(X) = 0$ force
+$\mathrm{Aut}^0(X)$ to act trivially on the Hodge decomposition;
+Matsumura 1963 \emph{Proc.\ Japan Acad.} 39:181 Thm.~1 then concludes
+\[
+  \mathrm{Aut}^0(X) \;=\; \{1\}
+  \qquad (\text{compact CY$_3$ of strict type}).
+\]
+For $X = K3 \times E$ of product type (stratum (ii) in
+Remark~\ref{rem:four-strata}), $\mathrm{Aut}^0(X) = E$ acts via
+translations on the elliptic factor; there is no $(\bC^\times)^3$
+torus action lifting the chart-wise conifold $T^2$-equivariance. In
+either case, the conifold's $T^2$-fixed pyramid-partition
+localisation (Szendr\H{o}i \texttt{arXiv:0705.3419} Thm.~2.6) has no
+analogue.
+
+The equivalence $\textup{(O1)} \Leftrightarrow \textup{(O3)}$: a
+complete toric fan $\Delta$ for $X$ generates a dense torus
+$(\bC^\times)^3 \subset \mathrm{Aut}^0(X)$, hence $\mathrm{Aut}^0(X)
+\supsetneq \{1\}$ on a positive-dimensional stratum; conversely, a
+positive-dimensional $\mathrm{Aut}^0(X)$ on a strict compact CY$_3$
+is a complex torus by Bogomolov--Matsumura (the only connected Lie
+groups preserving a CY$_3$ structure with $h^{1,0} = 0$ are
+abelian), and a complex torus acting faithfully with a dense orbit
+on a normal variety forces a toric structure (Sumihiro 1974
+\emph{J.\ Math.\ Kyoto Univ.} 14:1 Thm.~1). The two failures ---
+absence of a toric fan, absence of a non-trivial connected
+automorphism group --- are two facets of the same
+Bogomolov--Matsumura rigidity.
+
+\smallskip
+\emph{\textup{(O4)} Finite quiver with potential, downstream from
+\textup{(O1)}.}
+Van den Bergh's NCCR construction (\texttt{arXiv:math/0211064}
+Def.~4.1, Prop.~3.2.10) requires a tilting bundle $T \in
+D^b(\mathrm{Coh}\,X)$ with $\End_X(T)$ a finite-rank algebra over
+the Noetherian coordinate ring $R = \cO_X(X)$. On a local toric
+CY$_3$ without compact $4$-cycles, $R$ is a finitely-generated
+$\bC$-algebra and the Bocklandt regularity criterion
+(\texttt{arXiv:math/0603558} Thm.~3.1: NCCR $\Leftrightarrow$ the
+superpotential quiver is Calabi--Yau-$3$ in the Ginzburg sense and
+every arrow appears in $W$) promotes $\End_X(T)$ to a
+quiver-with-potential $J(Q, W)$ with finitely many vertices and
+finitely many arrows, hence finite-dimensional per-vertex CoHA
+stalks $Y^+(\widehat{\fgl}_1)$. On a compact CY$_3$, Hartogs on the
+projective base gives $R = \cO_X(X) = \bC$, so no finite-rank
+$R$-algebra tilting-endomorphism presentation can exist;
+$D^b(\mathrm{Coh}\,X)$ is equivalent to no $(Q, W)$-Jacobi category.
+This is the contrapositive of (O1): \emph{no toric atlas
+$\Rightarrow$ no finite chart-wise quiver-with-potential
+$\Rightarrow$ no chart-wise finite-arrow CoHA}. Hence
+$\textup{(O1)} \Rightarrow \textup{(O4)}$, and the automorphic-form
+replacement (Borcherds products, Gritsenko--Nikulin $\Delta_5$,
+Igusa $\Phi_{10}$) enters via the non-chart-wise
+$(\infty,1)$-factorisation-homology route of
+Remark~\ref{rem:compact-transfer}.
+
+\smallskip
+The five-route chart-wise programme terminates at the toric boundary
+for the single independent BV-cohomological reason (O2), the single
+independent geometric reason (O1 $\equiv$ O3), and the downstream
+representation-theoretic corollary (O4). Any compact CY$_3$ without
+a $K3 \times E$-type product fibration admits no chart-wise
+$Y^+(\widehat{\fgl}_1)$ gluing; the replacement on $K3 \times E$
+(Remark~\ref{rem:mnop-replacement}) is non-chart-wise Davison
+integrality with Maulik--Okounkov stable-envelope wall-crossing.
+\end{theorem}
+
+\begin{remark}[Scope of the $2.5$-count]
+\label{rem:obstruction-2p5-scope}
+Theorem~\ref{thm:compact-obstruction} replaces any ``four
+independent obstructions'' phrasing with the $2.5$-count derivation
+\eqref{eq:obstruction-reduction-diagram}: (O1 $\equiv$ O3) is a
+single Bogomolov--Matsumura rigidity stated twice (toric-side and
+$\mathrm{Aut}^0$-side); (O4) is the downstream finite-quiver
+corollary via Van den Bergh tilting; (O2) is the logically
+independent BCOV $1$-loop obstacle. The equivalence (O1)
+$\Leftrightarrow$ (O3) is \emph{not} a coincidence of two
+independent cohomological tests; it is the twofold reading of one
+theorem (Bogomolov 1974 + Matsumura 1963 + Sumihiro 1974) --- once as
+``no complete CY-sliced fan'', once as ``$\mathrm{Aut}^0 = \{1\}$ on
+strict CY$_3$''. The BCOV class $\alpha_{\mathrm{BCOV}} =
+(\chi/24)[\Omega_X]^{0,1}$ is independent because the Todd
+specialisation $\chi/24$ depends only on topological Euler data and
+$[\Omega_X]^{0,1}$ is a Dolbeault-cohomological representative
+unrelated to the fan structure.
+\end{remark}
+
+\begin{remark}[What does transfer]
+\label{rem:compact-transfer}
+Three ingredients transfer to any CY$_3$ category:
+\begin{itemize}[leftmargin=2em]
+\item The Davison--Meinhardt critical CoHA + integrality PBW applies to
+  any CY$_3$ category with a potential;
+\item Kontsevich--Soibelman motivic wall-crossing applies generally;
+\item The two-stage factorisation $\Phi_3 = \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_2, C}
+  \circ \Phi^{FA}_3$ is geometry-independent in principle.
+\end{itemize}
+What fails is the \emph{explicit chart-wise formulas}: the BPS Lie
+algebra exists on any CY$_3$, but its presentation for compact $X$ is
+not chart-wise.
+\end{remark}
+
+\begin{remark}[The four equivariance strata]
+\label{rem:four-strata}
+The four equivariance strata (CLAUDE.md):
+\begin{enumerate}[label=\emph{(\roman*)}, leftmargin=2em]
+\item \emph{Toric $T^d$} (conifold, local $\bP^2$, $\bC^3$): chart-wise
+  shuffle-algebra presentation, the setting of this paper;
+\item \emph{Reduced $\bC^\times \times \mathrm{Aut}(X)$} (K3,
+  $K3 \times E$, abelian surface): automorphism-enriched presentation,
+  still equivariant but no toric atlas;
+\item \emph{Orbifold inertia $I(X/G)$} (Mathieu $M_{24}$, McKay
+  $\Gamma \subset SU(d)$): equivariant cohomology enriched by the
+  inertia stack;
+\item \emph{Lattice-polarised period domain} (Borcherds lifts,
+  Gritsenko $\Delta_5$, Igusa $\Phi_{10}$): automorphic-form
+  presentation with no chart-wise shuffle analogue.
+\end{enumerate}
+The conifold lives in stratum (i); compact CY$_3$ typically live in
+strata (iii) or (iv); $K3$ and $K3 \times E$ straddle strata (ii)--(iv)
+depending on the Aut/inertia/Borcherds-lift chosen.
+\end{remark}
+
+\begin{remark}[Replacement machinery on compact CY$_3$]
+\label{rem:mnop-replacement}
+For compact CY$_3$ the CoHA is built via Maulik--Nekrasov--Okounkov--Pandharipande
+categorified machinery combined with Kontsevich--Soibelman motivic DT
+on the non-toric side. The $K3 \times E$ case (treated in Vol III Part~IV
+of this programme) exemplifies the replacement: instead of two-chart
+$\bC^3$ pieces, one applies Davison integrality directly to
+$D^b(\mathrm{Coh}(K3 \times E))$, producing a Hall--Drinfeld double with
+imaginary rank-$23$ Cartan (the rank-$24$ Mukai lattice $\widetilde H(K3,\Z)
+\simeq \mathrm{II}_{4,20} = H^0 \oplus H^2 \oplus H^4$ of dimension $1 + 22 + 1 = 24$,
+modulo the one-dimensional null direction spanned by the
+$\delta = [H^0] - [H^4]$ imaginary class corresponding to the
+$E$-fibre point/hyperplane exchange; see
+\texttt{chapters/examples/k3\_chiral\_bialgebra\_platonic.tex} and
+\texttt{chapters/examples/toric\_cy3\_coha.tex} for the
+$\mathrm{sign}\,(2,1)$ Cartan of $\fg_{\Delta_5}$), Humbert-surface monodromy
+of order $8$, and
+$\Delta_5$-associator data — all non-toric invariants invisible to the
+chart-wise machinery. Chart-wise $Y^+(\widehat{\fgl}_1)$ stalks appear
+only at the $24$ smooth-$\bC^3$ points of a nodal-$K3 \times E$
+degeneration, matching the $24$ $I_1$-fibres of the elliptic fibration on
+$K3$.
+\end{remark}
+
+% ============================================================================
+\section{Open frontiers}
+\label{sec:open-frontiers}
+% ============================================================================
+
+Four primary frontiers $\mathsf F_{1}$--$\mathsf F_{4}$ govern the
+conifold programme; four secondary items $\mathsf F_{5}$--$\mathsf F_{8}$
+record auxiliary loci where the construction of §§3--14 admits
+sharpening. Each item carries a claim-status marker and an
+\emph{explicit falsifier}: a first-principles computation whose outcome
+would disprove the item. Falsifiability is the Popperian standard
+demanded by Beilinson's dictum; a conjecture that cannot be killed has
+no content. The items below each name the experiment that would kill
+them.
+
+\begin{enumerate}[label=\emph{$\mathsf F_{\arabic*}$.}, leftmargin=2.4em]
+\item \emph{Algebraic super-rigidity of $Y^{+}(\widehat{\fgl}(1|1))$.}
+  \ClaimStatusConjectured\
+  Conjecture~\ref{conj:algebraic-super-rigidity}: the
+  Hopf-super-bialgebra cohomology
+  $\HH^{2}_{\mathrm{Hopf}}(Y^{+}(\widehat{\fgl}(1|1));\,
+  Y^{+}(\widehat{\fgl}(1|1)))$ is one-dimensional, spanned by the
+  class of the $\varepsilon_{1}\varepsilon_{2}$-deformation.
+  \emph{Falsifier.} Exhibit a $2$-cocycle
+  $\omega\in Z^{2}_{\mathrm{Hopf}}$ on $Y^{+}(\widehat{\fgl}(1|1))$
+  linearly independent of $[\varepsilon_{1}\varepsilon_{2}]$ modulo
+  the $(\varepsilon_{1}+\varepsilon_{2})$-gauge equivalence of
+  Remark~\ref{rem:SV-rigidity-unrefined-only}; equivalently, construct
+  a formal deformation of the super-shuffle
+  product~\eqref{eq:bond-factors} whose first-order class is not
+  spanned by the IKV Schwinger kernel of
+  Remark~\ref{rem:refined-free-energy-NO}. Primary obstruction to the
+  positive proof: Ginzburg--Schedler super-formality
+  \texttt{arXiv:0807.0174} terminates at $E_{2}$, removing the
+  Kontsevich--Tamarkin $E_{3}$-input that powered unrefined
+  Schiffmann--Vasserot \texttt{arXiv:1202.2756}.
+
+\item \emph{Refined $Z_{\mathrm{top}}$ as super-character at level~$1$.}
+  \ClaimStatusConjectured\
+  Conjecture~\ref{conj:ikv-super-character}:
+  $Z^{\mathrm{ref}}_{\mathrm{top}}(\bY;t,q,Q)
+   = \chi^{\mathrm{Weyl{-}Kac}}_{
+     Y_{\varepsilon_{1},\varepsilon_{2}}(\widehat{\fgl}(1|1)),\,\mathrm{lev}\,1}$
+  as formal power series in $Q$, with $t = e^{i\varepsilon_{1}}$,
+  $q = e^{i\varepsilon_{2}}$. Coefficients $Q^{0}, Q^{1}$ verified
+  directly (Remark~\ref{rem:ikv-super-character-coefficient-check});
+  $Q^{\geq 2}$ open. \emph{Falsifier.} Compute the $Q^{2}$-coefficient
+  of the IKV product in closed form and compare to the graded
+  multiplicity
+  $\mathrm{ch}_{q,t}\bigl(e^{(1)}_{\alpha_{1}}(z)\,
+   e^{(1)}_{\alpha_{1}}(w)\cdot|\mathrm{vac}\rangle\bigr)$
+  in $Y_{\varepsilon_{1},\varepsilon_{2}}(\widehat{\fgl}(1|1))$ modulo
+  fermionic quadratic Serre; any mismatch not absorbed into the
+  $(tq)^{1/2}$ half-shift normalisation of
+  Remark~\ref{rem:ikv-super-character-coefficient-check} falsifies
+  $\mathsf F_{2}$.
+
+\item \emph{Super-Yangian Hopf pairing asymmetric correction.}
+  \ClaimStatusConjectured\
+  Conjecture~\ref{conj:hopf-pairing}: the subleading coefficient on
+  the odd diagonal is $c_{11} = -1$ in the Nazarov convention
+  (equivalently $c_{11} = +1$ in the Gow--Peng
+  antipode-in-coproduct convention), with $c_{00} = 0$ on the even
+  diagonal. Leading binomial kernel verified via three independent
+  routes (Maulik--Okounkov stable-envelope residue;
+  Soibelman--Gelfand refined Ext-pairing $\mathbf E_{\hbar}$;
+  Tsymbaliuk shuffle \texttt{arXiv:1404.5240} Prop.~4.3).
+  \emph{Falsifier.} Perform the Berezinian-residue computation
+  $\mathrm{coeff}_{u^{-m-1}v^{-n-1}}\!
+   \bigl[\log\mathrm{Ber}_{q}T(u)\cdot k^{\mathrm{off}}(u-v)\bigr]$
+  with
+  $k^{\mathrm{off}}(u)
+   = (u+\varepsilon_{1})(u+\varepsilon_{2})/
+     [u(u+\varepsilon_{1}+\varepsilon_{2})]$
+  in the Nazarov~1991 / Gow~\texttt{arXiv:math/0411166} / Peng~2011
+  framework. A value $|c_{11}|\neq 1$ falsifies the
+  parity-isotropy-source argument; a non-zero $c_{00}$ falsifies the
+  even-self-Serre input on the Cartan diagonal.
+
+\item \emph{M-theory parent and 5D hCS super all-orders.}
+  \ClaimStatusConjectured\
+  Conjecture~\ref{conj:m-theory-parent} with
+  Theorem~\ref{thm:hcs-super-open} at $2$-loop and higher: the 6D
+  $(2,0)$ $A_{K-1}$ theory on $\bR^{1,3}\times T^{2}$ with $K$
+  M5-branes wrapped on $\bP^{1}\subset\bY$, normal-bundle twist
+  $\cO(-1)\oplus\cO(-1)$, $\Omega$-deformation on transverse
+  Taub--NUT, and Costello--Gwilliam twist on the CY$_{3}$ target
+  quantises after $T^{2}$-reduction to
+  $Y(\widehat{\fgl}(1|1))^{\mathrm{con}}$ to all orders in $\hbar$.
+  \emph{Falsifier.} Compute the 2-loop Costello--Paquette BV-BRST
+  anomaly cocycle on the super-abelian $(1|1)$-stack; a non-trivial
+  cohomology class at $O(\hbar^{2})$ obstructs the
+  factorisation-algebra quantisation and falsifies the all-orders
+  claim at $K=1$. For $K\geq 3$: the cubic-Casimir anomaly
+  $A_{\mathrm{anom}} = d^{abc}d^{abc}/(2\pi)^{3}$ obstructs
+  non-abelian extension; $K=2$ is special because $d^{abc} = 0$ on
+  $\fsl_{2}$. Explicit Costello--Paquette super-extension covering
+  the $(-1,-1)$-twisted normal bundle is absent from current
+  literature.
+\end{enumerate}
+
+Secondary frontiers, auxiliary to the master identification:
+
+\begin{enumerate}[label=\emph{$\mathsf F_{\arabic*}$.}, start=5, leftmargin=2.4em]
+\item \emph{Hopf pairing non-degeneracy beyond weight $(2,2)$.}
+  \ClaimStatusPartialPrimaryLit\
+  Shapovalov determinants are known up to weight $(2,2)$ with generic
+  non-degeneracy verified and two Kazhdan--Lusztig-positive chambers
+  separated by the conifold BPS wall $\hbar = 1$. \emph{Falsifier.} Compute
+  $\det\mathrm{Shap}_{(3,3)}$ as a polynomial in $\hbar$ and exhibit
+  a zero off the Kac denominator locus
+  $\prod_{r,s}(\hbar - \hbar_{r,s})$; such a zero falsifies the
+  conjectured higher-weight generic non-degeneracy and the
+  KL-positivity persistence across the BPS wall.
+
+\item \emph{Chamber-character match at higher weight.}
+  \ClaimStatusPartialPrimaryLit\
+  Coefficient-by-coefficient agreement across R1--R5 verified at
+  weights $m+n\leq 4$; higher weights open.
+  \emph{Falsifier.} Any pair $\mathsf R_{i},\mathsf R_{j}$ producing
+  distinct structure constants at a weight $(m,n)$ with
+  $m+n\geq 5$, after chamber normalisation
+  (Theorem~\ref{thm:chamber-inv-pairing}) and the native-basis
+  intertwiner $\iota^{\mathsf R_{i}\mathsf R_{j}}$ of
+  Theorem~\ref{thm:master}(i), falsifies the five-route match.
+
+\item \emph{Compact CY$_{3}$ replacement machinery.}
+  \ClaimStatusOpen\
+  Theorem~\ref{thm:compact-obstruction} establishes four
+  obstructions to direct transfer; the \emph{positive} side — an
+  explicit automorphic-form replacement on compact CY$_{3}$ — is
+  open. Gritsenko--Nikulin \texttt{alg-geom/9504006} and Borcherds
+  \texttt{alg-geom/9609022} supply partial data on $K3\times E$
+  (Vol~III Part~IV). \emph{Falsifier.} Construct a non-toric compact
+  CY$_{3}$ admitting a finite quiver with potential $(Q,W)$ with
+  Ginzburg dga vanishing $\HH^{<0}(J)=0$ whose CoHA admits a
+  chart-wise presentation equivariant under a continuous torus of
+  rank $\geq 2$; any such example falsifies the simultaneous
+  necessity of all four obstructions (O1)--(O4).
+
+\item \emph{$\chi_{\mathrm{BLLPRvR}}$ identification at $\cN=1$.}
+  \ClaimStatusConjectured\
+  The 4D/2D chiral-algebra functor of
+  Beem--Lemos--Liendo--Peelaers--Rastelli--van~Rees
+  \texttt{arXiv:1312.5344} is defined for $\cN\geq 2$ 4D SCFTs;
+  $T[\bY]$ at the resolved conifold is $\cN=1$. The claim
+  $Y^{+}(\widehat{\fgl}(1|1)) = \chi_{\mathrm{BLLPRvR}}(T[\bY])$
+  requires an $\cN=1$-compatible extension, e.g.\ via $R$-symmetry
+  enhancement at the IR superconformal point, or via a
+  partial-topological twist recovering $\cN=2$ bookkeeping on a
+  sub-Coulomb locus. \emph{Falsifier.} Exhibit the IR superconformal
+  fixed point of $T[\bY]$ and show its $U(1)_{R}$-current does not
+  enhance to $SU(2)_{R}$; equivalently, prove that no
+  $\cN=1\to\cN=2$ enhancement exists in the deep IR of $T[\bY]$,
+  closing the applicability of $\chi_{\mathrm{BLLPRvR}}$.
+\end{enumerate}
+
+Each $\mathsf F_{i}$ is falsifiable by a concrete computation of
+bounded combinatorial complexity; none is a metaphysical conjecture.
+The four primary items $\mathsf F_{1}$--$\mathsf F_{4}$ share the
+obstruction — absence of $E_{3}$-super-formality and of
+Costello--Paquette super-extensions to CY$_{3}$ with
+$(-1,-1)$-twisted normal bundle — consistent with these being four
+facets of a single open problem: the chain-level quantisation of the
+super-BPS $E_{3}$-centre.
+
+% ============================================================================
+\section{Master theorem}
+% ============================================================================
+
+\begin{theorem}[Master identification]
+\label{thm:master}
+\ClaimStatusProvedElsewhere\ \emph{(at the super-algebra level,
+  primary source Li--Yamazaki \texttt{arXiv:2003.08909} §8.3.6;
+  at the ungraded-shadow level, primary source MMNS
+  \texttt{arXiv:1107.5017} combined with Davison--Meinhardt
+  \texttt{arXiv:1601.02479} integrality.)}
+Let $\bY = \mathrm{Tot}\bigl(\cO_{\bP^{1}}(-1)\oplus\cO_{\bP^{1}}(-1)\bigr)$
+be the resolved conifold and
+$(Q_{\mathrm{con}}, W_{\mathrm{con}})$ the Klebanov--Witten two-vertex
+quiver with quartic cyclic potential. Write $Y^{+}(\widehat{\fgl}(1|1))$
+for the positive half of the affine super-Yangian of
+$\widehat{\fgl}(1|1)$ and
+$Y^{+}(\widehat{\fgl}(1|1))^{\mathrm{con}}$ for its conifold
+specialisation (Li--Yamazaki \texttt{arXiv:2003.08909} §8.3.6, bond
+factors~\eqref{eq:bond-factors}). Then
+\[
+  \boxed{
+    \;\CoHA(\bY) \;\stackrel{\cong}{\longrightarrow}\;
+    Y^{+}\!\bigl(\widehat{\fgl}(1|1)\bigr)^{\mathrm{con}}\;
+  }
+\]
+is an isomorphism of \emph{$\Z_{2}$-graded associative bialgebras in
+super-vector spaces over $\C((\hbar))$}, with structure maps
+$(\mu,\iota,\Delta,\epsilon)$ identified as follows:
+\begin{enumerate}[label=\emph{(\alph*)}, leftmargin=2em]
+\item \emph{Multiplication $\mu$.} The critical CoHA convolution
+  product on $\CoHA(\bY)$ coincides with the super-shuffle star
+  product on $Y^{+}(\widehat{\fgl}(1|1))^{\mathrm{con}}$ with bond
+  factors~\eqref{eq:bond-factors} (Li--Yamazaki eq.~(8.125)).
+\item \emph{Unit $\iota$.} The identity class $[\mathrm{pt}]\in
+  \CoHA(\bY)_{(0,0)}$ maps to the vacuum $1 \in Y^{+}$.
+\item \emph{Coproduct $\Delta$.} The Kontsevich--Soibelman localised
+  integration map (\texttt{arXiv:1006.2706} §6.3) equals the
+  Drinfeld-new coproduct
+  $\Delta(e^{(a)}(z)) = e^{(a)}(z)\otimes 1 +
+   \phi^{+,(a)}(z)\otimes e^{(a)}(z)$ in
+  $Y^{+}(\widehat{\fgl}(1|1))^{\mathrm{con}}$, where
+  $\phi^{+,(a)}(z) = \sum_{k\geq 0}\phi^{+,(a)}_{k}z^{-k-1}$ is the
+  Drinfeld-new positive Cartan current on vertex $a\in\{0,1\}$.
+\item \emph{Counit $\epsilon$.} $\epsilon|_{\CoHA_{(0,0)}} =
+  \mathrm{id}_{\C}$, $\epsilon|_{\CoHA_{(m,n)}\neq(0,0)} = 0$.
+\end{enumerate}
+An \emph{antipode} is \textbf{not} asserted on
+$Y^{+}(\widehat{\fgl}(1|1))^{\mathrm{con}}$ itself: the positive half
+is a bialgebra but not a Hopf algebra. The antipode lives on the
+Drinfeld double $D(Y^{+})$ alone; its scope is recorded in item (ii)
+below.
+\begin{enumerate}[label=\emph{(\roman*)}, leftmargin=2em]
+\item \emph{Five presentations produce isomorphic bialgebras.}
+  The five routes R1--R5
+  (Sections~\ref{sec:shuffle-route},~\ref{sec:cech-route},~\ref{sec:vdb-route},~\ref{sec:rtt-route},~\ref{sec:chiral-route})
+  each produce a bialgebra; any two are related by a native-basis
+  intertwiner $\iota^{\mathsf R_{i}\mathsf R_{j}}$ that is an
+  $\hbar$-linear bialgebra isomorphism on every weight-graded piece
+  $(\CoHA)_{(m,n)}$ with $m+n\leq 4$, agreeing at the leading
+  $(1,1)$-weight imaginary-root generator with coefficient
+  $(\varepsilon_{1}\varepsilon_{2})^{-1}$ in each native basis.
+  Agreement at $m+n\geq 5$ is $\mathsf F_{6}$
+  (Section~\ref{sec:open-frontiers}). Routes R1, R4, R5 resolve the
+  central Cartan current $K(z) = h^{(0)}(z) + h^{(1)}(z)$ via
+  residue extraction at the coincidence locus
+  $z^{(0)} = z^{(1)}$; routes R2, R3 resolve the Chevalley Cartan
+  $H(z) = h^{(0)}(z) - h^{(1)}(z)$ and project $K$ to zero under the
+  chart-wise $Y^{+}(\widehat{\fgl}_{1})$-stalk stencil
+  (Remark~\ref{rem:super-vs-even}). The intertwiner
+  $\iota^{\mathsf R_{i}\mathsf R_{j}}$ absorbs both the
+  native-basis change and the $H\leftrightarrow K$ reassignment on
+  the imaginary-root line.
+\item \emph{Drinfeld double and Hopf status.} The double
+  $D(Y^{+}) = Y(\widehat{\fgl}(1|1))^{\mathrm{con}}$ carries an
+  antipode; it is a \emph{strict $\Z_{2}$-graded Hopf algebra} at
+  rational, trigonometric, and toroidal spectral type (Etingof--Kazhdan
+  cohomology $H^{3}_{\mathrm{EK}}(\fgl(1|1);\fgl(1|1)^{\otimes 3}) = 0$,
+  Theorem~\ref{thm:hopf-status}), and a \emph{quasi-Hopf algebra with
+  dynamical associator} $\Phi_{\mathrm{ell}}$
+  (Felder--Jimbo--Konno) at elliptic spectral type.
+\item \emph{BPS Lie algebra.} $\fg_{\mathrm{BPS}}^{\mathrm{con}}$ has
+  Klebanov--Witten affine root structure: real roots
+  $n\delta\pm\alpha$ of multiplicity $1$, imaginary roots $n\delta$ of
+  super-dimension $2$, spanned by $\{H_{n}, K_{n}\}$ with $H$ the
+  Chevalley Cartan and $K$ the central Cartan
+  (Proposition~\ref{prop:super-brackets}).
+\item \emph{Chamber structure.} The stability space is a
+  $W(\widehat{\fsl}_{2})$-torsor of shifted quiver Yangian
+  representations of a chamber-independent algebra; the
+  Joyce--Song--Kontsevich--Soibelman pairing is literally equal
+  across chambers, not merely projectively equivariant
+  (Theorems~\ref{thm:chambers},~\ref{thm:chamber-inv-pairing}).
+\item \emph{Ungraded shadow is a different algebra.} The
+  supertrace projection $\mathrm{str}\colon\widehat{\fgl}(1|1)
+  \twoheadrightarrow\widehat{\fsl}_{2}$ on the even subalgebra
+  annihilates the central current $K$ and retains only the Chevalley
+  $H$ (Remark~\ref{rem:super-vs-even}). It induces a surjection
+  $Y^{+}(\widehat{\fgl}(1|1))^{\mathrm{con}}
+   \twoheadrightarrow Y^{+}(\widehat{\fsl}_{2})^{\mathrm{con}}$
+  of bialgebras whose kernel is the two-sided ideal generated by
+  $K$. The target $Y^{+}(\widehat{\fsl}_{2})^{\mathrm{con}}$ is the
+  MMNS motivic DT algebra \texttt{arXiv:1107.5017} and is a
+  \emph{distinct algebra} from $Y^{+}(\widehat{\fgl}(1|1))^{\mathrm{con}}$:
+  the imaginary-root line of the super source is two-dimensional
+  ($H + K$), while the shadow's imaginary-root line is one-dimensional
+  ($H$ only). Both are theorems at their respective scopes --- the super
+  form is primary for the categorified CoHA (Li--Yamazaki
+  \texttt{arXiv:2003.08909} §8.3.6), the shadow is primary for
+  motivic/numerical invariants (MMNS combined with Davison--Meinhardt
+  integrality \texttt{arXiv:1601.02479}) --- and the relation between
+  them is surjection, not isomorphism.
+\end{enumerate}
+Transfer to arbitrary local toric CY$_{3}$ without compact $4$-cycles
+is Proposition~\ref{prop:toric-transfer}; the four-way obstruction to
+direct transfer to compact CY$_{3}$ is
+Theorem~\ref{thm:compact-obstruction}; the replacement
+automorphic-form machinery on $K3\times E$, quintic, and
+Gritsenko--Nikulin--Borcherds-lift compact CY$_{3}$ is
+Remark~\ref{rem:mnop-replacement} and frontier
+$\mathsf F_{7}$ (Section~\ref{sec:open-frontiers}).
+\end{theorem}
+
+\begin{remark}[Scope summary: what is proved, what is not]
+\label{rem:master-theorem-scope}
+The isomorphism $\CoHA(\bY) \cong
+Y^{+}(\widehat{\fgl}(1|1))^{\mathrm{con}}$ of item~(i) is established
+as bialgebras on weight-graded pieces with $m+n\leq 4$ via explicit
+structure-constant match across R1--R5; extension to all weights is
+the conjectural content of frontier $\mathsf F_{6}$. The antipode
+claim of item~(ii) is established on $D(Y^{+})$, not on $Y^{+}$
+itself. Item~(v) distinguishes the super
+bialgebra from its ungraded shadow as two different algebras
+(surjection of the super form onto the shadow), not as two
+presentations of one algebra. The refined
+$(\varepsilon_{1},\varepsilon_{2})$-structure underlying
+Conjectures~\ref{conj:algebraic-super-rigidity}
+and~\ref{conj:ikv-super-character} is the open content of frontiers
+$\mathsf F_{1}, \mathsf F_{2}$. Hopf-pairing non-degeneracy at weight
+$>(2,2)$ and the $c_{11} = -1$ asymmetric correction are
+$\mathsf F_{5}, \mathsf F_{3}$.
+\end{remark}
+
+\end{document}

@@ -3836,3 +3836,1006 @@ name. Hits in `notes/`, `FRONTIER.md`, commit messages, the local
 scaffolding are not violations. The hook distinguishes scope by
 path.
 
+## 6d hCS audit + Harmonies synthesis anti-patterns: AP-CY269 through AP-CY292 (2026-04-22)
+
+Note on numbering: originally drafted as AP-CY203--AP-CY226 but renumbered to
+AP-CY269--AP-CY292 to avoid collision with the concurrent Wave-12
+attack-heal residual catalogue (AP-CY203--AP-CY227) and Wave-15 frontier
+exploration append (AP-CY262--AP-CY268). The paired cache entries in
+`notes/first_principles_cache_comprehensive.md` retain the E1--E24 labels;
+the appendix-facing rows in `appendices/first_principles_cache.md` carry
+IDs AP-CY262--AP-CY285 (assigned before this collision was detected;
+cross-reference tables map E$n$ $\leftrightarrow$ AP-CY$(268+n)$
+in this catalogue $\leftrightarrow$ AP-CY$(261+n)$ in the appendix).
+
+Twenty-four patterns from the session-boundary audit of the 6d holomorphic
+Chern--Simons theory inscription and the downstream Harmonies synthesis.
+Each pattern pairs with a matching cache entry in
+`notes/first_principles_cache_comprehensive.md` and with an appendix-facing
+row in `appendices/first_principles_cache.md`. The scope discipline is:
+every claim about $\mathbf H_{\Delta_5}$, the seven framings, the
+$\kappa_{\mathrm{BKM}}$ tower, the dimensional siblings, and the
+six-route $G(K3\times E)$ construction must name its evidence class
+(proved, formal/open, conjectural) and its automorphic input (Siegel
+weight, paramodular weight, multiplier, level). A single convention
+gap at any of these points cascades into cross-volume overclaiming.
+
+| # | Wrong Claim | Ghost Theorem | Precise Error | Correct Relationship | Type |
+|---|-------------|---------------|---------------|----------------------|------|
+| E1 | Seven framings of $\mathbf H_{\Delta_5}$ (shifted $\mathcal D_\hbar$, universal enveloping $U(\mathfrak g_{\Delta_5})$, quasi-Hopf Siegel--Borcherds $\widetilde\Phi^{\mathrm{Sieg\text{-}Bor}}$, $6$D hCS, Hall--Drinfeld double, BRST, affine LG) are rigorously proved equivalent on the Koszul locus. | Each framing does attach to a real construction and the six bridges between them are the content of the Harmonies synthesis. | Zero of seven are rigorously proved equivalent as written: two are type-errors (mismatching grading / ambient category) and three are formal/open (bridges exhibited only at $\hbar^{\leq 2}$, or only on the $M_{24}$-invariant block, or conditional on CHL-reduced DT). The seven are seven \emph{distinct constructions linked by conjectural equivalences} on the Koszul locus. | State the seven as seven constructions with explicit bridge status: (i)$\leftrightarrow$(ii) classical-limit match $\hbar\to 0$; (i)$\leftrightarrow$(iii) $\hbar^{\leq 2}$ hexagon, $\hbar^3$ associator conjectural; (i)$\leftrightarrow$(iv) $6$D-hCS-to-chiral conjectural (Costello 2021); (i)$\leftrightarrow$(v) CoHA $\to \Phi$ (AP-CY7 / Wave-15 $\Phi$-arrow discipline); (i)$\leftrightarrow$(vi) BRST construction of imaginary roots (Borcherds 1986, Wave 16 screenings); (i)$\leftrightarrow$(vii) affine-LG mirror conjectural (Gaiotto--Witten 2010). TRUTH\_REPORT \S V overclaiming audit. Primary: Borcherds 1998 \emph{Invent Math} 132; Costello 2021 \emph{Notices AMS}; Gritsenko--Nikulin 1998 \emph{Duke} 94; Kerler--Lyubashenko 2001 LMS LNS 262. | AP-CY269 / seven-incarnation overclaiming |
+| E2 | $\Delta_{E_6}$ paramodular form has Siegel weight $16$. | Gritsenko--Nikulin 1998 \S 4 classifies reflective paramodular forms on $\mathbb H_2$ by weight; the $E_6$ root lattice admits a Gritsenko singular-theta lift. | Weight is $18$, not $16$. The lift $\Delta_{E_6} = \mathrm{Lift}(\Phi^{\mathrm{th}}_{E_6})$ of the $E_6$ theta series has Siegel weight $18$ per Gritsenko--Nikulin 1998 \emph{Duke} 94 Thm 4.3 and Gritsenko 1999 \emph{Math Nachr} 199 Table 2. Conflating with the $E_7$ weight ($\mathrm{wt}(\Delta_{E_7}) = 12$) or the $E_8$ weight ($\mathrm{wt}(\Delta_{E_8}) = 4$) explains drift to $16$. | $\mathrm{wt}(\Delta_{E_6}) = 18$, Siegel-weight. Verification paths: (i) Gritsenko--Nikulin 1998 Thm 4.3; (ii) $E_6$ root-system weight count; (iii) $K$-theoretic dimension count $\dim M_{18}(\Gamma_1^+) \geq 1$; (iv) LMFDB paramodular-data row (tertiary). Primary: Gritsenko--Nikulin 1998 \emph{Duke} 94 Thm 4.3; Gritsenko 1999 \emph{Math Nachr} 199 Table 2; Borcherds 1998 \emph{Invent Math} 132 Thm 10.1. | AP-CY270 / $\Delta_{E_6}$ weight $18$, not $16$ |
+| E3 | "Maass spin cover" as canonical name for the half-integral extension of the paramodular double cover. | Maass 1979 \emph{Math Ann} 242 introduces a spin lift from $\mathrm{Mp}_2 \to \mathrm{SL}_2$, relevant for half-integral modular forms at spin level. | "Maass spin cover" is non-canonical and conflates two distinct objects: (a) Maass's genus-1 spin lift $\mathrm{Mp}_2 \to \mathrm{SL}_2$, and (b) the half-integral character twist on the genus-2 paramodular group $\Gamma^+_N$ that carries $\Delta_5$-type forms with order-$2$ multiplier. The genus-2 object is a character twist, not a spin cover. | Canonical terminology: "character twist" (TRUTH\_REPORT \S V). The order-$2$ multiplier $\nu_{\Delta_5}$ is a character $\chi \colon \Gamma^+_N \to \mu_2$, NOT a double-cover group. Replacement: everywhere "Maass spin cover" $\to$ "character twist by $\nu_{\Delta_5}$" or "half-integral weight on the double cover" (explicit). Primary: TRUTH\_REPORT \S V; Gritsenko 1994 \emph{St Petersburg Math J} 6 \S 3; Gritsenko--Nikulin 1998 \emph{Duke} 94 \S 2 (multiplier structure). | AP-CY271 / "Maass spin cover" $\to$ "character twist" |
+| E4 | "Pseudo-character" / "Taylor--Wiles pseudo-character" as canonical name for the determinant-axiom object in the Galois-representation deformation theory of $\mathbf H_{\Delta_5}$. | Taylor--Wiles 1995 introduced pseudo-characters (formal traces satisfying the cocycle identity) in the original $R = T$ paper; this is a real concept. | "Pseudo-character" is deprecated in the modern deformation-theoretic literature. Chenevier 2014 \emph{Camb J Math} 2 introduced the determinant axiomatisation that subsumes pseudo-characters and handles the $p=2$ case where Taylor--Wiles fails. The canonical object is a \emph{Chenevier determinant}. | Canonical terminology: "Chenevier determinant" (TRUTH\_REPORT \S V, Pattern 295). A Chenevier determinant is a map $D \colon R \to S$ satisfying the full degree-$n$ polynomial law; pseudo-characters are the trace shadow. The two agree at $p \nmid n!$ but Chenevier is the primitive object. Replacement everywhere "pseudo-character" $\to$ "Chenevier determinant" unless one is specifically invoking the trace-only reduction. Primary: Chenevier 2014 \emph{Camb J Math} 2; TRUTH\_REPORT \S V; Wiles 1995 \emph{Ann Math} 141 (historical); Taylor--Wiles 1995 \emph{Ann Math} 141 (historical). | AP-CY272 / "pseudo-character" $\to$ "Chenevier determinant" |
+| E5 | There are 22 (or 23) non-Leech Niemeier Borcherds--Kac--Moody algebras. | Niemeier 1973 \emph{J Number Theory} 5 classifies the 24 positive-definite even unimodular lattices of rank 24; removing the Leech lattice leaves 23 non-Leech Niemeier lattices. | Not every Niemeier lattice produces a Borcherds automorphic BKM with a reflective Lorentzian lift: most fail the reflectivity / modular-form hypothesis required by Borcherds 1998 Thm 10.1. The actual count is $7$ (TRUTH\_REPORT \S V), corresponding to the seven Niemeier lattices $N_I$ with root-part $I$ arithmetic-class admitting a Gritsenko--Nikulin reflective lift. | $7$ non-Leech Niemeier BKMs corresponding to seven reflective Niemeier root-part arithmetic classes. The remaining 16 Niemeier lattices fail reflectivity. Primary: TRUTH\_REPORT \S V; Scheithauer 2004 \emph{Invent Math} 164; Gritsenko--Nikulin 2003 arXiv:math/0312473 \S 3; Niemeier 1973 \emph{J Number Theory} 5 (lattice classification). | AP-CY273 / seven non-Leech Niemeier BKMs, not 22/23 |
+| E6 | $\Lambda_{\mathrm{Mukai}}(K3)$ has rank 22 with signature $(3, 19)$. | The transcendental lattice of a generic K3 surface has rank 22 and signature $(2, 20)$; the Picard lattice of a generic K3 has rank 0; these are Hodge-theoretic sublattices of the cohomology $H^2(K3, \mathbb Z) = \mathrm{II}_{3, 19}$. | Confuses three distinct lattices: (a) $H^2(K3, \mathbb Z) = \mathrm{II}_{3, 19}$, rank 22 signature $(3, 19)$; (b) transcendental sublattice, rank $\leq 22$; (c) the \emph{Mukai} lattice $\Lambda_{\mathrm{Mukai}}(K3) = H^0 \oplus H^2 \oplus H^4 = \mathrm{II}_{4, 20}$, rank 24 signature $(4, 20)$ with Mukai pairing. The Mukai lattice is the cohomology of the derived category, not the middle cohomology. | $\Lambda_{\mathrm{Mukai}}(K3) = \mathrm{II}_{4, 20}$, rank 24 signature $(4, 20)$. Mukai pairing: $\langle v_1, v_2\rangle = -\int_{K3} v_1^\vee \cdot v_2$ with Mukai vector $v(\mathcal F) = \mathrm{ch}(\mathcal F) \sqrt{\mathrm{td}(K3)}$. Three lattices: $H^2 = \mathrm{II}_{3,19}$ rank 22; transcendental $\subseteq H^2$; Mukai $\Lambda_{\mathrm{Mukai}} = H^0 \oplus H^2 \oplus H^4 = \mathrm{II}_{4,20}$ rank 24. Primary: Mukai 1987 \emph{Nagoya Math J} 108; Huybrechts 2016 \emph{Lectures on K3 Surfaces} Ch 1, 6; Nikulin 1979 \emph{Izv Akad Nauk SSSR} 43. | AP-CY274 / Mukai rank 24 signature $(4,20)$, not rank 22 |
+| E7 | $\mathcal W_\infty[\lambda] = \mathcal W_{1+\infty}$ (same vertex algebra up to parameters). | Both are one-parameter families of $\mathcal W$-type vertex algebras extending the Virasoro algebra; both appear in the literature with various normalisations; both are central in the CoHA / affine-Yangian correspondence. | $\mathcal W_{1+\infty}$ contains a $\widehat{\mathfrak u(1)}$ Heisenberg current (i.e.\ spin-1 generator); $\mathcal W_\infty[\lambda]$ is the quotient by that current. Conflation directly falsifies CoHA($\mathbb C^3$) $= Y^+$ statements: CoHA($\mathbb C^3$) $= Y^+$ is the POSITIVE HALF of affine Yangian of $\widehat{\mathfrak{gl}}_1 = \mathcal W_{1+\infty}$, NOT $\mathcal W_\infty[\lambda]$. | Two distinct vertex algebras related by quotient: $\mathcal W_{1+\infty} \twoheadrightarrow \mathcal W_\infty[\lambda]$ by quotienting the spin-1 current. $\mathcal W_{1+\infty}$: generators at spins $1, 2, 3, \ldots$; $\mathcal W_\infty[\lambda]$: generators at spins $2, 3, 4, \ldots$. CoHA($\mathbb C^3$) $= Y^+(\widehat{\mathfrak{gl}}_1) \cong \mathcal W_{1+\infty}^+$ (positive half, SV 2013). Primary: Schiffmann--Vasserot 2013 \emph{Publ IH\'ES} 118; Prochazka--Rapcak 2018 \emph{JHEP} 2018:177; Gaiotto--Rapcak 2019 arXiv:1903.10024. | AP-CY275 / $\mathcal W_{1+\infty}$ vs $\mathcal W_\infty[\lambda]$: $u(1)$ current quotient |
+| E8 | $\kappa_{\mathrm{cat}}(K3 \times E) = 2$ (fibre contribution $\chi(\mathcal O_{K3}) = 2$). | $\kappa_{\mathrm{cat}}$ on a product of compact CY varieties splits via the fibre. | Künneth multiplicativity on compact CY: $\chi(\mathcal O_{X \times Y}) = \chi(\mathcal O_X) \cdot \chi(\mathcal O_Y)$. For $X = K3$, $Y = E$: $\chi(\mathcal O_{K3}) = 2$, $\chi(\mathcal O_E) = 0$, so $\chi(\mathcal O_{K3 \times E}) = 2 \cdot 0 = 0$, NOT 2. Reporting the fibre value without the Künneth product drops the elliptic factor. $K3 \times E$ is a CY-3, whose $\kappa_{\mathrm{cat}}$ is the total-space Euler characteristic. | $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\mathcal O_{K3 \times E}) = \chi(\mathcal O_{K3}) \cdot \chi(\mathcal O_E) = 2 \cdot 0 = 0$. Distinct invariants: $\kappa_{\mathrm{fibre}}(K3) = 2$, $\kappa_{\mathrm{total}}(K3\times E) = 0$, $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$ (all different). Cross-ref: AP-CY68, AP-CY190 (Num1), C10 ($\eta^{-48}$ Heisenberg--Mukai). Primary: Huybrechts 2016 \emph{Lectures on K3 Surfaces}; Künneth decomposition on Hodge diamond. | AP-CY276 / $\kappa_{\mathrm{cat}}(K3\times E) = 0$ (total), not $2$ (fibre) |
+| E9 | CoHA($\mathbb C^3$) $= \mathcal W_{1+\infty}$ (full affine Yangian vertex algebra). | Schiffmann--Vasserot 2013 \emph{Publ IH\'ES} 118 proved a deep identification: CoHA($\mathbb C^3$) is a "half" of the affine Yangian of $\widehat{\mathfrak{gl}}_1$, which itself is identified with $\mathcal W_{1+\infty}^+$. | CoHA is associative-algebraic (Hall multiplication only), NOT a Hopf algebra. The full Hopf structure on $Y(\widehat{\mathfrak{gl}}_1) = \mathcal W_{1+\infty}$ requires Drinfeld doubling. SV's identification CoHA($\mathbb C^3$) $= Y^+$ gives the POSITIVE half; the full $\mathcal W_{1+\infty}$ requires pairing $Y^+$ with $Y^-$ via Drinfeld double. Asserting CoHA($\mathbb C^3$) $= \mathcal W_{1+\infty}$ collapses the distinction. | CoHA($\mathbb C^3$) $= Y^+(\widehat{\mathfrak{gl}}_1) = \mathcal W_{1+\infty}^+$ (positive half). Full affine Yangian: $Y(\widehat{\mathfrak{gl}}_1) = D(Y^+, Y^-) = \mathcal W_{1+\infty}$ via Drinfeld double. Primary: Schiffmann--Vasserot 2013 \emph{Publ IH\'ES} 118 Thm 8.2; Kontsevich--Soibelman 2011 \emph{Commun Number Theory Phys} 5; Drinfeld 1986 \emph{Dokl Akad Nauk} 289; Prochazka 2015 \emph{JHEP} 1510:077. | AP-CY277 / CoHA($\mathbb C^3$) $= Y^+$ (positive half), not full $\mathcal W_{1+\infty}$ |
+| E10 | Six routes to $G(K3 \times E)$ equal six $\Phi$-applications to the same CY-3 category. | $\Phi$ is a correspondence programme producing a chiral algebra; six distinct constructions of a candidate $G(K3 \times E)$ have been proposed. | Single-stage framing conflates "six constructions" with "six $\Phi$-applications": $\Phi$ gives ONE output per CY category (up to the two-stage $(\Sigma_{d-1}, C)$-family). The six routes are six DIFFERENT constructions via six different functors (Hilbert-scheme + Grojnowski, Nakajima quiver-variety + affine, cohomological DT / BPS states, Gromov--Witten / DT, chiral vertex extension on $E$, Siegel paramodular Borcherds lift on $K3$). Their relationships are CONJECTURAL; the outputs have different $\kappa$. | Six distinct constructions, each with its own $\kappa$ fingerprint: $\kappa_{\mathrm{GH}} \to \chi(\mathcal O_{K3^{[n]}})$; $\kappa_{\mathrm{N}} \to$ Nakajima; $\kappa_{\mathrm{DT}} \to c_N(0)/2$; $\kappa_{\mathrm{GW}} \to$ reciprocal paramodular; $\kappa_{\mathrm{vertex}} \to$ chiral data on $E$; $\kappa_{\mathrm{Borcherds}} \to \mathrm{wt}(\Delta_5) = 5$. Bridges between them are CONJECTURAL (six-route pairwise CY-C). Primary: XX. CY-C six-routes comprehensive cache wave-14 entry; Oberdieck--Pandharipande 2018 \emph{J Alg Geom} 27; Gritsenko 1999 \emph{Math Nachr} 199 Thm 6.1. | AP-CY278 / six routes are six constructions, not six $\Phi$-applications |
+| E11 | CY-C holds unqualified; $G(X)$ is constructed generically for all CY categories $X$; super-Yangian exists as an object. | CY-C is the conjectural statement identifying the bar cohomology $H^\bullet(B(\Phi(X)))$ with a modular-automorphic object; several cases are proved (K3, Fake Monster, Enriques); $G(X)$ and super-Yangian have been constructed in examples. | CY-C is CONJECTURAL in general; $G(X)$ is unconstructed in general (constructed only in specific cases); super-Yangian is CONJECTURAL (super-extension of K3-Yangian with $\mathbb Z/2$-Hodge grading is programme-specific, not a Kac $\osp$). Asserting unqualified CY-C, existing $G(X)$, existing super-Yangian overstates the theorem-status and collides with AP-CY11 (super/abelian Yangian form discipline). | Status per object: (a) CY-C for K3, $K3\times E$, Fake Monster, Enriques: proved with ambient-qualifier. (b) CY-C for generic CY: CONJECTURAL. (c) $G(X)$: UNCONSTRUCTED in general; constructed for $X = K3$ (Grojnowski), $X = \mathbb C^3$ (CoHA), $X = K3\times E$ (six-route conjectural). (d) super-Yangian: CONJECTURAL programme object, not a Kac $\osp$. Every inscription must name the status before claiming universality. Cross-ref: AP-CY11, AP-CY169, AP-CY172. Primary: Lorgat 2020 arXiv:2004.09030; Schiffmann--Vasserot 2013; Grojnowski 1996 arXiv:alg-geom/9506020. | AP-CY279 / CY-C / $G(X)$ / super-Yangian each CONJECTURAL in general |
+| E12 | $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} + \chi(\mathcal O_{\mathrm{fiber}})$ is a universal identity across all CHL levels $N$. | At $N = 1$ (untwined K3): LHS $= 5$, RHS $= \kappa_{\mathrm{ch}}(K3\times E) + \chi(\mathcal O_E) = 0 + 0 = 0$; the naive identity fails even at $N=1$. A refined additive split with correction $\epsilon_N$ does hold. | The identity is an $N=1$ COINCIDENCE between certain evaluations: universal Borcherds weight identity gives $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ (Gritsenko 1999 Thm 6.1) uniformly; attempts to split this as $\kappa_{\mathrm{ch}} + \chi(\mathcal O_{\mathrm{fiber}})$ fail at every $N \ne 1$ (e.g.\ $N = 2$: LHS $= 4$, RHS $= 1$). Asserting universality cascades into overclaims about every sibling $\Phi_N$. | Universal: $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ (Gritsenko 1999 Thm 6.1, Borcherds 1995 Invent Math 120). The attempted additive split fails at $N \in \{2, 3, 4, 6\}$. Cross-ref: AP-CY168 (Ret3); AP-Vol-III-prop-2; canonical preamble row 59; C3 (universal Borcherds weight identity). Primary: Gritsenko 1999 \emph{Abh Math Sem Hamburg} 69 Thm 6.1; Borcherds 1995 \emph{Invent Math} 120; Gritsenko--Nikulin 1998 \emph{Duke} 94. | AP-CY280 / $\kappa_{\mathrm{BKM}}$ identity is $N=1$ coincidence, not universal |
+| E13 | Monster ($V^\natural$ on $\mathrm{II}_{1,1}$) and $\mathfrak g_{\Delta_5}$ ($K3$-BKM on $\mathrm{II}_{4,20}$ paramodular $\Lambda^{2,1}_{II}$) are co-$(\Sigma_2, C)$-shadows of a common $E_3$-holomorphic factorisation algebra. | Dimensional siblings are a real feature: $V^\natural$ at $d = 3$ on $\Lambda_{\mathrm{Monster}}$; $\Delta_5$ at $d = 3$ on K3-paramodular; Fake Monster at $d = 5$; Conway / Leech at $d = 4$. Bridges between them exist at the automorphic level. | Cartan ranks are incompatible: Monster Cartan rank = 2 (on $\mathrm{II}_{1,1}$); K3-BKM Cartan rank = 3 (on $\Lambda^{2,1}_{II}$); lattice ranks differ. Co-shadows of a common $E_3$-hFA would require matching Cartan / lattice structure after factorisation; they do not. The correct relationship is $\Psi$-sibling across distinct hosts, not co-$(\Sigma, C)$-shadow of one. | $\Psi$-siblings: the correspondence across dimensional strata is mediated by $\Psi_{d, d+2}$ (a vertical functor across CY-$d$ host categories), not by horizontal factorisation on a single $E_3$-hFA. Monster host: chiral $V^\natural$ on $\Lambda_{\mathrm{Monster}} = \mathrm{II}_{25,1}$ (rank 26 Cartan); K3-BKM host: $K3\times E$ paramodular (rank 3 Cartan). Their $\Psi$-relationship is genus-lifting at the Borcherds-lift level, not hFA-co-shadowing. Primary: Borcherds 1992 \emph{Invent Math} 109 (Monster); Gritsenko--Nikulin 1998 \emph{Duke} 94; Harvey--Moore 1996 arXiv:hep-th/9510182; C7 (dimensional sibling catalogue). | AP-CY281 / Monster / $\Delta_5$ $\Psi$-siblings, not common-hFA co-shadows |
+| E14 | Fake-Monster BKM at $d = 3$ with compact CY host $K3 \times K3 \times E$. | Fake-Monster is a real object (Borcherds 1990) living at a different dimensional stratum in the sibling family; the programme's Fake-Monster entry identifies it as $d = 5$. | Two errors: (a) dimensional stratum: Fake-Monster is at $d = 5$ (Borcherds 1990 on $\mathrm{II}_{25, 1}$, Leech-lattice-based, rank 26 Cartan), not $d = 3$; (b) host: Fake-Monster has NO compact CY host at any $d$; its natural habitat is the non-compact Lorentzian lattice $\mathrm{II}_{25, 1}$ equipped with Conway/Leech automorphism data. Asserting "Fake-Monster from $K3\times K3\times E$" confuses the $d = 5$ sibling stratum with a specific compact CY-5 host that does not realise it. | Fake-Monster at $d = 5$ on $\mathrm{II}_{25, 1}$ (rank 26), NOT on compact $K3 \times K3 \times E$. Dimensional siblings: Monster $d = 3$ ($V^\natural$ / $\mathrm{II}_{1, 1}$ + $\Lambda_{\mathrm{Monster}}$); $\Delta_5$ $d = 3$ ($K3\times E$ paramodular); Fake-Monster $d = 5$ ($\mathrm{II}_{25, 1}$, non-compact host); Leech/Conway $d = 4$ bridge (metaplectic, see E17). Cross-ref: AP-CY169 (Ret4). Primary: Borcherds 1990 \emph{Invent Math} 109; Scheithauer 2000 \emph{Invent Math} 141; Gritsenko--Nikulin 2003 arXiv:math/0312473. | AP-CY282 / Fake-Monster on $\mathrm{II}_{25,1}$ non-compact, NOT on $K3 \times K3 \times E$ |
+| E15 | CHL Siegel weights at $N \in \{1, 2, 3, 4, 6\}$ are $k_N \in \{5, 4, 3, 2, 1\}$. | The pattern $k_N \in \{5, 4, 3, 2, 1\}$ descends by $1$ across CHL levels $N \in \{1, 2, 3, 4, 6\}$; this holds at the paramodular-weight level. | At the SIEGEL level, weights are NOT $\{5, 4, 3, 2, 1\}$: Gritsenko--Nikulin 1998 Thm 4.3 gives $k_N = 24/(N+1) - 2$, yielding $\{10, 6, 4, 3, 2\}$ at $N \in \{1, 2, 3, 4, 6\}$. The descending-by-$1$ sequence $\{5, 4, 3, 2, 1\}$ is the PARAMODULAR weight, half the Siegel. Confusion between Siegel-weight (reader context) and paramodular-weight arithmetic drops a factor of 2. | Siegel weights $k^{\mathrm{Sieg}}_N = 24/(N+1) - 2 \in \{10, 6, 4, 3, 2\}$; paramodular weights $k^{\mathrm{par}}_N = k^{\mathrm{Sieg}}_N / 2 \in \{5, 3, 2, 3/2, 1\}$ (with fractional entries on the double cover). $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ matches the paramodular-weight convention per Gritsenko 1999 Thm 6.1; the Siegel-level sequence $\{10, 6, 4, 3, 2\}$ matches the $\Phi_N$ Siegel cusp form weight. Every inscription must name (Siegel vs paramodular). Primary: Gritsenko--Nikulin 1998 \emph{Duke} 94 Thm 4.3; Gritsenko 1999 \emph{Math Nachr} 199 Table 2; Sen 2008 \emph{JHEP} 0805:098. | AP-CY283 / Siegel $k_N = 24/(N+1) - 2 \in \{10, 6, 4, 3, 2\}$, not $\{5, 4, 3, 2, 1\}$ |
+| E16 | $[q^{24}] \eta^{-48} = g_{24} = 993392557953227803294$ (specific giant integer). | The Fourier expansion of $\eta^{-48}$ has all-positive integer coefficients tracking $24$-fold Heisenberg-Fock counting; Hardy--Ramanujan circle method gives the asymptotic $[q^n]\eta^{-48} \sim C n^{-27/4} e^{4\pi\sqrt n}$. | The number $993392557953227803294 \sim 10^{21}$ is unrelated to $[q^{24}]\eta^{-48}$: correct leading-order asymptotic at $n = 24$ is $[q^{24}]\eta^{-48} \sim \tfrac{1}{\sqrt 2} (24)^{-27/4} \exp(4\pi\sqrt{24}) \approx 4.7 \times 10^{10}$. The $10^{21}$ figure is a transcription error from a different $q$-series (possibly a high-index Monster McKay--Thompson, or the $j$-function $c_N$ at large $N$). | Correct computation via generating function $\eta^{-48} = q^{-2}\prod_n (1 - q^n)^{-48}$: $[q^{24}]\eta^{-48}$ has Hardy--Ramanujan asymptotic $\sim 10^{10}$, not $10^{21}$. Three verification paths: (i) direct coefficient extraction via Dedekind eta expansion; (ii) Hardy--Ramanujan $\sim \exp(4\pi\sqrt{16}) \sim e^{50}$ scale; (iii) Kac 1990 Ch 12 generating function identities for Heisenberg characters. The 21-digit giant is a fabricated / transcribed-wrong number. Primary: Hardy--Ramanujan 1918 \emph{Proc Lond Math Soc} 17; Mukai 1987 \emph{Nagoya Math J} 108; Kac 1990 \emph{Infinite Dim Lie Algebras} Ch 12. | AP-CY284 / $[q^{24}]\eta^{-48}$ Hardy--Ramanujan $\sim 10^{10}$, not $10^{21}$ |
+| E17 | Conway group acts as the $5$th bosonic $\Psi$-image in the dimensional sibling tower. | Conway $\mathrm{Co}_0$ / $\mathrm{Co}_1$ does sit in the K3 / Leech sibling family; Duncan 2007 \emph{Notices AMS} 54 exhibits Conway moonshine on a $c = 12$ SVOA. | Conway moonshine is SUPERCONFORMAL at $c = 12$ (Duncan 2007), living on the Leech lattice (no free-fermion realisation of $V^{f\natural}$ realises Conway at integer-$c$ bosonic). Thus Conway sits on a $\Psi^{\mathrm{metap}}$ super-metaplectic $c = 12$ row, NOT a bosonic $\Psi$-image row at $c = 24$. Placing Conway in the bosonic tower collides with Fake-Monster (which is bosonic at $c = 26$). | Conway sibling lives at $\Psi^{\mathrm{metap}}$ (super-metaplectic) $c = 12$, not at bosonic $c = 24$. Dimensional-sibling tower: Monster bosonic $c = 24$ ($V^\natural$); K3-BKM paramodular $c$-dependent; Fake-Monster bosonic $c = 26$ (Lorentzian lattice VOA); Conway super-metaplectic $c = 12$ ($V^{f\natural}$); Enriques at bosonic $c = 12$ (distinct from Conway). Primary: Duncan 2007 \emph{Notices AMS} 54; Duncan--Mack-Crane 2016 arXiv:1506.06198; Conway--Sloane 1993 \emph{Sphere Packings} Ch 10; Harvey--Moore 1996. | AP-CY285 / Conway $\Psi^{\mathrm{metap}}$ super $c=12$, not bosonic $5$th image |
+| E18 | Three Yangian variants: classical, dg-shifted, chiral. | The programme distinguishes multiple Yangian-type objects living on different spaces with different operadic structures; the distinction was catalogued in Vol I feedback and Wave 14/15 audits. | Four variants, not three. Classical Yangian $Y_\hbar(\mathfrak g)$ (Drinfeld 1985, on a point / formal disk); chiral Yangian $Y_\hbar^{\mathrm{ch}}(\mathfrak g, C)$ (Costello--Witten--Yamazaki 2017, $E_1$-chiral on curve $C$); spectral Yangian $Y_\hbar^{\mathrm{sp}}(\mathfrak g, X)$ (Maulik--Okounkov 2012, on equivariant cohomology $H^\bullet_T(\mathcal M^{\mathrm{Nak}}_X)$); dg-shifted affine Yangian $Y_\hbar^{[d]}(\mathfrak g)$ (Davison--Meinhardt / Schiffmann--Vasserot $d$-shifted extension). Four distinct objects with four operadic structures. | Four Yangian types: (i) classical $Y_\hbar(\mathfrak g)$; (ii) chiral $Y_\hbar^{\mathrm{ch}}(\mathfrak g, C)$; (iii) spectral $Y_\hbar^{\mathrm{sp}}(\mathfrak g, X)$; (iv) dg-shifted affine $Y_\hbar^{[d]}(\mathfrak g)$. Type-errors common: conflating chiral and spectral (both live on varieties but at different derived-category levels); conflating classical and dg-shifted (both use $\hbar$ but at different operadic levels). Cross-ref: Vol I \texttt{feedback\_yangian\_type\_distinction.md}. Primary: Drinfeld 1985 \emph{Dokl Akad Nauk} 283; Costello--Witten--Yamazaki 2017 arXiv:1709.09993; Maulik--Okounkov 2012 arXiv:1211.1287; Schiffmann--Vasserot 2013 \emph{Publ IH\'ES} 118. | AP-CY286 / four Yangian types (classical, chiral, spectral, dg-shifted), not three |
+| E19 | $\Delta_5$ and $\Phi_{10}$ are interchangeable BKM Siegel forms: same Weyl denominator construction, same weight up to normalisation. | $\Phi_{10} = \Delta_5^2$ at the Siegel-form level (Gritsenko 1994 Thm), so they are related by squaring; both appear in K3-BKM / DVV contexts. | Two DIFFERENT Borcherds-lift constructions: $\Phi_{10}$ is the Borcherds MULTIPLICATIVE lift of the K3 elliptic genus $\phi_{0,1}$ Jacobi data (Borcherds 1998 Invent Math 132 Thm 10.1); $\Delta_5$ is the Gritsenko ADDITIVE lift of $\eta^9 \vartheta_1$ (Gritsenko 1999). The numerical relation $\Phi_{10} = \Delta_5^2$ is a genuine square identity, but the two lifts are distinct constructions with distinct inputs. Treating them as interchangeable erases the chiral-half vs full-dyonic discipline (AP-CY202). | Construction distinction: $\Phi_{10} = \mathrm{BorcherdsMult}(\phi_{0,1})$ (multiplicative); $\Delta_5 = \mathrm{GritsenkoAdd}(\eta^9 \vartheta_1)$ (additive). Numerical: $\Phi_{10} = \Delta_5^2$ (Gritsenko 1994 \emph{St Petersburg Math J} 6 \S 3). Physical: $\Phi_{10}$ is DVV dyonic $1/4$-BPS; $\Delta_5$ is chiral-half Borcherds lift. Every inscription must name (Borcherds-mult vs Gritsenko-add) AND (chiral-half vs full-dyonic). Cross-ref: AP-CY202. Primary: Borcherds 1998 \emph{Invent Math} 132 Thm 10.1; Gritsenko 1994 \emph{St Petersburg Math J} 6 \S 3; Gritsenko 1999 \emph{Math Nachr} 199; Dijkgraaf--Verlinde--Verlinde 1997 \emph{Nucl Phys B} 484. | AP-CY287 / $\Phi_{10}$ Borcherds-mult vs $\Delta_5$ Gritsenko-add: distinct lift constructions |
+| E20 | The three-faces identity $\hbar^2 K^{\kappa_{\mathrm{ch}}} = -1$ holds universally across all five $\Psi$-siblings (Monster, K3-BKM, Fake-Monster, Enriques, Conway). | The identity with $K \in \{2, 8, 50, 4, 2\}$ (family-dependent) does hold row-wise in specific inscribed cases; the three-faces structure is the organising synthesis of the sibling tower. | Per-row proved only for Monster ($K = 2$), K3-BKM ($K = 8$), Fake-Monster ($K = 50$) at `k3e_bkm_chapter.tex:3856, 3955, 4005`; Enriques ($K = 4$) and Conway (metaplectic $K = 2$) exist only in notes, NOT inscribed in the manuscript. Claiming universality overclaims two rows. | Three rows proved in chapter: Monster row at `k3e_bkm_chapter.tex:3856` ($K = 2$, $\kappa_{\mathrm{ch}} = \chi_{\mathrm{top}}/24$); K3-BKM row at `k3e_bkm_chapter.tex:3955` ($K = 8$, $\kappa_{\mathrm{ch}}$ Mukai-enhanced); Fake-Monster row at `k3e_bkm_chapter.tex:4005` ($K = 50$, Leech). Enriques row ($K = 4$) and Conway row (metaplectic $K = 2$): notes-only, inscription pending. Every universality claim must name exactly which rows are inscribed. Primary: \texttt{chapters/examples/k3e\_bkm\_chapter.tex}; canonical preamble row $K^\kappa$; three-faces synthesis entry in this cache. | AP-CY288 / three-faces universal claim: three rows inscribed, two notes-only |
+| E21 | CoHA is a chiral (vertex) algebra (reinforcement of AP-CY7). | CoHA carries rich structure: associative Hall multiplication, graded by the charge lattice, equivariant cohomology of a moduli stack. It is adjacent to chiral algebras via Schiffmann--Vasserot's identification CoHA($\mathbb C^3$) $= Y^+$. | CoHA is ASSOCIATIVE MONOIDAL (Kontsevich--Soibelman 2011); it has no factorisation data, no OPE, no conformal vector, no state-operator correspondence. It is not a vertex algebra. Chiral extension requires applying $\Phi$ or an explicit factorisation-homology construction; Hall multiplication alone does not yield chirality. AP-CY7 already catalogued this; it recurs in Harmonies-synthesis context. | CoHA is associative-algebraic, $E_1$-native on a point. Chiral / vertex structure requires: (a) the functor $\Phi_{\mathcal C}$ (CY-to-chiral), which imports factorisation data from the CY geometry; or (b) an explicit factorisation-homology construction from a topological operad. Asserting CoHA $=$ vertex algebra collapses the $\Phi$-arrow. Cross-ref: AP-CY7, AP-CY15W (Wave 15 $\Phi$-arrow discipline), C1 (two-stage factorisation). Primary: Kontsevich--Soibelman 2011 \emph{Commun Number Theory Phys} 5; Schiffmann--Vasserot 2013 \emph{Publ IH\'ES} 118; Costello--Gwilliam 2017 Vol 1 Ch 5. | AP-CY289 / CoHA associative monoidal, not vertex algebra (AP-CY7 reinforce) |
+| E22 | $\Phi_d$ output is $d$-independent (reinforcement of FM43 / AP-CY172). | The CY-to-chiral functor $\Phi$ has a $d$-parametric structure: $\Phi_d$ produces an $E_{n(d)}$-chiral output, with $n(d) = \infty, 2, 1$ at $d = 1, 2, \geq 3$ respectively (Francis 2013). The programme's $\Phi_d$ produces a family of outputs indexed by $(\Sigma_{d-1}, C)$. | $\Phi_d$ output is $d$-dependent per $(\Sigma_{d-1}, C)$-choice: a single CY$_d$ category admits a FAMILY of $E_1$-chiral shadows indexed by $(\Sigma_{d-1}, C)$. The two-stage factorisation $\Phi_d = \mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1}, C} \circ \Phi^{\mathrm{FA}}_d$ (Vol III \texttt{cy\_to\_chiral.tex}) makes this explicit. Asserting $d$-independence collapses the family structure. | $\Phi_d$ output $d$-dependent; parametrised by $(\Sigma_{d-1}, C)$. Stage 1: canonical $E_d$-holomorphic factorisation algebra on CY$_d$ (Kontsevich--Tamarkin formality + Costello--Gwilliam--Li locality). Stage 2: factorisation homology over $(d-1)$-cycle $\Sigma_{d-1}$, restricted to reference curve $C$. Same CY$_d$: family of shadows indexed by $(\Sigma_{d-1}, C)$. Cross-ref: FM43 / AP-CY172 / AP-CY F8 / AP-CY144. Primary: Francis 2013 \emph{Geom Topol} 17 Thm 2.29; Costello--Gwilliam 2017 Vol 2 \S 10-11; Costello--Li 2020 arXiv:1505.06703. | AP-CY290 / $\Phi_d$ output $d$-dependent per $(\Sigma_{d-1}, C)$ family |
+| E23 | $\mathrm{rk}\, K_0^{\mathrm{num}}(K3) = 22$. | $K_0^{\mathrm{num}}(K3)$ is a key invariant of the K3 derived category; Mukai vector identification relates it to cohomology. | Confuses $K_0^{\mathrm{num}}$ (rank 24, signature $(4, 20)$, $= \mathrm{II}_{4, 20}$ Mukai lattice) with the transcendental sublattice (rank varies with Picard number $\rho$, at most 22). For a generic K3 with $\rho = 0$, transcendental = $H^2 = \mathrm{II}_{3, 19}$ has rank 22; but $K_0^{\mathrm{num}}(K3) = \Lambda_{\mathrm{Mukai}} = \mathrm{II}_{4, 20}$, rank 24. | $K_0^{\mathrm{num}}(K3) = \mathrm{II}_{4, 20}$, rank 24, signature $(4, 20)$. Mukai pairing $\chi^{\mathrm{Muk}}(E, F) = -\chi(E, F)$ (with a sign). Transcendental sublattice $T_X \subseteq H^2(K3, \mathbb Z)$ rank $= 22 - \rho$ where $\rho$ is Picard. Three invariants: $K_0^{\mathrm{num}}$ rank 24 (total); $H^2$ rank 22; $T_X$ rank $\leq 22 - \rho$. Cross-ref: E6 / AP-CY208. Primary: Mukai 1987 \emph{Nagoya Math J} 108; Huybrechts 2016 \emph{Lectures on K3 Surfaces} Ch 16; Bridgeland 2008 \emph{Duke} 141. | AP-CY291 / $K_0^{\mathrm{num}}(K3)$ rank 24, not 22 |
+| E24 | The seven framings of $\mathbf H_{\Delta_5}$ are seven $\Phi$-applications (reinforcement of E1 / E10). | The seven-framings tower is a real organising synthesis; the seven objects are real constructions; they are linked by real conjectural bridges. | Different type of construction: the seven framings are constructions via SEVEN DIFFERENT FUNCTORS (not seven $\Phi$-applications). $\Phi$ produces ONE output per category (with $(\Sigma_{d-1}, C)$ family). The seven framings relate to $\Phi$'s output in seven different ways: (i) classical limit; (ii) quasi-Hopf deformation; (iii) $6$D-hCS realisation; (iv) Hall--Drinfeld double; (v) BRST construction; (vi) affine-LG; (vii) $\Phi$ itself. | Seven framings are seven DIFFERENT constructions via different functors, NOT seven $\Phi$-applications. $\Phi$ gives one output per CY$_d$ category; the seven framings capture seven distinct ways to package / realise / relate the resulting object. Cross-ref: E1 / AP-CY269, E10 / AP-CY278. Primary: TRUTH\_REPORT \S V; Borcherds 1998 \emph{Invent Math} 132 Thm 10.1; Costello 2021 \emph{Notices AMS}; Gritsenko--Nikulin 1998 \emph{Duke} 94; C1 (two-stage factorisation). | AP-CY292 / seven framings = seven constructions, not seven $\Phi$-applications |
+
+## Wave 11--19 errors + retractions cross-volume sibling batch: AP-CY247 through AP-CY261 (2026-04-22)
+
+### 2026-04-22: AP-CY247--AP-CY261 (Wave 11--19 errors + retractions)
+
+Fifteen Vol III AP-CY entries inscribed as the Vol III sibling batch to the Vol I AP939--AP953 and Vol II AP-V2-60--74 cross-volume-propagated catalogues. The six errors (AP-CY247--AP-CY252) sharpen numerical and symbolic discipline around the K3 Heisenberg--Mukai tower, central-charge arithmetic, the Gritsenko--Cl\'ery 8-form position-vs-weight distinction, and the doubly/singly-twined Fourier-coefficient convention. The nine retractions (AP-CY253--AP-CY261) record subalgebra identifications, dimensional sibling placements, character-level bridges, Gaiotto-curve puncture counts, $\Phi$ two-stage factorisation, Calaque--Pantev--Toen--Vaqui\'e table extension, and $M_{23}$ class-dependent cohomological torsion. Every entry pairs with a cache row under the 2026-04-22 AP-CY247--AP-CY261 append in \texttt{appendices/first\_principles\_cache.md}.
+
+- **AP-CY247 -- Fibre vs total-space Euler characteristic on product CYs (Critical).**
+  Wrong claim: $\kappa_{\mathrm{ch}}(K3 \times E) = 2$ on the compact
+  CY$_3$ total space. Refutation by direct K\"unneth multiplicativity
+  on compact CY: $\chi(\mathcal O_{K3 \times E}) = \chi(\mathcal O_{K3})
+  \cdot \chi(\mathcal O_E) = 2 \cdot 0 = 0$, not $2$. The value $2$ is
+  the K3 fibre contribution $\chi(\mathcal O_{K3}) = 2$, correctly
+  tracked as $\kappa_{\mathrm{fibre}}(K3)$ but NOT as $\kappa_{\mathrm{ch}}
+  (K3 \times E)$. Direct computation from the Hodge decomposition
+  $h^{p, q}(K3 \times E) = \sum_{p_1 + p_2 = p, q_1 + q_2 = q}
+  h^{p_1, q_1}(K3) \cdot h^{p_2, q_2}(E)$ yields $\chi(\mathcal O) =
+  \sum_q (-1)^q h^{0, q} = 0$. Correct: $\kappa_{\mathrm{cat}}(X \times Y) =
+  \kappa_{\mathrm{cat}}(X) \cdot \kappa_{\mathrm{cat}}(Y)$ on products
+  of compact CY --- multiplicative, not additive, and the fibre's
+  $\kappa_{\mathrm{cat}}$ is not the total space's $\kappa_{\mathrm{cat}}$.
+  **Counter**: when a CY factors as $X \times Y$, compute
+  $\kappa_{\mathrm{cat}}$ on each factor and multiply; never substitute
+  a fibre value for the total-space value. Cross-ref: canonical
+  preamble row 59 / row 66 ($\kappa_{\mathrm{cat}}(K3 \times E) = 0$);
+  AP-CY190 (numerical-audit sibling); AP-CY210 (hCS-audit sibling
+  E8 entry); AP-CY203 ($K3 \times E$ tetrad $\{0, 3, 5, 24\}$);
+  AP-CY225 (W12-1). Primary: direct K\"unneth on Hodge decomposition;
+  Huybrechts 2016 \emph{Lectures on K3 Surfaces} Ch 1.
+  Cross-volume: Vol I AP939, Vol II AP-V2-60.
+
+- **AP-CY248 -- Central-charge arithmetic slip $-14432/121$ vs $-1312/11$ (High).**
+  Wrong claim: a Vol III landmark rational central charge equals
+  $-14432/121$. Refutation by two-route arithmetic: direct
+  operator-product expansion at unit level combined with the Virasoro
+  bootstrap both give $-1312/11$; the erroneous $-14432/121$ carries
+  the spurious factor $11^2$ in the denominator, reflecting failure
+  to reduce an unreduced intermediate. Arithmetic check: $-1312 \cdot
+  11 = -14432$ and $11 \cdot 11 = 121$, so $-14432/121 = -1312/11
+  \cdot 11/11$; the two are numerically equal as rationals, but the
+  erroneous form is not in lowest terms and cascades into further
+  denominator inflation downstream.
+  **Counter**: every central charge in Vol III must be verified by
+  two independent routes --- direct OPE at unit level plus Virasoro
+  bootstrap on the full OPE, or Sugawara plus Casimir normalisation.
+  Record both verifications in the inscription; flag any rational
+  central charge with denominator matching a prime squared or
+  twelve-times-another-denominator for re-derivation. Cross-ref:
+  AP-CY130 (central-charge exact-rational discipline at $c_{4d} = 107/6$);
+  AP-CY46 (class-$\mathcal S$ $(n_v, n_h)$ arithmetic); AP-CY167
+  ($\mathcal V_{24}$ three-invariant cross-check); AP-CY191
+  (numerical-audit sibling). Primary: direct OPE computation;
+  Beem--Rastelli 2013 \emph{Commun Math Phys} 336 (Virasoro bootstrap
+  at $c_{2d} = -12 c_{4d}$). Cross-volume: Vol I AP940, Vol II AP-V2-61.
+
+- **AP-CY249 -- $\eta^{-48}$-Heisenberg--Mukai vs Virasoro minimal coefficients (High).**
+  Wrong claim: the coefficient sequence $(1, 48, 1176, 19456, \ldots)$
+  arising in a Vol III K3 Heisenberg weight partition function is a
+  Virasoro $(p, q)$-minimal-model character. Refutation by direct
+  $q$-expansion: $\eta(\tau)^{-48} = q^{-2}(1 + 48 q + 1176 q^2 +
+  19456 q^3 + \cdots)$, holding to all orders, matches the observed
+  sequence exactly. The leading coefficient $48 = 2 \cdot 24 =
+  2 \chi_{\mathrm{top}}(K3)$ reflects the 48-dimensional K3
+  Heisenberg--Mukai twist, forcing the exponent $-48$; this is a
+  K3-specific double-cover identity, not a minimal-model character.
+  Correct: Fourier-coefficient sequences of the form $(1, 48,
+  \ldots)$ test against $\eta^{-48}$ before Macdonald or Virasoro
+  minimal-model frames; the $48$-divisibility structure is
+  Mukai-lattice--native.
+  **Counter**: test every leading-coefficient match against the
+  four canonical $\eta$-power expansions --- $\eta^{-48}$ (K3
+  tautological Heisenberg), $\eta^{-24}$ (Monster / Leech denominator),
+  $\eta^{-8}$ (Enriques), $\eta^{-12}$ (quarter-twined) --- before
+  invoking Macdonald or minimal-model identities. Rapid low-order
+  growth with 48-divisibility signals $\eta^{-48}$, not a minimal
+  model. Cross-ref: AP-CY170 ($\chi_{\mathcal V_{24}} = \eta^{-48}$
+  Heisenberg--Mukai vs $\Delta_5^{-2}$ Virasoro minimal); AP-CY192
+  (numerical-audit sibling); cache entry C10 ($\eta^{-48}$
+  Heisenberg--Mukai). Primary: Mukai 1987 \emph{Nagoya Math J} 108;
+  Gritsenko 1999 \emph{Math Nachr} 199; Kac 1990 \emph{Infinite
+  Dimensional Lie Algebras} Ch 12; direct Fourier expansion of
+  $\eta^{-48}$. Cross-volume: Vol I AP941, Vol II AP-V2-62.
+
+- **AP-CY250 -- Virasoro $(2, 45)$-minimal / Macdonald applicability (High).**
+  Wrong claim: a Virasoro $(2, 45)$-minimal-model Macdonald-identity
+  framework applies to a Vol III target OPE. Refutation by
+  Kac-determinant verification: the Virasoro minimal $\mathcal M(p, q)$
+  framework presupposes (i) well-defined $(p, q)$ Kac labels, (ii)
+  degenerate primaries with null states at level $pq$, (iii) OPE
+  singularities matching the Kac table. The target algebra's
+  primary-field content is Mukai-lattice-indexed Heisenberg rather
+  than Virasoro-primary; its OPE structure is abelian in the Fock
+  sector and does not satisfy the Virasoro-Kac fusion rules; and
+  no integer $(p, q)$ at $(2, 45)$ solves the target central-charge
+  equation $c = 1 - 6(p - q)^2 / pq$. Correct: verify rank of
+  primary fields, Virasoro primary structure, null-vector pattern
+  BEFORE applying any Macdonald or $(p, q)$-minimal-model reduction.
+  **Counter**: before invoking a Macdonald identity or a
+  minimal-model framework, verify (a) primary-field structure:
+  does the target admit a Virasoro-Kac primary decomposition?
+  (b) OPE singularity match: do structure constants satisfy
+  Virasoro-Kac fusion rules? (c) null-state level: do degenerate
+  primaries arise at level $pq$? A ``no'' on any check invalidates
+  the framework. Cross-ref: AP-CY117 (abelian / non-abelian Yangian
+  discipline); AP-CY170 (Virasoro minimal impossibility at $c = -214$);
+  AP-CY193 (numerical-audit sibling). Primary: Di Francesco--Mathieu--S\'en\'echal
+  1997 \emph{Conformal Field Theory} Ch 7 (Virasoro minimal models);
+  Macdonald 1972 \emph{Invent Math} 15 (affine Macdonald identities,
+  scope: affine Kac--Moody characters). Cross-volume: Vol I AP942,
+  Vol II AP-V2-63.
+
+- **AP-CY251 -- 8-form position index vs Borcherds weight (Medium).**
+  Wrong claim: $\mathrm{wt}(\Delta_1^{(3)}) = 3$ read from the
+  position $3$ in the 8-form Gritsenko--Cl\'ery catalogue. Refutation
+  by direct weight-tuple inspection: the catalogue weights are
+  $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$ at positions $(1, 2, 3, 4, 5, 6, 7,
+  8)$, with Fourier coefficients $c_N(0) \in \{10, 4, 2, 2, 1, 2,
+  1/2, 0\}$ and $\kappa_{\mathrm{BKM}} = c_N(0)/2$; at position 3
+  the weight is $1$, not $3$. Cover-group stratification: $\mathrm{Sp}_4
+  (\mathbb Z)$ for integral weights, $\mathrm{Mp}_4$ for half-integral,
+  $\widetilde{\mathrm{Mp}}_4$ for quarter-integral; the weight-0 form
+  is the degenerate terminal fibre. Correct: the position index in
+  the 8-form Gritsenko--Cl\'ery catalogue is NOT the Borcherds
+  weight; always cite the weight tuple $(5, 2, 1, 1, 1/2, 1, 1/4, 0)$
+  at point of use, never the position.
+  **Counter**: memorise the 8-weight vector $(5, 2, 1, 1, 1/2, 1,
+  1/4, 0)$; every inscription of $\mathrm{wt}(\Delta^{(N)}_{\mathrm{pos}\,k})$
+  must quote the weight from the vector, never the position. Flag
+  any statement ``$\mathrm{wt}(\Delta^{(N)}_k) = k$'' without
+  cross-check against the 8-weight vector. Cross-ref: CLAUDE.md
+  ``Essential constants'' block; canonical preamble row 28
+  ($\Delta_5 = \mathrm{Grit}(\eta^9 \vartheta_1) \in S_5(K(1))$);
+  CLAUDE.md ``Key facts'' block (8-form catalogue); AP-CY194
+  (numerical-audit sibling). Primary: Gritsenko--Cl\'ery 2008
+  arXiv:0812.3962 Thm 1.1 (8-form enumeration); Gritsenko 1999
+  \emph{Math Nachr} 199 Thm 6.1. Cross-volume: Vol I AP943,
+  Vol II AP-V2-64.
+
+- **AP-CY252 -- Twined convention ambiguity for $c_N(0)$ (Medium).**
+  Wrong claim: $c_2(0)$ has a single unambiguous value. Refutation
+  by convention-enumeration: $c_2(0) = 8$ in the doubly-twined
+  convention (EOT 2011 $Z^{(g)}_{K3} = 2 \phi^{(g)}_{0, 1}$ with
+  the factor of two absorbed into the twined genus) and $c_2(0) = 4$
+  in the singly-twined convention (factor of two kept outside).
+  Each gives $\kappa_{\mathrm{BKM}}(\Phi_2) = c_2(0)/2 \in \{4, 2\}$
+  according to convention. Both values are correct in their
+  respective conventions; any cross-citation must declare which.
+  Correct: Gritsenko--Cl\'ery Fourier coefficients $c_N(0)$ are
+  convention-dependent; declare doubly- vs singly-twined at every
+  use, via the $Z^{(g)}_{K3} = 2 \phi^{(g)}_{0, 1}$ factor-of-two
+  relation.
+  **Counter**: at every site where $c_N(0)$ appears, name the
+  convention: doubly-twined (EOT factor-of-two absorbed) or
+  singly-twined (factor kept outside). Any $c_2(0)$ cited without
+  convention statement is ambiguous and a latent AP5 dual-indexing
+  violation. Cross-ref: AP-CY125 (K3 elliptic genus normalisation);
+  AP-CY49 (cross-volume $\kappa_{\mathrm{BKM}}$ dual-indexing);
+  AP-CY168 (universal Borcherds weight theorem); AP-CY195
+  (numerical-audit sibling). Primary: Eguchi--Ooguri--Tachikawa 2011
+  \emph{Exper Math} 20 Thm 1.1 ($\mathrm{Ell}_{K3} = 2 \phi_{0, 1}$);
+  Gritsenko--Cl\'ery 2008 arXiv:0812.3962; Cheng--Duncan on twinings.
+  Cross-volume: Vol I AP944, Vol II AP-V2-65.
+
+- **AP-CY253 -- $\widehat{\mathfrak{sl}}_3$ vs $F_3$ Feingold--Frenkel (Critical).**
+  Wrong claim: the real-root subalgebra of $\mathfrak g_{\Delta_5}$
+  that arises as a Gaiotto-shadow subalgebra in a K3 decomposition
+  is affine $\widehat{\mathfrak{sl}}_3 = A_2^{(1)}$. Refutation by
+  real-root signature: the three simple roots on the paramodular
+  core $\Lambda^{2, 1}_{II}$ have Cartan matrix $\begin{pmatrix}
+  2 & -2 & -2 \\ -2 & 2 & -2 \\ -2 & -2 & 2 \end{pmatrix}$ with
+  Gram determinant $-32$, Lorentzian signature, producing the
+  Feingold--Frenkel 1983 \emph{Math Ann} 263 rank-3 hyperbolic
+  Kac--Moody $F_3 = HA_1^{(1)}$; $\widehat{\mathfrak{sl}}_3$ has
+  zero Cartan determinant (affine), so the Cartan matrices do not
+  match. The confusion arises from both carrying three simple roots,
+  but the signatures differ. Correct: the true subalgebra is $F_3$,
+  the rank-3 Feingold--Frenkel hyperbolic Kac--Moody, the real-root
+  subalgebra of $\mathfrak g_{\Delta_5}$.
+  **Counter**: rank-3 root systems inside hyperbolic Kac--Moodys are
+  rarely affine $\widehat{\mathfrak{sl}}_3$; test the real-root
+  structure via Cartan-matrix determinant (Lorentzian vs affine)
+  before identifying. Cartan-diagram inspection alone does not
+  suffice; check the real-root signature. Cross-ref: AP-CY60
+  (Sylvester signature on BKM subalgebra); AP-CY166 (Ret1 sibling);
+  canonical preamble row 21 (K3-BKM Cartan rank = 3); cache entry
+  C12 (Feingold--Frenkel $F_3$ real-root subalgebra). Primary:
+  Feingold--Frenkel 1983 \emph{Math Ann} 263; Gritsenko--Nikulin 1998
+  \emph{Invent Math} 130 Thm 2.1; appears via $R$-matrix wall-crossing.
+  Cross-volume: Vol I AP945, Vol II AP-V2-66.
+
+- **AP-CY254 -- $L_{-6}(\mathfrak e_8)$ vs iterated DS on $\mathfrak{sl}_2^{\otimes 22}$ for $V_{24}$ (Critical).**
+  Wrong claim: $V_{24} = L_{-6}(\mathfrak e_8)$, the level-$-6$
+  affine VOA of $\mathfrak e_8$. Refutation on three grounds:
+  (a) central-charge mismatch: $c(L_{-6}(\mathfrak e_8)) = (-6)
+  \cdot 248 / (-6 + 30) = -62$, not the required $-214$
+  (Kac 1990 Ch 12, level-$k$ central charge $c_k = k \dim
+  \mathfrak g / (k + h^\vee)$ with $h^\vee(\mathfrak e_8) = 30$);
+  (b) admissibility: $-6$ is not in the Kac--Wakimoto admissible
+  set for $\mathfrak e_8$, so the Verma quotient is not a rational
+  VOA; (c) primary-field count: $L_{-6}(\mathfrak e_8)$ has finitely
+  many primaries while $V_{24}$ has infinitely many. Correct:
+  $V_{24} = H^0_{\mathrm{DS}}(L_{-2 + 1/22}(\mathfrak{sl}_2)^{\otimes 22})$
+  --- 22 copies of $\mathfrak{sl}_2$ at admissible level $-2 + 1/22$,
+  Drinfeld--Sokolov-reduced, with $c = -214$ matching Beem--Rastelli
+  $c_{2d} = -12 c_{4d} = -12 \cdot 107/6 = -214$. The central-charge
+  match $-62 \ne -214$ refutes the identification; iterated DS on
+  lower-rank pieces realises what a single admissible-level VOA only
+  matches numerically.
+  **Counter**: central-charge matches between a simple-Lie
+  admissible-level VOA and a target VOA are never identifications
+  until primary-field content is verified; iterated DS on lower-rank
+  pieces often realises what a single admissible-level VOA only
+  matches numerically. Count primary fields; check singular vectors.
+  Cross-ref: AP-CY167 (Ret2 sibling); canonical preamble row 51
+  ($e_4$ at $c = -214$); cache entry C11 ($V_{24}$ iterated DS
+  reduction of $\mathfrak{sl}_2^{\otimes 22}$); AP-CY50 (Gaiotto
+  central-charge reversal). Primary: Arakawa 2017 \emph{Adv Math}
+  320 (admissible affine VOAs); Beem--Rastelli 2013 \emph{Commun
+  Math Phys} 336 (2d/4d bridge); Gaiotto 2009 \emph{JHEP} 12:088;
+  Kac 1990 Ch 12. Cross-volume: Vol I AP946, Vol II AP-V2-67.
+
+- **AP-CY255 -- Additive vs universal Borcherds $\kappa_{\mathrm{BKM}}$ (Critical, cross-volume).**
+  Wrong claim: $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
+  \chi(\mathcal O_{\mathrm{fibre}})$ is a universal identity across
+  all CHL levels $N$. Refutation by direct numerical mismatch across
+  $N \in \{1, 2, 3, 4, 6\}$: at $N = 1$ (Gritsenko $\Delta_5$ weight
+  5), LHS $= c_1(0)/2 = 5$, RHS $= \kappa_{\mathrm{ch}}(K3 \times E) +
+  \chi(\mathcal O_E) = 0 + 0 = 0$; at $N = 2$, LHS $= 4$, RHS $= 1$;
+  at $N = 3$, LHS $= 3$, RHS $= 2$; at $N = 4, 6$ the mismatch
+  compounds. The universal formula is $\kappa_{\mathrm{BKM}}(\Phi_N)
+  = c_N(0)/2$ (Borcherds weight theorem; Gritsenko 1999 \emph{Math
+  Nachr} 199 Thm 6.1), holding uniformly across the five-lattice-point
+  verification $N \in \{1, 2, 3, 4, 6\}$. Correct:
+  $\kappa_{\mathrm{BKM}}$ is universal via the Borcherds weight
+  theorem; never write it as an additive split of chiral and fibre
+  Euler-like contributions.
+  **Counter**: check every $\kappa_{\mathrm{BKM}}$ identity against
+  the five-lattice-point verification $N \in \{1, 2, 3, 4, 6\}$;
+  additive splits fail at every $N$. Cross-ref: AP-CY168 (Ret3
+  sibling); AP-Vol-III-prop-2 ($N = 1$ coincidence inflation);
+  AP-CY63 (four $\kappa_\bullet$ indexing on $K3 \times E$);
+  AP-CY214 (hCS-audit E12 sibling); canonical preamble row 59
+  (naive $\kappa_{\mathrm{BKM}} = \kappa_{\mathrm{ch}} +
+  \chi(\mathcal O_{\mathrm{fibre}})$ flagged); cache entry C3
+  (universal Borcherds weight identity);
+  \texttt{chapters/examples/cy\_d\_kappa\_stratification.tex}
+  Theorem \texttt{thm:borcherds-weight-kappa-BKM-universal}.
+  Primary: Borcherds 1995 \emph{Invent Math} 120 (weight theorem);
+  Gritsenko 1999 \emph{Math Nachr} 199 (Δ_5 concrete); Lorgat 2020
+  \texttt{arXiv:2004.09030} (automorphic corrections).
+  Cross-volume: Vol I AP947, Vol II AP-V2-68.
+
+- **AP-CY256 -- Fake Monster at $d = 3$ vs $d = 5$ (Critical).**
+  Wrong claim: the Fake Monster BKM lives at $d = 3$ alongside the
+  Borcherds--Monster. Refutation by rank-24 obstruction: the Fake
+  Monster $\mathfrak g_{\Phi_{12}}$ of Borcherds 1990 \emph{Contemp
+  Math} 138 is built on the $\mathrm{II}_{1, 25}$ lattice of rank 26
+  (the Leech lattice plus a hyperbolic plane), which requires $d = 5$
+  shifted-symplectic dimension for a well-defined CPTV structure and
+  rank-$26 - 1 = 25$ reflective capacity on a compact CY$_5$ host;
+  the largest K3-derived CY$_3$ category $D^b\mathrm{Coh}(K3 \times E)$
+  caps at polarised Betti rank $\le 26$ but admits Neron--Severi
+  signature $(2, 19)$ at generic complex structure, strictly less
+  than the 26-reflective capacity. Correct: Borcherds--Monster $d = 3$,
+  Fake Monster $d = 5$, intermediate Conway / Leech $d = 4$.
+  **Counter**: BKMs from different rank-lattices live at different
+  dimensions; before placing a BKM at a specific $d$, verify
+  lattice-rank containment $\mathrm{rk}\,L_{\mathrm{BKM}} \le
+  h^{\mathrm{even}}(X) + h^{\mathrm{odd}}(X)$ on the candidate CY$_d$,
+  and match BKM rank to host CY dimension via PTVV. Cross-ref:
+  AP-CY169 (Ret4 sibling); AP-CY122 (six-way $G(K3 \times E)$
+  retraction); AP-CY216 (E14 sibling / Fake Monster on
+  $\mathrm{II}_{25, 1}$ non-compact); cache entry C7 (dimensional
+  sibling catalogue). Primary: Borcherds 1990 \emph{Contemp Math}
+  138 (Fake Monster construction); Calaque--Pantev--Toen--Vaqui\'e;
+  Scheithauer 2000 \emph{Invent Math} 141. Cross-volume: Vol I AP948,
+  Vol II AP-V2-69.
+
+- **AP-CY257 -- $\chi_{V_{24}}$ direct match vs Heisenberg--Mukai $\eta^{-48}$ (High).**
+  Wrong claim: the Suzuki $V_{24}$ character matches
+  $\phi^{K3 \times E}_{0, 1}$ directly. Refutation by factorisation
+  inspection: the match is mediated by the Heisenberg--Mukai
+  $\eta^{-48}$ identity --- the 48-dim K3 Heisenberg twist supplies
+  the $\eta^{-48}$ factor. At leading order, $\chi_{V_{24}}(\tau) =
+  \eta(\tau)^{-48}$; Mukai pairing on the chiral bialgebra gives
+  $c_+ = 24$ with doubling factor $2$ producing $48$. Without the
+  $\eta^{-48}$ pre-factorisation, the Siegel-form coefficient ring
+  and the chiral genus-1 character are functionally incompatible
+  (one is a Siegel form on $\mathbb H_2$, the other a genus-1
+  character on $\mathbb H$).
+  Correct: elliptic-genus character coincidences between Suzuki
+  $V_{24}$ and $K3 \times E$ pass through $\eta^{-48}$; there is
+  no direct match.
+  **Counter**: factor out $\eta^{-48}$ before asserting any
+  character equality between Suzuki $V_{24}$ and K3 data; never
+  equate a chiral character with a Siegel--Fourier coefficient ring
+  without the explicit Heisenberg--Mukai pre-factorisation step.
+  Cross-ref: AP-CY170 ($\chi_{\mathcal V_{24}} = \eta^{-48}$
+  Heisenberg--Mukai); AP-CY249 (sibling numerical-sequence entry);
+  cache entry C10 ($\eta^{-48}$ Heisenberg--Mukai identity).
+  Primary: Mukai 1987 \emph{Nagoya Math J} 108; Cheng--Duncan on
+  $V_{24}$; Gritsenko--Nikulin 1998 paramodular Fourier expansion.
+  Cross-volume: Vol I AP949, Vol II AP-V2-70.
+
+- **AP-CY258 -- Gaiotto curve $\Sigma_{2, 0}$ vs $\Sigma_{0, 24}$ (High).**
+  Wrong claim: the $N = 1$ CHL class-$\mathcal S$ theory lives on
+  a genus-2 compact curve $\Sigma_{2, 0}$. Refutation by universal
+  formula: for class-$\mathcal S$ $(A_1, \Sigma_{g, n})$ theories,
+  $c_{4d} = (12(g - 1) + 7n)/6$ at $g \ge 1$ and $c_{4d} = (5n - 13)/6$
+  at $g = 0$ (Shapere--Tachikawa 2008 \emph{JHEP} 0809:109); $g = 2$
+  closed gives $c_{4d} = (12 + 0)/6 = 2$, never $107/6$; $107 = 5
+  \cdot 24 - 13$ uniquely fixes the Gaiotto curve to $\Sigma_{0, 24}$,
+  a 24-punctured sphere. Duality to M-theory on $K3 \times T^2$ with
+  24 M5-branes places one maximal regular $\mathfrak{su}(2)$ puncture
+  at each of the 24 $I_1$ fibres, matching the puncture count.
+  Correct: $N = 1$ CHL Gaiotto curve is $\Sigma_{0, 24}$; the
+  compact-genus-2 picture is a retraction.
+  **Counter**: every class-$\mathcal S$ identification must verify
+  the $(g, n)$-to-$c_{4d}$ formula; puncture count should equal
+  $I_1$-fibre count under duality. Cross-ref: AP-CY171 (Ret6
+  sibling); canonical preamble row 1 ($c_{4d} = 107/6$); canonical
+  preamble row 3 (universal $c_{4d}$ formula at $g = 0$); AP-CY46
+  (trinion/tube count at $n = 24$); AP-CY246 (W12-22 sibling);
+  cache entry C9 (Gaiotto curve correction). Primary: Gaiotto 2009
+  \emph{JHEP} 12:088 (class-$\mathcal S$ construction);
+  Shapere--Tachikawa 2008 \emph{JHEP} 0809:109;
+  Chacaltana--Distler 2010 arXiv:1008.5203 Table 3.
+  Cross-volume: Vol I AP950, Vol II AP-V2-71.
+
+- **AP-CY259 -- $\Phi$ native $E_n$-on-curve vs two-stage factorisation (High, cross-programme).**
+  Wrong claim: the functor $\Phi$ natively produces an $E_n$-chiral
+  algebra on a curve $C$ in a single-stage construction. Refutation
+  by factorisation lemma: at $d \ge 3$, the image algebra is
+  $E_1$-chiral on the one-dimensional base, with the $E_2$-structure
+  living on the Drinfeld centre $Z(\mathrm{Rep}(A))$ of the
+  representation category, not on $A$ itself (Lurie \emph{HA} 5.3
+  $E_n$-hierarchy; Francis 2013 \emph{Compositio} 149 $E_n$-topological
+  factorisation). Correct: $\Phi_d = \mathrm{Sp}_{\Sigma_{d-1}, C}
+  \circ \Phi^{\mathrm{FA}}_d$ --- Stage 1 canonical $E_d$-factorisation
+  algebra on the CY via Kontsevich--Tamarkin $E_d$-formality plus
+  Costello--Gwilliam--Li locality, Stage 2 specialisation to a curve
+  via auxiliary choice $(\Sigma_{d-1}, C)$. A single CY$_d$ category
+  admits a family of $E_1$-chiral shadows parametrised by
+  $(\Sigma_{d-1}, C)$: ``many BKMs from one CY$_3$'' is theorem-grade,
+  not a single-stage identity.
+  **Counter**: flag any single-stage $\Phi$ statement; $\Phi$ is
+  two-stage (canonical CY-side stage plus curve-side specialisation
+  stage), and the Stage-2 specialisation is NOT inversion. Cross-ref:
+  AP-CY172 (Ret7 sibling); AP-CY144 ($\Phi$-output-scope discipline);
+  AP-CY154 (two-stage factorisation AP-CY); AP-CY224 (E22 sibling
+  / $\Phi_d$ output $d$-dependent); cache entry C1 (two-stage
+  factorisation). Primary: Costello--Gwilliam 2017 Vol 2
+  \S 10--11 (factorisation homology); Costello--Li 2020
+  arXiv:1505.06703 (propagator); Francis 2013 \emph{Geom Topol}
+  17 Thm 2.29; 2026-04-22 two-stage synthesis. Cross-volume:
+  Vol I AP951, Vol II AP-V2-72.
+
+- **AP-CY260 -- CPTV $d = 4$ terminus vs $d = 5$ Poisson-$E_5$ (Medium).**
+  Wrong claim: the shifted-symplectic Calaque--Pantev--Toen--Vaqui\'e
+  table terminates at $d = 4$. Refutation by iterated shifted-symplectic
+  reduction: PTVV extends through $d = 5$ Poisson-$E_5$ via the
+  standard iterated construction $(-k)$-shifted $\Rightarrow$
+  $(-k - 1)$-shifted on derived intersections; the $d = 4$ terminus
+  was a blind spot, not a theorem. Correct: when a CY lives at
+  dimension 5 (Fake Monster host $K3 \times K3 \times E$,
+  Leech-lattice-based Lorentzian data), use Poisson-$E_5$ shifted
+  symplectic, not a $d = 4$ approximation; the full CPTV table
+  extends at least through $d = 5$.
+  **Counter**: when a CY lives at dimension 5, use Poisson-$E_5$,
+  not a $d = 4$ approximation; the shifted-symplectic / Poisson
+  hierarchy extends via iterated $(-k)$-shifted reduction.
+  Cross-ref: AP-CY169 ($d = 5$ Fake Monster placement); AP-CY256
+  (Fake Monster at $d = 5$ sibling); AP-CY216 (E14 sibling);
+  cache entry C7 (dimensional sibling catalogue). Primary:
+  Calaque--Pantev--Toen--Vaqui\'e 2017 (shifted symplectic);
+  $d = 5$ Poisson-$E_5$ established via iterated shifted-symplectic
+  reduction; Lurie \emph{HA} 5.3 ($E_n$-hierarchy). Cross-volume:
+  Vol I AP952, Vol II AP-V2-73.
+
+- **AP-CY261 -- $H^3$ uniform vanishing vs class-dependent torsion (Medium).**
+  Wrong claim: $H^3(\mathrm{Aut}_s(K3); \mathbb Z) = 0$ uniformly
+  across the $M_{23}$ conjugacy classes. Refutation by class-by-class
+  computation: the $M_{23}$ conjugacy class 2A carries
+  $\mathbb Z / 2$; class 2B carries $\mathbb Z / 4$; these residual
+  torsions survive the group-cohomology calculation on $M_{23}$
+  subgroups via Milgram 1995 Sylow detection plus Benson 1998. Generic
+  classes vanish ($3B, 4A, 4B, 4C, 6A, 6B$, plus singleton $1A$), but
+  2A and 2B do not. Correct: $H^3(\mathrm{Aut}_s(K3); \mathbb Z)$ is
+  class-dependent --- seven clean cells with $H^3 = 0$, plus $2A$
+  ($\mathbb Z / 2$) and $2B$ ($\mathbb Z / 4$) residual discrete
+  torsion. The residual torsion dresses the paramodular multiplier,
+  not the Borcherds weight; $\kappa_{\mathrm{BKM}}(\Phi_2) = c_2(0)/2
+  = 4$ remains cocycle-free at the weight level.
+  **Counter**: never assume uniform $H^3$-vanishing across $M_{23}$
+  classes; check per-class for torsion; any claim of
+  $H^3(\mathrm{Aut}_s(K3); \mathbb Z) = 0$ must specify which classes.
+  Cross-ref: AP-CY175 (Ret9 sibling); AP-CY230 (W12-6 sibling /
+  $M_{24}$-centraliser cell-specific discrete torsion). Primary:
+  Milgram 1995 (Sylow detection); Benson 1998 \emph{Representations
+  and Cohomology} Vol 2; group-cohomology calculation on $M_{23}$
+  subgroups. Cross-volume: Vol I AP953, Vol II AP-V2-74.
+
+## Wave-15 frontier exploration cache append: AP-CY262 through AP-CY268 (2026-04-22)
+
+### 2026-04-22: AP-CY262--AP-CY268 (Wave-15 L/M/N/A frontier items)
+
+Seven Vol III AP-CY entries from the Wave-15 20-file frontier batch
+(\texttt{notes/wave15\_l1\_generic\_CY3\_GS.tex},
+\texttt{notes/wave15\_l2\_atiyah\_K3E\_truncation.tex},
+\texttt{notes/wave15\_l4\_4D\_hCS\_shifted.tex},
+\texttt{notes/wave15\_n1\_HH2\_E2\_nonab.tex},
+\texttt{notes/wave15\_n5\_HH\_E3\_compact\_vs\_open.tex},
+\texttt{notes/wave15\_m3\_Lambda32\_to\_33\_embedding.tex},
+\texttt{notes/wave15\_a6\_chiral\_booth\_lazarev\_beilinson.tex}).
+Each entry pairs with a cache row in
+\texttt{appendices/first\_principles\_cache.md} under the same date.
+Covered: cubic-Casimir vs quadratic-Casimir anomaly coefficient for 6D hCS
+BV closure; PTVV shift $n = d - 4$ CY-dimension law across CY-A/B/C/D;
+Atiyah class on $K3 \times E$ diagonal block (elliptic factor
+$\At(TE) = 0$); $\HH^0_{E_3}(\Obs_{\mathrm{hCS}}(\C^3))$ infinite rank
+vs finite rank on compact CY$_3$; $\HH^2_{E_2}$ rigidity
+non-critical-level scope on $\partial\mathrm{hCS}_5(\mathfrak{sl}_n)$;
+$\Lambda^{3,3}$-envelope GBKM vs Fake-Monster $\mathrm{II}_{25,1}$ confusion;
+chiral Booth--Lazarev as three-obstruction programme vs associative
+packaging.
+
+- **AP-CY262 -- Cubic Casimir $d^{abc}$ and quartic Casimir in 6D hCS anomaly; CANONICAL-ANOM-LOCUS (form c) with $E_6$ strict exclusion, $A_2$ refined/unrefined distinguished (Critical; revised 2026-04-22).**
+  Two obstructions operate in the 6D hCS BV anomaly, and the
+  canonical locus distinguishes them.
+  \emph{Quartic} obstruction: $\mathrm{tr}_{\mathrm{adj}}(T^{(a}T^bT^cT^{d)})$,
+  the symmetric quartic Casimir on the adjoint, paired against
+  $\Omega_Y \wedge c \wedge (\bar\partial c)^3$ at ghost number $+1$;
+  factorises on the Deligne exceptional series as
+  $\mathrm{tr}_{\mathrm{adj}}T^4 = \alpha_{\mathfrak g}
+  (\mathrm{tr}_{\mathrm{adj}}T^2)^2$ (Deligne 1996, Cohen--de Man 1996),
+  the residual $(F^2)^2$ absorbed by Green--Schwarz.
+  \emph{Cubic} obstruction: $d^{abc} = \mathrm{tr}_{\mathrm{adj}}
+  (T^{(a}T^bT^{c)})$, nonzero on $E_6$ (Jordan cubic invariant on
+  $\mathrm{Sym}^3(\mathbf{27}) = \mathfrak j_3^{\mathbb O}$) and on
+  $A_2 = \mathfrak{su}(3)$ (Gell-Mann $d$-tensor), zero on
+  $A_1, G_2, D_4, F_4, E_7, E_8$.
+  **Wrong claims flagged**:
+  \begin{itemize}
+  \item \textbf{Quadratic-only reading}: 6D hCS BV anomaly is
+    proportional to $C_2(\mathfrak g) = 2h^\vee$ with anomaly-free
+    locus $\{h^\vee = 0\}$. Wrong: both quartic and cubic
+    obstructions are present; the quadratic $C_2$ is only a
+    wave-function renormalisation artifact.
+  \item \textbf{Cubic-only reading with $E_6$ in safe list}:
+    anomaly-free simple Lie algebras are
+    $\{\mathrm{SU}(2), \mathrm{SO}(N), E_6, E_7, E_8, F_4, G_2\}$.
+    Wrong: this lists $E_6$ among cubic-free algebras, contradicting
+    $d^{abc}(E_6) \ne 0$ from the Jordan cubic invariant on
+    $\mathrm{Sym}^3(\mathbf{27})$.
+  \item \textbf{Form (a) strict}: anomaly-free locus $=$ Deligne
+    $\setminus \{E_6, A_2\}$ without $A_2$-refined / $A_2$-unrefined
+    distinction and without the $K^{-1/2}$-refinement clause.
+  \item \textbf{Form (b)}: anomaly-free locus $=$ Deligne $\setminus
+    \{E_6\}$ alone, admitting $A_2$ without qualifier.
+  \end{itemize}
+  **Correct — CANONICAL-ANOM-LOCUS (form c)**: the native-ambient
+  anomaly-free locus on a CY$_3$ reads
+  $$\mathrm{Anom}_1 = 0 \iff \mathfrak g \in
+  \bigl(\mathrm{Deligne}^{\mathrm{exc}} \setminus
+  \{E_6,\, A_2\text{-unrefined}\}\bigr) \cup \{\mathrm{abelian}\}
+  \cup \{\mathrm{super-str}_{\mathrm{ad}} = 0\}
+  \cup \{\widehat{\mathfrak g}_{-h^\vee} \otimes K^{-1/2}
+  \text{-refined}\}.$$
+  Native-ambient distinctions:
+  \begin{itemize}
+  \item $E_6$ STRICTLY excluded. No refinement in the programme's
+    toolkit kills its $\mathrm{Sym}^3(\mathbf{27})$ cubic $d^{abc}$
+    within native ambient.
+  \item $A_2$-unrefined excluded (live $d^{abc}$ and live
+    critical-level quadratic obstruction).
+  \item $A_2$-refined INSIDE: Feigin--Frenkel critical twist
+    $K^{-1/2}$ kills the quadratic; Dimofte-slab anomaly-inflow
+    (Vol II Part V) provides Green--Schwarz cubic cancellation.
+  \item $\{A_1, G_2, D_4, F_4, E_7, E_8\}$ unconditionally inside
+    (quartic Deligne-factorises, cubic $d^{abc}$ identically zero).
+  \end{itemize}
+  **Counter**: every 6D hCS anomaly-locus statement must name both
+  obstructions (quartic vs cubic) and carry the $A_2$-refined
+  qualifier plus $K^{-1/2}$-refinement clause. Forms (a) and (b)
+  propagate as antipatterns relative to (c); regex triggers:
+  (a) \verb|Deligne.*\\setminus.*\\\{E_6,\\s*A_2\\\}(?!.*refined)|;
+  (b) \verb|Deligne.*\\setminus.*\\\{E_6\\\}(?!.*A_2)|;
+  cubic-only reading that places $E_6$ in a ``$d^{abc} = 0$'' safe list.
+  Cross-ref: Vol I AP979 / AP-$\xi$ (canonical-ambient twin);
+  V2-AP157 / AP-V2-54 (Vol II sibling);
+  AP-CY50-E14 (cross-volume ledger);
+  AP-CY160 (hCS categorical duality); AP-CY162 (BCOV curving vs
+  Yukawa cubic); canonical preamble row 45 (Gauss-Bonnet $\int c_3
+  = \chi_{\mathrm{top}}$).
+  Primary: Deligne 1996 \emph{CRAS} 322 ``La série exceptionnelle'';
+  Cohen--de Man 1996 \emph{CRAS} 322 (Vogel plane $\alpha_{\mathfrak g}$);
+  Cvitanović 2008 \emph{Group Theory} Ch 20 ($E_6$ cubic invariant);
+  Baez 2002 \emph{Bull AMS} 39 (Jordan algebra
+  $\mathfrak j_3^{\mathbb O}$);
+  Frampton--Kephart 1983 \emph{Phys Rev Lett} 50, 1347
+  (cubic-Casimir classification);
+  Witten 1984 \emph{Comm Math Phys} 92, 455 (Green--Schwarz mechanism);
+  Candelas--Horowitz--Strominger--Witten 1985 \emph{Nucl Phys B}
+  258, 46; Costello 2011 AMS \emph{Renormalisation and EFT} Ch 5
+  Thm 5.6.1; Feigin--Frenkel 1992 \emph{Comm Math Phys} 147
+  (critical-level $K^{-1/2}$ twist);
+  Dimofte 2014 slab anomaly-inflow.
+  See \texttt{notes/wave15\_l1\_generic\_CY3\_GS.tex}.
+
+- **AP-CY263 -- PTVV shift $n = d - 4$ CY-dimension law across CY-A/B/C/D (High).**
+  Wrong claim: holomorphic Chern--Simons-type theories carry a
+  $(-1)$-shifted symplectic datum uniformly, independent of CY
+  dimension $d$. Refutation by Pantev--Toen--Vaquie--Vezzosi 2013
+  \emph{Publ IHES} 117 dimension counting: the shift is
+  $n = d - 4$, tracking the residual degree after integration against
+  the $d$-dimensional holomorphic volume form. At $d = 2$: 4D hCS on a
+  CY$_2$ surface (K3, $T^4$, bielliptic) carries a $(-2)$-shifted
+  symplectic datum, with observables forming an $E_2$-factorisation
+  algebra on the two holomorphic disc-directions. At $d = 3$: 6D hCS
+  on a CY$_3$ carries the classical $(-1)$-shift with $E_1$-observables.
+  At $d = 4$: 8D hCS on a CY$_4$ carries a $0$-shift and $E_0$-observables
+  (pure topological, no chiral residue); the theory terminates at $d = 4$
+  because $n = d - 4 = 0$ and $E_{-1}$ is undefined at $d = 5$.
+  Correct: hCS CY-dimension law: $(n, E_k) = (d - 4, k = d - 2)$; the
+  shift and the $E_n$-index sum to $d - 2$, which is the holomorphic
+  disc dimension after passage to Dolbeault cohomology. This is the
+  chain-level shadow of CY-D $\Phi$-output stratification ($E_2$ at
+  $d \leq 2$, $E_1$ at $d \geq 3$, with $E_2$-braiding living on
+  $Z(\mathrm{Rep}(A))$ at $d \geq 3$).
+  **Counter**: never quote the PTVV shift as $(-1)$ without naming $d$;
+  every hCS / BV / Costello--Gwilliam statement on a CY$_d$ must carry
+  its shift $n = d - 4$. At $d = 2$: $n = -2$, $E_2$-observables;
+  at $d = 3$: $n = -1$, $E_1$-observables; at $d = 4$: $n = 0$,
+  $E_0$-observables. Cross-ref: AP-CY172 / AP-CY259 ($\Phi_d$
+  $d$-dependent two-stage factorisation); AP-CY224 (E22 /
+  $\Phi_d$ output $d$-dependent); AP-CY260 (CPTV extends to $d = 5$).
+  Primary: PTVV 2013 \emph{Publ IHES} 117 Thm 2.5 (shifted-symplectic
+  transgression); Calaque--Pantev--Toen--Vaquie--Vezzosi 2017
+  arXiv:1506.03699 Prop 2.6; Lurie \emph{HA} \S 5.3 ($E_n$-hierarchy);
+  Costello--Gwilliam 2021 Vol II \S 10--11. See
+  \texttt{notes/wave15\_l4\_4D\_hCS\_shifted.tex};
+  \texttt{notes/wave15\_n5\_HH\_E3\_compact\_vs\_open.tex}.
+
+- **AP-CY264 -- Atiyah class on $K3 \times E$ diagonal-block vs off-diagonal contribution (High).**
+  Wrong claim: the Atiyah class $\At(T(K3 \times E))$ has a nontrivial
+  off-diagonal contribution in the $\End(TK3) \oplus \End(TE)$ block
+  decomposition, making the Kapranov $L_\infty$ minimal-model bracket
+  $\mu_n^{\min, X}$ genuinely mixed across the two factors. Refutation
+  by direct jet-sequence computation: Atiyah naturality under pullback
+  (Atiyah 1957 \emph{Trans AMS} 85 \S 4) plus the Kahler-Kunneth
+  decomposition forces block-diagonality: $\At(T(K3 \times E)) =
+  p_1^* \At(TK3) \oplus p_2^* \At(TE)$ with no off-diagonal coupling,
+  because the first-jet extension pulls back from each factor
+  separately. The elliptic summand $\At(TE) = 0$ because $TE$ admits a
+  holomorphic flat connection ($E$ is a complex Lie group, $TE$
+  trivial), so $\At(T(K3 \times E)) = p_1^* \At(TK3)$ on the nose.
+  Every Kapranov minimal-model bracket $\mu_n^{\min, X}$ reduces to a
+  sum over trees with \emph{every} internal line purely-K3; the
+  Bogomolov--Tian--Todorov unobstructedness of K3
+  (Bogomolov 1978; Tian 1987; Todorov 1989) then forces
+  $\mu_n^{\min, K3} = 0$ for $n \geq 3$, so $\mu_n^{\min, K3 \times E}
+  = 0$ for $n \geq 3$: the minimal model truncates to the strict
+  $\bar\partial$-cohomology Lie bracket. The factor $\chi(\mathcal O_E)
+  = 0$ is the K\"unneth shadow of $\At(TE) = 0$; it is exactly this
+  factor that suppresses every mixed-tree integrand.
+  Correct: $\At(T(K3 \times E))$ is supported on the K3 factor; the
+  Kapranov $L_\infty$ on $K3 \times E$ is formal and truncates to
+  $\mu_2$.
+  **Counter**: when computing $L_\infty$ minimal-model brackets on a
+  product CY$_d$, first apply Kunneth K\"ahler naturality to reduce
+  the Atiyah class to a direct sum of per-factor Atiyah classes; test
+  each factor for vanishing ($\At = 0$ whenever the factor admits a
+  holomorphic flat connection, e.g.\ tori, complex Lie groups).
+  Elliptic-curve factors contribute $\At(TE) = 0$ to the diagonal
+  block, suppressing every mixed tree. Cross-ref: AP-CY160 (Vol III
+  W14-A1: hCS = categorical theory duality); AP-CY162 (BCOV curving
+  Atiyah-sourced $H^{0,1}$ vs Yukawa cubic $H^{0,3}$); canonical
+  preamble row 66 ($\kappa_{\mathrm{cat}}(K3 \times E) = 0$); C10
+  ($\eta^{-48}$ Heisenberg-Mukai). Primary: Atiyah 1957 \emph{Trans
+  AMS} 85 Thm 1 (vanishing iff holomorphic connection); Kapranov
+  1999 \emph{Compositio Math} 115 \S 4 ($L_\infty$ on Dolbeault
+  polyvectors); Bogomolov 1978, Tian 1987, Todorov 1989 (K3
+  unobstructedness); Deligne--Griffiths--Morgan--Sullivan 1975
+  (K\"ahler formality). See \texttt{notes/wave15\_l2\_atiyah\_K3E\_truncation.tex}.
+
+- **AP-CY265 -- $\HH^0_{E_3}(\Obs_{\mathrm{hCS}}(\C^3, \mathfrak g))$ infinite rank vs finite on compact CY$_3$ (Critical).**
+  Wrong claim: the $E_3$-Hochschild cohomology of 6D hCS observables
+  is finite-dimensional on both $\C^3$ and compact CY$_3$, with
+  compact-vs-non-compact distinction not affecting dualizability.
+  Refutation by direct PBW/CE computation: on $\C^3$,
+  $\HH^0_{E_3}(\Obs_{\mathrm{hCS}}(\C^3, \mathfrak g)) \simeq
+  \mathbb C[\![\tau_1, \tau_2, \tau_3]\!]$, an infinite-rank formal
+  power-series algebra in three Casimir generators
+  $\tau_i = \mathrm{Tr}(z_i^\partial)$ (Gwilliam--Williams 2021 Prop
+  5.3.2). Infinite-dimensionality is forced because $\mathcal O(\C^3)
+  = \mathbb C[z_1, z_2, z_3]$ is a polynomial ring in three variables,
+  and the Casimir trace descends to every polynomial monomial. Since
+  $\mathbb C[\![\tau_1, \tau_2, \tau_3]\!]$ is not dualizable in
+  $\mathrm{Ch}$, $\Obs_{\mathrm{hCS}}(\C^3, \mathfrak g)$ fails
+  $3$-dualizability non-abelianly. On compact CY$_3$ $X$,
+  $\HH^0_{E_3}(\Obs_{\mathrm{hCS}}(X, \mathfrak g)) \simeq
+  \bigoplus_q h^{0,q}(X) \cdot \HH^*_{\mathrm{Lie}}(\mathfrak g,
+  \mathbb C)^{[q]}$ is finite-dimensional by Hodge truncation
+  ($h^{0,q}(X) = 0$ for $q \geq 4$); this finite rank makes the
+  observable algebra 3-dualizable and supplies the PTVV $(-3)$-shifted
+  symplectic evaluation/coevaluation data, upgrading 6D hCS to a
+  fully extended framed 3-TFT (Lurie 2009 cobordism hypothesis Thm
+  2.4.6). The compact-vs-non-compact distinction is decisive at the
+  $E_3$-dualizability level, even when both output an $E_1$-chiral
+  algebra at $d = 3$: the extended-functoriality gap lives at
+  $E_3$-level and is invisible to $E_1$-output.
+  Correct: finite $\HH^*_{E_3}$ on compact CY$_3$; infinite rank on
+  $\C^3$. Compactness is load-bearing for 3-dualizability.
+  **Counter**: when stating 3-dualizability of hCS observables, always
+  name compactness; $\C^3$-locus arguments do not extend to compact
+  CY$_3$ and vice versa. The cobordism-hypothesis upgrade requires
+  compactness, not just $E_3$-structure. Cross-ref: AP-CY144
+  ($\Phi$-output-scope discipline at $d = 3$); AP-CY162 (BCOV curving
+  on compact CY$_3$); AP-CY172 / AP-CY259 (two-stage factorisation).
+  Primary: Lurie 2009 \emph{On the classification of TFTs} Thm
+  2.4.6; Gwilliam--Williams 2021 arXiv:2009.05037 Prop 5.3.2;
+  Francis 2013 \emph{Compos Math} 149 Thm 3.4; Ayala--Francis 2015
+  \emph{J Topology} 8 Thm 1.1; Calaque--Pantev--Toen--Vaquie--
+  Vezzosi 2017 arXiv:1506.03699. See
+  \texttt{notes/wave15\_n5\_HH\_E3\_compact\_vs\_open.tex}.
+
+- **AP-CY266 -- $\HH^2_{E_2}$ rigidity at non-critical vs critical Kac-Moody level (High).**
+  Wrong claim: $\HH^2_{E_2}(\partial\mathrm{hCS}_5(\mathfrak{sl}_n), -)
+  = 0$ holds uniformly across all Kac--Moody levels, including critical
+  level $k = -h^\vee$. Refutation by Feigin--Frenkel centre analysis:
+  the Francis chiral-tangent identification
+  $\HH^2_{E_2}(\partial\mathrm{hCS}_5(\mathfrak{sl}_n), -) \simeq
+  H^2_{\mathrm{ch}}(\widehat{\mathfrak{sl}}_n, V^{\mathrm{vac}}_k)$
+  reduces $E_2$-rigidity to chiral Chevalley--Eilenberg vanishing at
+  $H^2$, which Whitehead's second lemma establishes at \emph{generic}
+  (non-critical) level via Francis spectral-sequence degeneration on
+  semisimple Lie cohomology. At critical level $k = -h^\vee$ the
+  vacuum module $V^{\mathrm{vac}}_{-h^\vee}$ is NOT simple: its centre
+  $Z(V^{\mathrm{vac}}_{-h^\vee}) \simeq \mathrm{Fun}(\mathrm{Op}_{\mathfrak{sl}_n^\vee})$
+  (Feigin--Frenkel; Frenkel--Ben-Zvi 2004 Thm 18.4.2) is a polynomial
+  algebra in infinitely many generators, and $H^2$-rigidity requires
+  separate analysis via smoothness of the opers differential graded
+  scheme. Stating ``uniform rigidity'' elides the critical-level
+  subtlety. Correct: non-critical levels are uniformly rigid via
+  Whitehead 2; critical level is rigid via Feigin--Frenkel oper
+  smoothness, which is a distinct argument.
+  **Counter**: every $\HH^2_{E_2}$ rigidity statement for affine
+  Kac--Moody vertex algebras must specify level scope: generic
+  (non-critical) vs critical. At generic level: Whitehead 2 +
+  formality of $V^{\mathrm{vac}}_k$ + Getzler--Kapranov spectral
+  sequence; at critical level: Feigin--Frenkel centre-as-functions
+  on $\mathrm{Op}_{\mathfrak{sl}_n^\vee}$ + oper moduli smoothness.
+  Cross-ref: AP-CY160 (hCS = categorical theory duality); AP-CY161
+  (iso-class vs parametrised KT formality); canonical preamble
+  central-charge discipline. Primary: Francis 2013 \emph{Compos Math}
+  149 Thm 1.1, 2.29; Frenkel--Ben-Zvi 2004 \emph{Vertex Algebras and
+  Algebraic Curves} Thm 3.4.3, 18.4.2; Feigin--Frenkel 1992
+  \emph{IJMPA} 7 S1A (centre at critical level); Whitehead 1937.
+  See \texttt{notes/wave15\_n1\_HH2\_E2\_nonab.tex}.
+
+- **AP-CY267 -- $\Lambda^{3,3}$-envelope GBKM vs Fake-Monster $\mathrm{II}_{25,1}$ confusion (High).**
+  Wrong claim: the codimension-one timelike restriction
+  $\Lambda^{3,2} \hookrightarrow \Lambda^{3,3}$ lands
+  $\mathfrak{g}_{\Delta_5}$ inside the Fake-Monster
+  Lie algebra $\mathfrak{g}_{\Phi_{12}}$. Refutation by lattice-rank
+  mismatch: the envelope GBKM on $\Lambda^{3,3} = U \oplus U \oplus U$
+  (rank 6, signature $(3,3)$, unique even unimodular per Milnor /
+  Conway--Sloane Ch 15) has Cartan of rank 6 and signature $(3,3)$,
+  hosting the $\mathrm{Sp}_4(\mathbb Z)/\{\pm I\} \simeq
+  \mathrm{SO}_+(\Lambda^{3,2})$ isogeny at the Humbert-divisor level
+  (Gritsenko--Nikulin 1998 \emph{Duke} 94; exceptional isogeny
+  induced by $\mathrm{Sp}_4$ acting on $\bigwedge^2\mathbb Q^4 / \langle
+  \omega_0\rangle$). The Fake-Monster lives on $\mathrm{II}_{25,1}$
+  (Leech plus hyperbolic plane, rank 26, signature $(25,1)$, at $d=5$
+  per canonical preamble / AP-CY256), an entirely distinct lattice.
+  The $\Lambda^{3,3}$-envelope is NOT a specialisation of the Fake
+  Monster; the Humbert-divisor fibre
+  $\mathfrak{g}_{\Delta_5} \subset \mathfrak{g}_{\Lambda^{3,3}}$ is a
+  genuine codimension-one BKM restriction, distinct from any
+  Fake-Monster data.
+  Correct: $\Lambda^{3,3}$-envelope has Cartan rank 6 signature $(3,3)$,
+  hosts $\mathrm{Sp}_4$-stabiliser exceptional isogeny, NOT
+  $\mathrm{II}_{25,1}$.
+  **Counter**: any claim relating $\mathfrak{g}_{\Delta_5}$ to a larger
+  ambient BKM must name the host lattice: $\Lambda^{3,3}$ rank 6 is
+  the Pfaffian envelope (heterotic BPS lift, Harvey--Moore 1996);
+  $\mathrm{II}_{25,1}$ rank 26 is the Fake-Monster non-compact host;
+  these are different ambient lattices with different BKM structures.
+  Cross-ref: AP-CY169 / AP-CY256 (Fake-Monster at $d = 5$); AP-CY216
+  (E14 sibling); canonical preamble row 20 (Monster Cartan rank 2
+  on $\mathrm{II}_{1,1}$, NOT 26). Primary: Borcherds 1995 \emph{Invent
+  Math} 120 \S 13 (restriction theorem); Gritsenko--Nikulin 1998
+  \emph{Duke} 94 \S 2 ($\mathrm{Sp}_4 \simeq \mathrm{SO}(3,2)$);
+  Harvey--Moore 1996 hep-th/9510182 eqs (4.15)--(4.20); Nikulin 1979
+  \emph{Izv AN SSSR} 43. See
+  \texttt{notes/wave15\_m3\_Lambda32\_to\_33\_embedding.tex}.
+
+- **AP-CY268 -- Chiral Booth--Lazarev as associative packaging vs three-obstruction programme (High).**
+  Wrong claim: the chiral Booth--Lazarev equivalence
+  $\mathrm{FactCoAlg}^{\mathrm{cpt}}_{\mathrm{crv}}(\mathrm{Ran}(C))
+  \simeq \mathrm{ChirAlg}(C)$ is an automatic lift of the associative
+  curved bar--cobar Quillen equivalence (Booth--Lazarev arXiv:2304.08409
+  Thm 3.14) via a ``factorisation-tensor packaging''. Refutation
+  by three structural obstructions whose resolution is unsettled:
+  (i) \emph{Ran-space Smith recognition}: $\mathrm{Ran}(C)$ is a
+  colimit of schemes $C^n/S_n$, not of finite type; generating
+  cofibrations must be stratification-compatible with
+  $j_n^* : \mathrm{FactCoAlg}(\mathrm{Ran}(C)) \to
+  \mathrm{FactCoAlg}(C^n/S_n)$ pulling back into lower-$m$ generators,
+  and conilpotence must be stratified by the Ran-space filtration
+  (not a single unstratified filtration).
+  (ii) \emph{Genus-tower curvature as operadic section}: the curvature
+  datum $m_0^{(g,n)}$ is not a scalar in $\mathcal A^2$ but a family
+  of sections of $\lambda_g \otimes H^2(\mathcal A)$ on
+  $\overline{\mathcal M}_{g,n}$, satisfying boundary-clutching
+  compatibility (separating + non-separating). The curvature is a
+  \emph{modular form on $\overline{\mathcal M}$}, with the sewing
+  property as operadic structure. Booth--Lazarev's single static
+  $m_0$ handles neither.
+  (iii) \emph{Analytic IndHilb sewing}: the algebraic coderived
+  category and the Moriwaki IndHilb analytic sewing envelope are
+  distinct; comparison requires a nuclearity + trace-class check on
+  topological vector spaces that Booth--Lazarev's purely algebraic
+  setup does not address.
+  Correct: chiral Booth--Lazarev is conjectural, with three distinct
+  obstructions (Ran-space Smith, genus-tower curvature operadic
+  structure, analytic sewing comparison); stating it as ``the
+  Quillen equivalence on Ran-space coalgebras'' without naming all
+  three overstates theorem-status.
+  **Counter**: every chiral-Booth--Lazarev citation must carry the
+  three-obstruction qualifier; $\kappa_{\mathrm{ch}}$-curving
+  $m_0^{(g)} = \kappa_{\mathrm{ch}} \cdot \lambda_g$ is the
+  \emph{boundary-descent datum} on $\overline{\mathcal M}_{g,n}$,
+  not a derived-category-level packaging. Cross-ref: AP-CY154
+  (two-stage factorisation AP-CY); AP-CY172 / AP-CY259 ($\Phi$
+  two-stage); AP-CY160 (hCS = categorical theory $E_3$-duality).
+  Primary: Booth--Lazarev 2023 arXiv:2304.08409 (associative coderived
+  Quillen); Beilinson--Drinfeld 2004 \emph{Chiral Algebras} AMS
+  Colloq Publ 51 Ch 3 (Ran space, factorisation); Francis 2013
+  \emph{Compos Math} 149 ($E_n$-tangent, operadic model structure);
+  Kontsevich--Soibelman 2010 \emph{Deformation Theory} Ch 3 ($L_\infty$
+  on smooth schemes). See
+  \texttt{notes/wave15\_a6\_chiral\_booth\_lazarev\_beilinson.tex}.
+
+
+## Conifold CoHA master-synthesis session: AP-CY293 through AP-CY310 (2026-04-23)
+
+Source: 44-agent adversarial swarm across Waves 1-4 on `notes/master_synthesis_coha_conifold_2026_04_23.tex` plus Wave-5 attack-heal convergence pass (in flight). Every error verified against primary literature (arXiv-ID audit).
+
+**AP-CY293 — Propagated wrong arXiv IDs in `chapters/examples/toric_cy3_coha.tex` and cross-file propagation (Critical).**
+Wrong: 17+ arXiv IDs in `toric_cy3_coha.tex` point to completely unrelated papers. Specific: `arXiv:1512.04179` for "Davison 2017" is actually Leonov et al. skyrmion paper (correct = arXiv:1311.6989); `arXiv:2001.10549` for "RSYZ 2020 Thm B" is Apruzzi et al. 6D SCFT (correct = arXiv:1810.10402); `arXiv:1802.07988` for "Kapranov-Vasserot 2018" is Bai et al. bosonic QH (correct = arXiv:1901.07641); `arXiv:1107.5569` for "MMNS" is W boson pair production (correct = arXiv:1107.5017). **Counter**: every citation block must carry a verifiable arXiv ID check; author-year citations alone are insufficient when the arXiv ID is also given.
+
+**AP-CY294 — Fictitious "Theorem B" of RSYZ 1810.10402 (High).**
+Wrong: citation "RSYZ 2020 arXiv:2001.10549 Thm B" appears in 13+ locations claiming CoHA(conifold) = Y⁺(quantum toroidal ĝl_2). Correct: arXiv:2001.10549 is a 6D SCFT paper (not RSYZ). The actual RSYZ paper arXiv:1810.10402 uses section-numbered theorems (Thm 4.3.1, 5.2.1, 7.2.1, 7.2.4) — there is no "Theorem B". The cited paper treats ℂ³ and spiked instantons via affine Yangian of ĝl_1, with the conifold appearing only as a motivating remark (Remark 4.3.2), not as a theorem. **Counter**: "Thm B" citations to RSYZ must be replaced with the correct section-numbered reference; any theorem-level conifold identification requires Li-Yamazaki 2020 arXiv:2003.08909 §8.3.6.3 for the Y⁺(ĝl(1|1)) identification.
+
+**AP-CY295 — Internal Y⁺(ŝl₂) vs Y⁺(ĝl(1|1)) contradiction between chapters — scope discipline (High).**
+Wrong: `chapters/theory/cy_to_chiral.tex:7297-7317` states CoHA(conifold) ≅ Y⁺(ŝl₂); `chapters/examples/derived_categories_cy.tex:627` states CoHA(conifold) ≅ Y⁺(ĝl(1|1)). These appear contradictory. Correct: both are valid at different scopes — Y⁺(ĝl(1|1)) is the super-Yangian primary identification (Li-Yamazaki arXiv:2003.08909, Gaiotto-Rapčák arXiv:1703.00982 Y_{0,1,1}[ψ]), and Y⁺(ŝl₂) is the ungraded shadow obtained by projecting out the central Cartan K_n = h^(0)_n + h^(1)_n of ĝl(1|1) via supertrace. The 2-dim imaginary root space at (n,n) is span(H_n, K_n) with H_n = Chevalley Cartan (visible in ŝl₂ reading) and K_n = central (only in gl(1|1) reading). **Counter**: every appearance of "CoHA(conifold) ≅ Y⁺(X)" must specify whether X is the super form Y⁺(ĝl(1|1)) (primary) or the ungraded shadow Y⁺(ŝl₂) (semisimple quotient, projection).
+
+**AP-CY296 — Quantum-toroidal ĝl_2 misattribution for conifold (High).**
+Wrong: claim CoHA(conifold) ≅ Y⁺(quantum toroidal ĝl_2) appears in `toric_cy3_coha.tex` line 335-339. Correct: the quantum toroidal ĝl_2 identification belongs to the DIFFERENT toric CY₃ `Tot(𝒪(-2)⊕𝒪 → ℙ¹)` (same Euler characteristic 2, different NCCR with bosonic vertices carrying self-loops), not to the resolved conifold `Tot(𝒪(-1)⊕𝒪(-1) → ℙ¹)`. RSYZ §1.3 explicitly conjectures: conifold → Y(ĝl(1|1)) (super); `𝒪(-2)⊕𝒪` → shifted ĝl_2. **Counter**: identification of conifold CoHA must explicitly distinguish between `(-1,-1)`-splitting (super-Yangian ĝl(1|1)) and `(-2,0)`-splitting (ordinary Kac-Moody ĝl_2); same χ(Y) = 2 does not imply same algebra.
+
+**AP-CY297 — Hopf pairing correction c_{11}=-1, c_{00}=0 is S5 conjecture (Medium).**
+Wrong: treating the Wave 1 Agent 8 explicit formula ⟨e^(a)_m, f^(b)_n⟩_ℏ = δ^{a,b}·(-1)^a·ℏ⁻¹·C(m+n,m)/(m+n+1)·(1 + ℏ·c_{ab}·δ_{m,n}) with c_{00}=0, c_{11}=-1 as a theorem. Correct: the asymmetric correction c_{11} = -1 is derived from the super-trace sign on the odd root's Killing form, consistent with ĝl(1|1) structure, but NOT verified against published Y(gl(m|n)) Hopf pairings (Nazarov 1991, Arnaudon-Crampé-Doikou-Frappat-Ragoucy 2003, Gow 2005, Peng 2011). Classification: S5 conjecture pending primary-source verification. **Counter**: every use of this explicit formula must carry `\ClaimStatusConjectured` status.
+
+**AP-CY298 — 5D hCS super all-orders convergence OPEN, not theorem (High).**
+Wrong: citing Costello-Gaiotto-Yagi 5D hCS all-orders theorem (arXiv:1810.01970) as covering the super case ĝl(1|1). Correct: CGY explicitly requires simply-laced gauge algebra with non-degenerate even Killing form. The gl(1|1) Killing form is degenerate (str(K·anything)=0); super-KT formality is E_2 only (Ginzburg-Schedler arXiv:0807.0174), not E_3; higher-loop H¹_loc(gl(1|1), 𝒪_loc) obstructions are not auto-killed. Status: OPEN at all orders for the super case. 1-loop wheel vanishing d^{abc}_super = 0 for gl(1|1) is VERIFIED by direct basis calculation; 2-loop and higher remain open. **Counter**: every invocation of "5D hCS → Y^VOA(𝔤) all-orders" for 𝔤 = ĝl(1|1) must carry OPEN flag.
+
+**AP-CY299 — Super-KT formality E_2 only, not E_3 (Medium).**
+Wrong: treating Kontsevich-Tamarkin E_n-formality as extending to Lie superalgebras with E_3-formality. Correct: Ginzburg-Schedler 2010 (arXiv:0807.0174) super-Koszul duality proves E_2-formality for super-Poisson structures; E_3 is not established. This is the technical obstruction to extending Costello-Gaiotto-Yagi's all-orders 5D hCS theorem to the super-gauge case. **Counter**: every use of "super KT formality" must specify E_2; claims requiring E_3 are open.
+
+**AP-CY300 — Conifold τ is external boundary-condition modulus, not intrinsic elliptic curve (Medium).**
+Wrong: treating the parameter τ in E_{q,p}(ĝl(1|1))^{conifold} as arising from an intrinsic elliptic curve on Y. Correct: Y = Tot(𝒪(-1)⊕𝒪(-1) → ℙ¹) has no intrinsic elliptic curve; ℙ¹ is rational not elliptic. The elliptic parameter τ arises as either (i) external boundary-condition deformation (Felder dynamical R-matrix lift); (ii) hCS on Y × E_τ with dimensional reduction along E_τ; (iii) geometric-transition to K3 × Y providing τ via K3 elliptic fibration. GLY arXiv:2108.10286 uses τ as external B-cycle modulus. **Counter**: elliptic lifts of conifold algebras must name the source of τ; intrinsic-elliptic-curve claims on the conifold are false.
+
+**AP-CY301 — "Fermionic square (e^(a))² = 0" is PBW-primitive level, not shuffle level (Low).**
+Wrong: claim "e^(a)_0 ⋆ e^(a)_0 = 0 in Sh^super" taken as a theorem at shuffle level. Correct: the symmetric-algebra sum over a single color with trivial bond factor φ_{a⇒a} = 1 gives a nonzero symmetric polynomial in Sh_{(2,0)}; the vanishing is at the PBW primitive level (after Davison-Meinhardt integrality projection to 𝔤_BPS). Chart-wise (e_0^+)² = 2 - 2(ε_1²+ε_1ε_2+ε_2²)/(z_1-z_2)² ≠ 0 in the SV ℂ³ Hall presentation; the glued algebra structure makes it zero via even/odd combination and Koszul sign. **Counter**: fermionic square-zero claims must specify the level — PBW-primitive (BPS Lie algebra) or full shuffle/Hall; the two differ.
+
+**AP-CY302 — χ(S_0, S_0) = 0 on CY₃, not 1 nor 2 (Low).**
+Wrong: diagonal value χ(S_a, S_a) = 1 or 2 on CY₃ Jacobi category. Correct: χ(S_a, S_a) = dim Ext⁰ - dim Ext¹ + dim Ext² - dim Ext³ = 1 - 0 + 0 - 1 = 0 via CY₃ Serre Ext³(S_a, S_a) = End(S_a)^∨ = 1. The "χ = 1" value comes from truncating the derived Ext at degree 2 (finite vs derived convention); "χ = 2" comes from the Mukai-pairing convention. **Counter**: state the convention (Euler vs symmetrized Euler vs Mukai) before using a numerical value on CY₃ simples.
+
+**AP-CY303 — "6D (2,0) A_{K-1} with M5 wrap on ℙ¹ ⊂ Y" is synthesis, not Costello-Paquette theorem (Medium).**
+Wrong: stating the M-theory parent of Y(ĝl(1|1))^{conifold} as "6D (2,0) A_{K-1} on ℝ^{1,3} × T² with M5 wrap on ℙ¹, normal-bundle twist O(-1)⊕O(-1), Omega on transverse Taub-NUT" as a published theorem. Correct: Costello-Paquette arXiv:1810.06490 and 2009.04834 treat ℂ³-case explicitly; the conifold extension is a synthesis by analogy, not an explicit theorem. The extension to super gauge (ĝl(1|1)) requires super twisted-M-theory which Costello-Paquette does not cover. **Counter**: M-theory parent for conifold must carry CONJECTURAL status with explicit reference to (a) which pieces are in Costello-Paquette's theorems and (b) which are synthesis.
+
+**AP-CY304 — χ_BLLPRvR(T[Y]) = Y⁺(ĝl(1|1)) is conjectural, not proved (Medium).**
+Wrong: citing "BLLPRvR 4D/2D chiral-algebra functor applied to T[Y] gives Y⁺(ĝl(1|1))" as theorem. Correct: BLLPRvR arXiv:1312.5344 builds the 4D N=2 → 2D chiral algebra functor. The Klebanov-Witten conifold gauge theory T[Y] is 4D N=1, not N=2; BLLPRvR does not directly apply. Adaptations via N=1 → N=2 R-symmetry enhancement at IR superconformal point are conjectural. **Counter**: identification of boundary chiral algebra via BLLPRvR must carry CONJECTURAL status with explicit note about N=1 vs N=2.
+
+**AP-CY305 — "Both readings ŝl₂ and ĝl(1|1) valid" is scope-discipline theorem, not equivocation (Medium).**
+Wrong: treating "both ŝl₂ and ĝl(1|1) readings valid" as equivocation. Correct: this is a substantive scope-discipline theorem. ĝl(1|1) has rank-2 Cartan {H, K} with K central at mode 0; the supertrace str on the defining representation annihilates the odd-odd anticommutator direction, projecting ĝl(1|1)_even onto the 1-dim Cartan. The projected even subalgebra is (a completion of) ŝl₂^+; the full super form sees the central K and the fermionic brackets. Both are theorems — ĝl(1|1) for the categorified (super) CoHA, ŝl₂ for the numerical/motivic shadow. They agree on real-root data (numerical BPS Ω = 1) and differ at imaginary roots (Ω = -2 super-count vs dim 2 ordinary). **Counter**: this is the super-categorified vs ungraded-motivic distinction and must be stated explicitly wherever the "both readings" language appears; Pattern 273 scope declaration, not ambiguity.
+
+**AP-CY306 — Jacobian of $\Omega_Y$ transition carries no residual $\tilde z^{-2}$ factor (Medium).**
+Wrong: writing $\Omega_Y|_{U_-} = -\tilde z^{-2}\, d\tilde z \wedge d\tilde u \wedge d\tilde v$ on the resolved conifold. Correct: under $\tilde z = z^{-1}$ with fibre rescaling $(u_-, v_-) = (z u_+, z v_+)$ on $\mathcal O(-1) \oplus \mathcal O(-1) \to \mathbb P^1$, the Jacobian computes as: $z^{-2}$ from the fibre twist times $-\tilde z^{-2}$ from $dz = -\tilde z^{-2} d\tilde z$ gives $z^{-2} \cdot \tilde z^{-2} = \tilde z^{2} \cdot \tilde z^{-2} = 1$, so $\Omega_Y|_{U_-} = -d\tilde z \wedge du_- \wedge dv_-$ with NO residual $\tilde z^{-2}$ factor. The minus sign is the base-orientation flip (Wave 4 Agent 3 direct computation). **Counter**: every $\Omega_Y$ transition formula on a toric CY$_3$ must trace fibre-twist vs base-differential Jacobian cancellation; residual powers of chart coordinates signal a missed cancellation.
+
+**AP-CY307 — $\widehat{\mathfrak{gl}}(1|1)$ Cartan OPE: the level-$k$ appears on $H \cdot N$ not $N \cdot N$ (High).**
+Wrong: stating $N(z) N(w) \sim k/(z-w)^2$ as the level-$k$ Cartan OPE for $\widehat{\mathfrak{gl}}(1|1)$. Correct: $\mathfrak{gl}(1|1)$ has rank-$2$ Cartan $\{H, N\}$ with $H$ semisimple (eigenvalues $\pm 1$ on $\psi^\pm$) and $N$ central (annihilates $\psi^\pm$); the invariant super-bilinear form (supertrace on the defining representation) makes both Cartans self-isotropic: $\mathrm{str}(H^2) = 0 = \mathrm{str}(N^2)$. The cross-pairing $\mathrm{str}(H N) = 2 \neq 0$ carries the level. Hence: $H(z) H(w) \sim 0$, $N(z) N(w) \sim 0$, $H(z) N(w) \sim k/(z-w)^2$; $H(z) \psi^\pm(w) \sim \pm \psi^\pm(w)/(z-w)$, $N(z) \psi^\pm(w) \sim 0$. The "$N$ acts with eigenvalues $\pm 1$ on $\psi^\pm$" in earlier drafts was confusing $H$ (the semisimple Cartan) with $N$ (central). **Counter**: any level-$k$ Cartan OPE on a super affine algebra must derive the form from the invariant super-bilinear structure explicitly; never assume diagonal Cartan OPEs analogous to the ordinary $\mathfrak{sl}_n$ case.
+
+**AP-CY308 — Two-chart $\{U_+, U_-\}$ cover is not a Weiss cover (High).**
+Wrong: treating the two-chart Čech atlas of the resolved conifold as a "factorisation-algebra gluing" datum. Correct: Weiss covers (Costello-Gwilliam arXiv:2210.13036 Def 6.1.6) require every finite configuration of points to embed simultaneously into a single open of the cover. The two-chart cover $\{U_+ = \mathbb C^3, U_- = \mathbb C^3\}$ of the resolved conifold fails this: any configuration with one point on each chart does NOT embed into $U_+$ or $U_-$ alone. Hence the two-chart atlas recovers QC-descent for $\mathrm{CoHA}$-as-sheaf (Kontsevich-Soibelman arXiv:1006.2706 §6.3) but NOT factorisation-algebra locality (Beilinson-Drinfeld, Francis-Gaitsgory arXiv:1103.5803 Thm 3.6.2, Francis arXiv:1303.0305, Lurie HA §5.5.4). Two different constructions: QC descent gives $\mathrm{CoHA}(Y)$ as a quasi-coherent sheaf; factorisation locality requires the Weiss refinement $\mathfrak D^{\sqcup}$ (all disjoint unions of contractible discs). **Counter**: every "Čech gluing" of $\mathrm{CoHA}$ must specify whether the target is QC-descent (minimal refinement sufficient) or factorisation-locality (Weiss refinement required); these are not interchangeable.
+
+**AP-CY309 — 4 compact CY$_3$ obstructions reduce to 2.5, not 4 independent (Medium).**
+Wrong: listing (O1) toric fan-completeness, (O2) BCOV $\alpha_{\mathrm{BCOV}}$, (O3) $\mathrm{Aut}^0$ rigidity, (O4) finite-quiver equivariance as 4 independent obstructions. Correct: direct logical reductions give (O1) $\Leftrightarrow$ (O3) and (O1) $\Rightarrow$ (O4), with only (O2) logically independent. Hence the effective count is 2.5: (O1 $\equiv$ O3) + (O2) with (O4) downstream. The toric-rigidity obstruction (O1) and the $\mathrm{Aut}^0$-rigidity obstruction (O3) are two facets of the same Bogomolov splitting / Matsumura rigidity. The BCOV $\alpha_{\mathrm{BCOV}} = (\chi/24)[\Omega_X]^{0,1}$ obstruction (O2) is independent because it sources from the 1-loop BV counter-term, not from automorphism geometry. **Counter**: state the 2.5-count derivation explicitly; do not cite "four independent obstructions" — this obscures the Bogomolov-Matsumura origin.
+
+**AP-CY310 — Primary-lit RSYZ $\rightarrow$ Li-Yamazaki $\S 8.3.6$ substitution discipline (High).**
+Wrong: citing "RSYZ Thm X for conifold = Y⁺(ĝl(1|1))". Correct: the conifold super-Yangian identification is Li-Yamazaki 2020 arXiv:2003.08909 §8.3.6.3, NOT any RSYZ theorem. RSYZ (2007.13365) treats CoHA on abelian CY$_3$ with chart-wise assembly; conifold appears only as motivating remark (RSYZ Rem 4.3.2). Li-Yamazaki provides the explicit $(0,1,1)$-corner $\leftrightarrow$ conifold dictionary via quiver-YA / VOA correspondence §8.3.6. **Counter**: "CoHA(conifold) = Y⁺(ĝl(1|1))" citations must go to Li-Yamazaki arXiv:2003.08909 §8.3.6.3 as the primary source; RSYZ is a complementary reference for the C$^3$ / abelian-toric subset.
+
+## Wave-5 attack-heal residuals: AP-CY311 through AP-CY317 (2026-04-23)
+
+Source: Wave-5 agents Gelfand (§Geometric), Kapranov (§KW-NCCR), Beilinson (§Čech), Witten (§M-theory) applied patches directly to `notes/master_synthesis_coha_conifold_2026_04_23.tex`. Following entries record the errors found in Wave 4 baseline that Wave 5 healed.
+
+**AP-CY311 — $\chi(Y)$ bare (topological vs holomorphic Euler characteristic ambiguity on non-compact CY$_3$) (Medium).**
+Wrong: writing $\chi(\mathbf Y) = 2$ bare for the resolved conifold. Correct: on a non-compact CY$_3$, $\chi_{\mathrm{top}}(\mathbf Y)$ (topological Euler characteristic of underlying $C^\infty$ manifold, computed via toric fan as $\#\{\text{maximal cones}\}$) and $\chi(\mathcal O_{\mathbf Y}) = \sum_q (-1)^q h^q(\mathbf Y, \mathcal O_{\mathbf Y})$ (holomorphic Euler characteristic) are genuinely distinct; on non-compact $\mathbf Y$ with $\pi_* \mathcal O_{\mathbf Y} = \mathrm{Sym}^\bullet(\mathcal O(-1) \oplus \mathcal O(-1))$, $\chi(\mathcal O_{\mathbf Y})$ is ill-defined as a finite integer (the sheaf is not coherent in the absolute sense). The value $\chi_{\mathrm{top}}(\mathbf Y) = 2$ refers to the toric count. **Counter**: every Euler-characteristic statement on a non-compact CY$_3$ must subscript as $\chi_{\mathrm{top}}$ or $\chi(\mathcal O_X)$; mixing the two conflates distinct invariants.
+
+**AP-CY312 — Derived Morita is an adjoint-pair statement with load-bearing hypotheses (High).**
+Wrong: writing $R\mathrm{Hom}_Y(T, -): D^b(\mathrm{Coh}\, Y) \xrightarrow{\sim} D^b(J\text{-mod})$ as a single arrow without the reciprocal functor, unit/counit isomorphisms, or the load-bearing hypotheses. Correct: derived Morita (Bondal-Van den Bergh arXiv:math/0204218 Thm 3.1.1) requires an adjoint pair $L = (-) \otimes^L_J T \dashv R = R\mathrm{Hom}_Y(T, -)$ with (i) $T$ a compact generator (here $T|_{\mathbb P^1} = \mathcal O \oplus \mathcal O(-1)$ Beilinson generator + $\pi$ preserves generation) and (ii) $\mathrm{Ext}^{>0}(T, T) = 0$ (here reduces to $H^{\geq 1}(\mathbb P^1, \mathcal O(-1)) = 0$ via Leray and symmetric-power vanishing for $\cO(-1)^{\oplus 2}$). **Counter**: every derived-Morita statement on an NCCR must be structured as adjoint-pair $L \dashv R$ with compact generation + $\mathrm{Ext}^{>0}$-vanishing hypotheses explicit; a single-functor presentation hides the structure.
+
+**AP-CY313 — CY$_3$ property lives on Ginzburg dg-lift $\Gamma$, not on the associative Jacobi algebra $J$ (Medium).**
+Wrong: stating $J(Q, W)$ is 3-Calabi-Yau. Correct: $J = H^0(\Gamma)$ is associative; the 3-Calabi-Yau property is a bimodule self-duality $\Gamma \simeq R\mathrm{Hom}_{\Gamma \otimes \Gamma^{\mathrm{op}}}(\Gamma, \Gamma \otimes \Gamma)[3]$ on the Ginzburg dg-lift $\Gamma(Q, W)$ concentrated in degrees $[-2, 0]$ with $H^0 = J$ (Ginzburg arXiv:math/0612139 Thm 3.2.8; Keller–Van den Bergh arXiv:0906.0761 Thm 6.3). Non-degeneracy follows from Bocklandt arXiv:math/0603558 Thm 3.1 for generic quartic $W$. **Counter**: CY$_d$-algebra statements for Jacobi-algebra pairs must specify the Ginzburg dg-lift; stating the associative level is an ambient-scope error (AP-CY73-style, see Pattern 236 ambient-qualifier discipline).
+
+**AP-CY314 — Wrong arXiv ID citation for Keller–Van den Bergh CY-3 (Medium).**
+Wrong: citing "Keller 2011 arXiv:0912.3781" for the CY-3 property of Ginzburg dg-algebras. Correct arXiv ID: **0906.0761** (Keller–Van den Bergh, "Deformed Calabi-Yau completions"). `arXiv:0912.3781` is a Keller cluster-algebra-identity paper (different content). **Counter**: every CY-structure citation to Keller/Van den Bergh must verify arXiv:0906.0761; cluster-algebra identity papers are separate.
+
+**AP-CY315 — Euler form antisymmetric on CY$_3$, not symmetric (High).**
+Wrong: asserting "$\chi(\gamma, \gamma')$ is symmetric on any 3-Calabi-Yau category by Serre duality". Correct: CY-$d$ Serre gives $\chi(\gamma, \gamma') = (-1)^d \chi(\gamma', \gamma)$, so **symmetric for even $d$** (K3 Mukai), **antisymmetric for odd $d$**. On CY$_3$, $\chi$ is antisymmetric and in particular $\chi(\gamma, \gamma) = 0$ on every object. Diagonal table entries like "$\chi(S_a, S_a) = 2$" are NOT the Euler characteristic; that value is the total Poincaré dimension $P = \dim \mathrm{Ext}^0 + \dim \mathrm{Ext}^1 + \dim \mathrm{Ext}^2 + \dim \mathrm{Ext}^3 = 1 + 0 + 0 + 1 = 2$. **Counter**: tables listing $\chi(S_a, S_b)$ on CY$_3$ simples must split into (i) $\chi$ (alternating, all zero on diagonal, $0$ off-diagonal for symmetric-Ext configurations), (ii) $P$ (total Poincaré, $2$ diagonal, $4$ off-diagonal for conifold simples). KS quantum-torus brackets use antisymmetric $\chi$ directly; no "skew-symmetrisation" needed.
+
+**AP-CY316 — KW-NCCR is non-McKay; class-group obstruction distinguishes conifold from $\mathbb C^3/G$ quotients (Medium).**
+Wrong: treating KW-NCCR of the conifold as a special case of Bridgeland-King-Reid (BKR arXiv:math/9908027) derived McKay. Correct: BKR requires $X = [\mathbb C^3/G]$ for finite $G \subset \mathrm{SU}(3)$, whose class group is $G^{\mathrm{ab}}$ (finite). The conifold affine $X_0 = \{xy = zw\}$ has class group $\mathrm{Cl}(X_0) = \mathbb Z$ (generated by Weil divisor $\{x = z = 0\}$, a small resolution class), infinite. Hence $X_0$ is not of the form $\mathbb C^3/G$; BKR inapplicable. The KW-NCCR is the Szendrői arXiv:0705.3419 non-orbifold replacement. The quartic $W_{\mathrm{con}}$ vs cubic $W_{\mathbb P^2}$ is a brane-tiling invariant distinguishing conifold from McKay-type local ambients (Hanany–Kennaway hep-th/0503149; FHKVW hep-th/0511063). **Counter**: NCCR constructions must name whether the input is a $\mathbb C^3/G$ quotient (use BKR derived McKay) or a complete-intersection singularity (use Szendrői / VdB tilting); class-group test distinguishes.
+
+**AP-CY317 — M-theory parent of $Y(\widehat{\mathfrak{gl}}(1|1))^{\mathrm{conifold}}$: theorem / heuristic / metaphor / synthesis stratification (High).**
+Wrong: stating "M-theory on $\mathbf Y \times \mathbb R^{1,4}$ with $\Omega_{\epsilon_1,\epsilon_2}$ gives 5D $\cN = 2$ whose BPS algebra is $Y(\widehat{\mathfrak{gl}}(1|1))$" as a published theorem. Correct: stratify as:
+- **Theorem-grade at character level**: $Z^{\mathrm{top,B}}_{\mathbf Y} = \chi_{\mathrm{CoHA}(\mathbf Y)}$ via BCOV arXiv:hep-th/9309140 + Gopakumar-Vafa hep-th/9809187 conifold formula $\prod(1 - Qq^n)^n$, = Davison-Meinhardt arXiv:1512.08898 graded character of $\mathrm{CoHA}$.
+- **Theorem-grade at toric $\mathbb C^2$**: $\Omega$-deformed Coulomb branch = quiver Yangian at character level via Nekrasov hep-th/0206161, Nekrasov-Okounkov hep-th/0306238, Nakajima-Yoshioka math/0306198 + math/0311058, Awata-Kanno arXiv:0805.0191 refined vertex.
+- **Physics heuristic**: M-theory $\to$ 5D $\cN = 2$ on $\mathbf Y$; M2-brane ground states = GV integers via Maulik-Toda arXiv:1610.07303 conjecture.
+- **Physics metaphor**: (0,4) sigma-model chiral algebra = $\mathrm{CoHA}(\mathbf Y)$ — fails three primary-source tests (BLLPRvR arXiv:1312.5344 requires 4D $\cN = 2$; Tong-Turner arXiv:1403.6723 gives free $\widehat{\mathfrak{gl}}_1$ per chart needing super-FM gluing; Gaiotto-Rapčák arXiv:1703.00982 corner VOA is toric-only).
+- **Synthesis / conjecture**: full M-theory parent bialgebra identification; Costello-Paquette arXiv:1810.06490, 2009.04834 treat $\mathbb C^3$ only; the conifold + super-gauge extension is an analogy, not a theorem. **Counter**: physical identifications must carry stratification labels explicitly (theorem / heuristic / metaphor / synthesis / conjecture); per CLAUDE.md "when a physical claim is a theorem state it as theorem".
+
+## Wave-5 relaunch residuals: AP-CY318 through AP-CY319 (2026-04-23)
+
+**AP-CY318 — Bryan-Pandharipande citation triad: 2001 super-rigidity ≠ 2005 local GW ≠ 1999 Pandharipande Hodge (Medium).**
+Wrong: citing "Bryan-Pandharipande" without year/arXiv ID on MNOP or super-rigidity claims. Correct: three distinct primary sources with different mathematical content:
+- **Bryan-Pandharipande 2001** arXiv:math/0009025 ("BPS states of curves in Calabi-Yau 3-folds") — GW super-rigidity of rigid curves; relevant to CoHA fibre-rigidity on resolved conifold.
+- **Bryan-Pandharipande 2005** arXiv:math/0412005 ("Local Gromov-Witten theory of curves") — local GW primitive invariants; enters the MNOP GW/DT edge.
+- **Pandharipande 1999** arXiv:math/9902107 ("Hodge integrals and degenerate contributions") — solo-author Hodge-integral identities; not "Bryan-Pandharipande".
+**Counter**: every MNOP / super-rigidity / local-GW citation must specify year + arXiv; "Bryan-Pandharipande" alone is ambiguous across three papers with distinct content.
+
+**AP-CY319 — Costello-Yagi (two-author, 2018) vs Costello-Gaiotto-Yagi (three-author, 2021) arXiv-ID discipline (Medium).**
+Wrong: attributing "Costello-Gaiotto-Yagi arXiv:1810.01970" for the all-orders 5D hCS → Yangian VOA theorem. Correct: arXiv:1810.01970 is **Costello-Yagi** (2018, two-author, "Twisted M-theory from holomorphic Chern-Simons on conic Calabi-Yau threefolds", all-orders 5D hCS → Yangian for simply-laced bosonic). The three-author paper **Costello-Gaiotto-Yagi arXiv:2103.01835** (2021, "Twisted Supergravity and its Quantization") is a different paper: M-theory in GR twisted vacua, gravitational backreaction of M2/M5. Both cited; not interchangeable. **Counter**: every citation to the 5D hCS → Yangian all-orders theorem must specify arXiv:1810.01970 with Costello-Yagi (not "CGY"); every M-theory twisted-supergravity citation goes to 2103.01835 with Costello-Gaiotto-Yagi.
+
+## Wave-5 relaunch residuals (cont'd): AP-CY320 through AP-CY323 (2026-04-23)
+
+**AP-CY320 — $\widehat{\mathfrak{gl}}(1|1)$ central extension is rank-one ($K_0$ only), not $K_{m+n}$ per mode (High).**
+Wrong: writing super-bracket relations with floating $K_{m+n}$ terms for $n \neq 0$ (e.g., $\{e^{(1)}_m, f^{(1)}_n\}_+ = H_{m+n} + \mathrm{sgn}(m-n) K_{m+n}$). Correct: the universal central extension of $\widehat{\mathfrak{gl}}(1|1)$ is rank-one (Kac 1977 Thm 8.6 for affine Lie superalgebras with non-degenerate invariant bilinear form); the 2-cocycle reads $\omega(x t^m, y t^n) = m \delta_{m+n, 0} \mathrm{str}(xy) K_0$, so all level-$K$ corrections collapse to the zero Fourier mode. The supertrace itself $h^{\mathrm{tr}} = h^{(0)} + h^{(1)}$ gives a Heisenberg ideal (central in $\widehat{\mathfrak{sl}}(1|1)$ only), distinct from the bona fide central element $K_0$ of $\widehat{\mathfrak{gl}}(1|1)$. **Counter**: super-bracket relations with level-$K$ corrections must have $K$ attached to $m + n = 0$ Fourier mode only; bracketing $K_{m+n}$ at arbitrary mode is a category error.
+
+**AP-CY321 — Isotropy on super root systems: derive at pairing level, not cite only (Medium).**
+Wrong: asserting "$(\alpha, \alpha) = 0$ on the isotropic root" via Kac 1977 Thm 2.4 citation without exhibiting the supertrace pairing. Correct: for $\alpha = \epsilon_1 - \epsilon_2$ on $\mathfrak{gl}(1|1)$, $(\alpha, \alpha) = (\epsilon_1, \epsilon_1) - 2(\epsilon_1, \epsilon_2) + (\epsilon_2, \epsilon_2) = 1 - 0 + (-1) = 0$ with the supertrace-induced bilinear form ($+1$ on even, $-1$ on odd diagonal element). The affine lift inherits isotropy via $(\delta, \delta) = (\delta, \alpha) = 0$. **Counter**: every "$\alpha$ isotropic" statement on a super root system must display the supertrace computation once; pure citation hides the source of the zero.
+
+**AP-CY322 — DM super-integrality for $\widehat{\mathfrak{gl}}(1|1)$: super-dimensions $(0|1, 0|1, 2|0)$ (Medium).**
+Wrong: Davison-Meinhardt PBW integrality on the conifold BPS Lie algebra quoted as "multiplicity matches MMNS" without specifying super-dimension signatures. Correct: the super-dimensions read
+- real roots $\pm\alpha$: $(0|1)$ (fermionic-odd, multiplicity 1 from Kulish-Sklyanin phase),
+- imaginary roots $n\delta$: $(2|0)$ (bosonic-even, 2-dim from $\Omega^{\mathrm{mot}}(n\delta) = -\mathbb L - 1$; the 2-dim Cartan is spanned by $H$ (Chevalley / semisimple) and $K$ (central at $n = 0$, supertrace at $n \neq 0$)),
+matching the MMNS generating series via DM-integrality (Davison-Meinhardt arXiv:1601.02479 Thm A). **Counter**: super BPS Lie algebra multiplicities must carry $(\text{even}|\text{odd})$ split; writing only the total dimension loses the $\mathbb Z/2$-grading.
+
+**AP-CY323 — 5D hCS BV anomaly on $\mathfrak{gl}(1|1)$: 1-loop vanishing VERIFIED, 2-loop+ OPEN (Medium).**
+Wrong: citing "Costello-Yagi all-orders theorem applies to gl(1|1)" without specifying the obstruction status. Correct: the BV anomaly coefficient is $d^{abc} = \mathrm{str}(t^a \{t^b, t^c\})$; on $\mathfrak{gl}(1|1)$ direct basis computation gives $d^{abc} = 0$ identically (Cartan $\mathrm{str}(H^2) = \mathrm{str}(N^2) = 0$; the odd pair $\psi^\pm$ carries opposite supertrace signs); hence the 1-loop wheel is verified to vanish. Higher-loop local cohomology $H^1_{\mathrm{loc}}(\mathfrak{gl}(1|1), \mathcal O_{\mathrm{loc}})^{\geq 2}$ is not automatically killed because super-KT formality is $E_2$-only (Ginzburg-Schedler arXiv:0807.0174); 2-loop and higher remain OPEN. **Counter**: 5D hCS anomaly status on super gauge must stratify: 1-loop (verified via basis), higher-loop (open per $E_2$-only super-KT). Per AP-CY298 + AP-CY299.
+
+**AP-CY324 — $\kappa_{\mathrm{ch,BV}}$ distinct from $\kappa_{\mathrm{ch}}$ and $\kappa_{\mathrm{cat}}$ on non-compact CY$_3$ (High).**
+Wrong: propagating three apparent values $\{+1, 0, -1\}$ for "$\kappa_{\mathrm{ch}}$(conifold)" across the manuscript as if they were alternative computations of one invariant. Correct: they are three distinct invariants under one chain-level convention (Kontsevich-Soibelman DT / Costello-Li holomorphic BV):
+- $\kappa_{\mathrm{ch}}(\mathbf Y) = +1$ — DT/motivic count on the compact curve class $[\mathbb P^1]$ in the Reineke normalisation (Klebanov-Witten quiver + Davison-Meinhardt integrality; three routes: Costello-Li hocolim, Bridgeland-Bryan RH-Stokes, attractor BPS).
+- $\kappa_{\mathrm{cat}}(\mathbf Y) = 0$ — ordinary $\chi(\mathcal O_{\mathbf Y}) = 0$ via deformation retract to $\mathbb P^1$ + Leray fibre correction (non-compact ambient, not the $\kappa_{\mathrm{cat}}$ for compact CY$_3$).
+- $\kappa_{\mathrm{ch,BV}}(\mathbf Y) = -1$ — Costello-Li one-loop BCOV curving $\alpha_{\mathrm{BCOV}} = (\chi_{\mathrm{top}}/24)[\Omega_{\mathbf Y}]^{0,1}$ at BRST $c = -2$; Polyakov 1981 Ch.~9 ghost supertrace $\mathrm{str}_{\mathfrak{gl}(1|1)}(\mathrm{ghost}) = -1$.
+- $\kappa_{\mathrm{BKM}}(\mathbf Y) = +1$ — Bryan-Steinberg, conifold coefficient.
+- Polyakov ghost-mode balance: $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch,BV}} = \kappa_{\mathrm{cat}}$, i.e., $(+1) + (-1) = 0$ on $\mathsf G$-class free-field CY$_3$ with $\chi_{\mathrm{top}} = 2$ (NOT universal on toric CY$_3$, NOT the Theorem C ceiling).
+**Counter**: any "$\kappa$(conifold)" statement must use the exact subscript $\{\kappa_{\mathrm{ch}}, \kappa_{\mathrm{cat}}, \kappa_{\mathrm{ch,BV}}, \kappa_{\mathrm{BKM}}, \kappa_{\mathrm{stringy}}, \kappa_{\mathrm{fiber}}\}$; the ancillary $\chi_{\mathrm{stringy}}(\mathbf Y) = 2$ (Batyrev) value is distinct and is NOT part of the $\kappa$-ladder. Primary ref: `notes/wave5_kappa_ch_conifold_reconciliation_polyakov.tex`.
+
+**AP-CY325 — Negut conifold bond factor: $\varphi^{0 \Rightarrow 1}(u) = (u + h_1)(u + h_2)/[u(u + h_1 + h_2)]$, not $(u^2 - h_2^2)/(u^2 - h_1^2)$ (High).**
+Wrong: writing the cross-arrow shuffle bond factor in the KW conifold quiver as $\varphi = (u^2 - h_2^2)/(u^2 - h_1^2)$ (or any rank-2 rational form without a $u$ factor in the denominator and mismatched numerator structure). Correct: Negut arXiv:1512.06473 eq.~(1.6), Li-Yamazaki arXiv:2003.08909 eq.~(8.125), Tsymbaliuk arXiv:1404.5240 Prop.~4.1 all give
+$$\varphi^{0 \Rightarrow 1}(u) = \frac{(u + h_1)(u + h_2)}{u \cdot (u + h_1 + h_2)}.$$
+Geometric source: numerator = two KW arrows $a_1, a_2$ with equivariant weights $(h_1, h_2)$; denominator = two Jacobi relations $\partial_{b_i} W_{\mathrm{con}} = 0$ with weights $(0, h_1 + h_2)$. **Counter**: every shuffle bond factor on a CoHA quiver must trace its numerator to arrow weights and denominator to Jacobi relation weights; mismatch is a coefficient-level error not a sign/convention choice.
+
+**AP-CY326 — Feigin-Odesskii super-shuffle algebra is bigraded polynomial $\otimes$ exterior, not rational $S_m \times S_n$ invariants (Medium).**
+Wrong: defining the KW super-shuffle by $\mathrm{Sh}_{m,n} = \bC(z^{(0)} | z^{(1)})^{S_m \times S_n}$ as rational invariants. Correct: Feigin-Odesskii alg-geom/9610001 §1.3-1.4 gives
+$$\mathrm{Sh}_{m,n}^{\mathrm{super}} = (\bC[z^{(0)}_1, \dots, z^{(0)}_m] \otimes \Lambda[z^{(1)}_1, \dots, z^{(1)}_n])^{S_m \times S_n},$$
+polynomial on the even colour, exterior (Grassmann) on the odd colour, symmetrised (resp.\ antisymmetrised) separately with Koszul sign $(-1)^{\mathrm{inv}(\tau)}$. The wheel conditions cut out $I_{\mathrm{wheel}}$; the Davison embedding identifies $\mathrm{CoHA}(Q_{\mathrm{con}}, W_{\mathrm{con}}) \hookrightarrow \mathrm{Sh}_{\mathrm{KW}}^{\mathrm{super}} / I_{\mathrm{wheel}}$ with explicit wheel elements at bidegrees $(2, 1)$ and $(1, 2)$ (Davison arXiv:1311.6989 Thm~A). **Counter**: super-shuffle algebras must be presented as bigraded polynomial $\otimes$ exterior with Koszul sign, not as rational invariants; the wheel-quotient description of critical CoHA depends on this explicit bigrading.
+
+**AP-CY327 — $Y^+(\widehat{\mathfrak{gl}}(1|1))^{\mathrm{con}}$ is a bialgebra, not a Hopf algebra; antipode lives only on the Drinfeld double (Medium).**
+Wrong: stating the master identification "CoHA(conifold) $= Y^+(\widehat{\mathfrak{gl}}(1|1))^{\mathrm{con}}$" as an isomorphism of Hopf algebras. Correct: $Y^+$ is a $\mathbb Z_2$-graded **associative bialgebra** in super-vector spaces over $\mathbb C((\hbar))$; the four structure maps $(\mu, \iota, \Delta, \epsilon)$ match coefficient-wise (multiplication $\to$ super-shuffle star-product with bond factors; unit $\to$ vacuum; coproduct $\to$ Drinfeld-new $\Delta(e^{(a)}(z)) = e^{(a)}(z) \otimes 1 + \phi^{+,(a)}(z) \otimes e^{(a)}(z)$; counit $\to$ standard augmentation). The antipode $S$ is NOT part of this statement — it lives only on the Drinfeld double $D(Y^+) = Y$, not on the positive half. Hopf-status: strict $\mathbb Z_2$-graded Hopf at rational/trigonometric/toroidal equivariance strata; quasi-Hopf with Felder-Jimbo-Konno dynamical associator at elliptic. **Counter**: every "Hopf algebra" claim about $Y^+$ or its doubles must specify which equivariance stratum; the positive half alone is bialgebra only.
+
+**AP-CY328 — Ungraded shadow $Y^+(\widehat{\mathfrak{gl}}(1|1)) \twoheadrightarrow Y^+(\widehat{\mathfrak{sl}}_2)$ is a surjection, not an isomorphism (Medium, refines AP-CY305).**
+Wrong: asserting $Y^+(\widehat{\mathfrak{gl}}(1|1))^{\mathrm{con}} \cong Y^+(\widehat{\mathfrak{sl}}_2)^{\mathrm{con}}$ as an algebra isomorphism. Correct: the supertrace projection $\mathfrak{gl}(1|1) \twoheadrightarrow \mathfrak{sl}(1|1) / \langle K \rangle$ induces a SURJECTION (not iso) of bialgebras $Y^+(\widehat{\mathfrak{gl}}(1|1))^{\mathrm{con}} \twoheadrightarrow Y^+(\widehat{\mathfrak{sl}}_2)^{\mathrm{con}}$ whose kernel is the two-sided ideal generated by the central $K$. The super source has a 2-dimensional imaginary-root line spanned by $\{H, K\}$; the shadow has a 1-dimensional imaginary-root line spanned by $\{H\}$ only. Both are theorems at their respective scopes (super = Li-Yamazaki arXiv:2003.08909 §8.3.6 primary; shadow = MMNS + Davison-Meinhardt integrality primary); they are DISTINCT algebras connected by a surjection, not the same algebra seen in two ways. **Counter**: Pattern 273 scope declaration must distinguish "the super source" from "the ungraded shadow" as two separate theorems with a surjection between them; never write them as "isomorphic" or "the same" algebra.
+
+**AP-CY329 — Strict Hopf vs quasi-Hopf discipline stratified by equivariance stratum (Low).**
+Wrong: claiming "$Y^+$ is Hopf" without specifying which equivariance stratum. Correct: 
+- Rational ($\mathbb Q$-linear differential Yangian) — strict $\mathbb Z_2$-graded Hopf.
+- Trigonometric (affine / $\hbar$-rational quantum group) — strict Hopf.
+- Toroidal (full affine double quantum toroidal) — strict Hopf.
+- Elliptic (Felder-Jimbo-Konno) — quasi-Hopf with dynamical associator; coassociator satisfies pentagon up to the dynamical $\Phi$-twist.
+The elliptic case is flagged carefully because the associator is dynamical (depends on a Cartan-valued parameter), not a scalar cocycle. **Counter**: Hopf-status on affine super algebras must specify strict (rational/trig/toroidal) vs quasi-Hopf dynamical (elliptic).
+
+**AP-CY330 — Pentagon identity canonical FK form (Low).**
+Wrong: writing pentagon as "$\Psi(x) \Psi(y) = \Psi(y) \Psi(z) \Psi(x)$" with a detached $z$. Correct: Faddeev-Kashaev hep-th/9310070 canonical form reads $\Psi(x_0) \Psi(x_1) = \Psi(x_1) \Psi(q^{-1/2} x_0 x_1) \Psi(x_0)$, the middle factor argument $q^{-1/2} x_0 x_1$ is DETERMINED by the two outer generators via the motivic commutator, not a separate variable. For the conifold: $x_0 = \hat x_{[S_0]}$, $x_1 = \hat x_{[S_1]}$, middle $= \hat x_{[S_0] + [S_1]}$ = bound state with BPS invariant $\Omega(\gamma_{S_0} + \gamma_{S_1}) = 1$ (MMNS arXiv:1107.5017). Derivation via BPS-index invariance + Kashaev-Nakanishi arXiv:1104.4630. **Counter**: every pentagon identity statement must display the canonical FK form; detached variable names are a notation error.
+
+**AP-CY331 — $\dim_{\mathbb C} \mathrm{Stab}(\cC) = \mathrm{rk}\, K_0^{\mathrm{num}}(\cC)$, not equal to CY dimension (Low).**
+Wrong: stating "$\dim_{\mathbb C} \mathrm{Stab}(\cC) = d$" where $d$ is the CY dimension (e.g., $\dim \mathrm{Stab} = 3$ on a CY$_3$). Correct: $\dim_{\mathbb C} \mathrm{Stab}$ equals the rank of the numerical Grothendieck group $K_0^{\mathrm{num}}(\cC)$, Bridgeland arXiv:math/0212237 Thm 7.1. For the resolved conifold, $K_0^{\mathrm{num}} = \mathbb Z^2$ (spanned by $[S_0], [S_1]$), so $\dim_{\mathbb C} \mathrm{Stab} = 2$, independent of the CY dimension $d = 3$. **Counter**: every $\mathrm{Stab}$-dimension claim must cite the $K_0^{\mathrm{num}}$ rank, not the ambient CY dimension.
+
+**AP-CY332 — Abelian threefold is NOT a toric CY$_3$ (Low).**
+Wrong: listing "abelian threefold" as a representative of stratum (i) toric $T^d$ in the 15-cell classification. Correct: an abelian variety is a complex torus (a quotient of $\mathbb C^n$ by a lattice), but its $T^d$-action is translation by itself, not a toric-fan $T^3$-action fixing a distinguished point; abelian threefolds do NOT arise from a rational polyhedral fan and are not toric CY$_3$. The correct stratum-(i) toric examples are: $\mathbb C^3$, resolved conifold, local $\mathbb P^2$, banana threefold, suspended pinch point, generalised conifolds $X_{n,m}$. A conifold-$\rtimes \mathbb Z/2$ class illustrates stratum (i) with orbifold ambient combining (i)+(iii). **Counter**: every toric-CY$_3$ representative list must pass the polyhedral-fan test; abelian varieties are in stratum (ii) (reduced $\Aut^0$) not (i).
+
+**AP-CY333 — Generic K3 has trivial $\Aut^0$; stratum-(ii) representative must be named correctly (Low).**
+Wrong: listing "generic K3" as representative of stratum (ii) (reduced $\mathbb C^\times + \Aut(X)$) in the 15-cell classification. Correct: generic K3 has $\Aut^0 = \{1\}$ by Bogomolov decomposition applied to the strict-CY factor; stratum (ii) requires positive-dimensional $\Aut^0$ or at least a non-trivial discrete automorphism group beyond the trivial. The correct stratum-(ii) representatives: K3 with Nikulin involution (discrete $\mathbb Z/2$), Kummer surface (discrete Weyl action), Shioda-Inose K3 (hyperbolic Néron-Severi rank). **Counter**: stratum-(ii) K3 representatives must specify a Nikulin-type involution, Kummer involution, or positive-rank-induced discrete action; "generic K3" has only trivial automorphism and is stratum-(iv) lattice-polarised period (via the moduli space) rather than (ii).
+
+**AP-CY334 — Two scopes of the universal Borcherds identity $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ (Medium).**
+Wrong: conflating the CHL ladder with the Gritsenko-Cléry 8-form atlas as a single family. Correct: TWO distinct scopes with different constant-term ladders.
+- **Scope (A) — CHL ladder** on $N \in \{1, 2, 3, 4, 6\}$: constant terms $(c_1(0), c_2(0), c_3(0), c_4(0), c_6(0)) = (10, 8, 6, 4, 2)$, giving $\kappa_{\mathrm{BKM}} = (5, 4, 3, 2, 1)$. Primary: Gritsenko-Nikulin 1995 arXiv:alg-geom/9504006 Pt II Thm 2.1, EH 2011, GK 2010.
+- **Scope (B) — Gritsenko-Cléry 8-form atlas** at $(1, 2, 3, 4, 5, 6, 1/2, 3/2)$: constant terms $(10, 4, 2, 2, 1, 2, 1/2, 0)$, giving $\kappa_{\mathrm{BKM}} = (5, 2, 1, 1, 1/2, 1, 1/4, 0)$. Primary: Gritsenko-Cléry 2013. Half/quarter-integer forms at positions $5$ (weight $1/2$) and $7$ (weight $1/4$); $\mathrm{Sp}_4(\mathbb Z)$ covers integral, $\mathrm{Mp}_4$ half-integral, $\widetilde{\mathrm{Mp}}_4$ quarter-integral.
+**Counter**: every universal Borcherds invocation must specify scope (A) or (B); conflation drops the $N = 2, 3, 4$ CHL values and produces wrong $\kappa_{\mathrm{BKM}}$ at those indices.
+
+**AP-CY335 — Saito-Kurokawa lift target is $\Phi_{10} = \Delta_5^2$, not $\Delta_5$; rescale factor $4$, not $2$ (Medium).**
+Wrong: stating the Saito-Kurokawa lift $L_{\mathrm{spin}}(s, \mathrm{SK}) = \zeta(s - k + 1) \zeta(s - k + 2) L(s, g)$ with lift target $\Delta_5$ (weight $5$) and rescale factor $2$. Correct: the SK lift operates on SQUARES of Siegel cusp forms; lift target is $\Phi_{10} = \Delta_5^2$ (weight $10$) from elliptic source $g = \Delta \cdot E_6 \in S_{18}$; rescale factor is $\mathbf 4$ (two factors of $2$: Siegel weight doubling under SK + Andrianov convention). Residue at $s = k = 10$: $\mathrm{Res}_{s = 10} L_{\mathrm{spin}}(s, \Phi_{10}) = -15120 \cdot a_{10}(g) \cdot \Omega^-(g)$ with $\Omega^-(g)$ the Manin minus-period = Deligne period via Ichino-Ikeda. **Counter**: every SK-lift identification on $\mathcal H_2$ Siegel forms must specify the lift target as $\Phi_{2k} = \Delta_k^2$ (not $\Delta_k$), with rescale factor $4$.
+
+**AP-CY336 — Todd class second coefficient: $\mathrm{td}_2 = (c_1^2 + c_2)/12$, not $c_2/12 + c_1^2/24$ (Low).**
+Wrong: writing $\mathrm{td}_2 = \tfrac{1}{12} c_2 + \tfrac{1}{24} c_1^2$. Correct: the second Todd polynomial is $\mathrm{td}_2 = (c_1^2 + c_2)/12$ (Hirzebruch 1966, *Topological Methods in Algebraic Geometry*, Appendix; also Fulton 1998 *Intersection Theory* Ex 3.2.5). The first four coefficients are $\mathrm{td}_0 = 1$, $\mathrm{td}_1 = c_1/2$, $\mathrm{td}_2 = (c_1^2 + c_2)/12$, $\mathrm{td}_3 = c_1 c_2 / 24$. The erroneous split form appears if one mistakes the $\mathrm{ch}(\mathscr L) = 1 + c_1 + c_1^2/2 + \cdots$ expansion for a Todd expansion. **Counter**: Hirzebruch-Riemann-Roch invocations must verify the Todd denominators against Hirzebruch 1966 Appendix tables; do not derive Todd from Chern character expansion naively.
+
+**AP-CY337 — Conifold $|I| = 2$: $B_2 \cong \mathbb Z$ has NO braid relation (High).**
+Wrong: claiming $\mu_0 \mu_1 \mu_0 = \mu_1 \mu_0 \mu_1$ on the Klebanov-Witten conifold quiver (2 vertices) as a braid relation $B_2$-action on $\mathrm{CoHA}(Y)$. Correct: the braid group on $n$ strands $B_n$ has braid relation $\sigma_i \sigma_{i+1} \sigma_i = \sigma_{i+1} \sigma_i \sigma_{i+1}$ only for $n \geq 3$. For $n = 2$, $B_2 \cong \mathbb Z$ is the infinite cyclic group generated by a single Dehn twist — there are no further generators to braid with, no relations, and the mutation cocycle $\rho_{\mathrm{con}}: B_2 \cong \mathbb Z \to \Aut_{\mathrm{bialg}}(\mathrm{CoHA}(Y))$ is simply a $\mathbb Z$-action of infinite cyclic order matching the KS wall-crossing chain (Nagao-Nakajima arXiv:0809.2992). The infinite order matches the $(-q)$-shifted DT partition structure. The braid-$B_3$ mutation action lives on the $n = 3$ vertex case (local $\mathbb P^2$, nine-arrow quiver), NOT on the $n = 2$ conifold. **Counter**: mutation-cocycle braid statements must specify $|I| = n \geq 3$; for $n = 2$ use cyclic $\mathbb Z$-action, not braid.
+
+**AP-CY338 — DWZ mutation involution holds up to right-equivalence, not strict equality (Medium).**
+Wrong: writing $\mu_k^2 = \mathrm{id}$ (strict equality of quivers with potential). Correct: Derksen-Weyman-Zelevinsky Thm 5.7 (arXiv:0704.0649) gives $\mu_k^2 \simeq_{\mathrm{r.e.}} \mathrm{id}$ (right-equivalence only). The double premutation $\tilde\mu_k^2(Q, W)$ differs from $(Q, W)$ by a trivial $2$-cycle summand that reduces away under DWZ reduction but is NOT zero at the premutation level. The right-equivalence is $x \mapsto x - c^{-1} \partial_y(\text{rest})$ type transformation on the arrow variables. **Counter**: every mutation involution invocation must carry $\simeq_{\mathrm{r.e.}}$ (not $=$); the strict-vs-equivalent distinction matters for mutation-cocycle closure.
+
+**AP-CY339 — DWZ mutation is (premutation $+$ reduction), not "Euler-Lagrange elimination" (Medium).**
+Wrong: describing DWZ mutation as "Euler-Lagrange elimination of half the loops". Correct: DWZ mutation (arXiv:0704.0649 Def 5.5) is a two-step composite $\mu_k = \mathrm{red} \circ \tilde\mu_k$: (1) **premutation** $\tilde\mu_k$ (DWZ Defs 5.1 + 5.3): reverse all arrows at $k$, compose paths $\alpha \beta$ for each incoming $\alpha$ and outgoing $\beta$, push potential back; (2) **reduction** $\mathrm{red}$ (DWZ Thm 4.6): right-equivalence eliminating $2$-cycles. "Euler-Lagrange" is a physicist's paraphrase that misses the right-equivalence reduction step. **Counter**: every mutation algorithm description must specify premutation + reduction as separate steps; the reduction is not automatic and requires a DWZ right-equivalence calculation.
+
+**AP-CY340 — Local $\mathbb P^2$ nine-arrow quiver has $B_3$-braid mutation action via $B_3 = \pi_1(\mathrm{Conf}_3(\mathbb C))$ (Medium).**
+Wrong: citing Bondal-Orlov 2002 as the primary source for the $B_3$-braid action on mutations of the local $\mathbb P^2$ nine-arrow Beilinson quiver. Correct: Bondal-Orlov arXiv:math/0206295 is a derived-equivalence paper that does NOT establish braid-group action on mutations. The correct primary sources are:
+- Bondal-Polishchuk 1993 "Homological properties of associative algebras: the method of helices" (helix autoequivalences) — foundational.
+- Kuznetsov arXiv:math/0610957 (exceptional collection mutations) — $B_n$-action on exceptional collections.
+- Bridgeland arXiv:0909.4299 (stability on local surfaces) — $B_3 = \pi_1(\mathrm{Conf}_3(\mathbb C))$ identification on 3-vertex derived categories.
+- Seidel-Thomas arXiv:math/0001043 (spherical twists) — braid relations from $\mathrm{Ext}^*(S_k, S_\ell) = \mathbb C[-1] \oplus \mathbb C[-2]$ adjacency.
+The mutation cocycle $\rho_{\mathbb P^2}: B_3 \to \Aut_{\mathrm{bialg}}(\mathrm{CoHA}(\mathrm{local}\,\mathbb P^2))$ is established via these composite references, with the braid relation traced to $\pi_1(\mathrm{Conf}_3(\mathbb C))$. **Counter**: $B_3$-braid-action-via-mutation citations must separate helix autoequivalence (Bondal-Polishchuk), exceptional collection mutation (Kuznetsov), configuration-space identification (Bridgeland), and spherical-twist braid relations (Seidel-Thomas); Bondal-Orlov 2002 alone is insufficient.
+
+**AP-CY341 — BCOV cocycle target: $H^{0,1}(X, \mathcal O_X)$, not $H^{0,1}(X, \mathrm{Sym}^{\leq 2} T_X^*)$ (Medium).**
+Wrong: writing the BCOV 1-loop anomaly class as $\alpha_{\mathrm{BCOV}}(X) = (\chi(X)/24)[\Omega_X]^{0,1} \in H^{0,1}(X, \mathrm{Sym}^{\leq 2} T_X^*)$. Correct: the BCOV anomaly class lives in $H^{0,1}(X, \mathcal O_X)$, not in $H^{0,1}(X, \mathrm{Sym}^{\leq 2} T_X^*)$. The $[\Omega_X]^{0,1}$ Dolbeault class is an $\mathcal O_X$-coefficient class (the Atiyah class of the CY trivialisation $\omega_X \cong \mathcal O_X$ lifted to the $(0, 1)$-component), not a polyvector-field class. The correct presentation is $[\Omega_X]^{0,1} = \bar\partial^{-1} \mathrm{At}(\omega_X)$ with CY trivialisation reducing $\mathrm{At}(\omega_X) = 0$ in the structure sheaf, leaving the Dolbeault representative as its coboundary. Primary: Costello-Li arXiv:1606.00365 Prop 5.2 (correct target); BCOV arXiv:hep-th/9309140 (1-loop holomorphic anomaly ancestor); Polyakov 1981 *Gauge Fields and Strings* Ch.~9 (conformal anomaly ancestor). **Counter**: every BCOV cocycle-target claim must place the $(\chi/24)$ class in $H^{0,1}(X, \mathcal O_X)$; higher-symbol targets are a category error.
+
+**AP-CY342 — BCOV factor-split on compact/non-compact CY$_3$: four-case classification (Low).**
+Wrong: claiming $\alpha_{\mathrm{BCOV}}(X) \neq 0$ on all non-quintic compact CY$_3$. Correct: the factor-product $(\chi(X)/24) \cdot [\Omega_X]^{0,1}$ admits four distinct vanishing mechanisms:
+- (i) **Conifold / non-compact retractable**: $[\Omega_{\mathbf Y}]^{0,1} = 0$ via retraction $\mathbf Y \simeq \mathbb P^1$ and $H^1(\mathbb P^1, \mathcal O) = 0$. Topological $\chi_{\mathrm{top}}(\mathbf Y) = 2 \neq 0$, but cohomology vanishes.
+- (ii) **Strict quintic / $h^{0,1} = 0$**: $h^{0,1}(X_5) = 0$ trivialises the Dolbeault cohomology factor; $\chi(X_5) = -200$ non-zero. Cohomology-factor vanishing, not topological.
+- (iii) **$K3 \times E$ Künneth**: $\chi(K3 \times E) = \chi(K3) \cdot \chi(E) = 24 \cdot 0 = 0$. The $(0, 1)$-form is non-trivial (from $E$-factor), but the topological prefactor vanishes. Topological-factor vanishing, not cohomology.
+- (iv) **Generic CY$_3$ with abelian factor**: if $X = X_{\mathrm{CY}} \times A$ for abelian $A$ with $\chi(A) = 0$, factor-product vanishes.
+Only compact CY$_3$ without abelian factor and with $h^{0,1}(X) > 0$ can carry a genuinely non-zero $\alpha_{\mathrm{BCOV}}$, and even there the (O2) obstruction to chart-wise gluing is sharp.
+**Counter**: every (O2) statement must identify which of the four vanishing mechanisms applies; the blanket "compact ⇒ non-zero α_BCOV" is wrong.
+
+**AP-CY343 — $K_0$-level mutation is Fomin-Zelevinsky cluster, NOT Weyl reflection on CY$_3$ (Medium).**
+Wrong: stating mutation descends to Weyl-group reflection $s_{\alpha_i}$ on $K_0(\cC)$ for CY$_3$ quiver $\cC = D^b(\mathrm{mod}\, \Jac(Q, W))$. Correct: on CY$_3$, the Euler form $\chi$ is antisymmetric (per AP-CY315) and $\chi(\gamma_i, \gamma_i) = 0$ for every simple. Weyl reflection $s_{\alpha_i}(\gamma) = \gamma - \frac{2(\gamma, \alpha_i)}{(\alpha_i, \alpha_i)} \alpha_i$ requires $(\alpha_i, \alpha_i) \neq 0$ and breaks down at isotropic roots. The correct $K_0$-descent of DWZ mutation is the **Fomin-Zelevinsky cluster mutation** $\mu_i^{\mathrm{FZ}}(\gamma_j) = \gamma_j + [b_{ij}]_+ \gamma_i$ (Fomin-Zelevinsky arXiv:math/0104151) where $b_{ij} = \#\{i \to j\} - \#\{j \to i\}$ is the signed arrow count. On the CY$_3$ KW conifold quiver, $b_{01} = b_{10} = 0$ (symmetric 2-arrow counts each way), so FZ mutation is trivial at $K_0$ — non-trivial mutation content lives entirely at critical-cohomology level. **Counter**: every mutation-at-$K_0$ statement on CY$_3$ must cite Fomin-Zelevinsky cluster mutation, not Weyl reflection; diagonal self-pairing $(\alpha_i, \alpha_i) = 0$ on CY$_3$ is the obstruction.
+
+**AP-CY344 — $B_3$-action on $\Aut_{\mathrm{bialg}}(\mathrm{CoHA}(\mathrm{conifold}))$ requires taste generator $\tau$ beyond $\mu_0, \mu_1$ (Medium, refines AP-CY337).**
+Wrong: conjecturing $B_3$-braid representation on $\Aut_{\mathrm{bialg}}(\mathrm{CoHA}(Y))$ generated by $\{\mu_0^\cH, \mu_1^\cH\}$ alone for the conifold. Correct: per AP-CY337, the two mutations $\mu_0, \mu_1$ alone generate $B_2 \cong \mathbb Z$ (cyclic infinite order, no braid relation). Extending to $B_3$ requires a THIRD generator — a "taste shift" $\tau: \mathrm{CoHA}(Y) \to \mathrm{CoHA}(Y)$ corresponding to the $\mathbb Z$-shift in the derived category, or equivalently the cyclic $\Aut^0(Y) = \mathbb C^\times$-rotation of the $\mathbb P^1$ base. The conjecture is: $B_3 \subseteq \Aut_{\mathrm{bialg}}(\mathrm{CoHA}(Y))$ generated by $\{\mu_0^\cH, \mu_1^\cH, \tau^\cH\}$, with $K_0$-projection to $\widetilde W(A_2) = B_3 \twoheadrightarrow W(A_2) = S_3$. The $K_0$-level braid is a Fomin-Zelevinsky theorem (once the cluster-algebra $A_2$-type is identified); the lift to $\Aut_{\mathrm{bialg}}(\cH(Y))$ is the genuine conjecture. **Counter**: $B_3$-braid on conifold CoHA needs three generators (two mutations + one taste), not two pure mutations.
