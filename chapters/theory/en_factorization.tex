@@ -1,37 +1,155 @@
-\chapter{$E_n$-Factorization and Higher Chiral Structure}
+\chapter{\texorpdfstring{$E_n$}{E-n}-Factorization and Higher Chiral Structure}
 \label{ch:en-factorization}
 
-Factorization algebras on a complex curve carry an $\Etwo$ structure; factorization algebras on a point carry an $\Eone$ structure. Where is the transition? The CY-to-chiral correspondence programme $\{\Phi_d\}$ of Chapter~\ref{ch:cy-to-chiral} gives a definite answer for low dimensions: $E_\infty$ at $d = 1$, $\Etwo$ at $d = 2$, $\Eone$ at $d = 3$. The pattern suggests the formula $E_{4-d}$, but this formula breaks at $d = 4$, because $E_0$ does not exist as a separate operad (it is the category of pointed objects). Something else must happen.
+\providecommand{\bY}{\mathbb{Y}}
+
+\begin{remark}[Stage-1 target of the \texorpdfstring{$E_n$}{E-n}-operad apparatus]
+\label{rem:en-factorization-stage1-target}
+The $E_n$-operad machinery in this chapter targets Stage-1 outputs
+$\PhiFA_d(\cA) \in E_d\text{-HolFA}(X)$. Stage-2 specialisation over a
+$(d{-}1)$-cycle collapses $E_d \to E_1$ via Dunn additivity
+$E_d = E_{d-1} \otimes E_1$. Both are native; the existing operadic
+apparatus applies to Stage 1.
+\end{remark}
+
+The two-stage factorisation of Theorem~\ref{thm:phi-two-stage-factorisation}
+assigns to a CY$_d$ category $\cC$ a canonical $E_d$-holomorphic factorisation
+algebra $\PhiFA_d(\cC) \in \EdHolFA(X)$ on the CY$_d$ variety (stage~1),
+followed by the chiral specialisation $\SpCh_{\Sigma_{d-1}, C}$ to an
+$E_n$-chiral algebra on a reference curve $C$ (stage~2).
+The present chapter establishes the $E_n$ landscape for stage~1: the native
+operadic level $n_{\mathrm{native}}(d)$ of $\PhiFA_d(\cC)$ on $X$,
+the framing obstructions that force stabilisation to $\Eone$ for $d \geq 3$,
+and the derived-center cascade that recovers $\Etwo$ and $E_3$ structure on
+the specialisation side.
+The CY-to-chiral correspondence programme $\{\Phi_d\}$ of Chapter~\ref{ch:cy-to-chiral} gives a definite answer for low dimensions: $E_\infty$ at $d = 1$, $\Etwo$ at $d = 2$, $\Eone$ at $d = 3$. The pattern suggests the formula $E_{4-d}$, but this formula breaks at $d = 4$, because $E_0$ does not exist as a separate operad (it is the category of pointed objects). The resolution lies in the two-stage structure: for $d \geq 3$, stage~1 produces $\Eone$, and the $\Etwo$/$E_3$ structure on the curve arises via the derived center acting on the stage-2 specialisation.
 
 The operative mechanism is stabilization. The $\bS^d$-framing on $\HH_\bullet(\cC)$ provides an $E_d$-algebra structure, but for $d \geq 3$ the restriction to the chiral level via Dunn additivity produces only an $\Eone$-algebra. The higher $E_d$-structure does not disappear: it survives as \emph{additional shifted symplectic and shifted Poisson data} beyond the base $\Eone$ level, classified by the framing obstruction. The question then becomes: for which CY dimensions $d$ is this shifted data nontrivial, and what invariant detects it?
 
 The governing input is Bott periodicity, but two distinct periodicities are at play and the literature regularly conflates them. The complex Bott periodicity $\pi_d(BU) = \mathrm{KU}^{-d}$ has \emph{period $2$}: $\Z$ for $d$ even, $0$ for $d$ odd. The real Bott periodicity $\pi_d(BO) = \mathrm{KO}^{-d}$ and the symplectic variant $\pi_d(B\Sp)$ each have \emph{period $8$}, not $2$; the $8$-periodicity is never a property of $\pi_d(BU)$. The CY framing obstruction lives in the complex group $\pi_d(BU)$ as the primary obstruction (from the holomorphic $U(n)$ reduction), with a secondary $\mathrm{Sp}$-refinement in $\pi_d(B\Sp)$ activated at odd $d$. The effective obstruction $\Obs_{\mathrm{eff}}(d)$ is the colimit of these two towers and inherits the period-$8$ pattern from the real side. The main result of this chapter (Theorem~\ref{thm:e1-stabilization-cy}) assembles these obstruction computations into a single statement: $\Obs_{\mathrm{eff}}(d)$ is trivial precisely when $d \bmod 8 \in \{1, 3, 7\}$, it is $\Z$-valued at all even $d$ from $\pi_d(BU)$, and it is $\Z/2$-valued at $d \equiv 5 \pmod 8$ from the $\pi_d(B\Sp)$ refinement (since $\pi_d(BU) = 0$ at odd $d$, the Sp-refinement is the only nontrivial datum there). Phrasing such as ``$\pi_d(BU)$ is $8$-periodic'' is always a category error: $\pi_d(BU)$ is $2$-periodic; the $8$-periodicity belongs to the real/symplectic K-theory groups.
 
 
-\section{Dunn additivity and the $E_n$ hierarchy}
+\section{Dunn additivity and the \texorpdfstring{$E_n$}{E-n} hierarchy}
 \label{sec:dunn-additivity}
 
 Recall the Dunn additivity theorem: $E_n \simeq E_1 \otimes_{E_0} E_1 \otimes_{E_0} \cdots \otimes_{E_0} E_1$ ($n$ factors), where $E_0 = \mathrm{Assoc}_+$ is the associative operad with unit. In particular, $\Etwo \simeq \Eone \otimes_{E_0} \Eone$: an $\Etwo$-algebra is an $\Eone$-algebra in $\Eone$-algebras. An $\Einf$-algebra is commutative.
 
-For the CY-to-chiral correspondence programme $\{\Phi_d\}$, the CY dimension $d$ determines the native $\En$ level of the chiral algebra. The $\bS^d$-framing on Hochschild homology $\HH_\bullet(\cC)$ carries an $E_d$-algebra structure. For $d \leq 3$, the restriction from $E_d$ to a useful lower $\En$ proceeds as follows:
+For the two-stage factorisation of Theorem~\ref{thm:phi-two-stage-factorisation},
+the CY dimension $d$ determines the native operadic level of stage~1:
+$\PhiFA_d(\cC)$ is $E_d$-holomorphic on $X$
+(Proposition~\ref{prop:native-en-level}).
+The $\bS^d$-framing on Hochschild homology $\HH_\bullet(\cC)$ carries an $E_d$-algebra structure. For $d \leq 3$, the restriction from $E_d$ to the chiral level of stage~2 proceeds as follows:
 \begin{itemize}
- \item $d = 1$: the native structure is $\Einf$ (commutative). The $\bS^1$-framing produces a symmetric monoidal structure on $\HH_\bullet(\cC)$, which is $\Einf$.
- \item $d = 2$: $\Etwo$ is already the target structure (braided monoidal).
- \item $d = 3$: the native chiral algebra structure is $\Eone$ (the Gerstenhaber bracket has degree $-2$, and $\pi_1(\mathrm{Conf}_2(\R^3)) = 0$ prevents topological braiding). The $\bS^3$-framing on $\HH_\bullet(\cC)$ carries an $E_3$-algebra structure, but this restricts to $\Eone$ at the chiral level. The genuine nonsymmetric $\Etwo$ quantum group braiding arises on the \emph{derived} object: the Drinfeld center of the $\Eone$-monoidal representation category (Theorem~\ref{thm:c3-drinfeld-center}), not on the chiral algebra itself.
+ \item $d = 1$: the native structure of $\PhiFA_1(\cC)$ is $\Einf$ (commutative). The $\bS^1$-framing produces a symmetric monoidal structure on $\HH_\bullet(\cC)$, which is $\Einf$.
+ \item $d = 2$: $\PhiFA_2(\cC)$ is $\Etwo$; $\SpCh_{\Sigma_1,C}(\PhiFA_2(\cC))$ is already the target structure (braided monoidal).
+ \item $d = 3$: the stage-1 output $\PhiFA_3(\cC)$ is $\Eone$ on $X$ (the Gerstenhaber bracket has degree $-2$, and $\pi_1(\mathrm{Conf}_2(\R^3)) = 0$ prevents topological braiding). The $\bS^3$-framing on $\HH_\bullet(\cC)$ carries an $E_3$-algebra structure, but this restricts to $\Eone$ at the stage-2 chiral level. The genuine nonsymmetric $\Etwo$ quantum group braiding arises on the \emph{derived} object: the Drinfeld center of the $\Eone$-monoidal representation category (Theorem~\ref{thm:c3-drinfeld-center}), not on the chiral algebra $\SpCh_{\Sigma_2,C}(\PhiFA_3(\cC))$ itself.
 \end{itemize}
 
-For $d \geq 4$, the $E_d$ structure is ``too symmetric'' and the CY chiral algebra is always $\Eone$. The higher $E_d$ structure manifests as \emph{additional shifted structure} (shifted symplectic, shifted Poisson) beyond the base $\Eone$ level.
+For $d \geq 4$, the stage-1 output $\PhiFA_d(\cC)$ is $\Eone$-stabilised on $X$, and the CY chiral algebra $\SpCh_{\Sigma_{d-1},C}(\PhiFA_d(\cC))$ is always $\Eone$. The higher $E_d$ structure manifests as \emph{additional shifted structure} (shifted symplectic, shifted Poisson) beyond the base $\Eone$ level.
+
+\begin{proposition}[Dunn--Lurie additivity and \texorpdfstring{$\SpCh$}{SpCh}-specialisation as framed factorisation homology]
+\label{prop:dunn-lurie-sp-factorisation-homology}
+\ClaimStatusProvedHere{} \textup{(assembly of Dunn--Lurie + Francis~$2013$ + Ayala--Francis)}
+Let $\cC$ be a CY$_d$ category with $d \geq 2$, $X$ a CY$_d$ variety, $\PhiFA_d(\cC) \in \EdHolFA(X)$ the stage-$1$ holomorphic factorisation algebra, $\Sigma_{d-1} \subset X$ a closed oriented $(d{-}1)$-cycle with a compatible framing, and $C \subset X$ a reference curve meeting $\Sigma_{d-1}$ transversely in a finite set.
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item \emph{Dunn--Lurie additivity.}
+ $E_d \simeq \Eone \otimes E_{d-1}$ as symmetric monoidal $\infty$-operads, with the $\Eone$-factor along the specialisation direction on $C$ and the $E_{d-1}$-factor along the transverse $\Sigma_{d-1}$-directions. Iterated: $E_d \simeq \Eone^{\otimes d}$, one $\Eone$-factor per complex direction.
+ \item \emph{Specialisation is framed factorisation homology.} The stage-$2$ specialisation factors as
+ \[
+ \SpCh_{\Sigma_{d-1}, C}(\PhiFA_d(\cC))
+ \;\simeq\;
+ \Bigl(\int_{\Sigma_{d-1}} \PhiFA_d(\cC)\Bigr)\Big|_C
+ \]
+ where $\int_{\Sigma_{d-1}}$ is the Lurie--Francis framed factorisation homology of an $E_d$-algebra (equivalently, an $E_{d-1}$-algebra in $\Eone$-algebras) over the framed $(d{-}1)$-manifold $\Sigma_{d-1}$, and $(-)|_C$ is pullback along $C \hookrightarrow X$.
+ \item \emph{Francis~$2013$ identification.} Under Dunn--Lurie and the Ayala--Francis--Rozenblyum framed-manifold calculus, the framed factorisation homology $\int_{\Sigma_{d-1}}$ is the enveloping functor
+ \[
+ U_{\Sigma_{d-1}} \colon \mathrm{Alg}_{E_{d-1}}(\cD) \longrightarrow \mathrm{Alg}_{\Eone}(\cD),
+ \qquad
+ A \longmapsto \int_{\Sigma_{d-1}} A,
+ \]
+ identified by Francis~$2013$ \textup{Thm.~$4.1$} with the left adjoint to the forgetful functor $\mathrm{Alg}_{\Eone}(\cD) \to \mathrm{Alg}_{E_{d-1}}(\cD)$ along the $\Eone \hookrightarrow E_d$ inclusion dual to Dunn additivity; $\cD$ is the target symmetric monoidal $\infty$-category of chain complexes.
+ \item \emph{Dimensional collapse.} When $\Sigma_{d-1}$ is a closed framed $(d{-}1)$-manifold with vanishing $\int_{\Sigma_{d-1}} E_{d-1} = \mathbf{1}$ (the unit), the enveloping functor is trivial on the $E_{d-1}$-factor and the output collapses to the $\Eone$-algebra underlying the Dunn decomposition of $\PhiFA_d(\cC)|_C$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Claim~\textup{(i)} is Dunn's theorem \textup{\cite[\S 5.1.2]{LurieHA}}: the iterated tensor product of $\Eone$-operads computes the $E_n$-operad. The symmetric monoidal structure on $\mathrm{Alg}_{\Eone}$ gives the inner tensor product, and the associativity of this iteration gives $E_d \simeq \Eone \otimes E_{d-1}$ for any partition $d = 1 + (d-1)$.
+
+Claim~\textup{(ii)}: by Costello--Gwilliam locality, $\PhiFA_d(\cC)$ is a holomorphic $E_d$-factorisation algebra on $X$, and $\SpCh_{\Sigma_{d-1}, C}$ is defined (Definition~\ref{def:phi-fa-and-sp}) as the composition of factorisation-homology integration over $\Sigma_{d-1}$ with pullback to $C$. Integration of an $E_d$-algebra over a closed framed $(d{-}1)$-manifold is the Lurie--Francis framed factorisation homology \textup{\cite[\S 5.5]{LurieHA}}; on the Dunn summand $E_{d-1}$ this is genuine factorisation homology of an $E_{d-1}$-algebra, while the $\Eone$-summand is carried along unchanged and restricted to $C$.
+
+Claim~\textup{(iii)}: Francis~$2013$ \textup{\cite[Thm.~$4.1$]{Francis2013}} identifies $\int_{\Sigma}$ on an $E_n$-algebra over a framed closed $(n{-}1)$-manifold $\Sigma$ with the left adjoint to the restriction-of-structure functor along the operadic inclusion $\Eone \hookrightarrow E_n$ coming from the Dunn decomposition. The identification is compatible with Ayala--Francis' treatment of framed manifold calculus \textup{\cite{AyalaFrancis2015, AyalaFrancis2015b}}, which gives the universal property of $\int_{\Sigma}$ as the enveloping $\Eone$-algebra of the $E_{n-1}$-structure. Applied to $n = d$ and $\Sigma = \Sigma_{d-1}$, the enveloping-functor description of (ii) follows.
+
+Claim~\textup{(iv)}: when $\Sigma_{d-1}$ is closed, framed, and has trivial $E_{d-1}$-factorisation homology --- the paradigmatic case being a framed sphere $S^{d-1}$ with bounding framing, or a framed torus $T^{d-1}$ on which the $E_{d-1}$-multiplication computes homotopy groups of spheres that vanish in the relevant range --- the enveloping functor sends the $E_{d-1}$-component to the unit algebra in $\mathrm{Alg}_{\Eone}$. The $\Eone$-component then carries the full information of the output, which is the $\Eone$-stabilisation of $\PhiFA_d(\cC)$ restricted to $C$ (Theorem~\ref{thm:e1-stabilization-cy} at $d \geq 3$).
+\end{proof}
+
+\begin{remark}[The \texorpdfstring{$(\Sigma_{d-1}, C)$}{(Sigma-d-1, C)}-moduli as the parameter space of \texorpdfstring{$\Eone$}{E1}-shadows]
+\label{rem:sigma-c-moduli-e1-shadows}
+Proposition~\ref{prop:dunn-lurie-sp-factorisation-homology}(ii)--(iii) makes precise the statement of Theorem~\ref{thm:phi-two-stage-factorisation} that stage~$1$ is pinned (Kontsevich--Tamarkin $E_d$-formality up to $\mathrm{GRT}_1$-torsor) while stage~$2$ is a moduli parametrised by $(\Sigma_{d-1}, C) \in \mathrm{Cyc}_{d-1}(X) \times \mathrm{Curves}(X)$: different $\Sigma_{d-1}$ give genuinely distinct $\Eone$-shadows, because the enveloping functor $U_{\Sigma_{d-1}}$ depends on the diffeomorphism type and framing of $\Sigma_{d-1}$ through its $(d{-}1)$-manifold invariants (linking numbers, secondary characteristic classes). On $X = K3 \times E$ at $d = 3$, the six routes to $G(K3 \times E)$ correspond to six framed $2$-cycles $\Sigma_2 \in \mathrm{Cyc}_2(K3 \times E)$: the $K3$-fibre gives $\mathfrak{g}_{\Delta_5}$ with $\kappa_{\mathrm{BKM}} = 5$ (Gritsenko), the paramodular Humbert surfaces $H_N$ give the CHL siblings with $\kappa_{\mathrm{BKM}} = c_N(0)/2 \in \{4, 3, 2, 1\}$ at $N \in \{2, 3, 4, 6\}$, and the Fake-Monster cycle gives the $d = 5$ cousin via a rank-count obstruction ($\Lambda_{\mathrm{Leech}}$ rank $24 > h^{1,1}(K3) = 20$, so no transverse $2$-surface inside a compact CY$_3$ supplies the Niemeier data). The categorical Euler characteristic $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ is a stage-$1$ invariant, K\"unneth-multiplicative on products and independent of $\Sigma_2$; the $\kappa_{\mathrm{BKM}}$-spectrum is stage-$2$ and indexed by the cycle.
+\end{remark}
 
 
-\section{Factorization algebras on $\C^n$}
+\section{Factorization algebras on \texorpdfstring{$\C^n$}{C-n}}
 \label{sec:fact-cn}
 
 For the toric CY category $\cC = D^b(\Coh(\C^d))$ with its $\GL(d)$-equivariant structure, the factorization algebra $\Fact_X(\mathfrak{L}_\cC)$ on a curve $X$ is constructed from the Lie conformal algebra of $\GL(d)$-invariant polyvector fields (Chapter~\ref{ch:cy-to-chiral}). For $d \geq 3$, the $\GL(d)$-invariant Schouten--Nijenhuis brackets vanish identically (Theorem~\ref{thm:c3-abelian-bracket}), so the classical Lie conformal algebra is abelian and all noncommutative structure arises from the $\Omega$-deformation. For general (non-toric) CY$_d$ categories with $d \geq 3$, the Schouten--Nijenhuis bracket on $\HH^\bullet(\cC)$ need not vanish, but its Gerstenhaber degree $1 - d \leq -2$ prevents the construction of braiding: the algebra is $\Eone$ by degree, not by abelianity.
 
 The equivariant deformation parameters are $\sigma_3, \sigma_4, \ldots, \sigma_d$ (the elementary symmetric polynomials of $h_1, \ldots, h_d$ subject to $\sum h_i = 0$), giving a $(d-2)$-dimensional deformation space. For $d = 3$, this is the single parameter $\sigma_3 = h_1 h_2 h_3$ of the affine Yangian.
 
+\subsection{Prefactorisation algebras, Weiss covers, factorisation algebras}
+\label{subsec:prefact-weiss-fact}
 
-\section{The $E_n$-chiral bar complex}
+The passage from a local disc-level $\En$-algebra structure to a global factorisation algebra on a space $X$ is not automatic: it depends on a cover-theoretic axiom (the Weiss condition) that governs the interaction between the cover and the finite-configuration spaces of~$X$.
+
+\begin{definition}[Prefactorisation algebra, Weiss cover, factorisation algebra]
+\label{def:prefact-weiss-fact}
+Fix a topological space $X$, an $\infty$-category $\cV$ with a symmetric monoidal structure (typically chain complexes over $k$), and an integer $n \geq 1$.
+\begin{enumerate}[label=\textup{(\roman*)}]
+ \item A \emph{prefactorisation algebra} on $X$ valued in $\cV$ is an assignment $U \mapsto \cF(U) \in \cV$ for each open $U \subseteq X$, together with factorisation products $m_{U_1, \ldots, U_k; V} : \cF(U_1) \otimes \cdots \otimes \cF(U_k) \to \cF(V)$ for every $k \geq 0$ and every $(U_1, \ldots, U_k; V)$ with the $U_i$ pairwise disjoint and $\sqcup_i U_i \subseteq V$, satisfying associativity, unitality, and $\Sigma_k$-equivariance (Costello--Gwilliam Vol.~II arXiv:$2210.13036$ §$3.1$).
+ \item A cover $\mathfrak U = \{U_\alpha\}$ of $X$ is a \emph{Weiss cover} when every finite subset $S \subset X$ embeds simultaneously into a single $U_\alpha$: for all $S = \{x_1, \ldots, x_n\}$ there exists $\alpha$ with $S \subset U_\alpha$ (Costello--Gwilliam Vol.~II Definition~$6.1.6$).
+ \item A prefactorisation algebra $\cF$ on $X$ is a \emph{factorisation algebra} when it satisfies the Weiss descent condition: for every Weiss cover $\mathfrak U$ the natural map
+ \[
+ \mathrm{hocolim}_{\mathfrak U}\, \cF \;\xrightarrow{\;\sim\;}\; \cF(X)
+ \]
+ is an equivalence in $\cV$ (Costello--Gwilliam Vol.~II Definition~$6.2.1$; Francis--Gaitsgory arXiv:$1103.5803$ Definition~$3.2.1$ in the Ran-space incarnation).
+\end{enumerate}
+\end{definition}
+
+\begin{proposition}[Weiss refinement upgrades prefactorisation to factorisation]
+\label{prop:weiss-refinement-upgrade}
+\ClaimStatusProvedElsewhere
+Let $\cF$ be a prefactorisation algebra on $X$ and $\mathfrak U$ an open cover that is not Weiss. The Weiss refinement $\mathfrak U^\sqcup$ (disjoint unions of contractible opens, each contained in some $U_\alpha$; Costello--Gwilliam Vol.~II Proposition~$6.1.8$) is a Weiss cover, and the homotopy colimit
+\[
+ \cF^{\mathrm{FA}} \;:=\; \mathrm{hocolim}_{\mathfrak U^\sqcup}\, \cF
+\]
+is a factorisation algebra on $X$. The unrefined homotopy colimit $\cF^{\mathrm{QC}} := \mathrm{hocolim}_{\mathfrak U}\, \cF$ satisfies only the quasi-coherent descent condition (cover-by-opens, no disjoint-union axiom); it is a \emph{sheaf of $\En$-algebras} on $X$ in the classical sense, not a factorisation algebra. The comparison map $\cF^{\mathrm{QC}} \to \cF^{\mathrm{FA}}$ is injective on global sections and strict unless $\mathfrak U$ is already Weiss.
+\end{proposition}
+
+\begin{proof}[Scope]
+Proposition $6.1.8$ of Costello--Gwilliam Vol.~II establishes the Weiss refinement; Theorem~$6.4.3$ establishes the Weiss-descent equivalence with factorisation algebras. The injective-comparison statement follows from the inclusion $\mathfrak U \hookrightarrow \mathfrak U^\sqcup$ of cover categories and the universal property of hocolim; strictness on non-Weiss $\mathfrak U$ follows from the existence of disjoint-union opens in $\mathfrak U^\sqcup$ absent from $\mathfrak U$, which support genuinely new factorisation products.
+\end{proof}
+
+\begin{remark}[Load-bearing example: resolved conifold]
+\label{rem:resolved-conifold-weiss}
+The resolved conifold $\bY = \mathrm{Tot}(\cO_{\bP^1}(-1) \oplus \cO_{\bP^1}(-1))$ admits the two-chart cover $\{U_+, U_-\}$ with $U_\pm \cong \C^3$ (Section~\ref{sec:conifold-two-chart-cech} of Chapter~\ref{ch:toric-coha}). This cover is not Weiss: a configuration with one point in $U_+ \setminus U_-$ and one in $U_- \setminus U_+$ lies in no single chart. The QC-descent version of Theorem~\ref{thm:conifold-E3-cech-gluing} produces $\mathrm{CoHA}(\bY)^{\mathrm{QC}}$ as a sheaf of associative algebras; the Weiss-refinement version produces the $E_3$-factorisation algebra $\mathrm{CoHA}(\bY)^{\mathrm{FA}}$. Both are load-bearing: the QC version supports the motivic-DT / Kontsevich--Soibelman analysis; the FA version supports the $\PhiFA_3$-stage of the two-stage CY-to-chiral factorisation (Theorem~\ref{thm:phi-two-stage-factorisation}).
+\end{remark}
+
+\begin{remark}[Ran-space reformulation]
+\label{rem:ran-reformulation}
+Equivalently, a factorisation algebra on $X$ is a Ran-space cosheaf: a $\cV$-valued cosheaf on the Ran space $\Ran(X) = \colim_I X^I / \mathrm{diag}$ whose fibre at a configuration $\{x_1, \ldots, x_n\} \in \Ran(X)$ is the $n$-fold factorisation product (Beilinson--Drinfeld \emph{Chiral Algebras} AMS~$51$ §$3.4$; Francis--Gaitsgory arXiv:$1103.5803$ Definition~$3.2.1$; Lurie \emph{Higher Algebra} §$5.5.4$). The Weiss condition on a cover $\{U_\alpha\}$ of $X$ is the condition that the induced family $\{U_\alpha^{[n]}\}_n$ of configuration-space opens covers $\mathrm{Ran}(X)$; without it, the configuration-space descent fails at $n \geq 2$.
+\end{remark}
+
+\begin{remark}[Homotopy colimits in the $(\infty, 1)$-category, not the $1$-category]
+\label{rem:hocolim-inf-cat}
+The homotopy colimits in Definition~\ref{def:prefact-weiss-fact} and Proposition~\ref{prop:weiss-refinement-upgrade} are computed in the $(\infty, 1)$-category of $\En$-algebras in $\cV$; equivalently, in the $(2, 1)$-truncation given by the $2$-category with dg functors as $1$-morphisms and natural transformations as $2$-morphisms. A $1$-categorical (strict) coequaliser produces the wrong invariant: the Fourier--Mukai transitions on overlaps of a non-trivial cover carry coherent homotopy data that the strict $1$-colimit discards (Toën--Vezzosi arXiv:math/$0404373$ §$1.4$; Lurie \emph{Higher Algebra} §$5.5.4$). The $(2, 1)$-hocolim records the self-composition $T_{-+} \circ T_{+-} \simeq \mathrm{id}$ as a coherent $2$-cell, not as a strict identity.
+\end{remark}
+
+\subsection{Factorisation category variant}
+\label{subsec:fact-category-variant}
+
+The same dichotomy categorifies. For a CY category $\cC$ and a $\PhiFA_d$-stage output living on a variety $X$, the descent analysis applies to factorisation \emph{categories} (Definition~\ref{def:factorization-category} of Chapter~\ref{ch:braided-factorization}): QC-descent through a non-Weiss cover produces a sheaf of dg categories on $X$; Weiss-refinement descent produces an $\En$-factorisation category on $X$. The Kazhdan--Lusztig and Heisenberg factorisation categories of §\ref{sec:factorization-categories} live at the Weiss level; the NCCR-local / BKR-local incarnations (Van~den~Bergh arXiv:math/$9908027$; Bridgeland--King--Reid arXiv:math/$0009053$) live at the QC level. The categorical $R$-matrix of §\ref{sec:bf-categorical-r-matrix} is a disjoint-configuration datum: it is visible only at the Weiss level.
+
+
+\section{The \texorpdfstring{$E_n$}{E-n}-chiral bar complex}
 \label{sec:en-bar}
 
 Construction~\ref{constr:three-bar-complexes} (in Chapter~\ref{ch:e2-chiral}) gives the three bar complexes $B_{\Eone}$, $B_{\Etwo}$, $B_{\Einf}$ for an $\Etwo$-chiral algebra. For a CY$_d$ chiral algebra with $d \geq 4$, only the $\Eone$-bar and $\Einf$-bar are native; the $\Etwo$-bar requires the Drinfeld center passage.
@@ -63,10 +181,10 @@ The $\bS^d$-framing on $\HH_\bullet(\cC)$ requires a trivialization of a certain
 \end{enumerate}
 
 
-\section{The $\En$ landscape: the $\Eone$ stabilization theorem}
+\section{The \texorpdfstring{$\En$}{E-n} landscape: the \texorpdfstring{$\Eone$}{E1} stabilization theorem}
 \label{sec:e1-stabilization}
 
-\begin{theorem}[$\Eone$ stabilization for CY chiral algebras]
+\begin{theorem}[\texorpdfstring{$\Eone$}{E1} stabilization for CY chiral algebras]
 \label{thm:e1-stabilization-cy}
 \ClaimStatusProvedHere{} \textup{(obstruction computation; application to $A_\cC$ unconditional at $d \in \{2, 3\}$ via Theorems~CY-A$_2$ and CY-A$_3$, the latter by the $\infty$-categorical resolution Theorem~\ref{thm:cy-to-chiral-d3})}
 \ClaimStatusConditional{} \textup{(application to $A_\cC$ at $d \geq 4$: conditional on CY-A$_d$)}
@@ -129,13 +247,13 @@ At $d = 4$, $\pi_4(BU) = \pi_3(U) = \Z$. The generator is the first Pontryagin c
 \end{proof}
 
 
-\begin{remark}[Why $E_0$ does not exist]
+\begin{remark}[Why \texorpdfstring{$E_0$}{E-0} does not exist]
 \label{rem:e0-nonexistence}
 The operad $E_0 = \mathrm{Assoc}_+$ (pointed sets with distinguished basepoint) does exist as an operad, but its algebras are ``pointed objects,'' not algebras in the usual sense. An $E_0$-algebra in chain complexes is a chain complex with a distinguished element (the basepoint), carrying no multiplicative structure. The correct interpretation for $d = 4$ is: the CY chiral algebra is $\Eone$ (with multiplication), and the $p_1$ class provides additional structure \emph{beyond} the operad level: a shifted symplectic form on the tangent complex of the MC moduli.
 \end{remark}
 
 
-\begin{corollary}[$d = 4$: the first Pontryagin obstruction]
+\begin{corollary}[\texorpdfstring{$d = 4$}{d = 4}: the first Pontryagin obstruction]
 \label{cor:d4-pontryagin}
 \ClaimStatusProvedHere{} \textup{(obstruction computation)}
 \ClaimStatusConditional{} \textup{(application to $A_\cC$: conditional on CY-A$_4$)}
@@ -168,7 +286,7 @@ Part~(iv): the equivariant parameters $h_1, \ldots, h_4$ satisfy $h_1 + h_2 + h_
 \end{proof}
 
 
-\begin{corollary}[$d = 5$: the $\Z_2$ Sp-refinement]
+\begin{corollary}[\texorpdfstring{$d = 5$}{d = 5}: the \texorpdfstring{$\Z_2$}{Z-2} Sp-refinement]
 \label{cor:d5-z2}
 \ClaimStatusProvedHere{} \textup{(obstruction computation)}
 \ClaimStatusConditional{} \textup{(application to $A_\cC$: conditional on CY-A$_5$)}
@@ -193,7 +311,7 @@ Part~(v): the equivariant parameters $h_1, \ldots, h_5$ with $\sum h_i = 0$ give
 \end{proof}
 
 
-\begin{corollary}[$d = 7$ mirrors $d = 3$; $d = 8$ mirrors $d = 4$]
+\begin{corollary}[\texorpdfstring{$d = 7$}{d = 7} mirrors \texorpdfstring{$d = 3$}{d = 3}; \texorpdfstring{$d = 8$}{d = 8} mirrors \texorpdfstring{$d = 4$}{d = 4}]
 \label{cor:d7-d8-bott}
 \ClaimStatusProvedHere{} \textup{(obstruction computation)}
 \ClaimStatusConditional{} \textup{(application to $A_\cC$: conditional on CY-A$_d$ for $d \geq 4$; $d = 3$ proved)}
@@ -207,10 +325,10 @@ More generally, $d$ and $d + 8$ have isomorphic framing obstruction groups (Bott
 \end{corollary}
 
 
-\section{Explicit computations for $d = 4$ varieties}
+\section{Explicit computations for \texorpdfstring{$d = 4$}{d = 4} varieties}
 \label{sec:d4-explicit}
 
-\subsection{$\C^4$}
+\subsection{\texorpdfstring{$\C^4$}{C-4}}
 \label{subsec:c4}
 
 The simplest CY$_4$ is $\C^4$. The $\GL(4)$-invariant polyvector fields $\PV^p(\C^4)$ have $\dim \PV^p = \binom{4}{p}$ in the constant-coefficient sector:
@@ -226,7 +344,7 @@ The $2$-dimensional deformation space is spanned by
 subject to $h_1 + h_2 + h_3 + h_4 = 0$. At the self-dual point (one $h_i = 0$, say $h_4 = 0$), the CY$_4$ functor reduces to the CY$_3$ functor for $\C^3$ with parameters $(h_1, h_2, h_3)$, and the chiral algebra is $\cW_{1+\infty}$ at $c = 1$ (the Heisenberg VOA $H_1$, $\kappa_{\mathrm{ch}} = 1$).
 
 
-\subsection{$K3 \times K3$}
+\subsection{\texorpdfstring{$K3 \times K3$}{K3 x K3}}
 \label{subsec:k3xk3}
 
 The product $K3 \times K3$ is a CY$_4$ with Euler characteristic
@@ -247,13 +365,13 @@ where $\Lambda_{K3}$ is the Mukai lattice of rank~$24$ (the full lattice $H^*(K3
 The shadow obstruction tower is class~$\mathbf{G}$ (Gaussian, $r_{\max} = 2$) since the lattice VOA is a free-field algebra. All statements in this subsection are conditional on the existence of CY-A$_4$.
 
 
-\subsection{The sextic $4$-fold in $\bP^5$}
+\subsection{The sextic \texorpdfstring{$4$}{4}-fold in \texorpdfstring{$\bP^5$}{P-5}}
 \label{subsec:sextic}
 
 The degree-$6$ smooth hypersurface $X_6 \subset \bP^5$ is a compact CY$_4$ with $h^{3,1} = 426$, $h^{2,2} = 1752$, $h^{1,1} = 1$, and $\chi(X_6) = 2610$. The holomorphic Euler characteristic is $\chi(\cO_{X_6}) = \sum_{p=0}^{4} (-1)^p h^{p,0} = 1 - 0 + 0 - 0 + 1 = 2$ (using $h^{0,0} = h^{4,0} = 1$ and $h^{1,0} = h^{2,0} = h^{3,0} = 0$).
 
 
-\subsection{The $2$-dimensional deformation space and the $\sigma_4$ invariant}
+\subsection{The \texorpdfstring{$2$}{2}-dimensional deformation space and the \texorpdfstring{$\sigma_4$}{sigma-4} invariant}
 \label{subsec:cy4-deformation-space}
 
 A key structural difference between $d = 3$ and $d = 4$ is the dimension of the effective $\Omega$-deformation space. For $\C^d$ with equivariant parameters $h_1, \ldots, h_d$ subject to $\sum h_i = 0$ (the CY condition), the elementary symmetric polynomials $\sigma_2, \ldots, \sigma_d$ parameterize the deformation space. Since $\sigma_2$ generates a trivial (rescaling) deformation, the effective dimension is $d - 2$: one parameter ($\sigma_3$) at $d = 3$, and two parameters ($\sigma_3, \sigma_4$) at $d = 4$.
@@ -279,14 +397,14 @@ The projective ratio $[\sigma_3 : \sigma_4] \in \bP^1$ parameterizes a family of
 \end{itemize}
 
 
-\subsection{The $p_1$-twisted Drinfeld center and the CY$_4$ ``Yangian'' question}
+\subsection{The \texorpdfstring{$p_1$}{p-1}-twisted Drinfeld center and the CY\texorpdfstring{$_4$}{-4} ``Yangian'' question}
 \label{subsec:cy4-twisted-center}
 
 For CY$_3$: the Drinfeld center $\cZ(\Rep^{\Eone}(A))$ is $\Etwo$-braided with an \emph{untwisted} half-braiding, since $\pi_3(BU) = 0$ (trivial framing obstruction). The resulting braided monoidal category is the representation category of the affine Yangian $Y(\hat{\gl}_1)$.
 
 For CY$_4$: the framing obstruction $\pi_4(BU) = \Z$ is nontrivial, generated by $p_1$. This modifies the Drinfeld center construction: the half-braiding carries a $\Z$-valued twist parameterized by $p_1(TX) \in \Z$.
 
-\begin{conjecture}[$p_1$-twisted Drinfeld center at $d = 4$]
+\begin{conjecture}[\texorpdfstring{$p_1$}{p-1}-twisted Drinfeld center at \texorpdfstring{$d = 4$}{d = 4}]
 \label{conj:cy4-twisted-center}
 \ClaimStatusConjectured
 For a CY$_4$ category $\cC$ admitting a chiral algebra $A_\cC$ (conditional on CY-A$_4$):
@@ -313,7 +431,7 @@ The Pontryagin class values for the CY$_4$ landscape:
 \end{center}
 
 
-\subsection{The $\En$ cascade at $d = 4$: same maximum as $d = 3$}
+\subsection{The \texorpdfstring{$\En$}{E-n} cascade at \texorpdfstring{$d = 4$}{d = 4}: same maximum as \texorpdfstring{$d = 3$}{d = 3}}
 \label{subsec:cy4-cascade}
 
 The derived center cascade for CY$_4$ proceeds identically to CY$_3$:
@@ -322,7 +440,7 @@ The derived center cascade for CY$_4$ proceeds identically to CY$_3$:
 \]
 The crucial observation: the cascade terminates at $E_3$ for \emph{both} $d = 3$ and $d = 4$, despite CY$_4$ having four complex directions. The fourth direction contributes a $\Z$-valued twist (from $p_1$) rather than a fourth $\Eone$-factor in the Dunn decomposition $E_4 \cong \Eone^{\otimes 4}$.
 
-\begin{proposition}[$E_3$ is the cascade maximum at $d = 4$]
+\begin{proposition}[\texorpdfstring{$E_3$}{E-3} is the cascade maximum at \texorpdfstring{$d = 4$}{d = 4}]
 \label{prop:e3-max-cy4}
 \ClaimStatusConditional{} \textup{(conditional on CY-A$_4$)}
 For a CY$_4$ chiral algebra $A_\cC$:
@@ -335,7 +453,7 @@ For a CY$_4$ chiral algebra $A_\cC$:
 
 \noindent\textit{Verification}: 175 tests in \texttt{cy4\_e2\_tower\_extension.py}.
 
-\begin{remark}[The $d = 4$ deformation space and the $p_1$-twisted Drinfeld center]
+\begin{remark}[The \texorpdfstring{$d = 4$}{d = 4} deformation space and the \texorpdfstring{$p_1$}{p-1}-twisted Drinfeld center]
 \label{rem:cy4-deformation-space}
 The CY$_4$ $\Omega$-deformation has a \emph{two-dimensional} effective parameter space, in contrast to the one-dimensional CY$_3$ case.  The equivariant parameters $(h_1, h_2, h_3, h_4)$ with $h_1 + h_2 + h_3 + h_4 = 0$ (CY condition) give elementary symmetric polynomials $\sigma_1 = 0$, $\sigma_2$ (trivial rescaling), $\sigma_3$, and $\sigma_4 = h_1 h_2 h_3 h_4$.  The effective deformation parameters are $(\sigma_3, \sigma_4)$; the projective ratio $[\sigma_3 : \sigma_4] \in \mathbb{P}^1$ parameterises a family of deformations.  At the boundary $\sigma_4 = 0$ (one $h_i$ vanishes), the CY$_4$ deformation reduces to a CY$_3$ deformation: $h_4 = 0$ gives $(h_1, h_2, h_3)$ with $h_1 + h_2 + h_3 = 0$.
 
@@ -344,7 +462,7 @@ The Drinfeld center $\cZ(\Rep^{\Eone}(A_\cC))$ at $d = 4$ is \emph{$\Z$-twisted}
 \smallskip\noindent\textit{Verification}: $175$~tests in \texttt{compute/tests/test\_cy4\_e2\_tower\_extension.py}.
 \end{remark}
 
-\begin{conjecture}[The $d = 4$ $\En$ stabilisation: $p_1$-twisted algebras and shadow tower]
+\begin{conjecture}[The \texorpdfstring{$d = 4$}{d = 4} \texorpdfstring{$\En$}{E-n} stabilisation: \texorpdfstring{$p_1$}{p-1}-twisted algebras and shadow tower]
 \label{conj:cy4-en-stabilisation}
 \ClaimStatusConjectured
 For a CY$_4$ chiral algebra $A_\cC$ (conditional on CY-A$_4$):
@@ -378,7 +496,7 @@ For a CY$_4$ chiral algebra $A_\cC$ (conditional on CY-A$_4$):
 \end{conjecture}
 
 
-\section{The $d = 5$ functor: $\Z_2$ obstruction from $\Sp$}
+\section{The \texorpdfstring{$d = 5$}{d = 5} functor: \texorpdfstring{$\Z_2$}{Z-2} obstruction from \texorpdfstring{$\Sp$}{Sp}}
 \label{sec:d5-functor}
 
 The CY$_5$ functor introduces a genuinely new phenomenon: a $\Z_2$-valued framing obstruction that is invisible to the unitary structure group but visible to the symplectic refinement.
@@ -393,10 +511,10 @@ The framing obstruction:
 The discrepancy between the $BU$ and $B\Sp$ obstructions means that the chain-level $\bS^5$-framing is topologically trivializable at the unitary level, but the symplectic refinement carries a $\Z_2$-valued obstruction. This obstruction is the mod-$2$ analogue of the first Pontryagin class at $d = 4$.
 
 
-\section{The $d = 6$ case and higher}
+\section{The \texorpdfstring{$d = 6$}{d = 6} case and higher}
 \label{sec:d6-and-higher}
 
-\begin{remark}[$d = 6$: $BU$ vs $BO$ discrepancy]
+\begin{remark}[\texorpdfstring{$d = 6$}{d = 6}: \texorpdfstring{$BU$}{BU} vs \texorpdfstring{$BO$}{BO} discrepancy]
 \label{rem:d6-discrepancy}
 At $d = 6$: $\pi_6(BU) = \Z$ (nontrivial) but $\pi_6(BO) = \pi_5(O) = 0$ (trivial). The real orthogonal structure group sees no obstruction, but the complex/holomorphic structure (captured by $BU$) does. This means the $\Z$-valued obstruction at $d = 6$ is purely holomorphic: it is visible only through the complex structure of the CY category, not through the underlying real topology.
 
@@ -404,7 +522,7 @@ The characteristic class is $c_3 \in H^6(B; \Z)$, the third Chern class of the t
 \end{remark}
 
 
-\begin{conjecture}[$\En$-Koszul duality at $d \geq 4$]
+\begin{conjecture}[\texorpdfstring{$\En$}{E-n}-Koszul duality at \texorpdfstring{$d \geq 4$}{d >= 4}]
 \label{conj:en-koszul-higher}
 \ClaimStatusConjectured
 For a CY$_d$ chiral algebra $A_\cC$ with $d \geq 4$, the Koszul dual $A_\cC^! = \Phi_d(\cC^!)$ (the chiral algebra of the mirror category; the correspondence $\Phi_d$ is $d$-indexed, not a unified functor---see \texttt{rem:phi-not-unified-functor} and \texttt{conj:phi-d-functoriality}) satisfies:
@@ -443,12 +561,12 @@ The passage from $\Eone$ to $\Etwo$ (the quantum group braiding) is always achie
 \noindent\textit{Verification}: 141 tests across all CY dimensions $d = 1, \ldots, 16$ in \texttt{higher\_cy\_en\_tower.py}.
 
 
-\section{$E_3$-chiral structure from holomorphic Chern--Simons on $\C^3$}
+\section{\texorpdfstring{$E_3$}{E-3}-chiral structure from holomorphic Chern--Simons on \texorpdfstring{$\C^3$}{C-3}}
 \label{sec:e3-from-hcs}
 
 The $\Eone$ stabilization theorem (Theorem~\ref{thm:e1-stabilization-cy}) concerns the CY-to-chiral correspondence programme $\{\Phi_d\}$ and shows that $d \geq 3$ produces at most $\Eone$-chiral algebras. A distinct source of higher $\En$ structure exists: the holomorphic Chern--Simons programme of Costello and Costello--Francis--Gwilliam, where the $\En$ level is set by the \emph{complex dimension of the ambient space}, not by the CY dimension of the category. The ambient $E_3$ structure on $\C^3$ does not contradict $\Eone$ stabilization: it is a structure on the \emph{observables of the field theory}, not on the CY chiral algebra $\Phi_d(\cC)$. The two are related by the bulk-boundary correspondence (Vol~I Theorem~H, Vol~II bulk-boundary duality), but they live on different objects.
 
-\subsection{The $\En$ hierarchy from theory dimension}
+\subsection{The \texorpdfstring{$\En$}{E-n} hierarchy from theory dimension}
 \label{subsec:en-theory-dimension}
 
 The factorization homology framework of Costello--Francis--Gwilliam assigns to a holomorphic field theory on an $n$-dimensional complex manifold $M$ a factorization algebra $\cF$ on $M$. The topological shadow of $\cF$ (forgetting holomorphy) is an $E_{2n}$-algebra (since $\dim_\R M = 2n$); the holomorphic refinement reduces this to an $E_n$-chiral factorization algebra on $M$, where each complex direction contributes one chiral level.
@@ -469,12 +587,12 @@ The factorization homology framework of Costello--Francis--Gwilliam assigns to a
 
 \noindent The holomorphic level is half the topological level: each complex direction in $M$ contributes $E_1$ rather than $E_2$, because the holomorphic constraint pins the factorization to a single chiral slice (Proposition~\ref{prop:holomorphic-e1}, Chapter~\ref{ch:e1-chiral}). The $\Eone$-chiral algebra on a curve $C \subset M$ is obtained by projecting from $E_n$ to $\Eone$ via the $n-1$ transverse complex directions; the $R$-matrix data of these transverse directions is remembered by the higher $\En$ structure and lost in the projection.
 
-\subsection{$E_3$-chiral factorization on $\C^3$: precise conditions}
+\subsection{\texorpdfstring{$E_3$}{E-3}-chiral factorization on \texorpdfstring{$\C^3$}{C-3}: precise conditions}
 \label{subsec:e3-precise}
 
 The $E_3$ structure on $\C^3$ arises from two independent sources, which must not be conflated.
 
-\begin{proposition}[Algebraic $E_3$ from the higher Deligne conjecture]
+\begin{proposition}[Algebraic \texorpdfstring{$E_3$}{E-3} from the higher Deligne conjecture]
 \label{prop:algebraic-e3-deligne}
 \ClaimStatusProvedElsewhere{}
 The boundary chiral algebra $A = V_k(\frakg)$ of 3d holomorphic CS on $C \times \R$ is $E_\infty$-chiral (commutative vertex algebra). By the higher Deligne conjecture (Lurie \cite{LurieHA}, Theorem~5.3.1.30), the Hochschild cochains $\HH^\bullet(A, A)$ of an $E_n$-algebra carry $E_{n+1}$ structure. For $A$ an $E_\infty$-algebra, $\HH^\bullet(A, A)$ carries $E_\infty$ structure; the specific $E_3$ subalgebra generated by the cup product, the Gerstenhaber bracket, and the BV operator (from the $S^1$-action on the cyclic bar complex) is the relevant one for the comparison with the topological $E_3$ below.
@@ -486,7 +604,7 @@ The boundary chiral algebra $A = V_k(\frakg)$ of 3d holomorphic CS on $C \times 
 Lurie, \emph{Higher Algebra} \cite{LurieHA}, Theorem~5.3.1.30. By the higher Deligne conjecture, $\HH^\bullet$ of an $E_n$-algebra carries $E_{n+1}$ structure. For $\Eone$ input: $\HH^\bullet$ is $\Etwo$ (Dunn: $\Eone \otimes \Eone = \Etwo$). For $\Etwo$ input: $\HH^\bullet$ is $E_3$. The specific algebraic $E_3$ in the proposition (cup $+$ Gerstenhaber $+$ BV) requires $E_\infty$ input because the BV operator needs the $S^1$-equivariant cyclic structure, which is available only for commutative algebras.
 \end{proof}
 
-\begin{conjecture}[Topological $E_3$ from 6d holomorphic theory and the comparison]
+\begin{conjecture}[Topological \texorpdfstring{$E_3$}{E-3} from 6d holomorphic theory and the comparison]
 \label{conj:topological-e3-comparison}
 \ClaimStatusConjectured
 Let $\cF$ be the factorization algebra of observables of the 6d holomorphic theory on $\C^3$ with gauge algebra $\frakg$ and Omega-background parameters $(h_1, h_2, h_3)$ satisfying $h_1 + h_2 + h_3 = 0$.
@@ -500,17 +618,17 @@ Let $\cF$ be the factorization algebra of observables of the 6d holomorphic theo
 Part~(a) follows from the factorization-homology framework of Costello--Francis--Gwilliam applied to $\C^3$ with the twisted framing; the nontriviality of the braiding after Omega-deformation is the content of the equivariant refinement (Costello 2017, Section~5). Part~(b) is the Kontsevich formality theorem applied to the comparison.
 \end{conjecture}
 
-\begin{remark}[Why $E_3$ and not higher]
+\begin{remark}[Why \texorpdfstring{$E_3$}{E-3} and not higher]
 \label{rem:why-e3-not-higher}
 For the 6d holomorphic theory on $\C^3$, the holomorphic $\En$ level is $E_3$ (three complex dimensions). One might ask whether additional structure from the 6d origin (topological $E_6$) survives. It does not, in the chiral setting: each complex direction contributes exactly one chiral level via the holomorphic constraint. The remaining $E_3$ worth of structure (the gap between holomorphic $E_3$ and topological $E_6$) is the antiholomorphic content, which is killed by the holomorphic twist. This is the higher-dimensional analogue of the statement that a factorization algebra on a Riemann surface is $\Etwo$ topologically but $\Eone$-chiral holomorphically (Proposition~\ref{prop:holomorphic-e1}).
 \end{remark}
 
-\subsection{$E_3$-chiral Koszul duality}
+\subsection{\texorpdfstring{$E_3$}{E-3}-chiral Koszul duality}
 \label{subsec:e3-koszul}
 
 The $E_3$ structure on $\C^3$ induces an $E_3$-chiral Koszul duality that extends the $\Etwo$-chiral Koszul duality of Chapter~\ref{ch:e2-chiral} (Conjecture~\ref{conj:e2-koszul}).
 
-\begin{conjecture}[$E_3$-chiral Koszul duality from 6d theory]
+\begin{conjecture}[\texorpdfstring{$E_3$}{E-3}-chiral Koszul duality from 6d theory]
 \label{conj:e3-koszul-duality}
 \ClaimStatusConjectured
 For the $E_3$-chiral factorization algebra $\cF$ on $\C^3$ arising from the 6d holomorphic theory:
@@ -522,7 +640,7 @@ For the $E_3$-chiral factorization algebra $\cF$ on $\C^3$ arising from the 6d h
 \end{enumerate}
 \end{conjecture}
 
-\begin{remark}[$E_3$ Koszul duality and quantum toroidal algebras]
+\begin{remark}[\texorpdfstring{$E_3$}{E-3} Koszul duality and quantum toroidal algebras]
 \label{rem:e3-koszul-toroidal}
 At the level of quantum toroidal algebras, the $E_3$ Koszul duality of Conjecture~\ref{conj:e3-koszul-duality}(ii) predicts the parameter-inversion symmetry
 \[
@@ -531,7 +649,7 @@ At the level of quantum toroidal algebras, the $E_3$ Koszul duality of Conjectur
 which is the conjectural Koszul duality of Chapter~\ref{ch:quantum-groups} (Definition~\ref{def:qgf-four-regimes}, toroidal regime). The $E_3$ framework provides the geometric origin of this parameter inversion: it is the Verdier duality on $\C^3$ factorization coalgebras.
 \end{remark}
 
-\begin{theorem}[The Zamolodchikov tetrahedron equation fails for the Yang $R$-matrix]
+\begin{theorem}[The Zamolodchikov tetrahedron equation fails for the Yang \texorpdfstring{$R$}{R}-matrix]
 \label{thm:zte-failure}
 \ClaimStatusProvedHere{}
 Let $R(z) = (z \cdot \mathrm{Id} + \hbar_{\mathrm{Y}} \cdot P)/(z + \hbar_{\mathrm{Y}})$ be the Yang $R$-matrix on $\C^2 \otimes \C^2$ with $\hbar_{\mathrm{Y}} = h_1 h_2 h_3$, and define the $3$-particle $S$-operator
@@ -556,7 +674,7 @@ acting on $(\C^2)^{\otimes 3}$. Then:
 Parts~(i) and~(iii) are verified symbolically and numerically. Part~(ii) is computed by explicit matrix multiplication on the charge-$2$ sector of $(\C^2)^{\otimes 4}$ (dimension~$6$): the difference $\mathrm{LHS} - \mathrm{RHS}$ is nonzero at $O(\hbar_{\mathrm{Y}}^2)$, verified at multiple spectral parameter values and confirmed by symbolic expansion in $\hbar_{\mathrm{Y}}$. See \texttt{compute/lib/zamolodchikov\_tetrahedron\_engine.py} ($34$ tests).
 \end{proof}
 
-\begin{remark}[Consequence for $E_3$-chiral structure]
+\begin{remark}[Consequence for \texorpdfstring{$E_3$}{E-3}-chiral structure]
 \label{rem:zte-consequence}
 Theorem~\ref{thm:zte-failure} proves that the $E_3$ coherence condition is \emph{genuinely nontrivial}: the na\"ive factorization $S_{ijk} = R_{ij} R_{ik} R_{jk}$ from pairwise Yang--Baxter solutions does \emph{not} produce a tetrahedron solution. The correct $3$-particle $S$-operator for $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ must include corrections beyond the pairwise product, controlled by the $E_3$ structure of holomorphic Chern--Simons on $\C^3$. At the level of the $A_\infty$ bar complex, these corrections are the shadow tower contributions $\delta^{(k)}$ from the higher operations $m_k$ (Section~\ref{sec:e1-chiral-bialgebras}).
 \end{remark}
@@ -629,7 +747,7 @@ Dimensions: $\dim C^0 = \dim \End(V)^{\mathrm{cp}} = 2$ (two diagonal entries); 
 \smallskip\noindent\textit{Supplementary verification}: $47$~tests in \texttt{zte\_deformation\_cohomology.py} confirm all rank computations, cohomology dimensions, and the extended resolution at multiple parameter values.
 \end{proof}
 
-\begin{remark}[Interpretation: $E_3$ correction as gauge-extended trivialisation]
+\begin{remark}[Interpretation: \texorpdfstring{$E_3$}{E-3} correction as gauge-extended trivialisation]
 \label{rem:zte-gauge-extended}
 Proposition~\ref{prop:zte-deformation-cohomology} provides the cohomological explanation for the numerical results of Theorem~\ref{thm:zte-failure} and Remark~\ref{rem:zte-obstruction-structure}(iv): the ZTE obstruction is \emph{not} removable by deforming the $R$-matrix ($H^2_{\mathrm{pw}} \neq 0$), but \emph{is} removable by adding a ternary correction ($[\cO] = 0$ in $H^2_{\mathrm{ext}}$).  In the $L_\infty$ language, the degree-$2$ Maurer--Cartan equation $\ell_1(r^{(2)}) + \ell_3(r,r,r) = 0$ has a solution $r^{(2)} = T$: the $\ell_3$-cocycle is $\ell_1$-exact in the extended complex.  The single missing rank (rank $35$ out of $36$) corresponds to the overall scalar gauge freedom (rescaling the $S$-operator).
 \end{remark}
@@ -667,7 +785,7 @@ By adaptive Newton iteration on the full (nonlinear) ZTE.  Starting from $S^{\ma
 Structural properties are verified by direct computation: symmetry and persymmetry errors are $< 10^{-8}$ (the cleaning step projects onto the intersection of the symmetric and persymmetric subspaces, with projection error below $10^{-8}$); rank, eigenvalues, and anti-diagonal zeros are read off from the cleaned matrix; per-face factorizability is verified by projecting each $C_{ijk}$ onto the span of pairwise operators and checking that the orthogonal complement has norm $< 10^{-9}$; the $S_4$ decomposition uses the orbit-averaged projector.  Universality is verified by repeating the computation at $4$ spectral parameter configurations and $5$ values of $\hbar_{\mathrm{Y}}$.  See \texttt{compute/lib/zte\_correction\_explicit\_final.py} ($51$~tests).
 \end{proof}
 
-\begin{remark}[Physical interpretation: $\Etwo$ data dominates the leading ZTE correction]
+\begin{remark}[Physical interpretation: \texorpdfstring{$\Etwo$}{E2} data dominates the leading ZTE correction]
 \label{rem:zte-factorizability-interpretation}
 The approximate factorizability of the per-face corrections (Proposition~\ref{prop:zte-explicit-correction}(iv)) shows that the leading correction to the Zamolodchikov tetrahedron equation is \emph{predominantly} built from $\Etwo$ data (pairwise $R$-matrix modifications).  The genuinely $E_3$ content (the ternary component that cannot be decomposed into $2$-body operators) is present at leading order but small: it has strictly positive Frobenius norm in exact arithmetic (Proposition~\ref{prop:zte-nonperturbative-completion}(ii)) yet is below floating-point precision ($< 10^{-9}$) in the minimum-norm numerical solution.  In the language of the $A_\infty$ bar complex, the $d_4$ differential (which obstructs the ZTE) is \emph{mostly} resolved by modifying the $R$-matrix entries, with a small genuinely ternary correction.  The ZTE is primarily a consistency condition on $\Etwo$ data, but its exact resolution does require genuinely $E_3$ (ternary) operations.
 \end{remark}
@@ -681,7 +799,7 @@ The complementary symmetry between obstruction and correction is a structural fe
 \noindent\textit{Verification}: $51$~tests in \texttt{zte\_correction\_explicit\_final.py} covering obstruction structure (antisymmetry, rank~$4$, persymmetry, $\hbar_{\mathrm{Y}}$-independence), Newton convergence (improvement $> 10^5$, at most~$3$ iterations, rank progression $35 \to 36$, monotone decrease), correction structure (symmetry, persymmetry, zero anti-diagonal, full rank~$6$, mixed-sign eigenvalues, complementary symmetry with~$\mathcal{O}$), per-face and $V^{\otimes 4}$ factorizability (ternary fraction $< 10^{-6}$), gauge freedom (rank~$35$, null dimension~$45$), $S_4$ decomposition (trivial fraction $< 10\%$), higher-order analysis (monotone within accepted steps), cross-$\hbar_{\mathrm{Y}}$ consistency ($5$ values), spectral parameter universality ($4$ configurations), and direct ZTE verification ($S^{\mathrm{corr}}$ satisfies ZTE to relative precision $< 10^{-5}$).
 \end{remark}
 
-\begin{proposition}[Exact ZTE resolution at $O(\hbar_{\mathrm{Y}}^4)$]
+\begin{proposition}[Exact ZTE resolution at \texorpdfstring{$O(\hbar_{\mathrm{Y}}^4)$}{O(hbar-Y-4)}]
 \label{prop:zte-o-kappa4}
 \ClaimStatusProvedHere{}
 Let $S^{(1)} = S^{\mathrm{fact}} + C_1$ be the first-corrected $S$-operator from Proposition~\textup{\ref{prop:zte-explicit-correction}}, where $C_1$ is the minimum-norm solution of the linearized ZTE.  Let $\mathcal{O}^{(4)} = \mathrm{ZTE}(S^{(1)})|_{q=2}$ be the residual on the charge-$2$ sector.  Then:
@@ -752,7 +870,7 @@ All claims are established by exact rational computation (Python \texttt{Fractio
 \smallskip\noindent\textit{Verification}: \texttt{compute/lib/zte\_nonperturbative\_completion.py}, \texttt{compute/tests/test\_zte\_nonperturbative\_completion.py} ($58$~tests).
 \end{proof}
 
-\begin{remark}[The ZTE correction is genuinely $E_3$]
+\begin{remark}[The ZTE correction is genuinely \texorpdfstring{$E_3$}{E-3}]
 \label{rem:zte-genuinely-e3}
 Proposition~\ref{prop:zte-nonperturbative-completion}(i)--(ii) together establish that the ZTE correction is \emph{genuinely $E_3$}: it cannot be obtained by conjugation (Drinfeld twist) of the factorized $S$-operator, and it requires genuinely ternary ($3$-body) interactions beyond pairwise $R$-matrix deformations.  In the operadic language:
 
@@ -799,7 +917,7 @@ The cocycle-corrected framework of Conjecture~\ref{conj:zte-drinfeld-twist-compl
 \smallskip\noindent\textit{Supplementary verification}: $58$~tests in \texttt{compute/tests/test\_zte\_nonperturbative\_completion.py} confirm all structural inputs (twist non-existence, Pad\'{e} pole locations, charge-sector residuals, gauge orbit structure).
 \end{remark}
 
-\begin{theorem}[$E_3$-chiral Koszul self-duality of the Heisenberg]
+\begin{theorem}[\texorpdfstring{$E_3$}{E-3}-chiral Koszul self-duality of the Heisenberg]
 \label{thm:e3-koszul-heisenberg}
 \ClaimStatusProvedHere{}
 Let $H_k$ be the Heisenberg VOA at level~$k$, realized as the boundary chiral algebra of the 6d holomorphic theory on $\C^3$ at parameters $(h_1, h_2, h_3)$ with $h_1 + h_2 + h_3 = 0$ and $k = -\sigma_2 = -(h_1 h_2 + h_1 h_3 + h_2 h_3)$. Then $H_k$ is class~$G$ (Gaussian, shadow depth $r = 2$), and Conjecture~\ref{conj:e3-koszul-duality} holds for $H_k$:
@@ -851,7 +969,7 @@ The Verdier duality functor $D_{\C^3}$ on conilpotent $E_3$-coalgebras acts by l
 Theorem~\ref{thm:e3-koszul-heisenberg} proves Conjecture~\ref{conj:e3-koszul-duality} for a single algebra: the Heisenberg $H_k$ (class~$G$). The proof exploits the free-field property ($d_i = 0$), which is specific to $H_k$. For the affine Yangian $Y(\widehat{\fgl}_1)$ at general parameters (class~$L$), the differentials are nonzero and the formality argument does not apply; however, a spectral sequence argument establishes Koszul duality at the cohomological level (Theorem~\ref{thm:e3-koszul-yangian} below). The Conjecture remains open for class~$C$ and~$M$ algebras, where the $E_3$ bar complex has higher shadow interactions and the spectral sequence may not degenerate at~$E_3$.
 \end{remark}
 
-\begin{theorem}[Cohomological $E_3$-Koszul duality for the affine Yangian]
+\begin{theorem}[Cohomological \texorpdfstring{$E_3$}{E-3}-Koszul duality for the affine Yangian]
 \label{thm:e3-koszul-yangian}
 \ClaimStatusProvedHere{}
 Let $Y = Y(\widehat{\fgl}_1)$ be the affine Yangian at generic Omega-background parameters $(h_1, h_2, h_3)$ with $h_1 + h_2 + h_3 = 0$, realized as the CoHA of~$\C^3$. Then $Y$ is class~$L$ (shadow depth $r = 3$, quartic shadow $S_4 = 0$), the differentials $d_1, d_2, d_3$ of the $E_3$ bar complex $B_{E_3}(Y)$ are nonzero, and Conjecture~\ref{conj:e3-koszul-duality} holds for $Y$ at the cohomological level:
@@ -918,7 +1036,7 @@ For $Y^!$ at parameters $(-h_1, -h_2, -h_3)$: $\sigma_2^! = (-h_1)(-h_2) + (-h_1
 Theorem~\ref{thm:e3-koszul-yangian} establishes Conjecture~\ref{conj:e3-koszul-duality} for $Y(\widehat{\fgl}_1)$ at the \emph{cohomological} level: the $E_3$ bar cohomologies of $Y$ and $Y^!$ are isomorphic as graded vector spaces. This is strictly weaker than a \emph{chain-level} quasi-isomorphism $B_{E_3}(Y) \simeq B_{E_3}(Y^!)$, which would require comparing the differentials themselves (not just their cohomology). The chain-level statement remains open and would constitute a full proof of Conjecture~\ref{conj:e3-koszul-duality} for class~$L$. The cohomological result suffices for the $\kappa_{\mathrm{ch}}$-complementarity prediction and for the dimension-counting consequences.
 \end{remark}
 
-\begin{remark}[The class $L$ spectral sequence mechanism]
+\begin{remark}[The class \texorpdfstring{$L$}{L} spectral sequence mechanism]
 \label{rem:class-l-spectral-mechanism}
 The key to Theorem~\ref{thm:e3-koszul-yangian} is the \emph{cofreeness} of the shuffle algebra $Y^+(\widehat{\fgl}_1)$: the positive-mode subalgebra, as a coalgebra, is cofree. This ensures the $\Eone$ bar complex in each direction is acyclic, reducing $P(q) \to (1+t)$ at each step of the spectral sequence. The mechanism is specific to class~$L$:
 \begin{itemize}
@@ -929,7 +1047,7 @@ The key to Theorem~\ref{thm:e3-koszul-yangian} is the \emph{cofreeness} of the s
 \end{itemize}
 \end{remark}
 
-\begin{proposition}[The $d_4$ differential for class~$M$: $\delta^{(3)}(T_0) = 40/27$]
+\begin{proposition}[The \texorpdfstring{$d_4$}{d-4} differential for class~\texorpdfstring{$M$}{M}: \texorpdfstring{$\delta^{(3)}(T_0) = 40/27$}{delta-(3)(T-0) = 40/27}]
 \label{prop:virasoro-d4}
 \ClaimStatusProvedHere{}
 Let $\mathrm{Vir}_c$ be the Virasoro VOA at central charge~$c \neq 0$ with $5c + 22 \neq 0$, realized as a class~$M$ $E_3$-algebra on~$\C^3$. The $E_3$ bar spectral sequence of $B_{E_3}(\mathrm{Vir}_c)$ has:
@@ -1025,7 +1143,7 @@ The $2$-dimensional deficit from class~$L$ is precisely the $d_4$ image: $\dim E
 \smallskip\noindent\textit{Supplementary verification}: 116 tests in \texttt{test\_e3\_bar\_virasoro\_d4.py} confirm the shadow data ($\alpha = 2$, $S_4 = 10/27$ at $c = 1$), spectral sequence pages $E_0$ through $E_\infty$, class comparison across G/L/C/M, Euler characteristic preservation, and central-charge dependence at $c = 1, 2, 1/2, -22/5, 25$.
 \end{proof}
 
-\begin{corollary}[Higher-genus class~$M$ $E_3$ bar cohomology: $\dim E_\infty = 6^g$]
+\begin{corollary}[Higher-genus class~\texorpdfstring{$M$}{M} \texorpdfstring{$E_3$}{E-3} bar cohomology: \texorpdfstring{$\dim E_\infty = 6^g$}{dim E-inf = 6-g}]
 \label{cor:class-m-higher-genus}
 \ClaimStatusProvedHere{}
 Let $\Sigma_g$ be a closed oriented surface of genus~$g \geq 1$, and let $A = \mathrm{Vir}_c^{\oplus g}$ be $g$ independent copies of the Virasoro VOA at central charge~$c \neq 0$ with $5c + 22 \neq 0$. The $E_3$ bar spectral sequence of $B_{E_3}(A)$ satisfies:
@@ -1070,18 +1188,18 @@ The K\"{u}nneth closed form is verified against explicit $d_4$ matrix rank compu
 \noindent\textit{Verification}: 170 tests in \texttt{test\_e3\_bar\_higher\_genus\_class\_m.py}, covering K\"{u}nneth vs matrix agreement ($g = 1, 2, 3$), closed-form entries, Euler characteristic preservation, Poincar\'{e} duality, deficit computation, degree-based degeneration analysis ($g = 1$ through $7$), and cross-validation with the genus-$1$ engine.
 \end{proof}
 
-\begin{remark}[Class $M$ at genus $g \geq 4$]
+\begin{remark}[Class \texorpdfstring{$M$}{M} at genus \texorpdfstring{$g \geq 4$}{g >= 4}]
 \label{rem:class-m-genus-geq-4}
 For $g \geq 4$, the spectral sequence need not degenerate at $E_4$: the differential $d_5$ (controlled by the quintic shadow $S_5 = -16/9$ at $c = 1$) can potentially act. The first instance is $g = 4$, where $d_5 \colon E_4^8 \to E_4^4$ maps between $81$-dimensional spaces. The spectral sequence terminates at $E_{g+2}$ at the latest (all $d_r = 0$ for $r \geq g + 2$ by degree reasons). Whether $d_5$ acts nontrivially on the $E_4$ cohomology requires computing the induced action of $m_5$ on $\operatorname{tensor}^g [0,3,3,0]$, which is beyond the scope of the present computation.
 \end{remark}
 
-\subsection{The Miki automorphism from the CY torus Weyl group on $\C^3$}
+\subsection{The Miki automorphism from the CY torus Weyl group on \texorpdfstring{$\C^3$}{C-3}}
 \label{subsec:miki-from-e3}
 \index{Miki automorphism!CY torus derivation@CY torus derivation}
 
 The Miki automorphism of the quantum toroidal algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ is an $\SL_2(\Z)$ symmetry whose generator $S$ acts by cyclic permutation $(q_1,q_2,q_3) \mapsto (q_2,q_3,q_1)$ (Remark~\ref{rem:miki-automorphism}). Previous treatments observe this symmetry algebraically. We derive it from the Weyl group of the CY torus acting on the $E_3$-chiral structure on $\C^3$, specific to $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ (Miki is algebra-specific, not a consequence of the $E_3$ operad alone; a general $E_3$-algebra such as $k[x]/(x^2)$ admits no Miki automorphism).
 
-\subsubsection{The $S_3$-embedding in $\SO(3)$}
+\subsubsection{The \texorpdfstring{$S_3$}{S-3}-embedding in \texorpdfstring{$\SO(3)$}{SO(3)}}
 
 The $E_3$ operad $E_3(n) = \Conf_n(D^3)$ carries an action of $\SO(3)$ by rotations of the ambient $3$-disk. The coordinate axes $e_1, e_2, e_3$ of $\R^3$ (underlying $\C^3$ via the holomorphic projection) define a preferred frame, and the symmetric group $S_3$ embeds in $\SO(3)$ as the \emph{rotation symmetry group of the cube} restricted to coordinate permutations: each $\sigma \in S_3$ acts by $e_i \mapsto e_{\sigma(i)}$, realized as a signed permutation matrix with determinant $+1$. Concretely, the cyclic permutation $(123) \in S_3$ is the rotation by $2\pi/3$ around the axis $\ell = \R \cdot (1,1,1)$:
 \[
@@ -1098,7 +1216,7 @@ The holomorphic refinement replaces the $\SO(3)$-action on $E_3$ by the action o
 \]
 The cyclic subgroup $\Z/3\Z \subset S_3$ generated by $(123)$ acts on the $E_3$-chiral factorization algebra $\cF$ on $\C^3$ by permuting the three equivariant parameters: $(q_1, q_2, q_3) \mapsto (q_2, q_3, q_1)$. Since the factorization homology $\int_{\C^3} \cF$ recovers $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ (Conjecture~\ref{conj:topological-e3-comparison}), this $\Z/3\Z$-action descends to an automorphism $S$ of $U_{q,t}$ with $S^3 = \mathrm{id}$ on parameters. This is the Miki automorphism.
 
-\begin{conjecture}[CY torus derivation of the Miki automorphism for $U_{q,t}(\widehat{\widehat{\fgl}}_1)$]
+\begin{conjecture}[CY torus derivation of the Miki automorphism for \texorpdfstring{$U_{q,t}(\widehat{\widehat{\fgl}}_1)$}{U-q,t(widehatwidehatfgl-1)}]
 \label{conj:miki-from-e3}
 \ClaimStatusConjectured
 Let $\cF$ be the $T$-equivariant $E_3$-chiral factorization algebra on $\C^3$ from Conjecture~\ref{conj:topological-e3-comparison}, with $T = (\C^*)^3/\C^*_{\mathrm{diag}}$ acting by coordinate scaling. Then:
@@ -1112,7 +1230,7 @@ Let $\cF$ be the $T$-equivariant $E_3$-chiral factorization algebra on $\C^3$ fr
 \emph{Dependency chain}: (i)--(v) are conditional on Conjecture~\ref{conj:topological-e3-comparison} (the $E_3$-chiral structure on $\C^3$). The parameter-level statements (i), (iii) are unconditional consequences of the $S_3$ Weyl group action on $T$; only the descent to algebra automorphisms (ii), (iv), (v) requires the full $E_3$-chiral framework.
 \end{conjecture}
 
-\subsubsection{Rational degeneration and $S_3$-breaking}
+\subsubsection{Rational degeneration and \texorpdfstring{$S_3$}{S-3}-breaking}
 \label{subsubsec:miki-degeneration}
 
 The affine Yangian $Y(\widehat{\fgl}_1)$ is the rational limit $q_i \to 1$, equivalently $h_i \to 0$ with ratios $\epsilon_i = h_i/\hbar$ fixed. In this limit, the torus $T = (\C^*)^2$ degenerates to the additive group $\C^2$, and the $S_3$-action on $(\epsilon_1, \epsilon_2, \epsilon_3)$ persists as a \emph{parameter symmetry} but ceases to lift to an algebra automorphism. The $E_3$-operadic explanation is:
@@ -1122,12 +1240,12 @@ The affine Yangian $Y(\widehat{\fgl}_1)$ is the rational limit $q_i \to 1$, equi
   \item The Miki automorphism is therefore a \emph{genuinely $E_3$ phenomenon}: it requires the full holomorphic three-fold symmetry of $\C^3$, and its absence for the affine Yangian is the shadow of the $E_3 \to \Etwo$ degeneration.
 \end{itemize}
 
-\begin{remark}[The $T$-generator as Dehn twist vs.\ spectral flow]
+\begin{remark}[The \texorpdfstring{$T$}{T}-generator as Dehn twist vs.\ spectral flow]
 \label{rem:T-generator-dehn}
 The shift generator $T \colon E_n \mapsto E_{n+1}$ of the $\SL_2(\Z)$ action on $U_{q,t}$ has two equivalent descriptions in the $E_3$ framework: (a)~the Dehn twist along one cycle of the double-loop base $T^2$, which acts on the factorization algebra by monodromy; (b)~the spectral flow automorphism in the vertex-algebraic language, shifting the mode index by one unit. In the rational degeneration, the Dehn twist degenerates to a translation on $\C$, and the spectral flow degenerates to the shift $J^a_{m,n} \mapsto J^a_{m+1,n}$ (or $J^a_{m,n+1}$) on DDCA generators. The $T$-automorphism survives the rational limit (it generates the infinite cyclic group $\Z \subset \SL_2(\Z)$), but the relation $(ST)^3 = S^2$ breaks because $S$ degenerates.
 \end{remark}
 
-\subsection{The chiral $R$-matrix from $E_3$ holomorphic braiding on $\C^3$}
+\subsection{The chiral \texorpdfstring{$R$}{R}-matrix from \texorpdfstring{$E_3$}{E-3} holomorphic braiding on \texorpdfstring{$\C^3$}{C-3}}
 \label{subsec:chiral-rmatrix-e3-braiding}
 \index{R-matrix!chiral from E3 braiding@chiral from $E_3$ braiding}
 
@@ -1145,7 +1263,7 @@ For the 6d holomorphic theory on $\C^3$, the construction extends to produce a $
  \item \emph{Two-parameter extension.} Choosing a Wilson line along one direction of $\C^3$ leaves two transverse directions with independent spectral parameters $(u, v)$. The full $E_3$ $R$-matrix is $R_{\mathrm{ch}}(u, v)$.
 \end{enumerate}
 
-\begin{conjecture}[Chiral $R$-matrix from $E_3$ holomorphic braiding]
+\begin{conjecture}[Chiral \texorpdfstring{$R$}{R}-matrix from \texorpdfstring{$E_3$}{E-3} holomorphic braiding]
 \label{conj:chiral-rmatrix-e3-braiding}
 \ClaimStatusConjectured
 Let $\cF$ be the $E_3$-chiral factorization algebra on $\C^3$ from Conjecture~\ref{conj:topological-e3-comparison}, with Omega-background parameters $(h_1, h_2, h_3)$, $h_1 + h_2 + h_3 = 0$, and let $g(z) = \prod_{i=1}^{3} (z - h_i)/(z + h_i)$ be the Yangian structure function~\eqref{eq:yangian-structure-function}. The $R$-matrix from the holomorphic braiding on $\Conf_2(\C^3)$ has the following structure:
@@ -1197,7 +1315,7 @@ Higher dimension gives more spectral parameters (richer $R$-matrix data) at the 
 \noindent\textit{Verification}: 65 tests in \texttt{compute/lib/chiral\_rmatrix\_e3\_braiding.py}, covering configuration space topology, CY identities ($g(z)g(-z) = 1$, $g(0) = -1$, $g(\infty) \to 1$), Yang--Baxter equation for the charge-$2$ Yang $R$-matrix, $E_3$ inversion and Miki exchange, parametric tetrahedron at charge~$1$, dimensional consistency ($E_3 \to \Etwo$ projection), $S_3$ symmetry under parameter permutation, $K3$ Mukai lattice identities ($g_{K3}(0) = +1$, degree $(24,24)$, two-parameter inversion), and the rational limit of the trigonometric structure function.
 \end{remark}
 
-\subsection{Factorization homology on $\C^3$ and the chiral quantum group}
+\subsection{Factorization homology on \texorpdfstring{$\C^3$}{C-3} and the chiral quantum group}
 \label{subsec:fact-hom-c3}
 \label{subsec:qg-from-fh}
 
@@ -1207,7 +1325,7 @@ The factorization homology framework of Costello--Francis--Gwilliam computes the
 \]
 where $\cF$ is the local $E_3$-algebra of observables. For $M = \C^3$, the integral is expected to recover the quantum toroidal algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ (conditional on Conjecture~\ref{conj:topological-e3-comparison}). For $M = K3 \times E$ (the CY case), the integral should recover the BKM-related chiral algebra of Chapter~\ref{ch:k3-times-e}; this rests on the $\infty$-categorical CY-A$_3$ resolution (Theorem~\ref{thm:cy-to-chiral-d3} via Theorem~\ref{thm:phi-platonic} at $d = 3$) together with the 6d algebraic framework for compact manifolds.
 
-\begin{conjecture}[Factorization homology of $E_3$-chiral on $K3 \times E$]
+\begin{conjecture}[Factorization homology of \texorpdfstring{$E_3$}{E-3}-chiral on \texorpdfstring{$K3 \times E$}{K3 x E}]
 \label{conj:fact-hom-k3xe}
 \ClaimStatusConjectured
 The factorization homology $\int_{K3 \times E} \cF$ of the $E_3$-chiral factorization algebra $\cF$ on $K3 \times E$ computes:
@@ -1220,11 +1338,11 @@ The factorization homology $\int_{K3 \times E} \cF$ of the $E_3$-chiral factoriz
 
 \begin{remark}[What factorization homology adds]
 \label{rem:fact-hom-adds}
-Conjecture~\ref{conj:fact-hom-k3xe}(iii) provides the mathematical identity between the ``toroidal Kac--Moody enveloping chiral algebra on $E$'' (the target of the Costello programme) and the factorization homology of the $E_3$-chiral algebra over K3. The K3 surface plays the role of the \emph{integration domain}, not just a CY parameter: the K3 geometry is ``integrated out,'' and the result is a chiral algebra on $E$ that remembers the K3 data through the root datum and the \emph{expected} $\kappa_\bullet$-spectrum: manifold invariants $\kappa_{\mathrm{cat}} = 2 = \chi(\cO_{K3})$ and $\kappa_{\mathrm{fiber}} = 24$ are unconditional (topological, independent of algebraization); algebraization invariants $\kappa_{\mathrm{ch}} = 3$ and $\kappa_{\mathrm{BKM}} = 5$ rest on the $\infty$-categorical CY-A$_3$ resolution (Theorem~\ref{thm:cy-to-chiral-d3}).
+Conjecture~\ref{conj:fact-hom-k3xe}(iii) provides the mathematical identity between the ``toroidal Kac--Moody enveloping chiral algebra on $E$'' (the target of the Costello programme) and the factorization homology of the $E_3$-chiral algebra over K3. The K3 surface plays the role of the \emph{integration domain}, not just a CY parameter: the K3 geometry is ``integrated out,'' and the result is a chiral algebra on $E$ that remembers the K3 data through the root datum and the \emph{expected} $\kappa_\bullet$-spectrum: total-space manifold invariants $\kappa_{\mathrm{cat}}(K3 \times E) = \chi(\cO_{K3}) \cdot \chi(\cO_E) = 2 \cdot 0 = 0$ by K\"unneth (the K3-fibre value $\chi(\cO_{K3}) = 2$ is $\kappa_{\mathrm{cat}}(K3)$, not the total-space invariant) and $\kappa_{\mathrm{fiber}} = 24$ are unconditional (topological, independent of algebraization); algebraization invariants $\kappa_{\mathrm{ch}} = 3$ and $\kappa_{\mathrm{BKM}} = 5$ rest on the $\infty$-categorical CY-A$_3$ resolution (Theorem~\ref{thm:cy-to-chiral-d3}).
 \end{remark}
 
 
-\subsection{The Nekrasov partition function as $E_3$ factorization homology}
+\subsection{The Nekrasov partition function as \texorpdfstring{$E_3$}{E-3} factorization homology}
 \label{subsec:nekrasov-e3}
 
 The Nekrasov partition function of 4d $\cN = 2$ gauge theory in the $\Omega$-background provides the principal computational bridge between the $E_3$-chiral factorization algebra on $\C^3$ and the quantum toroidal algebra of \S\ref{subsec:fact-hom-c3}. The connection passes through the 6d $(2,0)$ theory compactified on $\C^2 \times C$ with $\Omega$-background parameters $(\varepsilon_1, \varepsilon_2)$ on $\C^2$ and a holomorphic direction along $C$: the resulting 5d holomorphic Chern--Simons theory on $\C^2 \times C$ carries the $E_3$-structure of Conjecture~\ref{conj:topological-e3-comparison}.
@@ -1306,7 +1424,7 @@ The quantum toroidal algebra $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ acts on the F
 \noindent\textbf{(5) Kontsevich--Soibelman wall-crossing from $E_3$ Koszul duality.}
 The Kontsevich--Soibelman wall-crossing formula for BPS invariants of a CY$_3$ category $\cC$ takes the form of a factorization of the motivic DT generating function across walls of marginal stability in $\mathrm{Stab}(\cC)$.
 
-\begin{conjecture}[Wall-crossing as $E_3$ Koszul degeneration]
+\begin{conjecture}[Wall-crossing as \texorpdfstring{$E_3$}{E-3} Koszul degeneration]
 \label{conj:ks-e3-koszul}
 \ClaimStatusConjectured
 Let $\cF$ be the $E_3$-chiral factorization algebra on $\C^3$ associated to the CY$_3$ category $\cC$, and let $B_{E_3}(\cF)$ be its $E_3$ bar complex (Conjecture~\ref{conj:e3-koszul-duality}).
@@ -1323,7 +1441,7 @@ Conjecture~\ref{conj:ks-e3-koszul} depends on Conjecture~\ref{conj:e3-koszul-dua
 \end{remark}
 
 
-\subsection{The $\Omega$-background as equivariant derived algebraic geometry}
+\subsection{The \texorpdfstring{$\Omega$}{Omega}-background as equivariant derived algebraic geometry}
 \label{subsec:omega-equivariant-dag}
 
 The $\Omega$-background on $\C^3$ with parameters $(\varepsilon_1, \varepsilon_2, \varepsilon_3)$ satisfying $\varepsilon_1 + \varepsilon_2 + \varepsilon_3 = 0$ is the $T$-equivariant geometry of the torus
@@ -1378,7 +1496,7 @@ The $\Etwo$-braiding degenerates to $\Eone$ (no braiding): the algebra becomes t
  E_3 \text{-chiral (quantum toroidal)} \xrightarrow{\varepsilon_3 = 0} \Etwo\text{-chiral (affine Yangian)} \xrightarrow{\varepsilon_2 = 0} \Eone\text{-chiral (Yangian, } g = 1\text{)}.
 \]
 
-\begin{remark}[Orthosymplectic super-Yangian $Y_{\osp(4 \mid 20)}$ from the Mukai lattice]
+\begin{remark}[Orthosymplectic super-Yangian \texorpdfstring{$Y_{\osp(4 \mid 20)}$}{Y-osp(4 mid 20)} from the Mukai lattice]
 \label{rem:super-yangian-mukai}
 The Mukai lattice of K3 has signature $(4, 20)$: four positive and twenty negative eigenvalues.  The Mukai form is an \emph{orthogonal} (symmetric indefinite) bilinear form, not a $\Z/2$-super-grading on $\Lambda_{\mathrm{Muk}}$, so the symmetry group of the defining representation is orthosymplectic, not general linear: $\fgl(m \mid n)$ has no invariant bilinear form in its defining representation, whereas the Mukai form forces the stabiliser into $\osp$.  Choice of a K\"ahler polarisation produces the orthogonal decomposition $\Lambda_{\mathrm{Muk}} \otimes \C = V_+ \oplus V_-$ with $\dim V_+ = 4$ and $\dim V_- = 20$; the orthosymplectic super-Lie algebra $\osp(4 \mid 20)$ is defined as the stabiliser of this polarised form, with
 \[
@@ -1395,7 +1513,7 @@ The CY-to-chiral correspondence $\Phi_3$ applied to $D^b(\mathrm{Coh}(\mathrm{K3
 
 \noindent\textit{Verification}: $64$ tests in \texttt{test\_omega\_equivariant\_derived.py}, including $11$ multi-path cross-checks against the \texttt{c3\_dt\_partition} engine and independent numerical computations.
 
-\section{Handle decomposition and the $E_\infty$ factorization homology of K3}
+\section{Handle decomposition and the \texorpdfstring{$E_\infty$}{E-inf} factorization homology of K3}
 \label{sec:handle-fh-k3}
 
 The preceding subsection computes $\int_M \cF$ on $\C^3$ and its equivariant specialisations.
@@ -1421,7 +1539,7 @@ The two-handles are attached along framed knots in $S^3 = \partial D^4$, with fr
 The Euler characteristic check: $\chi = 1 - 0 + 22 - 0 + 1 = 24$.
 \end{proposition}
 
-\subsection{$E_\infty$ factorization homology: $\int_{K3} H_1 = H_{\mathrm{Muk}}$}
+\subsection{\texorpdfstring{$E_\infty$}{E-inf} factorization homology: \texorpdfstring{$\int_{K3} H_1 = H_{\mathrm{Muk}}$}{int-K3 H-1 = H-Muk}}
 \label{subsec:einf-fh-k3}
 
 For an $E_\infty$ (commutative) algebra $A$ and a manifold $M$, the Ayala--Francis theorem gives
@@ -1430,7 +1548,7 @@ For an $E_\infty$ (commutative) algebra $A$ and a manifold $M$, the Ayala--Franc
 \end{equation}
 For K3 with Betti numbers $(b_0, b_1, b_2, b_3, b_4) = (1, 0, 22, 0, 1)$ and $\dim H_\bullet(K3; \Q) = 24$:
 
-\begin{proposition}[$E_\infty$ factorization homology of $H_1$ over K3]
+\begin{proposition}[\texorpdfstring{$E_\infty$}{E-inf} factorization homology of \texorpdfstring{$H_1$}{H-1} over K3]
 \label{prop:einf-fh-k3}
 \ClaimStatusProvedHere
 Let $H_1$ denote the rank-$1$ Heisenberg algebra (an $E_\infty$-algebra).
@@ -1494,7 +1612,7 @@ Final signature (at $r = 1$): $(4, 20)$ (Mukai).
 For $r = 1$: the three stages produce $1 \to 23 \to 24$, recovering the rank-$24$ Mukai Heisenberg.
 For higher rank $r$: the output $\int_{K3} H_r \simeq H_{24r}$ is a rank-$24r$ Heisenberg with pairing determined by $Q_{K3} \otimes \langle -,- \rangle_r$.
 
-\begin{remark}[Excision for $\Etwo$-algebras on K3]
+\begin{remark}[Excision for \texorpdfstring{$\Etwo$}{E2}-algebras on K3]
 \label{rem:excision-e2-k3}
 For an $\Etwo$-algebra $A$ (not $E_\infty$), the excision formula involves the $\Eone$-algebra $\int_{S^3 \times \R} A$ at each collar gluing, which is \emph{not} simply $A$ itself.
 The $S^3$ factor contributes nontrivially: $\int_{S^3} A$ for an $\Etwo$-algebra computes a version of the Hochschild homology of $A$.
@@ -1502,7 +1620,7 @@ The excision at each two-handle therefore involves a relative tensor product ove
 This is one of the subproblems in the FH route to the toroidal KM algebra.
 \end{remark}
 
-\subsection{Toroidal structure from $K3 \times E$}
+\subsection{Toroidal structure from \texorpdfstring{$K3 \times E$}{K3 x E}}
 \label{subsec:toroidal-from-k3xe}
 
 The factorization homology on $K3 \times E$ decomposes as a two-stage integral:
@@ -1665,7 +1783,7 @@ If $Y(\mathfrak{g}_{K3})$ exists as an $\Eone$-chiral algebra (CY-A$_2$ + quanti
 
 \noindent\textit{Verification}: $78$ tests in \texttt{chiral\_homology\_ran\_k3.py} covering vacuum block ($\bP^1$, $\dim = 1$), torus character ($1/\eta^{24}$ matching G\"ottsche numbers through $p_{24}(6)$), genus-$g$ blocks (all dimensions~$1$), Ran space equivalence (Lurie), factorization under degeneration (Euler characteristic, pants decomposition, moduli dimension), Verlinde comparison ($k+1$ vs~$1$), Yangian conjectural status, $\kappa_\bullet$-spectrum with explicit subscripts, and cross-engine consistency with \texttt{k3\_factorization\_homology.py} and \texttt{drinfeld\_center\_k3\_heisenberg.py}.
 
-\begin{remark}[Explicit Ran space correlators for $H_{\mathrm{Muk}}$]
+\begin{remark}[Explicit Ran space correlators for \texorpdfstring{$H_{\mathrm{Muk}}$}{H-Muk}]
 \label{rem:ran-correlators-explicit}
 The abstract chiral homology of~(1)--(5) above admits a fully explicit correlator-level description via the Wick theorem.  For the Mukai Heisenberg $H_{\mathrm{Muk}}$ (rank~$24$, $c = 24$), the $n$-point function on $\bP^1$ is:
 \begin{equation}\label{eq:ran-n-point-wick}
@@ -1731,7 +1849,7 @@ At each handle attachment, the collar algebra $\int_{S^{k-1} \times \R} \cA$ pla
 
 For $\Etwo$-algebras (not $E_\infty$), the state space at each $S^1 \times \R$ collar is the Hochschild homology $\HH_\bullet(\cA)$, which carries the quantum group braiding data. The intersection form $Q_{K3}$ encodes the attaching framings of the $22$ two-handles in the Kirby diagram: $Q_{K3} = 3U \oplus 2E_8(-1)$ (signature $(3, 19)$, even, unimodular).
 
-\begin{remark}[Extension to CY$_3$: symplectic gluing]
+\begin{remark}[Extension to CY\texorpdfstring{$_3$}{-3}: symplectic gluing]
 \label{rem:cy3-handle-extension}
 For a CY$_3$ $6$-manifold $X$, the handle decomposition involves three-handles as the dominant feature. The collar at each three-handle is $S^2 \times \R$, and the gluing data is the \emph{symplectic form} on $H^3(X, \Z)$ (skew-symmetric, from the cup product on odd-degree cohomology). For the quintic ($b_3 = 204$): $204$ three-handles, glued via $\Sp(204, \Z)$. For $K3 \times E$ ($b_3 = 44$): $44$ three-handles, with $\Sp(44, \Z)$ gluing. \textbf{Status:} conjectural.
 \end{remark}
@@ -1744,7 +1862,7 @@ The handle decomposition ($1 + 22 + 1$ handles) and the Kummer orbifold-resoluti
 \noindent\textit{Verification}: $176$ tests in \texttt{handle\_decomposition\_fh.py} covering handle decomposition Euler characteristics for K3, quintic, $K3 \times E$, $T^6$, $S^2 \times S^2$, $\bC\bP^2$, and Enriques ($7$ manifolds); K3 iterative excision (rank~$24$, Mukai signature~$(4, 20)$); the CFG25 analogy table ($3$ dimensions, $\mathrm{cs\_dim} = 2 \cdot \mathrm{cy\_dim} + 1$); collar algebra ranks at each handle attachment; Kirby diagram data (even, unimodular, $3U + 2E_8(-1)$); handle vs.\ Kummer route agreement (rank, signature, lattice, character); quintic CY$_3$ ($b_3 = 204$, symplectic genus~$102$); K\"unneth formula for $K3 \times E$ (Betti~$(1,2,23,44,23,2,1)$, $\chi = 0$); $\chi_y$ genus ($\kappa_{\mathrm{cat}} = 2$); and AP compliance (CY$_3$ claims conjectural).
 
 
-\section{The $\En$-chiral Koszul duality cascade}
+\section{The \texorpdfstring{$\En$}{E-n}-chiral Koszul duality cascade}
 \label{sec:en-koszul-cascade}
 
 The preceding sections establish $\Eone$-chiral Koszul duality (Vol~II, proved), $\Etwo$-chiral Koszul duality (Conjecture~\ref{conj:e2-koszul}, proved for the Heisenberg in Theorem~\ref{thm:e2-koszul-heisenberg}), and $E_3$-chiral Koszul duality (Conjecture~\ref{conj:e3-koszul-duality}, proved for the Heisenberg in Theorem~\ref{thm:e3-koszul-heisenberg} and at the cohomological level for the affine Yangian in Theorem~\ref{thm:e3-koszul-yangian}). This section assembles the three levels into a single framework: the \emph{$\En$-chiral Koszul duality cascade}.
@@ -1806,7 +1924,7 @@ The proof of $\En$-chiral Koszul duality requires two ingredients: (a)~the $\En$
  \item \textbf{$E_3$: tricomplex compatibility.} The $E_3$ bar-cobar adjunction requires three mutually commuting differentials $d_1, d_2, d_3$ on $B_{E_3}(A)$, assembled into a tricomplex. The obstruction is triple: (a)~pairwise commutativity $[d_i, d_j] = 0$ (which is automatic from the $E_3$ operad structure); (b)~the cobar functor $\Omega_{E_3}$ must preserve the triple grading; (c)~the Verdier duality $D_{\C^3}$ must invert all three deformation parameters simultaneously. For the Heisenberg, (a)--(c) hold trivially because all differentials vanish (Theorem~\ref{thm:e3-koszul-heisenberg}). For nonabelian algebras (class $\geq L$), the compatibility of $D_{\C^3}$ with the nonvanishing differentials is resolved by the Verdier spectral functor theorem (Theorem~\ref{thm:verdier-spectral-functor}): exactness of $D_{\C^3}$ on tricomplexes ensures $E_r(A) \simeq E_r(A^!)$ at every spectral sequence page, closing the class~$M$ gap (Theorem~\ref{thm:cy-b-d3}).
 \end{enumerate}
 
-\begin{conjecture}[$\En$-chiral Koszul duality cascade]
+\begin{conjecture}[\texorpdfstring{$\En$}{E-n}-chiral Koszul duality cascade]
 \label{conj:en-koszul-cascade}
 \ClaimStatusConjectured
 For each $n \geq 1$ and each $\En$-chiral algebra $A$ on $\C^n$ satisfying a Koszulness condition (generalizing the quadratic-linear condition of Vol~I), the $\En$ bar-cobar adjunction $\Omega_{\En} \circ B_{\En} \simeq \mathrm{id}$ gives an $\En$-equivariant equivalence
@@ -1845,13 +1963,13 @@ Dunn additivity $\En \simeq \Eone^{\otimes n}$ suggests that $\En$ Koszul dualit
 
 The $\En$-chiral Koszul duality cascade of the preceding section organizes the Koszul duality data at each $\En$ level. A more fundamental question is: \emph{how does one promote from $\En$ to $E_{n+1}$?} Two candidate mechanisms exist: the categorical Drinfeld center $\cZ(\cC)$, and the algebraic derived center $\HH^\bullet(B, B)$. They agree at the first step ($\Eone \to \Etwo$) and diverge thereafter. This section computes both mechanisms explicitly for the affine Yangian, identifies the three $\Eone$-factors of the Dunn decomposition $E_3 \simeq \Eone^{\otimes 3}$ with geometric directions in $\C^3$, and proves that the cascade terminates at $E_3$ for CY-geometric inputs.
 
-\begin{warning}[Three distinct ``center'' operations]
-\label{warn:higher-deligne-three-centers}
+\begin{remark}[Three distinct ``center'' operations]
+\label{rem:higher-deligne-three-centers}
 The Drinfeld center $\cZ(\cC)$ (Definition~\ref{def:drinfeld-center}) and the derived center $\HH^\bullet(B,B)$ (Remark~\ref{rem:deligne-hochschild}) are \emph{distinct} operations. See Remark~\ref{rem:three-centers-sharp} for the precise comparison. Every statement in this section specifies which center is meant.
-\end{warning}
+\end{remark}
 
 
-\subsection{Step 1: $\Eone \to \Etwo$ via derived center (Deligne conjecture)}
+\subsection{Step 1: \texorpdfstring{$\Eone \to \Etwo$}{E1 -> E2} via derived center (Deligne conjecture)}
 \label{subsec:step1-e1-to-e2}
 
 For an $\Eone$-algebra $A$, the Hochschild cochain complex $\HH^\bullet(A, A) = \RHom_{A \otimes A^{\op}}(A, A)$ carries a canonical $\Etwo$-algebra structure by the Deligne conjecture (Kontsevich--Soibelman, Tamarkin, McClure--Smith, Berger--Fresse; see Remark~\ref{rem:deligne-hochschild}). This is the \emph{derived center} promotion $\Eone \to \Etwo$.
@@ -1879,12 +1997,12 @@ The identification $Y^+ \to Y$ via the Drinfeld double is due to Schiffmann--Vas
 \end{proof}
 
 
-\subsection{Step 2: $\Etwo \to E_3$ via derived center (higher Deligne)}
+\subsection{Step 2: \texorpdfstring{$\Etwo \to E_3$}{E2 -> E-3} via derived center (higher Deligne)}
 \label{subsec:step2-e2-to-e3}
 
 The higher Deligne conjecture (Lurie, \emph{Higher Algebra}~\cite{LurieHA}, Theorem~5.3.1.30) states: for an $\En$-algebra $B$, the Hochschild cochains $\HH^\bullet(B, B)$ carry a canonical $E_{n+1}$-algebra structure. Applied at $n = 2$: for an $\Etwo$-algebra $B$, the derived center $\HH^\bullet(B, B)$ is an $E_3$-algebra.
 
-\begin{proposition}[$E_3$-structure on $\HH^\bullet(Y, Y)$]
+\begin{proposition}[\texorpdfstring{$E_3$}{E-3}-structure on \texorpdfstring{$\HH^\bullet(Y, Y)$}{HH-.(Y, Y)}]
 \label{prop:higher-deligne-step2}
 \ClaimStatusConditional{}
 \textup{(the $\Etwo$-algebra structure on $Y(\widehat{\fgl}_1)$ is Proposition~\ref{prop:higher-deligne-step1}; the $E_3$-promotion depends on the higher Deligne conjecture, proved by Lurie)}
@@ -1905,12 +2023,12 @@ The $E_3$-structure on $\HH^\bullet(B, B)$ depends on the operadic level of $B$:
 \end{remark}
 
 
-\subsection{Divergence: iterated Drinfeld center $\neq$ $E_3$}
+\subsection{Divergence: iterated Drinfeld center \texorpdfstring{$\neq$}{!=} \texorpdfstring{$E_3$}{E-3}}
 \label{subsec:drinfeld-divergence}
 
 The categorical and algebraic centers \emph{diverge} at Step~2. The iterated Drinfeld center does not produce $E_3$.
 
-\begin{proposition}[Iterated Drinfeld center is $\Etwo$-doubling]
+\begin{proposition}[Iterated Drinfeld center is \texorpdfstring{$\Etwo$}{E2}-doubling]
 \label{prop:iterated-drinfeld-doubling}
 \ClaimStatusProvedElsewhere{}
 \textup{(Etingof--Gelaki--Nikshych--Ostrik; M\"uger)}
@@ -1921,7 +2039,7 @@ Let $\cB$ be a braided monoidal category. Then the Drinfeld center of $\cB$ (for
 the Deligne product of $\cB$ with the reverse-braided category $\cB^{\mathrm{rev}}$. This is an $\Etwo$-\emph{doubling}, not an $E_3$-promotion: $\cB \boxtimes \cB^{\mathrm{rev}}$ is braided monoidal (hence $\Etwo$) but carries no $E_3$-structure.
 \end{proposition}
 
-\begin{corollary}[The derived center is the unique $\En$-promotion mechanism]
+\begin{corollary}[The derived center is the unique \texorpdfstring{$\En$}{E-n}-promotion mechanism]
 \label{cor:derived-center-unique}
 \ClaimStatusProvedHere{}
 For the cascade $\Eone \to \Etwo \to E_3$ of the CY-to-chiral programme:
@@ -1937,7 +2055,7 @@ Part~(i) is the BZFN theorem. Part~(ii) follows from Proposition~\ref{prop:itera
 \end{proof}
 
 
-\subsection{The Dunn decomposition: three $\Eone$-factors of the quantum toroidal algebra}
+\subsection{The Dunn decomposition: three \texorpdfstring{$\Eone$}{E1}-factors of the quantum toroidal algebra}
 \label{subsec:dunn-three-factors}
 
 By Dunn additivity $E_3 \simeq \Eone \otimes_{E_0} \Eone \otimes_{E_0} \Eone$, the $E_3$-algebra structure on $U_{q,t}(\widehat{\widehat{\fgl}}_1)$ decomposes into three $\Eone$-factors. Each factor corresponds to a complex direction in $\C^3$ and a specific algebraic operation on the quantum toroidal algebra:
@@ -1964,7 +2082,7 @@ The Dunn decomposition $E_3 \simeq \Eone^{\otimes 3}$ and the derived center pro
 \end{remark}
 
 
-\subsection{Cascade termination at $E_3$}
+\subsection{Cascade termination at \texorpdfstring{$E_3$}{E-3}}
 \label{subsec:cascade-termination-proof}
 
 The algebraic derived center cascade is unbounded: for any $\En$-algebra $C$, the higher Deligne conjecture produces an $E_{n+1}$-algebra $\HH^\bullet(C, C)$. The CY-geometric constraint, however, terminates the cascade at $E_3$.
@@ -2016,7 +2134,7 @@ All paths terminate at $E_3$.
 \noindent\textit{Verification}: $82$ tests in \texttt{test\_higher\_deligne\_cascade.py}.
 
 
-\subsection{$E_3$ Hochschild cohomology as deformation theory}
+\subsection{\texorpdfstring{$E_3$}{E-3} Hochschild cohomology as deformation theory}
 \label{subsec:e3-hochschild-deformation-theory}
 
 The cascade terminates at $E_3$. The \emph{deformation
@@ -2024,7 +2142,7 @@ theory} controlled by $\HH^\bullet_{E_3}(A, A)$ is the $6$d holomorphic
 analogue of the Costello--Francis--Gwilliam deformation quantisation of
 $3$d Chern--Simons.
 
-\begin{conjecture}[$E_3$ Hochschild tricomplex and deformation quantisation]
+\begin{conjecture}[\texorpdfstring{$E_3$}{E-3} Hochschild tricomplex and deformation quantisation]
 \label{conj:e3-hochschild-deformation}
 \ClaimStatusConjectured
 Let $A$ be a chiral algebra arising from $6$d holomorphic theory on $\C^3$
@@ -2114,12 +2232,12 @@ cross-class comparison (Heisenberg $n = 1$, Yangian $n = 3$, Virasoro $n = 1$,
 Mukai Heisenberg $n = 24$), and AP compliance checks.
 
 
-\section{Configuration space integrals on $\C^3$ and the perturbative partition function}
+\section{Configuration space integrals on \texorpdfstring{$\C^3$}{C-3} and the perturbative partition function}
 \label{sec:config-space-c3}
 
 The perturbative partition function of $6$d holomorphic Chern--Simons on $\C^3$ is a sum over Feynman diagrams whose individual contributions are integrals over configuration spaces $\Conf_n(\C^3) = \{(z_1, \ldots, z_n) \in (\C^3)^n : z_i \neq z_j\}$.  The $E_3$ operad organises these integrals via the framed little $3$-disks action.  This is the $\C^3$ analogue of the Costello--Francis--Gwilliam perturbative Chern--Simons construction, where the partition function on $\R^3$ is a sum over integrals on $\Conf_n(\R^3)$.
 
-\subsection{Topology of $\Conf_n(\C^3)$}
+\subsection{Topology of \texorpdfstring{$\Conf_n(\C^3)$}{Conf-n(C-3)}}
 \label{subsec:conf-topology-c3}
 
 The configuration space $\Conf_n(\C^d)$ is an open submanifold of $(\C^d)^n = \R^{2dn}$, hence a smooth manifold of real dimension $2dn$.  For $d = 3$: $\dim_\R \Conf_n(\C^3) = 6n$.
@@ -2134,7 +2252,7 @@ The diagonal $\Delta_{ij} \subset \C^d \times \C^d$ has real codimension $2d$, a
 \]
 For $d = 3$: the topological braiding is \emph{trivial} ($\pi_1(S^5) = 0$).  The nontrivial $E_3$ braiding for the $6$d theory on $\C^3$ arises from the $\Omega$-background deformation $(h_1, h_2, h_3)$, not from the topology of $\Conf_2(\C^3)$ (this is the topological $E_3$ of Conjecture~\ref{conj:topological-e3-comparison}, not the algebraic $E_3$ from the Deligne conjecture).
 
-\begin{proposition}[Cohomology of $\Conf_n(\C^d)$]
+\begin{proposition}[Cohomology of \texorpdfstring{$\Conf_n(\C^d)$}{Conf-n(C-d)}]
 \label{prop:cohomology-conf-n-cd}
 \ClaimStatusProvedElsewhere
 The rational cohomology algebra $H^*(\Conf_n(\C^d); \Q)$ has Poincar\'{e} polynomial
@@ -2172,7 +2290,7 @@ The configuration space $\Conf_n(\C^d)$ is \emph{formal} over $\Q$ for all $d \g
 \end{remark}
 
 
-\subsection{Propagators and Feynman rules on $\C^3$}
+\subsection{Propagators and Feynman rules on \texorpdfstring{$\C^3$}{C-3}}
 \label{subsec:propagators-c3}
 
 The holomorphic Chern--Simons propagator on $\C^3$ is determined by the holomorphic volume form $\Omega = dz_1 \wedge dz_2 \wedge dz_3$ and the $\bar{\partial}$-inverse on $\C^3$.  For each pair of points $(z_i, z_j)$ in $\Conf_n(\C^3)$ with spectral parameter difference $u = u_i - u_j$:
@@ -2193,7 +2311,7 @@ The holomorphic Chern--Simons propagator on $\C^3$ is determined by the holomorp
 \end{enumerate}
 
 
-\subsection{Feynman integrals on $\Conf_n(\C^3)$}
+\subsection{Feynman integrals on \texorpdfstring{$\Conf_n(\C^3)$}{Conf-n(C-3)}}
 \label{subsec:feynman-conf-c3}
 
 The $n$-point Feynman integral on $\C^3$ is $I_n = \int_{\Conf_n(\C^3)} \prod_{\mathrm{edges}} P_{ij}$, where the product runs over the edges of the Feynman graph.  For the abelian gauge algebra $\fgl_1$ (no cubic vertex), the relevant diagrams are:
@@ -2225,7 +2343,7 @@ With two spectral parameters, the $3$-particle integral is:
 This is a product of $9$ rational structure functions, encoding the full $E_3$ factorisation into three $\Eone$-factors (one per complex direction, by Dunn additivity $E_3 \simeq \Eone^{\otimes 3}$).
 
 
-\subsection{The Fulton--MacPherson compactification of $\Conf_n(\C^3)$}
+\subsection{The Fulton--MacPherson compactification of \texorpdfstring{$\Conf_n(\C^3)$}{Conf-n(C-3)}}
 \label{subsec:fm-c3}
 
 The Fulton--MacPherson compactification $\mathrm{FM}_n(\C^3)$ is a smooth manifold with corners that compactifies $\Conf_n(\C^3)$.  The codimension-$1$ boundary strata are indexed by subsets $S \subseteq \{1, \ldots, n\}$ of size $|S| \geq 2$ (the ``collision screens''), giving $2^n - n - 1$ codimension-$1$ strata.  For $n = 3$: four strata (three pairwise collisions $\{12\}, \{13\}, \{23\}$ and one triple collision $\{123\}$).
@@ -2251,7 +2369,7 @@ At tree level ($\sigma_3 = 0$, the self-dual point), the $E_3$ structure degener
 counting $3$D partitions (plane partitions).  At generic $\sigma_3 \neq 0$, the perturbative corrections deform the MacMahon function by the $\Omega$-background, and the full partition function recovers the quantum toroidal Fock space character (conditional on Conjecture~\ref{conj:topological-e3-comparison}).
 
 
-\subsection{Comparison: $\R^3$ (Chern--Simons) vs $\C^3$ (holomorphic Chern--Simons)}
+\subsection{Comparison: \texorpdfstring{$\R^3$}{R-3} (Chern--Simons) vs \texorpdfstring{$\C^3$}{C-3} (holomorphic Chern--Simons)}
 \label{subsec:r3-vs-c3}
 
 The $\R^3$ and $\C^3$ constructions share the same operadic framework ($E_3$) but differ in geometric content.
@@ -2284,7 +2402,7 @@ The key structural parallel: in both cases, $\pi_1(\Conf_2) = 0$, so the topolog
 \section{Stratified factorization homology and chiral knot invariants}
 \label{sec:stratified-fh-chiral}
 
-The preceding sections compute $\int_M \cF$ where $M$ is a smooth manifold and $\cF$ is an $\En$-chiral factorization algebra. Ayala--Francis--Tanaka (arXiv:1706.09912) extend factorization homology to \emph{stratified} manifolds: given a manifold $M$ with a stratification by a closed subspace $S \subset M$, the integral $\int_{M \setminus S} \cF$ produces invariants of the pair $(M, S)$. In the classical setting of Chern--Simons theory (CFG25), $M = \R^3$, $S = L$ is a framed link, and $\int_{\R^3 \setminus L} \Obs^q$ produces link invariants (colored Jones, HOMFLY-PT). This section develops the holomorphic chiral analogue: $M = \C^3$, $S = C$ is a holomorphic curve (an algebraic knot), and $\int_{\C^3 \setminus C} \cF_{\mathrm{ch}}$ produces \emph{chiral knot invariants}.
+Factorization homology $\int_M \cF$ for a smooth manifold $M$ and $\En$-chiral factorization algebra $\cF$ is extended to \emph{stratified} manifolds by Ayala--Francis--Tanaka (arXiv:1706.09912): for a manifold $M$ stratified by a closed subspace $S \subset M$, the integral $\int_{M \setminus S} \cF$ produces invariants of the pair $(M, S)$. In Chern--Simons theory, $M = \R^3$, $S = L$ is a framed link, and $\int_{\R^3 \setminus L} \Obs^q$ produces link invariants (colored Jones, HOMFLY-PT). The holomorphic chiral analogue sets $M = \C^3$, $S = C$ a holomorphic curve (an algebraic knot), and produces \emph{chiral knot invariants} $\int_{\C^3 \setminus C} \cF_{\mathrm{ch}}$ from the stage-1 $E_3$-holomorphic factorisation algebra $\PhiFA_3(\cC)$ on $\C^3$.
 
 \subsection{Stratification by holomorphic curves}
 \label{subsec:strat-hol-curves}
@@ -2440,7 +2558,7 @@ These identifications are all conditional on Conjecture~\ref{conj:chiral-rt-iden
 
 The chiral torus knot invariant $Z_{p,q}$ of Conjecture~\ref{conj:chiral-knot-invariant} is a \emph{number} (or formal series).  The categorification replaces it with a \emph{graded vector space} $\mathrm{CKh}_{p,q}$ whose Euler characteristic recovers $Z_{p,q}^{\mathrm{reg}}$, analogous to the passage from the Jones polynomial to Khovanov homology in $3$d.
 
-\subsubsection{The $T(2,n)$ family}
+\subsubsection{The \texorpdfstring{$T(2,n)$}{T(2,n)} family}
 
 For the two-strand torus knots $T(2, 2k+1)$ with $k \geq 1$, the interior lattice points of the Newton polygon of $z_1^2 - z_2^{2k+1}$ are
 \[
@@ -2506,19 +2624,19 @@ The Jones polynomial of $T(2, 2k+1)$ has breadth $2k = 2g$.  The Poincar\'{e} po
 
 \begin{remark}[Mukai lattice grading and the K3 Yangian]
 \label{rem:mukai-grading-knots}
-The Mukai weight grading~$j$ on $\mathrm{CKh}_{2,n}$ is the shadow of the $24$-dimensional Mukai lattice grading from the K3 Yangian $Y(\fg_{K3})$ of~\S\ref{sec:k3-yangian}.  In the CY$_3$ reduction to $3$~parameters $h_1, h_2, h_3$, the Mukai weight is a vector in $\Z^3$; for the full K3 Yangian, it lives in the Mukai lattice $\Lambda_{\mathrm{Muk}} = U^3 \oplus E_8(-1)^2$ of signature $(4, 20)$.  The grading is by the Mukai lattice because the structure function $g(z) = \prod_{i=1}^{24}(z - h_i)/(z + h_i)$ factors over the $24$ lattice directions, and the categorified state records the subset of directions that are ``excited'' at each Newton polygon point.
+The Mukai weight grading~$j$ on $\mathrm{CKh}_{2,n}$ is the shadow of the $24$-dimensional Mukai lattice grading from the K3 Yangian $Y(\fg_{K3})$ of~Chapter~\ref{ch:k3-yangian}.  In the CY$_3$ reduction to $3$~parameters $h_1, h_2, h_3$, the Mukai weight is a vector in $\Z^3$; for the full K3 Yangian, it lives in the Mukai lattice $\Lambda_{\mathrm{Muk}} = U^3 \oplus E_8(-1)^2$ of signature $(4, 20)$.  The grading is by the Mukai lattice because the structure function $g(z) = \prod_{i=1}^{24}(z - h_i)/(z + h_i)$ factors over the $24$ lattice directions, and the categorified state records the subset of directions that are ``excited'' at each Newton polygon point.
 \end{remark}
 
 \medskip
 \noindent\textit{Verification}: $166$ tests in \texttt{test\_chiral\_khovanov\_torus\_knots.py}, covering Newton polygon combinatorics ($T(2,n)$ interior points via Pick's theorem for $n = 3, 5, \ldots, 19$), genus and Milnor number ($7$~families), universal $(1,1)$ divergence ($7$~knots), residue regularization (explicit computation, finiteness, product decomposition), categorified graded dimensions ($(1+t)^g$ pattern for $6$~knots), Euler characteristic vanishing, bigraded Betti numbers, Mukai lattice grading, Jones polynomial breadth consistency, one-loop correction, and cross-engine consistency with \texttt{stratified\_en\_fh\_chiral.py} (genus, Milnor number, interior points, structure function $g(z)$, CY inversion) and multi-path verification (state enumeration vs.\ closed-form, Poincar\'{e} polynomial from graded dims vs.\ $(1+t)^g$, residue via algebraic formula vs.\ numerical limit, bigraded Betti sums vs.\ total dimension).
 
 
-\section{Chiral homology on stratified real $3$-manifolds}
+\section{Chiral homology on stratified real \texorpdfstring{$3$}{3}-manifolds}
 \label{sec:chiral-homology-3folds}
 
 The preceding sections develop stratified factorization homology on $\C^3$ (a complex $3$-fold).  This section addresses the complementary question: the chiral homology on \emph{real} $3$-manifolds, the natural setting for the CFG25 link invariants and the $S^3$-framing data required for CY-A$_3$.
 
-\subsection{The three real subsectors of $\C^3$}
+\subsection{The three real subsectors of \texorpdfstring{$\C^3$}{C-3}}
 \label{subsec:three-real-subsectors}
 
 Inside $\C^3 = \R^6$, three distinguished real $3$-dimensional submanifolds carry different sectors of the $6$d holomorphic theory:
@@ -2547,7 +2665,7 @@ Inside $\C^3 = \R^6$, three distinguished real $3$-dimensional submanifolds carr
 
 \noindent The distinction between the topological $E_3$ on $\R^3$ and the chain-level $E_3$ on $S^3$ is the algebraic-vs-topological $E_3$ split: formality collapses the chain-level structure to the rational/topological one, but the physical content (Miki automorphism, $S^3$-framing data) lives at the chain level.
 
-\subsection{Factorization homology on $S^3$: the CY-A$_3$ framing}
+\subsection{Factorization homology on \texorpdfstring{$S^3$}{S-3}: the CY-A\texorpdfstring{$_3$}{-3} framing}
 \label{subsec:fh-s3-framing}
 \label{subsec:s3-framing-programme}
 
@@ -2581,7 +2699,7 @@ Over $\Q$, the $\Z_p$-invariants of $H_\bullet(S^3)$ are $H_\bullet(S^3)$ itself
 
 For the chiral $E_3$-algebra from $6$d hCS, the $\Z_p$~action produces $p-1$ \emph{twisted sectors}. At the $k$-th sector, the effective quantum group parameter specialises to a $p$-th root of unity: $q_{\mathrm{eff}} = q \cdot e^{2\pi i k/p}$. This connects to the Kazhdan--Lusztig theory.
 
-\begin{remark}[Kummer connection: $L(2,1) = \R\bP^3$]
+\begin{remark}[Kummer connection: \texorpdfstring{$L(2,1) = \R\bP^3$}{L(2,1) = RP-3}]
 \label{rem:lens-kummer-connection}
 The lens space $L(2,1) = \R\bP^3$ is the linking lens space at each $A_1$~singularity of the Kummer surface $\mathrm{Km}(T^4) = T^4/\Z_2$.  Each of the $16$ fixed points of $T^4/\Z_2$ contributes one untwisted sector and one twisted sector (conformal weight $h = \tfrac{1}{2}$).  The total twisted contribution of $16$ states at $h = \tfrac{1}{2}$ is the origin of the $16 \to 32$ blowup in the Kummer route (Proposition~\ref{prop:kummer-orbifold}, Step~3).
 \end{remark}
@@ -2612,7 +2730,7 @@ where the tensor product is over the boundary torus algebras $\int_{T^2 \times \
 
 \noindent The surgery linking matrix $L_{ij}$ (framing on the diagonal, linking numbers off-diagonal) encodes the gluing data; its signature is the signature of the bounding $4$-manifold.
 
-\subsection{Product $3$-manifolds: $\Sigma_g \times S^1 = \mathrm{trace}$}
+\subsection{Product \texorpdfstring{$3$}{3}-manifolds: \texorpdfstring{$\Sigma_g \times S^1 = \mathrm{trace}$}{Sigma-g x S-1 = trace}}
 \label{subsec:product-3folds-trace}
 
 For a product $3$-manifold $\Sigma_g \times S^1$, the factorization homology decomposes:
@@ -2633,7 +2751,7 @@ where the inner integral is the space of conformal blocks and the outer $S^1$ in
 
 \noindent The Betti numbers of $\Sigma_g \times S^1$ are $(1, 2g+1, 2g+1, 1)$ by K\"unneth, giving $\chi = 0$ (as required for all closed oriented $3$-manifolds by Poincar\'e duality).
 
-\subsection{$E_3$ bar cohomology on $3$-manifolds by shadow class}
+\subsection{\texorpdfstring{$E_3$}{E-3} bar cohomology on \texorpdfstring{$3$}{3}-manifolds by shadow class}
 \label{subsec:e3-bar-3folds}
 
 The $E_3$ bar cohomology of a chiral algebra $A$ on a $3$-manifold $M$ depends on both the Heegaard genus $g$ of $M$ and the shadow class of $A$, following the pattern of
@@ -2668,7 +2786,7 @@ The structures of $3$d Chern--Simons theory that do \emph{not} lift to the $6$d 
 \noindent Quantitatively, the aggregate lift fraction across all $8$ categories is below $30\%$: of $41$ generating structures in $3$d knot theory, quantum topology, and conformal field theory, only $10$ survive the passage to $6$d. The cross-obstruction interaction matrix has approximate block-diagonal structure (the three types interact weakly across blocks but strongly within), and the critical resolution path begins with the finite-dimensionality obstruction (which has the highest synergy with other obstructions, particularly the RT functor). Computed in \texttt{3d\_6d\_obstruction\_catalogue.py} ($99$~tests).
 \end{remark}
 
-\begin{conjecture}[Chiral homology on stratified $3$-folds]
+\begin{conjecture}[Chiral homology on stratified \texorpdfstring{$3$}{3}-folds]
 \label{conj:chiral-homology-3folds}
 \ClaimStatusConjectured
 For the $E_3$-chiral algebra $\cF_{\mathrm{ch}}$ from $6$d holomorphic Chern--Simons on $\C^3$, restricted to a stratified real $3$-manifold $(M^3, L)$ with framed link $L = K_1 \cup \cdots \cup K_r$:
@@ -2685,7 +2803,7 @@ This conjecture proceeds via the $\infty$-categorical CY-A$_3$ resolution (Theor
 \medskip
 \noindent\textit{Verification}: $124$ tests in \texttt{test\_chiral\_homology\_3folds.py}, covering $3$-manifold topology ($8$ manifolds, Poincar\'e duality, $\chi = 0$, Heegaard genera, Betti numbers by K\"unneth); $E_\infty$ factorization homology ranks (S$^3$: rank~$2$; $T^3$: rank~$8$; $H_{\mathrm{Muk}}$ on $S^3$: rank~$48$; lens spaces: rank~$2$ for $6$ values of~$p$; $\Sigma_g \times S^1$: rank~$4g+4$); Heegaard decomposition (genus, block dimensions, Verlinde for $\mathrm{su}(2)_k$); surgery presentations ($S^3$, $L(p,1)$, $S^2 \times S^1$, Poincar\'e sphere); the three real subsectors of $\C^3$ (dimension~$3$, $E_n$ levels, claim status); $S^3$ chiral homology (Hopf fibration $S^1 \hookrightarrow S^3 \twoheadrightarrow S^2$ decomposition per Proposition~\ref{prop:hopf-fibration-decomposition}, not the $\mathbb{S}^4 = \mathbb{S}^2 \times \mathbb{S}^2$ framing-K\"unneth shorthand; obstruction class, $E_\infty$ graded ranks); lens space orbifold structure ($p-1$ twisted sectors, root-of-unity phases, Kummer connection for $L(2,1) = \R\bP^3$ with $16$~singularities); product manifolds ($1/\eta^{24}$ character at $g = 1$ with G\"ottsche coefficients through $p_{24}(6) = 1{,}073{,}720$, $q$-expansion convergence); $E_3$ bar cohomology by shadow class ($P(q)^{3g}$ for class~$G$ (formal, infinite); $(1+t)^{3g}$ for classes $L$, $C$; $6^g$ for class~$M$; $T^3$ polynomial $(1+t)^9$ with $2^9 = 512$ for class~$L$); link invariants (unknot, Hopf link CY inversion at $7$~spectral parameters including complex, topological limit); cross-engine consistency ($S^3$ rank vs.\ \texttt{handle\_decomposition\_fh.py}, $T^3$ Betti vs.\ $\binom{3}{k}$, Kummer $16$~singularities, G\"ottsche $p_{24}(n)$ by direct power series); and convention discipline ($S^3$ conjectural, class~$M$ is $6^g$ not $(1+t)^{3g}$ (reorganisation not bypass), explicit $\kappa_\bullet$ subscripts, algebraic-vs-topological $E_3$ structures distinguished).
 
-\section{The K3 chiral bialgebra as bi-based $E_n$ factorisation}
+\section{The K3 chiral bialgebra as bi-based \texorpdfstring{$E_n$}{E-n} factorisation}
 \label{sec:en-fact-K3-bibased}
 
 \begin{remark}[K3 chiral bialgebra as bi-based factorisation]
@@ -2693,7 +2811,7 @@ This conjecture proceeds via the $\infty$-categorical CY-A$_3$ resolution (Theor
 The platonic K3 chiral bialgebra $\mathbf{H}_{\Delta_5}$ of Chapter~\ref{ch:k3-chiral-bialgebra-platonic} is a bi-based factorisation algebra: on the chiral base $\mathrm{Ran}(E^{\mathrm{nod,sm}}_{24})$ with Beilinson--Drinfeld chiral bracket on the smooth locus of the $24$-node discriminant curve and nearby-cycles $\mathcal{D}$-modules at each node; on the parameter base $\overline{\mathcal{A}_2}$ with Francis--Gaitsgory factorisation $\infty$-category. This is the $d=3$ specialisation of the $E_n$-factorisation framework where $n$ varies with stratum: $E_1$ on the generic smooth locus of the chiral base, $E_2$ on parameter-base $\overline{\mathcal{A}_2}$ via the Drinfeld centre of $\mathrm{Rep}^{E_1}(\mathbf{H}_{\Delta_5})$ (per the CY-to-chiral correspondence at $d\geq 3$, Chapter~\ref{ch:cy-to-chiral} (U3)).
 \end{remark}
 
-\begin{remark}[CY-$2$ $[2]$-shift]
+\begin{remark}[{CY-\texorpdfstring{$2$}{2} \texorpdfstring{$[2]$}{[2]}-shift}]
 \label{rem:en-fact-cy2-shift}
 For K3 input at $d=2$: the bar-cobar Koszul shift is $[2]$ (matching $\mathrm{CY}_2$), with $\mathrm{HH}^\bullet(D^b\mathrm{Coh}(K3))$ bi-graded. Under $\widetilde{M}_{24}$-equivariance the Serre functor carries a projective Schur cocycle of order $6$ in $H^2(M_{24},\mathrm{U}(1))\cong\mathbb{Z}/12$ (Bridgeland--Maciocia $2001$; Gaberdiel--Hohenegger--Volpato $2012$).
 \end{remark}
@@ -2702,3 +2820,13 @@ For K3 input at $d=2$: the bar-cobar Koszul shift is $[2]$ (matching $\mathrm{CY
 \label{rem:en-fact-averaging}
 The averaging morphism $\mathrm{av}\colon \mathrm{Ran}(\mathbb{P}^1)_{M_{24}}\to\overline{\mathcal{A}_2}$ is the composition $\mathrm{Torelli}_{K3}\circ\mathrm{KugaSatake}\circ j_{\mathrm{Kodaira}}$, linking the chiral Ran-space base to the Siegel parameter base. The order-$8$ monodromy of the Humbert divisor $H_1$ coincides with the Mukai-doubling Koszul conductor $K^{\kappa_{\mathrm{ch}}}=2\,c_+(\mathrm{Mukai}(K3))=8$ and the Lusztig $\ell=8$ specialisation via Bruinier $2002$ Proposition~$5.1$. Universal identity $\hbar^2\cdot K^{\kappa_{\mathrm{ch}}}=-1$ on the $\mathcal{B}$-family.
 \end{remark}
+
+\begin{conjecture}[First-order \texorpdfstring{$E_3$}{E-3}-moduli of 6D \texorpdfstring{$\hCS$}{hCS} on \texorpdfstring{$\C^3$}{C-3} and the \texorpdfstring{$6^g$}{6-g} Class M ceiling]
+\label{conj:first-order-moduli-6g-class-m}
+\ClaimStatusConjectured
+For holomorphic Chern--Simons on $\C^3$ with semisimple gauge algebra $\frakg$, the tangent space to the formal moduli problem $\mathrm{Def}(\Obs_{\hCS}) = \HH^\ast_{E_3}(\Obs_{\hCS}, \Obs_{\hCS})[3]$ in cohomological degree zero is
+\[
+ T_{\Obs_{\hCS}}\mathrm{Def} \;\simeq\; H^{0, 3}_{\bar\partial, c}(\C^3) \otimes \mathrm{Sym}^2(\frakg^\vee)^{\mathrm{inv}} \;\simeq\; \C \cdot \Omega^\vee \otimes \C \cdot \mathrm{Kil} \;\simeq\; \C,
+\]
+a one-dimensional Killing-form deformation $\epsilon \cdot \int_{\C^3} \Omega \wedge \langle \cA, [\cA, \cA]_\epsilon \rangle$ matching the Costello--Gaiotto Yangian $Y_{\epsilon_1, \epsilon_2, \epsilon_3}(\frakg)$ at the Calabi--Yau slice $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$. Higher-order obstructions vanish because $H^{0, q > 3}_{\bar\partial, c}(\C^3) = 0$: the formal moduli problem is smooth, and the deformation family extends uniquely to all orders. The genus-$g$ Class M $E_3$-bar dimension $6^g$ is the Riemann-surface-factorisation-homology shadow of this one-dimensional $E_3$-deformation direction: Lurie additivity $E_2 \otimes E_1 = E_3$ distributes the moduli along the $g$ genus-handles of a Class M surface, with the ambient $E_2$-stratum on each handle contributing a factor of $6$ via the six-vertex / Kac--Moody counting, producing the $6^g$-genus-$g$ cohomology count at genus $g \geq 4$ (not infinite, uniform in $g$).
+\end{conjecture}
